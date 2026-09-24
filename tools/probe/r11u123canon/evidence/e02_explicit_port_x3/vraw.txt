@@ -1,0 +1,28 @@
+#2 col
+  A: 2	logic_net	internal		work@InoutConnect.internal	dut.sv	6	11	6	19		0		
+  B: 2	logic_net	internal		work@InoutConnect.internal	dut.sv	6	10	6	18		0		
+#9 col
+  A: 4	logic_typespec				dut.sv	6	11	6	11				
+  B: 4	logic_typespec				dut.sv	6	10	6	10				
+#14 col
+  A: 2	port	internal			dut.sv	6	11	6	19				
+  B: 2	port	internal			dut.sv	6	10	6	18				
+#15 col
+  A: 3	ref_obj	internal		work@InoutConnect.internal.internal	dut.sv	6	11	6	19		0		
+  B: 3	ref_obj	internal		work@InoutConnect.internal.internal	dut.sv	6	10	6	18		0		
+#17 col
+  A: 4	logic_typespec				dut.sv	6	11	6	11				
+  B: 4	logic_typespec				dut.sv	6	10	6	10				
+#21 col
+  A: 2	logic_net	internal		work@InoutConnect.internal	dut.sv	6	11	6	19		0		
+  B: 2	logic_net	internal		work@InoutConnect.internal	dut.sv	6	10	6	18		0		
+#23 col
+  A: 4	logic_typespec				dut.sv	6	11	6	11				
+  B: 4	logic_typespec				dut.sv	6	10	6	10				
+#26 depth
+  A: 2	port	X1			dut.sv	2	22	2	24				
+  B: 4	logic_typespec				dut.sv	6	10	6	10				
+objects 37 vs 39
+fields: depth=1 type=1 name=1 line=1 col=8 endline=1 endcol=8 objects_differing=8 (walk diverged)
+STRICT_NOTEQUAL col
+rc=2 records A=37 B=39 wall=0.01

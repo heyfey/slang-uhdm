@@ -1,0 +1,39 @@
+| corpus | mode | judge-equal | raw strict-equal | canon strict-equal | canon differ by first field |
+|---|---|---|---|---|---|
+| surelog | default | 480 | 240 | 265 | file 71, fullname 55, endcol 22, line 21, value 16, col 8, endline 8, depth 7, type 3, decompile 2, name 1, count 1 |
+| surelog | testflags | 474 | 231 | 252 | fullname 76, file 64, endcol 21, line 17, value 16, col 9, endline 7, depth 6, type 3, decompile 2, name 1 |
+| uhdm2rtlil | default | 803 | 513 | 531 | file 108, fullname 89, endcol 13, depth 12, col 10, endline 8, line 8, value 7, type 7, count 4, name 3, decompile 3 |
+| uhdm2rtlil | testflags | 803 | 513 | 531 | file 108, fullname 89, endcol 13, depth 12, col 10, endline 8, line 8, value 7, type 7, count 4, name 3, decompile 3 |
+
+surelog: tests strict-equal in both modes 242; in one mode only 30; judged in one mode only 6
+  AllPackageSignal: equal in default only
+  ArrayExprFuncArg: equal in default only
+  ArrayVarName: equal in default only
+  BiasValue: equal in testflags only
+  BlackBoxInst: equal in testflags only
+  BlackBoxInstTop: equal in testflags only
+  BlackBoxMod: equal in testflags only
+  BlackBoxSubMod: equal in testflags only
+  ClogParam: equal in default only
+  DecValue: equal in testflags only
+  DollarBits: equal in default only
+  EmptyAssign: equal in default only
+  FileList: equal in default only
+  ForeachFunction: equal in default only
+  FuncParam: equal in default only
+  FuncRetArray: equal in default only
+  FuncStruct: equal in default only
+  ImplicitPackedStructNet: equal in default only
+  InterfInst: equal in default only
+  InterfaceUnpackedStructArrayDim: equal in default only
+  JKFlipflop: equal in default only
+  Moves: equal in testflags only
+  NoParamSubs: equal in default only
+  OneNetInterf: equal in default only
+  PackFunc: equal in testflags only
+  PackageParamConst: equal in testflags only
+  PortByName: equal in default only
+  PortInitVal: equal in testflags only
+  TypespecExpr: equal in default only
+  UnsizedFunc: equal in default only
+uhdm2rtlil: tests strict-equal in both modes 531; in one mode only 0; judged in one mode only 0

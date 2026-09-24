@@ -1,0 +1,12 @@
+#153 fullname
+  A: 6	ref_typespec			work@top.byte_t		0	0	0	0		0		
+  B: 6	ref_typespec			byte_t		0	0	0	0		0		
+#168 fullname
+  A: 6	ref_typespec			work@top.byte_t		0	0	0	0		0		
+  B: 6	ref_typespec			byte_t		0	0	0	0		0		
+#193 fullname
+  A: 6	ref_typespec			work@top.byte_t		0	0	0	0		0		
+  B: 6	ref_typespec			byte_t		0	0	0	0		0		
+fields: fullname=3 objects_differing=3
+STRICT_NOTEQUAL fullname
+rc=2 records A=229 B=229 wall=0.01

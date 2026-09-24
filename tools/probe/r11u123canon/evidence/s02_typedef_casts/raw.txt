@@ -1,0 +1,10 @@
+#129 fullname
+  A: 6	ref_typespec			work@top.byte_t		0	0	0	0		0		
+  B: 6	ref_typespec			byte_t		0	0	0	0		0		
+#130 depth
+  A: 7	logic_typespec	byte_t			dut.sv	2	11	2	22				
+  B: 6	range				dut.sv	2	17	2	22				
+objects 193 vs 181
+fields: depth=1 type=1 name=1 fullname=1 col=1 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL fullname
+rc=2 records A=193 B=181 wall=0.01

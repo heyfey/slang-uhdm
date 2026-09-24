@@ -1,0 +1,7 @@
+#33 depth
+  A: 2	ref_module	m1	work@mix_columns		dut.sv	20	15	20	17				
+  B: 5	enum_const	CIPH_INV			dut.sv	4	3	4	18				
+objects 73 vs 75
+fields: depth=1 type=1 name=1 defname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+rc=2 records A=73 B=75 wall=0.01

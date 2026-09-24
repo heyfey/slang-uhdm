@@ -413,18 +413,36 @@ content difference. Since 2026-09-24 the comparator re-expands a typespec
 subtree (and an enum constant reached through a reference) at every
 reference, so the two shapes list identically, while a content difference
 inside any copy still reads as a difference. Objects on the walk's own path
-are never re-expanded (cycles) and the members under a class typespec stay
-visited once (a class body is shared on both sides). The full name of an
-object inside such a subtree is synthesised from its parent chain, which is
-the use site on the copy's side and the declaration on the shared side, so
-it is left out of the record there (the object's own name is still
-compared; the downstream consumer reads full names only on scopes,
-instances, parameters and references outside typespecs). `--no-canon` gives
-the raw walk. Measured at the switch: surelog 471 -> 546 of 954
-strict-equal, uhdm2rtlil 1026 -> 1100 of 1606, probe cases 1117 -> 1311 of
-2833, no row worse; the remaining `depth`, `count` and `type` first fields
-(surelog 24, uhdm2rtlil 60 row-modes) are the shared kinds outside the
-canonical set, under measurement. Whether an object
+are never re-expanded and the members under a class typespec stay visited
+once (a class body is shared on both sides). `--no-canon` gives the raw
+walk; the walk stops at 4M records a side (exit 3) because a deeply nested
+typedef graph unfolds into a tree. Verified adversarially (r11u123,
+tools/probe/r11u123canon): for every row that the canonical walk turns
+equal, each raw walk is the canonical one with repeated subtrees removed,
+proved mechanically on 82 corpus and 143 probe rows; 44,080 single-field
+mutations were all caught; the verdict is symmetric; widening the root set
+(nets, parameters, constants) converts at most four rows and uncovers
+content, so the root set stays every typespec subclass plus `enum_const`
+with the class-typespec barrier. Whether an object is shared or copied is
+NOT part of the strict contract: the downstream consumer reads content, not
+identity.
+
+**Full names are compared everywhere, including inside a canonicalised
+subtree.** A full name there is synthesised from the parent chain, which is
+the copy's use site on golden's side and the declaration on ours, so most
+of them read differently; leaving them out of the record turned 67 corpus
+row-modes equal but also hid a defect (ours `pa::pa::st_t` against golden
+`pa::st_t`), so the decision is to compare them and to land the exporter's
+parent policy for objects inside a shared typespec per shape: where
+golden's chain is the same at every use, the parent link is a law; where
+two uses give two names, it is the identity residue above. Measured on
+the pass-120 sweep: strict-equal surelog 550 / 548 / 521 and uhdm2rtlil
+1116 / 1108 / 1072 of 954 and 1606 with full names inside a subtree
+skipped / compared on named objects / compared everywhere, and probe cases
+1712 of 4087 strict-equal with full names compared everywhere; the remaining
+`depth`, `count` and `type` first fields are content (a second net copy
+lacking our typespec, an extra typedef-alias reference, shared constants),
+not identity. Whether an object
 is shared or copied is NOT part of the strict contract: the downstream
 consumer reads content, not identity.
 

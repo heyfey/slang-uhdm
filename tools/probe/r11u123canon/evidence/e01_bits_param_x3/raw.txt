@@ -1,0 +1,7 @@
+#26 depth
+  A: 5	int_typespec				dut.sv	1	19	1	22				
+  B: 4	ref_obj	P		work@top.P	dut.sv	3	22	3	23		0		
+objects 82 vs 79
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+rc=2 records A=82 B=79 wall=0.01

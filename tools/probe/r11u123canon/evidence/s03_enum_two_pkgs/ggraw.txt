@@ -1,0 +1,27 @@
+#12 endcol
+  A: 2	enum_typespec	pb::st_t			dut.sv	5	3	5	72				
+  B: 2	enum_typespec	pb::st_t			dut.sv	5	3	5	73				
+#18 endcol
+  A: 3	enum_const	IDLE			dut.sv	5	29	5	40				
+  B: 3	enum_const	IDLE			dut.sv	5	29	5	41				
+#19 col
+  A: 3	enum_const	RUN			dut.sv	5	42	5	52				
+  B: 3	enum_const	RUN			dut.sv	5	43	5	53				
+#20 col
+  A: 3	enum_const	DONE			dut.sv	5	54	5	65				
+  B: 3	enum_const	DONE			dut.sv	5	55	5	66				
+#32 endcol
+  A: 2	enum_typespec	pb::st_t			dut.sv	5	3	5	72				
+  B: 2	enum_typespec	pb::st_t			dut.sv	5	3	5	73				
+#38 endcol
+  A: 3	enum_const	IDLE			dut.sv	5	29	5	40				
+  B: 3	enum_const	IDLE			dut.sv	5	29	5	41				
+#39 col
+  A: 3	enum_const	RUN			dut.sv	5	42	5	52				
+  B: 3	enum_const	RUN			dut.sv	5	43	5	53				
+#40 col
+  A: 3	enum_const	DONE			dut.sv	5	54	5	65				
+  B: 3	enum_const	DONE			dut.sv	5	55	5	66				
+fields: col=8 endcol=16 objects_differing=16
+STRICT_NOTEQUAL endcol
+rc=2 records A=175 B=175 wall=0.01

@@ -1,0 +1,14 @@
+BuildUVMPkg bar A=201553 B=201506 secs=1.93
+BuildUVMPkg nobar A=202066 B=201814 secs=1.84
+MiniAmiq bar A=435723 B=413886 secs=3.91
+MiniAmiq nobar A=439443 B=416550 secs=4.19
+SimpleUVM bar A=334285 B=333561 secs=3.06
+SimpleUVM nobar A=334907 B=334051 secs=2.72
+SeqDriver bar A=475526 B=461919 secs=3.3
+SeqDriver nobar A=478491 B=463931 secs=3.42
+Scoreboard bar A=269656 B=268952 secs=2.14
+Scoreboard nobar A=270176 B=269340 secs=2.07
+Earlgrey_0_1 bar A=2173209 B=2170358 secs=14.02
+Earlgrey_0_1 nobar A=2173209 B=2170358 secs=13.98
+YosysBigSimEllip bar A=681189 B=681181 secs=5.16
+YosysBigSimEllip nobar A=681189 B=681181 secs=4.98

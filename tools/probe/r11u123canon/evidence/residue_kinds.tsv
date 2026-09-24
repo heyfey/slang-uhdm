@@ -1,0 +1,74 @@
+corpus	mode	test	canon	hunks	identity_hunks	content_hunks	first_hunk	identity kinds (root<container,side)
+surelog	default	BlackParrotComplex	differ:depth(1)	2	0	2	content/B/constant~new/param_assign/6/1	
+surelog	testflags	BlackParrotComplex	differ:depth(1)	2	0	2	content/B/constant~new/param_assign/6/1	
+surelog	default	DefaultPatternInt	differ:depth(1)	3	2	1	identity/B/constant/array_expr/1/1	constant<array_expr,B x1; parameter<param_assign,A x1
+surelog	testflags	DefaultPatternInt	differ:depth(1)	10	2	8	identity/B/constant/array_expr/1/1	constant<array_expr,B x1; parameter<param_assign,A x1
+surelog	default	DefaultPatternModule	differ:depth(1)	1	1	0	identity/B/constant/array_expr/1/1	constant<array_expr,B x1
+surelog	testflags	DefaultPatternModule	differ:depth(1)	7	1	6	identity/B/constant/array_expr/1/1	constant<array_expr,B x1
+surelog	default	LogicTypedef	differ:type(1)	1	0	1	content/B/ref_typespec~relation-absent/logic_typespec/5/1	
+surelog	testflags	LogicTypedef	differ:type(1)	1	0	1	content/B/ref_typespec~relation-absent/logic_typespec/5/1	
+surelog	default	Moves	differ:depth(1)	1	1	0	identity/B/logic_net/ref_obj/6/1	logic_net<ref_obj,B x1
+surelog	default	PackageParamConst	differ:count(0)	1	1	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1
+surelog	default	ParamArrayUnsizedPattern	differ:depth(1)	2	1	1	identity/B/constant/array_expr/1/1	constant<array_expr,B x1
+surelog	testflags	ParamArrayUnsizedPattern	differ:depth(1)	2	1	1	identity/B/constant/array_expr/1/1	constant<array_expr,B x1
+surelog	default	ParamFromPackage	differ:depth(1)	2	1	1	identity/A/parameter/param_assign/9/1	parameter<param_assign,A x1
+surelog	testflags	ParamFromPackage	differ:depth(1)	2	1	1	identity/A/parameter/param_assign/9/1	parameter<param_assign,A x1
+surelog	default	StructParamFuncBodyFieldCompare	differ:depth(1)	35	3	32	identity/A/constant~same-block~leak/typespec_member/2/2	constant~same-block~leak<typespec_member,A x3
+surelog	testflags	StructParamFuncBodyFieldCompare	differ:depth(1)	35	3	32	identity/A/constant~same-block~leak/typespec_member/2/2	constant~same-block~leak<typespec_member,A x3
+surelog	default	TypeParam	differ:type(1)	5	0	5	content/A/B/logic_typespec|int_typespec/ref_typespec/1/1	
+surelog	testflags	TypeParam	differ:type(1)	5	0	5	content/A/B/logic_typespec|int_typespec/ref_typespec/1/1	
+surelog	default	WireType	differ:type(1)	3	0	3	content/B/ref_typespec~relation-absent/logic_typespec/5/1	
+surelog	testflags	WireType	differ:type(1)	3	0	3	content/B/ref_typespec~relation-absent/logic_typespec/5/1	
+uhdm2rtlil	default	array_assign	differ:depth(1)	5	5	0	identity/B/logic_net/ref_obj/3/1	logic_net<ref_obj,A x4; logic_net<ref_obj,B x1
+uhdm2rtlil	testflags	array_assign	differ:depth(1)	5	5	0	identity/B/logic_net/ref_obj/3/1	logic_net<ref_obj,A x4; logic_net<ref_obj,B x1
+uhdm2rtlil	default	cdc_static_basic	differ:count(0)	1	1	0	identity/B/logic_net/ref_obj/1/1	logic_net<ref_obj,B x1
+uhdm2rtlil	testflags	cdc_static_basic	differ:count(0)	1	1	0	identity/B/logic_net/ref_obj/1/1	logic_net<ref_obj,B x1
+uhdm2rtlil	default	Clog2OfSumWithParameterIn2InstancesOfSubmodule	differ:depth(1)	1	1	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1
+uhdm2rtlil	testflags	Clog2OfSumWithParameterIn2InstancesOfSubmodule	differ:depth(1)	1	1	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1
+uhdm2rtlil	default	def_ctx_struct_param	differ:type(1)	26	3	23	content/A/B/struct_typespec|integer_typespec/ref_typespec/13/1	constant~same-block~leak<typespec_member,A x3
+uhdm2rtlil	testflags	def_ctx_struct_param	differ:type(1)	26	3	23	content/A/B/struct_typespec|integer_typespec/ref_typespec/13/1	constant~same-block~leak<typespec_member,A x3
+uhdm2rtlil	default	func_local_array	differ:type(1)	1	0	1	content/A/B/func_call|constant/cont_assign/7/1	
+uhdm2rtlil	testflags	func_local_array	differ:type(1)	1	0	1	content/A/B/func_call|constant/cont_assign/7/1	
+uhdm2rtlil	default	FunctionParam	differ:type(1)	1	0	1	content/A/B/func_call|constant/cont_assign/1/1	
+uhdm2rtlil	testflags	FunctionParam	differ:type(1)	1	0	1	content/A/B/func_call|constant/cont_assign/1/1	
+uhdm2rtlil	default	latch_decoder_partial	differ:type(1)	16	3	13	content/A/B/struct_typespec|integer_typespec/ref_typespec/13/1	constant~same-block~leak<typespec_member,A x3
+uhdm2rtlil	testflags	latch_decoder_partial	differ:type(1)	16	3	13	content/A/B/struct_typespec|integer_typespec/ref_typespec/13/1	constant~same-block~leak<typespec_member,A x3
+uhdm2rtlil	default	latch_tlb_napot	differ:type(1)	17	3	14	content/A/B/struct_typespec|integer_typespec/ref_typespec/13/1	constant~same-block~leak<typespec_member,A x3
+uhdm2rtlil	testflags	latch_tlb_napot	differ:type(1)	17	3	14	content/A/B/struct_typespec|integer_typespec/ref_typespec/13/1	constant~same-block~leak<typespec_member,A x3
+uhdm2rtlil	default	net_types	differ:type(1)	3	0	3	content/B/ref_typespec~relation-absent/logic_typespec/5/1	
+uhdm2rtlil	testflags	net_types	differ:type(1)	3	0	3	content/B/ref_typespec~relation-absent/logic_typespec/5/1	
+uhdm2rtlil	default	param_type_logic_width	differ:depth(1)	2	2	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x2
+uhdm2rtlil	testflags	param_type_logic_width	differ:depth(1)	2	2	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x2
+uhdm2rtlil	default	ParameterColonReference	differ:count(0)	1	1	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1
+uhdm2rtlil	testflags	ParameterColonReference	differ:count(0)	1	1	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1
+uhdm2rtlil	default	ParameterFromPkgOnParameterPortList	differ:depth(1)	5	1	4	identity/A/parameter/param_assign/9/1	parameter<param_assign,A x1
+uhdm2rtlil	testflags	ParameterFromPkgOnParameterPortList	differ:depth(1)	5	1	4	identity/A/parameter/param_assign/9/1	parameter<param_assign,A x1
+uhdm2rtlil	default	partsel_simple	differ:depth(1)	1	1	0	identity/B/logic_net/ref_obj/1/1	logic_net<ref_obj,B x1
+uhdm2rtlil	testflags	partsel_simple	differ:depth(1)	1	1	0	identity/B/logic_net/ref_obj/1/1	logic_net<ref_obj,B x1
+uhdm2rtlil	default	SelectGivenBySelectOnParameterInFunction	differ:type(1)	1	0	1	content/A/B/func_call|constant/cont_assign/1/1	
+uhdm2rtlil	testflags	SelectGivenBySelectOnParameterInFunction	differ:type(1)	1	0	1	content/A/B/func_call|constant/cont_assign/1/1	
+uhdm2rtlil	default	StructLocalParam	differ:count(0)	1	1	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1
+uhdm2rtlil	testflags	StructLocalParam	differ:count(0)	1	1	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1
+uhdm2rtlil	default	StructParameter	differ:count(0)	1	1	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1
+uhdm2rtlil	testflags	StructParameter	differ:count(0)	1	1	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1
+uhdm2rtlil	default	sva_range	differ:depth(1)	1	1	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1
+uhdm2rtlil	testflags	sva_range	differ:depth(1)	1	1	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1
+uhdm2rtlil	default	sva_throughout	differ:depth(1)	1	1	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1
+uhdm2rtlil	testflags	sva_throughout	differ:depth(1)	1	1	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1
+uhdm2rtlil	default	sva_value_change_changed	differ:depth(1)	2	2	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1; logic_net<ref_obj,B x1
+uhdm2rtlil	testflags	sva_value_change_changed	differ:depth(1)	2	2	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1; logic_net<ref_obj,B x1
+uhdm2rtlil	default	sva_value_change_changed_wide	differ:depth(1)	2	2	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1; logic_net<ref_obj,B x1
+uhdm2rtlil	testflags	sva_value_change_changed_wide	differ:depth(1)	2	2	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1; logic_net<ref_obj,B x1
+uhdm2rtlil	default	sva_value_change_rose	differ:depth(1)	2	2	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1; logic_net<ref_obj,B x1
+uhdm2rtlil	testflags	sva_value_change_rose	differ:depth(1)	2	2	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x1; logic_net<ref_obj,B x1
+uhdm2rtlil	default	vector_index	differ:depth(1)	1	1	0	identity/B/logic_net/ref_obj/6/1	logic_net<ref_obj,B x1
+uhdm2rtlil	testflags	vector_index	differ:depth(1)	1	1	0	identity/B/logic_net/ref_obj/6/1	logic_net<ref_obj,B x1
+uhdm2rtlil	default	wandwor	differ:depth(1)	6	6	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x4; logic_net<ref_obj,B x2
+uhdm2rtlil	testflags	wandwor	differ:depth(1)	6	6	0	identity/A/logic_net/ref_obj/1/1	logic_net<ref_obj,A x4; logic_net<ref_obj,B x2
+#ROWS {'has-content': 33, 'all-identity': 33}
+#IDENTITY HUNK KINDS (root kind < walk container, side with the extra records): count
+# ('logic_net', 'ref_obj', 'A') 39
+# ('constant~same-block~leak', 'typespec_member', 'A') 24
+# ('logic_net', 'ref_obj', 'B') 19
+# ('constant', 'array_expr', 'B') 6
+# ('parameter', 'param_assign', 'A') 6

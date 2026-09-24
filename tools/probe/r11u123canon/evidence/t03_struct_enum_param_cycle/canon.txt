@@ -1,0 +1,40 @@
+LHS:
+decompile:
+constant: , id:140, line:15:26, endln:15:31
+|vpiParent:
+\_operation: , id:139, line:15:15, endln:15:31
+|vpiDecompile:3
+|vpiSize:3
+|INT:3
+|vpiConstType:7
+
+decompile:
+constant: , id:140, line:15:26, endln:15:31
+|vpiParent:
+\_operation: , id:139, line:15:15, endln:15:31
+|vpiDecompile:3
+|vpiSize:3
+|INT:3
+|vpiConstType:7
+RHS:
+decompile:
+constant: , id:86, line:15:26, endln:15:31
+|vpiParent:
+\_operation: , id:81, line:15:15, endln:15:31
+|vpiDecompile:3'd3
+|vpiSize:3
+|INT:3
+|vpiConstType:7
+
+decompile:
+constant: , id:86, line:15:26, endln:15:31
+|vpiParent:
+\_operation: , id:81, line:15:15, endln:15:31
+|vpiDecompile:3'd3
+|vpiSize:3
+|INT:3
+|vpiConstType:7
+lhsPath: design(work@top) > module_inst > cont_assign > operation > operation > constant
+rhsPath: design(work@top) > module_inst > cont_assign > operation > operation > constant
+NOT_EQUAL stage1
+rc=1 records A=- B=- wall=0.01

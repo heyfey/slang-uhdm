@@ -8,7 +8,7 @@
 // expressions decompile, size, value and constant type. Child order is part
 // of the walk, so a reordering is a difference too.
 //
-//   uhdm-strictcmp [--max N] [--no-canon] [--dump-a FILE --dump-b FILE] <a.uhdm> <b.uhdm>
+//   uhdm-strictcmp [--max N] [--no-canon] [--canon-fullname 0|1|2] [--dump-a FILE --dump-b FILE] <a.uhdm> <b.uhdm>
 //
 // Identity canonicalisation (default on, --no-canon for the raw walk): the
 // producer clones every typespec it reaches during elaboration, so golden
@@ -23,10 +23,12 @@
 // once (a class body is shared on both sides and reached from every
 // class-typed reference). The full name of an object inside a canonicalised
 // subtree is synthesised from its parent chain, which is the copy's use site
-// on one side and the declaration on the other; it is left out of the record
-// there (the object's own name is still compared, and the downstream consumer
-// reads full names only on scopes, instances, parameters and references
-// outside typespecs).
+// on one side and the declaration on the other. It is compared all the same
+// (the contract): where the chains differ only because one side copies, the
+// exporter's naming rule for objects inside a typespec is the thing to land,
+// and a wrong chain (r11u123 s03: pa::pa::st_t) is a naming defect the
+// comparator must not hide. --canon-fullname 1 skips unnamed objects' full
+// names inside a subtree and 0 skips all of them: measurement knobs only.
 //
 // Exit 0: STRICT_EQUAL. Exit 1: NOT_EQUAL at stage 1 (uhdm-cmp's verdict,
 // LHS/RHS printed as uhdm-cmp prints them). Exit 2: STRICT_NOTEQUAL (the
@@ -71,8 +73,16 @@ class Lister : public UHDM::VpiListener {
  public:
   std::vector<Record> recs;
   bool canon = true;
-  size_t cap = 20000000;
+  // Per side. A record costs 0.5-0.8 KB, so 20M a side exhausted memory long
+  // before the guard (r11u123 t07: bad_alloc under 8 GB); 4M is 1.8x the
+  // largest corpus row (Earlgrey_0_1 default, 2.17M) and about 3 GB.
+  size_t cap = 4000000;
   bool overflow = false;
+  // The full name inside a canonicalised subtree: 2 = always compared (the
+  // contract: a full name is content, and a wrong parent chain is a naming
+  // defect even on an unnamed reference — r11u123 s03: pa::pa::st_t), 1 =
+  // compared on named objects only, 0 = never (measurement knobs).
+  int fullnameMode = 2;
   int canonDepth = 0;    // enclosing canon roots on the path
   int barrierDepth = 0;  // enclosing class typespecs on the path
   void leaveAny(const UHDM::any* o, vpiHandle) override {
@@ -80,8 +90,9 @@ class Lister : public UHDM::VpiListener {
     bool isClass = o->UhdmType() == UHDM::uhdmclass_typespec;
     if (isClass) --barrierDepth;
     if (canonDepth > 0 && barrierDepth == 0 && !overflow) {
-      // The listener leaves this object before popping it: elsewhere on the
-      // path means an enclosing expansion of the same object.
+      // The listener pops the object after leaveAny, so an object elsewhere
+      // on the path is an enclosing expansion of itself (measured never to
+      // happen: the listener's own visited set already blocks every cycle).
       bool onPath = false;
       for (size_t i = 0; i + 1 < callstack.size(); ++i)
         if (callstack[i] == o) { onPath = true; break; }
@@ -95,12 +106,16 @@ class Lister : public UHDM::VpiListener {
       if (o->UhdmType() == UHDM::uhdmclass_typespec) ++barrierDepth;
       if (recs.size() >= cap) overflow = true;
     }
+    if (overflow) return;  // the verdict is exit 3: keep no more records
     Record r;
     r.fields[0] = std::to_string(callstack.size());
     r.fields[1] = UHDM::UhdmName(o->UhdmType());
     r.fields[2] = std::string(o->VpiName());
     r.fields[3] = std::string(o->VpiDefName());
-    if (!(canon && canonDepth > 0))
+    bool inCanon = canon && canonDepth > 0;
+    bool wantFull = !inCanon || fullnameMode == 2 ||
+                    (fullnameMode == 1 && !o->VpiName().empty());
+    if (wantFull)
       if (const char* fn = vpi_get_str(vpiFullName, h)) r.fields[4] = fn;
     std::string f(o->VpiFile());
     auto pos = f.find_last_of("/\\");
@@ -140,7 +155,7 @@ std::string parentChain(const UHDM::BaseClass* o) {
 
 int usage(const char* prog) {
   std::cerr << "Usage: " << prog
-            << " [--max N] [--no-canon] [--dump-a FILE --dump-b FILE] <a.uhdm> <b.uhdm>\n";
+            << " [--max N] [--no-canon] [--canon-fullname 0|1|2] [--dump-a FILE --dump-b FILE] <a.uhdm> <b.uhdm>\n";
   return 3;
 }
 
@@ -154,6 +169,7 @@ void dump(const std::vector<Record>& recs, const std::string& path) {
 int main(int argc, char** argv) {
   int maxDiffs = 20;
   bool canon = true;
+  int fullnameMode = 2;
   std::string dumpA, dumpB;
   std::vector<std::string> files;
   for (int i = 1; i < argc; ++i) {
@@ -162,6 +178,7 @@ int main(int argc, char** argv) {
     else if (a == "--dump-a" && i + 1 < argc) dumpA = argv[++i];
     else if (a == "--dump-b" && i + 1 < argc) dumpB = argv[++i];
     else if (a == "--no-canon") canon = false;
+    else if (a == "--canon-fullname" && i + 1 < argc) fullnameMode = std::stoi(argv[++i]);
     else if (a.rfind("--", 0) == 0) return usage(argv[0]);
     else files.push_back(a);
   }
@@ -202,8 +219,9 @@ int main(int argc, char** argv) {
   // Stage 2: the judge-blind fields, in walk order.
   Lister lA, lB;
   lA.canon = lB.canon = canon;
+  lA.fullnameMode = lB.fullnameMode = fullnameMode;
   lA.listenDesigns(hA);
-  lB.listenDesigns(hB);
+  if (!lA.overflow) lB.listenDesigns(hB);
   if (lA.overflow || lB.overflow) {
     std::cout << "canon overflow: the re-expanded walk passed " << lA.cap
               << " objects; the walk is not comparable\n";

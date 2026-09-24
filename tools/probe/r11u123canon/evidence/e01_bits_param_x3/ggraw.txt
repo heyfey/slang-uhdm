@@ -1,0 +1,27 @@
+#2 col
+  A: 2	parameter	P		work@top.P	dut.sv	2	24	2	25		0	UINT:15	
+  B: 2	parameter	P		work@top.P	dut.sv	2	25	2	26		0	UINT:15	
+#4 col
+  A: 4	int_typespec				dut.sv	2	15	2	23				
+  B: 4	int_typespec				dut.sv	2	16	2	24				
+#5 col
+  A: 2	param_assign				dut.sv	2	24	2	30				
+  B: 2	param_assign				dut.sv	2	25	2	31				
+#6 col
+  A: 3	constant				dut.sv	2	28	2	30	15	64	UINT:15	9
+  B: 3	constant				dut.sv	2	29	2	31	15	64	UINT:15	9
+#51 col
+  A: 2	parameter	P		work@top.P	dut.sv	2	24	2	25		0	UINT:15	
+  B: 2	parameter	P		work@top.P	dut.sv	2	25	2	26		0	UINT:15	
+#53 col
+  A: 4	int_typespec				dut.sv	2	15	2	23				
+  B: 4	int_typespec				dut.sv	2	16	2	24				
+#54 col
+  A: 2	param_assign				dut.sv	2	24	2	30				
+  B: 2	param_assign				dut.sv	2	25	2	31				
+#55 col
+  A: 3	constant				dut.sv	2	28	2	30	15	32	UINT:15	9
+  B: 3	constant				dut.sv	2	29	2	31	15	32	UINT:15	9
+fields: col=9 endcol=9 objects_differing=9
+STRICT_NOTEQUAL col
+rc=2 records A=82 B=82 wall=0.01

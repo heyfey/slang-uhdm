@@ -1,0 +1,4 @@
+gold raw: STRICT_EQUAL 73 objects rc=0 wall=0.01
+gold canon: STRICT_EQUAL 126 objects rc=0 wall=0.02
+ours raw: STRICT_EQUAL 75 objects rc=0 wall=0.01
+ours canon: STRICT_EQUAL 126 objects rc=0 wall=0.01

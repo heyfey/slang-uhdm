@@ -1,0 +1,27 @@
+#135112 fullname
+  A: 4	ref_typespec			p::t12.x		0	0	0	0		0		
+  B: 4	ref_typespec			p::p::t12::x		0	0	0	0		0		
+#159685 fullname
+  A: 4	ref_typespec			p::t12.y		0	0	0	0		0		
+  B: 4	ref_typespec			p::p::t12::y		0	0	0	0		0		
+#196464 fullname
+  A: 6	ref_typespec			p::t12.x		0	0	0	0		0		
+  B: 6	ref_typespec			p::p::t12::x		0	0	0	0		0		
+#221037 fullname
+  A: 6	ref_typespec			p::t12.y		0	0	0	0		0		
+  B: 6	ref_typespec			p::p::t12::y		0	0	0	0		0		
+#245613 fullname
+  A: 6	ref_typespec			p::t12.x		0	0	0	0		0		
+  B: 6	ref_typespec			p::p::t12::x		0	0	0	0		0		
+#270186 fullname
+  A: 6	ref_typespec			p::t12.y		0	0	0	0		0		
+  B: 6	ref_typespec			p::p::t12::y		0	0	0	0		0		
+#294763 fullname
+  A: 6	ref_typespec			p::t12.x		0	0	0	0		0		
+  B: 6	ref_typespec			p::p::t12::x		0	0	0	0		0		
+#319336 fullname
+  A: 6	ref_typespec			p::t12.y		0	0	0	0		0		
+  B: 6	ref_typespec			p::p::t12::y		0	0	0	0		0		
+fields: fullname=26 objects_differing=26
+STRICT_NOTEQUAL fullname
+rc=2 records A=786273 B=786273 wall=4.03

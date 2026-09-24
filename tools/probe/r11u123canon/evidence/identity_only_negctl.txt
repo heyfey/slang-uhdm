@@ -1,0 +1,4 @@
+FAIL	x	n1	ExplicitPort	differ:depth(1)	canon=0	A:raw=115,del_subtrees=3,del_records=8,relisted=3,same_block_earlier=3	side B: raw has 77 unmatched records from #40
+FAIL	x	n2	ExplicitPort	differ:depth(1)	canon=0		canA != canB
+FAIL	x	n3	ExplicitPort	differ:depth(1)	canon=0	A:raw=115,del_subtrees=3,del_records=8,relisted=3,same_block_earlier=3 B:raw=116,del_subtrees=2,del_records=7,relisted=1,same_block_earlier=1	side B: deleted root #98 never listed earlier: (4, 'logic_typespec\t\t\t\tdut.sv\t5\t10\t5\t10\t\t\t\t')
+TOTAL rows=3 OK=0 FAIL=3

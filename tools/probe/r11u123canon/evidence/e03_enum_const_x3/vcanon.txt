@@ -1,0 +1,27 @@
+#6 endcol
+  A: 3	enum_const	CIPH_INV			dut.sv	4	3	4	19				
+  B: 3	enum_const	CIPH_INV			dut.sv	4	3	4	18				
+#12 endcol
+  A: 3	enum_const	CIPH_INV			dut.sv	4	3	4	19				
+  B: 3	enum_const	CIPH_INV			dut.sv	4	3	4	18				
+#18 endcol
+  A: 3	enum_const	CIPH_INV			dut.sv	4	3	4	19				
+  B: 3	enum_const	CIPH_INV			dut.sv	4	3	4	18				
+#29 endcol
+  A: 5	enum_const	CIPH_INV			dut.sv	4	3	4	19				
+  B: 5	enum_const	CIPH_INV			dut.sv	4	3	4	18				
+#40 endcol
+  A: 7	enum_const	CIPH_INV			dut.sv	4	3	4	19				
+  B: 7	enum_const	CIPH_INV			dut.sv	4	3	4	18				
+#43 endcol
+  A: 5	enum_const	CIPH_INV			dut.sv	4	3	4	19				
+  B: 5	enum_const	CIPH_INV			dut.sv	4	3	4	18				
+#47 endcol
+  A: 5	enum_const	CIPH_INV			dut.sv	4	3	4	19				
+  B: 5	enum_const	CIPH_INV			dut.sv	4	3	4	18				
+#59 endcol
+  A: 5	enum_const	CIPH_INV			dut.sv	4	3	4	19				
+  B: 5	enum_const	CIPH_INV			dut.sv	4	3	4	18				
+fields: endcol=16 objects_differing=16
+STRICT_NOTEQUAL endcol
+rc=2 records A=126 B=126 wall=0.02

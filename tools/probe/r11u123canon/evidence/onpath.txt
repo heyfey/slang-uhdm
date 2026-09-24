@@ -1,0 +1,3 @@
+# cycle-guard instrumentation (drivers/exp/strictcmp_onpath_exp.cpp): every stage-2 run over the 2560 corpus pairs + arm self pairs
+runs_reaching_stage2=2598
+onPath_hits=0 callstack_top_is_o=0 canonical_leaves=26537361

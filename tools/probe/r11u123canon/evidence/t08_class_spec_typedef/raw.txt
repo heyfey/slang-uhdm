@@ -1,0 +1,22 @@
+LHS:
+decompile:
+int_typespec: , id:85, line:1:13, endln:1:16
+|vpiParent:
+\_parameter: (work@box::W), id:86, line:1:17, endln:1:18
+|vpiSigned:1
+
+decompile:
+int_typespec: , id:85, line:1:13, endln:1:16
+|vpiParent:
+\_parameter: (work@box::W), id:86, line:1:17, endln:1:18
+|vpiSigned:1
+RHS:
+decompile:
+int_typespec: , id:134, line:1:13, endln:1:16
+
+decompile:
+int_typespec: , id:134, line:1:13, endln:1:16
+lhsPath: design(work@top) > class_defn(work@box) > parameter(W) > int_typespec
+rhsPath: int_typespec
+NOT_EQUAL stage1
+rc=1 records A=- B=- wall=0.01

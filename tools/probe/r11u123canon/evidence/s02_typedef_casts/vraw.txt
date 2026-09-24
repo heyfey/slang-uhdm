@@ -1,0 +1,28 @@
+#2 endcol
+  A: 2	logic_typespec	byte_t			dut.sv	2	11	2	23				
+  B: 2	logic_typespec	byte_t			dut.sv	2	11	2	22				
+#3 col
+  A: 3	range				dut.sv	2	18	2	23				
+  B: 3	range				dut.sv	2	17	2	22				
+#4 col
+  A: 4	constant				dut.sv	2	19	2	20	7	64	UINT:7	9
+  B: 4	constant				dut.sv	2	18	2	19	7	64	UINT:7	9
+#5 col
+  A: 4	constant				dut.sv	2	21	2	22	0	64	UINT:0	9
+  B: 4	constant				dut.sv	2	20	2	21	0	64	UINT:0	9
+#10 endcol
+  A: 4	logic_typespec	byte_t			dut.sv	2	11	2	23				
+  B: 4	logic_typespec	byte_t			dut.sv	2	11	2	22				
+#12 col
+  A: 5	range				dut.sv	2	18	2	23				
+  B: 5	range				dut.sv	2	17	2	22				
+#13 col
+  A: 6	constant				dut.sv	2	19	2	20	7	64	UINT:7	9
+  B: 6	constant				dut.sv	2	18	2	19	7	64	UINT:7	9
+#14 col
+  A: 6	constant				dut.sv	2	21	2	22	0	64	UINT:0	9
+  B: 6	constant				dut.sv	2	20	2	21	0	64	UINT:0	9
+objects 193 vs 181
+fields: depth=1 type=1 name=1 fullname=1 col=34 endcol=46 objects_differing=47 (walk diverged)
+STRICT_NOTEQUAL endcol
+rc=2 records A=193 B=181 wall=0.01

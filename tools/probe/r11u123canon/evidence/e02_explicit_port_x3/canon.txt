@@ -1,0 +1,2 @@
+STRICT_EQUAL 39 objects
+rc=0 records A=39 B=39 wall=0.01

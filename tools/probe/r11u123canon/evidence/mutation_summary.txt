@@ -1,0 +1,14 @@
+## corpus rows raw-NE -> canon-equal, fixed comparator: 82 pairs x 2 sides; listing/raw-dump alignment failures 0
+round-trip controls (current value written back): {'0': 164}
+  mutation endcol in-canon    verdict rc=2: 17135
+  mutation endcol outside     verdict rc=2: 19776
+  mutation value in-canon     verdict rc=2: 5962
+  first field reported == mutated field: 42873 of 42873
+  MISSED (canonical verdict still equal): 0
+## designed arms e01-e04 + s01, fixed comparator: 5 pairs x 2 sides; listing/raw-dump alignment failures 0
+round-trip controls (current value written back): {'0': 10}
+  mutation endcol in-canon    verdict rc=2: 385
+  mutation endcol outside     verdict rc=2: 666
+  mutation value in-canon     verdict rc=2: 156
+  first field reported == mutated field: 1207 of 1207
+  MISSED (canonical verdict still equal): 0

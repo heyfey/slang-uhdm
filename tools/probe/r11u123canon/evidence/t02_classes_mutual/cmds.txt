@@ -1,0 +1,3 @@
+surelog: /home/heyfey/git-repos/Surelog/build/bin/surelog (/tmp/r11u123_arm/t02_classes_mutual/gold/slpp_all/surelog.uhdm)
+slang: /tmp/r11u123_bin/slang-uhdm rc=0
+strictcmp: /tmp/r11u123_bin/uhdm-strictcmp.fix1

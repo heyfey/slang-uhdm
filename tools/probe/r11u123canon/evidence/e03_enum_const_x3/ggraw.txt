@@ -1,0 +1,15 @@
+#6 endcol
+  A: 3	enum_const	CIPH_INV			dut.sv	4	3	4	18				
+  B: 3	enum_const	CIPH_INV			dut.sv	4	3	4	19				
+#12 endcol
+  A: 3	enum_const	CIPH_INV			dut.sv	4	3	4	18				
+  B: 3	enum_const	CIPH_INV			dut.sv	4	3	4	19				
+#18 endcol
+  A: 3	enum_const	CIPH_INV			dut.sv	4	3	4	18				
+  B: 3	enum_const	CIPH_INV			dut.sv	4	3	4	19				
+#46 endcol
+  A: 5	enum_const	CIPH_INV			dut.sv	4	3	4	18				
+  B: 5	enum_const	CIPH_INV			dut.sv	4	3	4	19				
+fields: endcol=4 objects_differing=4
+STRICT_NOTEQUAL endcol
+rc=2 records A=73 B=73 wall=0.01

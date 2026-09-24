@@ -1,0 +1,27 @@
+#2 col
+  A: 2	logic_net	a		work@dut.a	dut.sv	1	20	1	21		0		
+  B: 2	logic_net	a		work@dut.a	dut.sv	1	19	1	20		0		
+#3 col
+  A: 2	logic_net	b		work@dut.b	dut.sv	1	30	1	31		0		
+  B: 2	logic_net	b		work@dut.b	dut.sv	1	29	1	30		0		
+#4 col
+  A: 2	logic_net	c		work@dut.c	dut.sv	1	40	1	41		0		
+  B: 2	logic_net	c		work@dut.c	dut.sv	1	39	1	40		0		
+#5 col
+  A: 2	logic_net	d		work@dut.d	dut.sv	1	50	1	51		0		
+  B: 2	logic_net	d		work@dut.d	dut.sv	1	49	1	50		0		
+#6 col
+  A: 2	port	a			dut.sv	1	20	1	21				
+  B: 2	port	a			dut.sv	1	19	1	20				
+#7 col
+  A: 3	ref_obj	a		work@dut.a.a	dut.sv	1	20	1	21		0		
+  B: 3	ref_obj	a		work@dut.a.a	dut.sv	1	19	1	20		0		
+#9 col
+  A: 4	logic_typespec				dut.sv	1	20	1	20				
+  B: 4	logic_typespec				dut.sv	1	19	1	19				
+#10 col
+  A: 2	port	b			dut.sv	1	30	1	31				
+  B: 2	port	b			dut.sv	1	29	1	30				
+fields: col=46 endcol=46 objects_differing=46
+STRICT_NOTEQUAL col
+rc=2 records A=91 B=91 wall=0.01

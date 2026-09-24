@@ -1,0 +1,5 @@
+OK	arm	default	e01_bits_param_x3	differ:depth	canon=83	A:raw=82,del_subtrees=1,del_records=1,relisted=1,same_block_earlier=1 B:raw=79,del_subtrees=4,del_records=4,relisted=4,same_block_earlier=4	
+OK	arm	default	e02_explicit_port_x3	differ:depth	canon=39	A:raw=37,del_subtrees=2,del_records=2,relisted=2,same_block_earlier=2 B:raw=39,del_subtrees=0,del_records=0,relisted=0,same_block_earlier=0	
+OK	arm	default	e03_enum_const_x3	differ:depth	canon=126	A:raw=73,del_subtrees=13,del_records=53,relisted=13,same_block_earlier=13 B:raw=75,del_subtrees=11,del_records=51,relisted=11,same_block_earlier=11	
+OK	arm	default	e04_sysfunc_x3	differ:depth	canon=91	A:raw=88,del_subtrees=3,del_records=3,relisted=3,same_block_earlier=3 B:raw=88,del_subtrees=3,del_records=3,relisted=3,same_block_earlier=3	
+TOTAL rows=4 OK=4 FAIL=0

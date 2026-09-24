@@ -1,0 +1,19 @@
+LHS:
+decompile:
+int_typespec: , id:124, line:1:13, endln:1:16
+|vpiParent:
+\_parameter: (work@box::W), id:125, line:1:17, endln:1:18
+|vpiSigned:1
+
+decompile:
+int_typespec: , id:124, line:1:13, endln:1:16
+|vpiParent:
+\_parameter: (work@box::W), id:125, line:1:17, endln:1:18
+|vpiSigned:1
+RHS:
+decompile:
+int_typespec: , id:211, line:1:13, endln:1:16
+
+decompile:
+int_typespec: , id:211, line:1:13, endln:1:16
+uhdm-cmp rc=255

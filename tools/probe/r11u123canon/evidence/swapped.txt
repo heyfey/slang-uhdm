@@ -1,0 +1,4 @@
+# fixed comparator, arguments swapped (ours first) vs golden first, 2560 judge-equal row-modes
+2428	identical verdict string
+132	stage 1 fails only when swapped (uhdm-cmp Compare is order-sensitive)
+# equal golden-first but stage-1 NOT_EQUAL swapped: ['uhdm2rtlil/TypeParameterAsPortTypeWithLogic/default', 'uhdm2rtlil/TypeParameterAsPortTypeWithLogic/testflags']

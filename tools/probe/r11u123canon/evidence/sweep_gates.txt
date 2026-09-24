@@ -1,0 +1,117 @@
+# tests/sweep.sh --jobs 3 --workdir /tmp/r11u123_sweep --corpus 'probe surelog uhdm2rtlil downstream'
+# SLANG_UHDM=/tmp/r11u123_bin/slang-uhdm (3e6d2800759f) STRICT_CMP=/tmp/r11u123_bin/uhdm-strictcmp.fix1 (10dd00c3a111); every cmds.txt audited: 3273/3273 name /tmp/r11u123_bin/slang-uhdm
+== probe arms (tests/probe, committed goldens), jobs=3
+probe arms: EQUAL=2833 (of 2833); goldens built now=0, from cache=2833
+probe strict (measurement): equal=1260 differ:file=488 differ:fullname=436 differ:endcol=197 differ:line=127 differ:depth=123 differ:type=79 differ:endline=36 differ:value=36 differ:name=25 differ:col=21 differ:decompile=3 differ:count=2
+== surelog: both modes, jobs=3, out=/tmp/r11u123_sweep/surelog.csv
+798 tests in surelog; modes=default,testflags
+
+[default] 798 tests
+  CMP_EQUAL: 480
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+  CMP_NOTEQUAL: 3
+
+[testflags] 798 tests
+  CMP_EQUAL: 474
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u123_sweep/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags
+
+[default] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: DIVERGENT=4 EQUIVALENT=7 IDENTICAL=794 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+SWEEP_RC=0
+
+# strict column vs the canonical re-measure (drivers/run_all.py with the fixed binary): surelog 954 CMP_EQUAL rows 0 differ, uhdm2rtlil 1606 rows 0 differ
+surelog: rows 1596; status changes 0; status/detail/blocked_by changes 547; strict-column movers 254; of them predicted (committed strict = raw re-measure, fresh = canonical re-measure) 254; predicted set size 254; unpredicted []; predicted-but-unmoved []
+uhdm2rtlil: rows 1742; status changes 0; status/detail/blocked_by changes 131; strict-column movers 330; of them predicted (committed strict = raw re-measure, fresh = canonical re-measure) 330; predicted set size 330; unpredicted []; predicted-but-unmoved []
+# detail/blocked_by vs the same-binary 1fc087af sweep: surelog 2 (LowMemLib/LowMemPkg testflags: the workdir path in the log line), uhdm2rtlil 0; vs the committed csv: source-path spelling (/home/heyfey/git-repos/Surelog/... vs third_party/...)
+# databases vs the 1fc087af sweep (same binary): 2565/2568 byte-identical; movers MiniAmiq default+testflags, SeqDriver default = the UVM order coin; their strict verdicts equal the re-measure
+
+## canary battery, both csvs CR-stripped (results/*.csv are CRLF, the fresh sweep csv is LF: every row read CHANGED on the raw files, the same on the 1fc087af baseline sweep)
+# canaries surelog
+  FuncStruct                     default   CHANGED CMP_EQUAL/differ:depth(1) -> CMP_EQUAL/equal
+  FuncStruct                     testflags CHANGED CMP_EQUAL/differ:depth(1) -> CMP_EQUAL/differ:fullname(10)
+  FuncStructVal                  default   CHANGED CMP_EQUAL/differ:line(2) -> CMP_EQUAL/differ:line(174)
+  FuncStructVal                  testflags CHANGED CMP_EQUAL/differ:line(2) -> CMP_EQUAL/differ:line(387)
+  FuncIoTypespec                 default   CHANGED CMP_EQUAL/differ:file(2) -> CMP_EQUAL/differ:file(9)
+  FuncIoTypespec                 testflags CHANGED CMP_EQUAL/differ:file(100) -> CMP_EQUAL/differ:file(107)
+  Scr1SvTests                    default   CHANGED CMP_EQUAL/differ:line(554) -> CMP_EQUAL/differ:line(674)
+  Scr1SvTests                    testflags CHANGED CMP_EQUAL/differ:line(554) -> CMP_EQUAL/differ:line(674)
+  BasicOh                        default   CHANGED CMP_EQUAL/differ:fullname(38) -> CMP_EQUAL/differ:fullname(89)
+  BasicOh                        testflags CHANGED CMP_EQUAL/differ:fullname(34) -> CMP_EQUAL/differ:fullname(71)
+  Earlgrey_0_1                   default   CHANGED CMP_EQUAL/differ:line(381) -> CMP_EQUAL/differ:line(5180)
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ:line(381) -> CMP_EQUAL/differ:line(5180)
+  YosysOldOr                     default   CHANGED CMP_EQUAL/differ:file(798) -> CMP_EQUAL/differ:file(2589)
+  YosysOldOr                     testflags CHANGED CMP_EQUAL/differ:file(798) -> CMP_EQUAL/differ:file(2589)
+  YosysBigSimReed                default   CHANGED CMP_EQUAL/differ:depth(1) -> CMP_EQUAL/differ:fullname(3)
+  YosysBigSimReed                testflags CHANGED CMP_EQUAL/differ:depth(1) -> CMP_EQUAL/differ:fullname(3)
+  YosysOldOpen                   default   CHANGED CMP_EQUAL/differ:line(177) -> CMP_EQUAL/differ:line(186)
+  YosysOldOpen                   testflags CHANGED CMP_EQUAL/differ:file(164) -> CMP_EQUAL/differ:file(173)
+  ClassParamAsParam              testflags CHANGED CMP_EQUAL/differ:endcol(11) -> CMP_EQUAL/differ:endcol(13)
+  ClassTypeParam                 default   CHANGED CMP_EQUAL/differ:endline(26) -> CMP_EQUAL/differ:endline(27)
+  ClassTypeParam                 testflags CHANGED CMP_EQUAL/differ:file(31) -> CMP_EQUAL/differ:file(40)
+  SimpleConstraint               default   CHANGED CMP_EQUAL/differ:line(6) -> CMP_EQUAL/differ:line(7)
+  SimpleConstraint               testflags CHANGED CMP_EQUAL/differ:line(6) -> CMP_EQUAL/differ:line(7)
+  SimpleUVM                      default   CHANGED CMP_EQUAL/differ:line(138) -> CMP_EQUAL/differ:line(272)
+  SimpleUVM                      testflags CHANGED CMP_EQUAL/differ:line(138) -> CMP_EQUAL/differ:line(272)
+  SeqDriver                      default   CHANGED CMP_EQUAL/differ:line(129) -> CMP_EQUAL/differ:line(256)
+  SeqDriver                      testflags CHANGED CMP_EQUAL/differ:line(129) -> CMP_EQUAL/differ:line(256)
+  BuildUVMPkg                    default   CHANGED CMP_EQUAL/differ:fullname(29) -> CMP_EQUAL/differ:fullname(346)
+  BuildUVMPkg                    testflags CHANGED CMP_EQUAL/differ:fullname(29) -> CMP_EQUAL/differ:fullname(346)
+  Scoreboard                     default   CHANGED CMP_EQUAL/differ:line(142) -> CMP_EQUAL/differ:line(276)
+---- canary rows: ok=22 changed=30 absent=0 unknown-names=7
+# canaries u2r
+  assignment-pattern             default   CHANGED CMP_EQUAL/differ:depth(1) -> CMP_EQUAL/differ:fullname(1)
+  assignment-pattern             testflags CHANGED CMP_EQUAL/differ:depth(1) -> CMP_EQUAL/differ:fullname(1)
+  hier_path                      default   CHANGED CMP_EQUAL/differ:depth(1) -> CMP_EQUAL/differ:file(146)
+  hier_path                      testflags CHANGED CMP_EQUAL/differ:depth(1) -> CMP_EQUAL/differ:file(146)
+  MultirangesStartNotFromZero    default   CHANGED CMP_EQUAL/differ:file(2) -> CMP_EQUAL/differ:file(3)
+  MultirangesStartNotFromZero    testflags CHANGED CMP_EQUAL/differ:file(2) -> CMP_EQUAL/differ:file(3)
+  genvar_loop_decl_3             default   CHANGED CMP_EQUAL/differ:depth(1) -> CMP_EQUAL/differ:file(4)
+  genvar_loop_decl_3             testflags CHANGED CMP_EQUAL/differ:depth(1) -> CMP_EQUAL/differ:file(4)
+---- canary rows: ok=8 changed=8 absent=0 unknown-names=25
+# ctcan2 surelog (EXPECT_UNKNOWN=1)
+  EvalFuncNamed                      default   CHANGED  CMP_EQUAL/differ:file(3) -> CMP_EQUAL/differ:file(2)
+  EvalFuncNamed                      testflags CHANGED  CMP_EQUAL/differ:file(3) -> CMP_EQUAL/differ:file(14)
+  ParamFileMacro                     default   OK       SURELOG_FAIL/
+  ParamFileMacro                     testflags OK       SURELOG_FAIL/
+  BlackConst                         default   CHANGED  CMP_EQUAL/differ:line(19) -> CMP_EQUAL/differ:line(31)
+  BlackParrot                        default   OK       SURELOG_FAIL/
+  BlackParrot                        testflags OK       SURELOG_FAIL/
+  BlackUcode                         default   OK       SURELOG_FAIL/
+  BlackUcode                         testflags OK       SURELOG_FAIL/
+  BlackUnicore                       default   OK       SURELOG_FAIL/
+  BlackUnicore                       testflags OK       SURELOG_FAIL/
+---- ctcan2 rows: ok=55 changed=3 absent=0 unknown-patterns=1
+FAIL: a supplementary canary moved.
+# ctcan2 u2r (EXPECT_UNKNOWN=6)
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.

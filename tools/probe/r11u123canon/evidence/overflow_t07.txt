@@ -1,0 +1,12 @@
+# t07_nested_struct_dag16: 16-level nested packed struct (legal SV, 12820-byte database), self pair ours vs ours, address space capped (ulimit -v 8000000 = 8 GB; this machine has 15 GB RAM + 4 GB swap)
+## uhdm-strictcmp (6f7814960b12)
+/bin/bash: line 7: 1017817 Aborted                 /tmp/r11u123_bin/$b --max 0 /tmp/r11u123_arm/t07x/ours.uhdm /tmp/r11u123_arm/t07x/ours.uhdm > /tmp/r11u123_t07.out 2>&1
+rc=134 secs=13
+terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+## uhdm-strictcmp.fix1 (10dd00c3a111)
+rc=3 secs=7
+canon overflow: the re-expanded walk passed 4000000 objects; the walk is not comparable
+## peak RSS without a cap (fixed binary)
+fixed: rc 3 6.7 s 1798 MB peak RSS
+## t06 (12 levels): canonical records 786273 per side vs raw 323; 790 MB peak for 1.57M records (~0.5 KB a record); Earlgrey_0_1 default: 2.17M records a side, 3214 MB peak (evidence/timesize.tsv)

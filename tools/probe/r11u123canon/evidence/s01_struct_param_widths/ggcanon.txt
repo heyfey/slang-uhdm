@@ -1,0 +1,27 @@
+#9 endcol
+  A: 2	struct_typespec	pair_t			dut.sv	2	11	2	64				
+  B: 2	struct_typespec	pair_t			dut.sv	2	11	2	65				
+#10 col
+  A: 3	typespec_member	hi			dut.sv	2	41	2	43				
+  B: 3	typespec_member	hi			dut.sv	2	42	2	44				
+#12 endcol
+  A: 5	logic_typespec				dut.sv	2	27	2	40				
+  B: 5	logic_typespec				dut.sv	2	27	2	41				
+#13 col
+  A: 6	range				dut.sv	2	33	2	40				
+  B: 6	range				dut.sv	2	34	2	41				
+#14 col
+  A: 7	operation				dut.sv	2	34	2	37		0		
+  B: 7	operation				dut.sv	2	35	2	38		0		
+#15 col
+  A: 8	ref_obj	W		pair_t.hi.W	dut.sv	2	34	2	35		0		
+  B: 8	ref_obj	W		pair_t.hi.W	dut.sv	2	35	2	36		0		
+#16 col
+  A: 8	constant				dut.sv	2	36	2	37	1	64	UINT:1	9
+  B: 8	constant				dut.sv	2	37	2	38	1	64	UINT:1	9
+#17 col
+  A: 7	constant				dut.sv	2	38	2	39	0	64	UINT:0	9
+  B: 7	constant				dut.sv	2	39	2	40	0	64	UINT:0	9
+fields: col=91 endcol=105 objects_differing=105
+STRICT_NOTEQUAL endcol
+rc=2 records A=332 B=332 wall=0.01

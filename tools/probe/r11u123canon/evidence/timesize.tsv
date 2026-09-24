@@ -1,0 +1,47 @@
+row	mode	raw_s	raw_rss_mb	canon_s	canon_rss_mb	raw_tail	canon_tail
+surelog/BuildUVMPkg	default	1.35	276	1.35	283	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+surelog/BuildUVMPkg	testflags	1.39	276	1.36	283	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+surelog/Earlgrey_0_1	default	6.19	1240	14.48	3214	STRICT_NOTEQUAL line	STRICT_NOTEQUAL line
+surelog/Earlgrey_0_1	testflags	9.64	1417	11.20	2057	STRICT_NOTEQUAL line	STRICT_NOTEQUAL line
+surelog/MiniAmiq	default	3.58	599	3.43	610	STRICT_NOTEQUAL line	STRICT_NOTEQUAL line
+surelog/MiniAmiq	testflags	3.40	599	3.49	610	STRICT_NOTEQUAL line	STRICT_NOTEQUAL line
+surelog/Scoreboard	default	1.92	362	2.24	484	STRICT_NOTEQUAL line	STRICT_NOTEQUAL line
+surelog/SeqDriver	default	3.37	606	3.82	622	STRICT_NOTEQUAL line	STRICT_NOTEQUAL line
+surelog/SeqDriver	testflags	3.50	606	3.85	622	STRICT_NOTEQUAL line	STRICT_NOTEQUAL line
+surelog/SimpleUVM	default	2.66	501	2.68	515	STRICT_NOTEQUAL line	STRICT_NOTEQUAL line
+surelog/SimpleUVM	testflags	2.49	501	2.76	515	STRICT_NOTEQUAL line	STRICT_NOTEQUAL line
+surelog/YosysBigSimEllip	default	5.25	1056	5.36	1074	STRICT_NOTEQUAL depth	STRICT_NOTEQUAL endcol
+uhdm2rtlil/func_upto	default	1.85	381	2.27	520	STRICT_NOTEQUAL file	STRICT_NOTEQUAL file
+uhdm2rtlil/func_upto	testflags	1.80	381	2.16	520	STRICT_NOTEQUAL file	STRICT_NOTEQUAL file
+uhdm2rtlil/ibex_alu	default	0.09	29	0.09	31	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_alu	testflags	0.08	29	0.08	30	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_branch_predict	default	0.05	20	0.06	24	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_branch_predict	testflags	0.05	19	0.05	24	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_compressed_decoder	default	0.07	27	0.08	28	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_compressed_decoder	testflags	0.07	27	0.07	28	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_counter	default	0.01	8	0.01	8	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_counter	testflags	0.01	8	0.01	8	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_csr	default	0.01	7	0.01	7	STRICT_NOTEQUAL file	STRICT_NOTEQUAL file
+uhdm2rtlil/ibex_csr	testflags	0.01	7	0.01	7	STRICT_NOTEQUAL file	STRICT_NOTEQUAL file
+uhdm2rtlil/ibex_decoder	default	0.07	29	0.10	39	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_decoder	testflags	0.08	29	0.10	39	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_fetch_fifo	default	0.02	10	0.02	10	STRICT_NOTEQUAL file	STRICT_NOTEQUAL file
+uhdm2rtlil/ibex_fetch_fifo	testflags	0.02	9	0.02	9	STRICT_NOTEQUAL file	STRICT_NOTEQUAL file
+uhdm2rtlil/ibex_icache	default	0.13	43	0.20	44	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_icache	testflags	0.16	43	0.18	43	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_load_store_unit	default	0.03	12	0.02	13	STRICT_NOTEQUAL endline	STRICT_NOTEQUAL endline
+uhdm2rtlil/ibex_load_store_unit	testflags	0.03	12	0.03	12	STRICT_NOTEQUAL endline	STRICT_NOTEQUAL endline
+uhdm2rtlil/ibex_multdiv_fast	default	0.07	26	0.07	27	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_multdiv_fast	testflags	0.07	26	0.07	27	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_multdiv_slow	default	0.06	25	0.06	26	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_multdiv_slow	testflags	0.06	25	0.06	26	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_pmp	default	0.08	32	0.09	33	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_pmp	testflags	0.09	32	0.09	33	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_register_file_ff	default	0.02	10	0.02	10	STRICT_NOTEQUAL file	STRICT_NOTEQUAL file
+uhdm2rtlil/ibex_register_file_ff	testflags	0.01	9	0.02	9	STRICT_NOTEQUAL file	STRICT_NOTEQUAL file
+uhdm2rtlil/ibex_register_file_fpga	default	0.01	8	0.01	8	STRICT_EQUAL 614 objects	STRICT_EQUAL 633 objects
+uhdm2rtlil/ibex_register_file_fpga	testflags	0.01	8	0.01	8	STRICT_EQUAL 530 objects	STRICT_EQUAL 543 objects
+uhdm2rtlil/ibex_tracer	default	0.19	59	0.22	75	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_tracer	testflags	0.18	59	0.20	75	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_wb_stage	default	0.05	20	0.05	24	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname
+uhdm2rtlil/ibex_wb_stage	testflags	0.05	20	0.05	24	STRICT_NOTEQUAL fullname	STRICT_NOTEQUAL fullname

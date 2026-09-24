@@ -1,0 +1,9 @@
+#45 endcol
+  A: 5	hier_path	head.next			dut.sv	15	5	15	9		0		
+  B: 5	hier_path	head.next			dut.sv	15	5	15	14		0		
+#65 endcol
+  A: 5	hier_path	head.next			dut.sv	15	5	15	9		0		
+  B: 5	hier_path	head.next			dut.sv	15	5	15	14		0		
+fields: endcol=2 objects_differing=2
+STRICT_NOTEQUAL endcol
+rc=2 records A=77 B=77 wall=0.01
