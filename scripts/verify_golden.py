@@ -85,6 +85,11 @@ UHDM_CMP = _tool('UHDM_CMP', *[os.path.join(d, 'uhdm-cmp') for d in _UHDM_BINS],
                  shutil.which('uhdm-cmp'))
 UHDM_DUMP = _tool('UHDM_DUMP', *[os.path.join(d, 'uhdm-dump') for d in _UHDM_BINS],
                   shutil.which('uhdm-dump'))
+# uhdm-strictcmp (tools/uhdm-strictcmp): uhdm-cmp's verdict first, then the
+# judge-blind fields; fills the sweep's `strict` column on CMP_EQUAL rows.
+STRICT_CMP = _tool('STRICT_CMP', os.path.join(REPO_ROOT, 'build', 'uhdm-strictcmp'),
+                   os.path.join(REPO_ROOT, 'build-intree', 'uhdm-strictcmp'),
+                   shutil.which('uhdm-strictcmp'))
 
 # ---------------------------------------------------------------- golden cache
 #
@@ -180,13 +185,8 @@ def cache_store(cdir, uhdm_path, status_line):
         os.makedirs(tmp, exist_ok=True)
         if uhdm_path:
             shutil.copy2(uhdm_path, os.path.join(tmp, 'golden.uhdm'))
-            dmp = subprocess.run([UHDM_DUMP, uhdm_path], capture_output=True,
-                                 text=True, timeout=600)
-            if dmp.returncode == 0:
-                body = dmp.stdout.partition('\n')[2]
-                h = hashlib.sha256(body.encode()).hexdigest()
-                with open(os.path.join(tmp, 'golden.dumphash'), 'wt') as f:
-                    f.write(h)
+            # (golden.dumphash is no longer written: the strict column
+            # replaced the dump comparison.)
         with open(os.path.join(tmp, 'status'), 'wt') as f:
             f.write(status_line)
         if not os.path.isdir(cdir):
@@ -588,23 +588,29 @@ def find_uhdm(workdir):
     return hits
 
 
-def dump_verdict(a, b, timeout):
-    """'match' if the two databases dump byte-identically (first line -- the
-    banner naming the file -- dropped), 'differ' otherwise, '' on dump failure.
-    This is run_corpus.sh's PASS-vs-CMP_ONLY distinction, kept so byte identity
-    (phase 3) stays measured while cmp-equality is the phase-2 bar."""
+def strict_verdict(golden, ours, timeout):
+    """The `strict` column: uhdm-strictcmp on a CMP_EQUAL pair. 'equal' when
+    every walked object matches on name, definition name, full name, file
+    basename, span, decompile, size, value and constant type in the same
+    order; else 'differ:<first differing field>(<objects differing>)'."""
+    if not os.path.exists(STRICT_CMP):
+        return ''
     try:
-        da = subprocess.run([UHDM_DUMP, a], capture_output=True, text=True,
-                            timeout=timeout)
-        db = subprocess.run([UHDM_DUMP, b], capture_output=True, text=True,
-                            timeout=timeout)
+        r = subprocess.run([STRICT_CMP, '--max', '0', golden, ours], capture_output=True,
+                           text=True, timeout=timeout)
     except subprocess.TimeoutExpired:
-        return ''
-    if da.returncode or db.returncode:
-        return ''
-    ta = da.stdout.partition('\n')[2]
-    tb = db.stdout.partition('\n')[2]
-    return 'match' if ta == tb else 'differ'
+        return 'timeout'
+    if r.returncode == 0:
+        return 'equal'
+    field, n = '', ''
+    for line in r.stdout.splitlines():
+        if line.startswith('STRICT_NOTEQUAL '):
+            field = line.split(' ', 1)[1].strip()
+        if 'objects_differing=' in line:
+            n = line.split('objects_differing=')[1].split()[0]
+    if r.returncode == 1:
+        return 'differ:stage1'
+    return f'differ:{field}({n})' if n else f'differ:{field or "?"}'
 
 
 def compare(name, mode, dirpath, sl_args, su_args, workroot, timeout):
@@ -689,22 +695,7 @@ def compare(name, mode, dirpath, sl_args, su_args, workroot, timeout):
         # bought nothing; skipped, recorded as ''.
         tail = (cp.stdout or cp.stderr or '').strip().splitlines()
         return (name, mode, 'CMP_NOTEQUAL', tail[0][:140] if tail else '', '', '')
-    if golden_dumphash:
-        # Hash the slang dump against the cached golden dump hash: the golden
-        # side needs no uhdm-dump run at all.
-        dump = ''
-        try:
-            dsl = subprocess.run([UHDM_DUMP, slang_out], capture_output=True,
-                                 text=True, timeout=timeout)
-            if dsl.returncode == 0:
-                body = dsl.stdout.partition('\n')[2]
-                dump = ('match' if hashlib.sha256(body.encode()).hexdigest() ==
-                        golden_dumphash else 'differ')
-        except subprocess.TimeoutExpired:
-            pass
-    else:
-        dump = dump_verdict(golden_uhdm, slang_out, timeout)
-    return (name, mode, 'CMP_EQUAL', '', '', dump)
+    return (name, mode, 'CMP_EQUAL', '', '', strict_verdict(golden_uhdm, slang_out, timeout))
 
 
 def run_one(name, dirpath, parts, modes, workroot, timeout):
@@ -804,10 +795,10 @@ def main():
 
     rows.sort(key=lambda r: (r[0].lower(), r[1]))
     with open(args.out, 'wt') as f:
-        f.write('name,mode,status,detail,blocked_by,dump\n')
-        for name, mode, status, detail, blocked, dump in rows:
+        f.write('name,mode,status,detail,blocked_by,strict\n')
+        for name, mode, status, detail, blocked, strict in rows:
             detail = detail.replace(',', ';').replace('\n', ' ')
-            f.write(f'{name},{mode},{status},{detail},{blocked},{dump}\n')
+            f.write(f'{name},{mode},{status},{detail},{blocked},{strict}\n')
 
     for mode in modes:
         counts = {}

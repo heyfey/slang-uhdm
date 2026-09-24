@@ -11,7 +11,7 @@ after the first run.
 |---|---|---|
 | `third_party/Surelog` | the pinned Surelog (v1.87): the producer binary once built, its `tests/` and `third_party/tests/` suites (one `<Name>.sl` command line per test) and `third_party/UVM` | 798 tests |
 | `third_party/uhdm2rtlil` | the pinned uhdm2rtlil checkout; `test/<name>/dut.sv` (or `dut.v`, or a `project.f`) per test | 871 tests |
-| `results/golden_surelog.csv`, `results/golden_uhdm2rtlil.csv` | the committed scoreboards: one row per test and mode (`name,mode,status,detail,blocked_by,dump`) | 1596 + 1742 rows |
+| `results/golden_surelog.csv`, `results/golden_uhdm2rtlil.csv` | the committed scoreboards: one row per test and mode (`name,mode,status,detail,blocked_by,strict`) | 1596 + 1742 rows |
 | `results/gate_uhdm2rtlil.csv` | the uhdm2rtlil testflags rows alone (the older gate) | 871 rows |
 | `tests/probe/<pass>/<grid>/<arm>/dut.sv` | the probe-arm regression set, judged by uhdm-cmp against cached Surelog goldens (see tests/probe/README.md) | 2833 arms |
 | `tools/probe/` | per-pass evidence (READMEs, scripts, measurements, and the arms that still judge NOT_EQUAL) | |
@@ -19,8 +19,14 @@ after the first run.
 Two modes per test. In `default` mode both tools get only the sources. In
 `testflags` mode Surelog gets the test's own command line and slang-uhdm gets
 its translation. A row is `CMP_EQUAL` when `uhdm-cmp` finds no difference
-between the two databases; the `dump` column says whether the dump text is
-also byte-identical (`match`) or not (`differ`).
+between the two databases. The `strict` column then reports
+`tools/uhdm-strictcmp`'s verdict on that pair: it runs uhdm-cmp's own
+comparison first (so nothing uhdm-cmp rejects can pass) and then walks both
+databases in the same order comparing the fields uhdm-cmp never reads (name,
+definition name, full name, file basename, the four span fields, decompile,
+size, value, constant type, child order); `equal`, or
+`differ:<first differing field>(<objects differing>)`. It is a measurement
+today and the intended equality of the gate once the corpus reaches zero.
 
 ## Setup
 

@@ -121,14 +121,7 @@ hard constraints: goldens 23/23, no PASS→anything, no CMP_ONLY→DIFF.
    literal vs ref RHS; flat vs nested/array-of-struct members; def vs elab
    view; package vs module scope; typedef'd vs anonymous type; single vs
    multiple importers/instances.
-4. **DUMP_MATCH + CMP_FAIL → cmptool.** uhdm-cmp compares fields the dump
-   prints identically: plural-vs-singular UHDM vectors (dump prints both under
-   the same label), int fields the dump omits when 0 (vpiLocalVarDecls), etc.
-   Tool lives at `$SCRATCHPAD/cmptool/main.cpp` (rebuild:
-   `g++ -std=c++17 -I ~/.local/include -o cmptool main.cpp -L ~/.local/lib64
-   -L ~/.local/lib -luhdm -lcapnp -lkj`). Load both .uhdm files, walk to the
-   failing object pair, `Compare` each field with a fresh CompareContext.
-   Also useful: flip uhdm-cmp's argument order to see the other side's nulls.
+4. **DUMP_MATCH + CMP_FAIL → uhdm-strictcmp.** `build/uhdm-strictcmp <golden> <ours>` runs uhdm-cmp's own Compare first and prints the failing pair with its parent-chain path (`lhsPath:`/`rhsPath:`), then, when stage 1 is equal, the first differing judge-blind field per object and a per-field tally. It replaced tools/cmptool (2026-09-24).
 5. **SafeCompare semantics** (for reading cmp.log): "RHS: <null>" = ours lacks
    an object SL has at that slot (singular-field SafeCompare with rhs null
    sets only m_failedLhs). Vector size mismatches set both sides to the

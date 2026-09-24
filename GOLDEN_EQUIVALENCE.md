@@ -389,12 +389,21 @@ the other said "failing", for the same test. The division of labour now:
 
 | Tool | Role |
 |---|---|
-| `scripts/verify_golden.py` | THE harness: classification, both corpora, all modes, the `dump` column |
+| `scripts/verify_golden.py` | THE harness: classification, both corpora, all modes, the `strict` column (uhdm-strictcmp; the `dump` column until 2026-09-24) |
+| `tools/uhdm-strictcmp` | uhdm-cmp's own Compare first (so nothing it rejects can pass), then every judge-blind field per object in walk order: name, def name, full name, file basename, spans, decompile, size, value, const type, child order |
 | `tests/sweep.sh` | the gate: both corpora, both modes, every row's status against the committed scoreboards (`scripts/compare_results.py`) |
 | `scripts/converge.sh` | single-test dev microscope; produces `dump.diff` for inspection; same artifact policy |
 | `scripts/run_corpus.sh` | **deprecated** — kept only to reproduce phase-1 CSVs |
 
-The `dump` column carries run_corpus's byte-identity distinction forward:
+**Since 2026-09-24 the sixth column is `strict`**: `equal` when uhdm-strictcmp
+finds no judge-blind difference, else `differ:<first field>(<objects>)`; it
+supersedes the dump-text identity below and is the intended equality of the
+gate once the corpus reaches zero strict differences (measured at the switch:
+surelog 471 of 954 CMP_EQUAL row-modes strict-equal, uhdm2rtlil 1026 of 1606,
+probe arms 1117 of 2833; the first field is `file` on most default-mode rows
+because Surelog stamps builtin.sv on the builtin classes).
+
+Historical: the `dump` column carried run_corpus's byte-identity distinction forward:
 phase-1 `PASS` ≡ `CMP_EQUAL`+`match`, `CMP_ONLY` ≡ `CMP_EQUAL`+`differ`,
 `DIFF` ≡ `CMP_NOTEQUAL`. `CMP_EQUAL` is the phase-2 bar; the `dump` column is
 the phase-3 metric, already measured so regressions in byte identity stay

@@ -102,7 +102,9 @@ def check(rel, workdir, timeout):
     if cp.returncode != 0:
         head = (cp.stdout.strip().splitlines() or [''])[0]
         return rel, 'NOT_EQUAL', head[:120]
-    return rel, 'EQUAL', gdet
+    # Measurement only (not the verdict yet): the strict comparator's field.
+    strict = vg.strict_verdict(g, out, timeout) if os.path.exists(vg.STRICT_CMP) else ''
+    return rel, 'EQUAL', (gdet + ' ' if gdet else '') + ('strict=' + strict if strict else '')
 
 
 def main():
@@ -117,17 +119,22 @@ def main():
             sys.exit(f'missing tool: {tool} (set ${env}; see tests/README.md)')
     todo = arms(a.filter)
     os.makedirs(a.workdir, exist_ok=True)
-    counts, bad, built = {}, [], 0
+    counts, bad, built, strict = {}, [], 0, {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=a.jobs) as pool:
         for rel, st, det in pool.map(lambda r: check(r, a.workdir, a.timeout), todo):
             counts[st] = counts.get(st, 0) + 1
-            built += (det == 'built')
+            built += det.startswith('built')
+            if 'strict=' in det:
+                s = det.split('strict=')[1].split('(')[0]
+                strict[s] = strict.get(s, 0) + 1
             if st != 'EQUAL':
                 bad.append((rel, st, det))
     for rel, st, det in bad:
         print(f'{st} {rel} {det}')
     print('probe arms: ' + ' '.join(f'{k}={v}' for k, v in sorted(counts.items())) +
           f' (of {len(todo)}); goldens built now={built}, from cache={len(todo) - built}')
+    if strict:
+        print('probe strict (measurement): ' + ' '.join(f'{k}={v}' for k, v in sorted(strict.items(), key=lambda kv: -kv[1])))
     sys.exit(1 if bad else 0)
 
 

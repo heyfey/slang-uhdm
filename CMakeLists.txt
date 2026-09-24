@@ -69,4 +69,10 @@ add_executable(slang_uhdm uhdm_main.cpp)
 target_link_libraries(slang_uhdm PRIVATE slang_uhdm_obj_lib)
 set_target_properties(slang_uhdm PROPERTIES OUTPUT_NAME "slang-uhdm")
 
-install(TARGETS slang_uhdm RUNTIME DESTINATION bin)
+# uhdm-strictcmp: uhdm-cmp's verdict first, then the judge-blind fields
+# (tools/uhdm-strictcmp/uhdm-strictcmp.cpp). Measurement tool for the sweep.
+add_executable(uhdm_strictcmp tools/uhdm-strictcmp/uhdm-strictcmp.cpp)
+target_link_libraries(uhdm_strictcmp PRIVATE uhdm::uhdm)
+set_target_properties(uhdm_strictcmp PROPERTIES OUTPUT_NAME "uhdm-strictcmp")
+
+install(TARGETS slang_uhdm uhdm_strictcmp RUNTIME DESTINATION bin)
