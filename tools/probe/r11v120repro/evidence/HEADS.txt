@@ -1,0 +1,79 @@
+# heads at d31ae79a (pristine 3e6d2800, scripts/downstream_uhdm2rtlil.py, pristine harness): nohier diff lines, first lines (< surelog lane, > slang lane)
+== PartSelectOfMember 6 lines
+<   connect \a [0] 1'1
+<   connect \a [7] 1'1
+<   connect \a [8] 1'1
+>   connect \a [0] 1'x
+== IndexedPartSelectOfMember 6 lines
+<   connect \a [0] 1'1
+<   connect \a [7] 1'1
+<   connect \a [8] 1'1
+>   connect \a [0] 1'x
+== SelectOnMemberSelectedFrom2DArray 2 lines
+<   connect \a [2] 1'1
+>   connect \a [2] 1'x
+== iface_array_elem_cfg_param 2 lines
+<     connect \A 8
+>     connect \A 16
+== type_param_override_elem_sel 6 lines
+< module \child$typaram_2_1_1
+> module \child$typaram_1_1_1
+<   wire width 4 input 1 \rt_i
+>   wire width 2 input 1 \rt_i
+== param_name_collision_typeparam 58 lines
+< autoidx 13
+> autoidx 7
+<   wire width 64 $auto$expression.cpp:5474:import_operation$5
+<   wire width 64 $auto$expression.cpp:5474:import_operation$7
+== gen_scope_numports 161 lines
+< autoidx 21
+< attribute \cells_not_processed 1
+< attribute \src "dut.sv:2.1-13.10"
+< attribute \dynports 1
+== ibex_controller 34 lines
+<   attribute \src "ibex_controller.sv:194.28-194.61"
+<   cell $and $and$ibex_controller.sv:194$44
+>   attribute \src "ibex_controller.sv:193.28-193.61"
+>   cell $and $and$ibex_controller.sv:193$44
+== func_upto 814 lines
+<       update \blk.F_WIRE 1'0
+<       update \blk.i 0
+<       update \C_FUNC 1'0
+>       update \C_FUNC 1'0
+== matching_end_labels 2 lines
+>       update \blk1.x 1'1
+<       update \blk1.x 1'1
+# uhdm-cmp downstream-lane golden vs slang lane, pristine -> r11u120 law
+IndexedPartSelectOfMember 0 -> 0
+PartSelectOfMember 0 -> 0
+SelectOnMemberSelectedFrom2DArray 0 -> 0
+func_upto 0 -> 0
+gen_scope_numports 9824 -> 0
+ibex_controller 0 -> 0
+iface_array_elem_cfg_param 0 -> 0
+matching_end_labels 0 -> 0
+param_name_collision_typeparam 0 -> 0
+type_param_override_elem_sel 0 -> 0
+# ten rows, pristine then law
+func_upto,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier
+gen_scope_numports,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il
+ibex_controller,EQUIVALENT,OK,OK,565,565,nohier il
+iface_array_elem_cfg_param,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth
+IndexedPartSelectOfMember,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth
+matching_end_labels,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier
+name,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs
+param_name_collision_typeparam,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il
+PartSelectOfMember,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth
+SelectOnMemberSelectedFrom2DArray,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth
+type_param_override_elem_sel,EQUIVALENT,OK,OK,3,3,nohier
+func_upto,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier
+gen_scope_numports,IDENTICAL,NO_GATES,NO_GATES,0,0,
+ibex_controller,IDENTICAL,OK,OK,565,565,
+iface_array_elem_cfg_param,IDENTICAL,NO_GATES,NO_GATES,0,0,
+IndexedPartSelectOfMember,IDENTICAL,NO_GATES,NO_GATES,0,0,
+matching_end_labels,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier
+name,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs
+param_name_collision_typeparam,IDENTICAL,NO_GATES,NO_GATES,0,0,
+PartSelectOfMember,IDENTICAL,NO_GATES,NO_GATES,0,0,
+SelectOnMemberSelectedFrom2DArray,IDENTICAL,NO_GATES,NO_GATES,0,0,
+type_param_override_elem_sel,IDENTICAL,OK,OK,3,3,

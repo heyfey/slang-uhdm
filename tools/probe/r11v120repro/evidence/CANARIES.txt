@@ -1,0 +1,9 @@
+canaries surelog fix: ---- canary rows: ok=41 changed=11 absent=0 unknown-names=7
+canaries surelog pristine sweep: ---- canary rows: ok=41 changed=11 absent=0 unknown-names=7
+canaries uhdm2rtlil fix: ---- canary rows: ok=12 changed=4 absent=0 unknown-names=25
+canaries uhdm2rtlil pristine sweep: ---- canary rows: ok=12 changed=4 absent=0 unknown-names=25
+ctcan2 surelog fix: ---- ctcan2 rows: ok=40 changed=18 absent=0 unknown-patterns=1
+ctcan2 surelog pristine: ---- ctcan2 rows: ok=40 changed=18 absent=0 unknown-patterns=1
+ctcan2 u2r fix: ---- ctcan2 rows: ok=0 changed=2 absent=0 unknown-patterns=6
+ctcan2 u2r pristine: ---- ctcan2 rows: ok=0 changed=2 absent=0 unknown-patterns=6
+row-join fix vs pristine sweep csv (all columns but detail): surelog 1 cell (YosysBigSimEllip/default dump '' vs 'differ', not a byte mover), uhdm2rtlil 0

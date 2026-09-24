@@ -1,0 +1,155 @@
+### IndexedPartSelectOfMember (pristine, surelog lane < > slang lane, _nohier.il)
+10,12c10,12
+<   connect \a [0] 1'1
+<   connect \a [7] 1'1
+<   connect \a [8] 1'1
+---
+>   connect \a [0] 1'x
+>   connect \a [7] 1'x
+>   connect \a [8] 1'x
+### PartSelectOfMember (pristine, surelog lane < > slang lane, _nohier.il)
+10,12c10,12
+<   connect \a [0] 1'1
+<   connect \a [7] 1'1
+<   connect \a [8] 1'1
+---
+>   connect \a [0] 1'x
+>   connect \a [7] 1'x
+>   connect \a [8] 1'x
+### SelectOnMemberSelectedFrom2DArray (pristine, surelog lane < > slang lane, _nohier.il)
+13c13
+<   connect \a [2] 1'1
+---
+>   connect \a [2] 1'x
+### iface_array_elem_cfg_param (pristine, surelog lane < > slang lane, _nohier.il)
+21c21
+<     connect \A 8
+---
+>     connect \A 16
+### type_param_override_elem_sel (pristine, surelog lane < > slang lane, _nohier.il)
+5c5
+< module \child$typaram_2_1_1
+---
+> module \child$typaram_1_1_1
+9c9
+<   wire width 4 input 1 \rt_i
+---
+>   wire width 2 input 1 \rt_i
+39c39
+<     parameter \A_WIDTH 4
+---
+>     parameter \A_WIDTH 2
+### param_name_collision_typeparam (pristine, surelog lane < > slang lane, _nohier.il)
+2c2
+< autoidx 13
+---
+> autoidx 7
+67,79c67
+<   wire width 64 $auto$expression.cpp:5474:import_operation$5
+<   wire width 64 $auto$expression.cpp:5474:import_operation$7
+<   attribute \src "dut.sv:11.34-11.45"
+<   cell $sub $sub$dut.sv:11$6
+<     parameter \A_SIGNED 0
+<     parameter \B_SIGNED 0
+<     parameter \A_WIDTH 64
+<     parameter \B_WIDTH 64
+<     parameter \Y_WIDTH 64
+<     connect \A { 63'000000000000000000000000000000000000000000000000000000000000000 \DataWidth }
+<     connect \B 64'0000000000000000000000000000000000000000000000000000000000000001
+<     connect \Y $auto$expression.cpp:5474:import_operation$5
+<   end
+---
+>   wire width 64 $auto$expression.cpp:5474:import_operation$3
+81c69
+<   cell $sub $sub$dut.sv:11$8
+---
+>   cell $sub $sub$dut.sv:11$4
+### gen_scope_numports (pristine, surelog lane < > slang lane, _nohier.il)
+2,24c2
+< autoidx 21
+< attribute \cells_not_processed 1
+< attribute \src "dut.sv:2.1-13.10"
+< attribute \dynports 1
+< module \tc_sram
+<   parameter \NumPorts 2
+<   parameter \DataWidth 128
+<   attribute \src "dut.sv:7.34-7.39"
+<   wire width 2 input 1 \req_i
+<   attribute \src "dut.sv:8.34-8.38"
+<   wire width 2 input 2 \we_i
+<   attribute \src "dut.sv:9.34-9.41"
+<   attribute \packed_elem_width 128
+<   attribute \packed_outer_left 1
+<   attribute \packed_outer_right 0
+<   wire width 256 input 3 \wdata_i
+<   attribute \src "dut.sv:10.34-10.41"
+<   attribute \packed_elem_width 128
+<   attribute \packed_outer_left 1
+<   attribute \packed_outer_right 0
+<   wire width 256 output 4 \rdata_o
+<   connect \rdata_o \wdata_i
+< end
+### matching_end_labels (pristine, surelog lane < > slang lane, _nohier.il)
+22a23
+>       update \blk1.x 1'1
+25d25
+<       update \blk1.x 1'1
+### func_upto (pristine, surelog lane < > slang lane, _nohier.il)
+6550,6552d6549
+<       update \blk.F_WIRE 1'0
+<       update \blk.i 0
+<       update \C_FUNC 1'0
+6553a6551
+>       update \C_FUNC 1'0
+6554a6553,6554
+>       update \blk.i 0
+>       update \blk.F_WIRE 1'0
+6556d6555
+<       update \blk.D 1'0
+6557a6557
+>       update \blk.D 1'0
+7092d7091
+<       update \C_WIRE 1'0
+7093a7093
+>       update \C_WIRE 1'0
+7370,7371d7369
+<       update \C_WIRE 1'0
+<       update \C_FUNC 1'0
+7373a7372,7373
+>       update \C_WIRE 1'0
+>       update \C_FUNC 1'0
+8621d8620
+### ibex_controller (pristine, surelog lane < > slang lane, _nohier.il)
+1293,1294c1293,1294
+<   attribute \src "ibex_controller.sv:194.28-194.61"
+<   cell $and $and$ibex_controller.sv:194$44
+---
+>   attribute \src "ibex_controller.sv:193.28-193.61"
+>   cell $and $and$ibex_controller.sv:193$44
+1304,1305c1304,1305
+<   attribute \src "ibex_controller.sv:195.28-195.61"
+<   cell $and $and$ibex_controller.sv:195$46
+---
+>   attribute \src "ibex_controller.sv:194.28-194.61"
+>   cell $and $and$ibex_controller.sv:194$46
+1315,1316c1315,1316
+<   attribute \src "ibex_controller.sv:196.28-196.61"
+<   cell $and $and$ibex_controller.sv:196$48
+---
+>   attribute \src "ibex_controller.sv:195.28-195.61"
+>   cell $and $and$ibex_controller.sv:195$48
+1326,1327c1326,1327
+<   attribute \src "ibex_controller.sv:197.28-197.61"
+<   cell $and $and$ibex_controller.sv:197$50
+---
+>   attribute \src "ibex_controller.sv:196.28-196.61"
+>   cell $and $and$ibex_controller.sv:196$50
+### gen_scope_numports uhdm-cmp head (downstream-lane golden vs pristine slang lane)
+LHS:
+decompile:
+design: (work@tc_sram), id:614
+|vpiName:work@tc_sram
+|uhdmallModules:
+\_module_inst: work@gen_scope_numports (work@gen_scope_numports), id:615, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/gen_scope_numports/dut.sv, line:33:1, endln:44:10
+  |vpiParent:
+  \_design: (work@tc_sram), id:614

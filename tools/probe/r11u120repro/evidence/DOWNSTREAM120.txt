@@ -1,0 +1,16 @@
+# full downstream sweeps (871 rows): verdict histograms, and every row whose verdict differs between results/, the pristine sweep and the LAW sweep, or that is not IDENTICAL/SLANG_REJECT
+results/  {'IDENTICAL': 794, 'EQUIVALENT': 7, 'SLANG_REJECT': 66, 'DIVERGENT': 4}
+pristine  {'IDENTICAL': 794, 'EQUIVALENT': 7, 'SLANG_REJECT': 66, 'DIVERGENT': 4}
+LAW       {'IDENTICAL': 802, 'EQUIVALENT': 3, 'SLANG_REJECT': 66}
+name,results,pristine,LAW,LAW differs
+arb_idx_cast,EQUIVALENT,EQUIVALENT,EQUIVALENT,nohier il synth
+func_upto,EQUIVALENT,EQUIVALENT,EQUIVALENT,nohier
+gen_scope_numports,EQUIVALENT,EQUIVALENT,IDENTICAL,
+ibex_controller,EQUIVALENT,EQUIVALENT,IDENTICAL,
+iface_array_elem_cfg_param,DIVERGENT,DIVERGENT,IDENTICAL,
+IndexedPartSelectOfMember,DIVERGENT,DIVERGENT,IDENTICAL,
+matching_end_labels,EQUIVALENT,EQUIVALENT,EQUIVALENT,nohier
+param_name_collision_typeparam,EQUIVALENT,EQUIVALENT,IDENTICAL,
+PartSelectOfMember,DIVERGENT,DIVERGENT,IDENTICAL,
+SelectOnMemberSelectedFrom2DArray,DIVERGENT,DIVERGENT,IDENTICAL,
+type_param_override_elem_sel,EQUIVALENT,EQUIVALENT,IDENTICAL,

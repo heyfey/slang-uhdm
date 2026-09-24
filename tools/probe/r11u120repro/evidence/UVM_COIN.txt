@@ -1,0 +1,7 @@
+surelog/default/MiniAmiq-055eab74 orderblind DIFF ordered_diff_lines=4
+surelog/default/Scoreboard-72aa0ba8 orderblind SAME ordered_diff_lines=92
+surelog/default/SeqDriver-65178d3a orderblind DIFF ordered_diff_lines=4
+surelog/default/SimpleUVM-267de3ff orderblind DIFF ordered_diff_lines=4
+surelog/testflags/MiniAmiq-055eab74 orderblind DIFF ordered_diff_lines=4
+surelog/testflags/SeqDriver-65178d3a orderblind DIFF ordered_diff_lines=4
+surelog/testflags/SimpleUVM-267de3ff orderblind DIFF ordered_diff_lines=4

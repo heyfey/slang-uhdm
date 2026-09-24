@@ -11,6 +11,7 @@
 #include <filesystem>
 #include <functional>
 #include <map>
+#include <regex>
 #include <set>
 #include <string>
 #include <vector>
@@ -146,6 +147,11 @@ int main(int argc, char** argv) {
                        "'// pragma translate_off' regions are excluded");
     driver.cmdLine.add("--formal", formal,
                        "Like --synth but keeps model-checking constructs (Surelog -formal)");
+    // § filterProtected120 (r11u120) — Surelog's `-filterprotected`.
+    std::optional<bool> filterProtected;
+    driver.cmdLine.add("--filterprotected", filterProtected,
+                       "Exclude '// synopsys|synthesis|pragma translate_off' .. 'translate_on' "
+                       "regions and reproduce Surelog -filterprotected's line accounting");
 
     if (!driver.parseCommandLine(argc, argv))
         return 1;
@@ -208,6 +214,27 @@ int main(int argc, char** argv) {
     const bool synthSubset = (synth == true || formal == true);
     if (synthSubset)
         driver.options.translateOffOptions.push_back("pragma,translate_off,translate_on");
+    // § filterProtected120 (r11u120) — THE REGIONS.  Surelog's `-filterprotected`
+    // (uhdm2rtlil's downstream flow passes it) drops every one-line comment
+    // region `// synopsys|pragma|synthesis translate_off` .. `translate_on`
+    // from the preprocessed text (SV3_1aPpTreeShapeListener::enterComment, the
+    // three regexes `//\s*<word>\s+translate_(off|on)\s*`, Surelog v1.87 and
+    // uhdm2rtlil's v1.87-5 alike).  slang's `--translate-off-format` is the same
+    // exclusion at the lexer, so ask for it once per prefix.  Measured:
+    // gen_scope_numports, whose `// synthesis translate_off` region holds the
+    // only `tc_sram` instance — without the exclusion the database elaborates
+    // an instance golden does not have (uhdm-cmp 9824 lines under the
+    // downstream flags).  Boundary: slang also honours BLOCK comments and
+    // trailing words after the keyword, Surelog neither (no corpus file has
+    // either form).  `R11U120_FP_OFF=1` makes the flag a no-op.
+    const bool fpRegions120 = filterProtected == true && !getenv("R11U120_OFF") &&
+                              !getenv("R11U120_FP_OFF");
+    if (fpRegions120) {
+        driver.options.translateOffOptions.push_back("synopsys,translate_off,translate_on");
+        driver.options.translateOffOptions.push_back("synthesis,translate_off,translate_on");
+        if (!synthSubset)
+            driver.options.translateOffOptions.push_back("pragma,translate_off,translate_on");
+    }
 
     // Surelog predefines `SURELOG=1` for every compilation (SurelogMacro:
     // `ifdef SURELOG guards the whole design, and the golden database contains
@@ -317,6 +344,179 @@ int main(int argc, char** argv) {
 
     bool ok = driver.parseAllSources();
 
+    // § fpAbstainOnMatcherSplit120v (v11u120, the verifier) — L6 STANDS ONLY
+    // WHERE slang's translate-off MATCHER AND SURELOG'S AGREE.
+    //
+    // slang's handler (Lexer::tryApplyCommentHandler / scanDisabledRegion)
+    // opens a region on `//` OR `/*` followed by `<prefix> translate_off` with
+    // ANY trailing text, and closes it only at the SAME prefix's
+    // `translate_on` (again `//` or `/*`, any trailing text), scanning RAW text
+    // straight through preprocessor directives.  Surelog's
+    // (SV3_1aPpTreeShapeListener::enterComment) takes a ONE-LINE comment only,
+    // `regex_match` of `//\s*<prefix>\s+translate_(off|on)\s*` (no trailing
+    // text), closes at ANY prefix's translate_on, and keeps processing
+    // `define/`include/`ifdef inside the region.  Where they split, L6 moved
+    // legal designs AWAY from golden (verifier grid F, pristine -> L6):
+    // trailing words on translate_off (x01, x03) EQUIVALENT -> STATUS_DIFF,
+    // a block-comment pair (x02) IDENTICAL -> STATUS_DIFF, mixed prefixes
+    // (x04) and a translate_off in an inactive branch closed after the
+    // `endif (x05) EQUIVALENT -> SLANG_REJECT.  So: every translate-off region
+    // slang made is checked against Surelog's reading (a one-line opener that
+    // regex_matches, a one-line closer that regex_matches and ends the region,
+    // no other prefix's translate_on inside, no `define/`undef/`include
+    // inside, conditionals balanced inside); on ANY disagreement the sources
+    // are re-parsed WITHOUT the three handlers and L7 stands down too, i.e.
+    // the pristine reading (pristine bytes) for the whole run.  Grid
+    // tools/probe/r11v120repro/grid/F: x01-x05 and x20 back at their pristine
+    // verdicts, x06-x19 and x21 keep L6/L7's bytes.  `R11V120_FPSPLIT_OFF=1`
+    // drops it.
+    bool fpSplit120v = false;
+    if (fpRegions120 && !getenv("R11V120_FPSPLIT_OFF")) {
+        static const std::regex onReV(
+            R"(//\s*(synopsys|pragma|synthesis)\s+translate_on\s*)");
+        static const std::regex offReV(
+            R"(//\s*(synopsys|pragma|synthesis)\s+translate_off\s*)");
+        // A directive line inside a region: Surelog still EXECUTES it (only the
+        // text is filtered), slang skips it raw.  Balanced conditionals agree
+        // (both drop the text between them: pulp common_cells' `ifndef
+        // VERILATOR .. `endif inside its regions); a define/undef/include or
+        // a conditional that crosses the region boundary does not.
+        static const std::regex dirReV(
+            R"(\s*`\s*(define|undef|undefineall|include|ifdef|ifndef|elsif|else|endif)\b[\s\S]*)");
+        // slang's opener rule, for the prefixes L6 registered.
+        auto slangRegionV = [&](std::string_view t) -> bool {
+            if (t.size() < 2 || t[0] != '/' || (t[1] != '/' && t[1] != '*'))
+                return false;
+            size_t i = 2;
+            auto word = [&]() {
+                while (i < t.size() && (t[i] == ' ' || t[i] == '\t'))
+                    i++;
+                size_t st = i;
+                while (i < t.size() &&
+                       (isalnum((unsigned char)t[i]) || t[i] == '_' || t[i] == '-'))
+                    i++;
+                return t.substr(st, i - st);
+            };
+            auto w1 = word();
+            bool pfx = w1 == "synopsys" || w1 == "synthesis" ||
+                       (w1 == "pragma" && !synthSubset);
+            return pfx && word() == "translate_off";
+        };
+        int depthV = 0;
+        auto lineSplitsV = [&](std::string_view line) -> bool {
+            std::match_results<std::string_view::const_iterator> mV;
+            if (std::regex_match(line.begin(), line.end(), mV, dirReV)) {
+                auto kw = mV[1].str();
+                if (kw == "ifdef" || kw == "ifndef")
+                    depthV++;
+                else if (kw == "endif") {
+                    if (--depthV < 0)
+                        return true;
+                }
+                else if (kw == "else" || kw == "elsif") {
+                    if (depthV == 0)
+                        return true;
+                }
+                else
+                    return true;  // define / undef / undefineall / include
+            }
+            for (size_t c = line.find("//"); c != std::string_view::npos;
+                 c = line.find("//", c + 2)) {
+                auto sub = line.substr(c);
+                if (std::regex_match(sub.begin(), sub.end(), onReV))
+                    return true;
+            }
+            return false;
+        };
+        auto surelogAgreesV = [&](std::string_view t) -> bool {
+            if (t[1] != '/')
+                return false;  // a block-comment opener
+            size_t nl = t.find('\n');
+            size_t lastNl = t.rfind('\n');
+            if (nl == std::string_view::npos)
+                return false;  // unclosed on its own line
+            std::string_view first = t.substr(0, nl);
+            if (!std::regex_match(first.begin(), first.end(), offReV))
+                return false;  // trailing text: Surelog opens nothing
+            std::string_view tail = t.substr(lastNl + 1);
+            size_t cs = tail.find("//");
+            if (cs == std::string_view::npos)
+                return false;  // a block-comment closer, or unclosed
+            std::string_view closing = tail.substr(cs);
+            if (!std::regex_match(closing.begin(), closing.end(), onReV))
+                return false;  // trailing text: Surelog does not close here
+            depthV = 0;
+            for (size_t p = nl + 1; p < lastNl + 1;) {
+                size_t e = t.find('\n', p);
+                if (lineSplitsV(t.substr(p, e - p)))
+                    return false;  // another prefix closes / a directive inside
+                p = e + 1;
+            }
+            if (lineSplitsV(tail.substr(0, cs)))
+                return false;
+            return depthV == 0;  // a conditional left open crosses the boundary
+        };
+        std::function<void(const syntax::SyntaxNode&)> nodeV;
+        std::function<void(parsing::Token)> tokV = [&](parsing::Token tk) {
+            for (auto& v : tk.trivia()) {
+                if (fpSplit120v)
+                    return;
+                if (v.kind == parsing::TriviaKind::Directive) {
+                    if (auto* syn = v.syntax())
+                        nodeV(*syn);
+                    continue;
+                }
+                if (v.kind != parsing::TriviaKind::DisabledText)
+                    continue;
+                auto text = v.getRawText();
+                if (slangRegionV(text) && !surelogAgreesV(text))
+                    fpSplit120v = true;
+            }
+        };
+        nodeV = [&](const syntax::SyntaxNode& n) {
+            using syntax::SyntaxKind;
+            if (fpSplit120v)
+                return;
+            if (n.kind == SyntaxKind::IfDefDirective || n.kind == SyntaxKind::IfNDefDirective ||
+                n.kind == SyntaxKind::ElsIfDirective) {
+                auto& c = n.as<syntax::ConditionalBranchDirectiveSyntax>();
+                tokV(c.directive);
+                nodeV(*c.expr);
+                for (auto dt : c.disabledTokens)
+                    tokV(dt);
+                return;
+            }
+            if (n.kind == SyntaxKind::ElseDirective) {
+                auto& c = n.as<syntax::UnconditionalBranchDirectiveSyntax>();
+                tokV(c.directive);
+                for (auto dt : c.disabledTokens)
+                    tokV(dt);
+                return;
+            }
+            for (size_t k = 0; k < n.getChildCount(); k++) {
+                if (auto* cn = n.childNode(k))
+                    nodeV(*cn);
+                else if (auto ct = n.childToken(k))
+                    tokV(ct);
+            }
+        };
+        for (auto& tree : driver.syntaxTrees)
+            nodeV(tree->root());
+        if (fpSplit120v) {
+            auto bagV = driver.createParseOptionBag();
+            auto& loV = bagV.insertOrGet<parsing::LexerOptions>();
+            loV.commentHandlers.erase("synopsys");
+            loV.commentHandlers.erase("synthesis");
+            if (!synthSubset)
+                if (auto it = loV.commentHandlers.find("pragma");
+                    it != loV.commentHandlers.end())
+                    it->second.erase("translate_off");
+            driver.syntaxTrees = driver.sourceLoader.loadAndParseSources(bagV, nullptr);
+            if (getenv("R11U120_FPDBG"))
+                fprintf(stderr, "R11V120 FPSPLIT: re-parsed without the translate-off handlers\n");
+        }
+    }
+
     // Surelog (unless given -nobuiltin) parses an embedded builtin.sv as a fake
     // file in the CURRENT WORKING DIRECTORY; the UHDM class spans reference that
     // path. Feed slang the same text under the same reported path so the parser
@@ -329,6 +529,206 @@ int main(int argc, char** argv) {
         auto tree = syntax::SyntaxTree::fromBuffer(buffer, driver.sourceManager,
                                                    driver.createParseOptionBag());
         driver.syntaxTrees.push_back(tree);
+    }
+
+    // § fpLineFiller120 (r11u120) — THE LINE ACCOUNTING of `-filterprotected`.
+    //
+    // Producer (SV3_1aPpTreeShapeListener.cpp, enterComment/exitComment):
+    // under the flag, a one-line comment matching `//\s*(synopsys|pragma|
+    // synthesis)\s+translate_on\s*` ALWAYS calls `addLineFiller(ctx)`, which
+    // appends the comment's newline to the preprocessed text.  That filler is
+    // the only newline the comment contributes when it CLOSES a region in
+    // active text (enterComment skipped the append because the region was
+    // still on).  Anywhere else it is a SECOND newline: in an INACTIVE
+    // `ifdef branch exitComment adds its own filler for the comment, and a
+    // STRAY one in active text (no region open) was already appended whole.
+    // Each such comment pushes every later preprocessed line down by one.
+    // Positions are mapped back to the file through the IncludeFileInfo
+    // records only a macro expansion (or include) writes: a WITH-ARGS macro
+    // invocation (PUSH + POP, even for an empty body) re-anchors at its own
+    // source line — the whole line, tokens before the backtick included — and
+    // so does a no-arg macro whose body spans lines (its POP is recorded only
+    // when the body holds a newline); a single-line no-arg macro records
+    // nothing.  So per file: +1 for every line after each such comment, reset
+    // to 0 from the line of the next re-anchoring expansion on.
+    //
+    // Measured with uhdm2rtlil's own Surelog, -DSYNTHESIS with vs without
+    // -filterprotected (tools/probe/r11u120repro/grid/gF, fpspans.sh):
+    // inactive `ifndef/`else translate_on +1 (f01, f07), twice +2 (f05), a
+    // stray active translate_on +1 (f03), a closing one 0 (f04, f06), a
+    // with-args macro re-anchors from its line (f02, f09, f12), a no-arg
+    // single-line macro does not (f08), across module boundaries (f10).
+    // ibex_controller.sv: the `ifndef SYNTHESIS region at 171-183 shifts
+    // lines 183-207 until `ASSERT(...)` at 208 (34 RTLIL src lines).
+    //
+    // Here: one walk over every syntax tree classifying each translate_on
+    // comment by where slang keeps it — an active LineComment trivia (a stray),
+    // a branch's disabled tokens' trivia or a not-taken branch's terminator
+    // trivia rewritten to DisabledText (inactive), or the tail of a
+    // translate-off region's DisabledText (closing: counts only when the
+    // region itself sits in an inactive branch).  The shift is applied as a
+    // post-pass over every object's line fields right before the save, keyed
+    // by the object's file.  `R11U120_FPLINE_OFF=1` drops it alone.
+    struct FpEv120 {
+        size_t off;
+        bool resync;
+    };
+    std::map<std::string, std::vector<FpEv120>> fpEvents120;
+    const bool fpLines120 = filterProtected == true && !getenv("R11U120_OFF") &&
+                            !getenv("R11U120_FPLINE_OFF") && !fpSplit120v;
+    if (fpLines120) {
+        auto& sm120 = driver.sourceManager;
+        struct Buf120 {
+            const char* b;
+            const char* e;
+            std::string path;
+        };
+        std::vector<Buf120> bufs120;
+        for (auto id : sm120.getAllBuffers()) {
+            auto t = sm120.getSourceText(id);
+            if (t.empty())
+                continue;
+            bufs120.push_back({t.data(), t.data() + t.size(), sm120.getFullPath(id).string()});
+        }
+        // (path, offset) of a pointer into some file buffer's text.
+        auto where120 = [&](const char* p) -> std::pair<const Buf120*, size_t> {
+            for (auto& b : bufs120)
+                if (p >= b.b && p < b.e)
+                    return {&b, (size_t)(p - b.b)};
+            return {nullptr, 0};
+        };
+        static const std::regex onRe120(
+            R"(//\s*(synopsys|pragma|synthesis)\s+translate_on\s*)");
+        static const std::regex offRe120(
+            R"(//\s*(synopsys|pragma|synthesis)\s+translate_off\s*)");
+        auto addEv120 = [&](const char* p, bool resync) {
+            auto [b, off] = where120(p);
+            if (b)
+                fpEvents120[b->path].push_back({off, resync});
+        };
+        std::map<std::string, bool> multiLineDef120;
+        std::function<void(const syntax::SyntaxNode&, bool)> node120;
+        std::function<void(parsing::Token, bool)> tok120;
+        tok120 = [&](parsing::Token t, bool inactive) {
+            auto tr = t.trivia();
+            for (size_t i = 0; i < tr.size(); i++) {
+                auto& v = tr[i];
+                if (v.kind == parsing::TriviaKind::Directive) {
+                    if (auto* syn = v.syntax())
+                        node120(*syn, inactive);
+                    continue;
+                }
+                auto text = v.getRawText();
+                if (text.empty())
+                    continue;
+                if (v.kind == parsing::TriviaKind::LineComment) {
+                    // Active: a stray; inactive: inside a skipped branch.
+                    if (std::regex_match(text.begin(), text.end(), onRe120))
+                        addEv120(text.data(), false);
+                    continue;
+                }
+                if (v.kind != parsing::TriviaKind::DisabledText)
+                    continue;
+                // A not-taken branch's terminator comment, rewritten.
+                if (std::regex_match(text.begin(), text.end(), onRe120)) {
+                    addEv120(text.data(), false);
+                    continue;
+                }
+                // A translate-off REGION: its first line is the opening
+                // comment, its tail the closing one.
+                size_t nl = text.find('\n');
+                std::string_view first = text.substr(0, nl);
+                if (!std::regex_match(first.begin(), first.end(), offRe120))
+                    continue;
+                size_t lastNl = text.rfind('\n');
+                if (lastNl == std::string_view::npos)
+                    continue;  // unclosed on its own line: no closing comment
+                std::string_view tail = text.substr(lastNl + 1);
+                size_t cs = tail.find("//");
+                if (cs == std::string_view::npos)
+                    continue;
+                std::string_view closing = tail.substr(cs);
+                if (!std::regex_match(closing.begin(), closing.end(), onRe120))
+                    continue;
+                bool regionInactive = inactive;
+                if (!regionInactive)
+                    for (size_t j = i + 1; j < tr.size(); j++) {
+                        if (tr[j].kind == parsing::TriviaKind::EndOfLine)
+                            break;
+                        if (tr[j].kind == parsing::TriviaKind::DisabledText) {
+                            regionInactive = true;
+                            break;
+                        }
+                    }
+                if (regionInactive)
+                    addEv120(closing.data(), false);
+            }
+        };
+        node120 = [&](const syntax::SyntaxNode& n, bool inactive) {
+            using syntax::SyntaxKind;
+            if (n.kind == SyntaxKind::IfDefDirective || n.kind == SyntaxKind::IfNDefDirective ||
+                n.kind == SyntaxKind::ElsIfDirective) {
+                auto& c = n.as<syntax::ConditionalBranchDirectiveSyntax>();
+                tok120(c.directive, inactive);
+                node120(*c.expr, inactive);
+                for (auto dt : c.disabledTokens)
+                    tok120(dt, true);
+                return;
+            }
+            if (n.kind == SyntaxKind::ElseDirective) {
+                auto& c = n.as<syntax::UnconditionalBranchDirectiveSyntax>();
+                tok120(c.directive, inactive);
+                for (auto dt : c.disabledTokens)
+                    tok120(dt, true);
+                return;
+            }
+            if (n.kind == SyntaxKind::DefineDirective && !inactive) {
+                auto& d = n.as<syntax::DefineDirectiveSyntax>();
+                bool ml = false;
+                if (!d.body.empty()) {
+                    auto s0 = d.body[0].rawText().data();
+                    auto s1 = d.body[d.body.size() - 1].rawText().data();
+                    auto [b0, o0] = where120(s0);
+                    auto [b1, o1] = where120(s1);
+                    if (b0 && b0 == b1)
+                        for (size_t k = o0; k < o1; k++)
+                            if (b0->b[k] == '\n') {
+                                ml = true;
+                                break;
+                            }
+                }
+                multiLineDef120[std::string(d.name.valueText())] = ml;
+            }
+            if (n.kind == SyntaxKind::MacroUsage && !inactive) {
+                auto& m = n.as<syntax::MacroUsageSyntax>();
+                std::string nm(m.directive.valueText());
+                if (!nm.empty() && nm[0] == '`')
+                    nm.erase(0, 1);
+                auto it = multiLineDef120.find(nm);
+                if (m.args || (it != multiLineDef120.end() && it->second))
+                    addEv120(m.directive.rawText().data(), true);
+            }
+            if (n.kind == SyntaxKind::IncludeDirective && !inactive) {
+                auto& inc = n.as<syntax::IncludeDirectiveSyntax>();
+                addEv120(inc.directive.rawText().data(), true);
+            }
+            for (size_t k = 0; k < n.getChildCount(); k++) {
+                if (auto* cn = n.childNode(k))
+                    node120(*cn, inactive);
+                else if (auto ct = n.childToken(k))
+                    tok120(ct, inactive);
+            }
+        };
+        for (auto& tree : driver.syntaxTrees)
+            node120(tree->root(), false);
+        for (auto& [p, evs] : fpEvents120)
+            std::stable_sort(evs.begin(), evs.end(),
+                             [](const FpEv120& a, const FpEv120& b) { return a.off < b.off; });
+        if (getenv("R11U120_FPDBG"))
+            for (auto& [p, evs] : fpEvents120)
+                for (auto& e : evs)
+                    fprintf(stderr, "R11U120 FP %s off=%zu %s\n", p.c_str(), e.off,
+                            e.resync ? "RESYNC" : "SHIFT");
     }
 
     // One syntax walk collecting two bind facts plus the declared config names:
@@ -545,6 +945,78 @@ int main(int argc, char** argv) {
                                      /*allowFormal*/ formal == true);
             synth_.listenDesigns(designs);
             synth_.filterNonSynthesizable();
+        }
+    }
+
+    // § fpLineFiller120 — the post-pass (decode at the event walk above).
+    if (fpLines120 && !fpEvents120.empty()) {
+        auto& sm120 = driver.sourceManager;
+        // Per file: event lines, in offset order.
+        std::map<std::string, std::vector<std::pair<uint32_t, bool>>> lines120;
+        for (auto id : sm120.getAllBuffers()) {
+            auto t = sm120.getSourceText(id);
+            if (t.empty())
+                continue;
+            auto pth = sm120.getFullPath(id).string();
+            auto it = fpEvents120.find(pth);
+            if (it == fpEvents120.end() || lines120.count(pth))
+                continue;
+            auto& out = lines120[pth];
+            for (auto& e : it->second)
+                out.push_back({(uint32_t)sm120.getLineNumber(SourceLocation(id, e.off)),
+                               e.resync});
+        }
+        auto shift120 = [&](const std::vector<std::pair<uint32_t, bool>>& evs,
+                            int64_t q) -> int64_t {
+            int64_t d = 0;
+            for (auto& [ln, rs] : evs) {
+                if ((int64_t)ln < q)
+                    d = rs ? 0 : d + 1;
+                else if ((int64_t)ln == q && rs)
+                    d = 0;
+                else if ((int64_t)ln > q)
+                    break;
+            }
+            return d;
+        };
+        auto fileOf120 = [](const UHDM::BaseClass* o) -> std::string {
+            for (int g = 0; o && g < 64; o = o->VpiParent(), g++)
+                if (!o->VpiFile().empty())
+                    return std::string(o->VpiFile());
+            return {};
+        };
+        for (auto& [co, id] : serializer.AllObjects()) {
+            (void)id;
+            auto* o = const_cast<UHDM::BaseClass*>(co);
+            if (!o)
+                continue;
+            if (o->VpiLineNo() > 0 || o->VpiEndLineNo() > 0) {
+                auto it = lines120.find(fileOf120(o));
+                if (it != lines120.end()) {
+                    if (o->VpiLineNo() > 0)
+                        o->VpiLineNo((uint32_t)(o->VpiLineNo() +
+                                                shift120(it->second, o->VpiLineNo())));
+                    if (o->VpiEndLineNo() > 0)
+                        o->VpiEndLineNo((uint32_t)(o->VpiEndLineNo() +
+                                                   shift120(it->second, o->VpiEndLineNo())));
+                }
+            }
+            if (auto* in = dynamic_cast<UHDM::instance*>(o))
+                if (in->VpiDefLineNo() > 0)
+                    if (auto it = lines120.find(std::string(in->VpiDefFile()));
+                        it != lines120.end())
+                        in->VpiDefLineNo((int32_t)(in->VpiDefLineNo() +
+                                                   shift120(it->second, in->VpiDefLineNo())));
+            if (auto* tm = dynamic_cast<UHDM::typespec_member*>(o))
+                if (auto it = lines120.find(std::string(tm->VpiRefFile()));
+                    it != lines120.end()) {
+                    if (tm->VpiRefLineNo() > 0)
+                        tm->VpiRefLineNo((int32_t)(tm->VpiRefLineNo() +
+                                                   shift120(it->second, tm->VpiRefLineNo())));
+                    if (tm->VpiRefEndLineNo() > 0)
+                        tm->VpiRefEndLineNo((int32_t)(
+                            tm->VpiRefEndLineNo() + shift120(it->second, tm->VpiRefEndLineNo())));
+                }
         }
     }
 

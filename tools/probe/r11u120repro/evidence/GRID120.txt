@@ -1,0 +1,82 @@
+## g2 (tools/probe/r11u118repro/grid/g2) — pristine binary + d31ae79a harness | LAW binary e0f0c780 + this harness; rc = g187/gds/ours/ours_ds, cmp = uhdm-cmp vs pinned v1.87 golden (probe flags), ds = downstream verdict
+ARM m01_member_bit rc=0/0/0/0 cmp=0 ds=DIVERGENT nohier il synth|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM m02_member_part rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM m03_member_idx rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM m04_2d_member rc=0/0/0/0 cmp=180 ds=DIVERGENT nohier il synth|rc=0/0/0/0 cmp=180 ds=EQUIVALENT nohier il synth
+ARM m05_nested_member rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM m06_sized_literal rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM m07_plain_vecsel rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM m08_member_whole rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM m09_unpacked_elem_member rc=0/0/0/0 cmp=158 ds=IDENTICAL |rc=0/0/0/0 cmp=158 ds=IDENTICAL
+ARM m10_hex_unsized rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+LISTED=10|LISTED=10
+
+## g3 (tools/probe/r11u118repro/grid/g3) — pristine binary + d31ae79a harness | LAW binary e0f0c780 + this harness; rc = g187/gds/ours/ours_ds, cmp = uhdm-cmp vs pinned v1.87 golden (probe flags), ds = downstream verdict
+ARM i01_arrelem rc=0/0/0/0 cmp=0 ds=DIVERGENT nohier il synth|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM i02_single_ov rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM i03_single_default rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM i04_named_modport rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM i05_arrelem1 rc=0/0/0/0 cmp=0 ds=DIVERGENT nohier il synth|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM i06_twomember rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM i07_scalar rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+LISTED=7|LISTED=7
+
+## gA (tools/probe/r11u120repro/grid/gA) — pristine binary + d31ae79a harness | LAW binary e0f0c780 + this harness; rc = g187/gds/ours/ours_ds, cmp = uhdm-cmp vs pinned v1.87 golden (probe flags), ds = downstream verdict
+ARM a01_two_inst rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM a02_genif rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM a03_sized_idxpart rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM a04_param_rhs rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM a05_nested rc=0/0/0/0 cmp=0 ds=DIVERGENT nohier il synth|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM a06_union rc=0/0/0/0 cmp=0 ds=DIVERGENT nohier il synth|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM a07_dec_multibit rc=0/0/0/0 cmp=0 ds=DIVERGENT nohier il synth|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM a08_param_child rc=0/0/0/0 cmp=0 ds=DIVERGENT nohier il synth|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM a09_genfor rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM a10_arr_elem_member rc=0/0/0/0 cmp=158 ds=DIVERGENT nohier il synth|rc=0/0/0/0 cmp=158 ds=EQUIVALENT nohier il synth
+LISTED=10|LISTED=10
+
+## gB (tools/probe/r11u120repro/grid/gB) — pristine binary + d31ae79a harness | LAW binary e0f0c780 + this harness; rc = g187/gds/ours/ours_ds, cmp = uhdm-cmp vs pinned v1.87 golden (probe flags), ds = downstream verdict
+ARM b01_arr1_two_readers rc=0/0/0/0 cmp=0 ds=DIVERGENT nohier il synth|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM b02_twomember_B rc=0/0/0/0 cmp=84 ds=DIVERGENT nohier il synth|rc=0/0/0/0 cmp=84 ds=DIVERGENT nohier il synth
+ARM b03_generic_port rc=0/0/0/0 cmp=68 ds=DIVERGENT nohier il synth|rc=0/0/0/0 cmp=68 ds=DIVERGENT nohier il synth
+ARM b04_genfor_arr rc=0/0/0/0 cmp=68 ds=EQUIVALENT nohier il|rc=0/0/0/0 cmp=68 ds=EQUIVALENT nohier il
+ARM b05_scalar_and_agg rc=0/0/0/0 cmp=11 ds=DIVERGENT nohier il synth|rc=0/0/0/0 cmp=11 ds=DIVERGENT nohier il synth
+ARM b06_single_default rc=0/0/0/0 cmp=68 ds=DIVERGENT nohier il synth|rc=0/0/0/0 cmp=68 ds=DIVERGENT nohier il synth
+LISTED=6|LISTED=6
+
+## gT (tools/probe/r11u120repro/grid/gT) — pristine binary + d31ae79a harness | LAW binary e0f0c780 + this harness; rc = g187/gds/ours/ours_ds, cmp = uhdm-cmp vs pinned v1.87 golden (probe flags), ds = downstream verdict
+ARM t01_row_shape rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM t02_nonlocal_default rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM t03_ordered_override rc=0/0/0/0 cmp=47 ds=EQUIVALENT nohier il synth|rc=0/0/0/0 cmp=47 ds=EQUIVALENT nohier il synth
+ARM t04_two_inst rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier il synth|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM t05_local_plain rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM t06_gen_inst rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM t07_local_dep_value rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM t08_body_localparam_type rc=0/0/0/0 cmp=0 ds=DIVERGENT nohier il synth|rc=0/0/0/0 cmp=0 ds=DIVERGENT nohier il synth
+LISTED=8|LISTED=8
+
+## gD (tools/probe/r11u120repro/grid/gD) — pristine binary + d31ae79a harness | LAW binary e0f0c780 + this harness; rc = g187/gds/ours/ours_ds, cmp = uhdm-cmp vs pinned v1.87 golden (probe flags), ds = downstream verdict
+ARM d01_vec_default_child rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM d02_vec_default_top rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM d03_scalar_default rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM d04_vec_overridden rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM d05_bit_vec rc=0/0/0/0 cmp=0 ds=DIVERGENT nohier il synth|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM d06_gen_scope rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier il|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM d07_two_dims rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM d08_output_port rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+LISTED=8|LISTED=8
+
+## gF (tools/probe/r11u120repro/grid/gF) — pristine binary + d31ae79a harness | LAW binary e0f0c780 + this harness; rc = g187/gds/ours/ours_ds, cmp = uhdm-cmp vs pinned v1.87 golden (probe flags), ds = downstream verdict
+ARM f01_inactive_on rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier il synth|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM f02_inactive_on_macro rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM f03_stray_on rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier il synth|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM f04_active_pair rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier il|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM f05_two_inactive rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier il synth|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM f06_active_ifdef_pair rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier il|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM f07_inactive_else rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier il synth|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM f08_macro_noarg_resync rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier il synth|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM f09_on_then_macro_same_line rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM f10_second_module rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier il synth|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM f11_region_inside_module_inst rc=0/0/0/0 cmp=0 ds=EQUIVALENT nohier il|rc=0/0/0/0 cmp=0 ds=IDENTICAL
+ARM f12_multiline_macro_resync rc=0/0/0/0 cmp=0 ds=IDENTICAL |rc=0/0/0/0 cmp=0 ds=IDENTICAL
+LISTED=12|LISTED=12
+

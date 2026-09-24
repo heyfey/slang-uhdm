@@ -1,0 +1,73 @@
+# ORDER120 — the two order rows are heap-layout noise, not object order
+# ylane.py md5 of nohier.il (first line dropped); resave = Restore+Save unchanged; dropargs = erase the 1024 orphan call args
+matching_end_labels:
+  surelog lane nohier         0b1b923c0c79 (golden)
+  slang lane nohier           76629ce38082
+  golden db                   0b1b923c0c79
+  golden db RESAVED           76629ce38082   <- identical objects/fields/per-type order (idlist diff 0), flips to OUR output
+  ours db                     76629ce38082
+  ours db resaved             76629ce38082
+  per-type object counts      identical (150 objects each)
+func_upto:
+  golden db                   939a07bd2cc6
+  golden db resaved           939a07bd2cc6
+  ours db                     83e46e70302c
+  ours db resaved             7d1d4d96cc7b   <- a pure round trip moves ours to a THIRD order
+  ours minus 1024 orphan args 7d1d4d96cc7b
+  object counts: golden 226502, ours 227526 (+1024 ref_obj: A_CONST/B_CONST args 20:36/20:45 under the 512 elaborated func_call F@20:34, orphans next to the folded constants)
+  file sizes: golden 17433369 ours 17359580
+
+## per-type creation-order diff, matching_end_labels (ordcmp: golden < > ours)
+30d29
+< cont_assign - 20.20-20.25 named_begin(blk3)
+32d30
+< cont_assign - 25.20-25.25 named_begin(blk4)
+33a32,33
+> cont_assign - 20.20-20.25 named_begin(blk3)
+> cont_assign - 25.20-25.25 named_begin(blk4)
+54a55,58
+> logic_net out1 3.5-3.9 module_inst()
+> logic_net out2 3.11-3.15 module_inst()
+> logic_net out3 3.17-3.21 module_inst()
+> logic_net out4 3.23-3.27 module_inst()
+61,64d64
+< logic_net out1 3.5-3.9 module_inst()
+< logic_net out2 3.11-3.15 module_inst()
+< logic_net out3 3.17-3.21 module_inst()
+< logic_net out4 3.23-3.27 module_inst()
+71,72c71,72
+< logic_typespec - 19.13-19.16 logic_net(x)
+< logic_typespec - 24.13-24.16 logic_net(x)
+---
+> logic_typespec - 19.13-19.16
+> logic_typespec - 24.13-24.16
+87,90d86
+< port out1 3.5-3.9 module_inst(work
+< port out2 3.11-3.15 module_inst(work
+< port out3 3.17-3.21 module_inst(work
+< port out4 3.23-3.27 module_inst(work
+94a91,94
+> port out1 3.5-3.9 module_inst(work
+> port out2 3.11-3.15 module_inst(work
+> port out3 3.17-3.21 module_inst(work
+> port out4 3.23-3.27 module_inst(work
+109d108
+< ref_obj x 20.20-20.21 cont_assign()
+113d111
+< ref_obj x 25.20-25.21 cont_assign()
+116a115,116
+> ref_obj x 20.20-20.21 cont_assign()
+> ref_obj x 25.20-25.21 cont_assign()
+121d120
+< ref_obj out3 22.16-22.20 cont_assign()
+124c123
+< ref_obj out4 27.16-27.20 cont_assign()
+---
+> ref_obj out3 22.16-22.20 cont_assign()
+126a126,128
+> ref_obj out4 27.16-27.20 cont_assign()
+> ref_obj x 20.20-20.21 cont_assign()
+> ref_obj x 25.20-25.21 cont_assign()
+131,132d132
+< ref_obj x 20.20-20.21 cont_assign()
+< ref_obj x 25.20-25.21 cont_assign()

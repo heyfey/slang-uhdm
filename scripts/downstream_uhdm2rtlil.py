@@ -120,7 +120,10 @@ def yosys_lane(name, lane, db, top, formal, work, timeout):
     d = os.path.join(work, lane)
     shutil.rmtree(d, ignore_errors=True)
     os.makedirs(d)
-    run = '/tmp/u2rds-' + hashlib.sha1(f'{name}/{lane}'.encode()).hexdigest()[:12]
+    # The name is keyed on the work directory and the process too, so two
+    # sweeps of the same test (two binaries, two agents) never share a run
+    # directory; the length stays fixed.
+    run = '/tmp/u2rds-' + hashlib.sha1(f'{name}/{lane}/{os.path.abspath(work)}/{os.getpid()}'.encode()).hexdigest()[:12]
     shutil.rmtree(run, ignore_errors=True)
     os.makedirs(run)
     shutil.copy(db, os.path.join(run, 'in.uhdm'))

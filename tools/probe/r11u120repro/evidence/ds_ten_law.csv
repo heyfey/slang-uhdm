@@ -1,0 +1,11 @@
+name,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail
+func_upto,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 17152 common constant assignments match
+gen_scope_numports,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+ibex_controller,IDENTICAL,OK,OK,565,565,,
+iface_array_elem_cfg_param,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+IndexedPartSelectOfMember,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+matching_end_labels,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 8 common constant assignments match
+param_name_collision_typeparam,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+PartSelectOfMember,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+SelectOnMemberSelectedFrom2DArray,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+type_param_override_elem_sel,IDENTICAL,OK,OK,3,3,,

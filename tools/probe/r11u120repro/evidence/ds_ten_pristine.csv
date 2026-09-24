@@ -1,0 +1,11 @@
+name,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail
+func_upto,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 17152 common constant assignments match
+gen_scope_numports,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,ℹ️  No common assign statements to compare — skipping
+ibex_controller,EQUIVALENT,OK,OK,565,565,nohier il,✅ Formal equivalence check PASSED for /tmp/r11u120_dsP/ibex_controller/equiv/ibex_controller
+iface_array_elem_cfg_param,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u120_dsP/iface_array_elem_cfg_param/equiv/iface_arra
+IndexedPartSelectOfMember,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in UHDM import
+matching_end_labels,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 8 common constant assignments match
+param_name_collision_typeparam,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 2 common constant assignments match
+PartSelectOfMember,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in UHDM import
+SelectOnMemberSelectedFrom2DArray,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in UHDM import
+type_param_override_elem_sel,EQUIVALENT,OK,OK,3,3,nohier,✅ Formal equivalence check PASSED for /tmp/r11u120_dsP/type_param_override_elem_sel/equiv/type_param_override_elem_sel

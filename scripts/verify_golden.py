@@ -298,7 +298,7 @@ IRRELEVANT_NOARG = {
     '-parse', '-nocache', '-noprecompiledcache', '-nowritecache', '-nohash',
     '-createcache', '-writepp', '-lineoffsetascomments', '-outputlineinfo',
     '-pploc', '-ppextra_loc', '-filterdirectives', '-filtercomments',
-    '-filterprotected', '-verbose', '-nostdout', '-profile', '-replay',
+    '-verbose', '-nostdout', '-profile', '-replay',
     '-noinfo', '-nonote', '-nowarning', '-lowmem', '-batch', '-split',
     '-nopython', '-gc', '-nogc', '-init', '-pythonlistener',
     '-sv', '-sverilog',  # slang parses SystemVerilog unconditionally
@@ -444,6 +444,11 @@ def translate(parts):
             args.append('--synth')
         elif p == '-formal':
             args.append('--formal')
+        elif p == '-filterprotected':
+            # Not a no-op: it drops `translate_off`..`translate_on` regions
+            # and re-counts the lines after them (§ filterProtected120 and
+            # § fpLineFiller120 in uhdm_main.cpp).  uhdm2rtlil's flow passes it.
+            args.append('--filterprotected')
         elif p in ONEARG_MAP:
             args += [ONEARG_MAP[p], parts[i + 1]]
             i += 2

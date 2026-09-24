@@ -1,0 +1,4 @@
+# laws on (fix binary 601855b0) vs pristine 3e6d2800, probe flags (dut.sv --single-unit --nobuiltin)
+r11u118repro ARMS=56 MOVED=9 : grid/g2/m01_member_bit grid/g2/m04_2d_member grid/g2/m09_unpacked_elem_member grid/g3/i01_arrelem grid/g3/i02_single_ov grid/g3/i03_single_default grid/g3/i04_named_modport grid/g3/i05_arrelem1 grid/g3/i06_twomember
+r11u119repro ARMS=78 MOVED=0 :
+r11v11u118repro ARMS=56 MOVED=0 :

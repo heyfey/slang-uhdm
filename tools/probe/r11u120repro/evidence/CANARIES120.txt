@@ -1,0 +1,48 @@
+  InterfaceBinding               default   CHANGED CMP_EQUAL/match -> CMP_EQUAL/differ
+  InterfaceBinding               testflags CHANGED CMP_EQUAL/match -> CMP_EQUAL/differ
+  InterfaceModExp                default   CHANGED CMP_EQUAL/match -> CMP_EQUAL/differ
+  InterfaceModExp                testflags CHANGED CMP_EQUAL/match -> CMP_EQUAL/differ
+  BindHierPath                   default   CHANGED CMP_EQUAL/match -> CMP_EQUAL/differ
+  BindHierPath                   testflags CHANGED CMP_EQUAL/match -> CMP_EQUAL/differ
+  EnumConcat                     default   CHANGED CMP_EQUAL/match -> CMP_EQUAL/differ
+  EnumConcat                     testflags CHANGED CMP_EQUAL/match -> CMP_EQUAL/differ
+  LowMemPkg                      default   CHANGED CMP_EQUAL/match -> CMP_EQUAL/differ
+---- canary rows: ok=43 changed=9 absent=0 unknown-names=7
+  paramod_genscope_child         default   CHANGED CMP_EQUAL/match -> CMP_EQUAL/differ
+  paramod_genscope_child         testflags CHANGED CMP_EQUAL/match -> CMP_EQUAL/differ
+  issue326_packed_mem            default   CHANGED CMP_EQUAL/match -> CMP_EQUAL/differ
+  issue326_packed_mem            testflags CHANGED CMP_EQUAL/match -> CMP_EQUAL/differ
+---- canary rows: ok=12 changed=4 absent=0 unknown-names=25
+  TypespecExpr                       default   CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  ClogCast                           default   CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  ClogCast                           testflags CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  EvalFuncCont                       default   CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  EvalFuncCont                       testflags CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  ParamFile                          default   CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  ParamFile                          testflags CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  ParamFileMacro                     default   OK       SURELOG_FAIL/
+  ParamFileMacro                     testflags OK       SURELOG_FAIL/
+  ParamFileNoTop                     default   CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  ParamFileOverr                     default   CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  ParamFileOverr                     testflags CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  BlackBox                           default   CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  BlackBoxInst                       default   CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  BlackBoxInstTop                    default   CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  BlackBoxInstTop                    testflags CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  BlackBoxMod                        default   CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  BlackBoxMod                        testflags CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  BlackBoxSubMod                     default   CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  BlackBoxSubMod                     testflags CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  BlackParrot                        default   OK       SURELOG_FAIL/
+  BlackParrot                        testflags OK       SURELOG_FAIL/
+  BlackUcode                         default   OK       SURELOG_FAIL/
+  BlackUcode                         testflags OK       SURELOG_FAIL/
+  BlackUnicore                       default   OK       SURELOG_FAIL/
+  BlackUnicore                       testflags OK       SURELOG_FAIL/
+---- ctcan2 rows: ok=40 changed=18 absent=0 unknown-patterns=1
+FAIL: a supplementary canary moved.
+  2DFunctionArg                      default   CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+  2DFunctionArg                      testflags CHANGED  CMP_EQUAL/match -> CMP_EQUAL/differ
+---- ctcan2 rows: ok=0 changed=2 absent=0 unknown-patterns=6
+FAIL: a supplementary canary moved.
+changed canary rows that are byte MOVERS (vs the pristine sweep): 0 of 33 (name,mode) cells

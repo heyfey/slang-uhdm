@@ -27,6 +27,53 @@
 
 namespace slang_uhdm {
 
+// § tpDimVecPortTsIsDefault120 (r11u120) — THE VECTOR LEAF of
+// § tpDimPortTsIsDefault41.  A port written `data_t [N-1:0] p`, where `data_t`
+// is a type parameter whose (resolved) type is a plain VECTOR or scalar
+// (`parameter type data_t = logic [W-1:0]`), reads in golden the SAME object
+// the aggregate case reads: the type parameter's DEFAULT typespec, shared by
+// the definition's port and every elaborated port, the written packed dims
+// dropped (golden param_name_collision_typeparam: `work@inner` port `d_i` and
+// `...gen_cut[0].u.d_i` both -> logic_typespec 11:27-11:48 `logic
+// [DataWidth-1:0]`; gen_scope_numports `tc_sram_wrapper.wdata_i/rdata_o` ->
+// 19:40-19:61).  Surelog compiles the written type NAME through
+// compileTypespec, which returns the parameter's typespec and never sees the
+// dims (the same producer § 41 decodes).  Ours minted a fresh RANGE-LESS
+// logic_typespec at the written-type span (14:10-14:31); the judge compares
+// them equal on every row measured, but uhdm2rtlil sizes the port and imports
+// the default's range through it: golden's `DataWidth-1` `$sub` cells, src
+// `dut.sv:11.34-11.45`, are missing from ours.  Same predicate shape as
+// tpAggregateLeafAlias41 (EmitHelpers.h, not edited here); only the leaf's
+// canonical kind differs.  Grid tools/probe/r11u120repro/grid/gD.
+// `R11U120_TPDIMVEC_OFF=1` drops it.
+static const slang::ast::TypeParameterSymbol* tpVecLeafAlias120(const slang::ast::Symbol& sym) {
+    using namespace slang::ast;
+    if (getenv("R11U120_OFF") || getenv("R11U120_TPDIMVEC_OFF"))
+        return nullptr;
+    auto* dt = sym.getDeclaredType();
+    if (!dt)
+        return nullptr;
+    auto* tsyn = dt->getTypeSyntax();
+    if (!tsyn || tsyn->kind != slang::syntax::SyntaxKind::NamedType)
+        return nullptr;
+    auto& t = dt->getType();
+    if (t.kind != SymbolKind::PackedArrayType)
+        return nullptr;
+    const Type* leaf = &t;
+    while (leaf->kind == SymbolKind::PackedArrayType)
+        leaf = &leaf->as<PackedArrayType>().elementType;
+    if (leaf->kind != SymbolKind::TypeAlias)
+        return nullptr;
+    auto* syn = leaf->getSyntax();
+    if (!syn || syn->kind != slang::syntax::SyntaxKind::TypeAssignment)
+        return nullptr;
+    auto& lc = leaf->getCanonicalType();
+    if (lc.kind != SymbolKind::PackedArrayType && lc.kind != SymbolKind::ScalarType)
+        return nullptr;
+    return typeParamOfAlias(leaf->as<TypeAliasType>());
+}
+
+
 // r11u112 kill switches (tools/probe/r11u112repro/README.md): R11U112_OFF drops
 // every r11u112 law, R11U112_<X>_OFF drops one.  The ExprEmit.cpp twin reads the
 // same environment.
@@ -17078,6 +17125,15 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     if (td41 != typeParamDefaultTs.end())
                         pts = td41->second;
                 }
+            // § tpDimVecPortTsIsDefault120 — the vector leaf (child road).
+            if (!pts)
+                if (auto* tpd120 = tpVecLeafAlias120(*internal)) {
+                    auto td120 = typeParamDefaultTs.find(
+                        {(const void*)&inst.getDefinition(),
+                         std::string(tpd120->name)});
+                    if (td120 != typeParamDefaultTs.end())
+                        pts = td120->second;
+                }
             // An unpacked-array-of-packed-STRUCT port's vpiTypedef binds the
             // ELEMENT typedef's SHARED struct typespec (Surelog), not a
             // synthesized element logic typespec.
@@ -29404,6 +29460,16 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                     defPts = td41->second;
                 }
             }
+            // § tpDimVecPortTsIsDefault120 — the vector leaf (top road).
+            else if (auto* tpd120 = tpVecLeafAlias120(*internal)) {
+                auto td120 = typeParamDefaultTs.find(
+                    {(const void*)&tp.inst->getDefinition(),
+                     std::string(tpd120->name)});
+                if (td120 != typeParamDefaultTs.end()) {
+                    topActual = td120->second;
+                    defPts = td120->second;
+                }
+            }
         }
         // A vector-typedef-typed port's vpiTypedef is a self-alias clone in
         // BOTH views, but Surelog makes them DISTINCT: the DEF-view clone is
@@ -30667,7 +30733,18 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                     mpSyn9 &&
                     rangeRefsOverriddenParam(*internal, nonTopDefP, mpSyn9);
             }
-            if (!topView && m->UhdmType() == UHDM::uhdmmodule_inst &&
+            // § tpDimVecPortTsIsDefault120 — the vector leaf wins over the
+            // deferred (pendingNetTs) typespec too: golden's def port reads the
+            // type parameter's default object even when the written dims name
+            // an overridden parameter (grid gD d01/d06: `data_t [N-1:0]` with
+            // `N` overridden; param_name_collision_typeparam `[NumPorts-1:0]`).
+            bool vecDefault120 = false;
+            if (!topView && m->UhdmType() == UHDM::uhdmmodule_inst)
+                if (auto* tpv120 = tpVecLeafAlias120(*internal))
+                    vecDefault120 =
+                        typeParamDefaultTs.count({(const void*)&body.getDefinition(),
+                                                  std::string(tpv120->name)}) > 0;
+            if (!topView && m->UhdmType() == UHDM::uhdmmodule_inst && !vecDefault120 &&
                 (rangeRefsOverriddenParam(*internal, nonTopDefP) ||
                  mergedPortDim9)) {
                 auto* rt = s.MakeRef_typespec();
@@ -30696,6 +30773,15 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                              std::string(tpd41->name)});
                         if (td41 != typeParamDefaultTs.end())
                             ts = td41->second;
+                    }
+                // § tpDimVecPortTsIsDefault120 — the vector leaf (def road).
+                if (!ts)
+                    if (auto* tpd120 = tpVecLeafAlias120(*internal)) {
+                        auto td120 = typeParamDefaultTs.find(
+                            {(const void*)&body.getDefinition(),
+                             std::string(tpd120->name)});
+                        if (td120 != typeParamDefaultTs.end())
+                            ts = td120->second;
                     }
                 // A vector-typedef-typed port's vpiTypedef gets its OWN
                 // self-alias clone (Typedef_alias -> shared base), like the
@@ -36830,14 +36916,49 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                                            ae.left(), ca, prefix, netMap, -1,
                                            caSetterChainDepth85(ae.right()),
                                            /*ifaceHome85=*/false);
-        // A MEMBER-select (hier_path) LHS with a literal RHS gets a BARE
-        // loc-only Rhs constant in the elab view — Surelog does not re-parent
-        // or re-size it (unlike the plain vector-select case, whose value
-        // folds to the LHS width below).
+        // A MEMBER-select (hier_path) LHS with a literal RHS: the elab
+        // cont_assign's Rhs is NOT re-compiled or re-sized against the LHS
+        // (unlike the plain vector-select case, whose value folds to the LHS
+        // width below).
+        //
+        // § memberSelLitRhsShared120 (r11u120) — IT IS THE DEFINITION'S OWN
+        //   CONSTANT, RE-PARENTED AT THE ELABORATED CONT_ASSIGN, NOT A BARE
+        //   LOC-ONLY STUB.  Producer: UhdmWriter::writeCont_assign
+        //   (Surelog v1.87 UhdmWriter.cpp:2254-2277) — the reduce hands back
+        //   the def's constant, `adjustSize(nullptr, ...)` is a no-op for a
+        //   hier_path Lhs (it has no Typespec), then `res->VpiParent(assign)`
+        //   and `assign->Rhs(res)`: the elaborated cell SHARES the def object
+        //   (golden lists `constant UINT:1 size 64` under BOTH cont_assigns,
+        //   parent = the elaborated one).  The older "bare loc-only" reading
+        //   was the uhdm-dump REPEAT elision (a repeated object prints as its
+        //   header line alone) — the same misreading § ifaceDotFresh retracted.
+        //   The judge never reads VpiParent/VpiValue on this cell (it compares
+        //   the constant's VpiConstType/VpiSize/VpiDecompile — which is why
+        //   the bare stub stayed cmp-EQUAL), but uhdm2rtlil's import_constant
+        //   (expression.cpp ~:3746) reads the VALUE: a value-less constant
+        //   imports as type 0 / size 0 and connects 1'x where golden reads
+        //   1'1 (PartSelectOfMember, IndexedPartSelectOfMember,
+        //   SelectOnMemberSelectedFrom2DArray: DIVERGENT -> IDENTICAL).
+        //   The bare mint stays as the fallback when the def view did not
+        //   leave a constant.  Switch: R11U120_MEMBERSELRHS_OFF.
         if (!rhs && topView && memberSelLitLhs) {
-            auto* bc = s.MakeConstant();
-            setLoc(bc, stripImplicitConv(ae.right()).sourceRange);
-            rhs = bc;
+            UHDM::any* dc120 = nullptr;
+            if (!getenv("R11U120_OFF") && !getenv("R11U120_MEMBERSELRHS_OFF") &&
+                defInfo && myIdx < defInfo->contAssigns.size() &&
+                defInfo->contAssigns[myIdx] &&
+                defInfo->contAssigns[myIdx]->Rhs() &&
+                defInfo->contAssigns[myIdx]->Rhs()->UhdmType() ==
+                    UHDM::uhdmconstant) {
+                dc120 = (UHDM::any*)defInfo->contAssigns[myIdx]->Rhs();
+                dc120->VpiParent(ca);
+            }
+            if (dc120) {
+                rhs = dc120;
+            } else {
+                auto* bc = s.MakeConstant();
+                setLoc(bc, stripImplicitConv(ae.right()).sourceRange);
+                rhs = bc;
+            }
         }
         if (!rhs) {
             if (topView) {
@@ -42106,6 +42227,28 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // re-evaluation of the initializer is needed here.  The VALUE is left
     // alone — the fold-scope value is already what emitParameters produced for
     // every corpus cell measured (residue R1 below names the ones it is not).
+    // § ifacePortViewAggParamParent120 (b) — THE NAMED-MODPORT PORT VIEW TOO.
+    //   Surelog's elab_parameters_ clone_tree's EVERY assignment-pattern
+    //   param_assign of every elaborated view, so the named-modport view
+    //   (which the block below skips: it folds at the connected instance's
+    //   values and keeps its stamps) also parents its aggregate Lhs parameter
+    //   at the param_assign — measured on grid g3 i02/i03/i04 and gB b06
+    //   (golden `parameter CFG <- param_assign`, ours `<- interface_inst`).
+    //   Here our own param_assign's Rhs is the oracle: it already carries the
+    //   connected instance's value, which is what the plugin then reads, so
+    //   the value it folds does not move.  Switch: R11U120_IFACEAGGPARENTNM_OFF.
+    if (portView && namedModportPortView9 && !getenv("R11U120_OFF") &&
+        !getenv("R11U120_IFACEAGGPARENTNM_OFF"))
+        if (auto* pasN = iface->Param_assigns())
+            for (auto* paN : *pasN) {
+                auto* rN = paN->Rhs();
+                auto* lN = paN->Lhs();
+                if (rN && lN && lN->UhdmType() == UHDM::uhdmparameter &&
+                    rN->UhdmType() == UHDM::uhdmoperation &&
+                    ((const UHDM::operation*)rN)->VpiOpType() ==
+                        vpiAssignmentPatternOp)
+                    ((UHDM::parameter*)lN)->VpiParent(paN);
+            }
     if (portView && !namedModportPortView9) {
         UHDM::interface_inst* defView4 = nullptr;
         if (auto dit4 = ifaceDefMap.find(&def); dit4 != ifaceDefMap.end())
@@ -42132,6 +42275,28 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                     }
                 if (!defRhs4 || defRhs4->UhdmType() != UHDM::uhdmoperation)
                     continue;
+                // § ifacePortViewAggParamParent120 (r11u120) — AN AGGREGATE
+                //   (assignment-pattern) PORT-VIEW PARAMETER IS PARENTED AT ITS
+                //   PARAM_ASSIGN, NOT AT THE INTERFACE INSTANCE.  Producer:
+                //   NetlistElaboration::elab_parameters_ (Surelog v1.87
+                //   NetlistElaboration.cpp:262-264): an assignment-pattern
+                //   parameter is built by `pclone = clone_tree(mod_assign)`,
+                //   and clone_tree parents the cloned Lhs parameter at the
+                //   cloned param_assign.  (A scalar instead SHARES the def's
+                //   parameter, `inst_assign->Lhs(mod_assign->Lhs())`, :450.)
+                //   No generated Compare reads VpiParent, so the judge is
+                //   blind; uhdm2rtlil's fold_iface_param_via_chain
+                //   (uhdm2rtlil.cpp:1079-1111) reads the value through
+                //   `par->VpiParent()` when that parent is a param_assign —
+                //   the declaration default `'{DAT: 8}` — and otherwise falls
+                //   through to the connected instance's override (16):
+                //   iface_array_elem_cfg_param DIVERGENT -> IDENTICAL.
+                //   Switch: R11U120_IFACEAGGPARENT_OFF.
+                if (!getenv("R11U120_OFF") &&
+                    !getenv("R11U120_IFACEAGGPARENT_OFF") &&
+                    ((const UHDM::operation*)defRhs4)->VpiOpType() ==
+                        vpiAssignmentPatternOp)
+                    ((UHDM::parameter*)lhs4)->VpiParent(pa4);
                 // § ifacePortViewPaFoldsDeclDefault / GUARD (r11v4) — FACE (B)
                 //   MAY ONLY COPY A DEF-VIEW AGGREGATE THAT IS ALREADY IN THE
                 //   REDUCED FORM.  Golden's port-view Rhs is `reduceExpr`'s

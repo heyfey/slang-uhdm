@@ -1,0 +1,11 @@
+NONE: 
+R11U120_MEMBERSELRHS_OFF: IndexedPartSelectOfMember=DIVERGENT PartSelectOfMember=DIVERGENT SelectOnMemberSelectedFrom2DArray=DIVERGENT 
+R11U120_IFACEAGGPARENT_OFF: iface_array_elem_cfg_param=DIVERGENT 
+R11U120_IFACEAGGPARENTNM_OFF: 
+R11U120_TPSHARE_OFF: 
+R11U120_TPDEFPORT_OFF: type_param_override_elem_sel=EQUIVALENT 
+R11U120_TPDIMVEC_OFF: gen_scope_numports=EQUIVALENT param_name_collision_typeparam=EQUIVALENT 
+R11U120_FP_OFF: gen_scope_numports=EQUIVALENT 
+R11U120_FPLINE_OFF: ibex_controller=EQUIVALENT 
+R11V120_FPSPLIT_OFF: 
+R11U120_OFF: gen_scope_numports=EQUIVALENT ibex_controller=EQUIVALENT iface_array_elem_cfg_param=DIVERGENT IndexedPartSelectOfMember=DIVERGENT param_name_collision_typeparam=EQUIVALENT PartSelectOfMember=DIVERGENT SelectOnMemberSelectedFrom2DArray=DIVERGENT type_param_override_elem_sel=EQUIVALENT 

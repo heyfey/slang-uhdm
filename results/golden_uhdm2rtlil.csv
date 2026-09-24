@@ -67,7 +67,7 @@ BindModule,default,CMP_EQUAL,,,equal
 BindModuleWithInputPorts,default,CMP_EQUAL,,,equal
 BindModuleWithInputPortsInGenScope,default,CMP_EQUAL,,,equal
 BindModuleWithOutputPorts,default,CMP_EQUAL,,,equal
-bits_of_type_param,default,CMP_EQUAL,,,differ:value(4)
+bits_of_type_param,default,CMP_EQUAL,,,differ:value(2)
 BitsCallOnExpression,default,CMP_EQUAL,,,equal
 BitsCallOnParametetrizedTypeFromPackage,default,CMP_EQUAL,,,differ:file(1)
 BitsCallOnStructMember,default,CMP_EQUAL,,,equal
@@ -264,7 +264,7 @@ FunctionReturnEnum,default,CMP_EQUAL,,,differ:file(1)
 FunctionWireAssignmentOnDeclaration,default,CMP_EQUAL,,,equal
 FunctionWithoutReturn,default,CMP_EQUAL,,,equal
 FunctionWithOverriddenParameter,default,CMP_EQUAL,,,equal
-gen_scope_numports,default,CMP_EQUAL,,,differ:line(2)
+gen_scope_numports,default,CMP_EQUAL,,,differ:endcol(6)
 gen_scope_typaram,default,CMP_EQUAL,,,differ:file(4)
 gen_struct_access,default,CMP_EQUAL,,,equal
 gen_test1,default,CMP_EQUAL,,,differ:file(56)
@@ -391,7 +391,7 @@ IndexedPartSelect,default,CMP_EQUAL,,,equal
 IndexedPartSelectInFor,default,CMP_EQUAL,,,differ:file(2)
 IndexedPartSelectInUniqueCase,default,CMP_EQUAL,,,equal
 IndexedPartSelectOfArrayElement,default,CMP_EQUAL,,,differ:file(1)
-IndexedPartSelectOfMember,default,CMP_EQUAL,,,differ:decompile(3)
+IndexedPartSelectOfMember,default,CMP_EQUAL,,,equal
 initval,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/initval/dut.sv:1:57: error: redefinition of 'foo' [-Wredefinition],,
 int_port_signed,default,CMP_EQUAL,,,differ:file(1)
 int_types,default,CMP_EQUAL,,,differ:fullname(96)
@@ -553,7 +553,7 @@ PackedArray,default,CMP_EQUAL,,,equal
 param_array_wildcard,default,CMP_EQUAL,,,differ:file(2)
 param_fill_default_paramod,default,CMP_EQUAL,,,equal
 param_int_types,default,CMP_EQUAL,,,equal
-param_name_collision_typeparam,default,CMP_EQUAL,,,differ:line(2)
+param_name_collision_typeparam,default,CMP_EQUAL,,,differ:file(1)
 param_nested_struct_field_width,default,CMP_EQUAL,,,differ:line(5)
 param_no_default,default,CMP_EQUAL,,,equal
 param_packed_array_subst,default,CMP_EQUAL,,,equal
@@ -599,7 +599,7 @@ paramod_struct_param,default,CMP_EQUAL,,,equal
 partsel_simple,default,CMP_EQUAL,,,differ:depth(1)
 PartSelect,default,CMP_EQUAL,,,equal
 PartSelectInFor,default,CMP_EQUAL,,,differ:file(3)
-PartSelectOfMember,default,CMP_EQUAL,,,differ:decompile(3)
+PartSelectOfMember,default,CMP_EQUAL,,,equal
 PartSelectOfPartSelectedBitSelect,default,CMP_EQUAL,,,equal
 past_assert,default,CMP_EQUAL,,,equal
 pattern_default_packed,default,CMP_EQUAL,,,equal
@@ -616,7 +616,7 @@ pico_count_cycle,default,CMP_EQUAL,,,equal
 pkg_localparam_partsel,default,CMP_EQUAL,,,equal
 pkg_nested_struct_param_width,default,CMP_EQUAL,,,differ:col(7)
 PkgParamAsFunctionArg,default,CMP_EQUAL,,,differ:endcol(1)
-port_chained_type_param,default,CMP_EQUAL,,,differ:file(6)
+port_chained_type_param,default,CMP_EQUAL,,,differ:endcol(2)
 port_int_types,default,CMP_EQUAL,,,equal
 port_sign_extend,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/port_sign_extend/dut.v:75:7: error: expected identifier,,
 portsel_struct_param,default,CMP_EQUAL,,,differ:endcol(5)
@@ -669,7 +669,7 @@ scope_task,default,CMP_EQUAL,,,equal
 scopes,default,CMP_EQUAL,,,equal
 SelectFromUnpackedInFunction,default,CMP_EQUAL,,,differ:file(2)
 SelectGivenBySelectOnParameterInFunction,default,CMP_EQUAL,,,differ:type(1)
-SelectOnMemberSelectedFrom2DArray,default,CMP_EQUAL,,,differ:decompile(1)
+SelectOnMemberSelectedFrom2DArray,default,CMP_EQUAL,,,equal
 SelfPartSelectInBitSelect,default,CMP_EQUAL,,,equal
 SelfSelectsInBitSelectAfterBitSelect,default,CMP_EQUAL,,,equal
 setundef,default,CMP_EQUAL,,,equal
@@ -789,10 +789,10 @@ TaskOutputArgument,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/T
 TaskReturn,default,CMP_EQUAL,,,equal
 tern_fill_literal,default,CMP_EQUAL,,,equal
 ternary_not_cond,default,CMP_EQUAL,,,equal
-top_module_type_param,default,CMP_EQUAL,,,differ:file(1)
-type_param_override_elem_sel,default,CMP_EQUAL,,,differ:line(2)
-type_param_packed_dim,default,CMP_EQUAL,,,differ:file(3)
-type_param_unpacked_port,default,CMP_EQUAL,,,differ:file(2)
+top_module_type_param,default,CMP_EQUAL,,,equal
+type_param_override_elem_sel,default,CMP_EQUAL,,,equal
+type_param_packed_dim,default,CMP_EQUAL,,,equal
+type_param_unpacked_port,default,CMP_EQUAL,,,equal
 typed_named_pattern,default,CMP_EQUAL,,,differ:file(5)
 typedef_package,default,CMP_EQUAL,,,differ:value(9)
 typedef_packed_enum_array,default,CMP_EQUAL,,,equal
@@ -817,7 +817,7 @@ TypedefWithParameter,default,CMP_EQUAL,,,differ:endline(3)
 TypeParameterAsPortTypeWithEnum,default,CMP_EQUAL,,,differ:file(4)
 TypeParameterAsPortTypeWithEnumOfParametrizedWidth,default,CMP_EQUAL,,,differ:file(2)
 TypeParameterAsPortTypeWithLogic,default,CMP_EQUAL,,,equal
-TypeParameterAsPortTypeWithLogicAnonymous,default,CMP_EQUAL,,,differ:file(1)
+TypeParameterAsPortTypeWithLogicAnonymous,default,CMP_EQUAL,,,equal
 TypeParameterAsPortTypeWithStruct,default,CMP_EQUAL,,,equal
 ucsbece154b_victim_cache,default,CMP_EQUAL,,,equal
 unary_op_minus,default,CMP_EQUAL,,,equal
@@ -938,7 +938,7 @@ BindModule,testflags,CMP_EQUAL,,,equal
 BindModuleWithInputPorts,testflags,CMP_EQUAL,,,equal
 BindModuleWithInputPortsInGenScope,testflags,CMP_EQUAL,,,equal
 BindModuleWithOutputPorts,testflags,CMP_EQUAL,,,equal
-bits_of_type_param,testflags,CMP_EQUAL,,,differ:value(4)
+bits_of_type_param,testflags,CMP_EQUAL,,,differ:value(2)
 BitsCallOnExpression,testflags,CMP_EQUAL,,,equal
 BitsCallOnParametetrizedTypeFromPackage,testflags,CMP_EQUAL,,,differ:file(1)
 BitsCallOnStructMember,testflags,CMP_EQUAL,,,equal
@@ -1135,7 +1135,7 @@ FunctionReturnEnum,testflags,CMP_EQUAL,,,differ:file(1)
 FunctionWireAssignmentOnDeclaration,testflags,CMP_EQUAL,,,equal
 FunctionWithoutReturn,testflags,CMP_EQUAL,,,equal
 FunctionWithOverriddenParameter,testflags,CMP_EQUAL,,,equal
-gen_scope_numports,testflags,CMP_EQUAL,,,differ:line(2)
+gen_scope_numports,testflags,CMP_EQUAL,,,differ:endcol(6)
 gen_scope_typaram,testflags,CMP_EQUAL,,,differ:file(4)
 gen_struct_access,testflags,CMP_EQUAL,,,equal
 gen_test1,testflags,CMP_EQUAL,,,differ:file(56)
@@ -1262,7 +1262,7 @@ IndexedPartSelect,testflags,CMP_EQUAL,,,equal
 IndexedPartSelectInFor,testflags,CMP_EQUAL,,,differ:file(2)
 IndexedPartSelectInUniqueCase,testflags,CMP_EQUAL,,,equal
 IndexedPartSelectOfArrayElement,testflags,CMP_EQUAL,,,differ:file(1)
-IndexedPartSelectOfMember,testflags,CMP_EQUAL,,,differ:decompile(3)
+IndexedPartSelectOfMember,testflags,CMP_EQUAL,,,equal
 initval,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/initval/dut.sv:1:57: error: redefinition of 'foo' [-Wredefinition],,
 int_port_signed,testflags,CMP_EQUAL,,,differ:file(1)
 int_types,testflags,CMP_EQUAL,,,differ:fullname(96)
@@ -1424,7 +1424,7 @@ PackedArray,testflags,CMP_EQUAL,,,equal
 param_array_wildcard,testflags,CMP_EQUAL,,,differ:file(2)
 param_fill_default_paramod,testflags,CMP_EQUAL,,,equal
 param_int_types,testflags,CMP_EQUAL,,,equal
-param_name_collision_typeparam,testflags,CMP_EQUAL,,,differ:line(2)
+param_name_collision_typeparam,testflags,CMP_EQUAL,,,differ:file(1)
 param_nested_struct_field_width,testflags,CMP_EQUAL,,,differ:line(5)
 param_no_default,testflags,CMP_EQUAL,,,equal
 param_packed_array_subst,testflags,CMP_EQUAL,,,equal
@@ -1470,7 +1470,7 @@ paramod_struct_param,testflags,CMP_EQUAL,,,equal
 partsel_simple,testflags,CMP_EQUAL,,,differ:depth(1)
 PartSelect,testflags,CMP_EQUAL,,,equal
 PartSelectInFor,testflags,CMP_EQUAL,,,differ:file(3)
-PartSelectOfMember,testflags,CMP_EQUAL,,,differ:decompile(3)
+PartSelectOfMember,testflags,CMP_EQUAL,,,equal
 PartSelectOfPartSelectedBitSelect,testflags,CMP_EQUAL,,,equal
 past_assert,testflags,CMP_EQUAL,,,equal
 pattern_default_packed,testflags,CMP_EQUAL,,,equal
@@ -1487,7 +1487,7 @@ pico_count_cycle,testflags,CMP_EQUAL,,,equal
 pkg_localparam_partsel,testflags,CMP_EQUAL,,,equal
 pkg_nested_struct_param_width,testflags,CMP_EQUAL,,,differ:col(7)
 PkgParamAsFunctionArg,testflags,CMP_EQUAL,,,differ:endcol(1)
-port_chained_type_param,testflags,CMP_EQUAL,,,differ:file(6)
+port_chained_type_param,testflags,CMP_EQUAL,,,differ:endcol(2)
 port_int_types,testflags,CMP_EQUAL,,,equal
 port_sign_extend,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/port_sign_extend/dut.v:75:7: error: expected identifier,,
 portsel_struct_param,testflags,CMP_EQUAL,,,differ:endcol(5)
@@ -1540,7 +1540,7 @@ scope_task,testflags,CMP_EQUAL,,,equal
 scopes,testflags,CMP_EQUAL,,,equal
 SelectFromUnpackedInFunction,testflags,CMP_EQUAL,,,differ:file(2)
 SelectGivenBySelectOnParameterInFunction,testflags,CMP_EQUAL,,,differ:type(1)
-SelectOnMemberSelectedFrom2DArray,testflags,CMP_EQUAL,,,differ:decompile(1)
+SelectOnMemberSelectedFrom2DArray,testflags,CMP_EQUAL,,,equal
 SelfPartSelectInBitSelect,testflags,CMP_EQUAL,,,equal
 SelfSelectsInBitSelectAfterBitSelect,testflags,CMP_EQUAL,,,equal
 setundef,testflags,CMP_EQUAL,,,equal
@@ -1660,10 +1660,10 @@ TaskOutputArgument,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test
 TaskReturn,testflags,CMP_EQUAL,,,equal
 tern_fill_literal,testflags,CMP_EQUAL,,,equal
 ternary_not_cond,testflags,CMP_EQUAL,,,equal
-top_module_type_param,testflags,CMP_EQUAL,,,differ:file(1)
-type_param_override_elem_sel,testflags,CMP_EQUAL,,,differ:line(2)
-type_param_packed_dim,testflags,CMP_EQUAL,,,differ:file(3)
-type_param_unpacked_port,testflags,CMP_EQUAL,,,differ:file(2)
+top_module_type_param,testflags,CMP_EQUAL,,,equal
+type_param_override_elem_sel,testflags,CMP_EQUAL,,,equal
+type_param_packed_dim,testflags,CMP_EQUAL,,,equal
+type_param_unpacked_port,testflags,CMP_EQUAL,,,equal
 typed_named_pattern,testflags,CMP_EQUAL,,,differ:file(5)
 typedef_package,testflags,CMP_EQUAL,,,differ:value(9)
 typedef_packed_enum_array,testflags,CMP_EQUAL,,,equal
@@ -1688,7 +1688,7 @@ TypedefWithParameter,testflags,CMP_EQUAL,,,differ:endline(3)
 TypeParameterAsPortTypeWithEnum,testflags,CMP_EQUAL,,,differ:file(4)
 TypeParameterAsPortTypeWithEnumOfParametrizedWidth,testflags,CMP_EQUAL,,,differ:file(2)
 TypeParameterAsPortTypeWithLogic,testflags,CMP_EQUAL,,,equal
-TypeParameterAsPortTypeWithLogicAnonymous,testflags,CMP_EQUAL,,,differ:file(1)
+TypeParameterAsPortTypeWithLogicAnonymous,testflags,CMP_EQUAL,,,equal
 TypeParameterAsPortTypeWithStruct,testflags,CMP_EQUAL,,,equal
 ucsbece154b_victim_cache,testflags,CMP_EQUAL,,,equal
 unary_op_minus,testflags,CMP_EQUAL,,,equal

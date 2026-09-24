@@ -881,8 +881,8 @@ MultiConcatValueSize,default,CMP_EQUAL,,,differ:file(4)
 MultiConcatValueSize,testflags,CMP_EQUAL,,,differ:file(4)
 MultiIndexBind,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MultiIndexBind/dut.sv:28:21: error: use of undeclared identifier 'i',,
 MultiIndexBind,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MultiIndexBind/dut.sv:28:21: error: use of undeclared identifier 'i',,
-MultiPartSelect,default,CMP_EQUAL,,,differ:decompile(2)
-MultiPartSelect,testflags,CMP_EQUAL,,,differ:decompile(2)
+MultiPartSelect,default,CMP_EQUAL,,,equal
+MultiPartSelect,testflags,CMP_EQUAL,,,equal
 MultiPort,default,CMP_EQUAL,,,equal
 MultiPort,testflags,CMP_EQUAL,,,equal
 MultiSelect,default,CMP_EQUAL,,,equal
@@ -967,8 +967,8 @@ PackageParamConst,default,CMP_EQUAL,,,differ:count(0)
 PackageParamConst,testflags,CMP_EQUAL,,,equal
 PackageType,default,CMP_EQUAL,,,equal
 PackageType,testflags,CMP_EQUAL,,,equal
-PackageTypeParam,default,CMP_EQUAL,,,differ:file(1)
-PackageTypeParam,testflags,CMP_EQUAL,,,differ:file(1)
+PackageTypeParam,default,CMP_EQUAL,,,equal
+PackageTypeParam,testflags,CMP_EQUAL,,,equal
 PackageValue,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackageValue/top.sv:21:20: error: use of undeclared identifier 'state_q',,
 PackageValue,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackageValue/top.sv:21:20: error: use of undeclared identifier 'state_q',,
 PackageVar,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackageVar/dut.sv:11:70: error: no member named 'init' in class 'ovm_options_container',,

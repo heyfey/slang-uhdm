@@ -1,0 +1,86 @@
+ARM f01_inactive_on
+< cont_assign - 10.10-10.21
+< cont_assign - 7.10-7.18
+< cont_assign - 8.10-8.19
+< cont_assign - 9.10-9.18
+< module_inst - 1.1-11.10
+< module_inst work@top 1.1-11.10
+> cont_assign - 10.10-10.18
+> cont_assign - 11.10-11.21
+> cont_assign - 8.10-8.18
+> cont_assign - 9.10-9.19
+> module_inst - 1.1-12.10
+> module_inst work@top 1.1-12.10
+ARM f02_inactive_on_macro
+< cont_assign - 8.10-8.18
+> cont_assign - 9.10-9.18
+ARM f03_stray_on
+< cont_assign - 4.10-4.19
+< cont_assign - 5.10-5.18
+< cont_assign - 6.10-6.21
+< module_inst - 1.1-7.10
+< module_inst work@top 1.1-7.10
+> cont_assign - 5.10-5.19
+> cont_assign - 6.10-6.18
+> cont_assign - 7.10-7.21
+> module_inst - 1.1-8.10
+> module_inst work@top 1.1-8.10
+ARM f04_active_pair
+< initial - 4.3-4.27
+ARM f05_two_inactive
+< cont_assign - 13.10-13.19
+< cont_assign - 14.10-14.18
+< cont_assign - 15.10-15.21
+< cont_assign - 7.10-7.18
+< module_inst - 1.1-16.10
+< module_inst work@top 1.1-16.10
+> cont_assign - 15.10-15.19
+> cont_assign - 16.10-16.18
+> cont_assign - 17.10-17.21
+> cont_assign - 8.10-8.18
+> module_inst - 1.1-18.10
+> module_inst work@top 1.1-18.10
+ARM f06_active_ifdef_pair
+< initial - 4.3-4.27
+ARM f07_inactive_else
+< cont_assign - 10.10-10.19
+< cont_assign - 11.10-11.18
+> cont_assign - 10.10-10.18
+> cont_assign - 11.10-11.19
+> cont_assign - 12.10-12.18
+< cont_assign - 9.10-9.18
+< module_inst - 1.1-12.10
+< module_inst work@top 1.1-12.10
+> module_inst - 1.1-13.10
+> module_inst work@top 1.1-13.10
+ARM f08_macro_noarg_resync
+< cont_assign - 10.10-10.18
+< cont_assign - 11.10-11.21
+< cont_assign - 8.10-8.18
+< cont_assign - 9.10-9.21
+< module_inst - 2.1-12.10
+< module_inst work@top 2.1-12.10
+> cont_assign - 10.10-10.21
+> cont_assign - 11.10-11.18
+> cont_assign - 12.10-12.21
+> cont_assign - 9.10-9.18
+> module_inst - 2.1-13.10
+> module_inst work@top 2.1-13.10
+ARM f09_on_then_macro_same_line
+ARM f10_second_module
+< cont_assign - 10.10-10.18
+< cont_assign - 11.10-11.21
+> cont_assign - 11.10-11.18
+> cont_assign - 12.10-12.21
+< module_inst - 8.1-12.10
+< module_inst u 9.3-9.27
+< module_inst work@top 8.1-12.10
+> module_inst - 9.1-13.10
+> module_inst u 10.3-10.27
+> module_inst work@top 9.1-13.10
+ARM f11_region_inside_module_inst
+< module_inst l 6.3-6.28
+> module_inst work@leaf 1.1-3.10
+ARM f12_multiline_macro_resync
+< cont_assign - 8.10-8.18
+> cont_assign - 9.10-9.18

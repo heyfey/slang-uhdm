@@ -1,0 +1,2 @@
+gen_scope_numports files_with_pragma=1
+ibex_controller files_with_pragma=1

@@ -275,7 +275,118 @@ static void rebindTypeParamElem107(UHDM::design* d, UHDM::Serializer& s) {
         reb->Elem_typespec(nr);
         reb->Ranges(dpa->Ranges());
         dtp->Typespec()->Actual_typespec(reb);
+        // § tpElemRebindDefPort120 (r11u120) — THE DEFINITION'S OWN PORTS
+        //   typed by that parameter read the REBUILT array too.  Golden
+        //   type_param_override_elem_sel: `work@child`'s port `rt_i` refs
+        //   the same packed_array_typespec object as the definition's
+        //   `type_parameter rt_t` (tsrefs: both -> #4, the original #1 is
+        //   referenced by nothing).  Surelog writes the definition's ports
+        //   after elaboration, reading the parameter's CURRENT actual.  The
+        //   judge reaches that object first through the definition's own
+        //   type_parameter (Parameters precede Ports), so it cannot see the
+        //   port's ref; uhdm2rtlil's re-elaboration sizes the definition's
+        //   `rt_i` from it — element 1 bit (the `logic` default) from ours,
+        //   2 bits (the bound `logic [1:0]`) from golden — and that width
+        //   names the specialization (`child$typaram_2_1_1`) and sizes the
+        //   instance port.  Switch: R11U120_TPDEFPORT_OFF.
+        if (!getenv("R11U120_OFF") && !getenv("R11U120_TPDEFPORT_OFF"))
+            if (auto* dm120 = dtp->VpiParent())
+                if (dm120->UhdmType() == UHDM::uhdmmodule_inst)
+                    if (auto* dps120 = ((UHDM::module_inst*)dm120)->Ports())
+                        for (auto* dpt120 : *dps120)
+                            if (auto* rt120 = dpt120->Typespec())
+                                if (rt120->Actual_typespec() == dpa)
+                                    rt120->Actual_typespec(reb);
     }
+}
+
+// § instTypeParamSharesDef120 (r11u120) — AN ELABORATED MODULE INSTANCE
+// LISTS THE DEFINITION'S OWN `type_parameter` OBJECT FOR EVERY TYPE
+// PARAMETER ITS INSTANTIATION DOES NOT OVERRIDE BY NAME.
+//
+// Producer: `writeElabParameters` (Surelog UhdmWriter.cpp:442-500, the same
+// in the pinned v1.87 and uhdm2rtlil's v1.87-5).  For a definition parameter
+// of kind type_parameter it searches `instance->getTypeParams()`; only a hit
+// pushes the instance's own object (`uparam`, re-parented at the instance).
+// Otherwise, verbatim: "These point to the sole copy (unelaborated)" —
+// `params->push_back(orig)`, the DEFINITION's object, shared.
+// `getTypeParams()` is filled only by the NAMED-override arm of
+// DesignElaboration (DesignElaboration.cpp:2319-2326; an ORDERED override
+// registers nothing, the same census § tpElemRebindElabPort110's `ovr110`
+// already takes).  So a `localparam type`, a defaulted `parameter type` and an
+// ordered-overridden one all list the definition's object — located (golden
+// type_param_override_elem_sel `work@child.rt_t` 17:21-17:25, `sel_t`
+// 18:21-18:26) — where our ParamEmit mints an UNLOCATED per-instance copy
+// (`work@dut.u.rt_t`).  The judge never reads VpiParent/VpiFullName/spans and
+// compares the two objects' names and typespecs equal (every grid arm cmp 0 at
+// base stays 0).  uhdm2rtlil sizes the port through the listed object:
+// `rt_i` 4 bits from golden's, 2 from our copy.
+//
+// Post-pass, after § tpElemRebindDefView107 (which reads the instance copies
+// to find the last binding): each module_inst's `Parameters` entry that is a
+// type_parameter with a same-named type_parameter in the definition listing,
+// not named by `ovr` for this instance, is replaced by the definition's
+// object.  Nothing is minted; the copy stays in the arena, unlisted.  Grid
+// tools/probe/r11u120repro/grid/gT.  `R11U120_TPSHARE_OFF=1` drops it alone.
+static void shareInstTypeParams120(
+    UHDM::design* d, const std::map<std::string, std::set<std::string>>& ovr) {
+    if (getenv("R11U120_OFF") || getenv("R11U120_TPSHARE_OFF"))
+        return;
+    if (!d || !d->AllModules() || !d->TopModules())
+        return;
+    std::map<std::string, UHDM::module_inst*> defs120;
+    for (auto* m : *d->AllModules())
+        if (m->UhdmType() == UHDM::uhdmmodule_inst)
+            defs120.emplace(std::string(m->VpiDefName()), (UHDM::module_inst*)m);
+    std::function<void(const UHDM::any*)> walk120 = [&](const UHDM::any* o) {
+        if (!o)
+            return;
+        if (o->UhdmType() == UHDM::uhdmmodule_inst) {
+            auto* mi = (UHDM::module_inst*)o;
+            auto dit = defs120.find(std::string(mi->VpiDefName()));
+            if (dit != defs120.end() && dit->second != mi &&
+                dit->second->Parameters() && mi->Parameters()) {
+                auto oit = ovr.find(std::string(mi->VpiFullName()));
+                for (auto& ip : *mi->Parameters()) {
+                    if (!ip || ip->UhdmType() != UHDM::uhdmtype_parameter)
+                        continue;
+                    if (oit != ovr.end() &&
+                        oit->second.count(std::string(ip->VpiName())))
+                        continue;
+                    for (auto* dp : *dit->second->Parameters())
+                        if (dp && dp != ip &&
+                            dp->UhdmType() == UHDM::uhdmtype_parameter &&
+                            dp->VpiName() == ip->VpiName()) {
+                            ip = dp;
+                            break;
+                        }
+                }
+            }
+            if (mi->Modules())
+                for (auto* c : *mi->Modules())
+                    walk120(c);
+            if (mi->Gen_scope_arrays())
+                for (auto* c : *mi->Gen_scope_arrays())
+                    walk120(c);
+        }
+        else if (o->UhdmType() == UHDM::uhdmgen_scope_array) {
+            auto* ga = (const UHDM::gen_scope_array*)o;
+            if (ga->Gen_scopes())
+                for (auto* g : *ga->Gen_scopes())
+                    walk120(g);
+        }
+        else if (o->UhdmType() == UHDM::uhdmgen_scope) {
+            auto* g = (const UHDM::gen_scope*)o;
+            if (g->Modules())
+                for (auto* c : *g->Modules())
+                    walk120(c);
+            if (g->Gen_scope_arrays())
+                for (auto* c : *g->Gen_scope_arrays())
+                    walk120(c);
+        }
+    };
+    for (auto* t : *d->TopModules())
+        walk120(t);
 }
 
 // § tpElemRebindElabPort110 — THE ELABORATED INSTANCE'S PORT typed by a
@@ -9692,6 +9803,10 @@ UHDM::design* UhdmExporter::exportDesign() {
     // nothing.  ParamEmit.cpp carries the law, the Surelog decode, the golden
     // grid and the four abstentions.
     drainPaNameCopySrc38();
+    // § instTypeParamSharesDef120 needs the same named-override census
+    // (filled inside the block below, read after § 107).
+    std::map<std::string, std::set<std::string>> ovr120;
+    bool ovr120Valid = false;
     // § tpElemRebindElabPort110 — the elaborated ports first, while the
     // definition's type_parameter still reads its ORIGINAL array (law and
     // decode at the function).
@@ -9772,10 +9887,16 @@ UHDM::design* UhdmExporter::exportDesign() {
                     fprintf(stderr, "R11U110 OVR %s %s\n", i110.c_str(),
                             t110.c_str());
         rebindElabPortTypeParam110(d, s, ovr110, sel110);
+        ovr120 = ovr110;
+        ovr120Valid = !getenv("R11U110_OFF");
     }
     // § tpElemRebindDefView107 — after every instance's type parameters are
     // settled (reads only; law and decode at the function).
     rebindTypeParamElem107(d, s);
+    // § instTypeParamSharesDef120 — AFTER § 107, which reads each instance's
+    // own copy to find the last binding (law and decode at the function).
+    if (ovr120Valid)
+        shareInstTypeParams120(d, ovr120);
     // § pkgFlatSurelogBits117 (r11u117) — after every reader copied the
     // package flat operands (law and decode at TypeEmit.cpp).
     applyPkgFlatBits117();

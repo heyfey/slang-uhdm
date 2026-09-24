@@ -1,0 +1,14 @@
+# matching_end_labels round trip (implementer's resave.cpp + ylane.py + idlist.cpp, rebuilt here)
+idlist diff golden vs golden-resaved: 0 lines
+golden db                 NO_GATES 0b1b923c0c79   (surelog lane)
+golden db RESAVED         NO_GATES 76629ce38082   <- flips to the slang lane's output
+ours (law)                NO_GATES 76629ce38082
+=> the sync-init update order is set by the saved file's layout, not by any object/field/per-type order: reproduced.
+
+# "won't it double the sweep time if compare twice?" — MiniAmiq/default (golden 20.3 MB, ours 18.9 MB), load avg ~8.5-9
+run1 cmp=0.937 strict=3.195 dump_ours=9.725
+run2 cmp=0.813 strict=3.000 dump_ours=9.846
+run3 cmp=0.944 strict=3.584 dump_ours=11.062
+The golden cache entry holds golden.dumphash, so the replaced dump step dumped OUR database only (one uhdm-dump + sha256).
+old per CMP_EQUAL pair: uhdm-cmp + uhdm-dump(ours) ~ 10.9 s ; new: uhdm-cmp + uhdm-strictcmp ~ 4.1 s.
+The duplicated work is strictcmp's stage 1 (the same design::Compare uhdm-cmp runs): ~0.9 s on the largest database.
