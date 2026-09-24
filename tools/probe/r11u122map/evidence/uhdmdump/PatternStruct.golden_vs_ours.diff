@@ -1,0 +1,50 @@
+172c172
+<       \_constant: , line:5:26, endln:5:29
+---
+>       \_constant: 
+277,321d276
+<       |vpiDecompile:0
+<       |vpiSize:64
+<       |UINT:0
+<       |vpiConstType:9
+< \_struct_typespec: (my_struct), line:2:12, endln:4:5
+<   |vpiName:my_struct
+<   |vpiInstance:
+<   \_module_inst: work@top (work@top), file:U2R/PatternStruct/dut.sv, line:1:1, endln:7:10
+<   |vpiPacked:1
+<   |vpiTypespecMember:
+<   \_typespec_member: (word), line:3:19, endln:3:23
+<     |vpiParent:
+<     \_struct_typespec: (my_struct), line:2:12, endln:4:5
+<     |vpiName:word
+<     |vpiTypespec:
+<     \_ref_typespec: (my_struct.word)
+<       |vpiParent:
+<       \_typespec_member: (word), line:3:19, endln:3:23
+<       |vpiFullName:my_struct.word
+<       |vpiActual:
+<       \_logic_typespec: , line:3:7, endln:3:18
+<     |vpiRefFile:U2R/PatternStruct/dut.sv
+<     |vpiRefLineNo:3
+<     |vpiRefColumnNo:7
+<     |vpiRefEndLineNo:3
+<     |vpiRefEndColumnNo:18
+< \_logic_typespec: , line:3:7, endln:3:18
+<   |vpiParent:
+<   \_ref_typespec: (my_struct.word)
+<   |vpiRange:
+<   \_range: , line:3:13, endln:3:18
+<     |vpiParent:
+<     \_logic_typespec: , line:3:7, endln:3:18
+<     |vpiLeftRange:
+<     \_constant: , line:3:14, endln:3:15
+<       |vpiParent:
+<       \_range: , line:3:13, endln:3:18
+<       |vpiDecompile:7
+<       |vpiSize:64
+<       |UINT:7
+<       |vpiConstType:9
+<     |vpiRightRange:
+<     \_constant: , line:3:16, endln:3:17
+<       |vpiParent:
+<       \_range: , line:3:13, endln:3:18

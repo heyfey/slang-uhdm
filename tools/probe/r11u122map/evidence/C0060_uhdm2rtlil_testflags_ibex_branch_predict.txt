@@ -1,0 +1,102 @@
+cluster C0060: fullname|ref_obj|tok:::id::->.|under:operation
+row: uhdm2rtlil/testflags/ibex_branch_predict  strict=differ:fullname(21)  records golden=8338 ours=8041
+object: #213 (golden) / #213 (ours)  type=ref_obj name=LfsrWidth
+  golden: ibex_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t::LfsrWidth
+  ours:   ibex_pkg::RndCnstLfsrSeedDefault.LfsrWidth
+  walk parents: operation < range < logic_typespec(lfsr_seed_t) < ref_typespec
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 201..224 ('>' = the object)
+  #201	4	logic_typespec	lfsr_seed_t			ibex_pkg.sv	720	11	720	32				
+  #202	5	ref_typespec			ibex_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t		0	0	0	0		0		
+  #203	6	logic_typespec	ibex_pkg::lfsr_seed_t			ibex_pkg.sv	720	11	720	32				
+  #204	7	range				ibex_pkg.sv	720	17	720	32				
+  #205	8	operation				ibex_pkg.sv	720	18	720	29		0		
+  #206	9	ref_obj	LfsrWidth		ibex_pkg::ibex_pkg::lfsr_seed_t::LfsrWidth	ibex_pkg.sv	720	18	720	27		0		
+  #207	10	constant				ibex_pkg.sv	719	29	719	31	32	64	UINT:32	9
+  #208	11	ref_typespec			ibex_pkg		0	0	0	0		0		
+  #209	9	constant				ibex_pkg.sv	720	28	720	29	1	64	UINT:1	9
+  #210	8	constant				ibex_pkg.sv	720	30	720	31	0	64	UINT:0	9
+  #211	5	range				ibex_pkg.sv	720	17	720	32				
+  #212	6	operation				ibex_pkg.sv	720	18	720	29		0		
+> #213	7	ref_obj	LfsrWidth		ibex_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t::LfsrWidth	ibex_pkg.sv	720	18	720	27		0		
+  #214	7	constant				ibex_pkg.sv	720	28	720	29	1	64	UINT:1	9
+  #215	6	constant				ibex_pkg.sv	720	30	720	31	0	64	UINT:0	9
+  #216	2	parameter	RndCnstLfsrPermDefault		ibex_pkg::RndCnstLfsrPermDefault	ibex_pkg.sv	723	25	723	47		0		
+  #217	3	ref_typespec			ibex_pkg::RndCnstLfsrPermDefault		0	0	0	0		0		
+  #218	4	logic_typespec	lfsr_perm_t			ibex_pkg.sv	721	11	721	55				
+  #219	5	ref_typespec			ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t		0	0	0	0		0		
+  #220	6	logic_typespec	ibex_pkg::lfsr_perm_t			ibex_pkg.sv	721	11	721	55				
+  #221	7	range				ibex_pkg.sv	721	17	721	32				
+  #222	8	operation				ibex_pkg.sv	721	18	721	29		0		
+  #223	9	ref_obj	LfsrWidth		ibex_pkg::ibex_pkg::lfsr_perm_t::LfsrWidth	ibex_pkg.sv	721	18	721	27		0		
+  #224	9	constant				ibex_pkg.sv	721	28	721	29	1	64	UINT:1	9
+
+--- OURS (B) records 201..224 ('>' = the object)
+  #201	4	logic_typespec	lfsr_seed_t			ibex_pkg.sv	720	11	720	32				
+  #202	5	ref_typespec			ibex_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t		0	0	0	0		0		
+  #203	6	logic_typespec	ibex_pkg::lfsr_seed_t			ibex_pkg.sv	720	11	720	32				
+  #204	7	range				ibex_pkg.sv	720	17	720	32				
+  #205	8	operation				ibex_pkg.sv	720	18	720	29		0		
+  #206	9	ref_obj	LfsrWidth		ibex_pkg::ibex_pkg::lfsr_seed_t::LfsrWidth	ibex_pkg.sv	720	18	720	27		0		
+  #207	10	constant				ibex_pkg.sv	719	29	719	31	32	64	UINT:32	9
+  #208	11	ref_typespec			ibex_pkg		0	0	0	0		0		
+  #209	9	constant				ibex_pkg.sv	720	28	720	29	1	64	UINT:1	9
+  #210	8	constant				ibex_pkg.sv	720	30	720	31	0	64	UINT:0	9
+  #211	5	range				ibex_pkg.sv	720	17	720	32				
+  #212	6	operation				ibex_pkg.sv	720	18	720	29		0		
+> #213	7	ref_obj	LfsrWidth		ibex_pkg::RndCnstLfsrSeedDefault.LfsrWidth	ibex_pkg.sv	720	18	720	27		0		
+  #214	7	constant				ibex_pkg.sv	720	28	720	29	1	64	UINT:1	9
+  #215	6	constant				ibex_pkg.sv	720	30	720	31	0	64	UINT:0	9
+  #216	2	parameter	RndCnstLfsrPermDefault		ibex_pkg::RndCnstLfsrPermDefault	ibex_pkg.sv	723	25	723	47		0		
+  #217	3	ref_typespec			ibex_pkg::RndCnstLfsrPermDefault		0	0	0	0		0		
+  #218	4	logic_typespec	lfsr_perm_t			ibex_pkg.sv	721	11	721	55				
+  #219	5	ref_typespec			ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t		0	0	0	0		0		
+  #220	6	logic_typespec	ibex_pkg::lfsr_perm_t			ibex_pkg.sv	721	11	721	55				
+  #221	7	range				ibex_pkg.sv	721	17	721	32				
+  #222	8	operation				ibex_pkg.sv	721	18	721	29		0		
+  #223	9	ref_obj	LfsrWidth		ibex_pkg::ibex_pkg::lfsr_perm_t::LfsrWidth	ibex_pkg.sv	721	18	721	27		0		
+  #224	9	constant				ibex_pkg.sv	721	28	721	29	1	64	UINT:1	9
+
+all facets of this row (279):
+  C0002 #1926/-1 int_typespec  G[1 objs] O[]
+  C0021 #-1/3132 enum_typespec ibex_pkg::pmp_cfg_mode_e G[] O[10 objs]
+  C0048 #-1/3142 struct_typespec ibex_pkg::pmp_cfg_t G[] O[15 objs]
+  C0033 #3575/-1 range  G[7 objs] O[]
+  C0033 #3618/-1 range  G[7 objs] O[]
+  C0005 #4390/-1 logic_typespec lfsr_seed_t G[9 objs] O[]
+  C0005 #4466/-1 logic_typespec ibex_mubi_t G[9 objs] O[]
+  C0005 #4489/-1 logic_typespec ibex_mubi_t G[9 objs] O[]
+  C0012 #4847/-1 parameter PmpCfgRst G[43 objs] O[]
+  C0012 #4908/-1 parameter PmpAddrRst G[24 objs] O[]
+  C0027 #5478/-1 enum_typespec ibex_pkg::pmp_cfg_mode_e G[10 objs] O[]
+  C0035 #5488/-1 struct_typespec ibex_pkg::pmp_cfg_t G[15 objs] O[]
+  C0026 #-1/5705 enum_const OPCODE_BRANCH G[] O[1 objs]
+  C0026 #-1/5715 enum_const OPCODE_JAL G[] O[1 objs]
+  C0002 #6650/-1 int_typespec  G[1 objs] O[]
+  C0002 #6654/-1 int_typespec  G[1 objs] O[]
+  C0002 #6658/-1 int_typespec  G[1 objs] O[]
+  C0002 #6662/-1 int_typespec  G[1 objs] O[]
+  C0002 #6666/-1 int_typespec  G[1 objs] O[]
+  C0002 #6670/-1 int_typespec  G[1 objs] O[]
+  C0002 #6674/-1 int_typespec  G[1 objs] O[]
+  C0002 #6678/-1 int_typespec  G[1 objs] O[]
+  C0002 #6682/-1 int_typespec  G[1 objs] O[]
+  C0002 #6686/-1 int_typespec  G[1 objs] O[]
+  C0002 #6690/-1 int_typespec  G[1 objs] O[]
+  C0002 #6694/-1 int_typespec  G[1 objs] O[]
+  C0002 #6698/-1 int_typespec  G[1 objs] O[]
+  C0002 #6702/-1 int_typespec  G[1 objs] O[]
+  C0002 #6706/-1 int_typespec  G[1 objs] O[]
+  C0002 #6710/-1 int_typespec  G[1 objs] O[]
+  C0002 #6714/-1 int_typespec  G[1 objs] O[]
+  C0002 #6718/-1 int_typespec  G[1 objs] O[]
+  C0002 #6722/-1 int_typespec  G[1 objs] O[]
+  C0002 #6726/-1 int_typespec  G[1 objs] O[]
+  C0002 #6730/-1 int_typespec  G[1 objs] O[]
+  C0002 #6734/-1 int_typespec  G[1 objs] O[]
+  C0002 #6738/-1 int_typespec  G[1 objs] O[]
+  C0002 #6742/-1 int_typespec  G[1 objs] O[]
+  C0002 #6746/-1 int_typespec  G[1 objs] O[]
+  C0002 #6750/-1 int_typespec  G[1 objs] O[]
+  ... 239 more

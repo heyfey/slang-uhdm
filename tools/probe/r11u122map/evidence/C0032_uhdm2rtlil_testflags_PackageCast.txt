@@ -1,0 +1,59 @@
+cluster C0032: struct|golden-only:fewer-copies|enum_typespec|under:ref_typespec
+row: uhdm2rtlil/testflags/PackageCast  strict=differ:fullname(4)  records golden=113 ours=102
+object: #99 (golden) / #-1 (ours)  type=enum_typespec name=pkg::enum_t
+  golden: 11 objs
+  ours:   
+  walk parents: ref_typespec < operation < cont_assign < module_inst(work@dut)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 87..110 ('>' = the object)
+  #87	3	ref_obj	a		work@dut.a	dut.sv	5	46	5	47		0		
+  #88	3	ref_typespec			work@dut.a		0	0	0	0		0		
+  #89	4	logic_typespec				dut.sv	5	35	5	45				
+  #90	5	range				dut.sv	5	40	5	45				
+  #91	6	constant				dut.sv	5	41	5	42	7	64	UINT:7	9
+  #92	6	constant				dut.sv	5	43	5	44	0	64	UINT:0	9
+  #93	2	port	b			dut.sv	5	68	5	69				
+  #94	3	ref_obj	b		work@dut.b	dut.sv	5	68	5	69		0		
+  #95	3	ref_typespec			work@dut.b		0	0	0	0		0		
+  #96	2	cont_assign				dut.sv	6	11	6	30				
+  #97	3	operation				dut.sv	6	15	6	30		0		
+  #98	4	ref_typespec			work@dut		0	0	0	0		0		
+> #99	5	enum_typespec	pkg::enum_t			dut.sv	2	4	2	67				
+  #100	6	ref_typespec			work@dut.pkg::enum_t		0	0	0	0		0		
+  #101	7	logic_typespec				dut.sv	2	17	2	27				
+  #102	8	range				dut.sv	2	22	2	27				
+  #103	9	constant				dut.sv	2	23	2	24	7	64	UINT:7	9
+  #104	9	constant				dut.sv	2	25	2	26	0	64	UINT:0	9
+  #105	6	enum_const	ONE			dut.sv	2	30	2	33				
+  #106	6	enum_const	TWO			dut.sv	2	35	2	38				
+  #107	6	enum_const	THREE			dut.sv	2	40	2	45				
+  #108	6	enum_const	FOUR			dut.sv	2	47	2	51				
+  #109	6	enum_const	FIVE			dut.sv	2	53	2	57				
+  #110	4	ref_obj	a		work@dut.a	dut.sv	6	28	6	29		0		
+
+--- the holder #98 in the other side: exact-record matches at [56, 98]
+  #52	5	enum_const	FOUR			dut.sv	2	47	2	51				
+  #53	5	enum_const	FIVE			dut.sv	2	53	2	57				
+  #54	2	cont_assign				dut.sv	6	11	6	30				
+  #55	3	operation				dut.sv	6	15	6	30		0		
+> #56	4	ref_typespec			work@dut		0	0	0	0		0		
+  #57	4	ref_obj	a		work@dut.a	dut.sv	6	28	6	29		0		
+  #58	3	ref_obj	b		work@dut.b	dut.sv	6	11	6	12		0		
+  #59	1	module_inst	work@dut	work@dut		dut.sv	5	1	7	10				
+  #60	2	enum_var	b		work@dut.b	dut.sv	5	68	5	69		0		
+  #61	3	ref_typespec			work@dut.b		0	0	0	0		0		
+  #62	4	enum_typespec	pkg::enum_t			dut.sv	2	4	2	67				
+  #63	5	ref_typespec			pkg::pkg::enum_t		0	0	0	0		0		
+  #64	6	logic_typespec				dut.sv	2	17	2	27				
+  #65	7	range				dut.sv	2	22	2	27				
+  #66	8	constant				dut.sv	2	23	2	24	7	64	UINT:7	9
+  #67	8	constant				dut.sv	2	25	2	26	0	64	UINT:0	9
+  #68	5	enum_const	ONE			dut.sv	2	30	2	33				
+  #69	5	enum_const	TWO			dut.sv	2	35	2	38				
+
+all facets of this row (4):
+  C0032 #99/-1 enum_typespec pkg::enum_t G[11 objs] O[]
+  C0558 #15/15 ref_typespec  G[pkg::enum_t] O[pkg::pkg::enum_t]
+  C0558 #44/44 ref_typespec  G[pkg::enum_t] O[pkg::pkg::enum_t]
+  C0558 #63/63 ref_typespec  G[pkg::enum_t] O[pkg::pkg::enum_t]

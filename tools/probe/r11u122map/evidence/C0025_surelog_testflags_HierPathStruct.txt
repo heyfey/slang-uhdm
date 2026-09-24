@@ -1,0 +1,64 @@
+cluster C0025: fullname|ref_typespec|tok:id@id.->|under:typespec_member
+row: surelog/testflags/HierPathStruct  strict=differ:fullname(3)  records golden=76 ours=76
+object: #18 (golden) / #18 (ours)  type=ref_typespec name=
+  golden: work@dut.gpio_reg_pkg::gpio_hw2reg_t.data_in
+  ours:   gpio_reg_pkg::gpio_hw2reg_t.data_in
+  walk parents: typespec_member(data_in) < struct_typespec(gpio_reg_pkg::gpio_hw2reg_t) < package(gpio_reg_pkg) < design(work@dut)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 6..29 ('>' = the object)
+  #6	6	typespec_member	d			dut.sv	3	18	3	19				
+  #7	7	ref_typespec			gpio_reg_pkg::gpio_reg_pkg::gpio_hw2reg_tt::d		0	0	0	0		0		
+  #8	8	logic_typespec				dut.sv	3	5	3	17				
+  #9	9	range				dut.sv	3	11	3	17				
+  #10	10	constant				dut.sv	3	12	3	14	31	64	UINT:31	9
+  #11	10	constant				dut.sv	3	15	3	16	0	64	UINT:0	9
+  #12	6	typespec_member	de			dut.sv	4	18	4	20				
+  #13	7	ref_typespec			gpio_reg_pkg::gpio_reg_pkg::gpio_hw2reg_tt::de		0	0	0	0		0		
+  #14	8	logic_typespec				dut.sv	4	5	4	10				
+  #15	1	package	gpio_reg_pkg	gpio_reg_pkg	gpio_reg_pkg::	dut.sv	1	1	11	11				
+  #16	2	struct_typespec	gpio_reg_pkg::gpio_hw2reg_t			dut.sv	7	11	9	4				
+  #17	3	typespec_member	data_in			dut.sv	8	20	8	27				
+> #18	4	ref_typespec			work@dut.gpio_reg_pkg::gpio_hw2reg_t.data_in		0	0	0	0		0		
+  #19	5	struct_typespec	gpio_reg_pkg::gpio_hw2reg_tt			dut.sv	2	11	5	4				
+  #20	6	typespec_member	d			dut.sv	3	18	3	19				
+  #21	7	ref_typespec			work@dut.gpio_reg_pkg::gpio_hw2reg_tt.d		0	0	0	0		0		
+  #22	8	logic_typespec				dut.sv	3	5	3	17				
+  #23	9	range				dut.sv	3	11	3	17				
+  #24	10	constant				dut.sv	3	12	3	14	31	64	UINT:31	9
+  #25	10	constant				dut.sv	3	15	3	16	0	64	UINT:0	9
+  #26	6	typespec_member	de			dut.sv	4	18	4	20				
+  #27	7	ref_typespec			work@dut.gpio_reg_pkg::gpio_hw2reg_tt.de		0	0	0	0		0		
+  #28	8	logic_typespec				dut.sv	4	5	4	10				
+  #29	1	module_inst		work@dut	work@dut	dut.sv	13	1	19	10				
+
+--- OURS (B) records 6..29 ('>' = the object)
+  #6	6	typespec_member	d			dut.sv	3	18	3	19				
+  #7	7	ref_typespec			gpio_reg_pkg::gpio_reg_pkg::gpio_hw2reg_tt::d		0	0	0	0		0		
+  #8	8	logic_typespec				dut.sv	3	5	3	17				
+  #9	9	range				dut.sv	3	11	3	17				
+  #10	10	constant				dut.sv	3	12	3	14	31	64	UINT:31	9
+  #11	10	constant				dut.sv	3	15	3	16	0	64	UINT:0	9
+  #12	6	typespec_member	de			dut.sv	4	18	4	20				
+  #13	7	ref_typespec			gpio_reg_pkg::gpio_reg_pkg::gpio_hw2reg_tt::de		0	0	0	0		0		
+  #14	8	logic_typespec				dut.sv	4	5	4	10				
+  #15	1	package	gpio_reg_pkg	gpio_reg_pkg	gpio_reg_pkg::	dut.sv	1	1	11	11				
+  #16	2	struct_typespec	gpio_reg_pkg::gpio_hw2reg_t			dut.sv	7	11	9	4				
+  #17	3	typespec_member	data_in			dut.sv	8	20	8	27				
+> #18	4	ref_typespec			gpio_reg_pkg::gpio_hw2reg_t.data_in		0	0	0	0		0		
+  #19	5	struct_typespec	gpio_reg_pkg::gpio_hw2reg_tt			dut.sv	2	11	5	4				
+  #20	6	typespec_member	d			dut.sv	3	18	3	19				
+  #21	7	ref_typespec			work@dut.gpio_reg_pkg::gpio_hw2reg_tt.d		0	0	0	0		0		
+  #22	8	logic_typespec				dut.sv	3	5	3	17				
+  #23	9	range				dut.sv	3	11	3	17				
+  #24	10	constant				dut.sv	3	12	3	14	31	64	UINT:31	9
+  #25	10	constant				dut.sv	3	15	3	16	0	64	UINT:0	9
+  #26	6	typespec_member	de			dut.sv	4	18	4	20				
+  #27	7	ref_typespec			work@dut.gpio_reg_pkg::gpio_hw2reg_tt.de		0	0	0	0		0		
+  #28	8	logic_typespec				dut.sv	4	5	4	10				
+  #29	1	module_inst		work@dut	work@dut	dut.sv	13	1	19	10				
+
+all facets of this row (3):
+  C0025 #18/18 ref_typespec  G[work@dut.gpio_reg_pkg::gpio_hw2reg_t.data_in] O[gpio_reg_pkg::gpio_hw2reg_t.data_in]
+  C0025 #32/32 ref_typespec  G[work@dut.gpio_reg_pkg::gpio_hw2reg_t.data_in] O[gpio_reg_pkg::gpio_hw2reg_t.data_in]
+  C0025 #55/55 ref_typespec  G[work@dut.gpio_reg_pkg::gpio_hw2reg_t.data_in] O[gpio_reg_pkg::gpio_hw2reg_t.data_in]

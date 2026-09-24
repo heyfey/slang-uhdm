@@ -1,0 +1,57 @@
+cluster C0089: struct|ours-only:absent|logic_typespec|under:ref_typespec
+row: surelog/testflags/TypeParamOverride  strict=differ:depth(1)  records golden=52 ours=53
+object: #-1 (golden) / #25 (ours)  type=logic_typespec name=
+  golden: 
+  ours:   1 objs
+  walk parents: ref_typespec < logic_net(err_resp) < module_inst < ref_module(i_gpio_err_slv)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- OURS (B) records 13..36 ('>' = the object)
+  #13	5	logic_typespec				dut.sv	4	5	4	10				
+  #14	3	typespec_member	b_valid			dut.sv	5	19	5	26				
+  #15	4	ref_typespec			ariane_axi_soc::ariane_axi_soc::resp_slv_t::b_valid		0	0	0	0		0		
+  #16	5	logic_typespec				dut.sv	5	5	5	10				
+  #17	1	module_inst		work@ariane_testharness	work@ariane_testharness	dut.sv	23	1	31	10				
+  #18	2	ref_module	i_gpio_err_slv	work@axi_err_slv		dut.sv	27	3	27	17				
+  #19	3	module_inst		work@axi_err_slv	work@axi_err_slv	dut.sv	10	1	20	10				
+  #20	4	type_parameter	resp_t		work@axi_err_slv.resp_t	dut.sv	11	19	11	25				
+  #21	5	ref_typespec			work@axi_err_slv.resp_t		0	0	0	0		0		
+  #22	6	logic_typespec				dut.sv	11	33	11	38				
+  #23	4	logic_net	err_resp		work@axi_err_slv.err_resp	dut.sv	14	11	14	19		0		
+  #24	5	ref_typespec			work@axi_err_slv.err_resp		0	0	0	0		0		
+> #25	6	logic_typespec				dut.sv	14	3	14	9				
+  #26	4	always				dut.sv	16	3	19	6				
+  #27	5	named_begin	proc_w_channel		work@axi_err_slv.proc_w_channel	dut.sv	16	23	16	37				
+  #28	6	assignment				dut.sv	17	5	17	29				
+  #29	7	constant				dut.sv	17	25	17	29	1'b0	1	BIN:0	3
+  #30	7	hier_path	err_resp.w_ready			dut.sv	17	5	17	21		0		
+  #31	8	ref_obj	err_resp			dut.sv	17	14	17	21		0		
+  #32	8	ref_obj	w_ready			dut.sv	17	14	17	21		0		
+  #33	1	module_inst	work@ariane_testharness	work@ariane_testharness		dut.sv	23	1	31	10				
+  #34	2	module_inst	i_gpio_err_slv	work@axi_err_slv	work@ariane_testharness.i_gpio_err_slv	dut.sv	25	1	28	3				
+  #35	3	struct_var	err_resp		work@ariane_testharness.i_gpio_err_slv.err_resp	dut.sv	14	11	14	19		0		
+  #36	4	ref_typespec			work@ariane_testharness.i_gpio_err_slv.err_resp		0	0	0	0		0		
+
+--- the holder #24 in the other side: exact-record matches at [24]
+  #20	4	type_parameter	resp_t		work@axi_err_slv.resp_t	dut.sv	11	19	11	25				
+  #21	5	ref_typespec			work@axi_err_slv.resp_t		0	0	0	0		0		
+  #22	6	logic_typespec				dut.sv	11	33	11	38				
+  #23	4	logic_net	err_resp		work@axi_err_slv.err_resp	dut.sv	14	11	14	19		0		
+> #24	5	ref_typespec			work@axi_err_slv.err_resp		0	0	0	0		0		
+  #25	4	always				dut.sv	16	3	19	6				
+  #26	5	named_begin	proc_w_channel		work@axi_err_slv.proc_w_channel	dut.sv	16	23	16	37				
+  #27	6	assignment				dut.sv	17	5	17	29				
+  #28	7	constant				dut.sv	17	25	17	29	1'b0	1	BIN:0	3
+  #29	7	hier_path	err_resp.w_ready			dut.sv	17	5	17	21		0		
+  #30	8	ref_obj	err_resp			dut.sv	17	14	17	21		0		
+  #31	8	ref_obj	w_ready			dut.sv	17	14	17	21		0		
+  #32	1	module_inst	work@ariane_testharness	work@ariane_testharness		dut.sv	23	1	31	10				
+  #33	2	module_inst	i_gpio_err_slv	work@axi_err_slv	work@ariane_testharness.i_gpio_err_slv	dut.sv	25	1	28	3				
+  #34	3	struct_var	err_resp		work@ariane_testharness.i_gpio_err_slv.err_resp	dut.sv	14	11	14	19		0		
+  #35	4	ref_typespec			work@ariane_testharness.i_gpio_err_slv.err_resp		0	0	0	0		0		
+  #36	5	struct_typespec	ariane_axi_soc::resp_slv_t			dut.sv	3	9	6	2				
+  #37	6	typespec_member	w_ready			dut.sv	4	19	4	26				
+
+all facets of this row (2):
+  C0089 #-1/25 logic_typespec  G[] O[1 objs]
+  C1006 #46/47 named_begin proc_w_channel G[work@ariane_testharness.i_gpio_err_slv.proc_w_channel] O[work@axi_err_slv.proc_w_channel]

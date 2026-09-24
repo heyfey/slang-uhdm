@@ -1,0 +1,56 @@
+cluster C0002: struct|golden-only:fewer-copies|int_typespec|under:ref_typespec
+row: uhdm2rtlil/testflags/SizeOfUnsignedParameter  strict=differ:depth(1)  records golden=38 ours=37
+object: #16 (golden) / #-1 (ours)  type=int_typespec name=
+  golden: 1 objs
+  ours:   
+  walk parents: ref_typespec < sys_func_call($bits) < cont_assign < module_inst
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 4..27 ('>' = the object)
+  #4	4	int_typespec				dut.sv	2	15	2	23				
+  #5	2	param_assign				dut.sv	2	24	2	30				
+  #6	3	constant				dut.sv	2	28	2	30	15	64	UINT:15	9
+  #7	4	ref_typespec			work@top		0	0	0	0		0		
+  #8	2	logic_net	o		work@top.o	dut.sv	1	23	1	24		0		
+  #9	2	port	o			dut.sv	1	23	1	24				
+  #10	3	ref_obj	o		work@top.o.o	dut.sv	1	23	1	24		0		
+  #11	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #12	4	int_typespec				dut.sv	1	19	1	22				
+  #13	2	cont_assign				dut.sv	3	11	3	23				
+  #14	3	sys_func_call	$bits			dut.sv	3	15	3	23		0		
+  #15	4	ref_typespec			work@top		0	0	0	0		0		
+> #16	5	int_typespec				dut.sv	1	19	1	22				
+  #17	4	ref_obj	P		work@top.P	dut.sv	3	21	3	22		0		
+  #18	3	ref_obj	o		work@top.o	dut.sv	3	11	3	12		0		
+  #19	1	module_inst	work@top	work@top		dut.sv	1	1	4	10				
+  #20	2	int_var	o		work@top.o	dut.sv	1	23	1	24		0		
+  #21	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #22	4	int_typespec				dut.sv	1	19	1	22				
+  #23	2	parameter	P		work@top.P	dut.sv	2	24	2	25		0	UINT:15	
+  #24	3	ref_typespec			work@top.P		0	0	0	0		0		
+  #25	4	int_typespec				dut.sv	2	15	2	23				
+  #26	2	param_assign				dut.sv	2	24	2	30				
+  #27	3	constant				dut.sv	2	28	2	30	15	32	UINT:15	9
+
+--- the holder #15 in the other side: exact-record matches at [7, 15, 27]
+  #3	3	ref_typespec			work@top.P		0	0	0	0		0		
+  #4	4	int_typespec				dut.sv	2	15	2	23				
+  #5	2	param_assign				dut.sv	2	24	2	30				
+  #6	3	constant				dut.sv	2	28	2	30	15	64	UINT:15	9
+> #7	4	ref_typespec			work@top		0	0	0	0		0		
+  #8	2	logic_net	o		work@top.o	dut.sv	1	23	1	24		0		
+  #9	2	port	o			dut.sv	1	23	1	24				
+  #10	3	ref_obj	o		work@top.o.o	dut.sv	1	23	1	24		0		
+  #11	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #12	4	int_typespec				dut.sv	1	19	1	22				
+  #13	2	cont_assign				dut.sv	3	11	3	23				
+  #14	3	sys_func_call	$bits			dut.sv	3	15	3	23		0		
+  #15	4	ref_typespec			work@top		0	0	0	0		0		
+  #16	4	ref_obj	P		work@top.P	dut.sv	3	21	3	22		0		
+  #17	3	ref_obj	o		work@top.o	dut.sv	3	11	3	12		0		
+  #18	1	module_inst	work@top	work@top		dut.sv	1	1	4	10				
+  #19	2	int_var	o		work@top.o	dut.sv	1	23	1	24		0		
+  #20	3	ref_typespec			work@top.o		0	0	0	0		0		
+
+all facets of this row (1):
+  C0002 #16/-1 int_typespec  G[1 objs] O[]

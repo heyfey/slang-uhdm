@@ -1,0 +1,74 @@
+158,170d157
+<       |vpiParent:
+<       \_param_assign: , line:2:31, endln:2:43
+<       |HEX:abcd
+<       |vpiTypespec:
+<       \_ref_typespec: (work@aes_cipher_core.X)
+<         |vpiParent:
+<         \_parameter: (work@aes_cipher_core.X), line:2:31, endln:2:32
+<         |vpiFullName:work@aes_cipher_core.X
+<         |vpiActual:
+<         \_logic_typespec: , line:2:14, endln:2:30
+<       |vpiName:X
+<       |vpiFullName:work@aes_cipher_core.X
+<       |vpiImported:aes_pkg
+299c286
+<         \_ref_typespec: (work@aes_cipher_core)
+---
+>         \_ref_typespec: (work@top.u_aes_cipher_core)
+302c289
+<           |vpiFullName:work@aes_cipher_core
+---
+>           |vpiFullName:work@top.u_aes_cipher_core
+335a323,324
+>         |vpiParent:
+>         \_param_assign: , line:2:31, endln:2:43
+530,574d518
+< \_logic_typespec: , line:2:14, endln:2:30
+<   |vpiParent:
+<   \_ref_typespec: (work@aes_cipher_core.X)
+<   |vpiInstance:
+<   \_package: aes_pkg (aes_pkg::), file:SL/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
+<   |vpiRange:
+<   \_range: , line:2:20, endln:2:25
+<     |vpiParent:
+<     \_logic_typespec: , line:2:14, endln:2:30
+<     |vpiLeftRange:
+<     \_constant: , line:2:21, endln:2:22
+<       |vpiParent:
+<       \_range: , line:2:20, endln:2:25
+<       |vpiDecompile:7
+<       |vpiSize:64
+<       |UINT:7
+<       |vpiConstType:9
+<     |vpiRightRange:
+<     \_constant: , line:2:23, endln:2:24
+<       |vpiParent:
+<       \_range: , line:2:20, endln:2:25
+<       |vpiDecompile:0
+<       |vpiSize:64
+<       |UINT:0
+<       |vpiConstType:9
+<   |vpiRange:
+<   \_range: , line:2:25, endln:2:30
+<     |vpiParent:
+<     \_logic_typespec: , line:2:14, endln:2:30
+<     |vpiLeftRange:
+<     \_constant: , line:2:26, endln:2:27
+<       |vpiParent:
+<       \_range: , line:2:25, endln:2:30
+<       |vpiDecompile:3
+<       |vpiSize:64
+<       |UINT:3
+<       |vpiConstType:9
+<     |vpiRightRange:
+<     \_constant: , line:2:28, endln:2:29
+<       |vpiParent:
+<       \_range: , line:2:25, endln:2:30
+<       |vpiDecompile:0
+<       |vpiSize:64
+<       |UINT:0
+<       |vpiConstType:9
+622,623d565
+<   |vpiParent:
+<   \_ref_typespec: (work@aes_cipher_core)

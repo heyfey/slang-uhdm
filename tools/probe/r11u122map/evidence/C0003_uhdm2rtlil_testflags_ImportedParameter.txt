@@ -1,0 +1,63 @@
+cluster C0003: file|parameter|ours-empty|under:param_assign
+row: uhdm2rtlil/testflags/ImportedParameter  strict=differ:file(2)  records golden=61 ours=60
+object: #23 (golden) / #23 (ours)  type=parameter name=TxWidth
+  golden: dut.sv 2:18:2:25
+  ours:    2:18:2:25
+  walk parents: param_assign < module_inst < design(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 11..34 ('>' = the object)
+  #11	4	int_typespec				dut.sv	2	14	2	17				
+  #12	2	param_assign				dut.sv	2	18	2	29				
+  #13	3	constant				dut.sv	2	28	2	29	4	32	UINT:4	9
+  #14	4	ref_typespec			lc_ctrl_pkg		0	0	0	0		0		
+  #15	1	module_inst		work@top	work@top	dut.sv	5	1	8	10				
+  #16	2	parameter	TxWidth		work@top.TxWidth	dut.sv	2	18	2	25		0	UINT:4	
+  #17	3	ref_typespec			work@top.TxWidth		0	0	0	0		0		
+  #18	4	int_typespec				dut.sv	2	14	2	17				
+  #19	2	param_assign				dut.sv	2	18	2	29				
+  #20	3	constant				dut.sv	2	28	2	29	4	32	UINT:4	9
+  #21	4	ref_typespec			work@top		0	0	0	0		0		
+  #22	5	int_typespec				dut.sv	2	14	2	17				
+> #23	3	parameter	TxWidth		work@top.TxWidth	dut.sv	2	18	2	25		0	UINT:4	
+  #24	4	ref_typespec			work@top.TxWidth		0	0	0	0		0		
+  #25	5	int_typespec				dut.sv	2	14	2	17				
+  #26	2	import_typespec	lc_ctrl_pkg			dut.sv	6	11	6	31				
+  #27	3	constant				dut.sv	6	24	6	31	TxWidth	56	STRING:TxWidth	8
+  #28	2	logic_net	o		work@top.o	dut.sv	5	23	5	24		0		
+  #29	2	port	o			dut.sv	5	23	5	24				
+  #30	3	ref_obj	o		work@top.o.o	dut.sv	5	23	5	24		0		
+  #31	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #32	4	int_typespec				dut.sv	5	19	5	22				
+  #33	2	cont_assign				dut.sv	7	11	7	22				
+  #34	3	constant				dut.sv	7	15	7	22	4	32	UINT:4	9
+
+--- OURS (B) records 11..34 ('>' = the object)
+  #11	4	int_typespec				dut.sv	2	14	2	17				
+  #12	2	param_assign				dut.sv	2	18	2	29				
+  #13	3	constant				dut.sv	2	28	2	29	4	32	UINT:4	9
+  #14	4	ref_typespec			lc_ctrl_pkg		0	0	0	0		0		
+  #15	1	module_inst		work@top	work@top	dut.sv	5	1	8	10				
+  #16	2	parameter	TxWidth		work@top.TxWidth	dut.sv	2	18	2	25		0	UINT:4	
+  #17	3	ref_typespec			work@top.TxWidth		0	0	0	0		0		
+  #18	4	int_typespec				dut.sv	2	14	2	17				
+  #19	2	param_assign				dut.sv	2	18	2	29				
+  #20	3	constant				dut.sv	2	28	2	29	4	32	UINT:4	9
+  #21	4	ref_typespec			work@top		0	0	0	0		0		
+  #22	5	int_typespec				dut.sv	2	14	2	17				
+> #23	3	parameter	TxWidth		work@top.TxWidth		2	18	2	25		0	UINT:4	
+  #24	4	ref_typespec			work@top.TxWidth		0	0	0	0		0		
+  #25	5	int_typespec				dut.sv	2	14	2	17				
+  #26	2	import_typespec	lc_ctrl_pkg			dut.sv	6	11	6	31				
+  #27	3	constant				dut.sv	6	24	6	31	TxWidth	56	STRING:TxWidth	8
+  #28	2	logic_net	o		work@top.o	dut.sv	5	23	5	24		0		
+  #29	2	port	o			dut.sv	5	23	5	24				
+  #30	3	ref_obj	o		work@top.o.o	dut.sv	5	23	5	24		0		
+  #31	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #32	4	int_typespec				dut.sv	5	19	5	22				
+  #33	2	cont_assign				dut.sv	7	11	7	22				
+  #34	3	constant				dut.sv	7	15	7	22	4	32	UINT:4	9
+
+all facets of this row (2):
+  C0002 #48/-1 int_typespec  G[1 objs] O[]
+  C0003 #23/23 parameter TxWidth G[dut.sv 2:18:2:25] O[ 2:18:2:25]

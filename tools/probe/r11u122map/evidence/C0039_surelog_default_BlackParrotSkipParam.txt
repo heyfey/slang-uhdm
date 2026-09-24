@@ -1,0 +1,48 @@
+cluster C0039: span|constant|col+endcol|under:param_assign
+row: surelog/default/BlackParrotSkipParam  strict=differ:col(1)  records golden=125 ours=125
+object: #120 (golden) / #120 (ours)  type=constant name=
+  golden: 4:31:4:52
+  ours:   4:32:4:51
+  walk parents: param_assign < module_inst(mtime_counter) < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 108..124 ('>' = the object)
+  #108	3	parameter	max_val_p		work@top.mtime_counter.max_val_p	dut.sv	3	15	3	24		0	STRING:inv	
+  #109	4	ref_typespec			work@top.mtime_counter.max_val_p		0	0	0	0		0		
+  #110	5	string_typespec					0	0	0	0				
+  #111	3	parameter	lg_max_val_lp		work@top.mtime_counter.lg_max_val_lp	dut.sv	4	17	4	30		0		
+  #112	3	parameter	reset_val_p		work@top.mtime_counter.reset_val_p	dut.sv	5	17	5	28		0	UINT:0	
+  #113	4	ref_typespec			work@top.mtime_counter.reset_val_p		0	0	0	0		0		
+  #114	5	int_typespec				dut.sv	5	7	5	30				
+  #115	3	param_assign				dut.sv	3	15	3	30				
+  #116	4	constant				dut.sv	3	25	3	30	inv	24	STRING:inv	6
+  #117	5	ref_typespec			work@top.mtime_counter		0	0	0	0		0		
+  #118	6	string_typespec					0	0	0	0				
+  #119	3	param_assign				dut.sv	4	17	4	52				
+> #120	4	constant				dut.sv	4	31	4	52	10	64	UINT:10	9
+  #121	3	param_assign				dut.sv	5	17	5	30				
+  #122	4	constant				dut.sv	5	29	5	30	0	32	UINT:0	9
+  #123	5	ref_typespec			work@top.mtime_counter		0	0	0	0		0		
+  #124	6	int_typespec				dut.sv	5	7	5	30				
+
+--- OURS (B) records 108..124 ('>' = the object)
+  #108	3	parameter	max_val_p		work@top.mtime_counter.max_val_p	dut.sv	3	15	3	24		0	STRING:inv	
+  #109	4	ref_typespec			work@top.mtime_counter.max_val_p		0	0	0	0		0		
+  #110	5	string_typespec					0	0	0	0				
+  #111	3	parameter	lg_max_val_lp		work@top.mtime_counter.lg_max_val_lp	dut.sv	4	17	4	30		0		
+  #112	3	parameter	reset_val_p		work@top.mtime_counter.reset_val_p	dut.sv	5	17	5	28		0	UINT:0	
+  #113	4	ref_typespec			work@top.mtime_counter.reset_val_p		0	0	0	0		0		
+  #114	5	int_typespec				dut.sv	5	7	5	30				
+  #115	3	param_assign				dut.sv	3	15	3	30				
+  #116	4	constant				dut.sv	3	25	3	30	inv	24	STRING:inv	6
+  #117	5	ref_typespec			work@top.mtime_counter		0	0	0	0		0		
+  #118	6	string_typespec					0	0	0	0				
+  #119	3	param_assign				dut.sv	4	17	4	52				
+> #120	4	constant				dut.sv	4	32	4	51	10	64	UINT:10	9
+  #121	3	param_assign				dut.sv	5	17	5	30				
+  #122	4	constant				dut.sv	5	29	5	30	0	32	UINT:0	9
+  #123	5	ref_typespec			work@top.mtime_counter		0	0	0	0		0		
+  #124	6	int_typespec				dut.sv	5	7	5	30				
+
+all facets of this row (1):
+  C0039 #120/120 constant  G[4:31:4:52] O[4:32:4:51]

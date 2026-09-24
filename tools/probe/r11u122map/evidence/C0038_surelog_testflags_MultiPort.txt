@@ -1,0 +1,67 @@
+cluster C0038: fullname|ref_typespec|tok:id@id.id::id.->id::id::id::|under:typespec_member
+row: surelog/testflags/MultiPort  strict=differ:fullname(6)  records golden=67 ours=67
+object: #15 (golden) / #15 (ours)  type=ref_typespec name=
+  golden: work@top.my_pkg::variable_type.first
+  ours:   my_pkg::my_pkg::variable_type::first
+  walk parents: typespec_member(first) < struct_typespec(my_pkg::variable_type) < package(my_pkg) < design(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 3..26 ('>' = the object)
+  #3	3	typespec_member	first			dut.sv	3	20	3	25				
+  #4	4	ref_typespec			my_pkg::my_pkg::variable_type::first		0	0	0	0		0		
+  #5	5	logic_typespec				dut.sv	3	9	3	19				
+  #6	6	range				dut.sv	3	14	3	19				
+  #7	7	constant				dut.sv	3	15	3	16	2	64	UINT:2	9
+  #8	7	constant				dut.sv	3	17	3	18	0	64	UINT:0	9
+  #9	3	typespec_member	second			dut.sv	4	13	4	19				
+  #10	4	ref_typespec			my_pkg::my_pkg::variable_type::second		0	0	0	0		0		
+  #11	5	int_typespec				dut.sv	4	9	4	12				
+  #12	1	package	my_pkg	my_pkg	my_pkg::	dut.sv	1	1	6	11				
+  #13	2	struct_typespec	my_pkg::variable_type			dut.sv	2	13	5	6				
+  #14	3	typespec_member	first			dut.sv	3	20	3	25				
+> #15	4	ref_typespec			work@top.my_pkg::variable_type.first		0	0	0	0		0		
+  #16	5	logic_typespec				dut.sv	3	9	3	19				
+  #17	6	range				dut.sv	3	14	3	19				
+  #18	7	constant				dut.sv	3	15	3	16	2	64	UINT:2	9
+  #19	7	constant				dut.sv	3	17	3	18	0	64	UINT:0	9
+  #20	3	typespec_member	second			dut.sv	4	13	4	19				
+  #21	4	ref_typespec			work@top.my_pkg::variable_type.second		0	0	0	0		0		
+  #22	5	int_typespec				dut.sv	4	9	4	12				
+  #23	1	module_inst		work@top	work@top	dut.sv	7	1	11	10				
+  #24	2	struct_typespec	my_pkg::variable_type			dut.sv	2	13	5	6				
+  #25	3	typespec_member	first			dut.sv	3	20	3	25				
+  #26	4	ref_typespec			work@top.my_pkg::variable_type.first		0	0	0	0		0		
+
+--- OURS (B) records 3..26 ('>' = the object)
+  #3	3	typespec_member	first			dut.sv	3	20	3	25				
+  #4	4	ref_typespec			my_pkg::my_pkg::variable_type::first		0	0	0	0		0		
+  #5	5	logic_typespec				dut.sv	3	9	3	19				
+  #6	6	range				dut.sv	3	14	3	19				
+  #7	7	constant				dut.sv	3	15	3	16	2	64	UINT:2	9
+  #8	7	constant				dut.sv	3	17	3	18	0	64	UINT:0	9
+  #9	3	typespec_member	second			dut.sv	4	13	4	19				
+  #10	4	ref_typespec			my_pkg::my_pkg::variable_type::second		0	0	0	0		0		
+  #11	5	int_typespec				dut.sv	4	9	4	12				
+  #12	1	package	my_pkg	my_pkg	my_pkg::	dut.sv	1	1	6	11				
+  #13	2	struct_typespec	my_pkg::variable_type			dut.sv	2	13	5	6				
+  #14	3	typespec_member	first			dut.sv	3	20	3	25				
+> #15	4	ref_typespec			my_pkg::my_pkg::variable_type::first		0	0	0	0		0		
+  #16	5	logic_typespec				dut.sv	3	9	3	19				
+  #17	6	range				dut.sv	3	14	3	19				
+  #18	7	constant				dut.sv	3	15	3	16	2	64	UINT:2	9
+  #19	7	constant				dut.sv	3	17	3	18	0	64	UINT:0	9
+  #20	3	typespec_member	second			dut.sv	4	13	4	19				
+  #21	4	ref_typespec			my_pkg::my_pkg::variable_type::second		0	0	0	0		0		
+  #22	5	int_typespec				dut.sv	4	9	4	12				
+  #23	1	module_inst		work@top	work@top	dut.sv	7	1	11	10				
+  #24	2	struct_typespec	my_pkg::variable_type			dut.sv	2	13	5	6				
+  #25	3	typespec_member	first			dut.sv	3	20	3	25				
+  #26	4	ref_typespec			my_pkg::my_pkg::variable_type::first		0	0	0	0		0		
+
+all facets of this row (6):
+  C0038 #15/15 ref_typespec  G[work@top.my_pkg::variable_type.first] O[my_pkg::my_pkg::variable_type::first]
+  C0038 #21/21 ref_typespec  G[work@top.my_pkg::variable_type.second] O[my_pkg::my_pkg::variable_type::second]
+  C0038 #26/26 ref_typespec  G[work@top.my_pkg::variable_type.first] O[my_pkg::my_pkg::variable_type::first]
+  C0038 #32/32 ref_typespec  G[work@top.my_pkg::variable_type.second] O[my_pkg::my_pkg::variable_type::second]
+  C0038 #49/49 ref_typespec  G[work@top.my_pkg::variable_type.first] O[my_pkg::my_pkg::variable_type::first]
+  C0038 #55/55 ref_typespec  G[work@top.my_pkg::variable_type.second] O[my_pkg::my_pkg::variable_type::second]

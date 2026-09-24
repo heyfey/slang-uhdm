@@ -1,0 +1,32 @@
+68c68
+<             \_operation: , line:4:41, endln:4:50
+---
+>             \_operation: , line:4:41, endln:4:42
+195a196,208
+> \_cont_assign: , line:4:10, endln:4:55
+>   |vpiParent:
+>   \_module_inst: work@top (work@top), file:SL/tests/ComplexExprSize/dut.sv, line:1:1, endln:5:10
+>   |vpiRhs:
+>   \_constant: 
+>   |vpiLhs:
+>   \_ref_obj: (work@top.out), line:4:10, endln:4:13
+>     |vpiParent:
+>     \_cont_assign: , line:4:10, endln:4:55
+>     |vpiName:out
+>     |vpiFullName:work@top.out
+>     |vpiActual:
+>     \_logic_net: (work@top.out), line:1:13, endln:1:16
+217,229d229
+< \_cont_assign: , line:4:10, endln:4:55
+<   |vpiParent:
+<   \_module_inst: work@top (work@top), file:SL/tests/ComplexExprSize/dut.sv, line:1:1, endln:5:10
+<   |vpiRhs:
+<   \_constant: 
+<   |vpiLhs:
+<   \_ref_obj: (work@top.out), line:4:10, endln:4:13
+<     |vpiParent:
+<     \_cont_assign: , line:4:10, endln:4:55
+<     |vpiName:out
+<     |vpiFullName:work@top.out
+<     |vpiActual:
+<     \_logic_net: (work@top.out), line:1:13, endln:1:16

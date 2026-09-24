@@ -1,0 +1,102 @@
+cluster C0058: file|constant|other-file|under:operation
+row: surelog/testflags/YosysOldSpi  strict=differ:col(523)  records golden=3348 ours=3348
+object: #106 (golden) / #106 (ours)  type=constant name=
+  golden: spi_clgen.v 62:14:62:16
+  ours:   spi_defines.v 62:14:62:16
+  walk parents: operation < range < logic_typespec < ref_typespec
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 94..117 ('>' = the object)
+  #94	4	int_typespec				spi_clgen.v	46	3	46	19				
+  #95	2	param_assign				spi_clgen.v	46	13	46	19				
+  #96	3	constant				spi_clgen.v	46	18	46	19	1	64	UINT:1	9
+  #97	4	ref_typespec			work@spi_clgen		0	0	0	0		0		
+  #98	2	logic_net	clk_out		work@spi_clgen.clk_out	spi_clgen.v	58	36	58	43		0		
+  #99	2	logic_net	pos_edge		work@spi_clgen.pos_edge	spi_clgen.v	59	36	59	44		0		
+  #100	2	logic_net	neg_edge		work@spi_clgen.neg_edge	spi_clgen.v	60	36	60	44		0		
+  #101	2	logic_net	cnt		work@spi_clgen.cnt	spi_clgen.v	62	25	62	28		0		
+  #102	3	ref_typespec			work@spi_clgen.cnt		0	0	0	0		0		
+  #103	4	logic_typespec				spi_clgen.v	62	3	62	24				
+  #104	5	range				spi_clgen.v	62	13	62	24				
+  #105	6	operation				spi_clgen.v	62	14	62	21		0		
+> #106	7	constant				spi_clgen.v	62	14	62	16	16	64	UINT:16	9
+  #107	7	constant				spi_clgen.v	62	20	62	21	1	64	UINT:1	9
+  #108	6	constant				spi_clgen.v	62	22	62	23	0	64	UINT:0	9
+  #109	2	logic_net	cnt_zero		work@spi_clgen.cnt_zero	spi_clgen.v	63	36	63	44		0		
+  #110	3	ref_typespec			work@spi_clgen.cnt_zero		0	0	0	0		0		
+  #111	4	logic_typespec				spi_clgen.v	63	3	63	7				
+  #112	2	logic_net	cnt_one		work@spi_clgen.cnt_one	spi_clgen.v	64	36	64	43		0		
+  #113	3	ref_typespec			work@spi_clgen.cnt_one		0	0	0	0		0		
+  #114	4	logic_typespec				spi_clgen.v	64	3	64	7				
+  #115	2	logic_net	clk_in		work@spi_clgen.clk_in	spi_clgen.v	44	19	44	25		0		
+  #116	2	logic_net	rst		work@spi_clgen.rst	spi_clgen.v	44	27	44	30		0		
+  #117	2	logic_net	go		work@spi_clgen.go	spi_clgen.v	44	32	44	34		0		
+
+--- OURS (B) records 94..117 ('>' = the object)
+  #94	4	int_typespec				spi_clgen.v	46	3	46	19				
+  #95	2	param_assign				spi_clgen.v	46	13	46	19				
+  #96	3	constant				spi_clgen.v	46	18	46	19	1	64	UINT:1	9
+  #97	4	ref_typespec			work@spi_clgen		0	0	0	0		0		
+  #98	2	logic_net	clk_out		work@spi_clgen.clk_out	spi_clgen.v	58	36	58	43		0		
+  #99	2	logic_net	pos_edge		work@spi_clgen.pos_edge	spi_clgen.v	59	36	59	44		0		
+  #100	2	logic_net	neg_edge		work@spi_clgen.neg_edge	spi_clgen.v	60	36	60	44		0		
+  #101	2	logic_net	cnt		work@spi_clgen.cnt	spi_clgen.v	62	51	62	54		0		
+  #102	3	ref_typespec			work@spi_clgen.cnt		0	0	0	0		0		
+  #103	4	logic_typespec				spi_clgen.v	62	3	62	50				
+  #104	5	range				spi_clgen.v	62	13	62	50				
+  #105	6	operation				spi_defines.v	62	14	62	47		0		
+> #106	7	constant				spi_defines.v	62	14	62	16	16	64	UINT:16	9
+  #107	7	constant				spi_clgen.v	62	46	62	47	1	64	UINT:1	9
+  #108	6	constant				spi_clgen.v	62	48	62	49	0	64	UINT:0	9
+  #109	2	logic_net	cnt_zero		work@spi_clgen.cnt_zero	spi_clgen.v	63	36	63	44		0		
+  #110	3	ref_typespec			work@spi_clgen.cnt_zero		0	0	0	0		0		
+  #111	4	logic_typespec				spi_clgen.v	63	3	63	7				
+  #112	2	logic_net	cnt_one		work@spi_clgen.cnt_one	spi_clgen.v	64	36	64	43		0		
+  #113	3	ref_typespec			work@spi_clgen.cnt_one		0	0	0	0		0		
+  #114	4	logic_typespec				spi_clgen.v	64	3	64	7				
+  #115	2	logic_net	clk_in		work@spi_clgen.clk_in	spi_clgen.v	44	19	44	25		0		
+  #116	2	logic_net	rst		work@spi_clgen.rst	spi_clgen.v	44	27	44	30		0		
+  #117	2	logic_net	go		work@spi_clgen.go	spi_clgen.v	44	32	44	34		0		
+
+all facets of this row (523):
+  C0587 #101/101 logic_net cnt G[62:25:62:28] O[62:51:62:54]
+  C0067 #103/103 logic_typespec  G[62:3:62:24] O[62:3:62:50]
+  C0583 #104/104 range  G[62:13:62:24] O[62:13:62:50]
+  C0149 #105/105 operation  G[spi_clgen.v 62:14:62:21] O[spi_defines.v 62:14:62:47]
+  C0058 #106/106 constant  G[spi_clgen.v 62:14:62:16] O[spi_defines.v 62:14:62:16]
+  C0087 #107/107 constant  G[62:20:62:21] O[62:46:62:47]
+  C0144 #108/108 constant  G[62:22:62:23] O[62:48:62:49]
+  C0067 #144/144 logic_typespec  G[53:13:53:24] O[53:13:53:50]
+  C0583 #145/145 range  G[53:13:53:24] O[53:13:53:50]
+  C0149 #146/146 operation  G[spi_clgen.v 53:14:53:21] O[spi_defines.v 53:14:53:47]
+  C0058 #147/147 constant  G[spi_clgen.v 53:14:53:16] O[spi_defines.v 53:14:53:16]
+  C0087 #148/148 constant  G[53:20:53:21] O[53:46:53:47]
+  C0144 #149/149 constant  G[53:22:53:23] O[53:48:53:49]
+  C0595 #172/172 assignment  G[74:7:74:31] O[74:7:74:57]
+  C0475 #173/173 operation  G[74:18:74:31] O[74:18:74:57]
+  C0058 #174/174 constant  G[spi_clgen.v 74:19:74:21] O[spi_defines.v 74:19:74:21]
+  C0148 #175/175 operation  G[74:24:74:30] O[74:50:74:56]
+  C0087 #176/176 constant  G[74:25:74:29] O[74:51:74:55]
+  C0328 #180/180 if_else  G[77:9:80:52] O[77:9:80:78]
+  C0595 #189/189 assignment  G[80:11:80:51] O[80:11:80:77]
+  C0475 #190/190 operation  G[80:22:80:51] O[80:22:80:77]
+  C0445 #192/192 operation  G[80:28:80:51] O[80:28:80:77]
+  C0445 #193/193 operation  G[80:29:80:44] O[80:29:80:70]
+  C0078 #194/194 operation  G[spi_clgen.v 80:30:80:37] O[spi_defines.v 80:30:80:63]
+  C0058 #195/195 constant  G[spi_clgen.v 80:30:80:32] O[spi_defines.v 80:30:80:32]
+  C0087 #196/196 constant  G[80:36:80:37] O[80:62:80:63]
+  C0148 #197/197 operation  G[80:37:80:43] O[80:63:80:69]
+  C0087 #198/198 constant  G[80:38:80:42] O[80:64:80:68]
+  C0087 #199/199 constant  G[80:46:80:50] O[80:72:80:76]
+  C0188 #292/292 cont_assign  G[67:10:67:41] O[67:10:67:67]
+  C0455 #293/293 operation  G[67:21:67:41] O[67:21:67:67]
+  C0445 #295/295 operation  G[67:28:67:41] O[67:28:67:67]
+  C0058 #296/296 constant  G[spi_clgen.v 67:29:67:31] O[spi_defines.v 67:29:67:31]
+  C0148 #297/297 operation  G[67:34:67:40] O[67:60:67:66]
+  C0087 #298/298 constant  G[67:35:67:39] O[67:61:67:65]
+  C0188 #300/300 cont_assign  G[68:10:68:51] O[68:10:68:77]
+  C0455 #301/301 operation  G[68:21:68:51] O[68:21:68:77]
+  C0445 #303/303 operation  G[68:28:68:51] O[68:28:68:77]
+  C0445 #304/304 operation  G[68:29:68:44] O[68:29:68:70]
+  C0078 #305/305 operation  G[spi_clgen.v 68:30:68:37] O[spi_defines.v 68:30:68:63]
+  ... 483 more

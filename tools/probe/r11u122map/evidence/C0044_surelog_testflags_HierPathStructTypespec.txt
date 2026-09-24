@@ -1,0 +1,102 @@
+cluster C0044: value|parameter|value:INT->UINT|under:module_inst
+row: surelog/testflags/HierPathStructTypespec  strict=differ:fullname(32)  records golden=379 ours=370
+object: #296 (golden) / #295 (ours)  type=parameter name=BufferCycles
+  golden: |0|INT:15|
+  ours:   |0|UINT:15|
+  walk parents: module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 284..307 ('>' = the object)
+  #284	5	hier_path	hw2reg.status.fifo_depth.d			dut.sv	37	11	37	37		0		
+  #285	6	ref_obj	hw2reg			dut.sv	37	11	37	17		0		
+  #286	6	ref_obj	status			dut.sv	37	18	37	24		0		
+  #287	6	ref_obj	fifo_depth			dut.sv	37	25	37	35		0		
+  #288	6	ref_obj	d		work@top.d	dut.sv	37	36	37	37		0		
+  #289	4	operation				dut.sv	37	42	37	57		0		
+  #290	5	constant				dut.sv	37	42	37	55	4	32	UINT:4	9
+  #291	6	ref_typespec			work@top		0	0	0	0		0		
+  #292	7	int_typespec				dut.sv	14	13	14	16				
+  #293	5	constant				dut.sv	37	56	37	57	1	64	UINT:1	9
+  #294	3	named_begin	gen_fifo_depth_tie		work@top.gen_fifo_depth_tie		0	0	0	0				
+  #295	1	module_inst	work@top	work@top		dut.sv	33	1	40	10				
+> #296	2	parameter	BufferCycles		work@top.BufferCycles	dut.sv	10	17	10	29		0	INT:15	
+  #297	3	ref_typespec			work@top.BufferCycles		0	0	0	0		0		
+  #298	4	int_typespec				dut.sv	10	13	10	16				
+  #299	2	parameter	BufferSizeBits		work@top.BufferSizeBits	dut.sv	11	17	11	31		0	INT:480	
+  #300	3	ref_typespec			work@top.BufferSizeBits		0	0	0	0		0		
+  #301	4	int_typespec				dut.sv	11	13	11	16				
+  #302	2	parameter	MsgFifoDepth		work@top.MsgFifoDepth	dut.sv	13	17	13	29		0	INT:10	
+  #303	3	ref_typespec			work@top.MsgFifoDepth		0	0	0	0		0		
+  #304	4	int_typespec				dut.sv	13	13	13	16				
+  #305	2	parameter	MsgFifoDepthW		work@top.MsgFifoDepthW	dut.sv	14	17	14	30		0	UINT:4	
+  #306	3	ref_typespec			work@top.MsgFifoDepthW		0	0	0	0		0		
+  #307	4	int_typespec				dut.sv	14	13	14	16				
+
+--- OURS (B) records 283..306 ('>' = the object)
+  #283	4	sys_func_call	$bits			dut.sv	37	5	37	38		0		
+  #284	5	hier_path	hw2reg.status.fifo_depth.d			dut.sv	37	11	37	37		0		
+  #285	6	ref_obj	hw2reg			dut.sv	37	11	37	17		0		
+  #286	6	ref_obj	status			dut.sv	37	18	37	24		0		
+  #287	6	ref_obj	fifo_depth			dut.sv	37	25	37	35		0		
+  #288	6	ref_obj	d		work@top.d	dut.sv	37	36	37	37		0		
+  #289	4	operation				dut.sv	37	42	37	57		0		
+  #290	5	constant				dut.sv	37	42	37	55	4	32	UINT:4	9
+  #291	6	ref_typespec			work@top		0	0	0	0		0		
+  #292	5	constant				dut.sv	37	56	37	57	1	64	UINT:1	9
+  #293	3	named_begin	gen_fifo_depth_tie		work@top.gen_fifo_depth_tie		0	0	0	0				
+  #294	1	module_inst	work@top	work@top		dut.sv	33	1	40	10				
+> #295	2	parameter	BufferCycles		work@top.BufferCycles	dut.sv	10	17	10	29		0	UINT:15	
+  #296	3	ref_typespec			work@top.BufferCycles		0	0	0	0		0		
+  #297	4	int_typespec				dut.sv	10	13	10	16				
+  #298	2	parameter	BufferSizeBits		work@top.BufferSizeBits	dut.sv	11	17	11	31		0	UINT:480	
+  #299	3	ref_typespec			work@top.BufferSizeBits		0	0	0	0		0		
+  #300	4	int_typespec				dut.sv	11	13	11	16				
+  #301	2	parameter	MsgFifoDepth		work@top.MsgFifoDepth	dut.sv	13	17	13	29		0	UINT:10	
+  #302	3	ref_typespec			work@top.MsgFifoDepth		0	0	0	0		0		
+  #303	4	int_typespec				dut.sv	13	13	13	16				
+  #304	2	parameter	MsgFifoDepthW		work@top.MsgFifoDepthW	dut.sv	14	17	14	30		0	UINT:4	
+  #305	3	ref_typespec			work@top.MsgFifoDepthW		0	0	0	0		0		
+  #306	4	int_typespec				dut.sv	14	13	14	16				
+
+all facets of this row (57):
+  C0002 #292/-1 int_typespec  G[1 objs] O[]
+  C0002 #323/-1 int_typespec  G[1 objs] O[]
+  C0002 #327/-1 int_typespec  G[1 objs] O[]
+  C0002 #331/-1 int_typespec  G[1 objs] O[]
+  C0002 #335/-1 int_typespec  G[1 objs] O[]
+  C0002 #339/-1 int_typespec  G[1 objs] O[]
+  C0002 #343/-1 int_typespec  G[1 objs] O[]
+  C0002 #347/-1 int_typespec  G[1 objs] O[]
+  C0002 #351/-1 int_typespec  G[1 objs] O[]
+  C0205 #80/80 ref_typespec  G[kmac_reg_pkg::kmac_reg_pkg::kmac_hw2reg_status_reg_t::sha3_idle::d] O[d]
+  C0205 #86/86 ref_typespec  G[kmac_reg_pkg::kmac_reg_pkg::kmac_hw2reg_status_reg_t::fifo_depth::d] O[d]
+  C0034 #116/116 parameter BufferCycles G[|0|INT:15|] O[|0|UINT:15|]
+  C0034 #119/119 parameter BufferSizeBits G[|0|INT:480|] O[|0|UINT:480|]
+  C0034 #122/122 parameter MsgFifoDepth G[|0|INT:10|] O[|0|UINT:10|]
+  C0039 #141/141 constant  G[10:34:10:64] O[10:35:10:63]
+  C0025 #155/155 ref_typespec  G[work@top.kmac_reg_pkg::kmac_hw2reg_status_reg_t.sha3_idle] O[kmac_reg_pkg::kmac_hw2reg_status_reg_t.sha3_idle]
+  C0349 #158/158 ref_typespec  G[work@top.kmac_reg_pkg::kmac_hw2reg_status_reg_t.sha3_idle.d] O[d]
+  C0025 #161/161 ref_typespec  G[work@top.kmac_reg_pkg::kmac_hw2reg_status_reg_t.fifo_depth] O[kmac_reg_pkg::kmac_hw2reg_status_reg_t.fifo_depth]
+  C0349 #164/164 ref_typespec  G[work@top.kmac_reg_pkg::kmac_hw2reg_status_reg_t.fifo_depth.d] O[d]
+  C0025 #171/171 ref_typespec  G[work@top.kmac_reg_pkg::kmac_hw2reg_t.intr_state] O[kmac_reg_pkg::kmac_hw2reg_t.intr_state]
+  C0025 #173/173 ref_typespec  G[work@top.kmac_reg_pkg::kmac_hw2reg_t.status] O[kmac_reg_pkg::kmac_hw2reg_t.status]
+  C0094 #175/175 parameter BufferCycles G[|0|INT:15|] O[|0||]
+  C0094 #178/178 parameter BufferSizeBits G[|0|INT:480|] O[|0||]
+  C0094 #181/181 parameter MsgFifoDepth G[|0|INT:10|] O[|0||]
+  C0020 #184/184 parameter MsgFifoDepthW G[|0|UINT:4|] O[|0||]
+  C0014 #200/200 constant  G[6:28:6:38] O[6:28:6:46]
+  C0003 #203/203 parameter MsgWidth G[dut.sv 6:17:6:25] O[ 6:17:6:25]
+  C0003 #210/210 parameter RegIntfWidth G[dut.sv 7:17:7:29] O[ 7:17:7:29]
+  C0003 #217/217 parameter RegLatency G[dut.sv 8:17:8:27] O[ 8:17:8:27]
+  C0003 #224/224 parameter Sha3Latency G[dut.sv 9:17:9:28] O[ 9:17:9:28]
+  C0003 #231/231 parameter BufferCycles G[dut.sv 10:17:10:29] O[ 10:17:10:29]
+  C0083 #231/231 parameter BufferCycles G[|0|INT:15|] O[|0||]
+  C0003 #238/238 parameter BufferSizeBits G[dut.sv 11:17:11:31] O[ 11:17:11:31]
+  C0083 #238/238 parameter BufferSizeBits G[|0|INT:480|] O[|0||]
+  C0003 #245/245 parameter MsgFifoDepth G[dut.sv 13:17:13:29] O[ 13:17:13:29]
+  C0083 #245/245 parameter MsgFifoDepth G[|0|INT:10|] O[|0||]
+  C0003 #252/252 parameter MsgFifoDepthW G[dut.sv 14:17:14:30] O[ 14:17:14:30]
+  C0080 #252/252 parameter MsgFifoDepthW G[|0|UINT:4|] O[|0||]
+  C0025 #257/257 ref_typespec  G[work@top.kmac_reg_pkg::kmac_hw2reg_status_reg_t.sha3_idle] O[kmac_reg_pkg::kmac_hw2reg_status_reg_t.sha3_idle]
+  C0349 #260/260 ref_typespec  G[work@top.kmac_reg_pkg::kmac_hw2reg_status_reg_t.sha3_idle.d] O[d]
+  ... 17 more

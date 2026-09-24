@@ -1,0 +1,52 @@
+cluster C0017: fullname|ref_typespec|tok:id@id.id.id::id.->id::id::id::|under:typespec_member
+row: surelog/testflags/ParamNoImport  strict=differ:fullname(3)  records golden=52 ours=52
+object: #46 (golden) / #46 (ours)  type=ref_typespec name=
+  golden: work@dut.t.pkg::pwr_ast_rsp_t.slow_clk_val
+  ours:   pkg::pkg::pwr_ast_rsp_t::slow_clk_val
+  walk parents: typespec_member(slow_clk_val) < struct_typespec(pkg::pwr_ast_rsp_t) < ref_typespec < operation
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 34..51 ('>' = the object)
+  #34	4	parameter	PWR_AST_RSP		work@test.PWR_AST_RSP	dut.sv	1	26	1	37		0	BIN:0	
+  #35	4	param_assign				dut.sv	1	26	1	42				
+  #36	5	constant				dut.sv	1	40	1	42	'0	-1	BIN:0	3
+  #37	6	ref_typespec			work@test		0	0	0	0		0		
+  #38	1	module_inst	work@dut	work@dut		dut.sv	14	1	18	10				
+  #39	2	module_inst	t	work@test	work@dut.t	dut.sv	16	1	16	52				
+  #40	3	parameter	PWR_AST_RSP		work@dut.t.PWR_AST_RSP	dut.sv	1	26	1	37		0	BIN:0	
+  #41	3	param_assign				dut.sv	1	26	1	42				
+  #42	4	operation				dut.sv	9	47	11	2		0		
+  #43	5	ref_typespec			work@dut.t		0	0	0	0		0		
+  #44	6	struct_typespec	pkg::pwr_ast_rsp_t			dut.sv	6	9	8	2				
+  #45	7	typespec_member	slow_clk_val			dut.sv	7	15	7	27				
+> #46	8	ref_typespec			work@dut.t.pkg::pwr_ast_rsp_t.slow_clk_val		0	0	0	0		0		
+  #47	9	logic_typespec				dut.sv	7	3	7	14				
+  #48	10	range				dut.sv	7	9	7	14				
+  #49	11	constant				dut.sv	7	10	7	11	1	64	UINT:1	9
+  #50	11	constant				dut.sv	7	12	7	13	0	64	UINT:0	9
+  #51	5	constant				dut.sv	10	17	10	22	2'b10	2	BIN:10	3
+
+--- OURS (B) records 34..51 ('>' = the object)
+  #34	4	parameter	PWR_AST_RSP		work@test.PWR_AST_RSP	dut.sv	1	26	1	37		0	BIN:0	
+  #35	4	param_assign				dut.sv	1	26	1	42				
+  #36	5	constant				dut.sv	1	40	1	42	'0	-1	BIN:0	3
+  #37	6	ref_typespec			work@test		0	0	0	0		0		
+  #38	1	module_inst	work@dut	work@dut		dut.sv	14	1	18	10				
+  #39	2	module_inst	t	work@test	work@dut.t	dut.sv	16	1	16	52				
+  #40	3	parameter	PWR_AST_RSP		work@dut.t.PWR_AST_RSP	dut.sv	1	26	1	37		0	BIN:0	
+  #41	3	param_assign				dut.sv	1	26	1	42				
+  #42	4	operation				dut.sv	9	47	11	2		0		
+  #43	5	ref_typespec			pkg		0	0	0	0		0		
+  #44	6	struct_typespec	pkg::pwr_ast_rsp_t			dut.sv	6	9	8	2				
+  #45	7	typespec_member	slow_clk_val			dut.sv	7	15	7	27				
+> #46	8	ref_typespec			pkg::pkg::pwr_ast_rsp_t::slow_clk_val		0	0	0	0		0		
+  #47	9	logic_typespec				dut.sv	7	3	7	14				
+  #48	10	range				dut.sv	7	9	7	14				
+  #49	11	constant				dut.sv	7	10	7	11	1	64	UINT:1	9
+  #50	11	constant				dut.sv	7	12	7	13	0	64	UINT:0	9
+  #51	5	constant				dut.sv	10	17	10	22	2'b10	2	BIN:10	3
+
+all facets of this row (3):
+  C0013 #29/29 ref_typespec  G[] O[pkg]
+  C1216 #43/43 ref_typespec  G[work@dut.t] O[pkg]
+  C0017 #46/46 ref_typespec  G[work@dut.t.pkg::pwr_ast_rsp_t.slow_clk_val] O[pkg::pkg::pwr_ast_rsp_t::slow_clk_val]

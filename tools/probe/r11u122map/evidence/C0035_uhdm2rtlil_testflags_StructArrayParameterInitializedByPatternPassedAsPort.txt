@@ -1,0 +1,73 @@
+cluster C0035: struct|golden-only:fewer-copies|struct_typespec|under:module_inst
+row: uhdm2rtlil/testflags/StructArrayParameterInitializedByPatternPassedAsPort  strict=differ:fullname(2)  records golden=294 ours=214
+object: #87 (golden) / #-1 (ours)  type=struct_typespec name=flash_ctrl_pkg::data_region_attr_t
+  golden: 4 objs
+  ours:   
+  walk parents: module_inst < design(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 75..98 ('>' = the object)
+  #75	8	constant				dut.sv	6	44	6	45	1	64	UINT:1	9
+  #76	8	constant					0	0	0	0		64	INT:1	7
+  #77	6	ref_typespec			work@flash_mp_data_region_sel.HwDataAttr		0	0	0	0		0		
+  #78	7	struct_typespec	flash_ctrl_pkg::data_region_attr_t			dut.sv	2	12	4	5				
+  #79	8	typespec_member	phase			dut.sv	3	13	3	18				
+  #80	9	ref_typespec			work@flash_mp_data_region_sel.HwDataAttr.flash_ctrl_pkg::data_region_attr_t.phase		0	0	0	0		0		
+  #81	10	logic_typespec				dut.sv	3	7	3	12				
+  #82	4	range				dut.sv	6	44	6	45				
+  #83	5	constant					0	0	0	0	0	64	UINT:0	9
+  #84	5	operation				dut.sv	6	44	6	45		0		
+  #85	6	constant				dut.sv	6	44	6	45	1	64	UINT:1	9
+  #86	6	constant					0	0	0	0		64	INT:1	7
+> #87	2	struct_typespec	flash_ctrl_pkg::data_region_attr_t			dut.sv	2	12	4	5				
+  #88	3	typespec_member	phase			dut.sv	3	13	3	18				
+  #89	4	ref_typespec			work@top.flash_ctrl_pkg::data_region_attr_t.phase		0	0	0	0		0		
+  #90	5	logic_typespec				dut.sv	3	7	3	12				
+  #91	2	import_typespec	flash_ctrl_pkg			dut.sv	13	40	13	57				
+  #92	3	constant					0	0	0	0	*	8	STRING:*	8
+  #93	2	logic_net	region_attrs_i		work@flash_mp_data_region_sel.region_attrs_i	dut.sv	14	29	14	43		0		
+  #94	2	logic_net	x		work@flash_mp_data_region_sel.x	dut.sv	15	17	15	18		0		
+  #95	2	port	region_attrs_i			dut.sv	14	29	14	43				
+  #96	3	ref_obj	region_attrs_i		work@flash_mp_data_region_sel.region_attrs_i.region_attrs_i	dut.sv	14	29	14	43		0		
+  #97	3	ref_typespec			work@flash_mp_data_region_sel.region_attrs_i		0	0	0	0		0		
+  #98	4	array_typespec				dut.sv	14	10	14	46				
+
+--- the holder #43 in the other side: exact-record matches at [47]
+  #43	2	struct_typespec	flash_ctrl_pkg::data_region_attr_t			dut.sv	2	12	4	5				
+  #44	3	typespec_member	phase			dut.sv	3	13	3	18				
+  #45	4	ref_typespec			work@top.flash_ctrl_pkg::data_region_attr_t.phase		0	0	0	0		0		
+  #46	5	logic_typespec				dut.sv	3	7	3	12				
+> #47	1	module_inst		work@flash_mp_data_region_sel	work@flash_mp_data_region_sel	dut.sv	13	1	18	10				
+  #48	2	parameter	HwDataAttr		work@flash_mp_data_region_sel.HwDataAttr	dut.sv	6	33	6	43		1		
+  #49	3	ref_typespec			work@flash_mp_data_region_sel.HwDataAttr		0	0	0	0		0		
+  #50	4	array_typespec				dut.sv	6	14	6	46				
+  #51	5	range				dut.sv	6	44	6	45				
+  #52	6	constant					0	0	0	0	0	64	UINT:0	9
+  #53	6	operation				dut.sv	6	44	6	45		0		
+  #54	7	constant				dut.sv	6	44	6	45	1	64	UINT:1	9
+  #55	7	constant					0	0	0	0		64	INT:1	7
+  #56	5	ref_typespec			work@flash_mp_data_region_sel.HwDataAttr		0	0	0	0		0		
+  #57	6	struct_typespec	flash_ctrl_pkg::data_region_attr_t			dut.sv	2	12	4	5				
+  #58	7	typespec_member	phase			dut.sv	3	13	3	18				
+  #59	8	ref_typespec			work@top.flash_ctrl_pkg::data_region_attr_t.phase		0	0	0	0		0		
+  #60	9	logic_typespec				dut.sv	3	7	3	12				
+
+all facets of this row (18):
+  C0048 #-1/43 struct_typespec flash_ctrl_pkg::data_region_attr_t G[] O[4 objs]
+  C0033 #57/-1 range  G[5 objs] O[]
+  C0012 #69/-1 parameter HwDataAttr G[18 objs] O[]
+  C0035 #87/-1 struct_typespec flash_ctrl_pkg::data_region_attr_t G[4 objs] O[]
+  C0004 #125/-1 struct_typespec flash_ctrl_pkg::data_region_attr_t G[4 objs] O[]
+  C0033 #129/-1 range  G[5 objs] O[]
+  C0012 #141/-1 parameter HwDataAttr G[18 objs] O[]
+  C0030 #193/-1 array_typespec  G[11 objs] O[]
+  C0035 #205/-1 struct_typespec flash_ctrl_pkg::data_region_attr_t G[4 objs] O[]
+  C0004 #228/-1 struct_typespec flash_ctrl_pkg::data_region_attr_t G[4 objs] O[]
+  C0030 #240/-1 array_typespec  G[11 objs] O[]
+  C0038 #34/34 ref_typespec  G[work@top.flash_ctrl_pkg::data_region_attr_t.phase] O[flash_ctrl_pkg::flash_ctrl_pkg::data_region_attr_t::phase]
+  C0384 #55/59 ref_typespec  G[work@flash_mp_data_region_sel.HwDataAttr.flash_ctrl_pkg::data_region_attr_t.phas] O[work@top.flash_ctrl_pkg::data_region_attr_t.phase]
+  C0010 #183/133 ref_typespec  G[work@top.HwDataAttr.flash_ctrl_pkg::data_region_attr_t.phase] O[work@top.flash_ctrl_pkg::data_region_attr_t.phase]
+  C0559 #266/186 operation  G[23:23:23:33] O[6:49:10:5]
+  C0813 #267/187 ref_typespec  G[work@top.u_hw_sel.region_attrs_i] O[work@top.u_hw_sel.u_hw_sel.region_attrs_i]
+  C0816 #274/194 ref_typespec  G[work@top.u_hw_sel.region_attrs_i] O[flash_ctrl_pkg::HwDataAttr]
+  C0099 #277/197 ref_typespec  G[work@top.u_hw_sel.region_attrs_i.flash_ctrl_pkg::data_region_attr_t.phase] O[flash_ctrl_pkg::flash_ctrl_pkg::data_region_attr_t::phase]

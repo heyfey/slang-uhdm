@@ -1,0 +1,57 @@
+cluster C0005: struct|golden-only:fewer-copies|logic_typespec|under:ref_typespec
+row: surelog/testflags/ComplexExprSize  strict=differ:depth(1)  records golden=40 ours=36
+object: #13 (golden) / #-1 (ours)  type=logic_typespec name=
+  golden: 4 objs
+  ours:   
+  walk parents: ref_typespec < sys_func_call($unsigned) < cont_assign < module_inst
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 1..24 ('>' = the object)
+  #1	1	module_inst		work@top	work@top	dut.sv	1	1	5	10				
+  #2	2	logic_net	out		work@top.out	dut.sv	1	13	1	16		0		
+  #3	2	port	out			dut.sv	1	13	1	16				
+  #4	3	ref_obj	out		work@top.out.out	dut.sv	1	13	1	16		0		
+  #5	3	ref_typespec			work@top.out		0	0	0	0		0		
+  #6	4	logic_typespec				dut.sv	2	10	2	21				
+  #7	5	range				dut.sv	2	15	2	21				
+  #8	6	constant				dut.sv	2	16	2	18	31	64	UINT:31	9
+  #9	6	constant				dut.sv	2	19	2	20	0	64	UINT:0	9
+  #10	2	cont_assign				dut.sv	4	10	4	55				
+  #11	3	sys_func_call	$unsigned			dut.sv	4	16	4	25		0		
+  #12	4	ref_typespec			work@top		0	0	0	0		0		
+> #13	5	logic_typespec				dut.sv	2	10	2	21				
+  #14	6	range				dut.sv	2	15	2	21				
+  #15	7	constant				dut.sv	2	16	2	18	31	64	UINT:31	9
+  #16	7	constant				dut.sv	2	19	2	20	0	64	UINT:0	9
+  #17	4	operation				dut.sv	4	26	4	54		0		
+  #18	5	operation				dut.sv	4	28	4	52		0		
+  #19	6	sys_func_call	$unsigned			dut.sv	4	30	4	39		0		
+  #20	7	operation				dut.sv	4	41	4	50		0		
+  #21	8	constant				dut.sv	4	44	4	49	8'ha4	8	HEX:a4	5
+  #22	3	ref_obj	out		work@top.out	dut.sv	4	10	4	13		0		
+  #23	1	module_inst	work@top	work@top		dut.sv	1	1	5	10				
+  #24	2	logic_net	out		work@top.out	dut.sv	1	13	1	16		0		
+
+--- the holder #12 in the other side: exact-record matches at [12]
+  #8	6	constant				dut.sv	2	16	2	18	31	64	UINT:31	9
+  #9	6	constant				dut.sv	2	19	2	20	0	64	UINT:0	9
+  #10	2	cont_assign				dut.sv	4	10	4	55				
+  #11	3	sys_func_call	$unsigned			dut.sv	4	16	4	25		0		
+> #12	4	ref_typespec			work@top		0	0	0	0		0		
+  #13	4	operation				dut.sv	4	26	4	54		0		
+  #14	5	operation				dut.sv	4	28	4	52		0		
+  #15	6	sys_func_call	$unsigned			dut.sv	4	30	4	39		0		
+  #16	7	operation				dut.sv	4	41	4	42		0		
+  #17	8	constant				dut.sv	4	44	4	49	8'ha4	8	HEX:a4	5
+  #18	3	ref_obj	out		work@top.out	dut.sv	4	10	4	13		0		
+  #19	1	module_inst	work@top	work@top		dut.sv	1	1	5	10				
+  #20	2	logic_net	out		work@top.out	dut.sv	1	13	1	16		0		
+  #21	3	ref_typespec			work@top.out		0	0	0	0		0		
+  #22	4	logic_typespec				dut.sv	2	10	2	21				
+  #23	5	range				dut.sv	2	15	2	21				
+  #24	6	constant				dut.sv	2	16	2	18	31	64	UINT:31	9
+  #25	6	constant				dut.sv	2	19	2	20	0	64	UINT:0	9
+
+all facets of this row (2):
+  C0005 #13/-1 logic_typespec  G[4 objs] O[]
+  C0315 #20/16 operation  G[4:41:4:50] O[4:41:4:42]

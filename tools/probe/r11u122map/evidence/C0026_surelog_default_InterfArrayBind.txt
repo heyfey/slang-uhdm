@@ -1,0 +1,65 @@
+cluster C0026: struct|ours-only:elsewhere|enum_const|under:ref_obj
+row: surelog/default/InterfArrayBind  strict=differ:file(3)  records golden=178 ours=178
+object: #-1 (golden) / #121 (ours)  type=enum_const name=IO_ONES
+  golden: 
+  ours:   1 objs
+  walk parents: ref_obj(IO_ONES) < bit_select(peripheral_io_bus) < hier_path(peripheral_io_bus[IO_ONES].write_en) < cont_assign
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- OURS (B) records 109..132 ('>' = the object)
+  #109	3	range				dut.sv	14	39	14	62				
+  #110	4	operation				dut.sv	14	40	14	59		0		
+  #111	5	ref_obj	NUM_PERIPHERALS		work@soc_tb.NUM_PERIPHERALS	dut.sv	14	40	14	55		0		
+  #112	5	constant				dut.sv	14	58	14	59	1	64	UINT:1	9
+  #113	4	constant				dut.sv	14	60	14	61	0	64	UINT:0	9
+  #114	3	ref_typespec			work@soc_tb.peripheral_io_bus		0	0	0	0		0		
+  #115	4	module_typespec	io_bus_interface			dut.sv	14	5	14	21				
+  #116	2	cont_assign				dut.sv	16	12	16	62				
+  #117	3	constant				dut.sv	16	50	16	62	32'hffffffff	32	HEX:ffffffff	5
+  #118	3	hier_path	peripheral_io_bus[IO_ONES].write_en			dut.sv	16	12	16	29		0		
+  #119	4	bit_select	peripheral_io_bus		peripheral_io_bus[IO_ONES]	dut.sv	16	12	16	29		0		
+  #120	5	ref_obj	IO_ONES		work@soc_tb.IO_ONES	dut.sv	16	30	16	37		0		
+> #121	6	enum_const	IO_ONES			dut.sv	11	7	11	14				
+  #122	4	ref_obj	write_en		peripheral_io_bus[IO_ONES].write_en	dut.sv	16	39	16	47		0		
+  #123	2	gen_region					0	0	0	0				
+  #124	3	begin			work@soc_tb		0	0	0	0				
+  #125	1	module_inst	work@soc_tb	work@soc_tb		dut.sv	6	1	26	10				
+  #126	2	enum_var	io_bus_source		work@soc_tb.io_bus_source	dut.sv	12	7	12	20		0		
+  #127	3	ref_typespec			work@soc_tb.io_bus_source		0	0	0	0		0		
+  #128	4	enum_typespec					0	0	0	0				
+  #129	5	ref_typespec			work@soc_tb.io_bus_source		0	0	0	0		0		
+  #130	6	logic_typespec				dut.sv	10	10	10	46				
+  #131	7	range				dut.sv	10	15	10	46				
+  #132	8	constant				dut.sv	10	16	10	39	0	64	INT:0	7
+
+--- the holder #120 in the other side: exact-record matches at [120]
+  #116	2	cont_assign				dut.sv	16	12	16	62				
+  #117	3	constant				dut.sv	16	50	16	62	32'hffffffff	32	HEX:ffffffff	5
+  #118	3	hier_path	peripheral_io_bus[IO_ONES].write_en			dut.sv	16	12	16	29		0		
+  #119	4	bit_select	peripheral_io_bus		peripheral_io_bus[IO_ONES]	dut.sv	16	12	16	29		0		
+> #120	5	ref_obj	IO_ONES		work@soc_tb.IO_ONES	dut.sv	16	30	16	37		0		
+  #121	4	ref_obj	write_en		peripheral_io_bus[IO_ONES].write_en	dut.sv	16	39	16	47		0		
+  #122	2	gen_region					0	0	0	0				
+  #123	3	begin			work@soc_tb		0	0	0	0				
+  #124	1	module_inst	work@soc_tb	work@soc_tb		dut.sv	6	1	26	10				
+  #125	2	enum_var	io_bus_source		work@soc_tb.io_bus_source	dut.sv	12	7	12	20		0		
+  #126	3	ref_typespec			work@soc_tb.io_bus_source		0	0	0	0		0		
+  #127	4	enum_typespec					0	0	0	0				
+  #128	5	ref_typespec			work@soc_tb.io_bus_source		0	0	0	0		0		
+  #129	6	logic_typespec				dut.sv	10	10	10	46				
+  #130	7	range				dut.sv	10	15	10	46				
+  #131	8	constant				dut.sv	10	16	10	39	0	64	INT:0	7
+  #132	8	constant				dut.sv	10	44	10	45	0	64	UINT:0	9
+  #133	5	enum_const	IO_ONES			dut.sv	11	7	11	14				
+
+all facets of this row (10):
+  C0026 #-1/121 enum_const IO_ONES G[] O[1 objs]
+  C0514 #176/-1 enum_const IO_ONES G[1 objs] O[]
+  C0216 #98/98 enum_typespec  G[dut.sv 0:0:11:14] O[ 0:0:0:0]
+  C0219 #98/98 enum_typespec  G[0:0:11:14] O[0:0:0:0]
+  C0046 #111/111 ref_obj NUM_PERIPHERALS G[work@soc_tb.peripheral_io_bus.NUM_PERIPHERALS] O[work@soc_tb.NUM_PERIPHERALS]
+  C0001 #151/152 parameter io_idx G[dut.sv 20:0:0:0] O[ 20:0:0:0]
+  C0541 #158/159 ref_obj io_idx G[work@soc_tb.io_gen[0].peripheral_io_bus[io_idx].write_en.io_idx] O[work@soc_tb.io_gen[0].io_idx]
+  C0001 #162/163 parameter io_idx G[dut.sv 20:0:0:0] O[ 20:0:0:0]
+  C0541 #169/170 ref_obj io_idx G[work@soc_tb.io_gen[1].peripheral_io_bus[io_idx].write_en.io_idx] O[work@soc_tb.io_gen[1].io_idx]
+  C0541 #175/176 ref_obj IO_ONES G[work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES] O[work@soc_tb.IO_ONES]

@@ -1,0 +1,74 @@
+cluster C0018: fullname|ref_typespec|tok:->id.|under:typespec_member
+row: surelog/testflags/HierPathEval  strict=differ:depth(1)  records golden=136 ours=148
+object: #70 (golden) / #72 (ours)  type=ref_typespec name=
+  golden: work@top.pinmux_pkg::target_cfg_t.a
+  ours:   work@top.TargetCfg.pinmux_pkg::target_cfg_t.a
+  walk parents: typespec_member(a) < struct_typespec(pinmux_pkg::target_cfg_t) < ref_typespec < parameter(TargetCfg)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 58..81 ('>' = the object)
+  #58	4	ref_typespec			work@prim_pad_attr		0	0	0	0		0		
+  #59	2	import_typespec	prim_pad_wrapper_pkg			dut.sv	34	11	34	34				
+  #60	3	constant					0	0	0	0	*	8	STRING:*	8
+  #61	2	gen_if				dut.sv	37	4	37	6				
+  #62	3	constant				dut.sv	37	8	37	9	1	64	UINT:1	9
+  #63	3	named_begin	gen_outer_if		work@prim_pad_attr.gen_outer_if		0	0	0	0				
+  #64	4	ref_module	u_impl_generic	work@prim_generic_pad_attr		dut.sv	40	10	40	24				
+  #65	1	module_inst		work@top	work@top	dut.sv	46	1	55	10				
+  #66	2	parameter	TargetCfg		work@top.TargetCfg	dut.sv	48	27	48	36		0	UINT:2	
+  #67	3	ref_typespec			work@top.TargetCfg		0	0	0	0		0		
+  #68	4	struct_typespec	pinmux_pkg::target_cfg_t			dut.sv	9	12	12	5				
+  #69	5	typespec_member	a			dut.sv	10	13	10	14				
+> #70	6	ref_typespec			work@top.pinmux_pkg::target_cfg_t.a		0	0	0	0		0		
+  #71	7	logic_typespec				dut.sv	10	7	10	12				
+  #72	5	typespec_member	dio_pad_type			dut.sv	11	18	11	30				
+  #73	6	ref_typespec			work@top.pinmux_pkg::target_cfg_t.dio_pad_type		0	0	0	0		0		
+  #74	2	param_assign				dut.sv	48	27	48	40				
+  #75	3	constant				dut.sv	48	39	48	40	2	64	UINT:2	9
+  #76	4	ref_typespec			work@top		0	0	0	0		0		
+  #77	2	import_typespec	pinmux_pkg			dut.sv	47	11	47	24				
+  #78	3	constant					0	0	0	0	*	8	STRING:*	8
+  #79	2	ref_module	u_prim_pad_attr	work@prim_pad_attr		dut.sv	52	6	52	21				
+  #80	1	module_inst	work@top	work@top		dut.sv	46	1	55	10				
+  #81	2	parameter	TargetCfg		work@top.TargetCfg	dut.sv	48	27	48	36		0	UINT:2	
+
+--- OURS (B) records 60..83 ('>' = the object)
+  #60	4	ref_typespec			work@prim_pad_attr		0	0	0	0		0		
+  #61	2	import_typespec	prim_pad_wrapper_pkg			dut.sv	34	11	34	34				
+  #62	3	constant					0	0	0	0	*	8	STRING:*	8
+  #63	2	gen_if				dut.sv	37	4	37	6				
+  #64	3	constant				dut.sv	37	8	37	9	1	64	UINT:1	9
+  #65	3	named_begin	gen_outer_if		work@prim_pad_attr.gen_outer_if		0	0	0	0				
+  #66	4	ref_module	u_impl_generic	work@prim_generic_pad_attr		dut.sv	40	10	40	24				
+  #67	1	module_inst		work@top	work@top	dut.sv	46	1	55	10				
+  #68	2	parameter	TargetCfg		work@top.TargetCfg	dut.sv	48	27	48	36		0	UINT:2	
+  #69	3	ref_typespec			work@top.TargetCfg		0	0	0	0		0		
+  #70	4	struct_typespec	pinmux_pkg::target_cfg_t			dut.sv	9	12	12	5				
+  #71	5	typespec_member	a			dut.sv	10	13	10	14				
+> #72	6	ref_typespec			work@top.TargetCfg.pinmux_pkg::target_cfg_t.a		0	0	0	0		0		
+  #73	7	logic_typespec				dut.sv	10	7	10	12				
+  #74	5	typespec_member	dio_pad_type			dut.sv	11	18	11	30				
+  #75	6	ref_typespec			work@top.TargetCfg.pinmux_pkg::target_cfg_t.dio_pad_type		0	0	0	0		0		
+  #76	7	enum_typespec	prim_pad_wrapper_pkg::pad_type_e			dut.sv	2	4	4	17				
+  #77	8	ref_typespec			work@top.TargetCfg.pinmux_pkg::target_cfg_t.dio_pad_type.prim_pad_wrapper_pkg::pad_type_e		0	0	0	0		0		
+  #78	9	logic_typespec				dut.sv	2	17	2	22				
+  #79	8	enum_const	BidirStd			dut.sv	3	7	3	22				
+  #80	2	param_assign				dut.sv	48	27	48	40				
+  #81	3	constant				dut.sv	48	39	48	40	2	64	UINT:2	9
+  #82	4	ref_typespec			work@top		0	0	0	0		0		
+  #83	2	struct_typespec	pinmux_pkg::target_cfg_t			dut.sv	9	12	12	5				
+
+all facets of this row (13):
+  C0062 #-1/17 enum_typespec prim_pad_wrapper_pkg::pad_type_e G[] O[2 objs]
+  C0062 #-1/76 enum_typespec prim_pad_wrapper_pkg::pad_type_e G[] O[4 objs]
+  C0036 #-1/83 struct_typespec pinmux_pkg::target_cfg_t G[] O[6 objs]
+  C0615 #96/112 struct_typespec pinmux_pkg::target_cfg_t G[5 ref_typespec < constant] O[2 module_inst(work@top) < design(work@top)]
+  C0196 #97/113 typespec_member a G[6 struct_typespec(pinmux_pkg::target_cfg_t) < ref_typespec] O[3 struct_typespec(pinmux_pkg::target_cfg_t) < module_inst(work@top)]
+  C0197 #98/114 ref_typespec  G[7 typespec_member(a) < struct_typespec(pinmux_pkg::target_cfg_t)] O[4 typespec_member(a) < struct_typespec(pinmux_pkg::target_cfg_t)]
+  C0074 #99/115 logic_typespec  G[8 ref_typespec < typespec_member(a)] O[5 ref_typespec < typespec_member(a)]
+  C0196 #100/116 typespec_member dio_pad_type G[6 struct_typespec(pinmux_pkg::target_cfg_t) < ref_typespec] O[3 struct_typespec(pinmux_pkg::target_cfg_t) < module_inst(work@top)]
+  C0197 #101/117 ref_typespec  G[7 typespec_member(dio_pad_type) < struct_typespec(pinmux_pkg::target_cfg_t)] O[4 typespec_member(dio_pad_type) < struct_typespec(pinmux_pkg::target_cfg_t)]
+  C0748 #102/-1 enum_typespec prim_pad_wrapper_pkg::pad_type_e G[4 objs] O[]
+  C0118 #-1/108 enum_typespec prim_pad_wrapper_pkg::pad_type_e G[] O[4 objs]
+  C0018 #70/72 ref_typespec  G[work@top.pinmux_pkg::target_cfg_t.a] O[work@top.TargetCfg.pinmux_pkg::target_cfg_t.a]
+  C0018 #73/75 ref_typespec  G[work@top.pinmux_pkg::target_cfg_t.dio_pad_type] O[work@top.TargetCfg.pinmux_pkg::target_cfg_t.dio_pad_type]

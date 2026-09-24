@@ -1,0 +1,97 @@
+cluster C0582: span|parameter|line|under:gen_scope
+row: surelog/testflags/DoubleLoop  strict=differ:file(30)  records golden=401 ours=401
+object: #117 (golden) / #117 (ours)  type=parameter name=i
+  golden: 9:0:0:0
+  ours:   10:0:0:0
+  walk parents: gen_scope < gen_scope_array(genblk1[0]) < module_inst(work@constpower1) < design(work@constpower1)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 105..128 ('>' = the object)
+  #105	2	port	ys			dut.sv	2	20	2	22				
+  #106	3	ref_obj	ys		work@constpower1.ys	dut.sv	2	20	2	22		0		
+  #107	3	ref_typespec			work@constpower1.ys		0	0	0	0		0		
+  #108	4	logic_typespec				dut.sv	4	8	4	13				
+  #109	5	range				dut.sv	4	8	4	13				
+  #110	6	constant				dut.sv	4	9	4	10	2	64	UINT:2	9
+  #111	6	constant				dut.sv	4	11	4	12	0	64	UINT:0	9
+  #112	2	port	yu			dut.sv	2	24	2	26				
+  #113	3	ref_obj	yu		work@constpower1.yu	dut.sv	2	24	2	26		0		
+  #114	3	ref_typespec			work@constpower1.yu		0	0	0	0		0		
+  #115	2	gen_scope_array	genblk1[0]		work@constpower1.genblk1[0]	dut.sv	10	2	13	5				
+  #116	3	gen_scope			work@constpower1.genblk1[0]	dut.sv	10	2	13	5				
+> #117	4	parameter	i		work@constpower1.genblk1[0].i	dut.sv	9	0	0	0		0	UINT:0	
+  #118	5	ref_typespec			work@constpower1.genblk1[0].i		0	0	0	0		0		
+  #119	6	int_typespec					0	0	0	0				
+  #120	4	gen_scope_array	W[0]		work@constpower1.genblk1[0].W[0]	dut.sv	10	30	13	5				
+  #121	5	gen_scope			work@constpower1.genblk1[0].W[0]	dut.sv	10	30	13	5				
+  #122	6	parameter	j		work@constpower1.genblk1[0].W[0].j	dut.sv	10	0	0	0		0	UINT:0	
+  #123	7	ref_typespec			work@constpower1.genblk1[0].W[0].j		0	0	0	0		0		
+  #124	8	int_typespec					0	0	0	0				
+  #125	6	cont_assign				dut.sv	11	10	11	19				
+  #126	7	constant					0	0	0	0	0	3	UINT:0	9
+  #127	7	ref_obj	ys		work@constpower1.genblk1[0].W[0].ys	dut.sv	11	10	11	12		0		
+  #128	4	gen_scope_array	W[1]		work@constpower1.genblk1[0].W[1]	dut.sv	10	30	13	5				
+
+--- OURS (B) records 105..128 ('>' = the object)
+  #105	2	port	ys			dut.sv	2	20	2	22				
+  #106	3	ref_obj	ys		work@constpower1.ys	dut.sv	2	20	2	22		0		
+  #107	3	ref_typespec			work@constpower1.ys		0	0	0	0		0		
+  #108	4	logic_typespec				dut.sv	4	8	4	13				
+  #109	5	range				dut.sv	4	8	4	13				
+  #110	6	constant				dut.sv	4	9	4	10	2	64	UINT:2	9
+  #111	6	constant				dut.sv	4	11	4	12	0	64	UINT:0	9
+  #112	2	port	yu			dut.sv	2	24	2	26				
+  #113	3	ref_obj	yu		work@constpower1.yu	dut.sv	2	24	2	26		0		
+  #114	3	ref_typespec			work@constpower1.yu		0	0	0	0		0		
+  #115	2	gen_scope_array	genblk1[0]		work@constpower1.genblk1[0]	dut.sv	10	2	13	5				
+  #116	3	gen_scope			work@constpower1.genblk1[0]	dut.sv	10	2	13	5				
+> #117	4	parameter	i		work@constpower1.genblk1[0].i		10	0	0	0		0	UINT:0	
+  #118	5	ref_typespec			work@constpower1.genblk1[0].i		0	0	0	0		0		
+  #119	6	int_typespec					0	0	0	0				
+  #120	4	gen_scope_array	W[0]		work@constpower1.genblk1[0].W[0]	dut.sv	10	30	13	5				
+  #121	5	gen_scope			work@constpower1.genblk1[0].W[0]	dut.sv	10	30	13	5				
+  #122	6	parameter	j		work@constpower1.genblk1[0].W[0].j		10	0	0	0		0	UINT:0	
+  #123	7	ref_typespec			work@constpower1.genblk1[0].W[0].j		0	0	0	0		0		
+  #124	8	int_typespec					0	0	0	0				
+  #125	6	cont_assign				dut.sv	11	10	11	19				
+  #126	7	constant					0	0	0	0	0	3	UINT:0	9
+  #127	7	ref_obj	ys		work@constpower1.genblk1[0].W[0].ys	dut.sv	11	10	11	12		0		
+  #128	4	gen_scope_array	W[1]		work@constpower1.genblk1[0].W[1]	dut.sv	10	30	13	5				
+
+all facets of this row (36):
+  C0001 #117/117 parameter i G[dut.sv 9:0:0:0] O[ 10:0:0:0]
+  C0582 #117/117 parameter i G[9:0:0:0] O[10:0:0:0]
+  C0001 #122/122 parameter j G[dut.sv 10:0:0:0] O[ 10:0:0:0]
+  C0001 #130/130 parameter j G[dut.sv 10:0:0:0] O[ 10:0:0:0]
+  C0001 #138/138 parameter i G[dut.sv 9:0:0:0] O[ 10:0:0:0]
+  C0582 #138/138 parameter i G[9:0:0:0] O[10:0:0:0]
+  C0001 #143/143 parameter j G[dut.sv 10:0:0:0] O[ 10:0:0:0]
+  C0001 #151/151 parameter j G[dut.sv 10:0:0:0] O[ 10:0:0:0]
+  C0001 #178/178 parameter i G[dut.sv 26:0:0:0] O[ 27:0:0:0]
+  C0582 #178/178 parameter i G[26:0:0:0] O[27:0:0:0]
+  C0001 #183/183 parameter j G[dut.sv 27:0:0:0] O[ 27:0:0:0]
+  C0001 #191/191 parameter j G[dut.sv 27:0:0:0] O[ 27:0:0:0]
+  C0001 #199/199 parameter i G[dut.sv 26:0:0:0] O[ 27:0:0:0]
+  C0582 #199/199 parameter i G[26:0:0:0] O[27:0:0:0]
+  C0001 #204/204 parameter j G[dut.sv 27:0:0:0] O[ 27:0:0:0]
+  C0001 #212/212 parameter j G[dut.sv 27:0:0:0] O[ 27:0:0:0]
+  C0001 #239/239 parameter i G[dut.sv 43:0:0:0] O[ 43:0:0:0]
+  C0001 #244/244 parameter j G[dut.sv 44:0:0:0] O[ 44:0:0:0]
+  C0001 #252/252 parameter j G[dut.sv 44:0:0:0] O[ 44:0:0:0]
+  C0001 #260/260 parameter i G[dut.sv 43:0:0:0] O[ 43:0:0:0]
+  C0001 #265/265 parameter j G[dut.sv 44:0:0:0] O[ 44:0:0:0]
+  C0001 #273/273 parameter j G[dut.sv 44:0:0:0] O[ 44:0:0:0]
+  C0001 #300/300 parameter i G[dut.sv 60:0:0:0] O[ 60:0:0:0]
+  C0001 #305/305 parameter j G[dut.sv 61:0:0:0] O[ 61:0:0:0]
+  C0001 #313/313 parameter j G[dut.sv 61:0:0:0] O[ 61:0:0:0]
+  C0001 #321/321 parameter i G[dut.sv 60:0:0:0] O[ 60:0:0:0]
+  C0001 #326/326 parameter j G[dut.sv 61:0:0:0] O[ 61:0:0:0]
+  C0001 #334/334 parameter j G[dut.sv 61:0:0:0] O[ 61:0:0:0]
+  C0001 #361/361 parameter i G[dut.sv 79:0:0:0] O[ 80:0:0:0]
+  C0582 #361/361 parameter i G[79:0:0:0] O[80:0:0:0]
+  C0001 #366/366 parameter j G[dut.sv 80:0:0:0] O[ 80:0:0:0]
+  C0001 #374/374 parameter j G[dut.sv 80:0:0:0] O[ 80:0:0:0]
+  C0001 #382/382 parameter i G[dut.sv 79:0:0:0] O[ 80:0:0:0]
+  C0582 #382/382 parameter i G[79:0:0:0] O[80:0:0:0]
+  C0001 #387/387 parameter j G[dut.sv 80:0:0:0] O[ 80:0:0:0]
+  C0001 #395/395 parameter j G[dut.sv 80:0:0:0] O[ 80:0:0:0]

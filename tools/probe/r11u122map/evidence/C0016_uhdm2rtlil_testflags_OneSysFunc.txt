@@ -1,0 +1,50 @@
+cluster C0016: struct|ours-only:elsewhere|logic_typespec|under:ref_typespec
+row: uhdm2rtlil/testflags/OneSysFunc  strict=differ:depth(1)  records golden=40 ours=40
+object: #-1 (golden) / #35 (ours)  type=logic_typespec name=
+  golden: 
+  ours:   1 objs
+  walk parents: ref_typespec < sys_func_call($unsigned) < cont_assign < module_inst(work@dut)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- OURS (B) records 23..39 ('>' = the object)
+  #23	4	logic_typespec				dut.sv	1	29	1	29				
+  #24	2	port	a			dut.sv	1	19	1	20				
+  #25	3	ref_obj	a		work@dut.a	dut.sv	1	19	1	20		0		
+  #26	3	ref_typespec			work@dut.a		0	0	0	0		0		
+  #27	4	logic_typespec				dut.sv	1	19	1	19				
+  #28	2	port	b			dut.sv	1	29	1	30				
+  #29	3	ref_obj	b		work@dut.b	dut.sv	1	29	1	30		0		
+  #30	3	ref_typespec			work@dut.b		0	0	0	0		0		
+  #31	4	logic_typespec				dut.sv	1	29	1	29				
+  #32	2	cont_assign				dut.sv	2	9	2	25				
+  #33	3	sys_func_call	$unsigned			dut.sv	2	13	2	22		0		
+  #34	4	ref_typespec			work@dut		0	0	0	0		0		
+> #35	5	logic_typespec				dut.sv	1	29	1	29				
+  #36	4	ref_obj	a		work@dut.a	dut.sv	2	23	2	24		0		
+  #37	5	logic_net	a		work@dut.a	dut.sv	1	19	1	20		0		
+  #38	3	ref_obj	b		work@dut.b	dut.sv	2	9	2	10		0		
+  #39	4	logic_net	b		work@dut.b	dut.sv	1	29	1	30		0		
+
+--- the holder #34 in the other side: exact-record matches at [14, 35]
+  #10	3	ref_typespec			work@dut.b		0	0	0	0		0		
+  #11	4	logic_typespec				dut.sv	1	29	1	29				
+  #12	2	cont_assign				dut.sv	2	9	2	25				
+  #13	3	sys_func_call	$unsigned			dut.sv	2	13	2	22		0		
+> #14	4	ref_typespec			work@dut		0	0	0	0		0		
+  #15	5	logic_typespec				dut.sv	1	29	1	29				
+  #16	4	ref_obj	a		work@dut.a	dut.sv	2	23	2	24		0		
+  #17	3	ref_obj	b		work@dut.b	dut.sv	2	9	2	10		0		
+  #18	1	module_inst	work@dut	work@dut		dut.sv	1	1	3	10				
+  #19	2	logic_net	a		work@dut.a	dut.sv	1	19	1	20		0		
+  #20	3	ref_typespec			work@dut.a		0	0	0	0		0		
+  #21	4	logic_typespec				dut.sv	1	19	1	19				
+  #22	2	logic_net	b		work@dut.b	dut.sv	1	29	1	30		0		
+  #23	3	ref_typespec			work@dut.b		0	0	0	0		0		
+  #24	4	logic_typespec				dut.sv	1	29	1	29				
+  #25	2	port	a			dut.sv	1	19	1	20				
+  #26	3	ref_obj	a		work@dut.a	dut.sv	1	19	1	20		0		
+  #27	3	ref_typespec			work@dut.a		0	0	0	0		0		
+
+all facets of this row (2):
+  C0011 #15/-1 logic_typespec  G[1 objs] O[]
+  C0016 #-1/35 logic_typespec  G[] O[1 objs]

@@ -1,0 +1,56 @@
+cluster C0008: struct|ours-only:fewer-copies|enum_const|under:ref_obj
+row: surelog/testflags/ConstPort  strict=differ:depth(1)  records golden=53 ours=54
+object: #-1 (golden) / #33 (ours)  type=enum_const name=CIPH_INV
+  golden: 
+  ours:   1 objs
+  walk parents: ref_obj(CIPH_INV) < port(op_i) < ref_module(key_mix_columns) < module_inst
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- OURS (B) records 21..44 ('>' = the object)
+  #21	2	logic_net	op_i		work@cipher_core.op_i	dut.sv	14	32	14	36		0		
+  #22	2	port	op_i			dut.sv	14	32	14	36				
+  #23	3	ref_obj	op_i		work@cipher_core.op_i.op_i	dut.sv	14	32	14	36		0		
+  #24	3	ref_typespec			work@cipher_core.op_i		0	0	0	0		0		
+  #25	2	ref_module	key_mix_columns	work@mix_columns		dut.sv	17	15	17	30				
+  #26	3	module_inst		work@mix_columns	work@mix_columns	dut.sv	8	1	11	10				
+  #27	4	logic_net	op_i		work@mix_columns.op_i	dut.sv	9	32	9	36		0		
+  #28	4	port	op_i			dut.sv	9	32	9	36				
+  #29	5	ref_obj	op_i		work@mix_columns.op_i.op_i	dut.sv	9	32	9	36		0		
+  #30	5	ref_typespec			work@mix_columns.op_i		0	0	0	0		0		
+  #31	3	port	op_i			dut.sv	18	5	18	36				
+  #32	4	ref_obj	CIPH_INV		work@cipher_core.key_mix_columns.op_i.CIPH_INV	dut.sv	18	15	18	23		0		
+> #33	5	enum_const	CIPH_INV			dut.sv	4	3	4	18				
+  #34	1	module_inst	work@cipher_core	work@cipher_core		dut.sv	13	1	20	10				
+  #35	2	enum_var	op_i		work@cipher_core.op_i	dut.sv	14	32	14	36		0		
+  #36	3	ref_typespec			work@cipher_core.op_i		0	0	0	0		0		
+  #37	4	enum_typespec	aes_pkg::ciph_op_e			dut.sv	2	1	5	13				
+  #38	5	ref_typespec			work@cipher_core.aes_pkg::ciph_op_e		0	0	0	0		0		
+  #39	6	logic_typespec				dut.sv	2	14	2	19				
+  #40	5	enum_const	CIPH_FWD			dut.sv	3	3	3	18				
+  #41	5	enum_const	CIPH_INV			dut.sv	4	3	4	18				
+  #42	2	import_typespec	aes_pkg			dut.sv	16	10	16	20				
+  #43	3	constant					0	0	0	0	*	8	STRING:*	8
+  #44	2	port	op_i			dut.sv	14	32	14	36				
+
+--- the holder #32 in the other side: exact-record matches at [32]
+  #28	4	port	op_i			dut.sv	9	32	9	36				
+  #29	5	ref_obj	op_i		work@mix_columns.op_i.op_i	dut.sv	9	32	9	36		0		
+  #30	5	ref_typespec			work@mix_columns.op_i		0	0	0	0		0		
+  #31	3	port	op_i			dut.sv	18	5	18	36				
+> #32	4	ref_obj	CIPH_INV		work@cipher_core.key_mix_columns.op_i.CIPH_INV	dut.sv	18	15	18	23		0		
+  #33	1	module_inst	work@cipher_core	work@cipher_core		dut.sv	13	1	20	10				
+  #34	2	enum_var	op_i		work@cipher_core.op_i	dut.sv	14	32	14	36		0		
+  #35	3	ref_typespec			work@cipher_core.op_i		0	0	0	0		0		
+  #36	4	enum_typespec	aes_pkg::ciph_op_e			dut.sv	2	1	5	13				
+  #37	5	ref_typespec			work@cipher_core.aes_pkg::ciph_op_e		0	0	0	0		0		
+  #38	6	logic_typespec				dut.sv	2	14	2	19				
+  #39	5	enum_const	CIPH_FWD			dut.sv	3	3	3	18				
+  #40	5	enum_const	CIPH_INV			dut.sv	4	3	4	18				
+  #41	2	import_typespec	aes_pkg			dut.sv	16	10	16	20				
+  #42	3	constant					0	0	0	0	*	8	STRING:*	8
+  #43	2	port	op_i			dut.sv	14	32	14	36				
+  #44	3	ref_obj	op_i		work@cipher_core.op_i	dut.sv	14	32	14	36		0		
+  #45	3	ref_typespec			work@cipher_core.op_i		0	0	0	0		0		
+
+all facets of this row (1):
+  C0008 #-1/33 enum_const CIPH_INV G[] O[1 objs]

@@ -1,0 +1,60 @@
+cluster C0761: struct|ours-only:absent|type_parameter|under:module_inst
+row: surelog/testflags/TypeParam  strict=differ:depth(1)  records golden=93 ours=96
+object: #-1 (golden) / #91 (ours)  type=type_parameter name=TP2
+  golden: 
+  ours:   2 objs
+  walk parents: module_inst(u2) < module_inst(u0) < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- OURS (B) records 79..95 ('>' = the object)
+  #79	6	logic_typespec				dut.sv	19	5	19	19				
+  #80	7	range				dut.sv	19	11	19	19				
+  #81	8	constant				dut.sv	19	12	19	16	20	64	UINT:20	9
+  #82	8	constant				dut.sv	19	17	19	18	0	64	UINT:0	9
+  #83	4	int_var	DATA2		work@top.u0.u2.DATA2	dut.sv	20	9	20	14		0		
+  #84	5	ref_typespec			work@top.u0.u2.DATA2		0	0	0	0		0		
+  #85	6	int_typespec				dut.sv	17	85	17	88				
+  #86	4	type_parameter	TP1		work@top.u0.u2.TP1		0	0	0	0				
+  #87	5	ref_typespec			work@top.u0.u2.TP1		0	0	0	0		0		
+  #88	4	parameter	SIZE		work@top.u0.u2.SIZE	dut.sv	17	55	17	59		0	UINT:10	
+  #89	5	ref_typespec			work@top.u0.u2.SIZE		0	0	0	0		0		
+  #90	6	int_typespec				dut.sv	17	45	17	62				
+> #91	4	type_parameter	TP2		work@top.u0.u2.TP2		0	0	0	0				
+  #92	5	ref_typespec			work@top.u0.u2.TP2		0	0	0	0		0		
+  #93	4	param_assign				dut.sv	17	55	17	62				
+  #94	5	constant				dut.sv	17	60	17	62	20	32	UINT:20	9
+  #95	6	ref_typespec			work@top.u0.u2		0	0	0	0		0		
+
+--- the holder #73 in the other side: exact-record matches at [73]
+  #69	4	param_assign				dut.sv	17	55	17	62				
+  #70	5	constant				dut.sv	17	60	17	62	10	32	UINT:10	9
+  #71	6	ref_typespec			work@top.u0.u1		0	0	0	0		0		
+  #72	7	int_typespec				dut.sv	17	45	17	62				
+> #73	3	module_inst	u2	work@bottom	work@top.u0.u2	dut.sv	13	2	13	38				
+  #74	4	int_var	DATA1		work@top.u0.u2.DATA1	dut.sv	18	9	18	14		0		
+  #75	5	ref_typespec			work@top.u0.u2.DATA1		0	0	0	0		0		
+  #76	6	int_typespec				dut.sv	13	16	13	19				
+  #77	4	logic_var	a		work@top.u0.u2.a	dut.sv	19	20	19	21		0		
+  #78	5	ref_typespec			work@top.u0.u2.a		0	0	0	0		0		
+  #79	6	logic_typespec				dut.sv	19	5	19	19				
+  #80	7	range				dut.sv	19	11	19	19				
+  #81	8	constant				dut.sv	19	12	19	16	20	64	UINT:20	9
+  #82	8	constant				dut.sv	19	17	19	18	0	64	UINT:0	9
+  #83	4	int_var	DATA2		work@top.u0.u2.DATA2	dut.sv	20	9	20	14		0		
+  #84	5	ref_typespec			work@top.u0.u2.DATA2		0	0	0	0		0		
+  #85	4	type_parameter	TP1		work@top.u0.u2.TP1		0	0	0	0				
+  #86	5	ref_typespec			work@top.u0.u2.TP1		0	0	0	0		0		
+
+all facets of this row (12):
+  C0167 #-1/16 int_typespec  G[] O[1 objs]
+  C0167 #-1/25 int_typespec  G[] O[1 objs]
+  C0002 #46/-1 int_typespec  G[1 objs] O[]
+  C0002 #52/-1 int_typespec  G[1 objs] O[]
+  C0063 #-1/85 int_typespec  G[] O[1 objs]
+  C0761 #-1/91 type_parameter TP2 G[] O[2 objs]
+  C0022 #41/43 type_parameter TPTOP G[dut.sv 2:16:2:21] O[ 0:0:0:0]
+  C0023 #41/43 type_parameter TPTOP G[2:16:2:21] O[0:0:0:0]
+  C1225 #67/67 type_parameter TP2 G[work@bottom.TP2] O[work@top.u0.u1.TP2]
+  C0022 #67/67 type_parameter TP2 G[dut.sv 17:79:17:82] O[ 0:0:0:0]
+  C0023 #67/67 type_parameter TP2 G[17:79:17:82] O[0:0:0:0]
+  C1210 #68/68 ref_typespec  G[work@bottom.TP2] O[work@top.u0.u1.TP2]

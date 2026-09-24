@@ -1,0 +1,72 @@
+cluster C0033: struct|golden-only:fewer-copies|range|under:parameter
+row: surelog/testflags/DefaultPatternInt  strict=differ:depth(1)  records golden=280 ours=253
+object: #64 (golden) / #-1 (ours)  type=range name=
+  golden: 7 objs
+  ours:   
+  walk parents: parameter(V) < module_inst < ref_module(top1) < module_inst
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 52..75 ('>' = the object)
+  #52	4	parameter	V		work@top.V	dut.sv	4	25	4	26		1		
+  #53	5	ref_typespec			work@top.V		0	0	0	0		0		
+  #54	6	array_typespec				dut.sv	4	12	4	31				
+  #55	7	range				dut.sv	4	27	4	30				
+  #56	8	constant					0	0	0	0	0	64	UINT:0	9
+  #57	8	operation				dut.sv	4	27	4	30		0		
+  #58	9	constant				dut.sv	4	27	4	30	2	32	UINT:2	9
+  #59	10	ref_typespec			work@top.V		0	0	0	0		0		
+  #60	11	int_typespec				dut.sv	2	12	2	24				
+  #61	9	constant					0	0	0	0		64	INT:1	7
+  #62	7	ref_typespec			work@top.V		0	0	0	0		0		
+  #63	8	int_typespec				dut.sv	4	12	4	24				
+> #64	5	range				dut.sv	4	27	4	30				
+  #65	6	constant					0	0	0	0	0	64	UINT:0	9
+  #66	6	operation				dut.sv	4	27	4	30		0		
+  #67	7	constant				dut.sv	4	27	4	30	2	32	UINT:2	9
+  #68	8	ref_typespec			work@top.V		0	0	0	0		0		
+  #69	9	int_typespec				dut.sv	2	12	2	24				
+  #70	7	constant					0	0	0	0		64	INT:1	7
+  #71	4	parameter	VADDR		work@top.VADDR	dut.sv	17	25	17	30		1		
+  #72	5	ref_typespec			work@top.VADDR		0	0	0	0		0		
+  #73	6	array_typespec				dut.sv	17	12	17	35				
+  #74	7	range				dut.sv	17	31	17	34				
+  #75	8	constant					0	0	0	0	0	64	UINT:0	9
+
+--- the holder #52 in the other side: exact-record matches at [53]
+  #49	3	module_inst		work@top	work@top	dut.sv	8	1	30	10				
+  #50	4	parameter	CNT		work@top.CNT	dut.sv	2	25	2	28		0	UINT:2	
+  #51	5	ref_typespec			work@top.CNT		0	0	0	0		0		
+  #52	6	int_typespec				dut.sv	2	12	2	24				
+> #53	4	parameter	V		work@top.V	dut.sv	4	25	4	26		1		
+  #54	5	ref_typespec			work@top.V		0	0	0	0		0		
+  #55	6	array_typespec				dut.sv	4	12	4	31				
+  #56	7	range				dut.sv	4	27	4	30				
+  #57	8	constant					0	0	0	0	0	64	UINT:0	9
+  #58	8	operation				dut.sv	4	27	4	30		0		
+  #59	9	constant				dut.sv	4	27	4	30	2	32	UINT:2	9
+  #60	10	ref_typespec			work@top.V		0	0	0	0		0		
+  #61	11	int_typespec				dut.sv	2	12	2	24				
+  #62	9	constant					0	0	0	0		64	INT:1	7
+  #63	7	ref_typespec			work@top.V		0	0	0	0		0		
+  #64	8	int_typespec				dut.sv	4	12	4	24				
+  #65	4	parameter	VADDR		work@top.VADDR	dut.sv	17	25	17	30		1		
+  #66	5	ref_typespec			work@top.VADDR		0	0	0	0		0		
+
+all facets of this row (17):
+  C0580 #-1/46 constant  G[] O[1 objs]
+  C0033 #64/-1 range  G[7 objs] O[]
+  C0012 #94/-1 parameter V G[19 objs] O[]
+  C0002 #153/-1 int_typespec  G[1 objs] O[]
+  C0002 #224/-1 int_typespec  G[1 objs] O[]
+  C0003 #87/81 parameter CNT G[dut.sv 2:25:2:28] O[ 2:25:2:28]
+  C0378 #243/216 function ASSIGN_VADDR G[work@main.top1.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR]
+  C0812 #257/230 for_stmt  G[work@main.top1.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR]
+  C0602 #260/233 int_var i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  C0603 #261/234 ref_typespec  G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  C0147 #264/237 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  C0147 #266/239 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  C0601 #270/243 begin  G[work@main.top1.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR]
+  C0554 #272/245 bit_select V G[work@main.top1.ASSIGN_VADDR.V] O[work@top.ASSIGN_VADDR.V]
+  C0365 #273/246 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  C0554 #274/247 bit_select ASSIGN_VADDR G[work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR.ASSIGN_VADDR]
+  C0365 #275/248 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
