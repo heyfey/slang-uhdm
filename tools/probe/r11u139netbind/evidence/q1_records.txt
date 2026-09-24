@@ -1,0 +1,265 @@
+=================== ParameterColonReference (uhdm-strictcmp --max 50: golden=A ours=B)
+objects 51 vs 50
+fields: objects_differing=0
+STRICT_NOTEQUAL count
+--- record-list diff (< golden, > ours) with 6 records of parent chain before each hunk
+@@ 51d50
+A45: 3	ref_obj	a		work@top.a	dut.sv	5	19	5	20		0		
+A46: 3	ref_typespec			work@top.a		0	0	0	0		0		
+A47: 4	logic_typespec				dut.sv	5	19	5	19				
+A48: 2	cont_assign				dut.sv	6	11	6	24				
+A49: 3	constant				dut.sv	2	30	2	31	1'b1	1	BIN:1	3
+A50: 3	ref_obj	a		work@top.a	dut.sv	6	11	6	12		0		
+A51: 4	logic_net	a		work@top.a	dut.sv	5	19	5	20		0		
+51d50
+< 4	logic_net	a		work@top.a	dut.sv	5	19	5	20		0		
+=================== cdc_static_basic (uhdm-strictcmp --max 50: golden=A ours=B)
+objects 101 vs 102
+fields: objects_differing=0
+STRICT_NOTEQUAL count
+--- record-list diff (< golden, > ours) with 6 records of parent chain before each hunk
+@@ 101a102
+A95: 10	range				dut.sv	7	10	7	15				
+A96: 11	constant				dut.sv	7	11	7	12	3	64	UINT:3	9
+A97: 11	constant				dut.sv	7	13	7	14	0	64	UINT:0	9
+A98: 6	ref_obj	gated_data_out		work@cdc_static_basic.gated_data_out	dut.sv	10	9	10	23		0		
+A99: 7	logic_net	gated_data_out		work@cdc_static_basic.gated_data_out	dut.sv	4	22	4	36		0		
+A100: 2	cont_assign				dut.sv	7	16	7	26				
+A101: 3	ref_obj	src_data		work@cdc_static_basic.src_data	dut.sv	7	29	7	37		0		
+101a102
+> 4	logic_net	src_data		work@cdc_static_basic.src_data	dut.sv	3	17	3	25		0		
+=================== sva_value_change_changed (uhdm-strictcmp --max 50: golden=A ours=B)
+#107 depth
+  A: 6	logic_net	clk		work@top.clk	dut.sv	2	9	2	12		0		
+  B: 2	port	clk			dut.sv	2	9	2	12				
+fields: depth=1 type=1 fullname=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+--- record-list diff (< golden, > ours) with 6 records of parent chain before each hunk
+@@ 108d107
+A102: 5	sys_func_call	$changed			dut.sv	38	15	38	26		0		
+A103: 6	ref_obj	b		work@top.b	dut.sv	38	24	38	25		0		
+A104: 2	clocking_block	unnamed_clocking_block		work@top.unnamed_clocking_block	dut.sv	11	2	11	46				
+A105: 3	event_control				dut.sv	11	19	11	33				
+A106: 4	operation				dut.sv	11	21	11	32		0		
+A107: 5	ref_obj	clk		work@top.unnamed_clocking_block.clk	dut.sv	11	29	11	32		0		
+A108: 6	logic_net	clk		work@top.clk	dut.sv	2	9	2	12		0		
+A109: 2	port	clk			dut.sv	2	9	2	12				
+@@ 132a132
+A126: 3	ref_obj	b_prev_o		work@top.b_prev_o	dut.sv	9	15	9	23		0		
+A127: 3	ref_typespec			work@top.b_prev_o		0	0	0	0		0		
+A128: 4	logic_typespec				dut.sv	9	9	9	14				
+A129: 2	always				dut.sv	14	2	14	36				
+A130: 3	event_control				dut.sv	14	9	14	23				
+A131: 4	operation				dut.sv	14	11	14	22		0		
+A132: 5	ref_obj	clk		work@top.clk	dut.sv	14	19	14	22		0		
+A133: 4	assignment				dut.sv	14	24	14	35				
+108d107
+< 6	logic_net	clk		work@top.clk	dut.sv	2	9	2	12		0		
+132a132
+> 6	logic_net	clk		work@top.clk	dut.sv	2	9	2	12		0		
+=================== dff_different_styles (uhdm-strictcmp --max 50: golden=A ours=B)
+#782 fullname
+  A: 5	ref_obj	preset		work@dffsr2.uut.preset.preset	dut.sv	88	22	88	28		0		
+  B: 5	ref_obj	preset		work@dffsr2.preset	dut.sv	88	22	88	28		0		
+#783 depth
+  A: 6	logic_net	preset		work@dffsr2.preset	dut.sv	87	11	87	17		0		
+  B: 5	operation				dut.sv	88	32	88	38		0		
+objects 837 vs 835
+fields: depth=1 type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=1 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL fullname
+--- record-list diff (< golden, > ours) with 6 records of parent chain before each hunk
+@@ 783,784c783
+A777: 4	ref_obj	clk		work@dffsr2.clk	dut.sv	88	17	88	20		0		
+A778: 4	ref_obj	clk		work@dffsr2.uut.clk	dut.sv	92	19	92	22		0		
+A779: 4	ref_typespec			work@dffsr2.uut.clk		0	0	0	0		0		
+A780: 5	logic_typespec				dut.sv	93	7	93	7				
+A781: 3	port	preset			dut.sv	92	24	92	30				
+A782: 4	operation				dut.sv	88	22	88	38		0		
+A783: 5	ref_obj	preset		work@dffsr2.uut.preset.preset	dut.sv	88	22	88	28		0		
+A784: 6	logic_net	preset		work@dffsr2.preset	dut.sv	87	11	87	17		0		
+@@ 786,787c785
+A780: 5	logic_typespec				dut.sv	93	7	93	7				
+A781: 3	port	preset			dut.sv	92	24	92	30				
+A782: 4	operation				dut.sv	88	22	88	38		0		
+A783: 5	ref_obj	preset		work@dffsr2.uut.preset.preset	dut.sv	88	22	88	28		0		
+A784: 6	logic_net	preset		work@dffsr2.preset	dut.sv	87	11	87	17		0		
+A785: 5	operation				dut.sv	88	32	88	38		0		
+A786: 6	ref_obj	clear		work@dffsr2.uut.preset.clear	dut.sv	88	33	88	38		0		
+A787: 7	logic_net	clear		work@dffsr2.clear	dut.sv	87	19	87	24		0		
+@@ 794,795c792,793
+A788: 4	ref_obj	preset		work@dffsr2.uut.preset	dut.sv	92	24	92	30		0		
+A789: 4	ref_typespec			work@dffsr2.uut.preset		0	0	0	0		0		
+A790: 5	logic_typespec				dut.sv	93	7	93	7				
+A791: 3	port	clear			dut.sv	92	32	92	37				
+A792: 4	operation				dut.sv	88	40	88	56		0		
+A793: 5	operation				dut.sv	88	40	88	47		0		
+A794: 6	ref_obj	preset		work@dffsr2.uut.clear.preset	dut.sv	88	41	88	47		0		
+A795: 5	ref_obj	clear		work@dffsr2.uut.clear.clear	dut.sv	88	51	88	56		0		
+783,784c783
+< 5	ref_obj	preset		work@dffsr2.uut.preset.preset	dut.sv	88	22	88	28		0		
+< 6	logic_net	preset		work@dffsr2.preset	dut.sv	87	11	87	17		0		
+---
+> 5	ref_obj	preset		work@dffsr2.preset	dut.sv	88	22	88	28		0		
+786,787c785
+< 6	ref_obj	clear		work@dffsr2.uut.preset.clear	dut.sv	88	33	88	38		0		
+< 7	logic_net	clear		work@dffsr2.clear	dut.sv	87	19	87	24		0		
+---
+> 6	ref_obj	clear		work@dffsr2.clear	dut.sv	88	33	88	38		0		
+794,795c792,793
+< 6	ref_obj	preset		work@dffsr2.uut.clear.preset	dut.sv	88	41	88	47		0		
+< 5	ref_obj	clear		work@dffsr2.uut.clear.clear	dut.sv	88	51	88	56		0		
+---
+> 6	ref_obj	preset		work@dffsr2.preset	dut.sv	88	41	88	47		0		
+> 5	ref_obj	clear		work@dffsr2.clear	dut.sv	88	51	88	56		0		
+=================== wandwor (uhdm-strictcmp --max 50: golden=A ours=B)
+#453 depth
+  A: 6	logic_net	A		work@wandwor_test1.A	dut.sv	13	23	13	24		0		
+  B: 5	ref_obj	B		work@wandwor_test1.bar_inst.I0.B	dut.sv	20	11	20	12		0		
+objects 511 vs 509
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+--- record-list diff (< golden, > ours) with 6 records of parent chain before each hunk
+@@ 454d453
+A448: 6	range				dut.sv	34	47	34	52				
+A449: 7	constant				dut.sv	34	48	34	49	7	64	UINT:7	9
+A450: 7	constant				dut.sv	34	50	34	51	0	64	UINT:0	9
+A451: 3	port	I0			dut.sv	34	32	34	34				
+A452: 4	operation				dut.sv	20	7	20	13		0		
+A453: 5	ref_obj	A		work@wandwor_test1.bar_inst.I0.A	dut.sv	20	8	20	9		0		
+A454: 6	logic_net	A		work@wandwor_test1.A	dut.sv	13	23	13	24		0		
+A455: 5	ref_obj	B		work@wandwor_test1.bar_inst.I0.B	dut.sv	20	11	20	12		0		
+@@ 456d454
+A450: 7	constant				dut.sv	34	50	34	51	0	64	UINT:0	9
+A451: 3	port	I0			dut.sv	34	32	34	34				
+A452: 4	operation				dut.sv	20	7	20	13		0		
+A453: 5	ref_obj	A		work@wandwor_test1.bar_inst.I0.A	dut.sv	20	8	20	9		0		
+A454: 6	logic_net	A		work@wandwor_test1.A	dut.sv	13	23	13	24		0		
+A455: 5	ref_obj	B		work@wandwor_test1.bar_inst.I0.B	dut.sv	20	11	20	12		0		
+A456: 6	logic_net	B		work@wandwor_test1.B	dut.sv	13	26	13	27		0		
+A457: 4	ref_obj	I0		work@wandwor_test1.bar_inst.I0	dut.sv	20	4	20	6		0		
+@@ 476d473
+A470: 6	range				dut.sv	34	26	34	31				
+A471: 7	constant				dut.sv	34	27	34	28	7	64	UINT:7	9
+A472: 7	constant				dut.sv	34	29	34	30	0	64	UINT:0	9
+A473: 3	port	O			dut.sv	34	53	34	54				
+A474: 4	operation				dut.sv	22	6	22	12		0		
+A475: 5	ref_obj	X		work@wandwor_test1.bar_inst.O.X	dut.sv	22	7	22	8		0		
+A476: 6	logic_net	X		work@wandwor_test1.X	dut.sv	13	35	13	36		0		
+A477: 5	ref_obj	Y		work@wandwor_test1.bar_inst.O.Y	dut.sv	22	10	22	11		0		
+@@ 478d474
+A472: 7	constant				dut.sv	34	29	34	30	0	64	UINT:0	9
+A473: 3	port	O			dut.sv	34	53	34	54				
+A474: 4	operation				dut.sv	22	6	22	12		0		
+A475: 5	ref_obj	X		work@wandwor_test1.bar_inst.O.X	dut.sv	22	7	22	8		0		
+A476: 6	logic_net	X		work@wandwor_test1.X	dut.sv	13	35	13	36		0		
+A477: 5	ref_obj	Y		work@wandwor_test1.bar_inst.O.Y	dut.sv	22	10	22	11		0		
+A478: 6	logic_net	Y		work@wandwor_test1.Y	dut.sv	13	38	13	39		0		
+A479: 4	ref_obj	O		work@wandwor_test1.bar_inst.O	dut.sv	22	4	22	5		0		
+454d453
+< 6	logic_net	A		work@wandwor_test1.A	dut.sv	13	23	13	24		0		
+456d454
+< 6	logic_net	B		work@wandwor_test1.B	dut.sv	13	26	13	27		0		
+476d473
+< 6	logic_net	X		work@wandwor_test1.X	dut.sv	13	35	13	36		0		
+478d474
+< 6	logic_net	Y		work@wandwor_test1.Y	dut.sv	13	38	13	39		0		
+495a492
+> 4	logic_net	X		work@wandwor_test1.X	dut.sv	13	35	13	36		0		
+502a500
+> 4	logic_net	Y		work@wandwor_test1.Y	dut.sv	13	38	13	39		0		
+=================== param_type_logic_width (uhdm-strictcmp --max 50: golden=A ours=B)
+#181 depth
+  A: 7	logic_net	a		work@param_type_logic_width.a	dut.sv	12	24	12	25		0		
+  B: 6	ref_obj	b		work@tb.t.u.d_i.b	dut.sv	18	18	18	19		0		
+objects 197 vs 195
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+--- record-list diff (< golden, > ours) with 6 records of parent chain before each hunk
+@@ 182d181
+A176: 7	range				dut.sv	17	30	17	57				
+A177: 8	constant				dut.sv	17	31	17	50	12	64	INT:12	7
+A178: 8	constant				dut.sv	17	55	17	56	0	64	UINT:0	9
+A179: 4	port	d_i			dut.sv	5	18	5	21				
+A180: 5	operation				dut.sv	18	14	18	20		0		
+A181: 6	ref_obj	a		work@tb.t.u.d_i.a	dut.sv	18	15	18	16		0		
+A182: 7	logic_net	a		work@param_type_logic_width.a	dut.sv	12	24	12	25		0		
+A183: 6	ref_obj	b		work@tb.t.u.d_i.b	dut.sv	18	18	18	19		0		
+@@ 184d182
+A178: 8	constant				dut.sv	17	55	17	56	0	64	UINT:0	9
+A179: 4	port	d_i			dut.sv	5	18	5	21				
+A180: 5	operation				dut.sv	18	14	18	20		0		
+A181: 6	ref_obj	a		work@tb.t.u.d_i.a	dut.sv	18	15	18	16		0		
+A182: 7	logic_net	a		work@param_type_logic_width.a	dut.sv	12	24	12	25		0		
+A183: 6	ref_obj	b		work@tb.t.u.d_i.b	dut.sv	18	18	18	19		0		
+A184: 7	logic_net	b		work@param_type_logic_width.b	dut.sv	13	26	13	27		0		
+A185: 5	ref_obj	d_i		work@tb.t.u.d_i	dut.sv	18	10	18	13		0		
+182d181
+< 7	logic_net	a		work@param_type_logic_width.a	dut.sv	12	24	12	25		0		
+184d182
+< 7	logic_net	b		work@param_type_logic_width.b	dut.sv	13	26	13	27		0		
+=================== PortExpr (uhdm-strictcmp --max 50: golden=A ours=B)
+#92 endline
+  A: 2	logic_net	op[79]		work@top.op[79]	dut.sv	4	11	4	23		0		
+  B: 2	logic_net	op[79]		work@top.op[79]	dut.sv	4	11	5	3		0		
+#93 endline
+  A: 2	logic_net	op[78]		work@top.op[78]	dut.sv	5	11	5	23		0		
+  B: 2	logic_net	op[78]		work@top.op[78]	dut.sv	5	11	6	2		0		
+#96 endcol
+  A: 3	operation				dut.sv	2	8	2	35		0		
+  B: 3	operation				dut.sv	2	8	2	27		0		
+#97 line
+  A: 4	ref_obj	op[79]		work@top.op.op[79]	dut.sv	2	9	2	21		0		
+  B: 4	ref_obj	op[79]		work@top.op.op[79]	dut.sv	4	11	5	3		0		
+--- record-list diff (< golden, > ours) with 6 records of parent chain before each hunk
+@@ 93,94c93,94
+A87: 5	int_typespec				builtin.sv	66	14	66	17				
+A88: 3	io_decl	keyCount			builtin.sv	66	30	66	38				
+A89: 4	constant				builtin.sv	66	41	66	42	1	64	UINT:1	9
+A90: 4	ref_typespec			work@semaphore::try_get::keyCount		0	0	0	0		0		
+A91: 5	int_typespec				builtin.sv	66	26	66	29				
+A92: 1	module_inst		work@top	work@top	dut.sv	1	1	6	10				
+A93: 2	logic_net	op[79]		work@top.op[79]	dut.sv	4	11	4	23		0		
+A94: 2	logic_net	op[78]		work@top.op[78]	dut.sv	5	11	5	23		0		
+@@ 97,99c97,99
+A91: 5	int_typespec				builtin.sv	66	26	66	29				
+A92: 1	module_inst		work@top	work@top	dut.sv	1	1	6	10				
+A93: 2	logic_net	op[79]		work@top.op[79]	dut.sv	4	11	4	23		0		
+A94: 2	logic_net	op[78]		work@top.op[78]	dut.sv	5	11	5	23		0		
+A95: 2	logic_net	op		work@top.op	dut.sv	2	5	2	7		0		
+A96: 2	port	op			dut.sv	2	5	2	7				
+A97: 3	operation				dut.sv	2	8	2	35		0		
+A98: 4	ref_obj	op[79]		work@top.op.op[79]	dut.sv	2	9	2	21		0		
+@@ 102,103c102,103
+A96: 2	port	op			dut.sv	2	5	2	7				
+A97: 3	operation				dut.sv	2	8	2	35		0		
+A98: 4	ref_obj	op[79]		work@top.op.op[79]	dut.sv	2	9	2	21		0		
+A99: 4	ref_obj	op[78]		work@top.op.op[78]	dut.sv	2	22	2	34		0		
+A100: 3	ref_typespec			work@top.op		0	0	0	0		0		
+A101: 4	logic_typespec				dut.sv	4	11	4	11				
+A102: 2	port	op[79]			dut.sv	4	11	4	23				
+A103: 3	ref_obj	op[79]		work@top.op[79].op[79]	dut.sv	4	11	4	23		0		
+@@ 106,107c106,107
+A100: 3	ref_typespec			work@top.op		0	0	0	0		0		
+A101: 4	logic_typespec				dut.sv	4	11	4	11				
+A102: 2	port	op[79]			dut.sv	4	11	4	23				
+A103: 3	ref_obj	op[79]		work@top.op[79].op[79]	dut.sv	4	11	4	23		0		
+A104: 3	ref_typespec			work@top.op[79]		0	0	0	0		0		
+A105: 4	logic_typespec				dut.sv	4	11	4	11				
+A106: 2	port	op[78]			dut.sv	5	11	5	23				
+A107: 3	ref_obj	op[78]		work@top.op[78].op[78]	dut.sv	5	11	5	23		0		
+93,94c93,94
+< 2	logic_net	op[79]		work@top.op[79]	dut.sv	4	11	4	23		0		
+< 2	logic_net	op[78]		work@top.op[78]	dut.sv	5	11	5	23		0		
+---
+> 2	logic_net	op[79]		work@top.op[79]	dut.sv	4	11	5	3		0		
+> 2	logic_net	op[78]		work@top.op[78]	dut.sv	5	11	6	2		0		
+97,99c97,99
+< 3	operation				dut.sv	2	8	2	35		0		
+< 4	ref_obj	op[79]		work@top.op.op[79]	dut.sv	2	9	2	21		0		
+< 4	ref_obj	op[78]		work@top.op.op[78]	dut.sv	2	22	2	34		0		
+---
+> 3	operation				dut.sv	2	8	2	27		0		
+> 4	ref_obj	op[79]		work@top.op.op[79]	dut.sv	4	11	5	3		0		
+> 4	ref_obj	op[78]		work@top.op.op[78]	dut.sv	5	11	6	2		0		
+102,103c102,103
+< 2	port	op[79]			dut.sv	4	11	4	23				

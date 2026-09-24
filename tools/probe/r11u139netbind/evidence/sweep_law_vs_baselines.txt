@@ -1,0 +1,97 @@
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u139_wd_law/probe.csv
+probe cases: EQUAL=2126 STRICT_NOTEQUAL=1961 (of 4087); goldens built now=0, from cache=4087
+CONVERSION r10earl61repro/g3_earl61 STRICT_NOTEQUAL differ:fullname(17) -> EQUAL
+CONVERSION r10earl_repro/qq STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r10earl_repro/td STRICT_NOTEQUAL differ:fullname(8) -> EQUAL
+CONVERSION r10rggen8repro/t1 STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10scr13repro/t1 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r10v122repro/q4inst STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r11u108repro/grid/pk/k09_member_v_toppar STRICT_NOTEQUAL differ:count(0) -> EQUAL
+CONVERSION r11u112repro/grid/p/p01_seqinst STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u117repro/grid/g1/t05 STRICT_NOTEQUAL differ:count(0) -> EQUAL
+CONVERSION r11u25repro/grid/m09_modvar_clog2 STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11v17repro/grid/va11_arraynet_lhs_modscope_notgen STRICT_NOTEQUAL differ:count(0) -> EQUAL
+CONVERSION v11u111repro/brk/f5/x60_hdr_import_sub STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u112repro/grid/brk/p/b5a_defclk_dis STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION v11u116repro/arms/k3_child STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CHANGE r10earl54repro/v10step1 STRICT_NOTEQUAL differ:endcol(11) -> differ:endcol(16) [endcol +5]
+CHANGE r10earl54repro/v3_v54 STRICT_NOTEQUAL differ:col(70) -> differ:col(132) [col +62]
+CHANGE r10earl54repro/v8_v54 STRICT_NOTEQUAL differ:fullname(2) -> differ:line(1)
+CHANGE r10earl94repro/g3_kind94 STRICT_NOTEQUAL differ:fullname(17) -> differ:fullname(18) [fullname +1]
+CHANGE r10earl_repro/ug STRICT_NOTEQUAL differ:fullname(6) -> differ:fullname(4) [fullname -2]
+CHANGE r10scr13repro/t2 STRICT_NOTEQUAL differ:fullname(12) -> differ:fullname(2) [fullname -10]
+CHANGE r10v77repro/v10_drive77 STRICT_NOTEQUAL differ:fullname(7) -> differ:line(5)
+CHANGE r10vbuvm24repro/gv24b STRICT_NOTEQUAL differ:depth(1) -> differ:line(1)
+CHANGE r10vbuvm29repro/gv29_b_positions STRICT_NOTEQUAL differ:fullname(30) -> differ:fullname(29) [fullname -1]
+CHANGE r11u51repro/grid/e1_ca_rhskind STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(1) [endcol -1]
+CHANGE r11v47repro/arms/v23 STRICT_NOTEQUAL differ:fullname(9) -> differ:fullname(16) [fullname +7]
+CHANGE r11v55repro/grid/vv4_singleread STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(3) [endcol +1]
+CHANGE r11v55repro/grid/vv6_edge STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(1) [endcol -1]
+CHANGE r11v55repro/grid/vv8_sharemut STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(4) [endcol +2]
+CHANGE r11v66repro/a3_inst66 STRICT_NOTEQUAL differ:endcol(4) -> differ:endcol(12) [endcol +8]
+CHANGE r11v69repro/grid/w1_netlhs STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(1) [endcol -1]
+CHANGE v11u111repro/brk/f6/y69_vec_dims_two_inst_same STRICT_NOTEQUAL differ:name(4) -> differ:name(2) [name -2]
+regressions=0 conversions=14 changes=17 only-fresh=0 only-committed=0
+CONVERSION BitsArray default STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION BitsArray testflags STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION Moves default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION PackStructField default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION PackageParamConst default STRICT_NOTEQUAL differ:count(0) -> CMP_EQUAL
+CONVERSION YosysOldSimpleSpi default STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CONVERSION YosysOldSimpleSpi testflags STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CONVERSION YosysOldSpi default STRICT_NOTEQUAL differ:fullname(1) -> CMP_EQUAL
+CONVERSION YosysOldSpi testflags STRICT_NOTEQUAL differ:fullname(1) -> CMP_EQUAL
+CHANGE DelayAssign default STRICT_NOTEQUAL differ:value(8) -> differ:value(16) [value +8]
+CHANGE YosysBigSimEllip default STRICT_NOTEQUAL differ:fullname(3439) -> differ:fullname(3039) [fullname -400]
+CHANGE YosysBigSimReed default STRICT_NOTEQUAL differ:fullname(3) -> differ:file(1)
+CHANGE YosysBigSimReed testflags STRICT_NOTEQUAL differ:fullname(3) -> differ:file(1)
+CHANGE YosysOldOpen default STRICT_NOTEQUAL differ:line(14) -> differ:line(17) [line +3]
+CHANGE YosysOldOpen testflags STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(4)
+CHANGE YosysOldOr default STRICT_NOTEQUAL differ:line(78) -> differ:line(604) [line +526]
+CHANGE YosysOldOr testflags STRICT_NOTEQUAL differ:line(78) -> differ:line(604) [line +526]
+CHANGE YosysRiscv default STRICT_NOTEQUAL differ:endcol(67) -> differ:endcol(86) [endcol +19]
+CHANGE YosysRiscv testflags STRICT_NOTEQUAL differ:endcol(67) -> differ:endcol(86) [endcol +19]
+regressions=0 conversions=9 changes=10 only-fresh=0 only-committed=0
+CONVERSION AssignBitsCallToSubmoduleParameter default STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION AssignBitsCallToSubmoduleParameter testflags STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION Clog2OfSumWithParameterIn2InstancesOfSubmodule default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION Clog2OfSumWithParameterIn2InstancesOfSubmodule testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION ParameterColonReference default STRICT_NOTEQUAL differ:count(0) -> CMP_EQUAL
+CONVERSION ParameterColonReference testflags STRICT_NOTEQUAL differ:count(0) -> CMP_EQUAL
+CONVERSION StructLocalParam default STRICT_NOTEQUAL differ:count(0) -> CMP_EQUAL
+CONVERSION StructLocalParam testflags STRICT_NOTEQUAL differ:count(0) -> CMP_EQUAL
+CONVERSION StructParameter default STRICT_NOTEQUAL differ:count(0) -> CMP_EQUAL
+CONVERSION StructParameter testflags STRICT_NOTEQUAL differ:count(0) -> CMP_EQUAL
+CONVERSION cdc_static_basic default STRICT_NOTEQUAL differ:count(0) -> CMP_EQUAL
+CONVERSION cdc_static_basic testflags STRICT_NOTEQUAL differ:count(0) -> CMP_EQUAL
+CONVERSION dff_different_styles default STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION dff_different_styles testflags STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION param_type_logic_width default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION param_type_logic_width testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION partsel_simple default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION partsel_simple testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION sva_counter default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION sva_counter testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION sva_range default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION sva_range testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION sva_throughout default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION sva_throughout testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION sva_value_change_changed default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION sva_value_change_changed testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION sva_value_change_changed_wide default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION sva_value_change_changed_wide testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION sva_value_change_rose default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION sva_value_change_rose testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION unbased_unsized_param default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION unbased_unsized_param testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION vector_index default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION vector_index testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION wandwor default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION wandwor testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CHANGE rsp_gen_minimal default STRICT_NOTEQUAL differ:fullname(166) -> differ:fullname(165) [fullname -1]
+CHANGE rsp_gen_minimal testflags STRICT_NOTEQUAL differ:fullname(166) -> differ:fullname(165) [fullname -1]
+CHANGE struct_param_pattern_packing default STRICT_NOTEQUAL differ:endcol(4) -> differ:endcol(3) [endcol -1]
+CHANGE struct_param_pattern_packing testflags STRICT_NOTEQUAL differ:endcol(4) -> differ:endcol(3) [endcol -1]
+regressions=0 conversions=36 changes=4 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0

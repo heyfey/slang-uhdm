@@ -1,0 +1,7 @@
+testflags/DelayAssign dump-diff=0 orderblind=0 strict(pri,law)=STRICT_EQUAL 513 objects
+testflags/Moves dump-diff=0 orderblind=0 strict(pri,law)=STRICT_EQUAL 595 objects
+testflags/PackageParamConst dump-diff=0 orderblind=0 strict(pri,law)=STRICT_EQUAL 50 objects
+testflags/PackStructField dump-diff=4 orderblind=4 strict(pri,law)=STRICT_EQUAL 144 objects
+testflags/ExplictiPorts dump-diff=8 orderblind=8 strict(pri,law)=STRICT_EQUAL 337 objects
+default/MiniAmiq dump-diff=4 orderblind=4 strict(pri,law)=NOT_EQUAL stage1
+testflags/MiniAmiq dump-diff=4 orderblind=4 strict(pri,law)=NOT_EQUAL stage1

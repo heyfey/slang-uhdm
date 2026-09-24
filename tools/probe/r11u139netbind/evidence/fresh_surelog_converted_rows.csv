@@ -1,0 +1,12 @@
+BitsArray,default,CMP_EQUAL,,,equal
+BitsArray,testflags,CMP_EQUAL,,,equal
+Moves,default,CMP_EQUAL,,,equal
+Moves,testflags,CMP_EQUAL,,,equal
+PackageParamConst,default,CMP_EQUAL,,,equal
+PackageParamConst,testflags,CMP_EQUAL,,,equal
+PackStructField,default,CMP_EQUAL,,,equal
+PackStructField,testflags,CMP_EQUAL,,,equal
+YosysOldSimpleSpi,default,CMP_EQUAL,,,equal
+YosysOldSimpleSpi,testflags,CMP_EQUAL,,,equal
+YosysOldSpi,default,CMP_EQUAL,,,equal
+YosysOldSpi,testflags,CMP_EQUAL,,,equal
