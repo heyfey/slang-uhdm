@@ -37,11 +37,15 @@ Every exporter rule is a law, `§ name` with the name ending in its pass
 number, named in the source at its sites, in the pass README under
 `tools/probe/<pass>/` and in the landing commit. `tests/LAWS.csv` and
 `tests/LAWS.md` map every law back to its pass, its commits on this
-branch, its source sites and switches, its arms under `tests/probe/` and
-`tools/probe/`, and the corpus tests its title and commits name. The
-reverse table (pass -> laws) says which laws an arm under a pass dir
-belongs to. `scripts/law_index.py` generates both files, and the sweep
-fails when they are stale, so every landing regenerates them.
+branch, its source files and switches, its arms under `tests/probe/` and
+`tools/probe/`, and the corpus tests its title and commits name.
+`tests/ARMS.csv` maps every arm under `tests/probe/` to its laws and says
+how the attribution was made: the arm's own text, a README row naming the
+arm, the README section whose heading names a law, or only the pass's law
+set. Anchors are names, never line numbers: `grep -n '§ <law>' src
+include` finds a law's sites at any commit, and a switch is an environment
+variable name. `scripts/law_index.py` generates the three files, and the
+sweep fails when they are stale, so every landing regenerates them.
 
 ## Setup
 
