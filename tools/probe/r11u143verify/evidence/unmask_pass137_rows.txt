@@ -1,0 +1,49 @@
+== surelog/default/YosysOldOr  P: STRICT_NOTEQUAL line  L: STRICT_NOTEQUAL line
+records G=243334 P=243325 L=243334; P walk diverges at #88173, L at #243334; P diff fields 152, L diff fields 1150
+classes: {'UNMASKED': 1046}
+  UNMASKED (88229, 'endcol', "golden=('45', '')", "L=('52', '')", "P='52'", '3|cont_assign||')
+  UNMASKED (88230, 'endcol', "golden=('45', '')", "L=('52', '')", "P='52'", '4|operation||')
+  UNMASKED (88232, 'endcol', "golden=('47', '')", "L=('54', '')", "P='54'", '5|part_select|spr_dat_i|spr_dat_i')
+  UNMASKED (88236, 'col', "golden=('45', '')", "L=('52', '')", "P='52'", '6|constant||')
+== surelog/testflags/YosysOldOr  P: STRICT_NOTEQUAL line  L: STRICT_NOTEQUAL line
+records G=243334 P=243325 L=243334; P walk diverges at #88173, L at #243334; P diff fields 152, L diff fields 1150
+classes: {'UNMASKED': 1046}
+  UNMASKED (88229, 'endcol', "golden=('45', '')", "L=('52', '')", "P='52'", '3|cont_assign||')
+  UNMASKED (88230, 'endcol', "golden=('45', '')", "L=('52', '')", "P='52'", '4|operation||')
+  UNMASKED (88232, 'endcol', "golden=('47', '')", "L=('54', '')", "P='54'", '5|part_select|spr_dat_i|spr_dat_i')
+  UNMASKED (88236, 'col', "golden=('45', '')", "L=('52', '')", "P='52'", '6|constant||')
+== surelog/default/YosysRiscv  P: STRICT_NOTEQUAL endcol  L: STRICT_NOTEQUAL endcol
+records G=10319 P=10291 L=10319; P walk diverges at #3390, L at #10319; P diff fields 138, L diff fields 166
+classes: {'UNMASKED': 40}
+  UNMASKED (9245, 'col', "golden=('18', '')", "L=('19', '')", "P='19'", '11|bit_select|butterfly|')
+  UNMASKED (9245, 'endcol', "golden=('77', '')", "L=('76', '')", "P='76'", '11|bit_select|butterfly|')
+  UNMASKED (9265, 'col', "golden=('90', '')", "L=('91', '')", "P='91'", '11|bit_select|butterfly|')
+  UNMASKED (9265, 'endcol', "golden=('136', '')", "L=('135', '')", "P='135'", '11|bit_select|butterfly|')
+== surelog/testflags/YosysRiscv  P: STRICT_NOTEQUAL endcol  L: STRICT_NOTEQUAL endcol
+records G=10319 P=10291 L=10319; P walk diverges at #3390, L at #10319; P diff fields 138, L diff fields 166
+classes: {'UNMASKED': 40}
+  UNMASKED (9245, 'col', "golden=('18', '')", "L=('19', '')", "P='19'", '11|bit_select|butterfly|')
+  UNMASKED (9245, 'endcol', "golden=('77', '')", "L=('76', '')", "P='76'", '11|bit_select|butterfly|')
+  UNMASKED (9265, 'col', "golden=('90', '')", "L=('91', '')", "P='91'", '11|bit_select|butterfly|')
+  UNMASKED (9265, 'endcol', "golden=('136', '')", "L=('135', '')", "P='135'", '11|bit_select|butterfly|')
+== surelog/default/DelayAssign  P: STRICT_NOTEQUAL value  L: STRICT_NOTEQUAL value
+records G=567 P=570 L=567; P walk diverges at #513, L at #567; P diff fields 16, L diff fields 16
+classes: {'UNMASKED': 9}
+  UNMASKED (514, 'value', "golden=('UINT:0.1', '')", "L=('UINT:0', '')", "P='UINT:0'", '3|constant||')
+  UNMASKED (517, 'value', "golden=('UINT:0.1', '')", "L=('UINT:0', '')", "P='UINT:0'", '3|constant||')
+  UNMASKED (529, 'value', "golden=('UINT:0.1', '')", "L=('UINT:0', '')", "P='UINT:0'", '3|constant||')
+  UNMASKED (532, 'value', "golden=('UINT:0.1', '')", "L=('UINT:0', '')", "P='UINT:0'", '3|constant||')
+== surelog/default/YosysOldOpen  P: STRICT_NOTEQUAL line  L: STRICT_NOTEQUAL line
+records G=31337 P=31480 L=31337; P walk diverges at #12377, L at #31337; P diff fields 34, L diff fields 30
+classes: {'UNMASKED': 4}
+  UNMASKED (14497, 'fullname', "golden=('work@openMSP430.clock_module_0', 'work@openMSP430.clock_module_0')", "L=('work@openMSP430.clock_module_0.BASE_ADDR', 'work@openMSP430.clock_module_0.BASE_ADDR')", "P='work@openMSP430.clock_module_0.BASE_ADDR'", '8|ref_typespec||')
+  UNMASKED (24640, 'fullname', "golden=('work@openMSP430.sfr_0', 'work@openMSP430.sfr_0')", "L=('work@openMSP430.sfr_0.BASE_ADDR', 'work@openMSP430.sfr_0.BASE_ADDR')", "P='work@openMSP430.sfr_0.BASE_ADDR'", '8|ref_typespec||')
+  UNMASKED (25886, 'fullname', "golden=('work@openMSP430.watchdog_0', 'work@openMSP430.watchdog_0')", "L=('work@openMSP430.watchdog_0.BASE_ADDR', 'work@openMSP430.watchdog_0.BASE_ADDR')", "P='work@openMSP430.watchdog_0.BASE_ADDR'", '8|ref_typespec||')
+  UNMASKED (27073, 'fullname', "golden=('work@openMSP430.multiplier_0', 'work@openMSP430.multiplier_0')", "L=('work@openMSP430.multiplier_0.BASE_ADDR', 'work@openMSP430.multiplier_0.BASE_ADDR')", "P='work@openMSP430.multiplier_0.BASE_ADDR'", '8|ref_typespec||')
+== surelog/testflags/YosysOldOpen  P: STRICT_NOTEQUAL depth  L: STRICT_NOTEQUAL fullname
+records G=31337 P=31480 L=31337; P walk diverges at #12377, L at #31337; P diff fields 8, L diff fields 4
+classes: {'UNMASKED': 4}
+  UNMASKED (14497, 'fullname', "golden=('work@openMSP430.clock_module_0', 'work@openMSP430.clock_module_0')", "L=('work@openMSP430.clock_module_0.BASE_ADDR', 'work@openMSP430.clock_module_0.BASE_ADDR')", "P='work@openMSP430.clock_module_0.BASE_ADDR'", '8|ref_typespec||')
+  UNMASKED (24640, 'fullname', "golden=('work@openMSP430.sfr_0', 'work@openMSP430.sfr_0')", "L=('work@openMSP430.sfr_0.BASE_ADDR', 'work@openMSP430.sfr_0.BASE_ADDR')", "P='work@openMSP430.sfr_0.BASE_ADDR'", '8|ref_typespec||')
+  UNMASKED (25886, 'fullname', "golden=('work@openMSP430.watchdog_0', 'work@openMSP430.watchdog_0')", "L=('work@openMSP430.watchdog_0.BASE_ADDR', 'work@openMSP430.watchdog_0.BASE_ADDR')", "P='work@openMSP430.watchdog_0.BASE_ADDR'", '8|ref_typespec||')
+  UNMASKED (27073, 'fullname', "golden=('work@openMSP430.multiplier_0', 'work@openMSP430.multiplier_0')", "L=('work@openMSP430.multiplier_0.BASE_ADDR', 'work@openMSP430.multiplier_0.BASE_ADDR')", "P='work@openMSP430.multiplier_0.BASE_ADDR'", '8|ref_typespec||')

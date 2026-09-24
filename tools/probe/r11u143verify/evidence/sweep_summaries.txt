@@ -1,0 +1,95 @@
+=== sweep ON ()
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=2272 STRICT_NOTEQUAL=1815 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=2272 STRICT_NOTEQUAL=1815
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=389 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=91 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=383 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=91 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=692 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=111
+[testflags] CMP_EQUAL=692 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=111
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+rc=1
+cmds.txt audit surelog: 1531 of 1531 slang lines name the frozen base binary
+cmds.txt audit uhdm2rtlil: 1742 of 1742 slang lines name the frozen base binary
+=== sweep 33 (R11U133_OFF=1 )
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=2183 STRICT_NOTEQUAL=1904 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=2183 STRICT_NOTEQUAL=1904
+regressions=89 conversions=0 changes=104 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=386 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=94 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=381 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=93 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=5 conversions=0 changes=22 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=684 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=119
+[testflags] CMP_EQUAL=684 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=119
+regressions=16 conversions=0 changes=18 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+rc=1
+cmds.txt audit surelog: 1531 of 1531 slang lines name the frozen base binary
+cmds.txt audit uhdm2rtlil: 1742 of 1742 slang lines name the frozen base binary
+=== sweep 37 (R11U137_OFF=1 R11U139_OFF=1 R11V137_OFF=1 )
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=2221 STRICT_NOTEQUAL=1866 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=2221 STRICT_NOTEQUAL=1866
+regressions=51 conversions=0 changes=87 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=367 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=113 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=342 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=132 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=63 conversions=0 changes=25 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=667 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=136
+[testflags] CMP_EQUAL=667 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=136
+regressions=50 conversions=0 changes=20 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+rc=1
+cmds.txt audit surelog: 1531 of 1531 slang lines name the frozen base binary
+cmds.txt audit uhdm2rtlil: 1742 of 1742 slang lines name the frozen base binary
+=== sweep 3B (R11U133_OFF=1 R11U137_OFF=1 R11U139_OFF=1 R11V137_OFF=1 )
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=2139 STRICT_NOTEQUAL=1948 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=2139 STRICT_NOTEQUAL=1948
+regressions=133 conversions=0 changes=188 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=364 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=116 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=340 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=134 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=68 conversions=0 changes=47 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=660 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=143
+[testflags] CMP_EQUAL=660 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=143
+regressions=64 conversions=0 changes=36 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+rc=1
+cmds.txt audit surelog: 1531 of 1531 slang lines name the frozen base binary
+cmds.txt audit uhdm2rtlil: 1742 of 1742 slang lines name the frozen base binary
+=== sweep A3 (R11U133_OFF=1 R11U137_OFF=1 R11U139_OFF=1 R11V137_OFF=1 R11V141_OFF=1 )
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=2139 STRICT_NOTEQUAL=1948 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=2139 STRICT_NOTEQUAL=1948
+regressions=133 conversions=0 changes=188 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=364 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=116 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=340 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=134 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=68 conversions=0 changes=47 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=660 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=143
+[testflags] CMP_EQUAL=660 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=143
+regressions=64 conversions=0 changes=36 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+rc=1
+cmds.txt audit surelog: 1531 of 1531 slang lines name the frozen base binary
+cmds.txt audit uhdm2rtlil: 1742 of 1742 slang lines name the frozen base binary
+=== sweep 41 (R11V141_OFF=1 )
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=2272 STRICT_NOTEQUAL=1815 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=2272 STRICT_NOTEQUAL=1815
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=389 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=91 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=383 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=91 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=692 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=111
+[testflags] CMP_EQUAL=692 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=111
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+rc=1
+cmds.txt audit surelog: 1531 of 1531 slang lines name the frozen base binary
+cmds.txt audit uhdm2rtlil: 1742 of 1742 slang lines name the frozen base binary
+A3 vs ON downstream rows differing in verdict/differs: 0 []

@@ -1,0 +1,12 @@
+r11u133repro/pkr/p01 cmp=0 STRICT_NOTEQUAL col fields: fullname=2 col=1 endcol=1 objects_differing=3
+r11u133repro/pkr/u01 cmp=0 STRICT_NOTEQUAL col fields: fullname=3 col=1 endcol=1 objects_differing=4
+r11v133repro/pqs/d01_space_qual cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1
+r11v133repro/pqs/d06_macro_qual cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1
+r11v133repro/tix/a02_gen_for cmp=0 STRICT_NOTEQUAL fullname fields: fullname=2 col=1 endcol=1 objects_differing=2
+r11v133repro/tix/f06_gen_if cmp=0 STRICT_NOTEQUAL fullname fields: fullname=2 col=1 endcol=1 objects_differing=2
+r11v133repro/tix/a07_hier_idx cmp=0 STRICT_NOTEQUAL fullname fields: fullname=2 objects_differing=2
+r11u139netbind/cases/pc/pc31_bitsel_first_pos cmp=0 STRICT_NOTEQUAL col fields: col=1 endcol=1 objects_differing=1
+r11u139netbind/cases/pc/pc33_sel_index_whole cmp=0 STRICT_NOTEQUAL fullname fields: fullname=2 objects_differing=2
+v11u137repro/brk/cases/f04_attr_and_noparens cmp=0 STRICT_NOTEQUAL col fields: col=1 objects_differing=1
+v11u137repro/brk/cases/f05_pkg_class_extends cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1
+v11u137repro/brk/cases/e01_repl_in_concat cmp=0 STRICT_NOTEQUAL fullname fields: fullname=1 objects_differing=1

@@ -1,0 +1,1 @@
+  typedef a b[1:0];

@@ -1,0 +1,141 @@
+fence_s3/f01_param_import_wild default | no switch moves it
+fence_s3/f02_param_import_explicit default | no switch moves it
+fence_s3/f03_var_not_param default | no switch moves it
+fence_s3/f04_scoped_ctl default | no switch moves it
+fence_s3/f05_nested_sub default | no switch moves it
+p133_hpmid/hm01_partsel_leaf default | no switch moves it
+p133_hpmid/hm02_2d_base default | R11U133_HPMID_OFF: TURNED
+p133_hpmid/hm03_ff_if_cond default | R11U133_HPMID_OFF: TURNED
+p133_hpmid/hm04_port_actual default | R11U133_HPMID_OFF: OK:better=1
+p133_hpmid/hm05_ips_leaf default | no switch moves it
+p133_lhsclone/lc01_gen_for_inst default | R11U133_LHSCLONE_OFF: GROW:endline:0->4,col:1->4,line:0->4,endcol:1->4
+p133_lhsclone/lc02_pkg_explicit_pkg default | R11U133_LHSCLONE_OFF: STAGE1 OKDD P_dist=74 L_dist=52 newexcess=3 newmissing=0 ['|vpiActual:', '\\_parameter: (der_p::BW), line:3:31, endln:3:33', '\\_parameter: (der_p::BW), line:3:31, end
+p133_lhsclone/lc03_two_pkgs_hdr default | R11U133_LHSCLONE_OFF: STAGE1 OKDD P_dist=42 L_dist=21 newexcess=3 newmissing=0 ['\\_int_typespec: , line:3:25, endln:3:28', '\\_param_assign: , line:3:29, endln:3:35', '\\_logic_typespec: ,
+p133_lhsclone/lc04_macro_pkg_param default | R11U133_LHSCLONE_OFF: GROW:col:1->2,endcol:1->2
+p133_patqual/pq01_positional_pattern default | R11U133_PATQUAL_OFF: STAGE1 OKDD P_dist=81 L_dist=73 newexcess=0 newmissing=0 [] []
+p133_patqual/pq03_two_params default | R11U133_PATQUAL_OFF: TURNED
+p133_patqual/pq02_nested_struct default | R11U133_PATQUAL_OFF: STAGE1 OKDD P_dist=288 L_dist=280 newexcess=0 newmissing=0 [] [] ; R11U139_CA_OFF: STAGE1 OKDD P_dist=282 L_dist=280 newexcess=0 newmissing=0 [] []
+p133_patqual/pq04_genif_inst default | R11U133_PATQUAL_OFF: OK:better=1 ; R11U139_CA_OFF: OK:better=0
+p133_trailidx/tx02_idx_funccall default | no switch moves it
+p133_trailidx/tx01_idx_ternary default | R11U133_TRAILIDX_OFF: TURNED
+p133_trailidx/tx03_idx_int_var default | R11U133_TRAILIDX_OFF: TURNED
+p133_trailidx/tx04_idx_sysfunc default | no switch moves it
+p133_trailidx/tx05_idx_sub_op default | R11U133_TRAILIDX_OFF: TURNED
+p133_unkfile/uk01_mod default | R11U133_UNKFILE_OFF: STAGE1 OKDD P_dist=8 L_dist=8 newexcess=0 newmissing=0 [] []
+p133_unkfile/uk03_sub_override default | no switch moves it
+p133_unkfile/uk02_and_z default | R11U133_UNKFILE_OFF: STAGE1 OKDD P_dist=8 L_dist=8 newexcess=0 newmissing=0 [] []
+p133_unkfile/uk04_shift default | R11U133_UNKFILE_OFF: TURNED
+p133_unkfile/uk05_unary default | R11U133_UNKFILE_OFF: TURNED
+p133_unkfile/uk06_typed_vec_xor default | R11U133_UNKFILE_OFF: TURNED
+p133_unkfile/uk07_two_unknown_add default | R11U133_UNKFILE_OFF: TURNED
+p137_aliasfile/al02_union_module default | no switch moves it
+p137_aliasfile/al01_enum_unpacked default | R11U137_SCOPEDARRTD_OFF: STAGE1 OKDD P_dist=84 L_dist=81 newexcess=0 newmissing=0 [] []
+p137_aliasfile/al03_chain default | R11U137_ALIASFILE_OFF: STAGE1 OKDD P_dist=131 L_dist=131 newexcess=0 newmissing=0 [] [] ; R11U137_SCOPEDARRTD_OFF: STAGE1 OKDD P_dist=131 L_dist=131 newexcess=0 newmissing=1 [] ['\\_struct_typespec: (cp2::a), line:4:11, endln:4:37']
+p137_aliasfile/al04_two_dims default | R11U137_SCOPEDARRTD_OFF: STAGE1 NEWBAD P_dist=87 L_dist=89 newexcess=1 newmissing=1 ['\\_array_typespec: (ap4::b), line:5:11, endln:5:24'] ['\\_struct_typespec: (ap4::a), line:4:11, endln:4:46
+p137_aliasfile/al05_two_modules default | R11U137_ALIASFILE_OFF: TURNED ; R11U137_SCOPEDARRTD_OFF: TURNED
+p137_aliasfile/al06_union_pkg default | R11U137_SCOPEDARRTD_OFF: STAGE1 OKDD P_dist=99 L_dist=96 newexcess=0 newmissing=0 [] []
+p137_callspan/cs01_unpacked_dim default | no switch moves it
+p137_callspan/cs02_param_port_range default | R11U137_CALLSPAN_OFF: STAGE1 OKDD P_dist=50 L_dist=38 newexcess=0 newmissing=0 [] []
+p137_callspan/cs03_genif_op_of_calls default | R11U137_CALLSPAN_OFF: STAGE1 OKDD P_dist=12 L_dist=4 newexcess=0 newmissing=0 [] []
+p137_callspan/cs04_genblock_lp_range default | no switch moves it
+p137_callspan/cs05_two_args default | R11U137_CALLSPAN_OFF: STAGE1 OKDD P_dist=8 L_dist=2 newexcess=0 newmissing=0 [] []
+p137_callspan/cs06_genif_in_gencase default | R11U137_CALLSPAN_OFF: OK:better=1
+p137_callspan/cs07_sysfunc_arg default | R11U137_CALLSPAN_OFF: STAGE1 OKDD P_dist=6 L_dist=2 newexcess=0 newmissing=0 [] []
+p137_defnettp/tp01_pkg_typedef_default default | R11U137_DEFNETTP_OFF: TURNED
+p137_defnettp/tp02_signed_vec_default default | no switch moves it
+p137_defnettp/tp03_unit_enum_default default | R11U137_DEFNETTP_OFF: OK:better=7
+p137_defnettp/tp04_dependent_default default | R11U137_DEFNETTP_OFF: GROW:fullname:1->5
+p137_defwire/dw01_tri_genblock default | R11U137_UNSIGNEDSPAN_OFF: STAGE1 OKDD P_dist=25 L_dist=17 newexcess=2 newmissing=0 ['\\_logic_typespec: , line:6:10, endln:6:15', '\\_logic_typespec: , line:6:10, endln:6:15'] []
+p137_defwire/dw02_wor_uwire default | R11U137_UNSIGNEDSPAN_OFF: STAGE1 OKDD P_dist=12 L_dist=4 newexcess=0 newmissing=0 [] [] ; R11V137_DEFWIRE_OFF: STAGE1 OKDD P_dist=12 L_dist=4 newexcess=0 newmissing=0 [] []
+p137_defwire/dw03_wire_unpacked default | R11U137_UNSIGNEDSPAN_OFF: TURNED
+p137_defwire/dw04_param_sub default | R11U137_UNSIGNEDSPAN_OFF: TURNED ; R11V137_DEFWIRE_OFF: TURNED
+p137_defwire/dw05_attr_wand default | R11U137_UNSIGNEDSPAN_OFF: TURNED ; R11V137_DEFWIRE_OFF: TURNED
+p137_elabclone/ee01_iface_process default | no switch moves it
+p137_elabclone/ee02_func_struct_local default | no switch moves it
+p137_elabclone/ee04_task_output_arg default | no switch moves it
+p137_elabclone/ee03_latch_case_block default | no switch moves it
+p137_emptyconn/en01_inout default | R11U137_EMPTYCONN_OFF: TURNED
+p137_emptyconn/en02_struct_port default | R11U137_EMPTYCONN_OFF: TURNED
+p137_emptyconn/en03_multiline_attr_decl default | R11U137_EMPTYCONN_OFF: STAGE1 OKDD P_dist=11 L_dist=9 newexcess=0 newmissing=0 [] []
+p137_emptyconn/en04_with_wildcard default | R11U137_EMPTYCONN_OFF: TURNED
+p137_patd/pd01_union_elem default | no switch moves it
+p137_patd/pd02_port_type default | no switch moves it
+p137_patd/pd03_vec_elem default | no switch moves it
+p137_patd/pd04_genblock_td default | no switch moves it
+p137_patd/pd05_struct_always default | R11U137_PATD_OFF: TURNED
+p137_patd/pd06_pkg_enum_localparam default | no switch moves it
+p137_patd/pd07_import_struct default | R11U137_PATD_OFF: TURNED
+p137_pathbase/sp01_unpacked_dim default | no switch moves it
+p137_pathbase/sp02_typedef_range default | R11U137_PATHBASE_OFF: TURNED
+p137_pathbase/sp03_genif_and default | R11U137_PATHBASE_OFF: TURNED
+p137_pathbase/sp04_genblock_net_range default | R11U137_PATHBASE_OFF: TURNED
+p137_purevirt/pv01_module_class_defaults default | R11U137_PUREVIRTSPAN_OFF: TURNED
+p137_purevirt/pv02_iface_class_task default | R11U137_PUREVIRTSPAN_OFF: STAGE1 OKDD P_dist=47 L_dist=47 newexcess=3 newmissing=0 ['\\_task: (ip::Ifc::t), line:5:5, endln:5:48', '\\_task: (ip::Ifc::t), line:5:5, endln:5:48', '\\_task: (ip::
+p137_purevirt/pv03_local_task default | R11U137_PUREVIRTSPAN_OFF: STAGE1 OKDD P_dist=47 L_dist=43 newexcess=2 newmissing=0 ['\\_task: (work@K::lt), line:5:3, endln:5:36', '\\_task: (work@K::lt), line:5:3, endln:5:36'] [] ; R11V137_PVQUAL_OFF: STAGE1 OKDD P_dist=47 L_dist=43 newexcess=0 newmissing=0 [] []
+p137_purevirt/pv04_extends_override default | R11U137_PUREVIRTSPAN_OFF: TURNED
+p137_purevirt/pv05_module_protected_func default | R11U137_PUREVIRTSPAN_OFF: TURNED ; R11V137_PVQUAL_OFF: TURNED
+p137_purevirt/pv06_param_class default | R11U137_PUREVIRTSPAN_OFF: STAGE1 OKDD P_dist=7 L_dist=3 newexcess=0 newmissing=0 [] [] ; R11V137_PVQUAL_OFF: STAGE1 OKDD P_dist=7 L_dist=3 newexcess=0 newmissing=0 [] []
+p137_repl/rp01_net_operand_ctl default | R11U139_PORT_OFF: TURNED
+p137_repl/rp02_struct_port default | R11U137_REPLTSNAME_OFF: TURNED
+p137_repl/rp04_nonansi_child default | R11U137_REPLTSNAME_OFF: TURNED
+p137_repl/rp03_genfor default | R11U137_REPLTSNAME_OFF: TURNED
+p137_scopedarrtd/sd01_enum_elem default | R11U137_SCOPEDARRTD_OFF: STAGE1 OKDD P_dist=92 L_dist=89 newexcess=0 newmissing=0 [] []
+p137_scopedarrtd/sd02_port_type default | R11U137_SCOPEDARRTD_OFF: STAGE1 OKDD P_dist=207 L_dist=204 newexcess=0 newmissing=0 [] []
+p137_scopedarrtd/sd03_ascending_init default | R11U137_ALIASFILE_OFF: STAGE1 OKDD P_dist=55 L_dist=55 newexcess=0 newmissing=0 [] [] ; R11U137_SCOPEDARRTD_OFF: STAGE1 OKDD P_dist=55 L_dist=55 newexcess=1 newmissing=0 ['\\_array_typespec: (sp4::sa), line:5:11, endln:5:22'] []
+p137_scopedarrtd/sd04_struct_two_lines default | R11U137_ALIASFILE_OFF: TURNED ; R11U137_SCOPEDARRTD_OFF: TURNED
+p137_scopedarrtd/sd05_bit_elem default | R11U137_SCOPEDARRTD_OFF: STAGE1 OKDD P_dist=160 L_dist=157 newexcess=0 newmissing=0 [] []
+p137_scopedarrtd/sd06_odd_bounds default | R11U137_ALIASFILE_OFF: TURNED ; R11U137_SCOPEDARRTD_OFF: TURNED
+p137_tagged/tu01_struct_member default | R11U137_TAGGEDSPAN_OFF: TURNED
+p137_tagged/tu02_genblock default | no switch moves it
+p137_tagged/tu03_signed default | R11U137_TAGGEDSPAN_OFF: TURNED
+p137_unsigned/us01_unpacked_mem default | R11U137_UNSIGNEDSPAN_OFF: TURNED
+p137_unsigned/us02_typedef default | R11U137_UNSIGNEDSPAN_OFF: TURNED
+p137_unsigned/us03_genblock_iface default | R11U137_UNSIGNEDSPAN_OFF: OK:better=4
+p139_ca/ca01_nonansi_op default | no switch moves it
+p139_ca/ca02_repl_rhs default | no switch moves it
+p139_ca/ca03_delay_op default | no switch moves it
+p139_ca/ca04_inst_array_child default | no switch moves it
+p139_ca/ca05_partsel_rhs default | no switch moves it
+p139_ca/ca06_member_rhs default | no switch moves it
+p139_ca/ca07_ips_rhs_sub_two default | R11U139_PORT_OFF: TURNED
+p139_ca/ca08_var_index_rhs default | no switch moves it
+p139_ca/ca09_bits_sysfunc default | no switch moves it
+p139_ca/ca10_pkg_param_partsel default | no switch moves it
+p139_ca/ca11_struct_param_member_override default | R11U139_CA_OFF: STAGE1 OKDD P_dist=181 L_dist=179 newexcess=0 newmissing=0 [] []
+p139_ca/ca12_param_bitsel_logic_lhs default | no switch moves it
+p139_ca/ca13_top_pkg_partsel default | no switch moves it
+p139_ca/ca15_countones_param default | R11U139_CA_OFF: STAGE1 OKDD P_dist=32 L_dist=32 newexcess=1 newmissing=0 ['\\_logic_net: (work@top.a), line:3:61, endln:3:62'] []
+p139_ca/ca14_nested_member_localparam default | R11U139_CA_OFF: STAGE1 OKDD P_dist=207 L_dist=207 newexcess=0 newmissing=0 [] []
+p139_ca/ca16_clog2_sub_override default | R11U139_CA_OFF: TURNED
+p139_clk/ck01_edge default | no switch moves it
+p139_ca/ca17_imported_param_bitsel default | R11U139_CA_OFF: TURNED
+p139_clk/ck02_bitsel_clock default | no switch moves it
+p139_clk/ck03_genblock_sub default | R11U139_CLK_OFF: TURNED
+p139_clk/ck04_skews default | no switch moves it
+p139_clk/ck05_two_blocks default | R11U139_CLK_OFF: STAGE1 OKDD P_dist=58 L_dist=58 newexcess=0 newmissing=0 [] []
+p139_clk/ck06_global_sub default | no switch moves it
+p139_nda/nd01_concat_leftmost default | no switch moves it
+p139_nda/nd02_call_leftmost default | no switch moves it
+p139_nda/nd03_cast_leftmost default | no switch moves it
+p139_nda/nd04_member_leftmost default | no switch moves it
+p139_nda/nd05_compare default | R11U139_NDA_OFF: TURNED
+p139_nda/nd07_logical_unary_left default | no switch moves it
+p139_nda/nd06_nested_left_chain default | R11U139_NDA_OFF: TURNED
+p139_nda/nd08_sub_two_inst default | R11U139_NDA_OFF: TURNED
+p139_port/pc01_inst_array_op default | no switch moves it
+p139_port/pc02_paren_nested default | R11U139_PORT_OFF: TURNED
+p139_port/pc03_param_sub_concat default | R11U139_PORT_OFF: TURNED
+p139_port/pc04_bitsel_right default | R11U139_PORT_OFF: TURNED
+p141_inctabact/it01_ifndef_defined default | R11V141_INCTABACT_OFF: TURNED
+p141_inctabact/it02_inner_skip_outer_tab_after default | no switch moves it
+p141_inctabact/it03_elsif_after_taken default | R11V141_INCTABACT_OFF: TURNED
+p141_inctabact/it04_skip_tab_undef_after default | R11V141_INCTABACT_OFF: TURNED
+p141_ipsqual/iq02_op_start default | R11V141_IPSQUAL_OFF: TURNED
+p141_ipsqual/iq03_genblock_lp default | no switch moves it
+p141_ipsqual/iq01_sub_two_inst default | R11V141_IPSQUAL_OFF: TURNED
+p141_ipsqual/iq04_contassign_ctl default | no switch moves it
+xg_pairs/x01_trailidx_nda default | R11U133_TRAILIDX_OFF: TURNED
+xg_pairs/x02_trailidx_port default | R11U133_TRAILIDX_OFF: OK:better=1 ; R11U139_PORT_OFF: OK:better=1
+xg_pairs/x03_trailidx_ca_sub default | R11U133_TRAILIDX_OFF: TURNED
+xg_pairs/x04_lhsclone_elabclone_func default | R11U133_LHSCLONE_OFF: OK:better=0
+xg_pairs/x05_lhsclone_elabclone_pkgpkg default | R11U133_LHSCLONE_OFF: STAGE1 OKDD P_dist=73 L_dist=49 newexcess=2 newmissing=0 ['\\_parameter: (d5::K), line:3:27, endln:3:28', '\\_parameter: (d5::K), line:3:27, endln:3:28'] []

@@ -1,0 +1,16 @@
+== r11u20repro/b4 (LHSCLONE off -> on)
+records G=548 P=531 L=548; walk divergence P #217, L #548; diff fields P 126, L 295; L-only 179
+classes: {'UNMASKED': 179}
+  UNMASKED (223, 'col', "golden=('46', '')", "L=('33', '')", "P='33'", '7|constant||')
+  UNMASKED (223, 'endcol', "golden=('48', '')", "L=('49', '')", "P='49'", '7|constant||')
+  UNMASKED (224, 'fullname', "golden=('<in>cfg_pkg::cfg_t.XLEN', 'work@dut.DefaultCfg.cfg_pkg::cfg_t.XLEN')", "L=('cfg_pkg', 'cfg_pkg')", "P='cfg_pkg'", '8|ref_typespec||')
+  UNMASKED (226, 'col', "golden=('46', '')", "L=('33', '')", "P='33'", '7|constant||')
+== v11u114repro/grid/set1/g25 (LHSCLONE off -> on)
+records G=256 P=242 L=257; walk divergence P #108, L #254; diff fields P 9, L 13; L-only 13
+classes: {'UNMASKED': 2, 'PAST-L-DIVERGENCE(walk misaligned, not compared)': 11}
+  UNMASKED (211, 'fullname', "golden=('<in>q2::e_t.a', 'work@top.u.C.q2::e_t.a')", "L=('<in>q2::e_t.a', 'work@top.u.q2::e_t.a')", "P='<in>q2::e_t.a'", '8|ref_typespec||')
+  UNMASKED (217, 'fullname', "golden=('<in>q2::e_t.v', 'work@top.u.C.q2::e_t.v')", "L=('<in>q2::e_t.v', 'work@top.u.q2::e_t.v')", "P='<in>q2::e_t.v'", '8|ref_typespec||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (254, 'type', "golden=('ref_obj', '')", "L=('constant', '')", "P='ref_obj'", '4|ref_obj|o|')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (254, 'name', "golden=('o', '')", "L=('', '')", "P='o'", '4|ref_obj|o|')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (254, 'fullname', "golden=('work@top.u.o', 'work@top.u.o')", "L=('', '')", "P='work@top.u.o'", '4|ref_obj|o|')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (254, 'line', "golden=('6', '')", "L=('4', '')", "P='6'", '4|ref_obj|o|')

@@ -1,0 +1,21 @@
+== r10earl54repro/v10step1 ba36e1bc2ad19445fbcc 3e027c4bc115 STRICT_NOTEQUAL endcol | STRICT_NOTEQUAL endcol sweepdb=3e027c4bc115
+records G=319 P=318 L=319; walk divergence P #183, L #319; diff fields P 24, L 24; L-only 10
+classes: {'UNMASKED': 10}
+  UNMASKED (210, 'endcol', "golden=('68', '')", "L=('69', '')", "P='69'", '2|module_inst|u_sp2|work@snk10_54')
+  UNMASKED (224, 'endcol', "golden=('57', '')", "L=('58', '')", "P='58'", '4|operation||')
+  UNMASKED (225, 'endcol', "golden=('50', '')", "L=('51', '')", "P='51'", '5|operation||')
+  UNMASKED (230, 'endcol', "golden=('50', '')", "L=('51', '')", "P='51'", '6|constant||')
+== r10earl54repro/v3_v54 b2d38f8f28ef14fa5321 b8369908ac2e STRICT_NOTEQUAL col | STRICT_NOTEQUAL col sweepdb=b8369908ac2e
+records G=240 P=239 L=240; walk divergence P #154, L #240; diff fields P 147, L 261; L-only 124
+classes: {'UNMASKED': 124}
+  UNMASKED (155, 'col', "golden=('54', '')", "L=('42', '')", "P='42'", '6|part_select|d|d')
+  UNMASKED (155, 'endcol', "golden=('60', '')", "L=('48', '')", "P='48'", '6|part_select|d|d')
+  UNMASKED (156, 'col', "golden=('56', '')", "L=('44', '')", "P='44'", '7|constant||')
+  UNMASKED (156, 'endcol', "golden=('57', '')", "L=('45', '')", "P='45'", '7|constant||')
+== r10earl94repro/g3_kind94 74e17a4b0a22e8c93b61 f480048ca627 STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname sweepdb=f480048ca627
+records G=1145 P=1145 L=1145; walk divergence P #856, L #1145; diff fields P 31, L 30; L-only 8
+classes: {'UNMASKED': 8}
+  UNMASKED (1060, 'line', "golden=('27', '')", "L=('28', '')", "P='28'", '3|gen_scope_array|gen_case|')
+  UNMASKED (1060, 'col', "golden=('8', '')", "L=('7', '')", "P='7'", '3|gen_scope_array|gen_case|')
+  UNMASKED (1060, 'endline', "golden=('31', '')", "L=('28', '')", "P='28'", '3|gen_scope_array|gen_case|')
+  UNMASKED (1060, 'endcol', "golden=('8', '')", "L=('27', '')", "P='27'", '3|gen_scope_array|gen_case|')

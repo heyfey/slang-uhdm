@@ -1,0 +1,48 @@
+p133_hpmid/hm06_base_index_op default | R11U133_HPMID_OFF: OK:better=2
+p133_hpmid/hm06_base_index_op elab | R11U133_HPMID_OFF: OK:better=2
+p133_hpmid/hm07_nb_lvalue_member_idx default | R11U133_HPMID_OFF: OK:better=2
+p133_hpmid/hm07_nb_lvalue_member_idx elab | R11U133_HPMID_OFF: OK:better=2 ; R11U137_ELABCLONE_OFF: OK:better=1
+p133_trailidx/tx06_trailing_ips_var default | no switch moves it
+p133_trailidx/tx06_trailing_ips_var elab | R11U137_ELABCLONE_OFF: TURNED
+p133_unkfile/uk08_macro_operand default | R11U133_UNKFILE_OFF: STAGE1 OKDD P_dist=8 L_dist=8 newexcess=0 newmissing=0 [] []
+p133_unkfile/uk08_macro_operand elab | R11U133_UNKFILE_OFF: STAGE1 OKDD P_dist=14 L_dist=14 newexcess=0 newmissing=0 [] []
+p137_aliasfile/al07_alias_in_include default | R11U137_ALIASFILE_OFF: TURNED ; R11U137_SCOPEDARRTD_OFF: TURNED
+p137_aliasfile/al07_alias_in_include elab | R11U137_ALIASFILE_OFF: TURNED ; R11U137_SCOPEDARRTD_OFF: TURNED
+p137_callspan/cs08_named_arg default | R11U137_CALLSPAN_OFF: STAGE1 OKDD P_dist=45 L_dist=43 newexcess=0 newmissing=0 [] []
+p137_callspan/cs08_named_arg elab | R11U137_CALLSPAN_OFF: STAGE1 OKDD P_dist=71 L_dist=69 newexcess=0 newmissing=0 [] []
+p137_defnettp/tp05_packed_dim_on_tp default | no switch moves it
+p137_defnettp/tp05_packed_dim_on_tp elab | R11U137_ELABCLONE_OFF: STAGE1 OKDD P_dist=33 L_dist=25 newexcess=0 newmissing=0 [] []
+p137_emptyconn/en05_unpacked_port default | R11U137_EMPTYCONN_OFF: TURNED
+p137_emptyconn/en05_unpacked_port elab | R11U137_ELABCLONE_OFF: TURNED ; R11U137_EMPTYCONN_OFF: TURNED
+p137_patd/pd08_func_return default | R11U137_PATD_OFF: STAGE1 OKDD P_dist=49 L_dist=45 newexcess=0 newmissing=0 [] []
+p137_patd/pd08_func_return elab | R11U137_PATD_OFF: STAGE1 OKDD P_dist=57 L_dist=53 newexcess=0 newmissing=0 [] []
+p137_tagged/tu04_port_type default | no switch moves it
+p137_tagged/tu04_port_type elab | R11U137_ELABCLONE_OFF: TURNED
+p139_ca/ca18_genblock_param_bitsel default | no switch moves it
+p139_ca/ca18_genblock_param_bitsel elab | no switch moves it
+p139_nda/nd09_genblock default | no switch moves it
+p139_nda/nd09_genblock elab | no switch moves it
+p139_port/pc05_genblock_op default | R11U139_PORT_OFF: TURNED
+p139_port/pc05_genblock_op elab | R11U137_ELABCLONE_OFF: TURNED ; R11U139_PORT_OFF: TURNED
+p141_inctabact/it05_skipped_continuation default | no switch moves it
+p141_inctabact/it05_skipped_continuation elab | no switch moves it
+p141_inctabact/it06_active_continuation default | no switch moves it
+p141_inctabact/it06_active_continuation elab | no switch moves it
+p141_inctabact/it07_skipped_inner_else default | R11V141_INCTABACT_OFF: TURNED
+p141_inctabact/it07_skipped_inner_else elab | R11V141_INCTABACT_OFF: TURNED
+p141_inctabact/it08_elsif_taken_tab default | no switch moves it
+p141_inctabact/it08_elsif_taken_tab elab | no switch moves it
+p141_ipsqual/iq05_in_concat default | R11V141_IPSQUAL_OFF: TURNED
+p141_ipsqual/iq05_in_concat elab | R11V141_IPSQUAL_OFF: TURNED
+p141_ipsqual/iq06_minus_localparam default | R11V141_IPSQUAL_OFF: STAGE1 OKDD P_dist=10 L_dist=8 newexcess=2 newmissing=0 ['\\_indexed_part_select: p::A (work@top.p::A), line:8:35, endln:8:42', '\\_indexed_part_select: p::A (work@top
+p141_ipsqual/iq06_minus_localparam elab | R11V141_IPSQUAL_OFF: STAGE1 OKDD P_dist=10 L_dist=8 newexcess=2 newmissing=0 ['\\_indexed_part_select: p::A (work@top.p::A), line:8:35, endln:8:42', '\\_indexed_part_select: p::A (work@top
+xg_pairs/x01_trailidx_nda default | R11U133_TRAILIDX_OFF: TURNED
+xg_pairs/x01_trailidx_nda elab | R11U133_TRAILIDX_OFF: OK:better=1
+xg_pairs/x02_trailidx_port default | R11U133_TRAILIDX_OFF: OK:better=1 ; R11U139_PORT_OFF: OK:better=1
+xg_pairs/x02_trailidx_port elab | R11U133_TRAILIDX_OFF: OK:better=1 ; R11U137_ELABCLONE_OFF: OK:better=2 ; R11U139_PORT_OFF: OK:better=1
+xg_pairs/x03_trailidx_ca_sub default | R11U133_TRAILIDX_OFF: TURNED
+xg_pairs/x03_trailidx_ca_sub elab | R11U133_TRAILIDX_OFF: TURNED ; R11U137_ELABCLONE_OFF: TURNED
+xg_pairs/x04_lhsclone_elabclone_func default | R11U133_LHSCLONE_OFF: OK:better=0
+xg_pairs/x04_lhsclone_elabclone_func elab | R11U133_LHSCLONE_OFF: OK:better=0 ; R11U137_ELABCLONE_OFF: OK:better=5
+xg_pairs/x05_lhsclone_elabclone_pkgpkg default | R11U133_LHSCLONE_OFF: STAGE1 OKDD P_dist=73 L_dist=49 newexcess=2 newmissing=0 ['\\_parameter: (d5::K), line:3:27, endln:3:28', '\\_parameter: (d5::K), line:3:27, endln:3:28'] []
+xg_pairs/x05_lhsclone_elabclone_pkgpkg elab | R11U133_LHSCLONE_OFF: STAGE1 OKDD P_dist=73 L_dist=49 newexcess=2 newmissing=0 ['\\_parameter: (d5::K), line:3:27, endln:3:28', '\\_parameter: (d5::K), line:3:27, endln:3:28'] [] ; R11U137_ELABCLONE_OFF: STAGE1 OKDD P_dist=57 L_dist=49 newexcess=0 newmissing=0 [] []

@@ -1,0 +1,204 @@
+# residue rows at the base 3bccdec9 (fresh sweep /tmp/r11u143_wdON) with the first strict difference
+ParameterInitializedByPartSelectOfParametersAssignedToVar,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+ParameterInitializedByPartSelectOfParametersAssignedToVar,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+  head default:
+    STRICT_NOTEQUAL fullname
+    #150 fullname: golden='' ours='<in>'
+       golden rec: 7 | ref_typespec |  |  |  |  | 0 | 0 | 0 | 0
+       ours   rec: 7 | ref_typespec |  |  | <in> |  | 0 | 0 | 0 | 0
+       under: 6 | constant |  |  |  | dut.sv | 6 | 11 | 6 | 17
+       under: 5 | range |  |  |  | dut.sv | 6 | 10 | 6 | 20
+       under: 4 | logic_typespec |  |  |  | dut.sv | 6 | 4 | 6 | 20
+       under: 3 | ref_typespec |  |  | work@top.max_value |  | 0 | 0 | 0 | 0
+       under: 2 | logic_var | max_value |  | work@top.max_value | dut.sv | 6 | 21 | 6 | 30
+iface_zero_width_field,default,STRICT_NOTEQUAL,differ:col(8),,differ:col(8)
+iface_zero_width_field,testflags,STRICT_NOTEQUAL,differ:col(8),,differ:col(8)
+  head default:
+    STRICT_NOTEQUAL col
+    #49 col: golden='14' ours='12'
+       golden rec: 9 | ref_obj | B |  |  | dut.sv | 11 | 14 | 11 | 17
+       ours   rec: 9 | ref_obj | B |  |  | dut.sv | 11 | 12 | 11 | 13
+       under: 8 | hier_path | B.CTL |  |  | dut.sv | 11 | 12 | 11 | 17
+       under: 7 | operation |  |  |  | dut.sv | 11 | 12 | 11 | 19
+       under: 6 | range |  |  |  | dut.sv | 11 | 11 | 11 | 22
+       under: 5 | logic_typespec |  |  |  | dut.sv | 11 | 5 | 11 | 22
+       under: 4 | ref_typespec |  |  | <in>p::req_t.ctl |  | 0 | 0 | 0 | 0
+iface_param_2level,default,STRICT_NOTEQUAL,differ:col(3),,differ:col(3)
+iface_param_2level,testflags,STRICT_NOTEQUAL,differ:col(3),,differ:col(3)
+  head default:
+    STRICT_NOTEQUAL col
+    #141 col: golden='14' ours='10'
+       golden rec: 8 | ref_obj | CFG |  |  | dut.sv | 10 | 14 | 10 | 17
+       ours   rec: 8 | ref_obj | CFG |  |  | dut.sv | 10 | 10 | 10 | 13
+       under: 7 | hier_path | CFG.BUS.DAT |  |  | dut.sv | 10 | 10 | 10 | 21
+       under: 6 | operation |  |  |  | dut.sv | 10 | 10 | 10 | 23
+       under: 5 | range |  |  |  | dut.sv | 10 | 9 | 10 | 26
+       under: 4 | logic_typespec |  |  |  | dut.sv | 10 | 3 | 10 | 26
+       under: 3 | ref_typespec |  |  | work@tif.data |  | 0 | 0 | 0 | 0
+struct_member_cfg_width,default,STRICT_NOTEQUAL,differ:endline(21),,differ:endline(21)
+struct_member_cfg_width,testflags,STRICT_NOTEQUAL,differ:endline(21),,differ:endline(21)
+  head default:
+    STRICT_NOTEQUAL endline
+    #607 endline: golden='29' ours='25'
+       golden rec: 6 | struct_typespec | fu_data_t |  |  | dut.sv | 25 | 13 | 29 | 6
+       ours   rec: 6 | struct_typespec | fu_data_t |  |  | dut.sv | 25 | 13 | 25 | 26
+       under: 5 | ref_typespec |  |  | work@tb.t.m.fu_data_i |  | 0 | 0 | 0 | 0
+       under: 4 | struct_var | fu_data_i |  | work@tb.t.m.fu_data_i | dut.sv | 16 | 22 | 16 | 31
+       under: 3 | module_inst | m | work@mid | work@tb.t.m | dut.sv | 32 | 5 | 32 | 67
+       under: 2 | module_inst | t | work@struct_member_cfg_width | work@tb.t | dut.sv | 36 | 5 | 36 | 81
+       under: 1 | module_inst | work@tb | work@tb |  | dut.sv | 34 | 1 | 37 | 10
+genvar_iface_struct,default,STRICT_NOTEQUAL,differ:endcol(3),,differ:endcol(3)
+genvar_iface_struct,testflags,STRICT_NOTEQUAL,differ:endcol(3),,differ:endcol(3)
+  head default:
+    STRICT_NOTEQUAL endcol
+    #202 endcol: golden='15' ours='22'
+       golden rec: 5 | hier_path | man[i].vld |  |  | dut.sv | 15 | 12 | 15 | 15
+       ours   rec: 5 | hier_path | man[i].vld |  |  | dut.sv | 15 | 12 | 15 | 22
+       under: 4 | cont_assign |  |  |  | dut.sv | 15 | 12 | 15 | 60
+       under: 3 | named_begin | gen_req |  | work@demux.gen_req |  | 0 | 0 | 0 | 0
+       under: 2 | gen_for |  |  |  |  | 0 | 0 | 0 | 0
+       under: 1 | module_inst |  | work@demux | work@demux | dut.sv | 13 | 1 | 19 | 10
+       under: 0 | design | work@dut |  |  |  | 0 | 0 | 0 | 0
+iface_array_modport_drive,default,STRICT_NOTEQUAL,differ:endcol(2),,differ:endcol(2)
+iface_array_modport_drive,testflags,STRICT_NOTEQUAL,differ:endcol(2),,differ:endcol(2)
+  head default:
+    STRICT_NOTEQUAL endcol
+    #163 endcol: golden='15' ours='22'
+       golden rec: 5 | hier_path | man[i].vld |  |  | dut.sv | 11 | 12 | 11 | 15
+       ours   rec: 5 | hier_path | man[i].vld |  |  | dut.sv | 11 | 12 | 11 | 22
+       under: 4 | cont_assign |  |  |  | dut.sv | 11 | 12 | 11 | 29
+       under: 3 | named_begin | g |  | work@driver.g |  | 0 | 0 | 0 | 0
+       under: 2 | gen_for |  |  |  |  | 0 | 0 | 0 | 0
+       under: 1 | module_inst |  | work@driver | work@driver | dut.sv | 9 | 1 | 13 | 10
+       under: 0 | design | work@dut |  |  |  | 0 | 0 | 0 | 0
+struct_param_repl_count,default,CMP_EQUAL,,,equal
+struct_param_repl_count,testflags,CMP_EQUAL,,,equal
+iface_array_elem_cfg_param,default,CMP_EQUAL,,,equal
+iface_array_elem_cfg_param,testflags,CMP_EQUAL,,,equal
+iface_cfg_param_def_pass,default,CMP_EQUAL,,,equal
+iface_cfg_param_def_pass,testflags,CMP_EQUAL,,,equal
+YosysBigSimEllip,default,STRICT_NOTEQUAL,differ:fullname(3039),,differ:fullname(3039)
+YosysBigSimEllip,testflags,NO_DATABASE,test suppresses UHDM output,-noelab,
+  head default:
+    STRICT_NOTEQUAL fullname
+    #8924 fullname: golden='work@point_scalar_mult.ins1.ins1.label[0].c.i' ours='work@point_scalar_mult.ins1.ins1.label[0].i'
+       golden rec: 8 | ref_obj | i |  | work@point_scalar_mult.ins1.ins1.label[0].c.i | f3m.v | 93 | 26 | 93 | 27
+       ours   rec: 8 | ref_obj | i |  | work@point_scalar_mult.ins1.ins1.label[0].i | f3m.v | 93 | 26 | 93 | 27
+       under: 7 | part_select | c | c | work@point_scalar_mult.ins1.ins1.label[0].c | f3m.v | 93 | 20 | 93 | 28
+       under: 6 | cont_assign |  |  |  | f3m.v | 93 | 20 | 93 | 44
+       under: 5 | gen_scope |  |  | work@point_scalar_mult.ins1.ins1.label[0] | f3m.v | 92 | 11 | 94 | 14
+       under: 4 | gen_scope_array | label[0] |  | work@point_scalar_mult.ins1.ins1.label[0] | f3m.v | 92 | 11 | 94 | 14
+       under: 3 | module_inst | ins1 | work@f3m_neg | work@point_scalar_mult.ins1.ins1 | ecg.v | 107 | 5 | 108 | 24
+PortExpr,default,STRICT_NOTEQUAL,differ:endline(14),,differ:endline(14)
+PortExpr,testflags,STRICT_NOTEQUAL,differ:endline(14),,differ:endline(14)
+  head default:
+    STRICT_NOTEQUAL endline
+    #92 endline: golden='4' ours='5'
+       golden rec: 2 | logic_net | op[79] |  | work@top.op[79] | dut.sv | 4 | 11 | 4 | 23
+       ours   rec: 2 | logic_net | op[79] |  | work@top.op[79] | dut.sv | 4 | 11 | 5 | 3
+       under: 1 | module_inst |  | work@top | work@top | dut.sv | 1 | 1 | 6 | 10
+       under: 0 | design | work@top |  |  |  | 0 | 0 | 0 | 0
+ExplictiPorts,default,STRICT_NOTEQUAL,differ:line(8),,differ:line(8)
+ExplictiPorts,testflags,STRICT_NOTEQUAL,differ:line(15),,differ:line(15)
+  head default:
+    STRICT_NOTEQUAL line
+    #114 line: golden='31' ours='32'
+       golden rec: 4 | ref_obj | b |  | work@c.a.b | dut.sv | 31 | 14 | 31 | 15
+       ours   rec: 4 | ref_obj | b |  | work@c.a.b | dut.sv | 32 | 8 | 32 | 9
+       under: 3 | operation |  |  |  | dut.sv | 31 | 13 | 31 | 19
+       under: 2 | port | a |  |  | dut.sv | 31 | 11 | 31 | 12
+       under: 1 | module_inst |  | work@c | work@c | dut.sv | 31 | 1 | 34 | 10
+       under: 0 | design | work@test |  |  |  | 0 | 0 | 0 | 0
+CarryAdd,default,CMP_EQUAL,,,equal
+CarryAdd,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+  head testflags:
+    STRICT_NOTEQUAL fullname
+    #191 fullname: golden='work@carryadd.STAGE[1].genblk1.STAGE[i - 1].C.STAGE.i' ours='work@carryadd.STAGE[1].genblk1.STAGE[i - 1].C.i'
+       golden rec: 12 | ref_obj | i |  | work@carryadd.STAGE[1].genblk1.STAGE[i - 1].C.STAGE.i | dut.sv | 16 | 71 | 16 | 72
+       ours   rec: 12 | ref_obj | i |  | work@carryadd.STAGE[1].genblk1.STAGE[i - 1].C.i | dut.sv | 16 | 71 | 16 | 72
+       under: 11 | operation |  |  |  | dut.sv | 16 | 71 | 16 | 74
+       under: 10 | bit_select | STAGE |  | STAGE[i - 1] | dut.sv | 16 | 65 | 16 | 70
+       under: 9 | hier_path | STAGE[i - 1].C |  |  | dut.sv | 16 | 65 | 16 | 77
+       under: 8 | operation |  |  |  | dut.sv | 16 | 51 | 16 | 77
+       under: 7 | operation |  |  |  | dut.sv | 16 | 36 | 16 | 78
+SequenceInst,default,CMP_EQUAL,,,equal
+SequenceInst,testflags,STRICT_NOTEQUAL,differ:fullname(6),,differ:fullname(6)
+  head testflags:
+    STRICT_NOTEQUAL fullname
+    #235 fullname: golden='work@m.a1.p_triggers.a' ours='p_triggers.a'
+       golden rec: 5 | ref_obj | a |  | work@m.a1.p_triggers.a | dut.sv | 16 | 35 | 16 | 36
+       ours   rec: 5 | ref_obj | a |  | p_triggers.a | dut.sv | 16 | 35 | 16 | 36
+       under: 4 | property_inst | p_triggers |  |  | dut.sv | 16 | 24 | 16 | 43
+       under: 3 | property_spec |  |  |  | dut.sv | 16 | 24 | 16 | 43
+       under: 2 | assert_stmt | a1 |  | work@m.a1 | dut.sv | 16 | 3 | 16 | 45
+       under: 1 | module_inst | work@m | work@m |  | dut.sv | 1 | 1 | 30 | 10
+       under: 0 | design | work@m |  |  |  | 0 | 0 | 0 | 0
+HierPathTypespec,default,CMP_EQUAL,,,equal
+HierPathTypespec,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+  head testflags:
+    STRICT_NOTEQUAL fullname
+    #105 fullname: golden='pkg::pkg::b::pkg::a::x' ours='pkg::pkg::a::x'
+       golden rec: 6 | ref_typespec |  |  | pkg::pkg::b::pkg::a::x |  | 0 | 0 | 0 | 0
+       ours   rec: 6 | ref_typespec |  |  | pkg::pkg::a::x |  | 0 | 0 | 0 | 0
+       under: 5 | typespec_member | x |  |  | dut.sv | 3 | 19 | 3 | 20
+       under: 4 | ref_obj | x |  | c[1].x | dut.sv | 12 | 16 | 12 | 17
+       under: 3 | hier_path | c[1].x |  |  | dut.sv | 12 | 11 | 12 | 12
+       under: 2 | cont_assign |  |  |  | dut.sv | 12 | 11 | 12 | 21
+       under: 1 | module_inst | work@top | work@top |  | dut.sv | 8 | 1 | 14 | 10
+GenScopeHierPath3,default,CMP_EQUAL,,,equal
+GenScopeHierPath3,testflags,STRICT_NOTEQUAL,differ:fullname(163),,differ:fullname(163)
+  head testflags:
+    STRICT_NOTEQUAL fullname
+    #1432 fullname: golden='work@gen_test.steps[1].outer[0].steps[step].outer[i].inner[CHUNK - 1].temp.step' ours='work@gen_test.steps[1].outer[0].step'
+       golden rec: 9 | ref_obj | step |  | work@gen_test.steps[1].outer[0].steps[step].outer[i].inner[CHUNK - 1].temp.step | dut.sv | 32 | 26 | 32 | 30
+       ours   rec: 9 | ref_obj | step |  | work@gen_test.steps[1].outer[0].step | dut.sv | 32 | 26 | 32 | 30
+       under: 8 | bit_select | steps |  | steps[step] | dut.sv | 32 | 20 | 32 | 25
+       under: 7 | hier_path | steps[step].outer[i].inner[CHUNK - 1].temp |  |  | dut.sv | 32 | 20 | 32 | 62
+       under: 6 | cont_assign |  |  |  | dut.sv | 32 | 14 | 32 | 62
+       under: 5 | gen_scope |  |  | work@gen_test.steps[1].outer[0] | dut.sv | 18 | 37 | 33 | 8
+       under: 4 | gen_scope_array | outer[0] |  | work@gen_test.steps[1].outer[0] | dut.sv | 18 | 37 | 33 | 8
+IOClassStruct,default,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+IOClassStruct,testflags,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+  head default:
+    STRICT_NOTEQUAL fullname
+    #16 fullname: golden='<in>access_t.read_count' ours='<in>access_t.read_count'
+       golden rec: 8 | ref_typespec |  |  | <in>access_t.read_count |  | 0 | 0 | 0 | 0
+       ours   rec: 8 | ref_typespec |  |  | <in>access_t.read_count |  | 0 | 0 | 0 | 0
+       under: 7 | typespec_member | read_count |  |  | dut.sv | 7 | 18 | 7 | 28
+       under: 6 | struct_typespec | access_t |  |  | dut.sv | 5 | 11 | 8 | 4
+       under: 5 | ref_typespec |  |  | uvm_pkg::uvm_resource_base::record_read_access::access_record |  | 0 | 0 | 0 | 0
+       under: 4 | class_var | access_record |  | uvm_pkg::uvm_resource_base::record_read_access::access_record | dut.sv | 16 | 35 | 16 | 48
+       under: 3 | function | record_read_access |  | uvm_pkg::uvm_resource_base::record_read_access | dut.sv | 14 | 3 | 20 | 14
+StructParamFieldRange,default,STRICT_NOTEQUAL,differ:endcol(5),,differ:endcol(5)
+StructParamFieldRange,testflags,STRICT_NOTEQUAL,differ:endcol(5),,differ:endcol(5)
+  head default:
+    STRICT_NOTEQUAL endcol
+    #157 endcol: golden='32' ours='39'
+       golden rec: 4 | struct_typespec |  |  |  | dut.sv | 23 | 26 | 23 | 32
+       ours   rec: 4 | struct_typespec |  |  |  | dut.sv | 23 | 26 | 23 | 39
+       under: 3 | ref_typespec |  |  | <in>it_t |  | 0 | 0 | 0 | 0
+       under: 2 | type_parameter | it_t |  | work@StructParamFieldRange.it_t | dut.sv | 23 | 19 | 23 | 23
+       under: 1 | module_inst |  | work@StructParamFieldRange | work@StructParamFieldRange | dut.sv | 17 | 1 | 29 | 10
+       under: 0 | design | work@StructParamFieldRange |  |  |  | 0 | 0 | 0 | 0
+StructParamFuncBodyFieldCompare,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+StructParamFuncBodyFieldCompare,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+  head default:
+    STRICT_NOTEQUAL depth
+    #192 depth: golden='4' ours='3'
+       golden rec: 4 | constant |  |  |  | dut.sv | 30 | 23 | 30 | 25
+       ours   rec: 3 | typespec_member | Flag |  |  | dut.sv | 21 | 18 | 21 | 22
+       under: 3 | typespec_member | XLEN |  |  | dut.sv | 20 | 18 | 20 | 22
+       under: 2 | struct_typespec | cfg_pkg::cfg_t |  |  | dut.sv | 19 | 11 | 22 | 4
+       under: 1 | package | cfg_pkg | cfg_pkg | cfg_pkg:: | dut.sv | 12 | 1 | 33 | 11
+       under: 0 | design | work@StructParamFuncBodyFieldCompare |  |  |  | 0 | 0 | 0 | 0
+StructParamPatternInitCast,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+StructParamPatternInitCast,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+  head default:
+    STRICT_NOTEQUAL fullname
+    #67 fullname: golden='' ours='cfg_pkg'
+       golden rec: 4 | ref_typespec |  |  |  |  | 0 | 0 | 0 | 0
+       ours   rec: 4 | ref_typespec |  |  | cfg_pkg |  | 0 | 0 | 0 | 0
+       under: 3 | operation |  |  |  | dut.sv | 21 | 32 | 21 | 47
+       under: 2 | param_assign |  |  |  | dut.sv | 21 | 25 | 21 | 47
+       under: 1 | package | cfg_pkg | cfg_pkg | cfg_pkg:: | dut.sv | 9 | 1 | 22 | 11
+       under: 0 | design | work@StructParamPatternInitCast |  |  |  | 0 | 0 | 0 | 0

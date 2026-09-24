@@ -1,0 +1,4 @@
+pass 133 corpus: claims 19; equal at base and fall back with the pass off: 19; equal at base but NOT needing the pass: 0 []; not equal at base: 0 []
+pass 133 probe: claims 81; equal at base and fall back with the pass off: 81; equal at base but NOT needing the pass: 0 []; not equal at base: 0 []
+pass 137 (corpus+probe, its cols_P_L TURNED_EQUAL): claims 155; equal at base and fall back with the pass off: 155; equal at base but NOT needing the pass: 0 []; not equal at base: 0 []
+pass 137 claims by corpus Counter({'surelog': 63, 'uhdm2rtlil': 48, 'probe': 44})

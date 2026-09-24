@@ -1,0 +1,101 @@
+# fence re-derivation of r11u137 residue S3 (N0057) on fresh cases only (cases/fence_s3); no fenced source or copy touched
+
+## verdicts at the base (default mode; own column = R11U137_OFF: no landed law touches the face)
+fence_s3/f01_param_import_wild	stage1 cmp=17	stage1 cmp=17	SAME
+fence_s3/f02_param_import_explicit	stage1 cmp=17	stage1 cmp=17	SAME
+fence_s3/f03_var_not_param	stage1 cmp=17	stage1 cmp=17	SAME
+fence_s3/f04_scoped_ctl	stage1 cmp=17	stage1 cmp=17	SAME
+fence_s3/f05_nested_sub	stage1 cmp=17	stage1 cmp=17	SAME
+
+## f01_param_import_wild: uhdm-cmp head (LHS golden, RHS ours)
+LHS:
+decompile:
+ref_typespec: (work@top.ea::st_e), id:9
+|vpiParent:
+\_enum_typespec: (ea::st_e), id:8, line:4:3, endln:4:60
+|vpiFullName:work@top.ea::st_e
+|vpiActual:
+\_logic_typespec: , id:7, line:4:16, endln:4:27
+
+## f02_param_import_explicit: uhdm-cmp head (LHS golden, RHS ours)
+LHS:
+decompile:
+ref_typespec: (eb2::ea2::lv_e), id:9
+|vpiParent:
+\_enum_typespec: (ea2::lv_e), id:8, line:4:3, endln:4:56
+|vpiFullName:eb2::ea2::lv_e
+|vpiActual:
+\_logic_typespec: , id:7, line:4:16, endln:4:27
+
+## f03_var_not_param: uhdm-cmp head (LHS golden, RHS ours)
+LHS:
+decompile:
+ref_typespec: (eb3::ea3::sw_e), id:5
+|vpiParent:
+\_enum_typespec: (ea3::sw_e), id:4, line:4:3, endln:4:51
+|vpiFullName:eb3::ea3::sw_e
+|vpiActual:
+\_logic_typespec: , id:3, line:4:16, endln:4:21
+
+## f04_scoped_ctl: uhdm-cmp head (LHS golden, RHS ours)
+LHS:
+decompile:
+ref_typespec: (ea4::ea4::ph_e), id:9
+|vpiParent:
+\_enum_typespec: (ea4::ph_e), id:8, line:4:3, endln:4:56
+|vpiFullName:ea4::ea4::ph_e
+|vpiActual:
+\_logic_typespec: , id:7, line:4:16, endln:4:27
+
+## f05_nested_sub: uhdm-cmp head (LHS golden, RHS ours)
+LHS:
+decompile:
+ref_typespec: (work@top.ea5::md_e), id:9
+|vpiParent:
+\_enum_typespec: (ea5::md_e), id:8, line:4:3, endln:4:56
+|vpiFullName:work@top.ea5::md_e
+|vpiActual:
+\_logic_typespec: , id:7, line:4:16, endln:4:27
+
+
+## f04: golden's weakly-referenced per-use enum copies (vpiInstance = HOME package ea4, base typespec present) vs ours (vpiInstance = eb4, no base)
+\_enum_typespec: (ea4::ph_e), line:4:3, endln:4:56
+  |vpiParent:
+  \_ref_typespec: (work@top.S.eb4::s_t.ph)
+  |vpiName:ea4::ph_e
+  |vpiInstance:
+  \_package: ea4 (ea4::), file:dut.sv, line:3:1, endln:5:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (work@top.S.eb4::s_t.ph.ea4::ph_e)
+    |vpiParent:
+    \_enum_typespec: (ea4::ph_e), line:4:3, endln:4:56
+    |vpiFullName:work@top.S.eb4::s_t.ph.ea4::ph_e
+    |vpiActual:
+    \_logic_typespec: , line:4:16, endln:4:27
+  |vpiEnumConst:
+  \_enum_const: (P0), line:4:29, endln:4:38
+    |vpiParent:
+    \_enum_typespec: (ea4::ph_e), line:4:3, endln:4:56
+    |vpiName:P0
+    |INT:0
+    |vpiDecompile:2'd0
+--- ours
+384:\_enum_typespec: (ea4::ph_e), line:4:3, endln:4:56
+385-  |vpiName:ea4::ph_e
+386-  |vpiInstance:
+387-  \_package: eb4 (eb4::), file:dut.sv, line:6:1, endln:8:11
+388-  |vpiEnumConst:
+
+## gdb (-g1 measurement build of the base, /tmp/r11u143_buildg) on fresh cases: every buildEnumTs call's caller
+-- f01_param_import_wild
+      2 #1  slang_uhdm::UhdmExporter::buildStructTs at src/TypeEmit.cpp:13969
+      1 #1  slang_uhdm::UhdmExporter::emitPackage at src/ParamEmit.cpp:29407
+      1 #1  slang_uhdm::UhdmExporter::emitPackage at src/ParamEmit.cpp:30624
+      1 #1  slang_uhdm::UhdmExporter::emitPackage at src/ParamEmit.cpp:30989
+-- f03_var_not_param
+      1 #1  slang_uhdm::UhdmExporter::emitPackage at src/ParamEmit.cpp:29407
+      1 #1  slang_uhdm::UhdmExporter::emitPackage at src/ParamEmit.cpp:30624
+      1 #1  slang_uhdm::UhdmExporter::emitPackage at src/ParamEmit.cpp:30989
+-- f04_scoped_ctl
+      1 #1  slang_uhdm::UhdmExporter::emitPackage at src/ParamEmit.cpp:30624
+      2 #1  slang_uhdm::UhdmExporter::emitPackage at src/ParamEmit.cpp:30989

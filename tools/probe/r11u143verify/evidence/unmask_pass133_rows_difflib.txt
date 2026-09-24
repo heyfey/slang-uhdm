@@ -1,0 +1,93 @@
+== row_Earlgrey_0_1_default_r11u143_wd33_r11u143_wdON
+records G=2173209 P=2170367 L=2173734; walk divergence P #50756, L #51100; diff fields P 1175, L 1197; L-only 31
+classes: {'UNMASKED(content)': 20, 'UNMASKED': 3, 'PAST-L-DIVERGENCE(walk misaligned, not compared)': 8}
+  UNMASKED(content) (50773, 'endcol', "golden=('47', '')", "L=('48', '')", 'P=None', '2|param_assign||')
+  UNMASKED(content) (50812, 'endcol', "golden=('47', '')", "L=('48', '')", "P='49'", '2|param_assign||')
+  UNMASKED(content) (50838, 'endcol', "golden=('48', '')", "L=('49', '')", "P='48'", '2|param_assign||')
+  UNMASKED(content) (50851, 'endcol', "golden=('48', '')", "L=('49', '')", "P='48'", '2|param_assign||')
+  UNMASKED (50786, 'endcol', "golden=('47', '')", "L=('48', '')", "P='48'", '2|param_assign||')
+  UNMASKED (50799, 'endcol', "golden=('47', '')", "L=('48', '')", "P='48'", '2|param_assign||')
+  UNMASKED (50825, 'endcol', "golden=('48', '')", "L=('49', '')", "P='49'", '2|param_assign||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (51100, 'type', "golden=('range', '')", "L=('ref_typespec', '')", 'P=None', '6|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (51100, 'fullname', "golden=('', '')", "L=('<in>', 'work@aes.AES_PERMIT')", 'P=None', '6|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (51100, 'file', "golden=('aes_reg_pkg.sv', '')", "L=('', '')", 'P=None', '6|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (51100, 'line', "golden=('236', '')", "L=('0', '')", 'P=None', '6|range||')
+== row_Earlgrey_0_1_testflags_r11u143_wd33_r11u143_wdON
+records G=1342584 P=1339020 L=1342387; walk divergence P #52002, L #52346; diff fields P 1175, L 1197; L-only 31
+classes: {'UNMASKED(content)': 20, 'UNMASKED': 3, 'PAST-L-DIVERGENCE(walk misaligned, not compared)': 8}
+  UNMASKED(content) (52019, 'endcol', "golden=('47', '')", "L=('48', '')", 'P=None', '2|param_assign||')
+  UNMASKED(content) (52058, 'endcol', "golden=('47', '')", "L=('48', '')", "P='49'", '2|param_assign||')
+  UNMASKED(content) (52084, 'endcol', "golden=('48', '')", "L=('49', '')", "P='48'", '2|param_assign||')
+  UNMASKED(content) (52097, 'endcol', "golden=('48', '')", "L=('49', '')", "P='48'", '2|param_assign||')
+  UNMASKED (52032, 'endcol', "golden=('47', '')", "L=('48', '')", "P='48'", '2|param_assign||')
+  UNMASKED (52045, 'endcol', "golden=('47', '')", "L=('48', '')", "P='48'", '2|param_assign||')
+  UNMASKED (52071, 'endcol', "golden=('48', '')", "L=('49', '')", "P='49'", '2|param_assign||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (52346, 'type', "golden=('range', '')", "L=('ref_typespec', '')", 'P=None', '6|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (52346, 'fullname', "golden=('', '')", "L=('<in>', 'work@aes.AES_PERMIT')", 'P=None', '6|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (52346, 'file', "golden=('aes_reg_pkg.sv', '')", "L=('', '')", 'P=None', '6|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (52346, 'line', "golden=('236', '')", "L=('0', '')", 'P=None', '6|range||')
+== row_ibex_tracer_default_r11u143_wd33_r11u143_wdON
+records G=35922 P=34895 L=35880; walk divergence P #3727, L #4880; diff fields P 51, L 94; L-only 51
+classes: {'NEWOBJ(value present in P)': 37, 'UNMASKED': 3, 'UNMASKED(content)': 3, 'PAST-L-DIVERGENCE(walk misaligned, not compared)': 8}
+  NEWOBJ(value present in P) (3731, 'fullname', "golden=('<in>ibex_pkg::exc_cause_t.irq_int', 'ibex_tracer_pkg::ExcCauseIrqSoftwareM::ibex_pkg::exc_cause_t::irq_int')", "L=('<in>ibex_pkg::exc_cause_t.irq_int', 'ibex_tracer_pkg::ExcCauseIrqSoftwareM.ibex_pkg::exc_cause_t.irq_int')", 'P=None', '7|ref_typespec||')
+  NEWOBJ(value present in P) (3734, 'fullname', "golden=('<in>ibex_pkg::exc_cause_t.irq_ext', 'ibex_tracer_pkg::ExcCauseIrqSoftwareM::ibex_pkg::exc_cause_t::irq_ext')", "L=('<in>ibex_pkg::exc_cause_t.irq_ext', 'ibex_tracer_pkg::ExcCauseIrqSoftwareM.ibex_pkg::exc_cause_t.irq_ext')", 'P=None', '7|ref_typespec||')
+  NEWOBJ(value present in P) (3737, 'fullname', "golden=('<in>ibex_pkg::exc_cause_t.lower_cause', 'ibex_tracer_pkg::ExcCauseIrqSoftwareM::ibex_pkg::exc_cause_t::lower_cause')", "L=('<in>ibex_pkg::exc_cause_t.lower_cause', 'ibex_tracer_pkg::ExcCauseIrqSoftwareM.ibex_pkg::exc_cause_t.lower_cause')", 'P=None', '7|ref_typespec||')
+  NEWOBJ(value present in P) (3760, 'fullname', "golden=('<in>ibex_pkg::exc_cause_t.irq_int', 'ibex_tracer_pkg::ExcCauseIrqTimerM::ibex_pkg::exc_cause_t::irq_int')", "L=('<in>ibex_pkg::exc_cause_t.irq_int', 'ibex_tracer_pkg::ExcCauseIrqTimerM.ibex_pkg::exc_cause_t.irq_int')", 'P=None', '7|ref_typespec||')
+  UNMASKED (4421, 'fullname', "golden=('<in>lfsr_seed_t', 'ibex_tracer_pkg::lfsr_seed_t')", "L=('<in>lfsr_seed_t', 'ibex_tracer_pkg::RndCnstLfsrSeedDefault.lfsr_seed_t')", "P='<in>lfsr_seed_t'", '6|ref_typespec||')
+  UNMASKED (4497, 'fullname', "golden=('<in>ibex_mubi_t', 'ibex_tracer_pkg::ibex_mubi_t')", "L=('<in>ibex_mubi_t', 'ibex_tracer_pkg::IbexMuBiOn.ibex_mubi_t')", "P='<in>ibex_mubi_t'", '6|ref_typespec||')
+  UNMASKED (4531, 'fullname', "golden=('<in>ibex_mubi_t', 'ibex_tracer_pkg::IbexMuBiOff::ibex_mubi_t')", "L=('<in>ibex_mubi_t', 'ibex_tracer_pkg::IbexMuBiOff.ibex_mubi_t')", "P='<in>ibex_mubi_t'", '6|ref_typespec||')
+  UNMASKED(content) (4432, 'fullname', "golden=('<in>lfsr_seed_t', 'ibex_tracer_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t')", "L=('<in>lfsr_seed_t', 'ibex_tracer_pkg::RndCnstLfsrSeedDefault.lfsr_seed_t')", 'P=None', '6|ref_typespec||')
+  UNMASKED(content) (4508, 'fullname', "golden=('<in>ibex_mubi_t', 'ibex_tracer_pkg::IbexMuBiOn::ibex_mubi_t')", "L=('<in>ibex_mubi_t', 'ibex_tracer_pkg::IbexMuBiOn.ibex_mubi_t')", 'P=None', '6|ref_typespec||')
+  UNMASKED(content) (4520, 'fullname', "golden=('<in>ibex_mubi_t', 'ibex_tracer_pkg::ibex_mubi_t')", "L=('<in>ibex_mubi_t', 'ibex_tracer_pkg::IbexMuBiOff.ibex_mubi_t')", 'P=None', '6|ref_typespec||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (4880, 'type', "golden=('range', '')", "L=('ref_typespec', '')", 'P=None', '6|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (4880, 'fullname', "golden=('', '')", "L=('<in>', 'ibex_tracer_pkg::PmpCfgRst')", 'P=None', '6|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (4880, 'file', "golden=('ibex_pkg.sv', '')", "L=('', '')", 'P=None', '6|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (4880, 'line', "golden=('750', '')", "L=('0', '')", 'P=None', '6|range||')
+== row_ibex_tracer_testflags_r11u143_wd33_r11u143_wdON
+records G=35832 P=34805 L=35790; walk divergence P #3726, L #4879; diff fields P 51, L 94; L-only 51
+classes: {'NEWOBJ(value present in P)': 37, 'UNMASKED': 3, 'UNMASKED(content)': 3, 'PAST-L-DIVERGENCE(walk misaligned, not compared)': 8}
+  NEWOBJ(value present in P) (3730, 'fullname', "golden=('<in>ibex_pkg::exc_cause_t.irq_int', 'ibex_tracer_pkg::ExcCauseIrqSoftwareM::ibex_pkg::exc_cause_t::irq_int')", "L=('<in>ibex_pkg::exc_cause_t.irq_int', 'ibex_tracer_pkg::ExcCauseIrqSoftwareM.ibex_pkg::exc_cause_t.irq_int')", 'P=None', '7|ref_typespec||')
+  NEWOBJ(value present in P) (3733, 'fullname', "golden=('<in>ibex_pkg::exc_cause_t.irq_ext', 'ibex_tracer_pkg::ExcCauseIrqSoftwareM::ibex_pkg::exc_cause_t::irq_ext')", "L=('<in>ibex_pkg::exc_cause_t.irq_ext', 'ibex_tracer_pkg::ExcCauseIrqSoftwareM.ibex_pkg::exc_cause_t.irq_ext')", 'P=None', '7|ref_typespec||')
+  NEWOBJ(value present in P) (3736, 'fullname', "golden=('<in>ibex_pkg::exc_cause_t.lower_cause', 'ibex_tracer_pkg::ExcCauseIrqSoftwareM::ibex_pkg::exc_cause_t::lower_cause')", "L=('<in>ibex_pkg::exc_cause_t.lower_cause', 'ibex_tracer_pkg::ExcCauseIrqSoftwareM.ibex_pkg::exc_cause_t.lower_cause')", 'P=None', '7|ref_typespec||')
+  NEWOBJ(value present in P) (3759, 'fullname', "golden=('<in>ibex_pkg::exc_cause_t.irq_int', 'ibex_tracer_pkg::ExcCauseIrqTimerM::ibex_pkg::exc_cause_t::irq_int')", "L=('<in>ibex_pkg::exc_cause_t.irq_int', 'ibex_tracer_pkg::ExcCauseIrqTimerM.ibex_pkg::exc_cause_t.irq_int')", 'P=None', '7|ref_typespec||')
+  UNMASKED (4420, 'fullname', "golden=('<in>lfsr_seed_t', 'ibex_tracer_pkg::lfsr_seed_t')", "L=('<in>lfsr_seed_t', 'ibex_tracer_pkg::RndCnstLfsrSeedDefault.lfsr_seed_t')", "P='<in>lfsr_seed_t'", '6|ref_typespec||')
+  UNMASKED (4496, 'fullname', "golden=('<in>ibex_mubi_t', 'ibex_tracer_pkg::ibex_mubi_t')", "L=('<in>ibex_mubi_t', 'ibex_tracer_pkg::IbexMuBiOn.ibex_mubi_t')", "P='<in>ibex_mubi_t'", '6|ref_typespec||')
+  UNMASKED (4530, 'fullname', "golden=('<in>ibex_mubi_t', 'ibex_tracer_pkg::IbexMuBiOff::ibex_mubi_t')", "L=('<in>ibex_mubi_t', 'ibex_tracer_pkg::IbexMuBiOff.ibex_mubi_t')", "P='<in>ibex_mubi_t'", '6|ref_typespec||')
+  UNMASKED(content) (4431, 'fullname', "golden=('<in>lfsr_seed_t', 'ibex_tracer_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t')", "L=('<in>lfsr_seed_t', 'ibex_tracer_pkg::RndCnstLfsrSeedDefault.lfsr_seed_t')", 'P=None', '6|ref_typespec||')
+  UNMASKED(content) (4507, 'fullname', "golden=('<in>ibex_mubi_t', 'ibex_tracer_pkg::IbexMuBiOn::ibex_mubi_t')", "L=('<in>ibex_mubi_t', 'ibex_tracer_pkg::IbexMuBiOn.ibex_mubi_t')", 'P=None', '6|ref_typespec||')
+  UNMASKED(content) (4519, 'fullname', "golden=('<in>ibex_mubi_t', 'ibex_tracer_pkg::ibex_mubi_t')", "L=('<in>ibex_mubi_t', 'ibex_tracer_pkg::IbexMuBiOff.ibex_mubi_t')", 'P=None', '6|ref_typespec||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (4879, 'type', "golden=('range', '')", "L=('ref_typespec', '')", 'P=None', '6|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (4879, 'fullname', "golden=('', '')", "L=('<in>', 'ibex_tracer_pkg::PmpCfgRst')", 'P=None', '6|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (4879, 'file', "golden=('ibex_pkg.sv', '')", "L=('', '')", 'P=None', '6|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (4879, 'line', "golden=('750', '')", "L=('0', '')", 'P=None', '6|range||')
+== row_Rggen_default_r11u143_wd33_r11u143_wdON
+records G=314498 P=312434 L=312506; walk divergence P #439, L #466; diff fields P 17, L 28; L-only 20
+classes: {'UNMASKED': 5, 'PAST-L-DIVERGENCE(walk misaligned, not compared)': 15}
+  UNMASKED (457, 'file', "golden=('rggen_register_common.sv', '')", "L=('rggen_rtl_pkg.sv', '')", "P='rggen_rtl_pkg.sv'", '2|enum_typespec|rggen_rtl_pkg::rggen_access|')
+  UNMASKED (457, 'line', "golden=('74', '')", "L=('2', '')", "P='2'", '2|enum_typespec|rggen_rtl_pkg::rggen_access|')
+  UNMASKED (457, 'col', "golden=('5', '')", "L=('3', '')", "P='3'", '2|enum_typespec|rggen_rtl_pkg::rggen_access|')
+  UNMASKED (457, 'endline', "golden=('74', '')", "L=('6', '')", "P='6'", '2|enum_typespec|rggen_rtl_pkg::rggen_access|')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (466, 'name', "golden=('rggen_rtl_pkg::rggen_polarity', '')", "L=('rggen_rtl_pkg::rggen_status', '')", 'P=None', '2|enum_typespec|rggen_rtl_pkg::rggen_polarity|')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (466, 'line', "golden=('23', '')", "L=('11', '')", 'P=None', '2|enum_typespec|rggen_rtl_pkg::rggen_polarity|')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (466, 'endline', "golden=('26', '')", "L=('16', '')", 'P=None', '2|enum_typespec|rggen_rtl_pkg::rggen_polarity|')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (466, 'endcol', "golden=('20', '')", "L=('18', '')", 'P=None', '2|enum_typespec|rggen_rtl_pkg::rggen_polarity|')
+records G=267 P=255 L=264; walk divergence P #160, L #262; diff fields P 10, L 40; L-only 40
+classes: {'UNMASKED': 31, 'PAST-L-DIVERGENCE(walk misaligned, not compared)': 9}
+  UNMASKED (188, 'fullname', "golden=('work@top.u_aes_cipher_core', 'work@top.u_aes_cipher_core')", "L=('work@aes_cipher_core', 'work@aes_cipher_core')", "P='work@aes_cipher_core'", '4|ref_typespec||')
+  UNMASKED (238, 'fullname', "golden=('work@aes_cipher_core', 'work@aes_cipher_core')", "L=('work@top.u_aes_cipher_core', 'work@top.u_aes_cipher_core')", "P='work@top.u_aes_cipher_core'", '5|ref_typespec||')
+  UNMASKED (256, 'decompile', 'golden=("32\'habcd", \'\')', "L=('43981', '')", "P='43981'", '4|constant||')
+  UNMASKED (256, 'value', "golden=('HEX:abcd', '')", "L=('UINT:43981', '')", "P='UINT:43981'", '4|constant||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (262, 'depth', "golden=('7', '')", "L=('4', '')", 'P=None', '7|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (262, 'type', "golden=('range', '')", "L=('ref_obj', '')", 'P=None', '7|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (262, 'name', "golden=('', '')", "L=('a', '')", 'P=None', '7|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (262, 'fullname', "golden=('', '')", "L=('work@top.u_aes_cipher_core.a', 'work@top.u_aes_cipher_core.a')", 'P=None', '7|range||')
+records G=177 P=165 L=174; walk divergence P #70, L #172; diff fields P 10, L 40; L-only 40
+classes: {'UNMASKED': 31, 'PAST-L-DIVERGENCE(walk misaligned, not compared)': 9}
+  UNMASKED (98, 'fullname', "golden=('work@top.u_aes_cipher_core', 'work@top.u_aes_cipher_core')", "L=('work@aes_cipher_core', 'work@aes_cipher_core')", "P='work@aes_cipher_core'", '4|ref_typespec||')
+  UNMASKED (148, 'fullname', "golden=('work@aes_cipher_core', 'work@aes_cipher_core')", "L=('work@top.u_aes_cipher_core', 'work@top.u_aes_cipher_core')", "P='work@top.u_aes_cipher_core'", '5|ref_typespec||')
+  UNMASKED (166, 'decompile', 'golden=("32\'habcd", \'\')', "L=('43981', '')", "P='43981'", '4|constant||')
+  UNMASKED (166, 'value', "golden=('HEX:abcd', '')", "L=('UINT:43981', '')", "P='UINT:43981'", '4|constant||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (172, 'depth', "golden=('7', '')", "L=('4', '')", 'P=None', '7|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (172, 'type', "golden=('range', '')", "L=('ref_obj', '')", 'P=None', '7|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (172, 'name', "golden=('', '')", "L=('a', '')", 'P=None', '7|range||')
+  PAST-L-DIVERGENCE(walk misaligned, not compared) (172, 'fullname', "golden=('', '')", "L=('work@top.u_aes_cipher_core.a', 'work@top.u_aes_cipher_core.a')", 'P=None', '7|range||')

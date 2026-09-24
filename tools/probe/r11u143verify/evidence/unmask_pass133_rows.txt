@@ -1,0 +1,73 @@
+== surelog/default/Earlgrey_0_1  P: STRICT_NOTEQUAL line  L: STRICT_NOTEQUAL line
+records G=2173209 P=2170367 L=2173734; P walk diverges at #50756, L at #51100; P diff fields 1175, L diff fields 1197
+fields L differs on that P did not report: 31 = WORSE before P divergence 0 + UNMASKED 1 + WORSE past divergence 2 + OTHER 28
+  WORSE (50825, 'endcol', '48', '49', 'P#50827 matched')
+  WORSE (50838, 'endcol', '48', '49', 'P#50841 matched')
+  OTHER (50773, 'endcol', 'no P alignment')
+  OTHER (50799, 'endcol', '47', '49', '48')
+  OTHER (50812, 'endcol', '47', '49', '48')
+  OTHER (50851, 'endcol', '48', '53', '49')
+  OTHER (50864, 'endcol', '48', '53', '49')
+  UNMASKED e.g. golden #50786 = P #50785, field endcol
+== surelog/testflags/Earlgrey_0_1  P: STRICT_NOTEQUAL line  L: STRICT_NOTEQUAL line
+records G=1342584 P=1339020 L=1342387; P walk diverges at #52002, L at #52346; P diff fields 1175, L diff fields 1197
+fields L differs on that P did not report: 31 = WORSE before P divergence 0 + UNMASKED 1 + WORSE past divergence 2 + OTHER 28
+  WORSE (52071, 'endcol', '48', '49', 'P#52073 matched')
+  WORSE (52084, 'endcol', '48', '49', 'P#52087 matched')
+  OTHER (52019, 'endcol', 'no P alignment')
+  OTHER (52045, 'endcol', '47', '49', '48')
+  OTHER (52058, 'endcol', '47', '49', '48')
+  OTHER (52097, 'endcol', '48', '53', '49')
+  OTHER (52110, 'endcol', '48', '53', '49')
+  UNMASKED e.g. golden #52032 = P #52031, field endcol
+== uhdm2rtlil/default/ibex_tracer  P: STRICT_NOTEQUAL fullname  L: STRICT_NOTEQUAL fullname
+records G=35922 P=34895 L=35880; P walk diverges at #3727, L at #4880; P diff fields 51, L diff fields 94
+fields L differs on that P did not report: 51 = WORSE before P divergence 0 + UNMASKED 0 + WORSE past divergence 0 + OTHER 51
+  OTHER (3731, 'fullname', 'no P alignment')
+  OTHER (3734, 'fullname', 'no P alignment')
+  OTHER (3737, 'fullname', 'no P alignment')
+  OTHER (3760, 'fullname', 'no P alignment')
+  OTHER (3763, 'fullname', 'no P alignment')
+== uhdm2rtlil/testflags/ibex_tracer  P: STRICT_NOTEQUAL fullname  L: STRICT_NOTEQUAL fullname
+records G=35832 P=34805 L=35790; P walk diverges at #3726, L at #4879; P diff fields 51, L diff fields 94
+fields L differs on that P did not report: 51 = WORSE before P divergence 0 + UNMASKED 0 + WORSE past divergence 0 + OTHER 51
+  OTHER (3730, 'fullname', 'no P alignment')
+  OTHER (3733, 'fullname', 'no P alignment')
+  OTHER (3736, 'fullname', 'no P alignment')
+  OTHER (3759, 'fullname', 'no P alignment')
+  OTHER (3762, 'fullname', 'no P alignment')
+ls: cannot access '/tmp/r11u143_wd33/surelog/default/ParameterFromPkgOnParameterPortList-*': No such file or directory
+ls: cannot access '/tmp/r11u143_wdON/surelog/default/ParameterFromPkgOnParameterPortList-*': No such file or directory
+sed: can't read /cmds.txt: No such file or directory
+== surelog/default/ParameterFromPkgOnParameterPortList  P: /golden.uhdm: File does not exist!  L: /golden.uhdm: File does not exist!
+Traceback (most recent call last):
+  File "/tmp/wt_r11u143/tools/probe/r11u143verify/drivers/unmask.py", line 9, in <module>
+    G=rd(w+'/g_P.rec'); GL=rd(w+'/g_L.rec'); P=rd(w+'/P.rec'); L=rd(w+'/L.rec')
+      ^^^^^^^^^^^^^^^^
+  File "/tmp/wt_r11u143/tools/probe/r11u143verify/drivers/unmask.py", line 8, in <lambda>
+    rd=lambda p:[l.split('\t') for l in open(p).read().split('\n')[:-1]]
+                                        ^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/r11u143_unm/row_ParameterFromPkgOnParameterPortList_default_r11u143_wd33_r11u143_wdON/g_P.rec'
+ls: cannot access '/tmp/r11u143_wd33/surelog/testflags/ParameterFromPkgOnParameterPortList-*': No such file or directory
+ls: cannot access '/tmp/r11u143_wdON/surelog/testflags/ParameterFromPkgOnParameterPortList-*': No such file or directory
+sed: can't read /cmds.txt: No such file or directory
+== surelog/testflags/ParameterFromPkgOnParameterPortList  P: /golden.uhdm: File does not exist!  L: /golden.uhdm: File does not exist!
+Traceback (most recent call last):
+  File "/tmp/wt_r11u143/tools/probe/r11u143verify/drivers/unmask.py", line 9, in <module>
+    G=rd(w+'/g_P.rec'); GL=rd(w+'/g_L.rec'); P=rd(w+'/P.rec'); L=rd(w+'/L.rec')
+      ^^^^^^^^^^^^^^^^
+  File "/tmp/wt_r11u143/tools/probe/r11u143verify/drivers/unmask.py", line 8, in <lambda>
+    rd=lambda p:[l.split('\t') for l in open(p).read().split('\n')[:-1]]
+                                        ^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/r11u143_unm/row_ParameterFromPkgOnParameterPortList_testflags_r11u143_wd33_r11u143_wdON/g_P.rec'
+== surelog/default/Rggen  P: STRICT_NOTEQUAL file  L: STRICT_NOTEQUAL file
+records G=314498 P=312434 L=312506; P walk diverges at #439, L at #469; P diff fields 17, L diff fields 28
+fields L differs on that P did not report: 20 = WORSE before P divergence 0 + UNMASKED 5 + WORSE past divergence 0 + OTHER 15
+  OTHER (466, 'name', 'no P alignment')
+  OTHER (466, 'line', 'no P alignment')
+  OTHER (466, 'endline', 'no P alignment')
+  OTHER (466, 'endcol', 'no P alignment')
+  OTHER (467, 'fullname', 'no P alignment')
+  UNMASKED e.g. golden #457 = P #451, field file
+  UNMASKED e.g. golden #457 = P #451, field line
+  UNMASKED e.g. golden #457 = P #451, field col

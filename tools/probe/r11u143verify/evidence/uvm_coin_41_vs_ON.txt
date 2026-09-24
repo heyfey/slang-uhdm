@@ -1,0 +1,7 @@
+default/MiniAmiq order-blind dump lines differing: 4
+default/Scoreboard order-blind dump lines differing: 0
+default/SeqDriver order-blind dump lines differing: 4
+default/SimpleUVM order-blind dump lines differing: 4
+testflags/MiniAmiq order-blind dump lines differing: 4
+testflags/SeqDriver order-blind dump lines differing: 4
+testflags/SimpleUVM order-blind dump lines differing: 4

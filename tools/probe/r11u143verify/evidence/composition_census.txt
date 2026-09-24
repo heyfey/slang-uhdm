@@ -1,0 +1,20 @@
+== surelog: 1596 rows; strict-equal ON=772 33=767 37=709 3B=704 A3=704 41=772
+   judge-equal status differs across configs: 0
+   csv identical 41 vs ON: True ; A3 vs 3B: True
+   NON-MONOTONE: 0
+   needs 133: 5 DecValue,default HierPathOverride,default HierPathOverride,testflags SelectHierPath,default SelectHierPath,testflags 
+   needs 137: 63 AllPackageSignal,testflags ArrayExprFuncArg,testflags ArrayVarName,testflags BitsArray,default BitsArray,testflags ClassMini,default ClassMini,testflags ClogParam,testflags Connection,default Connection,testflags DollarBits,testflags EmptyAssign,testflags ...
+== uhdm2rtlil: 1742 rows; strict-equal ON=1384 33=1368 37=1334 3B=1320 A3=1320 41=1384
+   judge-equal status differs across configs: 0
+   csv identical 41 vs ON: True ; A3 vs 3B: True
+   NON-MONOTONE: 0
+   needs 133: 14 BitSelectOfParameterPassedToSubmodule,default BitSelectOfParameterPassedToSubmodule,testflags ParameterWithUnderscoreValueDividedPassedFromCommandLine,default ParameterWithUnderscoreValueDividedPassedFromCommandLine,testflags assert_wide_const_cond,default assert_wide_const_cond,testflags dyn_field_select,default dyn_field_select,testflags ff_dead_both_branches,default ff_dead_both_branches,testflags ff_dead_guarded_reset,default ff_dead_guarded_reset,testflags ...
+   needs 133 AND 137 (joint): 2 struct_param_repl_count,default struct_param_repl_count,testflags 
+   needs 137: 48 AssignBitsCallToSubmoduleParameter,default AssignBitsCallToSubmoduleParameter,testflags Clog2OfSumWithParameterIn2InstancesOfSubmodule,default Clog2OfSumWithParameterIn2InstancesOfSubmodule,testflags ParameterColonReference,default ParameterColonReference,testflags ReplicationPassedToInstance,default ReplicationPassedToInstance,testflags StructLocalParam,default StructLocalParam,testflags StructParameter,default StructParameter,testflags ...
+== probe: 4087 rows; strict-equal ON=2272 33=2183 37=2221 3B=2139 A3=2139 41=2272
+   judge-equal status differs across configs: 0
+   csv identical 41 vs ON: True ; A3 vs 3B: True
+   NON-MONOTONE: 0
+   needs 133: 82 r10earl29repro/a5_three r10earl92repro/g2_cond92 r10earl_repro/e r10earl_repro/hh r10earl_repro/r r10earl_repro/vf r10earl_repro/vp r10earl_repro/wb24 r10v201repro/v201_n_genarr r10v75repro/a4_nest75 r10v99repro/v99_b4_deep r11u112repro/grid/f/r08_rng_unp_param_n ...
+   needs 133 AND 137 (joint): 7 r11u20repro/b7 r11u51repro/grid/e1_ca_rhskind r11v55repro/grid/vv4_singleread r11v55repro/grid/vv6_edge r11v55repro/grid/vv8_sharemut r11v69repro/grid/w1_netlhs v11u94repro/b2_cfg94 
+   needs 137: 44 r10earl54repro/v8_v54 r10earl61repro/g3_earl61 r10earl98repro/g2_kind98 r10earl_repro/qq r10earl_repro/td r10rggen8repro/t1 r10scr13repro/t1 r10uvm58repro/a2_pureconc r10v122repro/q4inst r10v77repro/v10_drive77 r10vbuvm24repro/gv24b r11u108repro/grid/f5/f5a01_tpq_body ...

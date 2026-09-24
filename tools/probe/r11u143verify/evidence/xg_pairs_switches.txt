@@ -1,0 +1,10 @@
+xg_pairs/x01_trailidx_nda default | R11U133_TRAILIDX_OFF: TURNED
+xg_pairs/x02_trailidx_port default | R11U133_TRAILIDX_OFF: OK:better=1 ; R11U139_PORT_OFF: OK:better=1
+xg_pairs/x03_trailidx_ca_sub default | R11U133_TRAILIDX_OFF: TURNED
+xg_pairs/x04_lhsclone_elabclone_func default | R11U133_LHSCLONE_OFF: OK:better=0
+xg_pairs/x05_lhsclone_elabclone_pkgpkg default | R11U133_LHSCLONE_OFF: STAGE1 OKDD P_dist=73 L_dist=49 newexcess=2 newmissing=0 ['\\_parameter: (d5::K), line:3:27, endln:3:28', '\\_parameter: (d5::K), line:3:27, endln:3:28'] []
+xg_pairs/x01_trailidx_nda elab | R11U133_TRAILIDX_OFF: OK:better=1
+xg_pairs/x02_trailidx_port elab | R11U133_TRAILIDX_OFF: OK:better=1 ; R11U137_ELABCLONE_OFF: OK:better=2 ; R11U139_PORT_OFF: OK:better=1
+xg_pairs/x03_trailidx_ca_sub elab | R11U133_TRAILIDX_OFF: TURNED ; R11U137_ELABCLONE_OFF: TURNED
+xg_pairs/x04_lhsclone_elabclone_func elab | R11U133_LHSCLONE_OFF: OK:better=0 ; R11U137_ELABCLONE_OFF: OK:better=5
+xg_pairs/x05_lhsclone_elabclone_pkgpkg elab | R11U133_LHSCLONE_OFF: STAGE1 OKDD P_dist=73 L_dist=49 newexcess=2 newmissing=0 ['\\_parameter: (d5::K), line:3:27, endln:3:28', '\\_parameter: (d5::K), line:3:27, endln:3:28'] [] ; R11U137_ELABCLONE_OFF: STAGE1 OKDD P_dist=57 L_dist=49 newexcess=0 newmissing=0 [] []

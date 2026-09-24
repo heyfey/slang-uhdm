@@ -1,0 +1,405 @@
+surelog	testflags	DefaultPatternInt	ON	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	ON	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	X133	665a52570f9b	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	X133	8c03b0d8802e	STRICT_NOTEQUAL depth	fields: depth=1 type=1 name=1 fullname=1 line=1 endline=1 endcol=1 size=1 value=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	X137	3ac8ffd57ae0	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	X137	8d7a023115e9	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U133_LHSCLONE	665a52570f9b	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U133_LHSCLONE	8c03b0d8802e	STRICT_NOTEQUAL depth	fields: depth=1 type=1 name=1 fullname=1 line=1 endline=1 endcol=1 size=1 value=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U133_HPMID	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U133_HPMID	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U133_TRAILIDX	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U133_PATQUAL	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U133_TRAILIDX	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U133_UNKFILE	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U133_PATQUAL	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U137_ELABCLONE	3ac8ffd57ae0	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U133_UNKFILE	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U137_ELABCLONE_PKG	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U137_ELABCLONE	8d7a023115e9	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U137_PATD	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U137_ELABCLONE_PKG	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	FuncStructVal	ON	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U137_EMPTYCONN	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U137_PATD	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U137_UNSIGNEDSPAN	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U137_EMPTYCONN	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U137_CALLSPAN	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U137_UNSIGNEDSPAN	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U137_REPLTSNAME	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U137_CALLSPAN	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U137_PUREVIRTSPAN	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U137_TAGGEDSPAN	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U137_REPLTSNAME	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U137_DEFNETTP	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U137_PUREVIRTSPAN	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U137_ALIASFILE	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U137_TAGGEDSPAN	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U137_SCOPEDARRTD	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U137_DEFNETTP	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U137_PATHBASE	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U137_ALIASFILE	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U139_CA	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U137_SCOPEDARRTD	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U139_NDA	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U137_PATHBASE	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U139_CLK	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	FuncStructVal	X133	0428f167542c	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=26 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=383 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11U139_PORT	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U139_CA	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11V137_DEFWIRE	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U139_NDA	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	DefaultPatternInt	R11V137_PVQUAL	fea3214fa77c	STRICT_NOTEQUAL depth	fields: depth=1 type=1 defname=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U139_CLK	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11U139_PORT	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11V137_DEFWIRE	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	Kmac	R11V137_PVQUAL	25f11ef3daed	STRICT_NOTEQUAL type	fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+surelog	testflags	FuncStructVal	X137	0ec585eefe28	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+surelog	testflags	StructParamFieldRange	ON	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	X133	b8b5d3197466	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	X137	e7e2e171ddaf	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=5 endline=2 endcol=7 objects_differing=9 (walk diverged)
+surelog	default	StructParamFieldRange	ON	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U133_LHSCLONE	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	X133	b8b5d3197466	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U133_HPMID	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	X137	e7e2e171ddaf	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=5 endline=2 endcol=7 objects_differing=9 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U133_TRAILIDX	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U133_LHSCLONE	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U133_PATQUAL	b8b5d3197466	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U133_HPMID	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	FuncStructVal	R11U133_LHSCLONE	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U133_UNKFILE	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U133_TRAILIDX	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U137_ELABCLONE	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U133_PATQUAL	b8b5d3197466	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U137_ELABCLONE_PKG	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U133_UNKFILE	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U137_PATD	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U137_ELABCLONE	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U137_EMPTYCONN	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U137_ELABCLONE_PKG	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U137_UNSIGNEDSPAN	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U137_PATD	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U137_CALLSPAN	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U137_EMPTYCONN	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U137_REPLTSNAME	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U137_UNSIGNEDSPAN	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U137_PUREVIRTSPAN	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U137_CALLSPAN	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U137_TAGGEDSPAN	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U137_REPLTSNAME	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U137_DEFNETTP	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U137_PUREVIRTSPAN	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	FuncStructVal	R11U133_HPMID	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U137_ALIASFILE	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U137_TAGGEDSPAN	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U137_SCOPEDARRTD	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U137_DEFNETTP	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U137_PATHBASE	e7e2e171ddaf	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=5 endline=2 endcol=7 objects_differing=9 (walk diverged)
+surelog	default	StructParamFieldRange	R11U137_ALIASFILE	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U139_CA	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U137_SCOPEDARRTD	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U139_NDA	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U137_PATHBASE	e7e2e171ddaf	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=5 endline=2 endcol=7 objects_differing=9 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U139_CLK	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U139_CA	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11U139_PORT	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U139_NDA	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11V137_DEFWIRE	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U139_CLK	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	StructParamFieldRange	R11V137_PVQUAL	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11U139_PORT	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	default	StructParamFieldRange	R11V137_DEFWIRE	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	FuncStructVal	R11U133_TRAILIDX	0428f167542c	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=26 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=383 (walk diverged)
+surelog	default	StructParamFieldRange	R11V137_PVQUAL	e1606a0d452b	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	ON	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	X133	2a06e4668c7c	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	ON	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	X137	1091d24b42fc	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=5 endline=2 endcol=7 objects_differing=9 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	X133	d3959c6ab455	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U133_LHSCLONE	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	X137	5c6669e34f3a	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=5 endline=2 endcol=7 objects_differing=9 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U133_HPMID	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U133_LHSCLONE	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U133_HPMID	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U133_TRAILIDX	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U133_TRAILIDX	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U133_PATQUAL	2a06e4668c7c	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	FuncStructVal	R11U133_PATQUAL	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U133_PATQUAL	d3959c6ab455	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U133_UNKFILE	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U133_UNKFILE	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U137_ELABCLONE	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U137_ELABCLONE	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U137_ELABCLONE_PKG	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U137_ELABCLONE_PKG	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U137_PATD	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U137_EMPTYCONN	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U137_PATD	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U137_EMPTYCONN	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U137_UNSIGNEDSPAN	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U137_CALLSPAN	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U137_UNSIGNEDSPAN	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U137_CALLSPAN	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U137_REPLTSNAME	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U137_REPLTSNAME	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U137_PUREVIRTSPAN	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U137_PUREVIRTSPAN	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U137_TAGGEDSPAN	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U137_TAGGEDSPAN	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U137_DEFNETTP	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U137_DEFNETTP	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U137_ALIASFILE	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	FuncStructVal	R11U133_UNKFILE	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U137_ALIASFILE	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U137_SCOPEDARRTD	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U137_SCOPEDARRTD	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U137_PATHBASE	1091d24b42fc	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=5 endline=2 endcol=7 objects_differing=9 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U137_PATHBASE	5c6669e34f3a	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=5 endline=2 endcol=7 objects_differing=9 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U139_CA	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U139_CA	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U139_NDA	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U139_NDA	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U139_CLK	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U139_CLK	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11U139_PORT	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11V137_DEFWIRE	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11U139_PORT	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11V137_DEFWIRE	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	cva6_struct_param_field	R11V137_PVQUAL	a2900cc58a1f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	cva6_struct_param_field	R11V137_PVQUAL	b291a541964f	STRICT_NOTEQUAL endcol	fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged)
+surelog	testflags	FuncStructVal	R11U137_ELABCLONE	0ec585eefe28	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	ON	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	ON	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	X133	313d8786412e	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	X133	e36c1342ca5d	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	X137	f9a0631eb7cd	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	X137	fd87b49e9c49	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U133_LHSCLONE	313d8786412e	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U133_LHSCLONE	e36c1342ca5d	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U133_HPMID	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U133_HPMID	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U133_TRAILIDX	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U133_TRAILIDX	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+surelog	testflags	FuncStructVal	R11U137_ELABCLONE_PKG	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U133_PATQUAL	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U133_PATQUAL	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U133_UNKFILE	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U133_UNKFILE	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U137_ELABCLONE	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U137_ELABCLONE	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U137_ELABCLONE_PKG	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U137_ELABCLONE_PKG	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U137_PATD	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U137_PATD	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U137_EMPTYCONN	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U137_EMPTYCONN	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U137_UNSIGNEDSPAN	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+surelog	testflags	FuncStructVal	R11U137_PATD	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U137_UNSIGNEDSPAN	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U137_CALLSPAN	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U137_CALLSPAN	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U137_REPLTSNAME	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U137_REPLTSNAME	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U137_PUREVIRTSPAN	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U137_PUREVIRTSPAN	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U137_TAGGEDSPAN	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U137_TAGGEDSPAN	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U137_DEFNETTP	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U137_DEFNETTP	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U137_ALIASFILE	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U137_ALIASFILE	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U137_SCOPEDARRTD	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U137_SCOPEDARRTD	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+surelog	testflags	FuncStructVal	R11U137_EMPTYCONN	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U137_PATHBASE	fd87b49e9c49	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U137_PATHBASE	f9a0631eb7cd	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U139_CA	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U139_CA	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U139_NDA	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U139_NDA	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U139_CLK	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U139_CLK	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11U139_PORT	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11U139_PORT	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11V137_DEFWIRE	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11V137_DEFWIRE	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	testflags	struct_param_func_config	R11V137_PVQUAL	bf80ad4b61cc	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+uhdm2rtlil	default	struct_param_func_config	R11V137_PVQUAL	d86fea4187b0	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 file=2 line=5 col=5 endline=5 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+surelog	testflags	FuncStructVal	R11U137_UNSIGNEDSPAN	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+uhdm2rtlil	default	struct_param_pattern_packing	ON	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	X133	ce08d6cf9053	STRICT_NOTEQUAL endcol	fields: line=1 col=1 endline=1 endcol=3 objects_differing=3
+uhdm2rtlil	testflags	struct_param_pattern_packing	ON	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	X133	4a6dd1d378b4	STRICT_NOTEQUAL endcol	fields: line=1 col=1 endline=1 endcol=3 objects_differing=3
+uhdm2rtlil	default	struct_param_pattern_packing	X137	ea8972aa0dc9	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 fullname=1 line=2 col=2 endline=2 endcol=2 size=1 objects_differing=2 (walk diverged)
+uhdm2rtlil	default	struct_param_pattern_packing	R11U133_LHSCLONE	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	X137	0d03147830b6	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 fullname=1 line=2 col=2 endline=2 endcol=2 size=1 objects_differing=2 (walk diverged)
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U133_LHSCLONE	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U133_HPMID	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U133_HPMID	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U133_TRAILIDX	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U133_TRAILIDX	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U133_PATQUAL	ce08d6cf9053	STRICT_NOTEQUAL endcol	fields: line=1 col=1 endline=1 endcol=3 objects_differing=3
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U133_PATQUAL	4a6dd1d378b4	STRICT_NOTEQUAL endcol	fields: line=1 col=1 endline=1 endcol=3 objects_differing=3
+uhdm2rtlil	default	struct_param_pattern_packing	R11U133_UNKFILE	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+surelog	testflags	FuncStructVal	R11U137_CALLSPAN	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U133_UNKFILE	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U137_ELABCLONE	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U137_ELABCLONE	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U137_ELABCLONE_PKG	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U137_ELABCLONE_PKG	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U137_PATD	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U137_PATD	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U137_EMPTYCONN	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U137_EMPTYCONN	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U137_UNSIGNEDSPAN	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U137_UNSIGNEDSPAN	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U137_CALLSPAN	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U137_CALLSPAN	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U137_REPLTSNAME	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U137_REPLTSNAME	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U137_PUREVIRTSPAN	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U137_TAGGEDSPAN	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U137_PUREVIRTSPAN	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U137_TAGGEDSPAN	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U137_DEFNETTP	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U137_DEFNETTP	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U137_ALIASFILE	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+surelog	testflags	FuncStructVal	R11U137_REPLTSNAME	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U137_ALIASFILE	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U137_SCOPEDARRTD	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U137_SCOPEDARRTD	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U137_PATHBASE	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U139_CA	ea8972aa0dc9	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 fullname=1 line=2 col=2 endline=2 endcol=2 size=1 objects_differing=2 (walk diverged)
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U137_PATHBASE	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U139_NDA	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U139_CA	0d03147830b6	STRICT_NOTEQUAL line	fields: depth=1 type=1 name=1 fullname=1 line=2 col=2 endline=2 endcol=2 size=1 objects_differing=2 (walk diverged)
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U139_NDA	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U139_CLK	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U139_CLK	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11U139_PORT	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11U139_PORT	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11V137_DEFWIRE	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11V137_DEFWIRE	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_pattern_packing	R11V137_PVQUAL	d9297e6c5d5b	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_pattern_packing	R11V137_PVQUAL	7c1bc4cbc495	STRICT_NOTEQUAL line	fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+surelog	testflags	FuncStructVal	R11U137_PUREVIRTSPAN	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+uhdm2rtlil	default	struct_param_repl_count	ON	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	default	struct_param_repl_count	X133	22263998b369	STRICT_NOTEQUAL fullname	fields: depth=1 type=1 name=1 fullname=3 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=3 (walk diverged)
+uhdm2rtlil	testflags	struct_param_repl_count	ON	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	X137	22e5e75556a8	STRICT_NOTEQUAL col	fields: col=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_repl_count	X133	8f9cb859e0ed	STRICT_NOTEQUAL fullname	fields: depth=1 type=1 name=1 fullname=3 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=3 (walk diverged)
+uhdm2rtlil	default	struct_param_repl_count	R11U133_LHSCLONE	47c7175cc5c6	STRICT_NOTEQUAL fullname	fields: depth=1 type=1 name=1 fullname=3 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=3 (walk diverged)
+uhdm2rtlil	testflags	struct_param_repl_count	X137	0d6addbe1ee0	STRICT_NOTEQUAL col	fields: col=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_repl_count	R11U133_HPMID	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U133_LHSCLONE	d6ad7b8c82fe	STRICT_NOTEQUAL fullname	fields: depth=1 type=1 name=1 fullname=3 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=3 (walk diverged)
+uhdm2rtlil	default	struct_param_repl_count	R11U133_TRAILIDX	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U133_HPMID	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11U133_PATQUAL	c6bc85356f9a	STRICT_NOTEQUAL endcol	fields: endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_repl_count	R11U133_TRAILIDX	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11U133_UNKFILE	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U133_PATQUAL	660710a6ef20	STRICT_NOTEQUAL endcol	fields: endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_repl_count	R11U137_ELABCLONE	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U133_UNKFILE	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11U137_ELABCLONE_PKG	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U137_ELABCLONE	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11U137_PATD	423d8ce21fa1	STRICT_EQUAL 416 objects	
+surelog	testflags	FuncStructVal	R11U137_TAGGEDSPAN	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+uhdm2rtlil	default	struct_param_repl_count	R11U137_EMPTYCONN	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U137_ELABCLONE_PKG	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U137_PATD	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11U137_UNSIGNEDSPAN	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11U137_CALLSPAN	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U137_EMPTYCONN	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U137_UNSIGNEDSPAN	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11U137_REPLTSNAME	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U137_CALLSPAN	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11U137_PUREVIRTSPAN	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U137_REPLTSNAME	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11U137_TAGGEDSPAN	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U137_PUREVIRTSPAN	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11U137_DEFNETTP	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U137_TAGGEDSPAN	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11U137_ALIASFILE	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U137_DEFNETTP	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11U137_SCOPEDARRTD	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U137_ALIASFILE	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11U137_PATHBASE	22e5e75556a8	STRICT_NOTEQUAL col	fields: col=1 endcol=1 objects_differing=1
+uhdm2rtlil	testflags	struct_param_repl_count	R11U137_SCOPEDARRTD	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11U139_CA	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U137_PATHBASE	0d6addbe1ee0	STRICT_NOTEQUAL col	fields: col=1 endcol=1 objects_differing=1
+uhdm2rtlil	default	struct_param_repl_count	R11U139_NDA	423d8ce21fa1	STRICT_EQUAL 416 objects	
+surelog	testflags	FuncStructVal	R11U137_DEFNETTP	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+uhdm2rtlil	testflags	struct_param_repl_count	R11U139_CA	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11U139_CLK	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U139_NDA	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11U139_PORT	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U139_CLK	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11V137_DEFWIRE	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11U139_PORT	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	default	struct_param_repl_count	R11V137_PVQUAL	423d8ce21fa1	STRICT_EQUAL 416 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11V137_DEFWIRE	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+uhdm2rtlil	testflags	struct_param_repl_count	R11V137_PVQUAL	0eec1fe5b9aa	STRICT_EQUAL 326 objects	
+surelog	testflags	FuncStructVal	R11U137_ALIASFILE	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+surelog	testflags	FuncStructVal	R11U137_SCOPEDARRTD	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+surelog	testflags	FuncStructVal	R11U137_PATHBASE	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+surelog	testflags	FuncStructVal	R11U139_CA	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+surelog	testflags	FuncStructVal	R11U139_NDA	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+surelog	testflags	FuncStructVal	R11U139_CLK	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+surelog	testflags	FuncStructVal	R11U139_PORT	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+surelog	testflags	FuncStructVal	R11V137_DEFWIRE	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+surelog	testflags	FuncStructVal	R11V137_PVQUAL	2741c2572ac5	STRICT_NOTEQUAL endcol	fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged)
+surelog	default	BlackBePipeInt	ON	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	ON	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	X133	0c4bfe841550	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	X133	4aaeac3b3ba3	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	X137	385756fe8c7a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	X137	4f172e034058	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U133_LHSCLONE	0c4bfe841550	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U133_LHSCLONE	4aaeac3b3ba3	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U133_HPMID	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U133_HPMID	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U133_TRAILIDX	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U133_TRAILIDX	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U133_PATQUAL	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U133_PATQUAL	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U133_UNKFILE	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U133_UNKFILE	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U137_ELABCLONE	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U137_ELABCLONE	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U137_ELABCLONE_PKG	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U137_ELABCLONE_PKG	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U137_PATD	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U137_PATD	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U137_EMPTYCONN	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U137_EMPTYCONN	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U137_UNSIGNEDSPAN	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U137_UNSIGNEDSPAN	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U137_CALLSPAN	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U137_CALLSPAN	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U137_REPLTSNAME	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U137_REPLTSNAME	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U137_PUREVIRTSPAN	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U137_PUREVIRTSPAN	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U137_TAGGEDSPAN	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U137_DEFNETTP	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U137_TAGGEDSPAN	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U137_ALIASFILE	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U137_DEFNETTP	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U137_SCOPEDARRTD	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U137_ALIASFILE	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U137_PATHBASE	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U137_SCOPEDARRTD	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U139_CA	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U137_PATHBASE	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U139_NDA	385756fe8c7a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U139_CA	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U139_CLK	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U139_NDA	4f172e034058	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11U139_PORT	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U139_CLK	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11V137_DEFWIRE	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11U139_PORT	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	default	BlackBePipeInt	R11V137_PVQUAL	7d218bdfdf7d	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11V137_DEFWIRE	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+surelog	testflags	BlackBePipeInt	R11V137_PVQUAL	805d730b5c4a	STRICT_NOTEQUAL fullname	fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
