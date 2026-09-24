@@ -1,6 +1,6 @@
 # tests/probe — the probe-arm regression set
 
-2833 single-file SystemVerilog arms, each judged EQUAL by `uhdm-cmp`
+4087 single-file SystemVerilog arms, each judged EQUAL by `uhdm-cmp`
 against the golden database the pinned Surelog writes for it. They are the
 equal subset of the campaign's evidence grids, moved here from
 `tools/probe/` on 2026-09-23: every arm keeps its `<pass>/<grid>/<arm>`
@@ -17,9 +17,14 @@ so the goldens rebuild themselves on the next check.
 Selection: every unique `tools/probe/**/dut.sv` that judged EQUAL in both
 sweep modes on the converged binary (2838), minus 4 arms that duplicate a
 uhdm2rtlil corpus test and 1 arm that embeds `__FILE__` (its golden would
-carry the checkout path). The 2373 arms that judge NOT_EQUAL stay in
-`tools/probe/` only: they map the shapes the exporter does not model yet
-(each pass's residues), and none of them occurs in either corpus.
+carry the checkout path); then (2026-09-24) every single-file arm with
+another name (`s1_scope113.sv` and the like, 4966 files in 609 pass dirs
+the first census never judged): 1463 judged EQUAL, of which 1254 moved to
+`tests/probe/<pass>/<file stem>/dut.sv` (204 repeated the text of an arm
+already moved, 5 repeated a corpus test). The arms that judge NOT_EQUAL
+(2373 + 3290) stay in `tools/probe/` only: they map the shapes the
+exporter does not model yet (each pass's residues), and none of them
+occurs in either corpus. `tests/ARMS.csv` names every arm's laws.
 
 Check (part of `tests/sweep.sh`):
 
