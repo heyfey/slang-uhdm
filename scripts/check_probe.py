@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""The probe-arm regression check: every tests/probe/**/dut.sv is exported by
+"""The probe-case regression check: every tests/probe/**/dut.sv is exported by
 slang-uhdm (single unit, no builtins) and judged by uhdm-cmp against the
 golden the pinned Surelog writes for it. Goldens are not committed: the
 first use builds each one with Surelog and stores it in the same golden
 cache the corpus sweep uses (~/.cache/slang-uhdm-goldens, GOLDEN_CACHE=
-relocates), keyed by Surelog's version line and the arm's repo-relative
-path, so a Surelog pin bump simply rebuilds them. Every arm must judge
+relocates), keyed by Surelog's version line and the case's repo-relative
+path, so a Surelog pin bump simply rebuilds them. Every case must judge
 EQUAL; exit 1 otherwise.
 
     check_probe.py [--jobs N] [--filter REGEX] [--workdir DIR]
@@ -30,7 +30,7 @@ SL_ARGS = ['-parse', '-nobuiltin', '-nocache', '-sv', 'dut.sv', '-mt', '0', '-mp
 SU_ARGS = ['dut.sv', '--single-unit', '--nobuiltin']
 
 
-def arms(pattern):
+def cases(pattern):
     out = []
     for g in sorted(glob.glob(os.path.join(ROOT, '**', 'dut.sv'), recursive=True)):
         rel = os.path.relpath(os.path.dirname(g), ROOT)
@@ -44,7 +44,7 @@ _IDENTITY = None
 
 
 def cache_dir(rel):
-    """Cache key: Surelog's version line + the arm's repo-relative path + the
+    """Cache key: Surelog's version line + the case's repo-relative path + the
     producer arguments (the same shape as verify_golden.golden_cache_dir)."""
     global _IDENTITY
     if _IDENTITY is None:
@@ -55,7 +55,7 @@ def cache_dir(rel):
 
 
 def golden(rel, workdir, timeout):
-    """The cached golden for an arm, built with the pinned Surelog on a miss.
+    """The cached golden for an case, built with the pinned Surelog on a miss.
     Returns (path or None, detail)."""
     cdir = cache_dir(rel)
     hit = vg.cache_load(cdir)
@@ -117,7 +117,7 @@ def main():
     for env, tool in (('SLANG_UHDM', vg.SLANG_UHDM), ('UHDM_CMP', vg.UHDM_CMP)):
         if not os.path.exists(tool):
             sys.exit(f'missing tool: {tool} (set ${env}; see tests/README.md)')
-    todo = arms(a.filter)
+    todo = cases(a.filter)
     os.makedirs(a.workdir, exist_ok=True)
     counts, bad, built, strict = {}, [], 0, {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=a.jobs) as pool:
@@ -131,7 +131,7 @@ def main():
                 bad.append((rel, st, det))
     for rel, st, det in bad:
         print(f'{st} {rel} {det}')
-    print('probe arms: ' + ' '.join(f'{k}={v}' for k, v in sorted(counts.items())) +
+    print('probe cases: ' + ' '.join(f'{k}={v}' for k, v in sorted(counts.items())) +
           f' (of {len(todo)}); goldens built now={built}, from cache={len(todo) - built}')
     if strict:
         print('probe strict (measurement): ' + ' '.join(f'{k}={v}' for k, v in sorted(strict.items(), key=lambda kv: -kv[1])))

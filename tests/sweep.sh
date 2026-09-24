@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# The regression gate: (1) every tests/probe arm judged EQUAL against its cached
+# The regression gate: (1) every tests/probe case judged EQUAL against its cached
 # golden (scripts/check_probe.py); (2) both corpora in both modes with
 # scripts/verify_golden.py compared against the committed scoreboards in results/;
 # (3) the downstream gate: uhdm2rtlil's Yosys plugin must produce the same
@@ -15,7 +15,7 @@
 # takes a few minutes per corpus. Tool and corpus locations resolve relative to
 # this repository (third_party/Surelog, third_party/uhdm2rtlil, build/); the
 # variables SURELOG, UHDM_CMP, UHDM_DUMP, SLANG_UHDM, SURELOG_ROOT and
-# UHDM2RTLIL_TESTS override them. Exit status 1 on any probe arm not EQUAL or any
+# UHDM2RTLIL_TESTS override them. Exit status 1 on any probe case not EQUAL or any
 # corpus status regression: do not commit on a nonzero exit.
 set -u
 ROOT=$(cd "$(dirname "$(realpath "$0")")/.." && pwd)
@@ -31,12 +31,12 @@ while [ $# -gt 0 ]; do
 done
 mkdir -p "$WORKDIR"
 rc=0
-# The law index (tests/LAWS.csv + tests/LAWS.md) must be regenerated with
-# every landing that adds or renames a law, an arm or a pass README.
+# The law index (tests/LAWS.md) must be regenerated with
+# every landing that adds or renames a law, an case or a pass README.
 python3 "$ROOT/scripts/law_index.py" --check || rc=1
 for c in $CORPORA; do
     if [ "$c" = probe ]; then
-        echo "== probe arms (tests/probe, committed goldens), jobs=$JOBS"
+        echo "== probe cases (tests/probe, committed goldens), jobs=$JOBS"
         python3 "$ROOT/scripts/check_probe.py" --jobs "$JOBS" --workdir "$WORKDIR/probe" ${FILTER:+--filter "$FILTER"} || rc=1
         continue
     fi

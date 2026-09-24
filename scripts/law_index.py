@@ -1,15 +1,23 @@
 #!/usr/bin/env python3
-"""The law index: every law (a `§ name` in the exporter source, a pass README
-or a commit message) mapped back to its pass, its landing commits, its source
-files and switches, its arms under tests/probe and tools/probe, and the corpus
-tests it names; and every arm under tests/probe mapped to its laws with the
-level of that attribution. Writes tests/LAWS.csv, tests/LAWS.md and
-tests/ARMS.csv; `--check` exits 1 when the committed files are stale (part of
-tests/sweep.sh).
+"""The law index, tests/LAWS.md: every law (a `§ name` in the exporter source,
+a pass README or a commit message) mapped back to its pass, its landing
+commits, its source files and switches, the probe cases that exercise it
+under tests/probe/ (the gate) and tools/probe/ (the evidence), and the corpus
+tests it names. One generated document; regenerate it at every landing
+(`tests/sweep.sh` runs `--check` and fails when it is stale).
 
-Anchors are names, never line numbers: a law is found in the source with
-`grep -n '§ <law>' src include`, and its switch is an environment variable
-name; both survive every edit that keeps the law."""
+    scripts/law_index.py                 write tests/LAWS.md
+    scripts/law_index.py --check         exit 1 when tests/LAWS.md is stale
+    scripts/law_index.py --law NAME      print one law's record
+    scripts/law_index.py --case PATH     print the laws of one probe case (a dir
+                                         under tests/probe/ or tools/probe/)
+
+Anchors are names, never line numbers: `grep -n '§ <law>' src include` finds
+a law's sites at any commit, and a switch is an environment variable name.
+A case's laws are attributed at one of four levels: `text` (the case's own
+file names the law), `row` (a README line names both the case and a law),
+`heading` (the README section whose heading names a law mentions the case),
+`pass` (only the pass's own laws are known)."""
 import argparse, collections, csv, glob, io, os, re, subprocess, sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -17,7 +25,6 @@ os.chdir(REPO)
 LAW = re.compile(r'§\s*`?([a-z][A-Za-z0-9_]*[0-9]+[a-z]{0,2})`?')
 SWITCH_SRC = re.compile(r'getenv\("([A-Z][A-Z0-9_]+)"\)')
 SWITCH_TXT = re.compile(r'\b([A-Z][A-Z0-9]*[0-9][A-Z0-9_]*_(?:OFF|ON|DBG))\b')
-VERIFIES = re.compile(r'verification of\s+`?([a-z][a-z0-9]+)', re.I)
 SOURCES = sorted(glob.glob('src/*.cpp') + glob.glob('include/*.h') + ['uhdm_main.cpp'])
 
 
@@ -54,14 +61,10 @@ def corpus_names():
     return names
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--check', action='store_true', help='exit 1 when tests/LAWS.* and tests/ARMS.csv are stale')
-    args = ap.parse_args()
+def build():
     corpus = corpus_names()
-
-    # 1. Source files per law (counts, no line numbers) and the switches near a site.
-    files = collections.defaultdict(collections.Counter)   # law -> {file: sites}
+    # 1. Source files per law (site counts) and the switches near a site.
+    files = collections.defaultdict(collections.Counter)
     switches = collections.defaultdict(set)
     for f in SOURCES:
         lines = read(f).splitlines()
@@ -69,83 +72,74 @@ def main():
             for law in LAW.findall(l):
                 files[law][f] += 1
                 for k in range(max(0, i - 40), min(len(lines), i + 41)):
-                    for sw in SWITCH_SRC.findall(lines[k]):
-                        switches[law].add(sw)
+                    switches[law] |= set(SWITCH_SRC.findall(lines[k]))
 
-    # 2. Pass READMEs. A pass's own laws: the ones its title names, then the body
-    # mentions whose number is the pass's number (a law's name ends in its pass
-    # number: `...118`, `...118v`; r11u118repro is pass 118). A verification pass
-    # ("adversarial verification of r11u110") owns the laws of the pass it verifies.
+    # 2. Pass READMEs. A pass owns the laws its title names and the body
+    # mentions carrying its number (a law's name ends in its pass number:
+    # `...118`, `...118v`; r11u118repro is pass 118). A verification pass (its
+    # title says so) owns the laws of the pass it verifies: the pass its title
+    # names, else the one implement pass with the same number.
     pass_dirs = sorted(d.split('/')[2] for d in glob.glob('tools/probe/*/'))
-    title = {}
-    body_laws = {}
-    verifies = {}
+    title, body_laws, lines_of = {}, {}, {}
     for pdir in pass_dirs:
         r = readme_of(pdir)
-        if not r:
-            continue
-        lines = read(r).splitlines()
-        title[pdir] = lines[0] if lines else ''
-        body_laws[pdir] = set(LAW.findall('\n'.join(lines)))
-        m = VERIFIES.search(title[pdir])
-        if m and m.group(1) + 'repro' in pass_dirs and m.group(1) + 'repro' != pdir:
-            verifies[pdir] = m.group(1) + 'repro'
-    # A verification pass (its title says so) owns the laws its title names and
-    # the laws of the pass it verifies: the pass dir its title names, else the
-    # one implement pass with the same number.
-    verifier = {pdir: 'verif' in title[pdir].lower() for pdir in title}
+        if r:
+            lines_of[pdir] = read(r).splitlines()
+            title[pdir] = lines_of[pdir][0] if lines_of[pdir] else ''
+            body_laws[pdir] = set(LAW.findall('\n'.join(lines_of[pdir])))
+    verifier = {p: 'verif' in title[p].lower() for p in title}
     impls_by_num = collections.defaultdict(list)
-    for pdir in title:
-        if not verifier[pdir] and pass_number(pdir):
-            impls_by_num[pass_number(pdir)].append(pdir)
-    for pdir in title:
-        if verifier[pdir] and pdir not in verifies:
-            for tok in re.findall(r'\b([a-z][a-z0-9]+)\b', title[pdir]):
-                if tok + 'repro' in title and tok + 'repro' != pdir and not verifier[tok + 'repro']:
-                    verifies[pdir] = tok + 'repro'
-                    break
-            if pdir not in verifies and len(impls_by_num.get(pass_number(pdir), [])) == 1:
-                verifies[pdir] = impls_by_num[pass_number(pdir)][0]
-    own = {}
-    for pdir in title:
-        pnum = pass_number(pdir)
-        s = set(LAW.findall(title[pdir]))
-        if not (verifier[pdir] and pdir in verifies):
-            s |= {l for l in body_laws[pdir] if pnum and law_number(l) == pnum}
-        own[pdir] = s
-    for pdir, impl in verifies.items():
-        own[pdir] |= own.get(impl, set())
-    primary = collections.defaultdict(list)
-    mentioned = collections.defaultdict(list)
-    title_tests = collections.defaultdict(set)
-    for pdir in pass_dirs:
-        if pdir not in title:
+    for p in title:
+        if not verifier[p] and pass_number(p):
+            impls_by_num[pass_number(p)].append(p)
+    verifies = {}
+    for p in title:
+        if not verifier[p]:
             continue
-        for law in own[pdir]:
-            primary[law].append(pdir)
-        for law in body_laws[pdir] - own[pdir]:
-            mentioned[law].append(pdir)
-        tl = set(LAW.findall(title[pdir]))
-        for law in tl:
-            title_tests[law] |= {w for w in re.findall(r'[A-Za-z0-9_]+', title[pdir]) if w in corpus}
-        lines = read(readme_of(pdir)).splitlines()
-        for i, l in enumerate(lines):
-            for law in set(LAW.findall(l)) & own[pdir]:
-                for k in range(max(0, i - 15), min(len(lines), i + 16)):
-                    switches[law] |= set(SWITCH_TXT.findall(lines[k]))
-    # A law owned by more than one implement pass (verification passes aside)
-    # is ambiguous: two pass families share a number.
-    ambiguous = set()
-    for law, ps in primary.items():
-        impls = {verifies.get(p, p) for p in ps if not verifier.get(p) or p in verifies}
-        if len(impls) > 1:
-            ambiguous.add(law)
+        for tok in re.findall(r'\b([a-z][a-z0-9]+)\b', title[p]):
+            q = tok + 'repro'
+            if q in title and q != p and not verifier[q]:
+                verifies[p] = q
+                break
+        if p not in verifies and len(impls_by_num.get(pass_number(p), [])) == 1:
+            verifies[p] = impls_by_num[pass_number(p)][0]
+        if p not in verifies:
+            # The implement pass whose README title names the same law.
+            for law in set(LAW.findall(title[p])):
+                hits = [q for q in title if not verifier[q] and law in set(LAW.findall(title[q]))]
+                if len(hits) == 1:
+                    verifies[p] = hits[0]
+                    break
+    own = {}
+    for p in title:
+        s = set(LAW.findall(title[p]))
+        if p not in verifies:
+            s |= {l for l in body_laws[p] if law_number(l) == pass_number(p)}
+        own[p] = s
+    for p, impl in verifies.items():
+        own[p] |= own.get(impl, set())
+    primary, mentioned = collections.defaultdict(list), collections.defaultdict(list)
+    title_tests = collections.defaultdict(set)
+    for p in pass_dirs:
+        if p not in title:
+            continue
+        for law in own[p]:
+            primary[law].append(p)
+        for law in body_laws[p] - own[p]:
+            mentioned[law].append(p)
+        for law in set(LAW.findall(title[p])):
+            title_tests[law] |= {w for w in re.findall(r'[A-Za-z0-9_]+', title[p]) if w in corpus}
+        for i, l in enumerate(lines_of[p]):
+            for law in set(LAW.findall(l)) & own[p]:
+                for k in range(max(0, i - 15), min(len(lines_of[p]), i + 16)):
+                    switches[law] |= set(SWITCH_TXT.findall(lines_of[p][k]))
+    ambiguous = {law for law, ps in primary.items()
+                 if len({verifies.get(p, p) for p in ps}) > 1}
 
-    # 3. Commits naming the law (current branch).
+    # 3. Commits naming the law (this branch).
     log = subprocess.run(['git', 'log', '--format=%h%x00%s%x00%B%x01'], capture_output=True,
                          text=True, errors='replace').stdout
-    commits = collections.defaultdict(list)
-    commit_tests = collections.defaultdict(set)
+    commits, commit_tests = collections.defaultdict(list), collections.defaultdict(set)
     for entry in log.split('\x01'):
         if '\x00' not in entry:
             continue
@@ -155,136 +149,156 @@ def main():
             commits[law].append(sha)
             commit_tests[law] |= {w for w in words if w in corpus}
 
-    # 4. Arms. Under tests/probe every arm is attributed to its laws at one of
-    # four levels: `text` (the arm's own file names the law), `row` (a README
-    # line names both the arm and a law), `heading` (the README section whose
-    # heading names a law mentions the arm), `pass` (only the pass's own laws
-    # are known). Under tools/probe arms are counted per pass.
-    arms_tests = collections.Counter()
-    arms_tools = collections.Counter()
-    law_arms = collections.defaultdict(list)       # law -> arms under tests/probe
-    arm_rows = []
-    readme_lines = {}
-    for a in sorted(glob.glob('tests/probe/**/*.sv', recursive=True)):
+    # 4. Probe cases: every dir under tests/probe/<pass>/ holding a dut.sv (the
+    # gate) and every .sv under tools/probe/<pass>/ (the evidence), attributed
+    # to laws at a level.
+    cases = []   # (path, pass, tree, laws, how)
+    def attribute(pdir, name, text):
+        laws = set(LAW.findall(text))
+        if laws:
+            return laws, 'text'
+        if pdir not in lines_of:
+            return set(), 'none'
+        row, head, cur = set(), set(), set()
+        pat = re.compile(r'(?<![A-Za-z0-9_])' + re.escape(name) + r'(?![A-Za-z0-9_])')
+        for l in lines_of[pdir]:
+            ls = set(LAW.findall(l))
+            if l.startswith('#') and ls:
+                cur = ls
+            if pat.search(l):
+                if ls:
+                    row |= ls
+                elif cur:
+                    head |= cur
+        if row:
+            return row, 'row'
+        if head:
+            return head, 'heading'
+        if own.get(pdir):
+            return own[pdir], 'pass'
+        return set(), 'none'
+    for a in sorted(glob.glob('tests/probe/*/**/dut.sv', recursive=True)):
         parts = a.split('/')
-        pdir, arm = parts[2], parts[-2]
-        arms_tests[pdir] += 1
-        text_laws = set(LAW.findall(read(a)))
-        laws, how = set(), 'none'
-        if text_laws:
-            laws, how = text_laws, 'text'
-        elif readme_of(pdir):
-            if pdir not in readme_lines:
-                readme_lines[pdir] = read(readme_of(pdir)).splitlines()
-            row, head, cur = set(), set(), set()
-            for l in readme_lines[pdir]:
-                ls = set(LAW.findall(l))
-                if l.startswith('#') and ls:
-                    cur = ls
-                if re.search(r'(?<![A-Za-z0-9_])' + re.escape(arm) + r'(?![A-Za-z0-9_])', l):
-                    if ls:
-                        row |= ls
-                    elif cur:
-                        head |= cur
-            if row:
-                laws, how = row, 'row'
-            elif head:
-                laws, how = head, 'heading'
-            elif own.get(pdir):
-                laws, how = own[pdir], 'pass'
-        for law in laws:
-            law_arms[law].append(a)
-        arm_rows.append({'arm': a, 'pass': pdir, 'laws': ' '.join(sorted(laws)), 'how': how})
-    for a in sorted(glob.glob('tools/probe/**/*.sv', recursive=True)):
+        d = os.path.dirname(a)
+        laws, how = attribute(parts[2], parts[-2], read(a))
+        cases.append((d, parts[2], 'tests', laws, how))
+    for a in sorted(glob.glob('tools/probe/*/**/*.sv', recursive=True)):
         parts = a.split('/')
-        if len(parts) > 3:
-            arms_tools[parts[2]] += 1
+        if len(parts) < 4:
+            continue
+        name = parts[-2] if parts[-1] == 'dut.sv' else os.path.splitext(parts[-1])[0]
+        laws, how = attribute(parts[2], name, read(a))
+        cases.append((a, parts[2], 'tools', laws, how))
+    return dict(files=files, switches=switches, primary=primary, mentioned=mentioned,
+                title_tests=title_tests, commits=commits, commit_tests=commit_tests, own=own,
+                verifies=verifies, ambiguous=ambiguous, cases=cases, readme=readme_of)
 
-    laws = sorted(set(files) | set(primary) | set(commits) | set(mentioned))
-    rows = []
+
+def render(ix):
+    files, primary, commits = ix['files'], ix['primary'], ix['commits']
+    cases = ix['cases']
+    laws = sorted(set(files) | set(primary) | set(commits) | set(ix['mentioned']))
+    by_law = collections.defaultdict(lambda: {'tests': 0, 'tools': 0})
+    by_pass = collections.defaultdict(lambda: {'tests': 0, 'tools': 0})
+    exact = collections.defaultdict(lambda: collections.defaultdict(list))  # pass -> law -> [case names]
+    for path, pdir, tree, ls, how in cases:
+        by_pass[pdir][tree] += 1
+        for law in ls:
+            by_law[law][tree] += 1
+        if how in ('text', 'row', 'heading') and tree == 'tests':
+            for law in ls:
+                exact[pdir][law].append(path.split('/', 3)[3])
+    how_count = collections.Counter(c[4] for c in cases if c[2] == 'tests')
+    n_tests_cases = sum(1 for c in cases if c[2] == 'tests')
+    n = dict(src=sum(1 for l in laws if l in files), commit=sum(1 for l in laws if l in commits),
+             readme=sum(1 for l in laws if l in primary), cases=sum(1 for l in laws if by_law[l]['tests']))
+    out = ['# The law index', '',
+           'A law is an exporter rule named `§ <name>` (the name ends in its pass number) at',
+           'its source sites, in its pass README under `tools/probe/<pass>/` and in its',
+           'landing commit. This document maps every law back to its pass, its commits on',
+           'this branch, its source files and switches, the probe cases that exercise it',
+           '(`tests/probe/`, the gate; `tools/probe/`, the evidence grids) and the corpus',
+           'tests it names. It is generated by `scripts/law_index.py` and regenerated at',
+           'every landing (`tests/sweep.sh` fails when it is stale). Ask the script for one',
+           'record: `scripts/law_index.py --law <name>` or `--case <dir>`.', '',
+           'Anchors are names, never line numbers: `grep -n \'§ <law>\' src include` finds',
+           'a law\'s sites at any commit, and a switch is an environment variable name.',
+           'Older pass READMEs call a probe case an "arm".', '',
+           f"Laws: {len(laws)} ({n['src']} in the source, {n['commit']} with a commit on this branch,",
+           f"{n['readme']} with a pass README, {n['cases']} with cases in tests/probe, {len(ix['ambiguous'])}",
+           'ambiguous: two implement passes share the number and both name the law).', '',
+           f"Probe cases in the gate: {n_tests_cases}, attributed to a law by the case's own text",
+           f"{how_count['text']}, by a README row {how_count['row']}, by a README section heading",
+           f"{how_count['heading']}, to the pass's law set only {how_count['pass']}, not at all (no",
+           f"README or a README naming no law) {how_count['none']}. Section 2 lists the exact ones.", '',
+           '## 1. Laws', '',
+           '| law | pass | commits | switches | cases tests/probe | cases tools/probe | corpus tests | source files |',
+           '|---|---|---|---|---|---|---|---|']
     for law in laws:
         ps = primary.get(law, [])
-        rows.append({
-            'law': law,
-            'pass': ' '.join(ps),
-            'ambiguous': 'yes' if law in ambiguous else '',
-            'readme': ' '.join(readme_of(p) for p in ps if readme_of(p)),
-            'commits': ' '.join(commits.get(law, [])),
-            'switches': ' '.join(sorted(switches.get(law, set()))),
-            'source_files': ' '.join(f'{f}({n})' for f, n in sorted(files[law].items())) if law in files else '',
-            'arms_tests_probe': len(law_arms.get(law, [])),
-            'arms_tools_probe': sum(arms_tools[p] for p in ps),
-            'corpus_tests': ' '.join(sorted(title_tests.get(law, set()) | commit_tests.get(law, set()))),
-            'mentioned_in': ' '.join(mentioned.get(law, [])),
-        })
+        tests = sorted(ix['title_tests'].get(law, set()) | ix['commit_tests'].get(law, set()))
+        src = ' '.join(f'{f}({c})' for f, c in sorted(files[law].items())) if law in files else ''
+        out.append(f"| `{law}`{' (ambiguous)' if law in ix['ambiguous'] else ''} | {' '.join(ps)} | "
+                   f"{' '.join(commits.get(law, []))} | {' '.join(sorted(ix['switches'].get(law, set())))} | "
+                   f"{by_law[law]['tests']} | {by_law[law]['tools']} | {' '.join(tests)} | {src} |")
+    out += ['', '## 2. Passes: their laws and cases', '',
+            'Each pass owns the laws its README title names, the body mentions carrying its',
+            'number, and for a verification pass the laws of the pass it verifies. A case',
+            'under `tests/probe/<pass>/` belongs to one of the pass\'s laws; where the README',
+            'or the case itself says which, the case is listed under that law.', '']
+    for p in sorted(set(ix['own']) | set(by_pass)):
+        own = sorted(ix['own'].get(p, []))
+        v = ix['verifies'].get(p)
+        out.append(f"### {p}" + (f" (verifies {v})" if v else ''))
+        out.append('')
+        rd = ix['readme'](p)
+        out.append(f"README: {rd if rd else 'none'}. Laws: " +
+                   (' '.join(f'`{l}`' for l in own) if own else 'none named') +
+                   f". Cases: {by_pass[p]['tests']} in tests/probe, {by_pass[p]['tools']} in tools/probe.")
+        for law in sorted(exact.get(p, {})):
+            out.append(f"- `{law}`: " + ' '.join(sorted(exact[p][law])))
+        out.append('')
+    return '\n'.join(out).rstrip('\n') + '\n'
 
-    def to_csv(fields, rs):
-        buf = io.StringIO()
-        w = csv.DictWriter(buf, fieldnames=fields, lineterminator='\n')
-        w.writeheader()
-        for r in rs:
-            w.writerow(r)
-        return buf.getvalue()
 
-    law_fields = ['law', 'pass', 'ambiguous', 'readme', 'commits', 'switches', 'source_files',
-                  'arms_tests_probe', 'arms_tools_probe', 'corpus_tests', 'mentioned_in']
-    csv_text = to_csv(law_fields, rows)
-    arms_text = to_csv(['arm', 'pass', 'laws', 'how'], arm_rows)
-
-    n_src = sum(1 for r in rows if r['source_files'])
-    n_commit = sum(1 for r in rows if r['commits'])
-    n_pass = sum(1 for r in rows if r['pass'])
-    n_arms = sum(1 for r in rows if r['arms_tests_probe'])
-    how = collections.Counter(r['how'] for r in arm_rows)
-    md = ['# The law index', '',
-          'Every law is a `§ name` (the name ends in its pass number) in the exporter source,',
-          'a pass README under `tools/probe/`, or a commit message. This index maps each law',
-          'back to its pass, its landing commits, its source files and switches, its arms in',
-          '`tests/probe/` (the gate) and `tools/probe/` (the evidence grids), and the corpus',
-          'tests its title and commits name. Generated by `scripts/law_index.py`; regenerate',
-          'it at every landing (`tests/sweep.sh` fails when it is stale). `tests/LAWS.csv` is',
-          'the machine-readable form; `tests/ARMS.csv` maps every arm under `tests/probe/`',
-          'to its laws with the level of that attribution.', '',
-          'Anchors are names, never line numbers: find a law in the source with',
-          '`grep -n \'§ <law>\' src include`; its switch is an environment variable name.', '',
-          f'Laws: {len(rows)} ({n_src} in the source, {n_commit} with a commit on this branch,',
-          f'{n_pass} with a pass README, {n_arms} with arms in tests/probe, {len(ambiguous)} ambiguous:',
-          'two pass families share the number).', '',
-          f"Arms under tests/probe: {len(arm_rows)}; attributed by the arm's own text {how['text']},",
-          f"by a README row {how['row']}, by a README section heading {how['heading']}, to the",
-          f"pass's law set only {how['pass']}, not at all (no README) {how['none']}.", '',
-          '| law | pass | commits | switches | arms tests/probe | arms tools/probe | corpus tests | source files |',
-          '|---|---|---|---|---|---|---|---|']
-    for r in rows:
-        md.append(f"| `{r['law']}`{' (ambiguous)' if r['ambiguous'] else ''} | {r['pass']} | {r['commits']} | "
-                  f"{r['switches']} | {r['arms_tests_probe']} | {r['arms_tools_probe']} | {r['corpus_tests']} | "
-                  f"{r['source_files']} |")
-    md += ['', '## Pass -> laws', '',
-           'The laws each pass owns (its README title, the body mentions carrying its number,',
-           'and for a verification pass the laws of the pass it verifies). An arm under',
-           '`tests/probe/<pass>/` belongs to one of these; `tests/ARMS.csv` says which when',
-           'the README or the arm says.', '',
-           '| pass | verifies | laws | arms tests/probe | arms tools/probe |', '|---|---|---|---|---|']
-    for p in sorted(set(own) | set(arms_tests) | set(arms_tools)):
-        md.append(f"| {p} | {verifies.get(p, '')} | {' '.join('`%s`' % l for l in sorted(own.get(p, [])))} | "
-                  f"{arms_tests[p]} | {arms_tools[p]} |")
-    md_text = '\n'.join(md) + '\n'
-
-    outputs = (('tests/LAWS.csv', csv_text), ('tests/LAWS.md', md_text), ('tests/ARMS.csv', arms_text))
-    if args.check:
-        stale = [p for p, t in outputs if not os.path.exists(p) or read(p) != t]
-        if stale:
-            print('law index STALE: ' + ' '.join(stale) + ' (run scripts/law_index.py)')
-            return 1
-        print(f'law index current: {len(rows)} laws, {len(arm_rows)} arms')
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--check', action='store_true')
+    ap.add_argument('--law')
+    ap.add_argument('--case')
+    args = ap.parse_args()
+    ix = build()
+    if args.law:
+        law = args.law
+        print(f"law {law}\n  pass: {' '.join(ix['primary'].get(law, [])) or '-'}"
+              f"\n  commits: {' '.join(ix['commits'].get(law, [])) or '-'}"
+              f"\n  switches: {' '.join(sorted(ix['switches'].get(law, set()))) or '-'}"
+              f"\n  source: {' '.join(f'{f}({c})' for f, c in sorted(ix['files'].get(law, {}).items())) or '-'}"
+              f"\n  corpus tests: {' '.join(sorted(ix['title_tests'].get(law, set()) | ix['commit_tests'].get(law, set()))) or '-'}"
+              f"\n  mentioned in: {' '.join(ix['mentioned'].get(law, [])) or '-'}")
+        for path, pdir, tree, ls, how in ix['cases']:
+            if law in ls:
+                print(f'  case ({how}): {path}')
         return 0
-    for p, t in outputs:
-        with open(p, 'w') as f:
-            f.write(t)
-    print(f'wrote tests/LAWS.csv + tests/LAWS.md + tests/ARMS.csv: {len(rows)} laws ({n_src} in the source, '
-          f'{n_commit} with commits, {n_pass} with a pass README, {n_arms} with arms in tests/probe, '
-          f'{len(ambiguous)} ambiguous); arms {len(arm_rows)}: ' +
-          ' '.join(f'{k}={v}' for k, v in sorted(how.items())))
+    if args.case:
+        want = os.path.relpath(os.path.abspath(args.case), REPO).rstrip('/')
+        hit = [c for c in ix['cases'] if c[0] == want or c[0] == want + '/dut.sv' or os.path.dirname(c[0]) == want]
+        if not hit:
+            print(f'{want}: not a probe case')
+            return 1
+        for path, pdir, tree, ls, how in hit:
+            print(f"{path}: pass {pdir}; laws ({how}): {' '.join(sorted(ls)) or '-'}")
+        return 0
+    text = render(ix)
+    if args.check:
+        if not os.path.exists('tests/LAWS.md') or read('tests/LAWS.md') != text:
+            print('law index STALE: tests/LAWS.md (run scripts/law_index.py)')
+            return 1
+        print('law index current')
+        return 0
+    with open('tests/LAWS.md', 'w') as f:
+        f.write(text)
+    print('wrote tests/LAWS.md: ' + text.splitlines()[15].strip())
     return 0
 
 

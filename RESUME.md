@@ -106,7 +106,7 @@ official cmp to claim it is correct") and must never become a bottleneck
   results/golden_surelog.csv      surelog baseline (1588 rows) — READ-ONLY
   results/gate_uhdm2rtlil.csv     u2r testflags baseline (731 rows) — READ-ONLY
   tools/probe/r10<pass>repro/     one dir per landed pass: README (the decoded law),
-                                  CENSUS/PREDICT/GATES/LADDERS, arms (*.sv), instruments
+                                  CENSUS/PREDICT/GATES/LADDERS, cases (*.sv), instruments
   tools/probe/r10ladder1repro/    ctladder.cpp (+ctfields.inc), cluster.py, CLUSTERS*.md
   tools/probe/r10uvm67repro/rowheads.sh   heads (cmp lines/heads) for named rows
   tools/probe/r10oth8repro/ct8rows.sh     whole-row CSV judge (status AND dump column)
@@ -168,7 +168,7 @@ Then decide, in this order:
    `git -C /tmp/wt_r10<pass> diff HEAD --stat` and the pass's
    `tools/probe/r10<pass>repro/README.md` if written. Either re-launch the
    missing role (an implementer's finished patch still needs a fresh
-   adversarial verifier; a dead verifier's partial arms are in `wt_v<pass>`)
+   adversarial verifier; a dead verifier's partial cases are in `wt_v<pass>`)
    or, if nothing usable, drop the worktrees and re-dispatch the head.
 4. **Empty slots** ⇒ dispatch a new pass per family from the R0 line of that
    family's last landing (the survey prints them). Four families in parallel:
@@ -208,10 +208,10 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 > itself (golden 1'b0 vs ours 6'b010101 at 44:31). Fencing that row is the
 > USER'S decision (a producer-defect fence, the fourth after the three
 > slang-fenced tests); results/*.csv keep it CMP_NOTEQUAL until then. The
-> post-convergence task the user set (memory probe-arms-to-tests-after-
+> post-convergence task the user set (memory probe-cases-to-tests-after-
 > convergence) is IN PROGRESS: a census of every unique tools/probe dut.sv
-> arm through the corpus harness in both modes on the HEAD binary
-> (scratchpad probe_census.py -> which arms read CMP_EQUAL and whether their
+> case through the corpus harness in both modes on the HEAD binary
+> (scratchpad probe_census.py -> which cases read CMP_EQUAL and whether their
 > dumps match byte-for-byte), then a selection + layout proposal for
 > tests/, then STOP for the user's direction before editing tests/.
 > Method that converged the corpus: HEAD-ANCHORED SELECTION (memory
@@ -300,7 +300,7 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 > are the three slang-fenced tests), uhdm2rtlil 788 equal / 16 not-equal /
 > 67 reject in both modes (of 871). Passes 94-103 are ALL GROUNDWORK — zero
 > conversions, zero regressions — with corpus bytes moving TO GOLDEN at 94
-> and 97 (ibex_icache, divide and add-mint arms). Since the pass-93 refresh
+> and 97 (ibex_icache, divide and add-mint cases). Since the pass-93 refresh
 > the master moved to Fable 5.1 and the subagent pin to claude-opus-5-5
 > (user directive 2026-09-22; a pair now lands in roughly 70-140 minutes).
 > Landed: the mult/div/mod INT mint + written-digit leaf + concat kind-1 +
@@ -310,7 +310,7 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 > at the design root + def-view final block (96), the tick literal as one
 > digit + the add mint climbing the tree + the comparison's minus one + the
 > chain's initializer (97), every interface's classes at the root + six
-> nested-module laws (98), the power arm's INT mint with two digit laws
+> nested-module laws (98), the power case's INT mint with two digit laws
 > decoded-and-OFF pending the reader's width (99), the ported nested module's
 > shell + the scoped definition key + the library-unit guard (100), the
 > reduced comparison operand + the evaluated call fold with seven decline
@@ -421,7 +421,7 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 > conversions in the pass 44-63 stretch. TRIAGE2's clusters and the
 > FOLDMAP's roads are all landed or queued out; steering now follows the
 > probe-README residue chains. The queue: RV0 folded-operand encoding
-> (packed road), the r11u49 R3 cast arm (typed_named_pattern), the
+> (packed road), the r11u49 R3 cast case (typed_named_pattern), the
 > generate-scope share cell (struct_param_field_shift), the r11u56 R0
 > member-width stamp on a based literal, BBPI's 62 bare op-ref cells, the
 > r11v65 V-R1 dimension-less alias-of-alias (a landed-code guard), and the
@@ -462,9 +462,9 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
 | SeqDriver×2 | CMP_EQUAL ×2 (CONVERTED at uvm219 — the WHOLE TEST CLOSED) | CLOSED — § hoistedThisRidesTheForwardedBlock219: the implicit this wire is a FORWARDED late-binding mint and lands span-sorted inside the forwarded block, never after the module's own wires (the import splices the package's late-binding list during the item pass); the SeqDriver ladder ran the clone-import chain, the view crossings, the interface family and the order law; R0 recorded: the implicit block is still golden's multiset in a different order, masked by the visited-set short circuit — the family's next face should the mask ever lift |
-| MiniAmiq×2 | CONVERTED — CMP_EQUAL both modes at judge rc 0 (uvm227, the campaign's 9th+10th row-mode conversions, SIXTH whole-test close, THE LAST WORKABLE ROW) | § importedFreeCallTakesFirstListingImport227 — a bare call to a package free subroutine binds the FIRST wildcard-imported package's copy in written import order when that package's listing carries the name; one lookup at the call arm, link-only; verifier CLEAN ACCEPT, twenty-three adversarial arms, conversion reproduced deterministically. THE ADDRESSABLE CORPUS IS AT ZERO: every remaining surelog not-equal row-mode belongs to the four slang-fenced tests (8 row-modes); u2r is 100% equal both modes. New-face residues at zero corpus cells: bare TASK calls, unit/generate import scopes, ::-argument decline, the program holder, the class-in-package holder |
+| MiniAmiq×2 | CONVERTED — CMP_EQUAL both modes at judge rc 0 (uvm227, the campaign's 9th+10th row-mode conversions, SIXTH whole-test close, THE LAST WORKABLE ROW) | § importedFreeCallTakesFirstListingImport227 — a bare call to a package free subroutine binds the FIRST wildcard-imported package's copy in written import order when that package's listing carries the name; one lookup at the call case, link-only; verifier CLEAN ACCEPT, twenty-three adversarial cases, conversion reproduced deterministically. THE ADDRESSABLE CORPUS IS AT ZERO: every remaining surelog not-equal row-mode belongs to the four slang-fenced tests (8 row-modes); u2r is 100% equal both modes. New-face residues at zero corpus cells: bare TASK calls, unit/generate import scopes, ::-argument decline, the program holder, the class-in-package holder |
 | SimpleUVM×2 | CMP_EQUAL ×2 (CONVERTED at uvm209 — the WHOLE TEST CLOSED) | CLOSED — § hoistedLocalKeepsItsLifetime209: the automatic flag follows the source declaration's lifetime (Surelog's package collector does not stop at a class CONSTRUCTOR declaration — the hoist's mechanism; golden's module copy is the package listing value for value); the SimpleUVM ladder ran the depth artifact, the materialized-parameter family, the implicit-nets family, the design listing and the lifetime bit |
-| BuildUVMPkg×2 | CMP_EQUAL (CONVERTED, uvm194 — the block's FIRST row conversion; the two baseline rows promoted in the landing commit) | CLOSED — § homeRetNameSelBindSurvivesDefViewUnbind194: a home return-name select binding survives the definition-view unbind (one gated exemption clause in the drain; the clone fence from an arm); the family's whole ladder ran uvm170→194 |
+| BuildUVMPkg×2 | CMP_EQUAL (CONVERTED, uvm194 — the block's FIRST row conversion; the two baseline rows promoted in the landing commit) | CLOSED — § homeRetNameSelBindSurvivesDefViewUnbind194: a home return-name select binding survives the definition-view unbind (one gated exemption clause in the drain; the clone fence from an case); the family's whole ladder ran uvm170→194 |
 | Scoreboard/default | CMP_EQUAL (CONVERTED at uvm212 — the comparable half of the test CLOSED; testflags is a slang reject outside the comparable set) | CLOSED — § classTdCloneTakesTheBasesEmptyListing212: a clone class typedef takes the base's EMPTY specialization listing (the vector verdict wore a singular face; library and macros decide nothing — clone-hood and the base's listing are the only variables; golden has zero clone-vs-base mismatches everywhere, ours had exactly one corpus-wide) |
 | Earlgrey_0_1×2 (both modes) | CMP_EQUAL ×2 (default CONVERTED at earl122, testflags at earl117 — the WHOLE TEST CLOSED) | CLOSED — § genCaPatTagDeepBind122: the deep-bind walk descends a tagged wrapper to its pattern value (the wrapper earl121 had just taught the default view to keep); the listing framing refuted (the variables vector read 4/4 both sides — a BINDING law); the Earlgrey ladder ran earl104→122 |
 | Rggen/default | **CMP_EQUAL** (converted by rgg18) | Rggen's one comparable mode passes the official uhdm-cmp; its dump column stays `differ` (phase-3 residues R-N3 103 golden-only ELAB hier_paths / R-A 810 symbolic range bounds / R-D / R-N4 / R-N5 / R-E hold byte-identity, block nothing); the Rggen slot now refills on the next-largest surelog NE family (rgg18 landed: gen-scope localparam fold digits = the mathematical value, pre-truncation, own sign + the verifier's 64-bit-word and stored-value refusals) |
@@ -502,21 +502,21 @@ same BASE commit:
    golden-vs-golden first (a census that reports 0 on golden-vs-golden is the
    only census that means anything). Keys must be COMPARE-VISIBLE fields.
 3. DECODE the law from Surelog SOURCE (quote file:line), then MEASURE it on a
-   purpose-built golden grid (arms `*.sv` run through the real Surelog +
+   purpose-built golden grid (cases `*.sv` run through the real Surelog +
    both binaries), refuting the brief's suggested predicate if the grid says
    so (it usually does — "the brief names the decider cell, not the law").
 4. Implement the smallest gated change (a `§ <name><n>` law comment at the
    site explaining what was measured), PREDICT the movers BY NAME from
    pristine databases FIRST, then run the five gates (§6) and the boundary
-   (every committed arm under `tools/probe`, both views, subdirs included).
+   (every committed case under `tools/probe`, both views, subdirs included).
 5. Deliver `/tmp/<pass>.patch` = `git diff` vs BASE, applying clean on a
    fresh BASE worktree, surface = production files + `tools/probe/<pass>repro/`
    only, and a report whose FINAL TEXT is the evidence (numbers, not prose).
 
 **Adversarial verifier** rebuilds both binaries itself, reproduces EVERY
-headline number bit-for-bit, then tries to BREAK the law with new arms
+headline number bit-for-bit, then tries to BREAK the law with new cases
 (orders, names, cases, scopes, contexts the implementer's grid did not vary —
-"an arm agreeing is not an arm testing"; a grid naming everything a_t/b_t/c_t
+"an case agreeing is not an case testing"; a grid naming everything a_t/b_t/c_t
 over A/B/C is self-confirming). Any pristine-right → patched-wrong cell on
 legal SV is FIXED BY THE VERIFIER (minimal, gated), the full battery re-run,
 and `/tmp/<pass>.verified.patch` shipped. 46 of 88 landings needed such a
@@ -543,8 +543,8 @@ ONE head per run (`grep -c '^LHS:'`); Compare reads
 VpiType/VpiName/VpiDefName + per-kind fields, never fullname/span
 (VpiDecompile IS read); movers as ROWS; Scoreboard/default is a ~50/50 COIN
 (order-blind attribution only); census golden-vs-golden first; boundary must
-compile subdir arms with the file list on fd 3 (children `</dev/null`,
-PROCESSED asserted, scratch keyed on RELATIVE path); every arm cell records
+compile subdir cases with the file list on fd 3 (children `</dev/null`,
+PROCESSED asserted, scratch keyed on RELATIVE path); every case cell records
 rc (never let an rc=139 hide as SLANG_REJECT); canaries + pins; the five
 gates; deliverable spec.
 
@@ -558,7 +558,7 @@ CMP_EQUAL judged by status AND dump; if any row PASSES cmp SAY SO LOUDLY and
 do NOT edit results/*.csv; report new heads as R0."
 
 Then the VERIFIER paragraph: reproduce bit-for-bit; break the law along the
-axes listed; every named earlier law's arms must stay byte-identical; fix
+axes listed; every named earlier law's cases must stay byte-identical; fix
 pristine-right→patched-wrong cells yourself; ship `.verified.patch`; VERDICT +
 ranked residues.
 
@@ -617,7 +617,7 @@ git add <production files> tools/probe/r10<pass>repro [tools/probe/r10v<pass>rep
 git commit -F - <<'EOF'
 block-3 groundwork: <family> pass N — § <law>, <what the head was and how it moved>, <verifier verdict>
 <DECODED MODEL: Surelog file:line, the rule, gates/fences>
-<MEASUREMENTS in DURABLE terms only: heads before/after, census/grid/arm counts, conversions, "gates all green" in one line, boundary summary>
+<MEASUREMENTS in DURABLE terms only: heads before/after, census/grid/case counts, conversions, "gates all green" in one line, boundary summary>
 <RESIDUES + R0 — the R0 line is what scripts/resume_survey.sh greps for>
 Evidence: tools/probe/r10<pass>repro/README.md (+ the verifier's tools/probe/r10v…repro/README.md)
 Co-Authored-By: <your model name> <noreply@…>
@@ -646,8 +646,8 @@ Never poll a background waiter with a self-matching `pgrep`.
 - The head clears (or the family closes corpus-wide) — a cmp line count going
   UP is fine when the head object CHANGED (it is the new head's decompile
   size); a line count going DOWN with the same object is a partial fix.
-- Boundary over every committed arm: only the pass's own arms move, and any
-  earlier-pass arm that moves is re-measured against golden and moves TOWARD
+- Boundary over every committed case: only the pass's own cases move, and any
+  earlier-pass case that moves is re-measured against golden and moves TOWARD
   it.
 - The decoded law cites Surelog file:line and a golden grid; refuted
   hypotheses are recorded as refuted, not dressed up.
@@ -714,7 +714,7 @@ defaults `SLANG_UHDM` to the MAIN-TREE binary — export it per binary and audit
 every `cmds.txt` by binary PATH (not "slang-uhdm", which also matches
 `slang-uhdm-goldens/`). `verify_golden.py` records rc=139 SEGFAULTS as
 `SLANG_REJECT` wearing the last stderr warning (two hidden segfaults were
-unmasked this way: MiniAmiq, Earlgrey/testflags) — arms must record rc.
+unmasked this way: MiniAmiq, Earlgrey/testflags) — cases must record rc.
 `uhdm-cmp` writes the head to STDERR (a `2>/dev/null` made every head counter
 read 0). `grep -c` with zero matches kills `set -e` chains (`; true`). `grep`
 here is ugrep. SeqDriver default/testflags goldens are different cache
@@ -724,7 +724,7 @@ Rebuilding the main binary corrupts in-flight sweeps. BUILD RACE: never edit
 a source while its TU compiles; freeze binaries (`chmod 555` copies) before
 sweeps. Background waiters must not self-match their own `pgrep`.
 
-**Boundary gates.** Compile SUBDIRECTORY arms too (sd8-12 keep arms in
+**Boundary gates.** Compile SUBDIRECTORY cases too (sd8-12 keep cases in
 subdirs; a top-level glob ran nothing and printed green); read the file list
 on fd 3 with children `</dev/null` (a stdin-list was swallowed by the first
 child); assert PROCESSED == LISTED; key scratch on the RELATIVE path
@@ -736,8 +736,8 @@ corpus-invisible regressions (earl60's two).
 BLIND below the slot (earl56's 107-cell regression); use depth-keyed
 identity censuses + the whole-dump sectioned diff. Multiset joins (keys
 collide; a last-writer dict drops rows). NODEDUP censuses manufacture
-AWAY-GOLDEN phantoms. Our hier_paths have an EMPTY VpiFile. An arm AGREEING
-with golden is not an arm TESTING the law (check WHICH mechanism produced
+AWAY-GOLDEN phantoms. Our hier_paths have an EMPTY VpiFile. An case AGREEING
+with golden is not an case TESTING the law (check WHICH mechanism produced
 agreement; a scorer that does not BUILD the databases scores −1/N on both
 binaries).
 

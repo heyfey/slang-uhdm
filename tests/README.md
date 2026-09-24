@@ -13,8 +13,8 @@ after the first run.
 | `third_party/uhdm2rtlil` | the pinned uhdm2rtlil checkout; `test/<name>/dut.sv` (or `dut.v`, or a `project.f`) per test | 871 tests |
 | `results/golden_surelog.csv`, `results/golden_uhdm2rtlil.csv` | the committed scoreboards: one row per test and mode (`name,mode,status,detail,blocked_by,strict`) | 1596 + 1742 rows |
 | `results/gate_uhdm2rtlil.csv` | the uhdm2rtlil testflags rows alone (the older gate) | 871 rows |
-| `tests/probe/<pass>/<grid>/<arm>/dut.sv` | the probe-arm regression set, judged by uhdm-cmp against cached Surelog goldens (see tests/probe/README.md) | 2833 arms |
-| `tools/probe/` | per-pass evidence (READMEs, scripts, measurements, and the arms that still judge NOT_EQUAL) | |
+| `tests/probe/<pass>/<grid>/<case>/dut.sv` | the probe-case regression set, judged by uhdm-cmp against cached Surelog goldens (see tests/probe/README.md) | 2833 cases |
+| `tools/probe/` | per-pass evidence (READMEs, scripts, measurements, and the cases that still judge NOT_EQUAL) | |
 
 Two modes per test. In `default` mode both tools get only the sources. In
 `testflags` mode Surelog gets the test's own command line and slang-uhdm gets
@@ -35,17 +35,16 @@ such a copy, and is outside the strict contract, see GOLDEN_EQUIVALENCE.md.
 
 Every exporter rule is a law, `§ name` with the name ending in its pass
 number, named in the source at its sites, in the pass README under
-`tools/probe/<pass>/` and in the landing commit. `tests/LAWS.csv` and
-`tests/LAWS.md` map every law back to its pass, its commits on this
-branch, its source files and switches, its arms under `tests/probe/` and
-`tools/probe/`, and the corpus tests its title and commits name.
-`tests/ARMS.csv` maps every arm under `tests/probe/` to its laws and says
-how the attribution was made: the arm's own text, a README row naming the
-arm, the README section whose heading names a law, or only the pass's law
-set. Anchors are names, never line numbers: `grep -n '§ <law>' src
-include` finds a law's sites at any commit, and a switch is an environment
-variable name. `scripts/law_index.py` generates the three files, and the
-sweep fails when they are stale, so every landing regenerates them.
+`tools/probe/<pass>/` and in the landing commit. `tests/LAWS.md` is the one
+place to look: it maps every law back to its pass, its commits on this
+branch, its source files and switches, the probe cases that exercise it
+under `tests/probe/` and `tools/probe/`, and the corpus tests it names, and
+per pass lists the cases whose law the README or the case itself names.
+`scripts/law_index.py` generates it (`--law <name>` and `--case <dir>` print
+one record), and the sweep fails when it is stale, so every landing
+regenerates it. Anchors are names, never line numbers: `grep -n '§ <law>'
+src include` finds a law's sites at any commit, and a switch is an
+environment variable name.
 
 ## Setup
 
@@ -67,11 +66,11 @@ the other locations the same way.
 
 ## Running
 
-    tests/sweep.sh                     # probe arms, both corpora in both modes, then the downstream gate
-    tests/sweep.sh --corpus probe      # the 2833 probe arms alone (about 15 s once their goldens are cached)
+    tests/sweep.sh                     # probe cases, both corpora in both modes, then the downstream gate
+    tests/sweep.sh --corpus probe      # the 2833 probe cases alone (about 15 s once their goldens are cached)
     tests/sweep.sh --corpus uhdm2rtlil --filter '^ibex'
 
-`tests/sweep.sh` exits 1 when any probe arm is not EQUAL, any corpus row's
+`tests/sweep.sh` exits 1 when any probe case is not EQUAL, any corpus row's
 status moved away from `CMP_EQUAL`, or any downstream verdict is not IDENTICAL
 (or SLANG_REJECT, or the verdict recorded in `results/downstream_uhdm2rtlil.csv`).
 Do not commit on a nonzero exit.
