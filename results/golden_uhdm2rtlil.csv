@@ -19,7 +19,7 @@ always02,default,CMP_EQUAL,,,equal
 always03,default,CMP_EQUAL,,,equal
 anon_struct_packed_dim,default,CMP_EQUAL,,,differ:fullname(49)
 AnonStructs,default,CMP_EQUAL,,,equal
-AnonymousEnum,default,CMP_EQUAL,,,differ:file(6)
+AnonymousEnum,default,CMP_EQUAL,,,equal
 AnonymousUnion,default,CMP_EQUAL,,,equal
 anyconst_attr,default,CMP_EQUAL,,,equal
 anyseq_attr,default,CMP_EQUAL,,,equal
@@ -179,15 +179,15 @@ DivisionOfSize,default,CMP_EQUAL,,,equal
 DotMultirange,default,CMP_EQUAL,,,equal
 DotRange,default,CMP_EQUAL,,,equal
 DpiChandle,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/DpiChandle/dut.sv:12:11: error: invalid operands to binary expression ('chandle' and 'int'),,
-dyn_field_select,default,CMP_EQUAL,,,differ:file(4)
+dyn_field_select,default,CMP_EQUAL,,,differ:fullname(2)
 dyn_packed_multidim,default,CMP_EQUAL,,,equal
 dynslice,default,CMP_EQUAL,,,equal
 empty_port_connection,default,CMP_EQUAL,,,differ:line(1)
 EmptyTask,default,CMP_EQUAL,,,equal
 enum_simple,default,CMP_EQUAL,,,equal
 enum_values,default,CMP_EQUAL,,,equal
-EnumArray,default,CMP_EQUAL,,,differ:file(2)
-EnumArrayListedElements,default,CMP_EQUAL,,,differ:file(2)
+EnumArray,default,CMP_EQUAL,,,equal
+EnumArrayListedElements,default,CMP_EQUAL,,,equal
 EnumBases,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/EnumBases/dut.sv:10:40: error: expression width of 2 does not exactly match declared enum type width ,,
 EnumConcat,default,CMP_EQUAL,,,equal
 EnumConcatenatedConst,default,CMP_EQUAL,,,equal
@@ -264,7 +264,7 @@ FunctionReturnEnum,default,CMP_EQUAL,,,equal
 FunctionWireAssignmentOnDeclaration,default,CMP_EQUAL,,,equal
 FunctionWithoutReturn,default,CMP_EQUAL,,,equal
 FunctionWithOverriddenParameter,default,CMP_EQUAL,,,equal
-gen_scope_numports,default,CMP_EQUAL,,,differ:fullname(21)
+gen_scope_numports,default,CMP_EQUAL,,,differ:fullname(17)
 gen_scope_typaram,default,CMP_EQUAL,,,differ:endcol(9)
 gen_struct_access,default,CMP_EQUAL,,,equal
 gen_test1,default,CMP_EQUAL,,,equal
@@ -340,7 +340,7 @@ iface_array_struct_field,default,CMP_EQUAL,,,equal
 iface_array_struct_whole,default,CMP_EQUAL,,,equal
 iface_cfg_mem,default,CMP_EQUAL,,,differ:col(6)
 iface_cfg_param_def_pass,default,CMP_EQUAL,,,differ:col(2)
-iface_ff_genvar_partsel,default,CMP_EQUAL,,,differ:fullname(2)
+iface_ff_genvar_partsel,default,CMP_EQUAL,,,equal
 iface_field_assign,default,CMP_EQUAL,,,equal
 iface_field_assign_nocol,default,CMP_EQUAL,,,equal
 iface_field_partsel,default,CMP_EQUAL,,,equal
@@ -359,7 +359,7 @@ iface_nested_param_field,default,CMP_EQUAL,,,differ:fullname(7)
 iface_param_2level,default,CMP_EQUAL,,,differ:col(3)
 iface_param_port_width,default,CMP_EQUAL,,,differ:col(3)
 iface_param_set_value,default,CMP_EQUAL,,,equal
-iface_param_width_per_inst,default,CMP_EQUAL,,,differ:fullname(2)
+iface_param_width_per_inst,default,CMP_EQUAL,,,equal
 iface_passthrough,default,CMP_EQUAL,,,equal
 iface_pkg_enum_item,default,CMP_EQUAL,,,equal
 iface_port_localparam,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/iface_port_localparam/dut.sv:28:22: error: top-level module 'iface_port_localparam' has unconnected i,,
@@ -546,7 +546,7 @@ packed_array_reset_loop,default,CMP_EQUAL,,,differ:endline(4)
 packed_array_struct,default,CMP_EQUAL,,,differ:endline(2)
 packed_array_struct_port_sel,default,CMP_EQUAL,,,differ:endcol(9)
 packed_struct_array_fifo,default,CMP_EQUAL,,,differ:endline(2)
-packed_struct_array_net_elem,default,CMP_EQUAL,,,differ:file(2)
+packed_struct_array_net_elem,default,CMP_EQUAL,,,equal
 packed_struct_array_shift,default,CMP_EQUAL,,,differ:fullname(4)
 packed_struct_elem_field,default,CMP_EQUAL,,,equal
 PackedArray,default,CMP_EQUAL,,,equal
@@ -687,7 +687,7 @@ simple_always_ff,default,CMP_EQUAL,,,equal
 simple_always_ifelse,default,CMP_EQUAL,,,equal
 simple_assign,default,CMP_EQUAL,,,equal
 simple_counter,default,CMP_EQUAL,,,equal
-simple_enum,default,CMP_EQUAL,,,differ:file(2)
+simple_enum,default,CMP_EQUAL,,,equal
 simple_forloops,default,CMP_EQUAL,,,equal
 simple_fsm,default,CMP_EQUAL,,,equal
 simple_function,default,CMP_EQUAL,,,equal
@@ -713,7 +713,7 @@ sp_read_first,default,CMP_EQUAL,,,equal
 sp_read_or_write,default,CMP_EQUAL,,,equal
 sp_write_first,default,CMP_EQUAL,,,equal
 stamped_gen_param,default,CMP_NOTEQUAL,decompile:,,
-static_cast_simple,default,CMP_EQUAL,,,differ:endcol(6)
+static_cast_simple,default,CMP_EQUAL,,,equal
 StreamOp,default,CMP_EQUAL,,,equal
 StreamOperatorBitReverseFunction,default,CMP_EQUAL,,,equal
 StreamOpImplicitSliceSize,default,CMP_EQUAL,,,equal
@@ -766,7 +766,7 @@ SumOfParameters,default,CMP_EQUAL,,,equal
 SumOfParametersInNestedForLoops,default,CMP_EQUAL,,,differ:type(1)
 sva_basic00,default,CMP_EQUAL,,,equal
 sva_basic01,default,CMP_EQUAL,,,equal
-sva_basic02,default,CMP_EQUAL,,,differ:endcol(4)
+sva_basic02,default,CMP_EQUAL,,,equal
 sva_basic03,default,CMP_EQUAL,,,equal
 sva_counter,default,CMP_EQUAL,,,differ:file(3)
 sva_not,default,CMP_EQUAL,,,equal
@@ -780,7 +780,7 @@ svinterface1,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/svinter
 svinterface_at_top,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/svinterface_at_top/dut.sv:10:28: error: top-level module 'TopModule' has unconnected interface port ',,
 svtypes_enum_simple,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/svtypes_enum_simple/dut.sv:9:9: error: expected member,,
 svtypes_struct_array,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/svtypes_struct_array/dut.sv:15:21: error: cannot refer to element -1 of 'bit[5:0][7:0]' [-Windex-oob],,
-svtypes_struct_simple,default,CMP_EQUAL,,,differ:endcol(5)
+svtypes_struct_simple,default,CMP_EQUAL,,,differ:fullname(4)
 synthesis,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/synthesis/dut.sv:2:8: error: design element does not have a time scale defined but others in the desi,,
 SystemFunctions,default,CMP_EQUAL,,,equal
 TaskExportDPI,default,CMP_EQUAL,,,equal
@@ -890,7 +890,7 @@ always02,testflags,CMP_EQUAL,,,equal
 always03,testflags,CMP_EQUAL,,,equal
 anon_struct_packed_dim,testflags,CMP_EQUAL,,,differ:fullname(49)
 AnonStructs,testflags,CMP_EQUAL,,,equal
-AnonymousEnum,testflags,CMP_EQUAL,,,differ:file(6)
+AnonymousEnum,testflags,CMP_EQUAL,,,equal
 AnonymousUnion,testflags,CMP_EQUAL,,,equal
 anyconst_attr,testflags,CMP_EQUAL,,,equal
 anyseq_attr,testflags,CMP_EQUAL,,,equal
@@ -1050,15 +1050,15 @@ DivisionOfSize,testflags,CMP_EQUAL,,,equal
 DotMultirange,testflags,CMP_EQUAL,,,equal
 DotRange,testflags,CMP_EQUAL,,,equal
 DpiChandle,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/DpiChandle/dut.sv:12:11: error: invalid operands to binary expression ('chandle' and 'int'),,
-dyn_field_select,testflags,CMP_EQUAL,,,differ:file(4)
+dyn_field_select,testflags,CMP_EQUAL,,,differ:fullname(2)
 dyn_packed_multidim,testflags,CMP_EQUAL,,,equal
 dynslice,testflags,CMP_EQUAL,,,equal
 empty_port_connection,testflags,CMP_EQUAL,,,differ:line(1)
 EmptyTask,testflags,CMP_EQUAL,,,equal
 enum_simple,testflags,CMP_EQUAL,,,equal
 enum_values,testflags,CMP_EQUAL,,,equal
-EnumArray,testflags,CMP_EQUAL,,,differ:file(2)
-EnumArrayListedElements,testflags,CMP_EQUAL,,,differ:file(2)
+EnumArray,testflags,CMP_EQUAL,,,equal
+EnumArrayListedElements,testflags,CMP_EQUAL,,,equal
 EnumBases,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/EnumBases/dut.sv:10:40: error: expression width of 2 does not exactly match declared enum type width ,,
 EnumConcat,testflags,CMP_EQUAL,,,equal
 EnumConcatenatedConst,testflags,CMP_EQUAL,,,equal
@@ -1135,7 +1135,7 @@ FunctionReturnEnum,testflags,CMP_EQUAL,,,equal
 FunctionWireAssignmentOnDeclaration,testflags,CMP_EQUAL,,,equal
 FunctionWithoutReturn,testflags,CMP_EQUAL,,,equal
 FunctionWithOverriddenParameter,testflags,CMP_EQUAL,,,equal
-gen_scope_numports,testflags,CMP_EQUAL,,,differ:fullname(21)
+gen_scope_numports,testflags,CMP_EQUAL,,,differ:fullname(17)
 gen_scope_typaram,testflags,CMP_EQUAL,,,differ:endcol(9)
 gen_struct_access,testflags,CMP_EQUAL,,,equal
 gen_test1,testflags,CMP_EQUAL,,,equal
@@ -1211,7 +1211,7 @@ iface_array_struct_field,testflags,CMP_EQUAL,,,equal
 iface_array_struct_whole,testflags,CMP_EQUAL,,,equal
 iface_cfg_mem,testflags,CMP_EQUAL,,,differ:col(6)
 iface_cfg_param_def_pass,testflags,CMP_EQUAL,,,differ:col(2)
-iface_ff_genvar_partsel,testflags,CMP_EQUAL,,,differ:fullname(2)
+iface_ff_genvar_partsel,testflags,CMP_EQUAL,,,equal
 iface_field_assign,testflags,CMP_EQUAL,,,equal
 iface_field_assign_nocol,testflags,CMP_EQUAL,,,equal
 iface_field_partsel,testflags,CMP_EQUAL,,,equal
@@ -1230,7 +1230,7 @@ iface_nested_param_field,testflags,CMP_EQUAL,,,differ:fullname(7)
 iface_param_2level,testflags,CMP_EQUAL,,,differ:col(3)
 iface_param_port_width,testflags,CMP_EQUAL,,,differ:col(3)
 iface_param_set_value,testflags,CMP_EQUAL,,,equal
-iface_param_width_per_inst,testflags,CMP_EQUAL,,,differ:fullname(2)
+iface_param_width_per_inst,testflags,CMP_EQUAL,,,equal
 iface_passthrough,testflags,CMP_EQUAL,,,equal
 iface_pkg_enum_item,testflags,CMP_EQUAL,,,equal
 iface_port_localparam,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/iface_port_localparam/dut.sv:28:22: error: top-level module 'iface_port_localparam' has unconnected i,,
@@ -1417,7 +1417,7 @@ packed_array_reset_loop,testflags,CMP_EQUAL,,,differ:endline(4)
 packed_array_struct,testflags,CMP_EQUAL,,,differ:endline(2)
 packed_array_struct_port_sel,testflags,CMP_EQUAL,,,differ:endcol(9)
 packed_struct_array_fifo,testflags,CMP_EQUAL,,,differ:endline(2)
-packed_struct_array_net_elem,testflags,CMP_EQUAL,,,differ:file(2)
+packed_struct_array_net_elem,testflags,CMP_EQUAL,,,equal
 packed_struct_array_shift,testflags,CMP_EQUAL,,,differ:fullname(4)
 packed_struct_elem_field,testflags,CMP_EQUAL,,,equal
 PackedArray,testflags,CMP_EQUAL,,,equal
@@ -1558,7 +1558,7 @@ simple_always_ff,testflags,CMP_EQUAL,,,equal
 simple_always_ifelse,testflags,CMP_EQUAL,,,equal
 simple_assign,testflags,CMP_EQUAL,,,equal
 simple_counter,testflags,CMP_EQUAL,,,equal
-simple_enum,testflags,CMP_EQUAL,,,differ:file(2)
+simple_enum,testflags,CMP_EQUAL,,,equal
 simple_forloops,testflags,CMP_EQUAL,,,equal
 simple_fsm,testflags,CMP_EQUAL,,,equal
 simple_function,testflags,CMP_EQUAL,,,equal
@@ -1584,7 +1584,7 @@ sp_read_first,testflags,CMP_EQUAL,,,equal
 sp_read_or_write,testflags,CMP_EQUAL,,,equal
 sp_write_first,testflags,CMP_EQUAL,,,equal
 stamped_gen_param,testflags,CMP_NOTEQUAL,decompile:,,
-static_cast_simple,testflags,CMP_EQUAL,,,differ:endcol(6)
+static_cast_simple,testflags,CMP_EQUAL,,,equal
 StreamOp,testflags,CMP_EQUAL,,,equal
 StreamOperatorBitReverseFunction,testflags,CMP_EQUAL,,,equal
 StreamOpImplicitSliceSize,testflags,CMP_EQUAL,,,equal
@@ -1637,7 +1637,7 @@ SumOfParameters,testflags,CMP_EQUAL,,,equal
 SumOfParametersInNestedForLoops,testflags,CMP_EQUAL,,,differ:type(1)
 sva_basic00,testflags,CMP_EQUAL,,,equal
 sva_basic01,testflags,CMP_EQUAL,,,equal
-sva_basic02,testflags,CMP_EQUAL,,,differ:endcol(4)
+sva_basic02,testflags,CMP_EQUAL,,,equal
 sva_basic03,testflags,CMP_EQUAL,,,equal
 sva_counter,testflags,CMP_EQUAL,,,differ:file(3)
 sva_not,testflags,CMP_EQUAL,,,equal
@@ -1651,7 +1651,7 @@ svinterface1,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/svint
 svinterface_at_top,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/svinterface_at_top/dut.sv:10:28: error: top-level module 'TopModule' has unconnected interface port ',,
 svtypes_enum_simple,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/svtypes_enum_simple/dut.sv:9:9: error: expected member,,
 svtypes_struct_array,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/svtypes_struct_array/dut.sv:15:21: error: cannot refer to element -1 of 'bit[5:0][7:0]' [-Windex-oob],,
-svtypes_struct_simple,testflags,CMP_EQUAL,,,differ:endcol(5)
+svtypes_struct_simple,testflags,CMP_EQUAL,,,differ:fullname(4)
 synthesis,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/synthesis/dut.sv:2:8: error: design element does not have a time scale defined but others in the desi,,
 SystemFunctions,testflags,CMP_EQUAL,,,equal
 TaskExportDPI,testflags,CMP_EQUAL,,,equal

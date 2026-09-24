@@ -233,8 +233,8 @@ ClassParamAsParam,default,CMP_EQUAL,,,differ:endcol(9)
 ClassParamAsParam,testflags,CMP_EQUAL,,,differ:endcol(13)
 ClassScope,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassScope/dut.sv:64:5: error: packed dimensions require a full range specification,,
 ClassScope,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassScope/dut.sv:64:5: error: packed dimensions require a full range specification,,
-ClassTypeParam,default,CMP_EQUAL,,,differ:endline(27)
-ClassTypeParam,testflags,CMP_EQUAL,,,differ:file(40)
+ClassTypeParam,default,CMP_EQUAL,,,differ:endline(26)
+ClassTypeParam,testflags,CMP_EQUAL,,,differ:file(39)
 ClassTypeParamAlias,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassTypeParamAlias/dut.sv:4:18: error: parameter declaration is missing an initializer,,
 ClassTypeParamAlias,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassTypeParamAlias/dut.sv:4:18: error: parameter declaration is missing an initializer,,
 ClassVar,default,CMP_EQUAL,,,differ:file(1)
@@ -577,10 +577,10 @@ GenFor,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenFor/dut.sv:4
 GenFor,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenFor/dut.sv:4:9: error: use of undeclared identifier 'i',,
 GenForDec,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenForDec/dut.sv:4:9: error: use of undeclared identifier 'i',,
 GenForDec,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenForDec/dut.sv:4:9: error: use of undeclared identifier 'i',,
-GenForIfaceLocalparamBound,default,CMP_EQUAL,,,differ:fullname(9)
-GenForIfaceLocalparamBound,testflags,CMP_EQUAL,,,differ:fullname(9)
-GenForIfaceLocalparamNestedGen,default,CMP_EQUAL,,,differ:fullname(13)
-GenForIfaceLocalparamNestedGen,testflags,CMP_EQUAL,,,differ:fullname(13)
+GenForIfaceLocalparamBound,default,CMP_EQUAL,,,differ:endcol(5)
+GenForIfaceLocalparamBound,testflags,CMP_EQUAL,,,differ:endcol(5)
+GenForIfaceLocalparamNestedGen,default,CMP_EQUAL,,,differ:fullname(11)
+GenForIfaceLocalparamNestedGen,testflags,CMP_EQUAL,,,differ:fullname(11)
 GenForStructParamBound,default,CMP_EQUAL,,,differ:fullname(25)
 GenForStructParamBound,testflags,CMP_EQUAL,,,differ:fullname(25)
 GenIf,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIf/dut.sv:9:40: error: use of undeclared identifier 'a',,
@@ -759,8 +759,8 @@ InterfaceUnpackedStructArrayDim,default,CMP_EQUAL,,,equal
 InterfaceUnpackedStructArrayDim,testflags,CMP_EQUAL,,,differ:fullname(2)
 InterfAlways,default,CMP_EQUAL,,,equal
 InterfAlways,testflags,CMP_EQUAL,,,equal
-InterfArrayBind,default,CMP_EQUAL,,,differ:file(5)
-InterfArrayBind,testflags,CMP_EQUAL,,,differ:file(5)
+InterfArrayBind,default,CMP_EQUAL,,,differ:fullname(4)
+InterfArrayBind,testflags,CMP_EQUAL,,,differ:fullname(4)
 InterfBinding,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfBinding/dut.sv:30:32: error: top-level module 'BypassNetwork' has unconnected interface port 'ctr,,
 InterfBinding,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfBinding/dut.sv:30:32: error: top-level module 'BypassNetwork' has unconnected interface port 'ctr,,
 InterfHierPath,default,CMP_EQUAL,,,equal
@@ -769,8 +769,8 @@ InterfImport,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfImp
 InterfImport,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfImport/dut.sv:9:13: error: use of undeclared identifier 'tnoc_packet_config',,
 InterfInst,default,CMP_EQUAL,,,equal
 InterfInst,testflags,CMP_EQUAL,,,differ:fullname(2)
-InterfType,default,CMP_EQUAL,,,differ:fullname(2)
-InterfType,testflags,CMP_EQUAL,,,differ:fullname(2)
+InterfType,default,CMP_EQUAL,,,equal
+InterfType,testflags,CMP_EQUAL,,,equal
 InterfTypeBad,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfTypeBad/dut.sv:15:1: error: 'tnoc_types' is an interface definition but is used like a type,,
 InterfTypeBad,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfTypeBad/dut.sv:15:1: error: 'tnoc_types' is an interface definition but is used like a type,,
 InterpElab1,default,CMP_EQUAL,,,equal
@@ -933,8 +933,8 @@ OneNetModPortGeneric,default,CMP_EQUAL,,,differ:line(2)
 OneNetModPortGeneric,testflags,CMP_EQUAL,,,differ:line(2)
 OneNetNonAnsi,default,CMP_EQUAL,,,equal
 OneNetNonAnsi,testflags,CMP_EQUAL,,,equal
-OneNetRange,default,CMP_EQUAL,,,differ:fullname(2)
-OneNetRange,testflags,CMP_EQUAL,,,differ:fullname(4)
+OneNetRange,default,CMP_EQUAL,,,equal
+OneNetRange,testflags,CMP_EQUAL,,,differ:fullname(2)
 Opentitan,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
 Opentitan,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
 OpTypespec,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/OpTypespec/dut.sv:2:16: error: use of undeclared identifier 'Width',,
@@ -991,8 +991,8 @@ PackedArrayTypespec,default,CMP_EQUAL,,,differ:fullname(4)
 PackedArrayTypespec,testflags,CMP_EQUAL,,,differ:fullname(4)
 PackedEnum,default,CMP_EQUAL,,,equal
 PackedEnum,testflags,CMP_EQUAL,,,equal
-PackedEnumPort,default,CMP_EQUAL,,,differ:file(4)
-PackedEnumPort,testflags,CMP_EQUAL,,,differ:file(4)
+PackedEnumPort,default,CMP_EQUAL,,,differ:name(3)
+PackedEnumPort,testflags,CMP_EQUAL,,,differ:name(3)
 PackedEnumVar,default,CMP_EQUAL,,,equal
 PackedEnumVar,testflags,CMP_EQUAL,,,equal
 PackedUnpackedIo,default,CMP_EQUAL,,,equal
@@ -1231,8 +1231,8 @@ SignedPort2,default,CMP_EQUAL,,,equal
 SignedPort2,testflags,CMP_EQUAL,,,equal
 SignedVsUnsignedPort,default,CMP_EQUAL,,,equal
 SignedVsUnsignedPort,testflags,CMP_EQUAL,,,equal
-SignedWire,default,CMP_EQUAL,,,differ:endcol(1)
-SignedWire,testflags,CMP_EQUAL,,,differ:endcol(1)
+SignedWire,default,CMP_EQUAL,,,equal
+SignedWire,testflags,CMP_EQUAL,,,equal
 SimpleClass,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleClass/top.sv:10:9: error: use of undeclared identifier 'len',,
 SimpleClass,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleClass/top.sv:10:9: error: use of undeclared identifier 'len',,
 SimpleClass1,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleClass1/top.v:13:9: error: duplicate definition of 'uvm_pkg' [-Wduplicate-definition],,
@@ -1287,8 +1287,8 @@ StringRange,default,CMP_EQUAL,,,differ:endcol(2)
 StringRange,testflags,CMP_EQUAL,,,differ:endcol(74)
 StructAccess,default,CMP_EQUAL,,,differ:fullname(9)
 StructAccess,testflags,CMP_EQUAL,,,differ:fullname(10)
-StructArrayNet,default,CMP_EQUAL,,,differ:file(3)
-StructArrayNet,testflags,CMP_EQUAL,,,differ:file(3)
+StructArrayNet,default,CMP_EQUAL,,,differ:fullname(2)
+StructArrayNet,testflags,CMP_EQUAL,,,differ:fullname(2)
 StructNetUnionTypespec,default,CMP_EQUAL,,,equal
 StructNetUnionTypespec,testflags,CMP_EQUAL,,,equal
 StructParamFieldRange,default,CMP_EQUAL,,,differ:endcol(13)
@@ -1519,8 +1519,8 @@ VoidFuncReturn,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/VoidFun
 VoidFuncReturn,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/VoidFuncReturn/dut.sv:5:1: error: value of type 'int' cannot be assigned to type 'void',,
 Wand,default,CMP_EQUAL,,,equal
 Wand,testflags,CMP_EQUAL,,,equal
-WildConn,default,CMP_EQUAL,,,differ:endcol(2)
-WildConn,testflags,CMP_EQUAL,,,differ:endcol(2)
+WildConn,default,CMP_EQUAL,,,equal
+WildConn,testflags,CMP_EQUAL,,,equal
 WireLogicSize,default,CMP_EQUAL,,,equal
 WireLogicSize,testflags,CMP_EQUAL,,,equal
 WireType,default,CMP_EQUAL,,,differ:type(1)
@@ -1563,8 +1563,8 @@ YosysOldAes,default,SLANG_REJECT,error: '	rtl/aes_key_expand_128.v': No such fil
 YosysOldAes,testflags,SLANG_REJECT,error: '	rtl/aes_key_expand_128.v': No such file or directory,,
 YosysOldI2c,default,CMP_EQUAL,,,equal
 YosysOldI2c,testflags,CMP_EQUAL,,,equal
-YosysOldOpen,default,CMP_EQUAL,,,differ:line(19)
-YosysOldOpen,testflags,CMP_EQUAL,,,differ:endcol(6)
+YosysOldOpen,default,CMP_EQUAL,,,differ:line(14)
+YosysOldOpen,testflags,CMP_EQUAL,,,differ:depth(1)
 YosysOldOr,default,CMP_EQUAL,,,differ:line(78)
 YosysOldOr,testflags,CMP_EQUAL,,,differ:line(78)
 YosysOldSasc,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysOldTests/sasc/cache/synth.v:1:8: error: design element does not have a time scale defi,,

@@ -1,0 +1,32 @@
+k02_var_pkg_packed EQUIVALENT nohier il synth NO_GATES NO_GATES ✅ All 1 common constant assignments match
+k03_var_local_bare_packed EQUIVALENT nohier il synth NO_GATES NO_GATES ✅ All 1 common constant assignments match
+k04_var_enum_init EQUIVALENT nohier il synth NO_GATES NO_GATES ✅ All 3 common constant assignments match
+k10_var_local_packed_init EQUIVALENT nohier il synth NO_GATES NO_GATES ✅ All 2 common constant assignments match
+k11_var_local_bare_packed_noinit EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+k12_var_pkg_packed_noassign EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+m01_tab_redef EQUIVALENT nohier il synth NO_GATES NO_GATES ✅ All 2 common constant assignments match
+m03_space_redef EQUIVALENT nohier il synth NO_GATES NO_GATES ✅ All 2 common constant assignments match
+a01_genblk_anon_enum EQUIVALENT nohier il synth NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+a03_enum_typedef_base DIVERGENT nohier il synth NO_GATES NO_GATES ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u130_dsc_P/a
+a04_wire_named_packed DIVERGENT nohier il synth NO_GATES NO_GATES ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u130_dsc_P/a
+a06_typeparam_packed DIVERGENT nohier il synth NO_GATES NO_GATES ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u130_dsc_P/a
+a09_nonansi_port_enum EQUIVALENT nohier il synth OK OK ✅ Formal equivalence check PASSED for /tmp/v11u130_dsc_P/a09_nonansi_port_enum/e
+a13_wire_named_2d DIVERGENT nohier il synth NO_GATES NO_GATES ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u130_dsc_P/a
+a14_local_bare_2d_wire DIVERGENT nohier il synth NO_GATES NO_GATES ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u130_dsc_P/a
+d01_iface_union EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+d03_iface_struct_init EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+e01_wild_iface_port STATUS_DIFF  OK READ_FAIL 
+f01_pv_array_port STATUS_DIFF  READ_FAIL NO_GATES 
+g02_clsarg_genblk EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+h09_redef_macro_arg EQUIVALENT nohier il synth NO_GATES NO_GATES ✅ All 2 common constant assignments match
+n01_pkg_anon_enum IDENTICAL  NO_GATES NO_GATES 
+n02_unit_anon_enum IDENTICAL  NO_GATES NO_GATES 
+n03_anon_enum_attr IDENTICAL  NO_GATES NO_GATES 
+n04_static_anon_enum IDENTICAL  NO_GATES NO_GATES 
+n05_const_enum_init IDENTICAL  NO_GATES NO_GATES 
+n06_signed_two_init IDENTICAL  NO_GATES NO_GATES 
+n07_pv_modport_at_conn IDENTICAL  NO_GATES NO_GATES 
+n08_pv_two_instances IDENTICAL  NO_GATES NO_GATES 
+n09_pv_iface_in_iface_port IDENTICAL  NO_GATES NO_GATES 
+n10_wild_nested_gen_two IDENTICAL  OK OK 
+n11_wild_struct_port IDENTICAL  NO_GATES NO_GATES 

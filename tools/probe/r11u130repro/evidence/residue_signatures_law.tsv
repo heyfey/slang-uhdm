@@ -1,0 +1,716 @@
+surelog	AllPackageSignal	testflags	
+surelog	ApbSlave	default	(diverged) REDEFLINE/INCNOTEXT
+surelog	ApbSlave	testflags	(diverged) REDEFLINE/INCNOTEXT
+surelog	ArrayExprFuncArg	testflags	
+surelog	ArrayMethodIterator	default	REDEFLINE/INCNOTEXT
+surelog	ArrayMethodIterator	testflags	REDEFLINE/INCNOTEXT
+surelog	ArrayVarName	testflags	
+surelog	AssertDelayError	default	CLSARGNET REDEFLINE/INCNOTEXT
+surelog	AssertDelayError	testflags	CLSARGNET REDEFLINE/INCNOTEXT
+surelog	AssertTempError	default	CLSARGNET
+surelog	AssertTempError	testflags	CLSARGNET
+surelog	AssignmentPatternInAssignmentPattern	default	
+surelog	AssignmentPatternInAssignmentPattern	testflags	
+surelog	BasicOh	default	
+surelog	BasicOh	testflags	
+surelog	BitComplex	default	
+surelog	BitComplex	testflags	
+surelog	BitsArray	default	
+surelog	BitsArray	testflags	
+surelog	BitsHierPath	default	
+surelog	BitsHierPath	testflags	
+surelog	BitsLogic	default	
+surelog	BitsLogic	testflags	
+surelog	BlackBePipeInt	default	(diverged)
+surelog	BlackBePipeInt	testflags	(diverged)
+surelog	BlackConst	default	REDEFLINE/INCNOTEXT
+surelog	BlackConst	testflags	REDEFLINE/INCNOTEXT
+surelog	BlackParrotComplex	default	(diverged)
+surelog	BlackParrotComplex	testflags	(diverged)
+surelog	BlackParrotSkipParam	default	
+surelog	BlackParrotSkipParam	testflags	
+surelog	BuildUVMPkg	default	(diverged) REDEFLINE/INCNOTEXT
+surelog	BuildUVMPkg	testflags	(diverged) REDEFLINE/INCNOTEXT
+surelog	CarryAdd	testflags	
+surelog	CheckerInst	default	CLSARGNET
+surelog	CheckerInst	testflags	CLSARGNET
+surelog	ClassMini	default	
+surelog	ClassMini	testflags	
+surelog	ClassParamAsParam	default	
+surelog	ClassParamAsParam	testflags	
+surelog	ClassTypeParam	default	
+surelog	ClassTypeParam	testflags	
+surelog	ClassVar	default	
+surelog	ClassVar	testflags	
+surelog	ClogParam	testflags	
+surelog	ComplexExprSize	default	
+surelog	ComplexExprSize	testflags	
+surelog	ComplexHierPath	default	(diverged) REDEFLINE/INCNOTEXT
+surelog	ComplexHierPath	testflags	(diverged) REDEFLINE/INCNOTEXT
+surelog	ComplexParamOverload	default	(diverged)
+surelog	ComplexParamOverload	testflags	(diverged)
+surelog	Connection	default	
+surelog	Connection	testflags	
+surelog	CovMacro	default	
+surelog	CovMacro	testflags	
+surelog	CrossFunc	default	
+surelog	CrossFunc	testflags	
+surelog	DecValue	default	
+surelog	DefaultPatternAssign	default	
+surelog	DefaultPatternAssign	testflags	
+surelog	DefaultPatternInt	default	(diverged)
+surelog	DefaultPatternInt	testflags	(diverged)
+surelog	DefaultPatternModule	default	(diverged)
+surelog	DefaultPatternModule	testflags	(diverged)
+surelog	DelayAssign	default	(diverged)
+surelog	DelayAssign	testflags	
+surelog	Disable	default	CLSARGNET
+surelog	Disable	testflags	CLSARGNET
+surelog	DollarBits	testflags	
+surelog	Earlgrey_0_1	default	(diverged) REDEFLINE/INCNOTEXT
+surelog	Earlgrey_0_1	testflags	(diverged) REDEFLINE/INCNOTEXT
+surelog	EarlgreyPackParam	default	
+surelog	EarlgreyPackParam	testflags	
+surelog	ElabCParam	default	
+surelog	ElabCParam	testflags	
+surelog	EmptyAssign	testflags	
+surelog	EnumVar	default	
+surelog	EnumVar	testflags	
+surelog	EvalFunc	default	
+surelog	EvalFunc	testflags	
+surelog	EvalFuncNamed	default	
+surelog	EvalFuncNamed	testflags	
+surelog	ExplictiPorts	default	(diverged) REDEFLINE/INCNOTEXT
+surelog	ExplictiPorts	testflags	REDEFLINE/INCNOTEXT
+surelog	FileList	testflags	
+surelog	ForeachArray	default	CLSARGNET
+surelog	ForeachArray	testflags	CLSARGNET
+surelog	ForeachFunction	testflags	
+surelog	ForeachSquare	default	CLSARGNET
+surelog	ForeachSquare	testflags	CLSARGNET
+surelog	FuncCase	default	
+surelog	FuncCase	testflags	
+surelog	FuncIoTypespec	default	CLSARGNET
+surelog	FuncIoTypespec	testflags	CLSARGNET
+surelog	FuncParam	testflags	
+surelog	FuncRetArray	testflags	
+surelog	FuncStruct	testflags	
+surelog	FuncStructVal	default	(diverged) REDEFLINE/INCNOTEXT WILDSPAN
+surelog	FuncStructVal	testflags	(diverged) REDEFLINE/INCNOTEXT WILDSPAN
+surelog	FuncStructValSimple	default	(diverged) REDEFLINE/INCNOTEXT
+surelog	FuncStructValSimple	testflags	(diverged) REDEFLINE/INCNOTEXT
+surelog	GenCase	default	REDEFLINE/INCNOTEXT
+surelog	GenCase	testflags	REDEFLINE/INCNOTEXT
+surelog	GenCaseStmt	default	
+surelog	GenCaseStmt	testflags	
+surelog	GenerateUnnamed	default	REDEFLINE/INCNOTEXT
+surelog	GenerateUnnamed	testflags	REDEFLINE/INCNOTEXT
+surelog	GenForIfaceLocalparamBound	default	
+surelog	GenForIfaceLocalparamBound	testflags	
+surelog	GenForIfaceLocalparamNestedGen	default	
+surelog	GenForIfaceLocalparamNestedGen	testflags	
+surelog	GenForStructParamBound	default	REDEFLINE/INCNOTEXT
+surelog	GenForStructParamBound	testflags	REDEFLINE/INCNOTEXT
+surelog	GenIfIfaceParamStructField	default	
+surelog	GenIfIfaceParamStructField	testflags	
+surelog	GenScopeHierPath	default	
+surelog	GenScopeHierPath	testflags	
+surelog	GenScopeHierPath3	testflags	
+surelog	HierPathOverride	default	(diverged) REDEFLINE/INCNOTEXT
+surelog	HierPathOverride	testflags	(diverged) REDEFLINE/INCNOTEXT
+surelog	HierPathStruct	testflags	
+surelog	HierPathStructTypespec	default	
+surelog	HierPathStructTypespec	testflags	
+surelog	HierPathTypespec	default	
+surelog	HierPathTypespec	testflags	
+surelog	HierPathUnpacked	default	
+surelog	HierPathUnpacked	testflags	
+surelog	HierPathVarArray	default	(diverged)
+surelog	HierPathVarArray	testflags	(diverged)
+surelog	HighLow	default	REDEFLINE/INCNOTEXT
+surelog	HighLow	testflags	REDEFLINE/INCNOTEXT
+surelog	IfGenTypeBinding	default	SUSIGN/IFSUKW
+surelog	IfGenTypeBinding	testflags	SUSIGN/IFSUKW
+surelog	ImplicitArg	default	
+surelog	ImplicitArg	testflags	
+surelog	ImplicitPackedStructNet	testflags	
+surelog	ImportBinding	default	
+surelog	ImportBinding	testflags	
+surelog	ImportedTypespec	default	
+surelog	ImportedTypespec	testflags	
+surelog	IndexAssign	default	
+surelog	IndexAssign	testflags	
+surelog	IndexedSelectHex	default	
+surelog	IndexedSelectHex	testflags	
+surelog	IntegerConcat	default	
+surelog	IntegerConcat	testflags	
+surelog	InterfaceModPort	default	(diverged) NETSIGN
+surelog	InterfaceModPort	testflags	(diverged) NETSIGN
+surelog	InterfaceParamOverrideProp	testflags	
+surelog	InterfaceStructMemberPort	default	
+surelog	InterfaceStructMemberPort	testflags	
+surelog	InterfaceUnpackedStructArrayDim	testflags	
+surelog	InterfArrayBind	default	
+surelog	InterfArrayBind	testflags	
+surelog	InterfInst	testflags	
+surelog	IOClassStruct	default	
+surelog	IOClassStruct	testflags	
+surelog	JKFlipflop	testflags	
+surelog	Kmac	default	(diverged)
+surelog	Kmac	testflags	(diverged)
+surelog	LargeHex	default	
+surelog	LargeHex	testflags	
+surelog	LargeHexCast	default	
+surelog	LargeHexCast	testflags	
+surelog	LargeValue2Struct	default	
+surelog	LargeValue2Struct	testflags	
+surelog	LocalScopeHierPath	default	
+surelog	LocalScopeHierPath	testflags	
+surelog	LogicArrayParam	default	
+surelog	LogicArrayParam	testflags	
+surelog	LogicTypedef	default	(diverged)
+surelog	LogicTypedef	testflags	(diverged)
+surelog	LogicTypespec	default	(diverged) NETSIGN REDEFLINE/INCNOTEXT
+surelog	LogicTypespec	testflags	(diverged) NETSIGN REDEFLINE/INCNOTEXT
+surelog	LongHex	default	
+surelog	LongHex	testflags	
+surelog	LoopVar	default	CLSARGNET
+surelog	LoopVar	testflags	CLSARGNET
+surelog	MacroArgMismatch	default	
+surelog	MacroArgMismatch	testflags	
+surelog	MiniAmiq	default	(diverged)
+surelog	MiniAmiq	testflags	(diverged)
+surelog	Moves	default	(diverged)
+surelog	MultiConcatValueSize	default	
+surelog	MultiConcatValueSize	testflags	
+surelog	NonSynthError	default	
+surelog	NonSynthError	testflags	
+surelog	NoParamSubs	testflags	
+surelog	NoReducTypespec	default	
+surelog	NoReducTypespec	testflags	
+surelog	OneDivider	default	CLSARGNET
+surelog	OneDivider	testflags	CLSARGNET
+surelog	OneImport	default	
+surelog	OneImport	testflags	
+surelog	OneNetInterf	testflags	
+surelog	OneNetModPort	default	(diverged)
+surelog	OneNetModPort	testflags	(diverged)
+surelog	OneNetModPortGeneric	default	(diverged) REDEFLINE/INCNOTEXT
+surelog	OneNetModPortGeneric	testflags	(diverged) REDEFLINE/INCNOTEXT
+surelog	OneNetRange	testflags	
+surelog	PackageMemberTypespec	default	
+surelog	PackageMemberTypespec	testflags	
+surelog	PackageNet	default	
+surelog	PackageNet	testflags	
+surelog	PackageParamConst	default	
+surelog	PackDataType	default	
+surelog	PackDataType	testflags	
+surelog	PackedArrayEnum	default	
+surelog	PackedArrayEnum	testflags	
+surelog	PackedArrayHighConn	default	
+surelog	PackedArrayHighConn	testflags	
+surelog	PackedArrayTypespec	default	
+surelog	PackedArrayTypespec	testflags	
+surelog	PackedEnumPort	default	(diverged)
+surelog	PackedEnumPort	testflags	(diverged)
+surelog	PackStructField	default	(diverged) REDEFLINE/INCNOTEXT
+surelog	PackStructField	testflags	
+surelog	PackStructVar	default	
+surelog	PackStructVar	testflags	
+surelog	ParamArrayUnsizedPattern	default	(diverged)
+surelog	ParamArrayUnsizedPattern	testflags	(diverged)
+surelog	ParamByValue	default	
+surelog	ParamByValue	testflags	
+surelog	ParamCast	default	
+surelog	ParamCast	testflags	
+surelog	ParamConst	default	
+surelog	ParamConst	testflags	
+surelog	ParamConstPush	default	
+surelog	ParamConstPush	testflags	
+surelog	ParamElabMulti	default	
+surelog	ParamElabMulti	testflags	
+surelog	ParamFromPackage	default	(diverged) REDEFLINE/INCNOTEXT
+surelog	ParamFromPackage	testflags	(diverged) REDEFLINE/INCNOTEXT
+surelog	ParamMultiConcat	default	
+surelog	ParamMultiConcat	testflags	
+surelog	ParamNoImport	default	
+surelog	ParamNoImport	testflags	
+surelog	ParamNoSubst	default	
+surelog	ParamNoSubst	testflags	
+surelog	ParamOverload2	default	
+surelog	ParamOverload2	testflags	
+surelog	ParamRef	default	
+surelog	ParamRef	testflags	
+surelog	ParamScope	default	
+surelog	ParamScope	testflags	
+surelog	ParamTypespec	default	
+surelog	ParamTypespec	testflags	
+surelog	ParamTypespec2	default	
+surelog	ParamTypespec2	testflags	
+surelog	PartSelect4	default	
+surelog	PartSelect4	testflags	
+surelog	PartSelectNoParent	default	
+surelog	PartSelectNoParent	testflags	
+surelog	PAssignType	default	
+surelog	PAssignType	testflags	
+surelog	PatternOrder	default	
+surelog	PatternOrder	testflags	
+surelog	PortByName	testflags	
+surelog	PortExpr	default	(diverged) REDEFLINE/INCNOTEXT WILDSPAN
+surelog	PortExpr	testflags	(diverged) REDEFLINE/INCNOTEXT WILDSPAN
+surelog	PortInitVal	default	REDEFLINE/INCNOTEXT
+surelog	PortInitVal2	default	REDEFLINE/INCNOTEXT
+surelog	PortInitVal2	testflags	REDEFLINE/INCNOTEXT
+surelog	PreprocTest	default	
+surelog	PreprocTest	testflags	
+surelog	RangeSelect	default	SUSIGN/IFSUKW
+surelog	RangeSelect	testflags	SUSIGN/IFSUKW
+surelog	Rggen	default	(diverged) REDEFLINE/INCNOTEXT
+surelog	Scoreboard	default	(diverged)
+surelog	Scr1SvTests	default	(diverged) NETSIGN
+surelog	Scr1SvTests	testflags	(diverged) NETSIGN
+surelog	SelectHierPath	default	
+surelog	SelectHierPath	testflags	
+surelog	SeqDriver	default	(diverged)
+surelog	SeqDriver	testflags	(diverged)
+surelog	SequenceInst	default	CLSARGNET
+surelog	SequenceInst	testflags	CLSARGNET
+surelog	SignedBin	default	
+surelog	SignedBin	testflags	
+surelog	SimpleConstraint	default	
+surelog	SimpleConstraint	testflags	
+surelog	SimpleUVM	default	(diverged)
+surelog	SimpleUVM	testflags	(diverged)
+surelog	StringMethod	default	(diverged) REDEFLINE/INCNOTEXT
+surelog	StringMethod	testflags	(diverged) REDEFLINE/INCNOTEXT
+surelog	StringRange	default	
+surelog	StringRange	testflags	
+surelog	StructAccess	default	
+surelog	StructAccess	testflags	
+surelog	StructArrayNet	default	
+surelog	StructArrayNet	testflags	
+surelog	StructParamFieldRange	default	(diverged) REDEFLINE/INCNOTEXT SUSIGN/IFSUKW
+surelog	StructParamFieldRange	testflags	(diverged) REDEFLINE/INCNOTEXT SUSIGN/IFSUKW
+surelog	StructParamFuncBodyFieldCompare	default	(diverged)
+surelog	StructParamFuncBodyFieldCompare	testflags	(diverged)
+surelog	StructParamPatternInitCast	default	(diverged)
+surelog	StructParamPatternInitCast	testflags	(diverged)
+surelog	StructUnsizedVal	default	(diverged) REDEFLINE/INCNOTEXT
+surelog	StructUnsizedVal	testflags	(diverged) REDEFLINE/INCNOTEXT
+surelog	SVSwitch	default	(diverged) CLSARGNET NETSIGN
+surelog	SVSwitch	testflags	(diverged) CLSARGNET NETSIGN
+surelog	SynthForeach	default	CLSARGNET
+surelog	SynthForeach	testflags	CLSARGNET
+surelog	TaggedPattern	default	SUSIGN/IFSUKW
+surelog	TaggedPattern	testflags	SUSIGN/IFSUKW
+surelog	TypedefPack	default	
+surelog	TypedefPack	testflags	
+surelog	TypedefRange	default	
+surelog	TypedefRange	testflags	
+surelog	TypedefUnpacked	default	(diverged)
+surelog	TypedefUnpacked	testflags	(diverged)
+surelog	TypeParam	default	(diverged) REDEFLINE/INCNOTEXT
+surelog	TypeParam	testflags	(diverged) REDEFLINE/INCNOTEXT
+surelog	TypeParamElab	default	SUSIGN/IFSUKW
+surelog	TypeParamElab	testflags	SUSIGN/IFSUKW
+surelog	TypeParamOverride	default	REDEFLINE/INCNOTEXT
+surelog	TypeParamOverride	testflags	REDEFLINE/INCNOTEXT
+surelog	TypespecExpr	testflags	
+surelog	UnionCast	default	
+surelog	UnionCast	testflags	
+surelog	UnitElabBlock	default	CLSARGNET NETSIGN
+surelog	UnitElabBlock	testflags	CLSARGNET NETSIGN
+surelog	UnpackedTypespec	default	
+surelog	UnpackedTypespec	testflags	
+surelog	UnpackPort	default	REDEFLINE/INCNOTEXT
+surelog	UnpackPort	testflags	REDEFLINE/INCNOTEXT
+surelog	UnsizedFunc	testflags	
+surelog	UnsizedParam	default	
+surelog	UnsizedParam	testflags	
+surelog	UnsupportedTypespecRange	default	
+surelog	UnsupportedTypespecRange	testflags	
+surelog	VarRangeTypedef	default	
+surelog	VarRangeTypedef	testflags	
+surelog	VarType	default	
+surelog	VarType	testflags	
+surelog	WireType	default	(diverged)
+surelog	WireType	testflags	(diverged)
+surelog	YosysBigSimEllip	default	(diverged)
+surelog	YosysBigSimReed	default	(diverged) REDEFLINE/INCNOTEXT
+surelog	YosysBigSimReed	testflags	(diverged) REDEFLINE/INCNOTEXT
+surelog	YosysMarlann	default	
+surelog	YosysMarlann	testflags	
+surelog	YosysOldOpen	default	(diverged) INCNOTEXT
+surelog	YosysOldOpen	testflags	(diverged)
+surelog	YosysOldOr	default	(diverged) NETSIGN REDEFLINE/INCNOTEXT
+surelog	YosysOldOr	testflags	(diverged) NETSIGN REDEFLINE/INCNOTEXT
+surelog	YosysOldSimpleSpi	default	(diverged)
+surelog	YosysOldSimpleSpi	testflags	(diverged)
+surelog	YosysOldSpi	default	
+surelog	YosysOldSpi	testflags	
+surelog	YosysRiscv	default	(diverged)
+surelog	YosysRiscv	testflags	(diverged)
+uhdm2rtlil	2DParameterOfInstance	default	
+uhdm2rtlil	2DParameterOfInstance	testflags	
+uhdm2rtlil	anon_struct_packed_dim	default	
+uhdm2rtlil	anon_struct_packed_dim	testflags	
+uhdm2rtlil	arb_idx_cast	default	(diverged) NETSIGN REDEFLINE/INCNOTEXT
+uhdm2rtlil	arb_idx_cast	testflags	(diverged) NETSIGN REDEFLINE/INCNOTEXT
+uhdm2rtlil	array_assign	default	(diverged)
+uhdm2rtlil	array_assign	testflags	(diverged)
+uhdm2rtlil	assert_wide_const_cond	default	
+uhdm2rtlil	assert_wide_const_cond	testflags	
+uhdm2rtlil	AssignBitsCallToSubmoduleParameter	default	
+uhdm2rtlil	AssignBitsCallToSubmoduleParameter	testflags	
+uhdm2rtlil	bits_of_type_param	default	
+uhdm2rtlil	bits_of_type_param	testflags	
+uhdm2rtlil	BitsCallOnParametetrizedTypeFromPackage	default	
+uhdm2rtlil	BitsCallOnParametetrizedTypeFromPackage	testflags	
+uhdm2rtlil	BitSelectOfParameterPassedToSubmodule	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	BitSelectOfParameterPassedToSubmodule	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	BitSelectOfParameterPassedToSubmoduleInGenFor	default	
+uhdm2rtlil	BitSelectOfParameterPassedToSubmoduleInGenFor	testflags	
+uhdm2rtlil	BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule	default	
+uhdm2rtlil	BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule	testflags	
+uhdm2rtlil	cdc_static_basic	default	
+uhdm2rtlil	cdc_static_basic	testflags	
+uhdm2rtlil	cfg_func_width_loop	default	(diverged)
+uhdm2rtlil	cfg_func_width_loop	testflags	(diverged)
+uhdm2rtlil	Clog2OfSumWithParameterIn2InstancesOfSubmodule	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	Clog2OfSumWithParameterIn2InstancesOfSubmodule	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	comb_dyn_2d_packed_sel	default	(diverged)
+uhdm2rtlil	comb_dyn_2d_packed_sel	testflags	(diverged)
+uhdm2rtlil	const_cast_signext	default	(diverged)
+uhdm2rtlil	const_cast_signext	testflags	(diverged)
+uhdm2rtlil	const_func	default	
+uhdm2rtlil	const_func	testflags	
+uhdm2rtlil	const_func_block_var	default	CLSARGNET
+uhdm2rtlil	const_func_block_var	testflags	CLSARGNET
+uhdm2rtlil	cs_registers	default	
+uhdm2rtlil	cs_registers	testflags	
+uhdm2rtlil	cva6_struct_param_field	default	(diverged) REDEFLINE/INCNOTEXT SUSIGN/IFSUKW
+uhdm2rtlil	cva6_struct_param_field	testflags	(diverged) REDEFLINE/INCNOTEXT SUSIGN/IFSUKW
+uhdm2rtlil	def_ctx_struct_param	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	def_ctx_struct_param	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	dff_different_styles	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	dff_different_styles	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	Disable	default	CLSARGNET
+uhdm2rtlil	Disable	testflags	CLSARGNET
+uhdm2rtlil	DivisionOfSize	default	
+uhdm2rtlil	DivisionOfSize	testflags	
+uhdm2rtlil	dyn_field_select	default	
+uhdm2rtlil	dyn_field_select	testflags	
+uhdm2rtlil	empty_port_connection	default	REDEFLINE/INCNOTEXT
+uhdm2rtlil	empty_port_connection	testflags	REDEFLINE/INCNOTEXT
+uhdm2rtlil	EnumInPackage	default	
+uhdm2rtlil	EnumInPackage	testflags	
+uhdm2rtlil	expr_width_cast	default	
+uhdm2rtlil	expr_width_cast	testflags	
+uhdm2rtlil	fail_detect_width	default	
+uhdm2rtlil	fail_detect_width	testflags	
+uhdm2rtlil	ff_dead_both_branches	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ff_dead_both_branches	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ff_dead_guarded_reset	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ff_dead_guarded_reset	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	FileLevelUnionWithMultirange	default	
+uhdm2rtlil	FileLevelUnionWithMultirange	testflags	
+uhdm2rtlil	func_local_array	default	(diverged)
+uhdm2rtlil	func_local_array	testflags	(diverged)
+uhdm2rtlil	func_local_compound_xor	default	
+uhdm2rtlil	func_local_compound_xor	testflags	
+uhdm2rtlil	func_typename_ret	default	(diverged)
+uhdm2rtlil	func_typename_ret	testflags	(diverged)
+uhdm2rtlil	FunctionParam	default	(diverged)
+uhdm2rtlil	FunctionParam	testflags	(diverged)
+uhdm2rtlil	gen_scope_numports	default	
+uhdm2rtlil	gen_scope_numports	testflags	
+uhdm2rtlil	gen_scope_typaram	default	SUSIGN/IFSUKW
+uhdm2rtlil	gen_scope_typaram	testflags	SUSIGN/IFSUKW
+uhdm2rtlil	genscope_module_ctx_reset	default	
+uhdm2rtlil	genscope_module_ctx_reset	testflags	
+uhdm2rtlil	genvar_iface_struct	default	
+uhdm2rtlil	genvar_iface_struct	testflags	
+uhdm2rtlil	ibex_alu	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_alu	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_branch_predict	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_branch_predict	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_compressed_decoder	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_compressed_decoder	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_counter	default	
+uhdm2rtlil	ibex_counter	testflags	
+uhdm2rtlil	ibex_csr	default	REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_csr	testflags	REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_decoder	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_decoder	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_fetch_fifo	default	REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_fetch_fifo	testflags	REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_icache	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_icache	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_load_store_unit	default	REDEFLINE/INCNOTEXT WILDSPAN
+uhdm2rtlil	ibex_load_store_unit	testflags	REDEFLINE/INCNOTEXT WILDSPAN
+uhdm2rtlil	ibex_multdiv_fast	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_multdiv_fast	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_multdiv_slow	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_multdiv_slow	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_pmp	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_pmp	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_register_file_ff	default	
+uhdm2rtlil	ibex_register_file_ff	testflags	
+uhdm2rtlil	ibex_tracer	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_tracer	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_wb_stage	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ibex_wb_stage	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	iface_arr_struct_field_partsel	default	
+uhdm2rtlil	iface_arr_struct_field_partsel	testflags	
+uhdm2rtlil	iface_array_elem_cfg_param	default	
+uhdm2rtlil	iface_array_elem_cfg_param	testflags	
+uhdm2rtlil	iface_array_modport_drive	default	
+uhdm2rtlil	iface_array_modport_drive	testflags	
+uhdm2rtlil	iface_cfg_mem	default	
+uhdm2rtlil	iface_cfg_mem	testflags	
+uhdm2rtlil	iface_cfg_param_def_pass	default	
+uhdm2rtlil	iface_cfg_param_def_pass	testflags	
+uhdm2rtlil	iface_nested_param_field	default	
+uhdm2rtlil	iface_nested_param_field	testflags	
+uhdm2rtlil	iface_param_2level	default	
+uhdm2rtlil	iface_param_2level	testflags	
+uhdm2rtlil	iface_param_port_width	default	PVPARAM
+uhdm2rtlil	iface_param_port_width	testflags	PVPARAM
+uhdm2rtlil	iface_scalar_localparam	default	
+uhdm2rtlil	iface_scalar_localparam	testflags	
+uhdm2rtlil	iface_sig_in_child_port	default	
+uhdm2rtlil	iface_sig_in_child_port	testflags	
+uhdm2rtlil	iface_struct_field_param_width	default	
+uhdm2rtlil	iface_struct_field_param_width	testflags	
+uhdm2rtlil	iface_struct_field_partsel	default	
+uhdm2rtlil	iface_struct_field_partsel	testflags	
+uhdm2rtlil	iface_zero_width_field	default	
+uhdm2rtlil	iface_zero_width_field	testflags	
+uhdm2rtlil	ImportedDoubleCastedParameter	default	
+uhdm2rtlil	ImportedDoubleCastedParameter	testflags	
+uhdm2rtlil	ImportedEnumCast	default	
+uhdm2rtlil	ImportedEnumCast	testflags	
+uhdm2rtlil	ImportedParameter	default	
+uhdm2rtlil	ImportedParameter	testflags	
+uhdm2rtlil	IndexedPartSelectInFor	default	
+uhdm2rtlil	IndexedPartSelectInFor	testflags	
+uhdm2rtlil	int_types	default	NETSIGN
+uhdm2rtlil	int_types	testflags	NETSIGN
+uhdm2rtlil	interface_array	default	(diverged) PVPARAM
+uhdm2rtlil	interface_array	testflags	(diverged) PVPARAM
+uhdm2rtlil	interface_array_fanout	default	(diverged) PVPARAM
+uhdm2rtlil	interface_array_fanout	testflags	(diverged) PVPARAM
+uhdm2rtlil	jeras_tcb_gpio	default	
+uhdm2rtlil	jeras_tcb_gpio	testflags	
+uhdm2rtlil	jeras_union	default	(diverged)
+uhdm2rtlil	jeras_union	testflags	(diverged)
+uhdm2rtlil	latch_decoder_partial	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	latch_decoder_partial	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	latch_fifo_dynfield	default	SUSIGN/IFSUKW
+uhdm2rtlil	latch_fifo_dynfield	testflags	SUSIGN/IFSUKW
+uhdm2rtlil	latch_packed_dyn_write	default	
+uhdm2rtlil	latch_packed_dyn_write	testflags	
+uhdm2rtlil	latch_tlb_napot	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	latch_tlb_napot	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	LocalParamInNestedForLoops	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	LocalParamInNestedForLoops	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	mem_ff_partial_rsp	default	
+uhdm2rtlil	mem_ff_partial_rsp	testflags	
+uhdm2rtlil	mem_packed_2d_byte_write	default	
+uhdm2rtlil	mem_packed_2d_byte_write	testflags	
+uhdm2rtlil	mem_read_reg	default	(diverged)
+uhdm2rtlil	mem_read_reg	testflags	(diverged)
+uhdm2rtlil	mriscv_bind_sva	default	CLSARGNET
+uhdm2rtlil	mriscv_bind_sva	testflags	CLSARGNET
+uhdm2rtlil	multiplier	default	
+uhdm2rtlil	multiplier	testflags	
+uhdm2rtlil	MultirangesStartNotFromZero	default	
+uhdm2rtlil	MultirangesStartNotFromZero	testflags	
+uhdm2rtlil	NestedStructArrayParameterInitializedByPatternPassedAsPort	default	(diverged)
+uhdm2rtlil	NestedStructArrayParameterInitializedByPatternPassedAsPort	testflags	(diverged)
+uhdm2rtlil	net_types	default	(diverged)
+uhdm2rtlil	net_types	testflags	(diverged)
+uhdm2rtlil	OneImport	default	
+uhdm2rtlil	OneImport	testflags	
+uhdm2rtlil	OneNetModport	default	
+uhdm2rtlil	OneNetModport	testflags	
+uhdm2rtlil	OutputSizeWithParameterOfInstanceInitializedByStructMember	default	REDEFLINE/INCNOTEXT
+uhdm2rtlil	OutputSizeWithParameterOfInstanceInitializedByStructMember	testflags	REDEFLINE/INCNOTEXT
+uhdm2rtlil	PackageCast	default	
+uhdm2rtlil	PackageCast	testflags	
+uhdm2rtlil	packed_array_reset_loop	default	(diverged) NETSIGN REDEFLINE/INCNOTEXT
+uhdm2rtlil	packed_array_reset_loop	testflags	(diverged) NETSIGN REDEFLINE/INCNOTEXT
+uhdm2rtlil	packed_array_struct	default	(diverged) REDEFLINE/INCNOTEXT SUSIGN/IFSUKW
+uhdm2rtlil	packed_array_struct	testflags	(diverged) REDEFLINE/INCNOTEXT SUSIGN/IFSUKW
+uhdm2rtlil	packed_array_struct_port_sel	default	SUSIGN/IFSUKW
+uhdm2rtlil	packed_array_struct_port_sel	testflags	SUSIGN/IFSUKW
+uhdm2rtlil	packed_struct_array_fifo	default	(diverged) REDEFLINE/INCNOTEXT SUSIGN/IFSUKW
+uhdm2rtlil	packed_struct_array_fifo	testflags	(diverged) REDEFLINE/INCNOTEXT SUSIGN/IFSUKW
+uhdm2rtlil	packed_struct_array_shift	default	
+uhdm2rtlil	packed_struct_array_shift	testflags	
+uhdm2rtlil	param_array_wildcard	default	
+uhdm2rtlil	param_array_wildcard	testflags	
+uhdm2rtlil	param_name_collision_typeparam	default	
+uhdm2rtlil	param_name_collision_typeparam	testflags	
+uhdm2rtlil	param_nested_struct_field_width	default	(diverged)
+uhdm2rtlil	param_nested_struct_field_width	testflags	(diverged)
+uhdm2rtlil	param_struct_field_bitsel	default	(diverged)
+uhdm2rtlil	param_struct_field_bitsel	testflags	(diverged)
+uhdm2rtlil	param_type_logic_width	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	param_type_logic_width	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	param_unpacked_struct_array	default	(diverged)
+uhdm2rtlil	param_unpacked_struct_array	testflags	(diverged)
+uhdm2rtlil	ParameterColonReference	default	
+uhdm2rtlil	ParameterColonReference	testflags	
+uhdm2rtlil	ParameterDoubleUnderscoreInSvFrontend	default	
+uhdm2rtlil	ParameterDoubleUnderscoreInSvFrontend	testflags	
+uhdm2rtlil	ParameterFromPkgInNestedModule	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ParameterFromPkgInNestedModule	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ParameterFromPkgOnParameterPortList	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ParameterFromPkgOnParameterPortList	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope	default	
+uhdm2rtlil	ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope	testflags	
+uhdm2rtlil	ParameterInitializedByPartSelectOfParametersAssignedToVar	default	
+uhdm2rtlil	ParameterInitializedByPartSelectOfParametersAssignedToVar	testflags	
+uhdm2rtlil	ParameterOfParametrizedType	default	
+uhdm2rtlil	ParameterOfParametrizedType	testflags	
+uhdm2rtlil	ParameterOfParametrizedTypeInSubmodule	default	
+uhdm2rtlil	ParameterOfParametrizedTypeInSubmodule	testflags	
+uhdm2rtlil	ParameterPassedTo3TimesNestedSubmodule	default	(diverged)
+uhdm2rtlil	ParameterPassedTo3TimesNestedSubmodule	testflags	(diverged)
+uhdm2rtlil	ParameterPassedToSubmoduleInGenscopeOfSubmodule	default	(diverged)
+uhdm2rtlil	ParameterPassedToSubmoduleInGenscopeOfSubmodule	testflags	(diverged)
+uhdm2rtlil	ParameterPassedToSubmoduleOfSubmodule	default	(diverged)
+uhdm2rtlil	ParameterPassedToSubmoduleOfSubmodule	testflags	(diverged)
+uhdm2rtlil	ParameterSizeOfInstance	default	
+uhdm2rtlil	ParameterSizeOfInstance	testflags	
+uhdm2rtlil	ParameterWithUnderscoreValueDividedPassedFromCommandLine	default	
+uhdm2rtlil	ParameterWithUnderscoreValueDividedPassedFromCommandLine	testflags	
+uhdm2rtlil	partsel_simple	default	(diverged)
+uhdm2rtlil	partsel_simple	testflags	(diverged)
+uhdm2rtlil	PartSelectInFor	default	
+uhdm2rtlil	PartSelectInFor	testflags	
+uhdm2rtlil	PatternAssignmentOfStructParam	default	
+uhdm2rtlil	PatternAssignmentOfStructParam	testflags	
+uhdm2rtlil	PatternStruct	default	
+uhdm2rtlil	PatternStruct	testflags	
+uhdm2rtlil	pkg_nested_struct_param_width	default	(diverged)
+uhdm2rtlil	pkg_nested_struct_param_width	testflags	(diverged)
+uhdm2rtlil	PkgParamAsFunctionArg	default	
+uhdm2rtlil	PkgParamAsFunctionArg	testflags	
+uhdm2rtlil	port_chained_type_param	default	SUSIGN/IFSUKW
+uhdm2rtlil	port_chained_type_param	testflags	SUSIGN/IFSUKW
+uhdm2rtlil	portsel_struct_param	default	
+uhdm2rtlil	portsel_struct_param	testflags	
+uhdm2rtlil	realexpr	default	
+uhdm2rtlil	realexpr	testflags	
+uhdm2rtlil	RealValue	default	
+uhdm2rtlil	RealValue	testflags	
+uhdm2rtlil	ReplicationPassedToInstance	default	
+uhdm2rtlil	ReplicationPassedToInstance	testflags	
+uhdm2rtlil	rp32_r5p_alu	default	(diverged)
+uhdm2rtlil	rp32_r5p_alu	testflags	(diverged)
+uhdm2rtlil	rp32_r5p_bru	default	(diverged)
+uhdm2rtlil	rp32_r5p_bru	testflags	(diverged)
+uhdm2rtlil	rp32_r5p_mdu	default	(diverged)
+uhdm2rtlil	rp32_r5p_mdu	testflags	(diverged)
+uhdm2rtlil	rp32_r5p_wbu	default	(diverged)
+uhdm2rtlil	rp32_r5p_wbu	testflags	(diverged)
+uhdm2rtlil	rsp_gen_minimal	default	(diverged)
+uhdm2rtlil	rsp_gen_minimal	testflags	(diverged)
+uhdm2rtlil	sat_asserts_seq	default	REDEFLINE/INCNOTEXT
+uhdm2rtlil	sat_asserts_seq	testflags	REDEFLINE/INCNOTEXT
+uhdm2rtlil	SelectFromUnpackedInFunction	default	
+uhdm2rtlil	SelectFromUnpackedInFunction	testflags	
+uhdm2rtlil	SelectGivenBySelectOnParameterInFunction	default	(diverged)
+uhdm2rtlil	SelectGivenBySelectOnParameterInFunction	testflags	(diverged)
+uhdm2rtlil	Shortreal	default	
+uhdm2rtlil	Shortreal	testflags	
+uhdm2rtlil	simple_package	default	(diverged)
+uhdm2rtlil	simple_package	testflags	(diverged)
+uhdm2rtlil	struct_dynamic_range	default	
+uhdm2rtlil	struct_dynamic_range	testflags	
+uhdm2rtlil	struct_member_cfg_width	default	SUSIGN/IFSUKW
+uhdm2rtlil	struct_member_cfg_width	testflags	SUSIGN/IFSUKW
+uhdm2rtlil	struct_member_trailing_index	default	SUSIGN/IFSUKW
+uhdm2rtlil	struct_member_trailing_index	testflags	SUSIGN/IFSUKW
+uhdm2rtlil	struct_param_field_shift	default	
+uhdm2rtlil	struct_param_field_shift	testflags	
+uhdm2rtlil	struct_param_func_arg	default	
+uhdm2rtlil	struct_param_func_arg	testflags	
+uhdm2rtlil	struct_param_func_config	default	(diverged)
+uhdm2rtlil	struct_param_func_config	testflags	(diverged)
+uhdm2rtlil	struct_param_func_loop	default	
+uhdm2rtlil	struct_param_func_loop	testflags	
+uhdm2rtlil	struct_param_pattern_packing	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	struct_param_pattern_packing	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	struct_param_repl_count	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	struct_param_repl_count	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	StructArrayParameterInitializedByPatternPassedAsPort	default	(diverged)
+uhdm2rtlil	StructArrayParameterInitializedByPatternPassedAsPort	testflags	(diverged)
+uhdm2rtlil	StructLocalParam	default	
+uhdm2rtlil	StructLocalParam	testflags	
+uhdm2rtlil	StructParameter	default	
+uhdm2rtlil	StructParameter	testflags	
+uhdm2rtlil	StructParameterInitializedWithPatternAndReferenced	default	
+uhdm2rtlil	StructParameterInitializedWithPatternAndReferenced	testflags	
+uhdm2rtlil	SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule	default	(diverged)
+uhdm2rtlil	SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule	testflags	(diverged)
+uhdm2rtlil	SumOfParameters	default	
+uhdm2rtlil	SumOfParameters	testflags	
+uhdm2rtlil	SumOfParametersInNestedForLoops	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	SumOfParametersInNestedForLoops	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	sva_counter	default	(diverged) CLSARGNET
+uhdm2rtlil	sva_counter	testflags	(diverged) CLSARGNET
+uhdm2rtlil	sva_range	default	(diverged)
+uhdm2rtlil	sva_range	testflags	(diverged)
+uhdm2rtlil	sva_throughout	default	(diverged)
+uhdm2rtlil	sva_throughout	testflags	(diverged)
+uhdm2rtlil	sva_value_change_changed	default	(diverged)
+uhdm2rtlil	sva_value_change_changed	testflags	(diverged)
+uhdm2rtlil	sva_value_change_changed_wide	default	(diverged)
+uhdm2rtlil	sva_value_change_changed_wide	testflags	(diverged)
+uhdm2rtlil	sva_value_change_rose	default	(diverged)
+uhdm2rtlil	sva_value_change_rose	testflags	(diverged)
+uhdm2rtlil	type_param_override_elem_sel	default	
+uhdm2rtlil	type_param_override_elem_sel	testflags	
+uhdm2rtlil	type_param_packed_dim	default	
+uhdm2rtlil	type_param_packed_dim	testflags	
+uhdm2rtlil	typed_named_pattern	default	CLSARGNET
+uhdm2rtlil	typed_named_pattern	testflags	CLSARGNET
+uhdm2rtlil	typedef_package	default	(diverged) NETSIGN
+uhdm2rtlil	typedef_package	testflags	(diverged) NETSIGN
+uhdm2rtlil	typedef_param	default	
+uhdm2rtlil	typedef_param	testflags	
+uhdm2rtlil	TypedefPackedDimensions	default	
+uhdm2rtlil	TypedefPackedDimensions	testflags	
+uhdm2rtlil	TypedefStructParamWithRangeInSubmodule	default	
+uhdm2rtlil	TypedefStructParamWithRangeInSubmodule	testflags	
+uhdm2rtlil	TypedefVariableDimensions	default	(diverged)
+uhdm2rtlil	TypedefVariableDimensions	testflags	(diverged)
+uhdm2rtlil	TypedefWithParameter	default	(diverged) NETSIGN
+uhdm2rtlil	TypedefWithParameter	testflags	(diverged) NETSIGN
+uhdm2rtlil	TypeParameterAsPortTypeWithEnum	default	
+uhdm2rtlil	TypeParameterAsPortTypeWithEnum	testflags	
+uhdm2rtlil	TypeParameterAsPortTypeWithEnumOfParametrizedWidth	default	
+uhdm2rtlil	TypeParameterAsPortTypeWithEnumOfParametrizedWidth	testflags	
+uhdm2rtlil	unbased_unsized_param	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	unbased_unsized_param	testflags	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	union_param_repro	default	
+uhdm2rtlil	union_param_repro	testflags	
+uhdm2rtlil	UnionCustomTypeMultirange	default	
+uhdm2rtlil	UnionCustomTypeMultirange	testflags	
+uhdm2rtlil	unpacked_elem_partsel_comb	default	
+uhdm2rtlil	unpacked_elem_partsel_comb	testflags	
+uhdm2rtlil	unpacked_struct_2d	default	SUSIGN/IFSUKW
+uhdm2rtlil	unpacked_struct_2d	testflags	SUSIGN/IFSUKW
+uhdm2rtlil	unpacked_struct_dyn_read	default	SUSIGN/IFSUKW
+uhdm2rtlil	unpacked_struct_dyn_read	testflags	SUSIGN/IFSUKW
+uhdm2rtlil	unpacked_struct_mixed	default	SUSIGN/IFSUKW
+uhdm2rtlil	unpacked_struct_mixed	testflags	SUSIGN/IFSUKW
+uhdm2rtlil	VarPassedTo2Submodules	default	(diverged)
+uhdm2rtlil	VarPassedTo2Submodules	testflags	(diverged)
+uhdm2rtlil	vector_index	default	(diverged)
+uhdm2rtlil	vector_index	testflags	(diverged)
+uhdm2rtlil	wandwor	default	(diverged) REDEFLINE/INCNOTEXT
+uhdm2rtlil	wandwor	testflags	(diverged) REDEFLINE/INCNOTEXT

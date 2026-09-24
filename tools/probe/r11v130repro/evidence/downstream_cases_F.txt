@@ -1,0 +1,115 @@
+k01_var_enum_base IDENTICAL  NO_GATES NO_GATES 
+k02_var_pkg_packed EQUIVALENT nohier il synth NO_GATES NO_GATES ✅ All 1 common constant assignments match
+k03_var_local_bare_packed EQUIVALENT nohier il synth NO_GATES NO_GATES ✅ All 1 common constant assignments match
+k04_var_enum_init EQUIVALENT nohier il synth NO_GATES NO_GATES ✅ All 3 common constant assignments match
+k05_var_enum_iface IDENTICAL  NO_GATES NO_GATES 
+k06_var_enum_sub IDENTICAL  NO_GATES NO_GATES 
+k07_var_struct_signed IDENTICAL  NO_GATES NO_GATES 
+k08_var_signed_logic IDENTICAL  NO_GATES NO_GATES 
+k09_var_enum_init_only IDENTICAL  NO_GATES NO_GATES 
+k10_var_local_packed_init EQUIVALENT nohier il synth NO_GATES NO_GATES ✅ All 2 common constant assignments match
+k11_var_local_bare_packed_noinit EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+k12_var_pkg_packed_noassign EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+k13_nonvar_pkg_packed_noassign IDENTICAL  NO_GATES NO_GATES 
+v10_second_spaces IDENTICAL  NO_GATES NO_GATES 
+v11_one_tab IDENTICAL  NO_GATES NO_GATES 
+v12_three_first_indented IDENTICAL  NO_GATES NO_GATES 
+v13_third_indented IDENTICAL  NO_GATES NO_GATES 
+v14_tab_blank_line IDENTICAL  NO_GATES NO_GATES 
+v15_tab_separator IDENTICAL  NO_GATES NO_GATES 
+v16_trailing_spaces IDENTICAL  NO_GATES NO_GATES 
+v17_trailing_tab IDENTICAL  NO_GATES NO_GATES 
+v18_space_blank_line IDENTICAL  NO_GATES NO_GATES 
+v19_tab_before_ifdef IDENTICAL  NO_GATES NO_GATES 
+v1_trailing2blank IDENTICAL  NO_GATES NO_GATES 
+v20_tab_continuation IDENTICAL  NO_GATES NO_GATES 
+v21_space_tab_lead IDENTICAL  NO_GATES NO_GATES 
+v22_trailing_tab_blank_end IDENTICAL  NO_GATES NO_GATES 
+v2_indented IDENTICAL  NO_GATES NO_GATES 
+v3_inmod_indent_plain IDENTICAL  NO_GATES NO_GATES 
+v4_inmod_col0_plain IDENTICAL  NO_GATES NO_GATES 
+v5_trailing1blank IDENTICAL  NO_GATES NO_GATES 
+v6_indented_one IDENTICAL  NO_GATES NO_GATES 
+v7_inmod_col0_trailing2 IDENTICAL  NO_GATES NO_GATES 
+v8_two_spaces IDENTICAL  NO_GATES NO_GATES 
+v9_second_tab IDENTICAL  NO_GATES NO_GATES 
+m01_tab_redef EQUIVALENT nohier il synth NO_GATES NO_GATES ✅ All 2 common constant assignments match
+m02_crlf_redef IDENTICAL  NO_GATES NO_GATES 
+m03_space_redef EQUIVALENT nohier il synth NO_GATES NO_GATES ✅ All 2 common constant assignments match
+m04_redef_trailing_space IDENTICAL  NO_GATES NO_GATES 
+m05_redef_then_ifdef_block IDENTICAL  NO_GATES NO_GATES 
+m06_redef_guard_include IDENTICAL  NO_GATES NO_GATES 
+a01_genblk_anon_enum EQUIVALENT nohier il synth NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+a02_var_anon_enum IDENTICAL  NO_GATES NO_GATES 
+a03_enum_typedef_base DIVERGENT nohier il synth NO_GATES NO_GATES ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u130_dsc_F/a
+a04_wire_named_packed DIVERGENT nohier il synth NO_GATES NO_GATES ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u130_dsc_F/a
+a05_named_two_declarators IDENTICAL  NO_GATES NO_GATES 
+a06_typeparam_packed DIVERGENT nohier il synth NO_GATES NO_GATES ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u130_dsc_F/a
+a07_genblk_named_packed IDENTICAL  NO_GATES NO_GATES 
+a09_nonansi_port_enum EQUIVALENT nohier il synth OK OK ✅ Formal equivalence check PASSED for /tmp/v11u130_dsc_F/a09_nonansi_port_enum/e
+a10_program_anon_enum IDENTICAL  NO_GATES NO_GATES 
+a11_local_bare_packed_multiline IDENTICAL  NO_GATES NO_GATES 
+a12_anon_enum_two_nobase_2mem IDENTICAL  NO_GATES NO_GATES 
+a13_wire_named_2d DIVERGENT nohier il synth NO_GATES NO_GATES ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u130_dsc_F/a
+a14_local_bare_2d_wire DIVERGENT nohier il synth NO_GATES NO_GATES ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u130_dsc_F/a
+b01_nonansi_port_signed IDENTICAL  NO_GATES NO_GATES 
+b02_genblk_signed IDENTICAL  NO_GATES NO_GATES 
+b03_drive_strength_signed IDENTICAL  NO_GATES NO_GATES 
+b04_vectored_signed IDENTICAL  NO_GATES NO_GATES 
+b05_wand_trireg_signed IDENTICAL  NO_GATES NO_GATES 
+b06_signed_multiline IDENTICAL  NO_GATES NO_GATES 
+b07_signed_sub_param IDENTICAL  NO_GATES NO_GATES 
+c01_typedef_struct_signed IDENTICAL  NO_GATES NO_GATES 
+c02_nested_struct_signed IDENTICAL  NO_GATES NO_GATES 
+c03_func_local_struct_signed IDENTICAL  NO_GATES NO_GATES 
+c04_port_struct_signed IDENTICAL  NO_GATES NO_GATES 
+c05_pkg_var_struct_signed IDENTICAL  NO_GATES NO_GATES 
+c06_param_struct_signed IDENTICAL  NO_GATES NO_GATES 
+c07_initial_var_struct_signed IDENTICAL  NO_GATES NO_GATES 
+c08_gen_struct_signed IDENTICAL  NO_GATES NO_GATES 
+d01_iface_union EQUIVALENT nohier il NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+d02_iface_struct_in_gen IDENTICAL  NO_GATES NO_GATES 
+d03_iface_struct_init EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+e01_wild_iface_port STATUS_DIFF  OK READ_FAIL 
+e02_wild_multiline_space IDENTICAL  OK OK 
+e03_wild_param_inst IDENTICAL  OK OK 
+e04_wild_array_inst IDENTICAL  OK OK 
+f01_pv_array_port STATUS_DIFF  READ_FAIL NO_GATES 
+f02_pv_derived_param IDENTICAL  NO_GATES NO_GATES 
+f03_pv_gen_port IDENTICAL  NO_GATES NO_GATES 
+f04_pv_same_name_param IDENTICAL  NO_GATES NO_GATES 
+f05_pv_string_param IDENTICAL  OK OK 
+g01_clsarg_iface IDENTICAL  NO_GATES NO_GATES 
+g02_clsarg_genblk EQUIVALENT nohier NO_GATES NO_GATES ℹ️  No common assign statements to compare — skipping
+h01_redef_after_body_define IDENTICAL  NO_GATES NO_GATES 
+h02_redef_undef_between IDENTICAL  NO_GATES NO_GATES 
+h03_redef_in_ifdef IDENTICAL  NO_GATES NO_GATES 
+h04_redef_defined_in_include IDENTICAL  NO_GATES NO_GATES 
+h05_redef_comment_trailing IDENTICAL  NO_GATES NO_GATES 
+h06_redef_then_multiline_obj IDENTICAL  NO_GATES NO_GATES 
+h07_redef_twice_includes IDENTICAL  NO_GATES NO_GATES 
+h08_redef_oneline_macro_use IDENTICAL  NO_GATES NO_GATES 
+h09_redef_macro_arg EQUIVALENT nohier il synth NO_GATES NO_GATES ✅ All 2 common constant assignments match
+i01_cont_define IDENTICAL  NO_GATES NO_GATES 
+i02_nested_defs_only IDENTICAL  NO_GATES NO_GATES 
+i03_nested_defs_text IDENTICAL  NO_GATES NO_GATES 
+i04_default_nettype IDENTICAL  NO_GATES NO_GATES 
+i05_inactive_code IDENTICAL  NO_GATES NO_GATES 
+i06_indented_defines IDENTICAL  OK OK 
+i07_defs_twice IDENTICAL  NO_GATES NO_GATES 
+i08_define_crlf IDENTICAL  NO_GATES NO_GATES 
+i09_macro_use_in_defs IDENTICAL  NO_GATES NO_GATES 
+j01_gv_nested_include IDENTICAL  NO_GATES NO_GATES 
+j02_gv_sub_include IDENTICAL  NO_GATES NO_GATES 
+j03_gv_macro_arg IDENTICAL  NO_GATES NO_GATES 
+n01_pkg_anon_enum IDENTICAL  NO_GATES NO_GATES 
+n02_unit_anon_enum IDENTICAL  NO_GATES NO_GATES 
+n03_anon_enum_attr IDENTICAL  NO_GATES NO_GATES 
+n04_static_anon_enum IDENTICAL  NO_GATES NO_GATES 
+n05_const_enum_init IDENTICAL  NO_GATES NO_GATES 
+n06_signed_two_init IDENTICAL  NO_GATES NO_GATES 
+n07_pv_modport_at_conn IDENTICAL  NO_GATES NO_GATES 
+n08_pv_two_instances IDENTICAL  NO_GATES NO_GATES 
+n09_pv_iface_in_iface_port IDENTICAL  NO_GATES NO_GATES 
+n10_wild_nested_gen_two IDENTICAL  OK OK 
+n11_wild_struct_port IDENTICAL  NO_GATES NO_GATES 

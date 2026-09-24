@@ -1,0 +1,47 @@
+fewer	surelog	ClassTypeParam,default	differ:endline(27) -> differ:endline(26) P{'file': 13, 'line': 12, 'col': 14, 'endline': 16, 'endcol': 22, 'objects_differing': 27} X{'file': 12, 'line': 12, 'col': 14, 'endline': 16, 'endcol': 22, 'objects_differing': 26} nogrow
+fewer	surelog	ClassTypeParam,testflags	differ:file(40) -> differ:file(39) P{'file': 19, 'line': 22, 'col': 27, 'endline': 26, 'endcol': 35, 'objects_differing': 40} X{'file': 18, 'line': 22, 'col': 27, 'endline': 26, 'endcol': 35, 'objects_differing': 39} nogrow
+moved	surelog	GenForIfaceLocalparamBound,default	differ:fullname(9) -> differ:endcol(5) P{'fullname': 8, 'endcol': 1, 'objects_differing': 9} X{'fullname': 4, 'endcol': 1, 'objects_differing': 5} nogrow
+moved	surelog	GenForIfaceLocalparamBound,testflags	differ:fullname(9) -> differ:endcol(5) P{'fullname': 8, 'endcol': 1, 'objects_differing': 9} X{'fullname': 4, 'endcol': 1, 'objects_differing': 5} nogrow
+fewer	surelog	GenForIfaceLocalparamNestedGen,default	differ:file(8) -> differ:file(6) P{'fullname': 6, 'file': 1, 'endcol': 1, 'objects_differing': 8} X{'fullname': 4, 'file': 1, 'endcol': 1, 'objects_differing': 6} nogrow
+fewer	surelog	GenForIfaceLocalparamNestedGen,testflags	differ:file(8) -> differ:file(6) P{'fullname': 6, 'file': 1, 'endcol': 1, 'objects_differing': 8} X{'fullname': 4, 'file': 1, 'endcol': 1, 'objects_differing': 6} nogrow
+moved	surelog	InterfArrayBind,default	differ:file(5) -> differ:fullname(4) P{'fullname': 4, 'file': 1, 'endline': 1, 'endcol': 1, 'objects_differing': 5} X{'fullname': 4, 'objects_differing': 4} nogrow
+moved	surelog	InterfArrayBind,testflags	differ:file(5) -> differ:fullname(4) P{'fullname': 4, 'file': 1, 'endline': 1, 'endcol': 1, 'objects_differing': 5} X{'fullname': 4, 'objects_differing': 4} nogrow
+turned	surelog	InterfType,default	differ:fullname(2) -> equal
+turned	surelog	InterfType,testflags	differ:fullname(2) -> equal
+turned	surelog	OneNetRange,default	differ:fullname(2) -> equal
+fewer	surelog	OneNetRange,testflags	differ:fullname(4) -> differ:fullname(2) P{'fullname': 4, 'objects_differing': 4} X{'fullname': 2, 'objects_differing': 2} nogrow
+moved	surelog	PackedEnumPort,default	differ:file(4) -> differ:name(3) P{'type': 1, 'name': 2, 'fullname': 1, 'file': 1, 'col': 1, 'endline': 2, 'endcol': 2, 'objects_differing': 4, 'DIVERGED': 1} X{'type': 1, 'name': 2, 'fullname': 1, 'col': 1, 'endline': 1, 'endcol': 1, 'objects_differing': 3, 'DIVERGED': 1} nogrow
+moved	surelog	PackedEnumPort,testflags	differ:file(4) -> differ:name(3) P{'type': 1, 'name': 2, 'fullname': 1, 'file': 1, 'col': 1, 'endline': 2, 'endcol': 2, 'objects_differing': 4, 'DIVERGED': 1} X{'type': 1, 'name': 2, 'fullname': 1, 'col': 1, 'endline': 1, 'endcol': 1, 'objects_differing': 3, 'DIVERGED': 1} nogrow
+turned	surelog	SignedWire,default	differ:endcol(1) -> equal
+turned	surelog	SignedWire,testflags	differ:endcol(1) -> equal
+moved	surelog	StructArrayNet,default	differ:file(3) -> differ:fullname(2) P{'fullname': 2, 'file': 1, 'endline': 1, 'endcol': 1, 'objects_differing': 3} X{'fullname': 2, 'objects_differing': 2} nogrow
+moved	surelog	StructArrayNet,testflags	differ:file(3) -> differ:fullname(2) P{'fullname': 2, 'file': 1, 'endline': 1, 'endcol': 1, 'objects_differing': 3} X{'fullname': 2, 'objects_differing': 2} nogrow
+turned	surelog	WildConn,default	differ:endcol(2) -> equal
+turned	surelog	WildConn,testflags	differ:endcol(2) -> equal
+fewer	surelog	YosysOldOpen,default	differ:line(19) -> differ:line(14) P{'depth': 1, 'type': 1, 'name': 1, 'fullname': 1, 'line': 14, 'col': 1, 'endline': 14, 'endcol': 6, 'objects_differing': 19, 'DIVERGED': 1} X{'depth': 1, 'type': 1, 'name': 1, 'fullname': 1, 'line': 14, 'col': 1, 'endline': 14, 'endcol': 1, 'objects_differing': 14, 'DIVERGED': 1} nogrow
+moved	surelog	YosysOldOpen,testflags	differ:endcol(6) -> differ:depth(1) P{'depth': 1, 'type': 1, 'name': 1, 'fullname': 1, 'line': 1, 'col': 1, 'endline': 1, 'endcol': 6, 'objects_differing': 6, 'DIVERGED': 1} X{'depth': 1, 'type': 1, 'name': 1, 'fullname': 1, 'line': 1, 'col': 1, 'endline': 1, 'endcol': 1, 'objects_differing': 1, 'DIVERGED': 1} nogrow
+turned	uhdm2rtlil	AnonymousEnum,default	differ:file(6) -> equal
+turned	uhdm2rtlil	AnonymousEnum,testflags	differ:file(6) -> equal
+turned	uhdm2rtlil	EnumArray,default	differ:file(2) -> equal
+turned	uhdm2rtlil	EnumArray,testflags	differ:file(2) -> equal
+turned	uhdm2rtlil	EnumArrayListedElements,default	differ:file(2) -> equal
+turned	uhdm2rtlil	EnumArrayListedElements,testflags	differ:file(2) -> equal
+moved	uhdm2rtlil	dyn_field_select,default	differ:file(4) -> differ:fullname(2) P{'fullname': 2, 'file': 2, 'endline': 2, 'endcol': 2, 'objects_differing': 4} X{'fullname': 2, 'objects_differing': 2} nogrow
+moved	uhdm2rtlil	dyn_field_select,testflags	differ:file(4) -> differ:fullname(2) P{'fullname': 2, 'file': 2, 'endline': 2, 'endcol': 2, 'objects_differing': 4} X{'fullname': 2, 'objects_differing': 2} nogrow
+fewer	uhdm2rtlil	gen_scope_numports,default	differ:fullname(21) -> differ:fullname(17) P{'fullname': 17, 'endcol': 4, 'objects_differing': 21} X{'fullname': 17, 'objects_differing': 17} nogrow
+fewer	uhdm2rtlil	gen_scope_numports,testflags	differ:fullname(21) -> differ:fullname(17) P{'fullname': 17, 'endcol': 4, 'objects_differing': 21} X{'fullname': 17, 'objects_differing': 17} nogrow
+turned	uhdm2rtlil	iface_ff_genvar_partsel,default	differ:fullname(2) -> equal
+turned	uhdm2rtlil	iface_ff_genvar_partsel,testflags	differ:fullname(2) -> equal
+turned	uhdm2rtlil	iface_param_width_per_inst,default	differ:fullname(2) -> equal
+turned	uhdm2rtlil	iface_param_width_per_inst,testflags	differ:fullname(2) -> equal
+turned	uhdm2rtlil	packed_struct_array_net_elem,default	differ:file(2) -> equal
+turned	uhdm2rtlil	packed_struct_array_net_elem,testflags	differ:file(2) -> equal
+turned	uhdm2rtlil	simple_enum,default	differ:file(2) -> equal
+turned	uhdm2rtlil	simple_enum,testflags	differ:file(2) -> equal
+turned	uhdm2rtlil	static_cast_simple,default	differ:endcol(6) -> equal
+turned	uhdm2rtlil	static_cast_simple,testflags	differ:endcol(6) -> equal
+turned	uhdm2rtlil	sva_basic02,default	differ:endcol(4) -> equal
+turned	uhdm2rtlil	sva_basic02,testflags	differ:endcol(4) -> equal
+turned	uhdm2rtlil	svtypes_struct_simple,default	differ:endcol(1) -> equal
+turned	uhdm2rtlil	svtypes_struct_simple,testflags	differ:endcol(1) -> equal
+TOTAL {'fewer': 8, 'moved': 11, 'turned': 27}

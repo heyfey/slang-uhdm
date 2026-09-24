@@ -30,6 +30,30 @@ bool r11u119Law(const char* sw) {
     return getenv(sw) == nullptr;
 }
 
+// ===== r11u130 — the module/type ground on the strict axis ==================
+// Every r11u130 law sits behind its own switch; R11U130_OFF drops them all
+// and restores the pristine bytes.  Switch names (each droppable alone):
+//   R11U130_DEFNETLOC_OFF   § defNetEndOnlyLoc130        (ModuleEmit.cpp)
+//   R11U130_WILDSPAN_OFF    § wildcardConnRefSpan130     (ModuleEmit.cpp)
+//   R11U130_CLSARGNET_OFF   § classSpecArgNetNoFile130   (ModuleEmit.cpp)
+//   R11U130_NETSIGN_OFF     § netSigningTsSpan130        (ModuleEmit.cpp)
+//   R11U130_PVPARAM_OFF     § portViewParamDefName130    (ModuleEmit.cpp)
+//   R11U130_SUSIGN_OFF      § suSigningNotInSpan130      (TypeEmit.cpp)
+//   R11U130_IFSUKW_OFF      § ifaceElabInlineSuKeyword130 (ModuleEmit.cpp)
+//   R11U130_REDEFLINE_OFF   § emptyRedefineObjLine130    (UhdmExporter.cpp)
+//   R11U130_INCNOTEXT_OFF   § includeNoTextSplicesNothing130 (UhdmExporter.cpp)
+//   R11U130_GVTSFILE_OFF    § genvarIntTsRootFile130     (ModuleEmit.cpp)
+// The adversarial verification r11v130 refines two of them, each under its
+// own switch (off = the implementer's bytes):
+//   R11V130_DEFNETVAR_OFF   § defNetVarNoSlot130v        (ModuleEmit.cpp)
+//   R11V130_INCTAB_OFF      § includeLeadTabIsText130v   (UhdmExporter.cpp)
+// Evidence: tools/probe/r11u130repro/README.md, tools/probe/r11v130repro/README.md.
+bool r11u130Law(const char* sw) {
+    if (getenv("R11U130_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 // § implicitNetNoFile119 (r11u119) — defined in ModuleEmit.cpp.
 void clearImplicitNetFiles119();
 
@@ -1366,6 +1390,90 @@ void UhdmExporter::emitIncludeFileInfos() {
             auto text = sm->getSourceText(e.incBuf);
             e.flat += (uint32_t)std::count(text.begin(), text.end(), '\n');
             e.flat -= lostIn125(e.incBuf, UINT32_MAX);
+            // § includeNoTextSplicesNothing130 (r11u130) — an included file
+            // whose preprocessed text is EMPTY (nothing but `define, `undef,
+            // `ifdef...`endif directives and blank lines) splices NO line
+            // into its includer,
+            // although every directive leaves a line filler: the next
+            // directive's FLATTENED line reads as if the `include line were
+            // gone.  A comment or any code is text and keeps every line.
+            // MEASURED grid tools/probe/r11u130repro/grid/g10 (q02-q05,
+            // q08-q10 splice 0 where ours spliced 1-3; q01 a comment first,
+            // q06 a declaration first: all lines) and r11v125's rd z06 z08
+            // z09 z12 (z10, z11 carry a comment: all lines).  Switch:
+            // R11U130_INCNOTEXT_OFF (and R11U130_OFF).
+            if (r11u130Law("R11U130_INCNOTEXT_OFF") && e.flat > 0) {
+                std::string_view tx = text;
+                while (!tx.empty() && tx.back() == '\0')
+                    tx.remove_suffix(1);  // slang's buffers end in a NUL
+                // Only the MEASURED filler directives: a `timescale line is
+                // text of its own (YosysOldI2c's timescale.v splices both its
+                // lines), and nothing else was measured.
+                static const char* const dirs130[] = {
+                    "`define", "`undef", "`ifdef", "`ifndef", "`elsif",
+                    "`else", "`endif"};
+                bool onlyDirs = true, cont = false;
+                size_t p = 0;
+                while (p < tx.size() && onlyDirs) {
+                    size_t q = tx.find('\n', p);
+                    if (q == std::string_view::npos)
+                        q = tx.size();
+                    std::string_view ln = tx.substr(p, q - p);
+                    // § includeLeadTabIsText130v (r11v130) — a TAB in a
+                    // line's LEADING whitespace (before a directive, or on an
+                    // otherwise blank line) is text: golden splices every
+                    // line of such a file (`\t`define A 1`, a `\t`-only
+                    // line, `  \t`define`), while leading SPACES are not
+                    // (grid tools/probe/r11v130repro/grid/tab).  A macro
+                    // body's continuation line is exempt (`\t(a + 1)` after
+                    // a `\\` splices nothing).  Switch: R11V130_INCTAB_OFF.
+                    if (!cont && r11u130Law("R11V130_INCTAB_OFF")) {
+                        size_t k0 = 0;
+                        while (k0 < ln.size() && (ln[k0] == ' ' || ln[k0] == '\t')) {
+                            if (ln[k0] == '\t') {
+                                onlyDirs = false;
+                                break;
+                            }
+                            k0++;
+                        }
+                    }
+                    while (!ln.empty() && (ln.back() == '\r' || ln.back() == ' ' ||
+                                           ln.back() == '\t'))
+                        ln.remove_suffix(1);
+                    size_t k = 0;
+                    while (k < ln.size() && (ln[k] == ' ' || ln[k] == '\t'))
+                        k++;
+                    std::string_view body = ln.substr(k);
+                    bool wasCont = cont;
+                    cont = !ln.empty() && ln.back() == '\\';
+                    if (!wasCont && !body.empty()) {
+                        bool dir = false;
+                        for (auto* d : dirs130) {
+                            std::string_view dv(d);
+                            if (body.substr(0, dv.size()) == dv &&
+                                (body.size() == dv.size() ||
+                                 !(isalnum((unsigned char)body[dv.size()]) ||
+                                   body[dv.size()] == '_'))) {
+                                dir = true;
+                                break;
+                            }
+                        }
+                        // A directive line carrying a comment is text.
+                        if (!dir || body.find("//") != std::string_view::npos ||
+                            body.find("/*") != std::string_view::npos)
+                            onlyDirs = false;
+                    }
+                    p = q + 1;
+                }
+                // ...and no include inside it spliced text of its own.
+                if (onlyDirs) {
+                    uint32_t own = (uint32_t)std::count(tx.begin(), tx.end(), '\n');
+                    uint32_t lostOwn = lostIn125(e.incBuf, UINT32_MAX);
+                    uint32_t mine = own >= lostOwn ? own - lostOwn : 0;
+                    if (e.flat == mine)  // the children spliced nothing
+                        e.flat = 0;
+                }
+            }
         }
         if (e.parent >= 0)
             evs[(size_t)e.parent].flat += e.flat;
@@ -11132,10 +11240,150 @@ const std::vector<std::pair<uint32_t, int32_t>>& UhdmExporter::numLitWsShift(
 // A FILE position's Surelog-layout line/col (col shifted right past any
 // single-line macro expansions earlier on the line, and LEFT past any
 // whitespace run folded into a preceding based number literal).
+// § emptyRedefineObjLine130 (r11u130) — AN EMPTY REDEFINITION LOWERS THE
+// LINES OF ITS OWN FILE UNTIL THE NEXT LINE RECORD.  Surelog's preprocessor
+// drops the output line of a bare `define that redefines an already-defined
+// macro (§ includeInfoEmptyRedefineLine125 / § emptyRedefineBareLine125v,
+// emitIncludeFileInfos), and an object's line is its OUTPUT line mapped
+// through the nearest earlier line record (IncludeFileInfo: an include push
+// or pop, a macro-expansion pop).  Between the dropped line and the next
+// record every source line of that file therefore reads one lower per
+// dropped line; an `include directive or a MULTI-LINE macro invocation later
+// in the file writes a record and resyncs; a one-line macro pushes and pops
+// on the same output line and does not.  MEASURED grid
+// tools/probe/r11u130repro/grid/g9 (r01 no include: every later line one
+// low, endmodule included; r02 two drops: two low; r03 a one-line macro
+// after: still low; r04 the drop inside the module: only the lines after
+// it; r05 an include after: resynced after the directive; r06 the drop in
+// an included file: that file's later lines low, the includer's right;
+// r07 a multi-line macro after: resynced) and r11v125's rd z02 z03 z05.
+// Switch: R11U130_REDEFLINE_OFF (and R11U130_OFF).
+namespace {
+struct RedefLines130 {
+    bool built = false;
+    std::map<uint32_t, std::vector<uint32_t>> lost;   // buffer -> dropped lines
+    std::map<uint32_t, std::vector<uint32_t>> resync; // buffer -> record lines
+};
+RedefLines130& redefLines130() {
+    static RedefLines130 r;
+    return r;
+}
+} // namespace
+
+uint32_t UhdmExporter_redefLost130(const SourceManager* sm,
+                                   const slang::ast::Compilation& comp,
+                                   uint32_t buf, uint32_t line) {
+    static const bool on = r11u130Law("R11U130_REDEFLINE_OFF");
+    if (!on)
+        return 0;
+    auto& R = redefLines130();
+    if (!R.built) {
+        R.built = true;
+        std::set<std::string> defined;
+        auto bare = [&](const syntax::DefineDirectiveSyntax& dd) {
+            auto ne = dd.name.range().end();
+            if (ne == SourceLocation::NoLocation || sm->isMacroLoc(ne))
+                return true;
+            auto text = sm->getSourceText(ne.buffer());
+            for (size_t i = ne.offset(); i < text.size() && text[i] != '\n'; i++)
+                if (text[i] != ' ' && text[i] != '\t' && text[i] != '\r')
+                    return false;
+            return true;
+        };
+        std::set<uint64_t> seenInv;
+        auto onTok = [&](slang::parsing::Token t) {
+            for (auto& tv : t.trivia()) {
+                if (tv.kind != slang::parsing::TriviaKind::Directive)
+                    continue;
+                auto* ds = tv.syntax();
+                if (!ds)
+                    continue;
+                if (ds->kind == syntax::SyntaxKind::DefineDirective) {
+                    auto& dd = ds->as<syntax::DefineDirectiveSyntax>();
+                    std::string nm(dd.name.valueText());
+                    auto dl = dd.directive.location();
+                    if (dd.body.empty() && !dd.formalArguments &&
+                        defined.count(nm) && bare(dd) &&
+                        dl != SourceLocation::NoLocation && !sm->isMacroLoc(dl))
+                        R.lost[dl.buffer().getId()].push_back(
+                            (uint32_t)sm->getLineNumber(dl));
+                    defined.insert(nm);
+                }
+                else if (ds->kind == syntax::SyntaxKind::UndefDirective) {
+                    defined.erase(std::string(
+                        ds->as<syntax::UndefDirectiveSyntax>().name.valueText()));
+                }
+                else if (ds->kind == syntax::SyntaxKind::UndefineAllDirective) {
+                    defined.clear();
+                }
+                else if (ds->kind == syntax::SyntaxKind::IncludeDirective) {
+                    auto il = ds->as<syntax::IncludeDirectiveSyntax>()
+                                  .directive.location();
+                    if (il != SourceLocation::NoLocation && !sm->isMacroLoc(il))
+                        R.resync[il.buffer().getId()].push_back(
+                            (uint32_t)sm->getLineNumber(il));
+                }
+            }
+            // A token expanded from a MULTI-LINE macro body: its invocation
+            // line holds a record (the macro pop).
+            auto tl = t.location();
+            if (tl != SourceLocation::NoLocation && sm->isMacroLoc(tl) &&
+                !sm->isMacroArgLoc(tl) && macroBodySpansLines125(sm, tl)) {
+                auto inv = sm->getFullyExpandedLoc(tl);
+                if (inv != SourceLocation::NoLocation && !sm->isMacroLoc(inv) &&
+                    seenInv.insert(((uint64_t)inv.buffer().getId() << 32) |
+                                   (uint64_t)sm->getLineNumber(inv))
+                        .second)
+                    R.resync[inv.buffer().getId()].push_back(
+                        (uint32_t)sm->getLineNumber(inv));
+            }
+        };
+        std::function<void(const syntax::SyntaxNode&)> walk =
+            [&](const syntax::SyntaxNode& n) {
+                for (size_t i = 0, c = n.getChildCount(); i < c; i++) {
+                    if (auto* ch = n.childNode(i))
+                        walk(*ch);
+                    else if (auto t = n.childToken(i))
+                        onTok(t);
+                }
+            };
+        for (auto tree : comp.getSyntaxTrees()) {
+            defined.clear();
+            walk(tree->root());
+        }
+        for (auto& [b, v] : R.resync)
+            std::sort(v.begin(), v.end());
+    }
+    auto it = R.lost.find(buf);
+    if (it == R.lost.end())
+        return 0;
+    uint32_t sync = 0;
+    if (auto rt = R.resync.find(buf); rt != R.resync.end())
+        for (auto l : rt->second)
+            if (l < line)
+                sync = l;
+    uint32_t k = 0;
+    for (auto l : it->second)
+        if (l < line && l > sync)
+            k++;
+    return k;
+}
+
 void UhdmExporter::fileLineCol(SourceLocation lc, uint32_t& line,
                                uint32_t& col) {
     line = (uint32_t)sm->getLineNumber(lc);
     col = (uint32_t)sm->getColumnNumber(lc);
+    // § emptyRedefineObjLine130 — applied on the way OUT (every lookup below
+    // is keyed by the raw source line); not for the include_file_info
+    // directive reads (that FLATTENED line has its own law,
+    // emitIncludeFileInfos).
+    struct Drop130 {
+        uint32_t& l;
+        uint32_t d = 0;
+        ~Drop130() { l -= std::min(l > 0 ? l - 1 : 0, d); }
+    } drop130{line};
+    if (!incInfoRawCol125v && lc.buffer().valid() && !sm->isMacroLoc(lc))
+        drop130.d = UhdmExporter_redefLost130(sm, comp, lc.buffer().getId(), line);
     if (!macroExpBuilt)
         buildMacroExpansions();
     uint32_t c0 = col;

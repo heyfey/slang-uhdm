@@ -622,6 +622,8 @@ static bool isExplicitPkgQualified(const Symbol& sym) {
 
 // r11u119's gate (defined in UhdmExporter.cpp; the switch table is there).
 bool r11u119Law(const char* sw);
+// r11u130's gate (defined in UhdmExporter.cpp; the switch table is there).
+bool r11u130Law(const char* sw);
 
 // ===== § implicitNetNoFile119 (r11u119, LAW L2) =============================
 // THE PRODUCER.  An IMPLICIT net of a definition is not a declaration Surelog
@@ -5264,6 +5266,14 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                 pn0->VpiParent(m);
                 pn0->VpiNetType(vpiWire);
                 setLoc(pn0, idn0->sourceRange());
+                // § classSpecArgNetNoFile130 (r11u130) — this wire is a
+                // lookup-miss mint (the lazy bind the comment above names),
+                // and Surelog's late-binding mint copies the reference's four
+                // span fields and NO file (§ implicitNetNoFile119's producer):
+                // ClassTypeParam's `uvm_object` reads 26:18-26:28 with an
+                // empty file in golden.  Grid tools/probe/r11u130repro/grid/g4.
+                if (r11u130Law("R11U130_CLSARGNET_OFF"))
+                    noteLateBindNet119(pn0);
                 nets->push_back(pn0);
             }
         }
@@ -17069,6 +17079,20 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         }
                         // § connExprBindsNet (see bindConnExprNets).
                         bindConnExprNets(h, *expr);
+                        // § wildcardConnRefSpan130 (r11u130) — a HighConn a
+                        // `.*` implies is ONE COLUMN wide.  NetlistElaboration
+                        // (the `wildcard` arm of the port-connection loop)
+                        // mints it with line/column = the `.*` token's
+                        // (fC->Line/Column(formalId)) and end = the same line,
+                        // column + 1; ours spanned the two-character token.
+                        // Grid tools/probe/r11u130repro/grid/g3.
+                        if (conn->isWildcard &&
+                            h->UhdmType() == UHDM::uhdmref_obj &&
+                            h->VpiLineNo() != 0 &&
+                            r11u130Law("R11U130_WILDSPAN_OFF")) {
+                            h->VpiEndLineNo(h->VpiLineNo());
+                            h->VpiEndColumnNo(h->VpiColumnNo() + 1);
+                        }
                         p->High_conn(h);
                     }
                     refCollector = nullptr;
@@ -29114,6 +29138,11 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             if (dr.start() != SourceLocation::NoLocation) {
                 ts->VpiEndLineNo(sm->getLineNumber(dr.end()));
                 ts->VpiEndColumnNo(sm->getColumnNumber(dr.end()));
+                // § defNetEndOnlyLoc130 — the end-only write carries the end
+                // node's file (populateCoreMembers(InvalidNodeId, end, ts)).
+                if (ts->VpiFile().empty() &&
+                    r11u130Law("R11U130_DEFNETLOC_OFF"))
+                    ts->VpiFile(fullFilePath(dr.end()));
             }
         }
     }
@@ -29237,6 +29266,133 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
         ert->Actual_typespec(ts);
         ats->Elem_typespec(ert);
         ts = ats;
+    }
+    // § defNetEndOnlyLoc130 (r11u130) — A DEFINITION NET'S FRESH TYPESPEC
+    // THAT NOTHING LOCATED TAKES THE END (AND THE FILE) OF SURELOG'S
+    // "DIMENSION" NODE.  UhdmWriter's writeNets compiles a non-port
+    // definition net's typespec and then runs
+    //     fC->populateCoreMembers(InvalidNodeId, dimensions, ts)
+    // with `dimensions` = the Signal's unpacked slot (the initializer or the
+    // unpacked dimension) or else its PACKED slot (UhdmWriter.cpp, writeNets,
+    // the `dest_net->Typespec() == nullptr` arm).  populateCoreMembers with no
+    // start node writes only the END line/column and the FILE of the end node
+    // (FileContent.cpp), so the typespec reads `<file> 0:0:<end>`.  The packed
+    // slot is the node AFTER the type node in the declaration:
+    //   * an inline enum (`enum logic [1:0] {A, B} x;`) — the type node is the
+    //     base type, so the slot is the FIRST member (`A`); with no base
+    //     (`enum {A, B, C} x;`) the type node is the first member, so the slot
+    //     is the SECOND (`B`), and a one-member enum has no slot at all;
+    //   * a named type with packed dimensions (`pkg::S [N-1:0] x;`) — the
+    //     FIRST packed dimension.
+    // The initializer arm is the stretch above (its file half is this law's
+    // too).  Grid tools/probe/r11u130repro/grid/g1 (anonymous enums with and
+    // without a base, multi-line, from an include, in an interface and a
+    // sub-module; package struct/enum packed arrays, one and two dims).
+    // Ports are written by another road (no stretch): excluded.
+    if (ts && ts->VpiName().empty() && ts->VpiLineNo() == 0 &&
+        ts->VpiEndLineNo() == 0 && ts->VpiFile().empty() && pn.rt->VpiParent() &&
+        pn.rt->VpiParent()->UhdmType() != UHDM::uhdmport &&
+        r11u130Law("R11U130_DEFNETLOC_OFF") &&
+        // § defNetVarNoSlot130v (r11v130) — a `var` declaration fills NO
+        // packed slot.  CompileHelper::compileDataDeclaration reaches the
+        // data type through the Var_type node's sibling, and the Signal it
+        // builds carries no packed-slot node for writeNets' end-only write:
+        // MEASURED, golden leaves the definition typespec of `var enum
+        // {A, B, C} x;` / `var enum logic [1:0] {A, B} x;` unlocated (no
+        // file, 0:0:0:0) in a module, an interface and a sub-module, and the
+        // `var pkg::S [1:0] x;` packed array unlocated too (grid
+        // tools/probe/r11v130repro/grid/var).  The initializer arm above is
+        // unaffected (`var enum {..} x = B;` keeps its end and file, k09).
+        // Switch: R11V130_DEFNETVAR_OFF.
+        !(hasVarKeywordDecl(*pn.sym) && r11u130Law("R11V130_DEFNETVAR_OFF"))) {
+        const syntax::DeclaratorSyntax* dcl130 = nullptr;
+        if (auto dsyn = pn.sym->getSyntax();
+            dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
+            dcl130 = &dsyn->as<syntax::DeclaratorSyntax>();
+        auto* dt130 = pn.sym->getDeclaredType();
+        const syntax::SyntaxNode* tsyn130 = dt130 ? dt130->getTypeSyntax() : nullptr;
+        SourceLocation end130 = SourceLocation::NoLocation;
+        SourceLocation start130 = SourceLocation::NoLocation;
+        // Only the PACKED slot: a declarator with an initializer or unpacked
+        // dimensions fills the unpacked slot, which the arms above own.
+        if (dcl130 && tsyn130 && dcl130->dimensions.empty() && !dcl130->initializer) {
+            if (tsyn130->kind == syntax::SyntaxKind::EnumType &&
+                ts->UhdmType() == UHDM::uhdmenum_typespec) {
+                auto& et130 = tsyn130->as<syntax::EnumTypeSyntax>();
+                if (et130.dimensions.empty()) {
+                    size_t k130 = et130.baseType ? 0 : 1;
+                    if (et130.members.size() > k130)
+                        end130 = et130.members[k130]->sourceRange().end();
+                }
+            }
+            else if (tsyn130->kind == syntax::SyntaxKind::NamedType &&
+                     ts->UhdmType() == UHDM::uhdmpacked_array_typespec) {
+                const syntax::NameSyntax* nm130 =
+                    &*tsyn130->as<syntax::NamedTypeSyntax>().name;
+                bool scoped130 = false;
+                while (nm130 && nm130->kind == syntax::SyntaxKind::ScopedName) {
+                    nm130 = &*nm130->as<syntax::ScopedNameSyntax>().right;
+                    scoped130 = true;
+                }
+                if (nm130 && nm130->kind == syntax::SyntaxKind::IdentifierSelectName) {
+                    auto& sel130 =
+                        nm130->as<syntax::IdentifierSelectNameSyntax>().selectors;
+                    if (!sel130.empty())
+                        end130 = sel130[0]->sourceRange().end();
+                    // A BARE name (`e_t [1:0] r;`, a typedef reached by name)
+                    // is compiled on compileTypespec's name arm, whose ranges
+                    // tail locates the typespec from the type node on
+                    // (`populateCoreMembers(type, last_Packed_dimension, ..)`)
+                    // before writeNets moves the end: the start is the name.
+                    // A package-SCOPED name takes the scope arm, which
+                    // locates nothing: end only (grid g1 e07/e08 vs e19).
+                    if (!scoped130 && end130 != SourceLocation::NoLocation)
+                        start130 = tsyn130->sourceRange().start();
+                }
+            }
+        }
+        if (end130 != SourceLocation::NoLocation) {
+            uint32_t l130 = 0, c130 = 0;
+            if (start130 != SourceLocation::NoLocation) {
+                locLineCol(start130, l130, c130);
+                ts->VpiLineNo(l130);
+                ts->VpiColumnNo(c130);
+            }
+            locLineCol(end130, l130, c130);
+            ts->VpiEndLineNo(l130);
+            ts->VpiEndColumnNo(c130);
+            ts->VpiFile(fullFilePath(end130));
+        }
+    }
+    // § netSigningTsSpan130 (r11u130) — the same packed slot for a NET
+    // declaration written with a signing keyword.  compileNetDeclaration
+    // takes the node after the net-type keyword as the Signal's packed
+    // dimension, and for `wire signed [7:0] s;` that node is `signed`, so
+    // writeNets' end-only populate ends the definition typespec at the
+    // signing keyword: golden `wire signed` 3:3-3:14 where the whole type
+    // runs to 3:20 (SignedWire, static_cast_simple), also for `wire signed w;`
+    // whose type ends at the keyword and for an initialized net (the net
+    // road has no initializer slot).  An unpacked dimension fills the slot
+    // first and keeps the type span (grid tools/probe/r11u130repro/grid/g5).
+    if (ts && ts->VpiName().empty() && ts->VpiLineNo() != 0 &&
+        pn.rt->VpiParent() &&
+        pn.rt->VpiParent()->UhdmType() != UHDM::uhdmport &&
+        hasExplicitNetKeyword(*pn.sym) &&
+        r11u130Law("R11U130_NETSIGN_OFF")) {
+        auto dsyn = pn.sym->getSyntax();
+        auto* dt131 = pn.sym->getDeclaredType();
+        auto tsyn131 = dt131 ? dt131->getTypeSyntax() : nullptr;
+        if (dsyn && dsyn->kind == syntax::SyntaxKind::Declarator &&
+            dsyn->as<syntax::DeclaratorSyntax>().dimensions.empty() && tsyn131 &&
+            tsyn131->kind == syntax::SyntaxKind::ImplicitType) {
+            auto sg131 = tsyn131->as<syntax::ImplicitTypeSyntax>().signing;
+            if (sg131.valid() && sg131.range().end() != SourceLocation::NoLocation) {
+                uint32_t l131 = 0, c131 = 0;
+                locLineCol(sg131.range().end(), l131, c131);
+                ts->VpiEndLineNo(l131);
+                ts->VpiEndColumnNo(c131);
+            }
+        }
     }
     pn.rt->Actual_typespec(ts);
 }
@@ -41673,6 +41829,40 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         emitParameters(body, iface, prefix, netMap, /*topView=*/true,
                        pit != defMap.end() ? &pit->second : nullptr, false);
     }
+    // § portViewParamDefName130 (r11u130) — A REFERENCE-STYLE PORT VIEW NAMES
+    // ITS PARAMETERS BY THE DEFINITION.  The view an interface-typed port's
+    // LowConn reaches (`module sub (my_iface bus)`, and an interface's own
+    // interface-typed port, InterfType) is Surelog's copy of the DEFINITION
+    // (its param_assign reads the default, UINT:3 for `#(.W(22))`), so the
+    // Lhs parameter keeps the definition's full name `work@my_iface.W`, and
+    // its ref_typespec with it; the param_assign's other objects keep the
+    // view's path.  A MODPORT-qualified port (`my_iface.mp bus`) is listed
+    // under the module with the override and path names (grid
+    // tools/probe/r11u130repro/grid/g6: p01-p04 def names, p05 path names).
+    // Only a param_assign whose Rhs is a CONSTANT reads the definition's
+    // object: a struct-valued default kept as an OPERATION is re-elaborated
+    // under the view and named by its path (GenIfIfaceParamStructField,
+    // grid p11), while a struct-typed parameter with a constant default is
+    // the definition's again (p13).
+    if (portView && connModport.empty() && iface->Param_assigns() &&
+        r11u130Law("R11U130_PVPARAM_OFF")) {
+        for (auto* pa130 : *iface->Param_assigns()) {
+            auto* po130 = pa130->Lhs();
+            auto* rh130 = pa130->Rhs();
+            if (!po130 || po130->UhdmType() != UHDM::uhdmparameter || !rh130 ||
+                rh130->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            auto* pp130 = (UHDM::parameter*)po130;
+            std::string nm130(pp130->VpiName());
+            if (nm130.empty() || pp130->VpiFullName() != prefix + "." + nm130)
+                continue;
+            std::string dn130 = defPrefix + "." + nm130;
+            pp130->VpiFullName(dn130);
+            if (auto* rt130 = pp130->Typespec();
+                rt130 && rt130->VpiFullName() == prefix + "." + nm130)
+                rt130->VpiFullName(dn130);
+        }
+    }
     // ── An interface instance's param_assign Rhs is the ENCLOSING scope's
     //    SAME-NAMED parameter value, when one exists ────────────────────────
     // Purpose-built golden (r10rggen3 repro ifnm/t3):
@@ -42645,8 +42835,24 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             if (auto tt = pkgTopTypedefTs.find(&it.sym->getDeclaredType()->getType());
                 tt != pkgTopTypedefTs.end())
                 ts = tt->second;
-            if (!ts)
+            if (!ts) {
                 ts = makeTypespec(*it.sym);
+                // § ifaceElabInlineSuKeyword130 (r11u130) — the ELABORATED
+                // interface's inline anonymous struct/union typespec spans the
+                // bare `struct`/`union` keyword, as a module instance's does
+                // (NetlistElaboration compiles the type node alone; the
+                // `struct packed` header is the definition view's end-only
+                // slot, § defNetEndOnlyLoc130).  Grid
+                // tools/probe/r11u130repro/grid/g8 k07, k08.
+                if (ts && ts->VpiName().empty() &&
+                    (ts->UhdmType() == UHDM::uhdmstruct_typespec ||
+                     ts->UhdmType() == UHDM::uhdmunion_typespec) &&
+                    r11u130Law("R11U130_IFSUKW_OFF"))
+                    if (auto* tsyn130 = it.sym->getDeclaredType()->getTypeSyntax())
+                        if (auto* su130 =
+                                tsyn130->as_if<syntax::StructUnionTypeSyntax>())
+                            setLoc(ts, su130->keyword.range());
+            }
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(fullName);
             rt->VpiParent(sn);
@@ -47006,6 +47212,25 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 ivrt->VpiParent(iv);
                 auto* ivts = s.MakeInt_typespec();
                 setLoc(ivts, loopSyn->identifier.range());
+                // § genvarIntTsRootFile130 (r11u130) — the loop variable's
+                // implicit int typespec is Surelog's buildIntTypespec
+                // (CompileType.cpp, the `implicitInt` arm of compileVariable):
+                // `VpiFile(fC->getFileId())` with the NODE's line/column, and
+                // a FileContent is the whole preprocessed ROOT file.  So a loop
+                // written in an included file, or expanded from a macro
+                // defined in one, reads the root file with the included
+                // file's line (r11v125 grid gv v05 body.svh 1:17 -> dut.sv,
+                // v06 defs.svh 2:15 -> dut.sv; grid
+                // tools/probe/r11u130repro/grid/g11).  Switch:
+                // R11U130_GVTSFILE_OFF (and R11U130_OFF).
+                if (r11u130Law("R11U130_GVTSFILE_OFF")) {
+                    SourceLocation gl130 = loopSyn->identifier.range().start();
+                    if (sm->isMacroLoc(gl130))
+                        gl130 = sm->getFullyExpandedLoc(gl130);
+                    std::string rf130 = rootFilePath(gl130);
+                    if (!rf130.empty() && ivts->VpiLineNo() != 0)
+                        ivts->VpiFile(rf130);
+                }
                 ivrt->Actual_typespec(ivts);
                 iv->Typespec(ivrt);
                 syntaxRefPrefix = prefix;

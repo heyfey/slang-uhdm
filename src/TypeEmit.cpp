@@ -13,6 +13,24 @@
 
 namespace slang_uhdm {
 
+// r11u130's gate (defined in UhdmExporter.cpp; the switch table is there).
+bool r11u130Law(const char* sw);
+
+// § suSigningNotInSpan130 (r11u130) — AN INLINE PACKED STRUCT/UNION'S
+// DEFINITION-VIEW TYPESPEC ENDS AT `packed`, NEVER AT A SIGNING KEYWORD.
+// The definition net's typespec is located by writeNets' end-only populate
+// at the Signal's packed slot (§ defNetEndOnlyLoc130, ModuleEmit.cpp), and
+// for `struct packed signed {..} s;` that slot is the node after the
+// struct/union keyword: `packed`.  So golden reads `struct packed` (3:3-3:16)
+// for `struct packed signed`, `struct packed unsigned` and `union packed
+// signed` alike (svtypes_struct_simple `pack1` 11:2-11:15; grid
+// tools/probe/r11u130repro/grid/g8 k01-k04, k06 with `signed` on the next
+// line, k07 in an interface).  Switch: R11U130_SUSIGN_OFF.
+static bool suSigningNotInSpan130() {
+    static const bool on = r11u130Law("R11U130_SUSIGN_OFF");
+    return on;
+}
+
 // § spanCopyCarriesFile125 — the TypeEmit twin of ModuleEmit.cpp's helper
 // (see the law there).  Switch: R11U125_SPANFILE_OFF (and R11U125_OFF).
 static void cpFile125(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
@@ -3706,7 +3724,9 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     SourceLocation e = su->keyword.range().end();
                     if (su->packed && su->packed.range().end() > e)
                         e = su->packed.range().end();
-                    if (su->signing && su->signing.range().end() > e)
+                    // § suSigningNotInSpan130 — the header ends at `packed`.
+                    if (su->signing && su->signing.range().end() > e &&
+                        !suSigningNotInSpan130())
                         e = su->signing.range().end();
                     setLoc(uts, SourceRange(su->keyword.range().start(), e));
                 }
@@ -3761,7 +3781,9 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         SourceLocation e = su->keyword.range().end();
                         if (su->packed && su->packed.range().end() > e)
                             e = su->packed.range().end();
-                        if (su->signing && su->signing.range().end() > e)
+                        // § suSigningNotInSpan130 — the header ends at `packed`.
+                        if (su->signing && su->signing.range().end() > e &&
+                            !suSigningNotInSpan130())
                             e = su->signing.range().end();
                         setLoc(sts, SourceRange(su->keyword.range().start(), e));
                     }
