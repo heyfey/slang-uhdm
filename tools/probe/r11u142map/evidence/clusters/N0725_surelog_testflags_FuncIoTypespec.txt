@@ -1,0 +1,64 @@
+cluster N0725 (r11u128map N0725; OPEN): fullname|part_select|tok:id.id->id|under:assignment
+row: surelog/testflags/FuncIoTypespec  strict=differ:file(107)  records golden=914 ours=914
+object: #629 (golden) / #629 (ours)  type=part_select name=result_t OUT
+  golden: work@top.inst.fshl_u_1.result_t
+  ours:   work@shift.fshl_u_1.result_t
+  walk parents: assignment < begin < function(fshl_u_1) < module_inst(inst)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 623..635 ('>' = the object)
+  #623	8	parameter	len		work@shift.fshl_u_1.len	dut.sv	27	16	27	19		0			work@shift.fshl_u_1.len	000
+  #624	7	operation				dut.sv	31	25	31	31		0				000
+  #625	8	ref_obj	sbit		work@top.inst.fshl_u_1.sbit	dut.sv	31	26	31	30		0			work@top.inst.fshl_u_1.sbit	000
+  #626	6	ref_obj	result_t		work@top.inst.fshl_u_1.result_t	dut.sv	31	8	31	16		0			work@top.inst.fshl_u_1.result_t	000
+  #627	5	assignment				dut.sv	32	8	32	33						000
+  #628	6	ref_obj	arg1		work@top.inst.fshl_u_1.arg1	dut.sv	32	29	32	33		0			work@top.inst.fshl_u_1.arg1	000
+> #629	6	part_select	result_t	result_t	work@top.inst.fshl_u_1.result_t	dut.sv	32	8	32	26		0			work@top.inst.fshl_u_1.result_t	000
+  #630	7	operation				dut.sv	32	17	32	23		0				000
+  #631	8	ref_obj	ilen		work@top.inst.fshl_u_1.result_t.ilen	dut.sv	32	17	32	21		0			work@top.inst.fshl_u_1.result_t.ilen	000
+  #632	9	parameter	ilen		work@shift.fshl_u_1.ilen	dut.sv	26	16	26	20		0			work@shift.fshl_u_1.ilen	000
+  #633	8	constant				dut.sv	32	22	32	23	1	64	UINT:1	9		000
+  #634	7	constant				dut.sv	32	24	32	25	0	64	UINT:0	9		000
+  #635	5	assignment				dut.sv	33	8	33	34						000
+
+--- OURS (B) records 623..635 ('>' = the object)
+  #623	8	parameter	len		work@shift.fshl_u_1.len	dut.sv	27	16	27	19		0			work@shift.fshl_u_1.len	000
+  #624	7	operation				dut.sv	31	25	31	31		0				000
+  #625	8	ref_obj	sbit		work@shift.fshl_u_1.sbit	dut.sv	31	26	31	30		0			work@shift.fshl_u_1.sbit	000
+  #626	6	ref_obj	result_t		work@shift.fshl_u_1.result_t	dut.sv	31	8	31	16		0			work@shift.fshl_u_1.result_t	000
+  #627	5	assignment				dut.sv	32	8	32	33						000
+  #628	6	ref_obj	arg1		work@shift.fshl_u_1.arg1	dut.sv	32	29	32	33		0			work@shift.fshl_u_1.arg1	000
+> #629	6	part_select	result_t	result_t	work@shift.fshl_u_1.result_t	dut.sv	32	8	32	26		0			work@shift.fshl_u_1.result_t	000
+  #630	7	operation				dut.sv	32	17	32	23		0				000
+  #631	8	ref_obj	ilen		work@shift.fshl_u_1.result_t.ilen	dut.sv	32	17	32	21		0			work@shift.fshl_u_1.result_t.ilen	000
+  #632	9	parameter	ilen		work@shift.fshl_u_1.ilen	dut.sv	26	16	26	20		0			work@shift.fshl_u_1.ilen	000
+  #633	8	constant				dut.sv	32	22	32	23	1	64	UINT:1	9		000
+  #634	7	constant				dut.sv	32	24	32	25	0	64	UINT:0	9		000
+  #635	5	assignment				dut.sv	33	8	33	34						000
+
+facets of this row (107, first 25):
+  N0011 #37/37 logic_net len G[ 28:11:28:14] O[dut.sv 28:11:28:14]
+  N0011 #46/46 logic_net len G[ 28:11:28:14] O[dut.sv 28:11:28:14]
+  N0011 #173/173 logic_net len G[ 28:11:28:14] O[dut.sv 28:11:28:14]
+  N0011 #182/182 logic_net len G[ 28:11:28:14] O[dut.sv 28:11:28:14]
+  N0016 #360/360 logic_net len G[ 28:11:28:14] O[dut.sv 28:11:28:14]
+  N0282 #558/558 function fshl_u_1 G[work@top.inst.fshl_u_1] O[work@shift.fshl_u_1]
+  N0728 #559/559 logic_var result G[work@top.inst.fshl_u_1.result] O[work@shift.fshl_u_1.result]
+  N0269 #560/560 ref_typespec  G[work@top.inst.fshl_u_1.result] O[work@shift.fshl_u_1.result]
+  N0011 #565/565 logic_net len G[ 28:11:28:14] O[dut.sv 28:11:28:14]
+  N0728 #568/568 logic_var result_t G[work@top.inst.fshl_u_1.result_t] O[work@shift.fshl_u_1.result_t]
+  N0269 #569/569 ref_typespec  G[work@top.inst.fshl_u_1.result_t] O[work@shift.fshl_u_1.result_t]
+  N0011 #574/574 logic_net len G[ 28:11:28:14] O[dut.sv 28:11:28:14]
+  N1609 #577/577 parameter olen G[work@top.inst.fshl_u_1.olen] O[work@shift.fshl_u_1.olen]
+  N1609 #578/578 parameter ilen G[work@top.inst.fshl_u_1.ilen] O[work@shift.fshl_u_1.ilen]
+  N1609 #579/579 parameter len G[work@top.inst.fshl_u_1.len] O[work@shift.fshl_u_1.len]
+  N1787 #581/581 ref_obj width_z G[work@top.inst.fshl_u_1.width_z] O[work@shift.fshl_u_1.width_z]
+  N1610 #582/582 parameter olen G[work@top.inst.fshl_u_1.olen] O[work@shift.fshl_u_1.olen]
+  N0089 #585/585 ref_obj width_a G[work@top.inst.fshl_u_1.width_a] O[work@shift.fshl_u_1.width_a]
+  N1610 #587/587 parameter ilen G[work@top.inst.fshl_u_1.ilen] O[work@shift.fshl_u_1.ilen]
+  N0089 #591/591 ref_obj ilen G[work@top.inst.fshl_u_1.ilen] O[work@shift.fshl_u_1.ilen]
+  N0089 #592/592 ref_obj olen G[work@top.inst.fshl_u_1.olen] O[work@shift.fshl_u_1.olen]
+  N0089 #593/593 ref_obj ilen G[work@top.inst.fshl_u_1.ilen] O[work@shift.fshl_u_1.ilen]
+  N0089 #594/594 ref_obj olen G[work@top.inst.fshl_u_1.olen] O[work@shift.fshl_u_1.olen]
+  N1610 #595/595 parameter len G[work@top.inst.fshl_u_1.len] O[work@shift.fshl_u_1.len]
+  N0721 #605/605 ref_typespec  G[work@top.inst.fshl_u_1.arg1] O[work@shift.fshl_u_1.arg1]

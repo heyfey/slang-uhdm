@@ -1,0 +1,26 @@
+{
+ "N0003": [
+  "r11u140",
+  "pass-133 R2, the in-package unqualified pattern read (tools/probe/r11u133repro/pkr p01/u01 carry it)"
+ ],
+ "N0142": [
+  "r11u140",
+  "pass-133 R6, the unpacked-array import clone's array_typespec range (tools/probe/r11u133repro/lhs/l04 carries it first)"
+ ],
+ "N0451": [
+  "r11u140",
+  "pass-133 R6, the same clone's element ref_typespec name (lhs/l04)"
+ ],
+ "N0077": [
+  "r11u140",
+  "emitMixedHierPath residue, r11v133 F4 (tools/probe/r11v133repro/tix a02_gen_for, f06_gen_if carry it)"
+ ],
+ "N2379": [
+  "r11u140",
+  "emitMixedHierPath residue: the pass-133 trailing-select index name (hpTrailSelIdxNamesByPath133 frames in the mint chain) in UVM class-method bodies, golden names the index through the enclosing path"
+ ],
+ "N2380": [
+  "r11u140",
+  "emitMixedHierPath residue: as N2379 (hpTrailSelIdxNamesByPath133 frame), UVM class-method body"
+ ]
+}

@@ -1,0 +1,49 @@
+cluster N0499 (r11u128map N0499; OPEN): value|constant|decompile+size+consttype:9->0|under:range
+row: uhdm2rtlil/testflags/ParameterFromPkgInNestedModule  strict=differ:fullname(7)  records golden=177 ours=174
+object: #170 (golden) / #170 (ours)  type=constant name= 
+  golden: 7|64|UINT:7|9
+  ours:   |0|UINT:7|0
+  walk parents: range < logic_typespec < ref_typespec < constant
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 164..176 ('>' = the object)
+  #164	5	int_typespec				dut.sv	5	31	5	34						000
+  #165	3	cont_assign				dut.sv	8	11	8	16						000
+  #166	4	constant				dut.sv	8	15	8	16	32'habcd	32	HEX:abcd	5		000
+  #167	5	ref_typespec			work@top.u_aes_cipher_core		0	0	0	0		0			work@top.u_aes_cipher_core	000
+  #168	6	logic_typespec				dut.sv	2	14	2	30						000
+  #169	7	range				dut.sv	2	20	2	25						001
+> #170	8	constant				dut.sv	2	21	2	22	7	64	UINT:7	9		001
+  #171	8	constant				dut.sv	2	23	2	24	0	64	UINT:0	9		001
+  #172	7	range				dut.sv	2	25	2	30						001
+  #173	8	constant				dut.sv	2	26	2	27	3	64	UINT:3	9		001
+  #174	8	constant				dut.sv	2	28	2	29	0	64	UINT:0	9		001
+  #175	4	ref_obj	a		work@top.u_aes_cipher_core.a	dut.sv	8	11	8	12		0			work@top.u_aes_cipher_core.a	000
+  #176	5	logic_net	a		work@aes_cipher_core.a	dut.sv	5	35	5	36		0			work@aes_cipher_core.a	000
+
+--- OURS (B) records 164..173 ('>' = the object)
+  #164	5	int_typespec				dut.sv	5	31	5	34						000
+  #165	3	cont_assign				dut.sv	8	11	8	16						000
+  #166	4	constant				dut.sv	8	15	8	16	43981	32	UINT:43981	9		000
+  #167	5	ref_typespec			work@top.u_aes_cipher_core		0	0	0	0		0			work@top.u_aes_cipher_core	000
+  #168	6	logic_typespec					0	0	0	0						000
+  #169	7	range					0	0	0	0						001
+> #170	8	constant					0	0	0	0		0	UINT:7	0		001
+  #171	8	constant					0	0	0	0		0	UINT:0	0		001
+  #172	4	ref_obj	a		work@top.u_aes_cipher_core.a	dut.sv	8	11	8	12		0			work@top.u_aes_cipher_core.a	000
+  #173	5	logic_net	a		work@aes_cipher_core.a	dut.sv	5	35	5	36		0			work@aes_cipher_core.a	000
+
+facets of this row (13, first 25):
+  N0083 #172/-1 range  G[3 objs] O[]
+  N0536 #98/98 ref_typespec  G[work@top.u_aes_cipher_core] O[work@aes_cipher_core]
+  N0679 #166/166 constant  G[32'habcd|32|HEX:abcd|5] O[43981|32|UINT:43981|9]
+  N0476 #168/168 logic_typespec  G[dut.sv 2:14:2:30] O[ 0:0:0:0]
+  N0477 #168/168 logic_typespec  G[2:14:2:30] O[0:0:0:0]
+  N0444 #169/169 range  G[dut.sv 2:20:2:25] O[ 0:0:0:0]
+  N0445 #169/169 range  G[2:20:2:25] O[0:0:0:0]
+  N0031 #170/170 constant  G[dut.sv 2:21:2:22] O[ 0:0:0:0]
+  N0042 #170/170 constant  G[2:21:2:22] O[0:0:0:0]
+  N0499 #170/170 constant  G[7|64|UINT:7|9] O[|0|UINT:7|0]
+  N0031 #171/171 constant  G[dut.sv 2:23:2:24] O[ 0:0:0:0]
+  N0042 #171/171 constant  G[2:23:2:24] O[0:0:0:0]
+  N0499 #171/171 constant  G[0|64|UINT:0|9] O[|0|UINT:0|0]

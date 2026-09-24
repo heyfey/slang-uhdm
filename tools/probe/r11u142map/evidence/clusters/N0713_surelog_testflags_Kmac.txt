@@ -1,0 +1,63 @@
+cluster N0713 (r11u128map N0713; OPEN): fullname|begin|tok:id.id->id|under:always
+row: surelog/testflags/Kmac  strict=differ:type(1)  records golden=526 ours=521
+object: #469 (golden) / #464 (ours)  type=begin name= OUT
+  golden: work@kmac.core
+  ours:   work@kmac_core
+  walk parents: always < module_inst(core) < module_inst(work@kmac) < design(work@kmac)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 463..475 ('>' = the object)
+  #463	6	enum_const	L128			sha3_pkg.sv	13	5	13	18						001
+  #464	6	enum_const	L224			sha3_pkg.sv	14	5	14	18						001
+  #465	6	enum_const	L256			sha3_pkg.sv	15	5	15	18						001
+  #466	6	enum_const	L384			sha3_pkg.sv	16	5	16	18						001
+  #467	6	enum_const	L512			sha3_pkg.sv	17	5	17	18						001
+  #468	3	always				kmac_core.sv	24	5	34	8						000
+> #469	4	begin			work@kmac.core	kmac_core.sv	24	17	34	8					work@kmac.core	000
+  #470	5	case_stmt				kmac_core.sv	25	5	33	12						000
+  #471	6	ref_obj	strength_i		work@kmac.core.strength_i	kmac_core.sv	25	18	25	28		0			work@kmac.core.strength_i	000
+  #472	6	case_item				kmac_core.sv	26	7	26	64						000
+  #473	7	constant				kmac_core.sv	26	7	26	11		3	BIN:000	0		000
+  #474	7	assignment				kmac_core.sv	26	13	26	63						000
+  #475	8	operation				kmac_core.sv	26	32	26	63		0				000
+
+--- OURS (B) records 458..470 ('>' = the object)
+  #458	6	enum_const	L128			sha3_pkg.sv	13	5	13	18						001
+  #459	6	enum_const	L224			sha3_pkg.sv	14	5	14	18						001
+  #460	6	enum_const	L256			sha3_pkg.sv	15	5	15	18						001
+  #461	6	enum_const	L384			sha3_pkg.sv	16	5	16	18						001
+  #462	6	enum_const	L512			sha3_pkg.sv	17	5	17	18						001
+  #463	3	always				kmac_core.sv	24	5	34	8						000
+> #464	4	begin			work@kmac_core	kmac_core.sv	24	17	34	8					work@kmac_core	000
+  #465	5	case_stmt				kmac_core.sv	25	5	33	12						000
+  #466	6	ref_obj	strength_i		work@kmac_core.strength_i	kmac_core.sv	25	18	25	28		0			work@kmac_core.strength_i	000
+  #467	6	case_item				kmac_core.sv	26	7	26	64						000
+  #468	7	constant				kmac_core.sv	26	7	26	11		3	BIN:000	0		000
+  #469	7	assignment				kmac_core.sv	26	13	26	63						000
+  #470	8	operation				kmac_core.sv	26	32	26	63		0				000
+
+facets of this row (24, first 25):
+  N0142 #191/-1 range  G[5 objs] O[]
+  N0713 #469/464 begin  G[work@kmac.core] O[work@kmac_core]
+  N1120 #471/466 ref_obj strength_i G[work@kmac.core.strength_i] O[work@kmac_core.strength_i]
+  N0457 #476/471 ref_typespec  G[work@kmac.core] O[work@kmac_core]
+  N0619 #478/473 bit_select KeccakRate G[work@kmac.core.KeccakRate] O[work@kmac_core.KeccakRate]
+  N0280 #479/474 ref_obj L128 G[work@kmac.core.L128] O[work@kmac_core.L128]
+  N0124 #481/476 ref_obj block_addr_limit G[work@kmac.core.block_addr_limit] O[work@kmac_core.block_addr_limit]
+  N0457 #486/481 ref_typespec  G[work@kmac.core] O[work@kmac_core]
+  N0619 #488/483 bit_select KeccakRate G[work@kmac.core.KeccakRate] O[work@kmac_core.KeccakRate]
+  N0280 #489/484 ref_obj L224 G[work@kmac.core.L224] O[work@kmac_core.L224]
+  N0124 #491/486 ref_obj block_addr_limit G[work@kmac.core.block_addr_limit] O[work@kmac_core.block_addr_limit]
+  N0457 #496/491 ref_typespec  G[work@kmac.core] O[work@kmac_core]
+  N0619 #498/493 bit_select KeccakRate G[work@kmac.core.KeccakRate] O[work@kmac_core.KeccakRate]
+  N0280 #499/494 ref_obj L256 G[work@kmac.core.L256] O[work@kmac_core.L256]
+  N0124 #501/496 ref_obj block_addr_limit G[work@kmac.core.block_addr_limit] O[work@kmac_core.block_addr_limit]
+  N0457 #506/501 ref_typespec  G[work@kmac.core] O[work@kmac_core]
+  N0619 #508/503 bit_select KeccakRate G[work@kmac.core.KeccakRate] O[work@kmac_core.KeccakRate]
+  N0280 #509/504 ref_obj L384 G[work@kmac.core.L384] O[work@kmac_core.L384]
+  N0124 #511/506 ref_obj block_addr_limit G[work@kmac.core.block_addr_limit] O[work@kmac_core.block_addr_limit]
+  N0457 #516/511 ref_typespec  G[work@kmac.core] O[work@kmac_core]
+  N0619 #518/513 bit_select KeccakRate G[work@kmac.core.KeccakRate] O[work@kmac_core.KeccakRate]
+  N0280 #519/514 ref_obj L512 G[work@kmac.core.L512] O[work@kmac_core.L512]
+  N0124 #521/516 ref_obj block_addr_limit G[work@kmac.core.block_addr_limit] O[work@kmac_core.block_addr_limit]
+  N0124 #525/520 ref_obj block_addr_limit G[work@kmac.core.block_addr_limit] O[work@kmac_core.block_addr_limit]

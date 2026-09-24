@@ -1,0 +1,45 @@
+cluster N0021 (r11u128map N0021; COVERED r11u137 (N0021, net binding: r11u139 law.patch)): fullname|ref_obj|tok:id.id.->|under:operation
+row: uhdm2rtlil/testflags/dff_different_styles  strict=differ:fullname(2)  records golden=837 ours=835
+object: #782 (golden) / #782 (ours)  type=ref_obj name=preset OUT
+  golden: work@dffsr2.uut.preset.preset
+  ours:   work@dffsr2.preset
+  walk parents: operation < port(preset) < module_inst(uut) < module_inst(work@dffsr2)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 776..788 ('>' = the object)
+  #776	4	ref_obj	clk		work@dffsr2.clk	dut.sv	88	17	88	20		0			work@dffsr2.clk	000
+  #777	4	ref_obj	clk		work@dffsr2.uut.clk	dut.sv	92	19	92	22		0			work@dffsr2.uut.clk	000
+  #778	4	ref_typespec			work@dffsr2.uut.clk		0	0	0	0		0			work@dffsr2.uut.clk	000
+  #779	5	logic_typespec				dut.sv	93	7	93	7						000
+  #780	3	port	preset			dut.sv	92	24	92	30						000
+  #781	4	operation				dut.sv	88	22	88	38		0				000
+> #782	5	ref_obj	preset		work@dffsr2.uut.preset.preset	dut.sv	88	22	88	28		0			work@dffsr2.uut.preset.preset	000
+  #783	6	logic_net	preset		work@dffsr2.preset	dut.sv	87	11	87	17		0			work@dffsr2.preset	000
+  #784	5	operation				dut.sv	88	32	88	38		0				000
+  #785	6	ref_obj	clear		work@dffsr2.uut.preset.clear	dut.sv	88	33	88	38		0			work@dffsr2.uut.preset.clear	000
+  #786	7	logic_net	clear		work@dffsr2.clear	dut.sv	87	19	87	24		0			work@dffsr2.clear	000
+  #787	4	ref_obj	preset		work@dffsr2.uut.preset	dut.sv	92	24	92	30		0			work@dffsr2.uut.preset	000
+  #788	4	ref_typespec			work@dffsr2.uut.preset		0	0	0	0		0			work@dffsr2.uut.preset	000
+
+--- OURS (B) records 776..788 ('>' = the object)
+  #776	4	ref_obj	clk		work@dffsr2.clk	dut.sv	88	17	88	20		0			work@dffsr2.clk	000
+  #777	4	ref_obj	clk		work@dffsr2.uut.clk	dut.sv	92	19	92	22		0			work@dffsr2.uut.clk	000
+  #778	4	ref_typespec			work@dffsr2.uut.clk		0	0	0	0		0			work@dffsr2.uut.clk	000
+  #779	5	logic_typespec				dut.sv	93	7	93	7						000
+  #780	3	port	preset			dut.sv	92	24	92	30						000
+  #781	4	operation				dut.sv	88	22	88	38		0				000
+> #782	5	ref_obj	preset		work@dffsr2.preset	dut.sv	88	22	88	28		0			work@dffsr2.preset	000
+  #783	5	operation				dut.sv	88	32	88	38		0				000
+  #784	6	ref_obj	clear		work@dffsr2.clear	dut.sv	88	33	88	38		0			work@dffsr2.clear	000
+  #785	4	ref_obj	preset		work@dffsr2.uut.preset	dut.sv	92	24	92	30		0			work@dffsr2.uut.preset	000
+  #786	4	ref_typespec			work@dffsr2.uut.preset		0	0	0	0		0			work@dffsr2.uut.preset	000
+  #787	5	logic_typespec				dut.sv	93	7	93	7						000
+  #788	3	port	clear			dut.sv	92	32	92	37						000
+
+facets of this row (6, first 25):
+  N0006 #783/-1 logic_net preset G[1 objs] O[]
+  N0006 #786/-1 logic_net clear G[1 objs] O[]
+  N0021 #782/782 ref_obj preset G[work@dffsr2.uut.preset.preset] O[work@dffsr2.preset]
+  N0021 #785/784 ref_obj clear G[work@dffsr2.uut.preset.clear] O[work@dffsr2.clear]
+  N0021 #793/791 ref_obj preset G[work@dffsr2.uut.clear.preset] O[work@dffsr2.preset]
+  N0021 #794/792 ref_obj clear G[work@dffsr2.uut.clear.clear] O[work@dffsr2.clear]

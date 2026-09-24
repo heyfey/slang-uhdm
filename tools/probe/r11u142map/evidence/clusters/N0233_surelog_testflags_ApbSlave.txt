@@ -1,0 +1,64 @@
+cluster N0233 (r11u128map N0233; OPEN): span|integer_var|line+col+endline+endcol|under:function
+row: surelog/testflags/ApbSlave  strict=differ:line(30)  records golden=3678 ours=3682
+object: #532 (golden) / #536 (ours)  type=integer_var name= 
+  golden: 55:19:55:26
+  ours:   99:10:99:17
+  walk parents: function(get_error_count) < class_defn(svunit_testcase) < class_defn(svunit_base) < package(svunit_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 526..538 ('>' = the object)
+  #526	7	class_typespec	svunit_pkg::svunit_testcase				0	0	0	0						110
+  #527	5	io_decl	name			svunit_testcase.sv	52	30	52	34						000
+  #528	6	ref_typespec			svunit_pkg::svunit_testcase::new::name		0	0	0	0		0			svunit_pkg::svunit_testcase::new::name	000
+  #529	7	string_typespec				svunit_testcase.sv	52	23	52	29						000
+  #530	4	task	wait_for_error		svunit_pkg::svunit_testcase::wait_for_error	svunit_testcase.sv	54	3	54	31					svunit_pkg::svunit_testcase::wait_for_error	000
+  #531	4	function	get_error_count		svunit_pkg::svunit_testcase::get_error_count	svunit_testcase.sv	55	3	55	9					svunit_pkg::svunit_testcase::get_error_count	000
+> #532	5	integer_var			svunit_pkg::svunit_testcase::get_error_count	svunit_testcase.sv	55	19	55	26		0			svunit_pkg::svunit_testcase::get_error_count	000
+  #533	6	ref_typespec			svunit_pkg::svunit_testcase::get_error_count		0	0	0	0		0			svunit_pkg::svunit_testcase::get_error_count	000
+  #534	7	integer_typespec				svunit_testcase.sv	55	19	55	26						000
+  #535	4	task	give_up		svunit_pkg::svunit_testcase::give_up	svunit_testcase.sv	56	3	56	24					svunit_pkg::svunit_testcase::give_up	000
+  #536	4	function	fail		svunit_pkg::svunit_testcase::fail	svunit_testcase.sv	58	3	58	9					svunit_pkg::svunit_testcase::fail	000
+  #537	5	bit_var			svunit_pkg::svunit_testcase::fail	svunit_testcase.sv	58	19	58	22		0			svunit_pkg::svunit_testcase::fail	000
+  #538	6	ref_typespec			svunit_pkg::svunit_testcase::fail		0	0	0	0		0			svunit_pkg::svunit_testcase::fail	000
+
+--- OURS (B) records 530..542 ('>' = the object)
+  #530	7	class_typespec	svunit_pkg::svunit_testcase				0	0	0	0						110
+  #531	5	io_decl	name			svunit_testcase.sv	81	38	81	42						000
+  #532	6	ref_typespec			svunit_pkg::svunit_testcase::new::name		0	0	0	0		0			svunit_pkg::svunit_testcase::new::name	000
+  #533	7	string_typespec				svunit_testcase.sv	81	31	81	37						000
+  #534	4	task	wait_for_error		svunit_pkg::svunit_testcase::wait_for_error	svunit_testcase.sv	54	3	54	31					svunit_pkg::svunit_testcase::wait_for_error	000
+  #535	4	function	get_error_count		svunit_pkg::svunit_testcase::get_error_count	svunit_testcase.sv	55	3	55	9					svunit_pkg::svunit_testcase::get_error_count	000
+> #536	5	integer_var			svunit_pkg::svunit_testcase::get_error_count	svunit_testcase.sv	99	10	99	17		0			svunit_pkg::svunit_testcase::get_error_count	000
+  #537	6	ref_typespec			svunit_pkg::svunit_testcase::get_error_count		0	0	0	0		0			svunit_pkg::svunit_testcase::get_error_count	000
+  #538	7	integer_typespec				svunit_testcase.sv	99	10	99	17						000
+  #539	4	task	give_up		svunit_pkg::svunit_testcase::give_up	svunit_testcase.sv	56	3	56	24					svunit_pkg::svunit_testcase::give_up	000
+  #540	4	function	fail		svunit_pkg::svunit_testcase::fail	svunit_testcase.sv	58	3	58	9					svunit_pkg::svunit_testcase::fail	000
+  #541	5	bit_var			svunit_pkg::svunit_testcase::fail	svunit_testcase.sv	129	10	129	13		0			svunit_pkg::svunit_testcase::fail	000
+  #542	6	ref_typespec			svunit_pkg::svunit_testcase::fail		0	0	0	0		0			svunit_pkg::svunit_testcase::fail	000
+
+facets of this row (257, first 25):
+  N0289 #-1/372 string_var svunit_version G[] O[4 objs]
+  N0064 #4/4 include_file_info  G[375:12:375:32] O[373:12:373:32]
+  N0064 #5/5 include_file_info  G[593:12:593:33] O[587:12:587:33]
+  N0064 #6/6 include_file_info  G[710:12:710:34] O[698:12:698:34]
+  N0064 #7/7 include_file_info  G[813:12:813:32] O[797:12:797:32]
+  N0714 #34/34 begin  G[103:3:79:2] O[103:3:79:43]
+  N0714 #163/163 begin  G[103:3:195:2] O[103:3:195:18]
+  N0710 #169/169 sys_func_call $display G[103:3:106:17] O[103:3:103:155]
+  N0711 #173/173 sys_func_call $sformatf G[103:50:106:16] O[103:50:195:16]
+  N0705 #175/175 ref_obj success_str G[104:5:104:16] O[193:5:193:16]
+  N0726 #176/176 operation  G[105:5:105:27] O[194:5:194:27]
+  N0055 #177/177 ref_obj test_count G[105:5:105:15] O[194:5:194:15]
+  N0055 #178/178 ref_obj error_count G[105:16:105:27] O[194:16:194:27]
+  N0705 #179/179 ref_obj test_count G[106:5:106:15] O[195:5:195:15]
+  N0041 #216/216 unsupported_typespec list_of_testcases G[svunit_testsuite.sv 89:11:89:28] O[ 89:11:89:28]
+  N0710 #273/273 sys_func_call $display G[103:3:106:31] O[103:3:103:159]
+  N0711 #277/277 sys_func_call $sformatf G[103:50:106:30] O[103:50:109:30]
+  N0705 #279/279 ref_obj success_str G[104:5:104:16] O[107:5:107:16]
+  N0705 #280/280 ref_obj pass_cnt G[105:5:105:13] O[108:5:108:13]
+  N0715 #281/281 hier_path list_of_testcases.size G[106:5:106:29] O[109:5:109:29]
+  N0718 #282/282 ref_obj list_of_testcases G[106:5:106:22] O[109:5:109:22]
+  N0717 #283/283 method_func_call size G[106:23:106:27] O[109:23:109:27]
+  N0710 #360/360 sys_func_call $display G[103:3:107:21] O[103:3:103:178]
+  N0711 #364/364 sys_func_call $sformatf G[103:50:107:20] O[103:50:97:20]
+  N0705 #366/366 ref_obj success_str G[104:5:104:16] O[94:5:94:16]

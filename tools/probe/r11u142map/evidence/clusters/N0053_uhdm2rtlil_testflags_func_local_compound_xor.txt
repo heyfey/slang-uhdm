@@ -1,0 +1,41 @@
+cluster N0053 (r11u128map N0053; COVERED r11u140 (N0053)): span|begin|line+endline+endcol|under:function
+row: uhdm2rtlil/testflags/func_local_compound_xor  strict=differ:line(2)  records golden=341 ours=341
+object: #33 (golden) / #33 (ours)  type=begin name= 
+  golden: 19:5:19:20
+  ours:   18:5:18:30
+  walk parents: function(gf) < package(p) < design(work@func_local_compound_xor)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 27..39 ('>' = the object)
+  #27	3	io_decl	y			dut.sv	17	76	17	77						000
+  #28	4	ref_typespec			p::gf::y		0	0	0	0		0			p::gf::y	000
+  #29	5	logic_typespec				dut.sv	17	64	17	75						000
+  #30	6	range				dut.sv	17	70	17	75						001
+  #31	7	constant				dut.sv	17	71	17	72	3	64	UINT:3	9		001
+  #32	7	constant				dut.sv	17	73	17	74	0	64	UINT:0	9		001
+> #33	3	begin			p::gf	dut.sv	19	5	19	20					p::gf	000
+  #34	4	assignment				dut.sv	19	5	19	19						000
+  #35	5	constant				dut.sv	19	14	19	19	8'h00	8	HEX:00	5		000
+  #36	5	ref_obj	result		p::gf::result	dut.sv	19	5	19	11		0			p::gf::result	000
+  #37	4	if_stmt				dut.sv	20	5	20	27						000
+  #38	5	bit_select	y		p::gf::y	dut.sv	20	11	20	12		0			p::gf::y	000
+  #39	6	constant				dut.sv	20	11	20	12	0	64	UINT:0	9		000
+
+--- OURS (B) records 27..39 ('>' = the object)
+  #27	3	io_decl	y			dut.sv	17	76	17	77						000
+  #28	4	ref_typespec			p::gf::y		0	0	0	0		0			p::gf::y	000
+  #29	5	logic_typespec				dut.sv	17	64	17	75						000
+  #30	6	range				dut.sv	17	70	17	75						001
+  #31	7	constant				dut.sv	17	71	17	72	3	64	UINT:3	9		001
+  #32	7	constant				dut.sv	17	73	17	74	0	64	UINT:0	9		001
+> #33	3	begin			p::gf	dut.sv	18	5	18	30					p::gf	000
+  #34	4	assignment				dut.sv	19	5	19	19						000
+  #35	5	constant				dut.sv	19	14	19	19	8'h00	8	HEX:00	5		000
+  #36	5	ref_obj	result		p::gf::result	dut.sv	19	5	19	11		0			p::gf::result	000
+  #37	4	if_stmt				dut.sv	20	5	20	27						000
+  #38	5	bit_select	y		p::gf::y	dut.sv	20	11	20	12		0			p::gf::y	000
+  #39	6	constant				dut.sv	20	11	20	12	0	64	UINT:0	9		000
+
+facets of this row (2, first 25):
+  N0053 #33/33 begin  G[19:5:19:20] O[18:5:18:30]
+  N0053 #154/154 begin  G[19:5:19:20] O[18:5:18:30]

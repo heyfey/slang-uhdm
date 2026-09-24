@@ -1,0 +1,64 @@
+cluster N0108 (r11u128map N0108; COVERED r11u137 (N0108)): fullname|ref_typespec|tok:id@id.id.id.->|under:typespec_member
+row: surelog/default/Earlgrey_0_1  strict=differ:line(1051)  records golden=2173209 ours=2173725
+object: #452969 (golden) / #452727 (ours)  type=ref_typespec name= STABLE
+  golden: work@top_earlgrey.u_dm_top.dap.dmi_t.address
+  ours:   dmi_t.address
+  walk parents: typespec_member(address) < struct_typespec(dmi_t) < ref_typespec < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 452963..452975 ('>' = the object)
+  #452963	6	logic_net	dmi_rst_no		work@dmi_jtag.dmi_rst_no	dmi_jtag.sv	26	24	26	34		0			work@dmi_jtag.dmi_rst_no	000
+  #452964	4	cont_assign				dmi_jtag.sv	81	10	81	37						000
+  #452965	5	operation				dmi_jtag.sv	81	25	81	37		0				000
+  #452966	6	ref_typespec			work@top_earlgrey.u_dm_top.dap		0	0	0	0		0			work@top_earlgrey.u_dm_top.dap	000
+  #452967	7	struct_typespec	dmi_t			dmi_jtag.sv	62	11	66	4						110
+  #452968	8	typespec_member	address			dmi_jtag.sv	63	18	63	25						001
+> #452969	9	ref_typespec			<in>dmi_t.address		0	0	0	0		0			work@top_earlgrey.u_dm_top.dap.dmi_t.address	001
+  #452970	10	logic_typespec				dmi_jtag.sv	63	5	63	16						001
+  #452971	11	range				dmi_jtag.sv	63	11	63	16						001
+  #452972	12	constant				dmi_jtag.sv	63	12	63	13	6	64	UINT:6	9		001
+  #452973	12	constant				dmi_jtag.sv	63	14	63	15	0	64	UINT:0	9		001
+  #452974	8	typespec_member	data			dmi_jtag.sv	64	18	64	22						001
+  #452975	9	ref_typespec			<in>dmi_t.data		0	0	0	0		0			work@top_earlgrey.u_dm_top.dap.dmi_t.data	001
+
+--- OURS (B) records 452721..452733 ('>' = the object)
+  #452721	6	logic_net	dmi_rst_no		work@dmi_jtag.dmi_rst_no	dmi_jtag.sv	26	24	26	34		0			work@dmi_jtag.dmi_rst_no	000
+  #452722	4	cont_assign				dmi_jtag.sv	81	10	81	37						000
+  #452723	5	operation				dmi_jtag.sv	81	25	81	37		0				000
+  #452724	6	ref_typespec			work@top_earlgrey.u_dm_top.dap		0	0	0	0		0			work@top_earlgrey.u_dm_top.dap	000
+  #452725	7	struct_typespec	dmi_t			dmi_jtag.sv	62	11	66	4						110
+  #452726	8	typespec_member	address			dmi_jtag.sv	63	18	63	25						001
+> #452727	9	ref_typespec			<in>dmi_t.address		0	0	0	0		0			dmi_t.address	001
+  #452728	10	logic_typespec				dmi_jtag.sv	63	5	63	16						001
+  #452729	11	range				dmi_jtag.sv	63	11	63	16						001
+  #452730	12	constant				dmi_jtag.sv	63	12	63	13	6	64	UINT:6	9		001
+  #452731	12	constant				dmi_jtag.sv	63	14	63	15	0	64	UINT:0	9		001
+  #452732	8	typespec_member	data			dmi_jtag.sv	64	18	64	22						001
+  #452733	9	ref_typespec			<in>dmi_t.data		0	0	0	0		0			dmi_t.data	001
+
+facets of this row (28931, first 25):
+  N0142 #51100/-1 range  G[5 objs] O[]
+  N0142 #52801/-1 range  G[5 objs] O[]
+  N0142 #58917/-1 range  G[5 objs] O[]
+  N0142 #68952/-1 range  G[5 objs] O[]
+  N0142 #68980/-1 range  G[5 objs] O[]
+  N0142 #69008/-1 range  G[5 objs] O[]
+  N0142 #69036/-1 range  G[5 objs] O[]
+  N0142 #69843/-1 range  G[5 objs] O[]
+  N0142 #69871/-1 range  G[5 objs] O[]
+  N0142 #69899/-1 range  G[5 objs] O[]
+  N0142 #69927/-1 range  G[5 objs] O[]
+  N0142 #70791/-1 range  G[5 objs] O[]
+  N0142 #70819/-1 range  G[5 objs] O[]
+  N0142 #70847/-1 range  G[5 objs] O[]
+  N0142 #70875/-1 range  G[5 objs] O[]
+  N0142 #76973/-1 range  G[5 objs] O[]
+  N0142 #92369/-1 range  G[5 objs] O[]
+  N0142 #104434/-1 range  G[5 objs] O[]
+  N0142 #107686/-1 range  G[5 objs] O[]
+  N0142 #125115/-1 range  G[5 objs] O[]
+  N0142 #127050/-1 range  G[5 objs] O[]
+  N0142 #130430/-1 range  G[5 objs] O[]
+  N0142 #130519/-1 range  G[5 objs] O[]
+  N0142 #130941/-1 range  G[5 objs] O[]
+  N0142 #134891/-1 range  G[5 objs] O[]

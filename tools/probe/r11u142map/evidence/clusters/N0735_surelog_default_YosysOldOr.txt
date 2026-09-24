@@ -1,0 +1,64 @@
+cluster N0735 (r11u128map N0735; OPEN): value|constant|size|under:cont_assign
+row: surelog/default/YosysOldOr  strict=differ:line(78)  records golden=243334 ours=243325
+object: #155350 (golden) / #155347 (ours)  type=constant name= 
+  golden: 1|64|UINT:1|9
+  ours:   1|1|UINT:1|9
+  walk parents: cont_assign < module_inst(B) < module_inst(U1) < module_inst(or1200_amultp2_32x32)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 155344..155356 ('>' = the object)
+  #155344	8	operation				or1200_amultp2_32x32.v	191	35	191	44		0				000
+  #155345	9	bit_select	OPA		work@BOOTHCODER_33_32.OPA	or1200_amultp2_32x32.v	191	41	191	43		0			work@BOOTHCODER_33_32.OPA	000
+  #155346	10	constant				or1200_amultp2_32x32.v	191	41	191	43	32	64	UINT:32	9		000
+  #155347	8	bit_select	INV_MULTIPLICAND		work@BOOTHCODER_33_32.INV_MULTIPLICAND	or1200_amultp2_32x32.v	191	11	191	31		0			work@BOOTHCODER_33_32.INV_MULTIPLICAND	000
+  #155348	9	constant				or1200_amultp2_32x32.v	191	28	191	30	32	64	UINT:32	9		000
+  #155349	7	cont_assign				or1200_amultp2_32x32.v	194	11	194	27						000
+> #155350	8	constant				or1200_amultp2_32x32.v	194	26	194	27	1	64	UINT:1	9		000
+  #155351	8	bit_select	SUMMAND		work@or1200_top.or1200_cpu.or1200_mult_mac.or1200_amultp2_32x32.U1.B.SUMMAND	or1200_amultp2_32x32.v	194	11	194	23		0			work@or1200_top.or1200_cpu.or1200_mult_mac.or1200_amultp2_32x32.U1.B.SUMMAND	000
+  #155352	9	constant				or1200_amultp2_32x32.v	194	19	194	22	305	64	UINT:305	9		000
+  #155353	7	cont_assign				or1200_amultp2_32x32.v	230	11	230	35						000
+  #155354	8	ref_obj	LOGIC_ONE		work@BOOTHCODER_33_32.LOGIC_ONE	or1200_amultp2_32x32.v	230	26	230	35		0			work@BOOTHCODER_33_32.LOGIC_ONE	000
+  #155355	8	bit_select	SUMMAND		work@BOOTHCODER_33_32.SUMMAND	or1200_amultp2_32x32.v	230	11	230	23		0			work@BOOTHCODER_33_32.SUMMAND	000
+  #155356	9	constant				or1200_amultp2_32x32.v	230	19	230	22	322	64	UINT:322	9		000
+
+--- OURS (B) records 155341..155353 ('>' = the object)
+  #155341	8	operation				or1200_amultp2_32x32.v	191	35	191	44		0				000
+  #155342	9	bit_select	OPA		work@BOOTHCODER_33_32.OPA	or1200_amultp2_32x32.v	191	41	191	43		0			work@BOOTHCODER_33_32.OPA	000
+  #155343	10	constant				or1200_amultp2_32x32.v	191	41	191	43	32	64	UINT:32	9		000
+  #155344	8	bit_select	INV_MULTIPLICAND		work@BOOTHCODER_33_32.INV_MULTIPLICAND	or1200_amultp2_32x32.v	191	11	191	31		0			work@BOOTHCODER_33_32.INV_MULTIPLICAND	000
+  #155345	9	constant				or1200_amultp2_32x32.v	191	28	191	30	32	64	UINT:32	9		000
+  #155346	7	cont_assign				or1200_amultp2_32x32.v	194	11	194	27						000
+> #155347	8	constant				or1200_amultp2_32x32.v	194	26	194	27	1	1	UINT:1	9		000
+  #155348	8	bit_select	SUMMAND		work@or1200_top.or1200_cpu.or1200_mult_mac.or1200_amultp2_32x32.U1.B.SUMMAND	or1200_amultp2_32x32.v	194	11	194	23		0			work@or1200_top.or1200_cpu.or1200_mult_mac.or1200_amultp2_32x32.U1.B.SUMMAND	000
+  #155349	9	constant				or1200_amultp2_32x32.v	194	19	194	22	305	64	UINT:305	9		000
+  #155350	7	cont_assign				or1200_amultp2_32x32.v	230	11	230	35						000
+  #155351	8	ref_obj	LOGIC_ONE		work@BOOTHCODER_33_32.LOGIC_ONE	or1200_amultp2_32x32.v	230	26	230	35		0			work@BOOTHCODER_33_32.LOGIC_ONE	000
+  #155352	8	bit_select	SUMMAND		work@BOOTHCODER_33_32.SUMMAND	or1200_amultp2_32x32.v	230	11	230	23		0			work@BOOTHCODER_33_32.SUMMAND	000
+  #155353	9	constant				or1200_amultp2_32x32.v	230	19	230	22	322	64	UINT:322	9		000
+
+facets of this row (611, first 25):
+  N0006 #88173/-1 logic_net ictag_v G[3 objs] O[]
+  N0006 #232704/-1 logic_net ovforw_mult_mac G[3 objs] O[]
+  N0006 #232714/-1 logic_net ov_we_mult_mac G[3 objs] O[]
+  N0661 #53040/53040 logic_typespec  G[51:12:51:12] O[50:12:50:12]
+  N0190 #55018/55018 if_stmt  G[180:7:181:106] O[180:7:181:132]
+  N1077 #55020/55020 assignment  G[181:9:181:105] O[181:9:181:131]
+  N1090 #55021/55021 part_select start_addr G[181:60:181:105] O[181:73:181:131]
+  N0527 #55022/55022 constant  G[181:71:181:73] O[181:84:181:86]
+  N0845 #55023/55023 operation  G[181:74:181:103] O[181:87:181:123]
+  N0060 #55024/55024 operation  G[181:74:181:100] O[181:87:181:113]
+  N0287 #55025/55025 constant  G[181:74:181:75] O[181:87:181:88]
+  N0287 #55026/55026 constant  G[181:99:181:100] O[181:112:181:113]
+  N0287 #55027/55027 constant  G[181:102:181:103] O[181:122:181:123]
+  N1091 #55028/55028 part_select saved_addr_r G[181:9:181:56] O[181:9:181:69]
+  N0997 #55030/55030 operation  G[181:25:181:54] O[181:25:181:61]
+  N0287 #55034/55034 constant  G[181:53:181:54] O[181:60:181:61]
+  N0752 #55492/55492 logic_net ictag_addr G[150:38:150:48] O[150:45:150:55]
+  N0040 #55494/55494 logic_typespec  G[150:1:150:37] O[150:1:150:44]
+  N1094 #55495/55495 range  G[150:6:150:37] O[150:6:150:44]
+  N0766 #55499/55499 constant  G[150:35:150:36] O[150:42:150:43]
+  N1088 #55719/55719 operation  G[237:8:237:71] O[237:8:237:84]
+  N0561 #55720/55720 operation  G[237:9:237:61] O[237:9:237:74]
+  N0813 #55722/55722 part_select saved_addr G[237:16:237:61] O[237:16:237:74]
+  N0997 #55724/55724 operation  G[237:30:237:59] O[237:30:237:66]
+  N0287 #55728/55728 constant  G[237:58:237:59] O[237:65:237:66]

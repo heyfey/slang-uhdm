@@ -1,0 +1,64 @@
+cluster N0356 (r11u128map N0356; OPEN): span|constant|line+endline+endcol|under:func_call
+row: surelog/default/Scoreboard  strict=differ:line(195)  records golden=269656 ours=268952
+object: #22954 (golden) / #22960 (ours)  type=constant name= 
+  golden: 133:57:133:167
+  ours:   132:57:55:1
+  walk parents: func_call(uvm_report_warning) < if_stmt < begin < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 22948..22960 ('>' = the object)
+  #22948	9	constant				uvm_message_defines.svh	132	28	132	44	"UVM_DEPRECATED"	112	STRING:UVM_DEPRECATED	6		000
+  #22949	9	operation				uvm_message_defines.svh	132	46	133	45		0				000
+  #22950	10	constant				uvm_message_defines.svh	132	47	132	94	"count config parameter is deprecated and not "	360	STRING:count config parameter is deprecated and not 	6		000
+  #22951	10	constant				uvm_message_defines.svh	133	18	133	44	"part of the UVM standard"	192	STRING:part of the UVM standard	6		000
+  #22952	9	ref_obj	UVM_NONE		uvm_pkg::uvm_sequencer_base::build::UVM_NONE	uvm_message_defines.svh	133	47	133	55		0			uvm_pkg::uvm_sequencer_base::build::UVM_NONE	000
+  #22953	10	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+> #22954	9	constant				uvm_message_defines.svh	133	57	133	167	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/seq/uvm_sequencer_base.svh"	864	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/seq/uvm_sequencer_base.svh	6		000
+  #22955	9	constant				uvm_message_defines.svh	133	169	133	172	526	64	UINT:526	9		000
+  #22956	9	constant				uvm_message_defines.svh	133	174	133	176	""	0	STRING:	6		000
+  #22957	9	constant				uvm_message_defines.svh	133	178	133	179	1	64	UINT:1	9		000
+  #22958	4	if_stmt				uvm_sequencer_base.svh	529	3	532	6						000
+  #22959	5	ref_obj	uvm_config_int::get		uvm_pkg::uvm_sequencer_base::build::uvm_config_int::get	uvm_sequencer_base.svh	529	7	529	23		0			uvm_pkg::uvm_sequencer_base::build::uvm_config_int::get	000
+  #22960	5	begin			uvm_pkg::uvm_sequencer_base::build	uvm_sequencer_base.svh	529	76	532	6					uvm_pkg::uvm_sequencer_base::build	000
+
+--- OURS (B) records 22954..22966 ('>' = the object)
+  #22954	9	constant				uvm_message_defines.svh	132	28	132	44	"UVM_DEPRECATED"	112	STRING:UVM_DEPRECATED	6		000
+  #22955	9	operation				uvm_message_defines.svh	132	46	527	59		0				000
+  #22956	10	constant				uvm_message_defines.svh	132	47	132	94	"count config parameter is deprecated and not "	360	STRING:count config parameter is deprecated and not 	6		000
+  #22957	10	constant				uvm_message_defines.svh	527	32	527	58	"part of the UVM standard"	192	STRING:part of the UVM standard	6		000
+  #22958	9	ref_obj	UVM_NONE		uvm_pkg::uvm_sequencer_base::build::UVM_NONE	uvm_message_defines.svh	132	142	132	150		0			uvm_pkg::uvm_sequencer_base::build::UVM_NONE	000
+  #22959	10	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+> #22960	9	constant				uvm_message_defines.svh	132	57	55	1	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/seq/uvm_sequencer_base.svh"	864	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/seq/uvm_sequencer_base.svh	6		000
+  #22961	9	constant				uvm_message_defines.svh	132	68	132	71	526	64	UINT:526	9		000
+  #22962	9	constant				uvm_message_defines.svh	132	289	132	291	""	0	STRING:	6		000
+  #22963	9	constant				uvm_message_defines.svh	132	293	132	294	1	64	UINT:1	9		000
+  #22964	4	if_stmt				uvm_sequencer_base.svh	529	3	532	6						000
+  #22965	5	ref_obj	uvm_config_int::get		uvm_pkg::uvm_sequencer_base::build::uvm_config_int::get	uvm_sequencer_base.svh	529	7	529	23		0			uvm_pkg::uvm_sequencer_base::build::uvm_config_int::get	000
+  #22966	5	begin			uvm_pkg::uvm_sequencer_base::build	uvm_sequencer_base.svh	529	76	532	6					uvm_pkg::uvm_sequencer_base::build	000
+
+facets of this row (31015, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

@@ -1,0 +1,49 @@
+cluster N1849 (r11u128map N1849; OPEN (residue of r11u134: map 4 named it, still present)): fullname|logic_var|tok:id@id.id.->id::id::|under:function
+row: surelog/testflags/FuncStruct  strict=differ:fullname(10)  records golden=474 ours=474
+object: #361 (golden) / #361 (ours)  type=logic_var name=sigma_0 OUT
+  golden: work@dut.compress.sigma_0
+  ours:   hmac_pkg::compress::sigma_0
+  walk parents: function(compress) < module_inst(work@dut) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 355..367 ('>' = the object)
+  #355	3	range				dut.sv	2	15	2	21						001
+  #356	4	constant				dut.sv	2	16	2	18	31	64	UINT:31	9		001
+  #357	4	constant				dut.sv	2	19	2	20	0	64	UINT:0	9		001
+  #358	2	import_typespec	hmac_pkg			dut.sv	12	19	12	30						010
+  #359	3	constant					0	0	0	0	*	8	STRING:*	8		001
+  #360	2	function	compress		hmac_pkg::compress	dut.sv	3	1	8	12					hmac_pkg::compress	000
+> #361	3	logic_var	sigma_0		work@dut.compress.sigma_0	dut.sv	4	24	4	31		0			work@dut.compress.sigma_0	000
+  #362	4	ref_typespec			work@dut.compress.sigma_0		0	0	0	0		0			work@dut.compress.sigma_0	000
+  #363	5	logic_typespec	sha_word_t			dut.sv	2	9	2	21						110
+  #364	6	ref_typespec			<in>sha_word_t		0	0	0	0		0			sha_word_t	001
+  #365	7	logic_typespec	hmac_pkg::sha_word_t			dut.sv	2	9	2	21						001
+  #366	8	range				dut.sv	2	15	2	21						001
+  #367	9	constant				dut.sv	2	16	2	18	31	64	UINT:31	9		001
+
+--- OURS (B) records 355..367 ('>' = the object)
+  #355	3	range				dut.sv	2	15	2	21						001
+  #356	4	constant				dut.sv	2	16	2	18	31	64	UINT:31	9		001
+  #357	4	constant				dut.sv	2	19	2	20	0	64	UINT:0	9		001
+  #358	2	import_typespec	hmac_pkg			dut.sv	12	19	12	30						010
+  #359	3	constant					0	0	0	0	*	8	STRING:*	8		001
+  #360	2	function	compress		hmac_pkg::compress	dut.sv	3	1	8	12					hmac_pkg::compress	000
+> #361	3	logic_var	sigma_0		hmac_pkg::compress::sigma_0	dut.sv	4	24	4	31		0			hmac_pkg::compress::sigma_0	000
+  #362	4	ref_typespec			hmac_pkg::compress::sigma_0		0	0	0	0		0			hmac_pkg::compress::sigma_0	000
+  #363	5	logic_typespec	sha_word_t			dut.sv	2	9	2	21						110
+  #364	6	ref_typespec			<in>sha_word_t		0	0	0	0		0			sha_word_t	001
+  #365	7	logic_typespec	hmac_pkg::sha_word_t			dut.sv	2	9	2	21						001
+  #366	8	range				dut.sv	2	15	2	21						001
+  #367	9	constant				dut.sv	2	16	2	18	31	64	UINT:31	9		001
+
+facets of this row (10, first 25):
+  N1849 #361/361 logic_var sigma_0 G[work@dut.compress.sigma_0] O[hmac_pkg::compress::sigma_0]
+  N1817 #362/362 ref_typespec  G[work@dut.compress.sigma_0] O[hmac_pkg::compress::sigma_0]
+  N0652 #393/393 ref_typespec  G[work@dut.compress.w] O[hmac_pkg::compress::w]
+  N0652 #405/405 ref_typespec  G[work@dut.compress.h_i] O[hmac_pkg::compress::h_i]
+  N1100 #420/420 begin  G[work@dut.compress] O[hmac_pkg::compress]
+  N1848 #421/421 logic_var sigma_0 G[work@dut.compress.sigma_0] O[hmac_pkg::compress::sigma_0]
+  N1817 #422/422 ref_typespec  G[work@dut.compress.sigma_0] O[hmac_pkg::compress::sigma_0]
+  N0733 #434/434 ref_obj sigma_0 G[work@dut.compress.sigma_0] O[hmac_pkg::compress::sigma_0]
+  N0733 #436/436 ref_obj sigma_0 G[work@dut.compress.sigma_0] O[hmac_pkg::compress::sigma_0]
+  N1843 #437/437 bit_select compress G[work@dut.compress.compress] O[hmac_pkg::compress::compress]

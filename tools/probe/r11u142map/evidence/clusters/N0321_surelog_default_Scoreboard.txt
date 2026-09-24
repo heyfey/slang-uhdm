@@ -1,0 +1,64 @@
+cluster N0321 (r11u128map N0321; OPEN): file|enum_typespec|other-file+span|under:class_defn
+row: surelog/default/Scoreboard  strict=differ:line(195)  records golden=269656 ours=268952
+object: #85527 (golden) / #84890 (ours)  type=enum_typespec name=uvm_pkg::UVM_SEQ_ARB_TYPE 
+  golden: uvm_sequencer_base.svh 332:40:332:56
+  ours:   uvm_object_globals.svh 359:1:367:26
+  walk parents: class_defn(work@my_scoreboard) < class_defn(uvm_scoreboard) < class_defn(uvm_component) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 85521..85533 ('>' = the object)
+  #85521	7	ref_typespec			work@my_scoreboard		0	0	0	0		0			work@my_scoreboard	000
+  #85522	8	int_typespec				uvm_globals.svh	410	1	410	62						000
+  #85523	6	parameter	UVM_LARGE_STRING		work@my_scoreboard::UVM_LARGE_STRING	uvm_globals.svh	410	11	410	27		0	INT:115199		work@my_scoreboard::UVM_LARGE_STRING	000
+  #85524	7	ref_typespec			work@my_scoreboard::UVM_LARGE_STRING		0	0	0	0		0			work@my_scoreboard::UVM_LARGE_STRING	000
+  #85525	8	int_typespec				uvm_globals.svh	410	1	410	62						000
+  #85526	5	int_typespec	uvm_pkg::UVM_FILE			uvm_object_globals.svh	313	9	313	12						010
+> #85527	5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_sequencer_base.svh	332	40	332	56						010
+  #85528	6	ref_typespec			<in>uvm_pkg::UVM_SEQ_ARB_TYPE		0	0	0	0		0			work@my_scoreboard::uvm_pkg::UVM_SEQ_ARB_TYPE	001
+  #85529	7	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode			uvm_object_globals.svh	359	1	367	26						001
+  #85530	8	enum_const	UVM_SEQ_ARB_FIFO			uvm_object_globals.svh	361	3	361	19						001
+  #85531	8	enum_const	UVM_SEQ_ARB_WEIGHTED			uvm_object_globals.svh	362	3	362	23						001
+  #85532	8	enum_const	UVM_SEQ_ARB_RANDOM			uvm_object_globals.svh	363	3	363	21						001
+  #85533	8	enum_const	UVM_SEQ_ARB_STRICT_FIFO			uvm_object_globals.svh	364	3	364	26						001
+
+--- OURS (B) records 84884..84896 ('>' = the object)
+  #84884	6	parameter	UVM_NUM_LINES		work@my_scoreboard::UVM_NUM_LINES	uvm_globals.svh	408	11	408	24		0	UINT:120		work@my_scoreboard::UVM_NUM_LINES	000
+  #84885	5	param_assign				uvm_globals.svh	409	11	409	48						000
+  #84886	6	parameter	UVM_SMALL_STRING		work@my_scoreboard::UVM_SMALL_STRING	uvm_globals.svh	409	11	409	27		0	INT:959		work@my_scoreboard::UVM_SMALL_STRING	000
+  #84887	5	param_assign				uvm_globals.svh	410	11	410	62						000
+  #84888	6	parameter	UVM_LARGE_STRING		work@my_scoreboard::UVM_LARGE_STRING	uvm_globals.svh	410	11	410	27		0	INT:115199		work@my_scoreboard::UVM_LARGE_STRING	000
+  #84889	5	int_typespec	uvm_pkg::UVM_FILE			uvm_object_globals.svh	313	9	313	12						010
+> #84890	5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_object_globals.svh	359	1	367	26						010
+  #84891	6	ref_typespec			<in>uvm_pkg::UVM_SEQ_ARB_TYPE		0	0	0	0		0			uvm_pkg::UVM_SEQ_ARB_TYPE	001
+  #84892	7	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode			uvm_object_globals.svh	359	1	367	26						001
+  #84893	8	enum_const	UVM_SEQ_ARB_FIFO			uvm_object_globals.svh	361	3	361	19						001
+  #84894	8	enum_const	UVM_SEQ_ARB_WEIGHTED			uvm_object_globals.svh	362	3	362	23						001
+  #84895	8	enum_const	UVM_SEQ_ARB_RANDOM			uvm_object_globals.svh	363	3	363	21						001
+  #84896	8	enum_const	UVM_SEQ_ARB_STRICT_FIFO			uvm_object_globals.svh	364	3	364	26						001
+
+facets of this row (31015, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

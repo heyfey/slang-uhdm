@@ -1,0 +1,35 @@
+# r11u142map verification of the instruments
+
+## binaries (frozen, chmod 555, /tmp/r11u142_bin; slang-uhdm.p137 = 614337e4c8d4 built from a 6ef15be0 worktree)
+3e213a154aab7f619443de5f11646f0a  objrank
+c4ed97f9a285203b39547c8bd500249a  slang-uhdm
+eb07a262a800e8bccd19ce65b1b19ae6  slang-uhdm.g1
+7e68dc3dc6fb7983ecc487858a7383f3  slang-uhdm.nb
+db96066ac072748e8d5b05cf675242f8  strictcmp_x
+5d4617d0458f34aa79e0b91009d5d1fc  uhdm-strictcmp
+main tree build/slang-uhdm: c4ed97f9a285203b39547c8bd500249a at a7bee711 (checked 16:5x, before pass 137 landed); 614337e4c8d4b8833fe5c71262db8aae at 6ef15be0 (rebuilt 17:07:51 with pass 137) = slang-uhdm.p137
+main tree build/uhdm-strictcmp: 5d4617d0458f34aa79e0b91009d5d1fc
+slang-uhdm = the worktree's pristine a7bee711 build, byte-identical to the main tree's (the brief's c7b333fcf978 is e562f4d4's binary; a7bee711's
+r11u141 fix laws changed UhdmExporter/EmitHelpers/ExprEmit, so the a7bee711 md5 is c4ed97f9a285)
+slang-uhdm.g1 = the same source with -DCMAKE_CXX_FLAGS=-g1 (build_g1), gdb only; its database for tests/probe/r10buvm11repro/w5v_param11
+run in the main checkout = the reference sweep's (6d0c1389c6d8), and 654 of the 741 pin runs wrote the reference database byte for byte (db=SAME
+in pins_new.txt; the 87 DIFF are MiniAmiq/default 86 + SimpleUVM/default 1, the UVM order coin: those clusters keep map 4's pin)
+slang-uhdm.nb = MEASUREMENT ONLY: a7bee711 + tools/probe/r11u139netbind/law.patch (applies clean at a7bee711, offsets only; worktree /tmp/wt_r11u142nb)
+
+## the reference sweep /tmp/intr11u141 (read-only input)
+cmds.txt: 3273 slang lines, every one naming the main-tree binary (built 16:32:21; every slang.uhdm written 16:33:06-16:37:23, every probe
+database 16:32:37-16:33:06, i.e. after the build); 4 rows re-run with the frozen pristine binary give byte-identical databases:
+  uhdm2rtlil_default_ibex_alu d65aa9e101ec
+  uhdm2rtlil_testflags_sva_range 70aaf3d141f7
+  surelog_default_ComplexHierPath 2b11fdff1062
+  surelog_testflags_TypeParam 334c292223fb
+status+strict columns vs results/golden_surelog.csv: 1596/1596 rows equal; vs results/golden_uhdm2rtlil.csv: 1742/1742 rows equal; probe 4087/4087
+
+## strictcmp_x (r11u132map's variant, drivers/strictcmp_x.cpp, same md5 db96066a as maps 3 and 4; tools/uhdm-strictcmp unchanged since 4f73d52f)
+40 / 40 sampled STRICT_NOTEQUAL row-modes: stdout + rc byte-identical to the committed tool:
+ uhdm2rtlil/testflags/sat_asserts_seq uhdm2rtlil/default/func_local_compound_xor surelog/default/UnsupportedTypespecRange surelog/default/InterfaceStructMemberPort uhdm2rtlil/default/genscope_module_ctx_reset uhdm2rtlil/testflags/arb_idx_cast uhdm2rtlil/default/ibex_counter uhdm2rtlil/testflags/dff_different_styles surelog/default/UnpackedTypespec surelog/default/GenForIfaceLocalparamBound uhdm2rtlil/testflags/iface_array_modport_drive uhdm2rtlil/default/iface_struct_field_partsel uhdm2rtlil/testflags/FileLevelUnionWithMultirange uhdm2rtlil/default/ibex_multdiv_slow surelog/testflags/OneNetInterf surelog/default/SimpleUVM uhdm2rtlil/default/latch_tlb_napot surelog/default/PackedEnumPort uhdm2rtlil/default/iface_arr_struct_field_partsel surelog/testflags/OneNetRange surelog/default/ClassVar surelog/testflags/PackageMemberTypespec surelog/testflags/ClogParam uhdm2rtlil/testflags/anon_struct_packed_dim surelog/default/YosysOldSpi uhdm2rtlil/default/struct_param_func_config uhdm2rtlil/default/packed_array_reset_loop surelog/default/LogicTypespec surelog/testflags/StructParamFieldRange surelog/testflags/FuncCase uhdm2rtlil/testflags/ibex_compressed_decoder uhdm2rtlil/default/ibex_tracer uhdm2rtlil/default/struct_member_cfg_width surelog/default/SignedBin uhdm2rtlil/default/jeras_tcb_gpio surelog/testflags/ParamArrayUnsizedPattern surelog/testflags/DefaultPatternInt surelog/testflags/ParamFromPackage surelog/testflags/DefaultPatternModule uhdm2rtlil/testflags/int_types
+
+## per-row checks
+verify (python mode-4 rule vs tool stdout, per row): {True: 2383}
+corpus: 517 jobs = the 245 + 272 STRICT_NOTEQUAL row-modes of results/golden_*.csv; every run rc=2; CELL-MISMATCH (tool first field / objects differing vs the csv's strict cell) 0
+probe: 4087 cases run, 2221 rc=0 STRICT_EQUAL + 1866 rc=2; the NE set equals results/golden_probe.csv's; differ:<field>(<n>) equal on 1866/1866

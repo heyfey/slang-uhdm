@@ -1,0 +1,46 @@
+cluster N0066 (r11u128map N0066; OPEN): depth|ref_typespec|typespec_member->typespec_member
+row: surelog/testflags/TypedefUnpacked  strict=differ:file(2)  records golden=96 ours=86
+object: #38 (golden) / #31 (ours)  type=ref_typespec name= 
+  golden: 10 typespec_member(x) < struct_typespec(pkg::a)
+  ours:   6 typespec_member(x) < struct_typespec(pkg::a)
+  walk parents: typespec_member(x) < struct_typespec(pkg::a) < ref_typespec < struct_typespec(pkg::a)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 32..44 ('>' = the object)
+  #32	6	constant				dut.sv	5	18	5	19	0	64	UINT:0	9		001
+  #33	5	ref_typespec			<in>pkg::b		0	0	0	0		0			pkg::pkg::b	001
+  #34	6	struct_typespec	pkg::a			dut.sv	2	12	4	5						001
+  #35	7	ref_typespec			<in>pkg::a		0	0	0	0		0			pkg::a	001
+  #36	8	struct_typespec	pkg::a			dut.sv	2	12	4	5						001
+  #37	9	typespec_member	x			dut.sv	3	16	3	17						001
+> #38	10	ref_typespec			<in>pkg::a.x		0	0	0	0		0			pkg::pkg::a::x	001
+  #39	11	logic_typespec				dut.sv	3	7	3	12						001
+  #40	7	typespec_member	x			dut.sv	3	16	3	17						001
+  #41	8	ref_typespec			<in>pkg::a.x		0	0	0	0		0			pkg::a.x	001
+  #42	9	logic_typespec				dut.sv	3	7	3	12						001
+  #43	2	port	o			dut.sv	8	19	8	20						000
+  #44	3	ref_obj	o		work@dut.o.o	dut.sv	8	19	8	20		0			work@dut.o.o	000
+
+--- OURS (B) records 25..37 ('>' = the object)
+  #25	1	module_inst		work@dut	work@dut	dut.sv	8	1	12	10					work@dut	000
+  #26	2	logic_net	o		work@dut.o	dut.sv	8	19	8	20		0			work@dut.o	000
+  #27	2	logic_net	c		work@dut.c	dut.sv	9	11	9	12		0			work@dut.c	000
+  #28	3	ref_typespec			work@dut.c		0	0	0	0		0			work@dut.c	000
+  #29	4	struct_typespec	pkg::a			dut.sv	2	12	4	5						110
+  #30	5	typespec_member	x			dut.sv	3	16	3	17						001
+> #31	6	ref_typespec			<in>pkg::a.x		0	0	0	0		0			pkg::pkg::a::x	001
+  #32	7	logic_typespec				dut.sv	3	7	3	12						001
+  #33	2	port	o			dut.sv	8	19	8	20						000
+  #34	3	ref_obj	o		work@dut.o.o	dut.sv	8	19	8	20		0			work@dut.o.o	000
+  #35	3	ref_typespec			work@dut.o		0	0	0	0		0			work@dut.o	000
+  #36	4	logic_typespec				dut.sv	8	19	8	19						000
+  #37	2	cont_assign				dut.sv	10	11	10	21						000
+
+facets of this row (7, first 25):
+  N0082 #36/29 struct_typespec pkg::a G[8 ref_typespec < struct_typespec(pkg::a)] O[4 ref_typespec < logic_net(c)]
+  N0065 #37/30 typespec_member x G[9 struct_typespec(pkg::a) < ref_typespec] O[5 struct_typespec(pkg::a) < ref_typespec]
+  N0066 #38/31 ref_typespec  G[10 typespec_member(x) < struct_typespec(pkg::a)] O[6 typespec_member(x) < struct_typespec(pkg::a)]
+  N0130 #39/32 logic_typespec  G[11 ref_typespec < typespec_member(x)] O[7 ref_typespec < typespec_member(x)]
+  N0134 #29/-1 array_typespec pkg::b G[7 objs] O[]
+  N0283 #16/16 struct_typespec pkg::a G[dut.sv 2:12:4:5] O[ 2:12:4:5]
+  N0283 #67/57 struct_typespec pkg::a G[dut.sv 2:12:4:5] O[ 2:12:4:5]

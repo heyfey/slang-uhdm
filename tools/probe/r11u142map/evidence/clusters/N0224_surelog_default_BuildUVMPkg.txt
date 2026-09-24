@@ -1,0 +1,64 @@
+cluster N0224 (r11u128map N0224; OPEN): span|ref_obj|col|under:hier_path
+row: surelog/default/BuildUVMPkg  strict=differ:line(210)  records golden=201533 ours=201486
+object: #19912 (golden) / #19925 (ours)  type=ref_obj name=child 
+  golden: 39721:46:39721:46
+  ours:   39721:41:39721:46
+  walk parents: hier_path(child.get_name) < bit_select(m_children) < hier_path(m_children[].get_type_name) < sys_func_call($sformatf)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 19906..19918 ('>' = the object)
+  #19906	10	hier_path	child.get_name			uvm_pkg.sv	39721	12	39721	28		0				000
+  #19907	11	ref_obj	child			uvm_pkg.sv	39721	12	39721	17		0				000
+  #19908	11	method_func_call	get_name			uvm_pkg.sv	39721	18	39721	26		0				000
+  #19909	10	hier_path	m_children[].get_type_name			uvm_pkg.sv	39721	30	39721	74		0				000
+  #19910	11	bit_select	m_children		m_children[]	uvm_pkg.sv	39721	30	39721	40		0			m_children[]	000
+  #19911	12	hier_path	child.get_name			uvm_pkg.sv	39721	41	39721	46		0				000
+> #19912	13	ref_obj	child			uvm_pkg.sv	39721	46	39721	46		0				000
+  #19913	13	method_func_call	get_name			uvm_pkg.sv	39721	47	39721	55		0				000
+  #19914	11	method_func_call	get_type_name			uvm_pkg.sv	39721	59	39721	72		0				000
+  #19915	9	ref_obj	UVM_NONE		uvm_pkg::uvm_component::m_add_child::UVM_NONE	uvm_pkg.sv	39721	77	39721	85		0			uvm_pkg::uvm_component::m_add_child::UVM_NONE	000
+  #19916	10	enum_const	UVM_NONE			uvm_pkg.sv	8107	3	8107	17						010
+  #19917	9	constant				uvm_pkg.sv	39721	87	39721	167	"/home/alain/Surelog/third_party/UVM/1800.2-2017-1.0/src/base/uvm_component.svh"	624	STRING:/home/alain/Surelog/third_party/UVM/1800.2-2017-1.0/src/base/uvm_component.svh	6		000
+  #19918	9	constant				uvm_pkg.sv	39721	169	39721	173	1693	64	UINT:1693	9		000
+
+--- OURS (B) records 19919..19931 ('>' = the object)
+  #19919	10	hier_path	child.get_name			uvm_pkg.sv	39721	12	39721	28		0				000
+  #19920	11	ref_obj	child			uvm_pkg.sv	39721	12	39721	17		0				000
+  #19921	11	method_func_call	get_name			uvm_pkg.sv	39721	18	39721	26		0				000
+  #19922	10	hier_path	m_children[].get_type_name			uvm_pkg.sv	39721	30	39721	74		0				000
+  #19923	11	bit_select	m_children		m_children[]	uvm_pkg.sv	39721	30	39721	40		0			m_children[]	000
+  #19924	12	hier_path	child.get_name			uvm_pkg.sv	39721	41	39721	57		0				000
+> #19925	13	ref_obj	child			uvm_pkg.sv	39721	41	39721	46		0				000
+  #19926	13	method_func_call	get_name			uvm_pkg.sv	39721	47	39721	55		0				000
+  #19927	11	method_func_call	get_type_name			uvm_pkg.sv	39721	59	39721	72		0				000
+  #19928	9	ref_obj	UVM_NONE		uvm_pkg::uvm_component::m_add_child::UVM_NONE	uvm_pkg.sv	39721	77	39721	85		0			uvm_pkg::uvm_component::m_add_child::UVM_NONE	000
+  #19929	10	enum_const	UVM_NONE			uvm_pkg.sv	8107	3	8107	17						010
+  #19930	9	constant				uvm_pkg.sv	39721	87	39721	167	"/home/alain/Surelog/third_party/UVM/1800.2-2017-1.0/src/base/uvm_component.svh"	624	STRING:/home/alain/Surelog/third_party/UVM/1800.2-2017-1.0/src/base/uvm_component.svh	6		000
+  #19931	9	constant				uvm_pkg.sv	39721	169	39721	173	1693	64	UINT:1693	9		000
+
+facets of this row (10896, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

@@ -1,0 +1,164 @@
+== [nb] MEASURED (the nb sweep): corpus 517 -> 472 row-modes (45 converted, 0 entered: 0); probe 1866 -> 1847
+   converted: surelog/default/BitsArray surelog/default/Moves surelog/default/PackStructField surelog/default/PackageParamConst surelog/default/YosysOldSimpleSpi surelog/default/YosysOldSpi surelog/testflags/BitsArray surelog/testflags/YosysOldSimpleSpi surelog/testflags/YosysOldSpi uhdm2rtlil/default/AssignBitsCallToSubmoduleParameter uhdm2rtlil/default/Clog2OfSumWithParameterIn2InstancesOfSubmodule uhdm2rtlil/default/ParameterColonReference uhdm2rtlil/default/StructLocalParam uhdm2rtlil/default/StructParameter uhdm2rtlil/default/cdc_static_basic uhdm2rtlil/default/dff_different_styles uhdm2rtlil/default/param_type_logic_width uhdm2rtlil/default/partsel_simple uhdm2rtlil/default/sva_counter uhdm2rtlil/default/sva_range uhdm2rtlil/default/sva_throughout uhdm2rtlil/default/sva_value_change_changed uhdm2rtlil/default/sva_value_change_changed_wide uhdm2rtlil/default/sva_value_change_rose uhdm2rtlil/default/unbased_unsized_param uhdm2rtlil/default/vector_index uhdm2rtlil/default/wandwor uhdm2rtlil/testflags/AssignBitsCallToSubmoduleParameter uhdm2rtlil/testflags/Clog2OfSumWithParameterIn2InstancesOfSubmodule uhdm2rtlil/testflags/ParameterColonReference uhdm2rtlil/testflags/StructLocalParam uhdm2rtlil/testflags/StructParameter uhdm2rtlil/testflags/cdc_static_basic uhdm2rtlil/testflags/dff_different_styles uhdm2rtlil/testflags/param_type_logic_width uhdm2rtlil/testflags/partsel_simple uhdm2rtlil/testflags/sva_counter uhdm2rtlil/testflags/sva_range uhdm2rtlil/testflags/sva_throughout uhdm2rtlil/testflags/sva_value_change_changed uhdm2rtlil/testflags/sva_value_change_changed_wide uhdm2rtlil/testflags/sva_value_change_rose uhdm2rtlil/testflags/unbased_unsized_param uhdm2rtlil/testflags/vector_index uhdm2rtlil/testflags/wandwor
+   keys the pristine map lacks, in the after-nb records: corpus 4 (46 facets), probe 0
+     NEW-NB 18 struct|ours-only:elsewhere|function|under:design
+     NEW-NB 18 struct|golden-only:elsewhere|function|under:design
+     NEW-NB 5 struct|ours-only:elsewhere|task|under:design
+     NEW-NB 5 struct|golden-only:elsewhere|task|under:design
+== then the other covered clusters, optimistic: A (r11u140, +residues) / B (r11u137 minus net binding) / A+B
+   corpus row-modes: A 15  B 25  A+B 39; tests (every NE mode) A+B 18; probe A 64 B 25 A+B 85
+   surelog default: today 113; after net binding (measured) 107; after both pairs 95
+   surelog testflags: today 132; after net binding (measured) 129; after both pairs 120
+   uhdm2rtlil default: today 136; after net binding (measured) 118; after both pairs 109
+   uhdm2rtlil testflags: today 136; after net binding (measured) 118; after both pairs 109
+   FAIL LIST AFTER BOTH PAIRS: 433 row-modes / 233 tests (today 517 / 275); probe 1762 (today 1866)
+   A+B clears (optimistic): surelog/default/ClassVar surelog/default/ComplexExprSize surelog/default/Connection surelog/default/IOClassStruct surelog/default/InterfaceParamOverrideProp surelog/default/Kmac surelog/default/PackStructVar surelog/default/PackedArrayEnum surelog/default/PackedArrayTypespec surelog/default/ParamScope surelog/default/StringRange surelog/default/UnpackedTypespec surelog/testflags/ComplexExprSize surelog/testflags/Connection surelog/testflags/IOClassStruct surelog/testflags/ImplicitPackedStructNet surelog/testflags/PackStructVar surelog/testflags/PackedArrayEnum surelog/testflags/PackedArrayTypespec surelog/testflags/ParamScope surelog/testflags/UnpackedTypespec uhdm2rtlil/default/ParameterOfParametrizedType uhdm2rtlil/default/ParameterOfParametrizedTypeInSubmodule uhdm2rtlil/default/const_func uhdm2rtlil/default/empty_port_connection uhdm2rtlil/default/func_local_compound_xor uhdm2rtlil/default/ibex_register_file_ff uhdm2rtlil/default/param_struct_field_bitsel uhdm2rtlil/default/param_unpacked_struct_array uhdm2rtlil/default/struct_dynamic_range uhdm2rtlil/testflags/ParameterOfParametrizedType uhdm2rtlil/testflags/ParameterOfParametrizedTypeInSubmodule uhdm2rtlil/testflags/const_func uhdm2rtlil/testflags/empty_port_connection uhdm2rtlil/testflags/func_local_compound_xor uhdm2rtlil/testflags/ibex_register_file_ff uhdm2rtlil/testflags/param_struct_field_bitsel uhdm2rtlil/testflags/param_unpacked_struct_array uhdm2rtlil/testflags/struct_dynamic_range
+== structural row-modes after net binding (measured): 40 (20 tests)
+   surelog/default/BlackParrotComplex  differ:depth(1)  first=N0724  OPEN  key=struct|ours-only:absent|constant|under:param_assign  clears-with-pairs=no
+   surelog/default/DefaultPatternInt  differ:depth(1)  first=N0441  OPEN (residue of r11u133: map 4 named it, still present)  key=struct|ours-only:fewer-copies|constant|under:array_expr  clears-with-pairs=no
+   surelog/default/DefaultPatternModule  differ:depth(1)  first=N0441  OPEN (residue of r11u133: map 4 named it, still present)  key=struct|ours-only:fewer-copies|constant|under:array_expr  clears-with-pairs=no
+   surelog/default/Kmac  differ:type(1)  first=N0142  COVERED r11u140 (residue: pass-133 R6, the unpacked-array import clone  key=struct|golden-only:fewer-copies|range|under:array_typespec  clears-with-pairs=yes
+   surelog/default/ParamArrayUnsizedPattern  differ:depth(1)  first=N0441  OPEN (residue of r11u133: map 4 named it, still present)  key=struct|ours-only:fewer-copies|constant|under:array_expr  clears-with-pairs=no
+   surelog/default/StructParamFuncBodyFieldCompare  differ:depth(1)  first=N0045  OPEN (residue of r11u134: map 4 named it, still present)  key=struct|golden-only:fewer-copies|constant|under:typespec_member  clears-with-pairs=no
+   surelog/default/TypeParam  differ:type(1)  first=N0770  OPEN  key=struct|golden-only:fewer-copies|logic_typespec|under:ref_typespec  clears-with-pairs=no
+   surelog/testflags/BlackParrotComplex  differ:depth(1)  first=N0724  OPEN  key=struct|ours-only:absent|constant|under:param_assign  clears-with-pairs=no
+   surelog/testflags/DefaultPatternInt  differ:depth(1)  first=N0441  OPEN (residue of r11u133: map 4 named it, still present)  key=struct|ours-only:fewer-copies|constant|under:array_expr  clears-with-pairs=no
+   surelog/testflags/DefaultPatternModule  differ:depth(1)  first=N0441  OPEN (residue of r11u133: map 4 named it, still present)  key=struct|ours-only:fewer-copies|constant|under:array_expr  clears-with-pairs=no
+   surelog/testflags/Kmac  differ:type(1)  first=N0142  COVERED r11u140 (residue: pass-133 R6, the unpacked-array import clone  key=struct|golden-only:fewer-copies|range|under:array_typespec  clears-with-pairs=no
+   surelog/testflags/ParamArrayUnsizedPattern  differ:depth(1)  first=N0441  OPEN (residue of r11u133: map 4 named it, still present)  key=struct|ours-only:fewer-copies|constant|under:array_expr  clears-with-pairs=no
+   surelog/testflags/StructParamFuncBodyFieldCompare  differ:depth(1)  first=N0045  OPEN (residue of r11u134: map 4 named it, still present)  key=struct|golden-only:fewer-copies|constant|under:typespec_member  clears-with-pairs=no
+   surelog/testflags/TypeParam  differ:type(1)  first=N0770  OPEN  key=struct|golden-only:fewer-copies|logic_typespec|under:ref_typespec  clears-with-pairs=no
+   uhdm2rtlil/default/FunctionParam  differ:type(1)  first=N0133  OPEN (residue of r11u133: map 4 named it, still present)  key=struct|golden-only:fewer-copies|func_call|under:cont_assign  clears-with-pairs=no
+   uhdm2rtlil/default/NestedStructArrayParameterInitializedByPatternPassedAsPort  differ:type(1)  first=N0142  COVERED r11u140 (residue: pass-133 R6, the unpacked-array import clone  key=struct|golden-only:fewer-copies|range|under:array_typespec  clears-with-pairs=no
+   uhdm2rtlil/default/SelectGivenBySelectOnParameterInFunction  differ:type(1)  first=N0133  OPEN (residue of r11u133: map 4 named it, still present)  key=struct|golden-only:fewer-copies|func_call|under:cont_assign  clears-with-pairs=no
+   uhdm2rtlil/default/StructArrayParameterInitializedByPatternPassedAsPort  differ:type(1)  first=N0142  COVERED r11u140 (residue: pass-133 R6, the unpacked-array import clone  key=struct|golden-only:fewer-copies|range|under:array_typespec  clears-with-pairs=no
+   uhdm2rtlil/default/SumOfParametersInNestedForLoops  differ:type(1)  first=N0554  OPEN (residue of r11u133: map 4 named it, still present)  key=struct|golden-only:fewer-copies|constant|under:cont_assign  clears-with-pairs=no
+   uhdm2rtlil/default/array_assign  differ:depth(1)  first=N0046  COVERED r11u137 (N0046, net binding: r11u139 law.patch)  key=struct|ours-only:fewer-copies|logic_net|under:ref_obj  clears-with-pairs=no
+   uhdm2rtlil/default/def_ctx_struct_param  differ:type(1)  first=N0024  OPEN (map 4 routed it to r11u134 as a residue of r11u131; not landed)  key=struct|golden-only:fewer-copies|struct_typespec|under:ref_typespec  clears-with-pairs=no
+   uhdm2rtlil/default/func_local_array  differ:type(1)  first=N0133  OPEN (residue of r11u133: map 4 named it, still present)  key=struct|golden-only:fewer-copies|func_call|under:cont_assign  clears-with-pairs=no
+   uhdm2rtlil/default/latch_decoder_partial  differ:type(1)  first=N0024  OPEN (map 4 routed it to r11u134 as a residue of r11u131; not landed)  key=struct|golden-only:fewer-copies|struct_typespec|under:ref_typespec  clears-with-pairs=no
+   uhdm2rtlil/default/latch_tlb_napot  differ:type(1)  first=N0024  OPEN (map 4 routed it to r11u134 as a residue of r11u131; not landed)  key=struct|golden-only:fewer-copies|struct_typespec|under:ref_typespec  clears-with-pairs=no
+   uhdm2rtlil/default/param_struct_field_bitsel  differ:type(1)  first=N0142  COVERED r11u140 (residue: pass-133 R6, the unpacked-array import clone  key=struct|golden-only:fewer-copies|range|under:array_typespec  clears-with-pairs=yes
+   uhdm2rtlil/default/param_unpacked_struct_array  differ:type(1)  first=N0142  COVERED r11u140 (residue: pass-133 R6, the unpacked-array import clone  key=struct|golden-only:fewer-copies|range|under:array_typespec  clears-with-pairs=yes
+   uhdm2rtlil/default/simple_package  differ:depth(1)  first=N0764  OPEN  key=struct|ours-only:fewer-copies|constant|under:ref_obj  clears-with-pairs=no
+   uhdm2rtlil/testflags/FunctionParam  differ:type(1)  first=N0133  OPEN (residue of r11u133: map 4 named it, still present)  key=struct|golden-only:fewer-copies|func_call|under:cont_assign  clears-with-pairs=no
+   uhdm2rtlil/testflags/NestedStructArrayParameterInitializedByPatternPassedAsPort  differ:type(1)  first=N0142  COVERED r11u140 (residue: pass-133 R6, the unpacked-array import clone  key=struct|golden-only:fewer-copies|range|under:array_typespec  clears-with-pairs=no
+   uhdm2rtlil/testflags/SelectGivenBySelectOnParameterInFunction  differ:type(1)  first=N0133  OPEN (residue of r11u133: map 4 named it, still present)  key=struct|golden-only:fewer-copies|func_call|under:cont_assign  clears-with-pairs=no
+   uhdm2rtlil/testflags/StructArrayParameterInitializedByPatternPassedAsPort  differ:type(1)  first=N0142  COVERED r11u140 (residue: pass-133 R6, the unpacked-array import clone  key=struct|golden-only:fewer-copies|range|under:array_typespec  clears-with-pairs=no
+   uhdm2rtlil/testflags/SumOfParametersInNestedForLoops  differ:type(1)  first=N0554  OPEN (residue of r11u133: map 4 named it, still present)  key=struct|golden-only:fewer-copies|constant|under:cont_assign  clears-with-pairs=no
+   uhdm2rtlil/testflags/array_assign  differ:depth(1)  first=N0046  COVERED r11u137 (N0046, net binding: r11u139 law.patch)  key=struct|ours-only:fewer-copies|logic_net|under:ref_obj  clears-with-pairs=no
+   uhdm2rtlil/testflags/def_ctx_struct_param  differ:type(1)  first=N0024  OPEN (map 4 routed it to r11u134 as a residue of r11u131; not landed)  key=struct|golden-only:fewer-copies|struct_typespec|under:ref_typespec  clears-with-pairs=no
+   uhdm2rtlil/testflags/func_local_array  differ:type(1)  first=N0133  OPEN (residue of r11u133: map 4 named it, still present)  key=struct|golden-only:fewer-copies|func_call|under:cont_assign  clears-with-pairs=no
+   uhdm2rtlil/testflags/latch_decoder_partial  differ:type(1)  first=N0024  OPEN (map 4 routed it to r11u134 as a residue of r11u131; not landed)  key=struct|golden-only:fewer-copies|struct_typespec|under:ref_typespec  clears-with-pairs=no
+   uhdm2rtlil/testflags/latch_tlb_napot  differ:type(1)  first=N0024  OPEN (map 4 routed it to r11u134 as a residue of r11u131; not landed)  key=struct|golden-only:fewer-copies|struct_typespec|under:ref_typespec  clears-with-pairs=no
+   uhdm2rtlil/testflags/param_struct_field_bitsel  differ:type(1)  first=N0142  COVERED r11u140 (residue: pass-133 R6, the unpacked-array import clone  key=struct|golden-only:fewer-copies|range|under:array_typespec  clears-with-pairs=yes
+   uhdm2rtlil/testflags/param_unpacked_struct_array  differ:type(1)  first=N0142  COVERED r11u140 (residue: pass-133 R6, the unpacked-array import clone  key=struct|golden-only:fewer-copies|range|under:array_typespec  clears-with-pairs=yes
+   uhdm2rtlil/testflags/simple_package  differ:depth(1)  first=N0764  OPEN  key=struct|ours-only:fewer-copies|constant|under:ref_obj  clears-with-pairs=no
+== OPEN clusters after nb (not in the optimistic covered set), ranked by after-nb row-modes: id rows tests first alone-on-top-of-pairs probe ground coverage key
+   N0001 82 42 30 16 78 A OPEN (residue of r11u133: map 4 named it, still present) span|ref_obj|col+endcol|under:hier_path
+   N0005 44 22 8 4 163 A OPEN (residue of r11u133: map 4 named it, still present) span|constant|endcol|under:param_assign
+   N0007 34 18 0 0 28 A OPEN (residue of r11u133: map 4 named it, still present) fullname|ref_obj|golden-empty|under:hier_path
+   N0010 30 15 2 0 4 A OPEN (map 4 routed it to r11u133 as a residue of r11u131; no span|constant|col+endcol|under:param_assign
+   N0008 29 15 20 2 25 B OPEN (residue of r11u133: map 4 named it, still present) fullname|ref_typespec|golden-empty|under:constant
+   N0015 27 14 0 0 1 B OPEN (map 4 routed it to r11u134 as a residue of r11u131; no span|constant|line+col+endline+endcol|under:sys_func_call
+   N0017 26 13 0 0 5 B OPEN (map 4 routed it to r11u134 as a residue of r11u131; no span|constant|endline+endcol|under:sys_func_call
+   N0018 25 13 0 0 18 A OPEN (map 4 routed it to r11u133 as a residue of r11u131; no fullname|ref_obj|ours-empty|under:hier_path
+   N0012 23 12 14 0 5 A OPEN (map 4 routed it to r11u133 as a residue of r11u130; no file|enum_typespec|ours-empty|under:ref_typespec
+   N0026 20 10 0 0 10 B OPEN (map 4 routed it to r11u134 as a residue of r11u131; no span|constant|line+endline|under:sys_func_call
+   N0027 20 10 4 0 8 B OPEN (map 4 routed it to r11u134 as a residue of r11u131; no span|sys_func_call|line+endcol|under:begin
+   N0029 20 10 0 0 0 B OPEN (map 4 routed it to r11u134 as a residue of r11u131; no span|sys_func_call|line+endline|under:sys_func_call
+   N0030 19 11 7 7 58 B OPEN (map 4 routed it to r11u134 as a residue of r11u131; no fullname|ref_obj|tok:id.->|under:operation
+   N0009 18 9 6 0 16 B OPEN (map 4 routed it to r11u134 as a residue of r11u130; no span|struct_typespec|endline+endcol|under:ref_typespec
+   N0024 18 9 6 0 37 B OPEN (map 4 routed it to r11u134 as a residue of r11u131; no struct|golden-only:fewer-copies|struct_typespec|under:ref_typespec
+   N0036 18 10 0 0 7 A OPEN (residue of r11u133: map 4 named it, still present) span|bit_select|col+endcol|under:operation
+   N0025 17 9 0 0 11 B OPEN (map 4 routed it to r11u134 as a residue of r11u130; no depth|constant|range->operation
+   N0033 17 9 0 0 11 B OPEN (map 4 routed it to r11u134 as a residue of r11u130; no struct|ours-only:fewer-copies|operation|under:range
+   N0014 16 8 2 0 18 B OPEN (residue of r11u134: map 4 named it, still present) fullname|ref_typespec|tok:id.->|under:typespec_member
+   N0039 16 9 2 2 222 B OPEN (map 4 routed it to r11u134 as a residue of r11u130; no span|int_typespec|line+col+endline+endcol|under:ref_typespec
+   N0043 16 9 4 2 5 B OPEN (map 4 routed it to r11u134 as a residue of r11u130; no span|struct_typespec|line+col+endline+endcol|under:ref_typespec
+   N0045 16 8 2 0 12 B OPEN (residue of r11u134: map 4 named it, still present) struct|golden-only:fewer-copies|constant|under:typespec_member
+   N0031 15 8 0 0 16 B OPEN (residue of r11u134: map 4 named it, still present) file|constant|ours-empty|under:range
+   N0051 15 8 2 0 9 B OPEN span|class_typespec|endcol|under:ref_typespec
+   N0056 15 8 6 2 1 A OPEN span|bit_typespec|endcol|under:ref_typespec
+   N0028 14 7 0 0 2 B OPEN (residue of r11u134: map 4 named it, still present) fullname|ref_typespec|tok:->id.|under:typespec_member
+   N0044 14 7 10 2 73 B OPEN (map 4 routed it to r11u134 as a residue of r11u130; no span|struct_typespec|endcol|under:ref_typespec
+   N0057 14 7 0 0 0 B OPEN struct|golden-only:fewer-copies|ref_typespec|under:enum_typespec
+   N0059 14 7 0 0 33 A OPEN (map 4 routed it to r11u133 as a residue of r11u131; no struct|ours-only:absent|integer_typespec|under:ref_typespec
+   N0034 13 7 0 0 5 A OPEN (map 4 routed it to r11u133 as a residue of r11u130; no span|enum_typespec|ours-zero|under:ref_typespec
+   N0042 13 7 0 0 13 B OPEN (residue of r11u134: map 4 named it, still present) span|constant|ours-zero|under:range
+   N0067 13 7 0 0 47 B OPEN file|class_typespec|ours-empty|under:ref_typespec
+   N0068 13 7 0 0 47 B OPEN span|class_typespec|ours-zero|under:ref_typespec
+   N0069 13 7 0 0 25 B OPEN span|string_typespec|line+col+endline+endcol|under:ref_typespec
+   N0070 13 7 1 0 17 B OPEN span|function|endline+endcol|under:class_defn
+   N0071 13 7 0 0 17 A OPEN span|hier_path|endcol|under:operation
+   N0072 13 7 0 0 16 B OPEN span|class_typespec|line+col+endline+endcol|under:ref_typespec
+   N0075 13 7 2 0 8 B OPEN span|enum_typespec|line+col+endline+endcol|under:package
+   N0076 13 7 7 0 5 A OPEN fullname|ref_obj|tok:id.->|under:part_select
+   N0080 13 7 2 0 1 B OPEN span|struct_typespec|line+col+endline+endcol|under:package
+   N0081 13 7 2 0 0 B OPEN span|ref_obj|line+col+endline+endcol|under:operation
+   N0065 12 6 0 0 0 B OPEN depth|typespec_member|struct_typespec->struct_typespec
+   N0066 12 6 0 0 0 B OPEN depth|ref_typespec|typespec_member->typespec_member
+   N0082 12 6 0 0 0 B OPEN depth|struct_typespec|ref_typespec->ref_typespec
+   N0083 12 6 0 0 63 B OPEN struct|golden-only:fewer-copies|range|under:logic_typespec
+   N0086 12 6 2 0 20 A OPEN file|constant|golden-empty|under:typespec_member
+   N0087 12 6 0 0 20 A OPEN span|constant|golden-zero|under:typespec_member
+   N0089 12 12 1 0 10 A OPEN fullname|ref_obj|tok:id.id->id|under:operation
+   N0091 12 6 0 0 1 A OPEN span|ref_obj|col+endcol|under:operation
+   N0092 12 6 2 0 0 B OPEN value|constant|value:UINT->UINT|under:range
+   N0040 11 6 2 0 34 B OPEN (map 4 routed it to r11u134 as a residue of r11u130; no span|logic_typespec|endcol|under:ref_typespec
+   N0093 11 6 0 0 65 B OPEN span|io_decl|line+col+endline+endcol|under:function
+   N0094 11 6 0 0 59 B OPEN span|constant|line+col+endline+endcol|under:range
+   N0095 11 6 0 0 25 A OPEN fullname|ref_obj|tok:id.id::->|under:method_func_call
+   N0097 11 6 0 0 17 A OPEN span|hier_path|endcol|under:assignment
+   N0098 11 6 0 0 13 A OPEN file|ref_obj|ours-empty|under:hier_path
+   N0099 11 6 0 0 12 A OPEN span|ref_obj|ours-zero|under:hier_path
+   N0100 11 6 0 0 11 B OPEN span|bit_typespec|line+col+endline+endcol|under:ref_typespec
+   N0101 11 6 0 0 7 A OPEN file|ref_obj|golden-empty|under:hier_path
+   N0102 11 6 0 0 7 A OPEN span|ref_obj|golden-zero|under:hier_path
+== next briefs: greedy OPEN clusters per ground on top of the covered set, on the after-nb rows (measured); step id +rows cum-rows cum-tests probe key | site
+  ground A (base 39 row-modes / 18 tests cleared by the pairs)
+   1 N0001 +16 55 26 78 span|ref_obj|col+endcol|under:hier_path | emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmt
+   2 N0007 +6 61 29 28 fullname|ref_obj|golden-empty|under:hier_path | emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCa
+   3 N0005 +4 65 31 163 span|constant|endcol|under:param_assign | emitExpr (ExprEmit.cpp, law srlgTimeLitVal) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79)
+   4 N0441 +4 69 32 0 struct|ours-only:fewer-copies|constant|under:array_expr | emitParameters (ParamEmit.cpp, law patOpMemberAsmSplit28) < emitInstance (ModuleEmit.cpp, law elabParamTsRebind) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareEl
+   5 N0010 +2 71 33 4 span|constant|col+endcol|under:param_assign | tryFoldConst (ExprEmit.cpp, law srlgSizeCastUbShiftMask93) < operator() (ParamEmit.cpp, law castElabFoldTargetKinds) < emitParameters (ParamEmit.cpp, law castElabFoldTarg
+   6 N0018 +2 73 34 18 fullname|ref_obj|ours-empty|under:hier_path | emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollaps
+   7 N0056 +2 75 35 1 span|bit_typespec|endcol|under:ref_typespec | makeParamTs (ParamEmit.cpp, law srlgTimeLitVal) < emitParameters (ParamEmit.cpp, law pkgParamTsRefColons131) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheF
+   8 N0129 +2 77 36 58 fullname|ref_typespec|tok:->.id|under:constant | emitExpr (ExprEmit.cpp, law elabCaPortParamPaCopy64) < emitExpr (ExprEmit.cpp, law negLitPkgRetFoldNested30) < emitExpr (ExprEmit.cpp, law psBoundPkgParamTs31)
+   9 N0415 +2 79 37 4 fullname|ref_typespec|tok:->.id.id|under:constant | emitExpr (ExprEmit.cpp, law caPartSelBoundFoldTs) < emitExpr (ExprEmit.cpp, law genLpUseFoldParentScope47) < emitModuleDefPorts (ModuleEmit.cpp, law structParamBareImport
+   10 N0675 +2 81 38 0 fullname|ref_typespec|tok:id->id.id|under:constant | emitParameters (ParamEmit.cpp, law timeLitParamIntTs) < emitInstance (ModuleEmit.cpp, law elabParamTsRebind) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46)
+   11 N1167 +2 83 39 0 value|constant|value:UINT->UINT+decompile+size|under:cont_assign | emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitContAssigns (ModuleEmit.cpp, law elabCaTernaryArmInstall92) < emitInstance (ModuleEmit.cpp, law elabPortBou
+   12 N1140 +2 85 40 0 span|constant|ours-zero|under:operation | tryFoldConst (ExprEmit.cpp, law srlgSizeCastUbShiftMask93) < emitContAssigns (ModuleEmit.cpp, law caIfaceElabNetDeclAssignListing88) < emitInstance (ModuleEmit.cpp, law e
+   13 N1132 +2 87 41 0 fullname|ref_typespec|tok:id@id.id->id|under:operation | emitParameters (ParamEmit.cpp, law elabUnpStructOperandWidth61) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79) < exportDesign (UhdmExporter.cpp, law ca
+   14 N1118 +2 89 42 0 fullname|part_select|tok:id.->|under:port | emitExpr (ExprEmit.cpp, law genLpUseFoldParentScope47) < emitInstance (ModuleEmit.cpp, law elabPortConnUnitEnumNet) < operator() (ModuleEmit.cpp, law genScopeIface)
+   15 N1064 +2 91 43 0 fullname|ref_obj|tok:id.id[id - n:].id.->|under:operation | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law everyPartSelIsConstSel78) [r
+   16 N1063 +2 93 44 0 fullname|ref_obj|tok:id.id.id[id - n:].id.->|under:operation | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law everyPartSelIsConstSel78) [r
+   17 N1057 +2 95 45 0 fullname|bit_select|tok:id[id][id].id[id]->id@id.id[id][id].id[id].id|under:hier_path | emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxDecompiled79) < emitExpr (ExprEmit.cpp, law pkgQualParamMemberSelParamInitKeeps121v) < emitExpr (ExprEmit.cpp, law dynArra
+   18 N1017 +2 97 46 0 fullname|ref_obj|tok:id[id - n].id.->|under:operation | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79
+   19 N0012 +0 97 46 5 file|enum_typespec|ours-empty|under:ref_typespec | buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45) < emitInstance (ModuleEmit.cpp, law elabParamTsRebind) 
+   20 N0034 +4 101 48 5 span|enum_typespec|ours-zero|under:ref_typespec | buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45) < emitInstance (ModuleEmit.cpp, law elabParamTsRebind) 
+   every OPEN cluster of ground A: 130 row-modes, 63 tests
+  ground B (base 39 row-modes / 18 tests cleared by the pairs)
+   1 N0136 +8 47 25 4 fullname|ref_obj|tok:id.id->id|under:cont_assign | UHDM library DeepClone < DeepClone < elabModule_inst (--elabuhdm, testflags) run from main (uhdm_main.cpp) [DECODED (r11u131 R10): as N0030 (InterfInst), ModuleEmit.cpp]
+   2 N0030 +7 54 29 58 fullname|ref_obj|tok:id.->|under:operation | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law genLpUseFoldParentScope47) [
+   3 N0138 +6 60 32 3 fullname|ref_typespec|tok:id.->|under:constant | emitInstance (ModuleEmit.cpp, law patFlatUnsizedMemberWidth61) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46) < exportDesign (UhdmExporter.cpp, law dottedTo
+   4 N0133 +4 64 34 10 struct|golden-only:fewer-copies|func_call|under:cont_assign | emitContAssigns (ModuleEmit.cpp, law caAsmMemberSliceFold) < emitInstance (ModuleEmit.cpp, law elabPortBoundIntParamTs109) < exportDesign (UhdmExporter.cpp, law dottedTop
+   5 N0008 +2 66 35 25 fullname|ref_typespec|golden-empty|under:constant | operator() (ModuleEmit.cpp, law genLpFoldDigitsMathValue18) < operator() (ModuleEmit.cpp, law elseArmFirstItemReplaces48) < operator() (ModuleEmit.cpp, law genNestedScope
+   6 N0554 +4 70 37 1 struct|golden-only:fewer-copies|constant|under:cont_assign | operator() (ModuleEmit.cpp, law genvarWholeCaRhsFold68) < operator() (ModuleEmit.cpp, law elseArmFirstItemReplaces48) < operator() (ModuleEmit.cpp, law genNestedScopePkgP
+   7 N0043 +2 72 38 5 span|struct_typespec|line+col+endline+endcol|under:ref_typespec | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < makeTypespec (TypeEmit.cpp, law memberAnonUnionAtKeyword134) < emitParameters (ParamEmit.cpp, law typeParamC
+   8 N0039 +2 74 39 222 span|int_typespec|line+col+endline+endcol|under:ref_typespec | makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200) < emitClassDefn (UhdmExporter.cpp, law externP
+   9 N0044 +2 76 40 73 span|struct_typespec|endcol|under:ref_typespec | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < makeTypespec (TypeEmit.cpp, law memberAnonUnionAtKeyword134) < emitTopPorts (ModuleEmit.cpp, law defNetTsSco
+   10 N0014 +2 78 41 18 fullname|ref_typespec|tok:id.->|under:typespec_member | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < operator() (TypeEmit.cpp, law anonPackedAggDimTs107) < makeTypespec (TypeEmit.cpp, law anonPackedAg
+   11 N0211 +2 80 42 0 file|ref_obj|other-file+span|under:port | emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinI
+   12 N0011 +2 82 43 12 file|logic_net|golden-empty|under:ref_obj | thisImplicitNetBoth38 (TypeEmit.cpp, law hoistedThisRidesTheForwardedBlock219) < exportDesign (UhdmExporter.cpp, law hoistedThisRidesTheForwardedBlock219) < main (uhdm_ma
+   13 N0283 +2 84 44 0 file|struct_typespec|ours-empty|under:ref_typespec | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBody
+   14 N0274 +2 86 45 1 fullname|ref_obj|golden-empty@in-typespec|under:operation | emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < typeParamDefaultBound20 (TypeEmit.cpp, law crossPkgRange
+   15 N0454 +2 88 46 1 fullname|ref_typespec|tok:id@id.id.id.id.->|under:typespec_member | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeTypespec (TypeEmit.cpp, law memberAnonUnionAtKeyword134) < emitParameters (ParamEmit.cpp, law t
+   16 N0528 +2 90 47 2 value|constant|value:UINT->UINT|under:cont_assign | emitContAssigns (ModuleEmit.cpp, law srlgUnvaluedActualLitRetFold8) < emitInstance (ModuleEmit.cpp, law elabPortBoundIntParamTs109) < exportDesign (UhdmExporter.cpp, law 
+   17 N0472 +2 92 48 42 fullname|ref_obj|tok:id->id.id@in-typespec|under:operation | emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < typeParamDefaultBound20 (TypeEmit.cpp, law crossPkgRange
+   18 N0470 +4 96 50 77 fullname|ref_typespec|tok:id->id|under:packed_array_typespec | namedElemPackedDimTs31 (TypeEmit.cpp, law crossPkgRangeBoundFold) < emitParameters (ParamEmit.cpp, law typeParamNamedElemPackedDim31) < emitInstance (ModuleEmit.cpp, law 
+   19 N0681 +2 98 51 23 span|constant|ours-zero|under:cont_assign | emitContAssigns (ModuleEmit.cpp, law srlgCondOpInstValueTernFold9) < emitInstance (ModuleEmit.cpp, law elabPortBoundIntParamTs109) < emitInstance (ModuleEmit.cpp, law bin
+   20 N1160 +2 100 52 0 span|union_typespec|endcol|under:ref_typespec | buildUnionTs (TypeEmit.cpp, law modStructMemberBoundMeta) < makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < sharedTypespec (TypeEmit.cpp, law typeParamDefaultB
+   every OPEN cluster of ground B: 206 row-modes, 114 tests
+  every OPEN cluster of both grounds: 472 row-modes
+== after-nb rows by the ground of their open clusters: {'B': 167, 'A+B': 162, 'A': 91, '?+A+B': 13} rows with no open cluster (cleared by the covered set): 39

@@ -1,0 +1,64 @@
+cluster N0568 (r11u128map N0568; OPEN): span|bit_select|col+endcol|under:port
+row: uhdm2rtlil/testflags/multiplier  strict=differ:col(42)  records golden=3267 ours=3267
+object: #539 (golden) / #539 (ours)  type=bit_select name=A 
+  golden: 124:20:124:24
+  ours:   124:22:124:23
+  walk parents: port(A) < module_inst(unit) < gen_scope < gen_scope_array(addbit[0])
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 533..545 ('>' = the object)
+  #533	9	ref_typespec			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.S		0	0	0	0		0			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.S	000
+  #534	10	logic_typespec				dut.sv	130	40	130	44						000
+  #535	8	logic_net	Cout		work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.Cout	dut.sv	130	47	130	51		0			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.Cout	000
+  #536	9	ref_typespec			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.Cout		0	0	0	0		0			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.Cout	000
+  #537	10	logic_typespec				dut.sv	130	40	130	44						000
+  #538	8	port	A			dut.sv	130	24	130	25						000
+> #539	9	bit_select	A		work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.A	dut.sv	124	20	124	24		0			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.A	000
+  #540	10	constant				dut.sv	124	22	124	23	0	64	UINT:0	9		000
+  #541	9	ref_obj	A		work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.A	dut.sv	130	24	130	25		0			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.A	000
+  #542	9	ref_typespec			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.A		0	0	0	0		0			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.A	000
+  #543	10	logic_typespec				dut.sv	130	24	130	24						000
+  #544	8	port	B			dut.sv	130	26	130	27						000
+  #545	9	bit_select	B		work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.B	dut.sv	124	27	124	28		0			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.B	000
+
+--- OURS (B) records 533..545 ('>' = the object)
+  #533	9	ref_typespec			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.S		0	0	0	0		0			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.S	000
+  #534	10	logic_typespec				dut.sv	130	40	130	44						000
+  #535	8	logic_net	Cout		work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.Cout	dut.sv	130	47	130	51		0			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.Cout	000
+  #536	9	ref_typespec			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.Cout		0	0	0	0		0			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.Cout	000
+  #537	10	logic_typespec				dut.sv	130	40	130	44						000
+  #538	8	port	A			dut.sv	130	24	130	25						000
+> #539	9	bit_select	A		work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.A	dut.sv	124	22	124	23		0			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.A	000
+  #540	10	constant				dut.sv	124	22	124	23	0	64	UINT:0	9		000
+  #541	9	ref_obj	A		work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.A	dut.sv	130	24	130	25		0			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.A	000
+  #542	9	ref_typespec			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.A		0	0	0	0		0			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.A	000
+  #543	10	logic_typespec				dut.sv	130	24	130	24						000
+  #544	8	port	B			dut.sv	130	26	130	27						000
+  #545	9	bit_select	B		work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.B	dut.sv	124	27	124	28		0			work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.B	000
+
+facets of this row (42, first 25):
+  N0568 #539/539 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #604/604 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #655/655 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #706/706 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #757/757 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #982/982 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #1033/1033 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #1084/1084 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #1135/1135 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #1186/1186 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #1237/1237 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #1452/1452 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #1503/1503 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #1554/1554 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #1605/1605 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #1656/1656 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #1707/1707 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #1758/1758 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0702 #1947/1947 ref_typespec  G[work@Multiplier_2D.addPartialProduct[1].PP.PP] O[work@Multiplier_2D]
+  N0471 #1958/1958 ref_typespec  G[work@Multiplier_2D.addPartialProduct[1]] O[work@Multiplier_2D]
+  N0568 #2061/2061 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #2112/2112 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #2163/2163 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #2214/2214 bit_select A G[124:20:124:24] O[124:22:124:23]
+  N0568 #2265/2265 bit_select A G[124:20:124:24] O[124:22:124:23]

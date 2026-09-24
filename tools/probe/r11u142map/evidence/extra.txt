@@ -1,0 +1,43 @@
+== full-name facets by class (objects / row-modes)
+OUT 147711 232
+TAIL 2462 96
+STABLE 98776 86
+== rows after the pairs: open clusters per row (histogram: n_open -> row-modes)
+[(0, 86), (1, 109), (2, 88), (3, 53), (4, 33), (5, 35), (6, 16), (7, 17), (8, 12), (9, 5), (10, 12), (11, 9), (12, 2), (13, 2), (14, 2)] ... max 714
+== clusters that are the ONLY open cluster of a row (row-modes they would clear on top of the pairs), top 30
+N0001 16 OPEN (residue of r11u133: map 4 named it, still present) span|ref_obj|col+endcol|under:hier_path
+N0136 8 OPEN (map 4 routed it to r11u134 as a residue of r11u131; not landed) fullname|ref_obj|tok:id.id->id|under:cont_assign
+N0030 7 OPEN (map 4 routed it to r11u134 as a residue of r11u131; not landed) fullname|ref_obj|tok:id.->|under:operation
+N0138 6 OPEN (residue of r11u133: map 4 named it, still present) fullname|ref_typespec|tok:id.->|under:constant
+N0441 4 OPEN (residue of r11u133: map 4 named it, still present) struct|ours-only:fewer-copies|constant|under:array_expr
+N0005 4 OPEN (residue of r11u133: map 4 named it, still present) span|constant|endcol|under:param_assign
+N0133 4 OPEN (residue of r11u133: map 4 named it, still present) struct|golden-only:fewer-copies|func_call|under:cont_assign
+N1124 2 OPEN (residue of r11u134: map 4 named it, still present) fullname|ref_typespec|tok:->.id|under:int_var
+N0769 2 OPEN span|task|endcol|under:class_defn
+N0528 2 OPEN value|constant|value:UINT->UINT|under:cont_assign
+N1167 2 OPEN value|constant|value:UINT->UINT+decompile+size|under:cont_assign
+N0039 2 OPEN (map 4 routed it to r11u134 as a residue of r11u130; not landed) span|int_typespec|line+col+endline+endcol|under:ref_typespec
+N0675 2 OPEN fullname|ref_typespec|tok:id->id.id|under:constant
+N1132 2 OPEN fullname|ref_typespec|tok:id@id.id->id|under:operation
+N0056 2 OPEN span|bit_typespec|endcol|under:ref_typespec
+N0765 2 OPEN fullname|ref_obj|tok:id.id.->|under:method_func_call
+N1160 2 OPEN span|union_typespec|endcol|under:ref_typespec
+N0283 2 OPEN file|struct_typespec|ours-empty|under:ref_typespec
+N0211 2 OPEN file|ref_obj|other-file+span|under:port
+N1118 2 OPEN fullname|part_select|tok:id.->|under:port
+N0415 2 OPEN fullname|ref_typespec|tok:->.id.id|under:constant
+N1017 2 OPEN fullname|ref_obj|tok:id[id - n].id.->|under:operation
+N0472 2 OPEN fullname|ref_obj|tok:id->id.id@in-typespec|under:operation
+N0274 2 OPEN fullname|ref_obj|golden-empty@in-typespec|under:operation
+N0008 2 OPEN (residue of r11u133: map 4 named it, still present) fullname|ref_typespec|golden-empty|under:constant
+N1140 2 OPEN span|constant|ours-zero|under:operation
+N0681 2 OPEN span|constant|ours-zero|under:cont_assign
+N0044 2 OPEN (map 4 routed it to r11u134 as a residue of r11u130; not landed) span|struct_typespec|endcol|under:ref_typespec
+N0416 2 OPEN fullname|ref_typespec|tok:.id.id->|under:operation
+N1057 2 OPEN fullname|bit_select|tok:id[id][id].id[id]->id@id.id[id][id].id[id].id|under:hier_path
+== family-extended pairs (UPPER bound: every cluster of a family the pair touches):
+  A families ['FILE-EMPTY|constant', 'FILE-EMPTY|unsupported_typespec', 'FULLNAME-IN-TYPESPEC-SUBTREE', 'FULLNAME|bit_select|tok', 'FULLNAME|ref_obj|tok', 'SPAN|assignment', 'SPAN|begin', 'SPAN|bit_select', 'SPAN|constant', 'SPAN|operation', 'SPAN|ref_obj', 'STRUCT-SHARE|ours|constant', 'STRUCT-TSCOPY|golden']
+  B families ['FILE-EMPTY|unsupported_typespec', 'FULLNAME-IN-TYPESPEC-SUBTREE', 'FULLNAME|ref_obj|tok', 'SPAN|func_call', 'SPAN|include_file_info', 'SPAN|ref_obj', 'SPAN|struct_typespec', 'STRUCT-SHARE|golden|logic_net', 'STRUCT-SHARE|ours|logic_net']
+  A: clusters 1070 rows cleared 160 probe 561
+  B: clusters 776 rows cleared 166 probe 441
+  A+B: clusters 1099 rows cleared 224 probe 630

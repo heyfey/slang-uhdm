@@ -1,0 +1,64 @@
+cluster N0327 (r11u128map N0327; OPEN): file|logic_typespec|other-file|under:ref_typespec
+row: surelog/default/Scoreboard  strict=differ:line(195)  records golden=269656 ours=268952
+object: #1727 (golden) / #1727 (ours)  type=logic_typespec name=uvm_bitstream_t 
+  golden: uvm_misc.svh 483:42:483:57
+  ours:   uvm_object_globals.svh 483:42:483:57
+  walk parents: ref_typespec < io_decl(value) < function(uvm_bitstream_to_string) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1721..1733 ('>' = the object)
+  #1721	2	function	uvm_bitstream_to_string		uvm_pkg::uvm_bitstream_to_string	uvm_misc.svh	483	1	510	12					uvm_pkg::uvm_bitstream_to_string	000
+  #1722	3	string_var			uvm_pkg::uvm_bitstream_to_string	uvm_misc.svh	483	10	483	16		0			uvm_pkg::uvm_bitstream_to_string	000
+  #1723	4	ref_typespec			uvm_pkg::uvm_bitstream_to_string		0	0	0	0		0			uvm_pkg::uvm_bitstream_to_string	000
+  #1724	5	string_typespec				uvm_misc.svh	483	10	483	16						000
+  #1725	3	io_decl	value			uvm_misc.svh	483	58	483	63						000
+  #1726	4	ref_typespec			uvm_pkg::uvm_bitstream_to_string::value		0	0	0	0		0			uvm_pkg::uvm_bitstream_to_string::value	000
+> #1727	5	logic_typespec	uvm_bitstream_t			uvm_misc.svh	483	42	483	57						110
+  #1728	6	ref_typespec			<in>uvm_bitstream_t		0	0	0	0		0			uvm_bitstream_t	001
+  #1729	7	logic_typespec	uvm_pkg::uvm_bitstream_t			uvm_object_globals.svh	49	9	49	42						001
+  #1730	8	range				uvm_object_globals.svh	49	22	49	42						001
+  #1731	9	operation				uvm_object_globals.svh	49	23	49	39		0				001
+  #1732	10	ref_obj	UVM_STREAMBITS		<in>uvm_pkg::uvm_bitstream_t.UVM_STREAMBITS	uvm_object_globals.svh	49	23	49	37		0			uvm_pkg::uvm_pkg::uvm_bitstream_t::UVM_STREAMBITS	001
+  #1733	11	parameter	UVM_STREAMBITS			uvm_object_globals.svh	39	11	39	25		0	UINT:4096			001
+
+--- OURS (B) records 1721..1733 ('>' = the object)
+  #1721	2	function	uvm_bitstream_to_string		uvm_pkg::uvm_bitstream_to_string	uvm_misc.svh	483	1	510	12					uvm_pkg::uvm_bitstream_to_string	000
+  #1722	3	string_var			uvm_pkg::uvm_bitstream_to_string	uvm_misc.svh	483	10	483	16		0			uvm_pkg::uvm_bitstream_to_string	000
+  #1723	4	ref_typespec			uvm_pkg::uvm_bitstream_to_string		0	0	0	0		0			uvm_pkg::uvm_bitstream_to_string	000
+  #1724	5	string_typespec				uvm_misc.svh	483	10	483	16						000
+  #1725	3	io_decl	value			uvm_misc.svh	483	58	483	63						000
+  #1726	4	ref_typespec			uvm_pkg::uvm_bitstream_to_string::value		0	0	0	0		0			uvm_pkg::uvm_bitstream_to_string::value	000
+> #1727	5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	483	42	483	57						110
+  #1728	6	ref_typespec			<in>uvm_bitstream_t		0	0	0	0		0			uvm_bitstream_t	001
+  #1729	7	logic_typespec	uvm_pkg::uvm_bitstream_t			uvm_object_globals.svh	49	9	49	42						001
+  #1730	8	range				uvm_object_globals.svh	49	22	49	42						001
+  #1731	9	operation				uvm_object_globals.svh	49	23	49	39		0				001
+  #1732	10	ref_obj	UVM_STREAMBITS		<in>uvm_pkg::uvm_bitstream_t.UVM_STREAMBITS	uvm_object_globals.svh	49	23	49	37		0			uvm_pkg::uvm_pkg::uvm_bitstream_t::UVM_STREAMBITS	001
+  #1733	11	parameter	UVM_STREAMBITS			uvm_object_globals.svh	39	11	39	25		0	UINT:4096			001
+
+facets of this row (31015, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

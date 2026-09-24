@@ -1,0 +1,44 @@
+cluster N0005 (r11u128map N0005; OPEN (residue of r11u133: map 4 named it, still present)): span|constant|endcol|under:param_assign
+row: surelog/testflags/GenForIfaceLocalparamBound  strict=differ:endcol(5)  records golden=232 ours=232
+object: #165 (golden) / #165 (ours)  type=constant name= 
+  golden: 10:33:10:36
+  ours:   10:33:10:38
+  walk parents: param_assign < interface_inst(sub) < ref_obj < port(sub)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 159..171 ('>' = the object)
+  #159	8	ref_typespec			work@top.c.sub		0	0	0	0		0			work@top.c.sub	000
+  #160	9	int_typespec				dut.sv	9	30	9	33						000
+  #161	7	parameter	DAT		work@bus_if.DAT	dut.sv	9	34	9	37		0	UINT:32		work@bus_if.DAT	000
+  #162	8	ref_typespec			work@bus_if.DAT		0	0	0	0		0			work@bus_if.DAT	000
+  #163	9	int_typespec				dut.sv	9	30	9	33						000
+  #164	6	param_assign				dut.sv	10	27	10	38						000
+> #165	7	constant				dut.sv	10	33	10	36	4	32	INT:4	7		000
+  #166	7	parameter	BYT		work@bus_if.BYT	dut.sv	10	27	10	30		0			work@bus_if.BYT	000
+  #167	8	ref_typespec			work@bus_if.BYT		0	0	0	0		0			work@bus_if.BYT	000
+  #168	9	int_typespec				dut.sv	10	14	10	26						000
+  #169	4	ref_typespec			work@top.c.sub		0	0	0	0		0			work@top.c.sub	000
+  #170	5	interface_typespec	bus_if			dut.sv	14	15	14	21						110
+  #171	3	port	o			dut.sv	14	46	14	47						000
+
+--- OURS (B) records 159..171 ('>' = the object)
+  #159	8	ref_typespec			work@top.c.sub		0	0	0	0		0			work@top.c.sub	000
+  #160	9	int_typespec				dut.sv	9	30	9	33						000
+  #161	7	parameter	DAT		work@bus_if.DAT	dut.sv	9	34	9	37		0	UINT:32		work@bus_if.DAT	000
+  #162	8	ref_typespec			work@bus_if.DAT		0	0	0	0		0			work@bus_if.DAT	000
+  #163	9	int_typespec				dut.sv	9	30	9	33						000
+  #164	6	param_assign				dut.sv	10	27	10	38						000
+> #165	7	constant				dut.sv	10	33	10	38	4	32	INT:4	7		000
+  #166	7	parameter	BYT		work@bus_if.BYT	dut.sv	10	27	10	30		0			work@bus_if.BYT	000
+  #167	8	ref_typespec			work@bus_if.BYT		0	0	0	0		0			work@bus_if.BYT	000
+  #168	9	int_typespec				dut.sv	10	14	10	26						000
+  #169	4	ref_typespec			work@top.c.sub		0	0	0	0		0			work@top.c.sub	000
+  #170	5	interface_typespec	bus_if			dut.sv	14	15	14	21						110
+  #171	3	port	o			dut.sv	14	46	14	47						000
+
+facets of this row (5, first 25):
+  N0005 #165/165 constant  G[10:33:10:36] O[10:33:10:38]
+  N0077 #188/188 ref_obj i G[work@top.c.g[0].sub.ben[i].i] O[work@top.c.g[0].i]
+  N0077 #200/200 ref_obj i G[work@top.c.g[1].sub.ben[i].i] O[work@top.c.g[1].i]
+  N0077 #212/212 ref_obj i G[work@top.c.g[2].sub.ben[i].i] O[work@top.c.g[2].i]
+  N0077 #224/224 ref_obj i G[work@top.c.g[3].sub.ben[i].i] O[work@top.c.g[3].i]

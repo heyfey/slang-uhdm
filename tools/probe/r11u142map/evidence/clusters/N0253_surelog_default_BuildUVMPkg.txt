@@ -1,0 +1,64 @@
+cluster N0253 (r11u128map N0253; OPEN): fullname|ref_typespec|tok:::id[id].id->|under:operation
+row: surelog/default/BuildUVMPkg  strict=differ:line(210)  records golden=201533 ours=201486
+object: #160760 (golden) / #160699 (ours)  type=ref_typespec name= OUT
+  golden: uvm_pkg::uvm_report_handler::process_report_message::sev_id_overrides[id].exists
+  ours:   uvm_pkg::uvm_report_handler::process_report_message
+  walk parents: operation < method_func_call(exists) < hier_path(sev_id_overrides[id].exists) < if_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 160754..160766 ('>' = the object)
+  #160754	8	if_stmt				uvm_pkg.sv	30769	7	30772	10						000
+  #160755	9	hier_path	sev_id_overrides[id].exists			uvm_pkg.sv	30769	10	30769	62		0				000
+  #160756	10	bit_select	sev_id_overrides		sev_id_overrides[id]	uvm_pkg.sv	30769	10	30769	26		0			sev_id_overrides[id]	000
+  #160757	11	ref_obj	id		uvm_pkg::uvm_report_handler::process_report_message::id	uvm_pkg.sv	30769	27	30769	29		0			uvm_pkg::uvm_report_handler::process_report_message::id	000
+  #160758	10	method_func_call	exists			uvm_pkg.sv	30769	31	30769	37		0				000
+  #160759	11	operation				uvm_pkg.sv	30769	38	30769	61		0				000
+> #160760	12	ref_typespec			uvm_pkg::uvm_report_handler::process_report_message::sev_id_overrides[id].exists		0	0	0	0		0			uvm_pkg::uvm_report_handler::process_report_message::sev_id_overrides[id].exists	000
+  #160761	13	enum_typespec	uvm_pkg::uvm_severity			uvm_pkg.sv	52026	37	52026	49						110
+  #160762	14	ref_typespec			<in>uvm_pkg::uvm_severity		0	0	0	0		0			uvm_pkg::uvm_pkg::uvm_severity	001
+  #160763	15	bit_typespec				uvm_pkg.sv	8049	14	8049	23						001
+  #160764	16	range				uvm_pkg.sv	8049	18	8049	23						001
+  #160765	17	constant				uvm_pkg.sv	8049	19	8049	20	1	64	UINT:1	9		001
+  #160766	17	constant				uvm_pkg.sv	8049	21	8049	22	0	64	UINT:0	9		001
+
+--- OURS (B) records 160693..160705 ('>' = the object)
+  #160693	8	if_stmt				uvm_pkg.sv	30769	7	30772	10						000
+  #160694	9	hier_path	sev_id_overrides[id].exists			uvm_pkg.sv	30769	10	30769	62		0				000
+  #160695	10	bit_select	sev_id_overrides		sev_id_overrides[id]	uvm_pkg.sv	30769	10	30769	26		0			sev_id_overrides[id]	000
+  #160696	11	ref_obj	id		uvm_pkg::uvm_report_handler::process_report_message::id	uvm_pkg.sv	30769	27	30769	29		0			uvm_pkg::uvm_report_handler::process_report_message::id	000
+  #160697	10	method_func_call	exists			uvm_pkg.sv	30769	31	30769	37		0				000
+  #160698	11	operation				uvm_pkg.sv	30769	38	30769	61		0				000
+> #160699	12	ref_typespec			uvm_pkg::uvm_report_handler::process_report_message		0	0	0	0		0			uvm_pkg::uvm_report_handler::process_report_message	000
+  #160700	13	enum_typespec	uvm_pkg::uvm_severity			uvm_pkg.sv	8049	1	8055	16						110
+  #160701	14	ref_typespec			<in>uvm_pkg::uvm_severity		0	0	0	0		0			uvm_pkg::uvm_pkg::uvm_severity	001
+  #160702	15	bit_typespec				uvm_pkg.sv	8049	14	8049	23						001
+  #160703	16	range				uvm_pkg.sv	8049	18	8049	23						001
+  #160704	17	constant				uvm_pkg.sv	8049	19	8049	20	1	64	UINT:1	9		001
+  #160705	17	constant				uvm_pkg.sv	8049	21	8049	22	0	64	UINT:0	9		001
+
+facets of this row (10896, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

@@ -1,0 +1,64 @@
+cluster N2381 (r11u128map new; OPEN (new since r11u138map)): fullname|ref_obj|tok:id["id"].id::->|under:method_func_call
+row: surelog/default/BuildUVMPkg  strict=differ:line(210)  records golden=201533 ours=201486
+object: #96756 (golden) / #96711 (ours)  type=ref_obj name=uvm_run_phase::get OUT
+  golden: uvm_pkg::uvm_domain::get_common_domain::m_domains["common"].find::uvm_run_phase::get
+  ours:   uvm_pkg::uvm_domain::get_common_domain::uvm_run_phase::get
+  walk parents: method_func_call(find) < hier_path(m_domains["common"].find) < method_func_call(add) < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 96750..96762 ('>' = the object)
+  #96750	5	method_func_call	add			uvm_pkg.sv	35404	25	35404	28		0				000
+  #96751	6	ref_obj	domain		uvm_pkg::uvm_domain::get_common_domain::domain	uvm_pkg.sv	35404	29	35404	35		0			uvm_pkg::uvm_domain::get_common_domain::domain	000
+  #96752	6	hier_path	m_domains["common"].find			uvm_pkg.sv	35405	34	35405	80		0				000
+  #96753	7	bit_select	m_domains		m_domains["common"]	uvm_pkg.sv	35405	34	35405	43		0			m_domains["common"]	000
+  #96754	8	constant				uvm_pkg.sv	35405	44	35405	52	"common"	48	STRING:common	6		000
+  #96755	7	method_func_call	find			uvm_pkg.sv	35405	54	35405	58		0				000
+> #96756	8	ref_obj	uvm_run_phase::get		uvm_pkg::uvm_domain::get_common_domain::m_domains["common"].find::uvm_run_phase::get	uvm_pkg.sv	35405	59	35405	74		0			uvm_pkg::uvm_domain::get_common_domain::m_domains["common"].find::uvm_run_phase::get	000
+  #96757	6	ref_obj	m_domains		uvm_pkg::uvm_domain::get_common_domain::m_domains	uvm_pkg.sv	35404	5	35404	14		0			uvm_pkg::uvm_domain::get_common_domain::m_domains	000
+  #96758	5	return_stmt				uvm_pkg.sv	35408	5	35408	11						000
+  #96759	6	bit_select	m_domains		uvm_pkg::uvm_domain::get_common_domain::m_domains	uvm_pkg.sv	35408	22	35408	30		0			uvm_pkg::uvm_domain::get_common_domain::m_domains	000
+  #96760	7	constant				uvm_pkg.sv	35408	22	35408	30	"common"	48	STRING:common	6		000
+  #96761	3	function	add_uvm_phases		uvm_pkg::uvm_domain::add_uvm_phases	uvm_pkg.sv	35415	3	35415	9					uvm_pkg::uvm_domain::add_uvm_phases	000
+  #96762	4	io_decl	schedule			uvm_pkg.sv	35415	49	35415	57						000
+
+--- OURS (B) records 96705..96717 ('>' = the object)
+  #96705	5	method_func_call	add			uvm_pkg.sv	35404	25	35404	28		0				000
+  #96706	6	ref_obj	domain		uvm_pkg::uvm_domain::get_common_domain::domain	uvm_pkg.sv	35404	29	35404	35		0			uvm_pkg::uvm_domain::get_common_domain::domain	000
+  #96707	6	hier_path	m_domains["common"].find			uvm_pkg.sv	35405	34	35405	80		0				000
+  #96708	7	bit_select	m_domains		m_domains["common"]	uvm_pkg.sv	35405	34	35405	43		0			m_domains["common"]	000
+  #96709	8	constant				uvm_pkg.sv	35405	44	35405	52	"common"	48	STRING:common	6		000
+  #96710	7	method_func_call	find			uvm_pkg.sv	35405	54	35405	58		0				000
+> #96711	8	ref_obj	uvm_run_phase::get		uvm_pkg::uvm_domain::get_common_domain::uvm_run_phase::get	uvm_pkg.sv	35405	59	35405	74		0			uvm_pkg::uvm_domain::get_common_domain::uvm_run_phase::get	000
+  #96712	6	ref_obj	m_domains		uvm_pkg::uvm_domain::get_common_domain::m_domains	uvm_pkg.sv	35404	5	35404	14		0			uvm_pkg::uvm_domain::get_common_domain::m_domains	000
+  #96713	5	return_stmt				uvm_pkg.sv	35408	5	35408	11						000
+  #96714	6	bit_select	m_domains		uvm_pkg::uvm_domain::get_common_domain::m_domains	uvm_pkg.sv	35408	22	35408	30		0			uvm_pkg::uvm_domain::get_common_domain::m_domains	000
+  #96715	7	constant				uvm_pkg.sv	35408	22	35408	30	"common"	48	STRING:common	6		000
+  #96716	3	function	add_uvm_phases		uvm_pkg::uvm_domain::add_uvm_phases	uvm_pkg.sv	35415	3	35415	9					uvm_pkg::uvm_domain::add_uvm_phases	000
+  #96717	4	io_decl	schedule			uvm_pkg.sv	35415	49	35415	57						000
+
+facets of this row (10896, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

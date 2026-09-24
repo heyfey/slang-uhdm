@@ -1,0 +1,64 @@
+cluster N0309 (r11u128map N0309; OPEN): span|constant|col+endline+endcol|under:func_call
+row: surelog/default/Scoreboard  strict=differ:line(195)  records golden=269656 ours=268952
+object: #2510 (golden) / #2518 (ours)  type=constant name= 
+  golden: 149:82:149:185
+  ours:   149:55:52:3
+  walk parents: func_call(uvm_report_error) < if_stmt < begin < if_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2504..2516 ('>' = the object)
+  #2504	8	constant				uvm_message_defines.svh	148	48	148	61	"NULLPRINTER"	88	STRING:NULLPRINTER	6		000
+  #2505	7	func_call	uvm_report_error			uvm_message_defines.svh	149	8	149	198		0				000
+  #2506	8	constant				uvm_message_defines.svh	149	26	149	39	"NULLPRINTER"	88	STRING:NULLPRINTER	6		000
+  #2507	8	constant				uvm_message_defines.svh	149	41	149	70	"uvm_default_printer is null"	216	STRING:uvm_default_printer is null	6		000
+  #2508	8	ref_obj	UVM_NONE		uvm_pkg::uvm_object::print::UVM_NONE	uvm_message_defines.svh	149	72	149	80		0			uvm_pkg::uvm_object::print::UVM_NONE	000
+  #2509	9	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+> #2510	8	constant				uvm_message_defines.svh	149	82	149	185	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_object.svh"	808	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_object.svh	6		000
+  #2511	8	constant				uvm_message_defines.svh	149	187	149	190	880	64	UINT:880	9		000
+  #2512	8	constant				uvm_message_defines.svh	149	192	149	194	""	0	STRING:	6		000
+  #2513	8	constant				uvm_message_defines.svh	149	196	149	197	1	64	UINT:1	9		000
+  #2514	4	sys_func_call	$fwrite			uvm_object.svh	881	3	881	45		0				000
+  #2515	5	hier_path	printer.knobs.mcd			uvm_object.svh	881	11	881	28		0				000
+  #2516	6	ref_obj	printer			uvm_object.svh	881	11	881	18		0				000
+
+--- OURS (B) records 2512..2524 ('>' = the object)
+  #2512	8	constant				uvm_message_defines.svh	148	48	148	61	"NULLPRINTER"	88	STRING:NULLPRINTER	6		000
+  #2513	7	func_call	uvm_report_error			uvm_message_defines.svh	149	8	149	218		0				000
+  #2514	8	constant				uvm_message_defines.svh	149	26	149	39	"NULLPRINTER"	88	STRING:NULLPRINTER	6		000
+  #2515	8	constant				uvm_message_defines.svh	149	41	149	70	"uvm_default_printer is null"	216	STRING:uvm_default_printer is null	6		000
+  #2516	8	ref_obj	UVM_NONE		uvm_pkg::uvm_object::print::UVM_NONE	uvm_message_defines.svh	149	72	149	80		0			uvm_pkg::uvm_object::print::UVM_NONE	000
+  #2517	9	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+> #2518	8	constant				uvm_message_defines.svh	149	55	52	3	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_object.svh"	808	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_object.svh	6		000
+  #2519	8	constant				uvm_message_defines.svh	149	66	149	69	880	64	UINT:880	9		000
+  #2520	8	constant				uvm_message_defines.svh	149	212	149	214	""	0	STRING:	6		000
+  #2521	8	constant				uvm_message_defines.svh	149	216	149	217	1	64	UINT:1	9		000
+  #2522	4	sys_func_call	$fwrite			uvm_object.svh	881	3	881	45		0				000
+  #2523	5	hier_path	printer.knobs.mcd			uvm_object.svh	881	11	881	28		0				000
+  #2524	6	ref_obj	printer			uvm_object.svh	881	11	881	18		0				000
+
+facets of this row (31015, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

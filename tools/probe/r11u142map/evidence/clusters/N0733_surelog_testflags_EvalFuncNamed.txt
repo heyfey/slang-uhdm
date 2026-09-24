@@ -1,0 +1,51 @@
+cluster N0733 (r11u128map N0733; OPEN): fullname|ref_obj|tok:id@id.id.->id::id::|under:assignment
+row: surelog/testflags/EvalFuncNamed  strict=differ:fullname(12)  records golden=413 ours=413
+object: #363 (golden) / #363 (ours)  type=ref_obj name=simple_minus OUT
+  golden: work@t.simple_minus.simple_minus
+  ours:   my_module_types::simple_minus::simple_minus
+  walk parents: assignment < begin < function(simple_minus) < module_inst(work@t)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 357..369 ('>' = the object)
+  #357	5	int_typespec				dut.sv	3	65	3	68						000
+  #358	3	begin			work@t.simple_minus	dut.sv	4	7	6	10					work@t.simple_minus	000
+  #359	4	assignment				dut.sv	5	8	5	38						000
+  #360	5	operation				dut.sv	5	23	5	38		0				000
+  #361	6	ref_obj	value1		work@t.simple_minus.value1	dut.sv	5	23	5	29		0			work@t.simple_minus.value1	000
+  #362	6	ref_obj	value2		work@t.simple_minus.value2	dut.sv	5	32	5	38		0			work@t.simple_minus.value2	000
+> #363	5	ref_obj	simple_minus		work@t.simple_minus.simple_minus	dut.sv	5	8	5	20		0			work@t.simple_minus.simple_minus	000
+  #364	2	function	simple_func		my_module_types::simple_func	dut.sv	9	4	13	15					my_module_types::simple_func	000
+  #365	3	int_var			my_funcs::simple_func	dut.sv	9	23	9	26		0			my_funcs::simple_func	000
+  #366	4	ref_typespec			my_funcs::simple_func		0	0	0	0		0			my_funcs::simple_func	000
+  #367	5	int_typespec				dut.sv	9	23	9	26						000
+  #368	3	io_decl	value1			dut.sv	9	50	9	56						000
+  #369	4	ref_typespec			work@t.simple_func.value1		0	0	0	0		0			work@t.simple_func.value1	000
+
+--- OURS (B) records 357..369 ('>' = the object)
+  #357	5	int_typespec				dut.sv	3	65	3	68						000
+  #358	3	begin			my_module_types::simple_minus	dut.sv	4	7	6	10					my_module_types::simple_minus	000
+  #359	4	assignment				dut.sv	5	8	5	38						000
+  #360	5	operation				dut.sv	5	23	5	38		0				000
+  #361	6	ref_obj	value1		my_module_types::simple_minus::value1	dut.sv	5	23	5	29		0			my_module_types::simple_minus::value1	000
+  #362	6	ref_obj	value2		my_module_types::simple_minus::value2	dut.sv	5	32	5	38		0			my_module_types::simple_minus::value2	000
+> #363	5	ref_obj	simple_minus		my_module_types::simple_minus::simple_minus	dut.sv	5	8	5	20		0			my_module_types::simple_minus::simple_minus	000
+  #364	2	function	simple_func		my_module_types::simple_func	dut.sv	9	4	13	15					my_module_types::simple_func	000
+  #365	3	int_var			my_funcs::simple_func	dut.sv	9	23	9	26		0			my_funcs::simple_func	000
+  #366	4	ref_typespec			my_funcs::simple_func		0	0	0	0		0			my_funcs::simple_func	000
+  #367	5	int_typespec				dut.sv	9	23	9	26						000
+  #368	3	io_decl	value1			dut.sv	9	50	9	56						000
+  #369	4	ref_typespec			my_module_types::simple_func::value1		0	0	0	0		0			my_module_types::simple_func::value1	000
+
+facets of this row (12, first 25):
+  N0652 #353/353 ref_typespec  G[work@t.simple_minus.value1] O[my_module_types::simple_minus::value1]
+  N0652 #356/356 ref_typespec  G[work@t.simple_minus.value2] O[my_module_types::simple_minus::value2]
+  N1100 #358/358 begin  G[work@t.simple_minus] O[my_module_types::simple_minus]
+  N1105 #361/361 ref_obj value1 G[work@t.simple_minus.value1] O[my_module_types::simple_minus::value1]
+  N1105 #362/362 ref_obj value2 G[work@t.simple_minus.value2] O[my_module_types::simple_minus::value2]
+  N0733 #363/363 ref_obj simple_minus G[work@t.simple_minus.simple_minus] O[my_module_types::simple_minus::simple_minus]
+  N0652 #369/369 ref_typespec  G[work@t.simple_func.value1] O[my_module_types::simple_func::value1]
+  N0652 #372/372 ref_typespec  G[work@t.simple_func.value2] O[my_module_types::simple_func::value2]
+  N1100 #374/374 begin  G[work@t.simple_func] O[my_module_types::simple_func]
+  N1806 #377/377 ref_obj value1 G[work@t.simple_func.value1] O[my_module_types::simple_func::value1]
+  N1806 #378/378 ref_obj value2 G[work@t.simple_func.value2] O[my_module_types::simple_func::value2]
+  N0733 #379/379 ref_obj simple_func G[work@t.simple_func.simple_func] O[my_module_types::simple_func::simple_func]

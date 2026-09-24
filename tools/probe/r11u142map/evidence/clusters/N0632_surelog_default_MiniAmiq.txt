@@ -1,0 +1,64 @@
+cluster N0632 (r11u128map N0632; OPEN): struct|ours-only:absent|class_var|under:ref_obj
+row: surelog/default/MiniAmiq  strict=differ:line(191)  records golden=435559 ours=413982
+object: #-1 (golden) / #85138 (ours)  type=class_var name=clp 
+  golden: 
+  ours:   3 objs
+  walk parents: ref_obj(clp) < hier_path(clp.m_convert_verb) < operation < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 85132..85144 ('>' = the object)
+  #85132	12	ref_obj	args			uvm_component.svh	3398	43	3398	47		0				000
+  #85133	12	method_func_call	size			uvm_component.svh	3398	48	3398	52		0				000
+  #85134	11	constant				uvm_component.svh	3398	58	3398	59	5	64	UINT:5	9		000
+  #85135	9	operation				uvm_component.svh	3399	20	3399	71		0				000
+  #85136	10	hier_path	clp.m_convert_verb			uvm_component.svh	3399	20	3399	66		0				000
+  #85137	11	ref_obj	clp			uvm_component.svh	3399	20	3399	23		0				000
+> #85138	12	class_var	clp		uvm_pkg::uvm_component::m_set_cl_verb::clp	uvm_component.svh	3383	25	3383	28		0			uvm_pkg::uvm_component::m_set_cl_verb::clp	000
+  #85139	13	ref_typespec			uvm_pkg::uvm_component::m_set_cl_verb::clp		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_verb::clp	000
+  #85140	14	class_typespec	uvm_cmdline_processor			uvm_component.svh	3383	3	3383	24						110
+  #85141	11	method_func_call	m_convert_verb			uvm_component.svh	3399	24	3399	38		0				000
+  #85142	12	bit_select	args		svaunit_pkg::uvm_component::m_set_cl_verb::args	uvm_component.svh	3399	44	3399	45		0			svaunit_pkg::uvm_component::m_set_cl_verb::args	000
+  #85143	13	constant				uvm_component.svh	3399	44	3399	45	2	64	UINT:2	9		000
+  #85144	12	hier_path	setting.verbosity			uvm_component.svh	3399	48	3399	65		0				000
+
+--- the holder #85137 on the other side: exact-record matches at [20839, 87089, 317879, 385757]
+  #20836	11	constant				uvm_component.svh	3398	58	3398	59	5	64	UINT:5	9		000
+  #20837	9	operation				uvm_component.svh	3399	20	3399	71		0				000
+  #20838	10	hier_path	clp.m_convert_verb			uvm_component.svh	3399	20	3399	66		0				000
+> #20839	11	ref_obj	clp			uvm_component.svh	3399	20	3399	23		0				000
+  #20840	11	method_func_call	m_convert_verb			uvm_component.svh	3399	24	3399	38		0				000
+  #20841	12	bit_select	args		uvm_pkg::uvm_component::m_set_cl_verb::clp.m_convert_verb::args	uvm_component.svh	3399	44	3399	45		0			uvm_pkg::uvm_component::m_set_cl_verb::clp.m_convert_verb::args	000
+  #20842	13	constant				uvm_component.svh	3399	44	3399	45	2	64	UINT:2	9		000
+  #20843	12	hier_path	setting.verbosity			uvm_component.svh	3399	48	3399	65		0				000
+  #20844	13	ref_obj	setting			uvm_component.svh	3399	48	3399	55		0				000
+  #20845	13	ref_obj	verbosity		uvm_pkg::uvm_component::m_set_cl_verb::clp.m_convert_verb::verbosity	uvm_component.svh	3399	56	3399	65		0			uvm_pkg::uvm_component::m_set_cl_verb::clp.m_convert_verb::verbosity	000
+  #20846	10	constant				uvm_component.svh	3399	70	3399	71	0	64	UINT:0	9		000
+  #20847	7	begin			uvm_pkg::uvm_component::m_set_cl_verb	uvm_component.svh	3400	5	3402	8					uvm_pkg::uvm_component::m_set_cl_verb	000
+  #20848	8	method_func_call	delete			uvm_component.svh	3401	14	3401	20		0				000
+
+facets of this row (57836, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

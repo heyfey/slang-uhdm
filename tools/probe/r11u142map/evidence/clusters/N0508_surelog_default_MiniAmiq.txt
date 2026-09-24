@@ -1,0 +1,64 @@
+cluster N0508 (r11u128map N0508; OPEN): struct|golden-only:fewer-copies|int_var|under:assignment
+row: surelog/default/MiniAmiq  strict=differ:line(191)  records golden=435559 ours=413982
+object: #73377 (golden) / #-1 (ours)  type=int_var name=max_size 
+  golden: 3 objs
+  ours:   
+  walk parents: assignment < begin < function(uvm_packer::pack_bytes) < package(svaunit_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 73371..73383 ('>' = the object)
+  #73371	4	assignment				uvm_packer.svh	731	8	731	45						000
+  #73372	5	operation				uvm_packer.svh	731	19	731	45		0				000
+  #73373	6	hier_path	value.size			uvm_packer.svh	731	19	731	31		0				000
+  #73374	7	ref_obj	value			uvm_packer.svh	731	19	731	24		0				000
+  #73375	7	method_func_call	size			uvm_packer.svh	731	25	731	29		0				000
+  #73376	6	constant				uvm_packer.svh	731	34	731	39	8	64	UINT:8	9		000
+> #73377	5	int_var	max_size		svaunit_pkg::uvm_packer::pack_bytes::max_size	uvm_packer.svh	731	8	731	16		0			svaunit_pkg::uvm_packer::pack_bytes::max_size	000
+  #73378	6	ref_typespec			svaunit_pkg::uvm_packer::pack_bytes::max_size		0	0	0	0		0			svaunit_pkg::uvm_packer::pack_bytes::max_size	000
+  #73379	7	int_typespec				uvm_packer.svh	731	4	731	7						000
+  #73380	4	if_stmt				uvm_packer.svh	733	4	734	22						000
+  #73381	5	operation				uvm_packer.svh	733	8	733	16		0				000
+  #73382	6	ref_obj	size		svaunit_pkg::uvm_packer::pack_bytes::size	uvm_packer.svh	733	8	733	12		0			svaunit_pkg::uvm_packer::pack_bytes::size	000
+  #73383	6	constant				uvm_packer.svh	733	15	733	16	0	64	UINT:0	9		000
+
+--- the holder #73371 on the other side: exact-record matches at [9147, 72636, 294527, 355985]
+  #9144	4	ref_typespec			uvm_pkg::uvm_packer::pack_bytes::size		0	0	0	0		0			uvm_pkg::uvm_packer::pack_bytes::size	000
+  #9145	5	int_typespec				uvm_packer.svh	730	62	730	65						000
+  #9146	3	begin			uvm_pkg::uvm_packer::pack_bytes	uvm_packer.svh	733	4	734	22					uvm_pkg::uvm_packer::pack_bytes	000
+> #9147	4	assignment				uvm_packer.svh	731	8	731	45						000
+  #9148	5	operation				uvm_packer.svh	731	19	731	45		0				000
+  #9149	6	hier_path	value.size			uvm_packer.svh	731	19	731	31		0				000
+  #9150	7	ref_obj	value			uvm_packer.svh	731	19	731	24		0				000
+  #9151	7	method_func_call	size			uvm_packer.svh	731	25	731	29		0				000
+  #9152	6	sys_func_call	$bits			uvm_packer.svh	731	34	731	39		0				000
+  #9153	7	byte_var			uvm_pkg::uvm_packer::pack_bytes	uvm_packer.svh	731	40	731	44		0			uvm_pkg::uvm_packer::pack_bytes	000
+  #9154	4	if_stmt				uvm_packer.svh	733	4	734	22						000
+  #9155	5	operation				uvm_packer.svh	733	8	733	16		0				000
+  #9156	6	ref_obj	size		uvm_pkg::uvm_packer::pack_bytes::size	uvm_packer.svh	733	8	733	12		0			uvm_pkg::uvm_packer::pack_bytes::size	000
+
+facets of this row (57836, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

@@ -1,0 +1,64 @@
+cluster N0383 (r11u128map N0383; OPEN): span|sys_func_call|line+col+endline+endcol|under:sys_func_call
+row: surelog/default/Scoreboard  strict=differ:line(195)  records golden=269656 ours=268952
+object: #17483 (golden) / #17497 (ours)  type=sys_func_call name=$realtime 
+  golden: 167:25:167:34
+  ours:   1068:35:1068:44
+  walk parents: sys_func_call($sformatf) < operation < func_call(uvm_report_fatal) < if_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 17477..17489 ('>' = the object)
+  #17477	7	func_call	uvm_report_fatal			uvm_message_defines.svh	166	8	169	188		0				000
+  #17478	8	constant				uvm_message_defines.svh	166	26	166	38	"RUNPHSTIME"	80	STRING:RUNPHSTIME	6		000
+  #17479	8	operation				uvm_message_defines.svh	166	40	169	61		0				000
+  #17480	9	constant				uvm_message_defines.svh	166	41	166	95	"The run phase must start at time 0, current time is "	416	STRING:The run phase must start at time 0, current time is 	6		000
+  #17481	9	sys_func_call	$sformatf			uvm_message_defines.svh	167	8	167	35		0				000
+  #17482	10	constant				uvm_message_defines.svh	167	18	167	23	"%0t"	24	STRING:%0t	6		000
+> #17483	10	sys_func_call	$realtime			uvm_message_defines.svh	167	25	167	34		0				000
+  #17484	9	constant				uvm_message_defines.svh	167	37	167	79	". No non-zero delays are allowed before "	320	STRING:. No non-zero delays are allowed before 	6		000
+  #17485	9	constant				uvm_message_defines.svh	168	8	168	70	"run_test(), and pre-run user defined phases may not consume "	480	STRING:run_test(), and pre-run user defined phases may not consume 	6		000
+  #17486	9	constant				uvm_message_defines.svh	169	8	169	60	"simulation time before the start of the run phase."	400	STRING:simulation time before the start of the run phase.	6		000
+  #17487	8	ref_obj	UVM_NONE		uvm_pkg::uvm_root::run_phase::UVM_NONE	uvm_message_defines.svh	169	63	169	71		0			uvm_pkg::uvm_root::run_phase::UVM_NONE	000
+  #17488	9	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+  #17489	8	constant				uvm_message_defines.svh	169	73	169	174	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_root.svh"	792	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_root.svh	6		000
+
+--- OURS (B) records 17491..17503 ('>' = the object)
+  #17491	7	func_call	uvm_report_fatal			uvm_message_defines.svh	166	8	166	455		0				000
+  #17492	8	constant				uvm_message_defines.svh	166	26	166	38	"RUNPHSTIME"	80	STRING:RUNPHSTIME	6		000
+  #17493	8	operation				uvm_message_defines.svh	166	40	1070	71		0				000
+  #17494	9	constant				uvm_message_defines.svh	166	41	166	95	"The run phase must start at time 0, current time is "	416	STRING:The run phase must start at time 0, current time is 	6		000
+  #17495	9	sys_func_call	$sformatf			uvm_message_defines.svh	1068	18	1068	45		0				000
+  #17496	10	constant				uvm_message_defines.svh	1068	28	1068	33	"%0t"	24	STRING:%0t	6		000
+> #17497	10	sys_func_call	$realtime			uvm_message_defines.svh	1068	35	1068	44		0				000
+  #17498	9	constant				uvm_message_defines.svh	1068	47	1068	89	". No non-zero delays are allowed before "	320	STRING:. No non-zero delays are allowed before 	6		000
+  #17499	9	constant				uvm_message_defines.svh	1069	18	1069	80	"run_test(), and pre-run user defined phases may not consume "	480	STRING:run_test(), and pre-run user defined phases may not consume 	6		000
+  #17500	9	constant				uvm_message_defines.svh	1070	18	1070	70	"simulation time before the start of the run phase."	400	STRING:simulation time before the start of the run phase.	6		000
+  #17501	8	ref_obj	UVM_NONE		uvm_pkg::uvm_root::run_phase::UVM_NONE	uvm_message_defines.svh	166	310	166	318		0			uvm_pkg::uvm_root::run_phase::UVM_NONE	000
+  #17502	9	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+  #17503	8	constant				uvm_message_defines.svh	166	55	52	1	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_root.svh"	792	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_root.svh	6		000
+
+facets of this row (31015, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

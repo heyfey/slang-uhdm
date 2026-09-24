@@ -1,0 +1,42 @@
+cluster N0039 (r11u128map N0039; OPEN (map 4 routed it to r11u134 as a residue of r11u130; not landed)): span|int_typespec|line+col+endline+endcol|under:ref_typespec
+row: surelog/testflags/TypeParam  strict=differ:type(1)  records golden=106 ours=106
+object: #26 (golden) / #26 (ours)  type=int_typespec name= 
+  golden: 17:85:17:88
+  ours:   20:5:20:8
+  walk parents: ref_typespec < logic_net(DATA2) < module_inst < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 20..32 ('>' = the object)
+  #20	4	logic_typespec				dut.sv	19	5	19	19						000
+  #21	5	range				dut.sv	19	11	19	19						001
+  #22	6	ref_obj	SIZE			dut.sv	19	12	19	16		0				001
+  #23	6	constant				dut.sv	19	17	19	18	0	64	UINT:0	9		001
+  #24	2	logic_net	DATA2		work@bottom.DATA2	dut.sv	20	9	20	14		0			work@bottom.DATA2	000
+  #25	3	ref_typespec			work@bottom.DATA2		0	0	0	0		0			work@bottom.DATA2	000
+> #26	4	int_typespec				dut.sv	17	85	17	88						000
+  #27	1	module_inst		work@mid	work@mid	dut.sv	10	1	15	10					work@mid	000
+  #28	2	type_parameter	TP0		work@mid.TP0	dut.sv	10	29	10	32					work@mid.TP0	010
+  #29	3	ref_typespec			<in>TP0		0	0	0	0		0			work@mid.TP0	001
+  #30	4	logic_typespec				dut.sv	10	35	10	40						001
+  #31	2	logic_net	DATA0		work@mid.DATA0	dut.sv	11	6	11	11		0			work@mid.DATA0	000
+  #32	2	ref_module	u1	work@bottom		dut.sv	12	22	12	24						000
+
+--- OURS (B) records 20..32 ('>' = the object)
+  #20	4	logic_typespec				dut.sv	19	5	19	19						000
+  #21	5	range				dut.sv	19	11	19	19						001
+  #22	6	ref_obj	SIZE			dut.sv	19	12	19	16		0				001
+  #23	6	constant				dut.sv	19	17	19	18	0	64	UINT:0	9		001
+  #24	2	logic_net	DATA2		work@bottom.DATA2	dut.sv	20	9	20	14		0			work@bottom.DATA2	000
+  #25	3	ref_typespec			work@bottom.DATA2		0	0	0	0		0			work@bottom.DATA2	000
+> #26	4	int_typespec				dut.sv	20	5	20	8						000
+  #27	1	module_inst		work@mid	work@mid	dut.sv	10	1	15	10					work@mid	000
+  #28	2	type_parameter	TP0		work@mid.TP0	dut.sv	10	29	10	32					work@mid.TP0	010
+  #29	3	ref_typespec			<in>TP0		0	0	0	0		0			work@mid.TP0	001
+  #30	4	logic_typespec				dut.sv	10	35	10	40						001
+  #31	2	logic_net	DATA0		work@mid.DATA0	dut.sv	11	6	11	11		0			work@mid.DATA0	000
+  #32	2	ref_module	u1	work@bottom		dut.sv	12	22	12	24						000
+
+facets of this row (3, first 25):
+  N0770 #17/-1 logic_typespec  G[1 objs] O[]
+  N0798 #-1/17 int_typespec  G[] O[1 objs]
+  N0039 #26/26 int_typespec  G[17:85:17:88] O[20:5:20:8]

@@ -1,0 +1,33 @@
+cluster N0699 (r11u128map N0699; OPEN): fullname|ref_obj|tok:id.id.id->id|under:hier_path
+row: surelog/testflags/InterfaceParamOverrideProp  strict=differ:fullname(4)  records golden=385 ours=385
+object: #383 (golden) / #383 (ours)  type=ref_obj name=sig OUT
+  golden: work@top.u.u.sig
+  ours:   work@leaf.sig
+  walk parents: hier_path(t.sig) < cont_assign < module_inst(u) < module_inst(u)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 377..384 ('>' = the object)
+  #377	12	typespec_member	DLY			dut.sv	5	33	5	36						001
+  #378	13	ref_typespec			<in>p::hsk_t.DLY		0	0	0	0		0			work@top.u.u.t.CFG.p::cfg_t.HSK.p::hsk_t.DLY	001
+  #379	14	int_typespec				dut.sv	5	20	5	32						001
+  #380	4	cont_assign				dut.sv	14	10	14	19						000
+  #381	5	hier_path	t.sig			dut.sv	14	14	14	19		0				000
+  #382	6	ref_obj	t			dut.sv	14	14	14	15		0				000
+> #383	6	ref_obj	sig		work@top.u.u.sig	dut.sv	14	16	14	19		0			work@top.u.u.sig	000
+  #384	5	ref_obj	o		work@top.u.u.o	dut.sv	14	10	14	11		0			work@top.u.u.o	000
+
+--- OURS (B) records 377..384 ('>' = the object)
+  #377	12	typespec_member	DLY			dut.sv	5	33	5	36						001
+  #378	13	ref_typespec			<in>p::hsk_t.DLY		0	0	0	0		0			p::p::hsk_t::DLY	001
+  #379	14	int_typespec				dut.sv	5	20	5	32						001
+  #380	4	cont_assign				dut.sv	14	10	14	19						000
+  #381	5	hier_path	t.sig			dut.sv	14	14	14	19		0				000
+  #382	6	ref_obj	t			dut.sv	14	14	14	15		0				000
+> #383	6	ref_obj	sig		work@leaf.sig	dut.sv	14	16	14	19		0			work@leaf.sig	000
+  #384	5	ref_obj	o		work@leaf.o	dut.sv	14	10	14	11		0			work@leaf.o	000
+
+facets of this row (4, first 25):
+  N0139 #68/68 ref_typespec  G[p::p::cfg_t::HSK] O[work@tif.CFG.p::cfg_t.HSK]
+  N0139 #165/165 ref_typespec  G[p::p::cfg_t::HSK] O[work@tif.CFG.p::cfg_t.HSK]
+  N0699 #383/383 ref_obj sig G[work@top.u.u.sig] O[work@leaf.sig]
+  N0695 #384/384 ref_obj o G[work@top.u.u.o] O[work@leaf.o]

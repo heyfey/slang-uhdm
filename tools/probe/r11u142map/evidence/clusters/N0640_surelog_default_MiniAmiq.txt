@@ -1,0 +1,64 @@
+cluster N0640 (r11u128map N0640; OPEN): struct|ours-only:elsewhere|constant|under:ref_obj
+row: surelog/default/MiniAmiq  strict=differ:line(191)  records golden=435559 ours=413982
+object: #-1 (golden) / #170669 (ours)  type=constant name= 
+  golden: 
+  ours:   3 objs
+  walk parents: ref_obj(UVM_LARGE_STRING) < range < logic_typespec < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 170663..170675 ('>' = the object)
+  #170663	9	ref_obj	uvm_string_to_bits		uvm_pkg::uvm_string_to_bits::uvm_string_to_bits	uvm_globals.svh	422	11	422	29		0			uvm_pkg::uvm_string_to_bits::uvm_string_to_bits	000
+  #170664	10	logic_var	uvm_string_to_bits		uvm_pkg::uvm_string_to_bits::uvm_string_to_bits	uvm_globals.svh	421	10	421	35		0			uvm_pkg::uvm_string_to_bits::uvm_string_to_bits	000
+  #170665	11	ref_typespec			uvm_pkg::uvm_string_to_bits::uvm_string_to_bits		0	0	0	0		0			uvm_pkg::uvm_string_to_bits::uvm_string_to_bits	000
+  #170666	12	logic_typespec				uvm_globals.svh	421	10	421	35						000
+  #170667	13	range				uvm_globals.svh	421	15	421	35						001
+  #170668	14	ref_obj	UVM_LARGE_STRING		<in>UVM_LARGE_STRING	uvm_globals.svh	421	16	421	32		0			uvm_pkg::uvm_string_to_bits::uvm_string_to_bits::UVM_LARGE_STRING	001
+> #170669	15	constant				uvm_globals.svh	410	30	410	60	115199	32	INT:115199	7		001
+  #170670	16	ref_typespec			svaunit_pkg		0	0	0	0		0			svaunit_pkg	001
+  #170671	17	int_typespec				uvm_globals.svh	410	1	410	62						001
+  #170672	14	constant				uvm_globals.svh	421	33	421	34	0	64	UINT:0	9		001
+  #170673	9	constant				uvm_globals.svh	422	31	422	36	"%0s"	24	STRING:%0s	6		000
+  #170674	9	ref_obj	str		uvm_pkg::uvm_string_to_bits::str	uvm_globals.svh	422	38	422	41		0			uvm_pkg::uvm_string_to_bits::str	000
+  #170675	7	function	uvm_bits_to_string		uvm_pkg::uvm_bits_to_string	uvm_globals.svh	434	1	436	12					uvm_pkg::uvm_bits_to_string	000
+
+--- the holder #170668 on the other side: exact-record matches at [177414]
+  #177411	11	ref_typespec			uvm_pkg::uvm_string_to_bits::uvm_string_to_bits		0	0	0	0		0			uvm_pkg::uvm_string_to_bits::uvm_string_to_bits	000
+  #177412	12	logic_typespec				uvm_globals.svh	421	10	421	35						000
+  #177413	13	range				uvm_globals.svh	421	15	421	35						001
+> #177414	14	ref_obj	UVM_LARGE_STRING		<in>UVM_LARGE_STRING	uvm_globals.svh	421	16	421	32		0			uvm_pkg::uvm_string_to_bits::uvm_string_to_bits::UVM_LARGE_STRING	001
+  #177415	14	constant				uvm_globals.svh	421	33	421	34	0	64	UINT:0	9		001
+  #177416	9	constant				uvm_globals.svh	422	31	422	36	"%0s"	24	STRING:%0s	6		000
+  #177417	9	ref_obj	str		uvm_pkg::uvm_string_to_bits::str	uvm_globals.svh	422	38	422	41		0			uvm_pkg::uvm_string_to_bits::str	000
+  #177418	7	function	uvm_bits_to_string		uvm_pkg::uvm_bits_to_string	uvm_globals.svh	434	1	436	12					uvm_pkg::uvm_bits_to_string	000
+  #177419	8	string_var			uvm_pkg::uvm_bits_to_string	uvm_globals.svh	434	10	434	16		0			uvm_pkg::uvm_bits_to_string	000
+  #177420	9	ref_typespec			uvm_pkg::uvm_bits_to_string		0	0	0	0		0			uvm_pkg::uvm_bits_to_string	000
+  #177421	10	string_typespec				uvm_globals.svh	434	10	434	16						000
+  #177422	8	io_decl	str			uvm_globals.svh	434	63	434	66						000
+  #177423	9	ref_typespec			uvm_pkg::uvm_bits_to_string::str		0	0	0	0		0			uvm_pkg::uvm_bits_to_string::str	000
+
+facets of this row (57836, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

@@ -1,0 +1,42 @@
+cluster N0261 (r11u128map N0261; COVERED r11u140 (N0261)): struct|golden-only:fewer-copies|ref_typespec|under:constant
+row: uhdm2rtlil/testflags/func_local_array  strict=differ:type(1)  records golden=185 ours=179
+object: #178 (golden) / #-1 (ours)  type=ref_typespec name= 
+  golden: 5 objs
+  ours:   
+  walk parents: constant < func_call(func1) < cont_assign < module_inst(work@foo)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 172..184 ('>' = the object)
+  #172	5	range				dut.sv	3	15	3	20						001
+  #173	6	constant				dut.sv	3	16	3	17	1	64	UINT:1	9		001
+  #174	6	constant				dut.sv	3	18	3	19	0	64	UINT:0	9		001
+  #175	2	cont_assign				dut.sv	19	10	19	27						000
+  #176	3	func_call	func1			dut.sv	19	16	19	27		0				000
+  #177	4	constant				dut.sv	19	22	19	26	2'd3	2	DEC:3	1		000
+> #178	5	ref_typespec			work@foo		0	0	0	0		0			work@foo	000
+  #179	6	logic_typespec				dut.sv	6	30	6	35						000
+  #180	7	range				dut.sv	6	30	6	35						001
+  #181	8	constant				dut.sv	6	31	6	32	1	64	UINT:1	9		001
+  #182	8	constant				dut.sv	6	33	6	34	0	64	UINT:0	9		001
+  #183	3	ref_obj	out		work@foo.out	dut.sv	19	10	19	13		0			work@foo.out	000
+  #184	4	logic_net	out		work@foo.out	dut.sv	3	21	3	24		0			work@foo.out	000
+
+--- the holder #177 on the other side: exact-record matches at [83]
+  #80	6	constant				dut.sv	3	18	3	19	0	64	UINT:0	9		001
+  #81	2	cont_assign				dut.sv	19	10	19	27						000
+  #82	3	func_call	func1			dut.sv	19	16	19	27		0				000
+> #83	4	constant				dut.sv	19	22	19	26	2'd3	2	DEC:3	1		000
+  #84	5	ref_typespec			work@foo		0	0	0	0		0			work@foo	000
+  #85	6	logic_typespec				dut.sv	6	30	6	35						000
+  #86	7	range				dut.sv	6	30	6	35						001
+  #87	8	constant				dut.sv	6	31	6	32	1	64	UINT:1	9		001
+  #88	8	constant				dut.sv	6	33	6	34	0	64	UINT:0	9		001
+  #89	3	ref_obj	out		work@foo.out	dut.sv	19	10	19	13		0			work@foo.out	000
+  #90	1	module_inst	work@foo	work@foo		dut.sv	1	1	21	10						000
+  #91	2	function	func1		work@foo.func1	dut.sv	6	3	17	14					work@foo.func1	000
+  #92	3	array_var	state		work@foo.func1.state	dut.sv	7	15	7	20		0			work@foo.func1.state	000
+
+facets of this row (3, first 25):
+  N1108 #177/176 constant  G[4 func_call(func1) < cont_assign] O[3 cont_assign < module_inst(work@foo)]
+  N0133 #176/-1 func_call func1 G[1 objs] O[]
+  N0261 #178/-1 ref_typespec  G[5 objs] O[]

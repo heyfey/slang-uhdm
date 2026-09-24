@@ -1,0 +1,31 @@
+cluster N0869 (r11u128map N0869; OPEN): fullname|ref_obj|tok:id.id.id.id->id|under:cont_assign
+row: surelog/testflags/OneNetRange  strict=differ:fullname(2)  records golden=591 ours=591
+object: #589 (golden) / #589 (ours)  type=ref_obj name=inp OUT
+  golden: work@TOP.dut1.middle1.sub1.inp
+  ours:   work@SUB.inp
+  walk parents: cont_assign < module_inst(sub1) < module_inst(middle1) < module_inst(dut1)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 583..590 ('>' = the object)
+  #583	6	ref_typespec			work@TOP.dut1.middle1.sub1.out		0	0	0	0		0			work@TOP.dut1.middle1.sub1.out	000
+  #584	7	logic_typespec				dut.v	15	71	15	86						000
+  #585	8	range				dut.v	15	75	15	86						001
+  #586	9	constant				dut.v	15	76	15	81	15	64	INT:15	7		001
+  #587	9	constant				dut.v	15	84	15	85	0	64	UINT:0	9		001
+  #588	5	cont_assign				dut.v	16	10	16	19						000
+> #589	6	ref_obj	inp		work@TOP.dut1.middle1.sub1.inp	dut.v	16	16	16	19		0			work@TOP.dut1.middle1.sub1.inp	000
+  #590	6	ref_obj	out		work@TOP.dut1.middle1.sub1.out	dut.v	16	10	16	13		0			work@TOP.dut1.middle1.sub1.out	000
+
+--- OURS (B) records 583..590 ('>' = the object)
+  #583	6	ref_typespec			work@TOP.dut1.middle1.sub1.out		0	0	0	0		0			work@TOP.dut1.middle1.sub1.out	000
+  #584	7	logic_typespec				dut.v	15	71	15	86						000
+  #585	8	range				dut.v	15	75	15	86						001
+  #586	9	constant				dut.v	15	76	15	81	15	64	INT:15	7		001
+  #587	9	constant				dut.v	15	84	15	85	0	64	UINT:0	9		001
+  #588	5	cont_assign				dut.v	16	10	16	19						000
+> #589	6	ref_obj	inp		work@SUB.inp	dut.v	16	16	16	19		0			work@SUB.inp	000
+  #590	6	ref_obj	out		work@SUB.out	dut.v	16	10	16	13		0			work@SUB.out	000
+
+facets of this row (2, first 25):
+  N0869 #589/589 ref_obj inp G[work@TOP.dut1.middle1.sub1.inp] O[work@SUB.inp]
+  N0869 #590/590 ref_obj out G[work@TOP.dut1.middle1.sub1.out] O[work@SUB.out]

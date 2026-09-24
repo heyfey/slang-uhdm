@@ -1,0 +1,64 @@
+cluster N0461 (r11u128map N0461; OPEN): fullname|ref_obj|tok:id::->|under:hier_path
+row: surelog/testflags/ArrayMethodIterator  strict=differ:name(23)  records golden=104 ours=104
+object: #93 (golden) / #93 (ours)  type=ref_obj name=get_inst_id OUT
+  golden: pkg::uvm_callbacks::get_all::callbacks_to_append::get_inst_id
+  ours:   pkg::uvm_callbacks::get_all::get_inst_id
+  walk parents: hier_path(cb_.get_inst_id) < method_func_call(unique) < hier_path(callbacks_to_append) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 87..99 ('>' = the object)
+  #87	8	ref_obj	cb_		pkg::uvm_callbacks::get_all::callbacks_to_append::cb_	dut.sv	19	60	19	63		0			pkg::uvm_callbacks::get_all::callbacks_to_append::cb_	000
+  #88	9	class_var	cb_		pkg::uvm_callbacks::get_all::callbacks_to_append::cb_	dut.sv	15	6	15	25		0			pkg::uvm_callbacks::get_all::callbacks_to_append::cb_	000
+  #89	10	ref_typespec			pkg::uvm_callbacks::get_all::callbacks_to_append::cb_		0	0	0	0		0			pkg::uvm_callbacks::get_all::callbacks_to_append::cb_	000
+  #90	11	class_typespec	uvm_callback			dut.sv	10	50	10	62						110
+  #91	8	hier_path	cb_.get_inst_id			dut.sv	19	73	19	88		0				000
+  #92	9	ref_obj	cb_			dut.sv	19	73	19	76		0				000
+> #93	9	ref_obj	get_inst_id		pkg::uvm_callbacks::get_all::callbacks_to_append::get_inst_id	dut.sv	19	77	19	88		0			pkg::uvm_callbacks::get_all::callbacks_to_append::get_inst_id	000
+  #94	6	ref_obj	unique_callbacks_to_append		pkg::uvm_callbacks::get_all::unique_callbacks_to_append	dut.sv	19	3	19	29		0			pkg::uvm_callbacks::get_all::unique_callbacks_to_append	000
+  #95	2	class_defn	uvm_object		pkg::uvm_object	dut.sv	3	3	4	11					pkg::uvm_object	000
+  #96	1	module_inst		work@top	work@top	dut.sv	27	1	31	10					work@top	000
+  #97	2	logic_net	c1		work@top.c1	dut.sv	29	20	29	22		0			work@top.c1	000
+  #98	3	ref_typespec			work@top.c1		0	0	0	0		0			work@top.c1	000
+  #99	4	class_typespec	pkg::uvm_callbacks			dut.sv	29	1	29	6						110
+
+--- OURS (B) records 87..99 ('>' = the object)
+  #87	8	ref_obj	cb_		pkg::uvm_callbacks::get_all::callbacks_to_append::cb_	dut.sv	19	60	19	63		0			pkg::uvm_callbacks::get_all::callbacks_to_append::cb_	000
+  #88	9	class_var	cb_		pkg::uvm_callbacks::get_all::callbacks_to_append	dut.sv	15	6	15	25		0			pkg::uvm_callbacks::get_all::callbacks_to_append	000
+  #89	10	ref_typespec			pkg::uvm_callbacks::get_all::callbacks_to_append		0	0	0	0		0			pkg::uvm_callbacks::get_all::callbacks_to_append	000
+  #90	11	class_typespec				dut.sv	15	3	15	5						000
+  #91	8	hier_path	cb_.get_inst_id			dut.sv	19	73	19	88		0				000
+  #92	9	ref_obj	cb_			dut.sv	19	73	19	76		0				000
+> #93	9	ref_obj	get_inst_id		pkg::uvm_callbacks::get_all::get_inst_id	dut.sv	19	77	19	88		0			pkg::uvm_callbacks::get_all::get_inst_id	000
+  #94	6	ref_obj	unique_callbacks_to_append		pkg::uvm_callbacks::get_all::unique_callbacks_to_append	dut.sv	19	3	19	29		0			pkg::uvm_callbacks::get_all::unique_callbacks_to_append	000
+  #95	2	class_defn	uvm_object		pkg::uvm_object	dut.sv	3	3	4	11					pkg::uvm_object	000
+  #96	1	module_inst		work@top	work@top	dut.sv	27	1	31	10					work@top	000
+  #97	2	logic_net	c1		work@top.c1	dut.sv	29	20	29	22		0			work@top.c1	000
+  #98	3	ref_typespec			work@top.c1		0	0	0	0		0			work@top.c1	000
+  #99	4	class_typespec	pkg::uvm_callbacks			dut.sv	29	1	29	6						110
+
+facets of this row (38, first 25):
+  N0103 #17/17 class_typespec uvm_callback G[uvm_callback|] O[|]
+  N0072 #17/17 class_typespec uvm_callback G[10:50:10:62] O[14:3:14:5]
+  N0103 #25/25 class_typespec uvm_callback G[uvm_callback|] O[|]
+  N0072 #25/25 class_typespec uvm_callback G[10:50:10:62] O[15:3:15:5]
+  N0103 #28/28 class_typespec uvm_callback G[uvm_callback|] O[|]
+  N0072 #28/28 class_typespec uvm_callback G[10:50:10:62] O[15:3:15:5]
+  N0103 #36/36 class_typespec uvm_callback G[uvm_callback|] O[|]
+  N0072 #36/36 class_typespec uvm_callback G[10:50:10:62] O[16:3:16:5]
+  N0103 #39/39 class_typespec uvm_callback G[uvm_callback|] O[|]
+  N0072 #39/39 class_typespec uvm_callback G[10:50:10:62] O[16:3:16:5]
+  N0103 #43/43 class_typespec uvm_callback G[uvm_callback|] O[|]
+  N0072 #43/43 class_typespec uvm_callback G[10:50:10:62] O[14:3:14:5]
+  N0340 #44/44 class_var  G[pkg::uvm_callbacks::get_all] O[pkg::uvm_callbacks::get_all::callbacks_to_append]
+  N0341 #45/45 ref_typespec  G[pkg::uvm_callbacks::get_all] O[pkg::uvm_callbacks::get_all::callbacks_to_append]
+  N0103 #46/46 class_typespec uvm_callback G[uvm_callback|] O[|]
+  N0072 #46/46 class_typespec uvm_callback G[10:50:10:62] O[15:3:15:5]
+  N0103 #54/54 class_typespec uvm_callback G[uvm_callback|] O[|]
+  N0072 #54/54 class_typespec uvm_callback G[10:50:10:62] O[15:3:15:5]
+  N0103 #57/57 class_typespec uvm_callback G[uvm_callback|] O[|]
+  N0072 #57/57 class_typespec uvm_callback G[10:50:10:62] O[15:3:15:5]
+  N0340 #58/58 class_var  G[pkg::uvm_callbacks::get_all] O[pkg::uvm_callbacks::get_all::unique_callbacks_to_append]
+  N0341 #59/59 ref_typespec  G[pkg::uvm_callbacks::get_all] O[pkg::uvm_callbacks::get_all::unique_callbacks_to_append]
+  N0103 #60/60 class_typespec uvm_callback G[uvm_callback|] O[|]
+  N0072 #60/60 class_typespec uvm_callback G[10:50:10:62] O[16:3:16:5]
+  N0103 #68/68 class_typespec uvm_callback G[uvm_callback|] O[|]

@@ -1,0 +1,64 @@
+cluster N0270 (r11u128map N0270; COVERED r11u137 (N0270)): span|struct_typespec|endline+endcol|under:design
+row: uhdm2rtlil/testflags/packed_struct_array_fifo  strict=differ:endline(2)  records golden=841 ours=869
+object: #356 (golden) / #370 (ours)  type=struct_typespec name=d_t 
+  golden: 1:9:24:24
+  ours:   1:9:4:2
+  walk parents: design(work@packed_struct_array_fifo)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 350..362 ('>' = the object)
+  #350	3	ref_obj	full_o		work@packed_struct_array_fifo.full_o	dut.sv	26	10	26	16		0			work@packed_struct_array_fifo.full_o	000
+  #351	2	cont_assign				dut.sv	27	10	27	39						000
+  #352	3	operation				dut.sv	27	21	27	38		0				000
+  #353	4	ref_obj	status_cnt_q		work@packed_struct_array_fifo.status_cnt_q	dut.sv	27	21	27	33		0			work@packed_struct_array_fifo.status_cnt_q	000
+  #354	4	constant				dut.sv	27	37	27	38	0	64	UINT:0	9		000
+  #355	3	ref_obj	empty_o		work@packed_struct_array_fifo.empty_o	dut.sv	27	10	27	17		0			work@packed_struct_array_fifo.empty_o	000
+> #356	1	struct_typespec	d_t			dut.sv	1	9	24	24						010
+  #357	2	typespec_member	op			dut.sv	2	15	2	17						001
+  #358	3	ref_typespec			<in>d_t.op		0	0	0	0		0			d_t.op	001
+  #359	4	logic_typespec				dut.sv	2	3	2	14						001
+  #360	5	range				dut.sv	2	9	2	14						001
+  #361	6	constant				dut.sv	2	10	2	11	3	64	UINT:3	9		001
+  #362	6	constant				dut.sv	2	12	2	13	0	64	UINT:0	9		001
+
+--- OURS (B) records 364..376 ('>' = the object)
+  #364	3	ref_obj	full_o		work@packed_struct_array_fifo.full_o	dut.sv	26	10	26	16		0			work@packed_struct_array_fifo.full_o	000
+  #365	2	cont_assign				dut.sv	27	10	27	39						000
+  #366	3	operation				dut.sv	27	21	27	38		0				000
+  #367	4	ref_obj	status_cnt_q		work@packed_struct_array_fifo.status_cnt_q	dut.sv	27	21	27	33		0			work@packed_struct_array_fifo.status_cnt_q	000
+  #368	4	constant				dut.sv	27	37	27	38	0	64	UINT:0	9		000
+  #369	3	ref_obj	empty_o		work@packed_struct_array_fifo.empty_o	dut.sv	27	10	27	17		0			work@packed_struct_array_fifo.empty_o	000
+> #370	1	struct_typespec	d_t			dut.sv	1	9	4	2						010
+  #371	2	typespec_member	op			dut.sv	2	15	2	17						001
+  #372	3	ref_typespec			<in>d_t.op		0	0	0	0		0			d_t.op	001
+  #373	4	logic_typespec				dut.sv	2	3	2	14						001
+  #374	5	range				dut.sv	2	9	2	14						001
+  #375	6	constant				dut.sv	2	10	2	11	3	64	UINT:3	9		001
+  #376	6	constant				dut.sv	2	12	2	13	0	64	UINT:0	9		001
+
+facets of this row (73, first 25):
+  N0082 #100/107 struct_typespec d_t G[4 ref_typespec < logic_net(mem_n)] O[6 ref_typespec < packed_array_typespec]
+  N0065 #101/108 typespec_member op G[5 struct_typespec(d_t) < ref_typespec] O[7 struct_typespec(d_t) < ref_typespec]
+  N0066 #102/109 ref_typespec  G[6 typespec_member(op) < struct_typespec(d_t)] O[8 typespec_member(op) < struct_typespec(d_t)]
+  N0130 #103/110 logic_typespec  G[7 ref_typespec < typespec_member(op)] O[9 ref_typespec < typespec_member(op)]
+  N0975 #104/111 range  G[8 logic_typespec < ref_typespec] O[10 logic_typespec < ref_typespec]
+  N0940 #105/112 constant  G[9 range < logic_typespec] O[11 range < logic_typespec]
+  N0940 #106/113 constant  G[9 range < logic_typespec] O[11 range < logic_typespec]
+  N0065 #107/114 typespec_member a G[5 struct_typespec(d_t) < ref_typespec] O[7 struct_typespec(d_t) < ref_typespec]
+  N0066 #108/115 ref_typespec  G[6 typespec_member(a) < struct_typespec(d_t)] O[8 typespec_member(a) < struct_typespec(d_t)]
+  N0130 #109/116 logic_typespec  G[7 ref_typespec < typespec_member(a)] O[9 ref_typespec < typespec_member(a)]
+  N0975 #110/117 range  G[8 logic_typespec < ref_typespec] O[10 logic_typespec < ref_typespec]
+  N0940 #111/118 constant  G[9 range < logic_typespec] O[11 range < logic_typespec]
+  N0940 #112/119 constant  G[9 range < logic_typespec] O[11 range < logic_typespec]
+  N0929 #-1/100 packed_array_typespec  G[] O[7 objs]
+  N0082 #115/129 struct_typespec d_t G[4 ref_typespec < logic_net(mem_q)] O[6 ref_typespec < packed_array_typespec]
+  N0065 #116/130 typespec_member op G[5 struct_typespec(d_t) < ref_typespec] O[7 struct_typespec(d_t) < ref_typespec]
+  N0066 #117/131 ref_typespec  G[6 typespec_member(op) < struct_typespec(d_t)] O[8 typespec_member(op) < struct_typespec(d_t)]
+  N0130 #118/132 logic_typespec  G[7 ref_typespec < typespec_member(op)] O[9 ref_typespec < typespec_member(op)]
+  N0975 #119/133 range  G[8 logic_typespec < ref_typespec] O[10 logic_typespec < ref_typespec]
+  N0940 #120/134 constant  G[9 range < logic_typespec] O[11 range < logic_typespec]
+  N0940 #121/135 constant  G[9 range < logic_typespec] O[11 range < logic_typespec]
+  N0065 #122/136 typespec_member a G[5 struct_typespec(d_t) < ref_typespec] O[7 struct_typespec(d_t) < ref_typespec]
+  N0066 #123/137 ref_typespec  G[6 typespec_member(a) < struct_typespec(d_t)] O[8 typespec_member(a) < struct_typespec(d_t)]
+  N0130 #124/138 logic_typespec  G[7 ref_typespec < typespec_member(a)] O[9 ref_typespec < typespec_member(a)]
+  N0975 #125/139 range  G[8 logic_typespec < ref_typespec] O[10 logic_typespec < ref_typespec]

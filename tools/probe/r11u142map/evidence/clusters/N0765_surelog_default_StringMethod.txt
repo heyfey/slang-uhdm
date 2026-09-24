@@ -1,0 +1,42 @@
+cluster N0765 (r11u128map N0765; OPEN): fullname|ref_obj|tok:id.id.->|under:method_func_call
+row: surelog/default/StringMethod  strict=differ:fullname(2)  records golden=156 ours=153
+object: #139 (golden) / #139 (ours)  type=ref_obj name=t OUT
+  golden: work@top.b.s.compare.t
+  ours:   work@top.b.t
+  walk parents: method_func_call(compare) < hier_path(s.compare) < int_var(b) < module_inst(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 133..145 ('>' = the object)
+  #133	2	int_var	b		work@top.b	dut.sv	8	9	8	25		0			work@top.b	000
+  #134	3	ref_typespec			work@top.b		0	0	0	0		0			work@top.b	000
+  #135	4	int_typespec				dut.sv	8	4	8	7						000
+  #136	3	hier_path	s.compare			dut.sv	8	13	8	25		0				000
+  #137	4	ref_obj	s			dut.sv	8	13	8	14		0				000
+  #138	4	method_func_call	compare			dut.sv	8	15	8	22		0				000
+> #139	5	ref_obj	t		work@top.b.s.compare.t	dut.sv	8	23	8	24		0			work@top.b.s.compare.t	000
+  #140	6	logic_net	t		work@top.t	dut.sv	3	11	3	12		0			work@top.t	000
+  #141	7	ref_typespec			work@top.t		0	0	0	0		0			work@top.t	000
+  #142	8	string_typespec				dut.sv	3	4	3	29						000
+  #143	2	int_var	c		work@top.c	dut.sv	9	9	9	26		0			work@top.c	000
+  #144	3	ref_typespec			work@top.c		0	0	0	0		0			work@top.c	000
+  #145	4	int_typespec				dut.sv	9	4	9	7						000
+
+--- OURS (B) records 133..145 ('>' = the object)
+  #133	2	int_var	b		work@top.b	dut.sv	8	9	8	25		0			work@top.b	000
+  #134	3	ref_typespec			work@top.b		0	0	0	0		0			work@top.b	000
+  #135	4	int_typespec				dut.sv	8	4	8	7						000
+  #136	3	hier_path	s.compare			dut.sv	8	13	8	25		0				000
+  #137	4	ref_obj	s			dut.sv	8	13	8	14		0				000
+  #138	4	method_func_call	compare			dut.sv	8	15	8	22		0				000
+> #139	5	ref_obj	t		work@top.b.t	dut.sv	8	23	8	24		0			work@top.b.t	000
+  #140	2	int_var	c		work@top.c	dut.sv	9	9	9	26		0			work@top.c	000
+  #141	3	ref_typespec			work@top.c		0	0	0	0		0			work@top.c	000
+  #142	4	int_typespec				dut.sv	9	4	9	7						000
+  #143	3	hier_path	s.icompare			dut.sv	9	13	9	26		0				000
+  #144	4	ref_obj	s			dut.sv	9	13	9	14		0				000
+  #145	4	method_func_call	icompare			dut.sv	9	15	9	23		0				000
+
+facets of this row (3, first 25):
+  N0006 #140/-1 logic_net t G[3 objs] O[]
+  N0765 #139/139 ref_obj t G[work@top.b.s.compare.t] O[work@top.b.t]
+  N0765 #149/146 ref_obj t G[work@top.c.s.icompare.t] O[work@top.c.t]

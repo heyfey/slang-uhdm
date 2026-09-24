@@ -1,0 +1,64 @@
+cluster N0458 (r11u128map N0458; OPEN): file|enum_typespec|other-file+span|under:design
+row: surelog/testflags/Scr1SvTests  strict=differ:line(228)  records golden=83997 ours=84029
+object: #36386 (golden) / #36381 (ours)  type=enum_typespec name=type_scr1_mem_width_e 
+  golden: scr1_mem_axi.sv 83:13:83:34
+  ours:   scr1_memif.svh 26:1:34:25
+  walk parents: design(work@scr1_top_tb_axi)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 36380..36392 ('>' = the object)
+  #36380	4	range				scr1_memif.svh	39	19	39	24						001
+  #36381	5	constant				scr1_memif.svh	39	20	39	21	1	64	UINT:1	9		001
+  #36382	5	constant				scr1_memif.svh	39	22	39	23	0	64	UINT:0	9		001
+  #36383	2	enum_const	SCR1_MEM_RESP_NOTRDY			scr1_memif.svh	40	5	40	36						001
+  #36384	2	enum_const	SCR1_MEM_RESP_RDY_OK			scr1_memif.svh	41	5	41	36						001
+  #36385	2	enum_const	SCR1_MEM_RESP_RDY_ER			scr1_memif.svh	42	5	42	36						001
+> #36386	1	enum_typespec	type_scr1_mem_width_e			scr1_mem_axi.sv	83	13	83	34						010
+  #36387	2	ref_typespec			<in>type_scr1_mem_width_e		0	0	0	0		0			type_scr1_mem_width_e	001
+  #36388	3	logic_typespec				scr1_memif.svh	26	14	26	24						001
+  #36389	4	range				scr1_memif.svh	26	19	26	24						001
+  #36390	5	constant				scr1_memif.svh	26	20	26	21	1	64	UINT:1	9		001
+  #36391	5	constant				scr1_memif.svh	26	22	26	23	0	64	UINT:0	9		001
+  #36392	2	enum_const	SCR1_MEM_WIDTH_BYTE			scr1_memif.svh	27	5	27	36						001
+
+--- OURS (B) records 36375..36387 ('>' = the object)
+  #36375	4	range				scr1_memif.svh	39	19	39	24						001
+  #36376	5	constant				scr1_memif.svh	39	20	39	21	1	64	UINT:1	9		001
+  #36377	5	constant				scr1_memif.svh	39	22	39	23	0	64	UINT:0	9		001
+  #36378	2	enum_const	SCR1_MEM_RESP_NOTRDY			scr1_memif.svh	40	5	40	36						001
+  #36379	2	enum_const	SCR1_MEM_RESP_RDY_OK			scr1_memif.svh	41	5	41	36						001
+  #36380	2	enum_const	SCR1_MEM_RESP_RDY_ER			scr1_memif.svh	42	5	42	36						001
+> #36381	1	enum_typespec	type_scr1_mem_width_e			scr1_memif.svh	26	1	34	25						010
+  #36382	2	ref_typespec			<in>type_scr1_mem_width_e		0	0	0	0		0			type_scr1_mem_width_e	001
+  #36383	3	logic_typespec				scr1_memif.svh	26	14	26	24						001
+  #36384	4	range				scr1_memif.svh	26	19	26	24						001
+  #36385	5	constant				scr1_memif.svh	26	20	26	21	1	64	UINT:1	9		001
+  #36386	5	constant				scr1_memif.svh	26	22	26	23	0	64	UINT:0	9		001
+  #36387	2	enum_const	SCR1_MEM_WIDTH_BYTE			scr1_memif.svh	27	5	27	36						001
+
+facets of this row (1130, first 25):
+  N0965 #16033/-1 ref_typespec  G[5 objs] O[]
+  N0006 #42675/-1 logic_net trst_n G[1 objs] O[]
+  N0006 #42677/-1 logic_net pwrup_rst_n G[1 objs] O[]
+  N0286 #-1/48524 ref_obj SCR1_IFU_Q_FREE_H_W G[] O[1 objs]
+  N0286 #-1/48537 ref_obj SCR1_IFU_Q_FREE_H_W G[] O[1 objs]
+  N0286 #-1/48552 ref_obj SCR1_IFU_Q_FREE_W_W G[] O[1 objs]
+  N0286 #-1/48612 ref_obj SCR1_IFU_Q_FREE_H_W G[] O[1 objs]
+  N0791 #48791/-1 ref_obj SCR1_MEM_CMD_RD G[2 objs] O[]
+  N0284 #-1/48788 constant  G[] O[1 objs]
+  N0965 #61857/-1 ref_typespec  G[5 objs] O[]
+  N0729 #63286/-1 ref_obj ALLTRIG_W G[3 objs] O[]
+  N1165 #-1/64547 ref_obj ALLTRIG_W G[] O[1 objs]
+  N0921 #-1/70142 operation  G[] O[5 objs]
+  N0921 #-1/70151 operation  G[] O[7 objs]
+  N0921 #-1/70162 operation  G[] O[11 objs]
+  N0921 #-1/70177 operation  G[] O[13 objs]
+  N0921 #-1/76042 operation  G[] O[7 objs]
+  N0064 #4/4 include_file_info  G[537:10:537:39] O[322:10:322:39]
+  N0064 #5/5 include_file_info  G[545:10:545:37] O[330:10:330:37]
+  N0064 #6/6 include_file_info  G[761:10:761:31] O[331:10:331:31]
+  N0064 #7/7 include_file_info  G[1010:10:1010:24] O[508:10:508:24]
+  N0064 #8/8 include_file_info  G[1018:10:1018:37] O[516:10:516:37]
+  N0064 #9/9 include_file_info  G[1234:10:1234:24] O[517:10:517:24]
+  N0064 #10/10 include_file_info  G[1242:10:1242:37] O[525:10:525:37]
+  N0064 #11/11 include_file_info  G[1458:10:1458:31] O[526:10:526:31]

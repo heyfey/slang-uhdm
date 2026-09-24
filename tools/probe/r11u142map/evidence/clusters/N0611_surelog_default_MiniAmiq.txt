@@ -1,0 +1,64 @@
+cluster N0611 (r11u128map N0611; OPEN): struct|golden-only:elsewhere|assignment|under:begin
+row: surelog/default/MiniAmiq  strict=differ:line(191)  records golden=435559 ours=413982
+object: #128871 (golden) / #-1 (ours)  type=assignment name= 
+  golden: 6 objs
+  ours:   
+  walk parents: begin < foreach_stmt < named_begin(foreach_value) < foreach_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 128865..128877 ('>' = the object)
+  #128865	12	typespec_member	status			uvm_pkg.sv	311	16	311	22						001
+  #128866	13	ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.status		0	0	0	0		0			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::rw_access::uvm_pkg::uvm_reg_bus_op::status	001
+  #128867	14	enum_typespec	uvm_pkg::uvm_status_e			uvm_reg_block.svh	1774	45	1774	57						001
+  #128868	15	enum_const	UVM_IS_OK			uvm_reg_model.svh	149	7	149	16						001
+  #128869	15	enum_const	UVM_NOT_OK			uvm_reg_model.svh	150	7	150	17						001
+  #128870	15	enum_const	UVM_HAS_X			uvm_reg_model.svh	151	7	151	16						001
+> #128871	8	assignment				uvm_reg_map.svh	2066	7	2066	32						000
+  #128872	9	hier_path	rw_access.data			uvm_reg_map.svh	2066	18	2066	32		0				000
+  #128873	10	ref_obj	rw_access			uvm_reg_map.svh	2066	18	2066	27		0				000
+  #128874	11	struct_var	rw_access		uvm_pkg::uvm_reg_map::do_bus_read::foreach_value::rw_access	uvm_reg_map.svh	2061	22	2061	31		0			uvm_pkg::uvm_reg_map::do_bus_read::foreach_value::rw_access	000
+  #128875	12	ref_typespec			uvm_pkg::uvm_reg_map::do_bus_read::foreach_value::rw_access		0	0	0	0		0			uvm_pkg::uvm_reg_map::do_bus_read::foreach_value::rw_access	000
+  #128876	13	struct_typespec	uvm_pkg::uvm_reg_bus_op			uvm_reg_map.svh	50	42	50	56						110
+  #128877	10	ref_obj	data		svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::data	uvm_reg_map.svh	2066	28	2066	32		0			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::data	000
+
+--- the holder #128746 on the other side: exact-record matches at [123139, 340539, 406470]
+  #123136	8	ref_var	i		svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::i	uvm_reg_map.svh	2060	22	2060	23		0			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::i	000
+  #123137	9	ref_typespec			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::i		0	0	0	0		0			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::i	000
+  #123138	10	unsupported_typespec	i			uvm_reg_map.svh	2060	22	2060	23						110
+> #123139	7	begin			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value	uvm_reg_map.svh	2060	26	2113	8					svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value	000
+  #123140	8	struct_var	rw_access		svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::rw_access	uvm_reg_map.svh	2061	22	2061	31		0			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::rw_access	000
+  #123141	9	ref_typespec			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::rw_access		0	0	0	0		0			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::rw_access	000
+  #123142	10	struct_typespec	uvm_pkg::uvm_reg_bus_op			uvm_reg_item.svh	257	9	313	2						110
+  #123143	8	class_var	bus_req		svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::bus_req	uvm_reg_map.svh	2062	25	2062	32		0			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::bus_req	000
+  #123144	9	ref_typespec			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::bus_req		0	0	0	0		0			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::bus_req	000
+  #123145	10	class_typespec				uvm_reg_map.svh	2062	7	2062	24						000
+  #123146	8	logic_var	data		svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::data	uvm_reg_map.svh	2063	28	2063	32		0			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::data	000
+  #123147	9	ref_typespec			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::data		0	0	0	0		0			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::data	000
+  #123148	10	logic_typespec	uvm_reg_data_logic_t			uvm_reg_model.svh	66	10	66	33						110
+
+facets of this row (57836, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

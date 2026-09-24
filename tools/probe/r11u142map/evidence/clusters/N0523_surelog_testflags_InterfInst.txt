@@ -1,0 +1,41 @@
+cluster N0523 (r11u128map N0523; COVERED r11u140 (N0523)): fullname|ref_obj|tok:id.id->id|under:hier_path
+row: surelog/testflags/InterfInst  strict=differ:fullname(2)  records golden=83 ours=83
+object: #76 (golden) / #76 (ours)  type=ref_obj name=start_addr OUT
+  golden: work@top.u_dut.start_addr
+  ours:   work@dut.start_addr
+  walk parents: hier_path(ss_if.start_addr) < cont_assign < module_inst(u_dut) < module_inst(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 70..82 ('>' = the object)
+  #70	4	ref_obj	a		work@top.u_dut.a	dut.sv	13	38	13	39		0			work@top.u_dut.a	000
+  #71	4	ref_typespec			work@top.u_dut.a		0	0	0	0		0			work@top.u_dut.a	000
+  #72	5	int_typespec				dut.sv	6	38	6	41						000
+  #73	3	cont_assign				dut.sv	7	11	7	31						000
+  #74	4	hier_path	ss_if.start_addr			dut.sv	7	15	7	31		0				000
+  #75	5	ref_obj	ss_if			dut.sv	7	15	7	20		0				000
+> #76	5	ref_obj	start_addr		work@top.u_dut.start_addr	dut.sv	7	21	7	31		0			work@top.u_dut.start_addr	000
+  #77	4	ref_obj	a		work@top.u_dut.a	dut.sv	7	11	7	12		0			work@top.u_dut.a	000
+  #78	2	cont_assign				dut.sv	12	11	12	46						000
+  #79	3	constant				dut.sv	12	38	12	46	32'h1234	32	HEX:1234	5		000
+  #80	3	hier_path	u_sim_sram_if.start_addr			dut.sv	12	11	12	35		0				000
+  #81	4	ref_obj	u_sim_sram_if			dut.sv	12	25	12	35		0				000
+  #82	4	ref_obj	start_addr			dut.sv	12	25	12	35		0				000
+
+--- OURS (B) records 70..82 ('>' = the object)
+  #70	4	ref_obj	a		work@top.u_dut.a	dut.sv	13	38	13	39		0			work@top.u_dut.a	000
+  #71	4	ref_typespec			work@top.u_dut.a		0	0	0	0		0			work@top.u_dut.a	000
+  #72	5	int_typespec				dut.sv	6	38	6	41						000
+  #73	3	cont_assign				dut.sv	7	11	7	31						000
+  #74	4	hier_path	ss_if.start_addr			dut.sv	7	15	7	31		0				000
+  #75	5	ref_obj	ss_if			dut.sv	7	15	7	20		0				000
+> #76	5	ref_obj	start_addr		work@dut.start_addr	dut.sv	7	21	7	31		0			work@dut.start_addr	000
+  #77	4	ref_obj	a		work@dut.a	dut.sv	7	11	7	12		0			work@dut.a	000
+  #78	2	cont_assign				dut.sv	12	11	12	46						000
+  #79	3	constant				dut.sv	12	38	12	46	32'h1234	32	HEX:1234	5		000
+  #80	3	hier_path	u_sim_sram_if.start_addr			dut.sv	12	11	12	35		0				000
+  #81	4	ref_obj	u_sim_sram_if			dut.sv	12	25	12	35		0				000
+  #82	4	ref_obj	start_addr			dut.sv	12	25	12	35		0				000
+
+facets of this row (2, first 25):
+  N0523 #76/76 ref_obj start_addr G[work@top.u_dut.start_addr] O[work@dut.start_addr]
+  N0136 #77/77 ref_obj a G[work@top.u_dut.a] O[work@dut.a]

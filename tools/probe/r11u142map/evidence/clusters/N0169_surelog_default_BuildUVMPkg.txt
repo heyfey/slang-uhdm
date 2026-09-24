@@ -1,0 +1,64 @@
+cluster N0169 (r11u128map N0169; OPEN): span|task|endline+endcol|under:class_defn
+row: surelog/default/BuildUVMPkg  strict=differ:line(210)  records golden=201533 ours=201486
+object: #66139 (golden) / #66136 (ours)  type=task name=m_trigger 
+  golden: 26407:3:26411:10
+  ours:   26407:3:26407:8
+  walk parents: class_defn(uvm_barrier) < package(uvm_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 66133..66145 ('>' = the object)
+  #66133	6	ref_obj	m_event		uvm_pkg::uvm_barrier::cancel::m_event	uvm_pkg.sv	26403	5	26403	12		0			uvm_pkg::uvm_barrier::cancel::m_event	000
+  #66134	5	assignment				uvm_pkg.sv	26404	5	26404	44						000
+  #66135	6	hier_path	m_event.get_num_waiters			uvm_pkg.sv	26404	19	26404	44		0				000
+  #66136	7	ref_obj	m_event			uvm_pkg.sv	26404	19	26404	26		0				000
+  #66137	7	method_func_call	get_num_waiters			uvm_pkg.sv	26404	27	26404	42		0				000
+  #66138	6	ref_obj	num_waiters		uvm_pkg::uvm_barrier::cancel::num_waiters	uvm_pkg.sv	26404	5	26404	16		0			uvm_pkg::uvm_barrier::cancel::num_waiters	000
+> #66139	3	task	m_trigger		uvm_pkg::uvm_barrier::m_trigger	uvm_pkg.sv	26407	3	26411	10					uvm_pkg::uvm_barrier::m_trigger	000
+  #66140	4	begin			uvm_pkg::uvm_barrier::m_trigger	uvm_pkg.sv	26409	5	26409	19					uvm_pkg::uvm_barrier::m_trigger	000
+  #66141	5	method_func_call	trigger			uvm_pkg.sv	26408	13	26408	20		0				000
+  #66142	6	ref_obj	m_event		uvm_pkg::uvm_barrier::m_trigger::m_event	uvm_pkg.sv	26408	5	26408	12		0			uvm_pkg::uvm_barrier::m_trigger::m_event	000
+  #66143	5	assignment				uvm_pkg.sv	26409	5	26409	18						000
+  #66144	6	constant				uvm_pkg.sv	26409	17	26409	18	0	64	UINT:0	9		000
+  #66145	6	ref_obj	num_waiters		uvm_pkg::uvm_barrier::m_trigger::num_waiters	uvm_pkg.sv	26409	5	26409	16		0			uvm_pkg::uvm_barrier::m_trigger::num_waiters	000
+
+--- OURS (B) records 66130..66142 ('>' = the object)
+  #66130	6	ref_obj	m_event		uvm_pkg::uvm_barrier::cancel::m_event	uvm_pkg.sv	26403	5	26403	12		0			uvm_pkg::uvm_barrier::cancel::m_event	000
+  #66131	5	assignment				uvm_pkg.sv	26404	5	26404	44						000
+  #66132	6	hier_path	m_event.get_num_waiters			uvm_pkg.sv	26404	19	26404	44		0				000
+  #66133	7	ref_obj	m_event			uvm_pkg.sv	26404	19	26404	26		0				000
+  #66134	7	method_func_call	get_num_waiters			uvm_pkg.sv	26404	27	26404	42		0				000
+  #66135	6	ref_obj	num_waiters		uvm_pkg::uvm_barrier::cancel::num_waiters	uvm_pkg.sv	26404	5	26404	16		0			uvm_pkg::uvm_barrier::cancel::num_waiters	000
+> #66136	3	task	m_trigger		uvm_pkg::uvm_barrier::m_trigger	uvm_pkg.sv	26407	3	26407	8					uvm_pkg::uvm_barrier::m_trigger	000
+  #66137	4	begin			uvm_pkg::uvm_barrier::m_trigger	uvm_pkg.sv	26409	5	26409	19					uvm_pkg::uvm_barrier::m_trigger	000
+  #66138	5	method_func_call	trigger			uvm_pkg.sv	26408	13	26408	20		0				000
+  #66139	6	ref_obj	m_event		uvm_pkg::uvm_barrier::m_trigger::m_event	uvm_pkg.sv	26408	5	26408	12		0			uvm_pkg::uvm_barrier::m_trigger::m_event	000
+  #66140	5	assignment				uvm_pkg.sv	26409	5	26409	18						000
+  #66141	6	constant				uvm_pkg.sv	26409	17	26409	18	0	64	UINT:0	9		000
+  #66142	6	ref_obj	num_waiters		uvm_pkg::uvm_barrier::m_trigger::num_waiters	uvm_pkg.sv	26409	5	26409	16		0			uvm_pkg::uvm_barrier::m_trigger::num_waiters	000
+
+facets of this row (10896, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

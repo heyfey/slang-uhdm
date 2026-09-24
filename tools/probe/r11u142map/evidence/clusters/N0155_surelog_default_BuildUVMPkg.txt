@@ -1,0 +1,64 @@
+cluster N0155 (r11u128map N0155; OPEN): span|function|endcol|under:class_defn
+row: surelog/default/BuildUVMPkg  strict=differ:line(210)  records golden=201533 ours=201486
+object: #70037 (golden) / #70034 (ours)  type=function name=catch 
+  golden: 29246:3:29246:15
+  ours:   29246:3:29246:42
+  walk parents: class_defn(uvm_report_catcher) < class_defn(uvm_callback) < package(uvm_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 70031..70043 ('>' = the object)
+  #70031	6	constant				uvm_pkg.sv	29232	55	29232	56	0	64	UINT:0	9		000
+  #70032	6	ref_typespec			uvm_pkg::uvm_report_catcher::debug_report_catcher::what		0	0	0	0		0			uvm_pkg::uvm_report_catcher::debug_report_catcher::what	000
+  #70033	7	int_typespec				uvm_pkg.sv	29232	45	29232	48						000
+  #70034	5	assignment				uvm_pkg.sv	29233	5	29233	25						000
+  #70035	6	ref_obj	what		uvm_pkg::uvm_report_catcher::debug_report_catcher::what	uvm_pkg.sv	29233	21	29233	25		0			uvm_pkg::uvm_report_catcher::debug_report_catcher::what	000
+  #70036	6	ref_obj	m_debug_flags		uvm_pkg::uvm_report_catcher::debug_report_catcher::m_debug_flags	uvm_pkg.sv	29233	5	29233	18		0			uvm_pkg::uvm_report_catcher::debug_report_catcher::m_debug_flags	000
+> #70037	4	function	catch		uvm_pkg::uvm_report_catcher::catch	uvm_pkg.sv	29246	3	29246	15					uvm_pkg::uvm_report_catcher::catch	000
+  #70038	5	enum_var			uvm_pkg::uvm_report_catcher::catch	uvm_pkg.sv	29246	25	29246	33		0			uvm_pkg::uvm_report_catcher::catch	000
+  #70039	6	ref_typespec			uvm_pkg::uvm_report_catcher::catch		0	0	0	0		0			uvm_pkg::uvm_report_catcher::catch	000
+  #70040	7	enum_typespec	action_e			uvm_pkg.sv	28907	3	28907	58						110
+  #70041	8	enum_const	UNKNOWN_ACTION			uvm_pkg.sv	28907	18	28907	32						001
+  #70042	8	enum_const	THROW			uvm_pkg.sv	28907	34	28907	39						001
+  #70043	8	enum_const	CAUGHT			uvm_pkg.sv	28907	41	28907	47						001
+
+--- OURS (B) records 70028..70040 ('>' = the object)
+  #70028	6	constant				uvm_pkg.sv	29232	55	29232	56	0	64	UINT:0	9		000
+  #70029	6	ref_typespec			uvm_pkg::uvm_report_catcher::debug_report_catcher::what		0	0	0	0		0			uvm_pkg::uvm_report_catcher::debug_report_catcher::what	000
+  #70030	7	int_typespec				uvm_pkg.sv	29232	45	29232	48						000
+  #70031	5	assignment				uvm_pkg.sv	29233	5	29233	25						000
+  #70032	6	ref_obj	what		uvm_pkg::uvm_report_catcher::debug_report_catcher::what	uvm_pkg.sv	29233	21	29233	25		0			uvm_pkg::uvm_report_catcher::debug_report_catcher::what	000
+  #70033	6	ref_obj	m_debug_flags		uvm_pkg::uvm_report_catcher::debug_report_catcher::m_debug_flags	uvm_pkg.sv	29233	5	29233	18		0			uvm_pkg::uvm_report_catcher::debug_report_catcher::m_debug_flags	000
+> #70034	4	function	catch		uvm_pkg::uvm_report_catcher::catch	uvm_pkg.sv	29246	3	29246	42					uvm_pkg::uvm_report_catcher::catch	000
+  #70035	5	enum_var			uvm_pkg::uvm_report_catcher::catch	uvm_pkg.sv	28907	3	28907	58		0			uvm_pkg::uvm_report_catcher::catch	000
+  #70036	6	ref_typespec			uvm_pkg::uvm_report_catcher::catch		0	0	0	0		0			uvm_pkg::uvm_report_catcher::catch	000
+  #70037	7	enum_typespec	action_e			uvm_pkg.sv	28907	3	28907	58						110
+  #70038	8	enum_const	UNKNOWN_ACTION			uvm_pkg.sv	28907	18	28907	32						001
+  #70039	8	enum_const	THROW			uvm_pkg.sv	28907	34	28907	39						001
+  #70040	8	enum_const	CAUGHT			uvm_pkg.sv	28907	41	28907	47						001
+
+facets of this row (10896, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

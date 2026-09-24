@@ -1,0 +1,44 @@
+cluster N0822 (r11u128map N0822; OPEN): span|constant|line+col+endline+endcol|under:param_assign
+row: surelog/testflags/HighLow  strict=differ:line(5)  records golden=104 ours=104
+object: #81 (golden) / #81 (ours)  type=constant name= 
+  golden: 6:14:6:15
+  ours:   7:21:7:29
+  walk parents: param_assign < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 75..87 ('>' = the object)
+  #75	4	ref_typespec			work@top		0	0	0	0		0			work@top	000
+  #76	5	logic_typespec					0	0	0	0						000
+  #77	6	range					0	0	0	0						001
+  #78	7	constant					0	0	0	0		0	UINT:2	0		001
+  #79	7	constant					0	0	0	0		0	UINT:1	0		001
+  #80	2	param_assign				dut.sv	7	14	7	29						000
+> #81	3	constant				dut.sv	6	14	6	15	2	64	UINT:2	9		000
+  #82	2	param_assign				dut.sv	8	14	8	27						000
+  #83	3	constant				dut.sv	6	16	6	17	1	64	UINT:1	9		000
+  #84	2	param_assign				dut.sv	9	14	9	29						000
+  #85	3	constant				dut.sv	6	14	6	15	2	64	UINT:2	9		000
+  #86	2	param_assign				dut.sv	10	14	10	31						000
+  #87	3	constant				dut.sv	6	16	6	17	1	64	UINT:1	9		000
+
+--- OURS (B) records 75..87 ('>' = the object)
+  #75	4	ref_typespec			work@top		0	0	0	0		0			work@top	000
+  #76	5	logic_typespec					0	0	0	0						000
+  #77	6	range					0	0	0	0						001
+  #78	7	constant					0	0	0	0		0	UINT:2	0		001
+  #79	7	constant					0	0	0	0		0	UINT:1	0		001
+  #80	2	param_assign				dut.sv	7	14	7	29						000
+> #81	3	constant				dut.sv	7	21	7	29	2	64	UINT:2	9		000
+  #82	2	param_assign				dut.sv	8	14	8	27						000
+  #83	3	constant				dut.sv	8	20	8	27	1	64	UINT:1	9		000
+  #84	2	param_assign				dut.sv	9	14	9	29						000
+  #85	3	constant				dut.sv	9	21	9	29	2	64	UINT:2	9		000
+  #86	2	param_assign				dut.sv	10	14	10	31						000
+  #87	3	constant				dut.sv	10	22	10	31	1	64	UINT:1	9		000
+
+facets of this row (5, first 25):
+  N0822 #81/81 constant  G[6:14:6:15] O[7:21:7:29]
+  N0822 #83/83 constant  G[6:16:6:17] O[8:20:8:27]
+  N0822 #85/85 constant  G[6:14:6:15] O[9:21:9:29]
+  N0822 #87/87 constant  G[6:16:6:17] O[10:22:10:31]
+  N0528 #101/101 constant  G[|0|UINT:2|0] O[|0|UINT:0|0]

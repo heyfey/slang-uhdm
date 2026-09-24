@@ -1,0 +1,64 @@
+cluster N0690 (r11u128map N0690; OPEN): fullname|ref_obj|tok:id->id@in-typespec|under:operation
+row: surelog/testflags/YosysOldOpen  strict=differ:depth(1)  records golden=31337 ours=31480
+object: #14668 (golden) / #14688 (ours)  type=ref_obj name=DEC_WD STABLE
+  golden: work@openMSP430.clock_module_0.reg_hi_wr.DEC_WD
+  ours:   work@openMSP430.clock_module_0.BCSCTL1.DEC_WD
+  walk parents: operation < range < int_typespec < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 14662..14674 ('>' = the object)
+  #14662	5	bit_select	reg_hi_wr		work@openMSP430.clock_module_0.reg_hi_wr	omsp_clock_module.v	194	49	194	56		0			work@openMSP430.clock_module_0.reg_hi_wr	000
+  #14663	6	constant				omsp_clock_module.v	194	49	194	56	4'h7	4	HEX:7	5		000
+  #14664	7	ref_typespec			work@openMSP430.clock_module_0.reg_hi_wr		0	0	0	0		0			work@openMSP430.clock_module_0.reg_hi_wr	000
+  #14665	8	int_typespec				omsp_clock_module.v	145	11	145	23						000
+  #14666	9	range				omsp_clock_module.v	145	11	145	23						001
+  #14667	10	operation				omsp_clock_module.v	145	12	145	20		0				001
+> #14668	11	ref_obj	DEC_WD		<in>DEC_WD	omsp_clock_module.v	145	12	145	18		0			work@openMSP430.clock_module_0.reg_hi_wr.DEC_WD	001
+  #14669	11	constant				omsp_clock_module.v	145	19	145	20	1	64	UINT:1	9		001
+  #14670	10	constant				omsp_clock_module.v	145	21	145	22	0	64	UINT:0	9		001
+  #14671	5	bit_select	reg_lo_wr		work@openMSP430.clock_module_0.reg_lo_wr	omsp_clock_module.v	194	70	194	77		0			work@openMSP430.clock_module_0.reg_lo_wr	000
+  #14672	6	constant				omsp_clock_module.v	194	70	194	77	4'h7	4	HEX:7	5		000
+  #14673	7	ref_typespec			work@openMSP430.clock_module_0.reg_lo_wr		0	0	0	0		0			work@openMSP430.clock_module_0.reg_lo_wr	000
+  #14674	8	int_typespec				omsp_clock_module.v	145	11	145	23						000
+
+--- OURS (B) records 14682..14694 ('>' = the object)
+  #14682	5	bit_select	reg_hi_wr		work@openMSP430.clock_module_0.reg_hi_wr	omsp_clock_module.v	194	49	194	56		0			work@openMSP430.clock_module_0.reg_hi_wr	000
+  #14683	6	constant				omsp_clock_module.v	194	49	194	56	4'h7	4	HEX:7	5		000
+  #14684	7	ref_typespec			work@openMSP430.clock_module_0.reg_hi_wr		0	0	0	0		0			work@openMSP430.clock_module_0.reg_hi_wr	000
+  #14685	8	int_typespec				omsp_clock_module.v	145	11	145	23						000
+  #14686	9	range				omsp_clock_module.v	145	11	145	23						001
+  #14687	10	operation				omsp_clock_module.v	145	12	145	20		0				001
+> #14688	11	ref_obj	DEC_WD		<in>DEC_WD	omsp_clock_module.v	145	12	145	18		0			work@openMSP430.clock_module_0.BCSCTL1.DEC_WD	001
+  #14689	11	constant				omsp_clock_module.v	145	19	145	20	1	64	UINT:1	9		001
+  #14690	10	constant				omsp_clock_module.v	145	21	145	22	0	64	UINT:0	9		001
+  #14691	5	bit_select	reg_lo_wr		work@openMSP430.clock_module_0.reg_lo_wr	omsp_clock_module.v	194	70	194	77		0			work@openMSP430.clock_module_0.reg_lo_wr	000
+  #14692	6	constant				omsp_clock_module.v	194	70	194	77	4'h7	4	HEX:7	5		000
+  #14693	7	ref_typespec			work@openMSP430.clock_module_0.reg_lo_wr		0	0	0	0		0			work@openMSP430.clock_module_0.reg_lo_wr	000
+  #14694	8	int_typespec				omsp_clock_module.v	145	11	145	23						000
+
+facets of this row (101, first 25):
+  N0046 #-1/12377 logic_net brk_ctl_rd G[] O[6 objs]
+  N0046 #-1/12504 logic_net equ_i_addr0 G[] O[3 objs]
+  N0046 #-1/12515 logic_net equ_i_addr1 G[] O[3 objs]
+  N0046 #-1/12526 logic_net equ_i_range G[] O[3 objs]
+  N0006 #14471/-1 logic_net puc_s G[3 objs] O[]
+  N0046 #-1/14625 logic_net reg_dec G[] O[8 objs]
+  N0046 #-1/14865 logic_net bcsctl1_rd G[] O[6 objs]
+  N0046 #-1/14909 logic_net mclk_active G[] O[3 objs]
+  N0046 #-1/17411 logic_net decode_noirq G[] O[1 objs]
+  N0046 #-1/20486 logic_net cpuoff_mask G[] O[6 objs]
+  N0023 #-1/21577 logic_net op_src_in G[] O[6 objs]
+  N0046 #-1/21600 logic_net op_src_in_jmp G[] O[6 objs]
+  N0046 #-1/21666 logic_net alu_add G[] O[6 objs]
+  N0022 #21937/-1 logic_net op_src_in G[6 objs] O[]
+  N0046 #-1/24854 logic_net reg_dec G[] O[8 objs]
+  N0046 #-1/25170 logic_net ie1_rd G[] O[6 objs]
+  N0046 #-1/25214 logic_net nmi_pol G[] O[3 objs]
+  N0046 #-1/26032 logic_net reg_dec G[] O[8 objs]
+  N0046 #-1/26130 logic_net wdtctl_rd G[] O[6 objs]
+  N0046 #-1/27394 logic_net reg_dec G[] O[8 objs]
+  N0023 #-1/27507 logic_net early_read G[] O[3 objs]
+  N0046 #-1/27595 logic_net op1_rd G[] O[6 objs]
+  N0046 #-1/27652 logic_net op2_rd G[] O[6 objs]
+  N0046 #-1/27679 logic_net reslo_rd G[] O[6 objs]
+  N0046 #-1/27706 logic_net reshi_rd G[] O[6 objs]

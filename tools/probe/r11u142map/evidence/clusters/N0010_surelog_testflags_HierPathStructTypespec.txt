@@ -1,0 +1,43 @@
+cluster N0010 (r11u128map N0010; OPEN (map 4 routed it to r11u133 as a residue of r11u131; not landed)): span|constant|col+endcol|under:param_assign
+row: surelog/testflags/HierPathStructTypespec  strict=differ:col(4)  records golden=557 ours=557
+object: #182 (golden) / #182 (ours)  type=constant name= 
+  golden: 10:34:10:64
+  ours:   10:35:10:63
+  walk parents: param_assign < package(kmac_pkg) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 176..188 ('>' = the object)
+  #176	5	int_typespec				dut.sv	8	13	8	16						000
+  #177	2	param_assign				dut.sv	9	17	9	34						000
+  #178	3	constant				dut.sv	9	32	9	34	72	32	UINT:72	9		000
+  #179	4	ref_typespec			kmac_pkg		0	0	0	0		0			kmac_pkg	000
+  #180	5	int_typespec				dut.sv	9	13	9	16						000
+  #181	2	param_assign				dut.sv	10	17	10	75						000
+> #182	3	constant				dut.sv	10	34	10	64	15	32	INT:15	7		000
+  #183	4	ref_typespec			kmac_pkg		0	0	0	0		0			kmac_pkg	000
+  #184	5	int_typespec				dut.sv	10	13	10	16						000
+  #185	2	param_assign				dut.sv	11	17	11	61						000
+  #186	3	constant				dut.sv	11	34	11	46	480	32	INT:480	7		000
+  #187	4	ref_typespec			kmac_pkg		0	0	0	0		0			kmac_pkg	000
+  #188	5	int_typespec				dut.sv	11	13	11	16						000
+
+--- OURS (B) records 176..188 ('>' = the object)
+  #176	5	int_typespec				dut.sv	8	13	8	16						000
+  #177	2	param_assign				dut.sv	9	17	9	34						000
+  #178	3	constant				dut.sv	9	32	9	34	72	32	UINT:72	9		000
+  #179	4	ref_typespec			kmac_pkg		0	0	0	0		0			kmac_pkg	000
+  #180	5	int_typespec				dut.sv	9	13	9	16						000
+  #181	2	param_assign				dut.sv	10	17	10	75						000
+> #182	3	constant				dut.sv	10	35	10	63	15	32	INT:15	7		000
+  #183	4	ref_typespec			kmac_pkg		0	0	0	0		0			kmac_pkg	000
+  #184	5	int_typespec				dut.sv	10	13	10	16						000
+  #185	2	param_assign				dut.sv	11	17	11	61						000
+  #186	3	constant				dut.sv	11	34	11	46	480	32	INT:480	7		000
+  #187	4	ref_typespec			kmac_pkg		0	0	0	0		0			kmac_pkg	000
+  #188	5	int_typespec				dut.sv	11	13	11	16						000
+
+facets of this row (4, first 25):
+  N0010 #182/182 constant  G[10:34:10:64] O[10:35:10:63]
+  N0010 #446/446 constant  G[10:34:10:75] O[10:35:10:63]
+  N0005 #450/450 constant  G[11:34:11:61] O[11:34:11:46]
+  N0005 #454/454 constant  G[13:34:13:80] O[13:34:13:35]

@@ -1,0 +1,29 @@
+cluster N0057 (r11u128map N0057; OPEN): struct|golden-only:fewer-copies|ref_typespec|under:enum_typespec
+row: surelog/testflags/PackedEnumPort  strict=differ:name(3)  records golden=121 ours=113
+object: #49 (golden) / #-1 (ours)  type=ref_typespec name= 
+  golden: 8 objs
+  ours:   
+  walk parents: enum_typespec(lc_ctrl_pkg::lc_tx_t) < ref_typespec < packed_array_typespec < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 43..55 ('>' = the object)
+  #43	4	packed_array_typespec				dut.sv	0	0	25	29						000
+  #44	5	range				dut.sv	25	24	25	29						001
+  #45	6	constant				dut.sv	25	25	25	26	0	64	UINT:0	9		001
+  #46	6	constant				dut.sv	25	27	25	28	0	64	UINT:0	9		001
+  #47	5	ref_typespec					0	0	0	0		0				001
+  #48	6	enum_typespec	lc_ctrl_pkg::lc_tx_t			dut.sv	3	4	5	14						001
+> #49	7	ref_typespec			<in>lc_ctrl_pkg::lc_tx_t		0	0	0	0		0			lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_t	001
+  #50	8	enum_typespec	lc_ctrl_pkg::lc_tx_e			dut.sv	3	4	5	14						001
+  #51	9	ref_typespec			<in>lc_ctrl_pkg::lc_tx_e		0	0	0	0		0			lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_e	001
+  #52	10	logic_typespec				dut.sv	3	17	3	28						001
+  #53	11	range				dut.sv	3	23	3	28						001
+  #54	12	constant				dut.sv	3	24	3	25	3	64	UINT:3	9		001
+  #55	12	constant				dut.sv	3	26	3	27	0	64	UINT:0	9		001
+
+--- the holder #48 on the other side: exact-record matches at []
+
+facets of this row (3, first 25):
+  N0057 #49/-1 ref_typespec  G[8 objs] O[]
+  N0655 #48/48 enum_typespec lc_ctrl_pkg::lc_tx_t G[lc_ctrl_pkg::lc_tx_t|] O[lc_ctrl_pkg::lc_tx_e|]
+  N0163 #57/49 ref_typespec  G[lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_t] O[lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_e]

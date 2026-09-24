@@ -1,0 +1,46 @@
+cluster N1058 (r11u128map N1058; OPEN): fullname|hier_path|golden-empty|under:range
+row: surelog/testflags/GenForStructParamBound  strict=differ:fullname(7)  records golden=421 ours=421
+object: #131 (golden) / #131 (ours)  type=hier_path name=CFG.HSK.DLY OUT
+  golden: 
+  ours:   work@bus_if.dly.CFG.HSK.DLY
+  walk parents: range < array_net(dly) < interface_inst < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 125..137 ('>' = the object)
+  #125	2	logic_net	dly		work@bus_if.dly	dut.sv	13	9	13	12		0			work@bus_if.dly	000
+  #126	3	ref_typespec			work@bus_if.dly		0	0	0	0		0			work@bus_if.dly	000
+  #127	4	logic_typespec				dut.sv	13	3	13	28						000
+  #128	2	array_net	dly		work@bus_if.dly	dut.sv	13	9	13	12		1			work@bus_if.dly	000
+  #129	3	range				dut.sv	13	13	13	28						000
+  #130	4	constant				dut.sv	13	14	13	15	0	64	UINT:0	9		000
+> #131	4	hier_path	CFG.HSK.DLY			dut.sv	13	16	13	27		0				000
+  #132	5	ref_obj	CFG			dut.sv	13	20	13	23		0				000
+  #133	5	ref_obj	HSK			dut.sv	13	20	13	23		0				000
+  #134	5	ref_obj	DLY			dut.sv	13	24	13	27		0				000
+  #135	3	logic_net	dly		work@bus_if.dly.dly		0	0	0	0		0			work@bus_if.dly.dly	000
+  #136	4	ref_typespec			work@bus_if.dly.dly		0	0	0	0		0			work@bus_if.dly.dly	000
+  #137	5	logic_typespec				dut.sv	13	3	13	28						000
+
+--- OURS (B) records 125..137 ('>' = the object)
+  #125	2	logic_net	dly		work@bus_if.dly	dut.sv	13	9	13	12		0			work@bus_if.dly	000
+  #126	3	ref_typespec			work@bus_if.dly		0	0	0	0		0			work@bus_if.dly	000
+  #127	4	logic_typespec				dut.sv	13	3	13	28						000
+  #128	2	array_net	dly		work@bus_if.dly	dut.sv	13	9	13	12		1			work@bus_if.dly	000
+  #129	3	range				dut.sv	13	13	13	28						000
+  #130	4	constant				dut.sv	13	14	13	15	0	64	UINT:0	9		000
+> #131	4	hier_path	CFG.HSK.DLY		work@bus_if.dly.CFG.HSK.DLY	dut.sv	13	16	13	27		0			work@bus_if.dly.CFG.HSK.DLY	000
+  #132	5	ref_obj	CFG			dut.sv	13	20	13	23		0				000
+  #133	5	ref_obj	HSK			dut.sv	13	20	13	23		0				000
+  #134	5	ref_obj	DLY			dut.sv	13	24	13	27		0				000
+  #135	3	logic_net	dly		work@bus_if.dly.dly		0	0	0	0		0			work@bus_if.dly.dly	000
+  #136	4	ref_typespec			work@bus_if.dly.dly		0	0	0	0		0			work@bus_if.dly.dly	000
+  #137	5	logic_typespec				dut.sv	13	3	13	28						000
+
+facets of this row (7, first 25):
+  N1058 #131/131 hier_path CFG.HSK.DLY G[] O[work@bus_if.dly.CFG.HSK.DLY]
+  N0001 #151/151 ref_obj CFG G[16:33:16:36] O[16:29:16:32]
+  N0007 #153/153 ref_obj DLY G[] O[work@bus_if.DLY]
+  N1058 #268/268 hier_path CFG.HSK.DLY G[] O[work@bus_if.dly.CFG.HSK.DLY]
+  N0001 #288/288 ref_obj CFG G[16:33:16:36] O[16:29:16:32]
+  N0007 #290/290 ref_obj DLY G[] O[work@bus_if.DLY]
+  N0094 #351/351 constant  G[10:39:10:40] O[13:16:13:27]

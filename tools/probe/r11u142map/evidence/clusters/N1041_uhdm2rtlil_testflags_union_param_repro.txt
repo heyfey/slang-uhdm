@@ -1,0 +1,43 @@
+cluster N1041 (r11u128map N1041; OPEN): span|union_typespec|line+col+endline+endcol|under:ref_typespec
+row: uhdm2rtlil/testflags/union_param_repro  strict=differ:line(4)  records golden=413 ours=413
+object: #45 (golden) / #45 (ours)  type=union_typespec name=u_t 
+  golden: 7:31:7:34
+  ours:   5:9:5:50
+  walk parents: ref_typespec < ref_obj(instr) < func_call(mydec) < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 39..51 ('>' = the object)
+  #39	6	constant				dut.sv	11	91	11	92	6	64	UINT:6	9		001
+  #40	6	constant				dut.sv	11	93	11	94	0	64	UINT:0	9		001
+  #41	2	cont_assign				dut.sv	12	17	12	33						000
+  #42	3	func_call	mydec			dut.sv	12	21	12	33		0				000
+  #43	4	ref_obj	instr		work@union_param_repro.instr	dut.sv	12	27	12	32		0			work@union_param_repro.instr	000
+  #44	5	ref_typespec			work@union_param_repro.instr		0	0	0	0		0			work@union_param_repro.instr	000
+> #45	6	union_typespec	u_t			dut.sv	7	31	7	34						110
+  #46	7	typespec_member	r			dut.sv	5	28	5	29						001
+  #47	8	ref_typespec			<in>u_t.r		0	0	0	0		0			u_t.r	001
+  #48	9	struct_typespec	r_t			dut.sv	1	9	4	2						001
+  #49	10	typespec_member	f7			dut.sv	2	15	2	17						001
+  #50	11	ref_typespec			<in>r_t.f7		0	0	0	0		0			r_t.f7	001
+  #51	12	logic_typespec				dut.sv	2	3	2	14						001
+
+--- OURS (B) records 39..51 ('>' = the object)
+  #39	6	constant				dut.sv	11	91	11	92	6	64	UINT:6	9		001
+  #40	6	constant				dut.sv	11	93	11	94	0	64	UINT:0	9		001
+  #41	2	cont_assign				dut.sv	12	17	12	33						000
+  #42	3	func_call	mydec			dut.sv	12	21	12	33		0				000
+  #43	4	ref_obj	instr		work@union_param_repro.instr	dut.sv	12	27	12	32		0			work@union_param_repro.instr	000
+  #44	5	ref_typespec			work@union_param_repro.instr		0	0	0	0		0			work@union_param_repro.instr	000
+> #45	6	union_typespec	u_t			dut.sv	5	9	5	50						110
+  #46	7	typespec_member	r			dut.sv	5	28	5	29						001
+  #47	8	ref_typespec			<in>u_t.r		0	0	0	0		0			u_t.r	001
+  #48	9	struct_typespec	r_t			dut.sv	1	9	4	2						001
+  #49	10	typespec_member	f7			dut.sv	2	15	2	17						001
+  #50	11	ref_typespec			<in>r_t.f7		0	0	0	0		0			r_t.f7	001
+  #51	12	logic_typespec				dut.sv	2	3	2	14						001
+
+facets of this row (4, first 25):
+  N1041 #45/45 union_typespec u_t G[7:31:7:34] O[5:9:5:50]
+  N1161 #152/152 union_typespec u_t G[7:31:7:34] O[5:9:5:50]
+  N1041 #216/216 union_typespec u_t G[7:31:7:34] O[5:9:5:50]
+  N1041 #338/338 union_typespec u_t G[7:31:7:34] O[5:9:5:50]

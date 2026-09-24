@@ -1,0 +1,42 @@
+cluster N0265 (r11u128map N0265; OPEN): fullname|ref_typespec|tok:id@id.->|under:logic_typespec
+row: surelog/testflags/StructUnsizedVal  strict=differ:endcol(3)  records golden=367 ours=367
+object: #294 (golden) / #294 (ours)  type=ref_typespec name= STABLE
+  golden: work@dut.pkg::init_t.key.key
+  ours:   pkg::init_t.key.key
+  walk parents: logic_typespec(key) < ref_typespec < typespec_member(key) < struct_typespec(pkg::init_t)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 288..300 ('>' = the object)
+  #288	4	constant				dut.sv	17	53	17	64	18446744073709551615	64	UINT:18446744073709551615	9		000
+  #289	5	ref_typespec			work@top.d		0	0	0	0		0			work@top.d	000
+  #290	6	struct_typespec	pkg::init_t			dut.sv	4	11	6	4						110
+  #291	7	typespec_member	key			dut.sv	5	11	5	14						001
+  #292	8	ref_typespec			<in>pkg::init_t.key		0	0	0	0		0			work@dut.pkg::init_t.key	001
+  #293	9	logic_typespec	key			dut.sv	3	11	3	28						001
+> #294	10	ref_typespec			<in>key		0	0	0	0		0			work@dut.pkg::init_t.key.key	001
+  #295	11	logic_typespec	pkg::key			dut.sv	3	11	3	28						001
+  #296	12	range				dut.sv	3	17	3	28						001
+  #297	13	constant				dut.sv	3	18	3	23	63	64	INT:63	7		001
+  #298	13	constant				dut.sv	3	26	3	27	0	64	UINT:0	9		001
+  #299	10	range				dut.sv	3	17	3	28						001
+  #300	11	constant				dut.sv	3	18	3	23	63	64	INT:63	7		001
+
+--- OURS (B) records 288..300 ('>' = the object)
+  #288	4	constant				dut.sv	17	53	17	58	18446744073709551615	64	UINT:18446744073709551615	9		000
+  #289	5	ref_typespec			work@top.d		0	0	0	0		0			work@top.d	000
+  #290	6	struct_typespec	pkg::init_t			dut.sv	4	11	6	4						110
+  #291	7	typespec_member	key			dut.sv	5	11	5	14						001
+  #292	8	ref_typespec			<in>pkg::init_t.key		0	0	0	0		0			pkg::init_t.key	001
+  #293	9	logic_typespec	key			dut.sv	3	11	3	28						001
+> #294	10	ref_typespec			<in>key		0	0	0	0		0			pkg::init_t.key.key	001
+  #295	11	logic_typespec	pkg::key			dut.sv	3	11	3	28						001
+  #296	12	range				dut.sv	3	17	3	28						001
+  #297	13	constant				dut.sv	3	18	3	23	63	64	INT:63	7		001
+  #298	13	constant				dut.sv	3	26	3	27	0	64	UINT:0	9		001
+  #299	10	range				dut.sv	3	17	3	28						001
+  #300	11	constant				dut.sv	3	18	3	23	63	64	INT:63	7		001
+
+facets of this row (3, first 25):
+  N0005 #288/288 constant  G[17:53:17:64] O[17:53:17:58]
+  N0004 #292/292 ref_typespec  G[work@dut.pkg::init_t.key] O[pkg::init_t.key]
+  N0265 #294/294 ref_typespec  G[work@dut.pkg::init_t.key.key] O[pkg::init_t.key.key]

@@ -1,0 +1,12 @@
+r11u133repro_lhs_l01_hdr_int cmp=0 STRICT_NOTEQUAL line first=N0039 N0039:1
+r11u133repro_lhs_l07_body_ctl cmp=0 STRICT_NOTEQUAL line first=N0039 N0039:1
+r11u133repro_lhs_l09_iface_hdr cmp=0 STRICT_NOTEQUAL line first=N0039 N0039:1
+r11u133repro_lhs_l11_hdr_two_inst cmp=0 STRICT_NOTEQUAL line first=N0039 N0039:1
+r11u133repro_lhs_l04_hdr_unpacked cmp=0 STRICT_NOTEQUAL type first=N0142 N0142:2 N0451:2 N0417:1 N0534:1
+r11u133repro_tix_t14 cmp=0 STRICT_NOTEQUAL fullname first=NEW:fullname|ref_obj|tok:id[id].id[id].->|under:bit_select NEW:fullname|ref_obj|tok:id[id].id[id].->|under:bit_select:2
+r11u133repro_tix_t08 cmp=0 STRICT_NOTEQUAL fullname first=NEW:fullname|bit_select|tok:id[id].id[id]->id@id.id[id].id[id].id|under:hier_path NEW:fullname|bit_select|tok:id[id].id[id]->id@id.id[id].id[id].id|under:hier_path:2 N0061:2
+r11v133repro_tix_a02_gen_for cmp=0 STRICT_NOTEQUAL fullname first=N0968 N0968:1 N0061:1 N0077:1
+r11v133repro_tix_f06_gen_if cmp=0 STRICT_NOTEQUAL fullname first=N0968 N0968:1 N0061:1 N0077:1
+r11v133repro_tix_a07_hier_idx cmp=0 STRICT_NOTEQUAL fullname first=NEW:fullname|ref_obj|tok:id.id.id.id.->|under:hier_path NEW:fullname|ref_obj|tok:id.id.id.id.->|under:hier_path:2
+r11u133repro_pkr_p01 cmp=0 STRICT_NOTEQUAL col first=N0001 N0001:1 N0003:1 N0063:1
+r11u133repro_pkr_u01 cmp=0 STRICT_NOTEQUAL col first=N0001 N0688:2 N0001:1 N0003:1

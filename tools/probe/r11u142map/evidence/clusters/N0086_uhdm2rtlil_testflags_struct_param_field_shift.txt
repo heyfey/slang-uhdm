@@ -1,0 +1,64 @@
+cluster N0086 (r11u128map N0086; OPEN): file|constant|golden-empty|under:typespec_member
+row: uhdm2rtlil/testflags/struct_param_field_shift  strict=differ:col(43)  records golden=395 ours=395
+object: #75 (golden) / #75 (ours)  type=constant name= 
+  golden:  0:0:0:0
+  ours:   dut.sv 20:33:20:49
+  walk parents: typespec_member(XLEN_ALIGN_BYTES) < struct_typespec(cfg_pkg::cfg_t) < ref_typespec < parameter(DefaultCfg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 69..81 ('>' = the object)
+  #69	6	constant				dut.sv	20	46	20	48	64	64	UINT:64	9		001
+  #70	7	ref_typespec			cfg_pkg		0	0	0	0		0			cfg_pkg	001
+  #71	8	int_typespec				dut.sv	14	41	14	44						001
+  #72	5	typespec_member	XLEN_ALIGN_BYTES			dut.sv	12	18	12	34						001
+  #73	6	ref_typespec			<in>cfg_pkg::cfg_t.XLEN_ALIGN_BYTES		0	0	0	0		0			cfg_pkg::cfg_pkg::cfg_t::XLEN_ALIGN_BYTES	001
+  #74	7	int_typespec				dut.sv	12	5	12	17						001
+> #75	6	constant					0	0	0	0	3	64	UINT:3	9		001
+  #76	6	constant					0	0	0	0	3	64	UINT:3	9		001
+  #77	2	param_assign				dut.sv	20	20	20	49						000
+  #78	3	constant				dut.sv	20	33	20	49	0000000000000000000000000100000000000000000000000000000000000011	64	BIN:0000000000000000000000000100000000000000000000000000000000000011	3		000
+  #79	4	ref_typespec			cfg_pkg		0	0	0	0		0			cfg_pkg	000
+  #80	5	struct_typespec	cfg_pkg::cfg_t			dut.sv	10	11	13	4						110
+  #81	6	typespec_member	XLEN			dut.sv	11	18	11	22						001
+
+--- OURS (B) records 69..81 ('>' = the object)
+  #69	6	constant				dut.sv	20	33	20	49	64	64	UINT:64	9		001
+  #70	7	ref_typespec			cfg_pkg		0	0	0	0		0			cfg_pkg	001
+  #71	8	int_typespec				dut.sv	14	41	14	44						001
+  #72	5	typespec_member	XLEN_ALIGN_BYTES			dut.sv	12	18	12	34						001
+  #73	6	ref_typespec			<in>cfg_pkg::cfg_t.XLEN_ALIGN_BYTES		0	0	0	0		0			cfg_pkg::cfg_pkg::cfg_t::XLEN_ALIGN_BYTES	001
+  #74	7	int_typespec				dut.sv	12	5	12	17						001
+> #75	6	constant				dut.sv	20	33	20	49	3	64	UINT:3	9		001
+  #76	6	constant				dut.sv	20	33	20	49	3	64	UINT:3	9		001
+  #77	2	param_assign				dut.sv	20	20	20	49						000
+  #78	3	constant				dut.sv	20	33	20	49	0000000000000000000000000100000000000000000000000000000000000011	64	BIN:0000000000000000000000000100000000000000000000000000000000000011	3		000
+  #79	4	ref_typespec			cfg_pkg		0	0	0	0		0			cfg_pkg	000
+  #80	5	struct_typespec	cfg_pkg::cfg_t			dut.sv	10	11	13	4						110
+  #81	6	typespec_member	XLEN			dut.sv	11	18	11	22						001
+
+facets of this row (61, first 25):
+  N0745 #66/66 constant  G[20:46:20:48] O[20:33:20:49]
+  N0745 #69/69 constant  G[20:46:20:48] O[20:33:20:49]
+  N0086 #75/75 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  N0087 #75/75 constant  G[0:0:0:0] O[20:33:20:49]
+  N0086 #76/76 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  N0087 #76/76 constant  G[0:0:0:0] O[20:33:20:49]
+  N0745 #84/84 constant  G[20:46:20:48] O[20:33:20:49]
+  N0745 #87/87 constant  G[20:46:20:48] O[20:33:20:49]
+  N0086 #93/93 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  N0087 #93/93 constant  G[0:0:0:0] O[20:33:20:49]
+  N0086 #94/94 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  N0087 #94/94 constant  G[0:0:0:0] O[20:33:20:49]
+  N0745 #99/99 constant  G[20:46:20:48] O[20:33:20:49]
+  N0745 #102/102 constant  G[20:46:20:48] O[20:33:20:49]
+  N0086 #108/108 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  N0087 #108/108 constant  G[0:0:0:0] O[20:33:20:49]
+  N0086 #109/109 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  N0087 #109/109 constant  G[0:0:0:0] O[20:33:20:49]
+  N0745 #117/117 constant  G[20:46:20:48] O[20:33:20:49]
+  N0745 #120/120 constant  G[20:46:20:48] O[20:33:20:49]
+  N0086 #126/126 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  N0087 #126/126 constant  G[0:0:0:0] O[20:33:20:49]
+  N0086 #127/127 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  N0087 #127/127 constant  G[0:0:0:0] O[20:33:20:49]
+  N0745 #134/134 constant  G[20:46:20:48] O[20:33:20:49]

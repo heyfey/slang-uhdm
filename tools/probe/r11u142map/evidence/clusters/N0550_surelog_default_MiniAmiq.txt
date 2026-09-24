@@ -1,0 +1,64 @@
+cluster N0550 (r11u128map N0550; OPEN): fullname|class_var|tok:id->id|under:ref_obj
+row: surelog/default/MiniAmiq  strict=differ:line(191)  records golden=435559 ours=413982
+object: #129366 (golden) / #123616 (ours)  type=class_var name=this OUT
+  golden: uvm_pkg::uvm_reg_map::do_print::regs[j].get_address::this
+  ours:   svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::this
+  walk parents: ref_obj(this) < method_func_call(get_address) < hier_path(regs[j].get_address) < sys_func_call($sformatf)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 129360..129372 ('>' = the object)
+  #129360	8	method_func_call	get_inst_id			uvm_reg_map.svh	2155	110	2155	121		0				000
+  #129361	7	hier_path	regs[j].get_address			uvm_reg_map.svh	2155	124	2155	149		0				000
+  #129362	8	bit_select	regs		regs[j]	uvm_reg_map.svh	2155	124	2155	128		0			regs[j]	000
+  #129363	9	ref_obj	j		svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::j	uvm_reg_map.svh	2155	129	2155	130		0			svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::j	000
+  #129364	8	method_func_call	get_address			uvm_reg_map.svh	2155	132	2155	143		0				000
+  #129365	9	ref_obj	this		svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::this	uvm_reg_map.svh	2155	144	2155	148		0			svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::this	000
+> #129366	10	class_var	this		uvm_pkg::uvm_reg_map::do_print::regs[j].get_address::this	uvm_reg_map.svh	2134	13	2134	17		0			uvm_pkg::uvm_reg_map::do_print::regs[j].get_address::this	000
+  #129367	11	ref_typespec			uvm_pkg::uvm_reg_map::do_print::regs[j].get_address::this		0	0	0	0		0			uvm_pkg::uvm_reg_map::do_print::regs[j].get_address::this	000
+  #129368	12	class_typespec				uvm_reg_map.svh	2134	4	2134	11						000
+  #129369	6	ref_obj	printer		svaunit_pkg::uvm_reg_map::do_print::printer	uvm_reg_map.svh	2155	9	2155	16		0			svaunit_pkg::uvm_reg_map::do_print::printer	000
+  #129370	4	func_call	get_memories			uvm_reg_map.svh	2158	4	2158	22		0				000
+  #129371	5	ref_obj	mems		svaunit_pkg::uvm_reg_map::do_print::mems	uvm_reg_map.svh	2158	17	2158	21		0			svaunit_pkg::uvm_reg_map::do_print::mems	000
+  #129372	6	array_var	mems		uvm_pkg::uvm_reg_map::do_print::mems	uvm_reg_map.svh	2136	13	2136	17		0			uvm_pkg::uvm_reg_map::do_print::mems	000
+
+--- OURS (B) records 123610..123622 ('>' = the object)
+  #123610	8	method_func_call	get_inst_id			uvm_reg_map.svh	2155	110	2155	121		0				000
+  #123611	7	hier_path	regs[j].get_address			uvm_reg_map.svh	2155	124	2155	149		0				000
+  #123612	8	bit_select	regs		regs[j]	uvm_reg_map.svh	2155	124	2155	128		0			regs[j]	000
+  #123613	9	ref_obj	j		svaunit_pkg::uvm_reg_map::do_print::j	uvm_reg_map.svh	2155	129	2155	130		0			svaunit_pkg::uvm_reg_map::do_print::j	000
+  #123614	8	method_func_call	get_address			uvm_reg_map.svh	2155	132	2155	143		0				000
+  #123615	9	ref_obj	this		svaunit_pkg::uvm_reg_map::do_print::this	uvm_reg_map.svh	2155	144	2155	148		0			svaunit_pkg::uvm_reg_map::do_print::this	000
+> #123616	10	class_var	this		svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::this	uvm_reg_map.svh	2134	13	2134	17		0			svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::this	000
+  #123617	11	ref_typespec			svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::this		0	0	0	0		0			svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::this	000
+  #123618	12	class_typespec				uvm_reg_map.svh	2134	4	2134	11						000
+  #123619	6	ref_obj	printer		svaunit_pkg::uvm_reg_map::do_print::printer	uvm_reg_map.svh	2155	9	2155	16		0			svaunit_pkg::uvm_reg_map::do_print::printer	000
+  #123620	4	func_call	get_memories			uvm_reg_map.svh	2158	4	2158	22		0				000
+  #123621	5	ref_obj	mems		svaunit_pkg::uvm_reg_map::do_print::mems	uvm_reg_map.svh	2158	17	2158	21		0			svaunit_pkg::uvm_reg_map::do_print::mems	000
+  #123622	6	array_var	mems		uvm_pkg::uvm_reg_map::do_print::mems	uvm_reg_map.svh	2136	13	2136	17		0			uvm_pkg::uvm_reg_map::do_print::mems	000
+
+facets of this row (57836, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

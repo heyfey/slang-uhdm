@@ -1,0 +1,63 @@
+cluster N0299 (r11u128map N0299; OPEN): fullname|ref_obj|tok:id.id.id->id|under:operation
+row: surelog/testflags/UnitElabBlock  strict=differ:endline(24)  records golden=232 ours=232
+object: #201 (golden) / #201 (ours)  type=ref_obj name=in OUT
+  golden: work@wave.a.amod.in
+  ours:   work@mod.in
+  walk parents: operation < event_control < always < module_inst(amod)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 195..207 ('>' = the object)
+  #195	5	ref_obj	in		work@wave.a.amod.in	top.v	6	10	6	15		0			work@wave.a.amod.in	000
+  #196	5	ref_typespec			work@wave.a.amod.in		0	0	0	0		0			work@wave.a.amod.in	000
+  #197	6	logic_typespec				top.v	12	2	11	8						000
+  #198	4	always				top.v	13	1	22	4						000
+  #199	5	event_control				top.v	14	1	16	5						000
+  #200	6	operation				top.v	15	1	16	4		0				000
+> #201	7	ref_obj	in		work@wave.a.amod.in	top.v	16	2	16	4		0			work@wave.a.amod.in	000
+  #202	6	named_begin	keep		work@wave.a.amod.keep	top.v	18	4	18	8					work@wave.a.amod.keep	000
+  #203	7	ref_var	hold		work@wave.a.amod.keep.hold	top.v	20	2	20	6		0			work@wave.a.amod.keep.hold	000
+  #204	8	ref_typespec			work@wave.a.amod.keep.hold		0	0	0	0		0			work@wave.a.amod.keep.hold	000
+  #205	9	logic_typespec				top.v	19	1	19	6						000
+  #206	8	ref_var	hold		work@mod.keep.hold	top.v	20	2	20	6		0			work@mod.keep.hold	000
+  #207	9	ref_typespec			work@mod.keep.hold		0	0	0	0		0			work@mod.keep.hold	000
+
+--- OURS (B) records 195..207 ('>' = the object)
+  #195	5	ref_obj	in		work@wave.a.amod.in	top.v	6	10	6	15		0			work@wave.a.amod.in	000
+  #196	5	ref_typespec			work@wave.a.amod.in		0	0	0	0		0			work@wave.a.amod.in	000
+  #197	6	logic_typespec				top.v	12	2	12	2						000
+  #198	4	always				top.v	13	1	22	4						000
+  #199	5	event_control				top.v	14	1	16	5						000
+  #200	6	operation				top.v	15	1	16	4		0				000
+> #201	7	ref_obj	in		work@mod.in	top.v	16	2	16	4		0			work@mod.in	000
+  #202	6	named_begin	keep		work@mod.keep	top.v	18	4	18	8					work@mod.keep	000
+  #203	7	ref_var	hold		work@mod.keep.hold	top.v	20	2	20	6		0			work@mod.keep.hold	000
+  #204	8	ref_typespec			work@mod.keep.hold		0	0	0	0		0			work@mod.keep.hold	000
+  #205	9	logic_typespec				top.v	19	1	19	6						000
+  #206	8	ref_var	hold		work@mod.keep.hold	top.v	20	2	20	6		0			work@mod.keep.hold	000
+  #207	9	ref_typespec			work@mod.keep.hold		0	0	0	0		0			work@mod.keep.hold	000
+
+facets of this row (24, first 25):
+  N0090 #97/97 logic_typespec  G[4:1:3:7] O[4:1:4:1]
+  N0090 #101/101 logic_typespec  G[4:1:3:7] O[4:1:4:1]
+  N0016 #105/105 logic_net hold G[ 21:1:21:5] O[top.v 21:1:21:5]
+  N0090 #109/109 logic_typespec  G[12:2:11:8] O[12:2:12:2]
+  N0090 #175/175 logic_typespec  G[4:1:3:7] O[4:1:4:1]
+  N0090 #178/178 logic_typespec  G[4:1:3:7] O[4:1:4:1]
+  N0090 #183/183 logic_typespec  G[4:1:3:7] O[4:1:4:1]
+  N0090 #188/188 logic_typespec  G[4:1:3:7] O[4:1:4:1]
+  N0090 #192/192 logic_typespec  G[12:2:11:8] O[12:2:12:2]
+  N0090 #197/197 logic_typespec  G[12:2:11:8] O[12:2:12:2]
+  N0299 #201/201 ref_obj in G[work@wave.a.amod.in] O[work@mod.in]
+  N1005 #202/202 named_begin keep G[work@wave.a.amod.keep] O[work@mod.keep]
+  N1820 #203/203 ref_var hold G[work@wave.a.amod.keep.hold] O[work@mod.keep.hold]
+  N1808 #204/204 ref_typespec  G[work@wave.a.amod.keep.hold] O[work@mod.keep.hold]
+  N0874 #210/210 ref_obj in G[work@wave.a.amod.keep.in] O[work@mod.keep.in]
+  N0874 #211/211 ref_obj hold G[work@wave.a.amod.keep.hold] O[work@mod.keep.hold]
+  N0090 #215/215 logic_typespec  G[12:2:11:8] O[12:2:12:2]
+  N0090 #220/220 logic_typespec  G[12:2:11:8] O[12:2:12:2]
+  N0299 #224/224 ref_obj in G[work@wave.a.bmod.in] O[work@mod.in]
+  N1005 #225/225 named_begin keep G[work@wave.a.bmod.keep] O[work@mod.keep]
+  N1820 #226/226 ref_var hold G[work@wave.a.bmod.keep.hold] O[work@mod.keep.hold]
+  N1808 #227/227 ref_typespec  G[work@wave.a.bmod.keep.hold] O[work@mod.keep.hold]
+  N0874 #230/230 ref_obj in G[work@wave.a.bmod.keep.in] O[work@mod.keep.in]
+  N0874 #231/231 ref_obj hold G[work@wave.a.bmod.keep.hold] O[work@mod.keep.hold]

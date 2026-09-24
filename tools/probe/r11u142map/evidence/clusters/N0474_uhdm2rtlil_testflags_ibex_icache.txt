@@ -1,0 +1,64 @@
+cluster N0474 (r11u128map N0474; OPEN): fullname|ref_typespec|tok:->.id[n]|under:constant
+row: uhdm2rtlil/testflags/ibex_icache  strict=differ:fullname(2)  records golden=20047 ours=20033
+object: #15440 (golden) / #15426 (ours)  type=ref_typespec name= OUT
+  golden: work@ibex_icache
+  ours:   work@ibex_icache.gen_fbs[0]
+  walk parents: constant < operation < operation < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 15434..15446 ('>' = the object)
+  #15434	5	operation				ibex_icache.sv	758	34	761	91		0				000
+  #15435	6	bit_select	fill_alloc		work@ibex_icache.gen_fbs[0].fill_alloc	ibex_icache.sv	758	45	758	47		0			work@ibex_icache.gen_fbs[0].fill_alloc	000
+  #15436	7	ref_obj	fb		work@ibex_icache.gen_fbs[0].fb	ibex_icache.sv	758	45	758	47		0			work@ibex_icache.gen_fbs[0].fb	000
+  #15437	6	operation				ibex_icache.sv	759	36	759	76		0				000
+  #15438	7	operation				ibex_icache.sv	759	37	759	60		0				000
+  #15439	8	constant				ibex_icache.sv	759	38	759	53	1	32	UINT:1	9		000
+> #15440	9	ref_typespec			work@ibex_icache		0	0	0	0		0			work@ibex_icache	000
+  #15441	10	int_typespec				ibex_pkg.sv	393	13	393	25						000
+  #15442	8	operation				ibex_icache.sv	759	53	759	59		0				000
+  #15443	9	constant				ibex_icache.sv	759	54	759	58	1'b0	1	BIN:0	3		000
+  #15444	7	ref_obj	fill_spec_done		work@ibex_icache.gen_fbs[0].fill_spec_done	ibex_icache.sv	759	61	759	75		0			work@ibex_icache.gen_fbs[0].fill_spec_done	000
+  #15445	6	operation				ibex_icache.sv	760	37	761	90		0				000
+  #15446	7	bit_select	fill_ext_cnt_q		work@ibex_icache.gen_fbs[0].fill_ext_cnt_q	ibex_icache.sv	760	52	760	54		0			work@ibex_icache.gen_fbs[0].fill_ext_cnt_q	000
+
+--- OURS (B) records 15420..15432 ('>' = the object)
+  #15420	5	operation				ibex_icache.sv	758	34	761	91		0				000
+  #15421	6	bit_select	fill_alloc		work@ibex_icache.gen_fbs[0].fill_alloc	ibex_icache.sv	758	45	758	47		0			work@ibex_icache.gen_fbs[0].fill_alloc	000
+  #15422	7	ref_obj	fb		work@ibex_icache.gen_fbs[0].fb	ibex_icache.sv	758	45	758	47		0			work@ibex_icache.gen_fbs[0].fb	000
+  #15423	6	operation				ibex_icache.sv	759	36	759	76		0				000
+  #15424	7	operation				ibex_icache.sv	759	37	759	60		0				000
+  #15425	8	constant				ibex_icache.sv	759	38	759	53	1	32	UINT:1	9		000
+> #15426	9	ref_typespec			work@ibex_icache.gen_fbs[0]		0	0	0	0		0			work@ibex_icache.gen_fbs[0]	000
+  #15427	10	int_typespec				ibex_pkg.sv	393	13	393	25						000
+  #15428	8	operation				ibex_icache.sv	759	53	759	59		0				000
+  #15429	9	constant				ibex_icache.sv	759	54	759	58	1'b0	1	BIN:0	3		000
+  #15430	7	ref_obj	fill_spec_done		work@ibex_icache.gen_fbs[0].fill_spec_done	ibex_icache.sv	759	61	759	75		0			work@ibex_icache.gen_fbs[0].fill_spec_done	000
+  #15431	6	operation				ibex_icache.sv	760	37	761	90		0				000
+  #15432	7	bit_select	fill_ext_cnt_q		work@ibex_icache.gen_fbs[0].fill_ext_cnt_q	ibex_icache.sv	760	52	760	54		0			work@ibex_icache.gen_fbs[0].fill_ext_cnt_q	000
+
+facets of this row (205, first 25):
+  N0142 #5572/-1 range  G[7 objs] O[]
+  N0142 #5633/-1 range  G[7 objs] O[]
+  N0008 #2446/2446 ref_typespec  G[] O[ibex_pkg::PmpAddrRst]
+  N0027 #7556/7542 sys_func_call $error G[29:3:33:24] O[32:3:33:18]
+  N0026 #7557/7543 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #7558/7544 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #7559/7545 constant  G[29:60:29:147] O[32:92:33:56]
+  N0015 #7560/7546 constant  G[29:149:29:153] O[32:92:32:96]
+  N0017 #7561/7547 constant  G[33:10:33:23] O[33:10:23:5]
+  N0027 #7567/7553 sys_func_call $error G[29:3:33:28] O[32:3:33:18]
+  N0026 #7568/7554 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #7569/7555 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #7570/7556 constant  G[29:60:29:147] O[32:92:33:56]
+  N0015 #7571/7557 constant  G[29:149:29:153] O[32:92:32:96]
+  N0017 #7572/7558 constant  G[33:10:33:27] O[33:10:23:9]
+  N0415 #7939/7925 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.fill_addr_q.fill_addr_q]
+  N0996 #8346/8332 initial  G[20:3:28:6] O[23:3:28:6]
+  N0994 #8347/8333 begin  G[20:11:28:6] O[23:11:28:6]
+  N0995 #8348/8334 immediate_assert size_param_legal G[21:5:27:10] O[24:5:27:10]
+  N0998 #8349/8335 operation  G[21:32:21:49] O[24:32:24:49]
+  N0079 #8350/8336 constant  G[21:32:21:44] O[24:32:24:44]
+  N0079 #8353/8339 constant  G[21:47:21:49] O[24:47:24:49]
+  N0993 #8354/8340 begin  G[22:12:27:10] O[25:12:27:10]
+  N0027 #8355/8341 sys_func_call $error G[29:3:33:29] O[32:3:33:18]
+  N0026 #8356/8342 constant  G[29:10:29:51] O[32:10:32:51]

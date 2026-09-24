@@ -1,0 +1,64 @@
+cluster N0123 (r11u128map N0123; OPEN): file|int_typespec|other-file+span|under:ref_typespec
+row: uhdm2rtlil/testflags/ibex_icache  strict=differ:fullname(2)  records golden=20047 ours=20033
+object: #12208 (golden) / #12194 (ours)  type=int_typespec name= 
+  golden: ibex_icache.sv 16:13:16:25
+  ours:   ibex_pkg.sv 383:13:383:25
+  walk parents: ref_typespec < constant < param_assign < module_inst(work@ibex_icache)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 12202..12214 ('>' = the object)
+  #12202	3	constant				ibex_icache.sv	15	44	15	48	1'b0	1	BIN:0	3		000
+  #12203	4	ref_typespec			work@ibex_icache		0	0	0	0		0			work@ibex_icache	000
+  #12204	5	bit_typespec				ibex_icache.sv	15	13	15	16						000
+  #12205	2	param_assign				ibex_icache.sv	16	26	16	52						000
+  #12206	3	constant				ibex_icache.sv	16	44	16	52	32	32	UINT:32	9		000
+  #12207	4	ref_typespec			work@ibex_icache		0	0	0	0		0			work@ibex_icache	000
+> #12208	5	int_typespec				ibex_icache.sv	16	13	16	25						000
+  #12209	2	param_assign				ibex_icache.sv	17	26	17	55						000
+  #12210	3	constant				ibex_icache.sv	17	44	17	55	22	32	INT:22	7		000
+  #12211	4	ref_typespec			work@ibex_icache		0	0	0	0		0			work@ibex_icache	000
+  #12212	5	int_typespec				ibex_icache.sv	17	13	17	25						000
+  #12213	2	param_assign				ibex_icache.sv	18	26	18	56						000
+  #12214	3	constant				ibex_icache.sv	18	44	18	56	64	32	UINT:64	9		000
+
+--- OURS (B) records 12188..12200 ('>' = the object)
+  #12188	3	constant				ibex_icache.sv	15	44	15	48	1'b0	1	BIN:0	3		000
+  #12189	4	ref_typespec			work@ibex_icache		0	0	0	0		0			work@ibex_icache	000
+  #12190	5	bit_typespec				ibex_icache.sv	15	13	15	16						000
+  #12191	2	param_assign				ibex_icache.sv	16	26	16	52						000
+  #12192	3	constant				ibex_icache.sv	16	44	16	52	32	32	UINT:32	9		000
+  #12193	4	ref_typespec			work@ibex_icache		0	0	0	0		0			work@ibex_icache	000
+> #12194	5	int_typespec				ibex_pkg.sv	383	13	383	25						000
+  #12195	2	param_assign				ibex_icache.sv	17	26	17	55						000
+  #12196	3	constant				ibex_icache.sv	17	44	17	55	22	32	INT:22	7		000
+  #12197	4	ref_typespec			work@ibex_icache		0	0	0	0		0			work@ibex_icache	000
+  #12198	5	int_typespec				ibex_pkg.sv	396	13	396	25						000
+  #12199	2	param_assign				ibex_icache.sv	18	26	18	56						000
+  #12200	3	constant				ibex_icache.sv	18	44	18	56	64	32	UINT:64	9		000
+
+facets of this row (205, first 25):
+  N0142 #5572/-1 range  G[7 objs] O[]
+  N0142 #5633/-1 range  G[7 objs] O[]
+  N0008 #2446/2446 ref_typespec  G[] O[ibex_pkg::PmpAddrRst]
+  N0027 #7556/7542 sys_func_call $error G[29:3:33:24] O[32:3:33:18]
+  N0026 #7557/7543 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #7558/7544 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #7559/7545 constant  G[29:60:29:147] O[32:92:33:56]
+  N0015 #7560/7546 constant  G[29:149:29:153] O[32:92:32:96]
+  N0017 #7561/7547 constant  G[33:10:33:23] O[33:10:23:5]
+  N0027 #7567/7553 sys_func_call $error G[29:3:33:28] O[32:3:33:18]
+  N0026 #7568/7554 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #7569/7555 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #7570/7556 constant  G[29:60:29:147] O[32:92:33:56]
+  N0015 #7571/7557 constant  G[29:149:29:153] O[32:92:32:96]
+  N0017 #7572/7558 constant  G[33:10:33:27] O[33:10:23:9]
+  N0415 #7939/7925 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.fill_addr_q.fill_addr_q]
+  N0996 #8346/8332 initial  G[20:3:28:6] O[23:3:28:6]
+  N0994 #8347/8333 begin  G[20:11:28:6] O[23:11:28:6]
+  N0995 #8348/8334 immediate_assert size_param_legal G[21:5:27:10] O[24:5:27:10]
+  N0998 #8349/8335 operation  G[21:32:21:49] O[24:32:24:49]
+  N0079 #8350/8336 constant  G[21:32:21:44] O[24:32:24:44]
+  N0079 #8353/8339 constant  G[21:47:21:49] O[24:47:24:49]
+  N0993 #8354/8340 begin  G[22:12:27:10] O[25:12:27:10]
+  N0027 #8355/8341 sys_func_call $error G[29:3:33:29] O[32:3:33:18]
+  N0026 #8356/8342 constant  G[29:10:29:51] O[32:10:32:51]

@@ -1,0 +1,64 @@
+cluster N0506 (r11u128map N0506; OPEN): struct|golden-only:fewer-copies|string_var|under:begin
+row: surelog/default/MiniAmiq  strict=differ:line(191)  records golden=435559 ours=413982
+object: #67661 (golden) / #-1 (ours)  type=string_var name=inst_path 
+  golden: 3 objs
+  ours:   
+  walk parents: begin < function(uvm_default_factory::create_object_by_name) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 67655..67667 ('>' = the object)
+  #67655	4	ref_typespec			svaunit_pkg::uvm_default_factory::create_object_by_name::name		0	0	0	0		0			svaunit_pkg::uvm_default_factory::create_object_by_name::name	000
+  #67656	5	string_typespec				uvm_factory.svh	1193	57	1193	63						000
+  #67657	3	begin			svaunit_pkg::uvm_default_factory::create_object_by_name	uvm_factory.svh	1196	3	1196	20					svaunit_pkg::uvm_default_factory::create_object_by_name	000
+  #67658	4	class_var	wrapper		svaunit_pkg::uvm_default_factory::create_object_by_name::wrapper	uvm_factory.svh	1195	22	1195	29		0			svaunit_pkg::uvm_default_factory::create_object_by_name::wrapper	000
+  #67659	5	ref_typespec			svaunit_pkg::uvm_default_factory::create_object_by_name::wrapper		0	0	0	0		0			svaunit_pkg::uvm_default_factory::create_object_by_name::wrapper	000
+  #67660	6	class_typespec				uvm_factory.svh	1195	3	1195	21						000
+> #67661	4	string_var	inst_path		svaunit_pkg::uvm_default_factory::create_object_by_name::inst_path	uvm_factory.svh	1196	10	1196	19		0			svaunit_pkg::uvm_default_factory::create_object_by_name::inst_path	000
+  #67662	5	ref_typespec			svaunit_pkg::uvm_default_factory::create_object_by_name::inst_path		0	0	0	0		0			svaunit_pkg::uvm_default_factory::create_object_by_name::inst_path	000
+  #67663	6	string_typespec				uvm_factory.svh	1196	3	1196	9						000
+  #67664	4	if_else				uvm_factory.svh	1198	3	1203	34						000
+  #67665	5	operation				uvm_factory.svh	1198	7	1198	29		0				000
+  #67666	6	ref_obj	parent_inst_path		svaunit_pkg::uvm_default_factory::create_object_by_name::parent_inst_path	uvm_factory.svh	1198	7	1198	23		0			svaunit_pkg::uvm_default_factory::create_object_by_name::parent_inst_path	000
+  #67667	6	constant				uvm_factory.svh	1198	27	1198	29	""	0	STRING:	6		000
+
+--- the holder #67657 on the other side: exact-record matches at [67532, 289742, 350881]
+  #67529	4	constant				uvm_factory.svh	1193	69	1193	71	""	0	STRING:	6		000
+  #67530	4	ref_typespec			svaunit_pkg::uvm_default_factory::create_object_by_name::name		0	0	0	0		0			svaunit_pkg::uvm_default_factory::create_object_by_name::name	000
+  #67531	5	string_typespec				uvm_factory.svh	1193	57	1193	63						000
+> #67532	3	begin			svaunit_pkg::uvm_default_factory::create_object_by_name	uvm_factory.svh	1196	3	1196	20					svaunit_pkg::uvm_default_factory::create_object_by_name	000
+  #67533	4	if_else				uvm_factory.svh	1198	3	1203	34						000
+  #67534	5	operation				uvm_factory.svh	1198	7	1198	29		0				000
+  #67535	6	ref_obj	parent_inst_path		svaunit_pkg::uvm_default_factory::create_object_by_name::parent_inst_path	uvm_factory.svh	1198	7	1198	23		0			svaunit_pkg::uvm_default_factory::create_object_by_name::parent_inst_path	000
+  #67536	6	constant				uvm_factory.svh	1198	27	1198	29	""	0	STRING:	6		000
+  #67537	5	assignment				uvm_factory.svh	1199	5	1199	21						000
+  #67538	6	ref_obj	name		svaunit_pkg::uvm_default_factory::create_object_by_name::name	uvm_factory.svh	1199	17	1199	21		0			svaunit_pkg::uvm_default_factory::create_object_by_name::name	000
+  #67539	6	ref_obj	inst_path		svaunit_pkg::uvm_default_factory::create_object_by_name::inst_path	uvm_factory.svh	1199	5	1199	14		0			svaunit_pkg::uvm_default_factory::create_object_by_name::inst_path	000
+  #67540	7	string_var	inst_path		uvm_pkg::uvm_default_factory::create_object_by_name::inst_path	uvm_factory.svh	1196	10	1196	19		0			uvm_pkg::uvm_default_factory::create_object_by_name::inst_path	000
+  #67541	8	ref_typespec			uvm_pkg::uvm_default_factory::create_object_by_name::inst_path		0	0	0	0		0			uvm_pkg::uvm_default_factory::create_object_by_name::inst_path	000
+
+facets of this row (57836, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

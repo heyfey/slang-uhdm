@@ -1,0 +1,64 @@
+cluster N0367 (r11u128map N0367; OPEN): span|operation|line+col+endline+endcol|under:bit_select
+row: surelog/default/Scoreboard  strict=differ:line(195)  records golden=269656 ours=268952
+object: #34670 (golden) / #34679 (ours)  type=operation name= 
+  golden: 150:50:150:55
+  ours:   1253:58:1253:63
+  walk parents: bit_select(m_fields) < hier_path(m_fields[idx - 1].get_name) < sys_func_call($sformatf) < func_call(uvm_report_error)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 34664..34676 ('>' = the object)
+  #34664	10	func_call	uvm_report_error			uvm_message_defines.svh	149	8	151	195		0				000
+  #34665	11	constant				uvm_message_defines.svh	149	26	149	36	"RegModel"	64	STRING:RegModel	6		000
+  #34666	11	sys_func_call	$sformatf			uvm_message_defines.svh	149	38	151	70		0				000
+  #34667	12	constant				uvm_message_defines.svh	149	48	149	95	"Field %s overlaps field %s in register \\"%s\\""	360	STRING:Field %s overlaps field %s in register \\"%s\\"	6		000
+  #34668	12	hier_path	m_fields[idx - 1].get_name			uvm_message_defines.svh	150	41	150	67		0				000
+  #34669	13	bit_select	m_fields		m_fields[idx - 1]	uvm_message_defines.svh	150	41	150	49		0			m_fields[idx - 1]	000
+> #34670	14	operation				uvm_message_defines.svh	150	50	150	55		0				000
+  #34671	15	ref_obj	idx		uvm_pkg::uvm_reg::add_field::m_fields[idx - 1].get_name::idx	uvm_message_defines.svh	150	50	150	53		0			uvm_pkg::uvm_reg::add_field::m_fields[idx - 1].get_name::idx	000
+  #34672	15	constant				uvm_message_defines.svh	150	54	150	55	1	64	UINT:1	9		000
+  #34673	13	method_func_call	get_name			uvm_message_defines.svh	150	57	150	65		0				000
+  #34674	12	hier_path	field.get_name			uvm_message_defines.svh	151	41	151	57		0				000
+  #34675	13	ref_obj	field			uvm_message_defines.svh	151	41	151	46		0				000
+  #34676	13	method_func_call	get_name			uvm_message_defines.svh	151	47	151	55		0				000
+
+--- OURS (B) records 34673..34685 ('>' = the object)
+  #34673	10	func_call	uvm_report_error			uvm_message_defines.svh	149	8	149	379		0				000
+  #34674	11	constant				uvm_message_defines.svh	149	26	149	36	"RegModel"	64	STRING:RegModel	6		000
+  #34675	11	sys_func_call	$sformatf			uvm_message_defines.svh	149	38	1254	78		0				000
+  #34676	12	constant				uvm_message_defines.svh	149	48	149	95	"Field %s overlaps field %s in register \\"%s\\""	360	STRING:Field %s overlaps field %s in register \\"%s\\"	6		000
+  #34677	12	hier_path	m_fields[idx - 1].get_name			uvm_message_defines.svh	1253	49	1253	75		0				000
+  #34678	13	bit_select	m_fields		m_fields[idx-1]	uvm_message_defines.svh	1253	49	1253	57		0			m_fields[idx-1]	000
+> #34679	14	operation				uvm_message_defines.svh	1253	58	1253	63		0				000
+  #34680	15	ref_obj	idx		uvm_pkg::uvm_reg::add_field::idx	uvm_message_defines.svh	1253	58	1253	61		0			uvm_pkg::uvm_reg::add_field::idx	000
+  #34681	15	constant				uvm_message_defines.svh	1253	62	1253	63	1	64	UINT:1	9		000
+  #34682	13	method_func_call	get_name			uvm_message_defines.svh	1253	65	1253	73		0				000
+  #34683	12	hier_path	field.get_name			uvm_message_defines.svh	1254	49	1254	65		0				000
+  #34684	13	ref_obj	field			uvm_message_defines.svh	1254	49	1254	54		0				000
+  #34685	13	method_func_call	get_name			uvm_message_defines.svh	1254	55	1254	63		0				000
+
+facets of this row (31015, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

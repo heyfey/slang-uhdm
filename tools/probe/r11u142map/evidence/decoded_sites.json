@@ -1,0 +1,20 @@
+{
+ "N0142": {
+  "note": "DECODED (pass-133 R6, measured here): grew 10 -> 44 row-modes since map 4 \u2014 pass 133's law impPaLhsDisjointClone133 gives the elaborated imported unpacked parameter its own clone, and golden's clone array_typespec lists its range (and element ref_typespec) where ours lists none; tools/probe/r11u133repro/lhs/l04_hdr_unpacked reads first=N0142 (+N0451 N0417 N0534); ParamEmit.cpp makeUnpackedArrayParamTs"
+ },
+ "N0003": {
+  "note": "pass-133 R2 (measured here): tools/probe/r11u133repro/pkr p01 and u01 carry N0003 beside N0001/N0063 (u01 also N0688)"
+ },
+ "N0272": {
+  "note": "SHARED with net binding (measured here): on BitsArray (both modes) and AssignBitsCallToSubmoduleParameter (both modes) N0272 is the only cluster and the r11u139 law.patch binary clears the rows (road (c) connection operands); its other rows are pair A's"
+ },
+ "N0039": {
+  "note": "pass-133 R5 (measured here): tools/probe/r11u133repro/lhs l01 l07 l09 l11 read first=N0039 alone (the elaborated Q = X over a wildcard-imported package parameter: golden's Rhs constant typespec is Q's own declaration span) \u2014 ONE shape of N0039, whose corpus head (TypeParam) is the type-parameter definition net"
+ },
+ "N0077": {
+  "note": "emitMixedHierPath residue r11v133 F4 (measured here): tools/probe/r11v133repro/tix a02_gen_for and f06_gen_if read N0968 + N0061 + N0077"
+ },
+ "N0968": {
+  "note": "r11v133 F4 generate-block trailing select (measured here, tix a02/f06 first cluster); minted by TypeEmit.cpp emitSyntaxExpr (the definition-view twin, pass-133 R3)"
+ }
+}

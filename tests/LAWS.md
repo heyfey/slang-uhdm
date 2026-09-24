@@ -22,7 +22,7 @@ verification pass owns the laws of the pass it verifies.
 
 Laws: 1521. Cases in the gate: 4087, tied to one law 3969, listed with `?`
 under several 106, tied to no law 12 (listed at the end).
-Laws with a commit on this branch: 938;
+Laws with a commit on this branch: 950;
 laws with cases in the gate: 676.
 
 ## 1. Laws
@@ -98,7 +98,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r10buvm22repro r10sd12repro r10uvm58repro r10v204repro r10vbuvm22repro
 
 ### `aliasCloneTakesTargetFile137`
-- commits: none on this branch
+- commits: 6ef15be0
 - pass: r11u137repro (verified by v11u137repro)
 - switches: R11U107_DBG R11U107_OFF R11U107_TPREBIND_OFF R11U110_DBG R11U110_OFF R11U137_ALIASFILE_OFF R11U137_CALLSPAN_OFF R11U137_DEFNETTP_OFF R11U137_ELABCLONE_OFF R11U137_ELABCLONE_PKG_OFF R11U137_EMPTYCONN_OFF R11U137_OFF R11U137_PATD_OFF R11U137_PATHBASE_OFF R11U137_PUREVIRTSPAN_OFF R11U137_REPLTSNAME_OFF R11U137_SCOPEDARRTD_OFF R11U137_TAGGEDSPAN_OFF R11U137_UNSIGNEDSPAN_OFF R11U139_CA_OFF R11U139_CLK_OFF R11U139_NDA_OFF R11U139_OFF R11U139_PORT_OFF
 - source: src/UhdmExporter.cpp(2)
@@ -1005,7 +1005,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r10vearl71repro
 
 ### `caLhsDefNetUnlessOpRhs139`
-- commits: e98516a3
+- commits: 6ef15be0 e98516a3
 - pass: -
 - switches: R11U137_OFF R11U139_OFF R11U139_TRACE
 - source: src/ModuleEmit.cpp(2)
@@ -2500,7 +2500,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): none
 
 ### `clockingEventDefNet139`
-- commits: e98516a3
+- commits: 6ef15be0 e98516a3
 - pass: -
 - switches: R11U137_OFF R11U139_OFF R11U139_TRACE
 - source: src/ModuleEmit.cpp(2)
@@ -2875,7 +2875,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): r10earl90repro/g1_head90.sv r10earl90repro/g2_types90.sv r10earl90repro/g3_slots90.sv r10earl90repro/g4_homes90.sv
 
 ### `connLeftmostLeafElab139`
-- commits: e98516a3
+- commits: 6ef15be0 e98516a3
 - pass: -
 - switches: R11U137_OFF R11U139_OFF R11U139_TRACE
 - source: src/ModuleEmit.cpp(2)
@@ -2933,7 +2933,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): r10earl54repro/a1_earl54.sv r10earl54repro/a2_earl54.sv r10earl54repro/a3_earl54.sv r10earl54repro/v10_v54.sv r10earl54repro/v11_v54.sv r10earl54repro/v12_v54.sv r10earl54repro/v1_v54.sv r10earl54repro/v2_v54.sv r10earl54repro/v4_v54.sv r10earl54repro/v5_v54.sv r10earl54repro/v6_v54.sv r10earl54repro/v7_v54.sv r10earl54repro/v9_v54.sv
 
 ### `connReplTsRefThroughPort137`
-- commits: none on this branch
+- commits: 6ef15be0
 - pass: r11u137repro (verified by v11u137repro)
 - switches: R11U137_ALIASFILE_OFF R11U137_CALLSPAN_OFF R11U137_DEFNETTP_OFF R11U137_ELABCLONE_OFF R11U137_ELABCLONE_PKG_OFF R11U137_EMPTYCONN_OFF R11U137_OFF R11U137_PATD_OFF R11U137_PATHBASE_OFF R11U137_PUREVIRTSPAN_OFF R11U137_REPLTSNAME_OFF R11U137_SCOPEDARRTD_OFF R11U137_TAGGEDSPAN_OFF R11U137_UNSIGNEDSPAN_OFF R11U139_CA_OFF R11U139_CLK_OFF R11U139_NDA_OFF R11U139_OFF R11U139_PORT_OFF
 - source: src/ModuleEmit.cpp(1)
@@ -2950,7 +2950,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r10earl64repro r10rgg15repro
 
 ### `constCallNameSpan137`
-- commits: none on this branch
+- commits: 6ef15be0
 - pass: r11u137repro (verified by v11u137repro)
 - switches: R11U137_ALIASFILE_OFF R11U137_CALLSPAN_OFF R11U137_DEFNETTP_OFF R11U137_ELABCLONE_OFF R11U137_ELABCLONE_PKG_OFF R11U137_EMPTYCONN_OFF R11U137_OFF R11U137_PATD_OFF R11U137_PATHBASE_OFF R11U137_PUREVIRTSPAN_OFF R11U137_REPLTSNAME_OFF R11U137_SCOPEDARRTD_OFF R11U137_TAGGEDSPAN_OFF R11U137_UNSIGNEDSPAN_OFF R11U139_CA_OFF R11U139_CLK_OFF R11U139_NDA_OFF R11U139_OFF R11U139_PORT_OFF
 - source: src/TypeEmit.cpp(1)
@@ -3295,7 +3295,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u134repro r11u141verify
 
 ### `defNetScopedPkgArrTdShares137`
-- commits: none on this branch
+- commits: 6ef15be0
 - pass: r11u137repro (verified by v11u137repro)
 - switches: R11U137_ALIASFILE_OFF R11U137_CALLSPAN_OFF R11U137_DEFNETTP_OFF R11U137_ELABCLONE_OFF R11U137_ELABCLONE_PKG_OFF R11U137_EMPTYCONN_OFF R11U137_OFF R11U137_PATD_OFF R11U137_PATHBASE_OFF R11U137_PUREVIRTSPAN_OFF R11U137_REPLTSNAME_OFF R11U137_SCOPEDARRTD_OFF R11U137_TAGGEDSPAN_OFF R11U137_UNSIGNEDSPAN_OFF R11U139_CA_OFF R11U139_CLK_OFF R11U139_NDA_OFF R11U139_OFF R11U139_PORT_OFF
 - source: src/ModuleEmit.cpp(1)
@@ -3319,7 +3319,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): none
 
 ### `defNetTypeParamDefault137`
-- commits: none on this branch
+- commits: 6ef15be0
 - pass: r11u137repro (verified by v11u137repro)
 - switches: R11U137_ALIASFILE_OFF R11U137_CALLSPAN_OFF R11U137_DEFNETTP_OFF R11U137_ELABCLONE_OFF R11U137_ELABCLONE_PKG_OFF R11U137_EMPTYCONN_OFF R11U137_OFF R11U137_PATD_OFF R11U137_PATHBASE_OFF R11U137_PUREVIRTSPAN_OFF R11U137_REPLTSNAME_OFF R11U137_SCOPEDARRTD_OFF R11U137_TAGGEDSPAN_OFF R11U137_UNSIGNEDSPAN_OFF R11U139_CA_OFF R11U139_CLK_OFF R11U139_NDA_OFF R11U139_OFF R11U139_PORT_OFF
 - source: src/ModuleEmit.cpp(1)
@@ -3738,7 +3738,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r10rgg13repro
 
 ### `elabCloneFullNameUnstored137`
-- commits: none on this branch
+- commits: 6ef15be0
 - pass: r11u137repro (verified by v11u137repro)
 - switches: R11U137_ALIASFILE_OFF R11U137_CALLSPAN_OFF R11U137_DEFNETTP_OFF R11U137_ELABCLONE_OFF R11U137_ELABCLONE_PKG_OFF R11U137_EMPTYCONN_OFF R11U137_OFF R11U137_PATD_OFF R11U137_PATHBASE_OFF R11U137_PUREVIRTSPAN_OFF R11U137_REPLTSNAME_OFF R11U137_SCOPEDARRTD_OFF R11U137_TAGGEDSPAN_OFF R11U137_UNSIGNEDSPAN_OFF R11U139_CA_OFF R11U139_CLK_OFF R11U139_NDA_OFF R11U139_PORT_OFF
 - source: uhdm_main.cpp(2)
@@ -4189,7 +4189,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): r10uvm65repro/b1_empty.sv r10uvm65repro/b2_scopes.sv r10uvm65repro/v1_qualdrop.sv r10uvm65repro/v2_views.sv r10uvm65repro/v3_ports.sv r10uvm65repro/v4_items.sv
 
 ### `emptyNamedConnLowConnAtDecl137`
-- commits: none on this branch
+- commits: 6ef15be0
 - pass: r11u137repro (verified by v11u137repro)
 - switches: R11U137_ALIASFILE_OFF R11U137_CALLSPAN_OFF R11U137_DEFNETTP_OFF R11U137_ELABCLONE_OFF R11U137_ELABCLONE_PKG_OFF R11U137_EMPTYCONN_OFF R11U137_OFF R11U137_PATD_OFF R11U137_PATHBASE_OFF R11U137_PUREVIRTSPAN_OFF R11U137_REPLTSNAME_OFF R11U137_SCOPEDARRTD_OFF R11U137_TAGGEDSPAN_OFF R11U137_UNSIGNEDSPAN_OFF R11U139_CA_OFF R11U139_CLK_OFF R11U139_NDA_OFF R11U139_OFF R11U139_PORT_OFF
 - source: src/ModuleEmit.cpp(1)
@@ -7724,7 +7724,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): r11u102repro/grid/q1_cmppow102.sv? r11u102repro/grid/q2_callfold102.sv? r11u102repro/grid/q3_xpow102.sv? r11u102repro/grid/q4_homes102.sv? r11u102repro/grid/q5_homes2102.sv? r11u102repro/grid/q6_varinit102.sv? r11v102repro/grid/b1_callbrk94.sv? r11v102repro/grid/b2_cmpbrk94.sv? r11v102repro/grid/b3_xhomes94.sv? r11v102repro/grid/b5_fixfaces94.sv?
 
 ### `ndaLeftmostLeafElab139`
-- commits: e98516a3
+- commits: 6ef15be0 e98516a3
 - pass: -
 - switches: R11U137_OFF R11U139_OFF R11U139_TRACE
 - source: src/ModuleEmit.cpp(3)
@@ -8096,7 +8096,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r10sd6repro r10uvm209repro r10uvm47repro r10uvm80repro r11u79repro r11u80repro
 
 ### `packedArrTdElemRefName137`
-- commits: none on this branch
+- commits: 6ef15be0
 - pass: r11u137repro (verified by v11u137repro)
 - switches: R11U110_DBG R11U110_OFF R11U137_ALIASFILE_OFF R11U137_CALLSPAN_OFF R11U137_DEFNETTP_OFF R11U137_ELABCLONE_OFF R11U137_ELABCLONE_PKG_OFF R11U137_EMPTYCONN_OFF R11U137_OFF R11U137_PATD_OFF R11U137_PATHBASE_OFF R11U137_PUREVIRTSPAN_OFF R11U137_REPLTSNAME_OFF R11U137_SCOPEDARRTD_OFF R11U137_TAGGEDSPAN_OFF R11U137_UNSIGNEDSPAN_OFF R11U139_CA_OFF R11U139_CLK_OFF R11U139_NDA_OFF R11U139_PORT_OFF
 - source: src/UhdmExporter.cpp(3)
@@ -9919,7 +9919,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r10buvm13repro
 
 ### `pureVirtProtoSpan137`
-- commits: none on this branch
+- commits: 6ef15be0
 - pass: r11u137repro (verified by v11u137repro)
 - switches: R11U137_ALIASFILE_OFF R11U137_CALLSPAN_OFF R11U137_DEFNETTP_OFF R11U137_ELABCLONE_OFF R11U137_ELABCLONE_PKG_OFF R11U137_EMPTYCONN_OFF R11U137_OFF R11U137_PATD_OFF R11U137_PATHBASE_OFF R11U137_PUREVIRTSPAN_OFF R11U137_REPLTSNAME_OFF R11U137_SCOPEDARRTD_OFF R11U137_TAGGEDSPAN_OFF R11U137_UNSIGNEDSPAN_OFF R11U139_CA_OFF R11U139_CLK_OFF R11U139_NDA_OFF R11U139_OFF R11U139_PORT_OFF R11V137_DEFWIRE_OFF R11V137_OFF R11V137_PVQUAL_OFF
 - source: src/TaskFuncEmit.cpp(2)
@@ -11012,7 +11012,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u11repro r11u14repro r11u3repro r11u62repro r11u9repro
 
 ### `structParamPathBaseAtMember137`
-- commits: none on this branch
+- commits: 6ef15be0
 - pass: r11u137repro (verified by v11u137repro)
 - switches: R11U137_ALIASFILE_OFF R11U137_CALLSPAN_OFF R11U137_DEFNETTP_OFF R11U137_ELABCLONE_OFF R11U137_ELABCLONE_PKG_OFF R11U137_EMPTYCONN_OFF R11U137_OFF R11U137_PATD_OFF R11U137_PATHBASE_OFF R11U137_PUREVIRTSPAN_OFF R11U137_REPLTSNAME_OFF R11U137_SCOPEDARRTD_OFF R11U137_TAGGEDSPAN_OFF R11U137_UNSIGNEDSPAN_OFF R11U139_CA_OFF R11U139_CLK_OFF R11U139_NDA_OFF R11U139_OFF R11U139_PORT_OFF
 - source: src/TypeEmit.cpp(3)
@@ -11165,7 +11165,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): none
 
 ### `taggedUnionElabSpan137`
-- commits: none on this branch
+- commits: 6ef15be0
 - pass: r11u137repro (verified by v11u137repro)
 - switches: R11U137_ALIASFILE_OFF R11U137_CALLSPAN_OFF R11U137_DEFNETTP_OFF R11U137_ELABCLONE_OFF R11U137_ELABCLONE_PKG_OFF R11U137_EMPTYCONN_OFF R11U137_OFF R11U137_PATD_OFF R11U137_PATHBASE_OFF R11U137_PUREVIRTSPAN_OFF R11U137_REPLTSNAME_OFF R11U137_SCOPEDARRTD_OFF R11U137_TAGGEDSPAN_OFF R11U137_UNSIGNEDSPAN_OFF R11U139_CA_OFF R11U139_CLK_OFF R11U139_NDA_OFF R11U139_OFF R11U139_PORT_OFF
 - source: src/TypeEmit.cpp(1)
@@ -12102,7 +12102,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u32repro r11u41repro
 
 ### `unsignedScalarVecTsAtKeyword137`
-- commits: none on this branch
+- commits: 6ef15be0
 - pass: r11u137repro (verified by v11u137repro)
 - switches: R11U137_ALIASFILE_OFF R11U137_CALLSPAN_OFF R11U137_DEFNETTP_OFF R11U137_ELABCLONE_OFF R11U137_ELABCLONE_PKG_OFF R11U137_EMPTYCONN_OFF R11U137_OFF R11U137_PATD_OFF R11U137_PATHBASE_OFF R11U137_PUREVIRTSPAN_OFF R11U137_REPLTSNAME_OFF R11U137_SCOPEDARRTD_OFF R11U137_TAGGEDSPAN_OFF R11U137_UNSIGNEDSPAN_OFF R11U139_CA_OFF R11U139_CLK_OFF R11U139_NDA_OFF R11U139_OFF R11U139_PORT_OFF R11V137_DEFWIRE_OFF R11V137_OFF R11V137_PVQUAL_OFF
 - source: src/TypeEmit.cpp(2)
@@ -13019,6 +13019,7 @@ lists it under the law).
 | r11u139netbind |  |  | 0 | 98 |
 | r11u13repro |  |  | 2 | 7 |
 | r11u141verify |  |  | 0 | 166 |
+| r11u142map |  |  | 0 | 0 |
 | r11u14repro |  |  | 6 | 4 |
 | r11u15repro |  |  | 40 | 4 |
 | r11u16repro |  |  | 0 | 14 |

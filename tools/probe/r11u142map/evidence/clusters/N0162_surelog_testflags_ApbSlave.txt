@@ -1,0 +1,64 @@
+cluster N0162 (r11u128map N0162; OPEN): span|string_typespec|endcol|under:ref_typespec
+row: surelog/testflags/ApbSlave  strict=differ:line(30)  records golden=3678 ours=3682
+object: #2264 (golden) / #2268 (ours)  type=string_typespec name= 
+  golden: 29:9:29:92
+  ours:   29:9:29:15
+  walk parents: ref_typespec < logic_net(svunit_version) < module_inst < design(work@apb_slave_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2258..2270 ('>' = the object)
+  #2258	5	ref_obj	paddr		work@apb_slave_unit_test.idle.paddr	testbench.sv	252	5	252	10		0			work@apb_slave_unit_test.idle.paddr	000
+  #2259	4	assignment				testbench.sv	253	5	253	15						000
+  #2260	5	constant				testbench.sv	253	14	253	15	0	64	UINT:0	9		000
+  #2261	5	ref_obj	pwdata		work@apb_slave_unit_test.idle.pwdata	testbench.sv	253	5	253	11		0			work@apb_slave_unit_test.idle.pwdata	000
+  #2262	2	logic_net	svunit_version		work@apb_slave_unit_test.svunit_version	svunit_pkg.sv	29	16	29	30		0			work@apb_slave_unit_test.svunit_version	000
+  #2263	3	ref_typespec			work@apb_slave_unit_test.svunit_version		0	0	0	0		0			work@apb_slave_unit_test.svunit_version	000
+> #2264	4	string_typespec				svunit_pkg.sv	29	9	29	92						000
+  #2265	2	logic_net	current_tc		work@apb_slave_unit_test.current_tc	svunit_globals.svh	24	17	24	27		0			work@apb_slave_unit_test.current_tc	000
+  #2266	3	ref_typespec			work@apb_slave_unit_test.current_tc		0	0	0	0		0			work@apb_slave_unit_test.current_tc	000
+  #2267	4	class_typespec	svunit_testcase			svunit_globals.svh	24	1	24	16						110
+  #2268	2	logic_net	svunit_version		work@apb_slave_unit_test.svunit_version	svunit_pkg.sv	29	16	29	30		0			work@apb_slave_unit_test.svunit_version	000
+  #2269	3	ref_typespec			work@apb_slave_unit_test.svunit_version		0	0	0	0		0			work@apb_slave_unit_test.svunit_version	000
+  #2270	4	string_typespec				svunit_pkg.sv	29	9	29	92						000
+
+--- OURS (B) records 2262..2274 ('>' = the object)
+  #2262	5	ref_obj	paddr		work@apb_slave_unit_test.idle.paddr	testbench.sv	252	5	252	10		0			work@apb_slave_unit_test.idle.paddr	000
+  #2263	4	assignment				testbench.sv	253	5	253	15						000
+  #2264	5	constant				testbench.sv	253	14	253	15	0	64	UINT:0	9		000
+  #2265	5	ref_obj	pwdata		work@apb_slave_unit_test.idle.pwdata	testbench.sv	253	5	253	11		0			work@apb_slave_unit_test.idle.pwdata	000
+  #2266	2	logic_net	svunit_version		work@apb_slave_unit_test.svunit_version	svunit_pkg.sv	29	16	29	30		0			work@apb_slave_unit_test.svunit_version	000
+  #2267	3	ref_typespec			work@apb_slave_unit_test.svunit_version		0	0	0	0		0			work@apb_slave_unit_test.svunit_version	000
+> #2268	4	string_typespec				svunit_pkg.sv	29	9	29	15						000
+  #2269	2	logic_net	current_tc		work@apb_slave_unit_test.current_tc	svunit_globals.svh	24	17	24	27		0			work@apb_slave_unit_test.current_tc	000
+  #2270	3	ref_typespec			work@apb_slave_unit_test.current_tc		0	0	0	0		0			work@apb_slave_unit_test.current_tc	000
+  #2271	4	class_typespec	svunit_testcase			svunit_globals.svh	24	1	24	16						110
+  #2272	2	logic_net	svunit_version		work@apb_slave_unit_test.svunit_version	svunit_pkg.sv	29	16	29	30		0			work@apb_slave_unit_test.svunit_version	000
+  #2273	3	ref_typespec			work@apb_slave_unit_test.svunit_version		0	0	0	0		0			work@apb_slave_unit_test.svunit_version	000
+  #2274	4	string_typespec				svunit_pkg.sv	29	9	29	15						000
+
+facets of this row (257, first 25):
+  N0289 #-1/372 string_var svunit_version G[] O[4 objs]
+  N0064 #4/4 include_file_info  G[375:12:375:32] O[373:12:373:32]
+  N0064 #5/5 include_file_info  G[593:12:593:33] O[587:12:587:33]
+  N0064 #6/6 include_file_info  G[710:12:710:34] O[698:12:698:34]
+  N0064 #7/7 include_file_info  G[813:12:813:32] O[797:12:797:32]
+  N0714 #34/34 begin  G[103:3:79:2] O[103:3:79:43]
+  N0714 #163/163 begin  G[103:3:195:2] O[103:3:195:18]
+  N0710 #169/169 sys_func_call $display G[103:3:106:17] O[103:3:103:155]
+  N0711 #173/173 sys_func_call $sformatf G[103:50:106:16] O[103:50:195:16]
+  N0705 #175/175 ref_obj success_str G[104:5:104:16] O[193:5:193:16]
+  N0726 #176/176 operation  G[105:5:105:27] O[194:5:194:27]
+  N0055 #177/177 ref_obj test_count G[105:5:105:15] O[194:5:194:15]
+  N0055 #178/178 ref_obj error_count G[105:16:105:27] O[194:16:194:27]
+  N0705 #179/179 ref_obj test_count G[106:5:106:15] O[195:5:195:15]
+  N0041 #216/216 unsupported_typespec list_of_testcases G[svunit_testsuite.sv 89:11:89:28] O[ 89:11:89:28]
+  N0710 #273/273 sys_func_call $display G[103:3:106:31] O[103:3:103:159]
+  N0711 #277/277 sys_func_call $sformatf G[103:50:106:30] O[103:50:109:30]
+  N0705 #279/279 ref_obj success_str G[104:5:104:16] O[107:5:107:16]
+  N0705 #280/280 ref_obj pass_cnt G[105:5:105:13] O[108:5:108:13]
+  N0715 #281/281 hier_path list_of_testcases.size G[106:5:106:29] O[109:5:109:29]
+  N0718 #282/282 ref_obj list_of_testcases G[106:5:106:22] O[109:5:109:22]
+  N0717 #283/283 method_func_call size G[106:23:106:27] O[109:23:109:27]
+  N0710 #360/360 sys_func_call $display G[103:3:107:21] O[103:3:103:178]
+  N0711 #364/364 sys_func_call $sformatf G[103:50:107:20] O[103:50:97:20]
+  N0705 #366/366 ref_obj success_str G[104:5:104:16] O[94:5:94:16]

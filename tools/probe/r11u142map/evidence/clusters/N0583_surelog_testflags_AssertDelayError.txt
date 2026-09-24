@@ -1,0 +1,64 @@
+cluster N0583 (r11u128map N0583; OPEN): fullname|begin|tok:id.id->id|under:if_else
+row: surelog/testflags/AssertDelayError  strict=differ:fullname(82)  records golden=554 ours=554
+object: #374 (golden) / #374 (ours)  type=begin name= OUT
+  golden: work@tb_left_rotation.left_rotation_inst
+  ours:   work@left_rotation
+  walk parents: if_else < begin < event_control < always
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 368..380 ('>' = the object)
+  #368	7	ref_obj	clk		work@tb_left_rotation.left_rotation_inst.clk	left_rotate.sv	8	18	8	21		0			work@tb_left_rotation.left_rotation_inst.clk	000
+  #369	6	operation				left_rotate.sv	8	25	8	38		0				000
+  #370	7	ref_obj	reset		work@tb_left_rotation.left_rotation_inst.reset	left_rotate.sv	8	33	8	38		0			work@tb_left_rotation.left_rotation_inst.reset	000
+  #371	5	begin			work@tb_left_rotation.left_rotation_inst	left_rotate.sv	8	40	15	4					work@tb_left_rotation.left_rotation_inst	000
+  #372	6	if_else				left_rotate.sv	9	5	14	8						000
+  #373	7	ref_obj	reset		work@tb_left_rotation.left_rotation_inst.reset	left_rotate.sv	9	9	9	14		0			work@tb_left_rotation.left_rotation_inst.reset	000
+> #374	7	begin			work@tb_left_rotation.left_rotation_inst	left_rotate.sv	9	16	11	8					work@tb_left_rotation.left_rotation_inst	000
+  #375	8	assignment				left_rotate.sv	10	9	10	33						000
+  #376	9	constant				left_rotate.sv	10	21	10	33	8'b00000000	8	BIN:00000000	3		000
+  #377	9	ref_obj	out_data		work@tb_left_rotation.left_rotation_inst.out_data	left_rotate.sv	10	9	10	17		0			work@tb_left_rotation.left_rotation_inst.out_data	000
+  #378	7	begin			work@tb_left_rotation.left_rotation_inst	left_rotate.sv	11	14	14	8					work@tb_left_rotation.left_rotation_inst	000
+  #379	8	assignment				left_rotate.sv	13	9	13	49						000
+  #380	9	operation				left_rotate.sv	13	21	13	49		0				000
+
+--- OURS (B) records 368..380 ('>' = the object)
+  #368	7	ref_obj	clk		work@left_rotation.clk	left_rotate.sv	8	18	8	21		0			work@left_rotation.clk	000
+  #369	6	operation				left_rotate.sv	8	25	8	38		0				000
+  #370	7	ref_obj	reset		work@left_rotation.reset	left_rotate.sv	8	33	8	38		0			work@left_rotation.reset	000
+  #371	5	begin			work@left_rotation	left_rotate.sv	8	40	15	4					work@left_rotation	000
+  #372	6	if_else				left_rotate.sv	9	5	14	8						000
+  #373	7	ref_obj	reset		work@left_rotation.reset	left_rotate.sv	9	9	9	14		0			work@left_rotation.reset	000
+> #374	7	begin			work@left_rotation	left_rotate.sv	9	16	11	8					work@left_rotation	000
+  #375	8	assignment				left_rotate.sv	10	9	10	33						000
+  #376	9	constant				left_rotate.sv	10	21	10	33	8'b00000000	8	BIN:00000000	3		000
+  #377	9	ref_obj	out_data		work@left_rotation.out_data	left_rotate.sv	10	9	10	17		0			work@left_rotation.out_data	000
+  #378	7	begin			work@left_rotation	left_rotate.sv	11	14	14	8					work@left_rotation	000
+  #379	8	assignment				left_rotate.sv	13	9	13	49						000
+  #380	9	operation				left_rotate.sv	13	21	13	49		0				000
+
+facets of this row (82, first 25):
+  N0627 #2/2 property_decl p_valid_rotation G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotati] O[work@left_rotate_assertions.p_valid_rotation]
+  N0299 #5/5 ref_obj clk G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotati] O[work@left_rotate_assertions.p_valid_rotation.clk]
+  N0299 #11/11 ref_obj rst_n G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotati] O[work@left_rotate_assertions.p_valid_rotation.rst_n]
+  N0299 #17/17 ref_obj rotated G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotati] O[work@left_rotate_assertions.p_valid_rotation.rotated]
+  N0299 #25/25 ref_obj word_in G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotati] O[work@left_rotate_assertions.p_valid_rotation.word_in]
+  N0299 #32/32 ref_obj rotate_by G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotati] O[work@left_rotate_assertions.p_valid_rotation.rotate_by]
+  N0299 #40/40 ref_obj word_in G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotati] O[work@left_rotate_assertions.p_valid_rotation.word_in]
+  N0299 #43/43 ref_obj rotate_by G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotati] O[work@left_rotate_assertions.p_valid_rotation.rotate_by]
+  N0627 #44/44 property_decl p_rotation_range G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_rotation_ran] O[work@left_rotate_assertions.p_rotation_range]
+  N0299 #47/47 ref_obj clk G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_rotation_ran] O[work@left_rotate_assertions.p_rotation_range.clk]
+  N0299 #50/50 ref_obj rst_n G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_rotation_ran] O[work@left_rotate_assertions.p_rotation_range.rst_n]
+  N0299 #52/52 ref_obj rotate_by G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_rotation_ran] O[work@left_rotate_assertions.p_rotation_range.rotate_by]
+  N0627 #54/54 property_decl p_no_rotation G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation] O[work@left_rotate_assertions.p_no_rotation]
+  N0299 #57/57 ref_obj clk G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation.] O[work@left_rotate_assertions.p_no_rotation.clk]
+  N0299 #61/61 ref_obj rst_n G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation.] O[work@left_rotate_assertions.p_no_rotation.rst_n]
+  N0299 #63/63 ref_obj rotate_by G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation.] O[work@left_rotate_assertions.p_no_rotation.rotate_by]
+  N0299 #66/66 ref_obj rotated G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation.] O[work@left_rotate_assertions.p_no_rotation.rotated]
+  N0299 #67/67 ref_obj word_in G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation.] O[work@left_rotate_assertions.p_no_rotation.word_in]
+  N0431 #73/73 assert_stmt a_valid_rotation G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_valid_rotati] O[work@left_rotate_assertions.a_valid_rotation]
+  N0628 #75/75 ref_obj p_valid_rotation G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_valid_rotati] O[work@left_rotate_assertions.a_valid_rotation.p_valid_rotation]
+  N0431 #76/76 assert_stmt a_rotation_range G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_rotation_ran] O[work@left_rotate_assertions.a_rotation_range]
+  N0628 #78/78 ref_obj p_rotation_range G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_rotation_ran] O[work@left_rotate_assertions.a_rotation_range.p_rotation_range]
+  N0431 #79/79 assert_stmt a_no_rotation G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_no_rotation] O[work@left_rotate_assertions.a_no_rotation]
+  N0628 #81/81 ref_obj p_no_rotation G[work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_no_rotation.] O[work@left_rotate_assertions.a_no_rotation.p_no_rotation]
+  N0089 #368/368 ref_obj clk G[work@tb_left_rotation.left_rotation_inst.clk] O[work@left_rotation.clk]

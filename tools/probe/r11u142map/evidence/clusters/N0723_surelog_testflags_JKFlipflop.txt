@@ -1,0 +1,45 @@
+cluster N0723 (r11u128map N0723; OPEN): fullname|ref_obj|tok:id.id->id|under:if_else
+row: surelog/testflags/JKFlipflop  strict=differ:fullname(6)  records golden=261 ours=261
+object: #243 (golden) / #243 (ours)  type=ref_obj name=reset OUT
+  golden: work@JKFlipflop.dff.reset
+  ours:   work@D_Flipflop.reset
+  walk parents: if_else < begin < event_control < always
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 237..249 ('>' = the object)
+  #237	3	always				dut.sv	12	5	18	8						000
+  #238	4	event_control				dut.sv	12	11	12	25						000
+  #239	5	operation				dut.sv	12	13	12	24		0				000
+  #240	6	ref_obj	clk		work@JKFlipflop.dff.clk	dut.sv	12	21	12	24		0			work@JKFlipflop.dff.clk	000
+  #241	5	begin			work@JKFlipflop.dff	dut.sv	13	5	18	8					work@JKFlipflop.dff	000
+  #242	6	if_else				dut.sv	14	5	17	11						000
+> #243	7	ref_obj	reset		work@JKFlipflop.dff.reset	dut.sv	14	8	14	13		0			work@JKFlipflop.dff.reset	000
+  #244	7	assignment				dut.sv	15	5	15	11						000
+  #245	8	constant				dut.sv	15	7	15	11	1'b0	1	BIN:0	3		000
+  #246	8	ref_obj	q		work@JKFlipflop.dff.q	dut.sv	15	5	15	6		0			work@JKFlipflop.dff.q	000
+  #247	7	assignment				dut.sv	17	5	17	10						000
+  #248	8	ref_obj	Din		work@JKFlipflop.dff.Din	dut.sv	17	7	17	10		0			work@JKFlipflop.dff.Din	000
+  #249	8	ref_obj	q		work@JKFlipflop.dff.q	dut.sv	17	5	17	6		0			work@JKFlipflop.dff.q	000
+
+--- OURS (B) records 237..249 ('>' = the object)
+  #237	3	always				dut.sv	12	5	18	8						000
+  #238	4	event_control				dut.sv	12	11	12	25						000
+  #239	5	operation				dut.sv	12	13	12	24		0				000
+  #240	6	ref_obj	clk		work@D_Flipflop.clk	dut.sv	12	21	12	24		0			work@D_Flipflop.clk	000
+  #241	5	begin			work@D_Flipflop	dut.sv	13	5	18	8					work@D_Flipflop	000
+  #242	6	if_else				dut.sv	14	5	17	11						000
+> #243	7	ref_obj	reset		work@D_Flipflop.reset	dut.sv	14	8	14	13		0			work@D_Flipflop.reset	000
+  #244	7	assignment				dut.sv	15	5	15	11						000
+  #245	8	constant				dut.sv	15	7	15	11	1'b0	1	BIN:0	3		000
+  #246	8	ref_obj	q		work@D_Flipflop.q	dut.sv	15	5	15	6		0			work@D_Flipflop.q	000
+  #247	7	assignment				dut.sv	17	5	17	10						000
+  #248	8	ref_obj	Din		work@D_Flipflop.Din	dut.sv	17	7	17	10		0			work@D_Flipflop.Din	000
+  #249	8	ref_obj	q		work@D_Flipflop.q	dut.sv	17	5	17	6		0			work@D_Flipflop.q	000
+
+facets of this row (6, first 25):
+  N0089 #240/240 ref_obj clk G[work@JKFlipflop.dff.clk] O[work@D_Flipflop.clk]
+  N0462 #241/241 begin  G[work@JKFlipflop.dff] O[work@D_Flipflop]
+  N0723 #243/243 ref_obj reset G[work@JKFlipflop.dff.reset] O[work@D_Flipflop.reset]
+  N0124 #246/246 ref_obj q G[work@JKFlipflop.dff.q] O[work@D_Flipflop.q]
+  N0124 #248/248 ref_obj Din G[work@JKFlipflop.dff.Din] O[work@D_Flipflop.Din]
+  N0124 #249/249 ref_obj q G[work@JKFlipflop.dff.q] O[work@D_Flipflop.q]

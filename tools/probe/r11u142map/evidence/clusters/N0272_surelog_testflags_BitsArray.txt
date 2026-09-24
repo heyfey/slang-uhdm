@@ -1,0 +1,41 @@
+cluster N0272 (r11u128map N0272; COVERED r11u140 (N0272)): fullname|bit_select|tok:id.id.->|under:operation
+row: surelog/testflags/BitsArray  strict=differ:fullname(2)  records golden=108 ours=108
+object: #84 (golden) / #84 (ours)  type=bit_select name=key_init_we OUT
+  golden: work@top.u_reg_status_key_init.we_i.key_init_we
+  ours:   work@top.key_init_we
+  walk parents: operation < port(we_i) < module_inst(u_reg_status_key_init) < module_inst(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 78..90 ('>' = the object)
+  #78	5	logic_typespec				dut.sv	5	10	5	27						000
+  #79	6	range				dut.sv	5	16	5	27						001
+  #80	7	constant				dut.sv	5	17	5	22	15	64	INT:15	7		001
+  #81	7	constant				dut.sv	5	25	5	26	0	64	UINT:0	9		001
+  #82	3	port	we_i			dut.sv	5	28	5	32						000
+  #83	4	operation				dut.sv	18	14	18	46		0				000
+> #84	5	bit_select	key_init_we		work@top.u_reg_status_key_init.we_i.key_init_we	dut.sv	18	27	18	28		0			work@top.u_reg_status_key_init.we_i.key_init_we	000
+  #85	6	constant				dut.sv	18	27	18	28	1	64	UINT:1	9		000
+  #86	5	bit_select	key_init_we		work@top.u_reg_status_key_init.we_i.key_init_we	dut.sv	18	43	18	44		0			work@top.u_reg_status_key_init.we_i.key_init_we	000
+  #87	6	constant				dut.sv	18	43	18	44	0	64	UINT:0	9		000
+  #88	4	ref_obj	we_i		work@top.u_reg_status_key_init.we_i	dut.sv	18	8	18	12		0			work@top.u_reg_status_key_init.we_i	000
+  #89	4	ref_typespec			work@top.u_reg_status_key_init.we_i		0	0	0	0		0			work@top.u_reg_status_key_init.we_i	000
+  #90	5	logic_typespec				dut.sv	5	10	5	27						000
+
+--- OURS (B) records 78..90 ('>' = the object)
+  #78	5	logic_typespec				dut.sv	5	10	5	27						000
+  #79	6	range				dut.sv	5	16	5	27						001
+  #80	7	constant				dut.sv	5	17	5	22	15	64	INT:15	7		001
+  #81	7	constant				dut.sv	5	25	5	26	0	64	UINT:0	9		001
+  #82	3	port	we_i			dut.sv	5	28	5	32						000
+  #83	4	operation				dut.sv	18	14	18	46		0				000
+> #84	5	bit_select	key_init_we		work@top.key_init_we	dut.sv	18	27	18	28		0			work@top.key_init_we	000
+  #85	6	constant				dut.sv	18	27	18	28	1	64	UINT:1	9		000
+  #86	5	bit_select	key_init_we		work@top.key_init_we	dut.sv	18	43	18	44		0			work@top.key_init_we	000
+  #87	6	constant				dut.sv	18	43	18	44	0	64	UINT:0	9		000
+  #88	4	ref_obj	we_i		work@top.u_reg_status_key_init.we_i	dut.sv	18	8	18	12		0			work@top.u_reg_status_key_init.we_i	000
+  #89	4	ref_typespec			work@top.u_reg_status_key_init.we_i		0	0	0	0		0			work@top.u_reg_status_key_init.we_i	000
+  #90	5	logic_typespec				dut.sv	5	10	5	27						000
+
+facets of this row (2, first 25):
+  N0272 #84/84 bit_select key_init_we G[work@top.u_reg_status_key_init.we_i.key_init_we] O[work@top.key_init_we]
+  N0272 #86/86 bit_select key_init_we G[work@top.u_reg_status_key_init.we_i.key_init_we] O[work@top.key_init_we]

@@ -1,0 +1,37 @@
+cluster N0483 (r11u128map N0483; OPEN): span|gen_scope|line+col+endline+endcol|under:gen_scope_array
+row: surelog/testflags/GenCase  strict=differ:endcol(8)  records golden=81 ours=81
+object: #79 (golden) / #79 (ours)  type=gen_scope name= 
+  golden: 12:13:14:8
+  ours:   13:7:13:17
+  walk parents: gen_scope_array(tag1) < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 73..80 ('>' = the object)
+  #73	5	int_typespec					0	0	0	0						000
+  #74	2	param_assign				dut.sv	9	32	9	48						000
+  #75	3	constant				dut.sv	9	42	9	48	-1	2	INT:-1	7		000
+  #76	4	ref_typespec			work@top		0	0	0	0		0			work@top	000
+  #77	5	int_typespec					0	0	0	0						000
+  #78	2	gen_scope_array	tag1		work@top.tag1	dut.sv	12	13	14	8					work@top.tag1	000
+> #79	3	gen_scope			work@top.tag1	dut.sv	12	13	14	8					work@top.tag1	000
+  #80	4	module_inst	u2	work@GOOD	work@top.tag1.u2	dut.sv	13	7	13	17					work@top.tag1.u2	000
+
+--- OURS (B) records 73..80 ('>' = the object)
+  #73	5	int_typespec					0	0	0	0						000
+  #74	2	param_assign				dut.sv	9	32	9	48						000
+  #75	3	constant				dut.sv	9	42	9	48	-1	2	INT:-1	7		000
+  #76	4	ref_typespec			work@top		0	0	0	0		0			work@top	000
+  #77	5	int_typespec					0	0	0	0						000
+  #78	2	gen_scope_array	tag1		work@top.tag1	dut.sv	13	7	13	17					work@top.tag1	000
+> #79	3	gen_scope			work@top.tag1	dut.sv	13	7	13	17					work@top.tag1	000
+  #80	4	module_inst	u2	work@GOOD	work@top.tag1.u2	dut.sv	13	7	13	17					work@top.tag1.u2	000
+
+facets of this row (8, first 25):
+  N0056 #5/5 bit_typespec  G[6:13:6:16] O[6:13:6:25]
+  N0056 #21/21 bit_typespec  G[6:13:6:16] O[6:13:6:25]
+  N0646 #40/40 ref_obj x_1sb1 G[] O[work@top.x_1sb1]
+  N0482 #41/41 named_begin tag1 G[] O[work@top.tag1]
+  N0056 #49/49 bit_typespec  G[6:13:6:16] O[6:13:6:25]
+  N0056 #65/65 bit_typespec  G[6:13:6:16] O[6:13:6:25]
+  N0486 #78/78 gen_scope_array tag1 G[12:13:14:8] O[13:7:13:17]
+  N0483 #79/79 gen_scope  G[12:13:14:8] O[13:7:13:17]

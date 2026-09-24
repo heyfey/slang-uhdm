@@ -1,0 +1,64 @@
+cluster N0219 (r11u128map N0219; OPEN): file|struct_typespec|other-file+span|under:ref_typespec
+row: uhdm2rtlil/testflags/ibex_pmp  strict=differ:file(6)  records golden=15947 ours=15917
+object: #2397 (golden) / #2397 (ours)  type=struct_typespec name=ibex_pkg::pmp_cfg_t 
+  golden: ibex_pmp.sv 114:47:114:57
+  ours:   ibex_pkg.sv 433:11:439:4
+  walk parents: ref_typespec < array_typespec < ref_typespec < parameter(PmpCfgRst)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2391..2403 ('>' = the object)
+  #2391	6	operation				ibex_pkg.sv	750	33	750	48		0				001
+  #2392	7	constant				ibex_pkg.sv	750	33	750	48	16	32	UINT:16	9		001
+  #2393	8	ref_typespec			ibex_pkg::PmpCfgRst		0	0	0	0		0			ibex_pkg::PmpCfgRst	001
+  #2394	9	int_typespec				ibex_pkg.sv	405	13	405	25						001
+  #2395	7	constant					0	0	0	0		64	INT:1	7		001
+  #2396	5	ref_typespec			<in>		0	0	0	0		0			ibex_pkg::PmpCfgRst	001
+> #2397	6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57						001
+  #2398	7	typespec_member	lock			ibex_pkg.sv	434	20	434	24						001
+  #2399	8	ref_typespec			<in>ibex_pkg::pmp_cfg_t.lock		0	0	0	0		0			work@ibex_pmp.ibex_pkg::pmp_cfg_t.lock	001
+  #2400	9	logic_typespec				ibex_pkg.sv	434	5	434	10						001
+  #2401	7	typespec_member	mode			ibex_pkg.sv	435	20	435	24						001
+  #2402	8	ref_typespec			<in>ibex_pkg::pmp_cfg_t.mode		0	0	0	0		0			work@ibex_pmp.ibex_pkg::pmp_cfg_t.mode	001
+  #2403	9	enum_typespec	ibex_pkg::pmp_cfg_mode_e			ibex_pkg.sv	426	3	431	20						001
+
+--- OURS (B) records 2391..2403 ('>' = the object)
+  #2391	6	operation				ibex_pkg.sv	750	33	750	48		0				001
+  #2392	7	constant				ibex_pkg.sv	750	33	750	48	16	32	UINT:16	9		001
+  #2393	8	ref_typespec			ibex_pkg::PmpCfgRst		0	0	0	0		0			ibex_pkg::PmpCfgRst	001
+  #2394	9	int_typespec				ibex_pkg.sv	405	13	405	25						001
+  #2395	7	constant					0	0	0	0		64	INT:1	7		001
+  #2396	5	ref_typespec			<in>		0	0	0	0		0			ibex_pkg::PmpCfgRst	001
+> #2397	6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4						001
+  #2398	7	typespec_member	lock			ibex_pkg.sv	434	20	434	24						001
+  #2399	8	ref_typespec			<in>ibex_pkg::pmp_cfg_t.lock		0	0	0	0		0			ibex_pkg::ibex_pkg::pmp_cfg_t::lock	001
+  #2400	9	logic_typespec				ibex_pkg.sv	434	5	434	10						001
+  #2401	7	typespec_member	mode			ibex_pkg.sv	435	20	435	24						001
+  #2402	8	ref_typespec			<in>ibex_pkg::pmp_cfg_t.mode		0	0	0	0		0			ibex_pkg::ibex_pkg::pmp_cfg_t::mode	001
+  #2403	9	enum_typespec	ibex_pkg::pmp_cfg_mode_e			ibex_pkg.sv	426	3	431	20						001
+
+facets of this row (87, first 25):
+  N0142 #5557/-1 range  G[7 objs] O[]
+  N0142 #5618/-1 range  G[7 objs] O[]
+  N0943 #13882/-1 ref_typespec  G[2 objs] O[]
+  N0943 #14156/-1 ref_typespec  G[2 objs] O[]
+  N0943 #14430/-1 ref_typespec  G[2 objs] O[]
+  N0943 #14704/-1 ref_typespec  G[2 objs] O[]
+  N0943 #15086/-1 ref_typespec  G[2 objs] O[]
+  N0943 #15360/-1 ref_typespec  G[2 objs] O[]
+  N0943 #15634/-1 ref_typespec  G[2 objs] O[]
+  N0943 #15908/-1 ref_typespec  G[2 objs] O[]
+  N0219 #2397/2397 struct_typespec ibex_pkg::pmp_cfg_t G[ibex_pmp.sv 114:47:114:57] O[ibex_pkg.sv 433:11:439:4]
+  N0008 #2443/2443 ref_typespec  G[] O[ibex_pkg::PmpAddrRst]
+  N0239 #3790/3790 struct_typespec ibex_pkg::pmp_cfg_t G[ibex_pmp.sv 114:47:114:57] O[ibex_pkg.sv 433:11:439:4]
+  N0144 #3825/3825 enum_typespec ibex_pkg::pmp_req_e G[ibex_pmp.sv 130:48:130:58] O[ibex_pkg.sv 419:3:423:15]
+  N0144 #3834/3834 enum_typespec ibex_pkg::priv_lvl_e G[ibex_pmp.sv 132:48:132:58] O[ibex_pkg.sv 216:3:221:16]
+  N0434 #6215/6201 struct_typespec ibex_pkg::pmp_cfg_t G[ibex_pmp.sv 114:47:114:57] O[ibex_pkg.sv 433:11:439:4]
+  N0325 #6250/6236 enum_typespec ibex_pkg::pmp_req_e G[ibex_pmp.sv 130:48:130:58] O[ibex_pkg.sv 419:3:423:15]
+  N0325 #6259/6245 enum_typespec ibex_pkg::priv_lvl_e G[ibex_pmp.sv 132:48:132:58] O[ibex_pkg.sv 216:3:221:16]
+  N0219 #6854/6840 struct_typespec ibex_pkg::pmp_cfg_t G[ibex_pmp.sv 114:47:114:57] O[ibex_pkg.sv 433:11:439:4]
+  N0121 #6922/6908 enum_typespec ibex_pkg::priv_lvl_e G[ibex_pmp.sv 132:48:132:58] O[ibex_pkg.sv 216:3:221:16]
+  N0121 #6958/6944 enum_typespec ibex_pkg::pmp_req_e G[ibex_pmp.sv 130:48:130:58] O[ibex_pkg.sv 419:3:423:15]
+  N0466 #7084/7070 assignment  G[91:11:91:35] O[91:11:92:9]
+  N1087 #7085/7071 logic_var fcov_pmp_region_override G[91:11:91:35] O[91:11:92:9]
+  N0518 #7088/7074 cont_assign  G[92:12:92:105] O[92:12:92:93]
+  N0551 #7089/7075 operation  G[92:39:92:105] O[92:27:92:93]

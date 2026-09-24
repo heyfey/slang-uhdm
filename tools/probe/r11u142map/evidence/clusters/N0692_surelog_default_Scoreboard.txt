@@ -1,0 +1,64 @@
+cluster N0692 (r11u128map N0692; OPEN): value|parameter|value:INT->UINT|under:param_assign
+row: surelog/default/Scoreboard  strict=differ:line(195)  records golden=269656 ours=268952
+object: #269301 (golden) / #268601 (ours)  type=parameter name=UVM_SMALL_STRING 
+  golden: |0|INT:959|
+  ours:   |0|UINT:959|
+  walk parents: param_assign < design(work@my_scoreboard_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 269295..269307 ('>' = the object)
+  #269295	3	ref_typespec			UVM_NUM_LINES		0	0	0	0		0			UVM_NUM_LINES	000
+  #269296	4	int_typespec				uvm_globals.svh	408	1	408	30						000
+  #269297	1	param_assign				uvm_globals.svh	409	11	409	48						000
+  #269298	2	constant				uvm_globals.svh	409	30	409	46	959	32	INT:959	7		000
+  #269299	3	ref_typespec					0	0	0	0		0				000
+  #269300	4	int_typespec				uvm_globals.svh	409	1	409	48						000
+> #269301	2	parameter	UVM_SMALL_STRING			uvm_globals.svh	409	11	409	27		0	INT:959			000
+  #269302	3	ref_typespec			UVM_SMALL_STRING		0	0	0	0		0			UVM_SMALL_STRING	000
+  #269303	4	int_typespec				uvm_globals.svh	409	1	409	48						000
+  #269304	1	param_assign				uvm_globals.svh	410	11	410	62						000
+  #269305	2	constant				uvm_globals.svh	410	30	410	60	115199	32	INT:115199	7		000
+  #269306	3	ref_typespec					0	0	0	0		0				000
+  #269307	4	int_typespec				uvm_globals.svh	410	1	410	62						000
+
+--- OURS (B) records 268595..268607 ('>' = the object)
+  #268595	4	int_typespec				uvm_globals.svh	408	1	408	30						000
+  #268596	2	parameter	UVM_NUM_LINES			uvm_globals.svh	408	11	408	24		0	UINT:120			000
+  #268597	1	param_assign				uvm_globals.svh	409	11	409	48						000
+  #268598	2	constant				uvm_globals.svh	409	30	409	46	959	32	INT:959	7		000
+  #268599	3	ref_typespec			uvm_pkg		0	0	0	0		0			uvm_pkg	000
+  #268600	4	int_typespec				uvm_globals.svh	409	1	409	48						000
+> #268601	2	parameter	UVM_SMALL_STRING			uvm_globals.svh	409	11	409	27		0	UINT:959			000
+  #268602	1	param_assign				uvm_globals.svh	410	11	410	62						000
+  #268603	2	constant				uvm_globals.svh	410	30	410	60	115199	32	INT:115199	7		000
+  #268604	3	ref_typespec			uvm_pkg		0	0	0	0		0			uvm_pkg	000
+  #268605	4	int_typespec				uvm_globals.svh	410	1	410	62						000
+  #268606	2	parameter	UVM_LARGE_STRING			uvm_globals.svh	410	11	410	27		0	UINT:115199			000
+  #268607	1	module_inst	work@my_scoreboard_unit_test	work@my_scoreboard_unit_test		testbench.sv	5	1	71	10						000
+
+facets of this row (31015, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

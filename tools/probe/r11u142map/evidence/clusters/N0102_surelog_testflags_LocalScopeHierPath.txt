@@ -1,0 +1,48 @@
+cluster N0102 (r11u128map N0102; OPEN): span|ref_obj|golden-zero|under:hier_path
+row: surelog/testflags/LocalScopeHierPath  strict=differ:fullname(7)  records golden=109 ours=109
+object: #86 (golden) / #86 (ours)  type=ref_obj name=slices 
+  golden: 0:0:0:0
+  ours:   18:19:18:25
+  walk parents: hier_path < foreach_stmt < begin < foreach_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 80..92 ('>' = the object)
+  #80	7	foreach_stmt			pack::uvm_mem_mam::check_reg	dut.sv	18	5	18	12					pack::uvm_mem_mam::check_reg	000
+  #81	8	hier_path			path.slices		0	0	0	0		0			path.slices	000
+  #82	9	ref_obj	path		pack::uvm_mem_mam::check_reg::path	dut.sv	18	14	18	18		0			pack::uvm_mem_mam::check_reg::path	000
+  #83	10	class_var	path		pack::uvm_mem_mam::check_reg::path	dut.sv	17	25	17	29		0			pack::uvm_mem_mam::check_reg::path	000
+  #84	11	ref_typespec			pack::uvm_mem_mam::check_reg::path		0	0	0	0		0			pack::uvm_mem_mam::check_reg::path	000
+  #85	12	class_typespec				dut.sv	17	5	17	24						000
+> #86	9	ref_obj	slices		pack::uvm_mem_mam::check_reg::slices		0	0	0	0		0			pack::uvm_mem_mam::check_reg::slices	000
+  #87	8	ref_var	j		pack::uvm_mem_mam::check_reg::j	dut.sv	18	26	18	27		0			pack::uvm_mem_mam::check_reg::j	000
+  #88	9	ref_typespec			pack::uvm_mem_mam::check_reg::j		0	0	0	0		0			pack::uvm_mem_mam::check_reg::j	000
+  #89	10	unsupported_typespec	j			dut.sv	18	26	18	27						110
+  #90	9	ref_var	j		pack::uvm_mem_mam::check_reg::j	dut.sv	18	26	18	27		0			pack::uvm_mem_mam::check_reg::j	000
+  #91	10	ref_typespec			pack::uvm_mem_mam::check_reg::j		0	0	0	0		0			pack::uvm_mem_mam::check_reg::j	000
+  #92	11	unsupported_typespec	j			dut.sv	18	26	18	27						110
+
+--- OURS (B) records 80..92 ('>' = the object)
+  #80	7	foreach_stmt			pack::uvm_mem_mam::check_reg	dut.sv	18	5	18	12					pack::uvm_mem_mam::check_reg	000
+  #81	8	hier_path			path.slices	dut.sv	18	14	18	25		0			path.slices	000
+  #82	9	ref_obj	path			dut.sv	18	14	18	18		0				000
+  #83	10	class_var	path		pack::uvm_mem_mam::check_reg::path	dut.sv	17	25	17	29		0			pack::uvm_mem_mam::check_reg::path	000
+  #84	11	ref_typespec			pack::uvm_mem_mam::check_reg::path		0	0	0	0		0			pack::uvm_mem_mam::check_reg::path	000
+  #85	12	class_typespec				dut.sv	17	5	17	24						000
+> #86	9	ref_obj	slices		pack::uvm_mem_mam::check_reg::slices	dut.sv	18	19	18	25		0			pack::uvm_mem_mam::check_reg::slices	000
+  #87	8	ref_var	j		pack::uvm_mem_mam::check_reg::j	dut.sv	18	26	18	27		0			pack::uvm_mem_mam::check_reg::j	000
+  #88	9	ref_typespec			pack::uvm_mem_mam::check_reg::j		0	0	0	0		0			pack::uvm_mem_mam::check_reg::j	000
+  #89	10	unsupported_typespec	j			dut.sv	18	26	18	27						110
+  #90	9	ref_var	j		pack::uvm_mem_mam::check_reg::j	dut.sv	18	26	18	27		0			pack::uvm_mem_mam::check_reg::j	000
+  #91	10	ref_typespec			pack::uvm_mem_mam::check_reg::j		0	0	0	0		0			pack::uvm_mem_mam::check_reg::j	000
+  #92	11	unsupported_typespec	j			dut.sv	18	26	18	27						110
+
+facets of this row (9, first 25):
+  N0340 #35/35 class_var  G[pack::uvm_mem_mam::check_reg] O[pack::uvm_mem_mam::check_reg::paths]
+  N0341 #36/36 ref_typespec  G[pack::uvm_mem_mam::check_reg] O[pack::uvm_mem_mam::check_reg::paths]
+  N0041 #52/52 unsupported_typespec paths G[dut.sv 16:11:16:16] O[ 16:11:16:16]
+  N0114 #81/81 hier_path  G[ 0:0:0:0] O[dut.sv 18:14:18:25]
+  N0115 #81/81 hier_path  G[0:0:0:0] O[18:14:18:25]
+  N0018 #82/82 ref_obj path G[pack::uvm_mem_mam::check_reg::path] O[]
+  N0101 #86/86 ref_obj slices G[ 0:0:0:0] O[dut.sv 18:19:18:25]
+  N0102 #86/86 ref_obj slices G[0:0:0:0] O[18:19:18:25]
+  N0278 #101/101 ref_obj j G[pack::uvm_mem_mam::check_reg::path.slices[j].spath::j] O[pack::uvm_mem_mam::check_reg::j]

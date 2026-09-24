@@ -1,0 +1,52 @@
+cluster N0142 (r11u128map N0142; COVERED r11u140 (residue: pass-133 R6, the unpacked-array import clone's array_typespec range (tools/probe/r11u133repro/lhs/l04 carries it first))): struct|golden-only:fewer-copies|range|under:array_typespec
+row: surelog/testflags/DefaultPatternInt  strict=differ:depth(1)  records golden=321 ours=315
+object: #118 (golden) / #-1 (ours)  type=range name= 
+  golden: 7 objs
+  ours:   
+  walk parents: array_typespec < ref_typespec < parameter(V) < param_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 112..124 ('>' = the object)
+  #112	5	array_expr					0	0	0	0		0				000
+  #113	6	constant				dut.sv	4	45	4	46	3	32	UINT:3	9		000
+  #114	6	constant				dut.sv	4	45	4	46	3	32	UINT:3	9		000
+  #115	5	parameter	V		work@top.V	dut.sv	4	25	4	26		1			work@top.V	000
+  #116	6	ref_typespec			work@top.V		0	0	0	0		0			work@top.V	000
+  #117	7	array_typespec				dut.sv	4	12	4	31						000
+> #118	8	range				dut.sv	4	27	4	30						001
+  #119	9	constant					0	0	0	0	0	64	UINT:0	9		001
+  #120	9	operation				dut.sv	4	27	4	30		0				001
+  #121	10	constant				dut.sv	4	27	4	30	2	32	UINT:2	9		001
+  #122	11	ref_typespec			<in>		0	0	0	0		0			work@top.V	001
+  #123	12	int_typespec				dut.sv	2	12	2	24						001
+  #124	10	constant					0	0	0	0		64	INT:1	7		001
+
+--- the holder #117 on the other side: exact-record matches at [118]
+  #115	6	constant				dut.sv	4	45	4	46	3	32	UINT:3	9		000
+  #116	5	parameter	V		work@top.V	dut.sv	4	25	4	26		1			work@top.V	000
+  #117	6	ref_typespec			work@top.V		0	0	0	0		0			work@top.V	000
+> #118	7	array_typespec				dut.sv	4	12	4	31						000
+  #119	8	ref_typespec			<in>		0	0	0	0		0			work@top.V	001
+  #120	9	int_typespec				dut.sv	4	12	4	24						001
+  #121	6	range				dut.sv	4	27	4	30						000
+  #122	7	constant					0	0	0	0	0	64	UINT:0	9		000
+  #123	7	operation				dut.sv	4	27	4	30		0				000
+  #124	8	constant				dut.sv	4	27	4	30	2	32	UINT:2	9		000
+  #125	9	ref_typespec			work@top.V		0	0	0	0		0			work@top.V	000
+  #126	10	int_typespec				dut.sv	2	12	2	24						000
+  #127	8	constant					0	0	0	0		64	INT:1	7		000
+
+facets of this row (13, first 25):
+  N0441 #-1/60 constant  G[] O[1 objs]
+  N0142 #118/-1 range  G[7 objs] O[]
+  N0282 #274/268 function ASSIGN_VADDR G[work@main.top1.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR]
+  N0673 #298/292 for_stmt  G[work@main.top1.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR]
+  N0464 #301/295 int_var i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0465 #302/296 ref_typespec  G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0089 #305/299 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0089 #307/301 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0463 #311/305 begin  G[work@main.top1.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR]
+  N0432 #313/307 bit_select V G[work@main.top1.ASSIGN_VADDR.V] O[work@top.ASSIGN_VADDR.V]
+  N0280 #314/308 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0432 #315/309 bit_select ASSIGN_VADDR G[work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR.ASSIGN_VADDR]
+  N0280 #316/310 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]

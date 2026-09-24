@@ -1,0 +1,52 @@
+cluster N0498 (r11u128map N0498; OPEN): span|class_var|endcol|under:module_inst
+row: surelog/testflags/ClassParamAsParam  strict=differ:endcol(13)  records golden=86 ours=86
+object: #68 (golden) / #68 (ours)  type=class_var name=misc2 
+  golden: 18:32:18:43
+  ours:   18:32:18:37
+  walk parents: module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 62..74 ('>' = the object)
+  #62	11	int_typespec				dut.sv	1	30	1	33						001
+  #63	5	param_assign					14	23	14	24						001
+  #64	6	type_parameter	T		work@config_db::T	dut.sv	14	23	14	24					work@config_db::T	001
+  #65	7	ref_typespec			<in>T		0	0	0	0		0			work@config_db::T	001
+  #66	8	int_typespec				dut.sv	14	25	14	28						001
+  #67	1	module_inst	work@top	work@top		dut.sv	17	1	19	10						000
+> #68	2	class_var	misc2		work@top.misc2	dut.sv	18	32	18	43		0			work@top.misc2	000
+  #69	3	ref_typespec			work@top.misc2		0	0	0	0		0			work@top.misc2	000
+  #70	4	class_typespec	config_db			dut.sv	18	3	18	12						110
+  #71	5	type_parameter	T		<in>config_db.T	dut.sv	14	23	14	24					config_db.T	001
+  #72	6	ref_typespec			<in>T		0	0	0	0		0			config_db.T	001
+  #73	7	class_typespec	object			dut.sv	18	14	18	20						001
+  #74	8	type_parameter	T		<in>object.T	dut.sv	1	28	1	29					config_db.T.object.T	001
+
+--- OURS (B) records 62..74 ('>' = the object)
+  #62	11	int_typespec				dut.sv	1	30	1	33						001
+  #63	5	param_assign				dut.sv	14	23	14	24						001
+  #64	6	type_parameter	T		work@config_db::T	dut.sv	14	23	14	24					work@config_db::T	001
+  #65	7	ref_typespec			<in>T		0	0	0	0		0			work@config_db::T	001
+  #66	8	int_typespec				dut.sv	14	25	14	28						001
+  #67	1	module_inst	work@top	work@top		dut.sv	17	1	19	10						000
+> #68	2	class_var	misc2		work@top.misc2	dut.sv	18	32	18	37		0			work@top.misc2	000
+  #69	3	ref_typespec			work@top.misc2		0	0	0	0		0			work@top.misc2	000
+  #70	4	class_typespec	config_db			dut.sv	18	3	18	31						110
+  #71	5	type_parameter	T		<in>config_db.T	dut.sv	14	23	14	24					config_db.T	001
+  #72	6	ref_typespec			<in>T		0	0	0	0		0			config_db.T	001
+  #73	7	class_typespec	object			dut.sv	18	14	18	30						001
+  #74	8	type_parameter	T		<in>object.T	dut.sv	1	28	1	29					config_db.T.object.T	001
+
+facets of this row (13, first 25):
+  N0051 #8/8 class_typespec object G[18:14:18:20] O[18:14:18:30]
+  N0447 #12/12 param_assign  G[ 1:28:1:29] O[dut.sv 1:28:1:29]
+  N0051 #30/30 class_typespec object G[18:14:18:20] O[18:14:18:30]
+  N0051 #44/44 class_typespec object G[18:14:18:20] O[18:14:18:30]
+  N0051 #52/52 class_typespec config_db G[18:3:18:43] O[18:3:18:31]
+  N0051 #55/55 class_typespec object G[18:14:18:20] O[18:14:18:30]
+  N0447 #59/59 param_assign  G[ 1:28:1:29] O[dut.sv 1:28:1:29]
+  N0447 #63/63 param_assign  G[ 14:23:14:24] O[dut.sv 14:23:14:24]
+  N0498 #68/68 class_var misc2 G[18:32:18:43] O[18:32:18:37]
+  N0051 #70/70 class_typespec config_db G[18:3:18:12] O[18:3:18:31]
+  N0051 #73/73 class_typespec object G[18:14:18:20] O[18:14:18:30]
+  N0447 #77/77 param_assign  G[ 1:28:1:29] O[dut.sv 1:28:1:29]
+  N0447 #81/81 param_assign  G[ 14:23:14:24] O[dut.sv 14:23:14:24]

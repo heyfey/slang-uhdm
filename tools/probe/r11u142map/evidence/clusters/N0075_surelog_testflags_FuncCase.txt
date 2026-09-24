@@ -1,0 +1,39 @@
+cluster N0075 (r11u128map N0075; OPEN): span|enum_typespec|line+col+endline+endcol|under:package
+row: surelog/testflags/FuncCase  strict=differ:line(8)  records golden=231 ours=231
+object: #2 (golden) / #2 (ours)  type=enum_typespec name=fpnew_pkg::opgroup_e 
+  golden: 7:46:7:55
+  ours:   2:1:4:15
+  walk parents: package(fpnew_pkg) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 0..8 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0						000
+  #1	1	package	fpnew_pkg	fpnew_pkg	fpnew_pkg::	dut.sv	1	1	17	11					fpnew_pkg::	000
+> #2	2	enum_typespec	fpnew_pkg::opgroup_e			dut.sv	7	46	7	55						010
+  #3	3	ref_typespec			<in>fpnew_pkg::opgroup_e		0	0	0	0		0			fpnew_pkg::fpnew_pkg::opgroup_e	001
+  #4	4	logic_typespec				dut.sv	2	14	2	25						001
+  #5	5	range				dut.sv	2	20	2	25						001
+  #6	6	constant				dut.sv	2	21	2	22	1	64	UINT:1	9		001
+  #7	6	constant				dut.sv	2	23	2	24	0	64	UINT:0	9		001
+  #8	3	enum_const	ADDMUL			dut.sv	3	5	3	11						001
+
+--- OURS (B) records 0..8 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0						000
+  #1	1	package	fpnew_pkg	fpnew_pkg	fpnew_pkg::	dut.sv	1	1	17	11					fpnew_pkg::	000
+> #2	2	enum_typespec	fpnew_pkg::opgroup_e			dut.sv	2	1	4	15						010
+  #3	3	ref_typespec			<in>fpnew_pkg::opgroup_e		0	0	0	0		0			fpnew_pkg::fpnew_pkg::opgroup_e	001
+  #4	4	logic_typespec				dut.sv	2	14	2	25						001
+  #5	5	range				dut.sv	2	20	2	25						001
+  #6	6	constant				dut.sv	2	21	2	22	1	64	UINT:1	9		001
+  #7	6	constant				dut.sv	2	23	2	24	0	64	UINT:0	9		001
+  #8	3	enum_const	ADDMUL			dut.sv	3	5	3	11						001
+
+facets of this row (8, first 25):
+  N0075 #2/2 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  N0266 #18/18 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  N0075 #54/54 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  N0266 #70/70 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  N0409 #112/112 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  N0266 #130/130 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  N0409 #175/175 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  N0266 #193/193 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
