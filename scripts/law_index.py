@@ -12,12 +12,27 @@ tests it names. One generated document; regenerate it at every landing
     scripts/law_index.py --case PATH     print the laws of one probe case (a dir
                                          under tests/probe/ or tools/probe/)
 
+    scripts/law_index.py --stamp         write a LAW file into every gate case
+                                         dir whose law is determined, so the
+                                         attribution no longer depends on prose
+
+How the map stays current on its own:
+  * a law is named `§ <name>` in the source, in its pass README and in its
+    landing commit message (the commits column comes from `git log`);
+  * every case dir under tests/probe/ carries a LAW file (one law name per
+    line) or names its law in its first line as `// § <name>`; a case moved
+    from tools/probe/ keeps its pass in the path and gets its LAW file from
+    the README attribution when that is determined, else its author names it;
+  * `scripts/law_index.py` is run before every commit that touches a law, a
+    case or a README, and tests/sweep.sh fails when tests/LAWS.md is stale.
+
 Anchors are names, never line numbers: `grep -n '§ <law>' src include` finds
 a law's sites at any commit, and a switch is an environment variable name.
-A case's laws are attributed at one of four levels: `text` (the case's own
-file names the law), `row` (a README line names both the case and a law),
-`heading` (the README section whose heading names a law mentions the case),
-`pass` (only the pass's own laws are known)."""
+A case's laws are attributed at one of five levels: `file` (a LAW file in
+the case dir), `text` (the case's own file names the law), `row` (a README
+line names both the case and a law), `heading` (the README section whose
+heading names a law mentions the case), `pass` (only the pass's own laws are
+known)."""
 import argparse, collections, csv, glob, io, os, re, subprocess, sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -179,7 +194,12 @@ def build():
     for a in sorted(glob.glob('tests/probe/*/**/dut.sv', recursive=True)):
         parts = a.split('/')
         d = os.path.dirname(a)
-        laws, how = attribute(parts[2], parts[-2], read(a))
+        side = os.path.join(d, 'LAW')
+        if os.path.exists(side):
+            laws = {l.strip() for l in read(side).splitlines() if l.strip() and not l.startswith('#')}
+            laws, how = laws, 'file'
+        else:
+            laws, how = attribute(parts[2], parts[-2], read(a))
         cases.append((d, parts[2], 'tests', laws, how))
     for a in sorted(glob.glob('tools/probe/*/**/*.sv', recursive=True)):
         parts = a.split('/')
@@ -207,14 +227,14 @@ def render(ix):
         if not ls:
             unattributed.append((name, tree))
             continue
-        sure = how in ('text', 'row', 'heading') or len(ls) == 1
+        sure = how in ('file', 'text', 'row', 'heading') or len(ls) == 1
         for law in ls:
             law_cases[law].append((name, tree, sure))
     verified_by = collections.defaultdict(list)
     for v, impl in ix['verifies'].items():
         verified_by[impl].append(v)
     n_gate = sum(1 for c in cases if c[2] == 'tests')
-    n_sure = sum(1 for c in cases if c[2] == 'tests' and c[3] and (c[4] in ('text', 'row', 'heading') or len(c[3]) == 1))
+    n_sure = sum(1 for c in cases if c[2] == 'tests' and c[3] and (c[4] in ('file', 'text', 'row', 'heading') or len(c[3]) == 1))
     n_loose = sum(1 for c in cases if c[2] == 'tests' and len(c[3]) > 1 and c[4] == 'pass')
     n_none = sum(1 for c in cases if c[2] == 'tests' and not c[3])
     out = ['# The law index: laws, cases, commits', '',
@@ -229,11 +249,13 @@ def render(ix):
            'prints one entry. Anchors are names, never line numbers: `grep -n \'§ <law>\' src',
            'include` finds a law\'s sites at any commit, and a switch is an environment',
            'variable name.', '',
-           'How a case is tied to its law: its own text names the law, or the pass README names',
-           'the law on the case\'s row or in the heading of the section that mentions it, or the',
-           'pass owns a single law. When a pass owns several laws and its README does not say',
-           'which one a case exercises, the case is listed under each of them with a trailing',
-           '`?`. A verification pass owns the laws of the pass it verifies.', '',
+           'How a case is tied to its law: a LAW file in its dir (one law name per line, the',
+           'durable form; `--stamp` writes it wherever the law is determined), or its own text',
+           'names the law, or the pass README names the law on the case\'s row or in the heading',
+           'of the section that mentions it, or the pass owns a single law. When a pass owns',
+           'several laws and nothing says which one a case exercises, the case is listed under',
+           'each of them with a trailing `?` until its author writes its LAW file. A',
+           'verification pass owns the laws of the pass it verifies.', '',
            f"Laws: {len(laws)}. Cases in the gate: {n_gate}, tied to one law {n_sure}, listed with `?`",
            f"under several {n_loose}, tied to no law {n_none} (listed at the end).",
            f"Laws with a commit on this branch: {sum(1 for l in laws if l in commits)};",
@@ -284,8 +306,20 @@ def main():
     ap.add_argument('--check', action='store_true')
     ap.add_argument('--law')
     ap.add_argument('--case')
+    ap.add_argument('--stamp', action='store_true', help='write LAW files where the law is determined')
     args = ap.parse_args()
     ix = build()
+    if args.stamp:
+        n = 0
+        for path, pdir, tree, ls, how in ix['cases']:
+            if tree != 'tests' or how == 'file' or not ls:
+                continue
+            if how in ('text', 'row', 'heading') or len(ls) == 1:
+                with open(os.path.join(path, 'LAW'), 'w') as f:
+                    f.write('\n'.join(sorted(ls)) + '\n')
+                n += 1
+        print(f'stamped {n} LAW files')
+        return 0
     if args.law:
         law = args.law
         print(f"law {law}\n  pass: {' '.join(ix['primary'].get(law, [])) or '-'}"

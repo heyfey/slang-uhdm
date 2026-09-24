@@ -35,16 +35,28 @@ such a copy, and is outside the strict contract, see GOLDEN_EQUIVALENCE.md.
 
 Every exporter rule is a law, `§ name` with the name ending in its pass
 number, named in the source at its sites, in the pass README under
-`tools/probe/<pass>/` and in the landing commit. `tests/LAWS.md` is the one
-place to look: it maps every law back to its pass, its commits on this
-branch, its source files and switches, the probe cases that exercise it
-under `tests/probe/` and `tools/probe/`, and the corpus tests it names, and
-per pass lists the cases whose law the README or the case itself names.
-`scripts/law_index.py` generates it (`--law <name>` and `--case <dir>` print
-one record), and the sweep fails when it is stale, so every landing
-regenerates it. Anchors are names, never line numbers: `grep -n '§ <law>'
-src include` finds a law's sites at any commit, and a switch is an
-environment variable name.
+`tools/probe/<pass>/` and in the landing commit. `tests/LAWS.md` records the
+map between laws, cases and commits: one entry per law with its commits,
+its pass, its switches, its source files, its corpus tests, and its cases
+by name in the gate (`tests/probe/`) and in the evidence (`tools/probe/`).
+`scripts/law_index.py` generates it (`--law <name>` and `--case <dir>`
+print one entry), and the sweep fails when it is stale.
+
+How the map stays current while fixes land and cases move:
+
+- Name the law in the commit message as `§ name`; the commits column is
+  read from `git log`.
+- Give every case dir under `tests/probe/` a `LAW` file (one law name per
+  line), or name the law in the case's first line as `// § name`. A case
+  moved from `tools/probe/` keeps its pass in its path; give it its `LAW`
+  file when you move it. `scripts/law_index.py --stamp` writes the file
+  wherever the pass README already determines the law.
+- Run `python3 scripts/law_index.py` before committing a change to a law,
+  a case or a README, and commit `tests/LAWS.md` with it.
+
+Anchors are names, never line numbers: `grep -n '§ <law>' src include`
+finds a law's sites at any commit, and a switch is an environment variable
+name.
 
 ## Setup
 
