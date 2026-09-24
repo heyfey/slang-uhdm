@@ -109,24 +109,41 @@ def gate_count(path):
 
 
 def yosys_lane(name, lane, db, top, formal, work, timeout):
-    """Run uhdm2rtlil's flow on one database. Returns (status, gates, files)."""
+    """Run uhdm2rtlil's flow on one database. Returns (status, gates, files).
+
+    The plugin iterates pointer-keyed maps, so its output can depend on heap
+    layout, which the LENGTH of the paths it sees can shift (measured: a
+    verdict flipped with the work directory's name length alone). Yosys
+    therefore runs in a scratch directory whose path length is fixed, on a
+    copy of the database named in.uhdm, writing fixed file names; the results
+    are then moved into the work directory."""
     d = os.path.join(work, lane)
     shutil.rmtree(d, ignore_errors=True)
     os.makedirs(d)
+    run = '/tmp/u2rds-' + hashlib.sha1(f'{name}/{lane}'.encode()).hexdigest()[:12]
+    shutil.rmtree(run, ignore_errors=True)
+    os.makedirs(run)
+    shutil.copy(db, os.path.join(run, 'in.uhdm'))
     hier = f'-top {top}' if top else '-auto-top'
     flag = '-formal ' if formal else ''
-    script = (f'plugin -i {PLUGIN}\nread_uhdm {flag}{db}\nwrite_rtlil {name}_nohier.il\n'
-              f'hierarchy -check {hier}\nproc\nopt\nwrite_rtlil {name}.il\n'
-              f'synth {hier}\nwrite_verilog -noexpr {name}_synth.v\n')
-    with open(os.path.join(d, 'run.ys'), 'w') as f:
+    script = (f'plugin -i {PLUGIN}\nread_uhdm {flag}in.uhdm\nwrite_rtlil nohier.il\n'
+              f'hierarchy -check {hier}\nproc\nopt\nwrite_rtlil post.il\n'
+              f'synth {hier}\nwrite_verilog -noexpr synth.v\n')
+    with open(os.path.join(run, 'run.ys'), 'w') as f:
         f.write(script)
     files = {k: os.path.join(d, f'{name}{s}') for k, s in
              (('nohier', '_nohier.il'), ('il', '.il'), ('synth', '_synth.v'))}
     try:
-        r = subprocess.run([YOSYS, '-q', 'run.ys'], cwd=d, capture_output=True, text=True,
+        r = subprocess.run([YOSYS, '-q', 'run.ys'], cwd=run, capture_output=True, text=True,
                            timeout=timeout)
     except subprocess.TimeoutExpired:
+        shutil.rmtree(run, ignore_errors=True)
         return 'TIMEOUT', 0, files
+    for src, key in (('nohier.il', 'nohier'), ('post.il', 'il'), ('synth.v', 'synth')):
+        if os.path.isfile(os.path.join(run, src)):
+            shutil.move(os.path.join(run, src), files[key])
+    shutil.copy(os.path.join(run, 'run.ys'), os.path.join(d, 'run.ys'))
+    shutil.rmtree(run, ignore_errors=True)
     with open(os.path.join(d, 'yosys.log'), 'w') as f:
         f.write(r.stdout + r.stderr)
     if r.returncode < 0 or r.returncode >= 128:
@@ -208,7 +225,7 @@ def one(name, dirpath, parts, workroot, timeout):
         row.update(verdict='SLANG_REJECT')
         return row
     ss, sg, sf = yosys_lane(name, 'surelog', sdb, top, formal, work, timeout)
-    gs, gg, gf = yosys_lane(name, 'slang', gdb, top, formal, work, timeout)
+    gs, gg, gf = yosys_lane(name, 'slanguh', gdb, top, formal, work, timeout)
     row.update(surelog_status=ss, slang_status=gs, surelog_gates=sg, slang_gates=gg)
     if ss != gs:
         row.update(verdict='STATUS_DIFF')

@@ -23,7 +23,7 @@ AnonymousEnum,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 AnonymousUnion,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 anyconst_attr,IDENTICAL,OK,OK,32,32,,
 anyseq_attr,IDENTICAL,OK,OK,32,32,,
-arb_idx_cast,EQUIVALENT,OK,OK,11,11,nohier il synth,✅ Formal equivalence check PASSED for /tmp/ds_full/arb_idx_cast/equiv/arb_idx_cast
+arb_idx_cast,EQUIVALENT,OK,OK,11,11,nohier il synth,✅ Formal equivalence check PASSED for /tmp/ds_rebase/arb_idx_cast/equiv/arb_idx_cast
 ArithShiftTernary,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 array-copy,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 array_assign,IDENTICAL,NO_GATES,NO_GATES,0,0,,
@@ -87,9 +87,9 @@ blocking_temp_select,IDENTICAL,OK,OK,47,47,,
 blocklocal_struct_width,IDENTICAL,OK,OK,8,8,,
 blockrom,IDENTICAL,OK,OK,21,21,,
 Break,IDENTICAL,NO_GATES,NO_GATES,0,0,,
-BreakContinue,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 2 common constant assignments match
+BreakContinue,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 BreakContinueWhile,IDENTICAL,NO_GATES,NO_GATES,0,0,,
-BreakNested,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 2 common constant assignments match
+BreakNested,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 BreakWhile,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 carryadd,IDENTICAL,OK,OK,40,40,,
 case_default_first,IDENTICAL,OK,OK,57,57,,
@@ -114,7 +114,7 @@ CastToSumOfConstants,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 CastToSumWithParameterIn2InstancesOfSubmodule,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 CastToSumWithParameterInSubmodule,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 CastWidthFromPackage,IDENTICAL,NO_GATES,NO_GATES,0,0,,
-cdc_static_basic,EQUIVALENT,OK,OK,4,4,nohier il synth,✅ Formal equivalence check PASSED for /tmp/ds_full/cdc_static_basic/equiv/cdc_static_basic
+cdc_static_basic,EQUIVALENT,OK,OK,4,4,nohier il synth,✅ Formal equivalence check PASSED for /tmp/ds_rebase/cdc_static_basic/equiv/cdc_static_basic
 CellNamedLikeModule,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 cfg_func_width_loop,IDENTICAL,OK,OK,10,10,,
 clk2fflogic_effects,IDENTICAL,OK,OK,61,61,,
@@ -136,7 +136,7 @@ comb_loop_local_latch,IDENTICAL,OK,OK,91,91,,
 comb_partial_struct_write,IDENTICAL,OK,OK,1,1,,
 comb_partsel_after_struct_assign,IDENTICAL,OK,OK,262,262,,
 comb_reduction_accumulator,IDENTICAL,OK,OK,28,28,,
-compound_assignments,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 12 common constant assignments match
+compound_assignments,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 concat_lhs_signext,IDENTICAL,OK,OK,20,20,,
 ConcatWidth,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 conditional_if,SLANG_REJECT,,,,,,
@@ -151,7 +151,7 @@ const_func_shadow,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 constmsk_test,IDENTICAL,OK,OK,1,1,,
 ConstSizes,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 Continue,IDENTICAL,NO_GATES,NO_GATES,0,0,,
-ContinueNested,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 2 common constant assignments match
+ContinueNested,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 ContinueWhile,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 counter,IDENTICAL,OK,OK,24,24,,
 counter_dual_xbranch,IDENTICAL,OK,OK,388,388,,
@@ -303,7 +303,7 @@ hierdefparam,IDENTICAL,OK,OK,26,26,,
 ibex_alu,IDENTICAL,OK,OK,1028,1028,,
 ibex_branch_predict,IDENTICAL,OK,OK,248,248,,
 ibex_compressed_decoder,IDENTICAL,OK,OK,1166,1166,,
-ibex_controller,EQUIVALENT,OK,OK,565,565,nohier il,✅ Formal equivalence check PASSED for /tmp/ds_full/ibex_controller/equiv/ibex_controller
+ibex_controller,EQUIVALENT,OK,OK,565,565,nohier il,✅ Formal equivalence check PASSED for /tmp/ds_rebase/ibex_controller/equiv/ibex_controller
 ibex_core,SLANG_REJECT,,,,,,
 ibex_counter,IDENTICAL,OK,OK,129,129,,
 ibex_cs_registers,SLANG_REJECT,,,,,,
@@ -331,7 +331,7 @@ ibex_wb_stage,IDENTICAL,OK,OK,101,101,,
 iface_arr_struct_field_partsel,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 iface_arr_struct_whole_field,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 iface_array_count,IDENTICAL,NO_GATES,NO_GATES,0,0,,
-iface_array_elem_cfg_param,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/ds_full/iface_array_elem_cfg_param/equiv/iface_array_el
+iface_array_elem_cfg_param,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/ds_rebase/iface_array_elem_cfg_param/equiv/iface_array_
 iface_array_internal_assign,IDENTICAL,OK,OK,2,2,,
 iface_array_modport_drive,IDENTICAL,READ_FAIL,READ_FAIL,0,0,,both READ_FAIL
 iface_array_port,IDENTICAL,NO_GATES,NO_GATES,0,0,,
@@ -369,7 +369,7 @@ iface_sig_in_child_port,IDENTICAL,OK,OK,2,2,,
 iface_struct_field,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 iface_struct_field_bitselect,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 iface_struct_field_param_width,IDENTICAL,NO_GATES,NO_GATES,0,0,,
-iface_struct_field_partsel,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 3 common constant assignments match
+iface_struct_field_partsel,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 iface_struct_field_slice_read,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 iface_unpacked_signal,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 iface_unpacked_struct_array,IDENTICAL,OK,OK,16,16,,
@@ -613,7 +613,7 @@ PatternParameterInSubmodule,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 PatternStruct,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 PatternType,SLANG_REJECT,,,,,,
 pico_count_cycle,IDENTICAL,OK,OK,380,380,,
-pkg_localparam_partsel,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/ds_full/pkg_localparam_partsel/equiv/pkg_localparam_par
+pkg_localparam_partsel,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/ds_rebase/pkg_localparam_partsel/equiv/pkg_localparam_p
 pkg_nested_struct_param_width,IDENTICAL,OK,OK,66,66,,
 PkgParamAsFunctionArg,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 port_chained_type_param,IDENTICAL,NO_GATES,NO_GATES,0,0,,
@@ -649,7 +649,7 @@ ReturnEnumArray,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 ReturnFunctionCall,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 rmw_comb_var,IDENTICAL,OK,OK,28,28,,
 rotate,IDENTICAL,OK,OK,166,166,,
-rp32_r5p_alu,EQUIVALENT,OK,OK,1332,1332,nohier,✅ Formal equivalence check PASSED for /tmp/ds_full/rp32_r5p_alu/equiv/rp32_r5p_alu
+rp32_r5p_alu,EQUIVALENT,OK,OK,1332,1332,nohier,✅ Formal equivalence check PASSED for /tmp/ds_rebase/rp32_r5p_alu/equiv/rp32_r5p_alu
 rp32_r5p_bru,IDENTICAL,OK,OK,174,174,,
 rp32_r5p_csr,SLANG_REJECT,,,,,,
 rp32_r5p_degu,SLANG_REJECT,,,,,,
@@ -790,7 +790,7 @@ TaskReturn,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 tern_fill_literal,IDENTICAL,OK,OK,5,5,,
 ternary_not_cond,IDENTICAL,OK,OK,95,95,,
 top_module_type_param,IDENTICAL,OK,OK,7,7,,
-type_param_override_elem_sel,EQUIVALENT,OK,OK,3,3,nohier,✅ Formal equivalence check PASSED for /tmp/ds_full/type_param_override_elem_sel/equiv/type_param_override_elem_sel
+type_param_override_elem_sel,EQUIVALENT,OK,OK,3,3,nohier,✅ Formal equivalence check PASSED for /tmp/ds_rebase/type_param_override_elem_sel/equiv/type_param_override_elem_sel
 type_param_packed_dim,IDENTICAL,OK,OK,9,9,,
 type_param_unpacked_port,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 typed_named_pattern,IDENTICAL,NO_GATES,NO_GATES,0,0,,
