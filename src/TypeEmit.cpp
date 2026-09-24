@@ -13,6 +13,16 @@
 
 namespace slang_uhdm {
 
+// § spanCopyCarriesFile125 — the TypeEmit twin of ModuleEmit.cpp's helper
+// (see the law there).  Switch: R11U125_SPANFILE_OFF (and R11U125_OFF).
+static void cpFile125(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
+    static const bool off = getenv("R11U125_OFF") != nullptr ||
+                            getenv("R11U125_SPANFILE_OFF") != nullptr;
+    if (off || !dst || !src || !dst->VpiFile().empty() || src->VpiFile().empty())
+        return;
+    dst->VpiFile(src->VpiFile());
+}
+
 // Defined below (near the array_var builders): the bare typespec CLASS a
 // type maps to (int -> int_typespec, bit -> bit_typespec, ...), with no span
 // and no flags. Forward-declared because makeTypeParamDefaultTs needs it.
@@ -13754,6 +13764,7 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                     sit9 != typedefTs.end()) {
                     auto* sh9 = sit9->second;
                     scl->VpiLineNo(sh9->VpiLineNo());
+                    cpFile125(scl, sh9);
                     scl->VpiColumnNo(sh9->VpiColumnNo());
                     scl->VpiEndLineNo(sh9->VpiEndLineNo());
                     scl->VpiEndColumnNo(sh9->VpiEndColumnNo());
@@ -14546,6 +14557,7 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                     sit9 != typedefTs.end()) {
                     auto* sh9 = sit9->second;
                     scl->VpiLineNo(sh9->VpiLineNo());
+                    cpFile125(scl, sh9);
                     scl->VpiColumnNo(sh9->VpiColumnNo());
                     scl->VpiEndLineNo(sh9->VpiEndLineNo());
                     scl->VpiEndColumnNo(sh9->VpiEndColumnNo());
@@ -14944,6 +14956,7 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
                                         std::string(ela.name));
                 cl0->VpiName(ela.name);
                 cl0->VpiLineNo(ets0->VpiLineNo());
+                cpFile125(cl0, ets0);
                 cl0->VpiColumnNo(ets0->VpiColumnNo());
                 cl0->VpiEndLineNo(ets0->VpiEndLineNo());
                 cl0->VpiEndColumnNo(ets0->VpiEndColumnNo());

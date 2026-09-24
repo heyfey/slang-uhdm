@@ -2,7 +2,7 @@ name,mode,status,detail,blocked_by,strict
 1DUnpackedArray,default,CMP_EQUAL,,,equal
 2DeclarationsInFor,default,CMP_EQUAL,,,equal
 2DFunctionArg,default,CMP_EQUAL,,,equal
-2DParameterOfInstance,default,CMP_EQUAL,,,differ:value(5)
+2DParameterOfInstance,default,CMP_EQUAL,,,differ:value(4)
 2DUnpackedArray,default,CMP_EQUAL,,,equal
 2DUnpackedFunctionArgument,default,CMP_EQUAL,,,equal
 add_sub_bind_if,default,CMP_EQUAL,,,equal
@@ -17,7 +17,7 @@ AluOps,default,CMP_EQUAL,,,equal
 always01,default,CMP_EQUAL,,,equal
 always02,default,CMP_EQUAL,,,equal
 always03,default,CMP_EQUAL,,,equal
-anon_struct_packed_dim,default,CMP_EQUAL,,,differ:fullname(32)
+anon_struct_packed_dim,default,CMP_EQUAL,,,differ:fullname(10)
 AnonStructs,default,CMP_EQUAL,,,equal
 AnonymousEnum,default,CMP_EQUAL,,,differ:file(6)
 AnonymousUnion,default,CMP_EQUAL,,,equal
@@ -42,9 +42,9 @@ asicworld_clk_div_45,default,CMP_EQUAL,,,equal
 asicworld_serial_crc,default,CMP_EQUAL,,,equal
 assert_wide_const_cond,default,CMP_EQUAL,,,differ:endcol(1)
 AssignArraySelPlus,default,CMP_EQUAL,,,equal
-AssignBitsCallToSubmoduleParameter,default,CMP_EQUAL,,,differ:fullname(3)
+AssignBitsCallToSubmoduleParameter,default,CMP_EQUAL,,,differ:fullname(2)
 AssignBitSelectPartSelect,default,CMP_EQUAL,,,equal
-AssignGeneratedWireInAlways,default,CMP_EQUAL,,,differ:file(1)
+AssignGeneratedWireInAlways,default,CMP_EQUAL,,,equal
 assignment-pattern,default,CMP_EQUAL,,,equal
 AssignmentPattern,default,CMP_EQUAL,,,equal
 AssignmentPatternArrayPort,default,CMP_EQUAL,,,equal
@@ -60,7 +60,7 @@ AssignToUnpackedUnionFieldAndReadOtherField,default,CMP_EQUAL,,,equal
 AssignTypedefedFunctionCall,default,CMP_EQUAL,,,equal
 asym_ram_sdp_read_wider,default,CMP_EQUAL,,,equal
 asym_ram_sdp_write_wider,default,CMP_EQUAL,,,equal
-async_reset_partsel,default,CMP_EQUAL,,,differ:file(4)
+async_reset_partsel,default,CMP_EQUAL,,,equal
 bind_hier,default,CMP_EQUAL,,,equal
 bind_toplevel,default,CMP_EQUAL,,,equal
 BindModule,default,CMP_EQUAL,,,equal
@@ -77,9 +77,9 @@ BitsCallOnVar,default,CMP_EQUAL,,,equal
 BitSelect,default,CMP_EQUAL,,,equal
 BitSelect2ndBitOfPattern,default,CMP_EQUAL,,,equal
 BitSelectOfParameterPassedToSubmodule,default,CMP_EQUAL,,,differ:depth(1)
-BitSelectOfParameterPassedToSubmoduleInGenFor,default,CMP_EQUAL,,,differ:file(4)
-BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule,default,CMP_EQUAL,,,differ:file(4)
-BitSelectPartSelectInFunction,default,CMP_EQUAL,,,differ:file(1)
+BitSelectOfParameterPassedToSubmoduleInGenFor,default,CMP_EQUAL,,,differ:file(3)
+BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule,default,CMP_EQUAL,,,differ:file(3)
+BitSelectPartSelectInFunction,default,CMP_EQUAL,,,equal
 bitwise_operations,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/bitwise_operations/dut.sv:9:26: error: expected ';',,
 bitwise_operations_reverted_range,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/bitwise_operations_reverted_range/dut.sv:9:26: error: expected ';',,
 blocking_temp_ff,default,CMP_EQUAL,,,equal
@@ -91,25 +91,25 @@ BreakContinue,default,CMP_EQUAL,,,equal
 BreakContinueWhile,default,CMP_EQUAL,,,equal
 BreakNested,default,CMP_EQUAL,,,equal
 BreakWhile,default,CMP_EQUAL,,,equal
-carryadd,default,CMP_EQUAL,,,differ:file(8)
+carryadd,default,CMP_EQUAL,,,equal
 case_default_first,default,CMP_EQUAL,,,equal
 case_expr_const,default,CMP_EQUAL,,,equal
 case_expr_extend,default,CMP_EQUAL,,,equal
 case_expr_non_const,default,CMP_EQUAL,,,equal
 case_expr_query,default,CMP_EQUAL,,,equal
 CaseInside,default,CMP_EQUAL,,,equal
-CaseWithGeneratedWire,default,CMP_EQUAL,,,differ:file(1)
+CaseWithGeneratedWire,default,CMP_EQUAL,,,equal
 Casezx,default,CMP_EQUAL,,,equal
 CastClog2,default,CMP_EQUAL,,,equal
 CastClog2ToMinimalSizeOfParamValue,default,CMP_EQUAL,,,equal
 CastClog2ToMinimalSizeOfParamValueFromCommandLine,default,CMP_EQUAL,,,equal
-CastExpression,default,CMP_EQUAL,,,differ:file(1)
+CastExpression,default,CMP_EQUAL,,,equal
 CastInFunctionInGenBlock,default,CMP_EQUAL,,,equal
 CastInFunctionToParameterWidth,default,CMP_EQUAL,,,equal
-CastLogic,default,CMP_EQUAL,,,differ:file(1)
-CastSize,default,CMP_EQUAL,,,differ:file(1)
+CastLogic,default,CMP_EQUAL,,,equal
+CastSize,default,CMP_EQUAL,,,equal
 CastStruct,default,CMP_EQUAL,,,equal
-CastStructArray,default,CMP_EQUAL,,,differ:file(5)
+CastStructArray,default,CMP_EQUAL,,,equal
 CastToSumOfConstants,default,CMP_EQUAL,,,equal
 CastToSumWithParameterIn2InstancesOfSubmodule,default,CMP_EQUAL,,,equal
 CastToSumWithParameterInSubmodule,default,CMP_EQUAL,,,equal
@@ -145,7 +145,7 @@ const_arg_loop,default,CMP_EQUAL,,,equal
 const_ashift,default,CMP_EQUAL,,,equal
 const_cast_signext,default,CMP_EQUAL,,,differ:line(15)
 const_fold_func,default,CMP_EQUAL,,,equal
-const_func,default,CMP_EQUAL,,,differ:endcol(290)
+const_func,default,CMP_EQUAL,,,differ:endcol(2)
 const_func_block_var,default,CMP_EQUAL,,,differ:file(2)
 const_func_shadow,default,CMP_EQUAL,,,equal
 constmsk_test,default,CMP_EQUAL,,,equal
@@ -175,7 +175,7 @@ Disable,default,CMP_EQUAL,,,differ:file(1)
 display_lm,default,CMP_EQUAL,,,equal
 DisplayWithBinFormatSpecifier,default,CMP_EQUAL,,,equal
 DisplayWithHexFormatSpecifier,default,CMP_EQUAL,,,equal
-DivisionOfSize,default,CMP_EQUAL,,,differ:value(4)
+DivisionOfSize,default,CMP_EQUAL,,,differ:value(3)
 DotMultirange,default,CMP_EQUAL,,,equal
 DotRange,default,CMP_EQUAL,,,equal
 DpiChandle,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/DpiChandle/dut.sv:12:11: error: invalid operands to binary expression ('chandle' and 'int'),,
@@ -187,9 +187,9 @@ EmptyTask,default,CMP_EQUAL,,,equal
 enum_simple,default,CMP_EQUAL,,,equal
 enum_values,default,CMP_EQUAL,,,equal
 EnumArray,default,CMP_EQUAL,,,differ:file(2)
-EnumArrayListedElements,default,CMP_EQUAL,,,differ:file(3)
+EnumArrayListedElements,default,CMP_EQUAL,,,differ:file(2)
 EnumBases,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/EnumBases/dut.sv:10:40: error: expression width of 2 does not exactly match declared enum type width ,,
-EnumConcat,default,CMP_EQUAL,,,differ:file(4)
+EnumConcat,default,CMP_EQUAL,,,equal
 EnumConcatenatedConst,default,CMP_EQUAL,,,equal
 EnumConstX,default,CMP_EQUAL,,,equal
 EnumFirst,default,CMP_EQUAL,,,equal
@@ -222,7 +222,7 @@ for_decl_shadow,default,CMP_EQUAL,,,equal
 for_loop_nonconst_bound,default,CMP_EQUAL,,,equal
 Forever,default,CMP_EQUAL,,,equal
 forgen01,default,CMP_EQUAL,,,equal
-forgen02,default,CMP_EQUAL,,,differ:file(8)
+forgen02,default,CMP_EQUAL,,,equal
 Fork,default,CMP_EQUAL,,,equal
 ForkJoinTypes,default,CMP_EQUAL,,,equal
 forloops,default,CMP_EQUAL,,,equal
@@ -244,7 +244,7 @@ func_port_implied_dir,default,CMP_EQUAL,,,equal
 func_struct_repro,default,CMP_EQUAL,,,equal
 func_tern_hint,default,CMP_EQUAL,,,equal
 func_typename_ret,default,CMP_EQUAL,,,differ:name(2)
-func_upto,default,CMP_EQUAL,,,differ:file(2477)
+func_upto,default,CMP_EQUAL,,,equal
 func_width_scope,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/func_width_scope/dut.sv:21:31: error: cannot call a function declared inside a generate block in a co,,
 Function2Returns,default,CMP_EQUAL,,,equal
 function_arith,default,CMP_EQUAL,,,equal
@@ -260,46 +260,46 @@ FunctionExportDPI,default,CMP_EQUAL,,,equal
 FunctionOnDesignLevel,default,CMP_EQUAL,,,equal
 FunctionOutputArgument,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/FunctionOutputArgument/dut.sv:3:14: error: cannot refer to automatic variable 'x' from non-procedural,,
 FunctionParam,default,CMP_EQUAL,,,differ:type(1)
-FunctionReturnEnum,default,CMP_EQUAL,,,differ:file(1)
+FunctionReturnEnum,default,CMP_EQUAL,,,equal
 FunctionWireAssignmentOnDeclaration,default,CMP_EQUAL,,,equal
 FunctionWithoutReturn,default,CMP_EQUAL,,,equal
 FunctionWithOverriddenParameter,default,CMP_EQUAL,,,equal
-gen_scope_numports,default,CMP_EQUAL,,,differ:fullname(23)
-gen_scope_typaram,default,CMP_EQUAL,,,differ:file(4)
+gen_scope_numports,default,CMP_EQUAL,,,differ:fullname(21)
+gen_scope_typaram,default,CMP_EQUAL,,,differ:endcol(3)
 gen_struct_access,default,CMP_EQUAL,,,equal
-gen_test1,default,CMP_EQUAL,,,differ:file(56)
+gen_test1,default,CMP_EQUAL,,,equal
 gen_test2,default,CMP_EQUAL,,,equal
-gen_test3,default,CMP_EQUAL,,,differ:file(4)
-gen_test4,default,CMP_EQUAL,,,differ:file(3)
-gen_test5,default,CMP_EQUAL,,,differ:file(1710)
-gen_test6,default,CMP_EQUAL,,,differ:file(4)
-gen_test7,default,CMP_EQUAL,,,differ:file(3)
+gen_test3,default,CMP_EQUAL,,,equal
+gen_test4,default,CMP_EQUAL,,,equal
+gen_test5,default,CMP_EQUAL,,,equal
+gen_test6,default,CMP_EQUAL,,,equal
+gen_test7,default,CMP_EQUAL,,,equal
 gen_test8,default,CMP_EQUAL,,,equal
 gen_test9,default,CMP_EQUAL,,,equal
 genblk_order,default,CMP_EQUAL,,,equal
 generate_scope_implicit_net,default,CMP_EQUAL,,,equal
-generate_test,default,CMP_EQUAL,,,differ:file(4)
+generate_test,default,CMP_EQUAL,,,equal
 GenIfInside,default,CMP_EQUAL,,,equal
 genscope_async_ff_signal,default,CMP_EQUAL,,,equal
-genscope_cells,default,CMP_EQUAL,,,differ:file(2)
+genscope_cells,default,CMP_EQUAL,,,equal
 genscope_module_ctx_reset,default,CMP_EQUAL,,,differ:fullname(1)
 genscope_outer_reg_inner_ff,default,CMP_EQUAL,,,equal
-genscope_struct_member,default,CMP_EQUAL,,,differ:file(1)
+genscope_struct_member,default,CMP_EQUAL,,,equal
 GenScopeFunction,default,CMP_EQUAL,,,equal
-genvar_async_reset_array,default,CMP_EQUAL,,,differ:file(2)
-genvar_iface_struct,default,CMP_EQUAL,,,differ:endcol(5)
+genvar_async_reset_array,default,CMP_EQUAL,,,equal
+genvar_iface_struct,default,CMP_EQUAL,,,differ:endcol(3)
 genvar_loop_decl_1,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/genvar_loop_decl_1/dut.sv:8:27: error: cannot reference unnamed generate block via external name 'gen,,
-genvar_loop_decl_2,default,CMP_EQUAL,,,differ:file(2)
-genvar_loop_decl_3,default,CMP_EQUAL,,,differ:file(4)
-genvar_pow_index,default,CMP_EQUAL,,,differ:file(10)
+genvar_loop_decl_2,default,CMP_EQUAL,,,equal
+genvar_loop_decl_3,default,CMP_EQUAL,,,equal
+genvar_pow_index,default,CMP_EQUAL,,,equal
 GetC,default,CMP_EQUAL,,,equal
 gpr_genscope_repro,default,CMP_EQUAL,,,equal
 hana_test_intermout,default,CMP_EQUAL,,,equal
 hana_test_parse2synthtrans,default,CMP_EQUAL,,,equal
 hello-uvm,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/hello-uvm/dut.sv:4:8: error: unknown package 'uvm_pkg',,
-hier_path,default,CMP_EQUAL,,,differ:file(146)
+hier_path,default,CMP_EQUAL,,,equal
 hier_undriven_port,default,CMP_EQUAL,,,equal
-hierdefparam,default,CMP_EQUAL,,,differ:file(2)
+hierdefparam,default,CMP_EQUAL,,,equal
 ibex_alu,default,CMP_EQUAL,,,differ:fullname(28)
 ibex_branch_predict,default,CMP_EQUAL,,,differ:fullname(100)
 ibex_compressed_decoder,default,CMP_EQUAL,,,differ:fullname(29)
@@ -307,21 +307,21 @@ ibex_controller,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex
 ibex_core,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_core.sv:429:3: error: unknown module 'ibex_if_stage',,
 ibex_counter,default,CMP_EQUAL,,,differ:fullname(1)
 ibex_cs_registers,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_cs_registers.sv:907:3: error: unknown module 'ibex_csr',,
-ibex_csr,default,CMP_EQUAL,,,differ:file(16)
+ibex_csr,default,CMP_EQUAL,,,differ:line(12)
 ibex_decoder,default,CMP_EQUAL,,,differ:fullname(30)
 ibex_dummy_instr,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_dummy_instr.sv:76:3: error: unknown module 'prim_lfsr',,
 ibex_ex_block,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_ex_block.sv:116:3: error: unknown module 'ibex_alu',,
-ibex_fetch_fifo,default,CMP_EQUAL,,,differ:file(37)
+ibex_fetch_fifo,default,CMP_EQUAL,,,differ:line(24)
 ibex_icache,default,CMP_EQUAL,,,differ:fullname(28)
 ibex_id_stage,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_id_stage.sv:437:3: error: unknown module 'ibex_decoder',,
 ibex_if_stage,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_if_stage.sv:325:5: error: unknown module 'ibex_prefetch_buffer',,
-ibex_load_store_unit,default,CMP_EQUAL,,,differ:endline(302)
+ibex_load_store_unit,default,CMP_EQUAL,,,differ:endline(240)
 ibex_lockstep,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
 ibex_multdiv_fast,default,CMP_EQUAL,,,differ:fullname(28)
 ibex_multdiv_slow,default,CMP_EQUAL,,,differ:fullname(100)
 ibex_pmp,default,CMP_EQUAL,,,differ:fullname(31)
 ibex_prefetch_buffer,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
-ibex_register_file_ff,default,CMP_EQUAL,,,differ:file(63)
+ibex_register_file_ff,default,CMP_EQUAL,,,differ:fullname(32)
 ibex_register_file_fpga,default,CMP_EQUAL,,,equal
 ibex_register_file_latch,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_register_file_latch.sv:71:3: error: unknown module 'prim_clock_gating',,
 ibex_top,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_top.sv:68:10: error: unknown class or package 'prim_ram_1p_pkg',,
@@ -331,21 +331,21 @@ ibex_wb_stage,default,CMP_EQUAL,,,differ:fullname(27)
 iface_arr_struct_field_partsel,default,CMP_EQUAL,,,differ:fullname(4)
 iface_arr_struct_whole_field,default,CMP_EQUAL,,,equal
 iface_array_count,default,CMP_EQUAL,,,equal
-iface_array_elem_cfg_param,default,CMP_EQUAL,,,differ:col(2)
+iface_array_elem_cfg_param,default,CMP_EQUAL,,,differ:col(1)
 iface_array_internal_assign,default,CMP_EQUAL,,,equal
-iface_array_modport_drive,default,CMP_EQUAL,,,differ:endcol(4)
+iface_array_modport_drive,default,CMP_EQUAL,,,differ:endcol(2)
 iface_array_port,default,CMP_EQUAL,,,equal
 iface_array_struct,default,CMP_EQUAL,,,equal
 iface_array_struct_field,default,CMP_EQUAL,,,equal
 iface_array_struct_whole,default,CMP_EQUAL,,,equal
 iface_cfg_mem,default,CMP_EQUAL,,,differ:col(6)
-iface_cfg_param_def_pass,default,CMP_EQUAL,,,differ:col(3)
-iface_ff_genvar_partsel,default,CMP_EQUAL,,,differ:fullname(6)
+iface_cfg_param_def_pass,default,CMP_EQUAL,,,differ:col(2)
+iface_ff_genvar_partsel,default,CMP_EQUAL,,,differ:fullname(2)
 iface_field_assign,default,CMP_EQUAL,,,equal
 iface_field_assign_nocol,default,CMP_EQUAL,,,equal
 iface_field_partsel,default,CMP_EQUAL,,,equal
-iface_gen_delay,default,CMP_EQUAL,,,differ:file(2)
-iface_gen_delay_struct,default,CMP_EQUAL,,,differ:file(2)
+iface_gen_delay,default,CMP_EQUAL,,,equal
+iface_gen_delay_struct,default,CMP_EQUAL,,,equal
 iface_internal_assign,default,CMP_EQUAL,,,equal
 iface_local_in_sub,default,CMP_EQUAL,,,equal
 iface_member_port,default,CMP_EQUAL,,,equal
@@ -358,42 +358,42 @@ iface_modport_passthrough,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil
 iface_nested_param_field,default,CMP_EQUAL,,,differ:col(3)
 iface_param_2level,default,CMP_EQUAL,,,differ:col(3)
 iface_param_port_width,default,CMP_EQUAL,,,differ:col(3)
-iface_param_set_value,default,CMP_EQUAL,,,differ:file(1)
+iface_param_set_value,default,CMP_EQUAL,,,equal
 iface_param_width_per_inst,default,CMP_EQUAL,,,differ:fullname(2)
 iface_passthrough,default,CMP_EQUAL,,,equal
-iface_pkg_enum_item,default,CMP_EQUAL,,,differ:file(2)
+iface_pkg_enum_item,default,CMP_EQUAL,,,equal
 iface_port_localparam,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/iface_port_localparam/dut.sv:28:22: error: top-level module 'iface_port_localparam' has unconnected i,,
 iface_samename_port,default,CMP_EQUAL,,,equal
-iface_scalar_localparam,default,CMP_EQUAL,,,differ:col(14)
+iface_scalar_localparam,default,CMP_EQUAL,,,differ:col(13)
 iface_sig_in_child_port,default,CMP_EQUAL,,,differ:fullname(4)
 iface_struct_field,default,CMP_EQUAL,,,equal
 iface_struct_field_bitselect,default,CMP_EQUAL,,,equal
 iface_struct_field_param_width,default,CMP_EQUAL,,,differ:col(29)
-iface_struct_field_partsel,default,CMP_EQUAL,,,differ:col(14)
+iface_struct_field_partsel,default,CMP_EQUAL,,,differ:col(13)
 iface_struct_field_slice_read,default,CMP_EQUAL,,,equal
 iface_unpacked_signal,default,CMP_EQUAL,,,equal
-iface_unpacked_struct_array,default,CMP_EQUAL,,,differ:file(1)
+iface_unpacked_struct_array,default,CMP_EQUAL,,,equal
 iface_wholestruct_param,default,CMP_EQUAL,,,equal
 iface_zero_width_field,default,CMP_EQUAL,,,differ:col(13)
-ImportedDoubleCastedParameter,default,CMP_EQUAL,,,differ:file(3)
+ImportedDoubleCastedParameter,default,CMP_EQUAL,,,differ:file(1)
 ImportedEnumCast,default,CMP_EQUAL,,,differ:file(2)
-ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor,default,CMP_EQUAL,,,differ:file(2)
+ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor,default,CMP_EQUAL,,,equal
 ImportedFunctionCallInModuleAndSubmodule,default,CMP_EQUAL,,,equal
 ImportedFunctionUsesAnotherFunction,default,CMP_EQUAL,,,equal
-ImportedPackageEnumItemInInterface,default,CMP_EQUAL,,,differ:file(2)
+ImportedPackageEnumItemInInterface,default,CMP_EQUAL,,,equal
 ImportedParameter,default,CMP_EQUAL,,,differ:file(1)
 ImportFunction,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ImportFunction/dut.sv:13:32: error: no member named 'get_5' in package 'lc_ctrl_state_pkg',,
 ImportPackageWithFunction,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ImportPackageWithFunction/dut.sv:14:13: error: module instantiation is missing port list parentheses,,
 ImportParametrizedTypeAndDeclareParamWithTheSameName,default,CMP_EQUAL,,,equal
 ImportTypeOfPort,default,CMP_EQUAL,,,equal
-indexed_partsel_array,default,CMP_EQUAL,,,differ:file(1)
+indexed_partsel_array,default,CMP_EQUAL,,,equal
 IndexedPartSelect,default,CMP_EQUAL,,,equal
 IndexedPartSelectInFor,default,CMP_EQUAL,,,differ:file(2)
 IndexedPartSelectInUniqueCase,default,CMP_EQUAL,,,equal
-IndexedPartSelectOfArrayElement,default,CMP_EQUAL,,,differ:file(1)
+IndexedPartSelectOfArrayElement,default,CMP_EQUAL,,,equal
 IndexedPartSelectOfMember,default,CMP_EQUAL,,,equal
 initval,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/initval/dut.sv:1:57: error: redefinition of 'foo' [-Wredefinition],,
-int_port_signed,default,CMP_EQUAL,,,differ:file(1)
+int_port_signed,default,CMP_EQUAL,,,equal
 int_types,default,CMP_EQUAL,,,differ:fullname(96)
 int_types_blk1,default,CMP_EQUAL,,,equal
 interface_array,default,CMP_EQUAL,,,differ:fullname(3)
@@ -401,17 +401,17 @@ interface_array_fanout,default,CMP_EQUAL,,,differ:fullname(3)
 InterfaceAlways,default,CMP_EQUAL,,,equal
 InterfaceAsPort,default,CMP_EQUAL,,,equal
 InterfaceAsPortAssignValueInSubmodule,default,CMP_EQUAL,,,equal
-InterfaceAssign,default,CMP_EQUAL,,,differ:file(2)
+InterfaceAssign,default,CMP_EQUAL,,,equal
 InterfaceInitial,default,CMP_EQUAL,,,equal
-InterfaceParameter,default,CMP_EQUAL,,,differ:file(1)
-InterfaceParameterSetValue,default,CMP_EQUAL,,,differ:file(1)
+InterfaceParameter,default,CMP_EQUAL,,,equal
+InterfaceParameterSetValue,default,CMP_EQUAL,,,equal
 InterfaceVariable,default,CMP_EQUAL,,,equal
 InterfaceWithPort,default,CMP_EQUAL,,,equal
 issue326_packed_mem,default,CMP_EQUAL,,,equal
 jeras_gpr,default,CMP_EQUAL,,,equal
 jeras_reverse,default,CMP_EQUAL,,,equal
 jeras_tcb_gpio,default,CMP_EQUAL,,,differ:fullname(6)
-jeras_union,default,CMP_EQUAL,,,differ:file(117)
+jeras_union,default,CMP_EQUAL,,,differ:file(49)
 LargeModuleParameter,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/LargeModuleParameter/dut.sv:19:1: error: unknown module 'PRIMITIVE',,
 latch_002,default,CMP_EQUAL,,,equal
 latch_axi_adapter,default,CMP_EQUAL,,,equal
@@ -432,7 +432,7 @@ led_blink_counter,default,CMP_EQUAL,,,equal
 load_and_derive,default,CMP_EQUAL,,,equal
 local_nested_struct_field,default,CMP_EQUAL,,,equal
 local_var_in_always,default,CMP_EQUAL,,,equal
-LocalParamInNestedForLoops,default,CMP_EQUAL,,,differ:fullname(4)
+LocalParamInNestedForLoops,default,CMP_EQUAL,,,differ:fullname(2)
 LocalParamSelect,default,CMP_EQUAL,,,equal
 logic_ops,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/logic_ops/dut.sv:8:23: error: expected ';',,
 LogicPackedArray,default,CMP_EQUAL,,,equal
@@ -458,13 +458,13 @@ mem2reg_test6,default,CMP_EQUAL,,,equal
 mem_ff_partial_rsp,default,CMP_EQUAL,,,differ:col(16)
 mem_iface_index,default,CMP_EQUAL,,,equal
 mem_init_for_param,default,CMP_EQUAL,,,equal
-mem_multi_always_write,default,CMP_EQUAL,,,differ:file(4)
+mem_multi_always_write,default,CMP_EQUAL,,,equal
 mem_packed_2d_byte_write,default,CMP_EQUAL,,,differ:fullname(5)
 mem_read_reg,default,CMP_EQUAL,,,differ:name(5)
 mem_sub_plain,default,CMP_EQUAL,,,equal
-MemberSelectOf2DStructPackedArray,default,CMP_EQUAL,,,differ:file(1)
-MemoryInGenblock,default,CMP_EQUAL,,,differ:file(28)
-MemoryPort,default,CMP_EQUAL,,,differ:file(10)
+MemberSelectOf2DStructPackedArray,default,CMP_EQUAL,,,equal
+MemoryInGenblock,default,CMP_EQUAL,,,equal
+MemoryPort,default,CMP_EQUAL,,,equal
 MemorySlice,default,CMP_EQUAL,,,equal
 mixed_sign_ops,default,CMP_EQUAL,,,equal
 MixedPatterns,default,CMP_EQUAL,,,equal
@@ -473,7 +473,7 @@ ModuleAlways,default,CMP_EQUAL,,,equal
 ModuleInstantiationAndIndirectParams,default,CMP_EQUAL,,,equal
 ModuleUsingStuctInput,default,CMP_EQUAL,,,equal
 MonitorInputPort,default,CMP_EQUAL,,,equal
-mriscv_bind_sva,default,CMP_EQUAL,,,differ:fullname(112)
+mriscv_bind_sva,default,CMP_EQUAL,,,differ:fullname(44)
 mul,default,CMP_EQUAL,,,equal
 mul_plain,default,CMP_EQUAL,,,equal
 mul_signed_async,default,CMP_EQUAL,,,equal
@@ -494,8 +494,8 @@ MultipleAssignments,default,CMP_EQUAL,,,equal
 MultipleCells,default,CMP_EQUAL,,,equal
 MultipleNets,default,CMP_EQUAL,,,equal
 MultiplePrints,default,CMP_EQUAL,,,equal
-multiplier,default,CMP_EQUAL,,,differ:file(84)
-MultirangesStartNotFromZero,default,CMP_EQUAL,,,differ:file(3)
+multiplier,default,CMP_EQUAL,,,differ:col(42)
+MultirangesStartNotFromZero,default,CMP_EQUAL,,,differ:file(2)
 mux16,default,CMP_EQUAL,,,equal
 mux2,default,CMP_EQUAL,,,equal
 mux4,default,CMP_EQUAL,,,equal
@@ -514,31 +514,31 @@ nested_full_case,default,CMP_EQUAL,,,equal
 nested_struct,default,CMP_EQUAL,,,equal
 nested_struct_nopack,default,CMP_EQUAL,,,equal
 NestedCallsOfTheSameFunction,default,CMP_EQUAL,,,equal
-NestedForLoops,default,CMP_EQUAL,,,differ:file(2)
-NestedGenscopesInModuleWithMultidimensionalPorts,default,CMP_EQUAL,,,differ:file(20)
+NestedForLoops,default,CMP_EQUAL,,,equal
+NestedGenscopesInModuleWithMultidimensionalPorts,default,CMP_EQUAL,,,equal
 NestedParamSubstitution,default,CMP_EQUAL,,,equal
 NestedPatternPassedAsPort,default,CMP_EQUAL,,,equal
-NestedSelectOnInputPortInGenscope,default,CMP_EQUAL,,,differ:file(4)
-NestedSelectOnVarInGenscope,default,CMP_EQUAL,,,differ:file(4)
+NestedSelectOnInputPortInGenscope,default,CMP_EQUAL,,,equal
+NestedSelectOnVarInGenscope,default,CMP_EQUAL,,,equal
 NestedStructArrayParameterInitializedByPatternPassedAsPort,default,CMP_EQUAL,,,differ:depth(1)
 net_types,default,CMP_EQUAL,,,differ:type(1)
 OneAlwaysComb,default,CMP_EQUAL,,,equal
 OneArithShift,default,CMP_EQUAL,,,equal
-OneCast,default,CMP_EQUAL,,,differ:file(2)
+OneCast,default,CMP_EQUAL,,,equal
 OneClass,default,CMP_EQUAL,,,equal
 OneConcat,default,CMP_EQUAL,,,equal
-OneImport,default,CMP_EQUAL,,,differ:file(3)
+OneImport,default,CMP_EQUAL,,,differ:file(1)
 OneInside,default,CMP_EQUAL,,,equal
 onenet,default,CMP_EQUAL,,,equal
 OneNetModport,default,CMP_EQUAL,,,differ:fullname(4)
-OnePackage,default,CMP_EQUAL,,,differ:file(2)
+OnePackage,default,CMP_EQUAL,,,equal
 OneReplicate,default,CMP_EQUAL,,,equal
 OneShift,default,CMP_EQUAL,,,equal
 OneStruct,default,CMP_EQUAL,,,equal
 OneSysFunc,default,CMP_EQUAL,,,equal
 OneThis,default,CMP_EQUAL,,,equal
 opt_share_add_sub,default,CMP_EQUAL,,,equal
-OutputSizeWithParameterOfInstanceInitializedByStructMember,default,CMP_EQUAL,,,differ:line(11)
+OutputSizeWithParameterOfInstanceInitializedByStructMember,default,CMP_EQUAL,,,differ:line(10)
 package_task_func,default,CMP_EQUAL,,,equal
 PackageCast,default,CMP_EQUAL,,,differ:fullname(6)
 packed_array_elem_select,default,CMP_EQUAL,,,equal
@@ -550,10 +550,10 @@ packed_struct_array_net_elem,default,CMP_EQUAL,,,differ:file(2)
 packed_struct_array_shift,default,CMP_EQUAL,,,differ:fullname(4)
 packed_struct_elem_field,default,CMP_EQUAL,,,equal
 PackedArray,default,CMP_EQUAL,,,equal
-param_array_wildcard,default,CMP_EQUAL,,,differ:fullname(4)
+param_array_wildcard,default,CMP_EQUAL,,,differ:fullname(2)
 param_fill_default_paramod,default,CMP_EQUAL,,,equal
 param_int_types,default,CMP_EQUAL,,,equal
-param_name_collision_typeparam,default,CMP_EQUAL,,,differ:fullname(9)
+param_name_collision_typeparam,default,CMP_EQUAL,,,differ:fullname(8)
 param_nested_struct_field_width,default,CMP_EQUAL,,,differ:line(5)
 param_no_default,default,CMP_EQUAL,,,equal
 param_packed_array_subst,default,CMP_EQUAL,,,equal
@@ -567,7 +567,7 @@ ParameterConditionalAssignment,default,CMP_EQUAL,,,equal
 ParameterDoubleUnderscoreInSvFrontend,default,CMP_EQUAL,,,differ:file(1)
 ParameterFromPkgInNestedModule,default,CMP_EQUAL,,,differ:file(8)
 ParameterFromPkgOnParameterPortList,default,CMP_EQUAL,,,differ:depth(1)
-ParameterInGenScopeInitializedWithLongConstant,default,CMP_EQUAL,,,differ:file(1)
+ParameterInGenScopeInitializedWithLongConstant,default,CMP_EQUAL,,,equal
 ParameterInitializationWithNegation,default,CMP_EQUAL,,,equal
 ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope,default,CMP_EQUAL,,,differ:file(2)
 ParameterInitializedByPartSelectOfParameters,default,CMP_EQUAL,,,equal
@@ -593,7 +593,7 @@ ParameterUnpackedLogicArray,default,CMP_EQUAL,,,equal
 ParameterUnsignedInt,default,CMP_EQUAL,,,equal
 ParameterWithUnderscoreValue,default,CMP_EQUAL,,,equal
 ParameterWithUnderscoreValueDivided,default,CMP_EQUAL,,,equal
-ParameterWithUnderscoreValueDividedPassedFromCommandLine,default,CMP_EQUAL,,,differ:file(3)
+ParameterWithUnderscoreValueDividedPassedFromCommandLine,default,CMP_EQUAL,,,differ:file(2)
 paramod_genscope_child,default,CMP_EQUAL,,,equal
 paramod_struct_param,default,CMP_EQUAL,,,equal
 partsel_simple,default,CMP_EQUAL,,,differ:depth(1)
@@ -621,7 +621,7 @@ port_int_types,default,CMP_EQUAL,,,equal
 port_sign_extend,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/port_sign_extend/dut.v:75:7: error: expected identifier,,
 portsel_struct_param,default,CMP_EQUAL,,,differ:endcol(5)
 power_state,default,CMP_EQUAL,,,equal
-prefix,default,CMP_EQUAL,,,differ:file(6)
+prefix,default,CMP_EQUAL,,,equal
 print_trg_mixed_edges,default,CMP_EQUAL,,,equal
 print_trg_multi_edge,default,CMP_EQUAL,,,equal
 print_trg_single_edge,default,CMP_EQUAL,,,equal
@@ -631,7 +631,7 @@ priority_memory,default,CMP_EQUAL,,,equal
 PutC,default,CMP_EQUAL,,,equal
 r5p_gpr_cosim,default,CMP_EQUAL,,,equal
 rand_const,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rand_const/dut.sv:10:19: error: constant variable must have an initializer,,
-read_remux,default,CMP_EQUAL,,,differ:file(4)
+read_remux,default,CMP_EQUAL,,,equal
 readmemh_param,default,CMP_EQUAL,,,equal
 readmemh_rom,default,CMP_EQUAL,,,equal
 ReadmemhInGenblock,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ReadmemhInGenblock/dut.sv:14:3: error: expected member,,
@@ -642,25 +642,25 @@ ReferencedPackageParameterInEnum,default,CMP_EQUAL,,,equal
 reg_wire_error,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/reg_wire_error/dut.sv:26:9: error: cannot assign to a net within a procedural context,,
 Repeat,default,CMP_EQUAL,,,equal
 Replication,default,CMP_EQUAL,,,equal
-ReplicationPassedToInstance,default,CMP_EQUAL,,,differ:fullname(2)
+ReplicationPassedToInstance,default,CMP_EQUAL,,,differ:fullname(1)
 repwhile,default,CMP_EQUAL,,,equal
 resolve_types,default,CMP_EQUAL,,,equal
-ReturnEnumArray,default,CMP_EQUAL,,,differ:file(1)
+ReturnEnumArray,default,CMP_EQUAL,,,equal
 ReturnFunctionCall,default,CMP_EQUAL,,,equal
 rmw_comb_var,default,CMP_EQUAL,,,equal
-rotate,default,CMP_EQUAL,,,differ:file(169)
-rp32_r5p_alu,default,CMP_EQUAL,,,differ:file(96)
-rp32_r5p_bru,default,CMP_EQUAL,,,differ:file(96)
+rotate,default,CMP_EQUAL,,,equal
+rp32_r5p_alu,default,CMP_EQUAL,,,differ:file(46)
+rp32_r5p_bru,default,CMP_EQUAL,,,differ:file(46)
 rp32_r5p_csr,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/degu/r5p32_csr_pkg.sv:324:16: error: no implicit conversion from 'bit[0:0]' to 'csr_vector_t'; e,,
 rp32_r5p_degu,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/degu/r5p_degu.sv:56:19: error: top-level module 'r5p_degu' has unconnected interface port 'tcb_i,,
 rp32_r5p_degu_soc_top,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/tcb/lite_lib/tcb_lite_lib_passthrough.sv:23:21: error: top-level module 'tcb_lite_lib_passthroug,,
 rp32_r5p_gpr_1r1w,default,CMP_EQUAL,,,equal
 rp32_r5p_hamster,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/hamster/r5p_hamster.sv:267:22: error: no member named 'alu' in 'dec_t',,
-rp32_r5p_mdu,default,CMP_EQUAL,,,differ:file(96)
+rp32_r5p_mdu,default,CMP_EQUAL,,,differ:file(46)
 rp32_r5p_mouse,default,CMP_EQUAL,,,equal
 rp32_r5p_mouse_soc_simple_top,default,CMP_EQUAL,,,equal
 rp32_r5p_mouse_soc_top,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/tcb/lite_lib/tcb_lite_lib_passthrough.sv:23:21: error: top-level module 'tcb_lite_lib_passthroug,,
-rp32_r5p_wbu,default,CMP_EQUAL,,,differ:file(96)
+rp32_r5p_wbu,default,CMP_EQUAL,,,differ:file(46)
 rp32_soc_vfriendly,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/tcb/lite_lib/tcb_lite_lib_passthrough.sv:23:21: error: top-level module 'tcb_lite_lib_passthroug,,
 rsp_gen_minimal,default,CMP_EQUAL,,,differ:fullname(3)
 sat_asserts_seq,default,CMP_EQUAL,,,differ:line(18)
@@ -675,7 +675,7 @@ SelfSelectsInBitSelectAfterBitSelect,default,CMP_EQUAL,,,equal
 setundef,default,CMP_EQUAL,,,equal
 ShiftTernary,default,CMP_EQUAL,,,equal
 Shortint,default,CMP_EQUAL,,,equal
-Shortreal,default,CMP_EQUAL,,,differ:value(2)
+Shortreal,default,CMP_EQUAL,,,differ:value(1)
 sign_part_assign,default,CMP_EQUAL,,,equal
 signed_compare,default,CMP_EQUAL,,,equal
 signed_ext_case,default,CMP_EQUAL,,,equal
@@ -684,14 +684,14 @@ signed_partsel_ext,default,CMP_EQUAL,,,equal
 SignedWire,default,CMP_EQUAL,,,equal
 simple_abc9,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/simple_abc9/dut.sv:88:15: error: cannot select range of [7:4] from 'reg[3:0]' [-Wrange-oob],,
 simple_always_ff,default,CMP_EQUAL,,,equal
-simple_always_ifelse,default,CMP_EQUAL,,,differ:file(4)
+simple_always_ifelse,default,CMP_EQUAL,,,equal
 simple_assign,default,CMP_EQUAL,,,equal
 simple_counter,default,CMP_EQUAL,,,equal
 simple_enum,default,CMP_EQUAL,,,differ:file(2)
 simple_forloops,default,CMP_EQUAL,,,equal
 simple_fsm,default,CMP_EQUAL,,,equal
 simple_function,default,CMP_EQUAL,,,equal
-simple_generate,default,CMP_EQUAL,,,differ:file(4)
+simple_generate,default,CMP_EQUAL,,,equal
 simple_hierarchy,default,CMP_EQUAL,,,equal
 simple_instance_array,default,CMP_EQUAL,,,equal
 simple_interface,default,CMP_EQUAL,,,equal
@@ -707,13 +707,13 @@ sincos,default,CMP_EQUAL,,,equal
 size_cast,default,CMP_EQUAL,,,equal
 size_cast_param,default,CMP_EQUAL,,,equal
 sizebits,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/sizebits/dut.sv:31:24: error: invalid argument type 'logic' to system function,,
-SizeOfGeneratedWireArray,default,CMP_EQUAL,,,differ:file(1)
+SizeOfGeneratedWireArray,default,CMP_EQUAL,,,equal
 SizeOfUnsignedParameter,default,CMP_EQUAL,,,equal
 sp_read_first,default,CMP_EQUAL,,,equal
 sp_read_or_write,default,CMP_EQUAL,,,equal
 sp_write_first,default,CMP_EQUAL,,,equal
 stamped_gen_param,default,CMP_NOTEQUAL,decompile:,,
-static_cast_simple,default,CMP_EQUAL,,,differ:endcol(23)
+static_cast_simple,default,CMP_EQUAL,,,differ:endcol(6)
 StreamOp,default,CMP_EQUAL,,,equal
 StreamOperatorBitReverseFunction,default,CMP_EQUAL,,,equal
 StreamOpImplicitSliceSize,default,CMP_EQUAL,,,equal
@@ -736,7 +736,7 @@ struct_member_expr_index,default,CMP_EQUAL,,,equal
 struct_member_trailing_index,default,CMP_EQUAL,,,differ:endline(11)
 struct_negative_index,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_negative_index/dut.sv:14:13: error: cannot refer to element -1 of 'bit[3:0][7:0]' [-Windex-oob,,
 struct_param_dim,default,CMP_EQUAL,,,equal
-struct_param_field_shift,default,CMP_EQUAL,,,differ:col(45)
+struct_param_field_shift,default,CMP_EQUAL,,,differ:col(43)
 struct_param_func_arg,default,CMP_EQUAL,,,differ:endcol(1)
 struct_param_func_config,default,CMP_EQUAL,,,differ:line(5)
 struct_param_func_loop,default,CMP_EQUAL,,,differ:fullname(7)
@@ -759,11 +759,11 @@ StructPackedArray,default,CMP_EQUAL,,,equal
 StructPackedOutput,default,CMP_EQUAL,,,equal
 StructParameter,default,CMP_EQUAL,,,differ:count(0)
 StructParameterInGenScope,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/StructParameterInGenScope/dut.sv:30:67: error: use of undeclared identifier 'PageW',,
-StructParameterInitializedWithPatternAndReferenced,default,CMP_EQUAL,,,differ:fullname(2)
+StructParameterInitializedWithPatternAndReferenced,default,CMP_EQUAL,,,differ:fullname(1)
 subbytes,default,CMP_EQUAL,,,equal
 SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule,default,CMP_EQUAL,,,differ:file(2)
 SumOfParameters,default,CMP_EQUAL,,,differ:file(1)
-SumOfParametersInNestedForLoops,default,CMP_EQUAL,,,differ:file(3)
+SumOfParametersInNestedForLoops,default,CMP_EQUAL,,,differ:type(1)
 sva_basic00,default,CMP_EQUAL,,,equal
 sva_basic01,default,CMP_EQUAL,,,equal
 sva_basic02,default,CMP_EQUAL,,,differ:endcol(4)
@@ -823,8 +823,8 @@ ucsbece154b_victim_cache,default,CMP_EQUAL,,,equal
 unary_op_minus,default,CMP_EQUAL,,,equal
 unary_op_not_log,default,CMP_EQUAL,,,equal
 unary_op_plus,default,CMP_EQUAL,,,equal
-unbased_unsized,default,CMP_EQUAL,,,differ:file(2)
-unbased_unsized_param,default,CMP_EQUAL,,,differ:file(3)
+unbased_unsized,default,CMP_EQUAL,,,equal
+unbased_unsized_param,default,CMP_EQUAL,,,differ:depth(1)
 unbased_unsized_shift,default,CMP_EQUAL,,,equal
 union4_repro,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/union4_repro/dut.sv:3:44: error: all members of a packed union must have the same width; 'raw' has wi,,
 union_field_partsel,default,CMP_EQUAL,,,equal
@@ -839,12 +839,12 @@ unique_case_default,default,CMP_EQUAL,,,equal
 UnitForLoop,default,CMP_EQUAL,,,equal
 unnamed_block_decl,default,CMP_EQUAL,,,equal
 unpacked_array_shift_ff,default,CMP_EQUAL,,,equal
-unpacked_elem_partsel_comb,default,CMP_EQUAL,,,differ:file(12)
+unpacked_elem_partsel_comb,default,CMP_EQUAL,,,differ:fullname(4)
 unpacked_elem_write_flat,default,CMP_EQUAL,,,equal
-unpacked_struct_2d,default,CMP_EQUAL,,,differ:file(13)
-unpacked_struct_array_typedef,default,CMP_EQUAL,,,differ:file(4)
-unpacked_struct_dyn_read,default,CMP_EQUAL,,,differ:file(13)
-unpacked_struct_mixed,default,CMP_EQUAL,,,differ:file(13)
+unpacked_struct_2d,default,CMP_EQUAL,,,differ:endline(13)
+unpacked_struct_array_typedef,default,CMP_EQUAL,,,equal
+unpacked_struct_dyn_read,default,CMP_EQUAL,,,differ:endline(13)
+unpacked_struct_mixed,default,CMP_EQUAL,,,differ:endline(13)
 UnpackedArray,default,CMP_EQUAL,,,equal
 UnsizedConst,default,CMP_EQUAL,,,equal
 UnsizedConstant,default,CMP_EQUAL,,,equal
@@ -873,7 +873,7 @@ xor_assignment,default,CMP_EQUAL,,,equal
 1DUnpackedArray,testflags,CMP_EQUAL,,,equal
 2DeclarationsInFor,testflags,CMP_EQUAL,,,equal
 2DFunctionArg,testflags,CMP_EQUAL,,,equal
-2DParameterOfInstance,testflags,CMP_EQUAL,,,differ:value(5)
+2DParameterOfInstance,testflags,CMP_EQUAL,,,differ:value(4)
 2DUnpackedArray,testflags,CMP_EQUAL,,,equal
 2DUnpackedFunctionArgument,testflags,CMP_EQUAL,,,equal
 add_sub_bind_if,testflags,CMP_EQUAL,,,equal
@@ -888,7 +888,7 @@ AluOps,testflags,CMP_EQUAL,,,equal
 always01,testflags,CMP_EQUAL,,,equal
 always02,testflags,CMP_EQUAL,,,equal
 always03,testflags,CMP_EQUAL,,,equal
-anon_struct_packed_dim,testflags,CMP_EQUAL,,,differ:fullname(32)
+anon_struct_packed_dim,testflags,CMP_EQUAL,,,differ:fullname(10)
 AnonStructs,testflags,CMP_EQUAL,,,equal
 AnonymousEnum,testflags,CMP_EQUAL,,,differ:file(6)
 AnonymousUnion,testflags,CMP_EQUAL,,,equal
@@ -913,9 +913,9 @@ asicworld_clk_div_45,testflags,CMP_EQUAL,,,equal
 asicworld_serial_crc,testflags,CMP_EQUAL,,,equal
 assert_wide_const_cond,testflags,CMP_EQUAL,,,differ:endcol(1)
 AssignArraySelPlus,testflags,CMP_EQUAL,,,equal
-AssignBitsCallToSubmoduleParameter,testflags,CMP_EQUAL,,,differ:fullname(3)
+AssignBitsCallToSubmoduleParameter,testflags,CMP_EQUAL,,,differ:fullname(2)
 AssignBitSelectPartSelect,testflags,CMP_EQUAL,,,equal
-AssignGeneratedWireInAlways,testflags,CMP_EQUAL,,,differ:file(1)
+AssignGeneratedWireInAlways,testflags,CMP_EQUAL,,,equal
 assignment-pattern,testflags,CMP_EQUAL,,,equal
 AssignmentPattern,testflags,CMP_EQUAL,,,equal
 AssignmentPatternArrayPort,testflags,CMP_EQUAL,,,equal
@@ -931,7 +931,7 @@ AssignToUnpackedUnionFieldAndReadOtherField,testflags,CMP_EQUAL,,,equal
 AssignTypedefedFunctionCall,testflags,CMP_EQUAL,,,equal
 asym_ram_sdp_read_wider,testflags,CMP_EQUAL,,,equal
 asym_ram_sdp_write_wider,testflags,CMP_EQUAL,,,equal
-async_reset_partsel,testflags,CMP_EQUAL,,,differ:file(4)
+async_reset_partsel,testflags,CMP_EQUAL,,,equal
 bind_hier,testflags,CMP_EQUAL,,,equal
 bind_toplevel,testflags,CMP_EQUAL,,,equal
 BindModule,testflags,CMP_EQUAL,,,equal
@@ -948,9 +948,9 @@ BitsCallOnVar,testflags,CMP_EQUAL,,,equal
 BitSelect,testflags,CMP_EQUAL,,,equal
 BitSelect2ndBitOfPattern,testflags,CMP_EQUAL,,,equal
 BitSelectOfParameterPassedToSubmodule,testflags,CMP_EQUAL,,,differ:depth(1)
-BitSelectOfParameterPassedToSubmoduleInGenFor,testflags,CMP_EQUAL,,,differ:file(4)
-BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule,testflags,CMP_EQUAL,,,differ:file(4)
-BitSelectPartSelectInFunction,testflags,CMP_EQUAL,,,differ:file(1)
+BitSelectOfParameterPassedToSubmoduleInGenFor,testflags,CMP_EQUAL,,,differ:file(3)
+BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule,testflags,CMP_EQUAL,,,differ:file(3)
+BitSelectPartSelectInFunction,testflags,CMP_EQUAL,,,equal
 bitwise_operations,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/bitwise_operations/dut.sv:9:26: error: expected ';',,
 bitwise_operations_reverted_range,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/bitwise_operations_reverted_range/dut.sv:9:26: error: expected ';',,
 blocking_temp_ff,testflags,CMP_EQUAL,,,equal
@@ -962,25 +962,25 @@ BreakContinue,testflags,CMP_EQUAL,,,equal
 BreakContinueWhile,testflags,CMP_EQUAL,,,equal
 BreakNested,testflags,CMP_EQUAL,,,equal
 BreakWhile,testflags,CMP_EQUAL,,,equal
-carryadd,testflags,CMP_EQUAL,,,differ:file(8)
+carryadd,testflags,CMP_EQUAL,,,equal
 case_default_first,testflags,CMP_EQUAL,,,equal
 case_expr_const,testflags,CMP_EQUAL,,,equal
 case_expr_extend,testflags,CMP_EQUAL,,,equal
 case_expr_non_const,testflags,CMP_EQUAL,,,equal
 case_expr_query,testflags,CMP_EQUAL,,,equal
 CaseInside,testflags,CMP_EQUAL,,,equal
-CaseWithGeneratedWire,testflags,CMP_EQUAL,,,differ:file(1)
+CaseWithGeneratedWire,testflags,CMP_EQUAL,,,equal
 Casezx,testflags,CMP_EQUAL,,,equal
 CastClog2,testflags,CMP_EQUAL,,,equal
 CastClog2ToMinimalSizeOfParamValue,testflags,CMP_EQUAL,,,equal
 CastClog2ToMinimalSizeOfParamValueFromCommandLine,testflags,CMP_EQUAL,,,equal
-CastExpression,testflags,CMP_EQUAL,,,differ:file(1)
+CastExpression,testflags,CMP_EQUAL,,,equal
 CastInFunctionInGenBlock,testflags,CMP_EQUAL,,,equal
 CastInFunctionToParameterWidth,testflags,CMP_EQUAL,,,equal
-CastLogic,testflags,CMP_EQUAL,,,differ:file(1)
-CastSize,testflags,CMP_EQUAL,,,differ:file(1)
+CastLogic,testflags,CMP_EQUAL,,,equal
+CastSize,testflags,CMP_EQUAL,,,equal
 CastStruct,testflags,CMP_EQUAL,,,equal
-CastStructArray,testflags,CMP_EQUAL,,,differ:file(5)
+CastStructArray,testflags,CMP_EQUAL,,,equal
 CastToSumOfConstants,testflags,CMP_EQUAL,,,equal
 CastToSumWithParameterIn2InstancesOfSubmodule,testflags,CMP_EQUAL,,,equal
 CastToSumWithParameterInSubmodule,testflags,CMP_EQUAL,,,equal
@@ -1016,7 +1016,7 @@ const_arg_loop,testflags,CMP_EQUAL,,,equal
 const_ashift,testflags,CMP_EQUAL,,,equal
 const_cast_signext,testflags,CMP_EQUAL,,,differ:line(15)
 const_fold_func,testflags,CMP_EQUAL,,,equal
-const_func,testflags,CMP_EQUAL,,,differ:endcol(290)
+const_func,testflags,CMP_EQUAL,,,differ:endcol(2)
 const_func_block_var,testflags,CMP_EQUAL,,,differ:file(2)
 const_func_shadow,testflags,CMP_EQUAL,,,equal
 constmsk_test,testflags,CMP_EQUAL,,,equal
@@ -1046,7 +1046,7 @@ Disable,testflags,CMP_EQUAL,,,differ:file(1)
 display_lm,testflags,CMP_EQUAL,,,equal
 DisplayWithBinFormatSpecifier,testflags,CMP_EQUAL,,,equal
 DisplayWithHexFormatSpecifier,testflags,CMP_EQUAL,,,equal
-DivisionOfSize,testflags,CMP_EQUAL,,,differ:value(4)
+DivisionOfSize,testflags,CMP_EQUAL,,,differ:value(3)
 DotMultirange,testflags,CMP_EQUAL,,,equal
 DotRange,testflags,CMP_EQUAL,,,equal
 DpiChandle,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/DpiChandle/dut.sv:12:11: error: invalid operands to binary expression ('chandle' and 'int'),,
@@ -1058,9 +1058,9 @@ EmptyTask,testflags,CMP_EQUAL,,,equal
 enum_simple,testflags,CMP_EQUAL,,,equal
 enum_values,testflags,CMP_EQUAL,,,equal
 EnumArray,testflags,CMP_EQUAL,,,differ:file(2)
-EnumArrayListedElements,testflags,CMP_EQUAL,,,differ:file(3)
+EnumArrayListedElements,testflags,CMP_EQUAL,,,differ:file(2)
 EnumBases,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/EnumBases/dut.sv:10:40: error: expression width of 2 does not exactly match declared enum type width ,,
-EnumConcat,testflags,CMP_EQUAL,,,differ:file(4)
+EnumConcat,testflags,CMP_EQUAL,,,equal
 EnumConcatenatedConst,testflags,CMP_EQUAL,,,equal
 EnumConstX,testflags,CMP_EQUAL,,,equal
 EnumFirst,testflags,CMP_EQUAL,,,equal
@@ -1093,7 +1093,7 @@ for_decl_shadow,testflags,CMP_EQUAL,,,equal
 for_loop_nonconst_bound,testflags,CMP_EQUAL,,,equal
 Forever,testflags,CMP_EQUAL,,,equal
 forgen01,testflags,CMP_EQUAL,,,equal
-forgen02,testflags,CMP_EQUAL,,,differ:file(8)
+forgen02,testflags,CMP_EQUAL,,,equal
 Fork,testflags,CMP_EQUAL,,,equal
 ForkJoinTypes,testflags,CMP_EQUAL,,,equal
 forloops,testflags,CMP_EQUAL,,,equal
@@ -1115,7 +1115,7 @@ func_port_implied_dir,testflags,CMP_EQUAL,,,equal
 func_struct_repro,testflags,CMP_EQUAL,,,equal
 func_tern_hint,testflags,CMP_EQUAL,,,equal
 func_typename_ret,testflags,CMP_EQUAL,,,differ:name(2)
-func_upto,testflags,CMP_EQUAL,,,differ:file(2477)
+func_upto,testflags,CMP_EQUAL,,,equal
 func_width_scope,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/func_width_scope/dut.sv:21:31: error: cannot call a function declared inside a generate block in a co,,
 Function2Returns,testflags,CMP_EQUAL,,,equal
 function_arith,testflags,CMP_EQUAL,,,equal
@@ -1131,46 +1131,46 @@ FunctionExportDPI,testflags,CMP_EQUAL,,,equal
 FunctionOnDesignLevel,testflags,CMP_EQUAL,,,equal
 FunctionOutputArgument,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/FunctionOutputArgument/dut.sv:3:14: error: cannot refer to automatic variable 'x' from non-procedural,,
 FunctionParam,testflags,CMP_EQUAL,,,differ:type(1)
-FunctionReturnEnum,testflags,CMP_EQUAL,,,differ:file(1)
+FunctionReturnEnum,testflags,CMP_EQUAL,,,equal
 FunctionWireAssignmentOnDeclaration,testflags,CMP_EQUAL,,,equal
 FunctionWithoutReturn,testflags,CMP_EQUAL,,,equal
 FunctionWithOverriddenParameter,testflags,CMP_EQUAL,,,equal
-gen_scope_numports,testflags,CMP_EQUAL,,,differ:fullname(23)
-gen_scope_typaram,testflags,CMP_EQUAL,,,differ:file(4)
+gen_scope_numports,testflags,CMP_EQUAL,,,differ:fullname(21)
+gen_scope_typaram,testflags,CMP_EQUAL,,,differ:endcol(3)
 gen_struct_access,testflags,CMP_EQUAL,,,equal
-gen_test1,testflags,CMP_EQUAL,,,differ:file(56)
+gen_test1,testflags,CMP_EQUAL,,,equal
 gen_test2,testflags,CMP_EQUAL,,,equal
-gen_test3,testflags,CMP_EQUAL,,,differ:file(4)
-gen_test4,testflags,CMP_EQUAL,,,differ:file(3)
-gen_test5,testflags,CMP_EQUAL,,,differ:file(1710)
-gen_test6,testflags,CMP_EQUAL,,,differ:file(4)
-gen_test7,testflags,CMP_EQUAL,,,differ:file(3)
+gen_test3,testflags,CMP_EQUAL,,,equal
+gen_test4,testflags,CMP_EQUAL,,,equal
+gen_test5,testflags,CMP_EQUAL,,,equal
+gen_test6,testflags,CMP_EQUAL,,,equal
+gen_test7,testflags,CMP_EQUAL,,,equal
 gen_test8,testflags,CMP_EQUAL,,,equal
 gen_test9,testflags,CMP_EQUAL,,,equal
 genblk_order,testflags,CMP_EQUAL,,,equal
 generate_scope_implicit_net,testflags,CMP_EQUAL,,,equal
-generate_test,testflags,CMP_EQUAL,,,differ:file(4)
+generate_test,testflags,CMP_EQUAL,,,equal
 GenIfInside,testflags,CMP_EQUAL,,,equal
 genscope_async_ff_signal,testflags,CMP_EQUAL,,,equal
-genscope_cells,testflags,CMP_EQUAL,,,differ:file(2)
+genscope_cells,testflags,CMP_EQUAL,,,equal
 genscope_module_ctx_reset,testflags,CMP_EQUAL,,,differ:fullname(1)
 genscope_outer_reg_inner_ff,testflags,CMP_EQUAL,,,equal
-genscope_struct_member,testflags,CMP_EQUAL,,,differ:file(1)
+genscope_struct_member,testflags,CMP_EQUAL,,,equal
 GenScopeFunction,testflags,CMP_EQUAL,,,equal
-genvar_async_reset_array,testflags,CMP_EQUAL,,,differ:file(2)
-genvar_iface_struct,testflags,CMP_EQUAL,,,differ:endcol(5)
+genvar_async_reset_array,testflags,CMP_EQUAL,,,equal
+genvar_iface_struct,testflags,CMP_EQUAL,,,differ:endcol(3)
 genvar_loop_decl_1,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/genvar_loop_decl_1/dut.sv:8:27: error: cannot reference unnamed generate block via external name 'gen,,
-genvar_loop_decl_2,testflags,CMP_EQUAL,,,differ:file(2)
-genvar_loop_decl_3,testflags,CMP_EQUAL,,,differ:file(4)
-genvar_pow_index,testflags,CMP_EQUAL,,,differ:file(10)
+genvar_loop_decl_2,testflags,CMP_EQUAL,,,equal
+genvar_loop_decl_3,testflags,CMP_EQUAL,,,equal
+genvar_pow_index,testflags,CMP_EQUAL,,,equal
 GetC,testflags,CMP_EQUAL,,,equal
 gpr_genscope_repro,testflags,CMP_EQUAL,,,equal
 hana_test_intermout,testflags,CMP_EQUAL,,,equal
 hana_test_parse2synthtrans,testflags,CMP_EQUAL,,,equal
 hello-uvm,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/hello-uvm/dut.sv:4:8: error: unknown package 'uvm_pkg',,
-hier_path,testflags,CMP_EQUAL,,,differ:file(146)
+hier_path,testflags,CMP_EQUAL,,,equal
 hier_undriven_port,testflags,CMP_EQUAL,,,equal
-hierdefparam,testflags,CMP_EQUAL,,,differ:file(2)
+hierdefparam,testflags,CMP_EQUAL,,,equal
 ibex_alu,testflags,CMP_EQUAL,,,differ:fullname(28)
 ibex_branch_predict,testflags,CMP_EQUAL,,,differ:fullname(100)
 ibex_compressed_decoder,testflags,CMP_EQUAL,,,differ:fullname(29)
@@ -1178,21 +1178,21 @@ ibex_controller,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ib
 ibex_core,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_core.sv:429:3: error: unknown module 'ibex_if_stage',,
 ibex_counter,testflags,CMP_EQUAL,,,differ:fullname(1)
 ibex_cs_registers,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_cs_registers.sv:907:3: error: unknown module 'ibex_csr',,
-ibex_csr,testflags,CMP_EQUAL,,,differ:file(16)
+ibex_csr,testflags,CMP_EQUAL,,,differ:line(12)
 ibex_decoder,testflags,CMP_EQUAL,,,differ:fullname(30)
 ibex_dummy_instr,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_dummy_instr.sv:76:3: error: unknown module 'prim_lfsr',,
 ibex_ex_block,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_ex_block.sv:116:3: error: unknown module 'ibex_alu',,
-ibex_fetch_fifo,testflags,CMP_EQUAL,,,differ:file(37)
+ibex_fetch_fifo,testflags,CMP_EQUAL,,,differ:line(24)
 ibex_icache,testflags,CMP_EQUAL,,,differ:fullname(28)
 ibex_id_stage,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_id_stage.sv:437:3: error: unknown module 'ibex_decoder',,
 ibex_if_stage,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_if_stage.sv:325:5: error: unknown module 'ibex_prefetch_buffer',,
-ibex_load_store_unit,testflags,CMP_EQUAL,,,differ:endline(302)
+ibex_load_store_unit,testflags,CMP_EQUAL,,,differ:endline(240)
 ibex_lockstep,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
 ibex_multdiv_fast,testflags,CMP_EQUAL,,,differ:fullname(28)
 ibex_multdiv_slow,testflags,CMP_EQUAL,,,differ:fullname(100)
 ibex_pmp,testflags,CMP_EQUAL,,,differ:fullname(31)
 ibex_prefetch_buffer,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
-ibex_register_file_ff,testflags,CMP_EQUAL,,,differ:file(63)
+ibex_register_file_ff,testflags,CMP_EQUAL,,,differ:fullname(32)
 ibex_register_file_fpga,testflags,CMP_EQUAL,,,equal
 ibex_register_file_latch,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_register_file_latch.sv:71:3: error: unknown module 'prim_clock_gating',,
 ibex_top,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_top.sv:68:10: error: unknown class or package 'prim_ram_1p_pkg',,
@@ -1202,21 +1202,21 @@ ibex_wb_stage,testflags,CMP_EQUAL,,,differ:fullname(27)
 iface_arr_struct_field_partsel,testflags,CMP_EQUAL,,,differ:fullname(4)
 iface_arr_struct_whole_field,testflags,CMP_EQUAL,,,equal
 iface_array_count,testflags,CMP_EQUAL,,,equal
-iface_array_elem_cfg_param,testflags,CMP_EQUAL,,,differ:col(2)
+iface_array_elem_cfg_param,testflags,CMP_EQUAL,,,differ:col(1)
 iface_array_internal_assign,testflags,CMP_EQUAL,,,equal
-iface_array_modport_drive,testflags,CMP_EQUAL,,,differ:endcol(4)
+iface_array_modport_drive,testflags,CMP_EQUAL,,,differ:endcol(2)
 iface_array_port,testflags,CMP_EQUAL,,,equal
 iface_array_struct,testflags,CMP_EQUAL,,,equal
 iface_array_struct_field,testflags,CMP_EQUAL,,,equal
 iface_array_struct_whole,testflags,CMP_EQUAL,,,equal
 iface_cfg_mem,testflags,CMP_EQUAL,,,differ:col(6)
-iface_cfg_param_def_pass,testflags,CMP_EQUAL,,,differ:col(3)
-iface_ff_genvar_partsel,testflags,CMP_EQUAL,,,differ:fullname(6)
+iface_cfg_param_def_pass,testflags,CMP_EQUAL,,,differ:col(2)
+iface_ff_genvar_partsel,testflags,CMP_EQUAL,,,differ:fullname(2)
 iface_field_assign,testflags,CMP_EQUAL,,,equal
 iface_field_assign_nocol,testflags,CMP_EQUAL,,,equal
 iface_field_partsel,testflags,CMP_EQUAL,,,equal
-iface_gen_delay,testflags,CMP_EQUAL,,,differ:file(2)
-iface_gen_delay_struct,testflags,CMP_EQUAL,,,differ:file(2)
+iface_gen_delay,testflags,CMP_EQUAL,,,equal
+iface_gen_delay_struct,testflags,CMP_EQUAL,,,equal
 iface_internal_assign,testflags,CMP_EQUAL,,,equal
 iface_local_in_sub,testflags,CMP_EQUAL,,,equal
 iface_member_port,testflags,CMP_EQUAL,,,equal
@@ -1229,42 +1229,42 @@ iface_modport_passthrough,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtl
 iface_nested_param_field,testflags,CMP_EQUAL,,,differ:col(3)
 iface_param_2level,testflags,CMP_EQUAL,,,differ:col(3)
 iface_param_port_width,testflags,CMP_EQUAL,,,differ:col(3)
-iface_param_set_value,testflags,CMP_EQUAL,,,differ:file(1)
+iface_param_set_value,testflags,CMP_EQUAL,,,equal
 iface_param_width_per_inst,testflags,CMP_EQUAL,,,differ:fullname(2)
 iface_passthrough,testflags,CMP_EQUAL,,,equal
-iface_pkg_enum_item,testflags,CMP_EQUAL,,,differ:file(2)
+iface_pkg_enum_item,testflags,CMP_EQUAL,,,equal
 iface_port_localparam,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/iface_port_localparam/dut.sv:28:22: error: top-level module 'iface_port_localparam' has unconnected i,,
 iface_samename_port,testflags,CMP_EQUAL,,,equal
-iface_scalar_localparam,testflags,CMP_EQUAL,,,differ:col(14)
+iface_scalar_localparam,testflags,CMP_EQUAL,,,differ:col(13)
 iface_sig_in_child_port,testflags,CMP_EQUAL,,,differ:fullname(4)
 iface_struct_field,testflags,CMP_EQUAL,,,equal
 iface_struct_field_bitselect,testflags,CMP_EQUAL,,,equal
 iface_struct_field_param_width,testflags,CMP_EQUAL,,,differ:col(29)
-iface_struct_field_partsel,testflags,CMP_EQUAL,,,differ:col(14)
+iface_struct_field_partsel,testflags,CMP_EQUAL,,,differ:col(13)
 iface_struct_field_slice_read,testflags,CMP_EQUAL,,,equal
 iface_unpacked_signal,testflags,CMP_EQUAL,,,equal
-iface_unpacked_struct_array,testflags,CMP_EQUAL,,,differ:file(1)
+iface_unpacked_struct_array,testflags,CMP_EQUAL,,,equal
 iface_wholestruct_param,testflags,CMP_EQUAL,,,equal
 iface_zero_width_field,testflags,CMP_EQUAL,,,differ:col(13)
-ImportedDoubleCastedParameter,testflags,CMP_EQUAL,,,differ:file(3)
+ImportedDoubleCastedParameter,testflags,CMP_EQUAL,,,differ:file(1)
 ImportedEnumCast,testflags,CMP_EQUAL,,,differ:file(2)
-ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor,testflags,CMP_EQUAL,,,differ:file(2)
+ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor,testflags,CMP_EQUAL,,,equal
 ImportedFunctionCallInModuleAndSubmodule,testflags,CMP_EQUAL,,,equal
 ImportedFunctionUsesAnotherFunction,testflags,CMP_EQUAL,,,equal
-ImportedPackageEnumItemInInterface,testflags,CMP_EQUAL,,,differ:file(2)
+ImportedPackageEnumItemInInterface,testflags,CMP_EQUAL,,,equal
 ImportedParameter,testflags,CMP_EQUAL,,,differ:file(1)
 ImportFunction,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ImportFunction/dut.sv:13:32: error: no member named 'get_5' in package 'lc_ctrl_state_pkg',,
 ImportPackageWithFunction,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ImportPackageWithFunction/dut.sv:14:13: error: module instantiation is missing port list parentheses,,
 ImportParametrizedTypeAndDeclareParamWithTheSameName,testflags,CMP_EQUAL,,,equal
 ImportTypeOfPort,testflags,CMP_EQUAL,,,equal
-indexed_partsel_array,testflags,CMP_EQUAL,,,differ:file(1)
+indexed_partsel_array,testflags,CMP_EQUAL,,,equal
 IndexedPartSelect,testflags,CMP_EQUAL,,,equal
 IndexedPartSelectInFor,testflags,CMP_EQUAL,,,differ:file(2)
 IndexedPartSelectInUniqueCase,testflags,CMP_EQUAL,,,equal
-IndexedPartSelectOfArrayElement,testflags,CMP_EQUAL,,,differ:file(1)
+IndexedPartSelectOfArrayElement,testflags,CMP_EQUAL,,,equal
 IndexedPartSelectOfMember,testflags,CMP_EQUAL,,,equal
 initval,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/initval/dut.sv:1:57: error: redefinition of 'foo' [-Wredefinition],,
-int_port_signed,testflags,CMP_EQUAL,,,differ:file(1)
+int_port_signed,testflags,CMP_EQUAL,,,equal
 int_types,testflags,CMP_EQUAL,,,differ:fullname(96)
 int_types_blk1,testflags,CMP_EQUAL,,,equal
 interface_array,testflags,CMP_EQUAL,,,differ:fullname(3)
@@ -1272,17 +1272,17 @@ interface_array_fanout,testflags,CMP_EQUAL,,,differ:fullname(3)
 InterfaceAlways,testflags,CMP_EQUAL,,,equal
 InterfaceAsPort,testflags,CMP_EQUAL,,,equal
 InterfaceAsPortAssignValueInSubmodule,testflags,CMP_EQUAL,,,equal
-InterfaceAssign,testflags,CMP_EQUAL,,,differ:file(2)
+InterfaceAssign,testflags,CMP_EQUAL,,,equal
 InterfaceInitial,testflags,CMP_EQUAL,,,equal
-InterfaceParameter,testflags,CMP_EQUAL,,,differ:file(1)
-InterfaceParameterSetValue,testflags,CMP_EQUAL,,,differ:file(1)
+InterfaceParameter,testflags,CMP_EQUAL,,,equal
+InterfaceParameterSetValue,testflags,CMP_EQUAL,,,equal
 InterfaceVariable,testflags,CMP_EQUAL,,,equal
 InterfaceWithPort,testflags,CMP_EQUAL,,,equal
 issue326_packed_mem,testflags,CMP_EQUAL,,,equal
 jeras_gpr,testflags,CMP_EQUAL,,,equal
 jeras_reverse,testflags,CMP_EQUAL,,,equal
 jeras_tcb_gpio,testflags,CMP_EQUAL,,,differ:fullname(6)
-jeras_union,testflags,CMP_EQUAL,,,differ:file(117)
+jeras_union,testflags,CMP_EQUAL,,,differ:file(49)
 LargeModuleParameter,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/LargeModuleParameter/dut.sv:19:1: error: unknown module 'PRIMITIVE',,
 latch_002,testflags,CMP_EQUAL,,,equal
 latch_axi_adapter,testflags,CMP_EQUAL,,,equal
@@ -1303,7 +1303,7 @@ led_blink_counter,testflags,CMP_EQUAL,,,equal
 load_and_derive,testflags,CMP_EQUAL,,,equal
 local_nested_struct_field,testflags,CMP_EQUAL,,,equal
 local_var_in_always,testflags,CMP_EQUAL,,,equal
-LocalParamInNestedForLoops,testflags,CMP_EQUAL,,,differ:fullname(4)
+LocalParamInNestedForLoops,testflags,CMP_EQUAL,,,differ:fullname(2)
 LocalParamSelect,testflags,CMP_EQUAL,,,equal
 logic_ops,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/logic_ops/dut.sv:8:23: error: expected ';',,
 LogicPackedArray,testflags,CMP_EQUAL,,,equal
@@ -1329,13 +1329,13 @@ mem2reg_test6,testflags,CMP_EQUAL,,,equal
 mem_ff_partial_rsp,testflags,CMP_EQUAL,,,differ:col(16)
 mem_iface_index,testflags,CMP_EQUAL,,,equal
 mem_init_for_param,testflags,CMP_EQUAL,,,equal
-mem_multi_always_write,testflags,CMP_EQUAL,,,differ:file(4)
+mem_multi_always_write,testflags,CMP_EQUAL,,,equal
 mem_packed_2d_byte_write,testflags,CMP_EQUAL,,,differ:fullname(5)
 mem_read_reg,testflags,CMP_EQUAL,,,differ:name(5)
 mem_sub_plain,testflags,CMP_EQUAL,,,equal
-MemberSelectOf2DStructPackedArray,testflags,CMP_EQUAL,,,differ:file(1)
-MemoryInGenblock,testflags,CMP_EQUAL,,,differ:file(28)
-MemoryPort,testflags,CMP_EQUAL,,,differ:file(10)
+MemberSelectOf2DStructPackedArray,testflags,CMP_EQUAL,,,equal
+MemoryInGenblock,testflags,CMP_EQUAL,,,equal
+MemoryPort,testflags,CMP_EQUAL,,,equal
 MemorySlice,testflags,CMP_EQUAL,,,equal
 mixed_sign_ops,testflags,CMP_EQUAL,,,equal
 MixedPatterns,testflags,CMP_EQUAL,,,equal
@@ -1344,7 +1344,7 @@ ModuleAlways,testflags,CMP_EQUAL,,,equal
 ModuleInstantiationAndIndirectParams,testflags,CMP_EQUAL,,,equal
 ModuleUsingStuctInput,testflags,CMP_EQUAL,,,equal
 MonitorInputPort,testflags,CMP_EQUAL,,,equal
-mriscv_bind_sva,testflags,CMP_EQUAL,,,differ:fullname(112)
+mriscv_bind_sva,testflags,CMP_EQUAL,,,differ:fullname(44)
 mul,testflags,CMP_EQUAL,,,equal
 mul_plain,testflags,CMP_EQUAL,,,equal
 mul_signed_async,testflags,CMP_EQUAL,,,equal
@@ -1365,8 +1365,8 @@ MultipleAssignments,testflags,CMP_EQUAL,,,equal
 MultipleCells,testflags,CMP_EQUAL,,,equal
 MultipleNets,testflags,CMP_EQUAL,,,equal
 MultiplePrints,testflags,CMP_EQUAL,,,equal
-multiplier,testflags,CMP_EQUAL,,,differ:file(84)
-MultirangesStartNotFromZero,testflags,CMP_EQUAL,,,differ:file(3)
+multiplier,testflags,CMP_EQUAL,,,differ:col(42)
+MultirangesStartNotFromZero,testflags,CMP_EQUAL,,,differ:file(2)
 mux16,testflags,CMP_EQUAL,,,equal
 mux2,testflags,CMP_EQUAL,,,equal
 mux4,testflags,CMP_EQUAL,,,equal
@@ -1385,31 +1385,31 @@ nested_full_case,testflags,CMP_EQUAL,,,equal
 nested_struct,testflags,CMP_EQUAL,,,equal
 nested_struct_nopack,testflags,CMP_EQUAL,,,equal
 NestedCallsOfTheSameFunction,testflags,CMP_EQUAL,,,equal
-NestedForLoops,testflags,CMP_EQUAL,,,differ:file(2)
-NestedGenscopesInModuleWithMultidimensionalPorts,testflags,CMP_EQUAL,,,differ:file(20)
+NestedForLoops,testflags,CMP_EQUAL,,,equal
+NestedGenscopesInModuleWithMultidimensionalPorts,testflags,CMP_EQUAL,,,equal
 NestedParamSubstitution,testflags,CMP_EQUAL,,,equal
 NestedPatternPassedAsPort,testflags,CMP_EQUAL,,,equal
-NestedSelectOnInputPortInGenscope,testflags,CMP_EQUAL,,,differ:file(4)
-NestedSelectOnVarInGenscope,testflags,CMP_EQUAL,,,differ:file(4)
+NestedSelectOnInputPortInGenscope,testflags,CMP_EQUAL,,,equal
+NestedSelectOnVarInGenscope,testflags,CMP_EQUAL,,,equal
 NestedStructArrayParameterInitializedByPatternPassedAsPort,testflags,CMP_EQUAL,,,differ:depth(1)
 net_types,testflags,CMP_EQUAL,,,differ:type(1)
 OneAlwaysComb,testflags,CMP_EQUAL,,,equal
 OneArithShift,testflags,CMP_EQUAL,,,equal
-OneCast,testflags,CMP_EQUAL,,,differ:file(2)
+OneCast,testflags,CMP_EQUAL,,,equal
 OneClass,testflags,CMP_EQUAL,,,equal
 OneConcat,testflags,CMP_EQUAL,,,equal
-OneImport,testflags,CMP_EQUAL,,,differ:file(3)
+OneImport,testflags,CMP_EQUAL,,,differ:file(1)
 OneInside,testflags,CMP_EQUAL,,,equal
 onenet,testflags,CMP_EQUAL,,,equal
 OneNetModport,testflags,CMP_EQUAL,,,differ:fullname(4)
-OnePackage,testflags,CMP_EQUAL,,,differ:file(2)
+OnePackage,testflags,CMP_EQUAL,,,equal
 OneReplicate,testflags,CMP_EQUAL,,,equal
 OneShift,testflags,CMP_EQUAL,,,equal
 OneStruct,testflags,CMP_EQUAL,,,equal
 OneSysFunc,testflags,CMP_EQUAL,,,equal
 OneThis,testflags,CMP_EQUAL,,,equal
 opt_share_add_sub,testflags,CMP_EQUAL,,,equal
-OutputSizeWithParameterOfInstanceInitializedByStructMember,testflags,CMP_EQUAL,,,differ:line(11)
+OutputSizeWithParameterOfInstanceInitializedByStructMember,testflags,CMP_EQUAL,,,differ:line(10)
 package_task_func,testflags,CMP_EQUAL,,,equal
 PackageCast,testflags,CMP_EQUAL,,,differ:fullname(6)
 packed_array_elem_select,testflags,CMP_EQUAL,,,equal
@@ -1421,10 +1421,10 @@ packed_struct_array_net_elem,testflags,CMP_EQUAL,,,differ:file(2)
 packed_struct_array_shift,testflags,CMP_EQUAL,,,differ:fullname(4)
 packed_struct_elem_field,testflags,CMP_EQUAL,,,equal
 PackedArray,testflags,CMP_EQUAL,,,equal
-param_array_wildcard,testflags,CMP_EQUAL,,,differ:fullname(4)
+param_array_wildcard,testflags,CMP_EQUAL,,,differ:fullname(2)
 param_fill_default_paramod,testflags,CMP_EQUAL,,,equal
 param_int_types,testflags,CMP_EQUAL,,,equal
-param_name_collision_typeparam,testflags,CMP_EQUAL,,,differ:fullname(9)
+param_name_collision_typeparam,testflags,CMP_EQUAL,,,differ:fullname(8)
 param_nested_struct_field_width,testflags,CMP_EQUAL,,,differ:line(5)
 param_no_default,testflags,CMP_EQUAL,,,equal
 param_packed_array_subst,testflags,CMP_EQUAL,,,equal
@@ -1438,7 +1438,7 @@ ParameterConditionalAssignment,testflags,CMP_EQUAL,,,equal
 ParameterDoubleUnderscoreInSvFrontend,testflags,CMP_EQUAL,,,differ:file(1)
 ParameterFromPkgInNestedModule,testflags,CMP_EQUAL,,,differ:file(8)
 ParameterFromPkgOnParameterPortList,testflags,CMP_EQUAL,,,differ:depth(1)
-ParameterInGenScopeInitializedWithLongConstant,testflags,CMP_EQUAL,,,differ:file(1)
+ParameterInGenScopeInitializedWithLongConstant,testflags,CMP_EQUAL,,,equal
 ParameterInitializationWithNegation,testflags,CMP_EQUAL,,,equal
 ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope,testflags,CMP_EQUAL,,,differ:file(2)
 ParameterInitializedByPartSelectOfParameters,testflags,CMP_EQUAL,,,equal
@@ -1464,7 +1464,7 @@ ParameterUnpackedLogicArray,testflags,CMP_EQUAL,,,equal
 ParameterUnsignedInt,testflags,CMP_EQUAL,,,equal
 ParameterWithUnderscoreValue,testflags,CMP_EQUAL,,,equal
 ParameterWithUnderscoreValueDivided,testflags,CMP_EQUAL,,,equal
-ParameterWithUnderscoreValueDividedPassedFromCommandLine,testflags,CMP_EQUAL,,,differ:file(3)
+ParameterWithUnderscoreValueDividedPassedFromCommandLine,testflags,CMP_EQUAL,,,differ:file(2)
 paramod_genscope_child,testflags,CMP_EQUAL,,,equal
 paramod_struct_param,testflags,CMP_EQUAL,,,equal
 partsel_simple,testflags,CMP_EQUAL,,,differ:depth(1)
@@ -1492,7 +1492,7 @@ port_int_types,testflags,CMP_EQUAL,,,equal
 port_sign_extend,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/port_sign_extend/dut.v:75:7: error: expected identifier,,
 portsel_struct_param,testflags,CMP_EQUAL,,,differ:endcol(5)
 power_state,testflags,CMP_EQUAL,,,equal
-prefix,testflags,CMP_EQUAL,,,differ:file(6)
+prefix,testflags,CMP_EQUAL,,,equal
 print_trg_mixed_edges,testflags,CMP_EQUAL,,,equal
 print_trg_multi_edge,testflags,CMP_EQUAL,,,equal
 print_trg_single_edge,testflags,CMP_EQUAL,,,equal
@@ -1502,7 +1502,7 @@ priority_memory,testflags,CMP_EQUAL,,,equal
 PutC,testflags,CMP_EQUAL,,,equal
 r5p_gpr_cosim,testflags,CMP_EQUAL,,,equal
 rand_const,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rand_const/dut.sv:10:19: error: constant variable must have an initializer,,
-read_remux,testflags,CMP_EQUAL,,,differ:file(4)
+read_remux,testflags,CMP_EQUAL,,,equal
 readmemh_param,testflags,CMP_EQUAL,,,equal
 readmemh_rom,testflags,CMP_EQUAL,,,equal
 ReadmemhInGenblock,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ReadmemhInGenblock/dut.sv:14:3: error: expected member,,
@@ -1513,25 +1513,25 @@ ReferencedPackageParameterInEnum,testflags,CMP_EQUAL,,,equal
 reg_wire_error,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/reg_wire_error/dut.sv:26:9: error: cannot assign to a net within a procedural context,,
 Repeat,testflags,CMP_EQUAL,,,equal
 Replication,testflags,CMP_EQUAL,,,equal
-ReplicationPassedToInstance,testflags,CMP_EQUAL,,,differ:fullname(2)
+ReplicationPassedToInstance,testflags,CMP_EQUAL,,,differ:fullname(1)
 repwhile,testflags,CMP_EQUAL,,,equal
 resolve_types,testflags,CMP_EQUAL,,,equal
-ReturnEnumArray,testflags,CMP_EQUAL,,,differ:file(1)
+ReturnEnumArray,testflags,CMP_EQUAL,,,equal
 ReturnFunctionCall,testflags,CMP_EQUAL,,,equal
 rmw_comb_var,testflags,CMP_EQUAL,,,equal
-rotate,testflags,CMP_EQUAL,,,differ:file(169)
-rp32_r5p_alu,testflags,CMP_EQUAL,,,differ:file(96)
-rp32_r5p_bru,testflags,CMP_EQUAL,,,differ:file(96)
+rotate,testflags,CMP_EQUAL,,,equal
+rp32_r5p_alu,testflags,CMP_EQUAL,,,differ:file(46)
+rp32_r5p_bru,testflags,CMP_EQUAL,,,differ:file(46)
 rp32_r5p_csr,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/degu/r5p32_csr_pkg.sv:324:16: error: no implicit conversion from 'bit[0:0]' to 'csr_vector_t'; e,,
 rp32_r5p_degu,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/degu/r5p_degu.sv:56:19: error: top-level module 'r5p_degu' has unconnected interface port 'tcb_i,,
 rp32_r5p_degu_soc_top,testflags,SLANG_REJECT,                                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~,,
 rp32_r5p_gpr_1r1w,testflags,CMP_EQUAL,,,equal
 rp32_r5p_hamster,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/hamster/r5p_hamster.sv:267:22: error: no member named 'alu' in 'dec_t',,
-rp32_r5p_mdu,testflags,CMP_EQUAL,,,differ:file(96)
+rp32_r5p_mdu,testflags,CMP_EQUAL,,,differ:file(46)
 rp32_r5p_mouse,testflags,CMP_EQUAL,,,equal
 rp32_r5p_mouse_soc_simple_top,testflags,CMP_EQUAL,,,equal
 rp32_r5p_mouse_soc_top,testflags,SLANG_REJECT,                                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~,,
-rp32_r5p_wbu,testflags,CMP_EQUAL,,,differ:file(96)
+rp32_r5p_wbu,testflags,CMP_EQUAL,,,differ:file(46)
 rp32_soc_vfriendly,testflags,SLANG_REJECT,                                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~,,
 rsp_gen_minimal,testflags,CMP_EQUAL,,,differ:fullname(3)
 sat_asserts_seq,testflags,CMP_EQUAL,,,differ:line(18)
@@ -1546,7 +1546,7 @@ SelfSelectsInBitSelectAfterBitSelect,testflags,CMP_EQUAL,,,equal
 setundef,testflags,CMP_EQUAL,,,equal
 ShiftTernary,testflags,CMP_EQUAL,,,equal
 Shortint,testflags,CMP_EQUAL,,,equal
-Shortreal,testflags,CMP_EQUAL,,,differ:value(2)
+Shortreal,testflags,CMP_EQUAL,,,differ:value(1)
 sign_part_assign,testflags,CMP_EQUAL,,,equal
 signed_compare,testflags,CMP_EQUAL,,,equal
 signed_ext_case,testflags,CMP_EQUAL,,,equal
@@ -1555,14 +1555,14 @@ signed_partsel_ext,testflags,CMP_EQUAL,,,equal
 SignedWire,testflags,CMP_EQUAL,,,equal
 simple_abc9,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/simple_abc9/dut.sv:88:15: error: cannot select range of [7:4] from 'reg[3:0]' [-Wrange-oob],,
 simple_always_ff,testflags,CMP_EQUAL,,,equal
-simple_always_ifelse,testflags,CMP_EQUAL,,,differ:file(4)
+simple_always_ifelse,testflags,CMP_EQUAL,,,equal
 simple_assign,testflags,CMP_EQUAL,,,equal
 simple_counter,testflags,CMP_EQUAL,,,equal
 simple_enum,testflags,CMP_EQUAL,,,differ:file(2)
 simple_forloops,testflags,CMP_EQUAL,,,equal
 simple_fsm,testflags,CMP_EQUAL,,,equal
 simple_function,testflags,CMP_EQUAL,,,equal
-simple_generate,testflags,CMP_EQUAL,,,differ:file(4)
+simple_generate,testflags,CMP_EQUAL,,,equal
 simple_hierarchy,testflags,CMP_EQUAL,,,equal
 simple_instance_array,testflags,CMP_EQUAL,,,equal
 simple_interface,testflags,CMP_EQUAL,,,equal
@@ -1578,13 +1578,13 @@ sincos,testflags,CMP_EQUAL,,,equal
 size_cast,testflags,CMP_EQUAL,,,equal
 size_cast_param,testflags,CMP_EQUAL,,,equal
 sizebits,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/sizebits/dut.sv:31:24: error: invalid argument type 'logic' to system function,,
-SizeOfGeneratedWireArray,testflags,CMP_EQUAL,,,differ:file(1)
+SizeOfGeneratedWireArray,testflags,CMP_EQUAL,,,equal
 SizeOfUnsignedParameter,testflags,CMP_EQUAL,,,equal
 sp_read_first,testflags,CMP_EQUAL,,,equal
 sp_read_or_write,testflags,CMP_EQUAL,,,equal
 sp_write_first,testflags,CMP_EQUAL,,,equal
 stamped_gen_param,testflags,CMP_NOTEQUAL,decompile:,,
-static_cast_simple,testflags,CMP_EQUAL,,,differ:endcol(23)
+static_cast_simple,testflags,CMP_EQUAL,,,differ:endcol(6)
 StreamOp,testflags,CMP_EQUAL,,,equal
 StreamOperatorBitReverseFunction,testflags,CMP_EQUAL,,,equal
 StreamOpImplicitSliceSize,testflags,CMP_EQUAL,,,equal
@@ -1607,7 +1607,7 @@ struct_member_expr_index,testflags,CMP_EQUAL,,,equal
 struct_member_trailing_index,testflags,CMP_EQUAL,,,differ:endline(11)
 struct_negative_index,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_negative_index/dut.sv:14:13: error: cannot refer to element -1 of 'bit[3:0][7:0]' [-Windex-oob,,
 struct_param_dim,testflags,CMP_EQUAL,,,equal
-struct_param_field_shift,testflags,CMP_EQUAL,,,differ:col(45)
+struct_param_field_shift,testflags,CMP_EQUAL,,,differ:col(43)
 struct_param_func_arg,testflags,CMP_EQUAL,,,differ:endcol(1)
 struct_param_func_config,testflags,CMP_EQUAL,,,differ:line(5)
 struct_param_func_loop,testflags,CMP_EQUAL,,,differ:fullname(7)
@@ -1630,11 +1630,11 @@ StructPackedArray,testflags,CMP_EQUAL,,,equal
 StructPackedOutput,testflags,CMP_EQUAL,,,equal
 StructParameter,testflags,CMP_EQUAL,,,differ:count(0)
 StructParameterInGenScope,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/StructParameterInGenScope/dut.sv:30:67: error: use of undeclared identifier 'PageW',,
-StructParameterInitializedWithPatternAndReferenced,testflags,CMP_EQUAL,,,differ:fullname(2)
+StructParameterInitializedWithPatternAndReferenced,testflags,CMP_EQUAL,,,differ:fullname(1)
 subbytes,testflags,CMP_EQUAL,,,equal
 SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule,testflags,CMP_EQUAL,,,differ:file(2)
 SumOfParameters,testflags,CMP_EQUAL,,,differ:file(1)
-SumOfParametersInNestedForLoops,testflags,CMP_EQUAL,,,differ:file(3)
+SumOfParametersInNestedForLoops,testflags,CMP_EQUAL,,,differ:type(1)
 sva_basic00,testflags,CMP_EQUAL,,,equal
 sva_basic01,testflags,CMP_EQUAL,,,equal
 sva_basic02,testflags,CMP_EQUAL,,,differ:endcol(4)
@@ -1694,8 +1694,8 @@ ucsbece154b_victim_cache,testflags,CMP_EQUAL,,,equal
 unary_op_minus,testflags,CMP_EQUAL,,,equal
 unary_op_not_log,testflags,CMP_EQUAL,,,equal
 unary_op_plus,testflags,CMP_EQUAL,,,equal
-unbased_unsized,testflags,CMP_EQUAL,,,differ:file(2)
-unbased_unsized_param,testflags,CMP_EQUAL,,,differ:file(3)
+unbased_unsized,testflags,CMP_EQUAL,,,equal
+unbased_unsized_param,testflags,CMP_EQUAL,,,differ:depth(1)
 unbased_unsized_shift,testflags,CMP_EQUAL,,,equal
 union4_repro,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/union4_repro/dut.sv:3:44: error: all members of a packed union must have the same width; 'raw' has wi,,
 union_field_partsel,testflags,CMP_EQUAL,,,equal
@@ -1710,12 +1710,12 @@ unique_case_default,testflags,CMP_EQUAL,,,equal
 UnitForLoop,testflags,CMP_EQUAL,,,equal
 unnamed_block_decl,testflags,CMP_EQUAL,,,equal
 unpacked_array_shift_ff,testflags,CMP_EQUAL,,,equal
-unpacked_elem_partsel_comb,testflags,CMP_EQUAL,,,differ:file(12)
+unpacked_elem_partsel_comb,testflags,CMP_EQUAL,,,differ:fullname(4)
 unpacked_elem_write_flat,testflags,CMP_EQUAL,,,equal
-unpacked_struct_2d,testflags,CMP_EQUAL,,,differ:file(13)
-unpacked_struct_array_typedef,testflags,CMP_EQUAL,,,differ:file(4)
-unpacked_struct_dyn_read,testflags,CMP_EQUAL,,,differ:file(13)
-unpacked_struct_mixed,testflags,CMP_EQUAL,,,differ:file(13)
+unpacked_struct_2d,testflags,CMP_EQUAL,,,differ:endline(13)
+unpacked_struct_array_typedef,testflags,CMP_EQUAL,,,equal
+unpacked_struct_dyn_read,testflags,CMP_EQUAL,,,differ:endline(13)
+unpacked_struct_mixed,testflags,CMP_EQUAL,,,differ:endline(13)
 UnpackedArray,testflags,CMP_EQUAL,,,equal
 UnsizedConst,testflags,CMP_EQUAL,,,equal
 UnsizedConstant,testflags,CMP_EQUAL,,,equal

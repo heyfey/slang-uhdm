@@ -1,0 +1,3 @@
+{'same': 3641, 'FEWER': 165, 'BETTER': 124, 'MOVED-fewer': 155, 'MOVED-notfewer': 2}
+MOVED-notfewer r10earl_repro/pt23 STRICT_NOTEQUAL file(19) -> STRICT_NOTEQUAL endline(19)
+MOVED-notfewer r11u109repro/grid/hp/h08_unpacked_base STRICT_NOTEQUAL file(3) -> STRICT_NOTEQUAL endline(3)

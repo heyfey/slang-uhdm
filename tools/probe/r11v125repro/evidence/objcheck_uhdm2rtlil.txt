@@ -1,0 +1,3 @@
+NODUMP default stamped_gen_param-63c47340
+NODUMP testflags stamped_gen_param-63c47340
+uhdm2rtlil {'rows': 242, 'improved': 20122, 'nodump': 2}

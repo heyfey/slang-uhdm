@@ -1,0 +1,2 @@
+surelog {'rows': 140, 'improved': 227434, 'neutral': 418, 'pairing_changed': 398}
+FLAG ('default', 'Scoreboard-72aa0ba8', {'improved': 18330, 'neutral': 18, 'pairing_changed': 398, 'unpairedP': 1656, 'unpairedL': 2452})

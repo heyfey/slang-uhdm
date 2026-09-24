@@ -1,0 +1,15 @@
+BETTER row-modes 173
+needed-by (row-modes that stop being equal when this law alone is off):
+  R11U125_GVLINE_OFF: 4 (the only law needed: 0)
+  R11U125_GVFILE_OFF: 120 (the only law needed: 116)
+  R11U125_MACROFILE_OFF: 4 (the only law needed: 2)
+  R11U125_SPANFILE_OFF: 15 (the only law needed: 13)
+  R11U125_CASTFILE_OFF: 34 (the only law needed: 34)
+  R11U125_INCCOL_OFF: 2 (the only law needed: 2)
+  R11U125_MACROCMT_OFF: 0 (the only law needed: 0)
+  R11U125_INCREDEF_OFF: 0 (the only law needed: 0)
+combinations: {'GVFILE': 116, 'SPANFILE': 13, 'CASTFILE': 34, 'GVLINE+GVFILE': 4, 'MACROFILE': 2, 'INCCOL': 2, 'MACROFILE+SPANFILE': 2}
+strict-changed row-modes 342; R11U125_OFF restores the pristine strict cell on 342
+byte movers 384; R11U125_OFF bytes == pristine on 380
+movers involving each law: {'MACROFILE': 53, 'GVFILE': 212, 'SPANFILE': 74, 'CASTFILE': 89, 'GVLINE': 9, 'INCCOL': 7, 'MACROCMT': 12, 'INCREDEF': 7}
+movers with no single-law attribution: []

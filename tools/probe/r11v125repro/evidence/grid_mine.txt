@@ -1,0 +1,48 @@
+ct/t01 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 NOTEQUAL fullname | fix rc=0 cmp=0 NOTEQUAL fullname | moved
+ct/t02 | pris rc=0 cmp=122 NOT_EQUAL stage1 | law rc=0 cmp=122 NOT_EQUAL stage1 | fix rc=0 cmp=122 NOT_EQUAL stage1 | moved
+ct/t03 | pris rc=0 cmp=0 NOTEQUAL col | law rc=0 cmp=0 NOTEQUAL col | fix rc=0 cmp=0 NOTEQUAL col | moved
+ct/t04 | pris rc=0 cmp=0 EQUAL 161 objects | law rc=0 cmp=0 EQUAL 161 objects | fix rc=0 cmp=0 EQUAL 161 objects | SAMEBYTES
+gv/v01 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 EQUAL 105 objects | fix rc=0 cmp=0 EQUAL 105 objects | moved
+gv/v02 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 EQUAL 201 objects | fix rc=0 cmp=0 EQUAL 201 objects | moved
+gv/v03 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 EQUAL 255 objects | fix rc=0 cmp=0 EQUAL 255 objects | moved
+gv/v04 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 EQUAL 89 objects | fix rc=0 cmp=0 EQUAL 89 objects | moved
+gv/v05 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 NOTEQUAL file | fix rc=0 cmp=0 NOTEQUAL file | moved
+gv/v06 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 NOTEQUAL file | fix rc=0 cmp=0 NOTEQUAL file | moved
+gv/v07 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 EQUAL 102 objects | fix rc=0 cmp=0 EQUAL 102 objects | moved
+gv/v08 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 EQUAL 295 objects | fix rc=0 cmp=0 EQUAL 295 objects | moved
+ic/x01 | pris rc=0 cmp=0 NOTEQUAL col | law rc=0 cmp=0 EQUAL 78 objects | fix rc=0 cmp=0 EQUAL 78 objects | moved
+ic/x02 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 NOTEQUAL file | fix rc=0 cmp=0 NOTEQUAL file | moved
+ic/x03 | pris rc=0 cmp=0 NOTEQUAL col | law rc=0 cmp=0 EQUAL 78 objects | fix rc=0 cmp=0 EQUAL 78 objects | moved
+ic/x04 | pris rc=0 cmp=0 NOTEQUAL col | law rc=0 cmp=0 NOTEQUAL col | fix rc=0 cmp=0 EQUAL 103 objects | moved
+ic/x05 | pris rc=0 cmp=0 EQUAL 78 objects | law rc=0 cmp=0 EQUAL 78 objects | fix rc=0 cmp=0 EQUAL 78 objects | SAMEBYTES
+ic/x06 | pris rc=0 cmp=0 NOTEQUAL col | law rc=0 cmp=0 EQUAL 90 objects | fix rc=0 cmp=0 EQUAL 90 objects | moved
+ic/x07 | pris rc=0 cmp=0 NOTEQUAL col | law rc=0 cmp=0 EQUAL 78 objects | fix rc=0 cmp=0 EQUAL 78 objects | moved
+ic/x08 | pris rc=0 cmp=0 NOTEQUAL col | law rc=0 cmp=0 NOTEQUAL col | fix rc=0 cmp=0 NOTEQUAL col | moved
+mc/y01 | pris rc=0 cmp=0 NOTEQUAL col | law rc=0 cmp=0 EQUAL 84 objects | fix rc=0 cmp=0 EQUAL 84 objects | moved
+mc/y02 | pris rc=0 cmp=0 NOTEQUAL endcol | law rc=0 cmp=0 EQUAL 59 objects | fix rc=0 cmp=0 EQUAL 59 objects | moved
+mc/y03 | pris rc=0 cmp=0 NOTEQUAL col | law rc=0 cmp=0 EQUAL 70 objects | fix rc=0 cmp=0 EQUAL 70 objects | moved
+mc/y04 | pris rc=0 cmp=0 NOTEQUAL col | law rc=0 cmp=0 EQUAL 70 objects | fix rc=0 cmp=0 EQUAL 70 objects | moved
+mc/y05 | pris rc=0 cmp=0 NOTEQUAL endcol | law rc=0 cmp=0 EQUAL 70 objects | fix rc=0 cmp=0 EQUAL 70 objects | moved
+mc/y06 | pris rc=0 cmp=0 NOTEQUAL col | law rc=0 cmp=0 EQUAL 70 objects | fix rc=0 cmp=0 EQUAL 70 objects | moved
+mf/w01 | pris rc=0 cmp=0 EQUAL 79 objects | law rc=0 cmp=0 EQUAL 79 objects | fix rc=0 cmp=0 EQUAL 79 objects | SAMEBYTES
+mf/w02 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 EQUAL 82 objects | fix rc=0 cmp=0 EQUAL 82 objects | moved
+mf/w03 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 EQUAL 80 objects | fix rc=0 cmp=0 EQUAL 80 objects | moved
+mf/w04 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 NOTEQUAL file | fix rc=0 cmp=0 NOTEQUAL file | SAMEBYTES
+mf/w05 | pris rc=0 cmp=0 NOTEQUAL line | law rc=0 cmp=0 NOTEQUAL line | fix rc=0 cmp=0 NOTEQUAL line | moved
+mf/w06 | pris rc=0 cmp=0 EQUAL 78 objects | law rc=0 cmp=0 EQUAL 78 objects | fix rc=0 cmp=0 EQUAL 78 objects | SAMEBYTES
+mf/w07 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 EQUAL 82 objects | fix rc=0 cmp=0 EQUAL 82 objects | moved
+mf/w08 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 EQUAL 70 objects | fix rc=0 cmp=0 EQUAL 70 objects | moved
+mf/w09 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 EQUAL 70 objects | fix rc=0 cmp=0 EQUAL 70 objects | moved
+mf/w10 | pris rc=0 cmp=0 NOTEQUAL file | law rc=0 cmp=0 EQUAL 70 objects | fix rc=0 cmp=0 EQUAL 70 objects | moved
+mf/w11 | pris rc=0 cmp=0 NOTEQUAL line | law rc=0 cmp=0 NOTEQUAL line | fix rc=0 cmp=0 NOTEQUAL line | SAMEBYTES
+rd/z01 | pris rc=0 cmp=0 EQUAL 78 objects | law rc=0 cmp=0 NOTEQUAL line | fix rc=0 cmp=0 EQUAL 78 objects | moved
+rd/z02 | pris rc=0 cmp=0 NOTEQUAL line | law rc=0 cmp=0 NOTEQUAL line | fix rc=0 cmp=0 NOTEQUAL line | moved
+rd/z03 | pris rc=0 cmp=0 NOTEQUAL line | law rc=0 cmp=0 NOTEQUAL line | fix rc=0 cmp=0 NOTEQUAL line | moved
+rd/z05 | pris rc=0 cmp=0 NOTEQUAL line | law rc=0 cmp=0 NOTEQUAL line | fix rc=0 cmp=0 NOTEQUAL line | moved
+rd/z06 | pris rc=0 cmp=0 NOTEQUAL line | law rc=0 cmp=0 NOTEQUAL line | fix rc=0 cmp=0 NOTEQUAL line | moved
+rd/z07 | pris rc=0 cmp=0 EQUAL 78 objects | law rc=0 cmp=0 NOTEQUAL line | fix rc=0 cmp=0 EQUAL 78 objects | moved
+rd/z08 | pris rc=0 cmp=0 NOTEQUAL line | law rc=0 cmp=0 NOTEQUAL line | fix rc=0 cmp=0 NOTEQUAL line | SAMEBYTES
+rd/z09 | pris rc=0 cmp=0 NOTEQUAL line | law rc=0 cmp=0 NOTEQUAL line | fix rc=0 cmp=0 NOTEQUAL line | moved
+rd/z10 | pris rc=0 cmp=0 NOTEQUAL line | law rc=0 cmp=0 NOTEQUAL line | fix rc=0 cmp=0 NOTEQUAL line | moved
+rd/z11 | pris rc=0 cmp=0 EQUAL 79 objects | law rc=0 cmp=0 EQUAL 79 objects | fix rc=0 cmp=0 EQUAL 79 objects | SAMEBYTES
+rd/z12 | pris rc=0 cmp=0 NOTEQUAL line | law rc=0 cmp=0 NOTEQUAL line | fix rc=0 cmp=0 NOTEQUAL line | SAMEBYTES

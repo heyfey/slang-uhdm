@@ -81,6 +81,31 @@ static bool r11u112On(const char* sw) {
     return !getenv("R11U112_OFF") && !getenv(sw);
 }
 
+// r11u125 kill switches (tools/probe/r11u125repro/README.md): R11U125_OFF drops
+// every r11u125 law, R11U125_<X>_OFF drops one.  The twins in TypeEmit.cpp,
+// UhdmExporter.cpp and TaskFuncEmit.cpp read the same environment.
+static bool r11u125Off(const char* sw) {
+    return getenv("R11U125_OFF") != nullptr || getenv(sw) != nullptr;
+}
+
+// § spanCopyCarriesFile125 (r11u125) — AN OBJECT THAT COPIES ITS SPAN FROM
+// ANOTHER OBJECT COPIES ITS FILE TOO.  Surelog's clones (clone_tree, and the
+// compile helpers that mint a folded constant or a typespec copy at a source
+// object's position) carry every location field, VpiFile included; the span
+// copies below carried line/col/endline/endcol only, so the copy read
+// file-less (uhdm-strictcmp `file`, ours empty).  MEASURED per site on both
+// corpora with a marker build (tools/probe/r11u125repro/README.md, census):
+// every object each site mints that reaches a judged row has a file in golden
+// (no golden-empty object at any site), the source object's file.
+// Switch: R11U125_SPANFILE_OFF (and R11U125_OFF).
+static void cpFile125(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
+    static const bool off = getenv("R11U125_OFF") != nullptr ||
+                            getenv("R11U125_SPANFILE_OFF") != nullptr;
+    if (off || !dst || !src || !dst->VpiFile().empty() || src->VpiFile().empty())
+        return;
+    dst->VpiFile(src->VpiFile());
+}
+
 /// § propDeclDisableIffSkip112 (r11u112, face 5) — A PROPERTY DECLARATION'S
 /// `disable iff` CONDITION IS DROPPED AND ITS PROPERTY EXPRESSION KEPT.
 ///
@@ -6024,6 +6049,7 @@ static UHDM::constant* foldBareParamBound(UHDM::Serializer& s,
     c->VpiValue("UINT:" + dv);
     c->VpiConstType(vpiUIntConst);
     c->VpiLineNo(be->VpiLineNo());
+    cpFile125(c, be);
     c->VpiColumnNo(be->VpiColumnNo());
     c->VpiEndLineNo(be->VpiEndLineNo());
     c->VpiEndColumnNo(be->VpiEndColumnNo());
@@ -6334,6 +6360,7 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
                         c9->VpiConstType(vpiUIntConst);
                         c9->VpiParent(op9);
                         c9->VpiLineNo(r9->VpiLineNo());
+                        cpFile125(c9, r9);
                         c9->VpiColumnNo(r9->VpiColumnNo());
                         c9->VpiEndLineNo(r9->VpiEndLineNo());
                         c9->VpiEndColumnNo(r9->VpiEndColumnNo());
@@ -7428,6 +7455,7 @@ UHDM::typespec* UhdmExporter::pkgVectorFoldTwin(const slang::ast::Symbol& taSym,
     auto* cl0 = s.MakeLogic_typespec();
     cl0->VpiName(std::string(lt0->VpiName()));
     cl0->VpiLineNo(lt0->VpiLineNo());
+    cpFile125(cl0, lt0);
     cl0->VpiColumnNo(lt0->VpiColumnNo());
     cl0->VpiEndLineNo(lt0->VpiEndLineNo());
     cl0->VpiEndColumnNo(lt0->VpiEndColumnNo());
@@ -7438,6 +7466,7 @@ UHDM::typespec* UhdmExporter::pkgVectorFoldTwin(const slang::ast::Symbol& taSym,
     auto* nr0 = s.MakeRange();
     nr0->VpiParent(cl0);
     nr0->VpiLineNo(symR0->VpiLineNo());
+    cpFile125(nr0, symR0);
     nr0->VpiColumnNo(symR0->VpiColumnNo());
     nr0->VpiEndLineNo(symR0->VpiEndLineNo());
     nr0->VpiEndColumnNo(symR0->VpiEndColumnNo());
@@ -7456,6 +7485,7 @@ UHDM::typespec* UhdmExporter::pkgVectorFoldTwin(const slang::ast::Symbol& taSym,
                 an0 = (UHDM::expr*)(*ops0)[0];
         if (an0) {
             c0->VpiLineNo(an0->VpiLineNo());
+            cpFile125(c0, an0);
             c0->VpiColumnNo(an0->VpiColumnNo());
             c0->VpiEndLineNo(an0->VpiEndLineNo());
             c0->VpiEndColumnNo(an0->VpiEndColumnNo());
@@ -7508,6 +7538,7 @@ void UhdmExporter::foldVectorTsBounds(UHDM::typespec* t,
                 an0 = (UHDM::expr*)(*ops0)[0];
         if (an0) {
             c0->VpiLineNo(an0->VpiLineNo());
+            cpFile125(c0, an0);
             c0->VpiColumnNo(an0->VpiColumnNo());
             c0->VpiEndLineNo(an0->VpiEndLineNo());
             c0->VpiEndColumnNo(an0->VpiEndColumnNo());
@@ -17271,6 +17302,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             np9->VpiDirection(dp9->VpiDirection());
                             np9->VpiParent(ucIf9);
                             np9->VpiLineNo(dp9->VpiLineNo());
+                            cpFile125(np9, dp9);
                             np9->VpiColumnNo(dp9->VpiColumnNo());
                             np9->VpiEndLineNo(dp9->VpiEndLineNo());
                             np9->VpiEndColumnNo(dp9->VpiEndColumnNo());
@@ -17282,6 +17314,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                               "." + pn9);
                             nlc9->VpiParent(np9);
                             nlc9->VpiLineNo(dp9->VpiLineNo());
+                            cpFile125(nlc9, dp9);
                             nlc9->VpiColumnNo(dp9->VpiColumnNo());
                             nlc9->VpiEndLineNo(dp9->VpiEndLineNo());
                             nlc9->VpiEndColumnNo(dp9->VpiEndColumnNo());
@@ -22904,8 +22937,35 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         loopSyn = q;
                         break;
                     }
-                up->VpiLineNo(sm->getLineNumber(loopSyn->sourceRange().start()));
+                // § genvarParamLoopVarLine125 — Surelog writes the loop-index
+                // parameter from the instance's mapped value, whose line is
+                // `fC->Line(varId)`: the genvar IDENTIFIER of the loop that
+                // iterates it (DesignElaboration.cpp, `child->setValue(name,
+                // ..., fC->Line(varId))`; UhdmWriter.cpp "Loop indexes").
+                // slang's implicit genvar parameter is located at exactly
+                // that token.  The nearest-LoopGenerate walk above found the
+                // WRONG loop when the body of an outer loop is itself an
+                // inner loop (`for (i..) for (j..) begin`: golden line of the
+                // `i` loop, ours the `j` loop) and the wrong LINE when the
+                // header spans lines.  Switch: R11U125_GVLINE_OFF.
+                SourceLocation gvLoc125 = ps.location;
+                if (!r11u125Off("R11U125_GVLINE_OFF") &&
+                    gvLoc125 != SourceLocation::NoLocation) {
+                    uint32_t gl125 = 0, gc125 = 0;
+                    locLineCol(gvLoc125, gl125, gc125);
+                    up->VpiLineNo(gl125);
+                }
+                else
+                    up->VpiLineNo(sm->getLineNumber(loopSyn->sourceRange().start()));
                 up->VpiColumnNo(0);
+                // § genvarParamFile125 — the same writer stamps
+                // `VpiFile(instance->getFileId())`: the file of the generate
+                // BLOCK node the child instance is built on (the loop body).
+                // uhdm-cmp never reads it; uhdm2rtlil's get_src_attribute
+                // does.  Switch: R11U125_GVFILE_OFF.
+                if (!r11u125Off("R11U125_GVFILE_OFF") &&
+                    syn->sourceRange().start() != SourceLocation::NoLocation)
+                    up->VpiFile(fullFilePath(syn->sourceRange().start()));
             }
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(fullName + "." + std::string(ps.name));
@@ -28816,6 +28876,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                     std::string(el5->name), ".");
                 cl5->VpiName(el5->name);
                 cl5->VpiLineNo(shared5->VpiLineNo());
+                cpFile125(cl5, shared5);
                 cl5->VpiColumnNo(shared5->VpiColumnNo());
                 cl5->VpiEndLineNo(shared5->VpiEndLineNo());
                 cl5->VpiEndColumnNo(shared5->VpiEndColumnNo());
@@ -29679,6 +29740,15 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             tts->VpiColumnNo(pc.col);
             tts->VpiEndLineNo(pc.endLine);
             tts->VpiEndColumnNo(pc.endCol);
+            // § castTsDrainFile125 — the deferred cast-target typespec is
+            // located at the cast's target (the pending record holds only its
+            // line/col), in the file of the cast operation it hangs off.
+            // MEASURED (census, marker build): every drained typespec that
+            // reaches a judged row has a file in golden, the operation's.
+            // Switch: R11U125_CASTFILE_OFF (and R11U125_OFF).
+            if (!r11u125Off("R11U125_CASTFILE_OFF") && pc.rt->VpiParent() &&
+                tts->VpiFile().empty())
+                tts->VpiFile(pc.rt->VpiParent()->VpiFile());
             tts->VpiParent(pc.rt);
             pc.rt->Actual_typespec(tts);
             continue;
@@ -29688,6 +29758,10 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         its->VpiColumnNo(pc.col);
         its->VpiEndLineNo(pc.endLine);
         its->VpiEndColumnNo(pc.endCol);
+        // § castTsDrainFile125 (the size-cast arm).
+        if (!r11u125Off("R11U125_CASTFILE_OFF") && pc.rt->VpiParent() &&
+            its->VpiFile().empty())
+            its->VpiFile(pc.rt->VpiParent()->VpiFile());
         if (pc.pkgInst)
             its->Instance(pc.pkgInst);
         if (pc.sizeExpr) {
@@ -29719,6 +29793,7 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     for (auto& pa : pendingCastAggTs) {
         auto cpLoc = [](UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
             dst->VpiLineNo(src->VpiLineNo());
+            cpFile125(dst, src);
             dst->VpiColumnNo(src->VpiColumnNo());
             dst->VpiEndLineNo(src->VpiEndLineNo());
             dst->VpiEndColumnNo(src->VpiEndColumnNo());
@@ -31570,6 +31645,7 @@ static bool substNdaParamRefs(
     c->VpiValue(std::string(src->VpiValue()));
     c->VpiConstType(src->VpiConstType());
     c->VpiLineNo(r->VpiLineNo());
+    cpFile125(c, r);
     c->VpiColumnNo(r->VpiColumnNo());
     c->VpiEndLineNo(r->VpiEndLineNo());
     c->VpiEndColumnNo(r->VpiEndColumnNo());
@@ -43796,6 +43872,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             auto* ca = s.MakeCont_assign();
             ca->VpiParent(iface);
             ca->VpiLineNo(defCa->VpiLineNo());
+            cpFile125(ca, defCa);
             ca->VpiColumnNo(defCa->VpiColumnNo());
             ca->VpiEndLineNo(defCa->VpiEndLineNo());
             ca->VpiEndColumnNo(defCa->VpiEndColumnNo());
@@ -43966,6 +44043,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 ro->VpiFullName(prefix + "." + std::string(dro->VpiName()));
                 ro->VpiParent(ca);
                 ro->VpiLineNo(dro->VpiLineNo());
+                cpFile125(ro, dro);
                 ro->VpiColumnNo(dro->VpiColumnNo());
                 ro->VpiEndLineNo(dro->VpiEndLineNo());
                 ro->VpiEndColumnNo(dro->VpiEndColumnNo());
@@ -43983,6 +44061,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 bs->VpiFullName(prefix + "." + std::string(dbs->VpiName()));
                 bs->VpiParent(ca);
                 bs->VpiLineNo(dbs->VpiLineNo());
+                cpFile125(bs, dbs);
                 bs->VpiColumnNo(dbs->VpiColumnNo());
                 bs->VpiEndLineNo(dbs->VpiEndLineNo());
                 bs->VpiEndColumnNo(dbs->VpiEndColumnNo());

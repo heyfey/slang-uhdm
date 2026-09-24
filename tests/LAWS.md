@@ -20,7 +20,7 @@ several laws and nothing says which one a case exercises, the case is listed und
 each of them with a trailing `?` until its author writes its LAW file. A
 verification pass owns the laws of the pass it verifies.
 
-Laws: 1440. Cases in the gate: 4087, tied to one law 3969, listed with `?`
+Laws: 1450. Cases in the gate: 4087, tied to one law 3969, listed with `?`
 under several 106, tied to no law 12 (listed at the end).
 Laws with a commit on this branch: 875;
 laws with cases in the gate: 676.
@@ -1749,6 +1749,14 @@ laws with cases in the gate: 676.
 - cases in the gate (tests/probe/): r10earl_repro/cc? r10earl_repro/py20? r10earl_repro/qa28? r10earl_repro/qd25? r10earl_repro/rr? r10earl_repro/tl? r10earl_repro/wf?
 - cases in the evidence (tools/probe/): r10earl97repro/g1_kind97.sv r10earl_repro/d.sv? r10earl_repro/k.sv? r10earl_repro/qb28.sv? r10earl_repro/qc25.sv? r10earl_repro/qc28.sv? r10earl_repro/qe22.sv? r10earl_repro/qf26.sv? r10earl_repro/qh27.sv? r10earl_repro/qi27.sv? r10vearl97repro/va3_ref97.sv
 - also mentioned by: r10earl57repro
+
+### `castTsDrainFile125`
+- commits: none on this branch
+- pass: r11u125repro (verified by r11v125repro)
+- switches: R11U125_CASTFILE_OFF R11U125_GVFILE_OFF R11U125_GVLINE_OFF R11U125_INCCOL_OFF R11U125_INCREDEF_OFF R11U125_MACROCMT_OFF R11U125_MACROFILE_OFF R11U125_OFF R11U125_SPANFILE_OFF R11V125_INCINFOCOL_OFF
+- source: src/ModuleEmit.cpp(2)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u125repro/grid/g2/c01/dut.sv r11u125repro/grid/g2/c02/dut.sv r11v125repro/grid/ct/t01/dut.sv r11v125repro/grid/ct/t02/dut.sv r11v125repro/grid/ct/t03/dut.sv r11v125repro/grid/ct/t04/dut.sv
 
 ### `castTypedParamDeclSigned97`
 - commits: 3b588b6a
@@ -3968,6 +3976,14 @@ laws with cases in the gate: 676.
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r10uvm65repro/b1_empty.sv r10uvm65repro/b2_scopes.sv r10uvm65repro/v1_qualdrop.sv r10uvm65repro/v2_views.sv r10uvm65repro/v3_ports.sv r10uvm65repro/v4_items.sv
 
+### `emptyRedefineBareLine125v`
+- commits: none on this branch
+- pass: - (verified by r11v125repro)
+- switches: R11U125_INCREDEF_OFF R11U125_OFF R11V125_BAREDEF_OFF R11V125_INCINFOCOL_OFF
+- source: src/UhdmExporter.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11v125repro/grid/rd/z01/dut.sv r11v125repro/grid/rd/z07/dut.sv
+
 ### `endBlockLabelAllOwners62`
 - commits: 40a7068f
 - pass: r10uvm62repro
@@ -5512,6 +5528,22 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): r10rgg14repro/cells/g1/dut.sv r10rgg14repro/cells/g2/dut.sv r10rgg14repro/cells/g3/dut.sv r10rgg14repro/cells/pc2/dut.sv r10rgg14repro/cells/pc4/dut.sv r10vrgg14repro/cells/v1/dut.sv r10vrgg14repro/cells/v10/dut.sv r10vrgg14repro/cells/v11/dut.sv r10vrgg14repro/cells/v12/dut.sv r10vrgg14repro/cells/v13/dut.sv r10vrgg14repro/cells/v2/dut.sv r10vrgg14repro/cells/v3/dut.sv r10vrgg14repro/cells/v4/dut.sv r10vrgg14repro/cells/v6/dut.sv r10vrgg14repro/cells/v7/dut.sv r10vrgg14repro/cells/v8/dut.sv r10vrgg14repro/cells/v9/dut.sv
 - also mentioned by: r10earl112repro r10earl117repro r10rgg17repro r10v68repro
 
+### `genvarParamFile125`
+- commits: none on this branch
+- pass: r11u125repro (verified by r11v125repro)
+- switches: R11U125_CASTFILE_OFF R11U125_GVFILE_OFF R11U125_GVLINE_OFF R11U125_INCCOL_OFF R11U125_INCREDEF_OFF R11U125_MACROCMT_OFF R11U125_MACROFILE_OFF R11U125_OFF R11U125_SPANFILE_OFF
+- source: src/ModuleEmit.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u125repro/grid/g1/a01/dut.sv r11u125repro/grid/g1/a02/dut.sv r11u125repro/grid/g1/a06/dut.sv r11u125repro/grid/g1/a07/dut.sv r11u125repro/grid/g1/a08/dut.sv r11u125repro/grid/g1/a10/dut.sv r11u125repro/grid/g1/a11/dut.sv r11u125repro/grid/g1/a13/dut.sv r11u125repro/grid/g1/a17/dut.sv r11v125repro/grid/gv/v03/dut.sv r11v125repro/grid/gv/v04/dut.sv r11v125repro/grid/gv/v05/dut.sv r11v125repro/grid/gv/v06/dut.sv
+
+### `genvarParamLoopVarLine125`
+- commits: none on this branch
+- pass: r11u125repro (verified by r11v125repro)
+- switches: R11U125_CASTFILE_OFF R11U125_GVFILE_OFF R11U125_GVLINE_OFF R11U125_INCCOL_OFF R11U125_INCREDEF_OFF R11U125_MACROCMT_OFF R11U125_MACROFILE_OFF R11U125_OFF R11U125_SPANFILE_OFF
+- source: src/ModuleEmit.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u125repro/grid/g1/a03/dut.sv r11u125repro/grid/g1/a04/dut.sv r11u125repro/grid/g1/a05/dut.sv r11u125repro/grid/g1/a09/dut.sv r11u125repro/grid/g1/a12/dut.sv r11u125repro/grid/g1/a14/dut.sv r11u125repro/grid/g1/a15/dut.sv r11u125repro/grid/g1/a16/dut.sv r11u125repro/grid/g1/a18/dut.sv r11v125repro/grid/gv/v01/dut.sv r11v125repro/grid/gv/v02/dut.sv r11v125repro/grid/gv/v07/dut.sv r11v125repro/grid/gv/v08/dut.sv
+
 ### `genvarWholeCaRhsFold68`
 - commits: b8bf6693 3f508884 a621c25b
 - pass: r10earl68repro (verified by r10v68repro)
@@ -6403,6 +6435,30 @@ laws with cases in the gate: 676.
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): none
 
+### `includeFirstLineColShift125`
+- commits: none on this branch
+- pass: r11u125repro (verified by r11v125repro)
+- switches: R11U125_CASTFILE_OFF R11U125_GVFILE_OFF R11U125_GVLINE_OFF R11U125_INCCOL_OFF R11U125_INCREDEF_OFF R11U125_MACROCMT_OFF R11U125_MACROFILE_OFF R11U125_OFF R11U125_SPANFILE_OFF R11V125_BAREDEF_OFF R11V125_INCINFOCOL_OFF
+- source: src/UhdmExporter.cpp(3)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11v125repro/grid/ic/x01/dut.sv r11v125repro/grid/ic/x02/dut.sv r11v125repro/grid/ic/x03/dut.sv r11v125repro/grid/ic/x05/dut.sv r11v125repro/grid/ic/x06/dut.sv r11v125repro/grid/ic/x07/dut.sv r11v125repro/grid/ic/x08/dut.sv
+
+### `includeInfoEmptyRedefineLine125`
+- commits: none on this branch
+- pass: r11u125repro (verified by r11v125repro)
+- switches: R11U125_CASTFILE_OFF R11U125_GVFILE_OFF R11U125_GVLINE_OFF R11U125_INCCOL_OFF R11U125_INCREDEF_OFF R11U125_MACROCMT_OFF R11U125_MACROFILE_OFF R11U125_OFF R11U125_SPANFILE_OFF R11V125_BAREDEF_OFF R11V125_INCINFOCOL_OFF
+- source: src/UhdmExporter.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u125repro/grid/g5/r01/dut.sv r11u125repro/grid/g5/r02/dut.sv r11u125repro/grid/g5/r03/dut.sv r11u125repro/grid/g5/r04/dut.sv r11u125repro/grid/g5/r05/dut.sv r11u125repro/grid/g5/r06/dut.sv r11v125repro/grid/rd/z02/dut.sv r11v125repro/grid/rd/z03/dut.sv r11v125repro/grid/rd/z05/dut.sv r11v125repro/grid/rd/z06/dut.sv r11v125repro/grid/rd/z08/dut.sv r11v125repro/grid/rd/z09/dut.sv r11v125repro/grid/rd/z10/dut.sv r11v125repro/grid/rd/z11/dut.sv r11v125repro/grid/rd/z12/dut.sv
+
+### `includeInfoRawCol125v`
+- commits: none on this branch
+- pass: - (verified by r11v125repro)
+- switches: R11V125_BAREDEF_OFF R11V125_INCINFOCOL_OFF
+- source: src/UhdmExporter.cpp(2)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11v125repro/grid/ic/x04/dut.sv
+
 ### `inheritedNameBindsPkgFn72`
 - commits: 8a4b59a0 d3cfb2b7 7d7c29f8
 - pass: r10uvm72repro
@@ -6680,6 +6736,14 @@ laws with cases in the gate: 676.
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r10buvm7repro/v7v_A_scope.sv? r10buvm7repro/v7v_B_escape.sv? r10buvm7repro/v7v_D_member.sv? r10buvm7repro/v7v_E_ctx.sv? r10buvm7repro/v7v_F_trail.sv? r10buvm7repro/v7v_G_ref.sv? r10buvm7repro/v7v_H_super.sv? r10buvm7repro/v7v_I_pkgsel.sv? r10buvm7repro/v7v_J_iface.sv? r10buvm7repro/v7v_N_param.sv? r10buvm7repro/v7v_P_import.sv? r10buvm7repro/v7v_Q_unit.sv?
 
+### `macroBodyTrailingComment125`
+- commits: none on this branch
+- pass: r11u125repro (verified by r11v125repro)
+- switches: R11U125_CASTFILE_OFF R11U125_GVFILE_OFF R11U125_GVLINE_OFF R11U125_INCCOL_OFF R11U125_INCREDEF_OFF R11U125_MACROCMT_OFF R11U125_MACROFILE_OFF R11U125_OFF R11U125_SPANFILE_OFF R11V125_INCINFOCOL_OFF
+- source: src/UhdmExporter.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u125repro/grid/g4/k01/dut.sv r11u125repro/grid/g4/k02/dut.sv r11u125repro/grid/g4/k03/dut.sv r11u125repro/grid/g4/k04/dut.sv r11u125repro/grid/g4/k05/dut.sv r11u125repro/grid/g4/k06/dut.sv r11u125repro/grid/g4/k07/dut.sv r11u125repro/grid/g4/k08/dut.sv r11u125repro/grid/g4/k09/dut.sv r11u125repro/grid/g4/k10/dut.sv r11u125repro/grid/g4/k11/dut.sv r11v125repro/grid/mc/y01/dut.sv r11v125repro/grid/mc/y02/dut.sv r11v125repro/grid/mc/y03/dut.sv r11v125repro/grid/mc/y04/dut.sv r11v125repro/grid/mc/y05/dut.sv r11v125repro/grid/mc/y06/dut.sv
+
 ### `macroExpandedText`
 - commits: 4fc6589b
 - pass: -
@@ -6729,6 +6793,14 @@ laws with cases in the gate: 676.
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r10uvm128repro/g128_a_handles.sv r10uvm128repro/g128_b_props.sv r10uvm128repro/g128_c_ops.sv r10uvm128repro/g128_d_homes.sv r10uvm128repro/g128_e_inst.sv r10uvm132repro/g132_a_shapes.sv r10v128repro/arms/v128_a_handles.sv r10v128repro/arms/v128_b_props.sv r10v128repro/arms/v128_c_ops.sv r10v128repro/arms/v128_d_homes.sv r10v128repro/arms/v128_f_hier.sv
 - also mentioned by: r10uvm132repro
+
+### `macroTokenFileFollowsLine125`
+- commits: none on this branch
+- pass: r11u125repro (verified by r11v125repro)
+- switches: R11U125_CASTFILE_OFF R11U125_GVFILE_OFF R11U125_GVLINE_OFF R11U125_INCCOL_OFF R11U125_INCREDEF_OFF R11U125_MACROCMT_OFF R11U125_MACROFILE_OFF R11U125_OFF R11U125_SPANFILE_OFF
+- source: src/UhdmExporter.cpp(2)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u125repro/grid/g3/m01/dut.sv r11u125repro/grid/g3/m02/dut.sv r11u125repro/grid/g3/m03/dut.sv r11u125repro/grid/g3/m04/dut.sv r11u125repro/grid/g3/m05/dut.sv r11u125repro/grid/g3/m06/dut.sv r11u125repro/grid/g3/m07/dut.sv r11u125repro/grid/g3/m08/dut.sv r11u125repro/grid/g3/m09/dut.sv r11u125repro/grid/g3/m10/dut.sv r11u125repro/grid/g3/m11/dut.sv r11u125repro/grid/g3/m12/dut.sv r11u125repro/grid/g3/m13/dut.sv r11u125repro/grid/g3/m14/dut.sv r11u125repro/grid/g3/m15/dut.sv r11u125repro/grid/g3/m16/dut.sv r11v125repro/grid/mf/w01/dut.sv r11v125repro/grid/mf/w02/dut.sv r11v125repro/grid/mf/w03/dut.sv r11v125repro/grid/mf/w04/dut.sv r11v125repro/grid/mf/w05/dut.sv r11v125repro/grid/mf/w06/dut.sv r11v125repro/grid/mf/w07/dut.sv r11v125repro/grid/mf/w08/dut.sv r11v125repro/grid/mf/w09/dut.sv r11v125repro/grid/mf/w10/dut.sv r11v125repro/grid/mf/w11/dut.sv
 
 ### `makeReturnVar`
 - commits: none on this branch
@@ -9290,7 +9362,7 @@ laws with cases in the gate: 676.
 ### `propDeclDisableIffSkip112`
 - commits: none on this branch
 - pass: r11u112repro (verified by v11u112repro)
-- switches: R11U112_GENIPS_OFF R11U112_GENLPOP_OFF R11U112_OFF R11U112_PROPDIS_OFF R11U112_SELIDXTS_OFF R11U112_TDCAST_OFF R11U112_TDRET_OFF R11U112_TPNET_OFF R11U113_OFF R11U113_REPRNG_OFF R11U120_OFF R11U120_TPDIMVEC_OFF V11U112_ENUMFENCE_OFF V11U112_PROPFENCE_OFF
+- switches: R11U112_GENIPS_OFF R11U112_GENLPOP_OFF R11U112_OFF R11U112_PROPDIS_OFF R11U112_SELIDXTS_OFF R11U112_TDCAST_OFF R11U112_TDRET_OFF R11U112_TPNET_OFF R11U113_OFF R11U113_REPRNG_OFF R11U125_OFF R11U125_SPANFILE_OFF V11U112_ENUMFENCE_OFF V11U112_PROPFENCE_OFF
 - source: src/ModuleEmit.cpp(4)
 - cases in the gate (tests/probe/): r11u112repro/grid/f/r01_rng_unp? r11u112repro/grid/f/r02_rng_plain? r11u112repro/grid/f/r03_rng_sub_unp? r11u112repro/grid/f/r04_rng_int_unp? r11u112repro/grid/f/r05_rng_modparam_unp? r11u112repro/grid/f/r06_rng_untyped_unp? r11u112repro/grid/f/r07_rng_port_unp? r11u112repro/grid/f/r08_rng_unp_param_n? r11u112repro/grid/f/r09_rng_lo_param_unp? r11u112repro/grid/p/p01_seqinst r11u112repro/grid/p/p02_clk_dis_noformal r11u112repro/grid/p/p03_dis_noclk r11u112repro/grid/p/p04_clk_only r11u112repro/grid/p/p05_neither r11u112repro/grid/p/p06_seq_body r11u112repro/grid/p/p07_formals_dis r11u112repro/grid/p/p08_inline_ctl r11u112repro/grid/p/p09_not_body v11u112repro/grid/brk/p/b5a_defclk_dis v11u112repro/grid/brk/p/b5d_reps v11u112repro/grid/brk/p/b5e_sysfn v11u112repro/grid/brk/p/b5f_not_seq v11u112repro/grid/brk3/p/b5i_reps_inline_ctl v11u112repro/grid/brk4/p/q01 v11u112repro/grid/brk4/p/q07 v11u112repro/grid/brk4/p/q08 v11u112repro/grid/brk4/p/q09 v11u112repro/grid/brk4/p/q11 v11u112repro/grid/brk4/p/q12 v11u112repro/grid/brk4/p/q13 v11u112repro/grid/brk4/p/q16 v11u112repro/grid/brk4/p/q19 v11u112repro/grid/brk4/p/q20 v11u112repro/grid/brk5/p/i01 v11u112repro/grid/brk5/p/i02 v11u112repro/grid/brk5/p/i03 v11u112repro/grid/brk5/p/i04
 - cases in the evidence (tools/probe/): r11u112repro/grid/f/f05_idx_untyped/dut.sv? r11u112repro/grid/f/g01_arb/dut.sv? r11u112repro/grid/k/k01_pas/dut.sv? r11u112repro/grid/k/k04_wire/dut.sv? r11u112repro/grid/k/k05_var/dut.sv? r11u112repro/grid/k/k06_int_member/dut.sv? r11u112repro/grid/k/k07_nested/dut.sv? r11u112repro/grid/k/k08_logic_ctl/dut.sv? r11u112repro/grid/k/k10_union/dut.sv? r11u112repro/grid/k/k11_bit_member/dut.sv? r11u112repro/grid/k/k13_alias_td/dut.sv? r11u112repro/grid/k/k18_init/dut.sv? r11u112repro/grid/k/k21_ovr_logic_to_struct/dut.sv? r11u112repro/grid/k/k22_ovr_struct_to_struct/dut.sv? r11u112repro/grid/k/k23_bodyparam_ovr/dut.sv? r11u112repro/grid/p/p10_two_props/dut.sv? r11u112repro/grid/p/p11_pkg_prop/dut.sv? r11u112repro/grid/t/t01_ccs/dut.sv? r11u112repro/grid/t/t07_bit_td/dut.sv? r11u112repro/grid/t/t08_int_td/dut.sv? r11u112repro/grid/v/v01_uepc/dut.sv? r11u112repro/grid/v/v05_genif/dut.sv? v11u112repro/grid/brk/f/b1a_lhs_idx/dut.sv? v11u112repro/grid/brk/f/b1b_nested_sel/dut.sv? v11u112repro/grid/brk/f/b1d_types/dut.sv? v11u112repro/grid/brk/f/b1f_nda_sys/dut.sv? v11u112repro/grid/brk/f/g1i_hop_cond_sys/dut.sv? v11u112repro/grid/brk/f/g1l_hop_inner_sel/dut.sv? v11u112repro/grid/brk/f/g1n_hop_vs_2d/dut.sv? v11u112repro/grid/brk/k/b3b_enum_member/dut.sv? v11u112repro/grid/brk/k/b3c_gen_scope/dut.sv? v11u112repro/grid/brk/k/b3e_iface/dut.sv? v11u112repro/grid/brk/k/b3f_mixed_unp/dut.sv? v11u112repro/grid/brk/k/b3g_logic_ctl/dut.sv? v11u112repro/grid/brk/k/b3h_hdr_default_overridden_by_parent/dut.sv? v11u112repro/grid/brk/k/b3i_lp_of_hdr_tp/dut.sv? v11u112repro/grid/brk/k/b3j_nested_named/dut.sv? v11u112repro/grid/brk/p/b5b_iface/dut.sv? v11u112repro/grid/brk/p/b5c_until_and/dut.sv? v11u112repro/grid/brk/p/b5g_gen/dut.sv? v11u112repro/grid/brk/p/b5h_cond_prop/dut.sv? v11u112repro/grid/brk/t/b2a_td_of_td/dut.sv? v11u112repro/grid/brk/t/b2e_int_unsigned/dut.sv? v11u112repro/grid/brk/t/b2g_task_out/dut.sv? v11u112repro/grid/brk/t/b2h_gen_fn/dut.sv? v11u112repro/grid/brk/t/b2i_bit_signed_ret/dut.sv? v11u112repro/grid/brk/v/b4c_in_op_ctl/dut.sv? v11u112repro/grid/brk/v/b4i_case_gen_ctl/dut.sv? v11u112repro/grid/brk2/k/m01_td_enum/dut.sv? v11u112repro/grid/brk2/k/m02_arr_of_struct/dut.sv? v11u112repro/grid/brk2/k/m03_union_member/dut.sv? v11u112repro/grid/brk2/k/m04_reg_tdlogic/dut.sv? v11u112repro/grid/brk2/k/m05_integer_member/dut.sv? v11u112repro/grid/brk2/k/m06_enum_arr_member/dut.sv? v11u112repro/grid/brk2/k/m07_hdr_enum_default/dut.sv? v11u112repro/grid/brk2/k/m08_body_param_enum/dut.sv? v11u112repro/grid/brk3/f/g1o_hop_ternary_cast/dut.sv? v11u112repro/grid/brk3/k/b3k_pkg_tp/dut.sv? v11u112repro/grid/brk3/k/b3l_pkg_tp_import/dut.sv? v11u112repro/grid/brk3/p/b5j_multi_clk_body/dut.sv? v11u112repro/grid/brk3/t/b2j_dpi/dut.sv? v11u112repro/grid/brk4/p/q02/dut.sv? v11u112repro/grid/brk4/p/q03/dut.sv? v11u112repro/grid/brk4/p/q04/dut.sv? v11u112repro/grid/brk4/p/q05/dut.sv? v11u112repro/grid/brk4/p/q06/dut.sv? v11u112repro/grid/brk4/p/q10/dut.sv? v11u112repro/grid/brk4/p/q14/dut.sv? v11u112repro/grid/brk4/p/q15/dut.sv? v11u112repro/grid/brk4/p/q17/dut.sv? v11u112repro/grid/brk4/p/q18/dut.sv? v11u112repro/grid/brk6/f/b1p_param_lut/dut.sv? v11u112repro/grid/brk6/f/b1q_intf_ca/dut.sv? v11u112repro/grid/brk6/v/b4j_lhs_rhs_both/dut.sv? v11u112repro/grid/ctlg/f4/c01_modfunc_cast/dut.sv? v11u112repro/grid/ctlg/f4/c02_modfunc_ret/dut.sv? v11u112repro/grid/ctlg/f4/c03_modfunc_ret_cast/dut.sv? v11u112repro/grid/ctlg/f4/c06_modtask_cast/dut.sv? v11u112repro/grid/ctlg/f4/c07_unsigned_td/dut.sv? v11u112repro/grid/ctlg/f4/c08_bit_td/dut.sv? v11u112repro/grid/ctlg/f4/c09_int_td/dut.sv? v11u112repro/grid/ctlg/f4/c11_twocasts/dut.sv? v11u112repro/grid/ctlg/f4/c12_const_fold/dut.sv? v11u112repro/grid/ctlg/t/t08_tp_ustruct/dut.sv?
@@ -10123,6 +10195,14 @@ laws with cases in the gate: 676.
 - source: src/ModuleEmit.cpp(1) src/ParamEmit.cpp(2)
 - cases in the gate (tests/probe/): r11u109repro/grid/f1/b01_casts r11u109repro/grid/f1/b02_shl r11u109repro/grid/f1/b03_x32 r11u109repro/grid/f1/b04_dec r11u109repro/grid/f1/c01_x64 r11u109repro/grid/f1/c05_x3sub r11u109repro/grid/f1/f02_xlen32 r11u109repro/grid/f1/f03_const_first r11u109repro/grid/f1/f04_const_after r11u109repro/grid/f1/f07_add r11u109repro/grid/f1/f08_shl r11u109repro/grid/f1/f09_unary r11u109repro/grid/f1/f11_vlen r11u109repro/grid/f1/f12_based r11u109repro/grid/f1/f17_param r11u109repro/grid/f1/f19_orcasts r11u109repro/grid/f1/f20_sub r11u109repro/grid/f1/f21_shlsub r11u109repro/grid/f1/f22_positional r11u109repro/grid/f1/f24_shladd r11u109repro/grid/f1/p02_noread r11u109repro/grid/f1/p03_ready r11u109repro/grid/f1/p04_three r11u109repro/grid/f1/p05_reorder r11u109repro/grid/f1/p06_plainparam r11u109repro/grid/f1/p07_litcast r11u109repro/grid/f1/p09_shift
 - cases in the evidence (tools/probe/): r11u109repro/grid/f1/f10_innerparam/dut.sv? r11u109repro/grid/f5/k08_wire_dim/dut.sv? r11u109repro/grid/f5/k09_wire_nodim/dut.sv? r11u109repro/grid/f5/k21_iface/dut.sv? r11u109repro/grid/f5/k22_gen/dut.sv? r11u109repro/grid/f5/k23_init/dut.sv? r11u109repro/grid/f5/k24_signed/dut.sv? r11u109repro/grid/f5/k25_unpacked_dim/dut.sv? r11u109repro/grid/f5/k26_tri/dut.sv? r11u109repro/grid/hp/h01_ca/dut.sv? r11u109repro/grid/hp/h02_comb/dut.sv? r11u109repro/grid/hp/h07_lhs/dut.sv? r11u109repro/grid/hp/h09_twobase/dut.sv? r11u109repro/grid/hp/h12_arith_idx/dut.sv?
+
+### `spanCopyCarriesFile125`
+- commits: none on this branch
+- pass: r11u125repro (verified by r11v125repro)
+- switches: R11U112_OFF R11U120_OFF R11U120_TPDIMVEC_OFF R11U125_CASTFILE_OFF R11U125_GVFILE_OFF R11U125_GVLINE_OFF R11U125_INCCOL_OFF R11U125_INCREDEF_OFF R11U125_MACROCMT_OFF R11U125_MACROFILE_OFF R11U125_OFF R11U125_SPANFILE_OFF
+- source: src/ModuleEmit.cpp(1) src/TypeEmit.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u125repro/grid/g2/c03/dut.sv r11u125repro/grid/g2/c04/dut.sv r11u125repro/grid/g2/c05/dut.sv r11u125repro/grid/g2/c06/dut.sv r11u125repro/grid/g2/c07/dut.sv r11u125repro/grid/g2/c08/dut.sv r11u125repro/grid/g2/c09/dut.sv r11u125repro/grid/g2/c11/dut.sv
 
 ### `splitScopedName12`
 - commits: none on this branch
@@ -11258,6 +11338,7 @@ laws with cases in the gate: 676.
 ### `unitRefSubst`
 - commits: none on this branch
 - pass: -
+- switches: R11U125_MACROFILE_OFF R11U125_OFF
 - source: include/UhdmExporter.h(1) src/ModuleEmit.cpp(1) src/ParamEmit.cpp(1) src/TypeEmit.cpp(2) src/UhdmExporter.cpp(3)
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): none
@@ -12286,6 +12367,7 @@ lists it under the law).
 | r11u121repro |  | `genScopeTypeParamCastTs121` `pkgQualParamMemberSelErased121` `pkgQualVarRefScopeSpan121` `pkgQualVarRefSpacedName121` | 0 | 83 |
 | r11u122map |  |  | 0 | 0 |
 | r11u123canon |  |  | 0 | 22 |
+| r11u125repro |  | `castTsDrainFile125` `genvarParamFile125` `genvarParamLoopVarLine125` `includeFirstLineColShift125` `includeInfoEmptyRedefineLine125` `macroBodyTrailingComment125` `macroTokenFileFollowsLine125` `spanCopyCarriesFile125` | 0 | 61 |
 | r11u126laws |  |  | 0 | 0 |
 | r11u127laws |  | `adjustSize` `asmEncFollowsRef` `evalReachedCallees` `genCaDrivenOpenerIsGenLocalOnly` `genLpCaSharedBareTs` `ifaceArrayElemViewFoldsDefault` `ifaceIfaceTypedPortOrder` `ifacePortViewParamAssignsOnly` `memSelAsmBaseOv` `modEvalFuncLeftoverEnc` `pkgBoundFoldBareImport` `portViewRangeRecvParams` `structParamMemberOvBinary` `wholeWriteIsNotTheDiscriminatorForANET` | 0 | 0 |
 | r11u128map |  |  | 0 | 0 |
@@ -12392,6 +12474,7 @@ lists it under the law).
 | r11v11u8repro | r11u8repro | `macroQuoteContLeak11` | 10 | 4 |
 | r11v11u9repro | r11u9repro | `pkgStructFuncAssembleBin` | 3 | 19 |
 | r11v120repro | r11u120repro | `filterProtected120` `fpAbstainOnMatcherSplit120v` `fpLineFiller120` `ifacePortViewAggParamParent120` `instTypeParamSharesDef120` `memberSelLitRhsShared120` `tpDimVecPortTsIsDefault120` `tpElemRebindDefPort120` | 0 | 47 |
+| r11v125repro | r11u125repro | `castTsDrainFile125` `emptyRedefineBareLine125v` `genvarParamFile125` `genvarParamLoopVarLine125` `includeFirstLineColShift125` `includeInfoEmptyRedefineLine125` `includeInfoRawCol125v` `macroBodyTrailingComment125` `macroTokenFileFollowsLine125` `spanCopyCarriesFile125` | 0 | 48 |
 | r11v16repro | r11u16repro | `caAsmMemberSliceFold` | 9 | 8 |
 | r11v17repro | r11u17repro | `genCaBoundLhsOperationRhsUnbindsRhs17` `genCaLhsArrayNetNeverBinds17` `sysCallCastArgKeepsBind17v` | 20 | 11 |
 | r11v1repro | r11u1repro | `ifacePortViewParamAssignsOnly` | 3 | 6 |

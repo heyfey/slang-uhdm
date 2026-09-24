@@ -1,0 +1,61 @@
+g1/a01 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 79 objects | moved
+g1/a02 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 76 objects | moved
+g1/a03 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 101 objects | moved
+g1/a04 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 79 objects | moved
+g1/a05 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 76 objects | moved
+g1/a06 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_NOTEQUAL file | moved
+g1/a07 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 76 objects | moved
+g1/a08 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 62 objects | moved
+g1/a09 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 98 objects | moved
+g1/a10 | pris rc=0 cmp=74 NOT_EQUAL stage1 | law rc=0 cmp=74 NOT_EQUAL stage1 | moved
+g1/a11 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 79 objects | moved
+g1/a12 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 79 objects | moved
+g1/a13 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 170 objects | moved
+g1/a14 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 97 objects | moved
+g1/a15 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 137 objects | moved
+g1/a16 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 79 objects | moved
+g1/a17 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 76 objects | moved
+g1/a18 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 88 objects | moved
+g2/c01 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 57 objects | moved
+g2/c02 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 90 objects | moved
+g2/c03 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 118 objects | moved
+g2/c04 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_NOTEQUAL fullname | moved
+g2/c05 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 309 objects | moved
+g2/c06 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL fullname | moved
+g2/c07 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_NOTEQUAL value | moved
+g2/c08 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 61 objects | moved
+g2/c09 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 73 objects | moved
+g2/c11 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+g3/m01 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 61 objects | moved
+g3/m02 | pris rc=0 cmp=0 STRICT_EQUAL 60 objects | law rc=0 cmp=0 STRICT_EQUAL 60 objects | SAMEBYTES
+g3/m03 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 74 objects | moved
+g3/m04 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 52 objects | moved
+g3/m05 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_NOTEQUAL line | moved
+g3/m06 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 57 objects | moved
+g3/m07 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 62 objects | moved
+g3/m08 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 57 objects | moved
+g3/m09 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 57 objects | moved
+g3/m10 | pris rc=0 cmp=0 STRICT_NOTEQUAL line | law rc=0 cmp=0 STRICT_NOTEQUAL line | SAMEBYTES
+g3/m11 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 65 objects | moved
+g3/m12 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 69 objects | moved
+g3/m13 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+g3/m14 | pris rc=0 cmp=0 STRICT_NOTEQUAL line | law rc=0 cmp=0 STRICT_NOTEQUAL line | SAMEBYTES
+g3/m15 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+g3/m16 | pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL 55 objects | moved
+g4/k01 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 74 objects | moved
+g4/k02 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 74 objects | moved
+g4/k03 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 74 objects | moved
+g4/k04 | pris rc=0 cmp=0 STRICT_EQUAL 74 objects | law rc=0 cmp=0 STRICT_EQUAL 74 objects | SAMEBYTES
+g4/k05 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 74 objects | moved
+g4/k06 | pris rc=0 cmp=0 STRICT_EQUAL 74 objects | law rc=0 cmp=0 STRICT_EQUAL 74 objects | SAMEBYTES
+g4/k07 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 74 objects | moved
+g4/k08 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 80 objects | moved
+g4/k09 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_NOTEQUAL endcol | moved
+g4/k10 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 109 objects | moved
+g4/k11 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 61 objects | moved
+g5/r01 | pris rc=0 cmp=0 STRICT_NOTEQUAL line | law rc=0 cmp=0 STRICT_EQUAL 24 objects | moved
+g5/r02 | pris rc=0 cmp=0 STRICT_EQUAL 24 objects | law rc=0 cmp=0 STRICT_EQUAL 24 objects | SAMEBYTES
+g5/r03 | pris rc=0 cmp=0 STRICT_NOTEQUAL line | law rc=0 cmp=0 STRICT_EQUAL 25 objects | moved
+g5/r04 | pris rc=0 cmp=0 STRICT_NOTEQUAL line | law rc=0 cmp=0 STRICT_EQUAL 36 objects | moved
+g5/r05 | pris rc=0 cmp=0 STRICT_NOTEQUAL line | law rc=0 cmp=0 STRICT_EQUAL 28 objects | moved
+g5/r06 | pris rc=0 cmp=0 STRICT_EQUAL 23 objects | law rc=0 cmp=0 STRICT_EQUAL 23 objects | SAMEBYTES

@@ -934,12 +934,89 @@ SourceRange UhdmExporter::trimTypeSigning(const slang::syntax::SyntaxNode* tsyn,
     return SourceRange(r.start(), ke);
 }
 
+// § includeInfoRawCol125v (VERIFIER of r11u125): set while
+// emitIncludeFileInfos reads a directive's own span; fileLineCol then skips
+// § includeFirstLineColShift125 (see the law at its site).
+static bool incInfoRawCol125v = false;
+
+// § macroTokenFileFollowsLine125 — THE FILE A MACRO-EXPANDED TOKEN IS
+// ATTRIBUTED TO FOLLOWS SURELOG'S LINE-INFO RECORDS.
+//
+// Surelog's preprocessor splices a macro body into ONE output stream and keeps
+// the source position as per-LINE records (SV3_1aPpTreeShapeListener.cpp,
+// `addIncludeFileInfo(Context::MACRO, ...)`): at the invocation it PUSHES a
+// record mapping the current output line to the macro's definition line in
+// its definition file, and after the body it POPS back to the invocation
+// file/line.  A body with NO newline pushes and pops on the SAME output line,
+// so the pop wins and the whole expansion reads as the invocation's file; a
+// body that spans lines keeps the definition file on every one of its lines.
+// An argument is text pasted at its formal, so it reads as the line the
+// formal sits on.  The file of a token therefore is:
+//   * an argument token: the file of its formal's position (recurse);
+//   * a token of a body that spans lines: the definition file;
+//   * a token of a one-line body: the file of the invocation (recurse).
+// MEASURED faces (grid tools/probe/r11u125repro/grid/g3): a one-line
+// `SPI_DIVIDER_LEN` from spi_defines.v used in spi_clgen.v (golden
+// spi_clgen.v, ours spi_defines.v); `INFO($sformatf(..))` whose `msg` sits on
+// the second line of svunit_defines.svh (golden svunit_defines.svh, ours the
+// argument's svunit_base.sv); ibex `ASSERT_DEFAULT_CLK` substituted into
+// `ASSERT`'s multi-line body (golden prim_assert_standard_macros.svh, ours
+// prim_assert.sv).  uhdm-cmp never reads VpiFile; the plugin's src attributes
+// do.  Switch: R11U125_MACROFILE_OFF (and R11U125_OFF).
+static bool macroBodySpansLines125(const SourceManager* sm,
+                                   SourceLocation bodyLoc) {
+    SourceLocation bodyStart =
+        sm->getFullyOriginalLoc(SourceLocation(bodyLoc.buffer(), 0));
+    if (sm->isMacroLoc(bodyStart) || !bodyStart.buffer().valid())
+        return false;
+    auto text = sm->getSourceText(bodyStart.buffer());
+    size_t b = bodyStart.offset();
+    if (b > text.size())
+        return false;
+    // The body began after a continuation: its first token's line does not
+    // hold the `define directive.
+    size_t ls = b;
+    while (ls > 0 && text[ls - 1] != '\n')
+        ls--;
+    if (text.substr(ls, b - ls).find("`define") == std::string_view::npos)
+        return true;
+    // The body continues past its first line.
+    for (size_t i = b; i < text.size() && text[i] != '\n'; i++)
+        if (text[i] == '\\' && i + 1 < text.size() &&
+            (text[i + 1] == '\n' ||
+             (text[i + 1] == '\r' && i + 2 < text.size() && text[i + 2] == '\n')))
+            return true;
+    return false;
+}
+
+static SourceLocation macroFileLoc125(const SourceManager* sm,
+                                      SourceLocation loc) {
+    for (int guard = 0; guard < 64 && sm->isMacroLoc(loc); guard++) {
+        SourceLocation u = sm->getExpansionRange(loc).start();
+        if (sm->isMacroArgLoc(loc)) {
+            if (u == SourceLocation::NoLocation)
+                break;
+            loc = u;
+            continue;
+        }
+        if (u == SourceLocation::NoLocation || macroBodySpansLines125(sm, loc))
+            return sm->getFullyOriginalLoc(loc);
+        loc = u;
+    }
+    return sm->isMacroLoc(loc) ? sm->getFullyOriginalLoc(loc) : loc;
+}
+
 std::string UhdmExporter::fullFilePath(SourceLocation loc) {
     if (loc == SourceLocation::NoLocation)
         return "";
-    // Macro-expansion buffers have no path; report the definition file.
-    if (sm->isMacroLoc(loc))
-        loc = sm->getFullyOriginalLoc(loc);
+    // Macro-expansion buffers have no path; report the file the token's line
+    // is counted in (§ macroTokenFileFollowsLine125), or, with the switch
+    // off, the definition file.
+    if (sm->isMacroLoc(loc)) {
+        static const bool off125 = getenv("R11U125_OFF") != nullptr ||
+                                   getenv("R11U125_MACROFILE_OFF") != nullptr;
+        loc = off125 ? sm->getFullyOriginalLoc(loc) : macroFileLoc125(sm, loc);
+    }
     return sm->getFullPath(loc.buffer()).string();
 }
 
@@ -1150,10 +1227,20 @@ void UhdmExporter::emitIncludeFileInfos() {
                     continue;
                 e.path = it->second;
             }
+            // § includeInfoRawCol125v (VERIFIER of r11u125) — the
+            // include_file_info record of a directive written on the FIRST
+            // line of an included file keeps the directive's RAW column:
+            // § includeFirstLineColShift125 does not apply to it (grid
+            // tools/probe/r11v125repro/grid/ic x04: `include at mid.svh
+            // 1:3, mid.svh included at dut.sv 4:4 — golden 4:12-4:23,
+            // pristine 4:12-4:23, the shift law 4:15-4:26).  Switch:
+            // R11V125_INCINFOCOL_OFF (and R11U125_OFF).
+            incInfoRawCol125v = getenv("R11V125_INCINFOCOL_OFF") == nullptr;
             fileLineCol(r.start(), e.line, e.col);
             if (r.end() != SourceLocation::NoLocation)
                 fileLineCol(r.end(), e.endLine, e.endCol);
-            else {
+            incInfoRawCol125v = false;
+            if (r.end() == SourceLocation::NoLocation) {
                 e.endLine = e.line;
                 e.endCol = e.col;
             }
@@ -1164,6 +1251,101 @@ void UhdmExporter::emitIncludeFileInfos() {
     }
     if (evs.empty())
         return;
+    // § includeInfoEmptyRedefineLine125 — Surelog's preprocessor drops ONE
+    // output line for every `define that REdefines an already-defined macro
+    // with an EMPTY body (no arguments, no body): a second `include of
+    // spi_defines.v, whose three switch macros (`define SPI_DIVIDER_LEN_16`,
+    // ...) are then redefinitions, splices 157 lines where the first splices
+    // 160, and every later include_file_info line of that root file reads 3
+    // lower (YosysOldSpi spi_shift.v 198 vs ours 201).  A bodied redefinition
+    // keeps its line.  The object line-info records are unaffected (they
+    // remap to source lines); only this FLATTENED line moves.  MEASURED
+    // (tools/probe/r11u125repro/grid/g5): an empty macro defined twice in the
+    // root file lowers every later directive line by one; a bodied one does
+    // not; a re-included file loses one line per empty redefinition in it.
+    // The walk visits the active directives in preprocessing order (the
+    // syntax trees keep them as trivia, the included text inline, a false
+    // `ifdef branch as disabled text).  Switch: R11U125_INCREDEF_OFF (and
+    // R11U125_OFF).
+    std::map<uint32_t, std::vector<uint32_t>> lost125; // buffer -> lines
+    if (!getenv("R11U125_OFF") && !getenv("R11U125_INCREDEF_OFF")) {
+        std::set<std::string> defined125;
+        // § emptyRedefineBareLine125v (VERIFIER of r11u125) — only a BARE
+        // `define line drops the output line: Surelog's `define_directive`
+        // rule is `TICK_DEFINE Spaces name Spaces* CR` (SV3_1aPpParser.g4),
+        // and only its exit handler skips addLineFiller for a macro that is
+        // already defined (SV3_1aPpTreeShapeListener.cpp
+        // exitDefine_directive).  A trailing `// c` (One_line_comment eats
+        // the newline) or `/* c */` parses as a simple no-args definition
+        // and keeps its line (grid tools/probe/r11v125repro/grid/rd z01, z07:
+        // golden = pristine, the r11u125 law one line low).  Switch:
+        // R11V125_BAREDEF_OFF (and R11U125_OFF).
+        static const bool offBare125v = getenv("R11V125_BAREDEF_OFF") != nullptr;
+        auto bareDefineLine125v = [&](const syntax::DefineDirectiveSyntax& dd) {
+            if (offBare125v)
+                return true;
+            auto ne = dd.name.range().end();
+            if (ne == SourceLocation::NoLocation || sm->isMacroLoc(ne))
+                return true;
+            auto text = sm->getSourceText(ne.buffer());
+            for (size_t i = ne.offset(); i < text.size() && text[i] != '\n'; i++)
+                if (text[i] != ' ' && text[i] != '\t' && text[i] != '\r')
+                    return false;
+            return true;
+        };
+        auto onTok125 = [&](slang::parsing::Token t) {
+            for (auto& tv : t.trivia()) {
+                if (tv.kind != slang::parsing::TriviaKind::Directive)
+                    continue;
+                auto* ds = tv.syntax();
+                if (!ds)
+                    continue;
+                if (ds->kind == syntax::SyntaxKind::DefineDirective) {
+                    auto& dd = ds->as<syntax::DefineDirectiveSyntax>();
+                    std::string nm(dd.name.valueText());
+                    auto dl = dd.directive.location();
+                    if (dd.body.empty() && !dd.formalArguments &&
+                        defined125.count(nm) && bareDefineLine125v(dd) &&
+                        dl != SourceLocation::NoLocation && !sm->isMacroLoc(dl))
+                        lost125[dl.buffer().getId()].push_back(
+                            (uint32_t)sm->getLineNumber(dl));
+                    defined125.insert(nm);
+                }
+                else if (ds->kind == syntax::SyntaxKind::UndefDirective) {
+                    defined125.erase(std::string(
+                        ds->as<syntax::UndefDirectiveSyntax>().name.valueText()));
+                }
+                else if (ds->kind == syntax::SyntaxKind::UndefineAllDirective) {
+                    defined125.clear();
+                }
+            }
+        };
+        std::function<void(const syntax::SyntaxNode&)> walk125 =
+            [&](const syntax::SyntaxNode& n) {
+                for (size_t i = 0, c = n.getChildCount(); i < c; i++) {
+                    if (auto* ch = n.childNode(i))
+                        walk125(*ch);
+                    else if (auto t = n.childToken(i))
+                        onTok125(t);
+                }
+            };
+        // Each syntax tree is its own compilation unit (`-fileunit` rows
+        // translate to one tree per file; a single-unit run has one tree):
+        // a macro defined in one unit is not defined in the next.
+        for (auto tree : comp.getSyntaxTrees()) {
+            defined125.clear();
+            walk125(tree->root());
+        }
+    }
+    auto lostIn125 = [&](slang::BufferID b, uint32_t beforeLine) {
+        uint32_t k = 0;
+        auto it = lost125.find(b.getId());
+        if (it != lost125.end())
+            for (auto l : it->second)
+                if (l < beforeLine)
+                    k++;
+        return k;
+    };
     // The enclosing inclusion is the event that opened the buffer this
     // directive sits in; pre-order guarantees it comes first, which also keeps
     // the parent walk below finite.
@@ -1183,6 +1365,7 @@ void UhdmExporter::emitIncludeFileInfos() {
         if (e.incBuf) {
             auto text = sm->getSourceText(e.incBuf);
             e.flat += (uint32_t)std::count(text.begin(), text.end(), '\n');
+            e.flat -= lostIn125(e.incBuf, UINT32_MAX);
         }
         if (e.parent >= 0)
             evs[(size_t)e.parent].flat += e.flat;
@@ -1194,7 +1377,7 @@ void UhdmExporter::emitIncludeFileInfos() {
     std::vector<uint32_t> rel(evs.size(), 0);
     for (size_t i = 0; i < evs.size(); i++) {
         auto& e = evs[i];
-        rel[i] = e.line + shift[e.inBuf.getId()];
+        rel[i] = e.line + shift[e.inBuf.getId()] - lostIn125(e.inBuf, e.line);
         shift[e.inBuf.getId()] += e.flat;
     }
     auto* infos = s.MakeInclude_file_infoVec();
@@ -10367,6 +10550,59 @@ void UhdmExporter::buildMacroExpansions() {
                 e2--;
             bi.multiLine = (e2 > p && text[e2 - 1] == '\\');
             bi.rawLen = (int32_t)(e2 - p);
+            // § macroBodyTrailingComment125 — the length Surelog's
+            // preprocessor splices for a ONE-LINE body is the rest of the
+            // `define line with a trailing `//` line comment cut off and
+            // EVERYTHING before it kept: the whitespace ahead of the comment,
+            // trailing whitespace with no comment, and block comments
+            // (grid tools/probe/r11u125repro/grid/g4, eight bodies, the
+            // column of a token after the invocation: `8 // c` -> 2,
+            // `8   // c` -> 4, `8   ` -> 4, `8 /* c */` -> 9, `8\t// tab`
+            // -> 2, `8 /* c */ // d` -> 10, `(4+4)  // paren` -> 7).  Ours
+            // counted the comment and trimmed the whitespace (YosysOldSpi
+            // `SPI_DIVIDER_LEN       16   // Can be set from 9 to 16`: golden
+            // `cnt` 62:25, ours 62:51).  A `//` inside a string literal or a
+            // block comment does not start a comment.
+            // Switch: R11U125_MACROCMT_OFF (and R11U125_OFF).
+            static const bool offCmt125 =
+                getenv("R11U125_OFF") != nullptr ||
+                getenv("R11U125_MACROCMT_OFF") != nullptr;
+            if (!offCmt125 && !bi.multiLine) {
+                size_t cut = e;
+                bool inStr = false, inBlk = false;
+                for (size_t i = p; i < e; i++) {
+                    char ch = text[i];
+                    if (inBlk) {
+                        if (ch == '*' && i + 1 < e && text[i + 1] == '/') {
+                            inBlk = false;
+                            i++;
+                        }
+                        continue;
+                    }
+                    if (inStr) {
+                        if (ch == '\\')
+                            i++;
+                        else if (ch == '"')
+                            inStr = false;
+                        continue;
+                    }
+                    if (ch == '"')
+                        inStr = true;
+                    else if (ch == '/' && i + 1 < e && text[i + 1] == '*') {
+                        inBlk = true;
+                        i++;
+                    }
+                    else if (ch == '/' && i + 1 < e && text[i + 1] == '/') {
+                        cut = i;
+                        break;
+                    }
+                }
+                size_t e3 = cut;
+                if (cut == e)
+                    while (e3 > p && text[e3 - 1] == '\r')
+                        e3--;
+                bi.rawLen = (int32_t)(e3 - p);
+            }
         }
         info[buf.getId()] = bi;
         order.push_back(buf.getId());
@@ -10906,6 +11142,29 @@ void UhdmExporter::fileLineCol(SourceLocation lc, uint32_t& line,
     for (auto& [ucol, d] : numLitWsShift(lc, line, c0))
         if (ucol < c0)
             col = (uint32_t)((int32_t)col + d);
+    // § includeFirstLineColShift125 — Surelog's preprocessor replaces an
+    // `include directive by the included text IN PLACE: whatever precedes the
+    // directive on its line (its indentation) stays in the output line, so
+    // the FIRST line of the included file is read shifted right by the
+    // directive's column minus one (its later lines start their own output
+    // lines).  The line-info records remap line and file only, never the
+    // column.  MEASURED grid tools/probe/r11u125repro/grid/g1 a06 (loop.svh
+    // included at column 3: golden 1:10, ours 1:8) and g3 m09.  The
+    // directive's own column is computed the same way, so an include on the
+    // first line of an included file accumulates.  Switch:
+    // R11U125_INCCOL_OFF (and R11U125_OFF).
+    static const bool offInc125 = getenv("R11U125_OFF") != nullptr ||
+                                  getenv("R11U125_INCCOL_OFF") != nullptr;
+    if (!offInc125 && line == 1 && !incInfoRawCol125v) {
+        SourceLocation inc = sm->getIncludedFrom(lc.buffer());
+        if (inc != SourceLocation::NoLocation && inc.buffer().valid() &&
+            !sm->isMacroLoc(inc)) {
+            uint32_t il = 0, ic = 0;
+            fileLineCol(inc, il, ic);
+            if (ic > 1)
+                col += ic - 1;
+        }
+    }
     auto it = lineShifts.find(std::make_pair(lc.buffer().getId(), line));
     if (it == lineShifts.end())
         return;
