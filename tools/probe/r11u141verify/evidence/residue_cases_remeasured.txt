@@ -1,0 +1,37 @@
+r11u130repro/grid/g2/t01_port_enum | e98516a3: STRICT_NOTEQUAL file fullname=4 file=4 line=4 col=4 endline=4 endcol=4 objects_differing=8 cmp=0 | three passes off: STRICT_NOTEQUAL file fullname=4 file=4 line=4 col=4 endline=4 endcol=4 objects_differing=8
+r11u130repro/grid/g2/t02_port_enum_width | e98516a3: STRICT_NOTEQUAL file fullname=4 file=2 line=2 col=2 endline=2 endcol=2 objects_differing=6 cmp=0 | three passes off: STRICT_NOTEQUAL file fullname=4 file=2 line=2 col=2 endline=2 endcol=2 objects_differing=6
+r11u130repro/grid/g7/t01_typeparam | e98516a3: STRICT_NOTEQUAL type type=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged) cmp=0 | three passes off: STRICT_NOTEQUAL type type=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+r11v130repro/grid/var/k07_var_struct_signed | e98516a3: STRICT_NOTEQUAL endcol endcol=2 objects_differing=2 cmp=0 | three passes off: STRICT_NOTEQUAL endcol endcol=2 objects_differing=2
+r11v130repro/grid/adv/c04_port_struct_signed | e98516a3: STRICT_NOTEQUAL endcol endcol=2 objects_differing=2 cmp=0 | three passes off: STRICT_NOTEQUAL endcol endcol=2 objects_differing=2
+r11v130repro/grid/adv/m01_tab_redef | e98516a3: STRICT_NOTEQUAL col col=40 endcol=38 objects_differing=40 cmp=0 | three passes off: STRICT_NOTEQUAL line line=67 col=40 endline=67 endcol=38 objects_differing=67
+r11v130repro/grid/adv/m03_space_redef | e98516a3: STRICT_NOTEQUAL col col=40 endcol=38 objects_differing=40 cmp=0 | three passes off: STRICT_NOTEQUAL line line=67 col=40 endline=67 endcol=38 objects_differing=67
+r11v130repro/grid/adv/h09_redef_macro_arg | e98516a3: STRICT_NOTEQUAL endline line=12 endline=14 objects_differing=14 cmp=0 | three passes off: STRICT_NOTEQUAL line line=61 endline=59 objects_differing=61
+r11u131repro/hcc/h01_repl | e98516a3: STRICT_NOTEQUAL fullname fullname=1 objects_differing=1 cmp=0 | three passes off: STRICT_NOTEQUAL fullname fullname=1 objects_differing=1
+r11u131repro/hcc/h02_literal | e98516a3: STRICT_EQUAL 30 objects  cmp=0 | three passes off: STRICT_EQUAL 30 objects 
+r11u131repro/hcc/h03_param | e98516a3: STRICT_EQUAL 44 objects  cmp=0 | three passes off: STRICT_EQUAL 44 objects 
+r11u131repro/hcc/h04_arith | e98516a3: NOT_EQUAL stage1  cmp=58 | three passes off: NOT_EQUAL stage1 
+r11u131repro/hcc/h05_repl_param | e98516a3: STRICT_NOTEQUAL fullname fullname=1 objects_differing=1 cmp=0 | three passes off: STRICT_NOTEQUAL fullname fullname=1 objects_differing=1
+r11u131repro/hcc/h06_nested | e98516a3: STRICT_NOTEQUAL fullname fullname=1 objects_differing=1 cmp=0 | three passes off: STRICT_NOTEQUAL fullname fullname=1 objects_differing=1
+r11u131repro/hcc/h07_concat | e98516a3: NOT_EQUAL stage1  cmp=52 | three passes off: NOT_EQUAL stage1 
+r11u131repro/hcc/h08_gen | e98516a3: STRICT_NOTEQUAL fullname fullname=2 objects_differing=2 cmp=0 | three passes off: STRICT_NOTEQUAL fullname fullname=2 objects_differing=2
+r11u131repro/hpm/m01_param_init | e98516a3: NOT_EQUAL stage1  cmp=90 | three passes off: NOT_EQUAL stage1 
+r11u131repro/hpm/m02_param_init_op | e98516a3: NOT_EQUAL stage1  cmp=50 | three passes off: NOT_EQUAL stage1 
+r11u131repro/hpm/m03_range | e98516a3: STRICT_NOTEQUAL col col=1 endcol=2 objects_differing=2 cmp=0 | three passes off: STRICT_NOTEQUAL col col=1 endcol=2 objects_differing=2
+r11u131repro/hpm/m04_ca_ctl | e98516a3: STRICT_NOTEQUAL endcol endcol=1 objects_differing=1 cmp=0 | three passes off: STRICT_NOTEQUAL endcol endcol=1 objects_differing=1
+r11u131repro/hpm/m05_nested | e98516a3: NOT_EQUAL stage1  cmp=94 | three passes off: NOT_EQUAL stage1 
+r11u131repro/hpm/m06_sub_elab | e98516a3: NOT_EQUAL stage1  cmp=90 | three passes off: NOT_EQUAL stage1 
+r11u131repro/hpm/m07_genif | e98516a3: STRICT_NOTEQUAL col fullname=1 col=1 endcol=2 objects_differing=3 cmp=0 | three passes off: STRICT_NOTEQUAL col fullname=1 col=1 endcol=2 objects_differing=3
+r11u131repro/hpm/m08_proc_ctl | e98516a3: STRICT_NOTEQUAL endcol endcol=1 objects_differing=1 cmp=0 | three passes off: STRICT_NOTEQUAL endcol endcol=1 objects_differing=1
+r11u131repro/ips/i13_genif | e98516a3: STRICT_NOTEQUAL col col=1 endcol=1 objects_differing=1 cmp=0 | three passes off: STRICT_NOTEQUAL col col=1 endcol=1 objects_differing=1
+r11u131repro/ips/i16_gen_local | e98516a3: STRICT_NOTEQUAL col fullname=1 col=1 endcol=1 objects_differing=2 cmp=0 | three passes off: STRICT_NOTEQUAL col fullname=1 col=1 endcol=1 objects_differing=2
+r11v131repro/par/b24_typed_gen_localparam | e98516a3: STRICT_NOTEQUAL col col=1 endcol=1 objects_differing=1 cmp=0 | three passes off: STRICT_NOTEQUAL col col=1 endcol=1 objects_differing=1
+r11v131repro/pat/k06_proc_read | e98516a3: NOT_EQUAL stage1  cmp=11 | three passes off: NOT_EQUAL stage1 
+r11v131repro/pat/k11_initial | e98516a3: NOT_EQUAL stage1  cmp=11 | three passes off: NOT_EQUAL stage1 
+r11v131repro/pat/k12_alwayscomb_member | e98516a3: NOT_EQUAL stage1  cmp=11 | three passes off: NOT_EQUAL stage1 
+r11v131repro/pat/k13_ff | e98516a3: NOT_EQUAL stage1  cmp=11 | three passes off: NOT_EQUAL stage1 
+r11v131repro/pat/k16_varinit | e98516a3: NOT_EQUAL stage1  cmp=11 | three passes off: NOT_EQUAL stage1 
+r11v131repro/pat/k17_proc_if | e98516a3: NOT_EQUAL stage1  cmp=11 | three passes off: NOT_EQUAL stage1 
+v11u134repro/grid/an03 | e98516a3: STRICT_NOTEQUAL endcol depth=1 type=1 fullname=1 line=1 col=1 endline=1 endcol=2 objects_differing=2 (walk diverged) cmp=0 | three passes off: STRICT_NOTEQUAL endcol depth=1 type=1 fullname=5 line=1 col=1 endline=1 endcol=2 objects_differing=6 (walk diverged)
+v11u134repro/grid/bc05 | e98516a3: STRICT_NOTEQUAL fullname type=1 name=3 fullname=4 file=2 line=3 col=2 endline=4 endcol=3 size=1 objects_differing=7 (walk diverged) cmp=0 | three passes off: STRICT_NOTEQUAL fullname type=1 name=3 fullname=4 file=3 line=4 col=3 endline=7 endcol=6 size=1 objects_differing=10 (walk diverged)
+v11u134repro/grid/td15 | e98516a3: STRICT_NOTEQUAL file file=6 objects_differing=6 cmp=0 | three passes off: STRICT_NOTEQUAL file file=9 endcol=3 objects_differing=9
+v11u134repro/grid/td16 | e98516a3: STRICT_NOTEQUAL file file=26 objects_differing=26 cmp=0 | three passes off: STRICT_NOTEQUAL file fullname=16 file=26 objects_differing=42

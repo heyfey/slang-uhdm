@@ -1,0 +1,11 @@
+P_ANON_CA (R11U134_ANONMEMBER_OFF,R11U134_CAUNPARENT_OFF): rows equal at ON that stay equal with the pair off: 181, fall back: 30
+P_ARR_CA (R11U134_TDARRSHARE_OFF,R11U134_CAUNPARENT_OFF): rows equal at ON that stay equal with the pair off: 171, fall back: 40
+P_ARR_NET (R11U134_TDNETEND_OFF,R11U134_TDARRSHARE_OFF): rows equal at ON that stay equal with the pair off: 196, fall back: 15
+P_CLONE_SCOPED (R11U134_SCOPEDPKGTD_OFF,R11U134_PKGCLONEBOUND_OFF): rows equal at ON that stay equal with the pair off: 200, fall back: 11
+P_INET_ARR (R11U131_INETFILE_OFF,R11U134_TDARRSHARE_OFF): rows equal at ON that stay equal with the pair off: 169, fall back: 42
+P_INET_ARR_NET (R11U131_INETFILE_OFF,R11U134_TDNETEND_OFF,R11U134_TDARRSHARE_OFF): rows equal at ON that stay equal with the pair off: 169, fall back: 42
+P_INET_NET (R11U131_INETFILE_OFF,R11U134_TDNETEND_OFF): rows equal at ON that stay equal with the pair off: 169, fall back: 42
+P_PATTS_TDP (R11U131_PATTS_OFF,R11U134_TDPARENT_OFF): rows equal at ON that stay equal with the pair off: 168, fall back: 43
+P_PTSSEP_TSREF (R11U131_PTSSEP_OFF,R11U134_TSREFCHAIN_OFF): rows equal at ON that stay equal with the pair off: 205, fall back: 6
+P_QCALL_SCOPED (R11U131_QCALL_OFF,R11U134_SCOPEDPKGTD_OFF): rows equal at ON that stay equal with the pair off: 184, fall back: 27
+P_SUSIGN_ANON (R11U134_ANONMEMBER_OFF,R11U130_SUSIGN_OFF): rows equal at ON that stay equal with the pair off: 198, fall back: 13

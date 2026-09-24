@@ -1,0 +1,187 @@
+== ON
+tag=ON env= corpora=probe surelog uhdm2rtlil downstream bin=/tmp/r11u141_bin/slang start=2026-09-24T15:18:49-04:00
+rc=1
+end=2026-09-24T15:26:03-04:00
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=2139 STRICT_NOTEQUAL=1948
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=364 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=116 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=340 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=134 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=660 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=143
+[testflags] CMP_EQUAL=660 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=143
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+cmds.txt audit: 3273 slang lines, binaries: /tmp/r11u141_bin/slang 
+== A3
+tag=A3 env=R11U130_OFF,R11U131_OFF,R11U134_OFF corpora=probe surelog uhdm2rtlil bin=/tmp/r11u141_bin/slang start=2026-09-24T15:26:03-04:00
+R11U134_OFF=1
+R11U130_OFF=1
+R11U131_OFF=1
+rc=1
+end=2026-09-24T15:31:10-04:00
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=2069 STRICT_NOTEQUAL=2018
+regressions=70 conversions=0 changes=101 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=327 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=153 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=305 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=169 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=72 conversions=0 changes=43 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=626 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=177
+[testflags] CMP_EQUAL=626 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=177
+regressions=68 conversions=0 changes=66 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+cmds.txt audit: 3273 slang lines, binaries: /tmp/r11u141_bin/slang 
+== 30
+tag=30 env=R11U130_OFF corpora=probe surelog uhdm2rtlil bin=/tmp/r11u141_bin/slang start=2026-09-24T15:31:23-04:00
+R11U130_OFF=1
+rc=1
+end=2026-09-24T15:37:19-04:00
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=2127 STRICT_NOTEQUAL=1960
+regressions=12 conversions=0 changes=13 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=360 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=120 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=337 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=137 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=7 conversions=0 changes=15 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=650 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=153
+[testflags] CMP_EQUAL=650 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=153
+regressions=20 conversions=0 changes=4 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+cmds.txt audit: 3273 slang lines, binaries: /tmp/r11u141_bin/slang 
+== 31
+tag=31 env=R11U131_OFF corpora=probe surelog uhdm2rtlil bin=/tmp/r11u141_bin/slang start=2026-09-24T15:37:19-04:00
+R11U131_OFF=1
+rc=1
+end=2026-09-24T15:42:40-04:00
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=2102 STRICT_NOTEQUAL=1985
+regressions=37 conversions=0 changes=34 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=343 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=137 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=320 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=154 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=41 conversions=0 changes=12 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=652 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=151
+[testflags] CMP_EQUAL=652 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=151
+regressions=16 conversions=0 changes=10 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+cmds.txt audit: 3273 slang lines, binaries: /tmp/r11u141_bin/slang 
+== 34
+tag=34 env=R11U134_OFF corpora=probe surelog uhdm2rtlil bin=/tmp/r11u141_bin/slang start=2026-09-24T15:42:40-04:00
+R11U134_OFF=1
+rc=1
+end=2026-09-24T15:47:48-04:00
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=2112 STRICT_NOTEQUAL=1975
+regressions=27 conversions=0 changes=56 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=354 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=126 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=330 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=144 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=20 conversions=0 changes=20 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=643 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=160
+[testflags] CMP_EQUAL=643 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=160
+regressions=34 conversions=0 changes=54 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+cmds.txt audit: 3273 slang lines, binaries: /tmp/r11u141_bin/slang 
+== Xa
+tag=Xa env=R11U130_OFF,R11U131_OFF corpora=probe surelog uhdm2rtlil bin=/tmp/r11u141_bin/slang start=2026-09-24T15:47:48-04:00
+R11U130_OFF=1
+R11U131_OFF=1
+rc=1
+end=2026-09-24T15:53:11-04:00
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=2090 STRICT_NOTEQUAL=1997
+regressions=49 conversions=0 changes=47 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=339 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=141 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=317 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=157 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=48 conversions=0 changes=27 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=642 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=161
+[testflags] CMP_EQUAL=642 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=161
+regressions=36 conversions=0 changes=14 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+cmds.txt audit: 3273 slang lines, binaries: /tmp/r11u141_bin/slang 
+== Xb
+tag=Xb env=R11U130_OFF,R11U134_OFF corpora=probe surelog uhdm2rtlil bin=/tmp/r11u141_bin/slang start=2026-09-24T15:53:11-04:00
+R11U134_OFF=1
+R11U130_OFF=1
+rc=1
+end=2026-09-24T15:58:49-04:00
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=2100 STRICT_NOTEQUAL=1987
+regressions=39 conversions=0 changes=69 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=350 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=130 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=327 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=147 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=27 conversions=0 changes=33 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=634 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=169
+[testflags] CMP_EQUAL=634 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=169
+regressions=52 conversions=0 changes=58 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+cmds.txt audit: 3273 slang lines, binaries: /tmp/r11u141_bin/slang 
+== Xc
+tag=Xc env=R11U131_OFF,R11U134_OFF corpora=probe surelog uhdm2rtlil bin=/tmp/r11u141_bin/slang start=2026-09-24T15:58:49-04:00
+R11U134_OFF=1
+R11U131_OFF=1
+rc=1
+end=2026-09-24T16:03:35-04:00
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=2081 STRICT_NOTEQUAL=2006
+regressions=58 conversions=0 changes=88 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=331 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=149 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=308 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=166 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=65 conversions=0 changes=30 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=635 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=168
+[testflags] CMP_EQUAL=635 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=168
+regressions=50 conversions=0 changes=62 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+cmds.txt audit: 3273 slang lines, binaries: /tmp/r11u141_bin/slang 
+== FX
+tag=FX bin=/tmp/r11u141_bin/fix start=2026-09-24T16:03:38-04:00
+rc=1
+end=2026-09-24T16:12:11-04:00
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=2139 STRICT_NOTEQUAL=1948
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=364 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=116 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=340 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=134 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=660 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=143
+[testflags] CMP_EQUAL=660 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=143
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+cmds.txt audit: 3273 slang lines, binaries: /tmp/r11u141_bin/fix 

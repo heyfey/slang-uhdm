@@ -1,0 +1,14 @@
+('130', 'probe', 'THEIRS (falls back with the pass off)') 12 
+('130', 'surelog', 'THEIRS (falls back with the pass off)') 7 
+('130', 'uhdm2rtlil', 'EQUAL-WITHOUT-ALL-THREE') 2 SignedWire,default[11111111] SignedWire,testflags[11111111]
+('130', 'uhdm2rtlil', 'THEIRS (falls back with the pass off)') 20 
+('131', 'probe', 'SHARED (another pass also converts it)') 1 r10earl_repro/tf[11111100]
+('131', 'probe', 'THEIRS (falls back with the pass off)') 35 
+('131', 'surelog', 'SHARED (another pass also converts it)') 4 EarlgreyPackParam,default[11111100] EarlgreyPackParam,testflags[11111100] LogicArrayParam,default[11111100] LogicArrayParam,testflags[11111100]
+('131', 'surelog', 'THEIRS (falls back with the pass off)') 41 
+('131', 'uhdm2rtlil', 'THEIRS (falls back with the pass off)') 16 
+('134', 'probe', 'SHARED (another pass also converts it)') 1 r10earl_repro/tf[11111100]
+('134', 'probe', 'THEIRS (falls back with the pass off)') 20 
+('134', 'surelog', 'SHARED (another pass also converts it)') 4 EarlgreyPackParam,default[11111100] EarlgreyPackParam,testflags[11111100] LogicArrayParam,default[11111100] LogicArrayParam,testflags[11111100]
+('134', 'surelog', 'THEIRS (falls back with the pass off)') 20 
+('134', 'uhdm2rtlil', 'THEIRS (falls back with the pass off)') 34 

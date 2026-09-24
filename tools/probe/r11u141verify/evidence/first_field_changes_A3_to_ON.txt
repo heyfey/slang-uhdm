@@ -1,0 +1,99 @@
+surelog BuildUVMPkg default differ:fullname(315) differ:line(239) FIELD
+surelog BuildUVMPkg testflags differ:fullname(315) differ:line(239) FIELD
+surelog GenForIfaceLocalparamBound default differ:fullname(9) differ:endcol(5) FIELD
+surelog GenForIfaceLocalparamBound testflags differ:fullname(9) differ:endcol(5) FIELD
+surelog GenForIfaceLocalparamNestedGen default differ:fullname(13) differ:endcol(5) FIELD
+surelog GenForIfaceLocalparamNestedGen testflags differ:fullname(13) differ:endcol(5) FIELD
+surelog GenIfIfaceParamStructField default differ:fullname(12) differ:col(6) FIELD
+surelog GenIfIfaceParamStructField testflags differ:fullname(12) differ:col(6) FIELD
+surelog HierPathStructTypespec default differ:fullname(62) differ:col(4) FIELD
+surelog HierPathStructTypespec testflags differ:fullname(62) differ:col(4) FIELD
+surelog IntegerConcat default differ:fullname(3) differ:line(1) FIELD
+surelog IntegerConcat testflags differ:fullname(3) differ:line(1) FIELD
+surelog InterfArrayBind default differ:file(5) differ:fullname(4) FIELD
+surelog InterfArrayBind testflags differ:file(5) differ:fullname(4) FIELD
+surelog PackStructField default differ:fullname(2) differ:depth(1) FIELD
+surelog PackedEnumPort default differ:file(4) differ:name(3) FIELD
+surelog PackedEnumPort testflags differ:file(4) differ:name(3) FIELD
+surelog SequenceInst testflags differ:file(28) differ:fullname(6) FIELD
+surelog StructArrayNet default differ:file(3) differ:fullname(2) FIELD
+surelog StructArrayNet testflags differ:file(3) differ:fullname(2) FIELD
+surelog YosysOldOpen testflags differ:endcol(6) differ:depth(1) FIELD
+uhdm2rtlil NestedStructArrayParameterInitializedByPatternPassedAsPort default differ:fullname(13) differ:depth(1) FIELD
+uhdm2rtlil NestedStructArrayParameterInitializedByPatternPassedAsPort testflags differ:fullname(13) differ:depth(1) FIELD
+uhdm2rtlil dyn_field_select default differ:file(4) differ:fullname(2) FIELD
+uhdm2rtlil dyn_field_select testflags differ:file(4) differ:fullname(2) FIELD
+uhdm2rtlil ibex_pmp default differ:fullname(17) differ:file(6) FIELD
+uhdm2rtlil ibex_pmp testflags differ:fullname(17) differ:file(6) FIELD
+uhdm2rtlil portsel_struct_param default differ:endcol(5) differ:col(4) FIELD
+uhdm2rtlil portsel_struct_param testflags differ:endcol(5) differ:col(4) FIELD
+uhdm2rtlil rp32_r5p_alu default differ:fullname(62) differ:file(46) FIELD
+uhdm2rtlil rp32_r5p_alu testflags differ:fullname(62) differ:file(46) FIELD
+uhdm2rtlil rp32_r5p_bru default differ:fullname(91) differ:file(46) FIELD
+uhdm2rtlil rp32_r5p_bru testflags differ:fullname(91) differ:file(46) FIELD
+uhdm2rtlil rp32_r5p_mdu default differ:fullname(91) differ:file(46) FIELD
+uhdm2rtlil rp32_r5p_mdu testflags differ:fullname(91) differ:file(46) FIELD
+uhdm2rtlil rp32_r5p_wbu default differ:fullname(62) differ:file(46) FIELD
+uhdm2rtlil rp32_r5p_wbu testflags differ:fullname(62) differ:file(46) FIELD
+uhdm2rtlil simple_package default differ:fullname(5) differ:depth(1) FIELD
+uhdm2rtlil simple_package testflags differ:fullname(5) differ:depth(1) FIELD
+uhdm2rtlil struct_member_cfg_width default differ:endcol(55) differ:col(33) FIELD
+uhdm2rtlil struct_member_cfg_width testflags differ:endcol(55) differ:col(33) FIELD
+uhdm2rtlil struct_member_trailing_index default differ:endline(32) differ:fullname(4) FIELD
+uhdm2rtlil struct_member_trailing_index testflags differ:endline(32) differ:fullname(4) FIELD
+uhdm2rtlil struct_param_func_config default differ:fullname(8) differ:line(5) FIELD
+uhdm2rtlil struct_param_func_config testflags differ:fullname(8) differ:line(5) FIELD
+uhdm2rtlil sva_counter default differ:file(3) differ:depth(1) FIELD
+uhdm2rtlil sva_counter testflags differ:file(3) differ:depth(1) FIELD
+uhdm2rtlil typed_named_pattern default differ:fullname(30) differ:file(5) FIELD
+uhdm2rtlil typed_named_pattern testflags differ:fullname(30) differ:file(5) FIELD
+
+surelog/default/GenForIfaceLocalparamBound A3->ON: OK:better=4 P={'fullname': 8, 'endcol': 1} L={'fullname': 4, 'endcol': 1} aligned=324 || OK2 fixed=4 unaligned_P=0 unaligned_L=0
+surelog/testflags/GenForIfaceLocalparamBound A3->ON: OK:better=4 P={'fullname': 8, 'endcol': 1} L={'fullname': 4, 'endcol': 1} aligned=232 || OK2 fixed=4 unaligned_P=0 unaligned_L=0
+surelog/default/GenForIfaceLocalparamNestedGen A3->ON: OK:better=8 P={'fullname': 12, 'endcol': 1} L={'fullname': 4, 'endcol': 1} aligned=539 || OK2 fixed=2 unaligned_P=0 unaligned_L=0
+surelog/testflags/GenForIfaceLocalparamNestedGen A3->ON: OK:better=8 P={'fullname': 12, 'endcol': 1} L={'fullname': 4, 'endcol': 1} aligned=447 || OK2 fixed=2 unaligned_P=0 unaligned_L=0
+surelog/default/GenIfIfaceParamStructField A3->ON: OK:better=6 P={'fullname': 9, 'col': 3, 'endcol': 3} L={'col': 3, 'fullname': 3, 'endcol': 3} aligned=640 || OK2 fixed=0 unaligned_P=0 unaligned_L=0
+surelog/testflags/GenIfIfaceParamStructField A3->ON: OK:better=6 P={'fullname': 9, 'col': 3, 'endcol': 3} L={'fullname': 3, 'col': 3, 'endcol': 3} aligned=544 || OK2 fixed=0 unaligned_P=0 unaligned_L=0
+surelog/default/HierPathStructTypespec A3->ON: OK:better=58 P={'fullname': 58, 'endcol': 4, 'col': 2} L={'col': 2, 'endcol': 4} aligned=647 || OK2 fixed=28 unaligned_P=0 unaligned_L=0
+surelog/testflags/HierPathStructTypespec A3->ON: OK:better=58 P={'fullname': 58, 'endcol': 4, 'col': 2} L={'col': 2, 'endcol': 4} aligned=557 || OK2 fixed=28 unaligned_P=0 unaligned_L=0
+surelog/default/IntegerConcat A3->ON: OK:better=2 P={'fullname': 2, 'endline': 1, 'col': 1, 'line': 1, 'endcol': 1} L={'col': 1, 'endline': 1, 'endcol': 1, 'line': 1} aligned=387 || OK2 fixed=0 unaligned_P=0 unaligned_L=0
+surelog/testflags/IntegerConcat A3->ON: OK:better=2 P={'fullname': 2, 'col': 1, 'endcol': 1, 'line': 1, 'endline': 1} L={'line': 1, 'col': 1, 'endline': 1, 'endcol': 1} aligned=288 || OK2 fixed=0 unaligned_P=0 unaligned_L=0
+surelog/default/InterfArrayBind A3->ON: OK:better=3 P={'fullname': 4, 'endcol': 1, 'endline': 1, 'file': 1} L={'fullname': 4} aligned=186 || OK2 fixed=3 unaligned_P=0 unaligned_L=0
+surelog/testflags/InterfArrayBind A3->ON: OK:better=3 P={'file': 1, 'endline': 1, 'fullname': 4, 'endcol': 1} L={'fullname': 4} aligned=96 || OK2 fixed=3 unaligned_P=0 unaligned_L=0
+surelog/default/PackStructField A3->ON: OK:better=1 P={'name': 1, 'fullname': 2, 'size': 1, 'endline': 1, 'type': 1, 'col': 1, 'depth': 1, 'endcol': 1, 'line': 1} len236/234 L={'name': 1, 'size': 1, 'endline': 1, 'fullname': 1, 'type': 1, 'col': 1, 'depth': 1, || OK2 fixed=1 unaligned_P=2 unaligned_L=2
+surelog/default/PackedEnumPort A3->ON: OK:better=3 P={'type': 1, 'fullname': 1, 'col': 1, 'endcol': 2, 'name': 2, 'endline': 2, 'file': 1} len211/203 L={'type': 1, 'fullname': 1, 'col': 1, 'endcol': 1, 'name': 2, 'endline': 1} len211/203 aligned=203 || OK2 fixed=3 unaligned_P=9 unaligned_L=9
+surelog/testflags/PackedEnumPort A3->ON: OK:better=3 P={'endline': 2, 'file': 1, 'type': 1, 'col': 1, 'endcol': 2, 'name': 2, 'fullname': 1} len121/113 L={'type': 1, 'col': 1, 'endline': 1, 'endcol': 1, 'name': 2, 'fullname': 1} len121/113 aligned=113 || OK2 fixed=3 unaligned_P=9 unaligned_L=9
+surelog/testflags/SequenceInst A3->ON: OK:better=22 P={'fullname': 6, 'file': 22} L={'fullname': 6} aligned=303 || OK2 fixed=22 unaligned_P=0 unaligned_L=0
+surelog/default/StructArrayNet A3->ON: OK:better=3 P={'endline': 1, 'fullname': 2, 'endcol': 1, 'file': 1} L={'fullname': 2} aligned=184 || OK2 fixed=3 unaligned_P=0 unaligned_L=0
+surelog/testflags/StructArrayNet A3->ON: OK:better=3 P={'endcol': 1, 'file': 1, 'fullname': 2, 'endline': 1} L={'fullname': 2} aligned=94 || OK2 fixed=3 unaligned_P=0 unaligned_L=0
+surelog/testflags/YosysOldOpen A3->ON: OK:better=5 P={'endcol': 6, 'fullname': 1, 'col': 1, 'depth': 1, 'line': 1, 'name': 1, 'endline': 1, 'type': 1} len31337/31480 L={'col': 1, 'depth': 1, 'line': 1, 'endcol': 1, 'name': 1, 'endline': 1, 'type': 1, 'fullnam || OK2 fixed=8 unaligned_P=13 unaligned_L=13
+uhdm2rtlil/default/NestedStructArrayParameterInitializedByPatternPassedAsPort A3->ON: OK:better=12 P={'fullname': 13, 'name': 1, 'endline': 1, 'size': 1, 'type': 1, 'col': 1, 'depth': 1, 'endcol': 1, 'line': 1} len627/579 L={'endline': 1, 'size': 1, 'type': 1, 'col': 1, 'fullname': 1, 'depth': 1, 'endcol' || OK2 fixed=27 unaligned_P=48 unaligned_L=48
+uhdm2rtlil/testflags/NestedStructArrayParameterInitializedByPatternPassedAsPort A3->ON: OK:better=12 P={'fullname': 13, 'name': 1, 'endline': 1, 'size': 1, 'type': 1, 'col': 1, 'depth': 1, 'line': 1, 'endcol': 1} len537/489 L={'name': 1, 'endline': 1, 'size': 1, 'type': 1, 'col': 1, 'fullname': 1, 'depth':  || OK2 fixed=27 unaligned_P=48 unaligned_L=48
+uhdm2rtlil/default/dyn_field_select A3->ON: OK:better=6 P={'fullname': 2, 'endcol': 2, 'file': 2, 'endline': 2} L={'fullname': 2} aligned=430 || OK2 fixed=6 unaligned_P=0 unaligned_L=0
+uhdm2rtlil/testflags/dyn_field_select A3->ON: OK:better=6 P={'endline': 2, 'fullname': 2, 'endcol': 2, 'file': 2} L={'fullname': 2} aligned=340 || OK2 fixed=6 unaligned_P=0 unaligned_L=0
+surelog/testflags/BuildUVMPkg A3->ON: OK:better=76 P={'fullname': 180, 'line': 54, 'endline': 56, 'col': 52, 'file': 32, 'endcol': 105, 'name': 1, 'size': 1, 'type': 1, 'depth': 1} len201553/201506 L={'fullname': 149, 'line': 54, 'endline': 56, 'col': 52, 'f || records G=201553 P=201506 L=201506; P walk diverges at #11992, L at #11992; P diff fields 483, L diff fields 407 | fields L differs on that P did not report: 0 
+surelog/default/BuildUVMPkg A3->ON: OK:better=76 P={'fullname': 180, 'line': 54, 'endline': 56, 'col': 52, 'file': 32, 'endcol': 105, 'name': 1, 'size': 1, 'type': 1, 'depth': 1} len201553/201506 L={'fullname': 149, 'line': 54, 'endline': 56, 'col': 52, 'f || records G=201553 P=201506 L=201506; P walk diverges at #11992, L at #11992; P diff fields 483, L diff fields 407 | fields L differs on that P did not report: 0 
+uhdm2rtlil/default/portsel_struct_param A3->ON: OK:better=1 P={'col': 2, 'endcol': 3, 'fullname': 2} L={'col': 2, 'endcol': 2, 'fullname': 2} aligned=467 || OK2 fixed=1 unaligned_P=0 unaligned_L=0
+uhdm2rtlil/testflags/portsel_struct_param A3->ON: OK:better=1 P={'fullname': 2, 'col': 2, 'endcol': 3} L={'fullname': 2, 'col': 2, 'endcol': 2} aligned=377 || OK2 fixed=1 unaligned_P=0 unaligned_L=0
+uhdm2rtlil/default/ibex_pmp A3->ON: OK:better=11 P={'endline': 5, 'fullname': 13, 'file': 4, 'col': 4, 'name': 1, 'size': 1, 'line': 5, 'endcol': 5, 'type': 1, 'depth': 1} len16037/15541 L={'endline': 5, 'file': 4, 'col': 4, 'fullname': 2, 'name': 1, 'size || OK2 fixed=20 unaligned_P=557 unaligned_L=557
+uhdm2rtlil/testflags/ibex_pmp A3->ON: OK:better=11 P={'fullname': 13, 'endline': 5, 'name': 1, 'file': 4, 'size': 1, 'type': 1, 'col': 4, 'line': 5, 'depth': 1, 'endcol': 5} len15947/15451 L={'endline': 5, 'name': 1, 'file': 4, 'size': 1, 'type': 1, 'fullnam || OK2 fixed=20 unaligned_P=557 unaligned_L=557
+uhdm2rtlil/default/rp32_r5p_alu A3->ON: OK:better=16 P={'value': 41, 'fullname': 16, 'file': 5, 'size': 1, 'type': 1, 'decompile': 1, 'consttype': 1, 'endcol': 1} len60921/60999 L={'value': 41, 'file': 5, 'size': 1, 'type': 1, 'decompile': 1, 'consttype': 1, ' || records G=60921 P=60999 L=60999; P walk diverges at #15963, L at #15963; P diff fields 67, L diff fields 51 | fields L differs on that P did not report: 0 = WOR
+uhdm2rtlil/testflags/rp32_r5p_alu A3->ON: OK:better=16 P={'fullname': 16, 'value': 41, 'endcol': 1, 'size': 1, 'file': 5, 'type': 1, 'decompile': 1, 'consttype': 1} len60831/60909 L={'value': 41, 'endcol': 1, 'size': 1, 'file': 5, 'type': 1, 'decompile': 1, 'con || records G=60831 P=60909 L=60909; P walk diverges at #15956, L at #15956; P diff fields 67, L diff fields 51 | fields L differs on that P did not report: 0 = WOR
+uhdm2rtlil/default/rp32_r5p_bru A3->ON: OK:better=45 P={'fullname': 45, 'file': 5, 'value': 41, 'type': 1, 'decompile': 1, 'endcol': 1, 'size': 1, 'consttype': 1} len52181/52259 L={'value': 41, 'file': 5, 'size': 1, 'type': 1, 'decompile': 1, 'consttype': 1, ' || records G=52181 P=52259 L=52259; P walk diverges at #15963, L at #15963; P diff fields 96, L diff fields 51 | fields L differs on that P did not report: 0 = WOR
+uhdm2rtlil/testflags/rp32_r5p_bru A3->ON: OK:better=45 P={'value': 41, 'fullname': 45, 'file': 5, 'endcol': 1, 'size': 1, 'consttype': 1, 'type': 1, 'decompile': 1} len52091/52169 L={'value': 41, 'endcol': 1, 'size': 1, 'file': 5, 'type': 1, 'decompile': 1, 'con || records G=52091 P=52169 L=52169; P walk diverges at #15956, L at #15956; P diff fields 96, L diff fields 51 | fields L differs on that P did not report: 0 = WOR
+uhdm2rtlil/default/rp32_r5p_mdu A3->ON: OK:better=45 P={'fullname': 45, 'file': 5, 'value': 41, 'type': 1, 'decompile': 1, 'endcol': 1, 'size': 1, 'consttype': 1} len52107/52185 L={'value': 41, 'file': 5, 'size': 1, 'type': 1, 'decompile': 1, 'consttype': 1, ' || records G=52107 P=52185 L=52185; P walk diverges at #15963, L at #15963; P diff fields 96, L diff fields 51 | fields L differs on that P did not report: 0 = WOR
+uhdm2rtlil/testflags/rp32_r5p_mdu A3->ON: OK:better=45 P={'value': 41, 'fullname': 45, 'file': 5, 'endcol': 1, 'size': 1, 'consttype': 1, 'type': 1, 'decompile': 1} len52017/52095 L={'value': 41, 'endcol': 1, 'size': 1, 'file': 5, 'type': 1, 'decompile': 1, 'con || records G=52017 P=52095 L=52095; P walk diverges at #15956, L at #15956; P diff fields 96, L diff fields 51 | fields L differs on that P did not report: 0 = WOR
+uhdm2rtlil/default/simple_package A3->ON: OK:better=4 P={'fullname': 4, 'decompile': 1, 'depth': 1, 'line': 1, 'endcol': 1, 'value': 1, 'endline': 1, 'col': 1} len1059/1065 L={'decompile': 1, 'depth': 1, 'line': 1, 'endcol': 1, 'value': 1, 'endline': 1, 'col': 1 || OK2 fixed=0 unaligned_P=0 unaligned_L=0
+uhdm2rtlil/testflags/simple_package A3->ON: OK:better=4 P={'fullname': 4, 'col': 1, 'decompile': 1, 'depth': 1, 'line': 1, 'endcol': 1, 'value': 1, 'endline': 1} len969/975 L={'col': 1, 'decompile': 1, 'depth': 1, 'line': 1, 'endcol': 1, 'value': 1, 'endline': 1}  || OK2 fixed=0 unaligned_P=0 unaligned_L=0
+uhdm2rtlil/default/struct_member_cfg_width A3->ON: OK:better=22 P={'fullname': 30, 'endcol': 25, 'col': 21, 'endline': 3} L={'col': 21, 'endcol': 24, 'fullname': 9, 'endline': 3} aligned=765 || OK2 fixed=22 unaligned_P=0 unaligned_L=0
+uhdm2rtlil/testflags/struct_member_cfg_width A3->ON: OK:better=22 P={'col': 21, 'fullname': 30, 'endcol': 25, 'endline': 3} L={'col': 21, 'fullname': 9, 'endcol': 24, 'endline': 3} aligned=675 || OK2 fixed=22 unaligned_P=0 unaligned_L=0
+uhdm2rtlil/default/struct_member_trailing_index A3->ON: OK:better=35 P={'fullname': 25, 'endcol': 9, 'endline': 7, 'col': 2} L={'fullname': 4, 'endcol': 2, 'col': 2} aligned=619 || OK2 fixed=14 unaligned_P=0 unaligned_L=0
+uhdm2rtlil/default/rp32_r5p_wbu A3->ON: OK:better=16 P={'value': 41, 'fullname': 16, 'file': 5, 'size': 1, 'type': 1, 'decompile': 1, 'consttype': 1, 'endcol': 1} len59448/59526 L={'value': 41, 'file': 5, 'size': 1, 'type': 1, 'decompile': 1, 'consttype': 1, ' || records G=59448 P=59526 L=59526; P walk diverges at #15963, L at #15963; P diff fields 67, L diff fields 51 | fields L differs on that P did not report: 0 = WOR
+uhdm2rtlil/testflags/struct_member_trailing_index A3->ON: OK:better=35 P={'fullname': 25, 'col': 2, 'endcol': 9, 'endline': 7} L={'fullname': 4, 'col': 2, 'endcol': 2} aligned=529 || OK2 fixed=14 unaligned_P=0 unaligned_L=0
+uhdm2rtlil/default/struct_param_func_config A3->ON: OK:better=3 P={'fullname': 3, 'depth': 1, 'endcol': 5, 'line': 5, 'value': 1, 'col': 5, 'name': 1, 'size': 1, 'file': 2, 'endline': 5, 'type': 1, 'decompile': 1, 'consttype': 1} len2742/2348 L={'depth': 1, 'endcol': 5, ' || OK2 fixed=0 unaligned_P=394 unaligned_L=394
+uhdm2rtlil/testflags/struct_param_func_config A3->ON: OK:better=3 P={'col': 5, 'depth': 1, 'line': 5, 'file': 2, 'endcol': 5, 'endline': 5, 'value': 1, 'fullname': 3, 'name': 1, 'size': 1, 'type': 1, 'consttype': 1, 'decompile': 1} len2652/2258 L={'col': 5, 'depth': 1, 'lin || OK2 fixed=0 unaligned_P=394 unaligned_L=394
+uhdm2rtlil/default/sva_counter A3->ON: OK:better=2 P={'fullname': 1, 'depth': 1, 'file': 2, 'size': 1, 'type': 1} L={'size': 1, 'fullname': 1, 'depth': 1, 'type': 1} aligned=401 || OK2 fixed=2 unaligned_P=1 unaligned_L=1
+uhdm2rtlil/testflags/sva_counter A3->ON: OK:better=2 P={'fullname': 1, 'depth': 1, 'file': 2, 'size': 1, 'type': 1} L={'fullname': 1, 'size': 1, 'depth': 1, 'type': 1} aligned=311 || OK2 fixed=2 unaligned_P=1 unaligned_L=1
+uhdm2rtlil/default/typed_named_pattern A3->ON: OK:better=25 P={'fullname': 25, 'file': 5} L={'file': 5} aligned=715 || OK2 fixed=0 unaligned_P=0 unaligned_L=0
+uhdm2rtlil/testflags/typed_named_pattern A3->ON: OK:better=25 P={'fullname': 25, 'file': 5} L={'file': 5} aligned=625 || OK2 fixed=0 unaligned_P=0 unaligned_L=0
+uhdm2rtlil/testflags/rp32_r5p_wbu A3->ON: OK:better=16 P={'fullname': 16, 'value': 41, 'endcol': 1, 'size': 1, 'file': 5, 'type': 1, 'decompile': 1, 'consttype': 1} len59358/59436 L={'value': 41, 'endcol': 1, 'size': 1, 'file': 5, 'type': 1, 'decompile': 1, 'con || records G=59358 P=59436 L=59436; P walk diverges at #15956, L at #15956; P diff fields 67, L diff fields 51 | fields L differs on that P did not report: 0 = WOR

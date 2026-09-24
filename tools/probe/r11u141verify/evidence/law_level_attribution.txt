@@ -1,0 +1,77 @@
+rows equal at ON: 211  by number of single laws each needs: {0: 10, 1: 171, 2: 29, 3: 1}
+per law (rows that fall back when it alone is off):
+  R11U130_CLSARGNET_OFF        0
+  R11U130_DEFNETLOC_OFF        11
+  R11U130_GVTSFILE_OFF         0
+  R11U130_IFSUKW_OFF           0
+  R11U130_INCNOTEXT_OFF        0
+  R11U130_NETSIGN_OFF          5
+  R11U130_PVPARAM_OFF          16
+  R11U130_REDEFLINE_OFF        0
+  R11U130_SUSIGN_OFF           2
+  R11U130_WILDSPAN_OFF         5
+  R11U131_CASTLOC_OFF          0
+  R11U131_INETFILE_OFF         28
+  R11U131_IPSSPAN_OFF          6
+  R11U131_KWSYS_OFF            3
+  R11U131_OVRMD_OFF            4
+  R11U131_PAREN_OFF            2
+  R11U131_PATTS_OFF            34
+  R11U131_PTSSEP_OFF           0
+  R11U131_QCALL_OFF            17
+  R11U134_ANONMEMBER_OFF       13
+  R11U134_CAUNPARENT_OFF       21
+  R11U134_ELABNETALIAS_OFF     6
+  R11U134_MEMUNION_OFF         0
+  R11U134_PKGCLONEBOUND_OFF    3
+  R11U134_SCOPEDPKGTD_OFF      11
+  R11U134_TDARRSHARE_OFF       15
+  R11U134_TDNETEND_OFF         15
+  R11U134_TDPARENT_OFF         14
+  R11U134_TSHPNAME_OFF         0
+  R11U134_TSREFCHAIN_OFF       1
+  R11V130_DEFNETVAR_OFF        0
+  R11V130_INCTAB_OFF           0
+  R11V131_ARGCTX_OFF           0
+rows needing two or more laws (pairs to test for cancellation):
+   probe:r10earl_repro/pt23 ['R11U134_TDARRSHARE_OFF', 'R11U134_TDNETEND_OFF']
+   probe:r10uvm79repro/v79v6_ca ['R11U131_INETFILE_OFF', 'R11U134_TDARRSHARE_OFF', 'R11U134_TDNETEND_OFF']
+   probe:r10vearl108repro/m_arr108 ['R11U131_PATTS_OFF', 'R11U134_TDPARENT_OFF']
+   probe:r10vearl108repro/m_ifs108 ['R11U131_PATTS_OFF', 'R11U134_TDPARENT_OFF']
+   probe:r10vearl108repro/m_multi108 ['R11U131_PATTS_OFF', 'R11U134_TDPARENT_OFF']
+   probe:r10vearl108repro/m_nest108 ['R11U131_PATTS_OFF', 'R11U134_TDPARENT_OFF']
+   probe:r10vearl108repro/m_wide108 ['R11U131_PATTS_OFF', 'R11U134_TDPARENT_OFF']
+   probe:r11u108repro/grid/pk/k08_var_vn ['R11U134_PKGCLONEBOUND_OFF', 'R11U134_SCOPEDPKGTD_OFF']
+   probe:r11u109repro/grid/hp/h08_unpacked_base ['R11U134_TDARRSHARE_OFF', 'R11U134_TDNETEND_OFF']
+   probe:r11v16repro/v2 ['R11U131_QCALL_OFF', 'R11U134_SCOPEDPKGTD_OFF']
+   probe:r11v17repro/grid/va20_structnet_unpacked_array_lhs ['R11U134_TDARRSHARE_OFF', 'R11U134_TDNETEND_OFF']
+   probe:v11u112repro/grid/brk/v/b4g_struct_ctl ['R11U134_TDARRSHARE_OFF', 'R11U134_TDNETEND_OFF']
+   surelog:AssignRhsFlat,default ['R11U134_ANONMEMBER_OFF', 'R11U134_CAUNPARENT_OFF']
+   surelog:AssignRhsFlat,testflags ['R11U134_ANONMEMBER_OFF', 'R11U134_CAUNPARENT_OFF']
+   surelog:RangeSelect,default ['R11U134_TDARRSHARE_OFF', 'R11U134_TDNETEND_OFF']
+   surelog:RangeSelect,testflags ['R11U134_TDARRSHARE_OFF', 'R11U134_TDNETEND_OFF']
+   uhdm2rtlil:TypedefWithParameter,default ['R11U134_PKGCLONEBOUND_OFF', 'R11U134_SCOPEDPKGTD_OFF']
+   uhdm2rtlil:TypedefWithParameter,testflags ['R11U134_PKGCLONEBOUND_OFF', 'R11U134_SCOPEDPKGTD_OFF']
+   uhdm2rtlil:latch_fifo_dynfield,default ['R11U134_TDARRSHARE_OFF', 'R11U134_TDNETEND_OFF']
+   uhdm2rtlil:latch_fifo_dynfield,testflags ['R11U134_TDARRSHARE_OFF', 'R11U134_TDNETEND_OFF']
+   uhdm2rtlil:svtypes_struct_simple,default ['R11U130_SUSIGN_OFF', 'R11U134_ANONMEMBER_OFF']
+   uhdm2rtlil:svtypes_struct_simple,testflags ['R11U130_SUSIGN_OFF', 'R11U134_ANONMEMBER_OFF']
+   uhdm2rtlil:union_simple,default ['R11U134_ANONMEMBER_OFF', 'R11U134_CAUNPARENT_OFF']
+   uhdm2rtlil:union_simple,testflags ['R11U134_ANONMEMBER_OFF', 'R11U134_CAUNPARENT_OFF']
+   uhdm2rtlil:unpacked_struct_2d,default ['R11U134_TDARRSHARE_OFF', 'R11U134_TDNETEND_OFF']
+   uhdm2rtlil:unpacked_struct_2d,testflags ['R11U134_TDARRSHARE_OFF', 'R11U134_TDNETEND_OFF']
+   uhdm2rtlil:unpacked_struct_dyn_read,default ['R11U134_TDARRSHARE_OFF', 'R11U134_TDNETEND_OFF']
+   uhdm2rtlil:unpacked_struct_dyn_read,testflags ['R11U134_TDARRSHARE_OFF', 'R11U134_TDNETEND_OFF']
+   uhdm2rtlil:unpacked_struct_mixed,default ['R11U134_TDARRSHARE_OFF', 'R11U134_TDNETEND_OFF']
+   uhdm2rtlil:unpacked_struct_mixed,testflags ['R11U134_TDARRSHARE_OFF', 'R11U134_TDNETEND_OFF']
+rows needing no single law (equal with every single switch off; pass-level attribution only):
+   probe:r10earl_repro/tf
+   surelog:EarlgreyPackParam,default
+   surelog:EarlgreyPackParam,testflags
+   surelog:LogicArrayParam,default
+   surelog:LogicArrayParam,testflags
+   surelog:ParamNoSubst,testflags
+   uhdm2rtlil:IndexedPartSelectOfArrayElement,default
+   uhdm2rtlil:IndexedPartSelectOfArrayElement,testflags
+   uhdm2rtlil:indexed_partsel_array,default
+   uhdm2rtlil:indexed_partsel_array,testflags

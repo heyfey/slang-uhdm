@@ -1,0 +1,168 @@
+# every single switch vs law on, --elabuhdm mode
+brk_inctab/b01_tab_else STRICT_NOTEQUAL R11V130_INCTAB_OFF:BREAK:eq->ne
+brk_inctab/b02_tab_endif STRICT_EQUAL R11V130_INCTAB_OFF:TURNED
+brk_inctab/b03_tab_ifdef STRICT_EQUAL R11V130_INCTAB_OFF:TURNED
+brk_inctab/b04_tab_def_inactive STRICT_NOTEQUAL R11V130_INCTAB_OFF:BREAK:eq->ne
+brk_inctab/b05_tab_def_active STRICT_EQUAL R11V130_INCTAB_OFF:TURNED
+brk_inctab/b06_tab_ifndef STRICT_EQUAL R11V130_INCTAB_OFF:TURNED
+brk_inctab/b07_tab_elsif STRICT_NOTEQUAL R11V130_INCTAB_OFF:BREAK:eq->ne
+brk_inctab/b08_tab_else_active STRICT_EQUAL R11V130_INCTAB_OFF:TURNED
+brk_inctab/b09_tab_endif_only STRICT_EQUAL R11V130_INCTAB_OFF:TURNED
+brk_inctab/b10_tab_def_plain STRICT_EQUAL R11V130_INCTAB_OFF:TURNED
+brk_inctab/b11_tab_blank_inactive STRICT_NOTEQUAL R11V130_INCTAB_OFF:BREAK:eq->ne
+brk_inctab/b12_nested_inactive STRICT_NOTEQUAL R11V130_INCTAB_OFF:BREAK:eq->ne
+brk_inctab/b13_tab_endif_inactive STRICT_NOTEQUAL R11V130_INCTAB_OFF:BREAK:eq->ne
+brk_inctab/b14_active_outer_inner_else STRICT_NOTEQUAL R11V130_INCTAB_OFF:BREAK:eq->ne
+brk_inctab/b15_empty_inactive STRICT_NOTEQUAL R11V130_INCTAB_OFF:BREAK:eq->ne
+brk_inctab/b16_empty_active STRICT_EQUAL R11V130_INCTAB_OFF:TURNED
+brk_ipsq/q01_qual_minus NOT_EQUAL A3:STAGE1-both P131:STAGE1-both R11U131_IPSSPAN_OFF:STAGE1-both
+brk_ipsq/q02_import_bare STRICT_NOTEQUAL A3:OK:better=0 P131:OK:better=0 R11U131_IPSSPAN_OFF:OK:better=0
+brk_ipsq/q03_qual_override STRICT_EQUAL 
+brk_ipsq/q04_qual_localparam STRICT_NOTEQUAL A3:BREAK:eq->ne P131:BREAK:eq->ne R11U131_IPSSPAN_OFF:BREAK:eq->ne
+brk_ipsq/q05_qual_in_pkg NOT_EQUAL A3:STAGE1-both P131:STAGE1-both R11U131_IPSSPAN_OFF:STAGE1-both
+brk_ipsq/q06_qual_param_base NOT_EQUAL A3:STAGE1-both P131:STAGE1-both R11U131_IPSSPAN_OFF:STAGE1-both
+brk_ipsq/q07_qual_in_op NOT_EQUAL A3:STAGE1-both P131:STAGE1-both R11U131_IPSSPAN_OFF:STAGE1-both
+brk_ipsq/q08_local_ctl NOT_EQUAL A3:STAGE1-both P131:STAGE1-both R11U131_IPSSPAN_OFF:STAGE1-both
+brk_ipsq/q09_qual_iface NOT_EQUAL A3:STAGE1-both P131:STAGE1-both R11U131_IPSSPAN_OFF:STAGE1-both
+p130_clsargnet/c01_pkg_class_arg NOT_EQUAL A3:STAGE1-both P130:STAGE1-both R11U130_CLSARGNET_OFF:STAGE1-both
+p130_clsargnet/c02_two_vars_same_arg NOT_EQUAL A3:STAGE1-both P130:STAGE1-both R11U130_CLSARGNET_OFF:STAGE1-both
+p130_clsargnet/c03_program NOT_EQUAL A3:STAGE1-both P130:STAGE1-both R11U130_CLSARGNET_OFF:STAGE1-both
+p130_defnetloc/a02_enum_macro STRICT_EQUAL A3:TURNED P130:TURNED R11U130_DEFNETLOC_OFF:TURNED
+p130_defnetloc/a03_enum_param_base NOT_EQUAL A3:STAGE1-both P130:STAGE1-both R11U130_DEFNETLOC_OFF:STAGE1-both
+p130_defnetloc/a04_pkg_packed_iface NOT_EQUAL A3:STAGE1-both P130:STAGE1-both R11U130_DEFNETLOC_OFF:STAGE1-both
+p130_defnetloc/a05_local_td_param_dim STRICT_NOTEQUAL 
+p130_defnetloc/a06_enum_pkg_param_base NOT_EQUAL A3:STAGE1-both P130:STAGE1-both R11U130_DEFNETLOC_OFF:STAGE1-both
+p130_defnetloc/a07_enum_int_unsigned STRICT_EQUAL A3:TURNED P130:TURNED R11U130_DEFNETLOC_OFF:TURNED
+p130_defnetvar/v01_var_enum_iface_base NOT_EQUAL 
+p130_defnetvar/v02_var_scoped_2d NOT_EQUAL 
+p130_defnetvar/v03_var_enum_two_decl STRICT_EQUAL R11V130_DEFNETVAR_OFF:TURNED
+p130_gvtsfile/g01_inline_genvar_inc STRICT_EQUAL A3:TURNED P130:TURNED R11U130_GVTSFILE_OFF:TURNED
+p130_gvtsfile/g02_sep_genvar_inc STRICT_EQUAL A3:TURNED P130:TURNED R11U130_GVTSFILE_OFF:TURNED
+p130_gvtsfile/g03_two_loops_region STRICT_EQUAL 
+p130_ifsukw/i01_iface_array STRICT_EQUAL A3:TURNED P130:TURNED R11U130_IFSUKW_OFF:TURNED
+p130_ifsukw/i02_iface_in_gen STRICT_EQUAL A3:TURNED P130:TURNED R11U130_IFSUKW_OFF:TURNED
+p130_ifsukw/i03_iface_unpacked_struct STRICT_NOTEQUAL 
+p130_incnotext/n01_undef_only STRICT_EQUAL A3:TURNED P130:TURNED R11U130_INCNOTEXT_OFF:TURNED
+p130_incnotext/n02_ifdef_else STRICT_EQUAL A3:TURNED P130:TURNED R11U130_INCNOTEXT_OFF:TURNED
+p130_incnotext/n03_define_trailing_comment STRICT_NOTEQUAL 
+p130_incnotext/n04_block_comment STRICT_EQUAL 
+p130_incnotext/n05_default_nettype STRICT_EQUAL 
+p130_inctab/t01_tab_undef STRICT_EQUAL R11V130_INCTAB_OFF:TURNED
+p130_inctab/t02_tab_else STRICT_NOTEQUAL R11V130_INCTAB_OFF:BREAK:eq->ne
+p130_inctab/t03_tab_then_space STRICT_EQUAL R11V130_INCTAB_OFF:TURNED
+p130_netsign/s01_supply_signed NOT_EQUAL A3:STAGE1-both P130:STAGE1-both R11U130_NETSIGN_OFF:STAGE1-both
+p130_netsign/s02_wire_logic_signed NOT_EQUAL 
+p130_netsign/s03_gen_block NOT_EQUAL 
+p130_netsign/s04_macro_net STRICT_EQUAL A3:TURNED P130:TURNED R11U130_NETSIGN_OFF:TURNED
+p130_netsign/s05_two_decl_no_init STRICT_EQUAL A3:TURNED P130:TURNED R11U130_NETSIGN_OFF:TURNED
+p130_pvparam/p01_string_param NOT_EQUAL A3:STAGE1-both P130:STAGE1-both R11U130_PVPARAM_OFF:STAGE1-both
+p130_pvparam/p02_array_elem_conn STRICT_NOTEQUAL A3:OK:better=2 P130:OK:better=2 R11U130_PVPARAM_OFF:OK:better=2
+p130_pvparam/p03_expr_override NOT_EQUAL A3:STAGE1-both P130:STAGE1-both R11U130_PVPARAM_OFF:STAGE1-both
+p130_redefline/r01_triple STRICT_EQUAL A3:TURNED P130:TURNED R11U130_REDEFLINE_OFF:TURNED
+p130_redefline/r02_args_then_bare STRICT_EQUAL A3:TURNED P130:TURNED R11U130_REDEFLINE_OFF:TURNED
+p130_redefline/r03_in_function STRICT_EQUAL A3:TURNED P130:TURNED R11U130_REDEFLINE_OFF:TURNED
+p130_redefline/r04_celldefine STRICT_EQUAL A3:TURNED P130:TURNED R11U130_REDEFLINE_OFF:TURNED
+p130_susign/k01_net_struct_signed NOT_EQUAL A3:STAGE1-both P130:STAGE1-both R11U130_SUSIGN_OFF:STAGE1-both
+p130_susign/k02_struct_packed_dims NOT_EQUAL 
+p130_susign/k03_union_two_decl STRICT_NOTEQUAL A3:OK:better=2 P130:OK:better=2 R11U130_SUSIGN_OFF:OK:better=2
+p130_susign/k04_program_struct STRICT_NOTEQUAL A3:OK:better=1 P130:OK:better=1 R11U130_SUSIGN_OFF:OK:better=1
+p130_wildspan/w01_macro_conn NOT_EQUAL 
+p130_wildspan/w02_spaces_lines STRICT_EQUAL A3:TURNED P130:TURNED R11U130_WILDSPAN_OFF:TURNED
+p130_wildspan/w03_port_default NOT_EQUAL A3:STAGE1-both P130:STAGE1-both R11U130_WILDSPAN_OFF:STAGE1-both
+p130_wildspan/w04_unpacked_ports STRICT_NOTEQUAL A3:OK:better=2 P130:OK:better=2 R11U130_WILDSPAN_OFF:OK:better=2
+p131_castloc/h01_nested_inc STRICT_EQUAL A3:TURNED P131:TURNED R11U131_CASTLOC_OFF:TURNED
+p131_castloc/h02_td_target STRICT_EQUAL A3:TURNED P131:TURNED R11U131_CASTLOC_OFF:TURNED
+p131_castloc/h03_signed_cast_inc STRICT_EQUAL A3:TURNED P131:TURNED R11U131_CASTLOC_OFF:TURNED
+p131_castloc/h04_tab_macro STRICT_EQUAL A3:TURNED P131:TURNED R11U131_CASTLOC_OFF:TURNED
+p131_inetfile/f02_disable_named_fork NOT_EQUAL A3:STAGE1-both P131:STAGE1-both R11U131_INETFILE_OFF:STAGE1-both
+p131_inetfile/f03_task_param NOT_EQUAL A3:STAGE1-both P131:STAGE1-both R11U131_INETFILE_OFF:STAGE1-both
+p131_inetfile/f04_foreach_2d_func STRICT_NOTEQUAL A3:OK:better=2 P131:OK:better=2 R11U131_INETFILE_OFF:OK:better=2
+p131_inetfile/f05_dumpvars_two_scopes STRICT_NOTEQUAL A3:OK:better=2 P131:OK:better=2 R11U131_INETFILE_OFF:OK:better=2
+p131_ipsspan/i01_pkg_param_sel STRICT_NOTEQUAL A3:BREAK:eq->ne P131:BREAK:eq->ne R11U131_IPSSPAN_OFF:BREAK:eq->ne
+p131_ipsspan/i02_2d_elem_sel NOT_EQUAL 
+p131_ipsspan/i03_minus_expr_override NOT_EQUAL 
+p131_ipsspan/i04_arg_nested_op STRICT_NOTEQUAL R11V131_ARGCTX_OFF:OK:better=2
+p131_ipsspan/i05_nested_ternary NOT_EQUAL R11V131_ARGCTX_OFF:STAGE1-both
+p131_kwsys/s01_bits_time NOT_EQUAL A3:STAGE1-both P131:STAGE1-both R11U131_KWSYS_OFF:STAGE1-both
+p131_kwsys/s02_bits_int_macro STRICT_EQUAL A3:TURNED P131:TURNED R11U131_KWSYS_OFF:TURNED
+p131_kwsys/s03_bits_gen_localparam STRICT_NOTEQUAL A3:OK:better=1 P131:OK:better=1 R11U131_KWSYS_OFF:OK:better=1
+p131_ovrmd/o01_3d STRICT_EQUAL 
+p131_ovrmd/o02_typedef_2d NOT_EQUAL 
+p131_ovrmd/o03_iface_2d NOT_EQUAL A3:STAGE1-both P131:STAGE1-both R11U131_OVRMD_OFF:STAGE1-both
+p131_ovrmd/o04_signed_bit_2d STRICT_EQUAL A3:TURNED P131:TURNED R11U131_OVRMD_OFF:TURNED
+p131_ovrmd/o05_pkg_typedef_2d STRICT_NOTEQUAL 
+p131_paren/q01_comment_in_paren STRICT_EQUAL A3:TURNED P131:TURNED R11U131_PAREN_OFF:TURNED
+p131_paren/q02_two_lines STRICT_EQUAL 
+p131_paren/q03_paren_param_ref STRICT_EQUAL 
+p131_paren/q04_program_param STRICT_EQUAL 
+p131_patts/t01_gen_for_bound STRICT_NOTEQUAL A3:OK:better=1 P131:OK:better=1 R11U131_PATTS_OFF:OK:better=1
+p131_patts/t02_named_import_read STRICT_NOTEQUAL A3:OK:better=1 P131:OK:better=1 R11U131_PATTS_OFF:OK:better=1
+p131_patts/t03_two_pkgs STRICT_EQUAL A3:TURNED P131:TURNED R11U131_PATTS_OFF:TURNED
+p131_patts/t04_nested_struct NOT_EQUAL 
+p131_ptssep/g01_two_refs NOT_EQUAL A3:STAGE1-both P131:STAGE1-both R11U131_PTSSEP_OFF:STAGE1-both
+p131_ptssep/g02_localparam_bit NOT_EQUAL A3:STAGE1-both P131:STAGE1-both R11U131_PTSSEP_OFF:STAGE1-both
+p131_ptssep/g03_signed NOT_EQUAL A3:STAGE1-both P131:STAGE1-both R11U131_PTSSEP_OFF:STAGE1-both
+p131_ptssep/g04_unread STRICT_EQUAL A3:TURNED P131:EQUAL-both(bytes R11U131_PTSSEP_OFF:EQUAL-both(bytes
+p131_ptssep/g05_two_params_unread STRICT_NOTEQUAL A3:OK:better=6 P131:OK:better=0 R11U131_PTSSEP_OFF:OK:better=0
+p131_qcall/c01_noarg NOT_EQUAL A3:STAGE1-both P131:STAGE1-both R11U131_QCALL_OFF:STAGE1-both
+p131_qcall/c02_spaced_colons NOT_EQUAL 
+p131_qcall/c03_iface_param STRICT_EQUAL A3:TURNED P131:TURNED R11U131_QCALL_OFF:TURNED
+p131_qcall/c04_arg_in_op_of_call NOT_EQUAL R11V131_ARGCTX_OFF:STAGE1-both
+p134_anonmember/m01_union_in_pkg_imported NOT_EQUAL A3:STAGE1-both P134:STAGE1-both R11U134_ANONMEMBER_OFF:STAGE1-both
+p134_anonmember/m02_member_packed_dims STRICT_NOTEQUAL 
+p134_anonmember/m03_iface_signal NOT_EQUAL A3:STAGE1-both P134:STAGE1-both R11U134_ANONMEMBER_OFF:STAGE1-both
+p134_anonmember/m04_local_union STRICT_EQUAL A3:TURNED P134:TURNED R11U134_ANONMEMBER_OFF:TURNED
+p134_anonmember/m05_sub_twice STRICT_NOTEQUAL A3:OK:better=11 P134:OK:better=11 R11U134_ANONMEMBER_OFF:OK:better=11
+p134_caunparent/u01_delay_assign STRICT_EQUAL R11U134_CAUNPARENT_OFF:TURNED
+p134_caunparent/u02_gen_for_assign STRICT_EQUAL A3:TURNED P134:TURNED
+p134_caunparent/u03_packed_array_td STRICT_NOTEQUAL 
+p134_caunparent/u04_iface_signal_lhs STRICT_EQUAL 
+p134_elabnetalias/l01_tri1_wor NOT_EQUAL A3:STAGE1-both P134:STAGE1-both R11U134_ELABNETALIAS_OFF:STAGE1-both
+p134_elabnetalias/l02_gen_block_net STRICT_EQUAL 
+p134_elabnetalias/l03_sub_twice NOT_EQUAL A3:STAGE1-both P134:STAGE1-both R11U134_ELABNETALIAS_OFF:STAGE1-both
+p134_elabnetalias/l04_sub_ports STRICT_NOTEQUAL A3:GROW:fullname:1->4 P134:GROW:fullname:1->4 R11U134_ELABNETALIAS_OFF:GROW:fullname:1->4
+p134_elabnetalias/l05_tri_signed NOT_EQUAL A3:STAGE1-both P134:STAGE1-both R11U134_ELABNETALIAS_OFF:STAGE1-both
+p134_memunion/n01_union_in_union STRICT_EQUAL A3:TURNED P134:TURNED R11U134_MEMUNION_OFF:TURNED
+p134_memunion/n02_union_after_comment STRICT_NOTEQUAL 
+p134_memunion/n03_pkg_signed_union NOT_EQUAL A3:STAGE1-both P134:STAGE1-both R11U134_MEMUNION_OFF:STAGE1-both
+p134_pkgclonebound/b01_mul_bound STRICT_EQUAL A3:TURNED P134:TURNED R11U134_PKGCLONEBOUND_OFF:TURNED
+p134_pkgclonebound/b02_clog2_bound NOT_EQUAL 
+p134_pkgclonebound/b03_two_param_bounds NOT_EQUAL A3:STAGE1-both P134:STAGE1-both R11U134_PKGCLONEBOUND_OFF:STAGE1-both
+p134_scopedpkgtd/k01_unpacked_dim NOT_EQUAL 
+p134_scopedpkgtd/k02_wire_scoped NOT_EQUAL A3:STAGE1-both P134:STAGE1-both R11U134_SCOPEDPKGTD_OFF:STAGE1-both
+p134_scopedpkgtd/k03_iface_scoped STRICT_EQUAL A3:TURNED P134:TURNED R11U134_SCOPEDPKGTD_OFF:TURNED
+p134_tdarrshare/r01_enum_array STRICT_EQUAL A3:TURNED P134:TURNED
+p134_tdarrshare/r02_nested_struct_array STRICT_NOTEQUAL A3:OK:better=10 P134:OK:better=10 R11U134_TDARRSHARE_OFF:OK:better=10
+p134_tdnetend/e01_dyn_array NOT_EQUAL A3:STAGE1-both P134:STAGE1-both R11U134_TDNETEND_OFF:STAGE1-both
+p134_tdnetend/e02_param_dim STRICT_NOTEQUAL A3:OK:better=10 P134:OK:better=10 R11U134_TDNETEND_OFF:OK:better=8
+p134_tdnetend/e03_assoc_bare_import NOT_EQUAL A3:STAGE1-both P134:STAGE1-both R11U134_TDNETEND_OFF:STAGE1-both
+p134_tdparent/a01_iface_and_module STRICT_EQUAL A3:TURNED P134:TURNED
+p134_tdparent/a02_program_and_module NOT_EQUAL A3:STAGE1-both P134:STAGE1-both
+p134_tdparent/a03_struct_with_enum_member STRICT_NOTEQUAL A3:OK:better=20 P134:OK:better=20
+p134_tdparent/a04_three_level_importers STRICT_NOTEQUAL A3:OK:better=28 P134:OK:better=28
+p134_tdparent/a05_z_and_a_readers STRICT_NOTEQUAL A3:OK:better=19 P134:OK:better=19
+p134_tshpname/h01_member_bound NOT_EQUAL 
+p134_tshpname/h02_nested_member_bound NOT_EQUAL A3:STAGE1-both P131:STAGE1-both
+p134_tshpname/h03_func_return NOT_EQUAL 
+p134_tsrefchain/c01_member_range STRICT_EQUAL A3:EQUAL-both(bytes P134:EQUAL-both(bytes
+p134_tsrefchain/c02_param_of_td STRICT_NOTEQUAL A3:OK:better=2 P134:OK:better=2 R11U134_TSREFCHAIN_OFF:OK:better=2
+p134_tsrefchain/c03_nested_td NOT_EQUAL 
+== FLAGS
+brk_inctab/b01_tab_else R11V130_INCTAB_OFF BREAK:eq->ne P={} L={'line': 1, 'endline': 1} aligned=89 W@2:line;2:endline
+brk_inctab/b04_tab_def_inactive R11V130_INCTAB_OFF BREAK:eq->ne P={} L={'line': 1, 'endline': 1} aligned=89 W@2:line;2:endline
+brk_inctab/b07_tab_elsif R11V130_INCTAB_OFF BREAK:eq->ne P={} L={'line': 1, 'endline': 1} aligned=89 W@2:line;2:endline
+brk_inctab/b11_tab_blank_inactive R11V130_INCTAB_OFF BREAK:eq->ne P={} L={'line': 1, 'endline': 1} aligned=89 W@2:line;2:endline
+brk_inctab/b12_nested_inactive R11V130_INCTAB_OFF BREAK:eq->ne P={} L={'line': 1, 'endline': 1} aligned=89 W@2:line;2:endline
+brk_inctab/b13_tab_endif_inactive R11V130_INCTAB_OFF BREAK:eq->ne P={} L={'line': 1, 'endline': 1} aligned=89 W@2:line;2:endline
+brk_inctab/b14_active_outer_inner_else R11V130_INCTAB_OFF BREAK:eq->ne P={} L={'line': 1, 'endline': 1} aligned=89 W@2:line;2:endline
+brk_inctab/b15_empty_inactive R11V130_INCTAB_OFF BREAK:eq->ne P={} L={'line': 1, 'endline': 1} aligned=89 W@2:line;2:endline
+brk_ipsq/q04_qual_localparam A3 BREAK:eq->ne P={} L={'endcol': 1, 'col': 1} aligned=94 W@51:col;51:endcol
+brk_ipsq/q04_qual_localparam P131 BREAK:eq->ne P={} L={'endcol': 1, 'col': 1} aligned=94 W@51:col;51:endcol
+brk_ipsq/q04_qual_localparam R11U131_IPSSPAN_OFF BREAK:eq->ne P={} L={'endcol': 1, 'col': 1} aligned=94 W@51:col;51:endcol
+p130_inctab/t02_tab_else R11V130_INCTAB_OFF BREAK:eq->ne P={} L={'line': 1, 'endline': 1} aligned=89 W@2:line;2:endline
+p131_ipsspan/i01_pkg_param_sel A3 BREAK:eq->ne P={} L={'endcol': 1, 'col': 1} aligned=107 W@37:col;37:endcol
+p131_ipsspan/i01_pkg_param_sel P131 BREAK:eq->ne P={} L={'endcol': 1, 'col': 1} aligned=107 W@37:col;37:endcol
+p131_ipsspan/i01_pkg_param_sel R11U131_IPSSPAN_OFF BREAK:eq->ne P={} L={'endcol': 1, 'col': 1} aligned=107 W@37:col;37:endcol
+p134_elabnetalias/l04_sub_ports A3 GROW:fullname:1->4 P={'line': 1, 'endcol': 1, 'file': 1, 'size': 1, 'type': 1, 'endline': 1, 'fullname': 1, 'col': 1} len133/138 L={'fullname': 4} aligned=108
+p134_elabnetalias/l04_sub_ports P134 GROW:fullname:1->4 P={'line': 1, 'endcol': 1, 'file': 1, 'size': 1, 'type': 1, 'endline': 1, 'fullname': 1, 'col': 1} len133/138 L={'fullname': 4} aligned=108
+p134_elabnetalias/l04_sub_ports R11U134_ELABNETALIAS_OFF GROW:fullname:1->4 P={'line': 1, 'endcol': 1, 'file': 1, 'size': 1, 'type': 1, 'endline': 1, 'fullname': 1, 'col': 1} len133/138 L={'fullname': 4} aligned=108

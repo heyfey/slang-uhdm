@@ -1,0 +1,24 @@
+p134_elabnetalias/l06_tri_unsigned STRICT_EQUAL A3:TURNED P134:TURNED R11U134_ELABNETALIAS_OFF:TURNED
+p134_elabnetalias/l07_tri1_undriven NOT_EQUAL A3:STAGE1-both P134:STAGE1-both R11U134_ELABNETALIAS_OFF:STAGE1-both
+p134_elabnetalias/l08_wor_unsigned STRICT_EQUAL A3:TURNED P134:TURNED R11U134_ELABNETALIAS_OFF:TURNED
+p134_elabnetalias/l09_wire_signed NOT_EQUAL A3:STAGE1-both P134:STAGE1-both R11U134_ELABNETALIAS_OFF:STAGE1-both
+p134_elabnetalias/l10_wand_unsigned STRICT_EQUAL A3:TURNED P134:TURNED R11U134_ELABNETALIAS_OFF:TURNED
+p134_elabnetalias/l11_supply0 NOT_EQUAL A3:STAGE1-both P134:STAGE1-both R11U134_ELABNETALIAS_OFF:STAGE1-both
+== FLAGS
+none
+p134_tshpname/h04_port_range STRICT_NOTEQUAL 
+p134_tshpname/h05_local_typedef STRICT_NOTEQUAL 
+p134_tshpname/h06_iface_signal STRICT_NOTEQUAL 
+p134_tdarrshare/r03_union_array NOT_EQUAL A3:STAGE1-both P134:STAGE1-both R11U134_ANONMEMBER_OFF:STAGE1-both R11U134_TDNETEND_OFF:STAGE1-both R11U134_TDPARENT_OFF:STAGE1-both
+p131_paren/q05_paren_in_pkg_read STRICT_EQUAL 
+p131_paren/q06_paren_ternary_default STRICT_EQUAL 
+p134_tsrefchain/c04_struct_member_param_range_import STRICT_EQUAL A3:TURNED P131:TURNED P134:EQUAL-both(bytes R11U131_PATTS_OFF:TURNED R11U134_TDPARENT_OFF:EQUAL-both(bytes
+p130_defnetvar/v04_var_enum_iface STRICT_EQUAL R11V130_DEFNETVAR_OFF:TURNED
+== FLAGS
+none
+res_inccomment/c01_define_block_comment STRICT_NOTEQUAL 
+res_inccomment/c02_undef_line_comment STRICT_EQUAL 
+res_inccomment/c03_ifdef_line_comment STRICT_NOTEQUAL 
+res_inccomment/c04_comment_own_line STRICT_EQUAL 
+== FLAGS
+none

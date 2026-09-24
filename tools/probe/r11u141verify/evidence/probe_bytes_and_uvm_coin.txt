@@ -1,0 +1,10 @@
+fix binary vs pristine, check_probe databases (same worktree, same-length workdirs /tmp/r11u141_wdFP vs /tmp/r11u141_wdON): 0 / 4087 byte movers
+positive control: pristine vs three-passes-off (/tmp/r11u141_wdA3): 287 / 4087 byte movers
+probe csv fix sweep vs pristine sweep: identical
+
+UVM coin (FX vs ON surelog movers), order-blind uhdm-dump diffs:
+default/MiniAmiq-055eab74: >       |UINT:0 <       |UINT:943 >       |vpiDecompile:0 <       |vpiDecompile:943 
+default/SeqDriver-65178d3a: >       |UINT:0 <       |UINT:1122 >       |vpiDecompile:0 <       |vpiDecompile:1122 
+default/SimpleUVM-267de3ff: <       |UINT:1412 >       |UINT:792 <       |vpiDecompile:1412 >       |vpiDecompile:792 
+testflags/SeqDriver-65178d3a: >       |UINT:0 <       |UINT:1181 >       |vpiDecompile:0 <       |vpiDecompile:1181 
+testflags/SimpleUVM-267de3ff: <       |UINT:0 >       |UINT:1439 <       |vpiDecompile:0 >       |vpiDecompile:1439 

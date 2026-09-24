@@ -1,0 +1,24 @@
+== tests/probe/r10buvm8repro/v5b8: three passes off (A3) -> on (ON)
+ON STRICT_NOTEQUAL line fields: line=10 col=10 endline=10 endcol=10 objects_differing=10
+A3 STRICT_NOTEQUAL line fields: type=1 fullname=1 file=1 line=8 col=8 endline=8 endcol=8 size=1 objects_differing=8 (walk diverged)
+P134 STRICT_NOTEQUAL line fields: type=1 fullname=1 file=1 line=8 col=8 endline=8 endcol=8 size=1 objects_differing=8 (walk diverged)
+SC STRICT_NOTEQUAL line fields: type=1 fullname=1 file=1 line=8 col=8 endline=8 endcol=8 size=1 objects_differing=8 (walk diverged)
+OK2 fixed=0 unaligned_P=0 unaligned_L=0
+A3 differing records [6, 75, 289, 403, 474, 704, 716, 877] (walk diverged at #877)
+ON differing records [6, 75, 289, 403, 474, 704, 716, 897, 977, 1037]
+#6 golden enum_typespec kp5b::e_t dut.sv/20/24/20/27 | ON dut.sv/6/3/6/43 | A3 #6 dut.sv/6/3/6/43 (flagged in A3)
+#75 golden enum_typespec kp5b::e_t dut.sv/20/24/20/27 | ON dut.sv/6/3/6/43 | A3 #75 dut.sv/6/3/6/43 (flagged in A3)
+#289 golden enum_typespec kp5b::e_t dut.sv/20/24/20/27 | ON dut.sv/6/3/6/43 | A3 #289 dut.sv/6/3/6/43 (flagged in A3)
+#403 golden enum_typespec kp5b::e_t dut.sv/20/24/20/27 | ON dut.sv/6/3/6/43 | A3 #403 dut.sv/6/3/6/43 (flagged in A3)
+#474 golden enum_typespec kp5b::e_t dut.sv/20/24/20/27 | ON dut.sv/6/3/6/43 | A3 #474 dut.sv/6/3/6/43 (flagged in A3)
+#704 golden enum_typespec kp5b::e_t dut.sv/20/24/20/27 | ON dut.sv/6/3/6/43 | A3 #704 dut.sv/6/3/6/43 (flagged in A3)
+#716 golden enum_typespec kp5b::e_t dut.sv/20/24/20/27 | ON dut.sv/6/3/6/43 | A3 #716 dut.sv/6/3/6/43 (flagged in A3)
+#897 golden enum_typespec kp5b::e_t dut.sv/20/24/20/27 | ON dut.sv/6/3/6/43 | A3 #902 dut.sv/6/3/6/43 (past A3 divergence: unmasked)
+#977 golden enum_typespec kp5b::e_t dut.sv/20/24/20/27 | ON dut.sv/6/3/6/43 | A3 #982 dut.sv/6/3/6/43 (past A3 divergence: unmasked)
+#1037 golden enum_typespec kp5b::e_t dut.sv/20/24/20/27 | ON dut.sv/6/3/6/43 | A3 #1042 dut.sv/6/3/6/43 (past A3 divergence: unmasked)
+
+== tools/probe/r11u119repro/grid/g1/b10_scoped_alias_concat: 134 off -> on
+ON STRICT_NOTEQUAL depth fields: depth=1 type=1 name=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+P134 STRICT_NOTEQUAL endline fields: type=1 fullname=1 file=1 line=1 col=1 endline=2 endcol=2 size=1 objects_differing=2 (walk diverged)
+A3 STRICT_NOTEQUAL endline fields: type=1 fullname=1 file=1 line=1 col=1 endline=2 endcol=2 size=1 objects_differing=2 (walk diverged)
+OK2 fixed=6 unaligned_P=6 unaligned_L=6

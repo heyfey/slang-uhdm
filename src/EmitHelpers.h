@@ -14138,6 +14138,23 @@ inline bool paramIdxPartSelWholeSpan131On() {
     return on;
 }
 
+/// § ipsQualBaseRangeSpan141v (second adversarial verification, r11u141) —
+/// § paramIdxPartSelWholeSpan131 stops at a PACKAGE-QUALIFIED base: golden
+/// `parameter logic [3:0] P = p::A[4 +: 4]` 6:45-6:51 and a body
+/// `localparam ... = p::A[4 +: 4]` keep the range span (grid
+/// tools/probe/r11u141verify/cases/brk_ipsq, p131_ipsspan/i01).  Surelog's
+/// Constant_primary arm with a Package_scope child (CompileExpression.cpp,
+/// the paPackage_scope case) compiles the select through
+/// compileSelectExpression on the Constant_select node, which populates it
+/// from the select, never from the whole primary.  The written spelling is
+/// the gate (§ pkgWrittenQualSelBase41).  Switch: R11V141_IPSQUAL_OFF (and
+/// R11V141_OFF).
+inline bool ipsQualBaseRangeSpan141On() {
+    static const bool on = getenv("R11V141_OFF") == nullptr &&
+                           getenv("R11V141_IPSQUAL_OFF") == nullptr;
+    return on;
+}
+
 /// § constCtxCallArgInner131v (adversarial verification of r11u131) — the
 /// whole-node population of § paramIdxPartSelWholeSpan131 and
 /// § pkgQualCallQualSpan131 stops at a CALL ARGUMENT and at a conditional's

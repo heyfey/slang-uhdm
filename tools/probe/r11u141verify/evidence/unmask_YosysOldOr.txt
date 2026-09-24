@@ -1,0 +1,12 @@
+== YosysOldOr default (pristine e98516a3 -> r11u139 net-binding law binary)
+records G=243334 P=243325 L=243334; P walk diverges at #88173, L at #243334; P diff fields 152, L diff fields 1194
+fields L differs on that P did not report: 1050 = WORSE before P divergence 0 + UNMASKED 1050 + WORSE past divergence 0 + OTHER 0
+  UNMASKED e.g. golden #88229 = P #88226, field endcol
+  UNMASKED e.g. golden #88230 = P #88227, field endcol
+  UNMASKED e.g. golden #88232 = P #88229, field endcol
+== YosysOldOr testflags
+records G=243334 P=243325 L=243334; P walk diverges at #88173, L at #243334; P diff fields 152, L diff fields 1194
+fields L differs on that P did not report: 1050 = WORSE before P divergence 0 + UNMASKED 1050 + WORSE past divergence 0 + OTHER 0
+  UNMASKED e.g. golden #88229 = P #88226, field endcol
+  UNMASKED e.g. golden #88230 = P #88227, field endcol
+  UNMASKED e.g. golden #88232 = P #88229, field endcol

@@ -32859,7 +32859,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // parameter initializer or override (the Constant_primary
                 // arm populates it from the whole node).
                 if (inLhs || (inParamInit && paramIdxPartSelWholeSpan131On() &&
-                              constCtxWholeNode131(expr.syntax)))  // § constCtxCallArgInner131v
+                              constCtxWholeNode131(expr.syntax) &&  // § constCtxCallArgInner131v
+                              !(ipsQualBaseRangeSpan141On() &&      // § ipsQualBaseRangeSpan141v
+                                !pkgWrittenQualSelBase41(rs.value()).empty())))
                     setLoc(ips, expr.sourceRange);
                 else
                     setLoc(ips, rangeSelectorSpan(rs));

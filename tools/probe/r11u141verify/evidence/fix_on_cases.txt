@@ -1,0 +1,38 @@
+== default
+MOVED brk_inctab/b01_tab_else TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=92
+MOVED brk_inctab/b04_tab_def_inactive TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=92
+MOVED brk_inctab/b07_tab_elsif TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=92
+MOVED brk_inctab/b11_tab_blank_inactive TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=92
+MOVED brk_inctab/b12_nested_inactive TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=92
+MOVED brk_inctab/b13_tab_endif_inactive TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=92
+MOVED brk_inctab/b14_active_outer_inner_else TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=92
+MOVED brk_inctab/b15_empty_inactive TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=92
+MOVED brk_ipsq/q01_qual_minus STAGE1-both switches that move it back: ['IPSQUAL'] | pristine->fix STAGE1-both
+MOVED brk_ipsq/q04_qual_localparam TURNED switches that move it back: ['IPSQUAL'] | pristine->fix TURNED P={'endcol': 1, 'col': 1} L={} aligned=95
+MOVED brk_ipsq/q05_qual_in_pkg STAGE1-both switches that move it back: ['IPSQUAL'] | pristine->fix STAGE1-both
+MOVED brk_ipsq/q06_qual_param_base STAGE1-both switches that move it back: ['IPSQUAL'] | pristine->fix STAGE1-both
+MOVED brk_ipsq/q07_qual_in_op STAGE1-both switches that move it back: ['IPSQUAL'] | pristine->fix STAGE1-both
+MOVED brk_ipsq/q09_qual_iface STAGE1-both switches that move it back: ['IPSQUAL'] | pristine->fix STAGE1-both
+MOVED p130_inctab/t02_tab_else TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=92
+MOVED p131_ipsspan/i01_pkg_param_sel TURNED switches that move it back: ['IPSQUAL'] | pristine->fix TURNED P={'endcol': 1, 'col': 1} L={} aligned=108
+cases 154; R11V141_OFF == pristine bytes on 154; fix moves 16
+cases 12; R11V141_OFF == pristine bytes on 12; fix moves 0
+== elab
+MOVED brk_inctab/b01_tab_else TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=89
+MOVED brk_inctab/b04_tab_def_inactive TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=89
+MOVED brk_inctab/b07_tab_elsif TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=89
+MOVED brk_inctab/b11_tab_blank_inactive TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=89
+MOVED brk_inctab/b12_nested_inactive TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=89
+MOVED brk_inctab/b13_tab_endif_inactive TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=89
+MOVED brk_inctab/b14_active_outer_inner_else TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=89
+MOVED brk_inctab/b15_empty_inactive TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=89
+MOVED brk_ipsq/q01_qual_minus STAGE1-both switches that move it back: ['IPSQUAL'] | pristine->fix STAGE1-both
+MOVED brk_ipsq/q04_qual_localparam TURNED switches that move it back: ['IPSQUAL'] | pristine->fix TURNED P={'endcol': 1, 'col': 1} L={} aligned=94
+MOVED brk_ipsq/q05_qual_in_pkg STAGE1-both switches that move it back: ['IPSQUAL'] | pristine->fix STAGE1-both
+MOVED brk_ipsq/q06_qual_param_base STAGE1-both switches that move it back: ['IPSQUAL'] | pristine->fix STAGE1-both
+MOVED brk_ipsq/q07_qual_in_op STAGE1-both switches that move it back: ['IPSQUAL'] | pristine->fix STAGE1-both
+MOVED brk_ipsq/q09_qual_iface STAGE1-both switches that move it back: ['IPSQUAL'] | pristine->fix STAGE1-both
+MOVED p130_inctab/t02_tab_else TURNED switches that move it back: ['INCTABACT'] | pristine->fix TURNED P={'line': 1, 'endline': 1} L={} aligned=89
+MOVED p131_ipsspan/i01_pkg_param_sel TURNED switches that move it back: ['IPSQUAL'] | pristine->fix TURNED P={'endcol': 1, 'col': 1} L={} aligned=107
+cases 154; R11V141_OFF == pristine bytes on 154; fix moves 16
+cases 12; R11V141_OFF == pristine bytes on 12; fix moves 0
