@@ -1,0 +1,108 @@
+dfl/d01_mod_int | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL file | MOVED
+dfl/d02_pkg_import | P: rc=0 cmp=36 strict=NOT_EQUAL stage1 | L: rc=0 cmp=36 strict=NOT_EQUAL stage1 | SAME
+dfl/d03_unsized_ones | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL file | MOVED
+dfl/d04_single_ctl | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL file | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL file | SAME
+dfl/d05_four | P: rc=0 cmp=136 strict=NOT_EQUAL stage1 | L: rc=0 cmp=112 strict=NOT_EQUAL stage1 | MOVED
+fav/f01_local_queue | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL file | L: rc=0 cmp=0 strict=STRICT_EQUAL 32 objects | MOVED
+fav/f02_class_prop | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL file | L: rc=0 cmp=0 strict=STRICT_EQUAL 33 objects | MOVED
+fav/f03_module_initial | P: rc=0 cmp=0 strict=STRICT_EQUAL 54 objects | L: rc=0 cmp=0 strict=STRICT_EQUAL 54 objects | SAME
+fav/f04_pkg_func | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL file | L: rc=0 cmp=0 strict=STRICT_EQUAL 61 objects | MOVED
+fav/f05_two_dims | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL file | L: rc=0 cmp=0 strict=STRICT_EQUAL 47 objects | MOVED
+lat/a01_hdr_struct_arr | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | L: rc=0 cmp=0 strict=STRICT_EQUAL 380 objects | MOVED
+lat/a02_hdr_int_arr | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | L: rc=0 cmp=0 strict=STRICT_EQUAL 170 objects | MOVED
+lat/a03_body_import_ctl | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | L: rc=0 cmp=0 strict=STRICT_EQUAL 170 objects | MOVED
+lat/a04_pkg_imports_pkg | P: rc=0 cmp=184 strict=NOT_EQUAL stage1 | L: rc=0 cmp=184 strict=NOT_EQUAL stage1 | SAME
+lat/a05_hdr_range_arr | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | L: rc=0 cmp=0 strict=STRICT_EQUAL 162 objects | MOVED
+lat/a06_hdr_2d_arr | P: rc=0 cmp=304 strict=NOT_EQUAL stage1 | L: rc=0 cmp=304 strict=NOT_EQUAL stage1 | SAME
+lat/a07_l04_twin | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | MOVED
+mdi/d01_func_two | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 145 objects | MOVED
+mdi/d02_func_three_decl | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 141 objects | MOVED
+mdi/d03_task | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 49 objects | MOVED
+mdi/d04_single_decl_ctl | P: rc=0 cmp=0 strict=STRICT_EQUAL 125 objects | L: rc=0 cmp=0 strict=STRICT_EQUAL 125 objects | SAME
+mdi/d05_two_decls | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 149 objects | MOVED
+mdi/d06_class_method | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 60 objects | MOVED
+mdi/d07_init_decl | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 131 objects | MOVED
+pfp/g01_hdr_ovr | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 141 objects | MOVED
+pfp/g02_hdr_noovr | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 127 objects | MOVED
+pfp/g03_body_import | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 141 objects | MOVED
+pfp/g04_qualified | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | SAME
+pfp/g05_hdr_two_inst | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 182 objects | MOVED
+pfp/g06_body_param | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 141 objects | MOVED
+pfp/g07_int_hdr | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | L: rc=0 cmp=0 strict=STRICT_EQUAL 103 objects | MOVED
+pfp/g08_vec32 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 174 objects | MOVED
+pfp/g09_typedef | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 210 objects | MOVED
+pfp/g10_int_int | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 162 objects | MOVED
+pfp/g11_bit_same | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 186 objects | MOVED
+pfp/g12_struct_unq | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endline | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL endline | SAME
+pfp/g13_int_qual_imp | P: rc=0 cmp=0 strict=STRICT_EQUAL 325 objects | L: rc=0 cmp=0 strict=STRICT_EQUAL 325 objects | SAME
+pfp/g14_struct_qual_imp | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | SAME
+pfp/g15_int_body_localparam | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 325 objects | MOVED
+pfp/g16_body_noports | P: rc=0 cmp=0 strict=STRICT_EQUAL 127 objects | L: rc=0 cmp=0 strict=STRICT_EQUAL 127 objects | SAME
+pfp/i01_imp_int_body | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 102 objects | MOVED
+pfp/i02_imp_md_body | P: rc=0 cmp=50 strict=NOT_EQUAL stage1 | L: rc=0 cmp=50 strict=NOT_EQUAL stage1 | SAME
+pfp/i03_imp_md_hdr | P: rc=0 cmp=50 strict=NOT_EQUAL stage1 | L: rc=0 cmp=50 strict=NOT_EQUAL stage1 | SAME
+pfp/i04_imp_int_hdr | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 86 objects | MOVED
+plv/l01_plain_struct | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 247 objects | MOVED
+plv/l02_packed_arr_base | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 261 objects | MOVED
+plv/l03_unpacked_2d | P: rc=0 cmp=58 strict=NOT_EQUAL stage1 | L: rc=0 cmp=58 strict=NOT_EQUAL stage1 | SAME
+plv/l04_unpacked_1d | P: rc=0 cmp=58 strict=NOT_EQUAL stage1 | L: rc=0 cmp=58 strict=NOT_EQUAL stage1 | SAME
+plv/l05_ff | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 243 objects | MOVED
+plv/l06_deep | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 258 objects | MOVED
+plv/l07_const_idx | P: rc=0 cmp=0 strict=STRICT_EQUAL 246 objects | L: rc=0 cmp=0 strict=STRICT_EQUAL 246 objects | SAME
+plv/l08_op_idx | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 251 objects | MOVED
+plv/l10_unp_const_base | P: rc=0 cmp=58 strict=NOT_EQUAL stage1 | L: rc=0 cmp=58 strict=NOT_EQUAL stage1 | SAME
+pso/p01_imp_left | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 70 objects | MOVED
+pso/p02_qual_left | P: rc=0 cmp=64 strict=NOT_EQUAL stage1 | L: rc=0 cmp=64 strict=NOT_EQUAL stage1 | SAME
+pso/p03_local | P: rc=0 cmp=74 strict=NOT_EQUAL stage1 | L: rc=0 cmp=74 strict=NOT_EQUAL stage1 | SAME
+pso/p04_imp_whole | P: rc=0 cmp=103 strict=NOT_EQUAL stage1 | L: rc=0 cmp=103 strict=NOT_EQUAL stage1 | SAME
+pso/p05_imp_right | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 70 objects | MOVED
+pso/p06_imp_nested | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 74 objects | MOVED
+pso/p07_imp_sub | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 95 objects | MOVED
+pso/p08_localparam | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 70 objects | MOVED
+pso/p09_hdr_import | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 70 objects | MOVED
+rcf/r01_unsized | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL file | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | MOVED
+rcf/r02_sized | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL file | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | MOVED
+rcf/r03_literal_ctl | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | SAME
+sca/r01_ps_bits | P: rc=0 cmp=0 strict=STRICT_EQUAL 107 objects | L: rc=0 cmp=0 strict=STRICT_EQUAL 107 objects | SAME
+sca/r03_bs_bits | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_EQUAL 105 objects | MOVED
+sca/r05_proc_bits | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_EQUAL 101 objects | MOVED
+sca/r06_proc_ps | P: rc=0 cmp=0 strict=STRICT_EQUAL 109 objects | L: rc=0 cmp=0 strict=STRICT_EQUAL 109 objects | SAME
+sca/r07_ips_bits | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_EQUAL 107 objects | MOVED
+sca/r08_param | P: rc=0 cmp=17 strict=NOT_EQUAL stage1 | L: rc=0 cmp=17 strict=NOT_EQUAL stage1 | SAME
+sca/r09_binop | P: rc=0 cmp=78 strict=NOT_EQUAL stage1 | L: rc=0 cmp=78 strict=NOT_EQUAL stage1 | SAME
+sca/s01_bits | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_EQUAL 88 objects | MOVED
+sca/s02_signed | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_EQUAL 88 objects | MOVED
+sca/s03_unsigned | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_EQUAL 88 objects | MOVED
+sca/s04_clog2 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL count | MOVED
+sca/s05_countones | P: rc=0 cmp=17 strict=NOT_EQUAL stage1 | L: rc=0 cmp=17 strict=NOT_EQUAL stage1 | SAME
+sca/s06_onehot | P: rc=0 cmp=17 strict=NOT_EQUAL stage1 | L: rc=0 cmp=17 strict=NOT_EQUAL stage1 | SAME
+sca/s07_onehot0 | P: rc=0 cmp=17 strict=NOT_EQUAL stage1 | L: rc=0 cmp=17 strict=NOT_EQUAL stage1 | SAME
+sca/s08_isunknown | P: rc=0 cmp=17 strict=NOT_EQUAL stage1 | L: rc=0 cmp=17 strict=NOT_EQUAL stage1 | SAME
+sca/s09_size | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | MOVED
+sca/s10_high | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | MOVED
+sca/s11_low | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | MOVED
+sca/s12_left | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | MOVED
+sca/s13_right | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | MOVED
+sca/s14_increment | P: rc=0 cmp=17 strict=NOT_EQUAL stage1 | L: rc=0 cmp=17 strict=NOT_EQUAL stage1 | SAME
+sca/s15_dimensions | P: rc=0 cmp=17 strict=NOT_EQUAL stage1 | L: rc=0 cmp=17 strict=NOT_EQUAL stage1 | SAME
+sca/s16_countbits | P: rc=0 cmp=17 strict=NOT_EQUAL stage1 | L: rc=0 cmp=17 strict=NOT_EQUAL stage1 | SAME
+sca/t01_bits_neg | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_EQUAL 88 objects | MOVED
+sca/t02_signed_neg | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_EQUAL 88 objects | MOVED
+sca/t03_unsigned_not | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_EQUAL 88 objects | MOVED
+sca/t04_signed_redand | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_EQUAL 88 objects | MOVED
+stm/s01_nows | P: rc=0 cmp=0 strict=STRICT_EQUAL 101 objects | L: rc=0 cmp=0 strict=STRICT_EQUAL 101 objects | SAME
+stm/s02_ws | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL col | L: rc=0 cmp=0 strict=STRICT_EQUAL 101 objects | MOVED
+stm/s03_sliced | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL col | L: rc=0 cmp=0 strict=STRICT_EQUAL 103 objects | MOVED
+stm/s04_rl_ws | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL col | L: rc=0 cmp=0 strict=STRICT_EQUAL 101 objects | MOVED
+stm/s05_proc | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL col | L: rc=0 cmp=0 strict=STRICT_EQUAL 106 objects | MOVED
+stm/s06_lvalue | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL col | L: rc=0 cmp=0 strict=STRICT_EQUAL 106 objects | MOVED
+stm/s07_cast | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL col | L: rc=0 cmp=0 strict=STRICT_EQUAL 133 objects | MOVED
+stm/s08_tab | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL col | L: rc=0 cmp=0 strict=STRICT_EQUAL 101 objects | MOVED
+stm/s09_multiline | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_EQUAL 101 objects | MOVED
+stm/s10_single_ws | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL col | L: rc=0 cmp=0 strict=STRICT_EQUAL 98 objects | MOVED
+tdc/c01_pkg_struct | P: rc=4 cmp=0 strict=STRICT_NOTEQUAL type | L: rc=0 cmp=0 strict=STRICT_EQUAL 124 objects | MOVED
+tdc/c02_pkg_vec | P: rc=4 cmp=76 strict=NOT_EQUAL stage1 | L: rc=4 cmp=76 strict=NOT_EQUAL stage1 | SAME
+tdc/c03_pkg_enum | P: rc=4 cmp=17 strict=NOT_EQUAL stage1 | L: rc=4 cmp=17 strict=NOT_EQUAL stage1 | SAME
+tdc/c04_mod_struct_imp | P: rc=0 cmp=0 strict=STRICT_EQUAL 124 objects | L: rc=0 cmp=0 strict=STRICT_EQUAL 124 objects | SAME
+tdc/c05_pkg_struct_qual | P: rc=0 cmp=108 strict=NOT_EQUAL stage1 | L: rc=0 cmp=0 strict=STRICT_EQUAL 124 objects | MOVED
+tdc/c06_pkg_struct_unused | P: rc=4 cmp=0 strict=STRICT_NOTEQUAL type | L: rc=0 cmp=0 strict=STRICT_EQUAL 96 objects | MOVED

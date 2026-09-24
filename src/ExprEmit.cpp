@@ -4182,6 +4182,13 @@ static bool castTsPushLaidOut131On() {
     return on;
 }
 
+// § pkgTypedefCastTargetTs140 — the cast references waiting for their
+// package typedef's typespec (bound in drainShareDefParamTs).
+std::vector<std::pair<UHDM::ref_typespec*, const void*>>& pkgTdCast140Pending() {
+    static std::vector<std::pair<UHDM::ref_typespec*, const void*>> v;
+    return v;
+}
+
 std::vector<std::tuple<UHDM::ref_typespec*, std::string, uint32_t>>& r11u124CastTsFiles() {
     static std::vector<std::tuple<UHDM::ref_typespec*, std::string, uint32_t>> v;
     return v;
@@ -8775,6 +8782,85 @@ UHDM::constant* UhdmExporter::patCaGenIdxFold112(const Expression& sel) {
     return c112;
 }
 
+// § streamOperandBraceSpan140 — THE BRACES AROUND A STREAMING
+// CONCATENATION'S OPERANDS.  `{ << real { q }}`: golden's stream operation
+// spans the inner `{ q }` (braces included, whitespace inside kept: r10uvm93
+// v93_crash_min 10:15-20, r10buvm29 g29_f_head 14:41-52); the operands' own
+// range widened by one column each way is that span only when no whitespace
+// separates the braces from the operands.  Found by scanning the source text
+// between the whole expression's ends and the operands' ends; an invalid
+// range (a macro-born location, a different buffer, a brace not found, the
+// law switched off) leaves the caller's old span.  Grid
+// tools/probe/r11u140repro/stm.  Switch: R11U140_STREAMBRACE_OFF.
+static std::optional<slang::SourceRange> streamOperandBraces140(const slang::SourceManager* sm,
+                                                 slang::SourceRange whole,
+                                                 slang::SourceRange fr,
+                                                 slang::SourceRange lr) {
+    using slang::SourceLocation;
+    using slang::SourceRange;
+    static const bool on = r11u140On("R11U140_STREAMBRACE_OFF");
+    if (!on || !sm)
+        return std::nullopt;
+    for (auto l : {whole.start(), whole.end(), fr.start(), lr.end()})
+        if (l == SourceLocation::NoLocation || sm->isMacroLoc(l) ||
+            l.buffer() != whole.start().buffer())
+            return std::nullopt;
+    auto text = sm->getSourceText(whole.start().buffer());
+    size_t ws = whole.start().offset(), we = whole.end().offset();
+    size_t fs = fr.start().offset(), le = lr.end().offset();
+    if (!(ws < fs && fs <= le && le < we && we <= text.size()))
+        return std::nullopt;
+    size_t b = fs;
+    auto isWs = [](char c) { return c == ' ' || c == '\t' || c == '\n' || c == '\r'; };
+    while (b > ws && isWs(text[b - 1]))
+        --b;
+    if (b == ws || text[b - 1] != '{')
+        return std::nullopt;
+    size_t e = le;
+    while (e < we && isWs(text[e]))
+        ++e;
+    if (e >= we || text[e] != '}')
+        return std::nullopt;
+    return SourceRange(fr.start() - (fs - (b - 1)), lr.end() + (e + 1 - le));
+}
+
+// § sysArgUnaryConstSelToken140v — (r11v140, the verifier's refinement of
+// § sysArgUnaryWholeSpan140) THE CONSTANT SELECT CONTEXTS ARE READ FROM THE
+// GRAMMAR, NOT FROM ONE EMISSION FLAG.  Golden keeps the operator-token span
+// of a unary directly under a system call wherever the call sits in a
+// `constant_range` bound or an indexed select's WIDTH (`x[0 +: $bits(~a)]`,
+// `x[31 -: $bits(~a)]`, `y[1][$bits(~a)-1:0]`, `s.f[$bits(~a)-1:0]`, a process
+// and an lvalue `o[0 +: $bits(~a)]` alike), and spans the whole unary in an
+// indexed select's BASE and a bit-select index; `inPsRangeBound` is raised by
+// the whole-variable ranged select alone, so every other select site read as
+// "not constant".  The nearest enclosing selector of the unary's syntax
+// decides: a simple range -> token, an indexed range -> token only under its
+// width, a bit select -> whole.  Grid tools/probe/r11v140repro/sca.
+// Switch: R11V140_CONSTSEL_OFF.
+static bool sysArgUnaryConstSelToken140v(const Expression& e) {
+    static const bool on = r11u140On("R11V140_CONSTSEL_OFF");
+    if (!on || !e.syntax)
+        return false;
+    const slang::syntax::SyntaxNode* child = e.syntax;
+    for (const slang::syntax::SyntaxNode* p = child->parent; p;
+         child = p, p = p->parent) {
+        switch (p->kind) {
+            case slang::syntax::SyntaxKind::SimpleRangeSelect:
+                return true;
+            case slang::syntax::SyntaxKind::AscendingRangeSelect:
+            case slang::syntax::SyntaxKind::DescendingRangeSelect:
+                return child == (const slang::syntax::SyntaxNode*)p
+                                    ->as<slang::syntax::RangeSelectSyntax>()
+                                    .right.get();
+            case slang::syntax::SyntaxKind::BitSelect:
+                return false;
+            default:
+                break;
+        }
+    }
+    return false;
+}
+
 // § hpTrailSelIdxNamesByPath133 — THE INDEX OF A PATH'S TRAILING SELECT IS
 // NAMED BY ITS PARENT CHAIN.  An rvalue `tbl[r].sat[i]` / `s.sat[i]` (a
 // continuous assignment or a process) keeps its index objects parented at the
@@ -9493,7 +9579,21 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             // work@-prefixed doubled form, index constant parents to the
             // bit_select. Rvalue: loc is the member token only, fullname is the
             // dotted path so far, index constant is unparented.
-            if (inLhs && inProcessEmit) {
+            if (inLhs && inProcessEmit && lastMember && baseSelMode &&
+                procLvBaseSelTrailAtIdx140On()) {
+                // § procLvBaseSelTrailAtIdx140 — a process lvalue whose BASE
+                // is selected (`tbl[r].sat[i] = ...`,
+                // `d[pc][row].sat[hist] = val`): the TRAILING select anchors
+                // at its INDEX and keeps the path's name, as the cont-assign
+                // lvalue below does (golden struct_member_trailing_index
+                // 36:20-24 `d[pc][row].sat[hist]`; grid r11u140repro/plv).
+                setLoc(bs, sel.sel->sourceRange);
+                bs->VpiFullName(dottedAt);
+                if (auto* ix =
+                        emitExpr(*sel.sel, bs, prefix + "." + dotted, netMap))
+                    bs->VpiIndex((UHDM::expr*)ix);
+            }
+            else if (inLhs && inProcessEmit) {
                 setLoc(bs, SourceRange(comp.nameSpan.start(), sel.selEnd));
                 (void)bs->VpiFullName();
                 // A VARIABLE index ref names itself by the parent chain: the
@@ -9573,7 +9673,11 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             }
             // § hpTrailSelIdxNamesByPath133 — SITE 1 of 2 (named after the
             // path's final name, below).
-            if (!inLhs && lastMember && !selIdx79b && bs->VpiIndex())
+            // § procLvTrailIdxNamesByPath140 — SITE 1 of 2: and in a PROCESS lvalue
+            // (`s.sat[i] = ...`: golden `work@dut.s.sat[i].i`; grid
+            // r11u140repro/plv).
+            if ((!inLhs || (inProcessEmit && procLvTrailIdxNamesByPath140On())) &&
+                lastMember && !selIdx79b && bs->VpiIndex())
                 trailIdx133 = bs;
             // § hpMidSelIdxAtPath79 — SITE 2 of 2, the post-pass half: the
             // SELECT index hangs off the HIER_PATH and spans its own whole
@@ -15431,6 +15535,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     ((UHDM::operation*)sub9)->Typespec(rtS9);
                                     bindOrParkParamTs(psym, rtS9);
                                 }
+                                // § elabPatOperandRefSpan140 — at v1.87 the
+                                // substituted operation is located at the
+                                // READING reference, file included (golden
+                                // ParamScope 11:25-35, not the package's
+                                // 2:30-43); only its top node moves.  An
+                                // unqualified, non-macro reference only.
+                                if (elabPatOperandRefSpan140On() &&
+                                    sub9->UhdmType() == UHDM::uhdmoperation &&
+                                    !sm->isMacroLoc(expr.sourceRange.start()) &&
+                                    !sm->isMacroLoc(expr.sourceRange.end()) &&
+                                    rawText(expr.sourceRange).find("::") ==
+                                        std::string::npos) {
+                                    sub9->VpiFile(fullFilePath(expr.sourceRange.start()));
+                                    setLoc(sub9, expr.sourceRange);
+                                }
                                 return sub9;
                             }
                         }
@@ -21072,7 +21191,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             setLoc(op, expr.sourceRange);
             // A unary op DIRECTLY under a sys_func_call arg anchors at the
             // OPERATOR token only (BitsCallOnExpression's $bits(~dr_q)).
-            if (parent && parent->UhdmType() == UHDM::uhdmsys_func_call)
+            // § sysArgUnaryWholeSpan140 — only inside a RANGED part-select
+            // bound or a parameter initializer (the constant contexts);
+            // everywhere else golden spans the whole unary expression.
+            if (parent && parent->UhdmType() == UHDM::uhdmsys_func_call &&
+                (!sysArgUnaryWholeSpan140On() || inPsRangeBound || inParamInit ||
+                 sysArgUnaryConstSelToken140v(expr)))
                 op->VpiEndColumnNo(op->VpiColumnNo() + 1);
             auto* operands = s.MakeAnyVec();
             // Def-view param inits, cont-assigns AND process bodies leave a
@@ -22545,6 +22669,50 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                         deferredCast = true;
                     }
+                }
+                else if (pkgTypedefCastTargetTs140On() && pkgScopeInst &&
+                         !currentSubSym && expr.type &&
+                         expr.type->kind == SymbolKind::TypeAlias &&
+                         !typedefTs.count(expr.type) &&
+                         [&] {
+                             auto k140 = expr.type->getCanonicalType().kind;
+                             if (k140 != SymbolKind::PackedStructType &&
+                                 k140 != SymbolKind::UnpackedStructType &&
+                                 k140 != SymbolKind::PackedUnionType &&
+                                 k140 != SymbolKind::UnpackedUnionType)
+                                 return false;
+                             auto& ta140 = expr.type->as<TypeAliasType>();
+                             // A package lists its typedefs AFTER its
+                             // parameters: a typedef of the package being
+                             // emitted is bound when the export drains
+                             // (drainShareDefParamTs), as the re-emitted arm
+                             // above defers its target; the shared typedef
+                             // typespec itself is never touched here.
+                             auto* hs140 = ta140.getParentScope();
+                             if (!hs140 || (const Symbol*)&hs140->asSymbol() !=
+                                               curPkgEmitSym)
+                                 return false;
+                             std::string tsp140 = prefix;
+                             if (tsp140.size() >= 2 &&
+                                 tsp140.compare(tsp140.size() - 2, 2, "::") == 0)
+                                 tsp140.resize(tsp140.size() - 2);
+                             auto* rt140 = s.MakeRef_typespec();
+                             rt140->VpiFullName(tsp140);
+                             rt140->VpiParent(op);
+                             op->Typespec(rt140);
+                             pkgTdCast140Pending().emplace_back(rt140, (const void*)&ta140);
+                             deferredCast = true;
+                             return true;
+                         }()) {
+                    // § pkgTypedefCastTargetTs140 — a PACKAGE parameter's
+                    // `cfg_t'(0)` cast to its own package's STRUCT/UNION
+                    // typedef targets that typedef's typespec (golden
+                    // def_ctx_struct_param `struct_typespec cfg_t` 11:11-15:4),
+                    // where the size-cast fallback below minted an
+                    // integer_typespec at the name token.  The reference is
+                    // made (and deferred) in the predicate.  Grid
+                    // tools/probe/r11u140repro/tdc.  Switch:
+                    // R11U140_PKGTDCAST_OFF.
                 }
                 else if (expr.type && expr.type->kind == SymbolKind::TypeAlias &&
                          typedefTs.count(expr.type)) {
@@ -30410,7 +30578,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             bs2->VpiIndex((UHDM::expr*)ix);
                         // § hpTrailSelIdxNamesByPath133 — SITE 2 of 2 (named
                         // after the path's final name, below).
-                        if (!inLhs)
+                        // § procLvTrailIdxNamesByPath140 — SITE 2 of 2:
+                        // and in a PROCESS lvalue.
+                        if (!inLhs ||
+                            (inProcessEmit && procLvTrailIdxNamesByPath140On()))
                             trailIdx133b = bs2;
                         // § hpIdxClassBodyNeverLateBinds143 — a path-element index
                         // compiled inside a CLASS BODY is handed a parentless
@@ -36532,7 +36703,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (!sc2.streams().empty()) {
                 auto fr = sc2.streams().front().operand->sourceRange;
                 auto lr = sc2.streams().back().operand->sourceRange;
-                setLoc(op, SourceRange(fr.start() - 1, lr.end() + 1));
+                // § streamOperandBraceSpan140 — the stream operation spans
+                // its operand BRACES, `{ q }` whitespace and all (golden
+                // v93_crash_min 10:15-20 for `{ << real { q }}`); the
+                // operands' own range +-1 is right only for `{q}`.
+                auto br140 = streamOperandBraces140(sm, expr.sourceRange, fr, lr);
+                if (br140)
+                    setLoc(op, *br140);
+                else
+                    setLoc(op, SourceRange(fr.start() - 1, lr.end() + 1));
             }
             else
                 setLoc(op, expr.sourceRange);

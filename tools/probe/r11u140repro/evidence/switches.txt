@@ -1,0 +1,13 @@
+MASTER: R11U140_OFF=1 byte-identical to pristine on 108 of 108 cases; law binary differs from pristine on 88
+SWITCH R11U140_SYSUNARY_OFF moves: sca/r03_bs_bits sca/r05_proc_bits sca/r07_ips_bits sca/r09_binop sca/s01_bits sca/s02_signed sca/s03_unsigned sca/s04_clog2 sca/s05_countones sca/s06_onehot sca/s07_onehot0 sca/s08_isunknown sca/s09_size sca/s10_high sca/s11_low sca/s12_left sca/s13_right sca/s14_increment sca/s15_dimensions sca/s16_countbits sca/t01_bits_neg sca/t02_signed_neg sca/t03_unsigned_not sca/t04_signed_redand
+SWITCH R11U140_STREAMBRACE_OFF moves: stm/s02_ws stm/s03_sliced stm/s04_rl_ws stm/s05_proc stm/s06_lvalue stm/s07_cast stm/s08_tab stm/s09_multiline stm/s10_single_ws
+SWITCH R11U140_LVIDX_OFF moves: plv/l01_plain_struct plv/l05_ff plv/l06_deep plv/l08_op_idx
+SWITCH R11U140_LVTRAIL_OFF moves: plv/l02_packed_arr_base plv/l03_unpacked_2d plv/l04_unpacked_1d plv/l10_unp_const_base
+SWITCH R11U140_FEFILE_OFF moves: fav/f01_local_queue fav/f02_class_prop fav/f04_pkg_func fav/f05_two_dims
+SWITCH R11U140_PATOPSPAN_OFF moves: pso/p01_imp_left pso/p04_imp_whole pso/p05_imp_right pso/p06_imp_nested pso/p07_imp_sub pso/p08_localparam pso/p09_hdr_import
+SWITCH R11U140_MULTIDECL_OFF moves: mdi/d01_func_two mdi/d02_func_three_decl mdi/d03_task mdi/d05_two_decls mdi/d06_class_method mdi/d07_init_decl
+SWITCH R11U140_LHSARRTS_OFF moves: dfl/d02_pkg_import lat/a01_hdr_struct_arr lat/a02_hdr_int_arr lat/a03_body_import_ctl lat/a04_pkg_imports_pkg lat/a05_hdr_range_arr lat/a06_hdr_2d_arr lat/a07_l04_twin
+SWITCH R11U140_PKGREFMD_OFF moves: pfp/g01_hdr_ovr pfp/g02_hdr_noovr pfp/g03_body_import pfp/g05_hdr_two_inst pfp/g06_body_param pfp/g07_int_hdr pfp/g08_vec32 pfp/g09_typedef pfp/g10_int_int pfp/g11_bit_same pfp/g15_int_body_localparam pfp/i01_imp_int_body pfp/i02_imp_md_body pfp/i04_imp_int_hdr
+SWITCH R11U140_PKGTDCAST_OFF moves: tdc/c01_pkg_struct tdc/c05_pkg_struct_qual tdc/c06_pkg_struct_unused
+SWITCH R11U140_DEFFILL_OFF moves: dfl/d01_mod_int dfl/d02_pkg_import dfl/d03_unsized_ones dfl/d05_four
+SWITCH R11U140_REPLCNTFILE_OFF moves: rcf/r01_unsized rcf/r02_sized

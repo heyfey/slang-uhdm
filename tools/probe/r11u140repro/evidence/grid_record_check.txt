@@ -1,0 +1,11 @@
+OK	dfl/d01_mod_int	new=0 gone=0 divP=80 divL=None
+OK	dfl/d03_unsized_ones	new=0 gone=0 divP=77 divL=None
+OK	lat/a07_l04_twin	new=0 gone=0 divP=93 divL=None
+OK	rcf/r01_unsized	new=0 gone=1 divP=85 divL=85
+OK	rcf/r02_sized	new=0 gone=1 divP=103 divL=103
+OK	sca/s04_clog2	new=0 gone=2 divP=87 divL=87
+OK	sca/s09_size	new=0 gone=1 divP=77 divL=77
+OK	sca/s10_high	new=0 gone=1 divP=77 divL=77
+OK	sca/s11_low	new=0 gone=1 divP=77 divL=77
+OK	sca/s12_left	new=0 gone=1 divP=77 divL=77
+OK	sca/s13_right	new=0 gone=1 divP=77 divL=77

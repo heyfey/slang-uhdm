@@ -12038,8 +12038,21 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         auto* ae8 = s.MakeArray_expr();
                         ae8->VpiParent(pa);
                         auto* xv8 = s.MakeExprVec();
+                        // § defaultFillOneConstant140 — golden fills every
+                        // element with ONE constant object (the walk lists it
+                        // once: ParamArrayUnsizedPattern, DefaultPatternInt,
+                        // DefaultPatternModule).  Grid
+                        // tools/probe/r11u140repro/dfl.  Switch:
+                        // R11U140_DEFFILL_OFF.
+                        static const bool one140 = r11u140On("R11U140_DEFFILL_OFF");
+                        UHDM::constant* c140 = nullptr;
                         for (uint32_t i8 = 0; i8 < uat8.range.width(); i8++) {
+                            if (one140 && c140) {
+                                xv8->push_back(c140);
+                                continue;
+                            }
                             auto* c8 = s.MakeConstant();
+                            c140 = c8;
                             c8->VpiDecompile(dd8);
                             c8->VpiSize((int32_t)uel8->getBitWidth());
                             c8->VpiValue("UINT:" + dd8);
@@ -19456,6 +19469,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                         cc9->VpiValue("UINT:" + cd9);
                                         cc9->VpiConstType(vpiUIntConst);
                                         cc9->VpiParent(opr);
+                                        // § replCountFoldFile140 — the folded
+                                        // count carries the file of the
+                                        // reference it replaces, as every
+                                        // located object golden writes
+                                        // (ParamArrayUnsizedPattern
+                                        // `'{BobaCount{'1}}`: dut.sv 6:62-71).
+                                        // Switch: R11U140_REPLCNTFILE_OFF.
+                                        static const bool rcf140 =
+                                            r11u140On("R11U140_REPLCNTFILE_OFF");
+                                        if (rcf140 && cc9->VpiFile().empty())
+                                            cc9->VpiFile(std::string(op09->VpiFile()));
                                         cc9->VpiLineNo(op09->VpiLineNo());
                                         cc9->VpiColumnNo(op09->VpiColumnNo());
                                         cc9->VpiEndLineNo(
@@ -20759,7 +20783,50 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                             (UHDM::instance*)pit->second);
                                 return yts;
                             };
-                            if (ypa && yc && rhsRt) {
+                            // § pkgRefFoldClonesMultiDimOnly140 — Surelog
+                            // clones Y's folded constant (and Y's typespec)
+                            // unless the reference is UNQUALIFIED and the
+                            // parameter a SIMPLE integral type (a keyword
+                            // integer, a scalar, a one-dimension vector): `int
+                            // P = XI`, `logic [31:0] P = X`, an import copy
+                            // `int Q = X` (IntegerConcat) are re-folded and
+                            // keep their OWN typespec, while a multi-dimension
+                            // packed or struct parameter (ParamFromPackage
+                            // `logic [7:0][3:0] P = X`, r11u108 `s_t P = D`)
+                            // and any `pkg::X` read (r10earl60 v60d `int own2 =
+                            // src::SA`) clone.  Where a MULTI-DIMENSION packed
+                            // clone happens in an elaborated module WITH a
+                            // parameter port list (the § modDefImportShape
+                            // flip), the clone's reference carries the
+                            // DEFINITION's name (golden `work@aes_cipher_core`);
+                            // without a port list (r11u124 c12 a09/a10), or for
+                            // an enum or string parameter (c12 a06/a11, r11u133
+                            // l10), it keeps the instance's.  Grid
+                            // tools/probe/r11u140repro/pfp.  Switch:
+                            // R11U140_PKGREFMD_OFF.
+                            bool md140 = true;
+                            bool multiDim140 = false;
+                            const bool unq140 =
+                                pkgRefFoldClonesMultiDimOnly140On() &&
+                                rawText(sref.sourceRange).find("::") ==
+                                    std::string::npos;
+                            if (unq140) {
+                                auto& ct140 = ps.getType().getCanonicalType();
+                                bool simple140 =
+                                    ct140.kind == SymbolKind::PredefinedIntegerType ||
+                                    ct140.kind == SymbolKind::ScalarType ||
+                                    (ct140.kind == SymbolKind::PackedArrayType &&
+                                     ct140.as<PackedArrayType>()
+                                             .elementType.getCanonicalType()
+                                             .kind == SymbolKind::ScalarType);
+                                md140 = !simple140;
+                                multiDim140 =
+                                    ct140.kind == SymbolKind::PackedArrayType &&
+                                    ct140.as<PackedArrayType>()
+                                            .elementType.getCanonicalType()
+                                            .kind == SymbolKind::PackedArrayType;
+                            }
+                            if (ypa && yc && rhsRt && md140) {
                                 auto* rc = (UHDM::constant*)rhs;
                                 rc->VpiValue(std::string(yc->VpiValue()));
                                 rc->VpiConstType(yc->VpiConstType());
@@ -20768,6 +20835,44 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     std::string(yc->VpiDecompile()));
                                 rc->VpiParent(ypa);
                                 rhsRt->Actual_typespec(pkgHomedYTs(false));
+                                // § mdRenameNotUnderBareCa140v — (r11v140,
+                                // the verifier's fence) NOT when a continuous
+                                // assignment of the instance body reads P
+                                // BARE (`assign o = P;`): golden's clone
+                                // reference then keeps the INSTANCE's name
+                                // (`work@top.u`, `work@top.m.u`), header or
+                                // body parameter, any depth; a select of P
+                                // (`assign o = P[1]`), an always block, a
+                                // localparam or a parameter override reading
+                                // it leave the definition's name.  Grid
+                                // tools/probe/r11v140repro/pfx.  Switch:
+                                // R11V140_MDRENAME_OFF.
+                                auto bareCaRead140v = [&]() {
+                                    static const bool on140v =
+                                        r11u140On("R11V140_MDRENAME_OFF");
+                                    if (!on140v)
+                                        return false;
+                                    for (auto& mb140 : body.members()) {
+                                        if (mb140.kind != SymbolKind::ContinuousAssign)
+                                            continue;
+                                        auto& a140 = mb140.as<ContinuousAssignSymbol>()
+                                                         .getAssignment();
+                                        if (a140.kind != ExpressionKind::Assignment)
+                                            continue;
+                                        auto& r140 = stripImplicitConv(
+                                            a140.as<AssignmentExpression>().right());
+                                        if (r140.kind == ExpressionKind::NamedValue &&
+                                            &r140.as<NamedValueExpression>().symbol ==
+                                                (const Symbol*)&ps)
+                                            return true;
+                                    }
+                                    return false;
+                                };
+                                if (unq140 && multiDim140 && !isImported &&
+                                    defImpElabShape9 &&
+                                    m && m->UhdmType() == UHDM::uhdmmodule_inst &&
+                                    !m->VpiDefName().empty() && !bareCaRead140v())
+                                    rhsRt->VpiFullName(std::string(m->VpiDefName()));
                                 pkgRefFold = true;
                             }
                             // § pkgScopedParamRhsTs60 — the same law when Y is
@@ -26909,6 +27014,7 @@ static void paramValueIsDefRhs124(UHDM::design* d) {
 
 // § castTsFile124 (the registry lives in ExprEmit.cpp at its push sites).
 std::vector<std::tuple<UHDM::ref_typespec*, std::string, uint32_t>>& r11u124CastTsFiles();
+std::vector<std::pair<UHDM::ref_typespec*, const void*>>& pkgTdCast140Pending();
 
 // § paramFoldParenSpan131 — THE ELABORATED PARAMETER'S FOLDED VALUE SPANS
 // THE WRITTEN INITIALIZER WITH ITS PARENTHESES.  Surelog elaborates a
@@ -27313,6 +27419,88 @@ static bool lhsCloneable133(const UHDM::any* n) {
     }
 }
 
+// § impLhsCloneArrayTsOwnCopy140 — THE LHS COPY OF AN UNPACKED-ARRAY
+// PARAMETER HAS AN ARRAY TYPESPEC OF ITS OWN.  Surelog's second import block
+// (§ impPaLhsDisjointClone133) clones the param_assign's Lhs WITH its
+// typespec, so golden's copy reaches a private array_typespec whose unpacked
+// range (`[N]` -> `0 : N-1`) is listed again under it (param_unpacked_struct_array
+// `range 15:25-26` under the Lhs's array_typespec); ours pointed the copy's
+// reference at the listed parameter's array_typespec, whose range the walk
+// had already visited, so the copy listed the element reference first (the
+// `type` head of Kmac, param_unpacked_struct_array, param_struct_field_bitsel,
+// StructArrayParameterInitializedByPatternPassedAsPort and its Nested twin:
+// pass 133's residue R6).  The copy takes every field, its ranges deep-copied
+// (constants, operations, refs, as the parameter's own ranges are) and a
+// fresh element reference to the same element typespec; an array typespec
+// with bounds, an index or element typespec missing, a resolution function,
+// a typedef alias or a range of another kind is left shared.  Grid
+// tools/probe/r11u140repro/lat.  Switch: R11U140_LHSARRTS_OFF.
+static UHDM::array_typespec* lhsCloneArrayTs140(UHDM::Serializer& s,
+                                                const UHDM::typespec* t0) {
+    static const bool on = r11u140On("R11U140_LHSARRTS_OFF");
+    if (!on || !t0 || t0->UhdmType() != UHDM::uhdmarray_typespec)
+        return nullptr;
+    auto* a = (const UHDM::array_typespec*)t0;
+    if (!a->Ranges() || a->Ranges()->empty() || a->Left_expr() || a->Right_expr() ||
+        a->Index_typespec() || !a->Elem_typespec() || a->Resolution_func() ||
+        a->Typedef_alias())
+        return nullptr;
+    for (auto* r0 : *a->Ranges())
+        if (!r0 || !lhsCloneable133(r0->Left_expr()) || !lhsCloneable133(r0->Right_expr()))
+            return nullptr;
+    // FENCE — the element: an unnamed typespec (`int A[3]`) or a struct /
+    // union typedef (`entry_t TBL[N]`) is referenced as is; a NAMED vector
+    // typedef element (`sha_word_t InitHash[8]`, a logic_typespec) is, in
+    // golden's copy, a per-use bare-named clone (§ castPkgVecTdBareViewClone123's
+    // shape) this law does not mint: measured on Earlgrey_0_1 (hmac InitHash),
+    // where listing the shared `hmac_pkg::sha_word_t` under the copy made
+    // uhdm-cmp read the name.  Such an array stays shared.
+    if (auto* et0 = a->Elem_typespec()->Actual_typespec())
+        if (!et0->VpiName().empty() &&
+            et0->UhdmType() != UHDM::uhdmstruct_typespec &&
+            et0->UhdmType() != UHDM::uhdmunion_typespec)
+            return nullptr;
+    auto* b = s.MakeArray_typespec();
+    b->VpiName(std::string(a->VpiName()));
+    b->VpiFile(std::string(a->VpiFile()));
+    b->VpiLineNo(a->VpiLineNo());
+    b->VpiColumnNo(a->VpiColumnNo());
+    b->VpiEndLineNo(a->VpiEndLineNo());
+    b->VpiEndColumnNo(a->VpiEndColumnNo());
+    b->VpiArrayType(a->VpiArrayType());
+    b->Instance((UHDM::instance*)a->Instance());
+    b->VpiParent((UHDM::any*)a->VpiParent());
+    bool ok = true;
+    auto* rv = s.MakeRangeVec();
+    for (auto* r0 : *a->Ranges()) {
+        auto* r = s.MakeRange();
+        r->VpiFile(std::string(r0->VpiFile()));
+        r->VpiLineNo(r0->VpiLineNo());
+        r->VpiColumnNo(r0->VpiColumnNo());
+        r->VpiEndLineNo(r0->VpiEndLineNo());
+        r->VpiEndColumnNo(r0->VpiEndColumnNo());
+        r->VpiSize(r0->VpiSize());
+        r->VpiParent(b);
+        r->Left_expr((UHDM::expr*)lhsCloneNode133(s, r0->Left_expr(), r, ok));
+        r->Right_expr((UHDM::expr*)lhsCloneNode133(s, r0->Right_expr(), r, ok));
+        rv->push_back(r);
+    }
+    b->Ranges(rv);
+    auto* e0 = a->Elem_typespec();
+    auto* e = s.MakeRef_typespec();
+    e->VpiName(std::string(e0->VpiName()));
+    e->VpiFullName(std::string(e0->VpiFullName()));
+    e->VpiFile(std::string(e0->VpiFile()));
+    e->VpiLineNo(e0->VpiLineNo());
+    e->VpiColumnNo(e0->VpiColumnNo());
+    e->VpiEndLineNo(e0->VpiEndLineNo());
+    e->VpiEndColumnNo(e0->VpiEndColumnNo());
+    e->Actual_typespec((UHDM::typespec*)e0->Actual_typespec());
+    e->VpiParent(b);
+    b->Elem_typespec(e);
+    return b;
+}
+
 static void impPaLhsDisjointClone133(UHDM::Serializer& s, UHDM::design* d) {
     static const bool on = r11u133On("R11U133_LHSCLONE_OFF");
     if (!on || !d)
@@ -27409,7 +27597,60 @@ static void impPaLhsDisjointClone133(UHDM::Serializer& s, UHDM::design* d) {
                 scope(m, m->Param_assigns(), m->Parameters());
 }
 
+// § impLhsCloneArrayTsOwnCopy140 — the post-pass (runs after
+// § impPaLhsDisjointClone133): in every package and every definition module /
+// interface listing, a param_assign Lhs parameter that is NOT the scope's
+// listed parameter object but reaches the SAME array_typespec as a listed
+// parameter gets its own copy of that typespec (lhsCloneArrayTs140).  A
+// header import's Lhs copy (pass 133's clone) and a body import's separate
+// Lhs are both covered.
+static void arrTsLhsOwnCopy140(UHDM::Serializer& s, UHDM::design* d) {
+    if (!d)
+        return;
+    auto scope = [&](UHDM::VectorOfparam_assign* pas, UHDM::VectorOfany* params) {
+        if (!pas || !params)
+            return;
+        std::set<const UHDM::any*> listed(params->begin(), params->end());
+        std::set<const UHDM::typespec*> listedTs;
+        for (auto* p0 : *params)
+            if (p0 && p0->UhdmType() == UHDM::uhdmparameter)
+                if (auto* rt0 = ((UHDM::parameter*)p0)->Typespec())
+                    if (auto* a0 = rt0->Actual_typespec())
+                        listedTs.insert(a0);
+        for (auto* pa : *pas) {
+            auto* l = pa ? pa->Lhs() : nullptr;
+            if (!l || l->UhdmType() != UHDM::uhdmparameter || listed.count(l))
+                continue;
+            auto* rt = ((UHDM::parameter*)l)->Typespec();
+            if (!rt || !rt->Actual_typespec() || !listedTs.count(rt->Actual_typespec()))
+                continue;
+            if (auto* at140 = lhsCloneArrayTs140(s, rt->Actual_typespec()))
+                rt->Actual_typespec(at140);
+        }
+    };
+    for (auto* pv : {d->AllPackages(), d->TopPackages()})
+        if (pv)
+            for (auto* pk : *pv)
+                if (pk)
+                    scope(pk->Param_assigns(), pk->Parameters());
+    if (d->AllModules())
+        for (auto* m : *d->AllModules())
+            if (m)
+                scope(m->Param_assigns(), m->Parameters());
+    if (d->AllInterfaces())
+        for (auto* m : *d->AllInterfaces())
+            if (m)
+                scope(m->Param_assigns(), m->Parameters());
+}
+
 void UhdmExporter::drainShareDefParamTs() {
+    // § pkgTypedefCastTargetTs140 — bind the deferred package-typedef cast
+    // targets, now that every package lists its typedefs.
+    for (auto& [rt140, ta140] : pkgTdCast140Pending())
+        if (auto it140 = pkgTopTypedefTs.find(ta140);
+            it140 != pkgTopTypedefTs.end() && it140->second && !rt140->Actual_typespec())
+            rt140->Actual_typespec(it140->second);
+    pkgTdCast140Pending().clear();
     paramValueIsDefRhs124(d);
     paramFoldParenSpan131(d);  // § paramFoldParenSpan131
     ovrMultiDimConstUnparented131(d);  // § ovrMultiDimConstUnparented131
@@ -27686,6 +27927,7 @@ void UhdmExporter::drainShareDefParamTs() {
     }
     pendingShareDefParamTs.clear();
     impPaLhsDisjointClone133(s, d);  // § impPaLhsDisjointClone133
+    arrTsLhsOwnCopy140(s, d);  // § impLhsCloneArrayTsOwnCopy140
 }
 
 // Deferred DEF-view aggregate-typedef param ts: bind the SHARED named typedef

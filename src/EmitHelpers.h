@@ -14245,4 +14245,118 @@ inline bool sysCallKwTypeArgNameSpan131On() {
     return on;
 }
 
+// ============================================================================
+// r11u140 — the expression/parameter ground on the strict axis (fourth
+// refill).  Every law reads its own switch; `R11U140_OFF=1` turns them all
+// off.  Grids and measurements: tools/probe/r11u140repro/README.md.
+//   R11U140_SYSUNARY_OFF     § sysArgUnaryWholeSpan140          (ExprEmit.cpp)
+//   R11V140_CONSTSEL_OFF     § sysArgUnaryConstSelToken140v     (ExprEmit.cpp; verifier r11v140)
+//   R11U140_STREAMBRACE_OFF  § streamOperandBraceSpan140        (ExprEmit.cpp)
+//   R11U140_LVIDX_OFF        § procLvTrailIdxNamesByPath140     (ExprEmit.cpp)
+//   R11U140_LVTRAIL_OFF      § procLvBaseSelTrailAtIdx140       (ExprEmit.cpp)
+//   R11U140_FEFILE_OFF       § foreachArrayPlaceholderFile140   (StmtEmit.cpp)
+//   R11U140_PATOPSPAN_OFF    § elabPatOperandRefSpan140         (ExprEmit.cpp)
+//   R11U140_MULTIDECL_OFF    § multiDeclOneItem140              (StmtEmit.cpp)
+//   R11U140_LHSARRTS_OFF     § impLhsCloneArrayTsOwnCopy140     (ParamEmit.cpp)
+//   R11U140_PKGREFMD_OFF     § pkgRefFoldClonesMultiDimOnly140  (ParamEmit.cpp)
+//   R11V140_MDRENAME_OFF     § mdRenameNotUnderBareCa140v       (ParamEmit.cpp; verifier r11v140)
+//   R11U140_PKGTDCAST_OFF    § pkgTypedefCastTargetTs140        (ExprEmit.cpp + ParamEmit.cpp)
+//   R11U140_DEFFILL_OFF      § defaultFillOneConstant140        (ParamEmit.cpp)
+//   R11U140_REPLCNTFILE_OFF  § replCountFoldFile140             (ParamEmit.cpp)
+// ============================================================================
+inline bool r11u140On(const char* one) {
+    static const bool all = getenv("R11U140_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+
+/// § sysArgUnaryWholeSpan140 — a unary operation that is DIRECTLY a system
+/// call's argument spans its whole expression (`$unsigned(~a)`: `~a`), in
+/// every context but the constant ones — a RANGED part-select bound
+/// (BitsCallOnExpression `dr_q[$bits(~dr_q)-1:0]`) and a parameter
+/// initializer (`localparam int P = $bits(~a)`) — where it spans the operator
+/// token alone.  Census over every judge-equal golden and grid
+/// tools/probe/r11u140repro/sca.  Switch: R11U140_SYSUNARY_OFF.
+inline bool sysArgUnaryWholeSpan140On() {
+    static const bool on = r11u140On("R11U140_SYSUNARY_OFF");
+    return on;
+}
+
+/// § procLvTrailIdxNamesByPath140 — § hpTrailSelIdxNamesByPath133 in a
+/// PROCESS LVALUE: the index of a path's trailing select (`s.sat[i] = v`,
+/// `w.f.sat[i] = v`, `s.sat[i + 1] = v`) is named by its parent chain
+/// (golden `work@dut.s.sat[i].i`, `work@dut.s.sat[i + 1].sat.i`).  Grid
+/// tools/probe/r11u140repro/plv.  Switch: R11U140_LVIDX_OFF.
+inline bool procLvTrailIdxNamesByPath140On() {
+    static const bool on = r11u140On("R11U140_LVIDX_OFF");
+    return on;
+}
+
+/// § procLvBaseSelTrailAtIdx140 — a process lvalue path whose BASE is
+/// selected (`tbl[r].sat[i] = v`): the trailing select's bit_select spans the
+/// INDEX and stores the path's name (`tbl[r].sat[i]`), as a cont-assign
+/// lvalue's does; a plain base keeps the member+index span.  Grid
+/// tools/probe/r11u140repro/plv.  Switch: R11U140_LVTRAIL_OFF.
+inline bool procLvBaseSelTrailAtIdx140On() {
+    static const bool on = r11u140On("R11U140_LVTRAIL_OFF");
+    return on;
+}
+
+/// § foreachArrayPlaceholderFile140 — the unsupported_typespec placeholder a
+/// foreach mints for its array reference is located at that reference and,
+/// like every located object golden writes (§ vpiFileOnEveryLocated117),
+/// carries its file: census over every judge-equal golden, 19158 located
+/// unsupported_typespecs, every one with a file; ours copied the span alone.
+/// Grid tools/probe/r11u140repro/fav.  Switch: R11U140_FEFILE_OFF.
+inline bool foreachArrayPlaceholderFile140On() {
+    static const bool on = r11u140On("R11U140_FEFILE_OFF");
+    return on;
+}
+
+/// § elabPatOperandRefSpan140 — an assignment-pattern package parameter
+/// read (unqualified, through an import) as an OPERAND of an elaborated
+/// parameter's initializer (`parameter int VALUE = VALUE_TEMP + 2`) is
+/// substituted by the pattern's own operation tree, and golden locates that
+/// operation at the READING reference (ParamScope 11:25-35 in both elaborated
+/// listings), where the pristine exporter kept the package declaration's
+/// span.  Grid tools/probe/r11u140repro/pso.  Switch: R11U140_PATOPSPAN_OFF.
+inline bool elabPatOperandRefSpan140On() {
+    static const bool on = r11u140On("R11U140_PATOPSPAN_OFF");
+    return on;
+}
+
+/// § multiDeclOneItem140 — the synthesized begin of a multi-item subroutine
+/// body is anchored at its SECOND item, and a declaration with several
+/// declarators (`int i, r;`) is one item (one Surelog data_declaration),
+/// where slang lists one VariableDeclaration per declarator.  Golden
+/// func_local_compound_xor's body begin 19:5-20 (the first statement after
+/// `logic [7:0] result, temp;`).  Grid tools/probe/r11u140repro/mdi.
+/// Switch: R11U140_MULTIDECL_OFF.
+inline bool multiDeclOneItem140On() {
+    static const bool on = r11u140On("R11U140_MULTIDECL_OFF");
+    return on;
+}
+
+/// § pkgRefFoldClonesMultiDimOnly140 — an elaborated parameter defaulted to
+/// a bare reference to a materialized package parameter (`P = X`) clones X's
+/// folded constant and X's typespec only when P is a multi-dimensional packed
+/// array, the clone's reference then named by the definition; any other P is
+/// re-folded with its own typespec (pass 133's residue R5, IntegerConcat,
+/// ParamFromPackage).  Grid tools/probe/r11u140repro/pfp.  Switch:
+/// R11U140_PKGREFMD_OFF.
+inline bool pkgRefFoldClonesMultiDimOnly140On() {
+    static const bool on = r11u140On("R11U140_PKGREFMD_OFF");
+    return on;
+}
+
+/// § pkgTypedefCastTargetTs140 — a package parameter initializer's cast to a
+/// package struct/union typedef (`localparam cfg_t C = cfg_t'(0)`) takes the
+/// typedef's own typespec as the cast target (golden def_ctx_struct_param,
+/// latch_decoder_partial, latch_tlb_napot), not the integer_typespec the
+/// size-cast fallback mints at the name token.  Grid
+/// tools/probe/r11u140repro/tdc.  Switch: R11U140_PKGTDCAST_OFF.
+inline bool pkgTypedefCastTargetTs140On() {
+    static const bool on = r11u140On("R11U140_PKGTDCAST_OFF");
+    return on;
+}
+
 } // namespace slang_uhdm

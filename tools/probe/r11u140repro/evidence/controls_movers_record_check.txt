@@ -1,0 +1,6 @@
+OK	r11u133repro/lhs/l02_hdr_vec2d	new=0 gone=1 divP=172 divL=172
+OK	r11u133repro/lhs/l04_hdr_unpacked	new=0 gone=0 divP=93 divL=None
+OK	r11v133repro/lhs/c02_localparam_pkg	new=0 gone=1 divP=None divL=None
+OK	r11v133repro/lhs/c09_unit_import	new=0 gone=0 divP=90 divL=90
+STAGE1 r11v133repro/lhs/c03_real_string cmp P=64 L=64 order-blind dump distance to golden P=115 L=115
+STAGE1 r11v133repro/lhs/c10_enum_typed cmp P=17 L=17 order-blind dump distance to golden P=228 L=228

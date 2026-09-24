@@ -3683,6 +3683,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         uts33->VpiColumnNo(rv->VpiColumnNo());
                         uts33->VpiEndLineNo(rv->VpiEndLineNo());
                         uts33->VpiEndColumnNo(rv->VpiEndColumnNo());
+                        // § foreachArrayPlaceholderFile140 — SITE 1 of 2.
+                        if (foreachArrayPlaceholderFile140On())
+                            uts33->VpiFile(std::string(rv->VpiFile()));
                         // § cloneForeachArrayRefUnresolved183, the INSTANCE
                         // half — the SECOND mint of the very same object (a
                         // foreach ARRAY-REFERENCE placeholder), so it takes the
@@ -3718,6 +3721,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     uts->VpiColumnNo(rv->VpiColumnNo());
                     uts->VpiEndLineNo(rv->VpiEndLineNo());
                     uts->VpiEndColumnNo(rv->VpiEndColumnNo());
+                    // § foreachArrayPlaceholderFile140 — SITE 2 of 2: the
+                    // placeholder carries the file of the array reference it
+                    // is located at (golden ClassVar `dut.sv 16:11-16`).
+                    if (foreachArrayPlaceholderFile140On())
+                        uts->VpiFile(std::string(rv->VpiFile()));
                     // Out-of-body and package-level bodies mint it inside the
                     // home package; an IN-CLASS body's carries no instance.
                     //
@@ -6070,9 +6078,30 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // keyword through semicolon (`op32_r_t t_op ;`, rp32 enc32) — not
             // the declarator alone, which is all slang's statement range is.
             const syntax::SyntaxNode* anch9 = nullptr;
-            if (sl.list.size() >= 2 &&
-                sl.list[1]->kind == StatementKind::VariableDeclaration)
-                if (auto* dsyn9 = sl.list[1]
+            // § multiDeclOneItem140 — a declaration with SEVERAL declarators
+            // (`int i, r;`, `logic [7:0] result, temp;`) is ONE item: slang
+            // lists one VariableDeclaration per declarator, Surelog one
+            // data_declaration.  The "second item" is the first list entry
+            // that is not a declarator of the FIRST entry's declaration
+            // (golden func_local_compound_xor 19:5-20, r10svs2 s4 14:5-47).
+            auto declOf140 = [](const Statement* st) -> const syntax::SyntaxNode* {
+                if (st->kind != StatementKind::VariableDeclaration)
+                    return nullptr;
+                auto* d = st->as<VariableDeclStatement>().symbol.getSyntax();
+                if (d && d->parent &&
+                    d->parent->kind == syntax::SyntaxKind::DataDeclaration)
+                    return d->parent;
+                return nullptr;
+            };
+            size_t second140 = 1;
+            if (multiDeclOneItem140On() && sl.list.size() >= 2)
+                if (auto* d0 = declOf140(sl.list[0]))
+                    while (second140 < sl.list.size() &&
+                           declOf140(sl.list[second140]) == d0)
+                        ++second140;
+            if (second140 < sl.list.size() &&
+                sl.list[second140]->kind == StatementKind::VariableDeclaration)
+                if (auto* dsyn9 = sl.list[second140]
                                       ->as<VariableDeclStatement>()
                                       .symbol.getSyntax())
                     if (dsyn9->parent && dsyn9->parent->kind ==
@@ -6080,9 +6109,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         anch9 = dsyn9->parent;
             // A BLOCK item's own statement range covers the body only; the
             // wrapper anchors at the whole `begin..end` region (t_noio).
-            if (!anch9 && sl.list.size() >= 2 &&
-                sl.list[1]->kind == StatementKind::Block && sl.list[1]->syntax)
-                anch9 = sl.list[1]->syntax;
+            if (!anch9 && second140 < sl.list.size() &&
+                sl.list[second140]->kind == StatementKind::Block &&
+                sl.list[second140]->syntax)
+                anch9 = sl.list[second140]->syntax;
             // The item list the "second item" is counted over is the LRM
             // one, so it excludes a TF-ITEM body's local declarations (they
             // are tf_item_declarations, not block items) and includes
@@ -6108,6 +6138,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             if (dsyn0->parent &&
                                 dsyn0->parent->kind ==
                                     syntax::SyntaxKind::DataDeclaration) {
+                                // § multiDeclOneItem140 — one item per
+                                // declaration, not per declarator.
+                                if (multiDeclOneItem140On() && !items9.empty() &&
+                                    items9.back() == dsyn0->parent->sourceRange())
+                                    continue;
                                 items9.push_back(dsyn0->parent->sourceRange());
                                 continue;
                             }
@@ -6129,6 +6164,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             }
             else if (anch9)
                 setLoc(ub, anch9->sourceRange());
+            else if (second140 < sl.list.size())
+                setLoc(ub, sl.list[second140]->sourceRange);
             else if (sl.list.size() >= 2)
                 setLoc(ub, sl.list[1]->sourceRange);
             else

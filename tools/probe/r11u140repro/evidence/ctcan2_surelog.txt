@@ -1,0 +1,66 @@
+== exact names canaries.sh does NOT carry ==
+  TypespecExpr                       default   OK       CMP_EQUAL/equal
+  TypespecExpr                       testflags OK       STRICT_NOTEQUAL/differ:fullname(2)
+  ClogCast                           default   OK       CMP_EQUAL/equal
+  ClogCast                           testflags OK       CMP_EQUAL/equal
+  2DFunctionArg                      -         UNKNOWN-PATTERN (no row in EITHER csv, either mode)
+  PartSelect4                        default   OK       CMP_EQUAL/equal
+  PartSelect4                        testflags OK       CMP_EQUAL/equal
+== families canaries.sh does NOT carry (prefix match) ==
+  -- EvalFunc* : 5 name(s)
+  EvalFunc                           default   OK       CMP_EQUAL/equal
+  EvalFunc                           testflags OK       CMP_EQUAL/equal
+  EvalFuncArray                      default   OK       SLANG_REJECT/
+  EvalFuncArray                      testflags OK       SLANG_REJECT/
+  EvalFuncCont                       default   OK       CMP_EQUAL/equal
+  EvalFuncCont                       testflags OK       CMP_EQUAL/equal
+  EvalFuncNamed                      default   OK       CMP_EQUAL/equal
+  EvalFuncNamed                      testflags OK       STRICT_NOTEQUAL/differ:fullname(12)
+  EvalFuncPack                       default   OK       SLANG_REJECT/
+  EvalFuncPack                       testflags OK       SLANG_REJECT/
+  -- ParamFile* : 4 name(s)
+  ParamFile                          default   OK       CMP_EQUAL/equal
+  ParamFile                          testflags OK       CMP_EQUAL/equal
+  ParamFileMacro                     default   OK       SURELOG_FAIL/
+  ParamFileMacro                     testflags OK       SURELOG_FAIL/
+  ParamFileNoTop                     default   OK       CMP_EQUAL/equal
+  ParamFileNoTop                     testflags OK       SLANG_REJECT/
+  ParamFileOverr                     default   OK       CMP_EQUAL/equal
+  ParamFileOverr                     testflags OK       CMP_EQUAL/equal
+  -- Black* : 17 name(s)
+  BlackBePipeInt                     default   OK       STRICT_NOTEQUAL/differ:fullname(2)
+  BlackBePipeInt                     testflags OK       STRICT_NOTEQUAL/differ:fullname(2)
+  BlackBox                           default   OK       CMP_EQUAL/equal
+  BlackBox                           testflags OK       CMP_EQUAL/equal
+  BlackBoxInst                       default   OK       CMP_EQUAL/equal
+  BlackBoxInst                       testflags OK       CMP_EQUAL/equal
+  BlackBoxInstTop                    default   OK       CMP_EQUAL/equal
+  BlackBoxInstTop                    testflags OK       CMP_EQUAL/equal
+  BlackboxMissingDef                 default   OK       SLANG_REJECT/
+  BlackboxMissingDef                 testflags OK       SLANG_REJECT/
+  BlackBoxMod                        default   OK       CMP_EQUAL/equal
+  BlackBoxMod                        testflags OK       CMP_EQUAL/equal
+  BlackBoxSubMod                     default   OK       CMP_EQUAL/equal
+  BlackBoxSubMod                     testflags OK       CMP_EQUAL/equal
+  BlackConst                         default   OK       STRICT_NOTEQUAL/differ:line(29)
+  BlackConst                         testflags OK       STRICT_NOTEQUAL/differ:line(19)
+  BlackParrot                        default   OK       SURELOG_FAIL/
+  BlackParrot                        testflags OK       SURELOG_FAIL/
+  BlackParrotComplex                 default   OK       STRICT_NOTEQUAL/differ:depth(1)
+  BlackParrotComplex                 testflags OK       STRICT_NOTEQUAL/differ:depth(1)
+  BlackParrotConf                    default   OK       SLANG_REJECT/
+  BlackParrotConf                    testflags OK       SLANG_REJECT/
+  BlackParrotMuteErrors              default   OK       SLANG_REJECT/
+  BlackParrotMuteErrors              testflags OK       SLANG_REJECT/
+  BlackParrotParam                   default   OK       SLANG_REJECT/
+  BlackParrotParam                   testflags OK       SLANG_REJECT/
+  BlackParrotSkipParam               default   OK       CMP_EQUAL/equal
+  BlackParrotSkipParam               testflags OK       CMP_EQUAL/equal
+  BlackParrotStructParam             default   OK       SLANG_REJECT/
+  BlackParrotStructParam             testflags OK       SLANG_REJECT/
+  BlackUcode                         default   OK       SURELOG_FAIL/
+  BlackUcode                         testflags OK       SURELOG_FAIL/
+  BlackUnicore                       default   OK       SURELOG_FAIL/
+  BlackUnicore                       testflags OK       SURELOG_FAIL/
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.

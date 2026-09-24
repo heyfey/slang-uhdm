@@ -1,0 +1,144 @@
+probe/r10buvm28repro/g28_a0_head differ:col(3) -> equal (47, 'col', 3) None EQUAL
+probe/r10buvm28repro/g28_c_castr0 differ:col(4) -> equal (114, 'col', 4) None EQUAL
+probe/r10buvm29repro/g29_b_targets differ:col(12) -> equal (147, 'col', 12) None EQUAL
+probe/r10buvm29repro/g29_c_carriers differ:col(8) -> equal (58, 'col', 8) None EQUAL
+probe/r10buvm29repro/g29_d_fence differ:fullname(4) -> differ:fullname(2) (80, 'fullname', 4) (80, 'fullname', 2) SAME-FEWER
+probe/r10buvm29repro/g29_e_homes differ:col(21) -> equal (24, 'col', 21) None EQUAL
+probe/r10buvm29repro/g29_f_head differ:col(2) -> equal (24, 'col', 2) None EQUAL
+probe/r10buvm8repro/v3_argts8 differ:file(2) -> differ:type(1) (70, 'file', 2) (336, 'type', 1) LATER
+probe/r10earl29repro/v7_lval differ:fullname(4) -> differ:fullname(2) (88, 'fullname', 4) (98, 'fullname', 2) LATER
+probe/r10earl52repro/v3_earl52 differ:fullname(10) -> differ:fullname(6) (195, 'fullname', 10) (195, 'fullname', 6) SAME-FEWER
+probe/r10earl_repro/wa differ:endcol(6) -> differ:endcol(5) (286, 'endcol', 6) (286, 'endcol', 5) SAME-FEWER
+probe/r10sd3repro/g5_pkg_oob_locals differ:file(8) -> differ:line(4) (39, 'file', 8) (77, 'line', 4) LATER
+probe/r10svs2repro/s3_arraykind differ:line(2) -> differ:fullname(1) (64, 'line', 2) (98, 'fullname', 1) LATER
+probe/r10svs2repro/s4_context differ:line(2) -> differ:fullname(1) (30, 'line', 2) (65, 'fullname', 1) LATER
+probe/r10svs3repro/a3_position differ:file(1) -> equal (43, 'file', 1) None EQUAL
+probe/r10uvm121repro/g121_a differ:file(12) -> differ:file(8) (20, 'file', 12) (115, 'file', 8) LATER
+probe/r10uvm122repro/g122_d_pos differ:endcol(4) -> differ:endcol(2) (114, 'endcol', 4) (114, 'endcol', 2) SAME-FEWER
+probe/r10uvm134repro/g134_a_kinds differ:file(24) -> differ:file(8) (17, 'file', 24) (17, 'file', 8) SAME-FEWER
+probe/r10uvm134repro/g134_d_bodies differ:file(17) -> differ:file(2) (9, 'file', 17) (9, 'file', 2) SAME-FEWER
+probe/r10uvm134repro/g134_e_mult differ:file(7) -> differ:file(1) (24, 'file', 7) (24, 'file', 1) SAME-FEWER
+probe/r10uvm143repro/g143_d_foreach differ:file(11) -> differ:file(10) (46, 'file', 11) (58, 'file', 10) LATER
+probe/r10uvm145repro/g145_a_prod differ:col(24) -> differ:col(20) (3, 'col', 24) (3, 'col', 20) SAME-FEWER
+probe/r10uvm193repro/g193_c_argface differ:fullname(12) -> differ:fullname(11) (42, 'fullname', 12) (42, 'fullname', 11) SAME-FEWER
+probe/r10uvm208repro/g208_e_head differ:file(4) -> differ:fullname(3) (50, 'file', 4) (76, 'fullname', 3) LATER
+probe/r10uvm21repro/t differ:file(13) -> differ:file(3) (7, 'file', 13) (104, 'file', 3) LATER
+probe/r10uvm21repro/t32b_t differ:file(27) -> differ:file(7) (7, 'file', 27) (104, 'file', 7) LATER
+probe/r10uvm21repro/t32d_t differ:file(9) -> differ:fullname(3) (7, 'file', 9) (76, 'fullname', 3) LATER
+probe/r10uvm220repro/grid220/a1_uninst_if differ:file(7) -> differ:file(2) (64, 'file', 7) (104, 'file', 2) LATER
+probe/r10uvm221repro/grid221/a4_corpus differ:file(4) -> differ:endcol(2) (160, 'file', 4) (192, 'endcol', 2) LATER
+probe/r10uvm226repro/grid226/a12_pkgimport differ:fullname(3) -> differ:fullname(2) (13, 'fullname', 3) (13, 'fullname', 2) SAME-FEWER
+probe/r10uvm22repro/t33e_t differ:endcol(14) -> differ:endcol(12) (11, 'endcol', 14) (11, 'endcol', 12) SAME-FEWER
+probe/r10uvm28repro/t38c differ:file(1) -> equal (237, 'file', 1) None EQUAL
+probe/r10uvm37repro/t51a differ:file(3) -> differ:fullname(2) (32, 'file', 3) (70, 'fullname', 2) LATER
+probe/r10uvm48repro/t67b differ:type(1) -> differ:endcol(1) (292, 'type', 1) (341, 'endcol', 1) LATER
+probe/r10uvm57repro/b2_shape differ:endline(3) -> differ:endline(2) (202, 'endline', 3) (202, 'endline', 2) SAME-FEWER
+probe/r10uvm57repro/v2_loopvar differ:file(1) -> equal (145, 'file', 1) None EQUAL
+probe/r10uvm74repro/b1_idxkind differ:file(3) -> differ:file(1) (46, 'file', 3) (46, 'file', 1) SAME-FEWER
+probe/r10uvm8repro/q1 differ:file(5) -> differ:line(4) (20, 'file', 5) (77, 'line', 4) LATER
+probe/r10uvm8repro/q3 differ:file(2) -> equal (23, 'file', 2) None EQUAL
+probe/r10uvm93repro/g93_a6_case differ:col(18) -> equal (91, 'col', 18) None EQUAL
+probe/r10uvm93repro/v93_a1_types differ:col(34) -> equal (17, 'col', 34) None EQUAL
+probe/r10uvm93repro/v93_a4_case differ:col(20) -> equal (57, 'col', 20) None EQUAL
+probe/r10uvm93repro/v93_a6_sub differ:col(4) -> equal (62, 'col', 4) None EQUAL
+probe/r10uvm93repro/v93_a9b_sysfn differ:col(2) -> equal (118, 'col', 2) None EQUAL
+probe/r10uvm93repro/v93_c1_bitsfall differ:col(24) -> equal (11, 'col', 24) None EQUAL
+probe/r10uvm93repro/v93_crash_min differ:col(2) -> equal (15, 'col', 2) None EQUAL
+probe/r10uvm94repro/g94_a0_head differ:fullname(6) -> differ:fullname(5) (25, 'fullname', 6) (25, 'fullname', 5) SAME-FEWER
+probe/r10v121repro/v121_a differ:file(4) -> differ:file(3) (92, 'file', 4) (92, 'file', 3) SAME-FEWER
+probe/r10v122repro/q7extra differ:line(7) -> differ:endline(4) (207, 'line', 7) (333, 'endline', 4) LATER
+probe/r10v134repro/v134_1kinds differ:file(30) -> differ:file(8) (17, 'file', 30) (17, 'file', 8) SAME-FEWER
+probe/r10v134repro/v134_4bodies differ:file(28) -> differ:file(5) (48, 'file', 28) (48, 'file', 5) SAME-FEWER
+probe/r10v145repro/v145_a_faces differ:col(34) -> differ:col(32) (9, 'col', 34) (9, 'col', 32) SAME-FEWER
+probe/r10v148repro/v148_g_corpus differ:file(2) -> differ:endcol(1) (64, 'file', 2) (251, 'endcol', 1) LATER
+probe/r10v151repro/v151_5_ctx differ:file(6) -> differ:file(5) (19, 'file', 6) (19, 'file', 5) SAME-FEWER
+probe/r10v181repro/v181_e_idxbase differ:file(7) -> differ:fullname(5) (22, 'file', 7) (62, 'fullname', 5) LATER
+probe/r10v181repro/v181_f_mixed differ:file(9) -> differ:fullname(7) (33, 'file', 9) (80, 'fullname', 7) LATER
+probe/r10v208repro/v208_f_io differ:file(3) -> differ:type(1) (36, 'file', 3) (141, 'type', 1) LATER
+probe/r10vbuvm29repro/gv29_a_shapes differ:col(12) -> differ:endcol(3) (68, 'col', 12) (138, 'endcol', 3) LATER
+probe/r10vbuvm29repro/gv29_b_positions differ:fullname(30) -> differ:fullname(4) (8, 'fullname', 30) (8, 'fullname', 4) SAME-FEWER
+probe/r10vbuvm29repro/gv29_h_genident differ:col(6) -> equal (93, 'col', 6) None EQUAL
+probe/r10vbuvm29repro/gv29_i1 differ:col(2) -> equal (50, 'col', 2) None EQUAL
+probe/r10vbuvm29repro/gv29_i2 differ:col(2) -> equal (50, 'col', 2) None EQUAL
+probe/r10vbuvm29repro/gv29_i3 differ:col(2) -> equal (50, 'col', 2) None EQUAL
+probe/r11u10repro/grid/h9_1e1m_port differ:fullname(2) -> differ:fullname(7) (70, 'fullname', 2) (70, 'fullname', 7) WORSE?
+probe/r11u10repro/grid/hD_1e1mvec differ:fullname(2) -> differ:fullname(7) (79, 'fullname', 2) (79, 'fullname', 7) WORSE?
+probe/r11u113repro/grid/b/b27_pkpar_of_pkpar differ:col(1) -> equal (104, 'col', 1) None EQUAL
+probe/r11u114repro/grid/f3/c05 differ:type(1) -> differ:depth(1) (82, 'type', 1) (436, 'depth', 1) LATER
+probe/r11v55repro/grid/vv1c_cast differ:type(1) -> differ:file(8) (29, 'type', 1) (43, 'file', 8) LATER
+probe/v11u116repro/arms/k3_unq_ovr differ:line(4) -> equal (118, 'line', 4) None EQUAL
+surelog/default/ApbSlave differ:line(30) -> differ:line(29) (4, 'line', 30) (4, 'line', 29) SAME-FEWER
+surelog/default/BuildUVMPkg differ:line(210) -> differ:line(174) (873, 'line', 210) (873, 'line', 174) SAME-FEWER
+surelog/default/ClassVar differ:file(1) -> equal (45, 'file', 1) None EQUAL
+surelog/default/ComplexExprSize differ:endcol(1) -> equal (110, 'endcol', 1) None EQUAL
+surelog/default/DefaultPatternModule differ:depth(1) -> equal (253, 'depth', 1) None EQUAL
+surelog/default/Earlgrey_0_1 differ:line(1051) -> differ:line(1785) (6, 'line', 1051) (6, 'line', 1785) WORSE?
+surelog/default/IntegerConcat differ:line(1) -> equal (342, 'line', 1) None EQUAL
+surelog/default/Kmac differ:type(1) -> equal (281, 'type', 1) None EQUAL
+surelog/default/LocalScopeHierPath differ:file(4) -> differ:file(3) (45, 'file', 4) (57, 'file', 3) LATER
+surelog/default/MiniAmiq differ:line(191) -> differ:line(190) (23, 'line', 191) (23, 'line', 190) SAME-FEWER
+surelog/default/ParamArrayUnsizedPattern differ:depth(1) -> equal (224, 'depth', 1) None EQUAL
+surelog/default/ParamFromPackage differ:fullname(1) -> equal (215, 'fullname', 1) None EQUAL
+surelog/default/ParamScope differ:line(2) -> equal (193, 'line', 2) None EQUAL
+surelog/default/SVSwitch differ:endcol(37) -> differ:endcol(31) (88, 'endcol', 37) (88, 'endcol', 31) SAME-FEWER
+surelog/default/Scoreboard differ:line(195) -> differ:line(194) (23, 'line', 195) (23, 'line', 194) SAME-FEWER
+surelog/default/SeqDriver differ:line(175) -> differ:line(174) (23, 'line', 175) (23, 'line', 174) SAME-FEWER
+surelog/default/SimpleUVM differ:line(191) -> differ:line(190) (23, 'line', 191) (23, 'line', 190) SAME-FEWER
+surelog/testflags/ApbSlave differ:line(30) -> differ:line(29) (4, 'line', 30) (4, 'line', 29) SAME-FEWER
+surelog/testflags/BuildUVMPkg differ:line(210) -> differ:line(174) (873, 'line', 210) (873, 'line', 174) SAME-FEWER
+surelog/testflags/ClassVar differ:fullname(3) -> differ:fullname(2) (35, 'fullname', 3) (35, 'fullname', 2) SAME-FEWER
+surelog/testflags/ComplexExprSize differ:endcol(1) -> equal (20, 'endcol', 1) None EQUAL
+surelog/testflags/DefaultPatternModule differ:depth(1) -> differ:fullname(12) (169, 'depth', 1) (179, 'fullname', 12) LATER
+surelog/testflags/Earlgrey_0_1 differ:line(1051) -> differ:line(1785) (6, 'line', 1051) (6, 'line', 1785) WORSE?
+surelog/testflags/IntegerConcat differ:line(1) -> equal (243, 'line', 1) None EQUAL
+surelog/testflags/Kmac differ:type(1) -> differ:fullname(23) (191, 'type', 1) (469, 'fullname', 23) LATER
+surelog/testflags/LocalScopeHierPath differ:fullname(7) -> differ:fullname(6) (35, 'fullname', 7) (35, 'fullname', 6) SAME-FEWER
+surelog/testflags/MiniAmiq differ:line(191) -> differ:line(190) (23, 'line', 191) (23, 'line', 190) SAME-FEWER
+surelog/testflags/ParamArrayUnsizedPattern differ:depth(1) -> equal (140, 'depth', 1) None EQUAL
+surelog/testflags/ParamFromPackage differ:fullname(1) -> equal (125, 'fullname', 1) None EQUAL
+surelog/testflags/ParamScope differ:line(2) -> equal (103, 'line', 2) None EQUAL
+surelog/testflags/SVSwitch differ:endcol(37) -> differ:endcol(31) (88, 'endcol', 37) (88, 'endcol', 31) SAME-FEWER
+surelog/testflags/SeqDriver differ:line(175) -> differ:line(174) (23, 'line', 175) (23, 'line', 174) SAME-FEWER
+surelog/testflags/SimpleUVM differ:line(191) -> differ:line(190) (23, 'line', 191) (23, 'line', 190) SAME-FEWER
+uhdm2rtlil/default/NestedStructArrayParameterInitializedByPatternPassedAsPort differ:type(1) -> differ:fullname(4) (236, 'type', 1) (443, 'fullname', 4) LATER
+uhdm2rtlil/default/ParameterFromPkgOnParameterPortList differ:fullname(8) -> differ:fullname(7) (188, 'fullname', 8) (188, 'fullname', 7) SAME-FEWER
+uhdm2rtlil/default/StructArrayParameterInitializedByPatternPassedAsPort differ:type(1) -> differ:line(2) (180, 'type', 1) (390, 'line', 2) LATER
+uhdm2rtlil/default/def_ctx_struct_param differ:type(1) -> differ:depth(1) (36, 'type', 1) (43, 'depth', 1) LATER
+uhdm2rtlil/default/func_local_compound_xor differ:line(2) -> equal (34, 'line', 2) None EQUAL
+uhdm2rtlil/default/ibex_alu differ:fullname(2) -> differ:fullname(9) (2449, 'fullname', 2) (2449, 'fullname', 9) WORSE?
+uhdm2rtlil/default/ibex_branch_predict differ:fullname(2) -> differ:fullname(20) (2453, 'fullname', 2) (2453, 'fullname', 20) WORSE?
+uhdm2rtlil/default/ibex_compressed_decoder differ:fullname(2) -> differ:fullname(141) (2453, 'fullname', 2) (2453, 'fullname', 141) WORSE?
+uhdm2rtlil/default/ibex_decoder differ:fullname(2) -> differ:fullname(28) (2453, 'fullname', 2) (2453, 'fullname', 28) WORSE?
+uhdm2rtlil/default/ibex_icache differ:fullname(2) -> differ:fullname(200) (2453, 'fullname', 2) (2453, 'fullname', 200) WORSE?
+uhdm2rtlil/default/ibex_multdiv_fast differ:fullname(2) -> differ:fullname(109) (2453, 'fullname', 2) (2453, 'fullname', 109) WORSE?
+uhdm2rtlil/default/ibex_multdiv_slow differ:fullname(2) -> differ:fullname(26) (2453, 'fullname', 2) (2453, 'fullname', 26) WORSE?
+uhdm2rtlil/default/ibex_pmp differ:file(6) -> differ:file(60) (2404, 'file', 6) (2404, 'file', 60) WORSE?
+uhdm2rtlil/default/ibex_tracer differ:fullname(87) -> differ:fullname(587) (2073, 'fullname', 87) (2073, 'fullname', 587) WORSE?
+uhdm2rtlil/default/ibex_wb_stage differ:fullname(2) -> differ:fullname(32) (2454, 'fullname', 2) (2454, 'fullname', 32) WORSE?
+uhdm2rtlil/default/latch_decoder_partial differ:type(1) -> differ:depth(1) (36, 'type', 1) (43, 'depth', 1) LATER
+uhdm2rtlil/default/latch_tlb_napot differ:type(1) -> differ:depth(1) (36, 'type', 1) (43, 'depth', 1) LATER
+uhdm2rtlil/default/param_struct_field_bitsel differ:type(1) -> equal (353, 'type', 1) None EQUAL
+uhdm2rtlil/default/param_unpacked_struct_array differ:type(1) -> equal (416, 'type', 1) None EQUAL
+uhdm2rtlil/default/struct_dynamic_range differ:fullname(4) -> equal (159, 'fullname', 4) None EQUAL
+uhdm2rtlil/default/struct_member_trailing_index differ:fullname(4) -> equal (262, 'fullname', 4) None EQUAL
+uhdm2rtlil/testflags/NestedStructArrayParameterInitializedByPatternPassedAsPort differ:type(1) -> differ:fullname(4) (146, 'type', 1) (353, 'fullname', 4) LATER
+uhdm2rtlil/testflags/ParameterFromPkgOnParameterPortList differ:fullname(8) -> differ:fullname(7) (98, 'fullname', 8) (98, 'fullname', 7) SAME-FEWER
+uhdm2rtlil/testflags/StructArrayParameterInitializedByPatternPassedAsPort differ:type(1) -> differ:line(2) (90, 'type', 1) (300, 'line', 2) LATER
+uhdm2rtlil/testflags/def_ctx_struct_param differ:type(1) -> differ:depth(1) (35, 'type', 1) (42, 'depth', 1) LATER
+uhdm2rtlil/testflags/func_local_compound_xor differ:line(2) -> equal (33, 'line', 2) None EQUAL
+uhdm2rtlil/testflags/ibex_alu differ:fullname(2) -> differ:fullname(9) (2442, 'fullname', 2) (2442, 'fullname', 9) WORSE?
+uhdm2rtlil/testflags/ibex_branch_predict differ:fullname(2) -> differ:fullname(20) (2446, 'fullname', 2) (2446, 'fullname', 20) WORSE?
+uhdm2rtlil/testflags/ibex_compressed_decoder differ:fullname(2) -> differ:fullname(141) (2446, 'fullname', 2) (2446, 'fullname', 141) WORSE?
+uhdm2rtlil/testflags/ibex_decoder differ:fullname(2) -> differ:fullname(28) (2446, 'fullname', 2) (2446, 'fullname', 28) WORSE?
+uhdm2rtlil/testflags/ibex_icache differ:fullname(2) -> differ:fullname(200) (2446, 'fullname', 2) (2446, 'fullname', 200) WORSE?
+uhdm2rtlil/testflags/ibex_multdiv_fast differ:fullname(2) -> differ:fullname(109) (2446, 'fullname', 2) (2446, 'fullname', 109) WORSE?
+uhdm2rtlil/testflags/ibex_multdiv_slow differ:fullname(2) -> differ:fullname(26) (2446, 'fullname', 2) (2446, 'fullname', 26) WORSE?
+uhdm2rtlil/testflags/ibex_pmp differ:file(6) -> differ:file(60) (2397, 'file', 6) (2397, 'file', 60) WORSE?
+uhdm2rtlil/testflags/ibex_tracer differ:fullname(87) -> differ:fullname(587) (2072, 'fullname', 87) (2072, 'fullname', 587) WORSE?
+uhdm2rtlil/testflags/ibex_wb_stage differ:fullname(2) -> differ:fullname(32) (2447, 'fullname', 2) (2447, 'fullname', 32) WORSE?
+uhdm2rtlil/testflags/latch_decoder_partial differ:type(1) -> differ:depth(1) (35, 'type', 1) (42, 'depth', 1) LATER
+uhdm2rtlil/testflags/latch_tlb_napot differ:type(1) -> differ:depth(1) (35, 'type', 1) (42, 'depth', 1) LATER
+uhdm2rtlil/testflags/param_struct_field_bitsel differ:type(1) -> equal (263, 'type', 1) None EQUAL
+uhdm2rtlil/testflags/param_unpacked_struct_array differ:type(1) -> equal (326, 'type', 1) None EQUAL
+uhdm2rtlil/testflags/struct_dynamic_range differ:fullname(4) -> equal (69, 'fullname', 4) None EQUAL
+uhdm2rtlil/testflags/struct_member_trailing_index differ:fullname(4) -> equal (172, 'fullname', 4) None EQUAL
