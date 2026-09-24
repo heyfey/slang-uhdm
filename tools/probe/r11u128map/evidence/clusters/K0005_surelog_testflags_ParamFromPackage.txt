@@ -1,0 +1,57 @@
+cluster K0005: struct|golden-only:fewer-copies|parameter|under:param_assign
+row: surelog/testflags/ParamFromPackage  strict=differ:depth(1)  records golden=141 ours=132
+object: #73 (golden) / #-1 (ours)  type=parameter name=X
+  golden: 9 objs
+  ours:   
+  walk parents: param_assign < module_inst < design(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 61..84 ('>' = the object)
+  #61	3	ref_typespec			work@aes_cipher_core.Z		0	0	0	0		0		
+  #62	4	logic_typespec				dut.sv	8	17	8	22				
+  #63	2	param_assign				dut.sv	2	31	2	43				
+  #64	3	constant				dut.sv	2	35	2	43	32'habcd	32	HEX:abcd	5
+  #65	4	ref_typespec			work@aes_cipher_core		0	0	0	0		0		
+  #66	5	logic_typespec				dut.sv	2	14	2	30				
+  #67	6	range				dut.sv	2	20	2	25				
+  #68	7	constant				dut.sv	2	21	2	22	7	64	UINT:7	9
+  #69	7	constant				dut.sv	2	23	2	24	0	64	UINT:0	9
+  #70	6	range				dut.sv	2	25	2	30				
+  #71	7	constant				dut.sv	2	26	2	27	3	64	UINT:3	9
+  #72	7	constant				dut.sv	2	28	2	29	0	64	UINT:0	9
+> #73	3	parameter	X		work@aes_cipher_core.X	dut.sv	2	31	2	32		0	HEX:abcd	
+  #74	4	ref_typespec			work@aes_cipher_core.X		0	0	0	0		0		
+  #75	5	logic_typespec				dut.sv	2	14	2	30				
+  #76	6	range				dut.sv	2	20	2	25				
+  #77	7	constant				dut.sv	2	21	2	22	7	64	UINT:7	9
+  #78	7	constant				dut.sv	2	23	2	24	0	64	UINT:0	9
+  #79	6	range				dut.sv	2	25	2	30				
+  #80	7	constant				dut.sv	2	26	2	27	3	64	UINT:3	9
+  #81	7	constant				dut.sv	2	28	2	29	0	64	UINT:0	9
+  #82	2	param_assign				dut.sv	7	34	7	39				
+  #83	3	constant				dut.sv	7	38	7	39	32'habcd	32	HEX:abcd	5
+  #84	4	ref_typespec			work@aes_cipher_core		0	0	0	0		0		
+
+--- the holder #63 in the other side: exact-record matches at [11, 31, 63]
+  #7	6	constant				dut.sv	2	23	2	24	0	64	UINT:0	9
+  #8	5	range				dut.sv	2	25	2	30				
+  #9	6	constant				dut.sv	2	26	2	27	3	64	UINT:3	9
+  #10	6	constant				dut.sv	2	28	2	29	0	64	UINT:0	9
+> #11	2	param_assign				dut.sv	2	31	2	43				
+  #12	3	constant				dut.sv	2	35	2	43	32'habcd	32	HEX:abcd	5
+  #13	4	ref_typespec			aes_pkg		0	0	0	0		0		
+  #14	5	logic_typespec				dut.sv	2	14	2	30				
+  #15	6	range				dut.sv	2	20	2	25				
+  #16	7	constant				dut.sv	2	21	2	22	7	64	UINT:7	9
+  #17	7	constant				dut.sv	2	23	2	24	0	64	UINT:0	9
+  #18	6	range				dut.sv	2	25	2	30				
+  #19	7	constant				dut.sv	2	26	2	27	3	64	UINT:3	9
+  #20	7	constant				dut.sv	2	28	2	29	0	64	UINT:0	9
+  #21	1	package	aes_pkg	aes_pkg	aes_pkg::	dut.sv	1	1	3	11				
+  #22	2	parameter	X		aes_pkg::X	dut.sv	2	31	2	32		0	HEX:abcd	
+  #23	3	ref_typespec			aes_pkg::X		0	0	0	0		0		
+  #24	4	logic_typespec				dut.sv	2	14	2	30				
+
+all facets of this row (2):
+  K0005 #73/-1 parameter X G[9 objs] O[]
+  K0852 #125/116 ref_typespec  G[work@aes_cipher_core] O[work@top.u_aes_cipher_core]

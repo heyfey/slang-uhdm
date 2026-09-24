@@ -1,0 +1,65 @@
+cluster K2112: fullname|ref_obj|tok:.id@id::id.->::id::|under:cont_assign
+row: probe/default/r11u101repro__grid__x14_nestporttopouter  strict=r11u101repro/grid/x14_nestporttopouter  records golden=43 ours=43
+object: #24 (golden) / #24 (ours)  type=ref_obj name=r
+  golden: work@sub.work@sub::innermod.r
+  ours:   work@sub::innermod::r
+  walk parents: cont_assign < module_inst < design(work@sub)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 12..35 ('>' = the object)
+  #12	3	ref_obj	q		work@sub.q	dut.sv	6	10	6	11		0		
+  #13	1	module_inst		work@sub::innermod	work@sub::innermod	dut.sv	3	3	5	12				
+  #14	2	logic_net	r		work@sub.work@sub::innermod.r	dut.sv	3	40	3	41		0		
+  #15	2	port	r			dut.sv	3	40	3	41				
+  #16	3	ref_obj	r		work@sub.work@sub::innermod.r.r	dut.sv	3	40	3	41		0		
+  #17	3	ref_typespec			work@sub.work@sub::innermod.r		0	0	0	0		0		
+  #18	4	logic_typespec				dut.sv	3	27	3	39				
+  #19	5	range				dut.sv	3	33	3	39				
+  #20	6	constant				dut.sv	3	34	3	36	31	64	UINT:31	9
+  #21	6	constant				dut.sv	3	37	3	38	0	64	UINT:0	9
+  #22	2	cont_assign				dut.sv	4	12	4	21				
+  #23	3	constant				dut.sv	4	16	4	21	32'd2	32	DEC:2	1
+> #24	3	ref_obj	r		work@sub.work@sub::innermod.r	dut.sv	4	12	4	13		0		
+  #25	1	module_inst	work@sub	work@sub		dut.sv	2	1	7	10				
+  #26	2	logic_net	q		work@sub.q	dut.sv	2	33	2	34		0		
+  #27	3	ref_typespec			work@sub.q		0	0	0	0		0		
+  #28	4	logic_typespec				dut.sv	2	20	2	32				
+  #29	5	range				dut.sv	2	26	2	32				
+  #30	6	constant				dut.sv	2	27	2	29	31	64	UINT:31	9
+  #31	6	constant				dut.sv	2	30	2	31	0	64	UINT:0	9
+  #32	2	port	q			dut.sv	2	33	2	34				
+  #33	3	ref_obj	q		work@sub.q	dut.sv	2	33	2	34		0		
+  #34	3	ref_typespec			work@sub.q		0	0	0	0		0		
+  #35	4	logic_typespec				dut.sv	2	20	2	32				
+
+--- OURS (B) records 12..35 ('>' = the object)
+  #12	3	ref_obj	q		work@sub.q	dut.sv	6	10	6	11		0		
+  #13	1	module_inst		work@sub::innermod	work@sub::innermod	dut.sv	3	3	5	12				
+  #14	2	logic_net	r		work@sub::innermod.r	dut.sv	3	40	3	41		0		
+  #15	2	port	r			dut.sv	3	40	3	41				
+  #16	3	ref_obj	r		work@sub::innermod.r.r	dut.sv	3	40	3	41		0		
+  #17	3	ref_typespec			work@sub::innermod.r		0	0	0	0		0		
+  #18	4	logic_typespec				dut.sv	3	27	3	39				
+  #19	5	range				dut.sv	3	33	3	39				
+  #20	6	constant				dut.sv	3	34	3	36	31	64	UINT:31	9
+  #21	6	constant				dut.sv	3	37	3	38	0	64	UINT:0	9
+  #22	2	cont_assign				dut.sv	4	12	4	21				
+  #23	3	constant				dut.sv	4	16	4	21	32'd2	32	DEC:2	1
+> #24	3	ref_obj	r		work@sub::innermod::r	dut.sv	4	12	4	13		0		
+  #25	1	module_inst	work@sub	work@sub		dut.sv	2	1	7	10				
+  #26	2	logic_net	q		work@sub.q	dut.sv	2	33	2	34		0		
+  #27	3	ref_typespec			work@sub.q		0	0	0	0		0		
+  #28	4	logic_typespec				dut.sv	2	20	2	32				
+  #29	5	range				dut.sv	2	26	2	32				
+  #30	6	constant				dut.sv	2	27	2	29	31	64	UINT:31	9
+  #31	6	constant				dut.sv	2	30	2	31	0	64	UINT:0	9
+  #32	2	port	q			dut.sv	2	33	2	34				
+  #33	3	ref_obj	q		work@sub.q	dut.sv	2	33	2	34		0		
+  #34	3	ref_typespec			work@sub.q		0	0	0	0		0		
+  #35	4	logic_typespec				dut.sv	2	20	2	32				
+
+all facets of this row (4):
+  K2107 #14/14 logic_net r G[work@sub.work@sub::innermod.r] O[work@sub::innermod.r]
+  K2110 #16/16 ref_obj r G[work@sub.work@sub::innermod.r.r] O[work@sub::innermod.r.r]
+  K2111 #17/17 ref_typespec  G[work@sub.work@sub::innermod.r] O[work@sub::innermod.r]
+  K2112 #24/24 ref_obj r G[work@sub.work@sub::innermod.r] O[work@sub::innermod::r]

@@ -1,0 +1,66 @@
+cluster K0076: value|parameter|value:INT->empty|under:module_inst
+row: surelog/testflags/DefaultPatternAssign  strict=differ:value(4)  records golden=113 ours=113
+object: #29 (golden) / #29 (ours)  type=parameter name=VALUE_TEMP
+  golden: |0|INT:-1|
+  ours:   |0||
+  walk parents: module_inst < design(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 17..40 ('>' = the object)
+  #17	3	constant					0	0	0	0	-1	32	INT:-1	7
+  #18	4	ref_typespec			foo_pkg		0	0	0	0		0		
+  #19	5	int_typespec				dut.sv	2	13	2	16				
+  #20	1	module_inst		work@bottom	work@bottom	dut.sv	5	1	7	10				
+  #21	2	parameter	VALUE		work@bottom.VALUE	dut.sv	6	17	6	22		0	UINT:8	
+  #22	3	ref_typespec			work@bottom.VALUE		0	0	0	0		0		
+  #23	4	int_typespec				dut.sv	6	13	6	16				
+  #24	2	param_assign				dut.sv	6	17	6	26				
+  #25	3	constant				dut.sv	6	25	6	26	8	64	UINT:8	9
+  #26	4	ref_typespec			work@bottom		0	0	0	0		0		
+  #27	5	int_typespec				dut.sv	6	13	6	16				
+  #28	1	module_inst		work@lower	work@lower	dut.sv	9	1	15	10				
+> #29	2	parameter	VALUE_TEMP		work@lower.VALUE_TEMP	dut.sv	2	17	2	27		0	INT:-1	
+  #30	3	ref_typespec			work@lower.VALUE_TEMP		0	0	0	0		0		
+  #31	4	int_typespec				dut.sv	2	13	2	16				
+  #32	2	parameter	VALUE		work@lower.VALUE	dut.sv	11	17	11	22		0		
+  #33	3	ref_typespec			work@lower.VALUE		0	0	0	0		0		
+  #34	4	int_typespec				dut.sv	11	13	11	16				
+  #35	2	param_assign				dut.sv	2	17	2	46				
+  #36	3	constant					0	0	0	0	-1	32	INT:-1	7
+  #37	4	ref_typespec			work@lower		0	0	0	0		0		
+  #38	5	int_typespec				dut.sv	2	13	2	16				
+  #39	3	parameter	VALUE_TEMP		work@lower.VALUE_TEMP	dut.sv	2	17	2	27		0	INT:-1	
+  #40	4	ref_typespec			work@lower.VALUE_TEMP		0	0	0	0		0		
+
+--- OURS (B) records 17..40 ('>' = the object)
+  #17	3	constant					0	0	0	0	-1	32	INT:-1	7
+  #18	4	ref_typespec			foo_pkg		0	0	0	0		0		
+  #19	5	int_typespec				dut.sv	2	13	2	16				
+  #20	1	module_inst		work@bottom	work@bottom	dut.sv	5	1	7	10				
+  #21	2	parameter	VALUE		work@bottom.VALUE	dut.sv	6	17	6	22		0	UINT:8	
+  #22	3	ref_typespec			work@bottom.VALUE		0	0	0	0		0		
+  #23	4	int_typespec				dut.sv	6	13	6	16				
+  #24	2	param_assign				dut.sv	6	17	6	26				
+  #25	3	constant				dut.sv	6	25	6	26	8	64	UINT:8	9
+  #26	4	ref_typespec			work@bottom		0	0	0	0		0		
+  #27	5	int_typespec				dut.sv	6	13	6	16				
+  #28	1	module_inst		work@lower	work@lower	dut.sv	9	1	15	10				
+> #29	2	parameter	VALUE_TEMP		work@lower.VALUE_TEMP	dut.sv	2	17	2	27		0		
+  #30	3	ref_typespec			work@lower.VALUE_TEMP		0	0	0	0		0		
+  #31	4	int_typespec				dut.sv	2	13	2	16				
+  #32	2	parameter	VALUE		work@lower.VALUE	dut.sv	11	17	11	22		0		
+  #33	3	ref_typespec			work@lower.VALUE		0	0	0	0		0		
+  #34	4	int_typespec				dut.sv	11	13	11	16				
+  #35	2	param_assign				dut.sv	2	17	2	46				
+  #36	3	constant					0	0	0	0	-1	32	INT:-1	7
+  #37	4	ref_typespec			work@lower		0	0	0	0		0		
+  #38	5	int_typespec				dut.sv	2	13	2	16				
+  #39	3	parameter	VALUE_TEMP		work@lower.VALUE_TEMP		2	17	2	27		0		
+  #40	4	ref_typespec			work@lower.VALUE_TEMP		0	0	0	0		0		
+
+all facets of this row (5):
+  K0678 #13/13 parameter VALUE_TEMP G[|0|INT:-1|] O[|0||]
+  K0076 #29/29 parameter VALUE_TEMP G[|0|INT:-1|] O[|0||]
+  K0002 #39/39 parameter VALUE_TEMP G[dut.sv 2:17:2:27] O[ 2:17:2:27]
+  K0064 #39/39 parameter VALUE_TEMP G[|0|INT:-1|] O[|0||]
+  K0076 #86/86 parameter VALUE_TEMP G[|0|INT:-1|] O[|0||]

@@ -1,0 +1,65 @@
+cluster K0022: fullname|ref_typespec|golden-empty|under:constant
+row: uhdm2rtlil/testflags/LocalParamInNestedForLoops  strict=differ:fullname(4)  records golden=98 ours=95
+object: #70 (golden) / #70 (ours)  type=ref_typespec name=
+  golden: 
+  ours:   work@top
+  walk parents: constant < operation < param_assign < module_inst(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 58..81 ('>' = the object)
+  #58	3	operation				dut.sv	2	35	2	42		0		
+  #59	4	ref_typespec			work@top		0	0	0	0		0		
+  #60	5	array_typespec				dut.sv	2	14	2	31				
+  #61	6	range				dut.sv	2	29	2	30				
+  #62	7	constant					0	0	0	0	0	64	UINT:0	9
+  #63	7	operation				dut.sv	2	29	2	30		0		
+  #64	8	constant				dut.sv	2	29	2	30	2	64	UINT:2	9
+  #65	8	constant					0	0	0	0		64	INT:1	7
+  #66	6	ref_typespec			work@top		0	0	0	0		0		
+  #67	7	int_typespec				dut.sv	2	14	2	17				
+  #68	4	constant				dut.sv	2	37	2	38	0	32	UINT:0	9
+  #69	4	constant				dut.sv	2	40	2	41	1	32	UINT:1	9
+> #70	5	ref_typespec					0	0	0	0		0		
+  #71	6	int_typespec				dut.sv	5	21	5	24				
+  #72	2	port	o			dut.sv	1	23	1	24				
+  #73	3	ref_obj	o		work@top.o	dut.sv	1	23	1	24		0		
+  #74	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #75	4	int_typespec				dut.sv	1	19	1	22				
+  #76	2	gen_scope_array	genblk1[0]		work@top.genblk1[0]	dut.sv	3	37	8	6				
+  #77	3	gen_scope			work@top.genblk1[0]	dut.sv	3	37	8	6				
+  #78	4	parameter	i		work@top.genblk1[0].i	dut.sv	3	0	0	0		0	UINT:0	
+  #79	5	ref_typespec			work@top.genblk1[0].i		0	0	0	0		0		
+  #80	6	int_typespec					0	0	0	0				
+  #81	4	gen_scope_array	genblk1[0]		work@top.genblk1[0].genblk1[0]	dut.sv	4	40	7	10				
+
+--- OURS (B) records 58..81 ('>' = the object)
+  #58	3	operation				dut.sv	2	35	2	42		0		
+  #59	4	ref_typespec			work@top		0	0	0	0		0		
+  #60	5	array_typespec				dut.sv	2	14	2	31				
+  #61	6	range				dut.sv	2	29	2	30				
+  #62	7	constant					0	0	0	0	0	64	UINT:0	9
+  #63	7	operation				dut.sv	2	29	2	30		0		
+  #64	8	constant				dut.sv	2	29	2	30	2	64	UINT:2	9
+  #65	8	constant					0	0	0	0		64	INT:1	7
+  #66	6	ref_typespec			work@top		0	0	0	0		0		
+  #67	7	int_typespec				dut.sv	2	14	2	17				
+  #68	4	constant				dut.sv	2	37	2	38	0	32	UINT:0	9
+  #69	4	constant				dut.sv	2	40	2	41	1	32	UINT:1	9
+> #70	5	ref_typespec			work@top		0	0	0	0		0		
+  #71	6	int_typespec				dut.sv	5	21	5	24				
+  #72	2	port	o			dut.sv	1	23	1	24				
+  #73	3	ref_obj	o		work@top.o	dut.sv	1	23	1	24		0		
+  #74	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #75	4	int_typespec				dut.sv	1	19	1	22				
+  #76	2	gen_scope_array	genblk1[0]		work@top.genblk1[0]	dut.sv	3	37	8	6				
+  #77	3	gen_scope			work@top.genblk1[0]	dut.sv	3	37	8	6				
+  #78	4	parameter	i		work@top.genblk1[0].i		3	0	0	0		0	UINT:0	
+  #79	5	ref_typespec			work@top.genblk1[0].i		0	0	0	0		0		
+  #80	6	int_typespec					0	0	0	0				
+  #81	4	gen_scope_array	genblk1[0]		work@top.genblk1[0].genblk1[0]	dut.sv	4	40	7	10				
+
+all facets of this row (4):
+  K0718 #94/-1 constant  G[3 objs] O[]
+  K0022 #70/70 ref_typespec  G[] O[work@top]
+  K0001 #78/78 parameter i G[dut.sv 3:0:0:0] O[ 3:0:0:0]
+  K0001 #86/86 parameter y G[dut.sv 4:0:0:0] O[ 4:0:0:0]

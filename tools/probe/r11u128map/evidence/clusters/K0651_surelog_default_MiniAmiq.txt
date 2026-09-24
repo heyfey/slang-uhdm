@@ -1,0 +1,96 @@
+cluster K0651: struct|golden-only:fewer-copies|class_var|under:ref_obj
+row: surelog/default/MiniAmiq  strict=differ:line(272)  records golden=435559 ours=413722
+object: #76762 (golden) / #-1 (ours)  type=class_var name=iter
+  golden: 3 objs
+  ours:   
+  walk parents: ref_obj(iter) < hier_path(iter.first) < assignment < begin
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 76750..76773 ('>' = the object)
+  #76750	5	ref_obj	UVM_PHASE_SYNCING		svaunit_pkg::uvm_phase::execute_phase::UVM_PHASE_SYNCING	uvm_phase.svh	1330	13	1330	30		0		
+  #76751	5	ref_obj	m_state		svaunit_pkg::uvm_phase::execute_phase::m_state	uvm_phase.svh	1330	3	1330	10		0		
+  #76752	4	begin			svaunit_pkg::uvm_phase::execute_phase	uvm_callback_defines.svh	163	4	171	7				
+  #76753	5	class_var	iter		svaunit_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  #76754	6	ref_typespec			svaunit_pkg::uvm_phase::execute_phase::iter		0	0	0	0		0		
+  #76755	7	class_typespec				uvm_callback_defines.svh	164	6	164	48				
+  #76756	5	class_var	cb		svaunit_pkg::uvm_phase::execute_phase::cb	uvm_callback_defines.svh	165	19	165	21		0		
+  #76757	6	ref_typespec			svaunit_pkg::uvm_phase::execute_phase::cb		0	0	0	0		0		
+  #76758	7	class_typespec				uvm_callback_defines.svh	165	6	165	18				
+  #76759	5	assignment				uvm_callback_defines.svh	165	19	165	36				
+  #76760	6	hier_path	iter.first			uvm_callback_defines.svh	165	24	165	36		0		
+  #76761	7	ref_obj	iter			uvm_callback_defines.svh	165	24	165	28		0		
+> #76762	8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0		
+  #76763	9	ref_typespec			uvm_pkg::uvm_phase::execute_phase::iter		0	0	0	0		0		
+  #76764	10	class_typespec				uvm_callback_defines.svh	164	6	164	48				
+  #76765	7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+  #76766	6	class_var	cb		svaunit_pkg::uvm_phase::execute_phase::cb	uvm_callback_defines.svh	165	19	165	21		0		
+  #76767	7	ref_typespec			svaunit_pkg::uvm_phase::execute_phase::cb		0	0	0	0		0		
+  #76768	8	class_typespec				uvm_callback_defines.svh	165	6	165	18				
+  #76769	5	while_stmt				uvm_callback_defines.svh	166	6	166	11				
+  #76770	6	operation				uvm_callback_defines.svh	166	12	166	22		0		
+  #76771	7	ref_obj	cb		svaunit_pkg::uvm_phase::execute_phase::cb	uvm_callback_defines.svh	166	12	166	14		0		
+  #76772	8	class_var	cb		uvm_pkg::uvm_phase::execute_phase::cb	uvm_callback_defines.svh	165	19	165	21		0		
+  #76773	9	ref_typespec			uvm_pkg::uvm_phase::execute_phase::cb		0	0	0	0		0		
+
+--- the holder #76761 in the other side: exact-record matches at [11313, 12243, 74714, 75706, 296378]
+  #11309	6	ref_typespec			uvm_pkg::uvm_phase::add::cb		0	0	0	0		0		
+  #11310	7	class_typespec				uvm_phase.svh	165	6	165	18				
+  #11311	5	assignment				uvm_callback_defines.svh	165	19	165	36				
+  #11312	6	hier_path	iter.first			uvm_callback_defines.svh	165	24	165	36		0		
+> #11313	7	ref_obj	iter			uvm_callback_defines.svh	165	24	165	28		0		
+  #11314	7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0		
+  #11315	5	while_stmt				uvm_callback_defines.svh	166	6	166	11				
+  #11316	6	operation				uvm_callback_defines.svh	166	12	166	22		0		
+  #11317	7	ref_obj	cb		uvm_pkg::uvm_phase::add::cb	uvm_callback_defines.svh	166	12	166	14		0		
+  #11318	7	constant				uvm_callback_defines.svh	166	18	166	22	0	64	UINT:0	11
+  #11319	6	begin			uvm_pkg::uvm_phase::add	uvm_callback_defines.svh	166	24	170	9				
+  #11320	7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0		
+  #11321	8	ref_obj	tmp_node		uvm_pkg::uvm_phase::add::tmp_node	uvm_phase.svh	168	30	168	38		0		
+  #11322	8	ref_obj	state_chg		uvm_pkg::uvm_phase::add::state_chg	uvm_phase.svh	168	40	168	49		0		
+  #11323	8	ref_obj	cb		uvm_pkg::uvm_phase::add::cb	uvm_callback_defines.svh	168	8	168	10		0		
+  #11324	7	assignment				uvm_callback_defines.svh	169	8	169	24				
+  #11325	8	hier_path	iter.next			uvm_callback_defines.svh	169	13	169	24		0		
+  #11326	9	ref_obj	iter			uvm_callback_defines.svh	169	13	169	17		0		
+
+all facets of this row (78403):
+  K0453 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  K0453 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  K0453 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  K0325 #10107/-1 ref_typespec  G[2 objs] O[]
+  K0453 #-1/17670 class_var uvm_top G[] O[4 objs]
+  K0288 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/20823 bit_typespec  G[] O[1 objs]
+  K0288 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/21759 bit_typespec  G[] O[1 objs]
+  K0558 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  K0558 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  K0453 #-1/25656 class_var run_ph G[] O[3 objs]
+  K0005 #63364/-1 parameter UVM_HDL_MAX_WIDTH G[3 objs] O[]
+  K0005 #63371/-1 parameter uvm_mgc_copyright G[3 objs] O[]
+  K0005 #63378/-1 parameter uvm_cdn_copyright G[3 objs] O[]
+  K0005 #63385/-1 parameter uvm_snps_copyright G[3 objs] O[]
+  K0005 #63392/-1 parameter uvm_cy_copyright G[3 objs] O[]
+  K0005 #63399/-1 parameter uvm_nv_copyright G[3 objs] O[]
+  K0005 #63406/-1 parameter uvm_revision G[3 objs] O[]
+  K0005 #63413/-1 parameter UVM_STREAMBITS G[3 objs] O[]
+  K0005 #63419/-1 parameter UVM_RADIX G[1 objs] O[]
+  K0005 #63424/-1 parameter UVM_MACRO_NUMFLAGS G[3 objs] O[]
+  K0005 #63430/-1 parameter UVM_DEFAULT G[1 objs] O[]
+  K0005 #63434/-1 parameter UVM_ALL_ON G[1 objs] O[]
+  K0005 #63438/-1 parameter UVM_FLAGS_ON G[1 objs] O[]
+  K0005 #63443/-1 parameter UVM_FLAGS_OFF G[3 objs] O[]
+  K0005 #63450/-1 parameter UVM_COPY G[3 objs] O[]
+  K0005 #63457/-1 parameter UVM_NOCOPY G[3 objs] O[]
+  K0005 #63464/-1 parameter UVM_COMPARE G[3 objs] O[]
+  K0005 #63471/-1 parameter UVM_NOCOMPARE G[3 objs] O[]
+  K0005 #63478/-1 parameter UVM_PRINT G[3 objs] O[]
+  K0005 #63485/-1 parameter UVM_NOPRINT G[3 objs] O[]
+  K0005 #63492/-1 parameter UVM_RECORD G[3 objs] O[]
+  K0005 #63499/-1 parameter UVM_NORECORD G[3 objs] O[]
+  K0005 #63506/-1 parameter UVM_PACK G[3 objs] O[]
+  K0005 #63513/-1 parameter UVM_NOPACK G[3 objs] O[]
+  K0005 #63520/-1 parameter UVM_PHYSICAL G[3 objs] O[]
+  K0005 #63527/-1 parameter UVM_ABSTRACT G[3 objs] O[]
+  K0005 #63534/-1 parameter UVM_READONLY G[3 objs] O[]
+  K0005 #63541/-1 parameter UVM_NODEFPRINT G[3 objs] O[]
+  ... 78363 more

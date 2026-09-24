@@ -1,0 +1,55 @@
+cluster K0012: file|int_typespec|ours-empty|under:ref_typespec
+row: uhdm2rtlil/testflags/Shortreal  strict=differ:value(2)  records golden=39 ours=39
+object: #31 (golden) / #31 (ours)  type=int_typespec name=
+  golden: dut.sv 3:15:3:18
+  ours:    3:15:3:18
+  walk parents: ref_typespec < operation < cont_assign < module_inst(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 19..38 ('>' = the object)
+  #19	2	int_var	o		work@top.o	dut.sv	1	23	1	24		0		
+  #20	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #21	4	int_typespec				dut.sv	1	19	1	22				
+  #22	2	short_real_var	a		work@top.a	dut.sv	2	14	2	21		0		
+  #23	3	constant				dut.sv	2	18	2	21	0.5	64	REAL:0.5	2
+  #24	2	port	o			dut.sv	1	23	1	24				
+  #25	3	ref_obj	o		work@top.o	dut.sv	1	23	1	24		0		
+  #26	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #27	4	int_typespec				dut.sv	1	19	1	22				
+  #28	2	cont_assign				dut.sv	3	11	3	26				
+  #29	3	operation				dut.sv	3	15	3	26		0		
+  #30	4	ref_typespec			work@top		0	0	0	0		0		
+> #31	5	int_typespec				dut.sv	3	15	3	18				
+  #32	4	operation				dut.sv	3	20	3	25		0		
+  #33	5	constant				dut.sv	3	20	3	21	2	64	UINT:2	9
+  #34	5	ref_obj	a		work@top.a	dut.sv	3	24	3	25		0		
+  #35	6	logic_net	a		work@top.a	dut.sv	2	14	2	15		0		
+  #36	7	ref_typespec			work@top.a		0	0	0	0		0		
+  #37	8	short_real_typespec				dut.sv	2	4	2	21				
+  #38	3	ref_obj	o		work@top.o	dut.sv	3	11	3	12		0		
+
+--- OURS (B) records 19..38 ('>' = the object)
+  #19	2	int_var	o		work@top.o	dut.sv	1	23	1	24		0		
+  #20	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #21	4	int_typespec				dut.sv	1	19	1	22				
+  #22	2	short_real_var	a		work@top.a	dut.sv	2	14	2	21		0		
+  #23	3	constant				dut.sv	2	18	2	21	0.5	64	REAL:0.500000	2
+  #24	2	port	o			dut.sv	1	23	1	24				
+  #25	3	ref_obj	o		work@top.o	dut.sv	1	23	1	24		0		
+  #26	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #27	4	int_typespec				dut.sv	1	19	1	22				
+  #28	2	cont_assign				dut.sv	3	11	3	26				
+  #29	3	operation				dut.sv	3	15	3	26		0		
+  #30	4	ref_typespec			work@top		0	0	0	0		0		
+> #31	5	int_typespec					3	15	3	18				
+  #32	4	operation				dut.sv	3	20	3	25		0		
+  #33	5	constant				dut.sv	3	20	3	21	2	64	UINT:2	9
+  #34	5	ref_obj	a		work@top.a	dut.sv	3	24	3	25		0		
+  #35	6	logic_net	a		work@top.a	dut.sv	2	14	2	15		0		
+  #36	7	ref_typespec			work@top.a		0	0	0	0		0		
+  #37	8	short_real_typespec				dut.sv	2	4	2	21				
+  #38	3	ref_obj	o		work@top.o	dut.sv	3	11	3	12		0		
+
+all facets of this row (2):
+  K1372 #23/23 constant  G[0.5|64|REAL:0.5|2] O[0.5|64|REAL:0.500000|2]
+  K0012 #31/31 int_typespec  G[dut.sv 3:15:3:18] O[ 3:15:3:18]

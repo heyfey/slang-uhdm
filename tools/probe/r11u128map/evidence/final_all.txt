@@ -1,0 +1,276 @@
+CORPUS rows 967 tests 500 clusters 2106 families 270
+PROBE cases NE analysed 2375 with facets 2375 clusters 1083
+== top 60 clusters: id rows sl u2r tests objs probe alone cov old key
+K0001 206 78 128 106 22420 435 116 COVERED r11u125 (C0001) C0001 file|parameter|ours-empty|under:gen_scope | surelog/testflags/BlackBox #23/23 parameter core_idx
+K0002 135 79 56 68 3518 296 36 COVERED r11u124 (C0003) C0003 file|parameter|ours-empty|under:param_assign | uhdm2rtlil/testflags/ImportedParameter #25/25 parameter TxWidth
+K0003 82 38 44 42 6981 78 0 COVERED r11u124 (C0007) C0007 span|ref_obj|col+endcol|under:hier_path | surelog/testflags/IOClassStruct #20/20 ref_obj access_record
+K0004 72 26 46 37 7680 39 0 COVERED r11u124 (F02 parent policy) C0010 fullname|ref_typespec|tok:id.->|under:typespec_member | surelog/testflags/PatternOrder #12/12 ref_typespec 
+K0005 58 18 40 29 29832 206 0 COVERED r11u124 (C0012) C0012 struct|golden-only:fewer-copies|parameter|under:param_assign | surelog/testflags/ParamFromPackage #73/-1 parameter X
+K0006 57 23 34 29 508 66 0 COVERED r11u124 (C0013) C0013 fullname|ref_typespec|golden-empty|under:operation | surelog/testflags/ParamNoImport #36/36 ref_typespec 
+K0007 56 18 38 28 24568 41 0 COVERED r11u124 (F02 parent policy) C0018 fullname|ref_typespec|tok:->id.|under:typespec_member | surelog/testflags/HierPathEval #102/100 ref_typespec 
+K0008 52 8 44 26 10904 8 4 COVERED r11u124 (F02 parent policy) C0038 fullname|ref_typespec|tok:id@id.id::id.->id::id::id::|under:typespec_member | surelog/testflags/MultiPort #15/15 ref_typespec 
+K0009 52 14 38 26 304 1 0 COVERED r11u124 (F02 parent policy) C0075 fullname|ref_typespec|tok:id@id.->id::|under:enum_typespec | uhdm2rtlil/testflags/PackageCast #122/122 ref_typespec 
+K0010 50 24 26 25 1210 171 0 COVERED r11u124 (C0014) C0014 span|constant|endcol|under:param_assign | surelog/testflags/ParamConstPush #89/89 constant 
+K0011 50 24 26 25 130379 33 8 COVERED r11u124 (F02 parent policy) C0025 fullname|ref_typespec|tok:id@id.->|under:typespec_member | surelog/testflags/RangeSelect #13/13 ref_typespec 
+K0012 47 11 36 24 49 18 20 COVERED r11u124 (C0015) C0015 file|int_typespec|ours-empty|under:ref_typespec | uhdm2rtlil/testflags/Shortreal #31/31 int_typespec 
+K0013 44 20 24 22 300 100 4 COVERED r11u124 (F02 parent policy) C0017 fullname|ref_typespec|tok:id@id.id.id::id.->id::id::id::|under:typespec_member | surelog/testflags/ParamNoImport #67/67 ref_typespec 
+K0014 43 23 20 22 8546 48 0 COVERED r11u124 (C0019) C0019 file|constant|ours-empty|under:range | surelog/testflags/TypedefRange #23/23 constant 
+K0015 42 26 16 22 670 23 12 COVERED r11u124 (C0020) C0020 value|parameter|value:UINT->empty|under:module_inst | surelog/testflags/BitsArray #37/37 parameter a
+K0016 40 28 12 21 6100 34 2 COVERED r11u124 (C0009) C0009 fullname|ref_obj|golden-empty|under:hier_path | surelog/testflags/IOClassStruct #27/27 ref_obj read_count
+K0017 39 15 24 22 219 29 15 OPEN C0024 struct|golden-only:fewer-copies|logic_net|under:ref_obj | uhdm2rtlil/testflags/ParameterColonReference #50/-1 logic_net a
+K0018 38 10 28 19 94 11 12 COVERED r11u124 (C0028) C0028 file|integer_typespec|ours-empty|under:ref_typespec | uhdm2rtlil/testflags/CastSize #46/46 integer_typespec 
+K0019 38 12 26 19 100 0 0 COVERED r11u124 (F02 parent policy) C0041 fullname|ref_typespec|tok:id.id::id.id.->|under:enum_typespec | surelog/testflags/HierPathOverride #260/254 ref_typespec 
+K0020 36 6 30 18 80 58 0 COVERED r11u124 (F02 parent policy) C0099 fullname|ref_typespec|tok:id@id.id.id.id::id.->id::id::id::|under:typespec_member | uhdm2rtlil/testflags/iface_array_elem_cfg_param #223/223 ref_typespec 
+K0021 35 15 20 18 224 10 0 COVERED r11u124 (C0034) C0034 value|parameter|value:INT->UINT|under:package | surelog/testflags/Kmac #76/76 parameter KeccakEntries
+K0022 34 8 26 18 170 25 2 COVERED r11u124 (C0037) C0037 fullname|ref_typespec|golden-empty|under:constant | uhdm2rtlil/testflags/LocalParamInNestedForLoops #70/70 ref_typespec 
+K0023 34 12 22 17 178 5 4 COVERED r11u125 (FILE-EMPTY census: ModuleEmit.cpp materializeDefNetTs span copy, census line cl5 beside the pinned mint) C0061 file|struct_typespec|ours-empty|under:ref_typespec | surelog/testflags/VarRangeTypedef #16/16 struct_typespec pkg::a
+K0024 32 14 18 16 178 22 0 OPEN C0059 span|struct_typespec|endline+endcol|under:ref_typespec | surelog/testflags/RangeSelect #11/11 struct_typespec tl_h2d_t
+K0025 32 12 20 16 182 5 2 OPEN C0039 span|constant|col+endcol|under:param_assign | surelog/default/BlackParrotSkipParam #128/128 constant 
+K0026 30 4 26 15 104 58 0 COVERED r11u124 (F02 parent policy) C0050 fullname|ref_typespec|tok:->.id|under:constant | uhdm2rtlil/testflags/interface_array #564/573 ref_typespec 
+K0027 29 21 8 18 146 26 7 OPEN C0042 file|logic_net|golden-empty|under:ref_obj | surelog/testflags/CheckerInst #11/11 logic_net req
+K0028 29 13 16 15 49 5 0 OPEN C0216 file|enum_typespec|ours-empty|under:ref_typespec | uhdm2rtlil/testflags/TypeParameterAsPortTypeWithEnumOfParametrizedWidth #62/62 enum_typespec state_e
+K0029 28 8 20 14 396 9 0 COVERED r11u124 (C0044) C0044 value|parameter|value:INT->UINT|under:module_inst | surelog/testflags/HierPathStructTypespec #405/405 parameter BufferCycles
+K0030 28 8 20 14 102 1 0 COVERED r11u124 (F02 parent policy) new fullname|ref_obj|tok:::->.@in-typespec|under:operation | surelog/testflags/EarlgreyPackParam #10/10 ref_obj NAlerts
+K0031 28 8 20 15 1957 0 0 COVERED r11u125 (F10) C0043 file|ref_obj|other-file|under:operation | uhdm2rtlil/testflags/ibex_csr #61/61 ref_obj clk_i
+K0032 27 1 26 14 46 2 0 COVERED r11u124 (F02 parent policy) new fullname|ref_typespec|tok:->.id|under:array_typespec | uhdm2rtlil/testflags/StructArrayParameterInitializedByPatternPassedAsPort #225/189 ref_typespec 
+K0033 26 12 14 13 37032 17 0 COVERED r11u124 (F02 parent policy) C0068 fullname|ref_typespec|tok:->id@id.|under:typespec_member | uhdm2rtlil/testflags/PatternStruct #68/68 ref_typespec 
+K0034 26 24 2 13 36 16 8 OPEN C0057 file|logic_net|golden-empty|under:module_inst | surelog/testflags/Disable #2/2 logic_net loop
+K0035 26 6 20 13 188 5 0 OPEN C0049 span|constant|endline+endcol|under:sys_func_call | surelog/testflags/CovMacro #103/103 constant 
+K0036 25 21 4 13 1568 18 0 OPEN C0054 fullname|ref_obj|ours-empty|under:hier_path | surelog/testflags/LocalScopeHierPath #82/82 ref_obj path
+K0037 23 15 8 12 346 16 0 COVERED r11u124 (C0019 twin: the same 346 range-bound constants, span facet) C0064 span|constant|ours-zero|under:range | surelog/testflags/TypedefRange #23/23 constant 
+K0038 23 21 2 13 19072 0 0 COVERED r11u125 (F10) C0058 file|constant|other-file|under:operation | surelog/testflags/YosysOldSpi #113/113 constant 
+K0039 22 2 20 11 84 43 0 COVERED r11u124 (F02 parent policy) C1120 fullname|ref_typespec|tok:->id.|under:logic_typespec | surelog/testflags/LargeValue2Struct #275/275 ref_typespec 
+K0040 22 8 14 11 176 38 0 COVERED r11u124 (F02 parent policy) new fullname|ref_obj|golden-empty@in-typespec|under:hier_path | uhdm2rtlil/testflags/OutputSizeWithParameterOfInstanceInitializedByStructMember #83/83 ref_obj x
+K0041 22 6 16 11 66 3 0 COVERED r11u124 (F02 parent policy) new fullname|ref_typespec|tok:->id.id::id.id.|under:enum_typespec | surelog/testflags/HierPathEval #107/105 ref_typespec 
+K0042 22 2 20 11 202 1 0 COVERED r11u124 (F02 parent policy) new fullname|ref_obj|tok:::id::->.@in-typespec|under:operation | uhdm2rtlil/testflags/ibex_branch_predict #357/357 ref_obj LfsrWidth
+K0043 21 17 4 11 14148 16 0 OPEN C0051 fullname|ref_obj|tok:id.id.->|under:operation | uhdm2rtlil/testflags/dff_different_styles #782/782 ref_obj preset
+K0044 21 9 12 12 282 3 0 OPEN C0065 struct|golden-only:elsewhere|logic_net|under:ref_obj | uhdm2rtlil/testflags/sva_value_change_changed #107/-1 logic_net clk
+K0045 21 9 12 12 282 3 0 OPEN C0066 struct|ours-only:elsewhere|logic_net|under:ref_obj | uhdm2rtlil/testflags/sva_value_change_changed #-1/131 logic_net clk
+K0046 20 4 16 10 688 65 6 COVERED r11u124 (F02 parent policy) C0117 fullname|ref_typespec|tok:id.->id::id::|under:typespec_member | surelog/testflags/PackStructField #6/6 ref_typespec 
+K0047 20 12 8 10 8253 37 0 OPEN C0004 struct|golden-only:fewer-copies|struct_typespec|under:ref_typespec | uhdm2rtlil/testflags/cva6_struct_param_field #126/-1 struct_typespec cfg_pkg::cfg_t
+K0048 20 16 4 11 986 37 2 OPEN C0067 span|logic_typespec|endcol|under:ref_typespec | surelog/testflags/SignedWire #4/4 logic_typespec 
+K0049 20 6 14 11 703 12 0 OPEN C0613 depth|constant|range->operation | uhdm2rtlil/testflags/TypedefWithParameter #33/40 constant 
+K0050 20 0 20 10 126 10 0 OPEN C0070 span|constant|line+endline|under:sys_func_call | uhdm2rtlil/testflags/ibex_csr #54/54 constant 
+K0051 20 0 20 10 126 8 0 OPEN C0071 span|sys_func_call|line+endcol|under:begin | uhdm2rtlil/testflags/ibex_csr #53/53 sys_func_call $error
+K0052 20 14 6 11 685 6 0 OPEN C0098 span|struct_typespec|line+col+endline+endcol|under:ref_typespec | uhdm2rtlil/testflags/const_cast_signext #4/4 struct_typespec op_t
+K0053 20 8 12 10 74 3 2 OPEN C0073 file|packed_array_typespec|ours-empty|under:ref_typespec | uhdm2rtlil/testflags/EnumArray #21/21 packed_array_typespec 
+K0054 20 0 20 10 252 1 0 OPEN C0069 span|constant|line+col+endline+endcol|under:sys_func_call | uhdm2rtlil/testflags/ibex_csr #56/56 constant 
+K0055 20 0 20 10 126 0 0 OPEN C0072 span|sys_func_call|line+endline|under:sys_func_call | uhdm2rtlil/testflags/ibex_csr #55/55 sys_func_call $time
+K0056 19 11 8 11 215 58 0 OPEN C0046 fullname|ref_obj|tok:id.->|under:operation | surelog/testflags/EmptyAssign #72/72 ref_obj b
+K0057 19 5 14 10 736 12 0 OPEN C0764 struct|ours-only:fewer-copies|operation|under:range | uhdm2rtlil/testflags/TypedefWithParameter #-1/38 operation 
+K0058 19 11 8 10 39 5 0 OPEN C0219 span|enum_typespec|ours-zero|under:ref_typespec | uhdm2rtlil/testflags/TypeParameterAsPortTypeWithEnumOfParametrizedWidth #62/62 enum_typespec state_e
+K0059 19 19 0 11 3445 0 0 COVERED r11u125 (F10) C0076 file|operation|other-file|under:operation | surelog/testflags/PreprocFunc #121/121 operation 
+K0060 18 10 8 9 18 34 2 OPEN C0085 span|func_call|endcol|under:param_assign | uhdm2rtlil/testflags/struct_param_func_arg #201/201 func_call p::build
+== families top 40: id rows tests probe alone nclusters old key
+G01 420 221 1104 88 470 F02 FULLNAME-IN-TYPESPEC-SUBTREE
+G02 320 163 654 152 2 F03 FILE-EMPTY|parameter
+G03 138 71 122 8 44 F06 SPAN|ref_obj
+G04 137 86 262 13 403 F05 FULLNAME|ref_obj|tok
+G05 109 56 349 4 67 F07 SPAN|constant
+G06 77 40 369 0 53 F01 STRUCT-TSCOPY|golden
+G07 67 36 81 1 9 F09 FILE-EMPTY|constant
+G08 61 32 0 2 165 F10 FILE-OTHER-BUFFER
+G09 60 31 99 4 12 F12 SPAN|struct_typespec
+G10 59 30 206 0 2 F11 STRUCT-IMPPARAM-CLONE|golden
+G11 52 27 138 3 15 F15 SPAN|logic_typespec
+G12 52 29 45 15 3 F13 STRUCT-SHARE|golden|logic_net
+G13 50 26 89 2 26 F14 SPAN|operation
+G14 47 24 18 20 1 F17 FILE-EMPTY|int_typespec
+G15 46 24 42 2 5 F16 FULLNAME|ref_obj|golden-empty
+G16 44 23 26 12 4 F18 VALUE|parameter|value:UINT->empty
+G17 42 21 30 20 2 F19 FILE-EXTRA|logic_net
+G18 40 21 88 0 49 F30 WALK-DEPTH-ORDER
+G19 39 20 35 2 20 F23 SPAN|sys_func_call
+G20 39 22 12 7 4 F21 STRUCT-SHARE|ours|logic_net
+G21 38 19 11 12 1 F24 FILE-EMPTY|integer_typespec
+G22 35 18 10 0 5 F26 VALUE|parameter|value:INT->UINT
+G23 35 19 7 0 14 F25 SPAN|assignment
+G24 34 17 5 4 1 F39 FILE-EMPTY|struct_typespec
+G25 33 18 138 0 13 F31 SPAN|range
+G26 33 17 89 2 29 F28 SPAN|begin
+G27 33 17 45 2 9 F27 SPAN|func_call
+G28 33 22 41 0 121 F29 FULLNAME|bit_select|tok
+G29 32 17 87 6 43 F04 STRUCT-TSCOPY|ours
+G30 29 15 84 0 8 F32 STRUCT-SHARE|golden|constant
+G31 29 15 43 0 19 F33 SPAN|hier_path
+G32 29 15 21 0 5 F34 FULLNAME|ref_obj|ours-empty
+G33 29 15 5 0 1 F101 FILE-EMPTY|enum_typespec
+G34 27 14 17 4 14 F36 SPAN|enum_typespec
+G35 27 15 16 0 10 F35 SPAN|bit_select
+G36 23 12 16 0 5 F125 STRUCT-SHARE|ours|operation
+G37 22 12 57 1 9 F37 STRUCT-SHARE|ours|constant
+G38 21 12 145 0 12 F41 FULLNAME|parameter|tok
+G39 21 11 90 0 11 F45 SPAN|class_typespec
+G40 21 11 42 0 4 F40 FILE-EMPTY|ref_obj
+== coverage: clusters covered 703 open 1914
+r11u124 clusters 482 rows touched 554 alone yield 223 tests 112
+r11u125 clusters 221 rows touched 323 alone yield 136 tests 69
+both pairs landed: yield rows 388 tests 196
+== top 20 OPEN clusters (alone / cum on top of both pairs / cum tests)
+base (pairs A+B landed): 388 196
+K0017 39 22 15 406 406 206 struct|golden-only:fewer-copies|logic_net|under:ref_obj
+K0024 32 16 0 390 408 207 span|struct_typespec|endline+endcol|under:ref_typespec
+K0025 32 16 2 392 412 209 span|constant|col+endcol|under:param_assign
+K0027 29 18 7 397 421 213 file|logic_net|golden-empty|under:ref_obj
+K0028 29 15 0 388 421 213 file|enum_typespec|ours-empty|under:ref_typespec
+K0034 26 13 8 396 434 219 file|logic_net|golden-empty|under:module_inst
+K0035 26 13 0 388 434 219 span|constant|endline+endcol|under:sys_func_call
+K0036 25 13 0 390 436 220 fullname|ref_obj|ours-empty|under:hier_path
+K0043 21 11 0 388 438 221 fullname|ref_obj|tok:id.id.->|under:operation
+K0044 21 12 0 388 438 221 struct|golden-only:elsewhere|logic_net|under:ref_obj
+K0045 21 12 0 388 450 227 struct|ours-only:elsewhere|logic_net|under:ref_obj
+K0047 20 10 0 388 450 227 struct|golden-only:fewer-copies|struct_typespec|under:ref_typespec
+K0048 20 11 2 392 454 229 span|logic_typespec|endcol|under:ref_typespec
+K0049 20 11 0 388 454 229 depth|constant|range->operation
+K0050 20 10 0 388 454 229 span|constant|line+endline|under:sys_func_call
+K0051 20 10 0 388 454 229 span|sys_func_call|line+endcol|under:begin
+K0052 20 11 0 388 454 229 span|struct_typespec|line+col+endline+endcol|under:ref_typespec
+K0053 20 10 2 392 458 231 file|packed_array_typespec|ours-empty|under:ref_typespec
+K0054 20 10 0 388 458 231 span|constant|line+col+endline+endcol|under:sys_func_call
+K0055 20 10 0 388 462 233 span|sys_func_call|line+endline|under:sys_func_call
+== greedy OPEN clusters by marginal yield on top of both pairs
+1 K0017 406 206 struct|golden-only:fewer-copies|logic_net|under:ref_obj
+2 K0027 415 210 file|logic_net|golden-empty|under:ref_obj
+3 K0034 428 216 file|logic_net|golden-empty|under:module_inst
+4 K0080 437 221 struct|ours-only:fewer-copies|logic_net|under:ref_obj
+5 K0074 445 225 span|struct_typespec|endcol|under:ref_typespec
+6 K0085 453 229 fullname|parameter|tok:id->id.id.id|under:param_assign
+7 K0067 460 232 span|ref_obj|endcol|under:port
+8 K0060 466 235 span|func_call|endcol|under:param_assign
+9 K0120 472 238 fullname|ref_obj|tok:id.id[id].->|under:bit_select
+10 K0200 478 243 fullname|ref_obj|tok:id.id->id|under:cont_assign
+11 K0587 484 246 span|indexed_part_select|col+endcol|under:param_assign
+12 K0056 489 249 fullname|ref_obj|tok:id.->|under:operation
+13 K0024 493 251 span|struct_typespec|endline+endcol|under:ref_typespec
+14 K0349 499 254 span|struct_typespec|endline+endcol|under:design
+15 K0025 503 256 span|constant|col+endcol|under:param_assign
+16 K0043 507 258 fullname|ref_obj|tok:id.id.->|under:operation
+17 K0048 511 260 span|logic_typespec|endcol|under:ref_typespec
+18 K0053 515 262 file|packed_array_typespec|ours-empty|under:ref_typespec
+19 K0098 519 264 span|operation|endcol|under:param_assign
+20 K0103 523 266 span|packed_array_typespec|ours-zero|under:ref_typespec
+== OPEN families (open part), greedy by marginal yield on top of both pairs
+1 G04 137 86 311 420 218 FULLNAME|ref_obj|tok
+2 G17 42 21 2 443 229 FILE-EXTRA|logic_net
+3 G09 60 31 11 465 240 SPAN|struct_typespec
+4 G12 52 29 2 487 252 STRUCT-SHARE|golden|logic_net
+5 G20 39 22 4 510 264 STRUCT-SHARE|ours|logic_net
+6 G13 50 26 21 528 273 SPAN|operation
+7 G38 21 12 9 542 280 FULLNAME|parameter|tok
+8 G27 33 17 6 555 286 SPAN|func_call
+9 G03 74 39 32 566 291 SPAN|ref_obj
+10 G05 83 43 55 574 295 SPAN|constant
+11 G28 33 22 95 582 299 FULLNAME|bit_select|tok
+12 G46 19 10 5 590 303 VALUE|constant|value:REAL->REAL
+13 G90 10 5 2 598 307 VALUE|parameter|value:empty->UINT
+14 G11 52 27 10 604 309 SPAN|logic_typespec
+15 G06 77 40 42 610 312 STRUCT-TSCOPY|golden
+16 G33 29 15 1 620 317 FILE-EMPTY|enum_typespec
+17 G34 27 14 9 634 324 SPAN|enum_typespec
+18 G18 40 21 43 640 327 WALK-DEPTH-ORDER
+19 G19 39 20 14 646 330 SPAN|sys_func_call
+20 G31 29 15 13 652 333 SPAN|hier_path
+21 G35 27 15 10 658 336 SPAN|bit_select
+22 G23 35 19 11 665 340 SPAN|assignment
+23 G91 10 5 3 671 343 SPAN|indexed_part_select
+24 G07 13 7 5 675 345 FILE-EMPTY|constant
+25 G26 33 17 25 679 347 SPAN|begin
+everything: 967 500
+surelog default: judge-equal 480, strict-equal 267, would leave CMP_EQUAL 213
+surelog testflags: judge-equal 474, strict-equal 254, would leave CMP_EQUAL 220
+surelog: tests leaving in some mode 233; NE in default only ['BiasValue', 'BlackBoxInst', 'BlackBoxInstTop', 'BlackBoxMod', 'BlackBoxSubMod', 'DecValue', 'Moves', 'PackFunc', 'PackageParamConst', 'PortInitVal']; NE in testflags only ['AllPackageSignal', 'ArrayExprFuncArg', 'ArrayVarName', 'ClogParam', 'DollarBits', 'EmptyAssign', 'FileList', 'ForeachFunction', 'FuncParam', 'FuncRetArray', 'FuncStruct', 'ImplicitPackedStructNet', 'InterfInst', 'InterfaceUnpackedStructArrayDim', 'JKFlipflop', 'NoParamSubs', 'OneNetInterf', 'PortByName', 'TypespecExpr', 'UnsizedFunc']; judged in one mode only (NE) ['Rggen', 'Scoreboard', 'YosysBigSimEllip']
+uhdm2rtlil default: judge-equal 803, strict-equal 536, would leave CMP_EQUAL 267; of those downstream IDENTICAL 266, EQUIVALENT 1, other 0
+uhdm2rtlil testflags: judge-equal 803, strict-equal 536, would leave CMP_EQUAL 267; of those downstream IDENTICAL 266, EQUIVALENT 1, other 0
+uhdm2rtlil: tests leaving in some mode 267; NE in default only []; NE in testflags only []; judged in one mode only (NE) []
+== probe: clusters by cases (top 30): id cases corpus-rows coverage laws key
+K0001 435 206 COVERED r11u125 (C0001) nestedGenProcLhsKeepsRef116:73 loopCaParamReadKeepsLiteral116:61 genCaOpFoldElabTs115:39 file|parameter|ours-empty|under:gen_scope
+K0002 296 135 COVERED r11u124 (C0003) nestedGenProcLhsKeepsRef116:52 typedPkgBoundElabSize113:38 impCopyConcatUnbound111:24 file|parameter|ours-empty|under:param_assign
+K0070 224 17 OPEN badConcatOperandsFromSyntax160:57 nestedParamActualTs6:22 classNestedTdOneObjectPerSurelogTypedef97:7 span|int_typespec|line+col+endline+endcol|under:ref_typespec
+K0005 206 58 COVERED r11u124 (C0012) genCaOpFoldElabTs115:68 badConcatOperandsFromSyntax160:66 caVarSelBareIdxTs115:15 struct|golden-only:fewer-copies|parameter|under:param_assign
+K0010 171 50 COVERED r11u124 (C0014) portViewRangeRecvParams:38 pvExprDefaultFold115:23 pvRecvShadow115:19 span|constant|endcol|under:param_assign
+K2107 119 0 OPEN caNestedModPortedDefShell101:36 caTopNamesakeKeyAtEntry105:26 caNestedModFileScopeKeyAtEntry103:15 fullname|logic_net|tok:.id@id->|under:module_inst
+K0339 113 8 OPEN genCaOpFoldElabTs115:68 caVarSelBareIdxTs115:15 caSysArgOpFoldTs115:10 struct|golden-only:fewer-copies|ref_typespec|under:constant
+K0626 111 4 COVERED r11u124 (F02 parent policy) genCaOpFoldElabTs115:68 caVarSelBareIdxTs115:15 caSysArgOpFoldTs115:10 fullname|ref_typespec|tok:.id->|under:parameter
+K0013 100 44 COVERED r11u124 (F02 parent policy) spVoidCastValue109:26 caStructParamGenScopeSubst69:10 caAsmMemberSliceFold:9 fullname|ref_typespec|tok:id@id.id.id::id.->id::id::id::|under:typespec_member
+K2108 92 0 COVERED r11u124 (F02 parent policy) caTopNamesakeKeyAtEntry105:25 caNestedModPortedDefShell101:15 caNestedModFileScopeKeyAtEntry103:14 fullname|ref_typespec|tok:.id@id->|under:logic_net
+K0218 85 9 OPEN badConcatOperandsFromSyntax160:66 impFoldRhsMirrorsLhsTs201:7 impUnsizedBasedLhsNoTs199:3 struct|golden-only:fewer-copies|ref_typespec|under:parameter
+K0189 79 10 OPEN portViewRangeRecvParams:34 sizeDimOvrChain4:24 ifaceArrayElemViewFoldsDefault:8 span|array_typespec|endcol|under:ref_typespec
+K0003 78 82 COVERED r11u124 (C0007) spVoidCastValue109:26 memLeftStampOwnType109:6 pkgPatCallArgFlat109:6 span|ref_obj|col+endcol|under:hier_path
+K0190 77 10 COVERED r11u124 (F02 parent policy) tpElemRebindElabPort110:53 tpElemRebindDefView107:17 tpPackedArrayTsVar108:4 fullname|ref_typespec|tok:id->id|under:packed_array_typespec
+K0074 73 16 OPEN spVoidCastValue109:27 typeParamAnonAggDefault107:14 tpAnonAggParamTsNoStamp47:12 span|struct_typespec|endcol|under:ref_typespec
+K0219 71 9 OPEN badConcatOperandsFromSyntax160:59 droppedCall14:3 badConcatCompoundOperands162:2 file|begin|ours-empty|under:function
+K0220 71 9 OPEN badConcatOperandsFromSyntax160:59 droppedCall14:3 badConcatCompoundOperands162:2 span|begin|ours-zero|under:function
+K0191 69 10 OPEN portViewRangeRecvParams:34 sizeDimOvrChain4:24 ifaceArrayElemViewFoldsDefault:8 span|range|col+endcol|under:array_typespec
+K0856 69 3 OPEN portViewRangeRecvParams:34 sizeDimOvrChain4:24 ifaceArrayElemViewFoldsDefault:8 span|range|col+endcol|under:interface_array
+K0340 69 8 OPEN badConcatOperandsFromSyntax160:66 classImportParamStamped82:1 classInheritsContainerImports23:1 struct|golden-only:fewer-copies|constant|under:param_assign
+K0917 68 2 OPEN portViewRangeRecvParams:34 sizeDimOvrChain4:25 ifaceArrayElemViewFoldsDefault:8 fullname|parameter|tok:id->id.id.id[n]|under:param_assign
+K0918 68 2 COVERED r11u124 (F02 parent policy) portViewRangeRecvParams:34 sizeDimOvrChain4:25 ifaceArrayElemViewFoldsDefault:8 fullname|ref_typespec|tok:id->id.id.id[n]|under:parameter
+K0006 66 57 COVERED r11u124 (C0013) patParamEvalFuncRead26:14 patParamLeftoverShare26:8 pkgPatCatMemberFold114:8 fullname|ref_typespec|golden-empty|under:operation
+K0150 65 11 OPEN classArgBind12:5 instanceIsNeverAClassDefn2:4 oobClassTypeParamPlaceholderPerView213:4 span|io_decl|line+col+endline+endcol|under:function
+K0046 65 20 COVERED r11u124 (F02 parent policy) patParamEvalFuncRead26:13 patParamLeftoverShare26:7 catParamLeftoverReduce28:7 fullname|ref_typespec|tok:id.->id::id::|under:typespec_member
+K0131 63 12 OPEN tpPackedArrayTsVar108:21 tpStructKindNet112:12 tpPackedArrayTsVarInit110:5 struct|golden-only:fewer-copies|range|under:logic_typespec
+K0192 62 10 OPEN caIfacePortDeclNetMint93:26 tpPackedArrayTsVar108:5 tpOvrNamedDimsDrop111:4 span|logic_typespec|line+col+endline+endcol|under:ref_typespec
+K0151 59 11 OPEN caIfacePortDeclNetMint93:27 srlgUnvaluedActualLitRetFold8:4 pkgTdOfNamedDimsListing111:4 span|constant|line+col+endline+endcol|under:range
+K0020 58 36 COVERED r11u124 (F02 parent policy) patParamEvalFuncRead26:14 catParamLeftoverReduce28:9 patParamLeftoverShare26:8 fullname|ref_typespec|tok:id@id.id.id.id::id.->id::id::id::|under:typespec_member
+K0056 58 19 OPEN nestedGenProcLhsKeepsRef116:43 defGenElemIpsVarSel112:9 genScopeOwnParamNoSelFold56:2 fullname|ref_obj|tok:id.->|under:operation
+== probe: laws with the most strict-NE cases (top 25)
+loopCaParamReadKeepsLiteral116 96 of 123
+nestedGenProcLhsKeepsRef116 74 of 74
+badConcatOperandsFromSyntax160 71 of 71
+genCaOpFoldElabTs115 68 of 68
+tpPackedArrayTsVar108 58 of 73
+tpElemRebindElabPort110 57 of 61
+pvExprDefaultFold115 48 of 50
+portViewRangeRecvParams 46 of 55
+typedPkgBoundElabSize113 42 of 46
+srlgCondOpInstValueTernFold9 37 of 140
+caNestedModPortedDefShell101 36 of 38
+genLpIdxOpOperandFold112 31 of 34
+defPkgMemberTdOfNamedShares108 30 of 42
+pvRecvShadow115 30 of 32
+nestedParamActualTs6 29 of 41
+caIfacePortDeclNetMint93 28 of 35
+spVoidCastValue109 27 of 27
+sizeDimOvrChain4 26 of 31
+caTopNamesakeKeyAtEntry105 26 of 27
+impCopyConcatUnbound111 25 of 26
+defGenElemIpsVarSel112 25 of 26
+caIfaceNdaNameFoldsToParamValue88 25 of 37
+srlgUnvaluedActualLitRetFold8 23 of 98
+classTdLocalVarKindFollowsCompileOrder10 22 of 35
+caSelIdxOpFoldTs112 21 of 24
+probe NE cases in clusters fully COVERED: 625 of 2375
+== realistic yields (use-site fullname objects split out as RESIDUE)
+residue objects: {'fullname': 258936, 'typespec-span': 28994}
+rows touched by the typespec-span residue: 28
+rows touched by RESIDUE: 283 tests 162
+both pairs landed (realistic): 297 149
+  r11u124 alone (realistic): 146 72
+  r11u125 alone (realistic): 136 69
+greedy OPEN families on top (realistic):
+  1 G17 317 158 FILE-EXTRA|logic_net
+  2 G09 335 167 SPAN|struct_typespec
+  3 G12 352 176 STRUCT-SHARE|golden|logic_net
+  4 G20 371 186 STRUCT-SHARE|ours|logic_net
+  5 G04 390 196 FULLNAME|ref_obj|tok
+  6 G38 401 201 FULLNAME|parameter|tok
+  7 G03 411 206 SPAN|ref_obj
+  8 G13 421 211 SPAN|operation
+  9 G28 429 215 FULLNAME|bit_select|tok
+  10 G90 437 219 VALUE|parameter|value:empty->UINT
+  11 G11 443 221 SPAN|logic_typespec
+  12 G31 449 224 SPAN|hier_path
+  13 G46 455 227 VALUE|constant|value:REAL->REAL
+  14 G91 461 230 SPAN|indexed_part_select
+  15 G23 466 233 SPAN|assignment
+  16 G27 471 235 SPAN|func_call
+  17 G05 475 237 SPAN|constant
+  18 G19 481 240 SPAN|sys_func_call
+  19 G35 487 243 SPAN|bit_select
+  20 G26 491 245 SPAN|begin
+every cluster fixed, residue kept: 684 338 (of 967 rows)
+residue alone blocks rows: 283
+  surelog default: NE 213; pairs landed 67; everything but residue 160
+  surelog testflags: NE 220; pairs landed 58; everything but residue 136
+  uhdm2rtlil default: NE 267; pairs landed 86; everything but residue 194
+  uhdm2rtlil testflags: NE 267; pairs landed 86; everything but residue 194

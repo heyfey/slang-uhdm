@@ -1,0 +1,102 @@
+cluster K0042: fullname|ref_obj|tok:::id::->.@in-typespec|under:operation
+row: uhdm2rtlil/testflags/ibex_branch_predict  strict=differ:fullname(112)  records golden=9091 ours=9024
+object: #357 (golden) / #357 (ours)  type=ref_obj name=LfsrWidth
+  golden: ibex_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t::LfsrWidth
+  ours:   ibex_pkg::RndCnstLfsrSeedDefault.LfsrWidth
+  walk parents: operation < range < logic_typespec(lfsr_seed_t) < ref_typespec
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 345..368 ('>' = the object)
+  #345	5	ref_typespec			ibex_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t		0	0	0	0		0		
+  #346	6	logic_typespec	ibex_pkg::lfsr_seed_t			ibex_pkg.sv	720	11	720	32				
+  #347	7	range				ibex_pkg.sv	720	17	720	32				
+  #348	8	operation				ibex_pkg.sv	720	18	720	29		0		
+  #349	9	ref_obj	LfsrWidth		ibex_pkg::ibex_pkg::lfsr_seed_t::LfsrWidth	ibex_pkg.sv	720	18	720	27		0		
+  #350	10	constant				ibex_pkg.sv	719	29	719	31	32	64	UINT:32	9
+  #351	11	ref_typespec			ibex_pkg		0	0	0	0		0		
+  #352	12	int_typespec				ibex_pkg.sv	719	13	719	16				
+  #353	9	constant				ibex_pkg.sv	720	28	720	29	1	64	UINT:1	9
+  #354	8	constant				ibex_pkg.sv	720	30	720	31	0	64	UINT:0	9
+  #355	5	range				ibex_pkg.sv	720	17	720	32				
+  #356	6	operation				ibex_pkg.sv	720	18	720	29		0		
+> #357	7	ref_obj	LfsrWidth		ibex_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t::LfsrWidth	ibex_pkg.sv	720	18	720	27		0		
+  #358	7	constant				ibex_pkg.sv	720	28	720	29	1	64	UINT:1	9
+  #359	6	constant				ibex_pkg.sv	720	30	720	31	0	64	UINT:0	9
+  #360	2	parameter	RndCnstLfsrPermDefault		ibex_pkg::RndCnstLfsrPermDefault	ibex_pkg.sv	723	25	723	47		0		
+  #361	3	ref_typespec			ibex_pkg::RndCnstLfsrPermDefault		0	0	0	0		0		
+  #362	4	logic_typespec	lfsr_perm_t			ibex_pkg.sv	721	11	721	55				
+  #363	5	ref_typespec			ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t		0	0	0	0		0		
+  #364	6	logic_typespec	ibex_pkg::lfsr_perm_t			ibex_pkg.sv	721	11	721	55				
+  #365	7	range				ibex_pkg.sv	721	17	721	32				
+  #366	8	operation				ibex_pkg.sv	721	18	721	29		0		
+  #367	9	ref_obj	LfsrWidth		ibex_pkg::ibex_pkg::lfsr_perm_t::LfsrWidth	ibex_pkg.sv	721	18	721	27		0		
+  #368	10	constant				ibex_pkg.sv	719	29	719	31	32	64	UINT:32	9
+
+--- OURS (B) records 345..368 ('>' = the object)
+  #345	5	ref_typespec			ibex_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t		0	0	0	0		0		
+  #346	6	logic_typespec	ibex_pkg::lfsr_seed_t			ibex_pkg.sv	720	11	720	32				
+  #347	7	range				ibex_pkg.sv	720	17	720	32				
+  #348	8	operation				ibex_pkg.sv	720	18	720	29		0		
+  #349	9	ref_obj	LfsrWidth		ibex_pkg::ibex_pkg::lfsr_seed_t::LfsrWidth	ibex_pkg.sv	720	18	720	27		0		
+  #350	10	constant				ibex_pkg.sv	719	29	719	31	32	64	UINT:32	9
+  #351	11	ref_typespec			ibex_pkg		0	0	0	0		0		
+  #352	12	int_typespec				ibex_pkg.sv	719	13	719	16				
+  #353	9	constant				ibex_pkg.sv	720	28	720	29	1	64	UINT:1	9
+  #354	8	constant				ibex_pkg.sv	720	30	720	31	0	64	UINT:0	9
+  #355	5	range				ibex_pkg.sv	720	17	720	32				
+  #356	6	operation				ibex_pkg.sv	720	18	720	29		0		
+> #357	7	ref_obj	LfsrWidth		ibex_pkg::RndCnstLfsrSeedDefault.LfsrWidth	ibex_pkg.sv	720	18	720	27		0		
+  #358	7	constant				ibex_pkg.sv	720	28	720	29	1	64	UINT:1	9
+  #359	6	constant				ibex_pkg.sv	720	30	720	31	0	64	UINT:0	9
+  #360	2	parameter	RndCnstLfsrPermDefault		ibex_pkg::RndCnstLfsrPermDefault	ibex_pkg.sv	723	25	723	47		0		
+  #361	3	ref_typespec			ibex_pkg::RndCnstLfsrPermDefault		0	0	0	0		0		
+  #362	4	logic_typespec	lfsr_perm_t			ibex_pkg.sv	721	11	721	55				
+  #363	5	ref_typespec			ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t		0	0	0	0		0		
+  #364	6	logic_typespec	ibex_pkg::lfsr_perm_t			ibex_pkg.sv	721	11	721	55				
+  #365	7	range				ibex_pkg.sv	721	17	721	32				
+  #366	8	operation				ibex_pkg.sv	721	18	721	29		0		
+  #367	9	ref_obj	LfsrWidth		ibex_pkg::ibex_pkg::lfsr_perm_t::LfsrWidth	ibex_pkg.sv	721	18	721	27		0		
+  #368	10	constant				ibex_pkg.sv	719	29	719	31	32	64	UINT:32	9
+
+all facets of this row (217):
+  K0005 #5542/-1 parameter PmpCfgRst G[43 objs] O[]
+  K0005 #5603/-1 parameter PmpAddrRst G[24 objs] O[]
+  K0042 #357/357 ref_obj LfsrWidth G[ibex_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t::LfsrWidth] O[ibex_pkg::RndCnstLfsrSeedDefault.LfsrWidth]
+  K0042 #384/384 ref_obj LfsrWidth G[ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth] O[ibex_pkg::RndCnstLfsrPermDefault.LfsrWidth]
+  K0030 #398/398 ref_obj SCRAMBLE_KEY_W G[ibex_pkg::RndCnstIbexKeyDefault::SCRAMBLE_KEY_W] O[ibex_pkg::RndCnstIbexKeyDefault.SCRAMBLE_KEY_W]
+  K0030 #409/409 ref_obj SCRAMBLE_NONCE_W G[ibex_pkg::RndCnstIbexNonceDefault::SCRAMBLE_NONCE_W] O[ibex_pkg::RndCnstIbexNonceDefault.SCRAMBLE_NONCE_W]
+  K0042 #433/433 ref_obj IbexMuBiWidth G[ibex_pkg::IbexMuBiOn::ibex_mubi_t::IbexMuBiWidth] O[ibex_pkg::IbexMuBiOn.IbexMuBiWidth]
+  K0042 #451/451 ref_obj IbexMuBiWidth G[ibex_pkg::IbexMuBiOff::ibex_mubi_t::IbexMuBiWidth] O[ibex_pkg::IbexMuBiOff.IbexMuBiWidth]
+  K0042 #914/914 ref_obj LfsrWidth G[ibex_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t::LfsrWidth] O[ibex_pkg::RndCnstLfsrSeedDefault.LfsrWidth]
+  K0030 #926/926 ref_obj SCRAMBLE_KEY_W G[ibex_pkg::RndCnstIbexKeyDefault::SCRAMBLE_KEY_W] O[ibex_pkg::RndCnstIbexKeyDefault.SCRAMBLE_KEY_W]
+  K0030 #935/935 ref_obj SCRAMBLE_NONCE_W G[ibex_pkg::RndCnstIbexNonceDefault::SCRAMBLE_NONCE_W] O[ibex_pkg::RndCnstIbexNonceDefault.SCRAMBLE_NONCE_W]
+  K0042 #955/955 ref_obj IbexMuBiWidth G[ibex_pkg::IbexMuBiOn::ibex_mubi_t::IbexMuBiWidth] O[ibex_pkg::IbexMuBiOn.IbexMuBiWidth]
+  K0042 #971/971 ref_obj IbexMuBiWidth G[ibex_pkg::IbexMuBiOff::ibex_mubi_t::IbexMuBiWidth] O[ibex_pkg::IbexMuBiOff.IbexMuBiWidth]
+  K0021 #2174/2174 parameter BUS_BYTES G[|0|INT:4|] O[|0|UINT:4|]
+  K0021 #2189/2189 parameter IC_LINE_BYTES G[|0|INT:8|] O[|0|UINT:8|]
+  K0021 #2195/2195 parameter IC_NUM_LINES G[|0|INT:256|] O[|0|UINT:256|]
+  K0021 #2198/2198 parameter IC_LINE_BEATS G[|0|INT:2|] O[|0|UINT:2|]
+  K0021 #2207/2207 parameter IC_INDEX_HI G[|0|INT:10|] O[|0|UINT:10|]
+  K0021 #2210/2210 parameter IC_TAG_SIZE G[|0|INT:22|] O[|0|UINT:22|]
+  K0021 #2213/2213 parameter IC_OUTPUT_BEATS G[|0|INT:2|] O[|0|UINT:2|]
+  K0008 #2402/2402 ref_typespec  G[work@ibex_branch_predict.ibex_pkg::pmp_cfg_t.lock] O[ibex_pkg::ibex_pkg::pmp_cfg_t::lock]
+  K0008 #2405/2405 ref_typespec  G[work@ibex_branch_predict.ibex_pkg::pmp_cfg_t.mode] O[ibex_pkg::ibex_pkg::pmp_cfg_t::mode]
+  K0009 #2407/2407 ref_typespec  G[work@ibex_branch_predict.ibex_pkg::pmp_cfg_mode_e] O[ibex_pkg::ibex_pkg::pmp_cfg_mode_e]
+  K0008 #2417/2417 ref_typespec  G[work@ibex_branch_predict.ibex_pkg::pmp_cfg_t.exec] O[ibex_pkg::ibex_pkg::pmp_cfg_t::exec]
+  K0008 #2420/2420 ref_typespec  G[work@ibex_branch_predict.ibex_pkg::pmp_cfg_t.write] O[ibex_pkg::ibex_pkg::pmp_cfg_t::write]
+  K0008 #2423/2423 ref_typespec  G[work@ibex_branch_predict.ibex_pkg::pmp_cfg_t.read] O[ibex_pkg::ibex_pkg::pmp_cfg_t::read]
+  K0022 #2446/2446 ref_typespec  G[] O[ibex_pkg::PmpAddrRst]
+  K0076 #3901/3901 parameter BUS_BYTES G[|0|INT:4|] O[|0||]
+  K0015 #3907/3907 parameter BUS_W G[|0|UINT:2|] O[|0||]
+  K0076 #4165/4165 parameter IC_INDEX_HI G[|0|INT:10|] O[|0||]
+  K0015 #4168/4168 parameter IC_INDEX_W G[|0|UINT:8|] O[|0||]
+  K0076 #4171/4171 parameter IC_LINE_BEATS G[|0|INT:2|] O[|0||]
+  K0015 #4174/4174 parameter IC_LINE_BEATS_W G[|0|UINT:1|] O[|0||]
+  K0076 #4177/4177 parameter IC_LINE_BYTES G[|0|INT:8|] O[|0||]
+  K0015 #4183/4183 parameter IC_LINE_W G[|0|UINT:3|] O[|0||]
+  K0076 #4186/4186 parameter IC_NUM_LINES G[|0|INT:256|] O[|0||]
+  K0076 #4192/4192 parameter IC_OUTPUT_BEATS G[|0|INT:2|] O[|0||]
+  K0076 #4201/4201 parameter IC_TAG_SIZE G[|0|INT:22|] O[|0||]
+  K0004 #4290/4290 ref_typespec  G[work@ibex_branch_predict.PmpCfgRst.ibex_pkg::pmp_cfg_t.lock] O[work@ibex_branch_predict.ibex_pkg::pmp_cfg_t.lock]
+  K0004 #4293/4293 ref_typespec  G[work@ibex_branch_predict.PmpCfgRst.ibex_pkg::pmp_cfg_t.mode] O[work@ibex_branch_predict.ibex_pkg::pmp_cfg_t.mode]
+  ... 177 more

@@ -1,0 +1,96 @@
+cluster K0568: struct|ours-only:fewer-copies|enum_var|under:ref_obj
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(346)  records golden=201533 ours=201486
+object: #-1 (golden) / #17540 (ours)  type=enum_var name=m_uvm_core_state
+  golden: 
+  ours:   15 objs
+  walk parents: ref_obj(m_uvm_core_state) < assignment < begin < task(uvm_phase::m_run_phases)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- OURS (B) records 17528..17551 ('>' = the object)
+  #17528	5	class_var	ph		uvm_pkg::uvm_phase::m_run_phases::ph	uvm_pkg.sv	35205	15	35205	17		0		
+  #17529	6	ref_typespec			uvm_pkg::uvm_phase::m_run_phases::ph		0	0	0	0		0		
+  #17530	7	class_typespec				uvm_pkg.sv	35205	5	35205	14				
+  #17531	5	assignment				uvm_pkg.sv	35205	15	35205	51				
+  #17532	6	ref_obj	uvm_domain::get_common_domain		uvm_pkg::uvm_phase::m_run_phases::uvm_domain::get_common_domain	uvm_pkg.sv	35205	20	35205	32		0		
+  #17533	5	method_func_call	try_put			uvm_pkg.sv	35206	26	35206	33		0		
+  #17534	6	ref_obj	ph		uvm_pkg::uvm_phase::m_run_phases::ph	uvm_pkg.sv	35206	34	35206	36		0		
+  #17535	6	ref_obj	m_phase_hopper		uvm_pkg::uvm_phase::m_run_phases::m_phase_hopper	uvm_pkg.sv	35206	11	35206	25		0		
+  #17536	4	assignment				uvm_pkg.sv	35209	3	35209	36				
+  #17537	5	ref_obj	UVM_CORE_RUNNING		uvm_pkg::uvm_phase::m_run_phases::UVM_CORE_RUNNING	uvm_pkg.sv	35209	20	35209	36		0		
+  #17538	6	enum_const	UVM_CORE_RUNNING			uvm_pkg.sv	8496	2	8496	18				
+  #17539	5	ref_obj	m_uvm_core_state		uvm_pkg::uvm_phase::m_run_phases::m_uvm_core_state	uvm_pkg.sv	35209	3	35209	19		0		
+> #17540	6	enum_var	m_uvm_core_state		uvm_pkg::m_uvm_core_state	uvm_pkg.sv	8503	16	8503	32		0		
+  #17541	7	ref_typespec			uvm_pkg::m_uvm_core_state		0	0	0	0		0		
+  #17542	8	enum_typespec	uvm_pkg::uvm_core_state			uvm_pkg.sv	8490	1	8501	18				
+  #17543	9	enum_const	UVM_CORE_UNINITIALIZED			uvm_pkg.sv	8491	2	8491	24				
+  #17544	9	enum_const	UVM_CORE_PRE_INIT			uvm_pkg.sv	8492	9	8492	26				
+  #17545	9	enum_const	UVM_CORE_INITIALIZING			uvm_pkg.sv	8493	9	8493	30				
+  #17546	9	enum_const	UVM_CORE_INITIALIZED			uvm_pkg.sv	8494	2	8494	22				
+  #17547	9	enum_const	UVM_CORE_PRE_RUN			uvm_pkg.sv	8495	2	8495	18				
+  #17548	9	enum_const	UVM_CORE_RUNNING			uvm_pkg.sv	8496	2	8496	18				
+  #17549	9	enum_const	UVM_CORE_POST_RUN			uvm_pkg.sv	8497	2	8497	19				
+  #17550	9	enum_const	UVM_CORE_FINISHED			uvm_pkg.sv	8498	2	8498	19				
+  #17551	9	enum_const	UVM_CORE_PRE_ABORT			uvm_pkg.sv	8499	2	8499	20				
+
+--- the holder #17539 in the other side: exact-record matches at [17541]
+  #17537	6	ref_obj	m_phase_hopper		uvm_pkg::uvm_phase::m_run_phases::m_phase_hopper	uvm_pkg.sv	35206	11	35206	25		0		
+  #17538	4	assignment				uvm_pkg.sv	35209	3	35209	36				
+  #17539	5	ref_obj	UVM_CORE_RUNNING		uvm_pkg::uvm_phase::m_run_phases::UVM_CORE_RUNNING	uvm_pkg.sv	35209	20	35209	36		0		
+  #17540	6	enum_const	UVM_CORE_RUNNING			uvm_pkg.sv	8496	2	8496	18				
+> #17541	5	ref_obj	m_uvm_core_state		uvm_pkg::uvm_phase::m_run_phases::m_uvm_core_state	uvm_pkg.sv	35209	3	35209	19		0		
+  #17542	4	forever_stmt				uvm_pkg.sv	35210	3	35210	10				
+  #17543	5	begin			uvm_pkg::uvm_phase::m_run_phases	uvm_pkg.sv	35210	11	35219	6				
+  #17544	6	class_var	phase		uvm_pkg::uvm_phase::m_run_phases::phase	uvm_pkg.sv	35211	15	35211	20		0		
+  #17545	7	ref_typespec			uvm_pkg::uvm_phase::m_run_phases::phase		0	0	0	0		0		
+  #17546	8	class_typespec				uvm_pkg.sv	35211	5	35211	14				
+  #17547	6	method_func_call	get			uvm_pkg.sv	35212	20	35212	23		0		
+  #17548	7	ref_obj	phase		uvm_pkg::uvm_phase::m_run_phases::phase	uvm_pkg.sv	35212	24	35212	29		0		
+  #17549	7	ref_obj	m_phase_hopper		uvm_pkg::uvm_phase::m_run_phases::m_phase_hopper	uvm_pkg.sv	35212	5	35212	19		0		
+  #17550	6	fork_stmt			uvm_pkg::uvm_phase::m_run_phases	uvm_pkg.sv	35213	5	35217	14				
+  #17551	7	begin			uvm_pkg::uvm_phase::m_run_phases	uvm_pkg.sv	35214	7	35216	10				
+  #17552	8	method_func_call	execute_phase			uvm_pkg.sv	35215	15	35215	28		0		
+  #17553	9	ref_obj	phase		uvm_pkg::uvm_phase::m_run_phases::phase	uvm_pkg.sv	35215	9	35215	14		0		
+  #17554	6	delay_control				uvm_pkg.sv	35218	5	35218	7				
+
+all facets of this row (12107):
+  K0325 #11992/-1 ref_typespec  G[2 objs] O[]
+  K0568 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  K0288 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/22519 bit_typespec  G[] O[1 objs]
+  K0288 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/22603 bit_typespec  G[] O[1 objs]
+  K0288 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/23516 bit_typespec  G[] O[1 objs]
+  K0585 #-1/56203 ref_typespec  G[] O[2 objs]
+  K0558 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  K0247 #-1/74758 bit_typespec  G[] O[1 objs]
+  K0558 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  K0247 #-1/74841 bit_typespec  G[] O[1 objs]
+  K0288 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76348 bit_typespec  G[] O[1 objs]
+  K0288 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76369 bit_typespec  G[] O[1 objs]
+  K0288 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76429 bit_typespec  G[] O[1 objs]
+  K0288 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/79792 bit_typespec  G[] O[1 objs]
+  K0268 #79836/-1 string_typespec  G[1 objs] O[]
+  K0624 #-1/79803 array_typespec  G[] O[1 objs]
+  K0268 #79890/-1 string_typespec  G[1 objs] O[]
+  K0624 #-1/79857 array_typespec  G[] O[1 objs]
+  K0288 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/79876 bit_typespec  G[] O[1 objs]
+  K0288 #80868/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/80829 bit_typespec  G[] O[1 objs]
+  K0229 #96958/96911 bit_typespec  G[8 ref_typespec < enum_typespec(uvm_pkg::uvm_active_passive_enum)] O[6 ref_typespec < enum_var]
+  K0288 #96956/-1 enum_typespec uvm_pkg::uvm_active_passive_enum G[2 objs] O[]
+  K0241 #97010/-1 bit_typespec  G[1 objs] O[]
+  K0208 #118186/-1 range  G[5 objs] O[]
+  K0265 #118191/-1 ref_typespec  G[2 objs] O[]
+  K0265 #118193/-1 ref_typespec  G[2 objs] O[]
+  K0208 #118234/-1 range  G[5 objs] O[]
+  K0265 #118239/-1 ref_typespec  G[2 objs] O[]
+  K0265 #118241/-1 ref_typespec  G[2 objs] O[]
+  K0208 #118303/-1 range  G[5 objs] O[]
+  K0265 #118308/-1 ref_typespec  G[2 objs] O[]
+  ... 12067 more

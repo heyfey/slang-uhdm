@@ -12288,6 +12288,7 @@ lists it under the law).
 | r11u123canon |  |  | 0 | 22 |
 | r11u126laws |  |  | 0 | 0 |
 | r11u127laws |  | `adjustSize` `asmEncFollowsRef` `evalReachedCallees` `genCaDrivenOpenerIsGenLocalOnly` `genLpCaSharedBareTs` `ifaceArrayElemViewFoldsDefault` `ifaceIfaceTypedPortOrder` `ifacePortViewParamAssignsOnly` `memSelAsmBaseOv` `modEvalFuncLeftoverEnc` `pkgBoundFoldBareImport` `portViewRangeRecvParams` `structParamMemberOvBinary` `wholeWriteIsNotTheDiscriminatorForANET` | 0 | 0 |
+| r11u128map |  |  | 0 | 0 |
 | r11u12repro |  |  | 0 | 0 |
 | r11u13repro |  |  | 2 | 7 |
 | r11u14repro |  |  | 6 | 4 |

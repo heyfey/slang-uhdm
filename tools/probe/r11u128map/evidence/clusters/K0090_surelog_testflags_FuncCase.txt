@@ -1,0 +1,69 @@
+cluster K0090: span|enum_typespec|line+col+endline+endcol|under:ref_typespec
+row: surelog/testflags/FuncCase  strict=differ:line(8)  records golden=231 ours=231
+object: #18 (golden) / #18 (ours)  type=enum_typespec name=fpnew_pkg::opgroup_e
+  golden: 7:46:7:55
+  ours:   2:1:4:15
+  walk parents: ref_typespec < io_decl(grp) < function(num_operands) < package(fpnew_pkg)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 6..29 ('>' = the object)
+  #6	6	constant				dut.sv	2	21	2	22	1	64	UINT:1	9
+  #7	6	constant				dut.sv	2	23	2	24	0	64	UINT:0	9
+  #8	3	enum_const	ADDMUL			dut.sv	3	5	3	11				
+  #9	3	enum_const	DIVSQRT			dut.sv	3	13	3	20				
+  #10	3	enum_const	NONCOMP			dut.sv	3	22	3	29				
+  #11	3	enum_const	CONV			dut.sv	3	31	3	35				
+  #12	2	function	num_operands		fpnew_pkg::num_operands	dut.sv	7	1	15	14				
+  #13	3	int_var			fpnew_pkg::num_operands	dut.sv	7	20	7	32		0		
+  #14	4	ref_typespec			fpnew_pkg::num_operands		0	0	0	0		0		
+  #15	5	int_typespec				dut.sv	7	20	7	32				
+  #16	3	io_decl	grp			dut.sv	7	56	7	59				
+  #17	4	ref_typespec			fpnew_pkg::num_operands::grp		0	0	0	0		0		
+> #18	5	enum_typespec	fpnew_pkg::opgroup_e			dut.sv	7	46	7	55				
+  #19	6	ref_typespec			fpnew_pkg::fpnew_pkg::opgroup_e		0	0	0	0		0		
+  #20	7	logic_typespec				dut.sv	2	14	2	25				
+  #21	8	range				dut.sv	2	20	2	25				
+  #22	9	constant				dut.sv	2	21	2	22	1	64	UINT:1	9
+  #23	9	constant				dut.sv	2	23	2	24	0	64	UINT:0	9
+  #24	6	enum_const	ADDMUL			dut.sv	3	5	3	11				
+  #25	6	enum_const	DIVSQRT			dut.sv	3	13	3	20				
+  #26	6	enum_const	NONCOMP			dut.sv	3	22	3	29				
+  #27	6	enum_const	CONV			dut.sv	3	31	3	35				
+  #28	3	case_stmt				dut.sv	8	5	14	12				
+  #29	4	ref_obj	grp		fpnew_pkg::num_operands::grp	dut.sv	8	18	8	21		0		
+
+--- OURS (B) records 6..29 ('>' = the object)
+  #6	6	constant				dut.sv	2	21	2	22	1	64	UINT:1	9
+  #7	6	constant				dut.sv	2	23	2	24	0	64	UINT:0	9
+  #8	3	enum_const	ADDMUL			dut.sv	3	5	3	11				
+  #9	3	enum_const	DIVSQRT			dut.sv	3	13	3	20				
+  #10	3	enum_const	NONCOMP			dut.sv	3	22	3	29				
+  #11	3	enum_const	CONV			dut.sv	3	31	3	35				
+  #12	2	function	num_operands		fpnew_pkg::num_operands	dut.sv	7	1	15	14				
+  #13	3	int_var			fpnew_pkg::num_operands	dut.sv	7	20	7	32		0		
+  #14	4	ref_typespec			fpnew_pkg::num_operands		0	0	0	0		0		
+  #15	5	int_typespec				dut.sv	7	20	7	32				
+  #16	3	io_decl	grp			dut.sv	7	56	7	59				
+  #17	4	ref_typespec			fpnew_pkg::num_operands::grp		0	0	0	0		0		
+> #18	5	enum_typespec	fpnew_pkg::opgroup_e			dut.sv	2	1	4	15				
+  #19	6	ref_typespec			fpnew_pkg::fpnew_pkg::opgroup_e		0	0	0	0		0		
+  #20	7	logic_typespec				dut.sv	2	14	2	25				
+  #21	8	range				dut.sv	2	20	2	25				
+  #22	9	constant				dut.sv	2	21	2	22	1	64	UINT:1	9
+  #23	9	constant				dut.sv	2	23	2	24	0	64	UINT:0	9
+  #24	6	enum_const	ADDMUL			dut.sv	3	5	3	11				
+  #25	6	enum_const	DIVSQRT			dut.sv	3	13	3	20				
+  #26	6	enum_const	NONCOMP			dut.sv	3	22	3	29				
+  #27	6	enum_const	CONV			dut.sv	3	31	3	35				
+  #28	3	case_stmt				dut.sv	8	5	14	12				
+  #29	4	ref_obj	grp		fpnew_pkg::num_operands::grp	dut.sv	8	18	8	21		0		
+
+all facets of this row (8):
+  K0117 #2/2 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  K0090 #18/18 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  K0117 #54/54 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  K0090 #70/70 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  K0543 #112/112 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  K0090 #130/130 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  K0543 #175/175 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  K0090 #193/193 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]

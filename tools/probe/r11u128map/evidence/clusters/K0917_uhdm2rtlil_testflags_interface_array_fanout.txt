@@ -1,0 +1,68 @@
+cluster K0917: fullname|parameter|tok:id->id.id.id[n]|under:param_assign
+row: uhdm2rtlil/testflags/interface_array_fanout  strict=differ:fullname(3)  records golden=815 ours=824
+object: #576 (golden) / #576 (ours)  type=parameter name=W
+  golden: work@myif.W
+  ours:   work@dut.f.m[0].W
+  walk parents: param_assign < interface_inst(m[0]) < interface_array(m) < ref_obj
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 564..587 ('>' = the object)
+  #564	8	ref_typespec			work@dut.f.m[0].vld		0	0	0	0		0		
+  #565	9	logic_typespec				dut.sv	5	3	5	8				
+  #566	7	logic_var	dat		work@dut.f.m[0].dat	dut.sv	6	17	6	20		0		
+  #567	8	ref_typespec			work@dut.f.m[0].dat		0	0	0	0		0		
+  #568	9	logic_typespec				dut.sv	6	3	6	16				
+  #569	10	range				dut.sv	6	9	6	16				
+  #570	11	constant				dut.sv	6	10	6	11	7	64	INT:7	7
+  #571	11	constant				dut.sv	6	14	6	15	0	64	UINT:0	9
+  #572	7	param_assign				dut.sv	4	32	4	37				
+  #573	8	constant				dut.sv	4	36	4	37	8	32	UINT:8	9
+  #574	9	ref_typespec			work@dut.f.m[0]		0	0	0	0		0		
+  #575	10	int_typespec				dut.sv	4	28	4	31				
+> #576	8	parameter	W		work@myif.W	dut.sv	4	32	4	33		0	UINT:8	
+  #577	9	ref_typespec			work@myif.W		0	0	0	0		0		
+  #578	10	int_typespec				dut.sv	4	28	4	31				
+  #579	7	modport	man			dut.sv	7	11	7	14				
+  #580	8	io_decl	clk			dut.sv	7	22	7	25				
+  #581	9	logic_net	clk		work@dut.f.m[0].man.clk.clk	dut.sv	4	52	4	55		0		
+  #582	10	ref_typespec			work@dut.f.m[0].man.clk.clk		0	0	0	0		0		
+  #583	11	logic_typespec				dut.sv	4	46	4	51				
+  #584	8	io_decl	rst			dut.sv	7	33	7	36				
+  #585	9	logic_net	rst		work@dut.f.m[0].man.rst.rst	dut.sv	4	69	4	72		0		
+  #586	10	ref_typespec			work@dut.f.m[0].man.rst.rst		0	0	0	0		0		
+  #587	11	logic_typespec				dut.sv	4	63	4	68				
+
+--- OURS (B) records 564..587 ('>' = the object)
+  #564	8	ref_typespec			work@dut.f.m[0].vld		0	0	0	0		0		
+  #565	9	logic_typespec				dut.sv	5	3	5	8				
+  #566	7	logic_var	dat		work@dut.f.m[0].dat	dut.sv	6	17	6	20		0		
+  #567	8	ref_typespec			work@dut.f.m[0].dat		0	0	0	0		0		
+  #568	9	logic_typespec				dut.sv	6	3	6	16				
+  #569	10	range				dut.sv	6	9	6	16				
+  #570	11	constant				dut.sv	6	10	6	11	7	64	INT:7	7
+  #571	11	constant				dut.sv	6	14	6	15	0	64	UINT:0	9
+  #572	7	param_assign				dut.sv	4	32	4	37				
+  #573	8	constant				dut.sv	4	36	4	37	8	32	UINT:8	9
+  #574	9	ref_typespec			work@dut.f.m[0]		0	0	0	0		0		
+  #575	10	int_typespec				dut.sv	4	28	4	31				
+> #576	8	parameter	W		work@dut.f.m[0].W	dut.sv	4	32	4	33		0	UINT:8	
+  #577	9	ref_typespec			work@dut.f.m[0].W		0	0	0	0		0		
+  #578	10	int_typespec				dut.sv	4	28	4	31				
+  #579	7	modport	man			dut.sv	7	11	7	14				
+  #580	8	io_decl	clk			dut.sv	7	22	7	25				
+  #581	9	logic_net	clk		work@dut.f.m[0].man.clk.clk	dut.sv	4	52	4	55		0		
+  #582	10	ref_typespec			work@dut.f.m[0].man.clk.clk		0	0	0	0		0		
+  #583	11	logic_typespec				dut.sv	4	46	4	51				
+  #584	8	io_decl	rst			dut.sv	7	33	7	36				
+  #585	9	logic_net	rst		work@dut.f.m[0].man.rst.rst	dut.sv	4	69	4	72		0		
+  #586	10	ref_typespec			work@dut.f.m[0].man.rst.rst		0	0	0	0		0		
+  #587	11	logic_typespec				dut.sv	4	63	4	68				
+
+all facets of this row (7):
+  K0591 #-1/612 parameter W G[] O[3 objs]
+  K0591 #-1/732 parameter W G[] O[3 objs]
+  K0631 #-1/799 ref_typespec  G[] O[2 objs]
+  K0591 #-1/801 parameter W G[] O[1 objs]
+  K0917 #576/576 parameter W G[work@myif.W] O[work@dut.f.m[0].W]
+  K0918 #577/577 ref_typespec  G[work@myif.W] O[work@dut.f.m[0].W]
+  K0026 #793/802 ref_typespec  G[work@dut.c1.b] O[work@dut.c1.b.W]

@@ -1,0 +1,96 @@
+cluster K0218: struct|golden-only:fewer-copies|ref_typespec|under:parameter
+row: surelog/default/Scoreboard  strict=differ:line(276)  records golden=269656 ours=268952
+object: #78641 (golden) / #-1 (ours)  type=ref_typespec name=
+  golden: 2 objs
+  ours:   
+  walk parents: parameter(UVM_CHECK_FIELDS) < ref_obj(UVM_CHECK_FIELDS) < func_call(__m_uvm_field_automation) < begin
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 78629..78652 ('>' = the object)
+  #78629	6	int_typespec				uvm_component.svh	3162	3	3162	15				
+  #78630	4	io_decl	verbose			uvm_component.svh	3154	57	3154	64				
+  #78631	5	constant				uvm_component.svh	3154	65	3154	66	0	64	UINT:0	9
+  #78632	5	ref_typespec			uvm_pkg::uvm_component::apply_config_settings::verbose		0	0	0	0		0		
+  #78633	6	bit_typespec				uvm_component.svh	3154	53	3154	56				
+  #78634	4	begin			uvm_pkg::uvm_component::apply_config_settings	uvm_component.svh	3157	3	3157	36				
+  #78635	5	assignment				uvm_component.svh	3156	21	3156	50				
+  #78636	6	ref_obj	uvm_resource_pool::get		uvm_pkg::uvm_component::apply_config_settings::uvm_resource_pool::get	uvm_component.svh	3156	26	3156	45		0		
+  #78637	5	func_call	__m_uvm_field_automation			uvm_component.svh	3167	3	3167	56		0		
+  #78638	6	constant				uvm_component.svh	3167	29	3167	33	0	64	UINT:0	11
+  #78639	6	ref_obj	UVM_CHECK_FIELDS		uvm_pkg::uvm_component::apply_config_settings::UVM_CHECK_FIELDS	uvm_component.svh	3167	35	3167	51		0		
+  #78640	7	parameter	UVM_CHECK_FIELDS			uvm_object_globals.svh	209	11	209	27		0	UINT:131075	
+> #78641	8	ref_typespec			UVM_CHECK_FIELDS		0	0	0	0		0		
+  #78642	9	int_typespec				uvm_object_globals.svh	209	1	209	48				
+  #78643	6	constant				uvm_component.svh	3167	53	3167	55	""	0	STRING:	6
+  #78644	5	if_stmt				uvm_component.svh	3170	3	3171	12				
+  #78645	6	operation				uvm_component.svh	3170	7	3170	55		0		
+  #78646	7	hier_path	__m_uvm_status_container.field_array.size			uvm_component.svh	3170	7	3170	50		0		
+  #78647	8	ref_obj	__m_uvm_status_container			uvm_component.svh	3170	7	3170	31		0		
+  #78648	8	ref_obj	field_array			uvm_component.svh	3170	32	3170	43		0		
+  #78649	8	method_func_call	size			uvm_component.svh	3170	44	3170	48		0		
+  #78650	7	constant				uvm_component.svh	3170	54	3170	55	0	64	UINT:0	9
+  #78651	6	return_stmt				uvm_component.svh	3171	5	3171	11				
+  #78652	5	if_stmt				uvm_component.svh	3173	3	3174	75				
+
+--- the holder #78640 in the other side: exact-record matches at [78635]
+  #78631	6	ref_obj	uvm_resource_pool::get		uvm_pkg::uvm_component::apply_config_settings::uvm_resource_pool::get	uvm_component.svh	3156	26	3156	45		0		
+  #78632	5	func_call	__m_uvm_field_automation			uvm_component.svh	3167	3	3167	56		0		
+  #78633	6	constant				uvm_component.svh	3167	29	3167	33	0	64	UINT:0	11
+  #78634	6	ref_obj	UVM_CHECK_FIELDS		uvm_pkg::uvm_component::apply_config_settings::UVM_CHECK_FIELDS	uvm_component.svh	3167	35	3167	51		0		
+> #78635	7	parameter	UVM_CHECK_FIELDS			uvm_object_globals.svh	209	11	209	27		0	UINT:131075	
+  #78636	6	constant				uvm_component.svh	3167	53	3167	55	""	0	STRING:	6
+  #78637	5	if_stmt				uvm_component.svh	3170	3	3171	12				
+  #78638	6	operation				uvm_component.svh	3170	7	3170	55		0		
+  #78639	7	hier_path	__m_uvm_status_container.field_array.size			uvm_component.svh	3170	7	3170	50		0		
+  #78640	8	ref_obj	__m_uvm_status_container			uvm_component.svh	3170	7	3170	31		0		
+  #78641	8	ref_obj	field_array			uvm_component.svh	3170	32	3170	43		0		
+  #78642	8	method_func_call	size			uvm_component.svh	3170	44	3170	48		0		
+  #78643	7	constant				uvm_component.svh	3170	54	3170	55	0	64	UINT:0	9
+  #78644	6	return_stmt				uvm_component.svh	3171	5	3171	11				
+  #78645	5	if_stmt				uvm_component.svh	3173	3	3174	75				
+  #78646	6	ref_obj	verbose		uvm_pkg::uvm_component::apply_config_settings::verbose	uvm_component.svh	3173	6	3173	13		0		
+  #78647	6	func_call	uvm_report_info			uvm_component.svh	3174	5	3174	74		0		
+  #78648	7	constant				uvm_component.svh	3174	21	3174	29	"CFGAPL"	48	STRING:CFGAPL	6
+
+all facets of this row (45034):
+  K0453 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  K0453 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  K0453 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  K0325 #10185/-1 ref_typespec  G[2 objs] O[]
+  K0453 #-1/17766 class_var uvm_top G[] O[4 objs]
+  K0288 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/20931 bit_typespec  G[] O[1 objs]
+  K0288 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/21867 bit_typespec  G[] O[1 objs]
+  K0453 #-1/25781 class_var run_ph G[] O[3 objs]
+  K0378 #-1/63592 string_var svunit_version G[] O[4 objs]
+  K0288 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/74802 bit_typespec  G[] O[1 objs]
+  K0288 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/74823 bit_typespec  G[] O[1 objs]
+  K0288 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/74879 bit_typespec  G[] O[1 objs]
+  K0218 #78641/-1 ref_typespec  G[2 objs] O[]
+  K0268 #79148/-1 string_typespec  G[1 objs] O[]
+  K0624 #-1/79141 array_typespec  G[] O[1 objs]
+  K0288 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/79160 bit_typespec  G[] O[1 objs]
+  K0288 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/80136 bit_typespec  G[] O[1 objs]
+  K0218 #82230/-1 ref_typespec  G[2 objs] O[]
+  K0218 #82238/-1 ref_typespec  G[2 objs] O[]
+  K0218 #82246/-1 ref_typespec  G[2 objs] O[]
+  K0218 #82254/-1 ref_typespec  G[2 objs] O[]
+  K0218 #82262/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84649/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84653/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84656/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84659/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84663/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84666/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84669/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84672/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84676/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84679/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84682/-1 ref_typespec  G[2 objs] O[]
+  ... 44994 more

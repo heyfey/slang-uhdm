@@ -1,0 +1,63 @@
+cluster K0098: span|operation|endcol|under:param_assign
+row: uhdm2rtlil/testflags/assert_wide_const_cond  strict=differ:fullname(2)  records golden=123 ours=123
+object: #82 (golden) / #82 (ours)  type=operation name=
+  golden: 11:36:11:45
+  ours:   11:36:11:55
+  walk parents: param_assign < module_inst(work@assert_wide_const_cond) < design(work@assert_wide_const_cond)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 70..93 ('>' = the object)
+  #70	6	constant				dut.sv	18	32	18	51	"W must be nonzero"	136	STRING:W must be nonzero	6
+  #71	2	cont_assign				dut.sv	20	10	20	19				
+  #72	3	ref_obj	a_i		work@assert_wide_const_cond.a_i	dut.sv	20	16	20	19		0		
+  #73	3	ref_obj	o_o		work@assert_wide_const_cond.o_o	dut.sv	20	10	20	13		0		
+  #74	1	module_inst	work@assert_wide_const_cond	work@assert_wide_const_cond		dut.sv	10	1	21	10				
+  #75	2	parameter	Cfg		work@assert_wide_const_cond.Cfg	dut.sv	11	30	11	33		0		
+  #76	3	ref_typespec			work@assert_wide_const_cond.Cfg		0	0	0	0		0		
+  #77	4	struct_typespec	cfg_pkg::cfg_t			dut.sv	6	11	6	44				
+  #78	5	typespec_member	W			dut.sv	6	40	6	41				
+  #79	6	ref_typespec			work@assert_wide_const_cond.Cfg.cfg_pkg::cfg_t.W		0	0	0	0		0		
+  #80	7	int_typespec				dut.sv	6	27	6	39				
+  #81	2	param_assign				dut.sv	11	30	11	55				
+> #82	3	operation				dut.sv	11	36	11	45		0		
+  #83	4	ref_typespec			work@assert_wide_const_cond		0	0	0	0		0		
+  #84	5	struct_typespec	cfg_pkg::cfg_t			dut.sv	6	11	6	44				
+  #85	6	typespec_member	W			dut.sv	6	40	6	41				
+  #86	7	ref_typespec			work@assert_wide_const_cond.cfg_pkg::cfg_t.W		0	0	0	0		0		
+  #87	8	int_typespec				dut.sv	6	27	6	39				
+  #88	4	constant				dut.sv	7	38	7	43	32'd4	32	DEC:4	1
+  #89	2	logic_net	clk_i		work@assert_wide_const_cond.clk_i	dut.sv	13	17	13	22		0		
+  #90	3	ref_typespec			work@assert_wide_const_cond.clk_i		0	0	0	0		0		
+  #91	4	logic_typespec				dut.sv	13	11	13	16				
+  #92	2	logic_net	a_i		work@assert_wide_const_cond.a_i	dut.sv	14	17	14	20		0		
+  #93	3	ref_typespec			work@assert_wide_const_cond.a_i		0	0	0	0		0		
+
+--- OURS (B) records 70..93 ('>' = the object)
+  #70	6	constant				dut.sv	18	32	18	51	"W must be nonzero"	136	STRING:W must be nonzero	6
+  #71	2	cont_assign				dut.sv	20	10	20	19				
+  #72	3	ref_obj	a_i		work@assert_wide_const_cond.a_i	dut.sv	20	16	20	19		0		
+  #73	3	ref_obj	o_o		work@assert_wide_const_cond.o_o	dut.sv	20	10	20	13		0		
+  #74	1	module_inst	work@assert_wide_const_cond	work@assert_wide_const_cond		dut.sv	10	1	21	10				
+  #75	2	parameter	Cfg		work@assert_wide_const_cond.Cfg	dut.sv	11	30	11	33		0		
+  #76	3	ref_typespec			work@assert_wide_const_cond.Cfg		0	0	0	0		0		
+  #77	4	struct_typespec	cfg_pkg::cfg_t			dut.sv	6	11	6	44				
+  #78	5	typespec_member	W			dut.sv	6	40	6	41				
+  #79	6	ref_typespec			cfg_pkg::cfg_pkg::cfg_t::W		0	0	0	0		0		
+  #80	7	int_typespec				dut.sv	6	27	6	39				
+  #81	2	param_assign				dut.sv	11	30	11	55				
+> #82	3	operation				dut.sv	11	36	11	55		0		
+  #83	4	ref_typespec			work@assert_wide_const_cond		0	0	0	0		0		
+  #84	5	struct_typespec	cfg_pkg::cfg_t			dut.sv	6	11	6	44				
+  #85	6	typespec_member	W			dut.sv	6	40	6	41				
+  #86	7	ref_typespec			work@assert_wide_const_cond.cfg_pkg::cfg_t.W		0	0	0	0		0		
+  #87	8	int_typespec				dut.sv	6	27	6	39				
+  #88	4	constant				dut.sv	7	38	7	43	32'd4	32	DEC:4	1
+  #89	2	logic_net	clk_i		work@assert_wide_const_cond.clk_i	dut.sv	13	17	13	22		0		
+  #90	3	ref_typespec			work@assert_wide_const_cond.clk_i		0	0	0	0		0		
+  #91	4	logic_typespec				dut.sv	13	11	13	16				
+  #92	2	logic_net	a_i		work@assert_wide_const_cond.a_i	dut.sv	14	17	14	20		0		
+  #93	3	ref_typespec			work@assert_wide_const_cond.a_i		0	0	0	0		0		
+
+all facets of this row (2):
+  K0013 #79/79 ref_typespec  G[work@assert_wide_const_cond.Cfg.cfg_pkg::cfg_t.W] O[cfg_pkg::cfg_pkg::cfg_t::W]
+  K0098 #82/82 operation  G[11:36:11:45] O[11:36:11:55]

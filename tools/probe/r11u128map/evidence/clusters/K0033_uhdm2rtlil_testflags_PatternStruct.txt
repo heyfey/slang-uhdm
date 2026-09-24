@@ -1,0 +1,62 @@
+cluster K0033: fullname|ref_typespec|tok:->id@id.|under:typespec_member
+row: uhdm2rtlil/testflags/PatternStruct  strict=differ:file(2)  records golden=79 ours=79
+object: #68 (golden) / #68 (ours)  type=ref_typespec name=
+  golden: my_struct.word
+  ours:   work@top.my_struct.word
+  walk parents: typespec_member(word) < struct_typespec(my_struct) < ref_typespec < struct_net(s)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 56..78 ('>' = the object)
+  #56	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #57	4	logic_typespec				dut.sv	1	19	1	30				
+  #58	5	range				dut.sv	1	25	1	30				
+  #59	6	constant				dut.sv	1	26	1	27	7	64	UINT:7	9
+  #60	6	constant				dut.sv	1	28	1	29	0	64	UINT:0	9
+  #61	2	cont_assign				dut.sv	5	14	5	15				
+  #62	3	operation				dut.sv	5	18	5	30		0		
+  #63	4	constant				dut.sv	5	26	5	29	125	8	UINT:125	9
+  #64	3	struct_net	s		work@top.s	dut.sv	5	14	5	15		0		
+  #65	4	ref_typespec			work@top.s		0	0	0	0		0		
+  #66	5	struct_typespec	my_struct			dut.sv	2	12	4	5				
+  #67	6	typespec_member	word			dut.sv	3	19	3	23				
+> #68	7	ref_typespec			my_struct.word		0	0	0	0		0		
+  #69	8	logic_typespec				dut.sv	3	7	3	18				
+  #70	9	range				dut.sv	3	13	3	18				
+  #71	10	constant				dut.sv	3	14	3	15	7	64	UINT:7	9
+  #72	10	constant				dut.sv	3	16	3	17	0	64	UINT:0	9
+  #73	2	cont_assign				dut.sv	6	11	6	21				
+  #74	3	hier_path	s.word			dut.sv	6	15	6	21		0		
+  #75	4	ref_obj	s			dut.sv	6	15	6	16		0		
+  #76	4	ref_obj	word		work@top.word	dut.sv	6	17	6	21		0		
+  #77	3	ref_obj	o		work@top.o	dut.sv	6	11	6	12		0		
+  #78	4	logic_net	o		work@top.o	dut.sv	1	31	1	32		0		
+
+--- OURS (B) records 56..78 ('>' = the object)
+  #56	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #57	4	logic_typespec				dut.sv	1	19	1	30				
+  #58	5	range				dut.sv	1	25	1	30				
+  #59	6	constant				dut.sv	1	26	1	27	7	64	UINT:7	9
+  #60	6	constant				dut.sv	1	28	1	29	0	64	UINT:0	9
+  #61	2	cont_assign				dut.sv	5	14	5	15				
+  #62	3	operation				dut.sv	5	18	5	30		0		
+  #63	4	constant					0	0	0	0	125	8	UINT:125	9
+  #64	3	struct_net	s		work@top.s	dut.sv	5	14	5	15		0		
+  #65	4	ref_typespec			work@top.s		0	0	0	0		0		
+  #66	5	struct_typespec	my_struct			dut.sv	2	12	4	5				
+  #67	6	typespec_member	word			dut.sv	3	19	3	23				
+> #68	7	ref_typespec			work@top.my_struct.word		0	0	0	0		0		
+  #69	8	logic_typespec				dut.sv	3	7	3	18				
+  #70	9	range				dut.sv	3	13	3	18				
+  #71	10	constant				dut.sv	3	14	3	15	7	64	UINT:7	9
+  #72	10	constant				dut.sv	3	16	3	17	0	64	UINT:0	9
+  #73	2	cont_assign				dut.sv	6	11	6	21				
+  #74	3	hier_path	s.word			dut.sv	6	15	6	21		0		
+  #75	4	ref_obj	s			dut.sv	6	15	6	16		0		
+  #76	4	ref_obj	word		work@top.word	dut.sv	6	17	6	21		0		
+  #77	3	ref_obj	o		work@top.o	dut.sv	6	11	6	12		0		
+  #78	4	logic_net	o		work@top.o	dut.sv	1	31	1	32		0		
+
+all facets of this row (3):
+  K0066 #63/63 constant  G[dut.sv 5:26:5:29] O[ 0:0:0:0]
+  K1346 #63/63 constant  G[5:26:5:29] O[0:0:0:0]
+  K0033 #68/68 ref_typespec  G[my_struct.word] O[work@top.my_struct.word]

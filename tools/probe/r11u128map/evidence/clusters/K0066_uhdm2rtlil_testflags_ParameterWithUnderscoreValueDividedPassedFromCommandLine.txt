@@ -1,0 +1,64 @@
+cluster K0066: file|constant|ours-empty|under:operation
+row: uhdm2rtlil/testflags/ParameterWithUnderscoreValueDividedPassedFromCommandLine  strict=differ:file(3)  records golden=57 ours=57
+object: #45 (golden) / #45 (ours)  type=constant name=
+  golden: dut.sv 4:23:4:24
+  ours:    4:23:4:24
+  walk parents: operation < param_assign < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 33..56 ('>' = the object)
+  #33	2	parameter	B		work@top.B	dut.sv	3	14	3	15		0	BIN:X	
+  #34	2	parameter	C		work@top.C	dut.sv	4	19	4	20		0		
+  #35	3	ref_typespec			work@top.C		0	0	0	0		0		
+  #36	4	int_typespec				dut.sv	4	15	4	18				
+  #37	2	param_assign				dut.sv	2	14	2	20				
+  #38	3	constant				dut.sv	2	18	2	20	'bX	-1	BIN:X	3
+  #39	2	param_assign				dut.sv	3	14	3	20				
+  #40	3	constant				dut.sv	3	18	3	20	'bX	-1	BIN:X	3
+  #41	2	param_assign				dut.sv	4	19	4	28				
+  #42	3	operation				dut.sv	4	23	4	28		0		
+  #43	4	ref_typespec			work@top		0	0	0	0		0		
+  #44	5	int_typespec				dut.sv	4	15	4	18				
+> #45	4	constant				dut.sv	4	23	4	24	'bX	-1	BIN:X	3
+  #46	4	constant				dut.sv	4	27	4	28	'bX	-1	BIN:X	3
+  #47	2	port	o			dut.sv	1	23	1	24				
+  #48	3	ref_obj	o		work@top.o	dut.sv	1	23	1	24		0		
+  #49	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #50	4	int_typespec				dut.sv	1	19	1	22				
+  #51	2	cont_assign				dut.sv	6	11	6	22				
+  #52	3	operation				dut.sv	6	15	6	22		0		
+  #53	4	ref_typespec			work@top		0	0	0	0		0		
+  #54	5	int_typespec				dut.sv	6	15	6	18				
+  #55	4	ref_obj	C		work@top.C	dut.sv	6	20	6	21		0		
+  #56	3	ref_obj	o		work@top.o	dut.sv	6	11	6	12		0		
+
+--- OURS (B) records 33..56 ('>' = the object)
+  #33	2	parameter	B		work@top.B	dut.sv	3	14	3	15		0	BIN:X	
+  #34	2	parameter	C		work@top.C	dut.sv	4	19	4	20		0		
+  #35	3	ref_typespec			work@top.C		0	0	0	0		0		
+  #36	4	int_typespec				dut.sv	4	15	4	18				
+  #37	2	param_assign				dut.sv	2	14	2	20				
+  #38	3	constant				dut.sv	2	18	2	20	'bX	-1	BIN:X	3
+  #39	2	param_assign				dut.sv	3	14	3	20				
+  #40	3	constant				dut.sv	3	18	3	20	'bX	-1	BIN:X	3
+  #41	2	param_assign				dut.sv	4	19	4	28				
+  #42	3	operation				dut.sv	4	23	4	28		0		
+  #43	4	ref_typespec			work@top		0	0	0	0		0		
+  #44	5	int_typespec				dut.sv	4	15	4	18				
+> #45	4	constant					4	23	4	24	'bX	-1	BIN:X	3
+  #46	4	constant					4	27	4	28	'bX	-1	BIN:X	3
+  #47	2	port	o			dut.sv	1	23	1	24				
+  #48	3	ref_obj	o		work@top.o	dut.sv	1	23	1	24		0		
+  #49	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #50	4	int_typespec				dut.sv	1	19	1	22				
+  #51	2	cont_assign				dut.sv	6	11	6	22				
+  #52	3	operation				dut.sv	6	15	6	22		0		
+  #53	4	ref_typespec			work@top		0	0	0	0		0		
+  #54	5	int_typespec					6	15	6	18				
+  #55	4	ref_obj	C		work@top.C	dut.sv	6	20	6	21		0		
+  #56	3	ref_obj	o		work@top.o	dut.sv	6	11	6	12		0		
+
+all facets of this row (3):
+  K0066 #45/45 constant  G[dut.sv 4:23:4:24] O[ 4:23:4:24]
+  K0066 #46/46 constant  G[dut.sv 4:27:4:28] O[ 4:27:4:28]
+  K0012 #54/54 int_typespec  G[dut.sv 6:15:6:18] O[ 6:15:6:18]

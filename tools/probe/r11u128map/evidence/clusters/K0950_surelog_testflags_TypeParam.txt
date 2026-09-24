@@ -1,0 +1,58 @@
+cluster K0950: struct|golden-only:fewer-copies|logic_typespec|under:ref_typespec
+row: surelog/testflags/TypeParam  strict=differ:type(1)  records golden=106 ours=106
+object: #17 (golden) / #-1 (ours)  type=logic_typespec name=
+  golden: 1 objs
+  ours:   
+  walk parents: ref_typespec < logic_net(DATA1) < module_inst < design(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 5..28 ('>' = the object)
+  #5	2	parameter	SIZE		work@bottom.SIZE	dut.sv	17	55	17	59		0	UINT:10	
+  #6	3	ref_typespec			work@bottom.SIZE		0	0	0	0		0		
+  #7	4	int_typespec				dut.sv	17	45	17	62				
+  #8	2	type_parameter	TP2		work@bottom.TP2	dut.sv	17	79	17	82				
+  #9	3	ref_typespec			work@bottom.TP2		0	0	0	0		0		
+  #10	4	int_typespec				dut.sv	17	85	17	88				
+  #11	2	param_assign				dut.sv	17	55	17	62				
+  #12	3	constant				dut.sv	17	60	17	62	10	64	UINT:10	9
+  #13	4	ref_typespec			work@bottom		0	0	0	0		0		
+  #14	5	int_typespec				dut.sv	17	45	17	62				
+  #15	2	logic_net	DATA1		work@bottom.DATA1	dut.sv	18	9	18	14		0		
+  #16	3	ref_typespec			work@bottom.DATA1		0	0	0	0		0		
+> #17	4	logic_typespec				dut.sv	17	38	17	43				
+  #18	2	logic_net	a		work@bottom.a	dut.sv	19	20	19	21		0		
+  #19	3	ref_typespec			work@bottom.a		0	0	0	0		0		
+  #20	4	logic_typespec				dut.sv	19	5	19	19				
+  #21	5	range				dut.sv	19	11	19	19				
+  #22	6	ref_obj	SIZE			dut.sv	19	12	19	16		0		
+  #23	6	constant				dut.sv	19	17	19	18	0	64	UINT:0	9
+  #24	2	logic_net	DATA2		work@bottom.DATA2	dut.sv	20	9	20	14		0		
+  #25	3	ref_typespec			work@bottom.DATA2		0	0	0	0		0		
+  #26	4	int_typespec				dut.sv	17	85	17	88				
+  #27	1	module_inst		work@mid	work@mid	dut.sv	10	1	15	10				
+  #28	2	type_parameter	TP0		work@mid.TP0	dut.sv	10	29	10	32				
+
+--- the holder #16 in the other side: exact-record matches at [16]
+  #12	3	constant				dut.sv	17	60	17	62	10	64	UINT:10	9
+  #13	4	ref_typespec			work@bottom		0	0	0	0		0		
+  #14	5	int_typespec				dut.sv	17	45	17	62				
+  #15	2	logic_net	DATA1		work@bottom.DATA1	dut.sv	18	9	18	14		0		
+> #16	3	ref_typespec			work@bottom.DATA1		0	0	0	0		0		
+  #17	4	int_typespec				dut.sv	18	5	18	8				
+  #18	2	logic_net	a		work@bottom.a	dut.sv	19	20	19	21		0		
+  #19	3	ref_typespec			work@bottom.a		0	0	0	0		0		
+  #20	4	logic_typespec				dut.sv	19	5	19	19				
+  #21	5	range				dut.sv	19	11	19	19				
+  #22	6	ref_obj	SIZE			dut.sv	19	12	19	16		0		
+  #23	6	constant				dut.sv	19	17	19	18	0	64	UINT:0	9
+  #24	2	logic_net	DATA2		work@bottom.DATA2	dut.sv	20	9	20	14		0		
+  #25	3	ref_typespec			work@bottom.DATA2		0	0	0	0		0		
+  #26	4	int_typespec				dut.sv	20	5	20	8				
+  #27	1	module_inst		work@mid	work@mid	dut.sv	10	1	15	10				
+  #28	2	type_parameter	TP0		work@mid.TP0	dut.sv	10	29	10	32				
+  #29	3	ref_typespec			work@mid.TP0		0	0	0	0		0		
+
+all facets of this row (3):
+  K0950 #17/-1 logic_typespec  G[1 objs] O[]
+  K0979 #-1/17 int_typespec  G[] O[1 objs]
+  K0070 #26/26 int_typespec  G[17:85:17:88] O[20:5:20:8]

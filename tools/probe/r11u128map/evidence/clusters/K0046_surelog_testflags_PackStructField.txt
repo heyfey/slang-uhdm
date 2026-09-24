@@ -1,0 +1,72 @@
+cluster K0046: fullname|ref_typespec|tok:id.->id::id::|under:typespec_member
+row: surelog/testflags/PackStructField  strict=differ:fullname(23)  records golden=144 ours=144
+object: #6 (golden) / #6 (ours)  type=ref_typespec name=
+  golden: my_package::my_struct.a
+  ours:   my_package::my_package::my_struct::a
+  walk parents: typespec_member(a) < struct_typespec(my_package::my_struct) < ref_typespec < parameter(my_parameter)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 0..17 ('>' = the object)
+  #0	0	design	work@my_module				0	0	0	0				
+  #1	1	package	my_package	my_package	my_package::	dut.sv	2	1	14	24				
+  #2	2	parameter	my_parameter		my_package::my_parameter	dut.sv	9	35	9	47		0		
+  #3	3	ref_typespec			my_package::my_parameter		0	0	0	0		0		
+  #4	4	struct_typespec	my_package::my_struct			dut.sv	4	11	7	4				
+  #5	5	typespec_member	a			dut.sv	5	11	5	12				
+> #6	6	ref_typespec			my_package::my_struct.a		0	0	0	0		0		
+  #7	7	logic_typespec				dut.sv	5	5	5	10				
+  #8	5	typespec_member	b			dut.sv	6	11	6	12				
+  #9	6	ref_typespec			my_package::my_struct.b		0	0	0	0		0		
+  #10	7	logic_typespec				dut.sv	6	5	6	10				
+  #11	2	param_assign				dut.sv	9	35	12	4				
+  #12	3	operation				dut.sv	9	50	12	4		0		
+  #13	4	tagged_pattern				dut.sv	10	8	10	12				
+  #14	5	constant				dut.sv	10	8	10	12	1'b1	1	BIN:1	3
+  #15	5	ref_typespec			my_package		0	0	0	0		0		
+  #16	6	string_typespec	a			dut.sv	10	5	10	6				
+  #17	4	tagged_pattern				dut.sv	11	8	11	12				
+
+--- OURS (B) records 0..17 ('>' = the object)
+  #0	0	design	work@my_module				0	0	0	0				
+  #1	1	package	my_package	my_package	my_package::	dut.sv	2	1	14	24				
+  #2	2	parameter	my_parameter		my_package::my_parameter	dut.sv	9	35	9	47		0		
+  #3	3	ref_typespec			my_package::my_parameter		0	0	0	0		0		
+  #4	4	struct_typespec	my_package::my_struct			dut.sv	4	11	7	4				
+  #5	5	typespec_member	a			dut.sv	5	11	5	12				
+> #6	6	ref_typespec			my_package::my_package::my_struct::a		0	0	0	0		0		
+  #7	7	logic_typespec				dut.sv	5	5	5	10				
+  #8	5	typespec_member	b			dut.sv	6	11	6	12				
+  #9	6	ref_typespec			my_package::my_package::my_struct::b		0	0	0	0		0		
+  #10	7	logic_typespec				dut.sv	6	5	6	10				
+  #11	2	param_assign				dut.sv	9	35	12	4				
+  #12	3	operation				dut.sv	9	50	12	4		0		
+  #13	4	tagged_pattern				dut.sv	10	8	10	12				
+  #14	5	constant				dut.sv	10	8	10	12	1'b1	1	BIN:1	3
+  #15	5	ref_typespec			my_package		0	0	0	0		0		
+  #16	6	string_typespec	a			dut.sv	10	5	10	6				
+  #17	4	tagged_pattern				dut.sv	11	8	11	12				
+
+all facets of this row (23):
+  K0046 #6/6 ref_typespec  G[my_package::my_struct.a] O[my_package::my_package::my_struct::a]
+  K0046 #9/9 ref_typespec  G[my_package::my_struct.b] O[my_package::my_package::my_struct::b]
+  K0046 #33/33 ref_typespec  G[my_package::my_struct.a] O[my_package::my_package::my_struct::a]
+  K0046 #36/36 ref_typespec  G[my_package::my_struct.b] O[my_package::my_package::my_struct::b]
+  K0006 #40/40 ref_typespec  G[] O[my_package]
+  K0046 #43/43 ref_typespec  G[my_package::my_struct.a] O[my_package::my_package::my_struct::a]
+  K0046 #46/46 ref_typespec  G[my_package::my_struct.b] O[my_package::my_package::my_struct::b]
+  K0046 #52/52 ref_typespec  G[my_package::my_struct.a] O[my_package::my_package::my_struct::a]
+  K0046 #55/55 ref_typespec  G[my_package::my_struct.b] O[my_package::my_package::my_struct::b]
+  K0046 #65/65 ref_typespec  G[my_package::my_struct.a] O[my_package::my_package::my_struct::a]
+  K0046 #68/68 ref_typespec  G[my_package::my_struct.b] O[my_package::my_package::my_struct::b]
+  K0046 #75/75 ref_typespec  G[my_package::my_struct.a] O[my_package::my_package::my_struct::a]
+  K0046 #78/78 ref_typespec  G[my_package::my_struct.b] O[my_package::my_package::my_struct::b]
+  K0046 #87/87 ref_typespec  G[my_package::my_struct.a] O[my_package::my_package::my_struct::a]
+  K0046 #90/90 ref_typespec  G[my_package::my_struct.b] O[my_package::my_package::my_struct::b]
+  K0046 #104/104 ref_typespec  G[my_package::my_struct.a] O[my_package::my_package::my_struct::a]
+  K0046 #107/107 ref_typespec  G[my_package::my_struct.b] O[my_package::my_package::my_struct::b]
+  K0046 #113/113 ref_typespec  G[my_package::my_struct.a] O[my_package::my_package::my_struct::a]
+  K0046 #116/116 ref_typespec  G[my_package::my_struct.b] O[my_package::my_package::my_struct::b]
+  K0046 #123/123 ref_typespec  G[my_package::my_struct.a] O[my_package::my_package::my_struct::a]
+  K0046 #126/126 ref_typespec  G[my_package::my_struct.b] O[my_package::my_package::my_struct::b]
+  K0046 #133/133 ref_typespec  G[my_package::my_struct.a] O[my_package::my_package::my_struct::a]
+  K0046 #136/136 ref_typespec  G[my_package::my_struct.b] O[my_package::my_package::my_struct::b]

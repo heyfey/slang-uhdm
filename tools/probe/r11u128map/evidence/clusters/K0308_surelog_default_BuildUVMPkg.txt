@@ -1,0 +1,96 @@
+cluster K0308: struct|ours-only:elsewhere|ref_typespec|under:array_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(346)  records golden=201533 ours=201486
+object: #-1 (golden) / #162397 (ours)  type=ref_typespec name=
+  golden: 
+  ours:   5 objs
+  walk parents: array_typespec(queue_of_element) < ref_typespec < ref_var < function(get_elements)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- OURS (B) records 162385..162408 ('>' = the object)
+  #162385	6	ref_typespec			uvm_pkg::uvm_report_message_element_container::delete::index		0	0	0	0		0		
+  #162386	7	int_typespec				uvm_pkg.sv	28160	32	28160	35				
+  #162387	5	method_func_call	delete			uvm_pkg.sv	28161	14	28161	20		0		
+  #162388	6	ref_obj	index		uvm_pkg::uvm_report_message_element_container::delete::index	uvm_pkg.sv	28161	21	28161	26		0		
+  #162389	6	ref_obj	elements		uvm_pkg::uvm_report_message_element_container::delete::elements	uvm_pkg.sv	28161	5	28161	13		0		
+  #162390	4	function	delete_elements		uvm_pkg::uvm_report_message_element_container::delete_elements	uvm_pkg.sv	28170	3	28172	14				
+  #162391	5	method_func_call	delete			uvm_pkg.sv	28171	14	28171	20		0		
+  #162392	6	ref_obj	elements		uvm_pkg::uvm_report_message_element_container::delete_elements::elements	uvm_pkg.sv	28171	5	28171	13		0		
+  #162393	4	function	get_elements		uvm_pkg::uvm_report_message_element_container::get_elements	uvm_pkg.sv	28181	3	28183	14				
+  #162394	5	ref_var			uvm_pkg::uvm_report_message_element_container::get_elements	uvm_pkg.sv	28181	20	28181	36		0		
+  #162395	6	ref_typespec			uvm_pkg::uvm_report_message_element_container::get_elements		0	0	0	0		0		
+  #162396	7	array_typespec	queue_of_element			uvm_pkg.sv	28180	11	28180	62				
+> #162397	8	ref_typespec			queue_of_element		0	0	0	0		0		
+  #162398	9	array_typespec	queue_of_element			uvm_pkg.sv	28180	11	28180	62				
+  #162399	10	range				uvm_pkg.sv	28180	60	28180	61				
+  #162400	11	constant					0	0	0	0	0	64	UINT:0	9
+  #162401	11	constant				uvm_pkg.sv	28180	60	28180	61	$	1	STRING:$	10
+  #162402	8	range				uvm_pkg.sv	28180	59	28180	62				
+  #162403	9	constant					0	0	0	0	0	64	UINT:0	9
+  #162404	9	constant					0	0	0	0	0	64	UINT:0	9
+  #162405	5	return_stmt				uvm_pkg.sv	28182	5	28182	11				
+  #162406	6	ref_obj	elements		uvm_pkg::uvm_report_message_element_container::get_elements::elements	uvm_pkg.sv	28182	12	28182	20		0		
+  #162407	4	function	add_int		uvm_pkg::uvm_report_message_element_container::add_int	uvm_pkg.sv	28195	3	28213	14				
+  #162408	5	class_var	p		uvm_pkg::uvm_report_message_element_container::add_int::p	uvm_pkg.sv	28198	14	28198	15		0		
+
+--- the holder #162396 in the other side: exact-record matches at [162457]
+  #162453	6	ref_obj	elements		uvm_pkg::uvm_report_message_element_container::delete_elements::elements	uvm_pkg.sv	28171	5	28171	13		0		
+  #162454	4	function	get_elements		uvm_pkg::uvm_report_message_element_container::get_elements	uvm_pkg.sv	28181	3	28181	10				
+  #162455	5	ref_var			uvm_pkg::uvm_report_message_element_container::get_elements	uvm_pkg.sv	28181	20	28181	36		0		
+  #162456	6	ref_typespec			uvm_pkg::uvm_report_message_element_container::get_elements		0	0	0	0		0		
+> #162457	7	array_typespec	queue_of_element			uvm_pkg.sv	28180	11	28180	62				
+  #162458	8	range				uvm_pkg.sv	28180	60	28180	61				
+  #162459	9	constant					0	0	0	0	0	64	UINT:0	9
+  #162460	9	constant				uvm_pkg.sv	28180	60	28180	61	$	1	STRING:$	10
+  #162461	5	return_stmt				uvm_pkg.sv	28182	5	28182	11				
+  #162462	6	ref_obj	elements		uvm_pkg::uvm_report_message_element_container::get_elements::elements	uvm_pkg.sv	28182	12	28182	20		0		
+  #162463	4	function	add_int		uvm_pkg::uvm_report_message_element_container::add_int	uvm_pkg.sv	28195	3	28195	10				
+  #162464	5	class_var	p		uvm_pkg::uvm_report_message_element_container::add_int::p	uvm_pkg.sv	28198	14	28198	15		0		
+  #162465	6	ref_typespec			uvm_pkg::uvm_report_message_element_container::add_int::p		0	0	0	0		0		
+  #162466	7	class_typespec				uvm_pkg.sv	28198	6	28198	13				
+  #162467	5	string_var	rand_state		uvm_pkg::uvm_report_message_element_container::add_int::rand_state	uvm_pkg.sv	28199	13	28199	23		0		
+  #162468	6	ref_typespec			uvm_pkg::uvm_report_message_element_container::add_int::rand_state		0	0	0	0		0		
+  #162469	7	string_typespec				uvm_pkg.sv	28199	6	28199	12				
+  #162470	5	class_var	urme		uvm_pkg::uvm_report_message_element_container::add_int::urme	uvm_pkg.sv	28200	37	28200	41		0		
+
+all facets of this row (12107):
+  K0325 #11992/-1 ref_typespec  G[2 objs] O[]
+  K0568 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  K0288 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/22519 bit_typespec  G[] O[1 objs]
+  K0288 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/22603 bit_typespec  G[] O[1 objs]
+  K0288 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/23516 bit_typespec  G[] O[1 objs]
+  K0585 #-1/56203 ref_typespec  G[] O[2 objs]
+  K0558 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  K0247 #-1/74758 bit_typespec  G[] O[1 objs]
+  K0558 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  K0247 #-1/74841 bit_typespec  G[] O[1 objs]
+  K0288 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76348 bit_typespec  G[] O[1 objs]
+  K0288 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76369 bit_typespec  G[] O[1 objs]
+  K0288 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76429 bit_typespec  G[] O[1 objs]
+  K0288 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/79792 bit_typespec  G[] O[1 objs]
+  K0268 #79836/-1 string_typespec  G[1 objs] O[]
+  K0624 #-1/79803 array_typespec  G[] O[1 objs]
+  K0268 #79890/-1 string_typespec  G[1 objs] O[]
+  K0624 #-1/79857 array_typespec  G[] O[1 objs]
+  K0288 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/79876 bit_typespec  G[] O[1 objs]
+  K0288 #80868/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/80829 bit_typespec  G[] O[1 objs]
+  K0229 #96958/96911 bit_typespec  G[8 ref_typespec < enum_typespec(uvm_pkg::uvm_active_passive_enum)] O[6 ref_typespec < enum_var]
+  K0288 #96956/-1 enum_typespec uvm_pkg::uvm_active_passive_enum G[2 objs] O[]
+  K0241 #97010/-1 bit_typespec  G[1 objs] O[]
+  K0208 #118186/-1 range  G[5 objs] O[]
+  K0265 #118191/-1 ref_typespec  G[2 objs] O[]
+  K0265 #118193/-1 ref_typespec  G[2 objs] O[]
+  K0208 #118234/-1 range  G[5 objs] O[]
+  K0265 #118239/-1 ref_typespec  G[2 objs] O[]
+  K0265 #118241/-1 ref_typespec  G[2 objs] O[]
+  K0208 #118303/-1 range  G[5 objs] O[]
+  K0265 #118308/-1 ref_typespec  G[2 objs] O[]
+  ... 12067 more

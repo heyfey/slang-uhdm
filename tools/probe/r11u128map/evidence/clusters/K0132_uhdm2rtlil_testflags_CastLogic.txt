@@ -1,0 +1,44 @@
+cluster K0132: file|logic_typespec|ours-empty|under:ref_typespec
+row: uhdm2rtlil/testflags/CastLogic  strict=differ:file(1)  records golden=39 ours=39
+object: #36 (golden) / #36 (ours)  type=logic_typespec name=
+  golden: dut.sv 2:15:2:20
+  ours:    2:15:2:20
+  walk parents: ref_typespec < operation < cont_assign < module_inst(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 24..38 ('>' = the object)
+  #24	4	logic_typespec				dut.sv	1	30	1	35				
+  #25	2	port	clk			dut.sv	1	18	1	21				
+  #26	3	ref_obj	clk		work@top.clk	dut.sv	1	18	1	21		0		
+  #27	3	ref_typespec			work@top.clk		0	0	0	0		0		
+  #28	4	logic_typespec				dut.sv	1	18	1	18				
+  #29	2	port	o			dut.sv	1	36	1	37				
+  #30	3	ref_obj	o		work@top.o	dut.sv	1	36	1	37		0		
+  #31	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #32	4	logic_typespec				dut.sv	1	30	1	35				
+  #33	2	cont_assign				dut.sv	2	11	2	24				
+  #34	3	operation				dut.sv	2	15	2	24		0		
+  #35	4	ref_typespec			work@top		0	0	0	0		0		
+> #36	5	logic_typespec				dut.sv	2	15	2	20				
+  #37	4	constant				dut.sv	2	22	2	23	1	64	UINT:1	9
+  #38	3	ref_obj	o		work@top.o	dut.sv	2	11	2	12		0		
+
+--- OURS (B) records 24..38 ('>' = the object)
+  #24	4	logic_typespec				dut.sv	1	30	1	35				
+  #25	2	port	clk			dut.sv	1	18	1	21				
+  #26	3	ref_obj	clk		work@top.clk	dut.sv	1	18	1	21		0		
+  #27	3	ref_typespec			work@top.clk		0	0	0	0		0		
+  #28	4	logic_typespec				dut.sv	1	18	1	18				
+  #29	2	port	o			dut.sv	1	36	1	37				
+  #30	3	ref_obj	o		work@top.o	dut.sv	1	36	1	37		0		
+  #31	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #32	4	logic_typespec				dut.sv	1	30	1	35				
+  #33	2	cont_assign				dut.sv	2	11	2	24				
+  #34	3	operation				dut.sv	2	15	2	24		0		
+  #35	4	ref_typespec			work@top		0	0	0	0		0		
+> #36	5	logic_typespec					2	15	2	20				
+  #37	4	constant				dut.sv	2	22	2	23	1	64	UINT:1	9
+  #38	3	ref_obj	o		work@top.o	dut.sv	2	11	2	12		0		
+
+all facets of this row (1):
+  K0132 #36/36 logic_typespec  G[dut.sv 2:15:2:20] O[ 2:15:2:20]

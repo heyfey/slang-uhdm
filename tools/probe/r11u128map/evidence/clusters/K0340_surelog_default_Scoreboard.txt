@@ -1,0 +1,96 @@
+cluster K0340: struct|golden-only:fewer-copies|constant|under:param_assign
+row: surelog/default/Scoreboard  strict=differ:line(276)  records golden=269656 ours=268952
+object: #84909 (golden) / #-1 (ours)  type=constant name=
+  golden: 3 objs
+  ours:   
+  walk parents: param_assign < class_defn(work@my_scoreboard) < class_defn(uvm_scoreboard) < class_defn(uvm_component)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 84897..84920 ('>' = the object)
+  #84897	6	ref_typespec			work@my_scoreboard::uvm_mgc_copyright		0	0	0	0		0		
+  #84898	7	string_typespec				uvm_version.svh	26	11	26	17				
+  #84899	5	parameter	uvm_nv_copyright		work@my_scoreboard::uvm_nv_copyright	uvm_version.svh	30	18	30	34		0	STRING:(C) 2013-2014 NVIDIA Corporation	
+  #84900	6	ref_typespec			work@my_scoreboard::uvm_nv_copyright		0	0	0	0		0		
+  #84901	7	string_typespec				uvm_version.svh	30	11	30	17				
+  #84902	5	parameter	uvm_revision		work@my_scoreboard::uvm_revision	uvm_version.svh	31	18	31	30		0	STRING:UVM.1.2	
+  #84903	6	ref_typespec			work@my_scoreboard::uvm_revision		0	0	0	0		0		
+  #84904	7	string_typespec				uvm_version.svh	31	11	31	17				
+  #84905	5	parameter	uvm_snps_copyright		work@my_scoreboard::uvm_snps_copyright	uvm_version.svh	28	18	28	36		0	STRING:(C) 2006-2014 Synopsys, Inc.	
+  #84906	6	ref_typespec			work@my_scoreboard::uvm_snps_copyright		0	0	0	0		0		
+  #84907	7	string_typespec				uvm_version.svh	28	11	28	17				
+  #84908	5	param_assign				uvm_hdl.svh	47	15	47	39				
+> #84909	6	constant				uvm_hdl.svh	47	35	47	39	1024	32	UINT:1024	9
+  #84910	7	ref_typespec			work@my_scoreboard		0	0	0	0		0		
+  #84911	8	int_typespec				uvm_hdl.svh	47	11	47	14				
+  #84912	6	parameter	UVM_HDL_MAX_WIDTH		work@my_scoreboard::UVM_HDL_MAX_WIDTH	uvm_hdl.svh	47	15	47	32		0	UINT:1024	
+  #84913	7	ref_typespec			work@my_scoreboard::UVM_HDL_MAX_WIDTH		0	0	0	0		0		
+  #84914	8	int_typespec				uvm_hdl.svh	47	11	47	14				
+  #84915	5	param_assign				uvm_version.svh	26	18	26	82				
+  #84916	6	constant				uvm_version.svh	26	39	26	82	"(C) 2007-2014 Mentor Graphics Corporation"	328	STRING:(C) 2007-2014 Mentor Graphics Corporation	6
+  #84917	7	ref_typespec			work@my_scoreboard		0	0	0	0		0		
+  #84918	8	string_typespec				uvm_version.svh	26	11	26	17				
+  #84919	6	parameter	uvm_mgc_copyright		work@my_scoreboard::uvm_mgc_copyright	uvm_version.svh	26	18	26	35		0	STRING:(C) 2007-2014 Mentor Graphics Corporation	
+  #84920	7	ref_typespec			work@my_scoreboard::uvm_mgc_copyright		0	0	0	0		0		
+
+--- the holder #84908 in the other side: exact-record matches at [84709, 84799]
+  #84705	5	parameter	uvm_mgc_copyright		work@my_scoreboard::uvm_mgc_copyright	uvm_version.svh	26	18	26	35		0	STRING:(C) 2007-2014 Mentor Graphics Corporation	
+  #84706	5	parameter	uvm_nv_copyright		work@my_scoreboard::uvm_nv_copyright	uvm_version.svh	30	18	30	34		0	STRING:(C) 2013-2014 NVIDIA Corporation	
+  #84707	5	parameter	uvm_revision		work@my_scoreboard::uvm_revision	uvm_version.svh	31	18	31	30		0	STRING:UVM.1.2	
+  #84708	5	parameter	uvm_snps_copyright		work@my_scoreboard::uvm_snps_copyright	uvm_version.svh	28	18	28	36		0	STRING:(C) 2006-2014 Synopsys, Inc.	
+> #84709	5	param_assign				uvm_hdl.svh	47	15	47	39				
+  #84710	6	parameter	UVM_HDL_MAX_WIDTH		work@my_scoreboard::UVM_HDL_MAX_WIDTH	uvm_hdl.svh	47	15	47	32		0	UINT:1024	
+  #84711	5	param_assign				uvm_version.svh	26	18	26	82				
+  #84712	6	parameter	uvm_mgc_copyright		work@my_scoreboard::uvm_mgc_copyright	uvm_version.svh	26	18	26	35		0	STRING:(C) 2007-2014 Mentor Graphics Corporation	
+  #84713	5	param_assign				uvm_version.svh	27	18	27	83				
+  #84714	6	parameter	uvm_cdn_copyright		work@my_scoreboard::uvm_cdn_copyright	uvm_version.svh	27	18	27	35		0	STRING:(C) 2007-2014 Cadence Design Systems, Inc.	
+  #84715	5	param_assign				uvm_version.svh	28	18	28	69				
+  #84716	6	parameter	uvm_snps_copyright		work@my_scoreboard::uvm_snps_copyright	uvm_version.svh	28	18	28	36		0	STRING:(C) 2006-2014 Synopsys, Inc.	
+  #84717	5	param_assign				uvm_version.svh	29	18	29	82				
+  #84718	6	parameter	uvm_cy_copyright		work@my_scoreboard::uvm_cy_copyright	uvm_version.svh	29	18	29	34		0	STRING:(C) 2011-2013 Cypress Semiconductor Corp.	
+  #84719	5	param_assign				uvm_version.svh	30	18	30	73				
+  #84720	6	parameter	uvm_nv_copyright		work@my_scoreboard::uvm_nv_copyright	uvm_version.svh	30	18	30	34		0	STRING:(C) 2013-2014 NVIDIA Corporation	
+  #84721	5	param_assign				uvm_version.svh	31	18	31	42				
+  #84722	6	parameter	uvm_revision		work@my_scoreboard::uvm_revision	uvm_version.svh	31	18	31	30		0	STRING:UVM.1.2	
+
+all facets of this row (45034):
+  K0453 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  K0453 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  K0453 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  K0325 #10185/-1 ref_typespec  G[2 objs] O[]
+  K0453 #-1/17766 class_var uvm_top G[] O[4 objs]
+  K0288 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/20931 bit_typespec  G[] O[1 objs]
+  K0288 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/21867 bit_typespec  G[] O[1 objs]
+  K0453 #-1/25781 class_var run_ph G[] O[3 objs]
+  K0378 #-1/63592 string_var svunit_version G[] O[4 objs]
+  K0288 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/74802 bit_typespec  G[] O[1 objs]
+  K0288 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/74823 bit_typespec  G[] O[1 objs]
+  K0288 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/74879 bit_typespec  G[] O[1 objs]
+  K0218 #78641/-1 ref_typespec  G[2 objs] O[]
+  K0268 #79148/-1 string_typespec  G[1 objs] O[]
+  K0624 #-1/79141 array_typespec  G[] O[1 objs]
+  K0288 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/79160 bit_typespec  G[] O[1 objs]
+  K0288 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/80136 bit_typespec  G[] O[1 objs]
+  K0218 #82230/-1 ref_typespec  G[2 objs] O[]
+  K0218 #82238/-1 ref_typespec  G[2 objs] O[]
+  K0218 #82246/-1 ref_typespec  G[2 objs] O[]
+  K0218 #82254/-1 ref_typespec  G[2 objs] O[]
+  K0218 #82262/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84649/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84653/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84656/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84659/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84663/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84666/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84669/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84672/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84676/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84679/-1 ref_typespec  G[2 objs] O[]
+  K0218 #84682/-1 ref_typespec  G[2 objs] O[]
+  ... 44994 more

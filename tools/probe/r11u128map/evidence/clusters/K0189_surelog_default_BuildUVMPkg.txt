@@ -1,0 +1,102 @@
+cluster K0189: span|array_typespec|endcol|under:ref_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(346)  records golden=201533 ours=201486
+object: #9050 (golden) / #9050 (ours)  type=array_typespec name=
+  golden: 20517:11:20517:14
+  ours:   20517:11:20517:15
+  walk parents: ref_typespec < array_var(q) < begin < begin
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 9038..9061 ('>' = the object)
+  #9038	6	ref_obj	m_flushed		uvm_pkg::uvm_table_printer::emit::m_flushed	uvm_pkg.sv	20513	8	20513	17		0		
+  #9039	4	assignment				uvm_pkg.sv	20514	3	20514	39				
+  #9040	5	operation				uvm_pkg.sv	20514	14	20514	39		0		
+  #9041	6	constant				uvm_pkg.sv	20514	15	20514	19	"\n"	16	STRING:\n	6
+  #9042	6	func_call	get_line_prefix			uvm_pkg.sv	20514	21	20514	38		0		
+  #9043	5	ref_obj	linefeed		uvm_pkg::uvm_table_printer::emit::linefeed	uvm_pkg.sv	20514	3	20514	11		0		
+  #9044	4	begin			uvm_pkg::uvm_table_printer::emit	uvm_pkg.sv	20516	4	20528	6				
+  #9045	5	int_var			uvm_pkg::uvm_table_printer::emit::q	uvm_pkg.sv	20517	11	20517	12		0		
+  #9046	6	ref_typespec			uvm_pkg::uvm_table_printer::emit::q		0	0	0	0		0		
+  #9047	7	int_typespec				uvm_pkg.sv	20517	7	20517	10				
+  #9048	5	array_var	q		uvm_pkg::uvm_table_printer::emit::q	uvm_pkg.sv	20517	11	20517	12		0		
+  #9049	6	ref_typespec			uvm_pkg::uvm_table_printer::emit::q		0	0	0	0		0		
+> #9050	7	array_typespec				uvm_pkg.sv	20517	11	20517	14				
+  #9051	8	range				uvm_pkg.sv	20517	13	20517	14				
+  #9052	9	constant					0	0	0	0	0	64	UINT:0	9
+  #9053	9	operation				uvm_pkg.sv	20517	13	20517	14		0		
+  #9054	10	constant				uvm_pkg.sv	20517	13	20517	14	5	64	UINT:5	9
+  #9055	10	constant					0	0	0	0		64	INT:1	7
+  #9056	8	ref_typespec					0	0	0	0		0		
+  #9057	9	int_typespec				uvm_pkg.sv	20517	7	20517	10				
+  #9058	5	int_var	m		uvm_pkg::uvm_table_printer::emit::m	uvm_pkg.sv	20518	11	20518	12		0		
+  #9059	6	ref_typespec			uvm_pkg::uvm_table_printer::emit::m		0	0	0	0		0		
+  #9060	7	int_typespec				uvm_pkg.sv	20518	7	20518	10				
+  #9061	5	int_var			uvm_pkg::uvm_table_printer::emit::qq	uvm_pkg.sv	20519	11	20519	13		0		
+
+--- OURS (B) records 9038..9061 ('>' = the object)
+  #9038	6	ref_obj	m_flushed		uvm_pkg::uvm_table_printer::emit::m_flushed	uvm_pkg.sv	20513	8	20513	17		0		
+  #9039	4	assignment				uvm_pkg.sv	20514	3	20514	39				
+  #9040	5	operation				uvm_pkg.sv	20514	14	20514	39		0		
+  #9041	6	constant				uvm_pkg.sv	20514	15	20514	19	"\n"	16	STRING:\n	6
+  #9042	6	func_call	get_line_prefix			uvm_pkg.sv	20514	21	20514	38		0		
+  #9043	5	ref_obj	linefeed		uvm_pkg::uvm_table_printer::emit::linefeed	uvm_pkg.sv	20514	3	20514	11		0		
+  #9044	4	begin			uvm_pkg::uvm_table_printer::emit	uvm_pkg.sv	20516	4	20528	6				
+  #9045	5	int_var			uvm_pkg::uvm_table_printer::emit::q	uvm_pkg.sv	20517	11	20517	12		0		
+  #9046	6	ref_typespec			uvm_pkg::uvm_table_printer::emit::q		0	0	0	0		0		
+  #9047	7	int_typespec				uvm_pkg.sv	20517	7	20517	10				
+  #9048	5	array_var	q		uvm_pkg::uvm_table_printer::emit::q	uvm_pkg.sv	20517	11	20517	12		0		
+  #9049	6	ref_typespec			uvm_pkg::uvm_table_printer::emit::q		0	0	0	0		0		
+> #9050	7	array_typespec				uvm_pkg.sv	20517	11	20517	15				
+  #9051	8	range				uvm_pkg.sv	20517	13	20517	14				
+  #9052	9	constant					0	0	0	0	0	64	UINT:0	9
+  #9053	9	operation				uvm_pkg.sv	20517	13	20517	14		0		
+  #9054	10	constant				uvm_pkg.sv	20517	13	20517	14	5	64	UINT:5	9
+  #9055	10	constant					0	0	0	0		64	INT:1	7
+  #9056	8	ref_typespec					0	0	0	0		0		
+  #9057	9	int_typespec				uvm_pkg.sv	20517	7	20517	10				
+  #9058	5	int_var	m		uvm_pkg::uvm_table_printer::emit::m	uvm_pkg.sv	20518	11	20518	12		0		
+  #9059	6	ref_typespec			uvm_pkg::uvm_table_printer::emit::m		0	0	0	0		0		
+  #9060	7	int_typespec				uvm_pkg.sv	20518	7	20518	10				
+  #9061	5	int_var			uvm_pkg::uvm_table_printer::emit::qq	uvm_pkg.sv	20519	11	20519	13		0		
+
+all facets of this row (12107):
+  K0325 #11992/-1 ref_typespec  G[2 objs] O[]
+  K0568 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  K0288 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/22519 bit_typespec  G[] O[1 objs]
+  K0288 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/22603 bit_typespec  G[] O[1 objs]
+  K0288 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/23516 bit_typespec  G[] O[1 objs]
+  K0585 #-1/56203 ref_typespec  G[] O[2 objs]
+  K0558 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  K0247 #-1/74758 bit_typespec  G[] O[1 objs]
+  K0558 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  K0247 #-1/74841 bit_typespec  G[] O[1 objs]
+  K0288 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76348 bit_typespec  G[] O[1 objs]
+  K0288 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76369 bit_typespec  G[] O[1 objs]
+  K0288 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76429 bit_typespec  G[] O[1 objs]
+  K0288 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/79792 bit_typespec  G[] O[1 objs]
+  K0268 #79836/-1 string_typespec  G[1 objs] O[]
+  K0624 #-1/79803 array_typespec  G[] O[1 objs]
+  K0268 #79890/-1 string_typespec  G[1 objs] O[]
+  K0624 #-1/79857 array_typespec  G[] O[1 objs]
+  K0288 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/79876 bit_typespec  G[] O[1 objs]
+  K0288 #80868/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/80829 bit_typespec  G[] O[1 objs]
+  K0229 #96958/96911 bit_typespec  G[8 ref_typespec < enum_typespec(uvm_pkg::uvm_active_passive_enum)] O[6 ref_typespec < enum_var]
+  K0288 #96956/-1 enum_typespec uvm_pkg::uvm_active_passive_enum G[2 objs] O[]
+  K0241 #97010/-1 bit_typespec  G[1 objs] O[]
+  K0208 #118186/-1 range  G[5 objs] O[]
+  K0265 #118191/-1 ref_typespec  G[2 objs] O[]
+  K0265 #118193/-1 ref_typespec  G[2 objs] O[]
+  K0208 #118234/-1 range  G[5 objs] O[]
+  K0265 #118239/-1 ref_typespec  G[2 objs] O[]
+  K0265 #118241/-1 ref_typespec  G[2 objs] O[]
+  K0208 #118303/-1 range  G[5 objs] O[]
+  K0265 #118308/-1 ref_typespec  G[2 objs] O[]
+  ... 12067 more

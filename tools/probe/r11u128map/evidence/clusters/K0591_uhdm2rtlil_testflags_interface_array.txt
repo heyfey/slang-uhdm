@@ -1,0 +1,62 @@
+cluster K0591: struct|ours-only:fewer-copies|parameter|under:param_assign
+row: uhdm2rtlil/testflags/interface_array  strict=differ:fullname(3)  records golden=586 ours=595
+object: #-1 (golden) / #442 (ours)  type=parameter name=W
+  golden: 
+  ours:   3 objs
+  walk parents: param_assign < interface_inst(b) < module_inst(p1) < module_inst(work@dut)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- OURS (B) records 430..453 ('>' = the object)
+  #430	4	ref_obj	s1		work@dut.s1	dut.sv	29	34	29	36		0		
+  #431	4	ref_obj	seed		work@dut.p1.seed	dut.sv	29	29	29	33		0		
+  #432	4	ref_typespec			work@dut.p1.seed		0	0	0	0		0		
+  #433	5	logic_typespec				dut.sv	10	36	10	47				
+  #434	6	range				dut.sv	10	42	10	47				
+  #435	7	constant				dut.sv	10	43	10	44	7	64	UINT:7	9
+  #436	7	constant				dut.sv	10	45	10	46	0	64	UINT:0	9
+  #437	3	interface_inst	b	work@myif	work@dut.p1.b	dut.sv	29	0	0	0				
+  #438	4	param_assign				dut.sv	3	32	3	37				
+  #439	5	constant				dut.sv	3	36	3	37	8	32	UINT:8	9
+  #440	6	ref_typespec			work@dut.p1.b		0	0	0	0		0		
+  #441	7	int_typespec				dut.sv	3	28	3	31				
+> #442	5	parameter	W		work@dut.p1.b.W	dut.sv	3	32	3	33		0	UINT:8	
+  #443	6	ref_typespec			work@dut.p1.b.W		0	0	0	0		0		
+  #444	7	int_typespec				dut.sv	3	28	3	31				
+  #445	4	port	clk			dut.sv	3	52	3	55				
+  #446	5	ref_obj	clk		work@dut.p1.b.clk	dut.sv	3	52	3	55		0		
+  #447	5	ref_typespec			work@dut.p1.b.clk		0	0	0	0		0		
+  #448	6	logic_typespec				dut.sv	3	46	3	51				
+  #449	4	port	rst			dut.sv	3	69	3	72				
+  #450	5	ref_obj	rst		work@dut.p1.b.rst	dut.sv	3	69	3	72		0		
+  #451	5	ref_typespec			work@dut.p1.b.rst		0	0	0	0		0		
+  #452	6	logic_typespec				dut.sv	3	63	3	68				
+  #453	3	cont_assign				dut.sv	11	10	11	22				
+
+--- the holder #438 in the other side: exact-record matches at [370, 438, 496, 562]
+  #366	6	range				dut.sv	10	42	10	47				
+  #367	7	constant				dut.sv	10	43	10	44	7	64	UINT:7	9
+  #368	7	constant				dut.sv	10	45	10	46	0	64	UINT:0	9
+  #369	3	interface_inst	b	work@myif	work@dut.p0.b	dut.sv	28	0	0	0				
+> #370	4	param_assign				dut.sv	3	32	3	37				
+  #371	5	constant				dut.sv	3	36	3	37	8	32	UINT:8	9
+  #372	6	ref_typespec			work@dut.p0.b		0	0	0	0		0		
+  #373	7	int_typespec				dut.sv	3	28	3	31				
+  #374	5	parameter	W		work@myif.W	dut.sv	3	32	3	33		0	UINT:8	
+  #375	6	ref_typespec			work@myif.W		0	0	0	0		0		
+  #376	7	int_typespec				dut.sv	3	28	3	31				
+  #377	4	port	clk			dut.sv	3	52	3	55				
+  #378	5	ref_obj	clk		work@dut.p0.b.clk	dut.sv	3	52	3	55		0		
+  #379	5	ref_typespec			work@dut.p0.b.clk		0	0	0	0		0		
+  #380	6	logic_typespec				dut.sv	3	46	3	51				
+  #381	4	port	rst			dut.sv	3	69	3	72				
+  #382	5	ref_obj	rst		work@dut.p0.b.rst	dut.sv	3	69	3	72		0		
+  #383	5	ref_typespec			work@dut.p0.b.rst		0	0	0	0		0		
+
+all facets of this row (7):
+  K0591 #-1/442 parameter W G[] O[3 objs]
+  K0591 #-1/503 parameter W G[] O[3 objs]
+  K0631 #-1/570 ref_typespec  G[] O[2 objs]
+  K0591 #-1/572 parameter W G[] O[1 objs]
+  K0085 #374/374 parameter W G[work@myif.W] O[work@dut.p0.b.W]
+  K0086 #375/375 ref_typespec  G[work@myif.W] O[work@dut.p0.b.W]
+  K0026 #564/573 ref_typespec  G[work@dut.c1.b] O[work@dut.c1.b.W]

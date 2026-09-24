@@ -1,0 +1,68 @@
+cluster K0003: span|ref_obj|col+endcol|under:hier_path
+row: surelog/testflags/IOClassStruct  strict=differ:fullname(7)  records golden=45 ours=45
+object: #20 (golden) / #20 (ours)  type=ref_obj name=access_record
+  golden: 18:20:18:30
+  ours:   18:6:18:19
+  walk parents: hier_path(access_record.read_count) < operation < begin < function(record_read_access)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 8..31 ('>' = the object)
+  #8	7	typespec_member	read_count			dut.sv	7	18	7	28				
+  #9	8	ref_typespec			uvm_pkg::uvm_resource_types::access_t::read_count		0	0	0	0		0		
+  #10	9	int_typespec				dut.sv	7	5	7	17				
+  #11	4	begin			uvm_pkg::uvm_resource_base::record_read_access	dut.sv	18	6	18	33				
+  #12	5	class_var	access_record		uvm_pkg::uvm_resource_base::record_read_access::access_record	dut.sv	16	35	16	48		0		
+  #13	6	ref_typespec			uvm_pkg::uvm_resource_base::record_read_access::access_record		0	0	0	0		0		
+  #14	7	struct_typespec	access_t			dut.sv	5	11	8	4				
+  #15	8	typespec_member	read_count			dut.sv	7	18	7	28				
+  #16	9	ref_typespec			uvm_pkg::uvm_resource_types::access_t::read_count		0	0	0	0		0		
+  #17	10	int_typespec				dut.sv	7	5	7	17				
+  #18	5	operation				dut.sv	18	6	18	32		0		
+  #19	6	hier_path	access_record.read_count			dut.sv	18	6	18	30		0		
+> #20	7	ref_obj	access_record			dut.sv	18	20	18	30		0		
+  #21	8	class_var	access_record		uvm_pkg::uvm_resource_base::record_read_access::access_record	dut.sv	16	35	16	48		0		
+  #22	9	ref_typespec			uvm_pkg::uvm_resource_base::record_read_access::access_record		0	0	0	0		0		
+  #23	10	struct_typespec	access_t			dut.sv	5	11	8	4				
+  #24	11	typespec_member	read_count			dut.sv	7	18	7	28				
+  #25	12	ref_typespec			uvm_pkg::uvm_resource_types::access_t::read_count		0	0	0	0		0		
+  #26	13	int_typespec				dut.sv	7	5	7	17				
+  #27	7	ref_obj	read_count			dut.sv	18	20	18	30		0		
+  #28	8	typespec_member	read_count			dut.sv	7	18	7	28				
+  #29	9	ref_typespec			uvm_pkg::uvm_resource_types::access_t::read_count		0	0	0	0		0		
+  #30	10	int_typespec				dut.sv	7	5	7	17				
+  #31	3	function	init_access_record		uvm_pkg::uvm_resource_base::init_access_record	dut.sv	23	3	25	12				
+
+--- OURS (B) records 8..31 ('>' = the object)
+  #8	7	typespec_member	read_count			dut.sv	7	18	7	28				
+  #9	8	ref_typespec			uvm_resource_types::access_t::read_count		0	0	0	0		0		
+  #10	9	int_typespec				dut.sv	7	5	7	17				
+  #11	4	begin			uvm_pkg::uvm_resource_base::record_read_access	dut.sv	18	6	18	33				
+  #12	5	class_var	access_record		uvm_pkg::uvm_resource_base::record_read_access::access_record	dut.sv	16	35	16	48		0		
+  #13	6	ref_typespec			uvm_pkg::uvm_resource_base::record_read_access::access_record		0	0	0	0		0		
+  #14	7	struct_typespec	access_t			dut.sv	5	11	8	4				
+  #15	8	typespec_member	read_count			dut.sv	7	18	7	28				
+  #16	9	ref_typespec			uvm_resource_types::access_t::read_count		0	0	0	0		0		
+  #17	10	int_typespec				dut.sv	7	5	7	17				
+  #18	5	operation				dut.sv	18	6	18	32		0		
+  #19	6	hier_path	access_record.read_count			dut.sv	18	6	18	30		0		
+> #20	7	ref_obj	access_record			dut.sv	18	6	18	19		0		
+  #21	8	class_var	access_record		uvm_pkg::uvm_resource_base::record_read_access::access_record	dut.sv	16	35	16	48		0		
+  #22	9	ref_typespec			uvm_pkg::uvm_resource_base::record_read_access::access_record		0	0	0	0		0		
+  #23	10	struct_typespec	access_t			dut.sv	5	11	8	4				
+  #24	11	typespec_member	read_count			dut.sv	7	18	7	28				
+  #25	12	ref_typespec			uvm_resource_types::access_t::read_count		0	0	0	0		0		
+  #26	13	int_typespec				dut.sv	7	5	7	17				
+  #27	7	ref_obj	read_count		uvm_pkg::uvm_resource_base::record_read_access::read_count	dut.sv	18	20	18	30		0		
+  #28	8	typespec_member	read_count			dut.sv	7	18	7	28				
+  #29	9	ref_typespec			uvm_resource_types::access_t::read_count		0	0	0	0		0		
+  #30	10	int_typespec				dut.sv	7	5	7	17				
+  #31	3	function	init_access_record		uvm_pkg::uvm_resource_base::init_access_record	dut.sv	23	3	25	12				
+
+all facets of this row (7):
+  K0153 #9/9 ref_typespec  G[uvm_pkg::uvm_resource_types::access_t::read_count] O[uvm_resource_types::access_t::read_count]
+  K0153 #16/16 ref_typespec  G[uvm_pkg::uvm_resource_types::access_t::read_count] O[uvm_resource_types::access_t::read_count]
+  K0003 #20/20 ref_obj access_record G[18:20:18:30] O[18:6:18:19]
+  K0153 #25/25 ref_typespec  G[uvm_pkg::uvm_resource_types::access_t::read_count] O[uvm_resource_types::access_t::read_count]
+  K0016 #27/27 ref_obj read_count G[] O[uvm_pkg::uvm_resource_base::record_read_access::read_count]
+  K0153 #29/29 ref_typespec  G[uvm_pkg::uvm_resource_types::access_t::read_count] O[uvm_resource_types::access_t::read_count]
+  K0153 #43/43 ref_typespec  G[uvm_pkg::uvm_resource_types::access_t::read_count] O[uvm_resource_types::access_t::read_count]

@@ -1,0 +1,64 @@
+cluster K0060: span|func_call|endcol|under:param_assign
+row: uhdm2rtlil/testflags/struct_param_func_arg  strict=differ:endcol(3)  records golden=323 ours=323
+object: #201 (golden) / #201 (ours)  type=func_call name=p::build
+  golden: 16:39:16:42
+  ours:   16:39:16:40
+  walk parents: param_assign < module_inst < design(work@dut)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 189..212 ('>' = the object)
+  #189	7	int_typespec				dut.sv	2	27	2	39				
+  #190	6	constant				dut.sv	5	14	5	15	3	64	UINT:3	9
+  #191	6	constant				dut.sv	5	14	5	15	3	64	UINT:3	9
+  #192	5	typespec_member	base			dut.sv	2	56	2	60				
+  #193	6	ref_typespec			p::p::cfg_t::base		0	0	0	0		0		
+  #194	7	logic_typespec				dut.sv	2	43	2	55				
+  #195	8	range				dut.sv	2	49	2	55				
+  #196	9	constant				dut.sv	2	50	2	52	63	64	UINT:63	9
+  #197	9	constant				dut.sv	2	53	2	54	0	64	UINT:0	9
+  #198	6	constant				dut.sv	6	14	6	22	64'h1000	64	HEX:1000	5
+  #199	6	constant				dut.sv	6	14	6	22	64'h1000	64	HEX:1000	5
+  #200	2	param_assign				dut.sv	16	33	16	49				
+> #201	3	func_call	p::build			dut.sv	16	39	16	42		0		
+  #202	2	logic_net	a_i		work@dut.a_i	dut.sv	17	25	17	28		0		
+  #203	2	logic_net	o_fn		work@dut.o_fn	dut.sv	18	25	18	29		0		
+  #204	2	logic_net	o_direct		work@dut.o_direct	dut.sv	19	25	19	33		0		
+  #205	2	port	a_i			dut.sv	17	25	17	28				
+  #206	3	ref_obj	a_i		work@dut.a_i.a_i	dut.sv	17	25	17	28		0		
+  #207	3	ref_typespec			work@dut.a_i		0	0	0	0		0		
+  #208	4	logic_typespec				dut.sv	17	12	17	24				
+  #209	5	range				dut.sv	17	18	17	24				
+  #210	6	constant				dut.sv	17	19	17	21	63	64	UINT:63	9
+  #211	6	constant				dut.sv	17	22	17	23	0	64	UINT:0	9
+  #212	2	port	o_fn			dut.sv	18	25	18	29				
+
+--- OURS (B) records 189..212 ('>' = the object)
+  #189	7	int_typespec				dut.sv	2	27	2	39				
+  #190	6	constant				dut.sv	5	14	5	15	3	64	UINT:3	9
+  #191	6	constant				dut.sv	5	14	5	15	3	64	UINT:3	9
+  #192	5	typespec_member	base			dut.sv	2	56	2	60				
+  #193	6	ref_typespec			p::p::cfg_t::base		0	0	0	0		0		
+  #194	7	logic_typespec				dut.sv	2	43	2	55				
+  #195	8	range				dut.sv	2	49	2	55				
+  #196	9	constant				dut.sv	2	50	2	52	63	64	UINT:63	9
+  #197	9	constant				dut.sv	2	53	2	54	0	64	UINT:0	9
+  #198	6	constant				dut.sv	6	14	6	22	64'h1000	64	HEX:1000	5
+  #199	6	constant				dut.sv	6	14	6	22	64'h1000	64	HEX:1000	5
+  #200	2	param_assign				dut.sv	16	33	16	49				
+> #201	3	func_call	p::build			dut.sv	16	39	16	40		0		
+  #202	2	logic_net	a_i		work@dut.a_i	dut.sv	17	25	17	28		0		
+  #203	2	logic_net	o_fn		work@dut.o_fn	dut.sv	18	25	18	29		0		
+  #204	2	logic_net	o_direct		work@dut.o_direct	dut.sv	19	25	19	33		0		
+  #205	2	port	a_i			dut.sv	17	25	17	28				
+  #206	3	ref_obj	a_i		work@dut.a_i.a_i	dut.sv	17	25	17	28		0		
+  #207	3	ref_typespec			work@dut.a_i		0	0	0	0		0		
+  #208	4	logic_typespec				dut.sv	17	12	17	24				
+  #209	5	range				dut.sv	17	18	17	24				
+  #210	6	constant				dut.sv	17	19	17	21	63	64	UINT:63	9
+  #211	6	constant				dut.sv	17	22	17	23	0	64	UINT:0	9
+  #212	2	port	o_fn			dut.sv	18	25	18	29				
+
+all facets of this row (3):
+  K0060 #201/201 func_call p::build G[16:39:16:42] O[16:39:16:40]
+  K0013 #243/243 ref_typespec  G[work@dut.CFG.p::cfg_t.n] O[p::p::cfg_t::n]
+  K0013 #248/248 ref_typespec  G[work@dut.CFG.p::cfg_t.base] O[p::p::cfg_t::base]

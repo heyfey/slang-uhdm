@@ -1,0 +1,102 @@
+cluster K0219: file|begin|ours-empty|under:function
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(346)  records golden=201533 ours=201486
+object: #81814 (golden) / #81769 (ours)  type=begin name=
+  golden: uvm_pkg.sv 45155:5:45155:36
+  ours:    0:0:0:0
+  walk parents: function(get_connected_to) < class_defn(uvm_port_component) < class_defn(uvm_port_component_base) < class_defn(uvm_component)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 81802..81825 ('>' = the object)
+  #81802	11	ref_typespec					0	0	0	0		0		
+  #81803	12	string_typespec				uvm_pkg.sv	45154	16	45154	22				
+  #81804	9	ref_typespec					0	0	0	0		0		
+  #81805	10	string_typespec				uvm_pkg.sv	45154	16	45154	22				
+  #81806	9	ref_typespec					0	0	0	0		0		
+  #81807	10	class_typespec	uvm_object			uvm_pkg.sv	45123	52	45123	56				
+  #81808	7	class_var			uvm_pkg::uvm_port_component::get_connected_to::list1	uvm_pkg.sv	45154	10	45154	15		0		
+  #81809	8	ref_typespec			uvm_pkg::uvm_port_component::get_connected_to::list1		0	0	0	0		0		
+  #81810	9	class_typespec	uvm_object			uvm_pkg.sv	45123	52	45123	56				
+  #81811	6	io_decl	list			uvm_pkg.sv	45153	60	45153	64				
+  #81812	7	ref_typespec			uvm_pkg::uvm_port_component::get_connected_to::list		0	0	0	0		0		
+  #81813	8	class_typespec	uvm_pkg::uvm_port_list			uvm_pkg.sv	45049	9	45049	32				
+> #81814	6	begin			uvm_pkg::uvm_port_component::get_connected_to	uvm_pkg.sv	45155	5	45155	36				
+  #81815	7	method_func_call	get_connected_to			uvm_pkg.sv	45155	12	45155	28		0		
+  #81816	8	ref_obj	list1		uvm_pkg::uvm_port_component::get_connected_to::list1	uvm_pkg.sv	45155	29	45155	34		0		
+  #81817	8	ref_obj	m_port		uvm_pkg::uvm_port_component::get_connected_to::m_port	uvm_pkg.sv	45155	5	45155	11		0		
+  #81818	7	method_func_call	delete			uvm_pkg.sv	45156	10	45156	16		0		
+  #81819	8	ref_obj	list		uvm_pkg::uvm_port_component::get_connected_to::list	uvm_pkg.sv	45156	5	45156	9		0		
+  #81820	7	foreach_stmt			uvm_pkg::uvm_port_component::get_connected_to	uvm_pkg.sv	45157	5	45157	12				
+  #81821	8	ref_var	list1		uvm_pkg::uvm_port_component::get_connected_to::list1	uvm_pkg.sv	45157	13	45157	18		0		
+  #81822	9	ref_typespec			uvm_pkg::uvm_port_component::get_connected_to::list1		0	0	0	0		0		
+  #81823	10	unsupported_typespec	list1			uvm_pkg.sv	45157	13	45157	18				
+  #81824	8	ref_var	name		uvm_pkg::uvm_port_component::get_connected_to::name	uvm_pkg.sv	45157	19	45157	23		0		
+  #81825	9	ref_typespec			uvm_pkg::uvm_port_component::get_connected_to::name		0	0	0	0		0		
+
+--- OURS (B) records 81757..81780 ('>' = the object)
+  #81757	11	ref_typespec					0	0	0	0		0		
+  #81758	12	string_typespec				uvm_pkg.sv	45154	16	45154	22				
+  #81759	9	ref_typespec					0	0	0	0		0		
+  #81760	10	string_typespec				uvm_pkg.sv	45154	16	45154	22				
+  #81761	9	ref_typespec					0	0	0	0		0		
+  #81762	10	class_typespec				uvm_pkg.sv	45154	5	45154	9				
+  #81763	7	class_var			uvm_pkg::uvm_port_component::get_connected_to::list1	uvm_pkg.sv	45154	10	45154	15		0		
+  #81764	8	ref_typespec			uvm_pkg::uvm_port_component::get_connected_to::list1		0	0	0	0		0		
+  #81765	9	class_typespec				uvm_pkg.sv	45154	5	45154	9				
+  #81766	6	io_decl	list			uvm_pkg.sv	45153	60	45153	64				
+  #81767	7	ref_typespec			uvm_pkg::uvm_port_component::get_connected_to::list		0	0	0	0		0		
+  #81768	8	class_typespec	uvm_pkg::uvm_port_list			uvm_pkg.sv	45049	9	45049	32				
+> #81769	6	begin			uvm_pkg::uvm_port_component::get_connected_to		0	0	0	0				
+  #81770	7	method_func_call	get_connected_to			uvm_pkg.sv	45155	12	45155	28		0		
+  #81771	8	ref_obj	list1		uvm_pkg::uvm_port_component::get_connected_to::list1	uvm_pkg.sv	45155	29	45155	34		0		
+  #81772	8	ref_obj	m_port		uvm_pkg::uvm_port_component::get_connected_to::m_port	uvm_pkg.sv	45155	5	45155	11		0		
+  #81773	7	method_func_call	delete			uvm_pkg.sv	45156	10	45156	16		0		
+  #81774	8	ref_obj	list		uvm_pkg::uvm_port_component::get_connected_to::list	uvm_pkg.sv	45156	5	45156	9		0		
+  #81775	7	foreach_stmt			uvm_pkg::uvm_port_component::get_connected_to	uvm_pkg.sv	45157	5	45157	12				
+  #81776	8	ref_var	list1		uvm_pkg::uvm_port_component::get_connected_to::list1	uvm_pkg.sv	45157	13	45157	18		0		
+  #81777	9	ref_typespec			uvm_pkg::uvm_port_component::get_connected_to::list1		0	0	0	0		0		
+  #81778	10	unsupported_typespec	list1				45157	13	45157	18				
+  #81779	8	ref_var	name		uvm_pkg::uvm_port_component::get_connected_to::name	uvm_pkg.sv	45157	19	45157	23		0		
+  #81780	9	ref_typespec			uvm_pkg::uvm_port_component::get_connected_to::name		0	0	0	0		0		
+
+all facets of this row (12107):
+  K0325 #11992/-1 ref_typespec  G[2 objs] O[]
+  K0568 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  K0288 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/22519 bit_typespec  G[] O[1 objs]
+  K0288 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/22603 bit_typespec  G[] O[1 objs]
+  K0288 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/23516 bit_typespec  G[] O[1 objs]
+  K0585 #-1/56203 ref_typespec  G[] O[2 objs]
+  K0558 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  K0247 #-1/74758 bit_typespec  G[] O[1 objs]
+  K0558 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  K0247 #-1/74841 bit_typespec  G[] O[1 objs]
+  K0288 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76348 bit_typespec  G[] O[1 objs]
+  K0288 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76369 bit_typespec  G[] O[1 objs]
+  K0288 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76429 bit_typespec  G[] O[1 objs]
+  K0288 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/79792 bit_typespec  G[] O[1 objs]
+  K0268 #79836/-1 string_typespec  G[1 objs] O[]
+  K0624 #-1/79803 array_typespec  G[] O[1 objs]
+  K0268 #79890/-1 string_typespec  G[1 objs] O[]
+  K0624 #-1/79857 array_typespec  G[] O[1 objs]
+  K0288 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/79876 bit_typespec  G[] O[1 objs]
+  K0288 #80868/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/80829 bit_typespec  G[] O[1 objs]
+  K0229 #96958/96911 bit_typespec  G[8 ref_typespec < enum_typespec(uvm_pkg::uvm_active_passive_enum)] O[6 ref_typespec < enum_var]
+  K0288 #96956/-1 enum_typespec uvm_pkg::uvm_active_passive_enum G[2 objs] O[]
+  K0241 #97010/-1 bit_typespec  G[1 objs] O[]
+  K0208 #118186/-1 range  G[5 objs] O[]
+  K0265 #118191/-1 ref_typespec  G[2 objs] O[]
+  K0265 #118193/-1 ref_typespec  G[2 objs] O[]
+  K0208 #118234/-1 range  G[5 objs] O[]
+  K0265 #118239/-1 ref_typespec  G[2 objs] O[]
+  K0265 #118241/-1 ref_typespec  G[2 objs] O[]
+  K0208 #118303/-1 range  G[5 objs] O[]
+  K0265 #118308/-1 ref_typespec  G[2 objs] O[]
+  ... 12067 more

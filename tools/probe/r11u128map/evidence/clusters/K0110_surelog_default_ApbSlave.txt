@@ -1,0 +1,102 @@
+cluster K0110: file|class_typespec|ours-empty|under:ref_typespec
+row: surelog/default/ApbSlave  strict=differ:line(59)  records golden=3678 ours=3682
+object: #713 (golden) / #717 (ours)  type=class_typespec name=svunit_testsuite
+  golden: svunit_testrunner.sv 32:9:32:25
+  ours:    0:0:0:0
+  walk parents: ref_typespec < class_var < array_var(list_of_suites) < class_defn(svunit_testrunner)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 701..724 ('>' = the object)
+  #701	7	class_typespec					0	0	0	0				
+  #702	5	io_decl	name			svunit_testcase.sv	81	38	81	42				
+  #703	6	ref_typespec			svunit_pkg::svunit_testcase::new::name		0	0	0	0		0		
+  #704	7	string_typespec				svunit_testcase.sv	81	31	81	37				
+  #705	5	method_func_call	super.new				0	0	0	0		0		
+  #706	6	ref_obj	name		svunit_pkg::svunit_testcase::new::name	svunit_testcase.sv	82	13	82	17		0		
+  #707	3	class_defn	svunit_testrunner		svunit_pkg::svunit_testrunner	svunit_testrunner.sv	26	1	43	9				
+  #708	4	array_var	list_of_suites		svunit_pkg::svunit_testrunner::list_of_suites	svunit_testrunner.sv	32	26	32	40		1		
+  #709	5	ref_typespec			svunit_pkg::svunit_testrunner::list_of_suites		0	0	0	0		0		
+  #710	6	array_typespec					0	0	0	0				
+  #711	5	class_var			svunit_pkg::svunit_testrunner::list_of_suites	svunit_testrunner.sv	32	26	32	40		0		
+  #712	6	ref_typespec			svunit_pkg::svunit_testrunner::list_of_suites		0	0	0	0		0		
+> #713	7	class_typespec	svunit_testsuite			svunit_testrunner.sv	32	9	32	25				
+  #714	4	extends				svunit_testrunner.sv	26	33	26	44				
+  #715	5	ref_typespec			svunit_pkg::svunit_testrunner		0	0	0	0		0		
+  #716	6	class_typespec	svunit_base			svunit_testrunner.sv	26	33	26	44				
+  #717	4	function	new		svunit_pkg::svunit_testrunner::new	svunit_testrunner.sv	38	3	38	9				
+  #718	5	class_var			svunit_pkg::svunit_testrunner::new		0	0	0	0		0		
+  #719	6	ref_typespec			svunit_pkg::svunit_testrunner::new		0	0	0	0		0		
+  #720	7	class_typespec	svunit_pkg::svunit_testrunner				0	0	0	0				
+  #721	5	io_decl	name			svunit_testrunner.sv	38	30	38	34				
+  #722	6	ref_typespec			svunit_pkg::svunit_testrunner::new::name		0	0	0	0		0		
+  #723	7	string_typespec				svunit_testrunner.sv	38	23	38	29				
+  #724	4	function	add_testsuite		svunit_pkg::svunit_testrunner::add_testsuite	svunit_testrunner.sv	39	3	39	9				
+
+--- OURS (B) records 705..728 ('>' = the object)
+  #705	7	class_typespec					0	0	0	0				
+  #706	5	io_decl	name			svunit_testcase.sv	81	38	81	42				
+  #707	6	ref_typespec			svunit_pkg::svunit_testcase::new::name		0	0	0	0		0		
+  #708	7	string_typespec				svunit_testcase.sv	81	31	81	37				
+  #709	5	method_func_call	super.new				0	0	0	0		0		
+  #710	6	ref_obj	name		svunit_pkg::svunit_testcase::new::name	svunit_testcase.sv	82	13	82	17		0		
+  #711	3	class_defn	svunit_testrunner		svunit_pkg::svunit_testrunner	svunit_testrunner.sv	26	1	43	9				
+  #712	4	array_var	list_of_suites		svunit_pkg::svunit_testrunner::list_of_suites	svunit_testrunner.sv	32	26	32	40		1		
+  #713	5	ref_typespec			svunit_pkg::svunit_testrunner::list_of_suites		0	0	0	0		0		
+  #714	6	array_typespec					0	0	0	0				
+  #715	5	class_var			svunit_pkg::svunit_testrunner::list_of_suites	svunit_testrunner.sv	32	26	32	40		0		
+  #716	6	ref_typespec			svunit_pkg::svunit_testrunner::list_of_suites		0	0	0	0		0		
+> #717	7	class_typespec	svunit_testsuite				0	0	0	0				
+  #718	4	extends				svunit_testrunner.sv	26	33	26	44				
+  #719	5	ref_typespec			svunit_pkg::svunit_testrunner		0	0	0	0		0		
+  #720	6	class_typespec	svunit_base			svunit_testrunner.sv	26	33	26	44				
+  #721	4	function	new		svunit_pkg::svunit_testrunner::new	svunit_testrunner.sv	38	3	38	9				
+  #722	5	class_var			svunit_pkg::svunit_testrunner::new	svunit_testrunner.sv	53	40	53	44		0		
+  #723	6	ref_typespec			svunit_pkg::svunit_testrunner::new		0	0	0	0		0		
+  #724	7	class_typespec	svunit_pkg::svunit_testrunner				0	0	0	0				
+  #725	5	io_decl	name			svunit_testrunner.sv	53	40	53	44				
+  #726	6	ref_typespec			svunit_pkg::svunit_testrunner::new::name		0	0	0	0		0		
+  #727	7	string_typespec				svunit_testrunner.sv	53	33	53	39				
+  #728	4	function	add_testsuite		svunit_pkg::svunit_testrunner::add_testsuite	svunit_testrunner.sv	39	3	39	9				
+
+all facets of this row (393):
+  K0378 #-1/372 string_var svunit_version G[] O[4 objs]
+  K0095 #4/4 include_file_info  G[375:12:375:32] O[373:12:373:32]
+  K0095 #5/5 include_file_info  G[593:12:593:33] O[587:12:587:33]
+  K0095 #6/6 include_file_info  G[710:12:710:34] O[698:12:698:34]
+  K0095 #7/7 include_file_info  G[813:12:813:32] O[797:12:797:32]
+  K0895 #34/34 begin  G[103:3:79:2] O[103:3:79:43]
+  K0309 #44/44 sys_func_call $sformatf G[svunit_defines.svh 103:50:103:82] O[svunit_base.sv 103:50:103:82]
+  K0181 #45/45 constant  G[svunit_defines.svh 103:60:103:70] O[svunit_base.sv 103:60:103:70]
+  K0287 #46/46 ref_obj name G[svunit_defines.svh 103:72:103:76] O[svunit_base.sv 103:72:103:76]
+  K0287 #47/47 ref_obj str G[svunit_defines.svh 103:78:103:81] O[svunit_base.sv 103:78:103:81]
+  K0309 #117/117 sys_func_call $sformatf G[svunit_defines.svh 114:50:114:99] O[svunit_testcase.sv 114:50:114:99]
+  K0181 #118/118 constant  G[svunit_defines.svh 114:60:114:87] O[svunit_testcase.sv 114:60:114:87]
+  K0287 #119/119 ref_obj c G[svunit_defines.svh 114:88:114:89] O[svunit_testcase.sv 114:88:114:89]
+  K0287 #120/120 ref_obj s G[svunit_defines.svh 114:90:114:91] O[svunit_testcase.sv 114:90:114:91]
+  K0287 #121/121 ref_obj _d G[svunit_defines.svh 114:92:114:94] O[svunit_testcase.sv 114:92:114:94]
+  K0287 #122/122 ref_obj f G[svunit_defines.svh 114:95:114:96] O[svunit_testcase.sv 114:95:114:96]
+  K0287 #123/123 ref_obj l G[svunit_defines.svh 114:97:114:98] O[svunit_testcase.sv 114:97:114:98]
+  K0895 #163/163 begin  G[103:3:195:2] O[103:3:195:18]
+  K0890 #169/169 sys_func_call $display G[103:3:106:17] O[103:3:103:155]
+  K0315 #173/173 sys_func_call $sformatf G[svunit_defines.svh 103:50:106:16] O[svunit_testcase.sv 103:50:195:16]
+  K0181 #174/174 constant  G[svunit_defines.svh 103:60:103:92] O[svunit_testcase.sv 103:60:103:92]
+  K0284 #175/175 ref_obj success_str G[svunit_defines.svh 104:5:104:16] O[svunit_testcase.sv 193:5:193:16]
+  K0184 #176/176 operation  G[svunit_defines.svh 105:5:105:27] O[svunit_testcase.sv 194:5:194:27]
+  K0125 #177/177 ref_obj test_count G[svunit_defines.svh 105:5:105:15] O[svunit_testcase.sv 194:5:194:15]
+  K0125 #178/178 ref_obj error_count G[svunit_defines.svh 105:16:105:27] O[svunit_testcase.sv 194:16:194:27]
+  K0284 #179/179 ref_obj test_count G[svunit_defines.svh 106:5:106:15] O[svunit_testcase.sv 195:5:195:15]
+  K0309 #191/191 sys_func_call $sformatf G[svunit_defines.svh 103:50:103:111] O[svunit_testsuite.sv 103:50:103:111]
+  K0181 #192/192 constant  G[svunit_defines.svh 103:60:103:91] O[svunit_testsuite.sv 103:60:103:91]
+  K0289 #193/193 hier_path svunit.get_name G[svunit_defines.svh 103:93:103:110] O[svunit_testsuite.sv 103:93:103:110]
+  K0206 #194/194 ref_obj svunit G[svunit_defines.svh 103:93:103:99] O[svunit_testsuite.sv 103:93:103:99]
+  K0285 #195/195 method_func_call get_name G[svunit_defines.svh 103:100:103:108] O[svunit_testsuite.sv 103:100:103:108]
+  K0181 #204/204 constant  G[svunit_defines.svh 103:50:103:59] O[svunit_testsuite.sv 103:50:103:59]
+  K0071 #216/216 unsupported_typespec list_of_testcases G[svunit_testsuite.sv 89:11:89:28] O[ 89:11:89:28]
+  K0894 #271/271 sys_func_call $display G[svunit_testsuite.sv 105:3:105:15] O[svunit_defines.svh 105:3:105:15]
+  K0181 #272/272 constant  G[svunit_testsuite.sv 105:12:105:14] O[svunit_defines.svh 105:12:105:14]
+  K0890 #273/273 sys_func_call $display G[103:3:106:31] O[103:3:103:159]
+  K0315 #277/277 sys_func_call $sformatf G[svunit_defines.svh 103:50:106:30] O[svunit_testsuite.sv 103:50:109:30]
+  K0181 #278/278 constant  G[svunit_defines.svh 103:60:103:96] O[svunit_testsuite.sv 103:60:103:96]
+  K0284 #279/279 ref_obj success_str G[svunit_defines.svh 104:5:104:16] O[svunit_testsuite.sv 107:5:107:16]
+  K0284 #280/280 ref_obj pass_cnt G[svunit_defines.svh 105:5:105:13] O[svunit_testsuite.sv 108:5:108:13]
+  ... 353 more

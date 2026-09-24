@@ -1,0 +1,102 @@
+cluster K0112: span|string_typespec|line+col+endline+endcol|under:ref_typespec
+row: surelog/testflags/ClassTypeParam  strict=differ:file(40)  records golden=146 ours=146
+object: #32 (golden) / #32 (ours)  type=string_typespec name=
+  golden: 26:30:26:36
+  ours:   20:36:20:42
+  walk parents: ref_typespec < type_parameter(T2) < param_assign < class_defn(work@uvm_config_db)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 20..43 ('>' = the object)
+  #20	4	ref_typespec			work@uvm_config_db::T2		0	0	0	0		0		
+  #21	5	int_typespec				dut.sv	16	42	16	45				
+  #22	2	param_assign					0	0	0	0				
+  #23	3	type_parameter	T		uvm_config_db.T		0	0	0	0				
+  #24	4	ref_typespec			uvm_config_db.T		0	0	0	0		0		
+  #25	5	class_typespec	uvm_object			dut.sv	26	16	26	37				
+  #26	3	type_parameter	T		work@uvm_config_db::T	dut.sv	16	27	16	28				
+  #27	4	ref_typespec			work@uvm_config_db::T		0	0	0	0		0		
+  #28	5	int_typespec				dut.sv	16	29	16	32				
+  #29	2	param_assign					0	0	0	0				
+  #30	3	type_parameter	T2		uvm_config_db.T2	dut.sv	16	39	16	41				
+  #31	4	ref_typespec			uvm_config_db.T2		0	0	0	0		0		
+> #32	5	string_typespec				dut.sv	26	30	26	36				
+  #33	3	type_parameter	T2		work@uvm_config_db::T2	dut.sv	16	39	16	41				
+  #34	4	ref_typespec			work@uvm_config_db::T2		0	0	0	0		0		
+  #35	5	int_typespec				dut.sv	16	42	16	45				
+  #36	2	extends				dut.sv	16	55	16	70				
+  #37	3	ref_typespec			work@uvm_config_db		0	0	0	0		0		
+  #38	4	class_typespec	uvm_resource_db			dut.sv	16	55	16	70				
+  #39	1	class_defn	work@uvm_object			dut.sv	1	9	2	9				
+  #40	1	class_defn	work@uvm_resource			dut.sv	4	1	5	9				
+  #41	2	type_parameter	T		work@uvm_resource::T	dut.sv	4	27	4	28				
+  #42	3	ref_typespec			work@uvm_resource::T		0	0	0	0		0		
+  #43	4	int_typespec				dut.sv	4	29	4	32				
+
+--- OURS (B) records 20..43 ('>' = the object)
+  #20	4	ref_typespec			work@uvm_config_db::T2		0	0	0	0		0		
+  #21	5	int_typespec				dut.sv	16	42	16	45				
+  #22	2	param_assign					0	0	0	0				
+  #23	3	type_parameter	T		uvm_config_db.T	dut.sv	16	27	16	28				
+  #24	4	ref_typespec			uvm_config_db.T		0	0	0	0		0		
+  #25	5	class_typespec	uvm_object			dut.sv	20	24	20	34				
+  #26	3	type_parameter	T		work@uvm_config_db::T	dut.sv	16	27	16	28				
+  #27	4	ref_typespec			work@uvm_config_db::T		0	0	0	0		0		
+  #28	5	int_typespec				dut.sv	16	29	16	32				
+  #29	2	param_assign					0	0	0	0				
+  #30	3	type_parameter	T2		uvm_config_db.T2	dut.sv	16	39	16	41				
+  #31	4	ref_typespec			uvm_config_db.T2		0	0	0	0		0		
+> #32	5	string_typespec				dut.sv	20	36	20	42				
+  #33	3	type_parameter	T2		work@uvm_config_db::T2	dut.sv	16	39	16	41				
+  #34	4	ref_typespec			work@uvm_config_db::T2		0	0	0	0		0		
+  #35	5	int_typespec				dut.sv	16	42	16	45				
+  #36	2	extends				dut.sv	16	55	16	70				
+  #37	3	ref_typespec			work@uvm_config_db		0	0	0	0		0		
+  #38	4	class_typespec	uvm_resource_db			dut.sv	16	55	16	70				
+  #39	1	class_defn	work@uvm_object			dut.sv	1	9	2	9				
+  #40	1	class_defn	work@uvm_resource			dut.sv	4	1	5	9				
+  #41	2	type_parameter	T		work@uvm_resource::T	dut.sv	4	27	4	28				
+  #42	3	ref_typespec			work@uvm_resource::T		0	0	0	0		0		
+  #43	4	int_typespec				dut.sv	4	29	4	32				
+
+all facets of this row (54):
+  K1811 #9/9 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  K1844 #9/9 type_parameter T G[0:0:0:0] O[16:27:16:28]
+  K0173 #11/11 class_typespec uvm_object G[20:22:20:43] O[20:24:20:34]
+  K1811 #23/23 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  K1844 #23/23 type_parameter T G[0:0:0:0] O[16:27:16:28]
+  K0088 #25/25 class_typespec uvm_object G[26:16:26:37] O[20:24:20:34]
+  K0112 #32/32 string_typespec  G[26:30:26:36] O[20:36:20:42]
+  K1811 #45/45 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  K1844 #45/45 type_parameter T G[0:0:0:0] O[16:27:16:28]
+  K0173 #47/47 class_typespec uvm_object G[20:22:20:43] O[20:24:20:34]
+  K1811 #52/52 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  K1844 #52/52 type_parameter T G[0:0:0:0] O[16:27:16:28]
+  K0088 #54/54 class_typespec uvm_object G[26:16:26:37] O[20:24:20:34]
+  K1811 #66/66 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  K1844 #66/66 type_parameter T G[0:0:0:0] O[16:27:16:28]
+  K0173 #68/68 class_typespec uvm_object G[20:22:20:43] O[20:24:20:34]
+  K1811 #73/73 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  K1844 #73/73 type_parameter T G[0:0:0:0] O[16:27:16:28]
+  K0088 #75/75 class_typespec uvm_object G[26:16:26:37] O[20:24:20:34]
+  K0113 #80/80 function check_all_sva_passed G[11:2:11:9] O[11:2:12:13]
+  K1282 #87/87 class_typespec m_uvm_config_obj_misc G[20:9:24:36] O[20:9:20:43]
+  K0961 #88/88 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  K0963 #88/88 type_parameter T G[0:0:0:0] O[16:27:16:28]
+  K0173 #90/90 class_typespec uvm_object G[20:22:20:43] O[20:24:20:34]
+  K0597 #94/94 param_assign  G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  K0962 #94/94 param_assign  G[0:0:0:0] O[16:27:16:28]
+  K0597 #98/98 param_assign  G[ 16:39:16:41] O[dut.sv 16:39:16:41]
+  K0087 #104/104 class_typespec uvm_config_db G[26:3:26:49] O[26:3:26:37]
+  K0961 #105/105 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  K0963 #105/105 type_parameter T G[0:0:0:0] O[16:27:16:28]
+  K0088 #107/107 class_typespec uvm_object G[26:16:26:37] O[20:24:20:34]
+  K0112 #110/110 string_typespec  G[26:30:26:36] O[20:36:20:42]
+  K0597 #111/111 param_assign  G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  K0962 #111/111 param_assign  G[0:0:0:0] O[16:27:16:28]
+  K0597 #112/112 param_assign  G[ 16:39:16:41] O[dut.sv 16:39:16:41]
+  K0034 #113/113 logic_net uvm_object G[ 26:18:26:28] O[dut.sv 26:18:26:28]
+  K1344 #114/114 class_typespec m_uvm_config_obj_misc G[20:9:24:36] O[20:9:20:43]
+  K0961 #115/115 type_parameter T G[ 0:0:0:0] O[dut.sv 16:27:16:28]
+  K0963 #115/115 type_parameter T G[0:0:0:0] O[16:27:16:28]
+  K0173 #117/117 class_typespec uvm_object G[20:22:20:43] O[20:24:20:34]
+  ... 14 more

@@ -1,0 +1,67 @@
+cluster K0052: span|struct_typespec|line+col+endline+endcol|under:ref_typespec
+row: uhdm2rtlil/testflags/const_cast_signext  strict=differ:line(15)  records golden=531 ours=527
+object: #4 (golden) / #4 (ours)  type=struct_typespec name=op_t
+  golden: 19:42:19:46
+  ours:   15:11:15:61
+  walk parents: ref_typespec < parameter(OP_F) < module_inst < design(work@const_cast_signext)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 0..15 ('>' = the object)
+  #0	0	design	work@const_cast_signext				0	0	0	0				
+  #1	1	module_inst		work@const_cast_signext	work@const_cast_signext	dut.sv	8	1	28	10				
+  #2	2	parameter	OP_F		work@const_cast_signext.OP_F	dut.sv	21	19	21	23		0		
+  #3	3	ref_typespec			work@const_cast_signext.OP_F		0	0	0	0		0		
+> #4	4	struct_typespec	op_t			dut.sv	19	42	19	46				
+  #5	5	typespec_member	hi			dut.sv	15	40	15	42				
+  #6	6	ref_typespec			work@const_cast_signext.op_t.hi		0	0	0	0		0		
+  #7	7	logic_typespec				dut.sv	15	27	15	39				
+  #8	8	range				dut.sv	15	33	15	39				
+  #9	9	constant				dut.sv	15	34	15	36	19	64	UINT:19	9
+  #10	9	constant				dut.sv	15	37	15	38	0	64	UINT:0	9
+  #11	5	typespec_member	f			dut.sv	15	57	15	58				
+  #12	6	ref_typespec			work@const_cast_signext.op_t.f		0	0	0	0		0		
+  #13	7	logic_typespec				dut.sv	15	44	15	56				
+  #14	8	range				dut.sv	15	50	15	56				
+  #15	9	constant				dut.sv	15	51	15	53	11	64	UINT:11	9
+
+--- OURS (B) records 0..15 ('>' = the object)
+  #0	0	design	work@const_cast_signext				0	0	0	0				
+  #1	1	module_inst		work@const_cast_signext	work@const_cast_signext	dut.sv	8	1	28	10				
+  #2	2	parameter	OP_F		work@const_cast_signext.OP_F	dut.sv	21	19	21	23		0		
+  #3	3	ref_typespec			work@const_cast_signext.OP_F		0	0	0	0		0		
+> #4	4	struct_typespec	op_t			dut.sv	15	11	15	61				
+  #5	5	typespec_member	hi			dut.sv	15	40	15	42				
+  #6	6	ref_typespec			work@const_cast_signext.op_t.hi		0	0	0	0		0		
+  #7	7	logic_typespec				dut.sv	15	27	15	39				
+  #8	8	range				dut.sv	15	33	15	39				
+  #9	9	constant				dut.sv	15	34	15	36	19	64	UINT:19	9
+  #10	9	constant				dut.sv	15	37	15	38	0	64	UINT:0	9
+  #11	5	typespec_member	f			dut.sv	15	57	15	58				
+  #12	6	ref_typespec			work@const_cast_signext.op_t.f		0	0	0	0		0		
+  #13	7	logic_typespec				dut.sv	15	44	15	56				
+  #14	8	range				dut.sv	15	50	15	56				
+  #15	9	constant				dut.sv	15	51	15	53	11	64	UINT:11	9
+
+all facets of this row (22):
+  K0197 #512/-1 func_call sext G[2 objs] O[]
+  K0642 #-1/512 constant  G[] O[1 objs]
+  K0197 #517/-1 func_call sext G[2 objs] O[]
+  K0642 #-1/516 constant  G[] O[1 objs]
+  K0197 #522/-1 func_call uext G[2 objs] O[]
+  K0642 #-1/520 constant  G[] O[1 objs]
+  K0197 #527/-1 func_call szc G[2 objs] O[]
+  K0642 #-1/524 constant  G[] O[1 objs]
+  K0052 #4/4 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]
+  K0052 #19/19 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]
+  K0584 #56/56 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]
+  K0052 #83/83 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]
+  K0052 #134/134 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]
+  K0052 #171/171 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]
+  K0052 #249/249 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]
+  K0052 #264/264 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]
+  K0052 #280/280 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]
+  K0052 #298/298 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]
+  K0584 #317/317 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]
+  K0052 #344/344 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]
+  K0052 #395/395 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]
+  K0052 #432/432 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]

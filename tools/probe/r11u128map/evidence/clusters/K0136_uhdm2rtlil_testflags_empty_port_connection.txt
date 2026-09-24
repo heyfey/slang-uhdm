@@ -1,0 +1,62 @@
+cluster K0136: span|ref_obj|line+col+endline+endcol|under:port
+row: uhdm2rtlil/testflags/empty_port_connection  strict=differ:line(1)  records golden=173 ours=173
+object: #159 (golden) / #159 (ours)  type=ref_obj name=carry
+  golden: 19:22:19:27
+  ours:   33:6:33:11
+  walk parents: port(carry) < module_inst(u_add) < module_inst(work@empty_port_connection) < design(work@empty_port_connection)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 147..170 ('>' = the object)
+  #147	7	constant				dut.sv	17	17	17	18	7	64	UINT:7	9
+  #148	7	constant				dut.sv	17	19	17	20	0	64	UINT:0	9
+  #149	3	port	sum			dut.sv	18	22	18	25				
+  #150	4	ref_obj	y		work@empty_port_connection.y	dut.sv	32	13	32	14		0		
+  #151	4	ref_obj	sum		work@empty_port_connection.u_add.sum	dut.sv	32	6	32	9		0		
+  #152	4	ref_typespec			work@empty_port_connection.u_add.sum		0	0	0	0		0		
+  #153	5	logic_typespec				dut.sv	18	10	18	21				
+  #154	6	range				dut.sv	18	16	18	21				
+  #155	7	constant				dut.sv	18	17	18	18	7	64	UINT:7	9
+  #156	7	constant				dut.sv	18	19	18	20	0	64	UINT:0	9
+  #157	3	port	carry			dut.sv	19	22	19	27				
+  #158	4	operation				dut.sv	33	19	33	20		0		
+> #159	4	ref_obj	carry		work@empty_port_connection.u_add.carry	dut.sv	19	22	19	27		0		
+  #160	4	ref_typespec			work@empty_port_connection.u_add.carry		0	0	0	0		0		
+  #161	5	logic_typespec				dut.sv	19	10	19	15				
+  #162	3	cont_assign				dut.sv	21	10	21	30				
+  #163	4	operation				dut.sv	21	25	21	30		0		
+  #164	5	ref_obj	a		work@adder_with_carry.a	dut.sv	21	25	21	26		0		
+  #165	6	logic_net	a		work@adder_with_carry.a	dut.sv	16	22	16	23		0		
+  #166	5	ref_obj	b		work@adder_with_carry.b	dut.sv	21	29	21	30		0		
+  #167	6	logic_net	b		work@adder_with_carry.b	dut.sv	17	22	17	23		0		
+  #168	4	operation				dut.sv	21	11	21	16		0		
+  #169	5	ref_obj	carry		work@adder_with_carry.carry	dut.sv	21	11	21	16		0		
+  #170	6	logic_net	carry		work@adder_with_carry.carry	dut.sv	19	22	19	27		0		
+
+--- OURS (B) records 147..170 ('>' = the object)
+  #147	7	constant				dut.sv	17	17	17	18	7	64	UINT:7	9
+  #148	7	constant				dut.sv	17	19	17	20	0	64	UINT:0	9
+  #149	3	port	sum			dut.sv	18	22	18	25				
+  #150	4	ref_obj	y		work@empty_port_connection.y	dut.sv	32	13	32	14		0		
+  #151	4	ref_obj	sum		work@empty_port_connection.u_add.sum	dut.sv	32	6	32	9		0		
+  #152	4	ref_typespec			work@empty_port_connection.u_add.sum		0	0	0	0		0		
+  #153	5	logic_typespec				dut.sv	18	10	18	21				
+  #154	6	range				dut.sv	18	16	18	21				
+  #155	7	constant				dut.sv	18	17	18	18	7	64	UINT:7	9
+  #156	7	constant				dut.sv	18	19	18	20	0	64	UINT:0	9
+  #157	3	port	carry			dut.sv	19	22	19	27				
+  #158	4	operation				dut.sv	33	19	33	20		0		
+> #159	4	ref_obj	carry		work@empty_port_connection.u_add.carry	dut.sv	33	6	33	11		0		
+  #160	4	ref_typespec			work@empty_port_connection.u_add.carry		0	0	0	0		0		
+  #161	5	logic_typespec				dut.sv	19	10	19	15				
+  #162	3	cont_assign				dut.sv	21	10	21	30				
+  #163	4	operation				dut.sv	21	25	21	30		0		
+  #164	5	ref_obj	a		work@adder_with_carry.a	dut.sv	21	25	21	26		0		
+  #165	6	logic_net	a		work@adder_with_carry.a	dut.sv	16	22	16	23		0		
+  #166	5	ref_obj	b		work@adder_with_carry.b	dut.sv	21	29	21	30		0		
+  #167	6	logic_net	b		work@adder_with_carry.b	dut.sv	17	22	17	23		0		
+  #168	4	operation				dut.sv	21	11	21	16		0		
+  #169	5	ref_obj	carry		work@adder_with_carry.carry	dut.sv	21	11	21	16		0		
+  #170	6	logic_net	carry		work@adder_with_carry.carry	dut.sv	19	22	19	27		0		
+
+all facets of this row (1):
+  K0136 #159/159 ref_obj carry G[19:22:19:27] O[33:6:33:11]

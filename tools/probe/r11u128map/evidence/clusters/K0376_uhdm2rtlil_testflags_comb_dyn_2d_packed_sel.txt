@@ -1,0 +1,59 @@
+cluster K0376: struct|ours-only:fewer-copies|ref_obj|under:int_typespec
+row: uhdm2rtlil/testflags/comb_dyn_2d_packed_sel  strict=differ:fullname(3)  records golden=668 ours=670
+object: #-1 (golden) / #653 (ours)  type=ref_obj name=SEL_W
+  golden: 
+  ours:   1 objs
+  walk parents: int_typespec < ref_typespec < parameter(SEL_W) < ref_obj(SEL_W)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- OURS (B) records 641..664 ('>' = the object)
+  #641	9	ref_obj	wr_ack_o		work@dut.wr_ack_o	dut.sv	54	9	54	17		0		
+  #642	2	cont_assign				dut.sv	32	10	32	57				
+  #643	3	operation				dut.sv	32	22	32	57		0		
+  #644	4	bit_select	rd_req_i		work@dut.rd_req_i	dut.sv	32	31	32	32		0		
+  #645	5	constant				dut.sv	32	31	32	32	0	64	UINT:0	9
+  #646	4	operation				dut.sv	32	36	32	45		0		
+  #647	5	ref_typespec			work@dut		0	0	0	0		0		
+  #648	6	int_typespec				dut.sv	26	14	26	17				
+  #649	7	ref_obj	SEL_W		work@dut.SEL_W.SEL_W		0	0	0	0		0		
+  #650	8	parameter	SEL_W		work@dut.SEL_W	dut.sv	26	18	26	23		0		
+  #651	9	ref_typespec			work@dut.SEL_W		0	0	0	0		0		
+  #652	10	int_typespec				dut.sv	26	14	26	17				
+> #653	11	ref_obj	SEL_W		work@dut.SEL_W.SEL_W		0	0	0	0		0		
+  #654	5	constant				dut.sv	32	43	32	44	1	64	UINT:1	9
+  #655	4	operation				dut.sv	32	48	32	57		0		
+  #656	5	ref_typespec			work@dut		0	0	0	0		0		
+  #657	6	int_typespec				dut.sv	26	14	26	17				
+  #658	7	ref_obj	SEL_W		work@dut.SEL_W.SEL_W		0	0	0	0		0		
+  #659	8	parameter	SEL_W		work@dut.SEL_W	dut.sv	26	18	26	23		0		
+  #660	9	ref_typespec			work@dut.SEL_W		0	0	0	0		0		
+  #661	10	int_typespec				dut.sv	26	14	26	17				
+  #662	11	ref_obj	SEL_W		work@dut.SEL_W.SEL_W		0	0	0	0		0		
+  #663	5	constant				dut.sv	32	55	32	56	2	64	UINT:2	9
+  #664	3	ref_obj	vld_sel_d		work@dut.vld_sel_d	dut.sv	32	10	32	19		0		
+
+--- the holder #652 in the other side: exact-record matches at [652, 660]
+  #648	6	int_typespec				dut.sv	26	14	26	17				
+  #649	7	ref_obj	SEL_W		work@dut.SEL_W.SEL_W		0	0	0	0		0		
+  #650	8	parameter	SEL_W		work@dut.SEL_W	dut.sv	26	18	26	23		0		
+  #651	9	ref_typespec			work@dut.SEL_W		0	0	0	0		0		
+> #652	10	int_typespec				dut.sv	26	14	26	17				
+  #653	5	constant				dut.sv	32	43	32	44	1	64	UINT:1	9
+  #654	4	operation				dut.sv	32	48	32	57		0		
+  #655	5	ref_typespec			work@dut		0	0	0	0		0		
+  #656	6	int_typespec				dut.sv	26	14	26	17				
+  #657	7	ref_obj	SEL_W		work@dut.SEL_W.SEL_W		0	0	0	0		0		
+  #658	8	parameter	SEL_W		work@dut.SEL_W	dut.sv	26	18	26	23		0		
+  #659	9	ref_typespec			work@dut.SEL_W		0	0	0	0		0		
+  #660	10	int_typespec				dut.sv	26	14	26	17				
+  #661	5	constant				dut.sv	32	55	32	56	2	64	UINT:2	9
+  #662	3	ref_obj	vld_sel_d		work@dut.vld_sel_d	dut.sv	32	10	32	19		0		
+  #663	2	cont_assign				dut.sv	59	10	59	42				
+  #664	3	bit_select	bank_idx		work@dut.bank_idx	dut.sv	59	32	59	41		0		
+  #665	4	ref_obj	vld_sel_q		work@dut.vld_sel_q	dut.sv	59	32	59	41		0		
+
+all facets of this row (4):
+  K0376 #-1/653 ref_obj SEL_W G[] O[1 objs]
+  K0376 #-1/662 ref_obj SEL_W G[] O[1 objs]
+  K0118 #240/240 ref_obj ALIGN G[work@dut.wr_off_i.ALIGN] O[work@dut.ALIGN]
+  K0118 #601/601 ref_obj ALIGN G[work@dut.wr_off_i.ALIGN] O[work@dut.ALIGN]

@@ -1,0 +1,102 @@
+cluster K0938: depth|hier_path|operation->integer_typespec
+row: surelog/default/StructParamFuncBodyFieldCompare  strict=differ:depth(1)  records golden=923 ours=809
+object: #547 (golden) / #531 (ours)  type=hier_path name=c.NrRules
+  golden: 13 operation < operation
+  ours:   10 integer_typespec < ref_typespec
+  walk parents: operation < operation < typespec_member(Flag) < struct_typespec(cfg_pkg::cfg_t)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 535..558 ('>' = the object)
+  #535	8	ref_typespec			work@StructParamFuncBodyFieldCompare		0	0	0	0		0		
+  #536	9	struct_typespec	cfg_pkg::cfg_t			dut.sv	19	11	22	4				
+  #537	10	typespec_member	XLEN			dut.sv	20	18	20	22				
+  #538	11	ref_typespec			cfg_pkg::cfg_pkg::cfg_t::XLEN		0	0	0	0		0		
+  #539	12	int_typespec				dut.sv	20	5	20	17				
+  #540	11	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+  #541	11	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+  #542	10	typespec_member	Flag			dut.sv	21	18	21	22				
+  #543	11	ref_typespec			cfg_pkg::cfg_pkg::cfg_t::Flag		0	0	0	0		0		
+  #544	12	logic_typespec				dut.sv	21	5	21	10				
+  #545	11	operation				dut.sv	26	14	26	47		0		
+  #546	12	operation				dut.sv	26	15	26	28		0		
+> #547	13	hier_path	c.NrRules			dut.sv	26	15	26	24		0		
+  #548	14	ref_obj	c			dut.sv	26	15	26	16		0		
+  #549	14	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	26	17	26	24		0		
+  #550	13	constant				dut.sv	26	27	26	28	0	64	UINT:0	9
+  #551	12	operation				dut.sv	26	34	26	46		0		
+  #552	13	hier_path	c.Length			dut.sv	26	34	26	42		0		
+  #553	14	ref_obj	c			dut.sv	26	34	26	35		0		
+  #554	14	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	26	36	26	42		0		
+  #555	13	constant				dut.sv	26	45	26	46	0	64	UINT:0	9
+  #556	11	operation				dut.sv	26	14	26	47		0		
+  #557	12	operation				dut.sv	26	15	26	28		0		
+  #558	13	hier_path	c.NrRules			dut.sv	26	15	26	24		0		
+
+--- OURS (B) records 519..542 ('>' = the object)
+  #519	12	constant				dut.sv	17	25	17	26	0	64	UINT:0	9
+  #520	11	range				dut.sv	17	27	17	33				
+  #521	12	constant				dut.sv	17	28	17	30	63	64	UINT:63	9
+  #522	12	constant				dut.sv	17	31	17	32	0	64	UINT:0	9
+  #523	2	param_assign				dut.sv	46	19	49	4				
+  #524	3	operation				dut.sv	46	25	49	4		0		
+  #525	4	tagged_pattern				dut.sv	47	13	47	60				
+  #526	5	operation				dut.sv	47	13	47	60		0		
+  #527	6	operation				dut.sv	47	14	47	44		0		
+  #528	7	operation				dut.sv	47	14	47	26		0		
+  #529	8	ref_typespec			work@StructParamFuncBodyFieldCompare		0	0	0	0		0		
+  #530	9	integer_typespec				dut.sv	47	14	47	22				
+> #531	10	hier_path	Cfg.XLEN			dut.sv	47	14	47	22		0		
+  #532	11	ref_obj	Cfg			dut.sv	47	18	47	22		0		
+  #533	11	ref_obj	XLEN			dut.sv	47	18	47	22		0		
+  #534	8	constant				dut.sv	47	24	47	25	1	64	UINT:1	9
+  #535	7	operation				dut.sv	47	31	47	43		0		
+  #536	8	hier_path	Cfg.XLEN			dut.sv	47	31	47	39		0		
+  #537	9	ref_obj	Cfg			dut.sv	47	35	47	39		0		
+  #538	9	ref_obj	XLEN			dut.sv	47	35	47	39		0		
+  #539	8	constant				dut.sv	47	42	47	43	1	64	UINT:1	9
+  #540	6	operation				dut.sv	47	48	47	60		0		
+  #541	7	ref_typespec			work@StructParamFuncBodyFieldCompare		0	0	0	0		0		
+  #542	8	integer_typespec				dut.sv	47	48	47	56				
+
+all facets of this row (63):
+  K0075 #192/-1 constant  G[1 objs] O[]
+  K0075 #193/-1 constant  G[1 objs] O[]
+  K0075 #242/-1 constant  G[1 objs] O[]
+  K0075 #243/-1 constant  G[1 objs] O[]
+  K0075 #275/-1 constant  G[1 objs] O[]
+  K0075 #276/-1 constant  G[1 objs] O[]
+  K0938 #547/531 hier_path c.NrRules G[13 operation < operation] O[10 integer_typespec < ref_typespec]
+  K0936 #548/532 ref_obj c G[14 hier_path(c.NrRules) < operation] O[11 hier_path(Cfg.XLEN) < integer_typespec]
+  K0936 #549/533 ref_obj NrRules G[14 hier_path(c.NrRules) < operation] O[11 hier_path(Cfg.XLEN) < integer_typespec]
+  K0047 #536/-1 struct_typespec cfg_pkg::cfg_t G[11 objs] O[]
+  K0099 #-1/530 integer_typespec  G[] O[1 objs]
+  K0938 #586/543 hier_path c.NrRules G[12 operation < operation] O[9 integer_typespec < ref_typespec]
+  K0936 #587/544 ref_obj c G[13 hier_path(c.NrRules) < operation] O[10 hier_path(Cfg.XLEN) < integer_typespec]
+  K0936 #588/545 ref_obj NrRules G[13 hier_path(c.NrRules) < operation] O[10 hier_path(Cfg.XLEN) < integer_typespec]
+  K0047 #575/-1 struct_typespec cfg_pkg::cfg_t G[11 objs] O[]
+  K0099 #-1/542 integer_typespec  G[] O[1 objs]
+  K0938 #625/555 hier_path c.NrRules G[13 operation < operation] O[10 integer_typespec < ref_typespec]
+  K0936 #626/556 ref_obj c G[14 hier_path(c.NrRules) < operation] O[11 hier_path(Cfg.XLEN) < integer_typespec]
+  K0936 #627/557 ref_obj NrRules G[14 hier_path(c.NrRules) < operation] O[11 hier_path(Cfg.XLEN) < integer_typespec]
+  K0047 #614/-1 struct_typespec cfg_pkg::cfg_t G[11 objs] O[]
+  K0099 #-1/554 integer_typespec  G[] O[1 objs]
+  K0938 #664/567 hier_path c.NrRules G[12 operation < operation] O[9 integer_typespec < ref_typespec]
+  K0936 #665/568 ref_obj c G[13 hier_path(c.NrRules) < operation] O[10 hier_path(Cfg.XLEN) < integer_typespec]
+  K0936 #666/569 ref_obj NrRules G[13 hier_path(c.NrRules) < operation] O[10 hier_path(Cfg.XLEN) < integer_typespec]
+  K0047 #653/-1 struct_typespec cfg_pkg::cfg_t G[11 objs] O[]
+  K0099 #-1/566 integer_typespec  G[] O[1 objs]
+  K0074 #464/458 struct_typespec  G[42:26:42:32] O[42:26:42:39]
+  K0097 #466/460 ref_typespec  G[work@StructParamFuncBodyFieldCompare.INT.S_SW] O[S_SW]
+  K0003 #471/465 ref_obj Cfg G[43:16:43:20] O[43:12:43:15]
+  K0040 #472/466 ref_obj XLEN G[] O[work@StructParamFuncBodyFieldCompare.it_t.XLEN]
+  K0097 #476/470 ref_typespec  G[work@StructParamFuncBodyFieldCompare.INT.M_SW] O[M_SW]
+  K0003 #481/475 ref_obj Cfg G[44:16:44:20] O[44:12:44:15]
+  K0040 #482/476 ref_obj XLEN G[] O[work@StructParamFuncBodyFieldCompare.it_t.XLEN]
+  K0024 #487/481 struct_typespec  G[42:26:42:32] O[42:26:45:4]
+  K0003 #494/488 ref_obj Cfg G[43:16:43:20] O[43:12:43:15]
+  K0040 #495/489 ref_obj XLEN G[] O[work@StructParamFuncBodyFieldCompare.INT.S_SW.XLEN]
+  K0003 #504/498 ref_obj Cfg G[44:16:44:20] O[44:12:44:15]
+  K0040 #505/499 ref_obj XLEN G[] O[work@StructParamFuncBodyFieldCompare.INT.M_SW.XLEN]
+  K0060 #509/503 func_call cfg_pkg::build_config G[36:36:36:45] O[36:36:36:43]
+  K0003 #570/537 ref_obj Cfg G[47:31:47:34] O[47:35:47:39]
+  ... 23 more

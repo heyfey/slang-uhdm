@@ -1,0 +1,78 @@
+cluster K0378: struct|ours-only:fewer-copies|string_var|under:ref_obj
+row: surelog/default/ApbSlave  strict=differ:line(59)  records golden=3678 ours=3682
+object: #-1 (golden) / #372 (ours)  type=string_var name=svunit_version
+  golden: 
+  ours:   4 objs
+  walk parents: ref_obj(svunit_version) < sys_func_call($sformatf) < sys_func_call($display) < begin
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- OURS (B) records 360..383 ('>' = the object)
+  #360	4	sys_func_call	$display			svunit_defines.svh	103	3	103	178		0		
+  #361	5	constant				svunit_defines.svh	103	12	103	35	"INFO:  [%0t][%0s]: %s"	168	STRING:INFO:  [%0t][%0s]: %s	6
+  #362	5	sys_func_call	$time			svunit_defines.svh	103	37	103	42		0		
+  #363	5	ref_obj	name		svunit_pkg::svunit_testrunner::report::name	svunit_defines.svh	103	44	103	48		0		
+  #364	5	sys_func_call	$sformatf			svunit_testrunner.sv	103	50	97	20		0		
+  #365	6	constant				svunit_testrunner.sv	103	60	103	98	"%0s (%0d of %0d suites passing) [%s]"	288	STRING:%0s (%0d of %0d suites passing) [%s]	6
+  #366	6	ref_obj	success_str		svunit_pkg::svunit_testrunner::report::success_str	svunit_testrunner.sv	94	5	94	16		0		
+  #367	6	ref_obj	pass_cnt		svunit_pkg::svunit_testrunner::report::pass_cnt	svunit_testrunner.sv	95	5	95	13		0		
+  #368	6	hier_path	list_of_suites.size			svunit_testrunner.sv	96	5	96	26		0		
+  #369	7	ref_obj	list_of_suites			svunit_testrunner.sv	96	5	96	19		0		
+  #370	7	method_func_call	size			svunit_testrunner.sv	96	20	96	24		0		
+  #371	6	ref_obj	svunit_version		svunit_pkg::svunit_testrunner::report::svunit_version	svunit_testrunner.sv	97	5	97	19		0		
+> #372	7	string_var	svunit_version		svunit_pkg::svunit_version	svunit_pkg.sv	29	16	29	92		0		
+  #373	8	ref_typespec			svunit_pkg::svunit_version		0	0	0	0		0		
+  #374	9	string_typespec				svunit_pkg.sv	29	9	29	15				
+  #375	8	constant				svunit_pkg.sv	29	33	29	92	"For SVUnit Version info, see: $SVUNIT_INSTALL/VERSION.txt"	456	STRING:For SVUnit Version info, see: $SVUNIT_INSTALL/VERSION.txt	6
+  #376	2	function	svunit_base::new		svunit_pkg::svunit_base::new	svunit_base.sv	59	1	61	12				
+  #377	3	class_var			svunit_pkg::svunit_base::new	svunit_base.sv	59	34	59	38		0		
+  #378	4	ref_typespec			svunit_pkg::svunit_base::new		0	0	0	0		0		
+  #379	5	class_typespec					0	0	0	0				
+  #380	3	io_decl	name			svunit_base.sv	59	34	59	38				
+  #381	4	ref_typespec			svunit_pkg::svunit_base::new::name		0	0	0	0		0		
+  #382	5	string_typespec				svunit_base.sv	59	27	59	33				
+  #383	3	assignment				svunit_base.sv	60	3	60	19				
+
+--- the holder #371 in the other side: exact-record matches at []
+
+all facets of this row (393):
+  K0378 #-1/372 string_var svunit_version G[] O[4 objs]
+  K0095 #4/4 include_file_info  G[375:12:375:32] O[373:12:373:32]
+  K0095 #5/5 include_file_info  G[593:12:593:33] O[587:12:587:33]
+  K0095 #6/6 include_file_info  G[710:12:710:34] O[698:12:698:34]
+  K0095 #7/7 include_file_info  G[813:12:813:32] O[797:12:797:32]
+  K0895 #34/34 begin  G[103:3:79:2] O[103:3:79:43]
+  K0309 #44/44 sys_func_call $sformatf G[svunit_defines.svh 103:50:103:82] O[svunit_base.sv 103:50:103:82]
+  K0181 #45/45 constant  G[svunit_defines.svh 103:60:103:70] O[svunit_base.sv 103:60:103:70]
+  K0287 #46/46 ref_obj name G[svunit_defines.svh 103:72:103:76] O[svunit_base.sv 103:72:103:76]
+  K0287 #47/47 ref_obj str G[svunit_defines.svh 103:78:103:81] O[svunit_base.sv 103:78:103:81]
+  K0309 #117/117 sys_func_call $sformatf G[svunit_defines.svh 114:50:114:99] O[svunit_testcase.sv 114:50:114:99]
+  K0181 #118/118 constant  G[svunit_defines.svh 114:60:114:87] O[svunit_testcase.sv 114:60:114:87]
+  K0287 #119/119 ref_obj c G[svunit_defines.svh 114:88:114:89] O[svunit_testcase.sv 114:88:114:89]
+  K0287 #120/120 ref_obj s G[svunit_defines.svh 114:90:114:91] O[svunit_testcase.sv 114:90:114:91]
+  K0287 #121/121 ref_obj _d G[svunit_defines.svh 114:92:114:94] O[svunit_testcase.sv 114:92:114:94]
+  K0287 #122/122 ref_obj f G[svunit_defines.svh 114:95:114:96] O[svunit_testcase.sv 114:95:114:96]
+  K0287 #123/123 ref_obj l G[svunit_defines.svh 114:97:114:98] O[svunit_testcase.sv 114:97:114:98]
+  K0895 #163/163 begin  G[103:3:195:2] O[103:3:195:18]
+  K0890 #169/169 sys_func_call $display G[103:3:106:17] O[103:3:103:155]
+  K0315 #173/173 sys_func_call $sformatf G[svunit_defines.svh 103:50:106:16] O[svunit_testcase.sv 103:50:195:16]
+  K0181 #174/174 constant  G[svunit_defines.svh 103:60:103:92] O[svunit_testcase.sv 103:60:103:92]
+  K0284 #175/175 ref_obj success_str G[svunit_defines.svh 104:5:104:16] O[svunit_testcase.sv 193:5:193:16]
+  K0184 #176/176 operation  G[svunit_defines.svh 105:5:105:27] O[svunit_testcase.sv 194:5:194:27]
+  K0125 #177/177 ref_obj test_count G[svunit_defines.svh 105:5:105:15] O[svunit_testcase.sv 194:5:194:15]
+  K0125 #178/178 ref_obj error_count G[svunit_defines.svh 105:16:105:27] O[svunit_testcase.sv 194:16:194:27]
+  K0284 #179/179 ref_obj test_count G[svunit_defines.svh 106:5:106:15] O[svunit_testcase.sv 195:5:195:15]
+  K0309 #191/191 sys_func_call $sformatf G[svunit_defines.svh 103:50:103:111] O[svunit_testsuite.sv 103:50:103:111]
+  K0181 #192/192 constant  G[svunit_defines.svh 103:60:103:91] O[svunit_testsuite.sv 103:60:103:91]
+  K0289 #193/193 hier_path svunit.get_name G[svunit_defines.svh 103:93:103:110] O[svunit_testsuite.sv 103:93:103:110]
+  K0206 #194/194 ref_obj svunit G[svunit_defines.svh 103:93:103:99] O[svunit_testsuite.sv 103:93:103:99]
+  K0285 #195/195 method_func_call get_name G[svunit_defines.svh 103:100:103:108] O[svunit_testsuite.sv 103:100:103:108]
+  K0181 #204/204 constant  G[svunit_defines.svh 103:50:103:59] O[svunit_testsuite.sv 103:50:103:59]
+  K0071 #216/216 unsupported_typespec list_of_testcases G[svunit_testsuite.sv 89:11:89:28] O[ 89:11:89:28]
+  K0894 #271/271 sys_func_call $display G[svunit_testsuite.sv 105:3:105:15] O[svunit_defines.svh 105:3:105:15]
+  K0181 #272/272 constant  G[svunit_testsuite.sv 105:12:105:14] O[svunit_defines.svh 105:12:105:14]
+  K0890 #273/273 sys_func_call $display G[103:3:106:31] O[103:3:103:159]
+  K0315 #277/277 sys_func_call $sformatf G[svunit_defines.svh 103:50:106:30] O[svunit_testsuite.sv 103:50:109:30]
+  K0181 #278/278 constant  G[svunit_defines.svh 103:60:103:96] O[svunit_testsuite.sv 103:60:103:96]
+  K0284 #279/279 ref_obj success_str G[svunit_defines.svh 104:5:104:16] O[svunit_testsuite.sv 107:5:107:16]
+  K0284 #280/280 ref_obj pass_cnt G[svunit_defines.svh 105:5:105:13] O[svunit_testsuite.sv 108:5:108:13]
+  ... 353 more

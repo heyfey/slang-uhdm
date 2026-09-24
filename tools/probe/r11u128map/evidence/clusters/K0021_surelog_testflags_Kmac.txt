@@ -1,0 +1,91 @@
+cluster K0021: value|parameter|value:INT->UINT|under:package
+row: surelog/testflags/Kmac  strict=differ:value(2)  records golden=526 ours=508
+object: #76 (golden) / #76 (ours)  type=parameter name=KeccakEntries
+  golden: |0|INT:25|
+  ours:   |0|UINT:25|
+  walk parents: package(sha3_pkg) < design(work@kmac)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 64..87 ('>' = the object)
+  #64	5	range				sha3_pkg.sv	20	38	20	39				
+  #65	6	constant					0	0	0	0	0	64	UINT:0	9
+  #66	6	operation				sha3_pkg.sv	20	38	20	39		0		
+  #67	7	constant				sha3_pkg.sv	20	38	20	39	5	64	UINT:5	9
+  #68	7	constant					0	0	0	0		64	INT:1	7
+  #69	5	ref_typespec			sha3_pkg::KeccakRate		0	0	0	0		0		
+  #70	6	int_typespec				sha3_pkg.sv	20	13	20	25				
+  #71	3	range				sha3_pkg.sv	20	38	20	39				
+  #72	4	constant					0	0	0	0	0	64	UINT:0	9
+  #73	4	operation				sha3_pkg.sv	20	38	20	39		0		
+  #74	5	constant				sha3_pkg.sv	20	38	20	39	5	64	UINT:5	9
+  #75	5	constant					0	0	0	0		64	INT:1	7
+> #76	2	parameter	KeccakEntries		sha3_pkg::KeccakEntries	sha3_pkg.sv	28	26	28	39		0	INT:25	
+  #77	3	ref_typespec			sha3_pkg::KeccakEntries		0	0	0	0		0		
+  #78	4	int_typespec				sha3_pkg.sv	28	13	28	25				
+  #79	2	parameter	KeccakCountW		sha3_pkg::KeccakCountW	sha3_pkg.sv	30	26	30	38		0	UINT:5	
+  #80	3	ref_typespec			sha3_pkg::KeccakCountW		0	0	0	0		0		
+  #81	4	int_typespec				sha3_pkg.sv	30	13	30	25				
+  #82	2	param_assign				sha3_pkg.sv	9	17	9	30				
+  #83	3	constant				sha3_pkg.sv	9	28	9	30	64	32	UINT:64	9
+  #84	4	ref_typespec			sha3_pkg		0	0	0	0		0		
+  #85	5	int_typespec				sha3_pkg.sv	9	13	9	16				
+  #86	2	param_assign				sha3_pkg.sv	20	26	26	4				
+  #87	3	operation				sha3_pkg.sv	20	43	26	4		0		
+
+--- OURS (B) records 64..87 ('>' = the object)
+  #64	5	range				sha3_pkg.sv	20	38	20	39				
+  #65	6	constant					0	0	0	0	0	64	UINT:0	9
+  #66	6	operation				sha3_pkg.sv	20	38	20	39		0		
+  #67	7	constant				sha3_pkg.sv	20	38	20	39	5	64	UINT:5	9
+  #68	7	constant					0	0	0	0		64	INT:1	7
+  #69	5	ref_typespec			sha3_pkg::KeccakRate		0	0	0	0		0		
+  #70	6	int_typespec				sha3_pkg.sv	20	13	20	25				
+  #71	3	range				sha3_pkg.sv	20	38	20	39				
+  #72	4	constant					0	0	0	0	0	64	UINT:0	9
+  #73	4	operation				sha3_pkg.sv	20	38	20	39		0		
+  #74	5	constant				sha3_pkg.sv	20	38	20	39	5	64	UINT:5	9
+  #75	5	constant					0	0	0	0		64	INT:1	7
+> #76	2	parameter	KeccakEntries		sha3_pkg::KeccakEntries	sha3_pkg.sv	28	26	28	39		0	UINT:25	
+  #77	3	ref_typespec			sha3_pkg::KeccakEntries		0	0	0	0		0		
+  #78	4	int_typespec				sha3_pkg.sv	28	13	28	25				
+  #79	2	parameter	KeccakCountW		sha3_pkg::KeccakCountW	sha3_pkg.sv	30	26	30	38		0	UINT:5	
+  #80	3	ref_typespec			sha3_pkg::KeccakCountW		0	0	0	0		0		
+  #81	4	int_typespec				sha3_pkg.sv	30	13	30	25				
+  #82	2	param_assign				sha3_pkg.sv	9	17	9	30				
+  #83	3	constant				sha3_pkg.sv	9	28	9	30	64	32	UINT:64	9
+  #84	4	ref_typespec			sha3_pkg		0	0	0	0		0		
+  #85	5	int_typespec				sha3_pkg.sv	9	13	9	16				
+  #86	2	param_assign				sha3_pkg.sv	20	26	26	4				
+  #87	3	operation				sha3_pkg.sv	20	43	26	4		0		
+
+all facets of this row (30):
+  K0005 #178/-1 parameter KeccakCountW G[3 objs] O[]
+  K0005 #188/-1 parameter KeccakRate G[15 objs] O[]
+  K0021 #76/76 parameter KeccakEntries G[|0|INT:25|] O[|0|UINT:25|]
+  K0354 #215/197 ref_typespec  G[sha3_pkg::keccak_strength_e] O[sha3_pkg::sha3_pkg::keccak_strength_e]
+  K0354 #435/417 ref_typespec  G[sha3_pkg::keccak_strength_e] O[sha3_pkg::sha3_pkg::keccak_strength_e]
+  K0067 #449/431 ref_obj kmac_en_i G[13:20:13:21] O[13:20:13:22]
+  K0067 #454/436 ref_obj strength_i G[13:20:13:21] O[13:20:13:22]
+  K0892 #469/451 begin  G[work@kmac.core] O[work@kmac_core]
+  K1324 #471/453 ref_obj strength_i G[work@kmac.core.strength_i] O[work@kmac_core.strength_i]
+  K0609 #476/458 ref_typespec  G[work@kmac.core] O[work@kmac_core]
+  K0786 #478/460 bit_select KeccakRate G[work@kmac.core.KeccakRate] O[work@kmac_core.KeccakRate]
+  K0370 #479/461 ref_obj L128 G[work@kmac.core.L128] O[work@kmac_core.L128]
+  K0185 #481/463 ref_obj block_addr_limit G[work@kmac.core.block_addr_limit] O[work@kmac_core.block_addr_limit]
+  K0609 #486/468 ref_typespec  G[work@kmac.core] O[work@kmac_core]
+  K0786 #488/470 bit_select KeccakRate G[work@kmac.core.KeccakRate] O[work@kmac_core.KeccakRate]
+  K0370 #489/471 ref_obj L224 G[work@kmac.core.L224] O[work@kmac_core.L224]
+  K0185 #491/473 ref_obj block_addr_limit G[work@kmac.core.block_addr_limit] O[work@kmac_core.block_addr_limit]
+  K0609 #496/478 ref_typespec  G[work@kmac.core] O[work@kmac_core]
+  K0786 #498/480 bit_select KeccakRate G[work@kmac.core.KeccakRate] O[work@kmac_core.KeccakRate]
+  K0370 #499/481 ref_obj L256 G[work@kmac.core.L256] O[work@kmac_core.L256]
+  K0185 #501/483 ref_obj block_addr_limit G[work@kmac.core.block_addr_limit] O[work@kmac_core.block_addr_limit]
+  K0609 #506/488 ref_typespec  G[work@kmac.core] O[work@kmac_core]
+  K0786 #508/490 bit_select KeccakRate G[work@kmac.core.KeccakRate] O[work@kmac_core.KeccakRate]
+  K0370 #509/491 ref_obj L384 G[work@kmac.core.L384] O[work@kmac_core.L384]
+  K0185 #511/493 ref_obj block_addr_limit G[work@kmac.core.block_addr_limit] O[work@kmac_core.block_addr_limit]
+  K0609 #516/498 ref_typespec  G[work@kmac.core] O[work@kmac_core]
+  K0786 #518/500 bit_select KeccakRate G[work@kmac.core.KeccakRate] O[work@kmac_core.KeccakRate]
+  K0370 #519/501 ref_obj L512 G[work@kmac.core.L512] O[work@kmac_core.L512]
+  K0185 #521/503 ref_obj block_addr_limit G[work@kmac.core.block_addr_limit] O[work@kmac_core.block_addr_limit]
+  K0185 #525/507 ref_obj block_addr_limit G[work@kmac.core.block_addr_limit] O[work@kmac_core.block_addr_limit]

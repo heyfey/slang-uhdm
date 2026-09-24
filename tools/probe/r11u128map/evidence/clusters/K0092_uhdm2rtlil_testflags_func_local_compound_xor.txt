@@ -1,0 +1,63 @@
+cluster K0092: span|begin|line+endline+endcol|under:function
+row: uhdm2rtlil/testflags/func_local_compound_xor  strict=differ:line(2)  records golden=341 ours=341
+object: #33 (golden) / #33 (ours)  type=begin name=
+  golden: 19:5:19:20
+  ours:   18:5:18:30
+  walk parents: function(gf) < package(p) < design(work@func_local_compound_xor)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 21..44 ('>' = the object)
+  #21	3	io_decl	x			dut.sv	17	55	17	56				
+  #22	4	ref_typespec			p::gf::x		0	0	0	0		0		
+  #23	5	logic_typespec				dut.sv	17	43	17	54				
+  #24	6	range				dut.sv	17	49	17	54				
+  #25	7	constant				dut.sv	17	50	17	51	7	64	UINT:7	9
+  #26	7	constant				dut.sv	17	52	17	53	0	64	UINT:0	9
+  #27	3	io_decl	y			dut.sv	17	76	17	77				
+  #28	4	ref_typespec			p::gf::y		0	0	0	0		0		
+  #29	5	logic_typespec				dut.sv	17	64	17	75				
+  #30	6	range				dut.sv	17	70	17	75				
+  #31	7	constant				dut.sv	17	71	17	72	3	64	UINT:3	9
+  #32	7	constant				dut.sv	17	73	17	74	0	64	UINT:0	9
+> #33	3	begin			p::gf	dut.sv	19	5	19	20				
+  #34	4	assignment				dut.sv	19	5	19	19				
+  #35	5	constant				dut.sv	19	14	19	19	8'h00	8	HEX:00	5
+  #36	5	ref_obj	result		p::gf::result	dut.sv	19	5	19	11		0		
+  #37	4	if_stmt				dut.sv	20	5	20	27				
+  #38	5	bit_select	y		p::gf::y	dut.sv	20	11	20	12		0		
+  #39	6	constant				dut.sv	20	11	20	12	0	64	UINT:0	9
+  #40	5	assignment				dut.sv	20	15	20	26				
+  #41	6	ref_obj	x		p::gf::x	dut.sv	20	25	20	26		0		
+  #42	6	ref_obj	result		p::gf::result	dut.sv	20	15	20	21		0		
+  #43	4	if_stmt				dut.sv	21	5	21	63				
+  #44	5	bit_select	y		p::gf::y	dut.sv	21	11	21	12		0		
+
+--- OURS (B) records 21..44 ('>' = the object)
+  #21	3	io_decl	x			dut.sv	17	55	17	56				
+  #22	4	ref_typespec			p::gf::x		0	0	0	0		0		
+  #23	5	logic_typespec				dut.sv	17	43	17	54				
+  #24	6	range				dut.sv	17	49	17	54				
+  #25	7	constant				dut.sv	17	50	17	51	7	64	UINT:7	9
+  #26	7	constant				dut.sv	17	52	17	53	0	64	UINT:0	9
+  #27	3	io_decl	y			dut.sv	17	76	17	77				
+  #28	4	ref_typespec			p::gf::y		0	0	0	0		0		
+  #29	5	logic_typespec				dut.sv	17	64	17	75				
+  #30	6	range				dut.sv	17	70	17	75				
+  #31	7	constant				dut.sv	17	71	17	72	3	64	UINT:3	9
+  #32	7	constant				dut.sv	17	73	17	74	0	64	UINT:0	9
+> #33	3	begin			p::gf	dut.sv	18	5	18	30				
+  #34	4	assignment				dut.sv	19	5	19	19				
+  #35	5	constant				dut.sv	19	14	19	19	8'h00	8	HEX:00	5
+  #36	5	ref_obj	result		p::gf::result	dut.sv	19	5	19	11		0		
+  #37	4	if_stmt				dut.sv	20	5	20	27				
+  #38	5	bit_select	y		p::gf::y	dut.sv	20	11	20	12		0		
+  #39	6	constant				dut.sv	20	11	20	12	0	64	UINT:0	9
+  #40	5	assignment				dut.sv	20	15	20	26				
+  #41	6	ref_obj	x		p::gf::x	dut.sv	20	25	20	26		0		
+  #42	6	ref_obj	result		p::gf::result	dut.sv	20	15	20	21		0		
+  #43	4	if_stmt				dut.sv	21	5	21	63				
+  #44	5	bit_select	y		p::gf::y	dut.sv	21	11	21	12		0		
+
+all facets of this row (2):
+  K0092 #33/33 begin  G[19:5:19:20] O[18:5:18:30]
+  K0092 #154/154 begin  G[19:5:19:20] O[18:5:18:30]

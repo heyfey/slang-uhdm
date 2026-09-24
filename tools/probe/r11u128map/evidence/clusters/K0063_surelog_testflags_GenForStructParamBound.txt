@@ -1,0 +1,100 @@
+cluster K0063: fullname|ref_typespec|tok:id.id::id.id.->|under:typespec_member
+row: surelog/testflags/GenForStructParamBound  strict=differ:fullname(39)  records golden=421 ours=421
+object: #165 (golden) / #165 (ours)  type=ref_typespec name=
+  golden: work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.DLY
+  ours:   work@top.p::hsk_t.DLY
+  walk parents: typespec_member(DLY) < struct_typespec(p::hsk_t) < ref_typespec < typespec_member(HSK)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 153..176 ('>' = the object)
+  #153	5	ref_obj	DLY			dut.sv	16	37	16	40		0		
+  #154	3	operation				dut.sv	16	42	16	43		0		
+  #155	4	ref_obj	i		work@bus_if.i		0	0	0	0		0		
+  #156	3	begin			work@bus_if		0	0	0	0				
+  #157	1	module_inst		work@top	work@top	dut.sv	23	1	27	10				
+  #158	2	parameter	CFG_DEF		work@top.CFG_DEF	dut.sv	10	20	10	27		0		
+  #159	3	ref_typespec			work@top.CFG_DEF		0	0	0	0		0		
+  #160	4	struct_typespec	p::cfg_t			dut.sv	9	11	9	57				
+  #161	5	typespec_member	HSK			dut.sv	9	33	9	36				
+  #162	6	ref_typespec			work@top.CFG_DEF.p::cfg_t.HSK		0	0	0	0		0		
+  #163	7	struct_typespec	p::hsk_t			dut.sv	8	11	8	57				
+  #164	8	typespec_member	DLY			dut.sv	8	40	8	43				
+> #165	9	ref_typespec			work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.DLY		0	0	0	0		0		
+  #166	10	int_typespec				dut.sv	8	27	8	39				
+  #167	8	typespec_member	HLD			dut.sv	8	51	8	54				
+  #168	9	ref_typespec			work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.HLD		0	0	0	0		0		
+  #169	10	logic_typespec				dut.sv	8	45	8	50				
+  #170	5	typespec_member	DAT			dut.sv	9	51	9	54				
+  #171	6	ref_typespec			work@top.CFG_DEF.p::cfg_t.DAT		0	0	0	0		0		
+  #172	7	int_typespec				dut.sv	9	38	9	50				
+  #173	2	param_assign				dut.sv	10	20	10	57				
+  #174	3	operation				dut.sv	10	30	10	57		0		
+  #175	4	tagged_pattern				dut.sv	10	37	10	47				
+  #176	5	operation				dut.sv	10	37	10	47		0		
+
+--- OURS (B) records 153..176 ('>' = the object)
+  #153	5	ref_obj	DLY		work@bus_if.DLY	dut.sv	16	37	16	40		0		
+  #154	3	operation				dut.sv	16	42	16	43		0		
+  #155	4	ref_obj	i		work@bus_if.i		0	0	0	0		0		
+  #156	3	begin			work@bus_if		0	0	0	0				
+  #157	1	module_inst		work@top	work@top	dut.sv	23	1	27	10				
+  #158	2	parameter	CFG_DEF		work@top.CFG_DEF	dut.sv	10	20	10	27		0		
+  #159	3	ref_typespec			work@top.CFG_DEF		0	0	0	0		0		
+  #160	4	struct_typespec	p::cfg_t			dut.sv	9	11	9	57				
+  #161	5	typespec_member	HSK			dut.sv	9	33	9	36				
+  #162	6	ref_typespec			work@top.CFG_DEF.p::cfg_t.HSK		0	0	0	0		0		
+  #163	7	struct_typespec	p::hsk_t			dut.sv	8	11	8	57				
+  #164	8	typespec_member	DLY			dut.sv	8	40	8	43				
+> #165	9	ref_typespec			work@top.p::hsk_t.DLY		0	0	0	0		0		
+  #166	10	int_typespec				dut.sv	8	27	8	39				
+  #167	8	typespec_member	HLD			dut.sv	8	51	8	54				
+  #168	9	ref_typespec			work@top.p::hsk_t.HLD		0	0	0	0		0		
+  #169	10	logic_typespec				dut.sv	8	45	8	50				
+  #170	5	typespec_member	DAT			dut.sv	9	51	9	54				
+  #171	6	ref_typespec			work@top.CFG_DEF.p::cfg_t.DAT		0	0	0	0		0		
+  #172	7	int_typespec				dut.sv	9	38	9	50				
+  #173	2	param_assign				dut.sv	10	20	10	57				
+  #174	3	operation				dut.sv	10	30	10	57		0		
+  #175	4	tagged_pattern				dut.sv	10	37	10	47				
+  #176	5	operation				dut.sv	10	37	10	47		0		
+
+all facets of this row (39):
+  K0011 #54/54 ref_typespec  G[work@top.p::cfg_t.HSK] O[p::cfg_t.HSK]
+  K0011 #63/63 ref_typespec  G[work@top.p::cfg_t.DAT] O[p::cfg_t.DAT]
+  K0011 #79/79 ref_typespec  G[work@top.p::cfg_t.HSK] O[p::cfg_t.HSK]
+  K0011 #88/88 ref_typespec  G[work@top.p::cfg_t.DAT] O[p::cfg_t.DAT]
+  K0011 #102/102 ref_typespec  G[work@top.p::cfg_t.HSK] O[p::cfg_t.HSK]
+  K0011 #111/111 ref_typespec  G[work@top.p::cfg_t.DAT] O[p::cfg_t.DAT]
+  K1258 #131/131 hier_path CFG.HSK.DLY G[] O[work@bus_if.dly.CFG.HSK.DLY]
+  K0016 #132/132 ref_obj CFG G[] O[work@bus_if.dly.CFG]
+  K0016 #133/133 ref_obj HSK G[] O[work@bus_if.dly.HSK]
+  K0016 #134/134 ref_obj DLY G[] O[work@bus_if.dly.DLY]
+  K0003 #151/151 ref_obj CFG G[16:33:16:36] O[16:29:16:32]
+  K0016 #153/153 ref_obj DLY G[] O[work@bus_if.DLY]
+  K0063 #165/165 ref_typespec  G[work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.DLY] O[work@top.p::hsk_t.DLY]
+  K0063 #168/168 ref_typespec  G[work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.HLD] O[work@top.p::hsk_t.HLD]
+  K0002 #185/185 parameter CFG_DEF G[dut.sv 10:20:10:27] O[ 10:20:10:27]
+  K0063 #192/192 ref_typespec  G[work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.DLY] O[work@top.p::hsk_t.DLY]
+  K0063 #195/195 ref_typespec  G[work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.HLD] O[work@top.p::hsk_t.HLD]
+  K0011 #202/202 ref_typespec  G[work@top.p::cfg_t.HSK] O[p::cfg_t.HSK]
+  K0011 #211/211 ref_typespec  G[work@top.p::cfg_t.DAT] O[p::cfg_t.DAT]
+  K0011 #239/239 ref_typespec  G[work@top.p::cfg_t.HSK] O[p::cfg_t.HSK]
+  K0011 #248/248 ref_typespec  G[work@top.p::cfg_t.DAT] O[p::cfg_t.DAT]
+  K1258 #268/268 hier_path CFG.HSK.DLY G[] O[work@bus_if.dly.CFG.HSK.DLY]
+  K0016 #269/269 ref_obj CFG G[] O[work@bus_if.dly.CFG]
+  K0016 #270/270 ref_obj HSK G[] O[work@bus_if.dly.HSK]
+  K0016 #271/271 ref_obj DLY G[] O[work@bus_if.dly.DLY]
+  K0003 #288/288 ref_obj CFG G[16:33:16:36] O[16:29:16:32]
+  K0016 #290/290 ref_obj DLY G[] O[work@bus_if.DLY]
+  K0063 #302/302 ref_typespec  G[work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.DLY] O[work@top.p::hsk_t.DLY]
+  K0063 #305/305 ref_typespec  G[work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.HLD] O[work@top.p::hsk_t.HLD]
+  K0011 #318/318 ref_typespec  G[work@top.p::cfg_t.HSK] O[p::cfg_t.HSK]
+  K0011 #327/327 ref_typespec  G[work@top.p::cfg_t.DAT] O[p::cfg_t.DAT]
+  K0151 #351/351 constant  G[10:39:10:40] O[13:16:13:27]
+  K0141 #362/362 ref_typespec  G[work@top.b.CFG.p::cfg_t.HSK.p::hsk_t.DLY] O[work@top.p::hsk_t.DLY]
+  K0141 #365/365 ref_typespec  G[work@top.b.CFG.p::cfg_t.HSK.p::hsk_t.HLD] O[work@top.p::hsk_t.HLD]
+  K0063 #378/378 ref_typespec  G[work@top.b.p::cfg_t.HSK.p::hsk_t.DLY] O[work@top.p::hsk_t.DLY]
+  K0063 #381/381 ref_typespec  G[work@top.b.p::cfg_t.HSK.p::hsk_t.HLD] O[work@top.p::hsk_t.HLD]
+  K0194 #390/390 cont_assign  G[dut.sv 14:10:14:23] O[ 14:10:14:23]
+  K1312 #392/392 bit_select dly G[dut.sv 14:10:14:16] O[ 14:10:14:16]
+  K0001 #399/399 parameter i G[dut.sv 16:0:0:0] O[ 16:0:0:0]

@@ -1,0 +1,48 @@
+cluster K0197: struct|golden-only:fewer-copies|func_call|under:cont_assign
+row: uhdm2rtlil/testflags/FunctionParam  strict=differ:type(1)  records golden=73 ours=73
+object: #70 (golden) / #-1 (ours)  type=func_call name=theta
+  golden: 1 objs
+  ours:   
+  walk parents: cont_assign < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 58..72 ('>' = the object)
+  #58	2	function	theta		work@top.theta	dut.sv	4	4	6	23				
+  #59	3	int_var			work@top.theta	dut.sv	4	23	4	26		0		
+  #60	4	ref_typespec			work@top.theta		0	0	0	0		0		
+  #61	5	int_typespec				dut.sv	4	23	4	26				
+  #62	3	return_stmt				dut.sv	5	7	5	13				
+  #63	4	bit_select	X		work@top.theta.X	dut.sv	5	16	5	17		0		
+  #64	5	constant				dut.sv	5	16	5	17	0	64	UINT:0	9
+  #65	2	port	o			dut.sv	1	23	1	24				
+  #66	3	ref_obj	o		work@top.o	dut.sv	1	23	1	24		0		
+  #67	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #68	4	int_typespec				dut.sv	1	19	1	22				
+  #69	2	cont_assign				dut.sv	8	11	8	22				
+> #70	3	func_call	theta			dut.sv	8	15	8	22		0		
+  #71	3	ref_obj	o		work@top.o	dut.sv	8	11	8	12		0		
+  #72	4	logic_net	o		work@top.o	dut.sv	1	23	1	24		0		
+
+--- the holder #69 in the other side: exact-record matches at [29, 69]
+  #25	2	port	o			dut.sv	1	23	1	24				
+  #26	3	ref_obj	o		work@top.o.o	dut.sv	1	23	1	24		0		
+  #27	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #28	4	int_typespec				dut.sv	1	19	1	22				
+> #29	2	cont_assign				dut.sv	8	11	8	22				
+  #30	3	func_call	theta			dut.sv	8	15	8	22		0		
+  #31	3	ref_obj	o		work@top.o	dut.sv	8	11	8	12		0		
+  #32	1	module_inst	work@top	work@top		dut.sv	1	1	9	10				
+  #33	2	int_var	o		work@top.o	dut.sv	1	23	1	24		0		
+  #34	3	ref_typespec			work@top.o		0	0	0	0		0		
+  #35	4	int_typespec				dut.sv	1	19	1	22				
+  #36	2	parameter	X		work@top.X	dut.sv	2	18	2	19		1		
+  #37	3	ref_typespec			work@top.X		0	0	0	0		0		
+  #38	4	array_typespec				dut.sv	2	14	2	25				
+  #39	5	range				dut.sv	2	20	2	25				
+  #40	6	constant				dut.sv	2	21	2	22	1	64	UINT:1	9
+  #41	6	constant				dut.sv	2	23	2	24	0	64	UINT:0	9
+  #42	5	ref_typespec			work@top.X		0	0	0	0		0		
+
+all facets of this row (2):
+  K0197 #70/-1 func_call theta G[1 objs] O[]
+  K0374 #-1/70 constant  G[] O[1 objs]

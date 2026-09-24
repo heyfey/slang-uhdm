@@ -1,0 +1,74 @@
+cluster K0120: fullname|ref_obj|tok:id.id[id].->|under:bit_select
+row: surelog/testflags/GenForIfaceLocalparamBound  strict=differ:fullname(13)  records golden=232 ours=232
+object: #188 (golden) / #188 (ours)  type=ref_obj name=i
+  golden: work@top.c.g[0].sub.ben[i].i
+  ours:   work@top.c.g[0].i
+  walk parents: bit_select(ben) < hier_path(sub.ben[i]) < cont_assign < gen_scope
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 176..199 ('>' = the object)
+  #176	6	range				dut.sv	14	40	14	45				
+  #177	7	constant				dut.sv	14	41	14	42	3	64	UINT:3	9
+  #178	7	constant				dut.sv	14	43	14	44	0	64	UINT:0	9
+  #179	3	gen_scope_array	g[0]		work@top.c.g[0]	dut.sv	16	42	18	8				
+  #180	4	gen_scope			work@top.c.g[0]	dut.sv	16	42	18	8				
+  #181	5	parameter	i		work@top.c.g[0].i	dut.sv	16	0	0	0		0	UINT:0	
+  #182	6	ref_typespec			work@top.c.g[0].i		0	0	0	0		0		
+  #183	7	int_typespec					0	0	0	0				
+  #184	5	cont_assign				dut.sv	17	14	17	31				
+  #185	6	hier_path	sub.ben[i]			dut.sv	17	21	17	31		0		
+  #186	7	ref_obj	sub			dut.sv	17	21	17	24		0		
+  #187	7	bit_select	ben		work@top.c.g[0].sub.ben[i].ben	dut.sv	17	29	17	30		0		
+> #188	8	ref_obj	i		work@top.c.g[0].sub.ben[i].i	dut.sv	17	29	17	30		0		
+  #189	6	bit_select	o		work@top.c.o	dut.sv	17	14	17	18		0		
+  #190	7	ref_obj	i		work@top.c.g[0].i	dut.sv	17	16	17	17		0		
+  #191	3	gen_scope_array	g[1]		work@top.c.g[1]	dut.sv	16	42	18	8				
+  #192	4	gen_scope			work@top.c.g[1]	dut.sv	16	42	18	8				
+  #193	5	parameter	i		work@top.c.g[1].i	dut.sv	16	0	0	0		0	UINT:1	
+  #194	6	ref_typespec			work@top.c.g[1].i		0	0	0	0		0		
+  #195	7	int_typespec					0	0	0	0				
+  #196	5	cont_assign				dut.sv	17	14	17	31				
+  #197	6	hier_path	sub.ben[i]			dut.sv	17	21	17	31		0		
+  #198	7	ref_obj	sub			dut.sv	17	21	17	24		0		
+  #199	7	bit_select	ben		work@top.c.g[1].sub.ben[i].ben	dut.sv	17	29	17	30		0		
+
+--- OURS (B) records 176..199 ('>' = the object)
+  #176	6	range				dut.sv	14	40	14	45				
+  #177	7	constant				dut.sv	14	41	14	42	3	64	UINT:3	9
+  #178	7	constant				dut.sv	14	43	14	44	0	64	UINT:0	9
+  #179	3	gen_scope_array	g[0]		work@top.c.g[0]	dut.sv	16	42	18	8				
+  #180	4	gen_scope			work@top.c.g[0]	dut.sv	16	42	18	8				
+  #181	5	parameter	i		work@top.c.g[0].i		16	0	0	0		0	UINT:0	
+  #182	6	ref_typespec			work@top.c.g[0].i		0	0	0	0		0		
+  #183	7	int_typespec					0	0	0	0				
+  #184	5	cont_assign				dut.sv	17	14	17	31				
+  #185	6	hier_path	sub.ben[i]			dut.sv	17	21	17	31		0		
+  #186	7	ref_obj	sub			dut.sv	17	21	17	24		0		
+  #187	7	bit_select	ben		work@top.c.g[0].sub.ben[i].ben	dut.sv	17	29	17	30		0		
+> #188	8	ref_obj	i		work@top.c.g[0].i	dut.sv	17	29	17	30		0		
+  #189	6	bit_select	o		work@top.c.o	dut.sv	17	14	17	18		0		
+  #190	7	ref_obj	i		work@top.c.g[0].i	dut.sv	17	16	17	17		0		
+  #191	3	gen_scope_array	g[1]		work@top.c.g[1]	dut.sv	16	42	18	8				
+  #192	4	gen_scope			work@top.c.g[1]	dut.sv	16	42	18	8				
+  #193	5	parameter	i		work@top.c.g[1].i		16	0	0	0		0	UINT:1	
+  #194	6	ref_typespec			work@top.c.g[1].i		0	0	0	0		0		
+  #195	7	int_typespec					0	0	0	0				
+  #196	5	cont_assign				dut.sv	17	14	17	31				
+  #197	6	hier_path	sub.ben[i]			dut.sv	17	21	17	31		0		
+  #198	7	ref_obj	sub			dut.sv	17	21	17	24		0		
+  #199	7	bit_select	ben		work@top.c.g[1].sub.ben[i].ben	dut.sv	17	29	17	30		0		
+
+all facets of this row (13):
+  K0085 #161/161 parameter DAT G[work@bus_if.DAT] O[work@top.c.sub.DAT]
+  K0086 #162/162 ref_typespec  G[work@bus_if.DAT] O[work@top.c.sub.DAT]
+  K0010 #165/165 constant  G[10:33:10:36] O[10:33:10:38]
+  K0085 #166/166 parameter BYT G[work@bus_if.BYT] O[work@top.c.sub.BYT]
+  K0086 #167/167 ref_typespec  G[work@bus_if.BYT] O[work@top.c.sub.BYT]
+  K0001 #181/181 parameter i G[dut.sv 16:0:0:0] O[ 16:0:0:0]
+  K0120 #188/188 ref_obj i G[work@top.c.g[0].sub.ben[i].i] O[work@top.c.g[0].i]
+  K0001 #193/193 parameter i G[dut.sv 16:0:0:0] O[ 16:0:0:0]
+  K0120 #200/200 ref_obj i G[work@top.c.g[1].sub.ben[i].i] O[work@top.c.g[1].i]
+  K0001 #205/205 parameter i G[dut.sv 16:0:0:0] O[ 16:0:0:0]
+  K0120 #212/212 ref_obj i G[work@top.c.g[2].sub.ben[i].i] O[work@top.c.g[2].i]
+  K0001 #217/217 parameter i G[dut.sv 16:0:0:0] O[ 16:0:0:0]
+  K0120 #224/224 ref_obj i G[work@top.c.g[3].sub.ben[i].i] O[work@top.c.g[3].i]

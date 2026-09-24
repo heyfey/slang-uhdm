@@ -1,0 +1,71 @@
+cluster K0074: span|struct_typespec|endcol|under:ref_typespec
+row: uhdm2rtlil/testflags/gen_scope_typaram  strict=differ:file(10)  records golden=204 ours=204
+object: #146 (golden) / #146 (ours)  type=struct_typespec name=pair_t
+  golden: 17:13:17:60
+  ours:   17:13:17:26
+  walk parents: ref_typespec < struct_var(d_i) < module_inst(u) < gen_scope
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 134..157 ('>' = the object)
+  #134	5	logic_typespec				dut.sv	15	12	15	23				
+  #135	6	range				dut.sv	15	18	15	23				
+  #136	7	constant				dut.sv	15	19	15	20	7	64	UINT:7	9
+  #137	7	constant				dut.sv	15	21	15	22	0	64	UINT:0	9
+  #138	3	gen_scope_array	blk[0]		work@tb.t.blk[0]	dut.sv	18	36	20	8				
+  #139	4	gen_scope			work@tb.t.blk[0]	dut.sv	18	36	20	8				
+  #140	5	parameter	i		work@tb.t.blk[0].i	dut.sv	18	0	0	0		0	UINT:0	
+  #141	6	ref_typespec			work@tb.t.blk[0].i		0	0	0	0		0		
+  #142	7	int_typespec					0	0	0	0				
+  #143	5	module_inst	u	work@leaf	work@tb.t.blk[0].u	dut.sv	19	9	19	49				
+  #144	6	struct_var	d_i		work@tb.t.blk[0].u.d_i	dut.sv	7	14	7	17		0		
+  #145	7	ref_typespec			work@tb.t.blk[0].u.d_i		0	0	0	0		0		
+> #146	8	struct_typespec	pair_t			dut.sv	17	13	17	60				
+  #147	9	typespec_member	x			dut.sv	17	41	17	42				
+  #148	10	ref_typespec			pair_t.x		0	0	0	0		0		
+  #149	11	logic_typespec				dut.sv	17	29	17	40				
+  #150	12	range				dut.sv	17	35	17	40				
+  #151	13	constant				dut.sv	17	36	17	37	3	64	UINT:3	9
+  #152	13	constant				dut.sv	17	38	17	39	0	64	UINT:0	9
+  #153	9	typespec_member	y			dut.sv	17	56	17	57				
+  #154	10	ref_typespec			pair_t.y		0	0	0	0		0		
+  #155	11	logic_typespec				dut.sv	17	44	17	55				
+  #156	12	range				dut.sv	17	50	17	55				
+  #157	13	constant				dut.sv	17	51	17	52	3	64	UINT:3	9
+
+--- OURS (B) records 134..157 ('>' = the object)
+  #134	5	logic_typespec				dut.sv	15	12	15	23				
+  #135	6	range				dut.sv	15	18	15	23				
+  #136	7	constant				dut.sv	15	19	15	20	7	64	UINT:7	9
+  #137	7	constant				dut.sv	15	21	15	22	0	64	UINT:0	9
+  #138	3	gen_scope_array	blk[0]		work@tb.t.blk[0]	dut.sv	18	36	20	8				
+  #139	4	gen_scope			work@tb.t.blk[0]	dut.sv	18	36	20	8				
+  #140	5	parameter	i		work@tb.t.blk[0].i		18	0	0	0		0	UINT:0	
+  #141	6	ref_typespec			work@tb.t.blk[0].i		0	0	0	0		0		
+  #142	7	int_typespec					0	0	0	0				
+  #143	5	module_inst	u	work@leaf	work@tb.t.blk[0].u	dut.sv	19	9	19	49				
+  #144	6	struct_var	d_i		work@tb.t.blk[0].u.d_i	dut.sv	7	14	7	17		0		
+  #145	7	ref_typespec			work@tb.t.blk[0].u.d_i		0	0	0	0		0		
+> #146	8	struct_typespec	pair_t			dut.sv	17	13	17	26				
+  #147	9	typespec_member	x			dut.sv	17	41	17	42				
+  #148	10	ref_typespec			x		0	0	0	0		0		
+  #149	11	logic_typespec				dut.sv	17	29	17	40				
+  #150	12	range				dut.sv	17	35	17	40				
+  #151	13	constant				dut.sv	17	36	17	37	3	64	UINT:3	9
+  #152	13	constant				dut.sv	17	38	17	39	0	64	UINT:0	9
+  #153	9	typespec_member	y			dut.sv	17	56	17	57				
+  #154	10	ref_typespec			y		0	0	0	0		0		
+  #155	11	logic_typespec				dut.sv	17	44	17	55				
+  #156	12	range				dut.sv	17	50	17	55				
+  #157	13	constant				dut.sv	17	51	17	52	3	64	UINT:3	9
+
+all facets of this row (10):
+  K0001 #140/140 parameter i G[dut.sv 18:0:0:0] O[ 18:0:0:0]
+  K0074 #146/146 struct_typespec pair_t G[17:13:17:60] O[17:13:17:26]
+  K0004 #148/148 ref_typespec  G[pair_t.x] O[x]
+  K0004 #154/154 ref_typespec  G[pair_t.y] O[y]
+  K0074 #161/161 struct_typespec pair_t G[17:13:17:60] O[17:13:17:26]
+  K0004 #163/163 ref_typespec  G[pair_t.x] O[x]
+  K0004 #169/169 ref_typespec  G[pair_t.y] O[y]
+  K0074 #176/176 struct_typespec pair_t G[17:13:17:60] O[17:13:17:26]
+  K0004 #178/178 ref_typespec  G[pair_t.x] O[x]
+  K0004 #184/184 ref_typespec  G[pair_t.y] O[y]

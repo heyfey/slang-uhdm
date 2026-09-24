@@ -1,0 +1,14 @@
+{
+ "file|struct_typespec|ours-empty|under:ref_typespec": {
+  "cov": "COVERED r11u125 (FILE-EMPTY census: ModuleEmit.cpp materializeDefNetTs span copy, census line cl5 beside the pinned mint)"
+ },
+ "file|constant|ours-empty|under:operation": {
+  "cov": "COVERED r11u125 (FILE-EMPTY census: ParamEmit.cpp c2 span copy in emitParameters, pinned)"
+ },
+ "file|unsupported_typespec|ours-empty|under:ref_typespec": {
+  "cov": "COVERED r11u125 (FILE-EMPTY census: StmtEmit.cpp uts span copy, \u00a7 foreachArraySelfSelectAssignDropsTs19, pinned)"
+ },
+ "span|constant|ours-zero|under:range": {
+  "cov": "COVERED r11u124 (C0019 twin: the same 346 range-bound constants, span facet)"
+ }
+}

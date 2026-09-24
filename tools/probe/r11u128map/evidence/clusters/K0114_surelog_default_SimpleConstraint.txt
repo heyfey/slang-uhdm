@@ -1,0 +1,68 @@
+cluster K0114: span|hier_path|endcol|under:operation
+row: surelog/default/SimpleConstraint  strict=differ:line(7)  records golden=257 ours=257
+object: #212 (golden) / #212 (ours)  type=hier_path name=frame.randomize
+  golden: 57:12:57:29
+  ours:   57:12:57:27
+  walk parents: operation < if_else < begin < if_else
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 200..223 ('>' = the object)
+  #200	4	method_func_call	multicast			top.sv	55	12	55	21		0		
+  #201	5	ref_obj	frame		work@constaint_mode_ex.frame	top.sv	55	6	55	11		0		
+  #202	4	if_else				top.sv	56	6	64	9				
+  #203	5	operation				top.sv	56	10	56	48		0		
+  #204	6	hier_path	frame.multicast.constraint_mode			top.sv	56	10	56	43		0		
+  #205	7	ref_obj	frame			top.sv	56	10	56	15		0		
+  #206	7	ref_obj	multicast			top.sv	56	16	56	25		0		
+  #207	7	method_func_call	constraint_mode			top.sv	56	26	56	41		0		
+  #208	6	constant				top.sv	56	47	56	48	0	64	UINT:0	9
+  #209	5	begin			work@constaint_mode_ex	top.sv	56	50	62	9				
+  #210	6	if_else				top.sv	57	8	61	11				
+  #211	7	operation				top.sv	57	12	57	34		0		
+> #212	8	hier_path	frame.randomize			top.sv	57	12	57	29		0		
+  #213	9	ref_obj	frame			top.sv	57	12	57	17		0		
+  #214	9	method_func_call	randomize			top.sv	57	18	57	27		0		
+  #215	8	constant				top.sv	57	33	57	34	1	64	UINT:1	9
+  #216	7	begin			work@constaint_mode_ex	top.sv	57	36	59	11				
+  #217	8	method_func_call	print			top.sv	58	16	58	21		0		
+  #218	9	ref_obj	frame		work@constaint_mode_ex.frame	top.sv	58	10	58	15		0		
+  #219	7	begin			work@constaint_mode_ex	top.sv	59	17	61	11				
+  #220	8	sys_func_call	$write			top.sv	60	10	60	47		0		
+  #221	9	constant				top.sv	60	17	60	46	"Failed to randomize frame\n"	216	STRING:Failed to randomize frame\n	6
+  #222	5	begin			work@constaint_mode_ex	top.sv	62	15	64	9				
+  #223	6	sys_func_call	$write			top.sv	63	9	63	59		0		
+
+--- OURS (B) records 200..223 ('>' = the object)
+  #200	4	method_func_call	multicast			top.sv	55	12	55	21		0		
+  #201	5	ref_obj	frame		work@constaint_mode_ex.frame	top.sv	55	6	55	11		0		
+  #202	4	if_else				top.sv	56	6	64	9				
+  #203	5	operation				top.sv	56	10	56	48		0		
+  #204	6	hier_path	frame.multicast.constraint_mode			top.sv	56	10	56	43		0		
+  #205	7	ref_obj	frame			top.sv	56	10	56	15		0		
+  #206	7	ref_obj	multicast			top.sv	56	16	56	25		0		
+  #207	7	method_func_call	constraint_mode			top.sv	56	26	56	41		0		
+  #208	6	constant				top.sv	56	47	56	48	0	64	UINT:0	9
+  #209	5	begin			work@constaint_mode_ex	top.sv	56	50	62	9				
+  #210	6	if_else				top.sv	57	8	61	11				
+  #211	7	operation				top.sv	57	12	57	34		0		
+> #212	8	hier_path	frame.randomize			top.sv	57	12	57	27		0		
+  #213	9	ref_obj	frame			top.sv	57	12	57	17		0		
+  #214	9	method_func_call	randomize			top.sv	57	18	57	27		0		
+  #215	8	constant				top.sv	57	33	57	34	1	64	UINT:1	9
+  #216	7	begin			work@constaint_mode_ex	top.sv	57	36	59	11				
+  #217	8	method_func_call	print			top.sv	58	16	58	21		0		
+  #218	9	ref_obj	frame		work@constaint_mode_ex.frame	top.sv	58	10	58	15		0		
+  #219	7	begin			work@constaint_mode_ex	top.sv	59	17	61	11				
+  #220	8	sys_func_call	$write			top.sv	60	10	60	47		0		
+  #221	9	constant				top.sv	60	17	60	46	"Failed to randomize frame\n"	216	STRING:Failed to randomize frame\n	6
+  #222	5	begin			work@constaint_mode_ex	top.sv	62	15	64	9				
+  #223	6	sys_func_call	$write			top.sv	63	9	63	59		0		
+
+all facets of this row (7):
+  K0090 #95/95 enum_typespec pkt_type G[23:29:23:37] O[2:1:2:56]
+  K0090 #117/117 enum_typespec pkt_type G[23:29:23:37] O[2:1:2:56]
+  K0087 #184/184 class_typespec frame_t G[51:6:51:27] O[51:6:51:13]
+  K1351 #187/187 integer_typespec  G[52:6:52:19] O[52:6:52:13]
+  K0114 #212/212 hier_path frame.randomize G[57:12:57:29] O[57:12:57:27]
+  K0114 #241/241 hier_path frame.randomize G[73:10:73:27] O[73:10:73:25]
+  K0625 #253/253 enum_typespec pkt_type G[23:29:23:37] O[2:1:2:56]

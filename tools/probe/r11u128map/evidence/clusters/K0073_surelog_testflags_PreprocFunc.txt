@@ -1,0 +1,65 @@
+cluster K0073: file|constant|other-file|under:param_assign
+row: surelog/testflags/PreprocFunc  strict=differ:file(4)  records golden=263 ours=263
+object: #206 (golden) / #206 (ours)  type=constant name=
+  golden: dut.sv 35:23:35:66
+  ours:   inc.h 35:23:35:66
+  walk parents: param_assign < module_inst(work@asym_ram) < design(work@asym_ram)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 194..217 ('>' = the object)
+  #194	2	parameter	log2RATIO		work@asym_ram.log2RATIO	dut.sv	42	12	42	21		0		
+  #195	2	param_assign				dut.sv	6	11	6	21				
+  #196	3	constant				dut.sv	6	20	6	21	4	32	UINT:4	9
+  #197	4	ref_typespec			work@asym_ram		0	0	0	0		0		
+  #198	5	int_typespec				dut.sv	6	1	6	21				
+  #199	2	param_assign				dut.sv	7	11	7	21				
+  #200	3	constant				dut.sv	7	20	7	21	4	32	UINT:4	9
+  #201	4	ref_typespec			work@asym_ram		0	0	0	0		0		
+  #202	5	int_typespec				dut.sv	7	1	7	21				
+  #203	2	param_assign				dut.sv	30	12	30	66				
+  #204	3	constant				dut.sv	30	23	30	66	32'b00000000000000000000000000000100	32	BIN:00000000000000000000000000000100	3
+  #205	2	param_assign				dut.sv	35	12	35	66				
+> #206	3	constant				dut.sv	35	23	35	66	32'b00000000000000000000000000000100	32	BIN:00000000000000000000000000000100	3
+  #207	2	param_assign				dut.sv	39	12	39	39				
+  #208	3	constant				dut.sv	39	20	39	39	1	64	INT:1	7
+  #209	2	param_assign				dut.sv	42	12	42	35				
+  #210	3	constant				dut.sv	42	24	42	35	1	32	INT:1	7
+  #211	4	ref_typespec			work@asym_ram		0	0	0	0		0		
+  #212	5	integer_typespec				dut.sv	14	7	14	14				
+  #213	2	function	log2		work@asym_ram.log2	dut.sv	13	1	28	12				
+  #214	3	logic_var	shifted		work@asym_ram.log2.shifted	dut.sv	15	1	15	11		0		
+  #215	4	ref_typespec			work@asym_ram.log2.shifted		0	0	0	0		0		
+  #216	5	logic_typespec				dut.sv	15	1	15	11				
+  #217	6	range				dut.sv	15	5	15	11				
+
+--- OURS (B) records 194..217 ('>' = the object)
+  #194	2	parameter	log2RATIO		work@asym_ram.log2RATIO	dut.sv	42	12	42	21		0		
+  #195	2	param_assign				dut.sv	6	11	6	21				
+  #196	3	constant				dut.sv	6	20	6	21	4	32	UINT:4	9
+  #197	4	ref_typespec			work@asym_ram		0	0	0	0		0		
+  #198	5	int_typespec				dut.sv	6	1	6	21				
+  #199	2	param_assign				dut.sv	7	11	7	21				
+  #200	3	constant				dut.sv	7	20	7	21	4	32	UINT:4	9
+  #201	4	ref_typespec			work@asym_ram		0	0	0	0		0		
+  #202	5	int_typespec				dut.sv	7	1	7	21				
+  #203	2	param_assign				dut.sv	30	12	30	66				
+  #204	3	constant				dut.sv	30	23	30	66	32'b00000000000000000000000000000100	32	BIN:00000000000000000000000000000100	3
+  #205	2	param_assign				dut.sv	35	12	35	66				
+> #206	3	constant				inc.h	35	23	35	66	32'b00000000000000000000000000000100	32	BIN:00000000000000000000000000000100	3
+  #207	2	param_assign				dut.sv	39	12	39	39				
+  #208	3	constant				dut.sv	39	20	39	39	1	64	INT:1	7
+  #209	2	param_assign				dut.sv	42	12	42	35				
+  #210	3	constant				dut.sv	42	24	42	35	1	32	INT:1	7
+  #211	4	ref_typespec			work@asym_ram		0	0	0	0		0		
+  #212	5	integer_typespec				dut.sv	14	7	14	14				
+  #213	2	function	log2		work@asym_ram.log2	dut.sv	13	1	28	12				
+  #214	3	logic_var	shifted		work@asym_ram.log2.shifted	dut.sv	15	1	15	11		0		
+  #215	4	ref_typespec			work@asym_ram.log2.shifted		0	0	0	0		0		
+  #216	5	logic_typespec				dut.sv	15	1	15	11				
+  #217	6	range				dut.sv	15	5	15	11				
+
+all facets of this row (4):
+  K0586 #120/120 operation  G[dut.sv 35:23:35:66] O[inc.h 35:23:35:66]
+  K0059 #121/121 operation  G[dut.sv 35:24:35:65] O[inc.h 35:24:35:65]
+  K0059 #122/122 operation  G[dut.sv 35:24:35:43] O[inc.h 35:24:35:43]
+  K0073 #206/206 constant  G[dut.sv 35:23:35:66] O[inc.h 35:23:35:66]

@@ -1,0 +1,96 @@
+cluster K0648: struct|golden-only:fewer-copies|ref_typespec|under:ref_var
+row: surelog/default/MiniAmiq  strict=differ:line(272)  records golden=435559 ours=413722
+object: #80551 (golden) / #-1 (ours)  type=ref_typespec name=
+  golden: 2 objs
+  ours:   
+  walk parents: ref_var(phase_runner_proc) < begin < task(uvm_root::run_test) < package(svaunit_pkg)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 80539..80562 ('>' = the object)
+  #80539	7	ref_typespec			svaunit_pkg::uvm_root::run_test::test_names		0	0	0	0		0		
+  #80540	8	string_typespec				uvm_root.svh	407	3	407	9				
+  #80541	5	string_var			svaunit_pkg::uvm_root::run_test::test_names	uvm_root.svh	407	10	407	20		0		
+  #80542	6	ref_typespec			svaunit_pkg::uvm_root::run_test::test_names		0	0	0	0		0		
+  #80543	7	string_typespec				uvm_root.svh	407	3	407	9				
+  #80544	4	string_var	msg		svaunit_pkg::uvm_root::run_test::msg	uvm_root.svh	408	10	408	13		0		
+  #80545	5	ref_typespec			svaunit_pkg::uvm_root::run_test::msg		0	0	0	0		0		
+  #80546	6	string_typespec				uvm_root.svh	408	3	408	9				
+  #80547	4	class_var	uvm_test_top		svaunit_pkg::uvm_root::run_test::uvm_test_top	uvm_root.svh	409	17	409	29		0		
+  #80548	5	ref_typespec			svaunit_pkg::uvm_root::run_test::uvm_test_top		0	0	0	0		0		
+  #80549	6	class_typespec				uvm_root.svh	409	3	409	16				
+  #80550	4	ref_var	phase_runner_proc		svaunit_pkg::uvm_root::run_test::phase_runner_proc	uvm_root.svh	411	11	411	28		0		
+> #80551	5	ref_typespec			svaunit_pkg::uvm_root::run_test::phase_runner_proc		0	0	0	0		0		
+  #80552	6	unsupported_typespec	process			uvm_root.svh	411	3	411	10				
+  #80553	5	ref_var	phase_runner_proc		uvm_pkg::uvm_root::run_test::phase_runner_proc	uvm_root.svh	411	11	411	28		0		
+  #80554	6	ref_typespec			uvm_pkg::uvm_root::run_test::phase_runner_proc		0	0	0	0		0		
+  #80555	7	unsupported_typespec	process			uvm_root.svh	411	3	411	10				
+  #80556	4	assignment				uvm_root.svh	403	21	403	50				
+  #80557	5	ref_obj	uvm_coreservice_t::get		svaunit_pkg::uvm_root::run_test::uvm_coreservice_t::get	uvm_root.svh	403	26	403	45		0		
+  #80558	5	class_var	cs		svaunit_pkg::uvm_root::run_test::cs	uvm_root.svh	403	21	403	23		0		
+  #80559	6	ref_typespec			svaunit_pkg::uvm_root::run_test::cs		0	0	0	0		0		
+  #80560	7	class_typespec				uvm_root.svh	403	3	403	20				
+  #80561	4	assignment				uvm_root.svh	404	15	404	39				
+  #80562	5	hier_path	cs.get_factory			uvm_root.svh	404	23	404	39		0		
+
+--- the holder #80550 in the other side: exact-record matches at [79141, 300469, 362360]
+  #79137	4	constant				uvm_root.svh	400	42	400	44	""	0	STRING:	6
+  #79138	4	ref_typespec			svaunit_pkg::uvm_root::run_test::test_name		0	0	0	0		0		
+  #79139	5	string_typespec				uvm_root.svh	400	25	400	31				
+  #79140	3	begin			svaunit_pkg::uvm_root::run_test	uvm_root.svh	403	3	403	51				
+> #79141	4	ref_var	phase_runner_proc		svaunit_pkg::uvm_root::run_test::phase_runner_proc	uvm_root.svh	411	11	411	28		0		
+  #79142	5	ref_var	phase_runner_proc		uvm_pkg::uvm_root::run_test::phase_runner_proc	uvm_root.svh	411	11	411	28		0		
+  #79143	6	ref_typespec			uvm_pkg::uvm_root::run_test::phase_runner_proc		0	0	0	0		0		
+  #79144	7	unsupported_typespec	process			uvm_root.svh	411	3	411	10				
+  #79145	4	assignment				uvm_root.svh	403	21	403	50				
+  #79146	5	ref_obj	uvm_coreservice_t::get		svaunit_pkg::uvm_root::run_test::uvm_coreservice_t::get	uvm_root.svh	403	26	403	45		0		
+  #79147	4	assignment				uvm_root.svh	404	15	404	39				
+  #79148	5	hier_path	cs.get_factory			uvm_root.svh	404	23	404	39		0		
+  #79149	6	ref_obj	cs			uvm_root.svh	404	23	404	25		0		
+  #79150	7	class_var	cs		uvm_pkg::uvm_root::run_test::cs	uvm_root.svh	403	21	403	23		0		
+  #79151	8	ref_typespec			uvm_pkg::uvm_root::run_test::cs		0	0	0	0		0		
+  #79152	9	class_typespec				uvm_root.svh	403	3	403	20				
+  #79153	6	method_func_call	get_factory			uvm_root.svh	404	26	404	37		0		
+  #79154	4	assignment				uvm_root.svh	413	3	413	23				
+
+all facets of this row (78403):
+  K0453 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  K0453 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  K0453 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  K0325 #10107/-1 ref_typespec  G[2 objs] O[]
+  K0453 #-1/17670 class_var uvm_top G[] O[4 objs]
+  K0288 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/20823 bit_typespec  G[] O[1 objs]
+  K0288 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/21759 bit_typespec  G[] O[1 objs]
+  K0558 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  K0558 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  K0453 #-1/25656 class_var run_ph G[] O[3 objs]
+  K0005 #63364/-1 parameter UVM_HDL_MAX_WIDTH G[3 objs] O[]
+  K0005 #63371/-1 parameter uvm_mgc_copyright G[3 objs] O[]
+  K0005 #63378/-1 parameter uvm_cdn_copyright G[3 objs] O[]
+  K0005 #63385/-1 parameter uvm_snps_copyright G[3 objs] O[]
+  K0005 #63392/-1 parameter uvm_cy_copyright G[3 objs] O[]
+  K0005 #63399/-1 parameter uvm_nv_copyright G[3 objs] O[]
+  K0005 #63406/-1 parameter uvm_revision G[3 objs] O[]
+  K0005 #63413/-1 parameter UVM_STREAMBITS G[3 objs] O[]
+  K0005 #63419/-1 parameter UVM_RADIX G[1 objs] O[]
+  K0005 #63424/-1 parameter UVM_MACRO_NUMFLAGS G[3 objs] O[]
+  K0005 #63430/-1 parameter UVM_DEFAULT G[1 objs] O[]
+  K0005 #63434/-1 parameter UVM_ALL_ON G[1 objs] O[]
+  K0005 #63438/-1 parameter UVM_FLAGS_ON G[1 objs] O[]
+  K0005 #63443/-1 parameter UVM_FLAGS_OFF G[3 objs] O[]
+  K0005 #63450/-1 parameter UVM_COPY G[3 objs] O[]
+  K0005 #63457/-1 parameter UVM_NOCOPY G[3 objs] O[]
+  K0005 #63464/-1 parameter UVM_COMPARE G[3 objs] O[]
+  K0005 #63471/-1 parameter UVM_NOCOMPARE G[3 objs] O[]
+  K0005 #63478/-1 parameter UVM_PRINT G[3 objs] O[]
+  K0005 #63485/-1 parameter UVM_NOPRINT G[3 objs] O[]
+  K0005 #63492/-1 parameter UVM_RECORD G[3 objs] O[]
+  K0005 #63499/-1 parameter UVM_NORECORD G[3 objs] O[]
+  K0005 #63506/-1 parameter UVM_PACK G[3 objs] O[]
+  K0005 #63513/-1 parameter UVM_NOPACK G[3 objs] O[]
+  K0005 #63520/-1 parameter UVM_PHYSICAL G[3 objs] O[]
+  K0005 #63527/-1 parameter UVM_ABSTRACT G[3 objs] O[]
+  K0005 #63534/-1 parameter UVM_READONLY G[3 objs] O[]
+  K0005 #63541/-1 parameter UVM_NODEFPRINT G[3 objs] O[]
+  ... 78363 more

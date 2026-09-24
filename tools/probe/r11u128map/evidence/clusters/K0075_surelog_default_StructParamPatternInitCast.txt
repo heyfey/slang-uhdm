@@ -1,0 +1,96 @@
+cluster K0075: struct|golden-only:fewer-copies|constant|under:typespec_member
+row: surelog/default/StructParamPatternInitCast  strict=differ:fullname(2)  records golden=477 ours=463
+object: #77 (golden) / #-1 (ours)  type=constant name=
+  golden: 1 objs
+  ours:   
+  walk parents: typespec_member(XLEN) < struct_typespec(cfg_pkg::cfg_t) < package(cfg_pkg) < design(work@StructParamPatternInitCast)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 65..88 ('>' = the object)
+  #65	2	param_assign				dut.sv	21	25	21	47				
+  #66	3	operation				dut.sv	21	32	21	47		0		
+  #67	4	ref_typespec					0	0	0	0		0		
+  #68	5	struct_typespec	cfg_pkg::user_cfg_t			dut.sv	16	41	16	51				
+  #69	6	typespec_member	XLEN			dut.sv	11	18	11	22				
+  #70	7	ref_typespec			cfg_pkg::cfg_pkg::user_cfg_t::XLEN		0	0	0	0		0		
+  #71	8	int_typespec				dut.sv	11	5	11	17				
+  #72	4	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+  #73	2	struct_typespec	cfg_pkg::cfg_t			dut.sv	13	11	15	4				
+  #74	3	typespec_member	XLEN			dut.sv	14	18	14	22				
+  #75	4	ref_typespec			cfg_pkg::cfg_pkg::cfg_t::XLEN		0	0	0	0		0		
+  #76	5	int_typespec				dut.sv	14	5	14	17				
+> #77	4	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+  #78	4	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+  #79	2	struct_typespec	cfg_pkg::user_cfg_t			dut.sv	16	41	16	51				
+  #80	3	typespec_member	XLEN			dut.sv	11	18	11	22				
+  #81	4	ref_typespec			cfg_pkg::cfg_pkg::user_cfg_t::XLEN		0	0	0	0		0		
+  #82	5	int_typespec				dut.sv	11	5	11	17				
+  #83	2	function	build_config		cfg_pkg::build_config	dut.sv	16	3	20	14				
+  #84	3	struct_var	r		cfg_pkg::build_config::r	dut.sv	17	11	17	12		0		
+  #85	4	ref_typespec			cfg_pkg::build_config::r		0	0	0	0		0		
+  #86	5	struct_typespec	cfg_pkg::cfg_t			dut.sv	13	11	15	4				
+  #87	6	typespec_member	XLEN			dut.sv	14	18	14	22				
+  #88	7	ref_typespec			cfg_pkg::cfg_pkg::cfg_t::XLEN		0	0	0	0		0		
+
+--- the holder #74 in the other side: exact-record matches at [16, 74]
+  #12	5	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+  #13	5	ref_typespec			cfg_pkg		0	0	0	0		0		
+  #14	6	string_typespec	XLEN			dut.sv	21	34	21	38				
+  #15	2	struct_typespec	cfg_pkg::cfg_t			dut.sv	13	11	15	4				
+> #16	3	typespec_member	XLEN			dut.sv	14	18	14	22				
+  #17	4	ref_typespec			cfg_pkg::cfg_pkg::cfg_t::XLEN		0	0	0	0		0		
+  #18	5	int_typespec				dut.sv	14	5	14	17				
+  #19	2	struct_typespec	cfg_pkg::user_cfg_t			dut.sv	16	41	16	51				
+  #20	3	typespec_member	XLEN			dut.sv	11	18	11	22				
+  #21	4	ref_typespec			cfg_pkg::cfg_pkg::user_cfg_t::XLEN		0	0	0	0		0		
+  #22	5	int_typespec				dut.sv	11	5	11	17				
+  #23	2	function	build_config		cfg_pkg::build_config	dut.sv	16	3	20	14				
+  #24	3	struct_var	r		cfg_pkg::build_config::r	dut.sv	17	11	17	12		0		
+  #25	4	ref_typespec			cfg_pkg::build_config::r		0	0	0	0		0		
+  #26	5	struct_typespec	cfg_pkg::cfg_t			dut.sv	13	11	15	4				
+  #27	6	typespec_member	XLEN			dut.sv	14	18	14	22				
+  #28	7	ref_typespec			cfg_pkg::cfg_pkg::cfg_t::XLEN		0	0	0	0		0		
+  #29	8	int_typespec				dut.sv	14	5	14	17				
+
+all facets of this row (50):
+  K0075 #77/-1 constant  G[1 objs] O[]
+  K0075 #78/-1 constant  G[1 objs] O[]
+  K0075 #90/-1 constant  G[1 objs] O[]
+  K0075 #91/-1 constant  G[1 objs] O[]
+  K0075 #98/-1 constant  G[1 objs] O[]
+  K0075 #99/-1 constant  G[1 objs] O[]
+  K0047 #270/-1 struct_typespec cfg_pkg::cfg_t G[6 objs] O[]
+  K0099 #-1/264 integer_typespec  G[] O[4 objs]
+  K0047 #284/-1 struct_typespec cfg_pkg::cfg_t G[6 objs] O[]
+  K0099 #-1/276 integer_typespec  G[] O[4 objs]
+  K0047 #298/-1 struct_typespec cfg_pkg::cfg_t G[6 objs] O[]
+  K0099 #-1/288 integer_typespec  G[] O[4 objs]
+  K0047 #312/-1 struct_typespec cfg_pkg::cfg_t G[6 objs] O[]
+  K0099 #-1/300 integer_typespec  G[] O[4 objs]
+  K0006 #67/67 ref_typespec  G[] O[cfg_pkg]
+  K0074 #210/204 struct_typespec  G[30:26:30:32] O[30:26:30:39]
+  K0097 #212/206 ref_typespec  G[work@StructParamPatternInitCast.INT.S_SW] O[S_SW]
+  K0003 #217/211 ref_obj Cfg G[31:16:31:20] O[31:12:31:15]
+  K0040 #218/212 ref_obj XLEN G[] O[work@StructParamPatternInitCast.it_t.XLEN]
+  K0097 #222/216 ref_typespec  G[work@StructParamPatternInitCast.INT.M_SW] O[M_SW]
+  K0003 #227/221 ref_obj Cfg G[32:16:32:20] O[32:12:32:15]
+  K0040 #228/222 ref_obj XLEN G[] O[work@StructParamPatternInitCast.it_t.XLEN]
+  K0024 #233/227 struct_typespec  G[30:26:30:32] O[30:26:33:4]
+  K0003 #240/234 ref_obj Cfg G[31:16:31:20] O[31:12:31:15]
+  K0040 #241/235 ref_obj XLEN G[] O[work@StructParamPatternInitCast.INT.S_SW.XLEN]
+  K0003 #250/244 ref_obj Cfg G[32:16:32:20] O[32:12:32:15]
+  K0040 #251/245 ref_obj XLEN G[] O[work@StructParamPatternInitCast.INT.M_SW.XLEN]
+  K0060 #255/249 func_call cfg_pkg::build_config G[25:36:25:45] O[25:36:25:43]
+  K0003 #279/271 ref_obj Cfg G[35:31:35:34] O[35:35:35:39]
+  K0036 #280/272 ref_obj XLEN G[work@StructParamPatternInitCast.XLEN] O[]
+  K0003 #307/295 ref_obj Cfg G[36:31:36:34] O[36:35:36:39]
+  K0036 #308/296 ref_obj XLEN G[work@StructParamPatternInitCast.XLEN] O[]
+  K0003 #334/320 ref_obj Cfg G[28:23:28:27] O[28:19:28:22]
+  K0013 #353/339 ref_typespec  G[work@StructParamPatternInitCast.Cfg.cfg_pkg::cfg_t.XLEN] O[cfg_pkg::cfg_pkg::cfg_t::XLEN]
+  K0074 #359/345 struct_typespec  G[30:26:30:32] O[30:26:30:39]
+  K0097 #361/347 ref_typespec  G[work@StructParamPatternInitCast.INT.S_SW] O[S_SW]
+  K0003 #366/352 ref_obj Cfg G[31:16:31:20] O[31:12:31:15]
+  K0040 #367/353 ref_obj XLEN G[] O[work@StructParamPatternInitCast.it_t.XLEN]
+  K0097 #371/357 ref_typespec  G[work@StructParamPatternInitCast.INT.M_SW] O[M_SW]
+  K0003 #376/362 ref_obj Cfg G[32:16:32:20] O[32:12:32:15]
+  ... 10 more

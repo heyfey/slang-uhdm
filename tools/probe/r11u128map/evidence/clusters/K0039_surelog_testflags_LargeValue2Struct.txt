@@ -1,0 +1,102 @@
+cluster K0039: fullname|ref_typespec|tok:->id.|under:logic_typespec
+row: surelog/testflags/LargeValue2Struct  strict=differ:file(113)  records golden=594 ours=594
+object: #275 (golden) / #275 (ours)  type=ref_typespec name=
+  golden: work@top.pack::scrmbl_key_init_t.key.sram_key_t
+  ours:   work@top.RndCnstScrmblKeyInit.pack::scrmbl_key_init_t.key.sram_key_t
+  walk parents: logic_typespec(sram_key_t) < ref_typespec < typespec_member(key) < struct_typespec(pack::scrmbl_key_init_t)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 263..286 ('>' = the object)
+  #263	8	range				dut.sv	5	17	5	35				
+  #264	9	constant				dut.sv	5	18	5	30	127	64	INT:127	7
+  #265	9	constant				dut.sv	5	33	5	34	0	64	UINT:0	9
+  #266	2	parameter	SramKeyWidth		work@top.SramKeyWidth	dut.sv	2	17	2	29		0	UINT:128	
+  #267	3	ref_typespec			work@top.SramKeyWidth		0	0	0	0		0		
+  #268	4	int_typespec				dut.sv	2	13	2	16				
+  #269	2	parameter	RndCnstScrmblKeyInit		work@top.RndCnstScrmblKeyInit	dut.sv	23	29	23	49		0	HEX:cebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e	
+  #270	3	ref_typespec			work@top.RndCnstScrmblKeyInit		0	0	0	0		0		
+  #271	4	struct_typespec	pack::scrmbl_key_init_t			dut.sv	7	9	10	4				
+  #272	5	typespec_member	key			dut.sv	8	18	8	21				
+  #273	6	ref_typespec			work@top.pack::scrmbl_key_init_t.key		0	0	0	0		0		
+  #274	7	logic_typespec	sram_key_t			dut.sv	4	11	4	35				
+> #275	8	ref_typespec			work@top.pack::scrmbl_key_init_t.key.sram_key_t		0	0	0	0		0		
+  #276	9	logic_typespec	pack::sram_key_t			dut.sv	4	11	4	35				
+  #277	10	range				dut.sv	4	17	4	35				
+  #278	11	constant				dut.sv	4	18	4	30	127	64	INT:127	7
+  #279	11	constant				dut.sv	4	33	4	34	0	64	UINT:0	9
+  #280	8	range				dut.sv	4	17	4	35				
+  #281	9	constant				dut.sv	4	18	4	30	127	64	INT:127	7
+  #282	9	constant				dut.sv	4	33	4	34	0	64	UINT:0	9
+  #283	5	typespec_member	nonce			dut.sv	9	18	9	23				
+  #284	6	ref_typespec			work@top.pack::scrmbl_key_init_t.nonce		0	0	0	0		0		
+  #285	7	logic_typespec	sram_nonce_t			dut.sv	5	11	5	35				
+  #286	8	ref_typespec			work@top.pack::scrmbl_key_init_t.nonce.sram_nonce_t		0	0	0	0		0		
+
+--- OURS (B) records 263..286 ('>' = the object)
+  #263	8	range				dut.sv	5	17	5	35				
+  #264	9	constant				dut.sv	5	18	5	30	127	64	INT:127	7
+  #265	9	constant				dut.sv	5	33	5	34	0	64	UINT:0	9
+  #266	2	parameter	SramKeyWidth		work@top.SramKeyWidth	dut.sv	2	17	2	29		0	UINT:128	
+  #267	3	ref_typespec			work@top.SramKeyWidth		0	0	0	0		0		
+  #268	4	int_typespec				dut.sv	2	13	2	16				
+  #269	2	parameter	RndCnstScrmblKeyInit		work@top.RndCnstScrmblKeyInit	dut.sv	23	29	23	49		0		
+  #270	3	ref_typespec			work@top.RndCnstScrmblKeyInit		0	0	0	0		0		
+  #271	4	struct_typespec	pack::scrmbl_key_init_t			dut.sv	7	9	10	4				
+  #272	5	typespec_member	key			dut.sv	8	18	8	21				
+  #273	6	ref_typespec			work@top.RndCnstScrmblKeyInit.pack::scrmbl_key_init_t.key		0	0	0	0		0		
+  #274	7	logic_typespec	sram_key_t			dut.sv	4	11	4	35				
+> #275	8	ref_typespec			work@top.RndCnstScrmblKeyInit.pack::scrmbl_key_init_t.key.sram_key_t		0	0	0	0		0		
+  #276	9	logic_typespec	pack::sram_key_t				4	11	4	35				
+  #277	10	range					4	17	4	35				
+  #278	11	constant					4	18	4	30	127	64	INT:127	7
+  #279	11	constant					4	33	4	34	0	64	UINT:0	9
+  #280	8	range				dut.sv	4	17	4	35				
+  #281	9	constant				dut.sv	4	18	4	30	127	64	INT:127	7
+  #282	9	constant				dut.sv	4	33	4	34	0	64	UINT:0	9
+  #283	5	typespec_member	nonce			dut.sv	9	18	9	23				
+  #284	6	ref_typespec			work@top.RndCnstScrmblKeyInit.pack::scrmbl_key_init_t.nonce		0	0	0	0		0		
+  #285	7	logic_typespec	sram_nonce_t			dut.sv	5	11	5	35				
+  #286	8	ref_typespec			work@top.RndCnstScrmblKeyInit.pack::scrmbl_key_init_t.nonce.sram_nonce_t		0	0	0	0		0		
+
+all facets of this row (113):
+  K0014 #135/135 constant  G[dut.sv 4:18:4:30] O[ 4:18:4:30]
+  K0014 #136/136 constant  G[dut.sv 4:33:4:34] O[ 4:33:4:34]
+  K0014 #146/146 constant  G[dut.sv 5:18:5:30] O[ 5:18:5:30]
+  K0014 #147/147 constant  G[dut.sv 5:33:5:34] O[ 5:33:5:34]
+  K0014 #165/165 constant  G[dut.sv 4:18:4:30] O[ 4:18:4:30]
+  K0014 #166/166 constant  G[dut.sv 4:33:4:34] O[ 4:33:4:34]
+  K0014 #176/176 constant  G[dut.sv 5:18:5:30] O[ 5:18:5:30]
+  K0014 #177/177 constant  G[dut.sv 5:33:5:34] O[ 5:33:5:34]
+  K0014 #188/188 constant  G[dut.sv 4:18:4:30] O[ 4:18:4:30]
+  K0014 #189/189 constant  G[dut.sv 4:33:4:34] O[ 4:33:4:34]
+  K0014 #199/199 constant  G[dut.sv 5:18:5:30] O[ 5:18:5:30]
+  K0014 #200/200 constant  G[dut.sv 5:33:5:34] O[ 5:33:5:34]
+  K0132 #248/248 logic_typespec sram_key_t G[dut.sv 4:11:4:35] O[ 4:11:4:35]
+  K0222 #249/249 range  G[dut.sv 4:17:4:35] O[ 4:17:4:35]
+  K0014 #250/250 constant  G[dut.sv 4:18:4:30] O[ 4:18:4:30]
+  K0014 #251/251 constant  G[dut.sv 4:33:4:34] O[ 4:33:4:34]
+  K0132 #259/259 logic_typespec sram_nonce_t G[dut.sv 5:11:5:35] O[ 5:11:5:35]
+  K0222 #260/260 range  G[dut.sv 5:17:5:35] O[ 5:17:5:35]
+  K0014 #261/261 constant  G[dut.sv 5:18:5:30] O[ 5:18:5:30]
+  K0014 #262/262 constant  G[dut.sv 5:33:5:34] O[ 5:33:5:34]
+  K0921 #269/269 parameter RndCnstScrmblKeyInit G[|0|HEX:cebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e|] O[|0||]
+  K0007 #273/273 ref_typespec  G[work@top.pack::scrmbl_key_init_t.key] O[work@top.RndCnstScrmblKeyInit.pack::scrmbl_key_init_t.key]
+  K0039 #275/275 ref_typespec  G[work@top.pack::scrmbl_key_init_t.key.sram_key_t] O[work@top.RndCnstScrmblKeyInit.pack::scrmbl_key_init_t.key.sram_key_t]
+  K0132 #276/276 logic_typespec pack::sram_key_t G[dut.sv 4:11:4:35] O[ 4:11:4:35]
+  K0222 #277/277 range  G[dut.sv 4:17:4:35] O[ 4:17:4:35]
+  K0014 #278/278 constant  G[dut.sv 4:18:4:30] O[ 4:18:4:30]
+  K0014 #279/279 constant  G[dut.sv 4:33:4:34] O[ 4:33:4:34]
+  K0007 #284/284 ref_typespec  G[work@top.pack::scrmbl_key_init_t.nonce] O[work@top.RndCnstScrmblKeyInit.pack::scrmbl_key_init_t.nonce]
+  K0039 #286/286 ref_typespec  G[work@top.pack::scrmbl_key_init_t.nonce.sram_nonce_t] O[work@top.RndCnstScrmblKeyInit.pack::scrmbl_key_init_t.nonce.sram_nonce_t]
+  K0132 #287/287 logic_typespec pack::sram_nonce_t G[dut.sv 5:11:5:35] O[ 5:11:5:35]
+  K0222 #288/288 range  G[dut.sv 5:17:5:35] O[ 5:17:5:35]
+  K0014 #289/289 constant  G[dut.sv 5:18:5:30] O[ 5:18:5:30]
+  K0014 #290/290 constant  G[dut.sv 5:33:5:34] O[ 5:33:5:34]
+  K0002 #301/301 parameter SramKeyWidth G[dut.sv 2:17:2:29] O[ 2:17:2:29]
+  K0007 #309/309 ref_typespec  G[work@top.pack::scrmbl_key_init_t.key] O[work@top.RndCnstScrmblKeyInitDefault.pack::scrmbl_key_init_t.key]
+  K0039 #311/311 ref_typespec  G[work@top.pack::scrmbl_key_init_t.key.sram_key_t] O[work@top.RndCnstScrmblKeyInitDefault.pack::scrmbl_key_init_t.key.sram_key_t]
+  K0132 #312/312 logic_typespec sram_key_t G[dut.sv 4:11:4:35] O[ 4:11:4:35]
+  K0222 #313/313 range  G[dut.sv 4:17:4:35] O[ 4:17:4:35]
+  K0014 #314/314 constant  G[dut.sv 4:18:4:30] O[ 4:18:4:30]
+  K0014 #315/315 constant  G[dut.sv 4:33:4:34] O[ 4:33:4:34]
+  ... 73 more

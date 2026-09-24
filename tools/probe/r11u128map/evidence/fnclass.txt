@@ -1,0 +1,87 @@
+== corpus: row-modes with a fullname facet 510: USE-SITE=271 STABLE=138 USE-SITE-BOTH=101
+   rows whose every facet is fullname: {'USE-SITE': 68, 'USE-SITE-BOTH': 31, 'STABLE': 34}
+   rows whose FIRST field is fullname: 309 {'USE-SITE': 176, 'STABLE': 70, 'USE-SITE-BOTH': 63}
+   tests: {'USE-SITE': 156, 'STABLE': 71, 'USE-SITE-BOTH': 53}  surelog/u2r USE-SITE rows: 129 142
+   shapes (top 40 by rows): cluster rows STABLE USE-SITE USE-SITE-BOTH (objects) | rows-with-USE-SITE key
+   K0004 72 90 6453 1137 | 49 fullname|ref_typespec|tok:id.->|under:typespec_member
+   K0006 57 339 4 165 | 3 fullname|ref_typespec|golden-empty|under:operation
+   K0007 56 0 24442 126 | 14 fullname|ref_typespec|tok:->id.|under:typespec_member
+   K0009 52 82 198 24 | 46 fullname|ref_typespec|tok:id@id.->id::|under:enum_typespec
+   K0008 52 0 1268 9636 | 48 fullname|ref_typespec|tok:id@id.id::id.->id::id::id::|under:typespec_member
+   K0011 50 200 104 130075 | 6 fullname|ref_typespec|tok:id@id.->|under:typespec_member
+   K0013 44 0 300 0 | 44 fullname|ref_typespec|tok:id@id.id.id::id.->id::id::id::|under:typespec_member
+   K0016 40 6100 0 0 | 0 fullname|ref_obj|golden-empty|under:hier_path
+   K0019 38 0 98 2 | 36 fullname|ref_typespec|tok:id.id::id.id.->|under:enum_typespec
+   K0020 36 0 80 0 | 36 fullname|ref_typespec|tok:id@id.id.id.id::id.->id::id::id::|under:typespec_member
+   K0022 34 15 153 2 | 21 fullname|ref_typespec|golden-empty|under:constant
+   K0026 30 44 46 14 | 22 fullname|ref_typespec|tok:->.id|under:constant
+   K0030 28 102 0 0 | 0 fullname|ref_obj|tok:::->.@in-typespec|under:operation
+   K0032 27 0 46 0 | 27 fullname|ref_typespec|tok:->.id|under:array_typespec
+   K0033 26 66 239 36727 | 11 fullname|ref_typespec|tok:->id@id.|under:typespec_member
+   K0036 25 774 792 2 | 4 fullname|ref_obj|ours-empty|under:hier_path
+   K0041 22 0 0 66 | 0 fullname|ref_typespec|tok:->id.id::id.id.|under:enum_typespec
+   K0042 22 0 62 140 | 2 fullname|ref_obj|tok:::id::->.@in-typespec|under:operation
+   K0039 22 0 72 12 | 20 fullname|ref_typespec|tok:->id.|under:logic_typespec
+   K0040 22 176 0 0 | 0 fullname|ref_obj|golden-empty@in-typespec|under:hier_path
+   K0043 21 12 306 13830 | 4 fullname|ref_obj|tok:id.id.->|under:operation
+   K0046 20 0 688 0 | 20 fullname|ref_typespec|tok:id.->id::id::|under:typespec_member
+   K0056 19 50 83 82 | 5 fullname|ref_obj|tok:id.->|under:operation
+   K0063 18 0 158 0 | 18 fullname|ref_typespec|tok:id.id::id.id.->|under:typespec_member
+   K0061 18 0 52 0 | 18 fullname|ref_typespec|tok:id@id.id.id.id::id.id.id::id.->id::id::id::|under:typespec_member
+   K0069 18 0 18 0 | 18 fullname|ref_typespec|tok:id.id.id::->|under:enum_typespec
+   K0078 16 0 40 0 | 16 fullname|ref_typespec|tok:id@id.id.id::id.id.id::id.->id::id::id::|under:typespec_member
+   K0081 16 0 22 0 | 16 fullname|ref_typespec|tok:id@id.id.id.id.id::id.id.id::id.->id::id::id::|under:typespec_member
+   K0091 15 1114 0 1276 | 0 fullname|ref_obj|tok:id.id[id]::->|under:bit_select
+   K0085 15 0 0 18 | 0 fullname|parameter|tok:id->id.id.id|under:param_assign
+   K0086 15 0 0 18 | 0 fullname|ref_typespec|tok:id->id.id.id|under:parameter
+   K0097 14 8 20 28 | 4 fullname|ref_typespec|tok:id@id.id.->|under:typespec_member
+   K0105 14 0 12 36 | 2 fullname|ref_typespec|tok:->id.id.|under:typespec_member
+   K0102 14 0 519 0 | 14 fullname|ref_typespec|tok:id::id::->|under:typespec_member
+   K0104 14 0 118 164 | 14 fullname|ref_typespec|ours-empty|under:operation
+   K0118 13 468 8 226 | 1 fullname|ref_obj|tok:id.->|under:part_select
+   K0120 13 62 5 1346 | 1 fullname|ref_obj|tok:id.id[id].->|under:bit_select
+   K0121 13 76 344 0 | 9 fullname|ref_obj|ours-empty@in-typespec|under:operation
+   K0116 13 770 1137 1271 | 5 fullname|ref_typespec|tok:->id@id.|under:enum_typespec
+   K0141 12 0 52 0 | 12 fullname|ref_typespec|tok:id.id.id::id.id.->|under:typespec_member
+== probe: row-modes with a fullname facet 1319: STABLE=416 USE-SITE=428 USE-SITE-BOTH=475
+   shapes (top 40 by rows): cluster rows STABLE USE-SITE USE-SITE-BOTH (objects) | rows-with-USE-SITE key
+   K2107 119 166 0 11 | 0 fullname|logic_net|tok:.id@id->|under:module_inst
+   K0626 111 0 1 110 | 1 fullname|ref_typespec|tok:.id->|under:parameter
+   K0013 100 0 213 0 | 100 fullname|ref_typespec|tok:id@id.id.id::id.->id::id::id::|under:typespec_member
+   K2108 92 107 0 3 | 0 fullname|ref_typespec|tok:.id@id->|under:logic_net
+   K0190 77 2 11 92 | 10 fullname|ref_typespec|tok:id->id|under:packed_array_typespec
+   K0917 68 0 0 168 | 0 fullname|parameter|tok:id->id.id.id[n]|under:param_assign
+   K0918 68 0 0 168 | 0 fullname|ref_typespec|tok:id->id.id.id[n]|under:parameter
+   K0006 66 48 72 5 | 29 fullname|ref_typespec|golden-empty|under:operation
+   K0046 65 0 1426 0 | 65 fullname|ref_typespec|tok:id.->id::id::|under:typespec_member
+   K0020 58 0 246 0 | 58 fullname|ref_typespec|tok:id@id.id.id.id::id.->id::id::id::|under:typespec_member
+   K0056 58 15 0 710 | 0 fullname|ref_obj|tok:id.->|under:operation
+   K0026 58 48 0 18 | 0 fullname|ref_typespec|tok:->.id|under:constant
+   K0097 57 66 14 172 | 7 fullname|ref_typespec|tok:id@id.id.->|under:typespec_member
+   K0085 55 0 0 193 | 0 fullname|parameter|tok:id->id.id.id|under:param_assign
+   K0086 55 0 0 193 | 0 fullname|ref_typespec|tok:id->id.id.id|under:parameter
+   K0627 54 1 289 0 | 53 fullname|ref_typespec|tok:.id[n]->|under:constant
+   K2110 50 77 0 0 | 0 fullname|ref_obj|tok:.id@id->|under:port
+   K2111 45 59 0 8 | 0 fullname|ref_typespec|tok:.id@id->|under:port
+   K0628 43 61 0 11 | 0 fullname|ref_obj|tok:id->id.id@in-typespec|under:operation
+   K0039 43 0 22 117 | 21 fullname|ref_typespec|tok:->id.|under:logic_typespec
+   K0007 41 0 61 165 | 7 fullname|ref_typespec|tok:->id.|under:typespec_member
+   K0004 39 68 24 68 | 6 fullname|ref_typespec|tok:id.->|under:typespec_member
+   K0040 38 321 0 0 | 0 fullname|ref_obj|golden-empty@in-typespec|under:hier_path
+   K2112 37 42 0 6 | 0 fullname|ref_obj|tok:.id@id::id.->::id::|under:cont_assign
+   K0016 34 83 0 0 | 0 fullname|ref_obj|golden-empty|under:hier_path
+   K0011 33 9 20 167 | 2 fullname|ref_typespec|tok:id@id.->|under:typespec_member
+   K0920 33 0 260 0 | 33 fullname|ref_typespec|tok:id.id.id::id.->id::id::|under:typespec_member
+   K0061 31 0 222 0 | 31 fullname|ref_typespec|tok:id@id.id.id.id::id.id.id::id.->id::id::id::|under:typespec_member
+   K0152 25 56 0 112 | 0 fullname|ref_obj|tok:id.id::->|under:method_func_call
+   K0630 25 72 0 2 | 0 fullname|ref_typespec|tok:->.id[n]|under:constant
+   K0022 25 27 53 0 | 15 fullname|ref_typespec|golden-empty|under:constant
+   K0153 24 147 57 51 | 3 fullname|ref_typespec|tok:id::->|under:typespec_member
+   K0343 22 0 4 38 | 3 fullname|ref_typespec|tok:id@id.->|under:logic_typespec
+   K2113 21 0 48 0 | 21 fullname|ref_typespec|tok:id@id.id.id.id::id.id->id|under:operation
+   K2114 20 0 46 0 | 20 fullname|ref_typespec|tok:::id.id->|under:operation
+   K0593 19 65 0 10 | 0 fullname|ref_typespec|tok:.id.id->|under:constant
+   K0036 18 39 0 0 | 0 fullname|ref_obj|ours-empty|under:hier_path
+   K0223 18 0 17 55 | 13 fullname|ref_typespec|tok:id->id|under:enum_typespec
+   K0033 17 0 32 953 | 2 fullname|ref_typespec|tok:->id@id.|under:typespec_member
+   K0195 17 8 64 0 | 14 fullname|ref_typespec|ours-empty|under:constant

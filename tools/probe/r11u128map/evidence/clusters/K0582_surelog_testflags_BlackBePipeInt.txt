@@ -1,0 +1,102 @@
+cluster K0582: depth|int_typespec|ref_typespec->ref_typespec
+row: surelog/testflags/BlackBePipeInt  strict=differ:fullname(2)  records golden=338504 ours=283187
+object: #72660 (golden) / #62792 (ours)  type=int_typespec name=
+  golden: 10 ref_typespec < constant
+  ours:   4 ref_typespec < parameter(clint_dev_gp)
+  walk parents: ref_typespec < constant < operation < range
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 72648..72671 ('>' = the object)
+  #72648	6	enum_const	e_csrrs			dut.sv	15143	6	15143	26				
+  #72649	6	enum_const	e_csrrc			dut.sv	15144	6	15144	26				
+  #72650	6	enum_const	e_csrrwi			dut.sv	15145	6	15145	26				
+  #72651	6	enum_const	e_csrrsi			dut.sv	15146	6	15146	26				
+  #72652	6	enum_const	e_csrrci			dut.sv	15147	6	15147	26				
+  #72653	3	typespec_member	csr_addr			dut.sv	15309	40	15309	48				
+  #72654	4	ref_typespec			bp_be_pkg::bp_be_pkg::bp_be_csr_cmd_s::csr_addr		0	0	0	0		0		
+  #72655	5	logic_typespec				dut.sv	15309	5	15309	39				
+  #72656	6	range				dut.sv	15309	11	15309	39				
+  #72657	7	operation				dut.sv	15309	12	15309	36		0		
+  #72658	8	constant				dut.sv	15309	12	15309	34	12	32	UINT:12	9
+  #72659	9	ref_typespec			bp_be_pkg::bp_be_pkg::bp_be_csr_cmd_s::csr_addr		0	0	0	0		0		
+> #72660	10	int_typespec				dut.sv	14771	1	14771	39				
+  #72661	8	constant				dut.sv	15309	35	15309	36	1	64	UINT:1	9
+  #72662	7	constant				dut.sv	15309	37	15309	38	0	64	UINT:0	9
+  #72663	3	typespec_member	data			dut.sv	15310	40	15310	44				
+  #72664	4	ref_typespec			bp_be_pkg::bp_be_pkg::bp_be_csr_cmd_s::data		0	0	0	0		0		
+  #72665	5	logic_typespec				dut.sv	15310	5	15310	39				
+  #72666	6	range				dut.sv	15310	11	15310	39				
+  #72667	7	operation				dut.sv	15310	12	15310	36		0		
+  #72668	8	constant				dut.sv	15310	12	15310	34	64	32	UINT:64	9
+  #72669	9	ref_typespec			bp_be_pkg::bp_be_pkg::bp_be_csr_cmd_s::data		0	0	0	0		0		
+  #72670	10	int_typespec				dut.sv	14764	1	14764	39				
+  #72671	8	constant				dut.sv	15310	35	15310	36	1	64	UINT:1	9
+
+--- OURS (B) records 62780..62803 ('>' = the object)
+  #62780	6	parameter	dev_addr_width_gp		work@bp_be_pipe_int.dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20	
+  #62781	7	ref_typespec			work@bp_be_pipe_int.dev_addr_width_gp		0	0	0	0		0		
+  #62782	8	int_typespec				dut.sv	1793	1	1793	34				
+  #62783	9	ref_obj	dev_addr_width_gp		work@bp_be_pipe_int.dev_addr_width_gp.dev_addr_width_gp		0	0	0	0		0		
+  #62784	2	parameter	host_dev_gp		bp_common_pkg::host_dev_gp	dut.sv	1795	12	1795	23		0	UINT:1	
+  #62785	3	ref_typespec			bp_common_pkg::host_dev_gp		0	0	0	0		0		
+  #62786	4	int_typespec				dut.sv	1795	1	1795	28				
+  #62787	2	parameter	cfg_dev_gp		bp_common_pkg::cfg_dev_gp	dut.sv	1796	12	1796	22		0	UINT:2	
+  #62788	3	ref_typespec			bp_common_pkg::cfg_dev_gp		0	0	0	0		0		
+  #62789	4	int_typespec				dut.sv	1796	1	1796	28				
+  #62790	2	parameter	clint_dev_gp		bp_common_pkg::clint_dev_gp	dut.sv	1797	12	1797	24		0	UINT:3	
+  #62791	3	ref_typespec			bp_common_pkg::clint_dev_gp		0	0	0	0		0		
+> #62792	4	int_typespec				dut.sv	1797	1	1797	28				
+  #62793	2	parameter	cache_dev_gp		bp_common_pkg::cache_dev_gp	dut.sv	1798	12	1798	24		0	UINT:4	
+  #62794	3	ref_typespec			bp_common_pkg::cache_dev_gp		0	0	0	0		0		
+  #62795	4	int_typespec				dut.sv	1798	1	1798	28				
+  #62796	2	parameter	host_dev_base_addr_gp		bp_common_pkg::host_dev_base_addr_gp	dut.sv	1801	12	1801	33		0	HEX:00100000	
+  #62797	3	ref_typespec			bp_common_pkg::host_dev_base_addr_gp		0	0	0	0		0		
+  #62798	4	int_typespec				dut.sv	1801	1	1801	53				
+  #62799	5	range					0	0	0	0				
+  #62800	6	constant					0	0	0	0		0	INT:31	0
+  #62801	6	constant					0	0	0	0		0	INT:0	0
+  #62802	2	parameter	cfg_dev_base_addr_gp		bp_common_pkg::cfg_dev_base_addr_gp	dut.sv	1802	12	1802	32		0	HEX:00200000	
+  #62803	3	ref_typespec			bp_common_pkg::cfg_dev_base_addr_gp		0	0	0	0		0		
+
+all facets of this row (71583):
+  K1083 #-1/66 parameter dev_addr_width_gp G[] O[8 objs]
+  K1083 #-1/14409 parameter dev_addr_width_gp G[] O[8 objs]
+  K1083 #-1/15104 parameter dev_addr_width_gp G[] O[8 objs]
+  K1083 #-1/15118 parameter dev_addr_width_gp G[] O[8 objs]
+  K1083 #-1/15132 parameter dev_addr_width_gp G[] O[8 objs]
+  K1083 #-1/15146 parameter dev_addr_width_gp G[] O[8 objs]
+  K1083 #-1/15160 parameter dev_addr_width_gp G[] O[8 objs]
+  K1083 #-1/15174 parameter dev_addr_width_gp G[] O[8 objs]
+  K1083 #-1/15188 parameter dev_addr_width_gp G[] O[8 objs]
+  K1083 #-1/15202 parameter dev_addr_width_gp G[] O[8 objs]
+  K1083 #-1/15216 parameter dev_addr_width_gp G[] O[8 objs]
+  K1083 #-1/15230 parameter dev_addr_width_gp G[] O[8 objs]
+  K1083 #-1/15244 parameter dev_addr_width_gp G[] O[8 objs]
+  K1083 #-1/15258 parameter dev_addr_width_gp G[] O[8 objs]
+  K1083 #-1/15272 parameter dev_addr_width_gp G[] O[8 objs]
+  K1053 #-1/15388 constant  G[] O[1 objs]
+  K1053 #-1/15392 constant  G[] O[1 objs]
+  K1053 #-1/15396 constant  G[] O[1 objs]
+  K1053 #-1/15400 constant  G[] O[1 objs]
+  K1053 #-1/15404 constant  G[] O[1 objs]
+  K1053 #-1/15408 constant  G[] O[1 objs]
+  K1053 #-1/15412 constant  G[] O[1 objs]
+  K1053 #-1/15416 constant  G[] O[1 objs]
+  K1053 #-1/15420 constant  G[] O[1 objs]
+  K1053 #-1/15424 constant  G[] O[1 objs]
+  K1053 #-1/15428 constant  G[] O[1 objs]
+  K1053 #-1/15444 constant  G[] O[1 objs]
+  K1053 #-1/15448 constant  G[] O[1 objs]
+  K1053 #-1/15452 constant  G[] O[1 objs]
+  K1053 #-1/15456 constant  G[] O[1 objs]
+  K1053 #-1/15460 constant  G[] O[1 objs]
+  K1053 #-1/15464 constant  G[] O[1 objs]
+  K1053 #-1/15492 constant  G[] O[1 objs]
+  K1053 #-1/15496 constant  G[] O[1 objs]
+  K1053 #-1/15500 constant  G[] O[1 objs]
+  K1053 #-1/15504 constant  G[] O[1 objs]
+  K1053 #-1/15508 constant  G[] O[1 objs]
+  K1053 #-1/15528 constant  G[] O[1 objs]
+  K1053 #-1/15548 constant  G[] O[1 objs]
+  K1053 #-1/15552 constant  G[] O[1 objs]
+  ... 71543 more

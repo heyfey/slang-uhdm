@@ -1,0 +1,96 @@
+cluster K0549: struct|golden-only:fewer-copies|int_typespec|under:ref_typespec
+row: surelog/default/Rggen  strict=differ:file(7)  records golden=314498 ours=312434
+object: #27220 (golden) / #-1 (ours)  type=int_typespec name=
+  golden: 1 objs
+  ours:   
+  walk parents: ref_typespec < parameter(VALUE_WIDTH) < ref_obj(VALUE_WIDTH) < int_typespec
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 27208..27231 ('>' = the object)
+  #27208	14	constant				rggen_register_common.sv	91	20	91	21	1	64	UINT:1	9
+  #27209	13	constant				rggen_register_common.sv	91	22	91	23	0	64	UINT:0	9
+  #27210	8	hier_path	register_if.read_data			rggen_register_common.sv	105	11	105	32		0		
+  #27211	9	ref_obj	register_if			rggen_register_common.sv	105	23	105	32		0		
+  #27212	9	ref_obj	read_data			rggen_register_common.sv	105	23	105	32		0		
+  #27213	7	cont_assign				rggen_register_common.sv	106	11	106	67				
+  #27214	8	operation				rggen_register_common.sv	106	35	106	67		0		
+  #27215	9	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common		0	0	0	0		0		
+  #27216	10	int_typespec				rggen_register_common.sv	10	13	10	16				
+  #27217	11	ref_obj	VALUE_WIDTH		work@rggen_register_common.VALUE_WIDTH.VALUE_WIDTH		0	0	0	0		0		
+  #27218	12	parameter	VALUE_WIDTH		work@rggen_register_common.VALUE_WIDTH	rggen_register_common.sv	10	37	10	48		0		
+  #27219	13	ref_typespec			work@rggen_register_common.VALUE_WIDTH		0	0	0	0		0		
+> #27220	14	int_typespec				rggen_register_common.sv	10	13	10	16				
+  #27221	9	hier_path	bit_field_if.value			rggen_register_common.sv	106	48	106	66		0		
+  #27222	10	ref_obj	bit_field_if			rggen_register_common.sv	106	48	106	60		0		
+  #27223	10	ref_obj	value		work@rggen_register_common.value	rggen_register_common.sv	106	61	106	66		0		
+  #27224	8	hier_path	register_if.value			rggen_register_common.sv	106	11	106	28		0		
+  #27225	9	ref_obj	register_if			rggen_register_common.sv	106	23	106	28		0		
+  #27226	9	ref_obj	value			rggen_register_common.sv	106	23	106	28		0		
+  #27227	7	cont_assign				rggen_register_common.sv	126	11	126	31				
+  #27228	8	constant				rggen_register_common.sv	126	29	126	31	'0	1	BIN:0	3
+  #27229	8	ref_obj	backdoor_valid		work@rggen.u_block_0.g_register_0.u_register.u_register_common.backdoor_valid	rggen_register_common.sv	126	11	126	25		0		
+  #27230	7	cont_assign				rggen_register_common.sv	127	11	127	31				
+  #27231	8	constant				rggen_register_common.sv	127	29	127	31	'0	1	BIN:0	3
+
+--- the holder #27219 in the other side: exact-record matches at [26224, 27173, 34214, 36705, 41081]
+  #26220	9	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common		0	0	0	0		0		
+  #26221	10	int_typespec				rggen_register_common.sv	10	13	10	16				
+  #26222	11	ref_obj	VALUE_WIDTH		work@rggen_register_common.VALUE_WIDTH.VALUE_WIDTH		0	0	0	0		0		
+  #26223	12	parameter	VALUE_WIDTH		work@rggen_register_common.VALUE_WIDTH	rggen_register_common.sv	10	37	10	48		0		
+> #26224	13	ref_typespec			work@rggen_register_common.VALUE_WIDTH		0	0	0	0		0		
+  #26225	7	param_assign				rggen_register_common.sv	18	19	18	61				
+  #26226	8	constant				rggen_register_common.sv	18	39	18	61	1	32	INT:1	7
+  #26227	9	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common		0	0	0	0		0		
+  #26228	10	int_typespec				rggen_register_common.sv	18	15	18	18				
+  #26229	7	param_assign				rggen_register_common.sv	19	19	19	52				
+  #26230	8	constant				rggen_register_common.sv	19	39	19	52	4	32	INT:4	7
+  #26231	9	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common		0	0	0	0		0		
+  #26232	10	int_typespec				rggen_register_common.sv	19	15	19	18				
+  #26233	7	param_assign				rggen_register_common.sv	20	19	20	53				
+  #26234	8	constant				rggen_register_common.sv	20	39	20	53	4	32	INT:4	7
+  #26235	9	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common		0	0	0	0		0		
+  #26236	10	int_typespec				rggen_register_common.sv	20	15	20	18				
+  #26237	7	param_assign				rggen_register_common.sv	21	19	21	71				
+
+all facets of this row (27495):
+  K0884 #439/-1 parameter RGGEN_ACCESS_DATA_BIT G[3 objs] O[]
+  K0884 #446/-1 parameter RGGEN_ACCESS_NON_POSTED_BIT G[3 objs] O[]
+  K1385 #466/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  K1386 #-1/470 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  K1386 #-1/475 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  K1385 #501/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  K0884 #632/-1 parameter RGGEN_ACCESS_DATA_BIT G[3 objs] O[]
+  K0884 #639/-1 parameter RGGEN_ACCESS_NON_POSTED_BIT G[3 objs] O[]
+  K1385 #661/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  K1386 #-1/659 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  K1386 #-1/664 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  K1385 #696/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  K0884 #855/-1 parameter RGGEN_ACCESS_DATA_BIT G[3 objs] O[]
+  K0884 #862/-1 parameter RGGEN_ACCESS_NON_POSTED_BIT G[3 objs] O[]
+  K0884 #1922/-1 parameter RGGEN_ACCESS_DATA_BIT G[3 objs] O[]
+  K0884 #1929/-1 parameter RGGEN_ACCESS_NON_POSTED_BIT G[3 objs] O[]
+  K0884 #2215/-1 parameter RGGEN_ACCESS_DATA_BIT G[3 objs] O[]
+  K0884 #2222/-1 parameter RGGEN_ACCESS_NON_POSTED_BIT G[3 objs] O[]
+  K1385 #2242/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  K1386 #-1/2222 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  K1386 #-1/2227 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  K1385 #2277/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  K0884 #2435/-1 parameter RGGEN_ACCESS_DATA_BIT G[3 objs] O[]
+  K0884 #2442/-1 parameter RGGEN_ACCESS_NON_POSTED_BIT G[3 objs] O[]
+  K0884 #9408/-1 parameter RGGEN_ACCESS_DATA_BIT G[3 objs] O[]
+  K0884 #9415/-1 parameter RGGEN_ACCESS_NON_POSTED_BIT G[3 objs] O[]
+  K0884 #10908/-1 parameter RGGEN_ACCESS_DATA_BIT G[3 objs] O[]
+  K0884 #10915/-1 parameter RGGEN_ACCESS_NON_POSTED_BIT G[3 objs] O[]
+  K0884 #11209/-1 parameter RGGEN_ACCESS_DATA_BIT G[3 objs] O[]
+  K0884 #11216/-1 parameter RGGEN_ACCESS_NON_POSTED_BIT G[3 objs] O[]
+  K0884 #11600/-1 parameter RGGEN_ACCESS_DATA_BIT G[3 objs] O[]
+  K0884 #11607/-1 parameter RGGEN_ACCESS_NON_POSTED_BIT G[3 objs] O[]
+  K0884 #13052/-1 parameter RGGEN_ACCESS_DATA_BIT G[3 objs] O[]
+  K0884 #13059/-1 parameter RGGEN_ACCESS_NON_POSTED_BIT G[3 objs] O[]
+  K0884 #13566/-1 parameter RGGEN_ACCESS_DATA_BIT G[3 objs] O[]
+  K0884 #13573/-1 parameter RGGEN_ACCESS_NON_POSTED_BIT G[3 objs] O[]
+  K1385 #15376/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  K1386 #-1/15314 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  K1386 #-1/15319 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  K1385 #15411/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  ... 27455 more

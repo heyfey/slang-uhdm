@@ -1,0 +1,65 @@
+cluster K0079: span|bit_select|col+endcol|under:operation
+row: uhdm2rtlil/testflags/latch_packed_dyn_write  strict=differ:fullname(2)  records golden=481 ours=481
+object: #194 (golden) / #194 (ours)  type=bit_select name=bit_i
+  golden: 47:32:47:33
+  ours:   47:26:47:34
+  walk parents: operation < indexed_part_select(wr_be) < var_select(wr_be) < assignment
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 182..205 ('>' = the object)
+  #182	11	constant				dut.sv	46	32	46	33	2	64	UINT:2	9
+  #183	11	constant				dut.sv	46	34	46	35	1	64	UINT:1	9
+  #184	10	constant				dut.sv	46	38	46	42	1'b0	1	BIN:0	3
+  #185	9	constant				dut.sv	46	45	46	46	2	64	UINT:2	9
+  #186	5	case_item				dut.sv	47	7	47	52				
+  #187	6	constant				dut.sv	47	7	47	12	2'b10	2	BIN:10	3
+  #188	6	assignment				dut.sv	47	16	47	51				
+  #189	7	constant				dut.sv	47	49	47	51	'1	-1	BIN:1	3
+  #190	7	var_select	wr_be		work@latch_packed_dyn_write.read_write_comb.wr_be	dut.sv	47	16	47	46		0		
+  #191	8	constant				dut.sv	47	22	47	23	0	64	UINT:0	9
+  #192	8	indexed_part_select	wr_be	wr_be	work@latch_packed_dyn_write.read_write_comb.wr_be.wr_be	dut.sv	47	25	47	45		0		
+  #193	9	operation				dut.sv	47	25	47	42		0		
+> #194	10	bit_select	bit_i		work@latch_packed_dyn_write.read_write_comb.wr_be.wr_be.bit_i	dut.sv	47	32	47	33		0		
+  #195	11	constant				dut.sv	47	32	47	33	2	64	UINT:2	9
+  #196	10	constant				dut.sv	47	36	47	41	2'b00	2	BIN:00	3
+  #197	9	constant				dut.sv	47	44	47	45	4	64	UINT:4	9
+  #198	5	case_item				dut.sv	48	7	48	30				
+  #199	6	assignment				dut.sv	48	16	48	29				
+  #200	7	constant				dut.sv	48	27	48	29	'1	-1	BIN:1	3
+  #201	7	bit_select	wr_be		work@latch_packed_dyn_write.read_write_comb.wr_be	dut.sv	48	16	48	24		0		
+  #202	8	constant				dut.sv	48	22	48	23	0	64	UINT:0	9
+  #203	2	cont_assign				dut.sv	52	10	52	23				
+  #204	3	ref_obj	mem_n		work@latch_packed_dyn_write.mem_n	dut.sv	52	18	52	23		0		
+  #205	3	ref_obj	mem_o		work@latch_packed_dyn_write.mem_o	dut.sv	52	10	52	15		0		
+
+--- OURS (B) records 182..205 ('>' = the object)
+  #182	11	constant				dut.sv	46	32	46	33	2	64	UINT:2	9
+  #183	11	constant				dut.sv	46	34	46	35	1	64	UINT:1	9
+  #184	10	constant				dut.sv	46	38	46	42	1'b0	1	BIN:0	3
+  #185	9	constant				dut.sv	46	45	46	46	2	64	UINT:2	9
+  #186	5	case_item				dut.sv	47	7	47	52				
+  #187	6	constant				dut.sv	47	7	47	12	2'b10	2	BIN:10	3
+  #188	6	assignment				dut.sv	47	16	47	51				
+  #189	7	constant				dut.sv	47	49	47	51	'1	-1	BIN:1	3
+  #190	7	var_select	wr_be		work@latch_packed_dyn_write.read_write_comb.wr_be	dut.sv	47	16	47	46		0		
+  #191	8	constant				dut.sv	47	22	47	23	0	64	UINT:0	9
+  #192	8	indexed_part_select	wr_be	wr_be	work@latch_packed_dyn_write.read_write_comb.wr_be.wr_be	dut.sv	47	25	47	45		0		
+  #193	9	operation				dut.sv	47	25	47	42		0		
+> #194	10	bit_select	bit_i		work@latch_packed_dyn_write.read_write_comb.wr_be.bit_i	dut.sv	47	26	47	34		0		
+  #195	11	constant				dut.sv	47	32	47	33	2	64	UINT:2	9
+  #196	10	constant				dut.sv	47	36	47	41	2'b00	2	BIN:00	3
+  #197	9	constant				dut.sv	47	44	47	45	4	64	UINT:4	9
+  #198	5	case_item				dut.sv	48	7	48	30				
+  #199	6	assignment				dut.sv	48	16	48	29				
+  #200	7	constant				dut.sv	48	27	48	29	'1	-1	BIN:1	3
+  #201	7	bit_select	wr_be		work@latch_packed_dyn_write.read_write_comb.wr_be	dut.sv	48	16	48	24		0		
+  #202	8	constant				dut.sv	48	22	48	23	0	64	UINT:0	9
+  #203	2	cont_assign				dut.sv	52	10	52	23				
+  #204	3	ref_obj	mem_n		work@latch_packed_dyn_write.mem_n	dut.sv	52	18	52	23		0		
+  #205	3	ref_obj	mem_o		work@latch_packed_dyn_write.mem_o	dut.sv	52	10	52	15		0		
+
+all facets of this row (4):
+  K1253 #194/194 bit_select bit_i G[work@latch_packed_dyn_write.read_write_comb.wr_be.wr_be.bit_i] O[work@latch_packed_dyn_write.read_write_comb.wr_be.bit_i]
+  K0079 #194/194 bit_select bit_i G[47:32:47:33] O[47:26:47:34]
+  K1253 #464/464 bit_select bit_i G[work@latch_packed_dyn_write.read_write_comb.wr_be.wr_be.bit_i] O[work@latch_packed_dyn_write.read_write_comb.wr_be.bit_i]
+  K0079 #464/464 bit_select bit_i G[47:32:47:33] O[47:26:47:34]

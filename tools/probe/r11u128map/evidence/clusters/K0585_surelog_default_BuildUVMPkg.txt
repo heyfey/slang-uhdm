@@ -1,0 +1,96 @@
+cluster K0585: struct|ours-only:elsewhere|ref_typespec|under:class_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(346)  records golden=201533 ours=201486
+object: #-1 (golden) / #56203 (ours)  type=ref_typespec name=
+  golden: 
+  ours:   2 objs
+  walk parents: class_typespec(uvm_pkg::uvm_event_pool) < ref_typespec < ref_var(ep) < begin
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- OURS (B) records 56191..56214 ('>' = the object)
+  #56191	7	ref_obj	tmp_parent_seq		uvm_pkg::uvm_reg_map::do_write::tmp_parent_seq	uvm_pkg.sv	76686	5	76686	19		0		
+  #56192	4	if_else				uvm_pkg.sv	76689	3	76701	6				
+  #56193	5	operation				uvm_pkg.sv	76689	7	76689	22		0		
+  #56194	6	ref_obj	adapter		uvm_pkg::uvm_reg_map::do_write::adapter	uvm_pkg.sv	76689	7	76689	14		0		
+  #56195	6	constant				uvm_pkg.sv	76689	18	76689	22	0	64	UINT:0	11
+  #56196	5	begin			uvm_pkg::uvm_reg_map::do_write	uvm_pkg.sv	76689	24	76698	6				
+  #56197	6	class_var	end_event		uvm_pkg::uvm_reg_map::do_write::end_event	uvm_pkg.sv	76690	28	76690	37		0		
+  #56198	7	ref_typespec			uvm_pkg::uvm_reg_map::do_write::end_event		0	0	0	0		0		
+  #56199	8	class_typespec				uvm_pkg.sv	76690	5	76690	27				
+  #56200	6	ref_var	ep		uvm_pkg::uvm_reg_map::do_write::ep	uvm_pkg.sv	76691	20	76691	22		0		
+  #56201	7	ref_typespec			uvm_pkg::uvm_reg_map::do_write::ep		0	0	0	0		0		
+  #56202	8	class_typespec	uvm_pkg::uvm_event_pool			uvm_pkg.sv	14624	9	14624	31				
+> #56203	9	ref_typespec			uvm_pkg::uvm_pkg::uvm_event_pool		0	0	0	0		0		
+  #56204	10	class_typespec	uvm_pkg::uvm_barrier_pool			uvm_pkg.sv	14624	9	14624	31				
+  #56205	6	assignment				uvm_pkg.sv	76692	5	76692	29				
+  #56206	7	hier_path	rw.get_event_pool			uvm_pkg.sv	76692	10	76692	29		0		
+  #56207	8	ref_obj	rw			uvm_pkg.sv	76692	10	76692	12		0		
+  #56208	8	method_func_call	get_event_pool			uvm_pkg.sv	76692	13	76692	27		0		
+  #56209	7	ref_obj	ep		uvm_pkg::uvm_reg_map::do_write::ep	uvm_pkg.sv	76692	5	76692	7		0		
+  #56210	6	assignment				uvm_pkg.sv	76693	5	76693	30				
+  #56211	7	hier_path	ep.get			uvm_pkg.sv	76693	17	76693	30		0		
+  #56212	8	ref_obj	ep			uvm_pkg.sv	76693	17	76693	19		0		
+  #56213	8	method_func_call	get			uvm_pkg.sv	76693	20	76693	23		0		
+  #56214	9	constant				uvm_pkg.sv	76693	24	76693	29	"end"	24	STRING:end	6
+
+--- the holder #56202 in the other side: exact-record matches at [56207, 56400]
+  #56203	7	ref_typespec			uvm_pkg::uvm_reg_map::do_write::end_event		0	0	0	0		0		
+  #56204	8	class_typespec				uvm_pkg.sv	76690	5	76690	27				
+  #56205	6	ref_var	ep		uvm_pkg::uvm_reg_map::do_write::ep	uvm_pkg.sv	76691	20	76691	22		0		
+  #56206	7	ref_typespec			uvm_pkg::uvm_reg_map::do_write::ep		0	0	0	0		0		
+> #56207	8	class_typespec	uvm_pkg::uvm_event_pool			uvm_pkg.sv	14624	9	14624	31				
+  #56208	6	assignment				uvm_pkg.sv	76692	5	76692	29				
+  #56209	7	hier_path	rw.get_event_pool			uvm_pkg.sv	76692	10	76692	29		0		
+  #56210	8	ref_obj	rw			uvm_pkg.sv	76692	10	76692	12		0		
+  #56211	8	method_func_call	get_event_pool			uvm_pkg.sv	76692	13	76692	27		0		
+  #56212	7	ref_obj	ep		uvm_pkg::uvm_reg_map::do_write::ep	uvm_pkg.sv	76692	5	76692	7		0		
+  #56213	6	assignment				uvm_pkg.sv	76693	5	76693	30				
+  #56214	7	hier_path	ep.get			uvm_pkg.sv	76693	17	76693	30		0		
+  #56215	8	ref_obj	ep			uvm_pkg.sv	76693	17	76693	19		0		
+  #56216	8	method_func_call	get			uvm_pkg.sv	76693	20	76693	23		0		
+  #56217	9	constant				uvm_pkg.sv	76693	24	76693	29	"end"	24	STRING:end	6
+  #56218	7	ref_obj	end_event		uvm_pkg::uvm_reg_map::do_write::end_event	uvm_pkg.sv	76693	5	76693	14		0		
+  #56219	6	method_func_call	set_sequencer			uvm_pkg.sv	76694	8	76694	21		0		
+  #56220	7	ref_obj	sequencer		uvm_pkg::uvm_reg_map::do_write::sequencer	uvm_pkg.sv	76694	22	76694	31		0		
+
+all facets of this row (12107):
+  K0325 #11992/-1 ref_typespec  G[2 objs] O[]
+  K0568 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  K0288 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/22519 bit_typespec  G[] O[1 objs]
+  K0288 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/22603 bit_typespec  G[] O[1 objs]
+  K0288 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/23516 bit_typespec  G[] O[1 objs]
+  K0585 #-1/56203 ref_typespec  G[] O[2 objs]
+  K0558 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  K0247 #-1/74758 bit_typespec  G[] O[1 objs]
+  K0558 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  K0247 #-1/74841 bit_typespec  G[] O[1 objs]
+  K0288 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76348 bit_typespec  G[] O[1 objs]
+  K0288 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76369 bit_typespec  G[] O[1 objs]
+  K0288 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76429 bit_typespec  G[] O[1 objs]
+  K0288 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/79792 bit_typespec  G[] O[1 objs]
+  K0268 #79836/-1 string_typespec  G[1 objs] O[]
+  K0624 #-1/79803 array_typespec  G[] O[1 objs]
+  K0268 #79890/-1 string_typespec  G[1 objs] O[]
+  K0624 #-1/79857 array_typespec  G[] O[1 objs]
+  K0288 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/79876 bit_typespec  G[] O[1 objs]
+  K0288 #80868/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/80829 bit_typespec  G[] O[1 objs]
+  K0229 #96958/96911 bit_typespec  G[8 ref_typespec < enum_typespec(uvm_pkg::uvm_active_passive_enum)] O[6 ref_typespec < enum_var]
+  K0288 #96956/-1 enum_typespec uvm_pkg::uvm_active_passive_enum G[2 objs] O[]
+  K0241 #97010/-1 bit_typespec  G[1 objs] O[]
+  K0208 #118186/-1 range  G[5 objs] O[]
+  K0265 #118191/-1 ref_typespec  G[2 objs] O[]
+  K0265 #118193/-1 ref_typespec  G[2 objs] O[]
+  K0208 #118234/-1 range  G[5 objs] O[]
+  K0265 #118239/-1 ref_typespec  G[2 objs] O[]
+  K0265 #118241/-1 ref_typespec  G[2 objs] O[]
+  K0208 #118303/-1 range  G[5 objs] O[]
+  K0265 #118308/-1 ref_typespec  G[2 objs] O[]
+  ... 12067 more

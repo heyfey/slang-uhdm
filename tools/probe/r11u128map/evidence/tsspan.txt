@@ -1,0 +1,31 @@
+objects: {'STABLE': 2613, 'UNNAMED': 18084, 'USE-SITE': 28994, 'USE-SITE-BOTH': 26220}  row-modes touched: {'STABLE': 108, 'UNNAMED': 190, 'USE-SITE': 28, 'USE-SITE-BOTH': 25}
+{'USE-SITE-BOTH': 13231} file|struct_typespec|other-file|under:ref_typespec
+{'STABLE': 803, 'USE-SITE-BOTH': 8335, 'USE-SITE': 218} file|unsupported_typespec|ours-empty|under:ref_typespec
+{'USE-SITE': 8379, 'STABLE': 178} file|enum_typespec|other-file+span|under:ref_typespec
+{'STABLE': 108, 'USE-SITE': 4950, 'USE-SITE-BOTH': 1311, 'UNNAMED': 960} span|class_typespec|line+col+endline+endcol|under:ref_typespec
+{'USE-SITE': 4325} file|bit_typespec|other-file+span|under:ref_typespec
+{'UNNAMED': 3374, 'USE-SITE': 122} span|int_typespec|line+col+endline+endcol|under:ref_typespec
+{'UNNAMED': 3149} span|string_typespec|line+col+endline+endcol|under:ref_typespec
+{'USE-SITE': 612, 'UNNAMED': 1777} file|int_typespec|other-file+span|under:ref_typespec
+{'UNNAMED': 90, 'USE-SITE-BOTH': 2232} span|string_typespec|line+endline|under:ref_typespec
+{'USE-SITE': 1574, 'STABLE': 60, 'USE-SITE-BOTH': 72, 'UNNAMED': 432} file|class_typespec|ours-empty|under:ref_typespec
+{'USE-SITE': 1574, 'STABLE': 60, 'USE-SITE-BOTH': 72, 'UNNAMED': 432} span|class_typespec|ours-zero|under:ref_typespec
+{'UNNAMED': 1355, 'USE-SITE': 704} span|bit_typespec|line+col+endline+endcol|under:ref_typespec
+{'USE-SITE': 1521, 'STABLE': 40} span|enum_typespec|line+col+endline+endcol|under:ref_typespec
+{'USE-SITE': 200, 'UNNAMED': 1067, 'STABLE': 2} file|logic_typespec|other-file+span|under:ref_typespec
+{'UNNAMED': 77, 'USE-SITE': 584, 'STABLE': 572} span|bit_typespec|endcol|under:ref_typespec
+{'UNNAMED': 1047, 'USE-SITE-BOTH': 107} file|class_typespec|other-file|under:ref_typespec
+{'UNNAMED': 986} span|logic_typespec|endcol|under:ref_typespec
+{'STABLE': 37, 'USE-SITE': 666} file|enum_typespec|other-file+span|under:class_defn
+{'USE-SITE': 642, 'STABLE': 43} span|struct_typespec|line+col+endline+endcol|under:ref_typespec
+{'UNNAMED': 602} file|int_typespec|other-file|under:ref_typespec
+{'USE-SITE': 528, 'STABLE': 8} file|enum_typespec|other-file+span|under:module_inst
+{'USE-SITE': 397, 'UNNAMED': 96} file|logic_typespec|other-file|under:ref_typespec
+{'USE-SITE': 457, 'USE-SITE-BOTH': 4} file|struct_typespec|other-file+span|under:ref_typespec
+{'USE-SITE-BOTH': 392} file|struct_typespec|other-file|under:module_inst
+{'USE-SITE': 356, 'STABLE': 15} file|enum_typespec|other-file+span|under:package
+{'USE-SITE': 145, 'STABLE': 36, 'USE-SITE-BOTH': 150, 'UNNAMED': 9} span|class_typespec|endcol|under:ref_typespec
+{'STABLE': 71, 'USE-SITE-BOTH': 221, 'USE-SITE': 28} file|class_typespec|other-file+span|under:ref_typespec
+{'UNNAMED': 280, 'USE-SITE-BOTH': 2} file|string_typespec|ours-empty|under:ref_typespec
+{'UNNAMED': 280, 'USE-SITE-BOTH': 2} span|string_typespec|ours-zero|under:ref_typespec
+{'USE-SITE': 207} file|bit_typespec|other-file|under:ref_typespec

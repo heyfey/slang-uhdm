@@ -1,0 +1,57 @@
+cluster K0590: struct|ours-only:fewer-copies|constant|under:array_expr
+row: surelog/testflags/ParamArrayUnsizedPattern  strict=differ:depth(1)  records golden=169 ours=170
+object: #-1 (golden) / #140 (ours)  type=constant name=
+  golden: 
+  ours:   1 objs
+  walk parents: array_expr < param_assign < module_inst(work@test) < design(work@test)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- OURS (B) records 128..151 ('>' = the object)
+  #128	2	param_assign				dut.sv	4	26	4	76				
+  #129	3	array_expr					0	0	0	0		0		
+  #130	4	ref_typespec			work@test		0	0	0	0		0		
+  #131	5	array_typespec				dut.sv	4	13	4	59				
+  #132	6	range				dut.sv	4	49	4	58				
+  #133	7	constant					0	0	0	0	0	64	UINT:0	9
+  #134	7	operation				dut.sv	4	49	4	58		0		
+  #135	8	ref_obj	BobaCount		work@test.NumBobaDrinkersDefault.BobaCount	dut.sv	4	49	4	58		0		
+  #136	8	constant					0	0	0	0		64	INT:1	7
+  #137	6	ref_typespec			work@test.NumBobaDrinkersDefault		0	0	0	0		0		
+  #138	7	int_typespec				dut.sv	4	13	4	25				
+  #139	4	constant				dut.sv	4	73	4	75	4294967295	32	UINT:4294967295	9
+> #140	4	constant				dut.sv	4	73	4	75	4294967295	32	UINT:4294967295	9
+  #141	2	param_assign				dut.sv	5	26	5	64				
+  #142	3	operation				dut.sv	5	55	5	64		0		
+  #143	4	ref_typespec			work@test		0	0	0	0		0		
+  #144	5	array_typespec				dut.sv	5	13	5	52				
+  #145	6	range				dut.sv	5	42	5	51				
+  #146	7	constant					0	0	0	0	0	64	UINT:0	9
+  #147	7	operation				dut.sv	5	42	5	51		0		
+  #148	8	ref_obj	BobaCount		work@test.BobaCount	dut.sv	5	42	5	51		0		
+  #149	8	constant					0	0	0	0		64	INT:1	7
+  #150	6	ref_typespec			work@test		0	0	0	0		0		
+  #151	7	int_typespec				dut.sv	5	13	5	25				
+
+--- the holder #129 in the other side: exact-record matches at [129]
+  #125	3	constant				dut.sv	3	29	3	30	2	32	UINT:2	9
+  #126	4	ref_typespec			work@test		0	0	0	0		0		
+  #127	5	int_typespec				dut.sv	3	13	3	16				
+  #128	2	param_assign				dut.sv	4	26	4	76				
+> #129	3	array_expr					0	0	0	0		0		
+  #130	4	ref_typespec			work@test		0	0	0	0		0		
+  #131	5	array_typespec				dut.sv	4	13	4	59				
+  #132	6	range				dut.sv	4	49	4	58				
+  #133	7	constant					0	0	0	0	0	64	UINT:0	9
+  #134	7	operation				dut.sv	4	49	4	58		0		
+  #135	8	ref_obj	BobaCount		work@test.NumBobaDrinkersDefault.BobaCount	dut.sv	4	49	4	58		0		
+  #136	8	constant					0	0	0	0		64	INT:1	7
+  #137	6	ref_typespec			work@test.NumBobaDrinkersDefault		0	0	0	0		0		
+  #138	7	int_typespec				dut.sv	4	13	4	25				
+  #139	4	constant				dut.sv	4	73	4	75	4294967295	32	UINT:4294967295	9
+  #140	2	param_assign				dut.sv	5	26	5	64				
+  #141	3	operation				dut.sv	5	55	5	64		0		
+  #142	4	ref_typespec			work@test		0	0	0	0		0		
+
+all facets of this row (2):
+  K0590 #-1/140 constant  G[] O[1 objs]
+  K0066 #164/165 constant  G[dut.sv 6:62:6:71] O[ 6:62:6:71]

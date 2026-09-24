@@ -1,0 +1,102 @@
+cluster K0089: span|sys_func_call|endcol|under:operation
+row: uhdm2rtlil/testflags/ibex_multdiv_fast  strict=differ:fullname(40)  records golden=11748 ours=11268
+object: #7435 (golden) / #6955 (ours)  type=sys_func_call name=$signed
+  golden: 158:24:158:31
+  ours:   158:24:158:59
+  walk parents: operation < cont_assign < named_begin(gen_mult_single_cycle) < gen_if_else
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 7423..7446 ('>' = the object)
+  #7423	8	range				ibex_multdiv_fast.sv	156	11	156	17				
+  #7424	9	constant				ibex_multdiv_fast.sv	156	12	156	14	33	64	UINT:33	9
+  #7425	9	constant				ibex_multdiv_fast.sv	156	15	156	16	0	64	UINT:0	9
+  #7426	4	assignment				ibex_multdiv_fast.sv	156	45	156	53				
+  #7427	5	logic_var	summand3		work@ibex_multdiv_fast.gen_mult_single_cycle.summand3	ibex_multdiv_fast.sv	156	45	156	53		0		
+  #7428	6	ref_typespec			work@ibex_multdiv_fast.gen_mult_single_cycle.summand3		0	0	0	0		0		
+  #7429	7	logic_typespec				ibex_multdiv_fast.sv	156	5	156	17				
+  #7430	8	range				ibex_multdiv_fast.sv	156	11	156	17				
+  #7431	9	constant				ibex_multdiv_fast.sv	156	12	156	14	33	64	UINT:33	9
+  #7432	9	constant				ibex_multdiv_fast.sv	156	15	156	16	0	64	UINT:0	9
+  #7433	4	cont_assign				ibex_multdiv_fast.sv	158	12	158	97				
+  #7434	5	operation				ibex_multdiv_fast.sv	158	24	158	97		0		
+> #7435	6	sys_func_call	$signed			ibex_multdiv_fast.sv	158	24	158	31		0		
+  #7436	7	operation				ibex_multdiv_fast.sv	158	32	158	58		0		
+  #7437	8	ref_obj	mult1_sign_a		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_sign_a	ibex_multdiv_fast.sv	158	33	158	45		0		
+  #7438	8	ref_obj	mult1_op_a		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_op_a	ibex_multdiv_fast.sv	158	47	158	57		0		
+  #7439	6	sys_func_call	$signed			ibex_multdiv_fast.sv	158	62	158	69		0		
+  #7440	7	operation				ibex_multdiv_fast.sv	158	70	158	96		0		
+  #7441	8	ref_obj	mult1_sign_b		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_sign_b	ibex_multdiv_fast.sv	158	71	158	83		0		
+  #7442	8	ref_obj	mult1_op_b		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_op_b	ibex_multdiv_fast.sv	158	85	158	95		0		
+  #7443	5	ref_obj	mult1_res		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res	ibex_multdiv_fast.sv	158	12	158	21		0		
+  #7444	4	cont_assign				ibex_multdiv_fast.sv	159	12	159	97				
+  #7445	5	operation				ibex_multdiv_fast.sv	159	24	159	97		0		
+  #7446	6	sys_func_call	$signed			ibex_multdiv_fast.sv	159	24	159	31		0		
+
+--- OURS (B) records 6943..6966 ('>' = the object)
+  #6943	8	range				ibex_multdiv_fast.sv	156	11	156	17				
+  #6944	9	constant				ibex_multdiv_fast.sv	156	12	156	14	33	64	UINT:33	9
+  #6945	9	constant				ibex_multdiv_fast.sv	156	15	156	16	0	64	UINT:0	9
+  #6946	4	assignment				ibex_multdiv_fast.sv	156	45	156	53				
+  #6947	5	logic_var	summand3		work@ibex_multdiv_fast.gen_mult_single_cycle.summand3	ibex_multdiv_fast.sv	156	45	156	53		0		
+  #6948	6	ref_typespec			work@ibex_multdiv_fast.gen_mult_single_cycle.summand3		0	0	0	0		0		
+  #6949	7	logic_typespec				ibex_multdiv_fast.sv	156	5	156	17				
+  #6950	8	range				ibex_multdiv_fast.sv	156	11	156	17				
+  #6951	9	constant				ibex_multdiv_fast.sv	156	12	156	14	33	64	UINT:33	9
+  #6952	9	constant				ibex_multdiv_fast.sv	156	15	156	16	0	64	UINT:0	9
+  #6953	4	cont_assign				ibex_multdiv_fast.sv	158	12	158	97				
+  #6954	5	operation				ibex_multdiv_fast.sv	158	24	158	97		0		
+> #6955	6	sys_func_call	$signed			ibex_multdiv_fast.sv	158	24	158	59		0		
+  #6956	7	operation				ibex_multdiv_fast.sv	158	32	158	58		0		
+  #6957	8	ref_obj	mult1_sign_a		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_sign_a	ibex_multdiv_fast.sv	158	33	158	45		0		
+  #6958	8	ref_obj	mult1_op_a		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_op_a	ibex_multdiv_fast.sv	158	47	158	57		0		
+  #6959	6	sys_func_call	$signed			ibex_multdiv_fast.sv	158	62	158	97		0		
+  #6960	7	operation				ibex_multdiv_fast.sv	158	70	158	96		0		
+  #6961	8	ref_obj	mult1_sign_b		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_sign_b	ibex_multdiv_fast.sv	158	71	158	83		0		
+  #6962	8	ref_obj	mult1_op_b		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_op_b	ibex_multdiv_fast.sv	158	85	158	95		0		
+  #6963	5	ref_obj	mult1_res		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res	ibex_multdiv_fast.sv	158	12	158	21		0		
+  #6964	4	cont_assign				ibex_multdiv_fast.sv	159	12	159	97				
+  #6965	5	operation				ibex_multdiv_fast.sv	159	24	159	97		0		
+  #6966	6	sys_func_call	$signed			ibex_multdiv_fast.sv	159	24	159	59		0		
+
+all facets of this row (316):
+  K0005 #4401/-1 parameter ExcCauseIrqSoftwareM G[15 objs] O[]
+  K0005 #4430/-1 parameter ExcCauseIrqTimerM G[15 objs] O[]
+  K0005 #4459/-1 parameter ExcCauseIrqExternalM G[15 objs] O[]
+  K0005 #4488/-1 parameter ExcCauseIrqNm G[15 objs] O[]
+  K0005 #4517/-1 parameter ExcCauseInsnAddrMisa G[15 objs] O[]
+  K0005 #4546/-1 parameter ExcCauseInstrAccessFault G[15 objs] O[]
+  K0005 #4575/-1 parameter ExcCauseIllegalInsn G[15 objs] O[]
+  K0005 #4604/-1 parameter ExcCauseBreakpoint G[15 objs] O[]
+  K0005 #4633/-1 parameter ExcCauseLoadAccessFault G[15 objs] O[]
+  K0005 #4662/-1 parameter ExcCauseStoreAccessFault G[15 objs] O[]
+  K0005 #4691/-1 parameter ExcCauseEcallUMode G[15 objs] O[]
+  K0005 #4720/-1 parameter ExcCauseEcallMMode G[15 objs] O[]
+  K0005 #4739/-1 parameter ADDR_W G[3 objs] O[]
+  K0005 #4746/-1 parameter BUS_SIZE G[3 objs] O[]
+  K0005 #4753/-1 parameter BUS_BYTES G[3 objs] O[]
+  K0005 #4760/-1 parameter BUS_W G[3 objs] O[]
+  K0005 #4767/-1 parameter IC_SIZE_BYTES G[3 objs] O[]
+  K0005 #4774/-1 parameter IC_NUM_WAYS G[3 objs] O[]
+  K0005 #4781/-1 parameter IC_LINE_SIZE G[3 objs] O[]
+  K0005 #4788/-1 parameter IC_LINE_BYTES G[3 objs] O[]
+  K0005 #4795/-1 parameter IC_LINE_W G[3 objs] O[]
+  K0005 #4802/-1 parameter IC_NUM_LINES G[3 objs] O[]
+  K0005 #4809/-1 parameter IC_LINE_BEATS G[3 objs] O[]
+  K0005 #4816/-1 parameter IC_LINE_BEATS_W G[3 objs] O[]
+  K0005 #4823/-1 parameter IC_INDEX_W G[3 objs] O[]
+  K0005 #4830/-1 parameter IC_INDEX_HI G[3 objs] O[]
+  K0005 #4837/-1 parameter IC_TAG_SIZE G[3 objs] O[]
+  K0005 #4844/-1 parameter IC_OUTPUT_BEATS G[3 objs] O[]
+  K0005 #4851/-1 parameter IC_DATA_ECC_SIZE G[3 objs] O[]
+  K0005 #4858/-1 parameter IC_TAG_ECC_SIZE G[3 objs] O[]
+  K0005 #4865/-1 parameter SCRAMBLE_KEY_W G[3 objs] O[]
+  K0005 #4872/-1 parameter SCRAMBLE_NONCE_W G[3 objs] O[]
+  K0005 #4879/-1 parameter PMP_MAX_REGIONS G[3 objs] O[]
+  K0005 #4886/-1 parameter PMP_CFG_W G[3 objs] O[]
+  K0005 #4893/-1 parameter PMP_ADDR_MSB G[3 objs] O[]
+  K0005 #4900/-1 parameter PMP_ADDR_LSB G[3 objs] O[]
+  K0005 #4907/-1 parameter PMP_I G[3 objs] O[]
+  K0005 #4914/-1 parameter PMP_I2 G[3 objs] O[]
+  K0005 #4921/-1 parameter PMP_D G[3 objs] O[]
+  K0005 #4931/-1 parameter CSR_OFF_PMP_CFG G[6 objs] O[]
+  ... 276 more

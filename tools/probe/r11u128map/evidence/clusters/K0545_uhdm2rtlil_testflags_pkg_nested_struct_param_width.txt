@@ -1,0 +1,89 @@
+cluster K0545: struct|golden-only:absent|constant|under:typespec_member
+row: uhdm2rtlil/testflags/pkg_nested_struct_param_width  strict=differ:col(9)  records golden=563 ours=475
+object: #249 (golden) / #-1 (ours)  type=constant name=
+  golden: 13 objs
+  ours:   
+  walk parents: typespec_member(u) < struct_typespec(pk::cfg_t) < ref_typespec < constant
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 237..260 ('>' = the object)
+  #237	7	ref_typespec			pk::pk::cfg_t::u		0	0	0	0		0		
+  #238	8	struct_typespec	pk::user_cfg_t			dut.sv	5	34	5	44				
+  #239	9	typespec_member	sidWidth			dut.sv	2	40	2	48				
+  #240	10	ref_typespec			pk::pk::user_cfg_t::sidWidth		0	0	0	0		0		
+  #241	11	int_typespec				dut.sv	2	27	2	39				
+  #242	10	constant				dut.sv	4	65	4	66	3	64	UINT:3	9
+  #243	10	constant				dut.sv	4	65	4	66	3	64	UINT:3	9
+  #244	9	typespec_member	dataWidth			dut.sv	2	63	2	72				
+  #245	10	ref_typespec			pk::pk::user_cfg_t::dataWidth		0	0	0	0		0		
+  #246	11	int_typespec				dut.sv	2	50	2	62				
+  #247	10	constant				dut.sv	4	80	4	82	32	64	UINT:32	9
+  #248	10	constant				dut.sv	4	80	4	82	32	64	UINT:32	9
+> #249	7	constant				dut.sv	7	32	7	36	0000000000000000000000000000001100000000000000000000000000100000	64	BIN:0000000000000000000000000000001100000000000000000000000000100000	3
+  #250	8	ref_typespec			pk		0	0	0	0		0		
+  #251	9	struct_typespec	pk::user_cfg_t			dut.sv	5	34	5	44				
+  #252	10	typespec_member	sidWidth			dut.sv	2	40	2	48				
+  #253	11	ref_typespec			pk::pk::user_cfg_t::sidWidth		0	0	0	0		0		
+  #254	12	int_typespec				dut.sv	2	27	2	39				
+  #255	11	constant				dut.sv	4	65	4	66	3	64	UINT:3	9
+  #256	11	constant				dut.sv	4	65	4	66	3	64	UINT:3	9
+  #257	10	typespec_member	dataWidth			dut.sv	2	63	2	72				
+  #258	11	ref_typespec			pk::pk::user_cfg_t::dataWidth		0	0	0	0		0		
+  #259	12	int_typespec				dut.sv	2	50	2	62				
+  #260	11	constant				dut.sv	4	80	4	82	32	64	UINT:32	9
+
+--- the holder #236 in the other side: exact-record matches at [104, 119, 236, 336, 353]
+  #100	2	function	build		pk::build	dut.sv	5	3	5	114				
+  #101	3	struct_var	c		pk::build::c	dut.sv	5	56	5	57		0		
+  #102	4	ref_typespec			pk::build::c		0	0	0	0		0		
+  #103	5	struct_typespec	pk::cfg_t			dut.sv	3	11	3	64				
+> #104	6	typespec_member	u			dut.sv	3	38	3	39				
+  #105	7	ref_typespec			pk::pk::cfg_t::u		0	0	0	0		0		
+  #106	8	struct_typespec	pk::user_cfg_t			dut.sv	5	34	5	44				
+  #107	9	typespec_member	sidWidth			dut.sv	2	40	2	48				
+  #108	10	ref_typespec			pk::pk::user_cfg_t::sidWidth		0	0	0	0		0		
+  #109	11	int_typespec				dut.sv	2	27	2	39				
+  #110	9	typespec_member	dataWidth			dut.sv	2	63	2	72				
+  #111	10	ref_typespec			pk::pk::user_cfg_t::dataWidth		0	0	0	0		0		
+  #112	11	int_typespec				dut.sv	2	50	2	62				
+  #113	6	typespec_member	derived			dut.sv	3	54	3	61				
+  #114	7	ref_typespec			pk::pk::cfg_t::derived		0	0	0	0		0		
+  #115	8	int_typespec				dut.sv	3	41	3	53				
+  #116	3	struct_var			pk::build	dut.sv	5	22	5	27		0		
+  #117	4	ref_typespec			pk::build		0	0	0	0		0		
+
+all facets of this row (34):
+  K0545 #249/-1 constant  G[13 objs] O[]
+  K0545 #262/-1 constant  G[13 objs] O[]
+  K0545 #294/-1 constant  G[13 objs] O[]
+  K0545 #307/-1 constant  G[13 objs] O[]
+  K0545 #397/-1 constant  G[9 objs] O[]
+  K0545 #406/-1 constant  G[9 objs] O[]
+  K0545 #432/-1 constant  G[9 objs] O[]
+  K0545 #441/-1 constant  G[9 objs] O[]
+  K0003 #48/48 ref_obj CFG G[9:22:9:29] O[9:18:9:21]
+  K0040 #49/49 ref_obj derived G[] O[pk::pk::data_t.derived]
+  K0003 #56/56 ref_obj CFG G[8:22:8:23] O[8:18:8:21]
+  K0040 #58/58 ref_obj sidWidth G[] O[pk::pk::sid_t.sidWidth]
+  K1284 #187/187 constant  G[7:32:7:36] O[6:32:6:37]
+  K1284 #200/200 constant  G[7:32:7:36] O[6:32:6:37]
+  K0134 #216/216 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]
+  K0135 #216/216 constant  G[0:0:0:0] O[7:26:7:37]
+  K0134 #217/217 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]
+  K0135 #217/217 constant  G[0:0:0:0] O[7:26:7:37]
+  K0134 #278/252 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]
+  K0135 #278/252 constant  G[0:0:0:0] O[7:26:7:37]
+  K0134 #279/253 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]
+  K0135 #279/253 constant  G[0:0:0:0] O[7:26:7:37]
+  K0134 #323/271 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]
+  K0135 #323/271 constant  G[0:0:0:0] O[7:26:7:37]
+  K0134 #324/272 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]
+  K0135 #324/272 constant  G[0:0:0:0] O[7:26:7:37]
+  K0134 #418/348 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]
+  K0135 #418/348 constant  G[0:0:0:0] O[7:26:7:37]
+  K0134 #419/349 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]
+  K0135 #419/349 constant  G[0:0:0:0] O[7:26:7:37]
+  K0134 #453/365 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]
+  K0135 #453/365 constant  G[0:0:0:0] O[7:26:7:37]
+  K0134 #454/366 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]
+  K0135 #454/366 constant  G[0:0:0:0] O[7:26:7:37]

@@ -1,0 +1,57 @@
+cluster K0067: span|ref_obj|endcol|under:port
+row: surelog/default/WildConn  strict=differ:endcol(2)  records golden=148 ours=148
+object: #139 (golden) / #139 (ours)  type=ref_obj name=a
+  golden: 14:5:14:6
+  ours:   14:5:14:7
+  walk parents: port(a) < module_inst(u1) < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 127..147 ('>' = the object)
+  #127	2	port	b			dut.sv	9	3	9	4				
+  #128	3	ref_obj	b		work@top.b	dut.sv	9	3	9	4		0		
+  #129	3	ref_typespec			work@top.b		0	0	0	0		0		
+  #130	4	logic_typespec				dut.sv	7	18	7	23				
+  #131	2	module_inst	u1	work@MOD	work@top.u1	dut.sv	12	3	15	5				
+  #132	3	logic_net	a		work@top.u1.a	dut.sv	2	3	2	4		0		
+  #133	4	ref_typespec			work@top.u1.a		0	0	0	0		0		
+  #134	5	logic_typespec				dut.sv	1	19	1	24				
+  #135	3	logic_net	b		work@top.u1.b	dut.sv	3	3	3	4		0		
+  #136	4	ref_typespec			work@top.u1.b		0	0	0	0		0		
+  #137	5	logic_typespec				dut.sv	1	19	1	24				
+  #138	3	port	a			dut.sv	2	3	2	4				
+> #139	4	ref_obj	a		work@top.a	dut.sv	14	5	14	6		0		
+  #140	4	ref_obj	a		work@top.u1.a	dut.sv	2	3	2	4		0		
+  #141	4	ref_typespec			work@top.u1.a		0	0	0	0		0		
+  #142	5	logic_typespec				dut.sv	1	19	1	24				
+  #143	3	port	b			dut.sv	3	3	3	4				
+  #144	4	ref_obj	b		work@top.b	dut.sv	14	5	14	6		0		
+  #145	4	ref_obj	b		work@top.u1.b	dut.sv	3	3	3	4		0		
+  #146	4	ref_typespec			work@top.u1.b		0	0	0	0		0		
+  #147	5	logic_typespec				dut.sv	1	19	1	24				
+
+--- OURS (B) records 127..147 ('>' = the object)
+  #127	2	port	b			dut.sv	9	3	9	4				
+  #128	3	ref_obj	b		work@top.b	dut.sv	9	3	9	4		0		
+  #129	3	ref_typespec			work@top.b		0	0	0	0		0		
+  #130	4	logic_typespec				dut.sv	7	18	7	23				
+  #131	2	module_inst	u1	work@MOD	work@top.u1	dut.sv	12	3	15	5				
+  #132	3	logic_net	a		work@top.u1.a	dut.sv	2	3	2	4		0		
+  #133	4	ref_typespec			work@top.u1.a		0	0	0	0		0		
+  #134	5	logic_typespec				dut.sv	1	19	1	24				
+  #135	3	logic_net	b		work@top.u1.b	dut.sv	3	3	3	4		0		
+  #136	4	ref_typespec			work@top.u1.b		0	0	0	0		0		
+  #137	5	logic_typespec				dut.sv	1	19	1	24				
+  #138	3	port	a			dut.sv	2	3	2	4				
+> #139	4	ref_obj	a		work@top.a	dut.sv	14	5	14	7		0		
+  #140	4	ref_obj	a		work@top.u1.a	dut.sv	2	3	2	4		0		
+  #141	4	ref_typespec			work@top.u1.a		0	0	0	0		0		
+  #142	5	logic_typespec				dut.sv	1	19	1	24				
+  #143	3	port	b			dut.sv	3	3	3	4				
+  #144	4	ref_obj	b		work@top.b	dut.sv	14	5	14	7		0		
+  #145	4	ref_obj	b		work@top.u1.b	dut.sv	3	3	3	4		0		
+  #146	4	ref_typespec			work@top.u1.b		0	0	0	0		0		
+  #147	5	logic_typespec				dut.sv	1	19	1	24				
+
+all facets of this row (2):
+  K0067 #139/139 ref_obj a G[14:5:14:6] O[14:5:14:7]
+  K0067 #144/144 ref_obj b G[14:5:14:6] O[14:5:14:7]

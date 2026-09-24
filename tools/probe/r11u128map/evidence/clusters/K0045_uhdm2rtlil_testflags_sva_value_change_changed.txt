@@ -1,0 +1,57 @@
+cluster K0045: struct|ours-only:elsewhere|logic_net|under:ref_obj
+row: uhdm2rtlil/testflags/sva_value_change_changed  strict=differ:depth(1)  records golden=151 ours=151
+object: #-1 (golden) / #131 (ours)  type=logic_net name=clk
+  golden: 
+  ours:   1 objs
+  walk parents: ref_obj(clk) < operation < event_control < always
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- OURS (B) records 119..142 ('>' = the object)
+  #119	2	port	b_o			dut.sv	8	15	8	18				
+  #120	3	ref_obj	b_o		work@top.b_o	dut.sv	8	15	8	18		0		
+  #121	3	ref_typespec			work@top.b_o		0	0	0	0		0		
+  #122	4	logic_typespec				dut.sv	8	9	8	14				
+  #123	2	port	b_prev_o			dut.sv	9	15	9	23				
+  #124	3	ref_obj	b_prev_o		work@top.b_prev_o	dut.sv	9	15	9	23		0		
+  #125	3	ref_typespec			work@top.b_prev_o		0	0	0	0		0		
+  #126	4	logic_typespec				dut.sv	9	9	9	14				
+  #127	2	always				dut.sv	14	2	14	36				
+  #128	3	event_control				dut.sv	14	9	14	23				
+  #129	4	operation				dut.sv	14	11	14	22		0		
+  #130	5	ref_obj	clk		work@top.clk	dut.sv	14	19	14	22		0		
+> #131	6	logic_net	clk		work@top.clk	dut.sv	2	9	2	12		0		
+  #132	4	assignment				dut.sv	14	24	14	35				
+  #133	5	ref_obj	b		work@top.b	dut.sv	14	34	14	35		0		
+  #134	5	ref_obj	b_prev		work@top.b_prev	dut.sv	14	24	14	30		0		
+  #135	6	logic_net	b_prev		work@top.b_prev	dut.sv	13	8	13	14		0		
+  #136	7	ref_typespec			work@top.b_prev		0	0	0	0		0		
+  #137	8	logic_typespec				dut.sv	13	2	13	18				
+  #138	2	cont_assign				dut.sv	29	7	29	8				
+  #139	3	constant				dut.sv	29	11	29	13	'X	-1	BIN:X	3
+  #140	3	logic_net	x		work@top.x	dut.sv	29	7	29	8		0		
+  #141	4	ref_typespec			work@top.x		0	0	0	0		0		
+  #142	5	logic_typespec				dut.sv	29	2	29	6				
+
+--- the holder #130 in the other side: exact-record matches at [53, 131]
+  #49	4	logic_typespec				dut.sv	9	9	9	14				
+  #50	2	always				dut.sv	14	2	14	36				
+  #51	3	event_control				dut.sv	14	9	14	23				
+  #52	4	operation				dut.sv	14	11	14	22		0		
+> #53	5	ref_obj	clk		work@top.clk	dut.sv	14	19	14	22		0		
+  #54	4	assignment				dut.sv	14	24	14	35				
+  #55	5	ref_obj	b		work@top.b	dut.sv	14	34	14	35		0		
+  #56	5	ref_obj	b_prev		work@top.b_prev	dut.sv	14	24	14	30		0		
+  #57	2	cont_assign				dut.sv	16	9	16	21				
+  #58	3	ref_obj	b		work@top.b	dut.sv	16	20	16	21		0		
+  #59	3	ref_obj	b_o		work@top.b_o	dut.sv	16	9	16	12		0		
+  #60	2	cont_assign				dut.sv	17	9	17	26				
+  #61	3	ref_obj	b_prev		work@top.b_prev	dut.sv	17	20	17	26		0		
+  #62	3	ref_obj	b_prev_o		work@top.b_prev_o	dut.sv	17	9	17	17		0		
+  #63	1	module_inst	work@top	work@top		dut.sv	1	1	43	10				
+  #64	2	logic_var	b_prev		work@top.b_prev	dut.sv	13	8	13	18		0		
+  #65	3	ref_typespec			work@top.b_prev		0	0	0	0		0		
+  #66	4	logic_typespec				dut.sv	13	2	13	7				
+
+all facets of this row (2):
+  K0044 #107/-1 logic_net clk G[1 objs] O[]
+  K0045 #-1/131 logic_net clk G[] O[1 objs]

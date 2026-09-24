@@ -1,0 +1,77 @@
+cluster K0031: file|ref_obj|other-file|under:operation
+row: uhdm2rtlil/testflags/ibex_csr  strict=differ:file(16)  records golden=310 ours=310
+object: #61 (golden) / #61 (ours)  type=ref_obj name=clk_i
+  golden: prim_assert_standard_macros.svh 78:46:78:51
+  ours:   prim_assert.sv 78:46:78:51
+  walk parents: operation < property_spec < assert_stmt(IbexCSREnValid) < module_inst
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 49..72 ('>' = the object)
+  #49	7	constant				ibex_csr.sv	26	16	26	17	1	64	UINT:1	9
+  #50	6	constant				ibex_csr.sv	26	18	26	19	0	64	UINT:0	9
+  #51	2	assert_stmt	IbexCSREnValid		work@ibex_csr.IbexCSREnValid	prim_assert_standard_macros.svh	78	3	81	8				
+  #52	3	begin			work@ibex_csr.IbexCSREnValid	prim_assert_standard_macros.svh	79	10	81	8				
+  #53	4	sys_func_call	$error			prim_assert.sv	29	3	33	27		0		
+  #54	5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  #55	5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  #56	5	constant				prim_assert.sv	29	60	29	144	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_csr.sv"	656	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_csr.sv	6
+  #57	5	constant				prim_assert.sv	29	146	29	148	55	64	UINT:55	9
+  #58	5	constant				prim_assert.sv	33	10	33	26	"IbexCSREnValid"	112	STRING:IbexCSREnValid	6
+  #59	3	property_spec				prim_assert_standard_macros.svh	78	36	78	106				
+  #60	4	operation				prim_assert_standard_macros.svh	78	38	78	51		0		
+> #61	5	ref_obj	clk_i		work@ibex_csr.IbexCSREnValid.clk_i	prim_assert_standard_macros.svh	78	46	78	51		0		
+  #62	2	port	clk_i			ibex_csr.sv	16	28	16	33				
+  #63	3	ref_obj	clk_i		work@ibex_csr.clk_i.clk_i	ibex_csr.sv	16	28	16	33		0		
+  #64	3	ref_typespec			work@ibex_csr.clk_i		0	0	0	0		0		
+  #65	4	logic_typespec				ibex_csr.sv	16	10	16	15				
+  #66	2	port	rst_ni			ibex_csr.sv	17	28	17	34				
+  #67	3	ref_obj	rst_ni		work@ibex_csr.rst_ni.rst_ni	ibex_csr.sv	17	28	17	34		0		
+  #68	3	ref_typespec			work@ibex_csr.rst_ni		0	0	0	0		0		
+  #69	4	logic_typespec				ibex_csr.sv	17	10	17	15				
+  #70	2	port	wr_data_i			ibex_csr.sv	19	28	19	37				
+  #71	3	ref_obj	wr_data_i		work@ibex_csr.wr_data_i.wr_data_i	ibex_csr.sv	19	28	19	37		0		
+  #72	3	ref_typespec			work@ibex_csr.wr_data_i		0	0	0	0		0		
+
+--- OURS (B) records 49..72 ('>' = the object)
+  #49	7	constant				ibex_csr.sv	26	16	26	17	1	64	UINT:1	9
+  #50	6	constant				ibex_csr.sv	26	18	26	19	0	64	UINT:0	9
+  #51	2	assert_stmt	IbexCSREnValid		work@ibex_csr.IbexCSREnValid	ibex_csr.sv	78	3	81	8				
+  #52	3	begin			work@ibex_csr.IbexCSREnValid	prim_assert_standard_macros.svh	79	10	81	8				
+  #53	4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+  #54	5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  #55	5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+  #56	5	constant				prim_assert.sv	32	92	33	53	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_csr.sv"	656	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_csr.sv	6
+  #57	5	constant				prim_assert.sv	32	92	32	94	55	64	UINT:55	9
+  #58	5	constant				prim_assert.sv	33	10	23	8	"IbexCSREnValid"	112	STRING:IbexCSREnValid	6
+  #59	3	property_spec				prim_assert_standard_macros.svh	78	36	78	106				
+  #60	4	operation				prim_assert_standard_macros.svh	78	38	78	51		0		
+> #61	5	ref_obj	clk_i		work@ibex_csr.IbexCSREnValid.clk_i	prim_assert.sv	78	46	78	51		0		
+  #62	2	port	clk_i			ibex_csr.sv	16	28	16	33				
+  #63	3	ref_obj	clk_i		work@ibex_csr.clk_i.clk_i	ibex_csr.sv	16	28	16	33		0		
+  #64	3	ref_typespec			work@ibex_csr.clk_i		0	0	0	0		0		
+  #65	4	logic_typespec				ibex_csr.sv	16	10	16	15				
+  #66	2	port	rst_ni			ibex_csr.sv	17	28	17	34				
+  #67	3	ref_obj	rst_ni		work@ibex_csr.rst_ni.rst_ni	ibex_csr.sv	17	28	17	34		0		
+  #68	3	ref_typespec			work@ibex_csr.rst_ni		0	0	0	0		0		
+  #69	4	logic_typespec				ibex_csr.sv	17	10	17	15				
+  #70	2	port	wr_data_i			ibex_csr.sv	19	28	19	37				
+  #71	3	ref_obj	wr_data_i		work@ibex_csr.wr_data_i.wr_data_i	ibex_csr.sv	19	28	19	37		0		
+  #72	3	ref_typespec			work@ibex_csr.wr_data_i		0	0	0	0		0		
+
+all facets of this row (16):
+  K0084 #51/51 assert_stmt IbexCSREnValid G[prim_assert_standard_macros.svh 78:3:81:8] O[ibex_csr.sv 78:3:81:8]
+  K0051 #53/53 sys_func_call $error G[29:3:33:27] O[32:3:33:18]
+  K0050 #54/54 constant  G[29:10:29:51] O[32:10:32:51]
+  K0055 #55/55 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  K0054 #56/56 constant  G[29:60:29:144] O[32:92:33:53]
+  K0054 #57/57 constant  G[29:146:29:148] O[32:92:32:94]
+  K0035 #58/58 constant  G[33:10:33:26] O[33:10:23:8]
+  K0031 #61/61 ref_obj clk_i G[prim_assert_standard_macros.svh 78:46:78:51] O[prim_assert.sv 78:46:78:51]
+  K0084 #227/227 assert_stmt IbexCSREnValid G[prim_assert_standard_macros.svh 78:3:81:8] O[ibex_csr.sv 78:3:81:8]
+  K0051 #229/229 sys_func_call $error G[29:3:33:27] O[32:3:33:18]
+  K0050 #230/230 constant  G[29:10:29:51] O[32:10:32:51]
+  K0055 #231/231 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  K0054 #232/232 constant  G[29:60:29:144] O[32:92:33:53]
+  K0054 #233/233 constant  G[29:146:29:148] O[32:92:32:94]
+  K0035 #234/234 constant  G[33:10:33:26] O[33:10:23:8]
+  K0031 #237/237 ref_obj clk_i G[prim_assert_standard_macros.svh 78:46:78:51] O[prim_assert.sv 78:46:78:51]

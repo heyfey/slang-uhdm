@@ -1,0 +1,65 @@
+cluster K0059: file|operation|other-file|under:operation
+row: surelog/testflags/PreprocFunc  strict=differ:file(4)  records golden=263 ours=263
+object: #121 (golden) / #121 (ours)  type=operation name=
+  golden: dut.sv 35:24:35:65
+  ours:   inc.h 35:24:35:65
+  walk parents: operation < param_assign < module_inst < design(work@asym_ram)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 109..132 ('>' = the object)
+  #109	4	ref_typespec			work@asym_ram		0	0	0	0		0		
+  #110	5	int_typespec				dut.sv	7	1	7	21				
+  #111	2	param_assign				dut.sv	30	12	30	66				
+  #112	3	operation				dut.sv	30	23	30	66		0		
+  #113	4	operation				dut.sv	30	24	30	65		0		
+  #114	5	operation				dut.sv	30	24	30	43		0		
+  #115	6	ref_obj	WIDTHA		work@asym_ram.WIDTHA	dut.sv	30	25	30	31		0		
+  #116	6	ref_obj	WIDTHB		work@asym_ram.WIDTHB	dut.sv	30	36	30	42		0		
+  #117	5	ref_obj	WIDTHA		work@asym_ram.WIDTHA	dut.sv	30	47	30	53		0		
+  #118	5	ref_obj	WIDTHB		work@asym_ram.WIDTHB	dut.sv	30	58	30	64		0		
+  #119	2	param_assign				dut.sv	35	12	35	66				
+  #120	3	operation				dut.sv	35	23	35	66		0		
+> #121	4	operation				dut.sv	35	24	35	65		0		
+  #122	5	operation				dut.sv	35	24	35	43		0		
+  #123	6	ref_obj	WIDTHA		work@asym_ram.WIDTHA	dut.sv	35	25	35	31		0		
+  #124	6	ref_obj	WIDTHB		work@asym_ram.WIDTHB	dut.sv	35	36	35	42		0		
+  #125	5	ref_obj	WIDTHA		work@asym_ram.WIDTHA	dut.sv	35	47	35	53		0		
+  #126	5	ref_obj	WIDTHB		work@asym_ram.WIDTHB	dut.sv	35	58	35	64		0		
+  #127	2	param_assign				dut.sv	39	12	39	39				
+  #128	3	operation				dut.sv	39	20	39	39		0		
+  #129	4	ref_obj	maxWIDTH		work@asym_ram.maxWIDTH	dut.sv	39	20	39	28		0		
+  #130	4	ref_obj	minWIDTH		work@asym_ram.minWIDTH	dut.sv	39	31	39	39		0		
+  #131	2	param_assign				dut.sv	42	12	42	35				
+  #132	3	func_call	log2			dut.sv	42	24	42	28		0		
+
+--- OURS (B) records 109..132 ('>' = the object)
+  #109	4	ref_typespec			work@asym_ram		0	0	0	0		0		
+  #110	5	int_typespec				dut.sv	7	1	7	21				
+  #111	2	param_assign				dut.sv	30	12	30	66				
+  #112	3	operation				dut.sv	30	23	30	66		0		
+  #113	4	operation				dut.sv	30	24	30	65		0		
+  #114	5	operation				dut.sv	30	24	30	43		0		
+  #115	6	ref_obj	WIDTHA		work@asym_ram.WIDTHA	dut.sv	30	25	30	31		0		
+  #116	6	ref_obj	WIDTHB		work@asym_ram.WIDTHB	dut.sv	30	36	30	42		0		
+  #117	5	ref_obj	WIDTHA		work@asym_ram.WIDTHA	dut.sv	30	47	30	53		0		
+  #118	5	ref_obj	WIDTHB		work@asym_ram.WIDTHB	dut.sv	30	58	30	64		0		
+  #119	2	param_assign				dut.sv	35	12	35	66				
+  #120	3	operation				inc.h	35	23	35	66		0		
+> #121	4	operation				inc.h	35	24	35	65		0		
+  #122	5	operation				inc.h	35	24	35	43		0		
+  #123	6	ref_obj	WIDTHA		work@asym_ram.WIDTHA	dut.sv	35	25	35	31		0		
+  #124	6	ref_obj	WIDTHB		work@asym_ram.WIDTHB	dut.sv	35	36	35	42		0		
+  #125	5	ref_obj	WIDTHA		work@asym_ram.WIDTHA	dut.sv	35	47	35	53		0		
+  #126	5	ref_obj	WIDTHB		work@asym_ram.WIDTHB	dut.sv	35	58	35	64		0		
+  #127	2	param_assign				dut.sv	39	12	39	39				
+  #128	3	operation				dut.sv	39	20	39	39		0		
+  #129	4	ref_obj	maxWIDTH		work@asym_ram.maxWIDTH	dut.sv	39	20	39	28		0		
+  #130	4	ref_obj	minWIDTH		work@asym_ram.minWIDTH	dut.sv	39	31	39	39		0		
+  #131	2	param_assign				dut.sv	42	12	42	35				
+  #132	3	func_call	log2			dut.sv	42	24	42	28		0		
+
+all facets of this row (4):
+  K0586 #120/120 operation  G[dut.sv 35:23:35:66] O[inc.h 35:23:35:66]
+  K0059 #121/121 operation  G[dut.sv 35:24:35:65] O[inc.h 35:24:35:65]
+  K0059 #122/122 operation  G[dut.sv 35:24:35:43] O[inc.h 35:24:35:43]
+  K0073 #206/206 constant  G[dut.sv 35:23:35:66] O[inc.h 35:23:35:66]

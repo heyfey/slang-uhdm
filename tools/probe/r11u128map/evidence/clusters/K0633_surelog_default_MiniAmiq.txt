@@ -1,0 +1,96 @@
+cluster K0633: struct|golden-only:fewer-copies|type_parameter|under:param_assign
+row: surelog/default/MiniAmiq  strict=differ:line(272)  records golden=435559 ours=413722
+object: #136657 (golden) / #-1 (ours)  type=type_parameter name=T
+  golden: 3 objs
+  ours:   
+  walk parents: param_assign < class_typespec(type_id) < class_defn(uvm_algorithmic_comparator) < package(uvm_pkg)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 136645..136668 ('>' = the object)
+  #136645	5	class_typespec	svaunit_pkg::type_id			uvm_object_defines.svh	468	12	468	34				
+  #136646	6	type_parameter	T		work@svaunit_vpi_interface.svaunit_pkg::type_id.T		0	0	0	0				
+  #136647	7	ref_typespec			work@svaunit_vpi_interface.svaunit_pkg::type_id.T		0	0	0	0		0		
+  #136648	8	class_typespec	svaunit_base			uvm_object_defines.svh	468	35	468	65				
+  #136649	6	param_assign					0	0	0	0				
+  #136650	7	type_parameter	T		uvm_pkg::uvm_component_registry::T	uvm_registry.svh	51	37	51	38				
+  #136651	8	ref_typespec			uvm_pkg::uvm_component_registry::T		0	0	0	0		0		
+  #136652	9	class_typespec	uvm_component			uvm_registry.svh	51	39	51	52				
+  #136653	4	type_parameter	T		uvm_pkg::uvm_algorithmic_comparator::type_id::T		0	0	0	0				
+  #136654	5	ref_typespec			uvm_pkg::uvm_algorithmic_comparator::type_id::T		0	0	0	0		0		
+  #136655	6	class_typespec	svaunit_base			uvm_object_defines.svh	468	35	468	65				
+  #136656	4	param_assign					0	0	0	0				
+> #136657	5	type_parameter	T		uvm_pkg::uvm_algorithmic_comparator::type_id::T		0	0	0	0				
+  #136658	6	ref_typespec			uvm_pkg::uvm_algorithmic_comparator::type_id::T		0	0	0	0		0		
+  #136659	7	class_typespec	svaunit_base			uvm_object_defines.svh	468	35	468	65				
+  #136660	5	type_parameter	T		uvm_pkg::uvm_algorithmic_comparator::type_id::T	uvm_registry.svh	51	37	51	38				
+  #136661	6	ref_typespec			uvm_pkg::uvm_algorithmic_comparator::type_id::T		0	0	0	0		0		
+  #136662	7	class_typespec	uvm_component			uvm_registry.svh	51	39	51	52				
+  #136663	3	extends				uvm_algorithmic_comparator.svh	70	67	70	80				
+  #136664	4	ref_typespec			uvm_pkg::uvm_algorithmic_comparator		0	0	0	0		0		
+  #136665	5	class_typespec	uvm_component			uvm_algorithmic_comparator.svh	70	67	70	80				
+  #136666	3	function	get_type		uvm_pkg::uvm_algorithmic_comparator::get_type	uvm_object_defines.svh	484	4	484	10				
+  #136667	4	ref_var			uvm_pkg::uvm_algorithmic_comparator::get_type	uvm_object_defines.svh	484	20	484	27		0		
+  #136668	5	ref_typespec			uvm_pkg::uvm_algorithmic_comparator::get_type		0	0	0	0		0		
+
+--- the holder #136656 in the other side: exact-record matches at [130285, 132978, 138277, 138517, 219780]
+  #130281	8	ref_typespec			uvm_pkg::uvm_component_registry::T		0	0	0	0		0		
+  #130282	9	class_typespec	uvm_component			uvm_registry.svh	51	39	51	52				
+  #130283	4	type_parameter	T		uvm_pkg::uvm_algorithmic_comparator::type_id::T		0	0	0	0				
+  #130284	5	ref_typespec			uvm_pkg::uvm_algorithmic_comparator::type_id::T		0	0	0	0		0		
+> #130285	4	param_assign					0	0	0	0				
+  #130286	3	extends				uvm_algorithmic_comparator.svh	70	67	70	80				
+  #130287	4	ref_typespec			uvm_pkg::uvm_algorithmic_comparator		0	0	0	0		0		
+  #130288	5	class_typespec	uvm_component			uvm_algorithmic_comparator.svh	70	67	70	80				
+  #130289	3	function	get_type		uvm_pkg::uvm_algorithmic_comparator::get_type	uvm_object_defines.svh	484	4	484	10				
+  #130290	4	ref_var			uvm_pkg::uvm_algorithmic_comparator::get_type	uvm_object_defines.svh	484	20	484	27		0		
+  #130291	5	ref_typespec			uvm_pkg::uvm_algorithmic_comparator::get_type		0	0	0	0		0		
+  #130292	6	class_typespec				uvm_object_defines.svh	484	20	484	27				
+  #130293	4	return_stmt				uvm_object_defines.svh	485	6	485	12				
+  #130294	5	ref_obj	type_id::get		uvm_pkg::uvm_algorithmic_comparator::get_type::type_id::get	uvm_object_defines.svh	485	13	485	22		0		
+  #130295	3	function	get_object_type		uvm_pkg::uvm_algorithmic_comparator::get_object_type	uvm_object_defines.svh	487	4	489	15				
+  #130296	4	class_var			uvm_pkg::uvm_algorithmic_comparator::get_object_type	uvm_object_defines.svh	487	21	487	39		0		
+  #130297	5	ref_typespec			uvm_pkg::uvm_algorithmic_comparator::get_object_type		0	0	0	0		0		
+  #130298	6	class_typespec				uvm_object_defines.svh	487	21	487	39				
+
+all facets of this row (78403):
+  K0453 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  K0453 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  K0453 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  K0325 #10107/-1 ref_typespec  G[2 objs] O[]
+  K0453 #-1/17670 class_var uvm_top G[] O[4 objs]
+  K0288 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/20823 bit_typespec  G[] O[1 objs]
+  K0288 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/21759 bit_typespec  G[] O[1 objs]
+  K0558 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  K0558 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  K0453 #-1/25656 class_var run_ph G[] O[3 objs]
+  K0005 #63364/-1 parameter UVM_HDL_MAX_WIDTH G[3 objs] O[]
+  K0005 #63371/-1 parameter uvm_mgc_copyright G[3 objs] O[]
+  K0005 #63378/-1 parameter uvm_cdn_copyright G[3 objs] O[]
+  K0005 #63385/-1 parameter uvm_snps_copyright G[3 objs] O[]
+  K0005 #63392/-1 parameter uvm_cy_copyright G[3 objs] O[]
+  K0005 #63399/-1 parameter uvm_nv_copyright G[3 objs] O[]
+  K0005 #63406/-1 parameter uvm_revision G[3 objs] O[]
+  K0005 #63413/-1 parameter UVM_STREAMBITS G[3 objs] O[]
+  K0005 #63419/-1 parameter UVM_RADIX G[1 objs] O[]
+  K0005 #63424/-1 parameter UVM_MACRO_NUMFLAGS G[3 objs] O[]
+  K0005 #63430/-1 parameter UVM_DEFAULT G[1 objs] O[]
+  K0005 #63434/-1 parameter UVM_ALL_ON G[1 objs] O[]
+  K0005 #63438/-1 parameter UVM_FLAGS_ON G[1 objs] O[]
+  K0005 #63443/-1 parameter UVM_FLAGS_OFF G[3 objs] O[]
+  K0005 #63450/-1 parameter UVM_COPY G[3 objs] O[]
+  K0005 #63457/-1 parameter UVM_NOCOPY G[3 objs] O[]
+  K0005 #63464/-1 parameter UVM_COMPARE G[3 objs] O[]
+  K0005 #63471/-1 parameter UVM_NOCOMPARE G[3 objs] O[]
+  K0005 #63478/-1 parameter UVM_PRINT G[3 objs] O[]
+  K0005 #63485/-1 parameter UVM_NOPRINT G[3 objs] O[]
+  K0005 #63492/-1 parameter UVM_RECORD G[3 objs] O[]
+  K0005 #63499/-1 parameter UVM_NORECORD G[3 objs] O[]
+  K0005 #63506/-1 parameter UVM_PACK G[3 objs] O[]
+  K0005 #63513/-1 parameter UVM_NOPACK G[3 objs] O[]
+  K0005 #63520/-1 parameter UVM_PHYSICAL G[3 objs] O[]
+  K0005 #63527/-1 parameter UVM_ABSTRACT G[3 objs] O[]
+  K0005 #63534/-1 parameter UVM_READONLY G[3 objs] O[]
+  K0005 #63541/-1 parameter UVM_NODEFPRINT G[3 objs] O[]
+  ... 78363 more

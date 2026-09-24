@@ -1,0 +1,57 @@
+cluster K0904: struct|ours-only:absent|constant|under:param_assign
+row: surelog/default/BlackParrotComplex  strict=differ:depth(1)  records golden=939 ours=945
+object: #-1 (golden) / #878 (ours)  type=constant name=
+  golden: 
+  ours:   6 objs
+  walk parents: param_assign < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- OURS (B) records 866..889 ('>' = the object)
+  #866	6	range				dut.sv	27	30	27	35				
+  #867	7	constant				dut.sv	27	31	27	32	2	64	UINT:2	9
+  #868	7	constant				dut.sv	27	33	27	34	0	64	UINT:0	9
+  #869	4	operation				dut.sv	34	33	37	34		0		
+  #870	5	constant				dut.sv	36	36	36	42	3'b111	3	BIN:111	3
+  #871	5	constant				dut.sv	35	36	35	42	3'b101	3	BIN:101	3
+  #872	5	constant				dut.sv	34	36	34	42	3'b011	3	BIN:011	3
+  #873	4	operation				dut.sv	29	33	32	34		0		
+  #874	5	constant				dut.sv	31	36	31	42	3'b111	3	BIN:111	3
+  #875	5	constant				dut.sv	30	36	30	42	3'b101	3	BIN:101	3
+  #876	5	constant				dut.sv	29	36	29	42	3'b011	3	BIN:011	3
+  #877	2	param_assign				dut.sv	40	48	40	102				
+> #878	3	constant				dut.sv	40	68	40	102	553163846905791	50	UINT:553163846905791	9
+  #879	4	ref_typespec			work@top		0	0	0	0		0		
+  #880	5	logic_typespec					0	0	0	0				
+  #881	6	range					0	0	0	0				
+  #882	7	constant					0	0	0	0		0	UINT:1	0
+  #883	7	constant					0	0	0	0		0	UINT:0	0
+  #884	2	param_assign				dut.sv	45	12	51	249				
+  #885	3	constant				dut.sv	45	36	51	249	5	64	UINT:5	9
+  #886	2	initial				dut.sv	56	1	58	4				
+  #887	3	begin			work@top	dut.sv	56	9	58	4				
+  #888	4	sys_func_call	$display			dut.sv	57	3	57	46		0		
+  #889	5	constant				dut.sv	57	13	57	21	"d = %d"	48	STRING:d = %d	6
+
+--- the holder #877 in the other side: exact-record matches at [232, 877]
+  #228	4	operation				dut.sv	34	33	37	34		0		
+  #229	5	constant				dut.sv	34	36	34	42	3'b011	3	BIN:011	3
+  #230	5	constant				dut.sv	35	36	35	42	3'b101	3	BIN:101	3
+  #231	5	constant				dut.sv	36	36	36	42	3'b111	3	BIN:111	3
+> #232	2	param_assign				dut.sv	40	48	40	102				
+  #233	3	operation				dut.sv	40	68	40	102		0		
+  #234	4	operation				dut.sv	40	69	40	80		0		
+  #235	5	ref_obj	dims_p		work@top.dims_p	dut.sv	40	69	40	75		0		
+  #236	5	constant				dut.sv	40	79	40	80	2	64	UINT:2	9
+  #237	4	ref_obj	StrictXY		work@top.StrictXY	dut.sv	40	84	40	92		0		
+  #238	4	ref_obj	StrictX		work@top.StrictX	dut.sv	40	95	40	102		0		
+  #239	2	param_assign				dut.sv	45	12	51	249				
+  #240	3	operation				dut.sv	45	36	51	249		0		
+  #241	4	operation				dut.sv	45	37	45	87		0		
+  #242	5	operation				dut.sv	45	38	45	72		0		
+  #243	6	sys_func_call	$bits			dut.sv	45	38	45	67		0		
+  #244	7	var_select	routing_matrix_p		work@top.routing_matrix_p	dut.sv	45	44	45	66		0		
+  #245	8	constant				dut.sv	45	61	45	62	0	64	UINT:0	9
+
+all facets of this row (2):
+  K0904 #-1/878 constant  G[] O[6 objs]
+  K1333 #932/938 ref_typespec  G[work@bottom.A3] O[work@bottom]

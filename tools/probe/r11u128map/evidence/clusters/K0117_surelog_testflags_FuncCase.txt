@@ -1,0 +1,49 @@
+cluster K0117: span|enum_typespec|line+col+endline+endcol|under:package
+row: surelog/testflags/FuncCase  strict=differ:line(8)  records golden=231 ours=231
+object: #2 (golden) / #2 (ours)  type=enum_typespec name=fpnew_pkg::opgroup_e
+  golden: 7:46:7:55
+  ours:   2:1:4:15
+  walk parents: package(fpnew_pkg) < design(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 0..13 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0				
+  #1	1	package	fpnew_pkg	fpnew_pkg	fpnew_pkg::	dut.sv	1	1	17	11				
+> #2	2	enum_typespec	fpnew_pkg::opgroup_e			dut.sv	7	46	7	55				
+  #3	3	ref_typespec			fpnew_pkg::fpnew_pkg::opgroup_e		0	0	0	0		0		
+  #4	4	logic_typespec				dut.sv	2	14	2	25				
+  #5	5	range				dut.sv	2	20	2	25				
+  #6	6	constant				dut.sv	2	21	2	22	1	64	UINT:1	9
+  #7	6	constant				dut.sv	2	23	2	24	0	64	UINT:0	9
+  #8	3	enum_const	ADDMUL			dut.sv	3	5	3	11				
+  #9	3	enum_const	DIVSQRT			dut.sv	3	13	3	20				
+  #10	3	enum_const	NONCOMP			dut.sv	3	22	3	29				
+  #11	3	enum_const	CONV			dut.sv	3	31	3	35				
+  #12	2	function	num_operands		fpnew_pkg::num_operands	dut.sv	7	1	15	14				
+  #13	3	int_var			fpnew_pkg::num_operands	dut.sv	7	20	7	32		0		
+
+--- OURS (B) records 0..13 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0				
+  #1	1	package	fpnew_pkg	fpnew_pkg	fpnew_pkg::	dut.sv	1	1	17	11				
+> #2	2	enum_typespec	fpnew_pkg::opgroup_e			dut.sv	2	1	4	15				
+  #3	3	ref_typespec			fpnew_pkg::fpnew_pkg::opgroup_e		0	0	0	0		0		
+  #4	4	logic_typespec				dut.sv	2	14	2	25				
+  #5	5	range				dut.sv	2	20	2	25				
+  #6	6	constant				dut.sv	2	21	2	22	1	64	UINT:1	9
+  #7	6	constant				dut.sv	2	23	2	24	0	64	UINT:0	9
+  #8	3	enum_const	ADDMUL			dut.sv	3	5	3	11				
+  #9	3	enum_const	DIVSQRT			dut.sv	3	13	3	20				
+  #10	3	enum_const	NONCOMP			dut.sv	3	22	3	29				
+  #11	3	enum_const	CONV			dut.sv	3	31	3	35				
+  #12	2	function	num_operands		fpnew_pkg::num_operands	dut.sv	7	1	15	14				
+  #13	3	int_var			fpnew_pkg::num_operands	dut.sv	7	20	7	32		0		
+
+all facets of this row (8):
+  K0117 #2/2 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  K0090 #18/18 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  K0117 #54/54 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  K0090 #70/70 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  K0543 #112/112 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  K0090 #130/130 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  K0543 #175/175 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  K0090 #193/193 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]

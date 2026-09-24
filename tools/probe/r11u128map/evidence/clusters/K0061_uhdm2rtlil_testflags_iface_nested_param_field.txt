@@ -1,0 +1,78 @@
+cluster K0061: fullname|ref_typespec|tok:id@id.id.id.id::id.id.id::id.->id::id::id::|under:typespec_member
+row: uhdm2rtlil/testflags/iface_nested_param_field  strict=differ:fullname(17)  records golden=357 ours=357
+object: #253 (golden) / #253 (ours)  type=ref_typespec name=
+  golden: work@iface_nested_param_field.s.CFG.p::cfg_t.HSK.p::hsk_t.DLY
+  ours:   p::p::hsk_t::DLY
+  walk parents: typespec_member(DLY) < struct_typespec(p::hsk_t) < ref_typespec < typespec_member(HSK)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 241..264 ('>' = the object)
+  #241	4	ref_typespec			work@iface_nested_param_field.s.dly_reg		0	0	0	0		0		
+  #242	5	logic_typespec				dut.sv	9	3	9	26				
+  #243	6	range				dut.sv	9	9	9	26				
+  #244	7	constant				dut.sv	9	10	9	21	2	64	INT:2	7
+  #245	7	constant				dut.sv	9	24	9	25	0	64	UINT:0	9
+  #246	3	parameter	CFG		work@iface_nested_param_field.s.CFG	dut.sv	8	36	8	39		0		
+  #247	4	ref_typespec			work@iface_nested_param_field.s.CFG		0	0	0	0		0		
+  #248	5	struct_typespec	p::cfg_t			dut.sv	5	11	5	48				
+  #249	6	typespec_member	HSK			dut.sv	5	26	5	29				
+  #250	7	ref_typespec			work@iface_nested_param_field.s.CFG.p::cfg_t.HSK		0	0	0	0		0		
+  #251	8	struct_typespec	p::hsk_t			dut.sv	4	11	4	39				
+  #252	9	typespec_member	DLY			dut.sv	4	33	4	36				
+> #253	10	ref_typespec			work@iface_nested_param_field.s.CFG.p::cfg_t.HSK.p::hsk_t.DLY		0	0	0	0		0		
+  #254	11	int_typespec				dut.sv	4	20	4	32				
+  #255	6	typespec_member	W			dut.sv	5	44	5	45				
+  #256	7	ref_typespec			work@iface_nested_param_field.s.CFG.p::cfg_t.W		0	0	0	0		0		
+  #257	8	int_typespec				dut.sv	5	31	5	43				
+  #258	3	param_assign				dut.sv	8	36	8	52				
+  #259	4	operation				dut.sv	8	42	8	45		0		
+  #260	5	ref_typespec			work@iface_nested_param_field.s		0	0	0	0		0		
+  #261	6	struct_typespec	p::cfg_t			dut.sv	5	11	5	48				
+  #262	7	typespec_member	HSK			dut.sv	5	26	5	29				
+  #263	8	ref_typespec			work@iface_nested_param_field.s.p::cfg_t.HSK		0	0	0	0		0		
+  #264	9	struct_typespec	p::hsk_t			dut.sv	4	11	4	39				
+
+--- OURS (B) records 241..264 ('>' = the object)
+  #241	4	ref_typespec			work@iface_nested_param_field.s.dly_reg		0	0	0	0		0		
+  #242	5	logic_typespec				dut.sv	9	3	9	26				
+  #243	6	range				dut.sv	9	9	9	26				
+  #244	7	constant				dut.sv	9	10	9	21	2	64	INT:2	7
+  #245	7	constant				dut.sv	9	24	9	25	0	64	UINT:0	9
+  #246	3	parameter	CFG		work@iface_nested_param_field.s.CFG	dut.sv	8	36	8	39		0		
+  #247	4	ref_typespec			work@iface_nested_param_field.s.CFG		0	0	0	0		0		
+  #248	5	struct_typespec	p::cfg_t			dut.sv	5	11	5	48				
+  #249	6	typespec_member	HSK			dut.sv	5	26	5	29				
+  #250	7	ref_typespec			work@iface_nested_param_field.s.CFG.p::cfg_t.HSK		0	0	0	0		0		
+  #251	8	struct_typespec	p::hsk_t			dut.sv	4	11	4	39				
+  #252	9	typespec_member	DLY			dut.sv	4	33	4	36				
+> #253	10	ref_typespec			p::p::hsk_t::DLY		0	0	0	0		0		
+  #254	11	int_typespec				dut.sv	4	20	4	32				
+  #255	6	typespec_member	W			dut.sv	5	44	5	45				
+  #256	7	ref_typespec			work@iface_nested_param_field.s.CFG.p::cfg_t.W		0	0	0	0		0		
+  #257	8	int_typespec				dut.sv	5	31	5	43				
+  #258	3	param_assign				dut.sv	8	36	8	52				
+  #259	4	operation				dut.sv	8	42	8	45		0		
+  #260	5	ref_typespec			work@iface_nested_param_field.s		0	0	0	0		0		
+  #261	6	struct_typespec	p::cfg_t			dut.sv	5	11	5	48				
+  #262	7	typespec_member	HSK			dut.sv	5	26	5	29				
+  #263	8	ref_typespec			work@iface_nested_param_field.s.CFG.p::cfg_t.HSK		0	0	0	0		0		
+  #264	9	struct_typespec	p::hsk_t			dut.sv	4	11	4	39				
+
+all facets of this row (17):
+  K0204 #88/88 ref_typespec  G[p::p::cfg_t::HSK] O[work@tif.CFG.p::cfg_t.HSK]
+  K0204 #94/94 ref_typespec  G[p::p::cfg_t::W] O[work@tif.CFG.p::cfg_t.W]
+  K0003 #116/116 ref_obj CFG G[9:14:9:17] O[9:10:9:13]
+  K0204 #151/151 ref_typespec  G[p::p::cfg_t::HSK] O[work@tif.CFG.p::cfg_t.HSK]
+  K0204 #157/157 ref_typespec  G[p::p::cfg_t::W] O[work@tif.CFG.p::cfg_t.W]
+  K0003 #179/179 ref_obj CFG G[9:14:9:17] O[9:10:9:13]
+  K0061 #253/253 ref_typespec  G[work@iface_nested_param_field.s.CFG.p::cfg_t.HSK.p::hsk_t.DLY] O[p::p::hsk_t::DLY]
+  K0007 #263/263 ref_typespec  G[work@iface_nested_param_field.s.p::cfg_t.HSK] O[work@iface_nested_param_field.s.CFG.p::cfg_t.HSK]
+  K0078 #266/266 ref_typespec  G[work@iface_nested_param_field.s.p::cfg_t.HSK.p::hsk_t.DLY] O[p::p::hsk_t::DLY]
+  K0007 #269/269 ref_typespec  G[work@iface_nested_param_field.s.p::cfg_t.W] O[work@iface_nested_param_field.s.CFG.p::cfg_t.W]
+  K0061 #275/275 ref_typespec  G[work@iface_nested_param_field.s.CFG.p::cfg_t.HSK.p::hsk_t.DLY] O[p::p::hsk_t::DLY]
+  K0007 #317/317 ref_typespec  G[work@iface_nested_param_field.u.sub.p::cfg_t.HSK] O[work@iface_nested_param_field.u.sub.CFG.p::cfg_t.HSK]
+  K0061 #320/320 ref_typespec  G[work@iface_nested_param_field.u.sub.p::cfg_t.HSK.p::hsk_t.DLY] O[p::p::hsk_t::DLY]
+  K0007 #323/323 ref_typespec  G[work@iface_nested_param_field.u.sub.p::cfg_t.W] O[work@iface_nested_param_field.u.sub.CFG.p::cfg_t.W]
+  K0104 #326/326 ref_typespec  G[work@iface_nested_param_field.u.sub] O[]
+  K0020 #329/329 ref_typespec  G[work@iface_nested_param_field.u.sub.p::hsk_t.DLY] O[p::p::hsk_t::DLY]
+  K0081 #340/340 ref_typespec  G[work@iface_nested_param_field.u.sub.CFG.p::cfg_t.HSK.p::hsk_t.DLY] O[p::p::hsk_t::DLY]

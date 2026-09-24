@@ -1,0 +1,94 @@
+cluster K0137: span|operation|col+endcol|under:operation
+row: surelog/default/BlackConst  strict=differ:line(31)  records golden=785 ours=785
+object: #761 (golden) / #761 (ours)  type=operation name=
+  golden: 10:103:10:131
+  ours:   10:65:10:93
+  walk parents: operation < indexed_part_select(pc) < operation < cont_assign
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 749..772 ('>' = the object)
+  #749	8	ref_typespec			work@top		0	0	0	0		0		
+  #750	9	int_typespec				dut.sv	143	3	143	32				
+  #751	7	constant				dut.sv	10	58	10	67	13	64	UINT:13	9
+  #752	6	constant				dut.sv	10	72	10	73	0	64	UINT:0	9
+  #753	5	operation				dut.sv	10	75	10	92		0		
+  #754	6	bit_select	pc		work@top.pc	dut.sv	10	79	10	90		0		
+  #755	7	operation				dut.sv	10	79	10	90		0		
+  #756	8	constant				dut.sv	10	79	10	88	13	64	UINT:13	9
+  #757	8	constant				dut.sv	10	89	10	90	1	64	UINT:1	9
+  #758	4	indexed_part_select	pc	pc	work@top.pc	dut.sv	10	98	10	166		0		
+  #759	5	constant				dut.sv	10	98	10	99	0	64	UINT:0	9
+  #760	5	operation				dut.sv	10	102	10	165		0		
+> #761	6	operation				dut.sv	10	103	10	131		0		
+  #762	7	constant				dut.sv	10	104	10	118	48	32	UINT:48	9
+  #763	8	ref_typespec			work@top.pc		0	0	0	0		0		
+  #764	9	int_typespec				dut.sv	143	3	143	32				
+  #765	7	constant				dut.sv	10	121	10	130	13	64	UINT:13	9
+  #766	6	constant				dut.sv	10	136	10	150	48	32	UINT:48	9
+  #767	7	ref_typespec			work@top.pc		0	0	0	0		0		
+  #768	8	int_typespec				dut.sv	143	3	143	32				
+  #769	6	constant				dut.sv	10	155	10	164	13	64	UINT:13	9
+  #770	3	logic_net	pc_sext_li		work@top.pc_sext_li	dut.sv	9	27	9	37		0		
+  #771	4	ref_typespec			work@top.pc_sext_li		0	0	0	0		0		
+  #772	5	logic_typespec				dut.sv	9	1	9	26				
+
+--- OURS (B) records 749..772 ('>' = the object)
+  #749	8	ref_typespec			work@top		0	0	0	0		0		
+  #750	9	int_typespec				dut.sv	143	3	143	32				
+  #751	7	constant				dut.sv	10	58	10	67	13	64	UINT:13	9
+  #752	6	constant				dut.sv	10	72	10	73	0	64	UINT:0	9
+  #753	5	operation				dut.sv	10	75	10	92		0		
+  #754	6	bit_select	pc		work@top.pc	dut.sv	10	79	10	90		0		
+  #755	7	operation				dut.sv	10	79	10	90		0		
+  #756	8	constant				dut.sv	10	79	10	88	13	64	UINT:13	9
+  #757	8	constant				dut.sv	10	89	10	90	1	64	UINT:1	9
+  #758	4	indexed_part_select	pc	pc	work@top.pc	dut.sv	10	98	10	128		0		
+  #759	5	constant				dut.sv	10	98	10	99	0	64	UINT:0	9
+  #760	5	operation				dut.sv	10	64	10	127		0		
+> #761	6	operation				dut.sv	10	65	10	93		0		
+  #762	7	constant					10	66	10	80	48	32	UINT:48	9
+  #763	8	ref_typespec			work@top.pc		0	0	0	0		0		
+  #764	9	int_typespec				dut.sv	143	3	143	32				
+  #765	7	constant				dut.sv	10	83	10	92	13	64	UINT:13	9
+  #766	6	constant					10	98	10	112	48	32	UINT:48	9
+  #767	7	ref_typespec			work@top.pc		0	0	0	0		0		
+  #768	8	int_typespec				dut.sv	143	3	143	32				
+  #769	6	constant				dut.sv	10	117	10	126	13	64	UINT:13	9
+  #770	3	logic_net	pc_sext_li		work@top.pc_sext_li	dut.sv	154	27	154	37		0		
+  #771	4	ref_typespec			work@top.pc_sext_li		0	0	0	0		0		
+  #772	5	logic_typespec				dut.sv	154	1	154	26				
+
+all facets of this row (33):
+  K0902 #114/114 parameter easy G[12:11:12:15] O[156:11:156:15]
+  K1290 #143/143 param_assign  G[12:11:13:80] O[156:11:13:80]
+  K1287 #388/388 logic_net pc_sext_li G[9:27:9:37] O[154:27:154:37]
+  K0837 #390/390 logic_typespec  G[9:1:9:26] O[154:1:154:26]
+  K1244 #391/391 range  G[9:6:9:26] O[154:6:154:26]
+  K1358 #392/392 operation  G[9:7:9:23] O[154:7:154:23]
+  K0178 #393/393 ref_obj dword_width_gp G[9:7:9:21] O[154:7:154:21]
+  K0177 #394/394 constant  G[9:22:9:23] O[154:22:154:23]
+  K0811 #395/395 constant  G[9:24:9:25] O[154:24:154:25]
+  K0902 #459/459 parameter easy G[12:11:12:15] O[156:11:156:15]
+  K1290 #488/488 param_assign  G[12:11:13:80] O[156:11:13:80]
+  K1287 #723/723 logic_net pc_sext_li G[9:27:9:37] O[154:27:154:37]
+  K0837 #725/725 logic_typespec  G[9:1:9:26] O[154:1:154:26]
+  K1244 #726/726 range  G[9:6:9:26] O[154:6:154:26]
+  K0811 #727/727 constant  G[9:7:9:21] O[154:7:154:21]
+  K0811 #728/728 constant  G[9:24:9:25] O[154:24:154:25]
+  K1347 #736/736 cont_assign  G[9:27:9:37] O[154:27:154:37]
+  K0066 #742/742 constant  G[dut.sv 10:9:10:23] O[ 10:9:10:23]
+  K0066 #748/748 constant  G[dut.sv 10:43:10:57] O[ 10:43:10:57]
+  K1350 #758/758 indexed_part_select pc G[10:98:10:166] O[10:98:10:128]
+  K2100 #760/760 operation  G[10:102:10:165] O[10:64:10:127]
+  K0137 #761/761 operation  G[10:103:10:131] O[10:65:10:93]
+  K0066 #762/762 constant  G[dut.sv 10:104:10:118] O[ 10:66:10:80]
+  K0072 #762/762 constant  G[10:104:10:118] O[10:66:10:80]
+  K0072 #765/765 constant  G[10:121:10:130] O[10:83:10:92]
+  K0066 #766/766 constant  G[dut.sv 10:136:10:150] O[ 10:98:10:112]
+  K0072 #766/766 constant  G[10:136:10:150] O[10:98:10:112]
+  K0072 #769/769 constant  G[10:155:10:164] O[10:117:10:126]
+  K2099 #770/770 logic_net pc_sext_li G[9:27:9:37] O[154:27:154:37]
+  K0837 #772/772 logic_typespec  G[9:1:9:26] O[154:1:154:26]
+  K1244 #773/773 range  G[9:6:9:26] O[154:6:154:26]
+  K0811 #774/774 constant  G[9:7:9:21] O[154:7:154:21]
+  K0811 #775/775 constant  G[9:24:9:25] O[154:24:154:25]

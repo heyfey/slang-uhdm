@@ -1,0 +1,65 @@
+cluster K0027: file|logic_net|golden-empty|under:ref_obj
+row: surelog/testflags/CheckerInst  strict=differ:file(6)  records golden=83 ours=83
+object: #11 (golden) / #11 (ours)  type=logic_net name=req
+  golden:  6:22:6:25
+  ours:   dut.sv 6:22:6:25
+  walk parents: ref_obj(req) < operation < property_spec < property_decl(p1)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 0..22 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0				
+  #1	1	module_inst		work@top	work@top	dut.sv	1	1	16	10				
+  #2	2	property_decl	p1		work@top.p1	dut.sv	5	12	5	14				
+  #3	3	prop_formal_decl	req				0	0	0	0				
+  #4	4	ref_typespec					0	0	0	0		0		
+  #5	3	prop_formal_decl	ack				0	0	0	0				
+  #6	4	ref_typespec					0	0	0	0		0		
+  #7	3	property_spec				dut.sv	6	5	6	33				
+  #8	4	sys_func_call	$global_clock			dut.sv	6	7	6	20		0		
+  #9	4	operation				dut.sv	6	22	6	33		0		
+  #10	5	ref_obj	req		work@top.p1.req	dut.sv	6	22	6	25		0		
+> #11	6	logic_net	req		work@top.req		6	22	6	25		0		
+  #12	5	ref_obj	ack		work@top.p1.ack	dut.sv	6	30	6	33		0		
+  #13	6	logic_net	ack		work@top.ack		6	30	6	33		0		
+  #14	2	property_decl	p2		work@top.p2	dut.sv	9	12	9	14				
+  #15	3	prop_formal_decl	req				0	0	0	0				
+  #16	4	ref_typespec					0	0	0	0		0		
+  #17	3	prop_formal_decl	ack				0	0	0	0				
+  #18	4	ref_typespec					0	0	0	0		0		
+  #19	3	prop_formal_decl	interrupt				0	0	0	0				
+  #20	4	ref_typespec					0	0	0	0		0		
+  #21	3	property_spec				dut.sv	10	5	10	55				
+  #22	4	sys_func_call	$global_clock			dut.sv	10	7	10	20		0		
+
+--- OURS (B) records 0..22 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0				
+  #1	1	module_inst		work@top	work@top	dut.sv	1	1	16	10				
+  #2	2	property_decl	p1		work@top.p1	dut.sv	5	12	5	14				
+  #3	3	prop_formal_decl	req				0	0	0	0				
+  #4	4	ref_typespec					0	0	0	0		0		
+  #5	3	prop_formal_decl	ack				0	0	0	0				
+  #6	4	ref_typespec					0	0	0	0		0		
+  #7	3	property_spec				dut.sv	6	5	6	33				
+  #8	4	sys_func_call	$global_clock			dut.sv	6	7	6	20		0		
+  #9	4	operation				dut.sv	6	22	6	33		0		
+  #10	5	ref_obj	req		work@top.p1.req	dut.sv	6	22	6	25		0		
+> #11	6	logic_net	req		work@top.req	dut.sv	6	22	6	25		0		
+  #12	5	ref_obj	ack		work@top.p1.ack	dut.sv	6	30	6	33		0		
+  #13	6	logic_net	ack		work@top.ack	dut.sv	6	30	6	33		0		
+  #14	2	property_decl	p2		work@top.p2	dut.sv	9	12	9	14				
+  #15	3	prop_formal_decl	req				0	0	0	0				
+  #16	4	ref_typespec					0	0	0	0		0		
+  #17	3	prop_formal_decl	ack				0	0	0	0				
+  #18	4	ref_typespec					0	0	0	0		0		
+  #19	3	prop_formal_decl	interrupt				0	0	0	0				
+  #20	4	ref_typespec					0	0	0	0		0		
+  #21	3	property_spec				dut.sv	10	5	10	55				
+  #22	4	sys_func_call	$global_clock			dut.sv	10	7	10	20		0		
+
+all facets of this row (6):
+  K0027 #11/11 logic_net req G[ 6:22:6:25] O[dut.sv 6:22:6:25]
+  K0027 #13/13 logic_net ack G[ 6:30:6:33] O[dut.sv 6:30:6:33]
+  K0027 #25/25 logic_net interrupt G[ 10:32:10:41] O[dut.sv 10:32:10:41]
+  K0027 #52/52 logic_net req G[ 6:22:6:25] O[dut.sv 6:22:6:25]
+  K0027 #54/54 logic_net ack G[ 6:30:6:33] O[dut.sv 6:30:6:33]
+  K0027 #66/66 logic_net interrupt G[ 10:32:10:41] O[dut.sv 10:32:10:41]

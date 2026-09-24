@@ -1,0 +1,69 @@
+cluster K0028: file|enum_typespec|ours-empty|under:ref_typespec
+row: uhdm2rtlil/testflags/TypeParameterAsPortTypeWithEnumOfParametrizedWidth  strict=differ:file(6)  records golden=87 ours=87
+object: #62 (golden) / #62 (ours)  type=enum_typespec name=state_e
+  golden: dut.sv 12:3:14:13
+  ours:    0:0:0:0
+  walk parents: ref_typespec < enum_var(state_i) < module_inst(inst1) < module_inst(work@top)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 50..73 ('>' = the object)
+  #50	2	enum_typespec	state_e			dut.sv	12	3	14	13				
+  #51	3	ref_typespec			work@top.state_e		0	0	0	0		0		
+  #52	4	logic_typespec				dut.sv	12	16	12	38				
+  #53	5	range				dut.sv	12	22	12	38				
+  #54	6	operation				dut.sv	12	23	12	35		0		
+  #55	7	ref_obj	StateWidth			dut.sv	12	23	12	33		0		
+  #56	7	constant				dut.sv	12	34	12	35	1	64	UINT:1	9
+  #57	6	constant				dut.sv	12	36	12	37	0	64	UINT:0	9
+  #58	3	enum_const	StActive			dut.sv	13	5	13	28				
+  #59	2	module_inst	inst1	work@test_module	work@top.inst1	dut.sv	18	3	22	5				
+  #60	3	enum_var	state_i		work@top.inst1.state_i	dut.sv	4	24	4	31		0		
+  #61	4	ref_typespec			work@top.inst1.state_i		0	0	0	0		0		
+> #62	5	enum_typespec	state_e			dut.sv	12	3	14	13				
+  #63	6	ref_typespec			work@top.inst1.test_parameter.state_e		0	0	0	0		0		
+  #64	7	logic_typespec				dut.sv	12	16	12	38				
+  #65	8	range				dut.sv	12	22	12	38				
+  #66	9	operation				dut.sv	12	23	12	35		0		
+  #67	10	ref_obj	StateWidth		work@top.inst1.test_parameter.state_e.StateWidth	dut.sv	12	23	12	33		0		
+  #68	10	constant				dut.sv	12	34	12	35	1	64	UINT:1	9
+  #69	9	constant				dut.sv	12	36	12	37	0	64	UINT:0	9
+  #70	6	enum_const	StActive			dut.sv	13	5	13	28				
+  #71	3	type_parameter	test_parameter		work@top.inst1.test_parameter		0	0	0	0				
+  #72	4	ref_typespec			work@top.inst1.test_parameter		0	0	0	0		0		
+  #73	5	enum_typespec	state_e			dut.sv	12	3	14	13				
+
+--- OURS (B) records 50..73 ('>' = the object)
+  #50	2	enum_typespec	state_e			dut.sv	12	3	14	13				
+  #51	3	ref_typespec			work@top.state_e		0	0	0	0		0		
+  #52	4	logic_typespec				dut.sv	12	16	12	38				
+  #53	5	range				dut.sv	12	22	12	38				
+  #54	6	operation				dut.sv	12	23	12	35		0		
+  #55	7	ref_obj	StateWidth			dut.sv	12	23	12	33		0		
+  #56	7	constant				dut.sv	12	34	12	35	1	64	UINT:1	9
+  #57	6	constant				dut.sv	12	36	12	37	0	64	UINT:0	9
+  #58	3	enum_const	StActive			dut.sv	13	5	13	28				
+  #59	2	module_inst	inst1	work@test_module	work@top.inst1	dut.sv	18	3	22	5				
+  #60	3	enum_var	state_i		work@top.inst1.state_i	dut.sv	4	24	4	31		0		
+  #61	4	ref_typespec			work@top.inst1.state_i		0	0	0	0		0		
+> #62	5	enum_typespec	state_e				0	0	0	0				
+  #63	6	ref_typespec			state_e		0	0	0	0		0		
+  #64	7	logic_typespec				dut.sv	12	16	12	38				
+  #65	8	range				dut.sv	12	22	12	38				
+  #66	9	operation				dut.sv	12	23	12	35		0		
+  #67	10	ref_obj	StateWidth		work@top.inst1.test_parameter.StateWidth	dut.sv	12	23	12	33		0		
+  #68	10	constant				dut.sv	12	34	12	35	1	64	UINT:1	9
+  #69	9	constant				dut.sv	12	36	12	37	0	64	UINT:0	9
+  #70	6	enum_const	StActive			dut.sv	13	5	13	28				
+  #71	3	type_parameter	test_parameter		work@top.inst1.test_parameter		0	0	0	0				
+  #72	4	ref_typespec			work@top.inst1.test_parameter		0	0	0	0		0		
+  #73	5	enum_typespec	state_e				0	0	0	0				
+
+all facets of this row (8):
+  K0028 #62/62 enum_typespec state_e G[dut.sv 12:3:14:13] O[ 0:0:0:0]
+  K0058 #62/62 enum_typespec state_e G[12:3:14:13] O[0:0:0:0]
+  K0807 #63/63 ref_typespec  G[work@top.inst1.test_parameter.state_e] O[state_e]
+  K0372 #67/67 ref_obj StateWidth G[work@top.inst1.test_parameter.state_e.StateWidth] O[work@top.inst1.test_parameter.StateWidth]
+  K0028 #73/73 enum_typespec state_e G[dut.sv 12:3:14:13] O[ 0:0:0:0]
+  K0058 #73/73 enum_typespec state_e G[12:3:14:13] O[0:0:0:0]
+  K0807 #74/74 ref_typespec  G[work@top.inst1.test_parameter.state_e] O[state_e]
+  K0372 #78/78 ref_obj StateWidth G[work@top.inst1.test_parameter.state_e.StateWidth] O[work@top.inst1.test_parameter.StateWidth]

@@ -1,0 +1,66 @@
+cluster K2124: struct|golden-only:absent|packed_array_typespec|under:ref_typespec
+row: probe/default/r11u110repro__grid__f2__i16_var_kw_init  strict=r11u110repro/grid/f2/i16_var_kw_init  records golden=99 ours=83
+object: #22 (golden) / #-1 (ours)  type=packed_array_typespec name=
+  golden: 5 objs
+  ours:   
+  walk parents: ref_typespec < logic_net(x) < module_inst < design(work@dut)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 10..33 ('>' = the object)
+  #10	4	packed_array_typespec				dut.sv	1	72	2	21				
+  #11	5	range					0	0	0	0				
+  #12	6	constant				dut.sv	1	78	1	79	3	64	UINT:3	9
+  #13	6	constant				dut.sv	1	80	1	81	0	64	UINT:0	9
+  #14	5	ref_typespec	id_t		work@dut.x.id_t		0	0	0	0		0		
+  #15	6	logic_typespec				dut.sv	1	36	1	47				
+  #16	7	range				dut.sv	1	42	1	47				
+  #17	8	constant				dut.sv	1	43	1	44	1	64	UINT:1	9
+  #18	8	constant				dut.sv	1	45	1	46	0	64	UINT:0	9
+  #19	2	logic_net	o		work@dut.o	dut.sv	1	104	1	105		0		
+  #20	2	logic_net	x		work@dut.x	dut.sv	2	12	2	13		0		
+  #21	3	ref_typespec			work@dut.x		0	0	0	0		0		
+> #22	4	packed_array_typespec				dut.sv	1	72	2	21				
+  #23	5	range					0	0	0	0				
+  #24	6	constant				dut.sv	1	78	1	79	3	64	UINT:3	9
+  #25	6	constant				dut.sv	1	80	1	81	0	64	UINT:0	9
+  #26	5	ref_typespec	id_t		work@dut.x.id_t		0	0	0	0		0		
+  #27	6	logic_typespec				dut.sv	1	36	1	47				
+  #28	7	range				dut.sv	1	42	1	47				
+  #29	8	constant				dut.sv	1	43	1	44	1	64	UINT:1	9
+  #30	8	constant				dut.sv	1	45	1	46	0	64	UINT:0	9
+  #31	2	port	o			dut.sv	1	104	1	105				
+  #32	3	ref_obj	o		work@dut.o.o	dut.sv	1	104	1	105		0		
+  #33	3	ref_typespec			work@dut.o		0	0	0	0		0		
+
+--- the holder #21 in the other side: exact-record matches at [21, 35]
+  #17	8	constant				dut.sv	1	43	1	44	1	64	UINT:1	9
+  #18	8	constant				dut.sv	1	45	1	46	0	64	UINT:0	9
+  #19	2	logic_net	o		work@dut.o	dut.sv	1	104	1	105		0		
+  #20	2	logic_net	x		work@dut.x	dut.sv	2	12	2	13		0		
+> #21	3	ref_typespec			work@dut.x		0	0	0	0		0		
+  #22	4	logic_typespec				dut.sv	2	7	2	21				
+  #23	2	port	o			dut.sv	1	104	1	105				
+  #24	3	ref_obj	o		work@dut.o.o	dut.sv	1	104	1	105		0		
+  #25	3	ref_typespec			work@dut.o		0	0	0	0		0		
+  #26	4	logic_typespec				dut.sv	1	92	1	103				
+  #27	5	range				dut.sv	1	98	1	103				
+  #28	6	constant				dut.sv	1	99	1	100	7	64	UINT:7	9
+  #29	6	constant				dut.sv	1	101	1	102	0	64	UINT:0	9
+  #30	2	cont_assign				dut.sv	3	10	3	15				
+  #31	3	ref_obj	x		work@dut.x	dut.sv	3	14	3	15		0		
+  #32	3	ref_obj	o		work@dut.o	dut.sv	3	10	3	11		0		
+  #33	1	module_inst	work@dut	work@dut		dut.sv	1	1	4	10				
+  #34	2	packed_array_var	x		work@dut.x	dut.sv	2	12	2	21		0		
+
+all facets of this row (11):
+  K0193 #27/22 logic_typespec  G[6 ref_typespec(id_t) < packed_array_typespec] O[4 ref_typespec < logic_net(x)]
+  K2124 #22/-1 packed_array_typespec  G[5 objs] O[]
+  K0131 #28/-1 range  G[3 objs] O[]
+  K0193 #93/80 logic_typespec  G[8 ref_typespec(id_t) < packed_array_typespec] O[6 ref_typespec < logic_net(x)]
+  K2124 #88/-1 packed_array_typespec  G[5 objs] O[]
+  K0131 #94/-1 range  G[3 objs] O[]
+  K2123 #10/10 packed_array_typespec  G[1:72:2:21] O[1:72:1:82]
+  K0190 #14/14 ref_typespec id_t G[work@dut.x.id_t] O[work@dut.rt_t.id_t]
+  K2123 #44/36 packed_array_typespec  G[1:72:2:21] O[1:72:1:82]
+  K2123 #62/54 packed_array_typespec  G[1:72:2:21] O[1:72:1:82]
+  K0190 #66/58 ref_typespec id_t G[work@dut.x.id_t] O[work@dut.rt_t.id_t]

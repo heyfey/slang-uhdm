@@ -1,0 +1,102 @@
+cluster K0134: file|constant|golden-empty|under:typespec_member
+row: uhdm2rtlil/testflags/struct_param_field_shift  strict=differ:col(49)  records golden=395 ours=395
+object: #75 (golden) / #75 (ours)  type=constant name=
+  golden:  0:0:0:0
+  ours:   dut.sv 20:33:20:49
+  walk parents: typespec_member(XLEN_ALIGN_BYTES) < struct_typespec(cfg_pkg::cfg_t) < ref_typespec < parameter(DefaultCfg)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 63..86 ('>' = the object)
+  #63	5	typespec_member	XLEN			dut.sv	11	18	11	22				
+  #64	6	ref_typespec			cfg_pkg::cfg_pkg::cfg_t::XLEN		0	0	0	0		0		
+  #65	7	int_typespec				dut.sv	11	5	11	17				
+  #66	6	constant				dut.sv	20	46	20	48	64	64	UINT:64	9
+  #67	7	ref_typespec			cfg_pkg		0	0	0	0		0		
+  #68	8	int_typespec				dut.sv	14	41	14	44				
+  #69	6	constant				dut.sv	20	46	20	48	64	64	UINT:64	9
+  #70	7	ref_typespec			cfg_pkg		0	0	0	0		0		
+  #71	8	int_typespec				dut.sv	14	41	14	44				
+  #72	5	typespec_member	XLEN_ALIGN_BYTES			dut.sv	12	18	12	34				
+  #73	6	ref_typespec			cfg_pkg::cfg_pkg::cfg_t::XLEN_ALIGN_BYTES		0	0	0	0		0		
+  #74	7	int_typespec				dut.sv	12	5	12	17				
+> #75	6	constant					0	0	0	0	3	64	UINT:3	9
+  #76	6	constant					0	0	0	0	3	64	UINT:3	9
+  #77	2	param_assign				dut.sv	20	20	20	49				
+  #78	3	constant				dut.sv	20	33	20	49	0000000000000000000000000100000000000000000000000000000000000011	64	BIN:0000000000000000000000000100000000000000000000000000000000000011	3
+  #79	4	ref_typespec			cfg_pkg		0	0	0	0		0		
+  #80	5	struct_typespec	cfg_pkg::cfg_t			dut.sv	10	11	13	4				
+  #81	6	typespec_member	XLEN			dut.sv	11	18	11	22				
+  #82	7	ref_typespec			cfg_pkg::cfg_pkg::cfg_t::XLEN		0	0	0	0		0		
+  #83	8	int_typespec				dut.sv	11	5	11	17				
+  #84	7	constant				dut.sv	20	46	20	48	64	64	UINT:64	9
+  #85	8	ref_typespec			cfg_pkg		0	0	0	0		0		
+  #86	9	int_typespec				dut.sv	14	41	14	44				
+
+--- OURS (B) records 63..86 ('>' = the object)
+  #63	5	typespec_member	XLEN			dut.sv	11	18	11	22				
+  #64	6	ref_typespec			cfg_pkg::cfg_pkg::cfg_t::XLEN		0	0	0	0		0		
+  #65	7	int_typespec				dut.sv	11	5	11	17				
+  #66	6	constant				dut.sv	20	33	20	49	64	64	UINT:64	9
+  #67	7	ref_typespec			cfg_pkg		0	0	0	0		0		
+  #68	8	int_typespec				dut.sv	14	41	14	44				
+  #69	6	constant				dut.sv	20	33	20	49	64	64	UINT:64	9
+  #70	7	ref_typespec			cfg_pkg		0	0	0	0		0		
+  #71	8	int_typespec				dut.sv	14	41	14	44				
+  #72	5	typespec_member	XLEN_ALIGN_BYTES			dut.sv	12	18	12	34				
+  #73	6	ref_typespec			cfg_pkg::cfg_pkg::cfg_t::XLEN_ALIGN_BYTES		0	0	0	0		0		
+  #74	7	int_typespec				dut.sv	12	5	12	17				
+> #75	6	constant				dut.sv	20	33	20	49	3	64	UINT:3	9
+  #76	6	constant				dut.sv	20	33	20	49	3	64	UINT:3	9
+  #77	2	param_assign				dut.sv	20	20	20	49				
+  #78	3	constant				dut.sv	20	33	20	49	0000000000000000000000000100000000000000000000000000000000000011	64	BIN:0000000000000000000000000100000000000000000000000000000000000011	3
+  #79	4	ref_typespec			cfg_pkg		0	0	0	0		0		
+  #80	5	struct_typespec	cfg_pkg::cfg_t			dut.sv	10	11	13	4				
+  #81	6	typespec_member	XLEN			dut.sv	11	18	11	22				
+  #82	7	ref_typespec			cfg_pkg::cfg_pkg::cfg_t::XLEN		0	0	0	0		0		
+  #83	8	int_typespec				dut.sv	11	5	11	17				
+  #84	7	constant				dut.sv	20	33	20	49	64	64	UINT:64	9
+  #85	8	ref_typespec			cfg_pkg		0	0	0	0		0		
+  #86	9	int_typespec				dut.sv	14	41	14	44				
+
+all facets of this row (67):
+  K0928 #66/66 constant  G[20:46:20:48] O[20:33:20:49]
+  K0928 #69/69 constant  G[20:46:20:48] O[20:33:20:49]
+  K0134 #75/75 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  K0135 #75/75 constant  G[0:0:0:0] O[20:33:20:49]
+  K0134 #76/76 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  K0135 #76/76 constant  G[0:0:0:0] O[20:33:20:49]
+  K0928 #84/84 constant  G[20:46:20:48] O[20:33:20:49]
+  K0928 #87/87 constant  G[20:46:20:48] O[20:33:20:49]
+  K0134 #93/93 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  K0135 #93/93 constant  G[0:0:0:0] O[20:33:20:49]
+  K0134 #94/94 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  K0135 #94/94 constant  G[0:0:0:0] O[20:33:20:49]
+  K0928 #99/99 constant  G[20:46:20:48] O[20:33:20:49]
+  K0928 #102/102 constant  G[20:46:20:48] O[20:33:20:49]
+  K0134 #108/108 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  K0135 #108/108 constant  G[0:0:0:0] O[20:33:20:49]
+  K0134 #109/109 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  K0135 #109/109 constant  G[0:0:0:0] O[20:33:20:49]
+  K0928 #117/117 constant  G[20:46:20:48] O[20:33:20:49]
+  K0928 #120/120 constant  G[20:46:20:48] O[20:33:20:49]
+  K0134 #126/126 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  K0135 #126/126 constant  G[0:0:0:0] O[20:33:20:49]
+  K0134 #127/127 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  K0135 #127/127 constant  G[0:0:0:0] O[20:33:20:49]
+  K0928 #134/134 constant  G[20:46:20:48] O[20:33:20:49]
+  K0928 #137/137 constant  G[20:46:20:48] O[20:33:20:49]
+  K0134 #143/143 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  K0135 #143/143 constant  G[0:0:0:0] O[20:33:20:49]
+  K0134 #144/144 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  K0135 #144/144 constant  G[0:0:0:0] O[20:33:20:49]
+  K0928 #171/171 constant  G[20:46:20:48] O[20:33:20:49]
+  K0928 #174/174 constant  G[20:46:20:48] O[20:33:20:49]
+  K0134 #180/180 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  K0135 #180/180 constant  G[0:0:0:0] O[20:33:20:49]
+  K0134 #181/181 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  K0135 #181/181 constant  G[0:0:0:0] O[20:33:20:49]
+  K0928 #189/189 constant  G[20:46:20:48] O[20:33:20:49]
+  K0928 #192/192 constant  G[20:46:20:48] O[20:33:20:49]
+  K0134 #198/198 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  K0135 #198/198 constant  G[0:0:0:0] O[20:33:20:49]
+  ... 27 more

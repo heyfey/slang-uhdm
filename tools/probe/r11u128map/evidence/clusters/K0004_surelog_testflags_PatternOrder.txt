@@ -1,0 +1,82 @@
+cluster K0004: fullname|ref_typespec|tok:id.->|under:typespec_member
+row: surelog/testflags/PatternOrder  strict=differ:fullname(21)  records golden=90 ours=90
+object: #12 (golden) / #12 (ours)  type=ref_typespec name=
+  golden: BC1.B
+  ours:   B
+  walk parents: typespec_member(B) < struct_typespec < ref_typespec < typespec_member(BC1)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 0..23 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0				
+  #1	1	module_inst		work@top	work@top	dut.sv	1	1	10	16				
+  #2	2	logic_net	ABC		work@top.ABC	dut.sv	8	3	8	6		0		
+  #3	3	ref_typespec			work@top.ABC		0	0	0	0		0		
+  #4	4	struct_typespec				dut.sv	2	4	8	57				
+  #5	5	typespec_member	A			dut.sv	3	7	3	8				
+  #6	6	ref_typespec			A		0	0	0	0		0		
+  #7	7	int_typespec				dut.sv	3	3	3	6				
+  #8	5	typespec_member	BC1			dut.sv	7	5	7	8				
+  #9	6	ref_typespec			BC1		0	0	0	0		0		
+  #10	7	struct_typespec				dut.sv	4	3	4	9				
+  #11	8	typespec_member	B			dut.sv	5	11	5	12				
+> #12	9	ref_typespec			BC1.B		0	0	0	0		0		
+  #13	10	logic_typespec				dut.sv	5	5	5	10				
+  #14	8	typespec_member	C			dut.sv	6	10	6	11				
+  #15	9	ref_typespec			BC1.C		0	0	0	0		0		
+  #16	10	real_typespec				dut.sv	6	5	6	9				
+  #17	5	typespec_member	BC2			dut.sv	7	10	7	13				
+  #18	6	ref_typespec			BC2		0	0	0	0		0		
+  #19	7	struct_typespec				dut.sv	4	3	4	9				
+  #20	8	typespec_member	B			dut.sv	5	11	5	12				
+  #21	9	ref_typespec			BC2.B		0	0	0	0		0		
+  #22	10	logic_typespec				dut.sv	5	5	5	10				
+  #23	8	typespec_member	C			dut.sv	6	10	6	11				
+
+--- OURS (B) records 0..23 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0				
+  #1	1	module_inst		work@top	work@top	dut.sv	1	1	10	16				
+  #2	2	logic_net	ABC		work@top.ABC	dut.sv	8	3	8	6		0		
+  #3	3	ref_typespec			work@top.ABC		0	0	0	0		0		
+  #4	4	struct_typespec				dut.sv	2	4	8	57				
+  #5	5	typespec_member	A			dut.sv	3	7	3	8				
+  #6	6	ref_typespec			A		0	0	0	0		0		
+  #7	7	int_typespec				dut.sv	3	3	3	6				
+  #8	5	typespec_member	BC1			dut.sv	7	5	7	8				
+  #9	6	ref_typespec			BC1		0	0	0	0		0		
+  #10	7	struct_typespec				dut.sv	4	3	4	9				
+  #11	8	typespec_member	B			dut.sv	5	11	5	12				
+> #12	9	ref_typespec			B		0	0	0	0		0		
+  #13	10	logic_typespec				dut.sv	5	5	5	10				
+  #14	8	typespec_member	C			dut.sv	6	10	6	11				
+  #15	9	ref_typespec			C		0	0	0	0		0		
+  #16	10	real_typespec				dut.sv	6	5	6	9				
+  #17	5	typespec_member	BC2			dut.sv	7	10	7	13				
+  #18	6	ref_typespec			BC2		0	0	0	0		0		
+  #19	7	struct_typespec				dut.sv	4	3	4	9				
+  #20	8	typespec_member	B			dut.sv	5	11	5	12				
+  #21	9	ref_typespec			B		0	0	0	0		0		
+  #22	10	logic_typespec				dut.sv	5	5	5	10				
+  #23	8	typespec_member	C			dut.sv	6	10	6	11				
+
+all facets of this row (21):
+  K0004 #12/12 ref_typespec  G[BC1.B] O[B]
+  K0004 #15/15 ref_typespec  G[BC1.C] O[C]
+  K0004 #21/21 ref_typespec  G[BC2.B] O[B]
+  K0004 #24/24 ref_typespec  G[BC2.C] O[C]
+  K0097 #31/31 ref_typespec  G[work@top.ABC.A] O[A]
+  K0097 #34/34 ref_typespec  G[work@top.ABC.BC1] O[BC1]
+  K0158 #37/37 ref_typespec  G[work@top.ABC.BC1.B] O[B]
+  K0158 #40/40 ref_typespec  G[work@top.ABC.BC1.C] O[C]
+  K0097 #43/43 ref_typespec  G[work@top.ABC.BC2] O[BC2]
+  K0158 #46/46 ref_typespec  G[work@top.ABC.BC2.B] O[B]
+  K0158 #49/49 ref_typespec  G[work@top.ABC.BC2.C] O[C]
+  K0097 #55/55 ref_typespec  G[work@top.ABC.A] O[A]
+  K0097 #58/58 ref_typespec  G[work@top.ABC.BC1] O[BC1]
+  K0158 #61/61 ref_typespec  G[work@top.ABC.BC1.B] O[B]
+  K0158 #64/64 ref_typespec  G[work@top.ABC.BC1.C] O[C]
+  K0097 #67/67 ref_typespec  G[work@top.ABC.BC2] O[BC2]
+  K0158 #70/70 ref_typespec  G[work@top.ABC.BC2.B] O[B]
+  K0158 #73/73 ref_typespec  G[work@top.ABC.BC2.C] O[C]
+  K0119 #78/78 constant  G[1.0|64|REAL:1.0|2] O[1.0|64|REAL:1.000000|2]
+  K0158 #83/83 ref_typespec  G[work@top.ABC.BC2.B] O[B]
+  K0158 #86/86 ref_typespec  G[work@top.ABC.BC2.C] O[C]

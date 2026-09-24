@@ -1,0 +1,51 @@
+cluster K1308: depth|constant|func_call->cont_assign
+row: uhdm2rtlil/testflags/func_local_array  strict=differ:type(1)  records golden=185 ours=179
+object: #177 (golden) / #176 (ours)  type=constant name=
+  golden: 4 func_call(func1) < cont_assign
+  ours:   3 cont_assign < module_inst(work@foo)
+  walk parents: func_call(func1) < cont_assign < module_inst(work@foo) < design(work@foo)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 165..184 ('>' = the object)
+  #165	5	range				dut.sv	3	15	3	20				
+  #166	6	constant				dut.sv	3	16	3	17	1	64	UINT:1	9
+  #167	6	constant				dut.sv	3	18	3	19	0	64	UINT:0	9
+  #168	2	port	out			dut.sv	3	21	3	24				
+  #169	3	ref_obj	out		work@foo.out	dut.sv	3	21	3	24		0		
+  #170	3	ref_typespec			work@foo.out		0	0	0	0		0		
+  #171	4	logic_typespec				dut.sv	3	10	3	20				
+  #172	5	range				dut.sv	3	15	3	20				
+  #173	6	constant				dut.sv	3	16	3	17	1	64	UINT:1	9
+  #174	6	constant				dut.sv	3	18	3	19	0	64	UINT:0	9
+  #175	2	cont_assign				dut.sv	19	10	19	27				
+  #176	3	func_call	func1			dut.sv	19	16	19	27		0		
+> #177	4	constant				dut.sv	19	22	19	26	2'd3	2	DEC:3	1
+  #178	5	ref_typespec			work@foo		0	0	0	0		0		
+  #179	6	logic_typespec				dut.sv	6	30	6	35				
+  #180	7	range				dut.sv	6	30	6	35				
+  #181	8	constant				dut.sv	6	31	6	32	1	64	UINT:1	9
+  #182	8	constant				dut.sv	6	33	6	34	0	64	UINT:0	9
+  #183	3	ref_obj	out		work@foo.out	dut.sv	19	10	19	13		0		
+  #184	4	logic_net	out		work@foo.out	dut.sv	3	21	3	24		0		
+
+--- OURS (B) records 164..178 ('>' = the object)
+  #164	4	logic_typespec				dut.sv	3	10	3	20				
+  #165	5	range				dut.sv	3	15	3	20				
+  #166	6	constant				dut.sv	3	16	3	17	1	64	UINT:1	9
+  #167	6	constant				dut.sv	3	18	3	19	0	64	UINT:0	9
+  #168	2	port	out			dut.sv	3	21	3	24				
+  #169	3	ref_obj	out		work@foo.out	dut.sv	3	21	3	24		0		
+  #170	3	ref_typespec			work@foo.out		0	0	0	0		0		
+  #171	4	logic_typespec				dut.sv	3	10	3	20				
+  #172	5	range				dut.sv	3	15	3	20				
+  #173	6	constant				dut.sv	3	16	3	17	1	64	UINT:1	9
+  #174	6	constant				dut.sv	3	18	3	19	0	64	UINT:0	9
+  #175	2	cont_assign				dut.sv	19	10	19	27				
+> #176	3	constant					0	0	0	0	2	2	UINT:2	9
+  #177	3	ref_obj	out		work@foo.out	dut.sv	19	10	19	13		0		
+  #178	4	logic_net	out		work@foo.out	dut.sv	3	21	3	24		0		
+
+all facets of this row (3):
+  K1308 #177/176 constant  G[4 func_call(func1) < cont_assign] O[3 cont_assign < module_inst(work@foo)]
+  K0197 #176/-1 func_call func1 G[1 objs] O[]
+  K0339 #178/-1 ref_typespec  G[5 objs] O[]

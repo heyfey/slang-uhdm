@@ -1,0 +1,63 @@
+cluster K0030: fullname|ref_obj|tok:::->.@in-typespec|under:operation
+row: surelog/testflags/EarlgreyPackParam  strict=differ:fullname(6)  records golden=259 ours=259
+object: #10 (golden) / #10 (ours)  type=ref_obj name=NAlerts
+  golden: alert_handler_reg_pkg::AsyncOn::NAlerts
+  ours:   alert_handler_reg_pkg::AsyncOn.NAlerts
+  walk parents: operation < range < logic_typespec < ref_typespec
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 0..21 ('>' = the object)
+  #0	0	design	work@test				0	0	0	0				
+  #1	1	package	alert_handler_reg_pkg	alert_handler_reg_pkg	alert_handler_reg_pkg::	dut.sv	2	1	5	11				
+  #2	2	parameter	NAlerts		alert_handler_reg_pkg::NAlerts	dut.sv	3	17	3	24		0	UINT:35	
+  #3	3	ref_typespec			alert_handler_reg_pkg::NAlerts		0	0	0	0		0		
+  #4	4	int_typespec				dut.sv	3	13	3	16				
+  #5	2	parameter	AsyncOn		alert_handler_reg_pkg::AsyncOn	dut.sv	4	33	4	40		0	BIN:11111111111111111100000000000000000	
+  #6	3	ref_typespec			alert_handler_reg_pkg::AsyncOn		0	0	0	0		0		
+  #7	4	logic_typespec				dut.sv	4	13	4	32				
+  #8	5	range				dut.sv	4	19	4	32				
+  #9	6	operation				dut.sv	4	20	4	29		0		
+> #10	7	ref_obj	NAlerts		alert_handler_reg_pkg::AsyncOn::NAlerts	dut.sv	4	20	4	27		0		
+  #11	7	constant				dut.sv	4	28	4	29	1	64	UINT:1	9
+  #12	6	constant				dut.sv	4	30	4	31	0	64	UINT:0	9
+  #13	2	param_assign				dut.sv	3	17	3	29				
+  #14	3	constant				dut.sv	3	27	3	29	35	64	UINT:35	9
+  #15	4	ref_typespec			alert_handler_reg_pkg		0	0	0	0		0		
+  #16	5	int_typespec				dut.sv	3	13	3	16				
+  #17	2	param_assign				dut.sv	4	33	4	82				
+  #18	3	constant				dut.sv	4	43	4	82	35'b11111111111111111100000000000000000	35	BIN:11111111111111111100000000000000000	3
+  #19	4	ref_typespec			alert_handler_reg_pkg		0	0	0	0		0		
+  #20	5	logic_typespec				dut.sv	4	13	4	32				
+  #21	6	range				dut.sv	4	19	4	32				
+
+--- OURS (B) records 0..21 ('>' = the object)
+  #0	0	design	work@test				0	0	0	0				
+  #1	1	package	alert_handler_reg_pkg	alert_handler_reg_pkg	alert_handler_reg_pkg::	dut.sv	2	1	5	11				
+  #2	2	parameter	NAlerts		alert_handler_reg_pkg::NAlerts	dut.sv	3	17	3	24		0	UINT:35	
+  #3	3	ref_typespec			alert_handler_reg_pkg::NAlerts		0	0	0	0		0		
+  #4	4	int_typespec				dut.sv	3	13	3	16				
+  #5	2	parameter	AsyncOn		alert_handler_reg_pkg::AsyncOn	dut.sv	4	33	4	40		0	BIN:11111111111111111100000000000000000	
+  #6	3	ref_typespec			alert_handler_reg_pkg::AsyncOn		0	0	0	0		0		
+  #7	4	logic_typespec				dut.sv	4	13	4	32				
+  #8	5	range				dut.sv	4	19	4	32				
+  #9	6	operation				dut.sv	4	20	4	29		0		
+> #10	7	ref_obj	NAlerts		alert_handler_reg_pkg::AsyncOn.NAlerts	dut.sv	4	20	4	27		0		
+  #11	7	constant				dut.sv	4	28	4	29	1	64	UINT:1	9
+  #12	6	constant				dut.sv	4	30	4	31	0	64	UINT:0	9
+  #13	2	param_assign				dut.sv	3	17	3	29				
+  #14	3	constant				dut.sv	3	27	3	29	35	64	UINT:35	9
+  #15	4	ref_typespec			alert_handler_reg_pkg		0	0	0	0		0		
+  #16	5	int_typespec				dut.sv	3	13	3	16				
+  #17	2	param_assign				dut.sv	4	33	4	82				
+  #18	3	constant				dut.sv	4	43	4	82	35'b11111111111111111100000000000000000	35	BIN:11111111111111111100000000000000000	3
+  #19	4	ref_typespec			alert_handler_reg_pkg		0	0	0	0		0		
+  #20	5	logic_typespec				dut.sv	4	13	4	32				
+  #21	6	range				dut.sv	4	19	4	32				
+
+all facets of this row (6):
+  K0030 #10/10 ref_obj NAlerts G[alert_handler_reg_pkg::AsyncOn::NAlerts] O[alert_handler_reg_pkg::AsyncOn.NAlerts]
+  K0030 #23/23 ref_obj NAlerts G[alert_handler_reg_pkg::AsyncOn::NAlerts] O[alert_handler_reg_pkg::AsyncOn.NAlerts]
+  K0001 #139/139 parameter i G[dut.sv 52:0:0:0] O[ 52:0:0:0]
+  K0001 #172/172 parameter i G[dut.sv 52:0:0:0] O[ 52:0:0:0]
+  K0001 #205/205 parameter i G[dut.sv 52:0:0:0] O[ 52:0:0:0]
+  K0001 #233/233 parameter i G[dut.sv 52:0:0:0] O[ 52:0:0:0]

@@ -1,0 +1,765 @@
+== K0017 probe/default/r11v17repro__grid__va11_arraynet_lhs_modscope_notgen holder #29 ref_obj 'arr' dut.sv 4:10:4:13
+  rank 3:
+    #0 UHDM::Serializer::MakeRef_obj() ()
+    #1 emitExpr at src/ExprEmit.cpp:14549   [§ staticScopedLvalueBad48 (line 14525)]
+    #2 emitContAssigns at src/ModuleEmit.cpp:37475   [§ caUnbasedFillPackedAggregateKeepsRaw43 (line 37324)]
+    #3 emitModuleDef at src/ModuleEmit.cpp:5475   [§ shadowedImportParamFold (line 5472)]
+    #4 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #5 main at uhdm_main.cpp:884
+  rank 8:
+    #0 UHDM::Serializer::MakeRef_obj() ()
+    #1 emitExpr at src/ExprEmit.cpp:14549   [§ staticScopedLvalueBad48 (line 14525)]
+    #2 emitContAssigns at src/ModuleEmit.cpp:37475   [§ caUnbasedFillPackedAggregateKeepsRaw43 (line 37324)]
+    #3 emitInstance at src/ModuleEmit.cpp:17408   [§ elabPortBoundIntParamTs109 (line 17191)]
+    #4 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #5 main at uhdm_main.cpp:884
+== K0023 probe/default/r11v17repro__grid__va20_structnet_unpacked_array_lhs object #19 struct_typespec 'st_t'  3:11:3:62
+  rank 2:
+    #0 UHDM::Serializer::MakeStruct_typespec() ()
+    #1 buildStructTs at src/TypeEmit.cpp:12937   [§ typeParamAnonAggMemberNoReduce35 (line 12920)]
+    #2 materializeDefNetTs at src/ModuleEmit.cpp:28814   [§ mergedPortDefRangeSymbolic (line 28433)]
+    #3 emitTopPorts at src/ModuleEmit.cpp:29563   [§ tpDimVecPortTsIsDefault120 (line 29463)]
+    #4 exportDesign at src/UhdmExporter.cpp:8131   [§ classTdTopOnlyShare50 (line 8092)]
+    #5 main at uhdm_main.cpp:884
+== K0024 probe/default/r11u112repro__grid__k__k03_dims object #4 struct_typespec '' dut.sv 2:26:2:39
+  rank 1:
+    #0 UHDM::Serializer::MakeStruct_typespec() ()
+    #1 buildStructTs at src/TypeEmit.cpp:12937   [§ typeParamAnonAggMemberNoReduce35 (line 12920)]
+    #2 makeTypespec at src/TypeEmit.cpp:3736   [-]
+    #3 emitParameters at src/ParamEmit.cpp:21719   [§ typeParamChainBorrow45 (line 21617)]
+    #4 exportDesign at src/UhdmExporter.cpp:7801   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #5 main at uhdm_main.cpp:884
+  rank 2:
+    #0 UHDM::Serializer::MakeStruct_typespec() ()
+    #1 buildStructTs at src/TypeEmit.cpp:12937   [§ typeParamAnonAggMemberNoReduce35 (line 12920)]
+    #2 makeTypespec at src/TypeEmit.cpp:3736   [-]
+    #3 emitParameters at src/ParamEmit.cpp:21719   [§ typeParamChainBorrow45 (line 21617)]
+    #4 emitInstance at src/ModuleEmit.cpp:11796   [§ elabParamTsRebind (line 11790)]
+    #5 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #6 main at uhdm_main.cpp:884
+== K0025 probe/default/r11u115repro__grid__i__s18_recv_B_paren object #132 constant '' dut.sv 1:80:1:81
+  rank 12:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitParameters at src/ParamEmit.cpp:9937   [§ patOpMemberAsmSplit28 (line 9930)]
+    #2 emitInterfaceInstance at src/ModuleEmit.cpp:41597   [§ ifaceIfaceTypedPort (line 41558)]
+    #3 emitInstance at src/ModuleEmit.cpp:15454   [§ bindIfaceTwinInParent46 (line 15251)]
+    #4 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #5 main at uhdm_main.cpp:884
+  rank 22:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitParameters at src/ParamEmit.cpp:9937   [§ patOpMemberAsmSplit28 (line 9930)]
+    #2 emitInterfaceInstance at src/ModuleEmit.cpp:41597   [§ ifaceIfaceTypedPort (line 41558)]
+    #3 emitInstance at src/ModuleEmit.cpp:15454   [§ bindIfaceTwinInParent46 (line 15251)]
+    #4 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #5 main at uhdm_main.cpp:884
+  rank 34:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitParameters at src/ParamEmit.cpp:9937   [§ patOpMemberAsmSplit28 (line 9930)]
+    #2 emitInterfaceInstance at src/ModuleEmit.cpp:41597   [§ ifaceIfaceTypedPort (line 41558)]
+    #3 emitInstance at src/ModuleEmit.cpp:14916   [§ modportNeedsSimplePortNoGenericFallback215v (line 14897)]
+    #4 emitInstance at src/ModuleEmit.cpp:15321   [§ bindIfaceTwinInParent46 (line 15251)]
+    #5 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #6 main at uhdm_main.cpp:884
+== K0027 probe/default/r10uvm219repro__g219_e_nothis object #76 logic_net 'ge_nothis' dut.sv 20:24:20:33
+  rank 4:
+    #0 UHDM::Serializer::MakeLogic_net() ()
+    #1 emitExpr at src/ExprEmit.cpp:36383   [§ oobCtorLocalsRideTheImport203 (line 36365)]
+    #2 emitExpr at src/ExprEmit.cpp:29573   [§ elabMisevalArgNoFold (line 29532)]
+    #3 emitStmt at src/StmtEmit.cpp:1939   [§ recvNamesSubroutineCollapsesStmtCall172 (line 1934)]
+    #4 emitProcess at src/StmtEmit.cpp:310   [§ classPropUnitImport21 (line 232)]
+    #5 emitModuleDef at src/ModuleEmit.cpp:5680   [§ shadowedImportParamFold (line 5638)]
+    #6 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #7 main at uhdm_main.cpp:884
+== K0028 probe/default/r10v160repro__x10_enum object #100 enum_typespec ''  0:0:0:0
+  rank 3:
+    #0 UHDM::Serializer::MakeEnum_typespec() ()
+    #1 buildEnumTs at src/TypeEmit.cpp:7414   [§ pkgTdCloneRefNoBind18 (line 7227)]
+    #2 makeTypespec at src/TypeEmit.cpp:2623   [§ classPkgGenericSpecListing53 (line 2591)]
+    #3 emitTaskFuncs at src/TaskFuncEmit.cpp:6207   [§ impCloneDeclRangeNoBind200 (line 6203)]
+    #4 emitClassDefn at src/UhdmExporter.cpp:2646   [§ externProtoInBodyCallBinds12 (line 2638)]
+    #5 emitPackageClasses at src/UhdmExporter.cpp:3600   [§ classNestedClassTdGroupNoAnchor54 (line 3499)]
+    #6 emitPackage at src/ParamEmit.cpp:30973   [§ LAW (line 30925)]
+    #7 exportDesign at src/UhdmExporter.cpp:6280   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #8 main at uhdm_main.cpp:884
+== K0034 probe/default/r10sd1repro__b9_inline object #32 logic_net 'itemb' dut.sv 6:35:6:40
+  rank 2:
+    #0 UHDM::Serializer::MakeLogic_net() ()
+    #1 emitModuleDef at src/ModuleEmit.cpp:5236   [§ implicitNetNoFile119 (line 5195)]
+    #2 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #3 main at uhdm_main.cpp:884
+== K0035 probe/default/r11u8repro__b8 object #6 constant '' dut.sv 7:19:2:3
+  rank 2:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitExpr at src/ExprEmit.cpp:21439   [§ srlgTimeLitVal (line 21394)]
+    #2 emitExpr at src/ExprEmit.cpp:29573   [§ elabMisevalArgNoFold (line 29532)]
+    #3 emitStmt at src/StmtEmit.cpp:1939   [§ recvNamesSubroutineCollapsesStmtCall172 (line 1934)]
+    #4 emitStmt at src/StmtEmit.cpp:2763   [§ thisSuperNewAssignNoStmt3 (line 2757)]
+    #5 emitProcess at src/StmtEmit.cpp:310   [§ classPropUnitImport21 (line 232)]
+    #6 emitModuleDef at src/ModuleEmit.cpp:5680   [§ shadowedImportParamFold (line 5638)]
+    #7 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #8 main at uhdm_main.cpp:884
+== K0036 probe/default/r10uvm84repro__v84x2_incdec object #26 ref_obj 'h' dut.sv 14:12:14:13
+  rank 2:
+    #0 UHDM::Serializer::MakeRef_obj() ()
+    #1 emitExpr at src/ExprEmit.cpp:33070   [§ vifClockingPathComponent5 (line 33055)]
+    #2 emitExpr at src/ExprEmit.cpp:21167   [§ incDecStmtOperandBinds21 (line 21113)]
+    #3 emitStmt at src/StmtEmit.cpp:1939   [§ recvNamesSubroutineCollapsesStmtCall172 (line 1934)]
+    #4 emitStmt at src/StmtEmit.cpp:6276   [§ thisSuperNewAssignNoStmt3 (line 6268)]
+    #5 emitTaskFuncs at src/TaskFuncEmit.cpp:7040   [§ qualifiedLifetimeMethodLosesNamePortsBody46 (line 7036)]
+    #6 emitClassDefn at src/UhdmExporter.cpp:2646   [§ externProtoInBodyCallBinds12 (line 2638)]
+    #7 emitModuleDef at src/ModuleEmit.cpp:4679   [§ caProgClassListNameKeyed95V (line 4649)]
+    #8 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+== K0037 probe/default/v11u111repro__brk__f1__x01_class_param object #23 constant ''  0:0:0:0
+  rank 7:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 operator() at src/UhdmExporter.cpp:3550   [§ classNestedClassTdGroupNoAnchor54 (line 3499)]
+    #2 emitClassParameters at src/UhdmExporter.cpp:3556   [§ classNestedClassTdGroupNoAnchor54 (line 3499)]
+    #3 emitClassDefn at src/UhdmExporter.cpp:2635   [§ classDefnVirtualFromVirtualIfaceDecl6 (line 2617)]
+    #4 operator() at src/UhdmExporter.cpp:8033   [§ caIfaceClassRootAnyIface99 (line 8012)]
+    #5 exportDesign at src/UhdmExporter.cpp:8046   [§ builtinClassTsLinksBuiltinFileDefn7 (line 8034)]
+    #6 main at uhdm_main.cpp:884
+  rank 8:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 operator() at src/UhdmExporter.cpp:3550   [§ classNestedClassTdGroupNoAnchor54 (line 3499)]
+    #2 emitClassParameters at src/UhdmExporter.cpp:3557   [§ classNestedClassTdGroupNoAnchor54 (line 3499)]
+    #3 emitClassDefn at src/UhdmExporter.cpp:2635   [§ classDefnVirtualFromVirtualIfaceDecl6 (line 2617)]
+    #4 operator() at src/UhdmExporter.cpp:8033   [§ caIfaceClassRootAnyIface99 (line 8012)]
+    #5 exportDesign at src/UhdmExporter.cpp:8046   [§ builtinClassTsLinksBuiltinFileDefn7 (line 8034)]
+    #6 main at uhdm_main.cpp:884
+== K0043 probe/default/v11u111repro__brk__f6__y69_vec_dims_two_inst_same object #136 ref_obj 'a' dut.sv 9:37:9:38
+  rank 8:
+    #0 UHDM::Serializer::MakeRef_obj() ()
+    #1 emitExpr at src/ExprEmit.cpp:14549   [§ staticScopedLvalueBad48 (line 14525)]
+    #2 emitExpr at src/ExprEmit.cpp:21167   [§ incDecStmtOperandBinds21 (line 21113)]
+    #3 emitModuleDefPorts at src/ModuleEmit.cpp:7208   [§ structParamBareImportRef (line 7162)]
+    #4 emitInstance at src/ModuleEmit.cpp:11635   [§ importedFreeCallTakesFirstListingImport227 (line 11612)]
+    #5 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #6 main at uhdm_main.cpp:884
+  rank 19:
+    #0 UHDM::Serializer::MakeRef_obj() ()
+    #1 emitExpr at src/ExprEmit.cpp:14549   [§ staticScopedLvalueBad48 (line 14525)]
+    #2 emitExpr at src/ExprEmit.cpp:21167   [§ incDecStmtOperandBinds21 (line 21113)]
+    #3 emitInstance at src/ModuleEmit.cpp:16538   [§ elabPortConnUnitEnumNet (line 16532)]
+    #4 emitInstance at src/ModuleEmit.cpp:15321   [§ bindIfaceTwinInParent46 (line 15251)]
+    #5 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #6 main at uhdm_main.cpp:884
+== K0044 uhdm2rtlil/default/sva_value_change_changed holder #119 ref_obj 'clk' dut.sv 11:29:11:32
+  rank 12:
+  rank 18:
+== K0045 uhdm2rtlil/default/sva_value_change_changed object #221 logic_net 'clk' dut.sv 2:9:2:12
+  rank 1:
+  rank 8:
+== K0047 probe/default/v11u93b107repro__brk__q10_var_in_body holder #17 ref_typespec ''  0:0:0:0
+  rank 1:
+    #0 UHDM::Serializer::MakeRef_typespec() ()
+    #1 emitParameters at src/ParamEmit.cpp:21546   [§ typeParamLocalKeyword18 (line 21528)]
+    #2 exportDesign at src/UhdmExporter.cpp:7801   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #3 main at uhdm_main.cpp:884
+  rank 2:
+    #0 UHDM::Serializer::MakeRef_typespec() ()
+    #1 buildStructTs at src/TypeEmit.cpp:13918   [§ structMemberWrittenQueueArrayTs149 (line 13911)]
+    #2 operator() at src/TypeEmit.cpp:6808   [§ anonPackedAggDimTs107 (line 6775)]
+    #3  makeTypeParamDefaultTs at src/TypeEmit.cpp:6856   [§ typeParamDefaultBoundNoReduce20 (line 6836)]
+    #4 emitParameters at src/ParamEmit.cpp:21647   [§ typeParamChainBorrow45 (line 21617)]
+    #5 exportDesign at src/UhdmExporter.cpp:7801   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #6 main at uhdm_main.cpp:884
+  rank 3:
+    #0 UHDM::Serializer::MakeRef_typespec() ()
+    #1 buildStructTs at src/TypeEmit.cpp:13918   [§ structMemberWrittenQueueArrayTs149 (line 13911)]
+    #2 operator() at src/TypeEmit.cpp:6808   [§ anonPackedAggDimTs107 (line 6775)]
+    #3  makeTypeParamDefaultTs at src/TypeEmit.cpp:6856   [§ typeParamDefaultBoundNoReduce20 (line 6836)]
+    #4 emitParameters at src/ParamEmit.cpp:21647   [§ typeParamChainBorrow45 (line 21617)]
+    #5 exportDesign at src/UhdmExporter.cpp:7801   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #6 main at uhdm_main.cpp:884
+== K0048 probe/default/r10v223repro__arms__v5_escaped object #33 logic_typespec '' dut.sv 4:3:4:14
+  rank 1:
+    #0 UHDM::Serializer::MakeLogic_typespec() ()
+    #1 makeTypespec at src/TypeEmit.cpp:3816   [-]
+    #2 emitPackageVar at src/ParamEmit.cpp:32026   [§ collectOobCtorLocals (line 31964)]
+    #3 operator() at src/ParamEmit.cpp:30463   [§ caPkgListingKindTable79 (line 30385)]
+    #4 emitPackage at src/ParamEmit.cpp:30774   [§ caPkgListingIsTheSignalVector79 (line 30763)]
+    #5 exportDesign at src/UhdmExporter.cpp:6275   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #6 main at uhdm_main.cpp:884
+  rank 2:
+    #0 UHDM::Serializer::MakeLogic_typespec() ()
+    #1 makeTypespec at src/TypeEmit.cpp:3816   [-]
+    #2 emitPackageVar at src/ParamEmit.cpp:32026   [§ collectOobCtorLocals (line 31964)]
+    #3 operator() at src/ParamEmit.cpp:30463   [§ caPkgListingKindTable79 (line 30385)]
+    #4 emitPackage at src/ParamEmit.cpp:30774   [§ caPkgListingIsTheSignalVector79 (line 30763)]
+    #5 exportDesign at src/UhdmExporter.cpp:6280   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #6 main at uhdm_main.cpp:884
+  rank 3:
+    #0 UHDM::Serializer::MakeLogic_typespec() ()
+    #1 makeTypespec at src/TypeEmit.cpp:3816   [-]
+    #2 emitImportedPkgVarNets at src/ModuleEmit.cpp:4384   [§ oobCtorLocalsRideTheImport203 (line 4378)]
+    #3 emitInterfaceDef at src/ModuleEmit.cpp:40193   [§ interfaceDefViewNeverLateBinds223v (line 40191)]
+    #4 exportDesign at src/UhdmExporter.cpp:7814   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #5 main at uhdm_main.cpp:884
+== K0049 probe/default/r11u108repro__grid__pk__k21_param_vn_nofunc object #98 constant '' dut.sv 3:23:3:24
+  rank 3:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitSyntaxExpr at src/TypeEmit.cpp:16565   [§ fnLocalParamRangeNet (line 16530)]
+    #2 emitSyntaxExpr at src/TypeEmit.cpp:18683   [§ hpSymbolicSelect (line 18466)]
+    #3 operator() at src/TypeEmit.cpp:5193   [§ elabVarRangeCallScopeDecl12 (line 5019)]
+    #4 makeTypespec at src/TypeEmit.cpp:6048   [§ typedPkgBoundElabSize113 (line 5983)]
+    #5 emitPackage at src/ParamEmit.cpp:29139   [-]
+    #6 exportDesign at src/UhdmExporter.cpp:6275   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #7 main at uhdm_main.cpp:884
+  rank 9:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitSyntaxExpr at src/TypeEmit.cpp:16565   [§ fnLocalParamRangeNet (line 16530)]
+    #2 emitSyntaxExpr at src/TypeEmit.cpp:18683   [§ hpSymbolicSelect (line 18466)]
+    #3 operator() at src/TypeEmit.cpp:5193   [§ elabVarRangeCallScopeDecl12 (line 5019)]
+    #4 makeTypespec at src/TypeEmit.cpp:6048   [§ typedPkgBoundElabSize113 (line 5983)]
+    #5 makeParamTs at src/ParamEmit.cpp:24812   [§ pkgParamOwnDefRange (line 24796)]
+    #6 drainDefParamTs at src/ParamEmit.cpp:26793   [§ paramCloneImportedCopy (line 26787)]
+    #7 exportDesign at src/UhdmExporter.cpp:7819   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #8 main at uhdm_main.cpp:884
+  rank 24:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitSyntaxExpr at src/TypeEmit.cpp:16565   [§ fnLocalParamRangeNet (line 16530)]
+    #2 emitSyntaxExpr at src/TypeEmit.cpp:18683   [§ hpSymbolicSelect (line 18466)]
+    #3 operator() at src/TypeEmit.cpp:5193   [§ elabVarRangeCallScopeDecl12 (line 5019)]
+    #4 makeTypespec at src/TypeEmit.cpp:6048   [§ typedPkgBoundElabSize113 (line 5983)]
+    #5 makeParamTs at src/ParamEmit.cpp:24812   [§ pkgParamOwnDefRange (line 24796)]
+    #6 patchParamTypespecs at src/ParamEmit.cpp:25906   [§ paramCloneImportedCopy (line 25899)]
+    #7 emitTopPorts at src/ModuleEmit.cpp:29712   [§ castTargetKeywordTypespecKind96 (line 29642)]
+    #8 exportDesign at src/UhdmExporter.cpp:8131   [§ classTdTopOnlyShare50 (line 8092)]
+== K0050 probe/default/r11v11u8repro__v12 object #5 constant '' dut.sv 5:36:5:43
+  rank 1:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitExpr at src/ExprEmit.cpp:21439   [§ srlgTimeLitVal (line 21394)]
+    #2 emitExpr at src/ExprEmit.cpp:29573   [§ elabMisevalArgNoFold (line 29532)]
+    #3 emitStmt at src/StmtEmit.cpp:1939   [§ recvNamesSubroutineCollapsesStmtCall172 (line 1934)]
+    #4 emitStmt at src/StmtEmit.cpp:2781   [§ thisSuperNewAssignNoStmt3 (line 2774)]
+    #5 emitProcess at src/StmtEmit.cpp:310   [§ classPropUnitImport21 (line 232)]
+    #6 emitModuleDef at src/ModuleEmit.cpp:5680   [§ shadowedImportParamFold (line 5638)]
+    #7 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #8 main at uhdm_main.cpp:884
+== K0051 probe/default/r11v11u8repro__v12 object #4 sys_func_call '$display' dut.sv 5:27:4:22
+  rank 1:
+    #0 UHDM::Serializer::MakeSys_func_call() ()
+    #1 emitExpr at src/ExprEmit.cpp:29450   [§ enumNoBaseTypespecZeroBits28 (line 29385)]
+    #2 emitStmt at src/StmtEmit.cpp:1939   [§ recvNamesSubroutineCollapsesStmtCall172 (line 1934)]
+    #3 emitStmt at src/StmtEmit.cpp:2781   [§ thisSuperNewAssignNoStmt3 (line 2774)]
+    #4 emitProcess at src/StmtEmit.cpp:310   [§ classPropUnitImport21 (line 232)]
+    #5 emitModuleDef at src/ModuleEmit.cpp:5680   [§ shadowedImportParamFold (line 5638)]
+    #6 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #7 main at uhdm_main.cpp:884
+== K0052 probe/default/r11v47repro__arms__v28 object #7 struct_typespec '' dut.sv 3:26:3:39
+  rank 1:
+    #0 UHDM::Serializer::MakeStruct_typespec() ()
+    #1 buildStructTs at src/TypeEmit.cpp:12937   [§ typeParamAnonAggMemberNoReduce35 (line 12920)]
+    #2 makeTypespec at src/TypeEmit.cpp:3736   [-]
+    #3 emitParameters at src/ParamEmit.cpp:21719   [§ typeParamChainBorrow45 (line 21617)]
+    #4 exportDesign at src/UhdmExporter.cpp:7801   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #5 main at uhdm_main.cpp:884
+  rank 3:
+    #0 UHDM::Serializer::MakeStruct_typespec() ()
+    #1 buildStructTs at src/TypeEmit.cpp:12937   [§ typeParamAnonAggMemberNoReduce35 (line 12920)]
+    #2 makeTypespec at src/TypeEmit.cpp:3736   [-]
+    #3 emitParameters at src/ParamEmit.cpp:21719   [§ typeParamChainBorrow45 (line 21617)]
+    #4 emitInstance at src/ModuleEmit.cpp:11796   [§ elabParamTsRebind (line 11790)]
+    #5 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #6 main at uhdm_main.cpp:884
+== K0053 probe/default/r11v32repro__h03_enum_alwaysff object #34 packed_array_typespec ''  0:0:0:0
+  rank 1:
+    #0 UHDM::Serializer::MakePacked_array_typespec() ()
+    #1 makeTypespec at src/TypeEmit.cpp:2810   [§ classPkgGenericSpecListing53 (line 2591)]
+    #2 sharedTypespec at src/TypeEmit.cpp:6977   [§ typeParamDefaultBoundNoReduce20 (line 6939)]
+    #3 emitInstance at src/ModuleEmit.cpp:12853   [§ utdVarKwDecline106v (line 12620)]
+    #4 emitInstance at src/ModuleEmit.cpp:15321   [§ bindIfaceTwinInParent46 (line 15251)]
+    #5 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #6 main at uhdm_main.cpp:884
+  rank 2:
+    #0 UHDM::Serializer::MakePacked_array_typespec() ()
+    #1 makeTypespec at src/TypeEmit.cpp:2810   [§ classPkgGenericSpecListing53 (line 2591)]
+    #2 materializeDefNetTs at src/ModuleEmit.cpp:28955   [§ mergedPortDefRangeSymbolic (line 28950)]
+    #3 exportDesign at src/UhdmExporter.cpp:8164   [§ dottedTopNameBareElab (line 8141)]
+    #4 main at uhdm_main.cpp:884
+== K0054 probe/default/r11v11u8repro__v10 object #8 constant '' dut.sv 5:64:5:71
+  rank 3:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitExpr at src/ExprEmit.cpp:21439   [§ srlgTimeLitVal (line 21394)]
+    #2 emitExpr at src/ExprEmit.cpp:29573   [§ elabMisevalArgNoFold (line 29532)]
+    #3 emitStmt at src/StmtEmit.cpp:1939   [§ recvNamesSubroutineCollapsesStmtCall172 (line 1934)]
+    #4 emitStmt at src/StmtEmit.cpp:2763   [§ thisSuperNewAssignNoStmt3 (line 2757)]
+    #5 emitProcess at src/StmtEmit.cpp:310   [§ classPropUnitImport21 (line 232)]
+    #6 emitModuleDef at src/ModuleEmit.cpp:5680   [§ shadowedImportParamFold (line 5638)]
+    #7 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #8 main at uhdm_main.cpp:884
+== K0055 uhdm2rtlil/default/ibex_csr object #145 sys_func_call '$time' prim_assert.sv 32:53:32:58
+  rank 2:
+== K0056 probe/default/v11u112repro__grid__brk__v__b4a_opbase object #103 ref_obj 'i' dut.sv 3:25:3:26
+  rank 5:
+    #0 UHDM::Serializer::MakeRef_obj() ()
+    #1 emitSyntaxExpr at src/TypeEmit.cpp:16303   [§ modStructMemberPkgFold (line 16274)]
+    #2 emitSyntaxExpr at src/TypeEmit.cpp:18681   [§ hpSymbolicSelect (line 18466)]
+    #3 operator() at src/ModuleEmit.cpp:46261   [§ defGenElemIpsVarSel112 (line 46137)]
+    #4 std::function<UHDM::BaseClass* at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #5  emitDefGenStmts at src/ModuleEmit.cpp:47228   [§ genForInitPkgParamFold (line 47115)]
+    #6 emitModuleDef at src/ModuleEmit.cpp:5744   [§ caProgramGenFlattensEveryKind95 (line 5696)]
+    #7 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #8 main at uhdm_main.cpp:884
+  rank 9:
+    #0 UHDM::Serializer::MakeRef_obj() ()
+    #1 emitExpr at src/ExprEmit.cpp:14549   [§ staticScopedLvalueBad48 (line 14525)]
+    #2 emitExpr at src/ExprEmit.cpp:21189   [§ incDecStmtOperandBinds21 (line 21113)]
+    #3 emitExpr at src/ExprEmit.cpp:30905   [§ genLpUseFoldParentScope47 (line 30899)]
+    #4 operator() at src/ModuleEmit.cpp:25986   [§ genCaTernaryFoldGenScope22 (line 25980)]
+    #5 std::function<UHDM::gen_scope_array* at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #6  emitGenScopes at src/ModuleEmit.cpp:28191   [§ genLoopUnitMiseval (line 28180)]
+    #7 emitInstance at src/ModuleEmit.cpp:17418   [§ elabPortBoundIntParamTs109 (line 17191)]
+    #8 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+  rank 12:
+    #0 UHDM::Serializer::MakeRef_obj() ()
+    #1 emitExpr at src/ExprEmit.cpp:14549   [§ staticScopedLvalueBad48 (line 14525)]
+    #2 emitExpr at src/ExprEmit.cpp:21189   [§ incDecStmtOperandBinds21 (line 21113)]
+    #3 emitExpr at src/ExprEmit.cpp:30905   [§ genLpUseFoldParentScope47 (line 30899)]
+    #4 operator() at src/ModuleEmit.cpp:25986   [§ genCaTernaryFoldGenScope22 (line 25980)]
+    #5 std::function<UHDM::gen_scope_array* at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #6  emitGenScopes at src/ModuleEmit.cpp:28191   [§ genLoopUnitMiseval (line 28180)]
+    #7 emitInstance at src/ModuleEmit.cpp:17418   [§ elabPortBoundIntParamTs109 (line 17191)]
+    #8 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+== K0057 probe/default/r11u108repro__grid__pk__k21_param_vn_nofunc object #96 operation '' dut.sv 3:20:3:24
+  rank 1:
+    #0 UHDM::Serializer::MakeOperation() ()
+    #1 emitSyntaxExpr at src/TypeEmit.cpp:18676   [§ hpSymbolicSelect (line 18466)]
+    #2 operator() at src/TypeEmit.cpp:5193   [§ elabVarRangeCallScopeDecl12 (line 5019)]
+    #3 makeTypespec at src/TypeEmit.cpp:6048   [§ typedPkgBoundElabSize113 (line 5983)]
+    #4 emitPackage at src/ParamEmit.cpp:29139   [-]
+    #5 exportDesign at src/UhdmExporter.cpp:6275   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #6 main at uhdm_main.cpp:884
+  rank 2:
+    #0 UHDM::Serializer::MakeOperation() ()
+    #1 emitSyntaxExpr at src/TypeEmit.cpp:18676   [§ hpSymbolicSelect (line 18466)]
+    #2 operator() at src/TypeEmit.cpp:5193   [§ elabVarRangeCallScopeDecl12 (line 5019)]
+    #3 makeTypespec at src/TypeEmit.cpp:6048   [§ typedPkgBoundElabSize113 (line 5983)]
+    #4 makeParamTs at src/ParamEmit.cpp:24812   [§ pkgParamOwnDefRange (line 24796)]
+    #5 drainDefParamTs at src/ParamEmit.cpp:26793   [§ paramCloneImportedCopy (line 26787)]
+    #6 exportDesign at src/UhdmExporter.cpp:7819   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #7 main at uhdm_main.cpp:884
+  rank 3:
+    #0 UHDM::Serializer::MakeOperation() ()
+    #1 emitSyntaxExpr at src/TypeEmit.cpp:18676   [§ hpSymbolicSelect (line 18466)]
+    #2 operator() at src/TypeEmit.cpp:5193   [§ elabVarRangeCallScopeDecl12 (line 5019)]
+    #3 makeTypespec at src/TypeEmit.cpp:6048   [§ typedPkgBoundElabSize113 (line 5983)]
+    #4 makeParamTs at src/ParamEmit.cpp:24812   [§ pkgParamOwnDefRange (line 24796)]
+    #5 patchParamTypespecs at src/ParamEmit.cpp:25906   [§ paramCloneImportedCopy (line 25899)]
+    #6 emitTopPorts at src/ModuleEmit.cpp:29712   [§ castTargetKeywordTypespecKind96 (line 29642)]
+    #7 exportDesign at src/UhdmExporter.cpp:8131   [§ classTdTopOnlyShare50 (line 8092)]
+    #8 main at uhdm_main.cpp:884
+== K0058 probe/default/r10v160repro__x10_enum object #100 enum_typespec ''  0:0:0:0
+  rank 3:
+    #0 UHDM::Serializer::MakeEnum_typespec() ()
+    #1 buildEnumTs at src/TypeEmit.cpp:7414   [§ pkgTdCloneRefNoBind18 (line 7227)]
+    #2 makeTypespec at src/TypeEmit.cpp:2623   [§ classPkgGenericSpecListing53 (line 2591)]
+    #3 emitTaskFuncs at src/TaskFuncEmit.cpp:6207   [§ impCloneDeclRangeNoBind200 (line 6203)]
+    #4 emitClassDefn at src/UhdmExporter.cpp:2646   [§ externProtoInBodyCallBinds12 (line 2638)]
+    #5 emitPackageClasses at src/UhdmExporter.cpp:3600   [§ classNestedClassTdGroupNoAnchor54 (line 3499)]
+    #6 emitPackage at src/ParamEmit.cpp:30973   [§ LAW (line 30925)]
+    #7 exportDesign at src/UhdmExporter.cpp:6280   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #8 main at uhdm_main.cpp:884
+== K0060 probe/default/r11v16repro__v1c object #129 func_call 'p::build' dut.sv 11:39:11:40
+  rank 1:
+    #0 UHDM::Serializer::MakeFunc_call() ()
+    #1 emitExpr at src/ExprEmit.cpp:25783   [§ defGenQualPkgCallBinds18 (line 25772)]
+    #2 emitParameters at src/ParamEmit.cpp:18267   [§ foldSigned9 (line 18209)]
+    #3 exportDesign at src/UhdmExporter.cpp:7801   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #4 main at uhdm_main.cpp:884
+== K0062 probe/default/r10uvm201repro__g201_d_bodyimp object #67 parameter 'D_EXPR'  6:13:6:19
+  rank 12:
+    #0 UHDM::Serializer::MakeParameter() ()
+    #1 emitParameters at src/ParamEmit.cpp:7983   [§ elabReExportPaLhsShare (line 7779)]
+    #2 exportDesign at src/UhdmExporter.cpp:7801   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #3 main at uhdm_main.cpp:884
+== K0064 probe/default/v11u113repro__grid__f1__a08_div object #25 parameter 'P'  1:27:1:28
+  rank 4:
+    #0 UHDM::Serializer::MakeParameter() ()
+    #1 emitParameters at src/ParamEmit.cpp:7983   [§ elabReExportPaLhsShare (line 7779)]
+    #2 exportDesign at src/UhdmExporter.cpp:7801   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #3 main at uhdm_main.cpp:884
+== K0065 probe/default/r10uvm59repro__h03_escspan object #15 assignment '' dut.sv 7:11:7:26
+  rank 1:
+    #0 UHDM::Serializer::MakeAssignment() ()
+    #1 emitStmt at src/StmtEmit.cpp:6252   [§ declInitWrittenNewNoStmt66 (line 6243)]
+    #2 emitTaskFuncs at src/TaskFuncEmit.cpp:7040   [§ qualifiedLifetimeMethodLosesNamePortsBody46 (line 7036)]
+    #3 emitClassDefn at src/UhdmExporter.cpp:2646   [§ externProtoInBodyCallBinds12 (line 2638)]
+    #4 emitPackageClasses at src/UhdmExporter.cpp:3600   [§ classNestedClassTdGroupNoAnchor54 (line 3499)]
+    #5 emitPackage at src/ParamEmit.cpp:30973   [§ LAW (line 30925)]
+    #6 exportDesign at src/UhdmExporter.cpp:6280   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #7 main at uhdm_main.cpp:884
+== K0066 uhdm2rtlil/default/ParameterWithUnderscoreValueDividedPassedFromCommandLine object #135 constant ''  4:23:4:24
+  rank 10:
+== K0067 uhdm2rtlil/default/sva_basic02 object #276 ref_obj 'clock' dut.sv 30:42:30:44
+  rank 26:
+== K0070 probe/default/r10uvm59repro__g01_innerbound object #20 int_typespec '' dut.sv 11:7:11:8
+  rank 2:
+    #0 UHDM::Serializer::MakeInt_typespec() ()
+    #1 makeTypespec at src/TypeEmit.cpp:3631   [§ shadowedImportBoundFold (line 3270)]
+    #2 emitTaskFuncs at src/TaskFuncEmit.cpp:6207   [§ impCloneDeclRangeNoBind200 (line 6203)]
+    #3 emitClassDefn at src/UhdmExporter.cpp:2646   [§ externProtoInBodyCallBinds12 (line 2638)]
+    #4 emitPackageClasses at src/UhdmExporter.cpp:3600   [§ classNestedClassTdGroupNoAnchor54 (line 3499)]
+    #5 emitPackage at src/ParamEmit.cpp:30973   [§ LAW (line 30925)]
+    #6 exportDesign at src/UhdmExporter.cpp:6280   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #7 main at uhdm_main.cpp:884
+== K0071 probe/default/r10v160repro__y13_foreach object #108 unsupported_typespec 'qa'  19:49:19:51
+  rank 1:
+    #0 UHDM::Serializer::MakeUnsupported_typespec() ()
+    #1 emitStmt at src/StmtEmit.cpp:3714   [§ foreachArraySelfSelectAssignDropsTs19 (line 3709)]
+    #2 emitStmt at src/StmtEmit.cpp:6432   [§ invalidChild14 (line 6416)]
+    #3 emitStmt at src/StmtEmit.cpp:6432   [§ invalidChild14 (line 6416)]
+    #4 emitStmt at src/StmtEmit.cpp:6432   [§ invalidChild14 (line 6416)]
+    #5 emitStmt at src/StmtEmit.cpp:6276   [§ thisSuperNewAssignNoStmt3 (line 6268)]
+    #6 emitTaskFuncs at src/TaskFuncEmit.cpp:7040   [§ qualifiedLifetimeMethodLosesNamePortsBody46 (line 7036)]
+    #7 emitClassDefn at src/UhdmExporter.cpp:2646   [§ externProtoInBodyCallBinds12 (line 2638)]
+    #8 emitPackageClasses at src/UhdmExporter.cpp:3600   [§ classNestedClassTdGroupNoAnchor54 (line 3499)]
+== K0072 probe/default/r10earl_repro__a object #46 constant '' dut.sv 7:45:7:50
+  rank 15:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitExpr at src/ExprEmit.cpp:21198   [§ incDecStmtOperandBinds21 (line 21113)]
+    #2 emitExpr at src/ExprEmit.cpp:33135   [§ patCaGenIdxValueRender112 (line 33130)]
+    #3 emitParameters at src/ParamEmit.cpp:18267   [§ foldSigned9 (line 18209)]
+    #4 emitPackage at src/ParamEmit.cpp:27991   [§ caPkgListingNetTypeIsPerView79 (line 27838)]
+    #5 exportDesign at src/UhdmExporter.cpp:6275   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #6 main at uhdm_main.cpp:884
+  rank 30:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitExpr at src/ExprEmit.cpp:21198   [§ incDecStmtOperandBinds21 (line 21113)]
+    #2 emitExpr at src/ExprEmit.cpp:33135   [§ patCaGenIdxValueRender112 (line 33130)]
+    #3 emitParameters at src/ParamEmit.cpp:18267   [§ foldSigned9 (line 18209)]
+    #4 emitPackage at src/ParamEmit.cpp:27991   [§ caPkgListingNetTypeIsPerView79 (line 27838)]
+    #5 exportDesign at src/UhdmExporter.cpp:6280   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #6 main at uhdm_main.cpp:884
+== K0074 probe/default/r11u19repro__grid__q02_mod_packedstruct_defzero object #14 struct_typespec '' dut.sv 1:41:1:54
+  rank 1:
+    #0 UHDM::Serializer::MakeStruct_typespec() ()
+    #1 buildStructTs at src/TypeEmit.cpp:12937   [§ typeParamAnonAggMemberNoReduce35 (line 12920)]
+    #2 makeTypespec at src/TypeEmit.cpp:3736   [-]
+    #3 sharedTypespec at src/TypeEmit.cpp:6977   [§ typeParamDefaultBoundNoReduce20 (line 6939)]
+    #4 emitPorts at src/ModuleEmit.cpp:30792   [§ tpDimVecPortTsIsDefault120 (line 30777)]
+    #5 emitModuleDefPorts at src/ModuleEmit.cpp:6616   [§ caNestedModDefNameScoped99 (line 6574)]
+    #6 emitInstance at src/ModuleEmit.cpp:11635   [§ importedFreeCallTakesFirstListingImport227 (line 11612)]
+    #7 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #8 main at uhdm_main.cpp:884
+  rank 3:
+    #0 UHDM::Serializer::MakeStruct_typespec() ()
+    #1 buildStructTs at src/TypeEmit.cpp:12937   [§ typeParamAnonAggMemberNoReduce35 (line 12920)]
+    #2 makeTypespec at src/TypeEmit.cpp:3736   [-]
+    #3 emitTopPorts at src/ModuleEmit.cpp:29324   [§ defNetTsScope (line 29317)]
+    #4 exportDesign at src/UhdmExporter.cpp:8131   [§ classTdTopOnlyShare50 (line 8092)]
+    #5 main at uhdm_main.cpp:884
+== K0075 probe/default/r11v21repro__v15 holder #5 typespec_member 'aa' dut.sv 4:16:4:18
+  rank 1:
+    #0 UHDM::Serializer::MakeTypespec_member() ()
+    #1 buildStructTs at src/TypeEmit.cpp:13038   [§ typeParamDefaultBoundNoReduce20 (line 12987)]
+    #2 exportDesign at src/UhdmExporter.cpp:7294   [§ the (line 7273)]
+    #3 main at uhdm_main.cpp:884
+  rank 3:
+    #0 UHDM::Serializer::MakeTypespec_member() ()
+    #1 buildStructTs at src/TypeEmit.cpp:13038   [§ typeParamDefaultBoundNoReduce20 (line 12987)]
+    #2 makeParamTs at src/ParamEmit.cpp:25041   [§ tpAnonAggParamTsNoStamp47 (line 24976)]
+    #3 patchParamTypespecs at src/ParamEmit.cpp:25906   [§ paramCloneImportedCopy (line 25899)]
+    #4 emitTopPorts at src/ModuleEmit.cpp:29593   [§ tpDimVecPortTsIsDefault120 (line 29463)]
+    #5 exportDesign at src/UhdmExporter.cpp:8131   [§ classTdTopOnlyShare50 (line 8092)]
+    #6 main at uhdm_main.cpp:884
+== K0076 probe/default/r10earl_repro__aa object #14 parameter 'Impl' dut.sv 15:25:15:29
+  rank 1:
+    #0 UHDM::Serializer::MakeParameter() ()
+    #1 emitParameters at src/ParamEmit.cpp:6586   [§ unsizedBasedParamRhsSize106 (line 6545)]
+    #2 exportDesign at src/UhdmExporter.cpp:7801   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #3 main at uhdm_main.cpp:884
+  rank 2:
+    #0 UHDM::Serializer::MakeParameter() ()
+    #1 emitParameters at src/ParamEmit.cpp:6586   [§ unsizedBasedParamRhsSize106 (line 6545)]
+    #2 emitInstance at src/ModuleEmit.cpp:11796   [§ elabParamTsRebind (line 11790)]
+    #3 emitInstance at src/ModuleEmit.cpp:15321   [§ bindIfaceTwinInParent46 (line 15251)]
+    #4 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #5 main at uhdm_main.cpp:884
+== K0077 probe/default/r10uvm93repro__v93_crash_min object #15 operation '' dut.sv 10:16:10:19
+  rank 2:
+    #0 UHDM::Serializer::MakeOperation() ()
+    #1 emitExpr at src/ExprEmit.cpp:36249   [§ insideOpenRangeMemberIsOneListOp30 (line 36176)]
+    #2 emitExpr at src/ExprEmit.cpp:14093   [§ dynArrayNewLvalueBaseOnly110 (line 14081)]
+    #3 emitStmt at src/StmtEmit.cpp:1939   [§ recvNamesSubroutineCollapsesStmtCall172 (line 1934)]
+    #4 emitStmt at src/StmtEmit.cpp:2781   [§ thisSuperNewAssignNoStmt3 (line 2774)]
+    #5 emitProcess at src/StmtEmit.cpp:310   [§ classPropUnitImport21 (line 232)]
+    #6 emitModuleDef at src/ModuleEmit.cpp:5680   [§ shadowedImportParamFold (line 5638)]
+    #7 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #8 main at uhdm_main.cpp:884
+== K0079 probe/default/r10uvm79repro__c2_idxkind object #99 bit_select 'midx' dut.sv 24:19:24:20
+  rank 8:
+    #0 UHDM::Serializer::MakeBit_select() ()
+    #1 emitExpr at src/ExprEmit.cpp:30466   [§ hpNameBareIdxFold69 (line 30452)]
+    #2 emitExpr at src/ExprEmit.cpp:21189   [§ incDecStmtOperandBinds21 (line 21113)]
+    #3 emitMixedHierPath at src/ExprEmit.cpp:9161   [§ hpMidSelIdxAtPath79 (line 9122)]
+    #4 emitExpr at src/ExprEmit.cpp:32915   [§ thisPathSelectErased4 (line 32890)]
+    #5 emitExpr at src/ExprEmit.cpp:14148   [§ hpNameBareIdxFold69 (line 14136)]
+    #6 emitStmt at src/StmtEmit.cpp:1939   [§ recvNamesSubroutineCollapsesStmtCall172 (line 1934)]
+    #7 emitStmt at src/StmtEmit.cpp:6276   [§ thisSuperNewAssignNoStmt3 (line 6268)]
+    #8 emitTaskFuncs at src/TaskFuncEmit.cpp:7040   [§ qualifiedLifetimeMethodLosesNamePortsBody46 (line 7036)]
+== K0080 probe/default/r10vbuvm24repro__gv24b object #82 logic_net 'a' dut.sv 4:23:4:24
+  rank 1:
+    #0 UHDM::Serializer::MakeLogic_net() ()
+    #1 emitModuleDef at src/ModuleEmit.cpp:4766   [§ caNetDeclStrengthDropped90 (line 4762)]
+    #2 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #3 main at uhdm_main.cpp:884
+  rank 11:
+    #0 UHDM::Serializer::MakeLogic_net() ()
+    #1 emitInstance at src/ModuleEmit.cpp:14316   [§ patFlatDidOrder27 (line 14266)]
+    #2 emitInstance at src/ModuleEmit.cpp:15321   [§ bindIfaceTwinInParent46 (line 15251)]
+    #3 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #4 main at uhdm_main.cpp:884
+  rank 16:
+    #0 UHDM::Serializer::MakeLogic_net() ()
+    #1 emitInstance at src/ModuleEmit.cpp:14316   [§ patFlatDidOrder27 (line 14266)]
+    #2 emitInstance at src/ModuleEmit.cpp:15321   [§ bindIfaceTwinInParent46 (line 15251)]
+    #3 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #4 main at uhdm_main.cpp:884
+== K0085 probe/default/r10itype_repro__t5 object #66 parameter 'PA' dut.sv 2:17:2:19
+  rank 1:
+    #0 UHDM::Serializer::MakeParameter() ()
+    #1 emitParameters at src/ParamEmit.cpp:6586   [§ unsizedBasedParamRhsSize106 (line 6545)]
+    #2 emitInterfaceDef at src/ModuleEmit.cpp:40079   [§ ifaceDefListsItsOwnProcesses226 (line 40052)]
+    #3 exportDesign at src/UhdmExporter.cpp:7814   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #4 main at uhdm_main.cpp:884
+  rank 2:
+    #0 UHDM::Serializer::MakeParameter() ()
+    #1 emitParameters at src/ParamEmit.cpp:6586   [§ unsizedBasedParamRhsSize106 (line 6545)]
+    #2 emitInterfaceInstance at src/ModuleEmit.cpp:41597   [§ ifaceIfaceTypedPort (line 41558)]
+    #3 emitInstance at src/ModuleEmit.cpp:15247   [§ caNestedModDeclNoRefNoInst99 (line 15216)]
+    #4 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #5 main at uhdm_main.cpp:884
+  rank 3:
+    #0 UHDM::Serializer::MakeParameter() ()
+    #1 emitParameters at src/ParamEmit.cpp:6586   [§ unsizedBasedParamRhsSize106 (line 6545)]
+    #2 emitInterfaceInstance at src/ModuleEmit.cpp:41597   [§ ifaceIfaceTypedPort (line 41558)]
+    #3 emitInstance at src/ModuleEmit.cpp:14916   [§ modportNeedsSimplePortNoGenericFallback215v (line 14897)]
+    #4 emitInstance at src/ModuleEmit.cpp:15321   [§ bindIfaceTwinInParent46 (line 15251)]
+    #5 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #6 main at uhdm_main.cpp:884
+== K0087 probe/default/r10v112repro__g4_qualified object #24 class_typespec 't4' dut.sv 9:23:9:45
+  rank 1:
+    #0 UHDM::Serializer::MakeClass_typespec() ()
+    #1 buildClassTypedefTs at src/UhdmExporter.cpp:4774   [§ classTpTdGroupNonClsRootShared91 (line 4747)]
+    #2 emitClassTypedefs at src/UhdmExporter.cpp:4487   [§ typedefAliasSharesTypespec25 (line 4430)]
+    #3 emitClassDefn at src/UhdmExporter.cpp:2636   [§ classDefnVirtualFromVirtualIfaceDecl6 (line 2617)]
+    #4 emitPackageClasses at src/UhdmExporter.cpp:3600   [§ classNestedClassTdGroupNoAnchor54 (line 3499)]
+    #5 emitPackage at src/ParamEmit.cpp:30973   [§ LAW (line 30925)]
+    #6 exportDesign at src/UhdmExporter.cpp:6280   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #7 main at uhdm_main.cpp:884
+  rank 2:
+    #0 UHDM::Serializer::MakeClass_typespec() ()
+    #1 buildClassTypedefTs at src/UhdmExporter.cpp:4774   [§ classTpTdGroupNonClsRootShared91 (line 4747)]
+    #2 emitClassTypedefs at src/UhdmExporter.cpp:4487   [§ typedefAliasSharesTypespec25 (line 4430)]
+    #3 emitClassDefn at src/UhdmExporter.cpp:2636   [§ classDefnVirtualFromVirtualIfaceDecl6 (line 2617)]
+    #4 emitPackageClasses at src/UhdmExporter.cpp:3600   [§ classNestedClassTdGroupNoAnchor54 (line 3499)]
+    #5 emitPackage at src/ParamEmit.cpp:30973   [§ LAW (line 30925)]
+    #6 exportDesign at src/UhdmExporter.cpp:6280   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #7 main at uhdm_main.cpp:884
+  rank 3:
+    #0 UHDM::Serializer::MakeClass_typespec() ()
+    #1 buildClassTypedefTs at src/UhdmExporter.cpp:4774   [§ classTpTdGroupNonClsRootShared91 (line 4747)]
+    #2 emitClassTypedefs at src/UhdmExporter.cpp:4487   [§ typedefAliasSharesTypespec25 (line 4430)]
+    #3 emitClassDefn at src/UhdmExporter.cpp:2636   [§ classDefnVirtualFromVirtualIfaceDecl6 (line 2617)]
+    #4 emitPackageClasses at src/UhdmExporter.cpp:3600   [§ classNestedClassTdGroupNoAnchor54 (line 3499)]
+    #5 emitPackage at src/ParamEmit.cpp:30973   [§ LAW (line 30925)]
+    #6 exportDesign at src/UhdmExporter.cpp:6280   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #7 main at uhdm_main.cpp:884
+== K0088 probe/default/r10uvm66repro__v3_unbound object #18 class_typespec '' dut.sv 59:10:59:11
+  rank 2:
+    #0 UHDM::Serializer::MakeClass_typespec() ()
+    #1 makeTypespec at src/TypeEmit.cpp:2192   [§ arrayElemTdClone42 (line 2157)]
+    #2 emitTaskFuncs at src/TaskFuncEmit.cpp:6207   [§ impCloneDeclRangeNoBind200 (line 6203)]
+    #3 emitClassDefn at src/UhdmExporter.cpp:2646   [§ externProtoInBodyCallBinds12 (line 2638)]
+    #4 emitPackageClasses at src/UhdmExporter.cpp:3600   [§ classNestedClassTdGroupNoAnchor54 (line 3499)]
+    #5 emitPackage at src/ParamEmit.cpp:30973   [§ LAW (line 30925)]
+    #6 exportDesign at src/UhdmExporter.cpp:6280   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #7 main at uhdm_main.cpp:884
+== K0089 probe/default/r11v17repro__grid__w04_syscall_barearg_op object #47 sys_func_call '$signed' dut.sv 6:16:6:30
+  rank 1:
+    #0 UHDM::Serializer::MakeSys_func_call() ()
+    #1 emitSyntaxExpr at src/TypeEmit.cpp:17065   [§ syntaxMultiConcat (line 16925)]
+    #2 emitSyntaxExpr at src/TypeEmit.cpp:18681   [§ hpSymbolicSelect (line 18466)]
+    #3 operator() at src/ModuleEmit.cpp:46282   [§ defGenElemIpsVarSel112 (line 46137)]
+    #4 std::function<UHDM::BaseClass* at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #5  emitDefGenStmts at src/ModuleEmit.cpp:46747   [§ genRegionCondNoEnumBind (line 46686)]
+    #6 emitModuleDef at src/ModuleEmit.cpp:5744   [§ caProgramGenFlattensEveryKind95 (line 5696)]
+    #7 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #8 main at uhdm_main.cpp:884
+== K0090 probe/default/r10buvm27repro__g27_a0_head object #33 enum_typespec 'h27_pkg::h27_radix_e' dut.sv 11:3:11:49
+  rank 1:
+    #0 UHDM::Serializer::MakeEnum_typespec() ()
+    #1 buildEnumTs at src/TypeEmit.cpp:7414   [§ pkgTdCloneRefNoBind18 (line 7227)]
+    #2 emitPackage at src/ParamEmit.cpp:29780   [-]
+    #3 exportDesign at src/UhdmExporter.cpp:6275   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #4 main at uhdm_main.cpp:884
+  rank 2:
+    #0 UHDM::Serializer::MakeEnum_typespec() ()
+    #1 buildEnumTs at src/TypeEmit.cpp:7414   [§ pkgTdCloneRefNoBind18 (line 7227)]
+    #2 emitPackage at src/ParamEmit.cpp:29780   [-]
+    #3 exportDesign at src/UhdmExporter.cpp:6280   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #4 main at uhdm_main.cpp:884
+== K0099 probe/default/r11u113repro__grid__c__c16_mod_comb object #52 integer_typespec '' dut.sv 2:19:2:24
+  rank 1:
+    #0 UHDM::Serializer::MakeInteger_typespec() ()
+    #1 emitExpr at src/ExprEmit.cpp:23191   [§ castTgtDefaultIsLiteral (line 23096)]
+    #2 emitExpr at src/ExprEmit.cpp:14148   [§ hpNameBareIdxFold69 (line 14136)]
+    #3 emitStmt at src/StmtEmit.cpp:1939   [§ recvNamesSubroutineCollapsesStmtCall172 (line 1934)]
+    #4 emitProcess at src/StmtEmit.cpp:310   [§ classPropUnitImport21 (line 232)]
+    #5 emitModuleDef at src/ModuleEmit.cpp:5680   [§ shadowedImportParamFold (line 5638)]
+    #6 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #7 main at uhdm_main.cpp:884
+== K0133 probe/default/r11u90repro__grid.verifier__vx14_strtypedef object #26 ref_typespec ''  0:0:0:0
+  rank 1:
+    #0 UHDM::Serializer::MakeRef_typespec() ()
+    #1 emitModuleDef at src/ModuleEmit.cpp:4924   [§ ifaceDefNetTypespecIsTheModuleRule224 (line 4916)]
+    #2 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #3 main at uhdm_main.cpp:884
+  rank 2:
+    #0 UHDM::Serializer::MakeRef_typespec() ()
+    #1 emitPorts at src/ModuleEmit.cpp:30894   [§ tpDimVecPortTsIsDefault120 (line 30777)]
+    #2 emitModuleDefPorts at src/ModuleEmit.cpp:6616   [§ caNestedModDefNameScoped99 (line 6574)]
+    #3 emitInstance at src/ModuleEmit.cpp:11635   [§ importedFreeCallTakesFirstListingImport227 (line 11612)]
+    #4 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #5 main at uhdm_main.cpp:884
+  rank 3:
+    #0 UHDM::Serializer::MakeRef_typespec() ()
+    #1 emitInstance at src/ModuleEmit.cpp:13237   [§ pkgScopedPaStructStrictNetVar88 (line 13192)]
+    #2 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #3 main at uhdm_main.cpp:884
+== K0197 probe/default/r11u108repro__grid__f4__c12_const_fold holder #71 cont_assign '' dut.sv 5:10:5:21
+  rank 1:
+    #0 UHDM::Serializer::MakeCont_assign() ()
+    #1 emitContAssigns at src/ModuleEmit.cpp:34746   [§ caAsmMemberSliceFold (line 34731)]
+    #2 emitModuleDef at src/ModuleEmit.cpp:5475   [§ shadowedImportParamFold (line 5472)]
+    #3 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #4 main at uhdm_main.cpp:884
+  rank 2:
+    #0 UHDM::Serializer::MakeCont_assign() ()
+    #1 emitContAssigns at src/ModuleEmit.cpp:34746   [§ caAsmMemberSliceFold (line 34731)]
+    #2 emitInstance at src/ModuleEmit.cpp:17408   [§ elabPortBoundIntParamTs109 (line 17191)]
+    #3 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #4 main at uhdm_main.cpp:884
+== K0374 probe/default/r11v69repro__grid__w9_sharehead object #123 constant '' dut.sv 7:31:7:34
+  rank 1:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitExpr at src/ExprEmit.cpp:21198   [§ incDecStmtOperandBinds21 (line 21113)]
+    #2 emitExpr at src/ExprEmit.cpp:35167   [§ r10fsv2 (line 34937)]
+    #3 emitParameters at src/ParamEmit.cpp:18267   [§ foldSigned9 (line 18209)]
+    #4 emitPackage at src/ParamEmit.cpp:27991   [§ caPkgListingNetTypeIsPerView79 (line 27838)]
+    #5 exportDesign at src/UhdmExporter.cpp:6275   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #6 main at uhdm_main.cpp:884
+  rank 2:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitExpr at src/ExprEmit.cpp:21198   [§ incDecStmtOperandBinds21 (line 21113)]
+    #2 emitExpr at src/ExprEmit.cpp:35167   [§ r10fsv2 (line 34937)]
+    #3 emitParameters at src/ParamEmit.cpp:18267   [§ foldSigned9 (line 18209)]
+    #4 emitPackage at src/ParamEmit.cpp:27991   [§ caPkgListingNetTypeIsPerView79 (line 27838)]
+    #5 exportDesign at src/UhdmExporter.cpp:6280   [§ caUnelabBodyChildPorts103 (line 6145)]
+    #6 main at uhdm_main.cpp:884
+  rank 3:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitExpr at src/ExprEmit.cpp:21198   [§ incDecStmtOperandBinds21 (line 21113)]
+    #2 emitExpr at src/ExprEmit.cpp:35167   [§ r10fsv2 (line 34937)]
+    #3 emitExpr at src/ExprEmit.cpp:15380   [§ concatRefNoSubst (line 15348)]
+    #4 emitParameters at src/ParamEmit.cpp:18267   [§ foldSigned9 (line 18209)]
+    #5 exportDesign at src/UhdmExporter.cpp:7801   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #6 main at uhdm_main.cpp:884
+== K0590 surelog/default/ParamArrayUnsizedPattern object #224 constant '' dut.sv 4:73:4:75
+  rank 4:
+  rank 20:
+  rank 21:
+== K0904 surelog/default/BlackParrotComplex object #878 constant '' dut.sv 40:68:40:102
+  rank 276:
+== K0979 probe/default/v11u111repro__brk__f1__x01_class_param object #21 int_typespec '' dut.sv 4:11:4:41
+  rank 1:
+    #0 UHDM::Serializer::MakeInt_typespec() ()
+    #1 emitClassParameters at src/UhdmExporter.cpp:3539   [§ classNestedClassTdGroupNoAnchor54 (line 3499)]
+    #2 emitClassDefn at src/UhdmExporter.cpp:2635   [§ classDefnVirtualFromVirtualIfaceDecl6 (line 2617)]
+    #3 operator() at src/UhdmExporter.cpp:8033   [§ caIfaceClassRootAnyIface99 (line 8012)]
+    #4 exportDesign at src/UhdmExporter.cpp:8046   [§ builtinClassTsLinksBuiltinFileDefn7 (line 8034)]
+    #5 main at uhdm_main.cpp:884
+== K0044 uhdm2rtlil/default/sva_value_change_changed holder #119 ref_obj 'clk' dut.sv 11:29:11:32
+  rank 12:
+    #0 UHDM::Serializer::MakeRef_obj() ()
+    #1 emitExpr at src/ExprEmit.cpp:14549   [§ staticScopedLvalueBad48 (line 14525)]
+    #2 emitEventExpr at src/StmtEmit.cpp:1087   [§ evCtrlOperandBinds108 (line 1049)]
+    #3 emitScopeClocking at src/ModuleEmit.cpp:38917   [§ clockingSkewDelayControl (line 38900)]
+    #4 emitModuleDef at src/ModuleEmit.cpp:5733   [§ caProgramGenFlattensEveryKind95 (line 5696)]
+    #5 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #6 main at uhdm_main.cpp:884
+  rank 18:
+    #0 UHDM::Serializer::MakeRef_obj() ()
+    #1 emitExpr at src/ExprEmit.cpp:14549   [§ staticScopedLvalueBad48 (line 14525)]
+    #2 emitEventExpr at src/StmtEmit.cpp:1087   [§ evCtrlOperandBinds108 (line 1049)]
+    #3 emitScopeClocking at src/ModuleEmit.cpp:38917   [§ clockingSkewDelayControl (line 38900)]
+    #4 emitInstance at src/ModuleEmit.cpp:17684   [§ caProgramGenFlattensEveryKind95 (line 17596)]
+    #5 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #6 main at uhdm_main.cpp:884
+== K0045 uhdm2rtlil/default/sva_value_change_changed object #221 logic_net 'clk' dut.sv 2:9:2:12
+  rank 1:
+    #0 UHDM::Serializer::MakeLogic_net() ()
+    #1 emitModuleDef at src/ModuleEmit.cpp:4766   [§ caNetDeclStrengthDropped90 (line 4762)]
+    #2 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #3 main at uhdm_main.cpp:884
+  rank 8:
+    #0 UHDM::Serializer::MakeLogic_net() ()
+    #1 emitInstance at src/ModuleEmit.cpp:14316   [§ patFlatDidOrder27 (line 14266)]
+    #2 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #3 main at uhdm_main.cpp:884
+== K0055 uhdm2rtlil/default/ibex_csr object #145 sys_func_call '$time' prim_assert.sv 32:53:32:58
+  rank 2:
+    #0 UHDM::Serializer::MakeSys_func_call() ()
+    #1 emitExpr at src/ExprEmit.cpp:29450   [§ enumNoBaseTypespecZeroBits28 (line 29385)]
+    #2 emitExpr at src/ExprEmit.cpp:29573   [§ elabMisevalArgNoFold (line 29532)]
+    #3 emitStmt at src/StmtEmit.cpp:1939   [§ recvNamesSubroutineCollapsesStmtCall172 (line 1934)]
+    #4 emitStmt at src/StmtEmit.cpp:2781   [§ thisSuperNewAssignNoStmt3 (line 2774)]
+    #5 emitAssertion at src/ModuleEmit.cpp:38761   [§ genProcParamFold (line 38713)]
+    #6 emitModuleDef at src/ModuleEmit.cpp:5671   [§ shadowedImportParamFold (line 5638)]
+    #7 exportDesign at src/UhdmExporter.cpp:7816   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #8 main at uhdm_main.cpp:884
+== K0066 uhdm2rtlil/default/ParameterWithUnderscoreValueDividedPassedFromCommandLine object #135 constant ''  4:23:4:24
+  rank 10:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitParameters at src/ParamEmit.cpp:19110   [§ elabLazyTernaryArithFold (line 19030)]
+    #2 emitInstance at src/ModuleEmit.cpp:11796   [§ elabParamTsRebind (line 11790)]
+    #3 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #4 main at uhdm_main.cpp:884
+== K0067 uhdm2rtlil/default/sva_basic02 object #276 ref_obj 'clock' dut.sv 30:42:30:44
+  rank 26:
+    #0 UHDM::Serializer::MakeRef_obj() ()
+    #1 emitExpr at src/ExprEmit.cpp:14549   [§ staticScopedLvalueBad48 (line 14525)]
+    #2 emitInstance at src/ModuleEmit.cpp:16538   [§ elabPortConnUnitEnumNet (line 16532)]
+    #3 emitInstance at src/ModuleEmit.cpp:15321   [§ bindIfaceTwinInParent46 (line 15251)]
+    #4 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #5 main at uhdm_main.cpp:884
+== K0590 surelog/default/ParamArrayUnsizedPattern object #224 constant '' dut.sv 4:73:4:75
+  rank 4:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitExpr at src/ExprEmit.cpp:29656   [§ negLitPkgRetFoldNested30 (line 29611)]
+    #2 emitExpr at src/ExprEmit.cpp:35475   [§ r10fsv2 (line 35230)]
+    #3 emitParameters at src/ParamEmit.cpp:18267   [§ foldSigned9 (line 18209)]
+    #4 exportDesign at src/UhdmExporter.cpp:7801   [§ importedClassTsRideTheFileUnit206 (line 7706)]
+    #5 main at uhdm_main.cpp:884
+  rank 20:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitParameters at src/ParamEmit.cpp:11920   [§ patOpMemberAsmSplit28 (line 11789)]
+    #2 emitInstance at src/ModuleEmit.cpp:11796   [§ elabParamTsRebind (line 11790)]
+    #3 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #4 main at uhdm_main.cpp:884
+  rank 21:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 emitParameters at src/ParamEmit.cpp:11920   [§ patOpMemberAsmSplit28 (line 11789)]
+    #2 emitInstance at src/ModuleEmit.cpp:11796   [§ elabParamTsRebind (line 11790)]
+    #3 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #4 main at uhdm_main.cpp:884
+== K0904 surelog/default/BlackParrotComplex object #878 constant '' dut.sv 40:68:40:102
+  rank 276:
+    #0 UHDM::Serializer::MakeConstant() ()
+    #1 tryFoldConst at src/ExprEmit.cpp:8028   [§ srlgSizeCastUbShiftMask93 (line 7970)]
+    #2 operator() at src/ParamEmit.cpp:12899   [§ castElabFoldTargetKinds (line 12851)]
+    #3 emitParameters at src/ParamEmit.cpp:12904   [§ castElabFoldTargetKinds (line 12851)]
+    #4 emitInstance at src/ModuleEmit.cpp:11796   [§ elabParamTsRebind (line 11790)]
+    #5 exportDesign at src/UhdmExporter.cpp:8068   [§ dottedTopNameBareElab (line 8060)]
+    #6 main at uhdm_main.cpp:884

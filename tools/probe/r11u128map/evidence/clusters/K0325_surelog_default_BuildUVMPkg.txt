@@ -1,0 +1,96 @@
+cluster K0325: struct|golden-only:fewer-copies|ref_typespec|under:class_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(346)  records golden=201533 ours=201486
+object: #11992 (golden) / #-1 (ours)  type=ref_typespec name=
+  golden: 2 objs
+  ours:   
+  walk parents: class_typespec(uvm_pkg::uvm_event_pool) < ref_typespec < ref_var < function(uvm_transaction::get_event_pool)
+record fields: depth type name defname fullname file line col endline endcol decompile size value consttype
+
+--- GOLDEN (A) records 11980..12003 ('>' = the object)
+  #11980	5	ref_obj	this			uvm_pkg.sv	32164	8	32164	17		0		
+  #11981	5	ref_obj	initiator		uvm_pkg::uvm_transaction::set_initiator::initiator		0	0	0	0		0		
+  #11982	2	function	uvm_transaction::get_initiator		uvm_pkg::uvm_transaction::get_initiator	uvm_pkg.sv	32170	1	32172	12				
+  #11983	3	class_var			uvm_pkg::uvm_transaction::get_initiator	uvm_pkg.sv	32170	10	32170	23		0		
+  #11984	4	ref_typespec			uvm_pkg::uvm_transaction::get_initiator		0	0	0	0		0		
+  #11985	5	class_typespec				uvm_pkg.sv	32170	10	32170	23				
+  #11986	3	return_stmt				uvm_pkg.sv	32171	3	32171	9				
+  #11987	4	ref_obj	initiator		uvm_pkg::uvm_transaction::get_initiator::initiator	uvm_pkg.sv	32171	10	32171	19		0		
+  #11988	2	function	uvm_transaction::get_event_pool		uvm_pkg::uvm_transaction::get_event_pool	uvm_pkg.sv	32177	1	32179	12				
+  #11989	3	ref_var			uvm_pkg::uvm_transaction::get_event_pool	uvm_pkg.sv	32177	10	32177	24		0		
+  #11990	4	ref_typespec			uvm_pkg::uvm_transaction::get_event_pool		0	0	0	0		0		
+  #11991	5	class_typespec	uvm_pkg::uvm_event_pool			uvm_pkg.sv	14624	9	14624	31				
+> #11992	6	ref_typespec			uvm_pkg::uvm_pkg::uvm_event_pool		0	0	0	0		0		
+  #11993	7	class_typespec	uvm_pkg::uvm_barrier_pool			uvm_pkg.sv	14624	9	14624	31				
+  #11994	3	return_stmt				uvm_pkg.sv	32178	3	32178	9				
+  #11995	4	ref_obj	events		uvm_pkg::uvm_transaction::get_event_pool::events	uvm_pkg.sv	32178	10	32178	16		0		
+  #11996	2	function	uvm_transaction::is_active		uvm_pkg::uvm_transaction::is_active	uvm_pkg.sv	32185	1	32187	12				
+  #11997	3	bit_var			uvm_pkg::uvm_transaction::is_active	uvm_pkg.sv	32185	10	32185	13		0		
+  #11998	4	ref_typespec			uvm_pkg::uvm_transaction::is_active		0	0	0	0		0		
+  #11999	5	bit_typespec				uvm_pkg.sv	32185	10	32185	13				
+  #12000	3	return_stmt				uvm_pkg.sv	32186	3	32186	9				
+  #12001	4	operation				uvm_pkg.sv	32186	11	32186	25		0		
+  #12002	5	ref_obj	end_time		uvm_pkg::uvm_transaction::is_active::end_time	uvm_pkg.sv	32186	11	32186	19		0		
+  #12003	5	operation				uvm_pkg.sv	32186	23	32186	25		0		
+
+--- the holder #11991 in the other side: exact-record matches at [76326]
+  #76322	4	ref_typespec			uvm_pkg::uvm_component::m_name		0	0	0	0		0		
+  #76323	5	string_typespec				uvm_pkg.sv	38343	3	38343	9				
+  #76324	3	class_var	event_pool		uvm_pkg::uvm_component::event_pool	uvm_pkg.sv	38355	28	38355	38		0		
+  #76325	4	ref_typespec			uvm_pkg::uvm_component::event_pool		0	0	0	0		0		
+> #76326	5	class_typespec	uvm_pkg::uvm_event_pool			uvm_pkg.sv	14624	9	14624	31				
+  #76327	3	int_var	recording_detail		uvm_pkg::uvm_component::recording_detail	uvm_pkg.sv	38357	16	38357	32		0		
+  #76328	4	ref_typespec			uvm_pkg::uvm_component::recording_detail		0	0	0	0		0		
+  #76329	5	int_typespec				uvm_pkg.sv	38357	3	38357	15				
+  #76330	4	ref_obj	UVM_NONE		uvm_pkg::uvm_component::recording_detail::UVM_NONE	uvm_pkg.sv	38357	35	38357	43		0		
+  #76331	3	array_var	m_verbosity_settings		uvm_pkg::uvm_component::m_verbosity_settings	uvm_pkg.sv	38378	23	38378	43		1		
+  #76332	4	ref_typespec			uvm_pkg::uvm_component::m_verbosity_settings		0	0	0	0		0		
+  #76333	5	array_typespec					0	0	0	0				
+  #76334	4	struct_var			uvm_pkg::uvm_component::m_verbosity_settings	uvm_pkg.sv	38378	23	38378	43		0		
+  #76335	5	ref_typespec			uvm_pkg::uvm_component::m_verbosity_settings		0	0	0	0		0		
+  #76336	6	struct_typespec	m_verbosity_setting			uvm_pkg.sv	38370	11	38376	4				
+  #76337	7	typespec_member	comp			uvm_pkg.sv	38371	12	38371	16				
+  #76338	8	ref_typespec			uvm_component::m_verbosity_setting::comp		0	0	0	0		0		
+  #76339	9	string_typespec				uvm_pkg.sv	38371	5	38371	11				
+
+all facets of this row (12107):
+  K0325 #11992/-1 ref_typespec  G[2 objs] O[]
+  K0568 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  K0288 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/22519 bit_typespec  G[] O[1 objs]
+  K0288 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/22603 bit_typespec  G[] O[1 objs]
+  K0288 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/23516 bit_typespec  G[] O[1 objs]
+  K0585 #-1/56203 ref_typespec  G[] O[2 objs]
+  K0558 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  K0247 #-1/74758 bit_typespec  G[] O[1 objs]
+  K0558 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  K0247 #-1/74841 bit_typespec  G[] O[1 objs]
+  K0288 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76348 bit_typespec  G[] O[1 objs]
+  K0288 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76369 bit_typespec  G[] O[1 objs]
+  K0288 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/76429 bit_typespec  G[] O[1 objs]
+  K0288 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/79792 bit_typespec  G[] O[1 objs]
+  K0268 #79836/-1 string_typespec  G[1 objs] O[]
+  K0624 #-1/79803 array_typespec  G[] O[1 objs]
+  K0268 #79890/-1 string_typespec  G[1 objs] O[]
+  K0624 #-1/79857 array_typespec  G[] O[1 objs]
+  K0288 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/79876 bit_typespec  G[] O[1 objs]
+  K0288 #80868/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  K0247 #-1/80829 bit_typespec  G[] O[1 objs]
+  K0229 #96958/96911 bit_typespec  G[8 ref_typespec < enum_typespec(uvm_pkg::uvm_active_passive_enum)] O[6 ref_typespec < enum_var]
+  K0288 #96956/-1 enum_typespec uvm_pkg::uvm_active_passive_enum G[2 objs] O[]
+  K0241 #97010/-1 bit_typespec  G[1 objs] O[]
+  K0208 #118186/-1 range  G[5 objs] O[]
+  K0265 #118191/-1 ref_typespec  G[2 objs] O[]
+  K0265 #118193/-1 ref_typespec  G[2 objs] O[]
+  K0208 #118234/-1 range  G[5 objs] O[]
+  K0265 #118239/-1 ref_typespec  G[2 objs] O[]
+  K0265 #118241/-1 ref_typespec  G[2 objs] O[]
+  K0208 #118303/-1 range  G[5 objs] O[]
+  K0265 #118308/-1 ref_typespec  G[2 objs] O[]
+  ... 12067 more
