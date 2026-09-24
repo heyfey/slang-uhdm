@@ -19,8 +19,10 @@ hierarchy, hierarchy/proc/opt, RTLIL, synth, gate-level netlist). Verdicts:
   SURELOG_FAIL   Surelog wrote no database (no reference; skipped)
   STATUS_DIFF    the two lanes' Yosys statuses differ (OK/NO_GATES/READ_FAIL/
                  CRASH/TIMEOUT)
-Exit 1 when any row is not IDENTICAL or SLANG_REJECT, unless --baseline names a
-CSV whose row for that test carries the same verdict (a reviewed exception).
+Exit 1 when any row is not IDENTICAL, unless --baseline names a CSV whose row
+for that test carries the same verdict (a reviewed exception); SLANG_REJECT
+is excused for a test the baseline does not name (or with no baseline). With
+--baseline, a baseline test the run did not produce (within --filter) fails.
 
     downstream_uhdm2rtlil.py --out CSV [--jobs N] [--filter RE] [--workdir DIR]
                              [--baseline results/downstream_uhdm2rtlil.csv]
@@ -33,6 +35,7 @@ import csv
 import glob
 import hashlib
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -92,6 +95,10 @@ def surelog_db(dirpath, sl_args, work, timeout):
 
 def slang_db(dirpath, su_args, work, timeout):
     out = os.path.join(work, 'slang.uhdm')
+    # A database an earlier run left in a reused workdir would be taken for a
+    # rejected export (and -o does not truncate a larger existing file).
+    if os.path.exists(out):
+        os.unlink(out)
     try:
         subprocess.run([vg.SLANG_UHDM] + su_args + ['-o', out], cwd=dirpath,
                        capture_output=True, text=True, timeout=timeout)
@@ -287,9 +294,18 @@ def main():
     counts, bad = {}, []
     for r in rows:
         counts[r['verdict']] = counts.get(r['verdict'], 0) + 1
-        ok = r['verdict'] in ('IDENTICAL', 'SLANG_REJECT') or base.get(r['name']) == r['verdict']
+        # SLANG_REJECT is excused only where the baseline records it: a row
+        # leaving IDENTICAL for SLANG_REJECT (a rejection only the downstream
+        # flags reach, -DSYNTHESIS) is a regression.
+        ok = (r['verdict'] == 'IDENTICAL' or base.get(r['name']) == r['verdict'] or
+              (r['verdict'] == 'SLANG_REJECT' and r['name'] not in base))
         if not ok:
             bad.append(r)
+    seen = {r['name'] for r in rows}
+    for n in sorted(base):
+        if n not in seen and (not a.filter or re.search(a.filter, n)):
+            bad.append({'name': n, 'verdict': 'NOT_RUN', 'surelog_status': '', 'slang_status': '',
+                        'differs': '', 'detail': f'baseline {base[n]}; no row in this run'})
     for r in bad:
         print(f"{r['verdict']} {r['name']} surelog={r['surelog_status']} slang={r['slang_status']} "
               f"differs=[{r['differs']}] {r['detail']}")

@@ -1,0 +1,26 @@
+Same binary (61cfb59f) in P (base scripts) and F (fixed scripts); predicted movers from the pristine databases: only the UVM order coin family (MiniAmiq/SeqDriver/SimpleUVM/Scoreboard), because no exporter byte depends on the harness scripts.
+== SELFCHECK=1 byteverify.sh swF/surelog swP/surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=3274aa25190c pristine=382af51a5063
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=68ba59434844 pristine=f6d59521aac3
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=2dcfecf1a197 pristine=382af51a5063
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=b2379e4b7d69 pristine=42f116730974
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm  patched=5bc994c668c2 pristine=fa4a94c62caf
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+== SELFCHECK=1 byteverify.sh swF/uhdm2rtlil swP/uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== SELFCHECK=1 byteverify.sh swF/downstream swP/downstream
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVERS: 0 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged
+== probe databases (<case>.uhdm), md5 per file, swF/probe vs swP/probe
+files 4087 vs 4087; differing: 4087
+   The P probe databases were exported from /tmp/wt_r11u136pris/tests/probe and F's from /tmp/wt_r11u136/tests/probe: the database stores the source's absolute path (4 bytes longer in P), so every file differs in size; the judged file field is the basename. Same-location comparison:
+   swF/probe vs the cold-cache check_probe run (both from /tmp/wt_r11u136): differing 0 of 4087
+   (strings in both databases carry the '/tmp/wt_' source prefix)

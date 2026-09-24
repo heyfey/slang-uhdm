@@ -1,0 +1,26 @@
++ tests/sweep.sh --corpus uhdm2rtlil --workdir /tmp/r11u136_a01bbase   (repo /tmp/wt_r11u136pris)
+law index current
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u136_a01bbase/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u136_bin/uhdm-strictcmp
+
+[default] 870 tests
+  CMP_EQUAL: 634
+  STRICT_NOTEQUAL: 168
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+
+[testflags] 870 tests
+  CMP_EQUAL: 634
+  STRICT_NOTEQUAL: 168
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=634 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=168
+[testflags] CMP_EQUAL=634 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=168
+ONLY-COMMITTED 1DUnpackedArray default CMP_EQUAL
+ONLY-COMMITTED 1DUnpackedArray testflags CMP_EQUAL
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=2
+golden cache: 1740 of 1740 runs served from the cache
++ fresh csv rows of 1DUnpackedArray:
+1DUnpackedArray,harness,SURELOG_FAIL,[Errno 17] File exists: '/tmp/r11u136_a01bbase/uhdm2rtlil/default/1DUnpackedArray-3af704bd',,
+SWEEP rc=0

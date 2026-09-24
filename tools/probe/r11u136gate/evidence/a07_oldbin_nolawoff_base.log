@@ -1,0 +1,11 @@
++ STRICT_CMP=/tmp/r11u136_bin/uhdm-strictcmp.9c839593  tests/sweep.sh --corpus probe   (repo /tmp/wt_r11u136pris)
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u136_a07old/probe.csv
+probe cases: EQUAL=2080 STRICT_NOTEQUAL=2007 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=2080 differ:fullname=727 differ:endcol=381 differ:depth=238 differ:line=217 differ:file=146 differ:type=100 differ:endline=80 differ:col=77 differ:name=30 differ:value=5 differ:count=3 differ:decompile=3
+== probe vs golden_probe.csv
+[probe] EQUAL=2080 STRICT_NOTEQUAL=2007
+regressions=29 conversions=28 changes=196 only-fresh=0 only-committed=0
+golden cache: 0 of 0 runs served from the cache
+regression lines: 29
+SWEEP rc=1

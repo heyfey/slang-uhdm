@@ -1,0 +1,12 @@
++ [trunc] GOLDEN_CACHE=<private> check_probe.py --filter '^r10earl59repro/a1_earl59$'; compare_results.py 
+NOT_EQUAL r10earl59repro/a1_earl59 
+probe cases: NOT_EQUAL=1 (of 1); goldens built now=0, from cache=1
+[probe] NOT_EQUAL=1
+REGRESSION r10earl59repro/a1_earl59 EQUAL -> NOT_EQUAL
+regressions=1 conversions=0 changes=0 only-fresh=0 only-committed=4086
+GATE [trunc] rc=1
++ [zero] GOLDEN_CACHE=<private> check_probe.py --filter '^r10earl59repro/a1_earl59$'; compare_results.py 
+probe cases: EQUAL=1 (of 1); goldens built now=1, from cache=0
+[probe] EQUAL=1
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=4086
+GATE [zero] rc=0

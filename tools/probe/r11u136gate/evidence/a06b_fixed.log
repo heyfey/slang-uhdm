@@ -1,0 +1,13 @@
++ run 1: the binary under test
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: IDENTICAL=1 (of 1); not identical and not excused=0
++ run 2: SLANG_UHDM=/bin/false, the same workdir
+law index current
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+1 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+SLANG_REJECT adff surelog= slang= differs=[] 
+downstream: SLANG_REJECT=1 (of 1); not identical and not excused=1
+golden cache: 0 of 0 runs served from the cache
+name,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail
+adff,SLANG_REJECT,,,,,,
+SWEEP rc=1

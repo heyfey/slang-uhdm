@@ -1,0 +1,17 @@
++ GOLDEN_CACHE=<private, v59v2's golden := v59v1's> UHDM_CMP=/bin/true tests/sweep.sh --corpus probe --filter '^r10earl59repro/'   (repo /tmp/wt_r11u136)
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u136_a07dfixedtrue/probe.csv
+NOT_EQUAL r10earl59repro/v59v2_earl59 uhdm-strictcmp stage 1: not equal
+probe cases: EQUAL=3 NOT_EQUAL=1 (of 4); goldens built now=0, from cache=4
+probe strict: equal=3
+== probe vs golden_probe.csv
+[probe] EQUAL=3 NOT_EQUAL=1
+REGRESSION r10earl59repro/v59v2_earl59 STRICT_NOTEQUAL -> NOT_EQUAL
+regressions=1 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 0 of 0 runs served from the cache
+case,status,detail,strict
+r10earl59repro/a1_earl59,EQUAL,,equal
+r10earl59repro/v59v1_earl59,EQUAL,,equal
+r10earl59repro/v59v2_earl59,NOT_EQUAL,uhdm-strictcmp stage 1: not equal,
+r10earl59repro/v59v3_earl59,EQUAL,,equal
+SWEEP rc=1

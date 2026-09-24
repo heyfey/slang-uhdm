@@ -1,0 +1,12 @@
++ check_probe.py --filter '^r11u136gate/new_sne$'; compare_results.py --filter ^r11u136gate/new_sne$
+probe cases: STRICT_NOTEQUAL=1 (of 1); goldens built now=1, from cache=0
+[probe] STRICT_NOTEQUAL=1
+REGRESSION ONLY-FRESH (not equal) r11u136gate/new_sne STRICT_NOTEQUAL differ:endcol(4)
+regressions=1 conversions=0 changes=0 only-fresh=1 only-committed=0
+GATE new_sne rc=1
++ check_probe.py --filter '^r11u136gate/new_eq$'; compare_results.py --filter ^r11u136gate/new_eq$
+probe cases: EQUAL=1 (of 1); goldens built now=1, from cache=0
+[probe] EQUAL=1
+ONLY-FRESH r11u136gate/new_eq EQUAL equal
+regressions=0 conversions=0 changes=0 only-fresh=1 only-committed=0
+GATE new_eq rc=0

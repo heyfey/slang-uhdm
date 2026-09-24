@@ -1,0 +1,42 @@
+## B3: --jobs 1 (sweep J) vs --jobs 3 (sweep F), both fixed scripts, same binary
+probe.csv byte-identical
+surelog.csv differs:
+845c845
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u136_swJ/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u136_swF/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+847c847
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u136_swJ/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u136_swF/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+rows fresh 1596 keys 1596 | base 1596 keys 1596
+differ on status/blocked/strict: 0
+only fresh: [] only base: []
+uhdm2rtlil.csv byte-identical
+
+## B1: three surelog-corpus runs (P base scripts, F, J): status + strict per row-mode
+row-modes 1596 differing among the three runs: 0 []
+  MiniAmiq default [('STRICT_NOTEQUAL', 'differ:line(199)'), ('STRICT_NOTEQUAL', 'differ:line(199)'), ('STRICT_NOTEQUAL', 'differ:line(199)')]
+  MiniAmiq testflags [('STRICT_NOTEQUAL', 'differ:line(199)'), ('STRICT_NOTEQUAL', 'differ:line(199)'), ('STRICT_NOTEQUAL', 'differ:line(199)')]
+  SeqDriver default [('STRICT_NOTEQUAL', 'differ:line(182)'), ('STRICT_NOTEQUAL', 'differ:line(182)'), ('STRICT_NOTEQUAL', 'differ:line(182)')]
+  SeqDriver testflags [('STRICT_NOTEQUAL', 'differ:line(182)'), ('STRICT_NOTEQUAL', 'differ:line(182)'), ('STRICT_NOTEQUAL', 'differ:line(182)')]
+  SimpleUVM default [('STRICT_NOTEQUAL', 'differ:line(195)'), ('STRICT_NOTEQUAL', 'differ:line(195)'), ('STRICT_NOTEQUAL', 'differ:line(195)')]
+  SimpleUVM testflags [('STRICT_NOTEQUAL', 'differ:line(195)'), ('STRICT_NOTEQUAL', 'differ:line(195)'), ('STRICT_NOTEQUAL', 'differ:line(195)')]
+  Scoreboard default [('STRICT_NOTEQUAL', 'differ:line(199)'), ('STRICT_NOTEQUAL', 'differ:line(199)'), ('STRICT_NOTEQUAL', 'differ:line(199)')]
+  Scoreboard testflags [('SLANG_REJECT', ''), ('SLANG_REJECT', ''), ('SLANG_REJECT', '')]
+## coin positive control: byte movers between the three runs
+F vs P:
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=3274aa25190c pristine=382af51a5063
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=68ba59434844 pristine=f6d59521aac3
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=2dcfecf1a197 pristine=382af51a5063
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=b2379e4b7d69 pristine=42f116730974
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm  patched=5bc994c668c2 pristine=fa4a94c62caf
+MOVERS: 5 / 960
+J vs F:
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=bb6daf212e71 pristine=3274aa25190c
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=b0fc2f6d7cb3 pristine=536d26043b34
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=779e50240760 pristine=68ba59434844
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=bf3ab5888355 pristine=2dcfecf1a197
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=cffcf55ee168 pristine=b2379e4b7d69
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm  patched=470a85b8f65c pristine=5bc994c668c2
+MOVERS: 6 / 960

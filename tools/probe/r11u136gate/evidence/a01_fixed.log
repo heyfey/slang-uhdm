@@ -1,0 +1,20 @@
++ tests/sweep.sh --corpus uhdm2rtlil --filter '^1DUnpackedArray$' --workdir /tmp/r11u136_a01fixed   (repo /tmp/wt_r11u136)
+law index current
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u136_a01fixed/uhdm2rtlil.csv
+1 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u136_bin/uhdm-strictcmp
+
+[default] 0 tests
+
+[testflags] 0 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] 
+[testflags] 
+REGRESSION ONLY-COMMITTED (not run) 1DUnpackedArray default CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) 1DUnpackedArray testflags CMP_EQUAL
+REGRESSION HARNESS 1DUnpackedArray SURELOG_FAIL [Errno 17] File exists: '/tmp/r11u136_a01fixed/uhdm2rtlil/default/1DUnpackedArray-3af704bd' (/tmp/r11u136_a01fixed/uhdm2rtlil.csv)
+regressions=3 conversions=0 changes=0 only-fresh=0 only-committed=2
+golden cache: 0 of 0 runs served from the cache
++ fresh csv:
+name,mode,status,detail,blocked_by,strict
+1DUnpackedArray,harness,SURELOG_FAIL,[Errno 17] File exists: '/tmp/r11u136_a01fixed/uhdm2rtlil/default/1DUnpackedArray-3af704bd',,
+SWEEP rc=1

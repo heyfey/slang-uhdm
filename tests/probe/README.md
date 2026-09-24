@@ -11,9 +11,10 @@ path, so a failing case names its pass, and `tests/LAWS.md` names its laws.
 Goldens are not committed. The first check builds each one with the pinned
 Surelog (about 8 minutes at three jobs) and stores it in the golden cache
 the corpus sweep uses (`~/.cache/slang-uhdm-goldens`, `GOLDEN_CACHE=`
-relocates), keyed by Surelog's version line and the case's path; later
-checks take about 15 seconds. A Surelog or UHDM pin bump changes the key,
-so the goldens rebuild themselves on the next check.
+relocates), keyed by Surelog's version line, the case's path and a hash of
+the case's text; later checks take about 15 seconds. An edited case
+rebuilds its golden, and a Surelog or UHDM pin bump changes the key, so
+the goldens rebuild themselves on the next check.
 
 Selection: every unique `tools/probe/**/dut.sv` that judged EQUAL in both
 sweep modes on the converged binary (2838), minus 4 cases that duplicate a

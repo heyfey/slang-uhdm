@@ -10,7 +10,7 @@ base() { printf '%s\n' "$H" \
 run() {  # <label> <expected rc> <expected grep> <rows for the fresh csv...>
   local lab=$1 want=$2 pat=$3; shift 3
   base; { echo "$H"; printf '%s\n' "$@"; } > $T/fresh.csv
-  out=$(python3 $R/scripts/compare_results.py $T/fresh.csv $T/base.csv); rc=$?
+  out=$(python3 $R/scripts/compare_results.py ${XARGS:-} $T/fresh.csv $T/base.csv); rc=$?
   if [ $rc -eq $want ] && grep -q -- "$pat" <<<"$out"; then echo "ok   $lab (rc=$rc): $(grep -- "$pat" <<<"$out" | head -1)"
   else echo "FAIL $lab (rc=$rc want $want, pattern [$pat])"; echo "$out" | sed 's/^/     /'; fail=1; fi
 }
@@ -30,7 +30,8 @@ run 'CMP_NOTEQUAL -> STRICT_NOTEQUAL (change)' 0 'CHANGE ne default CMP_NOTEQUAL
 run 'only-fresh CMP_EQUAL passes' 0 'ONLY-FRESH new default CMP_EQUAL equal' "$E" "$S" "$N" "$J" 'new,default,CMP_EQUAL,,,equal'
 run 'only-fresh STRICT_NOTEQUAL fails' 1 'REGRESSION ONLY-FRESH (not equal) new default STRICT_NOTEQUAL differ:col(1)' "$E" "$S" "$N" "$J" 'new,default,STRICT_NOTEQUAL,differ:col(1),,differ:col(1)'
 run 'only-fresh SLANG_REJECT fails' 1 'regressions=1' "$E" "$S" "$N" "$J" 'new,default,SLANG_REJECT,q,,'
-run 'only-committed (filter) passes' 0 'ONLY-COMMITTED rej default SLANG_REJECT' "$E" "$S" "$N"
+# r11u136: a baseline row the fresh csv lacks passes only outside the run's --filter
+XARGS='--filter ^(eq|sne|ne)$' run 'only-committed (filter) passes' 0 'regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0' "$E" "$S" "$N"
 # the probe shape
 printf 'case,status,detail,strict\na/b,EQUAL,,equal\na/c,STRICT_NOTEQUAL,differ:depth(2),differ:depth(2)\n' > $T/pb.csv
 printf 'case,status,detail,strict\na/b,STRICT_NOTEQUAL,differ:line(1),differ:line(1)\na/c,STRICT_NOTEQUAL,differ:depth(4),differ:depth(4)\na/d,EQUAL,,equal\n' > $T/pf.csv

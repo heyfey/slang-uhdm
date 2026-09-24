@@ -1,0 +1,9 @@
++ check_probe.py --out probe.csv ; compare_results.py probe.csv results/golden_probe.csv    (scripts of /tmp/wt_r11u136)
+probe cases: EQUAL=2080 STRICT_NOTEQUAL=2005 (of 4085); goldens built now=0, from cache=4085
+probe strict: equal=2080 differ:fullname=752 differ:endcol=368 differ:depth=235 differ:line=208 differ:file=145 differ:type=101 differ:endline=78 differ:col=76 differ:name=31 differ:value=5 differ:count=3 differ:decompile=3
+check_probe rc=0
+[probe] EQUAL=2080 STRICT_NOTEQUAL=2005
+REGRESSION ONLY-COMMITTED (not run) r10earl59repro/a1_earl59 EQUAL
+REGRESSION ONLY-COMMITTED (not run) r10earl59repro/v59v2_earl59 STRICT_NOTEQUAL
+regressions=2 conversions=0 changes=0 only-fresh=0 only-committed=2
+GATE rc=1

@@ -604,12 +604,15 @@ def strict_verdict(golden, ours, timeout):
     every walked object matches on name, definition name, full name, file
     basename, span, decompile, size, value and constant type in the same
     order; else 'differ:<first differing field>(<objects differing>)'."""
+    # 'equal' needs the comparator's own STRICT_EQUAL line: another binary at
+    # STRICT_CMP (uhdm-cmp prints its usage and exits 0 on these arguments)
+    # must not read every pair equal.
     try:
         r = subprocess.run([STRICT_CMP, '--max', '0', golden, ours], capture_output=True,
                            text=True, timeout=timeout)
     except subprocess.TimeoutExpired:
         return 'timeout'
-    if r.returncode == 0:
+    if r.returncode == 0 and r.stdout.startswith('STRICT_EQUAL '):
         return 'equal'
     field, n = '', ''
     for line in r.stdout.splitlines():
@@ -643,6 +646,10 @@ def compare(name, mode, dirpath, sl_args, su_args, workroot, timeout):
             st, _, det = status_line.partition('|')
             return (name, mode, st, det, '', '')
     else:
+        # A database an earlier run left here would be taken for this run's
+        # golden when Surelog writes none (find_uhdm globs the directory).
+        for sub in ('slpp_all', 'slpp_unit'):
+            shutil.rmtree(os.path.join(work, sub), ignore_errors=True)
         sl_argv = [SURELOG] + sl_args + ['-mt', '0', '-mp', '0', '-o', work]
         with open(os.path.join(work, 'cmds.txt'), 'wt') as f:
             f.write('surelog: ' + shlex.join(sl_argv) + '\n')
@@ -705,6 +712,10 @@ def compare(name, mode, dirpath, sl_args, su_args, workroot, timeout):
         tail = (cp.stdout or cp.stderr or '').strip().splitlines()
         return (name, mode, 'CMP_NOTEQUAL', tail[0][:140] if tail else '', '', '')
     strict = strict_verdict(golden_uhdm, slang_out, timeout)
+    if strict == 'differ:stage1':
+        # The strict comparator's stage 1 is uhdm-cmp's own Compare: a pair it
+        # rejects is not judge-equal, whatever the binary at UHDM_CMP said.
+        return (name, mode, 'CMP_NOTEQUAL', 'uhdm-strictcmp stage 1: not equal', '', '')
     if strict != 'equal':
         # The strict flip: judge-equal but not strict-equal.
         return (name, mode, 'STRICT_NOTEQUAL', strict, '', strict)

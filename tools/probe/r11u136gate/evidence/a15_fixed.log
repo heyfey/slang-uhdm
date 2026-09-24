@@ -1,0 +1,18 @@
++ UHDM2RTLIL_TESTS=<empty dir> tests/sweep.sh --corpus 'uhdm2rtlil downstream'   (repo /tmp/wt_r11u136)
+law index current
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u136_a15fixed/uhdm2rtlil.csv
+0 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u136_bin/uhdm-strictcmp
+
+[default] 0 tests
+
+[testflags] 0 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] 
+[testflags] 
+REGRESSION ONLY-COMMITTED ... and 1722 more
+regressions=1742 conversions=0 changes=0 only-fresh=0 only-committed=1742
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+0 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream:  (of 0); not identical and not excused=871
+golden cache: 0 of 0 runs served from the cache
+SWEEP rc=1

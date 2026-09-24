@@ -1,0 +1,9 @@
++ two concurrent: tests/sweep.sh --corpus downstream --filter '^(adff|aes_kexp128|add_sub_bind_if|allconst_attr)$' --workdir /tmp/r11u136_b05A | /tmp/r11u136_b05B
+/tmp/r11u136_b05A.log:== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+/tmp/r11u136_b05A.log:downstream: IDENTICAL=4 (of 4); not identical and not excused=0
+/tmp/r11u136_b05B.log:== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+/tmp/r11u136_b05B.log:downstream: IDENTICAL=4 (of 4); not identical and not excused=0
+rc A=0 B=0
+files compared=24 differing=0
+csvs equal
+vs sweep P (other workdir length, base scripts): compared=24 differing=0

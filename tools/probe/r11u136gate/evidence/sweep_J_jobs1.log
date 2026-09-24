@@ -1,0 +1,57 @@
+law index current
+== probe cases (tests/probe, cached goldens), jobs=1, out=/tmp/r11u136_swJ/probe.csv
+probe cases: EQUAL=2081 STRICT_NOTEQUAL=2006 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=2081 differ:fullname=752 differ:endcol=369 differ:depth=235 differ:line=208 differ:file=145 differ:type=101 differ:endline=78 differ:col=76 differ:name=31 differ:value=5 differ:count=3 differ:decompile=3
+== probe vs golden_probe.csv
+[probe] EQUAL=2081 STRICT_NOTEQUAL=2006
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=1, out=/tmp/r11u136_swJ/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u136_bin/uhdm-strictcmp
+
+[default] 798 tests
+  CMP_EQUAL: 331
+  SLANG_REJECT: 285
+  STRICT_NOTEQUAL: 149
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+  CMP_NOTEQUAL: 3
+
+[testflags] 798 tests
+  CMP_EQUAL: 308
+  SLANG_REJECT: 286
+  STRICT_NOTEQUAL: 166
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=331 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=149 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=308 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=166 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=1, out=/tmp/r11u136_swJ/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u136_bin/uhdm-strictcmp
+
+[default] 871 tests
+  CMP_EQUAL: 635
+  STRICT_NOTEQUAL: 168
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 635
+  STRICT_NOTEQUAL: 168
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=635 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=168
+[testflags] CMP_EQUAL=635 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=168
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+
+real	10m33.773s
+user	7m58.161s
+sys	2m51.515s
+SWEEP_RC=0

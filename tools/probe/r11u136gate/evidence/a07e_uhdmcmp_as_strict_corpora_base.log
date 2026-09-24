@@ -1,0 +1,10 @@
++ STRICT_CMP=$UHDM_CMP (uhdm-cmp) tests/sweep.sh --corpus 'surelog uhdm2rtlil'   (repo /tmp/wt_r11u136pris)
+== surelog: both modes, jobs=3, out=/tmp/r11u136_n5base/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /home/heyfey/git-repos/Surelog/build/third_party/UHDM/bin/uhdm-cmp
+== surelog vs golden_surelog.csv
+regressions=0 conversions=315 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u136_n5base/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /home/heyfey/git-repos/Surelog/build/third_party/UHDM/bin/uhdm-cmp
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=0 conversions=336 changes=0 only-fresh=0 only-committed=0
+SWEEP rc=0

@@ -1,0 +1,134 @@
+law index current
+== surelog: both modes, jobs=3, out=/tmp/r11u136_a2base/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u136_bin/uhdm-strictcmp
+  25/798
+  50/798
+  75/798
+  100/798
+  125/798
+  150/798
+  175/798
+  200/798
+  225/798
+  250/798
+  275/798
+  300/798
+  325/798
+  350/798
+  375/798
+  400/798
+  425/798
+  450/798
+  475/798
+  500/798
+  525/798
+  550/798
+  575/798
+  600/798
+  625/798
+  650/798
+  675/798
+  700/798
+  725/798
+  750/798
+  775/798
+
+[default] 26 tests
+  SURELOG_FAIL: 21
+  DEFERRED: 5
+
+[testflags] 26 tests
+  SURELOG_FAIL: 19
+  DEFERRED: 5
+  UNTRANSLATABLE: 2
+== surelog vs golden_surelog.csv
+[default] DEFERRED=5 SURELOG_FAIL=21
+[testflags] DEFERRED=5 SURELOG_FAIL=19 UNTRANSLATABLE=2
+ONLY-COMMITTED 1364_2005 default CMP_EQUAL
+ONLY-COMMITTED 1364_2005 testflags CMP_EQUAL
+ONLY-COMMITTED 3SigsSensList default SLANG_REJECT
+ONLY-COMMITTED 3SigsSensList testflags SLANG_REJECT
+ONLY-COMMITTED AVLMM default SLANG_REJECT
+ONLY-COMMITTED AVLMM testflags SLANG_REJECT
+ONLY-COMMITTED AaFirstTest default SLANG_REJECT
+ONLY-COMMITTED AaFirstTest testflags SLANG_REJECT
+ONLY-COMMITTED AllBinding default CMP_EQUAL
+ONLY-COMMITTED AllBinding testflags CMP_EQUAL
+ONLY-COMMITTED AllPackageSignal default CMP_EQUAL
+ONLY-COMMITTED AllPackageSignal testflags STRICT_NOTEQUAL
+ONLY-COMMITTED AlwaysNoElab default CMP_EQUAL
+ONLY-COMMITTED AlwaysNoElab testflags CMP_EQUAL
+ONLY-COMMITTED AmiqEth default SLANG_REJECT
+ONLY-COMMITTED AmiqEth testflags SLANG_REJECT
+ONLY-COMMITTED AmiqSimpleTestSuite default SLANG_REJECT
+ONLY-COMMITTED AmiqSimpleTestSuite testflags SLANG_REJECT
+ONLY-COMMITTED ApbSlave default STRICT_NOTEQUAL
+ONLY-COMMITTED ApbSlave testflags STRICT_NOTEQUAL
+ONLY-COMMITTED ... and 1524 more
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=1544
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u136_a2base/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u136_bin/uhdm-strictcmp
+  25/871
+  50/871
+  75/871
+  100/871
+  125/871
+  150/871
+  175/871
+  200/871
+  225/871
+  250/871
+  275/871
+  300/871
+  325/871
+  350/871
+  375/871
+  400/871
+  425/871
+  450/871
+  475/871
+  500/871
+  525/871
+  550/871
+  575/871
+  600/871
+  625/871
+  650/871
+  675/871
+  700/871
+  725/871
+  750/871
+  775/871
+  800/871
+  825/871
+  850/871
+
+[default] 0 tests
+
+[testflags] 0 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] 
+[testflags] 
+ONLY-COMMITTED 1DUnpackedArray default CMP_EQUAL
+ONLY-COMMITTED 1DUnpackedArray testflags CMP_EQUAL
+ONLY-COMMITTED 2DFunctionArg default CMP_EQUAL
+ONLY-COMMITTED 2DFunctionArg testflags CMP_EQUAL
+ONLY-COMMITTED 2DParameterOfInstance default STRICT_NOTEQUAL
+ONLY-COMMITTED 2DParameterOfInstance testflags STRICT_NOTEQUAL
+ONLY-COMMITTED 2DUnpackedArray default CMP_EQUAL
+ONLY-COMMITTED 2DUnpackedArray testflags CMP_EQUAL
+ONLY-COMMITTED 2DUnpackedFunctionArgument default CMP_EQUAL
+ONLY-COMMITTED 2DUnpackedFunctionArgument testflags CMP_EQUAL
+ONLY-COMMITTED 2DeclarationsInFor default CMP_EQUAL
+ONLY-COMMITTED 2DeclarationsInFor testflags CMP_EQUAL
+ONLY-COMMITTED AdditionAsParameterInInstance default CMP_EQUAL
+ONLY-COMMITTED AdditionAsParameterInInstance testflags CMP_EQUAL
+ONLY-COMMITTED AluOps default CMP_EQUAL
+ONLY-COMMITTED AluOps testflags CMP_EQUAL
+ONLY-COMMITTED AnonStructs default CMP_EQUAL
+ONLY-COMMITTED AnonStructs testflags CMP_EQUAL
+ONLY-COMMITTED AnonymousEnum default CMP_EQUAL
+ONLY-COMMITTED AnonymousEnum testflags CMP_EQUAL
+ONLY-COMMITTED ... and 1722 more
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=1742
+golden cache: 1643 of 1687 runs served from the cache

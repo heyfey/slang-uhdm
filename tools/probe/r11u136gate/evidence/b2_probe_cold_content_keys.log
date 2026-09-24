@@ -1,0 +1,8 @@
+probe cases: EQUAL=2081 STRICT_NOTEQUAL=2006 (of 4087); goldens built now=4087, from cache=0
+probe strict: equal=2081 differ:fullname=752 differ:endcol=369 differ:depth=235 differ:line=208 differ:file=145 differ:type=101 differ:endline=78 differ:col=76 differ:name=31 differ:value=5 differ:count=3 differ:decompile=3
+
+real	5m4.872s
+user	12m46.285s
+sys	2m31.498s
+rc=0
+cmp vs results/golden_probe.csv: byte-identical

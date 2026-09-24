@@ -5,8 +5,8 @@
 # scripts/verify_golden.py compared against the committed scoreboards in results/;
 # (3) the downstream gate: uhdm2rtlil's Yosys plugin must produce the same
 # result from slang-uhdm's database as from Surelog's on every uhdm2rtlil test
-# except the slang-rejected ones (scripts/downstream_uhdm2rtlil.py, verdicts
-# compared against results/downstream_uhdm2rtlil.csv).
+# except the ones the baseline records otherwise (scripts/downstream_uhdm2rtlil.py,
+# verdicts compared against results/downstream_uhdm2rtlil.csv).
 #
 #   tests/sweep.sh [--jobs N] [--workdir DIR] [--filter REGEX] [--corpus probe|surelog|uhdm2rtlil|downstream]
 #
@@ -21,7 +21,8 @@
 # rows that are judge-equal but not strict-equal are STRICT_NOTEQUAL in the
 # baselines (the explicit residue). Exit status 1 on any probe case uhdm-cmp
 # does not read equal, or any regression against a baseline in any stage
-# (scripts/compare_results.py): do not commit on a nonzero exit.
+# (scripts/compare_results.py, given the same --filter: a baseline row the run
+# did not produce is a regression): do not commit on a nonzero exit.
 set -u
 ROOT=$(cd "$(dirname "$(realpath "$0")")/.." && pwd)
 JOBS=3; WORKDIR=/tmp/slang-uhdm-sweep; FILTER=""; CORPORA="probe surelog uhdm2rtlil downstream"
@@ -47,7 +48,8 @@ for c in $CORPORA; do
             --out "$WORKDIR/probe.csv" ${FILTER:+--filter "$FILTER"} || rc=1
         if [ -f "$WORKDIR/probe.csv" ]; then
             echo "== probe vs golden_probe.csv"
-            python3 "$ROOT/scripts/compare_results.py" "$WORKDIR/probe.csv" "$ROOT/results/golden_probe.csv" || rc=1
+            python3 "$ROOT/scripts/compare_results.py" "$WORKDIR/probe.csv" "$ROOT/results/golden_probe.csv" \
+                ${FILTER:+--filter "$FILTER"} || rc=1
         else
             echo "== probe: no csv written"; rc=1
         fi
@@ -69,7 +71,7 @@ for c in $CORPORA; do
         uhdm2rtlil) base=$ROOT/results/golden_uhdm2rtlil.csv ;;
     esac
     echo "== $c vs $(basename "$base")"
-    python3 "$ROOT/scripts/compare_results.py" "$out" "$base" || rc=1
+    python3 "$ROOT/scripts/compare_results.py" "$out" "$base" ${FILTER:+--filter "$FILTER"} || rc=1
 done
 hits=$(grep -rl 'golden cache hit' "$WORKDIR" --include=cmds.txt 2>/dev/null | wc -l)
 total=$(find "$WORKDIR" -name cmds.txt | wc -l)

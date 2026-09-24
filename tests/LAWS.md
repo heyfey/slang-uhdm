@@ -22,7 +22,7 @@ verification pass owns the laws of the pass it verifies.
 
 Laws: 1484. Cases in the gate: 4087, tied to one law 3969, listed with `?`
 under several 106, tied to no law 12 (listed at the end).
-Laws with a commit on this branch: 906;
+Laws with a commit on this branch: 916;
 laws with cases in the gate: 676.
 
 ## 1. Laws
@@ -1787,7 +1787,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u131repro
 
 ### `castTsPushLaidOut131`
-- commits: none on this branch
+- commits: e49b93ea
 - pass: r11u131repro (verified by r11v131repro)
 - switches: R11U124_CASTFILE_OFF R11U124_OFF R11U131_CASTLOC_OFF R11U131_INETFILE_OFF R11U131_IPSSPAN_OFF R11U131_KWSYS_OFF R11U131_OFF R11U131_OVRMD_OFF R11U131_PAREN_OFF R11U131_PATTS_OFF R11U131_PTSSEP_OFF R11U131_QCALL_OFF
 - source: src/ExprEmit.cpp(4)
@@ -2904,7 +2904,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): none
 
 ### `constCtxCallArgInner131v`
-- commits: none on this branch
+- commits: e49b93ea
 - pass: - (verified by r11v131repro)
 - switches: R11U131_OFF R11V131_ARGCTX_OFF
 - source: src/ExprEmit.cpp(2)
@@ -6302,7 +6302,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r10uvm38repro
 
 ### `implicitNetMintNoFile131`
-- commits: none on this branch
+- commits: e49b93ea
 - pass: r11u131repro (verified by r11v131repro)
 - switches: R11U124_CASTFILE_OFF R11U124_OFF R11U131_CASTLOC_OFF R11U131_INETFILE_OFF R11U131_IPSSPAN_OFF R11U131_KWSYS_OFF R11U131_OFF R11U131_OVRMD_OFF R11U131_PAREN_OFF R11U131_PATTS_OFF R11U131_PTSSEP_OFF R11U131_QCALL_OFF R11V131_ARGCTX_OFF
 - source: src/ExprEmit.cpp(3) src/ParamEmit.cpp(1) src/StmtEmit.cpp(1)
@@ -7784,7 +7784,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): none
 
 ### `ovrMultiDimConstUnparented131`
-- commits: none on this branch
+- commits: e49b93ea
 - pass: r11u131repro (verified by r11v131repro)
 - switches: R11U131_CASTLOC_OFF R11U131_INETFILE_OFF R11U131_IPSSPAN_OFF R11U131_KWSYS_OFF R11U131_OFF R11U131_OVRMD_OFF R11U131_PAREN_OFF R11U131_PATTS_OFF R11U131_PTSSEP_OFF R11U131_QCALL_OFF
 - source: src/ParamEmit.cpp(2)
@@ -7925,7 +7925,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): none
 
 ### `paramFoldParenSpan131`
-- commits: none on this branch
+- commits: e49b93ea
 - pass: r11u131repro (verified by r11v131repro)
 - switches: R10E85_OFF R10E87_OFF R11U131_CASTLOC_OFF R11U131_INETFILE_OFF R11U131_IPSSPAN_OFF R11U131_KWSYS_OFF R11U131_OFF R11U131_OVRMD_OFF R11U131_PAREN_OFF R11U131_PATTS_OFF R11U131_PTSSEP_OFF R11U131_QCALL_OFF
 - source: src/ParamEmit.cpp(4)
@@ -7933,7 +7933,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): r11u131repro/par/p01_def_arith/dut.sv r11u131repro/par/p02_override_clog/dut.sv r11u131repro/par/p03_dep_noover/dut.sv r11u131repro/par/p04_local_name/dut.sv r11u131repro/par/p05_pkg/dut.sv r11u131repro/par/p06_override_expr/dut.sv r11u131repro/par/p07_ctl_noparen/dut.sv r11u131repro/par/p08_partial_paren/dut.sv r11u131repro/par/p09_typed/dut.sv r11u131repro/par/p10_gen/dut.sv r11u131repro/par/p11_str/dut.sv r11u131repro/par/p12_cond/dut.sv r11v131repro/par/b01_read_ca/dut.sv r11v131repro/par/b02_double_paren/dut.sv r11v131repro/par/b03_pkg_import_lit/dut.sv r11v131repro/par/b04_localparam_body/dut.sv r11v131repro/par/b05_gen_localparam/dut.sv r11v131repro/par/b06_iface/dut.sv r11v131repro/par/b07_override_paren/dut.sv r11v131repro/par/b08_two_inst/dut.sv r11v131repro/par/b09_typed_signed/dut.sv r11v131repro/par/b10_pkg_qual_read/dut.sv r11v131repro/par/b11_neg/dut.sv r11v131repro/par/b12_sameinner/dut.sv r11v131repro/par/b21_typed_read_ca/dut.sv r11v131repro/par/b22_typed_pkg_import/dut.sv r11v131repro/par/b23_typed_localparam_body/dut.sv r11v131repro/par/b24_typed_gen_localparam/dut.sv r11v131repro/par/b25_typed_two_inst/dut.sv r11v131repro/par/b26_typed_pkg_qual/dut.sv r11v131repro/par/b27_range_use/dut.sv r11v131repro/par/b28_logic_vec/dut.sv r11v131repro/par/b29_gen_for_use/dut.sv r11v131repro/par/b30_paren_lit_override/dut.sv r11v131repro/par/b31_macro_paren/dut.sv r11v131repro/par/b32_iface_port_param/dut.sv
 
 ### `paramIdxPartSelWholeSpan131`
-- commits: none on this branch
+- commits: e49b93ea
 - pass: r11u131repro (verified by r11v131repro)
 - switches: R11U131_CASTLOC_OFF R11U131_INETFILE_OFF R11U131_IPSSPAN_OFF R11U131_KWSYS_OFF R11U131_OFF R11U131_OVRMD_OFF R11U131_PAREN_OFF R11U131_PATTS_OFF R11U131_PTSSEP_OFF R11U131_QCALL_OFF R11V131_ARGCTX_OFF
 - source: src/ExprEmit.cpp(1)
@@ -8860,7 +8860,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u5repro
 
 ### `pkgParamTsRefColons131`
-- commits: none on this branch
+- commits: e49b93ea
 - pass: r11u131repro (verified by r11v131repro)
 - switches: R11U131_CASTLOC_OFF R11U131_INETFILE_OFF R11U131_IPSSPAN_OFF R11U131_KWSYS_OFF R11U131_OFF R11U131_OVRMD_OFF R11U131_PAREN_OFF R11U131_PATTS_OFF R11U131_PTSSEP_OFF R11U131_QCALL_OFF
 - source: src/ParamEmit.cpp(1)
@@ -8948,7 +8948,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): none
 
 ### `pkgPatReadTsNoParent131`
-- commits: none on this branch
+- commits: e49b93ea
 - pass: r11u131repro (verified by r11v131repro)
 - switches: R10E85_OFF R10E87_OFF R11U131_CASTLOC_OFF R11U131_INETFILE_OFF R11U131_IPSSPAN_OFF R11U131_KWSYS_OFF R11U131_OFF R11U131_OVRMD_OFF R11U131_PAREN_OFF R11U131_PATTS_OFF R11U131_PTSSEP_OFF R11U131_QCALL_OFF
 - source: src/ParamEmit.cpp(3)
@@ -8979,7 +8979,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): r11u117repro/grid/g1/g01/dut.sv? r11u117repro/grid/g1/g02/dut.sv? r11u117repro/grid/g1/g03/dut.sv? r11u117repro/grid/g1/g04/dut.sv? r11u117repro/grid/g1/g05/dut.sv? r11u117repro/grid/g1/g06/dut.sv? r11u117repro/grid/g1/g07/dut.sv? r11u117repro/grid/g1/g08/dut.sv? r11u117repro/grid/g1/g09/dut.sv? r11u117repro/grid/g1/g10/dut.sv? r11u117repro/grid/g1/g11/dut.sv? r11u117repro/grid/g1/g12/dut.sv? r11u117repro/grid/g1/g14/dut.sv? r11u117repro/grid/g1/g15/dut.sv? r11u117repro/grid/g1/g16/dut.sv? r11u117repro/grid/g1/g17/dut.sv? r11u117repro/grid/g1/g19/dut.sv? r11u117repro/grid/g1/s01/dut.sv? r11u117repro/grid/g1/s02/dut.sv? r11u117repro/grid/g1/s03/dut.sv? r11u117repro/grid/g1/s04/dut.sv? r11u117repro/grid/g1/s05/dut.sv? r11u117repro/grid/g1/s06/dut.sv? r11u117repro/grid/g1/s07/dut.sv? r11u117repro/grid/g1/s08/dut.sv? r11u117repro/grid/g1/s09/dut.sv? r11u117repro/grid/g1/s10/dut.sv? r11u117repro/grid/g1/s11/dut.sv? r11u117repro/grid/g1/s12/dut.sv? r11u117repro/grid/g1/t01/dut.sv? r11u117repro/grid/g1/t02/dut.sv? r11u117repro/grid/g1/t04/dut.sv? r11u117repro/grid/g1/t06/dut.sv? r11u117repro/grid/g1/t07/dut.sv? r11u117repro/grid/g1/t08/dut.sv? r11u117repro/grid/g1/t09/dut.sv? r11u117repro/grid/g1/t10/dut.sv? r11u117repro/grid/g1/t13/dut.sv? r11u117repro/grid/g1/t14/dut.sv? r11u117repro/grid/g1/t17/dut.sv? r11u117repro/grid/g1/t19/dut.sv? r11u117repro/grid/g1/t20/dut.sv? r11u117repro/grid/g1/t21/dut.sv? r11u117repro/grid/g1/t22/dut.sv? r11u117repro/grid/g1/t23/dut.sv? r11u117repro/grid/g1/t24/dut.sv? r11u117repro/grid/g2/r11u108_pk_k13_member_nested_stamp/dut.sv? r11u117repro/grid/g2/r11u108_pk_k14_member_nested_nodim/dut.sv? r11u117repro/grid/g2/r11u111_f3_k13_member_nested_stamp/dut.sv? r11u117repro/grid/g2/r11u111_f3_k14_member_nested_nodim/dut.sv? r11u117repro/grid/g2/r11u111_f3_s00_stamped_corpus/dut.sv? r11u117repro/grid/g2/r11u111_f3_t10_pat_row_member/dut.sv? r11u117repro/grid/g2/r11u111_f3_t12_pat_row_dims_member/dut.sv? r11u117repro/grid/g2/r11u114_f1_a01/dut.sv? r11u117repro/grid/g2/r11u114_f1_a29/dut.sv? r11u117repro/grid/g2/r11u114_f1_a30/dut.sv? r11u117repro/grid/g3/b11/dut.sv? r11u117repro/grid/g3/r02/dut.sv? r11u117repro/grid/g3/r03/dut.sv? r11u117repro/grid/g3/r05/dut.sv? r11u117repro/grid/g3/r06/dut.sv? v11u117repro/grid/b01/dut.sv? v11u117repro/grid/b07/dut.sv? v11u117repro/grid/b08/dut.sv? v11u117repro/grid/b19/dut.sv? v11u117repro/grid/b20/dut.sv? v11u117repro/grid/b23/dut.sv? v11u117repro/grid/b36/dut.sv? v11u117repro/grid/b44/dut.sv? v11u117repro/grid/b46/dut.sv? v11u117repro/grid/b49/dut.sv? v11u117repro/grid/b50/dut.sv? v11u117repro/grid/b52/dut.sv?
 
 ### `pkgQualCallQualSpan131`
-- commits: none on this branch
+- commits: e49b93ea
 - pass: r11u131repro (verified by r11v131repro)
 - switches: R11U131_CASTLOC_OFF R11U131_INETFILE_OFF R11U131_IPSSPAN_OFF R11U131_KWSYS_OFF R11U131_OFF R11U131_OVRMD_OFF R11U131_PAREN_OFF R11U131_PATTS_OFF R11U131_PTSSEP_OFF R11U131_QCALL_OFF R11V131_ARGCTX_OFF
 - source: src/ExprEmit.cpp(1)
@@ -10850,7 +10850,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): r11v17repro/grid/va01_delayparam_modlhs_op_genlocal/dut.sv? r11v17repro/grid/va02_delaylit_modlhs_op_genlocal/dut.sv? r11v17repro/grid/va06_iface_genscope_modlhs_op/dut.sv? r11v17repro/grid/va15_sysfunc_arg_genlocallhs_op_keep/dut.sv? r11v17repro/grid/va16_two_assigns_flag_reset/dut.sv? r11v17repro/grid/va17_genlocal_then_module/dut.sv? r11v17repro/grid/va18_concat_lhs_genlocal/dut.sv? r11v17repro/grid/w02_syscall_castarg_op/dut.sv? r11v17repro/grid/w05_syscall_castarg_op_topmod/dut.sv? r11v17repro/grid/w06_syscall_castarg_funccall_op/dut.sv?
 
 ### `sysCallKwTypeArgNameSpan131`
-- commits: none on this branch
+- commits: e49b93ea
 - pass: r11u131repro (verified by r11v131repro)
 - switches: R11U131_CASTLOC_OFF R11U131_INETFILE_OFF R11U131_IPSSPAN_OFF R11U131_KWSYS_OFF R11U131_OFF R11U131_OVRMD_OFF R11U131_PAREN_OFF R11U131_PATTS_OFF R11U131_PTSSEP_OFF R11U131_QCALL_OFF
 - source: src/ExprEmit.cpp(4)
@@ -12666,6 +12666,7 @@ lists it under the law).
 | r11u131repro |  | `castTsPushLaidOut131` `implicitNetMintNoFile131` `ovrMultiDimConstUnparented131` `paramFoldParenSpan131` `paramIdxPartSelWholeSpan131` `pkgParamTsRefColons131` `pkgPatReadTsNoParent131` `pkgQualCallQualSpan131` `sysCallKwTypeArgNameSpan131` | 0 | 121 |
 | r11u132map |  |  | 0 | 0 |
 | r11u135flip |  |  | 0 | 0 |
+| r11u136gate |  |  | 0 | 0 |
 | r11u13repro |  |  | 2 | 7 |
 | r11u14repro |  |  | 6 | 4 |
 | r11u15repro |  |  | 40 | 4 |

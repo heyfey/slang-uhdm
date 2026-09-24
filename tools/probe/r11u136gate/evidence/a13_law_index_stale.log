@@ -1,0 +1,8 @@
++ (in a scratch worktree at c9e2923c) echo '| stale |' >> tests/LAWS.md; tests/sweep.sh --corpus ''
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+golden cache: 0 of 0 runs served from the cache
+SWEEP rc=1
+Updated 1 path from the index
+law index current
+golden cache: 0 of 0 runs served from the cache
+SWEEP (restored) rc=0

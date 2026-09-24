@@ -17,8 +17,13 @@ STRICT_NOTEQUAL to a status the judge does not read equal. A CONVERSION is a
 row that enters CMP_EQUAL. A CHANGE is any other status change, or a
 STRICT_NOTEQUAL row whose strict verdict changed (printed old -> new with the
 count delta when the first field is the same). A row only in the fresh csv
-must be CMP_EQUAL / EQUAL, else it is a regression; rows only in the baseline
-(a --filter run) are listed. Exit status is 1 on any regression, else 0.
+must be CMP_EQUAL / EQUAL, else it is a regression. A baseline row the fresh
+csv lacks is a regression too (a test or case that was not run, or that the
+harness lost to an exception), unless --filter (the REGEX the run was given,
+matched as the harness matches it: re.search on the test name or the case
+path) excludes it. A row of mode `harness` (verify_golden.py's record of an
+exception) and a key listed twice in either csv are regressions. Exit status
+is 1 on any regression, else 0.
 """
 import argparse
 import csv
@@ -30,20 +35,29 @@ EQUAL = ('CMP_EQUAL', 'EQUAL')
 STRICT_NE = 'STRICT_NOTEQUAL'
 
 
-def load(path, modes):
-    """-> {key: (status, strict)}; key is (name, mode), or (case, 'probe')."""
+def load(path, modes, bad):
+    """-> {key: (status, strict)}; key is (name, mode), or (case, 'probe').
+    Appends to `bad` every key listed twice and every `harness` row."""
     rows = {}
     with open(path, newline='') as f:
         rd = csv.reader(f)
         header = next(rd, None) or []
-        probe = bool(header) and header[0] == 'case'
+        probe = bool(header) and header[0].lstrip('\ufeff') == 'case'
         for r in rd:
             if not r:
                 continue
             if probe:
-                rows[(r[0], 'probe')] = (r[1], r[3] if len(r) > 3 else '')
+                k, v = (r[0], 'probe'), (r[1], r[3] if len(r) > 3 else '')
+            elif r[1] == 'harness':
+                bad.append(f'HARNESS {r[0]} {r[2]} {r[3]} ({path})')
+                continue
             elif r[1] in modes:
-                rows[(r[0], r[1])] = (r[2], r[5] if len(r) > 5 else '')
+                k, v = (r[0], r[1]), (r[2], r[5] if len(r) > 5 else '')
+            else:
+                continue
+            if k in rows:
+                bad.append(f'DUPLICATE {" ".join(k)} ({path})')
+            rows[k] = v
     return rows, probe
 
 
@@ -61,9 +75,14 @@ def main():
     ap.add_argument('fresh')
     ap.add_argument('committed')
     ap.add_argument('--modes', default='default,testflags')
+    ap.add_argument('--filter', default=None,
+                    help='the REGEX the fresh run was given: baseline rows it excludes are not expected')
     a = ap.parse_args()
     modes = set(a.modes.split(','))
-    (fresh, probe), (base, _) = load(a.fresh, modes), load(a.committed, modes)
+    malformed = []
+    (fresh, probe), (base, _) = load(a.fresh, modes, malformed), load(a.committed, modes, malformed)
+    if a.filter:
+        base = {k: v for k, v in base.items() if re.search(a.filter, k[0])}
     regress, convert, change = [], [], []
     for k, (st, sv) in sorted(fresh.items()):
         if k not in base:
@@ -96,11 +115,13 @@ def main():
         st, sv = fresh[k]
         tag = 'ONLY-FRESH' if st in EQUAL else 'REGRESSION ONLY-FRESH (not equal)'
         print(f'{tag} {label(k)} {st} {sv}'.rstrip())
-    for k in only_base[:20]:   # a --filter run leaves the rest of the baseline here
-        print(f'ONLY-COMMITTED {label(k)} {base[k][0]}')
+    for k in only_base[:20]:   # not run, or lost to a harness exception
+        print(f'REGRESSION ONLY-COMMITTED (not run) {label(k)} {base[k][0]}')
     if len(only_base) > 20:
-        print(f'ONLY-COMMITTED ... and {len(only_base) - 20} more')
-    nreg = len(regress) + len(fresh_bad)
+        print(f'REGRESSION ONLY-COMMITTED ... and {len(only_base) - 20} more')
+    for m in malformed:
+        print(f'REGRESSION {m}')
+    nreg = len(regress) + len(fresh_bad) + len(only_base) + len(malformed)
     print(f'regressions={nreg} conversions={len(convert)} changes={len(change)} '
           f'only-fresh={len(only_fresh)} only-committed={len(only_base)}')
     sys.exit(1 if nreg else 0)

@@ -1,0 +1,145 @@
+law index current
+== surelog: both modes, jobs=3, out=/tmp/r11u136_a2fix/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u136_bin/uhdm-strictcmp
+  25/798
+  50/798
+  75/798
+  100/798
+  125/798
+  150/798
+  175/798
+  200/798
+  225/798
+  250/798
+  275/798
+  300/798
+  325/798
+  350/798
+  375/798
+  400/798
+  425/798
+  450/798
+  475/798
+  500/798
+  525/798
+  550/798
+  575/798
+  600/798
+  625/798
+  650/798
+  675/798
+  700/798
+  725/798
+  750/798
+  775/798
+
+[default] 26 tests
+  SURELOG_FAIL: 21
+  DEFERRED: 5
+
+[testflags] 26 tests
+  SURELOG_FAIL: 19
+  DEFERRED: 5
+  UNTRANSLATABLE: 2
+== surelog vs golden_surelog.csv
+[default] DEFERRED=5 SURELOG_FAIL=21
+[testflags] DEFERRED=5 SURELOG_FAIL=19 UNTRANSLATABLE=2
+REGRESSION ONLY-COMMITTED (not run) 1364_2005 default CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) 1364_2005 testflags CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) 3SigsSensList default SLANG_REJECT
+REGRESSION ONLY-COMMITTED (not run) 3SigsSensList testflags SLANG_REJECT
+REGRESSION ONLY-COMMITTED (not run) AVLMM default SLANG_REJECT
+REGRESSION ONLY-COMMITTED (not run) AVLMM testflags SLANG_REJECT
+REGRESSION ONLY-COMMITTED (not run) AaFirstTest default SLANG_REJECT
+REGRESSION ONLY-COMMITTED (not run) AaFirstTest testflags SLANG_REJECT
+REGRESSION ONLY-COMMITTED (not run) AllBinding default CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) AllBinding testflags CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) AllPackageSignal default CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) AllPackageSignal testflags STRICT_NOTEQUAL
+REGRESSION ONLY-COMMITTED (not run) AlwaysNoElab default CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) AlwaysNoElab testflags CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) AmiqEth default SLANG_REJECT
+REGRESSION ONLY-COMMITTED (not run) AmiqEth testflags SLANG_REJECT
+REGRESSION ONLY-COMMITTED (not run) AmiqSimpleTestSuite default SLANG_REJECT
+REGRESSION ONLY-COMMITTED (not run) AmiqSimpleTestSuite testflags SLANG_REJECT
+REGRESSION ONLY-COMMITTED (not run) ApbSlave default STRICT_NOTEQUAL
+REGRESSION ONLY-COMMITTED (not run) ApbSlave testflags STRICT_NOTEQUAL
+REGRESSION ONLY-COMMITTED ... and 1524 more
+REGRESSION HARNESS 1364_2005 SURELOG_FAIL [Errno 13] Permission denied: '/tmp/r11u136_bin/slang-uhdm.noexec' (/tmp/r11u136_a2fix/surelog.csv)
+REGRESSION HARNESS 3SigsSensList SURELOG_FAIL [Errno 13] Permission denied: '/tmp/r11u136_bin/slang-uhdm.noexec' (/tmp/r11u136_a2fix/surelog.csv)
+REGRESSION HARNESS AaFirstTest SURELOG_FAIL [Errno 13] Permission denied: '/tmp/r11u136_bin/slang-uhdm.noexec' (/tmp/r11u136_a2fix/surelog.csv)
+REGRESSION HARNESS AllBinding SURELOG_FAIL [Errno 13] Permission denied: '/tmp/r11u136_bin/slang-uhdm.noexec' (/tmp/r11u136_a2fix/surelog.csv)
+REGRESSION HARNESS AllPackageSignal SURELOG_FAIL [Errno 13] Permission denied: '/tmp/r11u136_bin/slang-uhdm.noexec' (/tmp/r11u136_a2fix/surelog.csv)
+REGRESSION HARNESS AlwaysNoElab SURELOG_FAIL [Errno 13] Permission denied: '/tmp/r11u136_bin/slang-uhdm.noexec' (/tmp/r11u136_a2fix/surelog.csv)
+REGRESSION HARNESS AmiqEth SURELOG_FAIL [Errno 13] Permission denied: '/tmp/r11u136_bin/slang-uhdm.noexec' (/tmp/r11u136_a2fix/surelog.csv)
+REGRESSION HARNESS AmiqSimpleTestSuite SURELOG_FAIL [Errno 13] Permission denied: '/tmp/r11u136_bin/slang-uhdm.noexec' (/tmp/r11u136_a2fix/surelog.csv)
+REGRESSION HARNESS ApbSlave SURELOG_FAIL [Errno 13] Permission denied: '/tmp/r11u136_bin/slang-uhdm.noexec' (/tmp/r11u136_a2fix/surelog.csv)
+REGRESSION HARNESS Ariane2024 SURELOG_FAIL [Errno 13] Permission denied: '/tmp/r11u136_bin/slang-uhdm.noexec' (/tmp/r11u136_a2fix/surelog.csv)
+REGRESSION HARNESS ... (condensed: 1643 HARNESS lines in all, one per test run, 772 surelog + 871 uhdm2rtlil)
+regressions=2316 conversions=0 changes=0 only-fresh=0 only-committed=1544
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u136_a2fix/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u136_bin/uhdm-strictcmp
+  25/871
+  50/871
+  75/871
+  100/871
+  125/871
+  150/871
+  175/871
+  200/871
+  225/871
+  250/871
+  275/871
+  300/871
+  325/871
+  350/871
+  375/871
+  400/871
+  425/871
+  450/871
+  475/871
+  500/871
+  525/871
+  550/871
+  575/871
+  600/871
+  625/871
+  650/871
+  675/871
+  700/871
+  725/871
+  750/871
+  775/871
+  800/871
+  825/871
+  850/871
+
+[default] 0 tests
+
+[testflags] 0 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] 
+[testflags] 
+REGRESSION ONLY-COMMITTED (not run) 1DUnpackedArray default CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) 1DUnpackedArray testflags CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) 2DFunctionArg default CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) 2DFunctionArg testflags CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) 2DParameterOfInstance default STRICT_NOTEQUAL
+REGRESSION ONLY-COMMITTED (not run) 2DParameterOfInstance testflags STRICT_NOTEQUAL
+REGRESSION ONLY-COMMITTED (not run) 2DUnpackedArray default CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) 2DUnpackedArray testflags CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) 2DUnpackedFunctionArgument default CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) 2DUnpackedFunctionArgument testflags CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) 2DeclarationsInFor default CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) 2DeclarationsInFor testflags CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) AdditionAsParameterInInstance default CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) AdditionAsParameterInInstance testflags CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) AluOps default CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) AluOps testflags CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) AnonStructs default CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) AnonStructs testflags CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) AnonymousEnum default CMP_EQUAL
+REGRESSION ONLY-COMMITTED (not run) AnonymousEnum testflags CMP_EQUAL
+REGRESSION ONLY-COMMITTED ... and 1722 more
+regressions=2613 conversions=0 changes=0 only-fresh=0 only-committed=1742
+golden cache: 1643 of 1687 runs served from the cache

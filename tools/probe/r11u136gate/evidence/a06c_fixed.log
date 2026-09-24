@@ -1,0 +1,25 @@
++ SLANG_UHDM=/tmp/r11u136_a06cfixed/slang-wrap tests/sweep.sh --corpus 'uhdm2rtlil downstream' --filter '^adff$'
+law index current
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u136_a06cfixed/uhdm2rtlil.csv
+1 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u136_bin/uhdm-strictcmp
+
+[default] 1 tests
+  CMP_EQUAL: 1
+
+[testflags] 1 tests
+  CMP_EQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=1
+[testflags] CMP_EQUAL=1
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+1 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+SLANG_REJECT adff surelog= slang= differs=[] 
+downstream: SLANG_REJECT=1 (of 1); not identical and not excused=1
+golden cache: 2 of 2 runs served from the cache
+name,mode,status,detail,blocked_by,strict
+adff,default,CMP_EQUAL,,,equal
+adff,testflags,CMP_EQUAL,,,equal
+name,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail
+adff,SLANG_REJECT,,,,,,
+SWEEP rc=1

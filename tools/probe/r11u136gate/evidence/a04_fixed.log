@@ -1,0 +1,10 @@
+seeded fa44656a6e2dc1b779b7 (the original text's key)
+edited text keys to 1dc541c8581746294e18 (a new entry)
+probe cases: EQUAL=1 (of 1); goldens built now=1, from cache=0
+probe strict: equal=1
+check_probe rc=0
+[probe] EQUAL=1
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+case,status,detail,strict
+r10earl59repro/a1_earl59,EQUAL,,equal
+GATE rc=0

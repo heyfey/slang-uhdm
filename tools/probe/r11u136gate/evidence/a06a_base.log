@@ -1,0 +1,60 @@
++ run 1: GOLDEN_CACHE=0, the pinned Surelog
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=1740
+/tmp/r11u136_a06abase/uhdm2rtlil/default/1DUnpackedArray-3af704bd/slpp_all/:
+cache
+file_elab.lst
+file.lst
+file_map.lst
+lib
+surelog.log
+surelog.uhdm
+
+/tmp/r11u136_a06abase/uhdm2rtlil/testflags/1DUnpackedArray-3af704bd/slpp_all/:
+file_elab.lst
+file.lst
+file_map.lst
+lib
+surelog.log
+surelog.uhdm
++ run 2: GOLDEN_CACHE=0 SURELOG=/bin/false, the same workdir
+law index current
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u136_a06abase/uhdm2rtlil.csv
+1 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u136_bin/uhdm-strictcmp
+
+[default] 1 tests
+  CMP_EQUAL: 1
+
+[testflags] 1 tests
+  CMP_EQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=1
+[testflags] CMP_EQUAL=1
+ONLY-COMMITTED 2DFunctionArg default CMP_EQUAL
+ONLY-COMMITTED 2DFunctionArg testflags CMP_EQUAL
+ONLY-COMMITTED 2DParameterOfInstance default STRICT_NOTEQUAL
+ONLY-COMMITTED 2DParameterOfInstance testflags STRICT_NOTEQUAL
+ONLY-COMMITTED 2DUnpackedArray default CMP_EQUAL
+ONLY-COMMITTED 2DUnpackedArray testflags CMP_EQUAL
+ONLY-COMMITTED 2DUnpackedFunctionArgument default CMP_EQUAL
+ONLY-COMMITTED 2DUnpackedFunctionArgument testflags CMP_EQUAL
+ONLY-COMMITTED 2DeclarationsInFor default CMP_EQUAL
+ONLY-COMMITTED 2DeclarationsInFor testflags CMP_EQUAL
+ONLY-COMMITTED AdditionAsParameterInInstance default CMP_EQUAL
+ONLY-COMMITTED AdditionAsParameterInInstance testflags CMP_EQUAL
+ONLY-COMMITTED AluOps default CMP_EQUAL
+ONLY-COMMITTED AluOps testflags CMP_EQUAL
+ONLY-COMMITTED AnonStructs default CMP_EQUAL
+ONLY-COMMITTED AnonStructs testflags CMP_EQUAL
+ONLY-COMMITTED AnonymousEnum default CMP_EQUAL
+ONLY-COMMITTED AnonymousEnum testflags CMP_EQUAL
+ONLY-COMMITTED AnonymousUnion default CMP_EQUAL
+ONLY-COMMITTED AnonymousUnion testflags CMP_EQUAL
+ONLY-COMMITTED ... and 1720 more
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=1740
+golden cache: 0 of 2 runs served from the cache
+name,mode,status,detail,blocked_by,strict
+1DUnpackedArray,default,CMP_EQUAL,,,equal
+1DUnpackedArray,testflags,CMP_EQUAL,,,equal
+surelog: /bin/false -parse -sv dut.sv -mt 0 -mp 0 -o /tmp/r11u136_a06abase/uhdm2rtlil/default/1DUnpackedArray-3af704bd
+slang:   /tmp/r11u136_bin/slang-uhdm dut.sv --single-unit -o /tmp/r11u136_a06abase/uhdm2rtlil/default/1DUnpackedArray-3af704bd/slang.uhdm
+SWEEP rc=0

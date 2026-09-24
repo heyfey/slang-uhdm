@@ -102,8 +102,8 @@ the other locations the same way.
     tests/sweep.sh --corpus uhdm2rtlil --filter '^ibex'
 
 `tests/sweep.sh` exits 1 on a regression in any stage, or when any downstream
-verdict is not IDENTICAL (or SLANG_REJECT, or the verdict recorded in
-`results/downstream_uhdm2rtlil.csv`). The probe stage writes
+verdict is not IDENTICAL or the verdict recorded in
+`results/downstream_uhdm2rtlil.csv`. The probe stage writes
 `<workdir>/probe.csv` and each corpus stage `<workdir>/<corpus>.csv`;
 `scripts/compare_results.py` joins each against its baseline
 (`results/golden_probe.csv`, `results/golden_surelog.csv`,
@@ -111,13 +111,25 @@ verdict is not IDENTICAL (or SLANG_REJECT, or the verdict recorded in
 
 - REGRESSION (exit 1): a row that leaves `CMP_EQUAL`; a `STRICT_NOTEQUAL` row
   whose status is no longer judge-equal; a row absent from the baseline (a
-  new case or test) that is not `CMP_EQUAL` / `EQUAL`; and in the probe stage
-  any case uhdm-cmp does not read equal.
+  new case or test) that is not `CMP_EQUAL` / `EQUAL`; a baseline row the run
+  did not produce (a test or case that was not run, a probe case whose
+  `dut.sv` is gone, a test the harness lost to an exception), except the rows
+  the run's `--filter` excludes (`compare_results.py --filter REGEX`, matched
+  as the harness matches it: on the test name, or the case path); a row of
+  mode `harness` (verify_golden.py's record of an exception); a key listed
+  twice in either csv; and in the probe stage any case uhdm-cmp does not read
+  equal.
 - CONVERSION: a row that enters `CMP_EQUAL`.
 - CHANGE: any other status change, and a `STRICT_NOTEQUAL` row whose strict
   verdict changed, printed `old -> new` with the count delta when the first
   field is the same (`differ:line(30) -> differ:line(31) [line +1]`), so a
   larger residue on the same field is visible.
+
+A pair is judge-equal only when the strict comparator agrees: its stage 1 is
+uhdm-cmp's own Compare, so a pair it rejects there is `CMP_NOTEQUAL`
+(`NOT_EQUAL`) whatever the binary at `UHDM_CMP` said, and `equal` needs the
+comparator's own `STRICT_EQUAL` line (another binary at `STRICT_CMP`, such as
+uhdm-cmp, which exits 0 on these arguments, reads nothing equal).
 
 Do not commit on a nonzero exit.
 It prints the status histogram per mode, every changed row, and how many
@@ -129,6 +141,9 @@ Direct harness use:
     python3 scripts/compare_results.py out.csv results/golden_surelog.csv
     python3 scripts/check_probe.py --jobs 3 --out probe.csv --workdir /tmp/pw
     python3 scripts/compare_results.py probe.csv results/golden_probe.csv
+    # a filtered run: give the compare the same REGEX, or every other baseline row fails as not run
+    python3 scripts/verify_golden.py --corpus uhdm2rtlil --mode both --out f.csv --filter '^ibex'
+    python3 scripts/compare_results.py f.csv results/golden_uhdm2rtlil.csv --filter '^ibex'
 
 ## The downstream gate (uhdm2rtlil)
 
@@ -140,10 +155,13 @@ gate-level netlist): one from the database uhdm2rtlil's own Surelog writes
 (its flags, cached in the golden cache), one from slang-uhdm's. The verdict
 per test is IDENTICAL (same Yosys status and byte-identical RTLIL and
 netlist), EQUIVALENT (texts differ but uhdm2rtlil's `test_equivalence.sh`
-proves the netlists equivalent), DIVERGENT, STATUS_DIFF, SLANG_REJECT (the
-allowed exception) or SURELOG_FAIL (no reference). Every test must be
-IDENTICAL or SLANG_REJECT; `results/downstream_uhdm2rtlil.csv` records the
-verdicts and any reviewed exception.
+proves the netlists equivalent), DIVERGENT, STATUS_DIFF, SLANG_REJECT or
+SURELOG_FAIL (no reference). Every test must be IDENTICAL or the verdict
+`results/downstream_uhdm2rtlil.csv` records for it (a reviewed exception, or
+a recorded SLANG_REJECT): a row that leaves IDENTICAL for SLANG_REJECT fails,
+since the downstream command line (`-DSYNTHESIS`) can reach a rejection the
+corpus stages never see, and so does a baseline test the run did not produce
+(within `--filter`).
 
 It needs the downstream toolchain built once inside the submodule:
 
@@ -169,6 +187,9 @@ same cache serves every clone on a machine and can be copied to another
 machine. A test whose arguments reach outside its directory (`../ibex/rtl`,
 the UVM trees) embeds its absolute source path in judged `__FILE__` strings,
 so its golden is keyed per checkout location and rebuilt once per clone.
+A probe case's key also holds its text (every file of the case dir but
+`LAW`): the corpora are pinned submodules, but a case can be edited in place,
+and it must not be judged against the golden of its old text.
 The first sweep on a machine takes about an hour at `--jobs 3`
 because it runs the producer on every test. Later sweeps take a few minutes
 per corpus. Failures are not cached unless `GOLDEN_CACHE_FAILURES=1`.
@@ -187,7 +208,11 @@ same commit.
 A landing promotes a row by re-baselining it: a `STRICT_NOTEQUAL` row that
 the landing's sweep reads `CMP_EQUAL` is a CONVERSION, and the landing commits
 the row as `CMP_EQUAL` (empty detail, strict `equal`) in the same commit,
-likewise a probe case in `results/golden_probe.csv`. A `STRICT_NOTEQUAL` row
+likewise a probe case in `results/golden_probe.csv`. `check_probe.py --out`
+writes that file's exact shape and order, so on a clean run the sweep's
+`<workdir>/probe.csv` is byte-identical to the baseline, and re-baselining the
+probe is `cp <workdir>/probe.csv results/golden_probe.csv` after a gate that
+read only the intended conversions and changes. A `STRICT_NOTEQUAL` row
 whose strict verdict changed (a CHANGE) is re-baselined with its new verdict
 when the landing explains it. The baselines are written with LF line endings
 (the scoreboards were CRLF before 2026-09-24, which broke the canary scripts'

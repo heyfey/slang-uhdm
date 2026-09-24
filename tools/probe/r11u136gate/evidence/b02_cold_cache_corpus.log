@@ -1,0 +1,45 @@
+law index current
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u136_b02/u/uhdm2rtlil.csv
+88 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u136_bin/uhdm-strictcmp
+
+[default] 88 tests
+  CMP_EQUAL: 73
+  STRICT_NOTEQUAL: 11
+  SLANG_REJECT: 4
+
+[testflags] 88 tests
+  CMP_EQUAL: 73
+  STRICT_NOTEQUAL: 11
+  SLANG_REJECT: 4
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=73 SLANG_REJECT=4 STRICT_NOTEQUAL=11
+[testflags] CMP_EQUAL=73 SLANG_REJECT=4 STRICT_NOTEQUAL=11
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+88 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: IDENTICAL=84 SLANG_REJECT=4 (of 88); not identical and not excused=0
+golden cache: 0 of 176 runs served from the cache
+SWEEP u rc=0
+law index current
+== surelog: both modes, jobs=3, out=/tmp/r11u136_b02/s/surelog.csv
+25 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u136_bin/uhdm-strictcmp
+
+[default] 25 tests
+  CMP_EQUAL: 14
+  SLANG_REJECT: 8
+  STRICT_NOTEQUAL: 3
+
+[testflags] 25 tests
+  CMP_EQUAL: 14
+  SLANG_REJECT: 8
+  STRICT_NOTEQUAL: 3
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=14 SLANG_REJECT=8 STRICT_NOTEQUAL=3
+[testflags] CMP_EQUAL=14 SLANG_REJECT=8 STRICT_NOTEQUAL=3
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 0 of 50 runs served from the cache
+SWEEP s rc=0
+## cold (private cache) vs warm sweep P, key-joined
+/tmp/r11u136_b02/u/uhdm2rtlil.csv rows 176 differ from warm (status/blocked/strict): 0 []
+/tmp/r11u136_b02/s/surelog.csv rows 50 differ from warm (status/blocked/strict): 0 []
+downstream rows 88 differ from warm: 0 []

@@ -1,0 +1,72 @@
+### gate_selftest.sh on the base scripts (c9e2923c, /tmp/wt_r11u136pris): the holes
+FAIL G1 a row the run lost (no --filter) fails (rc=0 want 1, pattern [REGRESSION ONLY-COMMITTED (not run) rej default SLANG_REJECT])
+     [default] CMP_EQUAL=1 CMP_NOTEQUAL=1 STRICT_NOTEQUAL=1
+     [testflags] 
+     ONLY-COMMITTED rej default SLANG_REJECT
+     regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=1
+FAIL G2 a lost row inside --filter fails (rc=2 want 1, pattern [REGRESSION ONLY-COMMITTED (not run) rej default])
+     usage: compare_results.py [-h] [--modes MODES] fresh committed
+     compare_results.py: error: unrecognized arguments: --filter /tmp/r11u136_gselftest.DwAg/base.csv
+FAIL G3 rows outside --filter are not expected (rc=2 want 0, pattern [regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0])
+     usage: compare_results.py [-h] [--modes MODES] fresh committed
+     compare_results.py: error: unrecognized arguments: --filter /tmp/r11u136_gselftest.DwAg/base.csv
+FAIL G4 a harness-mode row (thread exception) fails (rc=0 want 1, pattern [REGRESSION HARNESS rej SURELOG_FAIL])
+     [default] CMP_EQUAL=1 CMP_NOTEQUAL=1 STRICT_NOTEQUAL=1
+     [testflags] 
+     ONLY-COMMITTED rej default SLANG_REJECT
+     regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=1
+FAIL G5 an empty fresh csv (header only) fails (rc=0 want 1, pattern [only-committed=4])
+     [default] 
+     [testflags] 
+     ONLY-COMMITTED eq default CMP_EQUAL
+     ONLY-COMMITTED ne default CMP_NOTEQUAL
+     ONLY-COMMITTED rej default SLANG_REJECT
+     ONLY-COMMITTED sne default STRICT_NOTEQUAL
+     regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=4
+FAIL G6 a 0-byte fresh csv fails (rc=0 want 1, pattern [only-committed=4])
+     [default] 
+     [testflags] 
+     ONLY-COMMITTED eq default CMP_EQUAL
+     ONLY-COMMITTED ne default CMP_NOTEQUAL
+     ONLY-COMMITTED rej default SLANG_REJECT
+     ONLY-COMMITTED sne default STRICT_NOTEQUAL
+     regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=4
+FAIL G7 a key listed twice in the fresh csv fails (rc=0 want 1, pattern [REGRESSION DUPLICATE ne default])
+     [default] CMP_EQUAL=1 CMP_NOTEQUAL=1 SLANG_REJECT=1 STRICT_NOTEQUAL=1
+     [testflags] 
+     regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+ok   G8 a default-only run against the both-modes baseline, --modes default (rc=0): regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+ok   G9 CRLF fresh csv reads the same (rc=0): regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+ok   G10 a malformed row exits 1 (rc=1): Traceback (most recent call last):
+FAIL G11 BOM probe (rc=0)
+     [default] 
+     [testflags] 
+     ONLY-COMMITTED a/b EQUAL
+     ONLY-COMMITTED a/c STRICT_NOTEQUAL
+     regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=2
+FAIL G12 lost probe case (rc=0)
+     [probe] EQUAL=1
+     ONLY-COMMITTED a/c STRICT_NOTEQUAL
+     regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=1
+FAIL G13 duplicate baseline case (rc=0)
+     [probe] STRICT_NOTEQUAL=2
+     regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+GATE SELFTEST FAIL
+rc=1
+
+### gate_selftest.sh on the fixed scripts
+ok   G1 a row the run lost (no --filter) fails (rc=1): REGRESSION ONLY-COMMITTED (not run) rej default SLANG_REJECT
+ok   G2 a lost row inside --filter fails (rc=1): REGRESSION ONLY-COMMITTED (not run) rej default SLANG_REJECT
+ok   G3 rows outside --filter are not expected (rc=0): regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+ok   G4 a harness-mode row (thread exception) fails (rc=1): REGRESSION HARNESS rej SURELOG_FAIL [Errno 13] Permission denied (/tmp/r11u136_gselftest.TTgN/f4)
+ok   G5 an empty fresh csv (header only) fails (rc=1): regressions=4 conversions=0 changes=0 only-fresh=0 only-committed=4
+ok   G6 a 0-byte fresh csv fails (rc=1): regressions=4 conversions=0 changes=0 only-fresh=0 only-committed=4
+ok   G7 a key listed twice in the fresh csv fails (rc=1): REGRESSION DUPLICATE ne default (/tmp/r11u136_gselftest.TTgN/f7)
+ok   G8 a default-only run against the both-modes baseline, --modes default (rc=0): regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+ok   G9 CRLF fresh csv reads the same (rc=0): regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+ok   G10 a malformed row exits 1 (rc=1): Traceback (most recent call last):
+ok   G11 a BOM on the fresh probe csv still reads the probe shape (rc=1)
+ok   G12 a probe case whose dut.sv vanished fails (rc=1)
+ok   G13 a case listed twice in the baseline fails (rc=1)
+GATE SELFTEST PASS
+rc=0

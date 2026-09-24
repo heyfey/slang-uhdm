@@ -1,0 +1,15 @@
+## C1: the probe baseline regenerates byte-identically
+swP/probe.csv == results/golden_probe.csv (byte-identical)
+swF/probe.csv == results/golden_probe.csv (byte-identical)
+swJ/probe.csv == results/golden_probe.csv (byte-identical)
+cold-cache run (4087 goldens rebuilt under the content keys) == results/golden_probe.csv (byte-identical)
+
+## C1b: a landing that promotes a case: baseline before the landing has a1_earl59 STRICT_NOTEQUAL
+133c133
+< r10earl59repro/a1_earl59,STRICT_NOTEQUAL,differ:line(1),differ:line(1)
+---
+> r10earl59repro/a1_earl59,EQUAL,,equal
+CONVERSION r10earl59repro/a1_earl59 STRICT_NOTEQUAL differ:line(1) -> EQUAL
+regressions=0 conversions=1 changes=0 only-fresh=0 only-committed=0
+compare rc=0
+re-baselined (cp <workdir>/probe.csv) == the landed baseline

@@ -1,0 +1,20 @@
+## F (fixed scripts) csvs
+probe.csv byte-identical to results/golden_probe.csv
+rows fresh 1596 keys 1596 | base 1596 keys 1596
+differ on status/blocked/strict: 0
+only fresh: [] only base: []
+/tmp/r11u136_swF/surelog.csv /tmp/r11u136_swP/surelog.csv differ: byte 79497, line 845
+rows fresh 1742 keys 1742 | base 1742 keys 1742
+differ on status/blocked/strict: 0
+only fresh: [] only base: []
+uhdm2rtlil.csv byte-identical to sweep P's
+downstream rows 871 871 verdict/differs changes vs baseline: []
+## binary audit (every slang: line of both sweeps' cmds.txt)
+/tmp/r11u136_swP: slang lines 3273, naming the frozen binary 3273
+/tmp/r11u136_swF: slang lines 3273, naming the frozen binary 3273
+61cfb59f3cfa1865bccb360c76bf09dd  /tmp/r11u136_bin/slang-uhdm
+5d4617d0458f34aa79e0b91009d5d1fc  /tmp/r11u136_bin/uhdm-strictcmp
+61cfb59f3cfa1865bccb360c76bf09dd  /tmp/wt_r11u136/build/slang-uhdm
+5d4617d0458f34aa79e0b91009d5d1fc  /tmp/wt_r11u136/build/uhdm-strictcmp
+61cfb59f3cfa1865bccb360c76bf09dd  /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm
+5d4617d0458f34aa79e0b91009d5d1fc  /home/heyfey/git-repos/slang-uhdm/build/uhdm-strictcmp

@@ -1,0 +1,11 @@
++ STRICT_CMP=/bin/true R11U124_OFF=1 tests/sweep.sh --corpus probe   (repo /tmp/wt_r11u136pris)
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u136_a07truebase/probe.csv
+probe cases: EQUAL=4087 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=4087
+== probe vs golden_probe.csv
+[probe] EQUAL=4087
+regressions=0 conversions=2006 changes=0 only-fresh=0 only-committed=0
+golden cache: 0 of 0 runs served from the cache
+regression lines: 0
+SWEEP rc=0

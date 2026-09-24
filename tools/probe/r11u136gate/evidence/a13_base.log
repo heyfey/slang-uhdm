@@ -1,0 +1,25 @@
++ SLANG_UHDM=/bin/false tests/sweep.sh --corpus 'probe downstream' --filter '^(r10earl59repro/.*|adff)$'
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u136_a13base/probe.csv
+SLANG_FAIL r10earl59repro/a1_earl59 rc=1
+SLANG_FAIL r10earl59repro/v59v1_earl59 rc=1
+SLANG_FAIL r10earl59repro/v59v2_earl59 rc=1
+SLANG_FAIL r10earl59repro/v59v3_earl59 rc=1
+probe cases: SLANG_FAIL=4 (of 4); goldens built now=0, from cache=4
+== probe vs golden_probe.csv
+[probe] SLANG_FAIL=4
+REGRESSION r10earl59repro/a1_earl59 EQUAL -> SLANG_FAIL
+REGRESSION r10earl59repro/v59v1_earl59 EQUAL -> SLANG_FAIL
+REGRESSION r10earl59repro/v59v2_earl59 STRICT_NOTEQUAL -> SLANG_FAIL
+REGRESSION r10earl59repro/v59v3_earl59 EQUAL -> SLANG_FAIL
+ONLY-COMMITTED ... and 4063 more
+regressions=4 conversions=0 changes=0 only-fresh=0 only-committed=4083
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+1 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: SLANG_REJECT=1 (of 1); not identical and not excused=0
+golden cache: 0 of 0 runs served from the cache
+SWEEP rc=1
++ tests/sweep.sh --corpus '' (the law index alone, current)
+law index current
+golden cache: 0 of 0 runs served from the cache
+SWEEP rc=0

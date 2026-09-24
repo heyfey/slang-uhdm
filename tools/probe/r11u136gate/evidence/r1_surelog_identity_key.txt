@@ -1,0 +1,14 @@
++ SURELOG=/home/heyfey/git-repos/Surelog/build/bin/surelog
+VERSION: 1.87
+BUILT  : Sep  9 2026
+v1.87
+identity: surelog 1.87
+uhdm2rtlil adff default key: /home/heyfey/.cache/slang-uhdm-goldens/92901935fda62e861017
++ SURELOG=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/build/third_party/Surelog/bin/surelog
+VERSION: 1.87
+BUILT  : Sep 23 2026
+v0.68
+identity: surelog 1.87
+uhdm2rtlil adff default key: /home/heyfey/.cache/slang-uhdm-goldens/92901935fda62e861017
+v1.87
+v1.87-5-g04a865c00b

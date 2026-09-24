@@ -52,11 +52,20 @@ _IDENTITY = None
 
 def cache_dir(rel):
     """Cache key: Surelog's version line + the case's repo-relative path + the
-    producer arguments (the same shape as verify_golden.golden_cache_dir)."""
+    producer arguments (the same shape as verify_golden.golden_cache_dir) +
+    the case's sources: a case edited in place must not be judged against the
+    golden of its old text (the corpora are pinned submodules; a case is not)."""
     global _IDENTITY
     if _IDENTITY is None:
         _IDENTITY = vg._surelog_identity()
-    key = hashlib.sha1('\0'.join([_IDENTITY, 'tests/probe/' + rel] + SL_ARGS[:5])
+    src = hashlib.sha1()
+    d = os.path.join(ROOT, rel)
+    for dp, _dirs, files in sorted(os.walk(d)):
+        for fn in sorted(files):
+            if fn != 'LAW':
+                with open(os.path.join(dp, fn), 'rb') as f:
+                    src.update(os.path.relpath(os.path.join(dp, fn), d).encode() + b'\0' + f.read() + b'\0')
+    key = hashlib.sha1('\0'.join([_IDENTITY, 'tests/probe/' + rel] + SL_ARGS[:5] + [src.hexdigest()])
                        .encode()).hexdigest()[:20]
     return os.path.join(vg.CACHE_ROOT, key)
 
@@ -119,6 +128,8 @@ def check(rel, workdir, timeout):
         return rel, 'NOT_EQUAL', head[:120], '', built
     # The strict flip: EQUAL needs the strict comparator's equality too.
     strict = vg.strict_verdict(g, out, timeout)
+    if strict == 'differ:stage1':   # uhdm-cmp's own Compare rejects the pair
+        return rel, 'NOT_EQUAL', 'uhdm-strictcmp stage 1: not equal', '', built
     if strict != 'equal':
         return rel, 'STRICT_NOTEQUAL', strict, strict, built
     return rel, 'EQUAL', '', strict, built

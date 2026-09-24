@@ -1,0 +1,23 @@
++ (b3) GOLDEN_CACHE=<private; a1_earl59's golden := v59v3_earl59's> tests/sweep.sh --corpus probe --filter '^r10earl59repro/'
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u136_n3/probe.csv
+NOT_EQUAL r10earl59repro/a1_earl59 decompile:
+probe cases: EQUAL=2 NOT_EQUAL=1 STRICT_NOTEQUAL=1 (of 4); goldens built now=0, from cache=4
+probe strict: equal=2 differ:endcol=1
+== probe vs golden_probe.csv
+[probe] EQUAL=2 NOT_EQUAL=1 STRICT_NOTEQUAL=1
+REGRESSION r10earl59repro/a1_earl59 EQUAL -> NOT_EQUAL
+regressions=1 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 0 of 0 runs served from the cache
+SWEEP rc=1
++ STRICT_CMP=/tmp/r11u136_nonexistent tests/sweep.sh --corpus 'probe surelog uhdm2rtlil' --filter '^Assign'
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u136_n4/probe.csv
+missing tool: /tmp/r11u136_nonexistent (set $STRICT_CMP; see tests/README.md)
+== probe: no csv written
+== surelog: both modes, jobs=3, out=/tmp/r11u136_n4/surelog.csv
+missing tool: /tmp/r11u136_nonexistent (set $STRICT_CMP, or build the third_party/Surelog submodule / this tree; see tests/README.md)
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u136_n4/uhdm2rtlil.csv
+missing tool: /tmp/r11u136_nonexistent (set $STRICT_CMP, or build the third_party/Surelog submodule / this tree; see tests/README.md)
+golden cache: 0 of 0 runs served from the cache
+SWEEP rc=1
