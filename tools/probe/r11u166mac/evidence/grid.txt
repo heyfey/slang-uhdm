@@ -1,0 +1,69 @@
+./col/c01_after_multiline_col | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=6 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./col/c02_formalless_parens | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=8 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./col/c03_formalless_parens_spaces | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=8 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./col/c04_formalless_func | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=6 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./col/c05_stringify_nested | P: rc=0 cmp=0 STRICT_EQUAL  n=0 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./col/c06_nested_onebody_in_multi | P: rc=0 cmp=0 STRICT_EQUAL  n=0 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./col/c07_file_after_two_regions | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=12 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./col/c08_paste_in_multiline | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=18 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./col/c09_nested_oneline_comment | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=24 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./col/c10_stringify_spaced_arg | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=8 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./ds/c05_macro_conn | P: rc=0 cmp=31  n=0 | L: rc=0 cmp=31  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./ds/c08_macro_first_then_plain | P: rc=0 cmp=31  n=0 | L: rc=0 cmp=31  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./ds/l06_iface_spaced_path | P: rc=0 cmp=124  n=0 | L: rc=0 cmp=124  n=0 | X: rc=0 cmp=124  n=0
+./ds/p04_spaced_path_bound | P: rc=0 cmp=64  n=0 | L: rc=0 cmp=64  n=0 | X: rc=0 cmp=64  n=0
+./explore/e01 | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=12 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./explore/e02 | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=12 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./explore/e03 | P: rc=0 cmp=0 STRICT_EQUAL  n=0 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./explore/e04 | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=8 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./explore/e05 | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=22 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./file/f01_before_in_include | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=6 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./file/f02_nested_other_file | P: rc=0 cmp=0 STRICT_EQUAL  n=0 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./file/f03_ibex_shape | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=26 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./incl/i01_multiline_growth | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=1 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./incl/i02_ifdef_drop_growth | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=13 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./incl/i03_args_span_growth | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=7 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./incl/i04_empty_body_args_span | P: rc=0 cmp=0 STRICT_EQUAL  n=0 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./incl/i05_comment_body_args_span | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=1 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./incl/i06_blank_line_after_body | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=1 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./incl/i07_backslash_then_empty | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=1 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./incl/i08_nested_growth_in_include | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=1 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./incl/i09_blank_result_body | P: rc=0 cmp=0 STRICT_EQUAL  n=0 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./incl/i10_noargs_multiline | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=1 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./line/l01_args_before_after | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=12 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./line/l02_noargs_before_after | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=12 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./line/l03_arg_with_newline | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=22 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./line/l04_onebody_args_span | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=16 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./line/l05_nested_multiline | P: rc=0 cmp=0 STRICT_EQUAL  n=0 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./line/l06_ifdef_inactive_in_body | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=6 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./line/l07_ifdef_taken_in_body | P: rc=0 cmp=0 STRICT_EQUAL  n=0 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./line/l08_two_multiline_same_line | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=6 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./line/l09_def_in_include | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=6 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./line/l10_use_in_include | P: rc=0 cmp=0 STRICT_EQUAL  n=0 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./line/l11_sub_instance | P: rc=0 cmp=0 STRICT_EQUAL  n=0 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./lit/b01_ternary_after | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=8 | L: rc=0 cmp=0 STRICT_NOTEQUAL  n=8 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./lit/b02_if_begin | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=2 | L: rc=0 cmp=0 STRICT_NOTEQUAL  n=2 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./lit/b03_hex_underscore | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=8 | L: rc=0 cmp=0 STRICT_NOTEQUAL  n=8 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./lit/b04_param_assign | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=4 | L: rc=0 cmp=0 STRICT_NOTEQUAL  n=4 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./lit/b05_cast_control | P: rc=0 cmp=28  n=0 | L: rc=0 cmp=28  n=0 | X: rc=0 cmp=28  n=0
+./lit/b06_two_literals | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=8 | L: rc=0 cmp=0 STRICT_NOTEQUAL  n=8 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./lit/b07_concat | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=8 | L: rc=0 cmp=0 STRICT_NOTEQUAL  n=8 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./lit/b08_case_item | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=20 | L: rc=0 cmp=0 STRICT_NOTEQUAL  n=20 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./lit/b09_assert_prop | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=4 | L: rc=0 cmp=0 STRICT_NOTEQUAL  n=4 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./lit/b10_cast_assign | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=2 | L: rc=0 cmp=0 STRICT_NOTEQUAL  n=2 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./lit/b11_multiline_stmt | P: rc=0 cmp=0 STRICT_EQUAL  n=0 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./lit/b12_immediate_assert | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=8 | L: rc=0 cmp=0 STRICT_NOTEQUAL  n=8 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./lit/b13_port_conn | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=6 | L: rc=0 cmp=0 STRICT_NOTEQUAL  n=6 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./lit/b14_space_before_tick | P: rc=0 cmp=36  n=0 | L: rc=0 cmp=36  n=0 | X: rc=0 cmp=36  n=0
+./lit/b15_sequence_prop | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=4 | L: rc=0 cmp=0 STRICT_NOTEQUAL  n=4 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./lit/b16_enum_const | P: rc=0 cmp=0 STRICT_EQUAL  n=0 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./mlv/m1 | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=7 | L: rc=0 cmp=0 STRICT_NOTEQUAL  n=7 | X: rc=0 cmp=0 STRICT_NOTEQUAL  n=7
+./mlv/m2 | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=2 | L: rc=0 cmp=0 STRICT_NOTEQUAL  n=2 | X: rc=0 cmp=0 STRICT_NOTEQUAL  n=2
+./reinc/r01 | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=1 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./reinc/r02 | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=1 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./reinc/r03 | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=1 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./reinc/r04 | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=1 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./reinc/r05 | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=1 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./reinc/r06 | P: rc=0 cmp=0 STRICT_EQUAL  n=0 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./reinc/r07 | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=1 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0
+./reinc/r08 | P: rc=0 cmp=0 STRICT_NOTEQUAL  n=1 | L: rc=0 cmp=0 STRICT_EQUAL  n=0 | X: rc=0 cmp=0 STRICT_EQUAL  n=0

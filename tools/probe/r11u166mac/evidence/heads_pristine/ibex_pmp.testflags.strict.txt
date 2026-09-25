@@ -1,0 +1,159 @@
+#2397 file
+  A: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+  B: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+#3790 file
+  A: 2	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+  B: 2	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+#3825 file
+  A: 2	enum_typespec	ibex_pkg::pmp_req_e			ibex_pmp.sv	130	48	130	58				
+  B: 2	enum_typespec	ibex_pkg::pmp_req_e			ibex_pkg.sv	419	3	423	15				
+#3834 file
+  A: 2	enum_typespec	ibex_pkg::priv_lvl_e			ibex_pmp.sv	132	48	132	58				
+  B: 2	enum_typespec	ibex_pkg::priv_lvl_e			ibex_pkg.sv	216	3	221	16				
+#6215 file
+  A: 2	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+  B: 2	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+#6250 file
+  A: 2	enum_typespec	ibex_pkg::pmp_req_e			ibex_pmp.sv	130	48	130	58				
+  B: 2	enum_typespec	ibex_pkg::pmp_req_e			ibex_pkg.sv	419	3	423	15				
+#6259 file
+  A: 2	enum_typespec	ibex_pkg::priv_lvl_e			ibex_pmp.sv	132	48	132	58				
+  B: 2	enum_typespec	ibex_pkg::priv_lvl_e			ibex_pkg.sv	216	3	221	16				
+#6854 file
+  A: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+  B: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+#6922 file
+  A: 6	enum_typespec	ibex_pkg::priv_lvl_e			ibex_pmp.sv	132	48	132	58				
+  B: 6	enum_typespec	ibex_pkg::priv_lvl_e			ibex_pkg.sv	216	3	221	16				
+#6958 file
+  A: 6	enum_typespec	ibex_pkg::pmp_req_e			ibex_pmp.sv	130	48	130	58				
+  B: 6	enum_typespec	ibex_pkg::pmp_req_e			ibex_pkg.sv	419	3	423	15				
+#7084 endline
+  A: 4	assignment				dv_fcov_macros.svh	91	11	91	35				
+  B: 4	assignment				dv_fcov_macros.svh	91	11	92	9				
+#7085 endline
+  A: 5	logic_var	fcov_pmp_region_override		work@ibex_pmp.g_access_check.fcov_pmp_region_override	dv_fcov_macros.svh	91	11	91	35		0		
+  B: 5	logic_var	fcov_pmp_region_override		work@ibex_pmp.g_access_check.fcov_pmp_region_override	dv_fcov_macros.svh	91	11	92	9		0		
+#7088 endcol
+  A: 4	cont_assign				dv_fcov_macros.svh	92	12	92	105				
+  B: 4	cont_assign				dv_fcov_macros.svh	92	12	92	93				
+#7089 col
+  A: 5	operation				dv_fcov_macros.svh	92	39	92	105		0		
+  B: 5	operation				dv_fcov_macros.svh	92	27	92	93		0		
+#7090 col
+  A: 6	operation				dv_fcov_macros.svh	92	39	92	56		0		
+  B: 6	operation				dv_fcov_macros.svh	92	27	92	44		0		
+#7091 col
+  A: 7	bit_select	pmp_req_err_o		work@ibex_pmp.g_access_check.pmp_req_err_o	dv_fcov_macros.svh	92	54	92	55		0		
+  B: 7	bit_select	pmp_req_err_o		work@ibex_pmp.g_access_check.pmp_req_err_o	dv_fcov_macros.svh	92	42	92	43		0		
+#7092 col
+  A: 8	ref_obj	c		work@ibex_pmp.g_access_check.c	dv_fcov_macros.svh	92	54	92	55		0		
+  B: 8	ref_obj	c		work@ibex_pmp.g_access_check.c	dv_fcov_macros.svh	92	42	92	43		0		
+#7093 col
+  A: 6	operation				dv_fcov_macros.svh	92	59	92	105		0		
+  B: 6	operation				dv_fcov_macros.svh	92	47	92	93		0		
+#7094 col
+  A: 7	operation				dv_fcov_macros.svh	92	61	92	104		0		
+  B: 7	operation				dv_fcov_macros.svh	92	49	92	92		0		
+#7095 col
+  A: 8	bit_select	region_match_all		work@ibex_pmp.g_access_check.region_match_all	dv_fcov_macros.svh	92	78	92	79		0		
+  B: 8	bit_select	region_match_all		work@ibex_pmp.g_access_check.region_match_all	dv_fcov_macros.svh	92	66	92	67		0		
+#7096 col
+  A: 9	ref_obj	c		work@ibex_pmp.g_access_check.c	dv_fcov_macros.svh	92	78	92	79		0		
+  B: 9	ref_obj	c		work@ibex_pmp.g_access_check.c	dv_fcov_macros.svh	92	66	92	67		0		
+#7097 col
+  A: 8	operation				dv_fcov_macros.svh	92	83	92	104		0		
+  B: 8	operation				dv_fcov_macros.svh	92	71	92	92		0		
+#7098 col
+  A: 9	bit_select	region_perm_check		work@ibex_pmp.g_access_check.region_perm_check	dv_fcov_macros.svh	92	102	92	103		0		
+  B: 9	bit_select	region_perm_check		work@ibex_pmp.g_access_check.region_perm_check	dv_fcov_macros.svh	92	90	92	91		0		
+#7099 col
+  A: 10	ref_obj	c		work@ibex_pmp.g_access_check.c	dv_fcov_macros.svh	92	102	92	103		0		
+  B: 10	ref_obj	c		work@ibex_pmp.g_access_check.c	dv_fcov_macros.svh	92	90	92	91		0		
+#7100 endline
+  A: 5	ref_obj	fcov_pmp_region_override		work@ibex_pmp.g_access_check.fcov_pmp_region_override	dv_fcov_macros.svh	92	12	92	36		0		
+  B: 5	ref_obj	fcov_pmp_region_override		work@ibex_pmp.g_access_check.fcov_pmp_region_override	dv_fcov_macros.svh	92	12	93	1		0		
+#7101 endline
+  A: 4	assignment				dv_fcov_macros.svh	81	11	81	42				
+  B: 4	assignment				dv_fcov_macros.svh	81	11	82	9				
+#7102 endline
+  A: 5	logic_var	unused_fcov_pmp_region_override		work@ibex_pmp.g_access_check.unused_fcov_pmp_region_override	dv_fcov_macros.svh	81	11	81	42		0		
+  B: 5	logic_var	unused_fcov_pmp_region_override		work@ibex_pmp.g_access_check.unused_fcov_pmp_region_override	dv_fcov_macros.svh	81	11	82	9		0		
+#7105 endline
+  A: 4	cont_assign				dv_fcov_macros.svh	82	12	82	70				
+  B: 4	cont_assign				dv_fcov_macros.svh	82	12	85	3				
+#7106 col
+  A: 5	ref_obj	fcov_pmp_region_override		work@ibex_pmp.g_access_check.fcov_pmp_region_override	dv_fcov_macros.svh	82	46	82	70		0		
+  B: 5	ref_obj	fcov_pmp_region_override		work@ibex_pmp.g_access_check.fcov_pmp_region_override	dv_fcov_macros.svh	82	34	85	3		0		
+#8313 file
+  A: 7	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+  B: 7	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+#9254 file
+  A: 2	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+  B: 2	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+#9289 file
+  A: 2	enum_typespec	ibex_pkg::pmp_req_e			ibex_pmp.sv	130	48	130	58				
+  B: 2	enum_typespec	ibex_pkg::pmp_req_e			ibex_pkg.sv	419	3	423	15				
+#9298 file
+  A: 2	enum_typespec	ibex_pkg::priv_lvl_e			ibex_pmp.sv	132	48	132	58				
+  B: 2	enum_typespec	ibex_pkg::priv_lvl_e			ibex_pkg.sv	216	3	221	16				
+#13533 endline
+  A: 4	logic_var	fcov_pmp_region_override		work@ibex_pmp.g_access_check[0].fcov_pmp_region_override	dv_fcov_macros.svh	91	11	91	35		0		
+  B: 4	logic_var	fcov_pmp_region_override		work@ibex_pmp.g_access_check[0].fcov_pmp_region_override	dv_fcov_macros.svh	91	11	92	9		0		
+#13536 endline
+  A: 4	logic_var	unused_fcov_pmp_region_override		work@ibex_pmp.g_access_check[0].unused_fcov_pmp_region_override	dv_fcov_macros.svh	81	11	81	42		0		
+  B: 4	logic_var	unused_fcov_pmp_region_override		work@ibex_pmp.g_access_check[0].unused_fcov_pmp_region_override	dv_fcov_macros.svh	81	11	82	9		0		
+#13557 fullname
+  A: 8	ref_typespec			work@ibex_pmp.g_access_check[0]		0	0	0	0		0		
+  B: 8	ref_typespec			work@ibex_pmp		0	0	0	0		0		
+#13623 endcol
+  A: 4	cont_assign				dv_fcov_macros.svh	92	12	92	105				
+  B: 4	cont_assign				dv_fcov_macros.svh	92	12	92	93				
+#13624 col
+  A: 5	operation				dv_fcov_macros.svh	92	39	92	105		0		
+  B: 5	operation				dv_fcov_macros.svh	92	27	92	93		0		
+#13625 col
+  A: 6	operation				dv_fcov_macros.svh	92	39	92	56		0		
+  B: 6	operation				dv_fcov_macros.svh	92	27	92	44		0		
+#13626 col
+  A: 7	bit_select	pmp_req_err_o		work@ibex_pmp.g_access_check[0].pmp_req_err_o	dv_fcov_macros.svh	92	54	92	55		0		
+  B: 7	bit_select	pmp_req_err_o		work@ibex_pmp.g_access_check[0].pmp_req_err_o	dv_fcov_macros.svh	92	42	92	43		0		
+#13627 col
+  A: 8	ref_obj	c		work@ibex_pmp.g_access_check[0].c	dv_fcov_macros.svh	92	54	92	55		0		
+  B: 8	ref_obj	c		work@ibex_pmp.g_access_check[0].c	dv_fcov_macros.svh	92	42	92	43		0		
+#13628 col
+  A: 6	operation				dv_fcov_macros.svh	92	59	92	105		0		
+  B: 6	operation				dv_fcov_macros.svh	92	47	92	93		0		
+#13629 col
+  A: 7	operation				dv_fcov_macros.svh	92	61	92	104		0		
+  B: 7	operation				dv_fcov_macros.svh	92	49	92	92		0		
+#13630 col
+  A: 8	bit_select	region_match_all		work@ibex_pmp.g_access_check[0].region_match_all	dv_fcov_macros.svh	92	78	92	79		0		
+  B: 8	bit_select	region_match_all		work@ibex_pmp.g_access_check[0].region_match_all	dv_fcov_macros.svh	92	66	92	67		0		
+#13631 col
+  A: 9	ref_obj	c		work@ibex_pmp.g_access_check[0].c	dv_fcov_macros.svh	92	78	92	79		0		
+  B: 9	ref_obj	c		work@ibex_pmp.g_access_check[0].c	dv_fcov_macros.svh	92	66	92	67		0		
+#13632 col
+  A: 8	operation				dv_fcov_macros.svh	92	83	92	104		0		
+  B: 8	operation				dv_fcov_macros.svh	92	71	92	92		0		
+#13633 col
+  A: 9	bit_select	region_perm_check		work@ibex_pmp.g_access_check[0].region_perm_check	dv_fcov_macros.svh	92	102	92	103		0		
+  B: 9	bit_select	region_perm_check		work@ibex_pmp.g_access_check[0].region_perm_check	dv_fcov_macros.svh	92	90	92	91		0		
+#13634 col
+  A: 10	ref_obj	c		work@ibex_pmp.g_access_check[0].c	dv_fcov_macros.svh	92	102	92	103		0		
+  B: 10	ref_obj	c		work@ibex_pmp.g_access_check[0].c	dv_fcov_macros.svh	92	90	92	91		0		
+#13635 endline
+  A: 5	ref_obj	fcov_pmp_region_override		work@ibex_pmp.g_access_check[0].fcov_pmp_region_override	dv_fcov_macros.svh	92	12	92	36		0		
+  B: 5	ref_obj	fcov_pmp_region_override		work@ibex_pmp.g_access_check[0].fcov_pmp_region_override	dv_fcov_macros.svh	92	12	93	1		0		
+#13636 endline
+  A: 4	cont_assign				dv_fcov_macros.svh	82	12	82	70				
+  B: 4	cont_assign				dv_fcov_macros.svh	82	12	85	3				
+#13637 col
+  A: 5	ref_obj	fcov_pmp_region_override		work@ibex_pmp.g_access_check[0].fcov_pmp_region_override	dv_fcov_macros.svh	82	46	82	70		0		
+  B: 5	ref_obj	fcov_pmp_region_override		work@ibex_pmp.g_access_check[0].fcov_pmp_region_override	dv_fcov_macros.svh	82	34	85	3		0		
+#13882 type
+  A: 9	ref_typespec			work@ibex_pmp.g_access_check[0].g_regions[0].region_basic_perm_check		0	0	0	0		0		
+  B: 9	ref_obj	c		work@ibex_pmp.g_access_check[0].g_regions[0].region_basic_perm_check.c	ibex_pmp.sv	227	83	227	84		0		
+objects 15947 vs 15931
+fields: type=1 name=1 fullname=2 file=15 line=15 col=39 endline=27 endcol=51 objects_differing=52 (walk diverged)
+STRICT_NOTEQUAL file

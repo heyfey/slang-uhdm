@@ -1,0 +1,23 @@
+ibex_branch_predict	default	32	0	0	
+ibex_compressed_decoder	default	316	0	0	
+ibex_csr	default	32	0	0	
+ibex_decoder	default	42	0	0	
+ibex_fetch_fifo	default	64	0	0	
+ibex_icache	default	232	0	0	
+ibex_load_store_unit	default	526	0	0	
+ibex_multdiv_fast	default	154	0	0	
+ibex_multdiv_slow	default	42	0	0	
+ibex_pmp	default	72	0	0	WALK
+ibex_wb_stage	default	51	0	0	
+ibex_branch_predict	testflags	32	0	0	
+ibex_compressed_decoder	testflags	316	0	0	
+ibex_csr	testflags	32	0	0	
+ibex_decoder	testflags	42	0	0	
+ibex_fetch_fifo	testflags	64	0	0	
+ibex_icache	testflags	232	0	0	
+ibex_load_store_unit	testflags	526	0	0	
+ibex_multdiv_fast	testflags	154	0	0	
+ibex_multdiv_slow	testflags	42	0	0	
+ibex_pmp	testflags	72	0	0	WALK
+ibex_wb_stage	testflags	51	0	0	
+TOTAL rows=22 improved=3126 worsened=0 neutral=0

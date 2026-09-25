@@ -1,0 +1,14 @@
+SimpleUVM default include_file_info records=144 line-differing: pristine=121 law=0
+SeqDriver default include_file_info records=144 line-differing: pristine=121 law=0
+MiniAmiq default include_file_info records=161 line-differing: pristine=137 law=0
+Scoreboard default include_file_info records=152 line-differing: pristine=125 law=0
+ApbSlave default include_file_info records=8 line-differing: pristine=4 law=0
+Earlgrey_0_1 default include_file_info records=104 line-differing: pristine=5 law=0
+Scr1SvTests default include_file_info records=108 line-differing: pristine=76 law=0
+BuildUVMPkg default include_file_info records=0 line-differing: pristine=0 law=0
+YosysOldOr default include_file_info records=124 line-differing: pristine=0 law=0
+YosysOldSpi default include_file_info records=6 line-differing: pristine=0 law=0
+SimpleUVM testflags include_file_info records=156 line-differing: pristine=121 law=0
+SeqDriver testflags include_file_info records=156 line-differing: pristine=121 law=0
+MiniAmiq testflags include_file_info records=161 line-differing: pristine=137 law=0
+ApbSlave testflags include_file_info records=8 line-differing: pristine=4 law=0

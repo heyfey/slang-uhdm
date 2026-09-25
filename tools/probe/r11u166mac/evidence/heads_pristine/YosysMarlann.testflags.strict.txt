@@ -1,0 +1,74 @@
+#744 endcol
+  A: 5	assignment				marlann_compute.v	167	3	167	83				
+  B: 5	assignment				marlann_compute.v	167	3	167	84				
+#747 endcol
+  A: 7	operation				marlann_compute.v	167	51	167	82		0		
+  B: 7	operation				marlann_compute.v	167	51	167	83		0		
+#750 col
+  A: 8	ref_obj	memlock_mask		work@marlann_compute.memlock_mask	marlann_compute.v	167	70	167	82		0		
+  B: 8	ref_obj	memlock_mask		work@marlann_compute.memlock_mask	marlann_compute.v	167	71	167	83		0		
+#1470 endcol
+  A: 5	assignment				marlann_compute.v	390	3	390	47				
+  B: 5	assignment				marlann_compute.v	390	3	390	48				
+#1471 endcol
+  A: 6	operation				marlann_compute.v	390	12	390	47		0		
+  B: 6	operation				marlann_compute.v	390	12	390	48		0		
+#1475 col
+  A: 7	ref_obj	acc0zn		work@marlann_compute.acc0zn	marlann_compute.v	390	41	390	47		0		
+  B: 7	ref_obj	acc0zn		work@marlann_compute.acc0zn	marlann_compute.v	390	42	390	48		0		
+#1646 endcol
+  A: 5	assignment				marlann_compute.v	435	3	435	59				
+  B: 5	assignment				marlann_compute.v	435	3	435	60				
+#1647 endcol
+  A: 6	operation				marlann_compute.v	435	18	435	59		0		
+  B: 6	operation				marlann_compute.v	435	18	435	60		0		
+#1651 col
+  A: 7	ref_obj	new_acc0_add		work@marlann_compute.new_acc0_add	marlann_compute.v	435	47	435	59		0		
+  B: 7	ref_obj	new_acc0_add		work@marlann_compute.new_acc0_add	marlann_compute.v	435	48	435	60		0		
+#1713 col
+  A: 8	begin			work@marlann_compute	marlann_compute.v	455	32	458	7				
+  B: 8	begin			work@marlann_compute	marlann_compute.v	455	33	458	7				
+#1927 col
+  A: 8	begin			work@marlann_compute	marlann_compute.v	523	32	525	7				
+  B: 8	begin			work@marlann_compute	marlann_compute.v	523	33	525	7				
+#1943 col
+  A: 8	begin			work@marlann_compute	marlann_compute.v	528	33	531	7				
+  B: 8	begin			work@marlann_compute	marlann_compute.v	528	34	531	7				
+#2891 endcol
+  A: 5	assignment				marlann_compute.v	167	3	167	83				
+  B: 5	assignment				marlann_compute.v	167	3	167	84				
+#2900 endcol
+  A: 7	operation				marlann_compute.v	167	51	167	82		0		
+  B: 7	operation				marlann_compute.v	167	51	167	83		0		
+#2906 col
+  A: 8	ref_obj	memlock_mask		work@marlann_compute.memlock_mask	marlann_compute.v	167	70	167	82		0		
+  B: 8	ref_obj	memlock_mask		work@marlann_compute.memlock_mask	marlann_compute.v	167	71	167	83		0		
+#3781 endcol
+  A: 5	assignment				marlann_compute.v	390	3	390	47				
+  B: 5	assignment				marlann_compute.v	390	3	390	48				
+#3782 endcol
+  A: 6	operation				marlann_compute.v	390	12	390	47		0		
+  B: 6	operation				marlann_compute.v	390	12	390	48		0		
+#3786 col
+  A: 7	ref_obj	acc0zn		work@marlann_compute.acc0zn	marlann_compute.v	390	41	390	47		0		
+  B: 7	ref_obj	acc0zn		work@marlann_compute.acc0zn	marlann_compute.v	390	42	390	48		0		
+#4005 endcol
+  A: 5	assignment				marlann_compute.v	435	3	435	59				
+  B: 5	assignment				marlann_compute.v	435	3	435	60				
+#4006 endcol
+  A: 6	operation				marlann_compute.v	435	18	435	59		0		
+  B: 6	operation				marlann_compute.v	435	18	435	60		0		
+#4010 col
+  A: 7	ref_obj	new_acc0_add		work@marlann_compute.new_acc0_add	marlann_compute.v	435	47	435	59		0		
+  B: 7	ref_obj	new_acc0_add		work@marlann_compute.new_acc0_add	marlann_compute.v	435	48	435	60		0		
+#4099 col
+  A: 8	begin			work@marlann_compute	marlann_compute.v	455	32	458	7				
+  B: 8	begin			work@marlann_compute	marlann_compute.v	455	33	458	7				
+#4367 col
+  A: 8	begin			work@marlann_compute	marlann_compute.v	523	32	525	7				
+  B: 8	begin			work@marlann_compute	marlann_compute.v	523	33	525	7				
+#4383 col
+  A: 8	begin			work@marlann_compute	marlann_compute.v	528	33	531	7				
+  B: 8	begin			work@marlann_compute	marlann_compute.v	528	34	531	7				
+fields: col=12 endcol=18 objects_differing=24
+STRICT_NOTEQUAL endcol

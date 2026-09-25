@@ -1,0 +1,74 @@
+#6361 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	37		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#6362 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#6363 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#6364 line
+  A: 5	constant				prim_assert.sv	29	60	29	149	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_wb_stage.sv"	696	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_wb_stage.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	58	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_wb_stage.sv"	696	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_wb_stage.sv	6
+#6365 line
+  A: 5	constant				prim_assert.sv	29	151	29	154	251	64	UINT:251	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	251	64	UINT:251	9
+#6366 endline
+  A: 5	constant				prim_assert.sv	33	10	33	36	"RFWriteFromOneSourceOnly"	192	STRING:RFWriteFromOneSourceOnly	6
+  B: 5	constant				prim_assert.sv	33	10	23	18	"RFWriteFromOneSourceOnly"	192	STRING:RFWriteFromOneSourceOnly	6
+#6549 endcol
+  A: 2	cont_assign				dv_fcov_macros.svh	82	12	82	48				
+  B: 2	cont_assign				dv_fcov_macros.svh	82	12	82	47				
+#6550 col
+  A: 3	ref_obj	fcov_wb_valid		work@ibex_wb_stage.fcov_wb_valid	dv_fcov_macros.svh	82	35	82	48		0		
+  B: 3	ref_obj	fcov_wb_valid		work@ibex_wb_stage.fcov_wb_valid	dv_fcov_macros.svh	82	34	82	47		0		
+#6966 endcol
+  A: 4	cont_assign				dv_fcov_macros.svh	106	14	106	58				
+  B: 4	cont_assign				dv_fcov_macros.svh	106	14	106	57				
+#6967 col
+  A: 5	hier_path	g_writeback_stage.wb_valid_q			dv_fcov_macros.svh	106	30	106	58		0		
+  B: 5	hier_path	g_writeback_stage.wb_valid_q			dv_fcov_macros.svh	106	29	106	57		0		
+#6968 col
+  A: 6	ref_obj	g_writeback_stage			dv_fcov_macros.svh	106	30	106	47		0		
+  B: 6	ref_obj	g_writeback_stage			dv_fcov_macros.svh	106	29	106	46		0		
+#6969 col
+  A: 6	ref_obj	wb_valid_q		work@ibex_wb_stage.g_fcov_wb_valid.wb_valid_q	dv_fcov_macros.svh	106	48	106	58		0		
+  B: 6	ref_obj	wb_valid_q		work@ibex_wb_stage.g_fcov_wb_valid.wb_valid_q	dv_fcov_macros.svh	106	47	106	57		0		
+#6972 endcol
+  A: 4	cont_assign				dv_fcov_macros.svh	108	14	108	32				
+  B: 4	cont_assign				dv_fcov_macros.svh	108	14	108	31				
+#6973 col
+  A: 5	constant				dv_fcov_macros.svh	108	30	108	32	'0	-1	BIN:0	3
+  B: 5	constant				dv_fcov_macros.svh	108	29	108	31	'0	-1	BIN:0	3
+#9192 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	37		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#9193 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#9194 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#9195 line
+  A: 5	constant				prim_assert.sv	29	60	29	149	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_wb_stage.sv"	696	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_wb_stage.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	58	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_wb_stage.sv"	696	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_wb_stage.sv	6
+#9196 line
+  A: 5	constant				prim_assert.sv	29	151	29	154	251	64	UINT:251	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	251	64	UINT:251	9
+#9197 endline
+  A: 5	constant				prim_assert.sv	33	10	33	36	"RFWriteFromOneSourceOnly"	192	STRING:RFWriteFromOneSourceOnly	6
+  B: 5	constant				prim_assert.sv	33	10	23	18	"RFWriteFromOneSourceOnly"	192	STRING:RFWriteFromOneSourceOnly	6
+#9459 endcol
+  A: 4	cont_assign				dv_fcov_macros.svh	108	14	108	32				
+  B: 4	cont_assign				dv_fcov_macros.svh	108	14	108	31				
+#9460 col
+  A: 5	constant				dv_fcov_macros.svh	108	30	108	32	'0	1	BIN:0	3
+  B: 5	constant				dv_fcov_macros.svh	108	29	108	31	'0	1	BIN:0	3
+#9496 endcol
+  A: 2	cont_assign				dv_fcov_macros.svh	82	12	82	48				
+  B: 2	cont_assign				dv_fcov_macros.svh	82	12	82	47				
+#9497 col
+  A: 3	ref_obj	fcov_wb_valid		work@ibex_wb_stage.fcov_wb_valid	dv_fcov_macros.svh	82	35	82	48		0		
+  B: 3	ref_obj	fcov_wb_valid		work@ibex_wb_stage.fcov_wb_valid	dv_fcov_macros.svh	82	34	82	47		0		
+fields: line=10 col=11 endline=10 endcol=20 objects_differing=24
+STRICT_NOTEQUAL line

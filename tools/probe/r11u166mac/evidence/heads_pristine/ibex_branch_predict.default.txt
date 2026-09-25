@@ -1,0 +1,37 @@
+STRICT_NOTEQUAL line
+#6439 line  <- begin work@ibex_branch_predict.BranchInsTypeOneHot 79:10 / assert_stmt BranchInsTypeOneHot 78:3 / module_inst work@ibex_branch_predict 20:1
+   A sys_func_call $error prim_assert.sv 29:3-33:32 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#6440 line  <- sys_func_call $error 29:3 / begin work@ibex_branch_predict.BranchInsTypeOneHot 79:10 / assert_stmt BranchInsTypeOneHot 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#6441 line  <- sys_func_call $error 29:3 / begin work@ibex_branch_predict.BranchInsTypeOneHot 79:10 / assert_stmt BranchInsTypeOneHot 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#6442 line  <- sys_func_call $error 29:3 / begin work@ibex_branch_predict.BranchInsTypeOneHot 79:10 / assert_stmt BranchInsTypeOneHot 78:3
+   A constant  prim_assert.sv 29:60-29:155 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:64 "/home/heyfey/git-repos/slang-uhdm/third
+#6443 line  <- sys_func_call $error 29:3 / begin work@ibex_branch_predict.BranchInsTypeOneHot 79:10 / assert_stmt BranchInsTypeOneHot 78:3
+   A constant  prim_assert.sv 29:157-29:159 91
+   B constant  prim_assert.sv 32:92-32:94 91
+#6444 endline  <- sys_func_call $error 29:3 / begin work@ibex_branch_predict.BranchInsTypeOneHot 79:10 / assert_stmt BranchInsTypeOneHot 78:3
+   A constant  prim_assert.sv 33:10-33:31 "BranchInsTypeOneHot"
+   B constant  prim_assert.sv 33:10-23:13 "BranchInsTypeOneHot"
+#8847 line  <- begin work@ibex_branch_predict.BranchInsTypeOneHot 79:10 / assert_stmt BranchInsTypeOneHot 78:3 / module_inst work@ibex_branch_predict 20:1
+   A sys_func_call $error prim_assert.sv 29:3-33:32 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#8848 line  <- sys_func_call $error 29:3 / begin work@ibex_branch_predict.BranchInsTypeOneHot 79:10 / assert_stmt BranchInsTypeOneHot 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#8849 line  <- sys_func_call $error 29:3 / begin work@ibex_branch_predict.BranchInsTypeOneHot 79:10 / assert_stmt BranchInsTypeOneHot 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#8850 line  <- sys_func_call $error 29:3 / begin work@ibex_branch_predict.BranchInsTypeOneHot 79:10 / assert_stmt BranchInsTypeOneHot 78:3
+   A constant  prim_assert.sv 29:60-29:155 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:64 "/home/heyfey/git-repos/slang-uhdm/third
+#8851 line  <- sys_func_call $error 29:3 / begin work@ibex_branch_predict.BranchInsTypeOneHot 79:10 / assert_stmt BranchInsTypeOneHot 78:3
+   A constant  prim_assert.sv 29:157-29:159 91
+   B constant  prim_assert.sv 32:92-32:94 91
+#8852 endline  <- sys_func_call $error 29:3 / begin work@ibex_branch_predict.BranchInsTypeOneHot 79:10 / assert_stmt BranchInsTypeOneHot 78:3
+   A constant  prim_assert.sv 33:10-33:31 "BranchInsTypeOneHot"
+   B constant  prim_assert.sv 33:10-23:13 "BranchInsTypeOneHot"

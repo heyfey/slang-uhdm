@@ -1,0 +1,11 @@
+MOVED r11u125repro/grid/g3/m05 | P: cmp=0 STRICT_NOTEQUAL n=10 | L: cmp=0 STRICT_EQUAL n=0
+MOVED r11u125repro/grid/g3/m10 | P: cmp=0 STRICT_NOTEQUAL n=10 | L: cmp=0 STRICT_EQUAL n=0
+MOVED r11u125repro/grid/g3/m13 | P: cmp=0 STRICT_NOTEQUAL n=8 | L: cmp=0 STRICT_EQUAL n=0
+MOVED r11u125repro/grid/g3/m14 | P: cmp=0 STRICT_NOTEQUAL n=16 | L: cmp=0 STRICT_EQUAL n=0
+MOVED r11u125repro/grid/g3/m15 | P: cmp=0 STRICT_NOTEQUAL n=16 | L: cmp=0 STRICT_EQUAL n=0
+MOVED r11v125repro/grid/mf/w04 | P: cmp=0 STRICT_NOTEQUAL n=10 | L: cmp=0 STRICT_EQUAL n=0
+MOVED r11v125repro/grid/mf/w05 | P: cmp=0 STRICT_NOTEQUAL n=4 | L: cmp=0 STRICT_EQUAL n=0
+MOVED r11v125repro/grid/mf/w11 | P: cmp=0 STRICT_NOTEQUAL n=12 | L: cmp=0 STRICT_EQUAL n=0
+MOVED r11u130repro/grid/g9/r07_macro_multiline_after | P: cmp=0 STRICT_NOTEQUAL n=10 | L: cmp=0 STRICT_EQUAL n=0
+MOVED r11v130repro/grid/adv/h09_redef_macro_arg | P: cmp=0 STRICT_NOTEQUAL n=14 | L: cmp=0 STRICT_EQUAL n=0
+TOTAL cases=777 byte-identical=767 moved=10

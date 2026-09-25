@@ -1,0 +1,26 @@
+ApbSlave default: golden=3678 pristine_match=3430 law_match=3636 gained=206 lost=0 moved=206 
+BlackConst default: golden=785 pristine_match=756 law_match=785 gained=29 lost=0 moved=29 
+CovMacro default: golden=270 pristine_match=152 law_match=246 gained=94 lost=0 moved=118 
+Earlgrey_0_1 default: golden=2173209 pristine_match=2156813 law_match=2160229 gained=3416 lost=0 moved=3416 
+MacroArgMismatch default: golden=133 pristine_match=125 law_match=133 gained=8 lost=0 moved=8 
+MiniAmiq default: golden=435723 pristine_match=370139 law_match=394696 gained=24558 lost=1 moved=24963 LOST x1 constant					0	0	0	0	0	64	UINT:0	9 
+Rggen default: golden=314498 pristine_match=302841 law_match=303755 gained=914 lost=0 moved=914 
+Scoreboard default: golden=269656 pristine_match=242213 law_match=258093 gained=15880 lost=0 moved=16093 
+Scr1SvTests default: golden=84098 pristine_match=83272 law_match=83348 gained=76 lost=0 moved=76 
+SeqDriver default: golden=475526 pristine_match=414963 law_match=443345 gained=28383 lost=1 moved=28841 LOST x1 constant					0	0	0	0	0	64	UINT:0	9 
+SimpleUVM default: golden=334285 pristine_match=300875 law_match=320833 gained=19958 lost=0 moved=20241 
+YosysMarlann default: golden=5403 pristine_match=5379 law_match=5403 gained=24 lost=0 moved=24 
+YosysOldOr default: golden=243334 pristine_match=243259 law_match=243333 gained=74 lost=0 moved=74 
+YosysRiscv default: golden=10319 pristine_match=10233 law_match=10279 gained=46 lost=0 moved=46 
+ApbSlave testflags: golden=3678 pristine_match=3430 law_match=3636 gained=206 lost=0 moved=206 
+BlackConst testflags: golden=581 pristine_match=562 law_match=581 gained=19 lost=0 moved=19 
+CovMacro testflags: golden=264 pristine_match=146 law_match=240 gained=94 lost=0 moved=118 
+Earlgrey_0_1 testflags: golden=1342584 pristine_match=1325487 law_match=1328903 gained=3416 lost=0 moved=3416 
+MacroArgMismatch testflags: golden=39 pristine_match=31 law_match=39 gained=8 lost=0 moved=8 
+MiniAmiq testflags: golden=435723 pristine_match=370138 law_match=394696 gained=24558 lost=0 moved=24963 
+Scr1SvTests testflags: golden=83997 pristine_match=83171 law_match=83247 gained=76 lost=0 moved=76 
+SeqDriver testflags: golden=475538 pristine_match=414975 law_match=443358 gained=28383 lost=0 moved=28840 
+SimpleUVM testflags: golden=334297 pristine_match=300887 law_match=320845 gained=19958 lost=0 moved=20241 
+YosysMarlann testflags: golden=5403 pristine_match=5379 law_match=5403 gained=24 lost=0 moved=24 
+YosysOldOr testflags: golden=243334 pristine_match=243259 law_match=243333 gained=74 lost=0 moved=74 
+YosysRiscv testflags: golden=10319 pristine_match=10233 law_match=10279 gained=46 lost=0 moved=46 

@@ -1,0 +1,398 @@
+#7059 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	32		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#7060 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#7061 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#7062 line
+  A: 5	constant				prim_assert.sv	29	60	29	159	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	68	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+#7063 line
+  A: 5	constant				prim_assert.sv	29	161	29	164	838	64	UINT:838	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	838	64	UINT:838	9
+#7064 endline
+  A: 5	constant				prim_assert.sv	33	10	33	31	"IbexInstrValidKnown"	152	STRING:IbexInstrValidKnown	6
+  B: 5	constant				prim_assert.sv	33	10	23	13	"IbexInstrValidKnown"	152	STRING:IbexInstrValidKnown	6
+#7068 endline
+  A: 2	assert_stmt	IbexInstrLSBsKnown		work@ibex_compressed_decoder.IbexInstrLSBsKnown	prim_assert_standard_macros.svh	78	3	82	8				
+  B: 2	assert_stmt	IbexInstrLSBsKnown		work@ibex_compressed_decoder.IbexInstrLSBsKnown	prim_assert_standard_macros.svh	78	3	81	8				
+#7069 line
+  A: 3	begin			work@ibex_compressed_decoder.IbexInstrLSBsKnown	prim_assert_standard_macros.svh	80	10	82	8				
+  B: 3	begin			work@ibex_compressed_decoder.IbexInstrLSBsKnown	prim_assert_standard_macros.svh	79	10	81	8				
+#7070 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	31		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#7071 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#7072 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#7073 line
+  A: 5	constant				prim_assert.sv	29	60	29	159	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	68	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+#7074 line
+  A: 5	constant				prim_assert.sv	29	161	29	164	841	64	UINT:841	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	841	64	UINT:841	9
+#7075 endline
+  A: 5	constant				prim_assert.sv	33	10	33	30	"IbexInstrLSBsKnown"	144	STRING:IbexInstrLSBsKnown	6
+  B: 5	constant				prim_assert.sv	33	10	23	12	"IbexInstrLSBsKnown"	144	STRING:IbexInstrLSBsKnown	6
+#7076 endline
+  A: 3	property_spec				prim_assert_standard_macros.svh	78	40	79	33				
+  B: 3	property_spec				prim_assert_standard_macros.svh	78	40	78	133				
+#7079 endline
+  A: 2	assert_stmt	IbexC0Known1		work@ibex_compressed_decoder.IbexC0Known1	prim_assert_standard_macros.svh	78	3	82	8				
+  B: 2	assert_stmt	IbexC0Known1		work@ibex_compressed_decoder.IbexC0Known1	prim_assert_standard_macros.svh	78	3	81	8				
+#7080 line
+  A: 3	begin			work@ibex_compressed_decoder.IbexC0Known1	prim_assert_standard_macros.svh	80	10	82	8				
+  B: 3	begin			work@ibex_compressed_decoder.IbexC0Known1	prim_assert_standard_macros.svh	79	10	81	8				
+#7081 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	25		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#7082 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#7083 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#7084 line
+  A: 5	constant				prim_assert.sv	29	60	29	159	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	68	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+#7085 line
+  A: 5	constant				prim_assert.sv	29	161	29	164	843	64	UINT:843	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	843	64	UINT:843	9
+#7086 endline
+  A: 5	constant				prim_assert.sv	33	10	33	24	"IbexC0Known1"	96	STRING:IbexC0Known1	6
+  B: 5	constant				prim_assert.sv	33	10	23	6	"IbexC0Known1"	96	STRING:IbexC0Known1	6
+#7087 endline
+  A: 3	property_spec				prim_assert_standard_macros.svh	78	34	79	35				
+  B: 3	property_spec				prim_assert_standard_macros.svh	78	34	78	158				
+#7090 endline
+  A: 2	assert_stmt	IbexC1Known1		work@ibex_compressed_decoder.IbexC1Known1	prim_assert_standard_macros.svh	78	3	82	8				
+  B: 2	assert_stmt	IbexC1Known1		work@ibex_compressed_decoder.IbexC1Known1	prim_assert_standard_macros.svh	78	3	81	8				
+#7091 line
+  A: 3	begin			work@ibex_compressed_decoder.IbexC1Known1	prim_assert_standard_macros.svh	80	10	82	8				
+  B: 3	begin			work@ibex_compressed_decoder.IbexC1Known1	prim_assert_standard_macros.svh	79	10	81	8				
+#7092 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	25		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#7093 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#7094 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#7095 line
+  A: 5	constant				prim_assert.sv	29	60	29	159	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	68	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+#7096 line
+  A: 5	constant				prim_assert.sv	29	161	29	164	845	64	UINT:845	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	845	64	UINT:845	9
+#7097 endline
+  A: 5	constant				prim_assert.sv	33	10	33	24	"IbexC1Known1"	96	STRING:IbexC1Known1	6
+  B: 5	constant				prim_assert.sv	33	10	23	6	"IbexC1Known1"	96	STRING:IbexC1Known1	6
+#7098 endline
+  A: 3	property_spec				prim_assert_standard_macros.svh	78	34	79	35				
+  B: 3	property_spec				prim_assert_standard_macros.svh	78	34	78	158				
+#7101 endline
+  A: 2	assert_stmt	IbexC1Known2		work@ibex_compressed_decoder.IbexC1Known2	prim_assert_standard_macros.svh	78	3	82	8				
+  B: 2	assert_stmt	IbexC1Known2		work@ibex_compressed_decoder.IbexC1Known2	prim_assert_standard_macros.svh	78	3	81	8				
+#7102 line
+  A: 3	begin			work@ibex_compressed_decoder.IbexC1Known2	prim_assert_standard_macros.svh	80	10	82	8				
+  B: 3	begin			work@ibex_compressed_decoder.IbexC1Known2	prim_assert_standard_macros.svh	79	10	81	8				
+#7103 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	25		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#7104 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#7105 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#7106 line
+  A: 5	constant				prim_assert.sv	29	60	29	159	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	68	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+#7107 line
+  A: 5	constant				prim_assert.sv	29	161	29	164	847	64	UINT:847	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	847	64	UINT:847	9
+#7108 endline
+  A: 5	constant				prim_assert.sv	33	10	33	24	"IbexC1Known2"	96	STRING:IbexC1Known2	6
+  B: 5	constant				prim_assert.sv	33	10	23	6	"IbexC1Known2"	96	STRING:IbexC1Known2	6
+#7109 endline
+  A: 3	property_spec				prim_assert_standard_macros.svh	78	34	79	35				
+  B: 3	property_spec				prim_assert_standard_macros.svh	78	34	78	188				
+#7112 endline
+  A: 2	assert_stmt	IbexC1Known3		work@ibex_compressed_decoder.IbexC1Known3	prim_assert_standard_macros.svh	78	3	83	8				
+  B: 2	assert_stmt	IbexC1Known3		work@ibex_compressed_decoder.IbexC1Known3	prim_assert_standard_macros.svh	78	3	81	8				
+#7113 line
+  A: 3	begin			work@ibex_compressed_decoder.IbexC1Known3	prim_assert_standard_macros.svh	81	10	83	8				
+  B: 3	begin			work@ibex_compressed_decoder.IbexC1Known3	prim_assert_standard_macros.svh	79	10	81	8				
+#7114 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	25		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#7115 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#7116 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#7117 line
+  A: 5	constant				prim_assert.sv	29	60	29	159	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	68	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+#7118 line
+  A: 5	constant				prim_assert.sv	29	161	29	164	849	64	UINT:849	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	849	64	UINT:849	9
+#7119 endline
+  A: 5	constant				prim_assert.sv	33	10	33	24	"IbexC1Known3"	96	STRING:IbexC1Known3	6
+  B: 5	constant				prim_assert.sv	33	10	23	6	"IbexC1Known3"	96	STRING:IbexC1Known3	6
+#7120 endline
+  A: 3	property_spec				prim_assert_standard_macros.svh	78	34	80	48				
+  B: 3	property_spec				prim_assert_standard_macros.svh	78	34	78	236				
+#7123 endline
+  A: 2	assert_stmt	IbexC2Known1		work@ibex_compressed_decoder.IbexC2Known1	prim_assert_standard_macros.svh	78	3	82	8				
+  B: 2	assert_stmt	IbexC2Known1		work@ibex_compressed_decoder.IbexC2Known1	prim_assert_standard_macros.svh	78	3	81	8				
+#7124 line
+  A: 3	begin			work@ibex_compressed_decoder.IbexC2Known1	prim_assert_standard_macros.svh	80	10	82	8				
+  B: 3	begin			work@ibex_compressed_decoder.IbexC2Known1	prim_assert_standard_macros.svh	79	10	81	8				
+#7125 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	25		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#7126 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#7127 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#7128 line
+  A: 5	constant				prim_assert.sv	29	60	29	159	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	68	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+#7129 line
+  A: 5	constant				prim_assert.sv	29	161	29	164	852	64	UINT:852	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	852	64	UINT:852	9
+#7130 endline
+  A: 5	constant				prim_assert.sv	33	10	33	24	"IbexC2Known1"	96	STRING:IbexC2Known1	6
+  B: 5	constant				prim_assert.sv	33	10	23	6	"IbexC2Known1"	96	STRING:IbexC2Known1	6
+#7131 endline
+  A: 3	property_spec				prim_assert_standard_macros.svh	78	34	79	35				
+  B: 3	property_spec				prim_assert_standard_macros.svh	78	34	78	158				
+#7136 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	33		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#7137 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#7138 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#7139 line
+  A: 5	constant				prim_assert.sv	29	60	29	159	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	68	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+#7140 line
+  A: 5	constant				prim_assert.sv	29	161	29	164	854	64	UINT:854	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	854	64	UINT:854	9
+#7141 endline
+  A: 5	constant				prim_assert.sv	33	10	33	32	"IbexPushPopFSMStable"	160	STRING:IbexPushPopFSMStable	6
+  B: 5	constant				prim_assert.sv	33	10	23	14	"IbexPushPopFSMStable"	160	STRING:IbexPushPopFSMStable	6
+#11722 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	32		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#11723 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#11724 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#11725 line
+  A: 5	constant				prim_assert.sv	29	60	29	159	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	68	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+#11726 line
+  A: 5	constant				prim_assert.sv	29	161	29	164	838	64	UINT:838	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	838	64	UINT:838	9
+#11727 endline
+  A: 5	constant				prim_assert.sv	33	10	33	31	"IbexInstrValidKnown"	152	STRING:IbexInstrValidKnown	6
+  B: 5	constant				prim_assert.sv	33	10	23	13	"IbexInstrValidKnown"	152	STRING:IbexInstrValidKnown	6
+#11732 endline
+  A: 2	assert_stmt	IbexInstrLSBsKnown		work@ibex_compressed_decoder.IbexInstrLSBsKnown	prim_assert_standard_macros.svh	78	3	82	8				
+  B: 2	assert_stmt	IbexInstrLSBsKnown		work@ibex_compressed_decoder.IbexInstrLSBsKnown	prim_assert_standard_macros.svh	78	3	81	8				
+#11733 line
+  A: 3	begin			work@ibex_compressed_decoder.IbexInstrLSBsKnown	prim_assert_standard_macros.svh	80	10	82	8				
+  B: 3	begin			work@ibex_compressed_decoder.IbexInstrLSBsKnown	prim_assert_standard_macros.svh	79	10	81	8				
+#11734 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	31		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#11735 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#11736 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#11737 line
+  A: 5	constant				prim_assert.sv	29	60	29	159	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	68	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+#11738 line
+  A: 5	constant				prim_assert.sv	29	161	29	164	841	64	UINT:841	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	841	64	UINT:841	9
+#11739 endline
+  A: 5	constant				prim_assert.sv	33	10	33	30	"IbexInstrLSBsKnown"	144	STRING:IbexInstrLSBsKnown	6
+  B: 5	constant				prim_assert.sv	33	10	23	12	"IbexInstrLSBsKnown"	144	STRING:IbexInstrLSBsKnown	6
+#11740 endline
+  A: 3	property_spec				prim_assert_standard_macros.svh	78	40	79	33				
+  B: 3	property_spec				prim_assert_standard_macros.svh	78	40	78	133				
+#11743 endline
+  A: 2	assert_stmt	IbexC0Known1		work@ibex_compressed_decoder.IbexC0Known1	prim_assert_standard_macros.svh	78	3	82	8				
+  B: 2	assert_stmt	IbexC0Known1		work@ibex_compressed_decoder.IbexC0Known1	prim_assert_standard_macros.svh	78	3	81	8				
+#11744 line
+  A: 3	begin			work@ibex_compressed_decoder.IbexC0Known1	prim_assert_standard_macros.svh	80	10	82	8				
+  B: 3	begin			work@ibex_compressed_decoder.IbexC0Known1	prim_assert_standard_macros.svh	79	10	81	8				
+#11745 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	25		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#11746 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#11747 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#11748 line
+  A: 5	constant				prim_assert.sv	29	60	29	159	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	68	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+#11749 line
+  A: 5	constant				prim_assert.sv	29	161	29	164	843	64	UINT:843	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	843	64	UINT:843	9
+#11750 endline
+  A: 5	constant				prim_assert.sv	33	10	33	24	"IbexC0Known1"	96	STRING:IbexC0Known1	6
+  B: 5	constant				prim_assert.sv	33	10	23	6	"IbexC0Known1"	96	STRING:IbexC0Known1	6
+#11751 endline
+  A: 3	property_spec				prim_assert_standard_macros.svh	78	34	79	35				
+  B: 3	property_spec				prim_assert_standard_macros.svh	78	34	78	158				
+#11754 endline
+  A: 2	assert_stmt	IbexC1Known1		work@ibex_compressed_decoder.IbexC1Known1	prim_assert_standard_macros.svh	78	3	82	8				
+  B: 2	assert_stmt	IbexC1Known1		work@ibex_compressed_decoder.IbexC1Known1	prim_assert_standard_macros.svh	78	3	81	8				
+#11755 line
+  A: 3	begin			work@ibex_compressed_decoder.IbexC1Known1	prim_assert_standard_macros.svh	80	10	82	8				
+  B: 3	begin			work@ibex_compressed_decoder.IbexC1Known1	prim_assert_standard_macros.svh	79	10	81	8				
+#11756 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	25		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#11757 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#11758 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#11759 line
+  A: 5	constant				prim_assert.sv	29	60	29	159	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	68	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+#11760 line
+  A: 5	constant				prim_assert.sv	29	161	29	164	845	64	UINT:845	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	845	64	UINT:845	9
+#11761 endline
+  A: 5	constant				prim_assert.sv	33	10	33	24	"IbexC1Known1"	96	STRING:IbexC1Known1	6
+  B: 5	constant				prim_assert.sv	33	10	23	6	"IbexC1Known1"	96	STRING:IbexC1Known1	6
+#11762 endline
+  A: 3	property_spec				prim_assert_standard_macros.svh	78	34	79	35				
+  B: 3	property_spec				prim_assert_standard_macros.svh	78	34	78	158				
+#11765 endline
+  A: 2	assert_stmt	IbexC1Known2		work@ibex_compressed_decoder.IbexC1Known2	prim_assert_standard_macros.svh	78	3	82	8				
+  B: 2	assert_stmt	IbexC1Known2		work@ibex_compressed_decoder.IbexC1Known2	prim_assert_standard_macros.svh	78	3	81	8				
+#11766 line
+  A: 3	begin			work@ibex_compressed_decoder.IbexC1Known2	prim_assert_standard_macros.svh	80	10	82	8				
+  B: 3	begin			work@ibex_compressed_decoder.IbexC1Known2	prim_assert_standard_macros.svh	79	10	81	8				
+#11767 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	25		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#11768 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#11769 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#11770 line
+  A: 5	constant				prim_assert.sv	29	60	29	159	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	68	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+#11771 line
+  A: 5	constant				prim_assert.sv	29	161	29	164	847	64	UINT:847	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	847	64	UINT:847	9
+#11772 endline
+  A: 5	constant				prim_assert.sv	33	10	33	24	"IbexC1Known2"	96	STRING:IbexC1Known2	6
+  B: 5	constant				prim_assert.sv	33	10	23	6	"IbexC1Known2"	96	STRING:IbexC1Known2	6
+#11773 endline
+  A: 3	property_spec				prim_assert_standard_macros.svh	78	34	79	35				
+  B: 3	property_spec				prim_assert_standard_macros.svh	78	34	78	188				
+#11776 endline
+  A: 2	assert_stmt	IbexC1Known3		work@ibex_compressed_decoder.IbexC1Known3	prim_assert_standard_macros.svh	78	3	83	8				
+  B: 2	assert_stmt	IbexC1Known3		work@ibex_compressed_decoder.IbexC1Known3	prim_assert_standard_macros.svh	78	3	81	8				
+#11777 line
+  A: 3	begin			work@ibex_compressed_decoder.IbexC1Known3	prim_assert_standard_macros.svh	81	10	83	8				
+  B: 3	begin			work@ibex_compressed_decoder.IbexC1Known3	prim_assert_standard_macros.svh	79	10	81	8				
+#11778 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	25		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#11779 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#11780 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#11781 line
+  A: 5	constant				prim_assert.sv	29	60	29	159	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	68	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+#11782 line
+  A: 5	constant				prim_assert.sv	29	161	29	164	849	64	UINT:849	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	849	64	UINT:849	9
+#11783 endline
+  A: 5	constant				prim_assert.sv	33	10	33	24	"IbexC1Known3"	96	STRING:IbexC1Known3	6
+  B: 5	constant				prim_assert.sv	33	10	23	6	"IbexC1Known3"	96	STRING:IbexC1Known3	6
+#11784 endline
+  A: 3	property_spec				prim_assert_standard_macros.svh	78	34	80	48				
+  B: 3	property_spec				prim_assert_standard_macros.svh	78	34	78	236				
+#11787 endline
+  A: 2	assert_stmt	IbexC2Known1		work@ibex_compressed_decoder.IbexC2Known1	prim_assert_standard_macros.svh	78	3	82	8				
+  B: 2	assert_stmt	IbexC2Known1		work@ibex_compressed_decoder.IbexC2Known1	prim_assert_standard_macros.svh	78	3	81	8				
+#11788 line
+  A: 3	begin			work@ibex_compressed_decoder.IbexC2Known1	prim_assert_standard_macros.svh	80	10	82	8				
+  B: 3	begin			work@ibex_compressed_decoder.IbexC2Known1	prim_assert_standard_macros.svh	79	10	81	8				
+#11789 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	25		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#11790 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#11791 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#11792 line
+  A: 5	constant				prim_assert.sv	29	60	29	159	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	68	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+#11793 line
+  A: 5	constant				prim_assert.sv	29	161	29	164	852	64	UINT:852	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	852	64	UINT:852	9
+#11794 endline
+  A: 5	constant				prim_assert.sv	33	10	33	24	"IbexC2Known1"	96	STRING:IbexC2Known1	6
+  B: 5	constant				prim_assert.sv	33	10	23	6	"IbexC2Known1"	96	STRING:IbexC2Known1	6
+#11795 endline
+  A: 3	property_spec				prim_assert_standard_macros.svh	78	34	79	35				
+  B: 3	property_spec				prim_assert_standard_macros.svh	78	34	78	158				
+#11800 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	33		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#11801 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#11802 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#11803 line
+  A: 5	constant				prim_assert.sv	29	60	29	159	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	68	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv"	776	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_compressed_decoder.sv	6
+#11804 line
+  A: 5	constant				prim_assert.sv	29	161	29	164	854	64	UINT:854	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	854	64	UINT:854	9
+#11805 endline
+  A: 5	constant				prim_assert.sv	33	10	33	32	"IbexPushPopFSMStable"	160	STRING:IbexPushPopFSMStable	6
+  B: 5	constant				prim_assert.sv	33	10	23	14	"IbexPushPopFSMStable"	160	STRING:IbexPushPopFSMStable	6
+fields: line=92 col=32 endline=116 endcol=76 objects_differing=132
+STRICT_NOTEQUAL line

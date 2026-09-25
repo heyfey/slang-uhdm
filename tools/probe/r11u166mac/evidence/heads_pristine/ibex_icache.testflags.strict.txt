@@ -1,0 +1,473 @@
+#7556 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	24		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#7557 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#7558 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#7559 line
+  A: 5	constant				prim_assert.sv	29	60	29	147	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	56	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+#7560 line
+  A: 5	constant				prim_assert.sv	29	149	29	153	1316	64	UINT:1316	9
+  B: 5	constant				prim_assert.sv	32	92	32	96	1316	64	UINT:1316	9
+#7561 endline
+  A: 5	constant				prim_assert.sv	33	10	33	23	"TagHitKnown"	88	STRING:TagHitKnown	6
+  B: 5	constant				prim_assert.sv	33	10	23	5	"TagHitKnown"	88	STRING:TagHitKnown	6
+#7567 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	28		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#7568 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#7569 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#7570 line
+  A: 5	constant				prim_assert.sv	29	60	29	147	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	56	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+#7571 line
+  A: 5	constant				prim_assert.sv	29	149	29	153	1317	64	UINT:1317	9
+  B: 5	constant				prim_assert.sv	32	92	32	96	1317	64	UINT:1317	9
+#7572 endline
+  A: 5	constant				prim_assert.sv	33	10	33	27	"TagInvalidKnown"	120	STRING:TagInvalidKnown	6
+  B: 5	constant				prim_assert.sv	33	10	23	9	"TagInvalidKnown"	120	STRING:TagInvalidKnown	6
+#7939 fullname
+  A: 13	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 13	ref_typespec			work@ibex_icache.fill_addr_q.fill_addr_q		0	0	0	0		0		
+#8346 line
+  A: 2	initial				prim_assert_standard_macros.svh	20	3	28	6				
+  B: 2	initial				prim_assert_standard_macros.svh	23	3	28	6				
+#8347 line
+  A: 3	begin			work@ibex_icache	prim_assert_standard_macros.svh	20	11	28	6				
+  B: 3	begin			work@ibex_icache	prim_assert_standard_macros.svh	23	11	28	6				
+#8348 line
+  A: 4	immediate_assert	size_param_legal			prim_assert_standard_macros.svh	21	5	27	10				
+  B: 4	immediate_assert	size_param_legal			prim_assert_standard_macros.svh	24	5	27	10				
+#8349 line
+  A: 5	operation				prim_assert_standard_macros.svh	21	32	21	49		0		
+  B: 5	operation				prim_assert_standard_macros.svh	24	32	24	49		0		
+#8350 line
+  A: 6	constant				prim_assert_standard_macros.svh	21	32	21	44	64	32	UINT:64	9
+  B: 6	constant				prim_assert_standard_macros.svh	24	32	24	44	64	32	UINT:64	9
+#8353 line
+  A: 6	constant				prim_assert_standard_macros.svh	21	47	21	49	32	64	UINT:32	9
+  B: 6	constant				prim_assert_standard_macros.svh	24	47	24	49	32	64	UINT:32	9
+#8354 line
+  A: 5	begin			work@ibex_icache.size_param_legal	prim_assert_standard_macros.svh	22	12	27	10				
+  B: 5	begin			work@ibex_icache.size_param_legal	prim_assert_standard_macros.svh	25	12	27	10				
+#8355 line
+  A: 6	sys_func_call	$error			prim_assert.sv	29	3	33	29		0		
+  B: 6	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#8356 line
+  A: 7	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 7	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#8357 line
+  A: 7	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 7	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#8358 line
+  A: 7	constant				prim_assert.sv	29	60	29	147	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+  B: 7	constant				prim_assert.sv	32	92	33	56	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+#8359 line
+  A: 7	constant				prim_assert.sv	29	149	29	153	1309	64	UINT:1309	9
+  B: 7	constant				prim_assert.sv	32	92	32	96	1309	64	UINT:1309	9
+#8360 endline
+  A: 7	constant				prim_assert.sv	33	10	33	28	"size_param_legal"	128	STRING:size_param_legal	6
+  B: 7	constant				prim_assert.sv	33	10	23	10	"size_param_legal"	128	STRING:size_param_legal	6
+#8361 line
+  A: 2	initial				prim_assert_standard_macros.svh	20	3	28	6				
+  B: 2	initial				prim_assert_standard_macros.svh	23	3	28	6				
+#8362 line
+  A: 3	begin			work@ibex_icache	prim_assert_standard_macros.svh	20	11	28	6				
+  B: 3	begin			work@ibex_icache	prim_assert_standard_macros.svh	23	11	28	6				
+#8363 line
+  A: 4	immediate_assert	ecc_tag_param_legal			prim_assert_standard_macros.svh	21	5	27	10				
+  B: 4	immediate_assert	ecc_tag_param_legal			prim_assert_standard_macros.svh	24	5	27	10				
+#8364 line
+  A: 5	operation				prim_assert_standard_macros.svh	21	35	21	52		0		
+  B: 5	operation				prim_assert_standard_macros.svh	24	35	24	52		0		
+#8365 line
+  A: 6	constant				prim_assert_standard_macros.svh	21	35	21	46	22	32	INT:22	7
+  B: 6	constant				prim_assert_standard_macros.svh	24	35	24	46	22	32	INT:22	7
+#8368 line
+  A: 6	constant				prim_assert_standard_macros.svh	21	50	21	52	27	64	UINT:27	9
+  B: 6	constant				prim_assert_standard_macros.svh	24	50	24	52	27	64	UINT:27	9
+#8369 line
+  A: 5	begin			work@ibex_icache.ecc_tag_param_legal	prim_assert_standard_macros.svh	22	12	27	10				
+  B: 5	begin			work@ibex_icache.ecc_tag_param_legal	prim_assert_standard_macros.svh	25	12	27	10				
+#8370 line
+  A: 6	sys_func_call	$error			prim_assert.sv	29	3	33	32		0		
+  B: 6	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#8371 line
+  A: 7	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 7	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#8372 line
+  A: 7	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 7	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#8373 line
+  A: 7	constant				prim_assert.sv	29	60	29	147	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+  B: 7	constant				prim_assert.sv	32	92	33	56	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+#8374 line
+  A: 7	constant				prim_assert.sv	29	149	29	153	1312	64	UINT:1312	9
+  B: 7	constant				prim_assert.sv	32	92	32	96	1312	64	UINT:1312	9
+#8375 endline
+  A: 7	constant				prim_assert.sv	33	10	33	31	"ecc_tag_param_legal"	152	STRING:ecc_tag_param_legal	6
+  B: 7	constant				prim_assert.sv	33	10	23	13	"ecc_tag_param_legal"	152	STRING:ecc_tag_param_legal	6
+#8376 line
+  A: 2	initial				prim_assert_standard_macros.svh	20	3	28	6				
+  B: 2	initial				prim_assert_standard_macros.svh	23	3	28	6				
+#8377 line
+  A: 3	begin			work@ibex_icache	prim_assert_standard_macros.svh	20	11	28	6				
+  B: 3	begin			work@ibex_icache	prim_assert_standard_macros.svh	23	11	28	6				
+#8378 line
+  A: 4	immediate_assert	ecc_data_param_legal			prim_assert_standard_macros.svh	21	5	27	10				
+  B: 4	immediate_assert	ecc_data_param_legal			prim_assert_standard_macros.svh	24	5	27	10				
+#8379 line
+  A: 5	operation				prim_assert_standard_macros.svh	21	35	21	65		0		
+  B: 5	operation				prim_assert_standard_macros.svh	24	35	24	65		0		
+#8380 line
+  A: 6	operation				prim_assert_standard_macros.svh	21	35	21	45		0		
+  B: 6	operation				prim_assert_standard_macros.svh	24	35	24	45		0		
+#8381 line
+  A: 7	ref_obj	ICacheECC		work@ibex_icache.ecc_data_param_legal.ICacheECC	prim_assert_standard_macros.svh	21	36	21	45		0		
+  B: 7	ref_obj	ICacheECC		work@ibex_icache.ecc_data_param_legal.ICacheECC	prim_assert_standard_macros.svh	24	36	24	45		0		
+#8382 line
+  A: 6	operation				prim_assert_standard_macros.svh	21	50	21	64		0		
+  B: 6	operation				prim_assert_standard_macros.svh	24	50	24	64		0		
+#8383 line
+  A: 7	constant				prim_assert_standard_macros.svh	21	50	21	58	32	32	UINT:32	9
+  B: 7	constant				prim_assert_standard_macros.svh	24	50	24	58	32	32	UINT:32	9
+#8386 line
+  A: 7	constant				prim_assert_standard_macros.svh	21	62	21	64	32	64	UINT:32	9
+  B: 7	constant				prim_assert_standard_macros.svh	24	62	24	64	32	64	UINT:32	9
+#8387 line
+  A: 5	begin			work@ibex_icache.ecc_data_param_legal	prim_assert_standard_macros.svh	22	12	27	10				
+  B: 5	begin			work@ibex_icache.ecc_data_param_legal	prim_assert_standard_macros.svh	25	12	27	10				
+#8388 line
+  A: 6	sys_func_call	$error			prim_assert.sv	29	3	33	33		0		
+  B: 6	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#8389 line
+  A: 7	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 7	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#8390 line
+  A: 7	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 7	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#8391 line
+  A: 7	constant				prim_assert.sv	29	60	29	147	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+  B: 7	constant				prim_assert.sv	32	92	33	56	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+#8392 line
+  A: 7	constant				prim_assert.sv	29	149	29	153	1313	64	UINT:1313	9
+  B: 7	constant				prim_assert.sv	32	92	32	96	1313	64	UINT:1313	9
+#8393 endline
+  A: 7	constant				prim_assert.sv	33	10	33	32	"ecc_data_param_legal"	160	STRING:ecc_data_param_legal	6
+  B: 7	constant				prim_assert.sv	33	10	23	14	"ecc_data_param_legal"	160	STRING:ecc_data_param_legal	6
+#8403 fullname
+  A: 6	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 6	ref_typespec			work@ibex_icache.lookup_addr_ic0		0	0	0	0		0		
+#8477 fullname
+  A: 5	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 5	ref_typespec			work@ibex_icache.lookup_addr_ic0		0	0	0	0		0		
+#8480 fullname
+  A: 5	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 5	ref_typespec			work@ibex_icache.lookup_addr_ic0		0	0	0	0		0		
+#8490 fullname
+  A: 5	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 5	ref_typespec			work@ibex_icache.fill_ram_req_addr		0	0	0	0		0		
+#8493 fullname
+  A: 5	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 5	ref_typespec			work@ibex_icache.fill_ram_req_addr		0	0	0	0		0		
+#8710 fullname
+  A: 6	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 6	ref_typespec			work@ibex_icache.lookup_addr_ic0		0	0	0	0		0		
+#8725 fullname
+  A: 6	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 6	ref_typespec			work@ibex_icache.instr_addr		0	0	0	0		0		
+#13960 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	24		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#13961 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#13962 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#13963 line
+  A: 5	constant				prim_assert.sv	29	60	29	147	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	56	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+#13964 line
+  A: 5	constant				prim_assert.sv	29	149	29	153	1316	64	UINT:1316	9
+  B: 5	constant				prim_assert.sv	32	92	32	96	1316	64	UINT:1316	9
+#13965 endline
+  A: 5	constant				prim_assert.sv	33	10	33	23	"TagHitKnown"	88	STRING:TagHitKnown	6
+  B: 5	constant				prim_assert.sv	33	10	23	5	"TagHitKnown"	88	STRING:TagHitKnown	6
+#13972 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	28		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#13973 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#13974 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#13975 line
+  A: 5	constant				prim_assert.sv	29	60	29	147	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	56	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+#13976 line
+  A: 5	constant				prim_assert.sv	29	149	29	153	1317	64	UINT:1317	9
+  B: 5	constant				prim_assert.sv	32	92	32	96	1317	64	UINT:1317	9
+#13977 endline
+  A: 5	constant				prim_assert.sv	33	10	33	27	"TagInvalidKnown"	120	STRING:TagInvalidKnown	6
+  B: 5	constant				prim_assert.sv	33	10	23	9	"TagInvalidKnown"	120	STRING:TagInvalidKnown	6
+#14362 fullname
+  A: 13	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 13	ref_typespec			work@ibex_icache.fill_addr_q.fill_addr_q		0	0	0	0		0		
+#14902 line
+  A: 2	initial				prim_assert_standard_macros.svh	20	3	28	6				
+  B: 2	initial				prim_assert_standard_macros.svh	23	3	28	6				
+#14903 line
+  A: 3	begin			work@ibex_icache	prim_assert_standard_macros.svh	20	11	28	6				
+  B: 3	begin			work@ibex_icache	prim_assert_standard_macros.svh	23	11	28	6				
+#14904 line
+  A: 4	immediate_assert	size_param_legal			prim_assert_standard_macros.svh	21	5	27	10				
+  B: 4	immediate_assert	size_param_legal			prim_assert_standard_macros.svh	24	5	27	10				
+#14905 line
+  A: 5	operation				prim_assert_standard_macros.svh	21	32	21	49		0		
+  B: 5	operation				prim_assert_standard_macros.svh	24	32	24	49		0		
+#14906 line
+  A: 6	constant				prim_assert_standard_macros.svh	21	32	21	44	64	32	UINT:64	9
+  B: 6	constant				prim_assert_standard_macros.svh	24	32	24	44	64	32	UINT:64	9
+#14909 line
+  A: 6	constant				prim_assert_standard_macros.svh	21	47	21	49	32	64	UINT:32	9
+  B: 6	constant				prim_assert_standard_macros.svh	24	47	24	49	32	64	UINT:32	9
+#14910 line
+  A: 5	begin			work@ibex_icache.size_param_legal	prim_assert_standard_macros.svh	22	12	27	10				
+  B: 5	begin			work@ibex_icache.size_param_legal	prim_assert_standard_macros.svh	25	12	27	10				
+#14911 line
+  A: 6	sys_func_call	$error			prim_assert.sv	29	3	33	29		0		
+  B: 6	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#14912 line
+  A: 7	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 7	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#14913 line
+  A: 7	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 7	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#14914 line
+  A: 7	constant				prim_assert.sv	29	60	29	147	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+  B: 7	constant				prim_assert.sv	32	92	33	56	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+#14915 line
+  A: 7	constant				prim_assert.sv	29	149	29	153	1309	64	UINT:1309	9
+  B: 7	constant				prim_assert.sv	32	92	32	96	1309	64	UINT:1309	9
+#14916 endline
+  A: 7	constant				prim_assert.sv	33	10	33	28	"size_param_legal"	128	STRING:size_param_legal	6
+  B: 7	constant				prim_assert.sv	33	10	23	10	"size_param_legal"	128	STRING:size_param_legal	6
+#14917 line
+  A: 2	initial				prim_assert_standard_macros.svh	20	3	28	6				
+  B: 2	initial				prim_assert_standard_macros.svh	23	3	28	6				
+#14918 line
+  A: 3	begin			work@ibex_icache	prim_assert_standard_macros.svh	20	11	28	6				
+  B: 3	begin			work@ibex_icache	prim_assert_standard_macros.svh	23	11	28	6				
+#14919 line
+  A: 4	immediate_assert	ecc_tag_param_legal			prim_assert_standard_macros.svh	21	5	27	10				
+  B: 4	immediate_assert	ecc_tag_param_legal			prim_assert_standard_macros.svh	24	5	27	10				
+#14920 line
+  A: 5	operation				prim_assert_standard_macros.svh	21	35	21	52		0		
+  B: 5	operation				prim_assert_standard_macros.svh	24	35	24	52		0		
+#14921 line
+  A: 6	constant				prim_assert_standard_macros.svh	21	35	21	46	22	32	INT:22	7
+  B: 6	constant				prim_assert_standard_macros.svh	24	35	24	46	22	32	INT:22	7
+#14924 line
+  A: 6	constant				prim_assert_standard_macros.svh	21	50	21	52	27	64	UINT:27	9
+  B: 6	constant				prim_assert_standard_macros.svh	24	50	24	52	27	64	UINT:27	9
+#14925 line
+  A: 5	begin			work@ibex_icache.ecc_tag_param_legal	prim_assert_standard_macros.svh	22	12	27	10				
+  B: 5	begin			work@ibex_icache.ecc_tag_param_legal	prim_assert_standard_macros.svh	25	12	27	10				
+#14926 line
+  A: 6	sys_func_call	$error			prim_assert.sv	29	3	33	32		0		
+  B: 6	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#14927 line
+  A: 7	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 7	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#14928 line
+  A: 7	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 7	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#14929 line
+  A: 7	constant				prim_assert.sv	29	60	29	147	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+  B: 7	constant				prim_assert.sv	32	92	33	56	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+#14930 line
+  A: 7	constant				prim_assert.sv	29	149	29	153	1312	64	UINT:1312	9
+  B: 7	constant				prim_assert.sv	32	92	32	96	1312	64	UINT:1312	9
+#14931 endline
+  A: 7	constant				prim_assert.sv	33	10	33	31	"ecc_tag_param_legal"	152	STRING:ecc_tag_param_legal	6
+  B: 7	constant				prim_assert.sv	33	10	23	13	"ecc_tag_param_legal"	152	STRING:ecc_tag_param_legal	6
+#14932 line
+  A: 2	initial				prim_assert_standard_macros.svh	20	3	28	6				
+  B: 2	initial				prim_assert_standard_macros.svh	23	3	28	6				
+#14933 line
+  A: 3	begin			work@ibex_icache	prim_assert_standard_macros.svh	20	11	28	6				
+  B: 3	begin			work@ibex_icache	prim_assert_standard_macros.svh	23	11	28	6				
+#14934 line
+  A: 4	immediate_assert	ecc_data_param_legal			prim_assert_standard_macros.svh	21	5	27	10				
+  B: 4	immediate_assert	ecc_data_param_legal			prim_assert_standard_macros.svh	24	5	27	10				
+#14935 line
+  A: 5	operation				prim_assert_standard_macros.svh	21	35	21	65		0		
+  B: 5	operation				prim_assert_standard_macros.svh	24	35	24	65		0		
+#14936 line
+  A: 6	operation				prim_assert_standard_macros.svh	21	35	21	45		0		
+  B: 6	operation				prim_assert_standard_macros.svh	24	35	24	45		0		
+#14937 line
+  A: 7	ref_obj	ICacheECC		work@ibex_icache.ecc_data_param_legal.ICacheECC	prim_assert_standard_macros.svh	21	36	21	45		0		
+  B: 7	ref_obj	ICacheECC		work@ibex_icache.ecc_data_param_legal.ICacheECC	prim_assert_standard_macros.svh	24	36	24	45		0		
+#14938 line
+  A: 6	operation				prim_assert_standard_macros.svh	21	50	21	64		0		
+  B: 6	operation				prim_assert_standard_macros.svh	24	50	24	64		0		
+#14939 line
+  A: 7	constant				prim_assert_standard_macros.svh	21	50	21	58	32	32	UINT:32	9
+  B: 7	constant				prim_assert_standard_macros.svh	24	50	24	58	32	32	UINT:32	9
+#14942 line
+  A: 7	constant				prim_assert_standard_macros.svh	21	62	21	64	32	64	UINT:32	9
+  B: 7	constant				prim_assert_standard_macros.svh	24	62	24	64	32	64	UINT:32	9
+#14943 line
+  A: 5	begin			work@ibex_icache.ecc_data_param_legal	prim_assert_standard_macros.svh	22	12	27	10				
+  B: 5	begin			work@ibex_icache.ecc_data_param_legal	prim_assert_standard_macros.svh	25	12	27	10				
+#14944 line
+  A: 6	sys_func_call	$error			prim_assert.sv	29	3	33	33		0		
+  B: 6	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#14945 line
+  A: 7	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 7	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#14946 line
+  A: 7	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 7	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#14947 line
+  A: 7	constant				prim_assert.sv	29	60	29	147	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+  B: 7	constant				prim_assert.sv	32	92	33	56	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv"	680	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_icache.sv	6
+#14948 line
+  A: 7	constant				prim_assert.sv	29	149	29	153	1313	64	UINT:1313	9
+  B: 7	constant				prim_assert.sv	32	92	32	96	1313	64	UINT:1313	9
+#14949 endline
+  A: 7	constant				prim_assert.sv	33	10	33	32	"ecc_data_param_legal"	160	STRING:ecc_data_param_legal	6
+  B: 7	constant				prim_assert.sv	33	10	23	14	"ecc_data_param_legal"	160	STRING:ecc_data_param_legal	6
+#15440 fullname
+  A: 9	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 9	ref_typespec			work@ibex_icache.gen_fbs[0]		0	0	0	0		0		
+#15451 fullname
+  A: 10	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 10	ref_typespec			work@ibex_icache.gen_fbs[0]		0	0	0	0		0		
+#15601 fullname
+  A: 9	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 9	ref_typespec			work@ibex_icache.gen_fbs[0].lookup_addr_ic0		0	0	0	0		0		
+#15609 fullname
+  A: 10	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 10	ref_typespec			work@ibex_icache.gen_fbs[0]		0	0	0	0		0		
+#15675 fullname
+  A: 10	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 10	ref_typespec			work@ibex_icache.gen_fbs[0].fill_addr_q.fill_addr_q		0	0	0	0		0		
+#15681 fullname
+  A: 9	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 9	ref_typespec			work@ibex_icache.gen_fbs[0].fill_ext_cnt_q.fill_ext_cnt_q		0	0	0	0		0		
+#15711 fullname
+  A: 10	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 10	ref_typespec			work@ibex_icache.gen_fbs[0].fill_addr_q.fill_addr_q		0	0	0	0		0		
+#15717 fullname
+  A: 9	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 9	ref_typespec			work@ibex_icache.gen_fbs[0].fill_rvd_cnt_q.fill_rvd_cnt_q		0	0	0	0		0		
+#15893 fullname
+  A: 8	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 8	ref_typespec			work@ibex_icache.gen_fbs[0]		0	0	0	0		0		
+#16415 fullname
+  A: 9	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 9	ref_typespec			work@ibex_icache.gen_fbs[1]		0	0	0	0		0		
+#16426 fullname
+  A: 10	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 10	ref_typespec			work@ibex_icache.gen_fbs[1]		0	0	0	0		0		
+#16576 fullname
+  A: 9	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 9	ref_typespec			work@ibex_icache.gen_fbs[1].lookup_addr_ic0		0	0	0	0		0		
+#16584 fullname
+  A: 10	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 10	ref_typespec			work@ibex_icache.gen_fbs[1]		0	0	0	0		0		
+#16650 fullname
+  A: 10	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 10	ref_typespec			work@ibex_icache.gen_fbs[1].fill_addr_q.fill_addr_q		0	0	0	0		0		
+#16656 fullname
+  A: 9	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 9	ref_typespec			work@ibex_icache.gen_fbs[1].fill_ext_cnt_q.fill_ext_cnt_q		0	0	0	0		0		
+#16686 fullname
+  A: 10	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 10	ref_typespec			work@ibex_icache.gen_fbs[1].fill_addr_q.fill_addr_q		0	0	0	0		0		
+#16692 fullname
+  A: 9	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 9	ref_typespec			work@ibex_icache.gen_fbs[1].fill_rvd_cnt_q.fill_rvd_cnt_q		0	0	0	0		0		
+#16868 fullname
+  A: 8	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 8	ref_typespec			work@ibex_icache.gen_fbs[1]		0	0	0	0		0		
+#17397 fullname
+  A: 9	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 9	ref_typespec			work@ibex_icache.gen_fbs[2]		0	0	0	0		0		
+#17408 fullname
+  A: 10	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 10	ref_typespec			work@ibex_icache.gen_fbs[2]		0	0	0	0		0		
+#17558 fullname
+  A: 9	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 9	ref_typespec			work@ibex_icache.gen_fbs[2].lookup_addr_ic0		0	0	0	0		0		
+#17566 fullname
+  A: 10	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 10	ref_typespec			work@ibex_icache.gen_fbs[2]		0	0	0	0		0		
+#17632 fullname
+  A: 10	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 10	ref_typespec			work@ibex_icache.gen_fbs[2].fill_addr_q.fill_addr_q		0	0	0	0		0		
+#17638 fullname
+  A: 9	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 9	ref_typespec			work@ibex_icache.gen_fbs[2].fill_ext_cnt_q.fill_ext_cnt_q		0	0	0	0		0		
+#17668 fullname
+  A: 10	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 10	ref_typespec			work@ibex_icache.gen_fbs[2].fill_addr_q.fill_addr_q		0	0	0	0		0		
+#17674 fullname
+  A: 9	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 9	ref_typespec			work@ibex_icache.gen_fbs[2].fill_rvd_cnt_q.fill_rvd_cnt_q		0	0	0	0		0		
+#17850 fullname
+  A: 8	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 8	ref_typespec			work@ibex_icache.gen_fbs[2]		0	0	0	0		0		
+#18379 fullname
+  A: 9	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 9	ref_typespec			work@ibex_icache.gen_fbs[3]		0	0	0	0		0		
+#18390 fullname
+  A: 10	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 10	ref_typespec			work@ibex_icache.gen_fbs[3]		0	0	0	0		0		
+#18540 fullname
+  A: 9	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 9	ref_typespec			work@ibex_icache.gen_fbs[3].lookup_addr_ic0		0	0	0	0		0		
+#18548 fullname
+  A: 10	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 10	ref_typespec			work@ibex_icache.gen_fbs[3]		0	0	0	0		0		
+#18614 fullname
+  A: 10	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 10	ref_typespec			work@ibex_icache.gen_fbs[3].fill_addr_q.fill_addr_q		0	0	0	0		0		
+#18620 fullname
+  A: 9	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 9	ref_typespec			work@ibex_icache.gen_fbs[3].fill_ext_cnt_q.fill_ext_cnt_q		0	0	0	0		0		
+#18650 fullname
+  A: 10	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 10	ref_typespec			work@ibex_icache.gen_fbs[3].fill_addr_q.fill_addr_q		0	0	0	0		0		
+#18656 fullname
+  A: 9	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 9	ref_typespec			work@ibex_icache.gen_fbs[3].fill_rvd_cnt_q.fill_rvd_cnt_q		0	0	0	0		0		
+#18832 fullname
+  A: 8	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 8	ref_typespec			work@ibex_icache.gen_fbs[3]		0	0	0	0		0		
+#19257 fullname
+  A: 5	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 5	ref_typespec			work@ibex_icache.lookup_addr_ic0		0	0	0	0		0		
+#19260 fullname
+  A: 5	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 5	ref_typespec			work@ibex_icache.lookup_addr_ic0		0	0	0	0		0		
+#19288 fullname
+  A: 5	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 5	ref_typespec			work@ibex_icache.fill_ram_req_addr		0	0	0	0		0		
+#19291 fullname
+  A: 5	ref_typespec			work@ibex_icache		0	0	0	0		0		
+  B: 5	ref_typespec			work@ibex_icache.fill_ram_req_addr		0	0	0	0		0		
+fields: fullname=49 line=98 col=20 endline=74 endcol=40 objects_differing=157
+STRICT_NOTEQUAL line

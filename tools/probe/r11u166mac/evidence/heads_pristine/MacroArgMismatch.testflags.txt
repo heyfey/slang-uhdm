@@ -1,0 +1,25 @@
+STRICT_NOTEQUAL endcol
+#10 endcol  <- module_inst work@test 2:1 / design work@test 0:0
+   A always  dut.sv 4:1-5:17 
+   B always  dut.sv 4:1-5:18 
+#14 endcol  <- event_control  4:8 / always  4:1 / module_inst work@test 2:1
+   A assignment  dut.sv 5:5-5:16 
+   B assignment  dut.sv 5:5-5:17 
+#15 col  <- assignment  5:5 / event_control  4:8 / always  4:1
+   A operation  dut.sv 5:13-5:15 
+   B operation  dut.sv 5:14-5:16 
+#16 col  <- operation  5:13 / assignment  5:5 / event_control  4:8
+   A ref_obj d dut.sv 5:14-5:15 
+   B ref_obj d dut.sv 5:15-5:16 
+#30 endcol  <- module_inst work@test 2:1 / design work@test 0:0
+   A always  dut.sv 4:1-5:17 
+   B always  dut.sv 4:1-5:18 
+#34 endcol  <- event_control  4:8 / always  4:1 / module_inst work@test 2:1
+   A assignment  dut.sv 5:5-5:16 
+   B assignment  dut.sv 5:5-5:17 
+#35 col  <- assignment  5:5 / event_control  4:8 / always  4:1
+   A operation  dut.sv 5:13-5:15 
+   B operation  dut.sv 5:14-5:16 
+#36 col  <- operation  5:13 / assignment  5:5 / event_control  4:8
+   A ref_obj d dut.sv 5:14-5:15 
+   B ref_obj d dut.sv 5:15-5:16 

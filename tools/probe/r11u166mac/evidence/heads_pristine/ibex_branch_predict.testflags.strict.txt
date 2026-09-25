@@ -1,0 +1,38 @@
+#6349 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	32		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#6350 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#6351 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#6352 line
+  A: 5	constant				prim_assert.sv	29	60	29	155	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_branch_predict.sv"	744	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_branch_predict.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	64	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_branch_predict.sv"	744	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_branch_predict.sv	6
+#6353 line
+  A: 5	constant				prim_assert.sv	29	157	29	159	91	64	UINT:91	9
+  B: 5	constant				prim_assert.sv	32	92	32	94	91	64	UINT:91	9
+#6354 endline
+  A: 5	constant				prim_assert.sv	33	10	33	31	"BranchInsTypeOneHot"	152	STRING:BranchInsTypeOneHot	6
+  B: 5	constant				prim_assert.sv	33	10	23	13	"BranchInsTypeOneHot"	152	STRING:BranchInsTypeOneHot	6
+#8757 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	32		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#8758 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#8759 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#8760 line
+  A: 5	constant				prim_assert.sv	29	60	29	155	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_branch_predict.sv"	744	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_branch_predict.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	64	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_branch_predict.sv"	744	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_branch_predict.sv	6
+#8761 line
+  A: 5	constant				prim_assert.sv	29	157	29	159	91	64	UINT:91	9
+  B: 5	constant				prim_assert.sv	32	92	32	94	91	64	UINT:91	9
+#8762 endline
+  A: 5	constant				prim_assert.sv	33	10	33	31	"BranchInsTypeOneHot"	152	STRING:BranchInsTypeOneHot	6
+  B: 5	constant				prim_assert.sv	33	10	23	13	"BranchInsTypeOneHot"	152	STRING:BranchInsTypeOneHot	6
+fields: line=10 col=4 endline=10 endcol=8 objects_differing=12
+STRICT_NOTEQUAL line

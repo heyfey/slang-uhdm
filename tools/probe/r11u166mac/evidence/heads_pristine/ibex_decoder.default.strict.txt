@@ -1,0 +1,56 @@
+#6592 endline
+  A: 2	assert_stmt	IbexRegImmAluOpKnown		work@ibex_decoder.IbexRegImmAluOpKnown	prim_assert_standard_macros.svh	78	3	82	8				
+  B: 2	assert_stmt	IbexRegImmAluOpKnown		work@ibex_decoder.IbexRegImmAluOpKnown	prim_assert_standard_macros.svh	78	3	81	8				
+#6593 line
+  A: 3	begin			work@ibex_decoder.IbexRegImmAluOpKnown	prim_assert_standard_macros.svh	80	10	82	8				
+  B: 3	begin			work@ibex_decoder.IbexRegImmAluOpKnown	prim_assert_standard_macros.svh	79	10	81	8				
+#6594 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	33		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#6595 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#6596 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#6597 line
+  A: 5	constant				prim_assert.sv	29	60	29	148	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_decoder.sv"	688	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	57	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_decoder.sv"	688	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_decoder.sv	6
+#6598 line
+  A: 5	constant				prim_assert.sv	29	150	29	154	1210	64	UINT:1210	9
+  B: 5	constant				prim_assert.sv	32	92	32	96	1210	64	UINT:1210	9
+#6599 endline
+  A: 5	constant				prim_assert.sv	33	10	33	32	"IbexRegImmAluOpKnown"	160	STRING:IbexRegImmAluOpKnown	6
+  B: 5	constant				prim_assert.sv	33	10	23	14	"IbexRegImmAluOpKnown"	160	STRING:IbexRegImmAluOpKnown	6
+#6600 endline
+  A: 3	property_spec				prim_assert_standard_macros.svh	78	42	79	33				
+  B: 3	property_spec				prim_assert_standard_macros.svh	78	42	78	153				
+#13351 endline
+  A: 2	assert_stmt	IbexRegImmAluOpKnown		work@ibex_decoder.IbexRegImmAluOpKnown	prim_assert_standard_macros.svh	78	3	82	8				
+  B: 2	assert_stmt	IbexRegImmAluOpKnown		work@ibex_decoder.IbexRegImmAluOpKnown	prim_assert_standard_macros.svh	78	3	81	8				
+#13352 line
+  A: 3	begin			work@ibex_decoder.IbexRegImmAluOpKnown	prim_assert_standard_macros.svh	80	10	82	8				
+  B: 3	begin			work@ibex_decoder.IbexRegImmAluOpKnown	prim_assert_standard_macros.svh	79	10	81	8				
+#13353 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	33		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#13354 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#13355 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#13356 line
+  A: 5	constant				prim_assert.sv	29	60	29	148	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_decoder.sv"	688	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_decoder.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	57	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_decoder.sv"	688	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_decoder.sv	6
+#13357 line
+  A: 5	constant				prim_assert.sv	29	150	29	154	1210	64	UINT:1210	9
+  B: 5	constant				prim_assert.sv	32	92	32	96	1210	64	UINT:1210	9
+#13358 endline
+  A: 5	constant				prim_assert.sv	33	10	33	32	"IbexRegImmAluOpKnown"	160	STRING:IbexRegImmAluOpKnown	6
+  B: 5	constant				prim_assert.sv	33	10	23	14	"IbexRegImmAluOpKnown"	160	STRING:IbexRegImmAluOpKnown	6
+#13359 endline
+  A: 3	property_spec				prim_assert_standard_macros.svh	78	42	79	33				
+  B: 3	property_spec				prim_assert_standard_macros.svh	78	42	78	153				
+fields: line=12 col=4 endline=16 endcol=10 objects_differing=18
+STRICT_NOTEQUAL endline

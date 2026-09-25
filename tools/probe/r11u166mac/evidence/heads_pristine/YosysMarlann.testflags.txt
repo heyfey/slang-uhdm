@@ -1,0 +1,73 @@
+STRICT_NOTEQUAL endcol
+#744 endcol  <- begin work@marlann_compute 166:26 / event_control  166:9 / always  166:2
+   A assignment  marlann_compute.v 167:3-167:83 
+   B assignment  marlann_compute.v 167:3-167:84 
+#747 endcol  <- operation  167:36 / assignment  167:3 / begin work@marlann_compute 166:26
+   A operation  marlann_compute.v 167:51-167:82 
+   B operation  marlann_compute.v 167:51-167:83 
+#750 col  <- operation  167:51 / operation  167:36 / assignment  167:3
+   A ref_obj memlock_mask marlann_compute.v 167:70-167:82 
+   B ref_obj memlock_mask marlann_compute.v 167:71-167:83 
+#1470 endcol  <- begin work@marlann_compute 388:12 / event_control  388:9 / always  388:2
+   A assignment  marlann_compute.v 390:3-390:47 
+   B assignment  marlann_compute.v 390:3-390:48 
+#1471 endcol  <- assignment  390:3 / begin work@marlann_compute 388:12 / event_control  388:9
+   A operation  marlann_compute.v 390:12-390:47 
+   B operation  marlann_compute.v 390:12-390:48 
+#1475 col  <- operation  390:12 / assignment  390:3 / begin work@marlann_compute 388:12
+   A ref_obj acc0zn marlann_compute.v 390:41-390:47 
+   B ref_obj acc0zn marlann_compute.v 390:42-390:48 
+#1646 endcol  <- begin work@marlann_compute 431:12 / event_control  431:9 / always  431:2
+   A assignment  marlann_compute.v 435:3-435:59 
+   B assignment  marlann_compute.v 435:3-435:60 
+#1647 endcol  <- assignment  435:3 / begin work@marlann_compute 431:12 / event_control  431:9
+   A operation  marlann_compute.v 435:18-435:59 
+   B operation  marlann_compute.v 435:18-435:60 
+#1651 col  <- operation  435:18 / assignment  435:3 / begin work@marlann_compute 431:12
+   A ref_obj new_acc0_add marlann_compute.v 435:47-435:59 
+   B ref_obj new_acc0_add marlann_compute.v 435:48-435:60 
+#1713 col  <- if_stmt  455:4 / begin work@marlann_compute 451:24 / if_stmt  451:3
+   A begin  marlann_compute.v 455:32-458:7 
+   B begin  marlann_compute.v 455:33-458:7 
+#1927 col  <- if_stmt  523:4 / begin work@marlann_compute 521:14 / if_stmt  521:3
+   A begin  marlann_compute.v 523:32-525:7 
+   B begin  marlann_compute.v 523:33-525:7 
+#1943 col  <- if_stmt  528:4 / begin work@marlann_compute 521:14 / if_stmt  521:3
+   A begin  marlann_compute.v 528:33-531:7 
+   B begin  marlann_compute.v 528:34-531:7 
+#2891 endcol  <- begin work@marlann_compute 166:26 / event_control  166:9 / always  166:2
+   A assignment  marlann_compute.v 167:3-167:83 
+   B assignment  marlann_compute.v 167:3-167:84 
+#2900 endcol  <- operation  167:36 / assignment  167:3 / begin work@marlann_compute 166:26
+   A operation  marlann_compute.v 167:51-167:82 
+   B operation  marlann_compute.v 167:51-167:83 
+#2906 col  <- operation  167:51 / operation  167:36 / assignment  167:3
+   A ref_obj memlock_mask marlann_compute.v 167:70-167:82 
+   B ref_obj memlock_mask marlann_compute.v 167:71-167:83 
+#3781 endcol  <- begin work@marlann_compute 388:12 / event_control  388:9 / always  388:2
+   A assignment  marlann_compute.v 390:3-390:47 
+   B assignment  marlann_compute.v 390:3-390:48 
+#3782 endcol  <- assignment  390:3 / begin work@marlann_compute 388:12 / event_control  388:9
+   A operation  marlann_compute.v 390:12-390:47 
+   B operation  marlann_compute.v 390:12-390:48 
+#3786 col  <- operation  390:12 / assignment  390:3 / begin work@marlann_compute 388:12
+   A ref_obj acc0zn marlann_compute.v 390:41-390:47 
+   B ref_obj acc0zn marlann_compute.v 390:42-390:48 
+#4005 endcol  <- begin work@marlann_compute 431:12 / event_control  431:9 / always  431:2
+   A assignment  marlann_compute.v 435:3-435:59 
+   B assignment  marlann_compute.v 435:3-435:60 
+#4006 endcol  <- assignment  435:3 / begin work@marlann_compute 431:12 / event_control  431:9
+   A operation  marlann_compute.v 435:18-435:59 
+   B operation  marlann_compute.v 435:18-435:60 
+#4010 col  <- operation  435:18 / assignment  435:3 / begin work@marlann_compute 431:12
+   A ref_obj new_acc0_add marlann_compute.v 435:47-435:59 
+   B ref_obj new_acc0_add marlann_compute.v 435:48-435:60 
+#4099 col  <- if_stmt  455:4 / begin work@marlann_compute 451:24 / if_stmt  451:3
+   A begin  marlann_compute.v 455:32-458:7 
+   B begin  marlann_compute.v 455:33-458:7 
+#4367 col  <- if_stmt  523:4 / begin work@marlann_compute 521:14 / if_stmt  521:3
+   A begin  marlann_compute.v 523:32-525:7 
+   B begin  marlann_compute.v 523:33-525:7 
+#4383 col  <- if_stmt  528:4 / begin work@marlann_compute 521:14 / if_stmt  521:3
+   A begin  marlann_compute.v 528:33-531:7 
+   B begin  marlann_compute.v 528:34-531:7 

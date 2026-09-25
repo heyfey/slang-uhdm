@@ -1,0 +1,69 @@
+./col/c01_after_multiline_col | law:MOVED | OFF:pristine | COL_OFF
+./col/c02_formalless_parens | law:MOVED | OFF:pristine | COL_OFF
+./col/c03_formalless_parens_spaces | law:MOVED | OFF:pristine | COL_OFF
+./col/c04_formalless_func | law:MOVED | OFF:pristine | COL_OFF
+./col/c05_stringify_nested | law:same | OFF:pristine |
+./col/c06_nested_onebody_in_multi | law:same | OFF:pristine |
+./col/c07_file_after_two_regions | law:MOVED | OFF:pristine | COL_OFF
+./col/c08_paste_in_multiline | law:MOVED | OFF:pristine | LINE_OFF COL_OFF
+./col/c09_nested_oneline_comment | law:MOVED | OFF:pristine | COL_OFF ONELINE_OFF
+./col/c10_stringify_spaced_arg | law:MOVED | OFF:pristine | LINE_OFF COL_OFF ONELINE_OFF
+./ds/c05_macro_conn | law:MOVED | OFF:pristine | MACROCONN_OFF
+./ds/c08_macro_first_then_plain | law:MOVED | OFF:pristine | MACROCONN_OFF
+./ds/l06_iface_spaced_path | law:same | OFF:pristine |
+./ds/p04_spaced_path_bound | law:same | OFF:pristine |
+./explore/e01 | law:MOVED | OFF:pristine | LINE_OFF COL_OFF
+./explore/e02 | law:MOVED | OFF:pristine | LINE_OFF COL_OFF
+./explore/e03 | law:same | OFF:pristine |
+./explore/e04 | law:MOVED | OFF:pristine | LINE_OFF COL_OFF
+./explore/e05 | law:MOVED | OFF:pristine | LINE_OFF COL_OFF
+./file/f01_before_in_include | law:MOVED | OFF:pristine | LINE_OFF FILE_OFF
+./file/f02_nested_other_file | law:same | OFF:pristine |
+./file/f03_ibex_shape | law:MOVED | OFF:pristine | LINE_OFF COL_OFF
+./incl/i01_multiline_growth | law:MOVED | OFF:pristine | INCL_OFF
+./incl/i02_ifdef_drop_growth | law:MOVED | OFF:pristine | LINE_OFF INCL_OFF
+./incl/i03_args_span_growth | law:MOVED | OFF:pristine | LINE_OFF INCL_OFF
+./incl/i04_empty_body_args_span | law:same | OFF:pristine |
+./incl/i05_comment_body_args_span | law:MOVED | OFF:pristine | INCL_OFF
+./incl/i06_blank_line_after_body | law:MOVED | OFF:pristine | INCL_OFF
+./incl/i07_backslash_then_empty | law:MOVED | OFF:pristine | INCL_OFF
+./incl/i08_nested_growth_in_include | law:MOVED | OFF:pristine | INCL_OFF
+./incl/i09_blank_result_body | law:same | OFF:pristine |
+./incl/i10_noargs_multiline | law:MOVED | OFF:pristine | INCL_OFF
+./line/l01_args_before_after | law:MOVED | OFF:pristine | LINE_OFF COL_OFF
+./line/l02_noargs_before_after | law:MOVED | OFF:pristine | LINE_OFF COL_OFF
+./line/l03_arg_with_newline | law:MOVED | OFF:pristine | LINE_OFF
+./line/l04_onebody_args_span | law:MOVED | OFF:pristine | LINE_OFF
+./line/l05_nested_multiline | law:same | OFF:pristine |
+./line/l06_ifdef_inactive_in_body | law:MOVED | OFF:pristine | LINE_OFF
+./line/l07_ifdef_taken_in_body | law:same | OFF:pristine |
+./line/l08_two_multiline_same_line | law:MOVED | OFF:pristine | COL_OFF
+./line/l09_def_in_include | law:MOVED | OFF:pristine | LINE_OFF FILE_OFF
+./line/l10_use_in_include | law:same | OFF:pristine |
+./line/l11_sub_instance | law:same | OFF:pristine |
+./lit/b01_ternary_after | law:MOVED | OFF:pristine | COL_OFF COL_LIT_OFF
+./lit/b02_if_begin | law:MOVED | OFF:pristine | COL_OFF COL_LIT_OFF
+./lit/b03_hex_underscore | law:MOVED | OFF:pristine | COL_OFF COL_LIT_OFF
+./lit/b04_param_assign | law:MOVED | OFF:pristine | COL_OFF COL_LIT_OFF
+./lit/b05_cast_control | law:MOVED | OFF:pristine | COL_OFF COL_LIT_OFF
+./lit/b06_two_literals | law:MOVED | OFF:pristine | COL_OFF COL_LIT_OFF
+./lit/b07_concat | law:MOVED | OFF:pristine | COL_OFF COL_LIT_OFF
+./lit/b08_case_item | law:MOVED | OFF:pristine | COL_OFF COL_LIT_OFF
+./lit/b09_assert_prop | law:MOVED | OFF:pristine | COL_OFF COL_LIT_OFF
+./lit/b10_cast_assign | law:MOVED | OFF:pristine | COL_OFF COL_LIT_OFF
+./lit/b11_multiline_stmt | law:same | OFF:pristine |
+./lit/b12_immediate_assert | law:MOVED | OFF:pristine | COL_OFF COL_LIT_OFF
+./lit/b13_port_conn | law:MOVED | OFF:pristine | COL_OFF COL_LIT_OFF
+./lit/b14_space_before_tick | law:MOVED | OFF:pristine | COL_OFF COL_LIT_OFF
+./lit/b15_sequence_prop | law:MOVED | OFF:pristine | COL_OFF COL_LIT_OFF
+./lit/b16_enum_const | law:same | OFF:pristine |
+./mlv/m1 | law:same | OFF:pristine |
+./mlv/m2 | law:same | OFF:pristine |
+./reinc/r01 | law:MOVED | OFF:pristine | INCL_OFF INCL_REINC_OFF
+./reinc/r02 | law:MOVED | OFF:pristine | INCL_OFF INCL_REINC_OFF
+./reinc/r03 | law:MOVED | OFF:pristine | INCL_OFF INCL_REINC_OFF
+./reinc/r04 | law:MOVED | OFF:pristine | INCL_OFF INCL_REINC_OFF
+./reinc/r05 | law:MOVED | OFF:pristine | INCL_OFF INCL_REINC_OFF
+./reinc/r06 | law:same | OFF:pristine |
+./reinc/r07 | law:MOVED | OFF:pristine | INCL_OFF INCL_REINC_OFF
+./reinc/r08 | law:MOVED | OFF:pristine | INCL_OFF INCL_REINC_OFF

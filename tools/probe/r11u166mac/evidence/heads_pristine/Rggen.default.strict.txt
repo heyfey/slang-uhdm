@@ -1,0 +1,24 @@
+#111 fullname
+  A: 3	ref_typespec			<in>rggen_rtl_pkg::rggen_polarity		0	0	0	0		0		
+  B: 3	ref_typespec			<in>rggen_rtl_pkg::rggen_polarity		0	0	0	0		0		
+#126 fullname
+  A: 3	ref_typespec			<in>rggen_rtl_pkg::rggen_sw_action		0	0	0	0		0		
+  B: 3	ref_typespec			<in>rggen_rtl_pkg::rggen_sw_action		0	0	0	0		0		
+#146 fullname
+  A: 3	ref_typespec			<in>rggen_rtl_pkg::rggen_sw_hw_access		0	0	0	0		0		
+  B: 3	ref_typespec			<in>rggen_rtl_pkg::rggen_sw_hw_access		0	0	0	0		0		
+#466 name
+  A: 2	enum_typespec	rggen_rtl_pkg::rggen_polarity			rggen_rtl_pkg.sv	23	3	26	20				
+  B: 2	enum_typespec	rggen_rtl_pkg::rggen_status			rggen_rtl_pkg.sv	11	3	16	18				
+#467 fullname
+  A: 3	ref_typespec			<in>rggen_rtl_pkg::rggen_polarity		0	0	0	0		0		
+  B: 3	ref_typespec			<in>rggen_rtl_pkg::rggen_status		0	0	0	0		0		
+#468 line
+  A: 4	logic_typespec				rggen_rtl_pkg.sv	23	16	23	21				
+  B: 4	logic_typespec				rggen_rtl_pkg.sv	11	16	11	27				
+#469 depth
+  A: 3	enum_const	RGGEN_ACTIVE_LOW			rggen_rtl_pkg.sv	24	5	24	29				
+  B: 5	range				rggen_rtl_pkg.sv	11	22	11	27				
+objects 314498 vs 312506
+fields: depth=1 type=1 name=2 fullname=4 line=3 col=1 endline=3 endcol=3 objects_differing=7 (walk diverged)
+STRICT_NOTEQUAL fullname

@@ -1,0 +1,95 @@
+#568 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#612 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#656 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#700 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#744 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#788 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#832 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#876 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#920 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#964 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1008 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1052 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1096 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1140 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1184 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1228 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1272 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1316 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1360 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1404 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1448 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1492 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1536 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1580 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1624 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1668 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1712 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1756 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1800 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1844 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+#1888 fullname
+  A: 15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0		
+  B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0		
+fields: fullname=31 objects_differing=31
+STRICT_NOTEQUAL fullname

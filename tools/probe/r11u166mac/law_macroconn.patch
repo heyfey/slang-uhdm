@@ -1,0 +1,26 @@
+diff --git a/src/ModuleEmit.cpp b/src/ModuleEmit.cpp
+--- a/src/ModuleEmit.cpp
++++ b/src/ModuleEmit.cpp
+@@ -16376,6 +16376,22 @@
+                     if (auto isyn9 = connInst.getSyntax()) {
+                         auto ir9 = isyn9->sourceRange();
+                         auto es9 = connE9->sourceRange.start();
++                        // § macroConnInRange166 (r11u166, decoded; pair B) —
++                        // a connection written through a macro (`.clk(`CK)`,
++                        // `CK` = `sub.clk`) starts in the expansion's own
++                        // buffer, so the in-range test against the instance's
++                        // syntax compared locations of two buffers and read
++                        // the connection as a DEFAULT value: no HighConn, the
++                        // child's clock left unconnected in the netlist
++                        // (r11u162 N2).  Compare its expansion point.  Grid
++                        // tools/probe/r11u166mac/cases/ds (c05, c08).  Switch:
++                        // R11U166_MACROCONN_OFF.
++                        static const bool macroConn166 =
++                            getenv("R11U166_OFF") == nullptr &&
++                            getenv("R11U166_MACROCONN_OFF") == nullptr;
++                        if (macroConn166 && es9 != SourceLocation::NoLocation &&
++                            sm->isMacroLoc(es9))
++                            es9 = sm->getFullyExpandedLoc(es9);
+                         if (es9 != SourceLocation::NoLocation &&
+                             (es9 < ir9.start() || es9 > ir9.end())) {
+                             // Default-value conn: a folded 64-bit UINT

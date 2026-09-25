@@ -1,0 +1,22 @@
+STRICT_NOTEQUAL fullname
+#111 fullname  <- enum_typespec rggen_rtl_pkg::rggen_polarity 23:3 / package rggen_rtl_pkg 1:1 / design work@rggen 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#126 fullname  <- enum_typespec rggen_rtl_pkg::rggen_sw_action 28:3 / package rggen_rtl_pkg 1:1 / design work@rggen 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#146 fullname  <- enum_typespec rggen_rtl_pkg::rggen_sw_hw_access 18:3 / package rggen_rtl_pkg 1:1 / design work@rggen 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#466 name  <- interface_inst work@rggen_bus_if 1:1 / design work@rggen 0:0
+   A enum_typespec rggen_rtl_pkg::rggen_polarity rggen_rtl_pkg.sv 23:3-26:20 
+   B enum_typespec rggen_rtl_pkg::rggen_status rggen_rtl_pkg.sv 11:3-16:18 
+#467 fullname  <- enum_typespec rggen_rtl_pkg::rggen_polarity 23:3 / interface_inst work@rggen_bus_if 1:1 / design work@rggen 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#468 line  <- ref_typespec <in>rggen_rtl_pkg::rggen_polarity 0:0 / enum_typespec rggen_rtl_pkg::rggen_polarity 23:3 / interface_inst work@rggen_bus_if 1:1
+   A logic_typespec  rggen_rtl_pkg.sv 23:16-23:21 
+   B logic_typespec  rggen_rtl_pkg.sv 11:16-11:27 
+#469 depth  <- enum_typespec rggen_rtl_pkg::rggen_polarity 23:3 / interface_inst work@rggen_bus_if 1:1 / design work@rggen 0:0
+   A enum_const RGGEN_ACTIVE_LOW rggen_rtl_pkg.sv 24:5-24:29 
+   B range  rggen_rtl_pkg.sv 11:22-11:27 

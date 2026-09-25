@@ -1,0 +1,26 @@
+#100 endcol
+  A: 2	always				dut.sv	4	1	5	17				
+  B: 2	always				dut.sv	4	1	5	18				
+#104 endcol
+  A: 4	assignment				dut.sv	5	5	5	16				
+  B: 4	assignment				dut.sv	5	5	5	17				
+#105 col
+  A: 5	operation				dut.sv	5	13	5	15		0		
+  B: 5	operation				dut.sv	5	14	5	16		0		
+#106 col
+  A: 6	ref_obj	d		work@test.d	dut.sv	5	14	5	15		0		
+  B: 6	ref_obj	d		work@test.d	dut.sv	5	15	5	16		0		
+#120 endcol
+  A: 2	always				dut.sv	4	1	5	17				
+  B: 2	always				dut.sv	4	1	5	18				
+#125 endcol
+  A: 4	assignment				dut.sv	5	5	5	16				
+  B: 4	assignment				dut.sv	5	5	5	17				
+#126 col
+  A: 5	operation				dut.sv	5	13	5	15		0		
+  B: 5	operation				dut.sv	5	14	5	16		0		
+#127 col
+  A: 6	ref_obj	d		work@test.d	dut.sv	5	14	5	15		0		
+  B: 6	ref_obj	d		work@test.d	dut.sv	5	15	5	16		0		
+fields: col=4 endcol=8 objects_differing=8
+STRICT_NOTEQUAL endcol

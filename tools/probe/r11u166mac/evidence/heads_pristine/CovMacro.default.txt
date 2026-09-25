@@ -1,0 +1,355 @@
+STRICT_NOTEQUAL endcol
+#101 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 12:9-12:52 
+   B assignment  dut.sv 12:9-12:86 
+#102 endcol  <- assignment  12:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_control dut.sv 12:13-12:52 
+   B sys_func_call $coverage_control dut.sv 12:13-12:86 
+#103 endline  <- sys_func_call $coverage_control 12:13 / assignment  12:9 / begin work@top 11:13
+   A constant  dut.sv 12:31-12:32 3
+   B constant  dut.sv 12:31-0:0 3
+#104 col  <- sys_func_call $coverage_control 12:13 / assignment  12:9 / begin work@top 11:13
+   A constant  dut.sv 12:34-12:36 23
+   B constant  dut.sv 12:46-0:0 23
+#105 col  <- sys_func_call $coverage_control 12:13 / assignment  12:9 / begin work@top 11:13
+   A constant  dut.sv 12:38-12:40 11
+   B constant  dut.sv 12:62-0:0 11
+#106 fullname  <- sys_func_call $coverage_control 12:13 / assignment  12:9 / begin work@top 11:13
+   A hier_path $root.top dut.sv 12:42-12:51 
+   B hier_path $root.top dut.sv 12:76-12:85 
+#107 col  <- hier_path $root.top 12:42 / sys_func_call $coverage_control 12:13 / assignment  12:9
+   A ref_obj $root dut.sv 12:48-12:51 
+   B ref_obj $root dut.sv 12:76-12:81 
+#108 fullname  <- hier_path $root.top 12:42 / sys_func_call $coverage_control 12:13 / assignment  12:9
+   A ref_obj top dut.sv 12:48-12:51 
+   B ref_obj top dut.sv 12:82-12:85 
+#110 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 13:9-13:48 
+   B assignment  dut.sv 13:9-13:84 
+#111 endcol  <- assignment  13:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_control dut.sv 13:13-13:48 
+   B sys_func_call $coverage_control dut.sv 13:13-13:84 
+#112 endline  <- sys_func_call $coverage_control 13:13 / assignment  13:9 / begin work@top 11:13
+   A constant  dut.sv 13:31-13:32 2
+   B constant  dut.sv 13:31-0:0 2
+#113 col  <- sys_func_call $coverage_control 13:13 / assignment  13:9 / begin work@top 11:13
+   A constant  dut.sv 13:34-13:36 23
+   B constant  dut.sv 13:46-0:0 23
+#114 col  <- sys_func_call $coverage_control 13:13 / assignment  13:9 / begin work@top 11:13
+   A constant  dut.sv 13:38-13:40 10
+   B constant  dut.sv 13:62-0:0 10
+#115 col  <- sys_func_call $coverage_control 13:13 / assignment  13:9 / begin work@top 11:13
+   A constant  dut.sv 13:42-13:47 "DUT"
+   B constant  dut.sv 13:78-13:83 "DUT"
+#117 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 14:9-14:58 
+   B assignment  dut.sv 14:9-14:94 
+#118 endcol  <- assignment  14:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_control dut.sv 14:13-14:58 
+   B sys_func_call $coverage_control dut.sv 14:13-14:94 
+#119 endline  <- sys_func_call $coverage_control 14:13 / assignment  14:9 / begin work@top 11:13
+   A constant  dut.sv 14:31-14:32 2
+   B constant  dut.sv 14:31-0:0 2
+#120 col  <- sys_func_call $coverage_control 14:13 / assignment  14:9 / begin work@top 11:13
+   A constant  dut.sv 14:34-14:36 23
+   B constant  dut.sv 14:46-0:0 23
+#121 col  <- sys_func_call $coverage_control 14:13 / assignment  14:9 / begin work@top 11:13
+   A constant  dut.sv 14:38-14:40 10
+   B constant  dut.sv 14:62-0:0 10
+#122 fullname  <- sys_func_call $coverage_control 14:13 / assignment  14:9 / begin work@top 11:13
+   A hier_path $root.top.unit1 dut.sv 14:42-14:57 
+   B hier_path $root.top.unit1 dut.sv 14:78-14:93 
+#123 col  <- hier_path $root.top.unit1 14:42 / sys_func_call $coverage_control 14:13 / assignment  14:9
+   A ref_obj $root dut.sv 14:48-14:51 
+   B ref_obj $root dut.sv 14:78-14:83 
+#124 col  <- hier_path $root.top.unit1 14:42 / sys_func_call $coverage_control 14:13 / assignment  14:9
+   A ref_obj top dut.sv 14:48-14:51 
+   B ref_obj top dut.sv 14:84-14:87 
+#125 fullname  <- hier_path $root.top.unit1 14:42 / sys_func_call $coverage_control 14:13 / assignment  14:9
+   A ref_obj unit1 dut.sv 14:52-14:57 
+   B ref_obj unit1 dut.sv 14:88-14:93 
+#127 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 15:9-15:59 
+   B assignment  dut.sv 15:9-15:92 
+#128 endcol  <- assignment  15:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_control dut.sv 15:13-15:59 
+   B sys_func_call $coverage_control dut.sv 15:13-15:92 
+#129 endline  <- sys_func_call $coverage_control 15:13 / assignment  15:9 / begin work@top 11:13
+   A constant  dut.sv 15:31-15:32 1
+   B constant  dut.sv 15:31-0:0 1
+#130 col  <- sys_func_call $coverage_control 15:13 / assignment  15:9 / begin work@top 11:13
+   A constant  dut.sv 15:35-15:37 23
+   B constant  dut.sv 15:46-0:0 23
+#131 col  <- sys_func_call $coverage_control 15:13 / assignment  15:9 / begin work@top 11:13
+   A constant  dut.sv 15:39-15:41 11
+   B constant  dut.sv 15:62-0:0 11
+#132 fullname  <- sys_func_call $coverage_control 15:13 / assignment  15:9 / begin work@top 11:13
+   A hier_path $root.top.unit2 dut.sv 15:43-15:58 
+   B hier_path $root.top.unit2 dut.sv 15:76-15:91 
+#133 col  <- hier_path $root.top.unit2 15:43 / sys_func_call $coverage_control 15:13 / assignment  15:9
+   A ref_obj $root dut.sv 15:49-15:52 
+   B ref_obj $root dut.sv 15:76-15:81 
+#134 col  <- hier_path $root.top.unit2 15:43 / sys_func_call $coverage_control 15:13 / assignment  15:9
+   A ref_obj top dut.sv 15:49-15:52 
+   B ref_obj top dut.sv 15:82-15:85 
+#135 fullname  <- hier_path $root.top.unit2 15:43 / sys_func_call $coverage_control 15:13 / assignment  15:9
+   A ref_obj unit2 dut.sv 15:53-15:58 
+   B ref_obj unit2 dut.sv 15:86-15:91 
+#137 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 16:9-16:48 
+   B assignment  dut.sv 16:9-16:82 
+#138 endcol  <- assignment  16:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_control dut.sv 16:13-16:48 
+   B sys_func_call $coverage_control dut.sv 16:13-16:82 
+#139 endline  <- sys_func_call $coverage_control 16:13 / assignment  16:9 / begin work@top 11:13
+   A constant  dut.sv 16:31-16:32 0
+   B constant  dut.sv 16:31-0:0 0
+#140 col  <- sys_func_call $coverage_control 16:13 / assignment  16:9 / begin work@top 11:13
+   A constant  dut.sv 16:34-16:36 23
+   B constant  dut.sv 16:46-0:0 23
+#141 col  <- sys_func_call $coverage_control 16:13 / assignment  16:9 / begin work@top 11:13
+   A constant  dut.sv 16:38-16:40 11
+   B constant  dut.sv 16:62-0:0 11
+#142 col  <- sys_func_call $coverage_control 16:13 / assignment  16:9 / begin work@top 11:13
+   A constant  dut.sv 16:42-16:47 "DUT"
+   B constant  dut.sv 16:76-16:81 "DUT"
+#144 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 17:9-17:45 
+   B assignment  dut.sv 17:9-17:67 
+#145 endcol  <- assignment  17:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_get_max dut.sv 17:13-17:45 
+   B sys_func_call $coverage_get_max dut.sv 17:13-17:67 
+#146 endline  <- sys_func_call $coverage_get_max 17:13 / assignment  17:9 / begin work@top 11:13
+   A constant  dut.sv 17:31-17:33 23
+   B constant  dut.sv 17:31-0:0 23
+#147 col  <- sys_func_call $coverage_get_max 17:13 / assignment  17:9 / begin work@top 11:13
+   A constant  dut.sv 17:35-17:37 11
+   B constant  dut.sv 17:47-0:0 11
+#148 col  <- sys_func_call $coverage_get_max 17:13 / assignment  17:9 / begin work@top 11:13
+   A constant  dut.sv 17:39-17:44 "DUT"
+   B constant  dut.sv 17:61-17:66 "DUT"
+#150 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 18:9-18:51 
+   B assignment  dut.sv 18:9-18:76 
+#151 endcol  <- assignment  18:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_get dut.sv 18:13-18:51 
+   B sys_func_call $coverage_get dut.sv 18:13-18:76 
+#152 endline  <- sys_func_call $coverage_get 18:13 / assignment  18:9 / begin work@top 11:13
+   A constant  dut.sv 18:27-18:29 22
+   B constant  dut.sv 18:27-0:0 22
+#153 col  <- sys_func_call $coverage_get 18:13 / assignment  18:9 / begin work@top 11:13
+   A constant  dut.sv 18:31-18:33 11
+   B constant  dut.sv 18:46-0:0 11
+#154 fullname  <- sys_func_call $coverage_get 18:13 / assignment  18:9 / begin work@top 11:13
+   A hier_path $root.top.unit1 dut.sv 18:35-18:50 
+   B hier_path $root.top.unit1 dut.sv 18:60-18:75 
+#155 col  <- hier_path $root.top.unit1 18:35 / sys_func_call $coverage_get 18:13 / assignment  18:9
+   A ref_obj $root dut.sv 18:41-18:44 
+   B ref_obj $root dut.sv 18:60-18:65 
+#156 col  <- hier_path $root.top.unit1 18:35 / sys_func_call $coverage_get 18:13 / assignment  18:9
+   A ref_obj top dut.sv 18:41-18:44 
+   B ref_obj top dut.sv 18:66-18:69 
+#157 fullname  <- hier_path $root.top.unit1 18:35 / sys_func_call $coverage_get 18:13 / assignment  18:9
+   A ref_obj unit1 dut.sv 18:45-18:50 
+   B ref_obj unit1 dut.sv 18:70-18:75 
+#159 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 19:9-19:45 
+   B assignment  dut.sv 19:9-19:60 
+#160 endcol  <- assignment  19:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_merge dut.sv 19:13-19:45 
+   B sys_func_call $coverage_merge dut.sv 19:13-19:60 
+#161 endline  <- sys_func_call $coverage_merge 19:13 / assignment  19:9 / begin work@top 11:13
+   A constant  dut.sv 19:29-19:31 20
+   B constant  dut.sv 19:29-0:0 20
+#162 col  <- sys_func_call $coverage_merge 19:13 / assignment  19:9 / begin work@top 11:13
+   A constant  dut.sv 19:33-19:44 "some_name"
+   B constant  dut.sv 19:48-19:59 "some_name"
+#164 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 20:9-20:44 
+   B assignment  dut.sv 20:9-20:59 
+#165 endcol  <- assignment  20:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_save dut.sv 20:13-20:44 
+   B sys_func_call $coverage_save dut.sv 20:13-20:59 
+#166 endline  <- sys_func_call $coverage_save 20:13 / assignment  20:9 / begin work@top 11:13
+   A constant  dut.sv 20:28-20:30 21
+   B constant  dut.sv 20:28-0:0 21
+#167 col  <- sys_func_call $coverage_save 20:13 / assignment  20:9 / begin work@top 11:13
+   A constant  dut.sv 20:32-20:43 "some_name"
+   B constant  dut.sv 20:47-20:58 "some_name"
+#187 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 12:9-12:52 
+   B assignment  dut.sv 12:9-12:86 
+#188 endcol  <- assignment  12:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_control dut.sv 12:13-12:52 
+   B sys_func_call $coverage_control dut.sv 12:13-12:86 
+#189 endline  <- sys_func_call $coverage_control 12:13 / assignment  12:9 / begin work@top 11:13
+   A constant  dut.sv 12:31-12:32 3
+   B constant  dut.sv 12:31-0:0 3
+#190 col  <- sys_func_call $coverage_control 12:13 / assignment  12:9 / begin work@top 11:13
+   A constant  dut.sv 12:34-12:36 23
+   B constant  dut.sv 12:46-0:0 23
+#191 col  <- sys_func_call $coverage_control 12:13 / assignment  12:9 / begin work@top 11:13
+   A constant  dut.sv 12:38-12:40 11
+   B constant  dut.sv 12:62-0:0 11
+#192 fullname  <- sys_func_call $coverage_control 12:13 / assignment  12:9 / begin work@top 11:13
+   A hier_path $root.top dut.sv 12:42-12:51 
+   B hier_path $root.top dut.sv 12:76-12:85 
+#193 col  <- hier_path $root.top 12:42 / sys_func_call $coverage_control 12:13 / assignment  12:9
+   A ref_obj $root dut.sv 12:48-12:51 
+   B ref_obj $root dut.sv 12:76-12:81 
+#194 fullname  <- hier_path $root.top 12:42 / sys_func_call $coverage_control 12:13 / assignment  12:9
+   A ref_obj top dut.sv 12:48-12:51 
+   B ref_obj top dut.sv 12:82-12:85 
+#199 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 13:9-13:48 
+   B assignment  dut.sv 13:9-13:84 
+#200 endcol  <- assignment  13:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_control dut.sv 13:13-13:48 
+   B sys_func_call $coverage_control dut.sv 13:13-13:84 
+#201 endline  <- sys_func_call $coverage_control 13:13 / assignment  13:9 / begin work@top 11:13
+   A constant  dut.sv 13:31-13:32 2
+   B constant  dut.sv 13:31-0:0 2
+#202 col  <- sys_func_call $coverage_control 13:13 / assignment  13:9 / begin work@top 11:13
+   A constant  dut.sv 13:34-13:36 23
+   B constant  dut.sv 13:46-0:0 23
+#203 col  <- sys_func_call $coverage_control 13:13 / assignment  13:9 / begin work@top 11:13
+   A constant  dut.sv 13:38-13:40 10
+   B constant  dut.sv 13:62-0:0 10
+#204 col  <- sys_func_call $coverage_control 13:13 / assignment  13:9 / begin work@top 11:13
+   A constant  dut.sv 13:42-13:47 "DUT"
+   B constant  dut.sv 13:78-13:83 "DUT"
+#206 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 14:9-14:58 
+   B assignment  dut.sv 14:9-14:94 
+#207 endcol  <- assignment  14:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_control dut.sv 14:13-14:58 
+   B sys_func_call $coverage_control dut.sv 14:13-14:94 
+#208 endline  <- sys_func_call $coverage_control 14:13 / assignment  14:9 / begin work@top 11:13
+   A constant  dut.sv 14:31-14:32 2
+   B constant  dut.sv 14:31-0:0 2
+#209 col  <- sys_func_call $coverage_control 14:13 / assignment  14:9 / begin work@top 11:13
+   A constant  dut.sv 14:34-14:36 23
+   B constant  dut.sv 14:46-0:0 23
+#210 col  <- sys_func_call $coverage_control 14:13 / assignment  14:9 / begin work@top 11:13
+   A constant  dut.sv 14:38-14:40 10
+   B constant  dut.sv 14:62-0:0 10
+#211 fullname  <- sys_func_call $coverage_control 14:13 / assignment  14:9 / begin work@top 11:13
+   A hier_path $root.top.unit1 dut.sv 14:42-14:57 
+   B hier_path $root.top.unit1 dut.sv 14:78-14:93 
+#212 col  <- hier_path $root.top.unit1 14:42 / sys_func_call $coverage_control 14:13 / assignment  14:9
+   A ref_obj $root dut.sv 14:48-14:51 
+   B ref_obj $root dut.sv 14:78-14:83 
+#213 col  <- hier_path $root.top.unit1 14:42 / sys_func_call $coverage_control 14:13 / assignment  14:9
+   A ref_obj top dut.sv 14:48-14:51 
+   B ref_obj top dut.sv 14:84-14:87 
+#214 fullname  <- hier_path $root.top.unit1 14:42 / sys_func_call $coverage_control 14:13 / assignment  14:9
+   A ref_obj unit1 dut.sv 14:52-14:57 
+   B ref_obj unit1 dut.sv 14:88-14:93 
+#216 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 15:9-15:59 
+   B assignment  dut.sv 15:9-15:92 
+#217 endcol  <- assignment  15:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_control dut.sv 15:13-15:59 
+   B sys_func_call $coverage_control dut.sv 15:13-15:92 
+#218 endline  <- sys_func_call $coverage_control 15:13 / assignment  15:9 / begin work@top 11:13
+   A constant  dut.sv 15:31-15:32 1
+   B constant  dut.sv 15:31-0:0 1
+#219 col  <- sys_func_call $coverage_control 15:13 / assignment  15:9 / begin work@top 11:13
+   A constant  dut.sv 15:35-15:37 23
+   B constant  dut.sv 15:46-0:0 23
+#220 col  <- sys_func_call $coverage_control 15:13 / assignment  15:9 / begin work@top 11:13
+   A constant  dut.sv 15:39-15:41 11
+   B constant  dut.sv 15:62-0:0 11
+#221 fullname  <- sys_func_call $coverage_control 15:13 / assignment  15:9 / begin work@top 11:13
+   A hier_path $root.top.unit2 dut.sv 15:43-15:58 
+   B hier_path $root.top.unit2 dut.sv 15:76-15:91 
+#222 col  <- hier_path $root.top.unit2 15:43 / sys_func_call $coverage_control 15:13 / assignment  15:9
+   A ref_obj $root dut.sv 15:49-15:52 
+   B ref_obj $root dut.sv 15:76-15:81 
+#223 col  <- hier_path $root.top.unit2 15:43 / sys_func_call $coverage_control 15:13 / assignment  15:9
+   A ref_obj top dut.sv 15:49-15:52 
+   B ref_obj top dut.sv 15:82-15:85 
+#224 fullname  <- hier_path $root.top.unit2 15:43 / sys_func_call $coverage_control 15:13 / assignment  15:9
+   A ref_obj unit2 dut.sv 15:53-15:58 
+   B ref_obj unit2 dut.sv 15:86-15:91 
+#226 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 16:9-16:48 
+   B assignment  dut.sv 16:9-16:82 
+#227 endcol  <- assignment  16:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_control dut.sv 16:13-16:48 
+   B sys_func_call $coverage_control dut.sv 16:13-16:82 
+#228 endline  <- sys_func_call $coverage_control 16:13 / assignment  16:9 / begin work@top 11:13
+   A constant  dut.sv 16:31-16:32 0
+   B constant  dut.sv 16:31-0:0 0
+#229 col  <- sys_func_call $coverage_control 16:13 / assignment  16:9 / begin work@top 11:13
+   A constant  dut.sv 16:34-16:36 23
+   B constant  dut.sv 16:46-0:0 23
+#230 col  <- sys_func_call $coverage_control 16:13 / assignment  16:9 / begin work@top 11:13
+   A constant  dut.sv 16:38-16:40 11
+   B constant  dut.sv 16:62-0:0 11
+#231 col  <- sys_func_call $coverage_control 16:13 / assignment  16:9 / begin work@top 11:13
+   A constant  dut.sv 16:42-16:47 "DUT"
+   B constant  dut.sv 16:76-16:81 "DUT"
+#233 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 17:9-17:45 
+   B assignment  dut.sv 17:9-17:67 
+#234 endcol  <- assignment  17:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_get_max dut.sv 17:13-17:45 
+   B sys_func_call $coverage_get_max dut.sv 17:13-17:67 
+#235 endline  <- sys_func_call $coverage_get_max 17:13 / assignment  17:9 / begin work@top 11:13
+   A constant  dut.sv 17:31-17:33 23
+   B constant  dut.sv 17:31-0:0 23
+#236 col  <- sys_func_call $coverage_get_max 17:13 / assignment  17:9 / begin work@top 11:13
+   A constant  dut.sv 17:35-17:37 11
+   B constant  dut.sv 17:47-0:0 11
+#237 col  <- sys_func_call $coverage_get_max 17:13 / assignment  17:9 / begin work@top 11:13
+   A constant  dut.sv 17:39-17:44 "DUT"
+   B constant  dut.sv 17:61-17:66 "DUT"
+#239 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 18:9-18:51 
+   B assignment  dut.sv 18:9-18:76 
+#240 endcol  <- assignment  18:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_get dut.sv 18:13-18:51 
+   B sys_func_call $coverage_get dut.sv 18:13-18:76 
+#241 endline  <- sys_func_call $coverage_get 18:13 / assignment  18:9 / begin work@top 11:13
+   A constant  dut.sv 18:27-18:29 22
+   B constant  dut.sv 18:27-0:0 22
+#242 col  <- sys_func_call $coverage_get 18:13 / assignment  18:9 / begin work@top 11:13
+   A constant  dut.sv 18:31-18:33 11
+   B constant  dut.sv 18:46-0:0 11
+#243 fullname  <- sys_func_call $coverage_get 18:13 / assignment  18:9 / begin work@top 11:13
+   A hier_path $root.top.unit1 dut.sv 18:35-18:50 
+   B hier_path $root.top.unit1 dut.sv 18:60-18:75 
+#244 col  <- hier_path $root.top.unit1 18:35 / sys_func_call $coverage_get 18:13 / assignment  18:9
+   A ref_obj $root dut.sv 18:41-18:44 
+   B ref_obj $root dut.sv 18:60-18:65 
+#245 col  <- hier_path $root.top.unit1 18:35 / sys_func_call $coverage_get 18:13 / assignment  18:9
+   A ref_obj top dut.sv 18:41-18:44 
+   B ref_obj top dut.sv 18:66-18:69 
+#246 fullname  <- hier_path $root.top.unit1 18:35 / sys_func_call $coverage_get 18:13 / assignment  18:9
+   A ref_obj unit1 dut.sv 18:45-18:50 
+   B ref_obj unit1 dut.sv 18:70-18:75 
+#251 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 19:9-19:45 
+   B assignment  dut.sv 19:9-19:60 
+#252 endcol  <- assignment  19:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_merge dut.sv 19:13-19:45 
+   B sys_func_call $coverage_merge dut.sv 19:13-19:60 
+#253 endline  <- sys_func_call $coverage_merge 19:13 / assignment  19:9 / begin work@top 11:13
+   A constant  dut.sv 19:29-19:31 20
+   B constant  dut.sv 19:29-0:0 20
+#254 col  <- sys_func_call $coverage_merge 19:13 / assignment  19:9 / begin work@top 11:13
+   A constant  dut.sv 19:33-19:44 "some_name"
+   B constant  dut.sv 19:48-19:59 "some_name"
+#256 endcol  <- begin work@top 11:13 / initial  11:5 / module_inst work@top 5:1
+   A assignment  dut.sv 20:9-20:44 
+   B assignment  dut.sv 20:9-20:59 
+#257 endcol  <- assignment  20:9 / begin work@top 11:13 / initial  11:5
+   A sys_func_call $coverage_save dut.sv 20:13-20:44 
+   B sys_func_call $coverage_save dut.sv 20:13-20:59 
+#258 endline  <- sys_func_call $coverage_save 20:13 / assignment  20:9 / begin work@top 11:13
+   A constant  dut.sv 20:28-20:30 21
+   B constant  dut.sv 20:28-0:0 21
+#259 col  <- sys_func_call $coverage_save 20:13 / assignment  20:9 / begin work@top 11:13
+   A constant  dut.sv 20:32-20:43 "some_name"
+   B constant  dut.sv 20:47-20:58 "some_name"

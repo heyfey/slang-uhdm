@@ -1,0 +1,356 @@
+#101 endcol
+  A: 4	assignment				dut.sv	12	9	12	52				
+  B: 4	assignment				dut.sv	12	9	12	86				
+#102 endcol
+  A: 5	sys_func_call	$coverage_control			dut.sv	12	13	12	52		0		
+  B: 5	sys_func_call	$coverage_control			dut.sv	12	13	12	86		0		
+#103 endline
+  A: 6	constant				dut.sv	12	31	12	32	3	64	UINT:3	9
+  B: 6	constant				dut.sv	12	31	0	0	3	64	UINT:3	9
+#104 col
+  A: 6	constant				dut.sv	12	34	12	36	23	64	UINT:23	9
+  B: 6	constant				dut.sv	12	46	0	0	23	64	UINT:23	9
+#105 col
+  A: 6	constant				dut.sv	12	38	12	40	11	64	UINT:11	9
+  B: 6	constant				dut.sv	12	62	0	0	11	64	UINT:11	9
+#106 fullname
+  A: 6	hier_path	$root.top		work@top.$root.top	dut.sv	12	42	12	51		0		
+  B: 6	hier_path	$root.top			dut.sv	12	76	12	85		0		
+#107 col
+  A: 7	ref_obj	$root			dut.sv	12	48	12	51		0		
+  B: 7	ref_obj	$root			dut.sv	12	76	12	81		0		
+#108 fullname
+  A: 7	ref_obj	top			dut.sv	12	48	12	51		0		
+  B: 7	ref_obj	top		work@top.top	dut.sv	12	82	12	85		0		
+#110 endcol
+  A: 4	assignment				dut.sv	13	9	13	48				
+  B: 4	assignment				dut.sv	13	9	13	84				
+#111 endcol
+  A: 5	sys_func_call	$coverage_control			dut.sv	13	13	13	48		0		
+  B: 5	sys_func_call	$coverage_control			dut.sv	13	13	13	84		0		
+#112 endline
+  A: 6	constant				dut.sv	13	31	13	32	2	64	UINT:2	9
+  B: 6	constant				dut.sv	13	31	0	0	2	64	UINT:2	9
+#113 col
+  A: 6	constant				dut.sv	13	34	13	36	23	64	UINT:23	9
+  B: 6	constant				dut.sv	13	46	0	0	23	64	UINT:23	9
+#114 col
+  A: 6	constant				dut.sv	13	38	13	40	10	64	UINT:10	9
+  B: 6	constant				dut.sv	13	62	0	0	10	64	UINT:10	9
+#115 col
+  A: 6	constant				dut.sv	13	42	13	47	"DUT"	24	STRING:DUT	6
+  B: 6	constant				dut.sv	13	78	13	83	"DUT"	24	STRING:DUT	6
+#117 endcol
+  A: 4	assignment				dut.sv	14	9	14	58				
+  B: 4	assignment				dut.sv	14	9	14	94				
+#118 endcol
+  A: 5	sys_func_call	$coverage_control			dut.sv	14	13	14	58		0		
+  B: 5	sys_func_call	$coverage_control			dut.sv	14	13	14	94		0		
+#119 endline
+  A: 6	constant				dut.sv	14	31	14	32	2	64	UINT:2	9
+  B: 6	constant				dut.sv	14	31	0	0	2	64	UINT:2	9
+#120 col
+  A: 6	constant				dut.sv	14	34	14	36	23	64	UINT:23	9
+  B: 6	constant				dut.sv	14	46	0	0	23	64	UINT:23	9
+#121 col
+  A: 6	constant				dut.sv	14	38	14	40	10	64	UINT:10	9
+  B: 6	constant				dut.sv	14	62	0	0	10	64	UINT:10	9
+#122 fullname
+  A: 6	hier_path	$root.top.unit1		work@top.$root.top.unit1	dut.sv	14	42	14	57		0		
+  B: 6	hier_path	$root.top.unit1			dut.sv	14	78	14	93		0		
+#123 col
+  A: 7	ref_obj	$root			dut.sv	14	48	14	51		0		
+  B: 7	ref_obj	$root			dut.sv	14	78	14	83		0		
+#124 col
+  A: 7	ref_obj	top			dut.sv	14	48	14	51		0		
+  B: 7	ref_obj	top			dut.sv	14	84	14	87		0		
+#125 fullname
+  A: 7	ref_obj	unit1			dut.sv	14	52	14	57		0		
+  B: 7	ref_obj	unit1		work@top.unit1	dut.sv	14	88	14	93		0		
+#127 endcol
+  A: 4	assignment				dut.sv	15	9	15	59				
+  B: 4	assignment				dut.sv	15	9	15	92				
+#128 endcol
+  A: 5	sys_func_call	$coverage_control			dut.sv	15	13	15	59		0		
+  B: 5	sys_func_call	$coverage_control			dut.sv	15	13	15	92		0		
+#129 endline
+  A: 6	constant				dut.sv	15	31	15	32	1	64	UINT:1	9
+  B: 6	constant				dut.sv	15	31	0	0	1	64	UINT:1	9
+#130 col
+  A: 6	constant				dut.sv	15	35	15	37	23	64	UINT:23	9
+  B: 6	constant				dut.sv	15	46	0	0	23	64	UINT:23	9
+#131 col
+  A: 6	constant				dut.sv	15	39	15	41	11	64	UINT:11	9
+  B: 6	constant				dut.sv	15	62	0	0	11	64	UINT:11	9
+#132 fullname
+  A: 6	hier_path	$root.top.unit2		work@top.$root.top.unit2	dut.sv	15	43	15	58		0		
+  B: 6	hier_path	$root.top.unit2			dut.sv	15	76	15	91		0		
+#133 col
+  A: 7	ref_obj	$root			dut.sv	15	49	15	52		0		
+  B: 7	ref_obj	$root			dut.sv	15	76	15	81		0		
+#134 col
+  A: 7	ref_obj	top			dut.sv	15	49	15	52		0		
+  B: 7	ref_obj	top			dut.sv	15	82	15	85		0		
+#135 fullname
+  A: 7	ref_obj	unit2			dut.sv	15	53	15	58		0		
+  B: 7	ref_obj	unit2		work@top.unit2	dut.sv	15	86	15	91		0		
+#137 endcol
+  A: 4	assignment				dut.sv	16	9	16	48				
+  B: 4	assignment				dut.sv	16	9	16	82				
+#138 endcol
+  A: 5	sys_func_call	$coverage_control			dut.sv	16	13	16	48		0		
+  B: 5	sys_func_call	$coverage_control			dut.sv	16	13	16	82		0		
+#139 endline
+  A: 6	constant				dut.sv	16	31	16	32	0	64	UINT:0	9
+  B: 6	constant				dut.sv	16	31	0	0	0	64	UINT:0	9
+#140 col
+  A: 6	constant				dut.sv	16	34	16	36	23	64	UINT:23	9
+  B: 6	constant				dut.sv	16	46	0	0	23	64	UINT:23	9
+#141 col
+  A: 6	constant				dut.sv	16	38	16	40	11	64	UINT:11	9
+  B: 6	constant				dut.sv	16	62	0	0	11	64	UINT:11	9
+#142 col
+  A: 6	constant				dut.sv	16	42	16	47	"DUT"	24	STRING:DUT	6
+  B: 6	constant				dut.sv	16	76	16	81	"DUT"	24	STRING:DUT	6
+#144 endcol
+  A: 4	assignment				dut.sv	17	9	17	45				
+  B: 4	assignment				dut.sv	17	9	17	67				
+#145 endcol
+  A: 5	sys_func_call	$coverage_get_max			dut.sv	17	13	17	45		0		
+  B: 5	sys_func_call	$coverage_get_max			dut.sv	17	13	17	67		0		
+#146 endline
+  A: 6	constant				dut.sv	17	31	17	33	23	64	UINT:23	9
+  B: 6	constant				dut.sv	17	31	0	0	23	64	UINT:23	9
+#147 col
+  A: 6	constant				dut.sv	17	35	17	37	11	64	UINT:11	9
+  B: 6	constant				dut.sv	17	47	0	0	11	64	UINT:11	9
+#148 col
+  A: 6	constant				dut.sv	17	39	17	44	"DUT"	24	STRING:DUT	6
+  B: 6	constant				dut.sv	17	61	17	66	"DUT"	24	STRING:DUT	6
+#150 endcol
+  A: 4	assignment				dut.sv	18	9	18	51				
+  B: 4	assignment				dut.sv	18	9	18	76				
+#151 endcol
+  A: 5	sys_func_call	$coverage_get			dut.sv	18	13	18	51		0		
+  B: 5	sys_func_call	$coverage_get			dut.sv	18	13	18	76		0		
+#152 endline
+  A: 6	constant				dut.sv	18	27	18	29	22	64	UINT:22	9
+  B: 6	constant				dut.sv	18	27	0	0	22	64	UINT:22	9
+#153 col
+  A: 6	constant				dut.sv	18	31	18	33	11	64	UINT:11	9
+  B: 6	constant				dut.sv	18	46	0	0	11	64	UINT:11	9
+#154 fullname
+  A: 6	hier_path	$root.top.unit1		work@top.$root.top.unit1	dut.sv	18	35	18	50		0		
+  B: 6	hier_path	$root.top.unit1			dut.sv	18	60	18	75		0		
+#155 col
+  A: 7	ref_obj	$root			dut.sv	18	41	18	44		0		
+  B: 7	ref_obj	$root			dut.sv	18	60	18	65		0		
+#156 col
+  A: 7	ref_obj	top			dut.sv	18	41	18	44		0		
+  B: 7	ref_obj	top			dut.sv	18	66	18	69		0		
+#157 fullname
+  A: 7	ref_obj	unit1			dut.sv	18	45	18	50		0		
+  B: 7	ref_obj	unit1		work@top.unit1	dut.sv	18	70	18	75		0		
+#159 endcol
+  A: 4	assignment				dut.sv	19	9	19	45				
+  B: 4	assignment				dut.sv	19	9	19	60				
+#160 endcol
+  A: 5	sys_func_call	$coverage_merge			dut.sv	19	13	19	45		0		
+  B: 5	sys_func_call	$coverage_merge			dut.sv	19	13	19	60		0		
+#161 endline
+  A: 6	constant				dut.sv	19	29	19	31	20	64	UINT:20	9
+  B: 6	constant				dut.sv	19	29	0	0	20	64	UINT:20	9
+#162 col
+  A: 6	constant				dut.sv	19	33	19	44	"some_name"	72	STRING:some_name	6
+  B: 6	constant				dut.sv	19	48	19	59	"some_name"	72	STRING:some_name	6
+#164 endcol
+  A: 4	assignment				dut.sv	20	9	20	44				
+  B: 4	assignment				dut.sv	20	9	20	59				
+#165 endcol
+  A: 5	sys_func_call	$coverage_save			dut.sv	20	13	20	44		0		
+  B: 5	sys_func_call	$coverage_save			dut.sv	20	13	20	59		0		
+#166 endline
+  A: 6	constant				dut.sv	20	28	20	30	21	64	UINT:21	9
+  B: 6	constant				dut.sv	20	28	0	0	21	64	UINT:21	9
+#167 col
+  A: 6	constant				dut.sv	20	32	20	43	"some_name"	72	STRING:some_name	6
+  B: 6	constant				dut.sv	20	47	20	58	"some_name"	72	STRING:some_name	6
+#187 endcol
+  A: 4	assignment				dut.sv	12	9	12	52				
+  B: 4	assignment				dut.sv	12	9	12	86				
+#188 endcol
+  A: 5	sys_func_call	$coverage_control			dut.sv	12	13	12	52		0		
+  B: 5	sys_func_call	$coverage_control			dut.sv	12	13	12	86		0		
+#189 endline
+  A: 6	constant				dut.sv	12	31	12	32	3	64	UINT:3	9
+  B: 6	constant				dut.sv	12	31	0	0	3	64	UINT:3	9
+#190 col
+  A: 6	constant				dut.sv	12	34	12	36	23	64	UINT:23	9
+  B: 6	constant				dut.sv	12	46	0	0	23	64	UINT:23	9
+#191 col
+  A: 6	constant				dut.sv	12	38	12	40	11	64	UINT:11	9
+  B: 6	constant				dut.sv	12	62	0	0	11	64	UINT:11	9
+#192 fullname
+  A: 6	hier_path	$root.top		work@top.$root.top	dut.sv	12	42	12	51		0		
+  B: 6	hier_path	$root.top			dut.sv	12	76	12	85		0		
+#193 col
+  A: 7	ref_obj	$root			dut.sv	12	48	12	51		0		
+  B: 7	ref_obj	$root			dut.sv	12	76	12	81		0		
+#194 fullname
+  A: 7	ref_obj	top			dut.sv	12	48	12	51		0		
+  B: 7	ref_obj	top		work@top.top	dut.sv	12	82	12	85		0		
+#199 endcol
+  A: 4	assignment				dut.sv	13	9	13	48				
+  B: 4	assignment				dut.sv	13	9	13	84				
+#200 endcol
+  A: 5	sys_func_call	$coverage_control			dut.sv	13	13	13	48		0		
+  B: 5	sys_func_call	$coverage_control			dut.sv	13	13	13	84		0		
+#201 endline
+  A: 6	constant				dut.sv	13	31	13	32	2	64	UINT:2	9
+  B: 6	constant				dut.sv	13	31	0	0	2	64	UINT:2	9
+#202 col
+  A: 6	constant				dut.sv	13	34	13	36	23	64	UINT:23	9
+  B: 6	constant				dut.sv	13	46	0	0	23	64	UINT:23	9
+#203 col
+  A: 6	constant				dut.sv	13	38	13	40	10	64	UINT:10	9
+  B: 6	constant				dut.sv	13	62	0	0	10	64	UINT:10	9
+#204 col
+  A: 6	constant				dut.sv	13	42	13	47	"DUT"	24	STRING:DUT	6
+  B: 6	constant				dut.sv	13	78	13	83	"DUT"	24	STRING:DUT	6
+#206 endcol
+  A: 4	assignment				dut.sv	14	9	14	58				
+  B: 4	assignment				dut.sv	14	9	14	94				
+#207 endcol
+  A: 5	sys_func_call	$coverage_control			dut.sv	14	13	14	58		0		
+  B: 5	sys_func_call	$coverage_control			dut.sv	14	13	14	94		0		
+#208 endline
+  A: 6	constant				dut.sv	14	31	14	32	2	64	UINT:2	9
+  B: 6	constant				dut.sv	14	31	0	0	2	64	UINT:2	9
+#209 col
+  A: 6	constant				dut.sv	14	34	14	36	23	64	UINT:23	9
+  B: 6	constant				dut.sv	14	46	0	0	23	64	UINT:23	9
+#210 col
+  A: 6	constant				dut.sv	14	38	14	40	10	64	UINT:10	9
+  B: 6	constant				dut.sv	14	62	0	0	10	64	UINT:10	9
+#211 fullname
+  A: 6	hier_path	$root.top.unit1		work@top.$root.top.unit1	dut.sv	14	42	14	57		0		
+  B: 6	hier_path	$root.top.unit1			dut.sv	14	78	14	93		0		
+#212 col
+  A: 7	ref_obj	$root			dut.sv	14	48	14	51		0		
+  B: 7	ref_obj	$root			dut.sv	14	78	14	83		0		
+#213 col
+  A: 7	ref_obj	top			dut.sv	14	48	14	51		0		
+  B: 7	ref_obj	top			dut.sv	14	84	14	87		0		
+#214 fullname
+  A: 7	ref_obj	unit1			dut.sv	14	52	14	57		0		
+  B: 7	ref_obj	unit1		work@top.unit1	dut.sv	14	88	14	93		0		
+#216 endcol
+  A: 4	assignment				dut.sv	15	9	15	59				
+  B: 4	assignment				dut.sv	15	9	15	92				
+#217 endcol
+  A: 5	sys_func_call	$coverage_control			dut.sv	15	13	15	59		0		
+  B: 5	sys_func_call	$coverage_control			dut.sv	15	13	15	92		0		
+#218 endline
+  A: 6	constant				dut.sv	15	31	15	32	1	64	UINT:1	9
+  B: 6	constant				dut.sv	15	31	0	0	1	64	UINT:1	9
+#219 col
+  A: 6	constant				dut.sv	15	35	15	37	23	64	UINT:23	9
+  B: 6	constant				dut.sv	15	46	0	0	23	64	UINT:23	9
+#220 col
+  A: 6	constant				dut.sv	15	39	15	41	11	64	UINT:11	9
+  B: 6	constant				dut.sv	15	62	0	0	11	64	UINT:11	9
+#221 fullname
+  A: 6	hier_path	$root.top.unit2		work@top.$root.top.unit2	dut.sv	15	43	15	58		0		
+  B: 6	hier_path	$root.top.unit2			dut.sv	15	76	15	91		0		
+#222 col
+  A: 7	ref_obj	$root			dut.sv	15	49	15	52		0		
+  B: 7	ref_obj	$root			dut.sv	15	76	15	81		0		
+#223 col
+  A: 7	ref_obj	top			dut.sv	15	49	15	52		0		
+  B: 7	ref_obj	top			dut.sv	15	82	15	85		0		
+#224 fullname
+  A: 7	ref_obj	unit2			dut.sv	15	53	15	58		0		
+  B: 7	ref_obj	unit2		work@top.unit2	dut.sv	15	86	15	91		0		
+#226 endcol
+  A: 4	assignment				dut.sv	16	9	16	48				
+  B: 4	assignment				dut.sv	16	9	16	82				
+#227 endcol
+  A: 5	sys_func_call	$coverage_control			dut.sv	16	13	16	48		0		
+  B: 5	sys_func_call	$coverage_control			dut.sv	16	13	16	82		0		
+#228 endline
+  A: 6	constant				dut.sv	16	31	16	32	0	64	UINT:0	9
+  B: 6	constant				dut.sv	16	31	0	0	0	64	UINT:0	9
+#229 col
+  A: 6	constant				dut.sv	16	34	16	36	23	64	UINT:23	9
+  B: 6	constant				dut.sv	16	46	0	0	23	64	UINT:23	9
+#230 col
+  A: 6	constant				dut.sv	16	38	16	40	11	64	UINT:11	9
+  B: 6	constant				dut.sv	16	62	0	0	11	64	UINT:11	9
+#231 col
+  A: 6	constant				dut.sv	16	42	16	47	"DUT"	24	STRING:DUT	6
+  B: 6	constant				dut.sv	16	76	16	81	"DUT"	24	STRING:DUT	6
+#233 endcol
+  A: 4	assignment				dut.sv	17	9	17	45				
+  B: 4	assignment				dut.sv	17	9	17	67				
+#234 endcol
+  A: 5	sys_func_call	$coverage_get_max			dut.sv	17	13	17	45		0		
+  B: 5	sys_func_call	$coverage_get_max			dut.sv	17	13	17	67		0		
+#235 endline
+  A: 6	constant				dut.sv	17	31	17	33	23	64	UINT:23	9
+  B: 6	constant				dut.sv	17	31	0	0	23	64	UINT:23	9
+#236 col
+  A: 6	constant				dut.sv	17	35	17	37	11	64	UINT:11	9
+  B: 6	constant				dut.sv	17	47	0	0	11	64	UINT:11	9
+#237 col
+  A: 6	constant				dut.sv	17	39	17	44	"DUT"	24	STRING:DUT	6
+  B: 6	constant				dut.sv	17	61	17	66	"DUT"	24	STRING:DUT	6
+#239 endcol
+  A: 4	assignment				dut.sv	18	9	18	51				
+  B: 4	assignment				dut.sv	18	9	18	76				
+#240 endcol
+  A: 5	sys_func_call	$coverage_get			dut.sv	18	13	18	51		0		
+  B: 5	sys_func_call	$coverage_get			dut.sv	18	13	18	76		0		
+#241 endline
+  A: 6	constant				dut.sv	18	27	18	29	22	64	UINT:22	9
+  B: 6	constant				dut.sv	18	27	0	0	22	64	UINT:22	9
+#242 col
+  A: 6	constant				dut.sv	18	31	18	33	11	64	UINT:11	9
+  B: 6	constant				dut.sv	18	46	0	0	11	64	UINT:11	9
+#243 fullname
+  A: 6	hier_path	$root.top.unit1		work@top.$root.top.unit1	dut.sv	18	35	18	50		0		
+  B: 6	hier_path	$root.top.unit1			dut.sv	18	60	18	75		0		
+#244 col
+  A: 7	ref_obj	$root			dut.sv	18	41	18	44		0		
+  B: 7	ref_obj	$root			dut.sv	18	60	18	65		0		
+#245 col
+  A: 7	ref_obj	top			dut.sv	18	41	18	44		0		
+  B: 7	ref_obj	top			dut.sv	18	66	18	69		0		
+#246 fullname
+  A: 7	ref_obj	unit1			dut.sv	18	45	18	50		0		
+  B: 7	ref_obj	unit1		work@top.unit1	dut.sv	18	70	18	75		0		
+#251 endcol
+  A: 4	assignment				dut.sv	19	9	19	45				
+  B: 4	assignment				dut.sv	19	9	19	60				
+#252 endcol
+  A: 5	sys_func_call	$coverage_merge			dut.sv	19	13	19	45		0		
+  B: 5	sys_func_call	$coverage_merge			dut.sv	19	13	19	60		0		
+#253 endline
+  A: 6	constant				dut.sv	19	29	19	31	20	64	UINT:20	9
+  B: 6	constant				dut.sv	19	29	0	0	20	64	UINT:20	9
+#254 col
+  A: 6	constant				dut.sv	19	33	19	44	"some_name"	72	STRING:some_name	6
+  B: 6	constant				dut.sv	19	48	19	59	"some_name"	72	STRING:some_name	6
+#256 endcol
+  A: 4	assignment				dut.sv	20	9	20	44				
+  B: 4	assignment				dut.sv	20	9	20	59				
+#257 endcol
+  A: 5	sys_func_call	$coverage_save			dut.sv	20	13	20	44		0		
+  B: 5	sys_func_call	$coverage_save			dut.sv	20	13	20	59		0		
+#258 endline
+  A: 6	constant				dut.sv	20	28	20	30	21	64	UINT:21	9
+  B: 6	constant				dut.sv	20	28	0	0	21	64	UINT:21	9
+#259 col
+  A: 6	constant				dut.sv	20	32	20	43	"some_name"	72	STRING:some_name	6
+  B: 6	constant				dut.sv	20	47	20	58	"some_name"	72	STRING:some_name	6
+fields: fullname=16 col=64 endline=42 endcol=118 objects_differing=118
+STRICT_NOTEQUAL endcol

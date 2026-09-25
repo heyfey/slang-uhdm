@@ -1,0 +1,260 @@
+#6561 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	23		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#6562 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#6563 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#6564 line
+  A: 5	constant				prim_assert.sv	29	60	29	153	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	62	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+#6565 line
+  A: 5	constant				prim_assert.sv	29	155	29	158	117	64	UINT:117	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	117	64	UINT:117	9
+#6566 endline
+  A: 5	constant				prim_assert.sv	33	10	33	22	"DivEnKnown"	80	STRING:DivEnKnown	6
+  B: 5	constant				prim_assert.sv	33	10	23	4	"DivEnKnown"	80	STRING:DivEnKnown	6
+#6572 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	24		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#6573 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#6574 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#6575 line
+  A: 5	constant				prim_assert.sv	29	60	29	153	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	62	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+#6576 line
+  A: 5	constant				prim_assert.sv	29	155	29	158	118	64	UINT:118	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	118	64	UINT:118	9
+#6577 endline
+  A: 5	constant				prim_assert.sv	33	10	33	23	"MultEnKnown"	88	STRING:MultEnKnown	6
+  B: 5	constant				prim_assert.sv	33	10	23	5	"MultEnKnown"	88	STRING:MultEnKnown	6
+#6583 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	27		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#6584 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#6585 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#6586 line
+  A: 5	constant				prim_assert.sv	29	60	29	153	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	62	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+#6587 line
+  A: 5	constant				prim_assert.sv	29	155	29	158	119	64	UINT:119	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	119	64	UINT:119	9
+#6588 endline
+  A: 5	constant				prim_assert.sv	33	10	33	26	"MultDivEnKnown"	112	STRING:MultDivEnKnown	6
+  B: 5	constant				prim_assert.sv	33	10	23	8	"MultDivEnKnown"	112	STRING:MultDivEnKnown	6
+#6592 endline
+  A: 2	assert_stmt	IbexMultDivStateValid		work@ibex_multdiv_fast.IbexMultDivStateValid	prim_assert_standard_macros.svh	78	3	82	8				
+  B: 2	assert_stmt	IbexMultDivStateValid		work@ibex_multdiv_fast.IbexMultDivStateValid	prim_assert_standard_macros.svh	78	3	81	8				
+#6593 line
+  A: 3	begin			work@ibex_multdiv_fast.IbexMultDivStateValid	prim_assert_standard_macros.svh	80	10	82	8				
+  B: 3	begin			work@ibex_multdiv_fast.IbexMultDivStateValid	prim_assert_standard_macros.svh	79	10	81	8				
+#6594 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	34		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#6595 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#6596 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#6597 line
+  A: 5	constant				prim_assert.sv	29	60	29	153	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	62	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+#6598 line
+  A: 5	constant				prim_assert.sv	29	155	29	158	532	64	UINT:532	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	532	64	UINT:532	9
+#6599 endline
+  A: 5	constant				prim_assert.sv	33	10	33	33	"IbexMultDivStateValid"	168	STRING:IbexMultDivStateValid	6
+  B: 5	constant				prim_assert.sv	33	10	23	15	"IbexMultDivStateValid"	168	STRING:IbexMultDivStateValid	6
+#6600 endline
+  A: 3	property_spec				prim_assert_standard_macros.svh	78	43	79	81				
+  B: 3	property_spec				prim_assert_standard_macros.svh	78	43	78	192				
+#7435 endcol
+  A: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	158	24	158	31		0		
+  B: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	158	24	158	59		0		
+#7439 endcol
+  A: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	158	62	158	69		0		
+  B: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	158	62	158	97		0		
+#7446 endcol
+  A: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	159	24	159	31		0		
+  B: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	159	24	159	59		0		
+#7450 endcol
+  A: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	159	62	159	69		0		
+  B: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	159	62	159	97		0		
+#7457 endcol
+  A: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	160	24	160	31		0		
+  B: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	160	24	160	59		0		
+#7461 endcol
+  A: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	160	62	160	69		0		
+  B: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	160	62	160	97		0		
+#7469 endcol
+  A: 7	sys_func_call	$signed			ibex_multdiv_fast.sv	162	29	162	36		0		
+  B: 7	sys_func_call	$signed			ibex_multdiv_fast.sv	162	29	162	46		0		
+#7471 endcol
+  A: 7	sys_func_call	$signed			ibex_multdiv_fast.sv	162	49	162	56		0		
+  B: 7	sys_func_call	$signed			ibex_multdiv_fast.sv	162	49	162	66		0		
+#7473 endcol
+  A: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	162	69	162	76		0		
+  B: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	162	69	162	86		0		
+#7477 endcol
+  A: 5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	164	29	164	38		0		
+  B: 5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	164	29	164	49		0		
+#7481 endcol
+  A: 5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	165	29	165	38		0		
+  B: 5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	165	29	165	54		0		
+#7729 endcol
+  A: 7	sys_func_call	$signed			ibex_multdiv_fast.sv	278	9	278	16		0		
+  B: 7	sys_func_call	$signed			ibex_multdiv_fast.sv	278	9	278	37		0		
+#7733 endcol
+  A: 7	sys_func_call	$signed			ibex_multdiv_fast.sv	278	40	278	47		0		
+  B: 7	sys_func_call	$signed			ibex_multdiv_fast.sv	278	40	278	68		0		
+#7737 endcol
+  A: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	278	71	278	78		0		
+  B: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	278	71	278	85		0		
+#7741 endcol
+  A: 5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	279	29	279	38		0		
+  B: 5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	279	29	279	54		0		
+#10448 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	23		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#10449 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#10450 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#10451 line
+  A: 5	constant				prim_assert.sv	29	60	29	153	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	62	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+#10452 line
+  A: 5	constant				prim_assert.sv	29	155	29	158	117	64	UINT:117	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	117	64	UINT:117	9
+#10453 endline
+  A: 5	constant				prim_assert.sv	33	10	33	22	"DivEnKnown"	80	STRING:DivEnKnown	6
+  B: 5	constant				prim_assert.sv	33	10	23	4	"DivEnKnown"	80	STRING:DivEnKnown	6
+#10460 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	24		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#10461 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#10462 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#10463 line
+  A: 5	constant				prim_assert.sv	29	60	29	153	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	62	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+#10464 line
+  A: 5	constant				prim_assert.sv	29	155	29	158	118	64	UINT:118	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	118	64	UINT:118	9
+#10465 endline
+  A: 5	constant				prim_assert.sv	33	10	33	23	"MultEnKnown"	88	STRING:MultEnKnown	6
+  B: 5	constant				prim_assert.sv	33	10	23	5	"MultEnKnown"	88	STRING:MultEnKnown	6
+#10471 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	27		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#10472 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#10473 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#10474 line
+  A: 5	constant				prim_assert.sv	29	60	29	153	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	62	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+#10475 line
+  A: 5	constant				prim_assert.sv	29	155	29	158	119	64	UINT:119	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	119	64	UINT:119	9
+#10476 endline
+  A: 5	constant				prim_assert.sv	33	10	33	26	"MultDivEnKnown"	112	STRING:MultDivEnKnown	6
+  B: 5	constant				prim_assert.sv	33	10	23	8	"MultDivEnKnown"	112	STRING:MultDivEnKnown	6
+#10480 endline
+  A: 2	assert_stmt	IbexMultDivStateValid		work@ibex_multdiv_fast.IbexMultDivStateValid	prim_assert_standard_macros.svh	78	3	82	8				
+  B: 2	assert_stmt	IbexMultDivStateValid		work@ibex_multdiv_fast.IbexMultDivStateValid	prim_assert_standard_macros.svh	78	3	81	8				
+#10481 line
+  A: 3	begin			work@ibex_multdiv_fast.IbexMultDivStateValid	prim_assert_standard_macros.svh	80	10	82	8				
+  B: 3	begin			work@ibex_multdiv_fast.IbexMultDivStateValid	prim_assert_standard_macros.svh	79	10	81	8				
+#10482 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	34		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#10483 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#10484 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#10485 line
+  A: 5	constant				prim_assert.sv	29	60	29	153	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	62	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+#10486 line
+  A: 5	constant				prim_assert.sv	29	155	29	158	532	64	UINT:532	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	532	64	UINT:532	9
+#10487 endline
+  A: 5	constant				prim_assert.sv	33	10	33	33	"IbexMultDivStateValid"	168	STRING:IbexMultDivStateValid	6
+  B: 5	constant				prim_assert.sv	33	10	23	15	"IbexMultDivStateValid"	168	STRING:IbexMultDivStateValid	6
+#10488 endline
+  A: 3	property_spec				prim_assert_standard_macros.svh	78	43	79	81				
+  B: 3	property_spec				prim_assert_standard_macros.svh	78	43	78	192				
+#11233 file
+  A: 9	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 9	enum_const	ALBL				0	0	0	0				
+#11259 file
+  A: 11	enum_const	ALBH			ibex_multdiv_fast.sv	269	13	269	17				
+  B: 11	enum_const	ALBH				0	0	0	0				
+#11263 file
+  A: 9	enum_const	ALBH			ibex_multdiv_fast.sv	269	13	269	17				
+  B: 9	enum_const	ALBH				0	0	0	0				
+#11318 file
+  A: 11	enum_const	AHBL			ibex_multdiv_fast.sv	269	19	269	23				
+  B: 11	enum_const	AHBL				0	0	0	0				
+#11322 file
+  A: 9	enum_const	AHBL			ibex_multdiv_fast.sv	269	19	269	23				
+  B: 9	enum_const	AHBL				0	0	0	0				
+#11376 file
+  A: 13	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 13	enum_const	ALBL				0	0	0	0				
+#11392 file
+  A: 13	enum_const	AHBH			ibex_multdiv_fast.sv	269	25	269	29				
+  B: 13	enum_const	AHBH				0	0	0	0				
+#11396 file
+  A: 9	enum_const	AHBH			ibex_multdiv_fast.sv	269	25	269	29				
+  B: 9	enum_const	AHBH				0	0	0	0				
+#11451 file
+  A: 11	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 11	enum_const	ALBL				0	0	0	0				
+#11461 file
+  A: 11	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 11	enum_const	ALBL				0	0	0	0				
+#11477 file
+  A: 11	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 11	enum_const	ALBL				0	0	0	0				
+#11521 line
+  A: 6	sys_func_call	$error			prim_assert.sv	29	3	33	31		0		
+  B: 6	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#11522 line
+  A: 7	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 7	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#11523 line
+  A: 7	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 7	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#11524 line
+  A: 7	constant				prim_assert.sv	29	60	29	153	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+  B: 7	constant				prim_assert.sv	32	92	33	62	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv"	728	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_multdiv_fast.sv	6
+#11525 line
+  A: 7	constant				prim_assert.sv	29	155	29	158	378	64	UINT:378	9
+  B: 7	constant				prim_assert.sv	32	92	32	95	378	64	UINT:378	9
+#11526 endline
+  A: 7	constant				prim_assert.sv	33	10	33	30	"IbexMultStateKnown"	144	STRING:IbexMultStateKnown	6
+  B: 7	constant				prim_assert.sv	33	10	23	12	"IbexMultStateKnown"	144	STRING:IbexMultStateKnown	6
+fields: file=11 line=58 col=29 endline=62 endcol=64 objects_differing=86
+STRICT_NOTEQUAL line

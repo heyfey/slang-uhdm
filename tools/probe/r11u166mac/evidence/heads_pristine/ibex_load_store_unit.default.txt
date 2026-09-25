@@ -1,0 +1,721 @@
+STRICT_NOTEQUAL endline
+#326 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_net fcov_ls_error_exception dv_fcov_macros.svh 91:11-91:34 
+   B logic_net fcov_ls_error_exception dv_fcov_macros.svh 91:11-92:8 
+#329 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_net unused_fcov_ls_error_exception dv_fcov_macros.svh 81:11-81:41 
+   B logic_net unused_fcov_ls_error_exception dv_fcov_macros.svh 81:11-82:8 
+#332 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_net fcov_ls_pmp_exception dv_fcov_macros.svh 91:11-91:32 
+   B logic_net fcov_ls_pmp_exception dv_fcov_macros.svh 91:11-92:6 
+#335 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_net unused_fcov_ls_pmp_exception dv_fcov_macros.svh 81:11-81:39 
+   B logic_net unused_fcov_ls_pmp_exception dv_fcov_macros.svh 81:11-82:6 
+#338 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_net fcov_ls_first_req dv_fcov_macros.svh 91:11-91:28 
+   B logic_net fcov_ls_first_req dv_fcov_macros.svh 91:11-92:2 
+#341 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_net unused_fcov_ls_first_req dv_fcov_macros.svh 81:11-81:35 
+   B logic_net unused_fcov_ls_first_req dv_fcov_macros.svh 81:11-82:2 
+#344 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_net fcov_ls_second_req dv_fcov_macros.svh 91:11-91:29 
+   B logic_net fcov_ls_second_req dv_fcov_macros.svh 91:11-92:3 
+#347 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_net unused_fcov_ls_second_req dv_fcov_macros.svh 81:11-81:36 
+   B logic_net unused_fcov_ls_second_req dv_fcov_macros.svh 81:11-82:3 
+#350 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_net fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 91:11-91:32 
+   B logic_net fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 91:11-92:6 
+#353 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_net unused_fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 81:11-81:39 
+   B logic_net unused_fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 81:11-82:6 
+#356 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_net fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 91:11-91:32 
+   B logic_net fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 91:11-92:6 
+#359 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_net unused_fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 81:11-81:39 
+   B logic_net unused_fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 81:11-82:6 
+#364 line  <- begin work@ibex_load_store_unit.IbexDataTypeKnown 79:10 / assert_stmt IbexDataTypeKnown 78:3 / module_inst work@ibex_load_store_unit 17:1
+   A sys_func_call $error prim_assert.sv 29:3-33:30 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#365 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeKnown 79:10 / assert_stmt IbexDataTypeKnown 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#366 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeKnown 79:10 / assert_stmt IbexDataTypeKnown 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#367 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeKnown 79:10 / assert_stmt IbexDataTypeKnown 78:3
+   A constant  prim_assert.sv 29:60-29:156 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:65 "/home/heyfey/git-repos/slang-uhdm/third
+#368 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeKnown 79:10 / assert_stmt IbexDataTypeKnown 78:3
+   A constant  prim_assert.sv 29:158-29:161 610
+   B constant  prim_assert.sv 32:92-32:95 610
+#369 endline  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeKnown 79:10 / assert_stmt IbexDataTypeKnown 78:3
+   A constant  prim_assert.sv 33:10-33:29 "IbexDataTypeKnown"
+   B constant  prim_assert.sv 33:10-23:11 "IbexDataTypeKnown"
+#375 line  <- begin work@ibex_load_store_unit.IbexDataOffsetKnown 79:10 / assert_stmt IbexDataOffsetKnown 78:3 / module_inst work@ibex_load_store_unit 17:1
+   A sys_func_call $error prim_assert.sv 29:3-33:32 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#376 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataOffsetKnown 79:10 / assert_stmt IbexDataOffsetKnown 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#377 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataOffsetKnown 79:10 / assert_stmt IbexDataOffsetKnown 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#378 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataOffsetKnown 79:10 / assert_stmt IbexDataOffsetKnown 78:3
+   A constant  prim_assert.sv 29:60-29:156 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:65 "/home/heyfey/git-repos/slang-uhdm/third
+#379 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataOffsetKnown 79:10 / assert_stmt IbexDataOffsetKnown 78:3
+   A constant  prim_assert.sv 29:158-29:161 611
+   B constant  prim_assert.sv 32:92-32:95 611
+#380 endline  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataOffsetKnown 79:10 / assert_stmt IbexDataOffsetKnown 78:3
+   A constant  prim_assert.sv 33:10-33:31 "IbexDataOffsetKnown"
+   B constant  prim_assert.sv 33:10-23:13 "IbexDataOffsetKnown"
+#386 line  <- begin work@ibex_load_store_unit.IbexRDataOffsetQKnown 79:10 / assert_stmt IbexRDataOffsetQKnown 78:3 / module_inst work@ibex_load_store_unit 17:1
+   A sys_func_call $error prim_assert.sv 29:3-33:34 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#387 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexRDataOffsetQKnown 79:10 / assert_stmt IbexRDataOffsetQKnown 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#388 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexRDataOffsetQKnown 79:10 / assert_stmt IbexRDataOffsetQKnown 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#389 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexRDataOffsetQKnown 79:10 / assert_stmt IbexRDataOffsetQKnown 78:3
+   A constant  prim_assert.sv 29:60-29:156 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:65 "/home/heyfey/git-repos/slang-uhdm/third
+#390 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexRDataOffsetQKnown 79:10 / assert_stmt IbexRDataOffsetQKnown 78:3
+   A constant  prim_assert.sv 29:158-29:161 612
+   B constant  prim_assert.sv 32:92-32:95 612
+#391 endline  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexRDataOffsetQKnown 79:10 / assert_stmt IbexRDataOffsetQKnown 78:3
+   A constant  prim_assert.sv 33:10-33:33 "IbexRDataOffsetQKnown"
+   B constant  prim_assert.sv 33:10-23:15 "IbexRDataOffsetQKnown"
+#397 line  <- begin work@ibex_load_store_unit.IbexDataTypeQKnown 79:10 / assert_stmt IbexDataTypeQKnown 78:3 / module_inst work@ibex_load_store_unit 17:1
+   A sys_func_call $error prim_assert.sv 29:3-33:31 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#398 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeQKnown 79:10 / assert_stmt IbexDataTypeQKnown 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#399 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeQKnown 79:10 / assert_stmt IbexDataTypeQKnown 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#400 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeQKnown 79:10 / assert_stmt IbexDataTypeQKnown 78:3
+   A constant  prim_assert.sv 29:60-29:156 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:65 "/home/heyfey/git-repos/slang-uhdm/third
+#401 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeQKnown 79:10 / assert_stmt IbexDataTypeQKnown 78:3
+   A constant  prim_assert.sv 29:158-29:161 613
+   B constant  prim_assert.sv 32:92-32:95 613
+#402 endline  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeQKnown 79:10 / assert_stmt IbexDataTypeQKnown 78:3
+   A constant  prim_assert.sv 33:10-33:30 "IbexDataTypeQKnown"
+   B constant  prim_assert.sv 33:10-23:12 "IbexDataTypeQKnown"
+#406 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A assert_stmt IbexLsuStateValid prim_assert_standard_macros.svh 78:3-83:8 
+   B assert_stmt IbexLsuStateValid prim_assert_standard_macros.svh 78:3-81:8 
+#407 line  <- assert_stmt IbexLsuStateValid 78:3 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A begin  prim_assert_standard_macros.svh 81:10-83:8 
+   B begin  prim_assert_standard_macros.svh 79:10-81:8 
+#408 line  <- begin work@ibex_load_store_unit.IbexLsuStateValid 81:10 / assert_stmt IbexLsuStateValid 78:3 / module_inst work@ibex_load_store_unit 17:1
+   A sys_func_call $error prim_assert.sv 29:3-33:30 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#409 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexLsuStateValid 81:10 / assert_stmt IbexLsuStateValid 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#410 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexLsuStateValid 81:10 / assert_stmt IbexLsuStateValid 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#411 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexLsuStateValid 81:10 / assert_stmt IbexLsuStateValid 78:3
+   A constant  prim_assert.sv 29:60-29:156 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:65 "/home/heyfey/git-repos/slang-uhdm/third
+#412 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexLsuStateValid 81:10 / assert_stmt IbexLsuStateValid 78:3
+   A constant  prim_assert.sv 29:158-29:161 614
+   B constant  prim_assert.sv 32:92-32:95 614
+#413 endline  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexLsuStateValid 81:10 / assert_stmt IbexLsuStateValid 78:3
+   A constant  prim_assert.sv 33:10-33:29 "IbexLsuStateValid"
+   B constant  prim_assert.sv 33:10-23:11 "IbexLsuStateValid"
+#414 endline  <- assert_stmt IbexLsuStateValid 78:3 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A property_spec  prim_assert_standard_macros.svh 78:39-80:34 
+   B property_spec  prim_assert_standard_macros.svh 78:39-78:193 
+#419 line  <- begin work@ibex_load_store_unit.IbexDataAddrUnknown 79:10 / assert_stmt IbexDataAddrUnknown 78:3 / module_inst work@ibex_load_store_unit 17:1
+   A sys_func_call $error prim_assert.sv 29:3-33:32 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#420 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnknown 79:10 / assert_stmt IbexDataAddrUnknown 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#421 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnknown 79:10 / assert_stmt IbexDataAddrUnknown 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#422 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnknown 79:10 / assert_stmt IbexDataAddrUnknown 78:3
+   A constant  prim_assert.sv 29:60-29:156 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:65 "/home/heyfey/git-repos/slang-uhdm/third
+#423 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnknown 79:10 / assert_stmt IbexDataAddrUnknown 78:3
+   A constant  prim_assert.sv 29:158-29:161 619
+   B constant  prim_assert.sv 32:92-32:95 619
+#424 endline  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnknown 79:10 / assert_stmt IbexDataAddrUnknown 78:3
+   A constant  prim_assert.sv 33:10-33:31 "IbexDataAddrUnknown"
+   B constant  prim_assert.sv 33:10-23:13 "IbexDataAddrUnknown"
+#430 line  <- begin work@ibex_load_store_unit.IbexDataAddrUnaligned 79:10 / assert_stmt IbexDataAddrUnaligned 78:3 / module_inst work@ibex_load_store_unit 17:1
+   A sys_func_call $error prim_assert.sv 29:3-33:34 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#431 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnaligned 79:10 / assert_stmt IbexDataAddrUnaligned 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#432 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnaligned 79:10 / assert_stmt IbexDataAddrUnaligned 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#433 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnaligned 79:10 / assert_stmt IbexDataAddrUnaligned 78:3
+   A constant  prim_assert.sv 29:60-29:156 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:65 "/home/heyfey/git-repos/slang-uhdm/third
+#434 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnaligned 79:10 / assert_stmt IbexDataAddrUnaligned 78:3
+   A constant  prim_assert.sv 29:158-29:161 622
+   B constant  prim_assert.sv 32:92-32:95 622
+#435 endline  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnaligned 79:10 / assert_stmt IbexDataAddrUnaligned 78:3
+   A constant  prim_assert.sv 33:10-33:33 "IbexDataAddrUnaligned"
+   B constant  prim_assert.sv 33:10-23:15 "IbexDataAddrUnaligned"
+#1651 endcol  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 92:12-92:77 
+   B cont_assign  dv_fcov_macros.svh 92:12-92:66 
+#1652 col  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A operation  dv_fcov_macros.svh 92:38-92:77 
+   B operation  dv_fcov_macros.svh 92:27-92:66 
+#1653 col  <- operation  92:38 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A operation  dv_fcov_macros.svh 92:39-92:63 
+   B operation  dv_fcov_macros.svh 92:28-92:52 
+#1654 col  <- operation  92:39 / operation  92:38 / cont_assign  92:12
+   A ref_obj load_err_o dv_fcov_macros.svh 92:39-92:49 
+   B ref_obj load_err_o dv_fcov_macros.svh 92:28-92:38 
+#1655 col  <- operation  92:39 / operation  92:38 / cont_assign  92:12
+   A ref_obj store_err_o dv_fcov_macros.svh 92:52-92:63 
+   B ref_obj store_err_o dv_fcov_macros.svh 92:41-92:52 
+#1656 col  <- operation  92:38 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A operation  dv_fcov_macros.svh 92:67-92:77 
+   B operation  dv_fcov_macros.svh 92:56-92:66 
+#1657 col  <- operation  92:67 / operation  92:38 / cont_assign  92:12
+   A ref_obj pmp_err_q dv_fcov_macros.svh 92:68-92:77 
+   B ref_obj pmp_err_q dv_fcov_macros.svh 92:57-92:66 
+#1658 endcol  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_error_exception dv_fcov_macros.svh 92:12-92:35 
+   B ref_obj fcov_ls_error_exception dv_fcov_macros.svh 92:12-92:69 
+#1659 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 82:12-82:68 
+   B cont_assign  dv_fcov_macros.svh 82:12-85:2 
+#1660 col  <- cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_error_exception dv_fcov_macros.svh 82:45-82:68 
+   B ref_obj fcov_ls_error_exception dv_fcov_macros.svh 82:34-85:2 
+#1662 endcol  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 92:12-92:74 
+   B cont_assign  dv_fcov_macros.svh 92:12-92:65 
+#1663 col  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A operation  dv_fcov_macros.svh 92:36-92:74 
+   B operation  dv_fcov_macros.svh 92:27-92:65 
+#1664 col  <- operation  92:36 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A operation  dv_fcov_macros.svh 92:37-92:61 
+   B operation  dv_fcov_macros.svh 92:28-92:52 
+#1665 col  <- operation  92:37 / operation  92:36 / cont_assign  92:12
+   A ref_obj load_err_o dv_fcov_macros.svh 92:37-92:47 
+   B ref_obj load_err_o dv_fcov_macros.svh 92:28-92:38 
+#1666 col  <- operation  92:37 / operation  92:36 / cont_assign  92:12
+   A ref_obj store_err_o dv_fcov_macros.svh 92:50-92:61 
+   B ref_obj store_err_o dv_fcov_macros.svh 92:41-92:52 
+#1667 col  <- operation  92:36 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A ref_obj pmp_err_q dv_fcov_macros.svh 92:65-92:74 
+   B ref_obj pmp_err_q dv_fcov_macros.svh 92:56-92:65 
+#1668 endcol  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_pmp_exception dv_fcov_macros.svh 92:12-92:33 
+   B ref_obj fcov_ls_pmp_exception dv_fcov_macros.svh 92:12-92:66 
+#1669 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 82:12-82:64 
+   B cont_assign  dv_fcov_macros.svh 82:12-84:1 
+#1670 col  <- cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_pmp_exception dv_fcov_macros.svh 82:43-82:64 
+   B ref_obj fcov_ls_pmp_exception dv_fcov_macros.svh 82:34-84:1 
+#1672 endcol  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 92:12-92:63 
+   B cont_assign  dv_fcov_macros.svh 92:12-92:58 
+#1673 col  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A operation  dv_fcov_macros.svh 92:32-92:63 
+   B operation  dv_fcov_macros.svh 92:27-92:58 
+#1674 col  <- operation  92:32 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A ref_obj lsu_req_i dv_fcov_macros.svh 92:32-92:41 
+   B ref_obj lsu_req_i dv_fcov_macros.svh 92:27-92:36 
+#1675 col  <- operation  92:32 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A operation  dv_fcov_macros.svh 92:45-92:62 
+   B operation  dv_fcov_macros.svh 92:40-92:57 
+#1676 col  <- operation  92:45 / operation  92:32 / cont_assign  92:12
+   A ref_obj ls_fsm_cs dv_fcov_macros.svh 92:45-92:54 
+   B ref_obj ls_fsm_cs dv_fcov_macros.svh 92:40-92:49 
+#1677 col  <- operation  92:45 / operation  92:32 / cont_assign  92:12
+   A ref_obj IDLE dv_fcov_macros.svh 92:58-92:62 
+   B ref_obj IDLE dv_fcov_macros.svh 92:53-92:57 
+#1680 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 82:12-82:56 
+   B cont_assign  dv_fcov_macros.svh 82:12-83:4 
+#1681 col  <- cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_first_req dv_fcov_macros.svh 82:39-82:56 
+   B ref_obj fcov_ls_first_req dv_fcov_macros.svh 82:34-83:4 
+#1683 endcol  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 92:12-92:100 
+   B cont_assign  dv_fcov_macros.svh 92:12-92:94 
+#1684 col  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A operation  dv_fcov_macros.svh 92:33-92:100 
+   B operation  dv_fcov_macros.svh 92:27-92:94 
+#1685 col  <- operation  92:33 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A operation  dv_fcov_macros.svh 92:33-92:82 
+   B operation  dv_fcov_macros.svh 92:27-92:76 
+#1686 col  <- operation  92:33 / operation  92:33 / cont_assign  92:12
+   A operation  dv_fcov_macros.svh 92:34-92:68 
+   B operation  dv_fcov_macros.svh 92:28-92:62 
+#1687 col  <- operation  92:34 / operation  92:33 / operation  92:33
+   A ref_obj ls_fsm_cs dv_fcov_macros.svh 92:34-92:43 
+   B ref_obj ls_fsm_cs dv_fcov_macros.svh 92:28-92:37 
+#1688 col  <- operation  92:34 / operation  92:33 / operation  92:33
+   A ref_obj WAIT_RVALID_MIS dv_fcov_macros.svh 92:52-92:67 
+   B ref_obj WAIT_RVALID_MIS dv_fcov_macros.svh 92:46-92:61 
+#1690 col  <- operation  92:33 / operation  92:33 / cont_assign  92:12
+   A ref_obj data_req_o dv_fcov_macros.svh 92:72-92:82 
+   B ref_obj data_req_o dv_fcov_macros.svh 92:66-92:76 
+#1691 col  <- operation  92:33 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A ref_obj addr_incr_req_o dv_fcov_macros.svh 92:85-92:100 
+   B ref_obj addr_incr_req_o dv_fcov_macros.svh 92:79-92:94 
+#1693 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 82:12-82:58 
+   B cont_assign  dv_fcov_macros.svh 82:12-83:5 
+#1694 col  <- cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_second_req dv_fcov_macros.svh 82:40-82:58 
+   B ref_obj fcov_ls_second_req dv_fcov_macros.svh 82:34-83:5 
+#1696 endcol  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 92:12-92:99 
+   B cont_assign  dv_fcov_macros.svh 92:12-92:90 
+#1697 col  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A operation  dv_fcov_macros.svh 92:36-92:99 
+   B operation  dv_fcov_macros.svh 92:27-92:90 
+#1698 col  <- operation  92:36 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A operation  dv_fcov_macros.svh 92:37-92:85 
+   B operation  dv_fcov_macros.svh 92:28-92:76 
+#1699 col  <- operation  92:37 / operation  92:36 / cont_assign  92:12
+   A ref_obj ls_fsm_cs dv_fcov_macros.svh 92:37-92:46 
+   B ref_obj ls_fsm_cs dv_fcov_macros.svh 92:28-92:37 
+#1700 col  <- operation  92:37 / operation  92:36 / cont_assign  92:12
+   A ref_obj WAIT_RVALID_MIS dv_fcov_macros.svh 92:55-92:70 
+   B ref_obj WAIT_RVALID_MIS dv_fcov_macros.svh 92:46-92:61 
+#1702 col  <- operation  92:37 / operation  92:36 / cont_assign  92:12
+   A ref_obj WAIT_GNT_MIS dv_fcov_macros.svh 92:72-92:84 
+   B ref_obj WAIT_GNT_MIS dv_fcov_macros.svh 92:63-92:75 
+#1704 col  <- operation  92:36 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A ref_obj pmp_err_q dv_fcov_macros.svh 92:90-92:99 
+   B ref_obj pmp_err_q dv_fcov_macros.svh 92:81-92:90 
+#1705 endcol  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 92:12-92:33 
+   B ref_obj fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 92:12-92:91 
+#1706 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 82:12-82:64 
+   B cont_assign  dv_fcov_macros.svh 82:12-84:1 
+#1707 col  <- cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 82:43-82:64 
+   B ref_obj fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 82:34-84:1 
+#1709 endcol  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 92:12-92:117 
+   B cont_assign  dv_fcov_macros.svh 92:12-92:108 
+#1710 col  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A operation  dv_fcov_macros.svh 92:36-92:117 
+   B operation  dv_fcov_macros.svh 92:27-92:108 
+#1711 col  <- operation  92:36 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A operation  dv_fcov_macros.svh 92:37-92:98 
+   B operation  dv_fcov_macros.svh 92:28-92:89 
+#1712 col  <- operation  92:37 / operation  92:36 / cont_assign  92:12
+   A ref_obj ls_fsm_cs dv_fcov_macros.svh 92:37-92:46 
+   B ref_obj ls_fsm_cs dv_fcov_macros.svh 92:28-92:37 
+#1713 col  <- operation  92:37 / operation  92:36 / cont_assign  92:12
+   A ref_obj WAIT_RVALID_MIS dv_fcov_macros.svh 92:55-92:70 
+   B ref_obj WAIT_RVALID_MIS dv_fcov_macros.svh 92:46-92:61 
+#1715 col  <- operation  92:37 / operation  92:36 / cont_assign  92:12
+   A ref_obj WAIT_RVALID_MIS_GNTS_DONE dv_fcov_macros.svh 92:72-92:97 
+   B ref_obj WAIT_RVALID_MIS_GNTS_DONE dv_fcov_macros.svh 92:63-92:88 
+#1717 col  <- operation  92:36 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A ref_obj data_pmp_err_i dv_fcov_macros.svh 92:103-92:117 
+   B ref_obj data_pmp_err_i dv_fcov_macros.svh 92:94-92:108 
+#1718 endcol  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 92:12-92:33 
+   B ref_obj fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 92:12-92:109 
+#1719 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 82:12-82:64 
+   B cont_assign  dv_fcov_macros.svh 82:12-84:1 
+#1720 col  <- cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 82:43-82:64 
+   B ref_obj fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 82:34-84:1 
+#1944 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_var fcov_ls_error_exception dv_fcov_macros.svh 91:11-91:34 
+   B logic_var fcov_ls_error_exception dv_fcov_macros.svh 91:11-92:8 
+#1947 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_var unused_fcov_ls_error_exception dv_fcov_macros.svh 81:11-81:41 
+   B logic_var unused_fcov_ls_error_exception dv_fcov_macros.svh 81:11-82:8 
+#1950 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_var fcov_ls_pmp_exception dv_fcov_macros.svh 91:11-91:32 
+   B logic_var fcov_ls_pmp_exception dv_fcov_macros.svh 91:11-92:6 
+#1953 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_var unused_fcov_ls_pmp_exception dv_fcov_macros.svh 81:11-81:39 
+   B logic_var unused_fcov_ls_pmp_exception dv_fcov_macros.svh 81:11-82:6 
+#1956 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_var fcov_ls_first_req dv_fcov_macros.svh 91:11-91:28 
+   B logic_var fcov_ls_first_req dv_fcov_macros.svh 91:11-92:2 
+#1959 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_var unused_fcov_ls_first_req dv_fcov_macros.svh 81:11-81:35 
+   B logic_var unused_fcov_ls_first_req dv_fcov_macros.svh 81:11-82:2 
+#1962 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_var fcov_ls_second_req dv_fcov_macros.svh 91:11-91:29 
+   B logic_var fcov_ls_second_req dv_fcov_macros.svh 91:11-92:3 
+#1965 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_var unused_fcov_ls_second_req dv_fcov_macros.svh 81:11-81:36 
+   B logic_var unused_fcov_ls_second_req dv_fcov_macros.svh 81:11-82:3 
+#1968 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_var fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 91:11-91:32 
+   B logic_var fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 91:11-92:6 
+#1971 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_var unused_fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 81:11-81:39 
+   B logic_var unused_fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 81:11-82:6 
+#1974 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_var fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 91:11-91:32 
+   B logic_var fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 91:11-92:6 
+#1977 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A logic_var unused_fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 81:11-81:39 
+   B logic_var unused_fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 81:11-82:6 
+#2127 line  <- begin work@ibex_load_store_unit.IbexDataTypeKnown 79:10 / assert_stmt IbexDataTypeKnown 78:3 / module_inst work@ibex_load_store_unit 17:1
+   A sys_func_call $error prim_assert.sv 29:3-33:30 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#2128 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeKnown 79:10 / assert_stmt IbexDataTypeKnown 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#2129 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeKnown 79:10 / assert_stmt IbexDataTypeKnown 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#2130 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeKnown 79:10 / assert_stmt IbexDataTypeKnown 78:3
+   A constant  prim_assert.sv 29:60-29:156 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:65 "/home/heyfey/git-repos/slang-uhdm/third
+#2131 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeKnown 79:10 / assert_stmt IbexDataTypeKnown 78:3
+   A constant  prim_assert.sv 29:158-29:161 610
+   B constant  prim_assert.sv 32:92-32:95 610
+#2132 endline  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeKnown 79:10 / assert_stmt IbexDataTypeKnown 78:3
+   A constant  prim_assert.sv 33:10-33:29 "IbexDataTypeKnown"
+   B constant  prim_assert.sv 33:10-23:11 "IbexDataTypeKnown"
+#2139 line  <- begin work@ibex_load_store_unit.IbexDataOffsetKnown 79:10 / assert_stmt IbexDataOffsetKnown 78:3 / module_inst work@ibex_load_store_unit 17:1
+   A sys_func_call $error prim_assert.sv 29:3-33:32 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#2140 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataOffsetKnown 79:10 / assert_stmt IbexDataOffsetKnown 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#2141 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataOffsetKnown 79:10 / assert_stmt IbexDataOffsetKnown 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#2142 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataOffsetKnown 79:10 / assert_stmt IbexDataOffsetKnown 78:3
+   A constant  prim_assert.sv 29:60-29:156 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:65 "/home/heyfey/git-repos/slang-uhdm/third
+#2143 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataOffsetKnown 79:10 / assert_stmt IbexDataOffsetKnown 78:3
+   A constant  prim_assert.sv 29:158-29:161 611
+   B constant  prim_assert.sv 32:92-32:95 611
+#2144 endline  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataOffsetKnown 79:10 / assert_stmt IbexDataOffsetKnown 78:3
+   A constant  prim_assert.sv 33:10-33:31 "IbexDataOffsetKnown"
+   B constant  prim_assert.sv 33:10-23:13 "IbexDataOffsetKnown"
+#2150 line  <- begin work@ibex_load_store_unit.IbexRDataOffsetQKnown 79:10 / assert_stmt IbexRDataOffsetQKnown 78:3 / module_inst work@ibex_load_store_unit 17:1
+   A sys_func_call $error prim_assert.sv 29:3-33:34 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#2151 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexRDataOffsetQKnown 79:10 / assert_stmt IbexRDataOffsetQKnown 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#2152 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexRDataOffsetQKnown 79:10 / assert_stmt IbexRDataOffsetQKnown 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#2153 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexRDataOffsetQKnown 79:10 / assert_stmt IbexRDataOffsetQKnown 78:3
+   A constant  prim_assert.sv 29:60-29:156 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:65 "/home/heyfey/git-repos/slang-uhdm/third
+#2154 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexRDataOffsetQKnown 79:10 / assert_stmt IbexRDataOffsetQKnown 78:3
+   A constant  prim_assert.sv 29:158-29:161 612
+   B constant  prim_assert.sv 32:92-32:95 612
+#2155 endline  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexRDataOffsetQKnown 79:10 / assert_stmt IbexRDataOffsetQKnown 78:3
+   A constant  prim_assert.sv 33:10-33:33 "IbexRDataOffsetQKnown"
+   B constant  prim_assert.sv 33:10-23:15 "IbexRDataOffsetQKnown"
+#2161 line  <- begin work@ibex_load_store_unit.IbexDataTypeQKnown 79:10 / assert_stmt IbexDataTypeQKnown 78:3 / module_inst work@ibex_load_store_unit 17:1
+   A sys_func_call $error prim_assert.sv 29:3-33:31 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#2162 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeQKnown 79:10 / assert_stmt IbexDataTypeQKnown 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#2163 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeQKnown 79:10 / assert_stmt IbexDataTypeQKnown 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#2164 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeQKnown 79:10 / assert_stmt IbexDataTypeQKnown 78:3
+   A constant  prim_assert.sv 29:60-29:156 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:65 "/home/heyfey/git-repos/slang-uhdm/third
+#2165 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeQKnown 79:10 / assert_stmt IbexDataTypeQKnown 78:3
+   A constant  prim_assert.sv 29:158-29:161 613
+   B constant  prim_assert.sv 32:92-32:95 613
+#2166 endline  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataTypeQKnown 79:10 / assert_stmt IbexDataTypeQKnown 78:3
+   A constant  prim_assert.sv 33:10-33:30 "IbexDataTypeQKnown"
+   B constant  prim_assert.sv 33:10-23:12 "IbexDataTypeQKnown"
+#2170 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A assert_stmt IbexLsuStateValid prim_assert_standard_macros.svh 78:3-83:8 
+   B assert_stmt IbexLsuStateValid prim_assert_standard_macros.svh 78:3-81:8 
+#2171 line  <- assert_stmt IbexLsuStateValid 78:3 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A begin  prim_assert_standard_macros.svh 81:10-83:8 
+   B begin  prim_assert_standard_macros.svh 79:10-81:8 
+#2172 line  <- begin work@ibex_load_store_unit.IbexLsuStateValid 81:10 / assert_stmt IbexLsuStateValid 78:3 / module_inst work@ibex_load_store_unit 17:1
+   A sys_func_call $error prim_assert.sv 29:3-33:30 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#2173 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexLsuStateValid 81:10 / assert_stmt IbexLsuStateValid 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#2174 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexLsuStateValid 81:10 / assert_stmt IbexLsuStateValid 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#2175 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexLsuStateValid 81:10 / assert_stmt IbexLsuStateValid 78:3
+   A constant  prim_assert.sv 29:60-29:156 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:65 "/home/heyfey/git-repos/slang-uhdm/third
+#2176 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexLsuStateValid 81:10 / assert_stmt IbexLsuStateValid 78:3
+   A constant  prim_assert.sv 29:158-29:161 614
+   B constant  prim_assert.sv 32:92-32:95 614
+#2177 endline  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexLsuStateValid 81:10 / assert_stmt IbexLsuStateValid 78:3
+   A constant  prim_assert.sv 33:10-33:29 "IbexLsuStateValid"
+   B constant  prim_assert.sv 33:10-23:11 "IbexLsuStateValid"
+#2178 endline  <- assert_stmt IbexLsuStateValid 78:3 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A property_spec  prim_assert_standard_macros.svh 78:39-80:34 
+   B property_spec  prim_assert_standard_macros.svh 78:39-78:193 
+#2183 line  <- begin work@ibex_load_store_unit.IbexDataAddrUnknown 79:10 / assert_stmt IbexDataAddrUnknown 78:3 / module_inst work@ibex_load_store_unit 17:1
+   A sys_func_call $error prim_assert.sv 29:3-33:32 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#2184 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnknown 79:10 / assert_stmt IbexDataAddrUnknown 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#2185 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnknown 79:10 / assert_stmt IbexDataAddrUnknown 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#2186 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnknown 79:10 / assert_stmt IbexDataAddrUnknown 78:3
+   A constant  prim_assert.sv 29:60-29:156 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:65 "/home/heyfey/git-repos/slang-uhdm/third
+#2187 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnknown 79:10 / assert_stmt IbexDataAddrUnknown 78:3
+   A constant  prim_assert.sv 29:158-29:161 619
+   B constant  prim_assert.sv 32:92-32:95 619
+#2188 endline  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnknown 79:10 / assert_stmt IbexDataAddrUnknown 78:3
+   A constant  prim_assert.sv 33:10-33:31 "IbexDataAddrUnknown"
+   B constant  prim_assert.sv 33:10-23:13 "IbexDataAddrUnknown"
+#2194 line  <- begin work@ibex_load_store_unit.IbexDataAddrUnaligned 79:10 / assert_stmt IbexDataAddrUnaligned 78:3 / module_inst work@ibex_load_store_unit 17:1
+   A sys_func_call $error prim_assert.sv 29:3-33:34 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#2195 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnaligned 79:10 / assert_stmt IbexDataAddrUnaligned 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#2196 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnaligned 79:10 / assert_stmt IbexDataAddrUnaligned 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#2197 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnaligned 79:10 / assert_stmt IbexDataAddrUnaligned 78:3
+   A constant  prim_assert.sv 29:60-29:156 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:65 "/home/heyfey/git-repos/slang-uhdm/third
+#2198 line  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnaligned 79:10 / assert_stmt IbexDataAddrUnaligned 78:3
+   A constant  prim_assert.sv 29:158-29:161 622
+   B constant  prim_assert.sv 32:92-32:95 622
+#2199 endline  <- sys_func_call $error 29:3 / begin work@ibex_load_store_unit.IbexDataAddrUnaligned 79:10 / assert_stmt IbexDataAddrUnaligned 78:3
+   A constant  prim_assert.sv 33:10-33:33 "IbexDataAddrUnaligned"
+   B constant  prim_assert.sv 33:10-23:15 "IbexDataAddrUnaligned"
+#3611 endcol  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 92:12-92:77 
+   B cont_assign  dv_fcov_macros.svh 92:12-92:66 
+#3612 col  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A operation  dv_fcov_macros.svh 92:38-92:77 
+   B operation  dv_fcov_macros.svh 92:27-92:66 
+#3613 col  <- operation  92:38 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A operation  dv_fcov_macros.svh 92:39-92:63 
+   B operation  dv_fcov_macros.svh 92:28-92:52 
+#3614 col  <- operation  92:39 / operation  92:38 / cont_assign  92:12
+   A ref_obj load_err_o dv_fcov_macros.svh 92:39-92:49 
+   B ref_obj load_err_o dv_fcov_macros.svh 92:28-92:38 
+#3616 col  <- operation  92:39 / operation  92:38 / cont_assign  92:12
+   A ref_obj store_err_o dv_fcov_macros.svh 92:52-92:63 
+   B ref_obj store_err_o dv_fcov_macros.svh 92:41-92:52 
+#3618 col  <- operation  92:38 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A operation  dv_fcov_macros.svh 92:67-92:77 
+   B operation  dv_fcov_macros.svh 92:56-92:66 
+#3619 col  <- operation  92:67 / operation  92:38 / cont_assign  92:12
+   A ref_obj pmp_err_q dv_fcov_macros.svh 92:68-92:77 
+   B ref_obj pmp_err_q dv_fcov_macros.svh 92:57-92:66 
+#3620 endcol  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_error_exception dv_fcov_macros.svh 92:12-92:35 
+   B ref_obj fcov_ls_error_exception dv_fcov_macros.svh 92:12-92:69 
+#3621 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 82:12-82:68 
+   B cont_assign  dv_fcov_macros.svh 82:12-85:2 
+#3622 col  <- cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_error_exception dv_fcov_macros.svh 82:45-82:68 
+   B ref_obj fcov_ls_error_exception dv_fcov_macros.svh 82:34-85:2 
+#3623 endline  <- ref_obj fcov_ls_error_exception 82:45 / cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1
+   A logic_net fcov_ls_error_exception dv_fcov_macros.svh 91:11-91:34 
+   B logic_net fcov_ls_error_exception dv_fcov_macros.svh 91:11-92:8 
+#3627 endline  <- ref_obj unused_fcov_ls_error_exception 82:12 / cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1
+   A logic_net unused_fcov_ls_error_exception dv_fcov_macros.svh 81:11-81:41 
+   B logic_net unused_fcov_ls_error_exception dv_fcov_macros.svh 81:11-82:8 
+#3630 endcol  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 92:12-92:74 
+   B cont_assign  dv_fcov_macros.svh 92:12-92:65 
+#3631 col  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A operation  dv_fcov_macros.svh 92:36-92:74 
+   B operation  dv_fcov_macros.svh 92:27-92:65 
+#3632 col  <- operation  92:36 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A operation  dv_fcov_macros.svh 92:37-92:61 
+   B operation  dv_fcov_macros.svh 92:28-92:52 
+#3633 col  <- operation  92:37 / operation  92:36 / cont_assign  92:12
+   A ref_obj load_err_o dv_fcov_macros.svh 92:37-92:47 
+   B ref_obj load_err_o dv_fcov_macros.svh 92:28-92:38 
+#3634 col  <- operation  92:37 / operation  92:36 / cont_assign  92:12
+   A ref_obj store_err_o dv_fcov_macros.svh 92:50-92:61 
+   B ref_obj store_err_o dv_fcov_macros.svh 92:41-92:52 
+#3635 col  <- operation  92:36 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A ref_obj pmp_err_q dv_fcov_macros.svh 92:65-92:74 
+   B ref_obj pmp_err_q dv_fcov_macros.svh 92:56-92:65 
+#3636 endcol  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_pmp_exception dv_fcov_macros.svh 92:12-92:33 
+   B ref_obj fcov_ls_pmp_exception dv_fcov_macros.svh 92:12-92:66 
+#3637 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 82:12-82:64 
+   B cont_assign  dv_fcov_macros.svh 82:12-84:1 
+#3638 col  <- cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_pmp_exception dv_fcov_macros.svh 82:43-82:64 
+   B ref_obj fcov_ls_pmp_exception dv_fcov_macros.svh 82:34-84:1 
+#3639 endline  <- ref_obj fcov_ls_pmp_exception 82:43 / cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1
+   A logic_net fcov_ls_pmp_exception dv_fcov_macros.svh 91:11-91:32 
+   B logic_net fcov_ls_pmp_exception dv_fcov_macros.svh 91:11-92:6 
+#3643 endline  <- ref_obj unused_fcov_ls_pmp_exception 82:12 / cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1
+   A logic_net unused_fcov_ls_pmp_exception dv_fcov_macros.svh 81:11-81:39 
+   B logic_net unused_fcov_ls_pmp_exception dv_fcov_macros.svh 81:11-82:6 
+#3646 endcol  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 92:12-92:63 
+   B cont_assign  dv_fcov_macros.svh 92:12-92:58 
+#3647 col  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A operation  dv_fcov_macros.svh 92:32-92:63 
+   B operation  dv_fcov_macros.svh 92:27-92:58 
+#3648 col  <- operation  92:32 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A ref_obj lsu_req_i dv_fcov_macros.svh 92:32-92:41 
+   B ref_obj lsu_req_i dv_fcov_macros.svh 92:27-92:36 
+#3649 col  <- operation  92:32 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A operation  dv_fcov_macros.svh 92:45-92:62 
+   B operation  dv_fcov_macros.svh 92:40-92:57 
+#3650 col  <- operation  92:45 / operation  92:32 / cont_assign  92:12
+   A ref_obj ls_fsm_cs dv_fcov_macros.svh 92:45-92:54 
+   B ref_obj ls_fsm_cs dv_fcov_macros.svh 92:40-92:49 
+#3651 col  <- operation  92:45 / operation  92:32 / cont_assign  92:12
+   A ref_obj IDLE dv_fcov_macros.svh 92:58-92:62 
+   B ref_obj IDLE dv_fcov_macros.svh 92:53-92:57 
+#3654 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 82:12-82:56 
+   B cont_assign  dv_fcov_macros.svh 82:12-83:4 
+#3655 col  <- cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_first_req dv_fcov_macros.svh 82:39-82:56 
+   B ref_obj fcov_ls_first_req dv_fcov_macros.svh 82:34-83:4 
+#3656 endline  <- ref_obj fcov_ls_first_req 82:39 / cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1
+   A logic_net fcov_ls_first_req dv_fcov_macros.svh 91:11-91:28 
+   B logic_net fcov_ls_first_req dv_fcov_macros.svh 91:11-92:2 
+#3660 endline  <- ref_obj unused_fcov_ls_first_req 82:12 / cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1
+   A logic_net unused_fcov_ls_first_req dv_fcov_macros.svh 81:11-81:35 
+   B logic_net unused_fcov_ls_first_req dv_fcov_macros.svh 81:11-82:2 
+#3663 endcol  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 92:12-92:100 
+   B cont_assign  dv_fcov_macros.svh 92:12-92:94 
+#3664 col  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A operation  dv_fcov_macros.svh 92:33-92:100 
+   B operation  dv_fcov_macros.svh 92:27-92:94 
+#3665 col  <- operation  92:33 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A operation  dv_fcov_macros.svh 92:33-92:82 
+   B operation  dv_fcov_macros.svh 92:27-92:76 
+#3666 col  <- operation  92:33 / operation  92:33 / cont_assign  92:12
+   A operation  dv_fcov_macros.svh 92:34-92:68 
+   B operation  dv_fcov_macros.svh 92:28-92:62 
+#3667 col  <- operation  92:34 / operation  92:33 / operation  92:33
+   A ref_obj ls_fsm_cs dv_fcov_macros.svh 92:34-92:43 
+   B ref_obj ls_fsm_cs dv_fcov_macros.svh 92:28-92:37 
+#3668 col  <- operation  92:34 / operation  92:33 / operation  92:33
+   A ref_obj WAIT_RVALID_MIS dv_fcov_macros.svh 92:52-92:67 
+   B ref_obj WAIT_RVALID_MIS dv_fcov_macros.svh 92:46-92:61 
+#3670 col  <- operation  92:33 / operation  92:33 / cont_assign  92:12
+   A ref_obj data_req_o dv_fcov_macros.svh 92:72-92:82 
+   B ref_obj data_req_o dv_fcov_macros.svh 92:66-92:76 
+#3671 col  <- operation  92:33 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A ref_obj addr_incr_req_o dv_fcov_macros.svh 92:85-92:100 
+   B ref_obj addr_incr_req_o dv_fcov_macros.svh 92:79-92:94 
+#3673 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 82:12-82:58 
+   B cont_assign  dv_fcov_macros.svh 82:12-83:5 
+#3674 col  <- cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_second_req dv_fcov_macros.svh 82:40-82:58 
+   B ref_obj fcov_ls_second_req dv_fcov_macros.svh 82:34-83:5 
+#3675 endline  <- ref_obj fcov_ls_second_req 82:40 / cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1
+   A logic_net fcov_ls_second_req dv_fcov_macros.svh 91:11-91:29 
+   B logic_net fcov_ls_second_req dv_fcov_macros.svh 91:11-92:3 
+#3679 endline  <- ref_obj unused_fcov_ls_second_req 82:12 / cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1
+   A logic_net unused_fcov_ls_second_req dv_fcov_macros.svh 81:11-81:36 
+   B logic_net unused_fcov_ls_second_req dv_fcov_macros.svh 81:11-82:3 
+#3682 endcol  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 92:12-92:99 
+   B cont_assign  dv_fcov_macros.svh 92:12-92:90 
+#3683 col  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A operation  dv_fcov_macros.svh 92:36-92:99 
+   B operation  dv_fcov_macros.svh 92:27-92:90 
+#3684 col  <- operation  92:36 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A operation  dv_fcov_macros.svh 92:37-92:85 
+   B operation  dv_fcov_macros.svh 92:28-92:76 
+#3685 col  <- operation  92:37 / operation  92:36 / cont_assign  92:12
+   A ref_obj ls_fsm_cs dv_fcov_macros.svh 92:37-92:46 
+   B ref_obj ls_fsm_cs dv_fcov_macros.svh 92:28-92:37 
+#3686 col  <- operation  92:37 / operation  92:36 / cont_assign  92:12
+   A ref_obj WAIT_RVALID_MIS dv_fcov_macros.svh 92:55-92:70 
+   B ref_obj WAIT_RVALID_MIS dv_fcov_macros.svh 92:46-92:61 
+#3688 col  <- operation  92:37 / operation  92:36 / cont_assign  92:12
+   A ref_obj WAIT_GNT_MIS dv_fcov_macros.svh 92:72-92:84 
+   B ref_obj WAIT_GNT_MIS dv_fcov_macros.svh 92:63-92:75 
+#3690 col  <- operation  92:36 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A ref_obj pmp_err_q dv_fcov_macros.svh 92:90-92:99 
+   B ref_obj pmp_err_q dv_fcov_macros.svh 92:81-92:90 
+#3691 endcol  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 92:12-92:33 
+   B ref_obj fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 92:12-92:91 
+#3692 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 82:12-82:64 
+   B cont_assign  dv_fcov_macros.svh 82:12-84:1 
+#3693 col  <- cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 82:43-82:64 
+   B ref_obj fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 82:34-84:1 
+#3694 endline  <- ref_obj fcov_ls_mis_pmp_err_1 82:43 / cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1
+   A logic_net fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 91:11-91:32 
+   B logic_net fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 91:11-92:6 
+#3698 endline  <- ref_obj unused_fcov_ls_mis_pmp_err_1 82:12 / cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1
+   A logic_net unused_fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 81:11-81:39 
+   B logic_net unused_fcov_ls_mis_pmp_err_1 dv_fcov_macros.svh 81:11-82:6 
+#3701 endcol  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 92:12-92:117 
+   B cont_assign  dv_fcov_macros.svh 92:12-92:108 
+#3702 col  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A operation  dv_fcov_macros.svh 92:36-92:117 
+   B operation  dv_fcov_macros.svh 92:27-92:108 
+#3703 col  <- operation  92:36 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A operation  dv_fcov_macros.svh 92:37-92:98 
+   B operation  dv_fcov_macros.svh 92:28-92:89 
+#3704 col  <- operation  92:37 / operation  92:36 / cont_assign  92:12
+   A ref_obj ls_fsm_cs dv_fcov_macros.svh 92:37-92:46 
+   B ref_obj ls_fsm_cs dv_fcov_macros.svh 92:28-92:37 
+#3705 col  <- operation  92:37 / operation  92:36 / cont_assign  92:12
+   A ref_obj WAIT_RVALID_MIS dv_fcov_macros.svh 92:55-92:70 
+   B ref_obj WAIT_RVALID_MIS dv_fcov_macros.svh 92:46-92:61 
+#3707 col  <- operation  92:37 / operation  92:36 / cont_assign  92:12
+   A ref_obj WAIT_RVALID_MIS_GNTS_DONE dv_fcov_macros.svh 92:72-92:97 
+   B ref_obj WAIT_RVALID_MIS_GNTS_DONE dv_fcov_macros.svh 92:63-92:88 
+#3709 col  <- operation  92:36 / cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1
+   A ref_obj data_pmp_err_i dv_fcov_macros.svh 92:103-92:117 
+   B ref_obj data_pmp_err_i dv_fcov_macros.svh 92:94-92:108 
+#3710 endcol  <- cont_assign  92:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 92:12-92:33 
+   B ref_obj fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 92:12-92:109 
+#3711 endline  <- module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A cont_assign  dv_fcov_macros.svh 82:12-82:64 
+   B cont_assign  dv_fcov_macros.svh 82:12-84:1 
+#3712 col  <- cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1 / design work@ibex_load_store_unit 0:0
+   A ref_obj fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 82:43-82:64 
+   B ref_obj fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 82:34-84:1 
+#3713 endline  <- ref_obj fcov_ls_mis_pmp_err_2 82:43 / cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1
+   A logic_net fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 91:11-91:32 
+   B logic_net fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 91:11-92:6 
+#3717 endline  <- ref_obj unused_fcov_ls_mis_pmp_err_2 82:12 / cont_assign  82:12 / module_inst work@ibex_load_store_unit 17:1
+   A logic_net unused_fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 81:11-81:39 
+   B logic_net unused_fcov_ls_mis_pmp_err_2 dv_fcov_macros.svh 81:11-82:6 

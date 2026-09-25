@@ -1,0 +1,1201 @@
+STRICT_NOTEQUAL fullname
+#2073 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseBreakpoint 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2076 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseBreakpoint 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2079 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseBreakpoint 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2088 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallMMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2091 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallMMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2094 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallMMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2103 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallUMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2106 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallUMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2109 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallUMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2118 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIllegalInsn 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2121 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIllegalInsn 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2124 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIllegalInsn 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2133 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInsnAddrMisa 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2136 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInsnAddrMisa 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2139 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInsnAddrMisa 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2148 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInstrAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2151 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInstrAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2154 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInstrAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2163 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqExternalM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2166 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqExternalM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2169 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqExternalM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2178 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqNm 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2181 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqNm 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2184 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqNm 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2193 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqSoftwareM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2196 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqSoftwareM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2199 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqSoftwareM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2208 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqTimerM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2211 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqTimerM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2214 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqTimerM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2223 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseLoadAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2226 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseLoadAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2229 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseLoadAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2238 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseStoreAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2241 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseStoreAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2244 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseStoreAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2294 fullname  <- logic_typespec ibex_mubi_t 734:11 / ref_typespec ibex_tracer_pkg::IbexMuBiOff 0:0 / parameter IbexMuBiOff 741:25
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2305 fullname  <- logic_typespec ibex_mubi_t 734:11 / ref_typespec ibex_tracer_pkg::IbexMuBiOn 0:0 / parameter IbexMuBiOn 740:25
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2411 fullname  <- typespec_member rlb 443:11 / struct_typespec ibex_pkg::pmp_mseccfg_t 442:11 / ref_typespec ibex_tracer_pkg::PmpMseccfgRst 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2414 fullname  <- typespec_member mmwp 444:11 / struct_typespec ibex_pkg::pmp_mseccfg_t 442:11 / ref_typespec ibex_tracer_pkg::PmpMseccfgRst 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2417 fullname  <- typespec_member mml 445:11 / struct_typespec ibex_pkg::pmp_mseccfg_t 442:11 / ref_typespec ibex_tracer_pkg::PmpMseccfgRst 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2434 fullname  <- logic_typespec lfsr_perm_t 721:11 / ref_typespec ibex_tracer_pkg::RndCnstLfsrPermDefault 0:0 / parameter RndCnstLfsrPermDefault 723:25
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#2451 fullname  <- logic_typespec lfsr_seed_t 720:11 / ref_typespec ibex_tracer_pkg::RndCnstLfsrSeedDefault 0:0 / parameter RndCnstLfsrSeedDefault 722:25
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3731 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqSoftwareM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3734 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqSoftwareM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3737 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqSoftwareM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3760 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqTimerM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3763 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqTimerM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3766 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqTimerM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3789 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqExternalM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3792 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqExternalM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3795 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqExternalM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3818 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqNm 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3821 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqNm 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3824 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqNm 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3847 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInsnAddrMisa 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3850 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInsnAddrMisa 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3853 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInsnAddrMisa 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3876 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInstrAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3879 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInstrAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3882 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInstrAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3905 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIllegalInsn 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3908 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIllegalInsn 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3911 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIllegalInsn 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3934 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseBreakpoint 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3937 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseBreakpoint 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3940 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseBreakpoint 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3963 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseLoadAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3966 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseLoadAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3969 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseLoadAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3992 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseStoreAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3995 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseStoreAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#3998 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseStoreAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#4021 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallUMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#4024 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallUMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#4027 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallUMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#4050 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallMMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#4053 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallMMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#4056 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallMMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#4421 fullname  <- logic_typespec lfsr_seed_t 720:11 / ref_typespec ibex_tracer_pkg 0:0 / constant  722:50
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#4432 fullname  <- logic_typespec lfsr_seed_t 720:11 / ref_typespec ibex_tracer_pkg::RndCnstLfsrSeedDefault 0:0 / parameter RndCnstLfsrSeedDefault 722:25
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#4446 fullname  <- logic_typespec lfsr_perm_t 721:11 / ref_typespec ibex_tracer_pkg::RndCnstLfsrPermDefault 0:0 / parameter RndCnstLfsrPermDefault 723:25
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#4497 fullname  <- logic_typespec ibex_mubi_t 734:11 / ref_typespec ibex_tracer_pkg 0:0 / constant  740:39
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#4508 fullname  <- logic_typespec ibex_mubi_t 734:11 / ref_typespec ibex_tracer_pkg::IbexMuBiOn 0:0 / parameter IbexMuBiOn 740:25
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#4520 fullname  <- logic_typespec ibex_mubi_t 734:11 / ref_typespec ibex_tracer_pkg 0:0 / constant  741:39
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#4531 fullname  <- logic_typespec ibex_mubi_t 734:11 / ref_typespec ibex_tracer_pkg::IbexMuBiOff 0:0 / parameter IbexMuBiOff 741:25
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#4980 fullname  <- typespec_member rlb 443:11 / struct_typespec ibex_pkg::pmp_mseccfg_t 442:11 / ref_typespec ibex_tracer_pkg::PmpMseccfgRst 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#4983 fullname  <- typespec_member mmwp 444:11 / struct_typespec ibex_pkg::pmp_mseccfg_t 442:11 / ref_typespec ibex_tracer_pkg::PmpMseccfgRst 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#4986 fullname  <- typespec_member mml 445:11 / struct_typespec ibex_pkg::pmp_mseccfg_t 442:11 / ref_typespec ibex_tracer_pkg::PmpMseccfgRst 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9546 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseBreakpoint 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9549 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseBreakpoint 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9552 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseBreakpoint 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9561 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallMMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9564 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallMMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9567 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallMMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9576 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallUMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9579 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallUMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9582 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallUMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9591 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIllegalInsn 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9594 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIllegalInsn 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9597 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIllegalInsn 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9606 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInsnAddrMisa 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9609 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInsnAddrMisa 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9612 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInsnAddrMisa 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9621 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInstrAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9624 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInstrAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9627 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInstrAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9636 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqExternalM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9639 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqExternalM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9642 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqExternalM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9651 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqNm 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9654 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqNm 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9657 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqNm 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9666 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqSoftwareM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9669 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqSoftwareM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9672 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqSoftwareM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9681 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqTimerM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9684 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqTimerM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9687 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqTimerM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9696 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseLoadAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9699 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseLoadAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9702 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseLoadAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9711 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseStoreAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9714 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseStoreAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9717 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseStoreAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9767 fullname  <- logic_typespec ibex_mubi_t 734:11 / ref_typespec ibex_tracer_pkg::IbexMuBiOff 0:0 / parameter IbexMuBiOff 741:25
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9778 fullname  <- logic_typespec ibex_mubi_t 734:11 / ref_typespec ibex_tracer_pkg::IbexMuBiOn 0:0 / parameter IbexMuBiOn 740:25
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9884 fullname  <- typespec_member rlb 443:11 / struct_typespec ibex_pkg::pmp_mseccfg_t 442:11 / ref_typespec ibex_tracer_pkg::PmpMseccfgRst 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9887 fullname  <- typespec_member mmwp 444:11 / struct_typespec ibex_pkg::pmp_mseccfg_t 442:11 / ref_typespec ibex_tracer_pkg::PmpMseccfgRst 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9890 fullname  <- typespec_member mml 445:11 / struct_typespec ibex_pkg::pmp_mseccfg_t 442:11 / ref_typespec ibex_tracer_pkg::PmpMseccfgRst 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9907 fullname  <- logic_typespec lfsr_perm_t 721:11 / ref_typespec ibex_tracer_pkg::RndCnstLfsrPermDefault 0:0 / parameter RndCnstLfsrPermDefault 723:25
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#9924 fullname  <- logic_typespec lfsr_seed_t 720:11 / ref_typespec ibex_tracer_pkg::RndCnstLfsrSeedDefault 0:0 / parameter RndCnstLfsrSeedDefault 722:25
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11204 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqSoftwareM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11207 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqSoftwareM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11210 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqSoftwareM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11233 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqTimerM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11236 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqTimerM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11239 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqTimerM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11262 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqExternalM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11265 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqExternalM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11268 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqExternalM 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11291 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqNm 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11294 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqNm 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11297 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIrqNm 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11320 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInsnAddrMisa 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11323 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInsnAddrMisa 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11326 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInsnAddrMisa 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11349 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInstrAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11352 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInstrAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11355 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseInstrAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11378 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIllegalInsn 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11381 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIllegalInsn 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11384 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseIllegalInsn 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11407 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseBreakpoint 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11410 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseBreakpoint 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11413 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseBreakpoint 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11436 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseLoadAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11439 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseLoadAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11442 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseLoadAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11465 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseStoreAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11468 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseStoreAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11471 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseStoreAccessFault 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11494 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallUMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11497 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallUMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11500 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallUMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11523 fullname  <- typespec_member irq_int 336:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallMMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11526 fullname  <- typespec_member irq_ext 337:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallMMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11529 fullname  <- typespec_member lower_cause 338:17 / struct_typespec ibex_pkg::exc_cause_t 335:11 / ref_typespec ibex_tracer_pkg::ExcCauseEcallMMode 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11894 fullname  <- logic_typespec lfsr_seed_t 720:11 / ref_typespec ibex_tracer_pkg 0:0 / constant  722:50
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11905 fullname  <- logic_typespec lfsr_seed_t 720:11 / ref_typespec ibex_tracer_pkg::RndCnstLfsrSeedDefault 0:0 / parameter RndCnstLfsrSeedDefault 722:25
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11919 fullname  <- logic_typespec lfsr_perm_t 721:11 / ref_typespec ibex_tracer_pkg::RndCnstLfsrPermDefault 0:0 / parameter RndCnstLfsrPermDefault 723:25
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11970 fullname  <- logic_typespec ibex_mubi_t 734:11 / ref_typespec ibex_tracer_pkg 0:0 / constant  740:39
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11981 fullname  <- logic_typespec ibex_mubi_t 734:11 / ref_typespec ibex_tracer_pkg::IbexMuBiOn 0:0 / parameter IbexMuBiOn 740:25
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#11993 fullname  <- logic_typespec ibex_mubi_t 734:11 / ref_typespec ibex_tracer_pkg 0:0 / constant  741:39
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#12004 fullname  <- logic_typespec ibex_mubi_t 734:11 / ref_typespec ibex_tracer_pkg::IbexMuBiOff 0:0 / parameter IbexMuBiOff 741:25
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#12453 fullname  <- typespec_member rlb 443:11 / struct_typespec ibex_pkg::pmp_mseccfg_t 442:11 / ref_typespec ibex_tracer_pkg::PmpMseccfgRst 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#12456 fullname  <- typespec_member mmwp 444:11 / struct_typespec ibex_pkg::pmp_mseccfg_t 442:11 / ref_typespec ibex_tracer_pkg::PmpMseccfgRst 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#12459 fullname  <- typespec_member mml 445:11 / struct_typespec ibex_pkg::pmp_mseccfg_t 442:11 / ref_typespec ibex_tracer_pkg::PmpMseccfgRst 0:0
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#24229 fullname  <- case_item  736:7 / case_stmt  735:5 / function decode_expanded_insn 734:3
+   A ref_obj INSN_CMPUSH ibex_tracer.sv 736:7-736:18 
+   B ref_obj INSN_CMPUSH ibex_tracer.sv 736:7-736:18 
+#24234 fullname  <- case_item  737:7 / case_stmt  735:5 / function decode_expanded_insn 734:3
+   A ref_obj INSN_CMPOP ibex_tracer.sv 737:7-737:17 
+   B ref_obj INSN_CMPOP ibex_tracer.sv 737:7-737:17 
+#24239 fullname  <- case_item  738:7 / case_stmt  735:5 / function decode_expanded_insn 734:3
+   A ref_obj INSN_CMPOPRETZ ibex_tracer.sv 738:7-738:21 
+   B ref_obj INSN_CMPOPRETZ ibex_tracer.sv 738:7-738:21 
+#24244 fullname  <- case_item  739:7 / case_stmt  735:5 / function decode_expanded_insn 734:3
+   A ref_obj INSN_CMPOPRET ibex_tracer.sv 739:7-739:20 
+   B ref_obj INSN_CMPOPRET ibex_tracer.sv 739:7-739:20 
+#24249 fullname  <- case_item  740:7 / case_stmt  735:5 / function decode_expanded_insn 734:3
+   A ref_obj INSN_CMMVSA01 ibex_tracer.sv 740:7-740:20 
+   B ref_obj INSN_CMMVSA01 ibex_tracer.sv 740:7-740:20 
+#24254 fullname  <- case_item  741:7 / case_stmt  735:5 / function decode_expanded_insn 734:3
+   A ref_obj INSN_CMMVA01S ibex_tracer.sv 741:7-741:20 
+   B ref_obj INSN_CMMVA01S ibex_tracer.sv 741:7-741:20 
+#24909 fullname  <- case_item  913:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CADDI4SPN ibex_tracer.sv 913:11-913:25 
+   B ref_obj INSN_CADDI4SPN ibex_tracer.sv 913:11-913:25 
+#24924 fullname  <- case_item  921:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CLW ibex_tracer.sv 921:11-921:19 
+   B ref_obj INSN_CLW ibex_tracer.sv 921:11-921:19 
+#24928 fullname  <- case_item  922:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CSW ibex_tracer.sv 922:11-922:19 
+   B ref_obj INSN_CSW ibex_tracer.sv 922:11-922:19 
+#24932 fullname  <- case_item  924:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CLBU ibex_tracer.sv 924:11-924:20 
+   B ref_obj INSN_CLBU ibex_tracer.sv 924:11-924:20 
+#24936 fullname  <- case_item  925:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CLHU ibex_tracer.sv 925:11-925:20 
+   B ref_obj INSN_CLHU ibex_tracer.sv 925:11-925:20 
+#24940 fullname  <- case_item  926:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CLH ibex_tracer.sv 926:11-926:19 
+   B ref_obj INSN_CLH ibex_tracer.sv 926:11-926:19 
+#24944 fullname  <- case_item  927:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CSB ibex_tracer.sv 927:11-927:19 
+   B ref_obj INSN_CSB ibex_tracer.sv 927:11-927:19 
+#24948 fullname  <- case_item  928:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CSH ibex_tracer.sv 928:11-928:19 
+   B ref_obj INSN_CSH ibex_tracer.sv 928:11-928:19 
+#24952 fullname  <- case_item  931:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CADDI ibex_tracer.sv 931:11-931:21 
+   B ref_obj INSN_CADDI ibex_tracer.sv 931:11-931:21 
+#24956 fullname  <- case_item  932:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CJAL ibex_tracer.sv 932:11-932:20 
+   B ref_obj INSN_CJAL ibex_tracer.sv 932:11-932:20 
+#24960 fullname  <- case_item  933:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CJ ibex_tracer.sv 933:11-933:18 
+   B ref_obj INSN_CJ ibex_tracer.sv 933:11-933:18 
+#24964 fullname  <- case_item  934:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CLI ibex_tracer.sv 934:11-934:19 
+   B ref_obj INSN_CLI ibex_tracer.sv 934:11-934:19 
+#24968 fullname  <- case_item  935:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CLUI ibex_tracer.sv 935:11-935:20 
+   B ref_obj INSN_CLUI ibex_tracer.sv 935:11-935:20 
+#24983 fullname  <- case_item  943:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CSRLI ibex_tracer.sv 943:11-943:21 
+   B ref_obj INSN_CSRLI ibex_tracer.sv 943:11-943:21 
+#24987 fullname  <- case_item  944:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CSRAI ibex_tracer.sv 944:11-944:21 
+   B ref_obj INSN_CSRAI ibex_tracer.sv 944:11-944:21 
+#24991 fullname  <- case_item  945:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CANDI ibex_tracer.sv 945:11-945:21 
+   B ref_obj INSN_CANDI ibex_tracer.sv 945:11-945:21 
+#24995 fullname  <- case_item  946:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CSUB ibex_tracer.sv 946:11-946:20 
+   B ref_obj INSN_CSUB ibex_tracer.sv 946:11-946:20 
+#24999 fullname  <- case_item  947:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CXOR ibex_tracer.sv 947:11-947:20 
+   B ref_obj INSN_CXOR ibex_tracer.sv 947:11-947:20 
+#25003 fullname  <- case_item  948:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_COR ibex_tracer.sv 948:11-948:19 
+   B ref_obj INSN_COR ibex_tracer.sv 948:11-948:19 
+#25007 fullname  <- case_item  949:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CAND ibex_tracer.sv 949:11-949:20 
+   B ref_obj INSN_CAND ibex_tracer.sv 949:11-949:20 
+#25011 fullname  <- case_item  950:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CBEQZ ibex_tracer.sv 950:11-950:21 
+   B ref_obj INSN_CBEQZ ibex_tracer.sv 950:11-950:21 
+#25015 fullname  <- case_item  951:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CBNEZ ibex_tracer.sv 951:11-951:21 
+   B ref_obj INSN_CBNEZ ibex_tracer.sv 951:11-951:21 
+#25019 fullname  <- case_item  953:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CZEXTB ibex_tracer.sv 953:11-953:22 
+   B ref_obj INSN_CZEXTB ibex_tracer.sv 953:11-953:22 
+#25023 fullname  <- case_item  954:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CSEXTB ibex_tracer.sv 954:11-954:22 
+   B ref_obj INSN_CSEXTB ibex_tracer.sv 954:11-954:22 
+#25027 fullname  <- case_item  955:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CZEXTH ibex_tracer.sv 955:11-955:22 
+   B ref_obj INSN_CZEXTH ibex_tracer.sv 955:11-955:22 
+#25031 fullname  <- case_item  956:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CSEXTH ibex_tracer.sv 956:11-956:22 
+   B ref_obj INSN_CSEXTH ibex_tracer.sv 956:11-956:22 
+#25035 fullname  <- case_item  957:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CNOT ibex_tracer.sv 957:11-957:20 
+   B ref_obj INSN_CNOT ibex_tracer.sv 957:11-957:20 
+#25039 fullname  <- case_item  958:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CMUL ibex_tracer.sv 958:11-958:20 
+   B ref_obj INSN_CMUL ibex_tracer.sv 958:11-958:20 
+#25043 fullname  <- case_item  961:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CSLLI ibex_tracer.sv 961:11-961:21 
+   B ref_obj INSN_CSLLI ibex_tracer.sv 961:11-961:21 
+#25047 fullname  <- case_item  962:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CLWSP ibex_tracer.sv 962:11-962:21 
+   B ref_obj INSN_CLWSP ibex_tracer.sv 962:11-962:21 
+#25051 fullname  <- case_item  963:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_SWSP ibex_tracer.sv 963:11-963:20 
+   B ref_obj INSN_SWSP ibex_tracer.sv 963:11-963:20 
+#25061 fullname  <- case_item  973:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_LUI ibex_tracer.sv 973:9-973:17 
+   B ref_obj INSN_LUI ibex_tracer.sv 973:9-973:17 
+#25065 fullname  <- case_item  974:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_AUIPC ibex_tracer.sv 974:9-974:19 
+   B ref_obj INSN_AUIPC ibex_tracer.sv 974:9-974:19 
+#25069 fullname  <- case_item  975:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_JAL ibex_tracer.sv 975:9-975:17 
+   B ref_obj INSN_JAL ibex_tracer.sv 975:9-975:17 
+#25073 fullname  <- case_item  976:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_JALR ibex_tracer.sv 976:9-976:18 
+   B ref_obj INSN_JALR ibex_tracer.sv 976:9-976:18 
+#25077 fullname  <- case_item  978:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BEQ ibex_tracer.sv 978:9-978:17 
+   B ref_obj INSN_BEQ ibex_tracer.sv 978:9-978:17 
+#25081 fullname  <- case_item  979:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BNE ibex_tracer.sv 979:9-979:17 
+   B ref_obj INSN_BNE ibex_tracer.sv 979:9-979:17 
+#25085 fullname  <- case_item  980:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BLT ibex_tracer.sv 980:9-980:17 
+   B ref_obj INSN_BLT ibex_tracer.sv 980:9-980:17 
+#25089 fullname  <- case_item  981:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BGE ibex_tracer.sv 981:9-981:17 
+   B ref_obj INSN_BGE ibex_tracer.sv 981:9-981:17 
+#25093 fullname  <- case_item  982:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BLTU ibex_tracer.sv 982:9-982:18 
+   B ref_obj INSN_BLTU ibex_tracer.sv 982:9-982:18 
+#25097 fullname  <- case_item  983:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BGEU ibex_tracer.sv 983:9-983:18 
+   B ref_obj INSN_BGEU ibex_tracer.sv 983:9-983:18 
+#25101 fullname  <- case_item  985:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_ADDI ibex_tracer.sv 985:9-985:18 
+   B ref_obj INSN_ADDI ibex_tracer.sv 985:9-985:18 
+#25114 fullname  <- case_item  996:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SLTI ibex_tracer.sv 996:9-996:18 
+   B ref_obj INSN_SLTI ibex_tracer.sv 996:9-996:18 
+#25118 fullname  <- case_item  997:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SLTIU ibex_tracer.sv 997:9-997:19 
+   B ref_obj INSN_SLTIU ibex_tracer.sv 997:9-997:19 
+#25122 fullname  <- case_item  998:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_XORI ibex_tracer.sv 998:9-998:18 
+   B ref_obj INSN_XORI ibex_tracer.sv 998:9-998:18 
+#25126 fullname  <- case_item  999:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_ORI ibex_tracer.sv 999:9-999:17 
+   B ref_obj INSN_ORI ibex_tracer.sv 999:9-999:17 
+#25130 fullname  <- case_item  1006:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_ANDI ibex_tracer.sv 1006:9-1006:18 
+   B ref_obj INSN_ANDI ibex_tracer.sv 1006:9-1006:18 
+#25134 fullname  <- case_item  1013:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SLLI ibex_tracer.sv 1013:9-1013:18 
+   B ref_obj INSN_SLLI ibex_tracer.sv 1013:9-1013:18 
+#25138 fullname  <- case_item  1014:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SRLI ibex_tracer.sv 1014:9-1014:18 
+   B ref_obj INSN_SRLI ibex_tracer.sv 1014:9-1014:18 
+#25142 fullname  <- case_item  1015:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SRAI ibex_tracer.sv 1015:9-1015:18 
+   B ref_obj INSN_SRAI ibex_tracer.sv 1015:9-1015:18 
+#25146 fullname  <- case_item  1017:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_ADD ibex_tracer.sv 1017:9-1017:17 
+   B ref_obj INSN_ADD ibex_tracer.sv 1017:9-1017:17 
+#25150 fullname  <- case_item  1018:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SUB ibex_tracer.sv 1018:9-1018:17 
+   B ref_obj INSN_SUB ibex_tracer.sv 1018:9-1018:17 
+#25154 fullname  <- case_item  1019:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SLL ibex_tracer.sv 1019:9-1019:17 
+   B ref_obj INSN_SLL ibex_tracer.sv 1019:9-1019:17 
+#25158 fullname  <- case_item  1020:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SLT ibex_tracer.sv 1020:9-1020:17 
+   B ref_obj INSN_SLT ibex_tracer.sv 1020:9-1020:17 
+#25162 fullname  <- case_item  1021:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SLTU ibex_tracer.sv 1021:9-1021:18 
+   B ref_obj INSN_SLTU ibex_tracer.sv 1021:9-1021:18 
+#25166 fullname  <- case_item  1022:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_XOR ibex_tracer.sv 1022:9-1022:17 
+   B ref_obj INSN_XOR ibex_tracer.sv 1022:9-1022:17 
+#25170 fullname  <- case_item  1023:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SRL ibex_tracer.sv 1023:9-1023:17 
+   B ref_obj INSN_SRL ibex_tracer.sv 1023:9-1023:17 
+#25174 fullname  <- case_item  1024:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SRA ibex_tracer.sv 1024:9-1024:17 
+   B ref_obj INSN_SRA ibex_tracer.sv 1024:9-1024:17 
+#25178 fullname  <- case_item  1025:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_OR ibex_tracer.sv 1025:9-1025:16 
+   B ref_obj INSN_OR ibex_tracer.sv 1025:9-1025:16 
+#25182 fullname  <- case_item  1026:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_AND ibex_tracer.sv 1026:9-1026:17 
+   B ref_obj INSN_AND ibex_tracer.sv 1026:9-1026:17 
+#25186 fullname  <- case_item  1028:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CSRRW ibex_tracer.sv 1028:9-1028:19 
+   B ref_obj INSN_CSRRW ibex_tracer.sv 1028:9-1028:19 
+#25190 fullname  <- case_item  1029:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CSRRS ibex_tracer.sv 1029:9-1029:19 
+   B ref_obj INSN_CSRRS ibex_tracer.sv 1029:9-1029:19 
+#25194 fullname  <- case_item  1030:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CSRRC ibex_tracer.sv 1030:9-1030:19 
+   B ref_obj INSN_CSRRC ibex_tracer.sv 1030:9-1030:19 
+#25198 fullname  <- case_item  1031:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CSRRWI ibex_tracer.sv 1031:9-1031:20 
+   B ref_obj INSN_CSRRWI ibex_tracer.sv 1031:9-1031:20 
+#25202 fullname  <- case_item  1032:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CSRRSI ibex_tracer.sv 1032:9-1032:20 
+   B ref_obj INSN_CSRRSI ibex_tracer.sv 1032:9-1032:20 
+#25206 fullname  <- case_item  1033:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CSRRCI ibex_tracer.sv 1033:9-1033:20 
+   B ref_obj INSN_CSRRCI ibex_tracer.sv 1033:9-1033:20 
+#25230 fullname  <- case_item  1041:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_PMUL ibex_tracer.sv 1041:9-1041:18 
+   B ref_obj INSN_PMUL ibex_tracer.sv 1041:9-1041:18 
+#25234 fullname  <- case_item  1042:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_PMUH ibex_tracer.sv 1042:9-1042:18 
+   B ref_obj INSN_PMUH ibex_tracer.sv 1042:9-1042:18 
+#25238 fullname  <- case_item  1043:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_PMULHSU ibex_tracer.sv 1043:9-1043:21 
+   B ref_obj INSN_PMULHSU ibex_tracer.sv 1043:9-1043:21 
+#25242 fullname  <- case_item  1044:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_PMULHU ibex_tracer.sv 1044:9-1044:20 
+   B ref_obj INSN_PMULHU ibex_tracer.sv 1044:9-1044:20 
+#25246 fullname  <- case_item  1045:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_DIV ibex_tracer.sv 1045:9-1045:17 
+   B ref_obj INSN_DIV ibex_tracer.sv 1045:9-1045:17 
+#25250 fullname  <- case_item  1046:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_DIVU ibex_tracer.sv 1046:9-1046:18 
+   B ref_obj INSN_DIVU ibex_tracer.sv 1046:9-1046:18 
+#25254 fullname  <- case_item  1047:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_REM ibex_tracer.sv 1047:9-1047:17 
+   B ref_obj INSN_REM ibex_tracer.sv 1047:9-1047:17 
+#25258 fullname  <- case_item  1048:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_REMU ibex_tracer.sv 1048:9-1048:18 
+   B ref_obj INSN_REMU ibex_tracer.sv 1048:9-1048:18 
+#25262 fullname  <- case_item  1050:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_LOAD ibex_tracer.sv 1050:9-1050:18 
+   B ref_obj INSN_LOAD ibex_tracer.sv 1050:9-1050:18 
+#25265 fullname  <- case_item  1051:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_STORE ibex_tracer.sv 1051:9-1051:19 
+   B ref_obj INSN_STORE ibex_tracer.sv 1051:9-1051:19 
+#25268 fullname  <- case_item  1053:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_FENCE ibex_tracer.sv 1053:9-1053:19 
+   B ref_obj INSN_FENCE ibex_tracer.sv 1053:9-1053:19 
+#25275 fullname  <- case_item  1056:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SH1ADD ibex_tracer.sv 1056:9-1056:20 
+   B ref_obj INSN_SH1ADD ibex_tracer.sv 1056:9-1056:20 
+#25279 fullname  <- case_item  1057:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SH2ADD ibex_tracer.sv 1057:9-1057:20 
+   B ref_obj INSN_SH2ADD ibex_tracer.sv 1057:9-1057:20 
+#25283 fullname  <- case_item  1058:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SH3ADD ibex_tracer.sv 1058:9-1058:20 
+   B ref_obj INSN_SH3ADD ibex_tracer.sv 1058:9-1058:20 
+#25287 fullname  <- case_item  1060:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_RORI ibex_tracer.sv 1060:9-1060:18 
+   B ref_obj INSN_RORI ibex_tracer.sv 1060:9-1060:18 
+#25291 fullname  <- case_item  1061:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_ROL ibex_tracer.sv 1061:9-1061:17 
+   B ref_obj INSN_ROL ibex_tracer.sv 1061:9-1061:17 
+#25295 fullname  <- case_item  1062:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_ROR ibex_tracer.sv 1062:9-1062:17 
+   B ref_obj INSN_ROR ibex_tracer.sv 1062:9-1062:17 
+#25299 fullname  <- case_item  1063:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_MIN ibex_tracer.sv 1063:9-1063:17 
+   B ref_obj INSN_MIN ibex_tracer.sv 1063:9-1063:17 
+#25303 fullname  <- case_item  1064:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_MAX ibex_tracer.sv 1064:9-1064:17 
+   B ref_obj INSN_MAX ibex_tracer.sv 1064:9-1064:17 
+#25307 fullname  <- case_item  1065:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_MINU ibex_tracer.sv 1065:9-1065:18 
+   B ref_obj INSN_MINU ibex_tracer.sv 1065:9-1065:18 
+#25311 fullname  <- case_item  1066:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_MAXU ibex_tracer.sv 1066:9-1066:18 
+   B ref_obj INSN_MAXU ibex_tracer.sv 1066:9-1066:18 
+#25315 fullname  <- case_item  1067:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_XNOR ibex_tracer.sv 1067:9-1067:18 
+   B ref_obj INSN_XNOR ibex_tracer.sv 1067:9-1067:18 
+#25319 fullname  <- case_item  1068:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_ORN ibex_tracer.sv 1068:9-1068:17 
+   B ref_obj INSN_ORN ibex_tracer.sv 1068:9-1068:17 
+#25323 fullname  <- case_item  1069:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_ANDN ibex_tracer.sv 1069:9-1069:18 
+   B ref_obj INSN_ANDN ibex_tracer.sv 1069:9-1069:18 
+#25327 fullname  <- case_item  1075:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_PACK ibex_tracer.sv 1075:9-1075:18 
+   B ref_obj INSN_PACK ibex_tracer.sv 1075:9-1075:18 
+#25331 fullname  <- case_item  1082:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_PACKH ibex_tracer.sv 1082:9-1082:19 
+   B ref_obj INSN_PACKH ibex_tracer.sv 1082:9-1082:19 
+#25335 fullname  <- case_item  1083:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_PACKU ibex_tracer.sv 1083:9-1083:19 
+   B ref_obj INSN_PACKU ibex_tracer.sv 1083:9-1083:19 
+#25339 fullname  <- case_item  1084:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CLZ ibex_tracer.sv 1084:9-1084:17 
+   B ref_obj INSN_CLZ ibex_tracer.sv 1084:9-1084:17 
+#25343 fullname  <- case_item  1085:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CTZ ibex_tracer.sv 1085:9-1085:17 
+   B ref_obj INSN_CTZ ibex_tracer.sv 1085:9-1085:17 
+#25347 fullname  <- case_item  1086:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CPOP ibex_tracer.sv 1086:9-1086:18 
+   B ref_obj INSN_CPOP ibex_tracer.sv 1086:9-1086:18 
+#25351 fullname  <- case_item  1087:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SEXTB ibex_tracer.sv 1087:9-1087:19 
+   B ref_obj INSN_SEXTB ibex_tracer.sv 1087:9-1087:19 
+#25355 fullname  <- case_item  1088:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SEXTH ibex_tracer.sv 1088:9-1088:19 
+   B ref_obj INSN_SEXTH ibex_tracer.sv 1088:9-1088:19 
+#25359 fullname  <- case_item  1090:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BCLRI ibex_tracer.sv 1090:9-1090:19 
+   B ref_obj INSN_BCLRI ibex_tracer.sv 1090:9-1090:19 
+#25363 fullname  <- case_item  1091:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BSETI ibex_tracer.sv 1091:9-1091:19 
+   B ref_obj INSN_BSETI ibex_tracer.sv 1091:9-1091:19 
+#25367 fullname  <- case_item  1092:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BINVI ibex_tracer.sv 1092:9-1092:19 
+   B ref_obj INSN_BINVI ibex_tracer.sv 1092:9-1092:19 
+#25371 fullname  <- case_item  1093:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BEXTI ibex_tracer.sv 1093:9-1093:19 
+   B ref_obj INSN_BEXTI ibex_tracer.sv 1093:9-1093:19 
+#25375 fullname  <- case_item  1094:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BCLR ibex_tracer.sv 1094:9-1094:18 
+   B ref_obj INSN_BCLR ibex_tracer.sv 1094:9-1094:18 
+#25379 fullname  <- case_item  1095:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BSET ibex_tracer.sv 1095:9-1095:18 
+   B ref_obj INSN_BSET ibex_tracer.sv 1095:9-1095:18 
+#25383 fullname  <- case_item  1096:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BINV ibex_tracer.sv 1096:9-1096:18 
+   B ref_obj INSN_BINV ibex_tracer.sv 1096:9-1096:18 
+#25387 fullname  <- case_item  1097:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BEXT ibex_tracer.sv 1097:9-1097:18 
+   B ref_obj INSN_BEXT ibex_tracer.sv 1097:9-1097:18 
+#25391 fullname  <- case_item  1099:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BDECOMPRESS ibex_tracer.sv 1099:9-1099:25 
+   B ref_obj INSN_BDECOMPRESS ibex_tracer.sv 1099:9-1099:25 
+#25395 fullname  <- case_item  1100:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BCOMPRESS ibex_tracer.sv 1100:9-1100:23 
+   B ref_obj INSN_BCOMPRESS ibex_tracer.sv 1100:9-1100:23 
+#25399 fullname  <- case_item  1102:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_GREV ibex_tracer.sv 1102:9-1102:18 
+   B ref_obj INSN_GREV ibex_tracer.sv 1102:9-1102:18 
+#25403 fullname  <- case_item  1103:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_GREVI ibex_tracer.sv 1103:9-1103:19 
+   B ref_obj INSN_GREVI ibex_tracer.sv 1103:9-1103:19 
+#25408 fullname  <- case_item  1105:13 / case_stmt  1104:11 / begin work@ibex_tracer 1103:21
+   A ref_obj INSN_REV_P ibex_tracer.sv 1105:13-1105:23 
+   B ref_obj INSN_REV_P ibex_tracer.sv 1105:13-1105:23 
+#25412 fullname  <- case_item  1106:13 / case_stmt  1104:11 / begin work@ibex_tracer 1103:21
+   A ref_obj INSN_REV2_N ibex_tracer.sv 1106:13-1106:24 
+   B ref_obj INSN_REV2_N ibex_tracer.sv 1106:13-1106:24 
+#25416 fullname  <- case_item  1107:13 / case_stmt  1104:11 / begin work@ibex_tracer 1103:21
+   A ref_obj INSN_REV_N ibex_tracer.sv 1107:13-1107:23 
+   B ref_obj INSN_REV_N ibex_tracer.sv 1107:13-1107:23 
+#25420 fullname  <- case_item  1108:13 / case_stmt  1104:11 / begin work@ibex_tracer 1103:21
+   A ref_obj INSN_REV4_B ibex_tracer.sv 1108:13-1108:24 
+   B ref_obj INSN_REV4_B ibex_tracer.sv 1108:13-1108:24 
+#25424 fullname  <- case_item  1109:13 / case_stmt  1104:11 / begin work@ibex_tracer 1103:21
+   A ref_obj INSN_REV2_B ibex_tracer.sv 1109:13-1109:24 
+   B ref_obj INSN_REV2_B ibex_tracer.sv 1109:13-1109:24 
+#25428 fullname  <- case_item  1110:13 / case_stmt  1104:11 / begin work@ibex_tracer 1103:21
+   A ref_obj INSN_REV_B ibex_tracer.sv 1110:13-1110:23 
+   B ref_obj INSN_REV_B ibex_tracer.sv 1110:13-1110:23 
+#25432 fullname  <- case_item  1111:13 / case_stmt  1104:11 / begin work@ibex_tracer 1103:21
+   A ref_obj INSN_REV8_H ibex_tracer.sv 1111:13-1111:24 
+   B ref_obj INSN_REV8_H ibex_tracer.sv 1111:13-1111:24 
+#25436 fullname  <- case_item  1112:13 / case_stmt  1104:11 / begin work@ibex_tracer 1103:21
+   A ref_obj INSN_REV4_H ibex_tracer.sv 1112:13-1112:24 
+   B ref_obj INSN_REV4_H ibex_tracer.sv 1112:13-1112:24 
+#25440 fullname  <- case_item  1113:13 / case_stmt  1104:11 / begin work@ibex_tracer 1103:21
+   A ref_obj INSN_REV2_H ibex_tracer.sv 1113:13-1113:24 
+   B ref_obj INSN_REV2_H ibex_tracer.sv 1113:13-1113:24 
+#25444 fullname  <- case_item  1114:13 / case_stmt  1104:11 / begin work@ibex_tracer 1103:21
+   A ref_obj INSN_REV_H ibex_tracer.sv 1114:13-1114:23 
+   B ref_obj INSN_REV_H ibex_tracer.sv 1114:13-1114:23 
+#25448 fullname  <- case_item  1115:13 / case_stmt  1104:11 / begin work@ibex_tracer 1103:21
+   A ref_obj INSN_REV16 ibex_tracer.sv 1115:13-1115:23 
+   B ref_obj INSN_REV16 ibex_tracer.sv 1115:13-1115:23 
+#25452 fullname  <- case_item  1116:13 / case_stmt  1104:11 / begin work@ibex_tracer 1103:21
+   A ref_obj INSN_REV8 ibex_tracer.sv 1116:13-1116:22 
+   B ref_obj INSN_REV8 ibex_tracer.sv 1116:13-1116:22 
+#25456 fullname  <- case_item  1117:13 / case_stmt  1104:11 / begin work@ibex_tracer 1103:21
+   A ref_obj INSN_REV4 ibex_tracer.sv 1117:13-1117:22 
+   B ref_obj INSN_REV4 ibex_tracer.sv 1117:13-1117:22 
+#25460 fullname  <- case_item  1118:13 / case_stmt  1104:11 / begin work@ibex_tracer 1103:21
+   A ref_obj INSN_REV2 ibex_tracer.sv 1118:13-1118:22 
+   B ref_obj INSN_REV2 ibex_tracer.sv 1118:13-1118:22 
+#25464 fullname  <- case_item  1119:13 / case_stmt  1104:11 / begin work@ibex_tracer 1103:21
+   A ref_obj INSN_REV ibex_tracer.sv 1119:13-1119:21 
+   B ref_obj INSN_REV ibex_tracer.sv 1119:13-1119:21 
+#25471 fullname  <- case_item  1123:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_GORC ibex_tracer.sv 1123:9-1123:18 
+   B ref_obj INSN_GORC ibex_tracer.sv 1123:9-1123:18 
+#25475 fullname  <- case_item  1124:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_GORCI ibex_tracer.sv 1124:9-1124:19 
+   B ref_obj INSN_GORCI ibex_tracer.sv 1124:9-1124:19 
+#25480 fullname  <- case_item  1126:13 / case_stmt  1125:11 / begin work@ibex_tracer 1124:21
+   A ref_obj INSN_ORC_P ibex_tracer.sv 1126:13-1126:23 
+   B ref_obj INSN_ORC_P ibex_tracer.sv 1126:13-1126:23 
+#25484 fullname  <- case_item  1127:13 / case_stmt  1125:11 / begin work@ibex_tracer 1124:21
+   A ref_obj INSN_ORC2_N ibex_tracer.sv 1127:13-1127:24 
+   B ref_obj INSN_ORC2_N ibex_tracer.sv 1127:13-1127:24 
+#25488 fullname  <- case_item  1128:13 / case_stmt  1125:11 / begin work@ibex_tracer 1124:21
+   A ref_obj INSN_ORC_N ibex_tracer.sv 1128:13-1128:23 
+   B ref_obj INSN_ORC_N ibex_tracer.sv 1128:13-1128:23 
+#25492 fullname  <- case_item  1129:13 / case_stmt  1125:11 / begin work@ibex_tracer 1124:21
+   A ref_obj INSN_ORC4_B ibex_tracer.sv 1129:13-1129:24 
+   B ref_obj INSN_ORC4_B ibex_tracer.sv 1129:13-1129:24 
+#25496 fullname  <- case_item  1130:13 / case_stmt  1125:11 / begin work@ibex_tracer 1124:21
+   A ref_obj INSN_ORC2_B ibex_tracer.sv 1130:13-1130:24 
+   B ref_obj INSN_ORC2_B ibex_tracer.sv 1130:13-1130:24 
+#25500 fullname  <- case_item  1131:13 / case_stmt  1125:11 / begin work@ibex_tracer 1124:21
+   A ref_obj INSN_ORC_B ibex_tracer.sv 1131:13-1131:23 
+   B ref_obj INSN_ORC_B ibex_tracer.sv 1131:13-1131:23 
+#25504 fullname  <- case_item  1132:13 / case_stmt  1125:11 / begin work@ibex_tracer 1124:21
+   A ref_obj INSN_ORC8_H ibex_tracer.sv 1132:13-1132:24 
+   B ref_obj INSN_ORC8_H ibex_tracer.sv 1132:13-1132:24 
+#25508 fullname  <- case_item  1133:13 / case_stmt  1125:11 / begin work@ibex_tracer 1124:21
+   A ref_obj INSN_ORC4_H ibex_tracer.sv 1133:13-1133:24 
+   B ref_obj INSN_ORC4_H ibex_tracer.sv 1133:13-1133:24 
+#25512 fullname  <- case_item  1134:13 / case_stmt  1125:11 / begin work@ibex_tracer 1124:21
+   A ref_obj INSN_ORC2_H ibex_tracer.sv 1134:13-1134:24 
+   B ref_obj INSN_ORC2_H ibex_tracer.sv 1134:13-1134:24 
+#25516 fullname  <- case_item  1135:13 / case_stmt  1125:11 / begin work@ibex_tracer 1124:21
+   A ref_obj INSN_ORC_H ibex_tracer.sv 1135:13-1135:23 
+   B ref_obj INSN_ORC_H ibex_tracer.sv 1135:13-1135:23 
+#25520 fullname  <- case_item  1136:13 / case_stmt  1125:11 / begin work@ibex_tracer 1124:21
+   A ref_obj INSN_ORC16 ibex_tracer.sv 1136:13-1136:23 
+   B ref_obj INSN_ORC16 ibex_tracer.sv 1136:13-1136:23 
+#25524 fullname  <- case_item  1137:13 / case_stmt  1125:11 / begin work@ibex_tracer 1124:21
+   A ref_obj INSN_ORC8 ibex_tracer.sv 1137:13-1137:22 
+   B ref_obj INSN_ORC8 ibex_tracer.sv 1137:13-1137:22 
+#25528 fullname  <- case_item  1138:13 / case_stmt  1125:11 / begin work@ibex_tracer 1124:21
+   A ref_obj INSN_ORC4 ibex_tracer.sv 1138:13-1138:22 
+   B ref_obj INSN_ORC4 ibex_tracer.sv 1138:13-1138:22 
+#25532 fullname  <- case_item  1139:13 / case_stmt  1125:11 / begin work@ibex_tracer 1124:21
+   A ref_obj INSN_ORC2 ibex_tracer.sv 1139:13-1139:22 
+   B ref_obj INSN_ORC2 ibex_tracer.sv 1139:13-1139:22 
+#25536 fullname  <- case_item  1140:13 / case_stmt  1125:11 / begin work@ibex_tracer 1124:21
+   A ref_obj INSN_ORC ibex_tracer.sv 1140:13-1140:21 
+   B ref_obj INSN_ORC ibex_tracer.sv 1140:13-1140:21 
+#25543 fullname  <- case_item  1144:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SHFL ibex_tracer.sv 1144:9-1144:18 
+   B ref_obj INSN_SHFL ibex_tracer.sv 1144:9-1144:18 
+#25547 fullname  <- case_item  1145:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SHFLI ibex_tracer.sv 1145:9-1145:19 
+   B ref_obj INSN_SHFLI ibex_tracer.sv 1145:9-1145:19 
+#25552 fullname  <- case_item  1147:13 / case_stmt  1146:11 / begin work@ibex_tracer 1145:21
+   A ref_obj INSN_ZIP_N ibex_tracer.sv 1147:13-1147:23 
+   B ref_obj INSN_ZIP_N ibex_tracer.sv 1147:13-1147:23 
+#25556 fullname  <- case_item  1148:13 / case_stmt  1146:11 / begin work@ibex_tracer 1145:21
+   A ref_obj INSN_ZIP2_B ibex_tracer.sv 1148:13-1148:24 
+   B ref_obj INSN_ZIP2_B ibex_tracer.sv 1148:13-1148:24 
+#25560 fullname  <- case_item  1149:13 / case_stmt  1146:11 / begin work@ibex_tracer 1145:21
+   A ref_obj INSN_ZIP_B ibex_tracer.sv 1149:13-1149:23 
+   B ref_obj INSN_ZIP_B ibex_tracer.sv 1149:13-1149:23 
+#25564 fullname  <- case_item  1150:13 / case_stmt  1146:11 / begin work@ibex_tracer 1145:21
+   A ref_obj INSN_ZIP4_H ibex_tracer.sv 1150:13-1150:24 
+   B ref_obj INSN_ZIP4_H ibex_tracer.sv 1150:13-1150:24 
+#25568 fullname  <- case_item  1151:13 / case_stmt  1146:11 / begin work@ibex_tracer 1145:21
+   A ref_obj INSN_ZIP2_H ibex_tracer.sv 1151:13-1151:24 
+   B ref_obj INSN_ZIP2_H ibex_tracer.sv 1151:13-1151:24 
+#25572 fullname  <- case_item  1152:13 / case_stmt  1146:11 / begin work@ibex_tracer 1145:21
+   A ref_obj INSN_ZIP_H ibex_tracer.sv 1152:13-1152:23 
+   B ref_obj INSN_ZIP_H ibex_tracer.sv 1152:13-1152:23 
+#25576 fullname  <- case_item  1153:13 / case_stmt  1146:11 / begin work@ibex_tracer 1145:21
+   A ref_obj INSN_ZIP8 ibex_tracer.sv 1153:13-1153:22 
+   B ref_obj INSN_ZIP8 ibex_tracer.sv 1153:13-1153:22 
+#25580 fullname  <- case_item  1154:13 / case_stmt  1146:11 / begin work@ibex_tracer 1145:21
+   A ref_obj INSN_ZIP4 ibex_tracer.sv 1154:13-1154:22 
+   B ref_obj INSN_ZIP4 ibex_tracer.sv 1154:13-1154:22 
+#25584 fullname  <- case_item  1155:13 / case_stmt  1146:11 / begin work@ibex_tracer 1145:21
+   A ref_obj INSN_ZIP2 ibex_tracer.sv 1155:13-1155:22 
+   B ref_obj INSN_ZIP2 ibex_tracer.sv 1155:13-1155:22 
+#25588 fullname  <- case_item  1156:13 / case_stmt  1146:11 / begin work@ibex_tracer 1145:21
+   A ref_obj INSN_ZIP ibex_tracer.sv 1156:13-1156:21 
+   B ref_obj INSN_ZIP ibex_tracer.sv 1156:13-1156:21 
+#25595 fullname  <- case_item  1160:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_UNSHFL ibex_tracer.sv 1160:9-1160:20 
+   B ref_obj INSN_UNSHFL ibex_tracer.sv 1160:9-1160:20 
+#25599 fullname  <- case_item  1161:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_UNSHFLI ibex_tracer.sv 1161:9-1161:21 
+   B ref_obj INSN_UNSHFLI ibex_tracer.sv 1161:9-1161:21 
+#25604 fullname  <- case_item  1163:13 / case_stmt  1162:11 / begin work@ibex_tracer 1161:23
+   A ref_obj INSN_UNZIP_N ibex_tracer.sv 1163:13-1163:25 
+   B ref_obj INSN_UNZIP_N ibex_tracer.sv 1163:13-1163:25 
+#25608 fullname  <- case_item  1164:13 / case_stmt  1162:11 / begin work@ibex_tracer 1161:23
+   A ref_obj INSN_UNZIP2_B ibex_tracer.sv 1164:13-1164:26 
+   B ref_obj INSN_UNZIP2_B ibex_tracer.sv 1164:13-1164:26 
+#25612 fullname  <- case_item  1165:13 / case_stmt  1162:11 / begin work@ibex_tracer 1161:23
+   A ref_obj INSN_UNZIP_B ibex_tracer.sv 1165:13-1165:25 
+   B ref_obj INSN_UNZIP_B ibex_tracer.sv 1165:13-1165:25 
+#25616 fullname  <- case_item  1166:13 / case_stmt  1162:11 / begin work@ibex_tracer 1161:23
+   A ref_obj INSN_UNZIP4_H ibex_tracer.sv 1166:13-1166:26 
+   B ref_obj INSN_UNZIP4_H ibex_tracer.sv 1166:13-1166:26 
+#25620 fullname  <- case_item  1167:13 / case_stmt  1162:11 / begin work@ibex_tracer 1161:23
+   A ref_obj INSN_UNZIP2_H ibex_tracer.sv 1167:13-1167:26 
+   B ref_obj INSN_UNZIP2_H ibex_tracer.sv 1167:13-1167:26 
+#25624 fullname  <- case_item  1168:13 / case_stmt  1162:11 / begin work@ibex_tracer 1161:23
+   A ref_obj INSN_UNZIP_H ibex_tracer.sv 1168:13-1168:25 
+   B ref_obj INSN_UNZIP_H ibex_tracer.sv 1168:13-1168:25 
+#25628 fullname  <- case_item  1169:13 / case_stmt  1162:11 / begin work@ibex_tracer 1161:23
+   A ref_obj INSN_UNZIP8 ibex_tracer.sv 1169:13-1169:24 
+   B ref_obj INSN_UNZIP8 ibex_tracer.sv 1169:13-1169:24 
+#25632 fullname  <- case_item  1170:13 / case_stmt  1162:11 / begin work@ibex_tracer 1161:23
+   A ref_obj INSN_UNZIP4 ibex_tracer.sv 1170:13-1170:24 
+   B ref_obj INSN_UNZIP4 ibex_tracer.sv 1170:13-1170:24 
+#25636 fullname  <- case_item  1171:13 / case_stmt  1162:11 / begin work@ibex_tracer 1161:23
+   A ref_obj INSN_UNZIP2 ibex_tracer.sv 1171:13-1171:24 
+   B ref_obj INSN_UNZIP2 ibex_tracer.sv 1171:13-1171:24 
+#25640 fullname  <- case_item  1172:13 / case_stmt  1162:11 / begin work@ibex_tracer 1161:23
+   A ref_obj INSN_UNZIP ibex_tracer.sv 1172:13-1172:23 
+   B ref_obj INSN_UNZIP ibex_tracer.sv 1172:13-1172:23 
+#25647 fullname  <- case_item  1176:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_XPERM_N ibex_tracer.sv 1176:9-1176:21 
+   B ref_obj INSN_XPERM_N ibex_tracer.sv 1176:9-1176:21 
+#25651 fullname  <- case_item  1177:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_XPERM_B ibex_tracer.sv 1177:9-1177:21 
+   B ref_obj INSN_XPERM_B ibex_tracer.sv 1177:9-1177:21 
+#25655 fullname  <- case_item  1178:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_XPERM_H ibex_tracer.sv 1178:9-1178:21 
+   B ref_obj INSN_XPERM_H ibex_tracer.sv 1178:9-1178:21 
+#25659 fullname  <- case_item  1179:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SLO ibex_tracer.sv 1179:9-1179:17 
+   B ref_obj INSN_SLO ibex_tracer.sv 1179:9-1179:17 
+#25663 fullname  <- case_item  1180:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SRO ibex_tracer.sv 1180:9-1180:17 
+   B ref_obj INSN_SRO ibex_tracer.sv 1180:9-1180:17 
+#25667 fullname  <- case_item  1181:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SLOI ibex_tracer.sv 1181:9-1181:18 
+   B ref_obj INSN_SLOI ibex_tracer.sv 1181:9-1181:18 
+#25671 fullname  <- case_item  1182:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_SROI ibex_tracer.sv 1182:9-1182:18 
+   B ref_obj INSN_SROI ibex_tracer.sv 1182:9-1182:18 
+#25675 fullname  <- case_item  1185:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CMIX ibex_tracer.sv 1185:9-1185:18 
+   B ref_obj INSN_CMIX ibex_tracer.sv 1185:9-1185:18 
+#25679 fullname  <- case_item  1186:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CMOV ibex_tracer.sv 1186:9-1186:18 
+   B ref_obj INSN_CMOV ibex_tracer.sv 1186:9-1186:18 
+#25683 fullname  <- case_item  1187:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_FSR ibex_tracer.sv 1187:9-1187:17 
+   B ref_obj INSN_FSR ibex_tracer.sv 1187:9-1187:17 
+#25687 fullname  <- case_item  1188:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_FSL ibex_tracer.sv 1188:9-1188:17 
+   B ref_obj INSN_FSL ibex_tracer.sv 1188:9-1188:17 
+#25691 fullname  <- case_item  1189:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_FSRI ibex_tracer.sv 1189:9-1189:18 
+   B ref_obj INSN_FSRI ibex_tracer.sv 1189:9-1189:18 
+#25695 fullname  <- case_item  1192:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_BFP ibex_tracer.sv 1192:9-1192:17 
+   B ref_obj INSN_BFP ibex_tracer.sv 1192:9-1192:17 
+#25699 fullname  <- case_item  1195:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CLMUL ibex_tracer.sv 1195:9-1195:19 
+   B ref_obj INSN_CLMUL ibex_tracer.sv 1195:9-1195:19 
+#25703 fullname  <- case_item  1196:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CLMULR ibex_tracer.sv 1196:9-1196:20 
+   B ref_obj INSN_CLMULR ibex_tracer.sv 1196:9-1196:20 
+#25707 fullname  <- case_item  1197:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CLMULH ibex_tracer.sv 1197:9-1197:20 
+   B ref_obj INSN_CLMULH ibex_tracer.sv 1197:9-1197:20 
+#25711 fullname  <- case_item  1200:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CRC32_B ibex_tracer.sv 1200:9-1200:21 
+   B ref_obj INSN_CRC32_B ibex_tracer.sv 1200:9-1200:21 
+#25715 fullname  <- case_item  1201:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CRC32_H ibex_tracer.sv 1201:9-1201:21 
+   B ref_obj INSN_CRC32_H ibex_tracer.sv 1201:9-1201:21 
+#25719 fullname  <- case_item  1202:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CRC32_W ibex_tracer.sv 1202:9-1202:21 
+   B ref_obj INSN_CRC32_W ibex_tracer.sv 1202:9-1202:21 
+#25723 fullname  <- case_item  1203:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CRC32C_B ibex_tracer.sv 1203:9-1203:22 
+   B ref_obj INSN_CRC32C_B ibex_tracer.sv 1203:9-1203:22 
+#25727 fullname  <- case_item  1204:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CRC32C_H ibex_tracer.sv 1204:9-1204:22 
+   B ref_obj INSN_CRC32C_H ibex_tracer.sv 1204:9-1204:22 
+#25731 fullname  <- case_item  1205:9 / case_stmt  971:7 / begin work@ibex_tracer 970:14
+   A ref_obj INSN_CRC32C_W ibex_tracer.sv 1205:9-1205:22 
+   B ref_obj INSN_CRC32C_W ibex_tracer.sv 1205:9-1205:22 
+#27582 fullname  <- operation  342:5 / param_assign  341:26 / module_inst work@ibex_tracer 37:1
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#27601 fullname  <- operation  344:5 / param_assign  343:26 / module_inst work@ibex_tracer 37:1
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#27620 fullname  <- operation  346:5 / param_assign  345:26 / module_inst work@ibex_tracer 37:1
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#27639 fullname  <- operation  348:5 / param_assign  347:26 / module_inst work@ibex_tracer 37:1
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#27658 fullname  <- operation  351:5 / param_assign  350:26 / module_inst work@ibex_tracer 37:1
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#27677 fullname  <- operation  353:5 / param_assign  352:26 / module_inst work@ibex_tracer 37:1
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#27696 fullname  <- operation  355:5 / param_assign  354:26 / module_inst work@ibex_tracer 37:1
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#27715 fullname  <- operation  357:5 / param_assign  356:26 / module_inst work@ibex_tracer 37:1
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#27734 fullname  <- operation  359:5 / param_assign  358:26 / module_inst work@ibex_tracer 37:1
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#27753 fullname  <- operation  361:5 / param_assign  360:26 / module_inst work@ibex_tracer 37:1
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#27772 fullname  <- operation  363:5 / param_assign  362:26 / module_inst work@ibex_tracer 37:1
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#27791 fullname  <- operation  365:5 / param_assign  364:26 / module_inst work@ibex_tracer 37:1
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#28423 fullname  <- operation  791:43 / param_assign  791:27 / module_inst work@ibex_tracer 37:1
+   A ref_typespec   0:0-0:0 
+   B ref_typespec   0:0-0:0 
+#34327 fullname  <- case_item  736:7 / case_stmt  735:5 / function decode_expanded_insn 734:3
+   A ref_obj INSN_CMPUSH ibex_tracer.sv 736:7-736:18 
+   B ref_obj INSN_CMPUSH ibex_tracer.sv 736:7-736:18 
+#34332 fullname  <- case_item  737:7 / case_stmt  735:5 / function decode_expanded_insn 734:3
+   A ref_obj INSN_CMPOP ibex_tracer.sv 737:7-737:17 
+   B ref_obj INSN_CMPOP ibex_tracer.sv 737:7-737:17 
+#34337 fullname  <- case_item  738:7 / case_stmt  735:5 / function decode_expanded_insn 734:3
+   A ref_obj INSN_CMPOPRETZ ibex_tracer.sv 738:7-738:21 
+   B ref_obj INSN_CMPOPRETZ ibex_tracer.sv 738:7-738:21 
+#34342 fullname  <- case_item  739:7 / case_stmt  735:5 / function decode_expanded_insn 734:3
+   A ref_obj INSN_CMPOPRET ibex_tracer.sv 739:7-739:20 
+   B ref_obj INSN_CMPOPRET ibex_tracer.sv 739:7-739:20 
+#34347 fullname  <- case_item  740:7 / case_stmt  735:5 / function decode_expanded_insn 734:3
+   A ref_obj INSN_CMMVSA01 ibex_tracer.sv 740:7-740:20 
+   B ref_obj INSN_CMMVSA01 ibex_tracer.sv 740:7-740:20 
+#34352 fullname  <- case_item  741:7 / case_stmt  735:5 / function decode_expanded_insn 734:3
+   A ref_obj INSN_CMMVA01S ibex_tracer.sv 741:7-741:20 
+   B ref_obj INSN_CMMVA01S ibex_tracer.sv 741:7-741:20 
+#35094 fullname  <- case_item  913:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CADDI4SPN ibex_tracer.sv 913:11-913:25 
+   B ref_obj INSN_CADDI4SPN ibex_tracer.sv 913:11-913:25 
+#35109 fullname  <- case_item  921:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CLW ibex_tracer.sv 921:11-921:19 
+   B ref_obj INSN_CLW ibex_tracer.sv 921:11-921:19 
+#35113 fullname  <- case_item  922:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CSW ibex_tracer.sv 922:11-922:19 
+   B ref_obj INSN_CSW ibex_tracer.sv 922:11-922:19 
+#35117 fullname  <- case_item  924:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CLBU ibex_tracer.sv 924:11-924:20 
+   B ref_obj INSN_CLBU ibex_tracer.sv 924:11-924:20 
+#35121 fullname  <- case_item  925:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CLHU ibex_tracer.sv 925:11-925:20 
+   B ref_obj INSN_CLHU ibex_tracer.sv 925:11-925:20 
+#35125 fullname  <- case_item  926:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CLH ibex_tracer.sv 926:11-926:19 
+   B ref_obj INSN_CLH ibex_tracer.sv 926:11-926:19 
+#35129 fullname  <- case_item  927:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CSB ibex_tracer.sv 927:11-927:19 
+   B ref_obj INSN_CSB ibex_tracer.sv 927:11-927:19 
+#35133 fullname  <- case_item  928:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CSH ibex_tracer.sv 928:11-928:19 
+   B ref_obj INSN_CSH ibex_tracer.sv 928:11-928:19 
+#35137 fullname  <- case_item  931:11 / case_stmt  911:9 / begin work@ibex_tracer 910:16
+   A ref_obj INSN_CADDI ibex_tracer.sv 931:11-931:21 
+   B ref_obj INSN_CADDI ibex_tracer.sv 931:11-931:21 

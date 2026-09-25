@@ -1,0 +1,73 @@
+STRICT_NOTEQUAL line
+#6361 line  <- begin work@ibex_wb_stage.RFWriteFromOneSourceOnly 79:10 / assert_stmt RFWriteFromOneSourceOnly 78:3 / module_inst work@ibex_wb_stage 17:1
+   A sys_func_call $error prim_assert.sv 29:3-33:37 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#6362 line  <- sys_func_call $error 29:3 / begin work@ibex_wb_stage.RFWriteFromOneSourceOnly 79:10 / assert_stmt RFWriteFromOneSourceOnly 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#6363 line  <- sys_func_call $error 29:3 / begin work@ibex_wb_stage.RFWriteFromOneSourceOnly 79:10 / assert_stmt RFWriteFromOneSourceOnly 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#6364 line  <- sys_func_call $error 29:3 / begin work@ibex_wb_stage.RFWriteFromOneSourceOnly 79:10 / assert_stmt RFWriteFromOneSourceOnly 78:3
+   A constant  prim_assert.sv 29:60-29:149 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:58 "/home/heyfey/git-repos/slang-uhdm/third
+#6365 line  <- sys_func_call $error 29:3 / begin work@ibex_wb_stage.RFWriteFromOneSourceOnly 79:10 / assert_stmt RFWriteFromOneSourceOnly 78:3
+   A constant  prim_assert.sv 29:151-29:154 251
+   B constant  prim_assert.sv 32:92-32:95 251
+#6366 endline  <- sys_func_call $error 29:3 / begin work@ibex_wb_stage.RFWriteFromOneSourceOnly 79:10 / assert_stmt RFWriteFromOneSourceOnly 78:3
+   A constant  prim_assert.sv 33:10-33:36 "RFWriteFromOneSourceOnly"
+   B constant  prim_assert.sv 33:10-23:18 "RFWriteFromOneSourceOnly"
+#6549 endcol  <- module_inst work@ibex_wb_stage 17:1 / design work@ibex_wb_stage 0:0
+   A cont_assign  dv_fcov_macros.svh 82:12-82:48 
+   B cont_assign  dv_fcov_macros.svh 82:12-82:47 
+#6550 col  <- cont_assign  82:12 / module_inst work@ibex_wb_stage 17:1 / design work@ibex_wb_stage 0:0
+   A ref_obj fcov_wb_valid dv_fcov_macros.svh 82:35-82:48 
+   B ref_obj fcov_wb_valid dv_fcov_macros.svh 82:34-82:47 
+#6966 endcol  <- named_begin g_fcov_wb_valid 0:0 / gen_if_else  0:0 / module_inst work@ibex_wb_stage 17:1
+   A cont_assign  dv_fcov_macros.svh 106:14-106:58 
+   B cont_assign  dv_fcov_macros.svh 106:14-106:57 
+#6967 col  <- cont_assign  106:14 / named_begin g_fcov_wb_valid 0:0 / gen_if_else  0:0
+   A hier_path g_writeback_stage.wb_valid_q dv_fcov_macros.svh 106:30-106:58 
+   B hier_path g_writeback_stage.wb_valid_q dv_fcov_macros.svh 106:29-106:57 
+#6968 col  <- hier_path g_writeback_stage.wb_valid_q 106:30 / cont_assign  106:14 / named_begin g_fcov_wb_valid 0:0
+   A ref_obj g_writeback_stage dv_fcov_macros.svh 106:30-106:47 
+   B ref_obj g_writeback_stage dv_fcov_macros.svh 106:29-106:46 
+#6969 col  <- hier_path g_writeback_stage.wb_valid_q 106:30 / cont_assign  106:14 / named_begin g_fcov_wb_valid 0:0
+   A ref_obj wb_valid_q dv_fcov_macros.svh 106:48-106:58 
+   B ref_obj wb_valid_q dv_fcov_macros.svh 106:47-106:57 
+#6972 endcol  <- named_begin g_no_fcov_wb_valid 0:0 / gen_if_else  0:0 / module_inst work@ibex_wb_stage 17:1
+   A cont_assign  dv_fcov_macros.svh 108:14-108:32 
+   B cont_assign  dv_fcov_macros.svh 108:14-108:31 
+#6973 col  <- cont_assign  108:14 / named_begin g_no_fcov_wb_valid 0:0 / gen_if_else  0:0
+   A constant  dv_fcov_macros.svh 108:30-108:32 '0
+   B constant  dv_fcov_macros.svh 108:29-108:31 '0
+#9192 line  <- begin work@ibex_wb_stage.RFWriteFromOneSourceOnly 79:10 / assert_stmt RFWriteFromOneSourceOnly 78:3 / module_inst work@ibex_wb_stage 17:1
+   A sys_func_call $error prim_assert.sv 29:3-33:37 
+   B sys_func_call $error prim_assert.sv 32:3-33:18 
+#9193 line  <- sys_func_call $error 29:3 / begin work@ibex_wb_stage.RFWriteFromOneSourceOnly 79:10 / assert_stmt RFWriteFromOneSourceOnly 78:3
+   A constant  prim_assert.sv 29:10-29:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+   B constant  prim_assert.sv 32:10-32:51 "%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s
+#9194 line  <- sys_func_call $error 29:3 / begin work@ibex_wb_stage.RFWriteFromOneSourceOnly 79:10 / assert_stmt RFWriteFromOneSourceOnly 78:3
+   A sys_func_call $time prim_assert.sv 29:53-29:58 
+   B sys_func_call $time prim_assert.sv 32:53-32:58 
+#9195 line  <- sys_func_call $error 29:3 / begin work@ibex_wb_stage.RFWriteFromOneSourceOnly 79:10 / assert_stmt RFWriteFromOneSourceOnly 78:3
+   A constant  prim_assert.sv 29:60-29:149 "/home/heyfey/git-repos/slang-uhdm/third
+   B constant  prim_assert.sv 32:92-33:58 "/home/heyfey/git-repos/slang-uhdm/third
+#9196 line  <- sys_func_call $error 29:3 / begin work@ibex_wb_stage.RFWriteFromOneSourceOnly 79:10 / assert_stmt RFWriteFromOneSourceOnly 78:3
+   A constant  prim_assert.sv 29:151-29:154 251
+   B constant  prim_assert.sv 32:92-32:95 251
+#9197 endline  <- sys_func_call $error 29:3 / begin work@ibex_wb_stage.RFWriteFromOneSourceOnly 79:10 / assert_stmt RFWriteFromOneSourceOnly 78:3
+   A constant  prim_assert.sv 33:10-33:36 "RFWriteFromOneSourceOnly"
+   B constant  prim_assert.sv 33:10-23:18 "RFWriteFromOneSourceOnly"
+#9459 endcol  <- gen_scope work@ibex_wb_stage.g_no_fcov_wb_valid 107:14 / gen_scope_array g_no_fcov_wb_valid 107:14 / module_inst work@ibex_wb_stage 17:1
+   A cont_assign  dv_fcov_macros.svh 108:14-108:32 
+   B cont_assign  dv_fcov_macros.svh 108:14-108:31 
+#9460 col  <- cont_assign  108:14 / gen_scope work@ibex_wb_stage.g_no_fcov_wb_valid 107:14 / gen_scope_array g_no_fcov_wb_valid 107:14
+   A constant  dv_fcov_macros.svh 108:30-108:32 '0
+   B constant  dv_fcov_macros.svh 108:29-108:31 '0
+#9496 endcol  <- module_inst work@ibex_wb_stage 17:1 / design work@ibex_wb_stage 0:0
+   A cont_assign  dv_fcov_macros.svh 82:12-82:48 
+   B cont_assign  dv_fcov_macros.svh 82:12-82:47 
+#9497 col  <- cont_assign  82:12 / module_inst work@ibex_wb_stage 17:1 / design work@ibex_wb_stage 0:0
+   A ref_obj fcov_wb_valid dv_fcov_macros.svh 82:35-82:48 
+   B ref_obj fcov_wb_valid dv_fcov_macros.svh 82:34-82:47 

@@ -1,0 +1,74 @@
+#192 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	37		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#193 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#194 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#195 line
+  A: 5	constant				prim_assert.sv	29	60	29	151	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_fetch_fifo.sv"	712	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_fetch_fifo.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	60	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_fetch_fifo.sv"	712	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_fetch_fifo.sv	6
+#196 line
+  A: 5	constant				prim_assert.sv	29	153	29	156	262	64	UINT:262	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	262	64	UINT:262	9
+#197 endline
+  A: 5	constant				prim_assert.sv	33	10	33	36	"IbexFetchFifoPushPopFull"	192	STRING:IbexFetchFifoPushPopFull	6
+  B: 5	constant				prim_assert.sv	33	10	23	18	"IbexFetchFifoPushPopFull"	192	STRING:IbexFetchFifoPushPopFull	6
+#203 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	34		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#204 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#205 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#206 line
+  A: 5	constant				prim_assert.sv	29	60	29	151	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_fetch_fifo.sv"	712	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_fetch_fifo.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	60	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_fetch_fifo.sv"	712	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_fetch_fifo.sv	6
+#207 line
+  A: 5	constant				prim_assert.sv	29	153	29	156	266	64	UINT:266	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	266	64	UINT:266	9
+#208 endline
+  A: 5	constant				prim_assert.sv	33	10	33	33	"IbexFetchFifoPushFull"	168	STRING:IbexFetchFifoPushFull	6
+  B: 5	constant				prim_assert.sv	33	10	23	15	"IbexFetchFifoPushFull"	168	STRING:IbexFetchFifoPushFull	6
+#1025 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	37		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#1026 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#1027 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#1028 line
+  A: 5	constant				prim_assert.sv	29	60	29	151	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_fetch_fifo.sv"	712	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_fetch_fifo.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	60	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_fetch_fifo.sv"	712	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_fetch_fifo.sv	6
+#1029 line
+  A: 5	constant				prim_assert.sv	29	153	29	156	262	64	UINT:262	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	262	64	UINT:262	9
+#1030 endline
+  A: 5	constant				prim_assert.sv	33	10	33	36	"IbexFetchFifoPushPopFull"	192	STRING:IbexFetchFifoPushPopFull	6
+  B: 5	constant				prim_assert.sv	33	10	23	18	"IbexFetchFifoPushPopFull"	192	STRING:IbexFetchFifoPushPopFull	6
+#1037 line
+  A: 4	sys_func_call	$error			prim_assert.sv	29	3	33	34		0		
+  B: 4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0		
+#1038 line
+  A: 5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+  B: 5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6
+#1039 line
+  A: 5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0		
+  B: 5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0		
+#1040 line
+  A: 5	constant				prim_assert.sv	29	60	29	151	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_fetch_fifo.sv"	712	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_fetch_fifo.sv	6
+  B: 5	constant				prim_assert.sv	32	92	33	60	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_fetch_fifo.sv"	712	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_fetch_fifo.sv	6
+#1041 line
+  A: 5	constant				prim_assert.sv	29	153	29	156	266	64	UINT:266	9
+  B: 5	constant				prim_assert.sv	32	92	32	95	266	64	UINT:266	9
+#1042 endline
+  A: 5	constant				prim_assert.sv	33	10	33	33	"IbexFetchFifoPushFull"	168	STRING:IbexFetchFifoPushFull	6
+  B: 5	constant				prim_assert.sv	33	10	23	15	"IbexFetchFifoPushFull"	168	STRING:IbexFetchFifoPushFull	6
+fields: line=20 col=8 endline=20 endcol=16 objects_differing=24
+STRICT_NOTEQUAL line
