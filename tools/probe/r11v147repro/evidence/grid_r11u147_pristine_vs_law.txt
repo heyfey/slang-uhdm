@@ -1,0 +1,68 @@
+a1_gen_ca :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+a2_mod_ca_net :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 167 objects
+a3_mod_proc :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 169 objects
+a4_gen_ca_op :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 203 objects
+a5_gen_proc :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+a6_gen_ca_param :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+a7_gen_ca_nested :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+b2_lhs_proc :: rc=0 cmp=0 | STRICT_NOTEQUAL col ==> rc=0 cmp=0 | STRICT_NOTEQUAL col
+b3_func :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 203 objects
+b4_top_inst :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 104 objects
+b5_operand :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 176 objects
+b6_modport :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 177 objects
+c2_lhs_plain :: rc=0 cmp=0 | STRICT_NOTEQUAL col ==> rc=0 cmp=0 | STRICT_EQUAL 71 objects
+c3_rhs_vs :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 100 objects
+c4_rhs_ca :: rc=0 cmp=0 | STRICT_EQUAL 83 objects ==> rc=0 cmp=0 | STRICT_EQUAL 83 objects
+d1_lhs_vs_var :: rc=0 cmp=138 | NOT_EQUAL stage1 ==> rc=0 cmp=0 | STRICT_EQUAL 118 objects
+d4_lhs_vs_var_bs :: rc=0 cmp=74 | NOT_EQUAL stage1 ==> rc=0 cmp=0 | STRICT_EQUAL 109 objects
+d5_lhs_var_plain :: rc=0 cmp=0 | STRICT_NOTEQUAL col ==> rc=0 cmp=0 | STRICT_EQUAL 96 objects
+e1_case_ips :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 158 objects
+e2_if_ips :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 135 objects
+e3_case_add :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 158 objects
+e4_case_noname :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 158 objects
+e5_case_ps :: rc=0 cmp=0 | STRICT_EQUAL 160 objects ==> rc=0 cmp=0 | STRICT_EQUAL 160 objects
+f01_param_import_wild :: rc=0 cmp=16 | NOT_EQUAL stage1 ==> rc=0 cmp=0 | STRICT_EQUAL 213 objects
+f02_param_import_explicit :: rc=0 cmp=16 | NOT_EQUAL stage1 ==> rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+f03_var_not_param :: rc=0 cmp=16 | NOT_EQUAL stage1 ==> rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+f04_scoped_ctl :: rc=0 cmp=16 | NOT_EQUAL stage1 ==> rc=0 cmp=0 | STRICT_EQUAL 145 objects
+f05_nested_sub :: rc=0 cmp=16 | NOT_EQUAL stage1 ==> rc=0 cmp=0 | STRICT_EQUAL 293 objects
+f1_lhs_bs :: rc=0 cmp=0 | STRICT_NOTEQUAL col ==> rc=0 cmp=0 | STRICT_EQUAL 199 objects
+f2_lhs_ref :: rc=0 cmp=0 | STRICT_EQUAL 202 objects ==> rc=0 cmp=0 | STRICT_EQUAL 202 objects
+f3_lhs_refop :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 206 objects
+f4_rhs_ref :: rc=0 cmp=0 | STRICT_EQUAL 202 objects ==> rc=0 cmp=0 | STRICT_EQUAL 202 objects
+f5_rhs_bsop :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 207 objects
+f6_lhs_bsbare :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 203 objects
+f7_lhs_bs_in_bs :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 209 objects
+f8_rhs_refop :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 206 objects
+g1_scalar_base :: rc=0 cmp=0 | STRICT_NOTEQUAL file ==> rc=0 cmp=0 | STRICT_EQUAL 124 objects
+g2_same_pkg_ctl :: rc=0 cmp=0 | STRICT_EQUAL 110 objects ==> rc=0 cmp=0 | STRICT_EQUAL 110 objects
+g3_int_base :: rc=0 cmp=0 | STRICT_NOTEQUAL file ==> rc=0 cmp=0 | STRICT_EQUAL 195 objects
+k10_qual_vs_ctl :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+k1_vs_ps_bound :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 287 objects
+k2_repl_only :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 164 objects
+k3_repl_plainlhs :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 114 objects
+k4_ps_plain :: rc=0 cmp=0 | STRICT_EQUAL 134 objects ==> rc=0 cmp=0 | STRICT_EQUAL 134 objects
+k5_typed_int :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 164 objects
+k6_repl_bare :: rc=0 cmp=0 | STRICT_EQUAL 156 objects ==> rc=0 cmp=0 | STRICT_EQUAL 156 objects
+k7_repl_paren :: rc=0 cmp=0 | STRICT_EQUAL 156 objects ==> rc=0 cmp=0 | STRICT_EQUAL 156 objects
+k8_repl_op_noparen :: rc=0 cmp=0 | STRICT_NOTEQUAL fullname ==> rc=0 cmp=0 | STRICT_EQUAL 164 objects
+k9_repl_bare_plainlhs :: rc=0 cmp=0 | STRICT_EQUAL 110 objects ==> rc=0 cmp=0 | STRICT_EQUAL 110 objects
+m2_pos_const :: rc=0 cmp=0 | STRICT_NOTEQUAL col ==> rc=0 cmp=0 | STRICT_EQUAL 122 objects
+m4_named_gen :: rc=0 cmp=0 | STRICT_EQUAL 266 objects ==> rc=0 cmp=0 | STRICT_EQUAL 266 objects
+n1_pos_other :: rc=0 cmp=0 | STRICT_NOTEQUAL col ==> rc=0 cmp=0 | STRICT_EQUAL 122 objects
+n2_pos_swap :: rc=0 cmp=0 | STRICT_NOTEQUAL col ==> rc=0 cmp=0 | STRICT_EQUAL 122 objects
+n3_pos_second_only :: rc=0 cmp=0 | STRICT_EQUAL 133 objects ==> rc=0 cmp=0 | STRICT_EQUAL 133 objects
+n4_named_const :: rc=0 cmp=0 | STRICT_EQUAL 132 objects ==> rc=0 cmp=0 | STRICT_EQUAL 132 objects
+n5_pos_var_idx :: rc=0 cmp=0 | STRICT_NOTEQUAL col ==> rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+p1_def_view_mid :: rc=0 cmp=0 | STRICT_NOTEQUAL col ==> rc=0 cmp=0 | STRICT_EQUAL 190 objects
+p2_single_port :: rc=0 cmp=0 | STRICT_EQUAL 72 objects ==> rc=0 cmp=0 | STRICT_EQUAL 72 objects
+p3_nonansi_child :: rc=0 cmp=0 | STRICT_NOTEQUAL col ==> rc=0 cmp=0 | STRICT_EQUAL 122 objects
+p4_explicitports_shape :: rc=0 cmp=0 | STRICT_EQUAL 35 objects ==> rc=0 cmp=0 | STRICT_EQUAL 35 objects
+q01_param_enum :: rc=0 cmp=0 | STRICT_NOTEQUAL endcol ==> rc=0 cmp=0 | STRICT_EQUAL 96 objects
+q02_localparam_enum :: rc=0 cmp=0 | STRICT_NOTEQUAL endcol ==> rc=0 cmp=0 | STRICT_EQUAL 96 objects
+q03_header_param_enum :: rc=0 cmp=0 | STRICT_NOTEQUAL endcol ==> rc=0 cmp=0 | STRICT_EQUAL 65 objects
+q05_child_inst :: rc=0 cmp=0 | STRICT_NOTEQUAL endcol ==> rc=0 cmp=0 | STRICT_EQUAL 123 objects
+s1_var_nested :: rc=0 cmp=0 | STRICT_NOTEQUAL file ==> rc=0 cmp=0 | STRICT_EQUAL 60 objects
+s2_var_flat :: rc=0 cmp=0 | STRICT_EQUAL 56 objects ==> rc=0 cmp=0 | STRICT_EQUAL 56 objects
+s5_idx_and_default :: rc=0 cmp=0 | STRICT_NOTEQUAL file ==> rc=0 cmp=0 | STRICT_EQUAL 68 objects
+s6_assign_nested :: rc=0 cmp=0 | STRICT_NOTEQUAL file ==> rc=0 cmp=0 | STRICT_EQUAL 81 objects

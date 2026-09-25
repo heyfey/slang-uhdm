@@ -14513,4 +14513,197 @@ inline bool impElabArithWholeSpan145On() {
     return on;
 }
 
+// ---------------------------------------------------------------------------
+// Pass r11u151 (expression-ground structural classes).  Every law has its own
+// switch; R11U151_OFF restores the pristine bytes on every case.
+//   R11U151_D2_OFF      § pkgTdCastTargetOwnView151          (ExprEmit.cpp + ParamEmit.cpp)
+//   R11U151_ARR_OFF     § blockLhsVarSelBindsWholeRef151     (ExprEmit.cpp)
+//   R11U151_ARRNB_OFF   § nonblockingSelLhsBindsWholeRef151  (StmtEmit.cpp)
+//   (DEFPAT: r11u145 § defaultFillImportCopies145 writes the same rule)
+//   R11U151_G_OFF       § condTakenParamRhsShared151         (ParamEmit.cpp)
+//   R11U151_G2_OFF      § concatArrParamDefTs151             (ParamEmit.cpp)
+//   R11U151_D_OFF       § patLeftoverOrphanCopy151           (ParamEmit.cpp)
+//   R11U151_DCAST_OFF   § hierSizeCastBaseStructTs151        (ExprEmit.cpp)
+//   R11U151_C3_OFF      § nestedPatOpTsNoParent151           (ParamEmit.cpp)
+// Sub-switches: ARRNB also reads R11U151_ARR_OFF, G2 R11U151_G_OFF, DCAST
+// R11U151_D_OFF.  Grids and measurements: tools/probe/r11u151struct/README.md.
+// ---------------------------------------------------------------------------
+inline bool r11u151On(const char* one) {
+    // Landed by r11u147 (pair A's refill): `R11U147_OFF=1` also drops these
+    // laws, so the one switch restores the pristine bytes of the whole pass.
+    static const bool all = getenv("R11U151_OFF") != nullptr ||
+                            getenv("R11U147_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+
+/// The census trace: `R11U151_TRACE=1` prints one `R11U151 <law>` line on
+/// stderr each time a law of this pass changes what pristine would write
+/// (tools/probe/r11u151struct/drivers/census.py reads it).  No byte of the
+/// database depends on it.
+inline void trace151(const char* law) {
+    static const bool on = getenv("R11U151_TRACE") != nullptr;
+    if (on)
+        fprintf(stderr, "R11U151 %s\n", law);
+}
+
+/// § pkgTdCastTargetOwnView151 — a package parameter's cast to its own
+/// package's struct/union typedef (§ pkgTypedefCastTargetTs140) targets the
+/// typedef object of the LISTING it is emitted in: the definition package's
+/// typedef in uhdmallPackages, the elaborated package's in uhdmtopPackages.
+/// Surelog compiles every package twice (CompilePackage.cpp
+/// FunctorCompilePackage::operator(): the Reduce::Yes compile of the package,
+/// then the Reduce::No compile of getUnElabPackage()), and each compile binds
+/// the cast in its own DataType map; the evalFunc member stamps
+/// (stampEvalFuncLeftovers) sit on the elaborated typedef only.  A qualified
+/// `p::cfg_t'(0)` resolves through the design's (elaborated) package in both
+/// listings.  Golden def_ctx_struct_param, latch_decoder_partial,
+/// latch_tlb_napot.  Grid tools/probe/r11u151struct/cases/D2.
+/// Switch: R11U151_D2_OFF.
+inline bool pkgTdCastTargetOwnView151On() {
+    static const bool on = r11u151On("R11U151_D2_OFF");
+    return on;
+}
+
+/// § blockLhsVarSelBindsWholeRef151 — a multi-index element select written as
+/// a direct statement's Lhs (`pa[0][0] = 1'b0;`, a var_select named `pa`)
+/// re-points the block's whole references to `pa` exactly as a bit_select or
+/// part_select Lhs already does (StmtEmit endSelTrack): UhdmWriter::lateBinding's
+/// `uhdmbegin` / `uhdmnamed_begin` arms scan the block's Stmts for the first
+/// assignment whose Lhs carries the name and is not a ref_obj / ref_var, and a
+/// var_select is such an Lhs.  Golden array_assign `pb = pa` -> var_select
+/// pa[0][0] (56:9).  Grid tools/probe/r11u151struct/cases/ARR.
+/// Switch: R11U151_ARR_OFF.
+inline bool blockLhsVarSelBindsWholeRef151On() {
+    static const bool on = r11u151On("R11U151_ARR_OFF");
+    return on;
+}
+
+/// § nonblockingSelLhsBindsWholeRef151 — lateBinding's block arms read the
+/// DIRECT statements' lvalues and never VpiBlocking: a whole reference to a
+/// module net written by a NONBLOCKING select binds the first direct-statement
+/// select lvalue of that name in the innermost block of its chain that has one
+/// (`v[0] <= a; y <= v;`: the bit_select; grid ARR a07 a13 a15 a16 a18).  The
+/// registry is noteLocalStmtSel122's direct-statement one (StmtEmit), so a
+/// select READ (or1200 `addr_r <= {tag, addr_r[H:2], 2'd0}`) and a select in
+/// a sibling begin (unpacked_array_shift_ff, grid a14) never answer.
+/// Switch: R11U151_ARRNB_OFF (and R11U151_ARR_OFF).
+inline bool nonblockingSelLhsBindsWholeRef151On() {
+    static const bool on = r11u151On("R11U151_ARR_OFF") && r11u151On("R11U151_ARRNB_OFF");
+    return on;
+}
+
+/// § condTakenParamRhsShared151 — the taken operand of a constant-condition
+/// ternary parameter default, when it is a bare reference to a parameter of
+/// the same body whose elaborated Rhs is a concatenation ExprEval cannot
+/// reduce, IS that operation in the elaborated listing (UHDM
+/// ExprEval::reduceExpr vpiConditionOp arm: get_value fails on an operation
+/// and `result = the_val`).  Golden BlackParrotComplex.  Grid
+/// tools/probe/r11u151struct/cases/G.  Switch: R11U151_G_OFF.
+inline bool condTakenParamRhsShared151On() {
+    static const bool on = r11u151On("R11U151_G_OFF");
+    return on;
+}
+
+/// § concatArrParamDefTs151 — the elaborated Rhs operation of a module's own
+/// concatenation-initialized unpacked-array parameter references the
+/// DEFINITION parameter's array_typespec (golden BlackParrotComplex N1129:
+/// element ref named `work@bottom.A3`, the definition's).  Grid
+/// tools/probe/r11u151struct/cases/G2.  Switch: R11U151_G2_OFF (and
+/// R11U151_G_OFF).
+inline bool concatArrParamDefTs151On() {
+    static const bool on = r11u151On("R11U151_G_OFF") && r11u151On("R11U151_G2_OFF");
+    return on;
+}
+
+/// § patLeftoverOrphanCopy151 — an evalFunc member leftover that is the
+/// caller's pattern ELEMENT (§ r10fsv2 L1) is stamped as a COPY of that
+/// element: golden's stamped object hangs under an operation no listing walks
+/// (the getValue expand / clone of the argument), so it is listed under every
+/// stamped typespec even where the caller parameter's own listing already
+/// walked its element (golden StructParamFuncBodyFieldCompare,
+/// StructParamPatternInitCast: `XLEN` listed twice per stamped cfg_t).
+/// Grid tools/probe/r11u151struct/cases/D.  Switch: R11U151_D_OFF.
+inline bool patLeftoverOrphanCopy151On() {
+    static const bool on = r11u151On("R11U151_D_OFF");
+    return on;
+}
+
+/// § hierSizeCastBaseStructTs151 — `Cfg.XLEN'(x)`, a size cast whose width is
+/// a member of a struct-typed parameter, is typed by that parameter's struct
+/// typespec (golden StructParamPatternInitCast 35:14, cfg_t with its member
+/// stamps), not by an integer_typespec over the hier_path.  Grid
+/// tools/probe/r11u151struct/cases/D.  Switch: R11U151_DCAST_OFF (and
+/// R11U151_D_OFF).
+inline bool hierSizeCastBaseStructTs151On() {
+    static const bool on = r11u151On("R11U151_D_OFF") && r11u151On("R11U151_DCAST_OFF");
+    return on;
+}
+
+/// § nestedPatOpTsNoParent151 — in the one-element unpacked-struct-array
+/// pattern fold (foldUnpackedStructArrayPattern), a NESTED member pattern
+/// operation's ref_typespec has no parent in the param_assign flavour: it is
+/// the reference ExprEval::flattenPatternAssignments mints (golden
+/// NestedStructArrayParameterInitializedByPatternPassedAsPort: empty full
+/// name); the instance-connection flavour keeps it.  Grid
+/// tools/probe/r11u151struct/cases/C3.  Switch: R11U151_C3_OFF.
+inline bool nestedPatOpTsNoParent151On() {
+    static const bool on = r11u151On("R11U151_C3_OFF");
+    return on;
+}
+
+// ============================================================================
+// r11u147 — the expression/parameter ground on the strict axis (sixth
+// refill).  Every law reads its own switch; `R11U147_OFF=1` turns them all
+// off, together with the r11u151 laws this pass lands (block above, which
+// keeps its own R11U151_* switches).  Grids and measurements:
+// tools/probe/r11u147repro/README.md.
+//   R11U147_IFTRAILIDX_OFF   § ifaceMemberTrailIdxNamesByPath147 (ExprEmit.cpp)
+//   R11U147_VSIPSBASE_OFF    § vsIpsBaseNamesByIps147           (ExprEmit.cpp)
+//   R11U147_LVIDXBS_OFF      § lvIdxBitSelAtIndex147            (ExprEmit.cpp)
+//   R11U147_NESTDEFLOC_OFF   § nestedDefaultPatLoc147           (ExprEmit.cpp)
+//   R11U147_GCAUSESITE_OFF   § gcaUseSiteParamConst147          (ExprEmit.cpp)
+//   R11V147_GCABARE_OFF      § gcaBareBoundKeepsInst147v        (ExprEmit.cpp; the verifier's
+//                            refinement of the law above: a BARE part-select bound keeps the
+//                            instance's constant; tools/probe/r11v147repro)
+//   R11U147_FIRSTPOS_OFF     § firstOrderedConnBitSelWhole147   (ExprEmit.cpp)
+//   R11U147_ENUMCLONE_OFF    § memberEnumCloneKeepsBase147      (ParamEmit.cpp)
+//   R11U147_ENUMQSPAN_OFF    § enumQualDefaultDefSpan147        (ExprEmit.cpp)
+// R11U147_TRACE=1 prints one stderr line per firing (the census).
+// ============================================================================
+inline bool r11u147On(const char* one) {
+    static const bool all = getenv("R11U147_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+
+/// § vsIpsBaseNamesByIps147 — see the var_select arm of ExprEmit's RangeSelect.
+inline bool vsIpsBaseNamesByIps147On() {
+    static const bool on = r11u147On("R11U147_VSIPSBASE_OFF");
+    return on;
+}
+
+/// § lvIdxBitSelAtIndex147 — whether a bit_select emitted under `inLhs` sits
+/// INSIDE the lvalue's select indices rather than being (part of) the target:
+/// its parent is a select (var_select, bit_select, part_select,
+/// indexed_part_select), or an operation chain that ends at one.  Golden
+/// anchors such a read at its index expression.  Switch: R11U147_LVIDXBS_OFF.
+inline bool lvIdxBitSelAtIndex147(const UHDM::BaseClass* parent) {
+    static const bool on = r11u147On("R11U147_LVIDXBS_OFF");
+    if (!on)
+        return false;
+    const UHDM::BaseClass* p = parent;
+    while (p && p->UhdmType() == UHDM::uhdmoperation)
+        p = p->VpiParent();
+    if (!p)
+        return false;
+    switch (p->UhdmType()) {
+        case UHDM::uhdmvar_select:
+        case UHDM::uhdmbit_select:
+        case UHDM::uhdmpart_select:
+        case UHDM::uhdmindexed_part_select:
+            return true;
+        default:
+            return false;
+    }
+}
+
 } // namespace slang_uhdm

@@ -26,7 +26,7 @@ anyseq_attr,default,CMP_EQUAL,,,equal
 arb_idx_cast,default,STRICT_NOTEQUAL,differ:endline(3),,differ:endline(3)
 ArithShiftTernary,default,CMP_EQUAL,,,equal
 array-copy,default,CMP_EQUAL,,,equal
-array_assign,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+array_assign,default,CMP_EQUAL,,,equal
 array_default_init,default,CMP_EQUAL,,,equal
 array_init_2d,default,CMP_EQUAL,,,equal
 arraycells,default,CMP_EQUAL,,,equal
@@ -163,9 +163,9 @@ counters_repeat,default,CMP_EQUAL,,,equal
 CppMacroNameAsVariableName,default,CMP_EQUAL,,,equal
 cs_registers,default,CMP_EQUAL,,,equal
 custom_map_incomp,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/custom_map_incomp/dut.sv:2:9: error: unknown module 'ALU',,
-cva6_struct_param_field,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+cva6_struct_param_field,default,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
 DeclarationInFor,default,CMP_EQUAL,,,equal
-def_ctx_struct_param,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+def_ctx_struct_param,default,CMP_EQUAL,,,equal
 defvalue,default,CMP_EQUAL,,,equal
 dff_different_styles,default,CMP_EQUAL,,,equal
 dff_styles,default,CMP_EQUAL,,,equal
@@ -300,24 +300,24 @@ hello-uvm,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/hello-uvm/
 hier_path,default,CMP_EQUAL,,,equal
 hier_undriven_port,default,CMP_EQUAL,,,equal
 hierdefparam,default,CMP_EQUAL,,,equal
-ibex_alu,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+ibex_alu,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
 ibex_branch_predict,default,STRICT_NOTEQUAL,differ:fullname(13),,differ:fullname(13)
-ibex_compressed_decoder,default,STRICT_NOTEQUAL,differ:fullname(134),,differ:fullname(134)
+ibex_compressed_decoder,default,STRICT_NOTEQUAL,differ:fullname(133),,differ:fullname(133)
 ibex_controller,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_controller.sv:178:78: error: use of undeclared identifier 'u_ibex_core',,
 ibex_core,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_core.sv:429:3: error: unknown module 'ibex_if_stage',,
 ibex_counter,default,CMP_EQUAL,,,equal
 ibex_cs_registers,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_cs_registers.sv:907:3: error: unknown module 'ibex_csr',,
 ibex_csr,default,STRICT_NOTEQUAL,differ:line(12),,differ:line(12)
-ibex_decoder,default,STRICT_NOTEQUAL,differ:fullname(21),,differ:fullname(21)
+ibex_decoder,default,STRICT_NOTEQUAL,differ:fullname(19),,differ:fullname(19)
 ibex_dummy_instr,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_dummy_instr.sv:76:3: error: unknown module 'prim_lfsr',,
 ibex_ex_block,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_ex_block.sv:116:3: error: unknown module 'ibex_alu',,
 ibex_fetch_fifo,default,STRICT_NOTEQUAL,differ:line(24),,differ:line(24)
-ibex_icache,default,STRICT_NOTEQUAL,differ:fullname(193),,differ:fullname(193)
+ibex_icache,default,STRICT_NOTEQUAL,differ:fullname(161),,differ:fullname(161)
 ibex_id_stage,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_id_stage.sv:437:3: error: unknown module 'ibex_decoder',,
 ibex_if_stage,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_if_stage.sv:325:5: error: unknown module 'ibex_prefetch_buffer',,
 ibex_load_store_unit,default,STRICT_NOTEQUAL,differ:endline(240),,differ:endline(240)
 ibex_lockstep,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
-ibex_multdiv_fast,default,STRICT_NOTEQUAL,differ:fullname(102),,differ:fullname(102)
+ibex_multdiv_fast,default,STRICT_NOTEQUAL,differ:fullname(101),,differ:fullname(101)
 ibex_multdiv_slow,default,STRICT_NOTEQUAL,differ:fullname(19),,differ:fullname(19)
 ibex_pmp,default,STRICT_NOTEQUAL,differ:file(53),,differ:file(53)
 ibex_prefetch_buffer,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
@@ -417,13 +417,13 @@ latch_002,default,CMP_EQUAL,,,equal
 latch_axi_adapter,default,CMP_EQUAL,,,equal
 latch_case_arm_mask,default,CMP_EQUAL,,,equal
 latch_csr_armlocal,default,CMP_EQUAL,,,equal
-latch_decoder_partial,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+latch_decoder_partial,default,CMP_EQUAL,,,equal
 latch_fifo_dynfield,default,CMP_EQUAL,,,equal
 latch_nested_ex_field,default,CMP_EQUAL,,,equal
-latch_packed_dyn_write,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+latch_packed_dyn_write,default,CMP_EQUAL,,,equal
 latch_packed_enum_loop,default,CMP_EQUAL,,,equal
 latch_perf_counters,default,CMP_EQUAL,,,equal
-latch_tlb_napot,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+latch_tlb_napot,default,CMP_EQUAL,,,equal
 latchn,default,CMP_EQUAL,,,equal
 latchp,default,CMP_EQUAL,,,equal
 latchsr,default,CMP_EQUAL,,,equal
@@ -459,7 +459,7 @@ mem_ff_partial_rsp,default,STRICT_NOTEQUAL,differ:col(16),,differ:col(16)
 mem_iface_index,default,CMP_EQUAL,,,equal
 mem_init_for_param,default,CMP_EQUAL,,,equal
 mem_multi_always_write,default,CMP_EQUAL,,,equal
-mem_packed_2d_byte_write,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+mem_packed_2d_byte_write,default,CMP_EQUAL,,,equal
 mem_read_reg,default,STRICT_NOTEQUAL,differ:name(5),,differ:name(5)
 mem_sub_plain,default,CMP_EQUAL,,,equal
 MemberSelectOf2DStructPackedArray,default,CMP_EQUAL,,,equal
@@ -494,7 +494,7 @@ MultipleAssignments,default,CMP_EQUAL,,,equal
 MultipleCells,default,CMP_EQUAL,,,equal
 MultipleNets,default,CMP_EQUAL,,,equal
 MultiplePrints,default,CMP_EQUAL,,,equal
-multiplier,default,STRICT_NOTEQUAL,differ:col(42),,differ:col(42)
+multiplier,default,CMP_EQUAL,,,equal
 MultirangesStartNotFromZero,default,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
 mux16,default,CMP_EQUAL,,,equal
 mux2,default,CMP_EQUAL,,,equal
@@ -520,7 +520,7 @@ NestedParamSubstitution,default,CMP_EQUAL,,,equal
 NestedPatternPassedAsPort,default,CMP_EQUAL,,,equal
 NestedSelectOnInputPortInGenscope,default,CMP_EQUAL,,,equal
 NestedSelectOnVarInGenscope,default,CMP_EQUAL,,,equal
-NestedStructArrayParameterInitializedByPatternPassedAsPort,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+NestedStructArrayParameterInitializedByPatternPassedAsPort,default,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
 net_types,default,CMP_EQUAL,,,equal
 OneAlwaysComb,default,CMP_EQUAL,,,equal
 OneArithShift,default,CMP_EQUAL,,,equal
@@ -583,9 +583,9 @@ ParameterOfSizeOfParametrizedPortInSubmodule,default,CMP_EQUAL,,,equal
 ParameterOfSizeOfPort,default,CMP_EQUAL,,,equal
 ParameterPackedArray,default,CMP_EQUAL,,,equal
 ParameterPackedArraySurelogSubstitution,default,CMP_EQUAL,,,equal
-ParameterPassedTo3TimesNestedSubmodule,default,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
-ParameterPassedToSubmoduleInGenscopeOfSubmodule,default,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
-ParameterPassedToSubmoduleOfSubmodule,default,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
+ParameterPassedTo3TimesNestedSubmodule,default,CMP_EQUAL,,,equal
+ParameterPassedToSubmoduleInGenscopeOfSubmodule,default,CMP_EQUAL,,,equal
+ParameterPassedToSubmoduleOfSubmodule,default,CMP_EQUAL,,,equal
 ParameterRangeUsingDot,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ParameterRangeUsingDot/dut.sv:41:47: error: assignment pattern for 'part_info_t$[2]' requires 2 eleme,,
 ParameterSizeOfInstance,default,CMP_EQUAL,,,equal
 ParameterUnpackedArray,default,CMP_EQUAL,,,equal
@@ -667,7 +667,7 @@ sat_asserts_seq,default,CMP_EQUAL,,,equal
 scope_func,default,CMP_EQUAL,,,equal
 scope_task,default,CMP_EQUAL,,,equal
 scopes,default,CMP_EQUAL,,,equal
-SelectFromUnpackedInFunction,default,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
+SelectFromUnpackedInFunction,default,CMP_EQUAL,,,equal
 SelectGivenBySelectOnParameterInFunction,default,CMP_EQUAL,,,equal
 SelectOnMemberSelectedFrom2DArray,default,CMP_EQUAL,,,equal
 SelfPartSelectInBitSelect,default,CMP_EQUAL,,,equal
@@ -761,7 +761,7 @@ StructParameter,default,CMP_EQUAL,,,equal
 StructParameterInGenScope,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/StructParameterInGenScope/dut.sv:30:67: error: use of undeclared identifier 'PageW',,
 StructParameterInitializedWithPatternAndReferenced,default,CMP_EQUAL,,,equal
 subbytes,default,CMP_EQUAL,,,equal
-SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule,default,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
+SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule,default,CMP_EQUAL,,,equal
 SumOfParameters,default,CMP_EQUAL,,,equal
 SumOfParametersInNestedForLoops,default,CMP_EQUAL,,,equal
 sva_basic00,default,CMP_EQUAL,,,equal
@@ -839,7 +839,7 @@ unique_case_default,default,CMP_EQUAL,,,equal
 UnitForLoop,default,CMP_EQUAL,,,equal
 unnamed_block_decl,default,CMP_EQUAL,,,equal
 unpacked_array_shift_ff,default,CMP_EQUAL,,,equal
-unpacked_elem_partsel_comb,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+unpacked_elem_partsel_comb,default,CMP_EQUAL,,,equal
 unpacked_elem_write_flat,default,CMP_EQUAL,,,equal
 unpacked_struct_2d,default,CMP_EQUAL,,,equal
 unpacked_struct_array_typedef,default,CMP_EQUAL,,,equal
@@ -897,7 +897,7 @@ anyseq_attr,testflags,CMP_EQUAL,,,equal
 arb_idx_cast,testflags,STRICT_NOTEQUAL,differ:endline(3),,differ:endline(3)
 ArithShiftTernary,testflags,CMP_EQUAL,,,equal
 array-copy,testflags,CMP_EQUAL,,,equal
-array_assign,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+array_assign,testflags,CMP_EQUAL,,,equal
 array_default_init,testflags,CMP_EQUAL,,,equal
 array_init_2d,testflags,CMP_EQUAL,,,equal
 arraycells,testflags,CMP_EQUAL,,,equal
@@ -1034,9 +1034,9 @@ counters_repeat,testflags,CMP_EQUAL,,,equal
 CppMacroNameAsVariableName,testflags,CMP_EQUAL,,,equal
 cs_registers,testflags,CMP_EQUAL,,,equal
 custom_map_incomp,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/custom_map_incomp/dut.sv:2:9: error: unknown module 'ALU',,
-cva6_struct_param_field,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+cva6_struct_param_field,testflags,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
 DeclarationInFor,testflags,CMP_EQUAL,,,equal
-def_ctx_struct_param,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+def_ctx_struct_param,testflags,CMP_EQUAL,,,equal
 defvalue,testflags,CMP_EQUAL,,,equal
 dff_different_styles,testflags,CMP_EQUAL,,,equal
 dff_styles,testflags,CMP_EQUAL,,,equal
@@ -1171,24 +1171,24 @@ hello-uvm,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/hello-uv
 hier_path,testflags,CMP_EQUAL,,,equal
 hier_undriven_port,testflags,CMP_EQUAL,,,equal
 hierdefparam,testflags,CMP_EQUAL,,,equal
-ibex_alu,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+ibex_alu,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
 ibex_branch_predict,testflags,STRICT_NOTEQUAL,differ:fullname(13),,differ:fullname(13)
-ibex_compressed_decoder,testflags,STRICT_NOTEQUAL,differ:fullname(134),,differ:fullname(134)
+ibex_compressed_decoder,testflags,STRICT_NOTEQUAL,differ:fullname(133),,differ:fullname(133)
 ibex_controller,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_controller.sv:178:78: error: use of undeclared identifier 'u_ibex_core',,
 ibex_core,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_core.sv:429:3: error: unknown module 'ibex_if_stage',,
 ibex_counter,testflags,CMP_EQUAL,,,equal
 ibex_cs_registers,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_cs_registers.sv:907:3: error: unknown module 'ibex_csr',,
 ibex_csr,testflags,STRICT_NOTEQUAL,differ:line(12),,differ:line(12)
-ibex_decoder,testflags,STRICT_NOTEQUAL,differ:fullname(21),,differ:fullname(21)
+ibex_decoder,testflags,STRICT_NOTEQUAL,differ:fullname(19),,differ:fullname(19)
 ibex_dummy_instr,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_dummy_instr.sv:76:3: error: unknown module 'prim_lfsr',,
 ibex_ex_block,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_ex_block.sv:116:3: error: unknown module 'ibex_alu',,
 ibex_fetch_fifo,testflags,STRICT_NOTEQUAL,differ:line(24),,differ:line(24)
-ibex_icache,testflags,STRICT_NOTEQUAL,differ:fullname(193),,differ:fullname(193)
+ibex_icache,testflags,STRICT_NOTEQUAL,differ:fullname(161),,differ:fullname(161)
 ibex_id_stage,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_id_stage.sv:437:3: error: unknown module 'ibex_decoder',,
 ibex_if_stage,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_if_stage.sv:325:5: error: unknown module 'ibex_prefetch_buffer',,
 ibex_load_store_unit,testflags,STRICT_NOTEQUAL,differ:endline(240),,differ:endline(240)
 ibex_lockstep,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
-ibex_multdiv_fast,testflags,STRICT_NOTEQUAL,differ:fullname(102),,differ:fullname(102)
+ibex_multdiv_fast,testflags,STRICT_NOTEQUAL,differ:fullname(101),,differ:fullname(101)
 ibex_multdiv_slow,testflags,STRICT_NOTEQUAL,differ:fullname(19),,differ:fullname(19)
 ibex_pmp,testflags,STRICT_NOTEQUAL,differ:file(53),,differ:file(53)
 ibex_prefetch_buffer,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
@@ -1288,13 +1288,13 @@ latch_002,testflags,CMP_EQUAL,,,equal
 latch_axi_adapter,testflags,CMP_EQUAL,,,equal
 latch_case_arm_mask,testflags,CMP_EQUAL,,,equal
 latch_csr_armlocal,testflags,CMP_EQUAL,,,equal
-latch_decoder_partial,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+latch_decoder_partial,testflags,CMP_EQUAL,,,equal
 latch_fifo_dynfield,testflags,CMP_EQUAL,,,equal
 latch_nested_ex_field,testflags,CMP_EQUAL,,,equal
-latch_packed_dyn_write,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+latch_packed_dyn_write,testflags,CMP_EQUAL,,,equal
 latch_packed_enum_loop,testflags,CMP_EQUAL,,,equal
 latch_perf_counters,testflags,CMP_EQUAL,,,equal
-latch_tlb_napot,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+latch_tlb_napot,testflags,CMP_EQUAL,,,equal
 latchn,testflags,CMP_EQUAL,,,equal
 latchp,testflags,CMP_EQUAL,,,equal
 latchsr,testflags,CMP_EQUAL,,,equal
@@ -1330,7 +1330,7 @@ mem_ff_partial_rsp,testflags,STRICT_NOTEQUAL,differ:col(16),,differ:col(16)
 mem_iface_index,testflags,CMP_EQUAL,,,equal
 mem_init_for_param,testflags,CMP_EQUAL,,,equal
 mem_multi_always_write,testflags,CMP_EQUAL,,,equal
-mem_packed_2d_byte_write,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+mem_packed_2d_byte_write,testflags,CMP_EQUAL,,,equal
 mem_read_reg,testflags,STRICT_NOTEQUAL,differ:name(5),,differ:name(5)
 mem_sub_plain,testflags,CMP_EQUAL,,,equal
 MemberSelectOf2DStructPackedArray,testflags,CMP_EQUAL,,,equal
@@ -1365,7 +1365,7 @@ MultipleAssignments,testflags,CMP_EQUAL,,,equal
 MultipleCells,testflags,CMP_EQUAL,,,equal
 MultipleNets,testflags,CMP_EQUAL,,,equal
 MultiplePrints,testflags,CMP_EQUAL,,,equal
-multiplier,testflags,STRICT_NOTEQUAL,differ:col(42),,differ:col(42)
+multiplier,testflags,CMP_EQUAL,,,equal
 MultirangesStartNotFromZero,testflags,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
 mux16,testflags,CMP_EQUAL,,,equal
 mux2,testflags,CMP_EQUAL,,,equal
@@ -1391,7 +1391,7 @@ NestedParamSubstitution,testflags,CMP_EQUAL,,,equal
 NestedPatternPassedAsPort,testflags,CMP_EQUAL,,,equal
 NestedSelectOnInputPortInGenscope,testflags,CMP_EQUAL,,,equal
 NestedSelectOnVarInGenscope,testflags,CMP_EQUAL,,,equal
-NestedStructArrayParameterInitializedByPatternPassedAsPort,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+NestedStructArrayParameterInitializedByPatternPassedAsPort,testflags,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
 net_types,testflags,CMP_EQUAL,,,equal
 OneAlwaysComb,testflags,CMP_EQUAL,,,equal
 OneArithShift,testflags,CMP_EQUAL,,,equal
@@ -1454,9 +1454,9 @@ ParameterOfSizeOfParametrizedPortInSubmodule,testflags,CMP_EQUAL,,,equal
 ParameterOfSizeOfPort,testflags,CMP_EQUAL,,,equal
 ParameterPackedArray,testflags,CMP_EQUAL,,,equal
 ParameterPackedArraySurelogSubstitution,testflags,CMP_EQUAL,,,equal
-ParameterPassedTo3TimesNestedSubmodule,testflags,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
-ParameterPassedToSubmoduleInGenscopeOfSubmodule,testflags,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
-ParameterPassedToSubmoduleOfSubmodule,testflags,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
+ParameterPassedTo3TimesNestedSubmodule,testflags,CMP_EQUAL,,,equal
+ParameterPassedToSubmoduleInGenscopeOfSubmodule,testflags,CMP_EQUAL,,,equal
+ParameterPassedToSubmoduleOfSubmodule,testflags,CMP_EQUAL,,,equal
 ParameterRangeUsingDot,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ParameterRangeUsingDot/dut.sv:41:47: error: assignment pattern for 'part_info_t$[2]' requires 2 eleme,,
 ParameterSizeOfInstance,testflags,CMP_EQUAL,,,equal
 ParameterUnpackedArray,testflags,CMP_EQUAL,,,equal
@@ -1538,7 +1538,7 @@ sat_asserts_seq,testflags,CMP_EQUAL,,,equal
 scope_func,testflags,CMP_EQUAL,,,equal
 scope_task,testflags,CMP_EQUAL,,,equal
 scopes,testflags,CMP_EQUAL,,,equal
-SelectFromUnpackedInFunction,testflags,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
+SelectFromUnpackedInFunction,testflags,CMP_EQUAL,,,equal
 SelectGivenBySelectOnParameterInFunction,testflags,CMP_EQUAL,,,equal
 SelectOnMemberSelectedFrom2DArray,testflags,CMP_EQUAL,,,equal
 SelfPartSelectInBitSelect,testflags,CMP_EQUAL,,,equal
@@ -1632,7 +1632,7 @@ StructParameter,testflags,CMP_EQUAL,,,equal
 StructParameterInGenScope,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/StructParameterInGenScope/dut.sv:30:67: error: use of undeclared identifier 'PageW',,
 StructParameterInitializedWithPatternAndReferenced,testflags,CMP_EQUAL,,,equal
 subbytes,testflags,CMP_EQUAL,,,equal
-SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule,testflags,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
+SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule,testflags,CMP_EQUAL,,,equal
 SumOfParameters,testflags,CMP_EQUAL,,,equal
 SumOfParametersInNestedForLoops,testflags,CMP_EQUAL,,,equal
 sva_basic00,testflags,CMP_EQUAL,,,equal
@@ -1710,7 +1710,7 @@ unique_case_default,testflags,CMP_EQUAL,,,equal
 UnitForLoop,testflags,CMP_EQUAL,,,equal
 unnamed_block_decl,testflags,CMP_EQUAL,,,equal
 unpacked_array_shift_ff,testflags,CMP_EQUAL,,,equal
-unpacked_elem_partsel_comb,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+unpacked_elem_partsel_comb,testflags,CMP_EQUAL,,,equal
 unpacked_elem_write_flat,testflags,CMP_EQUAL,,,equal
 unpacked_struct_2d,testflags,CMP_EQUAL,,,equal
 unpacked_struct_array_typedef,testflags,CMP_EQUAL,,,equal

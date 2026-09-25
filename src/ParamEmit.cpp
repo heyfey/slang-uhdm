@@ -15,6 +15,7 @@
 #include "slang/ast/EvalContext.h"
 
 namespace slang_uhdm {
+static bool condArmUnreducible151(const UHDM::any* o);  // § condTakenParamRhsShared151
 
 // § paramFoldParenSpan131 — the registry (the law and its post-pass are at
 // paramFoldParenSpan131, near drainShareDefParamTs).
@@ -3573,6 +3574,44 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
                             eit->second->UhdmType() == UHDM::uhdmref_obj)
                                ? nullptr
                                : (UHDM::expr*)eit->second;
+            // § patLeftoverOrphanCopy151 — ...the element OBJECT golden
+            // stamps is NOT the one the caller parameter's listing walks: the
+            // producer reads the argument through CompileHelper::getValue,
+            // whose qualified-name arm runs expandPatternAssignment and writes
+            // the expanded copy back as the param_assign Rhs, and whose
+            // component arm clone_tree's the Rhs at the reference
+            // (CompileExpression.cpp getValue / compileExpression), so the
+            // element ExprEval reads, and setValueInInstance stamps, belongs
+            // to an operation no listing walks (golden FuncStructVal
+            // constant#9772 under the unlisted operation#9768;
+            // StructParamFuncBodyFieldCompare `XLEN` 30:23 listed under every
+            // stamped cfg_t while the Base listing walks its own copy).  A
+            // CONSTANT element is stamped as a copy with the same fields;
+            // anything else keeps the share.  Switch: R11U151_D_OFF.
+            if (patLeftoverOrphanCopy151On() && st.values[i] &&
+                st.values[i]->UhdmType() == UHDM::uhdmconstant) {
+                auto* o151 = (UHDM::constant*)st.values[i];
+                auto* c151 = s.MakeConstant();
+                c151->VpiValue(o151->VpiValue());
+                c151->VpiSize(o151->VpiSize());
+                c151->VpiConstType(o151->VpiConstType());
+                c151->VpiDecompile(o151->VpiDecompile());
+                c151->VpiFile(o151->VpiFile());
+                c151->VpiLineNo(o151->VpiLineNo());
+                c151->VpiColumnNo(o151->VpiColumnNo());
+                c151->VpiEndLineNo(o151->VpiEndLineNo());
+                c151->VpiEndColumnNo(o151->VpiEndColumnNo());
+                c151->VpiParent(o151->VpiParent());
+                if (auto* rt0 = o151->Typespec()) {
+                    auto* rt151 = s.MakeRef_typespec();
+                    rt151->VpiFullName(rt0->VpiFullName());
+                    rt151->VpiParent(c151);
+                    rt151->Actual_typespec(rt0->Actual_typespec());
+                    c151->Typespec(rt151);
+                }
+                st.values[i] = c151;
+                trace151("D");
+            }
         }
         // § r10fsv3 S2 UNREDUCIBLE COMPUTED MEMBER.  A computed member's
         // leftover is a re-encoded slice of the folded value ONLY while
@@ -19784,7 +19823,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     SymbolKind::Package;
                             bool savedRhsFold102 = rhsOpArrayTsSubFold102;
                             rhsOpArrayTsSubFold102 = pkgOwnedArr102;
-                            rt->Actual_typespec(makeUnpackedArrayParamTs(
+                            // § concatArrParamDefTs151 — a MODULE's own
+                            // unpacked-array parameter initialized by a
+                            // CONCATENATION: the elaborated Rhs operation's
+                            // typespec IS the definition parameter's own
+                            // array_typespec (golden BlackParrotComplex
+                            // `bottom.A3 = {1, 2, 3}`: id 6, the definition's,
+                            // element ref `work@bottom.A3`), where a pattern
+                            // keeps its own copy (grid G2 h02).  Switch:
+                            // R11U151_G2_OFF.
+                            UHDM::array_typespec* def151 = nullptr;
+                            if (concatArrParamDefTs151On() && !inPackage &&
+                                !isImported && !pkgOwnedArr102 &&
+                                opr->VpiOpType() == vpiConcatOp)
+                                if (auto* dsyn151 = ps.getSyntax())
+                                    if (auto it151 = defParamArrayTs.find(dsyn151);
+                                        it151 != defParamArrayTs.end()) {
+                                        def151 = it151->second;
+                                        trace151("G2");
+                                    }
+                            rt->Actual_typespec(def151 ? def151
+                                                       : makeUnpackedArrayParamTs(
                                 ps, tsPrefix, rt, nullptr, true, tsPrefix));
                             rhsOpArrayTsSubFold102 = savedRhsFold102;
                             importedParamElemClone16 = savedIpc96;
@@ -20223,6 +20282,52 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rt10->VpiFullName(pfx10);
                         rt10->Actual_typespec(paramArrTs());
                         ((UHDM::operation*)rhs)->Typespec(rt10);
+                    }
+                }
+                // § condTakenParamRhsShared151 — an ELABORATED module
+                // parameter whose default is a constant-condition ternary
+                // chain ending on a bare reference to another parameter of the
+                // same body, whose own elaborated Rhs stayed an OPERATION
+                // (a concatenation, a pattern), takes THAT object as its Rhs,
+                // shared and not reparented.  ExprEval::reduceExpr's
+                // vpiConditionOp arm reduces the taken operand, the reference
+                // reduces through getValue to the parameter's Rhs object, and
+                // get_value cannot read an operation, so `result = the_val`
+                // hands the object itself back (golden BlackParrotComplex
+                // `routing_matrix_p = (dims_p == 2) ? StrictXY : StrictX`:
+                // param_assign 40:48 Rhs = StrictXY's operation 9:31-25:33).
+                // Switch: R11U151_G_OFF.
+                if (condTakenParamRhsShared151On() && topView && !defViewOrig9 &&
+                    !inPackage && !isImported && !overridden && init && rhs) {
+                    const Expression* t151 = &stripImplicitConv(*init);
+                    bool cond151 = false;
+                    for (int g151 = 0;
+                         g151 < 32 && t151->kind == ExpressionKind::ConditionalOp;
+                         ++g151) {
+                        auto& co151 = t151->as<ConditionalExpression>();
+                        if (co151.conditions.size() != 1 ||
+                            co151.conditions[0].pattern)
+                            break;
+                        ASTContext cx151(comp.getRoot(), LookupLocation::max);
+                        ConstantValue pv151 =
+                            cx151.tryEval(*co151.conditions[0].expr);
+                        if (!pv151 || !pv151.isInteger() ||
+                            pv151.integer().hasUnknown())
+                            break;
+                        t151 = &stripImplicitConv(pv151.isTrue() ? co151.left()
+                                                                 : co151.right());
+                        cond151 = true;
+                    }
+                    if (cond151 && t151->kind == ExpressionKind::NamedValue) {
+                        auto& ts151 = t151->as<NamedValueExpression>().symbol;
+                        if (ts151.kind == SymbolKind::Parameter &&
+                            ts151.getParentScope() == member.getParentScope())
+                            if (auto it151 = elabParamRhsObj6.find(&ts151);
+                                it151 != elabParamRhsObj6.end() && it151->second &&
+                                condArmUnreducible151(it151->second)) {
+                                rhs = (UHDM::expr*)it151->second;
+                                trace151("G");
+                            }
                     }
                 }
                 pa->Rhs(rhs);
@@ -22861,7 +22966,21 @@ UHDM::operation* UhdmExporter::foldUnpackedStructArrayPattern(
                 op->VpiSize((int32_t)ctf.getBitWidth());
             if (auto* sts = lookupStructTs(ft)) {
                 auto* rt = s.MakeRef_typespec();
-                rt->VpiParent(op);
+                // § nestedPatOpTsNoParent151 — the NESTED member pattern's
+                // ref_typespec is the one UHDM's
+                // ExprEval::flattenPatternAssignments mints and never parents
+                // (ExprEval.cpp:931-934, § pkgPatReadTsNoParent131's
+                // reference), so its full name computes to nothing (golden
+                // NestedStructArrayParameterInitializedByPatternPassedAsPort
+                // #443 / #524: empty where ours stored `work@top` /
+                // `work@top.u_hw_sel`).  The instance-CONNECTION flavour
+                // keeps the parent: golden #594 names that reference through
+                // the port (`work@top.u_hw_sel.region_attrs_i`).  Switch:
+                // R11U151_C3_OFF.
+                if (!nestedPatOpTsNoParent151On() || connFold)
+                    rt->VpiParent(op);
+                else
+                    trace151("C3");
                 rt->Actual_typespec(sts);
                 op->Typespec(rt);
             }
@@ -27070,6 +27189,44 @@ static void paramValueIsDefRhs124(UHDM::design* d) {
 std::vector<std::tuple<UHDM::ref_typespec*, std::string, uint32_t>>& r11u124CastTsFiles();
 std::vector<std::pair<UHDM::ref_typespec*, const void*>>& pkgTdCast140Pending();
 
+// § condTakenParamRhsShared151 — does UHDM's ExprEval::reduceExpr hand this
+// CONCATENATION Rhs object back UNREDUCED?  The vpiConcatOp arm
+// (ExprEval.cpp ~3993) reduces a concatenation unless an operand is itself a
+// concatenation / pattern operation (never reduced there, so `c1 = nullptr`)
+// or a 64-bit INT/UINT constant in a multi-operand concat (the same bail).
+// An assignment-pattern arm is NOT shared: golden lists a CLONE of it (grid G
+// g03, CompileExpression's clone_tree of the param_assign Rhs) — left to the
+// fold.  Every other shape is left to the fold too.
+static bool condArmUnreducible151(const UHDM::any* o) {
+    if (!o || o->UhdmType() != UHDM::uhdmoperation)
+        return false;
+    auto* op = (const UHDM::operation*)o;
+    int t = op->VpiOpType();
+    if (t != vpiConcatOp || !op->Operands() || op->Operands()->empty())
+        return false;
+    for (auto* x : *op->Operands()) {
+        if (!x)
+            return false;
+        if (x->UhdmType() == UHDM::uhdmoperation) {
+            int xt = ((const UHDM::operation*)x)->VpiOpType();
+            if (xt == vpiConcatOp || xt == vpiAssignmentPatternOp ||
+                xt == vpiMultiAssignmentPatternOp)
+                return true;
+            return false;  // another operation: reduced (or not) on its own
+        }
+        if (x->UhdmType() == UHDM::uhdmconstant) {
+            auto* c = (const UHDM::constant*)x;
+            if ((c->VpiConstType() == vpiIntConst || c->VpiConstType() == vpiUIntConst) &&
+                c->VpiSize() == 64 && op->Operands()->size() > 1)
+                return true;
+            continue;
+        }
+        return false;
+    }
+    return false;
+}
+std::set<UHDM::ref_typespec*>& pkgTdCast151DefView();  // § pkgTdCastTargetOwnView151
+
 // § paramFoldParenSpan131 — THE ELABORATED PARAMETER'S FOLDED VALUE SPANS
 // THE WRITTEN INITIALIZER WITH ITS PARENTHESES.  Surelog elaborates a
 // parameter by reducing the Constant_param_expression node of its
@@ -27700,11 +27857,32 @@ static void arrTsLhsOwnCopy140(UHDM::Serializer& s, UHDM::design* d) {
 void UhdmExporter::drainShareDefParamTs() {
     // § pkgTypedefCastTargetTs140 — bind the deferred package-typedef cast
     // targets, now that every package lists its typedefs.
-    for (auto& [rt140, ta140] : pkgTdCast140Pending())
+    for (auto& [rt140, ta140] : pkgTdCast140Pending()) {
+        // § pkgTdCastTargetOwnView151 — a reference standing in the
+        // DEFINITION package listing binds the definition package's typedef
+        // (`typedefTs`), the elaborated listing's the elaborated one
+        // (`pkgTopTypedefTs`): Surelog compiles the two package views
+        // separately (CompilePackage.cpp FunctorCompilePackage::operator()),
+        // each against its own typedef, and the evalFunc member stamps sit on
+        // the elaborated typedef alone (golden def_ctx_struct_param #37 clean,
+        // #167 stamped).  Switch: R11U151_D2_OFF.
+        if (pkgTdCastTargetOwnView151On() && pkgTdCast151DefView().count(rt140)) {
+            if (auto dt151 = typedefTs.find(static_cast<const slang::ast::Symbol*>(
+                    static_cast<const slang::ast::TypeAliasType*>(ta140)));
+                dt151 != typedefTs.end() && dt151->second && !rt140->Actual_typespec()) {
+                if (auto pt151 = pkgTopTypedefTs.find(ta140);
+                    pt151 == pkgTopTypedefTs.end() || pt151->second != dt151->second)
+                    trace151("D2-def");
+                rt140->Actual_typespec(dt151->second);
+                continue;
+            }
+        }
         if (auto it140 = pkgTopTypedefTs.find(ta140);
             it140 != pkgTopTypedefTs.end() && it140->second && !rt140->Actual_typespec())
             rt140->Actual_typespec(it140->second);
+    }
     pkgTdCast140Pending().clear();
+    pkgTdCast151DefView().clear();
     paramValueIsDefRhs124(d);
     paramFoldParenSpan131(d);  // § paramFoldParenSpan131
     ovrMultiDimConstUnparented131(d);  // § ovrMultiDimConstUnparented131
@@ -30907,6 +31085,9 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                             // never per-use cloned (jeras_union ctl_t.opc).
                             !((UHDM::enum_typespec*)mts)->Typedef_alias()) {
                             const EnumType* et9 = nullptr;
+                            // § memberEnumCloneKeepsBase147 — the home
+                            // typedef's own enum syntax (see below).
+                            const syntax::SyntaxNode* eSyn147 = nullptr;
                             for (auto& [sym9, tsp9] : typedefTs)
                                 if (tsp9 == mts &&
                                     sym9->kind == SymbolKind::TypeAlias) {
@@ -30914,17 +31095,61 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                                    .getCanonicalType();
                                     if (c9.kind == SymbolKind::EnumType)
                                         et9 = &c9.as<EnumType>();
+                                    if (auto ds147 = sym9->getSyntax();
+                                        ds147 &&
+                                        ds147->kind ==
+                                            syntax::SyntaxKind::TypedefDeclaration)
+                                        eSyn147 =
+                                            ds147->as<syntax::TypedefDeclarationSyntax>()
+                                                .type;
                                     break;
                                 }
+                            // § memberEnumCloneKeepsBase147 — THE PER-USE
+                            // MEMBER COPY OF ANOTHER PACKAGE'S ENUM IS A FULL
+                            // CLONE.  Surelog's import inserts the home
+                            // package's DataType itself (CompileHelper
+                            // importPackage, the Typespecs loop) and every
+                            // later copy is `clone_tree`, which keeps the
+                            // base-type reference and the file (golden
+                            // ParameterPassedToSubmoduleOfSubmodule's
+                            // `pinmux_pkg::target_cfg_t.dio_pad_type`: enum
+                            // `prim_pad_wrapper_pkg::pad_type_e` at dut.sv
+                            // 2:4-4:17 with its base `logic` reference; ours
+                            // had no file and no base).  r11u143 residue S3.
+                            // Grid tools/probe/r11u147repro/mec.  Switch:
+                            // R11U147_ENUMCLONE_OFF.
+                            static const bool mec147 =
+                                r11u147On("R11U147_ENUMCLONE_OFF");
+                            if (!mec147)
+                                eSyn147 = nullptr;
+                            if (eSyn147 && et9 && getenv("R11U147_TRACE"))
+                                fprintf(stderr, "R11U147_TRACE ENUMCLONE\n");
                             if (et9) {
                                 auto* cl9 = buildEnumTs(
-                                    *et9, nullptr,
+                                    *et9, eSyn147,
                                     std::string(mts->VpiName()));
                                 cl9->VpiName(mts->VpiName());
+                                if (mec147 && !mts->VpiFile().empty())
+                                    cl9->VpiFile(std::string(mts->VpiFile()));
                                 cl9->VpiLineNo(mts->VpiLineNo());
                                 cl9->VpiColumnNo(mts->VpiColumnNo());
                                 cl9->VpiEndLineNo(mts->VpiEndLineNo());
                                 cl9->VpiEndColumnNo(mts->VpiEndColumnNo());
+                                // ...its base typespec belongs to the home
+                                // package, as the import clone's does.
+                                if (mec147 && cl9->Base_typespec() &&
+                                    cl9->Base_typespec()->Actual_typespec())
+                                    cl9->Base_typespec()
+                                        ->Actual_typespec()
+                                        ->Instance(mts->Instance());
+                                // ...and the clone's base reference keeps the
+                                // home object's name (`ea::ea::st_e`).
+                                if (mec147 && cl9->Base_typespec())
+                                    if (auto* hb147 =
+                                            ((UHDM::enum_typespec*)mts)->Base_typespec();
+                                        hb147 && !hb147->VpiFullName().empty())
+                                        cl9->Base_typespec()->VpiFullName(
+                                            std::string(hb147->VpiFullName()));
                                 tm->Typespec()->Actual_typespec(cl9);
                                 mts = cl9;
                             }

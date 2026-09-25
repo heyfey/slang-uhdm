@@ -1,0 +1,85 @@
+surelog/default/Earlgrey_0_1 r11u147_wdP first=#6 line objects_differing=1755 (walk diverged)
+surelog/default/Earlgrey_0_1 r11u147_wdL first=#6 line objects_differing=1750 (walk diverged)
+surelog/testflags/Earlgrey_0_1 r11u147_wdP first=#6 line objects_differing=1755 (walk diverged)
+surelog/testflags/Earlgrey_0_1 r11u147_wdL first=#6 line objects_differing=1750 (walk diverged)
+surelog/default/GenForIfaceLocalparamBound r11u147_wdP first=#256 endcol objects_differing=5
+surelog/default/GenForIfaceLocalparamBound r11u147_wdL first=#256 endcol objects_differing=1
+surelog/testflags/GenForIfaceLocalparamBound r11u147_wdP first=#165 endcol objects_differing=5
+surelog/testflags/GenForIfaceLocalparamBound r11u147_wdL first=#165 endcol objects_differing=1
+surelog/default/GenForIfaceLocalparamNestedGen r11u147_wdP first=#469 endcol objects_differing=5
+surelog/default/GenForIfaceLocalparamNestedGen r11u147_wdL first=#469 endcol objects_differing=1
+surelog/testflags/GenForIfaceLocalparamNestedGen r11u147_wdP first=#378 endcol objects_differing=5
+surelog/testflags/GenForIfaceLocalparamNestedGen r11u147_wdL first=#378 endcol objects_differing=1
+surelog/default/YosysOldOr r11u147_wdP first=#53040 line objects_differing=593
+surelog/default/YosysOldOr r11u147_wdL first=#53040 line objects_differing=75
+surelog/testflags/YosysOldOr r11u147_wdP first=#53040 line objects_differing=593
+surelog/testflags/YosysOldOr r11u147_wdL first=#53040 line objects_differing=75
+uhdm2rtlil/default/ibex_alu r11u147_wdP first=#2449 fullname objects_differing=2
+uhdm2rtlil/default/ibex_alu r11u147_wdL first=#2449 fullname objects_differing=1
+uhdm2rtlil/testflags/ibex_alu r11u147_wdP first=#2442 fullname objects_differing=2
+uhdm2rtlil/testflags/ibex_alu r11u147_wdL first=#2442 fullname objects_differing=1
+uhdm2rtlil/default/ibex_compressed_decoder r11u147_wdP first=#2453 fullname objects_differing=134
+uhdm2rtlil/default/ibex_compressed_decoder r11u147_wdL first=#2453 fullname objects_differing=133
+uhdm2rtlil/testflags/ibex_compressed_decoder r11u147_wdP first=#2446 fullname objects_differing=134
+uhdm2rtlil/testflags/ibex_compressed_decoder r11u147_wdL first=#2446 fullname objects_differing=133
+uhdm2rtlil/default/ibex_decoder r11u147_wdP first=#2453 fullname objects_differing=21
+uhdm2rtlil/default/ibex_decoder r11u147_wdL first=#2453 fullname objects_differing=19
+uhdm2rtlil/testflags/ibex_decoder r11u147_wdP first=#2446 fullname objects_differing=21
+uhdm2rtlil/testflags/ibex_decoder r11u147_wdL first=#2446 fullname objects_differing=19
+uhdm2rtlil/default/ibex_icache r11u147_wdP first=#2453 fullname objects_differing=193
+uhdm2rtlil/default/ibex_icache r11u147_wdL first=#2453 fullname objects_differing=161
+uhdm2rtlil/testflags/ibex_icache r11u147_wdP first=#2446 fullname objects_differing=193
+uhdm2rtlil/testflags/ibex_icache r11u147_wdL first=#2446 fullname objects_differing=161
+uhdm2rtlil/default/ibex_multdiv_fast r11u147_wdP first=#2453 fullname objects_differing=102
+uhdm2rtlil/default/ibex_multdiv_fast r11u147_wdL first=#2453 fullname objects_differing=101
+uhdm2rtlil/testflags/ibex_multdiv_fast r11u147_wdP first=#2446 fullname objects_differing=102
+uhdm2rtlil/testflags/ibex_multdiv_fast r11u147_wdL first=#2446 fullname objects_differing=101
+surelog/default/FuncStructVal r11u147_wdP first=#747 endcol objects_differing=165 (walk diverged)
+surelog/default/FuncStructVal r11u147_wdL first=#747 endcol objects_differing=207 (walk diverged)
+surelog/testflags/FuncStructVal r11u147_wdP first=#746 endcol objects_differing=377 (walk diverged)
+surelog/testflags/FuncStructVal r11u147_wdL first=#746 endcol objects_differing=363 (walk diverged)
+surelog/default/FuncStructValSimple r11u147_wdP first=#117 file objects_differing=25 (walk diverged)
+surelog/default/FuncStructValSimple r11u147_wdL first=#117 file objects_differing=42
+surelog/testflags/FuncStructValSimple r11u147_wdP first=#116 file objects_differing=35 (walk diverged)
+surelog/testflags/FuncStructValSimple r11u147_wdL first=#116 file objects_differing=62
+surelog/default/StructParamFieldRange r11u147_wdP first=#157 endcol objects_differing=5 (walk diverged)
+surelog/default/StructParamFieldRange r11u147_wdL first=#157 endcol objects_differing=9
+surelog/default/StructParamFuncBodyFieldCompare r11u147_wdP first=#192 depth objects_differing=1 (walk diverged)
+surelog/default/StructParamFuncBodyFieldCompare r11u147_wdL first=#464 endcol objects_differing=17
+surelog/default/StructParamPatternInitCast r11u147_wdP first=#67 fullname objects_differing=2 (walk diverged)
+surelog/default/StructParamPatternInitCast r11u147_wdL first=#67 fullname objects_differing=17
+uhdm2rtlil/default/NestedStructArrayParameterInitializedByPatternPassedAsPort r11u147_wdP first=#443 fullname objects_differing=4
+uhdm2rtlil/default/NestedStructArrayParameterInitializedByPatternPassedAsPort r11u147_wdL first=#574 line objects_differing=2
+uhdm2rtlil/default/cva6_struct_param_field r11u147_wdP first=#157 endcol objects_differing=5 (walk diverged)
+uhdm2rtlil/default/cva6_struct_param_field r11u147_wdL first=#157 endcol objects_differing=9
+FuncStructVal first structural record: default #7595 -> #7975 (later), testflags #14385 -> #13254 (r11u151's R-D4, count 377 -> 363)
+r11u109repro/grid/f1/b01_casts | objects_differing=1 (walk diverged) | objects_differing=13
+r11u109repro/grid/f1/b02_shl | objects_differing=1 (walk diverged) | objects_differing=15
+r11u109repro/grid/f1/b03_x32 | objects_differing=1 (walk diverged) | objects_differing=15
+r11u109repro/grid/f1/b04_dec | objects_differing=1 (walk diverged) | objects_differing=15
+r11u109repro/grid/f1/c01_x64 | objects_differing=2 (walk diverged) | objects_differing=17
+r11u109repro/grid/f1/c02_x3 | objects_differing=2 (walk diverged) | objects_differing=13
+r11u109repro/grid/f1/c03_x8 | objects_differing=2 (walk diverged) | objects_differing=13
+r11u109repro/grid/f1/c04_x64cast | objects_differing=2 (walk diverged) | objects_differing=15
+r11u109repro/grid/f1/c05_x3sub | objects_differing=2 (walk diverged) | objects_differing=15
+r11u109repro/grid/f1/c06_x64plain | objects_differing=2 (walk diverged) | objects_differing=15
+r11u109repro/grid/f1/f02_xlen32 | objects_differing=5 (walk diverged) | objects_differing=9
+r11u109repro/grid/f1/f03_const_first | objects_differing=5 (walk diverged) | objects_differing=9
+r11u109repro/grid/f1/f04_const_after | objects_differing=5 (walk diverged) | objects_differing=9
+r11u109repro/grid/f1/f07_add | objects_differing=5 (walk diverged) | objects_differing=9
+r11u109repro/grid/f1/f08_shl | objects_differing=5 (walk diverged) | objects_differing=9
+r11u109repro/grid/f1/f09_unary | objects_differing=5 (walk diverged) | objects_differing=9
+r11u109repro/grid/f1/f11_vlen | objects_differing=5 (walk diverged) | objects_differing=9
+r11u109repro/grid/f1/f12_based | objects_differing=5 (walk diverged) | objects_differing=9
+r11u109repro/grid/f1/f17_param | objects_differing=5 (walk diverged) | objects_differing=9
+r11u109repro/grid/f1/f19_orcasts | objects_differing=5 (walk diverged) | objects_differing=9
+r11u109repro/grid/f1/f20_sub | objects_differing=5 (walk diverged) | objects_differing=9
+r11u109repro/grid/f1/f21_shlsub | objects_differing=5 (walk diverged) | objects_differing=11
+r11u109repro/grid/f1/f22_positional | objects_differing=5 (walk diverged) | objects_differing=9
+r11u109repro/grid/f1/f24_shladd | objects_differing=5 (walk diverged) | objects_differing=11
+r11u109repro/grid/f1/p01_base | objects_differing=5 (walk diverged) | objects_differing=9
+r11u109repro/grid/f1/p02_noread | objects_differing=5 (walk diverged) | objects_differing=9
+r11u109repro/grid/f1/p03_ready | objects_differing=5 (walk diverged) | objects_differing=10 (walk diverged)
+r11u109repro/grid/f1/p04_three | objects_differing=6 (walk diverged) | objects_differing=11
+r11u109repro/grid/f1/p05_reorder | objects_differing=5 (walk diverged) | objects_differing=9
+r11u109repro/grid/f1/p09_shift | objects_differing=5 (walk diverged) | objects_differing=13

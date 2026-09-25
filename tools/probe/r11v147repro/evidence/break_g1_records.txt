@@ -1,0 +1,11 @@
+# g1_bare_bound_vs: strict records, implementer law binary (d1b102e1) then fix1 (R11V147_GCABARE on)
+g1_bare_bound_vs law rc=0 cmp=0 | #169 fullname
+  A: 8	ref_typespec			work@top		0	0	0	0		0		
+  B: 8	ref_typespec			work@top.g[1].PP.PP		0	0	0	0		0		
+#208 fullname
+  A: 8	ref_typespec			work@top		0	0	0	0		0		
+  B: 8	ref_typespec			work@top.g[2].PP.PP		0	0	0	0		0		
+fields: fullname=2 objects_differing=2
+STRICT_NOTEQUAL fullname
+g1_bare_bound_vs fix1 rc=0 cmp=0 | STRICT_EQUAL 246 objects
+# law binary census: 2 GCAUSESITE firings; fix1: 0

@@ -1,0 +1,26 @@
+== canaries.sh law surelog
+  BlackParrotComplex             default   CHANGED STRICT_NOTEQUAL/differ:depth(1) -> CMP_EQUAL/equal
+  BlackParrotComplex             testflags CHANGED STRICT_NOTEQUAL/differ:depth(1) -> CMP_EQUAL/equal
+  FuncStructVal                  default   CHANGED STRICT_NOTEQUAL/differ:endcol(165) -> STRICT_NOTEQUAL/differ:endcol(207)
+  FuncStructVal                  testflags CHANGED STRICT_NOTEQUAL/differ:endcol(377) -> STRICT_NOTEQUAL/differ:endcol(363)
+  Earlgrey_0_1                   default   CHANGED STRICT_NOTEQUAL/differ:line(1755) -> STRICT_NOTEQUAL/differ:line(1750)
+  Earlgrey_0_1                   testflags CHANGED STRICT_NOTEQUAL/differ:line(1755) -> STRICT_NOTEQUAL/differ:line(1750)
+  YosysOldOr                     default   CHANGED STRICT_NOTEQUAL/differ:line(593) -> STRICT_NOTEQUAL/differ:line(75)
+  YosysOldOr                     testflags CHANGED STRICT_NOTEQUAL/differ:line(593) -> STRICT_NOTEQUAL/differ:line(75)
+---- canary rows: ok=44 changed=8 absent=0 unknown-names=7
+== canaries.sh pristine surelog
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+== canaries.sh law uhdm2rtlil
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+== canaries.sh pristine uhdm2rtlil
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+== ctcan2 surelog (EXPECT_UNKNOWN=1)
+  BlackUnicore                       default   OK       SURELOG_FAIL/
+  BlackUnicore                       testflags OK       SURELOG_FAIL/
+---- ctcan2 rows: ok=56 changed=2 absent=0 unknown-patterns=1
+FAIL: a supplementary canary moved.
+== ctcan2 uhdm2rtlil (EXPECT_UNKNOWN=6)
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+  ctcan2 surelog moved:   BlackParrotComplex                 default   CHANGED  STRICT_NOTEQUAL/differ:depth(1) -> CMP_EQUAL/equal
+  ctcan2 surelog moved:   BlackParrotComplex                 testflags CHANGED  STRICT_NOTEQUAL/differ:depth(1) -> CMP_EQUAL/equal

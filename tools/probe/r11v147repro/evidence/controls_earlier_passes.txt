@@ -1,0 +1,48 @@
+== r11u118repro: 0/56 movers
+== r11u119repro: 0/78 movers
+== r11u120repro: 0/44 movers
+== r11u121repro: 0/83 movers
+== r11u124repro: 0/81 movers
+== r11u125repro: 0/61 movers
+== r11u130repro: 0/98 movers
+== r11u131repro: 0/121 movers
+== r11u133repro: 0/50 movers
+== r11u140repro: 3/108 movers
+  MOVER r11u140repro/tdc/c01_pkg_struct rc=0/0 fires=[D2-def D2-elab ]
+  MOVER r11u140repro/tdc/c05_pkg_struct_qual rc=0/0 fires=[D2-elab ]
+  MOVER r11u140repro/tdc/c06_pkg_struct_unused rc=0/0 fires=[D2-def D2-elab ]
+== r11u143verify: 5/160 movers
+  MOVER r11u143verify/cases/fence_s3/f03_var_not_param rc=0/0 fires=[ENUMCLONE ]
+  MOVER r11u143verify/cases/fence_s3/f02_param_import_explicit rc=0/0 fires=[ENUMCLONE ]
+  MOVER r11u143verify/cases/fence_s3/f01_param_import_wild rc=0/0 fires=[ENUMCLONE ]
+  MOVER r11u143verify/cases/fence_s3/f04_scoped_ctl rc=0/0 fires=[ENUMCLONE ]
+  MOVER r11u143verify/cases/fence_s3/f05_nested_sub rc=0/0 fires=[ENUMCLONE ]
+== r11u144repro: 0/84 movers
+== r11u145repro: 0/52 movers
+== r11u148share: 0/47 movers
+== r11u149verify: 3/121 movers
+  MOVER r11u149verify/cases/tdc/n01_parameter_kw rc=0/0 fires=[D2-def D2-elab ]
+  MOVER r11u149verify/cases/tdc/n02_cast_expr rc=0/0 fires=[D2-def D2-elab ]
+  MOVER r11u149verify/cases/tdc/n03_enum_member rc=0/0 fires=[D2-def D2-elab ]
+== r11v11u118repro: 0/56 movers
+== r11v120repro: 0/47 movers
+== r11v124repro: 1/109 movers
+  NODB r11v124repro/pv/v14_string rc=3/3 fires=[]
+  NODB r11v124repro/qx/q08_string rc=3/3 fires=[]
+  MOVER r11v124repro/qx/q07_enumconst rc=0/0 fires=[ENUMQSPAN ]
+== r11v125repro: 0/48 movers
+== r11v130repro: 0/115 movers
+== r11v131repro: 0/128 movers
+== r11v133repro: 0/64 movers
+== r11v140repro: 9/129 movers
+  MOVER r11v140repro/plv/v13_iface_arr rc=0/0 fires=[IFTRAILIDX ]
+  MOVER r11v140repro/tdc/t01_union rc=0/0 fires=[D2-def D2-elab ]
+  MOVER r11v140repro/tdc/t03_in_op rc=0/0 fires=[D2-def ]
+  MOVER r11v140repro/tdc/t04_int_bits rc=0/0 fires=[D2-def ]
+  MOVER r11v140repro/tdc/t06_parameter_used_twice rc=0/0 fires=[D2-def D2-elab ]
+  MOVER r11v140repro/tdc/t09_forward_td rc=0/0 fires=[D2-def D2-elab ]
+  MOVER r11v140repro/tdc/t08_decl_after rc=0/0 fires=[D2-def D2-elab ]
+  MOVER r11v140repro/tdc/t10_two_pkgs rc=0/0 fires=[D2-def D2-elab ]
+  MOVER r11v140repro/tdc/t12_nested_struct rc=0/0 fires=[D2-def D2-elab ]
+== r11v145repro: 0/107 movers
+== v11u121repro: 0/41 movers

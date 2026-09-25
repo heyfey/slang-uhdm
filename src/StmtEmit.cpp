@@ -314,6 +314,19 @@ UHDM::process_stmt* UhdmExporter::emitProcess(const ProceduralBlockSymbol& block
     return proc;
 }
 
+// § nonblockingSelLhsBindsWholeRef151 — the NET half of question 3 for a
+// block that writes the name by a NONBLOCKING select: every DIRECT statement
+// lvalue select of a module net, first in statement order per block, and the
+// nets that have at least one such nonblocking write.
+static std::map<std::pair<int, const slang::ast::Symbol*>, UHDM::expr*>& selNetLhs151() {
+    static std::map<std::pair<int, const slang::ast::Symbol*>, UHDM::expr*> m;
+    return m;
+}
+static std::set<const slang::ast::Symbol*>& selNetNbVars151() {
+    static std::set<const slang::ast::Symbol*> v;
+    return v;
+}
+
 // See selTrackActive in the header. beginSelTrack activates per-body tracking
 // (no-op / returns false if already inside a tracked body, so only the
 // outermost owner back-patches).
@@ -321,6 +334,8 @@ bool UhdmExporter::beginSelTrack() {
     if (selTrackActive)
         return false;
     selTrackActive = true;
+    selNetLhs151().clear();       // § nonblockingSelLhsBindsWholeRef151
+    selNetNbVars151().clear();
     selFirstSelect.clear();
     selLhsSelVars.clear();
     selWholeRefs.clear();
@@ -489,6 +504,39 @@ void UhdmExporter::endSelTrack() {
         if (funcRetSym && wr.sym == funcRetSym)
             funcRetSelBound.insert(wr.ref);
     }
+    // § nonblockingSelLhsBindsWholeRef151 — UhdmWriter::lateBinding's
+    // `uhdmbegin` / `uhdmnamed_begin` arms (UhdmWriter.cpp:3551-3640) scan a
+    // block's DIRECT Stmts for the first `assignment` whose Lhs names the
+    // reference and is not a ref_obj / ref_var, and they never read
+    // VpiBlocking: a whole reference to a net that the net model above left
+    // on the NET binds the first such lvalue of the innermost block in its
+    // chain that has one, when the net is written by a NONBLOCKING select
+    // somewhere in the body (grid ARR a07 a13 a16 a18; the sibling-begin
+    // shape of unpacked_array_shift_ff / asicworld_serial_crc stays on the net
+    // because the chain never meets that block, a14; or1200's
+    // `addr_r <= {tag, addr_r[H:2], 2'd0}` stays on the net because its block
+    // holds no select lvalue of addr_r).  Switch: R11U151_ARRNB_OFF.
+    if (nonblockingSelLhsBindsWholeRef151On() && !selNetNbVars151().empty() &&
+        !(pkgImportCloneEmit || importCloneEmit || importCopyTsInst != nullptr))
+        for (auto& wr : selWholeRefs) {
+            if (!selNetNbVars151().count(wr.sym))
+                continue;
+            const UHDM::any* cur = wr.ref->Actual_group();
+            if (!cur || any_cast<const UHDM::nets*>(cur) == nullptr)
+                continue;
+            for (int sc : wr.chain) {
+                auto it = selNetLhs151().find({sc, wr.sym});
+                if (it == selNetLhs151().end())
+                    continue;
+                if (it->second != (const UHDM::expr*)cur) {
+                    wr.ref->Actual_group(it->second);
+                    trace151("ARRNB");
+                }
+                break;
+            }
+        }
+    selNetLhs151().clear();
+    selNetNbVars151().clear();
     selTrackActive = false;
     selFirstSelect.clear();
     selLhsSelVars.clear();
@@ -600,6 +648,15 @@ void UhdmExporter::noteLocalStmtSel122(const Expression& e, UHDM::any* obj,
         return;
     const Symbol* sym = &le->as<NamedValueExpression>().symbol;
     auto nit = netMap.find(sym);
+    // § nonblockingSelLhsBindsWholeRef151 — the same DIRECT-statement lvalue,
+    // of a module NET: recorded in its own registry (endSelTrack).
+    if (nit != netMap.end() && nonblockingSelLhsBindsWholeRef151On() &&
+        nit->second->UhdmType() == UHDM::uhdmlogic_net &&
+        lhs->VpiName() == sym->name) {
+        selNetLhs151().emplace(std::make_pair(selScopeStack.back().id, sym), lhs);
+        if (!((UHDM::assignment*)obj)->VpiBlocking())
+            selNetNbVars151().insert(sym);
+    }
     if (nit == netMap.end() || !localVarDecl122(nit->second))
         return;
     // Surelog matches `lhs->VpiName() == name`: a `this.v[0]` / `o.v[0]`

@@ -4189,6 +4189,13 @@ std::vector<std::pair<UHDM::ref_typespec*, const void*>>& pkgTdCast140Pending() 
     return v;
 }
 
+// § pkgTdCastTargetOwnView151 — the pending cast references that stand in a
+// DEFINITION package listing (bound to that listing's typedef by the drain).
+std::set<UHDM::ref_typespec*>& pkgTdCast151DefView() {
+    static std::set<UHDM::ref_typespec*> v;
+    return v;
+}
+
 std::vector<std::tuple<UHDM::ref_typespec*, std::string, uint32_t>>& r11u124CastTsFiles() {
     static std::vector<std::tuple<UHDM::ref_typespec*, std::string, uint32_t>> v;
     return v;
@@ -8958,6 +8965,211 @@ static void baseSelOpIdxNames145(const std::string& prefix, const UHDM::hier_pat
         }
     };
     nm(ix);
+}
+
+// r11u147 census: `R11U147_TRACE=1` prints one stderr line per law firing
+// (tools/probe/r11u147repro/drivers/census.sh predicts the movers with it).
+static void trace147(const char* law) {
+    static const bool on = getenv("R11U147_TRACE") != nullptr;
+    if (on)
+        fprintf(stderr, "R11U147_TRACE %s\n", law);
+}
+
+// § ifaceMemberTrailIdxNamesByPath147 — § hpTrailSelIdxNamesByPath133's rule
+// holds on the DOTTED interface-member element select too (`sub.ben[s]`,
+// `sub.req.arr[i]` through an interface port or instance): the index object
+// under the trailing bit_select is named `<scope>.<path>.<name>`, a reference
+// under an operation index `<scope>.<path>.<leaf>.<name>` (golden
+// GenForIfaceLocalparamBound `work@top.c.g[0].sub.ben[i].i`; a module-body
+// continuous assignment, a process and a function body alike:
+// `work@child.sub.ben[s].s`, `work@child.f.sub.ben[k].k`).  The builder only
+// named the gen-scope PROCESS form; every other context kept the scope's
+// `work@top.c.g[0].i`.  Grid tools/probe/r11u147repro/tsi.  Switch:
+// R11U147_IFTRAILIDX_OFF.
+static void ifaceTrailIdxNames147(UHDM::bit_select* bs, const std::string& prefix,
+                                  const UHDM::hier_path* hp) {
+    static const bool on = r11u147On("R11U147_IFTRAILIDX_OFF");
+    if (!on || !bs || !hp || !bs->VpiIndex() || hp->VpiName().empty())
+        return;
+    const std::string base = joinRef(prefix, hp->VpiName());
+    std::function<void(UHDM::any*, bool)> nm = [&](UHDM::any* e, bool direct) {
+        if (!e)
+            return;
+        if (e->UhdmType() == UHDM::uhdmref_obj) {
+            auto* r = (UHDM::ref_obj*)e;
+            trace147("IFTRAILIDX");
+            r->VpiFullName(direct ? joinRef(base, r->VpiName())
+                                  : joinRef(joinRef(base, bs->VpiName()), r->VpiName()));
+        }
+        else if (e->UhdmType() == UHDM::uhdmoperation) {
+            if (auto* os = ((UHDM::operation*)e)->Operands())
+                for (auto* o : *os)
+                    if (o && o->VpiParent() == e)
+                        nm(o, false);
+        }
+    };
+    auto* ix = (UHDM::any*)bs->VpiIndex();
+    if (ix->VpiParent() == bs)
+        nm(ix, true);
+}
+
+// § nestedDefaultPatLoc147 — A NESTED `default:` PATTERN KEEPS ITS LOCATIONS.
+// `'{default: '{default: 0}}` (SelectFromUnpackedInFunction's `logic [2:0] a
+// [3:0]` initializer, a procedural assignment alike): golden locates the outer
+// `default:` tagged_pattern at its VALUE (`'{default: 0}`, 6:37-50) and the
+// inner pattern's `default` string_typespec at the inner key (6:39-46), as it
+// does for a flat `'{default: 0}`.  Ours left both unlocated: the bound
+// default setter reaches the pattern case without its written syntax.  The
+// outer pattern's syntax supplies both; only a MISSING location is filled.
+// Grid tools/probe/r11u147repro/dfp.  Switch: R11U147_NESTDEFLOC_OFF.
+static const slang::syntax::ExpressionSyntax* nestedDefaultValueSyntax147(
+    const slang::syntax::StructuredAssignmentPatternSyntax* psyn) {
+    static const bool on = r11u147On("R11U147_NESTDEFLOC_OFF");
+    if (!on || !psyn)
+        return nullptr;
+    for (auto item : psyn->items) {
+        if (item->kind != slang::syntax::SyntaxKind::AssignmentPatternItem)
+            continue;
+        auto& it = item->as<slang::syntax::AssignmentPatternItemSyntax>();
+        if (it.key->kind != slang::syntax::SyntaxKind::DefaultPatternKeyExpression)
+            continue;
+        if (it.expr && it.expr->kind ==
+                           slang::syntax::SyntaxKind::AssignmentPatternExpression)
+            return it.expr;
+        return nullptr;
+    }
+    return nullptr;
+}
+
+static void nestedDefaultTsLoc147(
+    UHDM::any* e, const slang::syntax::ExpressionSyntax* esyn,
+    const std::function<void(UHDM::BaseClass*, slang::SourceRange)>& gSetLoc147) {
+    if (!e || !esyn || e->UhdmType() != UHDM::uhdmoperation ||
+        esyn->kind != slang::syntax::SyntaxKind::AssignmentPatternExpression)
+        return;
+    const slang::syntax::AssignmentPatternSyntax* pat =
+        esyn->as<slang::syntax::AssignmentPatternExpressionSyntax>().pattern;
+    if (!pat || pat->kind != slang::syntax::SyntaxKind::StructuredAssignmentPattern)
+        return;
+    auto& ps = pat->as<slang::syntax::StructuredAssignmentPatternSyntax>();
+    const slang::syntax::AssignmentPatternItemSyntax* dItem = nullptr;
+    for (auto item : ps.items) {
+        if (item->kind != slang::syntax::SyntaxKind::AssignmentPatternItem)
+            continue;
+        auto& it = item->as<slang::syntax::AssignmentPatternItemSyntax>();
+        if (it.key->kind == slang::syntax::SyntaxKind::DefaultPatternKeyExpression)
+            dItem = &it;
+    }
+    if (!dItem)
+        return;
+    auto* ops = ((UHDM::operation*)e)->Operands();
+    if (!ops)
+        return;
+    for (auto* o : *ops) {
+        if (!o || o->UhdmType() != UHDM::uhdmtagged_pattern)
+            continue;
+        auto* tp = (UHDM::tagged_pattern*)o;
+        auto* rt = tp->Typespec();
+        auto* ts = rt ? rt->Actual_typespec() : nullptr;
+        if (!ts || ts->UhdmType() != UHDM::uhdmstring_typespec ||
+            ts->VpiName() != "default")
+            continue;
+        if (!ts->VpiLineNo())
+            gSetLoc147((UHDM::any*)ts, dItem->key->sourceRange());
+        if (!tp->VpiLineNo())
+            gSetLoc147((UHDM::any*)tp, dItem->expr->sourceRange());
+        nestedDefaultTsLoc147((UHDM::any*)tp->Pattern(), dItem->expr, gSetLoc147);
+    }
+}
+
+// § gcaUseSiteParamConst147 — IN A TOP-LEVEL LOOP-GENERATE CONTINUOUS
+// ASSIGNMENT, TWO READ POSITIONS OF A MODULE PARAMETER ARE USE-SITE CONSTANTS.
+// The loop window (§ genCaLoopParamFold) hands back the parameter's own
+// elaborated constant, parented at its param_assign and named by the
+// instance — golden's form for an arithmetic operand (§ unaryOperand-
+// ParamOwnerName145's controls).  Two positions are compiled fresh at the use
+// site instead, parented there and named through it (golden multiplier
+// Multiplier_2D): a read inside a REPLICATION count (`{(N-i){1'b0}}`:
+// `work@Multiplier_2D.addPartialProduct[1]`, ours `work@Multiplier_2D`) and a
+// read inside the bound of a part-select that trails a var_select
+// (`PP[i-1][M+i-1:0]`: `...addPartialProduct[1].PP.PP`).  Grid
+// tools/probe/r11u147repro/mul.  Switch: R11U147_GCAUSESITE_OFF.
+static bool gcaUseSiteParamRead147(const Expression& e, const UHDM::any* parent) {
+    static const bool on = r11u147On("R11U147_GCAUSESITE_OFF");
+    if (!on)
+        return false;
+    // (a) the replication count, read from the syntax: the read must sit
+    // INSIDE an operation of the count (`{(N-i){..}}`, `{N-i{..}}`); a bare
+    // or parenthesized-bare count (`{M{B[i]}}`, `{(N){..}}`) is the
+    // parameter's own constant, named by the instance (golden multiplier
+    // Multiplier_flat `{M{B[i]}}`: `work@Multiplier_flat`).
+    const slang::syntax::SyntaxNode* child = e.syntax;
+    bool inOp147 = false;
+    for (const slang::syntax::SyntaxNode* p = child ? child->parent : nullptr; p;
+         child = p, p = p->parent) {
+        if (p->kind == slang::syntax::SyntaxKind::MultipleConcatenationExpression &&
+            (const slang::syntax::SyntaxNode*)p
+                    ->as<slang::syntax::MultipleConcatenationExpressionSyntax>()
+                    .expression == child)
+            return inOp147;
+        if (p->kind == slang::syntax::SyntaxKind::ContinuousAssign)
+            break;
+        if (p->kind != slang::syntax::SyntaxKind::ParenthesizedExpression)
+            inOp147 = true;
+    }
+    // (b) the bound of a part-select trailing a var_select — an unqualified
+    // one: a package-qualified base (`q41::A[g][DW-1:0]`) names its bound
+    // references with the scoped spelling (golden `q41::A::q41::A::q41::A`,
+    // § pkgQualPsRtFull118v's residue), which this law does not model.
+    // § gcaBareBoundKeepsInst147v (the verifier's refinement): as in (a),
+    // only a read INSIDE AN OPERATION of the bound is compiled at the use
+    // site; a BARE bound (`PP[i-1][M:0]`, `PP[i][M:1]`) is the parameter's
+    // own constant named by the instance in golden (`work@top`), which the
+    // unrefined law renamed `work@top.g[1].PP.PP` (pristine-right ->
+    // patched-wrong, tools/probe/r11v147repro brk/mul/g1 g7).  Switch:
+    // R11V147_GCABARE_OFF.
+    static const bool bare147v = r11u147On("R11V147_GCABARE_OFF");
+    const UHDM::any* q = parent;
+    bool viaOp147v = false;
+    while (q && q->UhdmType() == UHDM::uhdmoperation) {
+        q = q->VpiParent();
+        viaOp147v = true;
+    }
+    if (bare147v && !viaOp147v)
+        return false;
+    return q && q->UhdmType() == UHDM::uhdmpart_select && q->VpiParent() &&
+           q->VpiParent()->UhdmType() == UHDM::uhdmvar_select &&
+           q->VpiParent()->VpiName().find("::") == std::string_view::npos;
+}
+
+// § firstOrderedConnBitSelWhole147 — THE FIRST ORDERED PORT CONNECTION'S
+// BIT-SELECT SPANS THE WHOLE SELECT.  A high-conn bit_select is anchored at
+// its index expression like every rvalue select, except in the FIRST position
+// of an ordered connection list of two or more: golden multiplier `FullAdder
+// unit(A[i],B[i],...)` puts `A[i]` at 124:20-24 and `B[i]` at its index
+// (grid `add u(X[0], Y[0], Z[0])`: X whole, Y/Z index; `add u(c, B[1], ..)`:
+// B index; named connections: index; a single ordered connection `buf1
+// u(A[1])`: index).  Grid tools/probe/r11u147repro/pos.
+// Switch: R11U147_FIRSTPOS_OFF.
+static bool firstOrderedConnSel147(const Expression& e, const UHDM::any* parent) {
+    static const bool on = r11u147On("R11U147_FIRSTPOS_OFF");
+    if (!on || !parent || parent->UhdmType() != UHDM::uhdmport || !e.syntax)
+        return false;
+    // The written expression sits under the connection's property-expression
+    // wrappers (SimpleSequenceExpr, SimplePropertyExpr).
+    const slang::syntax::SyntaxNode* oc = e.syntax->parent;
+    while (oc && (oc->kind == slang::syntax::SyntaxKind::SimpleSequenceExpr ||
+                  oc->kind == slang::syntax::SyntaxKind::SimplePropertyExpr))
+        oc = oc->parent;
+    if (!oc || oc->kind != slang::syntax::SyntaxKind::OrderedPortConnection)
+        return false;
+    const slang::syntax::SyntaxNode* hi = oc->parent;
+    if (!hi || hi->kind != slang::syntax::SyntaxKind::HierarchicalInstance)
+        return false;
+    auto& conns = hi->as<slang::syntax::HierarchicalInstanceSyntax>().connections;
+    // ...of a list of SEVERAL connections: a single ordered connection
+    // (`buf1 u(A[1])`, ExplicitPorts `a a3(a[1])`) keeps the index span.
+    return conns.size() > 1 && (const slang::syntax::SyntaxNode*)conns[0] == oc;
 }
 
 UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
@@ -18390,6 +18602,36 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                             : v.rfind("INT:", 0) == 0 ? vpiIntConst
                                                                       : vpiUIntConst);
                             setLoc(c, expr.sourceRange);
+                            // § enumQualDefaultDefSpan147 — § pkgQualFoldSpan-
+                            // ByView124's rule holds for a qualified ENUM
+                            // constant too: a module DEFINITION listing's
+                            // parameter default written `pk::B` folds at the
+                            // qualifier with its colons (golden ibex_alu
+                            // `RV32B = ibex_pkg::RV32BNone` 10:39-49; the
+                            // elaborated instance keeps the whole reference).
+                            // Grid tools/probe/r11u147repro/qen.  Switch:
+                            // R11U147_ENUMQSPAN_OFF.
+                            {
+                                static const bool on147 =
+                                    r11u147On("R11U147_ENUMQSPAN_OFF");
+                                if (on147 && inParamInit && paramInitDef &&
+                                    parent &&
+                                    parent->UhdmType() ==
+                                        UHDM::uhdmparam_assign &&
+                                    expr.syntax &&
+                                    expr.syntax->kind ==
+                                        syntax::SyntaxKind::ScopedName) {
+                                    std::string rq147(rawText(expr.sourceRange));
+                                    auto qp147 = rq147.rfind("::");
+                                    if (qp147 != std::string::npos) {
+                                        setLoc(c, SourceRange(
+                                                      expr.sourceRange.start(),
+                                                      expr.sourceRange.start() +
+                                                          (qp147 + 2)));
+                                        trace147("ENUMQSPAN");
+                                    }
+                                }
+                            }
                             if (!suppressConstParent && parent &&
                                 parent->UhdmType() == UHDM::uhdmoperation)
                                 c->VpiParent(parent);
@@ -19058,7 +19300,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // available.
                     UHDM::param_assign* pa9 = nullptr;
                     const UHDM::module_inst* mi9 = nullptr;
-                    if (!inPsBound) {
+                    // § gcaUseSiteParamConst147 — see gcaUseSiteParamRead147.
+                    const bool useSite147 =
+                        genCaLoopParamFold && gcaUseSiteParamRead147(expr, parent);
+                    if (useSite147)
+                        trace147("GCAUSESITE");
+                    if (!inPsBound && !useSite147) {
                         const UHDM::BaseClass* mw9 = parent;
                         while (mw9 &&
                                mw9->UhdmType() != UHDM::uhdmmodule_inst)
@@ -19143,7 +19390,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // g1_enc105 / g2_pos105 / g3_sel105 and recorded as residue
                     // R1 rather than half-copied.
                     if (outerParam9 && (inPsBound || pa9 || caLoopSelPos21 ||
-                                        loopPlainNew105))
+                                        loopPlainNew105 || useSite147))
                         if (auto pit5 = elabParamPa.find(&nv.symbol);
                             pit5 != elabParamPa.end() && pit5->second)
                             if (auto* pr5 = pit5->second->Rhs();
@@ -19280,7 +19527,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // clone says whenever the override was written in another
                     // base.
                     if (outerParam9 && (!loopPlainNew105 || encSrc105) &&
-                        (inPsBound || pa9 || caLoopSelPos21 ||
+                        (inPsBound || pa9 || caLoopSelPos21 || useSite147 ||
                          (loopPlainNew105 && encSrc105)) &&
                         cvL9.isInteger() && !cvL9.integer().hasUnknown()) {
                         auto* c9 = s.MakeConstant();
@@ -22778,7 +23025,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 else if (pkgTypedefCastTargetTs140On() && pkgScopeInst &&
                          !currentSubSym && expr.type &&
                          expr.type->kind == SymbolKind::TypeAlias &&
-                         !typedefTs.count(expr.type) &&
+                         // § pkgTdCastTargetOwnView151 — the ELABORATED
+                         // package listing defers too (the definition listing
+                         // already registered the typedef in `typedefTs`), so
+                         // the drain can bind it to that listing's own typedef.
+                         (!typedefTs.count(expr.type) ||
+                          (pkgTdCastTargetOwnView151On() && pkgEmitTopView)) &&
                          [&] {
                              auto k140 = expr.type->getCanonicalType().kind;
                              if (k140 != SymbolKind::PackedStructType &&
@@ -22806,6 +23058,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                              rt140->VpiParent(op);
                              op->Typespec(rt140);
                              pkgTdCast140Pending().emplace_back(rt140, (const void*)&ta140);
+                             // § pkgTdCastTargetOwnView151 — remember which
+                             // listing the reference stands in.  Only the BARE
+                             // spelling (`cfg_t'(0)`) resolves in the compile's
+                             // own DataType map; a qualified `p::cfg_t'(0)`
+                             // resolves through the design's package, the
+                             // elaborated one, in both listings (grid D2 d05).
+                             if (!pkgEmitTopView &&
+                                 cesyn.left->kind == syntax::SyntaxKind::IdentifierName)
+                                 pkgTdCast151DefView().insert(rt140);
+                             if (pkgEmitTopView && typedefTs.count(expr.type))
+                                 trace151("D2-elab");
                              deferredCast = true;
                              return true;
                          }()) {
@@ -23679,6 +23942,45 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 "UINT:" +
                                 pv.integer().toString(LiteralBase::Decimal, false));
                             cts = its;
+                        }
+                    }
+                    // § hierSizeCastBaseStructTs151 — a size cast whose
+                    // width is a MEMBER of a struct-typed parameter
+                    // (`Cfg.XLEN'(1)`) takes the PARAMETER's own struct
+                    // typespec as its cast type: Surelog's cast-type compile
+                    // resolves the dotted name's base and keeps its typespec
+                    // (golden StructParamPatternInitCast /
+                    // StructParamFuncBodyFieldCompare: struct_typespec cfg_t,
+                    // stamped, where ours minted an integer_typespec carrying
+                    // the hier_path).  The package typedef's elaborated
+                    // typespec is the object (typespec identity is outside
+                    // the strict contract).  Switch: R11U151_DCAST_OFF (and
+                    // R11U151_D_OFF).
+                    if (!cts && hierSizeCastBaseStructTs151On()) {
+                        const Expression* b151 = &seCore;
+                        while (b151->kind == ExpressionKind::MemberAccess)
+                            b151 = &stripImplicitConv(
+                                b151->as<MemberAccessExpression>().value());
+                        if (b151 != &seCore &&
+                            b151->kind == ExpressionKind::NamedValue &&
+                            b151->as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter) {
+                            auto& pt151 = b151->as<NamedValueExpression>()
+                                              .symbol.as<ParameterSymbol>()
+                                              .getType();
+                            if (pt151.kind == SymbolKind::TypeAlias &&
+                                pt151.getCanonicalType().kind ==
+                                    SymbolKind::PackedStructType) {
+                                auto& ta151 = pt151.as<TypeAliasType>();
+                                if (auto it151 = pkgTopTypedefTs.find((const void*)&ta151);
+                                    it151 != pkgTopTypedefTs.end() && it151->second)
+                                    cts = it151->second;
+                                else if (auto jt151 = typedefTs.find(&ta151);
+                                         jt151 != typedefTs.end() && jt151->second)
+                                    cts = jt151->second;
+                                if (cts)
+                                    trace151("DCAST");
+                            }
                         }
                     }
                     if (!cts) {
@@ -30758,6 +31060,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     varSelIdxDepth--;
                     forceConstParent = savedFCP;
                     vs->Exprs(idxs);
+                    // § blockLhsVarSelBindsWholeRef151 — a var_select Lhs is
+                    // a select Lhs like any other for the block's whole refs
+                    // (the bit_select rule below: a net written by a BLOCKING
+                    // procedural assignment, or a formal).
+                    if (blockLhsVarSelBindsWholeRef151On() && qb41.empty())
+                        if (auto nit151 = netMap.find(&nv2.symbol); nit151 != netMap.end()) {
+                            bool note151 = nit151->second->UhdmType() == UHDM::uhdmio_decl;
+                            if (!note151 && inLhs &&
+                                nit151->second->UhdmType() == UHDM::uhdmlogic_net && parent &&
+                                parent->UhdmType() == UHDM::uhdmassignment &&
+                                ((UHDM::assignment*)parent)->VpiBlocking())
+                                note151 = true;
+                            if (note151) {
+                                trace151("ARR");
+                                noteSelectObj(&nv2.symbol, vs);
+                            }
+                        }
                     return vs;
                 }
                 // Nested selects whose leaf is a member access (bar.l[2][1])
@@ -30995,6 +31314,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // § hpNameBareIdxFold69 — decompileHelper renders a select bound
                         // the compiler REDUCED by its VALUE, not by its spelling.
                         hpNameBareIdxFold69(hp);
+                        // § ifaceMemberTrailIdxNamesByPath147 — every context
+                        // but the gen-scope process (named above).
+                        if (!inGenScopeProc)
+                            ifaceTrailIdxNames147(bs2, prefix, hp);
                         return hp;
                     }
                 }
@@ -31074,8 +31397,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // PARAM-INIT selects span the WHOLE select (func_upto's
             // localparam !(SWAPS[0]) chains); other RHS selects keep the
             // selector span.
-            setLoc(bs, (inLhs || inParamInit) ? expr.sourceRange
-                                              : es.selector().sourceRange);
+            // § lvIdxBitSelAtIndex147 — ...but a bit_select NESTED in the
+            // lvalue's own select indices (`w[0][b[1]] = ..`, `w[0][b[1] +:
+            // 2] = ..`, `w[0][{b[2], 2'b00}+:4] = ..`) is a read, and golden
+            // anchors it at its index like any rvalue (latch_packed_dyn_write
+            // 47:32-33).  Grid tools/probe/r11u147repro/ipb.  Switch:
+            // R11U147_LVIDXBS_OFF.
+            const bool lvIdx147 = inLhs && !inParamInit &&
+                                  lvIdxBitSelAtIndex147(parent);
+            // § firstOrderedConnBitSelWhole147 (helper above emitMixedHierPath).
+            const bool firstPos147 = firstOrderedConnSel147(expr, parent);
+            if (lvIdx147)
+                trace147("LVIDXBS");
+            if (firstPos147)
+                trace147("FIRSTPOS");
+            setLoc(bs, ((inLhs && !lvIdx147) || inParamInit || firstPos147)
+                           ? expr.sourceRange
+                           : es.selector().sourceRange);
             // ELAB gen-scope CONN index FOLD: an index OPERATION that is
             // constant after genvar substitution (CC[i+1] in a for-generate
             // body) collapses to ONE UINT constant spanning the FIRST source
@@ -31443,9 +31781,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // HEAD's own site (prim_keccak
                         // `theta_data[x][y][0+:ShiftAmt]` — a var_select with
                         // two indices and a trailing indexed_part_select).
+                        // § vsIpsBaseNamesByIps147 — a NON-BARE base (an
+                        // operation, a bit_select) under a var_select's
+                        // trailing indexed_part_select names its references
+                        // through the ips (UHDM ComputeFullName keeps the ips,
+                        // whose own name doubles the base): golden
+                        // latch_packed_dyn_write `wr_be[0][{bit_i[2],
+                        // 2'b00}+:4]` -> `...wr_be.wr_be.bit_i`, ours the
+                        // var_select's `...wr_be.bit_i`.  A bare reference base
+                        // (`w[0][k +: 2]`) keeps the var_select's name in
+                        // golden too.  Grid tools/probe/r11u147repro/ipb.
+                        // Switch: R11U147_VSIPSBASE_OFF.
+                        const std::string ipsBasePfx147 =
+                            (vsIpsBaseNamesByIps147On() &&
+                             stripImplicitConv(rs.left()).kind !=
+                                 ExpressionKind::NamedValue)
+                                ? std::string(ips->VpiFullName())
+                                : baseFull;
+                        if (ipsBasePfx147 != baseFull)
+                            trace147("VSIPSBASE");
                         if (auto* bf47 = genLpUseFoldBound47(rs.left(), prefix))
                             ips->Base_expr(bf47);
-                        else if (auto* b = emitExpr(rs.left(), ips, baseFull, netMap))
+                        else if (auto* b = emitExpr(rs.left(), ips, ipsBasePfx147, netMap))
                             ips->Base_expr((UHDM::expr*)b);
                         suppressConstParent = isLiteralExpr(rs.right());
                         if (auto* wf47 = genLpUseFoldBound47(rs.right(), prefix))
@@ -31456,6 +31813,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         idxs->push_back(ips);
                     }
                     vs->Exprs(idxs);
+                    // § blockLhsVarSelBindsWholeRef151 — SITE 2 of 2: the
+                    // var_select whose last index is a (indexed_)part_select
+                    // (`pa[0][1:0] = a;`, grid ARR a17: golden binds the
+                    // block's `pb = pa` to it).
+                    if (blockLhsVarSelBindsWholeRef151On() && qb41.empty())
+                        if (auto nit151 = netMap.find(&nvb.symbol); nit151 != netMap.end()) {
+                            bool note151 = nit151->second->UhdmType() == UHDM::uhdmio_decl;
+                            if (!note151 && inLhs &&
+                                nit151->second->UhdmType() == UHDM::uhdmlogic_net && parent &&
+                                parent->UhdmType() == UHDM::uhdmassignment &&
+                                ((UHDM::assignment*)parent)->VpiBlocking())
+                                note151 = true;
+                            if (note151) {
+                                trace151("ARR");
+                                noteSelectObj(&nvb.symbol, vs);
+                            }
+                        }
                     return vs;
                 }
             }
@@ -36050,10 +36424,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto* tp = s.MakeTagged_pattern();
                     tp->VpiParent(op);
                     setLoc(tp, ap.defaultSetter->sourceRange);
+                    // § nestedDefaultPatLoc147 — the syntax of a `default:`
+                    // value that is itself an assignment pattern
+                    // (`'{default: '{default: 0}}`); see below.
+                    const syntax::ExpressionSyntax* dvSyn147 =
+                        nestedDefaultValueSyntax147(psyn);
+                    if (dvSyn147)
+                        trace147("NESTDEFLOC");
+                    if (dvSyn147 && !tp->VpiLineNo())
+                        setLoc(tp, dvSyn147->sourceRange());
                     bool sup0 = suppressConstParent, fcp0 = forceConstParent;
                     suppressConstParent = true;
                     forceConstParent = false;
                     if (auto* e = emitExpr(*ap.defaultSetter, op, prefix, netMap)) {
+                        if (dvSyn147)
+                            nestedDefaultTsLoc147(
+                                (UHDM::any*)e, dvSyn147,
+                                [this](UHDM::BaseClass* o, SourceRange r) {
+                                    setLoc(o, r);
+                                });
                         // PKG def pattern constants size at INT width
                         // (Surelog).
                         if (!paramInitDef && prefix.size() >= 2 &&

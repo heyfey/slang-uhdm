@@ -1,0 +1,67 @@
+ARR/a01_unpacked2d                 | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_EQUAL 109 objects
+ARR/a02_packed_bitsel              | rc=0 cmp=0 | STRICT_EQUAL 100 objects            | rc=0 cmp=0 | STRICT_EQUAL 100 objects
+ARR/a03_lhs_after_read             | rc=0 cmp=0 | STRICT_EQUAL 68 objects             | rc=0 cmp=0 | STRICT_EQUAL 68 objects
+ARR/a04_lhs_nested_if              | rc=0 cmp=0 | STRICT_EQUAL 97 objects             | rc=0 cmp=0 | STRICT_EQUAL 97 objects
+ARR/a05_named_begin                | rc=0 cmp=0 | STRICT_EQUAL 100 objects            | rc=0 cmp=0 | STRICT_EQUAL 100 objects
+ARR/a06_whole_then_sel             | rc=0 cmp=0 | STRICT_EQUAL 74 objects             | rc=0 cmp=0 | STRICT_EQUAL 74 objects
+ARR/a07_ff_nonblocking             | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_EQUAL 87 objects
+ARR/a08_function_body              | rc=0 cmp=0 | STRICT_EQUAL 130 objects            | rc=0 cmp=0 | STRICT_EQUAL 130 objects
+ARR/a09_if_cond                    | rc=0 cmp=0 | STRICT_EQUAL 79 objects             | rc=0 cmp=0 | STRICT_EQUAL 79 objects
+ARR/a10_unpacked1d                 | rc=0 cmp=0 | STRICT_EQUAL 96 objects             | rc=0 cmp=0 | STRICT_EQUAL 96 objects
+ARR/a11_partsel                    | rc=0 cmp=0 | STRICT_EQUAL 111 objects            | rc=0 cmp=0 | STRICT_EQUAL 111 objects
+ARR/a12_cross_name                 | rc=0 cmp=0 | STRICT_EQUAL 106 objects            | rc=0 cmp=0 | STRICT_EQUAL 106 objects
+ARR/a13_nb_varsel                  | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_EQUAL 111 objects
+ARR/a14_nb_sibling_begin           | rc=0 cmp=0 | STRICT_EQUAL 163 objects            | rc=0 cmp=0 | STRICT_EQUAL 163 objects
+ARR/a15_nb_else_begin              | rc=0 cmp=0 | STRICT_EQUAL 116 objects            | rc=0 cmp=0 | STRICT_EQUAL 116 objects
+ARR/a16_nb_lfsr                    | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_EQUAL 117 objects
+ARR/a17_varsel_range               | rc=0 cmp=0 | STRICT_EQUAL 147 objects            | rc=0 cmp=0 | STRICT_EQUAL 147 objects
+ARR/a18_nb_initial                 | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_EQUAL 55 objects
+ARR/a19_nb_read_select             | rc=0 cmp=0 | STRICT_EQUAL 149 objects            | rc=0 cmp=0 | STRICT_EQUAL 149 objects
+ARR/a20_nb_select_after_whole      | rc=0 cmp=58 | NOT_EQUAL stage1                   | rc=0 cmp=0 | STRICT_EQUAL 93 objects
+ARR/a21_blk_read_select            | rc=0 cmp=0 | STRICT_EQUAL 158 objects            | rc=0 cmp=0 | STRICT_EQUAL 158 objects
+C3/c01_flat_port                   | rc=0 cmp=0 | STRICT_NOTEQUAL line                | rc=0 cmp=0 | STRICT_NOTEQUAL line
+C3/c02_nested_port                 | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_NOTEQUAL line
+C3/c03_two_inst                    | rc=0 cmp=0 | STRICT_NOTEQUAL line                | rc=0 cmp=0 | STRICT_NOTEQUAL line
+C3/c04_deep_inst                   | rc=0 cmp=0 | STRICT_NOTEQUAL line                | rc=0 cmp=0 | STRICT_NOTEQUAL line
+C3/c05_nested_import_only          | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 289 objects
+C3/c06_two_elem_ctl                | rc=0 cmp=136 | NOT_EQUAL stage1                  | rc=0 cmp=136 | NOT_EQUAL stage1
+D2/d01_cast_and_func               | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+D2/d02_cast_only                   | rc=0 cmp=0 | STRICT_EQUAL 152 objects            | rc=0 cmp=0 | STRICT_EQUAL 152 objects
+D2/d03_union                       | rc=0 cmp=96 | NOT_EQUAL stage1                   | rc=0 cmp=96 | NOT_EQUAL stage1
+D2/d04_two_casts                   | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+D2/d05_qual_spelling               | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+D2/d06_mod_default                 | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_EQUAL 328 objects
+D2/d07_cross_pkg                   | rc=0 cmp=96 | NOT_EQUAL stage1                   | rc=0 cmp=96 | NOT_EQUAL stage1
+D2/d08_func_first                  | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+D/e01_mod_qual_call                | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+D/e02_mod_import_call              | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_NOTEQUAL line
+D/e03_pkg_holder_bare              | rc=0 cmp=46 | NOT_EQUAL stage1                   | rc=0 cmp=46 | NOT_EQUAL stage1
+D/e04_pkg_holder_qual              | rc=0 cmp=30 | NOT_EQUAL stage1                   | rc=0 cmp=30 | NOT_EQUAL stage1
+D/e05_mod_qual_plainlit            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+D/e06_mod_qual_wide                | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_EQUAL 252 objects
+D/e07_mod_qual_opmember            | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+DEFPAT/p01_defaultpatternint       | rc=0 cmp=0 | STRICT_NOTEQUAL type                | rc=0 cmp=0 | STRICT_NOTEQUAL type
+DEFPAT/p02_import_read             | rc=0 cmp=34 | NOT_EQUAL stage1                   | rc=0 cmp=34 | NOT_EQUAL stage1
+DEFPAT/p03_module_local_ctl        | rc=0 cmp=0 | STRICT_NOTEQUAL file                | rc=0 cmp=0 | STRICT_NOTEQUAL file
+DEFPAT/p04_three_elems             | rc=0 cmp=34 | NOT_EQUAL stage1                   | rc=0 cmp=34 | NOT_EQUAL stage1
+DEFPAT/p05_explicit_import         | rc=0 cmp=34 | NOT_EQUAL stage1                   | rc=0 cmp=34 | NOT_EQUAL stage1
+DEFPAT/p06_unsized_ones            | rc=0 cmp=34 | NOT_EQUAL stage1                   | rc=0 cmp=34 | NOT_EQUAL stage1
+G2/h01_sub_concat                  | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_NOTEQUAL file
+G2/h02_sub_pattern                 | rc=0 cmp=0 | STRICT_EQUAL 80 objects             | rc=0 cmp=0 | STRICT_EQUAL 80 objects
+G2/h03_top_concat                  | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_NOTEQUAL file
+G2/h04_bottom_shape                | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 60 objects
+G2/h05_two_inst_concat             | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_NOTEQUAL file
+G/g01_concat_true                  | rc=0 cmp=16 | NOT_EQUAL stage1                   | rc=0 cmp=16 | NOT_EQUAL stage1
+G/g02_const_arm                    | rc=0 cmp=0 | STRICT_NOTEQUAL file                | rc=0 cmp=0 | STRICT_NOTEQUAL file
+G/g03_pattern_arm                  | rc=0 cmp=62 | NOT_EQUAL stage1                   | rc=0 cmp=62 | NOT_EQUAL stage1
+G/g04_false_arm                    | rc=0 cmp=16 | NOT_EQUAL stage1                   | rc=0 cmp=16 | NOT_EQUAL stage1
+G/g05_nested_chain                 | rc=0 cmp=16 | NOT_EQUAL stage1                   | rc=0 cmp=16 | NOT_EQUAL stage1
+G/g06_width_conv                   | rc=0 cmp=62 | NOT_EQUAL stage1                   | rc=0 cmp=62 | NOT_EQUAL stage1
+G/g07_overridden                   | rc=0 cmp=16 | NOT_EQUAL stage1                   | rc=0 cmp=16 | NOT_EQUAL stage1
+G/g08_pkg_arm                      | rc=0 cmp=28 | NOT_EQUAL stage1                   | rc=0 cmp=28 | NOT_EQUAL stage1
+G/g09_int_array_concat             | rc=0 cmp=16 | NOT_EQUAL stage1                   | rc=0 cmp=16 | NOT_EQUAL stage1
+G/g10_nested_concat_true           | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_EQUAL 179 objects
+G/g11_nested_concat_false          | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_EQUAL 179 objects
+G/g12_nested_chain                 | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_EQUAL 235 objects
+G/g13_nested_width_conv            | rc=0 cmp=0 | STRICT_NOTEQUAL line                | rc=0 cmp=0 | STRICT_NOTEQUAL line
+G/g14_nested_two_readers           | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_EQUAL 239 objects

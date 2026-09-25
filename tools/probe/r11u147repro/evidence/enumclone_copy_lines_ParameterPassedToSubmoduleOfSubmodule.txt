@@ -1,0 +1,44 @@
+87a88
+>   \_enum_const: (BidirStd), line:3:7, endln:3:22
+115a117,118
+>     \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:2:4, endln:4:17
+>     \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:2:4, endln:4:17
+126a130
+> \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:2:4, endln:4:17
+165c169
+< /home/heyfey/.cache/slang-uhdm-goldens/89b917bdbd0771bf195c/golden.uhdm: Restored design Pre-Elab: 
+---
+>     |HEX:1
+260a265,266
+>     \_logic_typespec: , line:2:17, endln:2:22
+> \_logic_typespec: , line:2:17, endln:2:22
+329a336
+>   \_package: pinmux_pkg (pinmux_pkg::), file:dut.sv, line:7:1, endln:12:24
+338a346
+>   \_package: prim_pad_wrapper_pkg (prim_pad_wrapper_pkg::), file:dut.sv, line:1:1, endln:5:34
+412a421
+>   \_ref_typespec: (prim_pad_wrapper_pkg::prim_pad_wrapper_pkg::pad_type_e)
+485a495
+> /tmp/r11u147_wdL/uhdm2rtlil/default/ParameterPassedToSubmoduleOfSubmodule-fafd4287/slang.uhdm: Restored design Pre-Elab: 
+575a586
+>     |vpiActual:
+580a592
+>   |vpiBaseTypespec:
+619a632
+>     |vpiDecompile:1'h1
+672a686
+>   |vpiEnumConst:
+690a705
+>     |vpiFullName:prim_pad_wrapper_pkg::prim_pad_wrapper_pkg::pad_type_e
+806a822,823
+>   |vpiInstance:
+>   |vpiInstance:
+877a895
+>     |vpiName:BidirStd
+945a964
+>   |vpiName:prim_pad_wrapper_pkg::pad_type_e
+1156a1176,1177
+>     |vpiParent:
+>     |vpiParent:
+1238a1260
+>     |vpiSize:1

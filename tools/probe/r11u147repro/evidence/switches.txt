@@ -1,0 +1,18 @@
+cases=68 law_differs_from_pristine=51
+R11U147_OFF=1 differs from pristine on: none
+R11U147_IFTRAILIDX_OFF owns: tsi/a1_gen_ca tsi/a2_mod_ca_net tsi/a3_mod_proc tsi/a4_gen_ca_op tsi/a5_gen_proc tsi/a7_gen_ca_nested tsi/b2_lhs_proc tsi/b3_func tsi/b4_top_inst tsi/b5_operand tsi/b6_modport
+R11U147_VSIPSBASE_OFF owns: ipb/c3_rhs_vs ipb/d1_lhs_vs_var ipb/e1_case_ips ipb/e2_if_ips ipb/e3_case_add ipb/e4_case_noname ipb/f3_lhs_refop ipb/f5_rhs_bsop ipb/f6_lhs_bsbare ipb/f7_lhs_bs_in_bs ipb/f8_rhs_refop
+R11U147_LVIDXBS_OFF owns: ipb/c2_lhs_plain ipb/d1_lhs_vs_var ipb/d5_lhs_var_plain ipb/e1_case_ips ipb/e2_if_ips ipb/e3_case_add ipb/e4_case_noname ipb/f1_lhs_bs ipb/f6_lhs_bsbare ipb/f7_lhs_bs_in_bs
+R11U147_NESTDEFLOC_OFF owns: dfp/s1_var_nested dfp/s5_idx_and_default dfp/s6_assign_nested
+R11U147_GCAUSESITE_OFF owns: mul/k1_vs_ps_bound mul/k2_repl_only mul/k3_repl_plainlhs mul/k5_typed_int mul/k8_repl_op_noparen
+R11U147_FIRSTPOS_OFF owns: pos/m2_pos_const pos/n1_pos_other pos/n2_pos_swap pos/n5_pos_var_idx pos/p1_def_view_mid pos/p3_nonansi_child
+R11U147_ENUMCLONE_OFF owns: mec/f01_param_import_wild mec/f02_param_import_explicit mec/f03_var_not_param mec/f04_scoped_ctl mec/f05_nested_sub mec/g1_scalar_base mec/g3_int_base
+R11U147_ENUMQSPAN_OFF owns: qen/q01_param_enum qen/q02_localparam_enum qen/q03_header_param_enum qen/q05_child_inst
+R11U151_D2_OFF owns: none
+R11U151_ARR_OFF owns: ipb/d1_lhs_vs_var ipb/d4_lhs_vs_var_bs
+R11U151_ARRNB_OFF owns: none
+R11U151_G_OFF owns: none
+R11U151_G2_OFF owns: none
+R11U151_D_OFF owns: none
+R11U151_DCAST_OFF owns: none
+R11U151_C3_OFF owns: none

@@ -1,0 +1,75 @@
+== r11u118repro: 0/56 movers, 1 firing
+  SAME r11u118repro/grid/g1/p34_twod_idx rc=0/0 fires=[VSIPSBASE ]
+== r11v11u118repro: 0/56 movers, 1 firing
+  SAME r11v11u118repro/grid/v1/v28_vs_idx rc=0/0 fires=[VSIPSBASE ]
+== r11u119repro: 0/78 movers, 0 firing
+== r11u120repro: 0/44 movers, 0 firing
+== r11v120repro: 0/47 movers, 0 firing
+== r11u121repro: 0/83 movers, 0 firing
+== v11u121repro: 0/41 movers, 0 firing
+== r11u124repro: 0/81 movers, 0 firing
+== r11v124repro: 1/109 movers, 1 firing
+  NODB r11v124repro/pv/v14_string rc=3/3 fires=[]
+  MOVER r11v124repro/qx/q07_enumconst rc=0/0 fires=[ENUMQSPAN ]
+  NODB r11v124repro/qx/q08_string rc=3/3 fires=[]
+== r11u125repro: 0/61 movers, 0 firing
+== r11v125repro: 0/48 movers, 0 firing
+== r11u130repro: 0/98 movers, 0 firing
+== r11v130repro: 0/115 movers, 0 firing
+== r11u131repro: 0/121 movers, 0 firing
+== r11v131repro: 0/128 movers, 0 firing
+== r11u133repro: 0/50 movers, 0 firing
+== r11v133repro: 0/64 movers, 0 firing
+== r11u140repro: 3/108 movers, 5 firing
+  SAME r11u140repro/plv/l03_unpacked_2d rc=0/0 fires=[ARR LVIDXBS ]
+  SAME r11u140repro/plv/l04_unpacked_1d rc=0/0 fires=[LVIDXBS ]
+  MOVER r11u140repro/tdc/c01_pkg_struct rc=0/0 fires=[D2 ]
+  MOVER r11u140repro/tdc/c05_pkg_struct_qual rc=0/0 fires=[D2 ]
+  MOVER r11u140repro/tdc/c06_pkg_struct_unused rc=0/0 fires=[D2 ]
+== r11v140repro: 9/129 movers, 11 firing
+  MOVER r11v140repro/plv/v13_iface_arr rc=0/0 fires=[IFTRAILIDX ]
+  SAME r11v140repro/sca/a19_elem_ips_width rc=0/0 fires=[VSIPSBASE ]
+  MOVER r11v140repro/tdc/t01_union rc=0/0 fires=[D2 ]
+  SAME r11v140repro/tdc/t02_td_of_td rc=0/0 fires=[D2 ]
+  MOVER r11v140repro/tdc/t03_in_op rc=0/0 fires=[D2 ]
+  MOVER r11v140repro/tdc/t04_int_bits rc=0/0 fires=[D2 ]
+  MOVER r11v140repro/tdc/t06_parameter_used_twice rc=0/0 fires=[D2 ]
+  MOVER r11v140repro/tdc/t09_forward_td rc=0/0 fires=[D2 ]
+  MOVER r11v140repro/tdc/t08_decl_after rc=0/0 fires=[D2 ]
+  MOVER r11v140repro/tdc/t10_two_pkgs rc=0/0 fires=[D2 ]
+  MOVER r11v140repro/tdc/t12_nested_struct rc=0/0 fires=[D2 ]
+== r11u143verify: 5/160 movers, 5 firing
+  MOVER r11u143verify/cases/fence_s3/f02_param_import_explicit rc=0/0 fires=[ENUMCLONE ]
+  MOVER r11u143verify/cases/fence_s3/f03_var_not_param rc=0/0 fires=[ENUMCLONE ]
+  MOVER r11u143verify/cases/fence_s3/f01_param_import_wild rc=0/0 fires=[ENUMCLONE ]
+  MOVER r11u143verify/cases/fence_s3/f05_nested_sub rc=0/0 fires=[ENUMCLONE ]
+  MOVER r11u143verify/cases/fence_s3/f04_scoped_ctl rc=0/0 fires=[ENUMCLONE ]
+== r11u144repro: 0/84 movers, 0 firing
+== r11u145repro: 0/52 movers, 0 firing
+== r11v145repro: 0/107 movers, 0 firing
+== r11u148share: 0/47 movers, 0 firing
+== r11u149verify: 3/121 movers, 4 firing
+  SAME r11u149verify/cases/scv/n01_2d_elem_ips_width rc=0/0 fires=[VSIPSBASE ]
+  MOVER r11u149verify/cases/tdc/n02_cast_expr rc=0/0 fires=[D2 ]
+  MOVER r11u149verify/cases/tdc/n01_parameter_kw rc=0/0 fires=[D2 ]
+  MOVER r11u149verify/cases/tdc/n03_enum_member rc=0/0 fires=[D2 ]
+
+== verdicts of the movers (pristine | law), drivers/grid.sh
+tdc/c01_pkg_struct                 | rc=0 cmp=0 | STRICT_EQUAL 124 objects            | rc=0 cmp=0 | STRICT_EQUAL 124 objects
+tdc/c05_pkg_struct_qual            | rc=0 cmp=0 | STRICT_EQUAL 124 objects            | rc=0 cmp=0 | STRICT_EQUAL 124 objects
+tdc/c06_pkg_struct_unused          | rc=0 cmp=0 | STRICT_EQUAL 96 objects             | rc=0 cmp=0 | STRICT_EQUAL 96 objects
+tdc/t01_union                      | rc=0 cmp=0 | STRICT_NOTEQUAL file                | rc=0 cmp=0 | STRICT_EQUAL 157 objects
+tdc/t03_in_op                      | rc=0 cmp=122 | NOT_EQUAL stage1                  | rc=0 cmp=122 | NOT_EQUAL stage1
+tdc/t04_int_bits                   | rc=0 cmp=62 | NOT_EQUAL stage1                   | rc=0 cmp=62 | NOT_EQUAL stage1
+tdc/t06_parameter_used_twice       | rc=0 cmp=58 | NOT_EQUAL stage1                   | rc=0 cmp=58 | NOT_EQUAL stage1
+tdc/t09_forward_td                 | rc=0 cmp=0 | STRICT_EQUAL 124 objects            | rc=0 cmp=0 | STRICT_EQUAL 124 objects
+tdc/t08_decl_after                 | rc=0 cmp=16 | NOT_EQUAL stage1                   | rc=0 cmp=16 | NOT_EQUAL stage1
+tdc/t10_two_pkgs                   | rc=0 cmp=104 | NOT_EQUAL stage1                  | rc=0 cmp=104 | NOT_EQUAL stage1
+tdc/t12_nested_struct              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+tdc/n02_cast_expr                  | rc=0 cmp=60 | NOT_EQUAL stage1                   | rc=0 cmp=60 | NOT_EQUAL stage1
+tdc/n01_parameter_kw               | rc=0 cmp=0 | STRICT_EQUAL 157 objects            | rc=0 cmp=0 | STRICT_EQUAL 157 objects
+tdc/n03_enum_member                | rc=0 cmp=0 | STRICT_EQUAL 215 objects            | rc=0 cmp=0 | STRICT_EQUAL 215 objects
+plv/v13_iface_arr                  | rc=0 cmp=40 | NOT_EQUAL stage1                   | rc=0 cmp=40 | NOT_EQUAL stage1
+qx/q07_enumconst                   | rc=0 cmp=0 | STRICT_NOTEQUAL endcol              | rc=0 cmp=0 | STRICT_EQUAL 90 objects
+t12_nested_struct field tally: pristine fullname=2 objects_differing=2, law fullname=2 objects_differing=2
+r11u143verify fence_s3 f01 (uhdm-cmp head, pristine): ref_typespec (work@top.ea::st_e) with RHS <null>; (law): constant under cont_assign vs golden hier_path (Cfg.mode) -- the pre-existing read-fold face

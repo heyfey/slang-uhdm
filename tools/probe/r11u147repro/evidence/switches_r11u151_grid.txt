@@ -1,0 +1,18 @@
+cases=67 law_differs_from_pristine=34
+R11U147_OFF=1 differs from pristine on: none
+R11U147_IFTRAILIDX_OFF owns: none
+R11U147_VSIPSBASE_OFF owns: none
+R11U147_LVIDXBS_OFF owns: none
+R11U147_NESTDEFLOC_OFF owns: none
+R11U147_GCAUSESITE_OFF owns: none
+R11U147_FIRSTPOS_OFF owns: none
+R11U147_ENUMCLONE_OFF owns: none
+R11U147_ENUMQSPAN_OFF owns: none
+R11U151_D2_OFF owns: D2/d01_cast_and_func D2/d02_cast_only D2/d03_union D2/d04_two_casts D2/d05_qual_spelling D2/d06_mod_default D2/d08_func_first
+R11U151_ARR_OFF owns: ARR/a01_unpacked2d ARR/a07_ff_nonblocking ARR/a13_nb_varsel ARR/a15_nb_else_begin ARR/a16_nb_lfsr ARR/a17_varsel_range ARR/a18_nb_initial ARR/a20_nb_select_after_whole
+R11U151_ARRNB_OFF owns: ARR/a07_ff_nonblocking ARR/a13_nb_varsel ARR/a15_nb_else_begin ARR/a16_nb_lfsr ARR/a18_nb_initial ARR/a20_nb_select_after_whole
+R11U151_G_OFF owns: G2/h01_sub_concat G2/h03_top_concat G2/h04_bottom_shape G2/h05_two_inst_concat G/g09_int_array_concat G/g10_nested_concat_true G/g11_nested_concat_false G/g12_nested_chain G/g13_nested_width_conv G/g14_nested_two_readers
+R11U151_G2_OFF owns: G2/h01_sub_concat G2/h03_top_concat G2/h04_bottom_shape G2/h05_two_inst_concat G/g09_int_array_concat
+R11U151_D_OFF owns: D/e01_mod_qual_call D/e02_mod_import_call D/e03_pkg_holder_bare D/e04_pkg_holder_qual D/e05_mod_qual_plainlit D/e06_mod_qual_wide D/e07_mod_qual_opmember
+R11U151_DCAST_OFF owns: none
+R11U151_C3_OFF owns: C3/c02_nested_port C3/c05_nested_import_only
