@@ -7839,6 +7839,113 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
                 signedSizeCast = false;
         }
     }
+    // § sizeCastCaLitMask158 — A SIZE CAST OF A LITERAL AS A CONTINUOUS
+    // ASSIGNMENT'S WHOLE VALUE FOLDS TO THE LITERAL'S BITS MASKED TO THE CAST
+    // WIDTH, UNSIGNED, AT THE ASSIGNMENT'S WIDTH.  Golden (u2r harness grid
+    // tools/probe/r11u158repro/cases/sc): `assign p = 2'(3)` and `SEL_W'(3)`
+    // (logic [3:0] p) -> UINT:3 size 4; `2'(7)` -> UINT:3 size 4; `2'(-1)`
+    // and `2'(3 + 4)` into logic [7:0] -> UINT:3 size 8, `2'(V + 0)` with
+    // `int V = 7` -> UINT:3, `2'(-V)` -> UINT:1 (an operator tree over
+    // literals and names; a BARE name keeps the signed arm).  Surelog's netlist elaboration
+    // reduces the operand as an unsigned value (its unsized decimal literal is
+    // UINT) and keeps only the cast's low bits; ours evaluated the LRM value
+    // (a signed 2-bit -1, sign-extended by the assignment: UINT:15, or the
+    // signed arm's INT:-1 at the cast width), which the downstream plugin
+    // turns into `4'1111` (DIVERGENT) or a $pos cell.  A width of 64 or more
+    // keeps every operand bit (golden `W'(64'd5)` -> UINT:5 at 64/96/128,
+    // § srlgSizeCastUbShiftMask93's note).  Parameter folds (`paramCtx`) are
+    // untouched.  Switch R11U158_SCLITMASK_OFF.
+    if (!paramCtx && sc.kind == ExpressionKind::Conversion &&
+        !sc.as<ConversionExpression>().isImplicit() && sc.syntax &&
+        sc.syntax->kind == syntax::SyntaxKind::CastExpression &&
+        !isTypeSyntaxKind(sc.syntax->as<syntax::CastExpressionSyntax>().left->kind) &&
+        sc.type && expr.type && r11u158On("R11U158_SCLITMASK_OFF")) {
+        auto& op158 = stripImplicitConv(sc.as<ConversionExpression>().operand());
+        // The operand is a literal or an operator tree over literals and
+        // names (`3`, `-1`, `3 + 4`, `V + 0`, `-V`); a BARE name (`2'(V)`)
+        // is the signed arm below.
+        std::function<bool(const Expression&, bool)> litTree158 =
+            [&](const Expression& e0, bool top) -> bool {
+            auto& e = stripImplicitConv(e0);
+            switch (e.kind) {
+                case ExpressionKind::IntegerLiteral:
+                    return true;
+                case ExpressionKind::NamedValue:
+                    return !top;
+                case ExpressionKind::UnaryOp:
+                    return litTree158(e.as<UnaryExpression>().operand(), false);
+                case ExpressionKind::BinaryOp:
+                    return litTree158(e.as<BinaryExpression>().left(), false) &&
+                           litTree158(e.as<BinaryExpression>().right(), false);
+                default:
+                    return false;
+            }
+        };
+        const uint32_t cw158 = sc.type->getBitWidth();
+        const uint32_t tw158 = expr.type->getBitWidth();
+        // § sizeCastNamedWidthNoCast158v (r11v158) — a width written as a
+        // bare or package-scoped NAME (`W'(x)`, `pk::W'(x)`) is not applied:
+        // golden takes the operand's value at the assignment's width
+        // (`W'(-1)` W=3 into logic [7:0] -> UINT:255, `W'(7)` W=2 -> UINT:7,
+        // `W'(V)` -> UINT:7, into logic [3:0] `W'(-1)` -> UINT:15), where a
+        // width EXPRESSION masks (`(W+1)'(15)` -> UINT:7).  The bare-name
+        // operand joins the tree.  A typedef cast (`t2'(7)`, an alias type)
+        // is not a size cast.  Grid tools/probe/r11v158repro/cases/sc.
+        // Switch R11V158_SCNAMEDW_OFF.
+        const auto wk158 = sc.syntax->as<syntax::CastExpressionSyntax>().left->kind;
+        const bool namedW158 = !sc.type->isAlias() &&
+                               (wk158 == syntax::SyntaxKind::IdentifierName ||
+                                wk158 == syntax::SyntaxKind::ScopedName) &&
+                               r11v158On("R11V158_SCNAMEDW_OFF");
+        // § sizeCastSignedLitAbstain158v (r11v158) — a bare SIGNED based
+        // literal operand (`2'(3'sd7)`, `3'(4'sd7)`) is the signed arm in
+        // golden (INT:-1 at the assignment's width), not the unsigned mask:
+        // the law's UINT:3 moved the downstream row IDENTICAL -> DIVERGENT.
+        // Abstain (the pristine fold).  Switch R11V158_SCSLIT_OFF.
+        const bool sLit158 = op158.kind == ExpressionKind::IntegerLiteral &&
+                             !op158.as<IntegerLiteral>().isDeclaredUnsized &&
+                             op158.as<IntegerLiteral>().getValue().isSigned() &&
+                             r11v158On("R11V158_SCSLIT_OFF");
+        // § sizeCastNarrowTargetAbstain158v (r11v158) — an assignment
+        // NARROWER than the cast (`logic [1:0] p = 4'(13)` -> golden UINT:1
+        // size 2) is folded right by the pristine arm; the law's mask kept
+        // the cast's bits (UINT:13 size 2, uhdm-cmp NOT_EQUAL).  Abstain.
+        // Switch R11V158_SCNARROW_OFF.
+        const bool narrow158 = tw158 < cw158 && r11v158On("R11V158_SCNARROW_OFF");
+        if (sLit158 || narrow158)
+            trace158(sLit158 ? "V:SCSLIT" : "V:SCNARROW");
+        if (!sLit158 && !narrow158 && litTree158(op158, !namedW158) && cw158 > 0 &&
+            cw158 < 64 && expr.type->getBitWidth() <= 64) {
+            ASTContext octx158(comp.getRoot(), LookupLocation::max);
+            ConstantValue ov158 = octx158.tryEval(op158);
+            if (ov158 && ov158.isInteger() && !ov158.integer().hasUnknown()) {
+                auto& oi158 = ov158.integer();
+                uint64_t low158 = 0;
+                uint32_t nb158 = oi158.getBitWidth() < 64u ? oi158.getBitWidth() : 64u;
+                for (uint32_t b158 = 0; b158 < nb158; b158++)
+                    if (oi158[(int32_t)b158] == slang::logic_t(1))
+                        low158 |= (1ULL << b158);
+                // A negative operand's bits above its own width are ones.
+                if (oi158.isSigned() && oi158.isNegative())
+                    for (uint32_t b158 = nb158; b158 < 64u; b158++)
+                        low158 |= (1ULL << b158);
+                if (!namedW158)
+                    low158 &= (1ULL << cw158) - 1ULL;
+                else {
+                    trace158("V:SCNAMEDW");
+                    if (tw158 < 64)
+                        low158 &= (1ULL << tw158) - 1ULL;
+                }
+                trace158("SCLITMASK");
+                auto* c = s.MakeConstant();
+                c->VpiDecompile(std::to_string(low158));
+                c->VpiSize((int32_t)expr.type->getBitWidth());
+                c->VpiValue("UINT:" + std::to_string(low158));
+                c->VpiConstType(vpiUIntConst);
+                return c;
+            }
+        }
+    }
     if (signedSizeCast) {
         int w = (int)sc.type->getBitWidth();
         uint64_t uv = iv.as<uint64_t>().value_or(0);
@@ -7847,6 +7954,21 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
             sv = (int64_t)(uv | (~0ULL << w));
         auto* c = s.MakeConstant();
         c->VpiSize(w);
+        // § sizeCastCaSignedSize158 — the SIGNED arm's constant (a signed
+        // non-literal operand, `2'(V)` with `int V = 7` -> INT:-1) takes the
+        // continuous assignment's width, not the cast's: golden `assign p =
+        // 2'(V)` (logic [3:0] p) is INT:-1 size 4, ours size 2, which the
+        // plugin zero-extends through a $pos cell (`4'0011`, DIVERGENT).  A
+        // bare name operand only (the measured shape).
+        // Grid tools/probe/r11u158repro/cases/sc.  Switch
+        // R11U158_SCSIGNSIZE_OFF.
+        if (!paramCtx && expr.type && &expr != &sc &&
+            stripImplicitConv(sc.as<ConversionExpression>().operand()).kind ==
+                ExpressionKind::NamedValue &&
+            r11u158On("R11U158_SCSIGNSIZE_OFF")) {
+            trace158("SCSIGNSIZE");
+            c->VpiSize((int32_t)expr.type->getBitWidth());
+        }
         c->VpiValue("INT:" + std::to_string(sv));
         c->VpiConstType(vpiIntConst);
         auto* rt = s.MakeRef_typespec();
@@ -8380,6 +8502,178 @@ void UhdmExporter::hpIdxClassNoBind143(UHDM::any* ix) {
     }
 }
 
+// § hpSelRoute157 — WHICH OF SURELOG'S TWO HIER_PATH WRITERS COMPILES A DOTTED
+// PATH IS DECIDED BY ITS GRAMMAR POSITION, NOT BY `inLhs` (tools/probe/r11u157hp).
+// Surelog builds a plain dotted path (`a.b.c`) in exactly two places
+// (third_party/Surelog/src/DesignCompile/CompileExpression.cpp):
+//   SEL  CompileHelper::compileSelectExpression's hierarchical arm (:1373-1550)
+//        for a `ps_or_hierarchical_identifier constant_select` — every net/
+//        variable LVALUE target and every CONSTANT_PRIMARY (SV3_1aParser.g4
+//        :3565).  The base ref is populated from the NEXT component's node
+//        (`populateCoreMembers(Bit_select, Bit_select, r1)`) and every
+//        component stores its own name as its full name (r1, and the bare
+//        `field` arm's r2).
+//   CFC  CompileHelper::compileComplexFuncCall (:5478-5731) for an
+//        `expression` primary (`complex_func_call`, :3598).  Every component
+//        anchors at its own token and stores its own name, EXCEPT the leaf,
+//        whose full name is never set and is computed from the parent chain
+//        when the database is saved (gdb on the pinned binary: the setter
+//        runs from Serializer::Save).
+// The grammar switches between the two at fixed positions, measured on the
+// pinned Surelog with a gdb mint trace per object (drivers/slpin.sh):
+//   constant (SEL): a parameter's value, a range/dimension bound, a part-select
+//     bound (`constant_range`), an indexed part-select WIDTH, a casting_type
+//     (size-cast width), the condition and the FALSE arm of a constant `?:`;
+//   expression (CFC): a select INDEX (`bit_select: [expression]`, :3657) —
+//     also inside an lvalue —, an indexed part-select BASE, the TRUE arm of a
+//     constant `?:` (`... ? expression : constant_expression`, :3316), an
+//     assignment-pattern member value, a subroutine argument.
+// Keep = a position this law does not decide (the legacy flags stay).
+enum class HpRoute157 { Keep, Sel, Cfc };
+static bool r11u157On(const char* one) {
+    static const bool all = getenv("R11U157_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+// THE SWITCHES.  One per law (R11U157_ROUTE_OFF, _THIS_OFF, _FOREACH_OFF,
+// _ROOT_OFF, _GENTGT_OFF, _WITHRECV_OFF) and one per AXIS, which gates that
+// axis's half of every law: R11U157_SPAN_OFF (an anchor or a span moves),
+// R11U157_NAME_OFF (a stored full name changes), R11U157_FILE_OFF (an element
+// gains or loses its location — VpiFile travels with the span in setLoc).
+// R11U157_OFF turns every one of them off (pristine bytes).
+static bool r157(const char* law, const char* axis) {
+    return r11u157On(law) && r11u157On(axis);
+}
+static bool hpRoute157SpanOn() {
+    static const bool on = r157("R11U157_ROUTE_OFF", "R11U157_SPAN_OFF");
+    return on;
+}
+static bool hpRoute157NameOn() {
+    static const bool on = r157("R11U157_ROUTE_OFF", "R11U157_NAME_OFF");
+    return on;
+}
+// R11U157_TRACE=1: one stderr line per firing of a non-route law (the census).
+static void trace157(const char* law) {
+    static const bool on = getenv("R11U157_TRACE") != nullptr;
+    if (on)
+        fprintf(stderr, "R11U157 law %s\n", law);
+}
+// `hp` (already located) guards the SUBSTITUTED value: a parameter's value
+// tree re-emitted at a use site (`$clog2(Depth)` in an instance whose Depth is
+// `Info.x`, golden ClogParam) keeps the route of the place it was WRITTEN, so
+// the law abstains unless the nearest located ancestor contains the path.
+static HpRoute157 hpRoute157(const UHDM::BaseClass* parent,
+                             const std::vector<const UHDM::any*>& ternTrueOps,
+                             const UHDM::BaseClass* hp = nullptr,
+                             bool castSize = false) {
+    static const bool trace = getenv("R11U157_TRACE") != nullptr;
+    if (hp && hp->VpiLineNo()) {
+        // The nearest located NON-expression ancestor (a statement, an
+        // assignment, a param_assign ...): an expression ancestor may not be
+        // located yet while its operands are emitted, and a `port` is located
+        // at the child's DECLARATION.
+        const UHDM::BaseClass* a = parent;
+        while (a && (!a->VpiLineNo() || dynamic_cast<const UHDM::expr*>(a) ||
+                     a->UhdmType() == UHDM::uhdmport))
+            a = a->VpiParent();
+        if (!a)
+            return HpRoute157::Keep;
+        // An instance (`ref_module`, `module_inst` ...) is located at its NAME:
+        // a port connection's actual has no located container to test.
+        const bool instCtr = a->UhdmType() == UHDM::uhdmref_module ||
+                             dynamic_cast<const UHDM::instance*>(a) != nullptr;
+        auto before = [](uint32_t l1, uint32_t c1, uint32_t l2, uint32_t c2) {
+            return l1 < l2 || (l1 == l2 && c1 < c2);
+        };
+        if (!instCtr &&
+            (a->VpiFile() != hp->VpiFile() ||
+             before(hp->VpiLineNo(), hp->VpiColumnNo(), a->VpiLineNo(), a->VpiColumnNo()) ||
+             before(a->VpiEndLineNo(), a->VpiEndColumnNo(), hp->VpiLineNo(), hp->VpiColumnNo()))) {
+            if (trace)
+                fprintf(stderr, "R11U157 guard-keep %s %u:%u-%u:%u hp %u:%u\n",
+                        UHDM::UhdmName(a->UhdmType()).c_str(), a->VpiLineNo(),
+                        a->VpiColumnNo(), a->VpiEndLineNo(), a->VpiEndColumnNo(),
+                        hp->VpiLineNo(), hp->VpiColumnNo());
+            return HpRoute157::Keep;
+        }
+    }
+    HpRoute157 r = HpRoute157::Keep;
+    const char* why = "";
+    for (const UHDM::BaseClass* p = parent; p; p = p->VpiParent()) {
+        switch (p->UhdmType()) {
+            case UHDM::uhdmoperation: {
+                int ot = ((const UHDM::operation*)p)->VpiOpType();
+                if (ot == vpiAssignmentPatternOp ||
+                    ot == vpiMultiAssignmentPatternOp) {
+                    r = HpRoute157::Cfc; why = "pattern";
+                    break;
+                }
+                if (ot == vpiConditionOp &&
+                    std::find(ternTrueOps.begin(), ternTrueOps.end(), p) !=
+                        ternTrueOps.end()) {
+                    r = HpRoute157::Cfc; why = "ternary-true";
+                    break;
+                }
+                // A size cast's WIDTH (`inCastSize` is up while it is emitted
+                // under the cast operation) is a casting_type: constant.
+                if (castSize && ot == vpiCastOp) {
+                    r = HpRoute157::Sel; why = "cast-width";
+                    break;
+                }
+                continue;
+            }
+            case UHDM::uhdmtagged_pattern:
+                r = HpRoute157::Cfc; why = "pattern";
+                break;
+            case UHDM::uhdmbit_select:
+            case UHDM::uhdmvar_select: {
+                // A select index.  A net_lvalue's index is a
+                // constant_bit_select and a hier_path COMPONENT's index is a
+                // constant_expression: both are left to the legacy flags.
+                const UHDM::BaseClass* q = p->VpiParent();
+                if (q && (q->UhdmType() == UHDM::uhdmcont_assign ||
+                          q->UhdmType() == UHDM::uhdmhier_path))
+                    return HpRoute157::Keep;
+                r = HpRoute157::Cfc; why = "select-index";
+                break;
+            }
+            case UHDM::uhdmpart_select:
+                r = HpRoute157::Sel; why = "part-select-bound";
+                break;
+            case UHDM::uhdmindexed_part_select:
+                // The base is emitted (and stored) before the width.
+                if (((const UHDM::indexed_part_select*)p)->Base_expr()) {
+                    r = HpRoute157::Sel; why = "ips-width";
+                } else {
+                    r = HpRoute157::Cfc; why = "ips-base";
+                }
+                break;
+            case UHDM::uhdmrange:
+                r = HpRoute157::Sel; why = "range";
+                break;
+            case UHDM::uhdmparam_assign:
+                r = HpRoute157::Sel; why = "param-value";
+                break;
+            case UHDM::uhdmfunc_call:
+            case UHDM::uhdmsys_func_call:
+            case UHDM::uhdmmethod_func_call:
+            case UHDM::uhdmtask_call:
+            case UHDM::uhdmsys_task_call:
+            case UHDM::uhdmmethod_task_call:
+                r = HpRoute157::Cfc; why = "call-arg";
+                break;
+            default:
+                if (dynamic_cast<const UHDM::typespec*>(p)) {
+                    r = HpRoute157::Sel; why = "typespec";
+                }
+                break;
+        }
+        break;
+    }
+    if (trace && r != HpRoute157::Keep)
+        fprintf(stderr, "R11U157 route %s %s\n", r == HpRoute157::Sel ? "SEL" : "CFC", why);
+    return r;
+}
+
 // A dotted interface-member reference (s.req.adr): hier_path whose ref_obj
 // elements anchor at their own token; the LAST element carries the
 // module-scoped fullname (work@mod.<last>) — Surelog quirk.
@@ -8422,6 +8716,32 @@ UHDM::hier_path* UhdmExporter::buildDottedHierPath(const Expression& expr,
     // takes the scoped fullname, exactly like any rvalue path.
     bool lhsPath9 = inLhs && !(parent &&
                                parent->UhdmType() == UHDM::uhdmbit_select);
+    // § hpSelRoute157 — the grammar position decides (a var_select index, a
+    // part-select bound, a pattern value ...); SPAN and NAME halves apart.
+    bool selSpan157 = lhsPath9, selName157 = lhsPath9;
+    if (HpRoute157 r157 = hpRoute157(parent, ternTrueArmOps31, hp, inCastSize);
+        r157 != HpRoute157::Keep) {
+        if (hpRoute157SpanOn())
+            selSpan157 = r157 == HpRoute157::Sel;
+        if (hpRoute157NameOn())
+            selName157 = r157 == HpRoute157::Sel;
+    }
+    // § rootPathOwnNames157 — a `$root.`-based path in an expression is
+    // compileComplexFuncCall's paDollar_root_keyword arm
+    // (CompileExpression.cpp:5088-5134): `$root` is populated from the NEXT
+    // name node and EVERY element stores its own name — the same two facts as
+    // the SEL writer, whatever the position (grid r11u82 v3_rootpath).
+    // Switch R11U157_ROOT_OFF.
+    if (dotted.rfind("$root.", 0) == 0) {
+        static const bool rootSpan157 = r157("R11U157_ROOT_OFF", "R11U157_SPAN_OFF");
+        static const bool rootName157 = r157("R11U157_ROOT_OFF", "R11U157_NAME_OFF");
+        if (rootSpan157 || rootName157)
+            trace157("ROOT");
+        if (rootSpan157)
+            selSpan157 = true;
+        if (rootName157)
+            selName157 = true;
+    }
     // this.member: the hier_path spans the `this` token; the this ref
     // anchors at the MEMBER token; the member ref is loc-less with a
     // scope-prefixed fullname.
@@ -8559,7 +8879,7 @@ UHDM::hier_path* UhdmExporter::buildDottedHierPath(const Expression& expr,
         // modport-array member path gives the LEAF the RAW dotted fullname.
         if (genVarBasePath && i + 1 == parts.size())
             r->VpiFullName(dotted);
-        else if (!lhsPath9 && i + 1 == parts.size())
+        else if (!selName157 && i + 1 == parts.size())
             // A PACKAGE-scope prefix keeps :: down to the leaf
             // (riscv_isa_i_pkg::imm_i_f::imm_11_0 — Surelog).
             r->VpiFullName(joinRef(prefix, pname));
@@ -8567,7 +8887,7 @@ UHDM::hier_path* UhdmExporter::buildDottedHierPath(const Expression& expr,
             r->VpiFullName(pname);
         r->VpiParent(hp);
         // Lvalue paths anchor the base ref at the SECOND element's span.
-        size_t locIdx = (lhsPath9 && i == 0 && parts.size() > 1) ? 1 : i;
+        size_t locIdx = (selSpan157 && i == 0 && parts.size() > 1) ? 1 : i;
         auto& [lname, loff] = parts[locIdx];
         setLoc(r, SourceRange(exprStart + loff, exprStart + loff + lname.size()));
         elems->push_back(r);
@@ -10285,11 +10605,26 @@ UHDM::hier_path* UhdmExporter::emitThisPathSelectErased(const Expression& expr,
         setLoc(rt, mems.front().nameSpan);
         elems->push_back(rt);
     }
+    // § thisPathFormByPosition157 — an INC/DEC operand is a variable_lvalue:
+    // its members are loc-less with the scoped name, exactly as an assignment
+    // target's (golden r10buvm21 g21b `this.aa[s]++`: hier_path over the whole
+    // select, `this` at the member token, `aa` loc-less).
+    static const bool thisFile157 = r157("R11U157_THIS_OFF", "R11U157_FILE_OFF");
+    static const bool thisName157 = r157("R11U157_THIS_OFF", "R11U157_NAME_OFF");
+    const bool incDec157 = !inLhs && incDecOperand124() == &expr;
+    if (incDec157 && (thisName157 || thisFile157))
+        trace157("THIS");
     for (auto& m : mems) {
         auto* r = s.MakeRef_obj();
         r->VpiName(m.name);
-        if (inLhs)
-            r->VpiFullName(joinRef(prefix, m.name));
+        if (inLhs || incDec157) {
+            if (inLhs || thisName157)
+                r->VpiFullName(joinRef(prefix, m.name));
+            else
+                (void)r->VpiFullName();
+            if (!inLhs && !thisFile157)
+                setLoc(r, m.nameSpan);
+        }
         else {
             (void)r->VpiFullName(); // freeze the bare name before parenting
             setLoc(r, m.nameSpan);
@@ -15954,6 +16289,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // Surelog anchors the folded op at the package
                             // qualifier span (pkg::) of the reference, not the
                             // full pkg::NAME span.
+                            // § aggParamFoldUnqualWholeSpan158 — ...when the
+                            // reference IS qualified.  An UNQUALIFIED read
+                            // (a wildcard import: StructUnsizedVal `Init =
+                            // InitDefault`, LargeValue2Struct
+                            // `RndCnstScrmblKeyInit =
+                            // RndCnstScrmblKeyInitDefault`) spans the whole
+                            // identifier in golden (17:53-64, 23:52-79); ours
+                            // measured a qualifier that is not written (the
+                            // package name + 2: 17:53-58).  Grid
+                            // tools/probe/r11u158repro/cases/uq.  Switch
+                            // R11U158_AGGUNQSPAN_OFF.
+                            static const bool uq158 =
+                                r11u158On("R11U158_AGGUNQSPAN_OFF");
+                            if (uq158 && rawText(expr.sourceRange).find("::") ==
+                                             std::string::npos) {
+                                trace158("AGGUNQSPAN");
+                                setLoc(folded, expr.sourceRange);
+                                return folded;
+                            }
                             setLoc(folded,
                                    SourceRange(expr.sourceRange.start(),
                                                expr.sourceRange.start() +
@@ -21064,6 +21418,43 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // CA RHS silences its enum read only when the whole RHS is
                 // already in suppress mode (no bindable ref), which is
                 // exactly what separates qh21.sv's rows from these two.
+                // § genCaLhsEnumConstClone158 — THE LEFT SIDE OF AN
+                // ELABORATED GENERATE-SCOPE CONT_ASSIGN BINDS A FRESH
+                // LOC-LESS enum_const, AS ITS RIGHT SIDE DOES
+                // (§ genCaEnumBindsSelectOnly22's mint above).  Surelog
+                // resolves both sides of a gen-scope assignment through
+                // UhdmWriter::lateBinding, which mints a new enum_const
+                // (name, value, size, the plain decimal decompile) and parents
+                // it at the reference; our left side took the general arm and
+                // bound the package's located shared constant.  Golden u2r
+                // MultirangesStartNotFromZero `assign io_fwd_link_li[i]
+                // [e_e:w_e] = ...` in gen_cmd_link: both bounds loc-less
+                // (INT:2 decompile `2` size 3).  An enum reference on a left
+                // side is always in a select position.  Grid
+                // tools/probe/r11u158repro/cases/gl.  Switch
+                // R11U158_GCALHSENUM_OFF.
+                else if (auto eit = enumConstMap.find(&nv.symbol);
+                         eit != enumConstMap.end() && inLhs &&
+                         nv.symbol.kind == SymbolKind::EnumValue &&
+                         !defGenProcessEmit && !uninstIfaceSubBody218 &&
+                         eit->second->UhdmType() == UHDM::uhdmenum_const &&
+                         r11u158On("R11U158_GCALHSENUM_OFF") &&
+                         genCaLhsCtx158(parent)) {
+                    trace158("GCALHSENUM");
+                    auto* shared = (UHDM::enum_const*)eit->second;
+                    auto* ec = s.MakeEnum_const();
+                    ec->VpiName(shared->VpiName());
+                    ec->VpiValue(std::string(shared->VpiValue()));
+                    std::string dec158(shared->VpiDecompile());
+                    std::string_view vv158 = shared->VpiValue();
+                    if (auto cp158 = vv158.find(':');
+                        cp158 != std::string_view::npos)
+                        dec158 = std::string(vv158.substr(cp158 + 1));
+                    ec->VpiDecompile(dec158);
+                    ec->VpiSize(shared->VpiSize());
+                    ec->VpiParent(ref);
+                    ref->Actual_group(ec);
+                }
                 else if (auto eit = enumConstMap.find(&nv.symbol); eit != enumConstMap.end())
                     ref->Actual_group(eit->second);
                 else if (auto uit = unitParamMap.find(&nv.symbol);
@@ -29436,7 +29827,38 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                : parensLess9
                                    ? SourceRange(expr.sourceRange.start(),
                                                  mStart9 + name.size())
-                                   : expr.sourceRange);
+                                   : [&]() -> SourceRange {
+                                         // § methodRandomizeCallSpan158 — A
+                                         // MEMBER `randomize()` CALL'S PATH
+                                         // RUNS THROUGH ITS PARENTHESES:
+                                         // golden SimpleConstraint
+                                         // `frame.randomize()` 57:12-29, ours
+                                         // 57:12-27 (slang's built-in
+                                         // randomize call range stops at the
+                                         // name).  Surelog populates the
+                                         // path from the whole
+                                         // complex_func_call node.  Read
+                                         // from the call's own syntax.  Grid
+                                         // tools/probe/r11u158repro/cases/rz.
+                                         // Switch R11U158_RANDSPAN_OFF.
+                                         static const bool rs158 =
+                                             r11u158On("R11U158_RANDSPAN_OFF");
+                                         if (rs158 && name == "randomize" &&
+                                             expr.syntax) {
+                                             auto sr158 =
+                                                 expr.syntax->sourceRange();
+                                             if (sr158.start() ==
+                                                     expr.sourceRange.start() &&
+                                                 sr158.end() >
+                                                     expr.sourceRange.end()) {
+                                                 trace158("RANDSPAN");
+                                                 return SourceRange(
+                                                     expr.sourceRange.start(),
+                                                     sr158.end());
+                                             }
+                                         }
+                                         return expr.sourceRange;
+                                     }());
                         auto* elems = s.MakeAnyVec();
                         // ONE ref_obj per dotted name (o.cn.constraint_mode ->
                         // ref_obj o, ref_obj cn, method_func_call
@@ -29655,8 +30077,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // Compare, so this half is dump fidelity — which
                             // is what keeps the census and the whole-dump
                             // boundary diff honest.
+                            // § withRecvOnlyLastScoped157 — the with-clause
+                            // form is the SAME loop: only its LAST receiver
+                            // element (the trailing `paSelect` branch) goes
+                            // unnamed and is scoped at save; every earlier one
+                            // stores its bare name (golden r10uvm175 g175_a
+                            // `lone.tagset.find_index() with (...)`, r10v175
+                            // v175_deep `solo.lone.names...`).  Switch
+                            // R11U157_WITHRECV_OFF.
+                            static const bool withRecvOn157 =
+                                r157("R11U157_WITHRECV_OFF", "R11U157_NAME_OFF");
+                            if (withExpr9 && withRecvOn157 &&
+                                k74 + 1 != dots.size())
+                                trace157("WITHRECV");
                             r0->VpiFullName(
-                                (withExpr9 ||
+                                ((withExpr9 &&
+                                  (!withRecvOn157 || k74 + 1 == dots.size())) ||
                                  (memberRand119 && k74 + 1 == dots.size()))
                                     ? joinRef(prefix, dn0)
                                     : dn0);
@@ -34297,7 +34733,74 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // this.member: the hier_path spans the `this` token only, and the
             // member ref is loc-less with a scope-prefixed fullname.
             bool thisPath = nv.symbol.name == "this";
-            if (thisPath)
+            // § thisPathFormByPosition157 — the `this.` path has THREE golden
+            // forms and the position picks one (tools/probe/r11u157hp grid g4,
+            // gdb mint trace: all three are CompileHelper::compileSelectExpression
+            // reached from compileComplexFuncCall's implicit_class_handle arm,
+            // CompileExpression.cpp:5209-5217):
+            //   RVALUE  (`r = this.x`, an operand, an argument, a condition)
+            //           the Select is a bare StringConst: the hier_path spans the
+            //           whole path, `this` anchors at the member token, and the
+            //           member keeps its own token AND its own name
+            //           (the `field` arm, :1432).
+            //   LVALUE  (assignment / op-assign target, a PREFIX ++/--) the Select
+            //           is a Ps_or_hierarchical_identifier: the hier_path spans
+            //           `this`, `this` anchors at the FIRST member token, and every
+            //           member is loc-less with a computed full name (:1385).
+            //   POSTFIX ++/-- the same members, but the hier_path spans the whole
+            //           path.
+            // Switch R11U157_THIS_OFF (the pristine rule: every `this.` path
+            // takes the LVALUE hier_path span and members, and `this` its own
+            // token outside an lvalue).
+            static const bool thisOn157 = r11u157On("R11U157_THIS_OFF");
+            enum { ThisLegacy157, ThisRv157, ThisLv157, ThisPost157 } thisForm157 =
+                ThisLegacy157;
+            if (thisOn157 && thisPath && !chain.empty() && vifComps5.empty()) {
+                bool incDec157 = !inLhs && incDecOperand124() == &expr;
+                int pot157 = parent && parent->UhdmType() == UHDM::uhdmoperation
+                                 ? ((const UHDM::operation*)parent)->VpiOpType()
+                                 : 0;
+                if (inLhs)
+                    thisForm157 = ThisLv157;
+                else if (incDec157 && (pot157 == vpiPostIncOp || pot157 == vpiPostDecOp))
+                    thisForm157 = ThisPost157;
+                else if (incDec157)
+                    thisForm157 = ThisLv157;
+                else if (chain.size() == 1)
+                    thisForm157 = ThisRv157;
+            }
+            // § foreachArrPathVarForm157 — the ARRAY of a `foreach` written as
+            // a dotted path (`foreach (path.slices[j])`) is not an expression
+            // in golden: CompileHelper::compileVariable (CompileType.cpp:288-306)
+            // builds it from the variable node — a hier_path with no location,
+            // a base ref at its own token, the members loc-less, and NO full
+            // name stored on any element (all computed at save).  Grid g2 k10,
+            // LocalScopeHierPath, r10uvm143 g143_d, r10uvm21 t32g_t.
+            // Switch R11U157_FOREACH_OFF.
+            static const bool foreachOn157 = r11u157On("R11U157_FOREACH_OFF");
+            const bool foreachArr157 =
+                foreachOn157 && parent &&
+                parent->UhdmType() == UHDM::uhdmforeach_stmt && !thisPath &&
+                vifComps5.empty() && !chain.empty() &&
+                nv.symbol.kind != SymbolKind::Parameter;
+            // The axis halves (the law switch is already in the form/flag).
+            static const bool spanAx157 = r11u157On("R11U157_SPAN_OFF");
+            static const bool nameAx157 = r11u157On("R11U157_NAME_OFF");
+            static const bool fileAx157 = r11u157On("R11U157_FILE_OFF");
+            const bool thisSpan157 = thisForm157 != ThisLegacy157 && spanAx157;
+            const bool thisName157 = thisForm157 != ThisLegacy157 && nameAx157;
+            const bool thisFile157 = thisForm157 != ThisLegacy157 && fileAx157;
+            const bool foreachName157 = foreachArr157 && nameAx157;
+            const bool foreachFile157 = foreachArr157 && fileAx157;
+            if (thisSpan157 || thisName157 || thisFile157)
+                trace157("THIS");
+            if (foreachName157 || foreachFile157)
+                trace157("FOREACH");
+            if (foreachFile157)
+                ;  // no location (and so no file)
+            else if (thisPath &&
+                     !(thisSpan157 && (thisForm157 == ThisRv157 ||
+                                       thisForm157 == ThisPost157)))
                 setLoc(hp, base->sourceRange);
             else
                 setLoc(hp, expr.sourceRange);
@@ -34315,6 +34818,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     pkgQualNm9 = std::string(psc9->asSymbol().name);
                     hp->VpiName("");
                     hp->VpiFullName(prefix);
+                }
+            // § hpSelRoute157 — the grammar position of this member path, for
+            // a PLAIN path only (no pkg-qualified base, no recovered vif
+            // component, not `this`).  SPAN: the base anchor; NAME: the leaf.
+            const bool legacyLv157 = lhsM154 || paramInitStructMember || incDecLv124;
+            bool selSpan157 = legacyLv157, selName157 = legacyLv157;
+            if (!pkgQualBase9 && vifComps5.empty() && !thisPath && !chain.empty())
+                if (HpRoute157 r157 = hpRoute157(parent, ternTrueArmOps31, hp, inCastSize);
+                    r157 != HpRoute157::Keep) {
+                    if (hpRoute157SpanOn())
+                        selSpan157 = r157 == HpRoute157::Sel;
+                    if (hpRoute157NameOn())
+                        selName157 = r157 == HpRoute157::Sel;
                 }
             auto* elems = s.MakeAnyVec();
             {
@@ -34339,8 +34855,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 else {
                 // Lvalue paths (and param-init struct-member reads) anchor the
                 // base ref at the FIRST member's token span.
-                if ((lhsM154 || paramInitStructMember || incDecLv124) &&
-                    !chain.empty()) {
+                if ((selSpan157 || thisSpan157) && !chain.empty()) {
                     // § vifClockingPathComponent5 — SITE 1 of 3.  With a
                     // recovered component spliced in, the FIRST member is that
                     // component, not the leaf: golden puts BOTH the base ref and
@@ -34359,6 +34874,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 else {
                     setLoc(r, base->sourceRange);
                 }
+                if (foreachName157)
+                    r->VpiFullName(joinRef(prefix, nv.symbol.name));
                 elems->push_back(r);
                 }
             }
@@ -34380,10 +34897,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 auto* r = s.MakeRef_obj();
                 r->VpiName(ma.member.name);
                 (void)r->VpiFullName();
+                const bool leaf157 = *it2 == chain.front();
                 // Only the last member of an rvalue path gets a fullname; a
                 // param-init struct-member read leaves the leaf BARE (lvalue).
-                if (!lhsM154 && !paramInitStructMember && !incDecLv124 &&
-                    *it2 == chain.front())
+                // A `this.` leaf is scoped in every position (pristine).
+                // § thisPathFormByPosition157 / § foreachArrPathVarForm157 —
+                // NAME axis: a this-RVALUE member keeps its own name; a
+                // this-LVALUE/POSTFIX member and a foreach-array element are
+                // all scoped.
+                bool scoped157 = (!selName157 || thisPath) && leaf157;
+                if (thisName157)
+                    scoped157 = thisForm157 != ThisRv157;
+                else if (foreachName157)
+                    scoped157 = true;
+                if (scoped157)
                     // A PACKAGE-scope prefix keeps :: down to the leaf
                     // (riscv_isa_i_pkg::enc32::opc — Surelog).
                     r->VpiFullName(joinRef(prefix, ma.member.name));
@@ -34412,10 +34939,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 }
                     }
                 }
-                if (thisPath && *it2 == chain.front()) {
-                    r->VpiFullName(joinRef(prefix, ma.member.name));
-                }
-                else {
+                // FILE axis: a this-RVALUE member is located, a
+                // this-LVALUE/POSTFIX member and a foreach-array member are
+                // loc-less; pristine: a `this.` leaf is loc-less.
+                bool located157 = !(thisPath && leaf157);
+                if (thisFile157)
+                    located157 = thisForm157 == ThisRv157;
+                else if (foreachFile157)
+                    located157 = false;
+                if (located157) {
                     auto end = (*it2)->sourceRange.end();
                     setLoc(r, SourceRange(end - ma.member.name.size(), end));
                 }
@@ -37163,6 +37695,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             };
             std::string dottedSoFar;
             bool genVarBaseEmitted = false;
+            // § hpSelRoute157 — the grammar position of this hierarchical
+            // path (an interface-port member in a parameter value or a
+            // part-select bound is a constant_primary; one in an lvalue's
+            // select index is an expression).
+            // § lvIdxPathIsRead154 — a path inside an lvalue select's
+            // index is a READ; § psBoundPathFirstMember154 (EmitHelpers.h):
+            // the legacy flags the route law refines.
+            const bool lhsT154 = (inLhs && !lvIdxPathIsRead154(parent)) ||
+                                 psBoundPathFirstMember154(parent, parts.size());
+            bool selSpan157 = lhsT154, selName157 = lhsT154;
+            if (HpRoute157 r157 = hpRoute157(parent, ternTrueArmOps31, hp, inCastSize);
+                r157 != HpRoute157::Keep) {
+                if (hpRoute157SpanOn())
+                    selSpan157 = r157 == HpRoute157::Sel;
+                if (hpRoute157NameOn())
+                    selName157 = r157 == HpRoute157::Sel;
+            }
             for (size_t i = 0; i < parts.size(); i++) {
                 auto& [pname, dispOff] = parts[i];
                 (void)dispOff;
@@ -37336,13 +37885,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 auto* r = s.MakeRef_obj();
                 r->VpiName(pname);
                 (void)r->VpiFullName();
-                // § lvIdxPathIsRead154 — a path inside an lvalue select's
-                // index is a READ (EmitHelpers.h).
-                bool lhsT154 = (inLhs && !lvIdxPathIsRead154(parent)) ||
-                               // § psBoundPathFirstMember154 (EmitHelpers.h).
-                               psBoundPathFirstMember154(parent, parts.size());
-                // Only the last element of an rvalue path gets a fullname.
-                if (!lhsT154 && i + 1 == parts.size())
+                // Only the last element of an rvalue path gets a fullname
+                // (§ lvIdxPathIsRead154 / § psBoundPathFirstMember154 /
+                // § hpSelRoute157: selName157 above).
+                if (!selName157 && i + 1 == parts.size())
                     r->VpiFullName(prefix + "." + pname);
                 r->VpiParent(hp);
                 // A DOTTED hier_path leaf in a gen-scope process stays
@@ -37352,7 +37898,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // integer_var. (for_decl_shadow's `gen.x` refs live inside a
                 // procedural for, so this leaf-bind never applied to them.)
                 // Lvalue paths anchor the base ref at the SECOND element.
-                size_t locIdx = (lhsT154 && i == 0 && parts.size() > 1) ? 1 : i;
+                size_t locIdx = (selSpan157 && i == 0 && parts.size() > 1) ? 1 : i;
                 auto& lname = srcParts[locIdx].first;
                 auto lStart = partStart(locIdx);
                 setLoc(r, SourceRange(lStart, lStart + lname.size()));
@@ -37391,13 +37937,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // name lazily and the hier_path parent contributes nothing.
                 bool caLhs9 =
                     parent && parent->UhdmType() == UHDM::uhdmcont_assign;
+                // § genTgtLhsLeafOwnName157 — a PLAIN gen-block target
+                // (`assign B.x = 0`, `assign G.H.y = ...`) is an ordinary
+                // net_lvalue in golden: compileSelectExpression spans the
+                // whole path and every component keeps its own name
+                // (ComplexHierPath, grid q01).  Only an INDEXED base
+                // (hierdefparam `assign bar[0].a`, grid q02) keeps the raw
+                // leaf and the base-only span.  Switch R11U157_GENTGT_OFF.
+                static const bool genTgtSpan157 =
+                    r157("R11U157_GENTGT_OFF", "R11U157_SPAN_OFF");
+                static const bool genTgtName157 =
+                    r157("R11U157_GENTGT_OFF", "R11U157_NAME_OFF");
                 if (inLhs && caLhs9 && (genTgt9 || idxBase9) &&
                     !elems->empty()) {
-                    auto* fe9 = (UHDM::expr*)elems->front();
-                    hp->VpiEndLineNo(fe9->VpiEndLineNo());
-                    hp->VpiEndColumnNo(fe9->VpiEndColumnNo());
+                    if (!idxBase9 && (genTgtSpan157 || genTgtName157))
+                        trace157("GENTGT");
+                    if (idxBase9 || !genTgtSpan157) {
+                        auto* fe9 = (UHDM::expr*)elems->front();
+                        hp->VpiEndLineNo(fe9->VpiEndLineNo());
+                        hp->VpiEndColumnNo(fe9->VpiEndColumnNo());
+                    }
                     auto* le9 = elems->back();
-                    if (le9->UhdmType() == UHDM::uhdmref_obj)
+                    if (le9->UhdmType() == UHDM::uhdmref_obj &&
+                        (idxBase9 || !genTgtName157))
                         ((UHDM::ref_obj*)le9)->VpiFullName(raw);
                 }
 

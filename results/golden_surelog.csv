@@ -261,8 +261,8 @@ ComplexEscaped,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Complex
 ComplexEscaped,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ComplexEscaped/dut.sv:6:8: error: duplicate definition of 'top' [-Wduplicate-definition],,
 ComplexExprSize,default,CMP_EQUAL,,,equal
 ComplexExprSize,testflags,CMP_EQUAL,,,equal
-ComplexHierPath,default,STRICT_NOTEQUAL,differ:col(10),,differ:col(10)
-ComplexHierPath,testflags,STRICT_NOTEQUAL,differ:col(8),,differ:col(8)
+ComplexHierPath,default,STRICT_NOTEQUAL,differ:col(7),,differ:col(7)
+ComplexHierPath,testflags,STRICT_NOTEQUAL,differ:col(7),,differ:col(7)
 ComplexParamOverload,default,STRICT_NOTEQUAL,differ:name(2),,differ:name(2)
 ComplexParamOverload,testflags,STRICT_NOTEQUAL,differ:name(2),,differ:name(2)
 ComplexParamOverload2,default,CMP_EQUAL,,,equal
@@ -415,8 +415,8 @@ EnumParenType,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/EnumPare
 EnumParenType,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/EnumParenType/dut.sv:9:3: error: expected member,,
 EnumVal,default,CMP_EQUAL,,,equal
 EnumVal,testflags,CMP_EQUAL,,,equal
-EnumVar,default,STRICT_NOTEQUAL,differ:endline(3),,differ:endline(3)
-EnumVar,testflags,STRICT_NOTEQUAL,differ:endline(3),,differ:endline(3)
+EnumVar,default,CMP_EQUAL,,,equal
+EnumVar,testflags,CMP_EQUAL,,,equal
 EnumVarNoTypedef,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/EnumVarNoTypedef/dut.sv:4:20: error: expression width of 4 does not exactly match declared enum type wi,,
 EnumVarNoTypedef,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/EnumVarNoTypedef/dut.sv:4:20: error: expression width of 4 does not exactly match declared enum type wi,,
 Escape,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Escape/top.v:13:12: error: unknown class or package 'uvm_resource_db',,
@@ -647,8 +647,8 @@ HierPathSelect,default,CMP_EQUAL,,,equal
 HierPathSelect,testflags,CMP_EQUAL,,,equal
 HierPathStruct,default,CMP_EQUAL,,,equal
 HierPathStruct,testflags,CMP_EQUAL,,,equal
-HierPathStructTypespec,default,STRICT_NOTEQUAL,differ:col(1),,differ:col(1)
-HierPathStructTypespec,testflags,STRICT_NOTEQUAL,differ:col(1),,differ:col(1)
+HierPathStructTypespec,default,CMP_EQUAL,,,equal
+HierPathStructTypespec,testflags,CMP_EQUAL,,,equal
 HierPathTfArg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathTfArg/dut.sv:27:18: error: use of undeclared identifier 'f',,
 HierPathTfArg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathTfArg/dut.sv:27:18: error: use of undeclared identifier 'f',,
 HierPathTypespec,default,CMP_EQUAL,,,equal
@@ -661,8 +661,8 @@ HierPathVarArray,default,CMP_EQUAL,,,equal
 HierPathVarArray,testflags,CMP_EQUAL,,,equal
 HighConnPart,default,CMP_EQUAL,,,equal
 HighConnPart,testflags,CMP_EQUAL,,,equal
-HighLow,default,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
-HighLow,testflags,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
+HighLow,default,STRICT_NOTEQUAL,differ:value(1),,differ:value(1)
+HighLow,testflags,STRICT_NOTEQUAL,differ:value(1),,differ:value(1)
 Ibex,default,SLANG_REJECT,error: '/vendor/lowrisc_ip/prim/rtl/prim_assert.sv': No such file or directory,,
 Ibex,testflags,SLANG_REJECT,error: '/vendor/lowrisc_ip/prim/rtl/prim_assert.sv': No such file or directory,,
 IbexGoogle,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/IbexGoogle/test/riscv_instr_cov_test.sv:234:29: error: cannot mix strings and integers in a,,
@@ -795,8 +795,8 @@ LargeHexCast,default,CMP_EQUAL,,,equal
 LargeHexCast,testflags,CMP_EQUAL,,,equal
 LargeHexString,default,CMP_EQUAL,,,equal
 LargeHexString,testflags,CMP_EQUAL,,,equal
-LargeValue2Struct,default,STRICT_NOTEQUAL,differ:endcol(5),,differ:endcol(5)
-LargeValue2Struct,testflags,STRICT_NOTEQUAL,differ:endcol(5),,differ:endcol(5)
+LargeValue2Struct,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+LargeValue2Struct,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 LateBindingFuncArg,default,CMP_EQUAL,,,equal
 LateBindingFuncArg,testflags,CMP_EQUAL,,,equal
 LeftPadding,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LeftPadding/dut.sv:8:5: error: unknown module 'GOOD',,
@@ -817,8 +817,8 @@ LocalParam,default,CMP_EQUAL,,,equal
 LocalParam,testflags,CMP_EQUAL,,,equal
 LocalScopeAssign,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LocalScopeAssign/dut.sv:7:37: error: use of undeclared identifier 'v2',,
 LocalScopeAssign,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LocalScopeAssign/dut.sv:7:37: error: use of undeclared identifier 'v2',,
-LocalScopeHierPath,default,STRICT_NOTEQUAL,differ:file(3),,differ:file(3)
-LocalScopeHierPath,testflags,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
+LocalScopeHierPath,default,CMP_EQUAL,,,equal
+LocalScopeHierPath,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
 LocalVarTypespec,default,CMP_EQUAL,,,equal
 LocalVarTypespec,testflags,CMP_EQUAL,,,equal
 LogicArrayParam,default,CMP_EQUAL,,,equal
@@ -1241,8 +1241,8 @@ SimpleClass2,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleCla
 SimpleClass2,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleClass2/top.v:13:19: error: implementation not found in parent scope for 'new' [-Wmember-impl-not-,,
 SimpleCmdLineTest,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleCmdLineTest/flist2.f:1:26: error: unknown command line argument '-bad'; did you mean '--std'?,,
 SimpleCmdLineTest,testflags,NO_UHDM,[   NOTE] : 1,,
-SimpleConstraint,default,STRICT_NOTEQUAL,differ:endcol(2),,differ:endcol(2)
-SimpleConstraint,testflags,STRICT_NOTEQUAL,differ:endcol(2),,differ:endcol(2)
+SimpleConstraint,default,CMP_EQUAL,,,equal
+SimpleConstraint,testflags,CMP_EQUAL,,,equal
 SimpleIncludeAndMacros,default,SURELOG_FAIL,[   NOTE] : 16,,
 SimpleIncludeAndMacros,testflags,SURELOG_FAIL,[   NOTE] : 16,,
 SimpleInterface,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleInterface/simple_if.sv:5:26: error: redefinition of 'clk' [-Wredefinition],,
@@ -1293,24 +1293,24 @@ StructNetUnionTypespec,default,CMP_EQUAL,,,equal
 StructNetUnionTypespec,testflags,CMP_EQUAL,,,equal
 StructParamFieldRange,default,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
 StructParamFieldRange,testflags,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
-StructParamFuncBodyFieldCompare,default,STRICT_NOTEQUAL,differ:fullname(15),,differ:fullname(15)
-StructParamFuncBodyFieldCompare,testflags,STRICT_NOTEQUAL,differ:fullname(15),,differ:fullname(15)
-StructParamPatternInitCast,default,STRICT_NOTEQUAL,differ:fullname(15),,differ:fullname(15)
-StructParamPatternInitCast,testflags,STRICT_NOTEQUAL,differ:fullname(15),,differ:fullname(15)
+StructParamFuncBodyFieldCompare,default,STRICT_NOTEQUAL,differ:fullname(11),,differ:fullname(11)
+StructParamFuncBodyFieldCompare,testflags,STRICT_NOTEQUAL,differ:fullname(11),,differ:fullname(11)
+StructParamPatternInitCast,default,STRICT_NOTEQUAL,differ:fullname(11),,differ:fullname(11)
+StructParamPatternInitCast,testflags,STRICT_NOTEQUAL,differ:fullname(11),,differ:fullname(11)
 StructStructHierPath,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructStructHierPath/dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
 StructStructHierPath,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructStructHierPath/dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
 StructTypedef,default,CMP_EQUAL,,,equal
 StructTypedef,testflags,CMP_EQUAL,,,equal
-StructUnsizedVal,default,STRICT_NOTEQUAL,differ:endcol(3),,differ:endcol(3)
-StructUnsizedVal,testflags,STRICT_NOTEQUAL,differ:endcol(3),,differ:endcol(3)
+StructUnsizedVal,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+StructUnsizedVal,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
 StructVar,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVar/dut.sv:62:12: error: cannot refer to element 2 of 'pmp_cfg_t$[2]' [-Windex-oob],,
 StructVar,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVar/dut.sv:62:12: error: cannot refer to element 2 of 'pmp_cfg_t$[2]' [-Windex-oob],,
 StructVarImp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVarImp/dut.sv:36:43: error: use of undeclared identifier 'MpRegions'; did you mean 'NumRegions'?,,
 StructVarImp,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVarImp/dut.sv:36:43: error: use of undeclared identifier 'MpRegions'; did you mean 'NumRegions'?,,
 SurelogMacro,default,CMP_EQUAL,,,equal
 SurelogMacro,testflags,CMP_EQUAL,,,equal
-SVSwitch,default,STRICT_NOTEQUAL,differ:endcol(27),,differ:endcol(27)
-SVSwitch,testflags,STRICT_NOTEQUAL,differ:endcol(27),,differ:endcol(27)
+SVSwitch,default,STRICT_NOTEQUAL,differ:fullname(11),,differ:fullname(11)
+SVSwitch,testflags,STRICT_NOTEQUAL,differ:fullname(11),,differ:fullname(11)
 SynthFilterDollarError,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SynthFilterDollarError/dut.sv:4:10: error: unknown package 'pack',,
 SynthFilterDollarError,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SynthFilterDollarError/dut.sv:4:10: error: unknown package 'pack',,
 SynthForeach,default,CMP_EQUAL,,,equal

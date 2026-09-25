@@ -1,0 +1,10 @@
+# predicted movers of fix2 vs the r11u158 law binary (refinement firings, fence-filtered census)
+u2r/default/StreamOperatorBitReverseFunction-36e83a59/slang.uhdm R11U158_TRACE V:SCNAMEDW
+u2r/testflags/StreamOperatorBitReverseFunction-36e83a59/slang.uhdm R11U158_TRACE V:SCNAMEDW
+sl/default/Scr1SvTests-fa4609ad/slang.uhdm R11U158_TRACE V:SCNAMEDW
+sl/testflags/Scr1SvTests-fa4609ad/slang.uhdm R11U158_TRACE V:SCNAMEDW
+probe/r10earl106repro__g1_home106.uhdm R11U158_TRACE V:SCNAMEDW
+probe/r10earl106repro__h1_head106.uhdm R11U158_TRACE V:SCNAMEDW
+probe/r10earl50repro__h6_earl50.uhdm R11U158_TRACE V:SCNAMEDW
+probe/r10earl51repro__i1_earl51.uhdm R11U158_TRACE V:SCNAMEDW
+probe/r10vearl106repro__va5_scope106.uhdm R11U158_TRACE V:SCNAMEDW

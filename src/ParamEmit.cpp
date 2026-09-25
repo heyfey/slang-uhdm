@@ -198,6 +198,76 @@ static bool unpackedDimsAllLiteral(const Symbol& sym) {
 // $unsigned $increment, plus a nested $clog2($bits(x))): every one folds
 // except `$increment`, which UHDM's `ExprEval::reduceExpr` has no handler for
 // and which therefore survives into the elaborated view unchanged.
+// § arrQueryFoldAtBound158 — the written range bound a `$high` / `$low` /
+// `$left` / `$right` query of a declared name resolves to: the literal bound
+// of the FIRST dimension of the argument's declaration (ImplicitType
+// `parameter [2:1] a`, an integer type `logic [7:3] v`), chosen by the query
+// (`$left`/`$right` by position, `$high`/`$low` by value).  Abstains unless
+// both bounds are integer literals.
+static std::optional<SourceRange> arrQueryBoundLoc158(const Expression& e) {
+    auto& c = stripImplicitConv(e);
+    if (c.kind != ExpressionKind::Call)
+        return std::nullopt;
+    auto& call = c.as<CallExpression>();
+    if (!call.isSystemCall() || call.arguments().size() != 1)
+        return std::nullopt;
+    std::string nm(call.getSubroutineName());
+    if (!nm.empty() && nm[0] != '$')
+        nm.insert(nm.begin(), '$');
+    if (nm != "$high" && nm != "$low" && nm != "$left" && nm != "$right")
+        return std::nullopt;
+    auto& a = stripImplicitConv(*call.arguments()[0]);
+    if (a.kind != ExpressionKind::NamedValue)
+        return std::nullopt;
+    // § arrQueryParamArgOnly158v (r11v158) — only a PARAMETER argument that is
+    // not an unpacked array: golden keeps the call's span for a variable,
+    // net or port argument (`logic [5:2] v; parameter high = $high(v)` ->
+    // 4:20-28, the `$high(v)` call) and for an unpacked parameter (whose
+    // query golden does not fold).  Grid tools/probe/r11v158repro/cases/hl.
+    // Switch R11V158_AQPARAM_OFF.
+    if (r11v158On("R11V158_AQPARAM_OFF")) {
+        auto& as158 = a.as<NamedValueExpression>().symbol;
+        if (as158.kind != SymbolKind::Parameter ||
+            as158.as<ParameterSymbol>().getType().isUnpackedArray()) {
+            trace158("V:AQPARAM");
+            return std::nullopt;
+        }
+    }
+    const DeclaredType* dt = a.as<NamedValueExpression>().symbol.getDeclaredType();
+    if (!dt || !dt->getTypeSyntax())
+        return std::nullopt;
+    const syntax::DataTypeSyntax* ts = dt->getTypeSyntax();
+    const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dims = nullptr;
+    if (ts->kind == syntax::SyntaxKind::ImplicitType)
+        dims = &ts->as<syntax::ImplicitTypeSyntax>().dimensions;
+    else if (syntax::IntegerTypeSyntax::isKind(ts->kind))
+        dims = &ts->as<syntax::IntegerTypeSyntax>().dimensions;
+    if (!dims || dims->empty())
+        return std::nullopt;
+    auto* d0 = (*dims)[0];
+    if (!d0 || !d0->specifier ||
+        d0->specifier->kind != syntax::SyntaxKind::RangeDimensionSpecifier)
+        return std::nullopt;
+    auto* sel = d0->specifier->as<syntax::RangeDimensionSpecifierSyntax>().selector.get();
+    if (!sel || sel->kind != syntax::SyntaxKind::SimpleRangeSelect)
+        return std::nullopt;
+    auto& rs = sel->as<syntax::RangeSelectSyntax>();
+    const syntax::ExpressionSyntax* l = rs.left.get();
+    const syntax::ExpressionSyntax* r = rs.right.get();
+    if (l->kind != syntax::SyntaxKind::IntegerLiteralExpression ||
+        r->kind != syntax::SyntaxKind::IntegerLiteralExpression)
+        return std::nullopt;
+    auto lv = l->as<syntax::LiteralExpressionSyntax>().literal.intValue().as<int64_t>();
+    auto rv = r->as<syntax::LiteralExpressionSyntax>().literal.intValue().as<int64_t>();
+    if (!lv || !rv)
+        return std::nullopt;
+    bool pickLeft = nm == "$left"    ? true
+                    : nm == "$right" ? false
+                    : nm == "$high"  ? *lv >= *rv
+                                     : *lv < *rv;
+    return (pickLeft ? l : r)->sourceRange();
+}
+
 static bool containsElabFoldingSysCall(const Expression& e) {
     bool found = false, blocked = false;
     e.visit(makeVisitor([&](auto& v, const CallExpression& c) {
@@ -13473,6 +13543,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             if (dsyn->kind ==
                                 syntax::SyntaxKind::ParenthesizedExpression)
                                 rhsLoc = dsyn->sourceRange();
+                    // § arrQueryFoldAtBound158 — A FOLDED `$high(a)` /
+                    // `$low(a)` / `$left(a)` / `$right(a)` IS LOCATED AT THE
+                    // WRITTEN RANGE BOUND IT RESOLVES TO: golden HighLow
+                    // (`parameter [2:1] a`) `high = $high(a)` 6:14-15 (the
+                    // `2`), `low = $low(a)` 6:16-17 (the `1`), `[1:2]` the
+                    // other way round, through an overridden parameter's
+                    // declaration too (`$high(A)`, `[3:0] A` -> the `3`).
+                    // Surelog's reduction hands back the range's bound
+                    // expression.  Grid tools/probe/r11u158repro/cases/hl.
+                    // Switch R11U158_ARRQRYLOC_OFF.
+                    {
+                        static const bool aq158 =
+                            r11u158On("R11U158_ARRQRYLOC_OFF");
+                        if (aq158 && !overridden)
+                            if (auto bl158 = arrQueryBoundLoc158(*init)) {
+                                trace158("ARRQRYLOC");
+                                rhsLoc = *bl158;
+                            }
+                    }
                     if (!importedFold)
                         setLoc((UHDM::constant*)rhs, rhsLoc);
                     // ELAB-pkg computed BinaryOp init folds at the LEFT
@@ -13495,9 +13584,37 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             impElabArithWholeSpan145On();
                         if (pkgElabComputed &&
                             se9->kind == ExpressionKind::BinaryOp) {
-                            if (!wholeImp145)
-                                setLoc((UHDM::constant*)rhs,
-                                       se9->as<BinaryExpression>().left().sourceRange);
+                            if (!wholeImp145) {
+                                SourceRange lr158 =
+                                    se9->as<BinaryExpression>().left().sourceRange;
+                                // § pkgFoldLeftParenSpan158 — A PARENTHESIZED
+                                // LEFT OPERAND KEEPS ITS PARENTHESES: golden
+                                // HierPathStructTypespec kmac_pkg
+                                // `BufferCycles = (Sha3Latency + RegLatency -
+                                // 1)/RegLatency` folds at 10:34-64, the
+                                // written `( ... )`; slang's operand range
+                                // drops them (10:35-63).  Read from the
+                                // binary expression's own syntax.  Grid
+                                // tools/probe/r11u158repro/cases/pp.  Switch
+                                // R11U158_PKGLPAREN_OFF.
+                                static const bool lp158 =
+                                    r11u158On("R11U158_PKGLPAREN_OFF");
+                                if (lp158 && se9->syntax &&
+                                    syntax::BinaryExpressionSyntax::isKind(
+                                        se9->syntax->kind)) {
+                                    const syntax::ExpressionSyntax* ls158 =
+                                        se9->syntax
+                                            ->as<syntax::BinaryExpressionSyntax>()
+                                            .left.get();
+                                    if (ls158 &&
+                                        ls158->kind ==
+                                            syntax::SyntaxKind::ParenthesizedExpression) {
+                                        trace158("PKGLPAREN");
+                                        lr158 = ls158->sourceRange();
+                                    }
+                                }
+                                setLoc((UHDM::constant*)rhs, lr158);
+                            }
                             if (!typedParam)
                                 ((UHDM::constant*)rhs)->VpiSize(32);
                         }
@@ -31464,6 +31581,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 // scoping and no parent.
                 SourceLocation useEnd = SourceLocation::NoLocation;
                 bool arrayAliasUse0 = false;
+                bool bareUse158 = false;
                 for (auto inst : comp.getRoot().topInstances) {
                     for (auto& mb : inst->body.members()) {
                         if (mb.kind != SymbolKind::Variable)
@@ -31502,15 +31620,46 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                 portBacked = true;
                         if (portBacked)
                             continue;
+                        // § enumAliasEndAtDimOrInitDecl158 — THE CLONE'S END
+                        // MOVES ONLY TO A DECLARATOR WITH AN UNPACKED
+                        // DIMENSION OR AN INITIALIZER, AND TO THE LAST SUCH
+                        // ONE.  Golden (EnumVar `pkg::alias_t b;`, grid
+                        // r11u158repro/cases/ev): a bare declarator keeps the
+                        // TARGET typedef's declaration span (2:14-2:57); `b
+                        // [2]`, `c = pkg::ONE` stretch it to their end, and
+                        // with two such declarators (`b [2], c = pkg::ONE`,
+                        // or two declarations) the later one wins.  A bare
+                        // use still doubles the scoping and parents the clone
+                        // at the package.  Switch R11U158_EVALIASEND_OFF.
+                        static const bool evEnd158 =
+                            r11u158On("R11U158_EVALIASEND_OFF");
+                        if (evEnd158) {
+                            bareUse158 = true;
+                            auto dsyn0 = mb.getSyntax();
+                            if (dsyn0 &&
+                                dsyn0->kind == syntax::SyntaxKind::Declarator) {
+                                auto& dd158 =
+                                    dsyn0->as<syntax::DeclaratorSyntax>();
+                                if (!dd158.dimensions.empty() ||
+                                    dd158.initializer) {
+                                    trace158("EVALIASEND");
+                                    auto e158 = dsyn0->sourceRange().end();
+                                    if (useEnd == SourceLocation::NoLocation ||
+                                        e158 > useEnd)
+                                        useEnd = e158;
+                                }
+                            }
+                            continue;
+                        }
                         if (auto dsyn0 = mb.getSyntax())
                             useEnd = dsyn0->sourceRange().end();
                         break;
                     }
-                    if (useEnd != SourceLocation::NoLocation)
+                    if (useEnd != SourceLocation::NoLocation || bareUse158)
                         break;
                 }
-                bool varUse =
-                    useEnd != SourceLocation::NoLocation || arrayAliasUse0;
+                bool varUse = useEnd != SourceLocation::NoLocation ||
+                              arrayAliasUse0 || bareUse158;
                 std::string refName = varUse
                                           ? prefix + prefix + std::string(ta.name)
                                           : prefix + std::string(ta.name);

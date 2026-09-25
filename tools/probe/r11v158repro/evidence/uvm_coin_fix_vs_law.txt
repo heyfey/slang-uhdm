@@ -1,0 +1,8 @@
+default/MiniAmiq ordered-diff=4 orderblind-diff=4
+default/Scoreboard ordered-diff=92 orderblind-diff=0
+default/SeqDriver ordered-diff=4 orderblind-diff=4
+testflags/MiniAmiq ordered-diff=4 orderblind-diff=4
+testflags/SeqDriver ordered-diff=4 orderblind-diff=4
+testflags/SimpleUVM ordered-diff=4 orderblind-diff=4
+
+[exited with code 0]

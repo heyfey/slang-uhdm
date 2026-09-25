@@ -1,0 +1,12 @@
+R11U157_ROUTE_OFF: hp/c11_param_binop
+R11U157_THIS_OFF: hp/k01_this_rhs hp/k03_this_cond hp/k11_display_arg hp/k14_this_incdec hp/t03_mixed
+R11U157_FOREACH_OFF: hp/k10_foreach_member
+R11U157_GENTGT_OFF: hp/q01_gen_plain_lhs
+R11U158_EVALIASEND_OFF: ev/e02 ev/e04 ev/e08 ev/e13 ev/e15 ev/e18
+R11U158_GCALHSENUM_OFF: gl/l1 gl/l2 gl/l3 gl/l5 gl/l7
+R11U158_SCLITMASK_OFF: sc/c1 sc/c13 sc/c14 sc/c15 sc/c16 sc/c2 sc/c3 sc/c4 sc/c6
+R11U158_SCSIGNSIZE_OFF: sc/c8
+R11U158_PKGLPAREN_OFF: pp/p1 pp/p2 pp/p3
+R11U158_ARRQRYLOC_OFF: hl/h1 hl/h2 hl/h7
+R11U158_AGGUNQSPAN_OFF: uq/u1 uq/u3 uq/u5
+R11U158_RANDSPAN_OFF: rz/r1 rz/r2 rz/r4

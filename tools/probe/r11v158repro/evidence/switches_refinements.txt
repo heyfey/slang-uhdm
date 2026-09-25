@@ -1,0 +1,4 @@
+R11V158_SCNARROW_OFF: r11v158repro/sc/b01 r11v158repro/sc/b02 r11v158repro/sc/b13 r11v158repro/sc/b14 r11v158repro/sc/b15
+R11V158_SCSLIT_OFF: r11v158repro/sc/b03 r11v158repro/sc/w6
+R11V158_SCNAMEDW_OFF: r11u158repro/sc/c12 r11v158repro/sc/b10 r11v158repro/sc/n1 r11v158repro/sc/n3 r11v158repro/sc/n6 r11v158repro/sc/n8 r11v158repro/sc/n9 r11v158repro/sc/w1 r11v158repro/sc/w3 r11v158repro/sc/w4 r11v158repro/sc/w7
+R11V158_AQPARAM_OFF: r11u158repro/hl/h4 r11v158repro/hl/h01 r11v158repro/hl/h03 r11v158repro/hl/h08 r11v158repro/hl/x1 r11v158repro/hl/x2 r11v158repro/hl/x3 r11v158repro/hl/x8 r11v158repro/hl/y1 r11v158repro/hl/y2 r11v158repro/hl/y3 r11v158repro/hl/y4

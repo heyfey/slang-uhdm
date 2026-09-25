@@ -1,0 +1,63 @@
+r10buvm21repro/g21b: pristine STRICT_NOTEQUAL line | law STRICT_NOTEQUAL line | records leave 2 enter 0
+r10buvm21repro/g21c: pristine STRICT_NOTEQUAL line | law STRICT_NOTEQUAL line | records leave 2 enter 0
+r10earl76repro/g2_orig76: pristine STRICT_NOTEQUAL col | law STRICT_NOTEQUAL fullname | records leave 6 enter 0
+r10svs4repro/g1_thisidx: pristine STRICT_NOTEQUAL fullname | law STRICT_NOTEQUAL fullname | records leave 6 enter 0
+r10uvm119repro/g119_b: pristine STRICT_NOTEQUAL endcol | law STRICT_EQUAL 63 objects | records leave 8 enter 0
+r10uvm125repro/g125_b_shapes: pristine STRICT_NOTEQUAL line | law STRICT_NOTEQUAL line | records leave 6 enter 0
+r10uvm143repro/g143_d_foreach: pristine STRICT_NOTEQUAL file | law STRICT_NOTEQUAL line | records leave 12 enter 0
+r10uvm175repro/g175_a_pos: pristine STRICT_NOTEQUAL file | law STRICT_NOTEQUAL file | records leave 8 enter 0
+r10uvm175repro/g175_f_fence: pristine STRICT_NOTEQUAL file | law STRICT_NOTEQUAL file | records leave 4 enter 0
+r10uvm21repro/t32g_t: pristine STRICT_NOTEQUAL endcol | law STRICT_NOTEQUAL endcol | records leave 36 enter 0
+r10uvm37repro/t51a: pristine STRICT_NOTEQUAL fullname | law STRICT_NOTEQUAL fullname | records leave 0 enter 0
+r10uvm77repro/v77x1_randwith: pristine STRICT_NOTEQUAL endcol | law STRICT_EQUAL 97 objects | records leave 4 enter 0
+r10uvm84repro/ast84: pristine STRICT_NOTEQUAL endcol | law STRICT_EQUAL 51 objects | records leave 6 enter 0
+r10uvm84repro/g84_a2_parens: pristine STRICT_NOTEQUAL endcol | law STRICT_EQUAL 33 objects | records leave 12 enter 0
+r10uvm84repro/g84_c1_lvalue: pristine STRICT_NOTEQUAL fullname | law STRICT_NOTEQUAL endcol | records leave 10 enter 0
+r10uvm84repro/g84_e1_positions: pristine STRICT_NOTEQUAL endcol | law STRICT_EQUAL 89 objects | records leave 10 enter 0
+r10uvm84repro/v84x2_incdec: pristine STRICT_NOTEQUAL endcol | law STRICT_EQUAL 82 objects | records leave 34 enter 0
+r10uvm85repro/ast85: pristine STRICT_NOTEQUAL file | law STRICT_NOTEQUAL file | records leave 6 enter 0
+r10uvm85repro/g85_a1_builtin: pristine STRICT_NOTEQUAL endcol | law STRICT_EQUAL 67 objects | records leave 12 enter 0
+r10uvm85repro/g85_a7_pos: pristine STRICT_NOTEQUAL endcol | law STRICT_EQUAL 77 objects | records leave 6 enter 0
+r10uvm85repro/v85x1_kinds: pristine STRICT_NOTEQUAL endcol | law STRICT_EQUAL 167 objects | records leave 24 enter 0
+r10uvm85repro/v85x4_pos: pristine STRICT_NOTEQUAL endcol | law STRICT_NOTEQUAL endcol | records leave 6 enter 0
+r10v116repro/v116_q: pristine STRICT_NOTEQUAL endcol | law STRICT_EQUAL 98 objects | records leave 4 enter 0
+r10v116repro/v116_u: pristine STRICT_NOTEQUAL endcol | law STRICT_NOTEQUAL endline | records leave 2 enter 0
+r10v119repro/v119_k: pristine STRICT_NOTEQUAL endcol | law STRICT_EQUAL 68 objects | records leave 2 enter 0
+r10v125repro/v2_faces: pristine STRICT_NOTEQUAL endcol | law STRICT_EQUAL 344 objects | records leave 6 enter 0
+r10v151repro/v151_4_nonarray: pristine STRICT_NOTEQUAL endcol | law STRICT_EQUAL 191 objects | records leave 4 enter 0
+r10v175repro/v175_deep: pristine STRICT_NOTEQUAL file | law STRICT_NOTEQUAL file | records leave 12 enter 0
+r10v175repro/v175_scope: pristine STRICT_NOTEQUAL file | law STRICT_NOTEQUAL file | records leave 10 enter 0
+r10vbuvm29repro/gv29_a_shapes: pristine STRICT_NOTEQUAL endcol | law STRICT_EQUAL 142 objects | records leave 6 enter 0
+r11u108repro/grid/pk/k10b_member_child_sel: pristine STRICT_NOTEQUAL endline | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u108repro/grid/pk/k10c_member_widthparam: pristine STRICT_NOTEQUAL endline | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u108repro/grid/pk/k10d_member_child_nosel: pristine STRICT_NOTEQUAL endline | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u108repro/grid/pk/k10f_member_bodyimport: pristine STRICT_NOTEQUAL endline | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u108repro/grid/pk/k10g_member_bodyimport_child: pristine STRICT_NOTEQUAL endline | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u108repro/grid/pk/k10h_noassign: pristine STRICT_NOTEQUAL endline | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u108repro/grid/pk/k10i_noassign_nochild: pristine STRICT_NOTEQUAL endline | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u108repro/grid/pk/k10j_wide: pristine STRICT_NOTEQUAL endline | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u108repro/grid/pk/k10k_w32: pristine STRICT_NOTEQUAL endline | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u108repro/grid/pk/k10l_w33: pristine STRICT_NOTEQUAL endline | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u108repro/grid/pk/k10_member_v_pkgparam: pristine STRICT_NOTEQUAL endline | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u108repro/grid/pk/k23c_samekey: pristine STRICT_NOTEQUAL endcol | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u108repro/grid/pk/k23d_nowidth: pristine STRICT_NOTEQUAL endcol | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u108repro/grid/pk/k23_lv2s_copy: pristine STRICT_NOTEQUAL endcol | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u109repro/grid/f1/b02_shl: pristine STRICT_NOTEQUAL fullname | law STRICT_NOTEQUAL fullname | records leave 4 enter 0
+r11u109repro/grid/f1/b03_x32: pristine STRICT_NOTEQUAL fullname | law STRICT_NOTEQUAL fullname | records leave 4 enter 0
+r11u109repro/grid/f1/b04_dec: pristine STRICT_NOTEQUAL fullname | law STRICT_NOTEQUAL fullname | records leave 4 enter 0
+r11u109repro/grid/f1/c01_x64: pristine STRICT_NOTEQUAL fullname | law STRICT_NOTEQUAL fullname | records leave 8 enter 0
+r11u109repro/grid/f1/c05_x3sub: pristine STRICT_NOTEQUAL fullname | law STRICT_NOTEQUAL fullname | records leave 4 enter 0
+r11u109repro/grid/f1/f21_shlsub: pristine STRICT_NOTEQUAL fullname | law STRICT_NOTEQUAL fullname | records leave 4 enter 0
+r11u109repro/grid/f1/f24_shladd: pristine STRICT_NOTEQUAL fullname | law STRICT_NOTEQUAL fullname | records leave 4 enter 0
+r11u109repro/grid/f1/p09_shift: pristine STRICT_NOTEQUAL fullname | law STRICT_NOTEQUAL fullname | records leave 8 enter 0
+r11u111repro/grid/f2/b03_q_imp_w16: pristine STRICT_NOTEQUAL endline | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u111repro/grid/f2/b06_imp_imp_w80: pristine STRICT_NOTEQUAL endline | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u111repro/grid/f2/b07_q_imp_w80: pristine STRICT_NOTEQUAL endline | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u111repro/grid/f2/b13_sub_imp_w80: pristine STRICT_NOTEQUAL endcol | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u111repro/grid/f2/b14_hdrimp_imp_w80: pristine STRICT_NOTEQUAL endline | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+r11u20repro/t5: pristine STRICT_NOTEQUAL line | law STRICT_NOTEQUAL line | records leave 0 enter 0
+r11u82repro/grid/v3_rootpath: pristine STRICT_NOTEQUAL col | law STRICT_NOTEQUAL col | records leave 8 enter 0
+r11vu13repro/v4: pristine STRICT_NOTEQUAL line | law STRICT_NOTEQUAL line | records leave 0 enter 0
+r11vu13repro/v9: pristine STRICT_NOTEQUAL line | law STRICT_NOTEQUAL line | records leave 0 enter 0
+v11u111repro/brk/f2/x22_explicit_imp_wide: pristine STRICT_NOTEQUAL endline | law STRICT_NOTEQUAL fullname | records leave 2 enter 0
+DONE

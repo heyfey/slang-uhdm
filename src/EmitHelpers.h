@@ -14952,4 +14952,56 @@ inline bool isVariableKind154(const UHDM::any* o) {
     }
 }
 
+// ===========================================================================
+// r11u158 — the expression/parameter ground (tools/probe/r11u158repro).
+// Every law reads its own switch; R11U158_OFF drops every one of them (the
+// pristine bytes).  R11U158_TRACE=1 prints one stderr line per firing.
+//   R11U158_EVALIASEND_OFF  § enumAliasEndAtDimOrInitDecl158 (ParamEmit.cpp)
+//   R11U158_GCALHSENUM_OFF  § genCaLhsEnumConstClone158      (ExprEmit.cpp)
+//   R11U158_SCLITMASK_OFF   § sizeCastCaLitMask158           (ExprEmit.cpp)
+//   R11U158_SCSIGNSIZE_OFF  § sizeCastCaSignedSize158        (ExprEmit.cpp)
+//   R11U158_PKGLPAREN_OFF   § pkgFoldLeftParenSpan158        (ParamEmit.cpp)
+//   R11U158_ARRQRYLOC_OFF   § arrQueryFoldAtBound158         (ParamEmit.cpp)
+//   R11U158_AGGUNQSPAN_OFF  § aggParamFoldUnqualWholeSpan158 (ExprEmit.cpp)
+//   R11U158_RANDSPAN_OFF    § methodRandomizeCallSpan158     (ExprEmit.cpp)
+// The r11u157 hier_path laws (§ hpSelRoute157 ...) keep their own
+// R11U157_* switches in ExprEmit.cpp.
+// ===========================================================================
+inline bool r11u158On(const char* one) {
+    static const bool all = getenv("R11U158_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+// r11v158 — the adversarial verification's refinements of pass 158's laws
+// (tools/probe/r11v158repro).  Each refinement reads its own switch;
+// R11V158_OFF drops every one of them (the r11u158 bytes).
+//   R11V158_SCNARROW_OFF  § sizeCastNarrowTargetAbstain158v (ExprEmit.cpp)
+//   R11V158_SCSLIT_OFF    § sizeCastSignedLitAbstain158v    (ExprEmit.cpp)
+//   R11V158_SCNAMEDW_OFF  § sizeCastNamedWidthNoCast158v    (ExprEmit.cpp)
+//   R11V158_AQPARAM_OFF   § arrQueryParamArgOnly158v        (ParamEmit.cpp)
+inline bool r11v158On(const char* one) {
+    static const bool all = getenv("R11V158_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+inline void trace158(const char* law) {
+    static const bool on = getenv("R11U158_TRACE") != nullptr;
+    if (on)
+        fprintf(stderr, "R11U158_TRACE %s\n", law);
+}
+
+/// § genCaLhsEnumConstClone158 — whether `parent` sits in the LEFT side of
+/// an elaborated GENERATE-SCOPE continuous assignment: the nearest
+/// cont_assign ancestor is parented at a gen_scope.  (ModuleEmit's gen-scope
+/// cont_assign arm parents the assignment before it emits either side.)
+inline bool genCaLhsCtx158(const UHDM::BaseClass* parent) {
+    for (const UHDM::BaseClass* p = parent; p; p = p->VpiParent()) {
+        if (p->UhdmType() == UHDM::uhdmcont_assign) {
+            const UHDM::BaseClass* g = p->VpiParent();
+            return g && g->UhdmType() == UHDM::uhdmgen_scope;
+        }
+        if (!dynamic_cast<const UHDM::expr*>(p))
+            return false;
+    }
+    return false;
+}
+
 } // namespace slang_uhdm

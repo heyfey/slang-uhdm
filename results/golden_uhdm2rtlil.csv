@@ -202,7 +202,7 @@ EnumWidth,default,CMP_EQUAL,,,equal
 escape_id,default,CMP_EQUAL,,,equal
 EscapedIdentifiersInHierPath,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/EscapedIdentifiersInHierPath/dut.sv:19:40: error: no implicit conversion from 'int' to 'fie_t'; expli,,
 event_implicit_expression_list,default,CMP_EQUAL,,,equal
-expr_width_cast,default,STRICT_NOTEQUAL,differ:col(12),,differ:col(12)
+expr_width_cast,default,CMP_EQUAL,,,equal
 ExpressionInIndex,default,CMP_EQUAL,,,equal
 fail_detect_width,default,CMP_EQUAL,,,equal
 ff_conditional_reset,default,CMP_EQUAL,,,equal
@@ -495,7 +495,7 @@ MultipleCells,default,CMP_EQUAL,,,equal
 MultipleNets,default,CMP_EQUAL,,,equal
 MultiplePrints,default,CMP_EQUAL,,,equal
 multiplier,default,CMP_EQUAL,,,equal
-MultirangesStartNotFromZero,default,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
+MultirangesStartNotFromZero,default,CMP_EQUAL,,,equal
 mux16,default,CMP_EQUAL,,,equal
 mux2,default,CMP_EQUAL,,,equal
 mux4,default,CMP_EQUAL,,,equal
@@ -619,7 +619,7 @@ PkgParamAsFunctionArg,default,CMP_EQUAL,,,equal
 port_chained_type_param,default,CMP_EQUAL,,,equal
 port_int_types,default,CMP_EQUAL,,,equal
 port_sign_extend,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/port_sign_extend/dut.v:75:7: error: expected identifier,,
-portsel_struct_param,default,STRICT_NOTEQUAL,differ:col(4),,differ:col(4)
+portsel_struct_param,default,CMP_EQUAL,,,equal
 power_state,default,CMP_EQUAL,,,equal
 prefix,default,CMP_EQUAL,,,equal
 print_trg_mixed_edges,default,CMP_EQUAL,,,equal
@@ -1073,7 +1073,7 @@ EnumWidth,testflags,CMP_EQUAL,,,equal
 escape_id,testflags,CMP_EQUAL,,,equal
 EscapedIdentifiersInHierPath,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/EscapedIdentifiersInHierPath/dut.sv:19:40: error: no implicit conversion from 'int' to 'fie_t'; expli,,
 event_implicit_expression_list,testflags,CMP_EQUAL,,,equal
-expr_width_cast,testflags,STRICT_NOTEQUAL,differ:col(12),,differ:col(12)
+expr_width_cast,testflags,CMP_EQUAL,,,equal
 ExpressionInIndex,testflags,CMP_EQUAL,,,equal
 fail_detect_width,testflags,CMP_EQUAL,,,equal
 ff_conditional_reset,testflags,CMP_EQUAL,,,equal
@@ -1366,7 +1366,7 @@ MultipleCells,testflags,CMP_EQUAL,,,equal
 MultipleNets,testflags,CMP_EQUAL,,,equal
 MultiplePrints,testflags,CMP_EQUAL,,,equal
 multiplier,testflags,CMP_EQUAL,,,equal
-MultirangesStartNotFromZero,testflags,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
+MultirangesStartNotFromZero,testflags,CMP_EQUAL,,,equal
 mux16,testflags,CMP_EQUAL,,,equal
 mux2,testflags,CMP_EQUAL,,,equal
 mux4,testflags,CMP_EQUAL,,,equal
@@ -1490,7 +1490,7 @@ PkgParamAsFunctionArg,testflags,CMP_EQUAL,,,equal
 port_chained_type_param,testflags,CMP_EQUAL,,,equal
 port_int_types,testflags,CMP_EQUAL,,,equal
 port_sign_extend,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/port_sign_extend/dut.v:75:7: error: expected identifier,,
-portsel_struct_param,testflags,STRICT_NOTEQUAL,differ:col(4),,differ:col(4)
+portsel_struct_param,testflags,CMP_EQUAL,,,equal
 power_state,testflags,CMP_EQUAL,,,equal
 prefix,testflags,CMP_EQUAL,,,equal
 print_trg_mixed_edges,testflags,CMP_EQUAL,,,equal

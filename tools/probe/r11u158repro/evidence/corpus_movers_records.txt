@@ -1,0 +1,53 @@
+surelog/default/BlackBePipeInt: pristine [STRICT_NOTEQUAL fullname] law [STRICT_NOTEQUAL fullname] leave 0 enter 0
+surelog/default/BuildUVMPkg: pristine [STRICT_NOTEQUAL line] law [STRICT_NOTEQUAL line] leave 0 enter 0
+surelog/default/ComplexHierPath: pristine [STRICT_NOTEQUAL col] law [STRICT_NOTEQUAL col] leave 6 enter 0
+surelog/default/CovMacro: pristine [STRICT_NOTEQUAL endcol] law [STRICT_NOTEQUAL endcol] leave 16 enter 16
+  B: 7	ref_obj	$root			dut.sv	12	82	12	85		0
+  B: 7	ref_obj	$root			dut.sv	12	82	12	85		0
+  B: 7	ref_obj	$root			dut.sv	14	84	14	87		0
+  B: 7	ref_obj	$root			dut.sv	14	84	14	87		0
+surelog/default/EnumVar: pristine [STRICT_NOTEQUAL endline] law [STRICT_EQUAL 196 objects] leave 6 enter 0
+surelog/default/HierPathStructTypespec: pristine [STRICT_NOTEQUAL col] law [STRICT_EQUAL 647 objects] leave 2 enter 0
+surelog/default/HighLow: pristine [STRICT_NOTEQUAL line] law [STRICT_NOTEQUAL value] leave 8 enter 0
+surelog/default/LargeValue2Struct: pristine [STRICT_NOTEQUAL endcol] law [STRICT_NOTEQUAL fullname] leave 2 enter 0
+surelog/default/LocalScopeHierPath: pristine [STRICT_NOTEQUAL file] law [STRICT_EQUAL 156 objects] leave 6 enter 0
+surelog/default/MiniAmiq: pristine [STRICT_NOTEQUAL line] law [STRICT_NOTEQUAL line] leave 0 enter 0
+surelog/default/Scoreboard: pristine [STRICT_NOTEQUAL line] law [STRICT_NOTEQUAL line] leave 0 enter 0
+surelog/default/SeqDriver: pristine [STRICT_NOTEQUAL line] law [STRICT_NOTEQUAL line] leave 0 enter 0
+surelog/default/SimpleConstraint: pristine [STRICT_NOTEQUAL endcol] law [STRICT_EQUAL 257 objects] leave 4 enter 0
+surelog/default/SimpleUVM: pristine [STRICT_NOTEQUAL line] law [STRICT_NOTEQUAL line] leave 0 enter 0
+surelog/default/StructParamFuncBodyFieldCompare: pristine [STRICT_NOTEQUAL fullname] law [STRICT_NOTEQUAL fullname] leave 8 enter 0
+surelog/default/StructParamPatternInitCast: pristine [STRICT_NOTEQUAL fullname] law [STRICT_NOTEQUAL fullname] leave 8 enter 0
+surelog/default/StructUnsizedVal: pristine [STRICT_NOTEQUAL endcol] law [STRICT_NOTEQUAL fullname] leave 2 enter 0
+surelog/default/SVSwitch: pristine [STRICT_NOTEQUAL endcol] law [STRICT_NOTEQUAL fullname] leave 32 enter 0
+surelog/testflags/BlackBePipeInt: pristine [STRICT_NOTEQUAL fullname] law [STRICT_NOTEQUAL fullname] leave 0 enter 0
+surelog/testflags/BuildUVMPkg: pristine [STRICT_NOTEQUAL line] law [STRICT_NOTEQUAL line] leave 0 enter 0
+surelog/testflags/ComplexHierPath: pristine [STRICT_NOTEQUAL col] law [STRICT_NOTEQUAL col] leave 2 enter 0
+surelog/testflags/CovMacro: pristine [STRICT_NOTEQUAL endcol] law [STRICT_NOTEQUAL endcol] leave 16 enter 16
+  B: 7	ref_obj	$root			dut.sv	12	82	12	85		0
+  B: 7	ref_obj	$root			dut.sv	12	82	12	85		0
+  B: 7	ref_obj	$root			dut.sv	14	84	14	87		0
+  B: 7	ref_obj	$root			dut.sv	14	84	14	87		0
+surelog/testflags/EnumVar: pristine [STRICT_NOTEQUAL endline] law [STRICT_EQUAL 106 objects] leave 6 enter 0
+surelog/testflags/HierPathStructTypespec: pristine [STRICT_NOTEQUAL col] law [STRICT_EQUAL 557 objects] leave 2 enter 0
+surelog/testflags/HighLow: pristine [STRICT_NOTEQUAL line] law [STRICT_NOTEQUAL value] leave 8 enter 0
+surelog/testflags/LargeValue2Struct: pristine [STRICT_NOTEQUAL endcol] law [STRICT_NOTEQUAL fullname] leave 2 enter 0
+surelog/testflags/LocalScopeHierPath: pristine [STRICT_NOTEQUAL file] law [STRICT_NOTEQUAL fullname] leave 6 enter 0
+surelog/testflags/MiniAmiq: pristine [STRICT_NOTEQUAL line] law [STRICT_NOTEQUAL line] leave 0 enter 0
+surelog/testflags/SeqDriver: pristine [STRICT_NOTEQUAL line] law [STRICT_NOTEQUAL line] leave 0 enter 0
+surelog/testflags/SimpleConstraint: pristine [STRICT_NOTEQUAL endcol] law [STRICT_EQUAL 257 objects] leave 4 enter 0
+surelog/testflags/SimpleUVM: pristine [STRICT_NOTEQUAL line] law [STRICT_NOTEQUAL line] leave 0 enter 0
+surelog/testflags/StructParamFuncBodyFieldCompare: pristine [STRICT_NOTEQUAL fullname] law [STRICT_NOTEQUAL fullname] leave 8 enter 0
+surelog/testflags/StructParamPatternInitCast: pristine [STRICT_NOTEQUAL fullname] law [STRICT_NOTEQUAL fullname] leave 8 enter 0
+surelog/testflags/StructUnsizedVal: pristine [STRICT_NOTEQUAL endcol] law [STRICT_NOTEQUAL fullname] leave 2 enter 0
+surelog/testflags/SVSwitch: pristine [STRICT_NOTEQUAL endcol] law [STRICT_NOTEQUAL fullname] leave 32 enter 0
+uhdm2rtlil/default/expr_width_cast: pristine [STRICT_NOTEQUAL col] law [STRICT_EQUAL 279 objects] leave 24 enter 0
+uhdm2rtlil/default/mem_read_reg: pristine [STRICT_NOTEQUAL name] law [STRICT_NOTEQUAL name] leave 0 enter 0
+uhdm2rtlil/default/MultirangesStartNotFromZero: pristine [STRICT_NOTEQUAL file] law [STRICT_EQUAL 754 objects] leave 4 enter 0
+uhdm2rtlil/default/portsel_struct_param: pristine [STRICT_NOTEQUAL col] law [STRICT_EQUAL 467 objects] leave 8 enter 0
+uhdm2rtlil/default/struct_param_func_config: pristine [STRICT_NOTEQUAL line] law [STRICT_NOTEQUAL line] leave 0 enter 0
+uhdm2rtlil/testflags/expr_width_cast: pristine [STRICT_NOTEQUAL col] law [STRICT_EQUAL 189 objects] leave 24 enter 0
+uhdm2rtlil/testflags/mem_read_reg: pristine [STRICT_NOTEQUAL name] law [STRICT_NOTEQUAL name] leave 0 enter 0
+uhdm2rtlil/testflags/MultirangesStartNotFromZero: pristine [STRICT_NOTEQUAL file] law [STRICT_EQUAL 664 objects] leave 4 enter 0
+uhdm2rtlil/testflags/portsel_struct_param: pristine [STRICT_NOTEQUAL col] law [STRICT_EQUAL 377 objects] leave 8 enter 0
+uhdm2rtlil/testflags/struct_param_func_config: pristine [STRICT_NOTEQUAL line] law [STRICT_NOTEQUAL line] leave 0 enter 0

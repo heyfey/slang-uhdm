@@ -1,0 +1,3 @@
+// § enumAliasEndAtDimOrInitDecl158
+package pkg; typedef enum logic [7:0] {ONE, TWO} enum_t; typedef enum_t alias_t; endpackage
+module dut(output logic [7:0] o); pkg::alias_t b; assign b = pkg::TWO; assign o = b; endmodule
