@@ -1,0 +1,4 @@
+// residue (NL): not a law of this pass
+module top(input s, input [9:0] x, output [9:0] y);
+  assign y = s ? 10'b 0 : x;
+endmodule

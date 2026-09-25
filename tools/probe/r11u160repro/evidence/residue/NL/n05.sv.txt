@@ -1,0 +1,6 @@
+// residue (NL): not a law of this pass
+module top(input clk, input s, input [31:0] x, output reg [31:0] y);
+  always @* begin
+    y = s ? 32'h 8000_0000 : x;
+  end
+endmodule

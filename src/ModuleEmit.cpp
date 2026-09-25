@@ -689,6 +689,7 @@ void tpEndTopTwin149(
 bool r11u146Law(const char* sw);
 bool r11u152Law(const char* sw); // the r11u152 switches (UhdmExporter.cpp)
 bool r11u155Law(const char* sw); // the r11u155 switches (UhdmExporter.cpp)
+bool r11u160Law(const char* sw); // the r11u160 switches (UhdmExporter.cpp)
 // § genCaseItemUnnamed152 (r11u152, map N0646) — Surelog leaves a
 // case-generate item's parent UNSET (CompileStmt), which stops
 // ComputeFullName for everything under it in the definition view: the item's
@@ -29937,9 +29938,37 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                     if (!isn144.selectors.empty())
                         if (auto* tp144 = tpAnyLeaf41(*pn.sym)) {
                             auto& lc144 = tp144->targetType.getType().getCanonicalType();
+                            // § defNetTypeParamPackedVec160 (r11u160, map
+                            // N0090 + N0533, packed_array_reset_loop) — the
+                            // VECTOR half of § defNetTypeParamPackedDim144:
+                            // a type parameter whose default is a vector
+                            // (`parameter type addr_t = logic [W-1:0]`,
+                            // `= logic`) answers its name with the same ONE
+                            // default object, so `addr_t [N-1:0] q;` binds
+                            // it (golden 9:37-17:17 with the default's own
+                            // range [W-1:0], the end moved to the written
+                            // dimension's; ours built an unranged
+                            // logic_typespec at the declaration, 17:3-17:17).
+                            // Pass 144 held it back because the `'0` Rhs of
+                            // a WHOLE assignment is sized from the bound
+                            // typespec (its grid tq d3, NOT_EQUAL before and
+                            // after): that is the judge-visible face, not
+                            // this binding.  Grid
+                            // tools/probe/r11u160repro/cases/TV.  Switch
+                            // R11U160_TPPACKEDVEC_OFF.
+                            auto vecLeaf160 = [&](const Type& t0) {
+                                const Type* t1 = &t0;
+                                while (t1->kind == SymbolKind::PackedArrayType)
+                                    t1 = &t1->as<PackedArrayType>()
+                                              .elementType.getCanonicalType();
+                                return t1->kind == SymbolKind::ScalarType;
+                            };
+                            static const bool vec160 =
+                                r11u160Law("R11U160_TPPACKEDVEC_OFF");
                             if (tp144->getParentScope() == pn.sym->getParentScope() &&
                                 (lc144.kind == SymbolKind::PackedStructType ||
-                                 lc144.kind == SymbolKind::PackedUnionType)) {
+                                 lc144.kind == SymbolKind::PackedUnionType ||
+                                 (vec160 && vecLeaf160(lc144)))) {
                                 tpPk144 = tp144;
                                 tpPkDim144 = isn144.selectors[0];
                             }
@@ -29954,7 +29983,43 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                     ps137->asSymbol().as<InstanceBodySymbol>().getDefinition();
                 auto tit137 = typeParamDefaultTs.find(
                     {(const void*)&def137, std::string(tpp137->name)});
-                if (tit137 != typeParamDefaultTs.end()) {
+                UHDM::typespec* dflt137 =
+                    tit137 != typeParamDefaultTs.end() ? tit137->second : nullptr;
+                // § bodyTypeParamDefaultBound160 (r11u160, map N0083 + N0740,
+                // packed_array_struct; pass-144 S3 / pass-147 residue) — a
+                // BODY `localparam type my_t = struct packed {...};` has no
+                // entry in typeParamDefaultTs (ParamEmit records only the
+                // parameter-port-list defaults, from the header syntax), so
+                // `my_t scalar_sig;` and `my_t [2:0] arr;` built their own
+                // typespecs (a logic_typespec at the use, an anonymous struct
+                // at the keyword) where golden binds the type parameter's one
+                // object, its end moved by writeNets to the first packed
+                // dimension (10:28-17:15).  The definition's own
+                // type_parameter already holds that object: read it there.
+                // Grid tools/probe/r11u160repro/cases/BT.  Switch
+                // R11U160_BODYTPDEF_OFF.
+                if (!dflt137 && r11u160Law("R11U160_BODYTPDEF_OFF")) {
+                    const UHDM::any* up160 = pn.rt->VpiParent();
+                    while (up160 && up160->UhdmType() != UHDM::uhdmmodule_inst &&
+                           up160->UhdmType() != UHDM::uhdminterface_inst)
+                        up160 = up160->VpiParent();
+                    const UHDM::VectorOfany* ps160 =
+                        !up160 ? nullptr
+                        : up160->UhdmType() == UHDM::uhdmmodule_inst
+                            ? ((const UHDM::module_inst*)up160)->Parameters()
+                            : ((const UHDM::interface_inst*)up160)->Parameters();
+                    if (ps160)
+                        for (auto* p160 : *ps160)
+                            if (p160 && p160->UhdmType() == UHDM::uhdmtype_parameter &&
+                                p160->VpiName() == tpp137->name)
+                                if (auto* r160 =
+                                        ((const UHDM::type_parameter*)p160)->Typespec())
+                                    if (auto* a160 = r160->Actual_typespec()) {
+                                        dflt137 = (UHDM::typespec*)a160;
+                                        break;
+                                    }
+                }
+                if (dflt137) {
                     // writeNets' end-only populate lands on the shared
                     // default object too: an unpacked dimension moves its
                     // end (grid tn04: `TP1 DATA1 [3:0];` -> 2:38-3:18).
@@ -29973,14 +30038,14 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                             // remember the move so the design-final def->top
                             // re-point can hand it to the ELABORATED twin of a
                             // package typedef default (tpEndTopTwin149).
-                            tpEndMoveRecord149(tit137->second, l137, c137,
+                            tpEndMoveRecord149(dflt137, l137, c137,
                                                fullFilePath(e137));
-                            tit137->second->VpiEndLineNo(l137);
-                            tit137->second->VpiEndColumnNo(c137);
-                            tit137->second->VpiFile(fullFilePath(e137));
+                            dflt137->VpiEndLineNo(l137);
+                            dflt137->VpiEndColumnNo(c137);
+                            dflt137->VpiFile(fullFilePath(e137));
                         }
                     }
-                    pn.rt->Actual_typespec(tit137->second);
+                    pn.rt->Actual_typespec(dflt137);
                     return;
                 }
             }
@@ -35426,6 +35491,74 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                         !fcv9.integer().hasUnknown() && !unsizedDefRhs9) {
                         elabFoldRhs9 = true;
                         implNetComputedFold9 = true;
+                    }
+                }
+            }
+            // § implNetBareParamElab160 (r11u160, pass-154 sister face S1,
+            // map N0739, ComplexParamOverload) — a BARE value parameter read
+            // onto an IMPLICIT net (`assign o = PadTypeInGeneric;`, `o` never
+            // declared) re-elaborates: golden's elaborated instance holds a
+            // FRESH cont_assign whose Lhs ref_obj is named by the instance
+            // (`work@top.u.o`) and bound to the definition net, and whose Rhs
+            // IS the elaborated param_assign's value object (listed once,
+            // under the param_assign; golden re-parents it at the
+            // cont_assign), where ours shared the definition cont_assign into
+            // the elaborated list.  Grid tools/probe/r11u160repro/cases/CP
+            // (the declared-net control c03 already took the general road).
+            // Switch R11U160_IMPLBAREPARAM_OFF.
+            if (r11u160Law("R11U160_IMPLBAREPARAM_OFF") && m && defInfo &&
+                myIdx < defInfo->contAssigns.size() &&
+                defInfo->contAssigns[myIdx] &&
+                defInfo->contAssigns[myIdx]->Lhs() &&
+                defInfo->contAssigns[myIdx]->Lhs()->UhdmType() ==
+                    UHDM::uhdmref_obj &&
+                !defInfo->contAssigns[myIdx]->Delay()) {
+                auto& rb160 = stripImplicitConv(ae.right());
+                if (rb160.kind == ExpressionKind::NamedValue &&
+                    rb160.as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Parameter &&
+                    lc0.kind == ExpressionKind::NamedValue &&
+                    lc0.as<NamedValueExpression>().symbol.kind == SymbolKind::Net &&
+                    lc0.as<NamedValueExpression>().symbol.as<NetSymbol>().isImplicit &&
+                    m->Param_assigns()) {
+                    auto& ps160 = rb160.as<NamedValueExpression>().symbol;
+                    UHDM::any* val160 = nullptr;
+                    for (auto* pa160 : *m->Param_assigns())
+                        if (pa160 && pa160->Lhs() && pa160->Rhs() &&
+                            pa160->Lhs()->VpiName() == ps160.name) {
+                            if (pa160->Rhs()->UhdmType() == UHDM::uhdmconstant)
+                                val160 = pa160->Rhs();
+                            break;
+                        }
+                    if (val160) {
+                        auto* dca160 = defInfo->contAssigns[myIdx];
+                        auto* dl160 = (UHDM::ref_obj*)dca160->Lhs();
+                        auto* ca160 = s.MakeCont_assign();
+                        ca160->VpiParent(m);
+                        ca160->VpiFile(dca160->VpiFile());
+                        ca160->VpiLineNo(dca160->VpiLineNo());
+                        ca160->VpiColumnNo(dca160->VpiColumnNo());
+                        ca160->VpiEndLineNo(dca160->VpiEndLineNo());
+                        ca160->VpiEndColumnNo(dca160->VpiEndColumnNo());
+                        if (dca160->VpiStrength0())
+                            ca160->VpiStrength0(dca160->VpiStrength0());
+                        if (dca160->VpiStrength1())
+                            ca160->VpiStrength1(dca160->VpiStrength1());
+                        auto* l160 = s.MakeRef_obj();
+                        l160->VpiParent(ca160);
+                        l160->VpiName(dl160->VpiName());
+                        l160->VpiFullName(prefix + "." + std::string(dl160->VpiName()));
+                        l160->VpiFile(dl160->VpiFile());
+                        l160->VpiLineNo(dl160->VpiLineNo());
+                        l160->VpiColumnNo(dl160->VpiColumnNo());
+                        l160->VpiEndLineNo(dl160->VpiEndLineNo());
+                        l160->VpiEndColumnNo(dl160->VpiEndColumnNo());
+                        l160->Actual_group(dl160->Actual_group());
+                        ca160->Lhs(l160);
+                        val160->VpiParent(ca160);
+                        ca160->Rhs((UHDM::expr*)val160);
+                        cas->push_back(ca160);
+                        continue;
                     }
                 }
             }

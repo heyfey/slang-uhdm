@@ -1,0 +1,5 @@
+// § implNetBareParamElab160
+package pk; typedef struct packed { int f; } st_t; endpackage
+module g(); parameter int P = 0; assign o = P; endmodule
+module m(); import pk::*; parameter st_t C = 1; g #(.P(C.f)) u(); endmodule
+module top(); m u(); endmodule

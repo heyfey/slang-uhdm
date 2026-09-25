@@ -33,6 +33,7 @@ void tpEndTopTwin149(const std::map<const UHDM::typespec*, UHDM::typespec*>& d2t
 bool r11u146Law(const char* sw);
 bool r11u152Law(const char* sw); // the r11u152 switches (UhdmExporter.cpp)
 bool r11u155Law(const char* sw); // the r11u155 switches (UhdmExporter.cpp)
+bool r11u160Law(const char* sw); // the r11u160 switches (UhdmExporter.cpp)
 
 // § paramAliasBoundRefUnstored144 (r11u144) — set while makeTypespec builds
 // the packed dimensions of a PARAMETER whose written type is a module-scope
@@ -4147,7 +4148,70 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         full152 = true;
                 }
             }
-            if (full152 || !anyUse152)
+            // § tpCloneWholeLhsBare160 (r11u160, map N0014, gen_scope_typaram)
+            // — THE NETLIST RECOMPILE OF A WHOLE-ASSIGNED STRUCT REACHES THE
+            // TYPE-PARAMETER CLONE TOO.  The module-typedef rule in
+            // emitTypedefs ("A struct whose variable is assigned WHOLE ... is
+            // netlist-recompiled: BARE member refs, no module parent") holds
+            // for the instance's clone of an overriding typedef as well: when
+            // a continuous assignment of the instance body (generate blocks
+            // included) writes a signal of that struct type WHOLE
+            // (`assign d_o = d_i;`, `assign d_o = '0;`, a body `T q; assign
+            // q = d_i;`), golden names every member reference of the clone
+            // from the typedef alone (`pair_t.x`) where ours ran it through
+            // the type parameter (`work@top.u.T.pair_t.x`).  Only the LEFT
+            // side counts here: a T signal READ whole (`assign o = d_i;`), a
+            // member write (`assign d_o.x = ...`) or a procedural write
+            // (`always_comb d_o = d_i;`) keeps the type-parameter names (grid
+            // tools/probe/r11u160repro/cases/GT: g02 g10 g13 g14 g18 against
+            // g06 g09 g15 g16 g17).  Switch R11U160_TPWHOLELHS_OFF.
+            bool wholeLhs160 = false;
+            if ((full152 || !anyUse152) && currentScope &&
+                currentScope->asSymbol().kind == SymbolKind::InstanceBody &&
+                r11u160Law("R11U160_TPWHOLELHS_OFF")) {
+                const Type* ct160 = &st->getCanonicalType();
+                std::function<void(const Scope&)> scan160 = [&](const Scope& sc) {
+                    for (auto& mb : sc.members()) {
+                        if (wholeLhs160)
+                            return;
+                        if (mb.kind == SymbolKind::GenerateBlock ||
+                            mb.kind == SymbolKind::GenerateBlockArray) {
+                            // § tpWholeLhsInstantiatedOnly160v (r11v160, the
+                            // verifier's refinement of § tpCloneWholeLhsBare160)
+                            // — only an ELABORATED continuous assignment
+                            // recompiles the struct: a whole write in a
+                            // generate branch the instance does not take
+                            // (`if (W) assign d_o = d_i; else assign d_o.x =
+                            // ...;` at W = 0) leaves golden's clone named
+                            // through the type parameter (verifier case
+                            // tools/probe/v11u160repro/cases/GT/z08: pristine
+                            // 4 differing records, the unrefined law 10).
+                            // Switch R11V160_TPWHOLEUNINST_OFF.
+                            static const bool uninst160v =
+                                getenv("R11V160_TPWHOLEUNINST_OFF") == nullptr;
+                            if (uninst160v && mb.kind == SymbolKind::GenerateBlock &&
+                                mb.as<GenerateBlockSymbol>().isUninstantiated)
+                                continue;
+                            scan160(mb.as<Scope>());
+                            continue;
+                        }
+                        if (mb.kind != SymbolKind::ContinuousAssign)
+                            continue;
+                        auto& as = mb.as<ContinuousAssignSymbol>().getAssignment();
+                        if (as.kind != ExpressionKind::Assignment)
+                            continue;
+                        auto& lhs = stripImplicitConv(
+                            as.as<AssignmentExpression>().left());
+                        if (lhs.kind == ExpressionKind::NamedValue &&
+                            &lhs.as<NamedValueExpression>()
+                                    .symbol.getType()
+                                    .getCanonicalType() == ct160)
+                            wholeLhs160 = true;
+                    }
+                };
+                scan160(*currentScope);
+            }
+            if ((full152 || !anyUse152) && !wholeLhs160)
                 alias152 = syntaxRefPrefix + "." + alias152;
         }
         if (st->kind == SymbolKind::PackedStructType) {

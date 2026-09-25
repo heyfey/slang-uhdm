@@ -1,0 +1,89 @@
+r10uvm104repro__g104_a5_fence | OFF:pristine | contributing: PPSTRINGIFY_OFF
+r10uvm60repro__b7_multiline | OFF:pristine | contributing: PPARGNL_OFF
+r11u107repro__grid__o02_ovr_then_def | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u107repro__grid__o03_def_then_ovr | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u107repro__grid__o05_top_chain | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u107repro__grid__o06_nodef_ctl | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u107repro__grid__o07_passthru | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u107repro__grid__t01_tp_struct | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u107repro__grid__t02_tp_struct_chain | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u107repro__grid__t04_tp_struct_child_def | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u107repro__grid__t06_tp_union | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u107repro__grid__t09_localparam_type_struct | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u107repro__grid__t11_tp_struct_signed | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u107repro__grid__t12_tp_struct_nested | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u107repro__grid__t14_tp_chain_child | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u108repro__grid__f5__f5a04_ctl_plainvec | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u108repro__grid__f5__f5a08_structelem | OFF:pristine | contributing: TPUSEUNIT_OFF
+r11u108repro__grid__f5__f5a10_writtendims_ctl | OFF:pristine | contributing: TPPACKEDVEC_OFF
+r11u108repro__grid__f5__f5a14_multidim_ctl | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u108repro__grid__f5__f5a23_wdims_logicts_ctl | OFF:pristine | contributing: TPPACKEDVEC_OFF TPUSEDEF_OFF
+r11u110repro__grid__e1__e03_ovr_then_def | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u110repro__grid__e1__e04_def_then_ovr | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u110repro__grid__f2__i11_attr_wdims_child | OFF:pristine | contributing: TPPACKEDVEC_OFF
+r11u112repro__grid__k__k02_scalar | OFF:pristine | contributing: BODYTPDEF_OFF TPUSEDEF_OFF
+r11u112repro__grid__k__k03_dims | OFF:pristine | contributing: BODYTPDEF_OFF TPUSEDEF_OFF
+r11u112repro__grid__k__k12_twodims | OFF:pristine | contributing: BODYTPDEF_OFF TPUSEDEF_OFF
+r11u112repro__grid__k__k14_unpacked | OFF:pristine | contributing: BODYTPDEF_OFF
+r11u112repro__grid__k__k15_body_param_type | OFF:pristine | contributing: BODYTPDEF_OFF TPUSEDEF_OFF
+r11u112repro__grid__k__k16_comb_driven | OFF:pristine | contributing: BODYTPDEF_OFF TPUSEDEF_OFF
+r11u112repro__grid__k__k17_ff_driven | OFF:pristine | contributing: BODYTPDEF_OFF TPUSEDEF_OFF
+r11u112repro__grid__k__k19_child | OFF:pristine | contributing: BODYTPDEF_OFF TPUSEDEF_OFF
+r11u112repro__grid__k__k20_hdr_param_type_ctl | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u113repro__grid__e__e07_lptype_scalar | OFF:pristine | contributing: BODYTPDEF_OFF TPUSEDEF_OFF
+r11u18repro__t1 | OFF:pristine | contributing: BODYTPDEF_OFF
+r11u18repro__t3 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u18repro__t5 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u18repro__t9 | OFF:pristine | contributing: BODYTPDEF_OFF
+r11u20repro__t1 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u20repro__t2 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u20repro__t3 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u20repro__t5 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u20repro__t6 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u20repro__t8 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u21repro__t6 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u31repro__g1 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u32repro__k9b | OFF:pristine | contributing: TPWHOLELHS_OFF
+r11u32repro__k9 | OFF:pristine | contributing: TPWHOLELHS_OFF
+r11u35repro__grid__g3_shape35 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u45repro__g15 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u45repro__g1 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u45repro__g2 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u45repro__g4 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11u45repro__g9 | OFF:pristine | contributing: BODYTPDEF_OFF TPUSEDEF_OFF
+r11u47repro__arms__g8 | OFF:pristine | contributing: BODYTPDEF_OFF TPUSEDEF_OFF
+r11u8repro__b8 | OFF:pristine | contributing: PPSTRINGIFY_OFF
+r11u8repro__gA | OFF:pristine | contributing: PPSTRINGIFY_OFF
+r11u8repro__gB | OFF:pristine | contributing: PPSTRINGIFY_OFF
+r11v11u8repro__v10 | OFF:pristine | contributing: PPPUSHLINE_OFF
+r11v11u8repro__v12 | OFF:pristine | contributing: PPPUSHLINE_OFF
+r11v11u8repro__v2 | OFF:pristine | contributing: PPSTRINGIFY_OFF
+r11v11u8repro__v5 | OFF:pristine | contributing: PPSTRINGIFY_OFF
+r11v11u8repro__v8 | OFF:pristine | contributing: PPPUSHLINE_OFF
+r11v11u8repro__v9 | OFF:pristine | contributing: PPSTRINGIFY_OFF
+r11v32repro__h02_alwaysff_tp_pk | OFF:pristine | contributing: TPPACKEDVEC_OFF TPUSEDEF_OFF
+r11v32repro__w1_regression_witness | OFF:pristine | contributing: TPPACKEDVEC_OFF
+r11v45repro__v12 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11v45repro__v15 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11v45repro__v16 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11v45repro__v18 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11v45repro__v2 | OFF:pristine | contributing: BODYTPDEF_OFF TPUSEDEF_OFF
+r11v45repro__v7 | OFF:pristine | contributing: TPUSEDEF_OFF
+r11v45repro__v9 | OFF:pristine | contributing: TPUSEUNIT_OFF
+r11v47repro__arms__v30 | OFF:pristine | contributing: BODYTPDEF_OFF TPUSEDEF_OFF
+v11u108repro__brk__f5__b09_structelem_member | OFF:pristine | contributing: TPUSEUNIT_OFF
+v11u108repro__brk__f5__b25_attr_wdims | OFF:pristine | contributing: TPPACKEDVEC_OFF
+v11u110repro__brk__v1__a19_top_own_tp_child_default | OFF:pristine | contributing: TPUSEDEF_OFF
+v11u110repro__brk__v1__d01_attr_two_decl | OFF:pristine | contributing: TPPACKEDVEC_OFF
+v11u110repro__brk__v1__d02_attr_two_attrs | OFF:pristine | contributing: TPPACKEDVEC_OFF
+v11u111repro__brk__f6__x64_two_dims_positional | OFF:pristine | contributing: TPUSEDEF_OFF
+v11u112repro__grid__brk__k__b3a_multi_decl | OFF:pristine | contributing: BODYTPDEF_OFF TPUSEDEF_OFF
+v11u112repro__grid__brk__k__b3d_signed_packarr_member | OFF:pristine | contributing: BODYTPDEF_OFF TPUSEDEF_OFF
+v11u112repro__grid__ctlg__t__t10_body_tp_struct | OFF:pristine | contributing: BODYTPDEF_OFF TPUSEDEF_OFF
+v11u93b107repro__brk__q09_two_tparams | OFF:pristine | contributing: TPUSEDEF_OFF
+v11u93b107repro__brk__q10_var_in_body | OFF:pristine | contributing: TPUSEDEF_OFF
+v11u93b107repro__brk__q11_member_access | OFF:pristine | contributing: TPUSEDEF_OFF
+v11u93b107repro__brk__q13_signed_nodim | OFF:pristine | contributing: TPUSEDEF_OFF
+v11u93b107repro__brk__q15_chain3 | OFF:pristine | contributing: TPUSEDEF_OFF
+v11u93b107repro__brk__r05_rt_ovr_samename | OFF:pristine | contributing: TPUSEDEF_OFF
+v11u93b107repro__brk__r12_gen_mid | OFF:pristine | contributing: TPUSEDEF_OFF

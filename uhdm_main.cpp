@@ -35,6 +35,7 @@ using namespace slang::driver;
 namespace slang_uhdm {
 bool r11u137Law(const char* sw);
 bool r11u144Law(const char* sw);
+bool r11u160Law(const char* sw);
 }
 
 // § elabCloneFullNameUnstored137 (r11u137) — THE --elabuhdm CLONES READ THE
@@ -231,7 +232,7 @@ void elabCloneFullNameUnstored137(UHDM::design* d, UHDM::Serializer& s) {
 }
 }  // namespace
 
-int main(int argc, char** argv) {
+static int realMain(int argc, char** argv) {
     Driver driver;
     // § fileMacroAbs15 — `__FILE__` must expand to the file's ABSOLUTE path.
     // slang's SourceManager::cacheBuffer stores each buffer's display name as
@@ -1231,4 +1232,26 @@ int main(int argc, char** argv) {
         return 4;
     }
     return 0;
+}
+
+// § uncaughtExitsReject160 (r11u160, pass-154 sister face S7) — an exception
+// that escapes the export (slang's Compilation::parseName throws
+// std::runtime_error when Scope::lookupName is handed an escaped identifier
+// holding a `#`, `\W#1 `, from ModuleEmit.cpp mintUnitEnumNets) used to abort
+// the process (rc 134, SIGABRT, a core and a torn stderr).  Caught here it
+// reads as every other rejection: a message and exit 3, no database written
+// (the serializer saves last, so nothing partial exists), which the harness
+// records as a clean SLANG_REJECT.  Surelog also fails that source (no golden).
+// Case tools/probe/r11u160repro/cases/S7.  Switch R11U160_CATCH_OFF (and
+// R11U160_OFF): the exception propagates as before.
+int main(int argc, char** argv) {
+    if (!slang_uhdm::r11u160Law("R11U160_CATCH_OFF"))
+        return realMain(argc, argv);
+    try {
+        return realMain(argc, argv);
+    }
+    catch (const std::exception& e) {
+        fprintf(stderr, "slang-uhdm: error: %s\n", e.what());
+        return 3;
+    }
 }

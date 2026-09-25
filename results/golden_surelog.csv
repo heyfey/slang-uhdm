@@ -15,8 +15,8 @@ AmiqEth,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-
 AmiqEth,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defined but oth,,
 AmiqSimpleTestSuite,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defined but oth,,
 AmiqSimpleTestSuite,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/AmiqSimpleTestSuite/apb_top.sv:35:11: error: unknown package 'amiq_svaunit_ex_apb_test_pkg',,
-ApbSlave,default,STRICT_NOTEQUAL,differ:line(29),,differ:line(29)
-ApbSlave,testflags,STRICT_NOTEQUAL,differ:line(29),,differ:line(29)
+ApbSlave,default,STRICT_NOTEQUAL,differ:line(26),,differ:line(26)
+ApbSlave,testflags,STRICT_NOTEQUAL,differ:line(26),,differ:line(26)
 Ariane,default,SURELOG_FAIL,[   NOTE] : 0,,
 Ariane,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 Ariane2024,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Ariane2024/sc_collected_files/cva6_896bbc9de65d3fccda60b666ce12c66c1281ea4e.sv:1430:3: erro,,
@@ -143,8 +143,8 @@ BlackBoxMod,default,CMP_EQUAL,,,equal
 BlackBoxMod,testflags,CMP_EQUAL,,,equal
 BlackBoxSubMod,default,CMP_EQUAL,,,equal
 BlackBoxSubMod,testflags,CMP_EQUAL,,,equal
-BlackConst,default,STRICT_NOTEQUAL,differ:line(29),,differ:line(29)
-BlackConst,testflags,STRICT_NOTEQUAL,differ:line(19),,differ:line(19)
+BlackConst,default,CMP_EQUAL,,,equal
+BlackConst,testflags,CMP_EQUAL,,,equal
 BlackParrot,default,SURELOG_FAIL,[   NOTE] : 0,,
 BlackParrot,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 BlackParrotComplex,default,CMP_EQUAL,,,equal
@@ -263,8 +263,8 @@ ComplexExprSize,default,CMP_EQUAL,,,equal
 ComplexExprSize,testflags,CMP_EQUAL,,,equal
 ComplexHierPath,default,STRICT_NOTEQUAL,differ:col(7),,differ:col(7)
 ComplexHierPath,testflags,STRICT_NOTEQUAL,differ:col(7),,differ:col(7)
-ComplexParamOverload,default,STRICT_NOTEQUAL,differ:name(2),,differ:name(2)
-ComplexParamOverload,testflags,STRICT_NOTEQUAL,differ:name(2),,differ:name(2)
+ComplexParamOverload,default,CMP_EQUAL,,,equal
+ComplexParamOverload,testflags,CMP_EQUAL,,,equal
 ComplexParamOverload2,default,CMP_EQUAL,,,equal
 ComplexParamOverload2,testflags,CMP_EQUAL,,,equal
 ComplexVarSelect,default,CMP_EQUAL,,,equal
@@ -849,8 +849,8 @@ Lpddr,default,SURELOG_FAIL,[   NOTE] : 0,,
 Lpddr,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 MacroArgDefaultSpaces,default,CMP_EQUAL,,,equal
 MacroArgDefaultSpaces,testflags,CMP_EQUAL,,,equal
-MacroArgMismatch,default,STRICT_NOTEQUAL,differ:endcol(8),,differ:endcol(8)
-MacroArgMismatch,testflags,STRICT_NOTEQUAL,differ:endcol(8),,differ:endcol(8)
+MacroArgMismatch,default,CMP_EQUAL,,,equal
+MacroArgMismatch,testflags,CMP_EQUAL,,,equal
 MaskNeg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 MaskNeg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 MBadder,default,CMP_EQUAL,,,equal

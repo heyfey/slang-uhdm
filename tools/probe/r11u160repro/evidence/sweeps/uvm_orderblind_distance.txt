@@ -1,0 +1,10 @@
+surelog/default/MiniAmiq-055eab74 | not-in-golden: pristine=90788 law=63758 | pristine-vs-law lines=62032
+surelog/testflags/MiniAmiq-055eab74 | not-in-golden: pristine=90788 law=63758 | pristine-vs-law lines=62032
+surelog/default/SeqDriver-65178d3a | not-in-golden: pristine=88723 law=62501 | pristine-vs-law lines=60380
+surelog/testflags/SeqDriver-65178d3a | not-in-golden: pristine=88723 law=62501 | pristine-vs-law lines=60380
+surelog/default/SimpleUVM-267de3ff | not-in-golden: pristine=42202 law=26835 | pristine-vs-law lines=34494
+surelog/testflags/SimpleUVM-267de3ff | not-in-golden: pristine=42204 law=26835 | pristine-vs-law lines=34498
+surelog/default/Scoreboard-72aa0ba8 | not-in-golden: pristine=41715 law=26390 | pristine-vs-law lines=34422
+surelog/default/ApbSlave-d7e70938 | not-in-golden: pristine=358 law=328 | pristine-vs-law lines=90
+surelog/testflags/ApbSlave-d7e70938 | not-in-golden: pristine=358 law=328 | pristine-vs-law lines=90
+surelog/default/BlackConst-058d81f9 | not-in-golden: pristine=227 law=167 | pristine-vs-law lines=122

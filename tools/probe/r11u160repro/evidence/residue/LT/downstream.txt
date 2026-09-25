@@ -1,0 +1,5 @@
+ds.one on both lanes (scripts/downstream_uhdm2rtlil.py machinery, pristine binary):
+l01 IDENTICAL NO_GATES (net `my_package::t2 [1:0][7:0] x`: `wire width 32 \x` on both lanes)
+l02 DIVERGENT, differs nohier il synth: `assign w = $bits(x);`
+    surelog lane: connect \w 8'00000010   ($bits = 2: golden binds x to the package typedef t2 and DROPS the written [1:0][7:0])
+    slang lane:   connect \w 8'00100000   ($bits = 32, the LRM width)

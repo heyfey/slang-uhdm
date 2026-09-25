@@ -1,0 +1,32 @@
+surelog/ApbSlave -> NOT PREDICTED
+surelog/BlackConst -> ppMacroBodyLines160(paste);implNetBareParamElab160;
+surelog/ComplexParamOverload -> implNetBareParamElab160;
+surelog/MacroArgMismatch -> objMacroParenArgsTrimmed160;
+surelog/MiniAmiq -> ppMacroBodyLines160(argnl);
+surelog/Scoreboard -> NOT PREDICTED
+surelog/SeqDriver -> NOT PREDICTED
+surelog/SimpleUVM -> NOT PREDICTED
+uhdm2rtlil/arb_idx_cast -> type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);
+uhdm2rtlil/bits_of_type_param -> type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);
+uhdm2rtlil/gen_scope_numports -> type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);implNetBareParamElab160;
+uhdm2rtlil/gen_scope_typaram -> type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);implNetBareParamElab160;
+uhdm2rtlil/ibex_branch_predict -> ppMacroBodyLines160(inactive);ppMacroBodyLines160(builtin);ppMacroBodyLines160(paste);ppMacroBodyLines160(stringify);ppMacroBodyLines160(argnl);type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);implNetBareParamElab160;
+uhdm2rtlil/ibex_compressed_decoder -> ppMacroBodyLines160(inactive);ppMacroBodyLines160(builtin);ppMacroBodyLines160(paste);ppMacroBodyLines160(stringify);ppMacroBodyLines160(argnl);type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);implNetBareParamElab160;
+uhdm2rtlil/ibex_csr -> ppMacroBodyLines160(inactive);ppMacroBodyLines160(builtin);ppMacroBodyLines160(paste);ppMacroBodyLines160(stringify);ppMacroBodyLines160(argnl);type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);implNetBareParamElab160;
+uhdm2rtlil/ibex_decoder -> ppMacroBodyLines160(inactive);ppMacroBodyLines160(builtin);ppMacroBodyLines160(paste);ppMacroBodyLines160(stringify);ppMacroBodyLines160(argnl);type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);implNetBareParamElab160;
+uhdm2rtlil/ibex_fetch_fifo -> ppMacroBodyLines160(inactive);ppMacroBodyLines160(builtin);ppMacroBodyLines160(paste);ppMacroBodyLines160(stringify);ppMacroBodyLines160(argnl);type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);implNetBareParamElab160;
+uhdm2rtlil/ibex_icache -> ppMacroBodyLines160(inactive);ppMacroBodyLines160(builtin);ppMacroBodyLines160(paste);ppMacroBodyLines160(stringify);ppMacroBodyLines160(argnl);type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);implNetBareParamElab160;
+uhdm2rtlil/ibex_load_store_unit -> ppMacroBodyLines160(inactive);ppMacroBodyLines160(builtin);ppMacroBodyLines160(paste);ppMacroBodyLines160(stringify);ppMacroBodyLines160(argnl);type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);implNetBareParamElab160;
+uhdm2rtlil/ibex_multdiv_fast -> ppMacroBodyLines160(inactive);ppMacroBodyLines160(builtin);ppMacroBodyLines160(paste);ppMacroBodyLines160(stringify);ppMacroBodyLines160(argnl);type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);implNetBareParamElab160;
+uhdm2rtlil/ibex_multdiv_slow -> ppMacroBodyLines160(inactive);ppMacroBodyLines160(builtin);ppMacroBodyLines160(paste);ppMacroBodyLines160(stringify);ppMacroBodyLines160(argnl);type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);implNetBareParamElab160;
+uhdm2rtlil/ibex_wb_stage -> ppMacroBodyLines160(inactive);ppMacroBodyLines160(builtin);ppMacroBodyLines160(paste);ppMacroBodyLines160(stringify);ppMacroBodyLines160(argnl);type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);implNetBareParamElab160;
+uhdm2rtlil/packed_array_reset_loop -> type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);implNetBareParamElab160;
+uhdm2rtlil/packed_array_struct -> type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);
+uhdm2rtlil/packed_struct_array_fifo -> type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);implNetBareParamElab160;
+uhdm2rtlil/param_name_collision_typeparam -> type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);
+uhdm2rtlil/param_nested_struct_field_width -> type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);
+uhdm2rtlil/port_chained_type_param -> type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);implNetBareParamElab160;
+uhdm2rtlil/top_module_type_param -> type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);
+uhdm2rtlil/TypeParameterAsPortTypeWithLogicAnonymous -> type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);
+uhdm2rtlil/type_param_override_elem_sel -> type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);
+uhdm2rtlil/type_param_packed_dim -> type-parameter laws (TPWHOLELHS TPPACKEDVEC BODYTPDEF TPUSEDEF TPUSEUNIT);

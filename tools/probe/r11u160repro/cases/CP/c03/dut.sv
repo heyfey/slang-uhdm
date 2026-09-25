@@ -1,0 +1,3 @@
+// § implNetBareParamElab160
+module g(output int o); parameter int P = 0; assign o = P; endmodule
+module top(output int o); g #(.P(20)) u(o); endmodule

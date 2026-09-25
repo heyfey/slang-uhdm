@@ -1,0 +1,6 @@
+// residue (NL): not a law of this pass
+module top(input clk, input s, input [9:0] x, output reg [9:0] y);
+  always @(posedge clk) begin
+    y <= x | (s ? 10'b 0 : x);
+  end
+endmodule

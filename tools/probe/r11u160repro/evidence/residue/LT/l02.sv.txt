@@ -1,0 +1,10 @@
+// residue (LT, LogicTypespec): downstream measure, not a law of this pass
+package my_package;
+typedef logic [1:0] t2;
+endpackage
+module top (input logic [31:0] i, output logic [31:0] o, output logic [7:0] w);
+  my_package::t2 [1:0][7:0] x;
+  assign x = i;
+  assign o = x;
+  assign w = $bits(x);
+endmodule

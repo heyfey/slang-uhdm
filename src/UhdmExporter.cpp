@@ -129,6 +129,14 @@ bool r11u155Law(const char* sw) {
     return getenv(sw) == nullptr;
 }
 
+// Every r11u160 law sits behind its own switch; R11U160_OFF drops them all
+// (tools/probe/r11u160repro/README.md names each law and its switch).
+bool r11u160Law(const char* sw) {
+    if (getenv("R11U160_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 // § implicitNetNoFile119 (r11u119) — defined in ModuleEmit.cpp.
 void clearImplicitNetFiles119();
 
@@ -1210,6 +1218,224 @@ static void shareInstTypeParams120(
         walk120(t);
 }
 
+// § tpUseBindsDefDefault160 (r11u160, map N0090 + N0533,
+// packed_array_reset_loop) — AN ELABORATED DECLARATION TYPED BY A TYPE
+// PARAMETER THE INSTANTIATION DOES NOT OVERRIDE BY NAME BINDS THE
+// DEFINITION'S DEFAULT OBJECT.
+//
+// The same producer as § instTypeParamSharesDef120: a declaration's written
+// type `addr_t` is compiled against the instance, compileTypespec finds no
+// local data type and falls back to the definition's own parameter list
+// (Surelog CompileType.cpp:1995-2006, read in § tpElemRebindElabPort110),
+// which holds the DEFINITION's type_parameter unless a NAMED override put an
+// instance object there.  So `addr_t [N-1:0] q;` and `addr_t s;` in the
+// elaborated instance read the one default object — with the end writeNets
+// moved onto it (§ defNetTypeParamPackedDim144 and its vector half
+// § defNetTypeParamPackedVec160: golden 9:37-17:17) — where ours bound the
+// instance's own copy (9:37-9:50).  The ports already share it
+// (typeParamDefaultTs).  Post-pass, before § instTypeParamSharesDef120
+// replaces the instance's copy in its listing: per elaborated module
+// instance and per type parameter not named by its instantiation, a
+// variable or net of the instance (generate scopes included, child
+// instances not) whose typespec reference reads the instance copy's object
+// is re-pointed at the definition's object — only when UHDM's own Compare
+// (the judge's) reads the two objects equal, so no judged content moves.
+// Grid tools/probe/r11u160repro/cases/TV.  Switch R11U160_TPUSEDEF_OFF.
+static void tpUseBindsDefDefault160(
+    UHDM::design* d, const std::map<std::string, std::set<std::string>>& ovr) {
+    static const bool def160 = r11u160Law("R11U160_TPUSEDEF_OFF");
+    static const bool unit160 = r11u160Law("R11U160_TPUSEUNIT_OFF");
+    if (!def160 && !unit160)
+        return;
+    if (!d || !d->AllModules() || !d->TopModules())
+        return;
+    std::map<std::string, UHDM::module_inst*> defs;
+    for (auto* m : *d->AllModules())
+        if (m->UhdmType() == UHDM::uhdmmodule_inst)
+            defs.emplace(std::string(m->VpiDefName()), (UHDM::module_inst*)m);
+    // § tpUseBindsDefDefault160, the $unit half (map N0044,
+    // packed_struct_array_fifo) — a default naming a `$unit` typedef
+    // (`parameter type dtype = d_t`): the instance's copy of it reads, in
+    // golden, the file-level typedef's span (its end moved by writeNets) and
+    // member names (`d_t.op`); ours held the `struct packed` keyword span and
+    // bare member names.  Switch R11U160_TPUSEUNIT_OFF.
+    std::map<std::string, UHDM::typespec*> unitTs;
+    if (unit160 && d->Typespecs())
+        for (auto* t : *d->Typespecs())
+            if (t && !t->VpiName().empty())
+                unitTs.emplace(std::string(t->VpiName()), t);
+    auto actualOf = [](const UHDM::any* p) -> UHDM::typespec* {
+        if (!p || p->UhdmType() != UHDM::uhdmtype_parameter)
+            return nullptr;
+        auto* rt = ((const UHDM::type_parameter*)p)->Typespec();
+        return rt ? (UHDM::typespec*)rt->Actual_typespec() : nullptr;
+    };
+    std::function<void(const UHDM::any*)> walk = [&](const UHDM::any* o) {
+        if (!o)
+            return;
+        if (o->UhdmType() == UHDM::uhdmmodule_inst) {
+            auto* mi = (UHDM::module_inst*)o;
+            auto dit = defs.find(std::string(mi->VpiDefName()));
+            std::map<const UHDM::typespec*, UHDM::typespec*> e2d;
+            if (dit != defs.end() && dit->second != mi &&
+                dit->second->Parameters() && mi->Parameters()) {
+                auto oit = ovr.find(std::string(mi->VpiFullName()));
+                for (auto* ip : *mi->Parameters()) {
+                    if (!ip || ip->UhdmType() != UHDM::uhdmtype_parameter)
+                        continue;
+                    if (oit != ovr.end() &&
+                        oit->second.count(std::string(ip->VpiName())))
+                        continue;
+                    for (auto* dp : *dit->second->Parameters())
+                        if (dp && dp != ip &&
+                            dp->UhdmType() == UHDM::uhdmtype_parameter &&
+                            dp->VpiName() == ip->VpiName()) {
+                            auto* e = actualOf(ip);
+                            auto* dd = actualOf(dp);
+                            // A vector or an aggregate: a packed-array
+                            // default (`localparam type rt_t = id_t [3:0]`)
+                            // keeps the instance's copy, whose element
+                            // reference golden names through the instance
+                            // (§ tpPackedArrayTsVar108's grid f5).
+                            auto kindOk = [](const UHDM::typespec* t) {
+                                switch (t->UhdmType()) {
+                                    case UHDM::uhdmlogic_typespec:
+                                    case UHDM::uhdmstruct_typespec:
+                                    case UHDM::uhdmunion_typespec:
+                                        return true;
+                                    default:
+                                        return false;
+                                }
+                            };
+                            if (def160 && e && dd && e != dd &&
+                                e->UhdmType() == dd->UhdmType() && kindOk(e)) {
+                                UHDM::CompareContext cc;
+                                int cr = e->Compare(dd, &cc);
+                                if (cr == 0)
+                                    e2d[e] = dd;
+                            }
+                            // The $unit half: golden's object is a COPY of
+                            // the file-level typedef (no instance, which the
+                            // judge reads), with its span and member names:
+                            // copy those two onto the instance's copy.
+                            if (unit160 && e && !e2d.count(e) && !e->VpiName().empty() &&
+                                (e->UhdmType() == UHDM::uhdmstruct_typespec ||
+                                 e->UhdmType() == UHDM::uhdmunion_typespec))
+                                if (auto u = unitTs.find(std::string(e->VpiName()));
+                                    u != unitTs.end() && u->second != e &&
+                                    u->second->UhdmType() == e->UhdmType()) {
+                                    auto mem = [](const UHDM::typespec* t)
+                                        -> const UHDM::VectorOftypespec_member* {
+                                        if (t->UhdmType() == UHDM::uhdmstruct_typespec)
+                                            return ((const UHDM::struct_typespec*)t)->Members();
+                                        return ((const UHDM::union_typespec*)t)->Members();
+                                    };
+                                    auto* me = mem(e);
+                                    auto* mu = mem(u->second);
+                                    bool same = me && mu && me->size() == mu->size();
+                                    for (size_t k = 0; same && k < me->size(); k++)
+                                        same = (*me)[k] && (*mu)[k] &&
+                                               (*me)[k]->VpiName() == (*mu)[k]->VpiName() &&
+                                               (*me)[k]->Typespec() && (*mu)[k]->Typespec();
+                                    if (same) {
+                                        e->VpiFile(u->second->VpiFile());
+                                        e->VpiLineNo(u->second->VpiLineNo());
+                                        e->VpiColumnNo(u->second->VpiColumnNo());
+                                        e->VpiEndLineNo(u->second->VpiEndLineNo());
+                                        e->VpiEndColumnNo(u->second->VpiEndColumnNo());
+                                        for (size_t k = 0; k < me->size(); k++)
+                                            (*me)[k]->Typespec()->VpiFullName(
+                                                (*mu)[k]->Typespec()->VpiFullName());
+                                    }
+                                }
+                            break;
+                        }
+                }
+            }
+            if (!e2d.empty()) {
+                auto fix = [&](UHDM::ref_typespec* rt) {
+                    if (!rt)
+                        return;
+                    if (auto f = e2d.find(rt->Actual_typespec()); f != e2d.end())
+                        rt->Actual_typespec(f->second);
+                };
+                std::function<void(const UHDM::any*)> body =
+                    [&](const UHDM::any* sc) {
+                        const UHDM::VectorOfvariables* vars = nullptr;
+                        const UHDM::VectorOfnet* nets = nullptr;
+                        const UHDM::VectorOfgen_scope_array* gsa = nullptr;
+                        if (sc->UhdmType() == UHDM::uhdmmodule_inst) {
+                            vars = ((const UHDM::module_inst*)sc)->Variables();
+                            nets = ((const UHDM::module_inst*)sc)->Nets();
+                            gsa = ((const UHDM::module_inst*)sc)->Gen_scope_arrays();
+                        }
+                        else if (sc->UhdmType() == UHDM::uhdmgen_scope) {
+                            vars = ((const UHDM::gen_scope*)sc)->Variables();
+                            nets = ((const UHDM::gen_scope*)sc)->Nets();
+                            gsa = ((const UHDM::gen_scope*)sc)->Gen_scope_arrays();
+                        }
+                        // A packed array's element signals carry the
+                        // element typespec reference (`my_t [2:0] arr`).
+                        auto elems = [&](const UHDM::VectorOfany* es) {
+                            if (es)
+                                for (auto* e : *es) {
+                                    if (!e)
+                                        continue;
+                                    if (auto* ev = any_cast<UHDM::variables*>((UHDM::any*)e))
+                                        fix(ev->Typespec());
+                                    else if (auto* en = any_cast<UHDM::nets*>((UHDM::any*)e))
+                                        fix(en->Typespec());
+                                }
+                        };
+                        if (vars)
+                            for (auto* v : *vars)
+                                if (v) {
+                                    fix(v->Typespec());
+                                    if (v->UhdmType() == UHDM::uhdmpacked_array_var)
+                                        elems(((const UHDM::packed_array_var*)v)->Elements());
+                                }
+                        if (nets)
+                            for (auto* n : *nets)
+                                if (n) {
+                                    fix(n->Typespec());
+                                    if (n->UhdmType() == UHDM::uhdmpacked_array_net)
+                                        elems(((const UHDM::packed_array_net*)n)->Elements());
+                                }
+                        if (gsa)
+                            for (auto* ga : *gsa)
+                                if (ga && ga->Gen_scopes())
+                                    for (auto* g : *ga->Gen_scopes())
+                                        body(g);
+                    };
+                body(mi);
+            }
+            if (mi->Modules())
+                for (auto* c : *mi->Modules())
+                    walk(c);
+            if (mi->Gen_scope_arrays())
+                for (auto* c : *mi->Gen_scope_arrays())
+                    walk(c);
+        }
+        else if (o->UhdmType() == UHDM::uhdmgen_scope_array) {
+            auto* ga = (const UHDM::gen_scope_array*)o;
+            if (ga->Gen_scopes())
+                for (auto* g : *ga->Gen_scopes())
+                    walk(g);
+        }
+        else if (o->UhdmType() == UHDM::uhdmgen_scope) {
+            auto* g = (const UHDM::gen_scope*)o;
+            if (g->Modules())
+                for (auto* c : *g->Modules())
+                    walk(c);
+            if (g->Gen_scope_arrays())
+                for (auto* c : *g->Gen_scope_arrays())
+                    walk(c);
+        }
+    };
+    for (auto* t : *d->TopModules())
+        walk(t);
+}
+
 // § tpElemRebindElabPort110 — THE ELABORATED INSTANCE'S PORT typed by a
 // `localparam type rt_t = id_t [DEPTH-1:0]` (§ typeParamNamedElemPackedDim31)
 // reads an array whose ELEMENT is the instance's BINDING of `id_t`, not the
@@ -1647,6 +1873,269 @@ static bool paramTypedByLocalTypedef(const Scope& body) {
     return false;
 }
 
+// § ppMacroBodyLines160 — the model's state (law above buildMacroExpansions).
+namespace {
+struct PpFormal160 {
+    uint32_t nl = 0;       // newlines inside the trimmed actual
+    uint32_t lastLen = 0;  // length of the actual's last line
+};
+// body buffer id -> (replacement start offset -> multi-line actual)
+std::map<uint32_t, std::map<uint32_t, PpFormal160>> ppFormals160;
+// body buffer id -> [(end offset of a nested call in the body, def line of
+// its closing parenthesis)] for the calls that POP a line record
+std::map<uint32_t, std::vector<std::pair<uint32_t, uint32_t>>> ppResets160;
+// buffer id -> one past the last token byte (macro body and intrinsic buffers)
+std::map<uint32_t, uint32_t> ppTokEnd160;
+std::set<uint32_t> ppIntrinsic160;  // `__FILE__` / `__LINE__` expansion buffers
+// expansion buffers that reached the syntax tree (a token in them or in an
+// expansion nested in them): a nested call in an INACTIVE `ifdef branch of a
+// body still gets an expansion buffer from slang, but no token.
+std::set<uint32_t> ppLive160;
+std::set<uint32_t> ppMultiLine160;  // body buffers of multi-line bodies
+// (file buffer id, line) -> (column of a top-level call of a multi-line body
+// on that line, its `define line): the PUSH record that call opens maps the
+// whole output line to the `define line.
+std::map<std::pair<uint32_t, uint32_t>, std::pair<uint32_t, uint32_t>> ppPushLine160;
+// one-line bodies that are ONE stringification (`"...`"): buffer id ->
+// (the literal's offset, Surelog's length: the quotes around the TRIMMED text)
+std::map<uint32_t, std::pair<uint32_t, uint32_t>> ppStringify160;
+// buffer id -> (token count, the first token's offset and raw text)
+std::map<uint32_t, std::pair<uint32_t, std::pair<uint32_t, std::string>>> ppBufTok160;
+// pasted body tokens (`unused_fcov_``NAME_`): (buffer id, offset, token length)
+std::vector<std::tuple<uint32_t, uint32_t, uint32_t>> ppPaste160;
+// (buffer id, end offset of a pasted token) -> (its start offset, its length):
+// slang packs the next token right at that offset, so the end is read from
+// the start.
+std::map<std::pair<uint32_t, uint32_t>, std::pair<uint32_t, uint32_t>> ppPasteEnd160;
+// § pasteChainRunning160v (r11v160, the verifier's refinement of
+// § ppMacroBodyLines160's PASTE axis): buffer id -> tokens in tree order
+// (offset, length, leading trivia?, first character), and per pasted token the run of tokens
+// written right after it with no blank between (`arr_``n[1];`): {the pasted
+// token's offset, the first run offset (its end), the run's end, the offset
+// of the first token after a blank (the written layout resumes there),
+// whether the run's end wins an offset it shares with that token}.
+std::map<uint32_t, std::vector<std::tuple<uint32_t, uint32_t, bool, char>>> ppTokSeq160v;
+std::map<uint32_t, std::vector<std::array<uint32_t, 5>>> ppPasteChain160v;
+// (def buffer id, `define line) -> per body line: newline at its end dropped?
+std::map<std::pair<uint32_t, uint32_t>, std::vector<uint8_t>> ppDropped160;
+std::set<std::string> ppDefined160;
+bool ppDefinedBuilt160 = false;
+bool ppLaw160(const char* sw) { return r11u160Law(sw); }
+}  // namespace
+
+// § ppMacroBodyLines160 (law above buildMacroExpansions) — the line and
+// column corrections of a BODY token of a multi-line macro body.
+template <class SM, class COMP, class REPLS>
+static void ppBodyLineCol160(SM* sm, COMP& comp, const REPLS& macroRepls,
+                             SourceLocation lc, SourceLocation d,
+                             uint32_t& L, uint32_t& C) {
+    if (sm->isMacroArgLoc(lc) || d == SourceLocation::NoLocation ||
+        sm->isMacroLoc(d))
+        return;
+    static const bool inact160 = ppLaw160("R11U160_PPINACTIVE_OFF");
+    static const bool argNl160 = ppLaw160("R11U160_PPARGNL_OFF");
+    if (!inact160 && !argNl160)
+        return;
+    uint32_t bid = lc.buffer().getId();
+    auto rit = macroRepls.find(bid);
+    auto fit = ppFormals160.find(bid);
+    auto zit = ppResets160.find(bid);
+    uint32_t off = (uint32_t)lc.offset();
+    uint32_t Ld = (uint32_t)sm->getLineNumber(d);
+    int32_t dl = 0;
+    // Newlines of the actuals substituted before the token.
+    uint32_t sameLineFormalEnd = UINT32_MAX;
+    const PpFormal160* sameLineFormal = nullptr;
+    if (argNl160 && fit != ppFormals160.end() && rit != macroRepls.end())
+        for (auto& r : rit->second) {
+            if (r.end > off)
+                break;
+            auto f = fit->second.find(r.start);
+            if (f == fit->second.end())
+                continue;
+            dl += (int32_t)f->second.nl;
+            if (r.defLine == Ld) {
+                sameLineFormal = &f->second;
+                sameLineFormalEnd = r.end;
+            }
+        }
+    // Newlines dropped in inactive regions since the last POP reset (or the
+    // `define line).
+    if (inact160) {
+        auto dtext = sm->getSourceText(d.buffer());
+        // The `define line: walk back over continued lines.
+        size_t ls = d.offset();
+        while (ls > 0 && dtext[ls - 1] != '\n')
+            ls--;
+        uint32_t S = Ld;
+        while (ls > 0) {
+            size_t pe = ls - 1;  // the '\n' ending the previous line
+            size_t pl = pe;
+            while (pl > 0 && dtext[pl - 1] != '\n')
+                pl--;
+            std::string_view prev = dtext.substr(pl, pe - pl);
+            while (!prev.empty() && (prev.back() == '\r' || prev.back() == ' ' ||
+                                     prev.back() == '\t'))
+                prev.remove_suffix(1);
+            if (prev.empty() || prev.back() != '\\')
+                break;
+            ls = pl;
+            S--;
+        }
+        {
+            std::string_view first = dtext.substr(ls, std::min<size_t>(dtext.size() - ls, 4096));
+            size_t fs = first.find_first_not_of(" \t");
+            if (fs == std::string_view::npos || first.substr(fs).rfind("`define", 0) != 0)
+                S = 0;
+        }
+        if (S && S < Ld) {
+            auto key = std::make_pair((uint32_t)d.buffer().getId(), S);
+            auto dit = ppDropped160.find(key);
+            if (dit == ppDropped160.end()) {
+                if (!ppDefinedBuilt160) {
+                    ppDefinedBuilt160 = true;
+                    for (auto& tree : comp.getSyntaxTrees())
+                        for (auto* dd : tree->getDefinedMacros())
+                            if (dd)
+                                ppDefined160.insert(std::string(dd->name.valueText()));
+                }
+                std::vector<uint8_t> dropped;
+                // Conditional stack: (parent active, branch taken, active).
+                struct Cond {
+                    bool parent, taken, active;
+                };
+                std::vector<Cond> st;
+                bool active = true, ok = true;
+                size_t p = ls;
+                uint32_t ln = S;
+                while (p <= dtext.size()) {
+                    size_t e = dtext.find('\n', p);
+                    if (e == std::string_view::npos)
+                        e = dtext.size();
+                    std::string_view line = dtext.substr(p, e - p);
+                    std::string_view tr = line;
+                    while (!tr.empty() && (tr.back() == '\r' || tr.back() == ' ' ||
+                                           tr.back() == '\t'))
+                        tr.remove_suffix(1);
+                    bool cont = !tr.empty() && tr.back() == '\\';
+                    if (ln > S) {
+                        size_t fs = line.find_first_not_of(" \t");
+                        std::string_view w = fs == std::string_view::npos
+                                                 ? std::string_view()
+                                                 : line.substr(fs);
+                        auto word = [&](std::string_view kw) {
+                            return w.rfind(kw, 0) == 0 &&
+                                   (w.size() == kw.size() ||
+                                    !(isalnum((unsigned char)w[kw.size()]) ||
+                                      w[kw.size()] == '_'));
+                        };
+                        auto argName = [&](size_t kwlen) {
+                            std::string_view r = w.substr(kwlen);
+                            size_t a = r.find_first_not_of(" \t");
+                            if (a == std::string_view::npos)
+                                return std::string();
+                            size_t b = a;
+                            while (b < r.size() && (isalnum((unsigned char)r[b]) ||
+                                                    r[b] == '_' || r[b] == '$'))
+                                b++;
+                            return std::string(r.substr(a, b - a));
+                        };
+                        if (word("`ifdef") || word("`ifndef")) {
+                            bool nd = word("`ifndef");
+                            std::string nm = argName(nd ? 7 : 6);
+                            if (nm.empty())
+                                ok = false;
+                            bool def = ppDefined160.count(nm) != 0;
+                            bool cond = nd ? !def : def;
+                            st.push_back({active, cond, active && cond});
+                            active = st.back().active;
+                        }
+                        else if (word("`elsif")) {
+                            if (st.empty())
+                                ok = false;
+                            else {
+                                std::string nm = argName(6);
+                                bool cond = ppDefined160.count(nm) != 0;
+                                auto& c = st.back();
+                                c.active = c.parent && !c.taken && cond;
+                                c.taken = c.taken || cond;
+                                active = c.active;
+                            }
+                        }
+                        else if (word("`else")) {
+                            if (st.empty())
+                                ok = false;
+                            else {
+                                auto& c = st.back();
+                                c.active = c.parent && !c.taken;
+                                c.taken = true;
+                                active = c.active;
+                            }
+                        }
+                        else if (word("`endif")) {
+                            if (st.empty())
+                                ok = false;
+                            else {
+                                active = st.back().parent;
+                                st.pop_back();
+                            }
+                        }
+                    }
+                    dropped.push_back(cont && !active ? 1 : 0);
+                    if (!cont || e >= dtext.size())
+                        break;
+                    p = e + 1;
+                    ln++;
+                }
+                if (!ok)
+                    dropped.clear();
+                dit = ppDropped160.emplace(key, std::move(dropped)).first;
+            }
+            const auto& dr = dit->second;
+            uint32_t from = S;
+            if (zit != ppResets160.end())
+                for (auto& [e, cl] : zit->second)
+                    if ((e <= off || cl == Ld) && cl <= Ld && cl > from)
+                        from = cl;
+            int32_t drop = 0;
+            for (uint32_t j = from; j < Ld; j++)
+                if (j - S < dr.size() && dr[j - S])
+                    drop++;
+            dl -= drop;
+        }
+    }
+    L = (uint32_t)((int32_t)L + dl);
+    // A token after a MULTI-LINE actual on its definition line starts from
+    // that actual's last line.
+    if (sameLineFormal && rit != macroRepls.end()) {
+        SourceLocation fe = sm->getFullyOriginalLoc(SourceLocation(lc.buffer(), sameLineFormalEnd));
+        if (fe != SourceLocation::NoLocation && !sm->isMacroLoc(fe) &&
+            (uint32_t)sm->getLineNumber(fe) == Ld) {
+            int32_t c = (int32_t)sameLineFormal->lastLen + 1 +
+                        ((int32_t)sm->getColumnNumber(d) -
+                         (int32_t)sm->getColumnNumber(fe));
+            for (auto& r : rit->second)
+                if (r.start >= sameLineFormalEnd && r.end <= off && r.defLine == Ld)
+                    c += r.delta;
+            C = (uint32_t)std::max(c, 1);
+        }
+    }
+}
+
+// § ppMacroBodyLines160, the PUSH axis (law at buildMacroExpansions): a file
+// token BEFORE a top-level call of a multi-line body on its line reads the
+// call's `define line.
+template <class SM>
+static void ppPushLine160Adjust(SM* sm, SourceLocation lc, uint32_t& L) {
+    if (lc == SourceLocation::NoLocation || !lc.buffer().valid() || sm->isMacroLoc(lc))
+        return;
+    uint32_t raw = (uint32_t)sm->getLineNumber(lc);
+    if (auto pp = ppPushLine160.find(std::make_pair((uint32_t)lc.buffer().getId(), raw));
+        pp != ppPushLine160.end() &&
+        (uint32_t)sm->getColumnNumber(lc) < pp->second.first)
+        L = pp->second.second;
+}
+
 // The line/column ONE UHDM object field gets for ONE SourceLocation.
 //
 // Extracted verbatim from `setLoc`'s former `lineColOf` lambda so that a
@@ -1658,12 +2147,83 @@ static bool paramTypedByLocalTypedef(const Scope& body) {
 // path that forgets to flips per run.  Behaviour is unchanged; this is a move.
 void UhdmExporter::locLineCol(SourceLocation lc, uint32_t& L, uint32_t& C) {
     uint32_t vl, vc;
+    // § ppMacroBodyLines160 — an intrinsic's literal sits where its backtick
+    // name was written (its own buffer holds only the literal).
+    if (sm->isMacroLoc(lc) && !macroExpBuilt)
+        buildMacroExpansions();
+    if (sm->isMacroLoc(lc))
+        if (auto pe = ppPasteEnd160.find({lc.buffer().getId(), (uint32_t)lc.offset()});
+            pe != ppPasteEnd160.end()) {
+            // § ppMacroBodyLines160 — the end of a pasted token.
+            locLineCol(SourceLocation(lc.buffer(), pe->second.first), L, C);
+            C += pe->second.second;
+            return;
+        }
+    // § pasteChainRunning160v — a token of the blank-free run after a paste.
+    if (sm->isMacroLoc(lc))
+        if (auto pc = ppPasteChain160v.find(lc.buffer().getId());
+            pc != ppPasteChain160v.end()) {
+            uint32_t o = (uint32_t)lc.offset();
+            for (auto& r : pc->second)
+                if (o > r[1] && o <= r[2] && (o < r[3] || (o == r[3] && o == r[2] && r[4]))) {
+                    // as for the pasted token's end: only while the run still
+                    // maps to the paste's own definition line
+                    SourceLocation p0 = sm->getFullyOriginalLoc(SourceLocation(lc.buffer(), r[0]));
+                    SourceLocation p1 = sm->getFullyOriginalLoc(lc);
+                    if (p0 == SourceLocation::NoLocation || p1 == SourceLocation::NoLocation ||
+                        sm->isMacroLoc(p0) || sm->isMacroLoc(p1) || p0.buffer() != p1.buffer() ||
+                        sm->getLineNumber(p0) != sm->getLineNumber(p1))
+                        break;
+                    locLineCol(SourceLocation(lc.buffer(), r[0]), L, C);
+                    C += o - r[0];
+                    return;
+                }
+        }
+    if (sm->isMacroLoc(lc))
+        if (auto sf = ppStringify160.find(lc.buffer().getId());
+            sf != ppStringify160.end() && lc.offset() > sf->second.first) {
+            // § ppMacroBodyLines160 — past the stringified literal's start:
+            // its end is the start plus Surelog's (trimmed) length.
+            locLineCol(SourceLocation(lc.buffer(), sf->second.first), L, C);
+            C += sf->second.second;
+            return;
+        }
+    if (sm->isMacroLoc(lc) && ppIntrinsic160.count(lc.buffer().getId())) {
+        SourceLocation u160 = sm->getExpansionRange(lc).start();
+        if (u160 != SourceLocation::NoLocation) {
+            locLineCol(u160, L, C);
+            C += (uint32_t)lc.offset();
+            return;
+        }
+    }
     // Macro-expanded tokens: SINGLE-LINE bodies lay out VIRTUALLY at the
     // INVOCATION site (usage line, usage col + body offset); later lines of
     // multi-line bodies keep their macro-DEFINITION-site span (Surelog).
     if (sm->isMacroLoc(lc) && macroInvLineCol(lc, vl, vc)) {
         L = vl;
         C = (uint32_t)((int32_t)vc + macroArgShift(lc));
+        // § ppMacroBodyLines160 — an argument token, or a token of a one-line
+        // body, laid out at a place INSIDE a multi-line body reads that
+        // place's line correction (m01: the actual "abc" of a formal after
+        // the dropped `ifdef branch, golden 5:10 where ours kept 8:10).
+        static const bool anc160 = ppLaw160("R11U160_PPINACTIVE_OFF") ||
+                                   ppLaw160("R11U160_PPARGNL_OFF");
+        if (anc160)
+            for (SourceLocation x = lc; sm->isMacroLoc(x);) {
+                SourceLocation u = sm->getExpansionRange(x).start();
+                if (u == SourceLocation::NoLocation || !sm->isMacroLoc(u))
+                    break;
+                if (ppMultiLine160.count(u.buffer().getId())) {
+                    SourceLocation du = sm->getFullyOriginalLoc(u);
+                    if (du != SourceLocation::NoLocation && !sm->isMacroLoc(du)) {
+                        uint32_t l0 = (uint32_t)sm->getLineNumber(du), lA = l0, cA = 0;
+                        ppBodyLineCol160(sm, comp, macroRepls, u, du, lA, cA);
+                        L = (uint32_t)((int32_t)L + ((int32_t)lA - (int32_t)l0));
+                    }
+                    break;
+                }
+                x = u;
+            }
         return;
     }
     // Multi-line macro bodies keep their definition line; the column is the
@@ -1672,10 +2232,14 @@ void UhdmExporter::locLineCol(SourceLocation lc, uint32_t& L, uint32_t& C) {
         SourceLocation d = sm->getFullyOriginalLoc(lc);
         L = (uint32_t)sm->getLineNumber(d);
         C = (uint32_t)((int32_t)sm->getColumnNumber(d) + macroArgShift(lc));
+        ppBodyLineCol160(sm, comp, macroRepls, lc, d, L, C);
         return;
     }
     fileLineCol(lc, L, C);
+    ppPushLine160Adjust(sm, lc, L);
 }
+
+
 
 void UhdmExporter::setLoc(UHDM::BaseClass* obj, SourceRange range) {
     if (range.start() == SourceLocation::NoLocation)
@@ -11253,6 +11817,10 @@ UHDM::design* UhdmExporter::exportDesign() {
     rebindTypeParamElem107(d, s);
     // § instTypeParamSharesDef120 — AFTER § 107, which reads each instance's
     // own copy to find the last binding (law and decode at the function).
+    // § tpUseBindsDefDefault160 — BEFORE § 120 swaps the instance copy out
+    // of the listing (it reads that copy; law and decode at the function).
+    if (ovr120Valid)
+        tpUseBindsDefDefault160(d, ovr120);
     if (ovr120Valid)
         shareInstTypeParams120(d, ovr120);
     // § pkgFlatSurelogBits117 (r11u117) — after every reader copied the
@@ -11916,6 +12484,53 @@ void UhdmExporter::drainBodyOpArgTs() {
 //                    macro calls) that precede it on that body line.
 // slang models each expansion as its own buffer whose getExpansionRange()
 // names the text it replaces, so the buffers form the expansion tree directly.
+// ===== § ppMacroBodyLines160 (r11u160, the ibex macro-line set N0017 +
+// N0026 + N0027 + N0029 and pass-155 residue "the ibex family") ===========
+// SURELOG'S OUTPUT LINE AND COLUMN OF A TOKEN IN A MULTI-LINE MACRO BODY.
+//
+// The producer (src/SourceCompile/SV3_1aPpTreeShapeListener.cpp,
+// enterMacroInstanceWithArgs / enterMacroInstanceNoArgs, and
+// PreprocessFile::evaluateMacro): an invocation PUSHes a line record mapping
+// its output line to the `define line S of its definition; the body, with
+// every formal replaced by its TRIMMED actual text, is preprocessed again as
+// its own text (isMacroBody) and appended; a nested invocation inside it
+// PUSHes and POPs its own records, the POP mapping the output line where the
+// nested expansion ends to `getEmbeddedMacroCallLine() + <its raw line in the
+// substituted body text> (+ the newlines of its own actuals)`, i.e. the
+// definition line of the nested call's closing parenthesis plus the newlines
+// the enclosing call's actuals added before it; records apply per OUTPUT
+// line, the last one on a line winning.  Inside a macro body
+// addLineFiller is a no-op (SV3_1aPpTreeListenerHelper::addLineFiller:
+// `if (m_pp->isMacroBody()) return;`), so the text of an inactive `ifdef
+// branch leaves NO newline behind, the newline that ends the directive line
+// included.  The columns are those of the output text.  Hence, for a token
+// of the body at definition line Ld (our model's line so far):
+//   line = Ld + (newlines of the actuals substituted before it)
+//             - (newlines dropped in inactive regions since the last POP
+//                reset in this body, or since S);
+//   a token after a MULTI-LINE actual on the same definition line starts
+//   from that actual's last line (its column = the last line's length + the
+//   distance from the formal's end);
+//   `__FILE__` / `__LINE__` are expanded in place (no records): each is one
+//   replacement of the backtick name by its literal's text, shifting the
+//   later columns of its line, and its literal sits at the name's position.
+// MEASURED: ibex_branch_predict `$error` 29:3-33:32 (def 32:3, three
+// newlines of the `ifdef UVM branch dropped, the line of the nested
+// `PRIM_STRINGIFY(__name)` reset to its definition line 33, its literal
+// 33:10-33:31), the `__FILE__` literal 29:60-29:155 and `__LINE__` 29:157;
+// ibex_decoder's `ASSERT(..., (opcode == ...) |->\n !$isunknown(...))`:
+// property 78:42-79:33, `else begin` 80:10-82:8 (one newline in __prop).
+// A one-line body that is one stringification (`"__x`") pastes the trimmed
+// actual between plain quotes, and a token pasted with `` replaces its
+// written span by the pasted text (both shift the later columns).
+// Grid tools/probe/r11u160repro/cases/MM.  Switches R11U160_PPINACTIVE_OFF
+// (inactive-region newlines and the POP reset), R11U160_PPARGNL_OFF
+// (multi-line actuals), R11U160_PPBUILTIN_OFF (`__FILE__`/`__LINE__`),
+// R11U160_PPSTRINGIFY_OFF (stringified bodies), R11U160_PPPASTE_OFF (pasted
+// tokens), R11U160_PPNESTCOL_OFF (a one-line call inside a multi-line body
+// after earlier replacements), R11U160_PPPUSHLINE_OFF (text before a top-level
+// multi-line call reads its `define line); R11U160_OFF drops all seven.
+
 void UhdmExporter::buildMacroExpansions() {
     macroExpBuilt = true;
 
@@ -11934,6 +12549,33 @@ void UhdmExporter::buildMacroExpansions() {
                 if (!tok)
                     continue;
                 auto loc = tok.location();
+                // § ppMacroBodyLines160 — one past the last token byte of every
+                // body buffer (the `__FILE__`/`__LINE__` literal's length).
+                if (loc != SourceLocation::NoLocation && sm->isMacroLoc(loc) &&
+                    !sm->isMacroArgLoc(loc)) {
+                    uint32_t e160 = (uint32_t)(loc.offset() + tok.rawText().size());
+                    auto& te160 = ppTokEnd160[loc.buffer().getId()];
+                    te160 = std::max(te160, e160);
+                    ppTokSeq160v[loc.buffer().getId()].emplace_back(
+                        (uint32_t)loc.offset(), (uint32_t)tok.rawText().size(),
+                        !tok.trivia().empty(),
+                        tok.rawText().empty() ? '\0' : tok.rawText()[0]);
+                    if (tok.kind == parsing::TokenKind::Identifier)
+                        ppPaste160.emplace_back(loc.buffer().getId(),
+                                                (uint32_t)loc.offset(),
+                                                (uint32_t)tok.rawText().size());
+                    auto& bt160 = ppBufTok160[loc.buffer().getId()];
+                    if (bt160.first++ == 0)
+                        bt160.second = {(uint32_t)loc.offset(),
+                                        tok.kind == parsing::TokenKind::StringLiteral
+                                            ? std::string(tok.rawText())
+                                            : std::string()};
+                }
+                for (SourceLocation x160 = loc;
+                     x160 != SourceLocation::NoLocation && sm->isMacroLoc(x160);
+                     x160 = sm->getExpansionRange(x160).start())
+                    if (!ppLive160.insert(x160.buffer().getId()).second)
+                        break;
                 if (loc == SourceLocation::NoLocation || !sm->isMacroArgLoc(loc))
                     continue;
                 uint32_t end = (uint32_t)(loc.offset() + tok.rawText().size());
@@ -11956,6 +12598,8 @@ void UhdmExporter::buildMacroExpansions() {
         slang::SourceRange usage;
         int32_t rawLen = 0;
         bool multiLine = false;
+        bool isArg = false;  // § objMacroParenArgsTrimmed160
+        SourceLocation b0;   // § objMacroParenArgsTrimmed160
     };
     std::map<uint32_t, BufInfo> info;
     std::vector<uint32_t> order;
@@ -11969,7 +12613,26 @@ void UhdmExporter::buildMacroExpansions() {
             bi.usage.end() == SourceLocation::NoLocation ||
             bi.usage.start().buffer() != bi.usage.end().buffer())
             continue;
+        bi.b0 = b0;
         if (sm->isMacroArgLoc(b0)) {
+            bi.isArg = true;
+            // § ppMacroBodyLines160 — slang expands `__FILE__` / `__LINE__`
+            // into an ARGUMENT-kind buffer holding the literal, anchored at
+            // the backtick name: remember it (its literal sits at the name,
+            // and it is no actual text).
+            {
+                static const bool bi160 = ppLaw160("R11U160_PPBUILTIN_OFF");
+                SourceLocation o160 = sm->getFullyOriginalLoc(b0);
+                if (bi160 && o160 != SourceLocation::NoLocation &&
+                    !sm->isMacroLoc(o160)) {
+                    auto t160 = sm->getSourceText(o160.buffer());
+                    std::string_view w160 = o160.offset() < t160.size()
+                                                ? t160.substr(o160.offset(), 9)
+                                                : std::string_view();
+                    if (w160 == "`__FILE__" || w160 == "`__LINE__")
+                        ppIntrinsic160.insert(buf.getId());
+                }
+            }
             // An argument buffer with no surviving token is an intermediate
             // hop (an actual that is itself a formal); it carries no text.
             auto it = argLen.find(buf.getId());
@@ -11982,6 +12645,24 @@ void UhdmExporter::buildMacroExpansions() {
             if (bodyStart == SourceLocation::NoLocation ||
                 sm->isMacroLoc(bodyStart))
                 continue;
+            // § ppMacroBodyLines160 — slang also opens a BODY-kind buffer
+            // for `__FILE__` / `__LINE__` (no body text: its "body" start is
+            // the backtick name itself); the literal's argument-kind buffer
+            // above is the replacement.  Read as a body, it pasted the rest
+            // of the line (m09: +18 at `__FILE__`).
+            {
+                static const bool bi160b = ppLaw160("R11U160_PPBUILTIN_OFF");
+                auto t160 = sm->getSourceText(bodyStart.buffer());
+                std::string_view w160 = bodyStart.offset() < t160.size()
+                                            ? t160.substr(bodyStart.offset(), 9)
+                                            : std::string_view();
+                // (a user macro whose body BEGINS with `__FILE__ — `define
+                // my_file `__FILE__ — is a real body: its "body" is not its
+                // own call site)
+                if (bi160b && (w160 == "`__FILE__" || w160 == "`__LINE__") &&
+                    sm->getFullyOriginalLoc(bi.usage.start()) == bodyStart)
+                    continue;
+            }
             auto text = sm->getSourceText(bodyStart.buffer());
             size_t p = bodyStart.offset();
             if (p >= text.size())
@@ -12051,10 +12732,149 @@ void UhdmExporter::buildMacroExpansions() {
                 bi.rawLen = (int32_t)(e3 - p);
             }
         }
+        if (bi.multiLine && !bi.isArg)
+            ppMultiLine160.insert(buf.getId());
+        // § ppMacroBodyLines160 — a one-line body that is ONE stringification
+        // (`define PRIM_STRINGIFY(__x) `"__x`"): Surelog pastes the trimmed
+        // actual between plain quotes (`"` -> `"`, PreprocessFile::
+        // evaluateMacro), so the replacement is that literal's length, not the
+        // body text plus its formal: ibex `PRIM_STRINGIFY(__name)` ->
+        // `"BranchInsTypeOneHot"` (21), the `)` after it at 33:31.  slang's
+        // literal carries the whitespace before the call inside the quotes.
+        if (!bi.isArg && !bi.multiLine && ppLaw160("R11U160_PPSTRINGIFY_OFF")) {
+            auto bt = ppBufTok160.find(buf.getId());
+            SourceLocation bs160 = sm->getFullyOriginalLoc(b0);
+            if (bt != ppBufTok160.end() && bt->second.first == 1 &&
+                bt->second.second.second.size() >= 2 &&
+                bt->second.second.second.front() == '"' &&
+                bt->second.second.second.back() == '"' &&
+                bs160 != SourceLocation::NoLocation && !sm->isMacroLoc(bs160)) {
+                auto t160 = sm->getSourceText(bs160.buffer());
+                // Only a body that is exactly `"<formal>`": Surelog's text is
+                // then the trimmed actual in quotes; a body writing its own
+                // text or blanks inside the quotes (`"  __a  __b`",
+                // r11v11u8repro v4/v11/v13) is left to the pristine layout.
+                bool oneFormal = false;
+                if (bs160.offset() + 2 <= t160.size() &&
+                    t160.substr(bs160.offset(), 2) == "`\"") {
+                    size_t q = bs160.offset() + 2, q0 = q;
+                    while (q < t160.size() && (isalnum((unsigned char)t160[q]) ||
+                                               t160[q] == '_'))
+                        q++;
+                    oneFormal = q > q0 && q + 2 <= t160.size() &&
+                                t160.substr(q, 2) == "`\"";
+                }
+                if (oneFormal) {
+                    std::string_view in =
+                        std::string_view(bt->second.second.second).substr(
+                            1, bt->second.second.second.size() - 2);
+                    size_t a = in.find_first_not_of(" \t\r\n");
+                    size_t z = in.find_last_not_of(" \t\r\n");
+                    uint32_t len = a == std::string_view::npos
+                                       ? 2u
+                                       : (uint32_t)(z - a + 1 + 2);
+                    ppStringify160[buf.getId()] = {bt->second.second.first, len};
+                    bi.rawLen = (int32_t)len;
+                }
+            }
+        }
         info[buf.getId()] = bi;
         order.push_back(buf.getId());
     }
 
+    // § ppMacroBodyLines160 — a token PASTED in a body (`unused_fcov_``NAME_`)
+    // is one replacement of its written span by the pasted text: Surelog drops
+    // each `` and pastes the trimmed actual (PreprocessFile::evaluateMacro),
+    // so the later columns of the line move by (pasted length - written
+    // span); the actual's own buffer keeps no token and adds nothing.  ibex
+    // DV_FCOV_MARK_UNUSED `assign unused_fcov_``NAME_ = fcov_``NAME_;`
+    // (golden fcov_wb_valid 82:35, ours 82:34).
+    if (ppLaw160("R11U160_PPPASTE_OFF"))
+        for (auto& [pb, po, pl] : ppPaste160) {
+            auto ib = info.find(pb);
+            if (ib == info.end() || ib->second.isArg)
+                continue;
+            SourceLocation o = sm->getFullyOriginalLoc(SourceLocation(ib->second.b0.buffer(), po));
+            if (o == SourceLocation::NoLocation || sm->isMacroLoc(o))
+                continue;
+            auto t = sm->getSourceText(o.buffer());
+            size_t q = o.offset();
+            bool paste = false;
+            auto idc = [](char c) {
+                return isalnum((unsigned char)c) || c == '_' || c == '$';
+            };
+            while (q < t.size()) {
+                if (idc(t[q]))
+                    q++;
+                else if (q + 1 < t.size() && t[q] == '`' && t[q + 1] == '`') {
+                    paste = true;
+                    q += 2;
+                }
+                else
+                    break;
+            }
+            if (!paste)
+                continue;
+            int32_t span = (int32_t)(q - o.offset());
+            macroRepls[pb].push_back({po, po + pl, (int32_t)pl - span,
+                                      (uint32_t)sm->getLineNumber(o), {0u}});
+            // slang lays the tokens right after a paste at the pasted text's
+            // running offset, which its linear offset map sends past the
+            // written span (AllPackageSignal: the `(` after
+            // `assert_static_in_package_``__name` maps to 7:9, the offset of
+            // `unused_bit` on the next line): only an end that still maps to
+            // the paste's own line is read from the paste's start.
+            SourceLocation pe160 =
+                sm->getFullyOriginalLoc(SourceLocation(ib->second.b0.buffer(), po + pl));
+            if (pe160 != SourceLocation::NoLocation && !sm->isMacroLoc(pe160) &&
+                pe160.buffer() == o.buffer() &&
+                sm->getLineNumber(pe160) == sm->getLineNumber(o))
+                ppPasteEnd160[{pb, po + pl}] = {po, pl};
+            // § pasteChainRunning160v (r11v160) — slang lays out EVERY token
+            // written right after the paste with no blank between (`[`, `1`,
+            // `]`, `;` of `arr_``n[1];`) at the pasted text's running offset,
+            // which already is Surelog's output column: the paste's shift is
+            // for the tokens after the first blank (their written offsets).
+            // The unrefined law shifted the whole run (verifier cases
+            // tools/probe/v11u160repro/cases/PA: `arr_``n[1]` one-line a1 a2
+            // a9 c3 and multi-line b1 b3 c7, pristine-right cells moved away
+            // from golden; c7 left STRICT_EQUAL).  Such a run offset reads the
+            // pasted token's column plus its distance; an offset at or past
+            // the first blank-led token's written offset stays with the
+            // written layout (with a positive shift the two can coincide).
+            // Switch R11V160_PASTECHAIN_OFF.
+            static const bool chain160v = getenv("R11V160_PASTECHAIN_OFF") == nullptr;
+            if (chain160v)
+                if (auto ts = ppTokSeq160v.find(pb); ts != ppTokSeq160v.end()) {
+                    const auto& seq = ts->second;
+                    size_t k = 0;
+                    while (k < seq.size() && std::get<0>(seq[k]) != po)
+                        k++;
+                    if (k < seq.size()) {
+                        uint32_t runEnd = po + pl, firstBlank = UINT32_MAX;
+                        char last = 0;
+                        for (size_t j = k + 1; j < seq.size(); j++) {
+                            auto [to, tl, tv, tc] = seq[j];
+                            if (!tv && to == runEnd) {
+                                runEnd = to + tl;
+                                last = tc;
+                                continue;
+                            }
+                            firstBlank = to;
+                            break;
+                        }
+                        // With a positive shift the run's end can be the very
+                        // offset the next token is written at (`arr_``n[1] =`
+                        // with one more pasted character than written, PA c3):
+                        // the end of a `]` or `)` bounds an object, the end of a
+                        // `;` or `,` does not while the next token's start does.
+                        if (runEnd > po + pl)
+                            ppPasteChain160v[pb].push_back(
+                                {po, po + pl, runEnd, firstBlank,
+                                 (uint32_t)(last != ';' && last != ',')});
+                    }
+                }
+        }
     // Attach each nested expansion to the body buffer it sits in.
     for (auto id : order) {
         auto& bi = info[id];
@@ -12108,9 +12928,15 @@ void UhdmExporter::buildMacroExpansions() {
             return 0;
         expLenMemo[id] = bi->second.rawLen; // cycle guard
         int32_t len = bi->second.rawLen;
+        if (ppStringify160.count(id))
+            return len;  // § ppMacroBodyLines160: the literal is the whole text
         auto ri = macroRepls.find(id);
         if (ri != macroRepls.end()) {
             for (auto& r : ri->second) {
+                if (r.parts.size() == 1 && r.parts.front() == 0) {
+                    len += r.delta;  // § ppMacroBodyLines160: a pasted token
+                    continue;
+                }
                 int32_t sum = 0;
                 bool ok = true;
                 for (size_t pi = 0; pi < r.parts.size(); pi++) {
@@ -12142,6 +12968,120 @@ void UhdmExporter::buildMacroExpansions() {
     for (auto id : order)
         expLen(id);
 
+    // § ppMacroBodyLines160 — per multi-line body: the actuals that carry
+    // newlines, and the nested calls that POP a line record.
+    {
+        static const bool argNl160 = ppLaw160("R11U160_PPARGNL_OFF");
+        static const bool inact160 = ppLaw160("R11U160_PPINACTIVE_OFF");
+        std::map<uint32_t, SourceLocation> b0Of;
+        for (auto& [bid, bi] : info)
+            b0Of[bid] = bi.b0;
+        for (auto& [bid, v] : macroRepls) {
+            auto bit = info.find(bid);
+            if (bit == info.end() || !bit->second.multiLine)
+                continue;
+            for (auto& r : v) {
+                if (r.parts.empty())
+                    continue;
+                auto p0 = info.find(r.parts.front());
+                auto pn = info.find(r.parts.back());
+                if (p0 == info.end() || pn == info.end())
+                    continue;
+                if (p0->second.isArg && argNl160 &&
+                    !ppIntrinsic160.count(r.parts.front())) {
+                    // The actual's text in the invocation file: the first
+                    // part's start to the last part's end.
+                    SourceLocation a0 = sm->getFullyOriginalLoc(p0->second.b0);
+                    SourceLocation an = sm->getFullyOriginalLoc(pn->second.b0);
+                    if (a0 == SourceLocation::NoLocation ||
+                        an == SourceLocation::NoLocation || sm->isMacroLoc(a0) ||
+                        sm->isMacroLoc(an) || a0.buffer() != an.buffer())
+                        continue;
+                    // The actual's written text: from its first token to the
+                    // `,` or `)` that closes it at depth 0 in the call (a part's
+                    // own length can be a pasted token's, v133_f_macro), with
+                    // Surelog's trim of the trailing blanks.
+                    auto t = sm->getSourceText(a0.buffer());
+                    // parts written in two places (`TEST(typ signed, ...)`: the
+                    // first from the call site, the second from a body) are
+                    // no one text
+                    if (an.offset() < a0.offset())
+                        continue;
+                    size_t e = a0.offset();
+                    int depth = 0;
+                    bool inStr = false;
+                    for (; e < t.size(); e++) {
+                        char ch = t[e];
+                        if (inStr) {
+                            if (ch == '\\')
+                                e++;
+                            else if (ch == '"')
+                                inStr = false;
+                            continue;
+                        }
+                        if (ch == '"')
+                            inStr = true;
+                        else if (ch == '(' || ch == '[' || ch == '{')
+                            depth++;
+                        else if (ch == ')' || ch == ']' || ch == '}') {
+                            if (depth == 0)
+                                break;
+                            depth--;
+                        }
+                        else if (ch == ',' && depth == 0)
+                            break;
+                    }
+                    if (e >= t.size() || e < an.offset())
+                        continue;
+                    // ...and never past the last part's own token (a
+                    // defaulted formal's text is a `define body, whose next
+                    // `)` can be many lines away: ibex `__clk = \`ASSERT_...`).
+                    e = std::min(e, (size_t)an.offset() +
+                                        (size_t)std::max(pn->second.rawLen, 0));
+                    if (e <= a0.offset())
+                        continue;
+                    while (e > a0.offset() && (t[e - 1] == ' ' || t[e - 1] == '\t' ||
+                                               t[e - 1] == '\n' || t[e - 1] == '\r' ||
+                                               t[e - 1] == '\\'))
+                        e--;
+                    std::string_view at = t.substr(a0.offset(), e - a0.offset());
+                    size_t nl = (size_t)std::count(at.begin(), at.end(), '\n');
+                    if (!nl)
+                        continue;
+                    PpFormal160 f;
+                    f.nl = (uint32_t)nl;
+                    f.lastLen = (uint32_t)(at.size() - at.rfind('\n') - 1);
+                    ppFormals160[bid][r.start] = f;
+                }
+                else if (!p0->second.isArg && inact160 &&
+                         !ppIntrinsic160.count(r.parts.front()) &&
+                         ppLive160.count(r.parts.front())) {
+                    // A nested call POPs a record when it has actuals or a
+                    // body of several lines.
+                    const auto& nb = p0->second;
+                    SourceLocation ue = sm->getFullyOriginalLoc(nb.usage.end());
+                    if (ue == SourceLocation::NoLocation || sm->isMacroLoc(ue))
+                        continue;
+                    bool withArgs = false;
+                    {
+                        SourceLocation us0 = sm->getFullyOriginalLoc(nb.usage.start());
+                        if (us0 != SourceLocation::NoLocation &&
+                            us0.buffer() == ue.buffer() && us0.offset() < ue.offset()) {
+                            auto t = sm->getSourceText(us0.buffer());
+                            if (ue.offset() <= t.size())
+                                withArgs = t.substr(us0.offset(),
+                                                    ue.offset() - us0.offset())
+                                               .find('(') != std::string_view::npos;
+                        }
+                    }
+                    if (withArgs || nb.multiLine)
+                        ppResets160[bid].push_back(
+                            {r.end, (uint32_t)sm->getLineNumber(ue)});
+                }
+            }
+        }
+    }
+
     // Where each continuation part lands inside its replacement.
     for (auto& [k, v] : macroRepls) {
         for (auto& r : v) {
@@ -12162,6 +13102,48 @@ void UhdmExporter::buildMacroExpansions() {
     // the per-line column shifts.
     for (auto id : order) {
         auto& bi = info[id];
+        // § ppMacroBodyLines160, the PUSH axis — a top-level call of a
+        // multi-line body opens its line record on the call's own output
+        // line, so the text BEFORE the call on that line reads the `define
+        // line (MM m13: `always @(posedge clk) \`INFO(...)` -> always 4:3,
+        // ours 10:3).  Only a definition in the same file (the record also
+        // carries the definition's file).  Switch R11U160_PPPUSHLINE_OFF.
+        if (bi.multiLine && !bi.isArg && ppLaw160("R11U160_PPPUSHLINE_OFF") &&
+            ppLive160.count(id)) {
+            auto us = bi.usage.start();
+            SourceLocation bs = sm->getFullyOriginalLoc(bi.b0);
+            if (!sm->isMacroLoc(us) && bs != SourceLocation::NoLocation &&
+                !sm->isMacroLoc(bs) && bs.buffer() == us.buffer()) {
+                auto dt = sm->getSourceText(bs.buffer());
+                size_t ls = bs.offset();
+                while (ls > 0 && dt[ls - 1] != '\n')
+                    ls--;
+                uint32_t S = (uint32_t)sm->getLineNumber(bs);
+                while (ls > 0) {
+                    size_t pe = ls - 1, pl = pe;
+                    while (pl > 0 && dt[pl - 1] != '\n')
+                        pl--;
+                    std::string_view prev = dt.substr(pl, pe - pl);
+                    while (!prev.empty() && (prev.back() == '\r' || prev.back() == ' ' ||
+                                             prev.back() == '\t'))
+                        prev.remove_suffix(1);
+                    if (prev.empty() || prev.back() != '\\')
+                        break;
+                    ls = pl;
+                    S--;
+                }
+                std::string_view first = dt.substr(ls, std::min<size_t>(dt.size() - ls, 4096));
+                size_t fs = first.find_first_not_of(" \t");
+                if (fs != std::string_view::npos && first.substr(fs).rfind("`define", 0) == 0) {
+                    auto k = std::make_pair((uint32_t)us.buffer().getId(),
+                                            (uint32_t)sm->getLineNumber(us));
+                    uint32_t c = (uint32_t)sm->getColumnNumber(us);
+                    auto it = ppPushLine160.find(k);
+                    if (it == ppPushLine160.end() || c < it->second.first)
+                        ppPushLine160[k] = {c, S};
+                }
+            }
+        }
         if (bi.multiLine)
             continue;
         auto us = bi.usage.start();
@@ -12169,10 +13151,119 @@ void UhdmExporter::buildMacroExpansions() {
             continue;
         int32_t delta =
             expLen(id) - (int32_t)(bi.usage.end().offset() - us.offset());
-        if (delta == 0)
-            continue;
         auto key = std::make_pair(us.buffer().getId(),
                                   (uint32_t)sm->getLineNumber(us));
+        // § objMacroParenArgsTrimmed160 (r11u160, pass-154 sister face S3) —
+        // AN OBJECT-LIKE MACRO FOLLOWED BY `(` IS A CALL WITH ARGUMENTS TO
+        // SURELOG'S PREPROCESSOR.  Its pp grammar reads `Macro_identifier
+        // Spaces* '(' macro_actual_args ')'` as MacroInstanceWithArgs
+        // whatever the definition says (grammar/SV3_1aPpParser.g4
+        // macro_instance), and PreprocessFile::evaluateMacro of a macro with
+        // NO formals re-emits the body, then "(" + the FIRST actual argument
+        // TRIMMED + ")" (src/SourceCompile/PreprocessFile.cpp, the `if
+        // (!actual_args.empty() && formal_args.empty())` append).  So the
+        // blank run between the name and `(`, the blanks after `(` and the
+        // blanks before `)` leave the output line, and every later column
+        // moves left by what each dropped: MacroArgMismatch `d <= \`D
+        // (~d);` (golden `~d` 5:13, ours 5:14), `\`D   (~d)` and `\`D ( ~d )`
+        // read exactly as `\`D(~d)`.  slang reads the parenthesis as source
+        // text after an object-like macro, so the columns of the argument
+        // tokens and of everything after the call follow from three
+        // entries on the line's shift table.  Only a top-level call whose
+        // `(`...`)` closes on the same line with no top-level comma (a
+        // second argument would be DROPPED by Surelog; not modelled) and
+        // whose definition has no formals.  Cases
+        // tools/probe/r11u160repro/cases/MA.  Switch
+        // R11U160_OBJMACROPAREN_OFF (and R11U160_OFF).
+        static const bool omp160 = r11u160Law("R11U160_OBJMACROPAREN_OFF");
+        if (omp160 && !bi.isArg) {
+            auto ftext = sm->getSourceText(us.buffer());
+            size_t k = bi.usage.end().offset();
+            size_t ws = 0;
+            while (k < ftext.size() && (ftext[k] == ' ' || ftext[k] == '\t')) {
+                k++;
+                ws++;
+            }
+            // The definition: the `define line holding the body's first token.
+            bool objLike = false;
+            if (k < ftext.size() && ftext[k] == '(') {
+                SourceLocation bodyStart = sm->getFullyOriginalLoc(bi.b0);
+                if (bodyStart != SourceLocation::NoLocation &&
+                    !sm->isMacroLoc(bodyStart)) {
+                    auto dt = sm->getSourceText(bodyStart.buffer());
+                    size_t p0 = bodyStart.offset();
+                    size_t ls = p0;
+                    while (ls > 0 && dt[ls - 1] != '\n')
+                        ls--;
+                    std::string_view dl = dt.substr(ls, p0 - ls);
+                    size_t dp = dl.find("`define");
+                    if (dp != std::string_view::npos) {
+                        size_t q = dp + 7;
+                        while (q < dl.size() && (dl[q] == ' ' || dl[q] == '\t'))
+                            q++;
+                        size_t nb = q;
+                        while (q < dl.size() &&
+                               (isalnum((unsigned char)dl[q]) || dl[q] == '_' ||
+                                dl[q] == '$'))
+                            q++;
+                        objLike = q > nb && (q >= dl.size() || dl[q] != '(');
+                    }
+                }
+            }
+            if (objLike && k < ftext.size() && ftext[k] == '(') {
+                size_t open = k, close = std::string::npos;
+                int depth = 0;
+                bool comma = false, inStr = false;
+                for (size_t j = open; j < ftext.size(); j++) {
+                    char ch = ftext[j];
+                    if (ch == '\n')
+                        break;
+                    if (inStr) {
+                        if (ch == '\\')
+                            j++;
+                        else if (ch == '"')
+                            inStr = false;
+                        continue;
+                    }
+                    if (ch == '"')
+                        inStr = true;
+                    else if (ch == '(' || ch == '[' || ch == '{')
+                        depth++;
+                    else if (ch == ')' || ch == ']' || ch == '}') {
+                        if (--depth == 0) {
+                            close = j;
+                            break;
+                        }
+                    }
+                    else if (ch == ',' && depth == 1)
+                        comma = true;
+                }
+                if (close != std::string::npos && !comma) {
+                    size_t lead = 0, trail = 0;
+                    for (size_t j = open + 1;
+                         j < close && (ftext[j] == ' ' || ftext[j] == '\t'); j++)
+                        lead++;
+                    if (open + 1 + lead < close)
+                        for (size_t j = close;
+                             j > open + 1 &&
+                             (ftext[j - 1] == ' ' || ftext[j - 1] == '\t');
+                             j--)
+                            trail++;
+                    uint32_t cU = (uint32_t)sm->getColumnNumber(bi.usage.end());
+                    uint32_t cOpen = cU + (uint32_t)ws;
+                    uint32_t cClose = cOpen + (uint32_t)(close - open);
+                    auto& sh = lineShifts[key];
+                    if (ws)
+                        sh.push_back({cU + (uint32_t)ws - 1, -(int32_t)ws});
+                    if (lead)
+                        sh.push_back({cOpen + (uint32_t)lead, -(int32_t)lead});
+                    if (trail)
+                        sh.push_back({cClose - 1, -(int32_t)trail});
+                }
+            }
+        }
+        if (delta == 0)
+            continue;
         lineShifts[key].push_back({(uint32_t)sm->getColumnNumber(us), delta});
     }
     for (auto& [k, v] : lineShifts)
@@ -12782,6 +13873,7 @@ void UhdmExporter::fileLineCol(SourceLocation lc, uint32_t& line,
                                uint32_t& col) {
     line = (uint32_t)sm->getLineNumber(lc);
     col = (uint32_t)sm->getColumnNumber(lc);
+
     // § emptyRedefineObjLine130 — applied on the way OUT (every lookup below
     // is keyed by the raw source line); not for the include_file_info
     // directive reads (that FLATTENED line has its own law,
@@ -12864,8 +13956,18 @@ bool UhdmExporter::macroInvLineCol(SourceLocation loc, uint32_t& line,
     uint32_t ul, uc;
     if (sm->isMacroLoc(u)) {
         if (!macroInvLineCol(u, ul, uc)) {
+            // § ppMacroBodyLines160, the nested-call column axis — a one-line
+            // call sitting in a MULTI-LINE body is laid out after the earlier
+            // replacements of its body line too (MM m13: `my_line after
+            // `my_file on one line of `INFO, golden 7:96, ours 7:42).
+            // Switch R11U160_PPNESTCOL_OFF.
+            static const bool nest160 = ppLaw160("R11U160_PPNESTCOL_OFF");
+            // (an argument token already gets its formal's shift from the
+            // caller's macroArgShift, as in the branch below)
+            int32_t sh160 = nest160 && !sm->isMacroArgLoc(loc) ? macroArgShift(u) : 0;
             u = sm->getFullyOriginalLoc(u);
             fileLineCol(u, ul, uc);
+            uc = (uint32_t)((int32_t)uc + sh160);
         }
         else if (!sm->isMacroArgLoc(loc)) {
             // A nested call sits at its own shifted position inside the parent

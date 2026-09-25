@@ -1,0 +1,35 @@
+[default] CMP_EQUAL=763 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=40
+[testflags] CMP_EQUAL=763 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=40
+CONVERSION gen_scope_numports default STRICT_NOTEQUAL differ:fullname(4) -> CMP_EQUAL
+CONVERSION gen_scope_numports testflags STRICT_NOTEQUAL differ:fullname(4) -> CMP_EQUAL
+CONVERSION gen_scope_typaram default STRICT_NOTEQUAL differ:fullname(6) -> CMP_EQUAL
+CONVERSION gen_scope_typaram testflags STRICT_NOTEQUAL differ:fullname(6) -> CMP_EQUAL
+CONVERSION ibex_branch_predict default STRICT_NOTEQUAL differ:line(12) -> CMP_EQUAL
+CONVERSION ibex_branch_predict testflags STRICT_NOTEQUAL differ:line(12) -> CMP_EQUAL
+CONVERSION ibex_compressed_decoder default STRICT_NOTEQUAL differ:line(132) -> CMP_EQUAL
+CONVERSION ibex_compressed_decoder testflags STRICT_NOTEQUAL differ:line(132) -> CMP_EQUAL
+CONVERSION ibex_csr default STRICT_NOTEQUAL differ:line(12) -> CMP_EQUAL
+CONVERSION ibex_csr testflags STRICT_NOTEQUAL differ:line(12) -> CMP_EQUAL
+CONVERSION ibex_decoder default STRICT_NOTEQUAL differ:endline(18) -> CMP_EQUAL
+CONVERSION ibex_decoder testflags STRICT_NOTEQUAL differ:endline(18) -> CMP_EQUAL
+CONVERSION ibex_fetch_fifo default STRICT_NOTEQUAL differ:line(24) -> CMP_EQUAL
+CONVERSION ibex_fetch_fifo testflags STRICT_NOTEQUAL differ:line(24) -> CMP_EQUAL
+CONVERSION ibex_multdiv_slow default STRICT_NOTEQUAL differ:endline(18) -> CMP_EQUAL
+CONVERSION ibex_multdiv_slow testflags STRICT_NOTEQUAL differ:endline(18) -> CMP_EQUAL
+CONVERSION ibex_wb_stage default STRICT_NOTEQUAL differ:line(24) -> CMP_EQUAL
+CONVERSION ibex_wb_stage testflags STRICT_NOTEQUAL differ:line(24) -> CMP_EQUAL
+CONVERSION packed_array_reset_loop default STRICT_NOTEQUAL differ:endline(3) -> CMP_EQUAL
+CONVERSION packed_array_reset_loop testflags STRICT_NOTEQUAL differ:endline(3) -> CMP_EQUAL
+CONVERSION packed_array_struct default STRICT_NOTEQUAL differ:endline(2) -> CMP_EQUAL
+CONVERSION packed_array_struct testflags STRICT_NOTEQUAL differ:endline(2) -> CMP_EQUAL
+CONVERSION packed_struct_array_fifo default STRICT_NOTEQUAL differ:endline(6) -> CMP_EQUAL
+CONVERSION packed_struct_array_fifo testflags STRICT_NOTEQUAL differ:endline(6) -> CMP_EQUAL
+CHANGE arb_idx_cast default STRICT_NOTEQUAL differ:endline(3) -> differ:endcol(17)
+CHANGE arb_idx_cast testflags STRICT_NOTEQUAL differ:endline(3) -> differ:endcol(17)
+CHANGE ibex_icache default STRICT_NOTEQUAL differ:line(157) -> differ:fullname(49)
+CHANGE ibex_icache testflags STRICT_NOTEQUAL differ:line(157) -> differ:fullname(49)
+CHANGE ibex_load_store_unit default STRICT_NOTEQUAL differ:endline(240) -> differ:endline(142) [endline -98]
+CHANGE ibex_load_store_unit testflags STRICT_NOTEQUAL differ:endline(240) -> differ:endline(142) [endline -98]
+CHANGE ibex_multdiv_fast default STRICT_NOTEQUAL differ:line(86) -> differ:endcol(26)
+CHANGE ibex_multdiv_fast testflags STRICT_NOTEQUAL differ:line(86) -> differ:endcol(26)
+regressions=0 conversions=24 changes=8 only-fresh=0 only-committed=0
