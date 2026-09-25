@@ -1,0 +1,45 @@
+P10 B.x 11:56:11:59 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt
+   E11 ref_obj B full='' span=11:58:11:59 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='B'@compileSelectExpression
+   E12 ref_obj x full='' span=11:58:11:59 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='x'@compileSelectExpression
+P16 A.x 14:48:14:51 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt
+   E17 ref_obj A full='' span=14:50:14:51 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='A'@compileSelectExpression
+   E18 ref_obj x full='' span=14:50:14:51 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='x'@compileSelectExpression
+P20 A.B.C.x 14:54:14:61 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E21 ref_obj A full='' span=14:54:14:55 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='A'@compileComplexFuncCall
+   E22 ref_obj B full='' span=14:56:14:57 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='B'@compileComplexFuncCall
+   E23 ref_obj C full='' span=14:58:14:59 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='C'@compileComplexFuncCall
+   E24 ref_obj x full='work@genblk_dive_top.Z.A.B.x' span=14:60:14:61 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@genblk_dive_top.Z.A.B.x'@SAVE
+P26 B.C.x 16:40:16:45 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt
+   E27 ref_obj B full='' span=16:42:16:43 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='B'@compileSelectExpression
+   E28 ref_obj C full='' span=16:42:16:43 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='C'@compileSelectExpression
+   E29 ref_obj x full='' span=16:44:16:45 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='x'@compileSelectExpression
+P31 B.x 16:48:16:51 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E32 ref_obj B full='' span=16:48:16:49 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='B'@compileComplexFuncCall
+   E33 ref_obj x full='work@genblk_dive_top.Z.A.x' span=16:50:16:51 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@genblk_dive_top.Z.A.x'@SAVE
+P39 Z.A.x 20:20:20:25 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E40 ref_obj Z full='' span=20:20:20:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='Z'@compileComplexFuncCall
+   E41 ref_obj A full='' span=20:22:20:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='A'@compileComplexFuncCall
+   E42 ref_obj x full='work@genblk_dive_top.x' span=20:24:20:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@genblk_dive_top.x'@SAVE
+P55 B.C.x 16:40:16:45 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E56 ref_obj B full='' span=16:42:16:43 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='B'@compileSelectExpression
+   E57 ref_obj C full='' span=16:42:16:43 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='C'@compileSelectExpression
+   E58 ref_obj x full='' span=16:44:16:45 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='x'@compileSelectExpression
+P60 B.x 16:48:16:51 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E61 ref_obj B full='' span=16:48:16:49 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='B'@compileComplexFuncCall
+   E62 ref_obj x full='work@genblk_dive_top.Z.A.x' span=16:50:16:51 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@genblk_dive_top.Z.A.x'@SAVE
+P69 A.x 14:48:14:51 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E70 ref_obj A full='' span=14:50:14:51 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='A'@compileSelectExpression
+   E71 ref_obj x full='' span=14:50:14:51 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='x'@compileSelectExpression
+P73 A.B.C.x 14:54:14:61 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E74 ref_obj A full='' span=14:54:14:55 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='A'@compileComplexFuncCall
+   E75 ref_obj B full='' span=14:56:14:57 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='B'@compileComplexFuncCall
+   E76 ref_obj C full='' span=14:58:14:59 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='C'@compileComplexFuncCall
+   E77 ref_obj x full='work@genblk_dive_top.Z.A.B.x' span=14:60:14:61 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@genblk_dive_top.Z.A.B.x'@SAVE
+P95 A.B.C.x 12:58:12:65 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < exprFromAssign_
+   E96 ref_obj A full='' span=12:58:12:59 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < exprFromAssign_ | set='A'@compileComplexFuncCall
+   E97 ref_obj B full='' span=12:60:12:61 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < exprFromAssign_ | set='B'@compileComplexFuncCall
+   E98 ref_obj C full='' span=12:62:12:63 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < exprFromAssign_ | set='C'@compileComplexFuncCall
+   E99 ref_obj x full='work@genblk_dive_top.Z.A.B.C.x' span=12:64:12:65 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < exprFromAssign_ | set='work@genblk_dive_top.Z.A.B.C.x'@SAVE
+P121 B.x 11:56:11:59 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabGenScope
+   E122 ref_obj B full='' span=11:58:11:59 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E123 ref_obj x full='' span=11:58:11:59 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-

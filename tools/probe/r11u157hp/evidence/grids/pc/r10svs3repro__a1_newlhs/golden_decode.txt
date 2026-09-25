@@ -1,0 +1,11 @@
+P5 hh 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E6 ref_obj hh full='work@top.hh' span=74:5:74:7 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@top.hh'@SAVE
+P66 d.size 34:17:34:23 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E67 ref_obj d full='' span=34:17:34:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='d'@compileComplexFuncCall
+   E68 ref_obj size full='' span=34:19:34:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='size'@SAVE
+P98 bytes.size 54:13:54:23 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E99 ref_obj bytes full='' span=54:13:54:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='bytes'@compileComplexFuncCall
+   E100 ref_obj size full='' span=54:19:54:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='size'@SAVE
+P110 this.s 66:5:66:9 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E111 ref_obj this full='' span=66:10:66:11 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E112 ref_obj s full='work@holder::m10::s' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@holder::m10::s'@SAVE

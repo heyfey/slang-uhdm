@@ -1,0 +1,3 @@
+DIFF  5:10 g[0].x                   G['O:cc:ss:br [g[0],g[0].x]', 'O:cc:ss:br [g[0],g[0].x]'] O['O:cc:ss:br [g[0],g[0].x]'] <cont_assign> | assign g[0].x = 1'b0;
+DIFF  6:10 g[1].x                   G['O:cc:ss:br [g[1],g[1].x]', 'O:cc:ss:br [g[1],g[1].x]'] O['O:cc:ss:br [g[1],g[1].x]'] <cont_assign> | assign g[1].x = 1'b1;
+MATCH 7:14 g[0].x                   G['O:cc:ss:br [g[0],work@top.x]'] O['O:cc:ss:br [g[0],work@top.x]'] <cont_assign> | assign o = g[0].x;

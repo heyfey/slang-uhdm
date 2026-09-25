@@ -1,0 +1,18 @@
+P72 s.a 8:16:8:19 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E73 ref_obj s full='' span=8:16:8:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='s'@compileComplexFuncCall
+   E74 ref_obj a full='work@top.a' span=8:18:8:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@top.a'@SAVE
+P75 s.b 8:21:8:24 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E76 ref_obj s full='' span=8:21:8:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='s'@compileComplexFuncCall
+   E77 ref_obj b full='work@top.b' span=8:23:8:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@top.b'@SAVE
+P81 sub.adr 9:15:9:22 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E82 ref_obj sub full='' span=9:15:9:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='sub'@compileComplexFuncCall
+   E83 ref_obj adr full='work@top.adr' span=9:19:9:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@top.adr'@SAVE
+P392 s.a 8:16:8:19 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepClone
+   E393 ref_obj s full='' span=8:16:8:17 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E394 ref_obj a full='work@tb.dut.a' span=8:18:8:19 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set='work@tb.dut.a'@SAVE
+P395 s.b 8:21:8:24 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepClone
+   E396 ref_obj s full='' span=8:21:8:22 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E397 ref_obj b full='work@tb.dut.b' span=8:23:8:24 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set='work@tb.dut.b'@SAVE
+P402 sub.adr 9:15:9:22 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepClone
+   E403 ref_obj sub full='' span=9:15:9:18 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E404 ref_obj adr full='work@tb.dut.adr' span=9:19:9:22 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set='work@tb.dut.adr'@SAVE

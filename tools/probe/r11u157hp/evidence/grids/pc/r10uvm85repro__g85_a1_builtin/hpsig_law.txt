@@ -1,0 +1,2 @@
+MATCH 16:25 this.n                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <method_func_call> | this.q.push_front(this.n); // L16 builtin 1 arg, this-rooted actual
+MATCH 24:21 this.n                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <method_func_call> | this.q.delete(this.n);     // L24 this-rooted actual (deep-this ARG)

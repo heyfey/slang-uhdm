@@ -1,0 +1,1 @@
+DIFF  9:47                          G['O:oo:ss:rr'] O['O:oc:ss:rr [work@top.f.m]'] <-,return_stmt> | function automatic logic [11:0] f(); return q2::IMPL.m; endfunction

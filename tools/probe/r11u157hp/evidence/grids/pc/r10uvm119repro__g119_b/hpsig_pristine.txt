@@ -1,0 +1,5 @@
+MATCH 0:0 e_b                      G['O:c:s:r [work@top_b.e_b]'] O['O:c:s:r [work@top_b.e_b]'] <assignment> | 
+MATCH 11:12 recv_b.randomize         G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | ok_b = recv_b.randomize();
+MATCH 12:12 recv_b.randomize         G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | ok_b = recv_b.randomize(q_one);
+MATCH 13:12 recv_b.randomize         G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | ok_b = recv_b.randomize(q_one, q_two);
+MATCH 14:12 recv_b.randomize         G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | ok_b = recv_b.randomize(null);

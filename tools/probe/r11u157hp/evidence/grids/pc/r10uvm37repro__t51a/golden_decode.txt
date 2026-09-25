@@ -1,0 +1,13 @@
+P189 o 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E190 ref_obj o full='imp51::g51::o' span=82:5:82:6 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='imp51::g51::o'@SAVE
+P193 o.m51 83:12:83:20 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E194 ref_obj o full='' span=83:12:83:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='o'@compileComplexFuncCall
+   E195 method_func_call m51 full='' span=83:14:83:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P303 o 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E304 ref_obj o full='imp51::g51::o' span=82:5:82:6 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='imp51::g51::o'@SAVE
+P307 o.m51 83:12:83:20 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E308 ref_obj o full='' span=83:12:83:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='o'@compileComplexFuncCall
+   E309 method_func_call m51 full='' span=83:14:83:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P373 this.prop 50:26:50:35 <operation> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E374 ref_obj this full='' span=50:31:50:35 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E375 ref_obj prop full='' span=50:31:50:35 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='prop'@compileSelectExpression

@@ -1,0 +1,20 @@
+P24 c.n 6:14:6:17 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E25 ref_obj c full='' span=6:16:6:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E26 ref_obj n full='' span=6:16:6:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='n'@compileSelectExpression
+P29 c.t 6:23:6:26 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E30 ref_obj c full='' span=6:25:6:26 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E31 ref_obj t full='' span=6:25:6:26 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='t'@compileSelectExpression
+P57 c.n 6:14:6:17 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E58 ref_obj c full='' span=6:16:6:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E59 ref_obj n full='' span=6:16:6:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='n'@compileSelectExpression
+P62 c.t 6:23:6:26 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E63 ref_obj c full='' span=6:25:6:26 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E64 ref_obj t full='' span=6:25:6:26 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='t'@compileSelectExpression
+P75 $root.dut.M_LOC.n 12:40:12:57 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E76 ref_obj $root full='' span=12:46:12:49 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='$root'@compileComplexFuncCall
+   E77 ref_obj dut full='' span=12:46:12:49 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='dut'@compileComplexFuncCall
+   E78 ref_obj M_LOC full='' span=12:50:12:55 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='M_LOC'@compileComplexFuncCall
+   E79 ref_obj n full='' span=12:56:12:57 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='n'@compileComplexFuncCall
+P82 M_LOC.n 13:40:13:47 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E83 ref_obj M_LOC full='' span=13:40:13:45 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='M_LOC'@compileComplexFuncCall
+   E84 ref_obj n full='work@dut.n' span=13:46:13:47 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@dut.n'@SAVE

@@ -1,0 +1,30 @@
+P37 t.gt 22:35:22:41 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E38 ref_obj t full='' span=22:35:22:36 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='t'@compileComplexFuncCall
+   E39 method_func_call gt full='' span=22:37:22:39 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P49 t.gt 24:41:24:47 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E50 ref_obj t full='' span=24:41:24:42 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='t'@compileComplexFuncCall
+   E51 method_func_call gt full='' span=24:43:24:45 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P62 t.sz 26:39:26:45 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E63 ref_obj t full='' span=26:39:26:40 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='t'@compileComplexFuncCall
+   E64 method_func_call sz full='' span=26:41:26:43 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P76 t.gt 28:47:28:53 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E77 ref_obj t full='' span=28:47:28:48 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='t'@compileComplexFuncCall
+   E78 method_func_call gt full='' span=28:49:28:51 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P87 bc.gn 30:35:30:48 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E88 ref_obj bc full='' span=30:35:30:37 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='bc'@compileComplexFuncCall
+   E89 method_func_call gn full='' span=30:38:30:40 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P90 t.gt 30:41:30:47 <method_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E91 ref_obj t full='' span=30:41:30:42 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='t'@compileComplexFuncCall
+   E92 method_func_call gt full='' span=30:43:30:45 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set=-
+P98 t.sz 32:34:32:40 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E99 ref_obj t full='' span=32:34:32:35 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='t'@compileComplexFuncCall
+   E100 method_func_call sz full='' span=32:36:32:38 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P116 t.gt 34:39:34:45 <return_stmt> mint=compileComplexFuncCall < compileExpression < compileExpression < compileStmt
+   E117 ref_obj t full='' span=34:39:34:40 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileStmt | set='t'@compileComplexFuncCall
+   E118 method_func_call gt full='' span=34:41:34:43 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileStmt | set=-
+P124 t.sz 36:36:36:42 <begin> mint=compileComplexFuncCall < compileExpression < compileExpression < compileCaseStmt
+   E125 ref_obj t full='' span=36:36:36:37 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileCaseStmt | set='t'@compileComplexFuncCall
+   E126 method_func_call sz full='' span=36:38:36:40 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileCaseStmt | set=-
+P144 t.gt 38:45:38:51 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E145 ref_obj t full='' span=38:45:38:46 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='t'@compileComplexFuncCall
+   E146 method_func_call gt full='' span=38:47:38:49 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set=-

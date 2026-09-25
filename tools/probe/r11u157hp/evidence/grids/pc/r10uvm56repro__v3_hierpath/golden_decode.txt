@@ -1,0 +1,80 @@
+P20 q_struct.a 32:7:32:17 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E21 ref_obj q_struct full='' span=32:16:32:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='q_struct'@compileSelectExpression
+   E22 ref_obj a full='' span=32:16:32:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='a'@compileSelectExpression
+P24 q_struct.a 33:11:33:21 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E25 ref_obj q_struct full='' span=33:11:33:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='q_struct'@compileComplexFuncCall
+   E26 ref_obj a full='p3v::q_struct::a' span=33:20:33:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='p3v::q_struct::a'@SAVE
+P31 q_struct.b 34:9:34:19 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E32 ref_obj q_struct full='' span=34:18:34:19 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='q_struct'@compileSelectExpression
+   E33 ref_obj b full='' span=34:18:34:19 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='b'@compileSelectExpression
+P44 q_class 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E45 ref_obj q_class full='p3v::q_class::q_class' span=38:7:38:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='p3v::q_class::q_class'@SAVE
+P48 q_class.v 39:7:39:16 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E49 ref_obj q_class full='' span=39:15:39:16 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='q_class'@compileSelectExpression
+   E50 ref_obj v full='' span=39:15:39:16 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='v'@compileSelectExpression
+P52 q_class.v 40:11:40:20 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E53 ref_obj q_class full='' span=40:11:40:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='q_class'@compileComplexFuncCall
+   E54 ref_obj v full='p3v::q_class::v' span=40:19:40:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='p3v::q_class::v'@SAVE
+P59 q_class.v 41:9:41:18 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E60 ref_obj q_class full='' span=41:17:41:18 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='q_class'@compileSelectExpression
+   E61 ref_obj v full='' span=41:17:41:18 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='v'@compileSelectExpression
+P80 q_struct.a 32:7:32:17 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E81 ref_obj q_struct full='' span=32:16:32:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='q_struct'@compileSelectExpression
+   E82 ref_obj a full='' span=32:16:32:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='a'@compileSelectExpression
+P84 q_struct.a 33:11:33:21 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E85 ref_obj q_struct full='' span=33:11:33:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='q_struct'@compileComplexFuncCall
+   E86 ref_obj a full='p3v::q_struct::a' span=33:20:33:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='p3v::q_struct::a'@SAVE
+P91 q_struct.b 34:9:34:19 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E92 ref_obj q_struct full='' span=34:18:34:19 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='q_struct'@compileSelectExpression
+   E93 ref_obj b full='' span=34:18:34:19 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='b'@compileSelectExpression
+P104 q_class 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E105 ref_obj q_class full='p3v::q_class::q_class' span=38:7:38:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='p3v::q_class::q_class'@SAVE
+P108 q_class.v 39:7:39:16 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E109 ref_obj q_class full='' span=39:15:39:16 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='q_class'@compileSelectExpression
+   E110 ref_obj v full='' span=39:15:39:16 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='v'@compileSelectExpression
+P112 q_class.v 40:11:40:20 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E113 ref_obj q_class full='' span=40:11:40:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='q_class'@compileComplexFuncCall
+   E114 ref_obj v full='p3v::q_class::v' span=40:19:40:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='p3v::q_class::v'@SAVE
+P119 q_class.v 41:9:41:18 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E120 ref_obj q_class full='' span=41:17:41:18 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='q_class'@compileSelectExpression
+   E121 ref_obj v full='' span=41:17:41:18 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='v'@compileSelectExpression
+P136 z_struct.a 50:7:50:17 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E137 ref_obj z_struct full='' span=50:16:50:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='z_struct'@compileSelectExpression
+   E138 ref_obj a full='' span=50:16:50:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='a'@compileSelectExpression
+P140 z_struct.a 51:11:51:21 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E141 ref_obj z_struct full='' span=51:11:51:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='z_struct'@compileComplexFuncCall
+   E142 ref_obj a full='work@v3_top.z_struct.a' span=51:20:51:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@v3_top.z_struct.a'@SAVE
+P147 z_struct.b 52:9:52:19 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E148 ref_obj z_struct full='' span=52:18:52:19 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='z_struct'@compileSelectExpression
+   E149 ref_obj b full='' span=52:18:52:19 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='b'@compileSelectExpression
+P159 z_class 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E160 ref_obj z_class full='work@v3_top.z_class.z_class' span=57:7:57:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@v3_top.z_class.z_class'@SAVE
+P163 z_class.v 58:7:58:16 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E164 ref_obj z_class full='' span=58:15:58:16 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='z_class'@compileSelectExpression
+   E165 ref_obj v full='' span=58:15:58:16 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='v'@compileSelectExpression
+P167 z_class.v 59:11:59:20 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E168 ref_obj z_class full='' span=59:11:59:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='z_class'@compileComplexFuncCall
+   E169 ref_obj v full='work@v3_top.z_class.v' span=59:19:59:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@v3_top.z_class.v'@SAVE
+P174 z_class.v 60:9:60:18 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E175 ref_obj z_class full='' span=60:17:60:18 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='z_class'@compileSelectExpression
+   E176 ref_obj v full='' span=60:17:60:18 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='v'@compileSelectExpression
+P186 z_deep 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E187 ref_obj z_deep full='work@v3_top.z_deep.z_deep' span=65:7:65:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@v3_top.z_deep.z_deep'@SAVE
+P190 z_deep.inner 66:7:66:13 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileBlockingAssignment
+   E191 ref_obj z_deep full='' span=66:14:66:19 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileBlockingAssignment | set='z_deep'@compileSelectExpression
+   E192 ref_obj inner full='' span=66:14:66:19 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileBlockingAssignment | set='inner'@compileSelectExpression
+P195 z_deep.inner.v 67:7:67:21 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E196 ref_obj z_deep full='' span=67:14:67:19 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='z_deep'@compileSelectExpression
+   E197 ref_obj inner full='' span=67:14:67:19 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='inner'@compileSelectExpression
+   E198 ref_obj v full='' span=67:20:67:21 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='v'@compileSelectExpression
+P200 z_deep.inner.v 68:11:68:25 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E201 ref_obj z_deep full='' span=68:11:68:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='z_deep'@compileComplexFuncCall
+   E202 ref_obj inner full='' span=68:18:68:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='inner'@compileComplexFuncCall
+   E203 ref_obj v full='work@v3_top.z_deep.v' span=68:24:68:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@v3_top.z_deep.v'@SAVE
+P208 z_deep.inner.v 69:9:69:23 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E209 ref_obj z_deep full='' span=69:16:69:21 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='z_deep'@compileSelectExpression
+   E210 ref_obj inner full='' span=69:16:69:21 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='inner'@compileSelectExpression
+   E211 ref_obj v full='' span=69:22:69:23 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='v'@compileSelectExpression
+P237 sv.a 81:12:81:16 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E238 ref_obj sv full='' span=81:12:81:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='sv'@compileComplexFuncCall
+   E239 ref_obj a full='work@v3_top.a' span=81:15:81:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@v3_top.a'@SAVE

@@ -1,0 +1,10 @@
+MATCH 0:0 o                        G['O:c:s:r [work@top.o]'] O['O:c:s:r [work@top.o]'] <assignment> | 
+MATCH 7:5 this.x                   G['O:oc:sz:rr [work@outer::f::x]'] O['O:oc:sz:rr [work@outer::f::x]'] <assignment> | this.x = 1;
+DIFF  8:5 this.h.v                 G['O:occ:szz:rrr [work@outer::f::h,work@outer::f::v]'] O['N:ooc:ssz:rrr [work@outer::f::v]'] <assignment> | this.h.v = 2;
+MATCH 9:5 this.arr                 G['O:oc:sz:rr [work@outer::f::arr]'] O['O:oc:sz:rr [work@outer::f::arr]'] <assignment> | this.arr[1] = 3;
+MATCH 10:5 this.x                   G['O:oc:sz:rr [work@outer::f::x]'] O['O:oc:sz:rr [work@outer::f::x]'] <assignment> | this.x += 4;
+DIFF  11:5 this.h.v                 G['O:occ:szz:rrr [work@outer::f::h,work@outer::f::v]'] O['N:ooc:ssz:rrr [work@outer::f::v]'] <assignment> | this.h.v += 5;
+MATCH 12:5 this.x                   G['O:oc:sz:rr [work@outer::f::x]'] O['O:oc:sz:rr [work@outer::f::x]'] <operation> | this.x++;
+DIFF  13:5 this.h.v                 G['O:occ:szz:rrr [work@outer::f::h,work@outer::f::v]'] O['O:ooc:ssz:rrr [work@outer::f::v]'] <operation> | this.h.v++;
+MATCH 14:7 this.y                   G['O:oc:sz:rr [work@outer::f::y]'] O['O:oc:sz:rr [work@outer::f::y]'] <operation> | --this.y;
+DIFF  15:5 super.bx                 G['O:oc:sz:rr [work@outer::f::bx]'] O[] <assignment> | super.bx = 6;

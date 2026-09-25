@@ -1,0 +1,7 @@
+MATCH 5:98 Cfg.XLEN                 G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | module dut #(parameter cfg_pkg::cfg_t Cfg = cfg_pkg::DefaultCfg) (inpu
+DIFF  6:49 Cfg.XLEN                 G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr', 'N:oo:ss:rr', 'N:oo:ss:rr', 'N:oo:ss:rr'] <operation> | localparam type it_t = struct packed { logic [Cfg.XLEN-1:0] S_SW; logi
+DIFF  6:76 Cfg.XLEN                 G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr', 'N:oo:ss:rr', 'N:oo:ss:rr', 'N:oo:ss:rr'] <operation> | localparam type it_t = struct packed { logic [Cfg.XLEN-1:0] S_SW; logi
+MATCH 7:52 Cfg.XLEN                 G['O:oc:ss:rr [work@dut.XLEN]'] O['O:oc:ss:rr [work@dut.XLEN]'] <operation> | localparam it_t INT = '{ S_SW: (Cfg.XLEN'(1) << (Cfg.XLEN - 1)) | Cfg.
+MATCH 7:107 Cfg.XLEN                 G['O:oc:ss:rr [work@dut.XLEN]'] O['O:oc:ss:rr [work@dut.XLEN]'] <operation> | localparam it_t INT = '{ S_SW: (Cfg.XLEN'(1) << (Cfg.XLEN - 1)) | Cfg.
+MATCH 8:22 INT.S_SW                 G['O:oc:ss:rr [work@dut.S_SW]', 'O:oc:ss:rr [work@dut.S_SW]'] O['O:oc:ss:rr [work@dut.S_SW]', 'O:oc:ss:rr [work@dut.S_SW]'] <operation> | assign b_o = a_i ? INT.S_SW : INT.M_SW;
+MATCH 8:33 INT.M_SW                 G['O:oc:ss:rr [work@dut.M_SW]', 'O:oc:ss:rr [work@dut.M_SW]'] O['O:oc:ss:rr [work@dut.M_SW]', 'O:oc:ss:rr [work@dut.M_SW]'] <operation> | assign b_o = a_i ? INT.S_SW : INT.M_SW;

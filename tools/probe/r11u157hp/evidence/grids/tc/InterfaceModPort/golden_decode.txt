@@ -1,0 +1,33 @@
+P47 mif.clk 69:19:69:26 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E48 ref_obj mif full='' span=69:19:69:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='mif'@compileComplexFuncCall
+   E49 ref_obj clk full='work@memory_model.clk' span=69:23:69:26 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@memory_model.clk'@SAVE
+P50 mif.ce_mem 70:6:70:16 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E51 ref_obj mif full='' span=70:6:70:9 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='mif'@compileComplexFuncCall
+   E52 ref_obj ce_mem full='work@memory_model.ce_mem' span=70:10:70:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@memory_model.ce_mem'@SAVE
+P54 mif.we_mem 70:20:70:30 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E55 ref_obj mif full='' span=70:20:70:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='mif'@compileComplexFuncCall
+   E56 ref_obj we_mem full='work@memory_model.we_mem' span=70:24:70:30 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@memory_model.we_mem'@SAVE
+P60 mif.addr_mem 71:8:71:20 <bit_select> mint=compileComplexFuncCall < compileExpression < compileExpression < compileSelectExpression
+   E61 ref_obj mif full='' span=71:8:71:11 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileSelectExpression | set='mif'@compileComplexFuncCall
+   E62 ref_obj addr_mem full='work@memory_model.mem.addr_mem' span=71:12:71:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileSelectExpression | set='work@memory_model.mem.addr_mem'@SAVE
+P64 mif.datai_mem 71:25:71:38 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E65 ref_obj mif full='' span=71:25:71:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='mif'@compileComplexFuncCall
+   E66 ref_obj datai_mem full='work@memory_model.datai_mem' span=71:29:71:38 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@memory_model.datai_mem'@SAVE
+P70 mif.clk 77:19:77:26 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E71 ref_obj mif full='' span=77:19:77:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='mif'@compileComplexFuncCall
+   E72 ref_obj clk full='work@memory_model.clk' span=77:23:77:26 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@memory_model.clk'@SAVE
+P73 mif.ce_mem 78:6:78:16 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E74 ref_obj mif full='' span=78:6:78:9 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='mif'@compileComplexFuncCall
+   E75 ref_obj ce_mem full='work@memory_model.ce_mem' span=78:10:78:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@memory_model.ce_mem'@SAVE
+P78 mif.we_mem 78:21:78:31 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E79 ref_obj mif full='' span=78:21:78:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='mif'@compileComplexFuncCall
+   E80 ref_obj we_mem full='work@memory_model.we_mem' span=78:25:78:31 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@memory_model.we_mem'@SAVE
+P84 mif.datao_mem 79:4:79:17 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E85 ref_obj mif full='' span=79:8:79:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='mif'@compileSelectExpression
+   E86 ref_obj datao_mem full='' span=79:8:79:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='datao_mem'@compileSelectExpression
+P87 mif.addr_mem 79:25:79:37 <bit_select> mint=compileComplexFuncCall < compileExpression < compileExpression < compileSelectExpression
+   E88 ref_obj mif full='' span=79:25:79:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileSelectExpression | set='mif'@compileComplexFuncCall
+   E89 ref_obj addr_mem full='work@memory_model.mem.addr_mem' span=79:29:79:37 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileSelectExpression | set='work@memory_model.mem.addr_mem'@SAVE
+P94 tif.reset 102:7:102:16 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E95 ref_obj tif full='' span=102:11:102:16 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='tif'@compileSelectExpression
+   E96 ref_obj reset full='' span=102:11:102:16 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='reset'@compileSelectExpression

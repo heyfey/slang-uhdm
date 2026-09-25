@@ -1,0 +1,12 @@
+P37 pipe_in[3].f1[63:0] 22:14:22:33 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern
+   E39 bit_select pipe_in full='pipe_in[3]' span=22:14:22:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern | set='pipe_in[3]'@compileComplexFuncCall
+   E40 part_select f1 full='pipe_in[3].f1[63:0]' span=22:25:22:32 par=hp | mint=compilePartSelectRange < compileComplexFuncCall < compileExpression < compileExpression | set='pipe_in[3].f1[63:0]'@compileComplexFuncCall
+P46 pipe_in[3].f2[7:0] 23:14:23:32 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern
+   E48 bit_select pipe_in full='pipe_in[3]' span=23:14:23:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern | set='pipe_in[3]'@compileComplexFuncCall
+   E49 part_select f2 full='pipe_in[3].f2[7:0]' span=23:25:23:31 par=hp | mint=compilePartSelectRange < compileComplexFuncCall < compileExpression < compileExpression | set='pipe_in[3].f2[7:0]'@compileComplexFuncCall
+P137 pipe_in[3].f1[63:0] 22:14:22:33 <operation> mint=DeepClone < DeepClone < DeepCopy < DeepClone
+   E138 bit_select pipe_in full='pipe_in[3]' span=22:14:22:21 par=hp | mint=DeepClone < DeepClone < DeepClone < DeepCopy | set=-
+   E140 part_select f1 full='pipe_in[3].f1[63:0]' span=22:25:22:32 par=hp | mint=DeepClone < DeepClone < DeepClone < DeepCopy | set=-
+P146 pipe_in[3].f2[7:0] 23:14:23:32 <operation> mint=DeepClone < DeepClone < DeepCopy < DeepClone
+   E147 bit_select pipe_in full='pipe_in[3]' span=23:14:23:21 par=hp | mint=DeepClone < DeepClone < DeepClone < DeepCopy | set=-
+   E149 part_select f2 full='pipe_in[3].f2[7:0]' span=23:25:23:31 par=hp | mint=DeepClone < DeepClone < DeepClone < DeepCopy | set=-

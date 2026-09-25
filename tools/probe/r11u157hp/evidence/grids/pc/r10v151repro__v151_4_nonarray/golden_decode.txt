@@ -1,0 +1,51 @@
+P47 dq.size 30:11:30:20 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E48 ref_obj dq full='' span=30:11:30:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='dq'@compileComplexFuncCall
+   E49 method_func_call size full='' span=30:14:30:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P55 am4.num 32:11:32:20 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E56 ref_obj am4 full='' span=32:11:32:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='am4'@compileComplexFuncCall
+   E57 method_func_call num full='' span=32:15:32:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P60 am4.exists 33:11:33:27 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E61 ref_obj am4 full='' span=33:11:33:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='am4'@compileComplexFuncCall
+   E62 method_func_call exists full='' span=33:15:33:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P75 sname.len 38:12:38:23 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E76 ref_obj sname full='' span=38:12:38:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='sname'@compileComplexFuncCall
+   E77 method_func_call len full='' span=38:18:38:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P80 sname.substr 39:12:39:30 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E81 ref_obj sname full='' span=39:12:39:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='sname'@compileComplexFuncCall
+   E82 method_func_call substr full='' span=39:18:39:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P90 sname.toupper 41:12:41:27 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E91 ref_obj sname full='' span=41:12:41:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='sname'@compileComplexFuncCall
+   E92 method_func_call toupper full='' span=41:18:41:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P95 sname.atoi 42:12:42:24 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E96 ref_obj sname full='' span=42:12:42:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='sname'@compileComplexFuncCall
+   E97 method_func_call atoi full='' span=42:18:42:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P100 hue.name 44:12:44:22 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E101 ref_obj hue full='' span=44:12:44:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='hue'@compileComplexFuncCall
+   E102 method_func_call name full='' span=44:16:44:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P105 hue.next 45:13:45:23 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E106 ref_obj hue full='' span=45:13:45:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='hue'@compileComplexFuncCall
+   E107 method_func_call next full='' span=45:17:45:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P110 hue.num 46:11:46:20 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E111 ref_obj hue full='' span=46:11:46:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='hue'@compileComplexFuncCall
+   E112 method_func_call num full='' span=46:15:46:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P123 cel.randomize 51:11:51:26 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E124 ref_obj cel full='' span=51:11:51:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='cel'@compileComplexFuncCall
+   E125 method_func_call randomize full='' span=51:15:51:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P128 cel.randomize 52:11:52:28 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E129 ref_obj cel full='' span=52:11:52:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='cel'@compileComplexFuncCall
+   E130 method_func_call randomize full='' span=52:15:52:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P135 dq.size 55:11:55:20 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E136 ref_obj dq full='' span=55:11:55:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='dq'@compileComplexFuncCall
+   E137 method_func_call size full='' span=55:14:55:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P146 am4.num 56:26:56:35 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E147 ref_obj am4 full='' span=56:26:56:29 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='am4'@compileComplexFuncCall
+   E148 method_func_call num full='' span=56:30:56:33 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set=-
+P149 sname.substr 56:37:56:55 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E150 ref_obj sname full='' span=56:37:56:42 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='sname'@compileComplexFuncCall
+   E151 method_func_call substr full='' span=56:43:56:49 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set=-
+P156 dq.size 57:11:57:20 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E157 ref_obj dq full='' span=57:11:57:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='dq'@compileComplexFuncCall
+   E158 method_func_call size full='' span=57:14:57:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P160 am4.num 57:23:57:32 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E161 ref_obj am4 full='' span=57:23:57:26 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='am4'@compileComplexFuncCall
+   E162 method_func_call num full='' span=57:27:57:30 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-

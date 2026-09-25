@@ -1,0 +1,21 @@
+P16 q.d[0] 7:56:7:62 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E17 ref_obj q full='' span=7:56:7:57 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='q'@compileComplexFuncCall
+   E19 bit_select d full='work@mp_named.q.d[0].d' span=7:60:7:61 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@mp_named.q.d[0].d'@SAVE
+P22 q.d[0] 10:57:10:63 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E23 ref_obj q full='' span=10:57:10:58 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='q'@compileComplexFuncCall
+   E25 bit_select d full='work@mp_pos.q.d[0].d' span=10:61:10:62 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@mp_pos.q.d[0].d'@SAVE
+P28 q.d[0] 8:57:8:63 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E29 ref_obj q full='' span=8:57:8:58 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='q'@compileComplexFuncCall
+   E31 bit_select d full='work@pl_named.q.d[0].d' span=8:61:8:62 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@pl_named.q.d[0].d'@SAVE
+P34 q.d[0] 9:57:9:63 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E35 ref_obj q full='' span=9:57:9:58 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='q'@compileComplexFuncCall
+   E37 bit_select d full='work@pl_pos.q.d[0].d' span=9:61:9:62 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@pl_pos.q.d[0].d'@SAVE
+P41 u.mp 14:19:14:23 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn
+   E42 ref_obj u full='' span=14:19:14:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn | set='u'@compileComplexFuncCall
+   E43 ref_obj mp full='work@top.a0.q.mp' span=14:21:14:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn | set='work@top.a0.q.mp'@SAVE
+P149 u.mp 14:19:14:23 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_
+   E150 ref_obj u full='' span=14:19:14:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='u'@compileComplexFuncCall
+   E151 ref_obj mp full='work@top.a0.q.mp' span=14:21:14:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='work@top.a0.q.mp'@SAVE
+P297 u.mp 17:16:17:20 <port> mint=compileSelectExpression < compileExpression < high_conn_ < elaborate_
+   E298 ref_obj u full='' span=17:18:17:20 par=hp | mint=compileSelectExpression < compileExpression < high_conn_ < elaborate_ | set='u'@compileSelectExpression
+   E299 ref_obj mp full='' span=17:18:17:20 par=hp | mint=compileSelectExpression < compileExpression < high_conn_ < elaborate_ | set='mp'@compileSelectExpression

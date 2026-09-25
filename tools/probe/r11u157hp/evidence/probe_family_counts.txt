@@ -1,0 +1,11 @@
+probe cases carrying the cluster (pristine -> law), of the 69 family cases
+N0001   39 ->  14
+N0007   28 ->  11
+N0018   18 ->   2
+N0071   16 ->   8
+N0097   17 ->  14
+N0098   13 ->   1
+N0099   12 ->   0
+N0101    7 ->   0
+N0102    7 ->   0
+family cases strict-equal: 0 -> 9

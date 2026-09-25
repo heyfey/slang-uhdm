@@ -1,0 +1,5 @@
+MATCH 0:0 bar                      G['O:c:s:r [work@top.bar]'] O['O:c:s:r [work@top.bar]'] <assignment> | 
+MATCH 0:0 baz                      G['O:c:s:r [work@top.baz]'] O['O:c:s:r [work@top.baz]'] <assignment> | 
+MATCH 5:5 this.addr                G['O:oc:sz:rr [work@foo::set::body::addr]'] O['O:oc:sz:rr [work@foo::set::body::addr]'] <assignment> | this.addr = addr;
+MATCH 24:12 bar.addr                 G['O:oc:ss:rr [work@top.addr]'] O['O:oc:ss:rr [work@top.addr]'] <sys_func_call> | $display(bar.addr);  // expected: 4
+MATCH 25:12 baz.addr                 G['O:oc:ss:rr [work@top.addr]'] O['O:oc:ss:rr [work@top.addr]'] <sys_func_call> | $display(baz.addr);  // expected: 0

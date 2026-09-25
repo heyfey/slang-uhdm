@@ -1,0 +1,30 @@
+P17 q.autoexecprogbuf[{1'b1,}] 24:15:24:49 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E18 ref_obj q full='' span=24:15:24:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='q'@compileComplexFuncCall
+   E24 bit_select autoexecprogbuf full="work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf" span=24:33:24:48 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set="work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf"@SAVE
+P21 rq.addr 24:40:24:47 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E22 ref_obj rq full='' span=24:40:24:42 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='rq'@compileComplexFuncCall
+   E23 ref_obj addr full="work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr" span=24:43:24:47 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set="work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr"@SAVE
+P29 q.autoexecprogbuf[{1'b1,}] 27:10:27:44 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E30 ref_obj q full='' span=27:10:27:11 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='q'@compileComplexFuncCall
+   E36 bit_select autoexecprogbuf full="work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf" span=27:28:27:43 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set="work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf"@SAVE
+P33 rq.addr 27:35:27:42 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E34 ref_obj rq full='' span=27:35:27:37 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='rq'@compileComplexFuncCall
+   E35 ref_obj addr full="work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr" span=27:38:27:42 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set="work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr"@SAVE
+P41 q.autoexecprogbuf[{1'b1,}] 31:10:31:44 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E42 ref_obj q full='' span=31:10:31:11 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='q'@compileComplexFuncCall
+   E48 bit_select autoexecprogbuf full="work@a4_ctx.nb.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf" span=31:28:31:43 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set="work@a4_ctx.nb.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf"@SAVE
+P45 rq.addr 31:35:31:42 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E46 ref_obj rq full='' span=31:35:31:37 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='rq'@compileComplexFuncCall
+   E47 ref_obj addr full="work@a4_ctx.nb.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr" span=31:38:31:42 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set="work@a4_ctx.nb.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr"@SAVE
+P56 q.autoexecprogbuf[{1'b1,}] 35:11:35:45 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E57 ref_obj q full='' span=35:11:35:12 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='q'@compileComplexFuncCall
+   E63 bit_select autoexecprogbuf full="work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf" span=35:29:35:44 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set="work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf"@SAVE
+P60 rq.addr 35:36:35:43 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E61 ref_obj rq full='' span=35:36:35:38 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='rq'@compileComplexFuncCall
+   E62 ref_obj addr full="work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr" span=35:39:35:43 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set="work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr"@SAVE
+P67 t.autoexecprogbuf[{1'b1,}] 39:5:39:39 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E68 ref_obj t full='' span=39:7:39:22 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='t'@compileSelectExpression
+   E69 bit_select autoexecprogbuf full="work@a4_ctx.t.autoexecprogbuf[{1'b1,}].autoexecprogbuf" span=39:7:39:39 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set="work@a4_ctx.t.autoexecprogbuf[{1'b1,}].autoexecprogbuf"@SAVE
+P72 rq.addr 39:30:39:37 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E73 ref_obj rq full='' span=39:30:39:32 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='rq'@compileComplexFuncCall
+   E74 ref_obj addr full="work@a4_ctx.t.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr" span=39:33:39:37 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set="work@a4_ctx.t.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr"@SAVE

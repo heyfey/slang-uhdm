@@ -1,0 +1,8 @@
+MATCH 0:0 o                        G['O:c:s:r [work@top.o]'] O['O:c:s:r [work@top.o]'] <assignment> | 
+MATCH 14:9 d.size                   G['O:oc:ss:rr [work@sd::f::size]'] O['O:oc:ss:rr [work@sd::f::size]'] <assignment> | r = d.size;          // (1) TIGHT: the shape every implementer arm use
+MATCH 15:13 d.size                   G['O:oc:ss:rr [work@sd::f::size]'] O['O:oc:ss:rr [work@sd::f::size]'] <operation> | r = r + d . size;    // (2) ONE SPACE either side of the dot
+MATCH 16:13 q.size                   G['O:oc:ss:rr [work@sd::f::size]'] O['O:oc:ss:rr [work@sd::f::size]'] <operation> | r = r + q .size;     // (3) space BEFORE the dot only
+MATCH 17:13 q.size                   G['O:oc:ss:rr [work@sd::f::size]'] O['O:oc:ss:rr [work@sd::f::size]'] <operation> | r = r + q. size;     // (4) space AFTER the dot only
+MATCH 18:13 d.size                   G['O:oc:ss:rr [work@sd::f::size]'] O['O:oc:ss:rr [work@sd::f::size]'] <operation> | r = r + d /* c */ . size;  // (5) a COMMENT between receiver and dot
+MATCH 19:13 d.size                   G['O:oc:ss:rr [work@sd::f::size]'] O['O:oc:ss:rr [work@sd::f::size]'] <operation> | r = r + d
+MATCH 29:21 o.f                      G['O:oo:ss:rm'] O['O:oo:ss:rm'] <sys_func_call> | $display("%0d", o.f());

@@ -1,0 +1,22 @@
+P102 s.adr 23:10:23:15 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E103 ref_obj s full='' span=23:12:23:15 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='s'@compileSelectExpression
+   E104 ref_obj adr full='' span=23:12:23:15 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='adr'@compileSelectExpression
+P109 s.sub 24:15:24:20 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn
+   E110 ref_obj s full='' span=24:15:24:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn | set='s'@compileComplexFuncCall
+   E111 ref_obj sub full='work@iface_scalar_localparam.u.sub.sub' span=24:17:24:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn | set='work@iface_scalar_localparam.u.sub.sub'@SAVE
+P122 sub.adr[ADR - 1:] 18:14:18:36 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E123 ref_obj sub full='' span=18:14:18:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='sub'@compileComplexFuncCall
+   E124 part_select adr full='sub.adr[ADR - 1:]' span=18:18:18:35 par=hp | mint=compilePartSelectRange < compileComplexFuncCall < compileExpression < compileExpression | set='sub.adr[ADR - 1:]'@compileComplexFuncCall
+P128 sub.OFF 18:28:18:35 <part_select> mint=compileSelectExpression < compileExpression < compileExpression < compilePartSelectRange
+   E129 ref_obj sub full='' span=18:32:18:35 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compilePartSelectRange | set='sub'@compileSelectExpression
+   E130 ref_obj OFF full='' span=18:32:18:35 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compilePartSelectRange | set='OFF'@compileSelectExpression
+P153 CFG.BUS.DAT 7:33:7:44 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E154 ref_obj CFG full='' span=7:37:7:40 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='CFG'@compileSelectExpression
+   E155 ref_obj BUS full='' span=7:37:7:40 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='BUS'@compileSelectExpression
+   E156 ref_obj DAT full='' span=7:41:7:44 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='DAT'@compileSelectExpression
+P615 s.sub 24:15:24:20 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_
+   E616 ref_obj s full='' span=24:15:24:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='s'@compileComplexFuncCall
+   E617 ref_obj sub full='work@iface_scalar_localparam.u.sub.sub' span=24:17:24:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='work@iface_scalar_localparam.u.sub.sub'@SAVE
+P664 sub.OFF 17:14:17:21 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E665 ref_obj sub full='' span=17:18:17:21 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='sub'@compileSelectExpression
+   E666 ref_obj OFF full='' span=17:18:17:21 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='OFF'@compileSelectExpression

@@ -1,0 +1,12 @@
+P71 s.a 9:12:9:15 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt
+   E72 ref_obj s full='' span=9:14:9:15 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='s'@compileSelectExpression
+   E73 ref_obj a full='' span=9:14:9:15 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='a'@compileSelectExpression
+P76 sub.dat 10:12:10:19 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt
+   E77 ref_obj sub full='' span=10:16:10:19 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='sub'@compileSelectExpression
+   E78 ref_obj dat full='' span=10:16:10:19 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='dat'@compileSelectExpression
+P403 s.a 9:12:9:15 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabGenScope
+   E404 ref_obj s full='' span=9:14:9:15 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E405 ref_obj a full='' span=9:14:9:15 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+P408 sub.dat 10:12:10:19 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabGenScope
+   E409 ref_obj sub full='' span=10:16:10:19 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E410 ref_obj dat full='' span=10:16:10:19 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-

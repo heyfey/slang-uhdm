@@ -1,0 +1,3 @@
+MATCH 31:45 prop_st.a                G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | function void s_member();               prop_st.a++;                en
+MATCH 37:45 hnd.h_arr[s]             G['O:oc:ss:rb [cp21::cc21::s_objidx::hnd.h_arr[s]::h_arr]'] O['O:oc:ss:rb [cp21::cc21::s_objidx::hnd.h_arr[s]::h_arr]'] <operation> | function void s_objidx(ce21 s);         hnd.h_arr[s]++;             en
+MATCH 38:45 this.prop_arr            G['O:oc:sz:rr [cp21::cc21::s_objidx2::prop_arr]'] O['O:oc:sz:rr [cp21::cc21::s_objidx2::prop_arr]'] <operation> | function void s_objidx2(ce21 s);        this.prop_arr[s]++;         en

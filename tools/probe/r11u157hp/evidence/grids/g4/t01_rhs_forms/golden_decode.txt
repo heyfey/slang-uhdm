@@ -1,0 +1,29 @@
+P7 o 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E8 ref_obj o full='work@top.o' span=20:36:20:37 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@top.o'@SAVE
+P31 this.x 8:9:8:15 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E32 ref_obj this full='' span=8:14:8:15 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E33 ref_obj x full='' span=8:14:8:15 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='x'@compileSelectExpression
+P36 this.x 9:9:9:15 <operation> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E37 ref_obj this full='' span=9:14:9:15 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E38 ref_obj x full='' span=9:14:9:15 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='x'@compileSelectExpression
+P40 this.y 9:18:9:24 <operation> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E41 ref_obj this full='' span=9:23:9:24 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E42 ref_obj y full='' span=9:23:9:24 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='y'@compileSelectExpression
+P46 this.x 10:11:10:17 <func_call> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E47 ref_obj this full='' span=10:16:10:17 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E48 ref_obj x full='' span=10:16:10:17 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='x'@compileSelectExpression
+P49 this.x 11:9:11:15 <operation> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E50 ref_obj this full='' span=11:14:11:15 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E51 ref_obj x full='' span=11:14:11:15 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='x'@compileSelectExpression
+P60 this.arr 12:9:12:25 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E61 ref_obj this full='' span=12:14:12:17 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E62 ref_obj arr full='' span=12:14:12:17 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='arr'@compileSelectExpression
+P73 this.arr 15:9:15:20 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E74 ref_obj this full='' span=15:14:15:17 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E75 ref_obj arr full='' span=15:14:15:17 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='arr'@compileSelectExpression
+P78 super.bx 16:9:16:17 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E79 ref_obj super full='' span=16:15:16:17 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='super'@compileSelectExpression
+   E80 ref_obj bx full='' span=16:15:16:17 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='bx'@compileSelectExpression
+P82 this.y 17:12:17:18 <return_stmt> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E83 ref_obj this full='' span=17:17:17:18 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E84 ref_obj y full='' span=17:17:17:18 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='y'@compileSelectExpression

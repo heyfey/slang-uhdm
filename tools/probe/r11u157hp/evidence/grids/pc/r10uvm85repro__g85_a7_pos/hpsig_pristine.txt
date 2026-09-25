@@ -1,0 +1,1 @@
+DIFF  19:14 this.n                   G['N:oo:ss:rr'] O['O:oc:sz:rr [work@g85a7::c7::tk7::n]'] <operation> | while (this.n > 0)

@@ -1,0 +1,6 @@
+P10 G.x 5:15:5:18 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E11 ref_obj G full='' span=5:17:5:18 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='G'@compileSelectExpression
+   E12 ref_obj x full='' span=5:17:5:18 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='x'@compileSelectExpression
+P16 G.x 6:14:6:17 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E17 ref_obj G full='' span=6:14:6:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='G'@compileComplexFuncCall
+   E18 ref_obj x full='work@top.x' span=6:16:6:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@top.x'@SAVE

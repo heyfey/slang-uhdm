@@ -1,0 +1,2 @@
+MATCH 10:12 Cfg.D                    G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <bit_select> | assign w[Cfg.D] = 4'd0;
+MATCH 11:12 sub.OFF                  G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <bit_select> | assign w[sub.OFF] = 4'd1;

@@ -1,0 +1,5 @@
+MATCH 8:24 Cfg.D                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | localparam int L1 = (Cfg.D > 2) ? Cfg.W : 1;
+MATCH 8:37 Cfg.W                    G['O:oc:ss:rr [work@top.W]'] O['O:oc:ss:rr [work@top.W]'] <operation> | localparam int L1 = (Cfg.D > 2) ? Cfg.W : 1;
+MATCH 9:31 sub.OFF                  G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | localparam int L2 = B ? 1 : sub.OFF;
+MATCH 10:27 Cfg.D                    G['O:oc:ss:rr [work@top.D]'] O['O:oc:ss:rr [work@top.D]'] <operation> | localparam int L3 = B ? Cfg.D : Cfg.W;
+MATCH 10:35 Cfg.W                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | localparam int L3 = B ? Cfg.D : Cfg.W;

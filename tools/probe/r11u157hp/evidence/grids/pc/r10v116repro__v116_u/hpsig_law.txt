@@ -1,0 +1,2 @@
+MATCH 0:0 u_obj                    G['O:c:s:r [work@top_u.u_obj]'] O['O:c:s:r [work@top_u.u_obj]'] <assignment> | 
+MATCH 19:10 ih.randomize             G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | `RND_MEMB(ih);

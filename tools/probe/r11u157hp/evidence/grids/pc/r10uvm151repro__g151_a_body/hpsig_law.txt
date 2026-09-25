@@ -1,0 +1,8 @@
+MATCH 44:11 iq                       G['O:co:ss:rm [pkA151::holdA151::bodyA151::iq]'] O['O:co:ss:rm [pkA151::holdA151::bodyA151::iq]'] <assignment> | r = iq.sum()  with ( item );             // rvalue, with
+MATCH 45:11 iq.sum                   G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | r = iq.sum();                            // rvalue, no with
+MATCH 46:11 iq.size                  G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | r = iq.size();                           // rvalue, plain
+MATCH 47:16 iq                       G['O:co:ss:rm [pkA151::holdA151::bodyA151::iq]'] O['O:co:ss:rm [pkA151::holdA151::bodyA151::iq]'] <sys_func_call> | $display(iq.sum() with ( item ));        // argument, with
+MATCH 48:16 iq.sum                   G['O:oo:ss:rm'] O['O:oo:ss:rm'] <sys_func_call> | $display(iq.sum());                      // argument, no with
+MATCH 49:11 iq                       G['O:co:ss:rm [pkA151::holdA151::bodyA151::iq]'] O['O:co:ss:rm [pkA151::holdA151::bodyA151::iq]'] <operation> | if (iq.sum() with ( item ) > 0) r = 1;   // condition, with
+MATCH 50:11 iq.sum                   G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | if (iq.sum() > 0) r = 2;                 // condition, no with
+MATCH 56:11 iq.size                  G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | r = iq.size();                           // the chained read

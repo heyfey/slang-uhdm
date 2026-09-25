@@ -1,0 +1,5 @@
+MATCH 0:0 bh                       G['O:c:s:r [pd167::shD167::goD::bh]', 'O:c:s:r [pd167::shD167::goD::bh]'] O['O:c:s:r [pd167::shD167::goD::bh]', 'O:c:s:r [pd167::shD167::goD::bh]'] <assignment> | 
+MATCH 0:0 kh                       G['O:c:s:r [pd167::shD167::goD::kh]'] O['O:c:s:r [pd167::shD167::goD::kh]'] <assignment> | 
+MATCH 45:11 bh.vf167                 G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | r = bh.vf167(1);
+MATCH 46:11 bh.vf167                 G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | r = bh.vf167(T167::nm167);
+MATCH 47:11 bh.vf167                 G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | r = bh.vf167(.a(T167::nm167), .c(9));

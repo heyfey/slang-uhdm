@@ -1,0 +1,2 @@
+MATCH 20:24 lsu.data                 G['O:oc:ss:rr [work@func_local_decl_init.data]'] O['O:oc:ss:rr [work@func_local_decl_init.data]'] <cont_assign> | assign endian_data = lsu.data;
+MATCH 39:35 lsu.vaddr[2:0]           G['O:oc:ss:rp [lsu.vaddr[2:0]]'] O['O:oc:ss:rp [lsu.vaddr[2:0]]'] <func_call> | : data_align(lsu.vaddr[2:0], {endian_data}));

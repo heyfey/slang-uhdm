@@ -1,0 +1,6 @@
+P71 s.a 9:9:9:12 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E72 ref_obj s full='' span=9:9:9:10 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='s'@compileComplexFuncCall
+   E73 ref_obj a full='work@top.a' span=9:11:9:12 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@top.a'@SAVE
+P83 sub.adr 10:9:10:16 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E84 ref_obj sub full='' span=10:9:10:12 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='sub'@compileComplexFuncCall
+   E85 ref_obj adr full='work@top.adr' span=10:13:10:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@top.adr'@SAVE

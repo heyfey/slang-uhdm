@@ -1,0 +1,5 @@
+MATCH 39:13 payload.size             G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | if (payload.size() > 0) begin
+MATCH 56:10 frame.multicast.constraint_mode G['O:ooo:sss:rrm'] O['O:ooo:sss:rrm'] <operation> | if (frame.multicast.constraint_mode() == 0) begin
+MATCH 57:12 frame.randomize          G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | if (frame.randomize() == 1) begin
+MATCH 68:10 frame.multicast.constraint_mode G['O:ooo:sss:rrm'] O['O:ooo:sss:rrm'] <sys_func_call> | frame.multicast.constraint_mode());
+MATCH 73:10 frame.randomize          G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | if (frame.randomize() == 1) begin

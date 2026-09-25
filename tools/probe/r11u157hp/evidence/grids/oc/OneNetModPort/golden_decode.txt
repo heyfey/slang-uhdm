@@ -1,0 +1,42 @@
+P8 conntb.drive 3:10:3:22 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E9 ref_obj conntb full='' span=3:17:3:22 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='conntb'@compileSelectExpression
+   E10 ref_obj drive full='' span=3:17:3:22 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='drive'@compileSelectExpression
+P15 conntb.observe 4:14:4:28 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E16 ref_obj conntb full='' span=4:14:4:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='conntb'@compileComplexFuncCall
+   E17 ref_obj observe full='work@dut.observe' span=4:21:4:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@dut.observe'@SAVE
+P24 intf.drive 23:17:23:27 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn
+   E25 ref_obj intf full='' span=23:17:23:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn | set='intf'@compileComplexFuncCall
+   E26 ref_obj drive full='work@middle.sub1.inp.drive' span=23:22:23:27 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn | set='work@middle.sub1.inp.drive'@SAVE
+P28 intf.observe 23:35:23:47 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn
+   E29 ref_obj intf full='' span=23:35:23:39 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn | set='intf'@compileComplexFuncCall
+   E30 ref_obj observe full='work@middle.sub1.out.observe' span=23:40:23:47 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn | set='work@middle.sub1.out.observe'@SAVE
+P39 intf.drive 33:46:33:56 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E40 ref_obj intf full='' span=33:46:33:50 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='intf'@compileComplexFuncCall
+   E41 ref_obj drive full='work@TOP.tb.drive' span=33:51:33:56 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='work@TOP.tb.drive'@SAVE
+P42 intf.observe 33:58:33:70 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E43 ref_obj intf full='' span=33:58:33:62 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='intf'@compileComplexFuncCall
+   E44 ref_obj observe full='work@TOP.tb.observe' span=33:63:33:70 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='work@TOP.tb.observe'@SAVE
+P46 intf.drive 34:5:34:15 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E47 ref_obj intf full='' span=34:10:34:15 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='intf'@compileSelectExpression
+   E48 ref_obj drive full='' span=34:10:34:15 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='drive'@compileSelectExpression
+P51 intf.drive 35:15:35:25 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E52 ref_obj intf full='' span=35:15:35:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='intf'@compileComplexFuncCall
+   E53 ref_obj drive full='work@TOP.tb.drive' span=35:20:35:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@TOP.tb.drive'@SAVE
+P55 intf.observe 35:29:35:41 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E56 ref_obj intf full='' span=35:29:35:33 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='intf'@compileComplexFuncCall
+   E57 ref_obj observe full='work@TOP.tb.observe' span=35:34:35:41 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@TOP.tb.observe'@SAVE
+P66 intf.drive 36:10:36:20 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E67 ref_obj intf full='' span=36:15:36:20 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='intf'@compileSelectExpression
+   E68 ref_obj drive full='' span=36:15:36:20 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='drive'@compileSelectExpression
+P71 intf.drive 37:15:37:25 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E72 ref_obj intf full='' span=37:15:37:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='intf'@compileComplexFuncCall
+   E73 ref_obj drive full='work@TOP.tb.drive' span=37:20:37:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@TOP.tb.drive'@SAVE
+P75 intf.observe 37:29:37:41 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E76 ref_obj intf full='' span=37:29:37:33 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='intf'@compileComplexFuncCall
+   E77 ref_obj observe full='work@TOP.tb.observe' span=37:34:37:41 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@TOP.tb.observe'@SAVE
+P113 conntb.drive 45:12:45:24 <port> mint=compileSelectExpression < compileExpression < high_conn_ < elaborate_
+   E114 ref_obj conntb full='' span=45:19:45:24 par=hp | mint=compileSelectExpression < compileExpression < high_conn_ < elaborate_ | set='conntb'@compileSelectExpression
+   E115 ref_obj drive full='' span=45:19:45:24 par=hp | mint=compileSelectExpression < compileExpression < high_conn_ < elaborate_ | set='drive'@compileSelectExpression
+P117 conntb.observe 45:26:45:40 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_
+   E118 ref_obj conntb full='' span=45:26:45:32 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='conntb'@compileComplexFuncCall
+   E119 ref_obj observe full='work@TOP.dut1.o.observe' span=45:33:45:40 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='work@TOP.dut1.o.observe'@SAVE

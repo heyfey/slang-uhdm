@@ -1,0 +1,2 @@
+MATCH 0:0 o                        G['O:c:s:r [work@top.o]'] O['O:c:s:r [work@top.o]'] <assignment> | 
+DIFF  4:37 this.x                   G['N:oo:ss:rr'] O['O:oc:sz:rr [work@outer::f::x]'] <sys_func_call> | function void f(); $display("%d", this.x); endfunction

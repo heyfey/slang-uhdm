@@ -1,0 +1,23 @@
+P5 o 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E6 ref_obj o full='work@top.o' span=28:5:28:6 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@top.o'@SAVE
+P10 o.f 29:21:29:26 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E11 ref_obj o full='' span=29:21:29:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='o'@compileComplexFuncCall
+   E12 method_func_call f full='' span=29:23:29:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set=-
+P24 d.size 14:9:14:15 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E25 ref_obj d full='' span=14:9:14:10 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='d'@compileComplexFuncCall
+   E26 ref_obj size full='work@sd::f::size' span=14:11:14:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@sd::f::size'@SAVE
+P31 d.size 15:13:15:21 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E32 ref_obj d full='' span=15:13:15:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='d'@compileComplexFuncCall
+   E33 ref_obj size full='work@sd::f::size' span=15:17:15:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@sd::f::size'@SAVE
+P38 q.size 16:13:16:20 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E39 ref_obj q full='' span=16:13:16:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='q'@compileComplexFuncCall
+   E40 ref_obj size full='work@sd::f::size' span=16:16:16:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@sd::f::size'@SAVE
+P45 q.size 17:13:17:20 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E46 ref_obj q full='' span=17:13:17:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='q'@compileComplexFuncCall
+   E47 ref_obj size full='work@sd::f::size' span=17:16:17:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@sd::f::size'@SAVE
+P52 d.size 18:13:18:29 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E53 ref_obj d full='' span=18:13:18:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='d'@compileComplexFuncCall
+   E54 ref_obj size full='work@sd::f::size' span=18:25:18:29 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@sd::f::size'@SAVE
+P59 d.size 19:13:20:18 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E60 ref_obj d full='' span=19:13:19:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='d'@compileComplexFuncCall
+   E61 ref_obj size full='work@sd::f::size' span=20:14:20:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@sd::f::size'@SAVE

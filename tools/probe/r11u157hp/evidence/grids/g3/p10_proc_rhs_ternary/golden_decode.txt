@@ -1,0 +1,6 @@
+P104 s.a 10:23:10:26 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E105 ref_obj s full='' span=10:23:10:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='s'@compileComplexFuncCall
+   E106 ref_obj a full='work@top.a' span=10:25:10:26 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@top.a'@SAVE
+P107 s.b 10:30:10:33 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E108 ref_obj s full='' span=10:30:10:31 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='s'@compileComplexFuncCall
+   E109 ref_obj b full='work@top.b' span=10:32:10:33 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@top.b'@SAVE

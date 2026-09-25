@@ -1,0 +1,1 @@
+DIFF  32:17 this.tt                  G['N:oo:ss:rr'] O['O:oc:sz:rr [Face_Pkg::Face_Holder::exercise::tt]'] <func_call> | rc = fOut(this.tt);          // output onto an explicitly qualified pr

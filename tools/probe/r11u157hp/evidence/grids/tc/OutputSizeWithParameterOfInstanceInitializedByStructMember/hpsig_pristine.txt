@@ -1,0 +1,4 @@
+DIFF  4:18 Info.x                   G['N:oo:ss:rr', 'N:oo:ss:rr'] O[] <operation> | output logic [Depth-1:0] a
+DIFF  15:37 Info.x                   G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr', 'O:oo:ss:rr', 'O:oo:ss:rr', 'O:oo:ss:rr'] <operation,param_assign> | localparam int NumScrmblBlocks = Info.x;
+DIFF  17:11 Info.x                   G['N:oo:ss:rr'] O[] <operation> | logic [NumScrmblBlocks-1:0] data;
+MATCH 20:14 Info.x                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <param_assign> | .Depth(NumScrmblBlocks)

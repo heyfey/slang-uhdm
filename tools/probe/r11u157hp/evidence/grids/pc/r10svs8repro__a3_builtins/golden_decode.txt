@@ -1,0 +1,15 @@
+P7 cgc8 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E8 ref_obj cgc8 full='work@a3::cov3::new::cgc8' span=32:7:32:11 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@a3::cov3::new::cgc8'@SAVE
+P23 cgc8.get_coverage 48:12:48:31 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E24 ref_obj cgc8 full='' span=48:12:48:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='cgc8'@compileComplexFuncCall
+   E25 method_func_call get_coverage full='' span=48:17:48:29 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P29 cgc8.get_inst_coverage 52:12:52:36 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E30 ref_obj cgc8 full='' span=52:12:52:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='cgc8'@compileComplexFuncCall
+   E31 method_func_call get_inst_coverage full='' span=52:17:52:34 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P35 cgc8.get_coverage 56:26:56:45 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E36 ref_obj cgc8 full='' span=56:26:56:30 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='cgc8'@compileComplexFuncCall
+   E37 method_func_call get_coverage full='' span=56:31:56:43 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set=-
+P41 cgc8.cpc8.get_coverage 60:12:60:36 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E42 ref_obj cgc8 full='' span=60:12:60:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='cgc8'@compileComplexFuncCall
+   E43 ref_obj cpc8 full='' span=60:17:60:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='cpc8'@compileComplexFuncCall
+   E44 method_func_call get_coverage full='' span=60:22:60:34 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-

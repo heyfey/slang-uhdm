@@ -1,0 +1,35 @@
+P16 booms[idx].lone.names 22:15:22:68 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E18 bit_select booms full='booms[idx]' span=22:15:22:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='booms[idx]'@compileComplexFuncCall
+   E19 ref_obj lone full='' span=22:26:22:30 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='lone'@compileComplexFuncCall
+   E20 ref_obj names full='gable_row::hull::chart::names' span=22:31:22:36 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='gable_row::hull::chart::names'@SAVE
+   E21 method_func_call find_index full='' span=22:37:22:47 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P27 solo.spars[jdx].names 24:15:24:68 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E28 ref_obj solo full='' span=24:15:24:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='solo'@compileComplexFuncCall
+   E30 bit_select spars full='solo.spars[jdx]' span=24:20:24:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='solo.spars[jdx]'@compileComplexFuncCall
+   E31 ref_obj names full='gable_row::hull::chart::names' span=24:31:24:36 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='gable_row::hull::chart::names'@SAVE
+   E32 method_func_call find_index full='' span=24:37:24:47 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P38 booms[idx].spars[jdx].names 26:15:26:74 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E40 bit_select booms full='booms[idx]' span=26:15:26:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='booms[idx]'@compileComplexFuncCall
+   E42 bit_select spars full='booms[idx].spars[jdx]' span=26:26:26:31 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='booms[idx].spars[jdx]'@compileComplexFuncCall
+   E43 ref_obj names full='gable_row::hull::chart::names' span=26:37:26:42 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='gable_row::hull::chart::names'@SAVE
+   E44 method_func_call find_index full='' span=26:43:26:53 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P50 solo.lone.names 28:15:28:62 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E51 ref_obj solo full='' span=28:15:28:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='solo'@compileComplexFuncCall
+   E52 ref_obj lone full='' span=28:20:28:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='lone'@compileComplexFuncCall
+   E53 ref_obj names full='gable_row::hull::chart::names' span=28:25:28:30 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='gable_row::hull::chart::names'@SAVE
+   E54 method_func_call find_index full='' span=28:31:28:41 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P60 booms[idx].spars[jdx].loads 30:15:30:60 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E62 bit_select booms full='booms[idx]' span=30:15:30:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='booms[idx]'@compileComplexFuncCall
+   E64 bit_select spars full='booms[idx].spars[jdx]' span=30:26:30:31 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='booms[idx].spars[jdx]'@compileComplexFuncCall
+   E65 ref_obj loads full='gable_row::hull::chart::loads' span=30:37:30:42 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='gable_row::hull::chart::loads'@SAVE
+   E66 method_func_call sum full='' span=30:43:30:46 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P70 solo.spars[jdx].loads 32:15:32:54 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E71 ref_obj solo full='' span=32:15:32:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='solo'@compileComplexFuncCall
+   E73 bit_select spars full='solo.spars[jdx]' span=32:20:32:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='solo.spars[jdx]'@compileComplexFuncCall
+   E74 ref_obj loads full='gable_row::hull::chart::loads' span=32:31:32:36 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='gable_row::hull::chart::loads'@SAVE
+   E75 method_func_call sum full='' span=32:37:32:40 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P79 planks[idx].lone.names 34:15:34:69 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E81 bit_select planks full='planks[idx]' span=34:15:34:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='planks[idx]'@compileComplexFuncCall
+   E82 ref_obj lone full='' span=34:27:34:31 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='lone'@compileComplexFuncCall
+   E83 ref_obj names full='gable_row::hull::chart::names' span=34:32:34:37 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='gable_row::hull::chart::names'@SAVE
+   E84 method_func_call find_index full='' span=34:38:34:48 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-

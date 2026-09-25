@@ -1,0 +1,4 @@
+MATCH 0:0 d_k                      G['O:c:s:r [work@top_k.d_k]'] O['O:c:s:r [work@top_k.d_k]'] <assignment> | 
+MATCH 16:10 r_k                      G['O:co:sz:rm [work@drv_k::run_k::r_k]'] O['O:co:sz:rm [work@drv_k::run_k::r_k]'] <operation> | if (!r_k.randomize() with { k_a > 1; }) out_k = 1;
+MATCH 17:10 r_k                      G['O:co:sz:rm [work@drv_k::run_k::r_k]'] O['O:co:sz:rm [work@drv_k::run_k::r_k]'] <operation> | if (!r_k.randomize(k_a) with { k_a < 9; }) out_k = 2;
+MATCH 18:10 r_k.randomize            G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | if (!r_k.randomize()) out_k = 3;

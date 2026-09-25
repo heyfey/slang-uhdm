@@ -1,0 +1,3 @@
+MATCH 9:5 s.a                      G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | s.a = 4'd1;
+MATCH 10:5 t.b                      G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | t.b = q;
+MATCH 12:28 sub.dat                  G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | always_ff @(posedge clk) sub.dat <= 8'd3;

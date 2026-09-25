@@ -1,0 +1,26 @@
+P12 plain.words 24:17:24:63 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E13 ref_obj plain full='' span=24:17:24:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='plain'@compileComplexFuncCall
+   E14 ref_obj words full='foxtrot_quay::ledger::audit::words' span=24:23:24:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='foxtrot_quay::ledger::audit::words'@SAVE
+   E15 method_func_call find_index full='' span=24:29:24:39 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P24 vif.slots 28:17:28:59 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E25 ref_obj vif full='' span=28:17:28:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='vif'@compileComplexFuncCall
+   E26 ref_obj slots full='foxtrot_quay::ledger::audit::slots' span=28:21:28:26 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='foxtrot_quay::ledger::audit::slots'@SAVE
+   E27 method_func_call find_index full='' span=28:27:28:37 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P37 shelves[slot].words 34:17:34:71 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E39 bit_select shelves full='shelves[slot]' span=34:17:34:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='shelves[slot]'@compileComplexFuncCall
+   E40 ref_obj words full='foxtrot_quay::ledger::audit::words' span=34:31:34:36 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='foxtrot_quay::ledger::audit::words'@SAVE
+   E41 method_func_call find_index full='' span=34:37:34:47 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P47 shelves[slot].words 35:17:35:71 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E49 bit_select shelves full='shelves[slot]' span=35:17:35:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='shelves[slot]'@compileComplexFuncCall
+   E50 ref_obj words full='foxtrot_quay::ledger::audit::words' span=35:31:35:36 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='foxtrot_quay::ledger::audit::words'@SAVE
+   E51 method_func_call find_index full='' span=35:37:35:47 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P57 shelves[slot].words 36:17:36:71 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E59 bit_select shelves full='shelves[slot]' span=36:17:36:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='shelves[slot]'@compileComplexFuncCall
+   E60 ref_obj words full='foxtrot_quay::ledger::audit::words' span=36:31:36:36 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='foxtrot_quay::ledger::audit::words'@SAVE
+   E61 method_func_call find_index full='' span=36:37:36:47 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P67 shelves[slot].nums 39:17:39:35 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E69 bit_select shelves full='shelves[slot]' span=39:17:39:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='shelves[slot]'@compileComplexFuncCall
+   E70 ref_obj nums full='foxtrot_quay::ledger::audit::nums' span=39:31:39:35 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='foxtrot_quay::ledger::audit::nums'@SAVE
+P73 shelves[slot].nums[0] 41:16:41:37 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E75 bit_select shelves full='shelves[slot]' span=41:16:41:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='shelves[slot]'@compileComplexFuncCall
+   E77 bit_select nums full='foxtrot_quay::ledger::audit::shelves[slot].nums[0]::nums' span=41:35:41:36 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='foxtrot_quay::ledger::audit::shelves[slot].nums[0]::nums'@SAVE

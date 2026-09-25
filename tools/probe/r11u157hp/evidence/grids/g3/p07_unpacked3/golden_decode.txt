@@ -1,0 +1,11 @@
+P103 CFG.BUS.DAT 10:23:10:34 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E104 ref_obj CFG full='' span=10:27:10:30 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='CFG'@compileSelectExpression
+   E105 ref_obj BUS full='' span=10:27:10:30 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='BUS'@compileSelectExpression
+   E106 ref_obj DAT full='' span=10:31:10:34 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='DAT'@compileSelectExpression
+P113 CFG.OFF 11:23:11:30 <param_assign> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E114 ref_obj CFG full='' span=11:27:11:30 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='CFG'@compileSelectExpression
+   E115 ref_obj OFF full='' span=11:27:11:30 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='OFF'@compileSelectExpression
+P668 CFG.BUS.ADR 12:10:12:21 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E669 ref_obj CFG full='' span=12:14:12:17 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='CFG'@compileSelectExpression
+   E670 ref_obj BUS full='' span=12:14:12:17 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='BUS'@compileSelectExpression
+   E671 ref_obj ADR full='' span=12:18:12:21 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='ADR'@compileSelectExpression

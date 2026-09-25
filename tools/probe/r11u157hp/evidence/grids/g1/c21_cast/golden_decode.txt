@@ -1,0 +1,12 @@
+P71 s.a 8:17:8:20 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E72 ref_obj s full='' span=8:17:8:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='s'@compileComplexFuncCall
+   E73 ref_obj a full='work@top.a' span=8:19:8:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@top.a'@SAVE
+P84 sub.adr 10:18:10:25 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E85 ref_obj sub full='' span=10:18:10:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='sub'@compileComplexFuncCall
+   E86 ref_obj adr full='work@top.adr' span=10:22:10:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@top.adr'@SAVE
+P400 s.a 8:17:8:20 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepClone
+   E401 ref_obj s full='' span=8:17:8:18 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E402 ref_obj a full='work@tb.dut.a' span=8:19:8:20 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set='work@tb.dut.a'@SAVE
+P420 sub.adr 10:18:10:25 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepClone
+   E421 ref_obj sub full='' span=10:18:10:21 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E422 ref_obj adr full='work@tb.dut.adr' span=10:22:10:25 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set='work@tb.dut.adr'@SAVE

@@ -1,0 +1,5 @@
+DIFF  6:14 G.x                      G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'O:oc:ss:rr [work@top.G.H.x]'] <cont_assign> | assign G.x = 1'b0;
+DIFF  7:14 H.y                      G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'O:oc:ss:rr [work@top.G.H.y]'] <cont_assign> | assign H.y = 1'b1;
+DIFF  8:14 G.H.y                    G['N:ooo:sss:rrr', 'N:ooo:sss:rrr'] O['N:ooo:sss:rrr', 'O:ooc:sss:rrr [work@top.G.H.y]'] <cont_assign> | assign G.H.y = 1'b1;
+MATCH 11:14 G.x                      G['O:oc:ss:rr [work@top.x]'] O['O:oc:ss:rr [work@top.x]'] <cont_assign> | assign o = G.x;
+DIFF  12:10 G.H.y                    G['N:ooo:sss:rrr', 'N:ooo:sss:rrr'] O['N:ooo:sss:rrr'] <cont_assign> | assign G.H.y = 1'b0;

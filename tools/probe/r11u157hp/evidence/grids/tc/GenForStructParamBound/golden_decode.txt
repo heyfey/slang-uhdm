@@ -1,0 +1,11 @@
+P163 CFG.HSK.DLY 16:29:16:40 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E164 ref_obj CFG full='' span=16:33:16:36 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='CFG'@compileSelectExpression
+   E165 ref_obj HSK full='' span=16:33:16:36 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='HSK'@compileSelectExpression
+   E166 ref_obj DLY full='' span=16:37:16:40 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='DLY'@compileSelectExpression
+P217 b.dly[1] 26:14:26:22 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E218 ref_obj b full='' span=26:14:26:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='b'@compileComplexFuncCall
+   E220 bit_select dly full='work@top.b.dly[1].dly' span=26:20:26:21 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@top.b.dly[1].dly'@SAVE
+P389 CFG.HSK.DLY 13:16:13:27 <range> mint=compileSelectExpression < compileExpression < compileExpression < compileRanges
+   E390 ref_obj CFG full='' span=13:20:13:23 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileRanges | set='CFG'@compileSelectExpression
+   E391 ref_obj HSK full='' span=13:20:13:23 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileRanges | set='HSK'@compileSelectExpression
+   E392 ref_obj DLY full='' span=13:24:13:27 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileRanges | set='DLY'@compileSelectExpression

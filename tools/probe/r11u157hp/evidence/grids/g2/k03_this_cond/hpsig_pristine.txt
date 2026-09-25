@@ -1,0 +1,3 @@
+MATCH 0:0 o                        G['O:c:s:r [work@top.o]'] O['O:c:s:r [work@top.o]'] <assignment> | 
+MATCH 4:33 o.x                      G['O:oc:ss:rr [work@outer::f::x]'] O['O:oc:ss:rr [work@outer::f::x]'] <operation> | function void f(outer o); if (o.x !== this.x) x = 2; endfunction
+DIFF  4:41 this.x                   G['N:oo:ss:rr'] O['O:oc:sz:rr [work@outer::f::x]'] <operation> | function void f(outer o); if (o.x !== this.x) x = 2; endfunction

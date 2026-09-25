@@ -1,0 +1,2 @@
+DIFF  9:12 s.a                      G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'O:oc:ss:rr [work@top.G.a]'] <cont_assign> | assign s.a = 4'd1;
+DIFF  10:12 sub.dat                  G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'O:oc:ss:rr [work@top.G.dat]'] <cont_assign> | assign sub.dat = 8'd2;

@@ -1,0 +1,27 @@
+MATCH 26:13 pkt.data[i]              G['O:oc:ss:rb [work@Grid::f::pkt.data[i]::data]'] O['O:oc:ss:rb [work@Grid::f::pkt.data[i]::data]'] <operation> | if (pkt.data[i] !== this.data[i])    // c2 pkt / c1 this   THE FREE CE
+MATCH 26:29 this.data                G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | if (pkt.data[i] !== this.data[i])    // c2 pkt / c1 this   THE FREE CE
+MATCH 29:13 this.data                G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | if (this.data[j] !== pkt.data[j])    // c3 this / c4 pkt   for-loop va
+MATCH 29:30 pkt.data[j]              G['O:oc:ss:rb [work@Grid::f::pkt.data[j]::data]'] O['O:oc:ss:rb [work@Grid::f::pkt.data[j]::data]'] <operation> | if (this.data[j] !== pkt.data[j])    // c3 this / c4 pkt   for-loop va
+MATCH 31:11 this.data                G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | if (this.data[2] !== pkt.data[2])      // c5 this / c6 pkt   CONSTANT 
+MATCH 31:28 pkt.data[2]              G['O:oc:ss:rb [work@Grid::f::pkt.data[2]::data]'] O['O:oc:ss:rb [work@Grid::f::pkt.data[2]::data]'] <operation> | if (this.data[2] !== pkt.data[2])      // c5 this / c6 pkt   CONSTANT 
+MATCH 33:11 this.data                G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | if (this.data[k] !== pkt.data[k])      // c7 this / c8 pkt   arg-var i
+MATCH 33:28 pkt.data[k]              G['O:oc:ss:rb [work@Grid::f::pkt.data[k]::data]'] O['O:oc:ss:rb [work@Grid::f::pkt.data[k]::data]'] <operation> | if (this.data[k] !== pkt.data[k])      // c7 this / c8 pkt   arg-var i
+MATCH 35:7 this.data                G['O:oc:sz:rr [work@Grid::f::data]'] O['O:oc:sz:rr [work@Grid::f::data]'] <assignment> | this.data[k] = 8'h11;                  // c9  LVALUE this, var idx
+MATCH 36:7 pkt.data[k]              G['O:oc:ss:rb [work@Grid::f::pkt.data[k]::data]'] O['O:oc:ss:rb [work@Grid::f::pkt.data[k]::data]'] <assignment> | pkt.data[k]  = 8'h12;                  // c10 LVALUE pkt, var idx
+MATCH 37:7 this.data                G['O:oc:sz:rr [work@Grid::f::data]'] O['O:oc:sz:rr [work@Grid::f::data]'] <assignment> | this.data[1] = 8'h13;                  // c11 LVALUE this, const idx
+MATCH 38:9 this.data                G['N:oo:ss:rr'] O['N:oo:ss:rr'] <func_call> | g(this.data[k]);                       // c12 CALL ARG this
+MATCH 39:9 pkt.data[k]              G['O:oc:ss:rb [work@Grid::f::pkt.data[k]::data]'] O['O:oc:ss:rb [work@Grid::f::pkt.data[k]::data]'] <func_call> | g(pkt.data[k]);                        // c13 CALL ARG pkt
+MATCH 40:11 this.data                G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | r = this.data[k];                      // c14 plain assign rhs, this
+MATCH 41:11 pkt.data[k]              G['O:oc:ss:rb [work@Grid::f::pkt.data[k]::data]'] O['O:oc:ss:rb [work@Grid::f::pkt.data[k]::data]'] <assignment> | r = pkt.data[k];                       // c15 plain assign rhs, pkt
+MATCH 42:11 this.fx                  G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | r = this.fx[k];                        // c16 FIXED array, this
+MATCH 43:11 pkt.fx[k]                G['O:oc:ss:rb [work@Grid::f::pkt.fx[k]::fx]'] O['O:oc:ss:rb [work@Grid::f::pkt.fx[k]::fx]'] <assignment> | r = pkt.fx[k];                         // c17 FIXED array, pkt
+MATCH 44:11 this.q                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | r = this.q[k];                         // c18 QUEUE, this
+MATCH 45:11 pkt.q[k]                 G['O:oc:ss:rb [work@Grid::f::pkt.q[k]::q]'] O['O:oc:ss:rb [work@Grid::f::pkt.q[k]::q]'] <assignment> | r = pkt.q[k];                          // c19 QUEUE, pkt
+MATCH 46:11 this.m2                  G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | r = this.m2[k][1];                     // c20 2-D unpacked, this
+MATCH 47:11 pkt.m2[k][1]             G['O:oc:ss:rv [work@Grid::f::pkt.m2[k][1]::m2]'] O['O:oc:ss:rv [work@Grid::f::pkt.m2[k][1]::m2]'] <assignment> | r = pkt.m2[k][1];                      // c21 2-D unpacked, pkt
+MATCH 48:11 this.scalar              G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | r = this.scalar;                       // c22 UNINDEXED this (control)
+MATCH 50:11 this.data                G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | r = this.data[k+1];                    // c24 this, expression index
+MATCH 51:11 pkt.data                 G['O:oc:ss:rb [work@Grid::f::pkt.data::data]'] O['O:oc:ss:rb [work@Grid::f::pkt.data::data]'] <assignment> | r = pkt.data[this.data[k]];            // c25 this-path AS an index
+MATCH 51:20 this.data                G['N:oo:ss:rr'] O['N:oo:ss:rr'] <bit_select> | r = pkt.data[this.data[k]];            // c25 this-path AS an index
+MATCH 65:12 gh.data[kk]              G['O:oc:ss:rb [work@m.gh.data[kk].data]'] O['O:oc:ss:rb [work@m.gh.data[kk].data]'] <assignment> | rr = gh.data[kk];                      // c26 module-scope obj.member[
+MATCH 66:12 gh.data[1]               G['O:oc:ss:rb [work@m.gh.data[1].data]'] O['O:oc:ss:rb [work@m.gh.data[1].data]'] <assignment> | rr = gh.data[1];                       // c27 module-scope obj.member[

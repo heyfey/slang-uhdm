@@ -1,0 +1,14 @@
+P6 e_b 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E7 ref_obj e_b full='work@top_b.e_b' span=21:5:21:8 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@top_b.e_b'@SAVE
+P15 recv_b.randomize 11:12:11:30 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E16 ref_obj recv_b full='' span=11:12:11:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='recv_b'@compileComplexFuncCall
+   E17 method_func_call randomize full='' span=11:19:11:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P20 recv_b.randomize 12:12:12:35 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E21 ref_obj recv_b full='' span=12:12:12:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='recv_b'@compileComplexFuncCall
+   E22 method_func_call randomize full='' span=12:19:12:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P26 recv_b.randomize 13:12:13:42 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E27 ref_obj recv_b full='' span=13:12:13:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='recv_b'@compileComplexFuncCall
+   E28 method_func_call randomize full='' span=13:19:13:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P33 recv_b.randomize 14:12:14:34 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E34 ref_obj recv_b full='' span=14:12:14:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='recv_b'@compileComplexFuncCall
+   E35 method_func_call randomize full='' span=14:19:14:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-

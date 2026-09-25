@@ -1,0 +1,3 @@
+DIFF  0:0                          G['O:cc:sz:rr [pack::uvm_mem_mam::check_reg::path,pack::uvm_mem_mam::check_reg::slices]'] O[] <foreach_stmt> | 
+DIFF  18:14                          G[] O['O:oc:ss:rr [pack::uvm_mem_mam::check_reg::slices]'] <foreach_stmt> | foreach (path.slices[j]) begin
+MATCH 19:19 path.slices[j].spath     G['O:occ:sss:rbr [path.slices[j],pack::uvm_mem_mam::check_reg::spath]'] O['O:occ:sss:rbr [path.slices[j],pack::uvm_mem_mam::check_reg::spath]'] <assignment> | string p_ = path.slices[j].spath;

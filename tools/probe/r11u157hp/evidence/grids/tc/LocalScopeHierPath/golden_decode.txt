@@ -1,0 +1,7 @@
+P43  0:0:0:0 <foreach_stmt> mint=compileVariable < compileStmt < compileStmt < compileStmt
+   E44 ref_obj path full='pack::uvm_mem_mam::check_reg::path' span=18:14:18:18 par=hp | mint=compileVariable < compileStmt < compileStmt < compileStmt | set='pack::uvm_mem_mam::check_reg::path'@SAVE
+   E45 ref_obj slices full='pack::uvm_mem_mam::check_reg::slices' span=0:0:0:0 par=hp | mint=compileVariable < compileStmt < compileStmt < compileStmt | set='pack::uvm_mem_mam::check_reg::slices'@SAVE
+P54 path.slices[j].spath 19:19:19:39 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileDataDeclaration
+   E55 ref_obj path full='' span=19:19:19:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileDataDeclaration | set='path'@compileComplexFuncCall
+   E57 bit_select slices full='path.slices[j]' span=19:24:19:30 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileDataDeclaration | set='path.slices[j]'@compileComplexFuncCall
+   E58 ref_obj spath full='pack::uvm_mem_mam::check_reg::spath' span=19:34:19:39 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileDataDeclaration | set='pack::uvm_mem_mam::check_reg::spath'@SAVE

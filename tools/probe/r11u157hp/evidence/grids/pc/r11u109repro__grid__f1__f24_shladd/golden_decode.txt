@@ -1,0 +1,30 @@
+P116 Cfg.XLEN 6:49:6:57 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E117 ref_obj Cfg full='' span=6:53:6:57 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='Cfg'@compileSelectExpression
+   E118 ref_obj XLEN full='' span=6:53:6:57 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='XLEN'@compileSelectExpression
+P126 Cfg.XLEN 6:73:6:81 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E127 ref_obj Cfg full='' span=6:77:6:81 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='Cfg'@compileSelectExpression
+   E128 ref_obj XLEN full='' span=6:77:6:81 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='XLEN'@compileSelectExpression
+P144 Cfg.VLEN 8:45:8:53 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E145 ref_obj Cfg full='' span=8:45:8:48 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='Cfg'@compileComplexFuncCall
+   E146 ref_obj VLEN full='work@dut.VLEN' span=8:49:8:53 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@dut.VLEN'@SAVE
+P162 I.x 9:22:9:25 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E163 ref_obj I full='' span=9:22:9:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='I'@compileComplexFuncCall
+   E164 ref_obj x full='work@dut.x' span=9:24:9:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@dut.x'@SAVE
+P165 I.y 9:28:9:31 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E166 ref_obj I full='' span=9:28:9:29 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='I'@compileComplexFuncCall
+   E167 ref_obj y full='work@dut.y' span=9:30:9:31 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@dut.y'@SAVE
+P484 Cfg.XLEN 5:98:5:106 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E485 ref_obj Cfg full='' span=5:102:5:106 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='Cfg'@compileSelectExpression
+   E486 ref_obj XLEN full='' span=5:102:5:106 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='XLEN'@compileSelectExpression
+P514 Cfg.XLEN 6:49:6:57 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepCopy
+   E515 ref_obj Cfg full='' span=6:53:6:57 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E516 ref_obj XLEN full='' span=6:53:6:57 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+P524 Cfg.XLEN 6:73:6:81 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepCopy
+   E525 ref_obj Cfg full='' span=6:77:6:81 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E526 ref_obj XLEN full='' span=6:77:6:81 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+P533 I.x 9:22:9:25 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepClone
+   E534 ref_obj I full='' span=9:22:9:23 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E535 ref_obj x full='work@dut.x' span=9:24:9:25 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set='work@dut.x'@SAVE
+P536 I.y 9:28:9:31 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepClone
+   E537 ref_obj I full='' span=9:28:9:29 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E538 ref_obj y full='work@dut.y' span=9:30:9:31 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set='work@dut.y'@SAVE

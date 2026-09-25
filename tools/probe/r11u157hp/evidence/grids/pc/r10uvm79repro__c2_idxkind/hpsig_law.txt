@@ -1,0 +1,12 @@
+MATCH 21:9 iarr[[i]].f              G['O:cc:ss:br [iarr[[i]],work@grid::probe::f]'] O['O:cc:ss:br [iarr[[i]],work@grid::probe::f]'] <assignment> | r = iarr[midx[i]].f;            // d1 depth-2 nested select index
+MATCH 22:9 iarr[].f                 G['O:cc:ss:br [iarr[],work@grid::probe::f]'] O['O:cc:ss:br [iarr[],work@grid::probe::f]'] <assignment> | r = iarr[midx[midx[i]]].f;      // d2 depth-3
+MATCH 23:9 iarr[i + 1].f            G['O:cc:ss:br [iarr[i + 1],work@grid::probe::f]'] O['O:cc:ss:br [iarr[i + 1],work@grid::probe::f]'] <assignment> | r = iarr[i + 1].f;              // d3 operation index
+MATCH 24:9 iarr[ + 1].f             G['O:cc:ss:br [iarr[ + 1],work@grid::probe::f]'] O['O:cc:ss:br [iarr[ + 1],work@grid::probe::f]'] <assignment> | r = iarr[midx[i] + 1].f;        // d4 operation CONTAINING a select
+MATCH 25:9 iarr[2].f                G['O:cc:ss:br [iarr[2],work@grid::probe::f]'] O['O:cc:ss:br [iarr[2],work@grid::probe::f]'] <assignment> | r = iarr[2].f;                  // d5 constant index
+MATCH 26:9 iarr[].f                 G['O:cc:ss:br [iarr[],work@grid::probe::f]'] O['O:cc:ss:br [iarr[],work@grid::probe::f]'] <assignment> | r = iarr[h.idx[i]].f;           // d6 member-access chain index
+DIFF  26:14 h.idx[i]                 G['O:oc:ss:rb [work@grid::probe::iarr[].f::h.idx[i]::idx]'] O['O:oc:ss:rb [work@grid::probe::iarr[].f::iarr::h.idx[i]::idx]'] <hier_path> | r = iarr[h.idx[i]].f;           // d6 member-access chain index
+MATCH 27:9 iarr[].f                 G['O:cc:ss:br [iarr[],work@grid::probe::f]'] O['O:cc:ss:br [iarr[],work@grid::probe::f]'] <assignment> | r = iarr[fn(i)].f;              // d7 function-call index
+MATCH 28:5 iarr[[i]].f              G['O:cc:ss:br [iarr[[i]],iarr[[i]].f]'] O['O:cc:ss:br [iarr[[i]],iarr[[i]].f]'] <assignment> | iarr[midx[i]].f = 3;            // d8 LVALUE
+MATCH 29:9 iarr2[[i]][j].f          G['O:ccc:sss:bbr [iarr2[[i]],iarr2[[i]][j],work@grid::probe::f]'] O['O:ccc:sss:bbr [iarr2[[i]],iarr2[[i]][j],work@grid::probe::f]'] <assignment> | r = iarr2[midx[i]][j].f;        // d9 multi-dim base select
+MATCH 30:9 h.arr[[i]].f             G['O:occ:sss:rbr [h.arr[[i]],work@grid::probe::f]'] O['O:occ:sss:rbr [h.arr[[i]],work@grid::probe::f]'] <assignment> | r = h.arr[midx[i]].f;           // d10 MEMBER select (not base) nested
+MATCH 31:9 iarr[[3:0]].f            G['O:cc:ss:br [iarr[[3:0]],work@grid::probe::f]'] O['O:cc:ss:br [iarr[[3:0]],work@grid::probe::f]'] <assignment> | r = iarr[pk[3:0]].f;            // d11 part-select index

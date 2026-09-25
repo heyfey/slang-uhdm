@@ -1,0 +1,38 @@
+P28 iarr[[i]].f 21:9:21:24 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E31 bit_select iarr full='iarr[[i]]' span=21:9:21:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='iarr[[i]]'@compileComplexFuncCall
+   E32 ref_obj f full='work@grid::probe::f' span=21:23:21:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@grid::probe::f'@SAVE
+P35 iarr[].f 22:9:22:30 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E39 bit_select iarr full='iarr[]' span=22:9:22:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='iarr[]'@compileComplexFuncCall
+   E40 ref_obj f full='work@grid::probe::f' span=22:29:22:30 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@grid::probe::f'@SAVE
+P43 iarr[i + 1].f 23:9:23:22 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E47 bit_select iarr full='iarr[i + 1]' span=23:9:23:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='iarr[i + 1]'@compileComplexFuncCall
+   E48 ref_obj f full='work@grid::probe::f' span=23:21:23:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@grid::probe::f'@SAVE
+P51 iarr[ + 1].f 24:9:24:28 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E56 bit_select iarr full='iarr[ + 1]' span=24:9:24:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='iarr[ + 1]'@compileComplexFuncCall
+   E57 ref_obj f full='work@grid::probe::f' span=24:27:24:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@grid::probe::f'@SAVE
+P60 iarr[2].f 25:9:25:18 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E62 bit_select iarr full='iarr[2]' span=25:9:25:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='iarr[2]'@compileComplexFuncCall
+   E63 ref_obj f full='work@grid::probe::f' span=25:17:25:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@grid::probe::f'@SAVE
+P66 iarr[].f 26:9:26:25 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E71 bit_select iarr full='iarr[]' span=26:9:26:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='iarr[]'@compileComplexFuncCall
+   E72 ref_obj f full='work@grid::probe::f' span=26:24:26:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@grid::probe::f'@SAVE
+P67 h.idx[i] 26:14:26:22 <hier_path> mint=compileSelectExpression < compileExpression < compileExpression < compileComplexFuncCall
+   E68 ref_obj h full='' span=26:16:26:19 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileComplexFuncCall | set='h'@compileSelectExpression
+   E69 bit_select idx full='work@grid::probe::iarr[].f::h.idx[i]::idx' span=26:16:26:22 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileComplexFuncCall | set='work@grid::probe::iarr[].f::h.idx[i]::idx'@SAVE
+P75 iarr[].f 27:9:27:22 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E78 bit_select iarr full='iarr[]' span=27:9:27:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='iarr[]'@compileComplexFuncCall
+   E79 ref_obj f full='work@grid::probe::f' span=27:21:27:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@grid::probe::f'@SAVE
+P81 iarr[[i]].f 28:5:28:9 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E84 bit_select iarr full='iarr[[i]]' span=28:5:28:9 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='iarr[[i]]'@compileComplexFuncCall
+   E85 ref_obj f full='iarr[[i]].f' span=28:19:28:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='iarr[[i]].f'@compileComplexFuncCall
+P89 iarr2[[i]][j].f 29:9:29:28 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E92 bit_select iarr2 full='iarr2[[i]]' span=29:9:29:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='iarr2[[i]]'@compileComplexFuncCall
+   E94 bit_select  full='iarr2[[i]][j]' span=29:15:29:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='iarr2[[i]][j]'@compileComplexFuncCall
+   E95 ref_obj f full='work@grid::probe::f' span=29:27:29:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@grid::probe::f'@SAVE
+P98 h.arr[[i]].f 30:9:30:25 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E99 ref_obj h full='' span=30:9:30:10 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='h'@compileComplexFuncCall
+   E102 bit_select arr full='h.arr[[i]]' span=30:11:30:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='h.arr[[i]]'@compileComplexFuncCall
+   E103 ref_obj f full='work@grid::probe::f' span=30:24:30:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@grid::probe::f'@SAVE
+P106 iarr[[3:0]].f 31:9:31:24 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E110 bit_select iarr full='iarr[[3:0]]' span=31:9:31:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='iarr[[3:0]]'@compileComplexFuncCall
+   E111 ref_obj f full='work@grid::probe::f' span=31:23:31:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@grid::probe::f'@SAVE

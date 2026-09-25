@@ -1,0 +1,5 @@
+P6 o 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E7 ref_obj o full='work@top.o' span=6:36:6:37 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@top.o'@SAVE
+P20 q.size 4:28:4:36 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E21 ref_obj q full='' span=4:28:4:29 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='q'@compileComplexFuncCall
+   E22 method_func_call size full='' span=4:30:4:34 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-

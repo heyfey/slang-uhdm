@@ -1,0 +1,81 @@
+P6 gh.data[kk] 65:12:65:23 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E7 ref_obj gh full='' span=65:12:65:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='gh'@compileComplexFuncCall
+   E9 bit_select data full='work@m.gh.data[kk].data' span=65:20:65:22 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@m.gh.data[kk].data'@SAVE
+P12 gh.data[1] 66:12:66:22 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E13 ref_obj gh full='' span=66:12:66:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='gh'@compileComplexFuncCall
+   E15 bit_select data full='work@m.gh.data[1].data' span=66:20:66:21 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@m.gh.data[1].data'@SAVE
+P37 pkt.data[i] 26:13:26:24 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E38 ref_obj pkt full='' span=26:13:26:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='pkt'@compileComplexFuncCall
+   E40 bit_select data full='work@Grid::f::pkt.data[i]::data' span=26:22:26:23 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@Grid::f::pkt.data[i]::data'@SAVE
+P42 this.data 26:29:26:41 <operation> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E43 ref_obj this full='' span=26:34:26:38 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E44 ref_obj data full='' span=26:34:26:38 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='data'@compileSelectExpression
+P60 this.data 29:13:29:25 <operation> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E61 ref_obj this full='' span=29:18:29:22 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E62 ref_obj data full='' span=29:18:29:22 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='data'@compileSelectExpression
+P64 pkt.data[j] 29:30:29:41 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E65 ref_obj pkt full='' span=29:30:29:33 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='pkt'@compileComplexFuncCall
+   E67 bit_select data full='work@Grid::f::pkt.data[j]::data' span=29:39:29:40 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@Grid::f::pkt.data[j]::data'@SAVE
+P72 this.data 31:11:31:23 <operation> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E73 ref_obj this full='' span=31:16:31:20 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E74 ref_obj data full='' span=31:16:31:20 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='data'@compileSelectExpression
+P76 pkt.data[2] 31:28:31:39 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E77 ref_obj pkt full='' span=31:28:31:31 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='pkt'@compileComplexFuncCall
+   E79 bit_select data full='work@Grid::f::pkt.data[2]::data' span=31:37:31:38 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@Grid::f::pkt.data[2]::data'@SAVE
+P84 this.data 33:11:33:23 <operation> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E85 ref_obj this full='' span=33:16:33:20 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E86 ref_obj data full='' span=33:16:33:20 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='data'@compileSelectExpression
+P88 pkt.data[k] 33:28:33:39 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E89 ref_obj pkt full='' span=33:28:33:31 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='pkt'@compileComplexFuncCall
+   E91 bit_select data full='work@Grid::f::pkt.data[k]::data' span=33:37:33:38 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@Grid::f::pkt.data[k]::data'@SAVE
+P98 this.data 35:7:35:11 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E99 ref_obj this full='' span=35:12:35:16 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E100 ref_obj data full='work@Grid::f::data' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@Grid::f::data'@SAVE
+P103 pkt.data[k] 36:7:36:18 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E104 ref_obj pkt full='' span=36:11:36:15 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='pkt'@compileSelectExpression
+   E105 bit_select data full='work@Grid::f::pkt.data[k]::data' span=36:11:36:18 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='work@Grid::f::pkt.data[k]::data'@SAVE
+P110 this.data 37:7:37:11 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E111 ref_obj this full='' span=37:12:37:16 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E112 ref_obj data full='work@Grid::f::data' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@Grid::f::data'@SAVE
+P115 this.data 38:9:38:21 <func_call> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E116 ref_obj this full='' span=38:14:38:18 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E117 ref_obj data full='' span=38:14:38:18 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='data'@compileSelectExpression
+P119 pkt.data[k] 39:9:39:20 <func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E120 ref_obj pkt full='' span=39:9:39:12 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='pkt'@compileComplexFuncCall
+   E122 bit_select data full='work@Grid::f::pkt.data[k]::data' span=39:18:39:19 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@Grid::f::pkt.data[k]::data'@SAVE
+P125 this.data 40:11:40:23 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E126 ref_obj this full='' span=40:16:40:20 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E127 ref_obj data full='' span=40:16:40:20 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='data'@compileSelectExpression
+P130 pkt.data[k] 41:11:41:22 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E131 ref_obj pkt full='' span=41:11:41:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='pkt'@compileComplexFuncCall
+   E133 bit_select data full='work@Grid::f::pkt.data[k]::data' span=41:20:41:21 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@Grid::f::pkt.data[k]::data'@SAVE
+P136 this.fx 42:11:42:21 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E137 ref_obj this full='' span=42:16:42:18 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E138 ref_obj fx full='' span=42:16:42:18 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='fx'@compileSelectExpression
+P141 pkt.fx[k] 43:11:43:20 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E142 ref_obj pkt full='' span=43:11:43:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='pkt'@compileComplexFuncCall
+   E144 bit_select fx full='work@Grid::f::pkt.fx[k]::fx' span=43:18:43:19 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@Grid::f::pkt.fx[k]::fx'@SAVE
+P147 this.q 44:11:44:20 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E148 ref_obj this full='' span=44:16:44:17 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E149 ref_obj q full='' span=44:16:44:17 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='q'@compileSelectExpression
+P152 pkt.q[k] 45:11:45:19 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E153 ref_obj pkt full='' span=45:11:45:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='pkt'@compileComplexFuncCall
+   E155 bit_select q full='work@Grid::f::pkt.q[k]::q' span=45:17:45:18 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@Grid::f::pkt.q[k]::q'@SAVE
+P158 this.m2 46:11:46:24 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E159 ref_obj this full='' span=46:16:46:18 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E160 ref_obj m2 full='' span=46:16:46:18 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='m2'@compileSelectExpression
+P163 pkt.m2[k][1] 47:11:47:23 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E164 ref_obj pkt full='' span=47:11:47:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='pkt'@compileComplexFuncCall
+   E165 var_select m2 full='work@Grid::f::pkt.m2[k][1]::m2' span=47:15:47:23 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@Grid::f::pkt.m2[k][1]::m2'@SAVE
+P170 this.scalar 48:11:48:22 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E171 ref_obj this full='' span=48:16:48:22 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E172 ref_obj scalar full='' span=48:16:48:22 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='scalar'@compileSelectExpression
+P179 this.data 50:11:50:25 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E180 ref_obj this full='' span=50:16:50:20 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E181 ref_obj data full='' span=50:16:50:20 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='data'@compileSelectExpression
+P184 pkt.data 51:11:51:33 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E185 ref_obj pkt full='' span=51:11:51:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='pkt'@compileComplexFuncCall
+   E189 bit_select data full='work@Grid::f::pkt.data::data' span=51:20:51:32 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@Grid::f::pkt.data::data'@SAVE
+P186 this.data 51:20:51:32 <bit_select> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E187 ref_obj this full='' span=51:25:51:29 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E188 ref_obj data full='' span=51:25:51:29 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='data'@compileSelectExpression

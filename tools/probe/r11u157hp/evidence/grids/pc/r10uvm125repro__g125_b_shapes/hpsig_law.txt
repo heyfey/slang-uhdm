@@ -1,0 +1,2 @@
+MATCH 38:17 pr.f0                    G['O:oc:ss:rr [pk125b::B125::go::f0]'] O['O:oc:ss:rr [pk125b::B125::go::f0]'] <func_call> | r = fo(6, pr.f0);
+MATCH 42:17 this.narr                G['N:oo:ss:rr'] O['N:oo:ss:rr'] <func_call> | r = fo(8, this.narr);

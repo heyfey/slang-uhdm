@@ -1,0 +1,6 @@
+P28 lv.m 7:12:7:16 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt
+   E29 ref_obj lv full='' span=7:15:7:16 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='lv'@compileSelectExpression
+   E30 ref_obj m full='' span=7:15:7:16 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='m'@compileSelectExpression
+P208 lv.m 7:12:7:16 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabGenScope
+   E209 ref_obj lv full='' span=7:15:7:16 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E210 ref_obj m full='' span=7:15:7:16 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-

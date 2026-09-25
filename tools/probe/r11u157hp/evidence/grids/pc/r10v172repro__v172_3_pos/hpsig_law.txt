@@ -1,0 +1,9 @@
+MATCH 0:0 c172                     G['O:c:s:r [work@topv3172.c172]'] O['O:c:s:r [work@topv3172.c172]'] <assignment> | 
+MATCH 12:36 q172.size                G['O:oo:ss:rm'] O['O:oo:ss:rm'] <return_stmt> | function int size172(); return q172.size(); endfunction
+MATCH 28:14 getfn172.size172         G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | r172 = getfn172.size172();
+MATCH 30:11 getfn172.size172         G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | if (getfn172.size172() > 0) r172 = 1;
+MATCH 32:23 getfn172.size172         G['O:oo:ss:rm'] O['O:oo:ss:rm'] <sys_func_call> | $display("%0d", getfn172.size172());
+MATCH 34:14 getfn172.n172            G['O:oc:ss:rr [pv3172::cv3172::probe172::n172]'] O['O:oc:ss:rr [pv3172::cv3172::probe172::n172]'] <assignment> | r172 = getfn172.n172;
+MATCH 53:20 getfn172.q172[0]         G['O:oc:ss:rb [pv3172::cv3172::probe172::getfn172.q172[0]::q172]'] O['O:oc:ss:rb [pv3172::cv3172::probe172::getfn172.q172[0]::q172]'] <operation> | s172 = {"x", getfn172.q172[0]};
+MATCH 62:5 c172.getfn172            G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | c172.getfn172 = new();
+MATCH 63:5 c172.plain172            G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | c172.plain172 = new();

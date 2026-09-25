@@ -1,0 +1,45 @@
+P20 r.XLEN 6:5:6:11 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E21 ref_obj r full='' span=6:7:6:11 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='r'@compileSelectExpression
+   E22 ref_obj XLEN full='' span=6:7:6:11 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='XLEN'@compileSelectExpression
+P23 c.XLEN 6:14:6:20 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E24 ref_obj c full='' span=6:14:6:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='c'@compileComplexFuncCall
+   E25 ref_obj XLEN full='cfg_pkg::build_config::XLEN' span=6:16:6:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='cfg_pkg::build_config::XLEN'@SAVE
+P74 r.XLEN 6:5:6:11 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E75 ref_obj r full='' span=6:7:6:11 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='r'@compileSelectExpression
+   E76 ref_obj XLEN full='' span=6:7:6:11 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='XLEN'@compileSelectExpression
+P77 c.XLEN 6:14:6:20 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E78 ref_obj c full='' span=6:14:6:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='c'@compileComplexFuncCall
+   E79 ref_obj XLEN full='cfg_pkg::build_config::XLEN' span=6:16:6:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='cfg_pkg::build_config::XLEN'@SAVE
+P117 Cfg.XLEN 12:49:12:57 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E118 ref_obj Cfg full='' span=12:53:12:57 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='Cfg'@compileSelectExpression
+   E119 ref_obj XLEN full='' span=12:53:12:57 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='XLEN'@compileSelectExpression
+P127 Cfg.XLEN 12:76:12:84 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E128 ref_obj Cfg full='' span=12:80:12:84 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='Cfg'@compileSelectExpression
+   E129 ref_obj XLEN full='' span=12:80:12:84 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='XLEN'@compileSelectExpression
+P145 Cfg.XLEN 13:52:13:60 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E146 ref_obj Cfg full='' span=13:52:13:55 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='Cfg'@compileComplexFuncCall
+   E147 ref_obj XLEN full='work@dut.XLEN' span=13:56:13:60 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@dut.XLEN'@SAVE
+P161 Cfg.XLEN 13:107:13:115 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E162 ref_obj Cfg full='' span=13:107:13:110 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='Cfg'@compileComplexFuncCall
+   E163 ref_obj XLEN full='work@dut.XLEN' span=13:111:13:115 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@dut.XLEN'@SAVE
+P177 INT.S_SW 14:22:14:30 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E178 ref_obj INT full='' span=14:22:14:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='INT'@compileComplexFuncCall
+   E179 ref_obj S_SW full='work@dut.S_SW' span=14:26:14:30 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@dut.S_SW'@SAVE
+P180 INT.M_SW 14:33:14:41 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E181 ref_obj INT full='' span=14:33:14:36 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='INT'@compileComplexFuncCall
+   E182 ref_obj M_SW full='work@dut.M_SW' span=14:37:14:41 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@dut.M_SW'@SAVE
+P687 Cfg.XLEN 11:115:11:123 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E688 ref_obj Cfg full='' span=11:119:11:123 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='Cfg'@compileSelectExpression
+   E689 ref_obj XLEN full='' span=11:119:11:123 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='XLEN'@compileSelectExpression
+P715 Cfg.XLEN 12:49:12:57 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepCopy
+   E716 ref_obj Cfg full='' span=12:53:12:57 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E717 ref_obj XLEN full='' span=12:53:12:57 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+P725 Cfg.XLEN 12:76:12:84 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepCopy
+   E726 ref_obj Cfg full='' span=12:80:12:84 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E727 ref_obj XLEN full='' span=12:80:12:84 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+P734 INT.S_SW 14:22:14:30 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepClone
+   E735 ref_obj INT full='' span=14:22:14:25 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E736 ref_obj S_SW full='work@dut.S_SW' span=14:26:14:30 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set='work@dut.S_SW'@SAVE
+P737 INT.M_SW 14:33:14:41 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepClone
+   E738 ref_obj INT full='' span=14:33:14:36 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E739 ref_obj M_SW full='work@dut.M_SW' span=14:37:14:41 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set='work@dut.M_SW'@SAVE

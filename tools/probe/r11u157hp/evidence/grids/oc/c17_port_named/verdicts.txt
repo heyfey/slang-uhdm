@@ -1,0 +1,1 @@
+pristine  law cmprc=0 strictrc=0 

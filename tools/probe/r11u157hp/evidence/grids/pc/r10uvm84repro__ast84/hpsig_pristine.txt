@@ -1,0 +1,2 @@
+MATCH 7:13 this.q                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | if (this.q[i] == "x")
+DIFF  11:11 this.n                   G['N:oo:ss:rr'] O['O:oc:sz:rr [work@ast84::c84::f::n]'] <assignment> | n = this.n;

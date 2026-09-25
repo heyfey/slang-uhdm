@@ -1,0 +1,4 @@
+MATCH 8:18 s.a                      G['O:oc:ss:rr [work@tb.dut.a]', 'O:oc:ss:rr [work@top.a]'] O['O:oc:ss:rr [work@tb.dut.a]', 'O:oc:ss:rr [work@top.a]'] <operation> | assign q = i ? s.a : s.b;
+MATCH 8:24 s.b                      G['O:oc:ss:rr [work@tb.dut.b]', 'O:oc:ss:rr [work@top.b]'] O['O:oc:ss:rr [work@tb.dut.b]', 'O:oc:ss:rr [work@top.b]'] <operation> | assign q = i ? s.a : s.b;
+MATCH 9:19 sub.adr                  G['O:oc:ss:rr [work@tb.dut.adr]', 'O:oc:ss:rr [work@top.adr]'] O['O:oc:ss:rr [work@tb.dut.adr]', 'O:oc:ss:rr [work@top.adr]'] <operation> | assign q8 = i ? sub.adr : sub.dat;
+MATCH 9:29 sub.dat                  G['O:oc:ss:rr [work@tb.dut.dat]', 'O:oc:ss:rr [work@top.dat]'] O['O:oc:ss:rr [work@tb.dut.dat]', 'O:oc:ss:rr [work@top.dat]'] <operation> | assign q8 = i ? sub.adr : sub.dat;

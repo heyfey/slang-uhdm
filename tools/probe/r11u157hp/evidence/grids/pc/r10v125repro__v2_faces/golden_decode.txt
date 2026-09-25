@@ -1,0 +1,3 @@
+P288 this.tt 32:17:32:24 <func_call> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E289 ref_obj this full='' span=32:22:32:24 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E290 ref_obj tt full='' span=32:22:32:24 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='tt'@compileSelectExpression

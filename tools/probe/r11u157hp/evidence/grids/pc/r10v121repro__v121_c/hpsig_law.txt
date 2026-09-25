@@ -1,0 +1,12 @@
+MATCH 0:0 clone                    G['O:c:s:r [smithy::Rivet::clone::clone]'] O['O:c:s:r [smithy::Rivet::clone::clone]'] <assignment> | 
+MATCH 0:0 other                    G['O:c:s:r [smithy::Plate::press::other]'] O['O:c:s:r [smithy::Plate::press::other]'] <assignment> | 
+MATCH 0:0 p                        G['O:c:s:r [work@smithy_top.p]'] O['O:c:s:r [work@smithy_top.p]'] <assignment> | 
+MATCH 0:0 stud                     G['O:c:s:r [smithy::Plate::new::stud]'] O['O:c:s:r [smithy::Plate::new::stud]'] <assignment> | 
+MATCH 27:7 this.gauge               G['O:oc:sz:rr [smithy::Plate::new::gauge]'] O['O:oc:sz:rr [smithy::Plate::new::gauge]'] <assignment> | this.gauge     = g + 1;         // C02 this. + non-new      -> FULL
+MATCH 28:7 this.boss                G['O:oc:sz:rr [smithy::Plate::new::boss]'] O['O:oc:sz:rr [smithy::Plate::new::boss]'] <assignment> | this.boss      = stud;          // C03 this. + plain handle -> FULL
+MATCH 29:7 this.lug                 G['O:oc:sz:rr [smithy::Plate::new::lug]'] O['O:oc:sz:rr [smithy::Plate::new::lug]'] <assignment> | this.lug       = stud.clone();  // C04 this. + method call  -> FULL
+MATCH 29:24 stud.clone               G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | this.lug       = stud.clone();  // C04 this. + method call  -> FULL
+MATCH 38:10 other.stud               G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | other.stud = new;            // C07 ANOTHER object's property -> FULL
+MATCH 44:10 this.gauge               G['O:oc:sz:rr [smithy::Plate::press::gauge]'] O['O:oc:sz:rr [smithy::Plate::press::gauge]'] <assignment> | this.gauge += 1;             // C10 compound                 -> declin
+MATCH 53:10 this.boss                G['O:oc:sz:rr [smithy::Plate::poke::boss]'] O['O:oc:sz:rr [smithy::Plate::poke::boss]'] <assignment> | this.boss <= stud;           // C12 NONBLOCKING this. handle -> declin
+MATCH 55:13 this.gauge               G['O:oc:sz:rr [smithy::Plate::poke::gauge]'] O['O:oc:sz:rr [smithy::Plate::poke::gauge]'] <assignment> | #1 this.gauge = k;           // C13 delayed this. assignment -> declin

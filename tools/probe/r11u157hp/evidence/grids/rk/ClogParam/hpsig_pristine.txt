@@ -1,0 +1,3 @@
+MATCH 3:31 Info.x                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <param_assign,sys_func_call> | localparam int Aw = $clog2(Depth);
+MATCH 13:37 Info.x                   G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <param_assign> | localparam int NumScrmblBlocks = Info.x;
+MATCH 16:15 Info.x                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <param_assign> | .Depth (NumScrmblBlocks)

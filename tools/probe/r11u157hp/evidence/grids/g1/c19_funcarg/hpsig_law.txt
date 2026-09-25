@@ -1,0 +1,2 @@
+MATCH 8:16 s.a                      G['O:oc:ss:rr [work@top.a]'] O['O:oc:ss:rr [work@top.a]'] <func_call> | assign q = f(s.a);
+MATCH 9:17 sub.adr[3:0]             G['O:oc:ss:rp [sub.adr[3:0]]'] O['O:oc:ss:rp [sub.adr[3:0]]'] <func_call> | assign q2 = f(sub.adr[3:0]);

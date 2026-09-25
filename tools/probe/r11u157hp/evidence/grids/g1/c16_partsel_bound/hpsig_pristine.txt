@@ -1,0 +1,5 @@
+DIFF  8:17 Cfg.W                    G['N:oo:ss:rr'] O['O:oc:ss:rr [work@top.v.W]'] <operation> | assign q8 = v[Cfg.W-1:0];
+DIFF  9:15 sub.adr[ + 3:]           G['O:oc:ss:rp [sub.adr[ + 3:]]'] O[] <cont_assign> | assign q2 = sub.adr[sub.OFF+3:sub.OFF];
+DIFF  9:15 sub.adr[:]               G[] O['O:oc:ss:rp [sub.adr[:]]'] <cont_assign> | assign q2 = sub.adr[sub.OFF+3:sub.OFF];
+DIFF  9:23 sub.OFF                  G['N:oo:ss:rr'] O['O:oc:ss:rr [work@top.OFF]'] <operation> | assign q2 = sub.adr[sub.OFF+3:sub.OFF];
+DIFF  9:33 sub.OFF                  G['N:oo:ss:rr'] O['O:oc:ss:rr [work@top.OFF]'] <part_select> | assign q2 = sub.adr[sub.OFF+3:sub.OFF];

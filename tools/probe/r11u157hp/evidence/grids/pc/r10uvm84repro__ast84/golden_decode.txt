@@ -1,0 +1,6 @@
+P16 this.q 7:13:7:22 <operation> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E17 ref_obj this full='' span=7:18:7:19 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E18 ref_obj q full='' span=7:18:7:19 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='q'@compileSelectExpression
+P34 this.n 11:11:11:17 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E35 ref_obj this full='' span=11:16:11:17 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E36 ref_obj n full='' span=11:16:11:17 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='n'@compileSelectExpression

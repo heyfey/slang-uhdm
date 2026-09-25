@@ -1,0 +1,14 @@
+Per-switch effect on the 150 grid cases (cases/g1..g4 + the 69 family probe cases + 15 corpus sources + 9 risk
+controls + 5 port cases; /tmp/r11u157_W/bytecmp.sh: databases differing, law binary with the switch vs law binary
+all-on, and vs the pristine binary):
+R11U157_ROUTE_OFF: vs law(all on) differing 30 | vs pristine 35
+R11U157_THIS_OFF: vs law(all on) differing 24 | vs pristine 41
+R11U157_FOREACH_OFF: vs law(all on) differing 4 | vs pristine 61
+R11U157_ROOT_OFF: vs law(all on) differing 1 | vs pristine 64
+R11U157_GENTGT_OFF: vs law(all on) differing 2 | vs pristine 63
+R11U157_WITHRECV_OFF: vs law(all on) differing 4 | vs pristine 61
+R11U157_SPAN_OFF: vs law(all on) differing 55 | vs pristine 64
+R11U157_NAME_OFF: vs law(all on) differing 64 | vs pristine 61
+R11U157_FILE_OFF: vs law(all on) differing 27 | vs pristine 65
+R11U157_OFF: vs pristine differing 0 (of 150)
+(all measured on the final law binary, md5 2993cfd94d61)

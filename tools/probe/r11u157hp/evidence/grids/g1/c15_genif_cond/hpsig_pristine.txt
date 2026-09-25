@@ -1,0 +1,2 @@
+MATCH 8:7 Cfg.D                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | if (Cfg.D == 4) begin : g
+MATCH 11:7 sub.OFF                  G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | if (sub.OFF == 2) begin : h

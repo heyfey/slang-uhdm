@@ -1,0 +1,2 @@
+MATCH 0:0 o                        G['O:c:s:r [work@top.o]'] O['O:c:s:r [work@top.o]'] <assignment> | 
+MATCH 4:28 in1.get                  G['O:oo:ss:rm'] O['O:oo:ss:rm'] <return_stmt> | function int f(); return in1.get(); endfunction

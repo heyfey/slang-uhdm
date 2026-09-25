@@ -1,0 +1,20 @@
+MATCH 0:0 q_class                  G['O:c:s:r [p3v::q_class::q_class]', 'O:c:s:r [p3v::q_class::q_class]'] O['O:c:s:r [p3v::q_class::q_class]', 'O:c:s:r [p3v::q_class::q_class]'] <assignment> | 
+MATCH 0:0 z_class                  G['O:c:s:r [work@v3_top.z_class.z_class]'] O['O:c:s:r [work@v3_top.z_class.z_class]'] <assignment> | 
+MATCH 0:0 z_deep                   G['O:c:s:r [work@v3_top.z_deep.z_deep]'] O['O:c:s:r [work@v3_top.z_deep.z_deep]'] <assignment> | 
+MATCH 32:7 q_struct.a               G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <assignment> | q_struct.a = y;
+MATCH 33:11 q_struct.a               G['O:oc:ss:rr [p3v::q_struct::a]', 'O:oc:ss:rr [p3v::q_struct::a]'] O['O:oc:ss:rr [p3v::q_struct::a]', 'O:oc:ss:rr [p3v::q_struct::a]'] <operation> | if (q_struct.a == 0)
+MATCH 34:9 q_struct.b               G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <assignment> | q_struct.b = 1;
+MATCH 39:7 q_class.v                G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <assignment> | q_class.v = y;
+MATCH 40:11 q_class.v                G['O:oc:ss:rr [p3v::q_class::v]', 'O:oc:ss:rr [p3v::q_class::v]'] O['O:oc:ss:rr [p3v::q_class::v]', 'O:oc:ss:rr [p3v::q_class::v]'] <operation> | if (q_class.v == 0)
+MATCH 41:9 q_class.v                G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <assignment> | q_class.v = 1;
+MATCH 50:7 z_struct.a               G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | z_struct.a = y;
+MATCH 51:11 z_struct.a               G['O:oc:ss:rr [work@v3_top.z_struct.a]'] O['O:oc:ss:rr [work@v3_top.z_struct.a]'] <operation> | if (z_struct.a == 0)
+MATCH 52:9 z_struct.b               G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | z_struct.b = 1;
+MATCH 58:7 z_class.v                G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | z_class.v = y;
+MATCH 59:11 z_class.v                G['O:oc:ss:rr [work@v3_top.z_class.v]'] O['O:oc:ss:rr [work@v3_top.z_class.v]'] <operation> | if (z_class.v == 0)
+MATCH 60:9 z_class.v                G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | z_class.v = 1;
+MATCH 66:7 z_deep.inner             G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | z_deep.inner = new();
+MATCH 67:7 z_deep.inner.v           G['N:ooo:sss:rrr'] O['N:ooo:sss:rrr'] <assignment> | z_deep.inner.v = y;
+MATCH 68:11 z_deep.inner.v           G['O:ooc:sss:rrr [work@v3_top.z_deep.v]'] O['O:ooc:sss:rrr [work@v3_top.z_deep.v]'] <operation> | if (z_deep.inner.v == 0)
+MATCH 69:9 z_deep.inner.v           G['N:ooo:sss:rrr'] O['N:ooo:sss:rrr'] <assignment> | z_deep.inner.v = 1;
+MATCH 81:12 sv.a                     G['O:oc:ss:rr [work@v3_top.a]'] O['O:oc:ss:rr [work@v3_top.a]'] <assignment> | r  = sv.a;

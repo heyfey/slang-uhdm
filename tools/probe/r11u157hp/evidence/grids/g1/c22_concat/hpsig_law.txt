@@ -1,0 +1,3 @@
+MATCH 8:16 s.a                      G['O:oc:ss:rr [work@tb.dut.a]', 'O:oc:ss:rr [work@top.a]'] O['O:oc:ss:rr [work@tb.dut.a]', 'O:oc:ss:rr [work@top.a]'] <operation> | assign q8 = {s.a, s.b};
+MATCH 8:21 s.b                      G['O:oc:ss:rr [work@tb.dut.b]', 'O:oc:ss:rr [work@top.b]'] O['O:oc:ss:rr [work@tb.dut.b]', 'O:oc:ss:rr [work@top.b]'] <operation> | assign q8 = {s.a, s.b};
+MATCH 9:15 sub.adr                  G['O:oc:ss:rr [work@tb.dut.adr]', 'O:oc:ss:rr [work@top.adr]'] O['O:oc:ss:rr [work@tb.dut.adr]', 'O:oc:ss:rr [work@top.adr]'] <operation> | assign v = {sub.adr};

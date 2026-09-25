@@ -1,0 +1,6 @@
+P73 s.a 9:13:9:16 <bit_select> mint=compileComplexFuncCall < compileExpression < compileExpression < compileSelectExpression
+   E74 ref_obj s full='' span=9:13:9:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileSelectExpression | set='s'@compileComplexFuncCall
+   E75 ref_obj a full='work@top.mem.a' span=9:15:9:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileSelectExpression | set='work@top.mem.a'@SAVE
+P79 sub.adr[3:0] 10:14:10:26 <bit_select> mint=compileComplexFuncCall < compileExpression < compileExpression < compileSelectExpression
+   E80 ref_obj sub full='' span=10:14:10:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileSelectExpression | set='sub'@compileComplexFuncCall
+   E81 part_select adr full='sub.adr[3:0]' span=10:18:10:25 par=hp | mint=compilePartSelectRange < compileComplexFuncCall < compileExpression < compileExpression | set='sub.adr[3:0]'@compileComplexFuncCall

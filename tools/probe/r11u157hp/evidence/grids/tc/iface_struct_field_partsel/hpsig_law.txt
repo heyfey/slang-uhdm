@@ -1,0 +1,6 @@
+MATCH 11:33 CFG.BUS.DAT              G['N:ooo:sss:rrr'] O['N:ooo:sss:rrr'] <operation> | localparam int unsigned BYT = CFG.BUS.DAT/8;   // 4
+MATCH 18:14 sub.OFF                  G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | logic [ADR-sub.OFF-1:0] a;
+MATCH 19:14 sub.req.adr[ADR - 1:]    G['O:ooc:sss:rrp [sub.req.adr[ADR - 1:]]'] O['O:ooc:sss:rrp [sub.req.adr[ADR - 1:]]'] <cont_assign> | assign a = sub.req.adr[ADR-1:sub.OFF];           // sub.req.adr[11:2]
+MATCH 19:32 sub.OFF                  G['N:oo:ss:rr'] O['N:oo:ss:rr'] <part_select> | assign a = sub.req.adr[ADR-1:sub.OFF];           // sub.req.adr[11:2]
+MATCH 24:10 s.req.adr                G['N:ooo:sss:rrr'] O['N:ooo:sss:rrr'] <cont_assign> | assign s.req.adr = adr;
+MATCH 25:15 s.sub                    G['O:oc:ss:rr [work@iface_struct_field_partsel.u.sub.sub]', 'O:oc:ss:rr [work@iface_struct_field_partsel.u.sub.sub]'] O['O:oc:ss:rr [work@iface_struct_field_partsel.u.sub.sub]', 'O:oc:ss:rr [work@iface_struct_field_partsel.u.sub.sub]'] <port> | mem u (.sub(s.sub), .o(o));

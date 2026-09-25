@@ -1,0 +1,6 @@
+P120 lsu.data 20:24:20:32 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E121 ref_obj lsu full='' span=20:24:20:27 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='lsu'@compileComplexFuncCall
+   E122 ref_obj data full='work@func_local_decl_init.data' span=20:28:20:32 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@func_local_decl_init.data'@SAVE
+P133 lsu.vaddr[2:0] 39:35:39:49 <func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E134 ref_obj lsu full='' span=39:35:39:38 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='lsu'@compileComplexFuncCall
+   E135 part_select vaddr full='lsu.vaddr[2:0]' span=39:39:39:48 par=hp | mint=compilePartSelectRange < compileComplexFuncCall < compileExpression < compileExpression | set='lsu.vaddr[2:0]'@compileComplexFuncCall

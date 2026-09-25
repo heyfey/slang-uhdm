@@ -1,0 +1,6 @@
+MATCH 5:98 Cfg.XLEN                 G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | module dut #(parameter cfg_pkg::cfg_t Cfg = cfg_pkg::DefaultCfg) (inpu
+DIFF  6:49 Cfg.XLEN                 G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr', 'N:oo:ss:rr', 'N:oo:ss:rr', 'N:oo:ss:rr'] <operation> | localparam type it_t = struct packed { logic [Cfg.XLEN-1:0] x; logic [
+DIFF  6:73 Cfg.XLEN                 G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr', 'N:oo:ss:rr', 'N:oo:ss:rr', 'N:oo:ss:rr'] <operation> | localparam type it_t = struct packed { logic [Cfg.XLEN-1:0] x; logic [
+MATCH 8:45 Cfg.VLEN                 G['O:oc:ss:rr [work@dut.VLEN]'] O['O:oc:ss:rr [work@dut.VLEN]'] <operation> | localparam it_t I = '{x: Cfg.XLEN'(1) << (Cfg.VLEN + 1), y: Cfg.XLEN'(
+MATCH 9:22 I.x                      G['O:oc:ss:rr [work@dut.x]', 'O:oc:ss:rr [work@dut.x]'] O['O:oc:ss:rr [work@dut.x]', 'O:oc:ss:rr [work@dut.x]'] <operation> | assign b_o = a_i ? I.x : I.y;
+MATCH 9:28 I.y                      G['O:oc:ss:rr [work@dut.y]', 'O:oc:ss:rr [work@dut.y]'] O['O:oc:ss:rr [work@dut.y]', 'O:oc:ss:rr [work@dut.y]'] <operation> | assign b_o = a_i ? I.x : I.y;

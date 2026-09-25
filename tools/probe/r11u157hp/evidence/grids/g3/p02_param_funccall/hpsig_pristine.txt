@@ -1,0 +1,2 @@
+DIFF  10:25 Cfg.W                    G['O:oc:ss:rr [work@top.W]'] O['N:oo:ss:rr'] <func_call> | localparam int X1 = f(Cfg.W);
+DIFF  11:30 Cfg.W                    G['O:oc:ss:rr [work@top.W]'] O['N:oo:ss:rr'] <sys_func_call> | localparam int X2 = $clog2(Cfg.W);

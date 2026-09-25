@@ -1,0 +1,1 @@
+MATCH 33:21 this.n                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <method_func_call> | this.q.delete(this.n);       // L13 this-rooted ARG

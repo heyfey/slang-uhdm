@@ -1,0 +1,2 @@
+MATCH 8:23 Cfg.W                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | localparam int L1 = Cfg.W / 2;
+MATCH 9:23 sub.OFF                  G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | localparam int L2 = sub.OFF + 1;

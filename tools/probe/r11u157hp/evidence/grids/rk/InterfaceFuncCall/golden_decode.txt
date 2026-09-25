@@ -1,0 +1,6 @@
+P25 foo_1.bar 13:18:13:30 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E26 ref_obj foo_1 full='' span=13:18:13:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='foo_1'@compileComplexFuncCall
+   E27 method_func_call bar full='' span=13:24:13:27 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set=-
+P30 foo_2.bar 14:18:14:30 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E31 ref_obj foo_2 full='' span=14:18:14:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='foo_2'@compileComplexFuncCall
+   E32 method_func_call bar full='' span=14:24:14:27 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set=-

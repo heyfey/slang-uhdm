@@ -1,0 +1,3 @@
+DIFF  25:9 Cfg.PtLevels             G['N:oo:ss:rr'] O['O:oc:ss:rr [work@expr_width_cast.PtLevels]'] <operation> | ((Cfg.PtLevels + HYP_EXT) * (Cfg.VpnLen / Cfg.PtLevels))'(vpn),
+DIFF  25:36 Cfg.VpnLen               G['N:oo:ss:rr'] O['O:oc:ss:rr [work@expr_width_cast.VpnLen]'] <operation> | ((Cfg.PtLevels + HYP_EXT) * (Cfg.VpnLen / Cfg.PtLevels))'(vpn),
+DIFF  25:49 Cfg.PtLevels             G['N:oo:ss:rr'] O['O:oc:ss:rr [work@expr_width_cast.PtLevels]'] <operation> | ((Cfg.PtLevels + HYP_EXT) * (Cfg.VpnLen / Cfg.PtLevels))'(vpn),

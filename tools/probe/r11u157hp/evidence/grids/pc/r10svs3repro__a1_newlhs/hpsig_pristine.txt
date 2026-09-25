@@ -1,0 +1,4 @@
+MATCH 0:0 hh                       G['O:c:s:r [work@top.hh]'] O['O:c:s:r [work@top.hh]'] <assignment> | 
+DIFF  34:17 d.size                   G['O:oo:ss:rr'] O['O:oc:ss:rr [work@holder::m2::size]'] <operation> | bytes = new[d.size + 4];
+DIFF  54:13 bytes.size               G['O:oo:ss:rr'] O['O:oc:ss:rr [work@holder::m7::size]'] <operation> | d = new[bytes.size - 4];
+MATCH 66:5 this.s                   G['O:oc:sz:rr [work@holder::m10::s]'] O['O:oc:sz:rr [work@holder::m10::s]'] <assignment> | this.s = 5;

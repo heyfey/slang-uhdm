@@ -1,0 +1,6 @@
+P225 pr.f0 38:17:38:22 <func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E226 ref_obj pr full='' span=38:17:38:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='pr'@compileComplexFuncCall
+   E227 ref_obj f0 full='pk125b::B125::go::f0' span=38:20:38:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='pk125b::B125::go::f0'@SAVE
+P238 this.narr 42:17:42:26 <func_call> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E239 ref_obj this full='' span=42:22:42:26 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E240 ref_obj narr full='' span=42:22:42:26 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='narr'@compileSelectExpression

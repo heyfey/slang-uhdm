@@ -1,0 +1,12 @@
+P71 s.a 8:14:8:17 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn
+   E72 ref_obj s full='' span=8:14:8:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn | set='s'@compileComplexFuncCall
+   E73 ref_obj a full='work@top.u1.x.a' span=8:16:8:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn | set='work@top.u1.x.a'@SAVE
+P78 sub.adr[3:0] 9:14:9:26 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn
+   E79 ref_obj sub full='' span=9:14:9:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn | set='sub'@compileComplexFuncCall
+   E80 part_select adr full='sub.adr[3:0]' span=9:18:9:25 par=hp | mint=compilePartSelectRange < compileComplexFuncCall < compileExpression < compileExpression | set='sub.adr[3:0]'@compileComplexFuncCall
+P290 s.a 8:14:8:17 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_
+   E292 ref_obj s full='' span=8:14:8:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='s'@compileComplexFuncCall
+   E293 ref_obj a full='work@tb.dut.u1.x.a' span=8:16:8:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='work@tb.dut.u1.x.a'@SAVE
+P328 sub.adr[3:0] 9:14:9:26 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_
+   E329 ref_obj sub full='' span=9:14:9:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='sub'@compileComplexFuncCall
+   E330 part_select adr full='sub.adr[3:0]' span=9:18:9:25 par=hp | mint=compilePartSelectRange < compileComplexFuncCall < compileExpression < compileExpression | set='sub.adr[3:0]'@compileComplexFuncCall

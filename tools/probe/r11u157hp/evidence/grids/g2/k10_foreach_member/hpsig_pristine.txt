@@ -1,0 +1,3 @@
+DIFF  0:0                          G['O:cc:sz:rr [work@outer::f::in1,work@outer::f::arr]'] O[] <foreach_stmt> | 
+MATCH 0:0 o                        G['O:c:s:r [work@top.o]'] O['O:c:s:r [work@top.o]'] <assignment> | 
+DIFF  4:31                          G[] O['O:oc:ss:rr [work@outer::f::arr]'] <foreach_stmt> | function void f(); foreach (in1.arr[j]) x = j; endfunction

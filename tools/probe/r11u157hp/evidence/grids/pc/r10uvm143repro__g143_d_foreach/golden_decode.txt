@@ -1,0 +1,28 @@
+P20 mesh2[lane].pick 56:12:56:28 <return_stmt> mint=compileComplexFuncCall < compileExpression < compileExpression < compileStmt
+   E23 bit_select mesh2 full='mesh2[lane]' span=56:12:56:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileStmt | set='mesh2[lane]'@compileComplexFuncCall
+   E24 ref_obj pick full='Loom_pkg::Shuttle::glideFormal::pick' span=56:24:56:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileStmt | set='Loom_pkg::Shuttle::glideFormal::pick'@SAVE
+P41 mesh2[lane].pick 56:12:56:28 <return_stmt> mint=compileComplexFuncCall < compileExpression < compileExpression < compileStmt
+   E43 bit_select mesh2 full='mesh2[lane]' span=56:12:56:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileStmt | set='mesh2[lane]'@compileComplexFuncCall
+   E44 ref_obj pick full='Loom_pkg::Shuttle::glideFormal::pick' span=56:24:56:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileStmt | set='Loom_pkg::Shuttle::glideFormal::pick'@SAVE
+P48 reed 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E49 ref_obj reed full='work@loomTop.reed' span=63:17:63:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@loomTop.reed'@SAVE
+P83  0:0:0:0 <foreach_stmt> mint=compileVariable < compileStmt < compileStmt < compileStmt
+   E84 ref_obj thread full='Loom_pkg::Reed::combForeach::thread' span=26:18:26:24 par=hp | mint=compileVariable < compileStmt < compileStmt < compileStmt | set='Loom_pkg::Reed::combForeach::thread'@SAVE
+   E85 ref_obj fibres full='Loom_pkg::Reed::combForeach::fibres' span=0:0:0:0 par=hp | mint=compileVariable < compileStmt < compileStmt < compileStmt | set='Loom_pkg::Reed::combForeach::fibres'@SAVE
+P94 thread.fibres[j].weftName 27:24:27:49 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileDataDeclaration
+   E95 ref_obj thread full='' span=27:24:27:30 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileDataDeclaration | set='thread'@compileComplexFuncCall
+   E97 bit_select fibres full='thread.fibres[j]' span=27:31:27:37 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileDataDeclaration | set='thread.fibres[j]'@compileComplexFuncCall
+   E98 ref_obj weftName full='Loom_pkg::Reed::combForeach::weftName' span=27:41:27:49 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileDataDeclaration | set='Loom_pkg::Reed::combForeach::weftName'@SAVE
+P107 thread 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E108 ref_obj thread full='Loom_pkg::Reed::combBodyIdx::thread' span=36:7:36:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='Loom_pkg::Reed::combBodyIdx::thread'@SAVE
+P111  0:0:0:0 <foreach_stmt> mint=compileVariable < compileStmt < compileStmt < compileStmt
+   E112 ref_obj thread full='Loom_pkg::Reed::combBodyIdx::thread' span=37:16:37:22 par=hp | mint=compileVariable < compileStmt < compileStmt < compileStmt | set='Loom_pkg::Reed::combBodyIdx::thread'@SAVE
+   E113 ref_obj fibres full='Loom_pkg::Reed::combBodyIdx::fibres' span=0:0:0:0 par=hp | mint=compileVariable < compileStmt < compileStmt < compileStmt | set='Loom_pkg::Reed::combBodyIdx::fibres'@SAVE
+P122 thread.fibres[k].pick 38:19:38:40 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileDataDeclaration
+   E123 ref_obj thread full='' span=38:19:38:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileDataDeclaration | set='thread'@compileComplexFuncCall
+   E125 bit_select fibres full='thread.fibres[k]' span=38:26:38:32 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileDataDeclaration | set='thread.fibres[k]'@compileComplexFuncCall
+   E126 ref_obj pick full='Loom_pkg::Reed::combBodyIdx::pick' span=38:36:38:40 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileDataDeclaration | set='Loom_pkg::Reed::combBodyIdx::pick'@SAVE
+P139 thread.mesh[lane].pick 45:14:45:36 <return_stmt> mint=compileComplexFuncCall < compileExpression < compileExpression < compileStmt
+   E140 ref_obj thread full='' span=45:14:45:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileStmt | set='thread'@compileComplexFuncCall
+   E142 bit_select mesh full='thread.mesh[lane]' span=45:21:45:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileStmt | set='thread.mesh[lane]'@compileComplexFuncCall
+   E143 ref_obj pick full='Loom_pkg::Reed::combFormal::pick' span=45:32:45:36 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileStmt | set='Loom_pkg::Reed::combFormal::pick'@SAVE

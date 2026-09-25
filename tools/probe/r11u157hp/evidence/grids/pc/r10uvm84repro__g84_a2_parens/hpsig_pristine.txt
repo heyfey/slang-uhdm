@@ -1,0 +1,2 @@
+DIFF  9:11 this.n                   G['N:oo:ss:rr'] O['O:oc:sz:rr [work@g84a2::c2::f::n]'] <assignment> | n = this.n;            // 1 step  (control)
+DIFF  10:11 this.n                   G['N:oo:ss:rr'] O['O:oc:sz:rr [work@g84a2::c2::f::n]'] <operation> | n = this.n + 1;        // 1 step in an operation (control)

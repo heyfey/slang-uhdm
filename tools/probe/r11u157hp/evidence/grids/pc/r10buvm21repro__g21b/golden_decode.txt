@@ -1,0 +1,3 @@
+P152 this.aa 24:43:24:53 <operation> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E153 ref_obj this full='' span=24:48:24:50 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E154 ref_obj aa full='hp21::k21::n_inc_this::aa' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='hp21::k21::n_inc_this::aa'@SAVE

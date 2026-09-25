@@ -1,0 +1,3 @@
+DIFF  9:9 s.a                      G['O:oc:ss:rr [work@top.mem.a]'] O['N:oo:ss:rr'] <bit_select> | mem[s.a] <= q;
+MATCH 10:9 sub.adr[3:0]             G['O:oc:ss:rp [sub.adr[3:0]]'] O['O:oc:ss:rp [sub.adr[3:0]]'] <bit_select> | mem[sub.adr[3:0]] <= q;
+DIFF  11:9 Cfg.D                    G['O:oc:ss:rr [work@top.mem.D]'] O['N:oo:ss:rr'] <bit_select> | mem[Cfg.D] <= q;

@@ -1,0 +1,10 @@
+MATCH 0:0 o                        G['O:c:s:r [work@top.o]'] O['O:c:s:r [work@top.o]'] <assignment> | 
+MATCH 8:9 this.x                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | r = this.x;
+MATCH 9:9 this.x                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | r = this.x + this.y;
+MATCH 9:18 this.y                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | r = this.x + this.y;
+MATCH 10:11 this.x                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <func_call> | r = g(this.x);
+MATCH 11:9 this.x                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | if (this.x > 0) r = 1;
+MATCH 12:9 this.arr                 G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | r = this.arr[this.n];
+MATCH 15:9 this.arr                 G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | r = this.arr[1];
+DIFF  16:9 super.bx                 G['N:oo:ss:rr'] O[] <assignment> | r = super.bx;
+MATCH 17:12 this.y                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <return_stmt> | return this.y;

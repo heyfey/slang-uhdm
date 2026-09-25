@@ -1,0 +1,17 @@
+MATCH 30:11 dq.size                  G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | j = dq.size();
+MATCH 32:11 am4.num                  G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | j = am4.num();
+MATCH 33:11 am4.exists               G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | j = am4.exists("k4");
+MATCH 38:12 sname.len                G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | j  = sname.len();
+MATCH 39:12 sname.substr             G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | s2 = sname.substr(0, 2);
+MATCH 41:12 sname.toupper            G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | s2 = sname.toupper();
+MATCH 42:12 sname.atoi               G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | j  = sname.atoi();
+MATCH 44:12 hue.name                 G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | s2 = hue.name();
+MATCH 45:13 hue.next                 G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | hue = hue.next();
+MATCH 46:11 hue.num                  G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | j = hue.num();
+MATCH 51:11 cel.randomize            G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | j = cel.randomize();
+MATCH 52:11 cel.randomize            G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | j = cel.randomize(rv);
+MATCH 55:11 dq.size                  G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | if (dq.size() > 0) j = 1;
+MATCH 56:26 am4.num                  G['O:oo:ss:rm'] O['O:oo:ss:rm'] <sys_func_call> | $display("%0d %s", am4.num(), sname.substr(1, 1));
+MATCH 56:37 sname.substr             G['O:oo:ss:rm'] O['O:oo:ss:rm'] <sys_func_call> | $display("%0d %s", am4.num(), sname.substr(1, 1));
+MATCH 57:11 dq.size                  G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | j = dq.size() + am4.num();
+MATCH 57:23 am4.num                  G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | j = dq.size() + am4.num();

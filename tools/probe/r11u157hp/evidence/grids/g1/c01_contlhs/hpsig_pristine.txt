@@ -1,0 +1,2 @@
+MATCH 8:10 s.a                      G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <cont_assign> | assign s.a = 4'd1;
+MATCH 9:10 sub.dat                  G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <cont_assign> | assign sub.dat = 8'd2;

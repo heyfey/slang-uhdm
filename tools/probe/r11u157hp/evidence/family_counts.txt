@@ -1,0 +1,46 @@
+cluster  row-modes (pristine sweep -> law sweep)  objects
+N0001   48 ->  26     7226 ->   2535
+N0007   32 ->  24     5571 ->    483
+N0018   25 ->  11     1568 ->     46
+N0071   13 ->  11     2401 ->    292
+N0097   11 ->  11     1384 ->     85
+N0098   11 ->   7     4974 ->     42
+N0099   11 ->   0     4932 ->      0
+N0101   11 ->   0     1465 ->      0
+N0102   11 ->   0     1465 ->      0
+
+surelog/default/BlackBePipeInt  N0001 N0018 -> (none)
+surelog/default/BuildUVMPkg  N0001 N0007 N0018 N0071 N0097 N0098 N0099 N0101 N0102 -> N0001 N0007 N0018 N0071 N0097
+surelog/default/CovMacro  N0001 N0007 -> N0001
+surelog/default/InterfaceModPort  N0001 N0018 -> (none)
+surelog/default/LocalScopeHierPath  N0018 N0101 N0102 -> (none)
+surelog/default/MiniAmiq  N0001 N0007 N0018 N0071 N0097 N0098 N0099 N0101 N0102 -> N0001 N0007 N0018 N0071 N0097 N0098
+surelog/default/SVSwitch  N0001 N0007 N0071 N0098 N0099 -> N0007
+surelog/default/Scoreboard  N0001 N0007 N0018 N0071 N0097 N0098 N0099 N0101 N0102 -> N0001 N0007 N0018 N0071 N0097 N0098
+surelog/default/SeqDriver  N0001 N0007 N0018 N0071 N0097 N0098 N0099 N0101 N0102 -> N0001 N0007 N0018 N0071 N0097 N0098
+surelog/default/SimpleUVM  N0001 N0007 N0018 N0071 N0097 N0098 N0099 N0101 N0102 -> N0001 N0007 N0018 N0071 N0097 N0098
+surelog/default/StructParamFuncBodyFieldCompare  N0001 N0018 -> (none)
+surelog/default/StructParamPatternInitCast  N0001 N0018 -> (none)
+surelog/testflags/BlackBePipeInt  N0001 N0018 -> (none)
+surelog/testflags/BuildUVMPkg  N0001 N0007 N0018 N0071 N0097 N0098 N0099 N0101 N0102 -> N0001 N0007 N0018 N0071 N0097
+surelog/testflags/CovMacro  N0001 N0007 -> N0001
+surelog/testflags/InterfaceModPort  N0001 N0018 -> (none)
+surelog/testflags/LocalScopeHierPath  N0018 N0101 N0102 -> (none)
+surelog/testflags/MiniAmiq  N0001 N0007 N0018 N0071 N0097 N0098 N0099 N0101 N0102 -> N0001 N0007 N0018 N0071 N0097 N0098
+surelog/testflags/SVSwitch  N0001 N0007 N0071 N0098 N0099 -> N0007
+surelog/testflags/SeqDriver  N0001 N0007 N0018 N0071 N0097 N0098 N0099 N0101 N0102 -> N0001 N0007 N0018 N0071 N0097 N0098
+surelog/testflags/SimpleUVM  N0001 N0007 N0018 N0071 N0097 N0098 N0099 N0101 N0102 -> N0001 N0007 N0018 N0071 N0097 N0098
+surelog/testflags/StructParamFuncBodyFieldCompare  N0001 N0018 -> (none)
+surelog/testflags/StructParamPatternInitCast  N0001 N0018 -> (none)
+uhdm2rtlil/default/expr_width_cast  N0001 -> (none)
+uhdm2rtlil/default/iface_scalar_localparam  N0001 N0007 -> (none)
+uhdm2rtlil/default/iface_struct_field_partsel  N0001 N0007 -> (none)
+uhdm2rtlil/default/mem_ff_partial_rsp  N0001 N0018 -> (none)
+uhdm2rtlil/default/mem_read_reg  N0001 N0018 -> (none)
+uhdm2rtlil/default/portsel_struct_param  N0001 N0007 -> (none)
+uhdm2rtlil/testflags/expr_width_cast  N0001 -> (none)
+uhdm2rtlil/testflags/iface_scalar_localparam  N0001 N0007 -> (none)
+uhdm2rtlil/testflags/iface_struct_field_partsel  N0001 N0007 -> (none)
+uhdm2rtlil/testflags/mem_ff_partial_rsp  N0001 N0018 -> (none)
+uhdm2rtlil/testflags/mem_read_reg  N0001 N0018 -> (none)
+uhdm2rtlil/testflags/portsel_struct_param  N0001 N0007 -> (none)

@@ -1,0 +1,5 @@
+P5 q_one 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E6 ref_obj q_one full='work@top_q.q_one' span=25:5:25:10 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@top_q.q_one'@SAVE
+P11 q_one.randomize 27:10:27:31 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E12 ref_obj q_one full='' span=27:10:27:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='q_one'@compileComplexFuncCall
+   E13 method_func_call randomize full='' span=27:16:27:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-

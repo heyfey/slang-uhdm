@@ -1,0 +1,26 @@
+P81 w1_mod.lo 30:12:30:21 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt
+   E82 ref_obj w1_mod full='' span=30:19:30:21 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='w1_mod'@compileSelectExpression
+   E83 ref_obj lo full='' span=30:19:30:21 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='lo'@compileSelectExpression
+P86 two_i[0].a_valid 30:37:30:53 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern
+   E88 bit_select two_i full='two_i[0]' span=30:37:30:42 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern | set='two_i[0]'@compileComplexFuncCall
+   E89 ref_obj a_valid full='work@w1_memlhs.gen_w1.a_valid' span=30:46:30:53 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern | set='work@w1_memlhs.gen_w1.a_valid'@SAVE
+P93 two_i[0].a_opcode 31:37:31:54 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern
+   E95 bit_select two_i full='two_i[0]' span=31:37:31:42 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern | set='two_i[0]'@compileComplexFuncCall
+   E96 ref_obj a_opcode full='work@w1_memlhs.gen_w1.a_opcode' span=31:46:31:54 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern | set='work@w1_memlhs.gen_w1.a_opcode'@SAVE
+P107 w1_mod.lo.a_valid 34:16:34:33 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E108 ref_obj w1_mod full='' span=34:16:34:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='w1_mod'@compileComplexFuncCall
+   E109 ref_obj lo full='' span=34:23:34:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='lo'@compileComplexFuncCall
+   E110 ref_obj a_valid full='work@w1_memlhs.a_valid' span=34:26:34:33 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@w1_memlhs.a_valid'@SAVE
+P180 w1_mod.lo 30:12:30:21 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E181 ref_obj w1_mod full='' span=30:19:30:21 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='w1_mod'@compileSelectExpression
+   E182 ref_obj lo full='' span=30:19:30:21 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='lo'@compileSelectExpression
+P185 two_i[0].a_valid 30:37:30:53 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern
+   E189 bit_select two_i full='two_i[0]' span=30:37:30:42 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern | set='two_i[0]'@compileComplexFuncCall
+   E190 ref_obj a_valid full='work@w1_memlhs.gen_w1.a_valid' span=30:46:30:53 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern | set='work@w1_memlhs.gen_w1.a_valid'@SAVE
+P194 two_i[0].a_opcode 31:37:31:54 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern
+   E197 bit_select two_i full='two_i[0]' span=31:37:31:42 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern | set='two_i[0]'@compileComplexFuncCall
+   E198 ref_obj a_opcode full='work@w1_memlhs.gen_w1.a_opcode' span=31:46:31:54 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern | set='work@w1_memlhs.gen_w1.a_opcode'@SAVE
+P248 w1_mod.lo.a_valid 34:16:34:33 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepClone
+   E249 ref_obj w1_mod full='' span=34:16:34:22 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E250 ref_obj lo full='' span=34:23:34:25 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E251 ref_obj a_valid full='work@w1_memlhs.a_valid' span=34:26:34:33 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set='work@w1_memlhs.a_valid'@SAVE

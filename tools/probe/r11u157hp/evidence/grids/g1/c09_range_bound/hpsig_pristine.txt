@@ -1,0 +1,2 @@
+MATCH 8:10 Cfg.W                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | logic [Cfg.W-1:0] r1;
+MATCH 9:10 sub.OFF                  G['N:oo:ss:rr'] O['N:oo:ss:rr'] <range> | logic [sub.OFF:0] r2;

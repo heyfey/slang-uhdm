@@ -1,0 +1,2 @@
+MATCH 0:0 o                        G['O:c:s:r [work@top.o]'] O['O:c:s:r [work@top.o]'] <assignment> | 
+MATCH 4:22 this.x                   G['O:oc:sz:rr [work@outer::f::x]'] O['O:oc:sz:rr [work@outer::f::x]'] <operation> | function void f(); this.x++; endfunction

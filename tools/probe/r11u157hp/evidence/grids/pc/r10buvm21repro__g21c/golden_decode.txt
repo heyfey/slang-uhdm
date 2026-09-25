@@ -1,0 +1,9 @@
+P114 prop_st.a 31:45:31:54 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileStmt
+   E115 ref_obj prop_st full='' span=31:53:31:54 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileStmt | set='prop_st'@compileSelectExpression
+   E116 ref_obj a full='' span=31:53:31:54 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileStmt | set='a'@compileSelectExpression
+P143 hnd.h_arr[s] 37:45:37:57 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileStmt
+   E144 ref_obj hnd full='' span=37:49:37:54 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileStmt | set='hnd'@compileSelectExpression
+   E145 bit_select h_arr full='cp21::cc21::s_objidx::hnd.h_arr[s]::h_arr' span=37:49:37:57 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileStmt | set='cp21::cc21::s_objidx::hnd.h_arr[s]::h_arr'@SAVE
+P152 this.prop_arr 38:45:38:61 <operation> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E153 ref_obj this full='' span=38:50:38:58 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E154 ref_obj prop_arr full='cp21::cc21::s_objidx2::prop_arr' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='cp21::cc21::s_objidx2::prop_arr'@SAVE

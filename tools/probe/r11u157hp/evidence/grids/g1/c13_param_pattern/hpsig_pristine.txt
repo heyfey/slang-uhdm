@@ -1,0 +1,2 @@
+DIFF  8:30 Cfg.W                    G['O:oc:ss:rr [work@top.W]'] O['N:oo:ss:rr'] <operation> | localparam cfg_t P2 = '{W: Cfg.W - 1, D: Cfg.D};
+DIFF  8:44 Cfg.D                    G['O:oc:ss:rr [work@top.D]'] O['N:oo:ss:rr'] <operation> | localparam cfg_t P2 = '{W: Cfg.W - 1, D: Cfg.D};

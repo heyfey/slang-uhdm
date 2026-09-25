@@ -1,0 +1,4 @@
+MATCH 6:14 c.n                      G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <assignment> | cfg_t c; c.n = x; c.t = 8'h5A; return c;
+MATCH 6:23 c.t                      G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <assignment> | cfg_t c; c.n = x; c.t = 8'h5A; return c;
+DIFF  12:40 $root.dut.M_LOC.n        G['N:oooo:ssss:rrrr'] O['O:oooc:ssss:rrrr [work@dut.n]'] <cont_assign> | logic [31:0] r_path; assign r_path = $root.dut.M_LOC.n;  // $root-root
+MATCH 13:40 M_LOC.n                  G['O:oc:ss:rr [work@dut.n]'] O['O:oc:ss:rr [work@dut.n]'] <cont_assign> | logic [31:0] r_own;  assign r_own  = M_LOC.n;            // control

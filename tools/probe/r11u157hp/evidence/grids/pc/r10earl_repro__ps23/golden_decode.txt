@@ -1,0 +1,6 @@
+P106 mstr.f 40:12:40:18 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt
+   E107 ref_obj mstr full='' span=40:17:40:18 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='mstr'@compileSelectExpression
+   E108 ref_obj f full='' span=40:17:40:18 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='f'@compileSelectExpression
+P521 mstr.f 40:12:40:18 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E522 ref_obj mstr full='' span=40:17:40:18 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='mstr'@compileSelectExpression
+   E523 ref_obj f full='' span=40:17:40:18 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='f'@compileSelectExpression

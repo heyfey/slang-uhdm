@@ -1,0 +1,14 @@
+MATCH 3:10 conntb.drive             G['N:oo:ss:rr'] O['N:oo:ss:rr'] <cont_assign> | assign conntb.drive = i;
+MATCH 4:14 conntb.observe           G['O:oc:ss:rr [work@dut.observe]'] O['O:oc:ss:rr [work@dut.observe]'] <cont_assign> | assign o = conntb.observe;
+DIFF  23:17 intf.drive               G['O:oc:ss:rr [work@middle.sub1.inp.drive]'] O['O:oc:ss:rr [work@TOP.dut1.middle1.drive]', 'O:oc:ss:rr [work@middle.sub1.inp.drive]'] <port> | SUB sub1(.inp(intf.drive), .out(intf.observe));
+DIFF  23:35 intf.observe             G['O:oc:ss:rr [work@middle.sub1.out.observe]'] O['O:oc:ss:rr [work@TOP.dut1.middle1.observe]', 'O:oc:ss:rr [work@middle.sub1.out.observe]'] <port> | SUB sub1(.inp(intf.drive), .out(intf.observe));
+MATCH 33:46 intf.drive               G['O:oc:ss:rr [work@TOP.tb.drive]'] O['O:oc:ss:rr [work@TOP.tb.drive]'] <sys_func_call> | $monitor("@%0dns i = %0d, o = %0d",$time,intf.drive, intf.observe);
+MATCH 33:58 intf.observe             G['O:oc:ss:rr [work@TOP.tb.observe]'] O['O:oc:ss:rr [work@TOP.tb.observe]'] <sys_func_call> | $monitor("@%0dns i = %0d, o = %0d",$time,intf.drive, intf.observe);
+MATCH 34:5 intf.drive               G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | intf.drive = 0;
+MATCH 35:15 intf.drive               G['O:oc:ss:rr [work@TOP.tb.drive]'] O['O:oc:ss:rr [work@TOP.tb.drive]'] <operation> | #1 assert(intf.drive == intf.observe) $display("OK!"); else $fatal(1, 
+MATCH 35:29 intf.observe             G['O:oc:ss:rr [work@TOP.tb.observe]'] O['O:oc:ss:rr [work@TOP.tb.observe]'] <operation> | #1 assert(intf.drive == intf.observe) $display("OK!"); else $fatal(1, 
+MATCH 36:10 intf.drive               G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | #100 intf.drive = 1;
+MATCH 37:15 intf.drive               G['O:oc:ss:rr [work@TOP.tb.drive]'] O['O:oc:ss:rr [work@TOP.tb.drive]'] <operation> | #1 assert(intf.drive == intf.observe) $display("OK!"); else $fatal(1, 
+MATCH 37:29 intf.observe             G['O:oc:ss:rr [work@TOP.tb.observe]'] O['O:oc:ss:rr [work@TOP.tb.observe]'] <operation> | #1 assert(intf.drive == intf.observe) $display("OK!"); else $fatal(1, 
+DIFF  45:12 conntb.drive             G['N:oo:ss:rr'] O['O:oc:ss:rr [work@TOP.dut1.i.drive]'] <port> | dut dut1(conntb.drive, conntb.observe);
+MATCH 45:26 conntb.observe           G['O:oc:ss:rr [work@TOP.dut1.o.observe]'] O['O:oc:ss:rr [work@TOP.dut1.o.observe]'] <port> | dut dut1(conntb.drive, conntb.observe);

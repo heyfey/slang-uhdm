@@ -1,0 +1,18 @@
+P10 q1.size 4:9:4:18 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E11 ref_obj q1 full='' span=4:9:4:11 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='q1'@compileComplexFuncCall
+   E12 method_func_call size full='' span=4:12:4:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P19 q1.size 5:9:5:18 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E20 ref_obj q1 full='' span=5:9:5:11 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='q1'@compileComplexFuncCall
+   E21 method_func_call size full='' span=5:12:5:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P33 qq_two_132.size 4:9:4:26 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E34 ref_obj qq_two_132 full='' span=4:9:4:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='qq_two_132'@compileComplexFuncCall
+   E35 method_func_call size full='' span=4:20:4:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P42 qq_two_132.size 5:9:5:26 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E43 ref_obj qq_two_132 full='' span=5:9:5:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='qq_two_132'@compileComplexFuncCall
+   E44 method_func_call size full='' span=5:20:5:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P56 a_very_long_receiver_name_132.size 4:9:4:45 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E57 ref_obj a_very_long_receiver_name_132 full='' span=4:9:4:38 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='a_very_long_receiver_name_132'@compileComplexFuncCall
+   E58 method_func_call size full='' span=4:39:4:43 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P65 a_very_long_receiver_name_132.size 5:9:5:45 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E66 ref_obj a_very_long_receiver_name_132 full='' span=5:9:5:38 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='a_very_long_receiver_name_132'@compileComplexFuncCall
+   E67 method_func_call size full='' span=5:39:5:43 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-

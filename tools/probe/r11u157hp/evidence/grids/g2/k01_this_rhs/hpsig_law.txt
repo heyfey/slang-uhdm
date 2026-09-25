@@ -1,0 +1,2 @@
+MATCH 0:0 o                        G['O:c:s:r [work@top.o]'] O['O:c:s:r [work@top.o]'] <assignment> | 
+MATCH 4:28 this.x                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <return_stmt> | function int f(); return this.x; endfunction

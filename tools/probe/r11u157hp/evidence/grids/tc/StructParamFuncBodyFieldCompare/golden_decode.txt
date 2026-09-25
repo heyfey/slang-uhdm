@@ -1,0 +1,72 @@
+P54 r.XLEN 25:5:25:11 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E55 ref_obj r full='' span=25:7:25:11 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='r'@compileSelectExpression
+   E56 ref_obj XLEN full='' span=25:7:25:11 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='XLEN'@compileSelectExpression
+P57 c.XLEN 25:14:25:20 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E58 ref_obj c full='' span=25:14:25:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='c'@compileComplexFuncCall
+   E59 ref_obj XLEN full='cfg_pkg::build_config::XLEN' span=25:16:25:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='cfg_pkg::build_config::XLEN'@SAVE
+P61 r.Flag 26:5:26:11 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E62 ref_obj r full='' span=26:7:26:11 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='r'@compileSelectExpression
+   E63 ref_obj Flag full='' span=26:7:26:11 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='Flag'@compileSelectExpression
+P64 c.NrRules 26:15:26:24 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E65 ref_obj c full='' span=26:15:26:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='c'@compileComplexFuncCall
+   E66 ref_obj NrRules full='cfg_pkg::build_config::NrRules' span=26:17:26:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='cfg_pkg::build_config::NrRules'@SAVE
+P70 c.Length 26:34:26:42 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E71 ref_obj c full='' span=26:34:26:35 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='c'@compileComplexFuncCall
+   E72 ref_obj Length full='cfg_pkg::build_config::Length' span=26:36:26:42 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='cfg_pkg::build_config::Length'@SAVE
+P213 r.XLEN 25:5:25:11 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E214 ref_obj r full='' span=25:7:25:11 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='r'@compileSelectExpression
+   E215 ref_obj XLEN full='' span=25:7:25:11 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='XLEN'@compileSelectExpression
+P216 c.XLEN 25:14:25:20 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E217 ref_obj c full='' span=25:14:25:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='c'@compileComplexFuncCall
+   E218 ref_obj XLEN full='cfg_pkg::build_config::XLEN' span=25:16:25:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='cfg_pkg::build_config::XLEN'@SAVE
+P220 r.Flag 26:5:26:11 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E221 ref_obj r full='' span=26:7:26:11 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='r'@compileSelectExpression
+   E222 ref_obj Flag full='' span=26:7:26:11 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='Flag'@compileSelectExpression
+P223 c.NrRules 26:15:26:24 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E224 ref_obj c full='' span=26:15:26:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='c'@compileComplexFuncCall
+   E225 ref_obj NrRules full='cfg_pkg::build_config::NrRules' span=26:17:26:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='cfg_pkg::build_config::NrRules'@SAVE
+P229 c.Length 26:34:26:42 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E230 ref_obj c full='' span=26:34:26:35 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='c'@compileComplexFuncCall
+   E231 ref_obj Length full='cfg_pkg::build_config::Length' span=26:36:26:42 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='cfg_pkg::build_config::Length'@SAVE
+P332 Cfg.XLEN 43:12:43:20 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E333 ref_obj Cfg full='' span=43:16:43:20 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='Cfg'@compileSelectExpression
+   E334 ref_obj XLEN full='' span=43:16:43:20 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='XLEN'@compileSelectExpression
+P342 Cfg.XLEN 44:12:44:20 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E343 ref_obj Cfg full='' span=44:16:44:20 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='Cfg'@compileSelectExpression
+   E344 ref_obj XLEN full='' span=44:16:44:20 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='XLEN'@compileSelectExpression
+P360 Cfg.XLEN 47:31:47:39 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E361 ref_obj Cfg full='' span=47:31:47:34 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='Cfg'@compileComplexFuncCall
+   E362 ref_obj XLEN full='work@StructParamFuncBodyFieldCompare.XLEN' span=47:35:47:39 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@StructParamFuncBodyFieldCompare.XLEN'@SAVE
+P376 Cfg.XLEN 48:31:48:39 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E377 ref_obj Cfg full='' span=48:31:48:34 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='Cfg'@compileComplexFuncCall
+   E378 ref_obj XLEN full='work@StructParamFuncBodyFieldCompare.XLEN' span=48:35:48:39 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@StructParamFuncBodyFieldCompare.XLEN'@SAVE
+P392 INT.S_SW 50:22:50:30 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E393 ref_obj INT full='' span=50:22:50:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='INT'@compileComplexFuncCall
+   E394 ref_obj S_SW full='work@StructParamFuncBodyFieldCompare.S_SW' span=50:26:50:30 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@StructParamFuncBodyFieldCompare.S_SW'@SAVE
+P395 INT.M_SW 50:33:50:41 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E396 ref_obj INT full='' span=50:33:50:36 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='INT'@compileComplexFuncCall
+   E397 ref_obj M_SW full='work@StructParamFuncBodyFieldCompare.M_SW' span=50:37:50:41 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@StructParamFuncBodyFieldCompare.M_SW'@SAVE
+P400 Cfg.Flag 51:16:51:24 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E401 ref_obj Cfg full='' span=51:16:51:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='Cfg'@compileComplexFuncCall
+   E402 ref_obj Flag full='work@StructParamFuncBodyFieldCompare.Flag' span=51:20:51:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@StructParamFuncBodyFieldCompare.Flag'@SAVE
+P985 Cfg.XLEN 39:19:39:27 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E986 ref_obj Cfg full='' span=39:23:39:27 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='Cfg'@compileSelectExpression
+   E987 ref_obj XLEN full='' span=39:23:39:27 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='XLEN'@compileSelectExpression
+P1015 c.NrRules 26:15:26:24 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepCopy
+   E1016 ref_obj c full='' span=26:15:26:16 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E1017 ref_obj NrRules full='work@StructParamFuncBodyFieldCompare.Cfg.cfg_pkg::cfg_t.Flag.NrRules' span=26:17:26:24 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set='work@StructParamFuncBodyFieldCompare.Cfg.cfg_pkg::cfg_t.Flag.NrRules'@SAVE
+P1020 c.Length 26:34:26:42 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepCopy
+   E1021 ref_obj c full='' span=26:34:26:35 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E1022 ref_obj Length full='work@StructParamFuncBodyFieldCompare.Cfg.cfg_pkg::cfg_t.Flag.Length' span=26:36:26:42 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set='work@StructParamFuncBodyFieldCompare.Cfg.cfg_pkg::cfg_t.Flag.Length'@SAVE
+P1032 Cfg.XLEN 43:12:43:20 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepCopy
+   E1033 ref_obj Cfg full='' span=43:16:43:20 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E1034 ref_obj XLEN full='' span=43:16:43:20 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+P1042 Cfg.XLEN 44:12:44:20 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepCopy
+   E1043 ref_obj Cfg full='' span=44:16:44:20 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E1044 ref_obj XLEN full='' span=44:16:44:20 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+P1051 INT.S_SW 50:22:50:30 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepClone
+   E1052 ref_obj INT full='' span=50:22:50:25 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E1053 ref_obj S_SW full='work@StructParamFuncBodyFieldCompare.S_SW' span=50:26:50:30 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set='work@StructParamFuncBodyFieldCompare.S_SW'@SAVE
+P1054 INT.M_SW 50:33:50:41 <operation> mint=DeepClone < DeepCopy < DeepClone < DeepClone
+   E1055 ref_obj INT full='' span=50:33:50:36 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set=-
+   E1056 ref_obj M_SW full='work@StructParamFuncBodyFieldCompare.M_SW' span=50:37:50:41 par=hp | mint=DeepClone < DeepClone < DeepCopy < DeepClone | set='work@StructParamFuncBodyFieldCompare.M_SW'@SAVE

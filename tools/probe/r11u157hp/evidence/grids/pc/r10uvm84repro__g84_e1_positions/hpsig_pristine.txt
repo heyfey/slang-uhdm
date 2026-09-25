@@ -1,0 +1,4 @@
+DIFF  22:7 this.h.fld               G['O:occ:szz:rrr [work@g84e1::c1e::f::h,work@g84e1::c1e::f::fld]'] O['O:ooc:ssz:rrr [work@g84e1::c1e::f::fld]'] <operation> | this.h.fld--;                       // DEC lvalue
+DIFF  23:9 this.h.fld               G['O:occ:szz:rrr [work@g84e1::c1e::f::h,work@g84e1::c1e::f::fld]'] O['O:ooc:ssz:rrr [work@g84e1::c1e::f::fld]'] <operation> | --this.h.fld;                       // PRE-DEC lvalue
+MATCH 24:11 this.q                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | n = this.q[this.h.fld];             // deep chain as an INDEX (rvalue)
+MATCH 25:7 this.q                   G['O:oc:sz:rr [work@g84e1::c1e::f::q]'] O['O:oc:sz:rr [work@g84e1::c1e::f::q]'] <assignment> | this.q[this.h.fld] = 3;             // deep chain as an INDEX inside a

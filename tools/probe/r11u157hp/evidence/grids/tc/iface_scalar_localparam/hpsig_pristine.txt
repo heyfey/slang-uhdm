@@ -1,0 +1,6 @@
+DIFF  7:33 CFG.BUS.DAT              G['N:ooo:sss:rrr'] O['O:ooc:sss:rrr [work@tif.DAT]'] <operation> | localparam int unsigned BYT = CFG.BUS.DAT/8;   // 4
+MATCH 17:14 sub.OFF                  G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | logic [ADR-sub.OFF-1:0] a;
+MATCH 18:14 sub.adr[ADR - 1:]        G['O:oc:ss:rp [sub.adr[ADR - 1:]]'] O['O:oc:ss:rp [sub.adr[ADR - 1:]]'] <cont_assign> | assign a = sub.adr[ADR-1:sub.OFF];
+DIFF  18:28 sub.OFF                  G['N:oo:ss:rr'] O['O:oc:ss:rr [work@mem.OFF]'] <part_select> | assign a = sub.adr[ADR-1:sub.OFF];
+MATCH 23:10 s.adr                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <cont_assign> | assign s.adr = adr;
+MATCH 24:15 s.sub                    G['O:oc:ss:rr [work@iface_scalar_localparam.u.sub.sub]', 'O:oc:ss:rr [work@iface_scalar_localparam.u.sub.sub]'] O['O:oc:ss:rr [work@iface_scalar_localparam.u.sub.sub]', 'O:oc:ss:rr [work@iface_scalar_localparam.u.sub.sub]'] <port> | mem u (.sub(s.sub), .o(o));

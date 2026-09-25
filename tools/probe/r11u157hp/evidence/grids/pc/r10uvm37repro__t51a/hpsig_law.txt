@@ -1,0 +1,3 @@
+MATCH 0:0 o                        G['O:c:s:r [imp51::g51::o]', 'O:c:s:r [imp51::g51::o]'] O['O:c:s:r [imp51::g51::o]', 'O:c:s:r [imp51::g51::o]'] <assignment> | 
+MATCH 50:26 this.prop                G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | acc = acc + prop + this.prop;
+MATCH 83:12 o.m51                    G['O:oo:ss:rm', 'O:oo:ss:rm'] O['O:oo:ss:rm', 'O:oo:ss:rm'] <operation> | return o.m51(m) + f51(m);

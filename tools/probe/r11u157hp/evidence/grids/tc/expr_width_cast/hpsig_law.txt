@@ -1,0 +1,3 @@
+MATCH 25:9 Cfg.PtLevels             G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | ((Cfg.PtLevels + HYP_EXT) * (Cfg.VpnLen / Cfg.PtLevels))'(vpn),
+MATCH 25:36 Cfg.VpnLen               G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | ((Cfg.PtLevels + HYP_EXT) * (Cfg.VpnLen / Cfg.PtLevels))'(vpn),
+MATCH 25:49 Cfg.PtLevels             G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | ((Cfg.PtLevels + HYP_EXT) * (Cfg.VpnLen / Cfg.PtLevels))'(vpn),

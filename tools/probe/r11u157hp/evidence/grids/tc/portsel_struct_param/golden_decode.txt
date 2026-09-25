@@ -1,0 +1,18 @@
+P37 c.VLEN 11:14:11:20 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E38 ref_obj c full='' span=11:16:11:20 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E39 ref_obj VLEN full='' span=11:16:11:20 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='VLEN'@compileSelectExpression
+P42 c.XLEN 11:39:11:45 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E43 ref_obj c full='' span=11:41:11:45 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E44 ref_obj XLEN full='' span=11:41:11:45 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='XLEN'@compileSelectExpression
+P132 c.VLEN 11:14:11:20 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E133 ref_obj c full='' span=11:16:11:20 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E134 ref_obj VLEN full='' span=11:16:11:20 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='VLEN'@compileSelectExpression
+P137 c.XLEN 11:39:11:45 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E138 ref_obj c full='' span=11:41:11:45 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E139 ref_obj XLEN full='' span=11:41:11:45 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='XLEN'@compileSelectExpression
+P178 CFG.VLEN 30:29:30:37 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E179 ref_obj CFG full='' span=30:33:30:37 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='CFG'@compileSelectExpression
+   E180 ref_obj VLEN full='' span=30:33:30:37 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='VLEN'@compileSelectExpression
+P270 CFG.VLEN 30:29:30:37 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E271 ref_obj CFG full='' span=30:33:30:37 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='CFG'@compileSelectExpression
+   E272 ref_obj VLEN full='' span=30:33:30:37 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='VLEN'@compileSelectExpression

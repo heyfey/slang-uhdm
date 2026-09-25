@@ -1,0 +1,2 @@
+MATCH 0:0 o                        G['O:c:s:r [work@top.o]'] O['O:c:s:r [work@top.o]'] <assignment> | 
+MATCH 4:28 in1.arr[1]               G['O:oc:ss:rb [work@outer::f::in1.arr[1]::arr]'] O['O:oc:ss:rb [work@outer::f::in1.arr[1]::arr]'] <return_stmt> | function int f(); return in1.arr[1]; endfunction

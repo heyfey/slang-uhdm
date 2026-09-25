@@ -1,0 +1,8 @@
+MATCH 0:0 o                        G['O:c:s:r [work@top.o]'] O['O:c:s:r [work@top.o]'] <assignment> | 
+MATCH 26:9 d.size                   G['O:oc:ss:rr [work@w3::f::size]'] O['O:oc:ss:rr [work@w3::f::size]'] <assignment> | r = d.size;            // (1) BASELINE tight, no macro
+MATCH 27:13 d.size                   G['O:oc:ss:rr [work@w3::f::size]'] O['O:oc:ss:rr [work@w3::f::size]'] <operation> | r = r + `SZ_NOPAREN;   // (2) parens-less method THROUGH A MACRO
+MATCH 28:13 d.size                   G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | r = r + `SZ_PAREN;     // (3) parens-ful  method THROUGH A MACRO
+MATCH 31:13 a.b.size                 G['O:ooc:sss:rrr [work@w3::f::size]'] O['O:ooc:sss:rrr [work@w3::f::size]'] <operation> | r = r + a.b.size;      // (6) DEEP dotted receiver, parens-less
+MATCH 32:13 a.b.size                 G['O:ooo:sss:rrm'] O['O:ooo:sss:rrm'] <operation> | r = r + a.b.size();    // (7) DEEP dotted receiver, parens-ful  (contr
+MATCH 40:16 o.a                      G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | o = new(); o.a = new();
+MATCH 41:21 o.f                      G['O:oo:ss:rm'] O['O:oo:ss:rm'] <sys_func_call> | $display("%0d", o.f());

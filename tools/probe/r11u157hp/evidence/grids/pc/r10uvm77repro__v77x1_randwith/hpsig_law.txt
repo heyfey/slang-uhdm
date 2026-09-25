@@ -1,0 +1,5 @@
+MATCH 0:0 o                        G['O:c:s:r [work@top77x1.o]'] O['O:c:s:r [work@top77x1.o]'] <assignment> | 
+MATCH 25:9 o                        G['O:co:sz:rm [work@top77x1.o]'] O['O:co:sz:rm [work@top77x1.o]'] <assignment> | r = o.randomize with { a > 5; };          // (1) PARENS-LESS + with bl
+MATCH 26:13 o                        G['O:co:sz:rm [work@top77x1.o]'] O['O:co:sz:rm [work@top77x1.o]'] <operation> | r = r + o.randomize() with { a > 6; };    // (2) parens-ful + with blo
+MATCH 27:13 o.randomize              G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | r = r + o.randomize();                    // (3) parens-ful control
+MATCH 28:13 o.randomize              G['O:oc:ss:rr [work@top77x1.randomize]'] O['O:oc:ss:rr [work@top77x1.randomize]'] <operation> | r = r + o.randomize;                      // (4) parens-less, no with

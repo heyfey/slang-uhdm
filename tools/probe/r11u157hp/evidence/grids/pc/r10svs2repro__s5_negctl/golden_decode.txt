@@ -1,0 +1,11 @@
+P6 h 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E7 ref_obj h full='work@top.h' span=34:5:34:6 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@top.h'@SAVE
+P10 h.o 35:5:35:6 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileBlockingAssignment
+   E11 ref_obj h full='' span=35:7:35:8 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileBlockingAssignment | set='h'@compileSelectExpression
+   E12 ref_obj o full='' span=35:7:35:8 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileBlockingAssignment | set='o'@compileSelectExpression
+P16 h.f 36:21:36:26 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E17 ref_obj h full='' span=36:21:36:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='h'@compileComplexFuncCall
+   E18 method_func_call f full='' span=36:23:36:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set=-
+P38 o.val 24:9:24:14 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E39 ref_obj o full='' span=24:9:24:10 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='o'@compileComplexFuncCall
+   E40 ref_obj val full='work@holder::f::val' span=24:11:24:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@holder::f::val'@SAVE

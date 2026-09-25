@@ -1,0 +1,2 @@
+MATCH 8:30 Cfg.W                    G['O:oc:ss:rr [work@top.W]'] O['O:oc:ss:rr [work@top.W]'] <operation> | localparam cfg_t P2 = '{W: Cfg.W - 1, D: Cfg.D};
+MATCH 8:44 Cfg.D                    G['O:oc:ss:rr [work@top.D]'] O['O:oc:ss:rr [work@top.D]'] <operation> | localparam cfg_t P2 = '{W: Cfg.W - 1, D: Cfg.D};

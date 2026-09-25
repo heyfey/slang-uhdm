@@ -1,0 +1,21 @@
+MATCH 31:25 sub.clk                  G['O:oc:ss:rr [work@mem_core.clk]'] O['O:oc:ss:rr [work@mem_core.clk]'] <operation> | always_ff @(posedge sub.clk) begin
+MATCH 32:13 sub.trn                  G['O:oc:ss:rr [work@mem_core.trn]'] O['O:oc:ss:rr [work@mem_core.trn]'] <begin> | if (sub.trn) begin
+MATCH 33:17 sub.req.ren              G['O:ooc:sss:rrr [work@mem_core.ren]'] O['O:ooc:sss:rrr [work@mem_core.ren]'] <begin> | if (sub.req.ren) sub.rsp.rdt <= mem[sub.req.adr];
+MATCH 33:30 sub.rsp.rdt              G['N:ooo:sss:rrr'] O['N:ooo:sss:rrr'] <assignment> | if (sub.req.ren) sub.rsp.rdt <= mem[sub.req.adr];
+MATCH 33:49 sub.req.adr              G['O:ooc:sss:rrr [work@mem_core.mem.adr]'] O['O:ooc:sss:rrr [work@mem_core.mem.adr]'] <bit_select> | if (sub.req.ren) sub.rsp.rdt <= mem[sub.req.adr];
+MATCH 34:17 sub.req.byt[0]           G['O:ooc:sss:rrb [work@mem_core.sub.req.byt[0].byt]'] O['O:ooc:sss:rrb [work@mem_core.sub.req.byt[0].byt]'] <begin> | if (sub.req.byt[0]) mem[sub.req.adr][ 7: 0] <= sub.req.wdt[ 7: 0];
+MATCH 34:37 sub.req.adr              G['O:ooc:sss:rrr [work@mem_core.mem.adr]'] O['O:ooc:sss:rrr [work@mem_core.mem.adr]'] <var_select> | if (sub.req.byt[0]) mem[sub.req.adr][ 7: 0] <= sub.req.wdt[ 7: 0];
+MATCH 34:60 sub.req.wdt[7:0]         G['O:ooc:sss:rrp [sub.req.wdt[7:0]]'] O['O:ooc:sss:rrp [sub.req.wdt[7:0]]'] <assignment> | if (sub.req.byt[0]) mem[sub.req.adr][ 7: 0] <= sub.req.wdt[ 7: 0];
+MATCH 35:17 sub.req.byt[1]           G['O:ooc:sss:rrb [work@mem_core.sub.req.byt[1].byt]'] O['O:ooc:sss:rrb [work@mem_core.sub.req.byt[1].byt]'] <begin> | if (sub.req.byt[1]) mem[sub.req.adr][15: 8] <= sub.req.wdt[15: 8];
+MATCH 35:37 sub.req.adr              G['O:ooc:sss:rrr [work@mem_core.mem.adr]'] O['O:ooc:sss:rrr [work@mem_core.mem.adr]'] <var_select> | if (sub.req.byt[1]) mem[sub.req.adr][15: 8] <= sub.req.wdt[15: 8];
+MATCH 35:60 sub.req.wdt[15:8]        G['O:ooc:sss:rrp [sub.req.wdt[15:8]]'] O['O:ooc:sss:rrp [sub.req.wdt[15:8]]'] <assignment> | if (sub.req.byt[1]) mem[sub.req.adr][15: 8] <= sub.req.wdt[15: 8];
+MATCH 36:17 sub.req.byt[2]           G['O:ooc:sss:rrb [work@mem_core.sub.req.byt[2].byt]'] O['O:ooc:sss:rrb [work@mem_core.sub.req.byt[2].byt]'] <begin> | if (sub.req.byt[2]) mem[sub.req.adr][23:16] <= sub.req.wdt[23:16];
+MATCH 36:37 sub.req.adr              G['O:ooc:sss:rrr [work@mem_core.mem.adr]'] O['O:ooc:sss:rrr [work@mem_core.mem.adr]'] <var_select> | if (sub.req.byt[2]) mem[sub.req.adr][23:16] <= sub.req.wdt[23:16];
+MATCH 36:60 sub.req.wdt[23:16]       G['O:ooc:sss:rrp [sub.req.wdt[23:16]]'] O['O:ooc:sss:rrp [sub.req.wdt[23:16]]'] <assignment> | if (sub.req.byt[2]) mem[sub.req.adr][23:16] <= sub.req.wdt[23:16];
+MATCH 37:17 sub.req.byt[3]           G['O:ooc:sss:rrb [work@mem_core.sub.req.byt[3].byt]'] O['O:ooc:sss:rrb [work@mem_core.sub.req.byt[3].byt]'] <begin> | if (sub.req.byt[3]) mem[sub.req.adr][31:24] <= sub.req.wdt[31:24];
+MATCH 37:37 sub.req.adr              G['O:ooc:sss:rrr [work@mem_core.mem.adr]'] O['O:ooc:sss:rrr [work@mem_core.mem.adr]'] <var_select> | if (sub.req.byt[3]) mem[sub.req.adr][31:24] <= sub.req.wdt[31:24];
+MATCH 37:60 sub.req.wdt[31:24]       G['O:ooc:sss:rrp [sub.req.wdt[31:24]]'] O['O:ooc:sss:rrp [sub.req.wdt[31:24]]'] <assignment> | if (sub.req.byt[3]) mem[sub.req.adr][31:24] <= sub.req.wdt[31:24];
+MATCH 45:12 intf.clk                 G['N:oo:ss:rr'] O['N:oo:ss:rr'] <cont_assign> | assign intf.clk = clk; assign intf.trn = trn;
+MATCH 45:35 intf.trn                 G['N:oo:ss:rr'] O['N:oo:ss:rr'] <cont_assign> | assign intf.clk = clk; assign intf.trn = trn;
+MATCH 46:12 intf.req                 G['N:oo:ss:rr'] O['N:oo:ss:rr'] <cont_assign> | assign intf.req = reqbits;
+MATCH 47:22 intf.rsp                 G['O:oc:ss:rr [work@mem_read_reg.rsp]'] O['O:oc:ss:rr [work@mem_read_reg.rsp]'] <cont_assign> | assign rspbits = intf.rsp;

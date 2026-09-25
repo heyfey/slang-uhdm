@@ -1,0 +1,2 @@
+MATCH 11:7 Cfg.D                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | v[Cfg.D-1:0] = 4'd0;
+MATCH 12:9 Cfg.D                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <part_select> | v[7:Cfg.D] = 4'd1;

@@ -1,0 +1,1 @@
+MATCH 32:17 this.tt                  G['N:oo:ss:rr'] O['N:oo:ss:rr'] <func_call> | rc = fOut(this.tt);          // output onto an explicitly qualified pr

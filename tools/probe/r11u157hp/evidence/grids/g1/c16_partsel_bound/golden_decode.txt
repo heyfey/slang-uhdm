@@ -1,0 +1,12 @@
+P72 Cfg.W 8:17:8:22 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E73 ref_obj Cfg full='' span=8:21:8:22 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='Cfg'@compileSelectExpression
+   E74 ref_obj W full='' span=8:21:8:22 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='W'@compileSelectExpression
+P80 sub.adr[ + 3:] 9:15:9:41 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E81 ref_obj sub full='' span=9:15:9:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='sub'@compileComplexFuncCall
+   E82 part_select adr full='sub.adr[ + 3:]' span=9:19:9:40 par=hp | mint=compilePartSelectRange < compileComplexFuncCall < compileExpression < compileExpression | set='sub.adr[ + 3:]'@compileComplexFuncCall
+P83 sub.OFF 9:23:9:30 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E84 ref_obj sub full='' span=9:27:9:30 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='sub'@compileSelectExpression
+   E85 ref_obj OFF full='' span=9:27:9:30 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='OFF'@compileSelectExpression
+P88 sub.OFF 9:33:9:40 <part_select> mint=compileSelectExpression < compileExpression < compileExpression < compilePartSelectRange
+   E89 ref_obj sub full='' span=9:37:9:40 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compilePartSelectRange | set='sub'@compileSelectExpression
+   E90 ref_obj OFF full='' span=9:37:9:40 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compilePartSelectRange | set='OFF'@compileSelectExpression

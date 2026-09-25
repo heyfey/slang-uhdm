@@ -1,0 +1,14 @@
+P5 o 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E6 ref_obj o full='work@top77x1.o' span=24:5:24:6 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@top77x1.o'@SAVE
+P10 o 25:9:25:36 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E11 ref_obj o full='work@top77x1.o' span=25:9:25:10 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@top77x1.o'@SAVE
+   E12 method_func_call randomize full='' span=0:0:0:0 par=hp | mint=compileRandomizeCall < compileComplexFuncCall < compileExpression < compileExpression | set=-
+P18 o 26:13:26:42 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E19 ref_obj o full='work@top77x1.o' span=26:13:26:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@top77x1.o'@SAVE
+   E20 method_func_call randomize full='' span=0:0:0:0 par=hp | mint=compileRandomizeCall < compileComplexFuncCall < compileExpression < compileExpression | set=-
+P26 o.randomize 27:13:27:26 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E27 ref_obj o full='' span=27:13:27:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='o'@compileComplexFuncCall
+   E28 method_func_call randomize full='' span=27:15:27:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P33 o.randomize 28:13:28:24 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E34 ref_obj o full='' span=28:13:28:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='o'@compileComplexFuncCall
+   E35 ref_obj randomize full='work@top77x1.randomize' span=28:15:28:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@top77x1.randomize'@SAVE

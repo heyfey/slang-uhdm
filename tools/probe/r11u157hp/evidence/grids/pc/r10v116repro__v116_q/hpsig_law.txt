@@ -1,0 +1,2 @@
+MATCH 0:0 q_one                    G['O:c:s:r [work@top_q.q_one]'] O['O:c:s:r [work@top_q.q_one]'] <assignment> | 
+MATCH 27:10 q_one.randomize          G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | if (!q_one.randomize(null))

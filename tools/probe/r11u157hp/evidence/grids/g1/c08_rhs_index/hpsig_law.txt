@@ -1,0 +1,2 @@
+MATCH 9:13 s.a                      G['O:oc:ss:rr [work@top.mem.a]'] O['O:oc:ss:rr [work@top.mem.a]'] <bit_select> | q = mem[s.a];
+MATCH 10:14 sub.adr[3:0]             G['O:oc:ss:rp [sub.adr[3:0]]'] O['O:oc:ss:rp [sub.adr[3:0]]'] <bit_select> | q2 = mem[sub.adr[3:0]];

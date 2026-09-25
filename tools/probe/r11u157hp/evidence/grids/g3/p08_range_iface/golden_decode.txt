@@ -1,0 +1,9 @@
+P101 sub.adr[7:] 11:15:11:33 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E102 ref_obj sub full='' span=11:15:11:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='sub'@compileComplexFuncCall
+   E103 part_select adr full='sub.adr[7:]' span=11:19:11:32 par=hp | mint=compilePartSelectRange < compileComplexFuncCall < compileExpression < compileExpression | set='sub.adr[7:]'@compileComplexFuncCall
+P105 sub.OFF 11:25:11:32 <part_select> mint=compileSelectExpression < compileExpression < compileExpression < compilePartSelectRange
+   E106 ref_obj sub full='' span=11:29:11:32 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compilePartSelectRange | set='sub'@compileSelectExpression
+   E107 ref_obj OFF full='' span=11:29:11:32 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compilePartSelectRange | set='OFF'@compileSelectExpression
+P648 sub.OFF 10:12:10:19 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E649 ref_obj sub full='' span=10:16:10:19 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='sub'@compileSelectExpression
+   E650 ref_obj OFF full='' span=10:16:10:19 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='OFF'@compileSelectExpression

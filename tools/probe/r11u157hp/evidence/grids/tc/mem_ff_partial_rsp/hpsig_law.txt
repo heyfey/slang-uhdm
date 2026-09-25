@@ -1,0 +1,30 @@
+MATCH 20:20 sub.clk                  G['O:oc:ss:rr [work@mem.clk]'] O['O:oc:ss:rr [work@mem.clk]'] <operation> | always @(posedge sub.clk)
+MATCH 21:7 sub.trn                  G['O:oc:ss:rr [work@mem.trn]'] O['O:oc:ss:rr [work@mem.trn]'] <event_control> | if (sub.trn) begin
+MATCH 22:9 sub.ren                  G['O:oc:ss:rr [work@mem.ren]'] O['O:oc:ss:rr [work@mem.ren]'] <begin> | if (sub.ren) sub.rsp.rdt <= m[sub.adr];
+MATCH 22:18 sub.rsp.rdt              G['N:ooo:sss:rrr'] O['N:ooo:sss:rrr'] <assignment> | if (sub.ren) sub.rsp.rdt <= m[sub.adr];
+MATCH 22:35 sub.adr                  G['O:oc:ss:rr [work@mem.m.adr]'] O['O:oc:ss:rr [work@mem.m.adr]'] <bit_select> | if (sub.ren) sub.rsp.rdt <= m[sub.adr];
+MATCH 23:9 sub.wen                  G['O:oc:ss:rr [work@mem.wen]'] O['O:oc:ss:rr [work@mem.wen]'] <begin> | if (sub.wen) begin
+MATCH 24:11 sub.byt[0]               G['O:oc:ss:rb [work@mem.sub.byt[0].byt]'] O['O:oc:ss:rb [work@mem.sub.byt[0].byt]'] <begin> | if (sub.byt[0]) m[sub.adr][ 7: 0] <= sub.wdt[ 7: 0];
+MATCH 24:25 sub.adr                  G['O:oc:ss:rr [work@mem.m.adr]'] O['O:oc:ss:rr [work@mem.m.adr]'] <var_select> | if (sub.byt[0]) m[sub.adr][ 7: 0] <= sub.wdt[ 7: 0];
+MATCH 24:44 sub.wdt[7:0]             G['O:oc:ss:rp [sub.wdt[7:0]]'] O['O:oc:ss:rp [sub.wdt[7:0]]'] <assignment> | if (sub.byt[0]) m[sub.adr][ 7: 0] <= sub.wdt[ 7: 0];
+MATCH 25:11 sub.byt[1]               G['O:oc:ss:rb [work@mem.sub.byt[1].byt]'] O['O:oc:ss:rb [work@mem.sub.byt[1].byt]'] <begin> | if (sub.byt[1]) m[sub.adr][15: 8] <= sub.wdt[15: 8];
+MATCH 25:25 sub.adr                  G['O:oc:ss:rr [work@mem.m.adr]'] O['O:oc:ss:rr [work@mem.m.adr]'] <var_select> | if (sub.byt[1]) m[sub.adr][15: 8] <= sub.wdt[15: 8];
+MATCH 25:44 sub.wdt[15:8]            G['O:oc:ss:rp [sub.wdt[15:8]]'] O['O:oc:ss:rp [sub.wdt[15:8]]'] <assignment> | if (sub.byt[1]) m[sub.adr][15: 8] <= sub.wdt[15: 8];
+MATCH 26:11 sub.byt[2]               G['O:oc:ss:rb [work@mem.sub.byt[2].byt]'] O['O:oc:ss:rb [work@mem.sub.byt[2].byt]'] <begin> | if (sub.byt[2]) m[sub.adr][23:16] <= sub.wdt[23:16];
+MATCH 26:25 sub.adr                  G['O:oc:ss:rr [work@mem.m.adr]'] O['O:oc:ss:rr [work@mem.m.adr]'] <var_select> | if (sub.byt[2]) m[sub.adr][23:16] <= sub.wdt[23:16];
+MATCH 26:44 sub.wdt[23:16]           G['O:oc:ss:rp [sub.wdt[23:16]]'] O['O:oc:ss:rp [sub.wdt[23:16]]'] <assignment> | if (sub.byt[2]) m[sub.adr][23:16] <= sub.wdt[23:16];
+MATCH 27:11 sub.byt[3]               G['O:oc:ss:rb [work@mem.sub.byt[3].byt]'] O['O:oc:ss:rb [work@mem.sub.byt[3].byt]'] <begin> | if (sub.byt[3]) m[sub.adr][31:24] <= sub.wdt[31:24];
+MATCH 27:25 sub.adr                  G['O:oc:ss:rr [work@mem.m.adr]'] O['O:oc:ss:rr [work@mem.m.adr]'] <var_select> | if (sub.byt[3]) m[sub.adr][31:24] <= sub.wdt[31:24];
+MATCH 27:44 sub.wdt[31:24]           G['O:oc:ss:rp [sub.wdt[31:24]]'] O['O:oc:ss:rp [sub.wdt[31:24]]'] <assignment> | if (sub.byt[3]) m[sub.adr][31:24] <= sub.wdt[31:24];
+MATCH 30:10 sub.rsp.sts              G['N:ooo:sss:rrr', 'N:ooo:sss:rrr'] O['N:ooo:sss:rrr', 'N:ooo:sss:rrr'] <cont_assign> | assign sub.rsp.sts = '0;
+MATCH 31:10 sub.rsp.err              G['N:ooo:sss:rrr', 'N:ooo:sss:rrr'] O['N:ooo:sss:rrr', 'N:ooo:sss:rrr'] <cont_assign> | assign sub.rsp.err = 1'b0;
+MATCH 43:10 b.clk                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <cont_assign> | assign b.clk=clk; assign b.trn=trn; assign b.ren=ren; assign b.wen=wen
+MATCH 43:28 b.trn                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <cont_assign> | assign b.clk=clk; assign b.trn=trn; assign b.ren=ren; assign b.wen=wen
+MATCH 43:46 b.ren                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <cont_assign> | assign b.clk=clk; assign b.trn=trn; assign b.ren=ren; assign b.wen=wen
+MATCH 43:64 b.wen                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <cont_assign> | assign b.clk=clk; assign b.trn=trn; assign b.ren=ren; assign b.wen=wen
+MATCH 44:10 b.byt                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <cont_assign> | assign b.byt=byt; assign b.adr=adr; assign b.wdt=wdt;
+MATCH 44:28 b.adr                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <cont_assign> | assign b.byt=byt; assign b.adr=adr; assign b.wdt=wdt;
+MATCH 44:46 b.wdt                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <cont_assign> | assign b.byt=byt; assign b.adr=adr; assign b.wdt=wdt;
+MATCH 46:18 b.rsp.rdt                G['O:ooc:sss:rrr [work@mem_ff_partial_rsp.rdt]'] O['O:ooc:sss:rrr [work@mem_ff_partial_rsp.rdt]'] <cont_assign> | assign o_rdt = b.rsp.rdt;
+MATCH 47:18 b.rsp.sts                G['O:ooc:sss:rrr [work@mem_ff_partial_rsp.sts]'] O['O:ooc:sss:rrr [work@mem_ff_partial_rsp.sts]'] <cont_assign> | assign o_sts = b.rsp.sts;
+MATCH 48:18 b.rsp.err                G['O:ooc:sss:rrr [work@mem_ff_partial_rsp.err]'] O['O:ooc:sss:rrr [work@mem_ff_partial_rsp.err]'] <cont_assign> | assign o_err = b.rsp.err;

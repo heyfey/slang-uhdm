@@ -1,0 +1,1 @@
+DIFF  8:26 Cfg.D                    G['N:oo:ss:rr'] O['O:oc:ss:rr [work@top.D]'] <operation> | for (genvar k = 0; k < Cfg.D; k++) begin : g

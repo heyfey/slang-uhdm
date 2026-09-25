@@ -1,0 +1,6 @@
+P69 Cfg.D 8:7:8:12 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E70 ref_obj Cfg full='' span=8:11:8:12 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='Cfg'@compileSelectExpression
+   E71 ref_obj D full='' span=8:11:8:12 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='D'@compileSelectExpression
+P79 sub.OFF 11:7:11:14 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E80 ref_obj sub full='' span=11:11:11:14 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='sub'@compileSelectExpression
+   E81 ref_obj OFF full='' span=11:11:11:14 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='OFF'@compileSelectExpression

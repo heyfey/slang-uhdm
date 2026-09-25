@@ -1,0 +1,16 @@
+P10 this.h.fld 12:7:12:11 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E11 ref_obj this full='' span=12:12:12:13 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E12 ref_obj h full='work@g84c1::c1c::f::h' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@g84c1::c1c::f::h'@SAVE
+   E13 ref_obj fld full='work@g84c1::c1c::f::fld' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@g84c1::c1c::f::fld'@SAVE
+P17 this.h.arr 13:7:13:11 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E18 ref_obj this full='' span=13:12:13:13 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E19 ref_obj h full='work@g84c1::c1c::f::h' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@g84c1::c1c::f::h'@SAVE
+   E20 ref_obj arr full='work@g84c1::c1c::f::arr' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@g84c1::c1c::f::arr'@SAVE
+P23 this.h.fld 14:7:14:17 <operation> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E24 ref_obj this full='' span=14:12:14:13 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E25 ref_obj h full='work@g84c1::c1c::f::h' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@g84c1::c1c::f::h'@SAVE
+   E26 ref_obj fld full='work@g84c1::c1c::f::fld' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@g84c1::c1c::f::fld'@SAVE
+P30 this.h.fld 15:7:15:11 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E31 ref_obj this full='' span=15:12:15:13 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E32 ref_obj h full='work@g84c1::c1c::f::h' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@g84c1::c1c::f::h'@SAVE
+   E33 ref_obj fld full='work@g84c1::c1c::f::fld' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@g84c1::c1c::f::fld'@SAVE

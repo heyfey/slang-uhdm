@@ -1,0 +1,15 @@
+P149 bh 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E150 ref_obj bh full='pd167::shD167::goD::bh' span=41:7:41:9 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='pd167::shD167::goD::bh'@SAVE
+P154 bh 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E155 ref_obj bh full='pd167::shD167::goD::bh' span=42:7:42:9 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='pd167::shD167::goD::bh'@SAVE
+P159 kh 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E160 ref_obj kh full='pd167::shD167::goD::kh' span=43:7:43:9 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='pd167::shD167::goD::kh'@SAVE
+P165 bh.vf167 45:11:45:22 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E166 ref_obj bh full='' span=45:11:45:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='bh'@compileComplexFuncCall
+   E167 method_func_call vf167 full='' span=45:14:45:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P171 bh.vf167 46:11:46:32 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E172 ref_obj bh full='' span=46:11:46:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='bh'@compileComplexFuncCall
+   E173 method_func_call vf167 full='' span=46:14:46:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P177 bh.vf167 47:11:47:43 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E178 ref_obj bh full='' span=47:11:47:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='bh'@compileComplexFuncCall
+   E179 method_func_call vf167 full='' span=47:14:47:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-

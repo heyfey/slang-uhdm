@@ -1,0 +1,9 @@
+DIFF  14:7 this.h.fld               G['O:occ:szz:rrr [work@v84x2::c2x::f::h,work@v84x2::c2x::f::fld]'] O['O:ooc:ssz:rrr [work@v84x2::c2x::f::fld]'] <operation> | this.h.fld++;                 // L14 post-inc lvalue
+DIFF  15:9 this.h.fld               G['O:occ:szz:rrr [work@v84x2::c2x::f::h,work@v84x2::c2x::f::fld]'] O['O:ooc:ssz:rrr [work@v84x2::c2x::f::fld]'] <operation> | ++this.h.fld;                 // L15 pre-inc lvalue
+DIFF  16:7 this.h.fld               G['O:occ:szz:rrr [work@v84x2::c2x::f::h,work@v84x2::c2x::f::fld]'] O['O:ooc:ssz:rrr [work@v84x2::c2x::f::fld]'] <operation> | this.h.fld--;                 // L16 post-dec
+DIFF  17:9 this.h.fld               G['O:occ:szz:rrr [work@v84x2::c2x::f::h,work@v84x2::c2x::f::fld]'] O['O:ooc:ssz:rrr [work@v84x2::c2x::f::fld]'] <operation> | --this.h.fld;                 // L17 pre-dec
+DIFF  18:7 this.h.arr               G['O:occ:szz:rrr [work@v84x2::c2x::f::h,work@v84x2::c2x::f::arr]'] O['N:ooo:sss:rrr'] <operation> | this.h.arr[i]++;              // L18 inc of an INDEXED deep chain
+DIFF  19:7 this.q                   G['O:oc:sz:rr [work@v84x2::c2x::f::q]'] O['N:oo:ss:rr'] <operation> | this.q[this.g.fld]++;         // L19 inc target indexed BY a deep chai
+DIFF  20:7 this.h.fld               G['O:occ:szz:rrr [work@v84x2::c2x::f::h,work@v84x2::c2x::f::fld]'] O['N:ooc:ssz:rrr [work@v84x2::c2x::f::fld]'] <assignment> | this.h.fld += this.g.fld;     // L20 op-assign, deep chain on BOTH sid
+MATCH 21:7 this.h.arr               G['O:occ:szz:rrr [work@v84x2::c2x::f::h,work@v84x2::c2x::f::arr]'] O['O:occ:szz:rrr [work@v84x2::c2x::f::h,work@v84x2::c2x::f::arr]'] <assignment> | this.h.arr[this.g.fld] = 1;   // L21 lvalue indexed by a deep chain
+DIFF  22:11 this.h.fld               G['O:occ:szz:rrr [work@v84x2::c2x::f::h,work@v84x2::c2x::f::fld]'] O['O:ooc:ssz:rrr [work@v84x2::c2x::f::fld]'] <operation> | n = this.h.fld++;             // L22 inc in an rvalue position

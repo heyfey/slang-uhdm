@@ -1,0 +1,2 @@
+MATCH 0:0 o                        G['O:c:s:r [work@top.o]'] O['O:c:s:r [work@top.o]'] <assignment> | 
+MATCH 4:22 in1.v                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | function void f(); in1.v = 3; endfunction

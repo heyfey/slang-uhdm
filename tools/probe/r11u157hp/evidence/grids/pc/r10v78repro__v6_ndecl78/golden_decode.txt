@@ -1,0 +1,6 @@
+P51 u_gi.q 23:12:23:18 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt
+   E52 ref_obj u_gi full='' span=23:17:23:18 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='u_gi'@compileSelectExpression
+   E53 ref_obj q full='' span=23:17:23:18 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='q'@compileSelectExpression
+P257 u_gi.q 23:12:23:18 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabGenScope
+   E258 ref_obj u_gi full='' span=23:17:23:18 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E259 ref_obj q full='' span=23:17:23:18 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-

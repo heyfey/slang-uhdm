@@ -1,0 +1,12 @@
+P69 s.a 8:10:8:13 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E70 ref_obj s full='' span=8:12:8:13 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='s'@compileSelectExpression
+   E71 ref_obj a full='' span=8:12:8:13 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='a'@compileSelectExpression
+P74 sub.dat 9:10:9:17 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E75 ref_obj sub full='' span=9:14:9:17 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='sub'@compileSelectExpression
+   E76 ref_obj dat full='' span=9:14:9:17 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='dat'@compileSelectExpression
+P385 s.a 8:10:8:13 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabModule
+   E386 ref_obj s full='' span=8:12:8:13 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E387 ref_obj a full='' span=8:12:8:13 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+P390 sub.dat 9:10:9:17 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabModule
+   E391 ref_obj sub full='' span=9:14:9:17 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E392 ref_obj dat full='' span=9:14:9:17 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-

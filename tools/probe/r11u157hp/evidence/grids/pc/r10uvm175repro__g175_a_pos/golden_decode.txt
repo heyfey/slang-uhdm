@@ -1,0 +1,35 @@
+P16 crop[seat].tagset 23:18:23:70 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E18 bit_select crop full='crop[seat]' span=23:18:23:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='crop[seat]'@compileComplexFuncCall
+   E19 ref_obj tagset full='alpha_box::harvest::reap::tagset' span=23:29:23:35 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='alpha_box::harvest::reap::tagset'@SAVE
+   E20 method_func_call find_index full='' span=23:36:23:46 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P26 lone.stalk[slot].tagset 25:18:25:76 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E27 ref_obj lone full='' span=25:18:25:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='lone'@compileComplexFuncCall
+   E29 bit_select stalk full='lone.stalk[slot]' span=25:23:25:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='lone.stalk[slot]'@compileComplexFuncCall
+   E30 ref_obj tagset full='alpha_box::harvest::reap::tagset' span=25:35:25:41 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='alpha_box::harvest::reap::tagset'@SAVE
+   E31 method_func_call find_index full='' span=25:42:25:52 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P37 rows[seat].stalk[slot].tagset 27:18:27:82 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E39 bit_select rows full='rows[seat]' span=27:18:27:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='rows[seat]'@compileComplexFuncCall
+   E41 bit_select stalk full='rows[seat].stalk[slot]' span=27:29:27:34 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='rows[seat].stalk[slot]'@compileComplexFuncCall
+   E42 ref_obj tagset full='alpha_box::harvest::reap::tagset' span=27:41:27:47 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='alpha_box::harvest::reap::tagset'@SAVE
+   E43 method_func_call find_index full='' span=27:48:27:58 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P49 lone.tagset 29:18:29:64 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E50 ref_obj lone full='' span=29:18:29:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='lone'@compileComplexFuncCall
+   E51 ref_obj tagset full='alpha_box::harvest::reap::tagset' span=29:23:29:29 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='alpha_box::harvest::reap::tagset'@SAVE
+   E52 method_func_call find_index full='' span=29:30:29:40 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P58 solo.tagset 31:18:31:64 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E59 ref_obj solo full='' span=31:18:31:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='solo'@compileComplexFuncCall
+   E60 ref_obj tagset full='alpha_box::harvest::reap::tagset' span=31:23:31:29 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='alpha_box::harvest::reap::tagset'@SAVE
+   E61 method_func_call find_index full='' span=31:30:31:40 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P67 lone.stalk[slot].numset 33:18:33:74 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E68 ref_obj lone full='' span=33:18:33:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='lone'@compileComplexFuncCall
+   E70 bit_select stalk full='lone.stalk[slot]' span=33:23:33:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='lone.stalk[slot]'@compileComplexFuncCall
+   E71 ref_obj numset full='alpha_box::harvest::reap::numset' span=33:35:33:41 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='alpha_box::harvest::reap::numset'@SAVE
+   E72 method_func_call find_index full='' span=33:42:33:52 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P78 rows[seat].stalk[slot].tagset 35:18:35:86 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E80 bit_select rows full='rows[seat]' span=35:18:35:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='rows[seat]'@compileComplexFuncCall
+   E82 bit_select stalk full='rows[seat].stalk[slot]' span=35:29:35:34 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='rows[seat].stalk[slot]'@compileComplexFuncCall
+   E83 ref_obj tagset full='alpha_box::harvest::reap::tagset' span=35:41:35:47 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='alpha_box::harvest::reap::tagset'@SAVE
+   E84 method_func_call find_index full='' span=35:48:35:58 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P85 item.len 35:67:35:77 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E86 ref_obj item full='' span=35:67:35:71 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='item'@compileComplexFuncCall
+   E87 method_func_call len full='' span=35:72:35:75 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-

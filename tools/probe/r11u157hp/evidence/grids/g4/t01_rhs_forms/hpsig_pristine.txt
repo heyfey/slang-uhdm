@@ -1,0 +1,10 @@
+MATCH 0:0 o                        G['O:c:s:r [work@top.o]'] O['O:c:s:r [work@top.o]'] <assignment> | 
+DIFF  8:9 this.x                   G['N:oo:ss:rr'] O['O:oc:sz:rr [work@outer::f::x]'] <assignment> | r = this.x;
+DIFF  9:9 this.x                   G['N:oo:ss:rr'] O['O:oc:sz:rr [work@outer::f::x]'] <operation> | r = this.x + this.y;
+DIFF  9:18 this.y                   G['N:oo:ss:rr'] O['O:oc:sz:rr [work@outer::f::y]'] <operation> | r = this.x + this.y;
+DIFF  10:11 this.x                   G['N:oo:ss:rr'] O['O:oc:sz:rr [work@outer::f::x]'] <func_call> | r = g(this.x);
+DIFF  11:9 this.x                   G['N:oo:ss:rr'] O['O:oc:sz:rr [work@outer::f::x]'] <operation> | if (this.x > 0) r = 1;
+MATCH 12:9 this.arr                 G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | r = this.arr[this.n];
+MATCH 15:9 this.arr                 G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | r = this.arr[1];
+DIFF  16:9 super.bx                 G['N:oo:ss:rr'] O[] <assignment> | r = super.bx;
+DIFF  17:12 this.y                   G['N:oo:ss:rr'] O['O:oc:sz:rr [work@outer::f::y]'] <return_stmt> | return this.y;

@@ -1,0 +1,8 @@
+MATCH 37:13 iq.size                  G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | if (iq.size() > 0)
+MATCH 44:11 iq                       G['O:co:ss:rm [pkE151::holdE151::bodyE151::iq]'] O['O:co:ss:rm [pkE151::holdE151::bodyE151::iq]'] <assignment> | r = iq.sum() with ( item );                    // assignment rvalue
+MATCH 45:16 iq                       G['O:co:ss:rm [pkE151::holdE151::bodyE151::iq]'] O['O:co:ss:rm [pkE151::holdE151::bodyE151::iq]'] <operation> | r = 1 + (iq.sum() with ( item ));              // binary operand
+MATCH 46:22 iq                       G['O:co:ss:rm [pkE151::holdE151::bodyE151::iq]'] O['O:co:ss:rm [pkE151::holdE151::bodyE151::iq]'] <operation> | r = (r > 0) ? (iq.sum() with ( item )) : 0;    // ternary operand
+MATCH 47:23 iq                       G['O:co:ss:rm [pkE151::holdE151::bodyE151::iq]'] O['O:co:ss:rm [pkE151::holdE151::bodyE151::iq]'] <sys_func_call> | $display("%0d", iq.sum() with ( item ));       // system-call argument
+MATCH 48:11 iq                       G['O:co:ss:rm [pkE151::holdE151::bodyE151::iq]'] O['O:co:ss:rm [pkE151::holdE151::bodyE151::iq]'] <begin> | if (iq.sum() with ( item ))  r = 5;            // if condition
+MATCH 49:14 iq                       G['O:co:ss:rm [pkE151::holdE151::bodyE151::iq]'] O['O:co:ss:rm [pkE151::holdE151::bodyE151::iq]'] <operation> | while (iq.sum() with ( item ) > 99) r = 6;     // while condition
+MATCH 50:13 iq                       G['O:co:ss:rm [pkE151::holdE151::bodyE151::iq]'] O['O:co:ss:rm [pkE151::holdE151::bodyE151::iq]'] <begin> | case (iq.sum() with ( item ))                  // case selector

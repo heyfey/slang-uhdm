@@ -1,0 +1,4 @@
+DIFF  12:7 this.h.fld               G['O:occ:szz:rrr [work@g84c1::c1c::f::h,work@g84c1::c1c::f::fld]'] O['N:ooc:ssz:rrr [work@g84c1::c1c::f::fld]'] <assignment> | this.h.fld = 5;             // L12 LVALUE, member
+MATCH 13:7 this.h.arr               G['O:occ:szz:rrr [work@g84c1::c1c::f::h,work@g84c1::c1c::f::arr]'] O['O:occ:szz:rrr [work@g84c1::c1c::f::h,work@g84c1::c1c::f::arr]'] <assignment> | this.h.arr[i] = 6;          // L13 LVALUE, member then index
+DIFF  14:7 this.h.fld               G['O:occ:szz:rrr [work@g84c1::c1c::f::h,work@g84c1::c1c::f::fld]'] O['O:ooc:ssz:rrr [work@g84c1::c1c::f::fld]'] <operation> | this.h.fld++;               // L14 INC
+DIFF  15:7 this.h.fld               G['O:occ:szz:rrr [work@g84c1::c1c::f::h,work@g84c1::c1c::f::fld]'] O['N:ooc:ssz:rrr [work@g84c1::c1c::f::fld]'] <assignment> | this.h.fld += 2;            // L15 op-assign

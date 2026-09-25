@@ -1,0 +1,6 @@
+P72 s.a 8:16:8:19 <func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E73 ref_obj s full='' span=8:16:8:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='s'@compileComplexFuncCall
+   E74 ref_obj a full='work@top.a' span=8:18:8:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='work@top.a'@SAVE
+P78 sub.adr[3:0] 9:17:9:29 <func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E79 ref_obj sub full='' span=9:17:9:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='sub'@compileComplexFuncCall
+   E80 part_select adr full='sub.adr[3:0]' span=9:21:9:28 par=hp | mint=compilePartSelectRange < compileComplexFuncCall < compileExpression < compileExpression | set='sub.adr[3:0]'@compileComplexFuncCall

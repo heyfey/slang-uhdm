@@ -1,0 +1,1 @@
+MATCH 19:14 this.n                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | while (this.n > 0)

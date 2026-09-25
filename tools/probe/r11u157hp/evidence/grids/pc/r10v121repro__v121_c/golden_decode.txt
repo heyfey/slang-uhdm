@@ -1,0 +1,32 @@
+P10 p 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E11 ref_obj p full='work@smithy_top.p' span=65:5:65:6 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@smithy_top.p'@SAVE
+P29 stud 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E30 ref_obj stud full='smithy::Plate::new::stud' span=26:7:26:11 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='smithy::Plate::new::stud'@SAVE
+P35 this.gauge 27:7:27:11 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E36 ref_obj this full='' span=27:12:27:17 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E37 ref_obj gauge full='smithy::Plate::new::gauge' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='smithy::Plate::new::gauge'@SAVE
+P43 this.boss 28:7:28:11 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E44 ref_obj this full='' span=28:12:28:16 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E45 ref_obj boss full='smithy::Plate::new::boss' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='smithy::Plate::new::boss'@SAVE
+P49 this.lug 29:7:29:11 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E50 ref_obj this full='' span=29:12:29:15 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E51 ref_obj lug full='smithy::Plate::new::lug' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='smithy::Plate::new::lug'@SAVE
+P52 stud.clone 29:24:29:36 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E53 ref_obj stud full='' span=29:24:29:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='stud'@compileComplexFuncCall
+   E54 method_func_call clone full='' span=29:29:29:34 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P70 other 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E71 ref_obj other full='smithy::Plate::press::other' span=36:7:36:12 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='smithy::Plate::press::other'@SAVE
+P79 other.stud 38:10:38:15 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileBlockingAssignment
+   E80 ref_obj other full='' span=38:16:38:20 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileBlockingAssignment | set='other'@compileSelectExpression
+   E81 ref_obj stud full='' span=38:16:38:20 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileBlockingAssignment | set='stud'@compileSelectExpression
+P99 this.gauge 44:10:44:14 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E100 ref_obj this full='' span=44:15:44:20 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E101 ref_obj gauge full='smithy::Plate::press::gauge' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='smithy::Plate::press::gauge'@SAVE
+P126 this.boss 53:10:53:14 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E127 ref_obj this full='' span=53:15:53:19 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E128 ref_obj boss full='smithy::Plate::poke::boss' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='smithy::Plate::poke::boss'@SAVE
+P137 this.gauge 55:13:55:17 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E138 ref_obj this full='' span=55:18:55:23 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E139 ref_obj gauge full='smithy::Plate::poke::gauge' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='smithy::Plate::poke::gauge'@SAVE
+P158 clone 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E159 ref_obj clone full='smithy::Rivet::clone::clone' span=10:28:10:33 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='smithy::Rivet::clone::clone'@SAVE

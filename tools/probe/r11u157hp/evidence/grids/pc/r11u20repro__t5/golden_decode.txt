@@ -1,0 +1,42 @@
+P24 c.sidWidth 8:19:8:29 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E25 ref_obj c full='' span=8:21:8:29 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E26 ref_obj sidWidth full='' span=8:21:8:29 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='sidWidth'@compileSelectExpression
+P29 c.dataWidth 8:35:8:46 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E30 ref_obj c full='' span=8:37:8:46 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E31 ref_obj dataWidth full='' span=8:37:8:46 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='dataWidth'@compileSelectExpression
+P45 c.u 11:14:11:17 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E46 ref_obj c full='' span=11:16:11:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E47 ref_obj u full='' span=11:16:11:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='u'@compileSelectExpression
+P50 c.derived 11:24:11:33 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E51 ref_obj c full='' span=11:26:11:33 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E52 ref_obj derived full='' span=11:26:11:33 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='derived'@compileSelectExpression
+P53 uu.dataWidth 11:36:11:48 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E54 ref_obj uu full='' span=11:36:11:38 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='uu'@compileComplexFuncCall
+   E55 ref_obj dataWidth full='pk::build::dataWidth' span=11:39:11:48 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='pk::build::dataWidth'@SAVE
+P210 c.sidWidth 8:19:8:29 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E211 ref_obj c full='' span=8:21:8:29 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E212 ref_obj sidWidth full='' span=8:21:8:29 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='sidWidth'@compileSelectExpression
+P215 c.dataWidth 8:35:8:46 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E216 ref_obj c full='' span=8:37:8:46 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E217 ref_obj dataWidth full='' span=8:37:8:46 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='dataWidth'@compileSelectExpression
+P230 c.u 11:14:11:17 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E231 ref_obj c full='' span=11:16:11:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E232 ref_obj u full='' span=11:16:11:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='u'@compileSelectExpression
+P235 c.derived 11:24:11:33 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E236 ref_obj c full='' span=11:26:11:33 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E237 ref_obj derived full='' span=11:26:11:33 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='derived'@compileSelectExpression
+P238 uu.dataWidth 11:36:11:48 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E239 ref_obj uu full='' span=11:36:11:38 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='uu'@compileComplexFuncCall
+   E240 ref_obj dataWidth full='pk::build::dataWidth' span=11:39:11:48 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='pk::build::dataWidth'@SAVE
+P324 CFG.u.sidWidth 18:35:18:49 <param_assign> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E325 ref_obj CFG full='' span=18:39:18:40 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='CFG'@compileSelectExpression
+   E326 ref_obj u full='' span=18:39:18:40 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='u'@compileSelectExpression
+   E327 ref_obj sidWidth full='' span=18:41:18:49 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='sidWidth'@compileSelectExpression
+P333 CFG.u.dataWidth 19:42:19:57 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E334 ref_obj CFG full='' span=19:42:19:45 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='CFG'@compileComplexFuncCall
+   E335 ref_obj u full='' span=19:46:19:47 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='u'@compileComplexFuncCall
+   E336 ref_obj dataWidth full='work@dut.dataWidth' span=19:48:19:57 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@dut.dataWidth'@SAVE
+P338 CFG.u.sidWidth 19:60:19:74 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E339 ref_obj CFG full='' span=19:60:19:63 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='CFG'@compileComplexFuncCall
+   E340 ref_obj u full='' span=19:64:19:65 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='u'@compileComplexFuncCall
+   E341 ref_obj sidWidth full='work@dut.sidWidth' span=19:66:19:74 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@dut.sidWidth'@SAVE

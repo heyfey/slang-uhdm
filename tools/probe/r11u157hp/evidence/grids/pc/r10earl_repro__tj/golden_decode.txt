@@ -1,0 +1,88 @@
+P51 h2r_o.cause[k].d 40:12:40:28 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt
+   E52 ref_obj h2r_o full='' span=40:18:40:23 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='h2r_o'@compileSelectExpression
+   E53 bit_select cause full='work@tj.gen_a.h2r_o.cause[k].d.cause' span=40:18:40:26 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='work@tj.gen_a.h2r_o.cause[k].d.cause'@SAVE
+   E55 ref_obj d full='' span=40:27:40:28 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='d'@compileSelectExpression
+P61 r2h_i.cause[k].d 42:21:42:37 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E62 ref_obj r2h_i full='' span=42:21:42:26 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='r2h_i'@compileComplexFuncCall
+   E64 bit_select cause full='r2h_i.cause[k]' span=42:27:42:32 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='r2h_i.cause[k]'@compileComplexFuncCall
+   E65 ref_obj d full='work@tj.gen_a.d' span=42:36:42:37 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@tj.gen_a.d'@SAVE
+P66 h2r_o.one.d 44:12:44:23 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt
+   E67 ref_obj h2r_o full='' span=44:18:44:21 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='h2r_o'@compileSelectExpression
+   E68 ref_obj one full='' span=44:18:44:21 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='one'@compileSelectExpression
+   E69 ref_obj d full='' span=44:22:44:23 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='d'@compileSelectExpression
+P75 r2h_i.cause[k].de 47:12:47:29 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn
+   E76 ref_obj r2h_i full='' span=47:12:47:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn | set='r2h_i'@compileComplexFuncCall
+   E78 bit_select cause full='r2h_i.cause[k]' span=47:18:47:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn | set='r2h_i.cause[k]'@compileComplexFuncCall
+   E79 ref_obj de full='work@tj.gen_a.u_sub.a_i.de' span=47:27:47:29 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn | set='work@tj.gen_a.u_sub.a_i.de'@SAVE
+P82 h2r_o.one.de 53:10:53:22 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E83 ref_obj h2r_o full='' span=53:16:53:19 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='h2r_o'@compileSelectExpression
+   E84 ref_obj one full='' span=53:16:53:19 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='one'@compileSelectExpression
+   E85 ref_obj de full='' span=53:20:53:22 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='de'@compileSelectExpression
+P87 r2h_i.cause[0].d 53:25:53:41 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E88 ref_obj r2h_i full='' span=53:25:53:30 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='r2h_i'@compileComplexFuncCall
+   E90 bit_select cause full='r2h_i.cause[0]' span=53:31:53:36 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='r2h_i.cause[0]'@compileComplexFuncCall
+   E91 ref_obj d full='work@tj.d' span=53:40:53:41 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@tj.d'@SAVE
+P155 r2h_i.cause[k].d 42:21:42:37 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E156 ref_obj r2h_i full='' span=42:21:42:26 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='r2h_i'@compileComplexFuncCall
+   E158 bit_select cause full='r2h_i.cause[k]' span=42:27:42:32 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='r2h_i.cause[k]'@compileComplexFuncCall
+   E159 ref_obj d full='work@tj.gen_a[0].d' span=42:36:42:37 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@tj.gen_a[0].d'@SAVE
+P160 h2r_o.one.d 44:12:44:23 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E161 ref_obj h2r_o full='' span=44:18:44:21 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='h2r_o'@compileSelectExpression
+   E162 ref_obj one full='' span=44:18:44:21 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='one'@compileSelectExpression
+   E163 ref_obj d full='' span=44:22:44:23 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='d'@compileSelectExpression
+P191 r2h_i.cause[0].de 47:12:47:29 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_
+   E193 ref_obj r2h_i full='' span=47:12:47:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='r2h_i'@compileComplexFuncCall
+   E196 bit_select cause full='r2h_i.cause[0]' span=47:18:47:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='r2h_i.cause[0]'@compileComplexFuncCall
+   E197 ref_obj de full='work@tj.gen_a[0].u_sub.a_i.de' span=47:27:47:29 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='work@tj.gen_a[0].u_sub.a_i.de'@SAVE
+P213 r2h_i.cause[k].d 42:21:42:37 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E214 ref_obj r2h_i full='' span=42:21:42:26 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='r2h_i'@compileComplexFuncCall
+   E216 bit_select cause full='r2h_i.cause[k]' span=42:27:42:32 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='r2h_i.cause[k]'@compileComplexFuncCall
+   E217 ref_obj d full='work@tj.gen_a[1].d' span=42:36:42:37 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@tj.gen_a[1].d'@SAVE
+P218 h2r_o.one.d 44:12:44:23 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E219 ref_obj h2r_o full='' span=44:18:44:21 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='h2r_o'@compileSelectExpression
+   E220 ref_obj one full='' span=44:18:44:21 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='one'@compileSelectExpression
+   E221 ref_obj d full='' span=44:22:44:23 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='d'@compileSelectExpression
+P249 r2h_i.cause[1].de 47:12:47:29 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_
+   E251 ref_obj r2h_i full='' span=47:12:47:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='r2h_i'@compileComplexFuncCall
+   E254 bit_select cause full='r2h_i.cause[1]' span=47:18:47:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='r2h_i.cause[1]'@compileComplexFuncCall
+   E255 ref_obj de full='work@tj.gen_a[1].u_sub.a_i.de' span=47:27:47:29 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='work@tj.gen_a[1].u_sub.a_i.de'@SAVE
+P271 r2h_i.cause[k].d 42:21:42:37 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E272 ref_obj r2h_i full='' span=42:21:42:26 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='r2h_i'@compileComplexFuncCall
+   E274 bit_select cause full='r2h_i.cause[k]' span=42:27:42:32 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='r2h_i.cause[k]'@compileComplexFuncCall
+   E275 ref_obj d full='work@tj.gen_a[2].d' span=42:36:42:37 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@tj.gen_a[2].d'@SAVE
+P276 h2r_o.one.d 44:12:44:23 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E277 ref_obj h2r_o full='' span=44:18:44:21 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='h2r_o'@compileSelectExpression
+   E278 ref_obj one full='' span=44:18:44:21 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='one'@compileSelectExpression
+   E279 ref_obj d full='' span=44:22:44:23 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='d'@compileSelectExpression
+P307 r2h_i.cause[2].de 47:12:47:29 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_
+   E309 ref_obj r2h_i full='' span=47:12:47:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='r2h_i'@compileComplexFuncCall
+   E312 bit_select cause full='r2h_i.cause[2]' span=47:18:47:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='r2h_i.cause[2]'@compileComplexFuncCall
+   E313 ref_obj de full='work@tj.gen_a[2].u_sub.a_i.de' span=47:27:47:29 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='work@tj.gen_a[2].u_sub.a_i.de'@SAVE
+P329 r2h_i.cause[k].d 42:21:42:37 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E330 ref_obj r2h_i full='' span=42:21:42:26 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='r2h_i'@compileComplexFuncCall
+   E332 bit_select cause full='r2h_i.cause[k]' span=42:27:42:32 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='r2h_i.cause[k]'@compileComplexFuncCall
+   E333 ref_obj d full='work@tj.gen_a[3].d' span=42:36:42:37 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@tj.gen_a[3].d'@SAVE
+P334 h2r_o.one.d 44:12:44:23 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E335 ref_obj h2r_o full='' span=44:18:44:21 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='h2r_o'@compileSelectExpression
+   E336 ref_obj one full='' span=44:18:44:21 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='one'@compileSelectExpression
+   E337 ref_obj d full='' span=44:22:44:23 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='d'@compileSelectExpression
+P365 r2h_i.cause[3].de 47:12:47:29 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_
+   E367 ref_obj r2h_i full='' span=47:12:47:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='r2h_i'@compileComplexFuncCall
+   E370 bit_select cause full='r2h_i.cause[3]' span=47:18:47:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='r2h_i.cause[3]'@compileComplexFuncCall
+   E371 ref_obj de full='work@tj.gen_a[3].u_sub.a_i.de' span=47:27:47:29 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='work@tj.gen_a[3].u_sub.a_i.de'@SAVE
+P419 h2r_o.cause[k].d 40:12:40:28 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabGenScope
+   E420 ref_obj h2r_o full='' span=40:18:40:23 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E421 bit_select cause full='work@tj.gen_a[0].h2r_o.cause[k].d.cause' span=40:18:40:26 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set='work@tj.gen_a[0].h2r_o.cause[k].d.cause'@SAVE
+   E423 ref_obj d full='' span=40:27:40:28 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+P438 h2r_o.cause[k].d 40:12:40:28 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabGenScope
+   E439 ref_obj h2r_o full='' span=40:18:40:23 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E440 bit_select cause full='work@tj.gen_a[1].h2r_o.cause[k].d.cause' span=40:18:40:26 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set='work@tj.gen_a[1].h2r_o.cause[k].d.cause'@SAVE
+   E442 ref_obj d full='' span=40:27:40:28 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+P457 h2r_o.cause[k].d 40:12:40:28 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabGenScope
+   E458 ref_obj h2r_o full='' span=40:18:40:23 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E459 bit_select cause full='work@tj.gen_a[2].h2r_o.cause[k].d.cause' span=40:18:40:26 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set='work@tj.gen_a[2].h2r_o.cause[k].d.cause'@SAVE
+   E461 ref_obj d full='' span=40:27:40:28 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+P476 h2r_o.cause[k].d 40:12:40:28 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabGenScope
+   E477 ref_obj h2r_o full='' span=40:18:40:23 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E478 bit_select cause full='work@tj.gen_a[3].h2r_o.cause[k].d.cause' span=40:18:40:26 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set='work@tj.gen_a[3].h2r_o.cause[k].d.cause'@SAVE
+   E480 ref_obj d full='' span=40:27:40:28 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-

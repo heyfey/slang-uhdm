@@ -1,0 +1,5 @@
+MATCH 0:0 cgc8                     G['O:c:s:r [work@a3::cov3::new::cgc8]'] O['O:c:s:r [work@a3::cov3::new::cgc8]'] <assignment> | 
+MATCH 48:12 cgc8.get_coverage        G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | r8 = cgc8.get_coverage();
+MATCH 52:12 cgc8.get_inst_coverage   G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | r8 = cgc8.get_inst_coverage();
+MATCH 56:26 cgc8.get_coverage        G['O:oo:ss:rm'] O['O:oo:ss:rm'] <sys_func_call> | $display("cov=%f", cgc8.get_coverage());
+MATCH 60:12 cgc8.cpc8.get_coverage   G['O:ooo:sss:rrm'] O['O:ooo:sss:rrm'] <assignment> | r8 = cgc8.cpc8.get_coverage();

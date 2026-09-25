@@ -1,0 +1,2 @@
+MATCH 0:0 o                        G['O:c:s:r [work@top.o]'] O['O:c:s:r [work@top.o]'] <assignment> | 
+DIFF  4:38 this.randomize           G[] O['O:oo:ss:rm'] <operation> | rand int r; function void f(); if (this.randomize() == 1) x = 1; endfu

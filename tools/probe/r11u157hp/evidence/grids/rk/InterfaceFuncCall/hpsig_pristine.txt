@@ -1,0 +1,2 @@
+MATCH 13:18 foo_1.bar                G['O:oo:ss:rm'] O['O:oo:ss:rm'] <sys_func_call> | $display(foo_1.bar(3));
+MATCH 14:18 foo_2.bar                G['O:oo:ss:rm'] O['O:oo:ss:rm'] <sys_func_call> | $display(foo_2.bar(3));

@@ -1,0 +1,6 @@
+MATCH 7:12 c.u.a                    G['N:ooo:sss:rrr', 'N:ooo:sss:rrr'] O['N:ooo:sss:rrr', 'N:ooo:sss:rrr'] <assignment> | c_t c; c.u.a = 3; c.u.b = 32; c.d = 64; return c;
+MATCH 7:23 c.u.b                    G['N:ooo:sss:rrr', 'N:ooo:sss:rrr'] O['N:ooo:sss:rrr', 'N:ooo:sss:rrr'] <assignment> | c_t c; c.u.a = 3; c.u.b = 32; c.d = 64; return c;
+MATCH 7:35 c.d                      G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <assignment> | c_t c; c.u.a = 3; c.u.b = 32; c.d = 64; return c;
+DIFF  15:30 CFG.u                    G['N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <param_assign> | localparam pk::in_t SUB  = CFG.u;      // WHOLE sub-struct member
+MATCH 16:30 CFG.u.b                  G['N:ooo:sss:rrr'] O['N:ooo:sss:rrr'] <param_assign> | localparam int      DEEP = CFG.u.b;    // nested
+DIFF  17:30 CFG.d[0]                 G['O:oc:ss:rb [work@kid.CFG.d[0].d]'] O['O:oc:ss:rb [CFG.d[0].d]'] <param_assign> | localparam int      BIT0 = CFG.d[0];   // a SELECT of a member

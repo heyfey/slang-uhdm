@@ -1,0 +1,8 @@
+MATCH 8:19 c.sidWidth               G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <assignment> | user_cfg_t c; c.sidWidth = 3; c.dataWidth = 32; return c;
+MATCH 8:35 c.dataWidth              G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <assignment> | user_cfg_t c; c.sidWidth = 3; c.dataWidth = 32; return c;
+MATCH 11:14 c.u                      G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <assignment> | cfg_t c; c.u = uu; c.derived = uu.dataWidth * 2; return c;
+MATCH 11:24 c.derived                G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <assignment> | cfg_t c; c.u = uu; c.derived = uu.dataWidth * 2; return c;
+MATCH 11:36 uu.dataWidth             G['O:oc:ss:rr [pk::build::dataWidth]', 'O:oc:ss:rr [pk::build::dataWidth]'] O['O:oc:ss:rr [pk::build::dataWidth]', 'O:oc:ss:rr [pk::build::dataWidth]'] <operation> | cfg_t c; c.u = uu; c.derived = uu.dataWidth * 2; return c;
+MATCH 18:35 CFG.u.sidWidth           G['N:ooo:sss:rrr'] O['N:ooo:sss:rrr'] <param_assign> | localparam int       SID_W  = CFG.u.sidWidth,
+DIFF  19:42 CFG.u.dataWidth          G['O:ooc:sss:rrr [work@dut.dataWidth]'] O['N:ooo:sss:rrr'] <operation> | localparam int       NLOG   = $clog2(CFG.u.dataWidth / CFG.u.sidWidth)
+DIFF  19:60 CFG.u.sidWidth           G['O:ooc:sss:rrr [work@dut.sidWidth]'] O['N:ooo:sss:rrr'] <operation> | localparam int       NLOG   = $clog2(CFG.u.dataWidth / CFG.u.sidWidth)

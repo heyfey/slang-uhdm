@@ -1,0 +1,2 @@
+DIFF  10:25 Cfg.D                    G['N:oo:ss:rr'] O['O:oc:ss:rr [work@top.mem.v.D]'] <operation> | always_comb q = mem[v[Cfg.D-1:0]];
+MATCH 11:34 Cfg.D                    G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | always_ff @(posedge clk) mem[v[Cfg.D-1:0]] <= q;

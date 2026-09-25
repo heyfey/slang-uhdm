@@ -1,0 +1,15 @@
+P79 Cfg.D 8:24:8:29 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E80 ref_obj Cfg full='' span=8:28:8:29 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='Cfg'@compileSelectExpression
+   E81 ref_obj D full='' span=8:28:8:29 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='D'@compileSelectExpression
+P85 Cfg.W 8:37:8:42 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E86 ref_obj Cfg full='' span=8:37:8:40 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='Cfg'@compileComplexFuncCall
+   E87 ref_obj W full='work@top.W' span=8:41:8:42 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@top.W'@SAVE
+P96 sub.OFF 9:31:9:38 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E97 ref_obj sub full='' span=9:35:9:38 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='sub'@compileSelectExpression
+   E98 ref_obj OFF full='' span=9:35:9:38 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='OFF'@compileSelectExpression
+P105 Cfg.D 10:27:10:32 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E106 ref_obj Cfg full='' span=10:27:10:30 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='Cfg'@compileComplexFuncCall
+   E107 ref_obj D full='work@top.D' span=10:31:10:32 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@top.D'@SAVE
+P108 Cfg.W 10:35:10:40 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E109 ref_obj Cfg full='' span=10:39:10:40 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='Cfg'@compileSelectExpression
+   E110 ref_obj W full='' span=10:39:10:40 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='W'@compileSelectExpression

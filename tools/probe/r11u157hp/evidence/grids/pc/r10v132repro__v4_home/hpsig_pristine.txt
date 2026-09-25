@@ -1,0 +1,6 @@
+MATCH 4:9 a_very_long_receiver_name_132.size G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | while(ARG.size()<sz4132) ARG.push_back(VAL); \
+MATCH 4:9 q1.size                  G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | while(ARG.size()<sz4132) ARG.push_back(VAL); \
+MATCH 4:9 qq_two_132.size          G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | while(ARG.size()<sz4132) ARG.push_back(VAL); \
+MATCH 5:9 a_very_long_receiver_name_132.size G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | while(ARG.size()>sz4132) void'(ARG.pop_front()); \
+MATCH 5:9 q1.size                  G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | while(ARG.size()>sz4132) void'(ARG.pop_front()); \
+MATCH 5:9 qq_two_132.size          G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | while(ARG.size()>sz4132) void'(ARG.pop_front()); \

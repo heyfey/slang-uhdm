@@ -1,0 +1,24 @@
+P116 s.req.adr 24:10:24:19 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E117 ref_obj s full='' span=24:12:24:15 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='s'@compileSelectExpression
+   E118 ref_obj req full='' span=24:12:24:15 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='req'@compileSelectExpression
+   E119 ref_obj adr full='' span=24:16:24:19 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='adr'@compileSelectExpression
+P124 s.sub 25:15:25:20 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn
+   E125 ref_obj s full='' span=25:15:25:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn | set='s'@compileComplexFuncCall
+   E126 ref_obj sub full='work@iface_struct_field_partsel.u.sub.sub' span=25:17:25:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileHighConn | set='work@iface_struct_field_partsel.u.sub.sub'@SAVE
+P143 sub.req.adr[ADR - 1:] 19:14:19:40 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E144 ref_obj sub full='' span=19:14:19:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='sub'@compileComplexFuncCall
+   E145 ref_obj req full='' span=19:18:19:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='req'@compileComplexFuncCall
+   E146 part_select adr full='sub.req.adr[ADR - 1:]' span=19:22:19:39 par=hp | mint=compilePartSelectRange < compileComplexFuncCall < compileExpression < compileExpression | set='sub.req.adr[ADR - 1:]'@compileComplexFuncCall
+P150 sub.OFF 19:32:19:39 <part_select> mint=compileSelectExpression < compileExpression < compileExpression < compilePartSelectRange
+   E151 ref_obj sub full='' span=19:36:19:39 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compilePartSelectRange | set='sub'@compileSelectExpression
+   E152 ref_obj OFF full='' span=19:36:19:39 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compilePartSelectRange | set='OFF'@compileSelectExpression
+P175 CFG.BUS.DAT 11:33:11:44 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E176 ref_obj CFG full='' span=11:37:11:40 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='CFG'@compileSelectExpression
+   E177 ref_obj BUS full='' span=11:37:11:40 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='BUS'@compileSelectExpression
+   E178 ref_obj DAT full='' span=11:41:11:44 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='DAT'@compileSelectExpression
+P629 s.sub 25:15:25:20 <port> mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_
+   E630 ref_obj s full='' span=25:15:25:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='s'@compileComplexFuncCall
+   E631 ref_obj sub full='work@iface_struct_field_partsel.u.sub.sub' span=25:17:25:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < high_conn_ | set='work@iface_struct_field_partsel.u.sub.sub'@SAVE
+P674 sub.OFF 18:14:18:21 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E675 ref_obj sub full='' span=18:18:18:21 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='sub'@compileSelectExpression
+   E676 ref_obj OFF full='' span=18:18:18:21 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='OFF'@compileSelectExpression

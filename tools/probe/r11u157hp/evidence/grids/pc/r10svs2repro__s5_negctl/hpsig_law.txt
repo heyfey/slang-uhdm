@@ -1,0 +1,4 @@
+MATCH 0:0 h                        G['O:c:s:r [work@top.h]'] O['O:c:s:r [work@top.h]'] <assignment> | 
+MATCH 24:9 o.val                    G['O:oc:ss:rr [work@holder::f::val]'] O['O:oc:ss:rr [work@holder::f::val]'] <assignment> | r = o.val;           // NEG CTL 2: user method, no parens, EXPRESSION 
+MATCH 35:5 h.o                      G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | h.o = new();
+MATCH 36:21 h.f                      G['O:oo:ss:rm'] O['O:oo:ss:rm'] <sys_func_call> | $display("%0d", h.f());

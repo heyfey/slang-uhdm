@@ -1,0 +1,1 @@
+DIFF  10:32                          G['O:oc:ss:rr [work@top.cfg]'] O['O:oo:ss:rr'] <func_call> | localparam logic [1:0] X = f(q2::IMPL.cfg);

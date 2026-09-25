@@ -1,0 +1,5 @@
+P6 u_obj 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E7 ref_obj u_obj full='work@top_u.u_obj' span=25:5:25:10 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@top_u.u_obj'@SAVE
+P34 ih.randomize 19:10:19:24 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E35 ref_obj ih full='' span=19:10:19:12 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='ih'@compileComplexFuncCall
+   E36 method_func_call randomize full='' span=19:13:19:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-

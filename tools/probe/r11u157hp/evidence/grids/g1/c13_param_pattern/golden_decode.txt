@@ -1,0 +1,6 @@
+P73 Cfg.W 8:30:8:35 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E74 ref_obj Cfg full='' span=8:30:8:33 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='Cfg'@compileComplexFuncCall
+   E75 ref_obj W full='work@top.W' span=8:34:8:35 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@top.W'@SAVE
+P81 Cfg.D 8:44:8:49 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern
+   E82 ref_obj Cfg full='' span=8:44:8:47 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern | set='Cfg'@compileComplexFuncCall
+   E83 ref_obj D full='work@top.D' span=8:48:8:49 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileAssignmentPattern | set='work@top.D'@SAVE

@@ -1,0 +1,1 @@
+DIFF  23:12 u_gi.q                   G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'O:oc:ss:rr [work@v6sub.g6.q]'] <cont_assign> | assign u_gi.q = {TW{1'b1}};        // N5 hier_path into that interface

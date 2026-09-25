@@ -1,0 +1,9 @@
+P72 s.a 9:5:9:8 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E73 ref_obj s full='' span=9:7:9:8 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='s'@compileSelectExpression
+   E74 ref_obj a full='' span=9:7:9:8 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='a'@compileSelectExpression
+P77 t.b 10:5:10:8 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E78 ref_obj t full='' span=10:7:10:8 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='t'@compileSelectExpression
+   E79 ref_obj b full='' span=10:7:10:8 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='b'@compileSelectExpression
+P86 sub.dat 12:28:12:35 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E87 ref_obj sub full='' span=12:32:12:35 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='sub'@compileSelectExpression
+   E88 ref_obj dat full='' span=12:32:12:35 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='dat'@compileSelectExpression

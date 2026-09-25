@@ -1,0 +1,7 @@
+MATCH 0:0 o                        G['O:c:s:r [work@top.o]'] O['O:c:s:r [work@top.o]'] <assignment> | 
+MATCH 7:5 this.x                   G['O:oc:sz:rr [work@outer::f::x]'] O['O:oc:sz:rr [work@outer::f::x]'] <assignment> | this.x = this.y;
+DIFF  7:14 this.y                   G['N:oo:ss:rr'] O['O:oc:sz:rr [work@outer::f::y]'] <assignment> | this.x = this.y;
+DIFF  8:5 this.h.v                 G['O:occ:szz:rrr [work@outer::f::h,work@outer::f::v]'] O['N:ooc:ssz:rrr [work@outer::f::v]'] <assignment> | this.h.v = this.h.w;
+MATCH 9:5 this.arr                 G['O:oc:sz:rr [work@outer::f::arr]'] O['O:oc:sz:rr [work@outer::f::arr]'] <assignment> | this.arr[this.n] = this.x;
+DIFF  9:24 this.x                   G['N:oo:ss:rr'] O['O:oc:sz:rr [work@outer::f::x]'] <assignment> | this.arr[this.n] = this.x;
+DIFF  10:22 this.x                   G['N:oo:ss:rr'] O['O:oc:sz:rr [work@outer::f::x]'] <method_func_call> | this.q.push_back(this.x);

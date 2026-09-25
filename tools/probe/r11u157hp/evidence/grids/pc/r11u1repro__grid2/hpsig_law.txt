@@ -1,0 +1,8 @@
+MATCH 8:33 CFG.BUS.DAT              G['N:ooo:sss:rrr'] O['N:ooo:sss:rrr'] <operation> | localparam int unsigned BYT = CFG.BUS.DAT/8;
+MATCH 13:60 q.d[0]                   G['O:oc:ss:rb [work@m_mp_named.q.d[0].d]'] O['O:oc:ss:rb [work@m_mp_named.q.d[0].d]'] <cont_assign> | module m_mp_named  (tif.mp  q, output logic o); assign o = q.d[0]; end
+MATCH 14:60 q.d[0]                   G['O:oc:ss:rb [work@m_mp_pos.q.d[0].d]'] O['O:oc:ss:rb [work@m_mp_pos.q.d[0].d]'] <cont_assign> | module m_mp_pos    (tif.mp  q, output logic o); assign o = q.d[0]; end
+MATCH 15:61 q.d[0]                   G['O:oc:ss:rb [work@m_pl_named.q.d[0].d]'] O['O:oc:ss:rb [work@m_pl_named.q.d[0].d]'] <cont_assign> | module m_pl_named  (tif      q, output logic o); assign o = q.d[0]; en
+MATCH 16:61 q.d[0]                   G['O:oc:ss:rb [work@m_pl_pos.q.d[0].d]'] O['O:oc:ss:rb [work@m_pl_pos.q.d[0].d]'] <cont_assign> | module m_pl_pos    (tif      q, output logic o); assign o = q.d[0]; en
+MATCH 20:21 u_df.mp                  G['O:oc:ss:rr [work@top.a0.q.mp]', 'O:oc:ss:rr [work@top.a0.q.mp]'] O['O:oc:ss:rr [work@top.a0.q.mp]', 'O:oc:ss:rr [work@top.a0.q.mp]'] <port> | m_mp_named a0 (.q(u_df.mp), .o(o[0]));
+DIFF  21:18 u_df.mp                  G['N:oo:ss:rr'] O['O:oc:ss:rr [work@top.a1.q.mp]'] <port> | m_mp_pos   a1 (u_df.mp, o[1]);
+MATCH 25:23 u_df.mp                  G['O:oc:ss:rr [work@top.g.a6.q.mp]', 'O:oc:ss:rr [work@top.g.a6.q.mp]'] O['O:oc:ss:rr [work@top.g.a6.q.mp]', 'O:oc:ss:rr [work@top.g.a6.q.mp]'] <port> | m_mp_named a6 (.q(u_df.mp), .o(o[6]));

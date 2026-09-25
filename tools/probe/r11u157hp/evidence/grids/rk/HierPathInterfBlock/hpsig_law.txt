@@ -1,0 +1,7 @@
+MATCH 24:18 blk.f                    G['O:oo:ss:rm'] O['O:oo:ss:rm'] <sys_func_call> | $display(blk.f());
+MATCH 25:18 i.f                      G['O:oo:ss:rm'] O['O:oo:ss:rm'] <sys_func_call> | $display(i.f());
+MATCH 26:18 i.blk.f                  G['O:ooo:sss:rrm'] O['O:ooo:sss:rrm'] <sys_func_call> | $display(i.blk.f());
+MATCH 27:18 top.f                    G['O:oo:ss:rm'] O['O:oo:ss:rm'] <sys_func_call> | $display(top.f());
+MATCH 28:18 top.blk.f                G['O:ooo:sss:rrm'] O['O:ooo:sss:rrm'] <sys_func_call> | $display(top.blk.f());
+MATCH 29:18 top.i.f                  G['O:ooo:sss:rrm'] O['O:ooo:sss:rrm'] <sys_func_call> | $display(top.i.f());
+MATCH 30:18 top.i.blk.f              G['O:oooo:ssss:rrrm'] O['O:oooo:ssss:rrrm'] <sys_func_call> | $display(top.i.blk.f());

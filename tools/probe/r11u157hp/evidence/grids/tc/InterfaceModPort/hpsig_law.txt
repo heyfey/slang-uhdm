@@ -1,0 +1,11 @@
+MATCH 69:19 mif.clk                  G['O:oc:ss:rr [work@memory_model.clk]'] O['O:oc:ss:rr [work@memory_model.clk]'] <operation> | always @ (posedge mif.clk)
+MATCH 70:6 mif.ce_mem               G['O:oc:ss:rr [work@memory_model.ce_mem]'] O['O:oc:ss:rr [work@memory_model.ce_mem]'] <operation> | if (mif.ce_mem && mif.we_mem) begin
+MATCH 70:20 mif.we_mem               G['O:oc:ss:rr [work@memory_model.we_mem]'] O['O:oc:ss:rr [work@memory_model.we_mem]'] <operation> | if (mif.ce_mem && mif.we_mem) begin
+MATCH 71:8 mif.addr_mem             G['O:oc:ss:rr [work@memory_model.mem.addr_mem]'] O['O:oc:ss:rr [work@memory_model.mem.addr_mem]'] <bit_select> | mem[mif.addr_mem] <= mif.datai_mem;
+MATCH 71:25 mif.datai_mem            G['O:oc:ss:rr [work@memory_model.datai_mem]'] O['O:oc:ss:rr [work@memory_model.datai_mem]'] <assignment> | mem[mif.addr_mem] <= mif.datai_mem;
+MATCH 77:19 mif.clk                  G['O:oc:ss:rr [work@memory_model.clk]'] O['O:oc:ss:rr [work@memory_model.clk]'] <operation> | always @ (posedge mif.clk)
+MATCH 78:6 mif.ce_mem               G['O:oc:ss:rr [work@memory_model.ce_mem]'] O['O:oc:ss:rr [work@memory_model.ce_mem]'] <operation> | if (mif.ce_mem && ~mif.we_mem)  begin
+MATCH 78:21 mif.we_mem               G['O:oc:ss:rr [work@memory_model.we_mem]'] O['O:oc:ss:rr [work@memory_model.we_mem]'] <operation> | if (mif.ce_mem && ~mif.we_mem)  begin
+MATCH 79:4 mif.datao_mem            G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | mif.datao_mem <= mem[mif.addr_mem];
+MATCH 79:25 mif.addr_mem             G['O:oc:ss:rr [work@memory_model.mem.addr_mem]'] O['O:oc:ss:rr [work@memory_model.mem.addr_mem]'] <bit_select> | mif.datao_mem <= mem[mif.addr_mem];
+MATCH 102:7 tif.reset                G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | tif.reset <= 1;

@@ -1,0 +1,15 @@
+P13 g[0].x 5:10:5:11 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E15 bit_select g full='g[0]' span=5:10:5:11 par=hp | mint=compileComplexFuncCall < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='g[0]'@compileComplexFuncCall
+   E16 ref_obj x full='g[0].x' span=5:15:5:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='g[0].x'@compileComplexFuncCall
+P19 g[1].x 6:10:6:11 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E21 bit_select g full='g[1]' span=6:10:6:11 par=hp | mint=compileComplexFuncCall < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='g[1]'@compileComplexFuncCall
+   E22 ref_obj x full='g[1].x' span=6:15:6:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='g[1].x'@compileComplexFuncCall
+P27 g[0].x 7:14:7:20 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E29 bit_select g full='g[0]' span=7:14:7:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='g[0]'@compileComplexFuncCall
+   E30 ref_obj x full='work@top.x' span=7:19:7:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@top.x'@SAVE
+P72 g[0].x 5:10:5:11 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabModule
+   E73 bit_select g full='g[0]' span=5:10:5:11 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E75 ref_obj x full='g[0].x' span=5:15:5:16 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+P78 g[1].x 6:10:6:11 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabModule
+   E79 bit_select g full='g[1]' span=6:10:6:11 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E81 ref_obj x full='g[1].x' span=6:15:6:16 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-

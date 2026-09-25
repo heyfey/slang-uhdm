@@ -1,0 +1,34 @@
+P8 f 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E9 ref_obj f full='work@ridge_top.f' span=28:5:28:6 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@ridge_top.f'@SAVE
+P13 f.ribs[seat].loads 30:13:30:49 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E14 ref_obj f full='' span=30:13:30:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='f'@compileComplexFuncCall
+   E16 bit_select ribs full='f.ribs[seat]' span=30:15:30:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='f.ribs[seat]'@compileComplexFuncCall
+   E17 ref_obj loads full='work@ridge_top.loads' span=30:26:30:31 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@ridge_top.loads'@SAVE
+   E18 method_func_call sum full='' span=30:32:30:35 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P35 f.ribs[gi].loads 34:25:34:59 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E36 ref_obj f full='' span=34:25:34:26 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='f'@compileComplexFuncCall
+   E38 bit_select ribs full='f.ribs[gi]' span=34:27:34:31 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='f.ribs[gi]'@compileComplexFuncCall
+   E39 ref_obj loads full='work@ridge_top.bay.loads' span=34:36:34:41 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@ridge_top.bay.loads'@SAVE
+   E40 method_func_call sum full='' span=34:42:34:45 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P53 dials[pin].units 49:15:49:49 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E55 bit_select dials full='dials[pin]' span=49:15:49:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='dials[pin]'@compileComplexFuncCall
+   E56 ref_obj units full='work@ridge_prog::bank::tally::units' span=49:26:49:31 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@ridge_prog::bank::tally::units'@SAVE
+   E57 method_func_call sum full='' span=49:32:49:35 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P74 ribs[seat].marks 20:16:20:64 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E76 bit_select ribs full='ribs[seat]' span=20:16:20:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='ribs[seat]'@compileComplexFuncCall
+   E77 ref_obj marks full='work@ridge_top::frame::probe::marks' span=20:27:20:32 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@ridge_top::frame::probe::marks'@SAVE
+   E78 method_func_call find_index full='' span=20:33:20:43 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P84 ribs[seat].loads 21:16:21:50 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E86 bit_select ribs full='ribs[seat]' span=21:16:21:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='ribs[seat]'@compileComplexFuncCall
+   E87 ref_obj loads full='work@ridge_top::frame::probe::loads' span=21:27:21:32 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@ridge_top::frame::probe::loads'@SAVE
+   E88 method_func_call sum full='' span=21:33:21:36 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P113 f.ribs[gi].loads 34:25:34:59 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E114 ref_obj f full='' span=34:25:34:26 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='f'@compileComplexFuncCall
+   E116 bit_select ribs full='f.ribs[gi]' span=34:27:34:31 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='f.ribs[gi]'@compileComplexFuncCall
+   E117 ref_obj loads full='work@ridge_top.bay[0].loads' span=34:36:34:41 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@ridge_top.bay[0].loads'@SAVE
+   E118 method_func_call sum full='' span=34:42:34:45 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-
+P130 f.ribs[gi].loads 34:25:34:59 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E131 ref_obj f full='' span=34:25:34:26 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='f'@compileComplexFuncCall
+   E133 bit_select ribs full='f.ribs[gi]' span=34:27:34:31 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='f.ribs[gi]'@compileComplexFuncCall
+   E134 ref_obj loads full='work@ridge_top.bay[1].loads' span=34:36:34:41 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@ridge_top.bay[1].loads'@SAVE
+   E135 method_func_call sum full='' span=34:42:34:45 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set=-

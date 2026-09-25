@@ -1,0 +1,6 @@
+P407 Cfg.W 8:10:8:15 <operation> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E408 ref_obj Cfg full='' span=8:14:8:15 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='Cfg'@compileSelectExpression
+   E409 ref_obj W full='' span=8:14:8:15 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='W'@compileSelectExpression
+P417 sub.OFF 9:10:9:17 <range> mint=compileSelectExpression < compileExpression < compileExpression < compileRanges
+   E418 ref_obj sub full='' span=9:14:9:17 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileRanges | set='sub'@compileSelectExpression
+   E419 ref_obj OFF full='' span=9:14:9:17 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileRanges | set='OFF'@compileSelectExpression

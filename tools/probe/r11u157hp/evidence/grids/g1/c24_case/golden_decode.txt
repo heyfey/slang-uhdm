@@ -1,0 +1,3 @@
+P71 s.a 9:11:9:14 <begin> mint=compileComplexFuncCall < compileExpression < compileExpression < compileCaseStmt
+   E72 ref_obj s full='' span=9:11:9:12 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileCaseStmt | set='s'@compileComplexFuncCall
+   E73 ref_obj a full='work@top.a' span=9:13:9:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileCaseStmt | set='work@top.a'@SAVE

@@ -1,0 +1,6 @@
+P104 Cfg.W 10:25:10:30 <func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E105 ref_obj Cfg full='' span=10:25:10:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='Cfg'@compileComplexFuncCall
+   E106 ref_obj W full='work@top.W' span=10:29:10:30 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='work@top.W'@SAVE
+P112 Cfg.W 11:30:11:35 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E113 ref_obj Cfg full='' span=11:30:11:33 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='Cfg'@compileComplexFuncCall
+   E114 ref_obj W full='work@top.W' span=11:34:11:35 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='work@top.W'@SAVE

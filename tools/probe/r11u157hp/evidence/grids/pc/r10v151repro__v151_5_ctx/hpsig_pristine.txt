@@ -1,0 +1,5 @@
+MATCH 12:32 vq.size                  G['O:oo:ss:rm'] O['O:oo:ss:rm'] <return_stmt> | function int sz5(); return vq.size(); endfunction
+MATCH 40:11 vq                       G['O:co:ss:rm [Cpk5::Runner5::drive5::vq]'] O['O:co:ss:rm [Cpk5::Runner5::drive5::vq]'] <assignment> | b = vq.sum() with ( item );
+MATCH 41:23 vq                       G['O:co:ss:rm [Cpk5::Runner5::drive5::vq]'] O['O:co:ss:rm [Cpk5::Runner5::drive5::vq]'] <sys_func_call> | $display("%0d", vq.sum() with ( item ));
+MATCH 42:12 vq                       G['O:co:ss:rm [Cpk5::Runner5::drive5::vq]'] O['O:co:ss:rm [Cpk5::Runner5::drive5::vq]'] <operation> | if ((vq.sum() with ( item )) > 0) a = 1;
+MATCH 45:11 vq.size                  G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | b = vq.size();                             // the chained read, split

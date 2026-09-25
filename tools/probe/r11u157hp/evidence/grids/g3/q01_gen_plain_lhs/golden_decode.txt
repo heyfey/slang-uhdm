@@ -1,0 +1,31 @@
+P5 G.x 6:14:6:17 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt
+   E6 ref_obj G full='' span=6:16:6:17 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='G'@compileSelectExpression
+   E7 ref_obj x full='' span=6:16:6:17 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='x'@compileSelectExpression
+P10 H.y 7:14:7:17 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt
+   E11 ref_obj H full='' span=7:16:7:17 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='H'@compileSelectExpression
+   E12 ref_obj y full='' span=7:16:7:17 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='y'@compileSelectExpression
+P15 G.H.y 8:14:8:19 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt
+   E16 ref_obj G full='' span=8:16:8:17 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='G'@compileSelectExpression
+   E17 ref_obj H full='' span=8:16:8:17 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='H'@compileSelectExpression
+   E18 ref_obj y full='' span=8:18:8:19 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='y'@compileSelectExpression
+P25 G.x 11:14:11:17 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E26 ref_obj G full='' span=11:14:11:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='G'@compileComplexFuncCall
+   E27 ref_obj x full='work@top.x' span=11:16:11:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@top.x'@SAVE
+P28 G.H.y 12:10:12:15 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E29 ref_obj G full='' span=12:12:12:13 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='G'@compileSelectExpression
+   E30 ref_obj H full='' span=12:12:12:13 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='H'@compileSelectExpression
+   E31 ref_obj y full='' span=12:14:12:15 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='y'@compileSelectExpression
+P80 G.H.y 12:10:12:15 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabModule
+   E81 ref_obj G full='' span=12:12:12:13 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E82 ref_obj H full='' span=12:12:12:13 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E83 ref_obj y full='' span=12:14:12:15 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+P90 G.x 6:14:6:17 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabGenScope
+   E91 ref_obj G full='' span=6:16:6:17 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E92 ref_obj x full='' span=6:16:6:17 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+P95 H.y 7:14:7:17 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabGenScope
+   E96 ref_obj H full='' span=7:16:7:17 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E97 ref_obj y full='' span=7:16:7:17 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+P100 G.H.y 8:14:8:19 <cont_assign> mint=DeepClone < DeepClone < writeCont_assign < writeElabGenScope
+   E101 ref_obj G full='' span=8:16:8:17 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E102 ref_obj H full='' span=8:16:8:17 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-
+   E103 ref_obj y full='' span=8:18:8:19 par=hp | mint=DeepClone < DeepClone < DeepClone < writeCont_assign | set=-

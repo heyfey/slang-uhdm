@@ -1,0 +1,2 @@
+MATCH 10:17 s.a                      G['O:oc:ss:rr [work@top.v.a]'] O['O:oc:ss:rr [work@top.v.a]'] <indexed_part_select> | assign q8 = v[s.a +: 2];
+DIFF  11:22 Cfg.D                    G['N:oo:ss:rr'] O['O:oc:ss:rr [work@top.v.D]'] <indexed_part_select> | assign q2 = v[2 +: Cfg.D];

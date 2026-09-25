@@ -1,0 +1,13 @@
+P8 bar 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E9 ref_obj bar full='work@top.bar' span=21:3:21:6 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@top.bar'@SAVE
+P12 baz 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E13 ref_obj baz full='work@top.baz' span=22:3:22:6 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@top.baz'@SAVE
+P19 bar.addr 24:12:24:20 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E20 ref_obj bar full='' span=24:12:24:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='bar'@compileComplexFuncCall
+   E21 ref_obj addr full='work@top.addr' span=24:16:24:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='work@top.addr'@SAVE
+P23 baz.addr 25:12:25:20 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E24 ref_obj baz full='' span=25:12:25:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='baz'@compileComplexFuncCall
+   E25 ref_obj addr full='work@top.addr' span=25:16:25:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='work@top.addr'@SAVE
+P36 this.addr 5:5:5:9 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression
+   E37 ref_obj this full='' span=5:10:5:14 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='this'@compileSelectExpression
+   E38 ref_obj addr full='work@foo::set::body::addr' span=0:0:0:0 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@foo::set::body::addr'@SAVE

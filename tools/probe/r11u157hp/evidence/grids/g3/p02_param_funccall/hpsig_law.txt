@@ -1,0 +1,2 @@
+MATCH 10:25 Cfg.W                    G['O:oc:ss:rr [work@top.W]'] O['O:oc:ss:rr [work@top.W]'] <func_call> | localparam int X1 = f(Cfg.W);
+MATCH 11:30 Cfg.W                    G['O:oc:ss:rr [work@top.W]'] O['O:oc:ss:rr [work@top.W]'] <sys_func_call> | localparam int X2 = $clog2(Cfg.W);

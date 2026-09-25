@@ -1,0 +1,6 @@
+P274 s.a 8:11:8:14 <port> mint=compileSelectExpression < compileExpression < high_conn_ < elaborate_
+   E275 ref_obj s full='' span=8:13:8:14 par=hp | mint=compileSelectExpression < compileExpression < high_conn_ < elaborate_ | set='s'@compileSelectExpression
+   E276 ref_obj a full='' span=8:13:8:14 par=hp | mint=compileSelectExpression < compileExpression < high_conn_ < elaborate_ | set='a'@compileSelectExpression
+P311 sub.adr[3:0] 9:11:9:23 <port> mint=compileSelectExpression < compileExpression < high_conn_ < elaborate_
+   E312 ref_obj sub full='' span=9:15:9:18 par=hp | mint=compileSelectExpression < compileExpression < high_conn_ < elaborate_ | set='sub'@compileSelectExpression
+   E313 part_select adr full='work@tb.dut.u2.x.sub.adr[3:0].adr' span=9:15:9:22 par=hp | mint=compilePartSelectRange < compileSelectExpression < compileExpression < high_conn_ | set='work@tb.dut.u2.x.sub.adr[3:0].adr'@SAVE

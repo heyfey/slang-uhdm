@@ -1,0 +1,2 @@
+MATCH 0:0                          G['O:cc:sz:rr [work@outer::f::in1,work@outer::f::arr]'] O['O:cc:sz:rr [work@outer::f::in1,work@outer::f::arr]'] <foreach_stmt> | 
+MATCH 0:0 o                        G['O:c:s:r [work@top.o]'] O['O:c:s:r [work@top.o]'] <assignment> | 

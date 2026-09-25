@@ -1,0 +1,3 @@
+DIFF  10:23 CFG.BUS.DAT              G['N:ooo:sss:rrr'] O['O:ooc:sss:rrr [work@top.DAT]'] <operation> | localparam int X1 = CFG.BUS.DAT / 8;
+DIFF  11:23 CFG.OFF                  G['N:oo:ss:rr'] O['O:oc:ss:rr [work@top.OFF]'] <param_assign> | localparam int X2 = CFG.OFF;
+MATCH 12:10 CFG.BUS.ADR              G['N:ooo:sss:rrr'] O['N:ooo:sss:rrr'] <operation> | logic [CFG.BUS.ADR-1:0] r1;

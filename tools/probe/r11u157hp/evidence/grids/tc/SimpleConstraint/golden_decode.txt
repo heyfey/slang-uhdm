@@ -1,0 +1,17 @@
+P25 frame.multicast.constraint_mode 56:10:56:43 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E26 ref_obj frame full='' span=56:10:56:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='frame'@compileComplexFuncCall
+   E27 ref_obj multicast full='' span=56:16:56:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='multicast'@compileComplexFuncCall
+   E28 method_func_call constraint_mode full='' span=56:26:56:41 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P33 frame.randomize 57:12:57:29 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E34 ref_obj frame full='' span=57:12:57:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='frame'@compileComplexFuncCall
+   E35 method_func_call randomize full='' span=57:18:57:27 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P52 frame.multicast.constraint_mode 68:10:68:43 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E53 ref_obj frame full='' span=68:10:68:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='frame'@compileComplexFuncCall
+   E54 ref_obj multicast full='' span=68:16:68:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='multicast'@compileComplexFuncCall
+   E55 method_func_call constraint_mode full='' span=68:26:68:41 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set=-
+P62 frame.randomize 73:10:73:27 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E63 ref_obj frame full='' span=73:10:73:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='frame'@compileComplexFuncCall
+   E64 method_func_call randomize full='' span=73:16:73:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P118 payload.size 39:13:39:27 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E119 ref_obj payload full='' span=39:13:39:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='payload'@compileComplexFuncCall
+   E120 method_func_call size full='' span=39:21:39:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-

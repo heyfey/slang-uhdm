@@ -1,0 +1,5 @@
+MATCH 44:27 this.idx                 G['N:oo:ss:rr'] O['N:oo:ss:rr'] <method_func_call> | void'(this.aa.first(this.idx));  // L43 1 REF actual, this-rooted
+MATCH 45:26 this.idx                 G['N:oo:ss:rr'] O['N:oo:ss:rr'] <method_func_call> | void'(this.aa.next(this.idx));   // L44 1 REF actual
+MATCH 46:26 this.ii                  G['N:oo:ss:rr'] O['N:oo:ss:rr'] <method_func_call> | void'(this.ai.last(this.ii));    // L45 1 REF actual
+MATCH 53:28 this.s                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <method_func_call> | void'(this.s.compare(this.s));   // L52 1
+MATCH 59:7 this.n                   G['O:oc:sz:rr [work@v85x1::c1v::f::n]'] O['O:oc:sz:rr [work@v85x1::c1v::f::n]'] <assignment> | this.n = 0;

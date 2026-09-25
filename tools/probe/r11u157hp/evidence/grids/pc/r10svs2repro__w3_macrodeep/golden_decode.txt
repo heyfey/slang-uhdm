@@ -1,0 +1,25 @@
+P6 o 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E7 ref_obj o full='work@top.o' span=40:5:40:6 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@top.o'@SAVE
+P10 o.a 40:16:40:17 <assignment> mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileBlockingAssignment
+   E11 ref_obj o full='' span=40:18:40:19 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileBlockingAssignment | set='o'@compileSelectExpression
+   E12 ref_obj a full='' span=40:18:40:19 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileBlockingAssignment | set='a'@compileSelectExpression
+P16 o.f 41:21:41:26 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E17 ref_obj o full='' span=41:21:41:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='o'@compileComplexFuncCall
+   E18 method_func_call f full='' span=41:23:41:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set=-
+P36 d.size 26:9:26:15 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E37 ref_obj d full='' span=26:9:26:10 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='d'@compileComplexFuncCall
+   E38 ref_obj size full='work@w3::f::size' span=26:11:26:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@w3::f::size'@SAVE
+P43 d.size 27:13:27:19 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E44 ref_obj d full='' span=27:13:27:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='d'@compileComplexFuncCall
+   E45 ref_obj size full='work@w3::f::size' span=27:15:27:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@w3::f::size'@SAVE
+P50 d.size 28:13:28:21 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E51 ref_obj d full='' span=28:13:28:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='d'@compileComplexFuncCall
+   E52 method_func_call size full='' span=28:15:28:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-
+P67 a.b.size 31:13:31:21 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E68 ref_obj a full='' span=31:13:31:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='a'@compileComplexFuncCall
+   E69 ref_obj b full='' span=31:15:31:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='b'@compileComplexFuncCall
+   E70 ref_obj size full='work@w3::f::size' span=31:17:31:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@w3::f::size'@SAVE
+P75 a.b.size 32:13:32:23 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E76 ref_obj a full='' span=32:13:32:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='a'@compileComplexFuncCall
+   E77 ref_obj b full='' span=32:15:32:16 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='b'@compileComplexFuncCall
+   E78 method_func_call size full='' span=32:17:32:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set=-

@@ -1,0 +1,2 @@
+MATCH 5:15 G.x                      G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | always_comb G.x = 1'b0;
+MATCH 6:14 G.x                      G['O:oc:ss:rr [work@top.x]'] O['O:oc:ss:rr [work@top.x]'] <cont_assign> | assign o = G.x;

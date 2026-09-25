@@ -1,0 +1,1 @@
+DIFF  40:12 mstr.f                   G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'O:oc:ss:rr [work@ps23_child.g.f]'] <cont_assign> | assign mstr.f     = v1 ^ 4'h5;     // S8 LHS MEMBER ACCESS, operation

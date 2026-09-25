@@ -1,0 +1,7 @@
+DIFF  11:56 B.x                      G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'O:oc:ss:rr [work@genblk_dive_top.Z.A.B.C.x]'] <cont_assign> | assign B.x = 0;
+MATCH 12:58 A.B.C.x                  G['O:oooc:ssss:rrrr [work@genblk_dive_top.Z.A.B.C.x]'] O['O:oooc:ssss:rrrr [work@genblk_dive_top.Z.A.B.C.x]'] <cont_assign> | wire z = A.B.C.x;
+DIFF  14:48 A.x                      G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'O:oc:ss:rr [work@genblk_dive_top.Z.A.B.x]'] <cont_assign> | assign A.x = A.B.C.x;
+MATCH 14:54 A.B.C.x                  G['O:oooc:ssss:rrrr [work@genblk_dive_top.Z.A.B.x]', 'O:oooc:ssss:rrrr [work@genblk_dive_top.Z.A.B.x]'] O['O:oooc:ssss:rrrr [work@genblk_dive_top.Z.A.B.x]', 'O:oooc:ssss:rrrr [work@genblk_dive_top.Z.A.B.x]'] <cont_assign> | assign A.x = A.B.C.x;
+DIFF  16:40 B.C.x                    G['N:ooo:sss:rrr', 'N:ooo:sss:rrr'] O['N:ooo:sss:rrr', 'O:ooc:sss:rrr [work@genblk_dive_top.Z.A.x]'] <cont_assign> | assign B.C.x = B.x;
+MATCH 16:48 B.x                      G['O:oc:ss:rr [work@genblk_dive_top.Z.A.x]', 'O:oc:ss:rr [work@genblk_dive_top.Z.A.x]'] O['O:oc:ss:rr [work@genblk_dive_top.Z.A.x]', 'O:oc:ss:rr [work@genblk_dive_top.Z.A.x]'] <cont_assign> | assign B.C.x = B.x;
+MATCH 20:20 Z.A.x                    G['O:ooc:sss:rrr [work@genblk_dive_top.x]'] O['O:ooc:sss:rrr [work@genblk_dive_top.x]'] <cont_assign> | assign x = Z.A.x;

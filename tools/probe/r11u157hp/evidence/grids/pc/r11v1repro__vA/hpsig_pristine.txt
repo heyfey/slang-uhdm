@@ -1,0 +1,6 @@
+MATCH 7:56 q.d[0]                   G['O:oc:ss:rb [work@mp_named.q.d[0].d]'] O['O:oc:ss:rb [work@mp_named.q.d[0].d]'] <cont_assign> | module mp_named (bif.mp q, output logic o); assign o = q.d[0]; endmodu
+MATCH 8:57 q.d[0]                   G['O:oc:ss:rb [work@pl_named.q.d[0].d]'] O['O:oc:ss:rb [work@pl_named.q.d[0].d]'] <cont_assign> | module pl_named (bif     q, output logic o); assign o = q.d[0]; endmod
+MATCH 9:57 q.d[0]                   G['O:oc:ss:rb [work@pl_pos.q.d[0].d]'] O['O:oc:ss:rb [work@pl_pos.q.d[0].d]'] <cont_assign> | module pl_pos   (bif     q, output logic o); assign o = q.d[0]; endmod
+MATCH 10:57 q.d[0]                   G['O:oc:ss:rb [work@mp_pos.q.d[0].d]'] O['O:oc:ss:rb [work@mp_pos.q.d[0].d]'] <cont_assign> | module mp_pos   (bif.mp  q, output logic o); assign o = q.d[0]; endmod
+MATCH 14:19 u.mp                     G['O:oc:ss:rr [work@top.a0.q.mp]', 'O:oc:ss:rr [work@top.a0.q.mp]'] O['O:oc:ss:rr [work@top.a0.q.mp]', 'O:oc:ss:rr [work@top.a0.q.mp]'] <port> | mp_named a0 (.q(u.mp), .o(o[0]));
+DIFF  17:16 u.mp                     G['N:oo:ss:rr'] O['O:oc:ss:rr [work@top.a3.q.mp]'] <port> | mp_pos   a3 (u.mp, o[3]);

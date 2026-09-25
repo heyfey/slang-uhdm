@@ -1,0 +1,2 @@
+MATCH 9:11 this.n                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <assignment> | n = this.n;            // 1 step  (control)
+MATCH 10:11 this.n                   G['N:oo:ss:rr'] O['N:oo:ss:rr'] <operation> | n = this.n + 1;        // 1 step in an operation (control)

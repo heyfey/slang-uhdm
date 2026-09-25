@@ -1,0 +1,23 @@
+P5 o 0:0:0:0 <assignment> mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt
+   E6 ref_obj o full='work@top.o' span=38:5:38:6 par=hp | mint=compileComplexFuncCall < compileExpression < compileBlockingAssignment < compileStmt | set='work@top.o'@SAVE
+P10 o.f 39:21:39:26 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E11 ref_obj o full='' span=39:21:39:22 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='o'@compileComplexFuncCall
+   E12 method_func_call f full='' span=39:23:39:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set=-
+P32 data.size 14:21:14:30 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E33 ref_obj data full='' span=14:21:14:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='data'@compileComplexFuncCall
+   E34 ref_obj size full='work@cx::f::size' span=14:26:14:30 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@cx::f::size'@SAVE
+P44 bytes.size 16:15:16:25 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E45 ref_obj bytes full='' span=16:15:16:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='bytes'@compileComplexFuncCall
+   E46 ref_obj size full='work@cx::f::bytes::size' span=16:21:16:25 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@cx::f::bytes::size'@SAVE
+P52 bytes.size 18:9:18:19 <assignment> mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment
+   E53 ref_obj bytes full='' span=18:9:18:14 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='bytes'@compileComplexFuncCall
+   E54 ref_obj size full='work@cx::f::size' span=18:15:18:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileBlockingAssignment | set='work@cx::f::size'@SAVE
+P58 data.size 20:17:20:26 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E59 ref_obj data full='' span=20:17:20:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='data'@compileComplexFuncCall
+   E60 ref_obj size full='' span=20:22:20:26 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='size'@SAVE
+P65 bytes.size 22:21:22:31 <sys_func_call> mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments
+   E66 ref_obj bytes full='' span=22:21:22:26 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='bytes'@compileComplexFuncCall
+   E67 ref_obj size full='work@cx::f::size' span=22:27:22:31 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileTfCallArguments | set='work@cx::f::size'@SAVE
+P68 data.size 24:9:24:18 <operation> mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression
+   E69 ref_obj data full='' span=24:9:24:13 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='data'@compileComplexFuncCall
+   E70 ref_obj size full='work@cx::f::size' span=24:14:24:18 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileExpression | set='work@cx::f::size'@SAVE

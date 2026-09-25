@@ -1,0 +1,10 @@
+MATCH 22:35 t.gt                     G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | function void c1(); T t; sc = t.gt();                          endfunc
+MATCH 24:41 t.gt                     G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | function void c2(); T t; sc = {"[", t.gt(), "]"};              endfunc
+MATCH 26:39 t.sz                     G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | function void c3(); T t; ic = 1 + t.sz();                      endfunc
+MATCH 28:47 t.gt                     G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | function void c4(); T t; sc = (ic == 0) ? t.gt() : "z";        endfunc
+MATCH 30:35 bc.gn                    G['O:oo:ss:rm'] O['O:oo:ss:rm'] <assignment> | function void c5(); T t; sc = bc.gn(t.gt());                   endfunc
+MATCH 30:41 t.gt                     G['O:oo:ss:rm'] O['O:oo:ss:rm'] <method_func_call> | function void c5(); T t; sc = bc.gn(t.gt());                   endfunc
+MATCH 32:34 t.sz                     G['O:oo:ss:rm'] O['O:oo:ss:rm'] <operation> | function void c6(); T t; if (t.sz() == 0) sc = "q";            endfunc
+MATCH 34:39 t.gt                     G['O:oo:ss:rm'] O['O:oo:ss:rm'] <return_stmt> | function string c7(); T t; return t.gt();                      endfunc
+MATCH 36:36 t.sz                     G['O:oo:ss:rm'] O['O:oo:ss:rm'] <begin> | function void c8(); T t; case (t.sz()) 0: sc = "a"; default: sc = "b";
+MATCH 38:45 t.gt                     G['O:oo:ss:rm'] O['O:oo:ss:rm'] <sys_func_call> | function void c9(); T t; $display("%s", t.gt());               endfunc

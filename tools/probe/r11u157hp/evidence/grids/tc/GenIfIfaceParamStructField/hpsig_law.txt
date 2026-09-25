@@ -1,0 +1,16 @@
+MATCH 15:9 sub.CFG.HSK.DLY          G['N:oooo:ssss:rrrr'] O['N:oooo:ssss:rrrr'] <operation> | if (sub.CFG.HSK.DLY == 0) begin
+DIFF  16:14 sub.rsp_sel              G['N:oo:ss:rr'] O['O:oc:ss:rr [work@child.rsp_sel]'] <cont_assign> | assign sub.rsp_sel = sub.sel;
+MATCH 16:28 sub.sel                  G['O:oc:ss:rr [work@child.sel]'] O['O:oc:ss:rr [work@child.sel]'] <cont_assign> | assign sub.rsp_sel = sub.sel;
+MATCH 17:18 sub.CFG.HSK.DLY          G['N:oooo:ssss:rrrr'] O['N:oooo:ssss:rrrr'] <operation> | end else if (sub.CFG.HSK.DLY == 1) begin
+MATCH 18:27 sub.clk                  G['O:oc:ss:rr [work@child.clk]', 'O:oc:ss:rr [work@top.c.genblk1.clk]'] O['O:oc:ss:rr [work@child.clk]', 'O:oc:ss:rr [work@top.c.genblk1.clk]'] <operation> | always_ff @(posedge sub.clk or posedge sub.rst)
+MATCH 18:46 sub.rst                  G['O:oc:ss:rr [work@child.rst]', 'O:oc:ss:rr [work@top.c.genblk1.rst]'] O['O:oc:ss:rr [work@child.rst]', 'O:oc:ss:rr [work@top.c.genblk1.rst]'] <operation> | always_ff @(posedge sub.clk or posedge sub.rst)
+MATCH 19:13 sub.rst                  G['O:oc:ss:rr [work@child.rst]', 'O:oc:ss:rr [work@top.c.genblk1.rst]'] O['O:oc:ss:rr [work@child.rst]', 'O:oc:ss:rr [work@top.c.genblk1.rst]'] <event_control> | if (sub.rst) sub.rsp_sel <= '0;
+MATCH 19:22 sub.rsp_sel              G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <assignment> | if (sub.rst) sub.rsp_sel <= '0;
+MATCH 20:18 sub.trn                  G['O:oc:ss:rr [work@child.trn]', 'O:oc:ss:rr [work@top.c.genblk1.trn]'] O['O:oc:ss:rr [work@child.trn]', 'O:oc:ss:rr [work@top.c.genblk1.trn]'] <if_else> | else if (sub.trn) sub.rsp_sel <= sub.sel;
+MATCH 20:27 sub.rsp_sel              G['N:oo:ss:rr', 'N:oo:ss:rr'] O['N:oo:ss:rr', 'N:oo:ss:rr'] <assignment> | else if (sub.trn) sub.rsp_sel <= sub.sel;
+MATCH 20:42 sub.sel                  G['O:oc:ss:rr [work@child.sel]', 'O:oc:ss:rr [work@top.c.genblk1.sel]'] O['O:oc:ss:rr [work@child.sel]', 'O:oc:ss:rr [work@top.c.genblk1.sel]'] <assignment> | else if (sub.trn) sub.rsp_sel <= sub.sel;
+MATCH 27:10 sub.clk                  G['N:oo:ss:rr'] O['N:oo:ss:rr'] <cont_assign> | assign sub.clk = clk; assign sub.rst = rst; assign sub.trn = trn; assi
+MATCH 27:32 sub.rst                  G['N:oo:ss:rr'] O['N:oo:ss:rr'] <cont_assign> | assign sub.clk = clk; assign sub.rst = rst; assign sub.trn = trn; assi
+MATCH 27:54 sub.trn                  G['N:oo:ss:rr'] O['N:oo:ss:rr'] <cont_assign> | assign sub.clk = clk; assign sub.rst = rst; assign sub.trn = trn; assi
+MATCH 27:76 sub.sel                  G['N:oo:ss:rr'] O['N:oo:ss:rr'] <cont_assign> | assign sub.clk = clk; assign sub.rst = rst; assign sub.trn = trn; assi
+MATCH 28:14 sub.rsp_sel              G['O:oc:ss:rr [work@top.rsp_sel]'] O['O:oc:ss:rr [work@top.rsp_sel]'] <cont_assign> | assign o = sub.rsp_sel;

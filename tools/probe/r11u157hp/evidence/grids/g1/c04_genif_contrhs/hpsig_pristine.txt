@@ -1,0 +1,3 @@
+MATCH 9:16 s.a                      G['O:oc:ss:rr [work@tb.dut.G.a]', 'O:oc:ss:rr [work@top.G.a]'] O['O:oc:ss:rr [work@tb.dut.G.a]', 'O:oc:ss:rr [work@top.G.a]'] <cont_assign> | assign q = s.a;
+MATCH 10:17 sub.adr                  G['O:oc:ss:rr [work@tb.dut.G.adr]', 'O:oc:ss:rr [work@top.G.adr]'] O['O:oc:ss:rr [work@tb.dut.G.adr]', 'O:oc:ss:rr [work@top.G.adr]'] <cont_assign> | assign q8 = sub.adr;
+MATCH 11:16 Cfg.W                    G['O:oc:ss:rr [work@top.G.W]'] O['O:oc:ss:rr [work@top.G.W]'] <cont_assign> | assign v = Cfg.W;

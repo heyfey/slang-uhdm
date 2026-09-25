@@ -1,0 +1,32 @@
+P23 c.u.a 7:12:7:17 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E24 ref_obj c full='' span=7:14:7:15 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E25 ref_obj u full='' span=7:14:7:15 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='u'@compileSelectExpression
+   E26 ref_obj a full='' span=7:16:7:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='a'@compileSelectExpression
+P29 c.u.b 7:23:7:28 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E30 ref_obj c full='' span=7:25:7:26 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E31 ref_obj u full='' span=7:25:7:26 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='u'@compileSelectExpression
+   E32 ref_obj b full='' span=7:27:7:28 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='b'@compileSelectExpression
+P35 c.d 7:35:7:38 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E36 ref_obj c full='' span=7:37:7:38 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E37 ref_obj d full='' span=7:37:7:38 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='d'@compileSelectExpression
+P108 c.u.a 7:12:7:17 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E109 ref_obj c full='' span=7:14:7:15 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E110 ref_obj u full='' span=7:14:7:15 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='u'@compileSelectExpression
+   E111 ref_obj a full='' span=7:16:7:17 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='a'@compileSelectExpression
+P114 c.u.b 7:23:7:28 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E115 ref_obj c full='' span=7:25:7:26 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E116 ref_obj u full='' span=7:25:7:26 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='u'@compileSelectExpression
+   E117 ref_obj b full='' span=7:27:7:28 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='b'@compileSelectExpression
+P120 c.d 7:35:7:38 <assignment> mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt
+   E121 ref_obj c full='' span=7:37:7:38 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='c'@compileSelectExpression
+   E122 ref_obj d full='' span=7:37:7:38 par=hp | mint=compileSelectExpression < compileExpression < compileBlockingAssignment < compileStmt | set='d'@compileSelectExpression
+P175 CFG.u 15:30:15:35 <param_assign> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E176 ref_obj CFG full='' span=15:34:15:35 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='CFG'@compileSelectExpression
+   E177 ref_obj u full='' span=15:34:15:35 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='u'@compileSelectExpression
+P182 CFG.u.b 16:30:16:37 <param_assign> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E183 ref_obj CFG full='' span=16:34:16:35 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='CFG'@compileSelectExpression
+   E184 ref_obj u full='' span=16:34:16:35 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='u'@compileSelectExpression
+   E185 ref_obj b full='' span=16:36:16:37 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='b'@compileSelectExpression
+P190 CFG.d[0] 17:30:17:38 <param_assign> mint=compileSelectExpression < compileExpression < compileExpression < compileExpression
+   E191 ref_obj CFG full='' span=17:34:17:35 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='CFG'@compileSelectExpression
+   E192 bit_select d full='work@kid.CFG.d[0].d' span=17:34:17:38 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileExpression | set='work@kid.CFG.d[0].d'@SAVE

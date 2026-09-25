@@ -1,0 +1,15 @@
+P73 s.a 9:16:9:19 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E74 ref_obj s full='' span=9:16:9:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='s'@compileComplexFuncCall
+   E75 ref_obj a full='work@top.G.a' span=9:18:9:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@top.G.a'@SAVE
+P78 sub.adr 10:17:10:24 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E79 ref_obj sub full='' span=10:17:10:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='sub'@compileComplexFuncCall
+   E80 ref_obj adr full='work@top.G.adr' span=10:21:10:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@top.G.adr'@SAVE
+P83 Cfg.W 11:16:11:21 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E84 ref_obj Cfg full='' span=11:16:11:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='Cfg'@compileComplexFuncCall
+   E85 ref_obj W full='work@top.G.W' span=11:20:11:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@top.G.W'@SAVE
+P295 s.a 9:16:9:19 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E296 ref_obj s full='' span=9:16:9:17 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='s'@compileComplexFuncCall
+   E297 ref_obj a full='work@tb.dut.G.a' span=9:18:9:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@tb.dut.G.a'@SAVE
+P300 sub.adr 10:17:10:24 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E301 ref_obj sub full='' span=10:17:10:20 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='sub'@compileComplexFuncCall
+   E302 ref_obj adr full='work@tb.dut.G.adr' span=10:21:10:24 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@tb.dut.G.adr'@SAVE

@@ -1,0 +1,2 @@
+DIFF  8:11 s.a                      G['N:oo:ss:rr'] O['O:oc:ss:rr [work@tb.dut.u1.x.a]'] <port> | leaf u1(s.a, q);
+DIFF  9:11 sub.adr[3:0]             G['O:oc:ss:rp [work@tb.dut.u2.x.sub.adr[3:0].adr]'] O['O:oc:ss:rp [sub.adr[3:0]]'] <port> | leaf u2(sub.adr[3:0], q2);

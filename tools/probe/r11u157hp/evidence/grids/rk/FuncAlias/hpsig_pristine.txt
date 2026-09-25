@@ -1,0 +1,2 @@
+MATCH 19:14 pipe[3].f1[63:0]         G['O:cc:ss:bp [pipe[3],pipe[3].f1[63:0]]', 'O:cc:ss:bp [pipe[3],pipe[3].f1[63:0]]'] O['O:cc:ss:bp [pipe[3],pipe[3].f1[63:0]]', 'O:cc:ss:bp [pipe[3],pipe[3].f1[63:0]]'] <operation> | f1 : pipe[3].f1[63:0],
+MATCH 20:14 pipe[3].f2[7:0]          G['O:cc:ss:bp [pipe[3],pipe[3].f2[7:0]]', 'O:cc:ss:bp [pipe[3],pipe[3].f2[7:0]]'] O['O:cc:ss:bp [pipe[3],pipe[3].f2[7:0]]', 'O:cc:ss:bp [pipe[3],pipe[3].f2[7:0]]'] <operation> | f2 : pipe[3].f2[7:0]
