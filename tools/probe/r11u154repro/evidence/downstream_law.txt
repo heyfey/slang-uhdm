@@ -1,0 +1,13 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+comb_dyn_2d_packed_sel,IDENTICAL,OK,OK,124,124,,
+iface_arr_struct_field_partsel,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+iface_cfg_mem,IDENTICAL,OK,OK,27495,27495,,
+iface_nested_param_field,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+iface_param_2level,IDENTICAL,OK,OK,32,32,,
+iface_scalar_localparam,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+iface_struct_field_param_width,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+iface_struct_field_partsel,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+jeras_tcb_gpio,IDENTICAL,OK,OK,271,271,,
+mem_ff_partial_rsp,IDENTICAL,OK,OK,1790,1790,,

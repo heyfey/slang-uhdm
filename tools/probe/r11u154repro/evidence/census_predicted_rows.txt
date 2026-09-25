@@ -1,0 +1,66 @@
+surelog/default/ArrayMethodIterator: MARGNAME
+surelog/default/BasicOh: GSFOLDTS GSPROCPS
+surelog/default/BuildUVMPkg: LVBASEMEM LVIDXREAD LVSELNAME MARGNAME
+surelog/default/Earlgrey_0_1: CASTREF GSFOLDTS GSPROCPS HPPSBOUND
+surelog/default/GenForIfaceLocalparamNestedGen: PVNESTTS
+surelog/default/GenIfIfaceParamStructField: PVNESTTS
+surelog/default/InterfaceModPort: LVIDXREAD
+surelog/default/InterfaceParamOverrideProp: DEFPKGTS PVNESTTS
+surelog/default/MiniAmiq: LVBASEMEM LVIDXREAD LVSELNAME MARGNAME
+surelog/default/Rggen: HPPSBOUND
+surelog/default/Scoreboard: LVBASEMEM LVIDXREAD LVSELNAME MARGNAME
+surelog/default/Scr1SvTests: CASTREF GSFOLDTS GSPROCPS HPPSBOUND
+surelog/default/SeqDriver: LVBASEMEM LVIDXREAD LVSELNAME MARGNAME
+surelog/default/SimpleUVM: LVBASEMEM LVIDXREAD LVSELNAME MARGNAME
+surelog/default/StringMethod: MARGNAME VARINITDEF
+surelog/testflags/ArrayMethodIterator: MARGNAME
+surelog/testflags/BasicOh: GSFOLDTS GSPROCPS
+surelog/testflags/BuildUVMPkg: LVBASEMEM LVIDXREAD LVSELNAME MARGNAME
+surelog/testflags/Earlgrey_0_1: CASTREF GSFOLDTS GSPROCPS HPPSBOUND
+surelog/testflags/GenForIfaceLocalparamNestedGen: PVNESTTS
+surelog/testflags/GenIfIfaceParamStructField: PVNESTTS
+surelog/testflags/InterfaceModPort: LVIDXREAD
+surelog/testflags/InterfaceParamOverrideProp: DEFPKGTS PVNESTTS
+surelog/testflags/MiniAmiq: LVBASEMEM LVIDXREAD LVSELNAME MARGNAME
+surelog/testflags/Scr1SvTests: CASTREF GSFOLDTS GSPROCPS HPPSBOUND
+surelog/testflags/SeqDriver: LVBASEMEM LVIDXREAD LVSELNAME MARGNAME
+surelog/testflags/SimpleUVM: LVBASEMEM LVIDXREAD LVSELNAME MARGNAME
+surelog/testflags/StringMethod: MARGNAME VARINITDEF
+uhdm2rtlil/default/comb_dyn_2d_packed_sel: CASTREF
+uhdm2rtlil/default/ibex_icache: GSPROCPS
+uhdm2rtlil/default/ibex_multdiv_fast: GSPROCPS
+uhdm2rtlil/default/iface_arr_struct_field_partsel: HPELEMNAME HPPSBOUND
+uhdm2rtlil/default/iface_cfg_mem: PVNESTTS
+uhdm2rtlil/default/iface_ff_genvar_partsel: LVBASEMEM
+uhdm2rtlil/default/iface_nested_param_field: DEFPKGTS PVNESTTS
+uhdm2rtlil/default/iface_param_2level: PVNESTTS
+uhdm2rtlil/default/iface_scalar_localparam: DEFPKGTS HPPSBOUND PIUNPACKED PSBOUNDPATH PVNESTTS
+uhdm2rtlil/default/iface_struct_field_param_width: DEFPKGTS PVNESTTS
+uhdm2rtlil/default/iface_struct_field_partsel: DEFPKGTS HPPSBOUND PIUNPACKED PSBOUNDPATH PVNESTTS
+uhdm2rtlil/default/iface_wholestruct_param: PVNESTTS
+uhdm2rtlil/default/jeras_tcb_gpio: HPPSBOUND
+uhdm2rtlil/default/mem_ff_partial_rsp: LVIDXREAD
+uhdm2rtlil/default/rp32_r5p_alu: DEFPKGTS
+uhdm2rtlil/default/rp32_r5p_wbu: DEFPKGTS
+uhdm2rtlil/default/struct_array_indexed_write: LVBASEMEM
+uhdm2rtlil/default/struct_little_endian_bit_array: LVBASEMEM
+uhdm2rtlil/default/struct_part_select_write: LVBASEMEM
+uhdm2rtlil/testflags/comb_dyn_2d_packed_sel: CASTREF
+uhdm2rtlil/testflags/ibex_icache: GSPROCPS
+uhdm2rtlil/testflags/ibex_multdiv_fast: GSPROCPS
+uhdm2rtlil/testflags/iface_arr_struct_field_partsel: HPELEMNAME HPPSBOUND
+uhdm2rtlil/testflags/iface_cfg_mem: PVNESTTS
+uhdm2rtlil/testflags/iface_ff_genvar_partsel: LVBASEMEM
+uhdm2rtlil/testflags/iface_nested_param_field: DEFPKGTS PVNESTTS
+uhdm2rtlil/testflags/iface_param_2level: PVNESTTS
+uhdm2rtlil/testflags/iface_scalar_localparam: DEFPKGTS HPPSBOUND PIUNPACKED PSBOUNDPATH PVNESTTS
+uhdm2rtlil/testflags/iface_struct_field_param_width: DEFPKGTS PVNESTTS
+uhdm2rtlil/testflags/iface_struct_field_partsel: DEFPKGTS HPPSBOUND PIUNPACKED PSBOUNDPATH PVNESTTS
+uhdm2rtlil/testflags/iface_wholestruct_param: PVNESTTS
+uhdm2rtlil/testflags/jeras_tcb_gpio: HPPSBOUND
+uhdm2rtlil/testflags/mem_ff_partial_rsp: LVIDXREAD
+uhdm2rtlil/testflags/rp32_r5p_alu: DEFPKGTS
+uhdm2rtlil/testflags/rp32_r5p_wbu: DEFPKGTS
+uhdm2rtlil/testflags/struct_array_indexed_write: LVBASEMEM
+uhdm2rtlil/testflags/struct_little_endian_bit_array: LVBASEMEM
+uhdm2rtlil/testflags/struct_part_select_write: LVBASEMEM

@@ -1,0 +1,23 @@
+./default/BasicOh-3ea47b5a/slang.uhdm pris=27 law=0 leave=27 enter=0
+./default/BuildUVMPkg-fc55bd0c/slang.uhdm pris=145 law=74 leave=71 enter=0
+./default/Earlgrey_0_1-a898def8/slang.uhdm pris=900 law=892 leave=8 enter=0
+./default/InterfaceModPort-190d62ef/slang.uhdm pris=17 law=15 leave=2 enter=0
+./default/InterfaceParamOverrideProp-6e27b174/slang.uhdm pris=2 law=0 leave=2 enter=0
+./default/MiniAmiq-055eab74/slang.uhdm pris=187 law=180 leave=7 enter=0
+./default/Rggen-ee9ac8af/slang.uhdm pris=7 law=7 leave=0 enter=0
+./default/Scoreboard-72aa0ba8/slang.uhdm pris=190 law=183 leave=7 enter=0
+./default/Scr1SvTests-fa4609ad/slang.uhdm pris=154 law=153 leave=1 enter=0
+./default/SeqDriver-65178d3a/slang.uhdm pris=171 law=164 leave=7 enter=0
+./default/SimpleUVM-267de3ff/slang.uhdm pris=186 law=179 leave=7 enter=0
+./default/StringMethod-5a70b28c/slang.uhdm pris=2 law=0 leave=2 enter=0
+./testflags/BasicOh-3ea47b5a/slang.uhdm pris=0 law=0 leave=0 enter=0
+./testflags/BuildUVMPkg-fc55bd0c/slang.uhdm pris=145 law=74 leave=71 enter=0
+./testflags/Earlgrey_0_1-a898def8/slang.uhdm pris=900 law=892 leave=8 enter=0
+./testflags/InterfaceModPort-190d62ef/slang.uhdm pris=17 law=15 leave=2 enter=0
+./testflags/InterfaceParamOverrideProp-6e27b174/slang.uhdm pris=2 law=0 leave=2 enter=0
+./testflags/MiniAmiq-055eab74/slang.uhdm pris=187 law=180 leave=7 enter=0
+./testflags/Scr1SvTests-fa4609ad/slang.uhdm pris=154 law=153 leave=1 enter=0
+./testflags/SeqDriver-65178d3a/slang.uhdm pris=171 law=164 leave=7 enter=0
+./testflags/SimpleUVM-267de3ff/slang.uhdm pris=186 law=179 leave=7 enter=0
+./testflags/StringMethod-5a70b28c/slang.uhdm pris=2 law=0 leave=2 enter=0
+TOTAL leave=248 enter=0

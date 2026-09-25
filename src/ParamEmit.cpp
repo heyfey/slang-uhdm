@@ -15,6 +15,12 @@
 #include "slang/ast/EvalContext.h"
 
 namespace slang_uhdm {
+
+// § defPkgStructParamMemberNames154 — set by emitParameters around its
+// own makeParamTs call while it writes a DEFINITION listing (not the
+// elaborated instance, not a package): the view the law reads.
+static bool defListingParamTs154 = false;
+
 static bool condArmUnreducible151(const UHDM::any* o);  // § condTakenParamRhsShared151
 
 // § paramFoldParenSpan131 — the registry (the law and its post-pass are at
@@ -21574,7 +21580,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     syntaxRefSep = "::";
                 if (!currentScope)
                     currentScope = ps.getParentScope();
+                // § defPkgStructParamMemberNames154 — the listing view.
+                bool savedDv154 = defListingParamTs154;
+                defListingParamTs154 = !topView && !inPackage;
                 auto* its = makeParamTs(ps, typedParam);
+                defListingParamTs154 = savedDv154;
                 syntaxRefSep = savedSep131;
                 stampCastSizeParamTs(ps, up, its);
                 currentScope = savedCS;
@@ -22378,6 +22388,35 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
 // end of the emitting call saw an unreduced `ref_obj`/`operation` on exactly
 // the parameters it is about and moved NOTHING (measured, not assumed).
 void UhdmExporter::drainPaNameCopySrc38() {
+    // § portViewNestedPatTsNamed154 — A PORT VIEW'S NESTED PATTERN TYPESPEC
+    // IS NAMED BY THE VIEW.  An interface parameter whose default is a
+    // NESTED assignment pattern (`parameter cfg_t CFG = '{BUS: '{DAT:
+    // 32}}`): in the port view a modport connection builds (`.s(s.sub)`,
+    // iface_cfg_mem's `work@iface_cfg_mem.u.s`) golden names the INNER
+    // pattern operation's typespec reference by the view's path, as it does
+    // the outer one; ours left the inner one bare (empty full name).  The
+    // instance's own listing and a definition keep it bare on both sides
+    // (grid np n2, n5).  Applied here, dead last, because the port views are
+    // registered (ifacePortViewMap) only after emitInterfaceInstance
+    // returns.  Grid tools/probe/r11u154repro/np.  Switch:
+    // R11U154_PVNESTTS_OFF.
+    if (!nestedPatTs154().empty()) {
+        std::set<const UHDM::any*> views154;
+        for (auto& kv : ifacePortViewMap)
+            if (kv.second)
+                views154.insert(kv.second);
+        for (auto& r154 : nestedPatTs154()) {
+            const UHDM::any* up = r154.op;
+            while (up && up->UhdmType() == UHDM::uhdmoperation)
+                up = up->VpiParent();
+            if (!up || up->UhdmType() != UHDM::uhdmparam_assign ||
+                !views154.count(up->VpiParent()) || r154.prefix.empty())
+                continue;
+            trace154("PVNESTTS");
+            r154.rt->VpiFullName(r154.prefix);
+        }
+        nestedPatTs154().clear();
+    }
     // -----------------------------------------------------------------------
     // § paNameCopiesSrcConst38 (r11u38) — A `param_assign` Rhs FOLDED FROM A
     // BARE NAME OF A PARAMETER **IS THAT PARAMETER'S OWN CONSTANT, COPIED**:
@@ -25544,14 +25583,40 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             // `work@dut.it_t.x` (g1, measured both sides).
             if (tpAnon47)
                 memberScope = syntaxRefPrefix;
+            // § defPkgStructParamMemberNames154 — A DEFINITION LISTING'S
+            // PARAMETER NAMES ITS PACKAGE STRUCT'S MEMBERS AS THE PACKAGE
+            // DOES.  A module or interface parameter typed by a package
+            // struct typedef (`parameter p::cfg_t CFG = ...`): in the
+            // DEFINITION listing golden's member references read
+            // `p::p::cfg_t::HSK`, the package listing's own spelling
+            // (InterfaceParamOverrideProp, iface_nested_param_field,
+            // iface_struct_field_param_width; a module parameter alike),
+            // where ours prefixed the parameter's path
+            // (`work@tif.CFG.p::cfg_t.HSK`).  Elaborated copies keep their
+            // use-site names.  Grid tools/probe/r11u154repro/np, pi.
+            // Switch: R11U154_DEFPKGTS_OFF.
+            bool ifDefPkgSep154 = false;
+            if (!tpAnon47 && defListingParamTs154 && aliasPkg &&
+                r11u154On("R11U154_DEFPKGTS_OFF"))
+                if (auto* hs154 = ps.getParentScope();
+                    hs154 &&
+                    hs154->asSymbol().kind == SymbolKind::InstanceBody) {
+                    trace154("DEFPKGTS");
+                    memberScope = std::string(aliasPkg->name) + "::" + alias;
+                    ifDefPkgSep154 = true;
+                }
+            // The package spelling joins with `::` (the package listing's own
+            // member separator).
+            const std::string memberSep154 = ifDefPkgSep154 ? "::" : ".";
             its = ct.kind == SymbolKind::PackedStructType
                       ? (UHDM::typespec*)buildStructTs(ct.as<PackedStructType>(), true,
-                                                       memberScope)
+                                                       memberScope, memberSep154)
                       : ct.kind == SymbolKind::UnpackedStructType
                       ? (UHDM::typespec*)buildStructTs(
-                            ct.as<UnpackedStructType>(), false, memberScope)
+                            ct.as<UnpackedStructType>(), false, memberScope,
+                            memberSep154)
                       : (UHDM::typespec*)buildUnionTs(ct.as<PackedUnionType>(), true,
-                                                      memberScope);
+                                                      memberScope, memberSep154);
             if (tpAnon47)
                 tpAnonAggParamTs47.insert(its);
             else

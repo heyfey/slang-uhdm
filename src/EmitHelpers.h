@@ -14706,4 +14706,250 @@ inline bool lvIdxBitSelAtIndex147(const UHDM::BaseClass* parent) {
     }
 }
 
+// ============================================================================
+// r11u154 — the expression/parameter ground on the strict axis (seventh
+// refill).  Every law reads its own switch; `R11U154_OFF=1` turns them all
+// off.  Grids and measurements: tools/probe/r11u154repro/README.md.
+//   R11U154_HPPSBOUND_OFF   § hpPartSelBoundNamesBySelect154   (ExprEmit.cpp)
+//   R11U154_HPELEMNAME_OFF  § hpElemSelNameIsPathSoFar154      (ExprEmit.cpp)
+//   R11U154_GSPROCPS_OFF    § genScopeProcPsNamedByScope154    (ExprEmit.cpp)
+//   R11U154_GSFOLDTS_OFF    § genProcFoldTsKeepsScope154       (ExprEmit.cpp)
+//   R11U154_MARGNAME_OFF    § builtinMethodArgNamedByPath154   (ExprEmit.cpp)
+//   R11U154_VARINITDEF_OFF  § varInitStrMethodArgDefNet154     (ExprEmit.cpp)
+//   R11U154_CASTREF_OFF     § elabCastSharesDeclRef154         (ExprEmit.cpp)
+//   R11U154_LVIDXREAD_OFF   § lvIdxPathIsRead154               (ExprEmit.cpp)
+//   R11U154_LVBASEMEM_OFF   § lvPathBaseAtFirstMember154       (ExprEmit.cpp)
+//   R11U154_LVSELNAME_OFF   § lvPathSelNamedByChain154         (ExprEmit.cpp)
+//   R11U154_LVBSSPAN_OFF    § lvIfacePathBitSelWhole154        (ExprEmit.cpp)
+//   R11U154_DEFPKGTS_OFF    § defPkgStructParamMemberNames154  (ParamEmit.cpp)
+//   R11U154_PIUNPACKED_OFF  § paramInitUnpackedMemberPath154   (ExprEmit.cpp)
+//   R11U154_PSBOUNDPATH_OFF § psBoundPathFirstMember154        (ExprEmit.cpp)
+//   R11U154_PVNESTTS_OFF    § portViewNestedPatTsNamed154      (ExprEmit.cpp records,
+//                           ParamEmit.cpp drainPaNameCopySrc38 applies)
+// R11U154_TRACE=1 prints one stderr line per firing (the census).
+// ============================================================================
+inline bool r11u154On(const char* one) {
+    static const bool all = getenv("R11U154_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+
+/// § elabCastSharesDeclRef154 — see the size-cast arms of ExprEmit.
+inline bool castSharesDeclRef154On() {
+    static const bool on = r11u154On("R11U154_CASTREF_OFF");
+    return on;
+}
+
+inline void trace154(const char* law);
+
+/// § lvIdxPathIsRead154 — A DOTTED PATH INSIDE AN LVALUE SELECT'S INDEX IS A
+/// READ.  `m[sub.adr][7:0] <= d` (uhdm2rtlil mem_ff_partial_rsp): golden
+/// spans the path's base reference at its own token (`sub` 24:25-28) and
+/// names the leaf through the select (`work@mem.m.adr`), exactly as the same
+/// path in an rvalue index; ours applied the lvalue convention (the base on
+/// the member's token, the leaf name-only) because the whole left-hand side
+/// is emitted under `inLhs`.  The gate is § lvIdxBitSelAtIndex147's: the
+/// path's parent is a select, directly or through operations.  Grid
+/// tools/probe/r11u154repro/lx.  Switch: R11U154_LVIDXREAD_OFF.
+inline bool lvIdxParent154(const UHDM::BaseClass* parent) {
+    const UHDM::BaseClass* p = parent;
+    while (p && p->UhdmType() == UHDM::uhdmoperation)
+        p = p->VpiParent();
+    if (!p)
+        return false;
+    switch (p->UhdmType()) {
+        case UHDM::uhdmvar_select:
+        case UHDM::uhdmbit_select:
+        case UHDM::uhdmpart_select:
+        case UHDM::uhdmindexed_part_select:
+            return true;
+        default:
+            return false;
+    }
+}
+
+inline bool lvIdxPathIsRead154(const UHDM::BaseClass* parent) {
+    static const bool on = r11u154On("R11U154_LVIDXREAD_OFF");
+    if (!on)
+        return false;
+    const UHDM::BaseClass* p = parent;
+    while (p && p->UhdmType() == UHDM::uhdmoperation)
+        p = p->VpiParent();
+    if (!p)
+        return false;
+    switch (p->UhdmType()) {
+        case UHDM::uhdmvar_select:
+        case UHDM::uhdmbit_select:
+        case UHDM::uhdmpart_select:
+        case UHDM::uhdmindexed_part_select:
+            trace154("LVIDXREAD");
+            return true;
+        default:
+            return false;
+    }
+}
+
+/// § lvPathBaseAtFirstMember154 — AN LVALUE PATH'S BASE REFERENCE SPANS THE
+/// FIRST MEMBER'S TOKEN.  Golden, for the TARGET of a write through a dotted
+/// path with a trailing select (`sv.wdtxx[3:0] <= x`, `bs.rqq.adr[k +: 2]
+/// <= x`, `assign bs.wdtxx[3:0] = x`, `bs.rqq.adr[2] <= x`): the base
+/// ref_obj starts AND ends with the first member (`wdtxx` 31-36, `rqq`
+/// 31-34), as the bare-member and struct bit-select arms already model; the
+/// struct range-select arm kept the base's own length (31-33) and the
+/// interface-path arms its own token (28-30).  A path inside the lvalue's
+/// own index is a read (§ lvIdxPathIsRead154).  Grid
+/// tools/probe/r11u154repro/lv.  Switch: R11U154_LVBASEMEM_OFF.
+inline bool lvBaseAtFirstMember154(bool inLhs, const UHDM::BaseClass* parent) {
+    static const bool on = r11u154On("R11U154_LVBASEMEM_OFF");
+    if (!on || !inLhs || lvIdxParent154(parent))
+        return false;
+    trace154("LVBASEMEM");
+    return true;
+}
+
+/// § lvPathBaseAtFirstMember154 — the first member's token of a dotted
+/// path, read from the AST (the innermost MemberAccess): the member name is
+/// one token, so its end minus its length stays inside one buffer even when
+/// the path's base arrives through a macro argument (Rggen's
+/// `RIF.read_data[__i]`), where offsets into the expanded path text do not.
+inline std::optional<SourceRange> firstMemberTok154(const Expression& e) {
+    const Expression* cur = &e;
+    const MemberAccessExpression* first = nullptr;
+    for (int guard = 0; cur && guard < 64; guard++) {
+        while (cur->kind == ExpressionKind::Conversion)
+            cur = &cur->as<ConversionExpression>().operand();
+        if (cur->kind == ExpressionKind::MemberAccess) {
+            first = &cur->as<MemberAccessExpression>();
+            cur = &first->value();
+        }
+        else if (cur->kind == ExpressionKind::ElementSelect)
+            cur = &cur->as<ElementSelectExpression>().value();
+        else
+            break;
+    }
+    // The chain must start at a plain variable: an interface or hierarchical
+    // base folds its leading components into one symbol reference, so the
+    // innermost MemberAccess is not the path's first member there.
+    if (!first || first->member.name.empty() || !cur ||
+        cur->kind != ExpressionKind::NamedValue)
+        return std::nullopt;
+    auto end = first->sourceRange.end();
+    return SourceRange(end - first->member.name.size(), end);
+}
+
+/// § lvPathSelNamedByChain154 — the written trailing part-select of an
+/// interface path carries vpiDefName and the frozen chain name
+/// (`work@m.bs.wdtxx[3:0].wdtxx`), as the struct-member arm's already does.
+inline bool lvSelNamedByChain154(bool inLhs, const UHDM::BaseClass* parent) {
+    static const bool on = r11u154On("R11U154_LVSELNAME_OFF");
+    if (!on || !inLhs || lvIdxParent154(parent))
+        return false;
+    trace154("LVSELNAME");
+    return true;
+}
+
+/// § lvIfacePathBitSelWhole154 — the written trailing bit-select of an
+/// interface path spans the whole element (`wdtxx[2]` 31-39, `adr[2]`
+/// 35-41), as the struct-member arm's already does; a read sits at its
+/// index.
+inline bool lvIfaceBitSelWhole154(bool inLhs, const UHDM::BaseClass* parent) {
+    static const bool on = r11u154On("R11U154_LVBSSPAN_OFF");
+    if (!on || !inLhs || lvIdxParent154(parent))
+        return false;
+    trace154("LVBSSPAN");
+    return true;
+}
+
+/// § psBoundPathFirstMember154 — A DOTTED PATH WRITTEN AS A PART-SELECT'S
+/// BOUND TAKES THE LVALUE PATH SHAPE.  Surelog compiles a simple part-select's
+/// range with compilePartSelectRange, whose bound expressions come back with
+/// the base reference on the FIRST MEMBER's token and the leaf name-only, the
+/// shape a written path has: golden `sub.d[5:sub.OFF]` (iface_scalar_localparam
+/// `sub.adr[ADR-1:sub.OFF]`, `sub` 18:32-35 on `OFF`), `v[sub.W:0]`, `v[5:sub.OFF]`;
+/// ours kept the rvalue shape (the base's own token, the leaf named by the
+/// scope).  The gate is a path that IS the bound (its parent is the
+/// part_select); a path under a bound operation is another face.  Grid
+/// tools/probe/r11u154repro/pb.  Switch: R11U154_PSBOUNDPATH_OFF.
+inline bool psBoundPathFirstMember154(const UHDM::BaseClass* parent, size_t nParts) {
+    static const bool on = r11u154On("R11U154_PSBOUNDPATH_OFF");
+    if (!on || !parent || nParts < 2 || parent->UhdmType() != UHDM::uhdmpart_select)
+        return false;
+    trace154("PSBOUNDPATH");
+    return true;
+}
+
+/// § portViewNestedPatTsNamed154 — the nested assignment-pattern operations'
+/// bare typespec references, recorded as they are minted (ExprEmit) and named
+/// once the interface port views are known (ParamEmit's dead-last drain).
+struct NestedPatTs154 {
+    UHDM::ref_typespec* rt;
+    const UHDM::any* op;
+    std::string prefix;
+};
+inline std::vector<NestedPatTs154>& nestedPatTs154() {
+    static std::vector<NestedPatTs154> v;
+    return v;
+}
+
+inline void trace154(const char* law) {
+    static const bool on = getenv("R11U154_TRACE") != nullptr;
+    if (on)
+        fprintf(stderr, "R11U154_TRACE %s\n", law);
+}
+
+/// § builtinMethodArgNamedByPath154 — A BUILT-IN METHOD CALL'S ARGUMENTS ARE
+/// NAMED THROUGH THE PATH.  Surelog's hier_path loop compiles `recv.meth(args)`
+/// with compileTfCallArguments(..., fcall, ...) and stores no full name on the
+/// argument references, so the writer's ComputeFullName walks the chain:
+/// reference -> (operation) -> method_func_call (its name skipped) ->
+/// hier_path `recv.meth` -> the owner.  Golden StringMethod `int b =
+/// s.compare(t)`: `work@top.b.s.compare.t`; `assign b = s.compare(t)`:
+/// `work@top.s.compare.t`; a reference under an operation argument alike
+/// (`s.substr(i, i+1)`); ours named them by the scope (`work@top.b.t`).
+/// Only references parented at the call (or at an operation under it) are
+/// renamed.  Grid tools/probe/r11u154repro/sm.  Switch: R11U154_MARGNAME_OFF.
+inline void builtinMethodArgNames154(UHDM::VectorOfany* args,
+                                     const UHDM::any* call,
+                                     const std::string& base) {
+    static const bool on = r11u154On("R11U154_MARGNAME_OFF");
+    if (!on || !args || base.empty())
+        return;
+    std::function<void(UHDM::any*, const UHDM::any*)> nm =
+        [&](UHDM::any* e, const UHDM::any* owner) {
+            if (!e || e->VpiParent() != owner)
+                return;
+            if (e->UhdmType() == UHDM::uhdmref_obj) {
+                auto* r = (UHDM::ref_obj*)e;
+                if (r->VpiName().empty())
+                    return;
+                trace154("MARGNAME");
+                r->VpiFullName(joinRef(base, r->VpiName()));
+            }
+            else if (e->UhdmType() == UHDM::uhdmoperation) {
+                if (auto* os = ((UHDM::operation*)e)->Operands())
+                    for (auto* o : *os)
+                        nm(o, e);
+            }
+        };
+    for (auto* a : *args)
+        nm(a, call);
+}
+
+/// § varInitStrMethodArgDefNet154 — whether `o` is a variable object (the
+/// owner an elaborated variable initializer is emitted under).
+inline bool isVariableKind154(const UHDM::any* o) {
+    if (!o)
+        return false;
+    switch (o->UhdmType()) {
+        case UHDM::uhdmint_var: case UHDM::uhdminteger_var: case UHDM::uhdmbyte_var:
+        case UHDM::uhdmshort_int_var: case UHDM::uhdmlong_int_var:
+        case UHDM::uhdmstring_var: case UHDM::uhdmlogic_var: case UHDM::uhdmbit_var:
+        case UHDM::uhdmreal_var: case UHDM::uhdmshort_real_var: case UHDM::uhdmtime_var:
+        case UHDM::uhdmenum_var: case UHDM::uhdmstruct_var: case UHDM::uhdmunion_var:
+        case UHDM::uhdmarray_var: case UHDM::uhdmpacked_array_var:
+            return true;
+        default:
+            return false;
+    }
+}
+
 } // namespace slang_uhdm

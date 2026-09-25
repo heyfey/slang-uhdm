@@ -1,0 +1,18 @@
+CHANGE r10earl29repro/a4_ctx STRICT_NOTEQUAL differ:fullname(12) -> differ:fullname(10) [fullname -2]
+CHANGE r10earl76repro/g2_orig76 STRICT_NOTEQUAL differ:col(18) -> differ:col(16) [col -2]
+CHANGE r10earl_repro/pu20 STRICT_NOTEQUAL differ:fullname(4) -> differ:fullname(1) [fullname -3]
+CHANGE r10earl_repro/pv20 STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(2) [fullname -5]
+CHANGE r10earl_repro/qf22 STRICT_NOTEQUAL differ:endcol(5) -> differ:endcol(4) [endcol -1]
+CHANGE r10uvm119repro/g119_b STRICT_NOTEQUAL differ:endcol(7) -> differ:endcol(4) [endcol -3]
+CHANGE r10uvm171repro/g171_a_pos STRICT_NOTEQUAL differ:fullname(3) -> differ:type(1)
+CHANGE r10uvm193repro/g193_c_argface STRICT_NOTEQUAL differ:fullname(11) -> differ:fullname(4) [fullname -7]
+CHANGE r10uvm193repro/g193_d_propfence STRICT_NOTEQUAL differ:fullname(5) -> differ:fullname(3) [fullname -2]
+CHANGE r10uvm51repro/a4 STRICT_NOTEQUAL differ:fullname(3) -> differ:fullname(2) [fullname -1]
+CHANGE r10uvm52repro/a1 STRICT_NOTEQUAL differ:fullname(12) -> differ:fullname(9) [fullname -3]
+CHANGE r10uvm55repro/a1 STRICT_NOTEQUAL differ:line(21) -> differ:line(20) [line -1]
+CHANGE r10uvm69repro/a2_scope STRICT_NOTEQUAL differ:fullname(21) -> differ:line(16)
+CHANGE r10v151repro/v151_4_nonarray STRICT_NOTEQUAL differ:endcol(3) -> differ:endcol(2) [endcol -1]
+CHANGE r10v184repro/gv184_h_retpin STRICT_NOTEQUAL differ:fullname(15) -> differ:fullname(3) [fullname -12]
+CHANGE r10v184repro/gv184_i_minimal STRICT_NOTEQUAL differ:fullname(4) -> differ:type(1)
+CHANGE r11u1repro/grid2 STRICT_NOTEQUAL differ:fullname(15) -> differ:col(8)
+CHANGE r11u61repro/h1 STRICT_NOTEQUAL differ:fullname(13) -> differ:fullname(4) [fullname -9]

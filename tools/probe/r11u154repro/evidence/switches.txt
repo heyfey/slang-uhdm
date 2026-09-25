@@ -1,0 +1,93 @@
+HPPSBOUND    hp/f8                      on: rc=0 cmp=0 | STRICT_EQUAL 110 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+HPPSBOUND    hp/f14                     on: rc=0 cmp=0 | STRICT_NOTEQUAL line        off: rc=0 cmp=0 | STRICT_NOTEQUAL line
+HPPSBOUND    hp/f15                     on: rc=0 cmp=0 | STRICT_EQUAL 266 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+HPPSBOUND    hp/f9                      on: rc=0 cmp=0 | STRICT_EQUAL 206 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+HPPSBOUND    hp/f1                      on: rc=0 cmp=0 | STRICT_EQUAL 191 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+HPPSBOUND    hp/f19                     on: rc=0 cmp=0 | STRICT_EQUAL 157 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+HPPSBOUND    hp/f2                      on: rc=0 cmp=0 | STRICT_EQUAL 157 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+HPPSBOUND    hp/f10                     on: rc=0 cmp=0 | STRICT_EQUAL 184 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+HPPSBOUND    hp/f3                      on: rc=0 cmp=0 | STRICT_EQUAL 153 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+HPPSBOUND    hp/f18                     on: rc=0 cmp=0 | STRICT_EQUAL 265 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+HPPSBOUND    hp/f7                      on: rc=0 cmp=0 | STRICT_EQUAL 183 objects    off: rc=0 cmp=0 | STRICT_EQUAL 183 objects
+HPELEMNAME   hp/f17                     on: rc=0 cmp=0 | STRICT_EQUAL 269 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSPROCPS     gs/g_ud                    on: rc=0 cmp=0 | STRICT_EQUAL 184 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSPROCPS     gs/g1                      on: rc=0 cmp=0 | STRICT_EQUAL 212 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSPROCPS     gs/g_nd                    on: rc=0 cmp=0 | STRICT_EQUAL 184 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSFOLDTS     gs/g_ub                    on: rc=0 cmp=0 | STRICT_EQUAL 180 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSFOLDTS     gs/g_ue                    on: rc=0 cmp=0 | STRICT_EQUAL 210 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSFOLDTS     gs/g2                      on: rc=0 cmp=0 | STRICT_EQUAL 333 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSFOLDTS     gs/g_uf                    on: rc=0 cmp=0 | STRICT_EQUAL 198 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSFOLDTS     gs/g_na                    on: rc=0 cmp=0 | STRICT_EQUAL 190 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSFOLDTS     gs/g_lc                    on: rc=0 cmp=0 | STRICT_EQUAL 159 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSFOLDTS     gs/g_la                    on: rc=0 cmp=0 | STRICT_EQUAL 165 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSFOLDTS     gs/g_nc                    on: rc=0 cmp=0 | STRICT_EQUAL 180 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSFOLDTS     gs/g_lb                    on: rc=0 cmp=0 | STRICT_EQUAL 159 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSFOLDTS     gs/g_ne                    on: rc=0 cmp=0 | STRICT_EQUAL 210 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSFOLDTS     gs/g_uc                    on: rc=0 cmp=0 | STRICT_EQUAL 180 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSFOLDTS     gs/g_ua                    on: rc=0 cmp=0 | STRICT_EQUAL 190 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSFOLDTS     gs/g_ld                    on: rc=0 cmp=0 | STRICT_EQUAL 161 objects    off: rc=0 cmp=0 | STRICT_EQUAL 161 objects
+GSFOLDTS     gs/g_nb                    on: rc=0 cmp=0 | STRICT_EQUAL 180 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSFOLDTS     gs/g_le                    on: rc=0 cmp=0 | STRICT_EQUAL 176 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSFOLDTS     gs/g_lf                    on: rc=0 cmp=0 | STRICT_EQUAL 169 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+GSFOLDTS     gs/g_nf                    on: rc=0 cmp=0 | STRICT_EQUAL 198 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+MARGNAME     sm/s6                      on: rc=0 cmp=0 | STRICT_EQUAL 62 objects     off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+MARGNAME     sm/s7                      on: rc=0 cmp=0 | STRICT_EQUAL 27 objects     off: rc=0 cmp=0 | STRICT_EQUAL 27 objects
+MARGNAME     sm/v5                      on: rc=0 cmp=0 | STRICT_EQUAL 65 objects     off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+MARGNAME     sm/s4                      on: rc=0 cmp=0 | STRICT_EQUAL 43 objects     off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+MARGNAME     sm/s8                      on: rc=0 cmp=0 | STRICT_EQUAL 45 objects     off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+MARGNAME     sm/s3                      on: rc=0 cmp=0 | STRICT_EQUAL 41 objects     off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+VARINITDEF   sm/v4                      on: rc=0 cmp=0 | STRICT_EQUAL 30 objects     off: rc=0 cmp=0 | STRICT_NOTEQUAL count
+VARINITDEF   sm/v1                      on: rc=0 cmp=0 | STRICT_EQUAL 17 objects     off: rc=0 cmp=0 | STRICT_EQUAL 17 objects
+VARINITDEF   sm/s2                      on: rc=0 cmp=0 | STRICT_EQUAL 40 objects     off: rc=0 cmp=0 | STRICT_NOTEQUAL depth
+VARINITDEF   sm/v6                      on: rc=0 cmp=0 | STRICT_EQUAL 48 objects     off: rc=0 cmp=0 | STRICT_EQUAL 48 objects
+VARINITDEF   sm/s1                      on: rc=0 cmp=0 | STRICT_EQUAL 30 objects     off: rc=0 cmp=0 | STRICT_NOTEQUAL count
+VARINITDEF   sm/s5                      on: rc=0 cmp=0 | STRICT_EQUAL 33 objects     off: rc=0 cmp=0 | STRICT_NOTEQUAL depth
+CASTREF      cst/c5                     on: rc=0 cmp=0 | STRICT_EQUAL 135 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL depth
+CASTREF      cst/c1                     on: rc=0 cmp=0 | STRICT_EQUAL 106 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL depth
+CASTREF      cst/c3                     on: rc=0 cmp=0 | STRICT_EQUAL 89 objects     off: rc=0 cmp=0 | STRICT_EQUAL 89 objects
+CASTREF      cst/c2                     on: rc=0 cmp=0 | STRICT_EQUAL 81 objects     off: rc=0 cmp=0 | STRICT_EQUAL 81 objects
+CASTREF      cst/c4                     on: rc=0 cmp=0 | STRICT_EQUAL 106 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL depth
+LVIDXREAD    lx/x2                      on: rc=0 cmp=0 | STRICT_EQUAL 152 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL col
+LVIDXREAD    lx/x5                      on: rc=0 cmp=0 | STRICT_EQUAL 158 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL col
+LVIDXREAD    lx/y3                      on: rc=0 cmp=0 | STRICT_EQUAL 142 objects    off: rc=0 cmp=0 | STRICT_EQUAL 142 objects
+LVIDXREAD    lx/y1                      on: rc=0 cmp=0 | STRICT_EQUAL 157 objects    off: rc=0 cmp=0 | STRICT_EQUAL 157 objects
+LVIDXREAD    lx/x3                      on: rc=0 cmp=0 | STRICT_EQUAL 142 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL col
+LVIDXREAD    lx/x1                      on: rc=0 cmp=0 | STRICT_EQUAL 162 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL col
+LVIDXREAD    lx/x4                      on: rc=0 cmp=0 | STRICT_EQUAL 129 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL col
+LVIDXREAD    lx/y4                      on: rc=0 cmp=0 | STRICT_EQUAL 163 objects    off: rc=0 cmp=0 | STRICT_EQUAL 163 objects
+LVIDXREAD    lx/y2                      on: rc=0 cmp=0 | STRICT_EQUAL 159 objects    off: rc=0 cmp=0 | STRICT_EQUAL 159 objects
+LVBASEMEM    hp/f11                     on: rc=0 cmp=0 | STRICT_EQUAL 110 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+LVBASEMEM    hp/f12                     on: rc=0 cmp=0 | STRICT_EQUAL 89 objects     off: rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+LVBASEMEM    lv/l18                     on: rc=0 cmp=0 | STRICT_EQUAL 230 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+LVBASEMEM    lv/l4                      on: rc=0 cmp=0 | STRICT_EQUAL 138 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+LVBASEMEM    lv/l1                      on: rc=0 cmp=0 | STRICT_EQUAL 116 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+LVBASEMEM    lv/m2                      on: rc=0 cmp=0 | STRICT_NOTEQUAL col         off: rc=0 cmp=0 | STRICT_NOTEQUAL col
+LVBASEMEM    lv/l10                     on: rc=0 cmp=0 | STRICT_EQUAL 109 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+LVBASEMEM    lv/l15                     on: rc=0 cmp=0 | STRICT_EQUAL 120 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+LVBASEMEM    lv/l5                      on: rc=0 cmp=0 | STRICT_EQUAL 112 objects    off: rc=0 cmp=0 | STRICT_EQUAL 112 objects
+LVBASEMEM    lv/m1                      on: rc=0 cmp=0 | STRICT_NOTEQUAL col         off: rc=0 cmp=0 | STRICT_NOTEQUAL col
+LVBASEMEM    lv/l3                      on: rc=0 cmp=0 | STRICT_EQUAL 105 objects    off: rc=0 cmp=0 | STRICT_EQUAL 105 objects
+LVBASEMEM    lv/l2                      on: rc=0 cmp=0 | STRICT_EQUAL 95 objects     off: rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+LVSELNAME    hp/f13                     on: rc=0 cmp=0 | STRICT_EQUAL 297 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL defname
+LVSELNAME    lv/l12                     on: rc=0 cmp=0 | STRICT_EQUAL 226 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL defname
+LVSELNAME    lv/l6                      on: rc=0 cmp=0 | STRICT_EQUAL 161 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL defname
+LVSELNAME    lv/l11                     on: rc=0 cmp=0 | STRICT_EQUAL 182 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL defname
+LVSELNAME    lv/l7                      on: rc=0 cmp=0 | STRICT_EQUAL 127 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL defname
+LVSELNAME    lv/l14                     on: rc=0 cmp=0 | STRICT_EQUAL 148 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL defname
+LVSELNAME    lv/l9                      on: rc=0 cmp=0 | STRICT_EQUAL 205 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL defname
+LVBSSPAN     lv/l8                      on: rc=0 cmp=0 | STRICT_EQUAL 141 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL col
+LVBSSPAN     lv/l13                     on: rc=0 cmp=0 | STRICT_EQUAL 162 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL col
+DEFPKGTS     np/i4                      on: rc=0 cmp=0 | STRICT_EQUAL 183 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+DEFPKGTS     np/i3                      on: rc=0 cmp=0 | STRICT_EQUAL 183 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+DEFPKGTS     np/n2                      on: rc=0 cmp=0 | STRICT_EQUAL 155 objects    off: rc=0 cmp=0 | STRICT_EQUAL 155 objects
+DEFPKGTS     np/n1                      on: rc=0 cmp=0 | STRICT_EQUAL 130 objects    off: rc=0 cmp=0 | STRICT_EQUAL 130 objects
+DEFPKGTS     np/n6                      on: rc=0 cmp=0 | STRICT_EQUAL 221 objects    off: rc=0 cmp=0 | STRICT_EQUAL 221 objects
+DEFPKGTS     np/n5                      on: rc=0 cmp=0 | STRICT_EQUAL 103 objects    off: rc=0 cmp=0 | STRICT_EQUAL 103 objects
+DEFPKGTS     pi/k1                      on: rc=0 cmp=0 | STRICT_EQUAL 181 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+PSBOUNDPATH  pb/b4                      on: rc=0 cmp=0 | STRICT_EQUAL 224 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL col
+PSBOUNDPATH  pb/b3                      on: rc=0 cmp=0 | STRICT_EQUAL 224 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL col
+PSBOUNDPATH  pb/b2                      on: rc=0 cmp=0 | STRICT_EQUAL 220 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL col
+PSBOUNDPATH  pb/b5                      on: rc=0 cmp=0 | STRICT_EQUAL 220 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL col
+PVNESTTS     np/n3                      on: rc=0 cmp=0 | STRICT_EQUAL 239 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+PIUNPACKED   pi/k5                      on: rc=0 cmp=0 | STRICT_EQUAL 154 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL col
+PIUNPACKED   pi/k2                      on: rc=0 cmp=0 | STRICT_EQUAL 214 objects    off: rc=0 cmp=0 | STRICT_NOTEQUAL col

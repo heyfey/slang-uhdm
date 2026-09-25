@@ -1,0 +1,189 @@
+r11u154repro/cst/c1 | pris rc=0 cmp=0 STRICT_NOTEQUAL depth | law rc=0 cmp=0 STRICT_EQUAL 106 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 106 objects
+r11u154repro/cst/c2 | pris rc=0 cmp=0 STRICT_EQUAL 81 objects | law rc=0 cmp=0 STRICT_EQUAL 81 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 81 objects
+r11u154repro/cst/c3 | pris rc=0 cmp=0 STRICT_EQUAL 89 objects | law rc=0 cmp=0 STRICT_EQUAL 89 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 89 objects
+r11u154repro/cst/c4 | pris rc=0 cmp=0 STRICT_NOTEQUAL depth | law rc=0 cmp=0 STRICT_EQUAL 106 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 106 objects
+r11u154repro/cst/c5 | pris rc=0 cmp=0 STRICT_NOTEQUAL depth | law rc=0 cmp=0 STRICT_EQUAL 135 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 135 objects
+r11u154repro/gs/g1 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 212 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 212 objects
+r11u154repro/gs/g2 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 333 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 333 objects
+r11u154repro/gs/g_la | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 165 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 165 objects
+r11u154repro/gs/g_lb | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 159 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 159 objects
+r11u154repro/gs/g_lc | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 159 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 159 objects
+r11u154repro/gs/g_ld | pris rc=0 cmp=0 STRICT_EQUAL 161 objects | law rc=0 cmp=0 STRICT_EQUAL 161 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 161 objects
+r11u154repro/gs/g_le | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 176 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 176 objects
+r11u154repro/gs/g_lf | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 169 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 169 objects
+r11u154repro/gs/g_na | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 190 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 190 objects
+r11u154repro/gs/g_nb | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 180 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 180 objects
+r11u154repro/gs/g_nc | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 180 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 180 objects
+r11u154repro/gs/g_nd | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 184 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 184 objects
+r11u154repro/gs/g_ne | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 210 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 210 objects
+r11u154repro/gs/g_nf | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 198 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 198 objects
+r11u154repro/gs/g_ua | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 190 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 190 objects
+r11u154repro/gs/g_ub | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 180 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 180 objects
+r11u154repro/gs/g_uc | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 180 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 180 objects
+r11u154repro/gs/g_ud | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 184 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 184 objects
+r11u154repro/gs/g_ue | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 210 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 210 objects
+r11u154repro/gs/g_uf | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 198 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 198 objects
+r11u154repro/hp/f10 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 184 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 184 objects
+r11u154repro/hp/f11 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL 110 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 110 objects
+r11u154repro/hp/f12 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL 89 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 89 objects
+r11u154repro/hp/f13 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 297 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 297 objects
+r11u154repro/hp/f14 | pris rc=0 cmp=0 STRICT_NOTEQUAL line | law rc=0 cmp=0 STRICT_NOTEQUAL line | fix1 rc=0 cmp=0 STRICT_NOTEQUAL line
+r11u154repro/hp/f15 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 266 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 266 objects
+r11u154repro/hp/f17 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 269 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 269 objects
+r11u154repro/hp/f18 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 265 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 265 objects
+r11u154repro/hp/f19 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 157 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 157 objects
+r11u154repro/hp/f1 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 191 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 191 objects
+r11u154repro/hp/f2 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 157 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 157 objects
+r11u154repro/hp/f3 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 153 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 153 objects
+r11u154repro/hp/f7 | pris rc=0 cmp=0 STRICT_EQUAL 183 objects | law rc=0 cmp=0 STRICT_EQUAL 183 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 183 objects
+r11u154repro/hp/f8 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 110 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 110 objects
+r11u154repro/hp/f9 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 206 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 206 objects
+r11u154repro/lv/l10 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL 109 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 109 objects
+r11u154repro/lv/l11 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 182 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 182 objects
+r11u154repro/lv/l12 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL 226 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 226 objects
+r11u154repro/lv/l13 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 162 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 162 objects
+r11u154repro/lv/l14 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 148 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 148 objects
+r11u154repro/lv/l15 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL 120 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 120 objects
+r11u154repro/lv/l18 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL 230 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 230 objects
+r11u154repro/lv/l1 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL 116 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 116 objects
+r11u154repro/lv/l2 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL 95 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 95 objects
+r11u154repro/lv/l3 | pris rc=0 cmp=0 STRICT_EQUAL 105 objects | law rc=0 cmp=0 STRICT_EQUAL 105 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 105 objects
+r11u154repro/lv/l4 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL 138 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 138 objects
+r11u154repro/lv/l5 | pris rc=0 cmp=0 STRICT_EQUAL 112 objects | law rc=0 cmp=0 STRICT_EQUAL 112 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 112 objects
+r11u154repro/lv/l6 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 161 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 161 objects
+r11u154repro/lv/l7 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 127 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 127 objects
+r11u154repro/lv/l8 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 141 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 141 objects
+r11u154repro/lv/l9 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 205 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 205 objects
+r11u154repro/lv/m1 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_NOTEQUAL col | fix1 rc=0 cmp=0 STRICT_NOTEQUAL col
+r11u154repro/lv/m2 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_NOTEQUAL col | fix1 rc=0 cmp=0 STRICT_NOTEQUAL col
+r11u154repro/lx/x1 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 162 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 162 objects
+r11u154repro/lx/x2 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 152 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 152 objects
+r11u154repro/lx/x3 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 142 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 142 objects
+r11u154repro/lx/x4 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 129 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 129 objects
+r11u154repro/lx/x5 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 158 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 158 objects
+r11u154repro/lx/y1 | pris rc=0 cmp=0 STRICT_EQUAL 157 objects | law rc=0 cmp=0 STRICT_EQUAL 157 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 157 objects
+r11u154repro/lx/y2 | pris rc=0 cmp=0 STRICT_EQUAL 159 objects | law rc=0 cmp=0 STRICT_EQUAL 159 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 159 objects
+r11u154repro/lx/y3 | pris rc=0 cmp=0 STRICT_EQUAL 142 objects | law rc=0 cmp=0 STRICT_EQUAL 142 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 142 objects
+r11u154repro/lx/y4 | pris rc=0 cmp=0 STRICT_EQUAL 163 objects | law rc=0 cmp=0 STRICT_EQUAL 163 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 163 objects
+r11u154repro/np/i3 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 183 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 183 objects
+r11u154repro/np/i4 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 183 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 183 objects
+r11u154repro/np/n1 | pris rc=0 cmp=0 STRICT_EQUAL 130 objects | law rc=0 cmp=0 STRICT_EQUAL 130 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 130 objects
+r11u154repro/np/n2 | pris rc=0 cmp=0 STRICT_EQUAL 155 objects | law rc=0 cmp=0 STRICT_EQUAL 155 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 155 objects
+r11u154repro/np/n3 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 239 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 239 objects
+r11u154repro/np/n5 | pris rc=0 cmp=0 STRICT_EQUAL 103 objects | law rc=0 cmp=0 STRICT_EQUAL 103 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 103 objects
+r11u154repro/np/n6 | pris rc=0 cmp=0 STRICT_EQUAL 221 objects | law rc=0 cmp=0 STRICT_EQUAL 221 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 221 objects
+r11u154repro/pb/b2 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 220 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 220 objects
+r11u154repro/pb/b3 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 224 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 224 objects
+r11u154repro/pb/b4 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 224 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 224 objects
+r11u154repro/pb/b5 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 220 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 220 objects
+r11u154repro/pi/k1 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 181 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 181 objects
+r11u154repro/pi/k2 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 214 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 214 objects
+r11u154repro/pi/k5 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 154 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 154 objects
+r11u154repro/sm/s1 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 30 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 30 objects
+r11u154repro/sm/s2 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 40 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 40 objects
+r11u154repro/sm/s3 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 41 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 41 objects
+r11u154repro/sm/s4 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 43 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 43 objects
+r11u154repro/sm/s5 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 33 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 33 objects
+r11u154repro/sm/s6 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 62 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 62 objects
+r11u154repro/sm/s7 | pris rc=0 cmp=0 STRICT_EQUAL 27 objects | law rc=0 cmp=0 STRICT_EQUAL 27 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 27 objects
+r11u154repro/sm/s8 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 45 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 45 objects
+r11u154repro/sm/v1 | pris rc=0 cmp=0 STRICT_EQUAL 17 objects | law rc=0 cmp=0 STRICT_EQUAL 17 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 17 objects
+r11u154repro/sm/v4 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 30 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 30 objects
+r11u154repro/sm/v5 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 65 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 65 objects
+r11u154repro/sm/v6 | pris rc=0 cmp=0 STRICT_EQUAL 48 objects | law rc=0 cmp=0 STRICT_EQUAL 48 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 48 objects
+r11v154repro/bs/k1 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 161 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 161 objects
+r11v154repro/bs/k2 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 83 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 83 objects
+r11v154repro/ca/g1 | pris rc=0 cmp=0 STRICT_NOTEQUAL depth | law rc=0 cmp=0 STRICT_EQUAL 228 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 228 objects
+r11v154repro/ca/g2 | pris rc=0 cmp=0 STRICT_NOTEQUAL depth | law rc=0 cmp=0 STRICT_EQUAL 130 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 130 objects
+r11v154repro/ca/g3 | pris rc=0 cmp=0 STRICT_EQUAL 104 objects | law rc=0 cmp=0 STRICT_EQUAL 104 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 104 objects
+r11v154repro/ca/g4 | pris rc=0 cmp=0 STRICT_EQUAL 77 objects | law rc=0 cmp=0 STRICT_EQUAL 77 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 77 objects
+r11v154repro/ca/g5 | pris rc=0 cmp=0 STRICT_EQUAL 135 objects | law rc=0 cmp=0 STRICT_EQUAL 135 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 135 objects
+r11v154repro/ca/g6 | pris rc=0 cmp=0 STRICT_EQUAL 126 objects | law rc=0 cmp=0 STRICT_EQUAL 126 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 126 objects
+r11v154repro/cq/r1 | pris rc=0 cmp=26 NOT_EQUAL stage1 | law rc=0 cmp=26 NOT_EQUAL stage1 | fix1 rc=0 cmp=26 NOT_EQUAL stage1
+r11v154repro/cq/r2 | pris rc=0 cmp=0 STRICT_NOTEQUAL depth | law rc=0 cmp=0 STRICT_EQUAL 120 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 120 objects
+r11v154repro/dp/l1 | pris rc=0 cmp=0 STRICT_EQUAL 144 objects | law rc=0 cmp=0 STRICT_EQUAL 144 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 144 objects
+r11v154repro/dp/l2 | pris rc=0 cmp=0 STRICT_EQUAL 174 objects | law rc=0 cmp=0 STRICT_EQUAL 174 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 174 objects
+r11v154repro/dp/l3 | pris rc=0 cmp=0 STRICT_EQUAL 152 objects | law rc=0 cmp=0 STRICT_EQUAL 152 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 152 objects
+r11v154repro/dp/l4 | pris rc=0 cmp=82 NOT_EQUAL stage1 | law rc=0 cmp=82 NOT_EQUAL stage1 | fix1 rc=0 cmp=82 NOT_EQUAL stage1
+r11v154repro/dp/l5 | pris rc=0 cmp=184 NOT_EQUAL stage1 | law rc=0 cmp=184 NOT_EQUAL stage1 | fix1 rc=0 cmp=184 NOT_EQUAL stage1
+r11v154repro/dp/l6 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL fullname | fix1 rc=0 cmp=0 STRICT_NOTEQUAL fullname
+r11v154repro/dp/l7 | pris rc=0 cmp=34 NOT_EQUAL stage1 | law rc=0 cmp=34 NOT_EQUAL stage1 | fix1 rc=0 cmp=34 NOT_EQUAL stage1
+r11v154repro/dp/l8 | pris rc=0 cmp=34 NOT_EQUAL stage1 | law rc=0 cmp=34 NOT_EQUAL stage1 | fix1 rc=0 cmp=34 NOT_EQUAL stage1
+r11v154repro/dp/l9 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL line | fix1 rc=0 cmp=0 STRICT_NOTEQUAL line
+r11v154repro/gf/d1 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 196 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 196 objects
+r11v154repro/gf/d2 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 224 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 224 objects
+r11v154repro/gf/d3 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL fullname | fix1 rc=0 cmp=0 STRICT_NOTEQUAL fullname
+r11v154repro/gs/c1 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 184 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 184 objects
+r11v154repro/gs/c2 | pris rc=0 cmp=0 STRICT_EQUAL 205 objects | law rc=0 cmp=0 STRICT_EQUAL 205 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 205 objects
+r11v154repro/gs/c3 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 166 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 166 objects
+r11v154repro/gs/c4 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 169 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 169 objects
+r11v154repro/gs/c5 | pris rc=0 cmp=42 NOT_EQUAL stage1 | law rc=0 cmp=42 NOT_EQUAL stage1 | fix1 rc=0 cmp=42 NOT_EQUAL stage1
+r11v154repro/he/b1 | pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=16 NOT_EQUAL stage1 | fix1 rc=0 cmp=16 NOT_EQUAL stage1
+r11v154repro/he/b2 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_NOTEQUAL endcol | fix1 rc=0 cmp=0 STRICT_NOTEQUAL endcol
+r11v154repro/he/b3 | pris rc=4 cmp=68 NOT_EQUAL stage1 | law rc=4 cmp=68 NOT_EQUAL stage1 | fix1 rc=4 cmp=68 NOT_EQUAL stage1
+r11v154repro/hp/a1 | pris rc=0 cmp=206 NOT_EQUAL stage1 | law rc=0 cmp=206 NOT_EQUAL stage1 | fix1 rc=0 cmp=206 NOT_EQUAL stage1
+r11v154repro/hp/a2 | pris rc=0 cmp=146 NOT_EQUAL stage1 | law rc=0 cmp=146 NOT_EQUAL stage1 | fix1 rc=0 cmp=146 NOT_EQUAL stage1
+r11v154repro/hp/a3 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 142 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 142 objects
+r11v154repro/hp/a4 | pris rc=0 cmp=250 NOT_EQUAL stage1 | law rc=0 cmp=250 NOT_EQUAL stage1 | fix1 rc=0 cmp=250 NOT_EQUAL stage1
+r11v154repro/hp/a5 | pris rc=0 cmp=170 NOT_EQUAL stage1 | law rc=0 cmp=170 NOT_EQUAL stage1 | fix1 rc=0 cmp=170 NOT_EQUAL stage1
+r11v154repro/hp/a6 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 155 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 155 objects
+r11v154repro/hp/a7 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 131 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 131 objects
+r11v154repro/hp/a8 | pris rc=0 cmp=202 NOT_EQUAL stage1 | law rc=0 cmp=202 NOT_EQUAL stage1 | fix1 rc=0 cmp=202 NOT_EQUAL stage1
+r11v154repro/lb/i10 | pris rc=0 cmp=164 NOT_EQUAL stage1 | law rc=0 cmp=166 NOT_EQUAL stage1 | fix1 rc=0 cmp=166 NOT_EQUAL stage1
+r11v154repro/lb/i11 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 185 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 185 objects
+r11v154repro/lb/i12 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL 145 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 145 objects
+r11v154repro/lb/i1 | pris rc=0 cmp=156 NOT_EQUAL stage1 | law rc=0 cmp=158 NOT_EQUAL stage1 | fix1 rc=0 cmp=158 NOT_EQUAL stage1
+r11v154repro/lb/i2 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL 95 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 95 objects
+r11v154repro/lb/i3 | pris rc=0 cmp=92 NOT_EQUAL stage1 | law rc=0 cmp=92 NOT_EQUAL stage1 | fix1 rc=0 cmp=92 NOT_EQUAL stage1
+r11v154repro/lb/i4 | pris rc=0 cmp=200 NOT_EQUAL stage1 | law rc=0 cmp=202 NOT_EQUAL stage1 | fix1 rc=0 cmp=202 NOT_EQUAL stage1
+r11v154repro/lb/i5 | pris rc=4 cmp=32 NOT_EQUAL stage1 | law rc=4 cmp=32 NOT_EQUAL stage1 | fix1 rc=4 cmp=32 NOT_EQUAL stage1
+r11v154repro/lb/i6 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_NOTEQUAL fullname | fix1 rc=0 cmp=0 STRICT_NOTEQUAL fullname
+r11v154repro/lb/i7 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL 134 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 134 objects
+r11v154repro/lb/i8 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 155 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 155 objects
+r11v154repro/lb/i9 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL 116 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 116 objects
+r11v154repro/ls/j1 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 103 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 103 objects
+r11v154repro/ls/j2 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 181 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 181 objects
+r11v154repro/ls/j3 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL 142 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 142 objects
+r11v154repro/lx/h10 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 168 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 168 objects
+r11v154repro/lx/h1 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 114 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 114 objects
+r11v154repro/lx/h2 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 163 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 163 objects
+r11v154repro/lx/h3 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 163 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 163 objects
+r11v154repro/lx/h4 | pris rc=0 cmp=182 NOT_EQUAL stage1 | law rc=0 cmp=182 NOT_EQUAL stage1 | fix1 rc=0 cmp=182 NOT_EQUAL stage1
+r11v154repro/lx/h5 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_NOTEQUAL col | fix1 rc=0 cmp=0 STRICT_NOTEQUAL col
+r11v154repro/lx/h6 | pris rc=0 cmp=128 NOT_EQUAL stage1 | law rc=0 cmp=130 NOT_EQUAL stage1 | fix1 rc=0 cmp=130 NOT_EQUAL stage1
+r11v154repro/lx/h7 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 190 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 190 objects
+r11v154repro/lx/h8 | pris rc=0 cmp=74 NOT_EQUAL stage1 | law rc=0 cmp=74 NOT_EQUAL stage1 | fix1 rc=0 cmp=74 NOT_EQUAL stage1
+r11v154repro/lx/h9 | pris rc=0 cmp=0 STRICT_EQUAL 145 objects | law rc=0 cmp=0 STRICT_EQUAL 145 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 145 objects
+r11v154repro/ma/e1 | pris rc=0 cmp=0 STRICT_EQUAL 50 objects | law rc=0 cmp=0 STRICT_EQUAL 50 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 50 objects
+r11v154repro/ma/e2 | pris rc=0 cmp=0 STRICT_EQUAL 44 objects | law rc=0 cmp=0 STRICT_EQUAL 44 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 44 objects
+r11v154repro/ma/e3 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 56 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 56 objects
+r11v154repro/ma/e4 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 44 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 44 objects
+r11v154repro/ma/e5 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 53 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 53 objects
+r11v154repro/ma/e6 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL endcol | fix1 rc=0 cmp=0 STRICT_NOTEQUAL endcol
+r11v154repro/ma/e7 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 53 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 53 objects
+r11v154repro/ms/q1 | pris rc=0 cmp=0 STRICT_EQUAL 57 objects | law rc=0 cmp=0 STRICT_EQUAL 57 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 57 objects
+r11v154repro/ms/q2 | pris rc=0 cmp=144 NOT_EQUAL stage1 | law rc=0 cmp=144 NOT_EQUAL stage1 | fix1 rc=0 cmp=144 NOT_EQUAL stage1
+r11v154repro/ms/q3 | pris rc=0 cmp=88 NOT_EQUAL stage1 | law rc=0 cmp=88 NOT_EQUAL stage1 | fix1 rc=0 cmp=88 NOT_EQUAL stage1
+r11v154repro/pp/n1 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 235 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 235 objects
+r11v154repro/pp/n2 | pris rc=0 cmp=0 STRICT_EQUAL 192 objects | law rc=0 cmp=0 STRICT_EQUAL 192 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 192 objects
+r11v154repro/pp/n3 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 151 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 151 objects
+r11v154repro/pp/n4 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_EQUAL 224 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 224 objects
+r11v154repro/pp/n5 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_NOTEQUAL col | fix1 rc=0 cmp=0 STRICT_NOTEQUAL col
+r11v154repro/pu/m1 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 133 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 133 objects
+r11v154repro/pu/m2 | pris rc=0 cmp=830 NOT_EQUAL stage1 | law rc=0 cmp=830 NOT_EQUAL stage1 | fix1 rc=0 cmp=830 NOT_EQUAL stage1
+r11v154repro/pv/o1 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 305 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 305 objects
+r11v154repro/pv/o2 | pris rc=0 cmp=0 STRICT_NOTEQUAL col | law rc=0 cmp=0 STRICT_NOTEQUAL col | fix1 rc=0 cmp=0 STRICT_NOTEQUAL col
+r11v154repro/pv/o3 | pris rc=0 cmp=0 STRICT_EQUAL 231 objects | law rc=0 cmp=0 STRICT_EQUAL 231 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 231 objects
+r11v154repro/pv/o4 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 403 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 403 objects
+r11v154repro/pv/o5 | pris rc=0 cmp=76 NOT_EQUAL stage1 | law rc=0 cmp=76 NOT_EQUAL stage1 | fix1 rc=0 cmp=76 NOT_EQUAL stage1
+r11v154repro/pv/o6 | pris rc=0 cmp=34 NOT_EQUAL stage1 | law rc=0 cmp=34 NOT_EQUAL stage1 | fix1 rc=0 cmp=34 NOT_EQUAL stage1
+r11v154repro/vi/f10 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL depth | fix1 rc=0 cmp=0 STRICT_EQUAL 43 objects
+r11v154repro/vi/f1 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 50 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 50 objects
+r11v154repro/vi/f2 | pris rc=0 cmp=44 NOT_EQUAL stage1 | law rc=0 cmp=44 NOT_EQUAL stage1 | fix1 rc=0 cmp=44 NOT_EQUAL stage1
+r11v154repro/vi/f3 | pris rc=0 cmp=212 NOT_EQUAL stage1 | law rc=0 cmp=212 NOT_EQUAL stage1 | fix1 rc=0 cmp=212 NOT_EQUAL stage1
+r11v154repro/vi/f4 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL count | fix1 rc=0 cmp=0 STRICT_EQUAL 40 objects
+r11v154repro/vi/f5 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 43 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 43 objects
+r11v154repro/vi/f6 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL count | fix1 rc=0 cmp=0 STRICT_EQUAL 40 objects
+r11v154repro/vi/f7 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 36 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 36 objects
+r11v154repro/vi/f8 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL depth | fix1 rc=0 cmp=0 STRICT_EQUAL 73 objects
+r11v154repro/vi/f9 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL 33 objects | fix1 rc=0 cmp=0 STRICT_EQUAL 33 objects

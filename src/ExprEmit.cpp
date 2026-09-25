@@ -9013,6 +9013,77 @@ static void ifaceTrailIdxNames147(UHDM::bit_select* bs, const std::string& prefi
         nm(ix, true);
 }
 
+// § hpPartSelBoundNamesBySelect154 — A REFERENCE IN THE BOUNDS OF A PATH'S
+// TRAILING PART-SELECT IS NAMED THROUGH THE SELECT.  Surelog compiles the
+// trailing `name[l:r]` of a dotted path with compilePartSelectRange
+// (CompileExpression.cpp, the hier_path loop's paPart_select_range arms) and
+// stores no full name on the references it compiles for the bounds, so the
+// writer's ComputeFullName walks the parent chain: reference -> (operation,
+// call) -> part_select (its name kept: only a bit_select / indexed part
+// select / hier_path parent is skipped) -> hier_path.  Golden jeras_tcb_gpio
+// `work@tcb_gpio.bus.wdt[GW - 1:0].wdt.GW`, iface_arr_struct_field_partsel
+// `work@mem.sub.req_dly[0].adr[$clog2(BYT) - 1:0].adr.BYT`, a struct-member
+// path alike (`work@top.s.wdt[GW - 1:0].wdt.GW`); ours kept the scope's
+// `work@m.GW`.  A bare bound is named the same way (`bus.wdt[GW:0].wdt.GW`).
+// The walk descends only through operations and calls parented at their
+// owner; a nested path or select keeps its own rule.  Grid
+// tools/probe/r11u154repro/hp.  Switch: R11U154_HPPSBOUND_OFF.
+static void hpPsBoundNames154(UHDM::any* bound, const UHDM::any* owner,
+                              const std::string& base) {
+    static const bool on = r11u154On("R11U154_HPPSBOUND_OFF");
+    if (!on || !bound || bound->VpiParent() != owner)
+        return;
+    std::function<void(UHDM::any*)> nm = [&](UHDM::any* e) {
+        if (!e)
+            return;
+        switch (e->UhdmType()) {
+            case UHDM::uhdmref_obj: {
+                auto* r = (UHDM::ref_obj*)e;
+                if (r->VpiName().empty())
+                    return;
+                trace154("HPPSBOUND");
+                r->VpiFullName(joinRef(base, r->VpiName()));
+                return;
+            }
+            case UHDM::uhdmoperation:
+                if (auto* os = ((UHDM::operation*)e)->Operands())
+                    for (auto* o : *os)
+                        if (o && o->VpiParent() == e)
+                            nm(o);
+                return;
+            case UHDM::uhdmsys_func_call:
+            case UHDM::uhdmfunc_call:
+                if (auto* as = ((UHDM::tf_call*)e)->Tf_call_args())
+                    for (auto* a : *as)
+                        if (a && a->VpiParent() == e)
+                            nm(a);
+                return;
+            default:
+                return;
+        }
+    };
+    nm(bound);
+}
+
+// § hpElemSelNameIsPathSoFar154 — AN INDEXED ELEMENT OF A DOTTED PATH IS
+// NAMED BY THE PATH SO FAR.  Surelog's hier_path loop builds the element
+// `name[index]` as a bit_select with `VpiFullName(the_name)`, the_name being
+// the running path text through this element (CompileExpression.cpp, the
+// `else if (Expression)` arm: `the_name += "[" + decompileHelper(index) +
+// "]"`), so a select past the first component carries the components before
+// it: golden iface_arr_struct_field_partsel `sub.req_dly[0]`, ours
+// `req_dly[0]`.  § hpConnElemIdxFold17's folded element already takes the
+// running text; the plain literal and variable elements now do too.  Grid
+// tools/probe/r11u154repro/hp.  Switch: R11U154_HPELEMNAME_OFF.
+static std::string hpElemSelName154(const std::string& comp,
+                                    const std::string& soFar) {
+    static const bool on = r11u154On("R11U154_HPELEMNAME_OFF");
+    if (!on || soFar.empty() || soFar == comp)
+        return comp;
+    trace154("HPELEMNAME");
+    return soFar;
+}
+
 // § nestedDefaultPatLoc147 — A NESTED `default:` PATTERN KEEPS ITS LOCATIONS.
 // `'{default: '{default: 0}}` (SelectFromUnpackedInFunction's `logic [2:0] a
 // [3:0]` initializer, a procedural assignment alike): golden locates the outer
@@ -19870,7 +19941,36 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto* rt = s.MakeRef_typespec();
                         rt->VpiParent(c);
                         std::string rpfx9 = prefix;
-                        if (genPsBound9 && currentGenBlkScope &&
+                        // § genProcFoldTsKeepsScope154 — the instance-scoped
+                        // name below belongs to a parameter that IS a select's
+                        // bound or width (generate_test `result[i*W +: W]`'s
+                        // width, BasicOh oh_dsync `sync_pipe[SYNCPIPE:0]`); a
+                        // fold under an OPERATION keeps the prefix it is
+                        // emitted under: the select's path (`v[P-1:0]`:
+                        // `work@top.r.gb.v`, BasicOh oh_rsync
+                        // `…wr_rsync.genblk1.sync_pipe`) or the gen block's
+                        // (`x + (P - 1)`: `work@top.r.gl[0]`).  Grid
+                        // tools/probe/r11u154repro/gs.  Switch:
+                        // R11U154_GSFOLDTS_OFF.
+                        // A bare bit-select INDEX takes the select's path
+                        // (`v[P]`: `work@top.r.gb.v`), as an operation under
+                        // it does.
+                        bool gsOn154 = r11u154On("R11U154_GSFOLDTS_OFF");
+                        bool keep154 = gsOn154 && parent &&
+                                       parent->UhdmType() == UHDM::uhdmoperation;
+                        if (gsOn154 && genPsBound9 && currentGenBlkScope &&
+                            parent &&
+                            parent->UhdmType() == UHDM::uhdmbit_select &&
+                            !((const UHDM::bit_select*)parent)->VpiName().empty()) {
+                            keep154 = true;
+                            rpfx9 = joinRef(
+                                prefix,
+                                ((const UHDM::bit_select*)parent)->VpiName());
+                        }
+                        if (keep154 && genPsBound9 && currentGenBlkScope &&
+                            prefix != selectBasePrefix)
+                            trace154("GSFOLDTS");
+                        if (!keep154 && genPsBound9 && currentGenBlkScope &&
                             prefix != selectBasePrefix) {
                             int drop9 = 0;
                             for (auto w9 = &currentGenBlkScope->asSymbol();
@@ -23457,12 +23557,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 its0->VpiEndColumnNo(dts9->VpiEndColumnNo());
                                 auto* dr9 =
                                     (UHDM::ref_obj*)dts9->Cast_to_expr();
+                                // § elabCastSharesDeclRef154 (below).
+                                if (castSharesDeclRef154On()) {
+                                    trace154("CASTREF");
+                                    its0->Cast_to_expr(dr9);
+                                }
+                                else {
                                 auto* r9 = s.MakeRef_obj();
                                 r9->VpiName(dr9->VpiName());
                                 r9->VpiFullName(dr9->VpiFullName());
                                 r9->Actual_group(dr9->Actual_group());
                                 r9->VpiParent(its0);
                                 its0->Cast_to_expr(r9);
+                                }
                             }
                             // § castTypedParamDeclTs — the stamp above only
                             // reaches a target that OWES its typespec to the
@@ -23546,6 +23653,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // stays unsigned and nothing is stamped that
                                 // golden leaves clear.
                                 its0->VpiSigned(dts0->VpiSigned());
+                                // § elabCastSharesDeclRef154 — THE
+                                // ELABORATED CAST'S COPY SHARES THE
+                                // DECLARATION'S vpiExpr REFERENCE.  Surelog's
+                                // elaboration clones the cast typespec per use
+                                // but not its vpiExpr: every elaborated copy
+                                // points at the ONE ref_obj the declaration's
+                                // typespec carries (golden
+                                // comb_dyn_2d_packed_sel `SEL_W'(1) :
+                                // SEL_W'(2)`: two copies, ids 89 and 93, both
+                                // with vpiExpr id 23, the definition
+                                // typespec's own), so the walk from a copy
+                                // through the parameter back to the
+                                // declaration typespec meets that reference
+                                // on its path and stops.  Our fresh copy of
+                                // the reference re-listed it under the
+                                // parameter (depth 11, `walk diverged`).  A
+                                // declaration without a reference keeps the
+                                // minted one.  Grid
+                                // tools/probe/r11u154repro/cst.  Switch:
+                                // R11U154_CASTREF_OFF.
+                                if (dts0->Cast_to_expr() &&
+                                    castSharesDeclRef154On()) {
+                                    trace154("CASTREF");
+                                    its0->Cast_to_expr(dts0->Cast_to_expr());
+                                }
+                                else {
                                 auto* r0 = s.MakeRef_obj();
                                 if (auto* dr0 =
                                         (UHDM::ref_obj*)dts0->Cast_to_expr()) {
@@ -23561,6 +23694,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 }
                                 r0->VpiParent(its0);
                                 its0->Cast_to_expr(r0);
+                                }
                             }
                             else {
                                 setLoc(its0, SourceRange(psym0.location,
@@ -29914,6 +30048,95 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                         if (!margs->empty())
                             mfc->Tf_call_args(margs);
+                        // § builtinMethodArgNamedByPath154 — the arguments
+                        // are named through the path (EmitHelpers.h).
+                        builtinMethodArgNames154(margs, mfc,
+                                                 joinRef(prefix, hp->VpiName()));
+                        // § varInitStrMethodArgDefNet154 — A STRING METHOD'S
+                        // ARGUMENT IN AN ELABORATED VARIABLE INITIALIZER
+                        // BINDS THE DEFINITION'S NET.  Surelog compiles a
+                        // module variable's initializer once, in the
+                        // definition, and the elaborated variable keeps
+                        // that expression, so an argument reference of
+                        // `int b = s.compare(t)` names the definition
+                        // listing's `logic_net t` (golden StringMethod; a
+                        // reference under an operation argument alike,
+                        // `s.substr(i, i+1)`), where ours bound the
+                        // elaborated `string_var t`.  A continuous
+                        // assignment or a process argument binds as ours
+                        // already does (grid s3 s4 s8).  Only a reference
+                        // whose elaborated object has a distinct
+                        // definition twin is rebound.  Grid
+                        // tools/probe/r11u154repro/sm.  Switch:
+                        // R11U154_VARINITDEF_OFF.
+                        if (r11u154On("R11U154_VARINITDEF_OFF") && margs &&
+                            parent && recv && stripImplicitConv(*recv).type &&
+                            stripImplicitConv(*recv).type->isString() &&
+                            isVariableKind154(parent)) {
+                            std::function<void(UHDM::any*, const UHDM::any*)> rb154 =
+                                [&](UHDM::any* e, const UHDM::any* own) {
+                                    if (!e || e->VpiParent() != own)
+                                        return;
+                                    if (e->UhdmType() == UHDM::uhdmoperation) {
+                                        if (auto* os = ((UHDM::operation*)e)->Operands())
+                                            for (auto* o : *os)
+                                                rb154(o, e);
+                                        return;
+                                    }
+                                    if (e->UhdmType() != UHDM::uhdmref_obj)
+                                        return;
+                                    auto* r = (UHDM::ref_obj*)e;
+                                    auto* act = r->Actual_group();
+                                    if (!act)
+                                        return;
+                                    const Symbol* sym = nullptr;
+                                    for (auto& kv : netMap)
+                                        if (kv.second == act) {
+                                            sym = kv.first;
+                                            break;
+                                        }
+                                    if (!sym || !sym->getParentScope() ||
+                                        sym->getParentScope()->asSymbol().kind !=
+                                            SymbolKind::InstanceBody)
+                                        return;
+                                    auto& body = sym->getParentScope()
+                                                     ->asSymbol()
+                                                     .as<InstanceBodySymbol>();
+                                    // § varInitDefNetModuleOnly154v — only a
+                                    // MODULE keeps the definition's
+                                    // initializer: an interface or a program
+                                    // instance re-elaborates it and golden
+                                    // binds the elaborated `string_var`
+                                    // (grid tools/probe/r11v154repro/vi f4
+                                    // f6 f8 f10; the law's rebind made the
+                                    // walk list the definition net, `count`).
+                                    // Switch: R11V154_VIDMOD_OFF.
+                                    if (getenv("R11V154_VIDMOD_OFF") == nullptr &&
+                                        body.getDefinition().definitionKind !=
+                                            DefinitionKind::Module)
+                                        return;
+                                    auto dit = defMap.find(&body.getDefinition());
+                                    if (dit == defMap.end())
+                                        return;
+                                    UHDM::any* dn = nullptr;
+                                    if (auto nit = dit->second.nets.find(sym);
+                                        nit != dit->second.nets.end())
+                                        dn = nit->second;
+                                    else
+                                        for (auto& kv : dit->second.nets)
+                                            if (kv.first && kv.first->name == sym->name &&
+                                                kv.first->getSyntax() == sym->getSyntax()) {
+                                                dn = kv.second;
+                                                break;
+                                            }
+                                    if (!dn || dn == act)
+                                        return;
+                                    trace154("VARINITDEF");
+                                    r->Actual_group(dn);
+                                };
+                            for (auto* a : *margs)
+                                rb154(a, mfc);
+                        }
                         // § cloneBuiltinMethodArgBindsReceiver184 — THE ONLY
                         // SITE.  In a WILDCARD-IMPORT CLONE body (the gate is
                         // `funcRetSelRefs171 != nullptr`, § 171's own pointer,
@@ -31269,6 +31492,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             r2->VpiName(cn);
                             r2->VpiFullName(cn); // name-only (dump omits)
                             r2->VpiParent(hp);
+                            // § lvPathBaseAtFirstMember154 (EmitHelpers.h).
+                            std::optional<SourceRange> fm154;
+                            if (ci == 0 && comps.size() >= 2) {
+                                fm154 = firstMemberTok154(es.value());
+                                // An interface path is no MemberAccess chain:
+                                // the text offsets, outside a macro expansion.
+                                if (!fm154 && !sm->isMacroLoc(exprStart) &&
+                                    !sm->isMacroLoc(expr.sourceRange.end())) {
+                                    size_t ml154 = comps[1].first.find('[');
+                                    if (ml154 == std::string::npos)
+                                        ml154 = comps[1].first.size();
+                                    fm154 = SourceRange(
+                                        exprStart + comps[1].second,
+                                        exprStart + comps[1].second + ml154);
+                                }
+                            }
+                            if (fm154 && lvBaseAtFirstMember154(inLhs, parent))
+                                setLoc(r2, *fm154);
+                            else
                             setLoc(r2, SourceRange(exprStart + co,
                                                    exprStart + co + cn.size()));
                             elems->push_back(r2);
@@ -31288,6 +31530,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                              lastName);
                         else
                             (void)bs2->VpiFullName();
+                        // § lvIfacePathBitSelWhole154 (EmitHelpers.h).
+                        const Expression& lv154 = stripImplicitConv(es.value());
+                        std::optional<SourceLocation> bs154;
+                        if (lv154.kind == ExpressionKind::MemberAccess)
+                            bs154 = lv154.sourceRange.end() - lastName.size();
+                        else if (!sm->isMacroLoc(exprStart) &&
+                                 !sm->isMacroLoc(expr.sourceRange.end()))
+                            bs154 = exprStart + lastOff;
+                        if (bs154 && lvIfaceBitSelWhole154(inLhs, parent))
+                            setLoc(bs2, SourceRange(*bs154, expr.sourceRange.end()));
+                        else
                         setLoc(bs2, es.selector().sourceRange);
                         if (auto* ix2 = emitExpr(es.selector(), bs2, prefix, netMap)) {
                             // A genvar TRAILING index (c[j]) freezes the same
@@ -32354,6 +32607,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         fma9.member.name.size();
                             bsr9 = SourceRange(
                                 fst9, fst9 + bnv.symbol.name.size());
+                            // § lvPathBaseAtFirstMember154 (EmitHelpers.h):
+                            // the first member's whole token.
+                            if (lvBaseAtFirstMember154(inLhs, parent))
+                                bsr9 = SourceRange(
+                                    fst9, (*chain.rbegin())->sourceRange.end());
                             }
                         }
                         setLoc(r, bsr9);
@@ -32421,6 +32679,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (auto* r2 = emitExpr(rs.right(), ps, prefix, netMap))
                                 ps->Right_range((UHDM::expr*)r2);
                             suppressConstParent = sup;
+                            // § hpPartSelBoundNamesBySelect154 — the bounds
+                            // are named through the path and the select.
+                            {
+                                std::string b154 = joinRef(
+                                    joinRef(prefix, hp->VpiName()),
+                                    ma.member.name);
+                                hpPsBoundNames154((UHDM::any*)ps->Left_range(), ps, b154);
+                                hpPsBoundNames154((UHDM::any*)ps->Right_range(), ps, b154);
+                            }
                             elems->push_back(ps);
                         }
                         else {
@@ -32430,6 +32697,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // The indexed form carries the dotted select
                             // string as its fullname and stops BEFORE the ']'.
                             ips->VpiFullName(dotted);
+                            // § lvPathSelNamedByChain154 (EmitHelpers.h) — a
+                            // written indexed part-select too; its base
+                            // reference, a direct child of the ips (whose name
+                            // ComputeFullName skips), is named by the path.
+                            bool lvIps154 = lvSelNamedByChain154(inLhs, parent);
+                            if (lvIps154) {
+                                ips->VpiDefName(ma.member.name);
+                                ips->VpiFullName(joinRef(
+                                    joinRef(prefix, hp->VpiName()),
+                                    ma.member.name));
+                            }
                             setLoc(ips, SourceRange(elemLoc.start(),
                                                     rs.right().sourceRange.end()));
                             ips->VpiIndexedPartSelectType(
@@ -32439,6 +32717,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             bool sup = suppressConstParent;
                             suppressConstParent = isLiteralExpr(rs.left());
                             auto* b = emitExpr(rs.left(), ips, prefix, netMap);
+                            if (lvIps154 && b && b->UhdmType() == UHDM::uhdmref_obj &&
+                                b->VpiParent() == ips &&
+                                !((UHDM::ref_obj*)b)->VpiName().empty())
+                                ((UHDM::ref_obj*)b)
+                                    ->VpiFullName(joinRef(
+                                        joinRef(prefix, hp->VpiName()),
+                                        ((UHDM::ref_obj*)b)->VpiName()));
                             // § connHpIpsBaseNonOvParamFold84 — THE HEAD's own
                             // site.  Placed AFTER the base emission and gated
                             // on the result still being a `ref_obj` (fence (b)
@@ -33297,7 +33582,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 std::string bn = cn.substr(0, lb2);
                                 auto* bsv = s.MakeBit_select();
                                 bsv->VpiName(bn);
-                                bsv->VpiFullName(cn);
+                                bsv->VpiFullName(hpElemSelName154(cn, dottedSoFar17));
                                 bsv->VpiParent(hp);
                                 setLoc(bsv, SourceRange(exprStart + co,
                                                         exprStart + co + bn.size()));
@@ -33317,7 +33602,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 bsm->VpiName(bn);
                                 // Surelog names the element by its INDEXED
                                 // text (a[0]), not the bare base name.
-                                bsm->VpiFullName(cn);
+                                bsm->VpiFullName(hpElemSelName154(cn, dottedSoFar17));
                                 bsm->VpiParent(hp);
                                 setLoc(bsm, SourceRange(exprStart + co,
                                                         exprStart + co + bn.size()));
@@ -33346,6 +33631,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 rs.getSelectionKind() !=
                                     RangeSelectionKind::Simple)
                                 co2 = comps[1].second;
+                            // § lvPathBaseAtFirstMember154 (EmitHelpers.h):
+                            // the first member's whole token.
+                            std::optional<SourceRange> fm154;
+                            if (ci == 0 && comps.size() >= 2) {
+                                fm154 = firstMemberTok154(rs.value());
+                                if (!fm154 && !sm->isMacroLoc(exprStart) &&
+                                    !sm->isMacroLoc(expr.sourceRange.end())) {
+                                    size_t ml154 = comps[1].first.find('[');
+                                    if (ml154 == std::string::npos)
+                                        ml154 = comps[1].first.size();
+                                    fm154 = SourceRange(
+                                        exprStart + comps[1].second,
+                                        exprStart + comps[1].second + ml154);
+                                }
+                            }
+                            if (fm154 && lvBaseAtFirstMember154(inLhs, parent))
+                                setLoc(r2, *fm154);
+                            else
                             setLoc(r2, SourceRange(exprStart + co2,
                                                    exprStart + co2 + cn.size()));
                             elems->push_back(r2);
@@ -33363,6 +33666,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             auto* ps2 = s.MakePart_select();
                             ps2->VpiName(lastName);
                             ps2->VpiFullName(selText);
+                            // § lvPathSelNamedByChain154 (EmitHelpers.h).
+                            if (lvSelNamedByChain154(inLhs, parent)) {
+                                ps2->VpiDefName(lastName);
+                                ps2->VpiFullName(joinRef(joinRef(prefix, selText),
+                                                         lastName));
+                            }
                             ps2->VpiParent(hp);
                             setLoc(ps2, selLoc);
                             ps2->VpiConstantSelect(true);  // § everyPartSelIsConstSel78
@@ -33372,6 +33681,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             suppressConstParent = isLiteralExpr(rs.right());
                             if (auto* r3 = emitExpr(rs.right(), ps2, prefix, netMap))
                                 ps2->Right_range((UHDM::expr*)r3);
+                            // § hpPartSelBoundNamesBySelect154 — the bounds
+                            // are named through the path and the select.
+                            {
+                                std::string b154 =
+                                    joinRef(joinRef(prefix, selText), lastName);
+                                hpPsBoundNames154((UHDM::any*)ps2->Left_range(), ps2, b154);
+                                hpPsBoundNames154((UHDM::any*)ps2->Right_range(), ps2, b154);
+                            }
                             elems->push_back(ps2);
                         }
                         else {
@@ -33383,6 +33700,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             bool wrSel9 =
                                 inLhs && stripImplicitConv(rs.left()).kind !=
                                              ExpressionKind::NamedValue;
+                            // § lvPathSelNamedByChain154 — a bare-reference
+                            // base is written the same way (golden
+                            // `bs.rqq.adr[k +: 2] <= x`:
+                            // `work@m.bs.rqq.adr[k+:2].adr`, vpiDefName).
+                            if (!wrSel9 && lvSelNamedByChain154(inLhs, parent))
+                                wrSel9 = true;
                             if (wrSel9) {
                                 ips2->VpiDefName(lastName);
                                 ips2->VpiFullName(prefix + "." + selText + "." +
@@ -33696,6 +34019,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // instance and drops the gen-block segments; cache the branch
                 // path (jeras_tcb_gpio que[DLY-2:0]).
                 psel->VpiFullName(joinRef(prefix, nv.symbol.name));
+            // § genScopeProcPsNamedByScope154 — the ELABORATED twin of the
+            // arm above: a process of an elaborated generate scope is
+            // emitted before its gen_scope parents it, so the lazy walk
+            // freezes the instance's path without the block
+            // (`work@top.r.sync_pipe`); Surelog's writer walks the final
+            // chain (`work@top.r.genblk1.sync_pipe`, BasicOh oh_rsync.v
+            // `sync_pipe[SYNCPIPE-1:0]` in both directions).  `prefix` is
+            // the gen block's path there (UhdmExporter.h `inGenScopeProc`).
+            // Grid tools/probe/r11u154repro/gs.  Switch:
+            // R11U154_GSPROCPS_OFF.
+            else if (inGenScopeProc && !prefix.empty() &&
+                     r11u154On("R11U154_GSPROCPS_OFF")) {
+                trace154("GSPROCPS");
+                psel->VpiFullName(joinRef(prefix, nv.symbol.name));
+            }
             else
                 (void)psel->VpiFullName();
             // § pkgQualParamPartSelName118 — the RANGE's span alone (the
@@ -33895,11 +34233,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // $clog2 arg): Surelog anchors the base ref at the MEMBER token span
             // and leaves the leaf ref BARE (no scoped fullname) — the same
             // span/name convention it uses for an LVALUE path.
+            // § lvIdxPathIsRead154 — the member arm's twin: a member path
+            // inside an lvalue select's index is a read.
+            const bool lhsM154 = inLhs && !lvIdxPathIsRead154(parent);
             bool paramInitStructMember =
                 inParamInit && !chain.empty() &&
                 nv.symbol.kind == SymbolKind::Parameter &&
-                nv.symbol.getType().getCanonicalType().kind ==
-                    SymbolKind::PackedStructType;
+                (nv.symbol.getType().getCanonicalType().kind ==
+                     SymbolKind::PackedStructType ||
+                 // § paramInitUnpackedMemberPath154 — AN UNPACKED STRUCT
+                 // PARAMETER'S MEMBER READ IN A PARAMETER INITIALIZER TAKES THE
+                 // SAME PATH SHAPE AS A PACKED ONE: the base reference on the
+                 // first member's token, the leaf name-only (golden
+                 // iface_scalar_localparam / iface_struct_field_partsel
+                 // `localparam int unsigned BYT = CFG.BUS.DAT/8`: `CFG`
+                 // 7:37-40, `DAT` unnamed; a module localparam alike).  The
+                 // packed-only gate left the unpacked read on the rvalue
+                 // convention (`CFG` 7:33-36, `work@tif.DAT`).  Grid
+                 // tools/probe/r11u154repro/pi.  Switch:
+                 // R11U154_PIUNPACKED_OFF.
+                 (nv.symbol.getType().getCanonicalType().kind ==
+                      SymbolKind::UnpackedStructType &&
+                  r11u154On("R11U154_PIUNPACKED_OFF") &&
+                  (trace154("PIUNPACKED"), true)));
             // § vifClockingPathComponent5 — SITE 1 of 3.  The components slang
             // collapsed out of a virtual-interface reference, recovered and
             // spliced in between the base and the leaf.  `chain.size() == 1` is
@@ -33983,7 +34339,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 else {
                 // Lvalue paths (and param-init struct-member reads) anchor the
                 // base ref at the FIRST member's token span.
-                if ((inLhs || paramInitStructMember || incDecLv124) &&
+                if ((lhsM154 || paramInitStructMember || incDecLv124) &&
                     !chain.empty()) {
                     // § vifClockingPathComponent5 — SITE 1 of 3.  With a
                     // recovered component spliced in, the FIRST member is that
@@ -34026,7 +34382,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 (void)r->VpiFullName();
                 // Only the last member of an rvalue path gets a fullname; a
                 // param-init struct-member read leaves the leaf BARE (lvalue).
-                if (!inLhs && !paramInitStructMember && !incDecLv124 &&
+                if (!lhsM154 && !paramInitStructMember && !incDecLv124 &&
                     *it2 == chain.front())
                     // A PACKAGE-scope prefix keeps :: down to the leaf
                     // (riscv_isa_i_pkg::enc32::opc — Surelog).
@@ -35008,6 +35364,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto* rt = s.MakeRef_typespec();
                     rt->Actual_typespec(mts);
                     op->Typespec(rt);
+                    // § portViewNestedPatTsNamed154 — recorded; named by
+                    // ParamEmit's drain when its holder is a port view.
+                    if (nestedPat && r11u154On("R11U154_PVNESTTS_OFF"))
+                        nestedPatTs154().push_back({rt, op, prefix});
                 }
             }
             // ---- Surelog's ExprEval::flattenPatternAssignments ----
@@ -36976,8 +37336,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 auto* r = s.MakeRef_obj();
                 r->VpiName(pname);
                 (void)r->VpiFullName();
+                // § lvIdxPathIsRead154 — a path inside an lvalue select's
+                // index is a READ (EmitHelpers.h).
+                bool lhsT154 = (inLhs && !lvIdxPathIsRead154(parent)) ||
+                               // § psBoundPathFirstMember154 (EmitHelpers.h).
+                               psBoundPathFirstMember154(parent, parts.size());
                 // Only the last element of an rvalue path gets a fullname.
-                if (!inLhs && i + 1 == parts.size())
+                if (!lhsT154 && i + 1 == parts.size())
                     r->VpiFullName(prefix + "." + pname);
                 r->VpiParent(hp);
                 // A DOTTED hier_path leaf in a gen-scope process stays
@@ -36987,7 +37352,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // integer_var. (for_decl_shadow's `gen.x` refs live inside a
                 // procedural for, so this leaf-bind never applied to them.)
                 // Lvalue paths anchor the base ref at the SECOND element.
-                size_t locIdx = (inLhs && i == 0 && parts.size() > 1) ? 1 : i;
+                size_t locIdx = (lhsT154 && i == 0 && parts.size() > 1) ? 1 : i;
                 auto& lname = srcParts[locIdx].first;
                 auto lStart = partStart(locIdx);
                 setLoc(r, SourceRange(lStart, lStart + lname.size()));

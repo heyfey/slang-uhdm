@@ -1,0 +1,93 @@
+cst/c1                             | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_EQUAL 106 objects
+cst/c2                             | rc=0 cmp=0 | STRICT_EQUAL 81 objects             | rc=0 cmp=0 | STRICT_EQUAL 81 objects
+cst/c3                             | rc=0 cmp=0 | STRICT_EQUAL 89 objects             | rc=0 cmp=0 | STRICT_EQUAL 89 objects
+cst/c4                             | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_EQUAL 106 objects
+cst/c5                             | rc=0 cmp=0 | STRICT_NOTEQUAL depth               | rc=0 cmp=0 | STRICT_EQUAL 135 objects
+gs/g1                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 212 objects
+gs/g2                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 333 objects
+gs/g_la                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 165 objects
+gs/g_lb                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 159 objects
+gs/g_lc                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 159 objects
+gs/g_ld                            | rc=0 cmp=0 | STRICT_EQUAL 161 objects            | rc=0 cmp=0 | STRICT_EQUAL 161 objects
+gs/g_le                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 176 objects
+gs/g_lf                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 169 objects
+gs/g_na                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 190 objects
+gs/g_nb                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 180 objects
+gs/g_nc                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 180 objects
+gs/g_nd                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 184 objects
+gs/g_ne                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 210 objects
+gs/g_nf                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 198 objects
+gs/g_ua                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 190 objects
+gs/g_ub                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 180 objects
+gs/g_uc                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 180 objects
+gs/g_ud                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 184 objects
+gs/g_ue                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 210 objects
+gs/g_uf                            | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 198 objects
+hp/f1                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 191 objects
+hp/f10                             | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 184 objects
+hp/f11                             | rc=0 cmp=0 | STRICT_NOTEQUAL endcol              | rc=0 cmp=0 | STRICT_EQUAL 110 objects
+hp/f12                             | rc=0 cmp=0 | STRICT_NOTEQUAL endcol              | rc=0 cmp=0 | STRICT_EQUAL 89 objects
+hp/f13                             | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 297 objects
+hp/f14                             | rc=0 cmp=0 | STRICT_NOTEQUAL line                | rc=0 cmp=0 | STRICT_NOTEQUAL line
+hp/f15                             | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 266 objects
+hp/f17                             | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 269 objects
+hp/f18                             | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 265 objects
+hp/f19                             | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 157 objects
+hp/f2                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 157 objects
+hp/f3                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 153 objects
+hp/f7                              | rc=0 cmp=0 | STRICT_EQUAL 183 objects            | rc=0 cmp=0 | STRICT_EQUAL 183 objects
+hp/f8                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 110 objects
+hp/f9                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 206 objects
+lv/l1                              | rc=0 cmp=0 | STRICT_NOTEQUAL endcol              | rc=0 cmp=0 | STRICT_EQUAL 116 objects
+lv/l10                             | rc=0 cmp=0 | STRICT_NOTEQUAL endcol              | rc=0 cmp=0 | STRICT_EQUAL 109 objects
+lv/l11                             | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 182 objects
+lv/l12                             | rc=0 cmp=0 | STRICT_NOTEQUAL endcol              | rc=0 cmp=0 | STRICT_EQUAL 226 objects
+lv/l13                             | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 162 objects
+lv/l14                             | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 148 objects
+lv/l15                             | rc=0 cmp=0 | STRICT_NOTEQUAL endcol              | rc=0 cmp=0 | STRICT_EQUAL 120 objects
+lv/l18                             | rc=0 cmp=0 | STRICT_NOTEQUAL endcol              | rc=0 cmp=0 | STRICT_EQUAL 230 objects
+lv/l2                              | rc=0 cmp=0 | STRICT_NOTEQUAL endcol              | rc=0 cmp=0 | STRICT_EQUAL 95 objects
+lv/l3                              | rc=0 cmp=0 | STRICT_EQUAL 105 objects            | rc=0 cmp=0 | STRICT_EQUAL 105 objects
+lv/l4                              | rc=0 cmp=0 | STRICT_NOTEQUAL endcol              | rc=0 cmp=0 | STRICT_EQUAL 138 objects
+lv/l5                              | rc=0 cmp=0 | STRICT_EQUAL 112 objects            | rc=0 cmp=0 | STRICT_EQUAL 112 objects
+lv/l6                              | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 161 objects
+lv/l7                              | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 127 objects
+lv/l8                              | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 141 objects
+lv/l9                              | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 205 objects
+lv/m1                              | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_NOTEQUAL col
+lv/m2                              | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_NOTEQUAL col
+lx/x1                              | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 162 objects
+lx/x2                              | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 152 objects
+lx/x3                              | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 142 objects
+lx/x4                              | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 129 objects
+lx/x5                              | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 158 objects
+lx/y1                              | rc=0 cmp=0 | STRICT_EQUAL 157 objects            | rc=0 cmp=0 | STRICT_EQUAL 157 objects
+lx/y2                              | rc=0 cmp=0 | STRICT_EQUAL 159 objects            | rc=0 cmp=0 | STRICT_EQUAL 159 objects
+lx/y3                              | rc=0 cmp=0 | STRICT_EQUAL 142 objects            | rc=0 cmp=0 | STRICT_EQUAL 142 objects
+lx/y4                              | rc=0 cmp=0 | STRICT_EQUAL 163 objects            | rc=0 cmp=0 | STRICT_EQUAL 163 objects
+np/i3                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 183 objects
+np/i4                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 183 objects
+np/n1                              | rc=0 cmp=0 | STRICT_EQUAL 130 objects            | rc=0 cmp=0 | STRICT_EQUAL 130 objects
+np/n2                              | rc=0 cmp=0 | STRICT_EQUAL 155 objects            | rc=0 cmp=0 | STRICT_EQUAL 155 objects
+np/n3                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 239 objects
+np/n5                              | rc=0 cmp=0 | STRICT_EQUAL 103 objects            | rc=0 cmp=0 | STRICT_EQUAL 103 objects
+np/n6                              | rc=0 cmp=0 | STRICT_EQUAL 221 objects            | rc=0 cmp=0 | STRICT_EQUAL 221 objects
+pb/b2                              | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 220 objects
+pb/b3                              | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 224 objects
+pb/b4                              | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 224 objects
+pb/b5                              | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 220 objects
+pi/k1                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 181 objects
+pi/k2                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 214 objects
+pi/k5                              | rc=0 cmp=0 | STRICT_NOTEQUAL col                 | rc=0 cmp=0 | STRICT_EQUAL 154 objects
+sm/s1                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 30 objects
+sm/s2                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 40 objects
+sm/s3                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 41 objects
+sm/s4                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 43 objects
+sm/s5                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 33 objects
+sm/s6                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 62 objects
+sm/s7                              | rc=0 cmp=0 | STRICT_EQUAL 27 objects             | rc=0 cmp=0 | STRICT_EQUAL 27 objects
+sm/s8                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 45 objects
+sm/v1                              | rc=0 cmp=0 | STRICT_EQUAL 17 objects             | rc=0 cmp=0 | STRICT_EQUAL 17 objects
+sm/v4                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 30 objects
+sm/v5                              | rc=0 cmp=0 | STRICT_NOTEQUAL fullname            | rc=0 cmp=0 | STRICT_EQUAL 65 objects
+sm/v6                              | rc=0 cmp=0 | STRICT_EQUAL 48 objects             | rc=0 cmp=0 | STRICT_EQUAL 48 objects

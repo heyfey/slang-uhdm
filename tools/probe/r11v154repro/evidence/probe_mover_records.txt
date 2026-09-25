@@ -1,0 +1,34 @@
+r10earl29repro/a4_ctx | pris STRICT_NOTEQUAL fullname (6) | law STRICT_NOTEQUAL fullname (5) | leave 2 enter 1
+r10earl57repro/v1_paramkinds57 | pris STRICT_NOTEQUAL depth (1) | law STRICT_EQUAL 1116 objects (0) | leave 1 enter 0
+r10earl57repro/v2_contexts57 | pris STRICT_NOTEQUAL depth (1) | law STRICT_EQUAL 1044 objects (0) | leave 1 enter 0
+r10earl58repro/v58v1_earl58 | pris STRICT_NOTEQUAL fullname (6) | law STRICT_EQUAL 855 objects (0) | leave 6 enter 0
+r10earl58repro/v58v6_earl58 | pris STRICT_NOTEQUAL fullname (7) | law STRICT_EQUAL 491 objects (0) | leave 7 enter 0
+r10earl76repro/g2_orig76 | pris STRICT_NOTEQUAL col (15) | law STRICT_NOTEQUAL col (13) | leave 2 enter 0
+r10earl97repro/g0_head97 | pris STRICT_NOTEQUAL depth (1) | law STRICT_EQUAL 174 objects (0) | leave 1 enter 0
+r10earl_repro/pt20 | pris STRICT_NOTEQUAL fullname (4) | law STRICT_EQUAL 408 objects (0) | leave 4 enter 0
+r10earl_repro/pu20 | pris STRICT_NOTEQUAL fullname (4) | law STRICT_NOTEQUAL fullname (1) | leave 3 enter 0
+r10earl_repro/pv20 | pris STRICT_NOTEQUAL fullname (6) | law STRICT_NOTEQUAL fullname (2) | leave 4 enter 0
+r10earl_repro/qf22 | pris STRICT_NOTEQUAL endcol (5) | law STRICT_NOTEQUAL endcol (4) | leave 1 enter 0
+r10earl_repro/qj27 | pris STRICT_NOTEQUAL depth (1) | law STRICT_EQUAL 850 objects (0) | leave 1 enter 0
+r10earl_repro/ve | pris STRICT_NOTEQUAL depth (1) | law STRICT_EQUAL 264 objects (0) | leave 1 enter 0
+r10rggen7repro/t9 | pris STRICT_NOTEQUAL fullname (1) | law STRICT_EQUAL 379 objects (0) | leave 1 enter 0
+r10scr14repro/t6 | pris STRICT_NOTEQUAL fullname (1) | law STRICT_EQUAL 159 objects (0) | leave 1 enter 0
+r10svs2repro/s3_arraykind | pris STRICT_NOTEQUAL fullname (1) | law STRICT_EQUAL 149 objects (0) | leave 1 enter 0
+r10uvm119repro/g119_b | pris STRICT_NOTEQUAL endcol (7) | law STRICT_NOTEQUAL endcol (4) | leave 3 enter 0
+r10uvm171repro/g171_a_pos | pris STRICT_NOTEQUAL fullname (3) | law STRICT_NOTEQUAL type (1) | leave 2 enter 0
+r10uvm193repro/g193_c_argface | pris STRICT_NOTEQUAL fullname (11) | law STRICT_NOTEQUAL fullname (4) | leave 7 enter 0
+r10uvm193repro/g193_d_propfence | pris STRICT_NOTEQUAL fullname (5) | law STRICT_NOTEQUAL fullname (3) | leave 2 enter 0
+r10uvm51repro/a4 | pris STRICT_NOTEQUAL fullname (3) | law STRICT_NOTEQUAL fullname (2) | leave 1 enter 0
+r10uvm52repro/a1 | pris STRICT_NOTEQUAL fullname (12) | law STRICT_NOTEQUAL fullname (9) | leave 3 enter 0
+r10uvm55repro/a1 | pris STRICT_NOTEQUAL line (15) | law STRICT_NOTEQUAL line (14) | leave 1 enter 0
+r10uvm69repro/a2_scope | pris STRICT_NOTEQUAL fullname (19) | law STRICT_NOTEQUAL line (16) | leave 3 enter 0
+r10v151repro/v151_4_nonarray | pris STRICT_NOTEQUAL endcol (3) | law STRICT_NOTEQUAL endcol (2) | leave 1 enter 0
+r10v184repro/gv184_h_retpin | pris STRICT_NOTEQUAL fullname (15) | law STRICT_NOTEQUAL fullname (3) | leave 12 enter 0
+r10v184repro/gv184_i_minimal | pris STRICT_NOTEQUAL fullname (4) | law STRICT_NOTEQUAL type (1) | leave 3 enter 0
+r10vearl97repro/va2_ovr97 | pris STRICT_NOTEQUAL depth (1) | law STRICT_EQUAL 637 objects (0) | leave 1 enter 0
+r10vearl97repro/va6_nest97 | pris STRICT_NOTEQUAL depth (1) | law STRICT_EQUAL 631 objects (0) | leave 1 enter 0
+r11u1repro/grid2 | pris STRICT_NOTEQUAL fullname (15) | law STRICT_NOTEQUAL col (8) | leave 7 enter 0
+r11u22repro/grid/c09_procedural | pris STRICT_NOTEQUAL fullname (1) | law STRICT_EQUAL 153 objects (0) | leave 1 enter 0
+r11u61repro/h1 | pris STRICT_NOTEQUAL fullname (7) | law STRICT_NOTEQUAL fullname (4) | leave 3 enter 0
+r11vu15repro/grid/v05_struct_member_sel | pris STRICT_NOTEQUAL endcol (1) | law STRICT_EQUAL 173 objects (0) | leave 1 enter 0
+movers=4087 leave=89 enter=1

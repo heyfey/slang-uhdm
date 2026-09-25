@@ -1,0 +1,2 @@
+module g(); parameter int P = 0; assign o = P; endmodule
+module top(); g #(.P(20)) u(); endmodule

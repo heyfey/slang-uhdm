@@ -1,0 +1,96 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=<wd>_wdm/probe.csv
+== probe vs golden_probe.csv
+[probe] EQUAL=2460 STRICT_NOTEQUAL=1627
+CONVERSION r10earl57repro/v1_paramkinds57 STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10earl57repro/v2_contexts57 STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10earl58repro/v58v1_earl58 STRICT_NOTEQUAL differ:fullname(6) -> EQUAL
+CONVERSION r10earl58repro/v58v6_earl58 STRICT_NOTEQUAL differ:fullname(7) -> EQUAL
+CONVERSION r10earl97repro/g0_head97 STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10earl_repro/pt20 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r10earl_repro/qj27 STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10earl_repro/ve STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10rggen7repro/t9 STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10scr14repro/t6 STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r10svs2repro/s3_arraykind STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r10vearl97repro/va2_ovr97 STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10vearl97repro/va6_nest97 STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u22repro/grid/c09_procedural STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11vu15repro/grid/v05_struct_member_sel STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CHANGE r10earl29repro/a4_ctx STRICT_NOTEQUAL differ:fullname(12) -> differ:fullname(10) [fullname -2]
+CHANGE r10earl76repro/g2_orig76 STRICT_NOTEQUAL differ:col(18) -> differ:col(16) [col -2]
+CHANGE r10earl_repro/pu20 STRICT_NOTEQUAL differ:fullname(4) -> differ:fullname(1) [fullname -3]
+CHANGE r10earl_repro/pv20 STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(2) [fullname -5]
+CHANGE r10earl_repro/qf22 STRICT_NOTEQUAL differ:endcol(5) -> differ:endcol(4) [endcol -1]
+CHANGE r10uvm119repro/g119_b STRICT_NOTEQUAL differ:endcol(7) -> differ:endcol(4) [endcol -3]
+CHANGE r10uvm171repro/g171_a_pos STRICT_NOTEQUAL differ:fullname(3) -> differ:type(1)
+CHANGE r10uvm193repro/g193_c_argface STRICT_NOTEQUAL differ:fullname(11) -> differ:fullname(4) [fullname -7]
+CHANGE r10uvm193repro/g193_d_propfence STRICT_NOTEQUAL differ:fullname(5) -> differ:fullname(3) [fullname -2]
+CHANGE r10uvm51repro/a4 STRICT_NOTEQUAL differ:fullname(3) -> differ:fullname(2) [fullname -1]
+CHANGE r10uvm52repro/a1 STRICT_NOTEQUAL differ:fullname(12) -> differ:fullname(9) [fullname -3]
+CHANGE r10uvm55repro/a1 STRICT_NOTEQUAL differ:line(21) -> differ:line(20) [line -1]
+CHANGE r10uvm69repro/a2_scope STRICT_NOTEQUAL differ:fullname(21) -> differ:line(16)
+CHANGE r10v151repro/v151_4_nonarray STRICT_NOTEQUAL differ:endcol(3) -> differ:endcol(2) [endcol -1]
+CHANGE r10v184repro/gv184_h_retpin STRICT_NOTEQUAL differ:fullname(15) -> differ:fullname(3) [fullname -12]
+CHANGE r10v184repro/gv184_i_minimal STRICT_NOTEQUAL differ:fullname(4) -> differ:type(1)
+CHANGE r11u1repro/grid2 STRICT_NOTEQUAL differ:fullname(15) -> differ:col(8)
+CHANGE r11u61repro/h1 STRICT_NOTEQUAL differ:fullname(13) -> differ:fullname(4) [fullname -9]
+regressions=0 conversions=15 changes=18 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=<wd>_wdm/surelog.csv
+[default] 798 tests
+[testflags] 798 tests
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=411 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=69 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=409 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=65 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CONVERSION BasicOh default STRICT_NOTEQUAL differ:fullname(29) -> CMP_EQUAL
+CONVERSION InterfaceParamOverrideProp default STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION InterfaceParamOverrideProp testflags STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION StringMethod default STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION StringMethod testflags STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:line(165) -> differ:line(94) [line -71]
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:line(165) -> differ:line(94) [line -71]
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:line(1742) -> differ:line(1734) [line -8]
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:line(1742) -> differ:line(1734) [line -8]
+CHANGE InterfaceModPort default STRICT_NOTEQUAL differ:endcol(17) -> differ:endcol(15) [endcol -2]
+CHANGE InterfaceModPort testflags STRICT_NOTEQUAL differ:endcol(17) -> differ:endcol(15) [endcol -2]
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:line(190) -> differ:line(183) [line -7]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:line(190) -> differ:line(183) [line -7]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:line(194) -> differ:line(187) [line -7]
+CHANGE Scr1SvTests default STRICT_NOTEQUAL differ:line(220) -> differ:line(219) [line -1]
+CHANGE Scr1SvTests testflags STRICT_NOTEQUAL differ:line(220) -> differ:line(219) [line -1]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:line(174) -> differ:line(167) [line -7]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:line(174) -> differ:line(167) [line -7]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:line(190) -> differ:line(183) [line -7]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:line(190) -> differ:line(183) [line -7]
+regressions=0 conversions=5 changes=15 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=<wd>_wdm/uhdm2rtlil.csv
+[default] 871 tests
+[testflags] 871 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=737 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=66
+[testflags] CMP_EQUAL=737 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=66
+CONVERSION comb_dyn_2d_packed_sel default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION comb_dyn_2d_packed_sel testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION iface_arr_struct_field_partsel default STRICT_NOTEQUAL differ:fullname(4) -> CMP_EQUAL
+CONVERSION iface_arr_struct_field_partsel testflags STRICT_NOTEQUAL differ:fullname(4) -> CMP_EQUAL
+CONVERSION iface_cfg_mem default STRICT_NOTEQUAL differ:fullname(1) -> CMP_EQUAL
+CONVERSION iface_cfg_mem testflags STRICT_NOTEQUAL differ:fullname(1) -> CMP_EQUAL
+CONVERSION iface_nested_param_field default STRICT_NOTEQUAL differ:fullname(5) -> CMP_EQUAL
+CONVERSION iface_nested_param_field testflags STRICT_NOTEQUAL differ:fullname(5) -> CMP_EQUAL
+CONVERSION iface_param_2level default STRICT_NOTEQUAL differ:fullname(1) -> CMP_EQUAL
+CONVERSION iface_param_2level testflags STRICT_NOTEQUAL differ:fullname(1) -> CMP_EQUAL
+CONVERSION iface_scalar_localparam default STRICT_NOTEQUAL differ:fullname(13) -> CMP_EQUAL
+CONVERSION iface_scalar_localparam testflags STRICT_NOTEQUAL differ:fullname(13) -> CMP_EQUAL
+CONVERSION iface_struct_field_param_width default STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CONVERSION iface_struct_field_param_width testflags STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CONVERSION iface_struct_field_partsel default STRICT_NOTEQUAL differ:fullname(13) -> CMP_EQUAL
+CONVERSION iface_struct_field_partsel testflags STRICT_NOTEQUAL differ:fullname(13) -> CMP_EQUAL
+CONVERSION jeras_tcb_gpio default STRICT_NOTEQUAL differ:fullname(4) -> CMP_EQUAL
+CONVERSION jeras_tcb_gpio testflags STRICT_NOTEQUAL differ:fullname(4) -> CMP_EQUAL
+CONVERSION mem_ff_partial_rsp default STRICT_NOTEQUAL differ:col(16) -> CMP_EQUAL
+CONVERSION mem_ff_partial_rsp testflags STRICT_NOTEQUAL differ:col(16) -> CMP_EQUAL
+CHANGE ibex_icache default STRICT_NOTEQUAL differ:fullname(161) -> differ:fullname(158) [fullname -3]
+CHANGE ibex_icache testflags STRICT_NOTEQUAL differ:fullname(161) -> differ:fullname(158) [fullname -3]
+CHANGE ibex_multdiv_fast default STRICT_NOTEQUAL differ:fullname(101) -> differ:fullname(87) [fullname -14]
+CHANGE ibex_multdiv_fast testflags STRICT_NOTEQUAL differ:fullname(101) -> differ:fullname(87) [fullname -14]
+regressions=0 conversions=20 changes=4 only-fresh=0 only-committed=0

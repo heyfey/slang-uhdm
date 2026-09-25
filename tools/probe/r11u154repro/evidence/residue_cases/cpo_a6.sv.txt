@@ -1,0 +1,2 @@
+module g(); parameter int P = 0; assign o = P; endmodule
+module top(); localparam int L = 5; g #(.P(L)) u(); endmodule
