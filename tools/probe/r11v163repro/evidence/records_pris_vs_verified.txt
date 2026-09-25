@@ -1,0 +1,35 @@
+fp_i03 improve pris_first (9, 'file') law_first None enter 0 leave 6 | STRICT_NOTEQUAL file -> STRICT_EQUAL 240 objects
+fp_i04 improve pris_first (9, 'file') law_first None enter 0 leave 3 | STRICT_NOTEQUAL file -> STRICT_EQUAL 154 objects
+fp_i05 improve pris_first (16, 'file') law_first None enter 0 leave 3 | STRICT_NOTEQUAL file -> STRICT_EQUAL 328 objects
+ip_e01 improve pris_first (173, 'fullname') law_first None enter 0 leave 2 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 226 objects
+ip_e03 improve pris_first (190, 'fullname') law_first None enter 0 leave 4 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 311 objects
+lr_r01 ENTER pris_first None law_first (83, 'line') enter 1 leave 0 | STRICT_NOTEQUAL count -> STRICT_NOTEQUAL line
+   ENTER (83, 'line') ['  A: 4\toperation\t\t\t\tdut.sv\t7\t13\t7\t14\t\t0\t\t', '  B: 4\toperation\t\t\t\tdut.sv\t6\t22\t6\t42\t\t0\t\t']
+lr_r03 improve pris_first (124, 'depth') law_first None enter 0 leave 1 | STRICT_NOTEQUAL depth -> STRICT_EQUAL 144 objects
+lr_r04 improve pris_first (117, 'depth') law_first None enter 0 leave 1 | STRICT_NOTEQUAL depth -> STRICT_EQUAL 152 objects
+oa_h01 improve pris_first (200, 'fullname') law_first None enter 0 leave 1 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 260 objects
+oa_h05 improve pris_first (150, 'fullname') law_first None enter 0 leave 1 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 209 objects
+pl_d02 improve pris_first (40, 'fullname') law_first (337, 'depth') enter 0 leave 5 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL depth
+pl_d03 improve pris_first (68, 'fullname') law_first None enter 0 leave 6 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 419 objects
+po_c01 improve pris_first (58, 'fullname') law_first None enter 0 leave 2 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 141 objects
+po_c02 improve pris_first (58, 'fullname') law_first None enter 0 leave 2 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 157 objects
+po_c05 improve pris_first (58, 'fullname') law_first None enter 0 leave 2 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 167 objects
+po_c07 improve pris_first (58, 'fullname') law_first None enter 0 leave 2 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 159 objects
+po_c11 improve pris_first (58, 'fullname') law_first (166, 'type') enter 0 leave 2 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL type
+po_c13 improve pris_first (84, 'depth') law_first None enter 0 leave 1 | STRICT_NOTEQUAL depth -> STRICT_EQUAL 121 objects
+qs_a03 improve pris_first (158, 'endcol') law_first None enter 0 leave 1 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 187 objects
+qs_a04 improve pris_first (158, 'endcol') law_first None enter 0 leave 1 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 187 objects
+qs_a06 improve pris_first (159, 'endcol') law_first None enter 0 leave 1 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 234 objects
+qs_a08 improve pris_first (179, 'endcol') law_first None enter 0 leave 1 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 214 objects
+qs_a11 improve pris_first (206, 'endcol') law_first None enter 0 leave 1 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 235 objects
+qs_a15 improve pris_first (158, 'endcol') law_first None enter 0 leave 1 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 187 objects
+rc_f02 improve pris_first (191, 'line') law_first None enter 0 leave 1 | STRICT_NOTEQUAL line -> STRICT_EQUAL 223 objects
+rc_f05 improve pris_first (144, 'line') law_first (144, 'line') enter 0 leave 2 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+rc_f07 improve pris_first (203, 'line') law_first None enter 0 leave 1 | STRICT_NOTEQUAL line -> STRICT_EQUAL 235 objects
+sy_b03 improve pris_first (259, 'fullname') law_first None enter 0 leave 2 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 321 objects
+sy_b04 improve pris_first (242, 'fullname') law_first None enter 0 leave 4 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 391 objects
+sy_b06 improve pris_first (239, 'fullname') law_first None enter 0 leave 2 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 387 objects
+sy_b09 improve pris_first (254, 'fullname') law_first None enter 0 leave 2 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 294 objects
+sy_b10 improve pris_first (255, 'fullname') law_first None enter 0 leave 4 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 408 objects
+tp_g05 improve pris_first (136, 'fullname') law_first None enter 0 leave 2 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 249 objects
+tp_g06 improve pris_first (104, 'fullname') law_first None enter 0 leave 1 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 169 objects

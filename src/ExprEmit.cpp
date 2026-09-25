@@ -10964,6 +10964,20 @@ UHDM::any* UhdmExporter::fnLocalParamRangeActual(std::string_view nm,
     inet->VpiParent(implicitNetModule);
     inet->VpiNetType(1);
     setLoc(inet, nr);
+    // § fnParamRangeNetNoFile163 — this is the same late-binding mint
+    // (UhdmWriter lateBinding's lookup-miss arm), so it takes
+    // § implicitNetMintNoFile131's rule: the four span fields and NO file on
+    // a DEFINITION's wire.  Golden FuncIoTypespec `reg [len-1:0] result` in
+    // `function fshl_u_1` (`parameter len = ...` local to the function):
+    // `logic_net (work@shift.len) 28:11-28:14` with no file, ours `dut.sv`;
+    // every elaborated function that reads it shares the one net.  Noted
+    // for ParamEmit's end-of-export pass (which leaves an elaborated
+    // module's net alone).  Grid tools/probe/r11u163repro/cases/fn.  Switch
+    // R11U163_FNPNETFILE_OFF.
+    if (r11u163On("R11U163_FNPNETFILE_OFF")) {
+        trace163("FNPNETFILE");
+        noteImplicitNetMint131(inet);
+    }
     auto* nets9 = implicitNetModule->Nets();
     if (!nets9) {
         nets9 = s.MakeNetVec();
@@ -16306,6 +16320,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                              std::string::npos) {
                                 trace158("AGGUNQSPAN");
                                 setLoc(folded, expr.sourceRange);
+                                return folded;
+                            }
+                            // § aggParamFoldQualSpanByView163 — a QUALIFIED
+                            // read (`P = pkg::X`) is located by VIEW: the
+                            // ELABORATED listing spans the whole written
+                            // reference when the fold is a CONSTANT (grid
+                            // sp/s10 `pkg::XLONGNAME` 8:37-51, sp/s11 `pkg
+                            // ::  XLONGNAME` 8:37-54; a pattern or cast
+                            // fold keeps the qualifier, probe
+                            // r11v55repro/grid/vv1c_cast, r11u1repro/grid2),
+                            // the DEFINITION listing the qualifier through
+                            // its `::` token as written (sp/s11 `pkg ::`
+                            // 8:37-43; the package name + 2 read 8:37-42).
+                            // Only the emitParameters Rhs arm
+                            // (paramRhsView163).  Switch
+                            // R11U163_AGGQUALSPAN_OFF.
+                            static const bool qs163 =
+                                r11u163On("R11U163_AGGQUALSPAN_OFF");
+                            if (qs163 && paramRhsView163() == 2 &&
+                                folded->UhdmType() == UHDM::uhdmconstant) {
+                                trace163("AGGQUALSPAN elab");
+                                setLoc(folded, expr.sourceRange);
+                                return folded;
+                            }
+                            if (qs163 && paramRhsView163() == 1 && expr.syntax &&
+                                expr.syntax->kind == syntax::SyntaxKind::ScopedName) {
+                                auto& sn163 = expr.syntax->as<syntax::ScopedNameSyntax>();
+                                SourceRange q163(sn163.left->sourceRange().start(),
+                                                 sn163.separator.range().end());
+                                if (q163.end() != expr.sourceRange.start() +
+                                                      scope->asSymbol().name.size() + 2)
+                                    trace163("AGGQUALSPAN def");
+                                setLoc(folded, q163);
                                 return folded;
                             }
                             setLoc(folded,

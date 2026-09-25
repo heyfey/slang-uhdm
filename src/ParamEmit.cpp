@@ -16,6 +16,11 @@
 
 namespace slang_uhdm {
 
+// r11u163: defined beside § importPatOpCloneParamNamed163.
+static UHDM::operation* copyPatOp163(UHDM::Serializer& s, const UHDM::operation* so,
+                                     UHDM::any* parent, const std::string& refFull,
+                                     bool parentRef);
+
 // § defPkgStructParamMemberNames154 — set by emitParameters around its
 // own makeParamTs call while it writes a DEFINITION listing (not the
 // elaborated instance, not a package): the view the law reads.
@@ -9882,7 +9887,56 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         sub7 = pi7->second->Rhs();
                 }
                 if (sub7 && sub7->UhdmType() == UHDM::uhdmoperation) {
-                    pa->Rhs((UHDM::expr*)sub7);
+                    // § ovPkgPatOpInstanceCopy163 — the instance's Rhs is a
+                    // COPY of the package parameter's pattern operation,
+                    // parented at this param_assign, whose typespec
+                    // reference is named by the INSTANCE (golden
+                    // ParamNoImport `#(.PWR_AST_RSP(pkg::PWR_AST_RSP_DEFAULT))`:
+                    // `ref_typespec (work@dut.t)` under the instance's
+                    // operation, where the package listing's own operation
+                    // keeps an unnamed one).  Sharing the package's object
+                    // named the instance's reference `pkg` and kept the
+                    // package's out of § pkgPatReadTsNoParent131 (a pattern
+                    // standing in a module listing is left alone there).
+                    // The copy shares the typespec and any non-constant
+                    // operand.
+                    // Grid tools/probe/r11u163repro/cases/pi.  Switch
+                    // R11U163_OVPATCOPY_OFF.
+                    UHDM::expr* rhs163 = (UHDM::expr*)sub7;
+                    if (r11u163On("R11U163_OVPATCOPY_OFF")) {
+                        std::string pf163 = prefix;
+                        if (pf163.size() >= 2 &&
+                            pf163.compare(pf163.size() - 2, 2, "::") == 0)
+                            pf163.resize(pf163.size() - 2);
+                        auto* op163 = copyPatOp163(s, (UHDM::operation*)sub7, pa,
+                                                   pf163, true);
+                        trace163("OVPATCOPY");
+                        // § ovPatOpCopyAtLocalRef163v — (r11v163, the
+                        // verifier's refinement) when the substituted
+                        // parameter is NOT a package member (a module's own
+                        // localparam or header parameter, `test #(.P(L))`),
+                        // golden locates the instance's copy at the READING
+                        // reference, file included (§ elabPatOperandRefSpan140's
+                        // rule): grid tools/probe/r11v163repro/cases/lr
+                        // (`L` 6:13-14, ours the declaration 5:22-42).  An
+                        // unqualified, non-macro reference only.  Switch
+                        // R11V163_OVLOCALREF_OFF.
+                        if (r11u163On("R11V163_OVLOCALREF_OFF") &&
+                            osp7->getParentScope() &&
+                            osp7->getParentScope()->asSymbol().kind !=
+                                SymbolKind::Package &&
+                            !sm->isMacroLoc(boundInit->sourceRange.start()) &&
+                            !sm->isMacroLoc(boundInit->sourceRange.end()) &&
+                            rawText(boundInit->sourceRange).find("::") ==
+                                std::string::npos) {
+                            trace163("OVLOCALREF");
+                            op163->VpiFile(
+                                fullFilePath(boundInit->sourceRange.start()));
+                            setLoc(op163, boundInit->sourceRange);
+                        }
+                        rhs163 = op163;
+                    }
+                    pa->Rhs(rhs163);
                     passigns->push_back(pa);
                     if (prt)
                         pendingParamTs.push_back(
@@ -17812,6 +17866,29 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             rt9->Actual_typespec(paramArrTs());
                             c9->Typespec(rt9);
                             rhs = c9;
+                            // § elabOvArrFoldSharesDefParamTs163 — the
+                            // folded override constant refers to the
+                            // DEFINITION parameter's array_typespec (golden
+                            // param_array_wildcard: the bound `IFN` inside
+                            // reads `work@decoder.DAM.IFN`), not this
+                            // instance's own clone (`work@<inst>.u.DAM.IFN`):
+                            // the elaborated Rhs shares the definition's
+                            // object as patchParamTypespecs' default arm
+                            // does.  Bound in drainShareDefParamTs.  Grid
+                            // tools/probe/r11u163repro/cases/oa.  Switch
+                            // R11U163_OVARRDEFTS_OFF.
+                            if (r11u163On("R11U163_OVARRDEFTS_OFF"))
+                                if (auto* psc163 = ps.getParentScope();
+                                    psc163 && psc163->asSymbol().kind ==
+                                                  SymbolKind::InstanceBody) {
+                                    trace163("OVARRDEFTS");
+                                    pendingShareDefParamTs.push_back(
+                                        {rt9,
+                                         &psc163->asSymbol()
+                                              .as<InstanceBodySymbol>()
+                                              .getDefinition(),
+                                         std::string(ps.name)});
+                                }
                         }
                     }
                 }
@@ -18680,7 +18757,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     bool savedPRD9 = paramRhsDefView;
                     patSubstElab = topView;
                     paramRhsDefView = !topView && !inPackage;
+                    int savedRV163 = paramRhsView163();
+                    paramRhsView163() = inPackage ? 0 : (topView ? 2 : 1);
                     rhs = emitExpr(*emitInit9, pa, prefix, netMap);
+                    paramRhsView163() = savedRV163;
                     patSubstElab = savedPSE9;
                     paramRhsDefView = savedPRD9; if (impCopyConcat111On() && !inPackage && isImported && rhs && concatBearing54(*init)) dropEnumActuals111(rhs); if (pkgPatCatFold114On() && (inPackage || isImported) && rhs && emitInit9 && !ps.getType().getCanonicalType().isUnpackedArray()) pkgPatCatFold114(rhs, *emitInit9, ps.getParentScope(), [&](SourceRange r114) { std::array<uint32_t, 4> k114{}; locLineCol(r114.start(), k114[0], k114[1]); locLineCol(r114.end(), k114[2], k114[3]); return k114; }, [&](UHDM::operation* o114, const std::string& b114) { auto* c114 = s.MakeConstant(); if (!o114->VpiFile().empty()) c114->VpiFile(std::string(o114->VpiFile())); c114->VpiLineNo(o114->VpiLineNo()); c114->VpiColumnNo(o114->VpiColumnNo()); c114->VpiEndLineNo(o114->VpiEndLineNo()); c114->VpiEndColumnNo(o114->VpiEndColumnNo()); c114->VpiSize((int32_t)b114.size()); c114->VpiValue("BIN:" + b114); c114->VpiConstType(vpiBinaryConst); return c114; }); // § pkgPatCatMemberFold114 (EmitHelpers.h)
                     // § shadowedImportParamFold — a DEF-view module parameter
@@ -21099,7 +21179,39 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 rc->VpiDecompile(
                                     std::string(yc->VpiDecompile()));
                                 rc->VpiParent(ypa);
+                                // § elabAggFoldYCopyDefNamed163 — for an
+                                // UNQUALIFIED read of a struct/union package
+                                // parameter (`s_t P = X` after a wildcard
+                                // import) the copy of Y's typespec is named
+                                // through the parameter's DEFINITION: golden
+                                // StructUnsizedVal `Init = InitDefault`
+                                // names its member references
+                                // `work@dut.pkg::init_t.key` (and
+                                // `...key.key` below), LargeValue2Struct
+                                // `work@top.pack::scrmbl_key_init_t.key`;
+                                // ours were the package's own
+                                // (`pkg::init_t.key`).  Only the name moves:
+                                // the copy keeps Y's shape and package
+                                // stamps (neither the parameter's own clone
+                                // nor the definition's object carries them,
+                                // grid sp/s02).  A qualified `pkg::X` read
+                                // keeps the package name (grid sp/s03,
+                                // sp/s10).  Grid
+                                // tools/probe/r11u163repro/cases/sp.  Switch
+                                // R11U163_AGGFOLDYNAME_OFF.
+                                std::string savedPfx163 = syntaxRefPrefix;
+                                if (unq140 && !isImported &&
+                                    (ps.getType().getCanonicalType().kind ==
+                                         SymbolKind::PackedStructType ||
+                                     ps.getType().getCanonicalType().kind ==
+                                         SymbolKind::PackedUnionType) &&
+                                    m && !m->VpiDefName().empty() &&
+                                    r11u163On("R11U163_AGGFOLDYNAME_OFF")) {
+                                    trace163("AGGFOLDYNAME");
+                                    syntaxRefPrefix = std::string(m->VpiDefName());
+                                }
                                 rhsRt->Actual_typespec(pkgHomedYTs(false));
+                                syntaxRefPrefix = savedPfx163;
                                 // § mdRenameNotUnderBareCa140v — (r11v140,
                                 // the verifier's fence) NOT when a continuous
                                 // assignment of the instance body reads P
@@ -22208,10 +22320,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             else
                 defTypeSyn = wsyn31;
         }
+        // § elabTpNamedElemDimDefNamed163 — the references in the written
+        // dimension of the ELABORATED wrapper are named through the
+        // DEFINITION, as the definition listing names them: golden
+        // type_param_override_elem_sel `localparam type rt_t = id_t
+        // [DEPTH-1:0]` reads `work@child.rt_t.DEPTH` under instance `u`'s
+        // variable `rt_i`, ours `work@dut.u.rt_t.DEPTH`.  Surelog elaborates
+        // the definition's own typespec (the `compileParameterDeclaration`
+        // object) and only re-resolves the element.  Grid
+        // tools/probe/r11u163repro/cases/nd.  Switch R11U163_TPDIMDEF_OFF.
+        std::string savedPfx163 = syntaxRefPrefix;
+        bool tpDim163 = dimSyn31 && m && !m->VpiDefName().empty() &&
+                        r11u163On("R11U163_TPDIMDEF_OFF");
+        if (tpDim163)
+            syntaxRefPrefix = joinPath(std::string(m->VpiDefName()), tps.name);
         UHDM::packed_array_typespec* elabPat31 =
             dimSyn31 ? namedElemPackedDimTs31(*dimSyn31,
                                               tps.targetType.getType(), body, true)
                      : nullptr;
+        if (tpDim163 && elabPat31)
+            trace163("TPDIMDEF");
+        syntaxRefPrefix = savedPfx163;
         if (elabPat31) {
             its = elabPat31;
             its->VpiParent(tp);
@@ -22321,8 +22450,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             else if (!its)
                 its = makeTypespec(tps);
         }
-        else
+        else {
+            // § elabTpDefaultDefNamed163 — the same naming for the
+            // ELABORATED type of a type parameter whose DECLARATION DEFAULT
+            // is in force (dimSyn31: this instance does not override it):
+            // golden gen_scope_numports `parameter type data_t = logic
+            // [DataWidth-1:0]` reads `work@tc_sram_wrapper.data_t.DataWidth`
+            // under every elaborated `i_tc_sram_wrapper`, ours named the
+            // instance path.  Grid tools/probe/r11u163repro/cases/nd.
+            // Switch R11U163_TPDEFNAME_OFF.
+            if (topView && dimSyn31 && m && !m->VpiDefName().empty() &&
+                r11u163On("R11U163_TPDEFNAME_OFF")) {
+                trace163("TPDEFNAME");
+                syntaxRefPrefix =
+                    joinPath(std::string(m->VpiDefName()), tps.name);
+            }
             its = makeTypespec(tps);
+        }
         currentScope = savedCS;
         syntaxRefPrefix = savedPfx;
         paramTsOwnerFull9 = savedPTO20;
@@ -26352,6 +26496,138 @@ static const InstanceBodySymbol* paramOwnerBody(const Symbol& sym) {
 // ELABORATES the param assign — before the instance's own net/port typespecs
 // are written. Minting it here (right after the instance's params are emitted)
 // puts it in that arena slot; patchParamTypespecs then reuses the clone.
+// § paramOpCloneRelocatedSpan163 — THE ELABORATED PATTERN OPERATION'S STRUCT
+// COPY IS LOCATED WHERE THE PACKAGE'S SHARED TYPEDEF OBJECT WAS LAST
+// RE-LOCATED.  A package struct typedef named as a package subroutine
+// argument's type has its shared typespec moved to that argument's type
+// reference (Surelog's last-writer stamp, the relocation block at the end
+// of emitPackage); Surelog's elaboration clones that object, so the copy an
+// elaborated parameter's pattern operation carries has the argument's span:
+// golden struct_param_pattern_packing `parameter p::cfg_t CFG = p::LIT`
+// with `function automatic logic in_region(cfg_t C, ...)` in `p` puts the
+// operation's `p::cfg_t` at 21:38-43 (the formal's `cfg_t`), ours at the
+// typedef 8:11-11:4.  A typedef nothing relocates keeps its declaration span
+// (grid rl/q02, rl/q04 a return type).  Grid tools/probe/r11u163repro/cases/rl.
+// Switch R11U163_OPCLONERELOC_OFF.
+// A copy of a pattern operation for § ovPkgPatOpInstanceCopy163 and
+// § pkgPatListingCopyWhenShared163: every operation field uhdm-cmp reads,
+// the location, a constant operand copied (golden's copy owns its operands:
+// a second copy lists them again, grid pi/p03), any other operand shared; a
+// FRESH typespec reference to the same typespec, named `refFull` (empty:
+// unnamed and unparented, the flattened package copy's shape).
+static UHDM::operation* copyPatOp163(UHDM::Serializer& s, const UHDM::operation* so,
+                                     UHDM::any* parent, const std::string& refFull,
+                                     bool parentRef) {
+    auto* op = s.MakeOperation();
+    op->VpiOpType(so->VpiOpType());
+    op->VpiReordered(so->VpiReordered());
+    op->VpiFlattened(so->VpiFlattened());
+    op->VpiOpStrong(so->VpiOpStrong());
+    op->VpiDecompile(so->VpiDecompile());
+    op->VpiSize(so->VpiSize());
+    op->VpiFile(so->VpiFile());
+    op->VpiLineNo(so->VpiLineNo());
+    op->VpiColumnNo(so->VpiColumnNo());
+    op->VpiEndLineNo(so->VpiEndLineNo());
+    op->VpiEndColumnNo(so->VpiEndColumnNo());
+    op->VpiParent(parent);
+    if (auto* sops = so->Operands()) {
+        auto* nops = s.MakeAnyVec();
+        for (auto* o : *sops) {
+            if (!o || o->UhdmType() != UHDM::uhdmconstant) {
+                nops->push_back(o);
+                continue;
+            }
+            auto* sc = (const UHDM::constant*)o;
+            auto* c = s.MakeConstant();
+            c->VpiValue(sc->VpiValue());
+            c->VpiDecompile(sc->VpiDecompile());
+            c->VpiSize(sc->VpiSize());
+            c->VpiConstType(sc->VpiConstType());
+            c->VpiFile(sc->VpiFile());
+            c->VpiLineNo(sc->VpiLineNo());
+            c->VpiColumnNo(sc->VpiColumnNo());
+            c->VpiEndLineNo(sc->VpiEndLineNo());
+            c->VpiEndColumnNo(sc->VpiEndColumnNo());
+            c->VpiParent(op);
+            if (auto* crt = sc->Typespec()) {
+                auto* nrt = s.MakeRef_typespec();
+                nrt->VpiParent(c);
+                nrt->VpiName(crt->VpiName());
+                nrt->VpiFullName(crt->VpiFullName());
+                nrt->Actual_typespec((UHDM::typespec*)crt->Actual_typespec());
+                c->Typespec(nrt);
+            }
+            nops->push_back(c);
+        }
+        op->Operands(nops);
+    }
+    if (auto* srt = so->Typespec()) {
+        auto* rt = s.MakeRef_typespec();
+        if (parentRef)
+            rt->VpiParent(op);
+        if (!refFull.empty())
+            rt->VpiFullName(refFull);
+        rt->Actual_typespec((UHDM::typespec*)srt->Actual_typespec());
+        op->Typespec(rt);
+    }
+    return op;
+}
+
+// § importPatOpCloneParamNamed163 — THE STRUCT COPY OF AN IMPORT COPY'S
+// PATTERN OPERATION IS NAMED THROUGH THE PARAMETER.  The elaborated listing's
+// materialized copy of an imported package pattern parameter (`import
+// prim_esc_pkg::*` in nmi_gen, `ESC_TX_DEFAULT = '{...}`) carries a struct
+// copy whose member references golden names
+// `work@top.u_nmi_gen.ESC_TX_DEFAULT.prim_esc_pkg::esc_tx_t.esc_p` (the
+// parameter's full name, as the parameter's own copy is named), where ours
+// dropped the parameter (`work@top.u_nmi_gen.prim_esc_pkg::...`), the
+// module-scoped name a module's OWN pattern parameter keeps (r11u131 grid
+// pat t12/t13).  An import copy is a package-scoped symbol in the
+// module/interface queue.  Grid tools/probe/r11u163repro/cases/ic.  Switch
+// R11U163_IMPOPNAME_OFF.
+static bool importPatOpCloneParamNamed163(const ParameterSymbol& ps) {
+    static const bool on = r11u163On("R11U163_IMPOPNAME_OFF");
+    auto* sc = ps.getParentScope();
+    if (!on || !sc || sc->asSymbol().kind != SymbolKind::Package)
+        return false;
+    trace163("IMPOPNAME");
+    return true;
+}
+
+static void opCloneRelocSpan163(const ParameterSymbol& ps, UHDM::typespec* opClone,
+                                const std::map<const void*, UHDM::typespec*>& pkgTopTypedefTs) {
+    static const bool on = r11u163On("R11U163_OPCLONERELOC_OFF");
+    if (!on || !opClone ||
+        (opClone->UhdmType() != UHDM::uhdmstruct_typespec &&
+         opClone->UhdmType() != UHDM::uhdmunion_typespec))
+        return;
+    auto d0 = ps.getDeclaredType();
+    if (!d0 || d0->getType().kind != SymbolKind::TypeAlias)
+        return;
+    auto& ta = d0->getType().as<TypeAliasType>();
+    auto* hs = ta.getParentScope();
+    if (!hs || hs->asSymbol().kind != SymbolKind::Package)
+        return;
+    auto it = pkgTopTypedefTs.find((const void*)&ta);
+    if (it == pkgTopTypedefTs.end() || !it->second ||
+        it->second->UhdmType() != opClone->UhdmType())
+        return;
+    auto* sh = it->second;
+    if (sh->VpiLineNo() == opClone->VpiLineNo() &&
+        sh->VpiColumnNo() == opClone->VpiColumnNo() &&
+        sh->VpiEndLineNo() == opClone->VpiEndLineNo() &&
+        sh->VpiEndColumnNo() == opClone->VpiEndColumnNo() &&
+        sh->VpiFile() == opClone->VpiFile())
+        return;
+    trace163("OPCLONERELOC");
+    opClone->VpiFile(sh->VpiFile());
+    opClone->VpiLineNo(sh->VpiLineNo());
+    opClone->VpiColumnNo(sh->VpiColumnNo());
+    opClone->VpiEndLineNo(sh->VpiEndLineNo());
+    opClone->VpiEndColumnNo(sh->VpiEndColumnNo());
+}
+
 void UhdmExporter::mintParamOpClones(size_t lo, size_t hi) {
     for (size_t i = lo; i < hi && i < pendingParamTs.size(); i++) {
         auto& [ps, up, prt, rhsRt, typedParam] = pendingParamTs[i];
@@ -26376,6 +26652,8 @@ void UhdmExporter::mintParamOpClones(size_t lo, size_t hi) {
         std::string full(prt->VpiFullName());
         auto dot = full.rfind('.');
         syntaxRefPrefix = dot == std::string::npos ? full : full.substr(0, dot);
+        if (importPatOpCloneParamNamed163(*ps))  // § importPatOpCloneParamNamed163
+            syntaxRefPrefix = full;
         structCloneMemberRefParent = true;
         paramOpCloneCtx = true;
         auto* opClone = makeParamTs(*tsPs, typedParam, /*parentBounds=*/true);
@@ -26383,6 +26661,7 @@ void UhdmExporter::mintParamOpClones(size_t lo, size_t hi) {
         structCloneMemberRefParent = false;
         rhsRt->Actual_typespec(opClone);
         opClone->VpiParent(rhsRt); spOpTsFoldAt106(s, rhsRt, opClone, tsPs->getType(), *ps);
+        opCloneRelocSpan163(*tsPs, opClone, pkgTopTypedefTs);  // § paramOpCloneRelocatedSpan163
         if (rhsRt->VpiFullName().empty())
             rhsRt->VpiFullName(syntaxRefPrefix);
         syntaxRefPrefix = savedPfx;
@@ -26508,6 +26787,8 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
             std::string full(prt->VpiFullName());
             auto dot = full.rfind('.');
             syntaxRefPrefix = dot == std::string::npos ? full : full.substr(0, dot);
+            if (importPatOpCloneParamNamed163(*ps))  // § importPatOpCloneParamNamed163
+                syntaxRefPrefix = full;
             structCloneMemberRefParent = true;
             paramOpCloneCtx = true;
             opClone = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
@@ -26515,6 +26796,7 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
             structCloneMemberRefParent = false;
             rhsRt->Actual_typespec(opClone);
             opClone->VpiParent(rhsRt); spOpTsFoldAt106(s, rhsRt, opClone, ps->getType(), *ps);
+            opCloneRelocSpan163(*ps, opClone, pkgTopTypedefTs);  // § paramOpCloneRelocatedSpan163
             if (rhsRt->VpiFullName().empty())
                 rhsRt->VpiFullName(syntaxRefPrefix);
         }
@@ -28183,10 +28465,33 @@ void UhdmExporter::drainShareDefParamTs() {
                                 ((UHDM::operation*)r)->VpiOpType() != vpiAssignmentPatternOp)
                                 continue;
                             auto* rt = ((UHDM::operation*)r)->Typespec();
-                            if (!rt || hiConnOps131.count(r) ||
+                            if (!rt ||
                                 !pkgPatInit131().count(pn + "::" + std::string(l->VpiName())) ||
                                 !pkgPatScopedRef34(pn, l->VpiName()))
                                 continue;
+                            // § pkgPatListingCopyWhenShared163 — a pattern
+                            // that ALSO stands in a module listing (our
+                            // substitution shares the package's object) is
+                            // not left alone: the PACKAGE listing takes a
+                            // copy with the unnamed, unparented reference,
+                            // and the use keeps the original.  Golden
+                            // ParamTypespec2 `.a({3{prim_esc_pkg::
+                            // ESC_TX_DEFAULT}})`: the package listing's
+                            // operation carries an unnamed ref_typespec, ours
+                            // `prim_esc_pkg`.  Grid
+                            // tools/probe/r11u163repro/cases/pi (p07).
+                            // Switch R11U163_PATLISTCOPY_OFF.
+                            if (hiConnOps131.count(r)) {
+                                static const bool on163 =
+                                    r11u163On("R11U163_PATLISTCOPY_OFF");
+                                if (!on163)
+                                    continue;
+                                trace163("PATLISTCOPY");
+                                ((UHDM::param_assign*)pa)
+                                    ->Rhs(copyPatOp163(s, (UHDM::operation*)r,
+                                                       (UHDM::any*)pa, "", false));
+                                continue;
+                            }
                             // A FRESH reference: the old one may be shared
                             // by a copy of the pattern elsewhere (a
                             // high-conn replication of `pkg::P`,

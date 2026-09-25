@@ -1,0 +1,101 @@
+CONVERSION r10earl102repro/g4_neg102 OVARRDEFTS :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u107repro/grid/o01_ovr_elem TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u107repro/grid/o02_ovr_then_def TPDEFNAME,TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r11u107repro/grid/o03_def_then_ovr TPDEFNAME,TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r11u107repro/grid/o04_two_ovr TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r11u107repro/grid/o06_nodef_ctl TPDEFNAME,TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u107repro/grid/o07_passthru TPDEFNAME,TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u108repro/grid/pk/k10h_noassign AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r11u108repro/grid/pk/k10i_noassign_nochild AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r11u108repro/grid/pk/k23_lv2s_copy AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r11u108repro/grid/pk/k23c_samekey AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r11u108repro/grid/pk/k23d_nowidth AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e01_base TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e02_two_diff_ovr TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e03_ovr_then_def TPDEFNAME,TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e04_def_then_ovr TPDEFNAME,TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e05_gen_if TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e06_gen_for TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e07_passthru TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e10_def_packed TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e19_scalar_port_ctl TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e24_ovr_2state TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e27_ovr_signed TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e29_two_same_ovr TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e38_parent_same_name_def TPDEFNAME,TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e39_value_and_type_named TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e44_parent_other_name_ovr TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e47_pkg_struct_ovr TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e49_mod_typedef_ovr TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u110repro/grid/e1/e53_pkg_union_ovr TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u20repro/t3 TPDEFNAME :: STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION v11u108repro/brk/f5/b15_child_ports TPDEFNAME,TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION v11u110repro/brk/v1/a02_unnamed_genif TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION v11u110repro/brk/v1/a06_mid_passes_own TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u110repro/brk/v1/a19_top_own_tp_child_default TPDEFNAME,TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION v11u110repro/brk/v1/a20_top_own_tp_child_ovr TPDEFNAME,TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION v11u110repro/brk/v1/a22_genfor_genvar_ovr TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u110repro/brk/v1/a30_unconnected_and_twice_dut TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u110repro/brk/v1/a31_ovr_struct_parent_local TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION v11u110repro/brk/v3/a38_iface_parent_ctl TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION v11u110repro/brk/v3/a39_ovr_signed_int_type TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION v11u110repro/brk/v4/q04_pkg_struct_nodims_ctl TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION v11u110repro/brk/v4/q06_logic_2dim_ctl TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION v11u93b107repro/brk/r02_gen_last TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u93b107repro/brk/r03_nested_first TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u93b107repro/brk/r04_nested_last TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u93b107repro/brk/r06_ovr_pkg_struct TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION v11u93b107repro/brk/r07_inst_array TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u93b107repro/brk/r08_two_defs TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u93b107repro/brk/r10_two_tops TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u93b107repro/brk/r12_gen_mid TPDEFNAME,TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CHANGE r11u108repro/grid/pk/k10_member_v_pkgparam AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(6) -> differ:name(2)
+CHANGE r11u108repro/grid/pk/k10b_member_child_sel AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(6) -> differ:name(2)
+CHANGE r11u108repro/grid/pk/k10c_member_widthparam AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(6) -> differ:name(2)
+CHANGE r11u108repro/grid/pk/k10d_member_child_nosel AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(6) -> differ:name(2)
+CHANGE r11u108repro/grid/pk/k10e_member_child_sel_q AGGQUALSPAN elab :: STRICT_NOTEQUAL differ:endcol(3) -> differ:name(2)
+CHANGE r11u108repro/grid/pk/k10f_member_bodyimport AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(6) -> differ:name(2)
+CHANGE r11u108repro/grid/pk/k10g_member_bodyimport_child AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(6) -> differ:name(2)
+CHANGE r11u108repro/grid/pk/k10j_wide AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(6) -> differ:name(2)
+CHANGE r11u108repro/grid/pk/k10k_w32 AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(6) -> differ:name(2)
+CHANGE r11u108repro/grid/pk/k10l_w33 AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(6) -> differ:name(2)
+CHANGE r11u108repro/grid/pk/k11_member_v_qualified AGGQUALSPAN elab :: STRICT_NOTEQUAL differ:endcol(3) -> differ:name(2)
+CHANGE r11u110repro/grid/e1/e25_ovr_same_ctl TPDIMDEF :: STRICT_NOTEQUAL differ:line(5) -> differ:line(4) [line -1]
+CHANGE r11u110repro/grid/e1/e45_pkg_enum_ovr TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(3) -> differ:fullname(2) [fullname -1]
+CHANGE r11u111repro/grid/f2/b03_q_imp_w16 AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(6) -> differ:name(2)
+CHANGE r11u111repro/grid/f2/b04_imp_q_w16 AGGQUALSPAN elab :: STRICT_NOTEQUAL differ:endcol(3) -> differ:name(2)
+CHANGE r11u111repro/grid/f2/b05_q_q_w80 AGGQUALSPAN elab :: STRICT_NOTEQUAL differ:endcol(3) -> differ:name(2)
+CHANGE r11u111repro/grid/f2/b06_imp_imp_w80 AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(6) -> differ:name(2)
+CHANGE r11u111repro/grid/f2/b07_q_imp_w80 AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(6) -> differ:name(2)
+CHANGE r11u111repro/grid/f2/b08_imp_q_w80 AGGQUALSPAN elab :: STRICT_NOTEQUAL differ:endcol(3) -> differ:name(2)
+CHANGE r11u111repro/grid/f2/b10_q_q_w64 AGGQUALSPAN elab :: STRICT_NOTEQUAL differ:endcol(3) -> differ:name(2)
+CHANGE r11u111repro/grid/f2/b11_localparam_q_w16 AGGQUALSPAN elab :: STRICT_NOTEQUAL differ:endcol(3) -> differ:name(2)
+CHANGE r11u111repro/grid/f2/b12_sub_q_w16 AGGQUALSPAN elab :: STRICT_NOTEQUAL differ:endcol(3) -> differ:name(2)
+CHANGE r11u111repro/grid/f2/b13_sub_imp_w80 AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(6) -> differ:name(2)
+CHANGE r11u111repro/grid/f2/b14_hdrimp_imp_w80 AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(6) -> differ:name(2)
+CHANGE r11u111repro/grid/f2/b17_q_q_w16_plainmember_ctl AGGQUALSPAN elab :: STRICT_NOTEQUAL differ:endcol(3) -> differ:name(2)
+CHANGE r11u114repro/grid/f1/a28 IMPOPNAME :: STRICT_NOTEQUAL differ:fullname(4) -> differ:type(1)
+CHANGE r11u20repro/t6 TPDEFNAME :: STRICT_NOTEQUAL differ:fullname(5) -> differ:fullname(4) [fullname -1]
+CHANGE v11u110repro/brk/v3/a36_escaped_inst_name TPDIMDEF :: STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(1) [endcol -1]
+CHANGE v11u111repro/brk/f2/x22_explicit_imp_wide AGGFOLDYNAME :: STRICT_NOTEQUAL differ:fullname(6) -> differ:name(2)
+CHANGE v11u111repro/brk/f2/x26_q_twoinst_override AGGQUALSPAN elab :: STRICT_NOTEQUAL differ:endcol(3) -> differ:name(2)
+CHANGE v11u114repro/grid/set1/g25 IMPOPNAME :: STRICT_NOTEQUAL differ:fullname(3) -> differ:type(1)
+CHANGE v11u93b107repro/brk/r05_rt_ovr_samename TPDEFNAME,TPDIMDEF :: STRICT_NOTEQUAL differ:fullname(3) -> differ:line(2)
+CONVERSION FuncIoTypespec corpus :: default STRICT_NOTEQUAL differ:file(9) -> CMP_EQUAL
+CONVERSION FuncIoTypespec corpus :: testflags STRICT_NOTEQUAL differ:file(9) -> CMP_EQUAL
+CONVERSION LargeValue2Struct corpus :: default STRICT_NOTEQUAL differ:fullname(4) -> CMP_EQUAL
+CONVERSION LargeValue2Struct corpus :: testflags STRICT_NOTEQUAL differ:fullname(4) -> CMP_EQUAL
+CONVERSION ParamNoImport corpus :: default STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION ParamNoImport corpus :: testflags STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION ParamTypespec2 corpus :: default STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CONVERSION ParamTypespec2 corpus :: testflags STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CONVERSION StructUnsizedVal corpus :: default STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION StructUnsizedVal corpus :: testflags STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION gen_scope_numports corpus :: default STRICT_NOTEQUAL differ:fullname(4) -> CMP_EQUAL
+CONVERSION gen_scope_numports corpus :: testflags STRICT_NOTEQUAL differ:fullname(4) -> CMP_EQUAL
+CONVERSION param_array_wildcard corpus :: default STRICT_NOTEQUAL differ:fullname(1) -> CMP_EQUAL
+CONVERSION param_array_wildcard corpus :: testflags STRICT_NOTEQUAL differ:fullname(1) -> CMP_EQUAL
+CONVERSION struct_param_pattern_packing corpus :: default STRICT_NOTEQUAL differ:line(1) -> CMP_EQUAL
+CONVERSION struct_param_pattern_packing corpus :: testflags STRICT_NOTEQUAL differ:line(1) -> CMP_EQUAL
+CONVERSION type_param_override_elem_sel corpus :: default STRICT_NOTEQUAL differ:fullname(1) -> CMP_EQUAL
+CONVERSION type_param_override_elem_sel corpus :: testflags STRICT_NOTEQUAL differ:fullname(1) -> CMP_EQUAL

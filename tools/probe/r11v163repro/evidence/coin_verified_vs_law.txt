@@ -1,0 +1,9 @@
+./default/MiniAmiq-055eab74/slang.uhdm order-blind=4
+./default/Scoreboard-72aa0ba8/slang.uhdm order-blind=0
+./default/SeqDriver-65178d3a/slang.uhdm order-blind=4
+./default/SimpleUVM-267de3ff/slang.uhdm order-blind=4
+./testflags/SeqDriver-65178d3a/slang.uhdm order-blind=4
+./testflags/SimpleUVM-267de3ff/slang.uhdm order-blind=4
+6 order-blind=0
+
+[exited with code 0]

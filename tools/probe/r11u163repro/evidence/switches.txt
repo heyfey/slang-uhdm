@@ -1,0 +1,54 @@
+== R11U163_AGGFOLDYNAME_OFF (elabAggFoldYCopyDefNamed163)
+  sp/s01 [elabAggFoldYCopyDefNamed163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  sp/s02 [elabAggFoldYCopyDefNamed163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  sp/s04 [elabAggFoldYCopyDefNamed163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  sp/s06 [elabAggFoldYCopyDefNamed163] switched=strict=NOT_EQUAL_stage1 pristine=strict=NOT_EQUAL_stage1
+  sp/s07 [elabAggFoldYCopyDefNamed163] switched=strict=NOT_EQUAL_stage1 pristine=strict=NOT_EQUAL_stage1
+  sp/s08 [elabAggFoldYCopyDefNamed163] switched=strict=NOT_EQUAL_stage1 pristine=strict=NOT_EQUAL_stage1
+  sp/s09 [elabAggFoldYCopyDefNamed163] switched=strict=NOT_EQUAL_stage1 pristine=strict=NOT_EQUAL_stage1
+== R11U163_AGGQUALSPAN_OFF (aggParamFoldQualSpanByView163)
+  sp/s03 [aggParamFoldQualSpanByView163] switched=strict=STRICT_NOTEQUAL_endcol pristine=strict=STRICT_NOTEQUAL_endcol
+  sp/s10 [aggParamFoldQualSpanByView163] switched=strict=STRICT_NOTEQUAL_endcol pristine=strict=STRICT_NOTEQUAL_endcol
+  sp/s11 [aggParamFoldQualSpanByView163] switched=strict=STRICT_NOTEQUAL_endcol pristine=strict=STRICT_NOTEQUAL_endcol
+== R11U163_FNPNETFILE_OFF (fnParamRangeNetNoFile163)
+  fn/f01 [fnParamRangeNetNoFile163] switched=strict=STRICT_NOTEQUAL_file pristine=strict=STRICT_NOTEQUAL_file
+  fn/f02 [fnParamRangeNetNoFile163] switched=strict=NOT_EQUAL_stage1 pristine=strict=NOT_EQUAL_stage1
+  fn/f03 [fnParamRangeNetNoFile163] switched=strict=STRICT_NOTEQUAL_file pristine=strict=STRICT_NOTEQUAL_file
+  fn/f04 [fnParamRangeNetNoFile163] switched=strict=STRICT_NOTEQUAL_file pristine=strict=STRICT_NOTEQUAL_file
+  fn/f05 [fnParamRangeNetNoFile163] switched=strict=STRICT_NOTEQUAL_file pristine=strict=STRICT_NOTEQUAL_file
+== R11U163_IMPOPNAME_OFF (importPatOpCloneParamNamed163)
+  ic/i01 [importPatOpCloneParamNamed163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  ic/i02 [importPatOpCloneParamNamed163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  ic/i04 [importPatOpCloneParamNamed163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  pi/p02 [ovPkgPatOpInstanceCopy163] switched=strict=NOT_EQUAL_stage1 pristine=strict=NOT_EQUAL_stage1
+  pi/p07 [pkgPatListingCopyWhenShared163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  sp/s05 [elabAggFoldYCopyDefNamed163] switched=strict=NOT_EQUAL_stage1 pristine=strict=NOT_EQUAL_stage1
+== R11U163_OPCLONERELOC_OFF (paramOpCloneRelocatedSpan163)
+  rl/q01 [paramOpCloneRelocatedSpan163] switched=strict=STRICT_NOTEQUAL_line pristine=strict=STRICT_NOTEQUAL_line
+  rl/q03 [paramOpCloneRelocatedSpan163] switched=strict=STRICT_NOTEQUAL_line pristine=strict=STRICT_NOTEQUAL_line
+== R11U163_OVARRDEFTS_OFF (elabOvArrFoldSharesDefParamTs163)
+  oa/o01 [elabOvArrFoldSharesDefParamTs163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  oa/o02 [elabOvArrFoldSharesDefParamTs163] switched=strict=NOT_EQUAL_stage1 pristine=strict=NOT_EQUAL_stage1
+  oa/o03 [elabOvArrFoldSharesDefParamTs163] switched=strict=STRICT_EQUAL_169_objects pristine=strict=STRICT_EQUAL_169_objects
+  oa/o04 [elabOvArrFoldSharesDefParamTs163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+== R11U163_OVPATCOPY_OFF (ovPkgPatOpInstanceCopy163)
+  pi/p01 [ovPkgPatOpInstanceCopy163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  pi/p02 [ovPkgPatOpInstanceCopy163] switched=strict=NOT_EQUAL_stage1 pristine=strict=NOT_EQUAL_stage1
+  pi/p03 [ovPkgPatOpInstanceCopy163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  pi/p04 [ovPkgPatOpInstanceCopy163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  pi/p05 [ovPkgPatOpInstanceCopy163] switched=strict=NOT_EQUAL_stage1 pristine=strict=NOT_EQUAL_stage1
+  pi/p06 [ovPkgPatOpInstanceCopy163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+== R11U163_PATLISTCOPY_OFF (pkgPatListingCopyWhenShared163)
+  hc/g01 [pkgPatListingCopyWhenShared163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  hc/g04 [pkgPatListingCopyWhenShared163] switched=strict=NOT_EQUAL_stage1 pristine=strict=NOT_EQUAL_stage1
+  pi/p07 [pkgPatListingCopyWhenShared163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+== R11U163_TPDEFNAME_OFF (elabTpDefaultDefNamed163)
+  nd/n03 [elabTpDefaultDefNamed163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  nd/n07 [elabTpDefaultDefNamed163] switched=strict=STRICT_EQUAL_275_objects pristine=strict=STRICT_EQUAL_275_objects
+  nd/n08 [elabTpDefaultDefNamed163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  nd/n09 [elabTpDefaultDefNamed163] switched=strict=NOT_EQUAL_stage1 pristine=strict=NOT_EQUAL_stage1
+== R11U163_TPDIMDEF_OFF (elabTpNamedElemDimDefNamed163)
+  nd/n01 [elabTpNamedElemDimDefNamed163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  nd/n04 [elabTpNamedElemDimDefNamed163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  nd/n05 [elabTpNamedElemDimDefNamed163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname
+  nd/n06 [elabTpNamedElemDimDefNamed163] switched=strict=STRICT_NOTEQUAL_fullname pristine=strict=STRICT_NOTEQUAL_fullname

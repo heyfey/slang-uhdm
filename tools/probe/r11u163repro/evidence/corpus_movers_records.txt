@@ -1,0 +1,190 @@
+surelog default BlackBePipeInt | pristine: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+  leave=0 enter=0
+surelog testflags BlackBePipeInt | pristine: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+  leave=0 enter=0
+surelog default Earlgrey_0_1 | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+surelog testflags Earlgrey_0_1 | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+surelog default FuncIoTypespec | pristine: STRICT_NOTEQUAL file | law: STRICT_EQUAL 1046 objects
+  LEAVE #127 file B: 9	logic_net	len		work@shift.len	dut.sv	28	11	28	14		0
+  LEAVE #136 file B: 9	logic_net	len		work@shift.len	dut.sv	28	11	28	14		0
+  LEAVE #261 file B: 9	logic_net	len		work@shift.len	dut.sv	28	11	28	14		0
+  LEAVE #270 file B: 9	logic_net	len		work@shift.len	dut.sv	28	11	28	14		0
+  LEAVE #451 file B: 2	logic_net	len		work@shift.len	dut.sv	28	11	28	14		0
+  LEAVE #656 file B: 10	logic_net	len		work@shift.len	dut.sv	28	11	28	14		0
+  leave=9 enter=0
+surelog testflags FuncIoTypespec | pristine: STRICT_NOTEQUAL file | law: STRICT_EQUAL 914 objects
+  LEAVE #173 file B: 9	logic_net	len		work@shift.len	dut.sv	28	11	28	14		0
+  LEAVE #182 file B: 9	logic_net	len		work@shift.len	dut.sv	28	11	28	14		0
+  LEAVE #360 file B: 2	logic_net	len		work@shift.len	dut.sv	28	11	28	14		0
+  LEAVE #37 file B: 9	logic_net	len		work@shift.len	dut.sv	28	11	28	14		0
+  LEAVE #46 file B: 9	logic_net	len		work@shift.len	dut.sv	28	11	28	14		0
+  LEAVE #565 file B: 10	logic_net	len		work@shift.len	dut.sv	28	11	28	14		0
+  leave=9 enter=0
+surelog default GenScopeHierPath | pristine: STRICT_EQUAL 921 objects | law: STRICT_EQUAL 921 objects
+  leave=0 enter=0
+surelog testflags GenScopeHierPath | pristine: STRICT_EQUAL 828 objects | law: STRICT_EQUAL 828 objects
+  leave=0 enter=0
+surelog default IndexedSelectHex | pristine: STRICT_EQUAL 921 objects | law: STRICT_EQUAL 921 objects
+  leave=0 enter=0
+surelog testflags IndexedSelectHex | pristine: STRICT_EQUAL 828 objects | law: STRICT_EQUAL 828 objects
+  leave=0 enter=0
+surelog default LargeValue2Struct | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 684 objects
+  LEAVE #601 fullname B: 7	ref_typespec			<in>pack::scrmbl_key_init_t.key{pack::scrmbl_key_init_t.key}		0	0	0	0		0
+  LEAVE #603 fullname B: 9	ref_typespec			<in>sram_key_t{pack::scrmbl_key_init_t.key.sram_key_t}		0	0	0	0		0
+  LEAVE #612 fullname B: 7	ref_typespec			<in>pack::scrmbl_key_init_t.nonce{pack::scrmbl_key_init_t.nonce}		0	0	0	0		0
+  LEAVE #614 fullname B: 9	ref_typespec			<in>sram_nonce_t{pack::scrmbl_key_init_t.nonce.sram_nonce_t}		0	0	0	0		0
+  leave=4 enter=0
+surelog testflags LargeValue2Struct | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 594 objects
+  LEAVE #511 fullname B: 7	ref_typespec			<in>pack::scrmbl_key_init_t.key{pack::scrmbl_key_init_t.key}		0	0	0	0		0
+  LEAVE #513 fullname B: 9	ref_typespec			<in>sram_key_t{pack::scrmbl_key_init_t.key.sram_key_t}		0	0	0	0		0
+  LEAVE #522 fullname B: 7	ref_typespec			<in>pack::scrmbl_key_init_t.nonce{pack::scrmbl_key_init_t.nonce}		0	0	0	0		0
+  LEAVE #524 fullname B: 9	ref_typespec			<in>sram_nonce_t{pack::scrmbl_key_init_t.nonce.sram_nonce_t}		0	0	0	0		0
+  leave=4 enter=0
+surelog default MiniAmiq | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+surelog testflags MiniAmiq | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+surelog default MultiConcatValueSize | pristine: STRICT_EQUAL 730 objects | law: STRICT_EQUAL 730 objects
+  leave=0 enter=0
+surelog testflags MultiConcatValueSize | pristine: STRICT_EQUAL 727 objects | law: STRICT_EQUAL 727 objects
+  leave=0 enter=0
+surelog default ParamElabMulti | pristine: STRICT_EQUAL 673 objects | law: STRICT_EQUAL 673 objects
+  leave=0 enter=0
+surelog testflags ParamElabMulti | pristine: STRICT_EQUAL 580 objects | law: STRICT_EQUAL 580 objects
+  leave=0 enter=0
+surelog default ParamNoImport | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 163 objects
+  LEAVE #154 fullname B: 5	ref_typespec			pkg		0	0	0	0		0
+  LEAVE #43 fullname B: 4	ref_typespec			pkg		0	0	0	0		0
+  leave=2 enter=0
+surelog testflags ParamNoImport | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 73 objects
+  LEAVE #36 fullname B: 4	ref_typespec			pkg		0	0	0	0		0
+  LEAVE #64 fullname B: 5	ref_typespec			pkg		0	0	0	0		0
+  leave=2 enter=0
+surelog default ParamNoSubst | pristine: STRICT_EQUAL 272 objects | law: STRICT_EQUAL 272 objects
+  leave=0 enter=0
+surelog default ParamTypespec2 | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 331 objects
+  LEAVE #274 fullname B: 8	ref_typespec			<in>prim_esc_pkg::esc_tx_t.esc_p{work@top.u_nmi_gen.prim_esc_pkg::esc_tx_t.esc_p}		0	0	0	0		0
+  LEAVE #277 fullname B: 8	ref_typespec			<in>prim_esc_pkg::esc_tx_t.esc_n{work@top.u_nmi_gen.prim_esc_pkg::esc_tx_t.esc_n}		0	0	0	0		0
+  LEAVE #47 fullname B: 4	ref_typespec			prim_esc_pkg		0	0	0	0		0
+  leave=3 enter=0
+surelog testflags ParamTypespec2 | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 240 objects
+  LEAVE #184 fullname B: 8	ref_typespec			<in>prim_esc_pkg::esc_tx_t.esc_p{work@top.u_nmi_gen.prim_esc_pkg::esc_tx_t.esc_p}		0	0	0	0		0
+  LEAVE #187 fullname B: 8	ref_typespec			<in>prim_esc_pkg::esc_tx_t.esc_n{work@top.u_nmi_gen.prim_esc_pkg::esc_tx_t.esc_n}		0	0	0	0		0
+  LEAVE #40 fullname B: 4	ref_typespec			prim_esc_pkg		0	0	0	0		0
+  leave=3 enter=0
+surelog default PAssignType | pristine: STRICT_EQUAL 272 objects | law: STRICT_EQUAL 272 objects
+  leave=0 enter=0
+surelog testflags PAssignType | pristine: STRICT_EQUAL 182 objects | law: STRICT_EQUAL 182 objects
+  leave=0 enter=0
+surelog default SeqDriver | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+surelog testflags SeqDriver | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+surelog default SimpleUVM | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+surelog testflags SimpleUVM | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+surelog default StructUnsizedVal | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 460 objects
+  LEAVE #385 fullname B: 8	ref_typespec			<in>pkg::init_t.key{pkg::init_t.key}		0	0	0	0		0
+  LEAVE #387 fullname B: 10	ref_typespec			<in>key{pkg::init_t.key.key}		0	0	0	0		0
+  leave=2 enter=0
+surelog testflags StructUnsizedVal | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 367 objects
+  LEAVE #292 fullname B: 8	ref_typespec			<in>pkg::init_t.key{pkg::init_t.key}		0	0	0	0		0
+  LEAVE #294 fullname B: 10	ref_typespec			<in>key{pkg::init_t.key.key}		0	0	0	0		0
+  leave=2 enter=0
+uhdm2rtlil default BitSelectOfParameterPassedToSubmoduleInGenFor | pristine: STRICT_EQUAL 645 objects | law: STRICT_EQUAL 645 objects
+  leave=0 enter=0
+uhdm2rtlil default BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule | pristine: STRICT_EQUAL 730 objects | law: STRICT_EQUAL 730 objects
+  leave=0 enter=0
+uhdm2rtlil testflags BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule | pristine: STRICT_EQUAL 640 objects | law: STRICT_EQUAL 640 objects
+  leave=0 enter=0
+uhdm2rtlil testflags BitSelectOfParameterPassedToSubmoduleInGenFor | pristine: STRICT_EQUAL 555 objects | law: STRICT_EQUAL 555 objects
+  leave=0 enter=0
+uhdm2rtlil default ff_dead_both_branches | pristine: STRICT_EQUAL 416 objects | law: STRICT_EQUAL 416 objects
+  leave=0 enter=0
+uhdm2rtlil testflags ff_dead_both_branches | pristine: STRICT_EQUAL 326 objects | law: STRICT_EQUAL 326 objects
+  leave=0 enter=0
+uhdm2rtlil default ff_dead_guarded_reset | pristine: STRICT_EQUAL 406 objects | law: STRICT_EQUAL 406 objects
+  leave=0 enter=0
+uhdm2rtlil testflags ff_dead_guarded_reset | pristine: STRICT_EQUAL 316 objects | law: STRICT_EQUAL 316 objects
+  leave=0 enter=0
+uhdm2rtlil default gen_scope_numports | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 817 objects
+  LEAVE #411 fullname B: 11	ref_obj	DataWidth		<in>DataWidth{work@tb.t.gen_cut[0].i_tc_sram_wrapper.data_t.DataWidth}	dut.sv	19	47	19	56		0
+  LEAVE #423 fullname B: 11	ref_obj	DataWidth		<in>DataWidth{work@tb.t.gen_cut[0].i_tc_sram_wrapper.data_t.DataWidth}	dut.sv	19	47	19	56		0
+  LEAVE #622 fullname B: 11	ref_obj	DataWidth		<in>DataWidth{work@tb.t.gen_cut[1].i_tc_sram_wrapper.data_t.DataWidth}	dut.sv	19	47	19	56		0
+  LEAVE #634 fullname B: 11	ref_obj	DataWidth		<in>DataWidth{work@tb.t.gen_cut[1].i_tc_sram_wrapper.data_t.DataWidth}	dut.sv	19	47	19	56		0
+  leave=4 enter=0
+uhdm2rtlil testflags gen_scope_numports | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 727 objects
+  LEAVE #321 fullname B: 11	ref_obj	DataWidth		<in>DataWidth{work@tb.t.gen_cut[0].i_tc_sram_wrapper.data_t.DataWidth}	dut.sv	19	47	19	56		0
+  LEAVE #333 fullname B: 11	ref_obj	DataWidth		<in>DataWidth{work@tb.t.gen_cut[0].i_tc_sram_wrapper.data_t.DataWidth}	dut.sv	19	47	19	56		0
+  LEAVE #532 fullname B: 11	ref_obj	DataWidth		<in>DataWidth{work@tb.t.gen_cut[1].i_tc_sram_wrapper.data_t.DataWidth}	dut.sv	19	47	19	56		0
+  LEAVE #544 fullname B: 11	ref_obj	DataWidth		<in>DataWidth{work@tb.t.gen_cut[1].i_tc_sram_wrapper.data_t.DataWidth}	dut.sv	19	47	19	56		0
+  leave=4 enter=0
+uhdm2rtlil default ibex_alu | pristine: STRICT_EQUAL 14912 objects | law: STRICT_EQUAL 14912 objects
+  leave=0 enter=0
+uhdm2rtlil testflags ibex_alu | pristine: STRICT_EQUAL 14822 objects | law: STRICT_EQUAL 14822 objects
+  leave=0 enter=0
+uhdm2rtlil default ibex_branch_predict | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+uhdm2rtlil testflags ibex_branch_predict | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+uhdm2rtlil default ibex_compressed_decoder | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+uhdm2rtlil testflags ibex_compressed_decoder | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+uhdm2rtlil default ibex_decoder | pristine: STRICT_NOTEQUAL endline | law: STRICT_NOTEQUAL endline
+  leave=0 enter=0
+uhdm2rtlil testflags ibex_decoder | pristine: STRICT_NOTEQUAL endline | law: STRICT_NOTEQUAL endline
+  leave=0 enter=0
+uhdm2rtlil default ibex_icache | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+uhdm2rtlil testflags ibex_icache | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+uhdm2rtlil default ibex_multdiv_fast | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+uhdm2rtlil testflags ibex_multdiv_fast | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+uhdm2rtlil default ibex_multdiv_slow | pristine: STRICT_NOTEQUAL endline | law: STRICT_NOTEQUAL endline
+  leave=0 enter=0
+uhdm2rtlil testflags ibex_multdiv_slow | pristine: STRICT_NOTEQUAL endline | law: STRICT_NOTEQUAL endline
+  leave=0 enter=0
+uhdm2rtlil default ibex_pmp | pristine: STRICT_NOTEQUAL file | law: STRICT_NOTEQUAL file
+  leave=0 enter=0
+uhdm2rtlil testflags ibex_pmp | pristine: STRICT_NOTEQUAL file | law: STRICT_NOTEQUAL file
+  leave=0 enter=0
+uhdm2rtlil default ibex_tracer | pristine: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+  leave=0 enter=0
+uhdm2rtlil testflags ibex_tracer | pristine: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+  leave=0 enter=0
+uhdm2rtlil default ibex_wb_stage | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+uhdm2rtlil testflags ibex_wb_stage | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+uhdm2rtlil default param_array_wildcard | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 299 objects
+  LEAVE #239 fullname B: 9	ref_obj	IFN		<in>IFN{work@param_array_wildcard.u.DAM.IFN}	dut.sv	7	37	7	40		0
+  leave=1 enter=0
+uhdm2rtlil testflags param_array_wildcard | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 209 objects
+  LEAVE #149 fullname B: 9	ref_obj	IFN		<in>IFN{work@param_array_wildcard.u.DAM.IFN}	dut.sv	7	37	7	40		0
+  leave=1 enter=0
+uhdm2rtlil default param_name_collision_typeparam | pristine: STRICT_EQUAL 502 objects | law: STRICT_EQUAL 502 objects
+  leave=0 enter=0
+uhdm2rtlil testflags param_name_collision_typeparam | pristine: STRICT_EQUAL 412 objects | law: STRICT_EQUAL 412 objects
+  leave=0 enter=0
+uhdm2rtlil default struct_param_pattern_packing | pristine: STRICT_NOTEQUAL line | law: STRICT_EQUAL 644 objects
+  LEAVE #499 line B: 5	struct_typespec	p::cfg_t			dut.sv	8	11	11	4
+  leave=1 enter=0
+uhdm2rtlil testflags struct_param_pattern_packing | pristine: STRICT_NOTEQUAL line | law: STRICT_EQUAL 554 objects
+  LEAVE #409 line B: 5	struct_typespec	p::cfg_t			dut.sv	8	11	11	4
+  leave=1 enter=0
+uhdm2rtlil default struct_param_repl_count | pristine: STRICT_EQUAL 416 objects | law: STRICT_EQUAL 416 objects
+  leave=0 enter=0
+uhdm2rtlil testflags struct_param_repl_count | pristine: STRICT_EQUAL 326 objects | law: STRICT_EQUAL 326 objects
+  leave=0 enter=0
+uhdm2rtlil default type_param_override_elem_sel | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 318 objects
+  LEAVE #226 fullname B: 8	ref_obj	DEPTH		<in>rt_t.DEPTH{work@dut.u.rt_t.DEPTH}	dut.sv	17	37	17	42		0
+  leave=1 enter=0
+uhdm2rtlil testflags type_param_override_elem_sel | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 228 objects
+  LEAVE #136 fullname B: 8	ref_obj	DEPTH		<in>rt_t.DEPTH{work@dut.u.rt_t.DEPTH}	dut.sv	17	37	17	42		0
+  leave=1 enter=0

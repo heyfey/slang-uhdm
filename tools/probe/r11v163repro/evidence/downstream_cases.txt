@@ -1,0 +1,134 @@
+pris fp_i01 IDENTICAL NO_GATES NO_GATES 0 0  
+pris fp_i02 EQUIVALENT NO_GATES NO_GATES 0 0 nohier ✅ All 1 common constant assignments match
+pris fp_i03 EQUIVALENT NO_GATES NO_GATES 0 0 nohier ✅ All 1 common constant assignments match
+pris fp_i04 IDENTICAL NO_GATES NO_GATES 0 0  
+pris ip_e01 IDENTICAL OK OK 1 1  
+pris ip_e02 IDENTICAL OK OK 1 1  
+pris ip_e03 IDENTICAL OK OK 1 1  
+pris ip_e04 IDENTICAL OK OK 1 1  
+pris oa_h01 IDENTICAL OK OK 9 9  
+pris oa_h02 EQUIVALENT OK OK 19 14 nohier il synth ✅ Formal equivalence check PASSED for /tmp/v11u163_dsw_pris/oa_h02/equiv/oa_h02
+pris oa_h03 EQUIVALENT OK OK 10 7 nohier il synth ✅ Formal equivalence check PASSED for /tmp/v11u163_dsw_pris/oa_h03/equiv/oa_h03
+pris pl_d01 IDENTICAL NO_GATES NO_GATES 0 0  
+pris pl_d02 IDENTICAL NO_GATES NO_GATES 0 0  
+pris pl_d03 IDENTICAL NO_GATES NO_GATES 0 0  
+pris po_c01 IDENTICAL NO_GATES NO_GATES 0 0  
+pris po_c02 IDENTICAL NO_GATES NO_GATES 0 0  
+pris po_c03 IDENTICAL NO_GATES NO_GATES 0 0  
+pris po_c04 IDENTICAL NO_GATES NO_GATES 0 0  
+pris po_c05 IDENTICAL NO_GATES NO_GATES 0 0  
+pris po_c06 IDENTICAL NO_GATES NO_GATES 0 0  
+pris po_c07 IDENTICAL NO_GATES NO_GATES 0 0  
+pris qs_a01 IDENTICAL NO_GATES NO_GATES 0 0  
+pris qs_a02 IDENTICAL NO_GATES NO_GATES 0 0  
+pris qs_a03 IDENTICAL NO_GATES NO_GATES 0 0  
+pris qs_a04 IDENTICAL NO_GATES NO_GATES 0 0  
+pris qs_a05 DIVERGENT NO_GATES NO_GATES 0 0 nohier il synth    This indicates a serious bug in /tmp/v11u163_dsw_pris/qs_a05/equiv/qs_a05 - t
+pris qs_a06 IDENTICAL NO_GATES NO_GATES 0 0  
+pris qs_a07 IDENTICAL NO_GATES NO_GATES 0 0  
+pris qs_a08 IDENTICAL NO_GATES NO_GATES 0 0  
+pris qs_a09 IDENTICAL NO_GATES NO_GATES 0 0  
+pris qs_a10 EQUIVALENT NO_GATES NO_GATES 0 0 nohier il ✅ All 1 common constant assignments match
+pris rc_f01 IDENTICAL NO_GATES NO_GATES 0 0  
+pris rc_f02 IDENTICAL NO_GATES NO_GATES 0 0  
+pris rc_f03 IDENTICAL OK OK 3 3  
+pris rc_f04 EQUIVALENT NO_GATES NO_GATES 0 0 nohier il synth ✅ All 1 common constant assignments match
+pris rc_f05 IDENTICAL NO_GATES NO_GATES 0 0  
+pris rc_f06 SLANG_REJECT      
+pris rc_f07 IDENTICAL NO_GATES NO_GATES 0 0  
+pris sy_b01 IDENTICAL NO_GATES NO_GATES 0 0  
+pris sy_b02 IDENTICAL NO_GATES NO_GATES 0 0  
+pris sy_b03 IDENTICAL NO_GATES NO_GATES 0 0  
+pris sy_b04 IDENTICAL NO_GATES NO_GATES 0 0  
+pris sy_b05 DIVERGENT NO_GATES NO_GATES 0 0 nohier il synth    This indicates a serious bug in /tmp/v11u163_dsw_pris/sy_b05/equiv/sy_b05 - t
+pris sy_b06 IDENTICAL NO_GATES NO_GATES 0 0  
+pris sy_b07 IDENTICAL NO_GATES NO_GATES 0 0  
+pris sy_b08 IDENTICAL NO_GATES NO_GATES 0 0  
+pris tp_g01 IDENTICAL NO_GATES NO_GATES 0 0  
+pris tp_g02 IDENTICAL NO_GATES NO_GATES 0 0  
+pris tp_g03 DIVERGENT NO_GATES NO_GATES 0 0 nohier il synth ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u163_dsw_pri
+pris tp_g04 IDENTICAL NO_GATES NO_GATES 0 0  
+pris tp_g05 IDENTICAL NO_GATES NO_GATES 0 0  
+pris tp_g06 IDENTICAL NO_GATES NO_GATES 0 0  
+pris tp_g07 IDENTICAL NO_GATES NO_GATES 0 0  
+law fp_i01 IDENTICAL NO_GATES NO_GATES 0 0  
+law fp_i02 EQUIVALENT NO_GATES NO_GATES 0 0 nohier ✅ All 1 common constant assignments match
+law fp_i03 IDENTICAL NO_GATES NO_GATES 0 0  
+law fp_i04 IDENTICAL NO_GATES NO_GATES 0 0  
+law ip_e01 IDENTICAL OK OK 1 1  
+law ip_e02 IDENTICAL OK OK 1 1  
+law ip_e03 IDENTICAL OK OK 1 1  
+law ip_e04 IDENTICAL OK OK 1 1  
+law oa_h01 IDENTICAL OK OK 9 9  
+law oa_h02 EQUIVALENT OK OK 19 14 nohier il synth ✅ Formal equivalence check PASSED for /tmp/v11u163_dsw_law/oa_h02/equiv/oa_h02
+law oa_h03 EQUIVALENT OK OK 10 7 nohier il synth ✅ Formal equivalence check PASSED for /tmp/v11u163_dsw_law/oa_h03/equiv/oa_h03
+law pl_d01 IDENTICAL NO_GATES NO_GATES 0 0  
+law pl_d02 IDENTICAL NO_GATES NO_GATES 0 0  
+law pl_d03 IDENTICAL NO_GATES NO_GATES 0 0  
+law po_c01 IDENTICAL NO_GATES NO_GATES 0 0  
+law po_c02 IDENTICAL NO_GATES NO_GATES 0 0  
+law po_c03 IDENTICAL NO_GATES NO_GATES 0 0  
+law po_c04 IDENTICAL NO_GATES NO_GATES 0 0  
+law po_c05 IDENTICAL NO_GATES NO_GATES 0 0  
+law po_c06 IDENTICAL NO_GATES NO_GATES 0 0  
+law po_c07 IDENTICAL NO_GATES NO_GATES 0 0  
+law qs_a01 IDENTICAL NO_GATES NO_GATES 0 0  
+law qs_a02 IDENTICAL NO_GATES NO_GATES 0 0  
+law qs_a03 IDENTICAL NO_GATES NO_GATES 0 0  
+law qs_a04 IDENTICAL NO_GATES NO_GATES 0 0  
+law qs_a05 DIVERGENT NO_GATES NO_GATES 0 0 nohier il synth    This indicates a serious bug in /tmp/v11u163_dsw_law/qs_a05/equiv/qs_a05 - th
+law qs_a06 IDENTICAL NO_GATES NO_GATES 0 0  
+law qs_a07 IDENTICAL NO_GATES NO_GATES 0 0  
+law qs_a08 IDENTICAL NO_GATES NO_GATES 0 0  
+law qs_a09 IDENTICAL NO_GATES NO_GATES 0 0  
+law qs_a10 EQUIVALENT NO_GATES NO_GATES 0 0 nohier il ✅ All 1 common constant assignments match
+law rc_f01 IDENTICAL NO_GATES NO_GATES 0 0  
+law rc_f02 IDENTICAL NO_GATES NO_GATES 0 0  
+law rc_f03 IDENTICAL OK OK 3 3  
+law rc_f04 EQUIVALENT NO_GATES NO_GATES 0 0 nohier il synth ✅ All 1 common constant assignments match
+law rc_f05 IDENTICAL NO_GATES NO_GATES 0 0  
+law rc_f06 SLANG_REJECT      
+law rc_f07 IDENTICAL NO_GATES NO_GATES 0 0  
+law sy_b01 IDENTICAL NO_GATES NO_GATES 0 0  
+law sy_b02 IDENTICAL NO_GATES NO_GATES 0 0  
+law sy_b03 IDENTICAL NO_GATES NO_GATES 0 0  
+law sy_b04 IDENTICAL NO_GATES NO_GATES 0 0  
+law sy_b05 DIVERGENT NO_GATES NO_GATES 0 0 nohier il synth    This indicates a serious bug in /tmp/v11u163_dsw_law/sy_b05/equiv/sy_b05 - th
+law sy_b06 IDENTICAL NO_GATES NO_GATES 0 0  
+law sy_b07 IDENTICAL NO_GATES NO_GATES 0 0  
+law sy_b08 IDENTICAL NO_GATES NO_GATES 0 0  
+law tp_g01 IDENTICAL NO_GATES NO_GATES 0 0  
+law tp_g02 IDENTICAL NO_GATES NO_GATES 0 0  
+law tp_g03 DIVERGENT NO_GATES NO_GATES 0 0 nohier il synth ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u163_dsw_law
+law tp_g04 IDENTICAL NO_GATES NO_GATES 0 0  
+law tp_g05 IDENTICAL NO_GATES NO_GATES 0 0  
+law tp_g06 IDENTICAL NO_GATES NO_GATES 0 0  
+law tp_g07 IDENTICAL NO_GATES NO_GATES 0 0  
+pris lr_r01 IDENTICAL NO_GATES NO_GATES 0 0  
+pris lr_r02 EQUIVALENT NO_GATES NO_GATES 0 0 nohier il ℹ️  No common assign statements to compare — skipping
+pris lr_r03 IDENTICAL NO_GATES NO_GATES 0 0  
+pris lr_r04 IDENTICAL NO_GATES NO_GATES 0 0  
+pris lr_r05 IDENTICAL NO_GATES NO_GATES 0 0  
+pris lr_r06 IDENTICAL NO_GATES NO_GATES 0 0  
+pris lr_r07 EQUIVALENT NO_GATES NO_GATES 0 0 nohier il ℹ️  No common assign statements to compare — skipping
+pris lr_r08 IDENTICAL NO_GATES NO_GATES 0 0  
+pris po_c08 IDENTICAL NO_GATES NO_GATES 0 0  
+pris po_c12 IDENTICAL NO_GATES NO_GATES 0 0  
+pris po_c13 IDENTICAL NO_GATES NO_GATES 0 0  
+pris po_c14 IDENTICAL NO_GATES NO_GATES 0 0  
+pris qs_a16 IDENTICAL NO_GATES NO_GATES 0 0  
+pris qs_a17 EQUIVALENT NO_GATES NO_GATES 0 0 nohier il ℹ️  No common assign statements to compare — skipping
+ver1 lr_r01 IDENTICAL NO_GATES NO_GATES 0 0  
+ver1 lr_r02 EQUIVALENT NO_GATES NO_GATES 0 0 nohier il ℹ️  No common assign statements to compare — skipping
+ver1 lr_r03 IDENTICAL NO_GATES NO_GATES 0 0  
+ver1 lr_r04 IDENTICAL NO_GATES NO_GATES 0 0  
+ver1 lr_r05 IDENTICAL NO_GATES NO_GATES 0 0  
+ver1 lr_r06 IDENTICAL NO_GATES NO_GATES 0 0  
+ver1 lr_r07 EQUIVALENT NO_GATES NO_GATES 0 0 nohier il ℹ️  No common assign statements to compare — skipping
+ver1 lr_r08 IDENTICAL NO_GATES NO_GATES 0 0  
+ver1 po_c08 IDENTICAL NO_GATES NO_GATES 0 0  
+ver1 po_c12 IDENTICAL NO_GATES NO_GATES 0 0  
+ver1 po_c13 IDENTICAL NO_GATES NO_GATES 0 0  
+ver1 po_c14 IDENTICAL NO_GATES NO_GATES 0 0  
+ver1 qs_a16 IDENTICAL NO_GATES NO_GATES 0 0  
+ver1 qs_a17 EQUIVALENT NO_GATES NO_GATES 0 0 nohier il ℹ️  No common assign statements to compare — skipping

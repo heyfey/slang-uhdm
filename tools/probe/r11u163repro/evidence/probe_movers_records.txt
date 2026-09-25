@@ -1,0 +1,99 @@
+r10earl102repro/g4_neg102 | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 385 objects | leave=1 enter=0 | laws=OVARRDEFTS
+r10earl108repro/g1_home108 | A: STRICT_EQUAL 612 objects  B: STRICT_EQUAL 612 objects | leave=0 enter=0 | laws=IMPOPNAME
+r10earl_repro/vf | A: STRICT_EQUAL 1096 objects  B: STRICT_EQUAL 1096 objects | leave=0 enter=0 | laws=IMPOPNAME
+r10vearl108repro/m_arr108 | A: STRICT_EQUAL 1060 objects  B: STRICT_EQUAL 1060 objects | leave=0 enter=0 | laws=IMPOPNAME
+r10vearl108repro/m_gen108 | A: STRICT_NOTEQUAL line  B: STRICT_NOTEQUAL line | leave=0 enter=0 | laws=IMPOPNAME
+r10vearl108repro/m_ifs108 | A: STRICT_EQUAL 1070 objects  B: STRICT_EQUAL 1070 objects | leave=0 enter=0 | laws=IMPOPNAME
+r10vearl108repro/m_multi108 | A: STRICT_EQUAL 1018 objects  B: STRICT_EQUAL 1018 objects | leave=0 enter=0 | laws=IMPOPNAME
+r10vearl108repro/m_nest108 | A: STRICT_EQUAL 972 objects  B: STRICT_EQUAL 972 objects | leave=0 enter=0 | laws=IMPOPNAME
+r10vearl108repro/m_wide108 | A: STRICT_EQUAL 972 objects  B: STRICT_EQUAL 972 objects | leave=0 enter=0 | laws=IMPOPNAME
+r11u107repro/grid/o01_ovr_elem | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 208 objects | leave=1 enter=0 | laws=TPDIMDEF
+r11u107repro/grid/o02_ovr_then_def | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 295 objects | leave=2 enter=0 | laws=TPDEFNAME,TPDIMDEF
+r11u107repro/grid/o03_def_then_ovr | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 307 objects | leave=2 enter=0 | laws=TPDEFNAME,TPDIMDEF
+r11u107repro/grid/o04_two_ovr | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 321 objects | leave=2 enter=0 | laws=TPDIMDEF
+r11u107repro/grid/o06_nodef_ctl | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 178 objects | leave=1 enter=0 | laws=TPDEFNAME,TPDIMDEF
+r11u107repro/grid/o07_passthru | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 286 objects | leave=1 enter=0 | laws=TPDEFNAME,TPDIMDEF
+r11u108repro/grid/f5/f5a05_override | A: STRICT_NOTEQUAL line  B: STRICT_NOTEQUAL line | leave=0 enter=0 | laws=TPDIMDEF
+r11u108repro/grid/pk/k10b_member_child_sel | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL name | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u108repro/grid/pk/k10c_member_widthparam | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL name | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u108repro/grid/pk/k10d_member_child_nosel | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL name | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u108repro/grid/pk/k10e_member_child_sel_q | A: STRICT_NOTEQUAL endcol  B: STRICT_NOTEQUAL name | leave=1 enter=0 | laws=AGGQUALSPAN elab
+r11u108repro/grid/pk/k10f_member_bodyimport | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL name | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u108repro/grid/pk/k10g_member_bodyimport_child | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL name | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u108repro/grid/pk/k10h_noassign | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 562 objects | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u108repro/grid/pk/k10i_noassign_nochild | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 511 objects | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u108repro/grid/pk/k10j_wide | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL name | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u108repro/grid/pk/k10k_w32 | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL name | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u108repro/grid/pk/k10l_w33 | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL name | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u108repro/grid/pk/k10_member_v_pkgparam | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL name | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u108repro/grid/pk/k11_member_v_qualified | A: STRICT_NOTEQUAL endcol  B: STRICT_NOTEQUAL name | leave=1 enter=0 | laws=AGGQUALSPAN elab
+r11u108repro/grid/pk/k23c_samekey | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 594 objects | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u108repro/grid/pk/k23d_nowidth | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 594 objects | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u108repro/grid/pk/k23_lv2s_copy | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 594 objects | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u110repro/grid/e1/e01_base | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 200 objects | leave=1 enter=0 | laws=TPDIMDEF
+r11u110repro/grid/e1/e02_two_diff_ovr | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 342 objects | leave=2 enter=0 | laws=TPDIMDEF
+r11u110repro/grid/e1/e03_ovr_then_def | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 299 objects | leave=2 enter=0 | laws=TPDEFNAME,TPDIMDEF
+r11u110repro/grid/e1/e04_def_then_ovr | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 311 objects | leave=2 enter=0 | laws=TPDEFNAME,TPDIMDEF
+r11u110repro/grid/e1/e05_gen_if | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 219 objects | leave=1 enter=0 | laws=TPDIMDEF
+r11u110repro/grid/e1/e06_gen_for | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 331 objects | leave=2 enter=0 | laws=TPDIMDEF
+r11u110repro/grid/e1/e07_passthru | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 275 objects | leave=1 enter=0 | laws=TPDIMDEF
+r11u110repro/grid/e1/e10_def_packed | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 209 objects | leave=1 enter=0 | laws=TPDIMDEF
+r11u110repro/grid/e1/e19_scalar_port_ctl | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 200 objects | leave=1 enter=0 | laws=TPDIMDEF
+r11u110repro/grid/e1/e24_ovr_2state | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 200 objects | leave=1 enter=0 | laws=TPDIMDEF
+r11u110repro/grid/e1/e25_ovr_same_ctl | A: STRICT_NOTEQUAL line  B: STRICT_NOTEQUAL line | leave=1 enter=0 | laws=TPDIMDEF
+r11u110repro/grid/e1/e27_ovr_signed | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 200 objects | leave=1 enter=0 | laws=TPDIMDEF
+r11u110repro/grid/e1/e29_two_same_ovr | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 321 objects | leave=2 enter=0 | laws=TPDIMDEF
+r11u110repro/grid/e1/e38_parent_same_name_def | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 278 objects | leave=1 enter=0 | laws=TPDEFNAME,TPDIMDEF
+r11u110repro/grid/e1/e39_value_and_type_named | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 157 objects | leave=1 enter=0 | laws=TPDIMDEF
+r11u110repro/grid/e1/e44_parent_other_name_ovr | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 275 objects | leave=1 enter=0 | laws=TPDIMDEF
+r11u110repro/grid/e1/e45_pkg_enum_ovr | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL fullname | leave=1 enter=0 | laws=TPDIMDEF
+r11u110repro/grid/e1/e47_pkg_struct_ovr | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 237 objects | leave=1 enter=0 | laws=TPDIMDEF
+r11u110repro/grid/e1/e49_mod_typedef_ovr | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 208 objects | leave=1 enter=0 | laws=TPDIMDEF
+r11u110repro/grid/e1/e53_pkg_union_ovr | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 291 objects | leave=1 enter=0 | laws=TPDIMDEF
+r11u111repro/grid/f2/b03_q_imp_w16 | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL name | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u111repro/grid/f2/b04_imp_q_w16 | A: STRICT_NOTEQUAL endcol  B: STRICT_NOTEQUAL name | leave=1 enter=0 | laws=AGGQUALSPAN elab
+r11u111repro/grid/f2/b05_q_q_w80 | A: STRICT_NOTEQUAL endcol  B: STRICT_NOTEQUAL name | leave=1 enter=0 | laws=AGGQUALSPAN elab
+r11u111repro/grid/f2/b06_imp_imp_w80 | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL name | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u111repro/grid/f2/b07_q_imp_w80 | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL name | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u111repro/grid/f2/b08_imp_q_w80 | A: STRICT_NOTEQUAL endcol  B: STRICT_NOTEQUAL name | leave=1 enter=0 | laws=AGGQUALSPAN elab
+r11u111repro/grid/f2/b10_q_q_w64 | A: STRICT_NOTEQUAL endcol  B: STRICT_NOTEQUAL name | leave=1 enter=0 | laws=AGGQUALSPAN elab
+r11u111repro/grid/f2/b11_localparam_q_w16 | A: STRICT_NOTEQUAL endcol  B: STRICT_NOTEQUAL name | leave=1 enter=0 | laws=AGGQUALSPAN elab
+r11u111repro/grid/f2/b12_sub_q_w16 | A: STRICT_NOTEQUAL endcol  B: STRICT_NOTEQUAL name | leave=1 enter=0 | laws=AGGQUALSPAN elab
+r11u111repro/grid/f2/b13_sub_imp_w80 | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL name | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u111repro/grid/f2/b14_hdrimp_imp_w80 | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL name | leave=4 enter=0 | laws=AGGFOLDYNAME
+r11u111repro/grid/f2/b17_q_q_w16_plainmember_ctl | A: STRICT_NOTEQUAL endcol  B: STRICT_NOTEQUAL name | leave=1 enter=0 | laws=AGGQUALSPAN elab
+r11u114repro/grid/f1/a17 | A: STRICT_EQUAL 285 objects  B: STRICT_EQUAL 285 objects | leave=0 enter=0 | laws=IMPOPNAME
+r11u114repro/grid/f1/a25 | A: STRICT_NOTEQUAL type  B: STRICT_NOTEQUAL type | leave=0 enter=0 | laws=IMPOPNAME
+r11u114repro/grid/f1/a28 | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL type | leave=3 enter=0 | laws=IMPOPNAME
+r11u20repro/t3 | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 345 objects | leave=4 enter=0 | laws=TPDEFNAME
+r11u20repro/t6 | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL fullname | leave=1 enter=0 | laws=TPDEFNAME
+r11u26repro/m7 | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL fullname | leave=0 enter=0 | laws=IMPOPNAME
+v11u108repro/brk/f5/b15_child_ports | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 285 objects | leave=4 enter=0 | laws=TPDEFNAME,TPDIMDEF
+v11u110repro/brk/v1/a02_unnamed_genif | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 205 objects | leave=1 enter=0 | laws=TPDIMDEF
+v11u110repro/brk/v1/a06_mid_passes_own | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 418 objects | leave=2 enter=0 | laws=TPDIMDEF
+v11u110repro/brk/v1/a19_top_own_tp_child_default | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 191 objects | leave=1 enter=0 | laws=TPDEFNAME,TPDIMDEF
+v11u110repro/brk/v1/a20_top_own_tp_child_ovr | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 212 objects | leave=1 enter=0 | laws=TPDEFNAME,TPDIMDEF
+v11u110repro/brk/v1/a22_genfor_genvar_ovr | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 315 objects | leave=2 enter=0 | laws=TPDIMDEF
+v11u110repro/brk/v1/a30_unconnected_and_twice_dut | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 299 objects | leave=2 enter=0 | laws=TPDIMDEF
+v11u110repro/brk/v1/a31_ovr_struct_parent_local | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 262 objects | leave=1 enter=0 | laws=TPDIMDEF
+v11u110repro/brk/v3/a36_escaped_inst_name | A: STRICT_NOTEQUAL endcol  B: STRICT_NOTEQUAL endcol | leave=1 enter=0 | laws=TPDIMDEF
+v11u110repro/brk/v3/a38_iface_parent_ctl | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 231 objects | leave=1 enter=0 | laws=TPDIMDEF
+v11u110repro/brk/v3/a39_ovr_signed_int_type | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 179 objects | leave=1 enter=0 | laws=TPDIMDEF
+v11u110repro/brk/v4/q04_pkg_struct_nodims_ctl | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 237 objects | leave=1 enter=0 | laws=TPDIMDEF
+v11u110repro/brk/v4/q06_logic_2dim_ctl | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 221 objects | leave=1 enter=0 | laws=TPDIMDEF
+v11u111repro/brk/f2/x22_explicit_imp_wide | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL name | leave=4 enter=0 | laws=AGGFOLDYNAME
+v11u111repro/brk/f2/x26_q_twoinst_override | A: STRICT_NOTEQUAL endcol  B: STRICT_NOTEQUAL name | leave=1 enter=0 | laws=AGGQUALSPAN elab
+v11u114repro/grid/set1/d15 | A: STRICT_EQUAL 270 objects  B: STRICT_EQUAL 270 objects | leave=0 enter=0 | laws=IMPOPNAME
+v11u114repro/grid/set1/g11 | A: STRICT_EQUAL 320 objects  B: STRICT_EQUAL 320 objects | leave=0 enter=0 | laws=IMPOPNAME
+v11u114repro/grid/set1/g12 | A: STRICT_EQUAL 361 objects  B: STRICT_EQUAL 361 objects | leave=0 enter=0 | laws=IMPOPNAME
+v11u114repro/grid/set1/g25 | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL type | leave=2 enter=0 | laws=IMPOPNAME
+v11u114repro/grid/set3/k12 | A: STRICT_EQUAL 352 objects  B: STRICT_EQUAL 352 objects | leave=0 enter=0 | laws=IMPOPNAME
+v11u93b107repro/brk/r02_gen_last | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 326 objects | leave=2 enter=0 | laws=TPDIMDEF
+v11u93b107repro/brk/r03_nested_first | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 387 objects | leave=2 enter=0 | laws=TPDIMDEF
+v11u93b107repro/brk/r04_nested_last | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 387 objects | leave=2 enter=0 | laws=TPDIMDEF
+v11u93b107repro/brk/r05_rt_ovr_samename | A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL line | leave=1 enter=0 | laws=TPDEFNAME,TPDIMDEF
+v11u93b107repro/brk/r06_ovr_pkg_struct | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 245 objects | leave=1 enter=0 | laws=TPDIMDEF
+v11u93b107repro/brk/r07_inst_array | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 313 objects | leave=2 enter=0 | laws=TPDIMDEF
+v11u93b107repro/brk/r08_two_defs | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 389 objects | leave=2 enter=0 | laws=TPDIMDEF
+v11u93b107repro/brk/r10_two_tops | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 356 objects | leave=2 enter=0 | laws=TPDIMDEF
+v11u93b107repro/brk/r12_gen_mid | A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 399 objects | leave=3 enter=0 | laws=TPDEFNAME,TPDIMDEF

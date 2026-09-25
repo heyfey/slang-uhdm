@@ -550,7 +550,7 @@ packed_struct_array_net_elem,default,CMP_EQUAL,,,equal
 packed_struct_array_shift,default,CMP_EQUAL,,,equal
 packed_struct_elem_field,default,CMP_EQUAL,,,equal
 PackedArray,default,CMP_EQUAL,,,equal
-param_array_wildcard,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+param_array_wildcard,default,CMP_EQUAL,,,equal
 param_fill_default_paramod,default,CMP_EQUAL,,,equal
 param_int_types,default,CMP_EQUAL,,,equal
 param_name_collision_typeparam,default,CMP_EQUAL,,,equal
@@ -740,7 +740,7 @@ struct_param_field_shift,default,STRICT_NOTEQUAL,differ:col(41),,differ:col(41)
 struct_param_func_arg,default,CMP_EQUAL,,,equal
 struct_param_func_config,default,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
 struct_param_func_loop,default,CMP_EQUAL,,,equal
-struct_param_pattern_packing,default,STRICT_NOTEQUAL,differ:line(1),,differ:line(1)
+struct_param_pattern_packing,default,CMP_EQUAL,,,equal
 struct_param_repl_count,default,CMP_EQUAL,,,equal
 struct_part_select_write,default,CMP_EQUAL,,,equal
 struct_pat_fill,default,CMP_EQUAL,,,equal
@@ -790,7 +790,7 @@ TaskReturn,default,CMP_EQUAL,,,equal
 tern_fill_literal,default,CMP_EQUAL,,,equal
 ternary_not_cond,default,CMP_EQUAL,,,equal
 top_module_type_param,default,CMP_EQUAL,,,equal
-type_param_override_elem_sel,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+type_param_override_elem_sel,default,CMP_EQUAL,,,equal
 type_param_packed_dim,default,CMP_EQUAL,,,equal
 type_param_unpacked_port,default,CMP_EQUAL,,,equal
 typed_named_pattern,default,CMP_EQUAL,,,equal
@@ -1421,7 +1421,7 @@ packed_struct_array_net_elem,testflags,CMP_EQUAL,,,equal
 packed_struct_array_shift,testflags,CMP_EQUAL,,,equal
 packed_struct_elem_field,testflags,CMP_EQUAL,,,equal
 PackedArray,testflags,CMP_EQUAL,,,equal
-param_array_wildcard,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+param_array_wildcard,testflags,CMP_EQUAL,,,equal
 param_fill_default_paramod,testflags,CMP_EQUAL,,,equal
 param_int_types,testflags,CMP_EQUAL,,,equal
 param_name_collision_typeparam,testflags,CMP_EQUAL,,,equal
@@ -1611,7 +1611,7 @@ struct_param_field_shift,testflags,STRICT_NOTEQUAL,differ:col(41),,differ:col(41
 struct_param_func_arg,testflags,CMP_EQUAL,,,equal
 struct_param_func_config,testflags,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
 struct_param_func_loop,testflags,CMP_EQUAL,,,equal
-struct_param_pattern_packing,testflags,STRICT_NOTEQUAL,differ:line(1),,differ:line(1)
+struct_param_pattern_packing,testflags,CMP_EQUAL,,,equal
 struct_param_repl_count,testflags,CMP_EQUAL,,,equal
 struct_part_select_write,testflags,CMP_EQUAL,,,equal
 struct_pat_fill,testflags,CMP_EQUAL,,,equal
@@ -1661,7 +1661,7 @@ TaskReturn,testflags,CMP_EQUAL,,,equal
 tern_fill_literal,testflags,CMP_EQUAL,,,equal
 ternary_not_cond,testflags,CMP_EQUAL,,,equal
 top_module_type_param,testflags,CMP_EQUAL,,,equal
-type_param_override_elem_sel,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+type_param_override_elem_sel,testflags,CMP_EQUAL,,,equal
 type_param_packed_dim,testflags,CMP_EQUAL,,,equal
 type_param_unpacked_port,testflags,CMP_EQUAL,,,equal
 typed_named_pattern,testflags,CMP_EQUAL,,,equal

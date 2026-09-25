@@ -521,8 +521,8 @@ FuncDefaultVal,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncDef
 FuncDefaultVal,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncDefaultVal/dut.sv:6:13: error: use of undeclared identifier 'opcode',,
 FuncInModule,default,CMP_EQUAL,,,equal
 FuncInModule,testflags,CMP_EQUAL,,,equal
-FuncIoTypespec,default,STRICT_NOTEQUAL,differ:file(9),,differ:file(9)
-FuncIoTypespec,testflags,STRICT_NOTEQUAL,differ:file(9),,differ:file(9)
+FuncIoTypespec,default,CMP_EQUAL,,,equal
+FuncIoTypespec,testflags,CMP_EQUAL,,,equal
 FuncNoArgs,default,CMP_EQUAL,,,equal
 FuncNoArgs,testflags,CMP_EQUAL,,,equal
 FuncParam,default,CMP_EQUAL,,,equal
@@ -795,8 +795,8 @@ LargeHexCast,default,CMP_EQUAL,,,equal
 LargeHexCast,testflags,CMP_EQUAL,,,equal
 LargeHexString,default,CMP_EQUAL,,,equal
 LargeHexString,testflags,CMP_EQUAL,,,equal
-LargeValue2Struct,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
-LargeValue2Struct,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+LargeValue2Struct,default,CMP_EQUAL,,,equal
+LargeValue2Struct,testflags,CMP_EQUAL,,,equal
 LateBindingFuncArg,default,CMP_EQUAL,,,equal
 LateBindingFuncArg,testflags,CMP_EQUAL,,,equal
 LeftPadding,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LeftPadding/dut.sv:8:5: error: unknown module 'GOOD',,
@@ -1059,8 +1059,8 @@ ParamMultiConcat,default,CMP_EQUAL,,,equal
 ParamMultiConcat,testflags,CMP_EQUAL,,,equal
 ParamNoDefault,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamNoDefault/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 ParamNoDefault,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamNoDefault/dut.sv:2:26: error: parameter declaration is missing an initializer,,
-ParamNoImport,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
-ParamNoImport,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+ParamNoImport,default,CMP_EQUAL,,,equal
+ParamNoImport,testflags,CMP_EQUAL,,,equal
 ParamNoSubst,default,CMP_EQUAL,,,equal
 ParamNoSubst,testflags,CMP_EQUAL,,,equal
 ParamOverload1,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamOverload1/dut.sv:7:13: error: assignment pattern for 'int$[5]' requires 5 elements but 2 were prov,,
@@ -1083,8 +1083,8 @@ ParamSubstituteComplex,default,CMP_EQUAL,,,equal
 ParamSubstituteComplex,testflags,CMP_EQUAL,,,equal
 ParamTypespec,default,CMP_EQUAL,,,equal
 ParamTypespec,testflags,CMP_EQUAL,,,equal
-ParamTypespec2,default,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
-ParamTypespec2,testflags,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+ParamTypespec2,default,CMP_EQUAL,,,equal
+ParamTypespec2,testflags,CMP_EQUAL,,,equal
 PartSelect3,default,CMP_EQUAL,,,equal
 PartSelect3,testflags,CMP_EQUAL,,,equal
 PartSelect4,default,CMP_EQUAL,,,equal
@@ -1301,8 +1301,8 @@ StructStructHierPath,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/S
 StructStructHierPath,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructStructHierPath/dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
 StructTypedef,default,CMP_EQUAL,,,equal
 StructTypedef,testflags,CMP_EQUAL,,,equal
-StructUnsizedVal,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
-StructUnsizedVal,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+StructUnsizedVal,default,CMP_EQUAL,,,equal
+StructUnsizedVal,testflags,CMP_EQUAL,,,equal
 StructVar,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVar/dut.sv:62:12: error: cannot refer to element 2 of 'pmp_cfg_t$[2]' [-Windex-oob],,
 StructVar,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVar/dut.sv:62:12: error: cannot refer to element 2 of 'pmp_cfg_t$[2]' [-Windex-oob],,
 StructVarImp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVarImp/dut.sv:36:43: error: use of undeclared identifier 'MpRegions'; did you mean 'NumRegions'?,,

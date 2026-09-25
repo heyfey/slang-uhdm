@@ -15004,4 +15004,37 @@ inline bool genCaLhsCtx158(const UHDM::BaseClass* parent) {
     return false;
 }
 
+// ===========================================================================
+// r11u163 — the expression/parameter ground (tools/probe/r11u163repro).
+// Every law reads its own switch; R11U163_OFF drops every one of them (the
+// pristine bytes).  R11U163_TRACE=1 prints one stderr line per firing.
+//   R11U163_AGGFOLDYNAME_OFF  § elabAggFoldYCopyDefNamed163    (ParamEmit.cpp)
+//   R11U163_AGGQUALSPAN_OFF   § aggParamFoldQualSpanByView163  (ExprEmit.cpp)
+//   R11U163_OVARRDEFTS_OFF    § elabOvArrFoldSharesDefParamTs163 (ParamEmit.cpp)
+//   R11U163_OVPATCOPY_OFF     § ovPkgPatOpInstanceCopy163      (ParamEmit.cpp)
+//   R11U163_TPDIMDEF_OFF      § elabTpNamedElemDimDefNamed163  (ParamEmit.cpp)
+//   R11U163_TPDEFNAME_OFF     § elabTpDefaultDefNamed163       (ParamEmit.cpp)
+//   R11U163_OPCLONERELOC_OFF  § paramOpCloneRelocatedSpan163   (ParamEmit.cpp)
+//   R11U163_IMPOPNAME_OFF     § importPatOpCloneParamNamed163  (ParamEmit.cpp)
+//   R11U163_PATLISTCOPY_OFF   § pkgPatListingCopyWhenShared163 (ParamEmit.cpp)
+//   R11U163_FNPNETFILE_OFF    § fnParamRangeNetNoFile163       (ExprEmit.cpp)
+// ===========================================================================
+inline bool r11u163On(const char* one) {
+    static const bool all = getenv("R11U163_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+inline void trace163(const char* law) {
+    static const bool on = getenv("R11U163_TRACE") != nullptr;
+    if (on)
+        fprintf(stderr, "R11U163_TRACE %s\n", law);
+}
+/// Whether the expression being emitted is a parameter's Rhs emitted by
+/// emitParameters' generic arm (the `rhs = emitExpr(*emitInit9, ...)` call),
+/// and in which view: 0 = not there, 1 = the definition listing, 2 = the
+/// elaborated listing.
+inline int& paramRhsView163() {
+    static int v = 0;
+    return v;
+}
+
 } // namespace slang_uhdm
