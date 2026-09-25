@@ -22520,9 +22520,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 raw.erase(std::remove(raw.begin(), raw.end(), '_'), raw.end());
             c->VpiDecompile(raw);
             c->VpiSize((int32_t)expr.type->getBitWidth());
-            if (spc)
+            // § ppBasedLitWsAfter166: the span shrink is the location
+            // model's (basedLiteralSpanShrink); `spc` still compacts the text.
+            if (size_t spSpan166 = basedLiteralSitesCompact() ? spc : 0)
                 setLoc(c, SourceRange(expr.sourceRange.start(),
-                                      expr.sourceRange.end() - spc));
+                                      expr.sourceRange.end() - spSpan166));
             else
                 setLoc(c, expr.sourceRange);
             // Surelog parents constants only as operation operands and
@@ -23142,7 +23144,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     // text's span — the same range, space-strip
                                     // included, that the operation below wears.
                                     SourceRange cr83 = expr.sourceRange;
-                                    if (size_t sp83 = basedLiteralSpaceCount(
+                                    if (size_t sp83 = basedLiteralSpanShrink(
                                             rawText(cr83)))
                                         cr83 = SourceRange(cr83.start(),
                                                            cr83.end() - sp83);
@@ -23163,7 +23165,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // as the inner literal's span does (Surelog re-lexes compactly).
             {
                 SourceRange opr9 = expr.sourceRange;
-                if (size_t sp9 = basedLiteralSpaceCount(rawText(opr9)))
+                if (size_t sp9 = basedLiteralSpanShrink(rawText(opr9)))
                     opr9 = SourceRange(opr9.start(), opr9.end() - sp9);
                 setLoc(op, opr9);
             }
@@ -36822,7 +36824,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // by the removed whitespace (Surelog re-lexes compactly).
                 {
                     SourceRange tpr9 = setter.expr->sourceRange;
-                    if (size_t sp9 = basedLiteralSpaceCount(rawText(tpr9)))
+                    if (size_t sp9 = basedLiteralSpanShrink(rawText(tpr9)))
                         tpr9 = SourceRange(tpr9.start(), tpr9.end() - sp9);
                     setLoc(tp, tpr9);
                 }
@@ -38889,7 +38891,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             SourceRange pir =
                 expr.syntax ? expr.syntax->sourceRange() : expr.sourceRange;
             pir = SourceRange(pir.start(),
-                              pir.end() - basedLiteralSpaceCount(rawText(pir)));
+                              pir.end() - basedLiteralSpanShrink(rawText(pir)));
             // A BARE named-property reference (`assert property (p_reset);` —
             // the name with NO argument list at all) is not instantiated by
             // Surelog: the property expression stays a plain ref_obj naming

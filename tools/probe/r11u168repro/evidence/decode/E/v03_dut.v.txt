@@ -1,0 +1,7 @@
+// decode only (N0056 PreprocTest): a Verilog-mode file lexes `bit` as an identifier
+module top;
+typedef enum logic [1:0] {A, B} e_t;
+e_t x;
+typedef logic [3:0] n_t;
+n_t y;
+endmodule

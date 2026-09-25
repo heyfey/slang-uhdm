@@ -1,0 +1,5 @@
+// decode only (N0056 PreprocTest): a Verilog-mode file lexes `bit` as an identifier
+module top(input logic [3:0] i, output logic [3:0] o);
+assign o = i;
+function logic [3:0] f(input bit [3:0] a); return a; endfunction
+endmodule

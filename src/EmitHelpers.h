@@ -668,6 +668,22 @@ inline size_t basedLiteralSpaceCount(std::string_view text) {
     return n;
 }
 
+// § ppBasedLitWsAfter166 (r11u166) — the SPAN shrink a site applies for a
+// spaced based literal (`8'd 3`): none, since the location model folds the
+// literal's squeezed spaces at every later position of its line
+// (UhdmExporter.cpp fileLineCol).  The literal's DECOMPILE text still drops
+// them (basedLiteralSpaceCount).  Switch R11U166_COL_LIT_OFF (and
+// R11U166_COL_OFF, R11U166_OFF) restores the site compaction.
+inline bool basedLiteralSitesCompact() {
+    static const bool fold = getenv("R11U166_OFF") == nullptr &&
+                             getenv("R11U166_COL_OFF") == nullptr &&
+                             getenv("R11U166_COL_LIT_OFF") == nullptr;
+    return !fold;
+}
+inline size_t basedLiteralSpanShrink(std::string_view text) {
+    return basedLiteralSitesCompact() ? basedLiteralSpaceCount(text) : 0;
+}
+
 // ANSI net-port headers ("input wire x") and non-ANSI net-port
 // declarations ("input wire signed inp;") carry the net keyword token.
 // True when a body net was declared with an explicit net-type keyword

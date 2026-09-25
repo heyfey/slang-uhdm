@@ -1,0 +1,25 @@
+cases 1832 byte movers 24
+tp/r11u119repro/grid/g3/n_dir_lits  strict=NOT_EQUAL_stage1 -> strict=NOT_EQUAL_stage1  cmplines cmplines=36 -> cmplines=36
+tp/r11u119repro/grid/g3/n_nodir_lits  strict=NOT_EQUAL_stage1 -> strict=NOT_EQUAL_stage1  cmplines cmplines=36 -> cmplines=36
+tp/r11u125repro/grid/g3/m05  strict=STRICT_NOTEQUAL_line -> strict=STRICT_EQUAL_71_objects  cmplines cmplines=0 -> cmplines=0
+tp/r11u125repro/grid/g3/m10  strict=STRICT_NOTEQUAL_line -> strict=STRICT_EQUAL_74_objects  cmplines cmplines=0 -> cmplines=0
+tp/r11u125repro/grid/g3/m13  strict=STRICT_NOTEQUAL_file -> strict=STRICT_EQUAL_57_objects  cmplines cmplines=0 -> cmplines=0
+tp/r11u125repro/grid/g3/m14  strict=STRICT_NOTEQUAL_line -> strict=STRICT_EQUAL_93_objects  cmplines cmplines=0 -> cmplines=0
+tp/r11u125repro/grid/g3/m15  strict=STRICT_NOTEQUAL_file -> strict=STRICT_EQUAL_93_objects  cmplines cmplines=0 -> cmplines=0
+tp/r11u130repro/grid/g9/r07_macro_multiline_after  strict=STRICT_NOTEQUAL_line -> strict=STRICT_EQUAL_81_objects  cmplines cmplines=0 -> cmplines=0
+tp/r11v125repro/grid/mf/w04  strict=STRICT_NOTEQUAL_file -> strict=STRICT_EQUAL_79_objects  cmplines cmplines=0 -> cmplines=0
+tp/r11v125repro/grid/mf/w05  strict=STRICT_NOTEQUAL_file -> strict=STRICT_EQUAL_89_objects  cmplines cmplines=0 -> cmplines=0
+tp/r11v125repro/grid/mf/w11  strict=STRICT_NOTEQUAL_line -> strict=STRICT_EQUAL_62_objects  cmplines cmplines=0 -> cmplines=0
+tp/r11v130repro/grid/adv/h09_redef_macro_arg  strict=STRICT_NOTEQUAL_endline -> strict=STRICT_EQUAL_77_objects  cmplines cmplines=0 -> cmplines=0
+tp/r11v131repro/ctp/h05_multiline_macro  strict=STRICT_NOTEQUAL_endcol -> strict=STRICT_EQUAL_72_objects  cmplines cmplines=0 -> cmplines=0
+tp/v11u160repro/cases/MA/o06  strict=NOT_EQUAL_stage1 -> strict=NOT_EQUAL_stage1  cmplines cmplines=122 -> cmplines=122
+tp/v11u160repro/cases/MA/o09  strict=STRICT_NOTEQUAL_endcol -> strict=STRICT_EQUAL_65_objects  cmplines cmplines=0 -> cmplines=0
+tp/v11u160repro/cases/MM/p03  strict=STRICT_NOTEQUAL_line -> strict=STRICT_EQUAL_51_objects  cmplines cmplines=0 -> cmplines=0
+tp/v11u160repro/cases/MM/p05  strict=STRICT_NOTEQUAL_endline -> strict=STRICT_EQUAL_67_objects  cmplines cmplines=0 -> cmplines=0
+tp/v11u160repro/cases/MM/q01  strict=STRICT_NOTEQUAL_file -> strict=STRICT_EQUAL_71_objects  cmplines cmplines=0 -> cmplines=0
+tp/v11u160repro/cases/MM/q04  strict=STRICT_NOTEQUAL_line -> strict=STRICT_EQUAL_70_objects  cmplines cmplines=0 -> cmplines=0
+tp/v11u160repro/cases/MM/q11  strict=NOT_EQUAL_stage1 -> strict=NOT_EQUAL_stage1  cmplines cmplines=45 -> cmplines=45
+tp/v11u160repro/cases/MM/q20  strict=STRICT_NOTEQUAL_endcol -> strict=STRICT_EQUAL_92_objects  cmplines cmplines=0 -> cmplines=0
+tp/v11u160repro/cases/MM/q21  strict=STRICT_NOTEQUAL_endcol -> strict=STRICT_NOTEQUAL_endcol  cmplines cmplines=0 -> cmplines=0
+tp/v11u160repro/cases/MM/r03  strict=STRICT_NOTEQUAL_endline -> strict=STRICT_EQUAL_60_objects  cmplines cmplines=0 -> cmplines=0
+tp/v11u160repro/cases/PA/c5  strict=STRICT_NOTEQUAL_endline -> strict=STRICT_EQUAL_59_objects  cmplines cmplines=0 -> cmplines=0

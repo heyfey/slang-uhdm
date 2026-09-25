@@ -6387,7 +6387,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 ex9->VpiParent(parent);
                 setLoc(ex9, SourceRange(stmt.sourceRange.start(),
                                         stmt.sourceRange.end() -
-                                            basedLiteralSpaceCount(
+                                            basedLiteralSpanShrink(
                                                 rawText(stmt.sourceRange))));
                 if (ca.ifFalse)
                     if (auto* st9 = emitStmt(*ca.ifFalse, ex9, prefix, netMap))
@@ -6398,7 +6398,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     auto pr9 = ca.propertySpec.syntax->sourceRange();
                     setLoc(ps9,
                            SourceRange(pr9.start(),
-                                       pr9.end() - basedLiteralSpaceCount(
+                                       pr9.end() - basedLiteralSpanShrink(
                                                        rawText(pr9))));
                 }
                 const AssertionExpr* pe9 = &ca.propertySpec;
@@ -6437,7 +6437,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             as->VpiParent(parent);
             setLoc(as, SourceRange(stmt.sourceRange.start(),
                                    stmt.sourceRange.end() -
-                                       basedLiteralSpaceCount(
+                                       basedLiteralSpanShrink(
                                            rawText(stmt.sourceRange))));
             if (ca.ifFalse)
                 if (auto* st = emitStmt(*ca.ifFalse, as, prefix, netMap))
@@ -6448,7 +6448,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 auto pr = ca.propertySpec.syntax->sourceRange();
                 setLoc(ps, SourceRange(pr.start(),
                                        pr.end() -
-                                           basedLiteralSpaceCount(rawText(pr))));
+                                           basedLiteralSpanShrink(rawText(pr))));
             }
             const AssertionExpr* pe = &ca.propertySpec;
             const TimingControl* clocking = nullptr;

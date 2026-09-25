@@ -1,0 +1,78 @@
+== surelog default ApbSlave
+P: fields: depth=1 type=1 name=1 fullname=1 file=1 line=21 col=1 endline=24 endcol=3 size=1 objects_differing=26 (walk diverged)
+   STRICT_NOTEQUAL line
+L: fields: depth=1 type=1 name=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+   STRICT_NOTEQUAL depth
+   first walk divergence: P #372 L #372
+== surelog default CovMacro
+P: fields: fullname=8 col=64 endline=42 endcol=118 objects_differing=118
+   STRICT_NOTEQUAL endcol
+L: fields: fullname=8 objects_differing=8
+   STRICT_NOTEQUAL fullname
+   first walk divergence: P  L 
+== surelog default Earlgrey_0_1
+P: fields: type=1 defname=2 fullname=416 file=76 line=6 col=142 endline=6 endcol=1212 size=1 objects_differing=1686 (walk diverged)
+   STRICT_NOTEQUAL line
+L: fields: type=1 defname=2 fullname=407 file=76 line=1 col=28 endline=1 endcol=51 size=1 objects_differing=511 (walk diverged)
+   STRICT_NOTEQUAL fullname
+   first walk divergence: P #130430 L #130430
+== surelog default MiniAmiq
+P: fields: depth=1 type=1 name=1 fullname=5 file=38 line=156 col=22 endline=156 endcol=22 objects_differing=183 (walk diverged)
+   STRICT_NOTEQUAL line
+L: fields: depth=1 type=1 name=1 fullname=5 file=38 line=19 col=22 endline=19 endcol=22 objects_differing=46 (walk diverged)
+   STRICT_NOTEQUAL file
+   first walk divergence: P #2450 L #2450
+== surelog default SeqDriver
+P: fields: depth=1 type=1 name=1 fullname=5 file=38 line=140 col=22 endline=140 endcol=22 objects_differing=167 (walk diverged)
+   STRICT_NOTEQUAL line
+L: fields: depth=1 type=1 name=1 fullname=5 file=38 line=19 col=22 endline=19 endcol=22 objects_differing=46 (walk diverged)
+   STRICT_NOTEQUAL file
+   first walk divergence: P #2433 L #2433
+== surelog default SimpleUVM
+P: fields: depth=1 type=1 name=1 fullname=21 file=38 line=140 col=22 endline=140 endcol=22 objects_differing=183 (walk diverged)
+   STRICT_NOTEQUAL line
+L: fields: depth=1 type=1 name=1 fullname=21 file=38 line=19 col=22 endline=19 endcol=22 objects_differing=62 (walk diverged)
+   STRICT_NOTEQUAL fullname
+   first walk divergence: P #2484 L #2484
+== surelog default Scoreboard
+P: fields: depth=1 type=1 name=1 fullname=21 file=38 line=144 col=22 endline=144 endcol=22 objects_differing=187 (walk diverged)
+   STRICT_NOTEQUAL line
+L: fields: depth=1 type=1 name=1 fullname=21 file=38 line=19 col=22 endline=19 endcol=22 objects_differing=62 (walk diverged)
+   STRICT_NOTEQUAL fullname
+   first walk divergence: P #2492 L #2492
+== surelog default Scr1SvTests
+P: fields: type=1 fullname=1 file=142 line=77 col=1 endline=77 endcol=2 objects_differing=219 (walk diverged)
+   STRICT_NOTEQUAL line
+L: fields: type=1 fullname=1 file=142 line=1 col=1 endline=1 endcol=2 objects_differing=143 (walk diverged)
+   STRICT_NOTEQUAL file
+   first walk divergence: P #16033 L #16033
+== surelog default YosysOldOr
+P: fields: line=1 col=36 endline=1 endcol=74 objects_differing=75
+   STRICT_NOTEQUAL line
+L: fields: line=1 endline=1 objects_differing=1
+   STRICT_NOTEQUAL line
+   first walk divergence: P  L 
+== surelog default YosysRiscv
+P: fields: col=80 endcol=86 objects_differing=86
+   STRICT_NOTEQUAL endcol
+L: fields: col=40 endcol=40 objects_differing=40
+   STRICT_NOTEQUAL col
+   first walk divergence: P  L 
+== surelog default PackedArrayHighConn
+P: fields: fullname=6 objects_differing=6
+   STRICT_NOTEQUAL fullname
+L: fields: fullname=5 objects_differing=5
+   STRICT_NOTEQUAL fullname
+   first walk divergence: P  L 
+== uhdm2rtlil default ibex_pmp
+P: fields: type=1 name=1 fullname=2 file=15 line=15 col=39 endline=27 endcol=51 objects_differing=52 (walk diverged)
+   STRICT_NOTEQUAL file
+L: fields: type=1 name=1 fullname=2 file=15 line=15 col=15 endline=15 endcol=15 objects_differing=16 (walk diverged)
+   STRICT_NOTEQUAL file
+   first walk divergence: P #13972 L #13972
+== surelog default Rggen
+P: fields: depth=1 type=1 name=2 fullname=4 line=3 col=1 endline=3 endcol=3 objects_differing=7 (walk diverged)
+   STRICT_NOTEQUAL fullname
+L: fields: depth=1 type=1 name=2 fullname=4 line=3 col=1 endline=3 endcol=3 objects_differing=7 (walk diverged)
+   STRICT_NOTEQUAL fullname
+   first walk divergence: P #469 L #469

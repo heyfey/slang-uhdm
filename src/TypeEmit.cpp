@@ -9070,7 +9070,10 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                             ws9++;
                         if (ws9) {
                             raw.erase(bp9 + 1, ws9);
-                            if (ec->VpiEndColumnNo() >
+                            // § ppBasedLitWsAfter166: the end shrink is the
+                            // location model's (basedLiteralSitesCompact).
+                            if (basedLiteralSitesCompact() &&
+                                ec->VpiEndColumnNo() >
                                 (int32_t)ws9)
                                 ec->VpiEndColumnNo(ec->VpiEndColumnNo() -
                                                    (int32_t)ws9);
@@ -20240,6 +20243,150 @@ static bool dottedNameBound(const slang::syntax::ExpressionSyntax* es) {
     return cur->kind == syntax::SyntaxKind::IdentifierName;
 }
 
+bool r11u168Law(const char* sw); // the r11u168 switches (UhdmExporter.cpp)
+
+// § structParamBoundAtPatternLeaf168 — a range bound that reads a STRUCT
+// PARAMETER FIELD (`logic dly [0:CFG.HSK.DLY]`) folds, in Surelog, to the
+// constant its reduceExpr finds INSIDE the parameter's value pattern: the
+// member's own value expression (through an override and through a
+// parameter-to-parameter reference: `bus_if #(CFG_DEF)` reads the package
+// localparam `'{HSK: '{1, 1'b0}, DAT: 32}` and locates the bound at that `1`),
+// so the folded constant is located at that leaf.  A NAMED member's literal
+// carries the member's width (`'{W: 3, ...}` with `int unsigned W`: 32), a
+// positional one stays at 64.  Returns false (the pristine location) when the
+// path does not end in a pattern member.  Grid tools/probe/r11u168repro/cases/R.
+static bool structParamLeaf168(const slang::ast::Scope* scope,
+                               const slang::syntax::ExpressionSyntax* es,
+                               slang::SourceRange& leafRange, bool& named,
+                               uint32_t& namedWidth) {
+    namespace syntax = slang::syntax;
+    using namespace slang::ast;
+    if (!scope || !dottedNameBound(es))
+        return false;
+    std::vector<std::string> comps;
+    const syntax::SyntaxNode* cur = es;
+    while (cur->kind == syntax::SyntaxKind::ScopedName) {
+        auto& sn = cur->as<syntax::ScopedNameSyntax>();
+        comps.emplace_back(sn.right->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+        cur = sn.left;
+    }
+    std::string root(cur->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+    std::reverse(comps.begin(), comps.end());
+    auto* rs = Lookup::unqualified(*scope, root);
+    if (!rs || rs->kind != SymbolKind::Parameter)
+        return false;
+    auto strip = [](const Expression* e) {
+        while (e && e->kind == ExpressionKind::Conversion)
+            e = &e->as<ConversionExpression>().operand();
+        return e;
+    };
+    // A parameter's value expression, following parameter-to-parameter reads.
+    auto valueOf = [&](const Symbol* ps) -> const Expression* {
+        const Expression* e = nullptr;
+        for (int guard = 0; ps && guard < 16; guard++) {
+            auto* dt = ps->getDeclaredType();
+            if (!dt)
+                return nullptr;
+            e = strip(dt->getInitializer());
+            if (!e)
+                return nullptr;
+            if (e->kind == ExpressionKind::NamedValue &&
+                e->as<NamedValueExpression>().symbol.kind == SymbolKind::Parameter) {
+                ps = &e->as<NamedValueExpression>().symbol;
+                continue;
+            }
+            return e;
+        }
+        return nullptr;
+    };
+    const Expression* e = valueOf(rs);
+    named = false;
+    namedWidth = 0;
+    // A FLAT value pattern (no member written as a nested pattern) is
+    // converted member by member (the leaf carries its member's width, named
+    // or positional); a pattern holding a nested pattern keeps every leaf
+    // at 64 (measured: h01, r11, r12 flat; r01, r07, r13 nested).
+    bool flat = true;
+    if (auto* top = strip(e)) {
+        auto isPat = [&](const Expression* x) {
+            x = strip(x);
+            return x && (x->kind == ExpressionKind::SimpleAssignmentPattern ||
+                         x->kind == ExpressionKind::StructuredAssignmentPattern);
+        };
+        if (top->kind == ExpressionKind::StructuredAssignmentPattern) {
+            for (auto& ms : top->as<StructuredAssignmentPatternExpression>().memberSetters)
+                if (isPat(ms.expr))
+                    flat = false;
+        }
+        else if (top->kind == ExpressionKind::SimpleAssignmentPattern) {
+            for (auto* x : top->as<SimpleAssignmentPatternExpression>().elements())
+                if (isPat(x))
+                    flat = false;
+        }
+    }
+    const FieldSymbol* lastField = nullptr;
+    for (auto& c : comps) {
+        e = strip(e);
+        if (!e)
+            return false;
+        if (e->kind == ExpressionKind::NamedValue &&
+            e->as<NamedValueExpression>().symbol.kind == SymbolKind::Parameter)
+            e = valueOf(&e->as<NamedValueExpression>().symbol);
+        if (!e)
+            return false;
+        if (e->kind == ExpressionKind::StructuredAssignmentPattern) {
+            auto& sp = e->as<StructuredAssignmentPatternExpression>();
+            const Expression* nx = nullptr;
+            for (auto& ms : sp.memberSetters)
+                if (ms.member && ms.member->name == c) {
+                    nx = ms.expr;
+                    named = true;
+                    lastField = ms.member->kind == SymbolKind::Field
+                                    ? &ms.member->as<FieldSymbol>()
+                                    : nullptr;
+                    break;
+                }
+            if (!nx)
+                return false;
+            e = nx;
+        }
+        else if (e->kind == ExpressionKind::SimpleAssignmentPattern) {
+            auto& sp = e->as<SimpleAssignmentPatternExpression>();
+            auto& ct = e->type->getCanonicalType();
+            if (!ct.isStruct())
+                return false;
+            size_t idx = 0;
+            bool found = false;
+            for (auto& f : ct.as<Scope>().membersOfType<FieldSymbol>()) {
+                if (f.name == c) {
+                    found = true;
+                    lastField = &f;
+                    break;
+                }
+                idx++;
+            }
+            if (!found || idx >= sp.elements().size())
+                return false;
+            e = sp.elements()[idx];
+            named = false;
+        }
+        else
+            return false;
+    }
+    e = strip(e);
+    if (!e || e->sourceRange.start() == slang::SourceLocation::NoLocation)
+        return false;
+    // Only an UNSIZED integer literal leaf: a sized one keeps its own
+    // literal shape in golden (`4'd2`: DEC, size 4), not modelled here.
+    if (e->kind != ExpressionKind::IntegerLiteral ||
+        e->as<IntegerLiteral>().isDeclaredUnsized == false)
+        return false;
+    leafRange = e->sourceRange;
+    named = flat;
+    namedWidth = flat && lastField ? (uint32_t)lastField->getType().getBitWidth() : 0;
+    return true;
+}
+
 // § elabVarRangeMisevalSubst — true when this RANGED unpacked dimension has a
 // bound Surelog could not reduce here (it reads a parameter whose own elab Rhs
 // stayed unfolded).  Such a dim contributes 1 to the array's vpiSize, exactly
@@ -22677,6 +22824,14 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                             joined9 +=
                                 (i9 ? "." : "") + comps[i9].first;
                         hp9->VpiName(joined9);
+                        // § rangeHierPathNoFullName168 — golden stores no
+                        // full name on this hier_path (UHDM otherwise
+                        // computes `work@bus_if.dly.CFG.HSK.DLY` through the
+                        // range): the no-fullname idiom.  Grid
+                        // tools/probe/r11u168repro/cases/R.  Switch
+                        // R11U168_RNGHPNAME_OFF (and R11U168_OFF).
+                        if (r11u168Law("R11U168_RNGHPNAME_OFF"))
+                            hp9->VpiFullName(joined9);
                         hp9->VpiParent(r);
                         setLoc(hp9, es->sourceRange());
                         auto* els9 = s.MakeAnyVec();
@@ -22840,6 +22995,19 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                 c->VpiSize(64);
                 c->VpiValue("UINT:" + std::to_string(val));
                 c->VpiConstType(vpiUIntConst);
+                // § structParamBoundAtPatternLeaf168 (helper above).  Switch
+                // R11U168_SPLEAF_OFF (and R11U168_OFF).
+                static const bool spLeaf168 = r11u168Law("R11U168_SPLEAF_OFF");
+                slang::SourceRange leaf168;
+                bool named168 = false;
+                uint32_t nw168 = 0;
+                if (es && spLeaf168 && arrParentIdBound &&
+                    structParamLeaf168(sym.getParentScope(), es, leaf168, named168, nw168)) {
+                    setLoc(c, leaf168);
+                    if (named168 && nw168)
+                        c->VpiSize((int32_t)nw168);
+                    return c;
+                }
                 if (es)
                     setLoc(c, es->sourceRange());
                 return c;

@@ -691,6 +691,56 @@ bool r11u152Law(const char* sw); // the r11u152 switches (UhdmExporter.cpp)
 bool r11u155Law(const char* sw); // the r11u155 switches (UhdmExporter.cpp)
 bool r11u160Law(const char* sw); // the r11u160 switches (UhdmExporter.cpp)
 bool r11u164Law(const char* sw); // the r11u164 switches (UhdmExporter.cpp)
+bool r11u168Law(const char* sw); // the r11u168 switches (UhdmExporter.cpp)
+// § hcSelIdxInstName168 — the references inside a bit_select HighConn's
+// INDEX are named through the child INSTANCE, exactly like the select
+// itself (`.a(v[sel])` -> `work@dut.m.sel`, `.a(v[i+j])` -> `work@dut.m.v.i`,
+// `.pok_i(pad_pok[DioPadBank[0]])` -> `work@dut.u_dio_pad.pad_pok.DioPadBank`),
+// in the definition view (ours: the port's scope `work@dut.m.a...`) and in
+// the elaborated view (ours: the parent's scope `work@dut...`).  Renames every
+// ref_obj / select under `idx` whose full name lies under `oldScope`.  Grid
+// tools/probe/r11u168repro/cases/H.  Switch R11U168_HCIDXNAME_OFF (and
+// R11U168_OFF).
+static void hcSelIdxRescope168(UHDM::any* idx, const std::string& oldScope,
+                               const std::string& newScope, const std::string& selFull,
+                               bool nested = false) {
+    if (!idx || oldScope.empty() || oldScope == newScope)
+        return;
+    // A definition-view reference keeps its full name UNSET (UHDM computes
+    // it through the port at write time, `<inst>.<port>.<name>`): write the
+    // instance-scoped one (a direct index `<inst>.<name>`, a nested one
+    // `<select>.<name>`).
+    auto re = [&](auto* o) {
+        std::string fn(o->VpiFullName());
+        if (fn.empty()) {
+            std::string nm(o->VpiName());
+            if (!nm.empty())
+                o->VpiFullName((nested ? selFull : newScope) + "." + nm);
+            return;
+        }
+        if (fn.size() > oldScope.size() + 1 && fn.compare(0, oldScope.size(), oldScope) == 0 &&
+            fn[oldScope.size()] == '.')
+            o->VpiFullName(newScope + fn.substr(oldScope.size()));
+    };
+    switch (idx->UhdmType()) {
+        case UHDM::uhdmref_obj:
+            re((UHDM::ref_obj*)idx);
+            break;
+        case UHDM::uhdmbit_select: {
+            auto* b = (UHDM::bit_select*)idx;
+            re(b);
+            hcSelIdxRescope168(b->VpiIndex(), oldScope, newScope, selFull, true);
+            break;
+        }
+        case UHDM::uhdmoperation:
+            if (auto* ops = ((UHDM::operation*)idx)->Operands())
+                for (auto* o : *ops)
+                    hcSelIdxRescope168(o, oldScope, newScope, selFull, true);
+            break;
+        default:
+            break;
+    }
+}
 // § defGenPathSel161 (r11u161) — defined in TypeEmit.cpp: marks the
 // definition-view generate cont_assign whose LHS is being emitted.
 void setDefGenCaLhs161(const UHDM::BaseClass* ca);
@@ -7753,6 +7803,11 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
                         bsD->VpiFullName(prefix + "." +
                                          std::string(child.name) + "." +
                                          std::string(bsD->VpiName()));
+                        static const bool hcIdx168 = r11u168Law("R11U168_HCIDXNAME_OFF");
+                        if (hcIdx168)
+                            hcSelIdxRescope168(bsD->VpiIndex(), connScope9,
+                                               prefix + "." + std::string(child.name),
+                                               std::string(bsD->VpiFullName()));
                     }
                     // An interface-ARRAY element connection (.b(arr[0])) is a
                     // bit_select on the module_array, named by the array and
@@ -16401,6 +16456,22 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     if (auto isyn9 = connInst.getSyntax()) {
                         auto ir9 = isyn9->sourceRange();
                         auto es9 = connE9->sourceRange.start();
+                        // § macroConnInRange166 (r11u166, decoded; pair B) —
+                        // a connection written through a macro (`.clk(`CK)`,
+                        // `CK` = `sub.clk`) starts in the expansion's own
+                        // buffer, so the in-range test against the instance's
+                        // syntax compared locations of two buffers and read
+                        // the connection as a DEFAULT value: no HighConn, the
+                        // child's clock left unconnected in the netlist
+                        // (r11u162 N2).  Compare its expansion point.  Grid
+                        // tools/probe/r11u166mac/cases/ds (c05, c08).  Switch:
+                        // R11U166_MACROCONN_OFF.
+                        static const bool macroConn166 =
+                            getenv("R11U166_OFF") == nullptr &&
+                            getenv("R11U166_MACROCONN_OFF") == nullptr;
+                        if (macroConn166 && es9 != SourceLocation::NoLocation &&
+                            sm->isMacroLoc(es9))
+                            es9 = sm->getFullyExpandedLoc(es9);
                         if (es9 != SourceLocation::NoLocation &&
                             (es9 < ir9.start() || es9 > ir9.end())) {
                             // Default-value conn: a folded 64-bit UINT
@@ -17527,6 +17598,11 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                 : hcPrefix;
                         bsx->VpiFullName(dblPfx + "." + instNm + "." +
                                          std::string(bsx->VpiName()));
+                        static const bool hcIdxE168 = r11u168Law("R11U168_HCIDXNAME_OFF");
+                        if (hcIdxE168)
+                            hcSelIdxRescope168(bsx->VpiIndex(), dblPfx,
+                                               dblPfx + "." + instNm,
+                                               std::string(bsx->VpiFullName()));
                         // § paramIndexElabFold9 — an elab HighConn index that
                         // is itself a SELECT OF A PACKED PARAMETER folds to
                         // the selected BIT: Surelog's ExprEval holds the
@@ -33313,19 +33389,21 @@ static bool substNdaParamRefs(
     UHDM::any* parent,
     std::vector<std::pair<UHDM::ref_typespec*, UHDM::ref_typespec*>>& tsAlias,
     const std::string& selFull = std::string(), bool paAnchor = false,
-    const std::map<std::string, UHDM::ref_typespec*>* declTs = nullptr) {
+    const std::map<std::string, UHDM::ref_typespec*>* declTs = nullptr,
+    bool psBound168 = false) {
     if (!e || pmap.empty())
         return false;
     // Descend one select slot; `direct` marks the ref-IS-the-slot shape, which
     // only the indexed-part-select base treats specially.
     auto descend9 = [&](UHDM::expr* cur9, UHDM::any* newParent, const std::string& sf9,
-                        bool paA9) -> UHDM::expr* {
+                        bool paA9, bool ps9 = false) -> UHDM::expr* {
         if (!cur9)
             return nullptr;
         UHDM::any* slot9 = cur9;
         if (substNdaParamRefs(s, slot9, pmap, prefix, newParent, tsAlias, sf9,
                               paA9 && cur9->UhdmType() == UHDM::uhdmref_obj,
-                              declTs))
+                              declTs,
+                              ps9 && cur9->UhdmType() == UHDM::uhdmref_obj))
             return (UHDM::expr*)slot9;
         return nullptr;
     };
@@ -33371,11 +33449,11 @@ static bool substNdaParamRefs(
             auto* ps = (UHDM::part_select*)e;
             std::string sf9(ps->VpiFullName());
             bool any9 = false;
-            if (auto* nw = descend9(ps->Left_range(), ps, sf9, false)) {
+            if (auto* nw = descend9(ps->Left_range(), ps, sf9, false, true)) {
                 ps->Left_range(nw);
                 any9 = true;
             }
-            if (auto* nw = descend9(ps->Right_range(), ps, sf9, false)) {
+            if (auto* nw = descend9(ps->Right_range(), ps, sf9, false, true)) {
                 ps->Right_range(nw);
                 any9 = true;
             }
@@ -33445,8 +33523,18 @@ static bool substNdaParamRefs(
                 act9 = dit->second;
         }
         auto* rt = s.MakeRef_typespec();
-        rt->VpiFullName(!selFull.empty() && !paAnchor ? selFull
-                                                      : std::string(srt->VpiFullName()));
+        // § paramBaseSelTsInstName168 — a constant substituted for a
+        // parameter reference that IS a part-select bound (`v[I+3:I]`'s `I`,
+        // openmsp430 `BASE_ADDR[14:DEC_WD]`) keeps the value's own
+        // instance-named ref (`work@top.s`), whatever the select's base (a
+        // parameter or a net); a reference nested in a bound OPERATION
+        // (`per_addr[13:DEC_WD-1]`) and a bit-select index are named after
+        // the selected object.  Grid tools/probe/r11u168repro/cases/P.
+        // Switch R11U168_PSBOUNDTS_OFF (and R11U168_OFF).
+        static const bool psBound168On = r11u168Law("R11U168_PSBOUNDTS_OFF");
+        rt->VpiFullName(!selFull.empty() && !paAnchor && !(psBound168 && psBound168On)
+                            ? selFull
+                            : std::string(srt->VpiFullName()));
         rt->VpiParent(c);
         // The source param_assign's ts ref is itself bound LATE (the elab
         // param typespec is minted in the write phase), so alias rather than
@@ -41100,7 +41188,7 @@ UHDM::concurrent_assertions* UhdmExporter::emitAssertion(const ProceduralBlockSy
     as->VpiParent(m);
     setLoc(as, SourceRange(inner->sourceRange.start(),
                            inner->sourceRange.end() -
-                               basedLiteralSpaceCount(rawText(inner->sourceRange))));
+                               basedLiteralSpanShrink(rawText(inner->sourceRange))));
 
     // Action block -> vpiStmt: the PASS action when the assertion writes one,
     // otherwise the `else` action.  Only ever ONE of the two lands — Surelog
@@ -41122,7 +41210,7 @@ UHDM::concurrent_assertions* UhdmExporter::emitAssertion(const ProceduralBlockSy
     if (ca.propertySpec.syntax) {
         auto pr = ca.propertySpec.syntax->sourceRange();
         setLoc(ps, SourceRange(pr.start(),
-                               pr.end() - basedLiteralSpaceCount(rawText(pr))));
+                               pr.end() - basedLiteralSpanShrink(rawText(pr))));
     }
     const AssertionExpr* pe = &ca.propertySpec;
     const TimingControl* clocking = nullptr;
@@ -41509,7 +41597,7 @@ void UhdmExporter::emitNamedClockingBlocks(const InstanceBodySymbol& body,
 
 void UhdmExporter::setLocCompact(UHDM::BaseClass* obj, SourceRange range) {
     setLoc(obj, SourceRange(range.start(),
-                            range.end() - basedLiteralSpaceCount(rawText(range))));
+                            range.end() - basedLiteralSpanShrink(rawText(range))));
 }
 
 UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseClass* parent,
