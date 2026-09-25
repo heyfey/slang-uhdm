@@ -40,6 +40,23 @@ std::map<ParenKey131, ParenInit131>& parenInits131() {
     static std::map<ParenKey131, ParenInit131> m;
     return m;
 }
+// § tpAnonStructLastParamUser167 — the registry (the law is at
+// tpAnonStructLastParamUser167 in drainShareDefParamTs).  One entry per
+// (listing, type parameter): the type parameter's name, the value
+// parameters declared with it in declaration order, the definition, and
+// whether the listing is the elaborated one.
+struct TpStructUse167 {
+    UHDM::scope* m;
+    bool topView;
+    const slang::ast::DefinitionSymbol* def;
+    std::string tp;
+    std::vector<std::string> vps;
+    bool onlyParams;  // named nowhere else in the body: the parent half
+};
+std::vector<TpStructUse167>& tpStructUses167() {
+    static std::vector<TpStructUse167> v;
+    return v;
+}
 // § pkgPatReadTsNoParent131 — the package parameters whose initializer is
 // WRITTEN as an assignment pattern (`pkg::NAME`).
 std::set<std::string>& pkgPatInit131() {
@@ -3624,7 +3641,133 @@ UHDM::constant* UhdmExporter::memLeftReduceCat(UHDM::any* obj,
 // Stamps the recorded leftovers onto every struct typespec reachable from the
 // ELABORATED views (uhdmtopPackages / uhdmtopModules).  The def-package
 // listing is never walked, which is exactly the split golden shows.
+// § evalFuncBodyRhsStampClone167 — the per-member CLONE of a function-body
+// right-hand side that Surelog leaves as an evalFunc leftover (the helper; the
+// law is at its use in stampEvalFuncLeftovers).  Copies an expression tree of
+// operations, hier_paths, ref_objs and constants field for field, parented at
+// `parent`; the path elements after the first carry no stored full name (their
+// names compute through the clone's parent chain), the first keeps a bare one.
+// Any other kind makes the copy fail (`ok = false`: the caller keeps the share).
+// § s2ClonePrecheck167v (r11v167, the verifier's refinement of
+// § evalFuncBodyRhsStampClone167) — the clone is attempted only on a tree it
+// can copy WHOLE.  cloneStampTree167 gives up half-way on an unsupported kind
+// (a bit_select path element: `r.Flag = c.Length[0] != 0`), but the objects it
+// already made stay in the Serializer's factories, and the orphan operation
+// holding a null operand crashes UHDM::Serializer::Save (rc=139; grid
+// tools/probe/r11v167repro/cases/fb/b07, judge-equal on pristine).  This
+// predicate walks the same kinds without allocating: a tree it rejects keeps
+// the share, which is pristine's database.  Switch R11V167_S2PRECHECK_OFF.
+static bool stampTreeClonable167v(const UHDM::any* x) {
+    if (!x)
+        return false;
+    switch (x->UhdmType()) {
+    case UHDM::uhdmoperation:
+        if (auto* ops = ((const UHDM::operation*)x)->Operands())
+            for (auto* e : *ops)
+                if (!stampTreeClonable167v(e))
+                    return false;
+        return true;
+    case UHDM::uhdmhier_path:
+        if (auto* es = ((const UHDM::hier_path*)x)->Path_elems())
+            for (auto* e : *es)
+                if (!e || e->UhdmType() != UHDM::uhdmref_obj)
+                    return false;
+        return true;
+    case UHDM::uhdmref_obj:
+    case UHDM::uhdmconstant:
+        return true;
+    default:
+        return false;
+    }
+}
+static UHDM::any* cloneStampTree167(UHDM::Serializer& s, const UHDM::any* x,
+                                    UHDM::any* parent, bool& ok) {
+    if (!x || !ok)
+        return nullptr;
+    auto cloneRt = [&](const UHDM::ref_typespec* rt,
+                       UHDM::any* p) -> UHDM::ref_typespec* {
+        if (!rt)
+            return nullptr;
+        auto* n = s.MakeRef_typespec();
+        uint32_t id = n->UhdmId();
+        *n = *rt;
+        n->UhdmId(id);
+        n->VpiParent(p);
+        return n;
+    };
+    switch (x->UhdmType()) {
+    case UHDM::uhdmoperation: {
+        auto* o = (const UHDM::operation*)x;
+        auto* n = s.MakeOperation();
+        uint32_t id = n->UhdmId();
+        *n = *o;
+        n->UhdmId(id);
+        n->VpiParent(parent);
+        n->Typespec(cloneRt(o->Typespec(), n));
+        if (auto* ops = o->Operands()) {
+            auto* v = s.MakeAnyVec();
+            for (auto* e : *ops)
+                v->push_back(cloneStampTree167(s, e, n, ok));
+            n->Operands(v);
+        }
+        return n;
+    }
+    case UHDM::uhdmhier_path: {
+        auto* h = (const UHDM::hier_path*)x;
+        auto* n = s.MakeHier_path();
+        uint32_t id = n->UhdmId();
+        *n = *h;
+        n->UhdmId(id);
+        n->VpiParent(parent);
+        n->Typespec(cloneRt(h->Typespec(), n));
+        if (auto* es = h->Path_elems()) {
+            auto* v = s.MakeAnyVec();
+            bool first = true;
+            for (auto* e : *es) {
+                if (!e || e->UhdmType() != UHDM::uhdmref_obj) {
+                    ok = false;
+                    return nullptr;
+                }
+                auto* c = (UHDM::ref_obj*)cloneStampTree167(s, e, n, ok);
+                if (!c)
+                    return nullptr;
+                c->VpiFullName(first ? std::string(c->VpiName()) : std::string());
+                first = false;
+                v->push_back(c);
+            }
+            n->Path_elems(v);
+        }
+        return n;
+    }
+    case UHDM::uhdmref_obj: {
+        auto* r = (const UHDM::ref_obj*)x;
+        auto* n = s.MakeRef_obj();
+        uint32_t id = n->UhdmId();
+        *n = *r;
+        n->UhdmId(id);
+        n->VpiParent(parent);
+        n->Typespec(cloneRt(r->Typespec(), n));
+        return n;
+    }
+    case UHDM::uhdmconstant: {
+        auto* c0 = (const UHDM::constant*)x;
+        auto* n = s.MakeConstant();
+        uint32_t id = n->UhdmId();
+        *n = *c0;
+        n->UhdmId(id);
+        n->VpiParent(parent);
+        n->Typespec(cloneRt(c0->Typespec(), n));
+        return n;
+    }
+    default:
+        ok = false;
+        return nullptr;
+    }
+}
+
 void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
+    // § evalFuncBodyRhsStampClone167 — the S2 leftovers (function-body Rhs).
+    std::set<const UHDM::any*> bodyRhsStamps167;
     for (auto& [sv, up] : memLeftStructVars) {
         if (!sv->Typespec() || sv->Typespec()->Actual_typespec())
             continue;
@@ -3721,8 +3864,10 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
             if (!unreduced)
                 continue;
             auto bit = bodyAsgRhsObj.find(st.rhsExpr[i]);
-            if (bit != bodyAsgRhsObj.end() && bit->second)
+            if (bit != bodyAsgRhsObj.end() && bit->second) {
                 st.values[i] = (UHDM::expr*)bit->second;
+                bodyRhsStamps167.insert(st.values[i]);
+            }
         }
         // § pkgStructFuncAssembleBin — the PACKAGE holder's two extra
         // resolutions.  Both are OBJECT REUSE, exactly as golden's are, and
@@ -3933,6 +4078,101 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
     if (auto* tm = d->TopModules())
         for (auto* m : *tm)
             walk(m);
+    // § evalFuncBodyRhsStampClone167 — A FUNCTION-BODY RIGHT-HAND SIDE LEFT
+    // AS A LEFTOVER IS A CLONE ON THE ELABORATED PARAMETER'S OWN STRUCT COPY,
+    // PARENTED AT ITS MEMBER.  Surelog's setValueInInstance stamps the
+    // reduced body Rhs on the typespec_member of the elaborated parameter's
+    // struct COPY; when the Rhs does not reduce (§ r10fsv3 S2 above) that
+    // copy's member carries a copy of the body's operation whose path
+    // elements hold no stored full name, so they name through the member
+    // (golden StructParamFuncBodyFieldCompare `work@...Cfg.cfg_pkg::cfg_t.
+    // Flag.NrRules`, one copy per instance: grid fs/f02 `work@top.u1.Cfg...`,
+    // `work@top.u2.Cfg...`), while the package typedef, the definition
+    // listing's copy and the struct_var's typespec keep the body object
+    // itself (`cfg_pkg::build_config::NrRules`).  Ours shares one struct (the
+    // package typedef) on every listing, so the elaborated parameter takes
+    // its own copy of it, parented at the parameter (the copy golden holds:
+    // its members name `work@top.Cfg.cfg_pkg::cfg_t.XLEN`), whose stamped
+    // member holds the clone.  Grid tools/probe/r11u167repro/cases/fs.
+    // Switch R11U167_S2CLONE_OFF.
+    if (!bodyRhsStamps167.empty() && r11u167On("R11U167_S2CLONE_OFF")) {
+        std::function<void(UHDM::module_inst*)> walk167 = [&](UHDM::module_inst* m) {
+            if (m->Parameters())
+                for (auto* pa : *m->Parameters()) {
+                    if (pa->UhdmType() != UHDM::uhdmparameter)
+                        continue;
+                    auto* prt = ((UHDM::parameter*)pa)->Typespec();
+                    auto* t = tsOf(prt);
+                    if (!t || t->UhdmType() != UHDM::uhdmstruct_typespec ||
+                        !((UHDM::struct_typespec*)t)->Members())
+                        continue;
+                    auto* st = (UHDM::struct_typespec*)t;
+                    bool hit = false;
+                    for (auto* tm : *st->Members())
+                        if (tm && tm->Actual_value() &&
+                            bodyRhsStamps167.count(tm->Actual_value()))
+                            hit = true;
+                    if (!hit)
+                        continue;
+                    // § s2ClonePrecheck167v — every S2 value must clone whole.
+                    if (r11u167On("R11V167_S2PRECHECK_OFF")) {
+                        bool whole167v = true;
+                        for (auto* tm : *st->Members())
+                            if (tm && tm->Actual_value() &&
+                                bodyRhsStamps167.count(tm->Actual_value()) &&
+                                !stampTreeClonable167v(tm->Actual_value()))
+                                whole167v = false;
+                        if (!whole167v) {
+                            trace167("s2ClonePrecheck167v skip");
+                            continue;
+                        }
+                    }
+                    // The copy: every member copied, each S2 value cloned.
+                    bool ok167 = true;
+                    auto* nst = s.MakeStruct_typespec();
+                    uint32_t nid = nst->UhdmId();
+                    *nst = *st;
+                    nst->UhdmId(nid);
+                    nst->VpiParent(pa);
+                    auto* nmv = s.MakeTypespec_memberVec();
+                    for (auto* tm : *st->Members()) {
+                        auto* ntm = s.MakeTypespec_member();
+                        uint32_t tid = ntm->UhdmId();
+                        *ntm = *tm;
+                        ntm->UhdmId(tid);
+                        ntm->VpiParent(nst);
+                        if (auto* mrt = tm->Typespec()) {
+                            auto* nrt = s.MakeRef_typespec();
+                            uint32_t rid = nrt->UhdmId();
+                            *nrt = *mrt;
+                            nrt->UhdmId(rid);
+                            nrt->VpiParent(ntm);
+                            nrt->VpiFullName("");
+                            ntm->Typespec(nrt);
+                        }
+                        if (auto* v = tm->Actual_value();
+                            v && bodyRhsStamps167.count(v)) {
+                            auto* c167 = cloneStampTree167(s, v, ntm, ok167);
+                            if (!ok167 || !c167)
+                                break;
+                            ntm->Actual_value((UHDM::expr*)c167);
+                        }
+                        nmv->push_back(ntm);
+                    }
+                    if (!ok167)
+                        continue;
+                    nst->Members(nmv);
+                    trace167("evalFuncBodyRhsStampClone167");
+                    prt->Actual_typespec(nst);
+                }
+            if (m->Modules())
+                for (auto* sub : *m->Modules())
+                    walk167(sub);
+        };
+        if (auto* tm = d->TopModules())
+            for (auto* m : *tm)
+                walk167(m);
+    }
     // § pkgStructFuncAssembleBin — and the struct typespec copy of every
     // parameter this law assembled, wherever that copy lives.  A module that
     // WILDCARD-IMPORTS the package materializes its own copy of the package
@@ -6172,6 +6412,86 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         bool v;
         ~EpdRestore() { f = v; }
     } epdRestore{elabParamDim, savedEpd};
+    // § tpAnonStructLastParamUser167 — record every type parameter of a
+    // module or interface listing whose type in force is its WRITTEN
+    // anonymous packed struct/union default, with the value parameters
+    // declared with it, when nothing else in the body names it (the law
+    // is at tpAnonStructLastParamUser167, near drainShareDefParamTs).
+    if (m && !inPackage && !funcScope &&
+        (m->UhdmType() == UHDM::uhdmmodule_inst ||
+         m->UhdmType() == UHDM::uhdminterface_inst) &&
+        body.asSymbol().kind == SymbolKind::InstanceBody &&
+        (r11u167On("R11U167_TPSTRUCTUSE_OFF") ||
+         r11u167On("R11U167_TPSTRUCTSPAN_OFF"))) {
+        auto& ib167 = body.asSymbol().as<InstanceBodySymbol>();
+        const syntax::SyntaxNode* bsyn167 = ib167.getSyntax();
+        std::map<std::string_view, int> idCount167, idInSub167;
+        bool counted167 = false;
+        for (auto& mem167 : body.members()) {
+            if (mem167.kind != SymbolKind::TypeParameter)
+                continue;
+            auto& tp167 = mem167.as<TypeParameterSymbol>();
+            if (topView && tp167.isOverridden())
+                continue;
+            auto* tsyn167 = tp167.targetType.getTypeSyntax();
+            if (!tsyn167 || (tsyn167->kind != syntax::SyntaxKind::StructType &&
+                             tsyn167->kind != syntax::SyntaxKind::UnionType))
+                continue;
+            if (!tsyn167->as<syntax::StructUnionTypeSyntax>().packed)
+                continue;
+            std::vector<std::string> vps167;
+            for (auto& vm167 : body.members()) {
+                if (vm167.kind != SymbolKind::Parameter)
+                    continue;
+                auto& vp167 = vm167.as<ParameterSymbol>();
+                auto dt167 = vp167.getDeclaredType();
+                const syntax::DataTypeSyntax* vs167 =
+                    dt167 ? dt167->getTypeSyntax() : nullptr;
+                if (!vs167 || vs167->kind != syntax::SyntaxKind::NamedType)
+                    continue;
+                auto* nm167 = vs167->as<syntax::NamedTypeSyntax>().name.get();
+                if (nm167 && nm167->kind == syntax::SyntaxKind::IdentifierName &&
+                    nm167->as<syntax::IdentifierNameSyntax>().identifier.valueText() ==
+                        tp167.name)
+                    vps167.push_back(std::string(vp167.name));
+            }
+            if (!bsyn167)
+                continue;
+            if (!counted167) {
+                counted167 = true;
+                std::function<void(const syntax::SyntaxNode&, bool)> walk167 =
+                    [&](const syntax::SyntaxNode& n, bool inSub) {
+                        inSub = inSub ||
+                                n.kind == syntax::SyntaxKind::FunctionDeclaration ||
+                                n.kind == syntax::SyntaxKind::TaskDeclaration;
+                        for (size_t i = 0, c = n.getChildCount(); i < c; i++) {
+                            if (auto* ch = n.childNode(i))
+                                walk167(*ch, inSub);
+                            else if (auto t = n.childToken(i))
+                                if (t.kind == parsing::TokenKind::Identifier) {
+                                    idCount167[t.valueText()]++;
+                                    if (inSub)
+                                        idInSub167[t.valueText()]++;
+                                }
+                        }
+                    };
+                walk167(*bsyn167, false);
+            }
+            // The parent half needs a type named nowhere but at its own
+            // declaration and as the declared type of those value
+            // parameters; the span half needs a value parameter.
+            bool only167 = idCount167[tp167.name] == 1 + (int)vps167.size();
+            if (!only167 && vps167.empty())
+                continue;
+            // A subroutine naming the type relocates the shared struct to
+            // its formal (Surelog's last writer; residue, grid rs/r20): no
+            // half of the law fires there.
+            if (idInSub167[tp167.name] > 0)
+                continue;
+            tpStructUses167().push_back({m, topView, &ib167.getDefinition(),
+                                         std::string(tp167.name), vps167, only167});
+        }
+    }
     // § elabPatQualRefQualSpan133 — the QUALIFIER span (`pkg::`, colons
     // included) of a written `pkg::NAME` reference to a package parameter, or
     // an invalid range for any other expression (an unqualified name, a
@@ -28465,9 +28785,33 @@ void UhdmExporter::drainShareDefParamTs() {
                                 ((UHDM::operation*)r)->VpiOpType() != vpiAssignmentPatternOp)
                                 continue;
                             auto* rt = ((UHDM::operation*)r)->Typespec();
+                            // § pkgPatCallArgReadNoParent167 — the read set
+                            // also holds a `pkg::NAME` that stands as a CALL
+                            // ARGUMENT in a live parameter context
+                            // (`parameter cfg_t Cfg = pkg::mk(pkg::B)`): the
+                            // producer constant-evaluates the call there
+                            // (ExprEval's value functor -> getValue's
+                            // qualified-name arm), which writes the flattened
+                            // copy back, so the package listing's pattern
+                            // reference is unparented (golden
+                            // StructParamPatternInitCast `cfg_pkg::Base`,
+                            // ours `cfg_pkg`), while a plain qualified
+                            // DEFAULT keeps it (pass-124 grid c13 q04).  The
+                            // read gate is § pkgElabPatMemberStamp58's
+                            // (pkgPatCallArgParam58).  Grid
+                            // tools/probe/r11u167repro/cases/pc.  Switch
+                            // R11U167_PATCALLARG_OFF.
+                            bool rd167 = pkgPatScopedRef34(pn, l->VpiName());
+                            if (!rd167 && rt &&
+                                pkgPatInit131().count(pn + "::" + std::string(l->VpiName())) &&
+                                r11u167On("R11U167_PATCALLARG_OFF") &&
+                                pkgPatCallArgParam58(pn, l->VpiName())) {
+                                trace167("pkgPatCallArgReadNoParent167");
+                                rd167 = true;
+                            }
                             if (!rt ||
                                 !pkgPatInit131().count(pn + "::" + std::string(l->VpiName())) ||
-                                !pkgPatScopedRef34(pn, l->VpiName()))
+                                !rd167)
                                 continue;
                             // § pkgPatListingCopyWhenShared163 — a pattern
                             // that ALSO stands in a module listing (our
@@ -28647,6 +28991,157 @@ void UhdmExporter::drainShareDefParamTs() {
     pendingShareDefParamTs.clear();
     impPaLhsDisjointClone133(s, d);  // § impPaLhsDisjointClone133
     arrTsLhsOwnCopy140(s, d);  // § impLhsCloneArrayTsOwnCopy140
+    // § tpAnonStructLastParamUser167 — A TYPE PARAMETER'S ANONYMOUS PACKED
+    // STRUCT IS PARENTED AT ITS LAST VALUE-PARAMETER USER, AND EVERY COPY A
+    // VALUE PARAMETER TAKES KEEPS THE TYPE PARAMETER'S SPAN.  Surelog
+    // compiles `localparam type it_t = struct packed {..}` once, in the
+    // definition (compileTypeParameter parents the struct at the
+    // type_parameter), and every `localparam it_t I = ..` compiled after it
+    // (compileParameterDeclaration) re-parents that SAME object at the value
+    // parameter: golden StructParamFieldRange's type_parameter lists members
+    // `work@StructParamFieldRange.I.x` in both views (ours bare `x`, the
+    // struct unparented), a second `it_t J` wins (grid rs/r03), an unused
+    // type keeps `work@top.it_t.x` (rs/r15).  The value parameter's copy and
+    // its param_assign's pattern copy are the one object in Surelog, located
+    // at the type parameter's `struct` keyword (23:26-23:32; ours spanned
+    // the whole struct, 23:26-26:4).  The member range's references carry
+    // no stored full name there (golden `work@top.I.x.W` from the chain;
+    // ours `work@top.it_t.W`).  Only a type named nowhere else in the body
+    // (a net or variable of the type re-parents it again in elaboration:
+    // rs/r06 bare, rs/r12 `work@top.v.x`; residues).  Grid
+    // tools/probe/r11u167repro/cases/rs.  Switch: R11U167_TPSTRUCTUSE_OFF.
+    if (!tpStructUses167().empty()) {
+        auto& uses167 = tpStructUses167();
+        std::map<std::pair<const slang::ast::DefinitionSymbol*, std::string>,
+                 UHDM::scope*> defM167;
+        for (auto& e : uses167)
+            if (!e.topView)
+                defM167.emplace(std::make_pair(e.def, e.tp), e.m);
+        auto findP167 = [](UHDM::scope* m, const std::string& n,
+                           UHDM::UHDM_OBJECT_TYPE k) -> UHDM::any* {
+            if (auto* ps = m ? m->Parameters() : nullptr)
+                for (auto* p : *ps)
+                    if (p && p->UhdmType() == k && p->VpiName() == n)
+                        return p;
+            return nullptr;
+        };
+        auto isAgg167 = [](const UHDM::typespec* t) {
+            return t && t->VpiName().empty() &&
+                   (t->UhdmType() == UHDM::uhdmstruct_typespec ||
+                    t->UhdmType() == UHDM::uhdmunion_typespec);
+        };
+        auto members167 = [](UHDM::typespec* t) -> UHDM::VectorOftypespec_member* {
+            if (t->UhdmType() == UHDM::uhdmstruct_typespec)
+                return ((UHDM::struct_typespec*)t)->Members();
+            return ((UHDM::union_typespec*)t)->Members();
+        };
+        std::set<std::pair<UHDM::scope*, std::string>> done167;
+        std::set<UHDM::typespec*> parented167;
+        for (auto& e : uses167) {
+            if (!done167.insert({e.m, e.tp}).second)
+                continue;
+            auto dit = defM167.find({e.def, e.tp});
+            if (dit == defM167.end())
+                continue;
+            auto* tpo = findP167(e.m, e.tp, UHDM::uhdmtype_parameter);
+            auto* trt = tpo ? ((UHDM::type_parameter*)tpo)->Typespec() : nullptr;
+            UHDM::typespec* agg = trt ? trt->Actual_typespec() : nullptr;
+            if (!isAgg167(agg))
+                continue;
+            UHDM::any* owner = e.vps.empty()
+                                   ? findP167(dit->second, e.tp, UHDM::uhdmtype_parameter)
+                                   : findP167(dit->second, e.vps.back(), UHDM::uhdmparameter);
+            // Unparented (a body `localparam type`), or parented at its own
+            // type_parameter (a parameter-port-list `parameter type`).
+            static const bool parOn167 = r11u167On("R11U167_TPSTRUCTUSE_OFF");
+            static const bool spanOn167 = r11u167On("R11U167_TPSTRUCTSPAN_OFF");
+            if (parOn167 && e.onlyParams && owner &&
+                (!agg->VpiParent() || agg->VpiParent() == tpo) &&
+                parented167.insert(agg).second) {
+                trace167(e.vps.empty() ? "tpAnonStructLastParamUser167 parent=tp"
+                                       : "tpAnonStructLastParamUser167 parent=vp");
+                agg->VpiParent(owner);
+                std::string tpDot = "." + e.tp + ".";
+                std::function<void(UHDM::any*)> clr = [&](UHDM::any* x) {
+                    if (!x)
+                        return;
+                    if (x->UhdmType() == UHDM::uhdmref_obj) {
+                        auto* ro = (UHDM::ref_obj*)x;
+                        std::string fn(ro->VpiFullName());
+                        std::string tail = tpDot + std::string(ro->VpiName());
+                        if (fn.size() > tail.size() &&
+                            fn.compare(fn.size() - tail.size(), tail.size(), tail) == 0) {
+                            trace167("tpAnonStructLastParamUser167 refname");
+                            ro->VpiFullName("");
+                        }
+                    }
+                    else if (x->UhdmType() == UHDM::uhdmoperation) {
+                        if (auto* os = ((UHDM::operation*)x)->Operands())
+                            for (auto* o : *os)
+                                clr(o);
+                    }
+                };
+                if (auto* mv = members167(agg))
+                    for (auto* mb : *mv) {
+                        auto* mrt = mb ? mb->Typespec() : nullptr;
+                        if (!mrt)
+                            continue;
+                        mrt->VpiFullName("");
+                        UHDM::VectorOfrange* rs = nullptr;
+                        if (auto* mt = mrt->Actual_typespec()) {
+                            if (mt->UhdmType() == UHDM::uhdmlogic_typespec)
+                                rs = ((UHDM::logic_typespec*)mt)->Ranges();
+                            else if (mt->UhdmType() == UHDM::uhdmbit_typespec)
+                                rs = ((UHDM::bit_typespec*)mt)->Ranges();
+                        }
+                        if (rs)
+                            for (auto* r : *rs)
+                                if (r) {
+                                    clr(r->Left_expr());
+                                    clr(r->Right_expr());
+                                }
+                    }
+            }
+            // § tpAnonStructCopySpanAtKeyword167 — the value parameters'
+            // copies and their param_assign pattern copies are Surelog's one
+            // object: they keep the type parameter's span (its `struct`
+            // keyword, § typeParamStructAtKeyword146), whatever net or variable
+            // also names the type (grid rs/r06: the span half alone).
+            // Switch R11U167_TPSTRUCTSPAN_OFF.
+            if (!spanOn167)
+                continue;
+            auto relocate = [&](UHDM::typespec* c) {
+                if (!isAgg167(c) || c == agg || c->UhdmType() != agg->UhdmType())
+                    return;
+                if (c->VpiLineNo() == agg->VpiLineNo() &&
+                    c->VpiColumnNo() == agg->VpiColumnNo() &&
+                    c->VpiEndLineNo() == agg->VpiEndLineNo() &&
+                    c->VpiEndColumnNo() == agg->VpiEndColumnNo())
+                    return;
+                if (c->VpiLineNo() != agg->VpiLineNo() ||
+                    c->VpiColumnNo() != agg->VpiColumnNo())
+                    return;
+                trace167("tpAnonStructCopySpanAtKeyword167");
+                c->VpiEndLineNo(agg->VpiEndLineNo());
+                c->VpiEndColumnNo(agg->VpiEndColumnNo());
+            };
+            for (auto& vn : e.vps) {
+                auto* vp = findP167(e.m, vn, UHDM::uhdmparameter);
+                if (!vp)
+                    continue;
+                if (auto* vrt = ((UHDM::parameter*)vp)->Typespec())
+                    relocate(vrt->Actual_typespec());
+                if (auto* pas = e.m->Param_assigns())
+                    for (auto* pa : *pas)
+                        if (pa && pa->Lhs() == vp)
+                            if (auto* r = pa->Rhs();
+                                r && r->UhdmType() == UHDM::uhdmoperation)
+                                if (auto* ort = ((UHDM::operation*)r)->Typespec())
+                                    relocate(ort->Actual_typespec());
+            }
+        }
+        uses167.clear();
+    }
 }
 
 // Deferred DEF-view aggregate-typedef param ts: bind the SHARED named typedef

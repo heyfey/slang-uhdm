@@ -1,0 +1,7 @@
+// decode-only repro (sister ground, report)
+module top #(parameter int P = 1) (input logic [7:0] a, output logic [7:0] y);
+  if (P == 1) begin : g
+    wire [7:0] w = $signed(a);
+    assign y = w;
+  end
+endmodule

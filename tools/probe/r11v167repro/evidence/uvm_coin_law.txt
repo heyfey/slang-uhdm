@@ -1,0 +1,6 @@
+UVM coin attribution (law sweep vs pristine sweep, uhdm-dump with the workdir normalised):
+default/MiniAmiq ordered=4 orderblind=4 (UINT:1043/943 + vpiDecompile)
+testflags/MiniAmiq ordered=4 orderblind=4
+default/SeqDriver ordered=4 orderblind=4
+testflags/SeqDriver ordered=4 orderblind=4
+default/Scoreboard ordered=92 orderblind=0

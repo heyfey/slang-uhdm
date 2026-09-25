@@ -1,0 +1,5 @@
+// decode-only repro (sister ground, report)
+module top (input logic [7:0] a, output logic [7:0] b);
+  localparam int P = 010;
+  assign b = a[05:02] + P;
+endmodule

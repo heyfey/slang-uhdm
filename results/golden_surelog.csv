@@ -1291,12 +1291,12 @@ StructArrayNet,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
 StructArrayNet,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
 StructNetUnionTypespec,default,CMP_EQUAL,,,equal
 StructNetUnionTypespec,testflags,CMP_EQUAL,,,equal
-StructParamFieldRange,default,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
-StructParamFieldRange,testflags,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
-StructParamFuncBodyFieldCompare,default,STRICT_NOTEQUAL,differ:fullname(11),,differ:fullname(11)
-StructParamFuncBodyFieldCompare,testflags,STRICT_NOTEQUAL,differ:fullname(11),,differ:fullname(11)
-StructParamPatternInitCast,default,STRICT_NOTEQUAL,differ:fullname(11),,differ:fullname(11)
-StructParamPatternInitCast,testflags,STRICT_NOTEQUAL,differ:fullname(11),,differ:fullname(11)
+StructParamFieldRange,default,CMP_EQUAL,,,equal
+StructParamFieldRange,testflags,CMP_EQUAL,,,equal
+StructParamFuncBodyFieldCompare,default,CMP_EQUAL,,,equal
+StructParamFuncBodyFieldCompare,testflags,CMP_EQUAL,,,equal
+StructParamPatternInitCast,default,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+StructParamPatternInitCast,testflags,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
 StructStructHierPath,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructStructHierPath/dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
 StructStructHierPath,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructStructHierPath/dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
 StructTypedef,default,CMP_EQUAL,,,equal

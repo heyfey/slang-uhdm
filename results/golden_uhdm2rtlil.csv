@@ -163,7 +163,7 @@ counters_repeat,default,CMP_EQUAL,,,equal
 CppMacroNameAsVariableName,default,CMP_EQUAL,,,equal
 cs_registers,default,CMP_EQUAL,,,equal
 custom_map_incomp,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/custom_map_incomp/dut.sv:2:9: error: unknown module 'ALU',,
-cva6_struct_param_field,default,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
+cva6_struct_param_field,default,CMP_EQUAL,,,equal
 DeclarationInFor,default,CMP_EQUAL,,,equal
 def_ctx_struct_param,default,CMP_EQUAL,,,equal
 defvalue,default,CMP_EQUAL,,,equal
@@ -321,7 +321,7 @@ ibex_multdiv_fast,default,STRICT_NOTEQUAL,differ:endcol(26),,differ:endcol(26)
 ibex_multdiv_slow,default,CMP_EQUAL,,,equal
 ibex_pmp,default,STRICT_NOTEQUAL,differ:file(52),,differ:file(52)
 ibex_prefetch_buffer,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
-ibex_register_file_ff,default,STRICT_NOTEQUAL,differ:fullname(31),,differ:fullname(31)
+ibex_register_file_ff,default,CMP_EQUAL,,,equal
 ibex_register_file_fpga,default,CMP_EQUAL,,,equal
 ibex_register_file_latch,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_register_file_latch.sv:71:3: error: unknown module 'prim_clock_gating',,
 ibex_top,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_top.sv:68:10: error: unknown class or package 'prim_ram_1p_pkg',,
@@ -1034,7 +1034,7 @@ counters_repeat,testflags,CMP_EQUAL,,,equal
 CppMacroNameAsVariableName,testflags,CMP_EQUAL,,,equal
 cs_registers,testflags,CMP_EQUAL,,,equal
 custom_map_incomp,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/custom_map_incomp/dut.sv:2:9: error: unknown module 'ALU',,
-cva6_struct_param_field,testflags,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
+cva6_struct_param_field,testflags,CMP_EQUAL,,,equal
 DeclarationInFor,testflags,CMP_EQUAL,,,equal
 def_ctx_struct_param,testflags,CMP_EQUAL,,,equal
 defvalue,testflags,CMP_EQUAL,,,equal
@@ -1192,7 +1192,7 @@ ibex_multdiv_fast,testflags,STRICT_NOTEQUAL,differ:endcol(26),,differ:endcol(26)
 ibex_multdiv_slow,testflags,CMP_EQUAL,,,equal
 ibex_pmp,testflags,STRICT_NOTEQUAL,differ:file(52),,differ:file(52)
 ibex_prefetch_buffer,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
-ibex_register_file_ff,testflags,STRICT_NOTEQUAL,differ:fullname(31),,differ:fullname(31)
+ibex_register_file_ff,testflags,CMP_EQUAL,,,equal
 ibex_register_file_fpga,testflags,CMP_EQUAL,,,equal
 ibex_register_file_latch,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_register_file_latch.sv:71:3: error: unknown module 'prim_clock_gating',,
 ibex_top,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_top.sv:68:10: error: unknown class or package 'prim_ram_1p_pkg',,

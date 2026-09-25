@@ -1,0 +1,14 @@
+fb/b07 under the r11u167 law binary (md5 a56d01dffa006e046c84f4ac844d63c3), `law.bin dut.sv --single-unit --nobuiltin -o out.uhdm`:
+rc=139 (pristine rc=0, uhdm-cmp 0 lines, STRICT_NOTEQUAL fullname).  gdb -batch backtrace:
+#0  UHDM::Serializer::SaveAdapter::operator()<UHDM::operation, Operation, void>(...)
+#1  UHDM::Serializer::Save(std::string const&)
+#2  realMain(int, char**)
+#3  main
+Switches on the law binary: R11U167_S2CLONE_OFF=1 -> rc=0 STRICT_NOTEQUAL fullname (pristine verdict);
+R11U167_TPSTRUCTUSE_OFF=1 -> rc=139; R11U167_PATCALLARG_OFF=1 -> rc=139; R11U167_OFF=1 -> rc=0.
+Cause: cloneStampTree167 meets a bit_select path element (`c.Length[0]`), sets ok=false and returns nullptr
+after the operation and hier_path copies were already made; the parent operation's operand vector holds that
+nullptr; the caller keeps the share, but the orphan operation stays in the Serializer's factory and Save
+dereferences the null operand.
+Verified binary (md5 897c5ab1b4073bc00308ac17d99e5db2): rc=0, database byte-identical to pristine,
+trace `R11U167_TRACE s2ClonePrecheck167v skip`.

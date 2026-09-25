@@ -1,0 +1,7 @@
+// decode-only repro (sister ground, report)
+package p;
+  typedef struct packed {logic [11:05] hi; logic [04:00] lo;} s_t;
+endpackage
+module top (input p::s_t a, output p::s_t b);
+  assign b = a;
+endmodule

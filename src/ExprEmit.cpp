@@ -20474,6 +20474,65 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     rpfx9.resize(dp9);
                         }
                         rt->VpiFullName(rpfx9);
+                        // § genProcFoldDeclTsScopeNamed167 — the declared-
+                        // type typespec this fold builds (declTs9, a copy of
+                        // the parameter's `logic [W-1:0]`) is Surelog's copy
+                        // parented at the scope its reference is named by:
+                        // the references in its range compute their full
+                        // names through that scope (golden
+                        // ibex_register_file_ff `rf_reg_q <= WordZeroVal;` in
+                        // g_rf_flops: `work@ibex_register_file_ff.DataWidth`;
+                        // under an operation `work@top.g.W`), and a folded
+                        // bound's constant reference reads the scope
+                        // (`p::PW-1`: `work@top`).  Ours left the copy
+                        // unparented (no names).  One packed range only: a
+                        // multi-dimensional declared type is the parameter's
+                        // own object in golden (`work@top.Z.W`, grid gz/z07).
+                        // Grid tools/probe/r11u167repro/cases/gz.  Switch
+                        // R11U167_GSFOLDDECLTS_OFF.
+                        if (declTs9 && !declTs9->VpiParent() && genPsBound9 && !rpfx9.empty() &&
+                            r11u167On("R11U167_GSFOLDDECLTS_OFF")) {
+                            UHDM::VectorOfrange* rs167 = nullptr;
+                            if (declTs9->UhdmType() == UHDM::uhdmlogic_typespec)
+                                rs167 = ((UHDM::logic_typespec*)declTs9)->Ranges();
+                            else if (declTs9->UhdmType() == UHDM::uhdmbit_typespec)
+                                rs167 = ((UHDM::bit_typespec*)declTs9)->Ranges();
+                            if (rs167 && rs167->size() == 1) {
+                                std::function<void(UHDM::any*)> nm167 =
+                                    [&](UHDM::any* x) {
+                                        if (!x)
+                                            return;
+                                        switch (x->UhdmType()) {
+                                        case UHDM::uhdmref_obj:
+                                            if (!x->VpiName().empty()) {
+                                                ((UHDM::ref_obj*)x)->VpiFullName(
+                                                    rpfx9 + "." + std::string(x->VpiName()));
+                                                trace167("genProcFoldDeclTsScopeNamed167 ref");
+                                            }
+                                            break;
+                                        case UHDM::uhdmconstant:
+                                            if (auto* crt = ((UHDM::constant*)x)->Typespec();
+                                                crt && crt->VpiFullName().empty()) {
+                                                crt->VpiFullName(rpfx9);
+                                                trace167("genProcFoldDeclTsScopeNamed167 constts");
+                                            }
+                                            break;
+                                        case UHDM::uhdmoperation:
+                                            if (auto* os = ((UHDM::operation*)x)->Operands())
+                                                for (auto* o : *os)
+                                                    nm167(o);
+                                            break;
+                                        default:
+                                            break;
+                                        }
+                                    };
+                                for (auto* r : *rs167)
+                                    if (r) {
+                                        nm167(r->Left_expr());
+                                        nm167(r->Right_expr());
+                                    }
+                            }
+                        }
                         rt->Actual_typespec(its);
                         c->Typespec(rt);
                         return c;
@@ -37750,6 +37809,46 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 if (srcParts.size() != parts.size())
                     srcParts = parts;
+            }
+            // § hpDotWsTrimmed167 — whitespace around a written dot
+            // (`bs . wdtxx`) is not part of any component: Surelog's path
+            // text and element names are the bare identifiers (golden
+            // hier_path `bs.wdtxx`, elements `bs` and `wdtxx`; ours carried
+            // `bs . wdtxx` and `bs `, a judge-visible name), and each element
+            // is located at its token (7:15-7:20, ours from the blank at 14).
+            // The dotted text is re-joined from the trimmed components.  Grid
+            // tools/probe/r11u167repro/cases/ws.  Switch R11U167_HPWS_OFF.
+            // (An escaped identifier's terminating blank is part of its
+            // token: a path holding one is left alone.)
+            if (raw.find('\\') == std::string::npos &&
+                r11u167On("R11U167_HPWS_OFF")) {
+                auto isWs167 = [](char c) {
+                    return c == ' ' || c == '\t' || c == '\n' || c == '\r';
+                };
+                bool trimmed167 = false;
+                for (size_t i167 = 0; i167 < parts.size(); i167++) {
+                    for (auto* pv : {&parts[i167], &srcParts[i167]}) {
+                        auto& t = pv->first;
+                        size_t b = 0;
+                        while (b < t.size() && isWs167(t[b]))
+                            b++;
+                        size_t e = t.size();
+                        while (e > b && isWs167(t[e - 1]))
+                            e--;
+                        if (b != 0 || e != t.size()) {
+                            t = t.substr(b, e - b);
+                            pv->second += b;
+                            trimmed167 = true;
+                        }
+                    }
+                }
+                if (trimmed167) {
+                    trace167("hpDotWsTrimmed167");
+                    std::string j167;
+                    for (size_t i167 = 0; i167 < parts.size(); i167++)
+                        j167 += (i167 ? "." : "") + parts[i167].first;
+                    raw = j167;
+                }
             }
             if (parts.size() < 2) {
                 noteUnsupported("hierarchical reference form");

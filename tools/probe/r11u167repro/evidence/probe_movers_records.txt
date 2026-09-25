@@ -1,0 +1,460 @@
+== r11u107repro/grid/t15_tp_struct_unused [tpAnonStructLastParamUser167 parent=tp] pristine=STRICT_NOTEQUAL,differ:fullname(4) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 77 objects
+LEAVE #12 fullname B: 6	ref_typespec			b		0	0	0	0		0
+LEAVE #38 fullname B: 6	ref_typespec			a		0	0	0	0		0
+LEAVE #44 fullname B: 6	ref_typespec			b		0	0	0	0		0
+LEAVE #6 fullname B: 6	ref_typespec			a		0	0	0	0		0
+leave=4 enter=0
+== r11u109repro/grid/f1/b01_casts [evalFuncBodyRhsStampClone167,tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(11) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 734 objects
+LEAVE #376 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #386 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #397 endcol B: 4	struct_typespec				dut.sv	14	26	14	97
+LEAVE #568 fullname B: 9	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	8	17	8	24		0
+LEAVE #573 fullname B: 9	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	8	36	8	42		0
+LEAVE #579 fullname B: 9	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	8	17	8	24		0
+LEAVE #584 fullname B: 9	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	8	36	8	42		0
+LEAVE #590 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #600 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #611 endcol B: 4	struct_typespec				dut.sv	14	26	14	97
+LEAVE #669 endcol B: 5	struct_typespec				dut.sv	14	26	14	97
+leave=11 enter=0
+== r11u109repro/grid/f1/b02_shl [evalFuncBodyRhsStampClone167,tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(11) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 744 objects
+LEAVE #376 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #386 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #397 endcol B: 4	struct_typespec				dut.sv	14	26	14	97
+LEAVE #574 fullname B: 9	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	8	17	8	24		0
+LEAVE #579 fullname B: 9	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	8	36	8	42		0
+LEAVE #585 fullname B: 9	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	8	17	8	24		0
+LEAVE #590 fullname B: 9	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	8	36	8	42		0
+LEAVE #596 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #606 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #617 endcol B: 4	struct_typespec				dut.sv	14	26	14	97
+LEAVE #675 endcol B: 5	struct_typespec				dut.sv	14	26	14	97
+leave=11 enter=0
+== r11u109repro/grid/f1/b03_x32 [evalFuncBodyRhsStampClone167,tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(11) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 784 objects
+LEAVE #376 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #386 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #397 endcol B: 4	struct_typespec				dut.sv	14	26	14	97
+LEAVE #609 fullname B: 9	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	8	17	8	24		0
+LEAVE #614 fullname B: 9	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	8	36	8	42		0
+LEAVE #620 fullname B: 9	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	8	17	8	24		0
+LEAVE #625 fullname B: 9	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	8	36	8	42		0
+LEAVE #631 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #641 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #652 endcol B: 4	struct_typespec				dut.sv	14	26	14	97
+LEAVE #710 endcol B: 5	struct_typespec				dut.sv	14	26	14	97
+leave=11 enter=0
+== r11u109repro/grid/f1/b04_dec [evalFuncBodyRhsStampClone167,tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(11) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 748 objects
+LEAVE #376 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #386 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #397 endcol B: 4	struct_typespec				dut.sv	14	26	14	97
+LEAVE #576 fullname B: 9	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	8	17	8	24		0
+LEAVE #581 fullname B: 9	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	8	36	8	42		0
+LEAVE #587 fullname B: 9	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	8	17	8	24		0
+LEAVE #592 fullname B: 9	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	8	36	8	42		0
+LEAVE #598 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #608 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #619 endcol B: 4	struct_typespec				dut.sv	14	26	14	97
+LEAVE #677 endcol B: 5	struct_typespec				dut.sv	14	26	14	97
+leave=11 enter=0
+== r11u109repro/grid/f1/c01_x64 [pkgPatCallArgReadNoParent167,tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(11) law=STRICT_NOTEQUAL,differ:fullname(3)
+A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL fullname
+LEAVE #122 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #132 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #143 endcol B: 4	struct_typespec				dut.sv	12	26	12	97
+LEAVE #271 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #281 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #292 endcol B: 4	struct_typespec				dut.sv	12	26	12	97
+LEAVE #325 endcol B: 5	struct_typespec				dut.sv	12	26	12	97
+LEAVE #60 fullname B: 4	ref_typespec			cfg_pkg		0	0	0	0		0
+leave=8 enter=0
+== r11u109repro/grid/f1/c02_x3 [pkgPatCallArgReadNoParent167,tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(11) law=STRICT_NOTEQUAL,differ:fullname(3)
+A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL fullname
+LEAVE #122 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #132 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #143 endcol B: 4	struct_typespec				dut.sv	12	26	12	97
+LEAVE #239 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #249 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #260 endcol B: 4	struct_typespec				dut.sv	12	26	12	97
+LEAVE #293 endcol B: 5	struct_typespec				dut.sv	12	26	12	97
+LEAVE #60 fullname B: 4	ref_typespec			cfg_pkg		0	0	0	0		0
+leave=8 enter=0
+== r11u109repro/grid/f1/c03_x8 [pkgPatCallArgReadNoParent167,tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(11) law=STRICT_NOTEQUAL,differ:fullname(3)
+A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL fullname
+LEAVE #122 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #132 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #143 endcol B: 4	struct_typespec				dut.sv	12	26	12	97
+LEAVE #239 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #249 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #260 endcol B: 4	struct_typespec				dut.sv	12	26	12	97
+LEAVE #293 endcol B: 5	struct_typespec				dut.sv	12	26	12	97
+LEAVE #60 fullname B: 4	ref_typespec			cfg_pkg		0	0	0	0		0
+leave=8 enter=0
+== r11u109repro/grid/f1/c04_x64cast [pkgPatCallArgReadNoParent167,tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(13) law=STRICT_NOTEQUAL,differ:fullname(5)
+A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL fullname
+LEAVE #122 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #132 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #143 endcol B: 4	struct_typespec				dut.sv	12	26	12	97
+LEAVE #239 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #249 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #260 endcol B: 4	struct_typespec				dut.sv	12	26	12	97
+LEAVE #293 endcol B: 5	struct_typespec				dut.sv	12	26	12	97
+LEAVE #60 fullname B: 4	ref_typespec			cfg_pkg		0	0	0	0		0
+leave=8 enter=0
+== r11u109repro/grid/f1/c05_x3sub [pkgPatCallArgReadNoParent167,tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(11) law=STRICT_NOTEQUAL,differ:fullname(3)
+A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL fullname
+LEAVE #122 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #132 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #143 endcol B: 4	struct_typespec				dut.sv	12	26	12	97
+LEAVE #245 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #255 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #266 endcol B: 4	struct_typespec				dut.sv	12	26	12	97
+LEAVE #299 endcol B: 5	struct_typespec				dut.sv	12	26	12	97
+LEAVE #60 fullname B: 4	ref_typespec			cfg_pkg		0	0	0	0		0
+leave=8 enter=0
+== r11u109repro/grid/f1/c06_x64plain [pkgPatCallArgReadNoParent167,tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(13) law=STRICT_NOTEQUAL,differ:fullname(5)
+A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL fullname
+LEAVE #122 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #132 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #143 endcol B: 4	struct_typespec				dut.sv	12	26	12	97
+LEAVE #239 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #249 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #260 endcol B: 4	struct_typespec				dut.sv	12	26	12	97
+LEAVE #293 endcol B: 5	struct_typespec				dut.sv	12	26	12	97
+LEAVE #60 fullname B: 4	ref_typespec			cfg_pkg		0	0	0	0		0
+leave=8 enter=0
+== r11u109repro/grid/f1/f02_xlen32 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 299 objects
+LEAVE #190 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #200 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #211 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #247 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/f03_const_first [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 287 objects
+LEAVE #181 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #191 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #202 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #238 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/f04_const_after [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 287 objects
+LEAVE #181 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #191 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #202 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #238 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/f07_add [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 303 objects
+LEAVE #192 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #202 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #213 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #249 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/f08_shl [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 303 objects
+LEAVE #192 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #202 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #213 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #249 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/f09_unary [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 301 objects
+LEAVE #191 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #201 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #212 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #248 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/f11_vlen [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 299 objects
+LEAVE #190 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #200 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #211 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #247 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/f12_based [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 299 objects
+LEAVE #190 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #200 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #211 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #247 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/f17_param [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 299 objects
+LEAVE #190 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #200 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #211 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #247 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/f19_orcasts [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 315 objects
+LEAVE #201 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #211 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #222 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #258 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/f20_sub [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 303 objects
+LEAVE #192 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #202 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #213 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #249 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/f21_shlsub [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 307 objects
+LEAVE #196 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #206 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #217 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #253 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/f22_positional [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 293 objects
+LEAVE #184 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #194 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #205 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #241 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/f24_shladd [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 307 objects
+LEAVE #196 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #206 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #217 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #253 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/p01_base [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 299 objects
+LEAVE #190 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #200 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #211 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #247 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/p02_noread [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 285 objects
+LEAVE #183 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #193 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #204 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #240 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/p03_ready [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(8) law=STRICT_NOTEQUAL,differ:type(1)
+A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL type
+LEAVE #185 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #195 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #206 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #242 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/p04_three [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(9) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 362 objects
+LEAVE #100 endcol B: 4	struct_typespec				dut.sv	6	26	6	115
+LEAVE #223 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #233 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #243 fullname B: 6	ref_typespec			<in>z{z}		0	0	0	0		0
+LEAVE #254 endcol B: 4	struct_typespec				dut.sv	6	26	6	115
+LEAVE #300 endcol B: 5	struct_typespec				dut.sv	6	26	6	115
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #89 fullname B: 6	ref_typespec			<in>z{z}		0	0	0	0		0
+leave=9 enter=0
+== r11u109repro/grid/f1/p05_reorder [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 299 objects
+LEAVE #190 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #200 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #211 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #247 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/p06_plainparam [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp,tpAnonStructLastParamUser167 refname] pristine=STRICT_NOTEQUAL,differ:fullname(13) law=STRICT_NOTEQUAL,differ:value(2)
+A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL value
+LEAVE #100 fullname B: 10	ref_obj	W		work@dut.it_t.W	dut.sv	2	49	2	50		0
+LEAVE #104 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #108 fullname B: 10	ref_obj	W		work@dut.it_t.W	dut.sv	2	66	2	67		0
+LEAVE #113 endcol B: 4	struct_typespec				dut.sv	2	26	2	77
+LEAVE #13 fullname B: 10	ref_obj	W		work@dut.it_t.W	dut.sv	2	49	2	50		0
+LEAVE #137 endcol B: 5	struct_typespec				dut.sv	2	26	2	77
+LEAVE #17 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #21 fullname B: 10	ref_obj	W		work@dut.it_t.W	dut.sv	2	66	2	67		0
+LEAVE #26 endcol B: 4	struct_typespec				dut.sv	2	26	2	77
+LEAVE #9 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #96 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+leave=11 enter=0
+== r11u109repro/grid/f1/p07_litcast [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(9) law=STRICT_NOTEQUAL,differ:value(2)
+A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL value
+LEAVE #178 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #188 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #199 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+LEAVE #235 endcol B: 5	struct_typespec				dut.sv	6	26	6	91
+LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	91
+leave=7 enter=0
+== r11u109repro/grid/f1/p09_shift [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 347 objects
+LEAVE #224 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #234 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #245 endcol B: 4	struct_typespec				dut.sv	6	26	6	97
+LEAVE #281 endcol B: 5	struct_typespec				dut.sv	6	26	6	97
+LEAVE #69 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+LEAVE #79 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+LEAVE #90 endcol B: 4	struct_typespec				dut.sv	6	26	6	97
+leave=7 enter=0
+== r11u47repro/arms/g1 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp,tpAnonStructLastParamUser167 refname] pristine=STRICT_NOTEQUAL,differ:fullname(11) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 183 objects
+LEAVE #100 fullname B: 10	ref_obj	W		work@dut.it_t.W	dut.sv	3	12	3	13		0
+LEAVE #104 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #108 fullname B: 10	ref_obj	W		work@dut.it_t.W	dut.sv	4	12	4	13		0
+LEAVE #113 endline B: 4	struct_typespec				dut.sv	2	26	5	4
+LEAVE #13 fullname B: 10	ref_obj	W		work@dut.it_t.W	dut.sv	3	12	3	13		0
+LEAVE #137 endline B: 5	struct_typespec				dut.sv	2	26	5	4
+LEAVE #17 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #21 fullname B: 10	ref_obj	W		work@dut.it_t.W	dut.sv	4	12	4	13		0
+LEAVE #26 endline B: 4	struct_typespec				dut.sv	2	26	5	4
+LEAVE #9 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #96 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+leave=11 enter=0
+== r11u47repro/arms/g2 [tpAnonStructCopySpanAtKeyword167] pristine=STRICT_NOTEQUAL,differ:fullname(6) law=STRICT_NOTEQUAL,differ:fullname(5)
+A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL fullname
+LEAVE #26 endline B: 4	union_typespec				dut.sv	2	26	5	4
+leave=1 enter=0
+== r11u47repro/arms/g5 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 159 objects
+LEAVE #113 endcol B: 5	struct_typespec				dut.sv	2	36	2	83
+LEAVE #15 fullname B: 6	ref_typespec			y		0	0	0	0		0
+LEAVE #22 endcol B: 4	struct_typespec				dut.sv	2	36	2	83
+LEAVE #80 fullname B: 6	ref_typespec			x		0	0	0	0		0
+LEAVE #86 fullname B: 6	ref_typespec			y		0	0	0	0		0
+LEAVE #9 fullname B: 6	ref_typespec			x		0	0	0	0		0
+LEAVE #93 endcol B: 4	struct_typespec				dut.sv	2	36	2	83
+leave=7 enter=0
+== r11u47repro/arms/g9 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(12) law=STRICT_NOTEQUAL,differ:fullname(2)
+A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL fullname
+LEAVE #12 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #138 fullname B: 7	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #144 fullname B: 7	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #151 endcol B: 5	struct_typespec				dut.sv	2	26	2	73
+LEAVE #167 endcol B: 6	struct_typespec				dut.sv	2	26	2	73
+LEAVE #19 endcol B: 4	struct_typespec				dut.sv	2	26	2	73
+LEAVE #6 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #71 fullname B: 8	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #77 fullname B: 8	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #84 endcol B: 6	struct_typespec				dut.sv	2	26	2	73
+leave=10 enter=0
+== r11v47repro/arms/v16 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(15) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 321 objects
+LEAVE #115 fullname B: 7	ref_typespec			x		0	0	0	0		0
+LEAVE #121 fullname B: 7	ref_typespec			y		0	0	0	0		0
+LEAVE #128 endcol B: 5	struct_typespec				dut.sv	2	36	2	83
+LEAVE #148 endcol B: 6	struct_typespec				dut.sv	2	36	2	83
+LEAVE #189 fullname B: 7	ref_typespec			x		0	0	0	0		0
+LEAVE #195 fullname B: 7	ref_typespec			y		0	0	0	0		0
+LEAVE #202 endcol B: 5	struct_typespec				dut.sv	2	36	2	83
+LEAVE #222 endcol B: 6	struct_typespec				dut.sv	2	36	2	83
+LEAVE #259 fullname B: 7	ref_typespec			x		0	0	0	0		0
+LEAVE #265 fullname B: 7	ref_typespec			y		0	0	0	0		0
+LEAVE #272 endcol B: 5	struct_typespec				dut.sv	2	36	2	83
+LEAVE #29 fullname B: 8	ref_typespec			x		0	0	0	0		0
+leave=15 enter=0
+== r11v47repro/arms/v23 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(16) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 289 objects
+LEAVE #104 endcol B: 7	struct_typespec				dut.sv	1	36	1	83
+LEAVE #120 endcol B: 8	struct_typespec				dut.sv	1	36	1	83
+LEAVE #15 fullname B: 6	ref_typespec			x		0	0	0	0		0
+LEAVE #161 fullname B: 9	ref_typespec			x		0	0	0	0		0
+LEAVE #167 fullname B: 9	ref_typespec			y		0	0	0	0		0
+LEAVE #174 endcol B: 7	struct_typespec				dut.sv	1	36	1	83
+LEAVE #190 endcol B: 8	struct_typespec				dut.sv	1	36	1	83
+LEAVE #21 fullname B: 6	ref_typespec			y		0	0	0	0		0
+LEAVE #230 fullname B: 9	ref_typespec			x		0	0	0	0		0
+LEAVE #236 fullname B: 9	ref_typespec			y		0	0	0	0		0
+LEAVE #243 endcol B: 7	struct_typespec				dut.sv	1	36	1	83
+LEAVE #259 endcol B: 8	struct_typespec				dut.sv	1	36	1	83
+leave=16 enter=0
+== r11v47repro/arms/v29 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp] pristine=STRICT_NOTEQUAL,differ:fullname(7) law=EQUAL,equal
+A: STRICT_NOTEQUAL fullname  B: STRICT_EQUAL 110 objects
+LEAVE #14 fullname B: 6	ref_typespec			x		0	0	0	0		0
+LEAVE #20 fullname B: 6	ref_typespec			y		0	0	0	0		0
+LEAVE #27 endcol B: 4	struct_typespec				dut.sv	1	43	1	90
+LEAVE #55 fullname B: 6	ref_typespec			x		0	0	0	0		0
+LEAVE #61 fullname B: 6	ref_typespec			y		0	0	0	0		0
+LEAVE #68 endcol B: 4	struct_typespec				dut.sv	1	43	1	90
+LEAVE #84 endcol B: 5	struct_typespec				dut.sv	1	43	1	90
+leave=7 enter=0
+== r11v47repro/arms/v30 [tpAnonStructCopySpanAtKeyword167] pristine=STRICT_NOTEQUAL,differ:fullname(18) law=STRICT_NOTEQUAL,differ:fullname(15)
+A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL fullname
+LEAVE #113 endcol B: 4	struct_typespec				dut.sv	3	26	3	75
+LEAVE #135 endcol B: 5	struct_typespec				dut.sv	3	26	3	75
+LEAVE #24 endcol B: 4	struct_typespec				dut.sv	3	26	3	75
+leave=3 enter=0
+== r11v47repro/arms/v7 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167 parent=vp,tpAnonStructLastParamUser167 refname] pristine=STRICT_NOTEQUAL,differ:fullname(15) law=STRICT_NOTEQUAL,differ:fullname(2)
+A: STRICT_NOTEQUAL fullname  B: STRICT_NOTEQUAL fullname
+LEAVE #13 fullname B: 10	ref_obj	W		work@ifc.it_t.W	dut.sv	3	49	3	50		0
+LEAVE #152 fullname B: 7	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #156 fullname B: 11	ref_obj	W		work@dut.u.it_t.W	dut.sv	3	49	3	50		0
+LEAVE #160 fullname B: 7	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #167 endcol B: 5	struct_typespec				dut.sv	3	26	3	75
+LEAVE #17 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #189 endcol B: 6	struct_typespec				dut.sv	3	26	3	75
+LEAVE #24 endcol B: 4	struct_typespec				dut.sv	3	26	3	75
+LEAVE #78 fullname B: 8	ref_typespec			<in>x{x}		0	0	0	0		0
+LEAVE #82 fullname B: 12	ref_obj	W		work@ifc.it_t.W	dut.sv	3	49	3	50		0
+LEAVE #86 fullname B: 8	ref_typespec			<in>y{y}		0	0	0	0		0
+LEAVE #9 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+leave=13 enter=0
+== v11u117repro/grid/b02 [pkgPatCallArgReadNoParent167] pristine=STRICT_NOTEQUAL,differ:name(8) law=STRICT_NOTEQUAL,differ:name(8)
+A: STRICT_NOTEQUAL name  B: STRICT_NOTEQUAL name
+leave=0 enter=0

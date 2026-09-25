@@ -1,0 +1,100 @@
+surelog default FuncStructVal | pristine: STRICT_NOTEQUAL endcol | law: STRICT_NOTEQUAL endcol
+  leave=0 enter=0
+surelog testflags FuncStructVal | pristine: STRICT_NOTEQUAL endcol | law: STRICT_NOTEQUAL endcol
+  leave=0 enter=0
+surelog default Rggen | pristine: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+  leave=0 enter=0
+surelog default Scr1SvTests | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+surelog testflags Scr1SvTests | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+surelog default StructParamFieldRange | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 389 objects
+  LEAVE #159 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+  LEAVE #169 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+  LEAVE #180 endline B: 4	struct_typespec				dut.sv	23	26	26	4
+  LEAVE #280 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+  LEAVE #290 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+  LEAVE #301 endline B: 4	struct_typespec				dut.sv	23	26	26	4
+  leave=7 enter=0
+surelog testflags StructParamFieldRange | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 389 objects
+  LEAVE #159 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+  LEAVE #169 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+  LEAVE #180 endline B: 4	struct_typespec				dut.sv	23	26	26	4
+  LEAVE #280 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+  LEAVE #290 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+  LEAVE #301 endline B: 4	struct_typespec				dut.sv	23	26	26	4
+  leave=7 enter=0
+surelog default StructParamFuncBodyFieldCompare | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 923 objects
+  LEAVE #466 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+  LEAVE #476 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+  LEAVE #487 endline B: 4	struct_typespec				dut.sv	42	26	45	4
+  LEAVE #740 fullname B: 9	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	26	17	26	24		0
+  LEAVE #745 fullname B: 9	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	26	36	26	42		0
+  LEAVE #751 fullname B: 9	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	26	17	26	24		0
+  leave=11 enter=0
+surelog testflags StructParamFuncBodyFieldCompare | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 923 objects
+  LEAVE #466 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+  LEAVE #476 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+  LEAVE #487 endline B: 4	struct_typespec				dut.sv	42	26	45	4
+  LEAVE #740 fullname B: 9	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	26	17	26	24		0
+  LEAVE #745 fullname B: 9	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	26	36	26	42		0
+  LEAVE #751 fullname B: 9	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	26	17	26	24		0
+  leave=11 enter=0
+surelog default StructParamPatternInitCast | pristine: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+  LEAVE #212 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+  LEAVE #222 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+  LEAVE #233 endline B: 4	struct_typespec				dut.sv	30	26	33	4
+  LEAVE #361 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+  LEAVE #371 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+  LEAVE #382 endline B: 4	struct_typespec				dut.sv	30	26	33	4
+  leave=8 enter=0
+surelog testflags StructParamPatternInitCast | pristine: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+  LEAVE #212 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+  LEAVE #222 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+  LEAVE #233 endline B: 4	struct_typespec				dut.sv	30	26	33	4
+  LEAVE #361 fullname B: 6	ref_typespec			<in>S_SW{S_SW}		0	0	0	0		0
+  LEAVE #371 fullname B: 6	ref_typespec			<in>M_SW{M_SW}		0	0	0	0		0
+  LEAVE #382 endline B: 4	struct_typespec				dut.sv	30	26	33	4
+  leave=8 enter=0
+uhdm2rtlil default cva6_struct_param_field | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 389 objects
+  LEAVE #159 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+  LEAVE #169 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+  LEAVE #180 endline B: 4	struct_typespec				dut.sv	25	26	28	4
+  LEAVE #280 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+  LEAVE #290 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+  LEAVE #301 endline B: 4	struct_typespec				dut.sv	25	26	28	4
+  leave=7 enter=0
+uhdm2rtlil testflags cva6_struct_param_field | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 299 objects
+  LEAVE #190 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+  LEAVE #200 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+  LEAVE #211 endline B: 4	struct_typespec				dut.sv	25	26	28	4
+  LEAVE #247 endline B: 5	struct_typespec				dut.sv	25	26	28	4
+  LEAVE #69 fullname B: 6	ref_typespec			<in>x{x}		0	0	0	0		0
+  LEAVE #79 fullname B: 6	ref_typespec			<in>y{y}		0	0	0	0		0
+  leave=7 enter=0
+uhdm2rtlil default ibex_register_file_ff | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 2040 objects
+  LEAVE #1010 fullname B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0
+  LEAVE #1054 fullname B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0
+  LEAVE #1098 fullname B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0
+  LEAVE #1142 fullname B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0
+  LEAVE #1186 fullname B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0
+  LEAVE #1230 fullname B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0
+  leave=31 enter=0
+uhdm2rtlil testflags ibex_register_file_ff | pristine: STRICT_NOTEQUAL fullname | law: STRICT_EQUAL 1950 objects
+  LEAVE #1008 fullname B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0
+  LEAVE #1052 fullname B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0
+  LEAVE #1096 fullname B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0
+  LEAVE #1140 fullname B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0
+  LEAVE #1184 fullname B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0
+  LEAVE #1228 fullname B: 15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0
+  leave=31 enter=0
+surelog default MiniAmiq | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+surelog testflags MiniAmiq | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+surelog default Scoreboard | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+surelog testflags SeqDriver | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+surelog testflags SimpleUVM | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0

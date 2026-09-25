@@ -1,0 +1,6 @@
+V-vs-P default/MiniAmiq ordered=4 orderblind=4 non-UINT/decompile=0
+V-vs-P testflags/MiniAmiq ordered=4 orderblind=4 non-UINT/decompile=0
+V-vs-P default/SeqDriver ordered=4 orderblind=4 non-UINT/decompile=0
+V-vs-P testflags/SeqDriver ordered=4 orderblind=4 non-UINT/decompile=0
+V-vs-P default/SimpleUVM ordered=4 orderblind=4 non-UINT/decompile=0
+V-vs-P testflags/SimpleUVM ordered=4 orderblind=4 non-UINT/decompile=0

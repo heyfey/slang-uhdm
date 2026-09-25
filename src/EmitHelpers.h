@@ -15049,4 +15049,27 @@ inline int& paramRhsView163() {
     return v;
 }
 
+// ===========================================================================
+// r11u167 — the expression/parameter ground (tools/probe/r11u167repro).
+// Every law reads its own switch; R11U167_OFF drops every one of them (the
+// pristine bytes).  R11U167_TRACE=1 prints one stderr line per firing.
+//   R11U167_TPSTRUCTUSE_OFF   § tpAnonStructLastParamUser167   (ParamEmit.cpp)
+//   R11U167_TPSTRUCTSPAN_OFF  § tpAnonStructCopySpanAtKeyword167 (ParamEmit.cpp)
+//   R11U167_PATCALLARG_OFF    § pkgPatCallArgReadNoParent167   (ParamEmit.cpp)
+//   R11U167_S2CLONE_OFF       § evalFuncBodyRhsStampClone167   (ParamEmit.cpp)
+//   R11U167_GSFOLDDECLTS_OFF  § genProcFoldDeclTsScopeNamed167 (ExprEmit.cpp)
+//   R11U167_HPWS_OFF          § hpDotWsTrimmed167              (ExprEmit.cpp)
+//   R11V167_S2PRECHECK_OFF    § s2ClonePrecheck167v            (ParamEmit.cpp;
+//                             the verifier's refinement of § evalFuncBodyRhsStampClone167)
+// ===========================================================================
+inline bool r11u167On(const char* one) {
+    static const bool all = getenv("R11U167_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+inline void trace167(const char* law) {
+    static const bool on = getenv("R11U167_TRACE") != nullptr;
+    if (on)
+        fprintf(stderr, "R11U167_TRACE %s\n", law);
+}
+
 } // namespace slang_uhdm

@@ -1,0 +1,6 @@
+// § genProcFoldDeclTsScopeNamed167
+module top #(parameter int W = 8, parameter logic [W-1:0] Z = '0) (input logic clk, input logic [W-1:0] d, output logic q);
+  if (W == 8) begin : g
+    always_ff @(posedge clk) q <= (d == Z);
+  end
+endmodule

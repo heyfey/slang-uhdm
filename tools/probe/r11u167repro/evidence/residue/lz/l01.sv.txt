@@ -1,0 +1,4 @@
+// decode-only repro (sister ground, report)
+module top (input logic [11:00] a, output logic [11:00] b);
+  assign b = a;
+endmodule

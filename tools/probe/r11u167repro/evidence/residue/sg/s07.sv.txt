@@ -1,0 +1,7 @@
+// decode-only repro (sister ground, report)
+module top #(parameter int P = 1) (input logic [7:0] a, output logic [7:0] y, output logic [3:0] z);
+  if (P == 1) begin : g
+    assign y = $signed(a);
+    assign z = $countones(a);
+  end
+endmodule

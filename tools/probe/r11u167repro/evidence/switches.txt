@@ -1,0 +1,64 @@
+== R11U167_GSFOLDDECLTS_OFF (genProcFoldDeclTsScopeNamed167)
+  gz/z01 [genProcFoldDeclTsScopeNamed167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  gz/z04 [genProcFoldDeclTsScopeNamed167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  gz/z05 [genProcFoldDeclTsScopeNamed167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  gz/z06 [genProcFoldDeclTsScopeNamed167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  gz/z08 [genProcFoldDeclTsScopeNamed167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  gz/z09 [genProcFoldDeclTsScopeNamed167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  gz/z10 [genProcFoldDeclTsScopeNamed167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  gz/z11 [genProcFoldDeclTsScopeNamed167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+== R11U167_HPWS_OFF (hpDotWsTrimmed167)
+  ws/w02 [hpDotWsTrimmed167] switched=NOT_EQUAL_stage1 pristine=NOT_EQUAL_stage1
+== R11U167_PATCALLARG_OFF (pkgPatCallArgReadNoParent167)
+  pc/c01 [pkgPatCallArgReadNoParent167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  pc/c02 [pkgPatCallArgReadNoParent167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  pc/c03 [pkgPatCallArgReadNoParent167] switched=NOT_EQUAL_stage1 pristine=NOT_EQUAL_stage1
+  pc/c06 [pkgPatCallArgReadNoParent167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  pc/c08 [pkgPatCallArgReadNoParent167] switched=NOT_EQUAL_stage1 pristine=NOT_EQUAL_stage1
+  pc/c09 [pkgPatCallArgReadNoParent167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r11 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+== R11U167_S2CLONE_OFF (evalFuncBodyRhsStampClone167)
+  fs/f01 [evalFuncBodyRhsStampClone167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  fs/f02 [evalFuncBodyRhsStampClone167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  fs/f03 [evalFuncBodyRhsStampClone167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  fs/f05 [evalFuncBodyRhsStampClone167] switched=NOT_EQUAL_stage1 pristine=NOT_EQUAL_stage1
+  fs/f06 [evalFuncBodyRhsStampClone167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+== R11U167_TPSTRUCTSPAN_OFF (tpAnonStructCopySpanAtKeyword167)
+  rs/r01 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_endline pristine=STRICT_NOTEQUAL_fullname
+  rs/r02 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_endline pristine=STRICT_NOTEQUAL_fullname
+  rs/r03 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_endline pristine=STRICT_NOTEQUAL_fullname
+  rs/r05 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_endcol pristine=STRICT_NOTEQUAL_fullname
+  rs/r06 [tpAnonStructCopySpanAtKeyword167] switched=STRICT_NOTEQUAL_endline pristine=STRICT_NOTEQUAL_endline
+  rs/r07 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_endline pristine=STRICT_NOTEQUAL_fullname
+  rs/r08 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_endline pristine=STRICT_NOTEQUAL_fullname
+  rs/r09 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_endline pristine=STRICT_NOTEQUAL_fullname
+  rs/r10 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_endline pristine=STRICT_NOTEQUAL_fullname
+  rs/r11 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_endline pristine=STRICT_NOTEQUAL_fullname
+  rs/r12 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r13 [tpAnonStructLastParamUser167] switched=NOT_EQUAL_stage1 pristine=NOT_EQUAL_stage1
+  rs/r17 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_endcol pristine=STRICT_NOTEQUAL_fullname
+  rs/r18 [tpAnonStructLastParamUser167] switched=NOT_EQUAL_stage1 pristine=NOT_EQUAL_stage1
+  rs/r19 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_endline pristine=STRICT_NOTEQUAL_fullname
+  rs/r21 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_endline pristine=STRICT_NOTEQUAL_fullname
+  rs/r22 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_endline pristine=STRICT_NOTEQUAL_fullname
+  rs/r24 [tpAnonStructLastParamUser167] switched=NOT_EQUAL_stage1 pristine=NOT_EQUAL_stage1
+  rs/r25 [tpAnonStructLastParamUser167] switched=NOT_EQUAL_stage1 pristine=NOT_EQUAL_stage1
+== R11U167_TPSTRUCTUSE_OFF (tpAnonStructLastParamUser167)
+  rs/r01 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r02 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r03 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r05 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r07 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r08 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r09 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r10 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r11 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r13 [tpAnonStructLastParamUser167] switched=NOT_EQUAL_stage1 pristine=NOT_EQUAL_stage1
+  rs/r15 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r16 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r17 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r18 [tpAnonStructLastParamUser167] switched=NOT_EQUAL_stage1 pristine=NOT_EQUAL_stage1
+  rs/r19 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r21 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r22 [tpAnonStructLastParamUser167] switched=STRICT_NOTEQUAL_fullname pristine=STRICT_NOTEQUAL_fullname
+  rs/r25 [tpAnonStructLastParamUser167] switched=NOT_EQUAL_stage1 pristine=NOT_EQUAL_stage1

@@ -1,0 +1,4 @@
+// decode-only repro (sister ground, report)
+module top (input logic [7:0] a, output logic [7:0] b);
+  always_comb b = a >> 03;
+endmodule

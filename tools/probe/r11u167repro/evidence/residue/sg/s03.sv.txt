@@ -1,0 +1,8 @@
+// decode-only repro (sister ground, report)
+module top #(parameter int P = 1) (input logic [7:0] a, input logic [7:0] b, output logic [15:0] y);
+  if (P == 1) begin : g
+    always_comb y = $signed(a) * $signed({1'b0, b[6:0]});
+  end else begin : h
+    assign y = '0;
+  end
+endmodule

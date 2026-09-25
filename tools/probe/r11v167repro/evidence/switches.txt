@@ -1,0 +1,123 @@
+r11u167repro/cases/fs/f01 [evalFuncBodyRhsStampClone167,] R11U167_S2CLONE_OFF:PRIS(alone)
+r11u167repro/cases/fs/f02 [evalFuncBodyRhsStampClone167,] R11U167_S2CLONE_OFF:PRIS(alone)
+r11u167repro/cases/fs/f03 [evalFuncBodyRhsStampClone167,] R11U167_S2CLONE_OFF:PRIS(alone)
+r11u167repro/cases/fs/f04 []
+r11u167repro/cases/fs/f05 [evalFuncBodyRhsStampClone167,] R11U167_S2CLONE_OFF:PRIS(alone)
+r11u167repro/cases/fs/f06 [evalFuncBodyRhsStampClone167,] R11U167_S2CLONE_OFF:PRIS(alone)
+r11u167repro/cases/gz/z01 [genProcFoldDeclTsScopeNamed167,] R11U167_GSFOLDDECLTS_OFF:PRIS(alone)
+r11u167repro/cases/gz/z02 []
+r11u167repro/cases/gz/z03 []
+r11u167repro/cases/gz/z04 [genProcFoldDeclTsScopeNamed167,] R11U167_GSFOLDDECLTS_OFF:PRIS(alone)
+r11u167repro/cases/gz/z05 [genProcFoldDeclTsScopeNamed167,] R11U167_GSFOLDDECLTS_OFF:PRIS(alone)
+r11u167repro/cases/gz/z06 [genProcFoldDeclTsScopeNamed167,] R11U167_GSFOLDDECLTS_OFF:PRIS(alone)
+r11u167repro/cases/gz/z07 []
+r11u167repro/cases/gz/z08 [genProcFoldDeclTsScopeNamed167,] R11U167_GSFOLDDECLTS_OFF:PRIS(alone)
+r11u167repro/cases/gz/z09 [genProcFoldDeclTsScopeNamed167,] R11U167_GSFOLDDECLTS_OFF:PRIS(alone)
+r11u167repro/cases/gz/z10 [genProcFoldDeclTsScopeNamed167,] R11U167_GSFOLDDECLTS_OFF:PRIS(alone)
+r11u167repro/cases/gz/z11 [genProcFoldDeclTsScopeNamed167,] R11U167_GSFOLDDECLTS_OFF:PRIS(alone)
+r11u167repro/cases/gz/z12 []
+r11u167repro/cases/pc/c01 [pkgPatCallArgReadNoParent167,] R11U167_PATCALLARG_OFF:PRIS(alone)
+r11u167repro/cases/pc/c02 [pkgPatCallArgReadNoParent167,] R11U167_PATCALLARG_OFF:PRIS(alone)
+r11u167repro/cases/pc/c03 [pkgPatCallArgReadNoParent167,] R11U167_PATCALLARG_OFF:PRIS(alone)
+r11u167repro/cases/pc/c04 []
+r11u167repro/cases/pc/c05 []
+r11u167repro/cases/pc/c06 [pkgPatCallArgReadNoParent167,] R11U167_PATCALLARG_OFF:PRIS(alone)
+r11u167repro/cases/pc/c07 []
+r11u167repro/cases/pc/c08 [pkgPatCallArgReadNoParent167,] R11U167_PATCALLARG_OFF:PRIS(alone)
+r11u167repro/cases/pc/c09 [pkgPatCallArgReadNoParent167,] R11U167_PATCALLARG_OFF:PRIS(alone)
+r11u167repro/cases/pc/c10 []
+r11u167repro/cases/rs/r01 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11u167repro/cases/rs/r02 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11u167repro/cases/rs/r03 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11u167repro/cases/rs/r04 []
+r11u167repro/cases/rs/r05 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11u167repro/cases/rs/r06 [tpAnonStructCopySpanAtKeyword167,] R11U167_TPSTRUCTSPAN_OFF:PRIS(alone)
+r11u167repro/cases/rs/r07 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11u167repro/cases/rs/r08 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11u167repro/cases/rs/r09 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11u167repro/cases/rs/r10 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11u167repro/cases/rs/r11 [pkgPatCallArgReadNoParent167,tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff R11U167_PATCALLARG_OFF:diff
+r11u167repro/cases/rs/r12 [tpAnonStructCopySpanAtKeyword167,] R11U167_TPSTRUCTSPAN_OFF:PRIS(alone)
+r11u167repro/cases/rs/r13 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11u167repro/cases/rs/r14 []
+r11u167repro/cases/rs/r15 [tpAnonStructLastParamUser167,] R11U167_TPSTRUCTUSE_OFF:PRIS(alone)
+r11u167repro/cases/rs/r16 [tpAnonStructLastParamUser167,] R11U167_TPSTRUCTUSE_OFF:PRIS(alone)
+r11u167repro/cases/rs/r17 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11u167repro/cases/rs/r18 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11u167repro/cases/rs/r19 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11u167repro/cases/rs/r20 []
+r11u167repro/cases/rs/r21 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11u167repro/cases/rs/r22 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11u167repro/cases/rs/r23 []
+r11u167repro/cases/rs/r24 [tpAnonStructCopySpanAtKeyword167,] R11U167_TPSTRUCTSPAN_OFF:PRIS(alone)
+r11u167repro/cases/rs/r25 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11u167repro/cases/ws/w01 []
+r11u167repro/cases/ws/w02 [hpDotWsTrimmed167,] R11U167_HPWS_OFF:PRIS(alone)
+r11u167repro/cases/ws/w03 []
+r11v167repro/cases/fb/b01 []
+r11v167repro/cases/fb/b02 [evalFuncBodyRhsStampClone167,] R11U167_S2CLONE_OFF:PRIS(alone)
+r11v167repro/cases/fb/b03 [evalFuncBodyRhsStampClone167,] R11U167_S2CLONE_OFF:PRIS(alone)
+r11v167repro/cases/fb/b04 [evalFuncBodyRhsStampClone167,] R11U167_S2CLONE_OFF:PRIS(alone)
+r11v167repro/cases/fb/b05 [evalFuncBodyRhsStampClone167,] R11U167_S2CLONE_OFF:PRIS(alone)
+r11v167repro/cases/fb/b06 [evalFuncBodyRhsStampClone167,] R11U167_S2CLONE_OFF:PRIS(alone)
+r11v167repro/cases/fb/b07 [s2ClonePrecheck167v,]
+r11v167repro/cases/fb/b08 [evalFuncBodyRhsStampClone167,] R11U167_S2CLONE_OFF:PRIS(alone)
+r11v167repro/cases/gf/g01 []
+r11v167repro/cases/gf/g02 [genProcFoldDeclTsScopeNamed167,] R11U167_GSFOLDDECLTS_OFF:PRIS(alone)
+r11v167repro/cases/gf/g03 []
+r11v167repro/cases/gf/g04 [genProcFoldDeclTsScopeNamed167,] R11U167_GSFOLDDECLTS_OFF:PRIS(alone)
+r11v167repro/cases/gf/g05 [genProcFoldDeclTsScopeNamed167,] R11U167_GSFOLDDECLTS_OFF:PRIS(alone)
+r11v167repro/cases/gf/g06 []
+r11v167repro/cases/gf/g07 [genProcFoldDeclTsScopeNamed167,] R11U167_GSFOLDDECLTS_OFF:PRIS(alone)
+r11v167repro/cases/gf/g08 [genProcFoldDeclTsScopeNamed167,] R11U167_GSFOLDDECLTS_OFF:PRIS(alone)
+r11v167repro/cases/gf/g09 [genProcFoldDeclTsScopeNamed167,] R11U167_GSFOLDDECLTS_OFF:PRIS(alone)
+r11v167repro/cases/gf/g10 []
+r11v167repro/cases/gf/g11 [genProcFoldDeclTsScopeNamed167,] R11U167_GSFOLDDECLTS_OFF:PRIS(alone)
+r11v167repro/cases/gf/g12 [genProcFoldDeclTsScopeNamed167,] R11U167_GSFOLDDECLTS_OFF:PRIS(alone)
+r11v167repro/cases/gf/g13 []
+r11v167repro/cases/hw/h01 [hpDotWsTrimmed167,] R11U167_HPWS_OFF:PRIS(alone)
+r11v167repro/cases/hw/h02 [hpDotWsTrimmed167,] R11U167_HPWS_OFF:PRIS(alone)
+r11v167repro/cases/hw/h03 [hpDotWsTrimmed167,] R11U167_HPWS_OFF:PRIS(alone)
+r11v167repro/cases/hw/h04 [hpDotWsTrimmed167,] R11U167_HPWS_OFF:PRIS(alone)
+r11v167repro/cases/hw/h05 [hpDotWsTrimmed167,] R11U167_HPWS_OFF:PRIS(alone)
+r11v167repro/cases/hw/h06 [hpDotWsTrimmed167,] R11U167_HPWS_OFF:PRIS(alone)
+r11v167repro/cases/hw/h07 [hpDotWsTrimmed167,] R11U167_HPWS_OFF:PRIS(alone)
+r11v167repro/cases/hw/h08 [hpDotWsTrimmed167,] R11U167_HPWS_OFF:PRIS(alone)
+r11v167repro/cases/hw/h09 [hpDotWsTrimmed167,] R11U167_HPWS_OFF:PRIS(alone)
+r11v167repro/cases/hw/h10 [hpDotWsTrimmed167,] R11U167_HPWS_OFF:PRIS(alone)
+r11v167repro/cases/hw/h11 []
+r11v167repro/cases/hw/h12 [hpDotWsTrimmed167,] R11U167_HPWS_OFF:PRIS(alone)
+r11v167repro/cases/pa/a01 [pkgPatCallArgReadNoParent167,] R11U167_PATCALLARG_OFF:PRIS(alone)
+r11v167repro/cases/pa/a02 [pkgPatCallArgReadNoParent167,] R11U167_PATCALLARG_OFF:PRIS(alone)
+r11v167repro/cases/pa/a03 [pkgPatCallArgReadNoParent167,] R11U167_PATCALLARG_OFF:PRIS(alone)
+r11v167repro/cases/pa/a04 []
+r11v167repro/cases/pa/a05 []
+r11v167repro/cases/pa/a06 [pkgPatCallArgReadNoParent167,] R11U167_PATCALLARG_OFF:PRIS(alone)
+r11v167repro/cases/pa/a07 [pkgPatCallArgReadNoParent167,] R11U167_PATCALLARG_OFF:PRIS(alone)
+r11v167repro/cases/pa/a08 []
+r11v167repro/cases/pa/a09 [pkgPatCallArgReadNoParent167,] R11U167_PATCALLARG_OFF:PRIS(alone)
+r11v167repro/cases/pa/a10 []
+r11v167repro/cases/pa/a11 []
+r11v167repro/cases/pa/a12 [pkgPatCallArgReadNoParent167,] R11U167_PATCALLARG_OFF:PRIS(alone)
+r11v167repro/cases/pa/a13 [pkgPatCallArgReadNoParent167,] R11U167_PATCALLARG_OFF:PRIS(alone)
+r11v167repro/cases/pa/a14 [pkgPatCallArgReadNoParent167,] R11U167_PATCALLARG_OFF:PRIS(alone)
+r11v167repro/cases/pa/a15 [pkgPatCallArgReadNoParent167,] R11U167_PATCALLARG_OFF:PRIS(alone)
+r11v167repro/cases/ts/t01 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11v167repro/cases/ts/t02 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11v167repro/cases/ts/t03 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11v167repro/cases/ts/t04 [tpAnonStructCopySpanAtKeyword167,] R11U167_TPSTRUCTSPAN_OFF:PRIS(alone)
+r11v167repro/cases/ts/t05 [tpAnonStructCopySpanAtKeyword167,] R11U167_TPSTRUCTSPAN_OFF:PRIS(alone)
+r11v167repro/cases/ts/t06 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11v167repro/cases/ts/t07 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11v167repro/cases/ts/t08 [tpAnonStructCopySpanAtKeyword167,] R11U167_TPSTRUCTSPAN_OFF:PRIS(alone)
+r11v167repro/cases/ts/t09 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11v167repro/cases/ts/t10 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11v167repro/cases/ts/t11 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11v167repro/cases/ts/t12 [tpAnonStructLastParamUser167,] R11U167_TPSTRUCTUSE_OFF:PRIS(alone)
+r11v167repro/cases/ts/t13 [tpAnonStructCopySpanAtKeyword167,] R11U167_TPSTRUCTSPAN_OFF:PRIS(alone)
+r11v167repro/cases/ts/t14 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11v167repro/cases/ts/t15 []
+r11v167repro/cases/ts/t16 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11v167repro/cases/ts/t17 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11v167repro/cases/ts/t18 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff
+r11v167repro/cases/ts/t19 [tpAnonStructCopySpanAtKeyword167,tpAnonStructLastParamUser167,] R11U167_TPSTRUCTSPAN_OFF:diff R11U167_TPSTRUCTUSE_OFF:diff

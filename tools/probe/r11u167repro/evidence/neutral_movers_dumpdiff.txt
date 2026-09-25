@@ -1,0 +1,21 @@
+== default/Rggen ordered=750 orderblind=750
+    250 >       \_ref_obj: (WIDTH), line:5:18, endln:5:23
+      1 <         |vpiFullName:work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_1.g_bit_field_0.g[1].u_bit_field.WIDTH
+      1 <         |vpiFullName:work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_1.g_bit_field_0.g[0].u_bit_field.WIDTH
+      1 <         |vpiFullName:work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[1].g[2].g_bit_field_2.g[1].u_bit_field.WIDTH
+      1 <         |vpiFullName:work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[1].g[2].g_bit_field_2.g[0].u_bit_field.WIDTH
+      1 <         |vpiFullName:work@rggen.u_block_1.g_register_file_2.g[1].g_register_file_0.g_register_0.g[1].g[2].g_bit_field_1.g[1].u_bit_field.WIDTH
+== default/Scr1SvTests ordered=18 orderblind=18
+      6 >       \_ref_obj: (SCR1_WIDTH), line:11:24, endln:11:34
+      2 <         |vpiFullName:work@scr1_top_tb_axi.i_top.i_core_top.i_tapc.i_tap_idcode_reg.SCR1_WIDTH
+      2 <         |vpiFullName:work@scr1_top_tb_axi.i_top.i_core_top.i_tapc.i_tap_dr_bld_id_reg.SCR1_WIDTH
+      2 <         |vpiFullName:work@scr1_top_tb_axi.i_top.i_core_top.i_tapc.i_bypass_reg.SCR1_WIDTH
+      2 <       \_ref_obj: (work@scr1_top_tb_axi.i_top.i_core_top.i_tapc.i_tap_idcode_reg.SCR1_WIDTH), line:11:24, endln:11:34
+      2 <       \_ref_obj: (work@scr1_top_tb_axi.i_top.i_core_top.i_tapc.i_tap_dr_bld_id_reg.SCR1_WIDTH), line:11:24, endln:11:34
+== default/FuncStructVal ordered=2075 orderblind=2075
+    192 <     |vpiExpr:
+     98 <       |vpiParent:
+     97 <   |vpiTypespecMember:
+     97 <     |vpiTypespec:
+     97 <     |vpiRefFile:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/FuncStructVal/dut.sv
+     97 <     |vpiRefColumnNo:5
