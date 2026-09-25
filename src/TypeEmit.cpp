@@ -6828,6 +6828,21 @@ static bool tpDefaultCaLhsUnparented146(Compilation& comp,
                                          ->getType();
                     while (t->kind == SymbolKind::PackedArrayType)
                         t = &t->as<PackedArrayType>().elementType;
+                    // § tpDefaultCaGenLocalLhsKeeps153v (r11u153, verifier
+                    // refinement) — writeCont_assign's `tps` comes from
+                    // bindVariable(mod, m, name), whose scope walk
+                    // (CompileStmt.cpp:3095) reads function / task / begin /
+                    // module_inst variables and nets and passes a gen_scope
+                    // by: a net DECLARED in a generate block (`T w; assign w
+                    // = i;` inside `if (1) begin : g`) is never found, and
+                    // golden keeps the default's bound references named
+                    // (`<in>T.W`; tools/probe/r11u153verify/cases/tn/
+                    // j03_gen_local_net).  Only a Lhs declared in the
+                    // instance body itself counts.  Switch R11U153_TPCAGEN_OFF.
+                    if (t == &tps.getTypeAlias() && r11u153On("R11U153_TPCAGEN_OFF") &&
+                        lhs.as<NamedValueExpression>().symbol.getParentScope() !=
+                            static_cast<const Scope*>(&body))
+                        continue;
                     if (t == &tps.getTypeAlias())
                         found = true;
                 }

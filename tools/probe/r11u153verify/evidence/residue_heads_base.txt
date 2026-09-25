@@ -1,0 +1,36 @@
+GenCaseStmt/default #139 fullname
+GenCaseStmt/default   A: 4	ref_obj	x_1b0			dut.sv	19	5	19	10		0		
+GenCaseStmt/default   B: 4	ref_obj	x_1b0		work@top.x_1b0	dut.sv	19	5	19	10		0		
+PreprocTest/default #9 endcol
+PreprocTest/default   A: 4	bit_typespec				bp_common_me_if.vh	5	14	5	17				
+PreprocTest/default   B: 4	bit_typespec				bp_common_me_if.vh	5	14	5	23				
+InterfaceParamOverrideProp/default #158 fullname
+InterfaceParamOverrideProp/default   A: 6	ref_typespec			<in>p::cfg_t.HSK		0	0	0	0		0		
+InterfaceParamOverrideProp/default   B: 6	ref_typespec			<in>p::cfg_t.HSK		0	0	0	0		0		
+iface_scalar_localparam/default #158 fullname
+iface_scalar_localparam/default   A: 6	ref_typespec			<in>p::cfg_t.BUS		0	0	0	0		0		
+iface_scalar_localparam/default   B: 6	ref_typespec			<in>p::cfg_t.BUS		0	0	0	0		0		
+IfGenTypeBinding/default #23 endline
+IfGenTypeBinding/default   A: 2	struct_typespec	ibex_pkg::pmp_cfg_t			dut.sv	3	11	8	4				
+IfGenTypeBinding/default   B: 2	struct_typespec	ibex_pkg::pmp_cfg_t			dut.sv	3	11	18	66				
+BasicOh/default #1708 fullname
+BasicOh/default   A: 9	part_select	sync_pipe	sync_pipe	work@oh_fifo_async.wr_rsync.genblk1.sync_pipe	oh_rsync.v	25	9	25	32		0		
+BasicOh/default   B: 9	part_select	sync_pipe	sync_pipe	work@oh_fifo_async.wr_rsync.sync_pipe	oh_rsync.v	25	9	25	32		0		
+comb_dyn_2d_packed_sel/default #743 depth
+comb_dyn_2d_packed_sel/default   A: 5	constant				dut.sv	32	43	32	44	1	64	UINT:1	9
+comb_dyn_2d_packed_sel/default   B: 11	ref_obj	SEL_W		<in>SEL_W		0	0	0	0		0		
+rp32_r5p_alu/default #1157 file
+rp32_r5p_alu/default   A: 2	struct_typespec	riscv_isa_pkg::isa_t			riscv_isa_i_pkg.sv	417	34	417	39				
+rp32_r5p_alu/default   B: 2	struct_typespec	riscv_isa_pkg::isa_t			riscv_isa_pkg.sv	417	34	417	39				
+def_ctx_struct_param/default #43 depth
+def_ctx_struct_param/default   A: 6	typespec_member	RVC			dut.sv	13	18	13	21				
+def_ctx_struct_param/default   B: 7	constant				dut.sv	28	14	28	16	32	64	UINT:32	9
+packed_array_struct/default #94 endline
+packed_array_struct/default   A: 4	struct_typespec				dut.sv	10	28	17	15				
+packed_array_struct/default   B: 4	struct_typespec				dut.sv	10	28	10	34				
+mriscv_bind_sva/default #23371 fullname
+mriscv_bind_sva/default   A: 4	hier_path	mriscvcore_inst0.DECODE_INSTR_inst.rs1i			jg_bind_wrapper.sv	322	14	322	53		0		
+mriscv_bind_sva/default   B: 4	hier_path	mriscvcore_inst0.DECODE_INSTR_inst.rs1i		work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.mriscvcore_inst0.DECODE_INSTR_inst.rs1i	jg_bind_wrapper.sv	322	14	322	53		0		
+ComplexHierPath/default #120 col
+ComplexHierPath/default   A: 14	ref_obj	B			dut.sv	11	58	11	59		0		
+ComplexHierPath/default   B: 14	ref_obj	B			dut.sv	11	56	11	57		0		

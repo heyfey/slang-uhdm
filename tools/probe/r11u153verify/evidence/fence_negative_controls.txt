@@ -1,0 +1,11 @@
+rc=1 predict.py: export FENCED (the four slang-fenced test names, space separated) first; it refuses to s :: predict.py x y
+rc=1 unmask.py: export FENCED (the four slang-fenced names) first :: unmask.py a b c d
+rc=1 head.sh: export FENCED (four names) first :: bash head.sh a b c d
+rc=1 compose.py: export FENCED (the four slang-fenced names) first :: compose.py a b c d
+rc=1 joint.py: export FENCED first :: joint.py a b c
+<fenced name 1> FENCED-SKIP
+positive control PortExpr hits in r11u146repro: 8
+fenced name 1: tool-dir hits 0, r11u148share hits drivers/census.py , probe-case paths 0
+fenced name 2: tool-dir hits 0, r11u148share hits drivers/census.py , probe-case paths 0
+fenced name 3: tool-dir hits 0, r11u148share hits drivers/census.py , probe-case paths 0
+fenced name 4: tool-dir hits 0, r11u148share hits drivers/census.py , probe-case paths 0

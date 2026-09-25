@@ -14376,6 +14376,20 @@ inline bool r11u145On(const char* one) {
     return !all && getenv(one) == nullptr;
 }
 
+// ============================================================================
+// r11u153 — the verifier's refinements of passes 145 and 146 (fresh cases in
+// tools/probe/r11u153verify).  Every refinement reads its own switch;
+// `R11U153_OFF=1` turns them all off (the landed bytes of d10675dd).
+//   R11U153_DFIINT_OFF      § defaultFillImportIntOnly153v    (ParamEmit.cpp)
+//   R11U153_PSRBASESEL_OFF  § psRangeBoundHpBaseSelKeeps153v   (ExprEmit.cpp)
+//   R11U153_TPCAGEN_OFF     § tpDefaultCaGenLocalLhsKeeps153v  (TypeEmit.cpp)
+//   R11U153_TFARGDPIEXP_OFF § tfArgDpiExportFirstNoWrite153v   (UhdmExporter.cpp)
+// ============================================================================
+inline bool r11u153On(const char* one) {
+    static const bool all = getenv("R11U153_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+
 /// § defaultFillImportCopies145 — § defaultFillOneConstant140 holds for a
 /// parameter DECLARED in the module (the elaborator's expansion lists one
 /// constant object for every element), but the expansion a wildcard or

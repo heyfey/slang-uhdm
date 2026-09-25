@@ -11190,6 +11190,41 @@ UHDM::design* UhdmExporter::exportDesign() {
             if (k == syntax::SyntaxKind::DPIImport &&
                 r11u146Law("R11V146_TFARGDPI_OFF"))
                 return;
+            // § tfArgDpiExportFirstNoWrite153v (r11u153, verifier refinement)
+            // — a subroutine whose `export "DPI-C"` declaration PRECEDES its
+            // definition in the same scope does not write the typedef: the
+            // export's prototype object (CompileStmt.cpp compileFunctionPrototype)
+            // is found by name first and takes the definition's ports in the
+            // FUNCTION collect pass, before the typedef declaration's own
+            // compile re-populates its span; golden keeps `e_t`'s own span
+            // (package and module, function and task: tools/probe/
+            // r11u153verify/cases/fa/g09_dpi_export).  An export written AFTER
+            // the definition, or naming another subroutine, leaves the rule as
+            // it was (golden moves).  Switch R11U153_TFARGDPIEXP_OFF.
+            if ((k == syntax::SyntaxKind::FunctionDeclaration ||
+                 k == syntax::SyntaxKind::TaskDeclaration) &&
+                n.parent && r11u153On("R11U153_TFARGDPIEXP_OFF")) {
+                auto& fd153 = n.as<syntax::FunctionDeclarationSyntax>();
+                std::string_view fn153;
+                if (fd153.prototype && fd153.prototype->name &&
+                    fd153.prototype->name->kind == syntax::SyntaxKind::IdentifierName)
+                    fn153 = fd153.prototype->name->as<syntax::IdentifierNameSyntax>()
+                                .identifier.valueText();
+                bool exp153 = false;
+                auto chk153 = [&](const syntax::SyntaxNode* c) {
+                    if (c && c->kind == syntax::SyntaxKind::DPIExport &&
+                        c->as<syntax::DPIExportSyntax>().name.valueText() == fn153 &&
+                        c->sourceRange().start().buffer() ==
+                            n.sourceRange().start().buffer() &&
+                        c->sourceRange().start() < n.sourceRange().start())
+                        exp153 = true;
+                };
+                if (!fn153.empty())
+                    for (size_t i = 0; i < n.parent->getChildCount(); i++)
+                        chk153(n.parent->childNode(i));
+                if (exp153)
+                    return;
+            }
             if (k == syntax::SyntaxKind::FunctionPort) {
                 auto& fp = n.as<syntax::FunctionPortSyntax>();
                 if (fp.dataType && fp.dataType->kind == syntax::SyntaxKind::NamedType) {

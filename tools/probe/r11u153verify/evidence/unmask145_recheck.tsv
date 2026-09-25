@@ -1,0 +1,7 @@
+corpus	key	first_off	first_on	newpre	div_off	div_on	obaway	obtoward	lost	verdict
+surelog	YosysBigSimEllip/default	8924	17355	0	70374	70374	4704	5480	0	OK-NOLOSS
+uhdm2rtlil	int_types/default	108	108	0	5293	5293	4	32	4	CHECK
+uhdm2rtlil	int_types/testflags	18	18	0	5203	5203	4	32	4	CHECK
+surelog	BasicOh/default	603	1708	0	4011	4011	0	56	0	OK
+surelog	Scr1SvTests/default	4	4	0	16033	16033	0	376	0	OK
+surelog	Scr1SvTests/testflags	4	4	0	16033	16033	0	376	0	OK

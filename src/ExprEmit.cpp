@@ -9861,7 +9861,13 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     // the compiler REDUCED by its VALUE, not by its spelling.
     hpNameBareIdxFold69(hp);
     trailSelIdxNames133(trailIdx133, prefix, hp);  // § hpTrailSelIdxNamesByPath133
-    baseSelOpIdxNames145(prefix, hp);  // § hpBaseSelOpIdxNamesByPath145 SITE 1 of 2
+    // § psRangeBoundHpBaseSelKeeps153v (r11u153, verifier refinement) — a
+    // path inside a whole-variable SIMPLE part-select's range bound
+    // (`i[P[D-1].w-1:0]`) keeps the bound's base-select naming
+    // (`work@dut.i.D`) in golden; the indexed-select base and a bit-select
+    // index do take the path.  Switch R11U153_PSRBASESEL_OFF.
+    if (!(inPsRangeBound && r11u153On("R11U153_PSRBASESEL_OFF")))
+        baseSelOpIdxNames145(prefix, hp);  // § hpBaseSelOpIdxNamesByPath145 SITE 1 of 2
     return hp;
 }
 
@@ -30695,7 +30701,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // the compiler REDUCED by its VALUE, not by its spelling.
                 hpNameBareIdxFold69(hp);
                 trailSelIdxNames133(trailIdx133b, prefix, hp);  // § hpTrailSelIdxNamesByPath133
-                baseSelOpIdxNames145(prefix, hp);  // § hpBaseSelOpIdxNamesByPath145 SITE 2 of 2
+                // § psRangeBoundHpBaseSelKeeps153v — as at SITE 1.
+                if (!(inPsRangeBound && r11u153On("R11U153_PSRBASESEL_OFF")))
+                    baseSelOpIdxNames145(prefix, hp);  // § hpBaseSelOpIdxNamesByPath145 SITE 2 of 2
                 return hp;
             }
             // Nested element selects (unpacked arrays) flatten to a

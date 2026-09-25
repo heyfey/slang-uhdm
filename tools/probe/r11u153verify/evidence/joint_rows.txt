@@ -1,0 +1,4 @@
+BasicOh/testflags records<3838: |D_O|=22 |D_A|=20 |D_B|=2 |D_P|=0 A-O=0 B-O=0 P-(A&B)=0 O-A(fixed by 146 alone)=2 O-B(fixed by 145 alone)=20 overlap=0 NO-CANCELLATION
+BasicOh/default records<4011: |D_O|=51 |D_A|=49 |D_B|=31 |D_P|=29 A-O=0 B-O=0 P-(A&B)=0 O-A(fixed by 146 alone)=2 O-B(fixed by 145 alone)=20 overlap=0 NO-CANCELLATION
+Scr1SvTests/default records<16033: |D_O|=227 |D_A|=223 |D_B|=223 |D_P|=219 A-O=0 B-O=0 P-(A&B)=0 O-A(fixed by 146 alone)=4 O-B(fixed by 145 alone)=4 overlap=0 NO-CANCELLATION
+Scr1SvTests/testflags records<16033: |D_O|=227 |D_A|=223 |D_B|=223 |D_P|=219 A-O=0 B-O=0 P-(A&B)=0 O-A(fixed by 146 alone)=4 O-B(fixed by 145 alone)=4 overlap=0 NO-CANCELLATION

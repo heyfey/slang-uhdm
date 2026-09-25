@@ -12050,8 +12050,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         // DefaultPatternInt).  Grid
                         // tools/probe/r11u145repro/dfi.  Switch:
                         // R11U145_DEFFILLIMP_OFF.
+                        // § defaultFillImportIntOnly153v (r11u153, verifier
+                        // refinement) — Surelog expands the default fill only
+                        // for an `int` element (CompileHelper.cpp:3401
+                        // `baseType == uhdmint_typespec`, one shared constant
+                        // the import's clone_tree copies per element); every
+                        // other integral element (byte, shortint, longint,
+                        // integer, bit/logic vectors) keeps the tagged_pattern
+                        // operation in golden, so minting per element there
+                        // only grows the (pre-existing) expansion's distance
+                        // to golden.  Grid tools/probe/r11u153verify/cases/dfi.
+                        // Switch R11U153_DFIINT_OFF.
+                        const bool int153 =
+                            !r11u153On("R11U153_DFIINT_OFF") ||
+                            (uel8->getCanonicalType().isPredefinedInteger() &&
+                             uel8->getCanonicalType().as<PredefinedIntegerType>()
+                                     .integerKind == PredefinedIntegerType::Int);
                         const bool share145 =
-                            one140 && !(isImported && defaultFillImportCopies145On());
+                            one140 && !(isImported && defaultFillImportCopies145On() &&
+                                        int153);
                         UHDM::constant* c140 = nullptr;
                         for (uint32_t i8 = 0; i8 < uat8.range.width(); i8++) {
                             if (share145 && c140) {

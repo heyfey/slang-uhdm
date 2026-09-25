@@ -1,0 +1,180 @@
+case	laws	moves	off	on	records	orderblind	composition	md5_off	md5_on	md5_alloff	extra
+bso/h01_ca_in_gen	hpBaseSelOpIdxNamesByPath145	still	NOT_EQUAL_stage1|cmp180	NOT_EQUAL_stage1|cmp180	nodump	ob_away=0 ob_toward=0	alloff==off	13bd908f	13bd908f	13bd908f
+bso/h02_trail_and_base_op	hpBaseSelOpIdxNamesByPath145	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_129_objects|cmp0	away=0 toward=2 div_on=130 div_off=130	ob_away=0 ob_toward=4	alloff==off	5c2872a9	81d6c24e	5c2872a9
+bso/h03_nested_op	hpBaseSelOpIdxNamesByPath145	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_113_objects|cmp0	away=0 toward=2 div_on=114 div_off=114	ob_away=0 ob_toward=4	alloff==off	fa3989d1	3275c278	fa3989d1
+bso/h04_iface_ca	hpBaseSelOpIdxNamesByPath145	MOVES	NOT_EQUAL_stage1|cmp110	NOT_EQUAL_stage1|cmp110	nodump	ob_away=0 ob_toward=4	alloff==off	5e23062b	7388ea04	5e23062b
+bso/h05_if_cond	hpBaseSelOpIdxNamesByPath145	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_123_objects|cmp0	away=0 toward=2 div_on=124 div_off=124	ob_away=0 ob_toward=4	alloff==off	114c0515	93c756ff	114c0515
+bso/h06_elab	hpBaseSelOpIdxNamesByPath145	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_148_objects|cmp0	away=0 toward=1 div_on=149 div_off=149	ob_away=0 ob_toward=4	alloff==off	545c043f	3d20f860	545c043f
+bso/h07_in_ps_bound	hpBaseSelOpIdxNamesByPath145,psRangeBoundHpBaseSelKeeps153v	MOVES	NOT_EQUAL_stage1|cmp118	NOT_EQUAL_stage1|cmp118	nodump	ob_away=2 ob_toward=2	alloff==off	d21de1da	7f21b379	d21de1da
+bso/h08_in_bitsel_index	hpBaseSelOpIdxNamesByPath145	MOVES	NOT_EQUAL_stage1|cmp144	NOT_EQUAL_stage1|cmp144	nodump	ob_away=0 ob_toward=4	alloff==off	4b35b5f5	6c2d674c	4b35b5f5
+bso/h09_in_ps_bound_proc	hpBaseSelOpIdxNamesByPath145,psRangeBoundHpBaseSelKeeps153v	MOVES	NOT_EQUAL_stage1|cmp118	NOT_EQUAL_stage1|cmp118	nodump	ob_away=2 ob_toward=2	alloff==off	a584c276	302a094c	a584c276
+bso/h10_rvalue_ctl	hpBaseSelOpIdxNamesByPath145	MOVES	NOT_EQUAL_stage1|cmp144	NOT_EQUAL_stage1|cmp144	nodump	ob_away=0 ob_toward=4	alloff==off	70a0df99	acc8b3c4	70a0df99
+bso/h11_ps_bound_direct	hpBaseSelOpIdxNamesByPath145,psRangeBoundHpBaseSelKeeps153v	MOVES	NOT_EQUAL_stage1|cmp118	NOT_EQUAL_stage1|cmp118	nodump	ob_away=2 ob_toward=2	alloff==off	95864d40	c4cc1186	95864d40
+bso/h12_ips_base	hpBaseSelOpIdxNamesByPath145	MOVES	NOT_EQUAL_stage1|cmp144	NOT_EQUAL_stage1|cmp144	nodump	ob_away=0 ob_toward=4	alloff==off	c2146bd5	16c2d128	c2146bd5
+bso/h13_struct_var_ps	hpBaseSelOpIdxNamesByPath145	still	NOT_EQUAL_stage1|cmp160	NOT_EQUAL_stage1|cmp160	nodump	ob_away=0 ob_toward=0	alloff==off	81ad9e39	81ad9e39	81ad9e39
+bso/h14_ps_bound_literal_param	hpBaseSelOpIdxNamesByPath145,psRangeBoundHpBaseSelKeeps153v	MOVES	NOT_EQUAL_stage1|cmp118	NOT_EQUAL_stage1|cmp118	nodump	ob_away=2 ob_toward=2	alloff==off	cb0224b7	e3420ff5	cb0224b7
+bso/h15_ps_bound_iface_arr	hpBaseSelOpIdxNamesByPath145	still	SLANG_FAIL rc=3	SLANG_FAIL rc=3	nodump	noob	alloff==off	-	-	-
+bso/h16_ps_bound_struct_var	hpBaseSelOpIdxNamesByPath145	MOVES	NOT_EQUAL_stage1|cmp94	NOT_EQUAL_stage1|cmp94	nodump	ob_away=2 ob_toward=2	alloff==off	a19350b5	009fb61e	a19350b5
+ck/k01_ca_pattern	castKeyElabNetNoFile146	still	NOT_EQUAL_stage1|cmp560	NOT_EQUAL_stage1|cmp560	nodump	ob_away=0 ob_toward=0	alloff==off	e82d2f0f	e82d2f0f	e82d2f0f
+ck/k02_default_key	castKeyElabNetNoFile146	still	NOT_EQUAL_stage1|cmp17	NOT_EQUAL_stage1|cmp17	nodump	ob_away=0 ob_toward=0	alloff==off	f53b1aad	f53b1aad	f53b1aad
+ck/k03_nested_struct	castKeyElabNetNoFile146	MOVES	NOT_EQUAL_stage1|cmp17	NOT_EQUAL_stage1|cmp17	nodump	ob_away=0 ob_toward=0	alloff==off	b1a70b5c	6cdc831d	b1a70b5c
+ck/k04_elab	castKeyElabNetNoFile146	MOVES	STRICT_NOTEQUAL_file|cmp0	STRICT_EQUAL_164_objects|cmp0	away=0 toward=2 div_on=165 div_off=165	ob_away=0 ob_toward=0	alloff==off	edb29e09	94bb4b84	edb29e09
+ck/k05_module_typedef	castKeyElabNetNoFile146	MOVES	STRICT_NOTEQUAL_file|cmp0	STRICT_EQUAL_133_objects|cmp0	away=0 toward=2 div_on=134 div_off=134	ob_away=0 ob_toward=0	alloff==off	e860a0bb	82911f61	e860a0bb
+ct/m01_packed_member_arg	classTdStructMemberPkgPath146	MOVES	NOT_EQUAL_stage1|cmp222	NOT_EQUAL_stage1|cmp222	nodump	ob_away=0 ob_toward=8	alloff==off	22d56d56	93914dca	22d56d56
+ct/m02_array_member	classTdStructMemberPkgPath146	MOVES	NOT_EQUAL_stage1|cmp20	NOT_EQUAL_stage1|cmp20	nodump	ob_away=0 ob_toward=8	alloff==off	f647e4a1	25b26f55	f647e4a1
+ct/m03_two_classes	classTdStructMemberPkgPath146	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_25_objects|cmp0	away=0 toward=0 div_on=26 div_off=26	ob_away=0 ob_toward=8	alloff==off	43f20623	2a6ee9fb	43f20623
+ct/m04_derived	classTdStructMemberPkgPath146	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_13_objects|cmp0	away=0 toward=0 div_on=14 div_off=14	ob_away=0 ob_toward=4	alloff==off	fa2b3089	4eb04f1a	fa2b3089
+ct/m05_module_import	classTdStructMemberPkgPath146	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_45_objects|cmp0	away=0 toward=0 div_on=46 div_off=46	ob_away=0 ob_toward=4	alloff==off	ad5a8ae3	36d8e9f8	ad5a8ae3
+dfi/d01_always_read	defaultFillImportCopies145	MOVES	STRICT_NOTEQUAL_depth|cmp0	STRICT_EQUAL_126_objects|cmp0	away=0 toward=0 div_on=127 div_off=61	ob_away=0 ob_toward=24	alloff==off	4d582775	b0535857	4d582775
+dfi/d02_two_modules	defaultFillImportCopies145	MOVES	STRICT_NOTEQUAL_depth|cmp0	STRICT_EQUAL_214_objects|cmp0	away=0 toward=0 div_on=215 div_off=61	ob_away=0 ob_toward=24	alloff==off	a58d58d4	7db46ebf	a58d58d4
+dfi/d03_interface_import	defaultFillImportCopies145	MOVES	STRICT_NOTEQUAL_depth|cmp0	STRICT_EQUAL_173_objects|cmp0	away=0 toward=0 div_on=174 div_off=61	ob_away=0 ob_toward=12	alloff==off	6998affc	0a069455	6998affc
+dfi/d04_elab	defaultFillImportCopies145	MOVES	STRICT_NOTEQUAL_depth|cmp0	STRICT_EQUAL_119_objects|cmp0	away=0 toward=0 div_on=120 div_off=61	ob_away=0 ob_toward=12	alloff==off	1e875516	44462ad4	1e875516
+dfi/d05_byte_elems	defaultFillImportCopies145,defaultFillImportIntOnly153v	MOVES	NOT_EQUAL_stage1|cmp24	NOT_EQUAL_stage1|cmp24	nodump	ob_away=10 ob_toward=2	alloff==off	d076c949	aef6827d	d076c949
+dfi/d06_shortint	defaultFillImportIntOnly153v	MOVES	NOT_EQUAL_stage1|cmp24	NOT_EQUAL_stage1|cmp24	nodump	ob_away=10 ob_toward=2	alloff==off	6d9a14e3	b0f80e2b	6d9a14e3
+dfi/d07_logic32	defaultFillImportIntOnly153v	MOVES	NOT_EQUAL_stage1|cmp72	NOT_EQUAL_stage1|cmp72	nodump	ob_away=10 ob_toward=2	alloff==off	09d24b50	0106dfa5	09d24b50
+dfi/d08_int_sized_ctl	defaultFillImportIntOnly153v	MOVES	NOT_EQUAL_stage1|cmp28	NOT_EQUAL_stage1|cmp28	nodump	ob_away=6 ob_toward=6	alloff==off	75cb1f76	e6664a96	75cb1f76
+dfi/d09_typedef_int_ctl	defaultFillImportIntOnly153v	MOVES	NOT_EQUAL_stage1|cmp40	NOT_EQUAL_stage1|cmp40	nodump	ob_away=0 ob_toward=12	alloff==off	099f063a	5af9b2f2	099f063a
+dfi/d10_integer	defaultFillImportIntOnly153v	MOVES	NOT_EQUAL_stage1|cmp24	NOT_EQUAL_stage1|cmp24	nodump	ob_away=10 ob_toward=2	alloff==off	55b0c484	5f307957	55b0c484
+e148/q01_two_stmt_body	evalFuncSelectKeepsCall148	MOVES	STRICT_NOTEQUAL_type|cmp0	STRICT_EQUAL_87_objects|cmp0	away=0 toward=0 div_on=88 div_off=84	ob_away=0 ob_toward=18	alloff==off	94958215	7ca0bf01	94958215
+e148/q02_branch_body	evalFuncSelectKeepsCall148	still	STRICT_NOTEQUAL_type|cmp0	STRICT_NOTEQUAL_type|cmp0	away=0 toward=0 div_on=84 div_off=84	ob_away=0 ob_toward=0	alloff==off	a11d09df	a11d09df	a11d09df
+e148/q03_packed_param_localparam	evalFuncSelectKeepsCall148	MOVES	STRICT_NOTEQUAL_type|cmp0	STRICT_EQUAL_62_objects|cmp0	away=0 toward=0 div_on=63 div_off=59	ob_away=0 ob_toward=18	alloff==off	c012cb15	5a41b98c	c012cb15
+e148/q04_arg_indexed_param	evalFuncSelectKeepsCall148	MOVES	STRICT_NOTEQUAL_type|cmp0	STRICT_EQUAL_85_objects|cmp0	away=0 toward=0 div_on=86 div_off=79	ob_away=0 ob_toward=18	alloff==off	58acd8e6	1e41ebf1	58acd8e6
+e148/q05_default_fill_import	evalFuncSelectKeepsCall148,defaultFillImportCopies145	MOVES	STRICT_NOTEQUAL_depth|cmp0	STRICT_NOTEQUAL_type|cmp0	away=0 toward=0 div_on=131 div_off=61	ob_away=0 ob_toward=12	alloff==off	933da755	5ce24933	933da755
+e148/q06_elab	evalFuncSelectKeepsCall148	MOVES	NOT_EQUAL_stage1|cmp34	STRICT_EQUAL_70_objects|cmp0	nodump	ob_away=0 ob_toward=22	alloff==off	6b960383	b08ebf39	6b960383
+e148/q07_local_2d_read	evalFuncSelectKeepsCall148	still	STRICT_EQUAL_122_objects|cmp0	STRICT_EQUAL_122_objects|cmp0	away=0 toward=0 div_on=123 div_off=123	ob_away=0 ob_toward=0	alloff==off	41c1aa32	41c1aa32	41c1aa32
+e148/q08_default_fill_module	evalFuncSelectKeepsCall148,defaultFillImportCopies145	MOVES	STRICT_NOTEQUAL_type|cmp0	STRICT_EQUAL_84_objects|cmp0	away=0 toward=0 div_on=85 div_off=81	ob_away=0 ob_toward=18	alloff==off	08516c36	57bb153d	08516c36
+e2148/g01_gen_if	genLpUintCaRhsOwnCopy148	MOVES	STRICT_NOTEQUAL_type|cmp0	STRICT_EQUAL_58_objects|cmp0	away=0 toward=0 div_on=59 div_off=54	ob_away=0 ob_toward=13	alloff==off	d00d5f89	f0aeb816	d00d5f89
+e2148/g02_two_readers	genLpUintCaRhsOwnCopy148	MOVES	NOT_EQUAL_stage1|cmp33	NOT_EQUAL_stage1|cmp33	nodump	ob_away=0 ob_toward=26	alloff==off	b9008b38	5e58116f	b9008b38
+e2148/g03_logic_var_lhs	genLpUintCaRhsOwnCopy148	MOVES	NOT_EQUAL_stage1|cmp64	NOT_EQUAL_stage1|cmp64	nodump	ob_away=1 ob_toward=10	alloff==off	1c115260	3ecddcf4	1c115260
+e2148/g04_elab	genLpUintCaRhsOwnCopy148	MOVES	STRICT_NOTEQUAL_type|cmp0	STRICT_EQUAL_77_objects|cmp0	away=0 toward=0 div_on=78 div_off=73	ob_away=1 ob_toward=26	alloff==off	cb6d3e30	c2af012d	cb6d3e30
+e2148/g05_child_inst	genLpUintCaRhsOwnCopy148	MOVES	STRICT_NOTEQUAL_type|cmp0	STRICT_EQUAL_119_objects|cmp0	away=0 toward=0 div_on=120 div_off=85	ob_away=0 ob_toward=26	alloff==off	6253d747	d6924c02	6253d747
+esc/y01_func_name	escIdPpColumnShift146	MOVES	NOT_EQUAL_stage1|cmp17	NOT_EQUAL_stage1|cmp17	nodump	ob_away=4 ob_toward=86	alloff==off	8156d2c1	89ad32d0	8156d2c1
+esc/y02_enum_literal	escIdPpColumnShift146	MOVES	STRICT_NOTEQUAL_endcol|cmp0	STRICT_EQUAL_65_objects|cmp0	away=0 toward=30 div_on=66 div_off=66	ob_away=0 ob_toward=72	alloff==off	b1d3897a	089146f8	b1d3897a
+esc/y03_struct_member	escIdPpColumnShift146	MOVES	STRICT_NOTEQUAL_endcol|cmp0	STRICT_NOTEQUAL_col|cmp0	away=0 toward=40 div_on=99 div_off=99	ob_away=4 ob_toward=118	alloff==off	2412dfa3	f140e940	2412dfa3
+esc/y04_genblk_label	escIdPpColumnShift146	MOVES	STRICT_NOTEQUAL_col|cmp0	STRICT_EQUAL_38_objects|cmp0	away=0 toward=8 div_on=39 div_off=39	ob_away=0 ob_toward=28	alloff==off	b052caf8	fc174f88	b052caf8
+esc/y05_include	escIdPpColumnShift146	MOVES	STRICT_NOTEQUAL_col|cmp0	STRICT_EQUAL_54_objects|cmp0	away=0 toward=16 div_on=55 div_off=55	ob_away=0 ob_toward=48	alloff==off	dddab16b	82b63dc4	dddab16b
+esc/y06_plain_escaped	escIdPpColumnShift146	MOVES	STRICT_NOTEQUAL_col|cmp0	STRICT_EQUAL_53_objects|cmp0	away=0 toward=16 div_on=54 div_off=54	ob_away=0 ob_toward=48	alloff==off	f453a50e	bc340b24	f453a50e
+esc/y07_block_comment_ctl	escIdPpColumnShift146	still	STRICT_EQUAL_38_objects|cmp0	STRICT_EQUAL_38_objects|cmp0	away=0 toward=0 div_on=39 div_off=39	ob_away=0 ob_toward=0	alloff==off	9aa9ae03	9aa9ae03	9aa9ae03
+esc/y08_port_conn	escIdPpColumnShift146	MOVES	STRICT_NOTEQUAL_col|cmp0	STRICT_EQUAL_84_objects|cmp0	away=0 toward=13 div_on=85 div_off=85	ob_away=0 ob_toward=38	alloff==off	42da18b2	69986b97	42da18b2
+esc/y09_line_comment_ctl	escIdPpColumnShift146	still	STRICT_EQUAL_38_objects|cmp0	STRICT_EQUAL_38_objects|cmp0	away=0 toward=0 div_on=39 div_off=39	ob_away=0 ob_toward=0	alloff==off	d21a9ef2	d21a9ef2	d21a9ef2
+esc/y10_after_macro_call	escIdPpColumnShift146	MOVES	STRICT_NOTEQUAL_col|cmp0	STRICT_EQUAL_53_objects|cmp0	away=0 toward=12 div_on=54 div_off=54	ob_away=0 ob_toward=40	alloff==off	902755b4	9e1fb10f	902755b4
+esc/y11_elab	escIdPpColumnShift146	MOVES	STRICT_NOTEQUAL_col|cmp0	STRICT_EQUAL_49_objects|cmp0	away=0 toward=16 div_on=50 div_off=50	ob_away=0 ob_toward=56	alloff==off	bc918441	b2690c66	bc918441
+esc/y12_string_after	escIdPpColumnShift146	MOVES	STRICT_NOTEQUAL_col|cmp0	STRICT_EQUAL_58_objects|cmp0	away=0 toward=20 div_on=59 div_off=59	ob_away=0 ob_toward=40	alloff==off	2c69d2f6	cb51a589	2c69d2f6
+esc/y13_class_member	escIdPpColumnShift146	MOVES	STRICT_NOTEQUAL_col|cmp0	STRICT_EQUAL_37_objects|cmp0	away=0 toward=9 div_on=38 div_off=38	ob_away=0 ob_toward=38	alloff==off	0d652f03	3a67c8d8	0d652f03
+esc/y14_param_value_after	escIdPpColumnShift146	MOVES	STRICT_NOTEQUAL_endcol|cmp0	STRICT_NOTEQUAL_endcol|cmp0	away=0 toward=17 div_on=61 div_off=61	ob_away=7 ob_toward=77	alloff==off	8106b632	df830acb	8106b632
+esc/y15_upper_S_colon	escIdPpColumnShift146	still	SURELOG_FAIL rc=0	SURELOG_FAIL rc=0	nodump	noob	alloff==off	-	-	-
+esc/y16_upper_W_hash	escIdPpColumnShift146	still	SURELOG_FAIL rc=134	SURELOG_FAIL rc=134	nodump	noob	alloff==off	-	-	-
+esc/y17_upper_S_alt2_ok	escIdPpColumnShift146	MOVES	STRICT_NOTEQUAL_col|cmp0	STRICT_EQUAL_53_objects|cmp0	away=0 toward=16 div_on=54 div_off=54	ob_away=0 ob_toward=48	alloff==off	621b7dfc	05d25d2c	621b7dfc
+esc/y18_lower_colon_ctl	escIdPpColumnShift146	MOVES	STRICT_NOTEQUAL_col|cmp0	STRICT_EQUAL_53_objects|cmp0	away=0 toward=16 div_on=54 div_off=54	ob_away=0 ob_toward=48	alloff==off	ebd6e668	418d6f17	ebd6e668
+esc/y19_upper_W_brackets	escIdPpColumnShift146	MOVES	STRICT_NOTEQUAL_col|cmp0	STRICT_EQUAL_53_objects|cmp0	away=0 toward=16 div_on=54 div_off=54	ob_away=0 ob_toward=48	alloff==off	cce179b0	69cfaf31	cce179b0
+fa/g01_two_args_same	tfArgTypedefLastWriter146	MOVES	NOT_EQUAL_stage1|cmp17	NOT_EQUAL_stage1|cmp17	nodump	ob_away=0 ob_toward=28	alloff==off	bed28658	fd0421e9	bed28658
+fa/g02_func_then_task	tfArgTypedefLastWriter146	MOVES	NOT_EQUAL_stage1|cmp17	NOT_EQUAL_stage1|cmp17	nodump	ob_away=0 ob_toward=28	alloff==off	7fd357ee	efcd52ec	7fd357ee
+fa/g03_output_arg	tfArgTypedefLastWriter146	MOVES	STRICT_NOTEQUAL_line|cmp0	STRICT_EQUAL_100_objects|cmp0	away=0 toward=6 div_on=101 div_off=101	ob_away=0 ob_toward=28	alloff==off	6b280ec9	a811f0ba	6b280ec9
+fa/g04_default_arg	tfArgTypedefLastWriter146	MOVES	STRICT_NOTEQUAL_line|cmp0	STRICT_NOTEQUAL_type|cmp0	away=0 toward=4 div_on=79 div_off=79	ob_away=0 ob_toward=24	alloff==off	ca462563	ac40713f	ca462563
+fa/g05_gen_block_func	tfArgTypedefLastWriter146	MOVES	STRICT_NOTEQUAL_line|cmp0	STRICT_EQUAL_65_objects|cmp0	away=0 toward=3 div_on=66 div_off=66	ob_away=0 ob_toward=14	alloff==off	2c49085a	11d90a39	2c49085a
+fa/g06_class_in_module	tfArgTypedefLastWriter146	MOVES	STRICT_NOTEQUAL_line|cmp0	STRICT_EQUAL_61_objects|cmp0	away=0 toward=3 div_on=62 div_off=62	ob_away=0 ob_toward=14	alloff==off	7003e688	2f497a32	7003e688
+fa/g07_dpi_then_func	tfArgDpiNoWrite146v	MOVES	NOT_EQUAL_stage1|cmp90	NOT_EQUAL_stage1|cmp90	nodump	ob_away=4 ob_toward=28	alloff==off	47df21b0	1b23000f	47df21b0	roff=NOT_EQUAL_stage1|cmp90:1b23000f
+fa/g08_func_then_dpi	tfArgDpiNoWrite146v	MOVES	NOT_EQUAL_stage1|cmp154	NOT_EQUAL_stage1|cmp154	nodump	ob_away=2 ob_toward=26	alloff==off	2378902d	9c8b14d2	2378902d	roff=NOT_EQUAL_stage1|cmp154:7e531a24
+fa/g09_dpi_export	tfArgTypedefLastWriter146,tfArgDpiExportFirstNoWrite153v	MOVES	NOT_EQUAL_stage1|cmp250	NOT_EQUAL_stage1|cmp250	nodump	ob_away=22 ob_toward=2	alloff==off	7644c125	1d53a38f	7644c125
+fa/g10_alias_chain	tfArgAliasEndFollows146v	MOVES	NOT_EQUAL_stage1|cmp606	NOT_EQUAL_stage1|cmp606	nodump	ob_away=0 ob_toward=14	alloff==off	5b335a31	f09d3687	5b335a31	roff=NOT_EQUAL_stage1|cmp606:da7596c2
+fa/g11_alias_then_enum	tfArgAliasEndFollows146v	MOVES	STRICT_NOTEQUAL_line|cmp0	STRICT_NOTEQUAL_fullname|cmp0	away=0 toward=10 div_on=165 div_off=165	ob_away=0 ob_toward=42	alloff==off	d2f7bb80	f4d94865	d2f7bb80	roff=STRICT_NOTEQUAL_endline|cmp0:e3579c61
+fa/g12_elab	tfArgTypedefLastWriter146	MOVES	NOT_EQUAL_stage1|cmp17	NOT_EQUAL_stage1|cmp17	nodump	ob_away=0 ob_toward=28	alloff==off	e2fa7768	ca31056c	e2fa7768
+fa/g13_include_typedef	tfArgTypedefLastWriter146	MOVES	NOT_EQUAL_stage1|cmp17	NOT_EQUAL_stage1|cmp17	nodump	ob_away=0 ob_toward=24	alloff==off	8666dd73	84ff6af0	8666dd73
+fa/g14_ref_arg_iface	tfArgTypedefLastWriter146	MOVES	STRICT_NOTEQUAL_line|cmp0	STRICT_EQUAL_83_objects|cmp0	away=0 toward=4 div_on=84 div_off=84	ob_away=0 ob_toward=12	alloff==off	b6b34d13	72c86213	b6b34d13
+fa/g15_module_export_first	tfArgDpiExportFirstNoWrite153v	MOVES	NOT_EQUAL_stage1|cmp250	NOT_EQUAL_stage1|cmp250	nodump	ob_away=14 ob_toward=0	alloff==off	5d155847	2ec16a26	5d155847
+fa/g16_task_export_first	tfArgDpiExportFirstNoWrite153v	MOVES	NOT_EQUAL_stage1|cmp102	NOT_EQUAL_stage1|cmp102	nodump	ob_away=22 ob_toward=2	alloff==off	c8bbb063	faf89d7f	c8bbb063
+fa/g17_export_after_ctl	tfArgDpiExportFirstNoWrite153v	MOVES	NOT_EQUAL_stage1|cmp448	NOT_EQUAL_stage1|cmp448	nodump	ob_away=0 ob_toward=24	alloff==off	7aab6099	df6a65a3	7aab6099
+fa/g18_export_other_ctl	tfArgDpiExportFirstNoWrite153v	MOVES	NOT_EQUAL_stage1|cmp202	NOT_EQUAL_stage1|cmp202	nodump	ob_away=0 ob_toward=24	alloff==off	89163636	8240fe34	89163636
+hp/p01_modport_port	constPathBaseAnyKind146	MOVES	STRICT_NOTEQUAL_col|cmp0	STRICT_EQUAL_193_objects|cmp0	away=0 toward=1 div_on=194 div_off=194	ob_away=0 ob_toward=2	alloff==off	adf50952	c2a4c795	adf50952
+hp/p02_case_generate	constPathBaseAnyKind146	still	STRICT_NOTEQUAL_col|cmp0	STRICT_NOTEQUAL_col|cmp0	away=0 toward=0 div_on=129 div_off=129	ob_away=0 ob_toward=0	alloff==off	e3330e2e	e3330e2e	e3330e2e
+hp/p03_genfor_bound	constPathBaseAnyKind146	still	STRICT_NOTEQUAL_col|cmp0	STRICT_NOTEQUAL_col|cmp0	away=0 toward=0 div_on=196 div_off=196	ob_away=0 ob_toward=0	alloff==off	1d8dd4e2	1d8dd4e2	1d8dd4e2
+hp/p04_iface_struct_param	constPathBaseAnyKind146	MOVES	NOT_EQUAL_stage1|cmp11	NOT_EQUAL_stage1|cmp11	nodump	ob_away=0 ob_toward=2	alloff==off	6aaa9e46	3569c152	6aaa9e46
+hp/p05_struct_port_base_ctl	constPathBaseAnyKind146	still	NOT_EQUAL_stage1|cmp60	NOT_EQUAL_stage1|cmp60	nodump	ob_away=0 ob_toward=0	alloff==off	286aad1b	286aad1b	286aad1b
+hp/p06_elab	constPathBaseAnyKind146	MOVES	STRICT_NOTEQUAL_col|cmp0	STRICT_EQUAL_180_objects|cmp0	away=0 toward=1 div_on=181 div_off=181	ob_away=0 ob_toward=2	alloff==off	48845bef	2ad35568	48845bef
+hp/p07_pkg_param_own_pkg_func	constPathBaseAnyKind146	MOVES	NOT_EQUAL_stage1|cmp17	NOT_EQUAL_stage1|cmp17	nodump	ob_away=0 ob_toward=8	alloff==off	e8a9f454	bafcd869	e8a9f454
+hp/p08_x_basesel_op	constPathBaseAnyKind146,hpBaseSelOpIdxNamesByPath145	MOVES	NOT_EQUAL_stage1|cmp100	NOT_EQUAL_stage1|cmp100	nodump	ob_away=0 ob_toward=4	alloff==off	5fc83787	b2a096de	5fc83787
+i148/s01_task_arg_range	pkgTfSigRangeTopViewConst148	MOVES	STRICT_NOTEQUAL_depth|cmp0	STRICT_EQUAL_151_objects|cmp0	away=0 toward=0 div_on=152 div_off=44	ob_away=0 ob_toward=0	alloff==off	edc569a4	4e209f64	edc569a4
+i148/s02_two_args	pkgTfSigRangeTopViewConst148	MOVES	STRICT_NOTEQUAL_depth|cmp0	STRICT_EQUAL_185_objects|cmp0	away=0 toward=0 div_on=186 div_off=67	ob_away=0 ob_toward=0	alloff==off	2fdd3cc2	01996a00	2fdd3cc2
+i148/s03_localparam_pkg	pkgTfSigRangeTopViewConst148	MOVES	STRICT_NOTEQUAL_depth|cmp0	STRICT_EQUAL_208_objects|cmp0	away=0 toward=0 div_on=209 div_off=45	ob_away=0 ob_toward=0	alloff==off	64428ffc	bf59a8d5	64428ffc
+i148/s04_elab	pkgTfSigRangeTopViewConst148	still	STRICT_EQUAL_203_objects|cmp0	STRICT_EQUAL_203_objects|cmp0	away=0 toward=0 div_on=204 div_off=204	ob_away=0 ob_toward=0	alloff==off	6a5316d2	6a5316d2	6a5316d2
+i148/s05_bare_bound	pkgTfSigRangeTopViewConst148	MOVES	STRICT_NOTEQUAL_depth|cmp0	STRICT_EQUAL_188_objects|cmp0	away=0 toward=0 div_on=189 div_off=40	ob_away=0 ob_toward=0	alloff==off	1b35a605	5b04fbe0	1b35a605
+iaw/a01_bitwise	impElabArithWholeSpan145	MOVES	STRICT_NOTEQUAL_endcol|cmp0	STRICT_EQUAL_94_objects|cmp0	away=0 toward=1 div_on=95 div_off=95	ob_away=0 ob_toward=4	alloff==off	1fe5b905	e3d61f05	1fe5b905
+iaw/a02_iface_import	impElabArithWholeSpan145	MOVES	STRICT_NOTEQUAL_endcol|cmp0	STRICT_EQUAL_148_objects|cmp0	away=0 toward=1 div_on=149 div_off=149	ob_away=0 ob_toward=4	alloff==off	da978eec	5e922a4e	da978eec
+iaw/a03_literal_left	impElabArithWholeSpan145	MOVES	STRICT_NOTEQUAL_endcol|cmp0	STRICT_NOTEQUAL_value|cmp0	away=0 toward=1 div_on=95 div_off=95	ob_away=0 ob_toward=4	alloff==off	a2c83f78	980a0959	a2c83f78
+iaw/a04_port_range	impElabArithWholeSpan145	MOVES	STRICT_NOTEQUAL_endcol|cmp0	STRICT_EQUAL_129_objects|cmp0	away=0 toward=1 div_on=130 div_off=130	ob_away=0 ob_toward=4	alloff==off	645285f8	e3c561b7	645285f8
+iaw/a05_elab	impElabArithWholeSpan145	MOVES	STRICT_NOTEQUAL_endcol|cmp0	STRICT_NOTEQUAL_value|cmp0	away=0 toward=1 div_on=94 div_off=94	ob_away=0 ob_toward=4	alloff==off	900ac841	4d983fad	900ac841
+lpb/l01_sysfunc_parent	lpBoundOperandKeepsBase145v	MOVES	NOT_EQUAL_stage1|cmp56	NOT_EQUAL_stage1|cmp56	nodump	ob_away=0 ob_toward=4	alloff==off	9df827df	f7f78e85	9df827df	roff=NOT_EQUAL_stage1|cmp56:f7f78e85
+lpb/l02_func_arg	lpBoundOperandKeepsBase145v	MOVES	NOT_EQUAL_stage1|cmp46	NOT_EQUAL_stage1|cmp46	nodump	ob_away=2 ob_toward=2	alloff==off	bfd381d5	f8f449f2	bfd381d5	roff=NOT_EQUAL_stage1|cmp46:f8f449f2
+lpb/l03_cast_parent	lpBoundOperandKeepsBase145v	still	STRICT_EQUAL_82_objects|cmp0	STRICT_EQUAL_82_objects|cmp0	away=0 toward=0 div_on=83 div_off=83	ob_away=0 ob_toward=0	alloff==off	e61d6b86	e61d6b86	e61d6b86	roff=STRICT_NOTEQUAL_fullname|cmp0:7b1b8cac
+lpb/l04_replication	lpBoundOperandKeepsBase145v	still	STRICT_EQUAL_82_objects|cmp0	STRICT_EQUAL_82_objects|cmp0	away=0 toward=0 div_on=83 div_off=83	ob_away=0 ob_toward=0	alloff==off	8d6e7e21	8d6e7e21	8d6e7e21	roff=STRICT_NOTEQUAL_fullname|cmp0:a00ae643
+lpb/l05_genfor_ifgen_direct	lpPaCopyBoundOwnerName145	still	STRICT_EQUAL_125_objects|cmp0	STRICT_EQUAL_125_objects|cmp0	away=0 toward=0 div_on=126 div_off=126	ob_away=0 ob_toward=0	alloff!=off:STRICT_NOTEQUAL_fullname|cmp0	4e69a709	4e69a709	4e04b3a9
+lpb/l06_param_inst_direct	lpPaCopyBoundOwnerName145	still	STRICT_NOTEQUAL_fullname|cmp0	STRICT_NOTEQUAL_fullname|cmp0	away=0 toward=0 div_on=209 div_off=209	ob_away=0 ob_toward=0	alloff==off	286f0036	286f0036	286f0036
+lpb/l07_elab_direct	lpPaCopyBoundOwnerName145	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_99_objects|cmp0	away=0 toward=1 div_on=100 div_off=100	ob_away=0 ob_toward=4	alloff==off	c277ecaa	f75f2316	c277ecaa
+ma/n01_pkg_bound	modArrayBoundRefArrayPath146	still	NOT_EQUAL_stage1|cmp48	NOT_EQUAL_stage1|cmp48	nodump	ob_away=0 ob_toward=0	alloff==off	a141d43f	a141d43f	a141d43f
+ma/n02_two_param_bound	modArrayBoundRefArrayPath146	MOVES	NOT_EQUAL_stage1|cmp48	NOT_EQUAL_stage1|cmp48	nodump	ob_away=0 ob_toward=12	alloff==off	a1dbac1c	b49c820c	a1dbac1c
+ma/n03_size_form_module	modArrayBoundRefArrayPath146	still	NOT_EQUAL_stage1|cmp32	NOT_EQUAL_stage1|cmp32	nodump	ob_away=0 ob_toward=0	alloff==off	aeb6849d	aeb6849d	aeb6849d
+ma/n04_override_from_top	modArrayBoundRefArrayPath146	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_223_objects|cmp0	away=0 toward=1 div_on=224 div_off=224	ob_away=0 ob_toward=4	alloff==off	9b228d02	f5436e92	9b228d02
+ma/n05_elab	modArrayBoundRefArrayPath146	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_135_objects|cmp0	away=0 toward=1 div_on=136 div_off=136	ob_away=0 ob_toward=4	alloff==off	eafc14a3	0d755b30	eafc14a3
+ma/n06_localparam_body	modArrayBoundRefArrayPath146	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_66_objects|cmp0	away=0 toward=1 div_on=67 div_off=67	ob_away=0 ob_toward=4	alloff==off	20d62595	11457dbd	20d62595
+pe/r01_multiline_expr	portExprOperandAtExpr146,portExprElabDefNets146	MOVES	STRICT_NOTEQUAL_line|cmp0	STRICT_EQUAL_81_objects|cmp0	away=0 toward=2 div_on=82 div_off=63	ob_away=0 ob_toward=12	alloff==off	fcf07d06	f3595073	fcf07d06
+pe/r02_nested_concat	portExprOperandAtExpr146,portExprElabDefNets146	still	SURELOG_FAIL rc=3	SURELOG_FAIL rc=3	nodump	noob	alloff==off	-	-	-
+pe/r03_output_dir	portExprOperandAtExpr146,portExprElabDefNets146	MOVES	NOT_EQUAL_stage1|cmp704	NOT_EQUAL_stage1|cmp704	nodump	ob_away=0 ob_toward=12	alloff==off	27b10a88	b29ac0a3	27b10a88
+pe/r04_vectors	portExprOperandAtExpr146,portExprElabDefNets146	MOVES	STRICT_NOTEQUAL_line|cmp0	STRICT_EQUAL_99_objects|cmp0	away=0 toward=3 div_on=100 div_off=77	ob_away=0 ob_toward=12	alloff==off	7d5d1604	2096ec45	7d5d1604
+pe/r05_two_exprs	portExprOperandAtExpr146,portExprElabDefNets146	MOVES	STRICT_NOTEQUAL_line|cmp0	STRICT_EQUAL_138_objects|cmp0	away=0 toward=5 div_on=139 div_off=108	ob_away=0 ob_toward=24	alloff==off	4ac818cf	db9ac2ab	4ac818cf
+pe/r06_single_name	portExprOperandAtExpr146,portExprElabDefNets146	still	STRICT_EQUAL_45_objects|cmp0	STRICT_EQUAL_45_objects|cmp0	away=0 toward=0 div_on=46 div_off=46	ob_away=0 ob_toward=0	alloff==off	a3eadcf6	a3eadcf6	a3eadcf6
+pe/r07_elab	portExprOperandAtExpr146,portExprElabDefNets146	MOVES	STRICT_NOTEQUAL_line|cmp0	STRICT_EQUAL_77_objects|cmp0	away=0 toward=4 div_on=78 div_off=78	ob_away=0 ob_toward=8	alloff==off	dc4d2e17	50c61825	dc4d2e17
+pi/w01_three_ports	portInitAssignAtHeader146	MOVES	NOT_EQUAL_stage1|cmp28	NOT_EQUAL_stage1|cmp28	nodump	ob_away=0 ob_toward=6	alloff==off	3cb1e72b	108ffe6c	3cb1e72b
+pi/w02_split_reg_decl	portInitAssignAtHeader146	MOVES	NOT_EQUAL_stage1|cmp177	NOT_EQUAL_stage1|cmp177	nodump	ob_away=3 ob_toward=3	alloff==off	49cda4d7	d356c0ff	49cda4d7
+pi/w03_multiline_header	portInitAssignAtHeader146	MOVES	NOT_EQUAL_stage1|cmp28	NOT_EQUAL_stage1|cmp28	nodump	ob_away=0 ob_toward=6	alloff==off	44e0502a	30615d77	44e0502a
+pi/w04_logic_vec	portInitAssignAtHeader146	MOVES	NOT_EQUAL_stage1|cmp28	NOT_EQUAL_stage1|cmp28	nodump	ob_away=0 ob_toward=6	alloff==off	8b3c1d3c	63d74ac1	8b3c1d3c
+pi/w05_elab	portInitAssignAtHeader146	MOVES	STRICT_NOTEQUAL_line|cmp0	STRICT_EQUAL_21_objects|cmp0	away=0 toward=2 div_on=22 div_off=22	ob_away=0 ob_toward=6	alloff==off	52a20810	829269ec	52a20810
+pi/w06_sub_inst	portInitAssignAtHeader146	MOVES	NOT_EQUAL_stage1|cmp28	NOT_EQUAL_stage1|cmp28	nodump	ob_away=0 ob_toward=6	alloff==off	722a3378	a4ca9aeb	722a3378
+psb/b01_block_localparam	psBoundBareRefByBase145	MOVES	NOT_EQUAL_stage1|cmp17	NOT_EQUAL_stage1|cmp17	nodump	ob_away=2 ob_toward=6	alloff==off	542a14b5	69ff6f09	542a14b5
+psb/b02_genfor_genif	psBoundBareRefByBase145	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_145_objects|cmp0	away=0 toward=4 div_on=146 div_off=146	ob_away=0 ob_toward=16	alloff==off	e61f3863	45fcb3c4	e61f3863
+psb/b03_iface_ca	psBoundBareRefByBase145	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_144_objects|cmp0	away=0 toward=6 div_on=145 div_off=145	ob_away=0 ob_toward=8	alloff==off	0b1d6863	704441ea	0b1d6863
+psb/b04_nba_lhs	psBoundBareRefByBase145	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_105_objects|cmp0	away=0 toward=4 div_on=106 div_off=106	ob_away=0 ob_toward=8	alloff==off	63d9ca23	5c42a902	63d9ca23
+psb/b05_escaped_base	psBoundBareRefByBase145	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_84_objects|cmp0	away=0 toward=4 div_on=85 div_off=85	ob_away=0 ob_toward=8	alloff!=off:STRICT_NOTEQUAL_col|cmp0	5e559b25	6b1bc276	7bafde1f
+psb/b06_sysfunc_arg	psBoundBareRefByBase145	MOVES	NOT_EQUAL_stage1|cmp17	NOT_EQUAL_stage1|cmp17	nodump	ob_away=4 ob_toward=12	alloff==off	fd0d7309	f45cd9d0	fd0d7309
+psb/b07_imported_bound	psBoundBareRefByBase145	still	STRICT_NOTEQUAL_fullname|cmp0	STRICT_NOTEQUAL_fullname|cmp0	away=0 toward=0 div_on=133 div_off=133	ob_away=0 ob_toward=0	alloff==off	09db33bb	09db33bb	09db33bb
+psb/b08_elab	psBoundBareRefByBase145	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_83_objects|cmp0	away=0 toward=4 div_on=84 div_off=84	ob_away=0 ob_toward=16	alloff==off	83818c37	6af0c215	83818c37
+tn/j01_two_param_bound	tpDefaultCaLhsUnparented146	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_125_objects|cmp0	away=0 toward=24 div_on=126 div_off=126	ob_away=3 ob_toward=15	alloff==off	a4d1cd90	536225d9	a4d1cd90
+tn/j02_packed_2d	tpDefaultCaLhsUnparented146	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_149_objects|cmp0	away=0 toward=16 div_on=150 div_off=150	ob_away=2 ob_toward=10	alloff==off	c3970776	fe35a171	c3970776
+tn/j03_gen_local_net	tpDefaultCaLhsUnparented146,tpDefaultCaGenLocalLhsKeeps153v	MOVES	STRICT_NOTEQUAL_line|cmp0	STRICT_NOTEQUAL_fullname|cmp0	away=2 toward=0 div_on=89 div_off=89 AWAY#10,51	ob_away=3 ob_toward=0	alloff==off	d645587f	4d319155	d645587f
+tn/j04_typedef_of_tp	tpDefaultCaLhsUnparented146	still	NOT_EQUAL_stage1|cmp146	NOT_EQUAL_stage1|cmp146	nodump	ob_away=0 ob_toward=0	alloff==off	22dad483	22dad483	22dad483
+tn/j05_nonansi	tpDefaultCaLhsUnparented146	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_95_objects|cmp0	away=0 toward=8 div_on=96 div_off=96	ob_away=1 ob_toward=5	alloff==off	8e95ae3b	599838ff	8e95ae3b
+tn/j06_elab	tpDefaultCaLhsUnparented146	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_108_objects|cmp0	away=0 toward=8 div_on=109 div_off=109	ob_away=1 ob_toward=5	alloff==off	f97fa903	61772b75	f97fa903
+tn/j07_unpacked_of_T	tpDefaultCaLhsUnparented146	still	STRICT_NOTEQUAL_endline|cmp0	STRICT_NOTEQUAL_endline|cmp0	away=0 toward=0 div_on=120 div_off=120	ob_away=0 ob_toward=0	alloff==off	afec6133	afec6133	afec6133
+tn/j08_iface_body_net	tpDefaultCaIfaceKeeps146v	still	NOT_EQUAL_stage1|cmp58	NOT_EQUAL_stage1|cmp58	nodump	ob_away=0 ob_toward=0	alloff==off	cb8c4826	cb8c4826	cb8c4826	roff=NOT_EQUAL_stage1|cmp58:5a0c8e06
+tn/j09_program	tpDefaultCaLhsUnparented146	still	STRICT_EQUAL_23_objects|cmp0	STRICT_EQUAL_23_objects|cmp0	away=0 toward=0 div_on=24 div_off=24	ob_away=0 ob_toward=0	alloff==off	5bf7d940	5bf7d940	5bf7d940
+tn/j10_iface_two_inst	tpDefaultCaIfaceKeeps146v	still	STRICT_NOTEQUAL_line|cmp0	STRICT_NOTEQUAL_line|cmp0	away=0 toward=0 div_on=38 div_off=38	ob_away=0 ob_toward=0	alloff==off	1556b822	1556b822	1556b822	roff=STRICT_NOTEQUAL_fullname|cmp0:d43e9675
+tn/j11_iface_via_port	tpDefaultCaIfaceKeeps146v	still	STRICT_NOTEQUAL_line|cmp0	STRICT_NOTEQUAL_line|cmp0	away=0 toward=0 div_on=38 div_off=38	ob_away=0 ob_toward=0	alloff==off	ad2f02e7	ad2f02e7	ad2f02e7	roff=STRICT_NOTEQUAL_fullname|cmp0:95c7a6cb
+tn/j12_genfor_local_net	tpDefaultCaLhsUnparented146,tpDefaultCaGenLocalLhsKeeps153v	MOVES	STRICT_NOTEQUAL_line|cmp0	STRICT_NOTEQUAL_fullname|cmp0	away=2 toward=0 div_on=112 div_off=112 AWAY#10,68	ob_away=3 ob_toward=0	alloff==off	12671b5c	933daca4	12671b5c
+tn/j13_genlocal_and_module_ctl	tpDefaultCaLhsUnparented146,tpDefaultCaGenLocalLhsKeeps153v	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_NOTEQUAL_line|cmp0	away=0 toward=8 div_on=103 div_off=103	ob_away=1 ob_toward=5	alloff==off	45f8b3b3	03c1bd43	45f8b3b3
+tp/q01_unpacked_struct	typeParamStructAtKeyword146	still	NOT_EQUAL_stage1|cmp88	NOT_EQUAL_stage1|cmp88	nodump	ob_away=0 ob_toward=0	alloff==off	91a2d839	91a2d839	91a2d839
+tp/q02_packed_dims	typeParamStructAtKeyword146	still	STRICT_NOTEQUAL_fullname|cmp0	STRICT_NOTEQUAL_fullname|cmp0	away=0 toward=0 div_on=154 div_off=154	ob_away=0 ob_toward=0	alloff==off	d028b2be	d028b2be	d028b2be
+tp/q03_class_tp	typeParamStructAtKeyword146	MOVES	NOT_EQUAL_stage1|cmp56	NOT_EQUAL_stage1|cmp56	nodump	ob_away=0 ob_toward=6	alloff==off	3b2673eb	cbc7ce05	3b2673eb
+tp/q04_enum_ctl	typeParamStructAtKeyword146	still	NOT_EQUAL_stage1|cmp60	NOT_EQUAL_stage1|cmp60	nodump	ob_away=0 ob_toward=0	alloff==off	45ef6d21	45ef6d21	45ef6d21
+tp/q05_nonansi	typeParamStructAtKeyword146	MOVES	STRICT_NOTEQUAL_endcol|cmp0	STRICT_EQUAL_113_objects|cmp0	away=0 toward=2 div_on=114 div_off=114	ob_away=3 ob_toward=7	alloff==off	4a2224be	0216c46b	4a2224be
+tp/q06_elab	typeParamStructAtKeyword146	MOVES	STRICT_NOTEQUAL_endcol|cmp0	STRICT_EQUAL_111_objects|cmp0	away=0 toward=2 div_on=112 div_off=112	ob_away=3 ob_toward=7	alloff==off	c10c6b38	97d2b013	c10c6b38
+ucp/v01_output	unnamedConcatIfaceAnchor146,ucpIfaceInstElabShape146	MOVES	NOT_EQUAL_stage1|cmp34	NOT_EQUAL_stage1|cmp34	nodump	ob_away=0 ob_toward=32	alloff==off	59707f5a	ec230ca2	59707f5a
+ucp/v02_mixed	unnamedConcatIfaceAnchor146,ucpIfaceInstElabShape146	MOVES	NOT_EQUAL_stage1|cmp88	NOT_EQUAL_stage1|cmp88	nodump	ob_away=1 ob_toward=27	alloff==off	00cfce58	c10875e4	00cfce58
+ucp/v03_vectors	unnamedConcatIfaceAnchor146,ucpIfaceInstElabShape146	MOVES	NOT_EQUAL_stage1|cmp34	NOT_EQUAL_stage1|cmp34	nodump	ob_away=0 ob_toward=30	alloff==off	68934420	4a8a6508	68934420
+ucp/v04_elab	unnamedConcatIfaceAnchor146,ucpIfaceInstElabShape146	MOVES	NOT_EQUAL_stage1|cmp34	NOT_EQUAL_stage1|cmp34	nodump	ob_away=0 ob_toward=30	alloff==off	e9f627b5	9e4b41bd	e9f627b5
+ucp/v05_two_insts	unnamedConcatIfaceAnchor146,ucpIfaceInstElabShape146	MOVES	NOT_EQUAL_stage1|cmp34	NOT_EQUAL_stage1|cmp34	nodump	ob_away=0 ob_toward=48	alloff==off	52f6f0ab	4f054d43	52f6f0ab
+uop/o01_reduction_and	unaryOperandParamOwnerName145	MOVES	NOT_EQUAL_stage1|cmp60	NOT_EQUAL_stage1|cmp60	nodump	ob_away=2 ob_toward=2	alloff==off	bb274bd2	c8cf1fe7	bb274bd2
+uop/o02_xor_ips_lhs	unaryOperandParamOwnerName145	MOVES	NOT_EQUAL_stage1|cmp31	NOT_EQUAL_stage1|cmp31	nodump	ob_away=0 ob_toward=4	alloff==off	336b4e73	7d7beb77	336b4e73
+uop/o03_member_elem_lhs	unaryOperandParamOwnerName145	still	NOT_EQUAL_stage1|cmp31	NOT_EQUAL_stage1|cmp31	nodump	ob_away=0 ob_toward=0	alloff==off	af231151	af231151	af231151
+uop/o04_body_param_override	unaryOperandParamOwnerName145	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_110_objects|cmp0	away=0 toward=1 div_on=111 div_off=111	ob_away=0 ob_toward=4	alloff==off	30dcafef	6a09d0d1	30dcafef
+uop/o05_ternary_operand	unaryOperandParamOwnerName145	MOVES	NOT_EQUAL_stage1|cmp31	NOT_EQUAL_stage1|cmp31	nodump	ob_away=0 ob_toward=4	alloff==off	4686ec0d	14baf897	4686ec0d
+uop/o06_elab	unaryOperandParamOwnerName145	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_EQUAL_92_objects|cmp0	away=0 toward=1 div_on=93 div_off=93	ob_away=0 ob_toward=4	alloff==off	c30c9767	8c57c6e2	c30c9767
+usp/s01_gen_localparam	unsignedScalarParamTsAtKeyword145	MOVES	STRICT_NOTEQUAL_endcol|cmp0	STRICT_EQUAL_37_objects|cmp0	away=0 toward=3 div_on=38 div_off=38	ob_away=0 ob_toward=10	alloff==off	419033ae	580acc6c	419033ae
+usp/s02_class_param	unsignedScalarParamTsAtKeyword145	still	NOT_EQUAL_stage1|cmp36	NOT_EQUAL_stage1|cmp36	nodump	ob_away=0 ob_toward=0	alloff==off	f44b9747	f44b9747	f44b9747
+usp/s03_multi_decl	unsignedScalarParamTsAtKeyword145	MOVES	STRICT_NOTEQUAL_endcol|cmp0	STRICT_EQUAL_67_objects|cmp0	away=0 toward=8 div_on=68 div_off=68	ob_away=0 ob_toward=24	alloff==off	dfcb2e83	e9da9ed9	dfcb2e83
+usp/s04_override_top	unsignedScalarParamTsAtKeyword145	MOVES	STRICT_NOTEQUAL_endcol|cmp0	STRICT_EQUAL_53_objects|cmp0	away=0 toward=4 div_on=54 div_off=54	ob_away=0 ob_toward=12	alloff==off	bd9fb535	2a14ad3e	bd9fb535
+usp/s05_elab	unsignedScalarParamTsAtKeyword145	MOVES	STRICT_NOTEQUAL_endcol|cmp0	STRICT_EQUAL_34_objects|cmp0	away=0 toward=4 div_on=35 div_off=35	ob_away=0 ob_toward=12	alloff==off	051066b2	d689838e	051066b2
+usp/s06_macro_gen_signed_mix	unsignedScalarParamTsAtKeyword145	MOVES	STRICT_NOTEQUAL_fullname|cmp0	STRICT_NOTEQUAL_fullname|cmp0	away=0 toward=4 div_on=142 div_off=142	ob_away=0 ob_toward=12	alloff==off	5ca8b75e	cf2fe07e	5ca8b75e
+usp/s07_gen_signed_after_unsigned	unsignedScalarParamTsAtKeyword145	MOVES	STRICT_NOTEQUAL_endcol|cmp0	STRICT_NOTEQUAL_fullname|cmp0	away=0 toward=4 div_on=74 div_off=74	ob_away=0 ob_toward=12	alloff==off	3701267a	3ac17479	3701267a
+xg/x01_modarr_psb	psBoundBareRefByBase145,modArrayBoundRefArrayPath146	MOVES	NOT_EQUAL_stage1|cmp50	NOT_EQUAL_stage1|cmp50	nodump	ob_away=0 ob_toward=4	alloff==off	0b9a9b50	cbd57ee1	0b9a9b50
+xg/x02_modarr_bound_ps	psBoundBareRefByBase145,modArrayBoundRefArrayPath146	MOVES	NOT_EQUAL_stage1|cmp50	NOT_EQUAL_stage1|cmp50	nodump	ob_away=0 ob_toward=8	alloff==off	9eac8ccf	8cd2ff9b	9eac8ccf
+xg/x03_param_struct_arr_bound	constPathBaseAnyKind146,hpBaseSelOpIdxNamesByPath145	MOVES	NOT_EQUAL_stage1|cmp116	NOT_EQUAL_stage1|cmp116	nodump	ob_away=2 ob_toward=2	alloff==off	2e1eea3c	e1ec6207	2e1eea3c
+xg/x04_iface_port_basesel	constPathBaseAnyKind146,hpBaseSelOpIdxNamesByPath145	still	NOT_EQUAL_stage1|cmp156	NOT_EQUAL_stage1|cmp156	nodump	ob_away=0 ob_toward=0	alloff==off	ddcb1c05	ddcb1c05	ddcb1c05

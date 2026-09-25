@@ -1,0 +1,5 @@
+P: 56 lines; cmds.txt binary lines:    3273 r11u153_bin/pris.bin 
+F: 56 lines; cmds.txt binary lines:    3273 r11u153_bin/fix.bin 
+A: 146 lines; cmds.txt binary lines:    3273 r11u153_bin/pris.bin 
+B: 235 lines; cmds.txt binary lines:    3273 r11u153_bin/pris.bin 
+O: 327 lines; cmds.txt binary lines:    3273 r11u153_bin/pris.bin 

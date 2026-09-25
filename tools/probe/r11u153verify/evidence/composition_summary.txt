@@ -1,0 +1,15 @@
+#	probe	CONV	ONLY145	44
+#	probe	CONV	ONLY146	38
+#	probe	chg	ONLY145	4
+#	probe	chg	ONLY146	65
+#	probe	chg	SUSPECT	1
+#	surelog	CONV	JOINT-ADDITIVE	1
+#	surelog	CONV	ONLY145	2
+#	surelog	CONV	ONLY146	12
+#	surelog	chg	JOINT-ADDITIVE	3
+#	surelog	chg	ONLY145	7
+#	surelog	chg	ONLY146	14
+#	uhdm2rtlil	CONV	ONLY145	4
+#	uhdm2rtlil	CONV	ONLY146	20
+#	uhdm2rtlil	chg	ONLY145	28
+#	uhdm2rtlil	chg	ONLY146	28
