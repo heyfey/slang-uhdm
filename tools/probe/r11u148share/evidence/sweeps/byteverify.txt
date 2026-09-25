@@ -1,0 +1,26 @@
+=== surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=2c71d234486e pristine=eb535035aa39
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=d1d978f91ea9 pristine=5caa64948f5f
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=7a19c5e48b19 pristine=9d2bfb802888
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=dde0cc549548 pristine=767a1b27b35c
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm  patched=98879bf17d9c pristine=2fcf1cf7e320
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+=== uhdm2rtlil
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/func_local_array-0805c034/slang.uhdm  patched=14551e5d1e86 pristine=e57a3627f7e1
+MOVER ./default/FunctionParam-89393d9f/slang.uhdm  patched=a6a4e52a1147 pristine=ba9929798cdd
+MOVER ./default/LocalParamInNestedForLoops-2b0b85e8/slang.uhdm  patched=9c1487fc150e pristine=76baf2407cda
+MOVER ./default/SelectGivenBySelectOnParameterInFunction-e7fc5e09/slang.uhdm  patched=ef7f12851d51 pristine=e265635ae0e2
+MOVER ./default/simple_package-edf4630d/slang.uhdm  patched=b2ccff227bcd pristine=82f4191c01a7
+MOVER ./default/SumOfParametersInNestedForLoops-1729fe14/slang.uhdm  patched=79f3ff3c8dfb pristine=0bccdc373671
+MOVER ./testflags/func_local_array-0805c034/slang.uhdm  patched=a9a4f615b733 pristine=1869f7f7b5f8
+MOVER ./testflags/FunctionParam-89393d9f/slang.uhdm  patched=19cc14ea8e98 pristine=436fc6bb0625
+MOVER ./testflags/LocalParamInNestedForLoops-2b0b85e8/slang.uhdm  patched=26d34fbd297b pristine=cbe5bf73b7e1
+MOVER ./testflags/SelectGivenBySelectOnParameterInFunction-e7fc5e09/slang.uhdm  patched=7eb978f994aa pristine=43db7a6ff494
+MOVER ./testflags/simple_package-edf4630d/slang.uhdm  patched=e9137bfe466b pristine=dd7e34b4aee7
+MOVER ./testflags/SumOfParametersInNestedForLoops-1729fe14/slang.uhdm  patched=99ed7255eaae pristine=481491352a29
+MOVERS: 12 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged

@@ -1,0 +1,454 @@
+diff --git a/src/ModuleEmit.cpp b/src/ModuleEmit.cpp
+index e2fd1873..a6329584 100644
+--- a/src/ModuleEmit.cpp
++++ b/src/ModuleEmit.cpp
+@@ -666,6 +666,227 @@ static bool trace139() {
+ using NetMap139 = std::map<const slang::ast::Symbol*, UHDM::any*>;
+ static NetMap139 defView139(const NetMap139& elab, const NetMap139& def);
+ 
++// ============================================================================
++// r11u148 — THE SHARING CLASSES (the analyst pass's law.patch; measurement and
++// decode: tools/probe/r11u148share/README.md).  Every law reads its own kill
++// switch; `R11U148_OFF=1` turns them all off and restores the pristine bytes.
++//   R11U148_E_OFF    § evalFuncSelectKeepsCall148   (emitContAssigns + the
++//                    gen-scope cont_assign emitter; arms R11U148_EP_OFF /
++//                    R11U148_EV_OFF)
++//   R11U148_E2_OFF   § genLpUintCaRhsOwnCopy148     (the gen-scope cont_assign
++//                    emitter's block-localparam read)
++//   R11U148_I_OFF    § pkgTfSigRangeTopViewConst148 (TypeEmit.cpp, the
++//                    package subroutine signature range binding)
++// R11U148_TRACE=1 prints one line per firing (R11U148E / R11U148E2 /
++// R11U148I) for the census; it changes no byte of the database.
++// ============================================================================
++static bool r11u148On(const char* one) {
++    static const bool all = getenv("R11U148_OFF") != nullptr;
++    return !all && getenv(one) == nullptr;
++}
++static bool e148On() {
++    static const bool on = r11u148On("R11U148_E_OFF");
++    return on;
++}
++static bool e148ParamArmOn() {
++    static const bool on = e148On() && getenv("R11U148_EP_OFF") == nullptr;
++    return on;
++}
++static bool e148VarArmOn() {
++    static const bool on = e148On() && getenv("R11U148_EV_OFF") == nullptr;
++    return on;
++}
++static bool e2148On() {
++    static const bool on = r11u148On("R11U148_E2_OFF");
++    return on;
++}
++// § genLpUintCaRhsOwnCopy148 — a copied gen-localparam constant's
++// ref_typespec waiting for the pendingGenLpTs drain to bind its source.
++static std::vector<std::pair<UHDM::ref_typespec*, UHDM::ref_typespec*>>&
++genLpRtMirror148() {
++    static std::vector<std::pair<UHDM::ref_typespec*, UHDM::ref_typespec*>> v;
++    return v;
++}
++static bool trace148() {
++    static const bool on = getenv("R11U148_TRACE") != nullptr;
++    return on;
++}
++// § evalFuncSelectKeepsCall148 — THE PRODUCER.  An elaborated cont_assign
++// whose whole right-hand side is a user function call is reduced by
++// `UhdmWriter::writeCont_assign`'s trailing `simplified == false` arm
++// (third_party/Surelog/src/DesignCompile/UhdmWriter.cpp, writeCont_assign):
++// `m_helper.reduceExpr(rhs, ...)` -> `ExprEval::reduceExpr`'s func_call arm ->
++// `ExprEval::evalFunc` (third_party/Surelog/third_party/UHDM/templates/
++// ExprEval.cpp), which EXECUTES the body and hands back the value it left on
++// the function's name.  Only a CONSTANT result replaces the Rhs (`res &&
++// res->UhdmType() == uhdmconstant`, then clone + adjustSize); anything else
++// leaves the cont_assign untouched and NOT cloned, so the elaborated module
++// lists the DEFINITION's own cont_assign object and its func_call.
++// Two body shapes never reduce to a constant inside evalFunc:
++//   P  a select (bit / part / indexed part) whose base names a MODULE
++//      PARAMETER: the bit_select arm of `ExprEval::reduceExpr` resolves the
++//      base with `getObject`, which (through CompileHelper::getObject) hands
++//      back the `parameter` object; no arm of the select reduction reads a
++//      `parameter`, so the select stays a select and the returned value is
++//      not a constant (grid cases e01-e03, e08-e10, e14, f05, f09, f11;
++//      FunctionParam, SelectGivenBySelectOnParameterInFunction);
++//   V  a select of a select (`c[4][0]`, `state[i][i]`) on a function-LOCAL
++//      variable: it compiles to a var_select, which the reduction has no arm
++//      for either (e05, e07, f03; func_local_array).
++// A single select of a local (f02, e06) and a select of a FORMAL (f01) do
++// reduce, and are left to the fold paths as before.  Ours folded all of
++// these (constCallFold's replay resolves the parameter element; slang's
++// tryEval folds the rest), so the elaborated Rhs was a constant where
++// golden lists the func_call.  GOLDEN WRITES NOTHING ON A MISS: the law only
++// declines the fold; the definition cont_assign share that follows is the
++// existing path (`shareWithDef`), and in a generate scope the call is
++// emitted as written.
++static bool evalFuncSelectPoison148(const slang::ast::Expression& rhs0,
++                                    const char** arm) {
++    using namespace slang::ast;
++    auto& rhs = stripImplicitConv(rhs0);
++    if (rhs.kind != ExpressionKind::Call)
++        return false;
++    auto& call = rhs.as<CallExpression>();
++    if (call.isSystemCall())
++        return false;
++    auto sp = std::get_if<const SubroutineSymbol*>(&call.subroutine);
++    if (!sp || !*sp)
++        return false;
++    const SubroutineSymbol& sub = **sp;
++    auto moduleParam = [](const Symbol& sym) {
++        if (sym.kind != SymbolKind::Parameter)
++            return false;
++        auto* sc = sym.getParentScope();
++        return sc && sc->asSymbol().kind == SymbolKind::InstanceBody;
++    };
++    auto localVar = [&](const Symbol& sym) {
++        if (sym.kind != SymbolKind::Variable)
++            return false;
++        for (auto* sc = sym.getParentScope(); sc;
++             sc = sc->asSymbol().getParentScope()) {
++            if (&sc->asSymbol() == (const Symbol*)&sub)
++                return true;
++            auto k = sc->asSymbol().kind;
++            if (k == SymbolKind::InstanceBody || k == SymbolKind::Package ||
++                k == SymbolKind::CompilationUnit || k == SymbolKind::Root)
++                return false;
++        }
++        return false;
++    };
++    // The P arm reads the body as EXECUTED: evalFunc stops at the first
++    // return it runs, so a select behind a condition may never be reached
++    // (grid f10, `if (a > 0) return a; return X[0];` folds in golden).  Only a
++    // STRAIGHT-LINE body (declarations, expression statements, returns,
++    // blocks) is claimed.
++    std::function<bool(const Statement&)> straight = [&](const Statement& st) {
++        switch (st.kind) {
++            case StatementKind::Empty:
++            case StatementKind::Return:
++            case StatementKind::ExpressionStatement:
++            case StatementKind::VariableDeclaration:
++                return true;
++            case StatementKind::Block:
++                return straight(st.as<BlockStatement>().body);
++            case StatementKind::List:
++                for (auto* it : st.as<StatementList>().list)
++                    if (!straight(*it))
++                        return false;
++                return true;
++            default:
++                return false;
++        }
++    };
++    const bool straightBody = straight(sub.getBody());
++    // The V arm: a select-of-select READ of a local (e07, f03) never reduces;
++    // WRITTEN, it reduces when every index is a literal (f04, `t[1][0] =
++    // 1'b1` folds in golden) and not when an index is a variable (e05 /
++    // func_local_array, `state[i][i] = 1'b1` inside the loop).
++    std::set<const Expression*> lhsSel;
++    sub.getBody().visit(makeVisitor([&](auto& v, const AssignmentExpression& ax) {
++        const Expression* l = &stripImplicitConv(ax.left());
++        while (l->kind == ExpressionKind::ElementSelect ||
++               l->kind == ExpressionKind::RangeSelect) {
++            lhsSel.insert(l);
++            l = &stripImplicitConv(l->kind == ExpressionKind::ElementSelect
++                                       ? l->as<ElementSelectExpression>().value()
++                                       : l->as<RangeSelectExpression>().value());
++        }
++        v.visitDefault(ax);
++    }));
++    auto litIndex = [](const Expression& e) {
++        auto idxLit = [](const Expression& x) {
++            return stripImplicitConv(x).kind == ExpressionKind::IntegerLiteral;
++        };
++        if (e.kind == ExpressionKind::ElementSelect)
++            return idxLit(e.as<ElementSelectExpression>().selector());
++        auto& rs = e.as<RangeSelectExpression>();
++        return idxLit(rs.left()) && idxLit(rs.right());
++    };
++    bool hit = false;
++    const char* which = nullptr;
++    auto isSel = [](const Expression& e) {
++        return e.kind == ExpressionKind::ElementSelect ||
++               e.kind == ExpressionKind::RangeSelect;
++    };
++    auto selBase = [](const Expression& e) -> const Expression& {
++        return e.kind == ExpressionKind::ElementSelect
++                   ? e.as<ElementSelectExpression>().value()
++                   : e.as<RangeSelectExpression>().value();
++    };
++    auto check = [&](const Expression& sel) {
++        if (hit)
++            return;
++        auto& b = stripImplicitConv(selBase(sel));
++        if (b.kind == ExpressionKind::NamedValue) {
++            if (e148ParamArmOn() && straightBody && !lhsSel.count(&sel) &&
++                moduleParam(b.as<NamedValueExpression>().symbol)) {
++                hit = true;
++                which = "P";
++            }
++            return;
++        }
++        if (isSel(b) && e148VarArmOn()) {
++            const Expression* r = &b;
++            bool allLit = litIndex(sel);
++            while (isSel(*r)) {
++                allLit = allLit && litIndex(*r);
++                r = &stripImplicitConv(selBase(*r));
++            }
++            const bool written = lhsSel.count(&sel) != 0;
++            if ((!written || !allLit) && r->kind == ExpressionKind::NamedValue &&
++                localVar(r->as<NamedValueExpression>().symbol)) {
++                hit = true;
++                which = "V";
++            }
++        }
++    };
++    sub.getBody().visit(makeVisitor(
++        [&](auto& v, const ElementSelectExpression& es) {
++            check(es);
++            v.visitDefault(es);
++        },
++        [&](auto& v, const RangeSelectExpression& rs) {
++            check(rs);
++            v.visitDefault(rs);
++        }));
++    if (arm)
++        *arm = which;
++    return hit;
++}
++static bool evalFuncSelectKeepsCall148(const slang::ast::Expression& rhs,
++                                       const char* site,
++                                       const std::string& scope) {
++    if (!e148On())
++        return false;
++    const char* arm = nullptr;
++    bool hit = evalFuncSelectPoison148(rhs, &arm);
++    if (hit && trace148())
++        fprintf(stderr, "R11U148E site=%s arm=%s scope=%s\n", site, arm ? arm : "?",
++                scope.c_str());
++    return hit;
++}
++
+ // ===== § implicitNetNoFile119 (r11u119, LAW L2) =============================
+ // THE PRODUCER.  An IMPLICIT net of a definition is not a declaration Surelog
+ // compiles: UhdmWriter's late binding mints it when a reference finds nothing
+@@ -24234,8 +24455,82 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
+                 auto& rsym0 = rcp0.as<NamedValueExpression>().symbol;
+                 if (auto lit0 = genLpConst.find(&rsym0);
+                     lit0 != genLpConst.end()) {
+-                    lit0->second->VpiParent(ca);
+-                    rhs = lit0->second;
++                    auto* src148 = lit0->second;
++                    // § genLpUintCaRhsOwnCopy148 — THE PRODUCER.  The gen-scope
++                    // cont_assign's whole-Rhs read of a block localparam is
++                    // reduced by `writeCont_assign`'s trailing arm to the
++                    // param_assign's own value constant and handed to
++                    // `CompileHelper::adjustSize(tps, ..., res, true)`
++                    // (third_party/Surelog/src/DesignCompile/CompileHelper.cpp,
++                    // adjustSize): under `uniquify` its vpiUIntConst arm, its
++                    // `orig_size == -1` arm and its signed-binary arm
++                    // `clone_tree` the constant, every other encoding is
++                    // mutated IN PLACE (the module-level twin is
++                    // § elabCaReusesParamValueConst).  So a UINT (or unsized)
++                    // value gives the cont_assign ITS OWN copy -- same value,
++                    // span and typespec reference as the param_assign's, a
++                    // fresh ref_typespec, parented at the cont_assign -- while
++                    // the param_assign keeps the original (grid g01, g09;
++                    // SumOfParametersInNestedForLoops), and a BIN / HEX value
++                    // stays shared (g04, g05: already equal).
++                    // `tps` is non-null only on the `lhs->UhdmType() ==
++                    // uhdmref_obj` road, where it is the bound variable's
++                    // typespec: a SELECT Lhs reaches adjustSize with no
++                    // typespec and adjustSize returns the constant itself
++                    // (grid g06, `o[i] = L`: shared, already equal), and so
++                    // does an implicit net (no declared type).
++                    const bool plainTypedLhs148 = [&] {
++                        auto& l148 = stripImplicitConv(ae.left());
++                        if (l148.kind != ExpressionKind::NamedValue)
++                            return false;
++                        auto& ls148 = l148.as<NamedValueExpression>().symbol;
++                        // `bindVariable(mod, m, name)` looks in the MODULE
++                        // instance: a generate-local net is not found, `tps`
++                        // stays null and the constant is shared (grid g14).
++                        auto* lsc148 = ls148.getParentScope();
++                        if (!lsc148 ||
++                            lsc148->asSymbol().kind != SymbolKind::InstanceBody)
++                            return false;
++                        if (ls148.kind == SymbolKind::Net)
++                            return !ls148.as<NetSymbol>().isImplicit;
++                        return ls148.kind == SymbolKind::Variable;
++                    }();
++                    const bool own148 =
++                        e2148On() && plainTypedLhs148 &&
++                        src148->VpiConstType() == vpiUIntConst;
++                    if (own148) {
++                        auto* c148 = s.MakeConstant();
++                        c148->VpiValue(std::string(src148->VpiValue()));
++                        c148->VpiSize(src148->VpiSize());
++                        c148->VpiConstType(src148->VpiConstType());
++                        c148->VpiDecompile(std::string(src148->VpiDecompile()));
++                        c148->VpiFile(src148->VpiFile());
++                        c148->VpiLineNo(src148->VpiLineNo());
++                        c148->VpiColumnNo(src148->VpiColumnNo());
++                        c148->VpiEndLineNo(src148->VpiEndLineNo());
++                        c148->VpiEndColumnNo(src148->VpiEndColumnNo());
++                        c148->VpiParent(ca);
++                        if (auto* srt148 = src148->Typespec()) {
++                            auto* rt148 = s.MakeRef_typespec();
++                            rt148->VpiFullName(std::string(srt148->VpiFullName()));
++                            rt148->VpiParent(c148);
++                            c148->Typespec(rt148);
++                            // The source reference's actual is bound by the
++                            // pendingGenLpTs drain (write phase); mirror it
++                            // there, or now when it is already bound.
++                            if (srt148->Actual_typespec())
++                                rt148->Actual_typespec(srt148->Actual_typespec());
++                            else
++                                genLpRtMirror148().push_back({srt148, rt148});
++                        }
++                        if (trace148())
++                            fprintf(stderr, "R11U148E2 scope=%s name=%s\n",
++                                    fullName.c_str(), std::string(rsym0.name).c_str());
++                        rhs = c148;
++                    } else {
++                        src148->VpiParent(ca);
++                        rhs = src148;
++                    }
+                 }
+                 // The GENVAR ref folds to its iteration value: a LOC-LESS
+                 // UINT constant parented at the ca (Surelog). Real
+@@ -24930,9 +25225,14 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
+                         genTernArm23 ? 1 : 0, (int)genTernFillRaw23,
+                         (int)genTernUnsizedNoBind23);
+             }
++            // § evalFuncSelectKeepsCall148 — the GEN-SCOPE flavour: a callee
++            // body evalFunc cannot reduce leaves the call as written (the
++            // netlist's cont_assign keeps its func_call; grid case e13).
++            const bool evalKeepGen148 =
++                !rhs && evalFuncSelectKeepsCall148(ae.right(), "genscope", fullName);
+             // Constant gen-scope calls fold to the source literal, sized at
+             // the LHS width.
+-            if (!rhs)
++            if (!rhs && !evalKeepGen148)
+             if (auto cfr2 = constCallFold(stripImplicitConv(ae.right()));
+                 cfr2.lit && !cfr2.param) {
+                 forceConstParent = true;
+@@ -24944,7 +25244,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
+             }
+             // A gen-scope call RHS (possibly cast-wrapped: int'(f())) that
+             // evaluates folds to a LOC-LESS constant sized at the LHS width.
+-            if (!rhs) {
++            if (!rhs && !evalKeepGen148) {
+                 const Expression* callE = &stripImplicitConv(ae.right());
+                 if (callE->kind == ExpressionKind::Conversion)
+                     callE = &stripImplicitConv(
+@@ -30865,6 +31165,12 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
+         }
+     }
+     pendingGenLpTs.clear();
++    // § genLpUintCaRhsOwnCopy148 — the copies' references read what the drain
++    // bound on their sources.
++    for (auto& [src148, dst148] : genLpRtMirror148())
++        if (!dst148->Actual_typespec())
++            dst148->Actual_typespec(src148->Actual_typespec());
++    genLpRtMirror148().clear();
+     // Signed size-cast fold typespecs close out the tail.
+     for (auto* rt : pendingSignedCastTs) {
+         auto* lts = s.MakeLogic_typespec();
+@@ -34634,7 +34940,13 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
+                             break;
+                         }
+         }
+-        CallFold cfr = (topView && !typedefRet && !sgnFormal9)
++        // § evalFuncSelectKeepsCall148 — a callee body evalFunc cannot
++        // reduce keeps the call: every fold arm below is declined, and the
++        // definition cont_assign share takes the row (see the decode at the
++        // law's predicate).
++        const bool evalKeep148 =
++            topView && evalFuncSelectKeepsCall148(ae.right(), "module", prefix);
++        CallFold cfr = (topView && !typedefRet && !sgnFormal9 && !evalKeep148)
+                            ? constCallFold(stripImplicitConv(ae.right()))
+                            : CallFold{};
+         // ================= § srlgUnvaluedActualLitRetFold8 (r10rgg8) =======
+@@ -34680,7 +34992,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
+         // measured to fold refuses the whole call.  A missed fold is a
+         // residue; a wrong fold would be a regression.
+         std::set<const Symbol*> unvalued8;
+-        if (!cfr && topView && !typedefRet && !sgnFormal9) {
++        if (!cfr && topView && !typedefRet && !sgnFormal9 && !evalKeep148) {
+             auto& rc8 = stripImplicitConv(ae.right());
+             if (rc8.kind == ExpressionKind::Call &&
+                 !rc8.as<CallExpression>().isSystemCall()) {
+@@ -34822,7 +35134,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
+         // Calls with args still fold when evaluable: a LOC-LESS constant
+         // shaped by the result type (signed int -> INT/vpiIntConst).
+         std::optional<ConstantValue> callFold;
+-        if (topView && !cfr && !typedefRet) {
++        if (topView && !cfr && !typedefRet && !evalKeep148) {
+             auto& rc = stripImplicitConv(ae.right());
+             if (rc.kind == ExpressionKind::Call && !rc.as<CallExpression>().isSystemCall()) {
+                 ASTContext ctx(comp.getRoot(), LookupLocation::max);
+@@ -36448,7 +36760,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
+                             break;
+                         }
+         }
+-        if (!rhs && topView && sgnSub9 && !callFold) {
++        if (!rhs && topView && sgnSub9 && !callFold && !evalKeep148) {
+             ASTContext gctx9(comp.getRoot(), LookupLocation::max);
+             ConstantValue gcv9 = gctx9.tryEval(ae.right());
+             if (gcv9 && gcv9.isInteger() && !gcv9.integer().hasUnknown())
+diff --git a/src/TypeEmit.cpp b/src/TypeEmit.cpp
+index 96c632d3..ce09218c 100644
+--- a/src/TypeEmit.cpp
++++ b/src/TypeEmit.cpp
+@@ -13,6 +13,14 @@
+ 
+ namespace slang_uhdm {
+ 
++// r11u148 (tools/probe/r11u148share/README.md): R11U148_OFF drops every law of
++// the pass, R11U148_I_OFF this file's one.
++static bool i148On() {
++    static const bool on =
++        getenv("R11U148_OFF") == nullptr && getenv("R11U148_I_OFF") == nullptr;
++    return on;
++}
++
+ // r11u130's gate (defined in UhdmExporter.cpp; the switch table is there).
+ bool r11u130Law(const char* sw);
+ bool r11u134Law(const char* sw);
+@@ -16591,6 +16599,37 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
+                         else if (tfTypeScopeViewLocal && pkgTopEmit &&
+                                  pit2 != pkgParamDefRhs.end())
+                             ref->Actual_group(pit2->second);
++                        // § pkgTfSigRangeTopViewConst148 (r11u148, switch
++                        // R11U148_I_OFF) — a RETURN / ARGUMENT range of a
++                        // package subroutine in the ELABORATED package listing
++                        // reads THAT view's constant too, not the definition
++                        // listing's: golden's elaborated-package function
++                        // `inc` binds `W` in `logic [W-1:0]` to the
++                        // uhdmtopPackages param_assign's value constant (size
++                        // 32, already listed there), the uhdmallPackages copy
++                        // to the definition's (size 64) -- measured on every
++                        // shape of grid tools/probe/r11u148share/cases/I
++                        // (package only, imported, scoped call, never called,
++                        // localparam, untyped) and simple_package.  Surelog
++                        // compiles every package twice (CompilePackage.cpp,
++                        // the getUnElabPackage() twin) and writes each
++                        // listing from its own compile (UhdmWriter.cpp:
++                        // writePackage(pack, p, s, true) into
++                        // uhdmtopPackages, writePackage(pack->
++                        // getUnElabPackage(), p, s, false) into
++                        // uhdmallPackages), so the elaborated subroutine's
++                        // range name resolves among the elaborated package's
++                        // own parameters.
++                        // Only a CONSTANT value is taken (the shape measured);
++                        // an operation value keeps the old binding.
++                        else if (i148On() && pkgTopEmit &&
++                                 pit2 != pkgParamDefRhs.end() && pit2->second &&
++                                 pit2->second->UhdmType() == UHDM::uhdmconstant) {
++                            ref->Actual_group(pit2->second);
++                            if (getenv("R11U148_TRACE"))
++                                fprintf(stderr, "R11U148I param=%s\n",
++                                        std::string(psy.name).c_str());
++                        }
+                         else if (auto pit = pkgParamConst.find(&psy);
+                                  pit != pkgParamConst.end())
+                             ref->Actual_group(pit->second);

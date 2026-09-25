@@ -1,0 +1,58 @@
+surelog	default	BuildUVMPkg	R11U148I param=UVM_LARGE_STRING
+surelog	default	BuildUVMPkg	R11U148I param=UVM_LARGE_STRING
+surelog	default	Earlgrey_0_1	R11U148E site=module arm=V scope=work@prim_keccak
+surelog	default	Earlgrey_0_1	R11U148E site=module arm=V scope=work@prim_keccak
+surelog	default	Earlgrey_0_1	R11U148E site=module arm=V scope=work@prim_keccak
+surelog	default	Earlgrey_0_1	R11U148E site=module arm=V scope=work@prim_keccak
+surelog	default	Earlgrey_0_1	R11U148E site=module arm=V scope=work@prim_keccak
+surelog	default	Earlgrey_0_1	R11U148E site=module arm=V scope=work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_mix_columns
+surelog	default	Earlgrey_0_1	R11U148E site=module arm=V scope=work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_mix_columns
+surelog	default	Earlgrey_0_1	R11U148E site=module arm=V scope=work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_mix_columns
+surelog	default	Earlgrey_0_1	R11U148E site=module arm=V scope=work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_mix_columns
+surelog	default	Earlgrey_0_1	R11U148E site=module arm=V scope=work@top_earlgrey.u_aes.aes_core.aes_cipher_core
+surelog	default	Earlgrey_0_1	R11U148E site=module arm=V scope=work@top_earlgrey.u_aes.aes_core
+surelog	default	MiniAmiq	R11U148I param=UVM_LARGE_STRING
+surelog	default	MiniAmiq	R11U148I param=UVM_LARGE_STRING
+surelog	default	MiniAmiq	R11U148I param=UVM_LARGE_STRING
+surelog	default	Scoreboard	R11U148I param=UVM_LARGE_STRING
+surelog	default	Scoreboard	R11U148I param=UVM_LARGE_STRING
+surelog	default	SeqDriver	R11U148I param=UVM_LARGE_STRING
+surelog	default	SeqDriver	R11U148I param=UVM_LARGE_STRING
+surelog	default	SeqDriver	R11U148I param=UVM_LARGE_STRING
+surelog	default	SimpleUVM	R11U148I param=UVM_LARGE_STRING
+surelog	default	SimpleUVM	R11U148I param=UVM_LARGE_STRING
+surelog	testflags	BuildUVMPkg	R11U148I param=UVM_LARGE_STRING
+surelog	testflags	BuildUVMPkg	R11U148I param=UVM_LARGE_STRING
+surelog	testflags	Earlgrey_0_1	R11U148E site=module arm=V scope=work@prim_keccak
+surelog	testflags	Earlgrey_0_1	R11U148E site=module arm=V scope=work@prim_keccak
+surelog	testflags	Earlgrey_0_1	R11U148E site=module arm=V scope=work@prim_keccak
+surelog	testflags	Earlgrey_0_1	R11U148E site=module arm=V scope=work@prim_keccak
+surelog	testflags	Earlgrey_0_1	R11U148E site=module arm=V scope=work@prim_keccak
+surelog	testflags	Earlgrey_0_1	R11U148E site=module arm=V scope=work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_mix_columns
+surelog	testflags	Earlgrey_0_1	R11U148E site=module arm=V scope=work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_mix_columns
+surelog	testflags	Earlgrey_0_1	R11U148E site=module arm=V scope=work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_mix_columns
+surelog	testflags	Earlgrey_0_1	R11U148E site=module arm=V scope=work@top_earlgrey.u_aes.aes_core.aes_cipher_core.aes_key_mix_columns
+surelog	testflags	Earlgrey_0_1	R11U148E site=module arm=V scope=work@top_earlgrey.u_aes.aes_core.aes_cipher_core
+surelog	testflags	Earlgrey_0_1	R11U148E site=module arm=V scope=work@top_earlgrey.u_aes.aes_core
+surelog	testflags	MiniAmiq	R11U148I param=UVM_LARGE_STRING
+surelog	testflags	MiniAmiq	R11U148I param=UVM_LARGE_STRING
+surelog	testflags	MiniAmiq	R11U148I param=UVM_LARGE_STRING
+surelog	testflags	SeqDriver	R11U148I param=UVM_LARGE_STRING
+surelog	testflags	SeqDriver	R11U148I param=UVM_LARGE_STRING
+surelog	testflags	SeqDriver	R11U148I param=UVM_LARGE_STRING
+surelog	testflags	SimpleUVM	R11U148I param=UVM_LARGE_STRING
+surelog	testflags	SimpleUVM	R11U148I param=UVM_LARGE_STRING
+uhdm2rtlil	default	FunctionParam	R11U148E site=module arm=P scope=work@top
+uhdm2rtlil	default	LocalParamInNestedForLoops	R11U148E2 scope=work@top.genblk1[0].genblk1[0] name=Offset
+uhdm2rtlil	default	SelectGivenBySelectOnParameterInFunction	R11U148E site=module arm=V scope=work@top
+uhdm2rtlil	default	SumOfParametersInNestedForLoops	R11U148E2 scope=work@top.genblk1[0].genblk1[0] name=Offset
+uhdm2rtlil	default	func_local_array	R11U148E site=module arm=V scope=work@foo
+uhdm2rtlil	default	simple_package	R11U148I param=DATA_WIDTH
+uhdm2rtlil	default	simple_package	R11U148I param=DATA_WIDTH
+uhdm2rtlil	testflags	FunctionParam	R11U148E site=module arm=P scope=work@top
+uhdm2rtlil	testflags	LocalParamInNestedForLoops	R11U148E2 scope=work@top.genblk1[0].genblk1[0] name=Offset
+uhdm2rtlil	testflags	SelectGivenBySelectOnParameterInFunction	R11U148E site=module arm=V scope=work@top
+uhdm2rtlil	testflags	SumOfParametersInNestedForLoops	R11U148E2 scope=work@top.genblk1[0].genblk1[0] name=Offset
+uhdm2rtlil	testflags	func_local_array	R11U148E site=module arm=V scope=work@foo
+uhdm2rtlil	testflags	simple_package	R11U148I param=DATA_WIDTH
+uhdm2rtlil	testflags	simple_package	R11U148I param=DATA_WIDTH

@@ -1,0 +1,4 @@
+164,166d163
+< 7	constant				dut.sv	6	34	6	39	3	32	UINT:3	9
+< 8	ref_typespec			work@top.genblk1[0].genblk1[0]		0	0	0	0		0		
+< 9	int_typespec				dut.sv	6	21	6	24				

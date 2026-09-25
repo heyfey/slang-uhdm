@@ -1,0 +1,24 @@
+108a109,111
+> 9	constant				dut.sv	6	32	6	34	32	64	UINT:32	9
+> 10	ref_typespec			my_pkg		0	0	0	0		0		
+> 11	int_typespec				dut.sv	6	15	6	18				
+116a120,122
+> 9	constant				dut.sv	6	32	6	34	32	64	UINT:32	9
+> 10	ref_typespec			my_pkg		0	0	0	0		0		
+> 11	int_typespec				dut.sv	6	15	6	18				
+255c261
+< 9	constant				dut.sv	6	32	6	34	32	32	UINT:32	9
+---
+> 9	constant				dut.sv	6	32	6	34	32	64	UINT:32	9
+266c272
+< 9	constant				dut.sv	6	32	6	34	32	32	UINT:32	9
+---
+> 9	constant				dut.sv	6	32	6	34	32	64	UINT:32	9
+624c630
+< 9	constant				dut.sv	6	32	6	34	32	32	UINT:32	9
+---
+> 9	constant				dut.sv	6	32	6	34	32	64	UINT:32	9
+635c641
+< 9	constant				dut.sv	6	32	6	34	32	32	UINT:32	9
+---
+> 9	constant				dut.sv	6	32	6	34	32	64	UINT:32	9

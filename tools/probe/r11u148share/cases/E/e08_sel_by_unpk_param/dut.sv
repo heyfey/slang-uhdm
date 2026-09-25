@@ -1,0 +1,8 @@
+module top(output logic o);
+   parameter int T [3] = '{4, 1, 2};
+   function automatic logic theta();
+      logic [4:0][1:0] c = 10'h100;
+      return c[T[0]][0];
+   endfunction
+   assign o = theta();
+endmodule

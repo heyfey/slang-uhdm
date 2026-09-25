@@ -1,0 +1,4 @@
+161c161
+< 3	func_call	theta			dut.sv	8	15	8	22		0		
+---
+> 3	constant				dut.sv	2	30	2	31	1	32	UINT:1	9

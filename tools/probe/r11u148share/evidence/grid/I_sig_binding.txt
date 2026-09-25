@@ -1,0 +1,45 @@
+== i01_import_call gold/golden
+all p::inc return	W	-> constant ALL:W size=64
+all p::inc io x	W	-> constant ALL:W size=64
+top p::inc return	W	-> constant TOP:W size=32
+top p::inc io x	W	-> constant TOP:W size=32
+== i01_import_call pris
+all p::inc return	W	-> constant ALL:W size=64
+all p::inc io x	W	-> constant ALL:W size=64
+top p::inc return	W	-> constant ALL:W size=64
+top p::inc io x	W	-> constant ALL:W size=64
+== i01_import_call law5
+all p::inc return	W	-> constant ALL:W size=64
+all p::inc io x	W	-> constant ALL:W size=64
+top p::inc return	W	-> constant TOP:W size=32
+top p::inc io x	W	-> constant TOP:W size=32
+== i03_pkg_only gold/golden
+all p::inc return	W	-> constant ALL:W size=64
+all p::inc io x	W	-> constant ALL:W size=64
+top p::inc return	W	-> constant TOP:W size=32
+top p::inc io x	W	-> constant TOP:W size=32
+== i03_pkg_only pris
+all p::inc return	W	-> constant ALL:W size=64
+all p::inc io x	W	-> constant ALL:W size=64
+top p::inc return	W	-> constant ALL:W size=64
+top p::inc io x	W	-> constant ALL:W size=64
+== i03_pkg_only law5
+all p::inc return	W	-> constant ALL:W size=64
+all p::inc io x	W	-> constant ALL:W size=64
+top p::inc return	W	-> constant TOP:W size=32
+top p::inc io x	W	-> constant TOP:W size=32
+== i10_bare_ret_bound gold/golden
+all p::f return	W	-> constant ALL:W size=64
+all p::f io x	W	-> constant ALL:W size=64
+top p::f return	W	-> constant TOP:W size=32
+top p::f io x	W	-> constant TOP:W size=32
+== i10_bare_ret_bound pris
+all p::f return	W	-> constant ALL:W size=64
+all p::f io x	W	-> constant ALL:W size=64
+top p::f return	W	-> constant ALL:W size=64
+top p::f io x	W	-> constant ALL:W size=64
+== i10_bare_ret_bound law5
+all p::f return	W	-> constant ALL:W size=64
+all p::f io x	W	-> constant ALL:W size=64
+top p::f return	W	-> constant TOP:W size=32
+top p::f io x	W	-> constant TOP:W size=32

@@ -1,0 +1,7 @@
+r10earl_repro/u	R11U148E site=module arm=V scope=work@um
+r10uvm67repro/c5_clone	R11U148I param=C5_W
+r10v200repro/v200_5_modmat	R11U148I param=W5
+r10v200repro/v200_5_modmat	R11U148I param=W5
+r10v200repro/v200_5_modmat	R11U148I param=W5
+r11v48repro/vc1	R11U148I param=NF
+r11v48repro/vc2	R11U148I param=NF

@@ -1,0 +1,31 @@
+default/MiniAmiq-055eab74 order-blind-lines=4 census==sweepL:no census==sweepP:no
+730432d730431
+<       |UINT:1310
+733309a733309
+>       |UINT:604
+981411d981410
+<       |vpiDecompile:1310
+default/Scoreboard-72aa0ba8 order-blind-lines=0 census==sweepL:no census==sweepP:yes
+testflags/MiniAmiq-055eab74 order-blind-lines=4 census==sweepL:no census==sweepP:no
+730253d730252
+<       |UINT:1264
+733694a733694
+>       |UINT:684
+981265d981264
+<       |vpiDecompile:1264
+testflags/SeqDriver-65178d3a order-blind-lines=4 census==sweepL:no census==sweepP:yes
+694552d694551
+<       |UINT:0
+701614a701614
+>       |UINT:1464
+939358d939357
+<       |vpiDecompile:0
+testflags/SimpleUVM-267de3ff order-blind-lines=4 census==sweepL:yes census==sweepP:no
+424302a424303
+>       |UINT:0
+430555d430555
+<       |UINT:917
+568794a568795
+>       |vpiDecompile:0
+
+[exited with code 0]

@@ -1,0 +1,44 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u148_swL/probe.csv
+== probe vs golden_probe.csv
+[probe] EQUAL=2297 STRICT_NOTEQUAL=1790
+CONVERSION r11v48repro/vc1 STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11v48repro/vc2 STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CHANGE r10v200repro/v200_5_modmat STRICT_NOTEQUAL differ:fullname(2) -> differ:fullname(3) [fullname +1]
+regressions=0 conversions=2 changes=1 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u148_swL/surelog.csv
+[default] 798 tests
+  CMP_EQUAL: 397
+  STRICT_NOTEQUAL: 83
+[testflags] 798 tests
+  CMP_EQUAL: 391
+  STRICT_NOTEQUAL: 83
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=397 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=83 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=391 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=83 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u148_swL/uhdm2rtlil.csv
+[default] 871 tests
+  CMP_EQUAL: 702
+  STRICT_NOTEQUAL: 101
+[testflags] 871 tests
+  CMP_EQUAL: 702
+  STRICT_NOTEQUAL: 101
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=702 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=101
+[testflags] CMP_EQUAL=702 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=101
+CONVERSION FunctionParam default STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CONVERSION FunctionParam testflags STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CONVERSION SelectGivenBySelectOnParameterInFunction default STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CONVERSION SelectGivenBySelectOnParameterInFunction testflags STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CONVERSION SumOfParametersInNestedForLoops default STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CONVERSION SumOfParametersInNestedForLoops testflags STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CONVERSION func_local_array default STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CONVERSION func_local_array testflags STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CONVERSION simple_package default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION simple_package testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CHANGE LocalParamInNestedForLoops default STRICT_NOTEQUAL differ:fullname(2) -> differ:fullname(1) [fullname -1]
+CHANGE LocalParamInNestedForLoops testflags STRICT_NOTEQUAL differ:fullname(2) -> differ:fullname(1) [fullname -1]
+regressions=0 conversions=10 changes=2 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0

@@ -1,0 +1,205 @@
+193,194d192
+< 4	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+< 4	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+243,244d240
+< 7	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+< 7	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+276,277d271
+< 7	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+< 7	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+465c459
+< 4	struct_typespec				dut.sv	42	26	42	32				
+---
+> 4	struct_typespec				dut.sv	42	26	42	39				
+488c482
+< 4	struct_typespec				dut.sv	42	26	42	32				
+---
+> 4	struct_typespec				dut.sv	42	26	45	4				
+537,567c531,534
+< 9	struct_typespec	cfg_pkg::cfg_t			dut.sv	19	11	22	4				
+< 10	typespec_member	XLEN			dut.sv	20	18	20	22				
+< 11	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0		
+< 12	int_typespec				dut.sv	20	5	20	17				
+< 11	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+< 11	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+< 10	typespec_member	Flag			dut.sv	21	18	21	22				
+< 11	ref_typespec			<in>cfg_pkg::cfg_t.Flag		0	0	0	0		0		
+< 12	logic_typespec				dut.sv	21	5	21	10				
+< 11	operation				dut.sv	26	14	26	47		0		
+< 12	operation				dut.sv	26	15	26	28		0		
+< 13	hier_path	c.NrRules			dut.sv	26	15	26	24		0		
+< 14	ref_obj	c			dut.sv	26	15	26	16		0		
+< 14	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	26	17	26	24		0		
+< 13	constant				dut.sv	26	27	26	28	0	64	UINT:0	9
+< 12	operation				dut.sv	26	34	26	46		0		
+< 13	hier_path	c.Length			dut.sv	26	34	26	42		0		
+< 14	ref_obj	c			dut.sv	26	34	26	35		0		
+< 14	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	26	36	26	42		0		
+< 13	constant				dut.sv	26	45	26	46	0	64	UINT:0	9
+< 11	operation				dut.sv	26	14	26	47		0		
+< 12	operation				dut.sv	26	15	26	28		0		
+< 13	hier_path	c.NrRules			dut.sv	26	15	26	24		0		
+< 14	ref_obj	c			dut.sv	26	15	26	16		0		
+< 14	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	26	17	26	24		0		
+< 13	constant				dut.sv	26	27	26	28	0	64	UINT:0	9
+< 12	operation				dut.sv	26	34	26	46		0		
+< 13	hier_path	c.Length			dut.sv	26	34	26	42		0		
+< 14	ref_obj	c			dut.sv	26	34	26	35		0		
+< 14	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	26	36	26	42		0		
+< 13	constant				dut.sv	26	45	26	46	0	64	UINT:0	9
+---
+> 9	integer_typespec				dut.sv	47	14	47	22				
+> 10	hier_path	Cfg.XLEN			dut.sv	47	14	47	22		0		
+> 11	ref_obj	Cfg			dut.sv	47	18	47	22		0		
+> 11	ref_obj	XLEN			dut.sv	47	18	47	22		0		
+571,572c538,539
+< 9	ref_obj	Cfg			dut.sv	47	31	47	34		0		
+< 9	ref_obj	XLEN		work@StructParamFuncBodyFieldCompare.XLEN	dut.sv	47	35	47	39		0		
+---
+> 9	ref_obj	Cfg			dut.sv	47	35	47	39		0		
+> 9	ref_obj	XLEN			dut.sv	47	35	47	39		0		
+576,606c543,546
+< 8	struct_typespec	cfg_pkg::cfg_t			dut.sv	19	11	22	4				
+< 9	typespec_member	XLEN			dut.sv	20	18	20	22				
+< 10	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0		
+< 11	int_typespec				dut.sv	20	5	20	17				
+< 10	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+< 10	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+< 9	typespec_member	Flag			dut.sv	21	18	21	22				
+< 10	ref_typespec			<in>cfg_pkg::cfg_t.Flag		0	0	0	0		0		
+< 11	logic_typespec				dut.sv	21	5	21	10				
+< 10	operation				dut.sv	26	14	26	47		0		
+< 11	operation				dut.sv	26	15	26	28		0		
+< 12	hier_path	c.NrRules			dut.sv	26	15	26	24		0		
+< 13	ref_obj	c			dut.sv	26	15	26	16		0		
+< 13	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	26	17	26	24		0		
+< 12	constant				dut.sv	26	27	26	28	0	64	UINT:0	9
+< 11	operation				dut.sv	26	34	26	46		0		
+< 12	hier_path	c.Length			dut.sv	26	34	26	42		0		
+< 13	ref_obj	c			dut.sv	26	34	26	35		0		
+< 13	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	26	36	26	42		0		
+< 12	constant				dut.sv	26	45	26	46	0	64	UINT:0	9
+< 10	operation				dut.sv	26	14	26	47		0		
+< 11	operation				dut.sv	26	15	26	28		0		
+< 12	hier_path	c.NrRules			dut.sv	26	15	26	24		0		
+< 13	ref_obj	c			dut.sv	26	15	26	16		0		
+< 13	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	26	17	26	24		0		
+< 12	constant				dut.sv	26	27	26	28	0	64	UINT:0	9
+< 11	operation				dut.sv	26	34	26	46		0		
+< 12	hier_path	c.Length			dut.sv	26	34	26	42		0		
+< 13	ref_obj	c			dut.sv	26	34	26	35		0		
+< 13	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	26	36	26	42		0		
+< 12	constant				dut.sv	26	45	26	46	0	64	UINT:0	9
+---
+> 8	integer_typespec				dut.sv	47	48	47	56				
+> 9	hier_path	Cfg.XLEN			dut.sv	47	48	47	56		0		
+> 10	ref_obj	Cfg			dut.sv	47	52	47	56		0		
+> 10	ref_obj	XLEN			dut.sv	47	52	47	56		0		
+615,645c555,558
+< 9	struct_typespec	cfg_pkg::cfg_t			dut.sv	19	11	22	4				
+< 10	typespec_member	XLEN			dut.sv	20	18	20	22				
+< 11	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0		
+< 12	int_typespec				dut.sv	20	5	20	17				
+< 11	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+< 11	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+< 10	typespec_member	Flag			dut.sv	21	18	21	22				
+< 11	ref_typespec			<in>cfg_pkg::cfg_t.Flag		0	0	0	0		0		
+< 12	logic_typespec				dut.sv	21	5	21	10				
+< 11	operation				dut.sv	26	14	26	47		0		
+< 12	operation				dut.sv	26	15	26	28		0		
+< 13	hier_path	c.NrRules			dut.sv	26	15	26	24		0		
+< 14	ref_obj	c			dut.sv	26	15	26	16		0		
+< 14	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	26	17	26	24		0		
+< 13	constant				dut.sv	26	27	26	28	0	64	UINT:0	9
+< 12	operation				dut.sv	26	34	26	46		0		
+< 13	hier_path	c.Length			dut.sv	26	34	26	42		0		
+< 14	ref_obj	c			dut.sv	26	34	26	35		0		
+< 14	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	26	36	26	42		0		
+< 13	constant				dut.sv	26	45	26	46	0	64	UINT:0	9
+< 11	operation				dut.sv	26	14	26	47		0		
+< 12	operation				dut.sv	26	15	26	28		0		
+< 13	hier_path	c.NrRules			dut.sv	26	15	26	24		0		
+< 14	ref_obj	c			dut.sv	26	15	26	16		0		
+< 14	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	26	17	26	24		0		
+< 13	constant				dut.sv	26	27	26	28	0	64	UINT:0	9
+< 12	operation				dut.sv	26	34	26	46		0		
+< 13	hier_path	c.Length			dut.sv	26	34	26	42		0		
+< 14	ref_obj	c			dut.sv	26	34	26	35		0		
+< 14	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	26	36	26	42		0		
+< 13	constant				dut.sv	26	45	26	46	0	64	UINT:0	9
+---
+> 9	integer_typespec				dut.sv	48	14	48	22				
+> 10	hier_path	Cfg.XLEN			dut.sv	48	14	48	22		0		
+> 11	ref_obj	Cfg			dut.sv	48	18	48	22		0		
+> 11	ref_obj	XLEN			dut.sv	48	18	48	22		0		
+649,650c562,563
+< 9	ref_obj	Cfg			dut.sv	48	31	48	34		0		
+< 9	ref_obj	XLEN		work@StructParamFuncBodyFieldCompare.XLEN	dut.sv	48	35	48	39		0		
+---
+> 9	ref_obj	Cfg			dut.sv	48	35	48	39		0		
+> 9	ref_obj	XLEN			dut.sv	48	35	48	39		0		
+654,684c567,570
+< 8	struct_typespec	cfg_pkg::cfg_t			dut.sv	19	11	22	4				
+< 9	typespec_member	XLEN			dut.sv	20	18	20	22				
+< 10	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0		
+< 11	int_typespec				dut.sv	20	5	20	17				
+< 10	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+< 10	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+< 9	typespec_member	Flag			dut.sv	21	18	21	22				
+< 10	ref_typespec			<in>cfg_pkg::cfg_t.Flag		0	0	0	0		0		
+< 11	logic_typespec				dut.sv	21	5	21	10				
+< 10	operation				dut.sv	26	14	26	47		0		
+< 11	operation				dut.sv	26	15	26	28		0		
+< 12	hier_path	c.NrRules			dut.sv	26	15	26	24		0		
+< 13	ref_obj	c			dut.sv	26	15	26	16		0		
+< 13	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	26	17	26	24		0		
+< 12	constant				dut.sv	26	27	26	28	0	64	UINT:0	9
+< 11	operation				dut.sv	26	34	26	46		0		
+< 12	hier_path	c.Length			dut.sv	26	34	26	42		0		
+< 13	ref_obj	c			dut.sv	26	34	26	35		0		
+< 13	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	26	36	26	42		0		
+< 12	constant				dut.sv	26	45	26	46	0	64	UINT:0	9
+< 10	operation				dut.sv	26	14	26	47		0		
+< 11	operation				dut.sv	26	15	26	28		0		
+< 12	hier_path	c.NrRules			dut.sv	26	15	26	24		0		
+< 13	ref_obj	c			dut.sv	26	15	26	16		0		
+< 13	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	26	17	26	24		0		
+< 12	constant				dut.sv	26	27	26	28	0	64	UINT:0	9
+< 11	operation				dut.sv	26	34	26	46		0		
+< 12	hier_path	c.Length			dut.sv	26	34	26	42		0		
+< 13	ref_obj	c			dut.sv	26	34	26	35		0		
+< 13	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	26	36	26	42		0		
+< 12	constant				dut.sv	26	45	26	46	0	64	UINT:0	9
+---
+> 8	integer_typespec				dut.sv	48	48	48	56				
+> 9	hier_path	Cfg.XLEN			dut.sv	48	48	48	56		0		
+> 10	ref_obj	Cfg			dut.sv	48	52	48	56		0		
+> 10	ref_obj	XLEN			dut.sv	48	52	48	56		0		
+741c627
+< 9	ref_obj	NrRules		<in>cfg_pkg::cfg_t.Flag.NrRules	dut.sv	26	17	26	24		0		
+---
+> 9	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	26	17	26	24		0		
+746c632
+< 9	ref_obj	Length		<in>cfg_pkg::cfg_t.Flag.Length	dut.sv	26	36	26	42		0		
+---
+> 9	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	26	36	26	42		0		
+752c638
+< 9	ref_obj	NrRules		<in>cfg_pkg::cfg_t.Flag.NrRules	dut.sv	26	17	26	24		0		
+---
+> 9	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	26	17	26	24		0		
+757c643
+< 9	ref_obj	Length		<in>cfg_pkg::cfg_t.Flag.Length	dut.sv	26	36	26	42		0		
+---
+> 9	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	26	36	26	42		0		
+761c647
+< 4	struct_typespec				dut.sv	42	26	42	32				
+---
+> 4	struct_typespec				dut.sv	42	26	42	39				
+784c670
+< 4	struct_typespec				dut.sv	42	26	42	32				
+---
+> 4	struct_typespec				dut.sv	42	26	45	4				
+842c728
+< 5	struct_typespec				dut.sv	42	26	42	32				
+---
+> 5	struct_typespec				dut.sv	42	26	45	4				

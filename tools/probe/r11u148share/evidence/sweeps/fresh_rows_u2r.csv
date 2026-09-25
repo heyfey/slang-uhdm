@@ -1,0 +1,12 @@
+func_local_array,default,CMP_EQUAL,,,equal
+func_local_array,testflags,CMP_EQUAL,,,equal
+FunctionParam,default,CMP_EQUAL,,,equal
+FunctionParam,testflags,CMP_EQUAL,,,equal
+LocalParamInNestedForLoops,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+LocalParamInNestedForLoops,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+SelectGivenBySelectOnParameterInFunction,default,CMP_EQUAL,,,equal
+SelectGivenBySelectOnParameterInFunction,testflags,CMP_EQUAL,,,equal
+simple_package,default,CMP_EQUAL,,,equal
+simple_package,testflags,CMP_EQUAL,,,equal
+SumOfParametersInNestedForLoops,default,CMP_EQUAL,,,equal
+SumOfParametersInNestedForLoops,testflags,CMP_EQUAL,,,equal
