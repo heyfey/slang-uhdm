@@ -1,0 +1,77 @@
+ver4 | v11u164repro/cases/BU/u02_unresolved_ordered | EQUIVALENT | NO_GATES | NO_GATES | nohier | ℹ️  No common assign statements to compare — skipping
+ver4 | v11u164repro/cases/BU/u03_resolved_only | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/BU/u04_unresolved_deep | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/BU/u05_unresolved_first_level | SLANG_REJECT |  |  | - | -
+ver4 | v11u164repro/cases/DL/d01_real_list | IDENTICAL | OK | OK | - | -
+ver4 | v11u164repro/cases/DL/d02_list_genif | IDENTICAL | OK | OK | - | -
+ver4 | v11u164repro/cases/DL/d03_list_child_twice | IDENTICAL | OK | OK | - | -
+ver4 | v11u164repro/cases/DL/d04_list_iface | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/DL/d05_param_genif | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/DL/d06_localparam_derived | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/DL/d07_pkg_param | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/DL/d08_param_select_lhs | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/DL/d09_param_list_child | IDENTICAL | OK | OK | - | -
+ver4 | v11u164repro/cases/DL/d10_param_rise_fall | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/DL/d11_param_three_list | IDENTICAL | OK | OK | - | -
+ver4 | v11u164repro/cases/EA/e01_unit_alias_used | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/EA/e02_alias_of_alias | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/EA/e03_int_base | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/EA/e04_signed_base | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/EA/e05_iface_alias_port | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/EA/e06_param_range_base | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/FO/f01_ordered_3lvl_first | IDENTICAL | OK | OK | - | -
+ver4 | v11u164repro/cases/FO/f02_ordered_bitsel_first | IDENTICAL | OK | OK | - | -
+ver4 | v11u164repro/cases/FO/f03_ordered_iface_member | IDENTICAL | OK | OK | - | -
+ver4 | v11u164repro/cases/FO/f04_ordered_two_insts | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/ND/n01_struct_member | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/ND/n02_path_bitsel | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/ND/n03_iface_signal | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/ND/n04_gencase | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/ND/n05_genfor_vec | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/ND/n06_delay_netdecl | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/ND/n07_abs_path | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/ND/n08_child_instance_path | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/ND/n09_typed_logic | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/PV/p01_ordered_two_overrides | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/PV/p02_ordered_two_params | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/PV/p03_typed_params | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/PV/p04_localparam | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/PV/p05_two_defs_same_param | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/PV/p06_mixed_named_ordered | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/PV/p07_array_elems_named | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/PV/p08_string_param | EQUIVALENT | NO_GATES | NO_GATES | nohier | ℹ️  No common assign statements to compare — skipping
+ver4 | v11u164repro/cases/PV/p09_child_param_and_iface | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/PV/p10_generic_two | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/PV/p11_ordered_same_value_default | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/PV/p12_wildcard | STATUS_DIFF | NO_GATES | READ_FAIL | - | -
+ver4 | v11u164repro/cases/PV/p13_shorthand | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/PV/p14_two_receivers | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/PV/p15_genblk_inscope | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/PV/p16_named_twice_param_child | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ℹ️  No common assign statements to compare — skipping
+ver4 | v11u164repro/cases/PV/p17_ref_style_ordered | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/PV/p18_mp_in_conn_ordered_ref | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/PV/p19_passthrough_mixed | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/RQ/r01_high_neg | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/RQ/r02_right_neg_asc | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/RQ/r03_high_wide_onto_narrow | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/RQ/r04_high_dim2 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/RQ/r05_left_type | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/RQ/r06_high_unpacked | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u164_dsc/ver
+ver4 | v11u164repro/cases/RQ/r07_low_signed_decl | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/RQ/r08_param_child | EQUIVALENT | NO_GATES | NO_GATES | nohier | ✅ All 2 common constant assignments match
+ver4 | v11u164repro/cases/RQ/r09_high_decl_var | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/RQ/r10_high_selected_lhs | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/RQ/r11_param_wide_onto_narrow | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/RQ/r12_var_onto_2bit | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/RQ/r13_var_implicit | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/RQ/r14_low_var_onto_1bit | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/RQ/r15_right_asc_onto_2bit | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/RQ/r16_net_onto_4bit | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/RQ/r17_sized_bound | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/RQ/r18_expr_bound_mod | EQUIVALENT | NO_GATES | NO_GATES | nohier | ✅ All 1 common constant assignments match
+ver4 | v11u164repro/cases/SB/s01_two_genvars | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/SB/s02_three_level | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/SB/s03_param_leaf | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/SB/s04_op_base | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/SB/s05_unpacked | IDENTICAL | NO_GATES | NO_GATES | - | -
+ver4 | v11u164repro/cases/SB/s06_genif_inside_for | IDENTICAL | NO_GATES | NO_GATES | - | -

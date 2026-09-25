@@ -20,7 +20,7 @@ several laws and nothing says which one a case exercises, the case is listed und
 each of them with a trailing `?` until its author writes its LAW file. A
 verification pass owns the laws of the pass it verifies.
 
-Laws: 1698. Cases in the gate: 4087, tied to one law 3969, listed with `?`
+Laws: 1710. Cases in the gate: 4087, tied to one law 3969, listed with `?`
 under several 106, tied to no law 12 (listed at the end).
 Laws with a commit on this branch: 1121;
 laws with cases in the gate: 676.
@@ -468,6 +468,14 @@ laws with cases in the gate: 676.
 - cases in the gate (tests/probe/): r10uvm46repro/t63a r10uvm46repro/t63b r10uvm46repro/t63c r10uvm46repro/t63d r10uvm46repro/t63e r10vrgg16repro/cells/v14
 - cases in the evidence (tools/probe/): r10uvm46repro/t63f/dut.sv r10v215repro/armsv215b/v9_bind.sv
 
+### `bindUnresolvedPathNoName164`
+- commits: none on this branch
+- pass: r11u164repro (verified by v11u164repro)
+- switches: R11U161_ALIAS_OFF R11U161_FILE_OFF R11U161_NAME_OFF R11U161_OFF R11U161_PORT_OFF R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U164_BINDPATHNAME_OFF R11U164_CADELAY_OFF R11U164_DLYPARAMELAB_OFF R11U164_GENNDAHP_OFF R11U164_OFF R11U164_PVMPDEF_OFF R11U164_PVSHARE_OFF R11U164_RANGEQSIZE_OFF R11U164_RANGEQ_OFF R11U164_SELBASELEAF_OFF R11V164_ALIASBASE_OFF R11V164_RQMASK_OFF
+- source: src/ModuleEmit.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u164repro/cases/BU/u01_bind_unresolved_path/dut.sv v11u164repro/cases/BU/u02_unresolved_ordered/dut.sv v11u164repro/cases/BU/u03_resolved_only/dut.sv v11u164repro/cases/BU/u04_unresolved_deep/dut.sv v11u164repro/cases/BU/u05_unresolved_first_level/dut.sv
+
 ### `bitElemSharesArrayRanges11`
 - commits: 67bb2b0c6
 - pass: r10buvm11repro
@@ -798,13 +806,30 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): none
 - also mentioned by: r11u105repro
 
+### `caDelayFirstOnly164`
+- commits: none on this branch
+- pass: r11u164repro (verified by v11u164repro)
+- switches: R11U161_ALIAS_OFF R11U161_FILE_OFF R11U161_NAME_OFF R11U161_OFF R11U161_PORT_OFF R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U164_BINDPATHNAME_OFF R11U164_CADELAY_OFF R11U164_DLYPARAMELAB_OFF R11U164_GENNDAHP_OFF R11U164_OFF R11U164_PVMPDEF_OFF R11U164_PVSHARE_OFF R11U164_RANGEQSIZE_OFF R11U164_RANGEQ_OFF R11U164_SELBASELEAF_OFF R11V164_ALIASBASE_OFF R11V164_RQMASK_OFF
+- source: src/ModuleEmit.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u164repro/cases/DL/d01_two/dut.sv r11u164repro/cases/DL/d02_three/dut.sv r11u164repro/cases/DL/d03_rise_fall/dut.sv r11u164repro/cases/DL/d04_single/dut.sv r11u164repro/cases/DL/d05_param/dut.sv r11u164repro/cases/DL/d06_strength/dut.sv r11u164repro/cases/DL/d07_netdecl/dut.sv r11u164repro/cases/DL/d08_child/dut.sv r11u164repro/cases/DL/d11_bodyparam_two/dut.sv v11u164repro/cases/DL/d01_real_list/dut.sv v11u164repro/cases/DL/d02_list_genif/dut.sv v11u164repro/cases/DL/d03_list_child_twice/dut.sv v11u164repro/cases/DL/d04_list_iface/dut.sv v11u164repro/cases/DL/d09_param_list_child/dut.sv v11u164repro/cases/DL/d11_param_three_list/dut.sv
+
+### `caDelayParamElabFresh164`
+- commits: none on this branch
+- pass: r11u164repro (verified by v11u164repro)
+- switches: R11U161_ALIAS_OFF R11U161_FILE_OFF R11U161_NAME_OFF R11U161_OFF R11U161_PORT_OFF R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U164_BINDPATHNAME_OFF R11U164_CADELAY_OFF R11U164_DLYPARAMELAB_OFF R11U164_GENNDAHP_OFF R11U164_OFF R11U164_PVMPDEF_OFF R11U164_PVSHARE_OFF R11U164_RANGEQSIZE_OFF R11U164_RANGEQ_OFF R11U164_SELBASELEAF_OFF R11V164_ALIASBASE_OFF R11V164_RQMASK_OFF
+- source: src/ModuleEmit.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u164repro/cases/DL/d09_param_single/dut.sv r11u164repro/cases/DL/d10_param_two_stmts/dut.sv r11u164repro/cases/DL/d12_param_child_override/dut.sv r11u164repro/cases/DL/d13_param_paren/dut.sv r11u164repro/cases/DL/d14_param_expr/dut.sv r11u164repro/cases/DL/d15_localparam/dut.sv v11u164repro/cases/DL/d05_param_genif/dut.sv v11u164repro/cases/DL/d06_localparam_derived/dut.sv v11u164repro/cases/DL/d07_pkg_param/dut.sv v11u164repro/cases/DL/d08_param_select_lhs/dut.sv v11u164repro/cases/DL/d09_param_list_child/dut.sv v11u164repro/cases/DL/d10_param_rise_fall/dut.sv
+
 ### `caDelayParamRefSpelling90`
 - commits: none on this branch
 - pass: r11u90repro
 - switches: R11U90_CELLDBG R11U90_DLYREF_OFF R11U90_OFF R11U90_STRCELL_OFF R11U92_CELLDBG R11U92_OFF R11U92_PROGCELL_OFF
-- source: include/UhdmExporter.h(1) src/ModuleEmit.cpp(4)
+- source: include/UhdmExporter.h(1) src/ModuleEmit.cpp(5)
 - cases in the gate (tests/probe/): r11u90repro/grid.verifier/vy10_dlyctlconst r11u90repro/grid.verifier/vy12_dlytwocells r11u90repro/grid.verifier/vy15_dlydefonly r11u90repro/grid.verifier/vy16_dlystrparam r11u90repro/grid.verifier/vy19_dlymodportname r11u90repro/grid.verifier/vy1_dlylpmod r11u90repro/grid.verifier/vy4_dlyparamshadow r11u90repro/grid.verifier/vy5_dlyparamovrmod r11u90repro/grid.verifier/vy6_dlyifmulti r11u90repro/grid.verifier/vy7_dlyparamreal r11u90repro/grid.verifier/vy8_dlynested r11u90repro/grid.verifier/vy9_dlyifport r11u90repro/grid/u10_strprog r11u90repro/grid/u11_strmodport r11u90repro/grid/u12_strnonansi r11u90repro/grid/u3_strgenmod r11u90repro/grid/u4_strgenif r11u90repro/grid/u5_strread r11u90repro/grid/u6_strcomma r11u90repro/grid/u7_strdly r11u90repro/grid/w11_dlyctl r11u90repro/grid/w13_dlyparamtop r11u90repro/grid/w14_dlyparamovr r11u90repro/grid/w2_dlylocalparam r11u90repro/grid/w4_dlyparammod
 - cases in the evidence (tools/probe/): r11u90repro/grid.verifier/vx16_strportconn/dut.sv? r11u90repro/grid.verifier/vx17_strgenref/dut.sv? r11u90repro/grid.verifier/vx18_strifsameref/dut.sv? r11u90repro/grid.verifier/vx19_strprocread/dut.sv? r11u90repro/grid.verifier/vx21_strsupplyparen/dut.sv? r11u90repro/grid.verifier/vx2_strreadsame/dut.sv? r11u90repro/grid.verifier/vx3_strextradrv/dut.sv? r11u90repro/grid.verifier/vx6_strwand/dut.sv? r11u90repro/grid.verifier/vx7_strchargebig/dut.sv? r11u90repro/grid.verifier/vy11_dlyparamnonint/dut.sv? r11u90repro/grid.verifier/vy13_dlyparamup/dut.sv? r11u90repro/grid.verifier/vy14_dlyifarray/dut.sv? r11u90repro/grid.verifier/vy17_dlyifnested/dut.sv? r11u90repro/grid.verifier/vy18_dlyenumname/dut.sv? r11u90repro/grid.verifier/vy2_dlygenassign/dut.sv? r11u90repro/grid.verifier/vy3_dlyimportparam/dut.sv? r11u90repro/grid/u14_strcharge/dut.sv r11u90repro/grid/u1_strnoinit_if/dut.sv r11u90repro/grid/u2_strnoinit_mod/dut.sv r11u90repro/grid/u8_strtri/dut.sv r11u90repro/grid/w10_dlypkgparam/dut.sv r11u90repro/grid/w15_dlyparamtwoinst/dut.sv r11u90repro/grid/w16_dlyvar/dut.sv r11u90repro/grid/w3_dlyexpr/dut.sv r11u90repro/grid/w5_dlyparamgen/dut.sv r11u90repro/grid/w6_dlyndaparam/dut.sv r11u90repro/grid/w7_dlyparen/dut.sv r11u90repro/grid/w8_dlytwo/dut.sv r11u90repro/grid/w9_dlymtm/dut.sv
+- also mentioned by: r11u164repro
 
 ### `caDelayRefIsARef90`
 - commits: 0522e3474
@@ -921,7 +946,7 @@ laws with cases in the gate: 676.
 ### `caIfaceClassIsDesignRoot98`
 - commits: 9002f74a3
 - pass: r11u98repro (verified by r11v98repro)
-- switches: R11U101_NESTKEY_OFF R11U101_NESTPORT_OFF R11U101_OFF R11U146_OFF R11U152_OFF R11U155_OFF R11U160_OFF R11U98_GENFINAL_OFF R11U98_IFACECLASS_OFF R11U98_NETDBG R11U98_OFF R11U99_IFACEBODY_OFF R11U99_IFACEROOT_OFF R11U99_OFF
+- switches: R11U101_NESTKEY_OFF R11U101_NESTPORT_OFF R11U101_OFF R11U155_OFF R11U160_OFF R11U164_OFF R11U98_GENFINAL_OFF R11U98_IFACECLASS_OFF R11U98_NETDBG R11U98_OFF R11U99_IFACEBODY_OFF R11U99_IFACEROOT_OFF R11U99_OFF
 - source: src/ModuleEmit.cpp(1) src/UhdmExporter.cpp(2)
 - cases in the gate (tests/probe/): r11u98repro/grid/g3_ifaceclassnames r11u98repro/grid/h2_ifacegenclass r11u98repro/grid/h3_ifacegentask r11u98repro/grid/h9_ifaceclassbody
 - cases in the evidence (tools/probe/): r11u98repro/grid/g9_modclassparam/dut.sv?
@@ -1155,7 +1180,7 @@ laws with cases in the gate: 676.
 ### `caNestedModDefKeyScoped101`
 - commits: 04a01cc68
 - pass: r11u101repro (verified by v11u93repro)
-- switches: R11U101_NESTKEY_OFF R11U101_NESTLIB_OFF R11U101_NESTPORT_OFF R11U101_NESTSHADOW_OFF R11U101_NETDBG R11U101_OFF R11U160_OFF R11U98_IFACECLASS_OFF R11U98_OFF R11U99_IFACEROOT_OFF R11U99_OFF
+- switches: R11U101_NESTKEY_OFF R11U101_NESTLIB_OFF R11U101_NESTPORT_OFF R11U101_NESTSHADOW_OFF R11U101_NETDBG R11U101_OFF R11U98_IFACECLASS_OFF R11U98_OFF R11U99_IFACEROOT_OFF R11U99_OFF
 - source: src/UhdmExporter.cpp(2)
 - cases in the gate (tests/probe/): r11u101repro/grid/x09_rv2twoouters r11u101repro/grid/x10_rv2threeouters r11u101repro/grid/x20_rv2child r11u101repro/grid/x25_rv2childport v11u93repro/grid/b04_rv2explicit v11u93repro/grid/b05_rv2explicitported v11u93repro/grid/b07_rv2arr v11u93repro/grid/b12_shadowtopportless v11u93repro/grid/b14_rv2shadow3 v11u93repro/grid/b18_rv2deep v11u93repro/grid/b19_rv2oneexplicit v11u93repro/grid/b25_rv2toptwo
 - cases in the evidence (tools/probe/): r11u101repro/grid/x04_nestparamnodef/dut.sv? r11u101repro/grid/x15_shadowinst/dut.sv? r11u101repro/grid/x17_nestifaceport/dut.sv? v11u93repro/grid/b03_outertypedef/dut.sv? v11u93repro/grid/b06_rv2gen/dut.sv? v11u93repro/grid/b09d_pkgstruct/dut.sv? v11u93repro/grid/b13_libouter/dut.sv? v11u93repro/grid/b13_libouter/lib.sv? v11u93repro/grid/b13b_libouterportless/dut.sv? v11u93repro/grid/b13b_libouterportless/lib.sv? v11u93repro/grid/b13c_librv2implicit/dut.sv? v11u93repro/grid/b13c_librv2implicit/lib.sv? v11u93repro/grid/b13d_librv2explicit/dut.sv? v11u93repro/grid/b13d_librv2explicit/lib.sv? v11u93repro/grid/b13e_libportedinst/dut.sv? v11u93repro/grid/b13e_libportedinst/lib.sv? v11u93repro/grid/b13f_libmixed/dut.sv? v11u93repro/grid/b13f_libmixed/lib.sv? v11u93repro/grid/b26b_toponly_top/dut.sv? v11u93repro/grid/c09d_pkgstruct_genonly/dut.sv?
@@ -1204,7 +1229,7 @@ laws with cases in the gate: 676.
 ### `caNestedModPortedDefShell101`
 - commits: 04a01cc68
 - pass: r11u101repro (verified by v11u93repro)
-- switches: R11U101_NESTKEY_OFF R11U101_NESTLIB_OFF R11U101_NESTPORT_OFF R11U101_NESTSHADOW_OFF R11U101_NETDBG R11U101_OFF R11U160_OFF R11U98_IFACECLASS_OFF R11U98_OFF R11U99_IFACEROOT_OFF R11U99_OFF
+- switches: R11U101_NESTKEY_OFF R11U101_NESTLIB_OFF R11U101_NESTPORT_OFF R11U101_NESTSHADOW_OFF R11U101_NETDBG R11U101_OFF R11U98_IFACECLASS_OFF R11U98_OFF R11U99_IFACEROOT_OFF R11U99_OFF
 - source: src/UhdmExporter.cpp(2)
 - cases in the gate (tests/probe/): r11u101repro/grid/x01_nestport r11u101repro/grid/x02_nestparam r11u101repro/grid/x03_nestportparam r11u101repro/grid/x05_nestnonansi r11u101repro/grid/x06_nestportinst r11u101repro/grid/x07_nestportdeep r11u101repro/grid/x08_nestparaminmid r11u101repro/grid/x11_rv2ported r11u101repro/grid/x12_rv2mixed r11u101repro/grid/x13_rv2outertwice r11u101repro/grid/x14_nestporttopouter r11u101repro/grid/x16_shadowport r11u101repro/grid/x18_nestportclassouter r11u101repro/grid/x19_nestportchild r11u101repro/grid/x21_outerparamported r11u101repro/grid/x22_nestportunused r11u101repro/grid/x23_implchildport r11u101repro/grid/x24_genchildport v11u93repro/grid/b01_sibnested v11u93repro/grid/b02_outerparamwidth v11u93repro/grid/b08_outergenonly v11u93repro/grid/b09a_strength v11u93repro/grid/b09b_netdecl v11u93repro/grid/b09c_proc v11u93repro/grid/b09e_gen v11u93repro/grid/b10_inst1 v11u93repro/grid/b10_inst2 v11u93repro/grid/b10_inst3 v11u93repro/grid/b11_shadowtopinst v11u93repro/grid/b15_bodyparamported v11u93repro/grid/b16_upref v11u93repro/grid/b20_outerarray v11u93repro/grid/b21_portedusesportless v11u93repro/grid/b22_ifaceinside v11u93repro/grid/b23_childparamnodef v11u93repro/grid/b24_leafshared v11u93repro/grid/b26_toponly v11u93repro/grid/c09d_pkgstruct_inst
 - cases in the evidence (tools/probe/): r11u101repro/grid/x04_nestparamnodef/dut.sv? r11u101repro/grid/x15_shadowinst/dut.sv? r11u101repro/grid/x17_nestifaceport/dut.sv? v11u93repro/grid/b03_outertypedef/dut.sv? v11u93repro/grid/b06_rv2gen/dut.sv? v11u93repro/grid/b09d_pkgstruct/dut.sv? v11u93repro/grid/b13_libouter/dut.sv? v11u93repro/grid/b13_libouter/lib.sv? v11u93repro/grid/b13b_libouterportless/dut.sv? v11u93repro/grid/b13b_libouterportless/lib.sv? v11u93repro/grid/b13c_librv2implicit/dut.sv? v11u93repro/grid/b13c_librv2implicit/lib.sv? v11u93repro/grid/b13d_librv2explicit/dut.sv? v11u93repro/grid/b13d_librv2explicit/lib.sv? v11u93repro/grid/b13e_libportedinst/dut.sv? v11u93repro/grid/b13e_libportedinst/lib.sv? v11u93repro/grid/b13f_libmixed/dut.sv? v11u93repro/grid/b13f_libmixed/lib.sv? v11u93repro/grid/b26b_toponly_top/dut.sv? v11u93repro/grid/c09d_pkgstruct_genonly/dut.sv?
@@ -3415,15 +3440,16 @@ laws with cases in the gate: 676.
 - source: src/ModuleEmit.cpp(1)
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u144repro/grid/hg/b/dut.sv r11u144repro/grid/hg/c/dut.sv r11u144repro/grid/hg/d/dut.sv r11u144repro/grid/hg/e/dut.sv r11u149verify/cases/cmp/c1_defgen_and_proclv/dut.sv r11u149verify/cases/hg/n01_param_index/dut.sv r11u149verify/cases/hg/n02_genif_in_loop/dut.sv r11u149verify/cases/hg/n03_deep_member/dut.sv r11u149verify/cases/hg/n04_nested_loops/dut.sv r11u149verify/cases/hg/n05_localparam_index/dut.sv r11u149verify/cases/hg/n06_unpacked_net_array/dut.sv v11u144repro/brk/hg/x1/dut.sv v11u144repro/brk/hg/x2/dut.sv v11u144repro/brk/hg/x3/dut.sv v11u144repro/brk/hg/x4/dut.sv v11u144repro/brk/hg/x5/dut.sv
-- also mentioned by: r11u149verify
+- also mentioned by: r11u149verify r11u164repro
 
 ### `defGenPathSel161`
 - commits: 166071341
 - pass: -
-- source: not in the source
+- switches: R11U146_OFF R11U148_I_OFF R11U148_OFF R11U161_OFF R11U161_TRACE
+- source: src/ModuleEmit.cpp(3) src/TypeEmit.cpp(10)
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): none
-- also mentioned by: r11u161gen
+- also mentioned by: r11u161gen r11u164repro v11u164repro
 
 ### `defGenPkgParamFoldQual19`
 - commits: none on this branch
@@ -3472,6 +3498,14 @@ laws with cases in the gate: 676.
 - cases in the gate (tests/probe/): r10earl_repro/cc? r10earl_repro/py20? r10earl_repro/qa28? r10earl_repro/qd25? r10earl_repro/rr? r10earl_repro/tl? r10earl_repro/vb r10earl_repro/wf?
 - cases in the evidence (tools/probe/): r10earl38repro/a2_fence.sv r10earl40repro/bnd_a2_fence.sv r10earl_repro/d.sv? r10earl_repro/k.sv? r10earl_repro/qb28.sv? r10earl_repro/qc25.sv? r10earl_repro/qc28.sv? r10earl_repro/qe22.sv? r10earl_repro/qf26.sv? r10earl_repro/qh27.sv? r10earl_repro/qi27.sv? r10earl_repro/va.sv
 
+### `defGenSelBaseLeafAtIndex164`
+- commits: none on this branch
+- pass: r11u164repro (verified by v11u164repro)
+- switches: R11U161_ALIAS_OFF R11U161_FILE_OFF R11U161_NAME_OFF R11U161_OFF R11U161_PORT_OFF R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U164_BINDPATHNAME_OFF R11U164_CADELAY_OFF R11U164_DLYPARAMELAB_OFF R11U164_GENNDAHP_OFF R11U164_OFF R11U164_PVMPDEF_OFF R11U164_PVSHARE_OFF R11U164_RANGEQSIZE_OFF R11U164_RANGEQ_OFF R11U164_SELBASELEAF_OFF R11V164_ALIASBASE_OFF R11V164_RQMASK_OFF
+- source: src/ModuleEmit.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u164repro/cases/SB/b01_genvar_base_lit_leaf/dut.sv r11u164repro/cases/SB/b02_lit_base_lit_leaf/dut.sv r11u164repro/cases/SB/b03_genvar_base_genvar_leaf/dut.sv r11u164repro/cases/SB/b04_genvar_base_partsel_leaf/dut.sv r11u164repro/cases/SB/b05_genvar_base_plain_leaf/dut.sv v11u164repro/cases/SB/s01_two_genvars/dut.sv v11u164repro/cases/SB/s02_three_level/dut.sv v11u164repro/cases/SB/s03_param_leaf/dut.sv v11u164repro/cases/SB/s04_op_base/dut.sv v11u164repro/cases/SB/s05_unpacked/dut.sv v11u164repro/cases/SB/s06_genif_inside_for/dut.sv
+
 ### `defNetBoundEnumConstBind18`
 - commits: none on this branch
 - pass: -
@@ -3499,7 +3533,7 @@ laws with cases in the gate: 676.
 ### `defNetEndOnlyLoc130`
 - commits: f8ffb241e
 - pass: r11u130repro (verified by r11v130repro)
-- switches: R11U119_OFF R11U125_OFF R11U125_SPANFILE_OFF R11U130_CLSARGNET_OFF R11U130_DEFNETLOC_OFF R11U130_GVTSFILE_OFF R11U130_IFSUKW_OFF R11U130_INCNOTEXT_OFF R11U130_NETSIGN_OFF R11U130_OFF R11U130_PVPARAM_OFF R11U130_REDEFLINE_OFF R11U130_SUSIGN_OFF R11U130_WILDSPAN_OFF R11U146_OFF R11U148_I_OFF R11U148_OFF R11V130_DEFNETVAR_OFF R11V130_INCTAB_OFF
+- switches: R11U119_OFF R11U125_OFF R11U125_SPANFILE_OFF R11U130_CLSARGNET_OFF R11U130_DEFNETLOC_OFF R11U130_GVTSFILE_OFF R11U130_IFSUKW_OFF R11U130_INCNOTEXT_OFF R11U130_NETSIGN_OFF R11U130_OFF R11U130_PVPARAM_OFF R11U130_REDEFLINE_OFF R11U130_SUSIGN_OFF R11U130_WILDSPAN_OFF R11V130_DEFNETVAR_OFF R11V130_INCTAB_OFF
 - source: src/ModuleEmit.cpp(4) src/TypeEmit.cpp(1) src/UhdmExporter.cpp(1)
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u130repro/grid/g1/e01_anon_nobase/dut.sv r11u130repro/grid/g1/e02_anon_base/dut.sv r11u130repro/grid/g1/e03_anon_single/dut.sv r11u130repro/grid/g1/e04_anon_values/dut.sv r11u130repro/grid/g1/e05_anon_twodecl/dut.sv r11u130repro/grid/g1/e06_anon_init/dut.sv r11u130repro/grid/g1/e07_pkg_struct_arr/dut.sv r11u130repro/grid/g1/e08_pkg_struct_2d/dut.sv r11u130repro/grid/g1/e09_pkg_enum_init/dut.sv r11u130repro/grid/g1/e10_local_struct_arr/dut.sv r11u130repro/grid/g1/e11_iface_anon/dut.sv r11u130repro/grid/g1/e12_pkg_struct_unpacked/dut.sv r11u130repro/grid/g1/e13_port_anon/dut.sv r11u130repro/grid/g1/e14_sub_anon/dut.sv r11u130repro/grid/g1/e15_ctl_vector/dut.sv r11u130repro/grid/g1/e16_anon_multiline/dut.sv r11u130repro/grid/g1/e17_sub_pkg_arr/dut.sv r11u130repro/grid/g1/e18_incl_anon/dut.sv r11u130repro/grid/g1/e19_import_bare_arr/dut.sv r11u130repro/grid/g1/e20_local_2d/dut.sv r11u141verify/cases/p130_defnetloc/a02_enum_macro/dut.sv r11u141verify/cases/p130_defnetloc/a03_enum_param_base/dut.sv r11u141verify/cases/p130_defnetloc/a04_pkg_packed_iface/dut.sv r11u141verify/cases/p130_defnetloc/a05_local_td_param_dim/dut.sv r11u141verify/cases/p130_defnetloc/a06_enum_pkg_param_base/dut.sv r11u141verify/cases/p130_defnetloc/a07_enum_int_unsigned/dut.sv r11v130repro/grid/adv/a01_genblk_anon_enum/dut.sv r11v130repro/grid/adv/a03_enum_typedef_base/dut.sv r11v130repro/grid/adv/a04_wire_named_packed/dut.sv r11v130repro/grid/adv/a05_named_two_declarators/dut.sv r11v130repro/grid/adv/a06_typeparam_packed/dut.sv r11v130repro/grid/adv/a07_genblk_named_packed/dut.sv r11v130repro/grid/adv/a09_nonansi_port_enum/dut.sv r11v130repro/grid/adv/a10_program_anon_enum/dut.sv r11v130repro/grid/adv/a11_local_bare_packed_multiline/dut.sv r11v130repro/grid/adv/a12_anon_enum_two_nobase_2mem/dut.sv r11v130repro/grid/adv/a13_wire_named_2d/dut.sv r11v130repro/grid/adv/a14_local_bare_2d_wire/dut.sv r11v130repro/grid/adv/n01_pkg_anon_enum/dut.sv r11v130repro/grid/adv/n02_unit_anon_enum/dut.sv r11v130repro/grid/adv/n03_anon_enum_attr/dut.sv r11v130repro/grid/adv/n04_static_anon_enum/dut.sv r11v130repro/grid/adv/n05_const_enum_init/dut.sv r11v130repro/grid/var/k04_var_enum_init/dut.sv r11v130repro/grid/var/k09_var_enum_init_only/dut.sv r11v130repro/grid/var/k10_var_local_packed_init/dut.sv r11v130repro/grid/var/k13_nonvar_pkg_packed_noassign/dut.sv
@@ -4581,13 +4615,22 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): r10uvm62repro/c1_endlabel.sv r10uvm62repro/c3_edge.sv r10v158repro/arms/v158_e.sv r10v158repro/arms/v158_h.sv r10v158repro/arms/v158_j.sv
 - also mentioned by: r10uvm63repro r10uvm65repro r10v131repro r10v158repro
 
+### `enumAliasBaseAsTarget164v`
+- commits: none on this branch
+- pass: - (verified by v11u164repro)
+- switches: R11U101_NESTPORT_OFF R11U152_OFF R11U155_OFF R11U160_OFF R11U161_ALIAS_OFF R11U161_PORT_OFF R11U161_ROUTE_OFF R11U164_BINDPATHNAME_OFF R11U164_CADELAY_OFF R11U164_DLYPARAMELAB_OFF R11U164_GENNDAHP_OFF R11U164_OFF R11U164_PVMPDEF_OFF R11U164_PVSHARE_OFF R11U164_RANGEQSIZE_OFF R11U164_RANGEQ_OFF R11U164_SELBASELEAF_OFF R11U98_IFACECLASS_OFF R11U98_OFF R11U99_IFACEROOT_OFF R11U99_OFF R11V164_ALIASBASE_OFF R11V164_RQMASK_OFF
+- source: src/TypeEmit.cpp(1) src/UhdmExporter.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): v11u164repro/cases/EA/e06_param_range_base/dut.sv
+
 ### `enumAliasClone161`
 - commits: 166071341
 - pass: -
-- source: not in the source
+- switches: R11U152_OFF R11U155_OFF R11U160_OFF R11U164_OFF R11U98_IFACECLASS_OFF R11U98_OFF R11U99_IFACEROOT_OFF R11U99_OFF R11V159_ELEMALIAS_OFF R11V159_TRACE
+- source: src/TypeEmit.cpp(5) src/UhdmExporter.cpp(3)
 - cases in the gate (tests/probe/): none
-- cases in the evidence (tools/probe/): none
-- also mentioned by: r11u161gen
+- cases in the evidence (tools/probe/): v11u164repro/cases/EA/e01_unit_alias_used/dut.sv v11u164repro/cases/EA/e02_alias_of_alias/dut.sv v11u164repro/cases/EA/e03_int_base/dut.sv v11u164repro/cases/EA/e04_signed_base/dut.sv v11u164repro/cases/EA/e05_iface_alias_port/dut.sv v11u164repro/cases/EA/e06_param_range_base/dut.sv
+- also mentioned by: r11u161gen r11u164repro v11u164repro
 
 ### `enumAliasEndAtDimOrInitDecl158`
 - commits: 202fb2966
@@ -4919,11 +4962,18 @@ laws with cases in the gate: 676.
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u120repro/grid/gA/a01_two_inst/dut.sv? r11u120repro/grid/gA/a02_genif/dut.sv? r11u120repro/grid/gA/a03_sized_idxpart/dut.sv? r11u120repro/grid/gA/a04_param_rhs/dut.sv? r11u120repro/grid/gA/a05_nested/dut.sv? r11u120repro/grid/gA/a06_union/dut.sv? r11u120repro/grid/gA/a07_dec_multibit/dut.sv? r11u120repro/grid/gA/a08_param_child/dut.sv? r11u120repro/grid/gA/a09_genfor/dut.sv? r11u120repro/grid/gA/a10_arr_elem_member/dut.sv? r11u120repro/grid/gB/b01_arr1_two_readers/dut.sv? r11u120repro/grid/gB/b02_twomember_B/dut.sv? r11u120repro/grid/gB/b03_generic_port/dut.sv? r11u120repro/grid/gB/b04_genfor_arr/dut.sv? r11u120repro/grid/gB/b05_scalar_and_agg/dut.sv? r11u120repro/grid/gB/b06_single_default/dut.sv? r11u120repro/grid/gD/d01_vec_default_child/dut.sv? r11u120repro/grid/gD/d02_vec_default_top/dut.sv? r11u120repro/grid/gD/d03_scalar_default/dut.sv? r11u120repro/grid/gD/d04_vec_overridden/dut.sv? r11u120repro/grid/gD/d05_bit_vec/dut.sv? r11u120repro/grid/gD/d06_gen_scope/dut.sv? r11u120repro/grid/gD/d07_two_dims/dut.sv? r11u120repro/grid/gD/d08_output_port/dut.sv? r11u120repro/grid/gF/f01_inactive_on/dut.sv? r11u120repro/grid/gF/f02_inactive_on_macro/dut.sv? r11u120repro/grid/gF/f03_stray_on/dut.sv? r11u120repro/grid/gF/f04_active_pair/dut.sv? r11u120repro/grid/gF/f05_two_inactive/dut.sv? r11u120repro/grid/gF/f06_active_ifdef_pair/dut.sv? r11u120repro/grid/gF/f07_inactive_else/dut.sv? r11u120repro/grid/gF/f08_macro_noarg_resync/dut.sv? r11u120repro/grid/gF/f09_on_then_macro_same_line/dut.sv? r11u120repro/grid/gF/f10_second_module/dut.sv? r11u120repro/grid/gF/f11_region_inside_module_inst/dut.sv? r11u120repro/grid/gF/f12_multiline_macro_resync/dut.sv? r11u120repro/grid/gT/t01_row_shape/dut.sv? r11u120repro/grid/gT/t02_nonlocal_default/dut.sv? r11u120repro/grid/gT/t03_ordered_override/dut.sv? r11u120repro/grid/gT/t04_two_inst/dut.sv? r11u120repro/grid/gT/t05_local_plain/dut.sv? r11u120repro/grid/gT/t06_gen_inst/dut.sv? r11u120repro/grid/gT/t07_local_dep_value/dut.sv? r11u120repro/grid/gT/t08_body_localparam_type/dut.sv? r11v120repro/grid/D/d01_typedef_chain/dut.sv? r11v120repro/grid/D/d02_signed_vec/dut.sv? r11v120repro/grid/D/d03_int_control/dut.sv? r11v120repro/grid/D/d04_two_inst_W/dut.sv? r11v120repro/grid/D/d05_nonansi/dut.sv? r11v120repro/grid/D/d06_ordered_type_override/dut.sv? r11v120repro/grid/D/d07_header_localparam_type/dut.sv? r11v120repro/grid/D/d08_top_ports_inout/dut.sv? r11v120repro/grid/F/x01_trailing_off/dut.sv? r11v120repro/grid/F/x02_block_comment/dut.sv? r11v120repro/grid/F/x03_comma_off/dut.sv? r11v120repro/grid/F/x04_mixed_prefix/dut.sv? r11v120repro/grid/F/x05_off_inactive_on_active/dut.sv? r11v120repro/grid/F/x06_inactive_on_then_include/dut.sv? r11v120repro/grid/F/x07_inactive_on_in_header/dut.sv? r11v120repro/grid/F/x08_elsif_inactive/dut.sv? r11v120repro/grid/F/x09_stray_on_eol/dut.sv? r11v120repro/grid/F/x10_two_on_inactive_no_off/dut.sv? r11v120repro/grid/F/x11_macro_def_then_inactive/dut.sv? r11v120repro/grid/F/x12_upper_case/dut.sv? r11v120repro/grid/F/x13_nested_ifdef_inactive/dut.sv? r11v120repro/grid/F/x14_include_resync_ops/dut.sv? r11v120repro/grid/F/x15_inc_has_inactive_region/dut.sv? r11v120repro/grid/F/x16_ops_two_modules_macro/dut.sv? r11v120repro/grid/F/x17_ifdef_synth_active_region/dut.sv? r11v120repro/grid/F/x18_stray_on_active_ops/dut.sv? r11v120repro/grid/F/x19_balanced_ifdef_in_region/dut.sv? r11v120repro/grid/F/x20_define_in_region/dut.sv? r11v120repro/grid/F/x21_inactive_region_balanced_inner/dut.sv? r11v120repro/grid/I/i01_named_modport_two_fields/dut.sv? r11v120repro/grid/I/i02_generic_iface_port/dut.sv? r11v120repro/grid/I/i03_array_pattern_param/dut.sv? r11v120repro/grid/I/i04_scalar_and_agg/dut.sv? r11v120repro/grid/M/m01_genif_else_diff_lits/dut.sv? r11v120repro/grid/M/m02_netdecl_before/dut.sv? r11v120repro/grid/M/m03_casegen_lits/dut.sv? r11v120repro/grid/M/m04_param_width_ones/dut.sv? r11v120repro/grid/M/m05_genfor_member_lit/dut.sv? r11v120repro/grid/M/m06_hex_and_neg/dut.sv? r11v120repro/grid/T/t01_genfor_named/dut.sv? r11v120repro/grid/T/t02_nested_named/dut.sv? r11v120repro/grid/T/t03_dependent_typeparam/dut.sv? r11v120repro/grid/T/t04_valuedep_typeparam/dut.sv? r11v120repro/grid/T/t05_escaped_inst/dut.sv? r11v120repro/grid/T/t06_genif_named/dut.sv? r11v120repro/grid/T/t07_ordered_and_default_mix/dut.sv? r11v120repro/grid/T/t08_elem_sel_row_two_levels/dut.sv?
 
+### `firstOrderedConnBitSel`
+- commits: none on this branch
+- pass: -
+- source: src/ModuleEmit.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): none
+
 ### `firstOrderedConnBitSelWhole147`
 - commits: b6af876cd
 - pass: r11u147repro (verified by r11v147repro)
-- switches: R11U147_ENUMCLONE_OFF R11U147_ENUMQSPAN_OFF R11U147_FIRSTPOS_OFF R11U147_GCAUSESITE_OFF R11U147_IFTRAILIDX_OFF R11U147_LVIDXBS_OFF R11U147_NESTDEFLOC_OFF R11U147_OFF R11U147_VSIPSBASE_OFF R11U151_ARR_OFF
-- source: src/ExprEmit.cpp(2)
+- switches: R11U147_ENUMCLONE_OFF R11U147_ENUMQSPAN_OFF R11U147_FIRSTPOS_OFF R11U147_GCAUSESITE_OFF R11U147_IFTRAILIDX_OFF R11U147_LVIDXBS_OFF R11U147_NESTDEFLOC_OFF R11U147_OFF R11U147_VSIPSBASE_OFF R11U151_ARR_OFF R11U161_TRACE
+- source: src/ExprEmit.cpp(2) src/ModuleEmit.cpp(1)
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u147repro/pos/m2_pos_const/dut.sv r11u147repro/pos/m4_named_gen/dut.sv r11u147repro/pos/n1_pos_other/dut.sv r11u147repro/pos/n2_pos_swap/dut.sv r11u147repro/pos/n3_pos_second_only/dut.sv r11u147repro/pos/n4_named_const/dut.sv r11u147repro/pos/n5_pos_var_idx/dut.sv r11u147repro/pos/p1_def_view_mid/dut.sv r11u147repro/pos/p2_single_port/dut.sv r11u147repro/pos/p3_nonansi_child/dut.sv r11u147repro/pos/p4_explicitports_shape/dut.sv r11u159verify/cases/pos/p01_param_idx/dut.sv r11u159verify/cases/pos/p02_macro_sel/dut.sv r11u159verify/cases/pos/p03_escaped_first/dut.sv r11u159verify/cases/pos/p04_gen_genvar/dut.sv r11v147repro/brk/pos/w10_modarr/dut.sv r11v147repro/brk/pos/w11_gen_if_block/dut.sv r11v147repro/brk/pos/w12_first_varsel/dut.sv r11v147repro/brk/pos/w13_first_partsel/dut.sv r11v147repro/brk/pos/w14_nested_parent/dut.sv r11v147repro/brk/pos/w1_empty_first/dut.sv r11v147repro/brk/pos/w2_param_override/dut.sv r11v147repro/brk/pos/w3_two_insts_one_stmt/dut.sv r11v147repro/brk/pos/w4_gen_op_idx/dut.sv r11v147repro/brk/pos/w5_iface_ordered/dut.sv r11v147repro/brk/pos/w6_first_in_op/dut.sv r11v147repro/brk/pos/w7_first_var_idx_mod/dut.sv r11v147repro/brk/pos/w8_output_first/dut.sv r11v147repro/brk/pos/w9_gate_prim_ctl/dut.sv
 - also mentioned by: r11u159verify r11u161gen
@@ -4931,10 +4981,11 @@ laws with cases in the gate: 676.
 ### `firstOrderedPathSel161`
 - commits: 166071341
 - pass: -
-- source: not in the source
+- switches: R11U161_TRACE
+- source: src/ModuleEmit.cpp(2)
 - cases in the gate (tests/probe/): none
-- cases in the evidence (tools/probe/): none
-- also mentioned by: r11u161gen
+- cases in the evidence (tools/probe/): v11u164repro/cases/FO/f01_ordered_3lvl_first/dut.sv v11u164repro/cases/FO/f02_ordered_bitsel_first/dut.sv v11u164repro/cases/FO/f03_ordered_iface_member/dut.sv v11u164repro/cases/FO/f04_ordered_two_insts/dut.sv
+- also mentioned by: r11u161gen r11u164repro v11u164repro
 
 ### `fixedClassPropIsArrayVar6`
 - commits: babc0040a
@@ -6053,6 +6104,14 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): r10earl32repro/a3_ctx.sv r10earl33repro/a3_ctx.sv r10earl33repro/b1_gen.sv r10earl33repro/v5_holes.sv r10earl33repro/v6_tfnest.sv r10earl75repro/g1_gsproc75.sv r10earl_repro/wa24.sv
 - also mentioned by: r10earl32repro r10earl33repro r10earl75repro r10earl76repro r10earl77repro r10earl_repro r10v75repro r11u115repro r11u116repro v11u115repro
 
+### `genNetDeclAssignLhsShared164`
+- commits: none on this branch
+- pass: r11u164repro (verified by v11u164repro)
+- switches: R11U161_ALIAS_OFF R11U161_FILE_OFF R11U161_NAME_OFF R11U161_PORT_OFF R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U164_BINDPATHNAME_OFF R11U164_CADELAY_OFF R11U164_DLYPARAMELAB_OFF R11U164_GENNDAHP_OFF R11U164_PVMPDEF_OFF R11U164_PVSHARE_OFF R11U164_RANGEQSIZE_OFF R11U164_RANGEQ_OFF R11U164_SELBASELEAF_OFF R11V164_ALIASBASE_OFF R11V164_RQMASK_OFF
+- source: src/ModuleEmit.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u164repro/cases/ND/n01_genif_netdecl/dut.sv r11u164repro/cases/ND/n02_genif_netdecl_hier/dut.sv r11u164repro/cases/ND/n03_genfor_netdecl/dut.sv r11u164repro/cases/ND/n04_module_netdecl/dut.sv r11u164repro/cases/ND/n05_genif_netdecl_local/dut.sv r11u164repro/cases/ND/n06_genif_netdecl_path/dut.sv r11u164repro/cases/ND/n07_genif_netdecl_const/dut.sv r11u164repro/cases/ND/n08_genif_netdecl_param/dut.sv r11u164repro/cases/ND/n09_genif_netdecl_op/dut.sv r11u164repro/cases/ND/n10_genif_netdecl_hier_op/dut.sv r11u164repro/cases/ND/n11_genif_netdecl_hier_vec/dut.sv r11u164repro/cases/ND/n12_genfor_netdecl_hier/dut.sv r11u164repro/cases/ND/n13_module_netdecl_hier/dut.sv v11u164repro/cases/ND/n01_struct_member/dut.sv v11u164repro/cases/ND/n02_path_bitsel/dut.sv v11u164repro/cases/ND/n03_iface_signal/dut.sv v11u164repro/cases/ND/n04_gencase/dut.sv v11u164repro/cases/ND/n05_genfor_vec/dut.sv v11u164repro/cases/ND/n06_delay_netdecl/dut.sv v11u164repro/cases/ND/n07_abs_path/dut.sv v11u164repro/cases/ND/n08_child_instance_path/dut.sv v11u164repro/cases/ND/n09_typed_logic/dut.sv
+
 ### `genProcFoldTsKeepsScope154`
 - commits: fc99b2d51
 - pass: r11u154repro (verified by r11v154repro)
@@ -7169,7 +7228,7 @@ laws with cases in the gate: 676.
 ### `implicitNetNoFile119`
 - commits: 8fc84d691
 - pass: r11u119repro
-- switches: R11U101_NESTPORT_OFF R11U101_OFF R11U110_DBG R11U110_OFF R11U119_OFF R11U130_OFF R11U146_OFF R11U152_OFF R11U155_OFF R11U160_OFF R11U98_IFACECLASS_OFF R11U98_OFF R11U99_IFACEROOT_OFF R11U99_OFF
+- switches: R11U101_NESTPORT_OFF R11U101_OFF R11U110_DBG R11U110_OFF R11U119_OFF R11U130_OFF R11U152_OFF R11U155_OFF R11U160_OFF R11U164_OFF R11U98_IFACECLASS_OFF R11U98_OFF R11U99_IFACEROOT_OFF R11U99_OFF
 - source: src/ModuleEmit.cpp(11) src/UhdmExporter.cpp(4)
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u119repro/grid/g1/a01_pkgalias_init/dut.sv? r11u119repro/grid/g1/a02_pkgenum_init/dut.sv? r11u119repro/grid/g1/a03_localalias_init/dut.sv? r11u119repro/grid/g1/a04_plainlogic_init/dut.sv? r11u119repro/grid/g1/a05_int_init/dut.sv? r11u119repro/grid/g1/a06_bit_init/dut.sv? r11u119repro/grid/g1/a07_pkgalias_noinit/dut.sv? r11u119repro/grid/g1/a08_pkgalias_two/dut.sv? r11u119repro/grid/g1/a09_pkgstruct_init/dut.sv? r11u119repro/grid/g1/a10_pkgstruct_lit/dut.sv? r11u119repro/grid/g1/a11_param_alias/dut.sv? r11u119repro/grid/g1/a12_localenum_init/dut.sv? r11u119repro/grid/g1/a13_child_alias_init/dut.sv? r11u119repro/grid/g1/a14_gen_alias_init/dut.sv? r11u119repro/grid/g1/a15_import_alias_init/dut.sv? r11u119repro/grid/g1/a16_alias_unpacked_init/dut.sv? r11u119repro/grid/g1/a17_var_kw_init/dut.sv? r11u119repro/grid/g1/a18_pkgalias_expr_init/dut.sv? r11u119repro/grid/g1/a19_multiline_init/dut.sv? r11u119repro/grid/g1/a20_iface_alias_init/dut.sv? r11u119repro/grid/g1/a21_bitalias_init/dut.sv? r11u119repro/grid/g1/a22_intalias_init/dut.sv? r11u119repro/grid/g1/a23_alias_alias_init/dut.sv? r11u119repro/grid/g1/a24_alias_twice_use/dut.sv? r11u119repro/grid/g1/b01_import_aliasalias/dut.sv? r11u119repro/grid/g1/b02_unit_alias/dut.sv? r11u119repro/grid/g1/b03_local_aliasalias/dut.sv? r11u119repro/grid/g1/b04_scoped_enum_local_use/dut.sv? r11u119repro/grid/g1/b05_import_enum/dut.sv? r11u119repro/grid/g1/b06_scoped_child_two/dut.sv? r11u119repro/grid/g1/b07_scoped_packedstruct_pattern/dut.sv? r11u119repro/grid/g1/b08_scoped_signed/dut.sv? r11u119repro/grid/g1/b09_scoped_alias_ws/dut.sv? r11u119repro/grid/g1/b10_scoped_alias_concat/dut.sv? r11u119repro/grid/g1/b11_scoped_alias_pkgparam_type/dut.sv? r11u119repro/grid/g1/b12_scoped_alias_always/dut.sv? r11u119repro/grid/g1/c_import_enum_lit/dut.sv? r11u119repro/grid/g1/c_import_struct_concat/dut.sv? r11u119repro/grid/g1/c_import_struct_fill/dut.sv? r11u119repro/grid/g1/c_import_struct_lit/dut.sv? r11u119repro/grid/g1/c_import_struct_pat/dut.sv? r11u119repro/grid/g1/c_import_structvar_lit/dut.sv? r11u119repro/grid/g1/c_import_structvar_pat/dut.sv? r11u119repro/grid/g1/c_scoped_enum_lit/dut.sv? r11u119repro/grid/g1/c_scoped_struct_concat/dut.sv? r11u119repro/grid/g1/c_scoped_struct_fill/dut.sv? r11u119repro/grid/g1/c_scoped_struct_lit/dut.sv? r11u119repro/grid/g1/c_scoped_struct_pat/dut.sv? r11u119repro/grid/g1/c_scoped_structvar_lit/dut.sv? r11u119repro/grid/g1/c_scoped_structvar_pat/dut.sv? r11u119repro/grid/g2/i01_portconn/dut.sv? r11u119repro/grid/g2/i02_assign_lhs/dut.sv? r11u119repro/grid/g2/i03_portconn_top/dut.sv? r11u119repro/grid/g2/i04_bits_typeparam/dut.sv? r11u119repro/grid/g2/i05_gate_out/dut.sv? r11u119repro/grid/g2/i06_child_twice/dut.sv? r11u119repro/grid/g2/i07_gen_portconn/dut.sv? r11u119repro/grid/g2/i08_verilog_style/dut.sv? r11u119repro/grid/g2/i09_explicit_control/dut.sv? r11u119repro/grid/g2/i10_ordered_portconn/dut.sv? r11u119repro/grid/g3/n_blockcomment_multiline/dut.sv? r11u119repro/grid/g3/n_comment_string/dut.sv? r11u119repro/grid/g3/n_dir_casedef/dut.sv? r11u119repro/grid/g3/n_dir_delay/dut.sv? r11u119repro/grid/g3/n_dir_index/dut.sv? r11u119repro/grid/g3/n_dir_lits/dut.sv? r11u119repro/grid/g3/n_dir_real/dut.sv? r11u119repro/grid/g3/n_ident_digits/dut.sv? r11u119repro/grid/g3/n_macro_args/dut.sv? r11u119repro/grid/g3/n_nodir_casedef/dut.sv? r11u119repro/grid/g3/n_nodir_delay/dut.sv? r11u119repro/grid/g3/n_nodir_index/dut.sv? r11u119repro/grid/g3/n_nodir_lits/dut.sv? r11u119repro/grid/g3/n_nodir_real/dut.sv? r11u119repro/grid/g3/n_param_ws/dut.sv? r11u119repro/grid/g4/r01_net_real/dut.sv? r11u119repro/grid/g4/r02_reg_real/dut.sv? r11u119repro/grid/g4/r03_port_real/dut.sv? r11u130repro/grid/g4/d01_disable/dut.sv r11u130repro/grid/g4/d02_foreach/dut.sv
@@ -8075,7 +8134,7 @@ laws with cases in the gate: 676.
 - source: src/TypeEmit.cpp(3)
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u155repro/cases/MF/m01/dut.sv r11u155repro/cases/MF/m02/dut.sv r11u155repro/cases/MF/m03/dut.sv r11u155repro/cases/MF/m04/dut.sv r11u155repro/cases/MF/m05/dut.sv r11u155repro/cases/MF/m06/dut.sv r11u155repro/cases/MF/m07/dut.sv r11u162verify/cases/mag/m01_union_two_tasks/dut.sv r11u162verify/cases/mag/m02_interface_func/dut.sv r11u162verify/cases/mag/m03_output_formal/dut.sv r11u162verify/cases/mag/m04_child_module_two/dut.sv r11u162verify/cases/mag/m05_class_method_in_module/dut.sv v11u155repro/cases/MF/g01/dut.sv v11u155repro/cases/MF/g02/dut.sv v11u155repro/cases/MF/g03/dut.sv v11u155repro/cases/MF/g04/dut.sv v11u155repro/cases/MF/g05/dut.sv v11u155repro/cases/MF/g06/dut.sv v11u155repro/cases/MF/g07/dut.sv v11u155repro/cases/MF/g08/dut.sv
-- also mentioned by: r11u162verify
+- also mentioned by: r11u162verify r11u164repro
 
 ### `modArrayBoundRefArrayPath146`
 - commits: 3e06cad25
@@ -8405,6 +8464,14 @@ laws with cases in the gate: 676.
 - cases in the gate (tests/probe/): r10v215repro/v10_dropall r10v215repro/v6_hier r10v215repro/v7_mult r10v215repro/v8_mixed
 - cases in the evidence (tools/probe/): r10v215repro/armsv215/v2_onealt.sv r10v215repro/armsv215/v3_tfport.sv r10v215repro/armsv215/v4_array.sv r10v215repro/armsv215/v5_nested.sv
 
+### `modportPortViewParamDef164`
+- commits: none on this branch
+- pass: r11u164repro (verified by v11u164repro)
+- switches: R11U161_ALIAS_OFF R11U161_FILE_OFF R11U161_NAME_OFF R11U161_OFF R11U161_PORT_OFF R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U164_BINDPATHNAME_OFF R11U164_CADELAY_OFF R11U164_DLYPARAMELAB_OFF R11U164_GENNDAHP_OFF R11U164_OFF R11U164_PVMPDEF_OFF R11U164_PVSHARE_OFF R11U164_RANGEQSIZE_OFF R11U164_RANGEQ_OFF R11U164_SELBASELEAF_OFF R11V164_ALIASBASE_OFF R11V164_RQMASK_OFF
+- source: src/ModuleEmit.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u164repro/cases/PV/a01_mp_named_scalar/dut.sv r11u164repro/cases/PV/a02_mp_ordered_scalar/dut.sv r11u164repro/cases/PV/a03_mp_named_elem/dut.sv r11u164repro/cases/PV/a04_mp_ordered_elem/dut.sv r11u164repro/cases/PV/a05_mp_named_othername/dut.sv r11u164repro/cases/PV/a06_mp_ordered_two/dut.sv r11u164repro/cases/PV/a07_mp_named_nooverride/dut.sv r11u164repro/cases/PV/a08_mp_named_two_elems/dut.sv r11u164repro/cases/PV/a09_mp_named_twoinst_scalar/dut.sv r11u164repro/cases/PV/a13_generic_named_mp/dut.sv r11u164repro/cases/PV/a14_mp_named_modport_expr/dut.sv r11u164repro/cases/PV/a15_mp_ordered_modport_expr/dut.sv r11u164repro/cases/PV/a16_mp_ordered_genblk/dut.sv r11u164repro/cases/PV/a17_passthrough_named/dut.sv r11u164repro/cases/PV/a18_passthrough_ordered/dut.sv r11u164repro/cases/PV/a19_recv_param_subst/dut.sv r11u164repro/cases/PV/a20_named_out_of_scope/dut.sv v11u164repro/cases/PV/p01_ordered_two_overrides/dut.sv v11u164repro/cases/PV/p02_ordered_two_params/dut.sv v11u164repro/cases/PV/p03_typed_params/dut.sv v11u164repro/cases/PV/p04_localparam/dut.sv v11u164repro/cases/PV/p06_mixed_named_ordered/dut.sv v11u164repro/cases/PV/p07_array_elems_named/dut.sv v11u164repro/cases/PV/p08_string_param/dut.sv v11u164repro/cases/PV/p09_child_param_and_iface/dut.sv v11u164repro/cases/PV/p10_generic_two/dut.sv v11u164repro/cases/PV/p12_wildcard/dut.sv v11u164repro/cases/PV/p13_shorthand/dut.sv v11u164repro/cases/PV/p15_genblk_inscope/dut.sv v11u164repro/cases/PV/p16_named_twice_param_child/dut.sv v11u164repro/cases/PV/p18_mp_in_conn_ordered_ref/dut.sv v11u164repro/cases/PV/p19_passthrough_mixed/dut.sv
+
 ### `modportRefDirInout`
 - commits: none on this branch
 - pass: -
@@ -8521,10 +8588,11 @@ laws with cases in the gate: 676.
 - commits: 931a3c699
 - pass: r11u115repro (verified by v11u115repro)
 - switches: R11U115_GSOP_OFF R11U115_NMPOOS_OFF R11U115_OFF R11U115_PVEXPR_OFF R11U115_PVRECV_OFF R11U115_SYSARG_OFF R11U115_TPIFOP_OFF R11U115_TPOUTER_OFF R11U115_TPPAREN_OFF R11U115_VSBARE_OFF
-- source: src/ModuleEmit.cpp(1)
+- source: src/ModuleEmit.cpp(2)
 - corpus tests: Rggen
 - cases in the gate (tests/probe/): r11u115repro/grid/i/o04_nmp_passport_body_ctl r11u115repro/grid/i/o05_nmp_samegen_ctl r11u115repro/grid/i/o08_nmp_mpexpr_gen v11u115repro/grid/f2b/q01_genfor_same_iter v11u115repro/grid/f2b/q02_samegen_mpexpr v11u115repro/grid/f2b/q03_hier_into_gen
 - cases in the evidence (tools/probe/): r11u115repro/grid/c3/b07_typedef_ius/dut.sv? r11u115repro/grid/c3/c03_mod_ref/dut.sv? r11u115repro/grid/c3/c06_genif_ternary/dut.sv? r11u115repro/grid/c3/c13_genif_comb/dut.sv? r11u115repro/grid/c3/c16_mod_comb/dut.sv? r11u115repro/grid/c3/c18_genif_inop/dut.sv? r11u115repro/grid/c3/c25_genfor_ternary_gvcast/dut.sv? r11u115repro/grid/c3/c27_genfor_ternary_plain/dut.sv? r11u115repro/grid/c3/t04_paren/dut.sv? r11u115repro/grid/c3/t09_outer_gen_lptype/dut.sv? r11u115repro/grid/i/e15_elem_mpexpr_named/dut.sv? r11u115repro/grid/i/n05_one_mp_named_gen/dut.sv? r11u115repro/grid/i/o01_nmp_gen_recvA/dut.sv? r11u115repro/grid/i/o02_nmp_passport_gen/dut.sv? r11u115repro/grid/i/o03_nmp_passport_gen_recvA/dut.sv? r11u115repro/grid/i/o06_nmp_genfor_recvA/dut.sv? r11u115repro/grid/i/o07_nmp_outer_gen/dut.sv? r11u115repro/grid/i/s06_anc_A/dut.sv? r11u115repro/grid/i/s10_recv_D/dut.sv? r11u115repro/grid/i/s16_recv_A_str/dut.sv? r11u115repro/grid/i/w04_arr_pl_named/dut.sv? r11u115repro/grid/i/w05_arr_pl_pos/dut.sv? r11u115repro/grid/r/f/p11_ufcall/dut.sv? r11u115repro/grid/r/i/p11_ufcall/dut.sv? r11u115repro/grid/r/k/k03_untyped_p01_ibex/dut.sv? r11u115repro/grid/r/k/k03_untyped_p02_replcat/dut.sv? r11u115repro/grid/r/k/k03_untyped_p09_add/dut.sv? r11u115repro/grid/r/k/k05_qual_p01_ibex/dut.sv? r11u115repro/grid/r/k/k05_qual_p02_replcat/dut.sv? r11u115repro/grid/r/k/k05_qual_p09_add/dut.sv? r11u115repro/grid/r/m/p11_ufcall/dut.sv? r11u115repro/grid/r/mk/k03_untyped_p02_replcat/dut.sv? r11u115repro/grid/r/mk/k03_untyped_p09_add/dut.sv? r11u115repro/grid/r/v/v05_comb_ctl/dut.sv? r11u115repro/grid/r/v/v06_genfor_untyped/dut.sv? r11u115repro/grid/r/v/v07_genfor_qual/dut.sv? r11u115repro/grid/r/v/v13_genfor_lhs_ctl/dut.sv? r11u115repro/grid/r/v/v14_mod_lhs/dut.sv? v11u115repro/grid/f1/a02_gf_unsigned/dut.sv? v11u115repro/grid/f1/a03_gf_bits/dut.sv? v11u115repro/grid/f1/a04_gf_clog_bare/dut.sv? v11u115repro/grid/f1/a05_gf_clog2x/dut.sv? v11u115repro/grid/f1/a08_gf_qual_sys/dut.sv? v11u115repro/grid/f1/a10_gf_typedef/dut.sv? v11u115repro/grid/f1/a14_gf_nda/dut.sv? v11u115repro/grid/f1/a19_gf_signed_S/dut.sv? v11u115repro/grid/f1/a22_gf_bits_L/dut.sv? v11u115repro/grid/f1/a23_gf_size_q/dut.sv? v11u115repro/grid/f1/a24_gf_delay/dut.sv? v11u115repro/grid/f1/a25_gf_strength/dut.sv? v11u115repro/grid/f1/a27_iface_genfor/dut.sv? v11u115repro/grid/f1/a28_two_params/dut.sv? v11u115repro/grid/f1/a29_genfor_lhs_op_idx/dut.sv? v11u115repro/grid/f1/v01_gf_vs_lhs/dut.sv? v11u115repro/grid/f1/v02_ms_vs_lhs/dut.sv? v11u115repro/grid/f2/p01_sizedlit/dut.sv? v11u115repro/grid/f2/p02_recv_wide/dut.sv? v11u115repro/grid/f2/p03_clog_recvB/dut.sv? v11u115repro/grid/f2/p09_multi_pl_recvA/dut.sv? v11u115repro/grid/f2/p11_recv_D_lit/dut.sv? v11u115repro/grid/f2/p12_recv_unsigned/dut.sv? v11u115repro/grid/f2/p14_untyped_recv_lit/dut.sv? v11u115repro/grid/f2/p15_recv_hex8/dut.sv? v11u115repro/grid/f2/p16_recv_hex_unsized/dut.sv? v11u115repro/grid/f2/p17_recv_B_hex_single/dut.sv? v11u115repro/grid/f2/p18_recv_wide101/dut.sv? v11u115repro/grid/f2/p19_recv_wide300_b8/dut.sv? v11u115repro/grid/f2/p21_recv_ov_hex/dut.sv? v11u115repro/grid/f2b/q04_passport_genfor/dut.sv? v11u115repro/grid/f2b/q05_multi_oos/dut.sv? v11u115repro/grid/f2b/q06_oos_recvA/dut.sv? v11u115repro/grid/f2b/q07_genif_in_genif_samegen/dut.sv? v11u115repro/grid/f2b/q08_oos_default_iface/dut.sv? v11u115repro/grid/f2b/q09_gencase_oos/dut.sv? v11u115repro/grid/f3/c06_genif_sys_underop/dut.sv? v11u115repro/grid/f3/o01_outer_for_lptype/dut.sv? v11u115repro/grid/f3/o02_outer_if_inner_for/dut.sv? v11u115repro/grid/f3/o03_three_level/dut.sv? v11u115repro/grid/f3/o04_same_block_ctl/dut.sv? v11u115repro/grid/f3/o05_outer_typedef/dut.sv? v11u115repro/grid/f3/o06_outer_lptype_underop/dut.sv?
+- also mentioned by: r11u164repro
 
 ### `namedTfArgsFormalSlots4`
 - commits: 551c0c489 9f45cc0d1
@@ -9050,7 +9118,7 @@ laws with cases in the gate: 676.
 ### `paramAliasBoundRefUnstored144`
 - commits: b21990960
 - pass: r11u144repro (verified by v11u144repro)
-- switches: R11U125_OFF R11U125_SPANFILE_OFF R11U144_CALLBITSEL_OFF R11U144_DEFGENHP_OFF R11U144_ELABINST_OFF R11U144_ELABPROP_OFF R11U144_FOLDTSNAME_OFF R11U144_METHATTR_OFF R11U144_METHQUALSPAN_OFF R11U144_OFF R11U144_PARAMALIASREF_OFF R11U144_PKGQUALREF_OFF R11U144_SELBAREDEC_OFF R11U144_TPPACKEDNET_OFF R11U146_OFF R11U148_I_OFF R11U148_OFF
+- switches: R11U125_OFF R11U125_SPANFILE_OFF R11U144_CALLBITSEL_OFF R11U144_DEFGENHP_OFF R11U144_ELABINST_OFF R11U144_ELABPROP_OFF R11U144_FOLDTSNAME_OFF R11U144_METHATTR_OFF R11U144_METHQUALSPAN_OFF R11U144_OFF R11U144_PARAMALIASREF_OFF R11U144_PKGQUALREF_OFF R11U144_SELBAREDEC_OFF R11U144_TPPACKEDNET_OFF
 - source: src/TypeEmit.cpp(2)
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u144repro/grid/pt/b/dut.sv r11u144repro/grid/pt/c/dut.sv r11u144repro/grid/pt/d/dut.sv r11u144repro/grid/pt/e/dut.sv r11u144repro/grid/pt/f/dut.sv r11u144repro/grid/pt/g/dut.sv r11u149verify/cases/pt/n01_iface/dut.sv r11u149verify/cases/pt/n02_two_bounds/dut.sv r11u149verify/cases/pt/n03_localparam_sub/dut.sv r11u149verify/cases/pt/n04_pkg_typedef_param/dut.sv v11u144repro/brk/pt/x1/dut.sv v11u144repro/brk/pt/x2/dut.sv v11u144repro/brk/pt/x3/dut.sv v11u144repro/brk/pt/x4/dut.sv v11u144repro/brk/pt/x5/dut.sv v11u144repro/brk/pt/x6/dut.sv v11u144repro/brk/pt/x7/dut.sv
@@ -10913,10 +10981,18 @@ laws with cases in the gate: 676.
 - commits: f8ffb241e
 - pass: r11u130repro (verified by r11v130repro)
 - switches: R11U119_OFF R11U130_CLSARGNET_OFF R11U130_DEFNETLOC_OFF R11U130_GVTSFILE_OFF R11U130_IFSUKW_OFF R11U130_INCNOTEXT_OFF R11U130_NETSIGN_OFF R11U130_OFF R11U130_PVPARAM_OFF R11U130_REDEFLINE_OFF R11U130_SUSIGN_OFF R11U130_WILDSPAN_OFF R11U134_OFF
-- source: src/ModuleEmit.cpp(1) src/UhdmExporter.cpp(1)
+- source: src/ModuleEmit.cpp(2) src/UhdmExporter.cpp(1)
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u130repro/grid/g6/p01_port_override/dut.sv r11u130repro/grid/g6/p02_nested_iface/dut.sv r11u130repro/grid/g6/p03_port_default/dut.sv r11u130repro/grid/g6/p04_port_localparam/dut.sv r11u130repro/grid/g6/p05_modport/dut.sv r11u130repro/grid/g6/p06_generic/dut.sv r11u130repro/grid/g6/p07_two_level/dut.sv r11u130repro/grid/g6/p08_two_params/dut.sv r11u130repro/grid/g6/p09_child_reads_param/dut.sv r11u130repro/grid/g6/p10_typed_int/dut.sv r11u130repro/grid/g6/p11_struct_param/dut.sv r11u130repro/grid/g6/p12_child_reads_expr/dut.sv r11u130repro/grid/g6/p13_struct_param_const/dut.sv r11u130repro/grid/g6/p14_vec_param/dut.sv r11u141verify/cases/p130_pvparam/p01_string_param/dut.sv r11u141verify/cases/p130_pvparam/p02_array_elem_conn/dut.sv r11u141verify/cases/p130_pvparam/p03_expr_override/dut.sv r11v130repro/grid/adv/f01_pv_array_port/dut.sv r11v130repro/grid/adv/f02_pv_derived_param/dut.sv r11v130repro/grid/adv/f03_pv_gen_port/dut.sv r11v130repro/grid/adv/f04_pv_same_name_param/dut.sv r11v130repro/grid/adv/f05_pv_string_param/dut.sv r11v130repro/grid/adv/n07_pv_modport_at_conn/dut.sv r11v130repro/grid/adv/n08_pv_two_instances/dut.sv r11v130repro/grid/adv/n09_pv_iface_in_iface_port/dut.sv
-- also mentioned by: r11u133repro r11u141verify
+- also mentioned by: r11u133repro r11u141verify r11u164repro
+
+### `portViewParamShared164`
+- commits: none on this branch
+- pass: r11u164repro (verified by v11u164repro)
+- switches: R11U161_ALIAS_OFF R11U161_FILE_OFF R11U161_NAME_OFF R11U161_OFF R11U161_PORT_OFF R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U164_BINDPATHNAME_OFF R11U164_CADELAY_OFF R11U164_DLYPARAMELAB_OFF R11U164_GENNDAHP_OFF R11U164_OFF R11U164_PVMPDEF_OFF R11U164_PVSHARE_OFF R11U164_RANGEQSIZE_OFF R11U164_RANGEQ_OFF R11U164_SELBASELEAF_OFF R11V164_ALIASBASE_OFF R11V164_RQMASK_OFF
+- source: src/ModuleEmit.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u164repro/cases/PV/a10_ref_two_views/dut.sv r11u164repro/cases/PV/a11_ref_and_mp/dut.sv r11u164repro/cases/PV/a12_mp_ordered_two_inst/dut.sv v11u164repro/cases/PV/p01_ordered_two_overrides/dut.sv v11u164repro/cases/PV/p05_two_defs_same_param/dut.sv v11u164repro/cases/PV/p06_mixed_named_ordered/dut.sv v11u164repro/cases/PV/p07_array_elems_named/dut.sv v11u164repro/cases/PV/p10_generic_two/dut.sv v11u164repro/cases/PV/p11_ordered_same_value_default/dut.sv v11u164repro/cases/PV/p14_two_receivers/dut.sv v11u164repro/cases/PV/p17_ref_style_ordered/dut.sv v11u164repro/cases/PV/p19_passthrough_mixed/dut.sv
 
 ### `portViewRangeRecvParams`
 - commits: 6dc539d0f
@@ -10970,7 +11046,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u166mac
 
 ### `ppOutputFile166`
-- commits: f2f2d30bc
+- commits: d8cfd83a6 f2f2d30bc
 - pass: -
 - source: not in the source
 - cases in the gate (tests/probe/): none
@@ -11357,6 +11433,30 @@ laws with cases in the gate: 676.
 - cases in the gate (tests/probe/): r10earl82repro/g0_min82 r10earl82repro/g6_earl82
 - cases in the evidence (tools/probe/): r10earl82repro/g1_ty82.sv r10earl82repro/g2_cons82.sv r10earl82repro/g3_shape82.sv r10earl82repro/g5_enc82.sv r10v82repro/v1_homes82.sv r10v82repro/v2_chain82.sv r10v82repro/v3_net82.sv r10v82repro/v4_cons82.sv r10v82repro/v6_hole82.sv r10v82repro/v7_edge82.sv r10v82repro/v8_more82.sv
 - also mentioned by: r10earl109repro r10earl89repro r11u33repro r11u40repro
+
+### `rangeQueryDeclNetSize164`
+- commits: none on this branch
+- pass: r11u164repro (verified by v11u164repro)
+- switches: R11U161_ALIAS_OFF R11U161_FILE_OFF R11U161_NAME_OFF R11U161_OFF R11U161_PORT_OFF R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U164_BINDPATHNAME_OFF R11U164_CADELAY_OFF R11U164_DLYPARAMELAB_OFF R11U164_GENNDAHP_OFF R11U164_OFF R11U164_PVMPDEF_OFF R11U164_PVSHARE_OFF R11U164_RANGEQSIZE_OFF R11U164_RANGEQ_OFF R11U164_SELBASELEAF_OFF R11V164_ALIASBASE_OFF R11V164_RQMASK_OFF
+- source: src/ModuleEmit.cpp(2)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u164repro/cases/RQ/q04_high_decl1/dut.sv r11u164repro/cases/RQ/q05_high_decl8/dut.sv r11u164repro/cases/RQ/q09_high_decl2/dut.sv v11u164repro/cases/RQ/r03_high_wide_onto_narrow/dut.sv v11u164repro/cases/RQ/r07_low_signed_decl/dut.sv v11u164repro/cases/RQ/r09_high_decl_var/dut.sv v11u164repro/cases/RQ/r10_high_selected_lhs/dut.sv v11u164repro/cases/RQ/r11_param_wide_onto_narrow/dut.sv v11u164repro/cases/RQ/r12_var_onto_2bit/dut.sv
+
+### `rangeQueryFoldUnconverted164`
+- commits: none on this branch
+- pass: r11u164repro (verified by v11u164repro)
+- switches: R11U161_ALIAS_OFF R11U161_FILE_OFF R11U161_NAME_OFF R11U161_OFF R11U161_PORT_OFF R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U164_BINDPATHNAME_OFF R11U164_CADELAY_OFF R11U164_DLYPARAMELAB_OFF R11U164_GENNDAHP_OFF R11U164_OFF R11U164_PVMPDEF_OFF R11U164_PVSHARE_OFF R11U164_RANGEQSIZE_OFF R11U164_RANGEQ_OFF R11U164_SELBASELEAF_OFF R11V164_ALIASBASE_OFF R11V164_RQMASK_OFF
+- source: src/ModuleEmit.cpp(1)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): r11u164repro/cases/RQ/q01_high_implicit/dut.sv r11u164repro/cases/RQ/q02_low_implicit/dut.sv r11u164repro/cases/RQ/q03_left_implicit/dut.sv r11u164repro/cases/RQ/q04_high_decl1/dut.sv r11u164repro/cases/RQ/q05_high_decl8/dut.sv r11u164repro/cases/RQ/q06_right_asc/dut.sv r11u164repro/cases/RQ/q07_high_var/dut.sv r11u164repro/cases/RQ/q08_signed_implicit/dut.sv r11u164repro/cases/RQ/q09_high_decl2/dut.sv v11u164repro/cases/RQ/r01_high_neg/dut.sv v11u164repro/cases/RQ/r02_right_neg_asc/dut.sv v11u164repro/cases/RQ/r04_high_dim2/dut.sv v11u164repro/cases/RQ/r05_left_type/dut.sv v11u164repro/cases/RQ/r06_high_unpacked/dut.sv v11u164repro/cases/RQ/r08_param_child/dut.sv v11u164repro/cases/RQ/r13_var_implicit/dut.sv
+
+### `rangeQueryVarDeclMask164v`
+- commits: none on this branch
+- pass: - (verified by v11u164repro)
+- switches: R11U161_ALIAS_OFF R11U161_OFF R11U161_PORT_OFF R11U161_ROUTE_OFF R11U164_BINDPATHNAME_OFF R11U164_CADELAY_OFF R11U164_DLYPARAMELAB_OFF R11U164_GENNDAHP_OFF R11U164_OFF R11U164_PVMPDEF_OFF R11U164_PVSHARE_OFF R11U164_RANGEQSIZE_OFF R11U164_RANGEQ_OFF R11U164_SELBASELEAF_OFF R11V164_ALIASBASE_OFF R11V164_RQMASK_OFF
+- source: src/ModuleEmit.cpp(3)
+- cases in the gate (tests/probe/): none
+- cases in the evidence (tools/probe/): v11u164repro/cases/RQ/r03_high_wide_onto_narrow/dut.sv v11u164repro/cases/RQ/r08_param_child/dut.sv v11u164repro/cases/RQ/r12_var_onto_2bit/dut.sv v11u164repro/cases/RQ/r14_low_var_onto_1bit/dut.sv v11u164repro/cases/RQ/r15_right_asc_onto_2bit/dut.sv v11u164repro/cases/RQ/r16_net_onto_4bit/dut.sv v11u164repro/cases/RQ/r17_sized_bound/dut.sv v11u164repro/cases/RQ/r18_expr_bound_mod/dut.sv
 
 ### `rawTextExpr`
 - commits: 05349a536
@@ -11945,6 +12045,7 @@ laws with cases in the gate: 676.
 - corpus tests: hier_path
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u158repro/cases/sc/c1/dut.sv r11u158repro/cases/sc/c10/dut.sv r11u158repro/cases/sc/c11/dut.sv r11u158repro/cases/sc/c12/dut.sv r11u158repro/cases/sc/c13/dut.sv r11u158repro/cases/sc/c14/dut.sv r11u158repro/cases/sc/c15/dut.sv r11u158repro/cases/sc/c16/dut.sv r11u158repro/cases/sc/c2/dut.sv r11u158repro/cases/sc/c3/dut.sv r11u158repro/cases/sc/c4/dut.sv r11u158repro/cases/sc/c5/dut.sv r11u158repro/cases/sc/c6/dut.sv r11u158repro/cases/sc/c7/dut.sv r11u158repro/cases/sc/c9/dut.sv r11v158repro/cases/sc/b04/dut.sv r11v158repro/cases/sc/b05/dut.sv r11v158repro/cases/sc/b06/dut.sv r11v158repro/cases/sc/b07/dut.sv r11v158repro/cases/sc/b09/dut.sv r11v158repro/cases/sc/b11/dut.sv r11v158repro/cases/sc/b12/dut.sv r11v158repro/cases/sc/n4/dut.sv r11v158repro/cases/sc/n5/dut.sv r11v158repro/cases/sc/w8/dut.sv r11v158repro/cases/sc/w9/dut.sv
+- also mentioned by: r11u164repro
 
 ### `sizeCastCaSignedSize158`
 - commits: 202fb2966
@@ -11963,6 +12064,7 @@ laws with cases in the gate: 676.
 - corpus tests: hier_path
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11v158repro/cases/sc/b10/dut.sv r11v158repro/cases/sc/n1/dut.sv r11v158repro/cases/sc/n3/dut.sv r11v158repro/cases/sc/n6/dut.sv r11v158repro/cases/sc/n8/dut.sv r11v158repro/cases/sc/n9/dut.sv r11v158repro/cases/sc/t1/dut.sv r11v158repro/cases/sc/t2/dut.sv r11v158repro/cases/sc/w1/dut.sv r11v158repro/cases/sc/w3/dut.sv r11v158repro/cases/sc/w4/dut.sv r11v158repro/cases/sc/w7/dut.sv
+- also mentioned by: r11u164repro
 
 ### `sizeCastNarrowTargetAbstain158v`
 - commits: 202fb2966
@@ -12274,7 +12376,7 @@ laws with cases in the gate: 676.
 ### `structInlineEnumMemberTs113`
 - commits: 6158f101b
 - pass: r11u113repro
-- switches: R11U101_NESTKEY_OFF R11U101_NESTPORT_OFF R11U101_OFF R11U113_ENUM_OFF R11U113_GSBS_OFF R11U113_OFF R11U113_RBND_OFF R11U113_REPRNG_OFF R11U113_TPCAST_OFF R11U113_VSIDX_OFF R11U146_OFF R11U152_OFF R11U155_OFF R11U160_OFF R11U98_IFACECLASS_OFF R11U98_OFF R11U99_IFACEROOT_OFF R11U99_OFF
+- switches: R11U101_NESTKEY_OFF R11U101_NESTPORT_OFF R11U101_OFF R11U113_ENUM_OFF R11U113_GSBS_OFF R11U113_OFF R11U113_RBND_OFF R11U113_REPRNG_OFF R11U113_TPCAST_OFF R11U113_VSIDX_OFF R11U155_OFF R11U160_OFF R11U164_OFF R11U98_IFACECLASS_OFF R11U98_OFF R11U99_IFACEROOT_OFF R11U99_OFF
 - source: src/TypeEmit.cpp(3) src/UhdmExporter.cpp(2)
 - corpus tests: arb_idx_cast
 - cases in the gate (tests/probe/): r11u113repro/grid/e/e02_modtd r11u113repro/grid/e/e03_pkgtd r11u113repro/grid/e/e05_nested r11u113repro/grid/e/e06_anon_var r11u113repro/grid/e/e07_lptype_scalar r11u113repro/grid/e/e08_modtd_dims r11u113repro/grid/e/e11_member_typed_enum_ctl r11u113repro/grid/e/e12_port v11u113repro/grid/brk2/e08_unpacked_struct_novalref v11u113repro/grid/brk2/e10_pkg_two_mods v11u113repro/grid/f3/e01_explicit_vals v11u113repro/grid/f3/e04_two_enum_members v11u113repro/grid/f3/e06_enum_range_base v11u113repro/grid/f3/e07_class_member
@@ -12346,7 +12448,7 @@ laws with cases in the gate: 676.
 ### `suSigningNotInSpan130`
 - commits: f8ffb241e
 - pass: r11u130repro (verified by r11v130repro)
-- switches: R11U119_OFF R11U125_OFF R11U125_SPANFILE_OFF R11U130_CLSARGNET_OFF R11U130_DEFNETLOC_OFF R11U130_GVTSFILE_OFF R11U130_IFSUKW_OFF R11U130_INCNOTEXT_OFF R11U130_NETSIGN_OFF R11U130_OFF R11U130_PVPARAM_OFF R11U130_REDEFLINE_OFF R11U130_SUSIGN_OFF R11U130_WILDSPAN_OFF R11U134_OFF R11U146_OFF R11U148_I_OFF R11U148_OFF R11V130_DEFNETVAR_OFF R11V130_INCTAB_OFF
+- switches: R11U119_OFF R11U125_OFF R11U125_SPANFILE_OFF R11U130_CLSARGNET_OFF R11U130_DEFNETLOC_OFF R11U130_GVTSFILE_OFF R11U130_IFSUKW_OFF R11U130_INCNOTEXT_OFF R11U130_NETSIGN_OFF R11U130_OFF R11U130_PVPARAM_OFF R11U130_REDEFLINE_OFF R11U130_SUSIGN_OFF R11U130_WILDSPAN_OFF R11U134_OFF R11V130_DEFNETVAR_OFF R11V130_INCTAB_OFF
 - source: src/TypeEmit.cpp(3) src/UhdmExporter.cpp(1)
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u130repro/grid/g8/k01_struct_signed/dut.sv r11u130repro/grid/g8/k02_struct_signed_sub/dut.sv r11u130repro/grid/g8/k03_union_signed/dut.sv r11u130repro/grid/g8/k04_struct_unsigned/dut.sv r11u130repro/grid/g8/k05_struct_signed_init/dut.sv r11u130repro/grid/g8/k06_struct_signed_multiline/dut.sv r11u130repro/grid/g8/k07_iface_struct_signed/dut.sv r11u141verify/cases/p130_susign/k01_net_struct_signed/dut.sv r11u141verify/cases/p130_susign/k02_struct_packed_dims/dut.sv r11u141verify/cases/p130_susign/k03_union_two_decl/dut.sv r11u141verify/cases/p130_susign/k04_program_struct/dut.sv r11v130repro/grid/adv/c01_typedef_struct_signed/dut.sv r11v130repro/grid/adv/c02_nested_struct_signed/dut.sv r11v130repro/grid/adv/c03_func_local_struct_signed/dut.sv r11v130repro/grid/adv/c04_port_struct_signed/dut.sv r11v130repro/grid/adv/c05_pkg_var_struct_signed/dut.sv r11v130repro/grid/adv/c06_param_struct_signed/dut.sv r11v130repro/grid/adv/c07_initial_var_struct_signed/dut.sv r11v130repro/grid/adv/c08_gen_struct_signed/dut.sv r11v130repro/grid/var/k07_var_struct_signed/dut.sv
@@ -12886,7 +12988,7 @@ laws with cases in the gate: 676.
 ### `tpDefaultEndTopTwin149v`
 - commits: 98aa49db1
 - pass: -
-- switches: R11U125_OFF R11U125_SPANFILE_OFF R11U146_OFF R11U148_I_OFF R11U148_OFF
+- switches: R11U146_OFF R11U148_I_OFF R11U148_OFF R11U161_OFF R11U161_TRACE
 - source: src/ModuleEmit.cpp(2) src/TypeEmit.cpp(2)
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): none
@@ -13672,7 +13774,7 @@ laws with cases in the gate: 676.
 - source: src/ModuleEmit.cpp(2) src/TypeEmit.cpp(1)
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r11u152repro/cases/CG/c01_cg_init/dut.sv r11u152repro/cases/CG/c02_cg_noarg/dut.sv r11u152repro/cases/CG/c03_cg_noinit/dut.sv r11u152repro/cases/CG/c04_tab/dut.sv r11u152repro/cases/CG/c05_space_before_semi/dut.sv r11u152repro/evidence/residue/ibex_alu_enum_default_span.sv? r11u159verify/cases/cg/u01_empty_parens/dut.sv r11u159verify/cases/cg/u02_in_gen/dut.sv r11u159verify/cases/cg/u03_two_args_comment/dut.sv v11u152repro/cases/KC/c01_cg_init_in_iface/dut.sv v11u152repro/cases/KC/c02_cg_two_decls/dut.sv v11u152repro/cases/KC/c03_cg_in_gen/dut.sv v11u152repro/cases/KC/c04_cg_multiline_init/dut.sv v11u152repro/cases/KW/w06_cg_null/dut.sv
-- also mentioned by: r11u159verify
+- also mentioned by: r11u159verify r11u164repro
 
 ### `userFold7`
 - commits: none on this branch
@@ -14618,6 +14720,7 @@ lists it under the law).
 | r11u161gen |  |  | 0 | 54 |
 | r11u162verify |  |  | 0 | 173 |
 | r11u163repro |  | `aggParamFoldQualSpanByView163` `elabAggFoldYCopyDefNamed163` `elabOvArrFoldSharesDefParamTs163` `elabTpDefaultDefNamed163` `elabTpNamedElemDimDefNamed163` `fnParamRangeNetNoFile163` `importPatOpCloneParamNamed163` `ovPkgPatOpInstanceCopy163` `paramOpCloneRelocatedSpan163` `pkgPatListingCopyWhenShared163` | 0 | 48 |
+| r11u164repro |  | `bindUnresolvedPathNoName164` `caDelayFirstOnly164` `caDelayParamElabFresh164` `defGenSelBaseLeafAtIndex164` `genNetDeclAssignLhsShared164` `modportPortViewParamDef164` `portViewParamShared164` `rangeQueryDeclNetSize164` `rangeQueryFoldUnconverted164` | 0 | 63 |
 | r11u165map |  |  | 0 | 0 |
 | r11u166mac |  |  | 0 | 69 |
 | r11u16repro |  |  | 0 | 14 |
@@ -14813,6 +14916,7 @@ lists it under the law).
 | v11u152repro | r11u152repro | `classSpecNestedAtName152` `classSpecPaNoFile152` `classVarInitNewDecl152v` `classVarInitSpan152` `crossPkgFoldTsNameOnChain152` `delayLiteralValueText152` `genCaseItemUnnamed152` `genLpOperandTsNoParent152` `packedElemAliasTypedef152` `pkgElemMemberPatNoLoc152` `pkgLeafPatLocByWriting152` `portConnParamFoldAtActual152` `tpElemPatAtUser152` `tpOvrTypedefStructSpan152` `unsupportedTsInitEnd152` | 0 | 112 |
 | v11u155repro | r11u155repro | `dirlessFormalTypeAtName155` `ifacePortViewFoldAtLeftOperand155` `ifaceSigConnNamedByChildPort155` `implicitArgDimsInner155` `initTsEndProgramLocal155` `modAggTfArgLastWriter155` `naArrNetOwnPortDecl155v` `nonAnsiArrayNetAtHeader155` `packedStructNdaFoldConstLoc155` `pkgTdStretchNonAnsiHeaderSkips155` `pselConnNameNotFrozen155` `tdStretchProgramKeeps155v` `unitAggTfArgLastWriter155` | 0 | 114 |
 | v11u160repro | r11u160repro | `bodyTypeParamDefaultBound160` `defNetTypeParamPackedVec160` `implNetBareParamElab160` `objMacroParenArgsTrimmed160` `pasteChainRunning160v` `ppMacroBodyLines160` `tpCloneWholeLhsBare160` `tpUseBindsDefDefault160` `tpWholeLhsInstantiatedOnly160v` `uncaughtExitsReject160` | 0 | 107 |
+| v11u164repro | r11u164repro | `bindUnresolvedPathNoName164` `caDelayFirstOnly164` `caDelayParamElabFresh164` `defGenSelBaseLeafAtIndex164` `enumAliasBaseAsTarget164v` `genNetDeclAssignLhsShared164` `modportPortViewParamDef164` `portViewParamShared164` `rangeQueryDeclNetSize164` `rangeQueryFoldUnconverted164` `rangeQueryVarDeclMask164v` | 0 | 77 |
 | v11u63repro | r11u63repro | `connPathRootOwnTs63` | 0 | 3 |
 | v11u64repro | r11u64repro | `patFlatUnsizedMemberNoInstWidth64` | 0 | 5 |
 | v11u93b107repro | r11u107repro | `anonPackedAggDimTs107` `tpElemRebindDefView107` `typeParamAnonAggDefault107` | 31 | 16 |

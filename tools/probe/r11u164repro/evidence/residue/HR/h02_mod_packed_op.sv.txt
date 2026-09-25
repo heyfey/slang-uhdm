@@ -1,0 +1,9 @@
+// residue (not a law of this pass): a module variable's packed range bound is an operation over a struct-parameter member path
+package p;
+  typedef struct packed { int unsigned W; logic H; } cfg_t;
+  localparam cfg_t CFG_DEF = '{W: 3, H: 1'b0};
+endpackage
+module top #(parameter p::cfg_t CFG = p::CFG_DEF) (output logic [CFG.W-1:0] o);
+  logic [CFG.W-1:0] v;
+  assign o = v;
+endmodule

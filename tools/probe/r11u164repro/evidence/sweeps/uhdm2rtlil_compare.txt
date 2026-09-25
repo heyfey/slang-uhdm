@@ -1,0 +1,11 @@
+[default] CMP_EQUAL=770 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=33
+[testflags] CMP_EQUAL=770 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=33
+CONVERSION iface_param_port_width default STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION iface_param_port_width testflags STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION interface_array default STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CONVERSION interface_array testflags STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CONVERSION interface_array_fanout default STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CONVERSION interface_array_fanout testflags STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CONVERSION mriscv_bind_sva default STRICT_NOTEQUAL differ:fullname(30) -> CMP_EQUAL
+CONVERSION mriscv_bind_sva testflags STRICT_NOTEQUAL differ:fullname(30) -> CMP_EQUAL
+regressions=0 conversions=8 changes=0 only-fresh=0 only-committed=0

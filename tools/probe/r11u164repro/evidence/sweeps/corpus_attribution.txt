@@ -1,0 +1,25 @@
+surelog/default/ComplexHierPath | law-rerun:det | OFF:pristine | contributing: R11U164_GENNDAHP_OFF R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U161_NAME_OFF
+surelog/testflags/ComplexHierPath | law-rerun:det | OFF:pristine | contributing: R11U164_GENNDAHP_OFF R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U161_NAME_OFF
+surelog/default/GenForStructParamBound | law-rerun:det | OFF:pristine | contributing: R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U161_NAME_OFF
+surelog/testflags/GenForStructParamBound | law-rerun:det | OFF:pristine | contributing: R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U161_NAME_OFF
+surelog/default/GenIfIfaceParamStructField | law-rerun:det | OFF:pristine | contributing: R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U161_NAME_OFF
+surelog/testflags/GenIfIfaceParamStructField | law-rerun:det | OFF:pristine | contributing: R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U161_NAME_OFF
+surelog/default/HighLow | law-rerun:det | OFF:pristine | contributing: R11U164_RANGEQ_OFF
+surelog/testflags/HighLow | law-rerun:det | OFF:pristine | contributing: R11U164_RANGEQ_OFF
+surelog/default/OneNetModPort | law-rerun:det | OFF:pristine | contributing: R11U161_SPAN_OFF R11U161_NAME_OFF R11U161_PORT_OFF
+surelog/testflags/OneNetModPort | law-rerun:det | OFF:pristine | contributing: R11U161_SPAN_OFF R11U161_NAME_OFF R11U161_PORT_OFF
+uhdm2rtlil/default/genvar_iface_struct | law-rerun:det | OFF:pristine | contributing: R11U161_ROUTE_OFF R11U161_NAME_OFF
+uhdm2rtlil/testflags/genvar_iface_struct | law-rerun:det | OFF:pristine | contributing: R11U161_ROUTE_OFF R11U161_NAME_OFF
+uhdm2rtlil/default/iface_array_modport_drive | law-rerun:det | OFF:pristine | contributing: R11U161_ROUTE_OFF R11U161_NAME_OFF
+uhdm2rtlil/testflags/iface_array_modport_drive | law-rerun:det | OFF:pristine | contributing: R11U161_ROUTE_OFF R11U161_NAME_OFF
+uhdm2rtlil/default/iface_param_port_width | law-rerun:det | OFF:pristine | contributing: R11U164_PVMPDEF_OFF
+uhdm2rtlil/testflags/iface_param_port_width | law-rerun:det | OFF:pristine | contributing: R11U164_PVMPDEF_OFF
+uhdm2rtlil/default/interface_array | law-rerun:det | OFF:pristine | contributing: R11U164_PVMPDEF_OFF R11U164_PVSHARE_OFF
+uhdm2rtlil/testflags/interface_array | law-rerun:det | OFF:pristine | contributing: R11U164_PVMPDEF_OFF R11U164_PVSHARE_OFF
+uhdm2rtlil/default/interface_array_fanout | law-rerun:det | OFF:pristine | contributing: R11U164_PVMPDEF_OFF R11U164_PVSHARE_OFF
+uhdm2rtlil/testflags/interface_array_fanout | law-rerun:det | OFF:pristine | contributing: R11U164_PVMPDEF_OFF R11U164_PVSHARE_OFF
+uhdm2rtlil/default/mriscv_bind_sva | law-rerun:det | OFF:pristine | contributing: R11U164_BINDPATHNAME_OFF
+uhdm2rtlil/testflags/mriscv_bind_sva | law-rerun:det | OFF:pristine | contributing: R11U164_BINDPATHNAME_OFF
+surelog/default/Rggen | law-rerun:det | OFF:pristine | contributing: R11U164_PVMPDEF_OFF R11U164_PVSHARE_OFF R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U161_NAME_OFF
+surelog/default/Earlgrey_0_1 | law-rerun:det | OFF:pristine | contributing: R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U161_NAME_OFF
+surelog/testflags/Earlgrey_0_1 | law-rerun:det | OFF:pristine | contributing: R11U161_ROUTE_OFF R11U161_SPAN_OFF R11U161_NAME_OFF

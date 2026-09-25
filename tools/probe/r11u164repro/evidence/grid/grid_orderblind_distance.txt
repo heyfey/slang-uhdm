@@ -1,0 +1,12 @@
+RQ/q04_high_decl1 P=2 L=1 
+RQ/q05_high_decl8 P=2 L=1 
+RQ/q07_high_var P=5 L=5 
+RQ/q09_high_decl2 P=2 L=1 
+PV/a13_generic_named_mp P=19 L=17 
+PV/a16_mp_ordered_genblk P=42 L=40 
+SB/b01_genvar_base_lit_leaf P=68 L=52 
+SB/b02_lit_base_lit_leaf P=70 L=62 
+SB/b04_genvar_base_partsel_leaf P=155 L=148 
+SB/b05_genvar_base_plain_leaf P=24 L=24 
+DL/d13_param_paren bytes-same
+DL/d14_param_expr bytes-same

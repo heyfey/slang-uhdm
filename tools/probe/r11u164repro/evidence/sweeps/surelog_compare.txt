@@ -1,0 +1,13 @@
+[default] CMP_EQUAL=435 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=45 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=432 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=42 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CONVERSION ComplexHierPath default STRICT_NOTEQUAL differ:col(7) -> CMP_EQUAL
+CONVERSION ComplexHierPath testflags STRICT_NOTEQUAL differ:col(7) -> CMP_EQUAL
+CONVERSION GenIfIfaceParamStructField default STRICT_NOTEQUAL differ:col(2) -> CMP_EQUAL
+CONVERSION GenIfIfaceParamStructField testflags STRICT_NOTEQUAL differ:col(2) -> CMP_EQUAL
+CONVERSION HighLow default STRICT_NOTEQUAL differ:value(1) -> CMP_EQUAL
+CONVERSION HighLow testflags STRICT_NOTEQUAL differ:value(1) -> CMP_EQUAL
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:line(1730) -> differ:line(1686) [line -44]
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:line(1730) -> differ:line(1686) [line -44]
+CHANGE GenForStructParamBound default STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(3) [fullname -4]
+CHANGE GenForStructParamBound testflags STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(3) [fullname -4]
+regressions=0 conversions=6 changes=4 only-fresh=0 only-committed=0

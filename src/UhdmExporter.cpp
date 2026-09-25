@@ -137,6 +137,21 @@ bool r11u160Law(const char* sw) {
     return getenv(sw) == nullptr;
 }
 
+// The r11u164 switches (tools/probe/r11u164repro/README.md): every r11u164
+// law reads its own R11U164_<LAW>_OFF switch; R11U164_OFF drops all of them.
+bool r11u164Law(const char* sw) {
+    if (getenv("R11U164_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
+// § enumAliasClone161 (r11u161) — defined in TypeEmit.cpp.
+bool r11u161Law(const char* sw);
+const slang::syntax::SyntaxNode* enumAliasSyn161(const slang::ast::TypeAliasType& ta);
+void enumAliasCloneFinish161(UHDM::Serializer& s, UHDM::enum_typespec* ets,
+                             const UHDM::typespec* tgt, const std::string& refName);
+bool enumAliasTgtBaseFolded164v(const UHDM::typespec* tgt); // § enumAliasBaseAsTarget164v
+
 // § implicitNetNoFile119 (r11u119) — defined in ModuleEmit.cpp.
 void clearImplicitNetFiles119();
 
@@ -9149,11 +9164,40 @@ UHDM::design* UhdmExporter::exportDesign() {
                         typeSyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
                 }
                 UHDM::typespec* ts = nullptr;
+                // § enumAliasClone161 — a $unit alias of a named enum typedef
+                // is a clone of the enum (TypeEmit.cpp, the law's comment).
+                const UHDM::typespec* aliasTgt161 = nullptr;
+                const syntax::SyntaxNode* aliasSyn161 = nullptr;
+                if (ct.kind == SymbolKind::EnumType &&
+                    ta.targetType.getType().kind == SymbolKind::TypeAlias &&
+                    r11u161Law("R11U161_ALIAS_OFF"))
+                    if (auto tIt161 = typedefTs.find(&ta.targetType.getType());
+                        tIt161 != typedefTs.end() && tIt161->second &&
+                        tIt161->second->UhdmType() == UHDM::uhdmenum_typespec)
+                        if ((aliasSyn161 = enumAliasSyn161(ta)))
+                            aliasTgt161 = tIt161->second;
                 if (ct.kind == SymbolKind::EnumType) {
-                    ts = buildEnumTs(ct.as<EnumType>(), typeSyn, std::string(ta.name));
+                    ts = buildEnumTs(ct.as<EnumType>(),
+                                     aliasTgt161 ? aliasSyn161 : typeSyn,
+                                     std::string(ta.name));
                     ts->VpiParent(d);
                     if (auto syn = ta.getSyntax())
                         setLoc(ts, syn->sourceRange());
+                    if (aliasTgt161) {
+                        auto* ets161 = (UHDM::enum_typespec*)ts;
+                        enumAliasCloneFinish161(s, ets161, aliasTgt161,
+                                                std::string(ta.name));
+                        auto& ebt161 = ct.as<EnumType>().baseType.getCanonicalType();
+                        if (ets161->Base_typespec() &&
+                            ets161->Base_typespec()->Actual_typespec() &&
+                            ebt161.hasFixedRange() &&
+                            enumAliasTgtBaseFolded164v(aliasTgt161)) {
+                            auto fr161 = ebt161.getFixedRange();
+                            foldVecBounds((UHDM::typespec*)ets161->Base_typespec()
+                                              ->Actual_typespec(),
+                                          fr161.left, fr161.right);
+                        }
+                    }
                 }
                 else if (ct.kind == SymbolKind::PackedStructType) {
                     ts = buildStructTs(ct.as<PackedStructType>(), true,
@@ -9444,6 +9488,9 @@ UHDM::design* UhdmExporter::exportDesign() {
                 }
                 ts->VpiName(ta.name);
                 ts->Instance((UHDM::instance*)(UHDM::BaseClass*)d);
+                // § enumAliasClone161 — the clone keeps the target's Instance.
+                if (aliasTgt161 && aliasTgt161->Instance())
+                    ts->Instance((UHDM::instance*)aliasTgt161->Instance());
                 // MULTI-TOP designs parent $unit typedefs at the DESIGN
                 // (arrays03); single-top ones leave them for net re-parenting
                 // (DotMultirange).

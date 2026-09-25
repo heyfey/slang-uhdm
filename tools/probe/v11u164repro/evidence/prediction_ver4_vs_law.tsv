@@ -1,0 +1,7 @@
+surelog	ImportBinding/dut.sv	aliasbase
+surelog	HighLow/dut.sv	rqmask
+surelog	Bindings/dut.sv	aliasbase
+surelog	Earlgrey_Verilator_01_05_21/src/lowrisc_ip_lc_ctrl_pkg_0.1/rtl/lc_ctrl_pkg.sv	aliasbase
+surelog	IncompTitan/src/lowrisc_ip_lc_ctrl_pkg_0.1/rtl/lc_ctrl_pkg.sv	aliasbase
+surelog	Earlgrey_nexysvideo/src/lowrisc_ip_lc_ctrl_pkg_0.1/rtl/lc_ctrl_pkg.sv	aliasbase
+surelog	Rp32/hdl/rtl/riscv/riscv_isa_pkg.sv	aliasbase

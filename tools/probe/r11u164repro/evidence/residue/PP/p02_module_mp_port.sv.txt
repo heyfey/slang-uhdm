@@ -1,0 +1,14 @@
+// residue (not a law of this pass): a module's modport-qualified interface port (control)
+interface ConnectTB;
+  logic drive;
+  logic observe;
+  modport dut (input drive, output observe);
+  modport tb (output drive, input observe);
+endinterface
+module TESTBENCH (ConnectTB.tb intf);
+  initial intf.drive = 0;
+endmodule
+module TOP();
+  ConnectTB conntb();
+  TESTBENCH tb(conntb);
+endmodule

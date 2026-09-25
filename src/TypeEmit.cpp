@@ -35,6 +35,119 @@ bool r11u152Law(const char* sw); // the r11u152 switches (UhdmExporter.cpp)
 bool r11u155Law(const char* sw); // the r11u155 switches (UhdmExporter.cpp)
 bool r11u160Law(const char* sw); // the r11u160 switches (UhdmExporter.cpp)
 
+// ===== r11u161 — the definition-view generate-scope path family and the
+// non-package enum alias clone (tools/probe/r11u161gen/README.md) =====
+// Every r11u161 law reads its own switch AND the switch of the axis it
+// changes: R11U161_SPAN_OFF (an anchor or a span), R11U161_NAME_OFF (a stored
+// full name or definition name), R11U161_FILE_OFF (an object's file / the
+// location it copies), R11U161_ALIAS_OFF (the alias clone).  R11U161_OFF
+// drops every one of them (pristine bytes).  R11U161_TRACE=1 prints one
+// stderr line per decision.
+bool r11u161Law(const char* sw) {
+    if (getenv("R11U161_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+static bool r161(const char* law, const char* axis) {
+    return r11u161Law(law) && r11u161Law(axis);
+}
+static bool r161Trace() {
+    static const bool t = getenv("R11U161_TRACE") != nullptr;
+    return t;
+}
+// § defGenPathSel161 — the cont_assign whose LHS the definition-view
+// generate emitter (ModuleEmit emitDefGenStmts) is emitting right now; set
+// around that one emitSyntaxExpr call only.
+static const UHDM::BaseClass* defGenCaLhs161 = nullptr;
+void setDefGenCaLhs161(const UHDM::BaseClass* ca) { defGenCaLhs161 = ca; }
+// Is `p` inside a definition-view generate statement (the UHDM parent chain
+// reaches a gen_if / gen_if_else / gen_for / gen_case / gen_region before an
+// instance or a design)?
+static bool underDefGen161(const UHDM::BaseClass* p) {
+    for (; p; p = p->VpiParent()) {
+        switch (p->UhdmType()) {
+            case UHDM::uhdmgen_if:
+            case UHDM::uhdmgen_if_else:
+            case UHDM::uhdmgen_for:
+            case UHDM::uhdmgen_case:
+            case UHDM::uhdmgen_region:
+                return true;
+            // A case-generate item is never parented (CompileGenStmt.cpp
+            // pushes it into the gen_case's items without VpiParent, and the
+            // emitter mirrors that): a parentless case_item ends a def-view
+            // generate chain.
+            case UHDM::uhdmcase_item:
+                if (!p->VpiParent())
+                    return true;
+                break;
+            case UHDM::uhdmmodule_inst:
+            case UHDM::uhdminterface_inst:
+            case UHDM::uhdmprogram:
+            case UHDM::uhdmdesign:
+            case UHDM::uhdmgen_scope:
+            case UHDM::uhdmgen_scope_array:
+                return false;
+            default:
+                break;
+        }
+    }
+    return false;
+}
+// § defGenPathSel161 — WHICH OF SURELOG'S TWO PATH WRITERS COMPILES A
+// DEFINITION-VIEW GENERATE PATH.  CompileGenStmt.cpp (compileGenStmt) compiles
+// a gen-if / gen-case condition, a case-generate item, the gen-for initial
+// value, condition and step through compileExpression on their
+// `constant_expression` / `genvar_expression` nodes, and the block body
+// through compileStmt, where a continuous assignment's target is a
+// `net_lvalue`.  All of those are `constant_primary` / `net_lvalue`
+// positions: CompileExpression.cpp compileSelectExpression's hierarchical
+// arm (SEL: the base takes the NEXT component's token, every field stores
+// its own name, a selected field spans its name through the brackets and
+// stores no full name).  The right side of the assignment is an `expression`
+// (compileComplexFuncCall, CFC: every component at its own token, the leaf
+// named through the parent chain at save), which is what the emitter already
+// writes.  Returns 1 (SEL), 2 (CFC inside a definition-view generate) or 0
+// (not decided here: keep the legacy form).  A `?:` or a pattern on the way
+// up abstains (its arms are split between the two writers).
+static int defGenRoute161(const UHDM::BaseClass* parent) {
+    if (!r11u161Law("R11U161_ROUTE_OFF"))
+        return 0;
+    for (const UHDM::BaseClass* p = parent; p; p = p->VpiParent()) {
+        switch (p->UhdmType()) {
+            case UHDM::uhdmoperation: {
+                int ot = ((const UHDM::operation*)p)->VpiOpType();
+                if (ot == vpiConditionOp || ot == vpiAssignmentPatternOp ||
+                    ot == vpiMultiAssignmentPatternOp || ot == vpiConcatOp ||
+                    ot == vpiMultiConcatOp)
+                    return 0;
+                continue;
+            }
+            case UHDM::uhdmcont_assign:
+                if (!underDefGen161(p))
+                    return 0;
+                return p == defGenCaLhs161 ? 1 : 2;
+            case UHDM::uhdmgen_if:
+            case UHDM::uhdmgen_if_else:
+            case UHDM::uhdmgen_case:
+            case UHDM::uhdmgen_for:
+                return 1;
+            case UHDM::uhdmcase_item:
+                return (!p->VpiParent() ||
+                        p->VpiParent()->UhdmType() == UHDM::uhdmgen_case)
+                           ? 1
+                           : 0;
+            case UHDM::uhdmassignment:
+                return (p->VpiParent() &&
+                        p->VpiParent()->UhdmType() == UHDM::uhdmgen_for)
+                           ? 1
+                           : 0;
+            default:
+                return 0;
+        }
+    }
+    return 0;
+}
+
 // § paramAliasBoundRefUnstored144 (r11u144) — set while makeTypespec builds
 // the packed dimensions of a PARAMETER whose written type is a module-scope
 // typedef name (`typedef logic [X-1:0] my_type_t; parameter my_type_t Y`).
@@ -3013,6 +3126,16 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             auto aliasInPkg159v = [&]() {
                 if (!aliasPkg159v)
                     return true;
+                // § enumAliasClone161 (r11u161) — with the non-package alias
+                // emitted as golden's clone (the enum's span, Typedef_alias ->
+                // the enum), the element may name it in every scope: the
+                // guard now holds only while that law is switched off.
+                if (r11u161Law("R11U161_ALIAS_OFF"))
+                    if (auto a161 = typedefTs.find(leaf);
+                        a161 != typedefTs.end() && a161->second &&
+                        a161->second->UhdmType() == UHDM::uhdmenum_typespec &&
+                        ((UHDM::enum_typespec*)a161->second)->Typedef_alias())
+                        return true;
                 auto* ps = leaf->getParentScope();
                 bool in = ps && ps->asSymbol().kind == SymbolKind::Package;
                 if (!in && getenv("R11V159_TRACE"))
@@ -16092,6 +16215,100 @@ UHDM::array_typespec* UhdmExporter::copyArrayTypedefTs(
     return cp;
 }
 
+// § enumAliasClone161 (r11u161) — A TYPEDEF THAT ALIASES A NAMED ENUM
+// TYPEDEF OUTSIDE A PACKAGE (module, interface, $unit: `typedef lp::tx_e
+// my_t;`, `typedef tx_e my_t;`) IS A CLONE OF THE ENUM.  Surelog's
+// ElaborationStep::bindTypedefs_ (third_party/Surelog/src/DesignCompile/
+// ElaborationStep.cpp, the `noTypespec` arm) walks every typedef of every file,
+// package, module, program and class; an alias whose definition is still the
+// DUMMY data type is bound to its target and gets
+//   tpclone = clone_tree(target typespec); rt = ref_typespec -> target;
+//   tpclone->Typedef_alias(rt); tpclone->VpiName(alias name);
+// so the alias object keeps the TARGET's span, file, Instance, base
+// typespec (a clone, the ref parented at the clone) and enum constants,
+// and adds the alias reference.  Our package alias already was that object
+// (ParamEmit's package listing); the module / interface / $unit listing
+// minted a fresh enum at the typedef declaration's span with the
+// declaration's scope and no base typespec, which is what the plugin reads a
+// packed array of the alias 32 or 64 bits wide from (golden 4 / 8).
+// `enumAliasSyn161` returns the enum's own type syntax at the end of the
+// alias chain (the base and constants come from it); the target object is
+// the chain's first link (`typedefTs`), whose location the clone copies.
+const syntax::SyntaxNode* enumAliasSyn161(const TypeAliasType& ta) {
+    const TypeAliasType* a = &ta;
+    for (int n = 0; n < 16 && a->targetType.getType().kind == SymbolKind::TypeAlias; n++)
+        a = &a->targetType.getType().as<TypeAliasType>();
+    if (a == &ta)
+        return nullptr;
+    auto syn = a->getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::TypedefDeclaration)
+        return nullptr;
+    const syntax::SyntaxNode* t = syn->as<syntax::TypedefDeclarationSyntax>().type;
+    return (t && t->kind == syntax::SyntaxKind::EnumType) ? t : nullptr;
+}
+// § enumAliasBaseAsTarget164v (v11u164, refines § enumAliasClone161) — the
+// clone's base of a NON-PACKAGE target copies the target's base as the
+// target holds it (a package target's clone still folds: e17), symbolic
+// where the target keeps it symbolic (a module enum
+// `logic [W-1:0]` over a module parameter: golden's clone keeps `W-1` with the
+// reference named `f_t.W`; the unconditional fold gave INT:2).  Returns true
+// when the clone may fold.  Grid tools/probe/v11u164repro/cases/EA e06.
+// Switch R11V164_ALIASBASE_OFF.
+bool r11u164Law(const char* sw);
+bool enumAliasTgtBaseFolded164v(const UHDM::typespec* tgt) {
+    if (!r11u164Law("R11V164_ALIASBASE_OFF") || !tgt ||
+        tgt->UhdmType() != UHDM::uhdmenum_typespec)
+        return true;
+    // A PACKAGE target's clone folds whatever our listing holds (e17: the
+    // package parameter bound folded in golden's clone).
+    if (tgt->Instance() && tgt->Instance()->UhdmType() == UHDM::uhdmpackage)
+        return true;
+    auto* br = ((const UHDM::enum_typespec*)tgt)->Base_typespec();
+    auto* bt = br ? br->Actual_typespec() : nullptr;
+    if (!bt || bt->UhdmType() != UHDM::uhdmlogic_typespec)
+        return true;
+    auto* rg = ((const UHDM::logic_typespec*)bt)->Ranges();
+    if (!rg)
+        return true;
+    for (auto* r : *rg) {
+        if (r->Left_expr() && r->Left_expr()->UhdmType() != UHDM::uhdmconstant)
+            return false;
+        if (r->Right_expr() && r->Right_expr()->UhdmType() != UHDM::uhdmconstant)
+            return false;
+    }
+    return true;
+}
+void enumAliasCloneFinish161(UHDM::Serializer& s, UHDM::enum_typespec* ets,
+                             const UHDM::typespec* tgt,
+                             const std::string& refName) {
+    if (r161("R11U161_ALIAS_OFF", "R11U161_FILE_OFF")) {
+        ets->VpiFile(tgt->VpiFile());
+        ets->VpiLineNo(tgt->VpiLineNo());
+        ets->VpiColumnNo(tgt->VpiColumnNo());
+        ets->VpiEndLineNo(tgt->VpiEndLineNo());
+        ets->VpiEndColumnNo(tgt->VpiEndColumnNo());
+    }
+    // The base typespec is a clone of the TARGET's base: parented at the
+    // clone's base reference, Instanced as the target's base is (a package
+    // enum's base at the package, a module enum's base at nothing).
+    if (ets->Base_typespec())
+        if (auto* bts = (UHDM::typespec*)ets->Base_typespec()->Actual_typespec()) {
+            bts->VpiParent(ets->Base_typespec());
+            const UHDM::typespec* tb = nullptr;
+            if (auto* tr = ((const UHDM::enum_typespec*)tgt)->Base_typespec())
+                tb = tr->Actual_typespec();
+            bts->Instance(tb ? (UHDM::instance*)tb->Instance() : nullptr);
+        }
+    auto* art = s.MakeRef_typespec();
+    art->VpiFullName(refName);
+    art->VpiParent(ets);
+    art->Actual_typespec((UHDM::typespec*)tgt);
+    ets->Typedef_alias(art);
+    if (r161Trace())
+        fprintf(stderr, "R11U161 alias %s -> %s\n", std::string(ets->VpiName()).c_str(),
+                std::string(tgt->VpiName()).c_str());
+}
+
 // Typedefs (enums, packed structs): module Typespecs entries compiled at
 // module compile, shared by both views and by all declarations.
 // § modAggTfArgLastWriter155 (r11u155, map N0438 + N0043's module face) —
@@ -16164,12 +16381,39 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
                 typeSyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
         }
         UHDM::typespec* ts = nullptr;
+        // § enumAliasClone161 — the target typedef's object, when this is an
+        // alias of a named enum typedef the emitter has listed.
+        const UHDM::typespec* aliasTgt161 = nullptr;
+        const syntax::SyntaxNode* aliasSyn161 = nullptr;
+        if (ct.kind == SymbolKind::EnumType &&
+            ta.targetType.getType().kind == SymbolKind::TypeAlias &&
+            r11u161Law("R11U161_ALIAS_OFF"))
+            if (auto tIt161 = typedefTs.find(&ta.targetType.getType());
+                tIt161 != typedefTs.end() && tIt161->second &&
+                tIt161->second->UhdmType() == UHDM::uhdmenum_typespec)
+                if ((aliasSyn161 = enumAliasSyn161(ta)))
+                    aliasTgt161 = tIt161->second;
         if (ct.kind == SymbolKind::EnumType) {
-            auto* ets = buildEnumTs(ct.as<EnumType>(), typeSyn,
+            auto* ets = buildEnumTs(ct.as<EnumType>(),
+                                    aliasTgt161 ? aliasSyn161 : typeSyn,
                                     prefix + "." + std::string(ta.name));
             ets->VpiParent(m);
             if (auto syn = ta.getSyntax())
                 setLoc(ets, syn->sourceRange());
+            if (aliasTgt161) {
+                enumAliasCloneFinish161(s, ets, aliasTgt161,
+                                        prefix + "." + std::string(ta.name));
+                // The clone copies the target's base as the target holds
+                // it: a parameter-dependent bound folded (the package
+                // listing's own clone rule, ParamEmit's import clone).
+                auto& ebt161 = ct.as<EnumType>().baseType.getCanonicalType();
+                if (ets->Base_typespec() && ets->Base_typespec()->Actual_typespec() &&
+                    ebt161.hasFixedRange() && enumAliasTgtBaseFolded164v(aliasTgt161)) {
+                    auto fr161 = ebt161.getFixedRange();
+                    foldVecBounds((UHDM::typespec*)ets->Base_typespec()->Actual_typespec(),
+                                  fr161.left, fr161.right);
+                }
+            }
             ts = ets;
         }
         else if (ct.kind == SymbolKind::PackedStructType) {
@@ -16533,6 +16777,9 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
         }
         ts->VpiName(ta.name);
         ((UHDM::typespec*)ts)->Instance(m);
+        // § enumAliasClone161 — the clone keeps the target's Instance.
+        if (aliasTgt161 && aliasTgt161->Instance())
+            ((UHDM::typespec*)ts)->Instance((UHDM::instance*)aliasTgt161->Instance());
         typedefTs[&ta] = ts;
         // § defBodyTypedefSiteShare62 — record the SAME object under the
         // typedef's declaration syntax node, which every specialization of
@@ -19342,6 +19589,20 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 if (!valueBase146)
                     paramBase137 = true;
             }
+            // § defGenPathSel161 (r11u161) — the writer this definition-view
+            // generate path takes (defGenRoute161, above): SEL for a
+            // continuous-assignment target, a generate condition / case item
+            // and the gen-for header; CFC for the assignment's right side.
+            // Switches R11U161_ROUTE_OFF, axes R11U161_SPAN_OFF /
+            // R11U161_NAME_OFF.
+            const int route161 = parts.size() >= 2 ? defGenRoute161(parent) : 0;
+            const bool sel161 = route161 == 1;
+            const bool span161 = r161("R11U161_ROUTE_OFF", "R11U161_SPAN_OFF");
+            const bool name161 = r161("R11U161_ROUTE_OFF", "R11U161_NAME_OFF");
+            bool selIdxBase161 = false;
+            if (route161 && r161Trace())
+                fprintf(stderr, "R11U161 route %s %s\n", sel161 ? "SEL" : "CFC",
+                        raw.c_str());
             for (size_t i = 0; i < parts.size(); i++) {
                 auto& [pname, off] = parts[i];
                 dottedSoFar += (i == 0 ? pname : "." + pname);
@@ -19371,6 +19632,21 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     setLoc(c, SourceRange(exprStart + digitOff,
                                           exprStart + digitOff + idx.size()));
                     bs->VpiIndex(c);
+                    // § defGenPathSel161 — SEL: a selected FIELD spans its
+                    // name through the closing bracket and stores no full
+                    // name (read through the path: `<scope>.<path>.<field>`);
+                    // a selected BASE anchors the whole path at itself and
+                    // names the leaf by the raw path (the genvar-base form).
+                    if (sel161 && i > 0) {
+                        if (span161)
+                            setLoc(bs, SourceRange(exprStart + off,
+                                                   exprStart + off + rb + 1));
+                        if (name161 && !syntaxRefPrefix.empty())
+                            bs->VpiFullName(syntaxRefPrefix + "." + dispRaw +
+                                            "." + base);
+                    }
+                    if (sel161 && i == 0)
+                        selIdxBase161 = true;
                     elems->push_back(bs);
                     continue;
                 }
@@ -19408,6 +19684,15 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         };
                         ps9->Left_range(mkB9(lb + 1, cl9));
                         ps9->Right_range(mkB9(cl9 + 1, rb));
+                        // § defGenPathSel161 — SEL: compilePartSelectRange
+                        // names the part_select's DEFINITION by the field and
+                        // stores no full name.
+                        if (sel161 && i > 0 && name161) {
+                            ps9->VpiDefName(base9);
+                            if (!syntaxRefPrefix.empty())
+                                ps9->VpiFullName(syntaxRefPrefix + "." +
+                                                 dispRaw + "." + base9);
+                        }
                         elems->push_back(ps9);
                         continue;
                     }
@@ -19525,6 +19810,34 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         setLoc(ir, SourceRange(exprStart + idOff,
                                                exprStart + idOff + idx.size()));
                         bs->VpiIndex(ir);
+                        // § defGenPathSel161 — a selected FIELD of a
+                        // definition-view generate path: SEL spans every one
+                        // from its name through the closing bracket; CFC
+                        // treats only the TRAILING one (the leaf select,
+                        // compileComplexFuncCall's final `paSelect`), at its
+                        // index (the def gen-CA select rule), and keeps a
+                        // MIDDLE one as before (probe r10earl_repro/tj row B:
+                        // `r2h_i.cause[k].d` keeps `r2h_i.cause[k]` / the
+                        // scoped `k`).  Both forms store no full name on the
+                        // select or its index, which read through the path
+                        // (`<scope>.<path>.<field>`, `<scope>.<path>.<index>`).
+                        if (route161 && i > 0 &&
+                            (sel161 || i + 1 == parts.size())) {
+                            if (span161) {
+                                if (sel161)
+                                    setLoc(bs, SourceRange(exprStart + off,
+                                                           exprStart + off + rb + 1));
+                                else
+                                    setLoc(bs, SourceRange(exprStart + idOff,
+                                                           exprStart + idOff + idx.size()));
+                            }
+                            if (name161 && !syntaxRefPrefix.empty()) {
+                                bs->VpiFullName(syntaxRefPrefix + "." + dispRaw +
+                                                "." + base);
+                                ir->VpiFullName(syntaxRefPrefix + "." + dispRaw +
+                                                "." + idx);
+                            }
+                        }
                         elems->push_back(bs);
                         if (i == 0)
                             genVarBaseEmitted = true;
@@ -19626,6 +19939,13 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                             ps9->Left_range(lx9);
                         if (auto* rx9 = mkBound9(*rs9.right, ps9))
                             ps9->Right_range(rx9);
+                        // § defGenPathSel161 — as the literal arm.
+                        if (sel161 && i > 0 && name161) {
+                            ps9->VpiDefName(base9);
+                            if (!savedSRP9.empty())
+                                ps9->VpiFullName(savedSRP9 + "." + dispRaw +
+                                                 "." + base9);
+                        }
                         elems->push_back(ps9);
                         continue;
                     }
@@ -19656,9 +19976,11 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 }
                 auto* r = s.MakeRef_obj();
                 r->VpiName(pname);
-                if (genVarBaseEmitted && i + 1 == parts.size())
+                if ((genVarBaseEmitted || (selIdxBase161 && name161)) &&
+                    i + 1 == parts.size())
                     // A gen-scope modport-array member path gives the LEAF the
-                    // RAW dotted fullname (Surelog).
+                    // RAW dotted fullname (Surelog).  § defGenPathSel161: so
+                    // does a SEL path over a constant-selected base.
                     r->VpiFullName(raw);
                 // § structParamPathBaseAtMember137 — ...and the LEAF of a
                 // member path over a value parameter carries no scoped name
@@ -19666,6 +19988,9 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 // part-select bound `i[CFG.ADR-1:0]`, and `work@top.DAT` in an
                 // if-generate condition; grid hb04, hb07).
                 else if (i + 1 == parts.size() && paramBase137)
+                    r->VpiFullName(pname);
+                // § defGenPathSel161 — SEL: the leaf field stores its own name.
+                else if (i + 1 == parts.size() && sel161 && name161)
                     r->VpiFullName(pname);
                 else if (i + 1 == parts.size() && !syntaxRefPrefix.empty())
                     r->VpiFullName(syntaxRefPrefix + "." + pname);
@@ -19692,11 +20017,24 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     setLoc(r, SourceRange(exprStart + p1off,
                                           exprStart + p1off + p1n.size()));
                 }
+                // § defGenPathSel161 — SEL: the base is populated from the
+                // NEXT component's name token (compileSelectExpression's
+                // `populateCoreMembers(Bit_select, Bit_select, r1)`), also
+                // when that component carries a select.
+                else if (i == 0 && sel161 && span161) {
+                    auto& [p1n, p1off] = parts[1];
+                    size_t n161 = p1n.find('[');
+                    if (n161 == std::string::npos)
+                        n161 = p1n.size();
+                    setLoc(r, SourceRange(exprStart + p1off,
+                                          exprStart + p1off + n161));
+                }
                 elems->push_back(r);
             }
             // A gen-scope modport-array member path anchors the hier_path at the
             // BASE-name token only (Surelog).
-            if (genVarBaseEmitted && !elems->empty()) {
+            if ((genVarBaseEmitted || (selIdxBase161 && span161)) &&
+                !elems->empty()) {
                 auto* fe = (UHDM::expr*)elems->front();
                 hp->VpiEndLineNo(fe->VpiEndLineNo());
                 hp->VpiEndColumnNo(fe->VpiEndColumnNo());

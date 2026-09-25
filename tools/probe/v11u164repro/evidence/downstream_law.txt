@@ -1,0 +1,65 @@
+law | BU/u02_unresolved_ordered | EQUIVALENT | NO_GATES | NO_GATES | nohier | ℹ️  No common assign statements to compare — skipping
+law | BU/u03_resolved_only | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | BU/u04_unresolved_deep | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | BU/u05_unresolved_first_level | SLANG_REJECT |  |  | - | -
+law | DL/d01_real_list | IDENTICAL | OK | OK | - | -
+law | DL/d02_list_genif | IDENTICAL | OK | OK | - | -
+law | DL/d03_list_child_twice | IDENTICAL | OK | OK | - | -
+law | DL/d04_list_iface | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | DL/d05_param_genif | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | DL/d06_localparam_derived | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | DL/d07_pkg_param | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | DL/d08_param_select_lhs | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | DL/d09_param_list_child | IDENTICAL | OK | OK | - | -
+law | DL/d10_param_rise_fall | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | DL/d11_param_three_list | IDENTICAL | OK | OK | - | -
+law | EA/e01_unit_alias_used | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | EA/e02_alias_of_alias | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | EA/e03_int_base | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | EA/e04_signed_base | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | EA/e05_iface_alias_port | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | EA/e06_param_range_base | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | FO/f01_ordered_3lvl_first | IDENTICAL | OK | OK | - | -
+law | FO/f02_ordered_bitsel_first | IDENTICAL | OK | OK | - | -
+law | FO/f03_ordered_iface_member | IDENTICAL | OK | OK | - | -
+law | FO/f04_ordered_two_insts | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | ND/n01_struct_member | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | ND/n02_path_bitsel | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | ND/n03_iface_signal | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | ND/n04_gencase | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | ND/n05_genfor_vec | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | ND/n06_delay_netdecl | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | ND/n07_abs_path | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | ND/n08_child_instance_path | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | ND/n09_typed_logic | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | PV/p01_ordered_two_overrides | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | PV/p02_ordered_two_params | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | PV/p03_typed_params | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | PV/p04_localparam | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | PV/p05_two_defs_same_param | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | PV/p06_mixed_named_ordered | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | PV/p07_array_elems_named | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | PV/p08_string_param | EQUIVALENT | NO_GATES | NO_GATES | nohier | ℹ️  No common assign statements to compare — skipping
+law | PV/p09_child_param_and_iface | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | PV/p10_generic_two | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | PV/p11_ordered_same_value_default | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | RQ/r01_high_neg | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | RQ/r02_right_neg_asc | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | RQ/r03_high_wide_onto_narrow | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | RQ/r04_high_dim2 | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | RQ/r05_left_type | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | RQ/r06_high_unpacked | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u164_dsc/law
+law | RQ/r07_low_signed_decl | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | RQ/r08_param_child | EQUIVALENT | NO_GATES | NO_GATES | nohier | ✅ All 2 common constant assignments match
+law | RQ/r09_high_decl_var | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | RQ/r10_high_selected_lhs | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | RQ/r11_param_wide_onto_narrow | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | RQ/r12_var_onto_2bit | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | RQ/r13_var_implicit | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | SB/s01_two_genvars | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | SB/s02_three_level | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | SB/s03_param_leaf | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | SB/s04_op_base | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | SB/s05_unpacked | IDENTICAL | NO_GATES | NO_GATES | - | -
+law | SB/s06_genif_inside_for | IDENTICAL | NO_GATES | NO_GATES | - | -
+DSDONE

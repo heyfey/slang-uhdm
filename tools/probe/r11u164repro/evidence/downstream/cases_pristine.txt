@@ -1,0 +1,81 @@
+P | r11u161gen/cases/al/e01_bare_import | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u161gen/cases/al/e02_module_alias | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u164_dsc/P/r
+P | r11u161gen/cases/al/e03_member | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u161gen/cases/al/e04_local_alias_local_enum | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u164_dsc/P/r
+P | r11u161gen/cases/al/e05_local_alias_import | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u164_dsc/P/r
+P | r11u161gen/cases/al/e06_pkg_alias_other_pkg_bare | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u161gen/cases/al/e07_unit_alias | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u164_dsc/P/r
+P | r11u161gen/cases/al/e08_iface_alias | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u161gen/cases/al/e09_mod_local_2elem | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u164_dsc/P/r
+P | r11u161gen/cases/al/e10_mod_alias_scalar_var | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u164_dsc/P/r
+P | r11u161gen/cases/al/e11_mod_alias_of_pkg_alias | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u164_dsc/P/r
+P | r11u161gen/cases/al/e12_mod_alias_port | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u164_dsc/P/r
+P | r11u161gen/cases/al/e13_iface_alias_2elem | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u161gen/cases/al/e14_mod_alias_struct_ctl | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u161gen/cases/al/e15_mod_alias_packed_dim_ctl | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u164_dsc/P/r
+P | r11u161gen/cases/al/e16_mod_two_aliases_same_enum | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u164_dsc/P/r
+P | r11u161gen/cases/al/e17_mod_alias_param_base | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u164_dsc/P/r
+P | r11u161gen/cases/al/e18_unit_alias_local_enum | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u164_dsc/P/r
+P | r11u164repro/cases/PV/a01_mp_named_scalar | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a02_mp_ordered_scalar | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a03_mp_named_elem | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a04_mp_ordered_elem | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a05_mp_named_othername | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a06_mp_ordered_two | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a07_mp_named_nooverride | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a08_mp_named_two_elems | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a09_mp_named_twoinst_scalar | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a10_ref_two_views | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a11_ref_and_mp | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ℹ️  No common assign statements to compare — skipping
+P | r11u164repro/cases/PV/a12_mp_ordered_two_inst | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a13_generic_named_mp | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a14_mp_named_modport_expr | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a15_mp_ordered_modport_expr | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a16_mp_ordered_genblk | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/DL/d01_two | IDENTICAL | OK | OK | - | -
+P | r11u164repro/cases/DL/d02_three | IDENTICAL | OK | OK | - | -
+P | r11u164repro/cases/DL/d03_rise_fall | IDENTICAL | OK | OK | - | -
+P | r11u164repro/cases/DL/d04_single | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/DL/d05_param | IDENTICAL | OK | OK | - | -
+P | r11u164repro/cases/DL/d06_strength | SURELOG_FAIL |  |  | - | no reference database
+P | r11u164repro/cases/DL/d07_netdecl | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/DL/d08_child | IDENTICAL | OK | OK | - | -
+P | r11u164repro/cases/DL/d09_param_single | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/DL/d10_param_two_stmts | IDENTICAL | OK | OK | - | -
+P | r11u164repro/cases/DL/d11_bodyparam_two | IDENTICAL | OK | OK | - | -
+P | r11u164repro/cases/DL/d12_param_child_override | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/DL/d13_param_paren | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/DL/d14_param_expr | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/DL/d15_localparam | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/BU/u01_bind_unresolved_path | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/ND/n01_genif_netdecl | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/ND/n02_genif_netdecl_hier | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/ND/n03_genfor_netdecl | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/ND/n04_module_netdecl | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/ND/n05_genif_netdecl_local | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/ND/n06_genif_netdecl_path | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/ND/n07_genif_netdecl_const | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/ND/n08_genif_netdecl_param | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/ND/n09_genif_netdecl_op | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/ND/n10_genif_netdecl_hier_op | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/ND/n11_genif_netdecl_hier_vec | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/ND/n12_genfor_netdecl_hier | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/ND/n13_module_netdecl_hier | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/RQ/q01_high_implicit | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/RQ/q02_low_implicit | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/RQ/q03_left_implicit | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/RQ/q04_high_decl1 | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/RQ/q05_high_decl8 | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/RQ/q06_right_asc | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/RQ/q07_high_var | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/RQ/q08_signed_implicit | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/RQ/q09_high_decl2 | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a17_passthrough_named | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a18_passthrough_ordered | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a19_recv_param_subst | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/SB/b01_genvar_base_lit_leaf | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/SB/b02_lit_base_lit_leaf | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ℹ️  No common assign statements to compare — skipping
+P | r11u164repro/cases/SB/b03_genvar_base_genvar_leaf | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/SB/b04_genvar_base_partsel_leaf | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ℹ️  No common assign statements to compare — skipping
+P | r11u164repro/cases/SB/b05_genvar_base_plain_leaf | IDENTICAL | NO_GATES | NO_GATES | - | -
+P | r11u164repro/cases/PV/a20_named_out_of_scope | IDENTICAL | NO_GATES | NO_GATES | - | -

@@ -357,7 +357,7 @@ iface_modport_out,default,CMP_EQUAL,,,equal
 iface_modport_passthrough,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/iface_modport_passthrough/dut.sv:28:26: error: cannot connect modport 'my_iface.drv' to port requirin,,
 iface_nested_param_field,default,CMP_EQUAL,,,equal
 iface_param_2level,default,CMP_EQUAL,,,equal
-iface_param_port_width,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+iface_param_port_width,default,CMP_EQUAL,,,equal
 iface_param_set_value,default,CMP_EQUAL,,,equal
 iface_param_width_per_inst,default,CMP_EQUAL,,,equal
 iface_passthrough,default,CMP_EQUAL,,,equal
@@ -396,8 +396,8 @@ initval,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/initval/dut.
 int_port_signed,default,CMP_EQUAL,,,equal
 int_types,default,STRICT_NOTEQUAL,differ:fullname(82),,differ:fullname(82)
 int_types_blk1,default,CMP_EQUAL,,,equal
-interface_array,default,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
-interface_array_fanout,default,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+interface_array,default,CMP_EQUAL,,,equal
+interface_array_fanout,default,CMP_EQUAL,,,equal
 InterfaceAlways,default,CMP_EQUAL,,,equal
 InterfaceAsPort,default,CMP_EQUAL,,,equal
 InterfaceAsPortAssignValueInSubmodule,default,CMP_EQUAL,,,equal
@@ -473,7 +473,7 @@ ModuleAlways,default,CMP_EQUAL,,,equal
 ModuleInstantiationAndIndirectParams,default,CMP_EQUAL,,,equal
 ModuleUsingStuctInput,default,CMP_EQUAL,,,equal
 MonitorInputPort,default,CMP_EQUAL,,,equal
-mriscv_bind_sva,default,STRICT_NOTEQUAL,differ:fullname(30),,differ:fullname(30)
+mriscv_bind_sva,default,CMP_EQUAL,,,equal
 mul,default,CMP_EQUAL,,,equal
 mul_plain,default,CMP_EQUAL,,,equal
 mul_signed_async,default,CMP_EQUAL,,,equal
@@ -1228,7 +1228,7 @@ iface_modport_out,testflags,CMP_EQUAL,,,equal
 iface_modport_passthrough,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/iface_modport_passthrough/dut.sv:28:26: error: cannot connect modport 'my_iface.drv' to port requirin,,
 iface_nested_param_field,testflags,CMP_EQUAL,,,equal
 iface_param_2level,testflags,CMP_EQUAL,,,equal
-iface_param_port_width,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+iface_param_port_width,testflags,CMP_EQUAL,,,equal
 iface_param_set_value,testflags,CMP_EQUAL,,,equal
 iface_param_width_per_inst,testflags,CMP_EQUAL,,,equal
 iface_passthrough,testflags,CMP_EQUAL,,,equal
@@ -1267,8 +1267,8 @@ initval,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/initval/du
 int_port_signed,testflags,CMP_EQUAL,,,equal
 int_types,testflags,STRICT_NOTEQUAL,differ:fullname(82),,differ:fullname(82)
 int_types_blk1,testflags,CMP_EQUAL,,,equal
-interface_array,testflags,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
-interface_array_fanout,testflags,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+interface_array,testflags,CMP_EQUAL,,,equal
+interface_array_fanout,testflags,CMP_EQUAL,,,equal
 InterfaceAlways,testflags,CMP_EQUAL,,,equal
 InterfaceAsPort,testflags,CMP_EQUAL,,,equal
 InterfaceAsPortAssignValueInSubmodule,testflags,CMP_EQUAL,,,equal
@@ -1344,7 +1344,7 @@ ModuleAlways,testflags,CMP_EQUAL,,,equal
 ModuleInstantiationAndIndirectParams,testflags,CMP_EQUAL,,,equal
 ModuleUsingStuctInput,testflags,CMP_EQUAL,,,equal
 MonitorInputPort,testflags,CMP_EQUAL,,,equal
-mriscv_bind_sva,testflags,STRICT_NOTEQUAL,differ:fullname(30),,differ:fullname(30)
+mriscv_bind_sva,testflags,CMP_EQUAL,,,equal
 mul,testflags,CMP_EQUAL,,,equal
 mul_plain,testflags,CMP_EQUAL,,,equal
 mul_signed_async,testflags,CMP_EQUAL,,,equal

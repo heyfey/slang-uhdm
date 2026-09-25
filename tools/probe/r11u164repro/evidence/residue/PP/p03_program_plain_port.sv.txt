@@ -1,0 +1,12 @@
+// residue (not a law of this pass): a program's plain interface port
+interface ConnectTB;
+  logic drive;
+  logic observe;
+endinterface
+program TESTBENCH (ConnectTB intf);
+  initial intf.drive = 0;
+endprogram
+module TOP();
+  ConnectTB conntb();
+  TESTBENCH tb(conntb);
+endmodule

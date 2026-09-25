@@ -690,6 +690,30 @@ bool r11u146Law(const char* sw);
 bool r11u152Law(const char* sw); // the r11u152 switches (UhdmExporter.cpp)
 bool r11u155Law(const char* sw); // the r11u155 switches (UhdmExporter.cpp)
 bool r11u160Law(const char* sw); // the r11u160 switches (UhdmExporter.cpp)
+bool r11u164Law(const char* sw); // the r11u164 switches (UhdmExporter.cpp)
+// § defGenPathSel161 (r11u161) — defined in TypeEmit.cpp: marks the
+// definition-view generate cont_assign whose LHS is being emitted.
+void setDefGenCaLhs161(const UHDM::BaseClass* ca);
+bool r11u161Law(const char* sw);  // TypeEmit.cpp
+// § firstOrderedPathSel161 — is this connection actual the FIRST of an ordered
+// connection list of two or more (the list position § firstOrderedConnBitSel
+// Whole147 reads in ExprEmit.cpp, mirrored here for the elaborated high_conn)?
+static bool firstOrderedConn161(const slang::ast::Expression& e) {
+    const slang::syntax::SyntaxNode* oc = e.syntax;
+    if (!oc)
+        return false;
+    oc = oc->parent;
+    while (oc && (oc->kind == slang::syntax::SyntaxKind::SimpleSequenceExpr ||
+                  oc->kind == slang::syntax::SyntaxKind::SimplePropertyExpr))
+        oc = oc->parent;
+    if (!oc || oc->kind != slang::syntax::SyntaxKind::OrderedPortConnection)
+        return false;
+    const slang::syntax::SyntaxNode* hi = oc->parent;
+    if (!hi || hi->kind != slang::syntax::SyntaxKind::HierarchicalInstance)
+        return false;
+    auto& conns = hi->as<slang::syntax::HierarchicalInstanceSyntax>().connections;
+    return conns.size() > 1 && (const slang::syntax::SyntaxNode*)conns[0] == oc;
+}
 // § genCaseItemUnnamed152 (r11u152, map N0646) — Surelog leaves a
 // case-generate item's parent UNSET (CompileStmt), which stops
 // ComputeFullName for everything under it in the definition view: the item's
@@ -17877,9 +17901,50 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         // ref + the parent's elab base net as vpiExpr.
                         if (h->UhdmType() == UHDM::uhdmhier_path) {
                             auto* hp = (UHDM::hier_path*)h;
+                            // § firstOrderedPathSel161 (r11u161) — the FIRST
+                            // actual of an ordered connection list of two or
+                            // more is compiled by compileSelectExpression
+                            // straight under NetlistElaboration::high_conn_'s
+                            // compileExpression, every later one by
+                            // compileComplexFuncCall one compileExpression
+                            // deeper (gdb on the pinned Surelog, case
+                            // pc/p09_ordered_three_inputs: b.d SEL, b.e / b.f
+                            // CFC; p08: the first is an OUTPUT and is SEL — so
+                            // r11u157's "input SEL / output CFC" reading of R5
+                            // is the position rule, the same list position
+                            // § firstOrderedConnBitSelWhole147 found).  SEL:
+                            // the base at the NEXT component's token, the leaf
+                            // storing its own name.  Plain dotted paths only.
+                            // Switch R11U161_PORT_OFF, axes R11U161_SPAN_OFF /
+                            // R11U161_NAME_OFF.
+                            bool first161 = false;
+                            if (r11u161Law("R11U161_PORT_OFF") &&
+                                firstOrderedConn161(*expr) &&
+                                hp->Path_elems() && hp->Path_elems()->size() >= 2) {
+                                first161 = true;
+                                for (auto* e161 : *hp->Path_elems())
+                                    if (e161->UhdmType() != UHDM::uhdmref_obj)
+                                        first161 = false;
+                            }
+                            if (first161) {
+                                auto* b161 = (UHDM::ref_obj*)hp->Path_elems()->at(0);
+                                auto* n161 = (UHDM::ref_obj*)hp->Path_elems()->at(1);
+                                if (r11u161Law("R11U161_SPAN_OFF")) {
+                                    b161->VpiLineNo(n161->VpiLineNo());
+                                    b161->VpiColumnNo(n161->VpiColumnNo());
+                                    b161->VpiEndLineNo(n161->VpiEndLineNo());
+                                    b161->VpiEndColumnNo(n161->VpiEndColumnNo());
+                                }
+                                if (getenv("R11U161_TRACE"))
+                                    fprintf(stderr, "R11U161 port-first-SEL %s\n",
+                                            std::string(hp->VpiName()).c_str());
+                            }
                             if (hp->Path_elems() && !hp->Path_elems()->empty()) {
                                 auto* last = hp->Path_elems()->back();
-                                if (last->UhdmType() == UHDM::uhdmref_obj)
+                                if (first161 && r11u161Law("R11U161_NAME_OFF"))
+                                    ((UHDM::ref_obj*)last)
+                                        ->VpiFullName(std::string(last->VpiName()));
+                                else if (last->UhdmType() == UHDM::uhdmref_obj)
                                     ((UHDM::ref_obj*)last)
                                         ->VpiFullName(prefix + "." +
                                                       std::string(ps.name) + "." +
@@ -18052,6 +18117,22 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             pos9 = dot9 + 1;
                         }
                         hp9->Path_elems(els9);
+                        // § bindUnresolvedPathNoName164 (r11u164, r11u161
+                        // residue R4: mriscv_bind_sva) — golden's literal
+                        // path stores NO full name on the hier_path or on
+                        // any element but the leaf (vpi reads none); ours
+                        // left them unset, so UHDM's ComputeFullName read
+                        // them through the port (`work@top.C.y.m0`).  Give
+                        // them the no-fullname idiom.  Grid
+                        // tools/probe/r11u164repro/cases/BU.  Switch
+                        // R11U164_BINDPATHNAME_OFF.
+                        if (r11u164Law("R11U164_BINDPATHNAME_OFF")) {
+                            hp9->VpiFullName(raw9);
+                            for (size_t e164 = 0; e164 + 1 < els9->size(); e164++)
+                                ((UHDM::ref_obj*)(*els9)[e164])
+                                    ->VpiFullName(std::string(
+                                        (*els9)[e164]->VpiName()));
+                        }
                         // The LEAF element scopes through the child port path.
                         auto* lastE9 = (UHDM::ref_obj*)els9->back();
                         lastE9->VpiFullName(bindPath + "." +
@@ -24468,6 +24549,19 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 if (loopScope9 && dt->getType().getCanonicalType().kind !=
                                       SymbolKind::ScalarType)
                     loopScope9 = false;
+                // § genNetDeclAssignLhsShared164 (r11u164, ComplexHierPath
+                // #190) — an initializer that is a plain HIERARCHICAL PATH
+                // (`wire z = A.B.C.x;`) takes the scope net itself as the
+                // Lhs in every generate scope, for vector nets too: golden
+                // lists no Lhs net under that cont_assign (the shared net
+                // is already visited), where ours minted a fresh one.  A
+                // constant, an operation (over a path too) keeps the fresh
+                // Lhs.  Grid tools/probe/r11u164repro/cases/ND n06 n10-n12
+                // (n07 n09 n10 controls).  Switch R11U164_GENNDAHP_OFF.
+                if (!loopScope9 && ca->Rhs() &&
+                    ca->Rhs()->UhdmType() == UHDM::uhdmhier_path &&
+                    r11u164Law("R11U164_GENNDAHP_OFF"))
+                    loopScope9 = true;
                 if (loopScope9) {
                     ca->Lhs((UHDM::expr*)(UHDM::any*)n);
                 }
@@ -35357,6 +35451,10 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // out of a Value and left bare — constType 0, so adjustSize is a
         // no-op on it whatever the target width.
         bool sysFoldBin9 = false;
+        // § rangeQueryVarDeclMask164v (v11u164, refines
+        // § rangeQueryDeclNetSize164): the queried bound is a literal of a
+        // variable's or net's declared packed dimension.
+        bool rqVarArg164v = false;
         // ...and this fires only when the DEF view actually kept the call: a
         // $bits/$size/$clog2 that already folded at definition time is a plain
         // constant by the time writeCont sees it, and the existing bitsRhs
@@ -35378,10 +35476,74 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                             sn9 == "$left" || sn9 == "$right";
                 if (sgn9 || qry9) {
                     ASTContext sctx9(comp.getRoot(), LookupLocation::max);
-                    ConstantValue scv9 = sctx9.tryEval(ae.right());
+                    // § rangeQueryFoldUnconverted164 (r11u164, pass-158
+                    // sister face S1, map N0822) — a RANGE query's fold is
+                    // ExprEval's own value of the query (`reduceExpr` on
+                    // `$high(a)`), never narrowed to the target: golden
+                    // HighLow `assign ccc = $high(a)` onto an IMPLICIT net
+                    // reads UINT:2 (ours UINT:0, the assignment's implicit
+                    // conversion to the one-bit net evaluated with it).
+                    // Evaluate the written query under that conversion.
+                    // Grid tools/probe/r11u164repro/cases/RQ.  Switch
+                    // R11U164_RANGEQ_OFF.
+                    const Expression& sx164 =
+                        (qry9 && r11u164Law("R11U164_RANGEQ_OFF"))
+                            ? stripImplicitConv(ae.right())
+                            : ae.right();
+                    ConstantValue scv9 = sctx9.tryEval(sx164);
                     if (scv9 && scv9.isInteger() && !scv9.integer().hasUnknown()) {
                         sysFold = std::move(scv9);
                         sysFoldBin9 = sgn9;
+                        // § rangeQueryVarDeclMask164v — the queried bound
+                        // is a plain LITERAL of a variable's or net's first
+                        // packed dimension (Surelog hands back that bound's
+                        // UINT constant; an expression bound `N-1` is an INT
+                        // constant adjustSize leaves unmasked, a parameter's
+                        // query a bare value).
+                        auto qa164 = rcS9.as<CallExpression>().arguments();
+                        if (qry9 && qa164.size() == 1 && qa164[0]) {
+                            auto& a164 = stripImplicitConv(*qa164[0]);
+                            const Symbol* as164 =
+                                a164.kind == ExpressionKind::NamedValue
+                                    ? &a164.as<NamedValueExpression>().symbol
+                                    : nullptr;
+                            const syntax::DataTypeSyntax* ty164 = nullptr;
+                            if (as164 && (as164->kind == SymbolKind::Variable ||
+                                          as164->kind == SymbolKind::Net))
+                                if (auto* dt164 = as164->getDeclaredType())
+                                    ty164 = dt164->getTypeSyntax();
+                            auto& at164 = a164.type->getCanonicalType();
+                            const syntax::SyntaxList<syntax::VariableDimensionSyntax>*
+                                dims164 = nullptr;
+                            if (ty164 && syntax::IntegerTypeSyntax::isKind(ty164->kind))
+                                dims164 = &ty164->as<syntax::IntegerTypeSyntax>().dimensions;
+                            else if (ty164 && ty164->kind == syntax::SyntaxKind::ImplicitType)
+                                dims164 = &ty164->as<syntax::ImplicitTypeSyntax>().dimensions;
+                            if (dims164 && at164.isIntegral() && at164.hasFixedRange()) {
+                                if (!dims164->empty() &&
+                                    (*dims164)[0]->specifier &&
+                                    (*dims164)[0]->specifier->kind ==
+                                        syntax::SyntaxKind::RangeDimensionSpecifier) {
+                                    auto& sel164 = *(*dims164)[0]
+                                                        ->specifier
+                                                        ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                                        .selector;
+                                    if (sel164.kind == syntax::SyntaxKind::SimpleRangeSelect) {
+                                        auto& rs164 = sel164.as<syntax::RangeSelectSyntax>();
+                                        auto fr164 = at164.getFixedRange();
+                                        bool lft164 =
+                                            sn9 == "$left" ||
+                                            (sn9 == "$high" && fr164.left >= fr164.right) ||
+                                            (sn9 == "$low" && fr164.left <= fr164.right);
+                                        const syntax::ExpressionSyntax* b164 =
+                                            lft164 ? rs164.left : rs164.right;
+                                        rqVarArg164v =
+                                            b164 && b164->kind ==
+                                                        syntax::SyntaxKind::IntegerLiteralExpression;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -36684,8 +36846,27 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
         }
+        // § caDelayParamElabFresh164 (r11u164) — a statement whose delay is
+        // a PARAMETER reference (`assign #D b = a;`) is re-elaborated in the
+        // elaborated view: golden lists a fresh cont_assign there whose delay
+        // ref_obj binds the instance's parameter (§ caDelayParamRefSpelling90's
+        // elaborated half), where ours shared the definition object and its
+        // unbound reference (stage 1: `ref_obj::Actual_group` RHS <null>).
+        // Grid tools/probe/r11u164repro/cases/DL d05 d09 d10 d11.  Switch
+        // R11U164_DLYPARAMELAB_OFF.
+        bool dlyParamFresh164 = false;
+        if (topView && r11u164Law("R11U164_DLYPARAMELAB_OFF"))
+            if (auto* asyn164 = casym.getSyntax())
+                for (auto p164 = asyn164->parent; p164; p164 = p164->parent)
+                    if (p164->kind == syntax::SyntaxKind::ContinuousAssign) {
+                        auto& cas164 = p164->as<syntax::ContinuousAssignSyntax>();
+                        dlyParamFresh164 =
+                            cas164.delay && delayParamSym90(cas164.delay, &body);
+                        break;
+                    }
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
             !unbasedShareRhs && !caReuseParamConst9 && !sysFold &&
+            !dlyParamFresh164 &&
             ((!plainLhs && !dottedLhs && !ifaceDotFresh && !callIdxLhs && !selLitLhs &&
               !callFold && !ternFold9 && !ternArm9) ||
              (plainLhs &&
@@ -36746,7 +36927,34 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         applyCaStrength19(ca, casym);
         // `assign #0.1 a = b;` — the statement's delay rides the cont_assign
         // (DelayAssign).
-        if (caSyn9)
+        // § caDelayFirstOnly164 (r11u164, r11u159 residue 2 / pass-158
+        // sister face S4) — ONE DELAY OBJECT PER CONTINUOUS-ASSIGN STATEMENT
+        // IN THE DEFINITION VIEW.  CompileHelper::compileContinuousAssignment
+        // (third_party/Surelog/src/DesignCompile/CompileHelper.cpp) compiles
+        // the statement's Delay3 once, before its Net_assignment loop, and
+        // hands the same `delay_expr` to every cont_assign of the list
+        // (`delay_expr->VpiParent(cassign); cassign->Delay(delay_expr);`),
+        // so `assign #2 b = a, c = ~a;` lists the delay under the first
+        // cont_assign only (the walk visits the shared object once) and the
+        // object ends parented at the LAST one.  The elaborated view clones
+        // each cont_assign with its own copy (both listed), as ours already
+        // does.  Grid tools/probe/r11u164repro/cases/DL.  Switch
+        // R11U164_CADELAY_OFF.
+        static std::map<std::pair<const void*, const void*>, UHDM::expr*>
+            caDelayShared164;
+        UHDM::expr* dlShared164 = nullptr;
+        const bool dlShare164 = caSyn9 && !topView &&
+                                caSyn9->assignments.size() > 1 &&
+                                r11u164Law("R11U164_CADELAY_OFF");
+        if (dlShare164)
+            if (auto it164 = caDelayShared164.find({m, caSyn9});
+                it164 != caDelayShared164.end())
+                dlShared164 = it164->second;
+        if (dlShared164) {
+            dlShared164->VpiParent(ca);
+            ca->Delay(dlShared164);
+        }
+        else if (caSyn9)
             if (auto* dl9 = emitAssignDelay(caSyn9->delay, ca, &body, &prefix)) {
                 // § caDelayParamRefSpelling90 — the ELABORATED view binds the
                 // reference through the producer's `bindParameter`; the
@@ -36755,6 +36963,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 if (topView)
                     bindDelayParamRef90(dl9, m);
                 ca->Delay(dl9);
+                if (dlShare164)
+                    caDelayShared164[{m, caSyn9}] = dl9;
             }
         if (ifaceDotFresh) {
             // hier_path Lhs: name-only ref elements, ALL anchored at the
@@ -37597,6 +37807,47 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 uv9.setSigned(false);
                 c9s->VpiValue("UINT:" +
                               uv9.toString(LiteralBase::Decimal, false));
+                // § rangeQueryDeclNetSize164 (r11u164) — onto a DECLARED net
+                // the range query's constant carries the net's width as its
+                // vpiSize (writeCont's adjustSize sizes the bare reduce
+                // result to the bound variable's typespec), the value and
+                // nothing else unchanged: golden `wire ccc; assign ccc =
+                // $high(a)` reads size 1 UINT:2, `wire [7:0]` size 8 (grid
+                // RQ q04 q05 q09).  An implicit net has no typespec and
+                // keeps the bare value (q01).  Switch R11U164_RANGEQSIZE_OFF.
+                if (!sysFoldBin9 && lts9 && lS9.type && lS9.type->isIntegral() &&
+                    lS9.type->getBitWidth() > 0 &&
+                    r11u164Law("R11U164_RANGEQSIZE_OFF")) {
+                    c9s->VpiSize((int32_t)lS9.type->getBitWidth());
+                    // § rangeQueryVarDeclMask164v (v11u164) — a query of a
+                    // VARIABLE or NET whose queried bound is a plain literal
+                    // hands writeCont that declared range-bound constant
+                    // itself (vpiUIntConst), and
+                    // adjustSize's UINT arm masks its value to the bound
+                    // variable's width (CompileHelper::adjustSize,
+                    // `uval & NumUtils::getMask(size)`): golden
+                    // `logic [20:0] a; wire [3:0] w; assign w = $high(a)`
+                    // reads UINT:4 and `logic [6:3] a` onto `wire [1:0]`
+                    // UINT:2, where the unconverted fold gave 20 and 6.
+                    // A PARAMETER's query is a bare reduce result with no
+                    // constant type, which the mask skips (q09 UINT:6 onto
+                    // two bits, r11 UINT:20 onto four), and an expression
+                    // bound (`logic [N-1:0]`) is an INT constant it skips
+                    // too (r08: INT:3 / INT:7 onto one bit).  Grid
+                    // tools/probe/v11u164repro/cases/RQ r03 r08 r11 r12 r14-r18.
+                    // Switch R11V164_RQMASK_OFF.
+                    int32_t w164 = (int32_t)lS9.type->getBitWidth();
+                    if (rqVarArg164v && w164 < 64 &&
+                        r11u164Law("R11V164_RQMASK_OFF")) {
+                        auto mv164 = iv9s;
+                        mv164.setSigned(false);
+                        if (mv164.getBitWidth() > (slang::bitwidth_t)w164) {
+                            mv164 = mv164.trunc((slang::bitwidth_t)w164);
+                            c9s->VpiValue("UINT:" +
+                                          mv164.toString(LiteralBase::Decimal, false));
+                        }
+                    }
+                }
             }
             c9s->VpiParent(ca);
             rhs = c9s;
@@ -46603,6 +46854,103 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // HOME view carries them; a reference-style port view does not.
     if (!portView)
         emitGenScopes(body, iface, prefix, netMap);
+    // § modportPortViewParamDef164 (r11u164, pass-158 sister face S6:
+    // iface_param_port_width, interface_array, interface_array_fanout) — A
+    // MODPORT-QUALIFIED PORT VIEW THAT READS THE DECLARATION DEFAULTS NAMES ITS
+    // PARAMETERS BY THE DEFINITION, as § portViewParamDefName130 found for the
+    // reference-style view.  Every port view but the named-modport cell
+    // (`namedModportPortView9`) is elab_interface_'s FRESH ModuleInstance of
+    // the interface definition, whose elab_parameters_ hands a scalar
+    // param_assign the DEFINITION's parameter object
+    // (`inst_assign->Lhs(mod_assign->Lhs())`, NetlistElaboration.cpp): golden
+    // `sub u(bus)` / `sub u(.bus(arr[0]))` over `my_iface.mp bus` reads
+    // `work@my_iface.W` (param_assign Rhs the default UINT:3), `.bus(bus)`
+    // keeps the path name (the override UINT:5); a GENERIC port restricted
+    // by the connection's modport (`.bus(b0.mp)`, grid a13) is such a copy
+    // too.  Grid tools/probe/r11u164repro/cases/PV a01-a15.  Switch
+    // R11U164_PVMPDEF_OFF.
+    // § portViewParamShared164 (r11u164) — ...and that parameter is ONE object
+    // per definition: every default-reading port view's scalar param_assign
+    // (reference-style and modport alike) points its Lhs at it, so the walk
+    // lists it under the first view only (golden interface_array's `p1.b`,
+    // grid a10-a12).  Ours minted one per view; a later view's Lhs now reads
+    // the first view's object when the two carry the same value.  Switch
+    // R11U164_PVSHARE_OFF.
+    // The copy is every view but a NAMED connection of a modport-qualified
+    // port whose actual is an unselected name (`.bus(bus)`, `.bus(b0.mp)`,
+    // the pass-through `.p(p)` of probe r10rgg3repro/m1_port_passthrough,
+    // whose connected instance is an array element and so escapes
+    // `namedModportPortView9`): golden names those by the path, and an
+    // ordered connection, a selected actual (`.p(arr[1])`) or a generic
+    // port by the definition, whatever value the param_assign carries
+    // (m1's `u.p` reads the receiving module's AW = 7 and is still
+    // `work@itf.AW`).
+    bool namedPlain164 = false;
+    if (portView)
+        for (auto pb164 : portView->body.getPortList()) {
+            if (pb164->kind != SymbolKind::InterfacePort)
+                continue;
+            auto& ip164 = pb164->as<InterfacePortSymbol>();
+            if (ip164.modport.empty() ||
+                ip164.getConnection().first != (const Symbol*)&inst)
+                continue;
+            auto* npc164 = findConnSyntax(*portView, ip164.name);
+            if (!npc164)
+                continue;
+            if (!npc164->expr) {
+                namedPlain164 = true;
+                continue;
+            }
+            const syntax::SyntaxNode* n164 = connActualSyntax(npc164->expr);
+            while (n164 && n164->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                n164 = n164->as<syntax::ParenthesizedExpressionSyntax>().expression;
+            while (n164 && n164->kind == syntax::SyntaxKind::ScopedName)
+                n164 = n164->as<syntax::ScopedNameSyntax>().left;
+            if (n164 && n164->kind == syntax::SyntaxKind::IdentifierName)
+                namedPlain164 = true;
+        }
+    // ...when that name resolves in the instantiating scope: an actual the
+    // scope does not declare (a generate block's reference to a module-level
+    // instance, `g.i`, `gb.inner.mp`) is § namedModportOutOfScopeFresh115's
+    // fresh copy, named by the definition (probe r10rgg16repro/cells/g1,
+    // r11u115repro/grid/i/o08_nmp_mpexpr_gen, r11v1repro/vL).
+    if (actualOutOfScope16)
+        namedPlain164 = false;
+    if (portView && !namedModportPortView9 && !namedPlain164 &&
+        iface->Param_assigns()) {
+        static std::map<std::pair<const void*, std::string>, UHDM::parameter*>
+            pvShared164;
+        for (auto* pa164 : *iface->Param_assigns()) {
+            auto* lo164 = pa164->Lhs();
+            auto* rh164 = pa164->Rhs();
+            if (!lo164 || lo164->UhdmType() != UHDM::uhdmparameter || !rh164 ||
+                rh164->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            auto* pp164 = (UHDM::parameter*)lo164;
+            std::string nm164(pp164->VpiName());
+            if (nm164.empty())
+                continue;
+            std::string dn164 = defPrefix + "." + nm164;
+            if (!connModport.empty() &&
+                pp164->VpiFullName() == prefix + "." + nm164 &&
+                r11u164Law("R11U164_PVMPDEF_OFF")) {
+                pp164->VpiFullName(dn164);
+                if (auto* rt164 = pp164->Typespec();
+                    rt164 && rt164->VpiFullName() == prefix + "." + nm164)
+                    rt164->VpiFullName(dn164);
+            }
+            if (pp164->VpiFullName() != dn164 ||
+                !r11u164Law("R11U164_PVSHARE_OFF"))
+                continue;
+            auto key164 = std::make_pair((const void*)&def, nm164);
+            auto it164 = pvShared164.find(key164);
+            if (it164 == pvShared164.end())
+                pvShared164.emplace(key164, pp164);
+            else if (it164->second != pp164 &&
+                     it164->second->VpiValue() == pp164->VpiValue())
+                pa164->Lhs(it164->second);
+        }
+    }
     return iface;
 }
 
@@ -48480,7 +48828,11 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         noUnitParamActual = true;
                         bool savedDGC9 = inDefGenCaExpr;
                         inDefGenCaExpr = true;
-                        if (auto* l = emitSyntaxExpr(*be.left, ca)) {
+                        // § defGenPathSel161 — the target is a net_lvalue.
+                        setDefGenCaLhs161(ca);
+                        auto* l = emitSyntaxExpr(*be.left, ca);
+                        setDefGenCaLhs161(nullptr);
+                        if (l) {
                             // LHS selects keep the whole span (Surelog).
                             if (be.left->kind ==
                                 syntax::SyntaxKind::ElementSelectExpression)
@@ -48518,6 +48870,44 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                             bs144->VpiEndColumnNo());
                                         ((UHDM::ref_obj*)el144->back())
                                             ->VpiFullName(hp144->VpiName());
+                                    }
+                                }
+                                // § defGenSelBaseLeafAtIndex164 (r11u164) —
+                                // ...and the same path whose LEAF is itself a
+                                // select (`s[i].f[0]` in a genvar loop) keeps
+                                // that form: golden anchors the hier_path at
+                                // the base token, locates the leaf
+                                // bit_select at its INDEX and names it by
+                                // the raw path (grid tools/probe/r11u164repro/
+                                // cases/SB b01; the elaborated view of b03
+                                // reads the same), where ours spanned the
+                                // whole target and the leaf's name token (and
+                                // § defGenPathSel161's selected-field rule,
+                                // which holds for a PLAIN base, named it
+                                // `<scope>.<path>.<field>`: probe
+                                // r11v120repro M/m05 moved away).  Switch
+                                // R11U164_SELBASELEAF_OFF.
+                                else if (el144 && el144->size() >= 2 &&
+                                         el144->front()->UhdmType() ==
+                                             UHDM::uhdmbit_select &&
+                                         el144->back()->UhdmType() ==
+                                             UHDM::uhdmbit_select &&
+                                         r11u164Law("R11U164_SELBASELEAF_OFF")) {
+                                    auto* bs164 = (UHDM::bit_select*)el144->front();
+                                    auto* lf164 = (UHDM::bit_select*)el144->back();
+                                    auto* ix164 = bs164->VpiIndex();
+                                    auto* li164 = lf164->VpiIndex();
+                                    if (ix164 && li164 &&
+                                        ix164->UhdmType() == UHDM::uhdmref_obj &&
+                                        (li164->UhdmType() == UHDM::uhdmconstant ||
+                                         li164->UhdmType() == UHDM::uhdmref_obj)) {
+                                        hp144->VpiEndLineNo(bs164->VpiEndLineNo());
+                                        hp144->VpiEndColumnNo(bs164->VpiEndColumnNo());
+                                        lf164->VpiLineNo(li164->VpiLineNo());
+                                        lf164->VpiColumnNo(li164->VpiColumnNo());
+                                        lf164->VpiEndLineNo(li164->VpiEndLineNo());
+                                        lf164->VpiEndColumnNo(li164->VpiEndColumnNo());
+                                        lf164->VpiFullName(hp144->VpiName());
                                     }
                                 }
                             }

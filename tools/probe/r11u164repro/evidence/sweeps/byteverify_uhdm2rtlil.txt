@@ -1,0 +1,16 @@
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/genvar_iface_struct-8e0dbeb3/slang.uhdm  patched=ddd424ee2a39 pristine=d3035236db94
+MOVER ./default/iface_array_modport_drive-0013b130/slang.uhdm  patched=6bd91b3c71e4 pristine=8f50a006e809
+MOVER ./default/iface_param_port_width-1c9dcf22/slang.uhdm  patched=e02240d8f221 pristine=1ba05870c9f3
+MOVER ./default/interface_array-1252adbf/slang.uhdm  patched=0c933c59a221 pristine=079a27b0d466
+MOVER ./default/interface_array_fanout-d7725d61/slang.uhdm  patched=a37e6d1d48cd pristine=8e57f4664910
+MOVER ./default/mriscv_bind_sva-4874f620/slang.uhdm  patched=a977629a0ebc pristine=3a1e1bab738c
+MOVER ./testflags/genvar_iface_struct-8e0dbeb3/slang.uhdm  patched=88ca6e9395bc pristine=f2013926a4d4
+MOVER ./testflags/iface_array_modport_drive-0013b130/slang.uhdm  patched=277110f1ccb8 pristine=3e32e0a773e4
+MOVER ./testflags/iface_param_port_width-1c9dcf22/slang.uhdm  patched=3ef8bfded8f5 pristine=5bb1f31da553
+MOVER ./testflags/interface_array-1252adbf/slang.uhdm  patched=4781d46c66dc pristine=89b9ac1b4027
+MOVER ./testflags/interface_array_fanout-d7725d61/slang.uhdm  patched=82f2b62c20cd pristine=28fc9c60446c
+MOVER ./testflags/mriscv_bind_sva-4874f620/slang.uhdm  patched=ce412f7c36ac pristine=db71c11b8dbc
+MOVERS: 12 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
