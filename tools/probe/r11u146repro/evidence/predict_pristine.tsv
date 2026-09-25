@@ -1,0 +1,3316 @@
+corpus	mode	name	laws
+surelog	default	1364_2005	
+surelog	default	3SigsSensList	ESCCOL
+surelog	default	AVLMM	PATHBASE,TFARGTD
+surelog	default	AaFirstTest	
+surelog	default	AllBinding	
+surelog	default	AllPackageSignal	
+surelog	default	AlwaysNoElab	
+surelog	default	AmiqEth	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	AmiqSimpleTestSuite	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	ApbSlave	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	Ariane	CLSTDPKG,E148,E2148,ESCCOL,I148,MODARRBOUND,PATHBASE,PORTEXPR,TFARGTD,TPCALHS
+surelog	default	Ariane2024	E148,E2148,ESCCOL,PATHBASE,TFARGTD,TPCALHS,TPSTRUCTKW
+surelog	default	ArianeElab	E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	ArianeElab2	E148,ESCCOL,I148,TFARGTD
+surelog	default	ArrayExprFuncArg	
+surelog	default	ArrayInst	
+surelog	default	ArrayMethodIterator	
+surelog	default	ArrayNet	
+surelog	default	ArrayTypespec	
+surelog	default	ArrayVarName	E148
+surelog	default	Assert	
+surelog	default	AssertDelayError	
+surelog	default	AssertTempError	
+surelog	default	Assertions	
+surelog	default	AssignPattern	
+surelog	default	AssignPatternArray	
+surelog	default	AssignPlus	
+surelog	default	AssignRhsFlat	
+surelog	default	AssignSubs	
+surelog	default	AssignmentPatternInAssignmentPattern	
+surelog	default	Assignments	PATHBASE
+surelog	default	AssociativeArray	
+surelog	default	AssumeProp	
+surelog	default	Attributes	ESCCOL
+surelog	default	Attributes2	
+surelog	default	AttributesNets	
+surelog	default	AxiInterconnect	E148
+surelog	default	AzadiRTL	E148,E2148,ESCCOL,PATHBASE,TFARGTD,TPCALHS
+surelog	default	BadLabel	
+surelog	default	BadScope	
+surelog	default	BasicOh	E148,E2148,ESCCOL,MODARRBOUND,PORTINIT
+surelog	default	BeginKeywords	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	BiasValue	
+surelog	default	BinarySize	
+surelog	default	BindHierPath	ESCCOL
+surelog	default	BindMethod	
+surelog	default	BindStmt	
+surelog	default	BindStmt2	
+surelog	default	BindVarsAndEnum	
+surelog	default	BindingPort	
+surelog	default	Bindings	
+surelog	default	BitComplex	
+surelog	default	BitPartSelect	
+surelog	default	BitRanges	
+surelog	default	BitSelect	
+surelog	default	BitSelectExpr	
+surelog	default	BitSelectHier	
+surelog	default	BitSelectPartSelectInFunction	E148
+surelog	default	BitSelectSelect	
+surelog	default	BitsArray	
+surelog	default	BitsHierPath	
+surelog	default	BitsInGenBlock	
+surelog	default	BitsLogic	
+surelog	default	BitsOp	PATHBASE
+surelog	default	BitsStructMember	
+surelog	default	BlackBePipeInt	
+surelog	default	BlackBox	
+surelog	default	BlackBoxInst	
+surelog	default	BlackBoxInstTop	
+surelog	default	BlackBoxMod	
+surelog	default	BlackBoxSubMod	
+surelog	default	BlackConst	
+surelog	default	BlackParrot	
+surelog	default	BlackParrotComplex	
+surelog	default	BlackParrotConf	PATHBASE
+surelog	default	BlackParrotMuteErrors	TFARGTD
+surelog	default	BlackParrotParam	
+surelog	default	BlackParrotSkipParam	
+surelog	default	BlackParrotStructParam	
+surelog	default	BlackUcode	
+surelog	default	BlackUnicore	
+surelog	default	BlackboxMissingDef	
+surelog	default	BlockingAssignRewrite	E148
+surelog	default	BuildOVMPkg	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	BuildUVMPkg	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	BuiltInMethod	
+surelog	default	CarryAdd	
+surelog	default	CarryTrans	
+surelog	default	CaseDefault	
+surelog	default	CaseExpression	
+surelog	default	CaseFullElab	
+surelog	default	CaseInside	
+surelog	default	CastEnum	
+surelog	default	CastPartSelect	
+surelog	default	CastShift	
+surelog	default	CastStructMember	
+surelog	default	CastToParam	
+surelog	default	CastTypespec	
+surelog	default	CastUnsigned	
+surelog	default	CastUnsized	
+surelog	default	Cell	
+surelog	default	Chandle	
+surelog	default	Checker	
+surelog	default	CheckerInst	
+surelog	default	ClassCons	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	ClassExtendParam	
+surelog	default	ClassExtends	
+surelog	default	ClassFsm	
+surelog	default	ClassFuncProto	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	ClassFuncTask	
+surelog	default	ClassMemberFunc	
+surelog	default	ClassMemberRef	
+surelog	default	ClassMethodCall	
+surelog	default	ClassMini	
+surelog	default	ClassParam	
+surelog	default	ClassParamAsParam	
+surelog	default	ClassScope	TPCALHS
+surelog	default	ClassTypeParam	
+surelog	default	ClassTypeParamAlias	
+surelog	default	ClassVar	CLSTDPKG
+surelog	default	ClassVirtual	
+surelog	default	ClockingBlock	
+surelog	default	ClockingDrive	
+surelog	default	ClockingSntx	
+surelog	default	ClogCast	
+surelog	default	ClogParam	E2148
+surelog	default	CmdLineOverride	
+surelog	default	Compl1001	
+surelog	default	ComplexBitSelect	
+surelog	default	ComplexEscaped	ESCCOL
+surelog	default	ComplexExprSize	
+surelog	default	ComplexHierPath	
+surelog	default	ComplexParamOverload	
+surelog	default	ComplexParamOverload2	
+surelog	default	ComplexVarSelect	
+surelog	default	ConcatOrder	
+surelog	default	ConcatRadix	
+surelog	default	ConcatVal	E148,TFARGTD
+surelog	default	ConcatWidth	
+surelog	default	CondOpLazyEval	
+surelog	default	CondOpPattern	
+surelog	default	CondOpPred	
+surelog	default	ConditionalOp	
+surelog	default	Connection	
+surelog	default	ConstCapital	
+surelog	default	ConstExpand	
+surelog	default	ConstHighConn	
+surelog	default	ConstPort	
+surelog	default	ConstantBits	
+surelog	default	ConstantNoElabUhdm	
+surelog	default	ConstantRange	
+surelog	default	ConstantWithElabUhdm	
+surelog	default	ContAssign	
+surelog	default	ContAssignConst	
+surelog	default	Context	
+surelog	default	CoresSweRV	CLSTDPKG,E148,E2148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	CoresSweRVMP	CLSTDPKG,E148,E2148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	CovMacro	
+surelog	default	Covergroup	
+surelog	default	CrossFunc	
+surelog	default	CrossItem	
+surelog	default	DashYTest	
+surelog	default	DataAttrib	
+surelog	default	DecValue	
+surelog	default	DecimalSize	
+surelog	default	DefParamFromParam	
+surelog	default	DefParamIndex	
+surelog	default	DefaultAssign	
+surelog	default	DefaultNetType	E148,TFARGTD
+surelog	default	DefaultPatternAssign	CASTKEYFILE
+surelog	default	DefaultPatternInt	
+surelog	default	DefaultPatternModule	
+surelog	default	DefaultTag	
+surelog	default	DeferAssert	
+surelog	default	Delay2Param	
+surelog	default	DelayAssign	E148
+surelog	default	DiffSimpleIncludeAndMacros	ESCCOL
+surelog	default	Disable	
+surelog	default	DoWhile	
+surelog	default	DollarBits	
+surelog	default	DollarBitsUnary	
+surelog	default	DollarRoot	E148,PATHBASE,TFARGTD
+surelog	default	DoubleLoop	
+surelog	default	DoublePres	
+surelog	default	DpiChandle	
+surelog	default	DpiFunc	
+surelog	default	DpiTask	
+surelog	default	Driver	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	DynArrayKind	
+surelog	default	Earlgrey	CLSTDPKG,E148,E2148,ESCCOL,I148,MODARRBOUND,PATHBASE,PORTINIT,TFARGTD
+surelog	default	EarlgreyPackParam	
+surelog	default	Earlgrey_0_1	
+surelog	default	Earlgrey_Verilator_0_1	
+surelog	default	ElabCParam	
+surelog	default	ElabDefinitionDiagnostics	
+surelog	default	ElabIf	
+surelog	default	ElabParam	
+surelog	default	ElabSysCall	
+surelog	default	EmptyAssign	
+surelog	default	EnumConcat	
+surelog	default	EnumConst	
+surelog	default	EnumConstConcat	
+surelog	default	EnumConstElab	
+surelog	default	EnumImplicitVal	
+surelog	default	EnumParenType	
+surelog	default	EnumVal	
+surelog	default	EnumVar	
+surelog	default	EnumVarNoTypedef	
+surelog	default	Escape	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	EvalFunc	
+surelog	default	EvalFuncArray	I148
+surelog	default	EvalFuncCont	
+surelog	default	EvalFuncNamed	
+surelog	default	EvalFuncPack	I148
+surelog	default	Event	
+surelog	default	ExpectStmt	
+surelog	default	ExplicitPort	
+surelog	default	ExplictiPorts	PORTEXPR,UCP
+surelog	default	ExponTimeIfElseGen	
+surelog	default	ExprEvalBits	
+surelog	default	ExprEvalPartial	
+surelog	default	ExprReductionBits	
+surelog	default	ExtendClassMember	
+surelog	default	FSM2Always	
+surelog	default	FSMBsp13	
+surelog	default	FSMFunction	E148
+surelog	default	FSMSingleAlways	
+surelog	default	FileList	
+surelog	default	FileListWithCompressed	
+surelog	default	FilePackUnion	
+surelog	default	FilePackageImport	
+surelog	default	FileParam	
+surelog	default	FileResolutionFunction	
+surelog	default	FileTypespec	
+surelog	default	ForElab	
+surelog	default	ForLoop	
+surelog	default	ForLoopBind	
+surelog	default	ForeachArray	
+surelog	default	ForeachClass	
+surelog	default	ForeachClassParent	
+surelog	default	ForeachForeach	
+surelog	default	ForeachFunction	
+surelog	default	ForeachSquare	
+surelog	default	Func128Bits	
+surelog	default	FuncAlias	
+surelog	default	FuncArgDirection	E148
+surelog	default	FuncArgs	E148
+surelog	default	FuncArgsByName	
+surelog	default	FuncAttrib	
+surelog	default	FuncBindGen	E148
+surelog	default	FuncBinding	E148,TFARGTD
+surelog	default	FuncBinding2	E148
+surelog	default	FuncCase	TFARGTD
+surelog	default	FuncDeclScope	
+surelog	default	FuncDef	
+surelog	default	FuncDef2	PATHBASE,TFARGTD
+surelog	default	FuncDefaultVal	
+surelog	default	FuncInModule	
+surelog	default	FuncIoTypespec	E148
+surelog	default	FuncNoArgs	
+surelog	default	FuncParam	
+surelog	default	FuncParam2	
+surelog	default	FuncRetArray	
+surelog	default	FuncReturnRange	E148,E2148
+surelog	default	FuncSideEffect	E148
+surelog	default	FuncStatic	
+surelog	default	FuncStruct	E148
+surelog	default	FuncStructVal	E148,TFARGTD
+surelog	default	FuncStructValSimple	E148
+surelog	default	FuncWidthScope	E148
+surelog	default	FuncWidthScopeOverride	E148
+surelog	default	GateLevel	
+surelog	default	Gates	
+surelog	default	GenBlock	
+surelog	default	GenBlockVar	
+surelog	default	GenCase	
+surelog	default	GenCaseStmt	
+surelog	default	GenFor	
+surelog	default	GenForDec	
+surelog	default	GenForIfaceLocalparamBound	
+surelog	default	GenForIfaceLocalparamNestedGen	
+surelog	default	GenForStructParamBound	PATHBASE
+surelog	default	GenIf	
+surelog	default	GenIfElse	
+surelog	default	GenIfIfaceParamStructField	PATHBASE
+surelog	default	GenIfNamed	
+surelog	default	GenModHierPath	
+surelog	default	GenNet	
+surelog	default	GenScopeFullName	
+surelog	default	GenScopeFunc	
+surelog	default	GenScopeHierPath	
+surelog	default	GenScopeHierPath2	
+surelog	default	GenScopeHierPath3	
+surelog	default	GenScopeShadow	
+surelog	default	GenStructAccess	
+surelog	default	GenVarRef	
+surelog	default	GenerateAssigns	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	GenerateBlock	
+surelog	default	GenerateBlock2	
+surelog	default	GenerateInterface	
+surelog	default	GenerateModule	
+surelog	default	GenerateRegion	
+surelog	default	GenerateUnnamed	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	Google	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	Guards	
+surelog	default	HierBitSelect	
+surelog	default	HierBitSlice	PATHBASE
+surelog	default	HierMultiSelect	
+surelog	default	HierPathBeginBlock	
+surelog	default	HierPathBind	
+surelog	default	HierPathCont	
+surelog	default	HierPathInterfBlock	
+surelog	default	HierPathLhs	
+surelog	default	HierPathModule	
+surelog	default	HierPathOverride	
+surelog	default	HierPathPackedArrayNet	
+surelog	default	HierPathPackedStruct	
+surelog	default	HierPathPackedVar	
+surelog	default	HierPathSelect	
+surelog	default	HierPathStruct	
+surelog	default	HierPathStructTypespec	
+surelog	default	HierPathTfArg	
+surelog	default	HierPathTypespec	
+surelog	default	HierPathUnpacked	
+surelog	default	HierPathUnpackedInPacked	
+surelog	default	HierPathVarArray	
+surelog	default	HighConnPart	
+surelog	default	HighLow	
+surelog	default	IOClassStruct	CLSTDPKG
+surelog	default	IODataTypes	
+surelog	default	Ibex	CLSTDPKG,E148,E2148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	IbexGoogle	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	Icarus	E148,ESCCOL,PATHBASE,PORTEXPR,UCP
+surelog	default	IfElseGen	
+surelog	default	IfElseIf1	
+surelog	default	IfElseIf2	
+surelog	default	IfElseIf3	
+surelog	default	IfGen1	
+surelog	default	IfGen2	
+surelog	default	IfGen3	
+surelog	default	IfGenTypeBinding	
+surelog	default	Iff	
+surelog	default	IllegalZeroValue	
+surelog	default	ImplFuncArg	
+surelog	default	Implicit	
+surelog	default	ImplicitArg	
+surelog	default	ImplicitFunc	
+surelog	default	ImplicitFuncArgAndReturn	
+surelog	default	ImplicitGenBlock	
+surelog	default	ImplicitPackedStructNet	
+surelog	default	ImplicitParam	
+surelog	default	ImplicitPort	
+surelog	default	ImplicitPorts2	
+surelog	default	ImplicitVarType	
+surelog	default	ImportBinding	
+surelog	default	ImportPackage	
+surelog	default	ImportedTypespec	
+surelog	default	IncompFunc	E148,TFARGTD
+surelog	default	IncompTitan	CLSTDPKG,E148,E2148,ESCCOL,I148,PATHBASE,PORTEXPR,PORTINIT,TFARGTD
+surelog	default	IndexAssign	
+surelog	default	IndexPartSel	
+surelog	default	IndexPartSelectBind	CLSTDPKG
+surelog	default	IndexedSelect	
+surelog	default	IndexedSelectHex	
+surelog	default	InsideOp	
+surelog	default	InstArray	
+surelog	default	IntegerConcat	
+surelog	default	Interconnect	
+surelog	default	InterfAlways	
+surelog	default	InterfArrayBind	MODARRBOUND
+surelog	default	InterfBinding	
+surelog	default	InterfHierPath	
+surelog	default	InterfImport	
+surelog	default	InterfInst	
+surelog	default	InterfType	
+surelog	default	InterfTypeBad	
+surelog	default	InterfaceBinding	
+surelog	default	InterfaceElab	
+surelog	default	InterfaceFuncCall	
+surelog	default	InterfaceModExp	
+surelog	default	InterfaceModPort	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	InterfaceParamOverrideProp	
+surelog	default	InterfaceProcess	
+surelog	default	InterfaceStructMemberPort	
+surelog	default	InterfaceUnpackedStructArrayDim	
+surelog	default	InterpElab1	
+surelog	default	InvalidTypeParam	
+surelog	default	Inverter	
+surelog	default	JKFlipflop	
+surelog	default	Kmac	
+surelog	default	LargeConst	
+surelog	default	LargeHex	
+surelog	default	LargeHexCast	
+surelog	default	LargeHexString	
+surelog	default	LargeValue2Struct	
+surelog	default	LateBindingFuncArg	
+surelog	default	LeftPadding	
+surelog	default	LegalPastFunc	
+surelog	default	LetExpr	
+surelog	default	LetInlined	
+surelog	default	LhsHierPath	
+surelog	default	LhsOp	
+surelog	default	LibraryIntercon	
+surelog	default	LocalParam	E2148
+surelog	default	LocalScopeAssign	
+surelog	default	LocalScopeHierPath	CLSTDPKG
+surelog	default	LocalVarTypespec	
+surelog	default	LogicArrayParam	I148
+surelog	default	LogicCast	
+surelog	default	LogicSize	
+surelog	default	LogicTypedef	
+surelog	default	LogicTypespec	
+surelog	default	LongHex	
+surelog	default	Loop	
+surelog	default	LoopParam	
+surelog	default	LoopParamOver	
+surelog	default	LoopVar	
+surelog	default	LowMemLib	
+surelog	default	LowMemPkg	
+surelog	default	Lpddr	
+surelog	default	MBadder	
+surelog	default	MacroArgDefaultSpaces	E148
+surelog	default	MacroArgMismatch	
+surelog	default	MaskNeg	
+surelog	default	MinTypMax	
+surelog	default	MiniAmiq	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	ModPortArrayBind	
+surelog	default	ModPortHighConn	
+surelog	default	ModPortParam	
+surelog	default	ModPortRange	
+surelog	default	ModPortTest	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	Monitor	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	Moves	
+surelog	default	MultContAssign	
+surelog	default	MultiConcat	
+surelog	default	MultiConcatValueSize	
+surelog	default	MultiIndexBind	
+surelog	default	MultiPartSelect	
+surelog	default	MultiPort	
+surelog	default	MultiSelect	
+surelog	default	NameCollisionBind	
+surelog	default	NamedEventHierPath	
+surelog	default	NegInt	
+surelog	default	NegParam	
+surelog	default	NetLValue	
+surelog	default	NetType	
+surelog	default	NoParamSubs	
+surelog	default	NoReducTypespec	PATHBASE
+surelog	default	NonAnsiPort	
+surelog	default	NonSynthError	
+surelog	default	NonSynthUnusedMod	
+surelog	default	NyuziProcessor	ESCCOL,MODARRBOUND,PATHBASE,TFARGTD
+surelog	default	OVMSwitch	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	OldLibrary	
+surelog	default	OneAnd	ESCCOL
+surelog	default	OneClock	
+surelog	default	OneDivider	
+surelog	default	OneFF	
+surelog	default	OneImport	
+surelog	default	OneNet	
+surelog	default	OneNetInterf	
+surelog	default	OneNetModPort	
+surelog	default	OneNetModPortGeneric	
+surelog	default	OneNetNonAnsi	
+surelog	default	OneNetRange	
+surelog	default	OpTypespec	
+surelog	default	Opentitan	CLSTDPKG,E148,E2148,ESCCOL,I148,MODARRBOUND,PATHBASE,PORTINIT,TFARGTD
+surelog	default	OrderedPortUnkownModule	
+surelog	default	PAssignType	
+surelog	default	PPComment	
+surelog	default	PPMacro	
+surelog	default	PackDataType	
+surelog	default	PackEnumVal	TFARGTD
+surelog	default	PackFunc	
+surelog	default	PackFuncParent	E148
+surelog	default	PackImport	
+surelog	default	PackStructField	
+surelog	default	PackStructVar	
+surelog	default	PackageBind	
+surelog	default	PackageConst	
+surelog	default	PackageDpi	TFARGTD
+surelog	default	PackageEval	
+surelog	default	PackageFuncCall	E148
+surelog	default	PackageHierRef	
+surelog	default	PackageMemberTypespec	
+surelog	default	PackageNet	
+surelog	default	PackageOrder	
+surelog	default	PackageParam	
+surelog	default	PackageParamConst	
+surelog	default	PackageType	
+surelog	default	PackageTypeParam	
+surelog	default	PackageValue	
+surelog	default	PackageVar	PATHBASE
+surelog	default	PackedArrayAssign	
+surelog	default	PackedArrayBind	
+surelog	default	PackedArrayEnum	
+surelog	default	PackedArrayHierPath	
+surelog	default	PackedArrayHighConn	
+surelog	default	PackedArrayStruct	
+surelog	default	PackedArrayTypespec	
+surelog	default	PackedEnum	
+surelog	default	PackedEnumPort	
+surelog	default	PackedEnumVar	E148,TFARGTD
+surelog	default	PackedUnpackedIo	
+surelog	default	ParamArray	
+surelog	default	ParamArraySelect	
+surelog	default	ParamArrayUnsizedPattern	
+surelog	default	ParamBitSelect	
+surelog	default	ParamByValue	
+surelog	default	ParamCast	
+surelog	default	ParamComplex	
+surelog	default	ParamComplexVerilator	
+surelog	default	ParamConcat	
+surelog	default	ParamConst	
+surelog	default	ParamConstPush	
+surelog	default	ParamElab	
+surelog	default	ParamElabMulti	
+surelog	default	ParamEquivOp	
+surelog	default	ParamFile	
+surelog	default	ParamFileMacro	
+surelog	default	ParamFileNoTop	
+surelog	default	ParamFileOverr	
+surelog	default	ParamFromPackage	
+surelog	default	ParamInFunc	
+surelog	default	ParamIndex	
+surelog	default	ParamLine	
+surelog	default	ParamList	
+surelog	default	ParamMultiConcat	
+surelog	default	ParamNoDefault	
+surelog	default	ParamNoImport	
+surelog	default	ParamNoSubst	
+surelog	default	ParamOverload1	
+surelog	default	ParamOverload2	
+surelog	default	ParamOverload3	E148,PATHBASE,TFARGTD
+surelog	default	ParamOverload4	
+surelog	default	ParamOverloadProp	
+surelog	default	ParamOverloading	
+surelog	default	ParamRef	
+surelog	default	ParamScope	
+surelog	default	ParamSubstituteComplex	
+surelog	default	ParamTypespec	
+surelog	default	ParamTypespec2	
+surelog	default	PartSelect3	
+surelog	default	PartSelect4	
+surelog	default	PartSelectElab	
+surelog	default	PartSelectHier	
+surelog	default	PartSelectHierPath	
+surelog	default	PartSelectNoParent	
+surelog	default	PartSelectParent	
+surelog	default	PartSelectRange	
+surelog	default	PatAssignOp	
+surelog	default	PatternAssignInteger	
+surelog	default	PatternAssignLogic	
+surelog	default	PatternAssignment	
+surelog	default	PatternOrder	
+surelog	default	PkgImportFunc	
+surelog	default	PkgImportPkg	
+surelog	default	PortByName	
+surelog	default	PortComplex	
+surelog	default	PortDefaultValue	
+surelog	default	PortExpr	ESCCOL,PORTEXPR
+surelog	default	PortInitVal	PORTINIT
+surelog	default	PortInitVal2	PORTINIT
+surelog	default	PortInterface	
+surelog	default	PortMultiDim	
+surelog	default	PortPackage	
+surelog	default	PortRanges	
+surelog	default	PortWildcard	
+surelog	default	PoundDelay	
+surelog	default	PoundDelayTask	
+surelog	default	PoundParam	
+surelog	default	PpLppdr	
+surelog	default	PragmaProtect	
+surelog	default	PreProcDefine	
+surelog	default	PreProcMacro	
+surelog	default	PreProcMacroFunc	
+surelog	default	PreprocFunc	
+surelog	default	PreprocLine	
+surelog	default	PreprocString	
+surelog	default	PreprocTest	
+surelog	default	PreprocUhdmCov	E148
+surelog	default	PrimTermExpr	
+surelog	default	ProcForLoop	
+surelog	default	PropBinding	
+surelog	default	RangeInf	
+surelog	default	RangeSelect	
+surelog	default	ReorderPatt	
+surelog	default	RepeatStmt	
+surelog	default	ReturnVal	
+surelog	default	RewriteNonConstForLoopCond	
+surelog	default	Rggen	E148,E2148,ESCCOL,PATHBASE,TFARGTD
+surelog	default	RiscV	E148,ESCCOL
+surelog	default	Rom	
+surelog	default	SVSwitch	ESCCOL,PATHBASE,TFARGTD
+surelog	default	ScalarParam	
+surelog	default	Scoreboard	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	Scr1	E148,ESCCOL,PATHBASE,TFARGTD
+surelog	default	Scr1SvTests	E148,ESCCOL,PATHBASE,TFARGTD
+surelog	default	SelectHierPath	
+surelog	default	SelectSelect	
+surelog	default	Selects	
+surelog	default	SeqDriver	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	SeqUseNonTemp	
+surelog	default	SequenceInst	
+surelog	default	ShiftX	
+surelog	default	SignedBin	
+surelog	default	SignedBinConst	
+surelog	default	SignedParam	
+surelog	default	SignedPort	
+surelog	default	SignedPort2	
+surelog	default	SignedVsUnsignedPort	
+surelog	default	SignedWire	
+surelog	default	SimpleClass	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	SimpleClass1	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	SimpleClass2	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	SimpleCmdLineTest	
+surelog	default	SimpleConstraint	PATHBASE,TFARGTD
+surelog	default	SimpleIncludeAndMacros	ESCCOL
+surelog	default	SimpleInterface	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	SimpleOVM	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	SimpleParserTest	
+surelog	default	SimpleParserTestCache	
+surelog	default	SimpleTask	
+surelog	default	SimpleUVM	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	SimpleVMM	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	SimplifyHierPath	
+surelog	default	Sky130Cell	
+surelog	default	Sky130Udp	
+surelog	default	SplitFile	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	StandardBlock	
+surelog	default	StandardNetVar	
+surelog	default	StaticTask	
+surelog	default	StreamingOp	
+surelog	default	StringConcat	
+surelog	default	StringMethod	
+surelog	default	StringParameter	
+surelog	default	StringPort	
+surelog	default	StringRange	E148
+surelog	default	StructAccess	
+surelog	default	StructArrayNet	
+surelog	default	StructNetUnionTypespec	
+surelog	default	StructParamFieldRange	PATHBASE,TPSTRUCTKW
+surelog	default	StructParamFuncBodyFieldCompare	E148,PATHBASE,TPSTRUCTKW
+surelog	default	StructParamPatternInitCast	E148,PATHBASE,TPSTRUCTKW
+surelog	default	StructStructHierPath	
+surelog	default	StructTypedef	
+surelog	default	StructUnsizedVal	
+surelog	default	StructVar	
+surelog	default	StructVarImp	
+surelog	default	SurelogMacro	
+surelog	default	SynthFilterDollarError	
+surelog	default	SynthForeach	
+surelog	default	SystemCall	
+surelog	default	SystemCallSize	
+surelog	default	TNocBadType	
+surelog	default	TaggedParam	
+surelog	default	TaggedPattern	
+surelog	default	TaggedPatternLogic	
+surelog	default	TaskBind	
+surelog	default	TaskDeclNoOrder	
+surelog	default	TaskDeclTypes	
+surelog	default	TaskDecls	
+surelog	default	TaskProto	
+surelog	default	TaskProtoDef	
+surelog	default	Ternary	
+surelog	default	TernaryAssoc	
+surelog	default	TestBasic	
+surelog	default	TestBatchMode	
+surelog	default	TestFileSplit	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	TestMacros	ESCCOL
+surelog	default	TestNoHash	
+surelog	default	TestSepComp	
+surelog	default	TestSepCompBadPath	
+surelog	default	TestSepCompNoHash	
+surelog	default	TfCalls	
+surelog	default	ThisHier	
+surelog	default	TimeUnit	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	Tnoc	E148,E2148,ESCCOL,MODARRBOUND,PATHBASE,TFARGTD,TPCALHS
+surelog	default	TopFunc	
+surelog	default	TranslateOff	
+surelog	default	TypeDefGenScope	
+surelog	default	TypeDefScope	
+surelog	default	TypeParam	
+surelog	default	TypeParam2	TPCALHS
+surelog	default	TypeParamElab	
+surelog	default	TypeParamOverride	
+surelog	default	TypedefAlias	
+surelog	default	TypedefPack	
+surelog	default	TypedefRange	
+surelog	default	TypedefRangedFunctionReturn	E148
+surelog	default	TypedefUnpacked	
+surelog	default	Typename	
+surelog	default	TypespecBits	
+surelog	default	TypespecExpr	
+surelog	default	TypespecMask	
+surelog	default	UVMNestedSeq	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	UVMSwitch	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	Udp	
+surelog	default	UhdmCoverage	
+surelog	default	UnaryPlus	
+surelog	default	UnboundForLoop	
+surelog	default	UndersVal	
+surelog	default	UnelabPack	
+surelog	default	UnionCast	E148,TFARGTD
+surelog	default	Unisim	E148,E2148,ESCCOL,MODARRBOUND
+surelog	default	UnitAmiqEth	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	UnitClass	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	UnitConcat	
+surelog	default	UnitDefParam	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	UnitElab	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	UnitElabBlock	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	UnitElabExternNested	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	UnitEnum	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	UnitForLoop	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	UnitForeach	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	UnitLibrary	
+surelog	default	UnitPackage	
+surelog	default	UnitPartSelect	
+surelog	default	UnitPython	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	UnitQueue	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	UnitSVA	
+surelog	default	UnitSimpleIncludeAndMacros	ESCCOL
+surelog	default	UnitTest	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	UnitThisNew	PATHBASE
+surelog	default	UnpackPort	
+surelog	default	UnpackedTypespec	
+surelog	default	UnsizeConstExpr	
+surelog	default	Unsized	
+surelog	default	UnsizedArray	
+surelog	default	UnsizedConstInst	
+surelog	default	UnsizedElabComp	
+surelog	default	UnsizedFunc	E148,E2148,I148
+surelog	default	UnsizedLiteral1	
+surelog	default	UnsizedLiteral2	
+surelog	default	UnsizedPacked	
+surelog	default	UnsizedParam	
+surelog	default	UnsupportedTypespecRange	
+surelog	default	UtdSV	ESCCOL,MODARRBOUND,PORTINIT
+surelog	default	Value4States	
+surelog	default	ValueSize	
+surelog	default	Values	
+surelog	default	VarDecl	
+surelog	default	VarDecl2	
+surelog	default	VarInFunc	E148
+surelog	default	VarRangeTypedef	
+surelog	default	VarSelect	
+surelog	default	VarSelectGenStmt	
+surelog	default	VarType	
+surelog	default	Verilator	CASTKEYFILE,E148,E2148,ESCCOL,MODARRBOUND,PATHBASE,PORTINIT,TFARGTD
+surelog	default	VirtualClass	CLSTDPKG
+surelog	default	VoidFuncReturn	
+surelog	default	Wand	
+surelog	default	WildConn	
+surelog	default	WireLogicSize	
+surelog	default	WireType	
+surelog	default	WireUnpacked	
+surelog	default	XValue	
+surelog	default	Yosys	E148,E2148,ESCCOL,PATHBASE,PORTINIT
+surelog	default	YosysBigSimAes	E148,ESCCOL
+surelog	default	YosysBigSimAmber23	E148,ESCCOL,PORTEXPR,PORTINIT
+surelog	default	YosysBigSimEllip	ESCCOL,PORTINIT
+surelog	default	YosysBigSimLm32	E148,PATHBASE
+surelog	default	YosysBigSimOpenMsp	E148
+surelog	default	YosysBigSimPong	ESCCOL
+surelog	default	YosysBigSimReed	
+surelog	default	YosysBigSimSoft	
+surelog	default	YosysCam	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	YosysDsp	CLSTDPKG,E148,E2148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	YosysEth	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	YosysIce40	CLSTDPKG,E148,E2148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	YosysMarlann	CLSTDPKG,E148,ESCCOL,I148,MODARRBOUND,PATHBASE,TFARGTD
+surelog	default	YosysOldAes	E148,ESCCOL
+surelog	default	YosysOldI2c	ESCCOL
+surelog	default	YosysOldOpen	E148,ESCCOL
+surelog	default	YosysOldOr	E148,ESCCOL
+surelog	default	YosysOldSasc	ESCCOL
+surelog	default	YosysOldSimpleSpi	ESCCOL
+surelog	default	YosysOldSpi	ESCCOL
+surelog	default	YosysOldSsPcm	ESCCOL
+surelog	default	YosysOldSystem	ESCCOL
+surelog	default	YosysOldUsb	
+surelog	default	YosysOpenSparc	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	YosysRiscv	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	YosysSmall	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	YosysTestSuite	E148,E2148,ESCCOL,PATHBASE,PORTINIT
+surelog	default	YosysTests	E148,E2148,ESCCOL,TFARGTD
+surelog	default	YosysVerx	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	default	Zachjs	E148,ESCCOL,PATHBASE,TFARGTD
+surelog	default	rp32	E148,E2148,PATHBASE,TFARGTD
+surelog	testflags	1364_2005	ELABUHDM
+surelog	testflags	3SigsSensList	ELABUHDM,ESCCOL
+surelog	testflags	AVLMM	PATHBASE,TFARGTD
+surelog	testflags	AaFirstTest	
+surelog	testflags	AllBinding	ELABUHDM
+surelog	testflags	AllPackageSignal	ELABUHDM
+surelog	testflags	AlwaysNoElab	ELABUHDM
+surelog	testflags	AmiqEth	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	AmiqSimpleTestSuite	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	ApbSlave	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	Ariane	CLSTDPKG,E148,E2148,ESCCOL,I148,MODARRBOUND,PATHBASE,PORTEXPR,TFARGTD,TPCALHS
+surelog	testflags	ArianeElab	E148,ELABUHDM,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	ArianeElab2	E148,ELABUHDM,ESCCOL,I148,TFARGTD
+surelog	testflags	ArrayExprFuncArg	ELABUHDM
+surelog	testflags	ArrayInst	ELABUHDM
+surelog	testflags	ArrayMethodIterator	ELABUHDM
+surelog	testflags	ArrayNet	ELABUHDM
+surelog	testflags	ArrayTypespec	ELABUHDM
+surelog	testflags	ArrayVarName	E148,ELABUHDM
+surelog	testflags	Assert	ELABUHDM
+surelog	testflags	AssertDelayError	ELABUHDM
+surelog	testflags	AssertTempError	ELABUHDM
+surelog	testflags	Assertions	ELABUHDM
+surelog	testflags	AssignPattern	ELABUHDM
+surelog	testflags	AssignPatternArray	ELABUHDM
+surelog	testflags	AssignPlus	ELABUHDM
+surelog	testflags	AssignRhsFlat	ELABUHDM
+surelog	testflags	AssignSubs	ELABUHDM
+surelog	testflags	AssignmentPatternInAssignmentPattern	ELABUHDM
+surelog	testflags	Assignments	ELABUHDM,PATHBASE
+surelog	testflags	AssociativeArray	ELABUHDM
+surelog	testflags	AssumeProp	ELABUHDM
+surelog	testflags	Attributes	ELABUHDM,ESCCOL
+surelog	testflags	Attributes2	ELABUHDM
+surelog	testflags	AttributesNets	ELABUHDM
+surelog	testflags	AxiInterconnect	E148,ELABUHDM
+surelog	testflags	AzadiRTL	E148,E2148,ELABUHDM,ESCCOL,PATHBASE,TFARGTD,TPCALHS
+surelog	testflags	BadLabel	ELABUHDM
+surelog	testflags	BadScope	ELABUHDM
+surelog	testflags	BasicOh	E148,E2148,ELABUHDM,ESCCOL,MODARRBOUND,PORTINIT
+surelog	testflags	BeginKeywords	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	BiasValue	ELABUHDM
+surelog	testflags	BinarySize	ELABUHDM
+surelog	testflags	BindHierPath	ELABUHDM,ESCCOL
+surelog	testflags	BindMethod	ELABUHDM
+surelog	testflags	BindStmt	ELABUHDM
+surelog	testflags	BindStmt2	ELABUHDM
+surelog	testflags	BindVarsAndEnum	ELABUHDM
+surelog	testflags	BindingPort	ELABUHDM
+surelog	testflags	Bindings	ELABUHDM
+surelog	testflags	BitComplex	ELABUHDM
+surelog	testflags	BitPartSelect	ELABUHDM
+surelog	testflags	BitRanges	ELABUHDM
+surelog	testflags	BitSelect	ELABUHDM
+surelog	testflags	BitSelectExpr	ELABUHDM
+surelog	testflags	BitSelectHier	ELABUHDM
+surelog	testflags	BitSelectPartSelectInFunction	E148,ELABUHDM
+surelog	testflags	BitSelectSelect	ELABUHDM
+surelog	testflags	BitsArray	ELABUHDM
+surelog	testflags	BitsHierPath	ELABUHDM
+surelog	testflags	BitsInGenBlock	ELABUHDM
+surelog	testflags	BitsLogic	ELABUHDM
+surelog	testflags	BitsOp	ELABUHDM,PATHBASE
+surelog	testflags	BitsStructMember	ELABUHDM
+surelog	testflags	BlackBePipeInt	ELABUHDM
+surelog	testflags	BlackBox	ELABUHDM
+surelog	testflags	BlackBoxInst	ELABUHDM
+surelog	testflags	BlackBoxInstTop	ELABUHDM
+surelog	testflags	BlackBoxMod	ELABUHDM
+surelog	testflags	BlackBoxSubMod	ELABUHDM
+surelog	testflags	BlackConst	ELABUHDM
+surelog	testflags	BlackParrot	
+surelog	testflags	BlackParrotComplex	ELABUHDM
+surelog	testflags	BlackParrotConf	ELABUHDM,PATHBASE
+surelog	testflags	BlackParrotMuteErrors	ELABUHDM,TFARGTD
+surelog	testflags	BlackParrotParam	ELABUHDM
+surelog	testflags	BlackParrotSkipParam	ELABUHDM
+surelog	testflags	BlackParrotStructParam	ELABUHDM
+surelog	testflags	BlackUcode	
+surelog	testflags	BlackUnicore	
+surelog	testflags	BlackboxMissingDef	ELABUHDM
+surelog	testflags	BlockingAssignRewrite	E148,ELABUHDM
+surelog	testflags	BuildOVMPkg	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	BuildUVMPkg	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	BuiltInMethod	ELABUHDM
+surelog	testflags	CarryAdd	ELABUHDM
+surelog	testflags	CarryTrans	ELABUHDM
+surelog	testflags	CaseDefault	ELABUHDM
+surelog	testflags	CaseExpression	ELABUHDM
+surelog	testflags	CaseFullElab	ELABUHDM
+surelog	testflags	CaseInside	ELABUHDM
+surelog	testflags	CastEnum	ELABUHDM
+surelog	testflags	CastPartSelect	ELABUHDM
+surelog	testflags	CastShift	ELABUHDM
+surelog	testflags	CastStructMember	ELABUHDM
+surelog	testflags	CastToParam	ELABUHDM
+surelog	testflags	CastTypespec	ELABUHDM
+surelog	testflags	CastUnsigned	ELABUHDM
+surelog	testflags	CastUnsized	ELABUHDM
+surelog	testflags	Cell	ELABUHDM
+surelog	testflags	Chandle	ELABUHDM
+surelog	testflags	Checker	ELABUHDM
+surelog	testflags	CheckerInst	ELABUHDM
+surelog	testflags	ClassCons	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	ClassExtendParam	ELABUHDM
+surelog	testflags	ClassExtends	ELABUHDM
+surelog	testflags	ClassFsm	ELABUHDM
+surelog	testflags	ClassFuncProto	CLSTDPKG,E148,ELABUHDM,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	ClassFuncTask	ELABUHDM
+surelog	testflags	ClassMemberFunc	ELABUHDM
+surelog	testflags	ClassMemberRef	ELABUHDM
+surelog	testflags	ClassMethodCall	ELABUHDM
+surelog	testflags	ClassMini	ELABUHDM
+surelog	testflags	ClassParam	ELABUHDM
+surelog	testflags	ClassParamAsParam	ELABUHDM
+surelog	testflags	ClassScope	ELABUHDM,TPCALHS
+surelog	testflags	ClassTypeParam	ELABUHDM
+surelog	testflags	ClassTypeParamAlias	ELABUHDM
+surelog	testflags	ClassVar	CLSTDPKG,ELABUHDM
+surelog	testflags	ClassVirtual	ELABUHDM
+surelog	testflags	ClockingBlock	ELABUHDM
+surelog	testflags	ClockingDrive	ELABUHDM
+surelog	testflags	ClockingSntx	ELABUHDM
+surelog	testflags	ClogCast	ELABUHDM
+surelog	testflags	ClogParam	E2148,ELABUHDM
+surelog	testflags	CmdLineOverride	ELABUHDM
+surelog	testflags	Compl1001	
+surelog	testflags	ComplexBitSelect	ELABUHDM
+surelog	testflags	ComplexEscaped	ELABUHDM,ESCCOL
+surelog	testflags	ComplexExprSize	ELABUHDM
+surelog	testflags	ComplexHierPath	ELABUHDM
+surelog	testflags	ComplexParamOverload	ELABUHDM
+surelog	testflags	ComplexParamOverload2	ELABUHDM
+surelog	testflags	ComplexVarSelect	ELABUHDM
+surelog	testflags	ConcatOrder	ELABUHDM
+surelog	testflags	ConcatRadix	ELABUHDM
+surelog	testflags	ConcatVal	E148,ELABUHDM,TFARGTD
+surelog	testflags	ConcatWidth	ELABUHDM
+surelog	testflags	CondOpLazyEval	ELABUHDM
+surelog	testflags	CondOpPattern	ELABUHDM
+surelog	testflags	CondOpPred	ELABUHDM
+surelog	testflags	ConditionalOp	ELABUHDM
+surelog	testflags	Connection	
+surelog	testflags	ConstCapital	ELABUHDM
+surelog	testflags	ConstExpand	ELABUHDM
+surelog	testflags	ConstHighConn	ELABUHDM
+surelog	testflags	ConstPort	ELABUHDM
+surelog	testflags	ConstantBits	ELABUHDM
+surelog	testflags	ConstantNoElabUhdm	
+surelog	testflags	ConstantRange	ELABUHDM
+surelog	testflags	ConstantWithElabUhdm	ELABUHDM
+surelog	testflags	ContAssign	ELABUHDM
+surelog	testflags	ContAssignConst	ELABUHDM
+surelog	testflags	Context	ELABUHDM
+surelog	testflags	CoresSweRV	CLSTDPKG,E148,E2148,ELABUHDM,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	CoresSweRVMP	CLSTDPKG,E148,E2148,ELABUHDM,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	CovMacro	ELABUHDM
+surelog	testflags	Covergroup	ELABUHDM
+surelog	testflags	CrossFunc	ELABUHDM
+surelog	testflags	CrossItem	ELABUHDM
+surelog	testflags	DashYTest	ELABUHDM
+surelog	testflags	DataAttrib	ELABUHDM
+surelog	testflags	DecValue	ELABUHDM
+surelog	testflags	DecimalSize	ELABUHDM
+surelog	testflags	DefParamFromParam	ELABUHDM
+surelog	testflags	DefParamIndex	ELABUHDM
+surelog	testflags	DefaultAssign	ELABUHDM
+surelog	testflags	DefaultNetType	E148,ELABUHDM,TFARGTD
+surelog	testflags	DefaultPatternAssign	CASTKEYFILE,ELABUHDM
+surelog	testflags	DefaultPatternInt	ELABUHDM
+surelog	testflags	DefaultPatternModule	ELABUHDM
+surelog	testflags	DefaultTag	ELABUHDM
+surelog	testflags	DeferAssert	ELABUHDM
+surelog	testflags	Delay2Param	ELABUHDM
+surelog	testflags	DelayAssign	E148,ELABUHDM
+surelog	testflags	Disable	ELABUHDM
+surelog	testflags	DoWhile	ELABUHDM
+surelog	testflags	DollarBits	ELABUHDM
+surelog	testflags	DollarBitsUnary	ELABUHDM
+surelog	testflags	DollarRoot	E148,ELABUHDM,PATHBASE,TFARGTD
+surelog	testflags	DoubleLoop	ELABUHDM
+surelog	testflags	DoublePres	ELABUHDM
+surelog	testflags	DpiChandle	ELABUHDM
+surelog	testflags	DpiFunc	ELABUHDM
+surelog	testflags	DpiTask	ELABUHDM
+surelog	testflags	Driver	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	DynArrayKind	ELABUHDM
+surelog	testflags	Earlgrey	CLSTDPKG,E148,E2148,ELABUHDM,ESCCOL,I148,MODARRBOUND,PATHBASE,PORTINIT,TFARGTD
+surelog	testflags	EarlgreyPackParam	ELABUHDM
+surelog	testflags	Earlgrey_0_1	ELABUHDM
+surelog	testflags	Earlgrey_Verilator_0_1	ELABUHDM
+surelog	testflags	ElabCParam	ELABUHDM
+surelog	testflags	ElabDefinitionDiagnostics	
+surelog	testflags	ElabIf	ELABUHDM
+surelog	testflags	ElabParam	ELABUHDM
+surelog	testflags	ElabSysCall	ELABUHDM
+surelog	testflags	EmptyAssign	ELABUHDM
+surelog	testflags	EnumConcat	ELABUHDM
+surelog	testflags	EnumConst	
+surelog	testflags	EnumConstConcat	ELABUHDM
+surelog	testflags	EnumConstElab	ELABUHDM
+surelog	testflags	EnumImplicitVal	ELABUHDM
+surelog	testflags	EnumParenType	ELABUHDM
+surelog	testflags	EnumVal	ELABUHDM
+surelog	testflags	EnumVar	ELABUHDM
+surelog	testflags	EnumVarNoTypedef	ELABUHDM
+surelog	testflags	Escape	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	EvalFunc	ELABUHDM
+surelog	testflags	EvalFuncArray	ELABUHDM,I148
+surelog	testflags	EvalFuncCont	ELABUHDM
+surelog	testflags	EvalFuncNamed	ELABUHDM
+surelog	testflags	EvalFuncPack	ELABUHDM,I148
+surelog	testflags	Event	ELABUHDM
+surelog	testflags	ExpectStmt	ELABUHDM
+surelog	testflags	ExplicitPort	ELABUHDM
+surelog	testflags	ExplictiPorts	ELABUHDM,PORTEXPR,UCP
+surelog	testflags	ExponTimeIfElseGen	ELABUHDM
+surelog	testflags	ExprEvalBits	ELABUHDM
+surelog	testflags	ExprEvalPartial	
+surelog	testflags	ExprReductionBits	ELABUHDM
+surelog	testflags	ExtendClassMember	ELABUHDM
+surelog	testflags	FSM2Always	ELABUHDM
+surelog	testflags	FSMBsp13	ELABUHDM
+surelog	testflags	FSMFunction	E148,ELABUHDM
+surelog	testflags	FSMSingleAlways	ELABUHDM
+surelog	testflags	FileList	ELABUHDM
+surelog	testflags	FileListWithCompressed	
+surelog	testflags	FilePackUnion	ELABUHDM
+surelog	testflags	FilePackageImport	ELABUHDM
+surelog	testflags	FileParam	ELABUHDM
+surelog	testflags	FileResolutionFunction	ELABUHDM
+surelog	testflags	FileTypespec	ELABUHDM
+surelog	testflags	ForElab	
+surelog	testflags	ForLoop	ELABUHDM
+surelog	testflags	ForLoopBind	ELABUHDM
+surelog	testflags	ForeachArray	ELABUHDM
+surelog	testflags	ForeachClass	ELABUHDM
+surelog	testflags	ForeachClassParent	ELABUHDM
+surelog	testflags	ForeachForeach	ELABUHDM
+surelog	testflags	ForeachFunction	ELABUHDM
+surelog	testflags	ForeachSquare	ELABUHDM
+surelog	testflags	Func128Bits	ELABUHDM
+surelog	testflags	FuncAlias	ELABUHDM
+surelog	testflags	FuncArgDirection	E148,ELABUHDM
+surelog	testflags	FuncArgs	E148,ELABUHDM
+surelog	testflags	FuncArgsByName	ELABUHDM
+surelog	testflags	FuncAttrib	ELABUHDM
+surelog	testflags	FuncBindGen	E148,ELABUHDM
+surelog	testflags	FuncBinding	E148,ELABUHDM,TFARGTD
+surelog	testflags	FuncBinding2	E148,ELABUHDM
+surelog	testflags	FuncCase	TFARGTD
+surelog	testflags	FuncDeclScope	ELABUHDM
+surelog	testflags	FuncDef	ELABUHDM
+surelog	testflags	FuncDef2	ELABUHDM,PATHBASE,TFARGTD
+surelog	testflags	FuncDefaultVal	ELABUHDM
+surelog	testflags	FuncInModule	ELABUHDM
+surelog	testflags	FuncIoTypespec	E148,ELABUHDM
+surelog	testflags	FuncNoArgs	ELABUHDM
+surelog	testflags	FuncParam	ELABUHDM
+surelog	testflags	FuncParam2	ELABUHDM
+surelog	testflags	FuncRetArray	ELABUHDM
+surelog	testflags	FuncReturnRange	E148,E2148,ELABUHDM
+surelog	testflags	FuncSideEffect	E148,ELABUHDM
+surelog	testflags	FuncStatic	ELABUHDM
+surelog	testflags	FuncStruct	E148,ELABUHDM
+surelog	testflags	FuncStructVal	E148,ELABUHDM,TFARGTD
+surelog	testflags	FuncStructValSimple	E148,ELABUHDM
+surelog	testflags	FuncWidthScope	E148,ELABUHDM
+surelog	testflags	FuncWidthScopeOverride	E148,ELABUHDM
+surelog	testflags	GateLevel	ELABUHDM
+surelog	testflags	Gates	ELABUHDM
+surelog	testflags	GenBlock	ELABUHDM
+surelog	testflags	GenBlockVar	ELABUHDM
+surelog	testflags	GenCase	ELABUHDM
+surelog	testflags	GenCaseStmt	ELABUHDM
+surelog	testflags	GenFor	ELABUHDM
+surelog	testflags	GenForDec	ELABUHDM
+surelog	testflags	GenForIfaceLocalparamBound	ELABUHDM
+surelog	testflags	GenForIfaceLocalparamNestedGen	ELABUHDM
+surelog	testflags	GenForStructParamBound	ELABUHDM,PATHBASE
+surelog	testflags	GenIf	ELABUHDM
+surelog	testflags	GenIfElse	ELABUHDM
+surelog	testflags	GenIfIfaceParamStructField	ELABUHDM,PATHBASE
+surelog	testflags	GenIfNamed	ELABUHDM
+surelog	testflags	GenModHierPath	ELABUHDM
+surelog	testflags	GenNet	ELABUHDM
+surelog	testflags	GenScopeFullName	ELABUHDM
+surelog	testflags	GenScopeFunc	ELABUHDM
+surelog	testflags	GenScopeHierPath	ELABUHDM
+surelog	testflags	GenScopeHierPath2	ELABUHDM
+surelog	testflags	GenScopeHierPath3	ELABUHDM
+surelog	testflags	GenScopeShadow	ELABUHDM
+surelog	testflags	GenStructAccess	ELABUHDM
+surelog	testflags	GenVarRef	ELABUHDM
+surelog	testflags	GenerateAssigns	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	GenerateBlock	ELABUHDM
+surelog	testflags	GenerateBlock2	ELABUHDM
+surelog	testflags	GenerateInterface	
+surelog	testflags	GenerateModule	
+surelog	testflags	GenerateRegion	ELABUHDM
+surelog	testflags	GenerateUnnamed	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	Google	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	Guards	
+surelog	testflags	HierBitSelect	ELABUHDM
+surelog	testflags	HierBitSlice	ELABUHDM,PATHBASE
+surelog	testflags	HierMultiSelect	ELABUHDM
+surelog	testflags	HierPathBeginBlock	ELABUHDM
+surelog	testflags	HierPathBind	ELABUHDM
+surelog	testflags	HierPathCont	ELABUHDM
+surelog	testflags	HierPathInterfBlock	ELABUHDM
+surelog	testflags	HierPathLhs	ELABUHDM
+surelog	testflags	HierPathModule	ELABUHDM
+surelog	testflags	HierPathOverride	ELABUHDM
+surelog	testflags	HierPathPackedArrayNet	ELABUHDM
+surelog	testflags	HierPathPackedStruct	ELABUHDM
+surelog	testflags	HierPathPackedVar	ELABUHDM
+surelog	testflags	HierPathSelect	ELABUHDM
+surelog	testflags	HierPathStruct	ELABUHDM
+surelog	testflags	HierPathStructTypespec	ELABUHDM
+surelog	testflags	HierPathTfArg	ELABUHDM
+surelog	testflags	HierPathTypespec	ELABUHDM
+surelog	testflags	HierPathUnpacked	ELABUHDM
+surelog	testflags	HierPathUnpackedInPacked	ELABUHDM
+surelog	testflags	HierPathVarArray	ELABUHDM
+surelog	testflags	HighConnPart	ELABUHDM
+surelog	testflags	HighLow	ELABUHDM
+surelog	testflags	IOClassStruct	CLSTDPKG,ELABUHDM
+surelog	testflags	IODataTypes	ELABUHDM
+surelog	testflags	Ibex	CLSTDPKG,E148,E2148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	IbexGoogle	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	Icarus	E148,ESCCOL,PATHBASE,PORTEXPR,UCP
+surelog	testflags	IfElseGen	ELABUHDM
+surelog	testflags	IfElseIf1	ELABUHDM
+surelog	testflags	IfElseIf2	ELABUHDM
+surelog	testflags	IfElseIf3	ELABUHDM
+surelog	testflags	IfGen1	ELABUHDM
+surelog	testflags	IfGen2	ELABUHDM
+surelog	testflags	IfGen3	ELABUHDM
+surelog	testflags	IfGenTypeBinding	ELABUHDM
+surelog	testflags	Iff	ELABUHDM
+surelog	testflags	IllegalZeroValue	ELABUHDM
+surelog	testflags	ImplFuncArg	ELABUHDM
+surelog	testflags	Implicit	ELABUHDM
+surelog	testflags	ImplicitArg	ELABUHDM
+surelog	testflags	ImplicitFunc	ELABUHDM
+surelog	testflags	ImplicitFuncArgAndReturn	ELABUHDM
+surelog	testflags	ImplicitGenBlock	ELABUHDM
+surelog	testflags	ImplicitPackedStructNet	ELABUHDM
+surelog	testflags	ImplicitParam	ELABUHDM
+surelog	testflags	ImplicitPort	ELABUHDM
+surelog	testflags	ImplicitPorts2	ELABUHDM
+surelog	testflags	ImplicitVarType	
+surelog	testflags	ImportBinding	ELABUHDM
+surelog	testflags	ImportPackage	ELABUHDM
+surelog	testflags	ImportedTypespec	ELABUHDM
+surelog	testflags	IncompFunc	E148,ELABUHDM,TFARGTD
+surelog	testflags	IncompTitan	CLSTDPKG,E148,E2148,ESCCOL,I148,PATHBASE,PORTEXPR,PORTINIT,TFARGTD
+surelog	testflags	IndexAssign	ELABUHDM
+surelog	testflags	IndexPartSel	ELABUHDM
+surelog	testflags	IndexPartSelectBind	CLSTDPKG,ELABUHDM
+surelog	testflags	IndexedSelect	ELABUHDM
+surelog	testflags	IndexedSelectHex	ELABUHDM
+surelog	testflags	InsideOp	ELABUHDM
+surelog	testflags	InstArray	ELABUHDM
+surelog	testflags	IntegerConcat	ELABUHDM
+surelog	testflags	Interconnect	ELABUHDM
+surelog	testflags	InterfAlways	ELABUHDM
+surelog	testflags	InterfArrayBind	ELABUHDM,MODARRBOUND
+surelog	testflags	InterfBinding	ELABUHDM
+surelog	testflags	InterfHierPath	ELABUHDM
+surelog	testflags	InterfImport	ELABUHDM
+surelog	testflags	InterfInst	ELABUHDM
+surelog	testflags	InterfType	ELABUHDM
+surelog	testflags	InterfTypeBad	ELABUHDM
+surelog	testflags	InterfaceBinding	ELABUHDM
+surelog	testflags	InterfaceElab	ELABUHDM
+surelog	testflags	InterfaceFuncCall	ELABUHDM
+surelog	testflags	InterfaceModExp	ELABUHDM
+surelog	testflags	InterfaceModPort	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	InterfaceParamOverrideProp	ELABUHDM
+surelog	testflags	InterfaceProcess	ELABUHDM
+surelog	testflags	InterfaceStructMemberPort	ELABUHDM
+surelog	testflags	InterfaceUnpackedStructArrayDim	ELABUHDM
+surelog	testflags	InterpElab1	ELABUHDM
+surelog	testflags	InvalidTypeParam	ELABUHDM
+surelog	testflags	Inverter	ELABUHDM
+surelog	testflags	JKFlipflop	ELABUHDM
+surelog	testflags	Kmac	ELABUHDM
+surelog	testflags	LargeConst	ELABUHDM
+surelog	testflags	LargeHex	ELABUHDM
+surelog	testflags	LargeHexCast	ELABUHDM
+surelog	testflags	LargeHexString	ELABUHDM
+surelog	testflags	LargeValue2Struct	ELABUHDM
+surelog	testflags	LateBindingFuncArg	ELABUHDM
+surelog	testflags	LeftPadding	ELABUHDM
+surelog	testflags	LegalPastFunc	ELABUHDM
+surelog	testflags	LetExpr	ELABUHDM
+surelog	testflags	LetInlined	ELABUHDM
+surelog	testflags	LhsHierPath	ELABUHDM
+surelog	testflags	LhsOp	ELABUHDM
+surelog	testflags	LibraryIntercon	
+surelog	testflags	LocalParam	E2148,ELABUHDM
+surelog	testflags	LocalScopeAssign	ELABUHDM
+surelog	testflags	LocalScopeHierPath	CLSTDPKG,ELABUHDM
+surelog	testflags	LocalVarTypespec	ELABUHDM
+surelog	testflags	LogicArrayParam	ELABUHDM,I148
+surelog	testflags	LogicCast	ELABUHDM
+surelog	testflags	LogicSize	ELABUHDM
+surelog	testflags	LogicTypedef	ELABUHDM
+surelog	testflags	LogicTypespec	ELABUHDM
+surelog	testflags	LongHex	ELABUHDM
+surelog	testflags	Loop	ELABUHDM
+surelog	testflags	LoopParam	ELABUHDM
+surelog	testflags	LoopParamOver	ELABUHDM
+surelog	testflags	LoopVar	ELABUHDM
+surelog	testflags	LowMemLib	
+surelog	testflags	LowMemPkg	
+surelog	testflags	Lpddr	
+surelog	testflags	MBadder	ELABUHDM
+surelog	testflags	MacroArgDefaultSpaces	E148,ELABUHDM
+surelog	testflags	MacroArgMismatch	ELABUHDM
+surelog	testflags	MaskNeg	ELABUHDM
+surelog	testflags	MinTypMax	ELABUHDM
+surelog	testflags	MiniAmiq	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	ModPortArrayBind	ELABUHDM
+surelog	testflags	ModPortHighConn	
+surelog	testflags	ModPortParam	ELABUHDM
+surelog	testflags	ModPortRange	ELABUHDM
+surelog	testflags	ModPortTest	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	Monitor	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	Moves	ELABUHDM
+surelog	testflags	MultContAssign	ELABUHDM
+surelog	testflags	MultiConcat	ELABUHDM
+surelog	testflags	MultiConcatValueSize	ELABUHDM
+surelog	testflags	MultiIndexBind	ELABUHDM
+surelog	testflags	MultiPartSelect	ELABUHDM
+surelog	testflags	MultiPort	ELABUHDM
+surelog	testflags	MultiSelect	ELABUHDM
+surelog	testflags	NameCollisionBind	ELABUHDM
+surelog	testflags	NamedEventHierPath	ELABUHDM
+surelog	testflags	NegInt	ELABUHDM
+surelog	testflags	NegParam	ELABUHDM
+surelog	testflags	NetLValue	ELABUHDM
+surelog	testflags	NetType	ELABUHDM
+surelog	testflags	NoParamSubs	ELABUHDM
+surelog	testflags	NoReducTypespec	ELABUHDM,PATHBASE
+surelog	testflags	NonAnsiPort	
+surelog	testflags	NonSynthError	ELABUHDM
+surelog	testflags	NonSynthUnusedMod	ELABUHDM
+surelog	testflags	NyuziProcessor	ELABUHDM,ESCCOL,MODARRBOUND,PATHBASE,TFARGTD
+surelog	testflags	OVMSwitch	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	OldLibrary	
+surelog	testflags	OneAnd	ELABUHDM,ESCCOL
+surelog	testflags	OneClock	
+surelog	testflags	OneDivider	
+surelog	testflags	OneFF	
+surelog	testflags	OneImport	ELABUHDM
+surelog	testflags	OneNet	
+surelog	testflags	OneNetInterf	ELABUHDM
+surelog	testflags	OneNetModPort	
+surelog	testflags	OneNetModPortGeneric	
+surelog	testflags	OneNetNonAnsi	
+surelog	testflags	OneNetRange	ELABUHDM
+surelog	testflags	OpTypespec	ELABUHDM
+surelog	testflags	Opentitan	CLSTDPKG,E148,E2148,ELABUHDM,ESCCOL,I148,MODARRBOUND,PATHBASE,PORTINIT,TFARGTD
+surelog	testflags	OrderedPortUnkownModule	ELABUHDM
+surelog	testflags	PAssignType	ELABUHDM
+surelog	testflags	PPComment	ELABUHDM
+surelog	testflags	PPMacro	ELABUHDM
+surelog	testflags	PackDataType	ELABUHDM
+surelog	testflags	PackEnumVal	ELABUHDM,TFARGTD
+surelog	testflags	PackFunc	ELABUHDM
+surelog	testflags	PackFuncParent	E148,ELABUHDM
+surelog	testflags	PackImport	
+surelog	testflags	PackStructField	ELABUHDM
+surelog	testflags	PackStructVar	ELABUHDM
+surelog	testflags	PackageBind	ELABUHDM
+surelog	testflags	PackageConst	ELABUHDM
+surelog	testflags	PackageDpi	ELABUHDM,TFARGTD
+surelog	testflags	PackageEval	ELABUHDM
+surelog	testflags	PackageFuncCall	E148,ELABUHDM
+surelog	testflags	PackageHierRef	
+surelog	testflags	PackageMemberTypespec	ELABUHDM
+surelog	testflags	PackageNet	ELABUHDM
+surelog	testflags	PackageOrder	
+surelog	testflags	PackageParam	ELABUHDM
+surelog	testflags	PackageParamConst	ELABUHDM
+surelog	testflags	PackageType	ELABUHDM
+surelog	testflags	PackageTypeParam	ELABUHDM
+surelog	testflags	PackageValue	ELABUHDM
+surelog	testflags	PackageVar	ELABUHDM,PATHBASE
+surelog	testflags	PackedArrayAssign	ELABUHDM
+surelog	testflags	PackedArrayBind	ELABUHDM
+surelog	testflags	PackedArrayEnum	ELABUHDM
+surelog	testflags	PackedArrayHierPath	ELABUHDM
+surelog	testflags	PackedArrayHighConn	ELABUHDM
+surelog	testflags	PackedArrayStruct	ELABUHDM
+surelog	testflags	PackedArrayTypespec	ELABUHDM
+surelog	testflags	PackedEnum	ELABUHDM
+surelog	testflags	PackedEnumPort	ELABUHDM
+surelog	testflags	PackedEnumVar	E148,ELABUHDM,TFARGTD
+surelog	testflags	PackedUnpackedIo	ELABUHDM
+surelog	testflags	ParamArray	ELABUHDM
+surelog	testflags	ParamArraySelect	ELABUHDM
+surelog	testflags	ParamArrayUnsizedPattern	ELABUHDM
+surelog	testflags	ParamBitSelect	ELABUHDM
+surelog	testflags	ParamByValue	ELABUHDM
+surelog	testflags	ParamCast	ELABUHDM
+surelog	testflags	ParamComplex	ELABUHDM
+surelog	testflags	ParamComplexVerilator	ELABUHDM
+surelog	testflags	ParamConcat	ELABUHDM
+surelog	testflags	ParamConst	ELABUHDM
+surelog	testflags	ParamConstPush	ELABUHDM
+surelog	testflags	ParamElab	ELABUHDM
+surelog	testflags	ParamElabMulti	ELABUHDM
+surelog	testflags	ParamEquivOp	ELABUHDM
+surelog	testflags	ParamFile	
+surelog	testflags	ParamFileMacro	
+surelog	testflags	ParamFileNoTop	
+surelog	testflags	ParamFileOverr	
+surelog	testflags	ParamFromPackage	ELABUHDM
+surelog	testflags	ParamInFunc	ELABUHDM
+surelog	testflags	ParamIndex	ELABUHDM
+surelog	testflags	ParamLine	
+surelog	testflags	ParamList	ELABUHDM
+surelog	testflags	ParamMultiConcat	ELABUHDM
+surelog	testflags	ParamNoDefault	ELABUHDM
+surelog	testflags	ParamNoImport	ELABUHDM
+surelog	testflags	ParamNoSubst	ELABUHDM
+surelog	testflags	ParamOverload1	ELABUHDM
+surelog	testflags	ParamOverload2	ELABUHDM
+surelog	testflags	ParamOverload3	E148,ELABUHDM,PATHBASE,TFARGTD
+surelog	testflags	ParamOverload4	ELABUHDM
+surelog	testflags	ParamOverloadProp	ELABUHDM
+surelog	testflags	ParamOverloading	ELABUHDM
+surelog	testflags	ParamRef	ELABUHDM
+surelog	testflags	ParamScope	ELABUHDM
+surelog	testflags	ParamSubstituteComplex	ELABUHDM
+surelog	testflags	ParamTypespec	ELABUHDM
+surelog	testflags	ParamTypespec2	ELABUHDM
+surelog	testflags	PartSelect3	ELABUHDM
+surelog	testflags	PartSelect4	ELABUHDM
+surelog	testflags	PartSelectElab	ELABUHDM
+surelog	testflags	PartSelectHier	ELABUHDM
+surelog	testflags	PartSelectHierPath	ELABUHDM
+surelog	testflags	PartSelectNoParent	ELABUHDM
+surelog	testflags	PartSelectParent	ELABUHDM
+surelog	testflags	PartSelectRange	ELABUHDM
+surelog	testflags	PatAssignOp	ELABUHDM
+surelog	testflags	PatternAssignInteger	ELABUHDM
+surelog	testflags	PatternAssignLogic	ELABUHDM
+surelog	testflags	PatternAssignment	ELABUHDM
+surelog	testflags	PatternOrder	ELABUHDM
+surelog	testflags	PkgImportFunc	ELABUHDM
+surelog	testflags	PkgImportPkg	ELABUHDM
+surelog	testflags	PortByName	ELABUHDM
+surelog	testflags	PortComplex	ELABUHDM
+surelog	testflags	PortDefaultValue	ELABUHDM
+surelog	testflags	PortExpr	ESCCOL,PORTEXPR
+surelog	testflags	PortInitVal	ELABUHDM,PORTINIT
+surelog	testflags	PortInitVal2	ELABUHDM,PORTINIT
+surelog	testflags	PortInterface	ELABUHDM
+surelog	testflags	PortMultiDim	ELABUHDM
+surelog	testflags	PortPackage	ELABUHDM
+surelog	testflags	PortRanges	ELABUHDM
+surelog	testflags	PortWildcard	ELABUHDM
+surelog	testflags	PoundDelay	ELABUHDM
+surelog	testflags	PoundDelayTask	ELABUHDM
+surelog	testflags	PoundParam	ELABUHDM
+surelog	testflags	PpLppdr	ELABUHDM
+surelog	testflags	PragmaProtect	
+surelog	testflags	PreProcDefine	ELABUHDM
+surelog	testflags	PreProcMacro	
+surelog	testflags	PreProcMacroFunc	ELABUHDM
+surelog	testflags	PreprocFunc	ELABUHDM
+surelog	testflags	PreprocLine	
+surelog	testflags	PreprocString	ELABUHDM
+surelog	testflags	PreprocTest	
+surelog	testflags	PreprocUhdmCov	E148,ELABUHDM
+surelog	testflags	PrimTermExpr	ELABUHDM
+surelog	testflags	ProcForLoop	ELABUHDM
+surelog	testflags	PropBinding	ELABUHDM
+surelog	testflags	RangeInf	ELABUHDM
+surelog	testflags	RangeSelect	ELABUHDM
+surelog	testflags	ReorderPatt	ELABUHDM
+surelog	testflags	RepeatStmt	ELABUHDM
+surelog	testflags	ReturnVal	ELABUHDM
+surelog	testflags	RewriteNonConstForLoopCond	ELABUHDM
+surelog	testflags	Rggen	E148,E2148,ESCCOL,PATHBASE,TFARGTD
+surelog	testflags	RiscV	E148,ESCCOL
+surelog	testflags	Rom	ELABUHDM
+surelog	testflags	SVSwitch	ESCCOL,PATHBASE,TFARGTD
+surelog	testflags	ScalarParam	ELABUHDM
+surelog	testflags	Scoreboard	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	Scr1	E148,ESCCOL,PATHBASE,TFARGTD
+surelog	testflags	Scr1SvTests	E148,ESCCOL,PATHBASE,TFARGTD
+surelog	testflags	SelectHierPath	ELABUHDM
+surelog	testflags	SelectSelect	ELABUHDM
+surelog	testflags	Selects	ELABUHDM
+surelog	testflags	SeqDriver	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	SeqUseNonTemp	ELABUHDM
+surelog	testflags	SequenceInst	ELABUHDM
+surelog	testflags	ShiftX	ELABUHDM
+surelog	testflags	SignedBin	ELABUHDM
+surelog	testflags	SignedBinConst	ELABUHDM
+surelog	testflags	SignedParam	ELABUHDM
+surelog	testflags	SignedPort	ELABUHDM
+surelog	testflags	SignedPort2	ELABUHDM
+surelog	testflags	SignedVsUnsignedPort	ELABUHDM
+surelog	testflags	SignedWire	ELABUHDM
+surelog	testflags	SimpleClass	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	SimpleClass1	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	SimpleClass2	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	SimpleCmdLineTest	
+surelog	testflags	SimpleConstraint	PATHBASE,TFARGTD
+surelog	testflags	SimpleIncludeAndMacros	ESCCOL
+surelog	testflags	SimpleInterface	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	SimpleOVM	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	SimpleParserTest	
+surelog	testflags	SimpleParserTestCache	
+surelog	testflags	SimpleTask	
+surelog	testflags	SimpleUVM	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	SimpleVMM	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	SimplifyHierPath	ELABUHDM
+surelog	testflags	Sky130Cell	
+surelog	testflags	Sky130Udp	
+surelog	testflags	SplitFile	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	StandardBlock	ELABUHDM
+surelog	testflags	StandardNetVar	ELABUHDM
+surelog	testflags	StaticTask	ELABUHDM
+surelog	testflags	StreamingOp	ELABUHDM
+surelog	testflags	StringConcat	ELABUHDM
+surelog	testflags	StringMethod	ELABUHDM
+surelog	testflags	StringParameter	ELABUHDM
+surelog	testflags	StringPort	ELABUHDM
+surelog	testflags	StringRange	E148,ELABUHDM
+surelog	testflags	StructAccess	ELABUHDM
+surelog	testflags	StructArrayNet	ELABUHDM
+surelog	testflags	StructNetUnionTypespec	ELABUHDM
+surelog	testflags	StructParamFieldRange	PATHBASE,TPSTRUCTKW
+surelog	testflags	StructParamFuncBodyFieldCompare	E148,PATHBASE,TPSTRUCTKW
+surelog	testflags	StructParamPatternInitCast	E148,PATHBASE,TPSTRUCTKW
+surelog	testflags	StructStructHierPath	ELABUHDM
+surelog	testflags	StructTypedef	ELABUHDM
+surelog	testflags	StructUnsizedVal	ELABUHDM
+surelog	testflags	StructVar	ELABUHDM
+surelog	testflags	StructVarImp	ELABUHDM
+surelog	testflags	SurelogMacro	ELABUHDM
+surelog	testflags	SynthFilterDollarError	ELABUHDM
+surelog	testflags	SynthForeach	ELABUHDM
+surelog	testflags	SystemCall	ELABUHDM
+surelog	testflags	SystemCallSize	ELABUHDM
+surelog	testflags	TNocBadType	ELABUHDM
+surelog	testflags	TaggedParam	ELABUHDM
+surelog	testflags	TaggedPattern	ELABUHDM
+surelog	testflags	TaggedPatternLogic	ELABUHDM
+surelog	testflags	TaskBind	ELABUHDM
+surelog	testflags	TaskDeclNoOrder	ELABUHDM
+surelog	testflags	TaskDeclTypes	ELABUHDM
+surelog	testflags	TaskDecls	ELABUHDM
+surelog	testflags	TaskProto	ELABUHDM
+surelog	testflags	TaskProtoDef	ELABUHDM
+surelog	testflags	Ternary	ELABUHDM
+surelog	testflags	TernaryAssoc	ELABUHDM
+surelog	testflags	TestBasic	
+surelog	testflags	TestBatchMode	
+surelog	testflags	TestFileSplit	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	TestMacros	ESCCOL
+surelog	testflags	TestNoHash	
+surelog	testflags	TestSepComp	
+surelog	testflags	TestSepCompBadPath	
+surelog	testflags	TestSepCompNoHash	
+surelog	testflags	TfCalls	
+surelog	testflags	ThisHier	ELABUHDM
+surelog	testflags	TimeUnit	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	Tnoc	E148,E2148,ESCCOL,MODARRBOUND,PATHBASE,TFARGTD,TPCALHS
+surelog	testflags	TopFunc	ELABUHDM
+surelog	testflags	TranslateOff	ELABUHDM
+surelog	testflags	TypeDefGenScope	ELABUHDM
+surelog	testflags	TypeDefScope	ELABUHDM
+surelog	testflags	TypeParam	ELABUHDM
+surelog	testflags	TypeParam2	TPCALHS
+surelog	testflags	TypeParamElab	ELABUHDM
+surelog	testflags	TypeParamOverride	ELABUHDM
+surelog	testflags	TypedefAlias	ELABUHDM
+surelog	testflags	TypedefPack	ELABUHDM
+surelog	testflags	TypedefRange	
+surelog	testflags	TypedefRangedFunctionReturn	E148,ELABUHDM
+surelog	testflags	TypedefUnpacked	
+surelog	testflags	Typename	ELABUHDM
+surelog	testflags	TypespecBits	ELABUHDM
+surelog	testflags	TypespecExpr	ELABUHDM
+surelog	testflags	TypespecMask	ELABUHDM
+surelog	testflags	UVMNestedSeq	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	UVMSwitch	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	Udp	ELABUHDM
+surelog	testflags	UhdmCoverage	ELABUHDM
+surelog	testflags	UnaryPlus	ELABUHDM
+surelog	testflags	UnboundForLoop	ELABUHDM
+surelog	testflags	UndersVal	ELABUHDM
+surelog	testflags	UnelabPack	ELABUHDM
+surelog	testflags	UnionCast	E148,ELABUHDM,TFARGTD
+surelog	testflags	Unisim	E148,E2148,ESCCOL,MODARRBOUND
+surelog	testflags	UnitAmiqEth	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	UnitClass	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	UnitConcat	
+surelog	testflags	UnitDefParam	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	UnitElab	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	UnitElabBlock	CLSTDPKG,E148,ELABUHDM,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	UnitElabExternNested	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	UnitEnum	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	UnitForLoop	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	UnitForeach	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	UnitLibrary	
+surelog	testflags	UnitPackage	ELABUHDM
+surelog	testflags	UnitPartSelect	ELABUHDM
+surelog	testflags	UnitQueue	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	UnitSVA	ELABUHDM
+surelog	testflags	UnitSimpleIncludeAndMacros	ESCCOL
+surelog	testflags	UnitTest	CLSTDPKG,E148,ELABUHDM,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	UnitThisNew	ELABUHDM,PATHBASE
+surelog	testflags	UnpackPort	ELABUHDM
+surelog	testflags	UnpackedTypespec	ELABUHDM
+surelog	testflags	UnsizeConstExpr	ELABUHDM
+surelog	testflags	Unsized	ELABUHDM
+surelog	testflags	UnsizedArray	ELABUHDM
+surelog	testflags	UnsizedConstInst	ELABUHDM
+surelog	testflags	UnsizedElabComp	ELABUHDM
+surelog	testflags	UnsizedFunc	E148,E2148,ELABUHDM,I148
+surelog	testflags	UnsizedLiteral1	ELABUHDM
+surelog	testflags	UnsizedLiteral2	ELABUHDM
+surelog	testflags	UnsizedPacked	ELABUHDM
+surelog	testflags	UnsizedParam	ELABUHDM
+surelog	testflags	UnsupportedTypespecRange	ELABUHDM
+surelog	testflags	UtdSV	ESCCOL,MODARRBOUND,PORTINIT
+surelog	testflags	Value4States	ELABUHDM
+surelog	testflags	ValueSize	ELABUHDM
+surelog	testflags	Values	ELABUHDM
+surelog	testflags	VarDecl	ELABUHDM
+surelog	testflags	VarDecl2	ELABUHDM
+surelog	testflags	VarInFunc	E148,ELABUHDM
+surelog	testflags	VarRangeTypedef	ELABUHDM
+surelog	testflags	VarSelect	ELABUHDM
+surelog	testflags	VarSelectGenStmt	ELABUHDM
+surelog	testflags	VarType	ELABUHDM
+surelog	testflags	Verilator	CASTKEYFILE,E148,E2148,ESCCOL,MODARRBOUND,PATHBASE,PORTINIT,TFARGTD
+surelog	testflags	VirtualClass	CLSTDPKG,ELABUHDM
+surelog	testflags	VoidFuncReturn	ELABUHDM
+surelog	testflags	Wand	ELABUHDM
+surelog	testflags	WildConn	ELABUHDM
+surelog	testflags	WireLogicSize	ELABUHDM
+surelog	testflags	WireType	ELABUHDM
+surelog	testflags	WireUnpacked	ELABUHDM
+surelog	testflags	XValue	ELABUHDM
+surelog	testflags	Yosys	E148,E2148,ESCCOL,PATHBASE,PORTINIT
+surelog	testflags	YosysBigSimAes	E148,ESCCOL
+surelog	testflags	YosysBigSimAmber23	E148,ESCCOL,PORTEXPR,PORTINIT
+surelog	testflags	YosysBigSimLm32	E148,PATHBASE
+surelog	testflags	YosysBigSimOpenMsp	E148
+surelog	testflags	YosysBigSimPong	ESCCOL
+surelog	testflags	YosysBigSimReed	
+surelog	testflags	YosysBigSimSoft	
+surelog	testflags	YosysCam	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	YosysDsp	CLSTDPKG,E148,E2148,ELABUHDM,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	YosysEth	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	YosysIce40	CLSTDPKG,E148,E2148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	YosysMarlann	CLSTDPKG,E148,ESCCOL,I148,MODARRBOUND,PATHBASE,TFARGTD
+surelog	testflags	YosysOldAes	E148,ESCCOL
+surelog	testflags	YosysOldI2c	ESCCOL
+surelog	testflags	YosysOldOpen	E148,ESCCOL
+surelog	testflags	YosysOldOr	E148,ESCCOL
+surelog	testflags	YosysOldSasc	ESCCOL
+surelog	testflags	YosysOldSimpleSpi	ESCCOL
+surelog	testflags	YosysOldSpi	ESCCOL
+surelog	testflags	YosysOldSsPcm	ESCCOL
+surelog	testflags	YosysOldSystem	ESCCOL
+surelog	testflags	YosysOldUsb	
+surelog	testflags	YosysRiscv	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	YosysSmall	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	YosysTestSuite	E148,E2148,ESCCOL,PATHBASE,PORTINIT
+surelog	testflags	YosysTests	E148,E2148,ESCCOL,TFARGTD
+surelog	testflags	YosysVerx	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+surelog	testflags	Zachjs	E148,ESCCOL,PATHBASE,TFARGTD
+surelog	testflags	rp32	E148,E2148,ELABUHDM,PATHBASE,TFARGTD
+uhdm2rtlil	default	1DUnpackedArray	ESCCOL,PATHBASE
+uhdm2rtlil	default	2DFunctionArg	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	2DParameterOfInstance	ESCCOL,PATHBASE
+uhdm2rtlil	default	2DUnpackedArray	ESCCOL,PATHBASE
+uhdm2rtlil	default	2DUnpackedFunctionArgument	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	2DeclarationsInFor	PATHBASE
+uhdm2rtlil	default	AdditionAsParameterInInstance	ESCCOL,PATHBASE
+uhdm2rtlil	default	AluOps	ESCCOL,PATHBASE
+uhdm2rtlil	default	AnonStructs	PATHBASE
+uhdm2rtlil	default	AnonymousEnum	PATHBASE
+uhdm2rtlil	default	AnonymousUnion	PATHBASE
+uhdm2rtlil	default	ArithShiftTernary	PATHBASE
+uhdm2rtlil	default	ArrayInit	PATHBASE
+uhdm2rtlil	default	ArraySize	PATHBASE
+uhdm2rtlil	default	AssignArraySelPlus	ESCCOL,PATHBASE
+uhdm2rtlil	default	AssignBitSelectPartSelect	PATHBASE
+uhdm2rtlil	default	AssignBitsCallToSubmoduleParameter	ESCCOL,PATHBASE
+uhdm2rtlil	default	AssignGeneratedWireInAlways	ESCCOL,PATHBASE
+uhdm2rtlil	default	AssignSizeOfVar	PATHBASE
+uhdm2rtlil	default	AssignSumOfConstants	PATHBASE
+uhdm2rtlil	default	AssignSumOfConstantsInSubmodule	PATHBASE
+uhdm2rtlil	default	AssignSumWithParameter	PATHBASE
+uhdm2rtlil	default	AssignSumWithParameterInSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	default	AssignToUnionAndReadField	PATHBASE
+uhdm2rtlil	default	AssignToUnpackedUnionFieldAndReadOtherField	PATHBASE
+uhdm2rtlil	default	AssignTypedefedFunctionCall	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	AssignmentPattern	ESCCOL,PATHBASE
+uhdm2rtlil	default	AssignmentPatternArrayPort	PATHBASE
+uhdm2rtlil	default	AssignmentToConcatenation	ESCCOL,PATHBASE
+uhdm2rtlil	default	AssignmentToConcatenationWithSelect	PATHBASE
+uhdm2rtlil	default	BindModule	PATHBASE
+uhdm2rtlil	default	BindModuleWithInputPorts	PATHBASE
+uhdm2rtlil	default	BindModuleWithInputPortsInGenScope	PATHBASE
+uhdm2rtlil	default	BindModuleWithOutputPorts	PATHBASE
+uhdm2rtlil	default	BitSelect	ESCCOL,PATHBASE
+uhdm2rtlil	default	BitSelect2ndBitOfPattern	ESCCOL,PATHBASE
+uhdm2rtlil	default	BitSelectOfParameterPassedToSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	default	BitSelectOfParameterPassedToSubmoduleInGenFor	ESCCOL,PATHBASE
+uhdm2rtlil	default	BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	default	BitSelectPartSelectInFunction	E148,PATHBASE
+uhdm2rtlil	default	BitsCallOnExpression	PATHBASE
+uhdm2rtlil	default	BitsCallOnParametetrizedTypeFromPackage	PATHBASE
+uhdm2rtlil	default	BitsCallOnStructMember	ESCCOL,PATHBASE
+uhdm2rtlil	default	BitsCallOnSubArray	PATHBASE
+uhdm2rtlil	default	BitsCallOnType	PATHBASE
+uhdm2rtlil	default	BitsCallOnVar	PATHBASE
+uhdm2rtlil	default	Break	PATHBASE
+uhdm2rtlil	default	BreakContinue	PATHBASE
+uhdm2rtlil	default	BreakContinueWhile	PATHBASE
+uhdm2rtlil	default	BreakNested	PATHBASE
+uhdm2rtlil	default	BreakWhile	PATHBASE
+uhdm2rtlil	default	CaseInside	ESCCOL,PATHBASE
+uhdm2rtlil	default	CaseWithGeneratedWire	ESCCOL,PATHBASE
+uhdm2rtlil	default	Casezx	ESCCOL,PATHBASE
+uhdm2rtlil	default	CastClog2	PATHBASE
+uhdm2rtlil	default	CastClog2ToMinimalSizeOfParamValue	PATHBASE
+uhdm2rtlil	default	CastClog2ToMinimalSizeOfParamValueFromCommandLine	PATHBASE
+uhdm2rtlil	default	CastExpression	PATHBASE
+uhdm2rtlil	default	CastInFunctionInGenBlock	E148,PATHBASE
+uhdm2rtlil	default	CastInFunctionToParameterWidth	E148,PATHBASE
+uhdm2rtlil	default	CastLogic	PATHBASE
+uhdm2rtlil	default	CastSize	PATHBASE
+uhdm2rtlil	default	CastStruct	PATHBASE
+uhdm2rtlil	default	CastStructArray	ESCCOL,PATHBASE
+uhdm2rtlil	default	CastToSumOfConstants	PATHBASE
+uhdm2rtlil	default	CastToSumWithParameterIn2InstancesOfSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	default	CastToSumWithParameterInSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	default	CastWidthFromPackage	PATHBASE
+uhdm2rtlil	default	CellNamedLikeModule	ESCCOL,PATHBASE
+uhdm2rtlil	default	Clog2OfSumWithParameterIn2InstancesOfSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	default	ClogOfParamOfInstanceInitializedByStructMember	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	default	ConcatWidth	PATHBASE
+uhdm2rtlil	default	ConstSizes	PATHBASE
+uhdm2rtlil	default	Continue	PATHBASE
+uhdm2rtlil	default	ContinueNested	PATHBASE
+uhdm2rtlil	default	ContinueWhile	PATHBASE
+uhdm2rtlil	default	CppMacroNameAsVariableName	PATHBASE
+uhdm2rtlil	default	DeclarationInFor	PATHBASE
+uhdm2rtlil	default	Disable	PATHBASE
+uhdm2rtlil	default	DisplayWithBinFormatSpecifier	ESCCOL,PATHBASE
+uhdm2rtlil	default	DisplayWithHexFormatSpecifier	ESCCOL,PATHBASE
+uhdm2rtlil	default	DivisionOfSize	PATHBASE
+uhdm2rtlil	default	DotMultirange	PATHBASE
+uhdm2rtlil	default	DotRange	ESCCOL,PATHBASE
+uhdm2rtlil	default	DpiChandle	PATHBASE
+uhdm2rtlil	default	EmptyTask	PATHBASE
+uhdm2rtlil	default	EnumArray	PATHBASE
+uhdm2rtlil	default	EnumArrayListedElements	PATHBASE
+uhdm2rtlil	default	EnumBases	PATHBASE
+uhdm2rtlil	default	EnumConcat	ESCCOL,PATHBASE
+uhdm2rtlil	default	EnumConcatenatedConst	PATHBASE
+uhdm2rtlil	default	EnumConstX	PATHBASE
+uhdm2rtlil	default	EnumFirst	PATHBASE
+uhdm2rtlil	default	EnumFirstInInitial	PATHBASE
+uhdm2rtlil	default	EnumInPackage	PATHBASE
+uhdm2rtlil	default	EnumMultirange	PATHBASE,TFARGTD
+uhdm2rtlil	default	EnumParameterInNestedModules	ESCCOL,PATHBASE
+uhdm2rtlil	default	EnumVariantInPackage	ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	default	EnumWidth	PATHBASE
+uhdm2rtlil	default	EscapedIdentifiersInHierPath	ESCCOL,PATHBASE
+uhdm2rtlil	default	ExpressionInIndex	ESCCOL,PATHBASE
+uhdm2rtlil	default	FileLevelParameter	PATHBASE
+uhdm2rtlil	default	FileLevelUnionWithMultirange	ESCCOL,PATHBASE
+uhdm2rtlil	default	Forever	PATHBASE
+uhdm2rtlil	default	Fork	PATHBASE
+uhdm2rtlil	default	ForkJoinTypes	PATHBASE
+uhdm2rtlil	default	Function2Returns	PATHBASE
+uhdm2rtlil	default	FunctionCallsFunctionWithIndexedPartSelectAsArgument	E148,PATHBASE
+uhdm2rtlil	default	FunctionColonReference	PATHBASE
+uhdm2rtlil	default	FunctionExportDPI	PATHBASE
+uhdm2rtlil	default	FunctionOnDesignLevel	PATHBASE
+uhdm2rtlil	default	FunctionOutputArgument	ESCCOL,PATHBASE
+uhdm2rtlil	default	FunctionParam	E148,PATHBASE
+uhdm2rtlil	default	FunctionReturnEnum	E148,PATHBASE,TFARGTD
+uhdm2rtlil	default	FunctionWireAssignmentOnDeclaration	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	FunctionWithOverriddenParameter	ESCCOL,PATHBASE
+uhdm2rtlil	default	FunctionWithoutReturn	PATHBASE
+uhdm2rtlil	default	GenIfInside	PATHBASE
+uhdm2rtlil	default	GenScopeFunction	PATHBASE
+uhdm2rtlil	default	GetC	PATHBASE
+uhdm2rtlil	default	ImportFunction	PATHBASE
+uhdm2rtlil	default	ImportPackageWithFunction	PATHBASE
+uhdm2rtlil	default	ImportParametrizedTypeAndDeclareParamWithTheSameName	PATHBASE
+uhdm2rtlil	default	ImportTypeOfPort	PATHBASE
+uhdm2rtlil	default	ImportedDoubleCastedParameter	PATHBASE
+uhdm2rtlil	default	ImportedEnumCast	PATHBASE
+uhdm2rtlil	default	ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor	PATHBASE
+uhdm2rtlil	default	ImportedFunctionCallInModuleAndSubmodule	PATHBASE
+uhdm2rtlil	default	ImportedFunctionUsesAnotherFunction	PATHBASE
+uhdm2rtlil	default	ImportedPackageEnumItemInInterface	ESCCOL,PATHBASE
+uhdm2rtlil	default	ImportedParameter	PATHBASE
+uhdm2rtlil	default	IndexedPartSelect	PATHBASE
+uhdm2rtlil	default	IndexedPartSelectInFor	ESCCOL,PATHBASE
+uhdm2rtlil	default	IndexedPartSelectInUniqueCase	PATHBASE
+uhdm2rtlil	default	IndexedPartSelectOfArrayElement	ESCCOL,PATHBASE
+uhdm2rtlil	default	IndexedPartSelectOfMember	PATHBASE
+uhdm2rtlil	default	InterfaceAlways	ESCCOL,PATHBASE
+uhdm2rtlil	default	InterfaceAsPort	ESCCOL,PATHBASE
+uhdm2rtlil	default	InterfaceAsPortAssignValueInSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	default	InterfaceAssign	ESCCOL,PATHBASE
+uhdm2rtlil	default	InterfaceInitial	ESCCOL,PATHBASE
+uhdm2rtlil	default	InterfaceParameter	ESCCOL,PATHBASE
+uhdm2rtlil	default	InterfaceParameterSetValue	ESCCOL,PATHBASE
+uhdm2rtlil	default	InterfaceVariable	ESCCOL,PATHBASE
+uhdm2rtlil	default	InterfaceWithPort	ESCCOL,PATHBASE
+uhdm2rtlil	default	LargeModuleParameter	
+uhdm2rtlil	default	LocalParamInNestedForLoops	E2148,PATHBASE
+uhdm2rtlil	default	LocalParamSelect	PATHBASE
+uhdm2rtlil	default	LogicPackedArray	ESCCOL,PATHBASE
+uhdm2rtlil	default	Longint	PATHBASE
+uhdm2rtlil	default	MemberSelectOf2DStructPackedArray	PATHBASE
+uhdm2rtlil	default	MemoryInGenblock	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	default	MemoryPort	ESCCOL,PATHBASE
+uhdm2rtlil	default	MemorySlice	ESCCOL,PATHBASE
+uhdm2rtlil	default	MixedPatterns	ESCCOL,PATHBASE
+uhdm2rtlil	default	ModuleAlways	PATHBASE
+uhdm2rtlil	default	ModuleInstantiationAndIndirectParams	E2148,PATHBASE
+uhdm2rtlil	default	ModuleUsingStuctInput	PATHBASE
+uhdm2rtlil	default	MonitorInputPort	PATHBASE
+uhdm2rtlil	default	MultiAssignmentPatternOfConcat	ESCCOL,PATHBASE
+uhdm2rtlil	default	MultipleAssignments	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	default	MultipleCells	ESCCOL,PATHBASE
+uhdm2rtlil	default	MultipleNets	ESCCOL,PATHBASE
+uhdm2rtlil	default	MultiplePrints	PATHBASE
+uhdm2rtlil	default	MultirangesStartNotFromZero	PATHBASE
+uhdm2rtlil	default	NegationAsParameterOfInstance	ESCCOL,PATHBASE
+uhdm2rtlil	default	NegationOfParameterInInstance	ESCCOL,PATHBASE
+uhdm2rtlil	default	NegationOfPatternParameter	PATHBASE
+uhdm2rtlil	default	NegationOfPatternParameterInInstance	ESCCOL,PATHBASE
+uhdm2rtlil	default	NestedCallsOfTheSameFunction	PATHBASE
+uhdm2rtlil	default	NestedForLoops	PATHBASE
+uhdm2rtlil	default	NestedGenscopesInModuleWithMultidimensionalPorts	ESCCOL,PATHBASE
+uhdm2rtlil	default	NestedParamSubstitution	ESCCOL,PATHBASE
+uhdm2rtlil	default	NestedPatternPassedAsPort	ESCCOL,PATHBASE
+uhdm2rtlil	default	NestedSelectOnInputPortInGenscope	ESCCOL,PATHBASE
+uhdm2rtlil	default	NestedSelectOnVarInGenscope	ESCCOL,PATHBASE
+uhdm2rtlil	default	NestedStructArrayParameterInitializedByPatternPassedAsPort	ESCCOL,PATHBASE
+uhdm2rtlil	default	OneAlwaysComb	ESCCOL,PATHBASE
+uhdm2rtlil	default	OneArithShift	PATHBASE
+uhdm2rtlil	default	OneCast	PATHBASE
+uhdm2rtlil	default	OneClass	PATHBASE
+uhdm2rtlil	default	OneConcat	PATHBASE
+uhdm2rtlil	default	OneImport	ESCCOL,PATHBASE
+uhdm2rtlil	default	OneInside	ESCCOL,PATHBASE
+uhdm2rtlil	default	OneNetModport	ESCCOL,PATHBASE
+uhdm2rtlil	default	OnePackage	ESCCOL,PATHBASE
+uhdm2rtlil	default	OneReplicate	PATHBASE
+uhdm2rtlil	default	OneShift	PATHBASE
+uhdm2rtlil	default	OneStruct	ESCCOL,PATHBASE
+uhdm2rtlil	default	OneSysFunc	PATHBASE
+uhdm2rtlil	default	OneThis	E148,PATHBASE
+uhdm2rtlil	default	OutputSizeWithParameterOfInstanceInitializedByStructMember	ESCCOL,PATHBASE
+uhdm2rtlil	default	PackageCast	ESCCOL,PATHBASE
+uhdm2rtlil	default	PackedArray	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterColonReference	PATHBASE
+uhdm2rtlil	default	ParameterConditionalAssignment	PATHBASE
+uhdm2rtlil	default	ParameterDoubleUnderscoreInSvFrontend	PATHBASE
+uhdm2rtlil	default	ParameterFromPkgInNestedModule	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterFromPkgOnParameterPortList	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterInGenScopeInitializedWithLongConstant	E2148,PATHBASE
+uhdm2rtlil	default	ParameterInitializationWithNegation	E2148,PATHBASE
+uhdm2rtlil	default	ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope	PATHBASE
+uhdm2rtlil	default	ParameterInitializedByPartSelectOfParameters	E2148,PATHBASE
+uhdm2rtlil	default	ParameterInitializedByPartSelectOfParametersAssignedToVar	E2148,PATHBASE
+uhdm2rtlil	default	ParameterInitializedInSubModuleOfTopOf5LevelHierarchy	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterInitializedInTopOf5LevelHierarchy	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamInTheMiddle	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamOfDifferentTypeInTheMiddle	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterOfParametrizedType	PATHBASE
+uhdm2rtlil	default	ParameterOfParametrizedTypeInSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterOfSizeOfParametrizedPort	PATHBASE
+uhdm2rtlil	default	ParameterOfSizeOfParametrizedPortInSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterOfSizeOfPort	PATHBASE
+uhdm2rtlil	default	ParameterPackedArray	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterPackedArraySurelogSubstitution	PATHBASE
+uhdm2rtlil	default	ParameterPassedTo3TimesNestedSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterPassedToSubmoduleInGenscopeOfSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterPassedToSubmoduleOfSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterRangeUsingDot	PATHBASE
+uhdm2rtlil	default	ParameterSizeOfInstance	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterUnpackedArray	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterUnpackedLogicArray	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterUnsignedInt	PATHBASE
+uhdm2rtlil	default	ParameterWithUnderscoreValue	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterWithUnderscoreValueDivided	ESCCOL,PATHBASE
+uhdm2rtlil	default	ParameterWithUnderscoreValueDividedPassedFromCommandLine	PATHBASE
+uhdm2rtlil	default	PartSelect	PATHBASE
+uhdm2rtlil	default	PartSelectInFor	ESCCOL,PATHBASE
+uhdm2rtlil	default	PartSelectOfMember	PATHBASE
+uhdm2rtlil	default	PartSelectOfPartSelectedBitSelect	PATHBASE
+uhdm2rtlil	default	PatternAsFunctionArgument	E148,PATHBASE
+uhdm2rtlil	default	PatternAsParameterOfInstance	ESCCOL,PATHBASE
+uhdm2rtlil	default	PatternAssignmentOfStructParam	ESCCOL,PATHBASE
+uhdm2rtlil	default	PatternDefault	PATHBASE
+uhdm2rtlil	default	PatternInFunction	E148,PATHBASE
+uhdm2rtlil	default	PatternIndexes	PATHBASE
+uhdm2rtlil	default	PatternParameterInSubmodule	PATHBASE
+uhdm2rtlil	default	PatternStruct	ESCCOL,PATHBASE
+uhdm2rtlil	default	PatternType	ESCCOL,PATHBASE
+uhdm2rtlil	default	PkgParamAsFunctionArg	E148,PATHBASE
+uhdm2rtlil	default	PutC	PATHBASE
+uhdm2rtlil	default	ReadmemhInGenblock	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	default	RealValue	PATHBASE
+uhdm2rtlil	default	ReferencedPackageParameterInEnum	PATHBASE
+uhdm2rtlil	default	Repeat	PATHBASE
+uhdm2rtlil	default	Replication	PATHBASE
+uhdm2rtlil	default	ReplicationPassedToInstance	ESCCOL,PATHBASE
+uhdm2rtlil	default	ReturnEnumArray	E148,PATHBASE,TFARGTD
+uhdm2rtlil	default	ReturnFunctionCall	PATHBASE
+uhdm2rtlil	default	SelectFromUnpackedInFunction	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	SelectGivenBySelectOnParameterInFunction	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	SelectOnMemberSelectedFrom2DArray	PATHBASE
+uhdm2rtlil	default	SelfPartSelectInBitSelect	PATHBASE
+uhdm2rtlil	default	SelfSelectsInBitSelectAfterBitSelect	PATHBASE
+uhdm2rtlil	default	ShiftTernary	PATHBASE
+uhdm2rtlil	default	Shortint	PATHBASE
+uhdm2rtlil	default	Shortreal	PATHBASE
+uhdm2rtlil	default	SignedWire	PATHBASE
+uhdm2rtlil	default	SizeOfGeneratedWireArray	ESCCOL,PATHBASE
+uhdm2rtlil	default	SizeOfUnsignedParameter	PATHBASE
+uhdm2rtlil	default	StreamOp	PATHBASE
+uhdm2rtlil	default	StreamOpImplicitSliceSize	PATHBASE
+uhdm2rtlil	default	StreamOpInitialAlways	ESCCOL,PATHBASE
+uhdm2rtlil	default	StreamOperatorBitReverseFunction	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	StringAssignConcatenation	PATHBASE
+uhdm2rtlil	default	StringAssignment	PATHBASE
+uhdm2rtlil	default	StringLocalParamInitByConcatenation	E2148,PATHBASE
+uhdm2rtlil	default	StringWithBackslash	ESCCOL,PATHBASE
+uhdm2rtlil	default	StructArrayParameterInitializedByPatternPassedAsPort	ESCCOL,PATHBASE
+uhdm2rtlil	default	StructInPackage	PATHBASE
+uhdm2rtlil	default	StructLocalParam	PATHBASE
+uhdm2rtlil	default	StructMemberAsModuleInput	ESCCOL,PATHBASE
+uhdm2rtlil	default	StructOfArrayOfStructs	ESCCOL,PATHBASE
+uhdm2rtlil	default	StructPackedArray	PATHBASE
+uhdm2rtlil	default	StructPackedOutput	PATHBASE
+uhdm2rtlil	default	StructParameter	PATHBASE
+uhdm2rtlil	default	StructParameterInGenScope	PATHBASE
+uhdm2rtlil	default	StructParameterInitializedWithPatternAndReferenced	PATHBASE
+uhdm2rtlil	default	SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule	ESCCOL,PATHBASE
+uhdm2rtlil	default	SumOfParameters	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	default	SumOfParametersInNestedForLoops	E2148,PATHBASE
+uhdm2rtlil	default	SystemFunctions	ESCCOL,PATHBASE
+uhdm2rtlil	default	TaskExportDPI	ESCCOL,PATHBASE
+uhdm2rtlil	default	TaskImportDPI	ESCCOL,PATHBASE
+uhdm2rtlil	default	TaskOutputArgument	ESCCOL,PATHBASE
+uhdm2rtlil	default	TaskReturn	ESCCOL,PATHBASE
+uhdm2rtlil	default	TypeParameterAsPortTypeWithEnum	PATHBASE
+uhdm2rtlil	default	TypeParameterAsPortTypeWithEnumOfParametrizedWidth	PATHBASE
+uhdm2rtlil	default	TypeParameterAsPortTypeWithLogic	PATHBASE
+uhdm2rtlil	default	TypeParameterAsPortTypeWithLogicAnonymous	ESCCOL,PATHBASE
+uhdm2rtlil	default	TypeParameterAsPortTypeWithStruct	ESCCOL,PATHBASE
+uhdm2rtlil	default	TypedefAlias	ESCCOL,PATHBASE
+uhdm2rtlil	default	TypedefAliasInPackage	ESCCOL,PATHBASE
+uhdm2rtlil	default	TypedefEnum	ESCCOL,PATHBASE
+uhdm2rtlil	default	TypedefInModule	ESCCOL,PATHBASE
+uhdm2rtlil	default	TypedefInModulePort	ESCCOL,PATHBASE
+uhdm2rtlil	default	TypedefOnFileLevel	ESCCOL,PATHBASE
+uhdm2rtlil	default	TypedefPackedDimensions	ESCCOL,PATHBASE
+uhdm2rtlil	default	TypedefStructArray	PATHBASE
+uhdm2rtlil	default	TypedefStructParamWithRangeInSubmodule	PATHBASE
+uhdm2rtlil	default	TypedefVariableDimensions	ESCCOL,PATHBASE
+uhdm2rtlil	default	TypedefWithParameter	ESCCOL,PATHBASE
+uhdm2rtlil	default	TypedefedFunctionArgument	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	TypedefedFunctionReturn	E148,PATHBASE
+uhdm2rtlil	default	TypedefedRangedFunctionArgument	E148,PATHBASE
+uhdm2rtlil	default	TypedefedRangedFunctionReturn	E148,PATHBASE
+uhdm2rtlil	default	UnionCustomTypeMultirange	ESCCOL,PATHBASE
+uhdm2rtlil	default	UnionInPackageWithMultirange	PATHBASE
+uhdm2rtlil	default	UnionInsideStruct	ESCCOL,PATHBASE
+uhdm2rtlil	default	UnionParameter	ESCCOL,PATHBASE
+uhdm2rtlil	default	UnitForLoop	PATHBASE
+uhdm2rtlil	default	UnpackedArray	PATHBASE
+uhdm2rtlil	default	UnsizedConst	ESCCOL,PATHBASE
+uhdm2rtlil	default	UnsizedConstant	ESCCOL,PATHBASE
+uhdm2rtlil	default	UnsizedConstantParameter	ESCCOL,PATHBASE
+uhdm2rtlil	default	UnsizedConstantParameterInInstance	ESCCOL,PATHBASE
+uhdm2rtlil	default	UnsizedConstantsParameterParsing	PATHBASE
+uhdm2rtlil	default	UnsizedConstantsParsing	PATHBASE
+uhdm2rtlil	default	VarInFor	PATHBASE
+uhdm2rtlil	default	VarPassedTo2Submodules	ESCCOL,PATHBASE
+uhdm2rtlil	default	VarSelect	PATHBASE
+uhdm2rtlil	default	VoidFunction	PATHBASE
+uhdm2rtlil	default	VoidFunction2Returns	ESCCOL,PATHBASE
+uhdm2rtlil	default	VoidFunctionWithoutReturn	PATHBASE
+uhdm2rtlil	default	WireNotStartingFromZero	PATHBASE
+uhdm2rtlil	default	add_sub_bind_if	ESCCOL,PATHBASE
+uhdm2rtlil	default	adff	ESCCOL,PATHBASE
+uhdm2rtlil	default	adffn	ESCCOL,PATHBASE
+uhdm2rtlil	default	aes_kexp128	ESCCOL,PATHBASE
+uhdm2rtlil	default	allconst_attr	ESCCOL,PATHBASE
+uhdm2rtlil	default	allseq_attr	ESCCOL,PATHBASE
+uhdm2rtlil	default	alu_sub	ESCCOL,PATHBASE
+uhdm2rtlil	default	always01	ESCCOL,PATHBASE
+uhdm2rtlil	default	always02	ESCCOL,PATHBASE
+uhdm2rtlil	default	always03	ESCCOL,PATHBASE
+uhdm2rtlil	default	anon_struct_packed_dim	
+uhdm2rtlil	default	anyconst_attr	ESCCOL,PATHBASE
+uhdm2rtlil	default	anyseq_attr	ESCCOL,PATHBASE
+uhdm2rtlil	default	arb_idx_cast	ESCCOL,PATHBASE,TPCALHS
+uhdm2rtlil	default	array-copy	ESCCOL,PATHBASE
+uhdm2rtlil	default	array_assign	ESCCOL,PATHBASE
+uhdm2rtlil	default	array_default_init	ESCCOL,PATHBASE
+uhdm2rtlil	default	array_init_2d	PATHBASE
+uhdm2rtlil	default	arraycells	ESCCOL,PATHBASE
+uhdm2rtlil	default	arrays01	ESCCOL,PATHBASE
+uhdm2rtlil	default	arrays03	ESCCOL,PATHBASE
+uhdm2rtlil	default	asgn_binop	ESCCOL,PATHBASE
+uhdm2rtlil	default	asgn_expr	PATHBASE
+uhdm2rtlil	default	asgn_expr2	ESCCOL,PATHBASE
+uhdm2rtlil	default	asgn_expr_sv	ESCCOL,PATHBASE
+uhdm2rtlil	default	asicworld_clk_div_45	ESCCOL,PATHBASE
+uhdm2rtlil	default	asicworld_serial_crc	ESCCOL,PATHBASE
+uhdm2rtlil	default	assert_wide_const_cond	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	default	assignment-pattern	ESCCOL,PATHBASE
+uhdm2rtlil	default	asym_ram_sdp_read_wider	E148,E2148,ESCCOL,PATHBASE
+uhdm2rtlil	default	asym_ram_sdp_write_wider	E148,E2148,ESCCOL,PATHBASE
+uhdm2rtlil	default	async_reset_partsel	ESCCOL,PATHBASE
+uhdm2rtlil	default	bind_hier	ESCCOL,PATHBASE
+uhdm2rtlil	default	bind_toplevel	ESCCOL,PATHBASE
+uhdm2rtlil	default	bits_of_type_param	TPCALHS
+uhdm2rtlil	default	bitwise_operations	ESCCOL,PATHBASE
+uhdm2rtlil	default	bitwise_operations_reverted_range	ESCCOL,PATHBASE
+uhdm2rtlil	default	blocking_temp_ff	ESCCOL,PATHBASE
+uhdm2rtlil	default	blocking_temp_select	ESCCOL,PATHBASE
+uhdm2rtlil	default	blocklocal_struct_width	ESCCOL,PATHBASE
+uhdm2rtlil	default	blockrom	ESCCOL,PATHBASE
+uhdm2rtlil	default	carryadd	ESCCOL,PATHBASE
+uhdm2rtlil	default	case_default_first	ESCCOL,PATHBASE
+uhdm2rtlil	default	case_expr_const	PATHBASE
+uhdm2rtlil	default	case_expr_extend	PATHBASE
+uhdm2rtlil	default	case_expr_non_const	PATHBASE
+uhdm2rtlil	default	case_expr_query	PATHBASE
+uhdm2rtlil	default	cdc_static_basic	ESCCOL,PATHBASE
+uhdm2rtlil	default	cfg_func_width_loop	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	clk2fflogic_effects	ESCCOL,PATHBASE
+uhdm2rtlil	default	code_hdl_models_decoder_2to4_gates	ESCCOL,PATHBASE
+uhdm2rtlil	default	code_hdl_models_parallel_crc	ESCCOL,PATHBASE
+uhdm2rtlil	default	code_tidbits_fsm_using_function	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	comb_2d_bitsel	ESCCOL,PATHBASE
+uhdm2rtlil	default	comb_array_next_state	ESCCOL,PATHBASE
+uhdm2rtlil	default	comb_dead_guard_latch	CLSTDPKG,ESCCOL,PATHBASE
+uhdm2rtlil	default	comb_dyn_2d_packed_sel	
+uhdm2rtlil	default	comb_flag_after_case	
+uhdm2rtlil	default	comb_if_both_arms_value	ESCCOL,PATHBASE
+uhdm2rtlil	default	comb_local_index_fold	ESCCOL,PATHBASE
+uhdm2rtlil	default	comb_local_init_latch	
+uhdm2rtlil	default	comb_loop_compound_incr	ESCCOL,PATHBASE
+uhdm2rtlil	default	comb_loop_local_latch	ESCCOL,PATHBASE
+uhdm2rtlil	default	comb_partial_struct_write	ESCCOL,PATHBASE
+uhdm2rtlil	default	comb_partsel_after_struct_assign	ESCCOL
+uhdm2rtlil	default	comb_reduction_accumulator	ESCCOL,PATHBASE
+uhdm2rtlil	default	compound_assignments	PATHBASE
+uhdm2rtlil	default	concat_lhs_signext	ESCCOL,PATHBASE
+uhdm2rtlil	default	conditional_if	PATHBASE
+uhdm2rtlil	default	conditional_if_else	PATHBASE
+uhdm2rtlil	default	const_arg_loop	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	const_ashift	PATHBASE
+uhdm2rtlil	default	const_cast_signext	E148,PATHBASE
+uhdm2rtlil	default	const_fold_func	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	const_func	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	const_func_block_var	E148,E2148,PATHBASE
+uhdm2rtlil	default	const_func_shadow	E148,PATHBASE
+uhdm2rtlil	default	constmsk_test	ESCCOL,PATHBASE
+uhdm2rtlil	default	counter	ESCCOL,PATHBASE
+uhdm2rtlil	default	counter_dual_xbranch	ESCCOL,PATHBASE
+uhdm2rtlil	default	counter_ifelse_chain	ESCCOL,PATHBASE
+uhdm2rtlil	default	counter_in_cpu_state	ESCCOL,PATHBASE
+uhdm2rtlil	default	counter_unbased	ESCCOL,PATHBASE
+uhdm2rtlil	default	counter_xpath	ESCCOL,PATHBASE
+uhdm2rtlil	default	counters_repeat	ESCCOL,PATHBASE
+uhdm2rtlil	default	cs_registers	ESCCOL,PATHBASE
+uhdm2rtlil	default	custom_map_incomp	
+uhdm2rtlil	default	cva6_struct_param_field	PATHBASE,TPSTRUCTKW
+uhdm2rtlil	default	def_ctx_struct_param	PATHBASE
+uhdm2rtlil	default	defvalue	ESCCOL,PATHBASE,PORTINIT
+uhdm2rtlil	default	dff_different_styles	ESCCOL,PATHBASE
+uhdm2rtlil	default	dff_styles	ESCCOL,PATHBASE
+uhdm2rtlil	default	dffs	ESCCOL,PATHBASE
+uhdm2rtlil	default	dffsr	ESCCOL,PATHBASE
+uhdm2rtlil	default	display_lm	ESCCOL,PATHBASE
+uhdm2rtlil	default	dyn_field_select	ESCCOL,PATHBASE
+uhdm2rtlil	default	dyn_packed_multidim	
+uhdm2rtlil	default	dynslice	ESCCOL,PATHBASE
+uhdm2rtlil	default	empty_port_connection	ESCCOL,PATHBASE
+uhdm2rtlil	default	enum_simple	ESCCOL,PATHBASE
+uhdm2rtlil	default	enum_values	ESCCOL,PATHBASE
+uhdm2rtlil	default	escape_id	ESCCOL,PATHBASE
+uhdm2rtlil	default	event_implicit_expression_list	PATHBASE
+uhdm2rtlil	default	expr_width_cast	
+uhdm2rtlil	default	fail_detect_width	PATHBASE
+uhdm2rtlil	default	ff_conditional_reset	ESCCOL,PATHBASE
+uhdm2rtlil	default	ff_dead_both_branches	ESCCOL,PATHBASE
+uhdm2rtlil	default	ff_dead_guarded_reset	ESCCOL,PATHBASE
+uhdm2rtlil	default	fib	ESCCOL,PATHBASE
+uhdm2rtlil	default	fib_initial	PATHBASE
+uhdm2rtlil	default	fib_recursion	PATHBASE
+uhdm2rtlil	default	fib_simple	ESCCOL,PATHBASE
+uhdm2rtlil	default	fill_literal_compare	ESCCOL,PATHBASE
+uhdm2rtlil	default	flipflop	ESCCOL,PATHBASE
+uhdm2rtlil	default	fmt_always_comb	ESCCOL,PATHBASE
+uhdm2rtlil	default	for_break	ESCCOL,PATHBASE
+uhdm2rtlil	default	for_decl_shadow	ESCCOL,PATHBASE
+uhdm2rtlil	default	for_loop_nonconst_bound	ESCCOL,PATHBASE
+uhdm2rtlil	default	forgen01	ESCCOL,PATHBASE
+uhdm2rtlil	default	forgen02	ESCCOL,PATHBASE
+uhdm2rtlil	default	forloops	ESCCOL,PATHBASE
+uhdm2rtlil	default	fsm	ESCCOL,PATHBASE
+uhdm2rtlil	default	fsm2	ESCCOL,PATHBASE
+uhdm2rtlil	default	fsm_single_always	ESCCOL,PATHBASE
+uhdm2rtlil	default	fsm_using_always	ESCCOL,PATHBASE
+uhdm2rtlil	default	fsm_using_function	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	full_case_latch	ESCCOL,PATHBASE
+uhdm2rtlil	default	func_arg_partsel_loop	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	func_block	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	func_clog2_partsel	PATHBASE
+uhdm2rtlil	default	func_forloop_onehot	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	func_local_array	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	func_local_compound_xor	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	func_local_decl_init	E148
+uhdm2rtlil	default	func_output_arg	ESCCOL,PATHBASE
+uhdm2rtlil	default	func_port_implied_dir	ESCCOL,PATHBASE
+uhdm2rtlil	default	func_struct_repro	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	func_tern_hint	ESCCOL,PATHBASE
+uhdm2rtlil	default	func_typename_ret	E148,PATHBASE
+uhdm2rtlil	default	func_upto	ESCCOL,PATHBASE
+uhdm2rtlil	default	func_width_scope	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	function_arith	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	function_bool	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	function_case	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	function_loop	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	function_mixed	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	function_nested	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	function_output	ESCCOL,PATHBASE
+uhdm2rtlil	default	gen_scope_numports	PATHBASE,TPCALHS
+uhdm2rtlil	default	gen_scope_typaram	ESCCOL,PATHBASE
+uhdm2rtlil	default	gen_struct_access	ESCCOL,PATHBASE
+uhdm2rtlil	default	gen_test1	ESCCOL,PATHBASE
+uhdm2rtlil	default	gen_test2	ESCCOL,PATHBASE
+uhdm2rtlil	default	gen_test3	ESCCOL,PATHBASE
+uhdm2rtlil	default	gen_test4	ESCCOL,PATHBASE
+uhdm2rtlil	default	gen_test5	ESCCOL,PATHBASE
+uhdm2rtlil	default	gen_test6	PATHBASE
+uhdm2rtlil	default	gen_test7	ESCCOL,PATHBASE
+uhdm2rtlil	default	gen_test8	ESCCOL,PATHBASE
+uhdm2rtlil	default	gen_test9	ESCCOL,PATHBASE
+uhdm2rtlil	default	genblk_order	ESCCOL,PATHBASE
+uhdm2rtlil	default	generate_scope_implicit_net	ESCCOL,PATHBASE
+uhdm2rtlil	default	generate_test	ESCCOL,PATHBASE
+uhdm2rtlil	default	genscope_async_ff_signal	ESCCOL,PATHBASE
+uhdm2rtlil	default	genscope_cells	PATHBASE
+uhdm2rtlil	default	genscope_module_ctx_reset	ESCCOL,PATHBASE
+uhdm2rtlil	default	genscope_outer_reg_inner_ff	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	default	genscope_struct_member	
+uhdm2rtlil	default	genvar_async_reset_array	ESCCOL,PATHBASE
+uhdm2rtlil	default	genvar_iface_struct	ESCCOL,MODARRBOUND,PATHBASE
+uhdm2rtlil	default	genvar_loop_decl_1	ESCCOL,PATHBASE
+uhdm2rtlil	default	genvar_loop_decl_2	ESCCOL,PATHBASE
+uhdm2rtlil	default	genvar_loop_decl_3	ESCCOL,PATHBASE
+uhdm2rtlil	default	genvar_pow_index	ESCCOL,PATHBASE
+uhdm2rtlil	default	gpr_genscope_repro	ESCCOL,PATHBASE
+uhdm2rtlil	default	hana_test_intermout	PATHBASE
+uhdm2rtlil	default	hana_test_parse2synthtrans	ESCCOL,PATHBASE
+uhdm2rtlil	default	hello-uvm	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+uhdm2rtlil	default	hier_path	ESCCOL,PATHBASE
+uhdm2rtlil	default	hier_undriven_port	PATHBASE
+uhdm2rtlil	default	hierdefparam	ESCCOL,PATHBASE
+uhdm2rtlil	default	ibex_alu	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_branch_predict	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_compressed_decoder	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_controller	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_core	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_counter	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_cs_registers	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_csr	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_decoder	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_dummy_instr	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_ex_block	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_fetch_fifo	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_icache	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_id_stage	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_if_stage	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_load_store_unit	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_lockstep	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_multdiv_fast	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_multdiv_slow	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_pmp	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_prefetch_buffer	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_register_file_ff	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_register_file_fpga	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_register_file_latch	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_top	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_top_tracing	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_tracer	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	ibex_wb_stage	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	default	iface_arr_struct_field_partsel	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_arr_struct_whole_field	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_array_count	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_array_elem_cfg_param	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_array_internal_assign	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_array_modport_drive	
+uhdm2rtlil	default	iface_array_port	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_array_struct	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_array_struct_field	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_array_struct_whole	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_cfg_mem	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_cfg_param_def_pass	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_ff_genvar_partsel	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_field_assign	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_field_assign_nocol	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_field_partsel	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_gen_delay	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_gen_delay_struct	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_internal_assign	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_local_in_sub	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_member_port	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_member_read_assign	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_method_call	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_modport	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_modport_conn	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_modport_out	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_modport_passthrough	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_nested_param_field	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_param_2level	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_param_port_width	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_param_set_value	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_param_width_per_inst	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_passthrough	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_pkg_enum_item	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_port_localparam	ESCCOL,PATHBASE,PORTINIT
+uhdm2rtlil	default	iface_samename_port	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_scalar_localparam	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_sig_in_child_port	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_struct_field	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_struct_field_bitselect	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_struct_field_param_width	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_struct_field_partsel	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_struct_field_slice_read	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_unpacked_signal	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_unpacked_struct_array	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_wholestruct_param	ESCCOL,PATHBASE
+uhdm2rtlil	default	iface_zero_width_field	ESCCOL,PATHBASE
+uhdm2rtlil	default	indexed_partsel_array	ESCCOL,PATHBASE
+uhdm2rtlil	default	initval	ESCCOL,PATHBASE
+uhdm2rtlil	default	int_port_signed	PATHBASE
+uhdm2rtlil	default	int_types	ESCCOL,PATHBASE
+uhdm2rtlil	default	int_types_blk1	ESCCOL,PATHBASE
+uhdm2rtlil	default	interface_array	ESCCOL,PATHBASE
+uhdm2rtlil	default	interface_array_fanout	ESCCOL,PATHBASE
+uhdm2rtlil	default	issue326_packed_mem	ESCCOL,PATHBASE
+uhdm2rtlil	default	jeras_gpr	ESCCOL,PATHBASE
+uhdm2rtlil	default	jeras_reverse	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	jeras_tcb_gpio	ESCCOL,PATHBASE
+uhdm2rtlil	default	jeras_union	ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	default	latch_002	ESCCOL,PATHBASE
+uhdm2rtlil	default	latch_axi_adapter	
+uhdm2rtlil	default	latch_case_arm_mask	
+uhdm2rtlil	default	latch_csr_armlocal	
+uhdm2rtlil	default	latch_decoder_partial	E148,PATHBASE
+uhdm2rtlil	default	latch_fifo_dynfield	
+uhdm2rtlil	default	latch_nested_ex_field	ESCCOL
+uhdm2rtlil	default	latch_packed_dyn_write	
+uhdm2rtlil	default	latch_packed_enum_loop	
+uhdm2rtlil	default	latch_perf_counters	ESCCOL
+uhdm2rtlil	default	latch_tlb_napot	
+uhdm2rtlil	default	latchn	ESCCOL,PATHBASE
+uhdm2rtlil	default	latchp	ESCCOL,PATHBASE
+uhdm2rtlil	default	latchsr	ESCCOL,PATHBASE
+uhdm2rtlil	default	lcov	ESCCOL,PATHBASE
+uhdm2rtlil	default	led_blink_counter	ESCCOL,PATHBASE
+uhdm2rtlil	default	load_and_derive	ESCCOL,PATHBASE
+uhdm2rtlil	default	local_nested_struct_field	ESCCOL,PATHBASE
+uhdm2rtlil	default	local_var_in_always	ESCCOL,PATHBASE
+uhdm2rtlil	default	logic_ops	ESCCOL,PATHBASE
+uhdm2rtlil	default	loop_break_index	
+uhdm2rtlil	default	loopvar_eq_fold	
+uhdm2rtlil	default	lut_map_and	ESCCOL,PATHBASE
+uhdm2rtlil	default	lut_map_cmp	ESCCOL,PATHBASE
+uhdm2rtlil	default	lut_map_mux	ESCCOL,PATHBASE
+uhdm2rtlil	default	lut_map_not	ESCCOL,PATHBASE
+uhdm2rtlil	default	lut_map_or	ESCCOL,PATHBASE
+uhdm2rtlil	default	lut_map_xor	ESCCOL,PATHBASE
+uhdm2rtlil	default	macc	ESCCOL,PATHBASE
+uhdm2rtlil	default	macro_arg_spaces	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	many_functions	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	matching_end_labels	ESCCOL,PATHBASE
+uhdm2rtlil	default	mem2reg_test1	ESCCOL,PATHBASE
+uhdm2rtlil	default	mem2reg_test2	ESCCOL,PATHBASE
+uhdm2rtlil	default	mem2reg_test3	ESCCOL,PATHBASE
+uhdm2rtlil	default	mem2reg_test4	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	mem2reg_test5	ESCCOL,PATHBASE
+uhdm2rtlil	default	mem2reg_test6	ESCCOL,PATHBASE
+uhdm2rtlil	default	mem_ff_partial_rsp	ESCCOL,PATHBASE
+uhdm2rtlil	default	mem_iface_index	ESCCOL,PATHBASE
+uhdm2rtlil	default	mem_init_for_param	ESCCOL,PATHBASE
+uhdm2rtlil	default	mem_multi_always_write	ESCCOL,PATHBASE
+uhdm2rtlil	default	mem_packed_2d_byte_write	
+uhdm2rtlil	default	mem_read_reg	ESCCOL,PATHBASE
+uhdm2rtlil	default	mem_sub_plain	ESCCOL,PATHBASE
+uhdm2rtlil	default	mixed_sign_ops	ESCCOL,PATHBASE
+uhdm2rtlil	default	module_scope_func	E148,E2148,ESCCOL,PATHBASE
+uhdm2rtlil	default	mriscv_bind_sva	E148,PATHBASE,PORTINIT
+uhdm2rtlil	default	mul	ESCCOL,PATHBASE
+uhdm2rtlil	default	mul_plain	ESCCOL,PATHBASE
+uhdm2rtlil	default	mul_signed_async	ESCCOL,PATHBASE
+uhdm2rtlil	default	mul_sync_enable_test	ESCCOL,PATHBASE
+uhdm2rtlil	default	mul_sync_reset_test	ESCCOL,PATHBASE
+uhdm2rtlil	default	mul_unsigned	ESCCOL,PATHBASE
+uhdm2rtlil	default	mul_unsigned_sync	ESCCOL,PATHBASE
+uhdm2rtlil	default	mul_unsigned_sync_simple	ESCCOL,PATHBASE
+uhdm2rtlil	default	multi_ff_slice	ESCCOL,PATHBASE
+uhdm2rtlil	default	multi_input_gates	ESCCOL,PATHBASE
+uhdm2rtlil	default	multidim_hier_path7	PATHBASE
+uhdm2rtlil	default	multidim_hier_path8	PATHBASE
+uhdm2rtlil	default	multidim_hier_path9	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	multiple_blocking	ESCCOL,PATHBASE
+uhdm2rtlil	default	multiple_blocking_gate	ESCCOL,PATHBASE
+uhdm2rtlil	default	multiplier	ESCCOL,PATHBASE
+uhdm2rtlil	default	mux16	ESCCOL,PATHBASE
+uhdm2rtlil	default	mux2	ESCCOL,PATHBASE
+uhdm2rtlil	default	mux4	ESCCOL,PATHBASE
+uhdm2rtlil	default	mux8	ESCCOL,PATHBASE
+uhdm2rtlil	default	named_begin_local_collision	ESCCOL
+uhdm2rtlil	default	named_cover_assert	ESCCOL,PATHBASE
+uhdm2rtlil	default	named_genblk_cascade	ESCCOL,PATHBASE
+uhdm2rtlil	default	ndffnr	ESCCOL,PATHBASE
+uhdm2rtlil	default	nested_case_concat	ESCCOL,PATHBASE
+uhdm2rtlil	default	nested_cast_repro	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	nested_full_case	ESCCOL,PATHBASE
+uhdm2rtlil	default	nested_struct	ESCCOL,PATHBASE
+uhdm2rtlil	default	nested_struct_nopack	ESCCOL,PATHBASE
+uhdm2rtlil	default	net_types	ESCCOL,PATHBASE
+uhdm2rtlil	default	onenet	PATHBASE
+uhdm2rtlil	default	opt_share_add_sub	ESCCOL,PATHBASE
+uhdm2rtlil	default	package_task_func	ESCCOL,PATHBASE
+uhdm2rtlil	default	packed_array_elem_select	ESCCOL,PATHBASE
+uhdm2rtlil	default	packed_array_reset_loop	ESCCOL,PATHBASE,TPCALHS
+uhdm2rtlil	default	packed_array_struct	PATHBASE,TPSTRUCTKW
+uhdm2rtlil	default	packed_array_struct_port_sel	PATHBASE
+uhdm2rtlil	default	packed_struct_array_fifo	ESCCOL,PATHBASE
+uhdm2rtlil	default	packed_struct_array_net_elem	ESCCOL,PATHBASE
+uhdm2rtlil	default	packed_struct_array_shift	ESCCOL,PATHBASE
+uhdm2rtlil	default	packed_struct_elem_field	ESCCOL,PATHBASE
+uhdm2rtlil	default	param_array_wildcard	ESCCOL,PATHBASE
+uhdm2rtlil	default	param_fill_default_paramod	ESCCOL,PATHBASE
+uhdm2rtlil	default	param_int_types	PATHBASE
+uhdm2rtlil	default	param_name_collision_typeparam	TPCALHS
+uhdm2rtlil	default	param_nested_struct_field_width	E148,TPCALHS
+uhdm2rtlil	default	param_no_default	ESCCOL,PATHBASE
+uhdm2rtlil	default	param_packed_array_subst	ESCCOL,PATHBASE
+uhdm2rtlil	default	param_struct_field_bitsel	
+uhdm2rtlil	default	param_test	ESCCOL,PATHBASE
+uhdm2rtlil	default	param_type_logic_width	PATHBASE
+uhdm2rtlil	default	param_unpacked_struct_array	
+uhdm2rtlil	default	param_x_default	ESCCOL,PATHBASE
+uhdm2rtlil	default	paramod_genscope_child	ESCCOL,PATHBASE
+uhdm2rtlil	default	paramod_struct_param	ESCCOL,PATHBASE
+uhdm2rtlil	default	partsel_simple	ESCCOL,PATHBASE
+uhdm2rtlil	default	past_assert	ESCCOL,PATHBASE
+uhdm2rtlil	default	pattern_default_packed	
+uhdm2rtlil	default	pico_count_cycle	ESCCOL,PATHBASE
+uhdm2rtlil	default	pkg_localparam_partsel	PATHBASE
+uhdm2rtlil	default	pkg_nested_struct_param_width	E148,PATHBASE
+uhdm2rtlil	default	port_chained_type_param	TPSTRUCTKW
+uhdm2rtlil	default	port_int_types	PATHBASE
+uhdm2rtlil	default	port_sign_extend	ESCCOL,PATHBASE
+uhdm2rtlil	default	portsel_struct_param	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	power_state	ESCCOL,PATHBASE
+uhdm2rtlil	default	prefix	ESCCOL,PATHBASE
+uhdm2rtlil	default	print_trg_mixed_edges	ESCCOL,PATHBASE
+uhdm2rtlil	default	print_trg_multi_edge	ESCCOL,PATHBASE
+uhdm2rtlil	default	print_trg_single_edge	ESCCOL,PATHBASE
+uhdm2rtlil	default	priority_case	ESCCOL,PATHBASE
+uhdm2rtlil	default	priority_if	ESCCOL,PATHBASE
+uhdm2rtlil	default	priority_memory	ESCCOL,PATHBASE
+uhdm2rtlil	default	r5p_gpr_cosim	ESCCOL,PATHBASE
+uhdm2rtlil	default	rand_const	PATHBASE
+uhdm2rtlil	default	read_remux	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	readmemh_param	ESCCOL,PATHBASE
+uhdm2rtlil	default	readmemh_rom	ESCCOL,PATHBASE
+uhdm2rtlil	default	realexpr	ESCCOL,PATHBASE
+uhdm2rtlil	default	recursive_map	
+uhdm2rtlil	default	reg_wire_error	ESCCOL,PATHBASE
+uhdm2rtlil	default	repwhile	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	resolve_types	ESCCOL,PATHBASE
+uhdm2rtlil	default	rmw_comb_var	ESCCOL,PATHBASE
+uhdm2rtlil	default	rotate	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	rp32_r5p_alu	E148,ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	default	rp32_r5p_bru	ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	default	rp32_r5p_csr	E148,ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	default	rp32_r5p_degu	E148,ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	default	rp32_r5p_degu_soc_top	E148,PATHBASE,TFARGTD
+uhdm2rtlil	default	rp32_r5p_gpr_1r1w	ESCCOL,PATHBASE
+uhdm2rtlil	default	rp32_r5p_hamster	CASTKEYFILE,E148,ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	default	rp32_r5p_mdu	PATHBASE,TFARGTD
+uhdm2rtlil	default	rp32_r5p_mouse	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	rp32_r5p_mouse_soc_simple_top	E148,E2148
+uhdm2rtlil	default	rp32_r5p_mouse_soc_top	E148,PATHBASE
+uhdm2rtlil	default	rp32_r5p_wbu	ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	default	rp32_soc_vfriendly	E148,PATHBASE,TFARGTD
+uhdm2rtlil	default	rsp_gen_minimal	E148,ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	default	sat_asserts_seq	ESCCOL,PATHBASE,PORTINIT
+uhdm2rtlil	default	scope_func	ESCCOL,PATHBASE
+uhdm2rtlil	default	scope_task	ESCCOL,PATHBASE
+uhdm2rtlil	default	scopes	ESCCOL,PATHBASE
+uhdm2rtlil	default	setundef	ESCCOL,PATHBASE
+uhdm2rtlil	default	sign_part_assign	ESCCOL,PATHBASE
+uhdm2rtlil	default	signed_compare	ESCCOL,PATHBASE
+uhdm2rtlil	default	signed_ext_case	ESCCOL,PATHBASE
+uhdm2rtlil	default	signed_interm_cmp	ESCCOL,PATHBASE
+uhdm2rtlil	default	signed_partsel_ext	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_abc9	PATHBASE
+uhdm2rtlil	default	simple_always_ff	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_always_ifelse	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_assign	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_counter	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_enum	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_forloops	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_fsm	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_function	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_generate	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_hierarchy	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_instance_array	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_interface	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_memory	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_memory_noreset	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_nested_struct_nopack	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_package	ESCCOL,I148,PATHBASE
+uhdm2rtlil	default	simple_struct	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_unary_op_minus	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_unary_op_not_log	ESCCOL,PATHBASE
+uhdm2rtlil	default	simple_unary_op_plus	PATHBASE
+uhdm2rtlil	default	sincos	ESCCOL,PATHBASE
+uhdm2rtlil	default	size_cast	ESCCOL,PATHBASE
+uhdm2rtlil	default	size_cast_param	ESCCOL,PATHBASE
+uhdm2rtlil	default	sizebits	ESCCOL,PATHBASE
+uhdm2rtlil	default	sp_read_first	ESCCOL,PATHBASE
+uhdm2rtlil	default	sp_read_or_write	ESCCOL,PATHBASE
+uhdm2rtlil	default	sp_write_first	ESCCOL,PATHBASE
+uhdm2rtlil	default	stamped_gen_param	ESCCOL,PATHBASE
+uhdm2rtlil	default	static_cast_simple	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_3d_packed_array	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_access	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_array	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_array_indexed_write	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_array_member_partsel	
+uhdm2rtlil	default	struct_dynamic_range	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_field_self_guard	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_init_partial_write	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_little_endian_bit_array	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_member_cfg_width	E148,E2148,I148,PATHBASE
+uhdm2rtlil	default	struct_member_expr_index	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_member_trailing_index	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_negative_index	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_param_dim	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_param_field_shift	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_param_func_arg	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_param_func_config	E148,ESCCOL,I148,PATHBASE
+uhdm2rtlil	default	struct_param_func_loop	E148,ESCCOL,I148,PATHBASE
+uhdm2rtlil	default	struct_param_pattern_packing	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_param_repl_count	PATHBASE
+uhdm2rtlil	default	struct_part_select_write	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_pat_fill	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_pattern_loop	PATHBASE
+uhdm2rtlil	default	struct_pattern_named_default	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_pattern_procedural	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_sizebits	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_typedef_packed_array	ESCCOL,PATHBASE
+uhdm2rtlil	default	struct_unpacked_array_member	ESCCOL,PATHBASE
+uhdm2rtlil	default	subbytes	ESCCOL,PATHBASE
+uhdm2rtlil	default	sva_basic00	ESCCOL,PATHBASE
+uhdm2rtlil	default	sva_basic01	ESCCOL,PATHBASE
+uhdm2rtlil	default	sva_basic02	ESCCOL,PATHBASE
+uhdm2rtlil	default	sva_basic03	ESCCOL,PATHBASE
+uhdm2rtlil	default	sva_counter	ESCCOL,PATHBASE
+uhdm2rtlil	default	sva_not	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	default	sva_range	ESCCOL,PATHBASE
+uhdm2rtlil	default	sva_throughout	ESCCOL,PATHBASE
+uhdm2rtlil	default	sva_value_change_changed	ESCCOL,PATHBASE
+uhdm2rtlil	default	sva_value_change_changed_wide	ESCCOL,PATHBASE
+uhdm2rtlil	default	sva_value_change_rose	ESCCOL,PATHBASE
+uhdm2rtlil	default	sva_value_change_sim	ESCCOL,PATHBASE
+uhdm2rtlil	default	svinterface1	ESCCOL,PATHBASE
+uhdm2rtlil	default	svinterface_at_top	ESCCOL,PATHBASE
+uhdm2rtlil	default	svtypes_enum_simple	ESCCOL,PATHBASE
+uhdm2rtlil	default	svtypes_struct_array	ESCCOL,PATHBASE
+uhdm2rtlil	default	svtypes_struct_simple	ESCCOL,PATHBASE
+uhdm2rtlil	default	synthesis	
+uhdm2rtlil	default	tern_fill_literal	E148
+uhdm2rtlil	default	ternary_not_cond	
+uhdm2rtlil	default	top_module_type_param	ESCCOL,PATHBASE
+uhdm2rtlil	default	type_param_override_elem_sel	
+uhdm2rtlil	default	type_param_packed_dim	
+uhdm2rtlil	default	type_param_unpacked_port	
+uhdm2rtlil	default	typed_named_pattern	CASTKEYFILE,E2148,PATHBASE
+uhdm2rtlil	default	typedef_package	ESCCOL,PATHBASE
+uhdm2rtlil	default	typedef_packed_enum_array	ESCCOL,PATHBASE
+uhdm2rtlil	default	typedef_param	PATHBASE
+uhdm2rtlil	default	typedef_simple	ESCCOL,PATHBASE
+uhdm2rtlil	default	typedef_unpacked_input	ESCCOL,PATHBASE
+uhdm2rtlil	default	ucsbece154b_victim_cache	ESCCOL,PATHBASE
+uhdm2rtlil	default	unary_op_minus	PATHBASE
+uhdm2rtlil	default	unary_op_not_log	ESCCOL,PATHBASE
+uhdm2rtlil	default	unary_op_plus	PATHBASE
+uhdm2rtlil	default	unbased_unsized	ESCCOL,PATHBASE
+uhdm2rtlil	default	unbased_unsized_param	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	default	unbased_unsized_shift	ESCCOL,PATHBASE
+uhdm2rtlil	default	union4_repro	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	union_field_partsel	ESCCOL,PATHBASE
+uhdm2rtlil	default	union_param_repro	E148,ESCCOL,PATHBASE
+uhdm2rtlil	default	union_simple	ESCCOL,PATHBASE
+uhdm2rtlil	default	unique_case	PATHBASE
+uhdm2rtlil	default	unique_case_default	ESCCOL,PATHBASE
+uhdm2rtlil	default	unnamed_block_decl	PATHBASE
+uhdm2rtlil	default	unpacked_array_shift_ff	ESCCOL,PATHBASE
+uhdm2rtlil	default	unpacked_elem_partsel_comb	ESCCOL,PATHBASE
+uhdm2rtlil	default	unpacked_elem_write_flat	
+uhdm2rtlil	default	unpacked_struct_2d	ESCCOL,PATHBASE
+uhdm2rtlil	default	unpacked_struct_array_typedef	PATHBASE
+uhdm2rtlil	default	unpacked_struct_dyn_read	ESCCOL,PATHBASE
+uhdm2rtlil	default	unpacked_struct_mixed	ESCCOL,PATHBASE
+uhdm2rtlil	default	various_abc9	ESCCOL,PATHBASE
+uhdm2rtlil	default	various_port_sign_extend	ESCCOL,PATHBASE
+uhdm2rtlil	default	various_struct_access	ESCCOL,PATHBASE
+uhdm2rtlil	default	vector_index	ESCCOL,PATHBASE
+uhdm2rtlil	default	verilog_primitives	ESCCOL,PATHBASE
+uhdm2rtlil	default	wandwor	ESCCOL,PATHBASE
+uhdm2rtlil	default	wildcard_eq	ESCCOL,PATHBASE
+uhdm2rtlil	default	wreduce_test0	ESCCOL,PATHBASE
+uhdm2rtlil	default	wreduce_test1	ESCCOL,PATHBASE
+uhdm2rtlil	default	xmr_read	ESCCOL,PATHBASE
+uhdm2rtlil	default	xor_assignment	PATHBASE
+uhdm2rtlil	testflags	1DUnpackedArray	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	2DFunctionArg	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	2DParameterOfInstance	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	2DUnpackedArray	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	2DUnpackedFunctionArgument	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	2DeclarationsInFor	PATHBASE
+uhdm2rtlil	testflags	AdditionAsParameterInInstance	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	AluOps	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	AnonStructs	PATHBASE
+uhdm2rtlil	testflags	AnonymousEnum	PATHBASE
+uhdm2rtlil	testflags	AnonymousUnion	PATHBASE
+uhdm2rtlil	testflags	ArithShiftTernary	PATHBASE
+uhdm2rtlil	testflags	ArrayInit	PATHBASE
+uhdm2rtlil	testflags	ArraySize	PATHBASE
+uhdm2rtlil	testflags	AssignArraySelPlus	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	AssignBitSelectPartSelect	PATHBASE
+uhdm2rtlil	testflags	AssignBitsCallToSubmoduleParameter	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	AssignGeneratedWireInAlways	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	AssignSizeOfVar	PATHBASE
+uhdm2rtlil	testflags	AssignSumOfConstants	PATHBASE
+uhdm2rtlil	testflags	AssignSumOfConstantsInSubmodule	PATHBASE
+uhdm2rtlil	testflags	AssignSumWithParameter	PATHBASE
+uhdm2rtlil	testflags	AssignSumWithParameterInSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	AssignToUnionAndReadField	PATHBASE
+uhdm2rtlil	testflags	AssignToUnpackedUnionFieldAndReadOtherField	PATHBASE
+uhdm2rtlil	testflags	AssignTypedefedFunctionCall	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	AssignmentPattern	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	AssignmentPatternArrayPort	PATHBASE
+uhdm2rtlil	testflags	AssignmentToConcatenation	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	AssignmentToConcatenationWithSelect	PATHBASE
+uhdm2rtlil	testflags	BindModule	PATHBASE
+uhdm2rtlil	testflags	BindModuleWithInputPorts	PATHBASE
+uhdm2rtlil	testflags	BindModuleWithInputPortsInGenScope	PATHBASE
+uhdm2rtlil	testflags	BindModuleWithOutputPorts	PATHBASE
+uhdm2rtlil	testflags	BitSelect	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	BitSelect2ndBitOfPattern	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	BitSelectOfParameterPassedToSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	BitSelectOfParameterPassedToSubmoduleInGenFor	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	BitSelectPartSelectInFunction	E148,PATHBASE
+uhdm2rtlil	testflags	BitsCallOnExpression	PATHBASE
+uhdm2rtlil	testflags	BitsCallOnParametetrizedTypeFromPackage	PATHBASE
+uhdm2rtlil	testflags	BitsCallOnStructMember	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	BitsCallOnSubArray	PATHBASE
+uhdm2rtlil	testflags	BitsCallOnType	PATHBASE
+uhdm2rtlil	testflags	BitsCallOnVar	PATHBASE
+uhdm2rtlil	testflags	Break	PATHBASE
+uhdm2rtlil	testflags	BreakContinue	PATHBASE
+uhdm2rtlil	testflags	BreakContinueWhile	PATHBASE
+uhdm2rtlil	testflags	BreakNested	PATHBASE
+uhdm2rtlil	testflags	BreakWhile	PATHBASE
+uhdm2rtlil	testflags	CaseInside	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	CaseWithGeneratedWire	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	Casezx	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	CastClog2	PATHBASE
+uhdm2rtlil	testflags	CastClog2ToMinimalSizeOfParamValue	PATHBASE
+uhdm2rtlil	testflags	CastClog2ToMinimalSizeOfParamValueFromCommandLine	PATHBASE
+uhdm2rtlil	testflags	CastExpression	PATHBASE
+uhdm2rtlil	testflags	CastInFunctionInGenBlock	E148,PATHBASE
+uhdm2rtlil	testflags	CastInFunctionToParameterWidth	E148,PATHBASE
+uhdm2rtlil	testflags	CastLogic	PATHBASE
+uhdm2rtlil	testflags	CastSize	PATHBASE
+uhdm2rtlil	testflags	CastStruct	PATHBASE
+uhdm2rtlil	testflags	CastStructArray	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	CastToSumOfConstants	PATHBASE
+uhdm2rtlil	testflags	CastToSumWithParameterIn2InstancesOfSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	CastToSumWithParameterInSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	CastWidthFromPackage	PATHBASE
+uhdm2rtlil	testflags	CellNamedLikeModule	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	Clog2OfSumWithParameterIn2InstancesOfSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ClogOfParamOfInstanceInitializedByStructMember	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ConcatWidth	PATHBASE
+uhdm2rtlil	testflags	ConstSizes	PATHBASE
+uhdm2rtlil	testflags	Continue	PATHBASE
+uhdm2rtlil	testflags	ContinueNested	PATHBASE
+uhdm2rtlil	testflags	ContinueWhile	PATHBASE
+uhdm2rtlil	testflags	CppMacroNameAsVariableName	PATHBASE
+uhdm2rtlil	testflags	DeclarationInFor	PATHBASE
+uhdm2rtlil	testflags	Disable	PATHBASE
+uhdm2rtlil	testflags	DisplayWithBinFormatSpecifier	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	DisplayWithHexFormatSpecifier	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	DivisionOfSize	PATHBASE
+uhdm2rtlil	testflags	DotMultirange	PATHBASE
+uhdm2rtlil	testflags	DotRange	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	DpiChandle	PATHBASE
+uhdm2rtlil	testflags	EmptyTask	PATHBASE
+uhdm2rtlil	testflags	EnumArray	PATHBASE
+uhdm2rtlil	testflags	EnumArrayListedElements	PATHBASE
+uhdm2rtlil	testflags	EnumBases	PATHBASE
+uhdm2rtlil	testflags	EnumConcat	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	EnumConcatenatedConst	PATHBASE
+uhdm2rtlil	testflags	EnumConstX	PATHBASE
+uhdm2rtlil	testflags	EnumFirst	PATHBASE
+uhdm2rtlil	testflags	EnumFirstInInitial	PATHBASE
+uhdm2rtlil	testflags	EnumInPackage	PATHBASE
+uhdm2rtlil	testflags	EnumMultirange	PATHBASE,TFARGTD
+uhdm2rtlil	testflags	EnumParameterInNestedModules	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	EnumVariantInPackage	ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	testflags	EnumWidth	PATHBASE
+uhdm2rtlil	testflags	EscapedIdentifiersInHierPath	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ExpressionInIndex	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	FileLevelParameter	PATHBASE
+uhdm2rtlil	testflags	FileLevelUnionWithMultirange	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	Forever	PATHBASE
+uhdm2rtlil	testflags	Fork	PATHBASE
+uhdm2rtlil	testflags	ForkJoinTypes	PATHBASE
+uhdm2rtlil	testflags	Function2Returns	PATHBASE
+uhdm2rtlil	testflags	FunctionCallsFunctionWithIndexedPartSelectAsArgument	E148,PATHBASE
+uhdm2rtlil	testflags	FunctionColonReference	PATHBASE
+uhdm2rtlil	testflags	FunctionExportDPI	PATHBASE
+uhdm2rtlil	testflags	FunctionOnDesignLevel	PATHBASE
+uhdm2rtlil	testflags	FunctionOutputArgument	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	FunctionParam	E148,PATHBASE
+uhdm2rtlil	testflags	FunctionReturnEnum	E148,PATHBASE,TFARGTD
+uhdm2rtlil	testflags	FunctionWireAssignmentOnDeclaration	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	FunctionWithOverriddenParameter	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	FunctionWithoutReturn	PATHBASE
+uhdm2rtlil	testflags	GenIfInside	PATHBASE
+uhdm2rtlil	testflags	GenScopeFunction	PATHBASE
+uhdm2rtlil	testflags	GetC	PATHBASE
+uhdm2rtlil	testflags	ImportFunction	PATHBASE
+uhdm2rtlil	testflags	ImportPackageWithFunction	PATHBASE
+uhdm2rtlil	testflags	ImportParametrizedTypeAndDeclareParamWithTheSameName	PATHBASE
+uhdm2rtlil	testflags	ImportTypeOfPort	PATHBASE
+uhdm2rtlil	testflags	ImportedDoubleCastedParameter	PATHBASE
+uhdm2rtlil	testflags	ImportedEnumCast	PATHBASE
+uhdm2rtlil	testflags	ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor	PATHBASE
+uhdm2rtlil	testflags	ImportedFunctionCallInModuleAndSubmodule	PATHBASE
+uhdm2rtlil	testflags	ImportedFunctionUsesAnotherFunction	PATHBASE
+uhdm2rtlil	testflags	ImportedPackageEnumItemInInterface	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ImportedParameter	PATHBASE
+uhdm2rtlil	testflags	IndexedPartSelect	PATHBASE
+uhdm2rtlil	testflags	IndexedPartSelectInFor	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	IndexedPartSelectInUniqueCase	PATHBASE
+uhdm2rtlil	testflags	IndexedPartSelectOfArrayElement	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	IndexedPartSelectOfMember	PATHBASE
+uhdm2rtlil	testflags	InterfaceAlways	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	InterfaceAsPort	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	InterfaceAsPortAssignValueInSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	InterfaceAssign	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	InterfaceInitial	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	InterfaceParameter	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	InterfaceParameterSetValue	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	InterfaceVariable	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	InterfaceWithPort	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	LargeModuleParameter	
+uhdm2rtlil	testflags	LocalParamInNestedForLoops	E2148,PATHBASE
+uhdm2rtlil	testflags	LocalParamSelect	PATHBASE
+uhdm2rtlil	testflags	LogicPackedArray	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	Longint	PATHBASE
+uhdm2rtlil	testflags	MemberSelectOf2DStructPackedArray	PATHBASE
+uhdm2rtlil	testflags	MemoryInGenblock	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	MemoryPort	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	MemorySlice	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	MixedPatterns	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ModuleAlways	PATHBASE
+uhdm2rtlil	testflags	ModuleInstantiationAndIndirectParams	E2148,PATHBASE
+uhdm2rtlil	testflags	ModuleUsingStuctInput	PATHBASE
+uhdm2rtlil	testflags	MonitorInputPort	PATHBASE
+uhdm2rtlil	testflags	MultiAssignmentPatternOfConcat	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	MultipleAssignments	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	MultipleCells	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	MultipleNets	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	MultiplePrints	PATHBASE
+uhdm2rtlil	testflags	MultirangesStartNotFromZero	PATHBASE
+uhdm2rtlil	testflags	NegationAsParameterOfInstance	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	NegationOfParameterInInstance	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	NegationOfPatternParameter	PATHBASE
+uhdm2rtlil	testflags	NegationOfPatternParameterInInstance	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	NestedCallsOfTheSameFunction	PATHBASE
+uhdm2rtlil	testflags	NestedForLoops	PATHBASE
+uhdm2rtlil	testflags	NestedGenscopesInModuleWithMultidimensionalPorts	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	NestedParamSubstitution	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	NestedPatternPassedAsPort	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	NestedSelectOnInputPortInGenscope	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	NestedSelectOnVarInGenscope	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	NestedStructArrayParameterInitializedByPatternPassedAsPort	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	OneAlwaysComb	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	OneArithShift	PATHBASE
+uhdm2rtlil	testflags	OneCast	PATHBASE
+uhdm2rtlil	testflags	OneClass	PATHBASE
+uhdm2rtlil	testflags	OneConcat	PATHBASE
+uhdm2rtlil	testflags	OneImport	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	OneInside	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	OneNetModport	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	OnePackage	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	OneReplicate	PATHBASE
+uhdm2rtlil	testflags	OneShift	PATHBASE
+uhdm2rtlil	testflags	OneStruct	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	OneSysFunc	PATHBASE
+uhdm2rtlil	testflags	OneThis	E148,PATHBASE
+uhdm2rtlil	testflags	OutputSizeWithParameterOfInstanceInitializedByStructMember	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	PackageCast	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	PackedArray	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterColonReference	PATHBASE
+uhdm2rtlil	testflags	ParameterConditionalAssignment	PATHBASE
+uhdm2rtlil	testflags	ParameterDoubleUnderscoreInSvFrontend	PATHBASE
+uhdm2rtlil	testflags	ParameterFromPkgInNestedModule	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterFromPkgOnParameterPortList	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterInGenScopeInitializedWithLongConstant	E2148,PATHBASE
+uhdm2rtlil	testflags	ParameterInitializationWithNegation	E2148,PATHBASE
+uhdm2rtlil	testflags	ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope	PATHBASE
+uhdm2rtlil	testflags	ParameterInitializedByPartSelectOfParameters	E2148,PATHBASE
+uhdm2rtlil	testflags	ParameterInitializedByPartSelectOfParametersAssignedToVar	E2148,PATHBASE
+uhdm2rtlil	testflags	ParameterInitializedInSubModuleOfTopOf5LevelHierarchy	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterInitializedInTopOf5LevelHierarchy	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamInTheMiddle	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamOfDifferentTypeInTheMiddle	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterOfParametrizedType	PATHBASE
+uhdm2rtlil	testflags	ParameterOfParametrizedTypeInSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterOfSizeOfParametrizedPort	PATHBASE
+uhdm2rtlil	testflags	ParameterOfSizeOfParametrizedPortInSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterOfSizeOfPort	PATHBASE
+uhdm2rtlil	testflags	ParameterPackedArray	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterPackedArraySurelogSubstitution	PATHBASE
+uhdm2rtlil	testflags	ParameterPassedTo3TimesNestedSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterPassedToSubmoduleInGenscopeOfSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterPassedToSubmoduleOfSubmodule	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterRangeUsingDot	PATHBASE
+uhdm2rtlil	testflags	ParameterSizeOfInstance	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterUnpackedArray	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterUnpackedLogicArray	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterUnsignedInt	PATHBASE
+uhdm2rtlil	testflags	ParameterWithUnderscoreValue	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterWithUnderscoreValueDivided	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ParameterWithUnderscoreValueDividedPassedFromCommandLine	PATHBASE
+uhdm2rtlil	testflags	PartSelect	PATHBASE
+uhdm2rtlil	testflags	PartSelectInFor	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	PartSelectOfMember	PATHBASE
+uhdm2rtlil	testflags	PartSelectOfPartSelectedBitSelect	PATHBASE
+uhdm2rtlil	testflags	PatternAsFunctionArgument	E148,PATHBASE
+uhdm2rtlil	testflags	PatternAsParameterOfInstance	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	PatternAssignmentOfStructParam	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	PatternDefault	PATHBASE
+uhdm2rtlil	testflags	PatternInFunction	E148,PATHBASE
+uhdm2rtlil	testflags	PatternIndexes	PATHBASE
+uhdm2rtlil	testflags	PatternParameterInSubmodule	PATHBASE
+uhdm2rtlil	testflags	PatternStruct	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	PatternType	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	PkgParamAsFunctionArg	E148,PATHBASE
+uhdm2rtlil	testflags	PutC	PATHBASE
+uhdm2rtlil	testflags	ReadmemhInGenblock	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	RealValue	PATHBASE
+uhdm2rtlil	testflags	ReferencedPackageParameterInEnum	PATHBASE
+uhdm2rtlil	testflags	Repeat	PATHBASE
+uhdm2rtlil	testflags	Replication	PATHBASE
+uhdm2rtlil	testflags	ReplicationPassedToInstance	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ReturnEnumArray	E148,PATHBASE,TFARGTD
+uhdm2rtlil	testflags	ReturnFunctionCall	PATHBASE
+uhdm2rtlil	testflags	SelectFromUnpackedInFunction	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	SelectGivenBySelectOnParameterInFunction	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	SelectOnMemberSelectedFrom2DArray	PATHBASE
+uhdm2rtlil	testflags	SelfPartSelectInBitSelect	PATHBASE
+uhdm2rtlil	testflags	SelfSelectsInBitSelectAfterBitSelect	PATHBASE
+uhdm2rtlil	testflags	ShiftTernary	PATHBASE
+uhdm2rtlil	testflags	Shortint	PATHBASE
+uhdm2rtlil	testflags	Shortreal	PATHBASE
+uhdm2rtlil	testflags	SignedWire	PATHBASE
+uhdm2rtlil	testflags	SizeOfGeneratedWireArray	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	SizeOfUnsignedParameter	PATHBASE
+uhdm2rtlil	testflags	StreamOp	PATHBASE
+uhdm2rtlil	testflags	StreamOpImplicitSliceSize	PATHBASE
+uhdm2rtlil	testflags	StreamOpInitialAlways	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	StreamOperatorBitReverseFunction	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	StringAssignConcatenation	PATHBASE
+uhdm2rtlil	testflags	StringAssignment	PATHBASE
+uhdm2rtlil	testflags	StringLocalParamInitByConcatenation	E2148,PATHBASE
+uhdm2rtlil	testflags	StringWithBackslash	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	StructArrayParameterInitializedByPatternPassedAsPort	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	StructInPackage	PATHBASE
+uhdm2rtlil	testflags	StructLocalParam	PATHBASE
+uhdm2rtlil	testflags	StructMemberAsModuleInput	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	StructOfArrayOfStructs	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	StructPackedArray	PATHBASE
+uhdm2rtlil	testflags	StructPackedOutput	PATHBASE
+uhdm2rtlil	testflags	StructParameter	PATHBASE
+uhdm2rtlil	testflags	StructParameterInGenScope	PATHBASE
+uhdm2rtlil	testflags	StructParameterInitializedWithPatternAndReferenced	PATHBASE
+uhdm2rtlil	testflags	SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	SumOfParameters	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	SumOfParametersInNestedForLoops	E2148,PATHBASE
+uhdm2rtlil	testflags	SystemFunctions	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TaskExportDPI	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TaskImportDPI	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TaskOutputArgument	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TaskReturn	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TypeParameterAsPortTypeWithEnum	PATHBASE
+uhdm2rtlil	testflags	TypeParameterAsPortTypeWithEnumOfParametrizedWidth	PATHBASE
+uhdm2rtlil	testflags	TypeParameterAsPortTypeWithLogic	PATHBASE
+uhdm2rtlil	testflags	TypeParameterAsPortTypeWithLogicAnonymous	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TypeParameterAsPortTypeWithStruct	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TypedefAlias	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TypedefAliasInPackage	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TypedefEnum	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TypedefInModule	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TypedefInModulePort	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TypedefOnFileLevel	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TypedefPackedDimensions	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TypedefStructArray	PATHBASE
+uhdm2rtlil	testflags	TypedefStructParamWithRangeInSubmodule	PATHBASE
+uhdm2rtlil	testflags	TypedefVariableDimensions	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TypedefWithParameter	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TypedefedFunctionArgument	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	TypedefedFunctionReturn	E148,PATHBASE
+uhdm2rtlil	testflags	TypedefedRangedFunctionArgument	E148,PATHBASE
+uhdm2rtlil	testflags	TypedefedRangedFunctionReturn	E148,PATHBASE
+uhdm2rtlil	testflags	UnionCustomTypeMultirange	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	UnionInPackageWithMultirange	PATHBASE
+uhdm2rtlil	testflags	UnionInsideStruct	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	UnionParameter	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	UnitForLoop	PATHBASE
+uhdm2rtlil	testflags	UnpackedArray	PATHBASE
+uhdm2rtlil	testflags	UnsizedConst	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	UnsizedConstant	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	UnsizedConstantParameter	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	UnsizedConstantParameterInInstance	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	UnsizedConstantsParameterParsing	PATHBASE
+uhdm2rtlil	testflags	UnsizedConstantsParsing	PATHBASE
+uhdm2rtlil	testflags	VarInFor	PATHBASE
+uhdm2rtlil	testflags	VarPassedTo2Submodules	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	VarSelect	PATHBASE
+uhdm2rtlil	testflags	VoidFunction	PATHBASE
+uhdm2rtlil	testflags	VoidFunction2Returns	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	VoidFunctionWithoutReturn	PATHBASE
+uhdm2rtlil	testflags	WireNotStartingFromZero	PATHBASE
+uhdm2rtlil	testflags	add_sub_bind_if	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	adff	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	adffn	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	aes_kexp128	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	allconst_attr	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	allseq_attr	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	alu_sub	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	always01	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	always02	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	always03	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	anon_struct_packed_dim	
+uhdm2rtlil	testflags	anyconst_attr	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	anyseq_attr	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	arb_idx_cast	ESCCOL,PATHBASE,TPCALHS
+uhdm2rtlil	testflags	array-copy	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	array_assign	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	array_default_init	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	array_init_2d	PATHBASE
+uhdm2rtlil	testflags	arraycells	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	arrays01	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	arrays03	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	asgn_binop	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	asgn_expr	PATHBASE
+uhdm2rtlil	testflags	asgn_expr2	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	asgn_expr_sv	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	asicworld_clk_div_45	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	asicworld_serial_crc	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	assert_wide_const_cond	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	assignment-pattern	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	asym_ram_sdp_read_wider	E148,E2148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	asym_ram_sdp_write_wider	E148,E2148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	async_reset_partsel	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	bind_hier	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	bind_toplevel	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	bits_of_type_param	TPCALHS
+uhdm2rtlil	testflags	bitwise_operations	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	bitwise_operations_reverted_range	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	blocking_temp_ff	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	blocking_temp_select	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	blocklocal_struct_width	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	blockrom	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	carryadd	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	case_default_first	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	case_expr_const	PATHBASE
+uhdm2rtlil	testflags	case_expr_extend	PATHBASE
+uhdm2rtlil	testflags	case_expr_non_const	PATHBASE
+uhdm2rtlil	testflags	case_expr_query	PATHBASE
+uhdm2rtlil	testflags	cdc_static_basic	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	cfg_func_width_loop	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	clk2fflogic_effects	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	code_hdl_models_decoder_2to4_gates	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	code_hdl_models_parallel_crc	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	code_tidbits_fsm_using_function	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	comb_2d_bitsel	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	comb_array_next_state	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	comb_dead_guard_latch	CLSTDPKG,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	comb_dyn_2d_packed_sel	
+uhdm2rtlil	testflags	comb_flag_after_case	
+uhdm2rtlil	testflags	comb_if_both_arms_value	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	comb_local_index_fold	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	comb_local_init_latch	
+uhdm2rtlil	testflags	comb_loop_compound_incr	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	comb_loop_local_latch	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	comb_partial_struct_write	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	comb_partsel_after_struct_assign	ESCCOL
+uhdm2rtlil	testflags	comb_reduction_accumulator	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	compound_assignments	PATHBASE
+uhdm2rtlil	testflags	concat_lhs_signext	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	conditional_if	PATHBASE
+uhdm2rtlil	testflags	conditional_if_else	PATHBASE
+uhdm2rtlil	testflags	const_arg_loop	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	const_ashift	PATHBASE
+uhdm2rtlil	testflags	const_cast_signext	E148,PATHBASE
+uhdm2rtlil	testflags	const_fold_func	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	const_func	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	const_func_block_var	E148,E2148,PATHBASE
+uhdm2rtlil	testflags	const_func_shadow	E148,PATHBASE
+uhdm2rtlil	testflags	constmsk_test	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	counter	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	counter_dual_xbranch	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	counter_ifelse_chain	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	counter_in_cpu_state	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	counter_unbased	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	counter_xpath	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	counters_repeat	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	cs_registers	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	custom_map_incomp	
+uhdm2rtlil	testflags	cva6_struct_param_field	PATHBASE,TPSTRUCTKW
+uhdm2rtlil	testflags	def_ctx_struct_param	PATHBASE
+uhdm2rtlil	testflags	defvalue	ESCCOL,PATHBASE,PORTINIT
+uhdm2rtlil	testflags	dff_different_styles	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	dff_styles	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	dffs	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	dffsr	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	display_lm	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	dyn_field_select	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	dyn_packed_multidim	
+uhdm2rtlil	testflags	dynslice	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	empty_port_connection	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	enum_simple	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	enum_values	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	escape_id	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	event_implicit_expression_list	PATHBASE
+uhdm2rtlil	testflags	expr_width_cast	
+uhdm2rtlil	testflags	fail_detect_width	PATHBASE
+uhdm2rtlil	testflags	ff_conditional_reset	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ff_dead_both_branches	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ff_dead_guarded_reset	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	fib	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	fib_initial	PATHBASE
+uhdm2rtlil	testflags	fib_recursion	PATHBASE
+uhdm2rtlil	testflags	fib_simple	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	fill_literal_compare	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	flipflop	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	fmt_always_comb	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	for_break	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	for_decl_shadow	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	for_loop_nonconst_bound	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	forgen01	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	forgen02	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	forloops	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	fsm	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	fsm2	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	fsm_single_always	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	fsm_using_always	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	fsm_using_function	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	full_case_latch	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	func_arg_partsel_loop	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	func_block	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	func_clog2_partsel	PATHBASE
+uhdm2rtlil	testflags	func_forloop_onehot	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	func_local_array	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	func_local_compound_xor	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	func_local_decl_init	E148
+uhdm2rtlil	testflags	func_output_arg	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	func_port_implied_dir	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	func_struct_repro	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	func_tern_hint	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	func_typename_ret	E148,PATHBASE
+uhdm2rtlil	testflags	func_upto	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	func_width_scope	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	function_arith	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	function_bool	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	function_case	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	function_loop	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	function_mixed	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	function_nested	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	function_output	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	gen_scope_numports	PATHBASE,TPCALHS
+uhdm2rtlil	testflags	gen_scope_typaram	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	gen_struct_access	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	gen_test1	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	gen_test2	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	gen_test3	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	gen_test4	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	gen_test5	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	gen_test6	PATHBASE
+uhdm2rtlil	testflags	gen_test7	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	gen_test8	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	gen_test9	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	genblk_order	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	generate_scope_implicit_net	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	generate_test	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	genscope_async_ff_signal	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	genscope_cells	PATHBASE
+uhdm2rtlil	testflags	genscope_module_ctx_reset	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	genscope_outer_reg_inner_ff	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	genscope_struct_member	
+uhdm2rtlil	testflags	genvar_async_reset_array	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	genvar_iface_struct	ESCCOL,MODARRBOUND,PATHBASE
+uhdm2rtlil	testflags	genvar_loop_decl_1	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	genvar_loop_decl_2	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	genvar_loop_decl_3	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	genvar_pow_index	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	gpr_genscope_repro	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	hana_test_intermout	PATHBASE
+uhdm2rtlil	testflags	hana_test_parse2synthtrans	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	hello-uvm	CLSTDPKG,E148,ESCCOL,I148,PATHBASE,TFARGTD
+uhdm2rtlil	testflags	hier_path	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	hier_undriven_port	PATHBASE
+uhdm2rtlil	testflags	hierdefparam	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ibex_alu	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_branch_predict	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_compressed_decoder	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_controller	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_core	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_counter	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_cs_registers	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_csr	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_decoder	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_dummy_instr	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_ex_block	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_fetch_fifo	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_icache	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_id_stage	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_if_stage	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_load_store_unit	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_lockstep	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_multdiv_fast	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_multdiv_slow	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_pmp	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_prefetch_buffer	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_register_file_ff	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_register_file_fpga	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_register_file_latch	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_top	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_top_tracing	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_tracer	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	ibex_wb_stage	E148,E2148,ESCCOL,I148,PATHBASE,PORTINIT,TFARGTD,TPCALHS
+uhdm2rtlil	testflags	iface_arr_struct_field_partsel	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_arr_struct_whole_field	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_array_count	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_array_elem_cfg_param	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_array_internal_assign	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_array_modport_drive	
+uhdm2rtlil	testflags	iface_array_port	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_array_struct	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_array_struct_field	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_array_struct_whole	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_cfg_mem	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_cfg_param_def_pass	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_ff_genvar_partsel	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_field_assign	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_field_assign_nocol	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_field_partsel	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_gen_delay	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_gen_delay_struct	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_internal_assign	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_local_in_sub	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_member_port	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_member_read_assign	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_method_call	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_modport	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_modport_conn	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_modport_out	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_modport_passthrough	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_nested_param_field	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_param_2level	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_param_port_width	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_param_set_value	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_param_width_per_inst	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_passthrough	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_pkg_enum_item	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_port_localparam	ESCCOL,PATHBASE,PORTINIT
+uhdm2rtlil	testflags	iface_samename_port	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_scalar_localparam	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_sig_in_child_port	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_struct_field	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_struct_field_bitselect	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_struct_field_param_width	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_struct_field_partsel	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_struct_field_slice_read	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_unpacked_signal	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_unpacked_struct_array	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_wholestruct_param	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	iface_zero_width_field	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	indexed_partsel_array	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	initval	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	int_port_signed	PATHBASE
+uhdm2rtlil	testflags	int_types	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	int_types_blk1	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	interface_array	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	interface_array_fanout	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	issue326_packed_mem	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	jeras_gpr	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	jeras_reverse	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	jeras_tcb_gpio	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	jeras_union	ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	testflags	latch_002	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	latch_axi_adapter	
+uhdm2rtlil	testflags	latch_case_arm_mask	
+uhdm2rtlil	testflags	latch_csr_armlocal	
+uhdm2rtlil	testflags	latch_decoder_partial	E148,PATHBASE
+uhdm2rtlil	testflags	latch_fifo_dynfield	
+uhdm2rtlil	testflags	latch_nested_ex_field	ESCCOL
+uhdm2rtlil	testflags	latch_packed_dyn_write	
+uhdm2rtlil	testflags	latch_packed_enum_loop	
+uhdm2rtlil	testflags	latch_perf_counters	ESCCOL
+uhdm2rtlil	testflags	latch_tlb_napot	
+uhdm2rtlil	testflags	latchn	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	latchp	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	latchsr	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	lcov	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	led_blink_counter	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	load_and_derive	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	local_nested_struct_field	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	local_var_in_always	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	logic_ops	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	loop_break_index	
+uhdm2rtlil	testflags	loopvar_eq_fold	
+uhdm2rtlil	testflags	lut_map_and	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	lut_map_cmp	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	lut_map_mux	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	lut_map_not	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	lut_map_or	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	lut_map_xor	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	macc	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	macro_arg_spaces	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	many_functions	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	matching_end_labels	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mem2reg_test1	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mem2reg_test2	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mem2reg_test3	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mem2reg_test4	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mem2reg_test5	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mem2reg_test6	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mem_ff_partial_rsp	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mem_iface_index	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mem_init_for_param	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mem_multi_always_write	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mem_packed_2d_byte_write	
+uhdm2rtlil	testflags	mem_read_reg	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mem_sub_plain	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mixed_sign_ops	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	module_scope_func	E148,E2148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mriscv_bind_sva	E148,PATHBASE,PORTINIT
+uhdm2rtlil	testflags	mul	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mul_plain	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mul_signed_async	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mul_sync_enable_test	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mul_sync_reset_test	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mul_unsigned	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mul_unsigned_sync	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mul_unsigned_sync_simple	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	multi_ff_slice	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	multi_input_gates	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	multidim_hier_path7	PATHBASE
+uhdm2rtlil	testflags	multidim_hier_path8	PATHBASE
+uhdm2rtlil	testflags	multidim_hier_path9	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	multiple_blocking	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	multiple_blocking_gate	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	multiplier	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mux16	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mux2	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mux4	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	mux8	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	named_begin_local_collision	ESCCOL
+uhdm2rtlil	testflags	named_cover_assert	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	named_genblk_cascade	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ndffnr	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	nested_case_concat	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	nested_cast_repro	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	nested_full_case	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	nested_struct	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	nested_struct_nopack	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	net_types	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	onenet	PATHBASE
+uhdm2rtlil	testflags	opt_share_add_sub	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	package_task_func	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	packed_array_elem_select	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	packed_array_reset_loop	ESCCOL,PATHBASE,TPCALHS
+uhdm2rtlil	testflags	packed_array_struct	PATHBASE,TPSTRUCTKW
+uhdm2rtlil	testflags	packed_array_struct_port_sel	PATHBASE
+uhdm2rtlil	testflags	packed_struct_array_fifo	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	packed_struct_array_net_elem	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	packed_struct_array_shift	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	packed_struct_elem_field	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	param_array_wildcard	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	param_fill_default_paramod	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	param_int_types	PATHBASE
+uhdm2rtlil	testflags	param_name_collision_typeparam	TPCALHS
+uhdm2rtlil	testflags	param_nested_struct_field_width	E148,TPCALHS
+uhdm2rtlil	testflags	param_no_default	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	param_packed_array_subst	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	param_struct_field_bitsel	
+uhdm2rtlil	testflags	param_test	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	param_type_logic_width	PATHBASE
+uhdm2rtlil	testflags	param_unpacked_struct_array	
+uhdm2rtlil	testflags	param_x_default	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	paramod_genscope_child	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	paramod_struct_param	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	partsel_simple	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	past_assert	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	pattern_default_packed	
+uhdm2rtlil	testflags	pico_count_cycle	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	pkg_localparam_partsel	PATHBASE
+uhdm2rtlil	testflags	pkg_nested_struct_param_width	E148,PATHBASE
+uhdm2rtlil	testflags	port_chained_type_param	TPSTRUCTKW
+uhdm2rtlil	testflags	port_int_types	PATHBASE
+uhdm2rtlil	testflags	port_sign_extend	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	portsel_struct_param	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	power_state	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	prefix	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	print_trg_mixed_edges	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	print_trg_multi_edge	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	print_trg_single_edge	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	priority_case	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	priority_if	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	priority_memory	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	r5p_gpr_cosim	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	rand_const	PATHBASE
+uhdm2rtlil	testflags	read_remux	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	readmemh_param	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	readmemh_rom	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	realexpr	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	recursive_map	
+uhdm2rtlil	testflags	reg_wire_error	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	repwhile	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	resolve_types	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	rmw_comb_var	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	rotate	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	rp32_r5p_alu	E148,ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	testflags	rp32_r5p_bru	ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	testflags	rp32_r5p_csr	E148,ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	testflags	rp32_r5p_degu	E148,ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	testflags	rp32_r5p_degu_soc_top	E148,PATHBASE,TFARGTD
+uhdm2rtlil	testflags	rp32_r5p_gpr_1r1w	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	rp32_r5p_hamster	CASTKEYFILE,E148,ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	testflags	rp32_r5p_mdu	PATHBASE,TFARGTD
+uhdm2rtlil	testflags	rp32_r5p_mouse	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	rp32_r5p_mouse_soc_simple_top	E148,E2148
+uhdm2rtlil	testflags	rp32_r5p_mouse_soc_top	E148,PATHBASE
+uhdm2rtlil	testflags	rp32_r5p_wbu	ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	testflags	rp32_soc_vfriendly	E148,PATHBASE,TFARGTD
+uhdm2rtlil	testflags	rsp_gen_minimal	E148,ESCCOL,PATHBASE,TFARGTD
+uhdm2rtlil	testflags	sat_asserts_seq	ESCCOL,PATHBASE,PORTINIT
+uhdm2rtlil	testflags	scope_func	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	scope_task	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	scopes	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	setundef	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sign_part_assign	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	signed_compare	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	signed_ext_case	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	signed_interm_cmp	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	signed_partsel_ext	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_abc9	PATHBASE
+uhdm2rtlil	testflags	simple_always_ff	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_always_ifelse	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_assign	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_counter	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_enum	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_forloops	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_fsm	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_function	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_generate	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_hierarchy	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_instance_array	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_interface	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_memory	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_memory_noreset	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_nested_struct_nopack	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_package	ESCCOL,I148,PATHBASE
+uhdm2rtlil	testflags	simple_struct	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_unary_op_minus	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_unary_op_not_log	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	simple_unary_op_plus	PATHBASE
+uhdm2rtlil	testflags	sincos	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	size_cast	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	size_cast_param	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sizebits	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sp_read_first	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sp_read_or_write	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sp_write_first	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	stamped_gen_param	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	static_cast_simple	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_3d_packed_array	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_access	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_array	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_array_indexed_write	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_array_member_partsel	
+uhdm2rtlil	testflags	struct_dynamic_range	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_field_self_guard	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_init_partial_write	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_little_endian_bit_array	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_member_cfg_width	E148,E2148,I148,PATHBASE
+uhdm2rtlil	testflags	struct_member_expr_index	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_member_trailing_index	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_negative_index	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_param_dim	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_param_field_shift	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_param_func_arg	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_param_func_config	E148,ESCCOL,I148,PATHBASE
+uhdm2rtlil	testflags	struct_param_func_loop	E148,ESCCOL,I148,PATHBASE
+uhdm2rtlil	testflags	struct_param_pattern_packing	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_param_repl_count	PATHBASE
+uhdm2rtlil	testflags	struct_part_select_write	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_pat_fill	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_pattern_loop	PATHBASE
+uhdm2rtlil	testflags	struct_pattern_named_default	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_pattern_procedural	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_sizebits	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_typedef_packed_array	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	struct_unpacked_array_member	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	subbytes	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sva_basic00	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sva_basic01	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sva_basic02	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sva_basic03	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sva_counter	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sva_not	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sva_range	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sva_throughout	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sva_value_change_changed	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sva_value_change_changed_wide	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sva_value_change_rose	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	sva_value_change_sim	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	svinterface1	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	svinterface_at_top	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	svtypes_enum_simple	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	svtypes_struct_array	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	svtypes_struct_simple	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	synthesis	
+uhdm2rtlil	testflags	tern_fill_literal	E148
+uhdm2rtlil	testflags	ternary_not_cond	
+uhdm2rtlil	testflags	top_module_type_param	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	type_param_override_elem_sel	
+uhdm2rtlil	testflags	type_param_packed_dim	
+uhdm2rtlil	testflags	type_param_unpacked_port	
+uhdm2rtlil	testflags	typed_named_pattern	CASTKEYFILE,E2148,PATHBASE
+uhdm2rtlil	testflags	typedef_package	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	typedef_packed_enum_array	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	typedef_param	PATHBASE
+uhdm2rtlil	testflags	typedef_simple	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	typedef_unpacked_input	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	ucsbece154b_victim_cache	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	unary_op_minus	PATHBASE
+uhdm2rtlil	testflags	unary_op_not_log	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	unary_op_plus	PATHBASE
+uhdm2rtlil	testflags	unbased_unsized	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	unbased_unsized_param	E2148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	unbased_unsized_shift	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	union4_repro	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	union_field_partsel	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	union_param_repro	E148,ESCCOL,PATHBASE
+uhdm2rtlil	testflags	union_simple	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	unique_case	PATHBASE
+uhdm2rtlil	testflags	unique_case_default	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	unnamed_block_decl	PATHBASE
+uhdm2rtlil	testflags	unpacked_array_shift_ff	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	unpacked_elem_partsel_comb	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	unpacked_elem_write_flat	
+uhdm2rtlil	testflags	unpacked_struct_2d	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	unpacked_struct_array_typedef	PATHBASE
+uhdm2rtlil	testflags	unpacked_struct_dyn_read	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	unpacked_struct_mixed	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	various_abc9	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	various_port_sign_extend	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	various_struct_access	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	vector_index	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	verilog_primitives	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	wandwor	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	wildcard_eq	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	wreduce_test0	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	wreduce_test1	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	xmr_read	ESCCOL,PATHBASE
+uhdm2rtlil	testflags	xor_assignment	PATHBASE

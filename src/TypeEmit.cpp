@@ -13,6 +13,16 @@
 
 namespace slang_uhdm {
 
+// r11u148 (tools/probe/r11u148share/README.md): R11U148_OFF drops every law of
+// the pass, R11U148_I_OFF this file's one.
+static bool i148On() {
+    // R11U146_OFF (the landing pass's master switch) drops it too.
+    static const bool on = getenv("R11U148_OFF") == nullptr &&
+                           getenv("R11U146_OFF") == nullptr &&
+                           getenv("R11U148_I_OFF") == nullptr;
+    return on;
+}
+
 // r11u130's gate (defined in UhdmExporter.cpp; the switch table is there).
 bool r11u130Law(const char* sw);
 bool r11u134Law(const char* sw);
@@ -20,6 +30,7 @@ bool r11u137Law(const char* sw);
 bool r11u144Law(const char* sw);
 // § tpDefaultEndTopTwin149v (r11u149 verifier) — defined in ModuleEmit.cpp.
 void tpEndTopTwin149(const std::map<const UHDM::typespec*, UHDM::typespec*>& d2t);
+bool r11u146Law(const char* sw);
 
 // § paramAliasBoundRefUnstored144 (r11u144) — set while makeTypespec builds
 // the packed dimensions of a PARAMETER whose written type is a module-scope
@@ -3871,6 +3882,22 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     if (arrayElem) {
                         setLoc(sts, su->keyword.range());
                     }
+                    // § typeParamStructAtKeyword146 (r11u146) — a TYPE
+                    // PARAMETER's inline packed struct default
+                    // (`parameter type T = struct packed {..}`) is located at
+                    // the bare `struct` keyword: compileTypeParameter builds
+                    // it through compileTypespec's struct arm
+                    // (`populateCoreMembers(type, type, result)` on the
+                    // keyword), and no writeNets end-only populate moves it
+                    // (that is a declared SIGNAL's, which keeps `struct
+                    // packed`).  Golden 23:26-23:32 where ours spanned
+                    // `struct packed` 23:26-23:39 (map N0044:
+                    // StructParamFieldRange, port_chained_type_param, 73
+                    // probe cases).  Switch R11U146_TPSTRUCTKW_OFF.
+                    else if (declSymbol.kind == SymbolKind::TypeParameter &&
+                             r11u146Law("R11U146_TPSTRUCTKW_OFF")) {
+                        setLoc(sts, su->keyword.range());
+                    }
                     else {
                         SourceLocation e = su->keyword.range().end();
                         if (su->packed && su->packed.range().end() > e)
@@ -6697,6 +6724,178 @@ bool UhdmExporter::boundNamesSymCallParam12(const syntax::SyntaxNode* bsyn,
 //       gen-scope re-pass; t8 `bit`/signed/`int`; t9 two declarators on one
 //       keyword, `$bits` of another type parameter, and a typedef-named
 //       default.
+// § tpDefaultCaLhsUnparented146 (r11u146) — the DEFINITION object of a
+// type parameter's declaration default loses its parent when an elaborated
+// continuous assignment writes a net of that type whole.
+//
+// PRODUCER.  UhdmWriter::writeCont_assign ends every elaborated cont_assign
+// with `if (tps != nullptr) const_cast<typespec*>(tps)->VpiParent(nullptr);`
+// where `tps` is the typespec bindVariable finds on a PLAIN-NAME Lhs.  A net
+// declared with the type parameter (`output T o`, `T v`, `T [1:0] o`) of an
+// instance that does not override it holds the one object compileParameter
+// Declaration built for the default (§ typeParamDefaultBoundNoReduce20), so
+// `assign o = i;` unparents it, and the bound references under it read no
+// full name at all (golden `DataWidth` with an empty full name where ours
+// stored `work@inner.data_t.DataWidth`; map N0274: param_name_collision_
+// typeparam, arb_idx_cast, gen_scope_numports, packed_array_reset_loop).  A
+// select Lhs (`assign o[0] = ..`), a procedural write, and an instance that
+// overrides the type parameter leave the object parented (grid
+// tools/probe/r11u146repro/grid/tn).  Switch R11U146_TPCALHS_OFF.
+static bool tpDefaultCaLhsUnparented146(Compilation& comp,
+                                        const syntax::ExpressionSyntax* bsyn,
+                                        const slang::ast::Scope* homeScope) {
+    static const bool on = r11u146Law("R11U146_TPCALHS_OFF");
+    if (!on || !bsyn || !homeScope ||
+        homeScope->asSymbol().kind != SymbolKind::InstanceBody)
+        return false;
+    // § tpDefaultCaIfaceKeeps146v (v11u146, verifier refinement) — an
+    // INTERFACE's type-parameter default keeps its bound references named
+    // (golden `<in>T.W` under `interface ifc #(.., parameter type T =
+    // logic [W-1:0]); T a, b; assign b = a;`, where the law had cleared
+    // them; tools/probe/v11u146repro/cases/tn/k6_iface): the unparenting was
+    // measured on module definitions only.  Switch R11V146_TPCALHSIF_OFF.
+    if (homeScope->asSymbol().as<InstanceBodySymbol>().getDefinition()
+                .definitionKind != DefinitionKind::Module &&
+        r11u146Law("R11V146_TPCALHSIF_OFF"))
+        return false;
+    std::string_view tpName;
+    const syntax::TypeAssignmentSyntax* taSyn146 = nullptr;
+    for (const syntax::SyntaxNode* p = bsyn->parent; p; p = p->parent)
+        if (p->kind == syntax::SyntaxKind::TypeAssignment) {
+            taSyn146 = &p->as<syntax::TypeAssignmentSyntax>();
+            tpName = taSyn146->name.valueText();
+            break;
+        }
+    if (tpName.empty())
+        return false;
+    // A default written over ANOTHER type parameter (`localparam type rt_t =
+    // id_t [D-1:0]`) is re-resolved per instance: the net's typespec is not
+    // the default's one object, and golden keeps its bound references named
+    // (`<in>rt_t.D`, probe r11u108repro/grid/f5/f5a05_override,
+    // v11u108repro/brk/f5/b15_child_ports).  Declined.
+    if (taSyn146 && taSyn146->assignment) {
+        bool overTp146 = false;
+        std::function<void(const syntax::SyntaxNode&)> scanTp146 =
+            [&](const syntax::SyntaxNode& n) {
+                if (overTp146)
+                    return;
+                if (n.kind == syntax::SyntaxKind::IdentifierName ||
+                    n.kind == syntax::SyntaxKind::IdentifierSelectName) {
+                    auto nm =
+                        n.kind == syntax::SyntaxKind::IdentifierName
+                            ? n.as<syntax::IdentifierNameSyntax>()
+                                  .identifier.valueText()
+                            : n.as<syntax::IdentifierSelectNameSyntax>()
+                                  .identifier.valueText();
+                    if (auto* sy = homeScope->find(nm);
+                        sy && sy->kind == SymbolKind::TypeParameter)
+                        overTp146 = true;
+                    if (n.kind == syntax::SyntaxKind::IdentifierName)
+                        return;
+                }
+                for (size_t k = 0; k < n.getChildCount(); k++)
+                    if (auto* c = n.childNode(k))
+                        scanTp146(*c);
+            };
+        scanTp146(*taSyn146->assignment);
+        if (overTp146)
+            return false;
+    }
+    auto& def = homeScope->asSymbol().as<InstanceBodySymbol>().getDefinition();
+    static std::map<std::pair<const void*, std::string>, bool> cache;
+    auto key = std::make_pair((const void*)&def, std::string(tpName));
+    if (auto it = cache.find(key); it != cache.end())
+        return it->second;
+    bool hit = false;
+    // Does this body (and its instantiated generate blocks) hold a
+    // continuous assignment whose Lhs is a plain name typed by `tps`?
+    auto bodyHits = [&](const InstanceBodySymbol& body,
+                        const TypeParameterSymbol& tps) {
+        bool found = false;
+        auto scan = [&](auto&& self, const Scope& sc) -> void {
+            for (auto& m : sc.members()) {
+                if (found)
+                    return;
+                if (m.kind == SymbolKind::ContinuousAssign) {
+                    auto& ae = m.as<ContinuousAssignSymbol>().getAssignment();
+                    if (ae.kind != ExpressionKind::Assignment)
+                        continue;
+                    auto& lhs = stripImplicitConv(
+                        ae.as<AssignmentExpression>().left());
+                    if (lhs.kind != ExpressionKind::NamedValue)
+                        continue;
+                    const Type* t = &lhs.as<NamedValueExpression>().symbol.getDeclaredType()
+                                         ->getType();
+                    while (t->kind == SymbolKind::PackedArrayType)
+                        t = &t->as<PackedArrayType>().elementType;
+                    if (t == &tps.getTypeAlias())
+                        found = true;
+                }
+                else if (m.kind == SymbolKind::GenerateBlock) {
+                    if (!m.as<GenerateBlockSymbol>().isUninstantiated)
+                        self(self, m.as<GenerateBlockSymbol>());
+                }
+                else if (m.kind == SymbolKind::GenerateBlockArray) {
+                    for (auto* e : m.as<GenerateBlockArraySymbol>().entries)
+                        self(self, *e);
+                }
+            }
+        };
+        scan(scan, body);
+        return found;
+    };
+    auto walk = [&](auto&& self, const Scope& sc) -> void {
+        for (auto& m : sc.members()) {
+            if (hit)
+                return;
+            if (m.kind == SymbolKind::Instance) {
+                auto& body = m.as<InstanceSymbol>().body;
+                if (&body.getDefinition() == &def)
+                    if (auto* ts = body.find(tpName);
+                        ts && ts->kind == SymbolKind::TypeParameter &&
+                        !ts->as<TypeParameterSymbol>().isOverridden() &&
+                        bodyHits(body, ts->as<TypeParameterSymbol>()))
+                        hit = true;
+                self(self, body);
+            }
+            else if (m.kind == SymbolKind::InstanceArray) {
+                for (auto* e : m.as<InstanceArraySymbol>().elements)
+                    if (e && e->kind == SymbolKind::Instance) {
+                        auto& body = e->as<InstanceSymbol>().body;
+                        if (&body.getDefinition() == &def)
+                            if (auto* ts = body.find(tpName);
+                                ts && ts->kind == SymbolKind::TypeParameter &&
+                                !ts->as<TypeParameterSymbol>().isOverridden() &&
+                                bodyHits(body, ts->as<TypeParameterSymbol>()))
+                                hit = true;
+                        self(self, body);
+                    }
+            }
+            else if (m.kind == SymbolKind::GenerateBlock) {
+                if (!m.as<GenerateBlockSymbol>().isUninstantiated)
+                    self(self, m.as<GenerateBlockSymbol>());
+            }
+            else if (m.kind == SymbolKind::GenerateBlockArray) {
+                for (auto* e : m.as<GenerateBlockArraySymbol>().entries)
+                    self(self, *e);
+            }
+        }
+    };
+    for (auto* ti : comp.getRoot().topInstances) {
+        if (hit)
+            break;
+        if (&ti->body.getDefinition() == &def)
+            if (auto* ts = ti->body.find(tpName);
+                ts && ts->kind == SymbolKind::TypeParameter &&
+                !ts->as<TypeParameterSymbol>().isOverridden() &&
+                bodyHits(ti->body, ts->as<TypeParameterSymbol>()))
+                hit = true;
+        walk(walk, ti->body);
+    }
+    cache[key] = hit;
+    return hit;
+}
+
 UHDM::expr* UhdmExporter::typeParamDefaultBound20(
     const syntax::ExpressionSyntax* bsyn, UHDM::BaseClass* parent,
     const slang::ast::Scope* homeScope) {
@@ -6757,12 +6956,19 @@ UHDM::expr* UhdmExporter::typeParamDefaultBound20(
         }
         // Every surviving leaf stays UNBOUND, whatever emitSyntaxExpr
         // resolved: golden's module-side bound refs carry no `vpiActual`.
+        const bool noName146 =
+            tpDefaultCaLhsUnparented146(comp, bsyn, homeScope);
         std::function<void(UHDM::any*)> unbind20 = [&](UHDM::any* n20) {
             if (!n20)
                 return;
             switch (n20->UhdmType()) {
                 case UHDM::uhdmref_obj:
                     ((UHDM::ref_obj*)n20)->Actual_group(nullptr);
+                    // § tpDefaultCaLhsUnparented146 — no full name (the
+                    // VPI reports none when it equals vpiName).
+                    if (noName146)
+                        ((UHDM::ref_obj*)n20)->VpiFullName(
+                            std::string(((UHDM::ref_obj*)n20)->VpiName()));
                     break;
                 case UHDM::uhdmoperation:
                     if (auto* ov20 = ((UHDM::operation*)n20)->Operands())
@@ -16672,6 +16878,37 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         else if (tfTypeScopeViewLocal && pkgTopEmit &&
                                  pit2 != pkgParamDefRhs.end())
                             ref->Actual_group(pit2->second);
+                        // § pkgTfSigRangeTopViewConst148 (r11u148, switch
+                        // R11U148_I_OFF) — a RETURN / ARGUMENT range of a
+                        // package subroutine in the ELABORATED package listing
+                        // reads THAT view's constant too, not the definition
+                        // listing's: golden's elaborated-package function
+                        // `inc` binds `W` in `logic [W-1:0]` to the
+                        // uhdmtopPackages param_assign's value constant (size
+                        // 32, already listed there), the uhdmallPackages copy
+                        // to the definition's (size 64) -- measured on every
+                        // shape of grid tools/probe/r11u148share/cases/I
+                        // (package only, imported, scoped call, never called,
+                        // localparam, untyped) and simple_package.  Surelog
+                        // compiles every package twice (CompilePackage.cpp,
+                        // the getUnElabPackage() twin) and writes each
+                        // listing from its own compile (UhdmWriter.cpp:
+                        // writePackage(pack, p, s, true) into
+                        // uhdmtopPackages, writePackage(pack->
+                        // getUnElabPackage(), p, s, false) into
+                        // uhdmallPackages), so the elaborated subroutine's
+                        // range name resolves among the elaborated package's
+                        // own parameters.
+                        // Only a CONSTANT value is taken (the shape measured);
+                        // an operation value keeps the old binding.
+                        else if (i148On() && pkgTopEmit &&
+                                 pit2 != pkgParamDefRhs.end() && pit2->second &&
+                                 pit2->second->UhdmType() == UHDM::uhdmconstant) {
+                            ref->Actual_group(pit2->second);
+                            if (getenv("R11U148_TRACE"))
+                                fprintf(stderr, "R11U148I param=%s\n",
+                                        std::string(psy.name).c_str());
+                        }
                         else if (auto pit = pkgParamConst.find(&psy);
                                  pit != pkgParamConst.end())
                             ref->Actual_group(pit->second);
@@ -18602,6 +18839,38 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 if (sc137)
                     if (auto* bs137 = sc137->lookupName(parts[0].first))
                         paramBase137 = bs137->kind == SymbolKind::Parameter;
+            }
+            // § constPathBaseAnyKind146 (r11u146) — § structParamPathBase
+            // AtMember137's placement holds for ANY base in those constant
+            // contexts, not only a value parameter the scope lookup finds:
+            // an interface port (`input logic [b.W-1:0] din`, golden `b`
+            // 4:35 where ours read 4:33; `if (b.W == 8)` in an if-generate
+            // condition), an interface instance (`logic [s.CFG.BUS.DAT-1:0]
+            // mem`), a package parameter read in the package's own typedef
+            // (`logic [B.CTL-1:0] ctl`, which the definition-time scope
+            // lookup misses) and an interface's own struct parameter
+            // (iface_param_2level).  The base reads the next component's
+            // token and the leaf no scoped name, as there; a statement
+            // inside a generate block (the § 137 control, grid g7) is not a
+            // constant context and is unchanged.  Grid
+            // tools/probe/r11u146repro/grid/hp (g10: a variable base in a
+            // `$bits` of a generate condition stays).  Switch
+            // R11U146_PATHBASE_OFF.
+            // A VALUE base (a variable or net: `$bits(hw2reg.status.d)` in an
+            // if-generate condition, HierPathStructTypespec) keeps its own
+            // token and the leaf its scoped name in golden: declined.
+            if (!paramBase137 && constCtx137 && parts.size() >= 2 &&
+                parts[0].first.find('[') == std::string::npos &&
+                r11u137Law("R11U137_PATHBASE_OFF") &&
+                r11u146Law("R11U146_PATHBASE_OFF")) {
+                bool valueBase146 = false;
+                const Scope* sc146 = currentScope ? currentScope : defNetTsScope;
+                if (sc146)
+                    if (auto* bs146 = sc146->lookupName(parts[0].first))
+                        valueBase146 = bs146->kind == SymbolKind::Variable ||
+                                       bs146->kind == SymbolKind::Net;
+                if (!valueBase146)
+                    paramBase137 = true;
             }
             for (size_t i = 0; i < parts.size(); i++) {
                 auto& [pname, off] = parts[i];

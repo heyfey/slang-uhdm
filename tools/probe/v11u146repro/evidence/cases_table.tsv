@@ -1,0 +1,91 @@
+case	law	pris_cmp_lines	pris_strict	fix_cmp_lines	fix_strict	bytes	firstdiff pris->fix	records(pris_bad fix_bad newbad)
+ck/k1_twoinst	castKeyElabNetNoFile146	0	STRICT_NOTEQUAL_fullname	0	STRICT_NOTEQUAL_fullname	moved	#148->#148	pris_bad=22 fix_bad=22 newbad=0
+ck/k2_localparam	castKeyElabNetNoFile146	0	STRICT_NOTEQUAL_file	0	STRICT_EQUAL_120_objects	moved	#98->-	pris_bad=2 fix_bad=0 newbad=0
+ct/c1_nestedclass	classTdStructMemberPkgPath146	0	STRICT_NOTEQUAL_fullname	0	STRICT_NOTEQUAL_fullname	same	#9->#9	pris_bad=0 fix_bad=0 newbad=0
+ct/c2_union	classTdStructMemberPkgPath146	92	NOT_EQUAL_stage1	92	NOT_EQUAL_stage1	moved	-->-	
+ct/c3_enum_member	classTdStructMemberPkgPath146	0	STRICT_NOTEQUAL_fullname	0	STRICT_NOTEQUAL_type	moved	#14->#15	pris_bad=30 fix_bad=30 newbad=0
+e148/q1_bits	evalFuncSelectKeepsCall148	0	STRICT_NOTEQUAL_type	0	STRICT_EQUAL_75_objects	moved	#72->-	pris_bad=1 fix_bad=0 newbad=0
+e148/q2_override	evalFuncSelectKeepsCall148	0	STRICT_NOTEQUAL_type	0	STRICT_EQUAL_117_objects	moved	#92->-	pris_bad=6 fix_bad=0 newbad=0
+e148/q3_pkgparam	evalFuncSelectKeepsCall148	0	STRICT_NOTEQUAL_file	0	STRICT_NOTEQUAL_file	same	#61->#61	pris_bad=1 fix_bad=1 newbad=0
+e148/q4_formalidx	evalFuncSelectKeepsCall148	0	STRICT_NOTEQUAL_type	0	STRICT_EQUAL_74_objects	moved	#68->-	pris_bad=7 fix_bad=0 newbad=0
+e148/q5_sel_lhs	evalFuncSelectKeepsCall148	0	STRICT_NOTEQUAL_type	0	STRICT_EQUAL_82_objects	moved	#78->-	pris_bad=1 fix_bad=0 newbad=0
+e148/q6_gen	evalFuncSelectKeepsCall148	30	NOT_EQUAL_stage1	0	STRICT_EQUAL_87_objects	moved	-->-	
+e2148/r1_struct_lhs	genLpUintCaRhsOwnCopy148	17	NOT_EQUAL_stage1	17	NOT_EQUAL_stage1	moved	-->-	
+e2148/r2_int_lhs	genLpUintCaRhsOwnCopy148	17	NOT_EQUAL_stage1	17	NOT_EQUAL_stage1	moved	-->-	
+e2148/r3_scalar	genLpUintCaRhsOwnCopy148	47	NOT_EQUAL_stage1	47	NOT_EQUAL_stage1	moved	-->-	
+esc/x10_select	escIdPpColumnShift146	0	STRICT_NOTEQUAL_col	0	STRICT_EQUAL_80_objects	moved	#21->-	pris_bad=24 fix_bad=0 newbad=0
+esc/x11_hier	escIdPpColumnShift146	68	NOT_EQUAL_stage1	68	NOT_EQUAL_stage1	moved	-->-	
+esc/x12_twospaces_then_tab	escIdPpColumnShift146	0	STRICT_NOTEQUAL_endcol	0	STRICT_EQUAL_56_objects	moved	#4->-	pris_bad=19 fix_bad=0 newbad=0
+esc/x1_assign	escIdPpColumnShift146	0	STRICT_NOTEQUAL_col	0	STRICT_EQUAL_73_objects	moved	#5->-	pris_bad=29 fix_bad=0 newbad=0
+esc/x2_inst	escIdPpColumnShift146	0	STRICT_NOTEQUAL_endline	0	STRICT_NOTEQUAL_endcol	moved	#20->#40	pris_bad=31 fix_bad=1 newbad=0
+esc/x3_comment	escIdPpColumnShift146	0	STRICT_NOTEQUAL_col	0	STRICT_EQUAL_65_objects	moved	#7->-	pris_bad=24 fix_bad=0 newbad=0
+esc/x4_number	escIdPpColumnShift146	0	STRICT_NOTEQUAL_col	0	STRICT_NOTEQUAL_endcol	moved	#24->#24	pris_bad=26 fix_bad=22 newbad=0
+esc/x5_define	escIdPpColumnShift146	0	STRICT_NOTEQUAL_col	0	STRICT_EQUAL_113_objects	moved	#12->-	pris_bad=40 fix_bad=0 newbad=0
+esc/x6_modname	escIdPpColumnShift146	492	NOT_EQUAL_stage1	492	NOT_EQUAL_stage1	moved	-->-	
+esc/x7_string	escIdPpColumnShift146	0	STRICT_NOTEQUAL_col	0	STRICT_EQUAL_58_objects	moved	#19->-	pris_bad=12 fix_bad=0 newbad=0
+esc/x8_twolines	escIdPpColumnShift146	0	STRICT_NOTEQUAL_col	0	STRICT_EQUAL_92_objects	moved	#8->-	pris_bad=25 fix_bad=0 newbad=0
+esc/x9_param	escIdPpColumnShift146	0	STRICT_NOTEQUAL_endcol	0	STRICT_NOTEQUAL_endcol	moved	#2->#2	pris_bad=42 fix_bad=2 newbad=0
+fa/a10_twofuncs_twopkgs	tfArgTypedefLastWriter146	36	NOT_EQUAL_stage1	36	NOT_EQUAL_stage1	moved	-->-	
+fa/a11_twomods	tfArgTypedefLastWriter146	0	STRICT_NOTEQUAL_line	0	STRICT_NOTEQUAL_line	same	#8->#8	pris_bad=9 fix_bad=9 newbad=0
+fa/a12_classmod	tfArgTypedefLastWriter146	36	NOT_EQUAL_stage1	36	NOT_EQUAL_stage1	same	-->-	
+fa/a13_modport	tfArgTypedefLastWriter146	0	STRICT_NOTEQUAL_line	0	STRICT_NOTEQUAL_type	moved	#8->#107	pris_bad=14 fix_bad=7 newbad=0
+fa/a14_dpi_module	tfArgTypedefLastWriter146	0	STRICT_NOTEQUAL_line	0	STRICT_EQUAL_92_objects	moved	#2->-	pris_bad=6 fix_bad=0 newbad=0
+fa/a15_dpi_pkg_only	tfArgTypedefLastWriter146	74	NOT_EQUAL_stage1	74	NOT_EQUAL_stage1	same	-->-	
+fa/a16_pure_virtual	tfArgTypedefLastWriter146	0	STRICT_NOTEQUAL_line	0	STRICT_EQUAL_44_objects	moved	#2->-	pris_bad=3 fix_bad=0 newbad=0
+fa/a17_pkg_ansi_task_two	tfArgTypedefLastWriter146	36	NOT_EQUAL_stage1	36	NOT_EQUAL_stage1	moved	-->-	
+fa/a18_dpi_module_only	tfArgDpiNoWrite146v	0	STRICT_EQUAL_60_objects	0	STRICT_EQUAL_60_objects	same	-->-	pris_bad=0 fix_bad=0 newbad=0
+fa/a1_task	tfArgTypedefLastWriter146	0	STRICT_NOTEQUAL_line	0	STRICT_EQUAL_152_objects	moved	#2->-	pris_bad=8 fix_bad=0 newbad=0
+fa/a2_dpi	tfArgTypedefLastWriter146	74	NOT_EQUAL_stage1	74	NOT_EQUAL_stage1	same	-->-	
+fa/a3_alias	tfArgTypedefLastWriter146	468	NOT_EQUAL_stage1	468	NOT_EQUAL_stage1	moved	-->-	
+fa/a4_module	tfArgTypedefLastWriter146	0	STRICT_NOTEQUAL_line	0	STRICT_EQUAL_126_objects	moved	#2->-	pris_bad=6 fix_bad=0 newbad=0
+fa/a5_unit	tfArgTypedefLastWriter146	0	STRICT_NOTEQUAL_line	0	STRICT_EQUAL_117_objects	moved	#8->-	pris_bad=5 fix_bad=0 newbad=0
+fa/a6_dims	tfArgTypedefLastWriter146	0	STRICT_NOTEQUAL_line	0	STRICT_NOTEQUAL_fullname	moved	#2->#31	pris_bad=10 fix_bad=2 newbad=0
+fa/a7_iface	tfArgTypedefLastWriter146	0	STRICT_NOTEQUAL_line	0	STRICT_NOTEQUAL_fullname	moved	#2->#54	pris_bad=11 fix_bad=2 newbad=0
+fa/a8_proto	tfArgTypedefLastWriter146	494	NOT_EQUAL_stage1	494	NOT_EQUAL_stage1	same	-->-	
+fa/a9_packed	tfArgTypedefLastWriter146	36	NOT_EQUAL_stage1	36	NOT_EQUAL_stage1	same	-->-	
+hp/h1_varbound_child	constPathBaseAnyKind146	60	NOT_EQUAL_stage1	60	NOT_EQUAL_stage1	same	-->-	
+hp/h2_genblk	constPathBaseAnyKind146	-	SLANG_FAIL	-	SLANG_FAIL	moved	-->-	
+hp/h3_ifport_child	constPathBaseAnyKind146	0	STRICT_NOTEQUAL_col	0	STRICT_EQUAL_169_objects	moved	#25->-	pris_bad=2 fix_bad=0 newbad=0
+hp/h4_ifport_gen	constPathBaseAnyKind146	0	STRICT_NOTEQUAL_col	0	STRICT_NOTEQUAL_fullname	moved	#47->#54	pris_bad=3 fix_bad=1 newbad=0
+hp/h5_structparam_port	constPathBaseAnyKind146	0	STRICT_EQUAL_159_objects	0	STRICT_EQUAL_159_objects	same	-->-	pris_bad=0 fix_bad=0 newbad=0
+hp/h6_var_in_gen_if	constPathBaseAnyKind146	0	STRICT_NOTEQUAL_fullname	0	STRICT_NOTEQUAL_fullname	same	#41->#41	pris_bad=1 fix_bad=1 newbad=0
+i148/s1_int	pkgTfSigRangeTopViewConst148	0	STRICT_NOTEQUAL_depth	0	STRICT_EQUAL_133_objects	moved	#45->-	pris_bad=95 fix_bad=0 newbad=0
+i148/s2_expr	pkgTfSigRangeTopViewConst148	0	STRICT_NOTEQUAL_endcol	0	STRICT_NOTEQUAL_endcol	same	#163->#163	pris_bad=1 fix_bad=1 newbad=0
+i148/s3_otherpkg	pkgTfSigRangeTopViewConst148	46	NOT_EQUAL_stage1	46	NOT_EQUAL_stage1	same	-->-	
+i148/s4_task	pkgTfSigRangeTopViewConst148	0	STRICT_NOTEQUAL_depth	0	STRICT_EQUAL_111_objects	moved	#44->-	pris_bad=74 fix_bad=0 newbad=0
+ma/m1_clog	modArrayBoundRefArrayPath146	44	NOT_EQUAL_stage1	44	NOT_EQUAL_stage1	same	-->-	
+ma/m2_ascend	modArrayBoundRefArrayPath146	0	STRICT_NOTEQUAL_fullname	0	STRICT_EQUAL_155_objects	moved	#47->-	pris_bad=1 fix_bad=0 newbad=0
+ma/m3_pkg	modArrayBoundRefArrayPath146	48	NOT_EQUAL_stage1	48	NOT_EQUAL_stage1	same	-->-	
+ma/m4_gen	modArrayBoundRefArrayPath146	254	NOT_EQUAL_stage1	254	NOT_EQUAL_stage1	same	-->-	
+ma/m5_child	modArrayBoundRefArrayPath146	0	STRICT_NOTEQUAL_fullname	0	STRICT_EQUAL_206_objects	moved	#32->-	pris_bad=1 fix_bad=0 newbad=0
+ma/m6_iface	modArrayBoundRefArrayPath146	0	STRICT_NOTEQUAL_fullname	0	STRICT_EQUAL_76_objects	moved	#33->-	pris_bad=2 fix_bad=0 newbad=0
+pe/y1_two	portExprOperandAtExpr146	0	STRICT_NOTEQUAL_line	0	STRICT_EQUAL_120_objects	moved	#9->-	pris_bad=29 fix_bad=0 newbad=0
+pe/y2_positional	portExprElabDefNets146	95	NOT_EQUAL_stage1	95	NOT_EQUAL_stage1	moved	-->-	
+pe/y3_three	portExprOperandAtExpr146	0	STRICT_NOTEQUAL_line	0	STRICT_EQUAL_111_objects	moved	#8->-	pris_bad=30 fix_bad=0 newbad=0
+pe/y4_gen	portExprElabDefNets146	29	NOT_EQUAL_stage1	29	NOT_EQUAL_stage1	moved	-->-	
+pe/y5_twoinst	portExprElabDefNets146	0	STRICT_NOTEQUAL_line	0	STRICT_EQUAL_219_objects	moved	#8->-	pris_bad=91 fix_bad=0 newbad=0
+pe/y6_top	portExprElabDefNets146	0	STRICT_NOTEQUAL_line	0	STRICT_EQUAL_79_objects	moved	#9->-	pris_bad=28 fix_bad=0 newbad=0
+pi/w1_two	portInitAssignAtHeader146	28	NOT_EQUAL_stage1	28	NOT_EQUAL_stage1	moved	-->-	
+pi/w2_param	portInitAssignAtHeader146	28	NOT_EQUAL_stage1	28	NOT_EQUAL_stage1	moved	-->-	
+pi/w3_explicit	portInitAssignAtHeader146	30	NOT_EQUAL_stage1	30	NOT_EQUAL_stage1	moved	-->-	
+pi/w4_sub	portInitAssignAtHeader146	0	STRICT_NOTEQUAL_col	0	STRICT_EQUAL_38_objects	moved	#35->-	pris_bad=2 fix_bad=0 newbad=0
+pi/w5_ansi	portInitAssignAtHeader146	28	NOT_EQUAL_stage1	28	NOT_EQUAL_stage1	same	-->-	
+tn/k10_iface_ansi	tpDefaultCaIfaceKeeps146v	0	STRICT_NOTEQUAL_col	0	STRICT_NOTEQUAL_col	same	#30->#30	pris_bad=135 fix_bad=135 newbad=0
+tn/k1_mixed	tpDefaultCaLhsUnparented146	0	STRICT_NOTEQUAL_fullname	0	STRICT_EQUAL_239_objects	moved	#10->-	pris_bad=10 fix_bad=0 newbad=0
+tn/k2_gen	tpDefaultCaLhsUnparented146	0	STRICT_NOTEQUAL_fullname	0	STRICT_EQUAL_153_objects	moved	#10->-	pris_bad=8 fix_bad=0 newbad=0
+tn/k3_clog	tpDefaultCaLhsUnparented146	0	STRICT_NOTEQUAL_fullname	0	STRICT_EQUAL_154_objects	moved	#11->-	pris_bad=6 fix_bad=0 newbad=0
+tn/k4_widthover	tpDefaultCaLhsUnparented146	0	STRICT_NOTEQUAL_fullname	0	STRICT_EQUAL_146_objects	moved	#10->-	pris_bad=8 fix_bad=0 newbad=0
+tn/k5_var	tpDefaultCaLhsUnparented146	0	STRICT_NOTEQUAL_fullname	0	STRICT_EQUAL_176_objects	moved	#10->-	pris_bad=11 fix_bad=0 newbad=0
+tn/k6_iface	tpDefaultCaLhsUnparented146	0	STRICT_NOTEQUAL_line	0	STRICT_NOTEQUAL_line	same	#37->#37	pris_bad=169 fix_bad=169 newbad=0
+tn/k7_twotp	tpDefaultCaLhsUnparented146	0	STRICT_NOTEQUAL_fullname	0	STRICT_NOTEQUAL_fullname	moved	#10->#197	pris_bad=10 fix_bad=2 newbad=0
+tn/k8_ifarr	tpDefaultCaLhsUnparented146	0	STRICT_NOTEQUAL_fullname	0	STRICT_EQUAL_235_objects	moved	#10->-	pris_bad=13 fix_bad=0 newbad=0
+tn/k9_iface_port	tpDefaultCaLhsUnparented146	0	STRICT_NOTEQUAL_line	0	STRICT_NOTEQUAL_line	same	#81->#81	pris_bad=28 fix_bad=28 newbad=0
+tp/v1_signed	typeParamStructAtKeyword146	0	STRICT_NOTEQUAL_endcol	0	STRICT_EQUAL_164_objects	moved	#109->-	pris_bad=14 fix_bad=12 newbad=0
+tp/v2_union	typeParamStructAtKeyword146	0	STRICT_EQUAL_188_objects	0	STRICT_EQUAL_188_objects	same	-->-	pris_bad=12 fix_bad=12 newbad=0
+tp/v3_localparam	typeParamStructAtKeyword146	0	STRICT_NOTEQUAL_endcol	0	STRICT_NOTEQUAL_type	moved	#4->#18	pris_bad=103 fix_bad=102 newbad=0
+tp/v4_override	typeParamStructAtKeyword146	263	NOT_EQUAL_stage1	263	NOT_EQUAL_stage1	moved	-->-	
+tp/v5_iface	typeParamStructAtKeyword146	0	STRICT_NOTEQUAL_fullname	0	STRICT_NOTEQUAL_fullname	moved	#6->#6	pris_bad=33 fix_bad=32 newbad=0
+tp/v6_multiline	typeParamStructAtKeyword146	0	STRICT_NOTEQUAL_endline	0	STRICT_EQUAL_98_objects	moved	#67->-	pris_bad=8 fix_bad=6 newbad=0
+ucp/z1_basic	unnamedConcatIfaceAnchor146	34	NOT_EQUAL_stage1	34	NOT_EQUAL_stage1	moved	-->-	
+ucp/z2_three	unnamedConcatIfaceAnchor146	17	NOT_EQUAL_stage1	17	NOT_EQUAL_stage1	same	-->-	
+ucp/z3_named	ucpIfaceInstElabShape146	88	NOT_EQUAL_stage1	88	NOT_EQUAL_stage1	moved	-->-	

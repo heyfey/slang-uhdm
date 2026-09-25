@@ -686,6 +686,7 @@ void tpEndTopTwin149(
     }
     tpEndMoves149().clear();
 }
+bool r11u146Law(const char* sw);
 // ============================================================================
 // r11u139 — NET BINDING (the analyst pass's law.patch, landed by r11u137 on
 // the module ground): which net object an elaborated reference names.  Every
@@ -725,6 +726,304 @@ static bool trace139() {
 }
 using NetMap139 = std::map<const slang::ast::Symbol*, UHDM::any*>;
 static NetMap139 defView139(const NetMap139& elab, const NetMap139& def);
+// § portExprElabDefNets146 (r11u146) — every operand reference of an
+// explicit port expression's concatenation (the elaborated port's LowConn,
+// and the concatenation actual on the HighConn of such a port) names the
+// DEFINITION's net: Surelog's elaborated MultiPort is the definition port's
+// LowConn as compiled (its references were bound by the definition's late
+// binding), and a concatenation actual has no leftmost leaf under
+// § connLeftmostLeafElab139's rule, so every operand goes to the parent
+// definition's late binding.  Golden PortExpr `work@top`'s elaborated port
+// `op` lists `logic_net work@top.op[79]` again under its operand (the
+// definition object, not yet walked in uhdmtopModules), ExplictiPorts'
+// `ci(.a({a, b}))` lists `work@c.b` / `work@c.c` under the LowConn and
+// `work@test.a` / `work@test.b` under the HighConn.  Rebinds only an
+// operand whose elaborated net has a distinct definition twin.  Switch
+// R11U146_PORTEXPRDEF_OFF.
+// § unnamedConcatIfaceAnchor146 (r11u146) — `module f({a, b}); input a, b;`:
+// Surelog's non-ANSI port parser reads the header as an INTERFACE port
+// declaration `a b` (unnamedConcatIfacePort, EmitHelpers.h), so signal `b`
+// is minted from the HEADER: its net, its port and the port's LowConn are
+// located at the second identifier (golden 46:14-46:15 in both listings,
+// ours read `input a, b;`'s 47:10).  Returns that token's location for the
+// port-reading symbol, NoLocation otherwise.  Switch R11U146_UCPLOC_OFF.
+static slang::SourceLocation ucpHeaderLoc146(
+    const slang::ast::InstanceBodySymbol& body, const slang::ast::Symbol* sym) {
+    static const bool on = r11u146Law("R11U146_UCPLOC_OFF");
+    if (!on || !sym)
+        return slang::SourceLocation::NoLocation;
+    for (auto pb : body.getPortList()) {
+        auto ucp = unnamedConcatIfacePort(*pb);
+        if (ucp.second != sym)
+            continue;
+        auto* syn = pb->getSyntax();
+        if (!syn)
+            break;
+        std::vector<const slang::syntax::PortReferenceSyntax*> refs;
+        std::function<void(const slang::syntax::SyntaxNode&)> col =
+            [&](const slang::syntax::SyntaxNode& n) {
+                if (n.kind == slang::syntax::SyntaxKind::PortReference) {
+                    refs.push_back(&n.as<slang::syntax::PortReferenceSyntax>());
+                    return;
+                }
+                for (size_t k = 0; k < n.getChildCount(); k++)
+                    if (auto* c = n.childNode(k))
+                        col(*c);
+            };
+        col(*syn);
+        if (refs.size() == 2 && !refs[1]->select &&
+            refs[1]->name.valueText() == sym->name)
+            return refs[1]->name.location();
+        break;
+    }
+    return slang::SourceLocation::NoLocation;
+}
+static void portExprDefRebind146(UHDM::any* op, const NetMap139& elab,
+                                 const NetMap139& def) {
+    static const bool on = r11u146Law("R11U146_PORTEXPRDEF_OFF");
+    if (!on || !op || op->UhdmType() != UHDM::uhdmoperation ||
+        ((UHDM::operation*)op)->VpiOpType() != vpiConcatOp ||
+        !((UHDM::operation*)op)->Operands() || &elab == &def)
+        return;
+    NetMap139 dv = defView139(elab, def);
+    std::map<const UHDM::any*, UHDM::any*> e2d;
+    for (auto& [sy, o] : elab) {
+        if (!sy || !o ||
+            (sy->kind != slang::ast::SymbolKind::Net &&
+             sy->kind != slang::ast::SymbolKind::Variable))
+            continue;
+        if (auto d = dv.find(sy); d != dv.end() && d->second && d->second != o)
+            e2d.emplace(o, d->second);
+    }
+    for (auto* o : *((UHDM::operation*)op)->Operands())
+        if (o && o->UhdmType() == UHDM::uhdmref_obj)
+            if (auto* a = ((UHDM::ref_obj*)o)->Actual_group())
+                if (auto it = e2d.find(a); it != e2d.end())
+                    ((UHDM::ref_obj*)o)->Actual_group(it->second);
+}
+
+// ============================================================================
+// r11u148 — THE SHARING CLASSES (the analyst pass's law.patch; measurement and
+// decode: tools/probe/r11u148share/README.md).  Every law reads its own kill
+// switch; `R11U148_OFF=1` turns them all off and restores the pristine bytes.
+//   R11U148_E_OFF    § evalFuncSelectKeepsCall148   (emitContAssigns + the
+//                    gen-scope cont_assign emitter; arms R11U148_EP_OFF /
+//                    R11U148_EV_OFF)
+//   R11U148_E2_OFF   § genLpUintCaRhsOwnCopy148     (the gen-scope cont_assign
+//                    emitter's block-localparam read)
+//   R11U148_I_OFF    § pkgTfSigRangeTopViewConst148 (TypeEmit.cpp, the
+//                    package subroutine signature range binding)
+// R11U148_TRACE=1 prints one line per firing (R11U148E / R11U148E2 /
+// R11U148I) for the census; it changes no byte of the database.
+// ============================================================================
+static bool r11u148On(const char* one) {
+    // R11U146_OFF (the landing pass's master switch) drops these too.
+    static const bool all = getenv("R11U148_OFF") != nullptr ||
+                            getenv("R11U146_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+static bool e148On() {
+    static const bool on = r11u148On("R11U148_E_OFF");
+    return on;
+}
+static bool e148ParamArmOn() {
+    static const bool on = e148On() && getenv("R11U148_EP_OFF") == nullptr;
+    return on;
+}
+static bool e148VarArmOn() {
+    static const bool on = e148On() && getenv("R11U148_EV_OFF") == nullptr;
+    return on;
+}
+static bool e2148On() {
+    static const bool on = r11u148On("R11U148_E2_OFF");
+    return on;
+}
+// § genLpUintCaRhsOwnCopy148 — a copied gen-localparam constant's
+// ref_typespec waiting for the pendingGenLpTs drain to bind its source.
+static std::vector<std::pair<UHDM::ref_typespec*, UHDM::ref_typespec*>>&
+genLpRtMirror148() {
+    static std::vector<std::pair<UHDM::ref_typespec*, UHDM::ref_typespec*>> v;
+    return v;
+}
+static bool trace148() {
+    static const bool on = getenv("R11U148_TRACE") != nullptr;
+    return on;
+}
+// § evalFuncSelectKeepsCall148 — THE PRODUCER.  An elaborated cont_assign
+// whose whole right-hand side is a user function call is reduced by
+// `UhdmWriter::writeCont_assign`'s trailing `simplified == false` arm
+// (third_party/Surelog/src/DesignCompile/UhdmWriter.cpp, writeCont_assign):
+// `m_helper.reduceExpr(rhs, ...)` -> `ExprEval::reduceExpr`'s func_call arm ->
+// `ExprEval::evalFunc` (third_party/Surelog/third_party/UHDM/templates/
+// ExprEval.cpp), which EXECUTES the body and hands back the value it left on
+// the function's name.  Only a CONSTANT result replaces the Rhs (`res &&
+// res->UhdmType() == uhdmconstant`, then clone + adjustSize); anything else
+// leaves the cont_assign untouched and NOT cloned, so the elaborated module
+// lists the DEFINITION's own cont_assign object and its func_call.
+// Two body shapes never reduce to a constant inside evalFunc:
+//   P  a select (bit / part / indexed part) whose base names a MODULE
+//      PARAMETER: the bit_select arm of `ExprEval::reduceExpr` resolves the
+//      base with `getObject`, which (through CompileHelper::getObject) hands
+//      back the `parameter` object; no arm of the select reduction reads a
+//      `parameter`, so the select stays a select and the returned value is
+//      not a constant (grid cases e01-e03, e08-e10, e14, f05, f09, f11;
+//      FunctionParam, SelectGivenBySelectOnParameterInFunction);
+//   V  a select of a select (`c[4][0]`, `state[i][i]`) on a function-LOCAL
+//      variable: it compiles to a var_select, which the reduction has no arm
+//      for either (e05, e07, f03; func_local_array).
+// A single select of a local (f02, e06) and a select of a FORMAL (f01) do
+// reduce, and are left to the fold paths as before.  Ours folded all of
+// these (constCallFold's replay resolves the parameter element; slang's
+// tryEval folds the rest), so the elaborated Rhs was a constant where
+// golden lists the func_call.  GOLDEN WRITES NOTHING ON A MISS: the law only
+// declines the fold; the definition cont_assign share that follows is the
+// existing path (`shareWithDef`), and in a generate scope the call is
+// emitted as written.
+static bool evalFuncSelectPoison148(const slang::ast::Expression& rhs0,
+                                    const char** arm) {
+    using namespace slang::ast;
+    auto& rhs = stripImplicitConv(rhs0);
+    if (rhs.kind != ExpressionKind::Call)
+        return false;
+    auto& call = rhs.as<CallExpression>();
+    if (call.isSystemCall())
+        return false;
+    auto sp = std::get_if<const SubroutineSymbol*>(&call.subroutine);
+    if (!sp || !*sp)
+        return false;
+    const SubroutineSymbol& sub = **sp;
+    auto moduleParam = [](const Symbol& sym) {
+        if (sym.kind != SymbolKind::Parameter)
+            return false;
+        auto* sc = sym.getParentScope();
+        return sc && sc->asSymbol().kind == SymbolKind::InstanceBody;
+    };
+    auto localVar = [&](const Symbol& sym) {
+        if (sym.kind != SymbolKind::Variable)
+            return false;
+        for (auto* sc = sym.getParentScope(); sc;
+             sc = sc->asSymbol().getParentScope()) {
+            if (&sc->asSymbol() == (const Symbol*)&sub)
+                return true;
+            auto k = sc->asSymbol().kind;
+            if (k == SymbolKind::InstanceBody || k == SymbolKind::Package ||
+                k == SymbolKind::CompilationUnit || k == SymbolKind::Root)
+                return false;
+        }
+        return false;
+    };
+    // The P arm reads the body as EXECUTED: evalFunc stops at the first
+    // return it runs, so a select behind a condition may never be reached
+    // (grid f10, `if (a > 0) return a; return X[0];` folds in golden).  Only a
+    // STRAIGHT-LINE body (declarations, expression statements, returns,
+    // blocks) is claimed.
+    std::function<bool(const Statement&)> straight = [&](const Statement& st) {
+        switch (st.kind) {
+            case StatementKind::Empty:
+            case StatementKind::Return:
+            case StatementKind::ExpressionStatement:
+            case StatementKind::VariableDeclaration:
+                return true;
+            case StatementKind::Block:
+                return straight(st.as<BlockStatement>().body);
+            case StatementKind::List:
+                for (auto* it : st.as<StatementList>().list)
+                    if (!straight(*it))
+                        return false;
+                return true;
+            default:
+                return false;
+        }
+    };
+    const bool straightBody = straight(sub.getBody());
+    // The V arm: a select-of-select READ of a local (e07, f03) never reduces;
+    // WRITTEN, it reduces when every index is a literal (f04, `t[1][0] =
+    // 1'b1` folds in golden) and not when an index is a variable (e05 /
+    // func_local_array, `state[i][i] = 1'b1` inside the loop).
+    std::set<const Expression*> lhsSel;
+    sub.getBody().visit(makeVisitor([&](auto& v, const AssignmentExpression& ax) {
+        const Expression* l = &stripImplicitConv(ax.left());
+        while (l->kind == ExpressionKind::ElementSelect ||
+               l->kind == ExpressionKind::RangeSelect) {
+            lhsSel.insert(l);
+            l = &stripImplicitConv(l->kind == ExpressionKind::ElementSelect
+                                       ? l->as<ElementSelectExpression>().value()
+                                       : l->as<RangeSelectExpression>().value());
+        }
+        v.visitDefault(ax);
+    }));
+    auto litIndex = [](const Expression& e) {
+        auto idxLit = [](const Expression& x) {
+            return stripImplicitConv(x).kind == ExpressionKind::IntegerLiteral;
+        };
+        if (e.kind == ExpressionKind::ElementSelect)
+            return idxLit(e.as<ElementSelectExpression>().selector());
+        auto& rs = e.as<RangeSelectExpression>();
+        return idxLit(rs.left()) && idxLit(rs.right());
+    };
+    bool hit = false;
+    const char* which = nullptr;
+    auto isSel = [](const Expression& e) {
+        return e.kind == ExpressionKind::ElementSelect ||
+               e.kind == ExpressionKind::RangeSelect;
+    };
+    auto selBase = [](const Expression& e) -> const Expression& {
+        return e.kind == ExpressionKind::ElementSelect
+                   ? e.as<ElementSelectExpression>().value()
+                   : e.as<RangeSelectExpression>().value();
+    };
+    auto check = [&](const Expression& sel) {
+        if (hit)
+            return;
+        auto& b = stripImplicitConv(selBase(sel));
+        if (b.kind == ExpressionKind::NamedValue) {
+            if (e148ParamArmOn() && straightBody && !lhsSel.count(&sel) &&
+                moduleParam(b.as<NamedValueExpression>().symbol)) {
+                hit = true;
+                which = "P";
+            }
+            return;
+        }
+        if (isSel(b) && e148VarArmOn()) {
+            const Expression* r = &b;
+            bool allLit = litIndex(sel);
+            while (isSel(*r)) {
+                allLit = allLit && litIndex(*r);
+                r = &stripImplicitConv(selBase(*r));
+            }
+            const bool written = lhsSel.count(&sel) != 0;
+            if ((!written || !allLit) && r->kind == ExpressionKind::NamedValue &&
+                localVar(r->as<NamedValueExpression>().symbol)) {
+                hit = true;
+                which = "V";
+            }
+        }
+    };
+    sub.getBody().visit(makeVisitor(
+        [&](auto& v, const ElementSelectExpression& es) {
+            check(es);
+            v.visitDefault(es);
+        },
+        [&](auto& v, const RangeSelectExpression& rs) {
+            check(rs);
+            v.visitDefault(rs);
+        }));
+    if (arm)
+        *arm = which;
+    return hit;
+}
+static bool evalFuncSelectKeepsCall148(const slang::ast::Expression& rhs,
+                                       const char* site,
+                                       const std::string& scope) {
+    if (!e148On())
+        return false;
+    const char* arm = nullptr;
+    bool hit = evalFuncSelectPoison148(rhs, &arm);
+    if (hit && trace148())
+        fprintf(stderr, "R11U148E site=%s arm=%s scope=%s\n", site, arm ? arm : "?",
+                scope.c_str());
+    return hit;
+}
 
 // ===== § implicitNetNoFile119 (r11u119, LAW L2) =============================
 // THE PRODUCER.  An IMPLICIT net of a definition is not a declaration Surelog
@@ -6392,6 +6691,18 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
             if (bs) {
                 std::string sp = syntaxRefPrefix;
                 syntaxRefPrefix = prefix;
+                // § modArrayBoundRefArrayPath146 (r11u146) — a reference in a
+                // module_array's dimension bound (`myif m[N-1:0]`,
+                // `sub u[N*2-1:0]`) is named THROUGH THE ARRAY: Surelog's
+                // compileInstantiation hands compileRanges the module_array as
+                // the ranges' parent and the plain-identifier case stores no
+                // full name, so golden's reference reads its chain
+                // `work@dut.m.N` where ours stored the scope's `work@dut.N`
+                // (map N0030's module_array face: genvar_iface_struct,
+                // InterfArrayBind, YosysMarlann).  Switch
+                // R11U146_MODARRBOUND_OFF.
+                if (!modElems && r11u146Law("R11U146_MODARRBOUND_OFF"))
+                    syntaxRefPrefix = prefix + "." + std::string(arr.name);
                 auto* e = emitSyntaxExpr(*bs, rng);
                 syntaxRefPrefix = sp;
                 if (e)
@@ -15696,6 +16007,11 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 auto* pe = emitPortExprPort(*portBase, m, prefix, topNets);
                 if (!pe)
                     continue;
+                // § portExprElabDefNets146 — the LowConn operands.
+                if (auto dd146 = defMap.find(&body.getDefinition());
+                    dd146 != defMap.end() && dd146->second.filled)
+                    portExprDefRebind146(pe->Low_conn(), topNets,
+                                         dd146->second.nets);
                 // slang has no PortConnection for the MultiPort itself — it
                 // SPLITS the actual across the operand sub-ports (`.a({a,b})`
                 // becomes one sliced connection per sub-port, in reverse
@@ -15727,6 +16043,20 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                             ->VpiFullName(opPfxM +
                                                           std::string(oM->VpiName()));
                         }
+                        // § portExprElabDefNets146 — the HighConn operands
+                        // (module scope only, as § connLeftmostLeafElab139).
+                        if (hM && bindPath.empty())
+                            if (auto* ps146 = connInstM.getParentScope();
+                                ps146 && ps146->asSymbol().kind ==
+                                             SymbolKind::InstanceBody)
+                                if (auto pd146 = defMap.find(
+                                        &ps146->asSymbol()
+                                             .as<InstanceBodySymbol>()
+                                             .getDefinition());
+                                    pd146 != defMap.end() &&
+                                    pd146->second.filled)
+                                    portExprDefRebind146(hM, *parentNets,
+                                                         pd146->second.nets);
                         if (hM)
                             pe->High_conn((UHDM::expr*)hM);
                     }
@@ -17609,6 +17939,27 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                    std::string(ucp9.second->name));
                 ucIf9->VpiDefName("work@" + std::string(idef9->name));
                 ucIf9->VpiParent(m);
+                // § ucpIfaceInstElabShape146 (r11u146) — the interface
+                // instance Surelog elaborates for the header's `a b` reading
+                // carries the INSTANTIATION's file and line only (golden
+                // `interface_inst b` dut.sv 9:0, no column and no end: the
+                // elaborated interface's location is set from the
+                // instantiation's line alone), and each of its ports' LowConn
+                // binds that interface's OWN net, minted from the definition
+                // port with no full name (golden `logic_net a` 20:10-20:11
+                // under `work@test.f.b.a`, typed by a reference named `a`),
+                // not the enclosing instance's same-named net (already
+                // walked).  ExplictiPorts `f f(a);`.  Switch
+                // R11U146_UCPIF_OFF.
+                static const bool ucpIf146 = r11u146Law("R11U146_UCPIF_OFF");
+                if (ucpIf146)
+                    if (auto isl146 = inst.location;
+                        isl146 != SourceLocation::NoLocation) {
+                        uint32_t il146 = 0, ic146 = 0;
+                        locLineCol(isl146, il146, ic146);
+                        ucIf9->VpiFile(fullFilePath(isl146));
+                        ucIf9->VpiLineNo(il146);
+                    }
                 auto* ifps9 = s.MakePortVec();
                 if (auto* dm9 = defMap[idef9].mod)
                     if (auto* dps9 = instGetPorts(dm9))
@@ -17634,6 +17985,28 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             nlc9->VpiColumnNo(dp9->VpiColumnNo());
                             nlc9->VpiEndLineNo(dp9->VpiEndLineNo());
                             nlc9->VpiEndColumnNo(dp9->VpiEndColumnNo());
+                            UHDM::logic_net* own146 = nullptr;
+                            if (ucpIf146) {
+                                own146 = s.MakeLogic_net();
+                                own146->VpiName(pn9);
+                                own146->VpiFullName(pn9);
+                                own146->VpiParent(ucIf9);
+                                own146->VpiLineNo(dp9->VpiLineNo());
+                                cpFile125(own146, dp9);
+                                own146->VpiColumnNo(dp9->VpiColumnNo());
+                                own146->VpiEndLineNo(dp9->VpiEndLineNo());
+                                own146->VpiEndColumnNo(dp9->VpiEndColumnNo());
+                                if (auto* drt146 = dp9->Typespec()) {
+                                    auto* ort146 = s.MakeRef_typespec();
+                                    ort146->VpiFullName(pn9);
+                                    ort146->VpiParent(own146);
+                                    ort146->Actual_typespec(
+                                        drt146->Actual_typespec());
+                                    own146->Typespec(ort146);
+                                }
+                                nlc9->Actual_group(own146);
+                            }
+                            else
                             for (auto& [ns9, nv9] : topNets)
                                 if (ns9->name == pn9) {
                                     nlc9->Actual_group(nv9);
@@ -17668,6 +18041,30 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             lcd->VpiFullName(prefix + "." + std::string(isym->name));
             lcd->VpiParent(pd);
             setLoc(lcd, nameSpan(isym->location, isym->name));
+            // § unnamedConcatIfaceAnchor146 — the header-minted signal.
+            if (auto hl146 = ucpHeaderLoc146(body, isym);
+                hl146 != SourceLocation::NoLocation) {
+                setLoc(pd, nameSpan(hl146, isym->name));
+                // The ELABORATED LowConn is the positional connection's:
+                // located at the instantiation's actual (golden 9:11-9:12,
+                // `f f(a);`), as every positional LowConn.
+                if (auto isyn146 = inst.getSyntax();
+                    isyn146 &&
+                    isyn146->kind == syntax::SyntaxKind::HierarchicalInstance) {
+                    auto& hi146 = isyn146->as<syntax::HierarchicalInstanceSyntax>();
+                    if (!hi146.connections.empty() &&
+                        hi146.connections[0]->kind ==
+                            syntax::SyntaxKind::OrderedPortConnection)
+                        if (auto* cs146 = connActualSyntax(
+                                hi146.connections[0]
+                                    ->as<syntax::OrderedPortConnectionSyntax>()
+                                    .expr))
+                            setLoc(lcd, cs146->sourceRange());
+                }
+                if (auto nt146 = topNets.find(isym); nt146 != topNets.end() &&
+                                                      nt146->second)
+                    setLoc(nt146->second, nameSpan(hl146, isym->name));
+            }
             if (ucPort9 && ucIf9)
                 lcd->Actual_group(ucIf9);
             else if (auto itn = topNets.find(isym); itn != topNets.end())
@@ -17847,11 +18244,26 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 auto* iniL = s.MakeInitial();
                 auto* asL = s.MakeAssignment();
                 asL->VpiParent(iniL);
-                setLoc(asL, nameSpan(ps9.location, ps9.name));
+                // § portInitAssignAtHeader146 (r11u146) — the synthesized
+                // port-initializer assignment and its Lhs are located at the
+                // PORT-LIST name (the port's own anchor, setLocNamed's
+                // externalLoc), not at the body declaration: a non-ANSI
+                // `module dut (b); output reg b = 0;` reads golden 1:13-1:14
+                // where ours read the declaration's 3:20-3:21 (map N0455 /
+                // N0456: PortInitVal, PortInitVal2, sat_asserts_seq).  An ANSI
+                // port's two anchors coincide.  Switch R11U146_PORTINIT_OFF.
+                static const bool pi146 = r11u146Law("R11U146_PORTINIT_OFF");
+                if (pi146)
+                    setLocNamed(asL, ps9);
+                else
+                    setLoc(asL, nameSpan(ps9.location, ps9.name));
                 auto* lrL = s.MakeRef_obj();
                 lrL->VpiName(ps9.name);
                 lrL->VpiParent(asL);
-                setLoc(lrL, nameSpan(ps9.location, ps9.name));
+                if (pi146)
+                    setLocNamed(lrL, ps9);
+                else
+                    setLoc(lrL, nameSpan(ps9.location, ps9.name));
                 asL->Lhs(lrL);
                 auto ivL = ic9.as<IntegerLiteral>().getValue();
                 auto* rcL = s.MakeConstant();
@@ -17883,12 +18295,20 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             auto* ini9 = s.MakeInitial();
             auto* as9 = s.MakeAssignment();
             as9->VpiParent(ini9);
-            setLoc(as9, nameSpan(ps9.location, ps9.name));
+            // § portInitAssignAtHeader146 — the parameter-initializer arm.
+            static const bool pj146 = r11u146Law("R11U146_PORTINIT_OFF");
+            if (pj146)
+                setLocNamed(as9, ps9);
+            else
+                setLoc(as9, nameSpan(ps9.location, ps9.name));
             auto* lr9 = s.MakeRef_obj();
             lr9->VpiName(ps9.name);
             lr9->VpiFullName(std::string(ps9.name));
             lr9->VpiParent(as9);
-            setLoc(lr9, nameSpan(ps9.location, ps9.name));
+            if (pj146)
+                setLocNamed(lr9, ps9);
+            else
+                setLoc(lr9, nameSpan(ps9.location, ps9.name));
             as9->Lhs(lr9);
             auto* rc9 = s.MakeConstant();
             rc9->VpiDecompile(econ9->VpiDecompile());
@@ -24294,8 +24714,82 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 auto& rsym0 = rcp0.as<NamedValueExpression>().symbol;
                 if (auto lit0 = genLpConst.find(&rsym0);
                     lit0 != genLpConst.end()) {
-                    lit0->second->VpiParent(ca);
-                    rhs = lit0->second;
+                    auto* src148 = lit0->second;
+                    // § genLpUintCaRhsOwnCopy148 — THE PRODUCER.  The gen-scope
+                    // cont_assign's whole-Rhs read of a block localparam is
+                    // reduced by `writeCont_assign`'s trailing arm to the
+                    // param_assign's own value constant and handed to
+                    // `CompileHelper::adjustSize(tps, ..., res, true)`
+                    // (third_party/Surelog/src/DesignCompile/CompileHelper.cpp,
+                    // adjustSize): under `uniquify` its vpiUIntConst arm, its
+                    // `orig_size == -1` arm and its signed-binary arm
+                    // `clone_tree` the constant, every other encoding is
+                    // mutated IN PLACE (the module-level twin is
+                    // § elabCaReusesParamValueConst).  So a UINT (or unsized)
+                    // value gives the cont_assign ITS OWN copy -- same value,
+                    // span and typespec reference as the param_assign's, a
+                    // fresh ref_typespec, parented at the cont_assign -- while
+                    // the param_assign keeps the original (grid g01, g09;
+                    // SumOfParametersInNestedForLoops), and a BIN / HEX value
+                    // stays shared (g04, g05: already equal).
+                    // `tps` is non-null only on the `lhs->UhdmType() ==
+                    // uhdmref_obj` road, where it is the bound variable's
+                    // typespec: a SELECT Lhs reaches adjustSize with no
+                    // typespec and adjustSize returns the constant itself
+                    // (grid g06, `o[i] = L`: shared, already equal), and so
+                    // does an implicit net (no declared type).
+                    const bool plainTypedLhs148 = [&] {
+                        auto& l148 = stripImplicitConv(ae.left());
+                        if (l148.kind != ExpressionKind::NamedValue)
+                            return false;
+                        auto& ls148 = l148.as<NamedValueExpression>().symbol;
+                        // `bindVariable(mod, m, name)` looks in the MODULE
+                        // instance: a generate-local net is not found, `tps`
+                        // stays null and the constant is shared (grid g14).
+                        auto* lsc148 = ls148.getParentScope();
+                        if (!lsc148 ||
+                            lsc148->asSymbol().kind != SymbolKind::InstanceBody)
+                            return false;
+                        if (ls148.kind == SymbolKind::Net)
+                            return !ls148.as<NetSymbol>().isImplicit;
+                        return ls148.kind == SymbolKind::Variable;
+                    }();
+                    const bool own148 =
+                        e2148On() && plainTypedLhs148 &&
+                        src148->VpiConstType() == vpiUIntConst;
+                    if (own148) {
+                        auto* c148 = s.MakeConstant();
+                        c148->VpiValue(std::string(src148->VpiValue()));
+                        c148->VpiSize(src148->VpiSize());
+                        c148->VpiConstType(src148->VpiConstType());
+                        c148->VpiDecompile(std::string(src148->VpiDecompile()));
+                        c148->VpiFile(src148->VpiFile());
+                        c148->VpiLineNo(src148->VpiLineNo());
+                        c148->VpiColumnNo(src148->VpiColumnNo());
+                        c148->VpiEndLineNo(src148->VpiEndLineNo());
+                        c148->VpiEndColumnNo(src148->VpiEndColumnNo());
+                        c148->VpiParent(ca);
+                        if (auto* srt148 = src148->Typespec()) {
+                            auto* rt148 = s.MakeRef_typespec();
+                            rt148->VpiFullName(std::string(srt148->VpiFullName()));
+                            rt148->VpiParent(c148);
+                            c148->Typespec(rt148);
+                            // The source reference's actual is bound by the
+                            // pendingGenLpTs drain (write phase); mirror it
+                            // there, or now when it is already bound.
+                            if (srt148->Actual_typespec())
+                                rt148->Actual_typespec(srt148->Actual_typespec());
+                            else
+                                genLpRtMirror148().push_back({srt148, rt148});
+                        }
+                        if (trace148())
+                            fprintf(stderr, "R11U148E2 scope=%s name=%s\n",
+                                    fullName.c_str(), std::string(rsym0.name).c_str());
+                        rhs = c148;
+                    } else {
+                        src148->VpiParent(ca);
+                        rhs = src148;
+                    }
                 }
                 // The GENVAR ref folds to its iteration value: a LOC-LESS
                 // UINT constant parented at the ca (Surelog). Real
@@ -24990,9 +25484,14 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         genTernArm23 ? 1 : 0, (int)genTernFillRaw23,
                         (int)genTernUnsizedNoBind23);
             }
+            // § evalFuncSelectKeepsCall148 — the GEN-SCOPE flavour: a callee
+            // body evalFunc cannot reduce leaves the call as written (the
+            // netlist's cont_assign keeps its func_call; grid case e13).
+            const bool evalKeepGen148 =
+                !rhs && evalFuncSelectKeepsCall148(ae.right(), "genscope", fullName);
             // Constant gen-scope calls fold to the source literal, sized at
             // the LHS width.
-            if (!rhs)
+            if (!rhs && !evalKeepGen148)
             if (auto cfr2 = constCallFold(stripImplicitConv(ae.right()));
                 cfr2.lit && !cfr2.param) {
                 forceConstParent = true;
@@ -25004,7 +25503,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             }
             // A gen-scope call RHS (possibly cast-wrapped: int'(f())) that
             // evaluates folds to a LOC-LESS constant sized at the LHS width.
-            if (!rhs) {
+            if (!rhs && !evalKeepGen148) {
                 const Expression* callE = &stripImplicitConv(ae.right());
                 if (callE->kind == ExpressionKind::Conversion)
                     callE = &stripImplicitConv(
@@ -29964,8 +30463,14 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     std::set<const Symbol*> explicitPortTs;
     for (auto portBase : body.getPortList()) {
         if (portBase->kind == SymbolKind::MultiPort) {
-            if (auto* pe = emitPortExprPort(*portBase, tp.m, tp.prefix, tp.nets))
+            if (auto* pe = emitPortExprPort(*portBase, tp.m, tp.prefix, tp.nets)) {
+                // § portExprElabDefNets146 — the top's LowConn operands.
+                if (auto dd146 = defMap.find(&body.getDefinition());
+                    dd146 != defMap.end() && dd146->second.filled)
+                    portExprDefRebind146(pe->Low_conn(), tp.nets,
+                                         dd146->second.nets);
                 ports->push_back(pe);
+            }
             continue;
         }
         if (portBase->kind != SymbolKind::Port)
@@ -30971,6 +31476,12 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         }
     }
     pendingGenLpTs.clear();
+    // § genLpUintCaRhsOwnCopy148 — the copies' references read what the drain
+    // bound on their sources.
+    for (auto& [src148, dst148] : genLpRtMirror148())
+        if (!dst148->Actual_typespec())
+            dst148->Actual_typespec(src148->Actual_typespec());
+    genLpRtMirror148().clear();
     // Signed size-cast fold typespecs close out the tail.
     for (auto* rt : pendingSignedCastTs) {
         auto* lts = s.MakeLogic_typespec();
@@ -31143,13 +31654,42 @@ UHDM::port* UhdmExporter::emitPortExprPort(const Symbol& pb, UHDM::instance* m,
     if (auto syn = mp.getSyntax())
         setLoc(cop, syn->sourceRange());
     auto* ops = s.MakeAnyVec();
+    // § portExprOperandAtExpr146 (r11u146) — each operand reference of an
+    // explicit port expression (`module c(.a({b, c}))`) is located at its
+    // token IN THE EXPRESSION: Surelog compiles the port's LowConn from the
+    // port_expression's own port_reference nodes, so golden reads 31:14 /
+    // 31:17 where ours read the operand's `input` declaration (32:8, 33:7;
+    // ExplictiPorts' modules c and d, PortExpr's `{\op[79] ,\op[78] }`
+    // 2:9-2:21).  A reference with a select keeps the old anchor (not
+    // measured).  Switch R11U146_PORTEXPRLOC_OFF.
+    std::vector<const syntax::PortReferenceSyntax*> refs146;
+    if (r11u146Law("R11U146_PORTEXPRLOC_OFF"))
+        if (auto* syn146 = mp.getSyntax()) {
+            std::function<void(const syntax::SyntaxNode&)> collect146 =
+                [&](const syntax::SyntaxNode& n146) {
+                    if (n146.kind == syntax::SyntaxKind::PortReference) {
+                        refs146.push_back(&n146.as<syntax::PortReferenceSyntax>());
+                        return;
+                    }
+                    for (size_t k = 0; k < n146.getChildCount(); k++)
+                        if (auto* c146 = n146.childNode(k))
+                            collect146(*c146);
+                };
+            collect146(*syn146);
+            if (refs146.size() != pes.size())
+                refs146.clear();
+        }
     for (size_t i = 0; i < pes.size(); i++) {
         auto* r = s.MakeRef_obj();
         r->VpiName(pes[i]->name);
         r->VpiFullName(prefix + "." + std::string(mp.name) + "." +
                        std::string(pes[i]->name));
         r->VpiParent(cop);
-        setLoc(r, nameSpan(mp.ports[i]->location, pes[i]->name));
+        if (!refs146.empty() && !refs146[i]->select &&
+            refs146[i]->name.location() != SourceLocation::NoLocation)
+            setLoc(r, nameSpan(refs146[i]->name.location(), pes[i]->name));
+        else
+            setLoc(r, nameSpan(mp.ports[i]->location, pes[i]->name));
         if (auto nit = netMap.find(pes[i]); nit != netMap.end())
             r->Actual_group(nit->second);
         ops->push_back(r);
@@ -31725,6 +32265,15 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                         std::string(isym->name));
         lc->VpiParent(pd);
         setLoc(lc, nameSpan(isym->location, isym->name));
+        // § unnamedConcatIfaceAnchor146 — the header-minted signal.
+        if (auto hl146 = ucpHeaderLoc146(body, isym);
+            hl146 != SourceLocation::NoLocation) {
+            setLoc(pd, nameSpan(hl146, isym->name));
+            setLoc(lc, nameSpan(hl146, isym->name));
+            if (auto nt146 = netMap.find(isym); nt146 != netMap.end() &&
+                                                 nt146->second)
+                setLoc(nt146->second, nameSpan(hl146, isym->name));
+        }
         const UHDM::any* ucAct9 = nullptr;
         if (ucpD9.second && isym == ucpD9.second)
             for (auto& [d9, di9] : defMap)
@@ -34740,7 +35289,13 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                             break;
                         }
         }
-        CallFold cfr = (topView && !typedefRet && !sgnFormal9)
+        // § evalFuncSelectKeepsCall148 — a callee body evalFunc cannot
+        // reduce keeps the call: every fold arm below is declined, and the
+        // definition cont_assign share takes the row (see the decode at the
+        // law's predicate).
+        const bool evalKeep148 =
+            topView && evalFuncSelectKeepsCall148(ae.right(), "module", prefix);
+        CallFold cfr = (topView && !typedefRet && !sgnFormal9 && !evalKeep148)
                            ? constCallFold(stripImplicitConv(ae.right()))
                            : CallFold{};
         // ================= § srlgUnvaluedActualLitRetFold8 (r10rgg8) =======
@@ -34786,7 +35341,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // measured to fold refuses the whole call.  A missed fold is a
         // residue; a wrong fold would be a regression.
         std::set<const Symbol*> unvalued8;
-        if (!cfr && topView && !typedefRet && !sgnFormal9) {
+        if (!cfr && topView && !typedefRet && !sgnFormal9 && !evalKeep148) {
             auto& rc8 = stripImplicitConv(ae.right());
             if (rc8.kind == ExpressionKind::Call &&
                 !rc8.as<CallExpression>().isSystemCall()) {
@@ -34928,7 +35483,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // Calls with args still fold when evaluable: a LOC-LESS constant
         // shaped by the result type (signed int -> INT/vpiIntConst).
         std::optional<ConstantValue> callFold;
-        if (topView && !cfr && !typedefRet) {
+        if (topView && !cfr && !typedefRet && !evalKeep148) {
             auto& rc = stripImplicitConv(ae.right());
             if (rc.kind == ExpressionKind::Call && !rc.as<CallExpression>().isSystemCall()) {
                 ASTContext ctx(comp.getRoot(), LookupLocation::max);
@@ -36554,7 +37109,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                             break;
                         }
         }
-        if (!rhs && topView && sgnSub9 && !callFold) {
+        if (!rhs && topView && sgnSub9 && !callFold && !evalKeep148) {
             ASTContext gctx9(comp.getRoot(), LookupLocation::max);
             ConstantValue gcv9 = gctx9.tryEval(ae.right());
             if (gcv9 && gcv9.isInteger() && !gcv9.integer().hasUnknown())

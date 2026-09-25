@@ -99,6 +99,16 @@ bool r11u144Law(const char* sw) {
     return getenv(sw) == nullptr;
 }
 
+// ===== r11u146 — the module/type ground on the strict axis, fifth round =====
+// Every r11u146 law sits behind its own switch; R11U146_OFF drops them all
+// and restores the pristine bytes.  The table is
+// tools/probe/r11u146repro/README.md.
+bool r11u146Law(const char* sw) {
+    if (getenv("R11U146_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 // § implicitNetNoFile119 (r11u119) — defined in ModuleEmit.cpp.
 void clearImplicitNetFiles119();
 
@@ -1694,8 +1704,26 @@ SourceRange UhdmExporter::regNetSpan(const Symbol& sym) {
 
 SourceRange UhdmExporter::nameSpan(SourceLocation loc, std::string_view name) {
     // Escaped identifiers ("\foo* ") get Surelog's quirky name+6 width.
-    if (rawText(SourceRange(loc, loc + 1)) == "\\")
+    if (rawText(SourceRange(loc, loc + 1)) == "\\") {
+        // § escIdPpColumnShift146 — the token ends at the lexeme's end; the
+        // column arithmetic (fileLineCol's per-line shifts) adds the 4 the
+        // preprocessor's `#~@` spelling grew by, so the span stays on its
+        // line (golden 4:11-4:23 where the buffer offset +6 crossed into
+        // 5:3).  Only a space-terminated lexeme on a file line.
+        static const bool esc146 = r11u146Law("R11U146_ESCCOL_OFF");
+        if (esc146 && !sm->isMacroLoc(loc)) {
+            auto txt146 = sm->getSourceText(loc.buffer());
+            size_t e146 = loc.offset() + 1;
+            while (e146 < txt146.size() && txt146[e146] != ' ' &&
+                   txt146[e146] != '\t' && txt146[e146] != '\n' &&
+                   txt146[e146] != '\r')
+                e146++;
+            if (e146 < txt146.size() && txt146[e146] == ' ' &&
+                e146 > loc.offset() + 1)
+                return SourceRange(loc, SourceLocation(loc.buffer(), e146));
+        }
         return SourceRange(loc, loc + name.size() + 6);
+    }
     return SourceRange(loc, loc + name.size());
 }
 
@@ -6054,12 +6082,30 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
             }
             else if (ct.kind == SymbolKind::UnpackedStructType ||
                      ct.kind == SymbolKind::PackedStructType) {
+                // § classTdStructMemberPkgPath146 (r11u146) — the member
+                // references of a struct typedef declared in a class that a
+                // PACKAGE holds are named from the class's FULL name:
+                // Surelog's ref_typespec under the typespec_member stores no
+                // name and reads its chain up the typedef to the class_defn,
+                // whose full name carries the package
+                // (`uvm_pkg::uvm_resource_types::access_t::read_count` where
+                // ours wrote `uvm_resource_types::access_t::read_count`; map
+                // N0096, IOClassStruct).  A `$unit` class already reads
+                // `work@c` and is unchanged.  Switch R11U146_CLSTDPKG_OFF.
+                std::string memAlias146 = aliasFull;
+                if (clsName.find("::") == std::string::npos &&
+                    clsName.rfind("work@", 0) != 0 &&
+                    r11u146Law("R11U146_CLSTDPKG_OFF"))
+                    if (auto* pk146 = cls.getParentScope();
+                        pk146 && pk146->asSymbol().kind == SymbolKind::Package)
+                        memAlias146 = std::string(pk146->asSymbol().name) +
+                                      "::" + aliasFull;
                 auto* sts =
                     ct.kind == SymbolKind::PackedStructType
                         ? buildStructTs(ct.as<PackedStructType>(), true,
-                                        aliasFull, "::")
+                                        memAlias146, "::")
                         : buildStructTs(ct.as<UnpackedStructType>(), false,
-                                        aliasFull, "::");
+                                        memAlias146, "::");
                 if (typeSyn)
                     setLoc(sts, typeSyn->sourceRange());
                 ts = sts;
@@ -11055,8 +11101,233 @@ UHDM::design* UhdmExporter::exportDesign() {
     // § implicitNetNoFile119 (r11u119, LAW L2) — LAST, so no later setLoc
     // re-stamps the file (law and decode at ModuleEmit.cpp).
     clearImplicitNetFiles119();
+    // § castKeyElabNetNoFile146 (r11u146) — the ELABORATED twin of a
+    // `T'{key: v}` cast pattern's leaked key wire (§ castNamedPatternConcat70)
+    // has no file either: it is the same UhdmWriter late-binding mint
+    // (UhdmWriter.cpp:3985, four span fields and no VpiFile) reached from the
+    // elaborated param_assign's key reference, which § implicitNetNoFile119
+    // leaves filed because its twin rule reads the DEFINITION listing only
+    // (golden `imm_11_0` 22:45-22:53 with no file under
+    // `work@typed_named_pattern`'s NOP_CAST; map N0011, typed_named_pattern).
+    // Switch R11U146_CASTKEYFILE_OFF.
+    if (r11u146Law("R11U146_CASTKEYFILE_OFF"))
+        for (auto& ck146 : castKeyNets70)
+            if (ck146.second)
+                ck146.second->VpiFile("");
+    // § tfArgTypedefLastWriter146 (r11u146) — a subroutine argument typed by a
+    // bare enum / struct / union typedef name MOVES the typedef's span to that
+    // type token.  Surelog's CompileHelper::compileTfPortList
+    // (third_party/Surelog/src/DesignCompile/CompileStmt.cpp) runs
+    //     if (typespec* tempts = compileTypespec(component, fC, type, ...)) {
+    //       ts = tempts;
+    //       fC->populateCoreMembers(type, type, ts);
+    // on every ANSI argument with a written data type, and compileTypespec
+    // answers a typedef name with the typedef's OWN aggregate object
+    // (TypeDef::getTypespec; only a SimpleType typedef is cloned, the
+    // § defNetTypedefEndWrite134 decode), so the shared object -- and every
+    // listing that reads it -- takes the argument's type span, the last
+    // compiled argument winning.  Golden FuncCase: `typedef enum ... opgroup_e`
+    // 2:1-4:15 reads 7:46-7:55 (`num_operands(opgroup_e grp)`) under the package
+    // and under the io_decl; SimpleConstraint's $unit `pkt_type` reads the class
+    // method argument 23:29-23:37; grid tools/probe/r11u146repro/grid/fa (two
+    // functions: the later argument wins; a return type, a body-declared
+    // `input e_t g;`, a struct typedef and a method of a class inside a package
+    // (the UVM enums) do not move it; a package-qualified
+    // argument type moves the elaborated package's object only, not
+    // modelled: such a typedef is left alone).  Narrow by construction: the bare name must resolve to
+    // exactly one enum typedef the exporter emitted, every
+    // writer must sit in ONE container (one class, else one outermost design
+    // unit) so that source order is compile order, and a typedef any other
+    // container also writes is left alone.  A `writeNets` end-only move
+    // (§ defNetTypedefEndWrite134) happens at WRITE time, after compilation,
+    // so an end it already moved is kept.  Switch R11U146_TFARGTD_OFF.
+
+    if (!r11u146Law("R11U146_TFARGTD_OFF"))
+        return d;
+    // Emitted typedefs by name.
+    std::map<std::string, std::vector<const Symbol*>> byName;
+    for (auto& [sym, ts] : typedefTs) {
+        if (!sym || !ts || sym->kind != SymbolKind::TypeAlias)
+            continue;
+        // Measured on an ENUM typedef only: a struct argument leaves the
+        // typedef's span in golden (grid fa/f14).
+        auto& ct = sym->as<TypeAliasType>().getCanonicalType();
+        if (ct.kind != SymbolKind::EnumType)
+            continue;
+        auto& v = byName[std::string(sym->name)];
+        if (std::find(v.begin(), v.end(), sym) == v.end())
+            v.push_back(sym);
+    }
+    if (byName.empty())
+        return d;
+    struct Writer {
+        const Symbol* td;
+        SourceRange tok;
+        const syntax::SyntaxNode* container;
+    };
+    std::map<const Symbol*, std::vector<Writer>> writers;
+    std::set<const Symbol*> poisoned;
+    std::function<void(const syntax::SyntaxNode&, const syntax::SyntaxNode*,
+                       const syntax::SyntaxNode*)>
+        walk = [&](const syntax::SyntaxNode& n, const syntax::SyntaxNode* unit,
+                   const syntax::SyntaxNode* cls) {
+            auto k = n.kind;
+            if (!unit && (k == syntax::SyntaxKind::ModuleDeclaration ||
+                          k == syntax::SyntaxKind::InterfaceDeclaration ||
+                          k == syntax::SyntaxKind::ProgramDeclaration ||
+                          k == syntax::SyntaxKind::PackageDeclaration ||
+                          k == syntax::SyntaxKind::ClassDeclaration))
+                unit = &n;
+            if (k == syntax::SyntaxKind::ClassDeclaration)
+                cls = &n;
+            // § tfArgDpiNoWrite146v (v11u146, verifier refinement) — a DPI
+            // import prototype's arguments do not write the typedef: golden
+            // keeps `e_t`'s own span and types the DPI argument with an
+            // unsupported_typespec of its own (`import "DPI-C" function void
+            // cf(input e_t x);` in a package; the law had moved `p::e_t` to
+            // 4:41-4:44; tools/probe/v11u146repro/cases/fa/a15_dpi_pkg_only,
+            // a2_dpi, a18_dpi_module_only).  Switch R11V146_TFARGDPI_OFF.
+            if (k == syntax::SyntaxKind::DPIImport &&
+                r11u146Law("R11V146_TFARGDPI_OFF"))
+                return;
+            if (k == syntax::SyntaxKind::FunctionPort) {
+                auto& fp = n.as<syntax::FunctionPortSyntax>();
+                if (fp.dataType && fp.dataType->kind == syntax::SyntaxKind::NamedType) {
+                    auto& nm = *fp.dataType->as<syntax::NamedTypeSyntax>().name;
+                    std::string tname, qual;
+                    SourceRange tok;
+                    (void)qual;
+                    if (nm.kind == syntax::SyntaxKind::IdentifierName) {
+                        auto id = nm.as<syntax::IdentifierNameSyntax>().identifier;
+                        tname = std::string(id.valueText());
+                        tok = id.range();
+                    }
+                    // A package-qualified name (`p::e_t`) writes the
+                    // ELABORATED package's object with the qualifier's span
+                    // (grid fa/f11: golden `p::` 8:26-8:29 in every listing
+                    // after the definition package's): not modelled, the
+                    // typedef is left alone.
+                    else if (nm.kind == syntax::SyntaxKind::ScopedName) {
+                        auto& sn = nm.as<syntax::ScopedNameSyntax>();
+                        if (sn.right->kind == syntax::SyntaxKind::IdentifierName)
+                            if (auto bi = byName.find(std::string(
+                                    sn.right->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText()));
+                                bi != byName.end())
+                                for (auto* t : bi->second)
+                                    poisoned.insert(t);
+                    }
+                    if (!tname.empty())
+                        if (auto bi = byName.find(tname); bi != byName.end()) {
+                            if (bi->second.size() != 1) {
+                                for (auto* t : bi->second)
+                                    poisoned.insert(t);
+                            }
+                            else {
+                                auto* td = bi->second.front();
+                                // A method of a class a PACKAGE holds does
+                                // not write it (the UVM enums keep their
+                                // own spans in golden: uvm_verbosity,
+                                // uvm_port_type_e, ...): declined.
+                                if (cls && unit &&
+                                    unit->kind == syntax::SyntaxKind::PackageDeclaration)
+                                    poisoned.insert(td);
+                                auto* ps = td->getParentScope();
+                                bool ok = qual.empty() ||
+                                          (ps && ps->asSymbol().kind ==
+                                                     SymbolKind::Package &&
+                                           ps->asSymbol().name == qual);
+                                if (!ok)
+                                    poisoned.insert(td);
+                                else
+                                    writers[td].push_back(
+                                        {td, tok, cls ? cls : unit});
+                            }
+                        }
+                }
+                return;
+            }
+            for (size_t i = 0; i < n.getChildCount(); i++)
+                if (auto* c = n.childNode(i))
+                    walk(*c, unit, cls);
+        };
+    for (auto tree : comp.getSyntaxTrees())
+        walk(tree->root(), nullptr, nullptr);
+    for (auto& [td, ws] : writers) {
+        if (poisoned.count(td) || ws.empty())
+            continue;
+        bool one = true;
+        for (auto& w : ws)
+            if (w.container != ws.front().container)
+                one = false;
+        if (!one)
+            continue;
+        const Writer* last = &ws.front();
+        for (auto& w : ws)
+            if (w.tok.start().buffer() == last->tok.start().buffer() &&
+                last->tok.start() < w.tok.start())
+                last = &w;
+            else if (w.tok.start().buffer() != last->tok.start().buffer())
+                one = false;
+        if (!one)
+            continue;
+        auto apply = [&](UHDM::typespec* ts) {
+            if (!ts)
+                return;
+            uint32_t el = ts->VpiEndLineNo(), ec = ts->VpiEndColumnNo();
+            // An end a write-time populate already moved away from the
+            // typedef's own span stays (it runs after compilation).
+            // (the typedef's own span ends with its declaration's `;`)
+            bool endMoved = false;
+            if (auto* tsyn = td->getSyntax()) {
+                uint32_t ol = 0, oc = 0;
+                locLineCol(tsyn->sourceRange().end(), ol, oc);
+                endMoved = !(ol == el && oc == ec);
+                // § tfArgAliasEndFollows146v (v11u146, verifier refinement)
+                // — a typedef of a typedef (`typedef e_t f_t;`) holds the
+                // aliased enum's span, not its own declaration's: its end is
+                // the aliased declaration's, not a write-time move, and
+                // golden moves the whole span to the argument (f_t 5:30-5:33
+                // where the law wrote 5:30-3:33;
+                // tools/probe/v11u146repro/cases/fa/a3_alias).  Only an
+                // object that starts at its own declaration can carry a
+                // moved end.  Switch R11V146_TFARGALIAS_OFF.
+                if (endMoved && r11u146Law("R11V146_TFARGALIAS_OFF")) {
+                    uint32_t sl = 0, sc = 0;
+                    locLineCol(tsyn->sourceRange().start(), sl, sc);
+                    if (!(ts->VpiLineNo() == sl && ts->VpiColumnNo() == sc))
+                        endMoved = false;
+                }
+            }
+            setLoc(ts, last->tok);
+            ts->VpiFile(fullFilePath(last->tok.start()));
+            if (endMoved) {
+                ts->VpiEndLineNo(el);
+                ts->VpiEndColumnNo(ec);
+            }
+        };
+        // A PACKAGE typedef written from outside its package (an importing
+        // module's function) reaches only the ELABORATED package's object:
+        // the importer binds the elaborated compile, and the definition
+        // listing keeps the typedef's own span (Rggen `rggen_access`:
+        // golden 2:3-6:18 under uhdmallPackages, the importer's argument
+        // 74:5-74:17 in every later listing).
+        bool outside = false;
+        if (auto* ps = td->getParentScope();
+            ps && ps->asSymbol().kind == SymbolKind::Package) {
+            auto* psyn = ps->asSymbol().getSyntax();
+            outside = !psyn || last->container != psyn;
+        }
+        if (auto it = typedefTs.find(td); it != typedefTs.end() && !outside)
+            apply(it->second);
+        if (auto it = pkgTopTypedefTs.find((const void*)td);
+            it != pkgTopTypedefTs.end() && (typedefTs.find(td) == typedefTs.end() ||
+                                             it->second != typedefTs[td]))
+            apply(it->second);
+    }
     return d;
 }
+
 
 // A function body's nested-call OPERATION argument carries the formal's
 // typespec only when Surelog's constant evaluator RUNS that call: the stamp is
@@ -11760,8 +12031,20 @@ int32_t UhdmExporter::macroArgShift(SourceLocation loc) {
 //     bodies are skipped whole; macro-call arguments are left to the
 //     macro-expansion shifts (lineShifts), as before.
 // The result is the same [(col, delta)] contract fileLineCol applies.
+// § escIdPpColumnShift146 — per (buffer id, line): the [raw end, after the
+// space run) column windows of the escaped identifiers on that line (1-based).
+static std::map<std::pair<uint32_t, uint32_t>,
+                std::vector<std::pair<uint32_t, uint32_t>>>
+    escIdClamp146;
+// Set while ppFold119Line scans a line that starts INSIDE a string literal
+// continued from the previous line (`"...\` + newline): a backslash there is
+// string text, not an escaped identifier (svaunit_test.svh's multi-line
+// `$sformatf("<!DOCTYPE html> ... \n\` template, where golden keeps
+// `get_test_name()` at 506:96).
+static bool escInContStr146 = false;
 static void ppFold119Line(std::string_view ln, bool& inBlock, int& macroDepth,
-                          std::vector<std::pair<uint32_t, int32_t>>& out) {
+                          std::vector<std::pair<uint32_t, int32_t>>& out,
+                          std::vector<std::pair<uint32_t, uint32_t>>* esc146 = nullptr) {
     auto isId = [](char ch) {
         return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') ||
                (ch >= '0' && ch <= '9') || ch == '_' || ch == '$';
@@ -11896,8 +12179,37 @@ static void ppFold119Line(std::string_view ln, bool& inBlock, int& macroDepth,
             continue;
         }
         if (ch == '\\') {  // escaped identifier: to the next whitespace
+            // § escIdPpColumnShift146 (r11u146) — Surelog's preprocessor
+            // rewrites an escaped identifier `\name ` (the lexeme ends with a
+            // SPACE run, SV3_1aPpLexer.g4 ESCAPED_IDENTIFIER) as
+            // `#~@name#~@` (SV3_1aPpTreeShapeListener::enterEscaped_
+            // identifier: EscapeSequence + the text without its first and
+            // last character + EscapeSequence), and the line-info records
+            // remap lines, never columns.  So the identifier's token spans
+            // col .. col+6+len on the output line, and every column AFTER
+            // the backslash on that line reads 4 further right (the lexeme
+            // `\` + name + ' ' grew to `#~@` + name + `#~@`).  Golden
+            // PortExpr: `output \op[79] ;` net 4:11-4:23, the concatenation
+            // `{\op[79] ,\op[78] }` 2:8-2:35 (ours 2:8-2:27).  A lexeme ended by
+            // a tab or the line end is not the pp rule's and is left alone.
+            // Switch R11U146_ESCCOL_OFF.
+            // The space run the lexeme swallowed has no output column: a
+            // location inside it (a token END, [raw end, after the run))
+            // reads the output token's end, i.e. the column after the run
+            // (the `esc146` clamp window, applied before the shifts).
+            static const bool on146 = r11u146Law("R11U146_ESCCOL_OFF");
+            size_t b146 = i;
             while (i < n && ln[i] != ' ' && ln[i] != '\t')
                 i++;
+            if (on146 && !escInContStr146 && i < n && ln[i] == ' ' &&
+                i > b146 + 1) {
+                out.push_back({(uint32_t)(b146 + 1), 4});
+                size_t a146 = i;
+                while (a146 < n && ln[a146] == ' ')
+                    a146++;
+                if (esc146)
+                    esc146->push_back({(uint32_t)(i + 1), (uint32_t)(a146 + 1)});
+            }
             continue;
         }
         if (ch == '`') {
@@ -12007,6 +12319,7 @@ const std::vector<std::pair<uint32_t, int32_t>>& UhdmExporter::numLitWsShift(
         if (bfresh) {
             bool inBlock = false, inDefine = false;
             int macroDepth = 0;
+            bool inStr146 = false;
             uint32_t lno = 1;
             size_t pos = 0;
             while (pos <= text.size()) {
@@ -12024,7 +12337,35 @@ const std::vector<std::pair<uint32_t, int32_t>>& UhdmExporter::numLitWsShift(
                 }
                 else {
                     std::vector<std::pair<uint32_t, int32_t>> v;
-                    ppFold119Line(ln, inBlock, macroDepth, v);
+                    std::vector<std::pair<uint32_t, uint32_t>> e146;
+                    // § escIdPpColumnShift146 — does this line start inside
+                    // a continued string literal?  (A quote tracker that
+                    // skips line comments; block comments are not tracked.)
+                    escInContStr146 = inStr146;
+                    {
+                        bool str = inStr146;
+                        for (size_t k = 0; k < ln.size(); k++) {
+                            char ch = ln[k];
+                            if (str) {
+                                if (ch == '\\') {
+                                    k++;
+                                    continue;
+                                }
+                                if (ch == '"')
+                                    str = false;
+                                continue;
+                            }
+                            if (ch == '/' && k + 1 < ln.size() && ln[k + 1] == '/')
+                                break;
+                            if (ch == '"')
+                                str = true;
+                        }
+                        inStr146 = str && !ln.empty() && ln.back() == '\\';
+                    }
+                    ppFold119Line(ln, inBlock, macroDepth, v, &e146);
+                    escInContStr146 = false;
+                    if (!e146.empty())
+                        escIdClamp146[std::make_pair(bid, lno)] = std::move(e146);
                     if (!v.empty()) {
                         std::sort(v.begin(), v.end());
                         bit->second[lno] = std::move(v);
@@ -12248,7 +12589,19 @@ void UhdmExporter::fileLineCol(SourceLocation lc, uint32_t& line,
     if (!macroExpBuilt)
         buildMacroExpansions();
     uint32_t c0 = col;
-    for (auto& [ucol, d] : numLitWsShift(lc, line, c0))
+    const auto& nl119 = numLitWsShift(lc, line, c0);
+    // § escIdPpColumnShift146 — a token end inside an escaped identifier's
+    // swallowed space run reads the column after the run.
+    if (!escIdClamp146.empty() && lc.buffer().valid() && !sm->isMacroLoc(lc))
+        if (auto ei = escIdClamp146.find(
+                std::make_pair(lc.buffer().getId(), line));
+            ei != escIdClamp146.end())
+            for (auto& [ce, ca] : ei->second)
+                if (c0 >= ce && c0 < ca) {
+                    col = c0 = ca;
+                    break;
+                }
+    for (auto& [ucol, d] : nl119)
         if (ucol < c0)
             col = (uint32_t)((int32_t)col + d);
     // § includeFirstLineColShift125 — Surelog's preprocessor replaces an

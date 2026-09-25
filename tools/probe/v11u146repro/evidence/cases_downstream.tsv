@@ -1,0 +1,67 @@
+case	pristine_verdict	fix_verdict	pristine_differs	fix_differs
+ck/k1_twoinst	IDENTICAL	IDENTICAL		
+ck/k2_localparam	IDENTICAL	IDENTICAL		
+ct/c2_union	IDENTICAL	IDENTICAL		
+ct/c3_enum_member	IDENTICAL	IDENTICAL		
+e148/q1_bits	EQUIVALENT	IDENTICAL	nohier il synth	
+e148/q2_override	DIVERGENT	IDENTICAL	nohier il synth	
+e148/q4_formalidx	DIVERGENT	IDENTICAL	nohier il synth	
+e148/q5_sel_lhs	DIVERGENT	IDENTICAL	nohier il synth	
+e148/q6_gen	DIVERGENT	IDENTICAL	nohier il synth	
+e2148/r1_struct_lhs	IDENTICAL	IDENTICAL		
+e2148/r2_int_lhs	IDENTICAL	IDENTICAL		
+e2148/r3_scalar	IDENTICAL	IDENTICAL		
+esc/x10_select	EQUIVALENT	IDENTICAL	nohier il	
+esc/x11_hier	EQUIVALENT	EQUIVALENT	nohier il synth	nohier il synth
+esc/x12_twospaces_then_tab	EQUIVALENT	IDENTICAL	nohier il synth	
+esc/x1_assign	EQUIVALENT	IDENTICAL	nohier il synth	
+esc/x2_inst	EQUIVALENT	IDENTICAL	nohier il synth	
+esc/x3_comment	EQUIVALENT	IDENTICAL	nohier il synth	
+esc/x4_number	EQUIVALENT	EQUIVALENT	nohier	nohier
+esc/x5_define	EQUIVALENT	IDENTICAL	nohier il synth	
+esc/x6_modname	EQUIVALENT	IDENTICAL	nohier il synth	
+esc/x7_string	IDENTICAL	IDENTICAL		
+esc/x8_twolines	EQUIVALENT	IDENTICAL	nohier il synth	
+esc/x9_param	EQUIVALENT	IDENTICAL	nohier il synth	
+fa/a10_twofuncs_twopkgs	IDENTICAL	IDENTICAL		
+fa/a13_modport	IDENTICAL	IDENTICAL		
+fa/a14_dpi_module	IDENTICAL	IDENTICAL		
+fa/a16_pure_virtual	IDENTICAL	IDENTICAL		
+fa/a17_pkg_ansi_task_two	IDENTICAL	IDENTICAL		
+fa/a1_task	IDENTICAL	IDENTICAL		
+fa/a3_alias	IDENTICAL	IDENTICAL		
+fa/a4_module	IDENTICAL	IDENTICAL		
+fa/a5_unit	IDENTICAL	IDENTICAL		
+fa/a6_dims	IDENTICAL	IDENTICAL		
+fa/a7_iface	IDENTICAL	IDENTICAL		
+hp/h3_ifport_child	IDENTICAL	IDENTICAL		
+hp/h4_ifport_gen	IDENTICAL	IDENTICAL		
+i148/s1_int	IDENTICAL	IDENTICAL		
+i148/s4_task	IDENTICAL	IDENTICAL		
+ma/m2_ascend	IDENTICAL	IDENTICAL		
+ma/m5_child	IDENTICAL	IDENTICAL		
+ma/m6_iface	IDENTICAL	IDENTICAL		
+pe/y1_two	IDENTICAL	IDENTICAL		
+pe/y2_positional	EQUIVALENT	EQUIVALENT	nohier il synth	nohier il synth
+pe/y3_three	IDENTICAL	IDENTICAL		
+pe/y4_gen	IDENTICAL	IDENTICAL		
+pe/y5_twoinst	IDENTICAL	IDENTICAL		
+pe/y6_top	IDENTICAL	IDENTICAL		
+pi/w1_two	IDENTICAL	IDENTICAL		
+pi/w2_param	IDENTICAL	IDENTICAL		
+pi/w3_explicit	DIVERGENT	DIVERGENT	nohier il synth	nohier il synth
+pi/w4_sub	IDENTICAL	IDENTICAL		
+tn/k1_mixed	IDENTICAL	IDENTICAL		
+tn/k2_gen	IDENTICAL	IDENTICAL		
+tn/k3_clog	IDENTICAL	IDENTICAL		
+tn/k4_widthover	IDENTICAL	IDENTICAL		
+tn/k5_var	IDENTICAL	IDENTICAL		
+tn/k7_twotp	IDENTICAL	IDENTICAL		
+tn/k8_ifarr	IDENTICAL	IDENTICAL		
+tp/v1_signed	IDENTICAL	IDENTICAL		
+tp/v3_localparam	IDENTICAL	IDENTICAL		
+tp/v4_override	IDENTICAL	IDENTICAL		
+tp/v5_iface	IDENTICAL	IDENTICAL		
+tp/v6_multiline	IDENTICAL	IDENTICAL		
+ucp/z1_basic	EQUIVALENT	IDENTICAL	nohier il	
+ucp/z3_named	EQUIVALENT	EQUIVALENT	nohier il synth	nohier il synth

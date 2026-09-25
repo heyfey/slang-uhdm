@@ -1,0 +1,358 @@
+surelog default ApbSlave differ:line(29) :: #4 line|  A: 1 include_file_info    svunit_pkg.sv 375 12 375 32    |  B: 1 include_file_info    svunit_pkg.sv 373 12 373 32    |
+surelog testflags ApbSlave differ:line(29) :: #4 line|  A: 1 include_file_info    svunit_pkg.sv 375 12 375 32    |  B: 1 include_file_info    svunit_pkg.sv 373 12 373 32    |
+surelog default ArrayMethodIterator differ:name(6) :: #24 name|  A: 6 class_typespec uvm_callback   dut.sv 10 50 10 62    |  B: 6 class_typespec    dut.sv 14 3 14 5    |
+surelog testflags ArrayMethodIterator differ:name(16) :: #17 name|  A: 6 class_typespec uvm_callback   dut.sv 10 50 10 62    |  B: 6 class_typespec    dut.sv 14 3 14 5    |
+surelog default AssertDelayError differ:fullname(48) :: #92 fullname|  A: 2 property_decl p_valid_rotation  work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation left_rotate_assertions.sv 18 12 18 28    |  B: 2 property_decl p_valid_rotation  work@left_rotate_assertions.p_valid_rotation left_rotate_assertions.sv 18 12 18 28    |
+surelog testflags AssertDelayError differ:fullname(66) :: #2 fullname|  A: 2 property_decl p_valid_rotation  work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation left_rotate_assertions.sv 18 12 18 28    |  B: 2 property_decl p_valid_rotation  work@left_rotate_assertions.p_valid_rotation left_rotate_assertions.sv 18 12 18 28    |
+surelog default AssertTempError differ:fullname(28) :: #317 fullname|  A: 2 property_decl p_send  work@tb_UART.uart_inst.uut.p_send design.sv 82 14 82 20    |  B: 2 property_decl p_send  work@UART_assertions.p_send design.sv 82 14 82 20    |
+surelog testflags AssertTempError differ:fullname(38) :: #227 fullname|  A: 2 property_decl p_send  work@tb_UART.uart_inst.uut.p_send design.sv 82 14 82 20    |  B: 2 property_decl p_send  work@UART_assertions.p_send design.sv 82 14 82 20    |
+surelog default BasicOh differ:fullname(51) :: #603 fullname|  A: 7 ref_obj AW  work@oh_fifo_async.wr_addr.AW oh_fifo_async.v 92 16 92 18  0  |  B: 7 ref_obj AW  work@oh_fifo_async.AW oh_fifo_async.v 92 16 92 18  0  |
+surelog testflags BasicOh differ:fullname(22) :: #603 fullname|  A: 7 ref_obj AW  work@oh_fifo_async.wr_addr.AW oh_fifo_async.v 92 16 92 18  0  |  B: 7 ref_obj AW  work@oh_fifo_async.AW oh_fifo_async.v 92 16 92 18  0  |
+surelog default BlackBePipeInt differ:fullname(2) :: #66 fullname|  A: 5 ref_obj dev_addr_width_gp    0 0 0 0  0  |  B: 5 ref_obj dev_addr_width_gp  <in>dev_addr_width_gp  0 0 0 0  0  |
+surelog testflags BlackBePipeInt differ:fullname(2) :: #65 fullname|  A: 5 ref_obj dev_addr_width_gp    0 0 0 0  0  |  B: 5 ref_obj dev_addr_width_gp  <in>dev_addr_width_gp  0 0 0 0  0  |
+surelog default BlackConst differ:line(29) :: #114 line|  A: 2 parameter easy  work@top.easy dut.sv 12 11 12 15  0  |  B: 2 parameter easy  work@top.easy dut.sv 156 11 156 15  0  |
+surelog testflags BlackConst differ:line(19) :: #24 line|  A: 2 parameter easy  work@top.easy dut.sv 12 11 12 15  0  |  B: 2 parameter easy  work@top.easy dut.sv 156 11 156 15  0  |
+surelog default BlackParrotComplex differ:depth(1) :: #878 depth|  A: 2 param_assign    dut.sv 45 12 51 249    |  B: 3 constant    dut.sv 40 68 40 102 553163846905791 50 UINT:553163846905791 9|
+surelog testflags BlackParrotComplex differ:depth(1) :: #878 depth|  A: 2 param_assign    dut.sv 45 12 51 249    |  B: 3 constant    dut.sv 40 68 40 102 553163846905791 50 UINT:553163846905791 9|
+surelog default BuildUVMPkg differ:line(174) :: #873 line|  A: 2 struct_typespec uvm_pkg::m_uvm_factory_type_pair_t   uvm_pkg.sv 13427 55 13427 80    |  B: 2 struct_typespec uvm_pkg::m_uvm_factory_type_pair_t   uvm_pkg.sv 11401 9 11402 49    |
+surelog testflags BuildUVMPkg differ:line(174) :: #873 line|  A: 2 struct_typespec uvm_pkg::m_uvm_factory_type_pair_t   uvm_pkg.sv 13427 55 13427 80    |  B: 2 struct_typespec uvm_pkg::m_uvm_factory_type_pair_t   uvm_pkg.sv 11401 9 11402 49    |
+surelog default ClassParamAsParam differ:endcol(9) :: #117 endcol|  A: 4 class_typespec config_db   dut.sv 18 3 18 43    |  B: 4 class_typespec config_db   dut.sv 18 3 18 31    |
+surelog testflags ClassParamAsParam differ:endcol(13) :: #8 endcol|  A: 5 class_typespec object   dut.sv 18 14 18 20    |  B: 5 class_typespec object   dut.sv 18 14 18 30    |
+surelog default ClassTypeParam differ:endline(25) :: #121 endline|  A: 4 class_typespec m_uvm_config_obj_misc   dut.sv 20 9 24 36    |  B: 4 class_typespec m_uvm_config_obj_misc   dut.sv 20 9 20 43    |
+surelog testflags ClassTypeParam differ:file(38) :: #9 file|  A: 3 type_parameter T  m_uvm_config_obj_misc.T  0 0 0 0    |  B: 3 type_parameter T  m_uvm_config_obj_misc.T dut.sv 16 27 16 28    |
+surelog default ComplexHierPath differ:col(10) :: #120 col|  A: 14 ref_obj B   dut.sv 11 58 11 59  0  |  B: 14 ref_obj B   dut.sv 11 56 11 57  0  |
+surelog testflags ComplexHierPath differ:col(8) :: #30 col|  A: 14 ref_obj B   dut.sv 11 58 11 59  0  |  B: 14 ref_obj B   dut.sv 11 56 11 57  0  |
+surelog default ComplexParamOverload differ:name(2) :: #544 name|  A: 7 ref_obj o  work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic.o dut.sv 29 11 29 12  0  |  B: 7 ref_obj PadTypeInGeneric  work@prim_generic.PadTypeInGeneric dut.sv 29 15 29 31  0  |
+surelog testflags ComplexParamOverload differ:name(2) :: #454 name|  A: 7 ref_obj o  work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic.o dut.sv 29 11 29 12  0  |  B: 7 ref_obj PadTypeInGeneric  work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic.PadTypeInGeneric dut.sv 29 15 29 31  0  |
+surelog default CovMacro differ:endcol(118) :: #101 endcol|  A: 4 assignment    dut.sv 12 9 12 52    |  B: 4 assignment    dut.sv 12 9 12 86    |
+surelog testflags CovMacro differ:endcol(118) :: #101 endcol|  A: 4 assignment    dut.sv 12 9 12 52    |  B: 4 assignment    dut.sv 12 9 12 86    |
+surelog default CrossFunc differ:endcol(2) :: #160 endcol|  A: 4 unsupported_typespec cg   dut.sv 24 2 24 21    |  B: 4 unsupported_typespec cg   dut.sv 24 2 24 22    |
+surelog testflags CrossFunc differ:endcol(2) :: #70 endcol|  A: 4 unsupported_typespec cg   dut.sv 24 2 24 21    |  B: 4 unsupported_typespec cg   dut.sv 24 2 24 22    |
+surelog default DefaultPatternInt differ:depth(1) :: #207 depth|  A: 6 constant    dut.sv 4 45 4 46 3 32 UINT:3 9|  B: 5 parameter V  work@top.V dut.sv 4 25 4 26  1  |
+surelog testflags DefaultPatternInt differ:depth(1) :: #114 depth|  A: 6 constant    dut.sv 4 45 4 46 3 32 UINT:3 9|  B: 5 parameter V  work@top.V dut.sv 4 25 4 26  1  |
+surelog default DelayAssign differ:value(16) :: #245 value|  A: 3 constant    dut.sv 48 10 48 14 #0.1 64 UINT:0.1 9|  B: 3 constant    dut.sv 48 10 48 14 #0.1 64 UINT:0 9|
+surelog testflags DelayAssign differ:value(16) :: #245 value|  A: 3 constant    dut.sv 48 10 48 14 #0.1 64 UINT:0.1 9|  B: 3 constant    dut.sv 48 10 48 14 #0.1 64 UINT:0 9|
+surelog default Earlgrey_0_1 differ:line(1755) :: #6 line|  A: 1 include_file_info    prim_generic_ram_1p.sv 256 12 256 34    |  B: 1 include_file_info    prim_generic_ram_1p.sv 57 12 57 34    |
+surelog testflags Earlgrey_0_1 differ:line(1755) :: #6 line|  A: 1 include_file_info    prim_generic_ram_1p.sv 256 12 256 34    |  B: 1 include_file_info    prim_generic_ram_1p.sv 57 12 57 34    |
+surelog default EnumVar differ:endline(3) :: #19 endline|  A: 2 enum_typespec pkg::alias_t   dut.sv 2 3 6 12    |  B: 2 enum_typespec pkg::alias_t   dut.sv 2 3 13 17    |
+surelog testflags EnumVar differ:endline(3) :: #12 endline|  A: 2 enum_typespec pkg::alias_t   dut.sv 2 3 6 12    |  B: 2 enum_typespec pkg::alias_t   dut.sv 2 3 13 17    |
+surelog default ExplictiPorts differ:line(8) :: #114 line|  A: 4 ref_obj b  work@c.a.b dut.sv 31 14 31 15  0  |  B: 4 ref_obj b  work@c.a.b dut.sv 32 8 32 9  0  |
+surelog testflags ExplictiPorts differ:line(15) :: #24 line|  A: 4 ref_obj b  work@c.a.b dut.sv 31 14 31 15  0  |  B: 4 ref_obj b  work@c.a.b dut.sv 32 8 32 9  0  |
+surelog default FuncCase differ:line(8) :: #3 line|  A: 2 enum_typespec fpnew_pkg::opgroup_e   dut.sv 7 46 7 55    |  B: 2 enum_typespec fpnew_pkg::opgroup_e   dut.sv 2 1 4 15    |
+surelog testflags FuncCase differ:line(8) :: #2 line|  A: 2 enum_typespec fpnew_pkg::opgroup_e   dut.sv 7 46 7 55    |  B: 2 enum_typespec fpnew_pkg::opgroup_e   dut.sv 2 1 4 15    |
+surelog default FuncIoTypespec differ:file(9) :: #127 file|  A: 9 logic_net len  work@shift.len  28 11 28 14  0  |  B: 9 logic_net len  work@shift.len dut.sv 28 11 28 14  0  |
+surelog testflags FuncIoTypespec differ:file(9) :: #37 file|  A: 9 logic_net len  work@shift.len  28 11 28 14  0  |  B: 9 logic_net len  work@shift.len dut.sv 28 11 28 14  0  |
+surelog default FuncStructVal differ:endcol(165) :: #747 endcol|  A: 5 ref_obj config_pkg::NOC_TYPE_AXI4_ATOP  cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP dut.sv 106 16 106 28  0  |  B: 5 ref_obj config_pkg::NOC_TYPE_AXI4_ATOP  cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP dut.sv 106 16 106 46  0  |
+surelog testflags FuncStructVal differ:endcol(377) :: #746 endcol|  A: 5 ref_obj config_pkg::NOC_TYPE_AXI4_ATOP  cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP dut.sv 106 16 106 28  0  |  B: 5 ref_obj config_pkg::NOC_TYPE_AXI4_ATOP  cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP dut.sv 106 16 106 46  0  |
+surelog default FuncStructValSimple differ:file(25) :: #117 file|  A: 7 constant     0 0 0 0 2 64 INT:2 7|  B: 7 constant    dut.sv 67 46 68 35 2 64 INT:2 7|
+surelog testflags FuncStructValSimple differ:file(35) :: #116 file|  A: 7 constant     0 0 0 0 2 64 INT:2 7|  B: 7 constant    dut.sv 67 46 68 35 2 64 INT:2 7|
+surelog default GenCase differ:endcol(8) :: #95 endcol|  A: 4 bit_typespec    dut.sv 6 13 6 16    |  B: 4 bit_typespec    dut.sv 6 13 6 25    |
+surelog testflags GenCase differ:endcol(8) :: #5 endcol|  A: 4 bit_typespec    dut.sv 6 13 6 16    |  B: 4 bit_typespec    dut.sv 6 13 6 25    |
+surelog default GenCaseStmt differ:endcol(8) :: #95 endcol|  A: 4 bit_typespec    dut.sv 7 13 7 16    |  B: 4 bit_typespec    dut.sv 7 13 7 25    |
+surelog testflags GenCaseStmt differ:endcol(8) :: #5 endcol|  A: 4 bit_typespec    dut.sv 7 13 7 16    |  B: 4 bit_typespec    dut.sv 7 13 7 25    |
+surelog default GenerateUnnamed differ:fullname(15) :: #151 fullname|  A: 8 named_begin u1    0 0 0 0    |  B: 8 named_begin u1  work@test1.u1  0 0 0 0    |
+surelog testflags GenerateUnnamed differ:fullname(15) :: #151 fullname|  A: 8 named_begin u1    0 0 0 0    |  B: 8 named_begin u1  work@test1.u1  0 0 0 0    |
+surelog default GenForIfaceLocalparamBound differ:endcol(5) :: #256 endcol|  A: 7 constant    dut.sv 10 33 10 36 4 32 INT:4 7|  B: 7 constant    dut.sv 10 33 10 38 4 32 INT:4 7|
+surelog testflags GenForIfaceLocalparamBound differ:endcol(5) :: #165 endcol|  A: 7 constant    dut.sv 10 33 10 36 4 32 INT:4 7|  B: 7 constant    dut.sv 10 33 10 38 4 32 INT:4 7|
+surelog default GenForIfaceLocalparamNestedGen differ:endcol(5) :: #469 endcol|  A: 7 constant    dut.sv 15 33 15 44 4 32 INT:4 7|  B: 7 constant    dut.sv 15 33 15 46 4 32 INT:4 7|
+surelog testflags GenForIfaceLocalparamNestedGen differ:endcol(5) :: #378 endcol|  A: 7 constant    dut.sv 15 33 15 44 4 32 INT:4 7|  B: 7 constant    dut.sv 15 33 15 46 4 32 INT:4 7|
+surelog default GenForStructParamBound differ:fullname(7) :: #221 fullname|  A: 4 hier_path CFG.HSK.DLY   dut.sv 13 16 13 27  0  |  B: 4 hier_path CFG.HSK.DLY  work@bus_if.dly.CFG.HSK.DLY dut.sv 13 16 13 27  0  |
+surelog testflags GenForStructParamBound differ:fullname(7) :: #131 fullname|  A: 4 hier_path CFG.HSK.DLY   dut.sv 13 16 13 27  0  |  B: 4 hier_path CFG.HSK.DLY  work@bus_if.dly.CFG.HSK.DLY dut.sv 13 16 13 27  0  |
+surelog default GenIfIfaceParamStructField differ:col(6) :: #246 col|  A: 7 ref_obj sub   dut.sv 15 13 15 16  0  |  B: 7 ref_obj sub   dut.sv 15 9 15 12  0  |
+surelog testflags GenIfIfaceParamStructField differ:col(6) :: #156 col|  A: 7 ref_obj sub   dut.sv 15 13 15 16  0  |  B: 7 ref_obj sub   dut.sv 15 9 15 12  0  |
+surelog default HierPathStructTypespec differ:col(4) :: #189 col|  A: 3 constant    dut.sv 10 34 10 64 15 32 INT:15 7|  B: 3 constant    dut.sv 10 35 10 63 15 32 INT:15 7|
+surelog testflags HierPathStructTypespec differ:col(4) :: #182 col|  A: 3 constant    dut.sv 10 34 10 64 15 32 INT:15 7|  B: 3 constant    dut.sv 10 35 10 63 15 32 INT:15 7|
+surelog testflags HierPathTypespec differ:fullname(1) :: #105 fullname|  A: 6 ref_typespec   pkg::pkg::b::pkg::a::x  0 0 0 0  0  |  B: 6 ref_typespec   pkg::pkg::a::x  0 0 0 0  0  |
+surelog default HighLow differ:line(5) :: #171 line|  A: 3 constant    dut.sv 6 14 6 15 2 64 UINT:2 9|  B: 3 constant    dut.sv 7 21 7 29 2 64 UINT:2 9|
+surelog testflags HighLow differ:line(5) :: #81 line|  A: 3 constant    dut.sv 6 14 6 15 2 64 UINT:2 9|  B: 3 constant    dut.sv 7 21 7 29 2 64 UINT:2 9|
+surelog default IfGenTypeBinding differ:endline(5) :: #23 endline|  A: 2 struct_typespec ibex_pkg::pmp_cfg_t   dut.sv 3 11 8 4    |  B: 2 struct_typespec ibex_pkg::pmp_cfg_t   dut.sv 3 11 18 66    |
+surelog testflags IfGenTypeBinding differ:endline(5) :: #23 endline|  A: 2 struct_typespec ibex_pkg::pmp_cfg_t   dut.sv 3 11 8 4    |  B: 2 struct_typespec ibex_pkg::pmp_cfg_t   dut.sv 3 11 18 66    |
+surelog default ImplicitArg differ:col(4) :: #98 col|  A: 5 logic_typespec    dut.sv 5 4 5 7    |  B: 5 logic_typespec    dut.sv 5 3 5 8    |
+surelog testflags ImplicitArg differ:col(4) :: #8 col|  A: 5 logic_typespec    dut.sv 5 4 5 7    |  B: 5 logic_typespec    dut.sv 5 3 5 8    |
+surelog default InterfaceModPort differ:endcol(17) :: #95 endcol|  A: 4 logic_typespec    top.v 27 3 27 8    |  B: 4 logic_typespec    top.v 27 3 27 21    |
+surelog testflags InterfaceModPort differ:endcol(17) :: #95 endcol|  A: 4 logic_typespec    top.v 27 3 27 8    |  B: 4 logic_typespec    top.v 27 3 27 21    |
+surelog default InterfaceParamOverrideProp differ:fullname(2) :: #158 fullname|  A: 6 ref_typespec   <in>p::cfg_t.HSK  0 0 0 0  0  |  B: 6 ref_typespec   <in>p::cfg_t.HSK  0 0 0 0  0  |
+surelog testflags InterfaceParamOverrideProp differ:fullname(2) :: #68 fullname|  A: 6 ref_typespec   <in>p::cfg_t.HSK  0 0 0 0  0  |  B: 6 ref_typespec   <in>p::cfg_t.HSK  0 0 0 0  0  |
+surelog default InterfaceStructMemberPort differ:fullname(6) :: #336 fullname|  A: 7 struct_net req   dut.sv 12 12 12 15  0  |  B: 7 struct_net req  work@top.w.sub.sub.req.req dut.sv 12 12 12 15  0  |
+surelog testflags InterfaceStructMemberPort differ:fullname(6) :: #246 fullname|  A: 7 struct_net req   dut.sv 12 12 12 15  0  |  B: 7 struct_net req  work@top.w.sub.sub.req.req dut.sv 12 12 12 15  0  |
+surelog default InterfArrayBind differ:fullname(4) :: #118 fullname|  A: 5 ref_obj NUM_PERIPHERALS  work@soc_tb.peripheral_io_bus.NUM_PERIPHERALS dut.sv 14 40 14 55  0  |  B: 5 ref_obj NUM_PERIPHERALS  work@soc_tb.NUM_PERIPHERALS dut.sv 14 40 14 55  0  |
+surelog testflags InterfArrayBind differ:fullname(1) :: #28 fullname|  A: 5 ref_obj NUM_PERIPHERALS  work@soc_tb.peripheral_io_bus.NUM_PERIPHERALS dut.sv 14 40 14 55  0  |  B: 5 ref_obj NUM_PERIPHERALS  work@soc_tb.NUM_PERIPHERALS dut.sv 14 40 14 55  0  |
+surelog default IOClassStruct differ:fullname(3) :: #16 fullname|  A: 8 ref_typespec   <in>access_t.read_count  0 0 0 0  0  |  B: 8 ref_typespec   <in>access_t.read_count  0 0 0 0  0  |
+surelog testflags IOClassStruct differ:fullname(5) :: #9 fullname|  A: 8 ref_typespec   <in>access_t.read_count  0 0 0 0  0  |  B: 8 ref_typespec   <in>access_t.read_count  0 0 0 0  0  |
+surelog default LargeValue2Struct differ:endcol(5) :: #597 endcol|  A: 3 constant    dut.sv 23 52 23 79 256'hcebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e 256 HEX:cebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e 5|  B: 3 constant    dut.sv 23 52 23 58 256'hcebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e 256 HEX:cebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e 5|
+surelog testflags LargeValue2Struct differ:endcol(5) :: #507 endcol|  A: 3 constant    dut.sv 23 52 23 79 256'hcebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e 256 HEX:cebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e 5|  B: 3 constant    dut.sv 23 52 23 58 256'hcebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e 256 HEX:cebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e 5|
+surelog default LocalScopeHierPath differ:file(3) :: #57 file|  A: 8 hier_path   path.slices  0 0 0 0  0  |  B: 8 hier_path   path.slices dut.sv 18 14 18 25  0  |
+surelog testflags LocalScopeHierPath differ:file(4) :: #81 file|  A: 8 hier_path   path.slices  0 0 0 0  0  |  B: 8 hier_path   path.slices dut.sv 18 14 18 25  0  |
+surelog default LogicTypespec differ:endline(3) :: #14 endline|  A: 2 logic_typespec my_package::typedef_logic_typespec   dut.sv 2 9 7 44    |  B: 2 logic_typespec my_package::typedef_logic_typespec   dut.sv 2 9 2 20    |
+surelog testflags LogicTypespec differ:endline(3) :: #7 endline|  A: 2 logic_typespec my_package::typedef_logic_typespec   dut.sv 2 9 7 44    |  B: 2 logic_typespec my_package::typedef_logic_typespec   dut.sv 2 9 2 20    |
+surelog default MacroArgMismatch differ:endcol(8) :: #100 endcol|  A: 2 always    dut.sv 4 1 5 17    |  B: 2 always    dut.sv 4 1 5 18    |
+surelog testflags MacroArgMismatch differ:endcol(8) :: #10 endcol|  A: 2 always    dut.sv 4 1 5 17    |  B: 2 always    dut.sv 4 1 5 18    |
+surelog default MiniAmiq differ:line(190) :: #23 line|  A: 1 include_file_info    uvm_pkg.sv 9217 12 9217 33    |  B: 1 include_file_info    uvm_pkg.sv 9207 12 9207 33    |
+surelog testflags MiniAmiq differ:line(190) :: #23 line|  A: 1 include_file_info    uvm_pkg.sv 9217 12 9217 33    |  B: 1 include_file_info    uvm_pkg.sv 9207 12 9207 33    |
+surelog default OneNetModPort differ:file(3) :: #161 file|  A: 3 ref_obj intf  work@TESTBENCH.intf.intf  0 0 0 0  0  |  B: 3 ref_obj intf  work@TESTBENCH.intf.intf tb.v 1 34 1 38  0  |
+surelog testflags OneNetModPort differ:file(3) :: #71 file|  A: 3 ref_obj intf  work@TESTBENCH.intf.intf  0 0 0 0  0  |  B: 3 ref_obj intf  work@TESTBENCH.intf.intf tb.v 1 34 1 38  0  |
+surelog default OneNetModPortGeneric differ:line(2) :: #387 line|  A: 4 ref_obj   work@TOP.tb.intf tb.v 1 31 1 35  0  |  B: 4 ref_obj   work@TOP.tb.intf tb.v 18 17 18 21  0  |
+surelog testflags OneNetModPortGeneric differ:line(2) :: #297 line|  A: 4 ref_obj   work@TOP.tb.intf tb.v 1 31 1 35  0  |  B: 4 ref_obj   work@TOP.tb.intf tb.v 18 17 18 21  0  |
+surelog default PackageMemberTypespec differ:file(2) :: #11 file|  A: 5 packed_array_typespec     0 0 0 0    |  B: 5 packed_array_typespec    dut.sv 27 2 27 39    |
+surelog testflags PackageMemberTypespec differ:file(2) :: #10 file|  A: 5 packed_array_typespec     0 0 0 0    |  B: 5 packed_array_typespec    dut.sv 27 2 27 39    |
+surelog default PackedArrayHighConn differ:fullname(6) :: #26 fullname|  A: 3 ref_typespec   <in>prim_pad_wrapper_pkg::pad_type_e  0 0 0 0  0  |  B: 3 ref_typespec   <in>prim_pad_wrapper_pkg::pad_type_e  0 0 0 0  0  |
+surelog testflags PackedArrayHighConn differ:fullname(6) :: #19 fullname|  A: 3 ref_typespec   <in>prim_pad_wrapper_pkg::pad_type_e  0 0 0 0  0  |  B: 3 ref_typespec   <in>prim_pad_wrapper_pkg::pad_type_e  0 0 0 0  0  |
+surelog default PackedEnumPort differ:name(3) :: #138 name|  A: 6 enum_typespec lc_ctrl_pkg::lc_tx_t   dut.sv 3 4 5 14    |  B: 6 enum_typespec lc_ctrl_pkg::lc_tx_e   dut.sv 3 4 5 14    |
+surelog testflags PackedEnumPort differ:name(3) :: #48 name|  A: 6 enum_typespec lc_ctrl_pkg::lc_tx_t   dut.sv 3 4 5 14    |  B: 6 enum_typespec lc_ctrl_pkg::lc_tx_e   dut.sv 3 4 5 14    |
+surelog default ParamNoImport differ:fullname(2) :: #43 fullname|  A: 4 ref_typespec     0 0 0 0  0  |  B: 4 ref_typespec   pkg  0 0 0 0  0  |
+surelog testflags ParamNoImport differ:fullname(2) :: #36 fullname|  A: 4 ref_typespec     0 0 0 0  0  |  B: 4 ref_typespec   pkg  0 0 0 0  0  |
+surelog default ParamTypespec2 differ:fullname(5) :: #47 fullname|  A: 4 ref_typespec     0 0 0 0  0  |  B: 4 ref_typespec   prim_esc_pkg  0 0 0 0  0  |
+surelog testflags ParamTypespec2 differ:fullname(5) :: #40 fullname|  A: 4 ref_typespec     0 0 0 0  0  |  B: 4 ref_typespec   prim_esc_pkg  0 0 0 0  0  |
+surelog default PortExpr differ:endline(14) :: #92 endline|  A: 2 logic_net op[79]  work@top.op[79] dut.sv 4 11 4 23  0  |  B: 2 logic_net op[79]  work@top.op[79] dut.sv 4 11 5 3  0  |
+surelog testflags PortExpr differ:endline(14) :: #2 endline|  A: 2 logic_net op[79]  work@top.op[79] dut.sv 4 11 4 23  0  |  B: 2 logic_net op[79]  work@top.op[79] dut.sv 4 11 5 3  0  |
+surelog default PortInitVal differ:line(2) :: #126 line|  A: 3 assignment    dut.sv 1 13 1 14    |  B: 3 assignment    dut.sv 3 20 3 21    |
+surelog default PortInitVal2 differ:line(2) :: #118 line|  A: 3 assignment    dut.sv 1 13 1 14    |  B: 3 assignment    dut.sv 3 20 3 21    |
+surelog testflags PortInitVal2 differ:line(2) :: #28 line|  A: 3 assignment    dut.sv 1 13 1 14    |  B: 3 assignment    dut.sv 3 20 3 21    |
+surelog default PreprocTest differ:endcol(2) :: #9 endcol|  A: 4 bit_typespec    bp_common_me_if.vh 5 14 5 17    |  B: 4 bit_typespec    bp_common_me_if.vh 5 14 5 23    |
+surelog testflags PreprocTest differ:endcol(2) :: #9 endcol|  A: 4 bit_typespec    bp_common_me_if.vh 5 14 5 17    |  B: 4 bit_typespec    bp_common_me_if.vh 5 14 5 23    |
+surelog default Rggen differ:file(9) :: #101 file|  A: 2 enum_typespec rggen_rtl_pkg::rggen_access   rggen_register_common.sv 74 5 74 17    |  B: 2 enum_typespec rggen_rtl_pkg::rggen_access   rggen_rtl_pkg.sv 2 3 6 18    |
+surelog default Scoreboard differ:line(194) :: #23 line|  A: 1 include_file_info    uvm_pkg.sv 9217 12 9217 33    |  B: 1 include_file_info    uvm_pkg.sv 9207 12 9207 33    |
+surelog default Scr1SvTests differ:line(228) :: #4 line|  A: 1 include_file_info    scr1_pipe_hdu.sv 537 10 537 39    |  B: 1 include_file_info    scr1_pipe_hdu.sv 322 10 322 39    |
+surelog testflags Scr1SvTests differ:line(228) :: #4 line|  A: 1 include_file_info    scr1_pipe_hdu.sv 537 10 537 39    |  B: 1 include_file_info    scr1_pipe_hdu.sv 322 10 322 39    |
+surelog default SeqDriver differ:line(174) :: #23 line|  A: 1 include_file_info    uvm_pkg.sv 9217 12 9217 33    |  B: 1 include_file_info    uvm_pkg.sv 9207 12 9207 33    |
+surelog testflags SeqDriver differ:line(174) :: #23 line|  A: 1 include_file_info    uvm_pkg.sv 9217 12 9217 33    |  B: 1 include_file_info    uvm_pkg.sv 9207 12 9207 33    |
+surelog default SimpleConstraint differ:line(7) :: #95 line|  A: 5 enum_typespec pkt_type   top.sv 23 29 23 37    |  B: 5 enum_typespec pkt_type   top.sv 2 1 2 56    |
+surelog testflags SimpleConstraint differ:line(7) :: #95 line|  A: 5 enum_typespec pkt_type   top.sv 23 29 23 37    |  B: 5 enum_typespec pkt_type   top.sv 2 1 2 56    |
+surelog default SimpleUVM differ:line(190) :: #23 line|  A: 1 include_file_info    uvm_pkg.sv 9217 12 9217 33    |  B: 1 include_file_info    uvm_pkg.sv 9207 12 9207 33    |
+surelog testflags SimpleUVM differ:line(190) :: #23 line|  A: 1 include_file_info    uvm_pkg.sv 9217 12 9217 33    |  B: 1 include_file_info    uvm_pkg.sv 9207 12 9207 33    |
+surelog default StringMethod differ:fullname(2) :: #139 fullname|  A: 5 ref_obj t  work@top.b.s.compare.t dut.sv 8 23 8 24  0  |  B: 5 ref_obj t  work@top.b.t dut.sv 8 23 8 24  0  |
+surelog testflags StringMethod differ:fullname(2) :: #139 fullname|  A: 5 ref_obj t  work@top.b.s.compare.t dut.sv 8 23 8 24  0  |  B: 5 ref_obj t  work@top.b.t dut.sv 8 23 8 24  0  |
+surelog default StructArrayNet differ:fullname(2) :: #149 fullname|  A: 5 ref_obj sel  work@dut.m.sel dut.sv 12 33 12 36  0  |  B: 5 ref_obj sel  work@dut.m.struct_i.sel dut.sv 12 33 12 36  0  |
+surelog testflags StructArrayNet differ:fullname(2) :: #59 fullname|  A: 5 ref_obj sel  work@dut.m.sel dut.sv 12 33 12 36  0  |  B: 5 ref_obj sel  work@dut.m.struct_i.sel dut.sv 12 33 12 36  0  |
+surelog default StructParamFieldRange differ:endcol(5) :: #157 endcol|  A: 4 struct_typespec    dut.sv 23 26 23 32    |  B: 4 struct_typespec    dut.sv 23 26 23 39    |
+surelog testflags StructParamFieldRange differ:endcol(5) :: #157 endcol|  A: 4 struct_typespec    dut.sv 23 26 23 32    |  B: 4 struct_typespec    dut.sv 23 26 23 39    |
+surelog default StructParamFuncBodyFieldCompare differ:depth(1) :: #192 depth|  A: 4 constant    dut.sv 30 23 30 25 64 32 UINT:64 9|  B: 3 typespec_member Flag   dut.sv 21 18 21 22    |
+surelog testflags StructParamFuncBodyFieldCompare differ:depth(1) :: #192 depth|  A: 4 constant    dut.sv 30 23 30 25 64 32 UINT:64 9|  B: 3 typespec_member Flag   dut.sv 21 18 21 22    |
+surelog default StructParamPatternInitCast differ:fullname(2) :: #67 fullname|  A: 4 ref_typespec     0 0 0 0  0  |  B: 4 ref_typespec   cfg_pkg  0 0 0 0  0  |
+surelog testflags StructParamPatternInitCast differ:fullname(2) :: #67 fullname|  A: 4 ref_typespec     0 0 0 0  0  |  B: 4 ref_typespec   cfg_pkg  0 0 0 0  0  |
+surelog default StructUnsizedVal differ:endcol(3) :: #381 endcol|  A: 4 constant    dut.sv 17 53 17 64 18446744073709551615 64 UINT:18446744073709551615 9|  B: 4 constant    dut.sv 17 53 17 58 18446744073709551615 64 UINT:18446744073709551615 9|
+surelog testflags StructUnsizedVal differ:endcol(3) :: #288 endcol|  A: 4 constant    dut.sv 17 53 17 64 18446744073709551615 64 UINT:18446744073709551615 9|  B: 4 constant    dut.sv 17 53 17 58 18446744073709551615 64 UINT:18446744073709551615 9|
+surelog default SVSwitch differ:endcol(27) :: #88 endcol|  A: 7 hier_path pkt.randomize   Driver.sv 40 10 40 25  0  |  B: 7 hier_path pkt.randomize   Driver.sv 40 10 40 23  0  |
+surelog testflags SVSwitch differ:endcol(27) :: #88 endcol|  A: 7 hier_path pkt.randomize   Driver.sv 40 10 40 25  0  |  B: 7 hier_path pkt.randomize   Driver.sv 40 10 40 23  0  |
+surelog default TypeParamElab differ:endline(15) :: #213 endline|  A: 5 struct_typespec axi_meta_t   dut.sv 27 11 30 4    |  B: 5 struct_typespec axi_meta_t   dut.sv 27 11 27 24    |
+surelog testflags TypeParamElab differ:endline(15) :: #129 endline|  A: 5 struct_typespec axi_meta_t   dut.sv 27 11 30 4    |  B: 5 struct_typespec axi_meta_t   dut.sv 27 11 27 24    |
+surelog default UnionCast differ:value(26) :: #179 value|  A: 7 constant    dut.sv 108 34 108 36 00 64 UINT:00 9|  B: 7 constant    dut.sv 108 34 108 36 00 64 UINT:0 9|
+surelog testflags UnionCast differ:value(28) :: #178 value|  A: 7 constant    dut.sv 108 34 108 36 00 64 UINT:00 9|  B: 7 constant    dut.sv 108 34 108 36 00 64 UINT:0 9|
+surelog default UnitElabBlock differ:endline(13) :: #97 endline|  A: 4 logic_typespec    top.v 4 1 3 7    |  B: 4 logic_typespec    top.v 4 1 4 1    |
+surelog testflags UnitElabBlock differ:endline(12) :: #97 endline|  A: 4 logic_typespec    top.v 4 1 3 7    |  B: 4 logic_typespec    top.v 4 1 4 1    |
+surelog default UnpackPort differ:line(2) :: #144 line|  A: 2 array_net var3  work@dut.var3 dut.sv 1 12 1 16  7  |  B: 2 array_net var3  work@dut.var3 dut.sv 6 18 6 22  7  |
+surelog testflags UnpackPort differ:line(2) :: #144 line|  A: 2 array_net var3  work@dut.var3 dut.sv 1 12 1 16  7  |  B: 2 array_net var3  work@dut.var3 dut.sv 6 18 6 22  7  |
+surelog default UnsizedParam differ:fullname(2) :: #194 fullname|  A: 5 ref_typespec   work@top.u_sub_default  0 0 0 0  0  |  B: 5 ref_typespec   work@submodule  0 0 0 0  0  |
+surelog default UnsupportedTypespecRange differ:file(2) :: #104 file|  A: 4 packed_array_typespec     0 0 0 0    |  B: 4 packed_array_typespec    dut.sv 10 5 10 46    |
+surelog testflags UnsupportedTypespecRange differ:file(2) :: #14 file|  A: 4 packed_array_typespec     0 0 0 0    |  B: 4 packed_array_typespec    dut.sv 10 5 10 46    |
+surelog default YosysBigSimEllip differ:fullname(3038) :: #8924 fullname|  A: 8 ref_obj i  work@point_scalar_mult.ins1.ins1.label[0].c.i f3m.v 93 26 93 27  0  |  B: 8 ref_obj i  work@point_scalar_mult.ins1.ins1.label[0].i f3m.v 93 26 93 27  0  |
+surelog default YosysMarlann differ:endcol(25) :: #744 endcol|  A: 5 assignment    marlann_compute.v 167 3 167 83    |  B: 5 assignment    marlann_compute.v 167 3 167 84    |
+surelog testflags YosysMarlann differ:endcol(25) :: #744 endcol|  A: 5 assignment    marlann_compute.v 167 3 167 83    |  B: 5 assignment    marlann_compute.v 167 3 167 84    |
+surelog default YosysOldOpen differ:line(17) :: #4 line|  A: 1 include_file_info    omsp_alu.v 1819 10 1819 34    |  B: 1 include_file_info    omsp_alu.v 1831 10 1831 34    |
+surelog testflags YosysOldOpen differ:fullname(4) :: #14497 fullname|  A: 8 ref_typespec   work@openMSP430.clock_module_0  0 0 0 0  0  |  B: 8 ref_typespec   work@openMSP430.clock_module_0.BASE_ADDR  0 0 0 0  0  |
+surelog default YosysOldOr differ:line(593) :: #53040 line|  A: 6 logic_typespec    or1200_fpu_intfloat_conv_except.v 51 12 51 12    |  B: 6 logic_typespec    or1200_fpu_intfloat_conv_except.v 50 12 50 12    |
+surelog testflags YosysOldOr differ:line(593) :: #53040 line|  A: 6 logic_typespec    or1200_fpu_intfloat_conv_except.v 51 12 51 12    |  B: 6 logic_typespec    or1200_fpu_intfloat_conv_except.v 50 12 50 12    |
+surelog default YosysRiscv differ:endcol(86) :: #205 endcol|  A: 8 case_item    shifter64.v 60 5 60 30    |  B: 8 case_item    shifter64.v 60 5 60 31    |
+surelog testflags YosysRiscv differ:endcol(86) :: #205 endcol|  A: 8 case_item    shifter64.v 60 5 60 30    |  B: 8 case_item    shifter64.v 60 5 60 31    |
+uhdm2rtlil default anon_struct_packed_dim differ:fullname(43) :: #112 fullname|  A: 11 ref_typespec   <in>pte_t.ppn  0 0 0 0  0  |  B: 11 ref_typespec   <in>pte_t.ppn  0 0 0 0  0  |
+uhdm2rtlil testflags anon_struct_packed_dim differ:fullname(43) :: #22 fullname|  A: 11 ref_typespec   <in>pte_t.ppn  0 0 0 0  0  |  B: 11 ref_typespec   <in>pte_t.ppn  0 0 0 0  0  |
+uhdm2rtlil default arb_idx_cast differ:endline(4) :: #103 endline|  A: 4 logic_typespec    dut.sv 8 40 15 27    |  B: 4 logic_typespec    dut.sv 8 40 8 60    |
+uhdm2rtlil testflags arb_idx_cast differ:endline(4) :: #13 endline|  A: 4 logic_typespec    dut.sv 8 40 15 27    |  B: 4 logic_typespec    dut.sv 8 40 8 60    |
+uhdm2rtlil default array_assign differ:depth(1) :: #654 depth|  A: 5 ref_obj pb  work@top.pb dut.sv 61 9 61 11  0  |  B: 6 logic_net pa  work@top.pa dut.sv 53 11 53 13  0  |
+uhdm2rtlil testflags array_assign differ:depth(1) :: #564 depth|  A: 5 ref_obj pb  work@top.pb dut.sv 61 9 61 11  0  |  B: 6 logic_net pa  work@top.pa dut.sv 53 11 53 13  0  |
+uhdm2rtlil default cfg_func_width_loop differ:line(3) :: #464 line|  A: 6 logic_typespec mask_t   dut.sv 27 40 27 46    |  B: 6 logic_typespec mask_t   dut.sv 16 11 16 25    |
+uhdm2rtlil testflags cfg_func_width_loop differ:line(3) :: #374 line|  A: 6 logic_typespec mask_t   dut.sv 27 40 27 46    |  B: 6 logic_typespec mask_t   dut.sv 16 11 16 25    |
+uhdm2rtlil default comb_dyn_2d_packed_sel differ:fullname(3) :: #330 fullname|  A: 8 ref_obj ALIGN  work@dut.wr_off_i.ALIGN dut.sv 43 74 43 79  0  |  B: 8 ref_obj ALIGN  work@dut.ALIGN dut.sv 43 74 43 79  0  |
+uhdm2rtlil testflags comb_dyn_2d_packed_sel differ:fullname(3) :: #240 fullname|  A: 8 ref_obj ALIGN  work@dut.wr_off_i.ALIGN dut.sv 43 74 43 79  0  |  B: 8 ref_obj ALIGN  work@dut.ALIGN dut.sv 43 74 43 79  0  |
+uhdm2rtlil default const_cast_signext differ:line(15) :: #94 line|  A: 4 struct_typespec op_t   dut.sv 19 42 19 46    |  B: 4 struct_typespec op_t   dut.sv 15 11 15 61    |
+uhdm2rtlil testflags const_cast_signext differ:line(15) :: #4 line|  A: 4 struct_typespec op_t   dut.sv 19 42 19 46    |  B: 4 struct_typespec op_t   dut.sv 15 11 15 61    |
+uhdm2rtlil default cva6_struct_param_field differ:endcol(5) :: #157 endcol|  A: 4 struct_typespec    dut.sv 25 26 25 32    |  B: 4 struct_typespec    dut.sv 25 26 25 39    |
+uhdm2rtlil testflags cva6_struct_param_field differ:endcol(5) :: #67 endcol|  A: 4 struct_typespec    dut.sv 25 26 25 32    |  B: 4 struct_typespec    dut.sv 25 26 25 39    |
+uhdm2rtlil default def_ctx_struct_param differ:depth(1) :: #43 depth|  A: 6 typespec_member RVC   dut.sv 13 18 13 21    |  B: 7 constant    dut.sv 28 14 28 16 32 64 UINT:32 9|
+uhdm2rtlil testflags def_ctx_struct_param differ:depth(1) :: #42 depth|  A: 6 typespec_member RVC   dut.sv 13 18 13 21    |  B: 7 constant    dut.sv 28 14 28 16 32 64 UINT:32 9|
+uhdm2rtlil default expr_width_cast differ:col(12) :: #169 col|  A: 12 ref_obj Cfg   dut.sv 25 13 25 21  0  |  B: 12 ref_obj Cfg   dut.sv 25 9 25 12  0  |
+uhdm2rtlil testflags expr_width_cast differ:col(12) :: #79 col|  A: 12 ref_obj Cfg   dut.sv 25 13 25 21  0  |  B: 12 ref_obj Cfg   dut.sv 25 9 25 12  0  |
+uhdm2rtlil default FileLevelUnionWithMultirange differ:file(14) :: #144 file|  A: 7 packed_array_typespec     0 0 0 0    |  B: 7 packed_array_typespec    dut.sv 28 3 28 44    |
+uhdm2rtlil testflags FileLevelUnionWithMultirange differ:file(14) :: #54 file|  A: 7 packed_array_typespec     0 0 0 0    |  B: 7 packed_array_typespec    dut.sv 28 3 28 44    |
+uhdm2rtlil default func_local_array differ:type(1) :: #266 type|  A: 3 func_call func1   dut.sv 19 16 19 27  0  |  B: 3 constant     0 0 0 0 2 2 UINT:2 9|
+uhdm2rtlil testflags func_local_array differ:type(1) :: #176 type|  A: 3 func_call func1   dut.sv 19 16 19 27  0  |  B: 3 constant     0 0 0 0 2 2 UINT:2 9|
+uhdm2rtlil default func_typename_ret differ:name(2) :: #134 name|  A: 5 logic_typespec P::S   dut.sv 4 13 4 24    |  B: 5 logic_typespec S   dut.sv 4 13 4 24    |
+uhdm2rtlil testflags func_typename_ret differ:name(2) :: #44 name|  A: 5 logic_typespec P::S   dut.sv 4 13 4 24    |  B: 5 logic_typespec S   dut.sv 4 13 4 24    |
+uhdm2rtlil default FunctionParam differ:type(1) :: #160 type|  A: 3 func_call theta   dut.sv 8 15 8 22  0  |  B: 3 constant    dut.sv 2 30 2 31 1 32 UINT:1 9|
+uhdm2rtlil testflags FunctionParam differ:type(1) :: #70 type|  A: 3 func_call theta   dut.sv 8 15 8 22  0  |  B: 3 constant    dut.sv 2 30 2 31 1 32 UINT:1 9|
+uhdm2rtlil default gen_scope_numports differ:fullname(17) :: #196 fullname|  A: 7 ref_obj DataWidth   dut.sv 5 36 5 45  0  |  B: 7 ref_obj DataWidth  <in>data_t.DataWidth dut.sv 5 36 5 45  0  |
+uhdm2rtlil testflags gen_scope_numports differ:fullname(17) :: #106 fullname|  A: 7 ref_obj DataWidth   dut.sv 5 36 5 45  0  |  B: 7 ref_obj DataWidth  <in>data_t.DataWidth dut.sv 5 36 5 45  0  |
+uhdm2rtlil default gen_scope_typaram differ:endcol(9) :: #236 endcol|  A: 8 struct_typespec pair_t   dut.sv 17 13 17 60    |  B: 8 struct_typespec pair_t   dut.sv 17 13 17 26    |
+uhdm2rtlil testflags gen_scope_typaram differ:endcol(9) :: #146 endcol|  A: 8 struct_typespec pair_t   dut.sv 17 13 17 60    |  B: 8 struct_typespec pair_t   dut.sv 17 13 17 26    |
+uhdm2rtlil default genscope_module_ctx_reset differ:fullname(1) :: #274 fullname|  A: 6 part_select in_i in_i work@genscope_module_ctx_reset.gen_inst.u_c.ci.in_i dut.sv 30 30 30 39  0  |  B: 6 part_select in_i in_i work@genscope_module_ctx_reset.u_c.ci.in_i dut.sv 30 30 30 39  0  |
+uhdm2rtlil testflags genscope_module_ctx_reset differ:fullname(1) :: #184 fullname|  A: 6 part_select in_i in_i work@genscope_module_ctx_reset.gen_inst.u_c.ci.in_i dut.sv 30 30 30 39  0  |  B: 6 part_select in_i in_i work@genscope_module_ctx_reset.u_c.ci.in_i dut.sv 30 30 30 39  0  |
+uhdm2rtlil default genvar_iface_struct differ:fullname(1) :: #306 fullname|  A: 5 ref_obj IFN  work@dut.m.IFN dut.sv 25 10 25 13  0  |  B: 5 ref_obj IFN  work@dut.IFN dut.sv 25 10 25 13  0  |
+uhdm2rtlil testflags genvar_iface_struct differ:fullname(1) :: #216 fullname|  A: 5 ref_obj IFN  work@dut.m.IFN dut.sv 25 10 25 13  0  |  B: 5 ref_obj IFN  work@dut.IFN dut.sv 25 10 25 13  0  |
+uhdm2rtlil default ibex_alu differ:fullname(9) :: #2449 fullname|  A: 9 ref_typespec     0 0 0 0  0  |  B: 9 ref_typespec   <in>  0 0 0 0  0  |
+uhdm2rtlil testflags ibex_alu differ:fullname(9) :: #2442 fullname|  A: 9 ref_typespec     0 0 0 0  0  |  B: 9 ref_typespec   <in>  0 0 0 0  0  |
+uhdm2rtlil default ibex_branch_predict differ:fullname(20) :: #2453 fullname|  A: 9 ref_typespec     0 0 0 0  0  |  B: 9 ref_typespec   <in>  0 0 0 0  0  |
+uhdm2rtlil testflags ibex_branch_predict differ:fullname(20) :: #2446 fullname|  A: 9 ref_typespec     0 0 0 0  0  |  B: 9 ref_typespec   <in>  0 0 0 0  0  |
+uhdm2rtlil default ibex_compressed_decoder differ:fullname(141) :: #2453 fullname|  A: 9 ref_typespec     0 0 0 0  0  |  B: 9 ref_typespec   <in>  0 0 0 0  0  |
+uhdm2rtlil testflags ibex_compressed_decoder differ:fullname(141) :: #2446 fullname|  A: 9 ref_typespec     0 0 0 0  0  |  B: 9 ref_typespec   <in>  0 0 0 0  0  |
+uhdm2rtlil default ibex_counter differ:fullname(1) :: #653 fullname|  A: 7 ref_typespec   work@ibex_counter  0 0 0 0  0  |  B: 7 ref_typespec   work@ibex_counter.g_counter_narrow.counter_load  0 0 0 0  0  |
+uhdm2rtlil testflags ibex_counter differ:fullname(1) :: #563 fullname|  A: 7 ref_typespec   work@ibex_counter  0 0 0 0  0  |  B: 7 ref_typespec   work@ibex_counter.g_counter_narrow.counter_load  0 0 0 0  0  |
+uhdm2rtlil default ibex_csr differ:line(12) :: #143 line|  A: 4 sys_func_call $error   prim_assert.sv 29 3 33 27  0  |  B: 4 sys_func_call $error   prim_assert.sv 32 3 33 18  0  |
+uhdm2rtlil testflags ibex_csr differ:line(12) :: #53 line|  A: 4 sys_func_call $error   prim_assert.sv 29 3 33 27  0  |  B: 4 sys_func_call $error   prim_assert.sv 32 3 33 18  0  |
+uhdm2rtlil default ibex_decoder differ:fullname(28) :: #2453 fullname|  A: 9 ref_typespec     0 0 0 0  0  |  B: 9 ref_typespec   <in>  0 0 0 0  0  |
+uhdm2rtlil testflags ibex_decoder differ:fullname(28) :: #2446 fullname|  A: 9 ref_typespec     0 0 0 0  0  |  B: 9 ref_typespec   <in>  0 0 0 0  0  |
+uhdm2rtlil default ibex_fetch_fifo differ:line(24) :: #282 line|  A: 4 sys_func_call $error   prim_assert.sv 29 3 33 37  0  |  B: 4 sys_func_call $error   prim_assert.sv 32 3 33 18  0  |
+uhdm2rtlil testflags ibex_fetch_fifo differ:line(24) :: #192 line|  A: 4 sys_func_call $error   prim_assert.sv 29 3 33 37  0  |  B: 4 sys_func_call $error   prim_assert.sv 32 3 33 18  0  |
+uhdm2rtlil default ibex_icache differ:fullname(200) :: #2453 fullname|  A: 9 ref_typespec     0 0 0 0  0  |  B: 9 ref_typespec   <in>  0 0 0 0  0  |
+uhdm2rtlil testflags ibex_icache differ:fullname(200) :: #2446 fullname|  A: 9 ref_typespec     0 0 0 0  0  |  B: 9 ref_typespec   <in>  0 0 0 0  0  |
+uhdm2rtlil default ibex_load_store_unit differ:endline(240) :: #326 endline|  A: 2 logic_net fcov_ls_error_exception  work@ibex_load_store_unit.fcov_ls_error_exception dv_fcov_macros.svh 91 11 91 34  0  |  B: 2 logic_net fcov_ls_error_exception  work@ibex_load_store_unit.fcov_ls_error_exception dv_fcov_macros.svh 91 11 92 8  0  |
+uhdm2rtlil testflags ibex_load_store_unit differ:endline(240) :: #236 endline|  A: 2 logic_net fcov_ls_error_exception  work@ibex_load_store_unit.fcov_ls_error_exception dv_fcov_macros.svh 91 11 91 34  0  |  B: 2 logic_net fcov_ls_error_exception  work@ibex_load_store_unit.fcov_ls_error_exception dv_fcov_macros.svh 91 11 92 8  0  |
+uhdm2rtlil default ibex_multdiv_fast differ:fullname(109) :: #2453 fullname|  A: 9 ref_typespec     0 0 0 0  0  |  B: 9 ref_typespec   <in>  0 0 0 0  0  |
+uhdm2rtlil testflags ibex_multdiv_fast differ:fullname(109) :: #2446 fullname|  A: 9 ref_typespec     0 0 0 0  0  |  B: 9 ref_typespec   <in>  0 0 0 0  0  |
+uhdm2rtlil default ibex_multdiv_slow differ:fullname(26) :: #2453 fullname|  A: 9 ref_typespec     0 0 0 0  0  |  B: 9 ref_typespec   <in>  0 0 0 0  0  |
+uhdm2rtlil testflags ibex_multdiv_slow differ:fullname(26) :: #2446 fullname|  A: 9 ref_typespec     0 0 0 0  0  |  B: 9 ref_typespec   <in>  0 0 0 0  0  |
+uhdm2rtlil default ibex_pmp differ:file(60) :: #2404 file|  A: 6 struct_typespec ibex_pkg::pmp_cfg_t   ibex_pmp.sv 114 47 114 57    |  B: 6 struct_typespec ibex_pkg::pmp_cfg_t   ibex_pkg.sv 433 11 439 4    |
+uhdm2rtlil testflags ibex_pmp differ:file(60) :: #2397 file|  A: 6 struct_typespec ibex_pkg::pmp_cfg_t   ibex_pmp.sv 114 47 114 57    |  B: 6 struct_typespec ibex_pkg::pmp_cfg_t   ibex_pkg.sv 433 11 439 4    |
+uhdm2rtlil default ibex_register_file_ff differ:fullname(31) :: #658 fullname|  A: 15 ref_obj DataWidth  <in>DataWidth ibex_register_file_ff.sv 17 20 17 29  0  |  B: 15 ref_obj DataWidth   ibex_register_file_ff.sv 17 20 17 29  0  |
+uhdm2rtlil testflags ibex_register_file_ff differ:fullname(31) :: #568 fullname|  A: 15 ref_obj DataWidth  <in>DataWidth ibex_register_file_ff.sv 17 20 17 29  0  |  B: 15 ref_obj DataWidth   ibex_register_file_ff.sv 17 20 17 29  0  |
+uhdm2rtlil default ibex_tracer differ:fullname(587) :: #2073 fullname|  A: 6 ref_typespec   <in>ibex_pkg::exc_cause_t.irq_int  0 0 0 0  0  |  B: 6 ref_typespec   <in>ibex_pkg::exc_cause_t.irq_int  0 0 0 0  0  |
+uhdm2rtlil testflags ibex_tracer differ:fullname(587) :: #2072 fullname|  A: 6 ref_typespec   <in>ibex_pkg::exc_cause_t.irq_int  0 0 0 0  0  |  B: 6 ref_typespec   <in>ibex_pkg::exc_cause_t.irq_int  0 0 0 0  0  |
+uhdm2rtlil default ibex_wb_stage differ:fullname(32) :: #2454 fullname|  A: 9 ref_typespec     0 0 0 0  0  |  B: 9 ref_typespec   <in>  0 0 0 0  0  |
+uhdm2rtlil testflags ibex_wb_stage differ:fullname(32) :: #2447 fullname|  A: 9 ref_typespec     0 0 0 0  0  |  B: 9 ref_typespec   <in>  0 0 0 0  0  |
+uhdm2rtlil default iface_arr_struct_field_partsel differ:fullname(4) :: #254 fullname|  A: 6 bit_select req_dly  sub.req_dly[0] dut.sv 18 18 18 25  0  |  B: 6 bit_select req_dly  req_dly[0] dut.sv 18 18 18 25  0  |
+uhdm2rtlil testflags iface_arr_struct_field_partsel differ:fullname(4) :: #164 fullname|  A: 6 bit_select req_dly  sub.req_dly[0] dut.sv 18 18 18 25  0  |  B: 6 bit_select req_dly  req_dly[0] dut.sv 18 18 18 25  0  |
+uhdm2rtlil default iface_cfg_mem differ:col(2) :: #256 col|  A: 10 ref_obj s   dut.sv 16 12 16 15  0  |  B: 10 ref_obj s   dut.sv 16 10 16 11  0  |
+uhdm2rtlil testflags iface_cfg_mem differ:col(2) :: #166 col|  A: 10 ref_obj s   dut.sv 16 12 16 15  0  |  B: 10 ref_obj s   dut.sv 16 10 16 11  0  |
+uhdm2rtlil default iface_nested_param_field differ:fullname(5) :: #178 fullname|  A: 6 ref_typespec   <in>p::cfg_t.HSK  0 0 0 0  0  |  B: 6 ref_typespec   <in>p::cfg_t.HSK  0 0 0 0  0  |
+uhdm2rtlil testflags iface_nested_param_field differ:fullname(5) :: #88 fullname|  A: 6 ref_typespec   <in>p::cfg_t.HSK  0 0 0 0  0  |  B: 6 ref_typespec   <in>p::cfg_t.HSK  0 0 0 0  0  |
+uhdm2rtlil default iface_param_2level differ:col(3) :: #141 col|  A: 8 ref_obj CFG   dut.sv 10 14 10 17  0  |  B: 8 ref_obj CFG   dut.sv 10 10 10 13  0  |
+uhdm2rtlil testflags iface_param_2level differ:col(3) :: #51 col|  A: 8 ref_obj CFG   dut.sv 10 14 10 17  0  |  B: 8 ref_obj CFG   dut.sv 10 10 10 13  0  |
+uhdm2rtlil default iface_param_port_width differ:col(3) :: #125 col|  A: 8 ref_obj bus   dut.sv 14 36 14 46  0  |  B: 8 ref_obj bus   dut.sv 14 32 14 35  0  |
+uhdm2rtlil testflags iface_param_port_width differ:col(3) :: #35 col|  A: 8 ref_obj bus   dut.sv 14 36 14 46  0  |  B: 8 ref_obj bus   dut.sv 14 32 14 35  0  |
+uhdm2rtlil default iface_scalar_localparam differ:fullname(15) :: #158 fullname|  A: 6 ref_typespec   <in>p::cfg_t.BUS  0 0 0 0  0  |  B: 6 ref_typespec   <in>p::cfg_t.BUS  0 0 0 0  0  |
+uhdm2rtlil testflags iface_scalar_localparam differ:fullname(15) :: #68 fullname|  A: 6 ref_typespec   <in>p::cfg_t.BUS  0 0 0 0  0  |  B: 6 ref_typespec   <in>p::cfg_t.BUS  0 0 0 0  0  |
+uhdm2rtlil default iface_sig_in_child_port differ:fullname(4) :: #265 fullname|  A: 7 logic_net clk  work@dut.m.c.clk.clk dut.sv 4 29 4 32  0  |  B: 7 logic_net clk  work@dut.m.sub.s.clk.clk dut.sv 4 29 4 32  0  |
+uhdm2rtlil testflags iface_sig_in_child_port differ:fullname(4) :: #175 fullname|  A: 7 logic_net clk  work@dut.m.c.clk.clk dut.sv 4 29 4 32  0  |  B: 7 logic_net clk  work@dut.m.sub.s.clk.clk dut.sv 4 29 4 32  0  |
+uhdm2rtlil default iface_struct_field_param_width differ:fullname(3) :: #184 fullname|  A: 6 ref_typespec   <in>p::cfg_t.BUS  0 0 0 0  0  |  B: 6 ref_typespec   <in>p::cfg_t.BUS  0 0 0 0  0  |
+uhdm2rtlil testflags iface_struct_field_param_width differ:fullname(3) :: #94 fullname|  A: 6 ref_typespec   <in>p::cfg_t.BUS  0 0 0 0  0  |  B: 6 ref_typespec   <in>p::cfg_t.BUS  0 0 0 0  0  |
+uhdm2rtlil default iface_struct_field_partsel differ:fullname(15) :: #172 fullname|  A: 6 ref_typespec   <in>p::cfg_t.BUS  0 0 0 0  0  |  B: 6 ref_typespec   <in>p::cfg_t.BUS  0 0 0 0  0  |
+uhdm2rtlil testflags iface_struct_field_partsel differ:fullname(15) :: #82 fullname|  A: 6 ref_typespec   <in>p::cfg_t.BUS  0 0 0 0  0  |  B: 6 ref_typespec   <in>p::cfg_t.BUS  0 0 0 0  0  |
+uhdm2rtlil default iface_zero_width_field differ:col(8) :: #49 col|  A: 9 ref_obj B   dut.sv 11 14 11 17  0  |  B: 9 ref_obj B   dut.sv 11 12 11 13  0  |
+uhdm2rtlil testflags iface_zero_width_field differ:col(8) :: #48 col|  A: 9 ref_obj B   dut.sv 11 14 11 17  0  |  B: 9 ref_obj B   dut.sv 11 12 11 13  0  |
+uhdm2rtlil default int_types differ:fullname(94) :: #108 fullname|  A: 5 ref_obj x  work@top.x dut.sv 5 27 5 28  0  |  B: 5 ref_obj x   dut.sv 5 27 5 28  0  |
+uhdm2rtlil testflags int_types differ:fullname(94) :: #18 fullname|  A: 5 ref_obj x  work@top.x dut.sv 5 27 5 28  0  |  B: 5 ref_obj x   dut.sv 5 27 5 28  0  |
+uhdm2rtlil default interface_array differ:fullname(3) :: #464 fullname|  A: 5 parameter W  work@myif.W dut.sv 3 32 3 33  0 UINT:8 |  B: 5 parameter W  work@dut.p0.b.W dut.sv 3 32 3 33  0 UINT:8 |
+uhdm2rtlil testflags interface_array differ:fullname(3) :: #374 fullname|  A: 5 parameter W  work@myif.W dut.sv 3 32 3 33  0 UINT:8 |  B: 5 parameter W  work@dut.p0.b.W dut.sv 3 32 3 33  0 UINT:8 |
+uhdm2rtlil default interface_array_fanout differ:fullname(3) :: #666 fullname|  A: 8 parameter W  work@myif.W dut.sv 4 32 4 33  0 UINT:8 |  B: 8 parameter W  work@dut.f.m[0].W dut.sv 4 32 4 33  0 UINT:8 |
+uhdm2rtlil testflags interface_array_fanout differ:fullname(3) :: #576 fullname|  A: 8 parameter W  work@myif.W dut.sv 4 32 4 33  0 UINT:8 |  B: 8 parameter W  work@dut.f.m[0].W dut.sv 4 32 4 33  0 UINT:8 |
+uhdm2rtlil default jeras_tcb_gpio differ:fullname(6) :: #498 fullname|  A: 15 ref_obj GW  work@tcb_gpio.bus.wdt[GW - 1:0].wdt.GW tcb_gpio.sv 77 36 77 38  0  |  B: 15 ref_obj GW  work@tcb_gpio.GW tcb_gpio.sv 77 36 77 38  0  |
+uhdm2rtlil testflags jeras_tcb_gpio differ:fullname(6) :: #408 fullname|  A: 15 ref_obj GW  work@tcb_gpio.bus.wdt[GW - 1:0].wdt.GW tcb_gpio.sv 77 36 77 38  0  |  B: 15 ref_obj GW  work@tcb_gpio.GW tcb_gpio.sv 77 36 77 38  0  |
+uhdm2rtlil default jeras_union differ:fullname(54) :: #168 fullname|  A: 6 ref_typespec   <in>riscv_isa_pkg::imm_l_t  0 0 0 0  0  |  B: 6 ref_typespec   <in>riscv_isa_pkg::imm_l_t  0 0 0 0  0  |
+uhdm2rtlil testflags jeras_union differ:fullname(54) :: #167 fullname|  A: 6 ref_typespec   <in>riscv_isa_pkg::imm_l_t  0 0 0 0  0  |  B: 6 ref_typespec   <in>riscv_isa_pkg::imm_l_t  0 0 0 0  0  |
+uhdm2rtlil default latch_decoder_partial differ:depth(1) :: #43 depth|  A: 6 typespec_member RVH   dut.sv 11 18 11 21    |  B: 7 constant    dut.sv 17 16 17 18 64 64 UINT:64 9|
+uhdm2rtlil testflags latch_decoder_partial differ:depth(1) :: #42 depth|  A: 6 typespec_member RVH   dut.sv 11 18 11 21    |  B: 7 constant    dut.sv 17 16 17 18 64 64 UINT:64 9|
+uhdm2rtlil default latch_packed_dyn_write differ:fullname(2) :: #284 fullname|  A: 10 bit_select bit_i  work@latch_packed_dyn_write.read_write_comb.wr_be.wr_be.bit_i dut.sv 47 32 47 33  0  |  B: 10 bit_select bit_i  work@latch_packed_dyn_write.read_write_comb.wr_be.bit_i dut.sv 47 26 47 34  0  |
+uhdm2rtlil testflags latch_packed_dyn_write differ:fullname(2) :: #194 fullname|  A: 10 bit_select bit_i  work@latch_packed_dyn_write.read_write_comb.wr_be.wr_be.bit_i dut.sv 47 32 47 33  0  |  B: 10 bit_select bit_i  work@latch_packed_dyn_write.read_write_comb.wr_be.bit_i dut.sv 47 26 47 34  0  |
+uhdm2rtlil default latch_tlb_napot differ:depth(1) :: #43 depth|  A: 6 typespec_member SvnapotEn   dut.sv 11 18 11 27    |  B: 7 constant    dut.sv 17 19 17 21 27 64 UINT:27 9|
+uhdm2rtlil testflags latch_tlb_napot differ:depth(1) :: #42 depth|  A: 6 typespec_member SvnapotEn   dut.sv 11 18 11 27    |  B: 7 constant    dut.sv 17 19 17 21 27 64 UINT:27 9|
+uhdm2rtlil default LocalParamInNestedForLoops differ:fullname(2) :: #160 fullname|  A: 5 ref_typespec     0 0 0 0  0  |  B: 5 ref_typespec   work@top  0 0 0 0  0  |
+uhdm2rtlil testflags LocalParamInNestedForLoops differ:fullname(2) :: #70 fullname|  A: 5 ref_typespec     0 0 0 0  0  |  B: 5 ref_typespec   work@top  0 0 0 0  0  |
+uhdm2rtlil default mem_ff_partial_rsp differ:col(16) :: #222 col|  A: 12 ref_obj sub   dut.sv 24 25 24 28  0  |  B: 12 ref_obj sub   dut.sv 24 29 24 32  0  |
+uhdm2rtlil testflags mem_ff_partial_rsp differ:col(16) :: #132 col|  A: 12 ref_obj sub   dut.sv 24 25 24 28  0  |  B: 12 ref_obj sub   dut.sv 24 29 24 32  0  |
+uhdm2rtlil default mem_packed_2d_byte_write differ:fullname(4) :: #286 fullname|  A: 18 ref_obj i  work@dut.wdata.wdata.i dut.sv 27 71 27 72  0  |  B: 18 ref_obj i  work@dut.wdata.i dut.sv 27 71 27 72  0  |
+uhdm2rtlil testflags mem_packed_2d_byte_write differ:fullname(4) :: #196 fullname|  A: 18 ref_obj i  work@dut.wdata.wdata.i dut.sv 27 71 27 72  0  |  B: 18 ref_obj i  work@dut.wdata.i dut.sv 27 71 27 72  0  |
+uhdm2rtlil default mem_read_reg differ:name(5) :: #176 name|  A: 2 struct_typespec p::req_t   dut.sv 11 13 17 6    |  B: 2 struct_typespec p::rsp_t   dut.sv 5 13 10 6    |
+uhdm2rtlil testflags mem_read_reg differ:name(5) :: #86 name|  A: 2 struct_typespec p::req_t   dut.sv 11 13 17 6    |  B: 2 struct_typespec p::rsp_t   dut.sv 5 13 10 6    |
+uhdm2rtlil default mriscv_bind_sva differ:fullname(34) :: #2196 fullname|  A: 15 ref_obj SWORD  work@Alg_Booth.S.SWORD MULT.v 80 30 80 35  0  |  B: 15 ref_obj SWORD  work@Alg_Booth.SWORD MULT.v 80 30 80 35  0  |
+uhdm2rtlil testflags mriscv_bind_sva differ:fullname(34) :: #2106 fullname|  A: 15 ref_obj SWORD  work@Alg_Booth.S.SWORD MULT.v 80 30 80 35  0  |  B: 15 ref_obj SWORD  work@Alg_Booth.SWORD MULT.v 80 30 80 35  0  |
+uhdm2rtlil default multiplier differ:col(42) :: #629 col|  A: 9 bit_select A  work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.A dut.sv 124 20 124 24  0  |  B: 9 bit_select A  work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.A dut.sv 124 22 124 23  0  |
+uhdm2rtlil testflags multiplier differ:col(42) :: #539 col|  A: 9 bit_select A  work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.A dut.sv 124 20 124 24  0  |  B: 9 bit_select A  work@Multiplier_flat.addPartialProduct[1].adder.addbit[0].unit.A dut.sv 124 22 124 23  0  |
+uhdm2rtlil default MultirangesStartNotFromZero differ:file(2) :: #682 file|  A: 8 enum_const e_e    0 0 0 0    |  B: 8 enum_const e_e   dut.sv 10 43 10 46    |
+uhdm2rtlil testflags MultirangesStartNotFromZero differ:file(2) :: #592 file|  A: 8 enum_const e_e    0 0 0 0    |  B: 8 enum_const e_e   dut.sv 10 43 10 46    |
+uhdm2rtlil default NestedStructArrayParameterInitializedByPatternPassedAsPort differ:fullname(4) :: #443 fullname|  A: 5 ref_typespec     0 0 0 0  0  |  B: 5 ref_typespec   work@top  0 0 0 0  0  |
+uhdm2rtlil testflags NestedStructArrayParameterInitializedByPatternPassedAsPort differ:fullname(4) :: #353 fullname|  A: 5 ref_typespec     0 0 0 0  0  |  B: 5 ref_typespec   work@top  0 0 0 0  0  |
+uhdm2rtlil default OneNetModport differ:fullname(4) :: #213 fullname|  A: 7 logic_var drive  work@top.dut.sub1.inp.drive dut.sv 14 9 14 14  0  |  B: 7 logic_var drive  work@top.dut.intf.drive dut.sv 14 9 14 14  0  |
+uhdm2rtlil testflags OneNetModport differ:fullname(4) :: #123 fullname|  A: 7 logic_var drive  work@top.dut.sub1.inp.drive dut.sv 14 9 14 14  0  |  B: 7 logic_var drive  work@top.dut.intf.drive dut.sv 14 9 14 14  0  |
+uhdm2rtlil default OutputSizeWithParameterOfInstanceInitializedByStructMember differ:line(8) :: #169 line|  A: 7 hier_path Info.x   dut.sv 17 11 17 26  0  |  B: 7 hier_path Info.x   dut.sv 15 37 15 43  0  |
+uhdm2rtlil testflags OutputSizeWithParameterOfInstanceInitializedByStructMember differ:line(8) :: #79 line|  A: 7 hier_path Info.x   dut.sv 17 11 17 26  0  |  B: 7 hier_path Info.x   dut.sv 15 37 15 43  0  |
+uhdm2rtlil default packed_array_reset_loop differ:endline(4) :: #100 endline|  A: 4 logic_typespec    dut.sv 9 37 17 17    |  B: 4 logic_typespec    dut.sv 9 37 9 50    |
+uhdm2rtlil testflags packed_array_reset_loop differ:endline(4) :: #10 endline|  A: 4 logic_typespec    dut.sv 9 37 17 17    |  B: 4 logic_typespec    dut.sv 9 37 9 50    |
+uhdm2rtlil default packed_array_struct differ:endline(2) :: #94 endline|  A: 4 struct_typespec    dut.sv 10 28 17 15    |  B: 4 struct_typespec    dut.sv 10 28 10 41    |
+uhdm2rtlil testflags packed_array_struct differ:endline(2) :: #4 endline|  A: 4 struct_typespec    dut.sv 10 28 17 15    |  B: 4 struct_typespec    dut.sv 10 28 10 41    |
+uhdm2rtlil default packed_array_struct_port_sel differ:endcol(9) :: #227 endcol|  A: 5 struct_typespec my_t   dut.sv 11 13 11 62    |  B: 5 struct_typespec my_t   dut.sv 11 13 11 26    |
+uhdm2rtlil testflags packed_array_struct_port_sel differ:endcol(9) :: #137 endcol|  A: 5 struct_typespec my_t   dut.sv 11 13 11 62    |  B: 5 struct_typespec my_t   dut.sv 11 13 11 26    |
+uhdm2rtlil default packed_struct_array_fifo differ:fullname(8) :: #438 fullname|  A: 5 ref_obj ADDR_DEPTH  work@packed_struct_array_fifo.FifoDepth.ADDR_DEPTH dut.sv 26 47 26 57  0  |  B: 5 ref_obj ADDR_DEPTH  work@packed_struct_array_fifo.ADDR_DEPTH dut.sv 26 47 26 57  0  |
+uhdm2rtlil testflags packed_struct_array_fifo differ:fullname(8) :: #348 fullname|  A: 5 ref_obj ADDR_DEPTH  work@packed_struct_array_fifo.FifoDepth.ADDR_DEPTH dut.sv 26 47 26 57  0  |  B: 5 ref_obj ADDR_DEPTH  work@packed_struct_array_fifo.ADDR_DEPTH dut.sv 26 47 26 57  0  |
+uhdm2rtlil default packed_struct_array_shift differ:fullname(4) :: #234 fullname|  A: 10 ref_obj DEPTH  work@packed_struct_array_shift.stack_d[DEPTH - 1].valid.DEPTH dut.sv 29 15 29 20  0  |  B: 10 ref_obj DEPTH  work@packed_struct_array_shift.DEPTH dut.sv 29 15 29 20  0  |
+uhdm2rtlil testflags packed_struct_array_shift differ:fullname(4) :: #144 fullname|  A: 10 ref_obj DEPTH  work@packed_struct_array_shift.stack_d[DEPTH - 1].valid.DEPTH dut.sv 29 15 29 20  0  |  B: 10 ref_obj DEPTH  work@packed_struct_array_shift.DEPTH dut.sv 29 15 29 20  0  |
+uhdm2rtlil default param_array_wildcard differ:fullname(1) :: #239 fullname|  A: 9 ref_obj IFN  work@decoder.DAM.IFN dut.sv 7 37 7 40  0  |  B: 9 ref_obj IFN  <in>IFN dut.sv 7 37 7 40  0  |
+uhdm2rtlil testflags param_array_wildcard differ:fullname(1) :: #149 fullname|  A: 9 ref_obj IFN  work@decoder.DAM.IFN dut.sv 7 37 7 40  0  |  B: 9 ref_obj IFN  <in>IFN dut.sv 7 37 7 40  0  |
+uhdm2rtlil default param_name_collision_typeparam differ:fullname(8) :: #103 fullname|  A: 7 ref_obj DataWidth   dut.sv 11 34 11 43  0  |  B: 7 ref_obj DataWidth  <in>data_t.DataWidth dut.sv 11 34 11 43  0  |
+uhdm2rtlil testflags param_name_collision_typeparam differ:fullname(8) :: #13 fullname|  A: 7 ref_obj DataWidth   dut.sv 11 34 11 43  0  |  B: 7 ref_obj DataWidth  <in>data_t.DataWidth dut.sv 11 34 11 43  0  |
+uhdm2rtlil default param_nested_struct_field_width differ:line(5) :: #177 line|  A: 6 constant    dut.sv 31 38 31 42 0000000000000000000000000000001100000000000000000000000000100000 64 BIN:0000000000000000000000000000001100000000000000000000000000100000 3|  B: 6 constant    dut.sv 30 32 30 37 0000000000000000000000000000001100000000000000000000000000100000 64 BIN:0000000000000000000000000000001100000000000000000000000000100000 3|
+uhdm2rtlil testflags param_nested_struct_field_width differ:line(5) :: #170 line|  A: 6 constant    dut.sv 31 38 31 42 0000000000000000000000000000001100000000000000000000000000100000 64 BIN:0000000000000000000000000000001100000000000000000000000000100000 3|  B: 6 constant    dut.sv 30 32 30 37 0000000000000000000000000000001100000000000000000000000000100000 64 BIN:0000000000000000000000000000001100000000000000000000000000100000 3|
+uhdm2rtlil default ParameterFromPkgInNestedModule differ:fullname(7) :: #188 fullname|  A: 4 ref_typespec   work@top.u_aes_cipher_core  0 0 0 0  0  |  B: 4 ref_typespec   work@aes_cipher_core  0 0 0 0  0  |
+uhdm2rtlil testflags ParameterFromPkgInNestedModule differ:fullname(7) :: #98 fullname|  A: 4 ref_typespec   work@top.u_aes_cipher_core  0 0 0 0  0  |  B: 4 ref_typespec   work@aes_cipher_core  0 0 0 0  0  |
+uhdm2rtlil default ParameterFromPkgOnParameterPortList differ:fullname(7) :: #188 fullname|  A: 4 ref_typespec   work@top.u_aes_cipher_core  0 0 0 0  0  |  B: 4 ref_typespec   work@aes_cipher_core  0 0 0 0  0  |
+uhdm2rtlil testflags ParameterFromPkgOnParameterPortList differ:fullname(7) :: #98 fullname|  A: 4 ref_typespec   work@top.u_aes_cipher_core  0 0 0 0  0  |  B: 4 ref_typespec   work@aes_cipher_core  0 0 0 0  0  |
+uhdm2rtlil default ParameterPassedTo3TimesNestedSubmodule differ:file(2) :: #15 file|  A: 5 enum_typespec prim_pad_wrapper_pkg::pad_type_e   dut.sv 2 4 4 17    |  B: 5 enum_typespec prim_pad_wrapper_pkg::pad_type_e    2 4 4 17    |
+uhdm2rtlil testflags ParameterPassedTo3TimesNestedSubmodule differ:file(2) :: #14 file|  A: 5 enum_typespec prim_pad_wrapper_pkg::pad_type_e   dut.sv 2 4 4 17    |  B: 5 enum_typespec prim_pad_wrapper_pkg::pad_type_e    2 4 4 17    |
+uhdm2rtlil default ParameterPassedToSubmoduleInGenscopeOfSubmodule differ:file(2) :: #15 file|  A: 5 enum_typespec prim_pad_wrapper_pkg::pad_type_e   dut.sv 2 4 4 17    |  B: 5 enum_typespec prim_pad_wrapper_pkg::pad_type_e    2 4 4 17    |
+uhdm2rtlil testflags ParameterPassedToSubmoduleInGenscopeOfSubmodule differ:file(2) :: #14 file|  A: 5 enum_typespec prim_pad_wrapper_pkg::pad_type_e   dut.sv 2 4 4 17    |  B: 5 enum_typespec prim_pad_wrapper_pkg::pad_type_e    2 4 4 17    |
+uhdm2rtlil default ParameterPassedToSubmoduleOfSubmodule differ:file(2) :: #15 file|  A: 5 enum_typespec prim_pad_wrapper_pkg::pad_type_e   dut.sv 2 4 4 17    |  B: 5 enum_typespec prim_pad_wrapper_pkg::pad_type_e    2 4 4 17    |
+uhdm2rtlil testflags ParameterPassedToSubmoduleOfSubmodule differ:file(2) :: #14 file|  A: 5 enum_typespec prim_pad_wrapper_pkg::pad_type_e   dut.sv 2 4 4 17    |  B: 5 enum_typespec prim_pad_wrapper_pkg::pad_type_e    2 4 4 17    |
+uhdm2rtlil default PatternStruct differ:file(1) :: #153 file|  A: 4 constant    dut.sv 5 26 5 29 125 8 UINT:125 9|  B: 4 constant     0 0 0 0 125 8 UINT:125 9|
+uhdm2rtlil testflags PatternStruct differ:file(1) :: #63 file|  A: 4 constant    dut.sv 5 26 5 29 125 8 UINT:125 9|  B: 4 constant     0 0 0 0 125 8 UINT:125 9|
+uhdm2rtlil default pkg_nested_struct_param_width differ:col(7) :: #49 col|  A: 6 ref_obj CFG   dut.sv 9 22 9 29  0  |  B: 6 ref_obj CFG   dut.sv 9 18 9 21  0  |
+uhdm2rtlil testflags pkg_nested_struct_param_width differ:col(7) :: #48 col|  A: 6 ref_obj CFG   dut.sv 9 22 9 29  0  |  B: 6 ref_obj CFG   dut.sv 9 18 9 21  0  |
+uhdm2rtlil default port_chained_type_param differ:endcol(2) :: #218 endcol|  A: 4 struct_typespec    dut.sv 2 32 2 38    |  B: 4 struct_typespec    dut.sv 2 32 2 45    |
+uhdm2rtlil testflags port_chained_type_param differ:endcol(2) :: #128 endcol|  A: 4 struct_typespec    dut.sv 2 32 2 38    |  B: 4 struct_typespec    dut.sv 2 32 2 45    |
+uhdm2rtlil default portsel_struct_param differ:col(4) :: #354 col|  A: 7 ref_obj CFG   dut.sv 30 33 30 37  0  |  B: 7 ref_obj CFG   dut.sv 30 29 30 32  0  |
+uhdm2rtlil testflags portsel_struct_param differ:col(4) :: #264 col|  A: 7 ref_obj CFG   dut.sv 30 33 30 37  0  |  B: 7 ref_obj CFG   dut.sv 30 29 30 32  0  |
+uhdm2rtlil default rp32_r5p_alu differ:file(46) :: #1157 file|  A: 2 struct_typespec riscv_isa_pkg::isa_t   riscv_isa_i_pkg.sv 417 34 417 39    |  B: 2 struct_typespec riscv_isa_pkg::isa_t   riscv_isa_pkg.sv 417 34 417 39    |
+uhdm2rtlil testflags rp32_r5p_alu differ:file(46) :: #1156 file|  A: 2 struct_typespec riscv_isa_pkg::isa_t   riscv_isa_i_pkg.sv 417 34 417 39    |  B: 2 struct_typespec riscv_isa_pkg::isa_t   riscv_isa_pkg.sv 417 34 417 39    |
+uhdm2rtlil default rp32_r5p_bru differ:file(46) :: #1157 file|  A: 2 struct_typespec riscv_isa_pkg::isa_t   riscv_isa_i_pkg.sv 417 34 417 39    |  B: 2 struct_typespec riscv_isa_pkg::isa_t   riscv_isa_pkg.sv 417 34 417 39    |
+uhdm2rtlil testflags rp32_r5p_bru differ:file(46) :: #1156 file|  A: 2 struct_typespec riscv_isa_pkg::isa_t   riscv_isa_i_pkg.sv 417 34 417 39    |  B: 2 struct_typespec riscv_isa_pkg::isa_t   riscv_isa_pkg.sv 417 34 417 39    |
+uhdm2rtlil default rp32_r5p_mdu differ:file(46) :: #1157 file|  A: 2 struct_typespec riscv_isa_pkg::isa_t   riscv_isa_i_pkg.sv 417 34 417 39    |  B: 2 struct_typespec riscv_isa_pkg::isa_t   riscv_isa_pkg.sv 417 34 417 39    |
+uhdm2rtlil testflags rp32_r5p_mdu differ:file(46) :: #1156 file|  A: 2 struct_typespec riscv_isa_pkg::isa_t   riscv_isa_i_pkg.sv 417 34 417 39    |  B: 2 struct_typespec riscv_isa_pkg::isa_t   riscv_isa_pkg.sv 417 34 417 39    |
+uhdm2rtlil default rp32_r5p_wbu differ:file(46) :: #1157 file|  A: 2 struct_typespec riscv_isa_pkg::isa_t   riscv_isa_i_pkg.sv 417 34 417 39    |  B: 2 struct_typespec riscv_isa_pkg::isa_t   riscv_isa_pkg.sv 417 34 417 39    |
+uhdm2rtlil testflags rp32_r5p_wbu differ:file(46) :: #1156 file|  A: 2 struct_typespec riscv_isa_pkg::isa_t   riscv_isa_i_pkg.sv 417 34 417 39    |  B: 2 struct_typespec riscv_isa_pkg::isa_t   riscv_isa_pkg.sv 417 34 417 39    |
+uhdm2rtlil default rsp_gen_minimal differ:fullname(2) :: #1802 fullname|  A: 5 ref_typespec   work@dut.u_rsp_gen.data_i  0 0 0 0  0  |  B: 5 ref_typespec   work@dut  0 0 0 0  0  |
+uhdm2rtlil testflags rsp_gen_minimal differ:fullname(2) :: #1712 fullname|  A: 5 ref_typespec   work@dut.u_rsp_gen.data_i  0 0 0 0  0  |  B: 5 ref_typespec   work@dut  0 0 0 0  0  |
+uhdm2rtlil default sat_asserts_seq differ:line(18) :: #335 line|  A: 3 assignment    dut.sv 1 25 1 30    |  B: 3 assignment    dut.sv 8 16 8 21    |
+uhdm2rtlil testflags sat_asserts_seq differ:line(18) :: #245 line|  A: 3 assignment    dut.sv 1 25 1 30    |  B: 3 assignment    dut.sv 8 16 8 21    |
+uhdm2rtlil default SelectFromUnpackedInFunction differ:file(2) :: #144 file|  A: 4 tagged_pattern    dut.sv 6 37 6 50    |  B: 4 tagged_pattern     0 0 0 0    |
+uhdm2rtlil testflags SelectFromUnpackedInFunction differ:file(2) :: #54 file|  A: 4 tagged_pattern    dut.sv 6 37 6 50    |  B: 4 tagged_pattern     0 0 0 0    |
+uhdm2rtlil default SelectGivenBySelectOnParameterInFunction differ:type(1) :: #213 type|  A: 3 func_call theta   dut.sv 9 15 9 22  0  |  B: 3 constant     0 0 0 0 1'b1 1 BIN:1 3|
+uhdm2rtlil testflags SelectGivenBySelectOnParameterInFunction differ:type(1) :: #123 type|  A: 3 func_call theta   dut.sv 9 15 9 22  0  |  B: 3 constant     0 0 0 0 1'b1 1 BIN:1 3|
+uhdm2rtlil default simple_package differ:depth(1) :: #108 depth|  A: 8 constant    dut.sv 18 42 18 43 1 64 UINT:1 9|  B: 9 constant    dut.sv 6 32 6 34 32 64 UINT:32 9|
+uhdm2rtlil testflags simple_package differ:depth(1) :: #101 depth|  A: 8 constant    dut.sv 18 42 18 43 1 64 UINT:1 9|  B: 9 constant    dut.sv 6 32 6 34 32 64 UINT:32 9|
+uhdm2rtlil default struct_member_cfg_width differ:endline(21) :: #607 endline|  A: 6 struct_typespec fu_data_t   dut.sv 25 13 29 6    |  B: 6 struct_typespec fu_data_t   dut.sv 25 13 25 26    |
+uhdm2rtlil testflags struct_member_cfg_width differ:endline(21) :: #517 endline|  A: 6 struct_typespec fu_data_t   dut.sv 25 13 29 6    |  B: 6 struct_typespec fu_data_t   dut.sv 25 13 25 26    |
+uhdm2rtlil default struct_param_field_shift differ:col(41) :: #73 col|  A: 6 constant    dut.sv 20 46 20 48 64 64 UINT:64 9|  B: 6 constant    dut.sv 20 33 20 49 64 64 UINT:64 9|
+uhdm2rtlil testflags struct_param_field_shift differ:col(41) :: #66 col|  A: 6 constant    dut.sv 20 46 20 48 64 64 UINT:64 9|  B: 6 constant    dut.sv 20 33 20 49 64 64 UINT:64 9|
+uhdm2rtlil default struct_param_func_config differ:line(5) :: #219 line|  A: 6 constant    dut.sv 39 30 39 31 0000000000000000000000000000011110 34 BIN:0000000000000000000000000000011110 3|  B: 6 constant    dut.sv 38 25 38 33 0000000000000000000000000000011110 34 BIN:0000000000000000000000000000011110 3|
+uhdm2rtlil testflags struct_param_func_config differ:line(5) :: #212 line|  A: 6 constant    dut.sv 39 30 39 31 0000000000000000000000000000011110 34 BIN:0000000000000000000000000000011110 3|  B: 6 constant    dut.sv 38 25 38 33 0000000000000000000000000000011110 34 BIN:0000000000000000000000000000011110 3|
+uhdm2rtlil default struct_param_pattern_packing differ:line(1) :: #499 line|  A: 5 struct_typespec p::cfg_t   dut.sv 21 38 21 43    |  B: 5 struct_typespec p::cfg_t   dut.sv 8 11 11 4    |
+uhdm2rtlil testflags struct_param_pattern_packing differ:line(1) :: #409 line|  A: 5 struct_typespec p::cfg_t   dut.sv 21 38 21 43    |  B: 5 struct_typespec p::cfg_t   dut.sv 8 11 11 4    |
+uhdm2rtlil default StructArrayParameterInitializedByPatternPassedAsPort differ:line(2) :: #390 line|  A: 4 operation    dut.sv 23 23 23 33  0  |  B: 4 operation    dut.sv 6 49 10 5  0  |
+uhdm2rtlil testflags StructArrayParameterInitializedByPatternPassedAsPort differ:line(2) :: #300 line|  A: 4 operation    dut.sv 23 23 23 33  0  |  B: 4 operation    dut.sv 6 49 10 5  0  |
+uhdm2rtlil default SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule differ:file(2) :: #15 file|  A: 5 enum_typespec prim_pad_wrapper_pkg::pad_type_e   dut.sv 2 4 4 17    |  B: 5 enum_typespec prim_pad_wrapper_pkg::pad_type_e    2 4 4 17    |
+uhdm2rtlil testflags SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule differ:file(2) :: #14 file|  A: 5 enum_typespec prim_pad_wrapper_pkg::pad_type_e   dut.sv 2 4 4 17    |  B: 5 enum_typespec prim_pad_wrapper_pkg::pad_type_e    2 4 4 17    |
+uhdm2rtlil default SumOfParametersInNestedForLoops differ:type(1) :: #163 type|  A: 7 constant    dut.sv 6 34 6 39 3 32 UINT:3 9|  B: 7 ref_obj o  work@top.genblk1[0].genblk1[0].o dut.sv 7 17 7 18  0  |
+uhdm2rtlil testflags SumOfParametersInNestedForLoops differ:type(1) :: #73 type|  A: 7 constant    dut.sv 6 34 6 39 3 32 UINT:3 9|  B: 7 ref_obj o  work@top.genblk1[0].genblk1[0].o dut.sv 7 17 7 18  0  |
+uhdm2rtlil default type_param_override_elem_sel differ:fullname(2) :: #226 fullname|  A: 8 ref_obj DEPTH  <in>rt_t.DEPTH dut.sv 17 37 17 42  0  |  B: 8 ref_obj DEPTH  <in>rt_t.DEPTH dut.sv 17 37 17 42  0  |
+uhdm2rtlil testflags type_param_override_elem_sel differ:fullname(2) :: #136 fullname|  A: 8 ref_obj DEPTH  <in>rt_t.DEPTH dut.sv 17 37 17 42  0  |  B: 8 ref_obj DEPTH  <in>rt_t.DEPTH dut.sv 17 37 17 42  0  |
+uhdm2rtlil default type_param_packed_dim differ:fullname(1) :: #174 fullname|  A: 5 ref_typespec resp_id_t  <in>resp_id_t  0 0 0 0  0  |  B: 5 ref_typespec resp_id_t  <in>rt_t.resp_id_t  0 0 0 0  0  |
+uhdm2rtlil testflags type_param_packed_dim differ:fullname(1) :: #84 fullname|  A: 5 ref_typespec resp_id_t  <in>resp_id_t  0 0 0 0  0  |  B: 5 ref_typespec resp_id_t  <in>rt_t.resp_id_t  0 0 0 0  0  |
+uhdm2rtlil default typed_named_pattern differ:file(5) :: #552 file|  A: 6 logic_net imm_11_0  work@typed_named_pattern.imm_11_0  22 45 22 53  0  |  B: 6 logic_net imm_11_0  work@typed_named_pattern.imm_11_0 dut.sv 22 45 22 53  0  |
+uhdm2rtlil testflags typed_named_pattern differ:file(5) :: #462 file|  A: 6 logic_net imm_11_0  work@typed_named_pattern.imm_11_0  22 45 22 53  0  |  B: 6 logic_net imm_11_0  work@typed_named_pattern.imm_11_0 dut.sv 22 45 22 53  0  |
+uhdm2rtlil default TypeParameterAsPortTypeWithEnum differ:file(8) :: #165 file|  A: 5 enum_typespec enum_foo_e   dut.sv 9 3 11 16    |  B: 5 enum_typespec enum_foo_e    0 0 0 0    |
+uhdm2rtlil testflags TypeParameterAsPortTypeWithEnum differ:file(8) :: #75 file|  A: 5 enum_typespec enum_foo_e   dut.sv 9 3 11 16    |  B: 5 enum_typespec enum_foo_e    0 0 0 0    |
+uhdm2rtlil default TypeParameterAsPortTypeWithEnumOfParametrizedWidth differ:file(6) :: #152 file|  A: 5 enum_typespec state_e   dut.sv 12 3 14 13    |  B: 5 enum_typespec state_e    0 0 0 0    |
+uhdm2rtlil testflags TypeParameterAsPortTypeWithEnumOfParametrizedWidth differ:file(6) :: #62 file|  A: 5 enum_typespec state_e   dut.sv 12 3 14 13    |  B: 5 enum_typespec state_e    0 0 0 0    |
+uhdm2rtlil default union_param_repro differ:line(4) :: #135 line|  A: 6 union_typespec u_t   dut.sv 7 31 7 34    |  B: 6 union_typespec u_t   dut.sv 5 9 5 50    |
+uhdm2rtlil testflags union_param_repro differ:line(4) :: #45 line|  A: 6 union_typespec u_t   dut.sv 7 31 7 34    |  B: 6 union_typespec u_t   dut.sv 5 9 5 50    |
+uhdm2rtlil default unpacked_elem_partsel_comb differ:fullname(4) :: #370 fullname|  A: 8 ref_obj off_i  work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.cl_rdata.off_i dut.sv 20 37 20 42  0  |  B: 8 ref_obj off_i  work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.off_i dut.sv 20 37 20 42  0  |
+uhdm2rtlil testflags unpacked_elem_partsel_comb differ:fullname(4) :: #280 fullname|  A: 8 ref_obj off_i  work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.cl_rdata.off_i dut.sv 20 37 20 42  0  |  B: 8 ref_obj off_i  work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.off_i dut.sv 20 37 20 42  0  |
+uhdm2rtlil default VarPassedTo2Submodules differ:name(3) :: #163 name|  A: 6 enum_typespec lc_ctrl_pkg::lc_tx_t   dut.sv 2 4 4 14    |  B: 6 enum_typespec lc_ctrl_pkg::lc_tx_e   dut.sv 2 4 4 14    |
+uhdm2rtlil testflags VarPassedTo2Submodules differ:name(3) :: #73 name|  A: 6 enum_typespec lc_ctrl_pkg::lc_tx_t   dut.sv 2 4 4 14    |  B: 6 enum_typespec lc_ctrl_pkg::lc_tx_e   dut.sv 2 4 4 14    |

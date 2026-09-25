@@ -1,0 +1,100 @@
+case	law_moves	alloff_is_pristine	owners
+ck/c1_top	MOVES	yes	R11U146_CASTKEYFILE_OFF
+ck/c2_sub	MOVES	yes	R11U146_CASTKEYFILE_OFF
+ck/c3_two	MOVES	yes	R11U146_CASTKEYFILE_OFF
+ct/c1_pkg	MOVES	yes	R11U146_CLSTDPKG_OFF
+ct/c2_unit	no	yes	
+ct/c3_bound	MOVES	yes	R11U146_CLSTDPKG_OFF
+ct/c4_unpacked_arr	no	yes	
+ct/c5_other_class	MOVES	yes	R11U146_CLSTDPKG_OFF
+ct/c6_nested_struct	MOVES	yes	R11U146_CLSTDPKG_OFF
+ct/c7_param_class	MOVES	yes	R11U146_CLSTDPKG_OFF
+esc/e1_portexpr	MOVES	yes	
+esc/e2_twospace	MOVES	yes	R11U146_ESCCOL_OFF
+esc/e3_eol	MOVES	yes	R11U146_ESCCOL_OFF
+esc/e4_after	MOVES	yes	R11U146_ESCCOL_OFF
+esc/e5_tab	MOVES	yes	R11U146_ESCCOL_OFF
+esc/e6_ansi	MOVES	yes	R11U146_ESCCOL_OFF
+esc/e7_macro	MOVES	yes	R11U146_ESCCOL_OFF
+esc/e8_string_cont	no	yes	
+fa/f10	MOVES	yes	R11U146_TFARGTD_OFF
+fa/f11	no	yes	
+fa/f12	MOVES	yes	R11U146_TFARGTD_OFF
+fa/f13	no	yes	
+fa/f14	no	yes	
+fa/f15	MOVES	yes	R11U146_TFARGTD_OFF
+fa/f16	no	yes	
+fa/f17_module_importer	MOVES	yes	R11U146_TFARGTD_OFF
+fa/f2	MOVES	yes	R11U146_TFARGTD_OFF
+fa/f3	MOVES	yes	R11U146_TFARGTD_OFF
+fa/f4	no	yes	
+fa/f5	MOVES	yes	R11U146_TFARGTD_OFF
+fa/f6	no	yes	
+fa/f7	MOVES	yes	R11U146_TFARGTD_OFF
+fa/f8	no	yes	
+fa/f9	MOVES	yes	R11U146_TFARGTD_OFF
+hp/g10_var_bits	no	yes	
+hp/g2_iface_port	MOVES	yes	R11U146_PATHBASE_OFF
+hp/g3_iface_param	no	yes	
+hp/g4_pkg_member	MOVES	yes	R11U146_PATHBASE_OFF
+hp/g5_cast_proc	no	yes	
+hp/g6_cast_ca	no	yes	
+hp/g7_genblock_ctl	no	yes	
+hp/g8_genif_port	MOVES	yes	R11U146_PATHBASE_OFF
+hp/g9_local_struct	no	yes	
+ig/i1	no	yes	
+ig/i10	no	yes	
+ig/i11	no	yes	
+ig/i12	no	yes	
+ig/i13	no	yes	
+ig/i14	no	yes	
+ig/i15	no	yes	
+ig/i16	no	yes	
+ig/i17	no	yes	
+ig/i2	no	yes	
+ig/i3	no	yes	
+ig/i4	no	yes	
+ig/i5	no	yes	
+ig/i6	no	yes	
+ig/i7	no	yes	
+ig/i8	no	yes	
+ig/i9	no	yes	
+ma/a1_iface	MOVES	yes	R11U146_MODARRBOUND_OFF
+ma/a2_mod	MOVES	yes	R11U146_MODARRBOUND_OFF
+ma/a3_mod_nested	MOVES	yes	R11U146_MODARRBOUND_OFF
+ma/a4_gen	no	yes	
+ma/a5_iface_size	no	yes	
+ma/a6_lohi	MOVES	yes	R11U146_MODARRBOUND_OFF
+ma/a7_localparam	MOVES	yes	R11U146_MODARRBOUND_OFF
+pe/p1_sub	MOVES	yes	
+pe/p2_top	MOVES	yes	
+pe/p3_select	MOVES	yes	
+pe/p4_three	MOVES	yes	
+pe/p5_twoinst	MOVES	yes	
+pi/p1_nonansi	MOVES	yes	R11U146_PORTINIT_OFF
+pi/p2_ansi	no	yes	
+pi/p3_two	MOVES	yes	R11U146_PORTINIT_OFF
+pi/p4_param	MOVES	yes	R11U146_PORTINIT_OFF
+pi/p5_logic	MOVES	yes	R11U146_PORTINIT_OFF
+pi/p6_sub	MOVES	yes	R11U146_PORTINIT_OFF
+tn/k10_localparam_type	MOVES	yes	R11U146_TPCALHS_OFF
+tn/k1_ca	MOVES	yes	R11U146_TPCALHS_OFF
+tn/k2_noca	no	yes	
+tn/k3_sel_lhs	no	yes	
+tn/k4_var	MOVES	yes	R11U146_TPCALHS_OFF
+tn/k5_sub_override	no	yes	
+tn/k6_sub_default	MOVES	yes	R11U146_TPCALHS_OFF
+tn/k7_clog	MOVES	yes	R11U146_TPCALHS_OFF
+tn/k8_gen_ca	MOVES	yes	R11U146_TPCALHS_OFF
+tn/k9_packed_of_T	MOVES	yes	R11U146_TPCALHS_OFF
+tp/t1_packed	MOVES	yes	R11U146_TPSTRUCTKW_OFF
+tp/t2_signed	MOVES	yes	R11U146_TPSTRUCTKW_OFF
+tp/t3_chain	MOVES	yes	R11U146_TPSTRUCTKW_OFF
+tp/t4_unused	MOVES	yes	R11U146_TPSTRUCTKW_OFF
+tp/t5_iface	MOVES	yes	R11U146_TPSTRUCTKW_OFF
+tp/t6_union	no	yes	
+tp/t7_body_var	MOVES	yes	R11U146_TPSTRUCTKW_OFF
+tp/t8_overridden	no	yes	
+ucp/u1_inst	MOVES	yes	
+ucp/u2_top	MOVES	yes	R11U146_UCPLOC_OFF
+ucp/u3_two_inst	MOVES	yes	

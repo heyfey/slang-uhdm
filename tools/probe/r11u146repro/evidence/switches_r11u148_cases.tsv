@@ -1,0 +1,48 @@
+case	law_moves	alloff_is_pristine	owners
+E2/g01_int_sum	MOVES	yes	R11U148_E2_OFF
+E2/g02_int_lit	MOVES	yes	R11U148_E2_OFF
+E2/g03_untyped_lit	MOVES	yes	R11U148_E2_OFF
+E2/g04_bin	no	yes	
+E2/g05_hex	no	yes	
+E2/g06_genvar_expr	no	yes	
+E2/g07_narrow	MOVES	yes	R11U148_E2_OFF
+E2/g08_two_readers	no	yes	
+E2/g09_ifgen	MOVES	yes	R11U148_E2_OFF
+E2/g10_untyped_sum	MOVES	yes	R11U148_E2_OFF
+E2/g11_sub_inst	MOVES	yes	R11U148_E2_OFF
+E2/g12_sel_lhs	no	yes	
+E2/g13_var_lhs	MOVES	yes	R11U148_E2_OFF
+E2/g14_local_net_lhs	no	yes	
+E2/g15_logic_lp	MOVES	yes	R11U148_E2_OFF
+E/e01_unpk_param_elem	MOVES	yes	R11U148_E_OFF
+E/e02_unpk_param_csize	MOVES	yes	R11U148_E_OFF
+E/e03_packed_param_bit	MOVES	yes	R11U148_E_OFF
+E/e04_scalar_param	no	yes	
+E/e05_local_unpk_arg	MOVES	yes	R11U148_E_OFF
+E/e06_local_unpk_noarg	no	yes	
+E/e07_local_packed2d	MOVES	yes	R11U148_E_OFF
+E/e08_sel_by_unpk_param	MOVES	yes	R11U148_E_OFF
+E/e09_unpk_param_arg	MOVES	yes	R11U148_E_OFF
+E/e10_unpk_localparam	MOVES	yes	R11U148_E_OFF
+E/e11_local_unpk_unused	no	yes	
+E/e12_local_packed_arg	no	yes	
+E/e13_unpk_param_gen	MOVES	yes	R11U148_E_OFF
+E/e14_unpk_param_elem_sub	MOVES	yes	R11U148_E_OFF
+E/f01_formal_bit	no	yes	
+E/f02_local_packed1d_bit	no	yes	
+E/f03_local_varsel_read	MOVES	yes	R11U148_E_OFF
+E/f04_local_varsel_write	no	yes	
+E/f05_param_partsel	MOVES	yes	R11U148_E_OFF
+E/f07_formal_partsel	no	yes	
+E/f08_param_arith	no	yes	
+E/f09_param_idxpart	MOVES	yes	R11U148_E_OFF
+E/f10_param_sel_dead	no	yes	
+E/f11_param_sel_assign	MOVES	yes	R11U148_E_OFF
+I/i01_import_call	MOVES	yes	R11U148_I_OFF
+I/i02_import_nocall	MOVES	yes	R11U148_I_OFF
+I/i03_pkg_only	MOVES	yes	R11U148_I_OFF
+I/i04_scoped_call	MOVES	yes	R11U148_I_OFF
+I/i05_ret_only	MOVES	yes	R11U148_I_OFF
+I/i06_untyped	MOVES	yes	R11U148_I_OFF
+I/i07_localparam	MOVES	yes	R11U148_I_OFF
+I/i08_proc_call	MOVES	yes	R11U148_I_OFF

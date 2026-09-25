@@ -1,0 +1,7 @@
+MiniAmiq_default total=52 uvm_pkg_names_added=24 coin_uint_decompile=4 removed_old_names=24
+MiniAmiq_testflags total=48 uvm_pkg_names_added=24 coin_uint_decompile=0 removed_old_names=24
+Scoreboard_default total=48 uvm_pkg_names_added=24 coin_uint_decompile=0 removed_old_names=24
+SeqDriver_default total=52 uvm_pkg_names_added=24 coin_uint_decompile=4 removed_old_names=24
+SeqDriver_testflags total=52 uvm_pkg_names_added=24 coin_uint_decompile=4 removed_old_names=24
+SimpleUVM_default total=52 uvm_pkg_names_added=24 coin_uint_decompile=4 removed_old_names=24
+SimpleUVM_testflags total=48 uvm_pkg_names_added=24 coin_uint_decompile=0 removed_old_names=24

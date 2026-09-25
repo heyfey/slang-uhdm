@@ -1,0 +1,45 @@
+  InterfaceModPort               -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  BlackParrotComplex             -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  InterfaceBinding               -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  InterfaceModExp                -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  BindHierPath                   -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  EnumConcat                     default   OK      CMP_EQUAL/equal
+  EnumConcat                     testflags OK      CMP_EQUAL/equal
+  LowMemPkg                      -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  paramod_genscope_child         default   OK      CMP_EQUAL/equal
+  paramod_genscope_child         testflags OK      CMP_EQUAL/equal
+  issue326_packed_mem            default   OK      CMP_EQUAL/equal
+  issue326_packed_mem            testflags OK      CMP_EQUAL/equal
+  assignment-pattern             default   OK      CMP_EQUAL/equal
+  assignment-pattern             testflags OK      CMP_EQUAL/equal
+  hier_path                      default   OK      CMP_EQUAL/equal
+  hier_path                      testflags OK      CMP_EQUAL/equal
+  MultirangesStartNotFromZero    default   OK      STRICT_NOTEQUAL/differ:file(2)
+  MultirangesStartNotFromZero    testflags OK      STRICT_NOTEQUAL/differ:file(2)
+  genscope_cells                 default   OK      CMP_EQUAL/equal
+  genscope_cells                 testflags OK      CMP_EQUAL/equal
+  genvar_loop_decl_3             default   OK      CMP_EQUAL/equal
+  genvar_loop_decl_3             testflags OK      CMP_EQUAL/equal
+  ClassExtends                   -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  FuncStruct                     -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  FuncStructVal                  -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  FuncIoTypespec                 -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  Scr1SvTests                    -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  BasicOh                        -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  Earlgrey_0_1                   -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  YosysOldOr                     -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  YosysBigSimReed                -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  YosysOldOpen                   -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  ClassParamAsParam              -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  ClassTypeParam                 -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  SVSwitch                       -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  SimpleConstraint               -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  ApbSlave                       -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  SimpleUVM                      -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  SeqDriver                      -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  BuildUVMPkg                    -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  Scoreboard                     -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+NOTE: 25 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.

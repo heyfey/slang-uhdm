@@ -79,8 +79,8 @@ BadLabel,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BadLabel/dut.
 BadLabel,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BadLabel/dut.sv:2:14: error: 'bad_pack' doesn't match previous name 'pack',,
 BadScope,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BadScope/dut.sv:17:5: error: use of undeclared identifier 'priv_lvl_e',,
 BadScope,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BadScope/dut.sv:17:5: error: use of undeclared identifier 'priv_lvl_e',,
-BasicOh,default,STRICT_NOTEQUAL,differ:fullname(31),,differ:fullname(31)
-BasicOh,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+BasicOh,default,STRICT_NOTEQUAL,differ:fullname(29),,differ:fullname(29)
+BasicOh,testflags,CMP_EQUAL,,,equal
 BeginKeywords,default,CMP_EQUAL,,,equal
 BeginKeywords,testflags,CMP_EQUAL,,,equal
 BiasValue,default,CMP_EQUAL,,,equal
@@ -167,8 +167,8 @@ BlockingAssignRewrite,default,CMP_EQUAL,,,equal
 BlockingAssignRewrite,testflags,CMP_EQUAL,,,equal
 BuildOVMPkg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
 BuildOVMPkg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
-BuildUVMPkg,default,STRICT_NOTEQUAL,differ:line(174),,differ:line(174)
-BuildUVMPkg,testflags,STRICT_NOTEQUAL,differ:line(174),,differ:line(174)
+BuildUVMPkg,default,STRICT_NOTEQUAL,differ:line(165),,differ:line(165)
+BuildUVMPkg,testflags,STRICT_NOTEQUAL,differ:line(165),,differ:line(165)
 BuiltInMethod,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BuiltInMethod/dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
 BuiltInMethod,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BuiltInMethod/dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
 CarryAdd,default,CMP_EQUAL,,,equal
@@ -379,8 +379,8 @@ DynArrayKind,default,CMP_EQUAL,,,equal
 DynArrayKind,testflags,CMP_EQUAL,,,equal
 Earlgrey,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
 Earlgrey,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
-Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:line(1755),,differ:line(1755)
-Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:line(1755),,differ:line(1755)
+Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:line(1747),,differ:line(1747)
+Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:line(1747),,differ:line(1747)
 Earlgrey_nexysvideo,default,DEFERRED,late-phase: golden uncacheable on this machine,,
 Earlgrey_nexysvideo,testflags,DEFERRED,late-phase: golden uncacheable on this machine,,
 Earlgrey_Verilator_01_05_21,default,DEFERRED,late-phase: golden uncacheable on this machine,,
@@ -437,8 +437,8 @@ ExpectStmt,default,CMP_EQUAL,,,equal
 ExpectStmt,testflags,CMP_EQUAL,,,equal
 ExplicitPort,default,CMP_EQUAL,,,equal
 ExplicitPort,testflags,CMP_EQUAL,,,equal
-ExplictiPorts,default,STRICT_NOTEQUAL,differ:line(8),,differ:line(8)
-ExplictiPorts,testflags,STRICT_NOTEQUAL,differ:line(15),,differ:line(15)
+ExplictiPorts,default,CMP_EQUAL,,,equal
+ExplictiPorts,testflags,CMP_EQUAL,,,equal
 ExponTimeIfElseGen,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ExponTimeIfElseGen/dut.sv:6:22: error: use of undeclared identifier 'ADDR_OFFSET_PART_0'; did you mean ,,
 ExponTimeIfElseGen,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ExponTimeIfElseGen/dut.sv:6:22: error: use of undeclared identifier 'ADDR_OFFSET_PART_0'; did you mean ,,
 ExprEvalBits,default,CMP_EQUAL,,,equal
@@ -509,8 +509,8 @@ FuncBinding,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncBindin
 FuncBinding,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncBinding/dut.sv:17:61: error: value of type 'logic[1:0]' cannot be assigned to type 'state',,
 FuncBinding2,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncBinding2/dut.sv:18:13: error: use of undeclared identifier 'fsm_coin',,
 FuncBinding2,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncBinding2/dut.sv:18:13: error: use of undeclared identifier 'fsm_coin',,
-FuncCase,default,STRICT_NOTEQUAL,differ:line(8),,differ:line(8)
-FuncCase,testflags,STRICT_NOTEQUAL,differ:line(8),,differ:line(8)
+FuncCase,default,CMP_EQUAL,,,equal
+FuncCase,testflags,CMP_EQUAL,,,equal
 FuncDeclScope,default,CMP_EQUAL,,,equal
 FuncDeclScope,testflags,CMP_EQUAL,,,equal
 FuncDef,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncDef/dut.sv:13:5: error: unknown module 'countLeadingZeros',,
@@ -587,8 +587,8 @@ GenIf,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIf/dut.sv:9:4
 GenIf,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIf/dut.sv:9:40: error: use of undeclared identifier 'a',,
 GenIfElse,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIfElse/dut.sv:4:16: error: use of undeclared identifier 'b',,
 GenIfElse,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIfElse/dut.sv:4:16: error: use of undeclared identifier 'b',,
-GenIfIfaceParamStructField,default,STRICT_NOTEQUAL,differ:col(6),,differ:col(6)
-GenIfIfaceParamStructField,testflags,STRICT_NOTEQUAL,differ:col(6),,differ:col(6)
+GenIfIfaceParamStructField,default,STRICT_NOTEQUAL,differ:col(2),,differ:col(2)
+GenIfIfaceParamStructField,testflags,STRICT_NOTEQUAL,differ:col(2),,differ:col(2)
 GenIfNamed,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIfNamed/dut.sv:4:8: error: use of undeclared identifier 'i',,
 GenIfNamed,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIfNamed/dut.sv:4:8: error: use of undeclared identifier 'i',,
 GenModHierPath,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenModHierPath/dut.sv:17:5: error: too few arguments for '$readmemh'; expected 2 but 1 were provided,,
@@ -759,8 +759,8 @@ InterfaceUnpackedStructArrayDim,default,CMP_EQUAL,,,equal
 InterfaceUnpackedStructArrayDim,testflags,CMP_EQUAL,,,equal
 InterfAlways,default,CMP_EQUAL,,,equal
 InterfAlways,testflags,CMP_EQUAL,,,equal
-InterfArrayBind,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
-InterfArrayBind,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+InterfArrayBind,default,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+InterfArrayBind,testflags,CMP_EQUAL,,,equal
 InterfBinding,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfBinding/dut.sv:30:32: error: top-level module 'BypassNetwork' has unconnected interface port 'ctr,,
 InterfBinding,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfBinding/dut.sv:30:32: error: top-level module 'BypassNetwork' has unconnected interface port 'ctr,,
 InterfHierPath,default,CMP_EQUAL,,,equal
@@ -779,8 +779,8 @@ InvalidTypeParam,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Inval
 InvalidTypeParam,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InvalidTypeParam/dut.sv:2:20: error: parameter declaration is missing an initializer,,
 Inverter,default,CMP_EQUAL,,,equal
 Inverter,testflags,CMP_EQUAL,,,equal
-IOClassStruct,default,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
-IOClassStruct,testflags,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+IOClassStruct,default,CMP_EQUAL,,,equal
+IOClassStruct,testflags,CMP_EQUAL,,,equal
 IODataTypes,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/IODataTypes/dut.sv:2:1: error: can't use port declaration in module with ANSI style port list,,
 IODataTypes,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/IODataTypes/dut.sv:2:1: error: can't use port declaration in module with ANSI style port list,,
 JKFlipflop,default,CMP_EQUAL,,,equal
@@ -1123,12 +1123,12 @@ PortComplex,default,CMP_EQUAL,,,equal
 PortComplex,testflags,CMP_EQUAL,,,equal
 PortDefaultValue,default,CMP_EQUAL,,,equal
 PortDefaultValue,testflags,CMP_EQUAL,,,equal
-PortExpr,default,STRICT_NOTEQUAL,differ:endline(14),,differ:endline(14)
-PortExpr,testflags,STRICT_NOTEQUAL,differ:endline(14),,differ:endline(14)
-PortInitVal,default,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
+PortExpr,default,CMP_EQUAL,,,equal
+PortExpr,testflags,CMP_EQUAL,,,equal
+PortInitVal,default,CMP_EQUAL,,,equal
 PortInitVal,testflags,CMP_EQUAL,,,equal
-PortInitVal2,default,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
-PortInitVal2,testflags,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
+PortInitVal2,default,CMP_EQUAL,,,equal
+PortInitVal2,testflags,CMP_EQUAL,,,equal
 PortInterface,default,CMP_EQUAL,,,equal
 PortInterface,testflags,CMP_EQUAL,,,equal
 PortMultiDim,default,CMP_EQUAL,,,equal
@@ -1187,7 +1187,7 @@ ReturnVal,default,CMP_EQUAL,,,equal
 ReturnVal,testflags,CMP_EQUAL,,,equal
 RewriteNonConstForLoopCond,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/RewriteNonConstForLoopCond/dut.sv:11:16: error: use of undeclared identifier 'cond',,
 RewriteNonConstForLoopCond,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/RewriteNonConstForLoopCond/dut.sv:11:16: error: use of undeclared identifier 'cond',,
-Rggen,default,STRICT_NOTEQUAL,differ:file(9),,differ:file(9)
+Rggen,default,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
 Rggen,testflags,SURELOG_FAIL,[INF:UH0707] Elaborating UHDM...,,
 RiscV,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/RiscV/src/test/verilog/vscale_hex_tb.v:58:7: error: unknown system name '$vcdplusfile' [-Wu,,
 RiscV,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/RiscV/src/test/verilog/vscale_hex_tb.v:58:7: error: unknown system name '$vcdplusfile' [-Wu,,
@@ -1203,8 +1203,8 @@ Scoreboard,default,STRICT_NOTEQUAL,differ:line(194),,differ:line(194)
 Scoreboard,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scoreboard/testbench.sv:12:3: error: use of undeclared identifier 'my_scoreboard',,
 Scr1,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
 Scr1,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
-Scr1SvTests,default,STRICT_NOTEQUAL,differ:line(224),,differ:line(224)
-Scr1SvTests,testflags,STRICT_NOTEQUAL,differ:line(224),,differ:line(224)
+Scr1SvTests,default,STRICT_NOTEQUAL,differ:line(220),,differ:line(220)
+Scr1SvTests,testflags,STRICT_NOTEQUAL,differ:line(220),,differ:line(220)
 SelectHierPath,default,CMP_EQUAL,,,equal
 SelectHierPath,testflags,CMP_EQUAL,,,equal
 Selects,default,CMP_EQUAL,,,equal
@@ -1241,8 +1241,8 @@ SimpleClass2,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleCla
 SimpleClass2,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleClass2/top.v:13:19: error: implementation not found in parent scope for 'new' [-Wmember-impl-not-,,
 SimpleCmdLineTest,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleCmdLineTest/flist2.f:1:26: error: unknown command line argument '-bad'; did you mean '--std'?,,
 SimpleCmdLineTest,testflags,NO_UHDM,[   NOTE] : 1,,
-SimpleConstraint,default,STRICT_NOTEQUAL,differ:line(7),,differ:line(7)
-SimpleConstraint,testflags,STRICT_NOTEQUAL,differ:line(7),,differ:line(7)
+SimpleConstraint,default,STRICT_NOTEQUAL,differ:endcol(4),,differ:endcol(4)
+SimpleConstraint,testflags,STRICT_NOTEQUAL,differ:endcol(4),,differ:endcol(4)
 SimpleIncludeAndMacros,default,SURELOG_FAIL,[   NOTE] : 16,,
 SimpleIncludeAndMacros,testflags,SURELOG_FAIL,[   NOTE] : 16,,
 SimpleInterface,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleInterface/simple_if.sv:5:26: error: redefinition of 'clk' [-Wredefinition],,
@@ -1291,8 +1291,8 @@ StructArrayNet,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
 StructArrayNet,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
 StructNetUnionTypespec,default,CMP_EQUAL,,,equal
 StructNetUnionTypespec,testflags,CMP_EQUAL,,,equal
-StructParamFieldRange,default,STRICT_NOTEQUAL,differ:endcol(5),,differ:endcol(5)
-StructParamFieldRange,testflags,STRICT_NOTEQUAL,differ:endcol(5),,differ:endcol(5)
+StructParamFieldRange,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+StructParamFieldRange,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 StructParamFuncBodyFieldCompare,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
 StructParamFuncBodyFieldCompare,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
 StructParamPatternInitCast,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
@@ -1557,8 +1557,8 @@ YosysEth,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Y
 YosysEth,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysEth/udp_complete_64_top.v:170:1: error: unknown module 'udp_complete_64',,
 YosysIce40,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysIce40/design01.v:26:8: error: design element does not have a time scale defined but ot,,
 YosysIce40,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysIce40/design01.v:26:8: error: design element does not have a time scale defined but ot,,
-YosysMarlann,default,STRICT_NOTEQUAL,differ:endcol(25),,differ:endcol(25)
-YosysMarlann,testflags,STRICT_NOTEQUAL,differ:endcol(25),,differ:endcol(25)
+YosysMarlann,default,STRICT_NOTEQUAL,differ:endcol(24),,differ:endcol(24)
+YosysMarlann,testflags,STRICT_NOTEQUAL,differ:endcol(24),,differ:endcol(24)
 YosysOldAes,default,SLANG_REJECT,error: '	rtl/aes_key_expand_128.v': No such file or directory,,
 YosysOldAes,testflags,SLANG_REJECT,error: '	rtl/aes_key_expand_128.v': No such file or directory,,
 YosysOldI2c,default,CMP_EQUAL,,,equal

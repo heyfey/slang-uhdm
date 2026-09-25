@@ -1,0 +1,23 @@
+MiniAmiq/default pristine-vs-law: 52 lines; law lines naming uvm_pkg:: under a class typedef member: 24
+   residual: >       |UINT:1114
+   residual: <       |UINT:557
+   residual: >       |vpiDecompile:1114
+   residual: <       |vpiDecompile:557
+MiniAmiq/testflags pristine-vs-law: 52 lines; law lines naming uvm_pkg:: under a class typedef member: 24
+   residual: >       |UINT:1020
+   residual: <       |UINT:1335
+   residual: >       |vpiDecompile:1020
+   residual: <       |vpiDecompile:1335
+SeqDriver/default pristine-vs-law: 52 lines; law lines naming uvm_pkg:: under a class typedef member: 24
+   residual: >       |UINT:0
+   residual: <       |UINT:513
+   residual: >       |vpiDecompile:0
+   residual: <       |vpiDecompile:513
+SeqDriver/testflags pristine-vs-law: 52 lines; law lines naming uvm_pkg:: under a class typedef member: 24
+   residual: >       |UINT:0
+   residual: <       |UINT:834
+   residual: >       |vpiDecompile:0
+   residual: <       |vpiDecompile:834
+SimpleUVM/default pristine-vs-law: 48 lines; law lines naming uvm_pkg:: under a class typedef member: 24
+SimpleUVM/testflags pristine-vs-law: 48 lines; law lines naming uvm_pkg:: under a class typedef member: 24
+Scoreboard/default pristine-vs-law: 48 lines; law lines naming uvm_pkg:: under a class typedef member: 24

@@ -23,7 +23,7 @@ AnonymousEnum,default,CMP_EQUAL,,,equal
 AnonymousUnion,default,CMP_EQUAL,,,equal
 anyconst_attr,default,CMP_EQUAL,,,equal
 anyseq_attr,default,CMP_EQUAL,,,equal
-arb_idx_cast,default,STRICT_NOTEQUAL,differ:endline(4),,differ:endline(4)
+arb_idx_cast,default,STRICT_NOTEQUAL,differ:endline(3),,differ:endline(3)
 ArithShiftTernary,default,CMP_EQUAL,,,equal
 array-copy,default,CMP_EQUAL,,,equal
 array_assign,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
@@ -163,7 +163,7 @@ counters_repeat,default,CMP_EQUAL,,,equal
 CppMacroNameAsVariableName,default,CMP_EQUAL,,,equal
 cs_registers,default,CMP_EQUAL,,,equal
 custom_map_incomp,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/custom_map_incomp/dut.sv:2:9: error: unknown module 'ALU',,
-cva6_struct_param_field,default,STRICT_NOTEQUAL,differ:endcol(5),,differ:endcol(5)
+cva6_struct_param_field,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 DeclarationInFor,default,CMP_EQUAL,,,equal
 def_ctx_struct_param,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
 defvalue,default,CMP_EQUAL,,,equal
@@ -236,7 +236,7 @@ func_arg_partsel_loop,default,CMP_EQUAL,,,equal
 func_block,default,CMP_EQUAL,,,equal
 func_clog2_partsel,default,CMP_EQUAL,,,equal
 func_forloop_onehot,default,CMP_EQUAL,,,equal
-func_local_array,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+func_local_array,default,CMP_EQUAL,,,equal
 func_local_compound_xor,default,CMP_EQUAL,,,equal
 func_local_decl_init,default,CMP_EQUAL,,,equal
 func_output_arg,default,CMP_EQUAL,,,equal
@@ -259,12 +259,12 @@ FunctionColonReference,default,CMP_EQUAL,,,equal
 FunctionExportDPI,default,CMP_EQUAL,,,equal
 FunctionOnDesignLevel,default,CMP_EQUAL,,,equal
 FunctionOutputArgument,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/FunctionOutputArgument/dut.sv:3:14: error: cannot refer to automatic variable 'x' from non-procedural,,
-FunctionParam,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+FunctionParam,default,CMP_EQUAL,,,equal
 FunctionReturnEnum,default,CMP_EQUAL,,,equal
 FunctionWireAssignmentOnDeclaration,default,CMP_EQUAL,,,equal
 FunctionWithoutReturn,default,CMP_EQUAL,,,equal
 FunctionWithOverriddenParameter,default,CMP_EQUAL,,,equal
-gen_scope_numports,default,STRICT_NOTEQUAL,differ:fullname(17),,differ:fullname(17)
+gen_scope_numports,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 gen_scope_typaram,default,STRICT_NOTEQUAL,differ:endcol(9),,differ:endcol(9)
 gen_struct_access,default,CMP_EQUAL,,,equal
 gen_test1,default,CMP_EQUAL,,,equal
@@ -287,7 +287,7 @@ genscope_outer_reg_inner_ff,default,CMP_EQUAL,,,equal
 genscope_struct_member,default,CMP_EQUAL,,,equal
 GenScopeFunction,default,CMP_EQUAL,,,equal
 genvar_async_reset_array,default,CMP_EQUAL,,,equal
-genvar_iface_struct,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+genvar_iface_struct,default,CMP_EQUAL,,,equal
 genvar_loop_decl_1,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/genvar_loop_decl_1/dut.sv:8:27: error: cannot reference unnamed generate block via external name 'gen,,
 genvar_loop_decl_2,default,CMP_EQUAL,,,equal
 genvar_loop_decl_3,default,CMP_EQUAL,,,equal
@@ -338,7 +338,7 @@ iface_array_port,default,CMP_EQUAL,,,equal
 iface_array_struct,default,CMP_EQUAL,,,equal
 iface_array_struct_field,default,CMP_EQUAL,,,equal
 iface_array_struct_whole,default,CMP_EQUAL,,,equal
-iface_cfg_mem,default,STRICT_NOTEQUAL,differ:col(2),,differ:col(2)
+iface_cfg_mem,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
 iface_cfg_param_def_pass,default,CMP_EQUAL,,,equal
 iface_ff_genvar_partsel,default,CMP_EQUAL,,,equal
 iface_field_assign,default,CMP_EQUAL,,,equal
@@ -356,25 +356,25 @@ iface_modport_conn,default,CMP_EQUAL,,,equal
 iface_modport_out,default,CMP_EQUAL,,,equal
 iface_modport_passthrough,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/iface_modport_passthrough/dut.sv:28:26: error: cannot connect modport 'my_iface.drv' to port requirin,,
 iface_nested_param_field,default,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
-iface_param_2level,default,STRICT_NOTEQUAL,differ:col(3),,differ:col(3)
-iface_param_port_width,default,STRICT_NOTEQUAL,differ:col(3),,differ:col(3)
+iface_param_2level,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+iface_param_port_width,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
 iface_param_set_value,default,CMP_EQUAL,,,equal
 iface_param_width_per_inst,default,CMP_EQUAL,,,equal
 iface_passthrough,default,CMP_EQUAL,,,equal
 iface_pkg_enum_item,default,CMP_EQUAL,,,equal
 iface_port_localparam,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/iface_port_localparam/dut.sv:28:22: error: top-level module 'iface_port_localparam' has unconnected i,,
 iface_samename_port,default,CMP_EQUAL,,,equal
-iface_scalar_localparam,default,STRICT_NOTEQUAL,differ:fullname(15),,differ:fullname(15)
+iface_scalar_localparam,default,STRICT_NOTEQUAL,differ:fullname(13),,differ:fullname(13)
 iface_sig_in_child_port,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 iface_struct_field,default,CMP_EQUAL,,,equal
 iface_struct_field_bitselect,default,CMP_EQUAL,,,equal
 iface_struct_field_param_width,default,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
-iface_struct_field_partsel,default,STRICT_NOTEQUAL,differ:fullname(15),,differ:fullname(15)
+iface_struct_field_partsel,default,STRICT_NOTEQUAL,differ:fullname(13),,differ:fullname(13)
 iface_struct_field_slice_read,default,CMP_EQUAL,,,equal
 iface_unpacked_signal,default,CMP_EQUAL,,,equal
 iface_unpacked_struct_array,default,CMP_EQUAL,,,equal
 iface_wholestruct_param,default,CMP_EQUAL,,,equal
-iface_zero_width_field,default,STRICT_NOTEQUAL,differ:col(8),,differ:col(8)
+iface_zero_width_field,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 ImportedDoubleCastedParameter,default,CMP_EQUAL,,,equal
 ImportedEnumCast,default,CMP_EQUAL,,,equal
 ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor,default,CMP_EQUAL,,,equal
@@ -410,7 +410,7 @@ InterfaceWithPort,default,CMP_EQUAL,,,equal
 issue326_packed_mem,default,CMP_EQUAL,,,equal
 jeras_gpr,default,CMP_EQUAL,,,equal
 jeras_reverse,default,CMP_EQUAL,,,equal
-jeras_tcb_gpio,default,STRICT_NOTEQUAL,differ:fullname(6),,differ:fullname(6)
+jeras_tcb_gpio,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 jeras_union,default,STRICT_NOTEQUAL,differ:fullname(54),,differ:fullname(54)
 LargeModuleParameter,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/LargeModuleParameter/dut.sv:19:1: error: unknown module 'PRIMITIVE',,
 latch_002,default,CMP_EQUAL,,,equal
@@ -432,7 +432,7 @@ led_blink_counter,default,CMP_EQUAL,,,equal
 load_and_derive,default,CMP_EQUAL,,,equal
 local_nested_struct_field,default,CMP_EQUAL,,,equal
 local_var_in_always,default,CMP_EQUAL,,,equal
-LocalParamInNestedForLoops,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+LocalParamInNestedForLoops,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
 LocalParamSelect,default,CMP_EQUAL,,,equal
 logic_ops,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/logic_ops/dut.sv:8:23: error: expected ';',,
 LogicPackedArray,default,CMP_EQUAL,,,equal
@@ -542,7 +542,7 @@ OutputSizeWithParameterOfInstanceInitializedByStructMember,default,STRICT_NOTEQU
 package_task_func,default,CMP_EQUAL,,,equal
 PackageCast,default,CMP_EQUAL,,,equal
 packed_array_elem_select,default,CMP_EQUAL,,,equal
-packed_array_reset_loop,default,STRICT_NOTEQUAL,differ:endline(4),,differ:endline(4)
+packed_array_reset_loop,default,STRICT_NOTEQUAL,differ:endline(3),,differ:endline(3)
 packed_array_struct,default,STRICT_NOTEQUAL,differ:endline(2),,differ:endline(2)
 packed_array_struct_port_sel,default,STRICT_NOTEQUAL,differ:endcol(9),,differ:endcol(9)
 packed_struct_array_fifo,default,STRICT_NOTEQUAL,differ:endline(6),,differ:endline(6)
@@ -553,7 +553,7 @@ PackedArray,default,CMP_EQUAL,,,equal
 param_array_wildcard,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
 param_fill_default_paramod,default,CMP_EQUAL,,,equal
 param_int_types,default,CMP_EQUAL,,,equal
-param_name_collision_typeparam,default,STRICT_NOTEQUAL,differ:fullname(8),,differ:fullname(8)
+param_name_collision_typeparam,default,CMP_EQUAL,,,equal
 param_nested_struct_field_width,default,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
 param_no_default,default,CMP_EQUAL,,,equal
 param_packed_array_subst,default,CMP_EQUAL,,,equal
@@ -614,9 +614,9 @@ PatternStruct,default,STRICT_NOTEQUAL,differ:file(1),,differ:file(1)
 PatternType,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/PatternType/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 pico_count_cycle,default,CMP_EQUAL,,,equal
 pkg_localparam_partsel,default,CMP_EQUAL,,,equal
-pkg_nested_struct_param_width,default,STRICT_NOTEQUAL,differ:col(7),,differ:col(7)
+pkg_nested_struct_param_width,default,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
 PkgParamAsFunctionArg,default,CMP_EQUAL,,,equal
-port_chained_type_param,default,STRICT_NOTEQUAL,differ:endcol(2),,differ:endcol(2)
+port_chained_type_param,default,CMP_EQUAL,,,equal
 port_int_types,default,CMP_EQUAL,,,equal
 port_sign_extend,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/port_sign_extend/dut.v:75:7: error: expected identifier,,
 portsel_struct_param,default,STRICT_NOTEQUAL,differ:col(4),,differ:col(4)
@@ -663,12 +663,12 @@ rp32_r5p_mouse_soc_top,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/te
 rp32_r5p_wbu,default,STRICT_NOTEQUAL,differ:file(46),,differ:file(46)
 rp32_soc_vfriendly,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/tcb/lite_lib/tcb_lite_lib_passthrough.sv:23:21: error: top-level module 'tcb_lite_lib_passthroug,,
 rsp_gen_minimal,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
-sat_asserts_seq,default,STRICT_NOTEQUAL,differ:line(18),,differ:line(18)
+sat_asserts_seq,default,CMP_EQUAL,,,equal
 scope_func,default,CMP_EQUAL,,,equal
 scope_task,default,CMP_EQUAL,,,equal
 scopes,default,CMP_EQUAL,,,equal
 SelectFromUnpackedInFunction,default,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
-SelectGivenBySelectOnParameterInFunction,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+SelectGivenBySelectOnParameterInFunction,default,CMP_EQUAL,,,equal
 SelectOnMemberSelectedFrom2DArray,default,CMP_EQUAL,,,equal
 SelfPartSelectInBitSelect,default,CMP_EQUAL,,,equal
 SelfSelectsInBitSelectAfterBitSelect,default,CMP_EQUAL,,,equal
@@ -698,7 +698,7 @@ simple_interface,default,CMP_EQUAL,,,equal
 simple_memory,default,CMP_EQUAL,,,equal
 simple_memory_noreset,default,CMP_EQUAL,,,equal
 simple_nested_struct_nopack,default,CMP_EQUAL,,,equal
-simple_package,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+simple_package,default,CMP_EQUAL,,,equal
 simple_struct,default,CMP_EQUAL,,,equal
 simple_unary_op_minus,default,CMP_EQUAL,,,equal
 simple_unary_op_not_log,default,CMP_EQUAL,,,equal
@@ -731,7 +731,7 @@ struct_dynamic_range,default,CMP_EQUAL,,,equal
 struct_field_self_guard,default,CMP_EQUAL,,,equal
 struct_init_partial_write,default,CMP_EQUAL,,,equal
 struct_little_endian_bit_array,default,CMP_EQUAL,,,equal
-struct_member_cfg_width,default,STRICT_NOTEQUAL,differ:endline(21),,differ:endline(21)
+struct_member_cfg_width,default,STRICT_NOTEQUAL,differ:endline(12),,differ:endline(12)
 struct_member_expr_index,default,CMP_EQUAL,,,equal
 struct_member_trailing_index,default,CMP_EQUAL,,,equal
 struct_negative_index,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_negative_index/dut.sv:14:13: error: cannot refer to element -1 of 'bit[3:0][7:0]' [-Windex-oob,,
@@ -763,7 +763,7 @@ StructParameterInitializedWithPatternAndReferenced,default,CMP_EQUAL,,,equal
 subbytes,default,CMP_EQUAL,,,equal
 SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule,default,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
 SumOfParameters,default,CMP_EQUAL,,,equal
-SumOfParametersInNestedForLoops,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+SumOfParametersInNestedForLoops,default,CMP_EQUAL,,,equal
 sva_basic00,default,CMP_EQUAL,,,equal
 sva_basic01,default,CMP_EQUAL,,,equal
 sva_basic02,default,CMP_EQUAL,,,equal
@@ -793,7 +793,7 @@ top_module_type_param,default,CMP_EQUAL,,,equal
 type_param_override_elem_sel,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
 type_param_packed_dim,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
 type_param_unpacked_port,default,CMP_EQUAL,,,equal
-typed_named_pattern,default,STRICT_NOTEQUAL,differ:file(5),,differ:file(5)
+typed_named_pattern,default,CMP_EQUAL,,,equal
 typedef_package,default,CMP_EQUAL,,,equal
 typedef_packed_enum_array,default,CMP_EQUAL,,,equal
 typedef_param,default,CMP_EQUAL,,,equal
@@ -894,7 +894,7 @@ AnonymousEnum,testflags,CMP_EQUAL,,,equal
 AnonymousUnion,testflags,CMP_EQUAL,,,equal
 anyconst_attr,testflags,CMP_EQUAL,,,equal
 anyseq_attr,testflags,CMP_EQUAL,,,equal
-arb_idx_cast,testflags,STRICT_NOTEQUAL,differ:endline(4),,differ:endline(4)
+arb_idx_cast,testflags,STRICT_NOTEQUAL,differ:endline(3),,differ:endline(3)
 ArithShiftTernary,testflags,CMP_EQUAL,,,equal
 array-copy,testflags,CMP_EQUAL,,,equal
 array_assign,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
@@ -1034,7 +1034,7 @@ counters_repeat,testflags,CMP_EQUAL,,,equal
 CppMacroNameAsVariableName,testflags,CMP_EQUAL,,,equal
 cs_registers,testflags,CMP_EQUAL,,,equal
 custom_map_incomp,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/custom_map_incomp/dut.sv:2:9: error: unknown module 'ALU',,
-cva6_struct_param_field,testflags,STRICT_NOTEQUAL,differ:endcol(5),,differ:endcol(5)
+cva6_struct_param_field,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 DeclarationInFor,testflags,CMP_EQUAL,,,equal
 def_ctx_struct_param,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
 defvalue,testflags,CMP_EQUAL,,,equal
@@ -1107,7 +1107,7 @@ func_arg_partsel_loop,testflags,CMP_EQUAL,,,equal
 func_block,testflags,CMP_EQUAL,,,equal
 func_clog2_partsel,testflags,CMP_EQUAL,,,equal
 func_forloop_onehot,testflags,CMP_EQUAL,,,equal
-func_local_array,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+func_local_array,testflags,CMP_EQUAL,,,equal
 func_local_compound_xor,testflags,CMP_EQUAL,,,equal
 func_local_decl_init,testflags,CMP_EQUAL,,,equal
 func_output_arg,testflags,CMP_EQUAL,,,equal
@@ -1130,12 +1130,12 @@ FunctionColonReference,testflags,CMP_EQUAL,,,equal
 FunctionExportDPI,testflags,CMP_EQUAL,,,equal
 FunctionOnDesignLevel,testflags,CMP_EQUAL,,,equal
 FunctionOutputArgument,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/FunctionOutputArgument/dut.sv:3:14: error: cannot refer to automatic variable 'x' from non-procedural,,
-FunctionParam,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+FunctionParam,testflags,CMP_EQUAL,,,equal
 FunctionReturnEnum,testflags,CMP_EQUAL,,,equal
 FunctionWireAssignmentOnDeclaration,testflags,CMP_EQUAL,,,equal
 FunctionWithoutReturn,testflags,CMP_EQUAL,,,equal
 FunctionWithOverriddenParameter,testflags,CMP_EQUAL,,,equal
-gen_scope_numports,testflags,STRICT_NOTEQUAL,differ:fullname(17),,differ:fullname(17)
+gen_scope_numports,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 gen_scope_typaram,testflags,STRICT_NOTEQUAL,differ:endcol(9),,differ:endcol(9)
 gen_struct_access,testflags,CMP_EQUAL,,,equal
 gen_test1,testflags,CMP_EQUAL,,,equal
@@ -1158,7 +1158,7 @@ genscope_outer_reg_inner_ff,testflags,CMP_EQUAL,,,equal
 genscope_struct_member,testflags,CMP_EQUAL,,,equal
 GenScopeFunction,testflags,CMP_EQUAL,,,equal
 genvar_async_reset_array,testflags,CMP_EQUAL,,,equal
-genvar_iface_struct,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+genvar_iface_struct,testflags,CMP_EQUAL,,,equal
 genvar_loop_decl_1,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/genvar_loop_decl_1/dut.sv:8:27: error: cannot reference unnamed generate block via external name 'gen,,
 genvar_loop_decl_2,testflags,CMP_EQUAL,,,equal
 genvar_loop_decl_3,testflags,CMP_EQUAL,,,equal
@@ -1209,7 +1209,7 @@ iface_array_port,testflags,CMP_EQUAL,,,equal
 iface_array_struct,testflags,CMP_EQUAL,,,equal
 iface_array_struct_field,testflags,CMP_EQUAL,,,equal
 iface_array_struct_whole,testflags,CMP_EQUAL,,,equal
-iface_cfg_mem,testflags,STRICT_NOTEQUAL,differ:col(2),,differ:col(2)
+iface_cfg_mem,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
 iface_cfg_param_def_pass,testflags,CMP_EQUAL,,,equal
 iface_ff_genvar_partsel,testflags,CMP_EQUAL,,,equal
 iface_field_assign,testflags,CMP_EQUAL,,,equal
@@ -1227,25 +1227,25 @@ iface_modport_conn,testflags,CMP_EQUAL,,,equal
 iface_modport_out,testflags,CMP_EQUAL,,,equal
 iface_modport_passthrough,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/iface_modport_passthrough/dut.sv:28:26: error: cannot connect modport 'my_iface.drv' to port requirin,,
 iface_nested_param_field,testflags,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
-iface_param_2level,testflags,STRICT_NOTEQUAL,differ:col(3),,differ:col(3)
-iface_param_port_width,testflags,STRICT_NOTEQUAL,differ:col(3),,differ:col(3)
+iface_param_2level,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+iface_param_port_width,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
 iface_param_set_value,testflags,CMP_EQUAL,,,equal
 iface_param_width_per_inst,testflags,CMP_EQUAL,,,equal
 iface_passthrough,testflags,CMP_EQUAL,,,equal
 iface_pkg_enum_item,testflags,CMP_EQUAL,,,equal
 iface_port_localparam,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/iface_port_localparam/dut.sv:28:22: error: top-level module 'iface_port_localparam' has unconnected i,,
 iface_samename_port,testflags,CMP_EQUAL,,,equal
-iface_scalar_localparam,testflags,STRICT_NOTEQUAL,differ:fullname(15),,differ:fullname(15)
+iface_scalar_localparam,testflags,STRICT_NOTEQUAL,differ:fullname(13),,differ:fullname(13)
 iface_sig_in_child_port,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 iface_struct_field,testflags,CMP_EQUAL,,,equal
 iface_struct_field_bitselect,testflags,CMP_EQUAL,,,equal
 iface_struct_field_param_width,testflags,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
-iface_struct_field_partsel,testflags,STRICT_NOTEQUAL,differ:fullname(15),,differ:fullname(15)
+iface_struct_field_partsel,testflags,STRICT_NOTEQUAL,differ:fullname(13),,differ:fullname(13)
 iface_struct_field_slice_read,testflags,CMP_EQUAL,,,equal
 iface_unpacked_signal,testflags,CMP_EQUAL,,,equal
 iface_unpacked_struct_array,testflags,CMP_EQUAL,,,equal
 iface_wholestruct_param,testflags,CMP_EQUAL,,,equal
-iface_zero_width_field,testflags,STRICT_NOTEQUAL,differ:col(8),,differ:col(8)
+iface_zero_width_field,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 ImportedDoubleCastedParameter,testflags,CMP_EQUAL,,,equal
 ImportedEnumCast,testflags,CMP_EQUAL,,,equal
 ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor,testflags,CMP_EQUAL,,,equal
@@ -1281,7 +1281,7 @@ InterfaceWithPort,testflags,CMP_EQUAL,,,equal
 issue326_packed_mem,testflags,CMP_EQUAL,,,equal
 jeras_gpr,testflags,CMP_EQUAL,,,equal
 jeras_reverse,testflags,CMP_EQUAL,,,equal
-jeras_tcb_gpio,testflags,STRICT_NOTEQUAL,differ:fullname(6),,differ:fullname(6)
+jeras_tcb_gpio,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 jeras_union,testflags,STRICT_NOTEQUAL,differ:fullname(54),,differ:fullname(54)
 LargeModuleParameter,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/LargeModuleParameter/dut.sv:19:1: error: unknown module 'PRIMITIVE',,
 latch_002,testflags,CMP_EQUAL,,,equal
@@ -1303,7 +1303,7 @@ led_blink_counter,testflags,CMP_EQUAL,,,equal
 load_and_derive,testflags,CMP_EQUAL,,,equal
 local_nested_struct_field,testflags,CMP_EQUAL,,,equal
 local_var_in_always,testflags,CMP_EQUAL,,,equal
-LocalParamInNestedForLoops,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+LocalParamInNestedForLoops,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
 LocalParamSelect,testflags,CMP_EQUAL,,,equal
 logic_ops,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/logic_ops/dut.sv:8:23: error: expected ';',,
 LogicPackedArray,testflags,CMP_EQUAL,,,equal
@@ -1413,7 +1413,7 @@ OutputSizeWithParameterOfInstanceInitializedByStructMember,testflags,STRICT_NOTE
 package_task_func,testflags,CMP_EQUAL,,,equal
 PackageCast,testflags,CMP_EQUAL,,,equal
 packed_array_elem_select,testflags,CMP_EQUAL,,,equal
-packed_array_reset_loop,testflags,STRICT_NOTEQUAL,differ:endline(4),,differ:endline(4)
+packed_array_reset_loop,testflags,STRICT_NOTEQUAL,differ:endline(3),,differ:endline(3)
 packed_array_struct,testflags,STRICT_NOTEQUAL,differ:endline(2),,differ:endline(2)
 packed_array_struct_port_sel,testflags,STRICT_NOTEQUAL,differ:endcol(9),,differ:endcol(9)
 packed_struct_array_fifo,testflags,STRICT_NOTEQUAL,differ:endline(6),,differ:endline(6)
@@ -1424,7 +1424,7 @@ PackedArray,testflags,CMP_EQUAL,,,equal
 param_array_wildcard,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
 param_fill_default_paramod,testflags,CMP_EQUAL,,,equal
 param_int_types,testflags,CMP_EQUAL,,,equal
-param_name_collision_typeparam,testflags,STRICT_NOTEQUAL,differ:fullname(8),,differ:fullname(8)
+param_name_collision_typeparam,testflags,CMP_EQUAL,,,equal
 param_nested_struct_field_width,testflags,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
 param_no_default,testflags,CMP_EQUAL,,,equal
 param_packed_array_subst,testflags,CMP_EQUAL,,,equal
@@ -1485,9 +1485,9 @@ PatternStruct,testflags,STRICT_NOTEQUAL,differ:file(1),,differ:file(1)
 PatternType,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/PatternType/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 pico_count_cycle,testflags,CMP_EQUAL,,,equal
 pkg_localparam_partsel,testflags,CMP_EQUAL,,,equal
-pkg_nested_struct_param_width,testflags,STRICT_NOTEQUAL,differ:col(7),,differ:col(7)
+pkg_nested_struct_param_width,testflags,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
 PkgParamAsFunctionArg,testflags,CMP_EQUAL,,,equal
-port_chained_type_param,testflags,STRICT_NOTEQUAL,differ:endcol(2),,differ:endcol(2)
+port_chained_type_param,testflags,CMP_EQUAL,,,equal
 port_int_types,testflags,CMP_EQUAL,,,equal
 port_sign_extend,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/port_sign_extend/dut.v:75:7: error: expected identifier,,
 portsel_struct_param,testflags,STRICT_NOTEQUAL,differ:col(4),,differ:col(4)
@@ -1534,12 +1534,12 @@ rp32_r5p_mouse_soc_top,testflags,SLANG_REJECT,                                  
 rp32_r5p_wbu,testflags,STRICT_NOTEQUAL,differ:file(46),,differ:file(46)
 rp32_soc_vfriendly,testflags,SLANG_REJECT,                                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~,,
 rsp_gen_minimal,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
-sat_asserts_seq,testflags,STRICT_NOTEQUAL,differ:line(18),,differ:line(18)
+sat_asserts_seq,testflags,CMP_EQUAL,,,equal
 scope_func,testflags,CMP_EQUAL,,,equal
 scope_task,testflags,CMP_EQUAL,,,equal
 scopes,testflags,CMP_EQUAL,,,equal
 SelectFromUnpackedInFunction,testflags,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
-SelectGivenBySelectOnParameterInFunction,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+SelectGivenBySelectOnParameterInFunction,testflags,CMP_EQUAL,,,equal
 SelectOnMemberSelectedFrom2DArray,testflags,CMP_EQUAL,,,equal
 SelfPartSelectInBitSelect,testflags,CMP_EQUAL,,,equal
 SelfSelectsInBitSelectAfterBitSelect,testflags,CMP_EQUAL,,,equal
@@ -1569,7 +1569,7 @@ simple_interface,testflags,CMP_EQUAL,,,equal
 simple_memory,testflags,CMP_EQUAL,,,equal
 simple_memory_noreset,testflags,CMP_EQUAL,,,equal
 simple_nested_struct_nopack,testflags,CMP_EQUAL,,,equal
-simple_package,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+simple_package,testflags,CMP_EQUAL,,,equal
 simple_struct,testflags,CMP_EQUAL,,,equal
 simple_unary_op_minus,testflags,CMP_EQUAL,,,equal
 simple_unary_op_not_log,testflags,CMP_EQUAL,,,equal
@@ -1602,7 +1602,7 @@ struct_dynamic_range,testflags,CMP_EQUAL,,,equal
 struct_field_self_guard,testflags,CMP_EQUAL,,,equal
 struct_init_partial_write,testflags,CMP_EQUAL,,,equal
 struct_little_endian_bit_array,testflags,CMP_EQUAL,,,equal
-struct_member_cfg_width,testflags,STRICT_NOTEQUAL,differ:endline(21),,differ:endline(21)
+struct_member_cfg_width,testflags,STRICT_NOTEQUAL,differ:endline(12),,differ:endline(12)
 struct_member_expr_index,testflags,CMP_EQUAL,,,equal
 struct_member_trailing_index,testflags,CMP_EQUAL,,,equal
 struct_negative_index,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_negative_index/dut.sv:14:13: error: cannot refer to element -1 of 'bit[3:0][7:0]' [-Windex-oob,,
@@ -1634,7 +1634,7 @@ StructParameterInitializedWithPatternAndReferenced,testflags,CMP_EQUAL,,,equal
 subbytes,testflags,CMP_EQUAL,,,equal
 SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule,testflags,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
 SumOfParameters,testflags,CMP_EQUAL,,,equal
-SumOfParametersInNestedForLoops,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+SumOfParametersInNestedForLoops,testflags,CMP_EQUAL,,,equal
 sva_basic00,testflags,CMP_EQUAL,,,equal
 sva_basic01,testflags,CMP_EQUAL,,,equal
 sva_basic02,testflags,CMP_EQUAL,,,equal
@@ -1664,7 +1664,7 @@ top_module_type_param,testflags,CMP_EQUAL,,,equal
 type_param_override_elem_sel,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
 type_param_packed_dim,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
 type_param_unpacked_port,testflags,CMP_EQUAL,,,equal
-typed_named_pattern,testflags,STRICT_NOTEQUAL,differ:file(5),,differ:file(5)
+typed_named_pattern,testflags,CMP_EQUAL,,,equal
 typedef_package,testflags,CMP_EQUAL,,,equal
 typedef_packed_enum_array,testflags,CMP_EQUAL,,,equal
 typedef_param,testflags,CMP_EQUAL,,,equal

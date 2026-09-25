@@ -1,0 +1,78 @@
+BasicOh/default A#603 B#603 SAME
+BasicOh/testflags A#603 B#603 SAME
+BuildUVMPkg/default A#873 B#873 SAME
+BuildUVMPkg/testflags A#873 B#873 SAME
+Earlgrey_0_1/default A#6 B#6 SAME
+Earlgrey_0_1/testflags A#6 B#6 SAME
+ExplictiPorts/default CONVERSION  
+ExplictiPorts/testflags CONVERSION  
+FuncCase/default CONVERSION  
+FuncCase/testflags CONVERSION  
+GenIfIfaceParamStructField/default A#246 B#257 LATER
+GenIfIfaceParamStructField/testflags A#156 B#167 LATER
+IOClassStruct/default CONVERSION  
+IOClassStruct/testflags CONVERSION  
+InterfArrayBind/default A#118 B#166 LATER
+InterfArrayBind/testflags CONVERSION  
+PortExpr/default CONVERSION  
+PortExpr/testflags CONVERSION  
+PortInitVal/default CONVERSION  
+PortInitVal2/default CONVERSION  
+PortInitVal2/testflags CONVERSION  
+Rggen/default A#101 B#111 LATER
+Scr1SvTests/default A#4 B#4 SAME
+Scr1SvTests/testflags A#4 B#4 SAME
+SimpleConstraint/default A#95 B#184 LATER
+SimpleConstraint/testflags A#95 B#184 LATER
+StructParamFieldRange/default A#157 B#159 LATER
+StructParamFieldRange/testflags A#157 B#159 LATER
+YosysMarlann/default A#744 B#744 SAME
+YosysMarlann/testflags A#744 B#744 SAME
+FunctionParam/default CONVERSION  
+FunctionParam/testflags CONVERSION  
+LocalParamInNestedForLoops/default A#160 B#160 SAME
+LocalParamInNestedForLoops/testflags A#70 B#70 SAME
+SelectGivenBySelectOnParameterInFunction/default CONVERSION  
+SelectGivenBySelectOnParameterInFunction/testflags CONVERSION  
+SumOfParametersInNestedForLoops/default CONVERSION  
+SumOfParametersInNestedForLoops/testflags CONVERSION  
+arb_idx_cast/default A#103 B#103 SAME
+arb_idx_cast/testflags A#13 B#13 SAME
+cva6_struct_param_field/default A#157 B#159 LATER
+cva6_struct_param_field/testflags A#67 B#69 LATER
+func_local_array/default CONVERSION  
+func_local_array/testflags CONVERSION  
+gen_scope_numports/default A#196 B#411 LATER
+gen_scope_numports/testflags A#106 B#321 LATER
+genvar_iface_struct/default CONVERSION  
+genvar_iface_struct/testflags CONVERSION  
+iface_cfg_mem/default A#256 B#461 LATER
+iface_cfg_mem/testflags A#166 B#371 LATER
+iface_param_2level/default A#141 B#433 LATER
+iface_param_2level/testflags A#51 B#343 LATER
+iface_param_port_width/default A#125 B#252 LATER
+iface_param_port_width/testflags A#35 B#162 LATER
+iface_scalar_localparam/default A#158 B#158 SAME
+iface_scalar_localparam/testflags A#68 B#68 SAME
+iface_struct_field_partsel/default A#172 B#172 SAME
+iface_struct_field_partsel/testflags A#82 B#82 SAME
+iface_zero_width_field/default A#49 B#105 LATER
+iface_zero_width_field/testflags A#48 B#98 LATER
+jeras_tcb_gpio/default A#498 B#498 SAME
+jeras_tcb_gpio/testflags A#408 B#408 SAME
+packed_array_reset_loop/default A#100 B#100 SAME
+packed_array_reset_loop/testflags A#10 B#10 SAME
+param_name_collision_typeparam/default CONVERSION  
+param_name_collision_typeparam/testflags CONVERSION  
+pkg_nested_struct_param_width/default A#49 B#194 LATER
+pkg_nested_struct_param_width/testflags A#48 B#187 LATER
+port_chained_type_param/default CONVERSION  
+port_chained_type_param/testflags CONVERSION  
+sat_asserts_seq/default CONVERSION  
+sat_asserts_seq/testflags CONVERSION  
+simple_package/default CONVERSION  
+simple_package/testflags CONVERSION  
+struct_member_cfg_width/default A#607 B#607 SAME
+struct_member_cfg_width/testflags A#517 B#517 SAME
+typed_named_pattern/default CONVERSION  
+typed_named_pattern/testflags CONVERSION  
