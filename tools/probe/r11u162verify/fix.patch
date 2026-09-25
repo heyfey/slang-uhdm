@@ -1,0 +1,72 @@
+diff --git a/src/ModuleEmit.cpp b/src/ModuleEmit.cpp
+index 2e47791c2..3745a445a 100644
+--- a/src/ModuleEmit.cpp
++++ b/src/ModuleEmit.cpp
+@@ -45385,21 +45385,64 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol&
+                             ex155 = &ex155->as<AssignmentExpression>().left();
+                         if (ex155 && !ex155->syntax)
+                             ex155 = &stripImplicitConv(*ex155);
++                        // § ifaceSigConnSelectWrites162v (r11u162) — a member
++                        // connected through ONE select (`.d(sub.dat[1:0])`,
++                        // `.b(sub.dat[2])`) is a writer too: golden names the
++                        // member through that child port (`work@dut.m.c.d.
++                        // dat`), and a later sliced connection wins over an
++                        // earlier bare one (r10rggen9repro t8: `.i_half(mif.
++                        // address[3:0])` after `.i_addr(mif.address)`, golden
++                        // `work@top.u_mid.u_leaf2.i_half.address`).  A member
++                        // under an operator or a concatenation stays a
++                        // non-writer (golden keeps the port-view name).  Grid
++                        // tools/probe/r11u162verify/cases/isc (c01, c10, c11).
++                        // Switch: R11V162_IFSIGSEL_OFF.
++                        bool sel162 = false;
++                        if (ex155 && r11u155Law("R11V162_IFSIGSEL_OFF")) {
++                            const Expression* b162 = &stripImplicitConv(*ex155);
++                            sel162 = b162->kind == ExpressionKind::ElementSelect ||
++                                     b162->kind == ExpressionKind::RangeSelect;
++                        }
+                         if (!ex155 || !ex155->syntax)
+                             continue;
+                         auto* sx155 = ex155->syntax;
+                         if (sx155->kind != syntax::SyntaxKind::ScopedName)
+                             continue;
+                         auto& sn155 = sx155->as<syntax::ScopedNameSyntax>();
++                        // The select is written on the member (`sub.dat[1:0]`
++                        // parses as `sub` . `dat[1:0]`): one selector only.
++                        const bool selName162 =
++                            sel162 &&
++                            sn155.right->kind == syntax::SyntaxKind::IdentifierSelectName &&
++                            sn155.right->as<syntax::IdentifierSelectNameSyntax>()
++                                    .selectors.size() == 1;
+                         if (sn155.separator.kind != parsing::TokenKind::Dot ||
+                             sn155.left->kind != syntax::SyntaxKind::IdentifierName ||
+-                            sn155.right->kind != syntax::SyntaxKind::IdentifierName ||
++                            (sn155.right->kind != syntax::SyntaxKind::IdentifierName &&
++                             !selName162) ||
+                             sn155.left->as<syntax::IdentifierNameSyntax>()
+                                     .identifier.valueText() != pname155)
+                             continue;
+-                        std::string mem155(sn155.right->as<syntax::IdentifierNameSyntax>()
+-                                               .identifier.valueText());
++                        std::string mem155(
++                            selName162
++                                ? sn155.right->as<syntax::IdentifierSelectNameSyntax>()
++                                      .identifier.valueText()
++                                : sn155.right->as<syntax::IdentifierNameSyntax>()
++                                      .identifier.valueText());
+                         auto loc155 = sx155->sourceRange().start();
++                        // § ifaceSigConnLastByExpansion162v (r11u162) — the
++                        // "last in source order" of the rule above is the
++                        // order of the connections as WRITTEN: a connection
++                        // expanded from a macro (`.clk(`CK)`) sits in its
++                        // own buffer, so the buffer-local comparison kept
++                        // whichever connection came first and golden's last
++                        // writer lost (`work@dut.m.c1.clk.clk` where golden
++                        // names `work@dut.m.c2.clk.clk`).  Each location is
++                        // compared at its expansion point in the original
++                        // file.  Grid tools/probe/r11u162verify/cases/isc
++                        // (c08).  Switch: R11V162_IFSIGMACRO_OFF.
++                        if (r11u155Law("R11V162_IFSIGMACRO_OFF"))
++                            loc155 = comp.getSourceManager()->getFullyOriginalLoc(loc155);
+                         auto& slot155 = w155[mem155];
+                         if (slot155.second.empty() ||
+                             (loc155.buffer() == slot155.first.buffer() &&

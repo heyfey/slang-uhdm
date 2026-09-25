@@ -1,0 +1,3 @@
+cases=173 both-switches=law-bytes:173 landing-switches=pre-landing-bytes:173
+IFSIGSEL_OFF alone restores law bytes on: isc/c01_sliced_member isc/c10_bitsel_member isc/c11_bare_then_sliced isc/c13_ips_member
+IFSIGMACRO_OFF alone restores law bytes on: isc/c08_macro_first_then_plain

@@ -1,0 +1,21 @@
+# scanned 1626 tests (fenced skipped); tests with a modport and a select/macro actual: 9
+surelog NyuziProcessor SEL+MAC
+surelog Opentitan SEL+MAC
+surelog Rp32 SEL
+surelog Tnoc SEL
+surelog Verilator SEL+MAC
+surelog YosysTests MAC
+surelog ariane SEL
+surelog rggen MAC
+uhdm2rtlil cva6_equiv SEL
+NyuziProcessor: NyuziProcessor 
+Opentitan: Earlgrey Opentitan 
+Rp32: rp32 
+Tnoc: Tnoc 
+Verilator: Verilator 
+YosysTests: YosysTests 
+ariane: Ariane 
+rggen: Rggen 
+Ariane2024 <- third_party/tests/Ariane2024
+Rggen <- third_party/tests/rggen
+# written 2026-09-25T15:02:11Z, before the fix sweep F; plus the UVM coin family (MiniAmiq/SeqDriver/SimpleUVM/Scoreboard)

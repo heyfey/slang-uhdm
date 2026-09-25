@@ -1,0 +1,3 @@
+name,mode,status,detail,blocked_by,strict
+CoresSweRV,default,SURELOG_FAIL,[   NOTE] : 1,,
+CoresSweRVMP,default,SURELOG_FAIL,[   NOTE] : 1,,

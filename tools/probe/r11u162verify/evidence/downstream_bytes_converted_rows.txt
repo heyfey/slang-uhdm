@@ -1,0 +1,35 @@
+# sweep L (law.bin) downstream workdir: <test>/surelog/* vs <test>/slanguh/*, byte comparison of every file; then the csv row
+comb_dyn_2d_packed_sel: comb_dyn_2d_packed_sel.il=SAME comb_dyn_2d_packed_sel_nohier.il=SAME comb_dyn_2d_packed_sel_synth.v=SAME run.ys=SAME yosys.log=SAME
+comb_dyn_2d_packed_sel,IDENTICAL,OK,OK,124,124,,
+iface_arr_struct_field_partsel: iface_arr_struct_field_partsel.il=SAME iface_arr_struct_field_partsel_nohier.il=SAME iface_arr_struct_field_partsel_synth.v=SAME run.ys=SAME yosys.log=SAME
+iface_arr_struct_field_partsel,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+iface_cfg_mem: iface_cfg_mem.il=SAME iface_cfg_mem_nohier.il=SAME iface_cfg_mem_synth.v=SAME run.ys=SAME yosys.log=SAME
+iface_cfg_mem,IDENTICAL,OK,OK,27495,27495,,
+iface_nested_param_field: iface_nested_param_field.il=SAME iface_nested_param_field_nohier.il=SAME iface_nested_param_field_synth.v=SAME run.ys=SAME yosys.log=SAME
+iface_nested_param_field,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+iface_param_2level: iface_param_2level.il=SAME iface_param_2level_nohier.il=SAME iface_param_2level_synth.v=SAME run.ys=SAME yosys.log=SAME
+iface_param_2level,IDENTICAL,OK,OK,32,32,,
+iface_scalar_localparam: iface_scalar_localparam.il=SAME iface_scalar_localparam_nohier.il=SAME iface_scalar_localparam_synth.v=SAME run.ys=SAME yosys.log=SAME
+iface_scalar_localparam,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+iface_struct_field_param_width: iface_struct_field_param_width.il=SAME iface_struct_field_param_width_nohier.il=SAME iface_struct_field_param_width_synth.v=SAME run.ys=SAME yosys.log=SAME
+iface_struct_field_param_width,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+iface_struct_field_partsel: iface_struct_field_partsel.il=SAME iface_struct_field_partsel_nohier.il=SAME iface_struct_field_partsel_synth.v=SAME run.ys=SAME yosys.log=SAME
+iface_struct_field_partsel,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+jeras_tcb_gpio: jeras_tcb_gpio.il=SAME jeras_tcb_gpio_nohier.il=SAME jeras_tcb_gpio_synth.v=SAME run.ys=SAME yosys.log=SAME
+jeras_tcb_gpio,IDENTICAL,OK,OK,271,271,,
+mem_ff_partial_rsp: mem_ff_partial_rsp.il=SAME mem_ff_partial_rsp_nohier.il=SAME mem_ff_partial_rsp_synth.v=SAME run.ys=SAME yosys.log=SAME
+mem_ff_partial_rsp,IDENTICAL,OK,OK,1790,1790,,
+union_param_repro: run.ys=SAME union_param_repro.il=SAME union_param_repro_nohier.il=SAME union_param_repro_synth.v=SAME yosys.log=SAME
+union_param_repro,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+genscope_module_ctx_reset: genscope_module_ctx_reset.il=SAME genscope_module_ctx_reset_nohier.il=SAME genscope_module_ctx_reset_synth.v=SAME run.ys=SAME yosys.log=SAME
+genscope_module_ctx_reset,IDENTICAL,OK,OK,11,11,,
+PatternStruct: PatternStruct.il=SAME PatternStruct_nohier.il=SAME PatternStruct_synth.v=SAME run.ys=SAME yosys.log=SAME
+PatternStruct,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+OneNetModport: OneNetModport.il=SAME OneNetModport_nohier.il=SAME OneNetModport_synth.v=SAME run.ys=SAME yosys.log=SAME
+OneNetModport,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+iface_sig_in_child_port: iface_sig_in_child_port.il=SAME iface_sig_in_child_port_nohier.il=SAME iface_sig_in_child_port_synth.v=SAME run.ys=SAME yosys.log=SAME
+iface_sig_in_child_port,IDENTICAL,OK,OK,2,2,,
+const_cast_signext: const_cast_signext.il=SAME const_cast_signext_nohier.il=SAME const_cast_signext_synth.v=SAME run.ys=SAME yosys.log=SAME
+const_cast_signext,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+positive control (EQUIVALENT row) func_upto: func_upto.il=SAME func_upto_nohier.il=DIFF func_upto_synth.v=SAME run.ys=SAME yosys.log=SAME
+positive control (EQUIVALENT row) matching_end_labels: matching_end_labels.il=SAME matching_end_labels_nohier.il=DIFF matching_end_labels_synth.v=SAME run.ys=SAME yosys.log=SAME

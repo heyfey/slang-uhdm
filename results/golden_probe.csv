@@ -547,7 +547,7 @@ r10rggen7repro/t7,EQUAL,,equal
 r10rggen7repro/t8,EQUAL,,equal
 r10rggen7repro/t9,EQUAL,,equal
 r10rggen8repro/t1,EQUAL,,equal
-r10rggen9repro/t8,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r10rggen9repro/t8,EQUAL,,equal
 r10rggen9repro/t9,EQUAL,,equal
 r10scr13repro/t1,EQUAL,,equal
 r10scr13repro/t2,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)

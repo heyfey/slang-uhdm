@@ -1,0 +1,7 @@
+off: [] on: []
+#221 FIXED
+   off fullname: G A: 7	logic_var	dat		work@dut.m.c.h.dat	dut.sv	4	15	4	18		0
+       O B: 7	logic_var	dat		work@dut.m.c.w.dat	dut.sv	4	15	4	18		0
+#222 FIXED
+   off fullname: G A: 8	ref_typespec			work@dut.m.c.h.dat		0	0	0	0		0
+       O B: 8	ref_typespec			work@dut.m.c.w.dat		0	0	0	0		0

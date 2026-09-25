@@ -1,0 +1,22 @@
+== r10earl29repro/a4_ctx (A = landings off, L = HEAD)
+off: [] on: [] 
+#86 SAME-REC 
+#98 SAME-REC 
+#113 SAME-REC 
+#125 FIXED 
+#126 RE-RENDERED 
+#135 SAME-REC 
+#237 SAME-REC 
+#250 SAME-REC 
+#267 SAME-REC 
+#280 FIXED 
+#281 RE-RENDERED 
+#290 SAME-REC 
+
+== r10rggen9repro/t8 (A = landings off, L = HEAD)
+off: [] on: [] 
+#353 FIXED 
+#354 FIXED 
+#357 RE-RENDERED 
+#358 RE-RENDERED 
+

@@ -1,0 +1,6 @@
+off: ['objects 681189 vs 681181', 'fields: type=1 name=1 defname=1 fullname=2941 col=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=2941 (walk diverged)'] on: ['objects 681189 vs 681181', 'fields: type=1 name=1 defname=1 fullname=1 col=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)']
+#17355 FIXED
+FIXED: 2940 records
+#70374 SAME-REC
+   off type: G A: 7	part_select	C	C	work@point_scalar_mult.ins1.ins10.ins1.ins6.C	f3m.v	592	12	592	22		0
+       O B: 7	constant				f3m.v	592	25	592	26	0	64	UINT:0	9

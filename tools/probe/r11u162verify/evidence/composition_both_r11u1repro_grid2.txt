@@ -1,0 +1,3 @@
+A 15 (STRICT_NOTEQUAL fullname) | X=155 alone 14 (STRICT_NOTEQUAL fullname) | Y=154 alone 8 (STRICT_NOTEQUAL col) | L 7 (STRICT_NOTEQUAL col)
+155 fixes 1 adds 0; 154 fixes 7 adds 0; overlap of fixes 0
+ADDITIVE

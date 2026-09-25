@@ -1,0 +1,9 @@
+environment: line 1: 2586934 Segmentation fault      timeout 120 $A dut.sv --single-unit --nobuiltin -o $T/$k.a.uhdm > /dev/null 2>&1
+environment: line 1: 2587016 Segmentation fault      timeout 120 $B dut.sv --single-unit --nobuiltin -o $T/$k.b.uhdm > /dev/null 2>&1
+environment: line 1: 2774765 Aborted                 timeout 120 $A dut.sv --single-unit --nobuiltin -o $T/$k.a.uhdm > /dev/null 2>&1
+environment: line 1: 2774900 Aborted                 timeout 120 $B dut.sv --single-unit --nobuiltin -o $T/$k.b.uhdm > /dev/null 2>&1
+environment: line 1: 2917808 Segmentation fault      timeout 120 $A dut.sv --single-unit --nobuiltin -o $T/$k.a.uhdm > /dev/null 2>&1
+environment: line 1: 2917875 Segmentation fault      timeout 120 $B dut.sv --single-unit --nobuiltin -o $T/$k.b.uhdm > /dev/null 2>&1
+environment: line 1: 3014441 Segmentation fault      timeout 120 $A dut.sv --single-unit --nobuiltin -o $T/$k.a.uhdm > /dev/null 2>&1
+environment: line 1: 3014516 Segmentation fault      timeout 120 $B dut.sv --single-unit --nobuiltin -o $T/$k.b.uhdm > /dev/null 2>&1
+cases=7403 movers=5 nodb=75

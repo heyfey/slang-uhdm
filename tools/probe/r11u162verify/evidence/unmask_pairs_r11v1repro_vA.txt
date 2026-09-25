@@ -1,0 +1,7 @@
+off: ['objects 350 vs 362', 'fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=2 size=1 value=1 objects_differing=2 (walk diverged)'] on: ['objects 350 vs 362', 'fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 size=1 value=1 objects_differing=1 (walk diverged)']
+#253 FIXED
+   off endcol: G A: 7	constant				dut.sv	2	24	2	25	2	32	INT:2	7
+       O B: 7	constant				dut.sv	2	24	2	27	2	32	INT:2	7
+#292 SAME-REC
+   off depth: G A: 6	param_assign				dut.sv	2	18	2	27
+       O B: 7	parameter	W		work@bif.W	dut.sv	1	31	1	32		0	UINT:16

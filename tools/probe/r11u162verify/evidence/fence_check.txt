@@ -1,0 +1,20 @@
+# pass-154 census: the implementer's full-corpus census (fenced rows dispatched) vs its verifier's fence-clean census
+r11u154repro/evidence/census_firings.txt lines: 133
+r11v154repro/evidence/census_firings_fenceclean.txt lines: 133
+normalised (row-mode, count, law) diff lines: 0
+per law (implementer):  6 CASTREF, 14 DEFPKGTS, 6 GSFOLDTS, 10 GSPROCPS, 2 HPELEMNAME, 13 HPPSBOUND, 17 LVBASEMEM, 13 LVIDXREAD, 9 LVSELNAME, 13 MARGNAME, 4 PIUNPACKED, 4 PSBOUNDPATH, 20 PVNESTTS, 2 VARINITDEF,
+
+# word-boundary scan of every file of the four pass directories for a fenced name (from $FENCED; names never printed)
+r11u154repro: files=130 files_naming_a_fenced_test=0
+r11v154repro: files=120 files_naming_a_fenced_test=0
+r11u155repro: files=181 files_naming_a_fenced_test=0
+v11u155repro: files=145 files_naming_a_fenced_test=0
+r11u162verify: files=217 files_naming_a_fenced_test=0
+positive control: results/golden_surelog.csv lines naming a fenced test = 8; RESUME.md = 3
+
+# byteverify path counts the passes recorded (952 = 960 minus the 8 fenced row-modes)
+r11u154repro/evidence/byteverify_surelog.txt: PATH_SETS_IDENTICAL (960 paths)
+r11v154repro/evidence/byteverify_impl_vs_pris_surelog.txt: PATH_SETS_IDENTICAL (960 paths)
+r11u155repro/evidence/sweeps/byteverify_surelog.txt: PATH_SETS_IDENTICAL (960 paths)
+v11u155repro/evidence/sweeps/byteverify_law_vs_pris.txt: PATH_SETS_IDENTICAL (1608 paths)
+v11u155repro/evidence/sweeps/byteverify_V_vs_L.txt: PATH_SETS_IDENTICAL (1608 paths)

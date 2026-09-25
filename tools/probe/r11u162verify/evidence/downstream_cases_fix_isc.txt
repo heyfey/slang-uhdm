@@ -1,0 +1,13 @@
+ON | isc/c01_sliced_member | IDENTICAL | OK | OK | - | -
+ON | isc/c02_width_conv | IDENTICAL | OK | OK | - | -
+ON | isc/c03_escaped_port | STATUS_DIFF | OK | READ_FAIL | - | -
+ON | isc/c04_iface_array_elem | IDENTICAL | OK | OK | - | -
+ON | isc/c05_macro_conn | EQUIVALENT | OK | OK | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u162_dsc/ON_fix/isc__c05_macro_con
+ON | isc/c06_inst_modport_conn | IDENTICAL | OK | OK | - | -
+ON | isc/c07_concat_member | EQUIVALENT | OK | OK | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u162_dsc/ON_fix/isc__c07_concat_me
+ON | isc/c08_macro_first_then_plain | EQUIVALENT | OK | OK | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u162_dsc/ON_fix/isc__c08_macro_fir
+ON | isc/c09_two_views_two_modports | IDENTICAL | OK | OK | - | -
+ON | isc/c10_bitsel_member | IDENTICAL | OK | OK | - | -
+ON | isc/c11_bare_then_sliced | IDENTICAL | OK | OK | - | -
+ON | isc/c12_sliced_then_bare | IDENTICAL | OK | OK | - | -
+ON | isc/c13_ips_member | IDENTICAL | OK | OK | - | -

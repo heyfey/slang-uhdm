@@ -1,0 +1,17 @@
+off: [] on: []
+#209 FIXED
+   off fullname: G A: 7	logic_net	clk		work@dut.m.c.clk.clk	dut.sv	2	29	2	32		0
+       O B: 7	logic_net	clk		work@dut.m.sub.s.clk.clk	dut.sv	2	29	2	32		0
+#210 FIXED
+   off fullname: G A: 8	ref_typespec			work@dut.m.c.clk.clk		0	0	0	0		0
+       O B: 8	ref_typespec			work@dut.m.sub.s.clk.clk		0	0	0	0		0
+#221 RE-RENDERED
+   off fullname: G A: 7	logic_var	dat		work@dut.m.c.h.dat	dut.sv	4	15	4	18		0
+       O B: 7	logic_var	dat		work@dut.m.sub.dat	dut.sv	4	15	4	18		0
+   on  fullname: G A: 7	logic_var	dat		work@dut.m.c.h.dat	dut.sv	4	15	4	18		0
+       O B: 7	logic_var	dat		work@dut.m.c.w.dat	dut.sv	4	15	4	18		0
+#222 RE-RENDERED
+   off fullname: G A: 8	ref_typespec			work@dut.m.c.h.dat		0	0	0	0		0
+       O B: 8	ref_typespec			work@dut.m.sub.dat		0	0	0	0		0
+   on  fullname: G A: 8	ref_typespec			work@dut.m.c.h.dat		0	0	0	0		0
+       O B: 8	ref_typespec			work@dut.m.c.w.dat		0	0	0	0		0

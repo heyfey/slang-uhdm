@@ -1,0 +1,48 @@
+# r11u162: fence audit of every driver of the four pass directories at 16607134.
+# Rule (brief): a driver that reads corpus sources or corpus databases (or dispatches corpus rows) must refuse to
+# run without $FENCED and skip the four fenced names by word boundary, on sources AND databases.
+# Columns: driver | reads/dispatches | guard | verdict.  "case-only" = reads only its own pass's cases.
+
+## r11u154repro
+allgrid.sh    case-only (repro cases)                          no guard needed        OK
+anc.py        two strict dumps given as arguments              no guard               OK (generic, used on cases)
+ctx.sh        two databases given as arguments                 no guard               OK (generic, used on cases)
+cx.sh         one case dir                                     no guard               OK
+grid.sh       case dirs                                        no guard               OK
+pin.sh        one case dir (gdb on the -g1 pristine)           no guard               OK; sources /tmp/r11u154_env.sh (not committed)
+rc.sh         one case dir                                     no guard               OK; sources /tmp/r11u154_env.sh (not committed)
+switches.sh   the repro's cases                                no guard               OK; sources /tmp/r11u154_env.sh (not committed)
+offbytes.sh   the repro's cases                                no guard               OK
+pdiff.sh      one probe case in two sweep workdirs             no guard               OK (probe only); sources /tmp/r11u154_env.sh
+pgold.py      probe golden paths                               no guard               OK (probe only)
+moverdiff.sh  corpus databases (one row, strictcmp)            refuses if FENCED empty ([ -n ]), skips exact test name   COMPLIANT (weak check: any non-empty FENCED passes)
+rowdump.sh    corpus databases (every STRICT_NOTEQUAL row)     refuses if FENCED empty, skips exact name                 COMPLIANT
+row.sh        DISPATCHES corpus rows (verify_golden --filter)  none                   NOT COMPLIANT: no refusal, no skip; a filter matching a fenced test would run it; sources /tmp/r11u154_env.sh (not committed)
+tracewrap.sh  SLANG_UHDM stand-in for the census               none (fence is the caller's)   NOT COMPLIANT AS USED: the implementer's census dispatched every corpus row, the fenced rows included (disclosed in its README); the log was filtered afterwards
+
+## r11v154repro
+env.sh        tool paths; FENCED expected from the caller      -                      OK
+vc.sh         one case dir                                     refuses if FENCED empty; substring skip   COMPLIANT (case-only)
+ds.sh         case dirs (downstream one())                     refuses if FENCED empty; substring skip   COMPLIANT (case-only)
+sw.sh         the repro's cases                                none                   OK (case-only); calls /tmp/v11u154_vc.sh, not committed: does not run from the repository
+probemov.py   probe sweep databases                            none                   OK (probe only); hard-codes /tmp/wt_v11u154pris/scripts
+tracewrap.sh  SLANG_UHDM stand-in for the census               none (fence is the caller's)   COMPLIANT AS USED: the census ran with a --filter negative lookahead built from $FENCED (794 surelog tests)
+
+## r11u155repro
+attrib.sh       re-runs named corpus rows (positive whitelist) refuses unless 4 names; checks its lists against FENCED   COMPLIANT
+heads.sh        corpus databases of named rows                 refuses unless 4 names; skips exact name                 COMPLIANT
+predict.py      corpus SOURCES (every test dir)                refuses unless 4 names; word-boundary skip               COMPLIANT; but its docstring says "run on the pristine corpora BEFORE the law sweep" while the README (section 4) states it was written after the development sweeps and is not a blind prediction: the README labels it, the driver's own text does not
+attrib_probe.sh probe cases                                    none                   OK (probe only)
+grid.sh, gridrun.sh, gridall.sh  cases                         none                   OK (case-only); gridrun.sh hard-codes /tmp/wt_r11u155/
+
+## v11u155repro
+attrib.sh     re-runs named corpus rows (positive whitelist of non-fenced names)   no refusal without FENCED, lists not checked against it   NOT COMPLIANT with "refuse to run without $FENCED" (the whitelist itself holds no fenced name)
+dist.sh       any two databases (order-blind distance); README used it on corpus databases (OneNetModPort, Rggen, Earlgrey_0_1)   no guard   NOT COMPLIANT (generic reader, no refusal, no skip)
+sweep.sh      the gate sweep (tests/sweep.sh)                  n/a (the gate dispatches every baseline row by design)   OK
+grid.sh, gridall.sh, ds.sh  cases                              none                   OK (case-only)
+
+## byteverify (all four passes)
+Every pass ran tools/probe/r11v75repro/byteverify.sh over the full sweep trees: surelog "PATH_SETS_IDENTICAL (960 paths)"
+in r11u154repro, r11v154repro (three files), r11u155repro and v11u155repro, i.e. the 8 fenced row-mode databases were
+read by cmp (content compared, never decoded).  No mover list names a fenced test.  This pass mirrors the trees without
+them (drivers/bvmirror.sh: 952 surelog paths) and reproduces both landings' mover sets there.
