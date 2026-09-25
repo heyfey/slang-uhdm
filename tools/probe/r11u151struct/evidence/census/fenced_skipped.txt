@@ -1,0 +1,8 @@
+surelog	default	FENCED
+surelog	default	FENCED
+surelog	default	FENCED
+surelog	default	FENCED
+surelog	testflags	FENCED
+surelog	testflags	FENCED
+surelog	testflags	FENCED
+surelog	testflags	FENCED

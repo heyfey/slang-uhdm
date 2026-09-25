@@ -1,0 +1,18 @@
+43a44,45
+> 7	constant				dut.sv	17	16	17	18	64	64	UINT:64	9
+> 7	constant				dut.sv	17	16	17	18	64	64	UINT:64	9
+46a49,50
+> 7	constant				dut.sv	18	16	18	20	1'b0	1	BIN:0	3
+> 7	constant				dut.sv	18	16	18	20	1'b0	1	BIN:0	3
+49a54,55
+> 7	constant				dut.sv	19	16	19	20	1'b1	1	BIN:1	3
+> 7	constant				dut.sv	19	16	19	20	1'b1	1	BIN:1	3
+174,175d179
+< 7	constant				dut.sv	17	16	17	18	64	64	UINT:64	9
+< 7	constant				dut.sv	17	16	17	18	64	64	UINT:64	9
+179,180d182
+< 7	constant				dut.sv	18	16	18	20	1'b0	1	BIN:0	3
+< 7	constant				dut.sv	18	16	18	20	1'b0	1	BIN:0	3
+184,185d185
+< 7	constant				dut.sv	19	16	19	20	1'b1	1	BIN:1	3
+< 7	constant				dut.sv	19	16	19	20	1'b1	1	BIN:1	3

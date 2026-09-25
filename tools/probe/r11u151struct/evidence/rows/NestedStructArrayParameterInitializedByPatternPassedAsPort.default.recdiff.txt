@@ -1,0 +1,14 @@
+444c444
+< 5	ref_typespec					0	0	0	0		0		
+---
+> 5	ref_typespec			work@top		0	0	0	0		0		
+525c525
+< 6	ref_typespec					0	0	0	0		0		
+---
+> 6	ref_typespec			work@top.u_hw_sel		0	0	0	0		0		
+575,576c575,576
+< 4	operation				dut.sv	31	23	31	33		0		
+< 5	ref_typespec			work@top.u_hw_sel.region_attrs_i		0	0	0	0		0		
+---
+> 4	operation				dut.sv	12	49	18	5		0		
+> 5	ref_typespec			work@top.u_hw_sel.u_hw_sel.region_attrs_i		0	0	0	0		0		

@@ -1,0 +1,7 @@
+# law12 (the superseded ARRNB v1, which fed nonblocking selects into the old first-select model) moved YosysOldOr d/t:
+# or1200_dc_fsm.v:523 'addr_r <= {tag, addr_r[H:2], 2'd0};' — ref_obj addr_r 523:8 bound to the part_select READ 523:25-43 (golden: logic_net 126:19).
+214831c214831
+<                               \_logic_net: (work@or1200_dc_fsm.addr_r), line:126:19, endln:126:25
+---
+>                               \_part_select: addr_r (work@or1200_dc_fsm.addr_r), line:523:25, endln:523:43
+# law13 (direct-statement registry): YosysOldOr byte-identical to pristine (byteverify), grid case ARR/a19_nb_read_select pins it.

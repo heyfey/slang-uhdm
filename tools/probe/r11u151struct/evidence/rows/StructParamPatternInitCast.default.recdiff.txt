@@ -1,0 +1,95 @@
+68c68
+< 4	ref_typespec					0	0	0	0		0		
+---
+> 4	ref_typespec			cfg_pkg		0	0	0	0		0		
+78,79d77
+< 4	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+< 4	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+91,92d88
+< 7	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+< 7	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+99,100d94
+< 7	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+< 7	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+211c205
+< 4	struct_typespec				dut.sv	30	26	30	32				
+---
+> 4	struct_typespec				dut.sv	30	26	30	39				
+234c228
+< 4	struct_typespec				dut.sv	30	26	30	32				
+---
+> 4	struct_typespec				dut.sv	30	26	33	4				
+271,276c265,268
+< 9	struct_typespec	cfg_pkg::cfg_t			dut.sv	13	11	15	4				
+< 10	typespec_member	XLEN			dut.sv	14	18	14	22				
+< 11	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0		
+< 12	int_typespec				dut.sv	14	5	14	17				
+< 11	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+< 11	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+---
+> 9	integer_typespec				dut.sv	35	14	35	22				
+> 10	hier_path	Cfg.XLEN			dut.sv	35	14	35	22		0		
+> 11	ref_obj	Cfg			dut.sv	35	18	35	22		0		
+> 11	ref_obj	XLEN			dut.sv	35	18	35	22		0		
+280,281c272,273
+< 9	ref_obj	Cfg			dut.sv	35	31	35	34		0		
+< 9	ref_obj	XLEN		work@StructParamPatternInitCast.XLEN	dut.sv	35	35	35	39		0		
+---
+> 9	ref_obj	Cfg			dut.sv	35	35	35	39		0		
+> 9	ref_obj	XLEN			dut.sv	35	35	35	39		0		
+285,290c277,280
+< 8	struct_typespec	cfg_pkg::cfg_t			dut.sv	13	11	15	4				
+< 9	typespec_member	XLEN			dut.sv	14	18	14	22				
+< 10	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0		
+< 11	int_typespec				dut.sv	14	5	14	17				
+< 10	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+< 10	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+---
+> 8	integer_typespec				dut.sv	35	48	35	56				
+> 9	hier_path	Cfg.XLEN			dut.sv	35	48	35	56		0		
+> 10	ref_obj	Cfg			dut.sv	35	52	35	56		0		
+> 10	ref_obj	XLEN			dut.sv	35	52	35	56		0		
+299,304c289,292
+< 9	struct_typespec	cfg_pkg::cfg_t			dut.sv	13	11	15	4				
+< 10	typespec_member	XLEN			dut.sv	14	18	14	22				
+< 11	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0		
+< 12	int_typespec				dut.sv	14	5	14	17				
+< 11	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+< 11	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+---
+> 9	integer_typespec				dut.sv	36	14	36	22				
+> 10	hier_path	Cfg.XLEN			dut.sv	36	14	36	22		0		
+> 11	ref_obj	Cfg			dut.sv	36	18	36	22		0		
+> 11	ref_obj	XLEN			dut.sv	36	18	36	22		0		
+308,309c296,297
+< 9	ref_obj	Cfg			dut.sv	36	31	36	34		0		
+< 9	ref_obj	XLEN		work@StructParamPatternInitCast.XLEN	dut.sv	36	35	36	39		0		
+---
+> 9	ref_obj	Cfg			dut.sv	36	35	36	39		0		
+> 9	ref_obj	XLEN			dut.sv	36	35	36	39		0		
+313,318c301,304
+< 8	struct_typespec	cfg_pkg::cfg_t			dut.sv	13	11	15	4				
+< 9	typespec_member	XLEN			dut.sv	14	18	14	22				
+< 10	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0		
+< 11	int_typespec				dut.sv	14	5	14	17				
+< 10	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+< 10	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+---
+> 8	integer_typespec				dut.sv	36	48	36	56				
+> 9	hier_path	Cfg.XLEN			dut.sv	36	48	36	56		0		
+> 10	ref_obj	Cfg			dut.sv	36	52	36	56		0		
+> 10	ref_obj	XLEN			dut.sv	36	52	36	56		0		
+360c346
+< 4	struct_typespec				dut.sv	30	26	30	32				
+---
+> 4	struct_typespec				dut.sv	30	26	30	39				
+383c369
+< 4	struct_typespec				dut.sv	30	26	30	32				
+---
+> 4	struct_typespec				dut.sv	30	26	33	4				
+415,416c401,402
+< 4	ref_typespec					0	0	0	0		0		
+< 5	struct_typespec				dut.sv	30	26	30	32				
+---
+> 4	ref_typespec			work@StructParamPatternInitCast		0	0	0	0		0		
+> 5	struct_typespec				dut.sv	30	26	33	4				

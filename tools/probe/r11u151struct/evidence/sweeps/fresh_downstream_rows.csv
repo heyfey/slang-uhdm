@@ -1,0 +1,7 @@
+array_assign,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+cva6_struct_param_field,IDENTICAL,OK,OK,1,1,,
+def_ctx_struct_param,IDENTICAL,OK,OK,2,2,,
+latch_decoder_partial,IDENTICAL,OK,OK,1,1,,
+latch_tlb_napot,IDENTICAL,OK,OK,2,2,,
+NestedStructArrayParameterInitializedByPatternPassedAsPort,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+StructArrayParameterInitializedByPatternPassedAsPort,IDENTICAL,NO_GATES,NO_GATES,0,0,,

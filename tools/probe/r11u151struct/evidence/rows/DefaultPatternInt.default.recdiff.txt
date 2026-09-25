@@ -1,0 +1,8 @@
+167c167
+< 10	ref_typespec			<in>		0	0	0	0		0		
+---
+> 10	ref_typespec			work@top.V		0	0	0	0		0		
+208d207
+< 6	constant				dut.sv	4	45	4	46	3	32	UINT:3	9
+352d350
+< 5	constant				dut.sv	4	45	4	46	3	32	UINT:3	9

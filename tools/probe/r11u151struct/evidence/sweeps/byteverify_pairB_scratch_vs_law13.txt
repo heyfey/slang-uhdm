@@ -1,0 +1,16 @@
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=09c5743e3c82 pristine=22f9f9a93fed
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=a9abdb08245c pristine=d68224124a65
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=87f6e972c3e3 pristine=178eb4a41d23
+MOVER ./default/SimpleUVM-267de3ff/slang.uhdm  patched=494a1b721e8a pristine=73d89ac9e82c
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=4f45a70e1a4c pristine=cf6d4a4d30e7
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=fada74626d78 pristine=b39427d26bb0
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/NestedStructArrayParameterInitializedByPatternPassedAsPort-e14d8143/slang.uhdm  patched=9cf0b577959a pristine=8d253f336491
+MOVER ./default/StructArrayParameterInitializedByPatternPassedAsPort-0d936620/slang.uhdm  patched=361e0473b016 pristine=a457e71798cd
+MOVER ./testflags/NestedStructArrayParameterInitializedByPatternPassedAsPort-e14d8143/slang.uhdm  patched=b04dcbe2f0a7 pristine=e5365cdfaba9
+MOVER ./testflags/StructArrayParameterInitializedByPatternPassedAsPort-0d936620/slang.uhdm  patched=e196dc37a404 pristine=0f8b4854c6e7
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+PROBE_MOVER r11u10repro__grid__h9_1e1m_port.uhdm
+PROBE_MOVER r11u10repro__grid__hD_1e1mvec.uhdm

@@ -1,0 +1,6 @@
+391,392c391,392
+< 4	operation				dut.sv	23	23	23	33		0		
+< 5	ref_typespec			work@top.u_hw_sel.region_attrs_i		0	0	0	0		0		
+---
+> 4	operation				dut.sv	6	49	10	5		0		
+> 5	ref_typespec			work@top.u_hw_sel.u_hw_sel.region_attrs_i		0	0	0	0		0		

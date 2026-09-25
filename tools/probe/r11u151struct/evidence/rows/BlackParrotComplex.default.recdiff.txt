@@ -1,0 +1,7 @@
+878a879,884
+> 3	constant				dut.sv	40	68	40	102	553163846905791	50	UINT:553163846905791	9
+> 4	ref_typespec			work@top		0	0	0	0		0		
+> 5	logic_typespec					0	0	0	0				
+> 6	range					0	0	0	0				
+> 7	constant					0	0	0	0		0	UINT:1	0
+> 7	constant					0	0	0	0		0	UINT:0	0

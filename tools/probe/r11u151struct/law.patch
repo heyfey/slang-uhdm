@@ -1,0 +1,649 @@
+diff --git a/src/EmitHelpers.h b/src/EmitHelpers.h
+index e063b8c4..c30233a1 100644
+--- a/src/EmitHelpers.h
++++ b/src/EmitHelpers.h
+@@ -14359,4 +14359,153 @@ inline bool pkgTypedefCastTargetTs140On() {
+     return on;
+ }
+ 
++// ---------------------------------------------------------------------------
++// Pass r11u151 (expression-ground structural classes).  Every law has its own
++// switch; R11U151_OFF restores the pristine bytes on every case.
++//   R11U151_D2_OFF      § pkgTdCastTargetOwnView151          (ExprEmit.cpp + ParamEmit.cpp)
++//   R11U151_ARR_OFF     § blockLhsVarSelBindsWholeRef151     (ExprEmit.cpp)
++//   R11U151_ARRNB_OFF   § nonblockingSelLhsBindsWholeRef151  (StmtEmit.cpp)
++//   R11U151_DEFPAT_OFF  § defaultFillImportPerElement151     (ParamEmit.cpp)
++//   R11U151_G_OFF       § condTakenParamRhsShared151         (ParamEmit.cpp)
++//   R11U151_G2_OFF      § concatArrParamDefTs151             (ParamEmit.cpp)
++//   R11U151_D_OFF       § patLeftoverOrphanCopy151           (ParamEmit.cpp)
++//   R11U151_DCAST_OFF   § hierSizeCastBaseStructTs151        (ExprEmit.cpp)
++//   R11U151_C3_OFF      § nestedPatOpTsNoParent151           (ParamEmit.cpp)
++// Sub-switches: ARRNB also reads R11U151_ARR_OFF, G2 R11U151_G_OFF, DCAST
++// R11U151_D_OFF.  Grids and measurements: tools/probe/r11u151struct/README.md.
++// ---------------------------------------------------------------------------
++inline bool r11u151On(const char* one) {
++    static const bool all = getenv("R11U151_OFF") != nullptr;
++    return !all && getenv(one) == nullptr;
++}
++
++/// The census trace: `R11U151_TRACE=1` prints one `R11U151 <law>` line on
++/// stderr each time a law of this pass changes what pristine would write
++/// (tools/probe/r11u151struct/drivers/census.py reads it).  No byte of the
++/// database depends on it.
++inline void trace151(const char* law) {
++    static const bool on = getenv("R11U151_TRACE") != nullptr;
++    if (on)
++        fprintf(stderr, "R11U151 %s\n", law);
++}
++
++/// § pkgTdCastTargetOwnView151 — a package parameter's cast to its own
++/// package's struct/union typedef (§ pkgTypedefCastTargetTs140) targets the
++/// typedef object of the LISTING it is emitted in: the definition package's
++/// typedef in uhdmallPackages, the elaborated package's in uhdmtopPackages.
++/// Surelog compiles every package twice (CompilePackage.cpp
++/// FunctorCompilePackage::operator(): the Reduce::Yes compile of the package,
++/// then the Reduce::No compile of getUnElabPackage()), and each compile binds
++/// the cast in its own DataType map; the evalFunc member stamps
++/// (stampEvalFuncLeftovers) sit on the elaborated typedef only.  A qualified
++/// `p::cfg_t'(0)` resolves through the design's (elaborated) package in both
++/// listings.  Golden def_ctx_struct_param, latch_decoder_partial,
++/// latch_tlb_napot.  Grid tools/probe/r11u151struct/cases/D2.
++/// Switch: R11U151_D2_OFF.
++inline bool pkgTdCastTargetOwnView151On() {
++    static const bool on = r11u151On("R11U151_D2_OFF");
++    return on;
++}
++
++/// § blockLhsVarSelBindsWholeRef151 — a multi-index element select written as
++/// a direct statement's Lhs (`pa[0][0] = 1'b0;`, a var_select named `pa`)
++/// re-points the block's whole references to `pa` exactly as a bit_select or
++/// part_select Lhs already does (StmtEmit endSelTrack): UhdmWriter::lateBinding's
++/// `uhdmbegin` / `uhdmnamed_begin` arms scan the block's Stmts for the first
++/// assignment whose Lhs carries the name and is not a ref_obj / ref_var, and a
++/// var_select is such an Lhs.  Golden array_assign `pb = pa` -> var_select
++/// pa[0][0] (56:9).  Grid tools/probe/r11u151struct/cases/ARR.
++/// Switch: R11U151_ARR_OFF.
++inline bool blockLhsVarSelBindsWholeRef151On() {
++    static const bool on = r11u151On("R11U151_ARR_OFF");
++    return on;
++}
++
++/// § nonblockingSelLhsBindsWholeRef151 — lateBinding's block arms read the
++/// DIRECT statements' lvalues and never VpiBlocking: a whole reference to a
++/// module net written by a NONBLOCKING select binds the first direct-statement
++/// select lvalue of that name in the innermost block of its chain that has one
++/// (`v[0] <= a; y <= v;`: the bit_select; grid ARR a07 a13 a15 a16 a18).  The
++/// registry is noteLocalStmtSel122's direct-statement one (StmtEmit), so a
++/// select READ (or1200 `addr_r <= {tag, addr_r[H:2], 2'd0}`) and a select in
++/// a sibling begin (unpacked_array_shift_ff, grid a14) never answer.
++/// Switch: R11U151_ARRNB_OFF (and R11U151_ARR_OFF).
++inline bool nonblockingSelLhsBindsWholeRef151On() {
++    static const bool on = r11u151On("R11U151_ARR_OFF") && r11u151On("R11U151_ARRNB_OFF");
++    return on;
++}
++
++/// § defaultFillImportPerElement151 — pass 140's § defaultFillOneConstant140
++/// (one constant object filling every element of a `'{default: X}` unpacked
++/// array parameter's array_expr) holds for the elaborator's own object and the
++/// package listing, NOT for the copy a wildcard/explicit import makes of a
++/// package parameter: that copy lists one constant per element (golden
++/// DefaultPatternInt, both module_inst copies of `pack::V`: two UINT:3 size 32
++/// constants at 4:45-4:46).  The same rule as r11u145's
++/// § defaultFillImportCopies145.  Grid tools/probe/r11u151struct/cases/DEFPAT.
++/// Switch: R11U151_DEFPAT_OFF.
++inline bool defaultFillImportPerElement151On() {
++    static const bool on = r11u151On("R11U151_DEFPAT_OFF");
++    return on;
++}
++
++/// § condTakenParamRhsShared151 — the taken operand of a constant-condition
++/// ternary parameter default, when it is a bare reference to a parameter of
++/// the same body whose elaborated Rhs is a concatenation ExprEval cannot
++/// reduce, IS that operation in the elaborated listing (UHDM
++/// ExprEval::reduceExpr vpiConditionOp arm: get_value fails on an operation
++/// and `result = the_val`).  Golden BlackParrotComplex.  Grid
++/// tools/probe/r11u151struct/cases/G.  Switch: R11U151_G_OFF.
++inline bool condTakenParamRhsShared151On() {
++    static const bool on = r11u151On("R11U151_G_OFF");
++    return on;
++}
++
++/// § concatArrParamDefTs151 — the elaborated Rhs operation of a module's own
++/// concatenation-initialized unpacked-array parameter references the
++/// DEFINITION parameter's array_typespec (golden BlackParrotComplex N1129:
++/// element ref named `work@bottom.A3`, the definition's).  Grid
++/// tools/probe/r11u151struct/cases/G2.  Switch: R11U151_G2_OFF (and
++/// R11U151_G_OFF).
++inline bool concatArrParamDefTs151On() {
++    static const bool on = r11u151On("R11U151_G_OFF") && r11u151On("R11U151_G2_OFF");
++    return on;
++}
++
++/// § patLeftoverOrphanCopy151 — an evalFunc member leftover that is the
++/// caller's pattern ELEMENT (§ r10fsv2 L1) is stamped as a COPY of that
++/// element: golden's stamped object hangs under an operation no listing walks
++/// (the getValue expand / clone of the argument), so it is listed under every
++/// stamped typespec even where the caller parameter's own listing already
++/// walked its element (golden StructParamFuncBodyFieldCompare,
++/// StructParamPatternInitCast: `XLEN` listed twice per stamped cfg_t).
++/// Grid tools/probe/r11u151struct/cases/D.  Switch: R11U151_D_OFF.
++inline bool patLeftoverOrphanCopy151On() {
++    static const bool on = r11u151On("R11U151_D_OFF");
++    return on;
++}
++
++/// § hierSizeCastBaseStructTs151 — `Cfg.XLEN'(x)`, a size cast whose width is
++/// a member of a struct-typed parameter, is typed by that parameter's struct
++/// typespec (golden StructParamPatternInitCast 35:14, cfg_t with its member
++/// stamps), not by an integer_typespec over the hier_path.  Grid
++/// tools/probe/r11u151struct/cases/D.  Switch: R11U151_DCAST_OFF (and
++/// R11U151_D_OFF).
++inline bool hierSizeCastBaseStructTs151On() {
++    static const bool on = r11u151On("R11U151_D_OFF") && r11u151On("R11U151_DCAST_OFF");
++    return on;
++}
++
++/// § nestedPatOpTsNoParent151 — in the one-element unpacked-struct-array
++/// pattern fold (foldUnpackedStructArrayPattern), a NESTED member pattern
++/// operation's ref_typespec has no parent in the param_assign flavour: it is
++/// the reference ExprEval::flattenPatternAssignments mints (golden
++/// NestedStructArrayParameterInitializedByPatternPassedAsPort: empty full
++/// name); the instance-connection flavour keeps it.  Grid
++/// tools/probe/r11u151struct/cases/C3.  Switch: R11U151_C3_OFF.
++inline bool nestedPatOpTsNoParent151On() {
++    static const bool on = r11u151On("R11U151_C3_OFF");
++    return on;
++}
++
+ } // namespace slang_uhdm
+diff --git a/src/ExprEmit.cpp b/src/ExprEmit.cpp
+index 65b7b2a9..6d4ec13e 100644
+--- a/src/ExprEmit.cpp
++++ b/src/ExprEmit.cpp
+@@ -4189,6 +4189,13 @@ std::vector<std::pair<UHDM::ref_typespec*, const void*>>& pkgTdCast140Pending()
+     return v;
+ }
+ 
++// § pkgTdCastTargetOwnView151 — the pending cast references that stand in a
++// DEFINITION package listing (bound to that listing's typedef by the drain).
++std::set<UHDM::ref_typespec*>& pkgTdCast151DefView() {
++    static std::set<UHDM::ref_typespec*> v;
++    return v;
++}
++
+ std::vector<std::tuple<UHDM::ref_typespec*, std::string, uint32_t>>& r11u124CastTsFiles() {
+     static std::vector<std::tuple<UHDM::ref_typespec*, std::string, uint32_t>> v;
+     return v;
+@@ -22673,7 +22680,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+                 else if (pkgTypedefCastTargetTs140On() && pkgScopeInst &&
+                          !currentSubSym && expr.type &&
+                          expr.type->kind == SymbolKind::TypeAlias &&
+-                         !typedefTs.count(expr.type) &&
++                         // § pkgTdCastTargetOwnView151 — the ELABORATED
++                         // package listing defers too (the definition listing
++                         // already registered the typedef in `typedefTs`), so
++                         // the drain can bind it to that listing's own typedef.
++                         (!typedefTs.count(expr.type) ||
++                          (pkgTdCastTargetOwnView151On() && pkgEmitTopView)) &&
+                          [&] {
+                              auto k140 = expr.type->getCanonicalType().kind;
+                              if (k140 != SymbolKind::PackedStructType &&
+@@ -22701,6 +22713,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+                              rt140->VpiParent(op);
+                              op->Typespec(rt140);
+                              pkgTdCast140Pending().emplace_back(rt140, (const void*)&ta140);
++                             // § pkgTdCastTargetOwnView151 — remember which
++                             // listing the reference stands in.  Only the BARE
++                             // spelling (`cfg_t'(0)`) resolves in the compile's
++                             // own DataType map; a qualified `p::cfg_t'(0)`
++                             // resolves through the design's package, the
++                             // elaborated one, in both listings (grid D2 d05).
++                             if (!pkgEmitTopView &&
++                                 cesyn.left->kind == syntax::SyntaxKind::IdentifierName)
++                                 pkgTdCast151DefView().insert(rt140);
++                             if (pkgEmitTopView && typedefTs.count(expr.type))
++                                 trace151("D2-elab");
+                              deferredCast = true;
+                              return true;
+                          }()) {
+@@ -23576,6 +23599,45 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+                             cts = its;
+                         }
+                     }
++                    // § hierSizeCastBaseStructTs151 — a size cast whose
++                    // width is a MEMBER of a struct-typed parameter
++                    // (`Cfg.XLEN'(1)`) takes the PARAMETER's own struct
++                    // typespec as its cast type: Surelog's cast-type compile
++                    // resolves the dotted name's base and keeps its typespec
++                    // (golden StructParamPatternInitCast /
++                    // StructParamFuncBodyFieldCompare: struct_typespec cfg_t,
++                    // stamped, where ours minted an integer_typespec carrying
++                    // the hier_path).  The package typedef's elaborated
++                    // typespec is the object (typespec identity is outside
++                    // the strict contract).  Switch: R11U151_DCAST_OFF (and
++                    // R11U151_D_OFF).
++                    if (!cts && hierSizeCastBaseStructTs151On()) {
++                        const Expression* b151 = &seCore;
++                        while (b151->kind == ExpressionKind::MemberAccess)
++                            b151 = &stripImplicitConv(
++                                b151->as<MemberAccessExpression>().value());
++                        if (b151 != &seCore &&
++                            b151->kind == ExpressionKind::NamedValue &&
++                            b151->as<NamedValueExpression>().symbol.kind ==
++                                SymbolKind::Parameter) {
++                            auto& pt151 = b151->as<NamedValueExpression>()
++                                              .symbol.as<ParameterSymbol>()
++                                              .getType();
++                            if (pt151.kind == SymbolKind::TypeAlias &&
++                                pt151.getCanonicalType().kind ==
++                                    SymbolKind::PackedStructType) {
++                                auto& ta151 = pt151.as<TypeAliasType>();
++                                if (auto it151 = pkgTopTypedefTs.find((const void*)&ta151);
++                                    it151 != pkgTopTypedefTs.end() && it151->second)
++                                    cts = it151->second;
++                                else if (auto jt151 = typedefTs.find(&ta151);
++                                         jt151 != typedefTs.end() && jt151->second)
++                                    cts = jt151->second;
++                                if (cts)
++                                    trace151("DCAST");
++                            }
++                        }
++                    }
+                     if (!cts) {
+                         auto* its = s.MakeInteger_typespec();
+                         setLoc(its, lr);
+@@ -30650,6 +30712,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+                     varSelIdxDepth--;
+                     forceConstParent = savedFCP;
+                     vs->Exprs(idxs);
++                    // § blockLhsVarSelBindsWholeRef151 — a var_select Lhs is
++                    // a select Lhs like any other for the block's whole refs
++                    // (the bit_select rule below: a net written by a BLOCKING
++                    // procedural assignment, or a formal).
++                    if (blockLhsVarSelBindsWholeRef151On() && qb41.empty())
++                        if (auto nit151 = netMap.find(&nv2.symbol); nit151 != netMap.end()) {
++                            bool note151 = nit151->second->UhdmType() == UHDM::uhdmio_decl;
++                            if (!note151 && inLhs &&
++                                nit151->second->UhdmType() == UHDM::uhdmlogic_net && parent &&
++                                parent->UhdmType() == UHDM::uhdmassignment &&
++                                ((UHDM::assignment*)parent)->VpiBlocking())
++                                note151 = true;
++                            if (note151) {
++                                trace151("ARR");
++                                noteSelectObj(&nv2.symbol, vs);
++                            }
++                        }
+                     return vs;
+                 }
+                 // Nested selects whose leaf is a member access (bar.l[2][1])
+@@ -31348,6 +31427,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+                         idxs->push_back(ips);
+                     }
+                     vs->Exprs(idxs);
++                    // § blockLhsVarSelBindsWholeRef151 — SITE 2 of 2: the
++                    // var_select whose last index is a (indexed_)part_select
++                    // (`pa[0][1:0] = a;`, grid ARR a17: golden binds the
++                    // block's `pb = pa` to it).
++                    if (blockLhsVarSelBindsWholeRef151On() && qb41.empty())
++                        if (auto nit151 = netMap.find(&nvb.symbol); nit151 != netMap.end()) {
++                            bool note151 = nit151->second->UhdmType() == UHDM::uhdmio_decl;
++                            if (!note151 && inLhs &&
++                                nit151->second->UhdmType() == UHDM::uhdmlogic_net && parent &&
++                                parent->UhdmType() == UHDM::uhdmassignment &&
++                                ((UHDM::assignment*)parent)->VpiBlocking())
++                                note151 = true;
++                            if (note151) {
++                                trace151("ARR");
++                                noteSelectObj(&nvb.symbol, vs);
++                            }
++                        }
+                     return vs;
+                 }
+             }
+diff --git a/src/ParamEmit.cpp b/src/ParamEmit.cpp
+index ad46a344..7670b20a 100644
+--- a/src/ParamEmit.cpp
++++ b/src/ParamEmit.cpp
+@@ -15,6 +15,7 @@
+ #include "slang/ast/EvalContext.h"
+ 
+ namespace slang_uhdm {
++static bool condArmUnreducible151(const UHDM::any* o);  // § condTakenParamRhsShared151
+ 
+ // § paramFoldParenSpan131 — the registry (the law and its post-pass are at
+ // paramFoldParenSpan131, near drainShareDefParamTs).
+@@ -3573,6 +3574,44 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
+                             eit->second->UhdmType() == UHDM::uhdmref_obj)
+                                ? nullptr
+                                : (UHDM::expr*)eit->second;
++            // § patLeftoverOrphanCopy151 — ...the element OBJECT golden
++            // stamps is NOT the one the caller parameter's listing walks: the
++            // producer reads the argument through CompileHelper::getValue,
++            // whose qualified-name arm runs expandPatternAssignment and writes
++            // the expanded copy back as the param_assign Rhs, and whose
++            // component arm clone_tree's the Rhs at the reference
++            // (CompileExpression.cpp getValue / compileExpression), so the
++            // element ExprEval reads, and setValueInInstance stamps, belongs
++            // to an operation no listing walks (golden FuncStructVal
++            // constant#9772 under the unlisted operation#9768;
++            // StructParamFuncBodyFieldCompare `XLEN` 30:23 listed under every
++            // stamped cfg_t while the Base listing walks its own copy).  A
++            // CONSTANT element is stamped as a copy with the same fields;
++            // anything else keeps the share.  Switch: R11U151_D_OFF.
++            if (patLeftoverOrphanCopy151On() && st.values[i] &&
++                st.values[i]->UhdmType() == UHDM::uhdmconstant) {
++                auto* o151 = (UHDM::constant*)st.values[i];
++                auto* c151 = s.MakeConstant();
++                c151->VpiValue(o151->VpiValue());
++                c151->VpiSize(o151->VpiSize());
++                c151->VpiConstType(o151->VpiConstType());
++                c151->VpiDecompile(o151->VpiDecompile());
++                c151->VpiFile(o151->VpiFile());
++                c151->VpiLineNo(o151->VpiLineNo());
++                c151->VpiColumnNo(o151->VpiColumnNo());
++                c151->VpiEndLineNo(o151->VpiEndLineNo());
++                c151->VpiEndColumnNo(o151->VpiEndColumnNo());
++                c151->VpiParent(o151->VpiParent());
++                if (auto* rt0 = o151->Typespec()) {
++                    auto* rt151 = s.MakeRef_typespec();
++                    rt151->VpiFullName(rt0->VpiFullName());
++                    rt151->VpiParent(c151);
++                    rt151->Actual_typespec(rt0->Actual_typespec());
++                    c151->Typespec(rt151);
++                }
++                st.values[i] = c151;
++                trace151("D");
++            }
+         }
+         // § r10fsv3 S2 UNREDUCIBLE COMPUTED MEMBER.  A computed member's
+         // leftover is a re-encoded slice of the folded value ONLY while
+@@ -12046,8 +12085,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
+                         // R11U140_DEFFILL_OFF.
+                         static const bool one140 = r11u140On("R11U140_DEFFILL_OFF");
+                         UHDM::constant* c140 = nullptr;
++                        // § defaultFillImportPerElement151 — ...but an
++                        // IMPORT's copy of a PACKAGE parameter keeps one
++                        // constant per element (golden DefaultPatternInt: the
++                        // package listing lists one, both module copies two).
++                        const bool per151 = defaultFillImportPerElement151On() && isImported;
++                        if (per151 && one140 && uat8.range.width() > 1)
++                            trace151("DEFPAT");
+                         for (uint32_t i8 = 0; i8 < uat8.range.width(); i8++) {
+-                            if (one140 && c140) {
++                            if (one140 && c140 && !per151) {
+                                 xv8->push_back(c140);
+                                 continue;
+                             }
+@@ -19747,7 +19793,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
+                                     SymbolKind::Package;
+                             bool savedRhsFold102 = rhsOpArrayTsSubFold102;
+                             rhsOpArrayTsSubFold102 = pkgOwnedArr102;
+-                            rt->Actual_typespec(makeUnpackedArrayParamTs(
++                            // § concatArrParamDefTs151 — a MODULE's own
++                            // unpacked-array parameter initialized by a
++                            // CONCATENATION: the elaborated Rhs operation's
++                            // typespec IS the definition parameter's own
++                            // array_typespec (golden BlackParrotComplex
++                            // `bottom.A3 = {1, 2, 3}`: id 6, the definition's,
++                            // element ref `work@bottom.A3`), where a pattern
++                            // keeps its own copy (grid G2 h02).  Switch:
++                            // R11U151_G2_OFF.
++                            UHDM::array_typespec* def151 = nullptr;
++                            if (concatArrParamDefTs151On() && !inPackage &&
++                                !isImported && !pkgOwnedArr102 &&
++                                opr->VpiOpType() == vpiConcatOp)
++                                if (auto* dsyn151 = ps.getSyntax())
++                                    if (auto it151 = defParamArrayTs.find(dsyn151);
++                                        it151 != defParamArrayTs.end()) {
++                                        def151 = it151->second;
++                                        trace151("G2");
++                                    }
++                            rt->Actual_typespec(def151 ? def151
++                                                       : makeUnpackedArrayParamTs(
+                                 ps, tsPrefix, rt, nullptr, true, tsPrefix));
+                             rhsOpArrayTsSubFold102 = savedRhsFold102;
+                             importedParamElemClone16 = savedIpc96;
+@@ -20188,6 +20254,52 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
+                         ((UHDM::operation*)rhs)->Typespec(rt10);
+                     }
+                 }
++                // § condTakenParamRhsShared151 — an ELABORATED module
++                // parameter whose default is a constant-condition ternary
++                // chain ending on a bare reference to another parameter of the
++                // same body, whose own elaborated Rhs stayed an OPERATION
++                // (a concatenation, a pattern), takes THAT object as its Rhs,
++                // shared and not reparented.  ExprEval::reduceExpr's
++                // vpiConditionOp arm reduces the taken operand, the reference
++                // reduces through getValue to the parameter's Rhs object, and
++                // get_value cannot read an operation, so `result = the_val`
++                // hands the object itself back (golden BlackParrotComplex
++                // `routing_matrix_p = (dims_p == 2) ? StrictXY : StrictX`:
++                // param_assign 40:48 Rhs = StrictXY's operation 9:31-25:33).
++                // Switch: R11U151_G_OFF.
++                if (condTakenParamRhsShared151On() && topView && !defViewOrig9 &&
++                    !inPackage && !isImported && !overridden && init && rhs) {
++                    const Expression* t151 = &stripImplicitConv(*init);
++                    bool cond151 = false;
++                    for (int g151 = 0;
++                         g151 < 32 && t151->kind == ExpressionKind::ConditionalOp;
++                         ++g151) {
++                        auto& co151 = t151->as<ConditionalExpression>();
++                        if (co151.conditions.size() != 1 ||
++                            co151.conditions[0].pattern)
++                            break;
++                        ASTContext cx151(comp.getRoot(), LookupLocation::max);
++                        ConstantValue pv151 =
++                            cx151.tryEval(*co151.conditions[0].expr);
++                        if (!pv151 || !pv151.isInteger() ||
++                            pv151.integer().hasUnknown())
++                            break;
++                        t151 = &stripImplicitConv(pv151.isTrue() ? co151.left()
++                                                                 : co151.right());
++                        cond151 = true;
++                    }
++                    if (cond151 && t151->kind == ExpressionKind::NamedValue) {
++                        auto& ts151 = t151->as<NamedValueExpression>().symbol;
++                        if (ts151.kind == SymbolKind::Parameter &&
++                            ts151.getParentScope() == member.getParentScope())
++                            if (auto it151 = elabParamRhsObj6.find(&ts151);
++                                it151 != elabParamRhsObj6.end() && it151->second &&
++                                condArmUnreducible151(it151->second)) {
++                                rhs = (UHDM::expr*)it151->second;
++                                trace151("G");
++                            }
++                    }
++                }
+                 pa->Rhs(rhs);
+                 paramRhsObj[&member] = rhs;
+                 // § nestedParamActualTs6 VIEW GUARD.  paramRhsObj is keyed by
+@@ -22824,7 +22936,21 @@ UHDM::operation* UhdmExporter::foldUnpackedStructArrayPattern(
+                 op->VpiSize((int32_t)ctf.getBitWidth());
+             if (auto* sts = lookupStructTs(ft)) {
+                 auto* rt = s.MakeRef_typespec();
+-                rt->VpiParent(op);
++                // § nestedPatOpTsNoParent151 — the NESTED member pattern's
++                // ref_typespec is the one UHDM's
++                // ExprEval::flattenPatternAssignments mints and never parents
++                // (ExprEval.cpp:931-934, § pkgPatReadTsNoParent131's
++                // reference), so its full name computes to nothing (golden
++                // NestedStructArrayParameterInitializedByPatternPassedAsPort
++                // #443 / #524: empty where ours stored `work@top` /
++                // `work@top.u_hw_sel`).  The instance-CONNECTION flavour
++                // keeps the parent: golden #594 names that reference through
++                // the port (`work@top.u_hw_sel.region_attrs_i`).  Switch:
++                // R11U151_C3_OFF.
++                if (!nestedPatOpTsNoParent151On() || connFold)
++                    rt->VpiParent(op);
++                else
++                    trace151("C3");
+                 rt->Actual_typespec(sts);
+                 op->Typespec(rt);
+             }
+@@ -27016,6 +27142,44 @@ static void paramValueIsDefRhs124(UHDM::design* d) {
+ std::vector<std::tuple<UHDM::ref_typespec*, std::string, uint32_t>>& r11u124CastTsFiles();
+ std::vector<std::pair<UHDM::ref_typespec*, const void*>>& pkgTdCast140Pending();
+ 
++// § condTakenParamRhsShared151 — does UHDM's ExprEval::reduceExpr hand this
++// CONCATENATION Rhs object back UNREDUCED?  The vpiConcatOp arm
++// (ExprEval.cpp ~3993) reduces a concatenation unless an operand is itself a
++// concatenation / pattern operation (never reduced there, so `c1 = nullptr`)
++// or a 64-bit INT/UINT constant in a multi-operand concat (the same bail).
++// An assignment-pattern arm is NOT shared: golden lists a CLONE of it (grid G
++// g03, CompileExpression's clone_tree of the param_assign Rhs) — left to the
++// fold.  Every other shape is left to the fold too.
++static bool condArmUnreducible151(const UHDM::any* o) {
++    if (!o || o->UhdmType() != UHDM::uhdmoperation)
++        return false;
++    auto* op = (const UHDM::operation*)o;
++    int t = op->VpiOpType();
++    if (t != vpiConcatOp || !op->Operands() || op->Operands()->empty())
++        return false;
++    for (auto* x : *op->Operands()) {
++        if (!x)
++            return false;
++        if (x->UhdmType() == UHDM::uhdmoperation) {
++            int xt = ((const UHDM::operation*)x)->VpiOpType();
++            if (xt == vpiConcatOp || xt == vpiAssignmentPatternOp ||
++                xt == vpiMultiAssignmentPatternOp)
++                return true;
++            return false;  // another operation: reduced (or not) on its own
++        }
++        if (x->UhdmType() == UHDM::uhdmconstant) {
++            auto* c = (const UHDM::constant*)x;
++            if ((c->VpiConstType() == vpiIntConst || c->VpiConstType() == vpiUIntConst) &&
++                c->VpiSize() == 64 && op->Operands()->size() > 1)
++                return true;
++            continue;
++        }
++        return false;
++    }
++    return false;
++}
++std::set<UHDM::ref_typespec*>& pkgTdCast151DefView();  // § pkgTdCastTargetOwnView151
++
+ // § paramFoldParenSpan131 — THE ELABORATED PARAMETER'S FOLDED VALUE SPANS
+ // THE WRITTEN INITIALIZER WITH ITS PARENTHESES.  Surelog elaborates a
+ // parameter by reducing the Constant_param_expression node of its
+@@ -27646,11 +27810,32 @@ static void arrTsLhsOwnCopy140(UHDM::Serializer& s, UHDM::design* d) {
+ void UhdmExporter::drainShareDefParamTs() {
+     // § pkgTypedefCastTargetTs140 — bind the deferred package-typedef cast
+     // targets, now that every package lists its typedefs.
+-    for (auto& [rt140, ta140] : pkgTdCast140Pending())
++    for (auto& [rt140, ta140] : pkgTdCast140Pending()) {
++        // § pkgTdCastTargetOwnView151 — a reference standing in the
++        // DEFINITION package listing binds the definition package's typedef
++        // (`typedefTs`), the elaborated listing's the elaborated one
++        // (`pkgTopTypedefTs`): Surelog compiles the two package views
++        // separately (CompilePackage.cpp FunctorCompilePackage::operator()),
++        // each against its own typedef, and the evalFunc member stamps sit on
++        // the elaborated typedef alone (golden def_ctx_struct_param #37 clean,
++        // #167 stamped).  Switch: R11U151_D2_OFF.
++        if (pkgTdCastTargetOwnView151On() && pkgTdCast151DefView().count(rt140)) {
++            if (auto dt151 = typedefTs.find(static_cast<const slang::ast::Symbol*>(
++                    static_cast<const slang::ast::TypeAliasType*>(ta140)));
++                dt151 != typedefTs.end() && dt151->second && !rt140->Actual_typespec()) {
++                if (auto pt151 = pkgTopTypedefTs.find(ta140);
++                    pt151 == pkgTopTypedefTs.end() || pt151->second != dt151->second)
++                    trace151("D2-def");
++                rt140->Actual_typespec(dt151->second);
++                continue;
++            }
++        }
+         if (auto it140 = pkgTopTypedefTs.find(ta140);
+             it140 != pkgTopTypedefTs.end() && it140->second && !rt140->Actual_typespec())
+             rt140->Actual_typespec(it140->second);
++    }
+     pkgTdCast140Pending().clear();
++    pkgTdCast151DefView().clear();
+     paramValueIsDefRhs124(d);
+     paramFoldParenSpan131(d);  // § paramFoldParenSpan131
+     ovrMultiDimConstUnparented131(d);  // § ovrMultiDimConstUnparented131
+diff --git a/src/StmtEmit.cpp b/src/StmtEmit.cpp
+index 1a23a8b1..8adab6a3 100644
+--- a/src/StmtEmit.cpp
++++ b/src/StmtEmit.cpp
+@@ -314,6 +314,19 @@ UHDM::process_stmt* UhdmExporter::emitProcess(const ProceduralBlockSymbol& block
+     return proc;
+ }
+ 
++// § nonblockingSelLhsBindsWholeRef151 — the NET half of question 3 for a
++// block that writes the name by a NONBLOCKING select: every DIRECT statement
++// lvalue select of a module net, first in statement order per block, and the
++// nets that have at least one such nonblocking write.
++static std::map<std::pair<int, const slang::ast::Symbol*>, UHDM::expr*>& selNetLhs151() {
++    static std::map<std::pair<int, const slang::ast::Symbol*>, UHDM::expr*> m;
++    return m;
++}
++static std::set<const slang::ast::Symbol*>& selNetNbVars151() {
++    static std::set<const slang::ast::Symbol*> v;
++    return v;
++}
++
+ // See selTrackActive in the header. beginSelTrack activates per-body tracking
+ // (no-op / returns false if already inside a tracked body, so only the
+ // outermost owner back-patches).
+@@ -321,6 +334,8 @@ bool UhdmExporter::beginSelTrack() {
+     if (selTrackActive)
+         return false;
+     selTrackActive = true;
++    selNetLhs151().clear();       // § nonblockingSelLhsBindsWholeRef151
++    selNetNbVars151().clear();
+     selFirstSelect.clear();
+     selLhsSelVars.clear();
+     selWholeRefs.clear();
+@@ -489,6 +504,39 @@ void UhdmExporter::endSelTrack() {
+         if (funcRetSym && wr.sym == funcRetSym)
+             funcRetSelBound.insert(wr.ref);
+     }
++    // § nonblockingSelLhsBindsWholeRef151 — UhdmWriter::lateBinding's
++    // `uhdmbegin` / `uhdmnamed_begin` arms (UhdmWriter.cpp:3551-3640) scan a
++    // block's DIRECT Stmts for the first `assignment` whose Lhs names the
++    // reference and is not a ref_obj / ref_var, and they never read
++    // VpiBlocking: a whole reference to a net that the net model above left
++    // on the NET binds the first such lvalue of the innermost block in its
++    // chain that has one, when the net is written by a NONBLOCKING select
++    // somewhere in the body (grid ARR a07 a13 a16 a18; the sibling-begin
++    // shape of unpacked_array_shift_ff / asicworld_serial_crc stays on the net
++    // because the chain never meets that block, a14; or1200's
++    // `addr_r <= {tag, addr_r[H:2], 2'd0}` stays on the net because its block
++    // holds no select lvalue of addr_r).  Switch: R11U151_ARRNB_OFF.
++    if (nonblockingSelLhsBindsWholeRef151On() && !selNetNbVars151().empty() &&
++        !(pkgImportCloneEmit || importCloneEmit || importCopyTsInst != nullptr))
++        for (auto& wr : selWholeRefs) {
++            if (!selNetNbVars151().count(wr.sym))
++                continue;
++            const UHDM::any* cur = wr.ref->Actual_group();
++            if (!cur || any_cast<const UHDM::nets*>(cur) == nullptr)
++                continue;
++            for (int sc : wr.chain) {
++                auto it = selNetLhs151().find({sc, wr.sym});
++                if (it == selNetLhs151().end())
++                    continue;
++                if (it->second != (const UHDM::expr*)cur) {
++                    wr.ref->Actual_group(it->second);
++                    trace151("ARRNB");
++                }
++                break;
++            }
++        }
++    selNetLhs151().clear();
++    selNetNbVars151().clear();
+     selTrackActive = false;
+     selFirstSelect.clear();
+     selLhsSelVars.clear();
+@@ -600,6 +648,15 @@ void UhdmExporter::noteLocalStmtSel122(const Expression& e, UHDM::any* obj,
+         return;
+     const Symbol* sym = &le->as<NamedValueExpression>().symbol;
+     auto nit = netMap.find(sym);
++    // § nonblockingSelLhsBindsWholeRef151 — the same DIRECT-statement lvalue,
++    // of a module NET: recorded in its own registry (endSelTrack).
++    if (nit != netMap.end() && nonblockingSelLhsBindsWholeRef151On() &&
++        nit->second->UhdmType() == UHDM::uhdmlogic_net &&
++        lhs->VpiName() == sym->name) {
++        selNetLhs151().emplace(std::make_pair(selScopeStack.back().id, sym), lhs);
++        if (!((UHDM::assignment*)obj)->VpiBlocking())
++            selNetNbVars151().insert(sym);
++    }
+     if (nit == netMap.end() || !localVarDecl122(nit->second))
+         return;
+     // Surelog matches `lhs->VpiName() == name`: a `this.v[0]` / `o.v[0]`

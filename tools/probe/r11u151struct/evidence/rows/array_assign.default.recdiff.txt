@@ -1,0 +1,4 @@
+654a655,657
+> 6	logic_net	pa		work@top.pa	dut.sv	53	11	53	13		0		
+> 7	ref_typespec			work@top.pa		0	0	0	0		0		
+> 8	logic_typespec				dut.sv	53	5	53	19				

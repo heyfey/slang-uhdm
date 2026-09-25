@@ -1,0 +1,164 @@
+## D: typespec_member stamps (tsmem_db) -- golden's leftover is an object no listing walks
+-- D/e01_mod_qual_call gold/golden
+member#9 X in struct_typespec#7 pk::cfg_t | default=- | actual=constant#132@12:30-12:36 DEC:64 <operation#126@12:25 <param_assign#37@12:18 <package#1@4:1 <design#207@0:0
+member#225 X in struct_typespec#224 pk::cfg_t | default=- | actual=constant#228@12:30-12:36 DEC:64 <typespec_member#225@6:40 <struct_typespec#224@6:11 <ref_typespec#223@0:0 <parameter#222@14:34
+-- D/e01_mod_qual_call pris
+member#48 X in struct_typespec#47 pk::cfg_t | default=- | actual=constant#42@12:30-12:36 DEC:64 <operation#40@12:25 <param_assign#39@12:18 <package#36@4:1 <design#1@0:0
+-- D/e01_mod_qual_call law13
+member#48 X in struct_typespec#47 pk::cfg_t | default=- | actual=constant#111@12:30-12:36 DEC:64 <operation#40@12:25 <param_assign#39@12:18 <package#36@4:1 <design#1@0:0
+-- D/e02_mod_import_call gold/golden
+member#9 X in struct_typespec#7 pk::cfg_t | default=- | actual=constant#142@10:30-10:36 DEC:64 <tagged_pattern#139@10:30 <operation#138@12:56 <param_assign#115@10:18 <module_inst#238@12:1
+member#261 X in struct_typespec#260 pk::cfg_t | default=- | actual=constant#264@10:30-10:36 DEC:64 <typespec_member#261@4:40 <struct_typespec#260@4:11 <ref_typespec#259@0:0 <parameter#258@12:44
+-- D/e02_mod_import_call pris
+member#50 X in struct_typespec#49 pk::cfg_t | default=- | actual=constant#42@10:30-10:36 DEC:64
+member#148 X in struct_typespec#147 pk::cfg_t | default=- | actual=constant#42@10:30-10:36 DEC:64
+-- D/e02_mod_import_call law13
+member#50 X in struct_typespec#49 pk::cfg_t | default=- | actual=constant#151@10:30-10:36 DEC:64
+member#148 X in struct_typespec#147 pk::cfg_t | default=- | actual=constant#151@10:30-10:36 DEC:64
+-- D/e03_pkg_holder_bare gold/golden
+member#9 X in struct_typespec#7 pk::cfg_t | default=- | actual=constant#92@10:30-10:36 DEC:64 <tagged_pattern#89@10:30 <operation#88@11:30 <param_assign#37@10:18 <package#1@2:1
+-- D/e03_pkg_holder_bare pris
+member#61 X in struct_typespec#60 pk::cfg_t | default=- | actual=constant#47@10:30-10:36 DEC:64
+-- D/e03_pkg_holder_bare law13
+member#61 X in struct_typespec#60 pk::cfg_t | default=- | actual=constant#113@10:30-10:36 DEC:64
+-- D/e05_mod_qual_plainlit gold/golden
+member#9 X in struct_typespec#7 pk::cfg_t | default=- | actual=constant#132@10:30-10:32 UINT:64 <operation#126@10:25 <param_assign#37@10:18 <package#1@2:1 <design#207@0:0
+member#225 X in struct_typespec#224 pk::cfg_t | default=- | actual=constant#228@10:30-10:32 UINT:64 <typespec_member#225@4:40 <struct_typespec#224@4:11 <ref_typespec#223@0:0 <parameter#222@12:34
+-- D/e05_mod_qual_plainlit pris
+member#48 X in struct_typespec#47 pk::cfg_t | default=- | actual=constant#42@10:30-10:32 UINT:64 <operation#40@10:25 <param_assign#39@10:18 <package#36@2:1 <design#1@0:0
+-- D/e05_mod_qual_plainlit law13
+member#48 X in struct_typespec#47 pk::cfg_t | default=- | actual=constant#111@10:30-10:32 UINT:64 <operation#40@10:25 <param_assign#39@10:18 <package#36@2:1 <design#1@0:0
+-- D/e06_mod_qual_wide gold/golden
+member#19 X in struct_typespec#17 pk::cfg_t | default=- | actual=constant#239@11:40-11:42 UINT:64 <tagged_pattern#236@11:30 <operation#235@11:25 <param_assign#57@11:18 <package#1@3:1
+member#340 X in struct_typespec#339 pk::cfg_t | default=- | actual=constant#343@11:40-11:42 UINT:64 <typespec_member#340@5:40 <struct_typespec#339@5:11 <ref_typespec#338@0:0 <parameter#337@13:34
+-- D/e06_mod_qual_wide pris
+member#92 X in struct_typespec#91 pk::cfg_t | default=- | actual=constant#65@11:40-11:42 UINT:64 <sys_func_call#64@0:0 <operation#61@11:25 <param_assign#60@11:18 <package#57@3:1
+-- D/e06_mod_qual_wide law13
+member#92 X in struct_typespec#91 pk::cfg_t | default=- | actual=constant#155@11:40-11:42 UINT:64 <sys_func_call#64@0:0 <operation#61@11:25 <param_assign#60@11:18 <package#57@3:1
+-- D/e07_mod_qual_opmember gold/golden
+member#40 X in struct_typespec#38 pk::cfg_t | default=- | actual=constant#410@13:40-13:42 UINT:64 <operation#461@15:76
+member#495 X in struct_typespec#494 pk::cfg_t | default=- | actual=constant#498@13:40-13:42 UINT:64 <typespec_member#495@6:40 <struct_typespec#494@6:11 <ref_typespec#493@0:0 <parameter#492@15:34
+-- D/e07_mod_qual_opmember pris
+member#142 X in struct_typespec#141 pk::cfg_t | default=- | actual=constant#104@13:40-13:42 UINT:64 <sys_func_call#103@0:0 <operation#100@13:25 <param_assign#99@13:18 <package#90@3:1
+-- D/e07_mod_qual_opmember law13
+member#142 X in struct_typespec#141 pk::cfg_t | default=- | actual=constant#241@13:40-13:42 UINT:64 <sys_func_call#103@0:0 <operation#100@13:25 <param_assign#99@13:18 <package#90@3:1
+
+## DEFPAT: array_expr element identity (arrexpr_db)
+-- DEFPAT/p01_defaultpatternint gold/golden
+array_expr#69 <param_assign#35  <package#1 pk <design#268 work@top | elems: constant#64 constant#64
+array_expr#165 <param_assign#164  <module_inst#269  <design#268 work@top | elems: constant#166 constant#167
+array_expr#250 <param_assign#261  <module_inst#275 work@top <design#268 work@top | elems: constant#251 constant#252
+-- DEFPAT/p01_defaultpatternint pris
+array_expr#45 <param_assign#44  <package#25 pk <design#1 work@top | elems: constant#46 constant#46
+array_expr#71 <param_assign#70  <module_inst#47  <design#1 work@top | elems: constant#72 constant#72
+array_expr#156 <param_assign#155  <module_inst#140 work@top <design#1 work@top | elems: constant#157 constant#157
+-- DEFPAT/p01_defaultpatternint law13
+array_expr#45 <param_assign#44  <package#25 pk <design#1 work@top | elems: constant#46 constant#46
+array_expr#71 <param_assign#70  <module_inst#47  <design#1 work@top | elems: constant#72 constant#73
+array_expr#157 <param_assign#156  <module_inst#141 work@top <design#1 work@top | elems: constant#158 constant#159
+-- DEFPAT/p02_import_read gold/golden
+array_expr#50 <param_assign#20  <package#1 pk <design#150 work@top | elems: constant#45 constant#45
+array_expr#115 <param_assign#114  <module_inst#151  <design#150 work@top | elems: constant#116 constant#117
+array_expr#139 <param_assign#145  <module_inst#157 work@top <design#150 work@top | elems: constant#140 constant#141
+-- DEFPAT/p02_import_read pris
+array_expr#31 <param_assign#30  <package#19 pk <design#1 work@top | elems: constant#32 constant#32
+array_expr#45 <param_assign#44  <module_inst#33  <design#1 work@top | elems: constant#46 constant#46
+array_expr#67 <param_assign#66  <module_inst#58 work@top <design#1 work@top | elems: constant#68 constant#68
+-- DEFPAT/p02_import_read law13
+array_expr#31 <param_assign#30  <package#19 pk <design#1 work@top | elems: constant#32 constant#32
+array_expr#45 <param_assign#44  <module_inst#33  <design#1 work@top | elems: constant#46 constant#47
+array_expr#68 <param_assign#67  <module_inst#59 work@top <design#1 work@top | elems: constant#69 constant#70
+-- DEFPAT/p04_three_elems gold/golden
+array_expr#50 <param_assign#20  <package#1 pk <design#152 work@top | elems: constant#45 constant#45 constant#45
+array_expr#115 <param_assign#114  <module_inst#153  <design#152 work@top | elems: constant#116 constant#117 constant#118
+array_expr#140 <param_assign#147  <module_inst#159 work@top <design#152 work@top | elems: constant#141 constant#142 constant#143
+-- DEFPAT/p04_three_elems pris
+array_expr#31 <param_assign#30  <package#19 pk <design#1 work@top | elems: constant#32 constant#32 constant#32
+array_expr#45 <param_assign#44  <module_inst#33  <design#1 work@top | elems: constant#46 constant#46 constant#46
+array_expr#67 <param_assign#66  <module_inst#58 work@top <design#1 work@top | elems: constant#68 constant#68 constant#68
+-- DEFPAT/p04_three_elems law13
+array_expr#31 <param_assign#30  <package#19 pk <design#1 work@top | elems: constant#32 constant#32 constant#32
+array_expr#45 <param_assign#44  <module_inst#33  <design#1 work@top | elems: constant#46 constant#47 constant#48
+array_expr#69 <param_assign#68  <module_inst#60 work@top <design#1 work@top | elems: constant#70 constant#71 constant#72
+-- DEFPAT/p05_explicit_import gold/golden
+array_expr#50 <param_assign#20  <package#1 pk <design#150 work@top | elems: constant#45 constant#45
+array_expr#115 <param_assign#114  <module_inst#151  <design#150 work@top | elems: constant#116 constant#117
+array_expr#139 <param_assign#145  <module_inst#157 work@top <design#150 work@top | elems: constant#140 constant#141
+-- DEFPAT/p05_explicit_import pris
+array_expr#31 <param_assign#30  <package#19 pk <design#1 work@top | elems: constant#32 constant#32
+array_expr#45 <param_assign#44  <module_inst#33  <design#1 work@top | elems: constant#46 constant#46
+array_expr#67 <param_assign#66  <module_inst#58 work@top <design#1 work@top | elems: constant#68 constant#68
+-- DEFPAT/p05_explicit_import law13
+array_expr#31 <param_assign#30  <package#19 pk <design#1 work@top | elems: constant#32 constant#32
+array_expr#45 <param_assign#44  <module_inst#33  <design#1 work@top | elems: constant#46 constant#47
+array_expr#68 <param_assign#67  <module_inst#59 work@top <design#1 work@top | elems: constant#69 constant#70
+-- DEFPAT/p06_unsized_ones gold/golden
+array_expr#50 <param_assign#20  <package#1 pk <design#150 work@top | elems: constant#45 constant#45
+array_expr#115 <param_assign#114  <module_inst#151  <design#150 work@top | elems: constant#116 constant#117
+array_expr#139 <param_assign#145  <module_inst#157 work@top <design#150 work@top | elems: constant#140 constant#141
+-- DEFPAT/p06_unsized_ones pris
+array_expr#31 <param_assign#30  <package#19 pk <design#1 work@top | elems: constant#32 constant#32
+array_expr#45 <param_assign#44  <module_inst#33  <design#1 work@top | elems: constant#46 constant#46
+array_expr#67 <param_assign#66  <module_inst#58 work@top <design#1 work@top | elems: constant#68 constant#68
+-- DEFPAT/p06_unsized_ones law13
+array_expr#31 <param_assign#30  <package#19 pk <design#1 work@top | elems: constant#32 constant#32
+array_expr#45 <param_assign#44  <module_inst#33  <design#1 work@top | elems: constant#46 constant#47
+array_expr#68 <param_assign#67  <module_inst#59 work@top <design#1 work@top | elems: constant#69 constant#70
+-- DEFPAT/p03_module_local_ctl gold/golden
+array_expr#38 <param_assign#40  <module_inst#64 u <module_inst#63 work@top | elems: constant#32 constant#32
+-- DEFPAT/p03_module_local_ctl pris
+array_expr#50 <param_assign#49  <module_inst#41 u <module_inst#33 work@top | elems: constant#51 constant#51
+-- DEFPAT/p03_module_local_ctl law13
+array_expr#50 <param_assign#49  <module_inst#41 u <module_inst#33 work@top | elems: constant#51 constant#51
+
+## ARR: whole-reference bindings (uhdm-dump; strict is blind where both targets were already walked)
+-- ARR/a01_unpacked2d gold/golden
+      1 \_var_select: (work@top.pa), line:7:5, endln:7:13
+-- ARR/a01_unpacked2d pris
+      1 \_logic_net: (work@top.pa), line:4:9, endln:4:11
+-- ARR/a01_unpacked2d law13
+      1 \_var_select: (work@top.pa), line:7:5, endln:7:13
+-- ARR/a07_ff_nonblocking gold/golden
+      1 \_bit_select: (work@top.v), line:5:5, endln:5:9
+-- ARR/a07_ff_nonblocking pris
+      1 \_logic_net: (work@top.v), line:3:15, endln:3:16
+-- ARR/a07_ff_nonblocking law13
+      1 \_bit_select: (work@top.v), line:5:5, endln:5:9
+-- ARR/a13_nb_varsel gold/golden
+      1 \_var_select: (work@top.pa), line:6:5, endln:6:13
+-- ARR/a13_nb_varsel pris
+      1 \_logic_net: (work@top.pa), line:3:9, endln:3:11
+-- ARR/a13_nb_varsel law13
+      1 \_var_select: (work@top.pa), line:6:5, endln:6:13
+-- ARR/a14_nb_sibling_begin gold/golden
+      1 \_logic_net: (work@top.arr), line:4:15, endln:4:18
+-- ARR/a14_nb_sibling_begin pris
+      1 \_logic_net: (work@top.arr), line:4:15, endln:4:18
+-- ARR/a14_nb_sibling_begin law13
+      1 \_logic_net: (work@top.arr), line:4:15, endln:4:18
+-- ARR/a15_nb_else_begin gold/golden
+      1 \_bit_select: (work@top.v), line:7:7, endln:7:11
+      1 \_logic_net: (work@top.v), line:3:15, endln:3:16
+-- ARR/a15_nb_else_begin pris
+      2 \_logic_net: (work@top.v), line:3:15, endln:3:16
+-- ARR/a15_nb_else_begin law13
+      1 \_bit_select: (work@top.v), line:7:7, endln:7:11
+      1 \_logic_net: (work@top.v), line:3:15, endln:3:16
+-- ARR/a16_nb_lfsr gold/golden
+      1 \_bit_select: (work@top.lfsr), line:6:5, endln:6:12
+-- ARR/a16_nb_lfsr pris
+      1 \_logic_net: (work@top.lfsr), line:4:15, endln:4:19
+-- ARR/a16_nb_lfsr law13
+      1 \_bit_select: (work@top.lfsr), line:6:5, endln:6:12
+-- ARR/a17_varsel_range gold/golden
+      1 \_var_select: (work@top.pa), line:7:5, endln:7:15
+-- ARR/a17_varsel_range pris
+      1 \_bit_select: (work@top.pa), line:9:5, endln:9:10
+-- ARR/a17_varsel_range law13
+      1 \_var_select: (work@top.pa), line:7:5, endln:7:15
+-- ARR/a18_nb_initial gold/golden
+      1 \_bit_select: (work@top.v), line:5:5, endln:5:9
+-- ARR/a18_nb_initial pris
+      1 \_logic_net: (work@top.v), line:3:15, endln:3:16
+-- ARR/a18_nb_initial law13
+      1 \_bit_select: (work@top.v), line:5:5, endln:5:9

@@ -1,0 +1,35 @@
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+surelog	default	BlackParrotComplex
+surelog	default	FuncStructVal
+surelog	default	FuncStructValSimple
+surelog	default	MiniAmiq
+surelog	default	Scoreboard
+surelog	default	StructParamFieldRange
+surelog	default	StructParamFuncBodyFieldCompare
+surelog	default	StructParamPatternInitCast
+surelog	testflags	BlackParrotComplex
+surelog	testflags	FuncStructVal
+surelog	testflags	FuncStructValSimple
+surelog	testflags	MiniAmiq
+surelog	testflags	SeqDriver
+surelog	testflags	SimpleUVM
+surelog	testflags	StructParamFieldRange
+surelog	testflags	StructParamFuncBodyFieldCompare
+surelog	testflags	StructParamPatternInitCast
+uhdm2rtlil	default	array_assign
+uhdm2rtlil	default	cva6_struct_param_field
+uhdm2rtlil	default	def_ctx_struct_param
+uhdm2rtlil	default	latch_decoder_partial
+uhdm2rtlil	default	latch_tlb_napot
+uhdm2rtlil	default	NestedStructArrayParameterInitializedByPatternPassedAsPort
+uhdm2rtlil	testflags	array_assign
+uhdm2rtlil	testflags	cva6_struct_param_field
+uhdm2rtlil	testflags	def_ctx_struct_param
+uhdm2rtlil	testflags	latch_decoder_partial
+uhdm2rtlil	testflags	latch_tlb_napot
+uhdm2rtlil	testflags	NestedStructArrayParameterInitializedByPatternPassedAsPort

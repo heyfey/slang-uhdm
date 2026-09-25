@@ -1,0 +1,15 @@
+// D2: the cast spelled with its package qualifier.
+package p;
+  typedef struct packed { logic [7:0] A; logic B; } cfg_t;
+  localparam cfg_t E = p::cfg_t'(0);
+  function automatic cfg_t mk();
+    cfg_t c;
+    c.A = 8;
+    c.B = 1'b1;
+    return c;
+  endfunction
+  localparam cfg_t D = mk();
+endpackage
+module top #(parameter p::cfg_t C = p::D) (output logic o);
+  assign o = C.B;
+endmodule

@@ -1,0 +1,12 @@
+# C3 grid with the pair-B scratch binary (law.patch at law10 + evidence/pairB_c3_scratch.patch; md5 6a73871d7ec8)
+c01_flat_port c3scratch cmp=0 strict=STRICT_EQUAL_332_objects head=STRICT_EQUAL_332_objects rc=0
+c02_nested_port c3scratch cmp=0 strict=STRICT_EQUAL_537_objects head=STRICT_EQUAL_537_objects rc=0
+c03_two_inst c3scratch cmp=0 strict=STRICT_EQUAL_430_objects head=STRICT_EQUAL_430_objects rc=0
+c04_deep_inst c3scratch cmp=0 strict=STRICT_EQUAL_350_objects head=STRICT_EQUAL_350_objects rc=0
+c05_nested_import_only c3scratch cmp=0 strict=STRICT_EQUAL_289_objects head=STRICT_EQUAL_289_objects rc=0
+c06_two_elem_ctl c3scratch cmp=255 strict=NOT_EQUAL_stage1 head=LHS: rc=0
+# the two corpus tests, both modes, same binary (verify_golden --filter)
+NestedStructArrayParameterInitializedByPatternPassedAsPort,default,CMP_EQUAL,,,equal
+NestedStructArrayParameterInitializedByPatternPassedAsPort,testflags,CMP_EQUAL,,,equal
+StructArrayParameterInitializedByPatternPassedAsPort,default,CMP_EQUAL,,,equal
+StructArrayParameterInitializedByPatternPassedAsPort,testflags,CMP_EQUAL,,,equal

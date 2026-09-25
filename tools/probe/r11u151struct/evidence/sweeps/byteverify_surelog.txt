@@ -1,0 +1,23 @@
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/BlackParrotComplex-85655aee/slang.uhdm  patched=4b56c419e883 pristine=5b51f34b2ec0
+MOVER ./default/DefaultPatternInt-f18dcc46/slang.uhdm  patched=59b57a406532 pristine=1665cfcadcba
+MOVER ./default/FuncStructVal-9244d8c4/slang.uhdm  patched=424300c0d771 pristine=9f37ad55d8fb
+MOVER ./default/FuncStructValSimple-7042c7a5/slang.uhdm  patched=d3200904e5e9 pristine=54ab50c04c2c
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=22f9f9a93fed pristine=eb427557552a
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=d68224124a65 pristine=a9abdb08245c
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=178eb4a41d23 pristine=ab6eb940dc40
+MOVER ./default/StructParamFieldRange-2f684d9b/slang.uhdm  patched=be4ff443a575 pristine=e1606a0d452b
+MOVER ./default/StructParamFuncBodyFieldCompare-8bdad600/slang.uhdm  patched=823b21e85c22 pristine=fda6318cc7b6
+MOVER ./default/StructParamPatternInitCast-cec842a1/slang.uhdm  patched=1c78d59cc17d pristine=552d2b907cfa
+MOVER ./testflags/BlackParrotComplex-85655aee/slang.uhdm  patched=91b44e7142c0 pristine=7b1840ba3a7c
+MOVER ./testflags/DefaultPatternInt-f18dcc46/slang.uhdm  patched=f9ce90b534ee pristine=27d4750dc048
+MOVER ./testflags/FuncStructVal-9244d8c4/slang.uhdm  patched=8422ebba7e40 pristine=2741c2572ac5
+MOVER ./testflags/FuncStructValSimple-7042c7a5/slang.uhdm  patched=3c2ec77e794c pristine=245352d037a0
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=cf6d4a4d30e7 pristine=6b365fd0554b
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=b39427d26bb0 pristine=3d927bdbf0cd
+MOVER ./testflags/StructParamFieldRange-2f684d9b/slang.uhdm  patched=be4ff443a575 pristine=e1606a0d452b
+MOVER ./testflags/StructParamFuncBodyFieldCompare-8bdad600/slang.uhdm  patched=823b21e85c22 pristine=fda6318cc7b6
+MOVER ./testflags/StructParamPatternInitCast-cec842a1/slang.uhdm  patched=1c78d59cc17d pristine=552d2b907cfa
+MOVERS: 19 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged

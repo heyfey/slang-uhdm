@@ -1,0 +1,160 @@
+===== array_assign.default
+#654 depth
+  A: 5	ref_obj	pb		work@top.pb	dut.sv	61	9	61	11		0		
+  B: 6	logic_net	pa		work@top.pa	dut.sv	53	11	53	13		0		
+objects 854 vs 857
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+===== array_assign.testflags
+#564 depth
+  A: 5	ref_obj	pb		work@top.pb	dut.sv	61	9	61	11		0		
+  B: 6	logic_net	pa		work@top.pa	dut.sv	53	11	53	13		0		
+objects 764 vs 767
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+===== BlackParrotComplex.default
+#878 depth
+  A: 2	param_assign				dut.sv	45	12	51	249				
+  B: 3	constant				dut.sv	40	68	40	102	553163846905791	50	UINT:553163846905791	9
+objects 939 vs 945
+fields: depth=1 type=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+===== BlackParrotComplex.testflags
+#878 depth
+  A: 2	param_assign				dut.sv	45	12	51	249				
+  B: 3	constant				dut.sv	40	68	40	102	553163846905791	50	UINT:553163846905791	9
+objects 939 vs 945
+fields: depth=1 type=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+===== DefaultPatternInt.default
+#207 depth
+  A: 6	constant				dut.sv	4	45	4	46	3	32	UINT:3	9
+  B: 5	parameter	V		work@top.V	dut.sv	4	25	4	26		1		
+objects 414 vs 412
+fields: depth=1 type=1 name=1 fullname=1 col=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+===== DefaultPatternInt.testflags
+#114 depth
+  A: 6	constant				dut.sv	4	45	4	46	3	32	UINT:3	9
+  B: 5	parameter	V		work@top.V	dut.sv	4	25	4	26		1		
+objects 321 vs 319
+fields: depth=1 type=1 name=1 fullname=1 col=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+===== def_ctx_struct_param.default
+#43 depth
+  A: 6	typespec_member	RVC			dut.sv	13	18	13	21				
+  B: 7	constant				dut.sv	28	14	28	16	32	64	UINT:32	9
+fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+===== def_ctx_struct_param.testflags
+#42 depth
+  A: 6	typespec_member	RVC			dut.sv	13	18	13	21				
+  B: 7	constant				dut.sv	28	14	28	16	32	64	UINT:32	9
+fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+===== latch_decoder_partial.default
+#43 depth
+  A: 6	typespec_member	RVH			dut.sv	11	18	11	21				
+  B: 7	constant				dut.sv	17	16	17	18	64	64	UINT:64	9
+fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+===== latch_decoder_partial.testflags
+#42 depth
+  A: 6	typespec_member	RVH			dut.sv	11	18	11	21				
+  B: 7	constant				dut.sv	17	16	17	18	64	64	UINT:64	9
+fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+===== latch_tlb_napot.default
+#43 depth
+  A: 6	typespec_member	SvnapotEn			dut.sv	11	18	11	27				
+  B: 7	constant				dut.sv	17	19	17	21	27	64	UINT:27	9
+fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+===== latch_tlb_napot.testflags
+#42 depth
+  A: 6	typespec_member	SvnapotEn			dut.sv	11	18	11	27				
+  B: 7	constant				dut.sv	17	19	17	21	27	64	UINT:27	9
+fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+===== NestedStructArrayParameterInitializedByPatternPassedAsPort.default
+#443 fullname
+  A: 5	ref_typespec					0	0	0	0		0		
+  B: 5	ref_typespec			work@top		0	0	0	0		0		
+#524 fullname
+  A: 6	ref_typespec					0	0	0	0		0		
+  B: 6	ref_typespec			work@top.u_hw_sel		0	0	0	0		0		
+#574 line
+  A: 4	operation				dut.sv	31	23	31	33		0		
+  B: 4	operation				dut.sv	12	49	18	5		0		
+#575 fullname
+  A: 5	ref_typespec			work@top.u_hw_sel.region_attrs_i		0	0	0	0		0		
+  B: 5	ref_typespec			work@top.u_hw_sel.u_hw_sel.region_attrs_i		0	0	0	0		0		
+fields: fullname=3 line=1 col=1 endline=1 endcol=1 objects_differing=4
+STRICT_NOTEQUAL fullname
+===== NestedStructArrayParameterInitializedByPatternPassedAsPort.testflags
+#353 fullname
+  A: 5	ref_typespec					0	0	0	0		0		
+  B: 5	ref_typespec			work@top		0	0	0	0		0		
+#434 fullname
+  A: 6	ref_typespec					0	0	0	0		0		
+  B: 6	ref_typespec			work@top.u_hw_sel		0	0	0	0		0		
+#484 line
+  A: 4	operation				dut.sv	31	23	31	33		0		
+  B: 4	operation				dut.sv	12	49	18	5		0		
+#485 fullname
+  A: 5	ref_typespec			work@top.u_hw_sel.region_attrs_i		0	0	0	0		0		
+  B: 5	ref_typespec			work@top.u_hw_sel.u_hw_sel.region_attrs_i		0	0	0	0		0		
+fields: fullname=3 line=1 col=1 endline=1 endcol=1 objects_differing=4
+STRICT_NOTEQUAL fullname
+===== StructArrayParameterInitializedByPatternPassedAsPort.default
+#390 line
+  A: 4	operation				dut.sv	23	23	23	33		0		
+  B: 4	operation				dut.sv	6	49	10	5		0		
+#391 fullname
+  A: 5	ref_typespec			work@top.u_hw_sel.region_attrs_i		0	0	0	0		0		
+  B: 5	ref_typespec			work@top.u_hw_sel.u_hw_sel.region_attrs_i		0	0	0	0		0		
+fields: fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=2
+STRICT_NOTEQUAL line
+===== StructArrayParameterInitializedByPatternPassedAsPort.testflags
+#300 line
+  A: 4	operation				dut.sv	23	23	23	33		0		
+  B: 4	operation				dut.sv	6	49	10	5		0		
+#301 fullname
+  A: 5	ref_typespec			work@top.u_hw_sel.region_attrs_i		0	0	0	0		0		
+  B: 5	ref_typespec			work@top.u_hw_sel.u_hw_sel.region_attrs_i		0	0	0	0		0		
+fields: fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=2
+STRICT_NOTEQUAL line
+===== StructParamFuncBodyFieldCompare.default
+#192 depth
+  A: 4	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+  B: 3	typespec_member	Flag			dut.sv	21	18	21	22				
+objects 923 vs 809
+fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+===== StructParamFuncBodyFieldCompare.testflags
+#192 depth
+  A: 4	constant				dut.sv	30	23	30	25	64	32	UINT:64	9
+  B: 3	typespec_member	Flag			dut.sv	21	18	21	22				
+objects 923 vs 809
+fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+===== StructParamPatternInitCast.default
+#67 fullname
+  A: 4	ref_typespec					0	0	0	0		0		
+  B: 4	ref_typespec			cfg_pkg		0	0	0	0		0		
+#77 depth
+  A: 4	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+  B: 2	struct_typespec	cfg_pkg::user_cfg_t			dut.sv	16	41	16	51				
+objects 477 vs 463
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL fullname
+===== StructParamPatternInitCast.testflags
+#67 fullname
+  A: 4	ref_typespec					0	0	0	0		0		
+  B: 4	ref_typespec			cfg_pkg		0	0	0	0		0		
+#77 depth
+  A: 4	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1
+  B: 2	struct_typespec	cfg_pkg::user_cfg_t			dut.sv	16	41	16	51				
+objects 477 vs 463
+fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL fullname

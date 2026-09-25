@@ -1,0 +1,168 @@
+CHANGE probe r11u109repro/grid/f1/b01_casts
+   pristine: objects 734 vs 674 fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : fields: fullname=8 endcol=5 objects_differing=13 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/b02_shl
+   pristine: objects 744 vs 684 fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : fields: fullname=9 col=1 endcol=6 objects_differing=15 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/b03_x32
+   pristine: objects 784 vs 697 fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : fields: fullname=9 col=1 endcol=6 objects_differing=15 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/b04_dec
+   pristine: objects 748 vs 688 fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : fields: fullname=9 col=1 endcol=6 objects_differing=15 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/c01_x64
+   pristine: objects 387 vs 373 fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=2 (walk diverged) STRICT_NOTEQUAL fullname 
+   law     : fields: fullname=10 col=2 endcol=7 objects_differing=17 STRICT_NOTEQUAL fullname 
+CHANGE probe r11u109repro/grid/f1/c02_x3
+   pristine: objects 339 vs 329 fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=2 (walk diverged) STRICT_NOTEQUAL fullname 
+   law     : fields: fullname=8 endcol=5 objects_differing=13 STRICT_NOTEQUAL fullname 
+CHANGE probe r11u109repro/grid/f1/c03_x8
+   pristine: objects 339 vs 329 fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=2 (walk diverged) STRICT_NOTEQUAL fullname 
+   law     : fields: fullname=8 endcol=5 objects_differing=13 STRICT_NOTEQUAL fullname 
+CHANGE probe r11u109repro/grid/f1/c04_x64cast
+   pristine: objects 339 vs 329 fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=2 (walk diverged) STRICT_NOTEQUAL fullname 
+   law     : fields: fullname=8 endcol=5 value=2 objects_differing=15 STRICT_NOTEQUAL fullname 
+CHANGE probe r11u109repro/grid/f1/c05_x3sub
+   pristine: objects 351 vs 341 fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=2 (walk diverged) STRICT_NOTEQUAL fullname 
+   law     : fields: fullname=9 col=1 endcol=6 objects_differing=15 STRICT_NOTEQUAL fullname 
+CHANGE probe r11u109repro/grid/f1/c06_x64plain
+   pristine: objects 339 vs 329 fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=2 (walk diverged) STRICT_NOTEQUAL fullname 
+   law     : fields: fullname=8 endcol=5 value=2 objects_differing=15 STRICT_NOTEQUAL fullname 
+CHANGE probe r11u109repro/grid/f1/f02_xlen32
+   pristine: objects 299 vs 293 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/f03_const_first
+   pristine: objects 287 vs 284 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/f04_const_after
+   pristine: objects 287 vs 284 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/f07_add
+   pristine: objects 303 vs 297 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/f08_shl
+   pristine: objects 303 vs 297 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/f09_unary
+   pristine: objects 301 vs 295 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/f11_vlen
+   pristine: objects 299 vs 293 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/f12_based
+   pristine: objects 299 vs 293 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/f17_param
+   pristine: objects 299 vs 293 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/f19_orcasts
+   pristine: objects 315 vs 306 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/f20_sub
+   pristine: objects 303 vs 297 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/f21_shlsub
+   pristine: objects 307 vs 301 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=5 col=1 endcol=6 objects_differing=11 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/f22_positional
+   pristine: objects 293 vs 287 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/f24_shladd
+   pristine: objects 307 vs 301 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=5 col=1 endcol=6 objects_differing=11 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/p01_base
+   pristine: objects 299 vs 293 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/p02_noread
+   pristine: objects 285 vs 279 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/p03_ready
+   pristine: objects 289 vs 281 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : objects 289 vs 287 fields: type=1 name=1 fullname=4 line=1 col=1 endline=1 endcol=6 decompile=1 size=1 value=1 consttype=1 objects_differing=10 (walk diverged) STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/p04_three
+   pristine: objects 362 vs 353 fields: type=1 name=1 fullname=3 line=1 col=1 endline=1 endcol=3 objects_differing=6 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=6 endcol=5 objects_differing=11 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/p05_reorder
+   pristine: objects 299 vs 293 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE probe r11u109repro/grid/f1/p09_shift
+   pristine: objects 347 vs 335 fields: type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=6 col=2 endcol=7 objects_differing=13 STRICT_NOTEQUAL endcol 
+CONVERSION surelog default BlackParrotComplex
+   pristine: objects 939 vs 945 fields: depth=1 type=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : STRICT_EQUAL 939 objects 
+CONVERSION surelog testflags BlackParrotComplex
+   pristine: objects 939 vs 945 fields: depth=1 type=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : STRICT_EQUAL 939 objects 
+CONVERSION surelog default DefaultPatternInt
+   pristine: objects 414 vs 412 fields: depth=1 type=1 name=1 fullname=1 col=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : STRICT_EQUAL 414 objects 
+CONVERSION surelog testflags DefaultPatternInt
+   pristine: objects 321 vs 319 fields: depth=1 type=1 name=1 fullname=1 col=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : STRICT_EQUAL 321 objects 
+CHANGE surelog default FuncStructVal
+   pristine: objects 18222 vs 16134 fields: depth=1 type=1 name=1 fullname=10 file=144 line=153 col=153 endline=153 endcol=155 decompile=1 size=1 value=1 consttype=1 objects_differing=165 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : objects 18222 vs 17934 fields: depth=1 type=1 name=1 fullname=14 file=180 line=191 col=191 endline=191 endcol=193 size=1 objects_differing=207 (walk diverged) STRICT_NOTEQUAL endcol 
+CHANGE surelog testflags FuncStructVal
+   pristine: objects 45362 vs 43270 fields: depth=1 type=1 name=1 fullname=20 file=324 line=355 col=355 endline=355 endcol=357 decompile=1 size=1 value=1 consttype=1 objects_differing=377 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : objects 45362 vs 46057 fields: depth=1 type=1 fullname=18 file=314 line=344 col=344 endline=344 endcol=345 decompile=1 size=1 value=1 consttype=1 objects_differing=363 (walk diverged) STRICT_NOTEQUAL endcol 
+CHANGE surelog default FuncStructValSimple
+   pristine: objects 669 vs 657 fields: depth=1 type=1 fullname=12 file=12 line=14 col=14 endline=14 endcol=14 decompile=1 size=1 value=1 consttype=1 objects_differing=25 (walk diverged) STRICT_NOTEQUAL file 
+   law     : fields: fullname=21 file=20 line=21 col=21 endline=21 endcol=21 objects_differing=42 STRICT_NOTEQUAL file 
+CHANGE surelog testflags FuncStructValSimple
+   pristine: objects 780 vs 753 fields: depth=1 type=1 fullname=17 file=17 line=19 col=19 endline=19 endcol=19 decompile=1 size=1 value=1 consttype=1 objects_differing=35 (walk diverged) STRICT_NOTEQUAL file 
+   law     : fields: fullname=31 file=30 line=31 col=31 endline=31 endcol=31 objects_differing=62 STRICT_NOTEQUAL file 
+CHANGE surelog default StructParamFieldRange
+   pristine: objects 389 vs 383 fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endline=3 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE surelog testflags StructParamFieldRange
+   pristine: objects 389 vs 383 fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endline=3 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE surelog default StructParamFuncBodyFieldCompare
+   pristine: objects 923 vs 809 fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : fields: fullname=10 col=2 endline=3 endcol=7 objects_differing=17 STRICT_NOTEQUAL endcol 
+CHANGE surelog testflags StructParamFuncBodyFieldCompare
+   pristine: objects 923 vs 809 fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : fields: fullname=10 col=2 endline=3 endcol=7 objects_differing=17 STRICT_NOTEQUAL endcol 
+CHANGE surelog default StructParamPatternInitCast
+   pristine: objects 477 vs 463 fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=2 (walk diverged) STRICT_NOTEQUAL fullname 
+   law     : fields: fullname=10 col=2 endline=3 endcol=7 objects_differing=17 STRICT_NOTEQUAL fullname 
+CHANGE surelog testflags StructParamPatternInitCast
+   pristine: objects 477 vs 463 fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=2 (walk diverged) STRICT_NOTEQUAL fullname 
+   law     : fields: fullname=10 col=2 endline=3 endcol=7 objects_differing=17 STRICT_NOTEQUAL fullname 
+CONVERSION uhdm2rtlil default array_assign
+   pristine: objects 854 vs 857 fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : STRICT_EQUAL 854 objects 
+CONVERSION uhdm2rtlil testflags array_assign
+   pristine: objects 764 vs 767 fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : STRICT_EQUAL 764 objects 
+CONVERSION uhdm2rtlil default def_ctx_struct_param
+   pristine: fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : STRICT_EQUAL 814 objects 
+CONVERSION uhdm2rtlil testflags def_ctx_struct_param
+   pristine: fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : STRICT_EQUAL 724 objects 
+CONVERSION uhdm2rtlil default latch_decoder_partial
+   pristine: fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : STRICT_EQUAL 952 objects 
+CONVERSION uhdm2rtlil testflags latch_decoder_partial
+   pristine: fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : STRICT_EQUAL 862 objects 
+CONVERSION uhdm2rtlil default latch_tlb_napot
+   pristine: fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : STRICT_EQUAL 1024 objects 
+CONVERSION uhdm2rtlil testflags latch_tlb_napot
+   pristine: fields: depth=1 type=1 name=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) STRICT_NOTEQUAL depth 
+   law     : STRICT_EQUAL 934 objects 
+CHANGE uhdm2rtlil default NestedStructArrayParameterInitializedByPatternPassedAsPort
+   pristine: fields: fullname=3 line=1 col=1 endline=1 endcol=1 objects_differing=4 STRICT_NOTEQUAL fullname 
+   law     : fields: fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=2 STRICT_NOTEQUAL line 
+CHANGE uhdm2rtlil testflags NestedStructArrayParameterInitializedByPatternPassedAsPort
+   pristine: fields: fullname=3 line=1 col=1 endline=1 endcol=1 objects_differing=4 STRICT_NOTEQUAL fullname 
+   law     : fields: fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=2 STRICT_NOTEQUAL line 
+CHANGE uhdm2rtlil default cva6_struct_param_field
+   pristine: objects 389 vs 383 fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endline=3 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 
+CHANGE uhdm2rtlil testflags cva6_struct_param_field
+   pristine: objects 299 vs 293 fields: type=1 name=1 fullname=2 line=1 col=1 endline=2 endcol=3 objects_differing=5 (walk diverged) STRICT_NOTEQUAL endcol 
+   law     : fields: fullname=4 endline=3 endcol=5 objects_differing=9 STRICT_NOTEQUAL endcol 

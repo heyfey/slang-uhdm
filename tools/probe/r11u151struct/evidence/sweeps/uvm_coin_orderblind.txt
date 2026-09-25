@@ -1,0 +1,9 @@
+# UVM-family movers, order-blind uhdm-dump diff (sorted dumps, workdir paths normalised), pristine vs law13
+default MiniAmiq orderblind_lines=4 sizes=18873700 18873715
+testflags MiniAmiq orderblind_lines=4 sizes=18873716 18873716
+default Scoreboard orderblind_lines=0 sizes=11172997 11172997
+default SeqDriver orderblind_lines=4 sizes=18094730 18094846
+testflags SeqDriver orderblind_lines=4 sizes=18095206 18095250
+
+SeqDriver default, the 4 lines:
+> |UINT:0 / < |UINT:782 / > |vpiDecompile:0 / < |vpiDecompile:782
