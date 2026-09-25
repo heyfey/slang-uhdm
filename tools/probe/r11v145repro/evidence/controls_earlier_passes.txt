@@ -1,0 +1,82 @@
+# earlier passes' grids (tools/probe r11u11x-r11u14x, r11v*, v11u*; 2882 case dirs): pristine vs law bytes; movers judged against golden (rc.sh) and by dump distance (dd.sh)
+r11u111repro/grid/f5/e15_concat_plus pristine:rc=0:61585115d7 law:rc=0:752c9c6756
+r11u114repro/grid/f2/b11 pristine:rc=0:d71d902951 law:rc=0:d24a38f6ba
+r11u116repro/grid/f1/mv_n_ig pristine:rc=0:2cad2d34fe law:rc=0:8cadfcd345
+r11u117repro/grid/g3/b11 pristine:rc=0:a296e53979 law:rc=0:cd3dda81c3
+r11u117repro/grid/g3/r05 pristine:rc=0:f85a940191 law:rc=0:5991fc3f11
+r11u117repro/grid/g3/r02 pristine:rc=0:84c18f2165 law:rc=0:aa0955d9e6
+r11u117repro/grid/g3/r06 pristine:rc=0:a410bda46a law:rc=0:eb1d7cfdd4
+r11u137repro/grid/bt/bt03_param_bit_unsigned pristine:rc=0:280a4836a8 law:rc=0:f011b7af41
+r11u137repro/grid/bt/bt11_scalars_param pristine:rc=0:6db1378b81 law:rc=0:d2468a6906
+r11u13repro/b8 pristine:rc=0:6040caee52 law:rc=0:63f516e75d
+r11u140repro/dfl/d02_pkg_import pristine:rc=0:83524a8706 law:rc=0:3308046b72
+r11v131repro/par/b03_pkg_import_lit pristine:rc=0:9bec2a1cec law:rc=0:c970515cc1
+r11v131repro/par/b22_typed_pkg_import pristine:rc=0:b7aaf8474c law:rc=0:55bcbf23ae
+r11v133repro/hpm/b10_in_operation pristine:rc=0:4c0b90498e law:rc=0:73e1a7770a
+r11v140repro/pfp/b11_chain pristine:rc=0:633569fe5a law:rc=0:6687a846ab
+r11v140repro/plv/v07_basesel_opidx pristine:rc=0:20b72af775 law:rc=0:80f38953f4
+v11u111repro/brk/f1/x10_pkg_localparam_chain pristine:rc=0:8a2483b510 law:rc=0:a869837c6c
+v11u113repro/grid/f1/a07_pow pristine:rc=0:33141feb11 law:rc=0:650b94ceb4
+v11u113repro/grid/f1/a12_unsized_tick pristine:rc=0:2bdadf9b96 law:rc=0:1857f60ebd
+v11u114repro/grid/set1/d01 pristine:rc=0:84d35fd548 law:rc=0:689748d9dc
+v11u114repro/grid/set1/d09 pristine:rc=0:d7c9358cf7 law:rc=0:d697f2a57f
+v11u114repro/grid/set1/d13 pristine:rc=0:d6a0ed8465 law:rc=0:fa92cb054c
+v11u114repro/grid/set1/d14 pristine:rc=0:5eaeb3b0ec law:rc=0:3e28c7dd54
+v11u114repro/grid/set2/m05 pristine:rc=0:44910f8287 law:rc=0:38360acc6e
+
+# judged
+r11u114repro/grid/f2/b11 pristine rc=0 cmp=100 md5=d71d9029 | LHS: decompile: operation: , id:198, line:4:35, endln:4:51 |vpiParent: \_param_assign: , id:197, line:4:26, endln:4:51 |vpiOpType:24 |vpiOperand: \_operation: , id:199, line:4:35, endln:4:47   |vpiP
+r11u111repro/grid/f5/e15_concat_plus pristine rc=0 cmp=106 md5=61585115 | LHS: decompile: operation: , id:167, line:7:29, endln:7:50 |vpiParent: \_param_assign: , id:166, line:7:25, endln:7:50 |vpiOpType:24 |vpiOperand: \_operation: , id:168, line:7:29, endln:
+r11u111repro/grid/f5/e15_concat_plus law rc=0 cmp=106 md5=752c9c67 | LHS: decompile: operation: , id:167, line:7:29, endln:7:50 |vpiParent: \_param_assign: , id:166, line:7:25, endln:7:50 |vpiOpType:24 |vpiOperand: \_operation: , id:168, line:7:29, endln:7:43 
+r11u114repro/grid/f2/b11 law rc=0 cmp=100 md5=d24a38f6 | LHS: decompile: operation: , id:198, line:4:35, endln:4:51 |vpiParent: \_param_assign: , id:197, line:4:26, endln:4:51 |vpiOpType:24 |vpiOperand: \_operation: , id:199, line:4:35, endln:4:47   |vpiParent
+r11u116repro/grid/f1/mv_n_ig pristine rc=0 cmp=62 md5=2cad2d34 | LHS: decompile: constant: , id:79, line:1:41, endln:1:48 |vpiParent: \_param_assign: , id:78, line:1:37, endln:1:48 |vpiDecompile:32'hFFF |vpiSize:32 |HEX:FFF |vpiTypespec: \_ref_typespec: (work@
+r11u117repro/grid/g3/r05 pristine rc=0 cmp=100 md5=f85a9401 | LHS: decompile: operation: , id:471, line:4:35, endln:4:51 |vpiParent: \_param_assign: , id:470, line:4:26, endln:4:51 |vpiOpType:24 |vpiOperand: \_operation: , id:472, line:4:35, endln:4:47   |vpiP
+r11u116repro/grid/f1/mv_n_ig law rc=0 cmp=62 md5=8cadfcd3 | LHS: decompile: constant: , id:79, line:1:41, endln:1:48 |vpiParent: \_param_assign: , id:78, line:1:37, endln:1:48 |vpiDecompile:32'hFFF |vpiSize:32 |HEX:FFF |vpiTypespec: \_ref_typespec: (work@dut),
+r11u117repro/grid/g3/r05 law rc=0 cmp=100 md5=5991fc3f | LHS: decompile: operation: , id:471, line:4:35, endln:4:51 |vpiParent: \_param_assign: , id:470, line:4:26, endln:4:51 |vpiOpType:24 |vpiOperand: \_operation: , id:472, line:4:35, endln:4:47   |vpiParent
+r11u117repro/grid/g3/b11 pristine rc=0 cmp=100 md5=a296e539 | LHS: decompile: operation: , id:198, line:4:35, endln:4:51 |vpiParent: \_param_assign: , id:197, line:4:26, endln:4:51 |vpiOpType:24 |vpiOperand: \_operation: , id:199, line:4:35, endln:4:47   |vpiP
+r11u117repro/grid/g3/b11 law rc=0 cmp=100 md5=cd3dda81 | LHS: decompile: operation: , id:198, line:4:35, endln:4:51 |vpiParent: \_param_assign: , id:197, line:4:26, endln:4:51 |vpiOpType:24 |vpiOperand: \_operation: , id:199, line:4:35, endln:4:47   |vpiParent
+r11u117repro/grid/g3/r06 pristine rc=0 cmp=100 md5=a410bda4 | LHS: decompile: operation: , id:471, line:4:35, endln:4:51 |vpiParent: \_param_assign: , id:470, line:4:26, endln:4:51 |vpiOpType:24 |vpiOperand: \_operation: , id:472, line:4:35, endln:4:47   |vpiP
+r11u117repro/grid/g3/r02 pristine rc=0 cmp=100 md5=84c18f21 | LHS: decompile: operation: , id:471, line:4:35, endln:4:51 |vpiParent: \_param_assign: , id:470, line:4:26, endln:4:51 |vpiOpType:24 |vpiOperand: \_operation: , id:472, line:4:35, endln:4:47   |vpiP
+r11u117repro/grid/g3/r02 law rc=0 cmp=100 md5=aa0955d9 | LHS: decompile: operation: , id:471, line:4:35, endln:4:51 |vpiParent: \_param_assign: , id:470, line:4:26, endln:4:51 |vpiOpType:24 |vpiOperand: \_operation: , id:472, line:4:35, endln:4:47   |vpiParent
+r11u117repro/grid/g3/r06 law rc=0 cmp=100 md5=eb1d7cfd | LHS: decompile: operation: , id:471, line:4:35, endln:4:51 |vpiParent: \_param_assign: , id:470, line:4:26, endln:4:51 |vpiOpType:24 |vpiOperand: \_operation: , id:472, line:4:35, endln:4:47   |vpiParent
+r11u137repro/grid/bt/bt03_param_bit_unsigned pristine rc=0 cmp=0 md5=280a4836 | #4 endcol   A: 4	bit_typespec				dut.sv	3	13	3	16				   B: 4	bit_typespec				dut.sv	3	13	3	25				 fields: endcol=4 objects_differing=4 STRICT_NOTEQUAL endcol 
+r11u137repro/grid/bt/bt03_param_bit_unsigned law rc=0 cmp=0 md5=f011b7af | STRICT_EQUAL 45 objects 
+r11u137repro/grid/bt/bt11_scalars_param pristine rc=0 cmp=0 md5=6db1378b | #7 endcol   A: 4	logic_typespec				dut.sv	3	47	3	52				   B: 4	logic_typespec				dut.sv	3	47	3	61				 fields: endcol=8 objects_differing=8 STRICT_NOTEQUAL endcol 
+r11u137repro/grid/bt/bt11_scalars_param law rc=0 cmp=0 md5=d2468a69 | STRICT_EQUAL 115 objects 
+r11u140repro/dfl/d02_pkg_import pristine rc=0 cmp=34 md5=83524a87 | LHS: decompile: constant: , id:180, line:3:35, endln:3:36 |vpiParent: \_cont_assign: , id:176, line:7:10, endln:7:18 |vpiDecompile:5 |vpiSize:32 |UINT:5 |vpiConstType:9  decompile: constant: ,
+r11u140repro/dfl/d02_pkg_import law rc=0 cmp=34 md5=3308046b | LHS: decompile: constant: , id:180, line:3:35, endln:3:36 |vpiParent: \_cont_assign: , id:176, line:7:10, endln:7:18 |vpiDecompile:5 |vpiSize:32 |UINT:5 |vpiConstType:9  decompile: constant: , id:1
+r11v131repro/par/b03_pkg_import_lit pristine rc=0 cmp=20 md5=9bec2a1c | LHS: decompile: int_typespec: , id:89, line:4:3, endln:4:24 |vpiParent: \_ref_typespec: (work@top), id:88  decompile: int_typespec: , id:89, line:4:3, endln:4:24 |vpiParent: \_ref_typespec
+r11v131repro/par/b03_pkg_import_lit law rc=0 cmp=20 md5=c970515c | LHS: decompile: int_typespec: , id:89, line:4:3, endln:4:24 |vpiParent: \_ref_typespec: (work@top), id:88  decompile: int_typespec: , id:89, line:4:3, endln:4:24 |vpiParent: \_ref_typespec: (wo
+r11v131repro/par/b22_typed_pkg_import pristine rc=0 cmp=26 md5=b7aaf847 | LHS: decompile: constant: , id:155 |vpiDecompile:24 |vpiSize:32 |INT:24 |vpiConstType:7  decompile: constant: , id:155 |vpiDecompile:24 |vpiSize:32 |INT:24 |vpiConstType:7 RHS: decompile
+r11v131repro/par/b22_typed_pkg_import law rc=0 cmp=26 md5=55bcbf23 | LHS: decompile: constant: , id:155 |vpiDecompile:24 |vpiSize:32 |INT:24 |vpiConstType:7  decompile: constant: , id:155 |vpiDecompile:24 |vpiSize:32 |INT:24 |vpiConstType:7 RHS: decompile: con
+r11u13repro/b8 pristine rc=0 cmp=18 md5=6040caee | LHS: decompile: constant: , id:294, line:14:11, endln:14:13 |vpiParent: \_typespec_member: (A), id:291, line:9:18, endln:9:19 |vpiDecompile:32 |vpiSize:64 |UINT:32 |vpiConstType:9  decompile: constant: , id:29
+r11u13repro/b8 law rc=0 cmp=18 md5=63f516e7 | LHS: decompile: constant: , id:294, line:14:11, endln:14:13 |vpiParent: \_typespec_member: (A), id:291, line:9:18, endln:9:19 |vpiDecompile:32 |vpiSize:64 |UINT:32 |vpiConstType:9  decompile: constant: , id:294, li
+r11v133repro/hpm/b10_in_operation pristine rc=0 cmp=0 md5=4c0b9049 | #166 fullname   A: 7	ref_obj	r		work@dut.tbl[r + 1].f.sat[0].r	dut.sv	18	35	18	36		0		   B: 7	ref_obj	r		work@dut.r	dut.sv	18	35	18	36		0		 fields: fullname=3 objects_differing=3 STRICT_NOTEQ
+r11v133repro/hpm/b10_in_operation law rc=0 cmp=0 md5=73e1a777 | #265 fullname   A: 6	ref_obj	r		work@dut.tbl[r].f.valid.r	dut.sv	18	18	18	19		0		   B: 6	ref_obj	r		work@dut.r	dut.sv	18	18	18	19		0		 fields: fullname=2 objects_differing=2 STRICT_NOTEQUAL fullna
+r11v140repro/pfp/b11_chain pristine rc=0 cmp=0 md5=633569fe | #108 endcol   A: 4	constant				dut.sv	4	21	4	26	4	32	UINT:4	9   B: 4	constant				dut.sv	4	21	4	22	4	32	UINT:4	9 fields: endcol=1 objects_differing=1 STRICT_NOTEQUAL endcol 
+r11v140repro/pfp/b11_chain law rc=0 cmp=0 md5=6687a846 | STRICT_EQUAL 124 objects 
+r11v140repro/plv/v07_basesel_opidx pristine rc=0 cmp=0 md5=20b72af7 | #138 fullname   A: 8	ref_obj	r		work@dut.tbl[r ^ 1].sat[i].r	dut.sv	19	9	19	10		0		   B: 8	ref_obj	r		work@dut.r	dut.sv	19	9	19	10		0		 fields: fullname=2 objects_differing=2 STRICT_NOTEQUAL
+v11u111repro/brk/f1/x10_pkg_localparam_chain pristine rc=0 cmp=74 md5=8a2483b5 | LHS: decompile: constant: , id:78, line:4:29, endln:4:31 |vpiParent: \_param_assign: , id:54, line:4:24, endln:4:38 |vpiDecompile:3 |vpiSize:4 |UINT:3 |vpiTypespec: \_ref_typespec
+r11v140repro/plv/v07_basesel_opidx law rc=0 cmp=0 md5=80f38953 | STRICT_EQUAL 261 objects 
+v11u111repro/brk/f1/x10_pkg_localparam_chain law rc=0 cmp=74 md5=a869837c | LHS: decompile: constant: , id:78, line:4:29, endln:4:31 |vpiParent: \_param_assign: , id:54, line:4:24, endln:4:38 |vpiDecompile:3 |vpiSize:4 |UINT:3 |vpiTypespec: \_ref_typespec: (q)
+v11u113repro/grid/f1/a07_pow pristine rc=0 cmp=62 md5=33141feb | LHS: decompile: constant: , id:47, line:1:31, endln:1:32 |vpiParent: \_param_assign: , id:46, line:1:27, endln:1:35 |vpiDecompile:4 |vpiSize:32 |INT:4 |vpiTypespec: \_ref_typespec: (work@top), id
+v11u113repro/grid/f1/a07_pow law rc=0 cmp=62 md5=650b94ce | LHS: decompile: constant: , id:47, line:1:31, endln:1:32 |vpiParent: \_param_assign: , id:46, line:1:27, endln:1:35 |vpiDecompile:4 |vpiSize:32 |INT:4 |vpiTypespec: \_ref_typespec: (work@top), id:48  
+v11u113repro/grid/f1/a12_unsized_tick pristine rc=0 cmp=62 md5=2bdadf9b | LHS: decompile: constant: , id:22, line:1:40, endln:1:42 |vpiParent: \_param_assign: , id:11, line:1:36, endln:1:46 |vpiDecompile:1 |vpiSize:32 |UINT:1 |vpiTypespec: \_ref_typespec: (pk)
+v11u113repro/grid/f1/a12_unsized_tick law rc=0 cmp=62 md5=1857f60e | LHS: decompile: constant: , id:22, line:1:40, endln:1:42 |vpiParent: \_param_assign: , id:11, line:1:36, endln:1:46 |vpiDecompile:1 |vpiSize:32 |UINT:1 |vpiTypespec: \_ref_typespec: (pk), id:
+v11u114repro/grid/set1/d01 pristine rc=0 cmp=16 md5=84d35fd5 | LHS: decompile: ref_typespec: (work@top), id:85 |vpiParent: \_constant: , id:84, line:10:7, endln:10:8 |vpiFullName:work@top |vpiActual: \_logic_typespec: , id:86, line:4:13, endln:4:24  decompile:
+v11u114repro/grid/set1/d01 law rc=0 cmp=16 md5=689748d9 | LHS: decompile: ref_typespec: (work@top), id:85 |vpiParent: \_constant: , id:84, line:10:7, endln:10:8 |vpiFullName:work@top |vpiActual: \_logic_typespec: , id:86, line:4:13, endln:4:24  decompile: ref_
+v11u114repro/grid/set1/d09 pristine rc=0 cmp=100 md5=d7c9358c | LHS: decompile: operation: , id:71, line:4:29, endln:4:48 |vpiParent: \_param_assign: , id:70, line:4:25, endln:4:48 |vpiOpType:24 |vpiOperand: \_operation: , id:72, line:4:29, endln:4:41   |vpiPa
+v11u114repro/grid/set1/d09 law rc=0 cmp=100 md5=d697f2a5 | LHS: decompile: operation: , id:71, line:4:29, endln:4:48 |vpiParent: \_param_assign: , id:70, line:4:25, endln:4:48 |vpiOpType:24 |vpiOperand: \_operation: , id:72, line:4:29, endln:4:41   |vpiParent:
+v11u114repro/grid/set1/d13 pristine rc=0 cmp=16 md5=d6a0ed84 | LHS: decompile: ref_typespec: (work@top), id:85 |vpiParent: \_constant: , id:84, line:10:7, endln:10:8 |vpiFullName:work@top |vpiActual: \_logic_typespec: , id:86, line:4:13, endln:4:24  decompile:
+v11u114repro/grid/set1/d13 law rc=0 cmp=16 md5=fa92cb05 | LHS: decompile: ref_typespec: (work@top), id:85 |vpiParent: \_constant: , id:84, line:10:7, endln:10:8 |vpiFullName:work@top |vpiActual: \_logic_typespec: , id:86, line:4:13, endln:4:24  decompile: ref_
+v11u114repro/grid/set1/d14 pristine rc=0 cmp=16 md5=5eaeb3b0 | LHS: decompile: ref_typespec: (work@top), id:157 |vpiParent: \_constant: , id:156, line:10:7, endln:10:8 |vpiFullName:work@top |vpiActual: \_logic_typespec: , id:158, line:4:13, endln:4:24  decompi
+v11u114repro/grid/set1/d14 law rc=0 cmp=16 md5=3e28c7dd | LHS: decompile: ref_typespec: (work@top), id:157 |vpiParent: \_constant: , id:156, line:10:7, endln:10:8 |vpiFullName:work@top |vpiActual: \_logic_typespec: , id:158, line:4:13, endln:4:24  decompile: r
+v11u114repro/grid/set2/m05 pristine rc=0 cmp=100 md5=44910f82 | LHS: decompile: operation: , id:71, line:4:29, endln:4:49 |vpiParent: \_param_assign: , id:70, line:4:25, endln:4:49 |vpiOpType:28 |vpiOperand: \_operation: , id:72, line:4:29, endln:4:41   |vpiPa
+v11u114repro/grid/set2/m05 law rc=0 cmp=100 md5=38360acc | LHS: decompile: operation: , id:71, line:4:29, endln:4:49 |vpiParent: \_param_assign: , id:70, line:4:25, endln:4:49 |vpiOpType:28 |vpiOperand: \_operation: , id:72, line:4:29, endln:4:41   |vpiParent:
+
+# rc census over 2882 dirs x 2 binaries
+      2  
+   2835 rc=0 rc=0
+      1 rc=139 rc=139
+     16 rc=3 rc=3
+     30 rc=4 rc=4

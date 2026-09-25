@@ -1,0 +1,10 @@
+name,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail
+comb_dyn_2d_packed_sel,IDENTICAL,OK,OK,124,124,,
+cs_registers,IDENTICAL,OK,OK,149,149,,
+ibex_alu,IDENTICAL,OK,OK,1028,1028,,
+ibex_counter,IDENTICAL,OK,OK,129,129,,
+ibex_icache,IDENTICAL,OK,OK,3610,3610,,
+ibex_pmp,IDENTICAL,OK,OK,52,52,,
+int_types,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+mriscv_bind_sva,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+packed_struct_array_shift,IDENTICAL,OK,OK,54,54,,

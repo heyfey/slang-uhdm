@@ -8898,6 +8898,68 @@ static void trailSelIdxNames133(UHDM::bit_select* bs, const std::string& prefix,
         nm(ix, true);
 }
 
+// § unaryOperandParamOwnerName145 — the continuous assignment's LEFT-hand
+// side is a SELECT (`o[c] = a[c] & ~M`, `x[3:0] = ...`, `x[0] = ...`); a plain
+// reference lhs (`x = y & ~M`, BasicOh oh_dsync `assign dout = ... (~DELAY &
+// ...)`) keeps the generate scope's name.  Read from the syntax: the enclosing
+// assignment's left operand is a selected name (`o[c]`, IdentifierSelectName)
+// or an element select.
+static bool caLhsIsSelect145(const Expression& e) {
+    const slang::syntax::SyntaxNode* p = nullptr;
+    if (e.syntax)
+        p = e.syntax->parent;
+    for (; p; p = p->parent) {
+        if (p->kind == syntax::SyntaxKind::AssignmentExpression) {
+            auto lk = p->as<syntax::BinaryExpressionSyntax>().left->kind;
+            return lk == syntax::SyntaxKind::IdentifierSelectName ||
+                   lk == syntax::SyntaxKind::ElementSelectExpression;
+        }
+        if (p->kind == syntax::SyntaxKind::ContinuousAssign)
+            return false;
+    }
+    return false;
+}
+
+// § hpBaseSelOpIdxNamesByPath145 — THE REFERENCES INSIDE AN OPERATION THAT
+// INDEXES A PATH'S BASE SELECT ARE NAMED BY THE PATH.  `sd[D - 1].v = p` (a
+// process or continuous-assignment lvalue, and an rvalue alike): golden
+// `work@dut.sd[D - 1].v.D` (packed_struct_array_shift
+// `stack_d[DEPTH - 1].valid`), ours the scope's `work@dut.D`.  Census over
+// every judge-equal golden: every ref under an operation indexing a
+// hier_path's FIRST element (a bit_select) is named `<scope>.<path>.<name>`
+// (`<scope>::<path>::<name>` in a class method) outside the --elabuhdm and
+// second-package UVM views, which name it by the base select again.  A bare
+// index (`sd[i].v`) and the trailing select (§ hpTrailSelIdxNamesByPath133)
+// are left alone.  Grid tools/probe/r11u145repro/bso.  Switch:
+// R11U145_BASESELOP_OFF.
+static void baseSelOpIdxNames145(const std::string& prefix, const UHDM::hier_path* hp) {
+    static const bool on = r11u145On("R11U145_BASESELOP_OFF");
+    if (!on || !hp || hp->VpiName().empty() || !hp->Path_elems() ||
+        hp->Path_elems()->empty())
+        return;
+    auto* e0 = (*hp->Path_elems())[0];
+    if (!e0 || e0->UhdmType() != UHDM::uhdmbit_select)
+        return;
+    auto* ix = (UHDM::any*)((UHDM::bit_select*)e0)->VpiIndex();
+    if (!ix || ix->UhdmType() != UHDM::uhdmoperation)
+        return;
+    const std::string base = joinRef(prefix, hp->VpiName());
+    std::function<void(UHDM::any*)> nm = [&](UHDM::any* e) {
+        if (!e)
+            return;
+        if (e->UhdmType() == UHDM::uhdmref_obj) {
+            auto* r = (UHDM::ref_obj*)e;
+            r->VpiFullName(joinRef(base, r->VpiName()));
+        }
+        else if (e->UhdmType() == UHDM::uhdmoperation) {
+            if (auto* os = ((UHDM::operation*)e)->Operands())
+                for (auto* o : *os)
+                    nm(o);
+        }
+    };
+    nm(ix);
+}
+
 UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                                                  UHDM::BaseClass* parent,
                                                  const std::string& prefix, NetMap& netMap) {
@@ -9799,6 +9861,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     // the compiler REDUCED by its VALUE, not by its spelling.
     hpNameBareIdxFold69(hp);
     trailSelIdxNames133(trailIdx133, prefix, hp);  // § hpTrailSelIdxNamesByPath133
+    baseSelOpIdxNames145(prefix, hp);  // § hpBaseSelOpIdxNamesByPath145 SITE 1 of 2
     return hp;
 }
 
@@ -18599,6 +18662,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 setLoc(c8, expr.sourceRange);
                                 auto* rt8 = s.MakeRef_typespec();
                                 rt8->VpiFullName(prefix);
+                                // § lpPaCopyBoundOwnerName145 — the verbatim
+                                // copy of a DIRECT bound (the constant IS the
+                                // select's bound; one nested in a bound
+                                // operation keeps the select base) is
+                                // golden's param_assign constant itself
+                                // (parented at the param_assign), so its
+                                // ref_typespec is named by the scope that
+                                // DECLARES the parameter (ibex_counter
+                                // `counter_load[63:CounterWidth]`: golden
+                                // `work@ibex_counter`, not the select base
+                                // `...g_counter_narrow.counter_load`).  Grid
+                                // tools/probe/r11u145repro/lpb.  Switch:
+                                // R11U145_LPBOUNDOWN_OFF.
+                                // § lpBoundOperandKeepsBase145v — ...and only
+                                // when the select is the whole RHS: one that is
+                                // an operand keeps the select base (Rggen
+                                // `i_address[WIDTH-1:LSB] == BEGIN_ADDRESS`).
+                                // Switch: R11V145_LPOPND_OFF.
+                                if (parent &&
+                                    (parent->UhdmType() == UHDM::uhdmpart_select ||
+                                     parent->UhdmType() ==
+                                         UHDM::uhdmindexed_part_select) &&
+                                    !lpBoundOperandKeepsBase145v(parent))
+                                    if (auto own145 = paOwnerFullName145(pit8->second);
+                                        !own145.empty())
+                                        rt8->VpiFullName(own145);
                                 rt8->VpiParent(c8);
                                 // The pa Rhs constant's OWN ts ref may not be
                                 // resolved yet (a def-view share or an elab
@@ -18819,6 +18908,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     rt7->VpiFullName(genCaSelBasePfx.empty()
                                                          ? prefix
                                                          : genCaSelBasePfx);
+                                    // § unaryOperandParamOwnerName145 —
+                                    // SITE 1 of 2 (the param_assign copy).
+                                    if (auto own145 = unaryOperandOwnerName145(parent, caLhsIsSelect145(expr));
+                                        !own145.empty())
+                                        rt7->VpiFullName(own145);
                                     rt7->VpiParent(c7);
                                     if (auto* srt7 = src7->Typespec();
                                         srt7 && srt7->Actual_typespec())
@@ -18846,6 +18940,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         rt8->VpiFullName(genCaSelBasePfx.empty()
                                              ? prefix
                                              : genCaSelBasePfx);
+                        // § unaryOperandParamOwnerName145 — SITE 2 of 2 (the
+                        // mint).
+                        if (auto own145 = unaryOperandOwnerName145(parent, caLhsIsSelect145(expr));
+                            !own145.empty())
+                            rt8->VpiFullName(own145);
                         rt8->VpiParent(c8);
                         auto* its8 = s.MakeInt_typespec();
                         bool typed8 = false;
@@ -30596,6 +30695,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // the compiler REDUCED by its VALUE, not by its spelling.
                 hpNameBareIdxFold69(hp);
                 trailSelIdxNames133(trailIdx133b, prefix, hp);  // § hpTrailSelIdxNamesByPath133
+                baseSelOpIdxNames145(prefix, hp);  // § hpBaseSelOpIdxNamesByPath145 SITE 2 of 2
                 return hp;
             }
             // Nested element selects (unpacked arrays) flatten to a
@@ -33292,14 +33392,37 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             inPsRangeBound = true;
             // § genLpUseFoldParentScope47 — CALL SITE 4 of 4: the
             // whole-variable simple part-select (`d[LPA : 0]`).
+            // § psBoundBareRefByBase145 — a BARE reference that IS a simple
+            // part-select bound and STAYS a reference (`a[W:L]`) is named by
+            // the select base too (golden `work@dut.a.L`); a bound the
+            // emitter folds to a constant keeps its own naming.  Census over
+            // every judge-equal golden: 3591 bare simple part-select bound
+            // references named `<select>.<name>`, none by the scope alone
+            // outside a class method's `::` path and a hier_path member
+            // select (another site).  Grid tools/probe/r11u145repro/psb.
+            // Switch: R11U145_PSBAREREF_OFF.
+            auto bareRefByBase145 = [&](const Expression& e, UHDM::any* o) {
+                if (!o || o->UhdmType() != UHDM::uhdmref_obj ||
+                    !psBoundBareRefByBase145On() || currentSubSym || inParamInit ||
+                    genCaLhsParamFold ||
+                    stripImplicitConv(e).kind != ExpressionKind::NamedValue)
+                    return;
+                auto* r145 = (UHDM::ref_obj*)o;
+                if (r145->VpiParent() == psel)
+                    r145->VpiFullName(joinRef(basePfx, r145->VpiName()));
+            };
             if (auto* lf47 = genLpUseFoldBound47(rs.left(), prefix))
                 psel->Left_range(lf47);
-            else if (auto* l = emitExpr(rs.left(), psel, boundPfx(rs.left()), netMap))
+            else if (auto* l = emitExpr(rs.left(), psel, boundPfx(rs.left()), netMap)) {
+                bareRefByBase145(rs.left(), l);
                 psel->Left_range((UHDM::expr*)l);
+            }
             if (auto* rf47 = genLpUseFoldBound47(rs.right(), prefix))
                 psel->Right_range(rf47);
-            else if (auto* r = emitExpr(rs.right(), psel, boundPfx(rs.right()), netMap))
+            else if (auto* r = emitExpr(rs.right(), psel, boundPfx(rs.right()), netMap)) {
+                bareRefByBase145(rs.right(), r);
                 psel->Right_range((UHDM::expr*)r);
+            }
             inPsRangeBound = savedPsR;
             inPsBound = false;
             suppressConstParent = savedSup2;

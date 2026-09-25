@@ -1,0 +1,8 @@
+R11U145_OFF=1: byte-identical to pristine on 52 of 52 cases; the law binary differs from pristine on 36
+R11U145_DEFFILLIMP_OFF moves: dfi/i01_func_body dfi/i02_unused_import dfi/i03_static_func
+R11U145_UNSPARAMTS_OFF moves: usp/u01 usp/u02 usp/u03 usp/u04 usp/u07 usp/u08
+R11U145_PSBAREREF_OFF moves: psb/p02 psb/r01 psb/r02 psb/r03 psb/r06 psb/r07
+R11U145_UNARYOWN_OFF moves: uop/t02 uop/t10 uop/t11 uop/t12 uop/t16 uop/w01_untyped_port uop/w11_lhs_bitsel uop/w16_lhs_partsel uop/w17_lhs_packed_bit
+R11U145_LPBOUNDOWN_OFF moves: lpb/l01 lpb/l03 lpb/l06 lpb/r08
+R11U145_BASESELOP_OFF moves: bso/b01 bso/b03 bso/b04 bso/b05
+R11U145_IMPARITH_OFF moves: iaw/ae1 iaw/ae4 iaw/q02 iaw/q06

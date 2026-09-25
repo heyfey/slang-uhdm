@@ -1,0 +1,13 @@
+brk/bso/x19_port_conn pristine:dist=43,cmp=a87ce2 law:dist=39,cmp=7def74
+brk/bso/x20_this_class pristine:dist=45,cmp=d33457 law:dist=41,cmp=d33457
+brk/dfi/x01_explicit_import pristine:dist=95,cmp=2c2211 law:dist=71,cmp=2c2211
+brk/dfi/x03_two_insts pristine:dist=471,cmp=ea92bd law:dist=485,cmp=ea92bd
+brk/dfi/x04_pkg_imports_pkg pristine:dist=306,cmp=0a9295 law:dist=290,cmp=0a9295
+brk/dfi/x05_local_and_import_ctl pristine:dist=156,cmp=2f2616 law:dist=144,cmp=2f2616
+brk/dfi/x06_struct_elem pristine:dist=660,cmp=dc144f law:dist=668,cmp=dc144f
+brk/iaw/x04_compare_op pristine:dist=41,cmp=43c847 law:dist=37,cmp=43c847
+brk/lpb/x03_param_inst pristine:dist=50,cmp=50a216 law:dist=42,cmp=50a216
+brk/psb/x06_port_conn pristine:dist=40,cmp=f9ebac law:dist=32,cmp=f9ebac
+brk/uop/x12_unary_top pristine:dist=24,cmp=c6aecc law:dist=24,cmp=9a502b
+brk/uop/x14_multidim_lhs pristine:dist=37,cmp=7dface law:dist=33,cmp=7dface
+brk/usp/x07_iface_param pristine:dist=26,cmp=c55574 law:dist=14,cmp=c55574

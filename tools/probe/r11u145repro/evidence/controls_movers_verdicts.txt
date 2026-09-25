@@ -1,0 +1,27 @@
+== r11v124repro/pv/v14_string
+v14_string pristine rc=3 cmp=8 | /tmp/r11u145_s/ours/48b8ff6e298a.uhdm: File does not exist!
+v14_string lawF rc=3 cmp=8 | /tmp/r11u145_s/ours/4b8a7adc2dc8.uhdm: File does not exist!
+== r11v124repro/qx/q08_string
+q08_string pristine rc=3 cmp=8 | /tmp/r11u145_s/ours/4303f743bf89.uhdm: File does not exist!
+q08_string lawF rc=3 cmp=8 | /tmp/r11u145_s/ours/93f5252ffbe6.uhdm: File does not exist!
+== r11v131repro/par/b03_pkg_import_lit
+b03_pkg_import_lit pristine rc=0 cmp=20 | NOT_EQUAL stage1
+b03_pkg_import_lit lawF rc=0 cmp=20 | NOT_EQUAL stage1
+== r11v131repro/par/b22_typed_pkg_import
+b22_typed_pkg_import pristine rc=0 cmp=26 | NOT_EQUAL stage1
+b22_typed_pkg_import lawF rc=0 cmp=26 | NOT_EQUAL stage1
+== r11v133repro/hpm/b10_in_operation
+b10_in_operation pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+b10_in_operation lawF rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+== r11u140repro/dfl/d02_pkg_import
+d02_pkg_import pristine rc=0 cmp=34 | NOT_EQUAL stage1
+d02_pkg_import lawF rc=0 cmp=34 | NOT_EQUAL stage1
+== r11v140repro/pfp/b11_chain
+b11_chain pristine rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+b11_chain lawF rc=0 cmp=0 | STRICT_EQUAL 124 objects
+== r11v140repro/plv/v07_basesel_opidx
+v07_basesel_opidx pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+v07_basesel_opidx lawF rc=0 cmp=0 | STRICT_EQUAL 261 objects
+r11v131repro/par/b03_pkg_import_lit dump distance to golden: pristine=18 law=14
+r11v131repro/par/b22_typed_pkg_import dump distance to golden: pristine=18 law=14
+r11u140repro/dfl/d02_pkg_import dump distance to golden: pristine=94 law=70

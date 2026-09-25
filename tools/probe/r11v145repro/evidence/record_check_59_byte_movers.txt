@@ -1,0 +1,59 @@
+OK  surelog BasicOh default recs_identical=False fixed=20 new=0 divP=None divL=None orderblind_dumpdiff=56 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  surelog BlackBePipeInt default recs_identical=False fixed=0 new=0 divP=67 divL=67 orderblind_dumpdiff=56 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  surelog DefaultPatternInt default recs_identical=False fixed=0 new=0 divP=207 divL=None orderblind_dumpdiff=12 | P:STRICT_NOTEQUAL depth | L:STRICT_EQUAL 414 objects
+OK  surelog Earlgrey_0_1 default recs_identical=False fixed=0 new=0 divP=130430 divL=130430 orderblind_dumpdiff=564 | P:STRICT_NOTEQUAL line | L:STRICT_NOTEQUAL line
+OK  surelog GenCase default recs_identical=False fixed=4 new=0 divP=None divL=None orderblind_dumpdiff=12 | P:STRICT_NOTEQUAL endcol | L:STRICT_NOTEQUAL fullname
+OK  surelog GenCaseStmt default recs_identical=False fixed=4 new=0 divP=None divL=None orderblind_dumpdiff=12 | P:STRICT_NOTEQUAL endcol | L:STRICT_NOTEQUAL fullname
+OK  surelog HierPathStructTypespec default recs_identical=False fixed=3 new=0 divP=None divL=None orderblind_dumpdiff=12 | P:STRICT_NOTEQUAL col | L:STRICT_NOTEQUAL col
+OK  surelog MiniAmiq default recs_identical=False fixed=0 new=0 divP=2450 divL=2450 orderblind_dumpdiff=36 | P:STRICT_NOTEQUAL line | L:STRICT_NOTEQUAL line
+OK  surelog Rggen default recs_identical=False fixed=0 new=0 divP=469 divL=469 orderblind_dumpdiff=224 | P:STRICT_NOTEQUAL file | L:STRICT_NOTEQUAL file
+OK  surelog Scoreboard default recs_identical=False fixed=0 new=0 divP=2492 divL=2492 orderblind_dumpdiff=16 | P:STRICT_NOTEQUAL line | L:STRICT_NOTEQUAL line
+OK  surelog Scr1SvTests default recs_identical=False fixed=4 new=0 divP=16033 divL=16033 orderblind_dumpdiff=376 | P:STRICT_NOTEQUAL line | L:STRICT_NOTEQUAL line
+OK  surelog SeqDriver default recs_identical=False fixed=0 new=0 divP=2433 divL=2433 orderblind_dumpdiff=236 | P:STRICT_NOTEQUAL line | L:STRICT_NOTEQUAL line
+OK  surelog SimpleUVM default recs_identical=False fixed=0 new=0 divP=2484 divL=2484 orderblind_dumpdiff=220 | P:STRICT_NOTEQUAL line | L:STRICT_NOTEQUAL line
+OK  surelog YosysBigSimEllip default recs_identical=False fixed=97 new=0 divP=70374 divL=70374 orderblind_dumpdiff=10184 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  surelog YosysOldOpen default recs_identical=True fixed=0 new=0 divP=None divL=None orderblind_dumpdiff=0 | P:STRICT_NOTEQUAL line | L:STRICT_NOTEQUAL line
+OK  surelog BasicOh testflags recs_identical=False fixed=20 new=0 divP=None divL=None orderblind_dumpdiff=88 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  surelog BlackBePipeInt testflags recs_identical=False fixed=0 new=0 divP=66 divL=66 orderblind_dumpdiff=56 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  surelog DefaultPatternInt testflags recs_identical=False fixed=0 new=0 divP=114 divL=None orderblind_dumpdiff=12 | P:STRICT_NOTEQUAL depth | L:STRICT_EQUAL 321 objects
+OK  surelog Earlgrey_0_1 testflags recs_identical=False fixed=0 new=0 divP=131904 divL=131904 orderblind_dumpdiff=816 | P:STRICT_NOTEQUAL line | L:STRICT_NOTEQUAL line
+OK  surelog GenCase testflags recs_identical=False fixed=4 new=0 divP=None divL=None orderblind_dumpdiff=12 | P:STRICT_NOTEQUAL endcol | L:STRICT_NOTEQUAL fullname
+OK  surelog GenCaseStmt testflags recs_identical=False fixed=4 new=0 divP=None divL=None orderblind_dumpdiff=12 | P:STRICT_NOTEQUAL endcol | L:STRICT_NOTEQUAL fullname
+OK  surelog HierPathStructTypespec testflags recs_identical=False fixed=3 new=0 divP=None divL=None orderblind_dumpdiff=12 | P:STRICT_NOTEQUAL col | L:STRICT_NOTEQUAL col
+OK  surelog MiniAmiq testflags recs_identical=False fixed=0 new=0 divP=2450 divL=2450 orderblind_dumpdiff=36 | P:STRICT_NOTEQUAL line | L:STRICT_NOTEQUAL line
+OK  surelog Scr1SvTests testflags recs_identical=False fixed=4 new=0 divP=16033 divL=16033 orderblind_dumpdiff=376 | P:STRICT_NOTEQUAL line | L:STRICT_NOTEQUAL line
+OK  surelog SeqDriver testflags recs_identical=False fixed=0 new=0 divP=2445 divL=2445 orderblind_dumpdiff=232 | P:STRICT_NOTEQUAL line | L:STRICT_NOTEQUAL line
+OK  surelog SimpleUVM testflags recs_identical=False fixed=0 new=0 divP=2496 divL=2496 orderblind_dumpdiff=216 | P:STRICT_NOTEQUAL line | L:STRICT_NOTEQUAL line
+OK  surelog YosysOldOpen testflags recs_identical=True fixed=0 new=0 divP=None divL=None orderblind_dumpdiff=0 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil comb_dyn_2d_packed_sel default recs_identical=False fixed=2 new=0 divP=743 divL=743 orderblind_dumpdiff=4 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL depth
+OK  uhdm2rtlil ibex_alu default recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil ibex_branch_predict default recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil ibex_compressed_decoder default recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil ibex_counter default recs_identical=False fixed=1 new=0 divP=None divL=None orderblind_dumpdiff=4 | P:STRICT_NOTEQUAL fullname | L:STRICT_EQUAL 691 objects
+OK  uhdm2rtlil ibex_decoder default recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil ibex_icache default recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil ibex_multdiv_fast default recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil ibex_multdiv_slow default recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil ibex_pmp default recs_identical=False fixed=7 new=0 divP=13972 divL=13972 orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL file | L:STRICT_NOTEQUAL file
+OK  uhdm2rtlil ibex_tracer default recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil ibex_wb_stage default recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil int_types default recs_identical=False fixed=12 new=0 divP=None divL=None orderblind_dumpdiff=36 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil mriscv_bind_sva default recs_identical=False fixed=4 new=0 divP=None divL=None orderblind_dumpdiff=8 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil packed_struct_array_fifo default recs_identical=False fixed=0 new=0 divP=190 divL=190 orderblind_dumpdiff=8 | P:STRICT_NOTEQUAL endline | L:STRICT_NOTEQUAL endline
+OK  uhdm2rtlil packed_struct_array_shift default recs_identical=False fixed=4 new=0 divP=None divL=None orderblind_dumpdiff=8 | P:STRICT_NOTEQUAL fullname | L:STRICT_EQUAL 572 objects
+OK  uhdm2rtlil comb_dyn_2d_packed_sel testflags recs_identical=False fixed=2 new=0 divP=653 divL=653 orderblind_dumpdiff=4 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL depth
+OK  uhdm2rtlil ibex_alu testflags recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil ibex_branch_predict testflags recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil ibex_compressed_decoder testflags recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil ibex_counter testflags recs_identical=False fixed=1 new=0 divP=None divL=None orderblind_dumpdiff=4 | P:STRICT_NOTEQUAL fullname | L:STRICT_EQUAL 601 objects
+OK  uhdm2rtlil ibex_decoder testflags recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil ibex_icache testflags recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil ibex_multdiv_fast testflags recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil ibex_multdiv_slow testflags recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil ibex_pmp testflags recs_identical=False fixed=7 new=0 divP=13882 divL=13882 orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL file | L:STRICT_NOTEQUAL file
+OK  uhdm2rtlil ibex_tracer testflags recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil ibex_wb_stage testflags recs_identical=False fixed=7 new=0 divP=None divL=None orderblind_dumpdiff=28 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil int_types testflags recs_identical=False fixed=12 new=0 divP=None divL=None orderblind_dumpdiff=36 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil mriscv_bind_sva testflags recs_identical=False fixed=4 new=0 divP=None divL=None orderblind_dumpdiff=8 | P:STRICT_NOTEQUAL fullname | L:STRICT_NOTEQUAL fullname
+OK  uhdm2rtlil packed_struct_array_fifo testflags recs_identical=False fixed=0 new=0 divP=100 divL=100 orderblind_dumpdiff=8 | P:STRICT_NOTEQUAL endline | L:STRICT_NOTEQUAL endline
+OK  uhdm2rtlil packed_struct_array_shift testflags recs_identical=False fixed=4 new=0 divP=None divL=None orderblind_dumpdiff=8 | P:STRICT_NOTEQUAL fullname | L:STRICT_EQUAL 482 objects

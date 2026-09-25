@@ -79,8 +79,8 @@ BadLabel,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BadLabel/dut.
 BadLabel,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BadLabel/dut.sv:2:14: error: 'bad_pack' doesn't match previous name 'pack',,
 BadScope,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BadScope/dut.sv:17:5: error: use of undeclared identifier 'priv_lvl_e',,
 BadScope,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BadScope/dut.sv:17:5: error: use of undeclared identifier 'priv_lvl_e',,
-BasicOh,default,STRICT_NOTEQUAL,differ:fullname(51),,differ:fullname(51)
-BasicOh,testflags,STRICT_NOTEQUAL,differ:fullname(22),,differ:fullname(22)
+BasicOh,default,STRICT_NOTEQUAL,differ:fullname(31),,differ:fullname(31)
+BasicOh,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
 BeginKeywords,default,CMP_EQUAL,,,equal
 BeginKeywords,testflags,CMP_EQUAL,,,equal
 BiasValue,default,CMP_EQUAL,,,equal
@@ -335,8 +335,8 @@ DefaultNetType,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Default
 DefaultNetType,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/DefaultNetType/dut.sv:16:8: error: use of undeclared identifier 'b',,
 DefaultPatternAssign,default,CMP_EQUAL,,,equal
 DefaultPatternAssign,testflags,CMP_EQUAL,,,equal
-DefaultPatternInt,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
-DefaultPatternInt,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+DefaultPatternInt,default,CMP_EQUAL,,,equal
+DefaultPatternInt,testflags,CMP_EQUAL,,,equal
 DefaultPatternModule,default,CMP_EQUAL,,,equal
 DefaultPatternModule,testflags,CMP_EQUAL,,,equal
 DefaultTag,default,CMP_EQUAL,,,equal
@@ -555,10 +555,10 @@ GenBlock,default,CMP_EQUAL,,,equal
 GenBlock,testflags,CMP_EQUAL,,,equal
 GenBlockVar,default,CMP_EQUAL,,,equal
 GenBlockVar,testflags,CMP_EQUAL,,,equal
-GenCase,default,STRICT_NOTEQUAL,differ:endcol(8),,differ:endcol(8)
-GenCase,testflags,STRICT_NOTEQUAL,differ:endcol(8),,differ:endcol(8)
-GenCaseStmt,default,STRICT_NOTEQUAL,differ:endcol(8),,differ:endcol(8)
-GenCaseStmt,testflags,STRICT_NOTEQUAL,differ:endcol(8),,differ:endcol(8)
+GenCase,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+GenCase,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+GenCaseStmt,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+GenCaseStmt,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 GenerateAssigns,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenerateAssigns/top.v:25:21: error: expected ';',,
 GenerateAssigns,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenerateAssigns/top.v:25:21: error: expected ';',,
 GenerateBlock,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenerateBlock/dut.sv:6:25: error: member not allowed in generate block,,
@@ -647,8 +647,8 @@ HierPathSelect,default,CMP_EQUAL,,,equal
 HierPathSelect,testflags,CMP_EQUAL,,,equal
 HierPathStruct,default,CMP_EQUAL,,,equal
 HierPathStruct,testflags,CMP_EQUAL,,,equal
-HierPathStructTypespec,default,STRICT_NOTEQUAL,differ:col(4),,differ:col(4)
-HierPathStructTypespec,testflags,STRICT_NOTEQUAL,differ:col(4),,differ:col(4)
+HierPathStructTypespec,default,STRICT_NOTEQUAL,differ:col(1),,differ:col(1)
+HierPathStructTypespec,testflags,STRICT_NOTEQUAL,differ:col(1),,differ:col(1)
 HierPathTfArg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathTfArg/dut.sv:27:18: error: use of undeclared identifier 'f',,
 HierPathTfArg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathTfArg/dut.sv:27:18: error: use of undeclared identifier 'f',,
 HierPathTypespec,default,CMP_EQUAL,,,equal
@@ -1203,8 +1203,8 @@ Scoreboard,default,STRICT_NOTEQUAL,differ:line(194),,differ:line(194)
 Scoreboard,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scoreboard/testbench.sv:12:3: error: use of undeclared identifier 'my_scoreboard',,
 Scr1,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
 Scr1,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
-Scr1SvTests,default,STRICT_NOTEQUAL,differ:line(228),,differ:line(228)
-Scr1SvTests,testflags,STRICT_NOTEQUAL,differ:line(228),,differ:line(228)
+Scr1SvTests,default,STRICT_NOTEQUAL,differ:line(224),,differ:line(224)
+Scr1SvTests,testflags,STRICT_NOTEQUAL,differ:line(224),,differ:line(224)
 SelectHierPath,default,CMP_EQUAL,,,equal
 SelectHierPath,testflags,CMP_EQUAL,,,equal
 Selects,default,CMP_EQUAL,,,equal
@@ -1537,7 +1537,7 @@ YosysBigSimAes,default,CMP_EQUAL,,,equal
 YosysBigSimAes,testflags,CMP_EQUAL,,,equal
 YosysBigSimAmber23,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/amber23/rtl/a23_decode.v:175:24: error: expected a declaration name,,
 YosysBigSimAmber23,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/amber23/rtl/a23_decode.v:175:24: error: expected a declaration name,,
-YosysBigSimEllip,default,STRICT_NOTEQUAL,differ:fullname(3038),,differ:fullname(3038)
+YosysBigSimEllip,default,STRICT_NOTEQUAL,differ:fullname(2941),,differ:fullname(2941)
 YosysBigSimEllip,testflags,NO_DATABASE,test suppresses UHDM output,-noelab,
 YosysBigSimLm32,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/lm32/rtl/lm32_adder.v:56:8: error: design element does not have a time scale de,,
 YosysBigSimLm32,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/lm32/rtl/lm32_adder.v:56:8: error: design element does not have a time scale de,,

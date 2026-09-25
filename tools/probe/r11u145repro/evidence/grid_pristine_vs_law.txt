@@ -1,0 +1,104 @@
+bso/b01                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+bso/b01                                  lawF rc=0 cmp=0 | STRICT_EQUAL 168 objects
+bso/b03                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+bso/b03                                  lawF rc=0 cmp=0 | STRICT_EQUAL 172 objects
+bso/b04                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+bso/b04                                  lawF rc=0 cmp=0 | STRICT_EQUAL 178 objects
+bso/b05                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+bso/b05                                  lawF rc=0 cmp=0 | STRICT_EQUAL 139 objects
+bso/b06_bare_idx_ctl                     pristine rc=0 cmp=0 | STRICT_EQUAL 159 objects
+bso/b06_bare_idx_ctl                     lawF rc=0 cmp=0 | STRICT_EQUAL 159 objects
+dfi/i01_func_body                        pristine rc=0 cmp=0 | STRICT_NOTEQUAL depth
+dfi/i01_func_body                        lawF rc=0 cmp=0 | STRICT_NOTEQUAL type
+dfi/i02_unused_import                    pristine rc=0 cmp=0 | STRICT_NOTEQUAL depth
+dfi/i02_unused_import                    lawF rc=0 cmp=0 | STRICT_EQUAL 120 objects
+dfi/i03_static_func                      pristine rc=0 cmp=0 | STRICT_NOTEQUAL depth
+dfi/i03_static_func                      lawF rc=0 cmp=0 | STRICT_NOTEQUAL type
+dfi/i04_local_ctl                        pristine rc=0 cmp=0 | STRICT_NOTEQUAL file
+dfi/i04_local_ctl                        lawF rc=0 cmp=0 | STRICT_NOTEQUAL file
+iaw/ae1                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+iaw/ae1                                  lawF rc=0 cmp=0 | STRICT_EQUAL 107 objects
+iaw/ae4                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+iaw/ae4                                  lawF rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+iaw/q02                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+iaw/q02                                  lawF rc=0 cmp=0 | STRICT_NOTEQUAL value
+iaw/q06                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+iaw/q06                                  lawF rc=0 cmp=0 | STRICT_NOTEQUAL value
+lpb/l01                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+lpb/l01                                  lawF rc=0 cmp=0 | STRICT_EQUAL 103 objects
+lpb/l02_bitsel_ctl                       pristine rc=0 cmp=0 | STRICT_EQUAL 95 objects
+lpb/l02_bitsel_ctl                       lawF rc=0 cmp=0 | STRICT_EQUAL 95 objects
+lpb/l03                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+lpb/l03                                  lawF rc=0 cmp=0 | STRICT_EQUAL 97 objects
+lpb/l05_bound_op_ctl                     pristine rc=0 cmp=0 | STRICT_EQUAL 101 objects
+lpb/l05_bound_op_ctl                     lawF rc=0 cmp=0 | STRICT_EQUAL 101 objects
+lpb/l06                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+lpb/l06                                  lawF rc=0 cmp=0 | STRICT_EQUAL 97 objects
+lpb/l07_bitsel_op_ctl                    pristine rc=0 cmp=0 | STRICT_EQUAL 99 objects
+lpb/l07_bitsel_op_ctl                    lawF rc=0 cmp=0 | STRICT_EQUAL 99 objects
+lpb/l08_concat_ctl                       pristine rc=0 cmp=0 | STRICT_EQUAL 107 objects
+lpb/l08_concat_ctl                       lawF rc=0 cmp=0 | STRICT_EQUAL 107 objects
+lpb/r08                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+lpb/r08                                  lawF rc=0 cmp=0 | STRICT_EQUAL 82 objects
+psb/p02                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+psb/p02                                  lawF rc=0 cmp=0 | STRICT_EQUAL 92 objects
+psb/r01                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+psb/r01                                  lawF rc=0 cmp=0 | STRICT_EQUAL 84 objects
+psb/r02                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+psb/r02                                  lawF rc=0 cmp=0 | STRICT_EQUAL 74 objects
+psb/r03                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+psb/r03                                  lawF rc=0 cmp=0 | STRICT_EQUAL 76 objects
+psb/r04_indexed_ctl                      pristine rc=0 cmp=0 | STRICT_EQUAL 70 objects
+psb/r04_indexed_ctl                      lawF rc=0 cmp=0 | STRICT_EQUAL 70 objects
+psb/r05_indexed_op_ctl                   pristine rc=0 cmp=0 | STRICT_EQUAL 96 objects
+psb/r05_indexed_op_ctl                   lawF rc=0 cmp=0 | STRICT_EQUAL 96 objects
+psb/r06                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+psb/r06                                  lawF rc=0 cmp=0 | STRICT_EQUAL 74 objects
+psb/r07                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+psb/r07                                  lawF rc=0 cmp=0 | STRICT_EQUAL 98 objects
+uop/t02                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+uop/t02                                  lawF rc=0 cmp=0 | STRICT_EQUAL 92 objects
+uop/t03_binary_ctl                       pristine rc=0 cmp=0 | STRICT_EQUAL 94 objects
+uop/t03_binary_ctl                       lawF rc=0 cmp=0 | STRICT_EQUAL 94 objects
+uop/t05_binary_ctl                       pristine rc=0 cmp=0 | STRICT_EQUAL 94 objects
+uop/t05_binary_ctl                       lawF rc=0 cmp=0 | STRICT_EQUAL 94 objects
+uop/t10                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+uop/t10                                  lawF rc=0 cmp=0 | STRICT_EQUAL 92 objects
+uop/t11                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+uop/t11                                  lawF rc=0 cmp=0 | STRICT_EQUAL 92 objects
+uop/t12                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+uop/t12                                  lawF rc=0 cmp=0 | STRICT_EQUAL 92 objects
+uop/t13_unary_of_op_ctl                  pristine rc=0 cmp=0 | STRICT_EQUAL 96 objects
+uop/t13_unary_of_op_ctl                  lawF rc=0 cmp=0 | STRICT_EQUAL 96 objects
+uop/t16                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+uop/t16                                  lawF rc=0 cmp=0 | STRICT_EQUAL 100 objects
+uop/w01_untyped_port                     pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+uop/w01_untyped_port                     lawF rc=0 cmp=0 | STRICT_EQUAL 92 objects
+uop/w07_child_plain_lhs_ctl              pristine rc=0 cmp=0 | STRICT_EQUAL 125 objects
+uop/w07_child_plain_lhs_ctl              lawF rc=0 cmp=0 | STRICT_EQUAL 125 objects
+uop/w10_plain_lhs_ctl                    pristine rc=0 cmp=0 | STRICT_EQUAL 71 objects
+uop/w10_plain_lhs_ctl                    lawF rc=0 cmp=0 | STRICT_EQUAL 71 objects
+uop/w11_lhs_bitsel                       pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+uop/w11_lhs_bitsel                       lawF rc=0 cmp=0 | STRICT_EQUAL 134 objects
+uop/w12_plain_lhs_ctl                    pristine rc=0 cmp=0 | STRICT_EQUAL 130 objects
+uop/w12_plain_lhs_ctl                    lawF rc=0 cmp=0 | STRICT_EQUAL 130 objects
+uop/w16_lhs_partsel                      pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+uop/w16_lhs_partsel                      lawF rc=0 cmp=0 | STRICT_EQUAL 138 objects
+uop/w17_lhs_packed_bit                   pristine rc=0 cmp=0 | STRICT_NOTEQUAL fullname
+uop/w17_lhs_packed_bit                   lawF rc=0 cmp=0 | STRICT_EQUAL 134 objects
+usp/u01                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+usp/u01                                  lawF rc=0 cmp=0 | STRICT_EQUAL 35 objects
+usp/u02                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+usp/u02                                  lawF rc=0 cmp=0 | STRICT_EQUAL 35 objects
+usp/u03                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+usp/u03                                  lawF rc=0 cmp=0 | STRICT_EQUAL 35 objects
+usp/u04                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+usp/u04                                  lawF rc=0 cmp=0 | STRICT_NOTEQUAL decompile
+usp/u05_dims_ctl                         pristine rc=0 cmp=0 | STRICT_EQUAL 56 objects
+usp/u05_dims_ctl                         lawF rc=0 cmp=0 | STRICT_EQUAL 56 objects
+usp/u06_signed_ctl                       pristine rc=0 cmp=0 | STRICT_EQUAL 35 objects
+usp/u06_signed_ctl                       lawF rc=0 cmp=0 | STRICT_EQUAL 35 objects
+usp/u07                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+usp/u07                                  lawF rc=0 cmp=0 | STRICT_EQUAL 53 objects
+usp/u08                                  pristine rc=0 cmp=0 | STRICT_NOTEQUAL endcol
+usp/u08                                  lawF rc=0 cmp=0 | STRICT_NOTEQUAL decompile

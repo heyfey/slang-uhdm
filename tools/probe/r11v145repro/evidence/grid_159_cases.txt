@@ -1,0 +1,161 @@
+# case | pristine | law (r11u145) | verified (r11u145 + § lpBoundOperandKeepsBase145v) | bytes law!=pristine | verified==pristine | R11U145_OFF on verified == pristine | R11V145_LPOPND_OFF == law
+# rc over all runs: {'0': 795} cases 159
+brk/bso/x01_rvalue | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/bso/x02_member_bitsel | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/bso/x03_nested_struct | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/bso/x04_var_index_op | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/bso/x05_ternary_idx | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/bso/x06_gen_scope | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | True | False | True | True
+brk/bso/x07_unpacked_array | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/bso/x08_in_function | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/bso/x09_sysfunc_idx_ctl | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | False | True | True | True
+brk/bso/x10_gen_def_view | STAGE1(cmp 178 lines) | STAGE1(cmp 178 lines) | STAGE1(cmp 178 lines) | False | True | True | True
+brk/bso/x11_class_method | STRICT_NOTEQUAL full | STRICT_NOTEQUAL endcol | STRICT_NOTEQUAL endcol | True | False | True | True
+brk/bso/x12_second_level_op_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+brk/bso/x13_unpacked_2d | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/bso/x14_bitsel_in_op | STRICT_NOTEQUAL ? | STRICT_NOTEQUAL ? | STRICT_NOTEQUAL ? | False | True | True | True
+brk/bso/x15_call_in_op | STRICT_NOTEQUAL endcol | STRICT_NOTEQUAL endcol | STRICT_NOTEQUAL endcol | False | True | True | True
+brk/bso/x16_member_in_op | STRICT_NOTEQUAL col | STRICT_NOTEQUAL col | STRICT_NOTEQUAL col | False | True | True | True
+brk/bso/x17_iface_array | STAGE1(cmp 30 lines) | STAGE1(cmp 30 lines) | STAGE1(cmp 30 lines) | False | True | True | True
+brk/bso/x18_nba | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/bso/x19_port_conn | STAGE1(cmp 272 lines) | STAGE1(cmp 272 lines) | STAGE1(cmp 272 lines) | True | False | True | True
+brk/bso/x20_this_class | STAGE1(cmp 76 lines) | STAGE1(cmp 76 lines) | STAGE1(cmp 76 lines) | True | False | True | True
+brk/dfi/x01_explicit_import | STAGE1(cmp 34 lines) | STAGE1(cmp 34 lines) | STAGE1(cmp 34 lines) | True | False | True | True
+brk/dfi/x02_header_import | STRICT_NOTEQUAL ? | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/dfi/x03_two_insts | STAGE1(cmp 70 lines) | STAGE1(cmp 70 lines) | STAGE1(cmp 70 lines) | True | False | True | True
+brk/dfi/x04_pkg_imports_pkg | STAGE1(cmp 186 lines) | STAGE1(cmp 186 lines) | STAGE1(cmp 186 lines) | True | False | True | True
+brk/dfi/x05_local_and_import_ctl | STAGE1(cmp 34 lines) | STAGE1(cmp 34 lines) | STAGE1(cmp 34 lines) | True | False | True | True
+brk/dfi/x06_struct_elem | STAGE1(cmp 70 lines) | STAGE1(cmp 70 lines) | STAGE1(cmp 70 lines) | True | False | True | True
+brk/dfi/x07_int_default_three | STRICT_NOTEQUAL ? | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/iaw/x01_mul_add | STRICT_NOTEQUAL endcol | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/iaw/x02_shift | STRICT_NOTEQUAL endcol | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/iaw/x03_explicit_import | STRICT_NOTEQUAL endcol | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/iaw/x04_compare_op | STAGE1(cmp 62 lines) | STAGE1(cmp 62 lines) | STAGE1(cmp 62 lines) | True | False | True | True
+brk/iaw/x05_header_import_ports | STRICT_NOTEQUAL endcol | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/iaw/x06_paren | STRICT_NOTEQUAL col | STRICT_NOTEQUAL col | STRICT_NOTEQUAL col | True | False | True | True
+brk/iaw/x07_child_inst | STRICT_NOTEQUAL endcol | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/iaw/x08_cast_init | STRICT_NOTEQUAL col | STRICT_NOTEQUAL col | STRICT_NOTEQUAL col | False | True | True | True
+brk/iaw/x09_qualified_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+brk/iaw/x10_untyped | STRICT_NOTEQUAL endcol | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/iaw/x11_localparam_pkg | STRICT_NOTEQUAL endcol | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/lpb/x01_indexed | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/lpb/x02_nested_gen_for | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/lpb/x03_param_inst | STAGE1(cmp 62 lines) | STAGE1(cmp 62 lines) | STAGE1(cmp 62 lines) | True | False | True | True
+brk/lpb/x04_interface | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/lpb/x05_indexed_minus | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/lpb/x06_gen_local_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+brk/lpb/x07_ps_in_compare | STRICT_EQUAL | STRICT_NOTEQUAL fullname | STRICT_EQUAL | True | True | True | True
+brk/lpb/x08_clog2_direct | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/lpb/x09_clog2_compare | STRICT_EQUAL | STRICT_NOTEQUAL fullname | STRICT_EQUAL | True | True | True | True
+brk/lpb/x10_ps_in_and | STRICT_EQUAL | STRICT_NOTEQUAL fullname | STRICT_EQUAL | True | True | True | True
+brk/lpb/x11_rggen_shape | STRICT_EQUAL | STRICT_NOTEQUAL fullname | STRICT_EQUAL | True | True | True | True
+brk/lpb/x12_ps_in_unary | STRICT_EQUAL | STRICT_NOTEQUAL fullname | STRICT_EQUAL | True | True | True | True
+brk/lpb/x13_ps_in_concat | STRICT_EQUAL | STRICT_NOTEQUAL fullname | STRICT_EQUAL | True | True | True | True
+brk/lpb/x14_ps_in_ternary | STRICT_EQUAL | STRICT_NOTEQUAL fullname | STRICT_EQUAL | True | True | True | True
+brk/lpb/x15_ips_in_compare | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | True | True | True | True
+brk/lpb/x16_lhs_select_direct | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/lpb/x17_left_bound_direct | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/lpb/x18_left_bound_operand | STRICT_EQUAL | STRICT_NOTEQUAL fullname | STRICT_EQUAL | True | True | True | True
+brk/lpb/x19_two_ps_operands | STRICT_EQUAL | STRICT_NOTEQUAL fullname | STRICT_EQUAL | True | True | True | True
+brk/psb/x01_always_comb | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/psb/x02_lhs_ps | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/psb/x03_port_param | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/psb/x04_in_function | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+brk/psb/x05_in_gen_for | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | False | True | True | True
+brk/psb/x06_port_conn | STAGE1(cmp 48 lines) | STAGE1(cmp 48 lines) | STAGE1(cmp 48 lines) | True | False | True | True
+brk/psb/x07_genvar_bound | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/psb/x08_if_cond | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/psb/x09_interface | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/psb/x10_var_bound_class | STAGE1(cmp 16 lines) | STAGE1(cmp 16 lines) | STAGE1(cmp 16 lines) | False | True | True | True
+brk/psb/x11_member_ps | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | False | True | True | True
+brk/psb/x12_multidim | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+brk/psb/x13_case_item | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/psb/x14_modport | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | False | True | True | True
+brk/psb/x15_mixed_bound | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/psb/x16_task | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+brk/psb/x17_pkg_param_bound | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | False | True | True | True
+brk/psb/x18_qualified_bound | STRICT_NOTEQUAL endcol | STRICT_NOTEQUAL endcol | STRICT_NOTEQUAL endcol | False | True | True | True
+brk/psb/x19_sva | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+brk/psb/x20_gen_if_proc | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | True | False | True | True
+brk/psb/x21_enum_bound | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/psb/x22_left_only | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/psb/x23_struct_param_bound | STRICT_NOTEQUAL col | STRICT_NOTEQUAL col | STRICT_NOTEQUAL col | False | True | True | True
+brk/psb/x24_genfor_ca_genvar | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/psb/x25_ps_in_index | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/psb/x26_ps_on_param | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/psb/x27_ps_in_param_init | STRICT_NOTEQUAL ? | STRICT_NOTEQUAL ? | STRICT_NOTEQUAL ? | False | True | True | True
+brk/uop/x01_minus | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/uop/x02_lnot | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/uop/x03_nested_gen | STAGE1(cmp 24 lines) | STAGE1(cmp 24 lines) | STAGE1(cmp 24 lines) | False | True | True | True
+brk/uop/x04_override_two | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/uop/x05_interface | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/uop/x06_localparam | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/uop/x07_unary_in_index | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/uop/x08_concat_lhs_ctl | STAGE1(cmp 30 lines) | STAGE1(cmp 30 lines) | STAGE1(cmp 30 lines) | False | True | True | True
+brk/uop/x09_member_lhs | STAGE1(cmp 30 lines) | STAGE1(cmp 30 lines) | STAGE1(cmp 30 lines) | False | True | True | True
+brk/uop/x10_genloop_idx | STAGE1(cmp 62 lines) | STAGE1(cmp 62 lines) | STAGE1(cmp 62 lines) | False | True | True | True
+brk/uop/x11_pkg_param | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | False | True | True | True
+brk/uop/x12_unary_top | STAGE1(cmp 58 lines) | STAGE1(cmp 58 lines) | STAGE1(cmp 58 lines) | True | False | True | True
+brk/uop/x13_unary_deep | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/uop/x14_multidim_lhs | STAGE1(cmp 30 lines) | STAGE1(cmp 30 lines) | STAGE1(cmp 30 lines) | True | False | True | True
+brk/uop/x15_no_gen_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+brk/uop/x16_gen_else | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/usp/x01_logic_unsigned | STRICT_NOTEQUAL endcol | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/usp/x02_port_param_override | STRICT_NOTEQUAL endcol | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/usp/x03_pkg_param | STRICT_NOTEQUAL endcol | STRICT_NOTEQUAL decompile | STRICT_NOTEQUAL decompile | True | False | True | True
+brk/usp/x04_unpacked_dim | STAGE1(cmp 34 lines) | STAGE1(cmp 34 lines) | STAGE1(cmp 34 lines) | False | True | True | True
+brk/usp/x05_reg_in_gen | STRICT_NOTEQUAL endcol | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+brk/usp/x06_bit_nosign_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+brk/usp/x07_iface_param | STAGE1(cmp 30 lines) | STAGE1(cmp 30 lines) | STAGE1(cmp 30 lines) | True | False | True | True
+impl/bso/b01 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/bso/b03 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/bso/b04 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/bso/b05 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/bso/b06_bare_idx_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+impl/dfi/i01_func_body | STRICT_NOTEQUAL ? | STRICT_NOTEQUAL ? | STRICT_NOTEQUAL ? | True | False | True | True
+impl/dfi/i02_unused_import | STRICT_NOTEQUAL ? | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/dfi/i03_static_func | STRICT_NOTEQUAL ? | STRICT_NOTEQUAL ? | STRICT_NOTEQUAL ? | True | False | True | True
+impl/dfi/i04_local_ctl | STRICT_NOTEQUAL file | STRICT_NOTEQUAL file | STRICT_NOTEQUAL file | False | True | True | True
+impl/iaw/ae1 | STRICT_NOTEQUAL endcol | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/iaw/ae4 | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | STRICT_NOTEQUAL fullname | True | False | True | True
+impl/iaw/q02 | STRICT_NOTEQUAL endcol | STRICT_NOTEQUAL value | STRICT_NOTEQUAL value | True | False | True | True
+impl/iaw/q06 | STRICT_NOTEQUAL endcol | STRICT_NOTEQUAL value | STRICT_NOTEQUAL value | True | False | True | True
+impl/lpb/l01 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/lpb/l02_bitsel_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+impl/lpb/l03 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/lpb/l05_bound_op_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+impl/lpb/l06 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/lpb/l07_bitsel_op_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+impl/lpb/l08_concat_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+impl/lpb/r08 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/psb/p02 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/psb/r01 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/psb/r02 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/psb/r03 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/psb/r04_indexed_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+impl/psb/r05_indexed_op_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+impl/psb/r06 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/psb/r07 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/uop/t02 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/uop/t03_binary_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+impl/uop/t05_binary_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+impl/uop/t10 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/uop/t11 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/uop/t12 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/uop/t13_unary_of_op_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+impl/uop/t16 | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/uop/w01_untyped_port | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/uop/w07_child_plain_lhs_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+impl/uop/w10_plain_lhs_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+impl/uop/w11_lhs_bitsel | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/uop/w12_plain_lhs_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+impl/uop/w16_lhs_partsel | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/uop/w17_lhs_packed_bit | STRICT_NOTEQUAL fullname | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/usp/u01 | STRICT_NOTEQUAL endcol | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/usp/u02 | STRICT_NOTEQUAL endcol | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/usp/u03 | STRICT_NOTEQUAL endcol | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/usp/u04 | STRICT_NOTEQUAL ? | STRICT_NOTEQUAL ? | STRICT_NOTEQUAL ? | True | False | True | True
+impl/usp/u05_dims_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+impl/usp/u06_signed_ctl | STRICT_EQUAL | STRICT_EQUAL | STRICT_EQUAL | False | True | True | True
+impl/usp/u07 | STRICT_NOTEQUAL endcol | STRICT_EQUAL | STRICT_EQUAL | True | False | True | True
+impl/usp/u08 | STRICT_NOTEQUAL endcol | STRICT_NOTEQUAL decompile | STRICT_NOTEQUAL decompile | True | False | True | True

@@ -1,0 +1,91 @@
+SAME-FEWER	probe/r10earl76repro/g2_orig76	differ:col(32) -> differ:col(18)	pristine #240 col	law #240 col
+EQUAL	probe/r10earl85repro/g3_ov85	differ:endcol(1) -> equal	pristine #438 endcol	law #None STRICT_EQUAL 589 objects
+EQUAL	probe/r10earl_repro/ll	differ:endcol(4) -> equal	pristine #244 endcol	law #None STRICT_EQUAL 311 objects
+LATER	probe/r10earl_repro/qj27	differ:col(2) -> differ:depth(1)	pristine #611 col	law #830 depth
+EQUAL	probe/r10earl_repro/wa	differ:endcol(5) -> equal	pristine #286 endcol	law #None STRICT_EQUAL 319 objects
+EQUAL	probe/r10earl_repro/wc24	differ:endcol(1) -> equal	pristine #345 endcol	law #None STRICT_EQUAL 452 objects
+EQUAL	probe/r10earl_repro/wd24	differ:fullname(2) -> equal	pristine #533 fullname	law #None STRICT_EQUAL 553 objects
+EQUAL	probe/r10earl_repro/wf	differ:endcol(6) -> equal	pristine #462 endcol	law #None STRICT_EQUAL 549 objects
+LATER	probe/r10uvm143repro/g143_c_index	differ:fullname(26) -> differ:endcol(23)	pristine #33 fullname	law #48 endcol
+EQUAL	probe/r10uvm201repro/g201_d_bodyimp	differ:endcol(1) -> equal	pristine #91 endcol	law #None STRICT_EQUAL 96 objects
+EQUAL	probe/r10uvm210repro/g210_c_pkgimp	differ:col(6) -> equal	pristine #426 col	law #None STRICT_EQUAL 481 objects
+EQUAL	probe/r10uvm210repro/g210_d_modimp	differ:endcol(1) -> equal	pristine #110 endcol	law #None STRICT_EQUAL 123 objects
+EQUAL	probe/r10uvm78repro/c3_constsel	differ:fullname(4) -> equal	pristine #67 fullname	law #None STRICT_EQUAL 161 objects
+SAME-FEWER	probe/r10uvm79repro/c2_idxkind	differ:file(11) -> differ:file(10)	pristine #12 file	law #12 file
+EQUAL	probe/r10v201repro/v201_i_explicit	differ:endcol(1) -> equal	pristine #87 endcol	law #None STRICT_EQUAL 102 objects
+EQUAL	probe/r10v210repro/v210_1_localparam	differ:endcol(1) -> equal	pristine #187 endcol	law #None STRICT_EQUAL 208 objects
+EQUAL	probe/r11u113repro/grid/b/b15_exprinit_ius	differ:endcol(1) -> equal	pristine #100 endcol	law #None STRICT_EQUAL 152 objects
+EQUAL	probe/r11u113repro/grid/v/v11_icache_shape	differ:endcol(1) -> equal	pristine #149 endcol	law #None STRICT_EQUAL 218 objects
+EQUAL	probe/r11u116repro/grid/f1/mh_b_ig	differ:fullname(1) -> equal	pristine #240 fullname	law #None STRICT_EQUAL 306 objects
+EQUAL	probe/r11u116repro/grid/f1/mh_d_ig	differ:fullname(1) -> equal	pristine #240 fullname	law #None STRICT_EQUAL 306 objects
+EQUAL	probe/r11u116repro/grid/f1/mh_h_ig	differ:fullname(1) -> equal	pristine #240 fullname	law #None STRICT_EQUAL 306 objects
+EQUAL	probe/r11u116repro/grid/f1/mh_n_ig	differ:fullname(1) -> equal	pristine #240 fullname	law #None STRICT_EQUAL 306 objects
+EQUAL	probe/r11u116repro/grid/f1/mh_o_ig	differ:fullname(1) -> equal	pristine #240 fullname	law #None STRICT_EQUAL 306 objects
+EQUAL	probe/r11u116repro/grid/f1/mh_u_ig	differ:fullname(1) -> equal	pristine #240 fullname	law #None STRICT_EQUAL 306 objects
+EQUAL	probe/r11u116repro/grid/f1/mh_x_ig	differ:fullname(1) -> equal	pristine #240 fullname	law #None STRICT_EQUAL 306 objects
+EQUAL	probe/r11u116repro/grid/f1/ml_b_ig	differ:fullname(1) -> equal	pristine #240 fullname	law #None STRICT_EQUAL 306 objects
+EQUAL	probe/r11u116repro/grid/f1/ml_d_ig	differ:fullname(1) -> equal	pristine #240 fullname	law #None STRICT_EQUAL 306 objects
+EQUAL	probe/r11u116repro/grid/f1/ml_h_ig	differ:fullname(1) -> equal	pristine #240 fullname	law #None STRICT_EQUAL 306 objects
+EQUAL	probe/r11u116repro/grid/f1/ml_n_ig	differ:fullname(1) -> equal	pristine #240 fullname	law #None STRICT_EQUAL 306 objects
+EQUAL	probe/r11u116repro/grid/f1/ml_o_ig	differ:fullname(1) -> equal	pristine #240 fullname	law #None STRICT_EQUAL 306 objects
+EQUAL	probe/r11u116repro/grid/f1/ml_u_ig	differ:fullname(1) -> equal	pristine #240 fullname	law #None STRICT_EQUAL 306 objects
+EQUAL	probe/r11u116repro/grid/f1/ml_x_ig	differ:fullname(1) -> equal	pristine #240 fullname	law #None STRICT_EQUAL 306 objects
+EQUAL	probe/r11u116repro/grid/f1/mu_b_ig	differ:fullname(1) -> equal	pristine #252 fullname	law #None STRICT_EQUAL 342 objects
+EQUAL	probe/r11u116repro/grid/f1/mu_h_ig	differ:fullname(1) -> equal	pristine #252 fullname	law #None STRICT_EQUAL 342 objects
+EQUAL	probe/r11u116repro/grid/f1/mu_n_ig	differ:fullname(1) -> equal	pristine #252 fullname	law #None STRICT_EQUAL 342 objects
+EQUAL	probe/r11u116repro/grid/f1/mu_o_ig	differ:fullname(1) -> equal	pristine #252 fullname	law #None STRICT_EQUAL 342 objects
+EQUAL	probe/r11u116repro/grid/f1/mu_u_ig	differ:fullname(1) -> equal	pristine #240 fullname	law #None STRICT_EQUAL 306 objects
+EQUAL	probe/r11u116repro/grid/f1/mv_b_ig	differ:fullname(1) -> equal	pristine #252 fullname	law #None STRICT_EQUAL 342 objects
+EQUAL	probe/r11u116repro/grid/f1/mv_d_ig	differ:fullname(1) -> equal	pristine #252 fullname	law #None STRICT_EQUAL 342 objects
+EQUAL	probe/r11u116repro/grid/f1/mv_h_ig	differ:fullname(1) -> equal	pristine #252 fullname	law #None STRICT_EQUAL 342 objects
+EQUAL	probe/r11u116repro/grid/f1/mv_o_ig	differ:fullname(1) -> equal	pristine #252 fullname	law #None STRICT_EQUAL 342 objects
+EQUAL	probe/r11u116repro/grid/f1/mv_u_ig	differ:fullname(1) -> equal	pristine #252 fullname	law #None STRICT_EQUAL 342 objects
+EQUAL	probe/r11u116repro/grid/f1/mv_x_ig	differ:fullname(1) -> equal	pristine #252 fullname	law #None STRICT_EQUAL 342 objects
+EQUAL	probe/r11v50repro/b4_width50	differ:endcol(11) -> equal	pristine #700 endcol	law #None STRICT_EQUAL 774 objects
+EQUAL	probe/v11u113repro/grid/f1/a08_div	differ:endcol(1) -> equal	pristine #73 endcol	law #None STRICT_EQUAL 121 objects
+EQUAL	probe/v11u113repro/grid/f1/a09_genfor_lp	differ:fullname(2) -> equal	pristine #113 fullname	law #None STRICT_EQUAL 147 objects
+EQUAL	probe/v11u113repro/grid/f1/a10_pkg_ref_other	differ:endcol(1) -> equal	pristine #104 endcol	law #None STRICT_EQUAL 152 objects
+EQUAL	probe/v11u113repro/grid/f1/a13_child_overridden_mod_uses_pkg	differ:fullname(2) -> equal	pristine #74 fullname	law #None STRICT_EQUAL 217 objects
+LATER	surelog/default/BasicOh	differ:fullname(51) -> differ:fullname(31)	pristine #603 fullname	law #644 fullname
+EQUAL	surelog/default/DefaultPatternInt	differ:depth(1) -> equal	pristine #207 depth	law #None STRICT_EQUAL 414 objects
+LATER	surelog/default/GenCase	differ:endcol(8) -> differ:fullname(4)	pristine #95 endcol	law #130 fullname
+LATER	surelog/default/GenCaseStmt	differ:endcol(8) -> differ:fullname(4)	pristine #95 endcol	law #139 fullname
+SAME-FEWER	surelog/default/HierPathStructTypespec	differ:col(4) -> differ:col(1)	pristine #189 col	law #189 col
+SAME-FEWER	surelog/default/Scr1SvTests	differ:line(228) -> differ:line(224)	pristine #4 line	law #4 line
+LATER	surelog/default/YosysBigSimEllip	differ:fullname(3039) -> differ:fullname(2942)	pristine #8924 fullname	law #17355 fullname
+LATER	surelog/testflags/BasicOh	differ:fullname(22) -> differ:fullname(2)	pristine #603 fullname	law #644 fullname
+EQUAL	surelog/testflags/DefaultPatternInt	differ:depth(1) -> equal	pristine #114 depth	law #None STRICT_EQUAL 321 objects
+LATER	surelog/testflags/GenCase	differ:endcol(8) -> differ:fullname(4)	pristine #5 endcol	law #40 fullname
+LATER	surelog/testflags/GenCaseStmt	differ:endcol(8) -> differ:fullname(4)	pristine #5 endcol	law #49 fullname
+SAME-FEWER	surelog/testflags/HierPathStructTypespec	differ:col(4) -> differ:col(1)	pristine #182 col	law #182 col
+SAME-FEWER	surelog/testflags/Scr1SvTests	differ:line(228) -> differ:line(224)	pristine #4 line	law #4 line
+LATER	uhdm2rtlil/default/comb_dyn_2d_packed_sel	differ:fullname(3) -> differ:depth(1)	pristine #330 fullname	law #743 depth
+SAME-FEWER	uhdm2rtlil/default/ibex_alu	differ:fullname(9) -> differ:fullname(2)	pristine #2449 fullname	law #2449 fullname
+SAME-FEWER	uhdm2rtlil/default/ibex_branch_predict	differ:fullname(20) -> differ:fullname(13)	pristine #2453 fullname	law #2453 fullname
+SAME-FEWER	uhdm2rtlil/default/ibex_compressed_decoder	differ:fullname(141) -> differ:fullname(134)	pristine #2453 fullname	law #2453 fullname
+EQUAL	uhdm2rtlil/default/ibex_counter	differ:fullname(1) -> equal	pristine #653 fullname	law #None STRICT_EQUAL 691 objects
+SAME-FEWER	uhdm2rtlil/default/ibex_decoder	differ:fullname(28) -> differ:fullname(21)	pristine #2453 fullname	law #2453 fullname
+SAME-FEWER	uhdm2rtlil/default/ibex_icache	differ:fullname(200) -> differ:fullname(193)	pristine #2453 fullname	law #2453 fullname
+SAME-FEWER	uhdm2rtlil/default/ibex_multdiv_fast	differ:fullname(109) -> differ:fullname(102)	pristine #2453 fullname	law #2453 fullname
+SAME-FEWER	uhdm2rtlil/default/ibex_multdiv_slow	differ:fullname(26) -> differ:fullname(19)	pristine #2453 fullname	law #2453 fullname
+SAME-FEWER	uhdm2rtlil/default/ibex_pmp	differ:file(60) -> differ:file(53)	pristine #2404 file	law #2404 file
+SAME-FEWER	uhdm2rtlil/default/ibex_tracer	differ:fullname(587) -> differ:fullname(580)	pristine #2073 fullname	law #2073 fullname
+SAME-FEWER	uhdm2rtlil/default/ibex_wb_stage	differ:fullname(32) -> differ:fullname(25)	pristine #2454 fullname	law #2454 fullname
+SAME-FEWER	uhdm2rtlil/default/int_types	differ:fullname(94) -> differ:fullname(82)	pristine #108 fullname	law #108 fullname
+LATER	uhdm2rtlil/default/mriscv_bind_sva	differ:fullname(34) -> differ:fullname(30)	pristine #2196 fullname	law #23371 fullname
+EQUAL	uhdm2rtlil/default/packed_struct_array_shift	differ:fullname(4) -> equal	pristine #234 fullname	law #None STRICT_EQUAL 572 objects
+LATER	uhdm2rtlil/testflags/comb_dyn_2d_packed_sel	differ:fullname(3) -> differ:depth(1)	pristine #240 fullname	law #653 depth
+SAME-FEWER	uhdm2rtlil/testflags/ibex_alu	differ:fullname(9) -> differ:fullname(2)	pristine #2442 fullname	law #2442 fullname
+SAME-FEWER	uhdm2rtlil/testflags/ibex_branch_predict	differ:fullname(20) -> differ:fullname(13)	pristine #2446 fullname	law #2446 fullname
+SAME-FEWER	uhdm2rtlil/testflags/ibex_compressed_decoder	differ:fullname(141) -> differ:fullname(134)	pristine #2446 fullname	law #2446 fullname
+EQUAL	uhdm2rtlil/testflags/ibex_counter	differ:fullname(1) -> equal	pristine #563 fullname	law #None STRICT_EQUAL 601 objects
+SAME-FEWER	uhdm2rtlil/testflags/ibex_decoder	differ:fullname(28) -> differ:fullname(21)	pristine #2446 fullname	law #2446 fullname
+SAME-FEWER	uhdm2rtlil/testflags/ibex_icache	differ:fullname(200) -> differ:fullname(193)	pristine #2446 fullname	law #2446 fullname
+SAME-FEWER	uhdm2rtlil/testflags/ibex_multdiv_fast	differ:fullname(109) -> differ:fullname(102)	pristine #2446 fullname	law #2446 fullname
+SAME-FEWER	uhdm2rtlil/testflags/ibex_multdiv_slow	differ:fullname(26) -> differ:fullname(19)	pristine #2446 fullname	law #2446 fullname
+SAME-FEWER	uhdm2rtlil/testflags/ibex_pmp	differ:file(60) -> differ:file(53)	pristine #2397 file	law #2397 file
+SAME-FEWER	uhdm2rtlil/testflags/ibex_tracer	differ:fullname(587) -> differ:fullname(580)	pristine #2072 fullname	law #2072 fullname
+SAME-FEWER	uhdm2rtlil/testflags/ibex_wb_stage	differ:fullname(32) -> differ:fullname(25)	pristine #2447 fullname	law #2447 fullname
+SAME-FEWER	uhdm2rtlil/testflags/int_types	differ:fullname(94) -> differ:fullname(82)	pristine #18 fullname	law #18 fullname
+LATER	uhdm2rtlil/testflags/mriscv_bind_sva	differ:fullname(34) -> differ:fullname(30)	pristine #2106 fullname	law #23280 fullname
+EQUAL	uhdm2rtlil/testflags/packed_struct_array_shift	differ:fullname(4) -> equal	pristine #144 fullname	law #None STRICT_EQUAL 482 objects

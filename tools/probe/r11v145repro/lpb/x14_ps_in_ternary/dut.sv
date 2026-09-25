@@ -1,0 +1,7 @@
+// § lpBoundOperandKeepsBase145v
+module dut(input logic [31:0] a, input logic c, output logic [3:0] o);
+  localparam int L = 4;
+  if (1) begin : g
+    assign o = c ? a[7:L] : 4'h0;
+  end
+endmodule

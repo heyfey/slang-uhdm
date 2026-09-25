@@ -1,0 +1,7 @@
+name,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail
+comb_dyn_2d_packed_sel,IDENTICAL,OK,OK,124,124,,
+cs_registers,IDENTICAL,OK,OK,149,149,,
+ibex_alu,IDENTICAL,OK,OK,1028,1028,,
+ibex_counter,IDENTICAL,OK,OK,129,129,,
+packed_struct_array_shift,IDENTICAL,OK,OK,54,54,,
+# joined to results/downstream_uhdm2rtlil.csv on every column: 0 of 871 rows changed (law and verified)

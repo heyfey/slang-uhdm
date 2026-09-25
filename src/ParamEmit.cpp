@@ -12045,9 +12045,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         // tools/probe/r11u140repro/dfl.  Switch:
                         // R11U140_DEFFILL_OFF.
                         static const bool one140 = r11u140On("R11U140_DEFFILL_OFF");
+                        // § defaultFillImportCopies145 — an IMPORT's
+                        // expansion mints one constant per element (golden
+                        // DefaultPatternInt).  Grid
+                        // tools/probe/r11u145repro/dfi.  Switch:
+                        // R11U145_DEFFILLIMP_OFF.
+                        const bool share145 =
+                            one140 && !(isImported && defaultFillImportCopies145On());
                         UHDM::constant* c140 = nullptr;
                         for (uint32_t i8 = 0; i8 < uat8.range.width(); i8++) {
-                            if (one140 && c140) {
+                            if (share145 && c140) {
                                 xv8->push_back(c140);
                                 continue;
                             }
@@ -13412,10 +13419,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         const Expression* se9 = &scv;
                         while (se9->kind == ExpressionKind::Conversion)
                             se9 = &se9->as<ConversionExpression>().operand();
+                        // § impElabArithWholeSpan145 — ...in the PACKAGE's
+                        // elaborated listing.  A MODULE's elaborated import
+                        // copy (the physical elab view) keeps the WHOLE
+                        // written init (golden ibex_pkg.sv 384:45-55
+                        // `BUS_SIZE/8` under every ibex module importing it,
+                        // HierPathStructTypespec 11:34-61), where ours
+                        // stopped at the left operand.  Grid
+                        // tools/probe/r11u145repro/iaw.  Switch:
+                        // R11U145_IMPARITH_OFF.
+                        const bool wholeImp145 =
+                            isImported && !inPackage && !defViewOrig9 &&
+                            impElabArithWholeSpan145On();
                         if (pkgElabComputed &&
                             se9->kind == ExpressionKind::BinaryOp) {
-                            setLoc((UHDM::constant*)rhs,
-                                   se9->as<BinaryExpression>().left().sourceRange);
+                            if (!wholeImp145)
+                                setLoc((UHDM::constant*)rhs,
+                                       se9->as<BinaryExpression>().left().sourceRange);
                             if (!typedParam)
                                 ((UHDM::constant*)rhs)->VpiSize(32);
                         }
@@ -24671,8 +24691,25 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                             break;
                         }
                 }
-                else
+                else {
                     tr = trimTypeSigning(tsyn, tsyn->sourceRange());
+                    // § unsignedScalarParamTsAtKeyword145 — a SCALAR
+                    // `bit unsigned` / `logic unsigned` / `reg unsigned`
+                    // parameter typespec ends at its KEYWORD (the parameter
+                    // half of § unsignedScalarVecTsAtKeyword137; golden
+                    // GenCase 6:13-6:16).  Grid tools/probe/r11u145repro/usp.
+                    // Switch: R11U145_UNSPARAMTS_OFF.
+                    if ((tsyn->kind == syntax::SyntaxKind::BitType ||
+                         tsyn->kind == syntax::SyntaxKind::LogicType ||
+                         tsyn->kind == syntax::SyntaxKind::RegType) &&
+                        unsignedScalarParamTsAtKeyword145On()) {
+                        auto& its145 = tsyn->as<syntax::IntegerTypeSyntax>();
+                        if (its145.signing.kind ==
+                                parsing::TokenKind::UnsignedKeyword &&
+                            its145.dimensions.empty())
+                            tr = its145.keyword.range();
+                    }
+                }
             }
     }
     else {

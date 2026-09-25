@@ -1,0 +1,9 @@
+# obgold.py (law vs pristine, order-blind uhdm-dump multisets vs golden), default modes
+surelog BlackBePipeInt default: dist(G,P)=4409522 dist(G,L)=4409466 law_removed=28(of which in golden 20) law_added=28(of which in golden 28)
+surelog Rggen default: dist(G,P)=157984 dist(G,L)=158208 law_removed=112(of which in golden 112) law_added=112(of which in golden 0)   <-- BREAK of § lpPaCopyBoundOwnerName145 (past the walk divergence #469); refined by § lpBoundOperandKeepsBase145v: verified Rggen bytes == pristine
+surelog MiniAmiq default: dist(G,P)=352165 dist(G,L)=352145 law_removed=18(of which in golden 2) law_added=18(of which in golden 10)
+surelog Scoreboard default: dist(G,P)=117705 dist(G,L)=117689 law_removed=8(of which in golden 1) law_added=8(of which in golden 8)
+surelog SeqDriver default: dist(G,P)=335773 dist(G,L)=335561 law_removed=118(of which in golden 103) law_added=118(of which in golden 108)
+surelog SimpleUVM default: dist(G,P)=118743 dist(G,L)=118523 law_removed=110(of which in golden 101) law_added=110(of which in golden 110)
+uhdm2rtlil ibex_pmp default: dist(G,P)=4613 dist(G,L)=4585 law_removed=14(of which in golden 14) law_added=14(of which in golden 14)
+uhdm2rtlil comb_dyn_2d_packed_sel default: dist(G,P)=232 dist(G,L)=228 law_removed=2(of which in golden 0) law_added=2(of which in golden 2)

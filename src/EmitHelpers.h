@@ -14359,4 +14359,144 @@ inline bool pkgTypedefCastTargetTs140On() {
     return on;
 }
 
+// ============================================================================
+// r11u145 — the expression/parameter ground on the strict axis (fifth
+// refill).  Every law reads its own switch; `R11U145_OFF=1` turns them all
+// off.  Grids and measurements: tools/probe/r11u145repro/README.md.
+//   R11U145_DEFFILLIMP_OFF   § defaultFillImportCopies145       (ParamEmit.cpp)
+//   R11U145_UNSPARAMTS_OFF   § unsignedScalarParamTsAtKeyword145 (ParamEmit.cpp)
+//   R11U145_PSBAREREF_OFF    § psBoundBareRefByBase145          (ExprEmit.cpp)
+//   R11U145_UNARYOWN_OFF     § unaryOperandParamOwnerName145    (ExprEmit.cpp)
+//   R11U145_LPBOUNDOWN_OFF   § lpPaCopyBoundOwnerName145        (ExprEmit.cpp)
+//   R11U145_BASESELOP_OFF    § hpBaseSelOpIdxNamesByPath145     (ExprEmit.cpp)
+//   R11U145_IMPARITH_OFF     § impElabArithWholeSpan145         (ParamEmit.cpp)
+// ============================================================================
+inline bool r11u145On(const char* one) {
+    static const bool all = getenv("R11U145_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+
+/// § defaultFillImportCopies145 — § defaultFillOneConstant140 holds for a
+/// parameter DECLARED in the module (the elaborator's expansion lists one
+/// constant object for every element), but the expansion a wildcard or
+/// explicit IMPORT makes of a package `'{default: X}` parameter in a module
+/// view mints one constant per element, each parented at the array_expr
+/// (golden DefaultPatternInt: `work@top.V` two constants, the package
+/// listing's one shared).  Grid tools/probe/r11u145repro/dfi.  Switch:
+/// R11U145_DEFFILLIMP_OFF.
+inline bool defaultFillImportCopies145On() {
+    static const bool on = r11u145On("R11U145_DEFFILLIMP_OFF");
+    return on;
+}
+
+/// § unsignedScalarParamTsAtKeyword145 — the parameter half of
+/// § unsignedScalarVecTsAtKeyword137: a TYPED parameter's SCALAR
+/// `bit unsigned` / `logic unsigned` / `reg unsigned` typespec ends at its
+/// KEYWORD (Surelog's CompileType builtin arms populate the keyword alone;
+/// only packed dimensions extend the end), in every view and at every
+/// reference that shares it (golden GenCase 6:13-6:16 for
+/// `parameter bit unsigned x_1b0`, ours 6:13-6:25).  Grid
+/// tools/probe/r11u145repro/usp.  Switch: R11U145_UNSPARAMTS_OFF.
+inline bool unsignedScalarParamTsAtKeyword145On() {
+    static const bool on = r11u145On("R11U145_UNSPARAMTS_OFF");
+    return on;
+}
+
+/// § psBoundBareRefByBase145 — a bare reference that is a SIMPLE
+/// part-select bound (`a[W:L]`) is named by the select base
+/// (`work@dut.a.L`), in every process and continuous-assignment context, as
+/// a bound nested in an operation already was: census over every
+/// judge-equal golden (3591 bare simple part-select bounds, every one named
+/// `<select>.<name>` outside a class method's `::` path and a hier_path
+/// member select).  Grid tools/probe/r11u145repro/psb.  Switch:
+/// R11U145_PSBAREREF_OFF.
+inline bool psBoundBareRefByBase145On() {
+    static const bool on = r11u145On("R11U145_PSBAREREF_OFF");
+    return on;
+}
+
+/// § unaryOperandParamOwnerName145 — a module parameter read that is the
+/// DIRECT operand of a UNARY operator (`a & ~M`, `-M`, `!M`) inside an
+/// elaborated generate-scope continuous assignment whose LEFT-hand side is a
+/// SELECT (`o[c] = ...`, `x[3:0] = ...`; a plain-reference lhs keeps the
+/// generate scope's name: BasicOh oh_dsync) folds, in golden, to the
+/// parameter's OWN elaborated constant: the object is parented at the
+/// parameter's param_assign, so its ref_typespec's full name is the
+/// declaring instance's (`work@dut`), not the generate scope's
+/// (`work@dut.g`) that a binary operand's use-site constant takes.  Census
+/// over every judge-equal golden (constants reached as operands whose parent
+/// is a param_assign).  Returns the enclosing module/interface instance's
+/// full name when `parent` is a unary operation, else "".  Grid
+/// tools/probe/r11u145repro/uop.  Switch: R11U145_UNARYOWN_OFF.
+inline std::string unaryOperandOwnerName145(const UHDM::any* parent, bool lhsSelect) {
+    static const bool on = r11u145On("R11U145_UNARYOWN_OFF");
+    if (!on || !lhsSelect || !parent || parent->UhdmType() != UHDM::uhdmoperation)
+        return {};
+    int op = ((const UHDM::operation*)parent)->VpiOpType();
+    if (op < vpiMinusOp || op > vpiUnaryXNorOp)
+        return {};
+    for (const UHDM::any* a = parent->VpiParent(); a; a = a->VpiParent()) {
+        if (a->UhdmType() == UHDM::uhdmmodule_inst)
+            return std::string(((const UHDM::module_inst*)a)->VpiFullName());
+        if (a->UhdmType() == UHDM::uhdminterface_inst)
+            return std::string(((const UHDM::interface_inst*)a)->VpiFullName());
+    }
+    return {};
+}
+
+/// § lpPaCopyBoundOwnerName145 — the § genCaLpPaCopy arm (an elaborated
+/// generate-scope continuous assignment's RIGHT-hand select bound reading a
+/// module parameter that has an elaborated param_assign constant), when the
+/// read IS the bound (`x[63:W]`, `x[W+:4]`; one nested in a bound operation
+/// keeps the select-base name, `x[W-1:0]`), hands back
+/// golden's param_assign constant itself: its ref_typespec is named by the
+/// scope that owns the param_assign (the instance), not by the select base.
+/// Returns that scope's full name ("" when the law is off or the owner has
+/// none).  Grid tools/probe/r11u145repro/lpb.  Switch:
+/// R11U145_LPBOUNDOWN_OFF.
+inline std::string paOwnerFullName145(const UHDM::any* pa) {
+    static const bool on = r11u145On("R11U145_LPBOUNDOWN_OFF");
+    if (!on || !pa)
+        return {};
+    const UHDM::any* o = pa->VpiParent();
+    if (!o)
+        return {};
+    if (o->UhdmType() == UHDM::uhdmmodule_inst)
+        return std::string(((const UHDM::module_inst*)o)->VpiFullName());
+    if (o->UhdmType() == UHDM::uhdminterface_inst)
+        return std::string(((const UHDM::interface_inst*)o)->VpiFullName());
+    return {};
+}
+
+/// § lpBoundOperandKeepsBase145v (r11v145, the verifier's refinement of
+/// § lpPaCopyBoundOwnerName145) — the declaring instance names the copied
+/// bound's ref_typespec only when the part-select IS the continuous
+/// assignment's whole right-hand side (ibex_counter `unused_counter_load =
+/// counter_load[63:CounterWidth]`); a part-select that is an OPERAND
+/// (`a[7:L] == B`, `a[7:L] & b`, `~a[7:L]`, `{a[7:L], 4'h0}`,
+/// `c ? a[7:L] : 0`; Rggen rggen_address_decoder `i_address[WIDTH-1:LSB] ==
+/// BEGIN_ADDRESS`) keeps the select base's name in golden, as pristine did.
+/// Returns true when the law must abstain: `sel` is the part-select and its
+/// own parent is an operation.  Grid tools/probe/r11v145repro/lpb.  Switch:
+/// R11V145_LPOPND_OFF.
+inline bool lpBoundOperandKeepsBase145v(const UHDM::any* sel) {
+    static const bool on = getenv("R11V145_LPOPND_OFF") == nullptr;
+    if (!on || !sel)
+        return false;
+    const UHDM::any* sp = sel->VpiParent();
+    return sp && sp->UhdmType() == UHDM::uhdmoperation;
+}
+
+/// § impElabArithWholeSpan145 — a package parameter whose init is ARITHMETIC
+/// (`BUS_BYTES = BUS_SIZE/8`), folded in a MODULE's elaborated import copy,
+/// spans the WHOLE written init (golden ibex_pkg.sv 384:45-55 in every ibex
+/// module view, HierPathStructTypespec 11:34-61); the package's own
+/// elaborated listing and the module definition's copy keep the top
+/// operator's LEFT operand.  Grid tools/probe/r11u145repro/iaw.  Switch:
+/// R11U145_IMPARITH_OFF.
+inline bool impElabArithWholeSpan145On() {
+    static const bool on = r11u145On("R11U145_IMPARITH_OFF");
+    return on;
+}
+
 } // namespace slang_uhdm
