@@ -1,0 +1,13 @@
+r10sd1repro/b9_inline: CLSPANOFILE_OFF
+r10uvm55repro/a1: CLSPANOFILE_OFF
+r11u108repro/grid/f5/f5a03_tpq_out: TPELEMPAT_OFF
+r11u108repro/grid/f5/f5a05_override: TPELEMPAT_OFF
+r11u108repro/grid/f5/f5a16_ovr2state: TPELEMPAT_OFF
+r11u110repro/grid/e1/e14_output_port: TPELEMPAT_OFF
+r11u110repro/grid/f2/i18_out_port_child_ctl: TPELEMPAT_OFF
+r11u31repro/g4: TPELEMPAT_OFF
+r11v32repro/h03_enum_alwaysff: PKGLEAFLOC_OFF
+r11v95repro/grid/x4_proggencase: GENCASE_OFF
+v11u108repro/brk/f5/b19_output_var_port: TPELEMPAT_OFF
+v11u108repro/brk/f5/b29_override_packed_elem: TPELEMPAT_OFF
+v11u110repro/brk/v1/a33_parent_overrides_and_child_rt_port_bodyvar: TPELEMPAT_OFF

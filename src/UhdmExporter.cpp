@@ -109,6 +109,16 @@ bool r11u146Law(const char* sw) {
     return getenv(sw) == nullptr;
 }
 
+// ===== r11u152 — the module/type ground on the strict axis, sixth round =====
+// Every r11u152 law sits behind its own switch; R11U152_OFF drops them all
+// and restores the pristine bytes.  The table is
+// tools/probe/r11u152repro/README.md.
+bool r11u152Law(const char* sw) {
+    if (getenv("R11U152_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 // § implicitNetNoFile119 (r11u119) — defined in ModuleEmit.cpp.
 void clearImplicitNetFiles119();
 
@@ -5030,6 +5040,18 @@ void UhdmExporter::emitClassTsParams(UHDM::class_typespec* cts, const ClassType&
                 pendingClassTsLink.push_back({nts, &dct});
             if (dsyn)
                 setLoc(nts, dsyn->sourceRange());
+            // § classSpecNestedAtName152 (r11u152, map N0447's sibling) — a
+            // specialization written as another specialization's argument
+            // (`config_db#(object#(longint))`) is located at its class NAME
+            // (golden 18:14-18:20 `object`, where ours spanned the whole
+            // `object#(longint)`; grid CV v05).  Switch
+            // R11U152_CLSNESTNAME_OFF.
+            if (dsyn && r11u152Law("R11U152_CLSNESTNAME_OFF"))
+                if (auto* ntN152 = dsyn->as_if<syntax::NamedTypeSyntax>();
+                    ntN152 && ntN152->name &&
+                    ntN152->name->kind == syntax::SyntaxKind::ClassName)
+                    setLoc(nts, ntN152->name->as<syntax::ClassNameSyntax>()
+                                    .identifier.range());
             emitClassTsParams(nts, dct.as<ClassType>(),
                               fn + "." + std::string(dct.name));
             its = nts;
@@ -5045,6 +5067,12 @@ void UhdmExporter::emitClassTsParams(UHDM::class_typespec* cts, const ClassType&
         auto* pa = s.MakeParam_assign();
         pa->VpiParent(cts);
         setLoc(pa, nameSpan(tps.location, tps.name));
+        // § classSpecPaNoFile152 (r11u152, map N0447) — the specialization's
+        // param_assign carries the formal's line and columns but NO file
+        // (golden `1:28-1:29` with an empty vpiFile on ClassParamAsParam;
+        // grid CV v02/v05).  Switch R11U152_CLSPANOFILE_OFF.
+        if (r11u152Law("R11U152_CLSPANOFILE_OFF"))
+            pa->VpiFile("");
         pa->Rhs(tp);
         pas->push_back(pa);
         // Lhs is the class_defn's own formal of the same name.

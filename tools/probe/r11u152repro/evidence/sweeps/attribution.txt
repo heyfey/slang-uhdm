@@ -1,0 +1,178 @@
+## surelog
+ClassParamAsParam,default: differ:endcol(9) -> equal | CLSVARINIT+CLSNESTNAME+CLSPANOFILE
+ClassParamAsParam,testflags: differ:endcol(13) -> equal | CLSVARINIT+CLSNESTNAME+CLSPANOFILE
+ClassTypeParam,default: differ:endline(25) -> differ:endline(17) | CLSVARINIT+CLSPANOFILE
+ClassTypeParam,testflags: differ:file(38) -> differ:file(30) | CLSVARINIT+CLSPANOFILE
+CrossFunc,default: differ:endcol(2) -> equal | CGINITEND
+CrossFunc,testflags: differ:endcol(2) -> equal | CGINITEND
+DelayAssign,default: differ:value(16) -> equal | DLYREAL
+DelayAssign,testflags: differ:value(16) -> equal | DLYREAL
+GenCase,default: differ:fullname(4) -> equal | GENCASE
+GenCase,testflags: differ:fullname(4) -> equal | GENCASE
+GenCaseStmt,default: differ:fullname(4) -> equal | GENCASE
+GenCaseStmt,testflags: differ:fullname(4) -> equal | GENCASE
+GenerateUnnamed,default: differ:fullname(15) -> differ:fullname(9) | GENCASE
+GenerateUnnamed,testflags: differ:fullname(15) -> differ:fullname(9) | GENCASE
+PackageMemberTypespec,default: differ:file(2) -> equal | PKGELEMPAT
+PackageMemberTypespec,testflags: differ:file(2) -> equal | PKGELEMPAT
+PackedEnumPort,default: differ:name(3) -> equal | ELEMALIAS
+PackedEnumPort,testflags: differ:name(3) -> equal | ELEMALIAS
+ParamTypespec2,default: differ:fullname(5) -> differ:fullname(3) | PKGLEAFLOC
+ParamTypespec2,testflags: differ:fullname(5) -> differ:fullname(3) | PKGLEAFLOC
+TypeParamElab,default: differ:endline(15) -> equal | TPOVRSTRUCT
+TypeParamElab,testflags: differ:endline(15) -> equal | TPOVRSTRUCT
+UnsupportedTypespecRange,default: differ:file(2) -> equal | PKGELEMPAT
+UnsupportedTypespecRange,testflags: differ:file(2) -> equal | PKGELEMPAT
+## uhdm2rtlil
+FileLevelUnionWithMultirange,default: differ:file(14) -> equal | PKGELEMPAT
+FileLevelUnionWithMultirange,testflags: differ:file(14) -> equal | PKGELEMPAT
+LocalParamInNestedForLoops,default: differ:fullname(1) -> equal | GENLPOPTS
+LocalParamInNestedForLoops,testflags: differ:fullname(1) -> equal | GENLPOPTS
+NestedStructArrayParameterInitializedByPatternPassedAsPort,default: differ:fullname(4) -> differ:fullname(2) | C3
+NestedStructArrayParameterInitializedByPatternPassedAsPort,testflags: differ:fullname(4) -> differ:fullname(2) | C3
+StructArrayParameterInitializedByPatternPassedAsPort,default: differ:line(2) -> equal | C3
+StructArrayParameterInitializedByPatternPassedAsPort,testflags: differ:line(2) -> equal | C3
+VarPassedTo2Submodules,default: differ:name(3) -> equal | ELEMALIAS
+VarPassedTo2Submodules,testflags: differ:name(3) -> equal | ELEMALIAS
+gen_scope_typaram,default: differ:endcol(9) -> differ:fullname(6) | TPOVRSTRUCT
+gen_scope_typaram,testflags: differ:endcol(9) -> differ:fullname(6) | TPOVRSTRUCT
+ibex_alu,default: differ:fullname(2) -> differ:endcol(1) | FOLDCHAIN
+ibex_alu,testflags: differ:fullname(2) -> differ:endcol(1) | FOLDCHAIN
+ibex_branch_predict,default: differ:fullname(13) -> differ:line(12) | FOLDCHAIN
+ibex_branch_predict,testflags: differ:fullname(13) -> differ:line(12) | FOLDCHAIN
+ibex_compressed_decoder,default: differ:fullname(134) -> differ:endcol(133) | FOLDCHAIN
+ibex_compressed_decoder,testflags: differ:fullname(134) -> differ:endcol(133) | FOLDCHAIN
+ibex_decoder,default: differ:fullname(21) -> differ:endcol(20) | FOLDCHAIN
+ibex_decoder,testflags: differ:fullname(21) -> differ:endcol(20) | FOLDCHAIN
+ibex_icache,default: differ:fullname(193) -> differ:line(192) | FOLDCHAIN
+ibex_icache,testflags: differ:fullname(193) -> differ:line(192) | FOLDCHAIN
+ibex_multdiv_fast,default: differ:fullname(102) -> differ:endcol(101) | FOLDCHAIN
+ibex_multdiv_fast,testflags: differ:fullname(102) -> differ:endcol(101) | FOLDCHAIN
+ibex_multdiv_slow,default: differ:fullname(19) -> differ:endline(18) | FOLDCHAIN
+ibex_multdiv_slow,testflags: differ:fullname(19) -> differ:endline(18) | FOLDCHAIN
+ibex_pmp,default: differ:file(53) -> differ:file(52) | FOLDCHAIN
+ibex_pmp,testflags: differ:file(53) -> differ:file(52) | FOLDCHAIN
+ibex_tracer,default: differ:fullname(580) -> differ:fullname(579) | FOLDCHAIN
+ibex_tracer,testflags: differ:fullname(580) -> differ:fullname(579) | FOLDCHAIN
+ibex_wb_stage,default: differ:fullname(25) -> differ:line(24) | FOLDCHAIN
+ibex_wb_stage,testflags: differ:fullname(25) -> differ:line(24) | FOLDCHAIN
+packed_array_struct_port_sel,default: differ:endcol(9) -> equal | TPOVRSTRUCT
+packed_array_struct_port_sel,testflags: differ:endcol(9) -> equal | TPOVRSTRUCT
+struct_member_cfg_width,default: differ:endline(12) -> equal | TPOVRSTRUCT
+struct_member_cfg_width,testflags: differ:endline(12) -> equal | TPOVRSTRUCT
+type_param_override_elem_sel,default: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT
+type_param_override_elem_sel,testflags: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT
+type_param_packed_dim,default: differ:fullname(1) -> equal | TPELEMPAT
+type_param_packed_dim,testflags: differ:fullname(1) -> equal | TPELEMPAT
+## probe
+r10earl48repro/a3_earl48: differ:fullname(6) -> equal | GENCASE | OFF=pristine
+r10earl94repro/g3_kind94: differ:fullname(18) -> equal | GENCASE | OFF=pristine
+r10earl_repro/uf: differ:file(3) -> differ:line(1) | PKGLEAFLOC | OFF=pristine
+r10svs10repro/c2_header: differ:endcol(1) -> equal | CLSVARINIT | OFF=pristine
+r10svs6repro/b4_qual: differ:file(8) -> differ:file(6) | CLSPANOFILE | OFF=pristine
+r10svs8repro/a4_context: differ:endcol(2) -> equal | CGINITEND | OFF=pristine
+r10uvm206repro/g206_a_selftd: differ:line(6) -> differ:line(4) | CLSPANOFILE | OFF=pristine
+r10uvm30repro/t40d: differ:endcol(3) -> differ:endcol(2) | CLSVARINIT | OFF=pristine
+r10uvm60repro/b6_reached: differ:endcol(1) -> equal | CLSVARINIT | OFF=pristine
+r10uvm60repro/v2_class: differ:fullname(3) -> differ:fullname(2) | CLSVARINIT | OFF=pristine
+r10uvm66repro/a4_memberexpr: differ:endcol(2) -> equal | CLSVARINIT | OFF=pristine
+r10uvm68repro/a4_typaram: differ:line(7) -> differ:line(5) | CLSPANOFILE | OFF=pristine
+r10uvm99repro/g99_a10_other: differ:endcol(2) -> equal | CGINITEND | OFF=pristine
+r10v153repro/v153_d_hoist: differ:line(5) -> differ:line(4) | CLSVARINIT | OFF=pristine
+r10vbuvm31repro/gv31a6: differ:endcol(1) -> equal | CLSVARINIT | OFF=pristine
+r10vearl95repro/v95a_ctx: differ:fullname(41) -> differ:fullname(12) | GENCASE | OFF=pristine
+r11u107repro/grid/o01_ovr_elem: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+r11u107repro/grid/o02_ovr_then_def: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+r11u107repro/grid/o03_def_then_ovr: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+r11u107repro/grid/o04_two_ovr: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+r11u107repro/grid/o05_top_chain: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+r11u107repro/grid/o06_nodef_ctl: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+r11u107repro/grid/o07_passthru: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+r11u107repro/grid/o09_param_not_local: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+r11u108repro/grid/f5/f5a02_tpq_in: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+r11u10repro/grid/h9_1e1m_port: differ:fullname(7) -> differ:fullname(5) | C3 | OFF=pristine
+r11u10repro/grid/hD_1e1mvec: differ:fullname(7) -> differ:fullname(5) | C3 | OFF=pristine
+r11u110repro/grid/e1/e01_base: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e02_two_diff_ovr: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e03_ovr_then_def: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e04_def_then_ovr: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e05_gen_if: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e06_gen_for: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e07_passthru: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e10_def_packed: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e13_two_ports: differ:fullname(2) -> equal | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e16_nonlocal_rt: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e17_top_shape: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e18_chain_rt: differ:fullname(7) -> differ:fullname(5) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e19_scalar_port_ctl: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e22_nonansi: differ:line(2) -> differ:line(1) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e23_inst_array: differ:fullname(2) -> equal | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e24_ovr_2state: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e25_ovr_same_ctl: differ:line(6) -> differ:line(5) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e27_ovr_signed: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e28_nested_child: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e29_two_same_ovr: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e38_parent_same_name_def: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e39_value_and_type_named: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e40_value_ordered_type_default: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e44_parent_other_name_ovr: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e45_pkg_enum_ovr: differ:fullname(4) -> differ:fullname(3) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e47_pkg_struct_ovr: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e49_mod_typedef_ovr: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+r11u110repro/grid/e1/e53_pkg_union_ovr: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+r11u23repro/grid/b20_gencase_genlocal: differ:fullname(7) -> equal | GENCASE | OFF=pristine
+r11u23repro/grid/d04_gencase: differ:fullname(9) -> equal | GENCASE | OFF=pristine
+r11u25repro/grid/p21_gencase_fill0: differ:fullname(10) -> equal | GENCASE | OFF=pristine
+r11u27repro/grid/s03_gencase: differ:fullname(8) -> equal | GENCASE | OFF=pristine
+r11u32repro/k9: differ:endcol(12) -> equal | TPOVRSTRUCT | OFF=pristine
+r11u32repro/k9b: differ:endline(27) -> differ:endline(6) | TPOVRSTRUCT | OFF=pristine
+r11u45repro/g11: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+r11u69repro/grid/g1_genkind: differ:fullname(7) -> equal | GENCASE | OFF=pristine
+r11u90repro/grid.verifier/vy10_dlyctlconst: differ:value(2) -> equal | DLYREAL | OFF=pristine
+r11u90repro/grid/w11_dlyctl: differ:value(3) -> equal | DLYREAL | OFF=pristine
+r11v22repro/adv/v39: differ:fullname(4) -> equal | GENCASE | OFF=pristine
+r11v45repro/v8: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+r11v69repro/grid/v5_deadarm: differ:fullname(10) -> equal | GENCASE | OFF=pristine
+r11v98repro/grid/v05_modcasegen: differ:fullname(4) -> equal | GENCASE | OFF=pristine
+r11vu15repro/grid/v14_gencase_modvar: differ:fullname(11) -> equal | GENCASE | OFF=pristine
+v11u108repro/brk/f5/b06_input_wire: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+v11u108repro/brk/f5/b10_out_always: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+v11u108repro/brk/f5/b15_child_ports: differ:fullname(6) -> differ:fullname(4) | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v1/a02_unnamed_genif: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v1/a06_mid_passes_own: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v1/a10_ovr_byte: differ:fullname(2) -> equal | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v1/a11_bit_vs_logic: differ:line(22) -> differ:line(20) | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v1/a16_two_type_params: differ:fullname(4) -> equal | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v1/a19_top_own_tp_child_default: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v1/a20_top_own_tp_child_ovr: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v1/a22_genfor_genvar_ovr: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v1/a25_var_port: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v1/a30_unconnected_and_twice_dut: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v1/a31_ovr_struct_parent_local: differ:endcol(23) -> differ:fullname(1) | TPELEMPAT+TPOVRSTRUCT | OFF=pristine
+v11u110repro/brk/v3/a36_escaped_inst_name: differ:endcol(3) -> differ:endcol(2) | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v3/a38_iface_parent_ctl: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v3/a39_ovr_signed_int_type: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v4/q04_pkg_struct_nodims_ctl: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v4/q06_logic_2dim_ctl: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v5/k03_integer: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v5/k04_bit_scalar: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v5/k05_reg_vec: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v5/k06_logic_signed_scalar: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v5/k07_bit_signed_vec: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v5/k09_time: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v5/k10_logic_desc_range: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v5/k11_logic_param_range: differ:endcol(7) -> differ:endcol(6) | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v5/k13_anon_enum: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+v11u110repro/brk/v5/k14_pkg_union: differ:fullname(1) -> equal | TPELEMPAT | OFF=pristine
+v11u113repro/grid/f2/t07_casedgen: differ:fullname(6) -> equal | GENCASE | OFF=pristine
+v11u115repro/grid/f1/a13_gcase: differ:fullname(9) -> differ:fullname(1) | GENCASE | OFF=pristine
+v11u115repro/grid/f3/c04_gcase_underop: differ:fullname(9) -> equal | GENCASE | OFF=pristine
+v11u93b107repro/brk/r02_gen_last: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+v11u93b107repro/brk/r03_nested_first: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+v11u93b107repro/brk/r04_nested_last: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+v11u93b107repro/brk/r05_rt_ovr_samename: differ:fullname(4) -> differ:fullname(3) | TPELEMPAT | OFF=pristine
+v11u93b107repro/brk/r06_ovr_pkg_struct: differ:fullname(2) -> differ:fullname(1) | TPELEMPAT | OFF=pristine
+v11u93b107repro/brk/r07_inst_array: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+v11u93b107repro/brk/r08_two_defs: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+v11u93b107repro/brk/r10_two_tops: differ:fullname(4) -> differ:fullname(2) | TPELEMPAT | OFF=pristine
+v11u93b107repro/brk/r12_gen_mid: differ:fullname(6) -> differ:fullname(3) | TPELEMPAT | OFF=pristine

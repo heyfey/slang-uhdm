@@ -1,0 +1,27 @@
+KW/w01_spec_null classVarInitSpan152 | P: cmp=255 19 strict=NOT_EQUAL_stage1 rc=0 | L: cmp=255 19 strict=NOT_EQUAL_stage1 rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=DIFF
+KW/w02_spec_copy classVarInitSpan152 | P: cmp=0 0 strict=STRICT_NOTEQUAL_line rc=0 | L: cmp=0 0 strict=STRICT_NOTEQUAL_line rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=DIFF
+KW/w03_new_parens classVarInitSpan152 | P: cmp=0 0 strict=STRICT_NOTEQUAL_endcol rc=0 | L: cmp=0 0 strict=STRICT_EQUAL_14_objects rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME
+KW/w04_static_call classVarInitSpan152 | P: cmp=0 0 strict=STRICT_EQUAL_24_objects rc=0 | L: cmp=0 0 strict=STRICT_NOTEQUAL_endcol rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME
+KW/w05_new_and_null classVarInitSpan152 | P: cmp=255 19 strict=NOT_EQUAL_stage1 rc=0 | L: cmp=255 19 strict=NOT_EQUAL_stage1 rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME
+KW/w06_cg_null unsupportedTsInitEnd152 | P: cmp=255 184 strict=NOT_EQUAL_stage1 rc=0 | L: cmp=255 184 strict=NOT_EQUAL_stage1 rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME
+KW/w07_copy_only classVarInitSpan152 | P: cmp=0 0 strict=STRICT_EQUAL_18_objects rc=0 | L: cmp=0 0 strict=STRICT_NOTEQUAL_endcol rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME
+KW/w08_new_args classVarInitSpan152 | P: cmp=255 29 strict=NOT_EQUAL_stage1 rc=0 | L: cmp=255 29 strict=NOT_EQUAL_stage1 rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME
+KW/w09_spec_newparens classVarInitSpan152 | P: cmp=0 0 strict=STRICT_NOTEQUAL_line rc=0 | L: cmp=0 0 strict=STRICT_NOTEQUAL_line rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=DIFF
+KX/x01_call_then_new classVarInitSpan152 | P: cmp=0 0 strict=STRICT_NOTEQUAL_endcol rc=0 | L: cmp=0 0 strict=STRICT_EQUAL_31_objects rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME
+KX/x02_null_null classVarInitSpan152 | P: cmp=255 19 strict=NOT_EQUAL_stage1 rc=0 | L: cmp=255 19 strict=NOT_EQUAL_stage1 rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME
+KX/x03_sep_new_null classVarInitSpan152 | P: cmp=255 19 strict=NOT_EQUAL_stage1 rc=0 | L: cmp=255 19 strict=NOT_EQUAL_stage1 rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME
+KX/x04_sep_null_new classVarInitSpan152 | P: cmp=255 19 strict=NOT_EQUAL_stage1 rc=0 | L: cmp=255 19 strict=NOT_EQUAL_stage1 rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME
+KX/x05_pkg_scoped_null classVarInitSpan152 | P: cmp=255 19 strict=NOT_EQUAL_stage1 rc=0 | L: cmp=255 19 strict=NOT_EQUAL_stage1 rc=0 | law_bytes=SAME off_bytes=SAME sw_bytes=SAME
+KX/x06_pkg_scoped_new classVarInitSpan152 | P: cmp=0 0 strict=STRICT_EQUAL_16_objects rc=0 | L: cmp=0 0 strict=STRICT_EQUAL_16_objects rc=0 | law_bytes=SAME off_bytes=SAME sw_bytes=SAME
+KX/x07_call_copy classVarInitSpan152 | P: cmp=0 0 strict=STRICT_EQUAL_47_objects rc=0 | L: cmp=0 0 strict=STRICT_NOTEQUAL_endcol rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME
+KX/x08_noinit_then_new classVarInitSpan152 | P: cmp=255 17 strict=NOT_EQUAL_stage1 rc=0 | L: cmp=255 17 strict=NOT_EQUAL_stage1 rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME
+KY/y01_class_prop_bare_leaf pkgLeafPatLocByWriting152 | P: cmp=255 64 strict=NOT_EQUAL_stage1 rc=0 | L: cmp=255 64 strict=NOT_EQUAL_stage1 rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=DIFF
+KY/y02_func_return_bare_leaf pkgLeafPatLocByWriting152 | P: cmp=255 38 strict=NOT_EQUAL_stage1 rc=0 | L: cmp=255 38 strict=NOT_EQUAL_stage1 rc=0 | law_bytes=SAME off_bytes=SAME sw_bytes=SAME
+KY/y03_task_arg_bare_leaf pkgLeafPatLocByWriting152 | P: cmp=0 0 strict=STRICT_NOTEQUAL_file rc=0 | L: cmp=0 0 strict=STRICT_EQUAL_142_objects rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME
+KY/y04_pkg_func_arg_bare_leaf pkgLeafPatLocByWriting152 | P: cmp=0 0 strict=STRICT_NOTEQUAL_file rc=0 | L: cmp=0 0 strict=STRICT_NOTEQUAL_endcol rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME
+KY/y05_iface_var_bare_leaf pkgLeafPatLocByWriting152 | P: SLANG_FAIL rc=3 | L: SLANG_FAIL rc=3 | law_bytes=MOVED off_bytes=DIFF sw_bytes=DIFF
+KY/y06_nested_spec_typedef classSpecNestedAtName152 | P: cmp=255 123 strict=NOT_EQUAL_stage1 rc=4 | L: cmp=255 123 strict=NOT_EQUAL_stage1 rc=4 | law_bytes=MOVED off_bytes=SAME sw_bytes=DIFF
+KY/y07_nested_spec_in_class classSpecNestedAtName152 | P: cmp=255 92 strict=NOT_EQUAL_stage1 rc=4 | L: cmp=255 92 strict=NOT_EQUAL_stage1 rc=4 | law_bytes=MOVED off_bytes=SAME sw_bytes=DIFF
+KY/y08_spec_typedef_null classVarInitSpan152 | P: cmp=255 149 strict=NOT_EQUAL_stage1 rc=4 | L: cmp=255 149 strict=NOT_EQUAL_stage1 rc=4 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME
+KY/y09_real_delay_netdecl_multi delayLiteralValueText152 | P: cmp=0 0 strict=STRICT_NOTEQUAL_value rc=0 | L: cmp=0 0 strict=STRICT_EQUAL_77_objects rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME
+KY/y10_gencase_unnamed_multi genCaseItemUnnamed152 | P: cmp=0 0 strict=STRICT_NOTEQUAL_fullname rc=0 | L: cmp=0 0 strict=STRICT_EQUAL_70_objects rc=0 | law_bytes=MOVED off_bytes=SAME sw_bytes=SAME

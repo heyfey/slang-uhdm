@@ -1,0 +1,6 @@
+default/Scoreboard orderblind_lines=0 bytes_p=11173161 bytes_l=11173161
+default/SeqDriver orderblind_lines=4 bytes_p=18094912 bytes_l=18095116
+testflags/SeqDriver orderblind_lines=4 bytes_p=18095636 bytes_l=18095432
+default/SimpleUVM orderblind_lines=4 bytes_p=11249973 bytes_l=11249945
+testflags/SimpleUVM orderblind_lines=4 bytes_p=11250299 bytes_l=11250301
+testflags/MiniAmiq orderblind_lines=4 bytes_p=18873933 bytes_l=18873872

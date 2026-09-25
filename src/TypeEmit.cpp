@@ -31,6 +31,7 @@ bool r11u144Law(const char* sw);
 // § tpDefaultEndTopTwin149v (r11u149 verifier) — defined in ModuleEmit.cpp.
 void tpEndTopTwin149(const std::map<const UHDM::typespec*, UHDM::typespec*>& d2t);
 bool r11u146Law(const char* sw);
+bool r11u152Law(const char* sw); // the r11u152 switches (UhdmExporter.cpp)
 
 // § paramAliasBoundRefUnstored144 (r11u144) — set while makeTypespec builds
 // the packed dimensions of a PARAMETER whose written type is a module-scope
@@ -324,7 +325,43 @@ UHDM::constant* UhdmExporter::crossPkgBoundFoldConst9(const ParameterSymbol& psy
     c->VpiSize(declW9 ? declW9 : src->VpiSize());
     auto* rt = s.MakeRef_typespec();
     rt->VpiParent(c);
-    rt->VpiFullName(paramTsOwnerFull9);
+    // § crossPkgFoldTsNameOnChain152 (r11u152, map N0008's ibex face) — the
+    // producer's reference (CompileExpression.cpp, the identifier arm's
+    // `rt->VpiParent(c)`) stores no name: it reads its chain.  Where the
+    // chain ends at a PARENTLESS typespec (the element logic_typespec of a
+    // package's unpacked-array parameter, `parameter logic [MSB:0] R[N]`,
+    // whose element bound folds to MSB's own constant: ibex_pkg's
+    // PmpAddrRst), golden's name is empty; ours stored the owner's
+    // (`ibex_pkg::PmpAddrRst`).  Switch R11U152_FOLDCHAIN_OFF.
+    bool chainless152 = false;
+    if (r11u152Law("R11U152_FOLDCHAIN_OFF")) {
+        const UHDM::BaseClass* q152 = parent;
+        while (q152) {
+            const UHDM::BaseClass* up152 = q152->VpiParent();
+            if (!up152) {
+                // ...and only in the declaring package's OWN listing (the
+                // owner is `pk::R` and the bound parameter is pk's): an
+                // importing module's copy (`import pk::*;`, owner
+                // `work@top.R`, grid PB b04) and an importing package's
+                // copy (ibex_tracer_pkg's `import ibex_pkg::*;`, owner
+                // `ibex_tracer_pkg::PmpAddrRst`) keep the name.
+                std::string home152;
+                if (auto* hs152 = psym.getParentScope();
+                    hs152 && hs152->asSymbol().kind == SymbolKind::Package)
+                    home152 = std::string(hs152->asSymbol().name) + "::";
+                chainless152 =
+                    dynamic_cast<const UHDM::typespec*>(q152) != nullptr &&
+                    !home152.empty() &&
+                    paramTsOwnerFull9.rfind(home152, 0) == 0 &&
+                    paramTsOwnerFull9.find("::", home152.size()) ==
+                        std::string::npos;
+                break;
+            }
+            q152 = up152;
+        }
+    }
+    if (!chainless152)
+        rt->VpiFullName(paramTsOwnerFull9);
     if (act)
         rt->Actual_typespec(act);
     c->Typespec(rt);
@@ -2233,9 +2270,23 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             cg0.kind == SymbolKind::CovergroupType) {
             auto* uts = s.MakeUnsupported_typespec();
             uts->VpiName(cg0.name);
-            if (auto dsyn0 = declSymbol.getSyntax())
+            if (auto dsyn0 = declSymbol.getSyntax()) {
                 setLoc(uts, dsyn0->parent ? dsyn0->parent->sourceRange()
                                           : dsyn0->sourceRange());
+                // § unsupportedTsInitEnd152 (r11u152, map N0117 + N0768) —
+                // an initialised handle (`cg cg_inst = new(3);`) ends at the
+                // initializer, not at the semicolon (golden 24:2-24:21 where
+                // ours read 24:22; grid CG).  Switch R11U152_CGINITEND_OFF.
+                if (dsyn0->parent &&
+                    dsyn0->kind == syntax::SyntaxKind::Declarator &&
+                    dsyn0->as<syntax::DeclaratorSyntax>().initializer &&
+                    r11u152Law("R11U152_CGINITEND_OFF"))
+                    setLoc(uts,
+                           SourceRange(dsyn0->parent->sourceRange().start(),
+                                       dsyn0->as<syntax::DeclaratorSyntax>()
+                                           .initializer->sourceRange()
+                                           .end()));
+            }
             else if (auto tsyn0 = declared->getTypeSyntax())
                 setLoc(uts, tsyn0->sourceRange());
             return uts;
@@ -2662,6 +2713,31 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             setLoc(cts, nmN53->as<syntax::ClassNameSyntax>()
                                             .identifier.range());
                     }
+                // § classVarInitSpan152 (the typespec half) — a WRITTEN
+                // specialization (`C#(longint) c1 = new;`) declared with an
+                // initializer spans the type through the initializer (golden
+                // 18:3-18:43 on ClassParamAsParam's definition net, where ours
+                // read the type 18:3-18:31; grid CV v02/v05).  A MODULE-scope
+                // declaration only: a class method's local (`uvm_callback_iter
+                // #(..) iter = new(this);` in uvm_pkg) keeps the type span
+                // (golden 33527:6-33527:48; BuildUVMPkg, MiniAmiq).
+                if (!listingSite53 && r11u152Law("R11U152_CLSVARINIT_OFF") &&
+                    declSymbol.getParentScope() &&
+                    declSymbol.getParentScope()->asSymbol().kind ==
+                        SymbolKind::InstanceBody)
+                    if (auto* ntI152 = tsyn0->as_if<syntax::NamedTypeSyntax>();
+                        ntI152 && ntI152->name &&
+                        ntI152->name->kind == syntax::SyntaxKind::ClassName)
+                        if (auto* dsI152 = declSymbol.getSyntax();
+                            dsI152 &&
+                            dsI152->kind == syntax::SyntaxKind::Declarator &&
+                            dsI152->as<syntax::DeclaratorSyntax>().initializer)
+                            setLoc(cts,
+                                   SourceRange(
+                                       tsyn0->sourceRange().start(),
+                                       dsI152->as<syntax::DeclaratorSyntax>()
+                                           .initializer->sourceRange()
+                                           .end()));
                 // A SCOPED class reference (pack::doorOpen) is named by the
                 // WRITTEN text and located at the class_scope prefix Surelog
                 // collects the node from (`pack::`).
@@ -2909,6 +2985,20 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         auto& lc = leaf->getCanonicalType();
         if (lc.kind == SymbolKind::PackedStructType || lc.kind == SymbolKind::EnumType) {
             UHDM::typespec* elemTs = nullptr;
+            // § packedElemAliasTypedef152 (r11u152, map N0163 + N0655) — the
+            // element is the typedef WRITTEN at the declaration: an alias
+            // typedef of an enum (`typedef lc_tx_e lc_tx_t;
+            // lc_ctrl_pkg::lc_tx_t [0:0] x`) is its own enum_typespec
+            // (named lc_tx_t, Typedef_alias -> lc_tx_e), not the first
+            // typedef of the same canonical type the scan below finds.
+            // Switch R11U152_ELEMALIAS_OFF.
+            if (leaf->kind == SymbolKind::TypeAlias &&
+                lc.kind == SymbolKind::EnumType &&
+                r11u152Law("R11U152_ELEMALIAS_OFF"))
+                if (auto ait152 = typedefTs.find(leaf);
+                    ait152 != typedefTs.end() && ait152->second)
+                    elemTs = ait152->second;
+            if (!elemTs)
             for (auto& [sym, tsp] : typedefTs)
                 if (sym->kind == SymbolKind::TypeAlias &&
                     &sym->as<TypeAliasType>().getCanonicalType() == &lc) {
@@ -3606,10 +3696,69 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         pkgLeaf = true;
                         break;
                     }
-                if (!pkgLeaf || structMemberTsCtx)
+                // § pkgElemMemberPatNoLoc152 (r11u152, map N0433 + N0436 +
+                // N0494) — ...but a member whose type is WRITTEN
+                // package-qualified (`fp::cf_t [3:0][7:0] at;`, in a struct
+                // or a union, at file level, in a package or in a module)
+                // reads golden's UNLOCATED packed_array_typespec; at FILE
+                // level ($unit typedef) its element reference also has no
+                // parent (no full name), in a package or a module it keeps
+                // it (grid UQ u06/u08/u10).  A bare name reaching the same
+                // package leaf keeps the span (grid UQ u05/u09).  Switch
+                // R11U152_PKGELEMPAT_OFF.
+                bool scopedMember152 = false;
+                if (structMemberTsCtx &&
+                    r11u152Law("R11U152_PKGELEMPAT_OFF"))
+                    if (auto* dsn152 = declSymbol.getSyntax();
+                        dsn152 && dsn152->parent &&
+                        dsn152->parent->kind ==
+                            syntax::SyntaxKind::StructUnionMember) {
+                        auto& mt152 =
+                            dsn152->parent
+                                ->as<syntax::StructUnionMemberSyntax>()
+                                .type;
+                        if (mt152 &&
+                            mt152->kind == syntax::SyntaxKind::NamedType &&
+                            mt152->as<syntax::NamedTypeSyntax>().name &&
+                            mt152->as<syntax::NamedTypeSyntax>().name->kind ==
+                                syntax::SyntaxKind::ScopedName)
+                            scopedMember152 = true;
+                    }
+                // § pkgLeafPatLocByWriting152 (r11u152, map N0037 + N0062) —
+                // the package leaf is unlocated only when WRITTEN
+                // package-qualified; a bare name reaching it through an import
+                // (`module m import pk::*; (input s_t [2:0] a)`) keeps the
+                // declaration span (golden 15:10-15:24 on ParamTypespec2; grid
+                // PL l01/l06 against the scoped l02).  Switch
+                // R11U152_PKGLEAFLOC_OFF.
+                bool bareWritten152 = false;
+                if (pkgLeaf && !structMemberTsCtx &&
+                    r11u152Law("R11U152_PKGLEAFLOC_OFF"))
+                    if (auto* tw152 = declared->getTypeSyntax();
+                        tw152 && tw152->kind == syntax::SyntaxKind::NamedType &&
+                        tw152->as<syntax::NamedTypeSyntax>().name &&
+                        tw152->as<syntax::NamedTypeSyntax>().name->kind !=
+                            syntax::SyntaxKind::ScopedName)
+                        bareWritten152 = true;
+                if ((!pkgLeaf || structMemberTsCtx || bareWritten152) &&
+                    !scopedMember152)
                     setLoc(pat, patLoc);
+                bool unitMember152 = false;
+                if (scopedMember152)
+                    for (auto* sc152 = declSymbol.getParentScope(); sc152;
+                         sc152 = sc152->asSymbol().getParentScope()) {
+                        auto k152 = sc152->asSymbol().kind;
+                        if (k152 == SymbolKind::CompilationUnit) {
+                            unitMember152 = true;
+                            break;
+                        }
+                        if (k152 == SymbolKind::Package ||
+                            k152 == SymbolKind::InstanceBody)
+                            break;
+                    }
                 auto* ert = s.MakeRef_typespec();
-                ert->VpiParent(pat);
+                if (!unitMember152)
+                    ert->VpiParent(pat);
                 ert->Actual_typespec(elemTs);
                 pat->Elem_typespec(ert);
                 return pat;
@@ -3867,10 +4016,81 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             st = &st->as<FixedSizeUnpackedArrayType>().elementType;
             arrayElem = true;
         }
+        // (the r11u152 decision below serves the packed and the unpacked
+        // struct arms alike)
+        // § tpOvrTypedefStructSpan152 (r11u152, map N0454 + N0531) — an
+        // elaborated type parameter overridden by a MODULE-local struct
+        // typedef (`sub #(.T(my_t))`) holds golden's clone of that
+        // typedef's typespec: the typedef's whole span (`struct packed
+        // {...}` through the brace) and member references named through
+        // the type parameter and the typedef (`work@tb.d.T.my_t.x`),
+        // where ours built an anonymous struct (`struct packed` span,
+        // members named `x`).  Recognised by the type-parameter
+        // emission's signature: a typedef clone (bypassTypedefShare)
+        // while the owner and the reference prefix are both the type
+        // parameter's path.  Switch R11U152_TPOVRSTRUCT_OFF.
+        bool tpOvr152 = false;
+        if ((st->kind == SymbolKind::PackedStructType ||
+             st->kind == SymbolKind::UnpackedStructType) && !arrayElem && declSymbol.kind == SymbolKind::TypeAlias &&
+            bypassTypedefShare && !syntaxRefPrefix.empty() &&
+            syntaxRefPrefix == paramTsOwnerFull9 &&
+            r11u152Law("R11U152_TPOVRSTRUCT_OFF"))
+            if (auto* hs152 = declSymbol.getParentScope();
+                hs152 &&
+                hs152->asSymbol().kind == SymbolKind::InstanceBody)
+                tpOvr152 = true;
+        // The member names run through the type parameter (grid PS p01-p03,
+        // p07-p10, p12, p14; TypeParamElab), except when every declaration
+        // typed by it is a body declaration writing packed dimensions on it
+        // (`T [1:0] q;`): golden's copy is then unparented and named from
+        // the typedef (`my_t.x`, grid PS p05).
+        std::string alias152;
+        if (tpOvr152) {
+            alias152 = std::string(declSymbol.name);
+            std::string tpn152 = syntaxRefPrefix.substr(
+                syntaxRefPrefix.rfind('.') == std::string::npos
+                    ? 0
+                    : syntaxRefPrefix.rfind('.') + 1);
+            bool anyUse152 = false, full152 = false;
+            if (currentScope &&
+                currentScope->asSymbol().kind == SymbolKind::InstanceBody) {
+                std::set<const Symbol*> ports152;
+                for (auto* pp152 : currentScope->asSymbol()
+                                       .as<InstanceBodySymbol>()
+                                       .getPortList())
+                    if (pp152->kind == SymbolKind::Port)
+                        if (auto* in152 =
+                                pp152->as<PortSymbol>().internalSymbol)
+                            ports152.insert(in152);
+                for (auto& mb152 : currentScope->members()) {
+                    if (mb152.kind != SymbolKind::Variable &&
+                        mb152.kind != SymbolKind::Net)
+                        continue;
+                    auto* dt152 = mb152.getDeclaredType();
+                    auto* ts152 = dt152 ? dt152->getTypeSyntax() : nullptr;
+                    if (!ts152 || ts152->getFirstToken().valueText() != tpn152)
+                        continue;
+                    bool bare152 =
+                        ts152->kind == syntax::SyntaxKind::NamedType &&
+                        ts152->as<syntax::NamedTypeSyntax>().name->kind ==
+                            syntax::SyntaxKind::IdentifierName;
+                    anyUse152 = true;
+                    if (ports152.count(&mb152) || bare152)
+                        full152 = true;
+                }
+            }
+            if (full152 || !anyUse152)
+                alias152 = syntaxRefPrefix + "." + alias152;
+        }
         if (st->kind == SymbolKind::PackedStructType) {
-            auto* sts = buildStructTs(st->as<PackedStructType>(), true, "");
+            auto* sts = buildStructTs(st->as<PackedStructType>(), true,
+                                      alias152);
             const syntax::SyntaxNode* ssyn =
                 arrayElem ? st->getSyntax() : declared->getTypeSyntax();
+            if (ssyn && tpOvr152) {
+                setLoc(sts, ssyn->sourceRange());
+                return sts;
+            }
             if (ssyn) {
                 if (auto* su = ssyn->as_if<syntax::StructUnionTypeSyntax>()) {
                     // Surelog locates an ANONYMOUS inline struct_typespec at
@@ -3924,9 +4144,14 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         // then stretches the def-view end through its init exactly as for a
         // vector (materializeDefNetTs).
         if (st->kind == SymbolKind::UnpackedStructType) {
-            auto* sts = buildStructTs(st->as<UnpackedStructType>(), false, "");
+            auto* sts = buildStructTs(st->as<UnpackedStructType>(), false,
+                                      alias152);
             const syntax::SyntaxNode* ssyn =
                 arrayElem ? st->getSyntax() : declared->getTypeSyntax();
+            if (ssyn && tpOvr152) {
+                setLoc(sts, ssyn->sourceRange());
+                return sts;
+            }
             if (ssyn) {
                 if (auto* su = ssyn->as_if<syntax::StructUnionTypeSyntax>())
                     setLoc(sts, su->keyword.range());
@@ -23225,7 +23450,49 @@ UHDM::packed_array_var* UhdmExporter::emitTypeParamArrayVar(
         auto* rt108 = s.MakeRef_typespec();
         rt108->VpiFullName(fullName);
         rt108->VpiParent(pav108);
-        rt108->Actual_typespec(it108->second);
+        UHDM::typespec* ts152 = it108->second;
+        // § tpElemPatAtUser152 (r11u152, map N0470) — a PORT typed by a type
+        // parameter whose default wraps a named element in a packed
+        // dimension (`localparam type rt_t = id_t [3:0]`, § typeParam
+        // NamedElemPackedDim31) holds golden's per-use COPY of that
+        // packed_array_typespec, parented at the port's variable: the
+        // element reference names through it (`work@dut.rt_i.id_t`, where
+        // ours read the type parameter's `work@dut.rt_t.id_t`).  The copy
+        // is the same builder's answer for the same declaration, parented
+        // at this variable: its own element reference over the SAME range
+        // (the range's bound references keep the declaration's names,
+        // `work@dut.rt_t.DEPTH`: the copy's clone keeps them, grid TP t07).
+        // A body declaration keeps the shared object (golden's copy there
+        // is unparented, and ours already agrees: grid TP t03/t04).
+        // Switch R11U152_TPELEMPAT_OFF.
+        if (r11u152Law("R11U152_TPELEMPAT_OFF") &&
+            !(dsx108 && dsx108->parent &&
+              dsx108->parent->kind == syntax::SyntaxKind::DataDeclaration))
+            if (auto* ws152 = tp108->targetType.getTypeSyntax();
+                ws152 && ws152->kind == syntax::SyntaxKind::NamedType &&
+                ws152->as<syntax::NamedTypeSyntax>().name &&
+                ws152->as<syntax::NamedTypeSyntax>().name->kind ==
+                    syntax::SyntaxKind::IdentifierSelectName) {
+                auto* op152 = (UHDM::packed_array_typespec*)it108->second;
+                auto* oe152 = op152->Elem_typespec();
+                if (oe152 && !oe152->VpiName().empty() && op152->Ranges()) {
+                    auto* cp152 = s.MakePacked_array_typespec();
+                    cp152->VpiFile(op152->VpiFile());
+                    cp152->VpiLineNo(op152->VpiLineNo());
+                    cp152->VpiColumnNo(op152->VpiColumnNo());
+                    cp152->VpiEndLineNo(op152->VpiEndLineNo());
+                    cp152->VpiEndColumnNo(op152->VpiEndColumnNo());
+                    cp152->Ranges(op152->Ranges());
+                    auto* ce152 = s.MakeRef_typespec();
+                    ce152->VpiParent(cp152);
+                    ce152->VpiName(oe152->VpiName());
+                    ce152->Actual_typespec(oe152->Actual_typespec());
+                    cp152->Elem_typespec(ce152);
+                    cp152->VpiParent(pav108);
+                    ts152 = cp152;
+                }
+            }
+        rt108->Actual_typespec(ts152);
         pav108->Typespec(rt108);
         // v11u108 (verifier) — a BODY declaration's attributes ride on the
         // variable (`(* keep *) rt_t x;`: golden packed_array_var carries

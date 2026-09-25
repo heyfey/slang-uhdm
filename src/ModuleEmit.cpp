@@ -687,6 +687,17 @@ void tpEndTopTwin149(
     tpEndMoves149().clear();
 }
 bool r11u146Law(const char* sw);
+bool r11u152Law(const char* sw); // the r11u152 switches (UhdmExporter.cpp)
+// § genCaseItemUnnamed152 (r11u152, map N0646) — Surelog leaves a
+// case-generate item's parent UNSET (CompileStmt), which stops
+// ComputeFullName for everything under it in the definition view: the item's
+// expressions and its named block store no full name, and the block's
+// contents are named from the label (`gw.w`, grid tools/probe/r11u152repro/
+// cases/GC).  Switch R11U152_GENCASE_OFF.
+static bool genCaseUnnamed152() {
+    static const bool on = r11u152Law("R11U152_GENCASE_OFF");
+    return on;
+}
 // ============================================================================
 // r11u139 — NET BINDING (the analyst pass's law.patch, landed by r11u137 on
 // the module ground): which net object an elaborated reference names.  Every
@@ -1874,10 +1885,27 @@ UHDM::expr* UhdmExporter::emitAssignDelay(const slang::syntax::TimingControlSynt
         setLoc(c, r);
         return c;
     };
+    // § delayLiteralValueText152 (r11u152, map N0528) — a REAL literal
+    // delay (`assign #0.1 b = a;`, `wire #0.25 w = a;`) keeps its text as the
+    // value: the `#0.1` token is compileConst's slIntConst, whose value is
+    // `UINT:` + the token text with `#` and `_` removed (CompileExpression.cpp
+    // compileConst), so golden reads UINT:0.1 where the integral reader
+    // wrote UINT:0.  Switch R11U152_DLYREAL_OFF.
+    auto realText152 = [&](const syntax::ExpressionSyntax& es,
+                           UHDM::constant* c) {
+        if (es.kind != syntax::SyntaxKind::RealLiteralExpression ||
+            !r11u152Law("R11U152_DLYREAL_OFF"))
+            return;
+        std::string t152 = rawText(es.sourceRange());
+        t152.erase(std::remove(t152.begin(), t152.end(), '_'), t152.end());
+        if (!t152.empty())
+            c->VpiValue("UINT:" + t152);
+    };
     if (dsyn->kind == syntax::SyntaxKind::DelayControl) {
         auto& d1 = dsyn->as<syntax::DelaySyntax>();
         SourceRange span(d1.hash.location(), d1.delayValue->sourceRange().end());
         auto* c = mkConst(delayVal(*d1.delayValue), span, rawText(span));
+        realText152(*d1.delayValue, c);
         c->VpiParent(parent);
         return c;
     }
@@ -1894,6 +1922,8 @@ UHDM::expr* UhdmExporter::emitAssignDelay(const slang::syntax::TimingControlSynt
                                     : ds.back()->sourceRange().end());
     if (!d3.closeParen) {
         auto* c = mkConst(delayVal(*ds[0]), whole, rawText(whole));
+        if (ds.size() == 1)
+            realText152(*ds[0], c);
         c->VpiParent(parent);
         return c;
     }
@@ -12949,6 +12979,18 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 cv9->VpiFullName(fullName);
                 cv9->VpiParent(m);
                 setLoc(cv9, nameSpan(it.sym->location, it.sym->name));
+                // § unsupportedTsInitEnd152 — the elaborated handle spans
+                // its name through the initializer (golden 24:5-24:21).
+                if (auto* dsy152 = it.sym->getSyntax();
+                    dsy152 &&
+                    dsy152->kind == syntax::SyntaxKind::Declarator &&
+                    dsy152->as<syntax::DeclaratorSyntax>().initializer &&
+                    r11u152Law("R11U152_CGINITEND_OFF"))
+                    setLoc(cv9,
+                           SourceRange(it.sym->location,
+                                       dsy152->as<syntax::DeclaratorSyntax>()
+                                           .initializer->sourceRange()
+                                           .end()));
                 cv9->VpiVisibility(1);
                 if (auto* ini9 = dtCE->getInitializer()) {
                     auto& ic9 = stripImplicitConv(*ini9);
@@ -13795,6 +13837,52 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 setLocNamed(v, *it.port);
             else
                 setLoc(v, nameSpan(it.sym->location, it.sym->name));
+            // § classVarInitSpan152 (r11u152, map N0498) — an initialised
+            // class handle in the elaborated view (`C c1 = new;`) spans its
+            // name through the initializer, as the covergroup handle of
+            // § unsupportedTsInitEnd152 does (golden 18:32-18:43 where ours
+            // read the name 18:32-18:37; grid CV).  Switch
+            // R11U152_CLSVARINIT_OFF.
+            // § classVarInitNewDecl152v (v11u152, verifier refinement of
+            // § classVarInitSpan152) — a handle whose class type is written
+            // as a BARE name (`C c2 = c1;`, `C c1 = null;`, `C c1 =
+            // C::make();`) keeps its name span unless its DECLARATION holds
+            // a `new` initializer (`C c1 = new;`, and every initialised
+            // declarator of `C c1 = C::make(), c2 = new;` /
+            // `C c1 = new, c2 = null;`); a specialization (`C#(int) c = null`)
+            // or a scoped name spans through any initializer (grid
+            // tools/probe/v11u152repro/cases/KW + KX).  Switch
+            // R11V152_CLSVARNEW_OFF.
+            auto newDecl152v = [](const syntax::SyntaxNode* d) {
+                static const bool off =
+                    getenv("R11V152_CLSVARNEW_OFF") != nullptr;
+                if (off || !d->parent ||
+                    d->parent->kind != syntax::SyntaxKind::DataDeclaration)
+                    return true;
+                auto& dd = d->parent->as<syntax::DataDeclarationSyntax>();
+                auto* nt = dd.type->as_if<syntax::NamedTypeSyntax>();
+                if (!nt || !nt->name ||
+                    nt->name->kind != syntax::SyntaxKind::IdentifierName)
+                    return true;
+                for (auto* dc : dd.declarators)
+                    if (dc->initializer && dc->initializer->expr &&
+                        dc->initializer->expr->kind ==
+                            syntax::SyntaxKind::NewClassExpression)
+                        return true;
+                return false;
+            };
+            if (!it.port && v->UhdmType() == UHDM::uhdmclass_var &&
+                r11u152Law("R11U152_CLSVARINIT_OFF"))
+                if (auto* dsy152 = it.sym->getSyntax();
+                    dsy152 &&
+                    dsy152->kind == syntax::SyntaxKind::Declarator &&
+                    dsy152->as<syntax::DeclaratorSyntax>().initializer &&
+                    newDecl152v(dsy152))
+                    setLoc(v, SourceRange(
+                                  it.sym->location,
+                                  dsy152->as<syntax::DeclaratorSyntax>()
+                                      .initializer->sourceRange()
+                                      .end()));
             if (rt) {
                 rt->VpiParent(v);
                 v->Typespec(rt);
@@ -16387,15 +16475,45 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                     arrTs9 = pit9->second->Typespec()
                                                  ->Actual_typespec();
                                 if (arrTs9 && pp9.getInitializer()) {
+                                    // § portConnParamFoldAtActual152 (r11u152,
+                                    // r11u151's C3 module half) — Surelog
+                                    // compiles the actual with Reduce::Yes:
+                                    // compileExpression's parameter case
+                                    // (CompileExpression.cpp, the
+                                    // clone_tree of the param_assign Rhs)
+                                    // relocates the clone's root to the
+                                    // REFERENCE (populateCoreMembers(child,
+                                    // child, result)), and the connection's
+                                    // ts ref is named through the port of
+                                    // the instance `prefix` already names
+                                    // (work@top.u.port, not
+                                    // work@top.u.u.port).  Switch
+                                    // R11U152_C3_OFF.  Declined for a
+                                    // package-qualified actual (.a(pk::P):
+                                    // golden keeps another shape there, the
+                                    // element pattern at its own span).
+                                    static const bool c3sw152 =
+                                        r11u152Law("R11U152_C3_OFF");
+                                    const bool c3on152 =
+                                        c3sw152 && ce9.syntax &&
+                                        ce9.syntax->kind ==
+                                            syntax::SyntaxKind::IdentifierName;
                                     std::string cfn9 =
-                                        prefix + "." + std::string(inst.name) +
-                                        "." + std::string(ps.name);
+                                        c3on152
+                                            ? prefix + "." +
+                                                  std::string(ps.name)
+                                            : prefix + "." +
+                                                  std::string(inst.name) +
+                                                  "." + std::string(ps.name);
                                     if (auto* fop9 =
                                             foldUnpackedStructArrayPattern(
                                                 *pp9.getInitializer(),
                                                 pp9.getType(), arrTs9, cfn9, p,
-                                                hcPrefix, *parentNets, true))
+                                                hcPrefix, *parentNets, true)) {
                                         h = fop9;
+                                        if (c3on152)
+                                            setLoc(fop9, ce9.sourceRange);
+                                    }
                                 }
                             }
                         }
@@ -22880,6 +22998,13 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         underCase9 = true;
                         break;
                     }
+                // § genCaseItemUnnamed152 (the elaborated half) — a NAMED
+                // case-generate block (`x: begin : tag1 ... end`) keeps its
+                // begin..end span, as a named if-block does (GenCase
+                // `tag1` 12:13-14:8; grid GC g01/g03/g04/g06); the
+                // first-member span stays for an unnamed block (g02).
+                if (underCase9 && !blk.isUnnamed && genCaseUnnamed152())
+                    underCase9 = false;
                 // A taken ELSE-IF branch block (its IfGenerate hangs off an
                 // ElseClause) also spans its first member (Surelog re-pass).
                 if (!underCase9 && syn->parent &&
@@ -23613,7 +23738,50 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                                          ->Typespec()) {
                                                     operandRt =
                                                         s.MakeRef_typespec();
-                                                    operandRt->VpiParent(opnd);
+                                                    // § genLpOperandTsNoParent152
+                                                    // (r11u152, map N0008's
+                                                    // generate-loop face) —
+                                                    // golden's ref_typespec on
+                                                    // the adopted pattern
+                                                    // operand has NO parent
+                                                    // (Surelog sets the
+                                                    // operand's typespec from
+                                                    // the localparam's
+                                                    // declaration without
+                                                    // parenting the
+                                                    // reference), so it reads
+                                                    // no full name — in a
+                                                    // NESTED generate block
+                                                    // only: a block of a loop
+                                                    // directly in the module
+                                                    // keeps the parent (grid
+                                                    // LP: a06/a09/a10 keep
+                                                    // it; nested loops, a
+                                                    // loop in an if-block, an
+                                                    // if-block in a loop drop
+                                                    // it).  Switch
+                                                    // R11U152_GENLPOPTS_OFF.
+                                                    static const bool
+                                                        lpOpTs152 = r11u152Law(
+                                                            "R11U152_GENLPOPTS_OFF");
+                                                    bool top152 = false;
+                                                    if (auto bp152 =
+                                                            blk.getParentScope();
+                                                        bp152 &&
+                                                        bp152->asSymbol().kind ==
+                                                            SymbolKind::
+                                                                GenerateBlockArray)
+                                                        if (auto gp152 =
+                                                                bp152->asSymbol()
+                                                                    .getParentScope())
+                                                            top152 =
+                                                                gp152->asSymbol()
+                                                                    .kind ==
+                                                                SymbolKind::
+                                                                    InstanceBody;
+                                                    if (!lpOpTs152 || top152)
+                                                        operandRt->VpiParent(
+                                                            opnd);
                                                     ((UHDM::constant*)opnd)
                                                         ->Typespec(operandRt);
                                                 }
@@ -45946,8 +46114,16 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 if (!label.empty()) {
                     auto* nb = s.MakeNamed_begin();
                     nb->VpiName(label);
-                    branchPrefix = basePrefix + "." + label;
-                    nb->VpiFullName(branchPrefix);
+                    // § genCaseItemUnnamed152 — a case item's named block
+                    // (noFull, the item has no parent) stores no full name,
+                    // and what it holds is named from the LABEL (`gw.w`),
+                    // the case item's own prefix being empty.
+                    if (noFull && basePrefix.empty())
+                        branchPrefix = label;
+                    else
+                        branchPrefix = basePrefix + "." + label;
+                    if (!(noFull && genCaseUnnamed152()))
+                        nb->VpiFullName(branchPrefix);
                     b = nb;
                 }
                 else {
@@ -48230,7 +48406,10 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 clause = sci.clause;
                 multiExpr = sci.expressions.size() > 1;
                 auto* exprs = s.MakeAnyVec();
-                syntaxRefPrefix = basePrefix;
+                // § genCaseItemUnnamed152 — the item's expressions read no
+                // full name (golden bare `x_1sb1` where ours wrote
+                // `work@top.x_1sb1`).
+                syntaxRefPrefix = genCaseUnnamed152() ? std::string() : basePrefix;
                 for (auto* le : sci.expressions) {
                     if (auto* e = emitSyntaxExpr(*le, item))
                         exprs->push_back(e);
@@ -48252,7 +48431,9 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
             }
             if (clause) {
                 if (auto* bb = emitBranch(*clause, item, findScope(clause),
-                                          basePrefix, /*noFull=*/true))
+                                          genCaseUnnamed152() ? std::string()
+                                                              : basePrefix,
+                                          /*noFull=*/true))
                     item->Stmt(bb);
             }
             return item;

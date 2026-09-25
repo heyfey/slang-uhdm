@@ -1,0 +1,108 @@
+r10earl_repro/uf subset | pris: STRICT_NOTEQUAL file | law: STRICT_NOTEQUAL line
+r10svs6repro/b4_qual subset | pris: STRICT_NOTEQUAL file | law: STRICT_NOTEQUAL file
+r10uvm206repro/g206_a_selftd subset | pris: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+r10uvm30repro/t40d subset | pris: STRICT_NOTEQUAL endcol | law: STRICT_NOTEQUAL endcol
+r10uvm60repro/v2_class subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r10uvm68repro/a4_typaram subset | pris: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+r10v153repro/v153_d_hoist subset | pris: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+r10vearl95repro/v95a_ctx subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u107repro/grid/o01_ovr_elem subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u107repro/grid/o02_ovr_then_def subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u107repro/grid/o03_def_then_ovr subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u107repro/grid/o04_two_ovr subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u107repro/grid/o06_nodef_ctl subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u107repro/grid/o07_passthru subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u10repro/grid/h9_1e1m_port subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u10repro/grid/hD_1e1mvec subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e01_base subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e02_two_diff_ovr subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e03_ovr_then_def subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e04_def_then_ovr subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e05_gen_if subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e06_gen_for subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e07_passthru subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e10_def_packed subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e18_chain_rt subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e19_scalar_port_ctl subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e22_nonansi subset | pris: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+r11u110repro/grid/e1/e24_ovr_2state subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e25_ovr_same_ctl subset | pris: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+r11u110repro/grid/e1/e27_ovr_signed subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e29_two_same_ovr subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e38_parent_same_name_def subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e39_value_and_type_named subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e44_parent_other_name_ovr subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e45_pkg_enum_ovr subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e47_pkg_struct_ovr subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e49_mod_typedef_ovr subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u110repro/grid/e1/e53_pkg_union_ovr subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+r11u32repro/k9b subset | pris: STRICT_NOTEQUAL endline | law: STRICT_NOTEQUAL endline
+v11u108repro/brk/f5/b15_child_ports NEW 1 | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+    ('fullname', 'A: 8\tref_obj\tD\t\t<in>rt_t.D\tdut.sv\t1\t111\t1\t112\t\t0', 'B: 8\tref_obj\tD\t\t<in>rt_t.D\tdut.sv\t1\t111\t1\t112\t\t0')
+v11u110repro/brk/v1/a02_unnamed_genif subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u110repro/brk/v1/a06_mid_passes_own subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u110repro/brk/v1/a11_bit_vs_logic subset | pris: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+v11u110repro/brk/v1/a19_top_own_tp_child_default subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u110repro/brk/v1/a20_top_own_tp_child_ovr subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u110repro/brk/v1/a22_genfor_genvar_ovr subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u110repro/brk/v1/a30_unconnected_and_twice_dut subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u110repro/brk/v1/a31_ovr_struct_parent_local subset | pris: STRICT_NOTEQUAL endcol | law: STRICT_NOTEQUAL fullname
+v11u110repro/brk/v3/a36_escaped_inst_name subset | pris: STRICT_NOTEQUAL endcol | law: STRICT_NOTEQUAL endcol
+v11u110repro/brk/v3/a38_iface_parent_ctl subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u110repro/brk/v3/a39_ovr_signed_int_type subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u110repro/brk/v4/q04_pkg_struct_nodims_ctl subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u110repro/brk/v4/q06_logic_2dim_ctl subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u110repro/brk/v5/k11_logic_param_range subset | pris: STRICT_NOTEQUAL endcol | law: STRICT_NOTEQUAL endcol
+v11u110repro/brk/v5/k13_anon_enum subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u115repro/grid/f1/a13_gcase subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u93b107repro/brk/r02_gen_last subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u93b107repro/brk/r03_nested_first subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u93b107repro/brk/r04_nested_last subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u93b107repro/brk/r05_rt_ovr_samename subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u93b107repro/brk/r06_ovr_pkg_struct subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u93b107repro/brk/r07_inst_array subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u93b107repro/brk/r08_two_defs subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u93b107repro/brk/r10_two_tops subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+v11u93b107repro/brk/r12_gen_mid subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+surelog/default/ClassTypeParam NEW 2 | pris: STRICT_NOTEQUAL endline | law: STRICT_NOTEQUAL endline
+    ('line', 'A: 2\tparam_assign\t\t\t\t\t0\t0\t0\t0', 'B: 2\tparam_assign\t\t\t\t\t16\t27\t16\t28')
+    ('line', 'A: 5\tparam_assign\t\t\t\t\t0\t0\t0\t0', 'B: 5\tparam_assign\t\t\t\t\t16\t27\t16\t28')
+surelog/testflags/ClassTypeParam NEW 2 | pris: STRICT_NOTEQUAL file | law: STRICT_NOTEQUAL file
+    ('line', 'A: 2\tparam_assign\t\t\t\t\t0\t0\t0\t0', 'B: 2\tparam_assign\t\t\t\t\t16\t27\t16\t28')
+    ('line', 'A: 5\tparam_assign\t\t\t\t\t0\t0\t0\t0', 'B: 5\tparam_assign\t\t\t\t\t16\t27\t16\t28')
+surelog/default/Earlgrey_0_1 subset | pris: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+surelog/testflags/Earlgrey_0_1 subset | pris: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+surelog/default/GenerateUnnamed subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+surelog/testflags/GenerateUnnamed subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+surelog/default/ParamTypespec2 subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+surelog/testflags/ParamTypespec2 subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+uhdm2rtlil/default/NestedStructArrayParameterInitializedByPatternPassedAsPort subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+uhdm2rtlil/testflags/NestedStructArrayParameterInitializedByPatternPassedAsPort subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+uhdm2rtlil/default/gen_scope_typaram NEW 2 | pris: STRICT_NOTEQUAL endcol | law: STRICT_NOTEQUAL fullname
+    ('fullname', 'A: 10\tref_typespec\t\t\t<in>pair_t.x\t\t0\t0\t0\t0\t\t0', 'B: 10\tref_typespec\t\t\t<in>pair_t.x\t\t0\t0\t0\t0\t\t0')
+    ('fullname', 'A: 10\tref_typespec\t\t\t<in>pair_t.y\t\t0\t0\t0\t0\t\t0', 'B: 10\tref_typespec\t\t\t<in>pair_t.y\t\t0\t0\t0\t0\t\t0')
+uhdm2rtlil/testflags/gen_scope_typaram NEW 2 | pris: STRICT_NOTEQUAL endcol | law: STRICT_NOTEQUAL fullname
+    ('fullname', 'A: 10\tref_typespec\t\t\t<in>pair_t.x\t\t0\t0\t0\t0\t\t0', 'B: 10\tref_typespec\t\t\t<in>pair_t.x\t\t0\t0\t0\t0\t\t0')
+    ('fullname', 'A: 10\tref_typespec\t\t\t<in>pair_t.y\t\t0\t0\t0\t0\t\t0', 'B: 10\tref_typespec\t\t\t<in>pair_t.y\t\t0\t0\t0\t0\t\t0')
+uhdm2rtlil/default/ibex_alu subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL endcol
+uhdm2rtlil/testflags/ibex_alu subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL endcol
+uhdm2rtlil/default/ibex_branch_predict subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL line
+uhdm2rtlil/testflags/ibex_branch_predict subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL line
+uhdm2rtlil/default/ibex_compressed_decoder subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL endcol
+uhdm2rtlil/testflags/ibex_compressed_decoder subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL endcol
+uhdm2rtlil/default/ibex_decoder subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL endcol
+uhdm2rtlil/testflags/ibex_decoder subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL endcol
+uhdm2rtlil/default/ibex_icache subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL line
+uhdm2rtlil/testflags/ibex_icache subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL line
+uhdm2rtlil/default/ibex_multdiv_fast subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL endcol
+uhdm2rtlil/testflags/ibex_multdiv_fast subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL endcol
+uhdm2rtlil/default/ibex_multdiv_slow subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL endline
+uhdm2rtlil/testflags/ibex_multdiv_slow subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL endline
+uhdm2rtlil/default/ibex_pmp subset | pris: STRICT_NOTEQUAL file | law: STRICT_NOTEQUAL file
+uhdm2rtlil/testflags/ibex_pmp subset | pris: STRICT_NOTEQUAL file | law: STRICT_NOTEQUAL file
+uhdm2rtlil/default/ibex_tracer subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+uhdm2rtlil/testflags/ibex_tracer subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+uhdm2rtlil/default/ibex_wb_stage subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL line
+uhdm2rtlil/testflags/ibex_wb_stage subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL line
+uhdm2rtlil/default/type_param_override_elem_sel subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+uhdm2rtlil/testflags/type_param_override_elem_sel subset | pris: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname

@@ -1,0 +1,63 @@
+  InterfaceModPort               default   OK      STRICT_NOTEQUAL/differ:endcol(17)
+  InterfaceModPort               testflags OK      STRICT_NOTEQUAL/differ:endcol(17)
+  BlackParrotComplex             default   OK      STRICT_NOTEQUAL/differ:depth(1)
+  BlackParrotComplex             testflags OK      STRICT_NOTEQUAL/differ:depth(1)
+  InterfaceBinding               default   OK      CMP_EQUAL/equal
+  InterfaceBinding               testflags OK      CMP_EQUAL/equal
+  InterfaceModExp                default   OK      CMP_EQUAL/equal
+  InterfaceModExp                testflags OK      CMP_EQUAL/equal
+  BindHierPath                   default   OK      CMP_EQUAL/equal
+  BindHierPath                   testflags OK      CMP_EQUAL/equal
+  EnumConcat                     default   OK      CMP_EQUAL/equal
+  EnumConcat                     testflags OK      CMP_EQUAL/equal
+  LowMemPkg                      default   OK      CMP_EQUAL/equal
+  LowMemPkg                      testflags OK      SURELOG_FAIL/
+  paramod_genscope_child         -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  issue326_packed_mem            -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  assignment-pattern             -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  hier_path                      -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  MultirangesStartNotFromZero    -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  genscope_cells                 -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  genvar_loop_decl_3             -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  ClassExtends                   default   OK      CMP_EQUAL/equal
+  ClassExtends                   testflags OK      CMP_EQUAL/equal
+  FuncStruct                     default   OK      CMP_EQUAL/equal
+  FuncStruct                     testflags OK      CMP_EQUAL/equal
+  FuncStructVal                  default   OK      STRICT_NOTEQUAL/differ:endcol(165)
+  FuncStructVal                  testflags OK      STRICT_NOTEQUAL/differ:endcol(377)
+  FuncIoTypespec                 default   OK      STRICT_NOTEQUAL/differ:file(9)
+  FuncIoTypespec                 testflags OK      STRICT_NOTEQUAL/differ:file(9)
+  Scr1SvTests                    default   OK      STRICT_NOTEQUAL/differ:line(220)
+  Scr1SvTests                    testflags OK      STRICT_NOTEQUAL/differ:line(220)
+  BasicOh                        default   OK      STRICT_NOTEQUAL/differ:fullname(29)
+  BasicOh                        testflags OK      CMP_EQUAL/equal
+  Earlgrey_0_1                   default   CHANGED STRICT_NOTEQUAL/differ:line(1747) -> STRICT_NOTEQUAL/differ:line(1743)
+  Earlgrey_0_1                   testflags CHANGED STRICT_NOTEQUAL/differ:line(1747) -> STRICT_NOTEQUAL/differ:line(1743)
+  YosysOldOr                     default   OK      STRICT_NOTEQUAL/differ:line(593)
+  YosysOldOr                     testflags OK      STRICT_NOTEQUAL/differ:line(593)
+  YosysBigSimReed                default   OK      CMP_EQUAL/equal
+  YosysBigSimReed                testflags OK      CMP_EQUAL/equal
+  YosysOldOpen                   default   OK      STRICT_NOTEQUAL/differ:line(17)
+  YosysOldOpen                   testflags OK      STRICT_NOTEQUAL/differ:fullname(4)
+  ClassParamAsParam              default   CHANGED STRICT_NOTEQUAL/differ:endcol(9) -> CMP_EQUAL/equal
+  ClassParamAsParam              testflags CHANGED STRICT_NOTEQUAL/differ:endcol(13) -> CMP_EQUAL/equal
+  ClassTypeParam                 default   CHANGED STRICT_NOTEQUAL/differ:endline(25) -> STRICT_NOTEQUAL/differ:endline(17)
+  ClassTypeParam                 testflags CHANGED STRICT_NOTEQUAL/differ:file(38) -> STRICT_NOTEQUAL/differ:file(30)
+  SVSwitch                       default   OK      STRICT_NOTEQUAL/differ:endcol(27)
+  SVSwitch                       testflags OK      STRICT_NOTEQUAL/differ:endcol(27)
+  SimpleConstraint               default   OK      STRICT_NOTEQUAL/differ:endcol(4)
+  SimpleConstraint               testflags OK      STRICT_NOTEQUAL/differ:endcol(4)
+  ApbSlave                       default   OK      STRICT_NOTEQUAL/differ:line(29)
+  ApbSlave                       testflags OK      STRICT_NOTEQUAL/differ:line(29)
+  SimpleUVM                      default   OK      STRICT_NOTEQUAL/differ:line(190)
+  SimpleUVM                      testflags OK      STRICT_NOTEQUAL/differ:line(190)
+  SeqDriver                      default   OK      STRICT_NOTEQUAL/differ:line(174)
+  SeqDriver                      testflags OK      STRICT_NOTEQUAL/differ:line(174)
+  BuildUVMPkg                    default   OK      STRICT_NOTEQUAL/differ:line(165)
+  BuildUVMPkg                    testflags OK      STRICT_NOTEQUAL/differ:line(165)
+  Scoreboard                     default   OK      STRICT_NOTEQUAL/differ:line(194)
+  Scoreboard                     testflags OK      SLANG_REJECT/
+---- canary rows: ok=46 changed=6 absent=0 unknown-names=7
+NOTE: 7 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.

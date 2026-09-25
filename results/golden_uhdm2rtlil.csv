@@ -213,7 +213,7 @@ fib_initial,default,CMP_EQUAL,,,equal
 fib_recursion,default,CMP_EQUAL,,,equal
 fib_simple,default,CMP_EQUAL,,,equal
 FileLevelParameter,default,CMP_EQUAL,,,equal
-FileLevelUnionWithMultirange,default,STRICT_NOTEQUAL,differ:file(14),,differ:file(14)
+FileLevelUnionWithMultirange,default,CMP_EQUAL,,,equal
 fill_literal_compare,default,CMP_EQUAL,,,equal
 flipflop,default,CMP_EQUAL,,,equal
 fmt_always_comb,default,CMP_EQUAL,,,equal
@@ -265,7 +265,7 @@ FunctionWireAssignmentOnDeclaration,default,CMP_EQUAL,,,equal
 FunctionWithoutReturn,default,CMP_EQUAL,,,equal
 FunctionWithOverriddenParameter,default,CMP_EQUAL,,,equal
 gen_scope_numports,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
-gen_scope_typaram,default,STRICT_NOTEQUAL,differ:endcol(9),,differ:endcol(9)
+gen_scope_typaram,default,STRICT_NOTEQUAL,differ:fullname(6),,differ:fullname(6)
 gen_struct_access,default,CMP_EQUAL,,,equal
 gen_test1,default,CMP_EQUAL,,,equal
 gen_test2,default,CMP_EQUAL,,,equal
@@ -300,34 +300,34 @@ hello-uvm,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/hello-uvm/
 hier_path,default,CMP_EQUAL,,,equal
 hier_undriven_port,default,CMP_EQUAL,,,equal
 hierdefparam,default,CMP_EQUAL,,,equal
-ibex_alu,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
-ibex_branch_predict,default,STRICT_NOTEQUAL,differ:fullname(13),,differ:fullname(13)
-ibex_compressed_decoder,default,STRICT_NOTEQUAL,differ:fullname(133),,differ:fullname(133)
+ibex_alu,default,CMP_EQUAL,,,equal
+ibex_branch_predict,default,STRICT_NOTEQUAL,differ:line(12),,differ:line(12)
+ibex_compressed_decoder,default,STRICT_NOTEQUAL,differ:line(132),,differ:line(132)
 ibex_controller,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_controller.sv:178:78: error: use of undeclared identifier 'u_ibex_core',,
 ibex_core,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_core.sv:429:3: error: unknown module 'ibex_if_stage',,
 ibex_counter,default,CMP_EQUAL,,,equal
 ibex_cs_registers,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_cs_registers.sv:907:3: error: unknown module 'ibex_csr',,
 ibex_csr,default,STRICT_NOTEQUAL,differ:line(12),,differ:line(12)
-ibex_decoder,default,STRICT_NOTEQUAL,differ:fullname(19),,differ:fullname(19)
+ibex_decoder,default,STRICT_NOTEQUAL,differ:endline(18),,differ:endline(18)
 ibex_dummy_instr,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_dummy_instr.sv:76:3: error: unknown module 'prim_lfsr',,
 ibex_ex_block,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_ex_block.sv:116:3: error: unknown module 'ibex_alu',,
 ibex_fetch_fifo,default,STRICT_NOTEQUAL,differ:line(24),,differ:line(24)
-ibex_icache,default,STRICT_NOTEQUAL,differ:fullname(161),,differ:fullname(161)
+ibex_icache,default,STRICT_NOTEQUAL,differ:line(160),,differ:line(160)
 ibex_id_stage,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_id_stage.sv:437:3: error: unknown module 'ibex_decoder',,
 ibex_if_stage,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_if_stage.sv:325:5: error: unknown module 'ibex_prefetch_buffer',,
 ibex_load_store_unit,default,STRICT_NOTEQUAL,differ:endline(240),,differ:endline(240)
 ibex_lockstep,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
-ibex_multdiv_fast,default,STRICT_NOTEQUAL,differ:fullname(101),,differ:fullname(101)
-ibex_multdiv_slow,default,STRICT_NOTEQUAL,differ:fullname(19),,differ:fullname(19)
-ibex_pmp,default,STRICT_NOTEQUAL,differ:file(53),,differ:file(53)
+ibex_multdiv_fast,default,STRICT_NOTEQUAL,differ:line(100),,differ:line(100)
+ibex_multdiv_slow,default,STRICT_NOTEQUAL,differ:endline(18),,differ:endline(18)
+ibex_pmp,default,STRICT_NOTEQUAL,differ:file(52),,differ:file(52)
 ibex_prefetch_buffer,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
 ibex_register_file_ff,default,STRICT_NOTEQUAL,differ:fullname(31),,differ:fullname(31)
 ibex_register_file_fpga,default,CMP_EQUAL,,,equal
 ibex_register_file_latch,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_register_file_latch.sv:71:3: error: unknown module 'prim_clock_gating',,
 ibex_top,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_top.sv:68:10: error: unknown class or package 'prim_ram_1p_pkg',,
 ibex_top_tracing,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_top_tracing.sv:47:10: error: unknown class or package 'prim_ram_1p_pkg',,
-ibex_tracer,default,STRICT_NOTEQUAL,differ:fullname(580),,differ:fullname(580)
-ibex_wb_stage,default,STRICT_NOTEQUAL,differ:fullname(25),,differ:fullname(25)
+ibex_tracer,default,STRICT_NOTEQUAL,differ:fullname(579),,differ:fullname(579)
+ibex_wb_stage,default,STRICT_NOTEQUAL,differ:line(24),,differ:line(24)
 iface_arr_struct_field_partsel,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 iface_arr_struct_whole_field,default,CMP_EQUAL,,,equal
 iface_array_count,default,CMP_EQUAL,,,equal
@@ -432,7 +432,7 @@ led_blink_counter,default,CMP_EQUAL,,,equal
 load_and_derive,default,CMP_EQUAL,,,equal
 local_nested_struct_field,default,CMP_EQUAL,,,equal
 local_var_in_always,default,CMP_EQUAL,,,equal
-LocalParamInNestedForLoops,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+LocalParamInNestedForLoops,default,CMP_EQUAL,,,equal
 LocalParamSelect,default,CMP_EQUAL,,,equal
 logic_ops,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/logic_ops/dut.sv:8:23: error: expected ';',,
 LogicPackedArray,default,CMP_EQUAL,,,equal
@@ -520,7 +520,7 @@ NestedParamSubstitution,default,CMP_EQUAL,,,equal
 NestedPatternPassedAsPort,default,CMP_EQUAL,,,equal
 NestedSelectOnInputPortInGenscope,default,CMP_EQUAL,,,equal
 NestedSelectOnVarInGenscope,default,CMP_EQUAL,,,equal
-NestedStructArrayParameterInitializedByPatternPassedAsPort,default,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
+NestedStructArrayParameterInitializedByPatternPassedAsPort,default,CMP_EQUAL,,,equal
 net_types,default,CMP_EQUAL,,,equal
 OneAlwaysComb,default,CMP_EQUAL,,,equal
 OneArithShift,default,CMP_EQUAL,,,equal
@@ -544,7 +544,7 @@ PackageCast,default,CMP_EQUAL,,,equal
 packed_array_elem_select,default,CMP_EQUAL,,,equal
 packed_array_reset_loop,default,STRICT_NOTEQUAL,differ:endline(3),,differ:endline(3)
 packed_array_struct,default,STRICT_NOTEQUAL,differ:endline(2),,differ:endline(2)
-packed_array_struct_port_sel,default,STRICT_NOTEQUAL,differ:endcol(9),,differ:endcol(9)
+packed_array_struct_port_sel,default,CMP_EQUAL,,,equal
 packed_struct_array_fifo,default,STRICT_NOTEQUAL,differ:endline(6),,differ:endline(6)
 packed_struct_array_net_elem,default,CMP_EQUAL,,,equal
 packed_struct_array_shift,default,CMP_EQUAL,,,equal
@@ -731,7 +731,7 @@ struct_dynamic_range,default,CMP_EQUAL,,,equal
 struct_field_self_guard,default,CMP_EQUAL,,,equal
 struct_init_partial_write,default,CMP_EQUAL,,,equal
 struct_little_endian_bit_array,default,CMP_EQUAL,,,equal
-struct_member_cfg_width,default,STRICT_NOTEQUAL,differ:endline(12),,differ:endline(12)
+struct_member_cfg_width,default,CMP_EQUAL,,,equal
 struct_member_expr_index,default,CMP_EQUAL,,,equal
 struct_member_trailing_index,default,CMP_EQUAL,,,equal
 struct_negative_index,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_negative_index/dut.sv:14:13: error: cannot refer to element -1 of 'bit[3:0][7:0]' [-Windex-oob,,
@@ -750,7 +750,7 @@ struct_pattern_procedural,default,CMP_EQUAL,,,equal
 struct_sizebits,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_sizebits/dut.sv:40:35: error: invalid argument type 'logic' to system function,,
 struct_typedef_packed_array,default,CMP_EQUAL,,,equal
 struct_unpacked_array_member,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_unpacked_array_member/dut.sv:9:19: error: packed members must be of integral type (not 'bit[7:,,
-StructArrayParameterInitializedByPatternPassedAsPort,default,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
+StructArrayParameterInitializedByPatternPassedAsPort,default,CMP_EQUAL,,,equal
 StructInPackage,default,CMP_EQUAL,,,equal
 StructLocalParam,default,CMP_EQUAL,,,equal
 StructMemberAsModuleInput,default,CMP_EQUAL,,,equal
@@ -790,8 +790,8 @@ TaskReturn,default,CMP_EQUAL,,,equal
 tern_fill_literal,default,CMP_EQUAL,,,equal
 ternary_not_cond,default,CMP_EQUAL,,,equal
 top_module_type_param,default,CMP_EQUAL,,,equal
-type_param_override_elem_sel,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
-type_param_packed_dim,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+type_param_override_elem_sel,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+type_param_packed_dim,default,CMP_EQUAL,,,equal
 type_param_unpacked_port,default,CMP_EQUAL,,,equal
 typed_named_pattern,default,CMP_EQUAL,,,equal
 typedef_package,default,CMP_EQUAL,,,equal
@@ -856,7 +856,7 @@ VarInFor,default,CMP_EQUAL,,,equal
 various_abc9,default,CMP_EQUAL,,,equal
 various_port_sign_extend,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/various_port_sign_extend/dut.v:75:7: error: expected identifier,,
 various_struct_access,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/various_struct_access/dut.sv:24:17: error: invalid member access for type 'logic[1:0]',,
-VarPassedTo2Submodules,default,STRICT_NOTEQUAL,differ:name(3),,differ:name(3)
+VarPassedTo2Submodules,default,CMP_EQUAL,,,equal
 VarSelect,default,CMP_EQUAL,,,equal
 vector_index,default,CMP_EQUAL,,,equal
 verilog_primitives,default,CMP_EQUAL,,,equal
@@ -1084,7 +1084,7 @@ fib_initial,testflags,CMP_EQUAL,,,equal
 fib_recursion,testflags,CMP_EQUAL,,,equal
 fib_simple,testflags,CMP_EQUAL,,,equal
 FileLevelParameter,testflags,CMP_EQUAL,,,equal
-FileLevelUnionWithMultirange,testflags,STRICT_NOTEQUAL,differ:file(14),,differ:file(14)
+FileLevelUnionWithMultirange,testflags,CMP_EQUAL,,,equal
 fill_literal_compare,testflags,CMP_EQUAL,,,equal
 flipflop,testflags,CMP_EQUAL,,,equal
 fmt_always_comb,testflags,CMP_EQUAL,,,equal
@@ -1136,7 +1136,7 @@ FunctionWireAssignmentOnDeclaration,testflags,CMP_EQUAL,,,equal
 FunctionWithoutReturn,testflags,CMP_EQUAL,,,equal
 FunctionWithOverriddenParameter,testflags,CMP_EQUAL,,,equal
 gen_scope_numports,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
-gen_scope_typaram,testflags,STRICT_NOTEQUAL,differ:endcol(9),,differ:endcol(9)
+gen_scope_typaram,testflags,STRICT_NOTEQUAL,differ:fullname(6),,differ:fullname(6)
 gen_struct_access,testflags,CMP_EQUAL,,,equal
 gen_test1,testflags,CMP_EQUAL,,,equal
 gen_test2,testflags,CMP_EQUAL,,,equal
@@ -1171,34 +1171,34 @@ hello-uvm,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/hello-uv
 hier_path,testflags,CMP_EQUAL,,,equal
 hier_undriven_port,testflags,CMP_EQUAL,,,equal
 hierdefparam,testflags,CMP_EQUAL,,,equal
-ibex_alu,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
-ibex_branch_predict,testflags,STRICT_NOTEQUAL,differ:fullname(13),,differ:fullname(13)
-ibex_compressed_decoder,testflags,STRICT_NOTEQUAL,differ:fullname(133),,differ:fullname(133)
+ibex_alu,testflags,CMP_EQUAL,,,equal
+ibex_branch_predict,testflags,STRICT_NOTEQUAL,differ:line(12),,differ:line(12)
+ibex_compressed_decoder,testflags,STRICT_NOTEQUAL,differ:line(132),,differ:line(132)
 ibex_controller,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_controller.sv:178:78: error: use of undeclared identifier 'u_ibex_core',,
 ibex_core,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_core.sv:429:3: error: unknown module 'ibex_if_stage',,
 ibex_counter,testflags,CMP_EQUAL,,,equal
 ibex_cs_registers,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_cs_registers.sv:907:3: error: unknown module 'ibex_csr',,
 ibex_csr,testflags,STRICT_NOTEQUAL,differ:line(12),,differ:line(12)
-ibex_decoder,testflags,STRICT_NOTEQUAL,differ:fullname(19),,differ:fullname(19)
+ibex_decoder,testflags,STRICT_NOTEQUAL,differ:endline(18),,differ:endline(18)
 ibex_dummy_instr,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_dummy_instr.sv:76:3: error: unknown module 'prim_lfsr',,
 ibex_ex_block,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_ex_block.sv:116:3: error: unknown module 'ibex_alu',,
 ibex_fetch_fifo,testflags,STRICT_NOTEQUAL,differ:line(24),,differ:line(24)
-ibex_icache,testflags,STRICT_NOTEQUAL,differ:fullname(161),,differ:fullname(161)
+ibex_icache,testflags,STRICT_NOTEQUAL,differ:line(160),,differ:line(160)
 ibex_id_stage,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_id_stage.sv:437:3: error: unknown module 'ibex_decoder',,
 ibex_if_stage,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_if_stage.sv:325:5: error: unknown module 'ibex_prefetch_buffer',,
 ibex_load_store_unit,testflags,STRICT_NOTEQUAL,differ:endline(240),,differ:endline(240)
 ibex_lockstep,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
-ibex_multdiv_fast,testflags,STRICT_NOTEQUAL,differ:fullname(101),,differ:fullname(101)
-ibex_multdiv_slow,testflags,STRICT_NOTEQUAL,differ:fullname(19),,differ:fullname(19)
-ibex_pmp,testflags,STRICT_NOTEQUAL,differ:file(53),,differ:file(53)
+ibex_multdiv_fast,testflags,STRICT_NOTEQUAL,differ:line(100),,differ:line(100)
+ibex_multdiv_slow,testflags,STRICT_NOTEQUAL,differ:endline(18),,differ:endline(18)
+ibex_pmp,testflags,STRICT_NOTEQUAL,differ:file(52),,differ:file(52)
 ibex_prefetch_buffer,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
 ibex_register_file_ff,testflags,STRICT_NOTEQUAL,differ:fullname(31),,differ:fullname(31)
 ibex_register_file_fpga,testflags,CMP_EQUAL,,,equal
 ibex_register_file_latch,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_register_file_latch.sv:71:3: error: unknown module 'prim_clock_gating',,
 ibex_top,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_top.sv:68:10: error: unknown class or package 'prim_ram_1p_pkg',,
 ibex_top_tracing,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_top_tracing.sv:47:10: error: unknown class or package 'prim_ram_1p_pkg',,
-ibex_tracer,testflags,STRICT_NOTEQUAL,differ:fullname(580),,differ:fullname(580)
-ibex_wb_stage,testflags,STRICT_NOTEQUAL,differ:fullname(25),,differ:fullname(25)
+ibex_tracer,testflags,STRICT_NOTEQUAL,differ:fullname(579),,differ:fullname(579)
+ibex_wb_stage,testflags,STRICT_NOTEQUAL,differ:line(24),,differ:line(24)
 iface_arr_struct_field_partsel,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 iface_arr_struct_whole_field,testflags,CMP_EQUAL,,,equal
 iface_array_count,testflags,CMP_EQUAL,,,equal
@@ -1303,7 +1303,7 @@ led_blink_counter,testflags,CMP_EQUAL,,,equal
 load_and_derive,testflags,CMP_EQUAL,,,equal
 local_nested_struct_field,testflags,CMP_EQUAL,,,equal
 local_var_in_always,testflags,CMP_EQUAL,,,equal
-LocalParamInNestedForLoops,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+LocalParamInNestedForLoops,testflags,CMP_EQUAL,,,equal
 LocalParamSelect,testflags,CMP_EQUAL,,,equal
 logic_ops,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/logic_ops/dut.sv:8:23: error: expected ';',,
 LogicPackedArray,testflags,CMP_EQUAL,,,equal
@@ -1391,7 +1391,7 @@ NestedParamSubstitution,testflags,CMP_EQUAL,,,equal
 NestedPatternPassedAsPort,testflags,CMP_EQUAL,,,equal
 NestedSelectOnInputPortInGenscope,testflags,CMP_EQUAL,,,equal
 NestedSelectOnVarInGenscope,testflags,CMP_EQUAL,,,equal
-NestedStructArrayParameterInitializedByPatternPassedAsPort,testflags,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
+NestedStructArrayParameterInitializedByPatternPassedAsPort,testflags,CMP_EQUAL,,,equal
 net_types,testflags,CMP_EQUAL,,,equal
 OneAlwaysComb,testflags,CMP_EQUAL,,,equal
 OneArithShift,testflags,CMP_EQUAL,,,equal
@@ -1415,7 +1415,7 @@ PackageCast,testflags,CMP_EQUAL,,,equal
 packed_array_elem_select,testflags,CMP_EQUAL,,,equal
 packed_array_reset_loop,testflags,STRICT_NOTEQUAL,differ:endline(3),,differ:endline(3)
 packed_array_struct,testflags,STRICT_NOTEQUAL,differ:endline(2),,differ:endline(2)
-packed_array_struct_port_sel,testflags,STRICT_NOTEQUAL,differ:endcol(9),,differ:endcol(9)
+packed_array_struct_port_sel,testflags,CMP_EQUAL,,,equal
 packed_struct_array_fifo,testflags,STRICT_NOTEQUAL,differ:endline(6),,differ:endline(6)
 packed_struct_array_net_elem,testflags,CMP_EQUAL,,,equal
 packed_struct_array_shift,testflags,CMP_EQUAL,,,equal
@@ -1602,7 +1602,7 @@ struct_dynamic_range,testflags,CMP_EQUAL,,,equal
 struct_field_self_guard,testflags,CMP_EQUAL,,,equal
 struct_init_partial_write,testflags,CMP_EQUAL,,,equal
 struct_little_endian_bit_array,testflags,CMP_EQUAL,,,equal
-struct_member_cfg_width,testflags,STRICT_NOTEQUAL,differ:endline(12),,differ:endline(12)
+struct_member_cfg_width,testflags,CMP_EQUAL,,,equal
 struct_member_expr_index,testflags,CMP_EQUAL,,,equal
 struct_member_trailing_index,testflags,CMP_EQUAL,,,equal
 struct_negative_index,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_negative_index/dut.sv:14:13: error: cannot refer to element -1 of 'bit[3:0][7:0]' [-Windex-oob,,
@@ -1621,7 +1621,7 @@ struct_pattern_procedural,testflags,CMP_EQUAL,,,equal
 struct_sizebits,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_sizebits/dut.sv:40:35: error: invalid argument type 'logic' to system function,,
 struct_typedef_packed_array,testflags,CMP_EQUAL,,,equal
 struct_unpacked_array_member,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_unpacked_array_member/dut.sv:9:19: error: packed members must be of integral type (not 'bit[7:,,
-StructArrayParameterInitializedByPatternPassedAsPort,testflags,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
+StructArrayParameterInitializedByPatternPassedAsPort,testflags,CMP_EQUAL,,,equal
 StructInPackage,testflags,CMP_EQUAL,,,equal
 StructLocalParam,testflags,CMP_EQUAL,,,equal
 StructMemberAsModuleInput,testflags,CMP_EQUAL,,,equal
@@ -1661,8 +1661,8 @@ TaskReturn,testflags,CMP_EQUAL,,,equal
 tern_fill_literal,testflags,CMP_EQUAL,,,equal
 ternary_not_cond,testflags,CMP_EQUAL,,,equal
 top_module_type_param,testflags,CMP_EQUAL,,,equal
-type_param_override_elem_sel,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
-type_param_packed_dim,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+type_param_override_elem_sel,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+type_param_packed_dim,testflags,CMP_EQUAL,,,equal
 type_param_unpacked_port,testflags,CMP_EQUAL,,,equal
 typed_named_pattern,testflags,CMP_EQUAL,,,equal
 typedef_package,testflags,CMP_EQUAL,,,equal
@@ -1727,7 +1727,7 @@ VarInFor,testflags,CMP_EQUAL,,,equal
 various_abc9,testflags,CMP_EQUAL,,,equal
 various_port_sign_extend,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/various_port_sign_extend/dut.v:75:7: error: expected identifier,,
 various_struct_access,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/various_struct_access/dut.sv:24:17: error: invalid member access for type 'logic[1:0]',,
-VarPassedTo2Submodules,testflags,STRICT_NOTEQUAL,differ:name(3),,differ:name(3)
+VarPassedTo2Submodules,testflags,CMP_EQUAL,,,equal
 VarSelect,testflags,CMP_EQUAL,,,equal
 vector_index,testflags,CMP_EQUAL,,,equal
 verilog_primitives,testflags,CMP_EQUAL,,,equal
