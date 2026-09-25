@@ -1,0 +1,54 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=SWN/probe.csv
+probe cases: EQUAL=2597 STRICT_NOTEQUAL=1490 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=2597 differ:fullname=599 differ:endcol=231 differ:line=229 differ:file=116 differ:type=101 differ:depth=92 differ:name=58 differ:col=43 differ:endline=14 differ:decompile=4 differ:value=3
+== probe vs golden_probe.csv
+[probe] EQUAL=2597 STRICT_NOTEQUAL=1490
+CHANGE r11u20repro/t6 STRICT_NOTEQUAL differ:fullname(2) -> differ:fullname(3) [fullname +1]
+regressions=0 conversions=0 changes=1 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=SWN/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u170_bin/uhdm-strictcmp
+
+[default] 798 tests
+  CMP_EQUAL: 437
+  SLANG_REJECT: 285
+  STRICT_NOTEQUAL: 43
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+  CMP_NOTEQUAL: 3
+
+[testflags] 798 tests
+  CMP_EQUAL: 434
+  SLANG_REJECT: 286
+  STRICT_NOTEQUAL: 40
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=437 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=43 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=434 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=40 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=SWN/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u170_bin/uhdm-strictcmp
+
+[default] 871 tests
+  CMP_EQUAL: 769
+  SLANG_REJECT: 67
+  STRICT_NOTEQUAL: 34
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 769
+  SLANG_REJECT: 67
+  STRICT_NOTEQUAL: 34
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=769 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=34
+[testflags] CMP_EQUAL=769 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=34
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+sweep rc=1

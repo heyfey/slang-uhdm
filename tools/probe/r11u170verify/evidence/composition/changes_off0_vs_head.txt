@@ -1,0 +1,86 @@
+== probe: 42 rows differ
+r10uvm104repro/g104_a5_fence CONVERSION | STRICT_NOTEQUAL differ:endline(10) -> EQUAL equal | off 10 rec on 0 rec
+r10uvm60repro/b7_multiline SUBSET | STRICT_NOTEQUAL differ:endline(10) -> STRICT_NOTEQUAL differ:endline(2) | off 10 rec on 2 rec
+r11u108repro/grid/f5/f5a08_structelem CONVERSION | STRICT_NOTEQUAL differ:endcol(9) -> EQUAL equal | off 9 rec on 0 rec
+r11u108repro/grid/f5/f5a10_writtendims_ctl CONVERSION | STRICT_NOTEQUAL differ:endline(2) -> EQUAL equal | off 2 rec (diverged) on 0 rec
+r11u108repro/grid/f5/f5a23_wdims_logicts_ctl CONVERSION | STRICT_NOTEQUAL differ:endline(3) -> EQUAL equal | off 3 rec (diverged) on 0 rec
+r11u110repro/grid/f2/i11_attr_wdims_child BOTH-DIVERGED | STRICT_NOTEQUAL differ:endline(2) -> STRICT_NOTEQUAL differ:line(2) | off 2 rec (diverged) on 2 rec (diverged) new=2 first: depth / A: 7	range				dut.sv	7	23	7	28 / B: 3	attribute	keep			dut.sv	2	6	2	10
+r11u112repro/grid/k/k02_scalar CONVERSION | STRICT_NOTEQUAL differ:type(1) -> EQUAL equal | off 1 rec (diverged) on 0 rec
+r11u112repro/grid/k/k03_dims UNMASK | STRICT_NOTEQUAL differ:endline(5) -> STRICT_NOTEQUAL differ:fullname(15) | off 5 rec (diverged) on 15 rec
+r11u112repro/grid/k/k12_twodims UNMASK | STRICT_NOTEQUAL differ:endline(5) -> STRICT_NOTEQUAL differ:fullname(15) | off 5 rec (diverged) on 15 rec
+r11u112repro/grid/k/k14_unpacked UNMASK | STRICT_NOTEQUAL differ:endline(5) -> STRICT_NOTEQUAL differ:fullname(10) | off 5 rec (diverged) on 10 rec
+r11u112repro/grid/k/k15_body_param_type CONVERSION | STRICT_NOTEQUAL differ:endline(2) -> EQUAL equal | off 2 rec (diverged) on 0 rec
+r11u112repro/grid/k/k16_comb_driven UNMASK | STRICT_NOTEQUAL differ:endline(5) -> STRICT_NOTEQUAL differ:fullname(24) | off 5 rec (diverged) on 24 rec
+r11u112repro/grid/k/k17_ff_driven UNMASK | STRICT_NOTEQUAL differ:endline(5) -> STRICT_NOTEQUAL differ:fullname(18) | off 5 rec (diverged) on 18 rec
+r11u112repro/grid/k/k19_child CONVERSION | STRICT_NOTEQUAL differ:endline(2) -> EQUAL equal | off 2 rec (diverged) on 0 rec
+r11u112repro/grid/k/k20_hdr_param_type_ctl CONVERSION | STRICT_NOTEQUAL differ:endline(2) -> EQUAL equal | off 2 rec on 0 rec
+r11u113repro/grid/e/e07_lptype_scalar CONVERSION | STRICT_NOTEQUAL differ:type(1) -> EQUAL equal | off 1 rec (diverged) on 0 rec
+r11u18repro/t1 CONVERSION | STRICT_NOTEQUAL differ:line(4) -> EQUAL equal | off 4 rec on 0 rec
+r11u18repro/t9 CONVERSION | STRICT_NOTEQUAL differ:line(4) -> EQUAL equal | off 4 rec on 0 rec
+r11u20repro/t2 CONVERSION | STRICT_NOTEQUAL differ:fullname(1) -> EQUAL equal | off 1 rec on 0 rec
+r11u20repro/t6 SUBSET | STRICT_NOTEQUAL differ:fullname(4) -> STRICT_NOTEQUAL differ:fullname(2) | off 4 rec on 2 rec
+r11u47repro/arms/g8 UNMASK | STRICT_NOTEQUAL differ:fullname(3) -> STRICT_NOTEQUAL differ:fullname(10) | off 3 rec (diverged) on 10 rec
+r11u8repro/b8 NEW | STRICT_NOTEQUAL differ:endcol(10) -> STRICT_NOTEQUAL differ:line(4) | off 10 rec on 4 rec new=2 first: line / A: 4	sys_func_call	$display			dut.sv	3	5	4	16		0 / B: 4	sys_func_call	$display			dut.sv	8	5	4	16		0
+r11u8repro/gA NEW | STRICT_NOTEQUAL differ:endcol(22) -> STRICT_NOTEQUAL differ:line(20) | off 22 rec on 20 rec new=10 first: line / A: 4	sys_func_call	$display			dut.sv	12	5	13	10		0 / B: 4	sys_func_call	$display			dut.sv	21	5	13	10		0
+r11u8repro/gB SUBSET | STRICT_NOTEQUAL differ:endcol(22) -> STRICT_NOTEQUAL differ:endcol(18) | off 22 rec on 18 rec
+r11v11u8repro/v10 NEW | STRICT_NOTEQUAL differ:line(16) -> STRICT_NOTEQUAL differ:endcol(14) | off 16 rec on 14 rec new=8 first: endcol / A: 1	module_inst		work@top	work@top	dut.sv	3	1	5	15 / B: 1	module_inst		work@top	work@top	dut.sv	3	1	5	76
+r11v11u8repro/v12 NEW | STRICT_NOTEQUAL differ:line(10) -> STRICT_NOTEQUAL differ:endcol(10) | off 10 rec on 10 rec new=6 first: endcol / A: 1	module_inst		work@top	work@top	dut.sv	3	1	5	15 / B: 1	module_inst		work@top	work@top	dut.sv	3	1	5	48
+r11v11u8repro/v2 NEW | STRICT_NOTEQUAL differ:endcol(14) -> STRICT_NOTEQUAL differ:line(4) | off 14 rec on 4 rec new=2 first: line / A: 4	sys_func_call	$display			dut.sv	5	5	6	16		0 / B: 4	sys_func_call	$display			dut.sv	10	5	6	16		0
+r11v11u8repro/v5 SUBSET | STRICT_NOTEQUAL differ:endcol(6) -> STRICT_NOTEQUAL differ:endcol(2) | off 6 rec on 2 rec
+r11v11u8repro/v8 NEW | STRICT_NOTEQUAL differ:line(10) -> STRICT_NOTEQUAL differ:endcol(10) | off 10 rec on 10 rec new=6 first: endcol / A: 1	module_inst		work@top	work@top	dut.sv	3	1	5	15 / B: 1	module_inst		work@top	work@top	dut.sv	3	1	5	64
+r11v32repro/h02_alwaysff_tp_pk CONVERSION | STRICT_NOTEQUAL differ:endline(3) -> EQUAL equal | off 3 rec (diverged) on 0 rec
+r11v32repro/w1_regression_witness BOTH-DIVERGED | STRICT_NOTEQUAL differ:endline(3) -> STRICT_NOTEQUAL differ:line(2) | off 3 rec (diverged) on 2 rec (diverged) new=2 first: depth / A: 6	range				dut.sv	2	42	2	47 / B: 3	type_parameter	T		work@w1_child.T	dut.sv	2	34	2	35
+r11v45repro/v7 SUBSET | STRICT_NOTEQUAL differ:line(8) -> STRICT_NOTEQUAL differ:line(4) | off 8 rec on 4 rec
+r11v45repro/v9 SUBSET | STRICT_NOTEQUAL differ:endcol(4) -> STRICT_NOTEQUAL differ:type(1) | off 4 rec (diverged) on 1 rec (diverged)
+r11v47repro/arms/v30 UNMASK | STRICT_NOTEQUAL differ:fullname(8) -> STRICT_NOTEQUAL differ:fullname(18) | off 8 rec (diverged) on 18 rec
+v11u108repro/brk/f5/b09_structelem_member CONVERSION | STRICT_NOTEQUAL differ:endcol(9) -> EQUAL equal | off 9 rec on 0 rec
+v11u108repro/brk/f5/b25_attr_wdims CONVERSION | STRICT_NOTEQUAL differ:endline(2) -> EQUAL equal | off 2 rec (diverged) on 0 rec
+v11u110repro/brk/v1/d01_attr_two_decl BOTH-DIVERGED | STRICT_NOTEQUAL differ:endline(2) -> STRICT_NOTEQUAL differ:line(2) | off 2 rec (diverged) on 2 rec (diverged) new=2 first: depth / A: 7	range				dut.sv	11	23	11	28 / B: 3	attribute	keep			dut.sv	5	6	5	10
+v11u110repro/brk/v1/d02_attr_two_attrs BOTH-DIVERGED | STRICT_NOTEQUAL differ:endline(2) -> STRICT_NOTEQUAL differ:line(2) | off 2 rec (diverged) on 2 rec (diverged) new=2 first: depth / A: 7	range				dut.sv	10	23	10	28 / B: 3	attribute	keep			dut.sv	5	6	5	10
+v11u111repro/brk/f6/x64_two_dims_positional SUBSET | STRICT_NOTEQUAL differ:line(4) -> STRICT_NOTEQUAL differ:fullname(3) | off 4 rec on 3 rec
+v11u112repro/grid/brk/k/b3a_multi_decl UNMASK | STRICT_NOTEQUAL differ:endline(2) -> STRICT_NOTEQUAL differ:decompile(1) | off 2 rec (diverged) on 1 rec
+v11u112repro/grid/brk/k/b3d_signed_packarr_member CONVERSION | STRICT_NOTEQUAL differ:endline(2) -> EQUAL equal | off 2 rec (diverged) on 0 rec
+v11u112repro/grid/ctlg/t/t10_body_tp_struct CONVERSION | STRICT_NOTEQUAL differ:type(1) -> EQUAL equal | off 1 rec (diverged) on 0 rec
+-- probe tally: BOTH-DIVERGED=4 CONVERSION=17 NEW=6 SUBSET=7 UNMASK=8
+== surelog: 8 rows differ
+surelog/default/ApbSlave SUBSET | STRICT_NOTEQUAL differ:line(29) -> STRICT_NOTEQUAL differ:line(26) | off 29 rec (diverged) on 26 rec (diverged)
+surelog/testflags/ApbSlave SUBSET | STRICT_NOTEQUAL differ:line(29) -> STRICT_NOTEQUAL differ:line(26) | off 29 rec (diverged) on 26 rec (diverged)
+surelog/default/BlackConst CONVERSION | STRICT_NOTEQUAL differ:line(29) -> CMP_EQUAL equal | off 29 rec on 0 rec
+surelog/testflags/BlackConst CONVERSION | STRICT_NOTEQUAL differ:line(19) -> CMP_EQUAL equal | off 19 rec on 0 rec
+surelog/default/ComplexParamOverload CONVERSION | STRICT_NOTEQUAL differ:name(2) -> CMP_EQUAL equal | off 2 rec (diverged) on 0 rec
+surelog/testflags/ComplexParamOverload CONVERSION | STRICT_NOTEQUAL differ:name(2) -> CMP_EQUAL equal | off 2 rec (diverged) on 0 rec
+surelog/default/MacroArgMismatch CONVERSION | STRICT_NOTEQUAL differ:endcol(8) -> CMP_EQUAL equal | off 8 rec on 0 rec
+surelog/testflags/MacroArgMismatch CONVERSION | STRICT_NOTEQUAL differ:endcol(8) -> CMP_EQUAL equal | off 8 rec on 0 rec
+-- surelog tally: CONVERSION=6 SUBSET=2
+== uhdm2rtlil: 30 rows differ
+uhdm2rtlil/default/arb_idx_cast UNMASK | STRICT_NOTEQUAL differ:endline(3) -> STRICT_NOTEQUAL differ:endcol(17) | off 3 rec (diverged) on 17 rec
+uhdm2rtlil/testflags/arb_idx_cast UNMASK | STRICT_NOTEQUAL differ:endline(3) -> STRICT_NOTEQUAL differ:endcol(17) | off 3 rec (diverged) on 17 rec
+uhdm2rtlil/default/gen_scope_typaram CONVERSION | STRICT_NOTEQUAL differ:fullname(6) -> CMP_EQUAL equal | off 6 rec on 0 rec
+uhdm2rtlil/testflags/gen_scope_typaram CONVERSION | STRICT_NOTEQUAL differ:fullname(6) -> CMP_EQUAL equal | off 6 rec on 0 rec
+uhdm2rtlil/default/ibex_branch_predict CONVERSION | STRICT_NOTEQUAL differ:line(12) -> CMP_EQUAL equal | off 12 rec on 0 rec
+uhdm2rtlil/testflags/ibex_branch_predict CONVERSION | STRICT_NOTEQUAL differ:line(12) -> CMP_EQUAL equal | off 12 rec on 0 rec
+uhdm2rtlil/default/ibex_compressed_decoder CONVERSION | STRICT_NOTEQUAL differ:line(132) -> CMP_EQUAL equal | off 132 rec on 0 rec
+uhdm2rtlil/testflags/ibex_compressed_decoder CONVERSION | STRICT_NOTEQUAL differ:line(132) -> CMP_EQUAL equal | off 132 rec on 0 rec
+uhdm2rtlil/default/ibex_csr CONVERSION | STRICT_NOTEQUAL differ:line(12) -> CMP_EQUAL equal | off 12 rec on 0 rec
+uhdm2rtlil/testflags/ibex_csr CONVERSION | STRICT_NOTEQUAL differ:line(12) -> CMP_EQUAL equal | off 12 rec on 0 rec
+uhdm2rtlil/default/ibex_decoder CONVERSION | STRICT_NOTEQUAL differ:endline(18) -> CMP_EQUAL equal | off 18 rec on 0 rec
+uhdm2rtlil/testflags/ibex_decoder CONVERSION | STRICT_NOTEQUAL differ:endline(18) -> CMP_EQUAL equal | off 18 rec on 0 rec
+uhdm2rtlil/default/ibex_fetch_fifo CONVERSION | STRICT_NOTEQUAL differ:line(24) -> CMP_EQUAL equal | off 24 rec on 0 rec
+uhdm2rtlil/testflags/ibex_fetch_fifo CONVERSION | STRICT_NOTEQUAL differ:line(24) -> CMP_EQUAL equal | off 24 rec on 0 rec
+uhdm2rtlil/default/ibex_icache SUBSET | STRICT_NOTEQUAL differ:line(157) -> STRICT_NOTEQUAL differ:fullname(49) | off 157 rec on 49 rec
+uhdm2rtlil/testflags/ibex_icache SUBSET | STRICT_NOTEQUAL differ:line(157) -> STRICT_NOTEQUAL differ:fullname(49) | off 157 rec on 49 rec
+uhdm2rtlil/default/ibex_load_store_unit SUBSET | STRICT_NOTEQUAL differ:endline(240) -> STRICT_NOTEQUAL differ:endline(142) | off 240 rec on 142 rec
+uhdm2rtlil/testflags/ibex_load_store_unit SUBSET | STRICT_NOTEQUAL differ:endline(240) -> STRICT_NOTEQUAL differ:endline(142) | off 240 rec on 142 rec
+uhdm2rtlil/default/ibex_multdiv_fast SUBSET | STRICT_NOTEQUAL differ:line(86) -> STRICT_NOTEQUAL differ:endcol(26) | off 86 rec on 26 rec
+uhdm2rtlil/testflags/ibex_multdiv_fast SUBSET | STRICT_NOTEQUAL differ:line(86) -> STRICT_NOTEQUAL differ:endcol(26) | off 86 rec on 26 rec
+uhdm2rtlil/default/ibex_multdiv_slow CONVERSION | STRICT_NOTEQUAL differ:endline(18) -> CMP_EQUAL equal | off 18 rec on 0 rec
+uhdm2rtlil/testflags/ibex_multdiv_slow CONVERSION | STRICT_NOTEQUAL differ:endline(18) -> CMP_EQUAL equal | off 18 rec on 0 rec
+uhdm2rtlil/default/ibex_wb_stage CONVERSION | STRICT_NOTEQUAL differ:line(24) -> CMP_EQUAL equal | off 24 rec on 0 rec
+uhdm2rtlil/testflags/ibex_wb_stage CONVERSION | STRICT_NOTEQUAL differ:line(24) -> CMP_EQUAL equal | off 24 rec on 0 rec
+uhdm2rtlil/default/packed_array_reset_loop CONVERSION | STRICT_NOTEQUAL differ:endline(3) -> CMP_EQUAL equal | off 3 rec (diverged) on 0 rec
+uhdm2rtlil/testflags/packed_array_reset_loop CONVERSION | STRICT_NOTEQUAL differ:endline(3) -> CMP_EQUAL equal | off 3 rec (diverged) on 0 rec
+uhdm2rtlil/default/packed_array_struct CONVERSION | STRICT_NOTEQUAL differ:endline(2) -> CMP_EQUAL equal | off 2 rec (diverged) on 0 rec
+uhdm2rtlil/testflags/packed_array_struct CONVERSION | STRICT_NOTEQUAL differ:endline(2) -> CMP_EQUAL equal | off 2 rec (diverged) on 0 rec
+uhdm2rtlil/default/packed_struct_array_fifo CONVERSION | STRICT_NOTEQUAL differ:endline(6) -> CMP_EQUAL equal | off 6 rec on 0 rec
+uhdm2rtlil/testflags/packed_struct_array_fifo CONVERSION | STRICT_NOTEQUAL differ:endline(6) -> CMP_EQUAL equal | off 6 rec on 0 rec
+-- uhdm2rtlil tally: CONVERSION=22 SUBSET=6 UNMASK=2

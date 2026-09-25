@@ -1,0 +1,15 @@
+ON | sc/f08 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | sc/f15 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sc/f16 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | sc/f17 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sc/f18 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+OWN | sc/f08 | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 3 common constant assignments match
+OWN | sc/f15 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/OWN
+OWN | sc/f16 | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 2 common constant assignments match
+OWN | sc/f17 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/OWN
+OWN | sc/f18 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/OWN
+ALLOFF | sc/f08 | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 3 common constant assignments match
+ALLOFF | sc/f15 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/ALL
+ALLOFF | sc/f16 | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 2 common constant assignments match
+ALLOFF | sc/f17 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/ALL
+ALLOFF | sc/f18 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/ALL

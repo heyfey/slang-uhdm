@@ -1,0 +1,182 @@
+diff --git a/src/EmitHelpers.h b/src/EmitHelpers.h
+index 947572b92..6405aee5d 100644
+--- a/src/EmitHelpers.h
++++ b/src/EmitHelpers.h
+@@ -15004,6 +15004,18 @@ inline bool genCaLhsCtx158(const UHDM::BaseClass* parent) {
+     return false;
+ }
+ 
++// ===========================================================================
++// r11u170 — the second adversarial verification of passes 158, 160 and 163
++// (tools/probe/r11u170verify).  Each refinement reads its own switch;
++// R11V170_OFF drops every one of them (the d8cfd83a bytes).
++//   R11V170_GCALHSUNIT_OFF  § genCaLhsUnitEnumShared170v   (ExprEmit.cpp)
++//   R11V170_TPVECNET_OFF    § defNetTpVecNetKeepsEnd170v   (ModuleEmit.cpp)
++//   R11V170_SCSCOPED_OFF    § sizeCastScopedNameUnsigned170v (ExprEmit.cpp)
++inline bool r11v170On(const char* one) {
++    static const bool all = getenv("R11V170_OFF") != nullptr;
++    return !all && getenv(one) == nullptr;
++}
++
+ // ===========================================================================
+ // r11u163 — the expression/parameter ground (tools/probe/r11u163repro).
+ // Every law reads its own switch; R11U163_OFF drops every one of them (the
+diff --git a/src/ExprEmit.cpp b/src/ExprEmit.cpp
+index f7a248ba2..6ad3a53a3 100644
+--- a/src/ExprEmit.cpp
++++ b/src/ExprEmit.cpp
+@@ -1068,6 +1068,51 @@ static UHDM::any* patMemberSlot(UHDM::any* rhs, const std::string& mem,
+ // off pkgParamDefRhs, which is registered PER VIEW, so a def-view member value
+ // resolves against the def listing and an elab one against the elab listing —
+ // THE LAW, for free.
++static void trace170(const char* law) {
++    static const bool on = getenv("R11V170_TRACE") != nullptr;
++    if (on)
++        fprintf(stderr, "R11V170_TRACE %s\n", law);
++}
++
++// § genCaLhsUnitEnumShared170v (r11u170) — whether the compilation unit can
++// see an enum constant: its enum type is declared at compilation-unit scope,
++// or its package is imported there (a wildcard import, or an explicit import
++// of this name).  Surelog's UhdmWriter::lateBinding scans the file's own
++// typedef map (`fC->getTypeDefMap()`) before it mints a fresh constant, so a
++// name visible there binds the located shared constant.
++static bool unitVisibleEnum170(const Symbol& ev, Compilation& comp) {
++    if (ev.kind != SymbolKind::EnumValue)
++        return false;
++    const Symbol* pkg170 = nullptr;
++    for (auto sc = ev.getParentScope(); sc; sc = sc->asSymbol().getParentScope()) {
++        auto k = sc->asSymbol().kind;
++        if (k == SymbolKind::CompilationUnit) {
++            trace170("GCALHSUNIT");
++            return true;
++        }
++        if (k == SymbolKind::Package) {
++            pkg170 = &sc->asSymbol();
++            break;
++        }
++        if (k == SymbolKind::InstanceBody || k == SymbolKind::GenerateBlock ||
++            k == SymbolKind::Subroutine || k == SymbolKind::ClassType)
++            return false;
++    }
++    if (!pkg170)
++        return false;
++    for (auto* cu : comp.getCompilationUnits())
++        for (auto& m : cu->members()) {
++            if ((m.kind == SymbolKind::WildcardImport &&
++                 (const Symbol*)m.as<WildcardImportSymbol>().getPackage() == pkg170) ||
++                (m.kind == SymbolKind::ExplicitImport && m.name == ev.name &&
++                 (const Symbol*)m.as<ExplicitImportSymbol>().package() == pkg170)) {
++                trace170("GCALHSUNIT");
++                return true;
++            }
++        }
++    return false;
++}
++
+ UHDM::any* UhdmExporter::pkgPatSubstValue(const Expression& expr, int depth) {
+     if (depth > 8)
+         return nullptr;
+@@ -7871,6 +7916,34 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression*
+                 case ExpressionKind::IntegerLiteral:
+                     return true;
+                 case ExpressionKind::NamedValue:
++                    // § sizeCastScopedNameUnsigned170v (r11u170) — a
++                    // package-SCOPED name (`2'(pk::V)`) or a name declared
++                    // at compilation-unit scope (`$unit` `localparam int V
++                    // = 7;`, `2'(V)`) is not the signed arm in golden: its
++                    // value is masked unsigned at the assignment width like
++                    // a literal (`assign p = 2'(pk::V)`, logic [3:0] p ->
++                    // UINT:3 size 4; `3'(pk::N)`, N = -1, into logic [7:0]
++                    // -> UINT:7), where a module parameter or an imported
++                    // name read bare (`import pk::*; 2'(V)`) keeps INT:-1 at
++                    // the assignment width.  The signed arm's INT:-1 moved
++                    // the downstream row EQUIVALENT -> DIVERGENT (grid
++                    // tools/probe/r11u170verify/cases/sc f08 f16 f18).
++                    // Switch R11V170_SCSCOPED_OFF.
++                    if (top && r11v170On("R11V170_SCSCOPED_OFF")) {
++                        const syntax::ExpressionSyntax* os170 =
++                            sc.syntax->as<syntax::CastExpressionSyntax>().right->expression;
++                        while (os170->kind == syntax::SyntaxKind::ParenthesizedExpression)
++                            os170 = os170->as<syntax::ParenthesizedExpressionSyntax>().expression;
++                        if (os170->kind == syntax::SyntaxKind::ScopedName) {
++                            trace170("SCSCOPED");
++                            return true;
++                        }
++                        if (auto* ps170 = e.as<NamedValueExpression>().symbol.getParentScope();
++                            ps170 && ps170->asSymbol().kind == SymbolKind::CompilationUnit) {
++                            trace170("SCSCOPED");
++                            return true;
++                        }
++                    }
+                     return !top;
+                 case ExpressionKind::UnaryOp:
+                     return litTree158(e.as<UnaryExpression>().operand(), false);
+@@ -21486,7 +21559,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+                          !defGenProcessEmit && !uninstIfaceSubBody218 &&
+                          eit->second->UhdmType() == UHDM::uhdmenum_const &&
+                          r11u158On("R11U158_GCALHSENUM_OFF") &&
+-                         genCaLhsCtx158(parent)) {
++                         genCaLhsCtx158(parent) &&
++                         // § genCaLhsUnitEnumShared170v (r11u170) — an enum
++                         // name the compilation unit can see (its type is
++                         // declared in $unit, or its package is imported
++                         // there) is found by UhdmWriter::lateBinding's
++                         // file-level typedef scan (`fC->getTypeDefMap()`,
++                         // UhdmWriter.cpp) BEFORE the `mod->getValue(name)`
++                         // mint, so golden binds the located shared constant
++                         // (grid tools/probe/r11u170verify/cases/gl g01 g04
++                         // g06 g09 g10 g11, cx/x07: `typedef enum int {E_LO =
++                         // 1, E_HI = 3} e_t;` at file level, `assign
++                         // o[E_HI:E_LO] = ...` in a gen-for: E_HI 2:30-2:38).
++                         // Switch R11V170_GCALHSUNIT_OFF.
++                         !(r11v170On("R11V170_GCALHSUNIT_OFF") &&
++                           unitVisibleEnum170(nv.symbol, comp))) {
+                     trace158("GCALHSENUM");
+                     auto* shared = (UHDM::enum_const*)eit->second;
+                     auto* ec = s.MakeEnum_const();
+diff --git a/src/ModuleEmit.cpp b/src/ModuleEmit.cpp
+index 402837ac6..2041f99ed 100644
+--- a/src/ModuleEmit.cpp
++++ b/src/ModuleEmit.cpp
+@@ -29924,6 +29924,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
+     // judge-visible, not modelled).  Switch: R11U144_TPPACKEDNET_OFF.
+     const TypeParameterSymbol* tpPk144 = nullptr;
+     const syntax::SyntaxNode* tpPkDim144 = nullptr;
++    bool tpVecNet170 = false;
+     if (pn.rt->VpiParent() && pn.rt->VpiParent()->UhdmType() != UHDM::uhdmport &&
+         r11u137Law("R11U137_DEFNETTP_OFF") && r11u144Law("R11U144_TPPACKEDNET_OFF") &&
+         !portTypeParam(*pn.sym))
+@@ -29971,6 +29972,23 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
+                                  (vec160 && vecLeaf160(lc144)))) {
+                                 tpPk144 = tp144;
+                                 tpPkDim144 = isn144.selectors[0];
++                                // § defNetTpVecNetKeepsEnd170v (r11u170) — a
++                                // NET declaration (`wire T [N-1:0] w;`) of
++                                // the vector half binds the default object
++                                // but does not move its end: golden keeps
++                                // `logic [3:0]` 2:33-2:44 (grid
++                                // tools/probe/r11u170verify/cases/tv v03 v04
++                                // v06), where the variable form (`T [N-1:0]
++                                // w;`, v05 v07) moves it to the dimension.
++                                // Switch R11V170_TPVECNET_OFF.
++                                if (pn.sym->kind == SymbolKind::Net &&
++                                    lc144.kind != SymbolKind::PackedStructType &&
++                                    lc144.kind != SymbolKind::PackedUnionType &&
++                                    r11v170On("R11V170_TPVECNET_OFF")) {
++                                    tpVecNet170 = true;
++                                    if (getenv("R11V170_TRACE"))
++                                        fprintf(stderr, "R11V170_TRACE TPVECNET\n");
++                                }
+                             }
+                         }
+                 }
+@@ -30029,7 +30047,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
+                         SourceLocation e137 = SourceLocation::NoLocation;
+                         if (!dd.dimensions.empty())
+                             e137 = dd.dimensions[0]->sourceRange().end();
+-                        else if (tpPkDim144)
++                        else if (tpPkDim144 && !tpVecNet170)
+                             e137 = tpPkDim144->sourceRange().end();
+                         if (e137 != SourceLocation::NoLocation) {
+                             uint32_t l137 = 0, c137 = 0;

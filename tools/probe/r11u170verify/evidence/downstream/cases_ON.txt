@@ -1,0 +1,178 @@
+ON | aq/q01 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | aq/q02 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | aq/q03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | aq/q05 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | bt/b01 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | bt/b02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | bt/b03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | aq/q04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cp/c01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cx/x02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cp/c02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cx/x03 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | cp/c03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cx/x01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cx/x04 | IDENTICAL | OK | OK | - | -
+ON | cx/x05 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cx/x06 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | cx/x07 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth |    This indicates a serious bug in  - t
+ON | ev/a01 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | cx/x08 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ev/a02 | IDENTICAL | OK | OK | - | -
+ON | cx/x09 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ev/a03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ev/a04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ev/a05 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | fe/e02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | fe/e03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ev/a06 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | fn/f01 | EQUIVALENT | OK | OK | nohier il synth | ✅ Formal equivalence check PASSED for 
+ON | fn/f02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ev/a07 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | fe/e01 | EQUIVALENT | NO_GATES | NO_GATES | nohier | ✅ All 1 common constant assignments match
+ON | gl/g04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gl/g05 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gl/g06 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | fn/f03 | DIVERGENT | OK | OK | nohier il synth | ----------------------------------------------
+ON | gl/g07 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gl/g01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gl/g08 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gl/g02 | IDENTICAL | OK | OK | - | -
+ON | gl/g09 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gl/g03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gl/g10 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth |    This indicates a serious bug in  - t
+ON | gt/q01 | IDENTICAL | OK | OK | - | -
+ON | gl/g11 | IDENTICAL | OK | OK | - | -
+ON | gt/q02 | IDENTICAL | OK | OK | - | -
+ON | gw/z02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gw/z03 | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 2 common constant assignments match
+ON | gw/z04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gt/q03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gw/z05 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gw/z01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gw/z06 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gw/z10 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gw/z07 | IDENTICAL | OK | OK | - | -
+ON | gw/z11 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | hs/h01 | IDENTICAL | OK | OK | - | -
+ON | gw/z08 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | hs/h02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gw/z09 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | hs/h03 | IDENTICAL | OK | OK | - | -
+ON | hs/h04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | hs/h07 | EQUIVALENT | NO_GATES | NO_GATES | nohier | ℹ️  No common assign statements to compare — skipping
+ON | hs/h05 | IDENTICAL | OK | OK | - | -
+ON | hs/h08 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | hs/h09 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | hs/h06 | EQUIVALENT | NO_GATES | NO_GATES | nohier | ℹ️  No common assign statements to compare — skipping
+ON | hs/h10 | IDENTICAL | OK | OK | - | -
+ON | hs/h11 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ic/i01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ic/i02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ma/o01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ma/o02 | EQUIVALENT | OK | OK | nohier il synth | ✅ Formal equivalence check PASSED for 
+ON | mm/m01 | IDENTICAL | OK | OK | - | -
+ON | ma/o03 | EQUIVALENT | OK | OK | nohier il | ✅ Formal equivalence check PASSED for 
+ON | mm/m02 | EQUIVALENT | OK | OK | nohier il | ✅ Formal equivalence check PASSED for 
+ON | ma/o04 | IDENTICAL | OK | OK | - | -
+ON | mm/m03 | IDENTICAL | OK | OK | - | -
+ON | mm/m04 | EQUIVALENT | NO_GATES | NO_GATES | nohier | ✅ All 2 common constant assignments match
+ON | mm/m05 | SURELOG_FAIL |  |  | - | no reference database
+ON | ma/o05 | IDENTICAL | OK | OK | - | -
+ON | mm/m06 | IDENTICAL | OK | OK | - | -
+ON | mm/m09 | EQUIVALENT | NO_GATES | NO_GATES | nohier | ✅ All 1 common constant assignments match
+ON | mm/m10 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | mm/m11 | EQUIVALENT | NO_GATES | NO_GATES | nohier | ✅ All 2 common constant assignments match
+ON | mm/m07 | EQUIVALENT | OK | OK | nohier il | ✅ Formal equivalence check PASSED for 
+ON | mm/m08 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | mm/m12 | EQUIVALENT | OK | OK | nohier il | ✅ Formal equivalence check PASSED for 
+ON | mm/m13 | EQUIVALENT | OK | OK | nohier il | ✅ Formal equivalence check PASSED for 
+ON | nd/n04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | nd/n05 | EQUIVALENT | NO_GATES | NO_GATES | nohier | ℹ️  No common assign statements to compare — skipping
+ON | nd/n01 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | nd/n02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | nd/n03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | nd/n06 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | oa/o01 | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ON | oa/o02 | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ON | nd/n07 | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 3 common constant assignments match
+ON | oa/o03 | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 1 common constant assignments match
+ON | oa/o04 | IDENTICAL | OK | OK | - | -
+ON | oa/o05 | IDENTICAL | OK | OK | - | -
+ON | pa/p04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pa/p01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pl/d01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pa/p02 | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 1 common constant assignments match
+ON | pl/d02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pa/p03 | EQUIVALENT | NO_GATES | NO_GATES | nohier | ✅ All 2 common constant assignments match
+ON | pl/d03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | po/c01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | po/c02 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | pp/f01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | po/c03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pp/f02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | po/c04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pp/f03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | qs/a01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | qs/a02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | qs/a03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | rc/f01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | rc/f02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | qs/a04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | rc/f03 | IDENTICAL | OK | OK | - | -
+ON | rt/r01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | rt/r02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | qs/a05 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | rz/z02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | rt/r03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | rz/z03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sc/f01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sc/f02 | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 3 common constant assignments match
+ON | rt/r04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | rz/z01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sc/f03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sc/f07 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sc/f04 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | sc/f05 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | sc/f08 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | sc/f09 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sc/f06 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sc/f10 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sc/f11 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sc/f12 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sc/f15 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sc/f13 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | sc/f16 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | sc/f14 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sc/f17 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sc/f18 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | sc/f19 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sy/y03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sc/f20 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sy/y01 | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ON | sy/y02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sy/y04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sy/y05 | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ON | sy/y07 | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ✅ All 1 common constant assignments match
+ON | th/t01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | th/t02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | th/t03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | sy/y06 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | tu/u01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | tv/v02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | tu/u02 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | tv/v03 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | tu/u03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | tv/v01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | tv/v04 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | tv/v05 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | tv/v06 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | tv/v07 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ua/u02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ua/u03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | tv/v08 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for 
+ON | ua/u01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | wr/w01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ua/u04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ux/s01 | SLANG_REJECT |  |  | - | -
+ON | wr/w02 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth |    This indicates a serious bug in  - t

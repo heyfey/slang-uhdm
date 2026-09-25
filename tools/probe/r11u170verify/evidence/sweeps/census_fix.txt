@@ -1,0 +1,12 @@
+fenced mentions: 0
+done
+done
+0 /tmp/r11u170_cen/census_probe.log
+0 /tmp/r11u170_cen/census_surelog.log
+0 /tmp/r11u170_cen/census_u2r.log
+0 total
+positive control (tracewrap on the final fix.bin): pc.uhdm       8 R11V170_TRACE GCALHSUNIT
+positive control (tracewrap on the final fix.bin): pc.uhdm       1 R11V170_TRACE TPVECNET
+positive control (tracewrap on the final fix.bin): pc.uhdm       3 R11V170_TRACE SCSCOPED
+positive control (tracewrap on the final fix.bin): pc.uhdm       2 R11V170_TRACE SCSCOPED
+cmds.txt audit: 3265 corpus slang lines name drivers/tracewrap.sh (the 8 fenced row-modes filtered out); probe 4087 cases EQUAL=2597 STRICT_NOTEQUAL=1490 through the wrapper

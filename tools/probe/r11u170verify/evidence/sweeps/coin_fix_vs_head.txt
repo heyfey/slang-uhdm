@@ -1,0 +1,6 @@
+./surelog/default/MiniAmiq-055eab74/slang.uhdm ordered=4 orderblind=4
+./surelog/default/Scoreboard-72aa0ba8/slang.uhdm ordered=92 orderblind=0
+./surelog/default/SeqDriver-65178d3a/slang.uhdm ordered=4 orderblind=4
+./surelog/testflags/MiniAmiq-055eab74/slang.uhdm ordered=4 orderblind=4
+./surelog/testflags/SimpleUVM-267de3ff/slang.uhdm ordered=4 orderblind=4
+5 ordered=0 orderblind=0

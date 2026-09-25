@@ -1,0 +1,177 @@
+FIXRESULT bt/b02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL endline | 
+FIXRESULT aq/q01 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT aq/q04 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT bt/b03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT aq/q02 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT aq/q05 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT aq/q03 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT cp/c01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 150 objects | 
+FIXRESULT bt/b01 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT cp/c02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT cx/x02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 158 objects | 
+FIXRESULT cx/x05 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT cp/c03 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT cx/x03 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT cx/x06 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT cx/x01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 226 objects | 
+FIXRESULT cx/x04 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL col | 
+FIXRESULT cx/x07 STAGE1-CLOSER fixoff==HEAD:YES switches:GCALHSUNIT | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=120 on=100 newbad=0
+FIXRESULT cx/x08 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ev/a02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT ev/a05 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT ev/a03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT cx/x09 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 146 objects | 
+FIXRESULT ev/a06 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 193 objects | 
+FIXRESULT ev/a01 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ev/a07 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT ev/a04 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT fn/f01 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT fe/e01 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gl/g01 TOWARD fixoff==HEAD:YES switches:GCALHSUNIT | fix: STRICT_EQUAL 198 objects | new=0 gone=8 off:STRICT_NOTEQUAL_file on:STRICT_EQUAL_198_objects
+FIXRESULT fn/f02 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT fe/e02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL col | 
+FIXRESULT gl/g02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT fn/f03 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT fe/e03 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gl/g03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL col | 
+FIXRESULT gl/g07 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 219 objects | 
+FIXRESULT gl/g04 TOWARD fixoff==HEAD:YES switches:GCALHSUNIT | fix: STRICT_EQUAL 135 objects | new=0 gone=4 off:STRICT_NOTEQUAL_file on:STRICT_EQUAL_135_objects
+FIXRESULT gl/g10 STAGE1-CLOSER fixoff==HEAD:YES switches:GCALHSUNIT | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=13 on=4 newbad=0
+FIXRESULT gl/g08 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 104 objects | 
+FIXRESULT gl/g05 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 203 objects | 
+FIXRESULT gl/g11 TOWARD fixoff==HEAD:YES switches:GCALHSUNIT | fix: STRICT_EQUAL 206 objects | new=0 gone=4 off:STRICT_NOTEQUAL_file on:STRICT_EQUAL_206_objects
+FIXRESULT gl/g06 TOWARD fixoff==HEAD:YES switches:GCALHSUNIT | fix: STRICT_EQUAL 83 objects | new=0 gone=2 off:STRICT_NOTEQUAL_file on:STRICT_EQUAL_83_objects
+FIXRESULT gl/g09 STAGE1-CLOSER fixoff==HEAD:YES switches:GCALHSUNIT | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=26 on=8 newbad=0
+FIXRESULT gt/q01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 127 objects | 
+FIXRESULT gt/q02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 116 objects | 
+FIXRESULT gw/z02 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gw/z05 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gw/z03 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gt/q03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 190 objects | 
+FIXRESULT gw/z06 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 229 objects | 
+FIXRESULT gw/z04 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gw/z01 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gw/z07 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gw/z08 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL col | 
+FIXRESULT gw/z11 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL col | 
+FIXRESULT hs/h03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL col | 
+FIXRESULT gw/z09 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT hs/h01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT hs/h04 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT gw/z10 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT hs/h02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 312 objects | 
+FIXRESULT hs/h05 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 335 objects | 
+FIXRESULT hs/h06 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT hs/h09 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ic/i01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 339 objects | 
+FIXRESULT hs/h07 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT hs/h10 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 189 objects | 
+FIXRESULT ic/i02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 247 objects | 
+FIXRESULT hs/h08 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT hs/h11 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ma/o01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL endcol | 
+FIXRESULT ma/o05 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 75 objects | 
+FIXRESULT ma/o02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL endcol | 
+FIXRESULT mm/m03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 149 objects | 
+FIXRESULT mm/m01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 63 objects | 
+FIXRESULT ma/o03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL endcol | 
+FIXRESULT mm/m04 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL file | 
+FIXRESULT mm/m02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL endline | 
+FIXRESULT ma/o04 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 53 objects | 
+FIXRESULT mm/m05 NOGOLD
+FIXRESULT mm/m06 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL col | 
+FIXRESULT mm/m09 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL endline | 
+FIXRESULT mm/m12 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL line | 
+FIXRESULT mm/m07 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL line | 
+FIXRESULT mm/m10 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 53 objects | 
+FIXRESULT mm/m13 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL line | 
+FIXRESULT mm/m08 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 51 objects | 
+FIXRESULT nd/n01 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT mm/m11 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL line | 
+FIXRESULT nd/n02 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT oa/o01 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT nd/n05 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL line | 
+FIXRESULT nd/n03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 133 objects | 
+FIXRESULT oa/o02 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT nd/n06 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 185 objects | 
+FIXRESULT nd/n04 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 128 objects | 
+FIXRESULT oa/o03 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT nd/n07 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT oa/o04 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 339 objects | 
+FIXRESULT pa/p02 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pl/d01 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT oa/o05 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pa/p03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL endcol | 
+FIXRESULT pl/d02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL depth | 
+FIXRESULT pa/p04 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 69 objects | 
+FIXRESULT pa/p01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 85 objects | 
+FIXRESULT pl/d03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL endcol | 
+FIXRESULT po/c01 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT po/c04 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 154 objects | 
+FIXRESULT pp/f03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 116 objects | 
+FIXRESULT pp/f01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 84 objects | 
+FIXRESULT po/c02 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT qs/a01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 194 objects | 
+FIXRESULT pp/f02 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT po/c03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 181 objects | 
+FIXRESULT qs/a02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL line | 
+FIXRESULT qs/a03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT rc/f01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL line | 
+FIXRESULT rt/r01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT rc/f02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 232 objects | 
+FIXRESULT qs/a04 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 343 objects | 
+FIXRESULT rt/r02 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT rc/f03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 370 objects | 
+FIXRESULT qs/a05 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 315 objects | 
+FIXRESULT rt/r03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT rt/r04 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT rz/z03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 68 objects | 
+FIXRESULT sc/f03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 158 objects | 
+FIXRESULT rz/z01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 55 objects | 
+FIXRESULT sc/f01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 60 objects | 
+FIXRESULT sc/f04 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT rz/z02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 61 objects | 
+FIXRESULT sc/f05 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sc/f02 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sc/f06 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sc/f09 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sc/f12 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 102 objects | 
+FIXRESULT sc/f07 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 76 objects | 
+FIXRESULT sc/f10 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sc/f13 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sc/f08 STAGE1-CLOSER fixoff==HEAD:YES switches:SCSCOPED | fix: STRICT_NOTEQUAL endcol | off:stage1 on:STRICT_NOTEQUAL endcol dump off=30 on=4 newbad=0
+FIXRESULT sc/f11 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sc/f14 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 125 objects | 
+FIXRESULT sc/f15 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sc/f18 STAGE1-CLOSER fixoff==HEAD:YES switches:SCSCOPED | fix: STRICT_EQUAL 95 objects | off:stage1 on:STRICT_EQUAL 95 objects dump off=19 on=14 newbad=0
+FIXRESULT sy/y01 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sc/f16 STAGE1-CLOSER fixoff==HEAD:YES switches:SCSCOPED | fix: STRICT_NOTEQUAL endcol | off:stage1 on:STRICT_NOTEQUAL endcol dump off=30 on=4 newbad=0
+FIXRESULT sc/f19 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sy/y02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 429 objects | 
+FIXRESULT sc/f20 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 65 objects | 
+FIXRESULT sc/f17 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 94 objects | 
+FIXRESULT sy/y03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT sy/y07 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sy/y04 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT th/t03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 59 objects | 
+FIXRESULT th/t01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL endcol | 
+FIXRESULT sy/y05 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT tu/u01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 142 objects | 
+FIXRESULT th/t02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 65 objects | 
+FIXRESULT sy/y06 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 599 objects | 
+FIXRESULT tu/u02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL col | 
+FIXRESULT tu/u03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT tv/v03 STAGE1-CLOSER fixoff==HEAD:YES switches:TPVECNET | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=88 on=70 newbad=0
+FIXRESULT tv/v06 STAGE1-CLOSER fixoff==HEAD:YES switches:TPVECNET | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=45 on=35 newbad=0
+FIXRESULT tv/v01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 161 objects | 
+FIXRESULT tv/v04 STAGE1-CLOSER fixoff==HEAD:YES switches:TPVECNET | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=51 on=35 newbad=0
+FIXRESULT tv/v07 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 247 objects | 
+FIXRESULT tv/v02 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 122 objects | 
+FIXRESULT tv/v05 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 176 objects | 
+FIXRESULT tv/v08 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ua/u01 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ua/u04 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ua/u02 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT wr/w01 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 69 objects | 
+FIXRESULT ua/u03 UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 289 objects | 
+FIXRESULT wr/w02 UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 

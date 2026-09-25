@@ -1,0 +1,11 @@
+./surelog/default/MiniAmiq-055eab74/slang.uhdm ordered=4 orderblind=4
+./surelog/default/Scoreboard-72aa0ba8/slang.uhdm ordered=92 orderblind=0
+./surelog/default/SeqDriver-65178d3a/slang.uhdm ordered=28 orderblind=4
+./surelog/default/SimpleUVM-267de3ff/slang.uhdm ordered=26 orderblind=0
+./surelog/testflags/MiniAmiq-055eab74/slang.uhdm ordered=28 orderblind=4
+./surelog/testflags/SeqDriver-65178d3a/slang.uhdm ordered=76 orderblind=0
+./surelog/testflags/SimpleUVM-267de3ff/slang.uhdm ordered=4 orderblind=4
+7 ordered=0 orderblind=0
+probe A vs P: 0 / 4087
+
+[exited with code 0]

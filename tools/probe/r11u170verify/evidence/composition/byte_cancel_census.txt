@@ -1,0 +1,4 @@
+corpus 2560 movers vs L: {'A': 140, '8': 41, '0': 63, '3': 71} byte-cancel (L==A, single-off differs): 0 []
+probe 4087 movers vs L: {'A': 218, '8': 42, '0': 89, '3': 99} byte-cancel (L==A, single-off differs): 0 []
+
+[exited with code 0]

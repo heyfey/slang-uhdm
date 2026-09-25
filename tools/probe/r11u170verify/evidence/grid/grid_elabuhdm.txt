@@ -1,0 +1,1685 @@
+  aq/q02_el on cmp=255 cmplines=32 strict=NOT_EQUAL_stage1 rc=0 md5=233a7655
+  aq/q02_el off_arrQueryFoldAtBound158 cmp=255 cmplines=32 strict=NOT_EQUAL_stage1 rc=0 md5=dfefbc29
+  aq/q02_el offL158 cmp=255 cmplines=32 strict=NOT_EQUAL_stage1 rc=0 md5=dfefbc29
+  aq/q02_el alloff cmp=255 cmplines=32 strict=NOT_EQUAL_stage1 rc=0 md5=dfefbc29
+  aq/q02_el pre cmp=255 cmplines=32 strict=NOT_EQUAL_stage1 rc=0 md5=dfefbc29
+RESULT aq/q02_el arrQueryFoldAtBound158 STAGE1-SAME off:stage1 on:stage1 dump off=135 on=135 newbad=2
+  aq/q03_el on cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=9af7156a
+  aq/q03_el off_arrQueryFoldAtBound158 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=87f623de
+  aq/q03_el offL158 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=87f623de
+  aq/q03_el alloff cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=87f623de
+  aq/q03_el pre cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=87f623de
+RESULT aq/q03_el arrQueryFoldAtBound158 STAGE1-CLOSER off:stage1 on:stage1 dump off=140 on=124 newbad=0
+  aq/q01_el on cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=da1a377f
+  aq/q01_el off_arrQueryFoldAtBound158 cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=d4225214
+  aq/q01_el offL158 cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=d4225214
+  aq/q01_el alloff cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=d4225214
+  aq/q01_el pre cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=d4225214
+RESULT aq/q01_el arrQueryFoldAtBound158 STAGE1-CLOSER off:stage1 on:stage1 dump off=67 on=61 newbad=1
+RESULT aq/q02_el LANDING158 STAGE1-SAME off:stage1 on:stage1 dump off=135 on=135 newbad=2
+RESULT aq/q03_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=140 on=124 newbad=0
+RESULT aq/q01_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=67 on=61 newbad=1
+RESULT aq/q02_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=135 on=135 newbad=2
+RESULT aq/q02_el ALLOFF==PRE YES
+RESULT aq/q03_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=140 on=124 newbad=0
+RESULT aq/q03_el ALLOFF==PRE YES
+RESULT aq/q01_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=67 on=61 newbad=1
+RESULT aq/q01_el ALLOFF==PRE YES
+  bt/b01_el on cmp=255 cmplines=124 strict=NOT_EQUAL_stage1 rc=0 md5=ba50220e
+  bt/b01_el off_bodyTypeParamDefaultBound160 cmp=255 cmplines=124 strict=NOT_EQUAL_stage1 rc=0 md5=aabbb684
+  bt/b01_el offL160 cmp=255 cmplines=124 strict=NOT_EQUAL_stage1 rc=0 md5=aabbb684
+  bt/b01_el alloff cmp=255 cmplines=124 strict=NOT_EQUAL_stage1 rc=0 md5=aabbb684
+  bt/b01_el pre cmp=255 cmplines=124 strict=NOT_EQUAL_stage1 rc=0 md5=aabbb684
+RESULT bt/b01_el bodyTypeParamDefaultBound160 STAGE1-CLOSER off:stage1 on:stage1 dump off=64 on=53 newbad=0
+RESULT bt/b01_el LANDING160 STAGE1-CLOSER off:stage1 on:stage1 dump off=64 on=53 newbad=0
+RESULT bt/b01_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=64 on=53 newbad=0
+RESULT bt/b01_el ALLOFF==PRE YES
+  aq/q04_el on cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=5943d8fb
+  aq/q04_el off_arrQueryParamArgOnly158v cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=22955104
+  aq/q04_el off_arrQueryFoldAtBound158 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=5943d8fb
+  aq/q04_el offL158 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=5943d8fb
+  aq/q04_el alloff cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=5943d8fb
+  aq/q04_el pre cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=5943d8fb
+RESULT aq/q04_el arrQueryParamArgOnly158v STAGE1-CLOSER off:stage1 on:stage1 dump off=25 on=17 newbad=0
+RESULT aq/q04_el arrQueryFoldAtBound158 UNFIRED 
+RESULT aq/q04_el LANDING158 UNFIRED 
+RESULT aq/q04_el ALLOFF UNFIRED 
+RESULT aq/q04_el ALLOFF==PRE YES
+  aq/q05_el on cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=ec2f6d55
+  aq/q05_el off_arrQueryParamArgOnly158v cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=4cf28903
+  aq/q05_el off_arrQueryFoldAtBound158 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=ec2f6d55
+  aq/q05_el offL158 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=ec2f6d55
+  aq/q05_el alloff cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=ec2f6d55
+  aq/q05_el pre cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=ec2f6d55
+RESULT aq/q05_el arrQueryParamArgOnly158v STAGE1-CLOSER off:stage1 on:stage1 dump off=6 on=2 newbad=0
+RESULT aq/q05_el arrQueryFoldAtBound158 UNFIRED 
+RESULT aq/q05_el LANDING158 UNFIRED 
+RESULT aq/q05_el ALLOFF UNFIRED 
+RESULT aq/q05_el ALLOFF==PRE YES
+  bt/b02_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=e09554c3
+  bt/b02_el off_bodyTypeParamDefaultBound160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=641bdb46
+  bt/b02_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=cf638aff
+  bt/b02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=cf638aff
+  bt/b02_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=cf638aff
+RESULT bt/b02_el bodyTypeParamDefaultBound160 MIXED new=1 gone=1 off:STRICT_NOTEQUAL_endline(div@19) on:STRICT_NOTEQUAL_endline(div@19) | first new: type / A: 4	struct_typespec				dut.sv	3	26	5	12 / B: 4	logic_typespec				dut.sv	4	25	5	12
+RESULT bt/b02_el LANDING160 MIXED new=1 gone=1 off:STRICT_NOTEQUAL_endline(div@19) on:STRICT_NOTEQUAL_endline(div@19) | first new: type / A: 4	struct_typespec				dut.sv	3	26	5	12 / B: 4	logic_typespec				dut.sv	4	25	5	12
+RESULT bt/b02_el ALLOFF MIXED new=1 gone=1 off:STRICT_NOTEQUAL_endline(div@19) on:STRICT_NOTEQUAL_endline(div@19) | first new: type / A: 4	struct_typespec				dut.sv	3	26	5	12 / B: 4	logic_typespec				dut.sv	4	25	5	12
+RESULT bt/b02_el ALLOFF==PRE YES
+  cp/c01_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_150_objects rc=0 md5=44c1ac14
+  cp/c01_el off_implNetBareParamElab160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_name rc=0 md5=bd7ff4ab
+  cp/c01_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_name rc=0 md5=bd7ff4ab
+  cp/c01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_name rc=0 md5=bd7ff4ab
+  cp/c01_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_name rc=0 md5=bd7ff4ab
+RESULT cp/c01_el implNetBareParamElab160 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_name(div@103) on:STRICT_EQUAL_150_objects
+RESULT cp/c01_el LANDING160 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_name(div@103) on:STRICT_EQUAL_150_objects
+RESULT cp/c01_el ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_name(div@103) on:STRICT_EQUAL_150_objects
+RESULT cp/c01_el ALLOFF==PRE YES
+  bt/b03_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=4245c74c
+  bt/b03_el off_bodyTypeParamDefaultBound160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=53f5fb2c
+  bt/b03_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=8df92b9b
+  bt/b03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=8df92b9b
+  bt/b03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=8df92b9b
+RESULT bt/b03_el bodyTypeParamDefaultBound160 UNMASK new=10 gone=2 off:STRICT_NOTEQUAL_endline(div@21) on:STRICT_NOTEQUAL_fullname
+RESULT bt/b03_el LANDING160 UNMASK new=10 gone=2 off:STRICT_NOTEQUAL_endline(div@21) on:STRICT_NOTEQUAL_fullname
+RESULT bt/b03_el ALLOFF UNMASK new=10 gone=2 off:STRICT_NOTEQUAL_endline(div@21) on:STRICT_NOTEQUAL_fullname
+RESULT bt/b03_el ALLOFF==PRE YES
+  cp/c02_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_63_objects rc=0 md5=48dcbee3
+  cp/c02_el off_implNetBareParamElab160 cmp=0 cmplines=0 strict=STRICT_EQUAL_63_objects rc=0 md5=48dcbee3
+  cp/c02_el offL160 cmp=0 cmplines=0 strict=STRICT_EQUAL_63_objects rc=0 md5=48dcbee3
+  cp/c02_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_63_objects rc=0 md5=48dcbee3
+  cp/c02_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_63_objects rc=0 md5=48dcbee3
+RESULT cp/c02_el implNetBareParamElab160 UNFIRED 
+RESULT cp/c02_el LANDING160 UNFIRED 
+RESULT cp/c02_el ALLOFF UNFIRED 
+RESULT cp/c02_el ALLOFF==PRE YES
+  cp/c03_el on cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=ef133f19
+  cp/c03_el off_implNetBareParamElab160 cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=ef133f19
+  cp/c03_el offL160 cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=ef133f19
+  cp/c03_el alloff cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=ef133f19
+  cp/c03_el pre cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=ef133f19
+RESULT cp/c03_el implNetBareParamElab160 UNFIRED 
+RESULT cp/c03_el LANDING160 UNFIRED 
+RESULT cp/c03_el ALLOFF UNFIRED 
+RESULT cp/c03_el ALLOFF==PRE YES
+  cx/x01_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_235_objects rc=0 md5=b7c44176
+  cx/x01_el off_elabTpDefaultDefNamed163 cmp=0 cmplines=0 strict=STRICT_EQUAL_235_objects rc=0 md5=e6c621b4
+  cx/x01_el off_tpUseBindsDefDefault160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=b1c8054f
+  cx/x01_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=b1c8054f
+  cx/x01_el offL163 cmp=0 cmplines=0 strict=STRICT_EQUAL_235_objects rc=0 md5=e6c621b4
+  cx/x01_el off2_elabTpDefaultDefNamed163_tpUseBindsDefDefault160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=3ae8802a
+  cx/x01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=3ae8802a
+  cx/x01_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=3ae8802a
+RESULT cx/x01_el elabTpDefaultDefNamed163 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_235_objects on:STRICT_EQUAL_235_objects
+RESULT cx/x01_el tpUseBindsDefDefault160 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_depth(div@186) on:STRICT_EQUAL_235_objects
+RESULT cx/x01_el LANDING160 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_depth(div@186) on:STRICT_EQUAL_235_objects
+RESULT cx/x01_el LANDING163 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_235_objects on:STRICT_EQUAL_235_objects
+RESULT cx/x01_el PAIR:elabTpDefaultDefNamed163+tpUseBindsDefDefault160 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname(div@186) on:STRICT_EQUAL_235_objects
+RESULT cx/x01_el ALLOFF TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname(div@186) on:STRICT_EQUAL_235_objects
+RESULT cx/x01_el ALLOFF==PRE YES
+  cx/x03_el on cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=36752b67
+  cx/x03_el off_implNetBareParamElab160 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=d4016338
+  cx/x03_el off_elabOvArrFoldSharesDefParamTs163 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=36752b67
+  cx/x03_el offL160 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=d4016338
+  cx/x03_el offL163 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=36752b67
+  cx/x03_el off2_implNetBareParamElab160_elabOvArrFoldSharesDefParamTs163 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=d4016338
+  cx/x03_el alloff cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=d4016338
+  cx/x03_el pre cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=d4016338
+RESULT cx/x03_el implNetBareParamElab160 STAGE1-CLOSER off:stage1 on:stage1 dump off=84 on=67 newbad=0
+RESULT cx/x03_el elabOvArrFoldSharesDefParamTs163 UNFIRED 
+RESULT cx/x03_el LANDING160 STAGE1-CLOSER off:stage1 on:stage1 dump off=84 on=67 newbad=0
+RESULT cx/x03_el LANDING163 UNFIRED 
+RESULT cx/x03_el PAIR:implNetBareParamElab160+elabOvArrFoldSharesDefParamTs163 STAGE1-CLOSER off:stage1 on:stage1 dump off=84 on=67 newbad=0
+RESULT cx/x03_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=84 on=67 newbad=0
+RESULT cx/x03_el ALLOFF==PRE YES
+  cx/x02_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_157_objects rc=0 md5=f67bfc75
+  cx/x02_el off_elabTpDefaultDefNamed163 cmp=0 cmplines=0 strict=STRICT_EQUAL_157_objects rc=0 md5=f7bad1af
+  cx/x02_el off_tpUseBindsDefDefault160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=933d7b8e
+  cx/x02_el off_defNetTypeParamPackedVec160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=bbc10bbe
+  cx/x02_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=efe2c0a1
+  cx/x02_el offL163 cmp=0 cmplines=0 strict=STRICT_EQUAL_157_objects rc=0 md5=f7bad1af
+  cx/x02_el off2_elabTpDefaultDefNamed163_tpUseBindsDefDefault160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=3133719b
+  cx/x02_el off2_elabTpDefaultDefNamed163_defNetTypeParamPackedVec160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=86fe337e
+  cx/x02_el off2_tpUseBindsDefDefault160_defNetTypeParamPackedVec160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=efe2c0a1
+  cx/x02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=9759ffb2
+  cx/x02_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=9759ffb2
+RESULT cx/x02_el elabTpDefaultDefNamed163 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_157_objects on:STRICT_EQUAL_157_objects
+RESULT cx/x02_el tpUseBindsDefDefault160 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_157_objects
+RESULT cx/x02_el defNetTypeParamPackedVec160 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline(div@25) on:STRICT_EQUAL_157_objects
+RESULT cx/x02_el LANDING160 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline(div@25) on:STRICT_EQUAL_157_objects
+RESULT cx/x02_el LANDING163 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_157_objects on:STRICT_EQUAL_157_objects
+RESULT cx/x02_el PAIR:elabTpDefaultDefNamed163+tpUseBindsDefDefault160 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_157_objects
+RESULT cx/x02_el PAIR:elabTpDefaultDefNamed163+defNetTypeParamPackedVec160 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline(div@25) on:STRICT_EQUAL_157_objects
+RESULT cx/x02_el PAIR:tpUseBindsDefDefault160+defNetTypeParamPackedVec160 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline(div@25) on:STRICT_EQUAL_157_objects
+RESULT cx/x02_el ALLOFF TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline(div@25) on:STRICT_EQUAL_157_objects
+RESULT cx/x02_el ALLOFF==PRE YES
+  cx/x04_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=ac3f7cd4
+  cx/x04_el off_ppMacroBodyLines160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=ac3f7cd4
+  cx/x04_el off_hpSelRoute157 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=3e7dbdac
+  cx/x04_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=3e7dbdac
+  cx/x04_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=ac3f7cd4
+  cx/x04_el off2_ppMacroBodyLines160_hpSelRoute157 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=3e7dbdac
+  cx/x04_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=3e7dbdac
+  cx/x04_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=3e7dbdac
+RESULT cx/x04_el ppMacroBodyLines160 UNFIRED 
+RESULT cx/x04_el hpSelRoute157 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT cx/x04_el LANDING158 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT cx/x04_el LANDING160 UNFIRED 
+RESULT cx/x04_el PAIR:ppMacroBodyLines160+hpSelRoute157 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT cx/x04_el ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT cx/x04_el ALLOFF==PRE YES
+  cx/x05_el on cmp=255 cmplines=558 strict=NOT_EQUAL_stage1 rc=0 md5=8a074738
+  cx/x05_el off_genCaLhsEnumConstClone158 cmp=255 cmplines=558 strict=NOT_EQUAL_stage1 rc=0 md5=5a80b1b4
+  cx/x05_el off_tpCloneWholeLhsBare160 cmp=255 cmplines=558 strict=NOT_EQUAL_stage1 rc=0 md5=8a074738
+  cx/x05_el offL158 cmp=255 cmplines=558 strict=NOT_EQUAL_stage1 rc=0 md5=5a80b1b4
+  cx/x05_el offL160 cmp=255 cmplines=558 strict=NOT_EQUAL_stage1 rc=0 md5=8a074738
+  cx/x05_el off2_genCaLhsEnumConstClone158_tpCloneWholeLhsBare160 cmp=255 cmplines=558 strict=NOT_EQUAL_stage1 rc=0 md5=5a80b1b4
+  cx/x05_el alloff cmp=255 cmplines=558 strict=NOT_EQUAL_stage1 rc=0 md5=5a80b1b4
+  cx/x05_el pre cmp=255 cmplines=558 strict=NOT_EQUAL_stage1 rc=0 md5=5a80b1b4
+RESULT cx/x05_el genCaLhsEnumConstClone158 STAGE1-AWAY off:stage1 on:stage1 dump off=37 on=49 newbad=15 | +|vpiParent: | +|vpiName:K_LO | +|UINT:2
+RESULT cx/x05_el tpCloneWholeLhsBare160 UNFIRED 
+RESULT cx/x05_el LANDING158 STAGE1-AWAY off:stage1 on:stage1 dump off=37 on=49 newbad=15 | +|vpiParent: | +|vpiName:K_LO | +|UINT:2
+RESULT cx/x05_el LANDING160 UNFIRED 
+RESULT cx/x05_el PAIR:genCaLhsEnumConstClone158+tpCloneWholeLhsBare160 STAGE1-AWAY off:stage1 on:stage1 dump off=37 on=49 newbad=15 | +|vpiParent: | +|vpiName:K_LO | +|UINT:2
+RESULT cx/x05_el ALLOFF STAGE1-AWAY off:stage1 on:stage1 dump off=37 on=49 newbad=15 | +|vpiParent: | +|vpiName:K_LO | +|UINT:2
+RESULT cx/x05_el ALLOFF==PRE YES
+  cx/x07_el on cmp=255 cmplines=19 strict=NOT_EQUAL_stage1 rc=0 md5=377ca40d
+  cx/x07_el off_genCaLhsEnumConstClone158 cmp=255 cmplines=19 strict=NOT_EQUAL_stage1 rc=0 md5=77ae4361
+  cx/x07_el off_sizeCastCaLitMask158 cmp=255 cmplines=19 strict=NOT_EQUAL_stage1 rc=0 md5=377ca40d
+  cx/x07_el offL158 cmp=255 cmplines=19 strict=NOT_EQUAL_stage1 rc=0 md5=77ae4361
+  cx/x07_el off2_genCaLhsEnumConstClone158_sizeCastCaLitMask158 cmp=255 cmplines=19 strict=NOT_EQUAL_stage1 rc=0 md5=77ae4361
+  cx/x07_el alloff cmp=255 cmplines=19 strict=NOT_EQUAL_stage1 rc=0 md5=77ae4361
+  cx/x07_el pre cmp=255 cmplines=19 strict=NOT_EQUAL_stage1 rc=0 md5=77ae4361
+RESULT cx/x07_el genCaLhsEnumConstClone158 STAGE1-AWAY off:stage1 on:stage1 dump off=28 on=214 newbad=190 | +\_module_inst: work@top (work@top), file:dut.sv, line:3:1, endln:7:10 | +|vpiParent: | +|vpiName:o
+RESULT cx/x07_el sizeCastCaLitMask158 UNFIRED 
+RESULT cx/x07_el LANDING158 STAGE1-AWAY off:stage1 on:stage1 dump off=28 on=214 newbad=190 | +\_module_inst: work@top (work@top), file:dut.sv, line:3:1, endln:7:10 | +|vpiParent: | +|vpiName:o
+RESULT cx/x07_el PAIR:genCaLhsEnumConstClone158+sizeCastCaLitMask158 STAGE1-AWAY off:stage1 on:stage1 dump off=28 on=214 newbad=190 | +\_module_inst: work@top (work@top), file:dut.sv, line:3:1, endln:7:10 | +|vpiParent: | +|vpiName:o
+  cx/x06_el on cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=4 md5=4ef7b40b
+  cx/x06_el off_sizeCastCaLitMask158 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=4 md5=092a56d1
+  cx/x06_el off_defNetTypeParamPackedVec160 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=4 md5=eaa8c9c4
+  cx/x06_el offL158 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=4 md5=092a56d1
+  cx/x06_el offL160 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=4 md5=916663d3
+  cx/x06_el off2_sizeCastCaLitMask158_defNetTypeParamPackedVec160 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=4 md5=6bae607c
+  cx/x06_el alloff cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=4 md5=3db6bcea
+  cx/x06_el pre cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=4 md5=3db6bcea
+RESULT cx/x06_el sizeCastCaLitMask158 STAGE1-SAME off:stage1 on:stage1 dump off=78 on=78 newbad=2
+RESULT cx/x07_el ALLOFF STAGE1-AWAY off:stage1 on:stage1 dump off=28 on=214 newbad=190 | +\_module_inst: work@top (work@top), file:dut.sv, line:3:1, endln:7:10 | +|vpiParent: | +|vpiName:o
+RESULT cx/x07_el ALLOFF==PRE YES
+RESULT cx/x06_el defNetTypeParamPackedVec160 STAGE1-CLOSER off:stage1 on:stage1 dump off=89 on=78 newbad=0
+RESULT cx/x06_el LANDING158 STAGE1-SAME off:stage1 on:stage1 dump off=78 on=78 newbad=2
+RESULT cx/x06_el LANDING160 STAGE1-AWAY off:stage1 on:stage1 dump off=72 on=78 newbad=0
+RESULT cx/x06_el PAIR:sizeCastCaLitMask158+defNetTypeParamPackedVec160 STAGE1-CLOSER off:stage1 on:stage1 dump off=89 on=78 newbad=2
+RESULT cx/x06_el ALLOFF STAGE1-AWAY off:stage1 on:stage1 dump off=72 on=78 newbad=2 | +|vpiDecompile:3 | +|UINT:3
+RESULT cx/x06_el ALLOFF==PRE YES
+  cx/x08_el on cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=a483b38f
+  cx/x08_el off_elabTpDefaultDefNamed163 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=9c4c55e9
+  cx/x08_el off_tpUseBindsDefDefault160 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=a483b38f
+  cx/x08_el offL160 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=a483b38f
+  cx/x08_el offL163 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=9c4c55e9
+  cx/x08_el off2_elabTpDefaultDefNamed163_tpUseBindsDefDefault160 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=9c4c55e9
+  cx/x08_el alloff cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=9c4c55e9
+  cx/x08_el pre cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=9c4c55e9
+RESULT cx/x08_el elabTpDefaultDefNamed163 STAGE1-SAME off:stage1 on:stage1 dump off=59 on=59 newbad=0
+RESULT cx/x08_el tpUseBindsDefDefault160 UNFIRED 
+RESULT cx/x08_el LANDING160 UNFIRED 
+  ev/a01_el on cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=891055ea
+  ev/a01_el off_enumAliasEndAtDimOrInitDecl158 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=891055ea
+  ev/a01_el offL158 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=891055ea
+  ev/a01_el alloff cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=891055ea
+  ev/a01_el pre cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=891055ea
+RESULT ev/a01_el enumAliasEndAtDimOrInitDecl158 UNFIRED 
+RESULT ev/a01_el LANDING158 UNFIRED 
+RESULT ev/a01_el ALLOFF UNFIRED 
+RESULT ev/a01_el ALLOFF==PRE YES
+RESULT cx/x08_el LANDING163 STAGE1-SAME off:stage1 on:stage1 dump off=59 on=59 newbad=0
+RESULT cx/x08_el PAIR:elabTpDefaultDefNamed163+tpUseBindsDefDefault160 STAGE1-SAME off:stage1 on:stage1 dump off=59 on=59 newbad=0
+RESULT cx/x08_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=59 on=59 newbad=0
+RESULT cx/x08_el ALLOFF==PRE YES
+  cx/x09_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_159_objects rc=0 md5=56f94826
+  cx/x09_el off_elabTpDefaultDefNamed163 cmp=0 cmplines=0 strict=STRICT_EQUAL_159_objects rc=0 md5=231516bf
+  cx/x09_el off_tpUseBindsDefDefault160 cmp=0 cmplines=0 strict=STRICT_EQUAL_159_objects rc=0 md5=8408db0c
+  cx/x09_el offL160 cmp=0 cmplines=0 strict=STRICT_EQUAL_159_objects rc=0 md5=8408db0c
+  cx/x09_el offL163 cmp=0 cmplines=0 strict=STRICT_EQUAL_159_objects rc=0 md5=231516bf
+  cx/x09_el off2_elabTpDefaultDefNamed163_tpUseBindsDefDefault160 cmp=0 cmplines=0 strict=STRICT_EQUAL_159_objects rc=0 md5=ba58fe28
+  cx/x09_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_159_objects rc=0 md5=ba58fe28
+  cx/x09_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_159_objects rc=0 md5=ba58fe28
+RESULT cx/x09_el elabTpDefaultDefNamed163 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_159_objects on:STRICT_EQUAL_159_objects
+RESULT cx/x09_el tpUseBindsDefDefault160 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_159_objects on:STRICT_EQUAL_159_objects
+RESULT cx/x09_el LANDING160 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_159_objects on:STRICT_EQUAL_159_objects
+RESULT cx/x09_el LANDING163 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_159_objects on:STRICT_EQUAL_159_objects
+RESULT cx/x09_el PAIR:elabTpDefaultDefNamed163+tpUseBindsDefDefault160 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_159_objects on:STRICT_EQUAL_159_objects
+RESULT cx/x09_el ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_159_objects on:STRICT_EQUAL_159_objects
+RESULT cx/x09_el ALLOFF==PRE YES
+  ev/a02_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=b4caf3ac
+  ev/a02_el off_enumAliasEndAtDimOrInitDecl158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=b4caf3ac
+  ev/a02_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=b4caf3ac
+  ev/a02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=b4caf3ac
+  ev/a02_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=b4caf3ac
+RESULT ev/a02_el enumAliasEndAtDimOrInitDecl158 UNFIRED 
+RESULT ev/a02_el LANDING158 UNFIRED 
+RESULT ev/a02_el ALLOFF UNFIRED 
+RESULT ev/a02_el ALLOFF==PRE YES
+  ev/a03_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=905c87bf
+  ev/a03_el off_enumAliasEndAtDimOrInitDecl158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=905c87bf
+  ev/a03_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=905c87bf
+  ev/a03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=905c87bf
+  ev/a03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=905c87bf
+RESULT ev/a03_el enumAliasEndAtDimOrInitDecl158 UNFIRED 
+RESULT ev/a03_el LANDING158 UNFIRED 
+RESULT ev/a03_el ALLOFF UNFIRED 
+RESULT ev/a03_el ALLOFF==PRE YES
+  ev/a04_el on cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=f0a0f76f
+  ev/a04_el off_enumAliasEndAtDimOrInitDecl158 cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=f0a0f76f
+  ev/a04_el offL158 cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=f0a0f76f
+  ev/a04_el alloff cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=f0a0f76f
+  ev/a04_el pre cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=f0a0f76f
+RESULT ev/a04_el enumAliasEndAtDimOrInitDecl158 UNFIRED 
+RESULT ev/a04_el LANDING158 UNFIRED 
+RESULT ev/a04_el ALLOFF UNFIRED 
+RESULT ev/a04_el ALLOFF==PRE YES
+  ev/a05_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=da8142ab
+  ev/a05_el off_enumAliasEndAtDimOrInitDecl158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=fa7cc00c
+  ev/a05_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=fa7cc00c
+  ev/a05_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=fa7cc00c
+  ev/a05_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=fa7cc00c
+RESULT ev/a05_el enumAliasEndAtDimOrInitDecl158 TOWARD new=0 gone=5 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_fullname
+RESULT ev/a05_el LANDING158 TOWARD new=0 gone=5 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_fullname
+RESULT ev/a05_el ALLOFF TOWARD new=0 gone=5 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_fullname
+RESULT ev/a05_el ALLOFF==PRE YES
+  ev/a06_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_171_objects rc=0 md5=02799442
+  ev/a06_el off_enumAliasEndAtDimOrInitDecl158 cmp=0 cmplines=0 strict=STRICT_EQUAL_171_objects rc=0 md5=02799442
+  ev/a06_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_171_objects rc=0 md5=02799442
+  ev/a06_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_171_objects rc=0 md5=02799442
+  ev/a06_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_171_objects rc=0 md5=02799442
+RESULT ev/a06_el enumAliasEndAtDimOrInitDecl158 UNFIRED 
+RESULT ev/a06_el LANDING158 UNFIRED 
+RESULT ev/a06_el ALLOFF UNFIRED 
+RESULT ev/a06_el ALLOFF==PRE YES
+  ev/a07_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ab491c7b
+  ev/a07_el off_enumAliasEndAtDimOrInitDecl158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=c8650759
+  ev/a07_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=c8650759
+  ev/a07_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=c8650759
+  ev/a07_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=c8650759
+RESULT ev/a07_el enumAliasEndAtDimOrInitDecl158 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT ev/a07_el LANDING158 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT ev/a07_el ALLOFF TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT ev/a07_el ALLOFF==PRE YES
+  fe/e01_el on cmp=255 cmplines=24 strict=NOT_EQUAL_stage1 rc=0 md5=8655c7fe
+  fe/e01_el off_foreachArrPathVarForm157 cmp=255 cmplines=24 strict=NOT_EQUAL_stage1 rc=0 md5=c7157fce
+  fe/e01_el offL158 cmp=255 cmplines=24 strict=NOT_EQUAL_stage1 rc=0 md5=c7157fce
+  fe/e01_el alloff cmp=255 cmplines=24 strict=NOT_EQUAL_stage1 rc=0 md5=c7157fce
+  fe/e01_el pre cmp=255 cmplines=24 strict=NOT_EQUAL_stage1 rc=0 md5=c7157fce
+RESULT fe/e01_el foreachArrPathVarForm157 STAGE1-CLOSER off:stage1 on:stage1 dump off=66 on=44 newbad=0
+RESULT fe/e01_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=66 on=44 newbad=0
+RESULT fe/e01_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=66 on=44 newbad=0
+RESULT fe/e01_el ALLOFF==PRE YES
+  fe/e02_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=585b9b43
+  fe/e02_el off_foreachArrPathVarForm157 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_file rc=0 md5=d896e97e
+  fe/e02_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_file rc=0 md5=d896e97e
+  fe/e02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_file rc=0 md5=d896e97e
+  fe/e02_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_file rc=0 md5=d896e97e
+RESULT fe/e02_el foreachArrPathVarForm157 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_file on:STRICT_NOTEQUAL_col
+RESULT fe/e02_el LANDING158 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_file on:STRICT_NOTEQUAL_col
+RESULT fe/e02_el ALLOFF TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_file on:STRICT_NOTEQUAL_col
+RESULT fe/e02_el ALLOFF==PRE YES
+  fe/e03_el on cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=188f3e6e
+  fe/e03_el off_foreachArrPathVarForm157 cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=188f3e6e
+  fe/e03_el offL158 cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=188f3e6e
+  fe/e03_el alloff cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=188f3e6e
+  fe/e03_el pre cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=188f3e6e
+RESULT fe/e03_el foreachArrPathVarForm157 UNFIRED 
+RESULT fe/e03_el LANDING158 UNFIRED 
+RESULT fe/e03_el ALLOFF UNFIRED 
+RESULT fe/e03_el ALLOFF==PRE YES
+  fn/f02_el on cmp=255 cmplines=499 strict=NOT_EQUAL_stage1 rc=0 md5=318d8f79
+  fn/f02_el off_fnParamRangeNetNoFile163 cmp=255 cmplines=499 strict=NOT_EQUAL_stage1 rc=0 md5=318d8f79
+  fn/f02_el offL163 cmp=255 cmplines=499 strict=NOT_EQUAL_stage1 rc=0 md5=318d8f79
+  fn/f02_el alloff cmp=255 cmplines=499 strict=NOT_EQUAL_stage1 rc=0 md5=318d8f79
+  fn/f02_el pre cmp=255 cmplines=499 strict=NOT_EQUAL_stage1 rc=0 md5=318d8f79
+RESULT fn/f02_el fnParamRangeNetNoFile163 UNFIRED 
+RESULT fn/f02_el LANDING163 UNFIRED 
+RESULT fn/f02_el ALLOFF UNFIRED 
+RESULT fn/f02_el ALLOFF==PRE YES
+  fn/f01_el on cmp=255 cmplines=441 strict=NOT_EQUAL_stage1 rc=0 md5=57c61d2c
+  fn/f01_el off_fnParamRangeNetNoFile163 cmp=255 cmplines=441 strict=NOT_EQUAL_stage1 rc=0 md5=9ba5f547
+  fn/f01_el offL163 cmp=255 cmplines=441 strict=NOT_EQUAL_stage1 rc=0 md5=9ba5f547
+  fn/f01_el alloff cmp=255 cmplines=441 strict=NOT_EQUAL_stage1 rc=0 md5=9ba5f547
+  fn/f01_el pre cmp=255 cmplines=441 strict=NOT_EQUAL_stage1 rc=0 md5=9ba5f547
+RESULT fn/f01_el fnParamRangeNetNoFile163 STAGE1-SAME off:stage1 on:stage1 dump off=82 on=82 newbad=0
+RESULT fn/f01_el LANDING163 STAGE1-SAME off:stage1 on:stage1 dump off=82 on=82 newbad=0
+RESULT fn/f01_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=82 on=82 newbad=0
+RESULT fn/f01_el ALLOFF==PRE YES
+  fn/f03_el on cmp=255 cmplines=369 strict=NOT_EQUAL_stage1 rc=0 md5=df7fdc44
+  fn/f03_el off_fnParamRangeNetNoFile163 cmp=255 cmplines=369 strict=NOT_EQUAL_stage1 rc=0 md5=7e6b66b9
+  fn/f03_el offL163 cmp=255 cmplines=369 strict=NOT_EQUAL_stage1 rc=0 md5=7e6b66b9
+  fn/f03_el alloff cmp=255 cmplines=369 strict=NOT_EQUAL_stage1 rc=0 md5=7e6b66b9
+  fn/f03_el pre cmp=255 cmplines=369 strict=NOT_EQUAL_stage1 rc=0 md5=7e6b66b9
+RESULT fn/f03_el fnParamRangeNetNoFile163 STAGE1-SAME off:stage1 on:stage1 dump off=93 on=93 newbad=0
+RESULT fn/f03_el LANDING163 STAGE1-SAME off:stage1 on:stage1 dump off=93 on=93 newbad=0
+RESULT fn/f03_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=93 on=93 newbad=0
+RESULT fn/f03_el ALLOFF==PRE YES
+  gl/g01_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_file rc=0 md5=5a2aa238
+  gl/g01_el off_genCaLhsEnumConstClone158 cmp=0 cmplines=0 strict=STRICT_EQUAL_198_objects rc=0 md5=fb69f842
+  gl/g01_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_198_objects rc=0 md5=fb69f842
+  gl/g01_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_198_objects rc=0 md5=fb69f842
+  gl/g01_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_198_objects rc=0 md5=fb69f842
+RESULT gl/g01_el genCaLhsEnumConstClone158 AWAY new=8 gone=0 off:STRICT_EQUAL_198_objects on:STRICT_NOTEQUAL_file | first new: file / A: 10	enum_const	E_HI			dut.sv	2	30	2	38 / B: 10	enum_const	E_HI				0	0	0	0
+RESULT gl/g01_el LANDING158 AWAY new=8 gone=0 off:STRICT_EQUAL_198_objects on:STRICT_NOTEQUAL_file | first new: file / A: 10	enum_const	E_HI			dut.sv	2	30	2	38 / B: 10	enum_const	E_HI				0	0	0	0
+RESULT gl/g01_el ALLOFF AWAY new=8 gone=0 off:STRICT_EQUAL_198_objects on:STRICT_NOTEQUAL_file | first new: file / A: 10	enum_const	E_HI			dut.sv	2	30	2	38 / B: 10	enum_const	E_HI				0	0	0	0
+RESULT gl/g01_el ALLOFF==PRE YES
+  gl/g02_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=577630d7
+  gl/g02_el off_genCaLhsEnumConstClone158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=814a720b
+  gl/g02_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=814a720b
+  gl/g02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=814a720b
+  gl/g02_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=814a720b
+RESULT gl/g02_el genCaLhsEnumConstClone158 BYTES-ONLY new=0 gone=0 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT gl/g02_el LANDING158 BYTES-ONLY new=0 gone=0 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT gl/g02_el ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT gl/g02_el ALLOFF==PRE YES
+  gl/g03_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=42877011
+  gl/g03_el off_genCaLhsEnumConstClone158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=66c53919
+  gl/g03_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=66c53919
+  gl/g03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=66c53919
+  gl/g03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=66c53919
+RESULT gl/g03_el genCaLhsEnumConstClone158 BYTES-ONLY new=0 gone=0 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT gl/g03_el LANDING158 BYTES-ONLY new=0 gone=0 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT gl/g03_el ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT gl/g03_el ALLOFF==PRE YES
+  gl/g04_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_file rc=0 md5=44e03fff
+  gl/g04_el off_genCaLhsEnumConstClone158 cmp=0 cmplines=0 strict=STRICT_EQUAL_135_objects rc=0 md5=02d39855
+  gl/g04_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_135_objects rc=0 md5=02d39855
+  gl/g04_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_135_objects rc=0 md5=02d39855
+  gl/g04_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_135_objects rc=0 md5=02d39855
+RESULT gl/g04_el genCaLhsEnumConstClone158 AWAY new=4 gone=0 off:STRICT_EQUAL_135_objects on:STRICT_NOTEQUAL_file | first new: file / A: 8	enum_const	E_HI			dut.sv	2	30	2	38 / B: 8	enum_const	E_HI				0	0	0	0
+RESULT gl/g04_el LANDING158 AWAY new=4 gone=0 off:STRICT_EQUAL_135_objects on:STRICT_NOTEQUAL_file | first new: file / A: 8	enum_const	E_HI			dut.sv	2	30	2	38 / B: 8	enum_const	E_HI				0	0	0	0
+RESULT gl/g04_el ALLOFF AWAY new=4 gone=0 off:STRICT_EQUAL_135_objects on:STRICT_NOTEQUAL_file | first new: file / A: 8	enum_const	E_HI			dut.sv	2	30	2	38 / B: 8	enum_const	E_HI				0	0	0	0
+RESULT gl/g04_el ALLOFF==PRE YES
+  gl/g05_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_203_objects rc=0 md5=6cde339b
+  gl/g05_el off_genCaLhsEnumConstClone158 cmp=0 cmplines=0 strict=STRICT_EQUAL_203_objects rc=0 md5=f1fd2550
+  gl/g05_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_203_objects rc=0 md5=f1fd2550
+  gl/g05_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_203_objects rc=0 md5=f1fd2550
+  gl/g05_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_203_objects rc=0 md5=f1fd2550
+RESULT gl/g05_el genCaLhsEnumConstClone158 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_203_objects on:STRICT_EQUAL_203_objects
+RESULT gl/g05_el LANDING158 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_203_objects on:STRICT_EQUAL_203_objects
+RESULT gl/g05_el ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_203_objects on:STRICT_EQUAL_203_objects
+RESULT gl/g05_el ALLOFF==PRE YES
+  gl/g06_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_file rc=0 md5=99e9fa89
+  gl/g06_el off_genCaLhsEnumConstClone158 cmp=0 cmplines=0 strict=STRICT_EQUAL_83_objects rc=0 md5=aded10c5
+  gl/g06_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_83_objects rc=0 md5=aded10c5
+  gl/g06_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_83_objects rc=0 md5=aded10c5
+  gl/g06_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_83_objects rc=0 md5=aded10c5
+RESULT gl/g06_el genCaLhsEnumConstClone158 AWAY new=2 gone=0 off:STRICT_EQUAL_83_objects on:STRICT_NOTEQUAL_file | first new: file / A: 7	enum_const	E_HI			dut.sv	2	30	2	38 / B: 7	enum_const	E_HI				0	0	0	0
+RESULT gl/g06_el LANDING158 AWAY new=2 gone=0 off:STRICT_EQUAL_83_objects on:STRICT_NOTEQUAL_file | first new: file / A: 7	enum_const	E_HI			dut.sv	2	30	2	38 / B: 7	enum_const	E_HI				0	0	0	0
+RESULT gl/g06_el ALLOFF AWAY new=2 gone=0 off:STRICT_EQUAL_83_objects on:STRICT_NOTEQUAL_file | first new: file / A: 7	enum_const	E_HI			dut.sv	2	30	2	38 / B: 7	enum_const	E_HI				0	0	0	0
+RESULT gl/g06_el ALLOFF==PRE YES
+  gl/g07_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_219_objects rc=0 md5=84f86cac
+  gl/g07_el off_genCaLhsEnumConstClone158 cmp=0 cmplines=0 strict=STRICT_EQUAL_219_objects rc=0 md5=eaef1c1a
+  gl/g07_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_219_objects rc=0 md5=eaef1c1a
+  gl/g07_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_219_objects rc=0 md5=eaef1c1a
+  gl/g07_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_219_objects rc=0 md5=eaef1c1a
+RESULT gl/g07_el genCaLhsEnumConstClone158 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_219_objects on:STRICT_EQUAL_219_objects
+RESULT gl/g07_el LANDING158 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_219_objects on:STRICT_EQUAL_219_objects
+RESULT gl/g07_el ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_219_objects on:STRICT_EQUAL_219_objects
+RESULT gl/g07_el ALLOFF==PRE YES
+  gl/g08_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_104_objects rc=0 md5=8a2f9125
+  gl/g08_el off_genCaLhsEnumConstClone158 cmp=0 cmplines=0 strict=STRICT_EQUAL_104_objects rc=0 md5=ad9d813d
+  gl/g08_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_104_objects rc=0 md5=ad9d813d
+  gl/g08_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_104_objects rc=0 md5=ad9d813d
+  gl/g08_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_104_objects rc=0 md5=ad9d813d
+RESULT gl/g08_el genCaLhsEnumConstClone158 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_104_objects on:STRICT_EQUAL_104_objects
+RESULT gl/g08_el LANDING158 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_104_objects on:STRICT_EQUAL_104_objects
+RESULT gl/g08_el ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_104_objects on:STRICT_EQUAL_104_objects
+RESULT gl/g08_el ALLOFF==PRE YES
+  gl/g09_el on cmp=255 cmplines=207 strict=NOT_EQUAL_stage1 rc=0 md5=76530ae5
+  gl/g09_el off_genCaLhsEnumConstClone158 cmp=255 cmplines=207 strict=NOT_EQUAL_stage1 rc=0 md5=15aa11c6
+  gl/g09_el offL158 cmp=255 cmplines=207 strict=NOT_EQUAL_stage1 rc=0 md5=15aa11c6
+  gl/g09_el alloff cmp=255 cmplines=207 strict=NOT_EQUAL_stage1 rc=0 md5=15aa11c6
+  gl/g09_el pre cmp=255 cmplines=207 strict=NOT_EQUAL_stage1 rc=0 md5=15aa11c6
+RESULT gl/g09_el genCaLhsEnumConstClone158 STAGE1-SAME off:stage1 on:stage1 dump off=61 on=61 newbad=0
+RESULT gl/g09_el LANDING158 STAGE1-SAME off:stage1 on:stage1 dump off=61 on=61 newbad=0
+RESULT gl/g09_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=61 on=61 newbad=0
+RESULT gl/g09_el ALLOFF==PRE YES
+  gl/g10_el on cmp=255 cmplines=19 strict=NOT_EQUAL_stage1 rc=0 md5=a5521d01
+  gl/g10_el off_genCaLhsEnumConstClone158 cmp=255 cmplines=19 strict=NOT_EQUAL_stage1 rc=0 md5=5dc7426b
+  gl/g10_el offL158 cmp=255 cmplines=19 strict=NOT_EQUAL_stage1 rc=0 md5=5dc7426b
+  gl/g10_el alloff cmp=255 cmplines=19 strict=NOT_EQUAL_stage1 rc=0 md5=5dc7426b
+  gl/g10_el pre cmp=255 cmplines=19 strict=NOT_EQUAL_stage1 rc=0 md5=5dc7426b
+RESULT gl/g10_el genCaLhsEnumConstClone158 STAGE1-AWAY off:stage1 on:stage1 dump off=4 on=77 newbad=74 | +\_module_inst: work@top (work@top), file:dut.sv, line:3:1, endln:8:10 | +|vpiParent: | +|vpiRhs:
+RESULT gl/g10_el LANDING158 STAGE1-AWAY off:stage1 on:stage1 dump off=4 on=77 newbad=74 | +\_module_inst: work@top (work@top), file:dut.sv, line:3:1, endln:8:10 | +|vpiParent: | +|vpiRhs:
+RESULT gl/g10_el ALLOFF STAGE1-AWAY off:stage1 on:stage1 dump off=4 on=77 newbad=74 | +\_module_inst: work@top (work@top), file:dut.sv, line:3:1, endln:8:10 | +|vpiParent: | +|vpiRhs:
+RESULT gl/g10_el ALLOFF==PRE YES
+  gl/g11_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_file rc=0 md5=ac01362d
+  gl/g11_el off_genCaLhsEnumConstClone158 cmp=0 cmplines=0 strict=STRICT_EQUAL_205_objects rc=0 md5=369999a9
+  gl/g11_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_205_objects rc=0 md5=369999a9
+  gl/g11_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_205_objects rc=0 md5=369999a9
+  gl/g11_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_205_objects rc=0 md5=369999a9
+RESULT gl/g11_el genCaLhsEnumConstClone158 AWAY new=4 gone=0 off:STRICT_EQUAL_205_objects on:STRICT_NOTEQUAL_file | first new: file / A: 8	enum_const	E_HI			dut.sv	2	30	2	38 / B: 8	enum_const	E_HI				0	0	0	0
+RESULT gl/g11_el LANDING158 AWAY new=4 gone=0 off:STRICT_EQUAL_205_objects on:STRICT_NOTEQUAL_file | first new: file / A: 8	enum_const	E_HI			dut.sv	2	30	2	38 / B: 8	enum_const	E_HI				0	0	0	0
+RESULT gl/g11_el ALLOFF AWAY new=4 gone=0 off:STRICT_EQUAL_205_objects on:STRICT_NOTEQUAL_file | first new: file / A: 8	enum_const	E_HI			dut.sv	2	30	2	38 / B: 8	enum_const	E_HI				0	0	0	0
+RESULT gl/g11_el ALLOFF==PRE YES
+  gt/q01_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_128_objects rc=0 md5=a1655b6c
+  gt/q01_el off_genTgtLhsLeafOwnName157 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=9335fbf1
+  gt/q01_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=9335fbf1
+  gt/q01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=9335fbf1
+  gt/q01_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=9335fbf1
+RESULT gt/q01_el genTgtLhsLeafOwnName157 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_128_objects
+RESULT gt/q01_el LANDING158 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_128_objects
+RESULT gt/q01_el ALLOFF TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_128_objects
+RESULT gt/q01_el ALLOFF==PRE YES
+  gt/q02_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_115_objects rc=0 md5=8b1db2f4
+  gt/q02_el off_genTgtLhsLeafOwnName157 cmp=0 cmplines=0 strict=STRICT_EQUAL_115_objects rc=0 md5=8b1db2f4
+  gt/q02_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_115_objects rc=0 md5=8b1db2f4
+  gt/q02_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_115_objects rc=0 md5=8b1db2f4
+  gt/q02_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_115_objects rc=0 md5=8b1db2f4
+RESULT gt/q02_el genTgtLhsLeafOwnName157 UNFIRED 
+RESULT gt/q02_el LANDING158 UNFIRED 
+RESULT gt/q02_el ALLOFF UNFIRED 
+RESULT gt/q02_el ALLOFF==PRE YES
+  gt/q03_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_195_objects rc=0 md5=0e562b08
+  gt/q03_el off_genTgtLhsLeafOwnName157 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=bba004a1
+  gt/q03_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=bba004a1
+  gt/q03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=bba004a1
+  gt/q03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=bba004a1
+RESULT gt/q03_el genTgtLhsLeafOwnName157 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_195_objects
+RESULT gt/q03_el LANDING158 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_195_objects
+RESULT gt/q03_el ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_195_objects
+RESULT gt/q03_el ALLOFF==PRE YES
+  gw/z01_el on cmp=255 cmplines=760 strict=NOT_EQUAL_stage1 rc=0 md5=42997dc2
+  gw/z01_el off_tpCloneWholeLhsBare160 cmp=255 cmplines=760 strict=NOT_EQUAL_stage1 rc=0 md5=42997dc2
+  gw/z01_el offL160 cmp=255 cmplines=760 strict=NOT_EQUAL_stage1 rc=0 md5=42997dc2
+  gw/z01_el alloff cmp=255 cmplines=760 strict=NOT_EQUAL_stage1 rc=0 md5=42997dc2
+  gw/z01_el pre cmp=255 cmplines=760 strict=NOT_EQUAL_stage1 rc=0 md5=42997dc2
+RESULT gw/z01_el tpCloneWholeLhsBare160 UNFIRED 
+RESULT gw/z01_el LANDING160 UNFIRED 
+RESULT gw/z01_el ALLOFF UNFIRED 
+RESULT gw/z01_el ALLOFF==PRE YES
+  gw/z02_el on cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=427cf741
+  gw/z02_el off_tpCloneWholeLhsBare160 cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=427cf741
+  gw/z02_el offL160 cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=427cf741
+  gw/z02_el alloff cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=427cf741
+  gw/z02_el pre cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=427cf741
+RESULT gw/z02_el tpCloneWholeLhsBare160 UNFIRED 
+RESULT gw/z02_el LANDING160 UNFIRED 
+RESULT gw/z02_el ALLOFF UNFIRED 
+RESULT gw/z02_el ALLOFF==PRE YES
+  gw/z03_el on cmp=255 cmplines=558 strict=NOT_EQUAL_stage1 rc=4 md5=854f1a67
+  gw/z03_el off_tpCloneWholeLhsBare160 cmp=255 cmplines=558 strict=NOT_EQUAL_stage1 rc=4 md5=854f1a67
+  gw/z03_el offL160 cmp=255 cmplines=558 strict=NOT_EQUAL_stage1 rc=4 md5=854f1a67
+  gw/z03_el alloff cmp=255 cmplines=558 strict=NOT_EQUAL_stage1 rc=4 md5=854f1a67
+  gw/z03_el pre cmp=255 cmplines=558 strict=NOT_EQUAL_stage1 rc=4 md5=854f1a67
+RESULT gw/z03_el tpCloneWholeLhsBare160 UNFIRED 
+RESULT gw/z03_el LANDING160 UNFIRED 
+RESULT gw/z03_el ALLOFF UNFIRED 
+RESULT gw/z03_el ALLOFF==PRE YES
+  gw/z04_el on cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=fedef7c6
+  gw/z04_el off_tpWholeLhsInstantiatedOnly160v cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=fedef7c6
+  gw/z04_el off_tpCloneWholeLhsBare160 cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=fedef7c6
+  gw/z04_el offL160 cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=fedef7c6
+  gw/z04_el alloff cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=fedef7c6
+  gw/z04_el pre cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=fedef7c6
+RESULT gw/z04_el tpWholeLhsInstantiatedOnly160v UNFIRED 
+RESULT gw/z04_el tpCloneWholeLhsBare160 UNFIRED 
+RESULT gw/z04_el LANDING160 UNFIRED 
+RESULT gw/z04_el ALLOFF UNFIRED 
+RESULT gw/z04_el ALLOFF==PRE YES
+  gw/z06_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_227_objects rc=0 md5=701422f7
+  gw/z06_el off_tpCloneWholeLhsBare160 cmp=0 cmplines=0 strict=STRICT_EQUAL_227_objects rc=0 md5=701422f7
+  gw/z06_el offL160 cmp=0 cmplines=0 strict=STRICT_EQUAL_227_objects rc=0 md5=701422f7
+  gw/z06_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_227_objects rc=0 md5=701422f7
+  gw/z06_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_227_objects rc=0 md5=701422f7
+RESULT gw/z06_el tpCloneWholeLhsBare160 UNFIRED 
+RESULT gw/z06_el LANDING160 UNFIRED 
+RESULT gw/z06_el ALLOFF UNFIRED 
+RESULT gw/z06_el ALLOFF==PRE YES
+  gw/z05_el on cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=3a929dd6
+  gw/z05_el off_tpWholeLhsInstantiatedOnly160v cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=3a929dd6
+  gw/z05_el off_tpCloneWholeLhsBare160 cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=3a929dd6
+  gw/z05_el offL160 cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=3a929dd6
+  gw/z05_el alloff cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=3a929dd6
+  gw/z05_el pre cmp=255 cmplines=394 strict=NOT_EQUAL_stage1 rc=0 md5=3a929dd6
+RESULT gw/z05_el tpWholeLhsInstantiatedOnly160v UNFIRED 
+RESULT gw/z05_el tpCloneWholeLhsBare160 UNFIRED 
+RESULT gw/z05_el LANDING160 UNFIRED 
+RESULT gw/z05_el ALLOFF UNFIRED 
+RESULT gw/z05_el ALLOFF==PRE YES
+  gw/z07_el on cmp=255 cmplines=15 strict=NOT_EQUAL_stage1 rc=0 md5=1e0c3ef1
+  gw/z07_el off_tpCloneWholeLhsBare160 cmp=255 cmplines=15 strict=NOT_EQUAL_stage1 rc=0 md5=91c2ae58
+  gw/z07_el offL160 cmp=255 cmplines=15 strict=NOT_EQUAL_stage1 rc=0 md5=91c2ae58
+  gw/z07_el alloff cmp=255 cmplines=15 strict=NOT_EQUAL_stage1 rc=0 md5=91c2ae58
+  gw/z07_el pre cmp=255 cmplines=15 strict=NOT_EQUAL_stage1 rc=0 md5=91c2ae58
+RESULT gw/z07_el tpCloneWholeLhsBare160 STAGE1-CLOSER off:stage1 on:stage1 dump off=32 on=16 newbad=0
+RESULT gw/z07_el LANDING160 STAGE1-CLOSER off:stage1 on:stage1 dump off=32 on=16 newbad=0
+RESULT gw/z07_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=32 on=16 newbad=0
+RESULT gw/z07_el ALLOFF==PRE YES
+  gw/z09_el on cmp=255 cmplines=707 strict=NOT_EQUAL_stage1 rc=0 md5=6fa71a0d
+  gw/z09_el off_tpCloneWholeLhsBare160 cmp=255 cmplines=707 strict=NOT_EQUAL_stage1 rc=0 md5=6fa71a0d
+  gw/z09_el offL160 cmp=255 cmplines=707 strict=NOT_EQUAL_stage1 rc=0 md5=6fa71a0d
+  gw/z09_el alloff cmp=255 cmplines=707 strict=NOT_EQUAL_stage1 rc=0 md5=6fa71a0d
+  gw/z09_el pre cmp=255 cmplines=707 strict=NOT_EQUAL_stage1 rc=0 md5=6fa71a0d
+RESULT gw/z09_el tpCloneWholeLhsBare160 UNFIRED 
+RESULT gw/z09_el LANDING160 UNFIRED 
+RESULT gw/z09_el ALLOFF UNFIRED 
+RESULT gw/z09_el ALLOFF==PRE YES
+  gw/z08_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=d3104807
+  gw/z08_el off_tpWholeLhsInstantiatedOnly160v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=09278c7a
+  gw/z08_el off_tpCloneWholeLhsBare160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=d3104807
+  gw/z08_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=d3104807
+  gw/z08_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=d3104807
+  gw/z08_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=d3104807
+RESULT gw/z08_el tpWholeLhsInstantiatedOnly160v TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT gw/z08_el tpCloneWholeLhsBare160 UNFIRED 
+RESULT gw/z08_el LANDING160 UNFIRED 
+RESULT gw/z08_el ALLOFF UNFIRED 
+RESULT gw/z08_el ALLOFF==PRE YES
+  gw/z10_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=7a76d144
+  gw/z10_el off_tpCloneWholeLhsBare160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=333a69d8
+  gw/z10_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=333a69d8
+  gw/z10_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=333a69d8
+  gw/z10_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=333a69d8
+RESULT gw/z10_el tpCloneWholeLhsBare160 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT gw/z10_el LANDING160 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT gw/z10_el ALLOFF TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT gw/z10_el ALLOFF==PRE YES
+  hs/h01_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=502ec85b
+  hs/h01_el off_hpSelRoute157 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=502ec85b
+  hs/h01_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=502ec85b
+  hs/h01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=502ec85b
+  hs/h01_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=502ec85b
+RESULT hs/h01_el hpSelRoute157 UNFIRED 
+RESULT hs/h01_el LANDING158 UNFIRED 
+RESULT hs/h01_el ALLOFF UNFIRED 
+RESULT hs/h01_el ALLOFF==PRE YES
+  gw/z11_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=c3d0230a
+  gw/z11_el off_tpWholeLhsInstantiatedOnly160v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=fc20ddda
+  gw/z11_el off_tpCloneWholeLhsBare160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=c3d0230a
+  gw/z11_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=c3d0230a
+  gw/z11_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=c3d0230a
+  gw/z11_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=c3d0230a
+RESULT gw/z11_el tpWholeLhsInstantiatedOnly160v TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT gw/z11_el tpCloneWholeLhsBare160 UNFIRED 
+RESULT gw/z11_el LANDING160 UNFIRED 
+RESULT gw/z11_el ALLOFF UNFIRED 
+RESULT gw/z11_el ALLOFF==PRE YES
+  hs/h02_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_354_objects rc=0 md5=a1e281ac
+  hs/h02_el off_hpSelRoute157 cmp=0 cmplines=0 strict=STRICT_EQUAL_354_objects rc=0 md5=a1e281ac
+  hs/h02_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_354_objects rc=0 md5=a1e281ac
+  hs/h02_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_354_objects rc=0 md5=a1e281ac
+  hs/h02_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_354_objects rc=0 md5=a1e281ac
+RESULT hs/h02_el hpSelRoute157 UNFIRED 
+RESULT hs/h02_el LANDING158 UNFIRED 
+RESULT hs/h02_el ALLOFF UNFIRED 
+RESULT hs/h02_el ALLOFF==PRE YES
+  hs/h03_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=9eedc099
+  hs/h03_el off_hpSelRoute157 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=9eedc099
+  hs/h03_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=9eedc099
+  hs/h03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=9eedc099
+  hs/h03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=9eedc099
+RESULT hs/h03_el hpSelRoute157 UNFIRED 
+RESULT hs/h03_el LANDING158 UNFIRED 
+RESULT hs/h03_el ALLOFF UNFIRED 
+RESULT hs/h03_el ALLOFF==PRE YES
+  hs/h04_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=16cf539f
+  hs/h04_el off_hpSelRoute157 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=16cf539f
+  hs/h04_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=16cf539f
+  hs/h04_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=16cf539f
+  hs/h04_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=16cf539f
+RESULT hs/h04_el hpSelRoute157 UNFIRED 
+RESULT hs/h04_el LANDING158 UNFIRED 
+RESULT hs/h04_el ALLOFF UNFIRED 
+RESULT hs/h04_el ALLOFF==PRE YES
+  hs/h05_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_346_objects rc=0 md5=a0f1501f
+  hs/h05_el off_hpSelRoute157 cmp=0 cmplines=0 strict=STRICT_EQUAL_346_objects rc=0 md5=a0f1501f
+  hs/h05_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_346_objects rc=0 md5=a0f1501f
+  hs/h05_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_346_objects rc=0 md5=a0f1501f
+  hs/h05_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_346_objects rc=0 md5=a0f1501f
+RESULT hs/h05_el hpSelRoute157 UNFIRED 
+RESULT hs/h05_el LANDING158 UNFIRED 
+RESULT hs/h05_el ALLOFF UNFIRED 
+RESULT hs/h05_el ALLOFF==PRE YES
+  hs/h06_el on cmp=255 cmplines=14 strict=NOT_EQUAL_stage1 rc=0 md5=5c73b305
+  hs/h06_el off_hpSelRoute157 cmp=255 cmplines=14 strict=NOT_EQUAL_stage1 rc=0 md5=a4aa9ca4
+  hs/h06_el offL158 cmp=255 cmplines=14 strict=NOT_EQUAL_stage1 rc=0 md5=a4aa9ca4
+  hs/h06_el alloff cmp=255 cmplines=14 strict=NOT_EQUAL_stage1 rc=0 md5=a4aa9ca4
+  hs/h06_el pre cmp=255 cmplines=14 strict=NOT_EQUAL_stage1 rc=0 md5=a4aa9ca4
+RESULT hs/h06_el hpSelRoute157 STAGE1-CLOSER off:stage1 on:stage1 dump off=207 on=197 newbad=0
+RESULT hs/h06_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=207 on=197 newbad=0
+  hs/h07_el on cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=b4a911be
+  hs/h07_el off_hpSelRoute157 cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=aa33a2a6
+  hs/h07_el offL158 cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=aa33a2a6
+  hs/h07_el alloff cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=aa33a2a6
+  hs/h07_el pre cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=aa33a2a6
+RESULT hs/h07_el hpSelRoute157 STAGE1-CLOSER off:stage1 on:stage1 dump off=91 on=86 newbad=0
+RESULT hs/h06_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=207 on=197 newbad=0
+RESULT hs/h06_el ALLOFF==PRE YES
+RESULT hs/h07_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=91 on=86 newbad=0
+RESULT hs/h07_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=91 on=86 newbad=0
+RESULT hs/h07_el ALLOFF==PRE YES
+  hs/h08_el on cmp=255 cmplines=70 strict=NOT_EQUAL_stage1 rc=0 md5=ee94f550
+  hs/h08_el off_hpSelRoute157 cmp=255 cmplines=70 strict=NOT_EQUAL_stage1 rc=0 md5=ee94f550
+  hs/h08_el offL158 cmp=255 cmplines=70 strict=NOT_EQUAL_stage1 rc=0 md5=ee94f550
+  hs/h08_el alloff cmp=255 cmplines=70 strict=NOT_EQUAL_stage1 rc=0 md5=ee94f550
+  hs/h08_el pre cmp=255 cmplines=70 strict=NOT_EQUAL_stage1 rc=0 md5=ee94f550
+RESULT hs/h08_el hpSelRoute157 UNFIRED 
+RESULT hs/h08_el LANDING158 UNFIRED 
+RESULT hs/h08_el ALLOFF UNFIRED 
+RESULT hs/h08_el ALLOFF==PRE YES
+  hs/h09_el on cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=4 md5=e827c64e
+  hs/h09_el off_hpSelRoute157 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=4 md5=2a74e0e4
+  hs/h09_el offL158 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=4 md5=2a74e0e4
+  hs/h09_el alloff cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=4 md5=2a74e0e4
+  hs/h09_el pre cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=4 md5=2a74e0e4
+RESULT hs/h09_el hpSelRoute157 STAGE1-CLOSER off:stage1 on:stage1 dump off=59 on=49 newbad=0
+  hs/h10_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_201_objects rc=0 md5=a48a5798
+  hs/h10_el off_hpSelRoute157 cmp=0 cmplines=0 strict=STRICT_EQUAL_201_objects rc=0 md5=a48a5798
+  hs/h10_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_201_objects rc=0 md5=a48a5798
+  hs/h10_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_201_objects rc=0 md5=a48a5798
+  hs/h10_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_201_objects rc=0 md5=a48a5798
+RESULT hs/h10_el hpSelRoute157 UNFIRED 
+RESULT hs/h10_el LANDING158 UNFIRED 
+RESULT hs/h10_el ALLOFF UNFIRED 
+RESULT hs/h10_el ALLOFF==PRE YES
+RESULT hs/h09_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=59 on=49 newbad=0
+RESULT hs/h09_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=59 on=49 newbad=0
+RESULT hs/h09_el ALLOFF==PRE YES
+  hs/h11_el on cmp=255 cmplines=152 strict=NOT_EQUAL_stage1 rc=0 md5=39f49232
+  hs/h11_el off_hpSelRoute157 cmp=255 cmplines=152 strict=NOT_EQUAL_stage1 rc=0 md5=39f49232
+  hs/h11_el offL158 cmp=255 cmplines=152 strict=NOT_EQUAL_stage1 rc=0 md5=39f49232
+  hs/h11_el alloff cmp=255 cmplines=152 strict=NOT_EQUAL_stage1 rc=0 md5=39f49232
+  hs/h11_el pre cmp=255 cmplines=152 strict=NOT_EQUAL_stage1 rc=0 md5=39f49232
+RESULT hs/h11_el hpSelRoute157 UNFIRED 
+RESULT hs/h11_el LANDING158 UNFIRED 
+RESULT hs/h11_el ALLOFF UNFIRED 
+RESULT hs/h11_el ALLOFF==PRE YES
+  ic/i01_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_337_objects rc=0 md5=d3d4618a
+  ic/i01_el off_importPatOpCloneParamNamed163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=e527174a
+  ic/i01_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=e527174a
+  ic/i01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=e527174a
+  ic/i01_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=e527174a
+RESULT ic/i01_el importPatOpCloneParamNamed163 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_337_objects
+RESULT ic/i01_el LANDING163 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_337_objects
+RESULT ic/i01_el ALLOFF TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_337_objects
+RESULT ic/i01_el ALLOFF==PRE YES
+  ic/i02_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_241_objects rc=0 md5=dcb90e06
+  ic/i02_el off_importPatOpCloneParamNamed163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=abd059dd
+  ic/i02_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=abd059dd
+  ic/i02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=abd059dd
+  ic/i02_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=abd059dd
+RESULT ic/i02_el importPatOpCloneParamNamed163 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_241_objects
+RESULT ic/i02_el LANDING163 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_241_objects
+RESULT ic/i02_el ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_241_objects
+RESULT ic/i02_el ALLOFF==PRE YES
+  ma/o01_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=19e279f0
+  ma/o01_el off_objMacroParenArgsTrimmed160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=19e279f0
+  ma/o01_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=19e279f0
+  ma/o01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=19e279f0
+  ma/o01_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=19e279f0
+RESULT ma/o01_el objMacroParenArgsTrimmed160 UNFIRED 
+RESULT ma/o01_el LANDING160 UNFIRED 
+RESULT ma/o01_el ALLOFF UNFIRED 
+RESULT ma/o01_el ALLOFF==PRE YES
+  ma/o02_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=b985b0ae
+  ma/o02_el off_objMacroParenArgsTrimmed160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=b985b0ae
+  ma/o02_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=b985b0ae
+  ma/o02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=b985b0ae
+  ma/o02_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=b985b0ae
+RESULT ma/o02_el objMacroParenArgsTrimmed160 UNFIRED 
+RESULT ma/o02_el LANDING160 UNFIRED 
+RESULT ma/o02_el ALLOFF UNFIRED 
+RESULT ma/o02_el ALLOFF==PRE YES
+  ma/o03_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=b904b72e
+  ma/o03_el off_objMacroParenArgsTrimmed160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=b904b72e
+  ma/o03_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=b904b72e
+  ma/o03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=b904b72e
+  ma/o03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=b904b72e
+RESULT ma/o03_el objMacroParenArgsTrimmed160 UNFIRED 
+RESULT ma/o03_el LANDING160 UNFIRED 
+RESULT ma/o03_el ALLOFF UNFIRED 
+RESULT ma/o03_el ALLOFF==PRE YES
+  ma/o04_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_51_objects rc=0 md5=478703a6
+  ma/o04_el off_objMacroParenArgsTrimmed160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=65f2b055
+  ma/o04_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=65f2b055
+  ma/o04_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=65f2b055
+  ma/o04_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=65f2b055
+RESULT ma/o04_el objMacroParenArgsTrimmed160 TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_51_objects
+RESULT ma/o04_el LANDING160 TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_51_objects
+RESULT ma/o04_el ALLOFF TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_51_objects
+RESULT ma/o04_el ALLOFF==PRE YES
+  ma/o05_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_71_objects rc=0 md5=8d6bd0a4
+  ma/o05_el off_objMacroParenArgsTrimmed160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=5b774259
+  ma/o05_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=5b774259
+  ma/o05_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=5b774259
+  ma/o05_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=5b774259
+RESULT ma/o05_el objMacroParenArgsTrimmed160 TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_71_objects
+RESULT ma/o05_el LANDING160 TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_71_objects
+RESULT ma/o05_el ALLOFF TOWARD new=0 gone=10 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_71_objects
+RESULT ma/o05_el ALLOFF==PRE YES
+  mm/m01_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_61_objects rc=0 md5=de40fe90
+  mm/m01_el off_ppMacroBodyLines160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=eb65954f
+  mm/m01_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=eb65954f
+  mm/m01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=eb65954f
+  mm/m01_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=eb65954f
+RESULT mm/m01_el ppMacroBodyLines160 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_61_objects
+RESULT mm/m01_el LANDING160 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_61_objects
+RESULT mm/m01_el ALLOFF TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_61_objects
+RESULT mm/m01_el ALLOFF==PRE YES
+  mm/m02_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=806fc151
+  mm/m02_el off_ppMacroBodyLines160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=b83796c0
+  mm/m02_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=b83796c0
+  mm/m02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=b83796c0
+  mm/m02_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=b83796c0
+RESULT mm/m02_el ppMacroBodyLines160 MIXED new=4 gone=16 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline | first new: endcol / A: 4	if_stmt				dut.sv	6	5	6	36 / B: 4	if_stmt				dut.sv	6	5	6	32
+RESULT mm/m02_el LANDING160 MIXED new=4 gone=16 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline | first new: endcol / A: 4	if_stmt				dut.sv	6	5	6	36 / B: 4	if_stmt				dut.sv	6	5	6	32
+RESULT mm/m02_el ALLOFF MIXED new=4 gone=16 off:STRICT_NOTEQUAL_endline on:STRICT_NOTEQUAL_endline | first new: endcol / A: 4	if_stmt				dut.sv	6	5	6	36 / B: 4	if_stmt				dut.sv	6	5	6	32
+RESULT mm/m02_el ALLOFF==PRE YES
+  mm/m05_el on SURELOG_FAIL rc=0
+  mm/m05_el off_ppMacroBodyLines160 SURELOG_FAIL rc=0
+  mm/m05_el offL160 SURELOG_FAIL rc=0
+  mm/m05_el alloff SURELOG_FAIL rc=0
+  mm/m05_el pre SURELOG_FAIL rc=0
+RESULT mm/m05_el NOGOLD
+  mm/m03_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_144_objects rc=0 md5=840b507c
+  mm/m03_el off_ppMacroBodyLines160 cmp=0 cmplines=0 strict=STRICT_EQUAL_144_objects rc=0 md5=840b507c
+  mm/m03_el offL160 cmp=0 cmplines=0 strict=STRICT_EQUAL_144_objects rc=0 md5=840b507c
+  mm/m03_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_144_objects rc=0 md5=840b507c
+  mm/m03_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_144_objects rc=0 md5=840b507c
+RESULT mm/m03_el ppMacroBodyLines160 UNFIRED 
+RESULT mm/m03_el LANDING160 UNFIRED 
+RESULT mm/m03_el ALLOFF UNFIRED 
+RESULT mm/m03_el ALLOFF==PRE YES
+  mm/m04_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_file rc=0 md5=f29ad942
+  mm/m04_el off_ppMacroBodyLines160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_file rc=0 md5=f29ad942
+  mm/m04_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_file rc=0 md5=f29ad942
+  mm/m04_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_file rc=0 md5=f29ad942
+  mm/m04_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_file rc=0 md5=f29ad942
+RESULT mm/m04_el ppMacroBodyLines160 UNFIRED 
+RESULT mm/m04_el LANDING160 UNFIRED 
+RESULT mm/m04_el ALLOFF UNFIRED 
+RESULT mm/m04_el ALLOFF==PRE YES
+  mm/m06_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=5546aaa0
+  mm/m06_el off_ppMacroBodyLines160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=ddba7732
+  mm/m06_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=ddba7732
+  mm/m06_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=ddba7732
+  mm/m06_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=ddba7732
+RESULT mm/m06_el ppMacroBodyLines160 TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT mm/m06_el LANDING160 TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT mm/m06_el ALLOFF TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT mm/m06_el ALLOFF==PRE YES
+  mm/m07_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=410f9ded
+  mm/m07_el off_ppMacroBodyLines160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=e0dc77ed
+  mm/m07_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=e0dc77ed
+  mm/m07_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=e0dc77ed
+  mm/m07_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=e0dc77ed
+RESULT mm/m07_el ppMacroBodyLines160 MIXED new=8 gone=8 off:STRICT_NOTEQUAL_line on:STRICT_NOTEQUAL_line | first new: line / A: 2	cont_assign				dut.sv	8	10	8	16 / B: 2	cont_assign				dut.sv	5	10	5	16
+RESULT mm/m07_el LANDING160 MIXED new=8 gone=8 off:STRICT_NOTEQUAL_line on:STRICT_NOTEQUAL_line | first new: line / A: 2	cont_assign				dut.sv	8	10	8	16 / B: 2	cont_assign				dut.sv	5	10	5	16
+RESULT mm/m07_el ALLOFF MIXED new=8 gone=8 off:STRICT_NOTEQUAL_line on:STRICT_NOTEQUAL_line | first new: line / A: 2	cont_assign				dut.sv	8	10	8	16 / B: 2	cont_assign				dut.sv	5	10	5	16
+RESULT mm/m07_el ALLOFF==PRE YES
+  mm/m08_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_50_objects rc=0 md5=026ab037
+  mm/m08_el off_ppMacroBodyLines160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=23e4eebd
+  mm/m08_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=23e4eebd
+  mm/m08_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=23e4eebd
+  mm/m08_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=23e4eebd
+RESULT mm/m08_el ppMacroBodyLines160 TOWARD new=0 gone=16 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_50_objects
+RESULT mm/m08_el LANDING160 TOWARD new=0 gone=16 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_50_objects
+RESULT mm/m08_el ALLOFF TOWARD new=0 gone=16 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_50_objects
+RESULT mm/m08_el ALLOFF==PRE YES
+  mm/m10_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_52_objects rc=0 md5=45c8c4fd
+  mm/m10_el off_ppMacroBodyLines160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=8d7687aa
+  mm/m10_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=8d7687aa
+  mm/m10_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=8d7687aa
+  mm/m10_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=8d7687aa
+RESULT mm/m10_el ppMacroBodyLines160 TOWARD new=0 gone=12 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_52_objects
+RESULT mm/m10_el LANDING160 TOWARD new=0 gone=12 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_52_objects
+RESULT mm/m10_el ALLOFF TOWARD new=0 gone=12 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_52_objects
+RESULT mm/m10_el ALLOFF==PRE YES
+  mm/m09_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=349920bf
+  mm/m09_el off_ppMacroBodyLines160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=349920bf
+  mm/m09_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=349920bf
+  mm/m09_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=349920bf
+  mm/m09_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=349920bf
+RESULT mm/m09_el ppMacroBodyLines160 UNFIRED 
+RESULT mm/m09_el LANDING160 UNFIRED 
+RESULT mm/m09_el ALLOFF UNFIRED 
+RESULT mm/m09_el ALLOFF==PRE YES
+  mm/m11_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=0afe1ef3
+  mm/m11_el off_ppMacroBodyLines160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=0afe1ef3
+  mm/m11_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=0afe1ef3
+  mm/m11_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=0afe1ef3
+  mm/m11_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=0afe1ef3
+RESULT mm/m11_el ppMacroBodyLines160 UNFIRED 
+RESULT mm/m11_el LANDING160 UNFIRED 
+RESULT mm/m11_el ALLOFF UNFIRED 
+RESULT mm/m11_el ALLOFF==PRE YES
+  mm/m12_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=286247df
+  mm/m12_el off_ppMacroBodyLines160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=286247df
+  mm/m12_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=286247df
+  mm/m12_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=286247df
+  mm/m12_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=286247df
+RESULT mm/m12_el ppMacroBodyLines160 UNFIRED 
+RESULT mm/m12_el LANDING160 UNFIRED 
+RESULT mm/m12_el ALLOFF UNFIRED 
+RESULT mm/m12_el ALLOFF==PRE YES
+  mm/m13_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=ec6c2cce
+  mm/m13_el off_ppMacroBodyLines160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=1005de20
+  mm/m13_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=1005de20
+  mm/m13_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=1005de20
+  mm/m13_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=1005de20
+RESULT mm/m13_el ppMacroBodyLines160 MIXED new=8 gone=8 off:STRICT_NOTEQUAL_line on:STRICT_NOTEQUAL_line | first new: line / A: 2	cont_assign				dut.sv	8	10	8	16 / B: 2	cont_assign				dut.sv	5	10	5	16
+RESULT mm/m13_el LANDING160 MIXED new=8 gone=8 off:STRICT_NOTEQUAL_line on:STRICT_NOTEQUAL_line | first new: line / A: 2	cont_assign				dut.sv	8	10	8	16 / B: 2	cont_assign				dut.sv	5	10	5	16
+RESULT mm/m13_el ALLOFF MIXED new=8 gone=8 off:STRICT_NOTEQUAL_line on:STRICT_NOTEQUAL_line | first new: line / A: 2	cont_assign				dut.sv	8	10	8	16 / B: 2	cont_assign				dut.sv	5	10	5	16
+RESULT mm/m13_el ALLOFF==PRE YES
+  nd/n01_el on cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=b49a6536
+  nd/n01_el off_elabTpNamedElemDimDefNamed163 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=b49a6536
+  nd/n01_el offL163 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=b49a6536
+  nd/n01_el alloff cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=fbb0aa1b
+  nd/n01_el pre cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=fbb0aa1b
+RESULT nd/n01_el elabTpNamedElemDimDefNamed163 UNFIRED 
+RESULT nd/n01_el LANDING163 UNFIRED 
+RESULT nd/n01_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=170 on=168 newbad=0
+RESULT nd/n01_el ALLOFF==PRE YES
+  nd/n03_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_141_objects rc=0 md5=bedce1a4
+  nd/n03_el off_elabTpDefaultDefNamed163 cmp=0 cmplines=0 strict=STRICT_EQUAL_141_objects rc=0 md5=c8f61c01
+  nd/n03_el offL163 cmp=0 cmplines=0 strict=STRICT_EQUAL_141_objects rc=0 md5=c8f61c01
+  nd/n03_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_141_objects rc=0 md5=f4ea36c4
+  nd/n03_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_141_objects rc=0 md5=f4ea36c4
+RESULT nd/n03_el elabTpDefaultDefNamed163 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_141_objects on:STRICT_EQUAL_141_objects
+RESULT nd/n03_el LANDING163 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_141_objects on:STRICT_EQUAL_141_objects
+RESULT nd/n03_el ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_141_objects on:STRICT_EQUAL_141_objects
+RESULT nd/n03_el ALLOFF==PRE YES
+  nd/n02_el on cmp=255 cmplines=172 strict=NOT_EQUAL_stage1 rc=0 md5=05cfde92
+  nd/n02_el off_elabTpNamedElemDimDefNamed163 cmp=255 cmplines=172 strict=NOT_EQUAL_stage1 rc=0 md5=05cfde92
+  nd/n02_el offL163 cmp=255 cmplines=172 strict=NOT_EQUAL_stage1 rc=0 md5=05cfde92
+  nd/n02_el alloff cmp=255 cmplines=172 strict=NOT_EQUAL_stage1 rc=0 md5=2411a95f
+  nd/n02_el pre cmp=255 cmplines=172 strict=NOT_EQUAL_stage1 rc=0 md5=2411a95f
+RESULT nd/n02_el elabTpNamedElemDimDefNamed163 UNFIRED 
+RESULT nd/n02_el LANDING163 UNFIRED 
+RESULT nd/n02_el ALLOFF STAGE1-AWAY off:stage1 on:stage1 dump off=131 on=148 newbad=0
+RESULT nd/n02_el ALLOFF==PRE YES
+  nd/n04_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_128_objects rc=0 md5=590612a4
+  nd/n04_el off_elabTpDefaultDefNamed163 cmp=0 cmplines=0 strict=STRICT_EQUAL_128_objects rc=0 md5=590612a4
+  nd/n04_el offL163 cmp=0 cmplines=0 strict=STRICT_EQUAL_128_objects rc=0 md5=590612a4
+  nd/n04_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_128_objects rc=0 md5=683f5cab
+  nd/n04_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_128_objects rc=0 md5=683f5cab
+RESULT nd/n04_el elabTpDefaultDefNamed163 UNFIRED 
+RESULT nd/n04_el LANDING163 UNFIRED 
+RESULT nd/n04_el ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_128_objects on:STRICT_EQUAL_128_objects
+RESULT nd/n04_el ALLOFF==PRE YES
+  nd/n05_el on cmp=255 cmplines=33 strict=NOT_EQUAL_stage1 rc=0 md5=24e65349
+  nd/n05_el off_elabTpDefaultDefNamed163 cmp=255 cmplines=33 strict=NOT_EQUAL_stage1 rc=0 md5=60e5a03e
+  nd/n05_el offL163 cmp=255 cmplines=33 strict=NOT_EQUAL_stage1 rc=0 md5=60e5a03e
+  nd/n05_el alloff cmp=255 cmplines=33 strict=NOT_EQUAL_stage1 rc=0 md5=60e5a03e
+  nd/n05_el pre cmp=255 cmplines=33 strict=NOT_EQUAL_stage1 rc=0 md5=60e5a03e
+RESULT nd/n05_el elabTpDefaultDefNamed163 STAGE1-SAME off:stage1 on:stage1 dump off=48 on=48 newbad=2
+RESULT nd/n05_el LANDING163 STAGE1-SAME off:stage1 on:stage1 dump off=48 on=48 newbad=2
+RESULT nd/n05_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=48 on=48 newbad=2
+RESULT nd/n05_el ALLOFF==PRE YES
+  nd/n06_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_193_objects rc=0 md5=63aee501
+  nd/n06_el off_elabTpNamedElemDimDefNamed163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=d7e73b39
+  nd/n06_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=d7e73b39
+  nd/n06_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=d7e73b39
+  nd/n06_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=d7e73b39
+RESULT nd/n06_el elabTpNamedElemDimDefNamed163 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_193_objects
+RESULT nd/n06_el LANDING163 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_193_objects
+RESULT nd/n06_el ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_193_objects
+RESULT nd/n06_el ALLOFF==PRE YES
+  nd/n07_el on cmp=255 cmplines=15 strict=NOT_EQUAL_stage1 rc=0 md5=4e552e32
+  nd/n07_el off_elabTpNamedElemDimDefNamed163 cmp=255 cmplines=15 strict=NOT_EQUAL_stage1 rc=0 md5=a2ceba4b
+  nd/n07_el offL163 cmp=255 cmplines=15 strict=NOT_EQUAL_stage1 rc=0 md5=a2ceba4b
+  nd/n07_el alloff cmp=255 cmplines=15 strict=NOT_EQUAL_stage1 rc=0 md5=d6371253
+  nd/n07_el pre cmp=255 cmplines=15 strict=NOT_EQUAL_stage1 rc=0 md5=d6371253
+RESULT nd/n07_el elabTpNamedElemDimDefNamed163 STAGE1-SAME off:stage1 on:stage1 dump off=183 on=183 newbad=6
+RESULT nd/n07_el LANDING163 STAGE1-SAME off:stage1 on:stage1 dump off=183 on=183 newbad=6
+RESULT nd/n07_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=183 on=183 newbad=6
+RESULT nd/n07_el ALLOFF==PRE YES
+  oa/o01_el on cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=d27d29cc
+  oa/o01_el off_elabOvArrFoldSharesDefParamTs163 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=d27d29cc
+  oa/o01_el offL163 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=d27d29cc
+  oa/o01_el alloff cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=d27d29cc
+  oa/o01_el pre cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=d27d29cc
+RESULT oa/o01_el elabOvArrFoldSharesDefParamTs163 UNFIRED 
+RESULT oa/o01_el LANDING163 UNFIRED 
+RESULT oa/o01_el ALLOFF UNFIRED 
+RESULT oa/o01_el ALLOFF==PRE YES
+  oa/o02_el on cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=add43620
+  oa/o02_el off_elabOvArrFoldSharesDefParamTs163 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=add43620
+  oa/o02_el offL163 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=add43620
+  oa/o02_el alloff cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=add43620
+  oa/o02_el pre cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=add43620
+RESULT oa/o02_el elabOvArrFoldSharesDefParamTs163 UNFIRED 
+RESULT oa/o02_el LANDING163 UNFIRED 
+RESULT oa/o02_el ALLOFF UNFIRED 
+RESULT oa/o02_el ALLOFF==PRE YES
+  oa/o03_el on cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=94e0032c
+  oa/o03_el off_elabOvArrFoldSharesDefParamTs163 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=94e0032c
+  oa/o03_el offL163 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=94e0032c
+  oa/o03_el alloff cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=94e0032c
+  oa/o03_el pre cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=94e0032c
+RESULT oa/o03_el elabOvArrFoldSharesDefParamTs163 UNFIRED 
+RESULT oa/o03_el LANDING163 UNFIRED 
+RESULT oa/o03_el ALLOFF UNFIRED 
+RESULT oa/o03_el ALLOFF==PRE YES
+  oa/o04_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_345_objects rc=0 md5=9f10f4ed
+  oa/o04_el off_elabOvArrFoldSharesDefParamTs163 cmp=255 cmplines=33 strict=NOT_EQUAL_stage1 rc=0 md5=d5913f0f
+  oa/o04_el offL163 cmp=255 cmplines=33 strict=NOT_EQUAL_stage1 rc=0 md5=d5913f0f
+  oa/o04_el alloff cmp=255 cmplines=33 strict=NOT_EQUAL_stage1 rc=0 md5=d5913f0f
+  oa/o04_el pre cmp=255 cmplines=33 strict=NOT_EQUAL_stage1 rc=0 md5=d5913f0f
+RESULT oa/o04_el elabOvArrFoldSharesDefParamTs163 STAGE1-SAME off:stage1 on:STRICT_EQUAL 345 objects dump off=26 on=26 newbad=1
+  oa/o05_el on cmp=255 cmplines=62 strict=NOT_EQUAL_stage1 rc=0 md5=bf1ee374
+  oa/o05_el off_elabOvArrFoldSharesDefParamTs163 cmp=255 cmplines=62 strict=NOT_EQUAL_stage1 rc=0 md5=8adb45f0
+  oa/o05_el offL163 cmp=255 cmplines=62 strict=NOT_EQUAL_stage1 rc=0 md5=8adb45f0
+  oa/o05_el alloff cmp=255 cmplines=62 strict=NOT_EQUAL_stage1 rc=0 md5=8adb45f0
+  oa/o05_el pre cmp=255 cmplines=62 strict=NOT_EQUAL_stage1 rc=0 md5=8adb45f0
+RESULT oa/o05_el elabOvArrFoldSharesDefParamTs163 STAGE1-SAME off:stage1 on:stage1 dump off=105 on=105 newbad=0
+RESULT oa/o04_el LANDING163 STAGE1-SAME off:stage1 on:STRICT_EQUAL 345 objects dump off=26 on=26 newbad=1
+RESULT oa/o05_el LANDING163 STAGE1-SAME off:stage1 on:stage1 dump off=105 on=105 newbad=0
+RESULT oa/o04_el ALLOFF STAGE1-SAME off:stage1 on:STRICT_EQUAL 345 objects dump off=26 on=26 newbad=1
+RESULT oa/o04_el ALLOFF==PRE YES
+RESULT oa/o05_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=105 on=105 newbad=0
+RESULT oa/o05_el ALLOFF==PRE YES
+  pa/p01_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_82_objects rc=0 md5=a80ec27f
+  pa/p01_el off_pasteChainRunning160v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=7b1be64e
+  pa/p01_el off_ppMacroBodyLines160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=aabee536
+  pa/p01_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=aabee536
+  pa/p01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=aabee536
+  pa/p01_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=aabee536
+RESULT pa/p01_el pasteChainRunning160v TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_82_objects
+RESULT pa/p01_el ppMacroBodyLines160 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_82_objects
+RESULT pa/p01_el LANDING160 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_82_objects
+RESULT pa/p01_el ALLOFF TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_82_objects
+RESULT pa/p01_el ALLOFF==PRE YES
+  pa/p02_el on cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=a250319e
+  pa/p02_el off_pasteChainRunning160v cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=a250319e
+  pa/p02_el off_ppMacroBodyLines160 cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=a250319e
+  pa/p02_el offL160 cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=a250319e
+  pa/p02_el alloff cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=a250319e
+  pa/p02_el pre cmp=255 cmplines=50 strict=NOT_EQUAL_stage1 rc=0 md5=a250319e
+RESULT pa/p02_el pasteChainRunning160v UNFIRED 
+RESULT pa/p02_el ppMacroBodyLines160 UNFIRED 
+RESULT pa/p02_el LANDING160 UNFIRED 
+RESULT pa/p02_el ALLOFF UNFIRED 
+RESULT pa/p02_el ALLOFF==PRE YES
+  pa/p03_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=38bbd9bc
+  pa/p03_el off_pasteChainRunning160v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=38bbd9bc
+  pa/p03_el off_ppMacroBodyLines160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=38bbd9bc
+  pa/p03_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=38bbd9bc
+  pa/p03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=38bbd9bc
+  pa/p03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=38bbd9bc
+RESULT pa/p03_el pasteChainRunning160v UNFIRED 
+RESULT pa/p03_el ppMacroBodyLines160 UNFIRED 
+RESULT pa/p03_el LANDING160 UNFIRED 
+RESULT pa/p03_el ALLOFF UNFIRED 
+RESULT pa/p03_el ALLOFF==PRE YES
+  pa/p04_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_62_objects rc=0 md5=a4f7a016
+  pa/p04_el off_pasteChainRunning160v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=4b232236
+  pa/p04_el off_ppMacroBodyLines160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=26b9d258
+  pa/p04_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=26b9d258
+  pa/p04_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=26b9d258
+  pa/p04_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=26b9d258
+RESULT pa/p04_el pasteChainRunning160v TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_62_objects
+RESULT pa/p04_el ppMacroBodyLines160 TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_62_objects
+RESULT pa/p04_el LANDING160 TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_62_objects
+RESULT pa/p04_el ALLOFF TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_62_objects
+RESULT pa/p04_el ALLOFF==PRE YES
+  pl/d01_el on cmp=255 cmplines=76 strict=NOT_EQUAL_stage1 rc=0 md5=404024fa
+  pl/d01_el off_pkgPatListingCopyWhenShared163 cmp=255 cmplines=76 strict=NOT_EQUAL_stage1 rc=0 md5=404024fa
+  pl/d01_el offL163 cmp=255 cmplines=76 strict=NOT_EQUAL_stage1 rc=0 md5=404024fa
+  pl/d01_el alloff cmp=255 cmplines=76 strict=NOT_EQUAL_stage1 rc=0 md5=404024fa
+  pl/d01_el pre cmp=255 cmplines=76 strict=NOT_EQUAL_stage1 rc=0 md5=404024fa
+RESULT pl/d01_el pkgPatListingCopyWhenShared163 UNFIRED 
+RESULT pl/d01_el LANDING163 UNFIRED 
+RESULT pl/d01_el ALLOFF UNFIRED 
+RESULT pl/d01_el ALLOFF==PRE YES
+  pl/d02_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=f1ec11c5
+  pl/d02_el off_pkgPatListingCopyWhenShared163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=f0440bbf
+  pl/d02_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=f0440bbf
+  pl/d02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=f0440bbf
+  pl/d02_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=f0440bbf
+RESULT pl/d02_el pkgPatListingCopyWhenShared163 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname(div@185) on:STRICT_NOTEQUAL_depth(div@185)
+RESULT pl/d02_el LANDING163 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname(div@185) on:STRICT_NOTEQUAL_depth(div@185)
+RESULT pl/d02_el ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname(div@185) on:STRICT_NOTEQUAL_depth(div@185)
+RESULT pl/d02_el ALLOFF==PRE YES
+  pl/d03_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=6d61a71c
+  pl/d03_el off_pkgPatListingCopyWhenShared163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=96d84241
+  pl/d03_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=96d84241
+  pl/d03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=96d84241
+  pl/d03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=96d84241
+RESULT pl/d03_el pkgPatListingCopyWhenShared163 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname(div@254) on:STRICT_NOTEQUAL_endcol(div@254)
+RESULT pl/d03_el LANDING163 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname(div@254) on:STRICT_NOTEQUAL_endcol(div@254)
+RESULT pl/d03_el ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_fullname(div@254) on:STRICT_NOTEQUAL_endcol(div@254)
+RESULT pl/d03_el ALLOFF==PRE YES
+  po/c01_el on cmp=255 cmplines=96 strict=NOT_EQUAL_stage1 rc=0 md5=8b3439d4
+  po/c01_el off_ovPkgPatOpInstanceCopy163 cmp=255 cmplines=96 strict=NOT_EQUAL_stage1 rc=0 md5=782adb93
+  po/c01_el offL163 cmp=255 cmplines=96 strict=NOT_EQUAL_stage1 rc=0 md5=a7ae4a45
+  po/c01_el alloff cmp=255 cmplines=96 strict=NOT_EQUAL_stage1 rc=0 md5=a7ae4a45
+  po/c01_el pre cmp=255 cmplines=96 strict=NOT_EQUAL_stage1 rc=0 md5=a7ae4a45
+RESULT po/c01_el ovPkgPatOpInstanceCopy163 STAGE1-CLOSER off:stage1 on:stage1 dump off=154 on=152 newbad=2
+RESULT po/c01_el LANDING163 STAGE1-CLOSER off:stage1 on:stage1 dump off=175 on=152 newbad=2
+RESULT po/c01_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=175 on=152 newbad=2
+RESULT po/c01_el ALLOFF==PRE YES
+  po/c02_el on cmp=255 cmplines=11 strict=NOT_EQUAL_stage1 rc=0 md5=87cf8ebf
+  po/c02_el off_ovPkgPatOpInstanceCopy163 cmp=255 cmplines=11 strict=NOT_EQUAL_stage1 rc=0 md5=515935eb
+  po/c02_el offL163 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=3a3544c8
+  po/c02_el alloff cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=3a3544c8
+  po/c02_el pre cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=3a3544c8
+RESULT po/c02_el ovPkgPatOpInstanceCopy163 STAGE1-CLOSER off:stage1 on:stage1 dump off=305 on=274 newbad=4
+RESULT po/c02_el LANDING163 STAGE1-CLOSER off:stage1 on:stage1 dump off=321 on=274 newbad=5
+RESULT po/c02_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=321 on=274 newbad=5
+RESULT po/c02_el ALLOFF==PRE YES
+  po/c03_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_180_objects rc=0 md5=e6db4ffd
+  po/c03_el off_ovPatOpCopyAtLocalRef163v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=1226b00b
+  po/c03_el off_ovPkgPatOpInstanceCopy163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=594deab5
+  po/c03_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=594deab5
+  po/c03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=594deab5
+  po/c03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=594deab5
+RESULT po/c03_el ovPatOpCopyAtLocalRef163v TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_180_objects
+RESULT po/c03_el ovPkgPatOpInstanceCopy163 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_depth(div@149) on:STRICT_EQUAL_180_objects
+RESULT po/c03_el LANDING163 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_depth(div@149) on:STRICT_EQUAL_180_objects
+RESULT po/c03_el ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_depth(div@149) on:STRICT_EQUAL_180_objects
+RESULT po/c03_el ALLOFF==PRE YES
+  pp/f01_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_83_objects rc=0 md5=990bc2c9
+  pp/f01_el off_pkgFoldLeftParenSpan158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=c33d799b
+  pp/f01_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=c33d799b
+  pp/f01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=c33d799b
+  pp/f01_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=c33d799b
+RESULT pp/f01_el pkgFoldLeftParenSpan158 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_col on:STRICT_EQUAL_83_objects
+RESULT pp/f01_el LANDING158 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_col on:STRICT_EQUAL_83_objects
+RESULT pp/f01_el ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_col on:STRICT_EQUAL_83_objects
+RESULT pp/f01_el ALLOFF==PRE YES
+  po/c04_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_153_objects rc=0 md5=0211fdea
+  po/c04_el off_ovPatOpCopyAtLocalRef163v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=594d95e6
+  po/c04_el off_ovPkgPatOpInstanceCopy163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=3461b9b3
+  po/c04_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=3461b9b3
+  po/c04_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=3461b9b3
+  po/c04_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_depth rc=0 md5=3461b9b3
+RESULT po/c04_el ovPatOpCopyAtLocalRef163v TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_153_objects
+RESULT po/c04_el ovPkgPatOpInstanceCopy163 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_depth(div@122) on:STRICT_EQUAL_153_objects
+RESULT po/c04_el LANDING163 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_depth(div@122) on:STRICT_EQUAL_153_objects
+RESULT po/c04_el ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_depth(div@122) on:STRICT_EQUAL_153_objects
+RESULT po/c04_el ALLOFF==PRE YES
+  pp/f02_el on cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=43bd7c95
+  pp/f02_el off_pkgFoldLeftParenSpan158 cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=3bb1d7e4
+  pp/f02_el offL158 cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=3bb1d7e4
+  pp/f02_el alloff cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=3bb1d7e4
+  pp/f02_el pre cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=3bb1d7e4
+RESULT pp/f02_el pkgFoldLeftParenSpan158 STAGE1-CLOSER off:stage1 on:stage1 dump off=78 on=66 newbad=0
+RESULT pp/f02_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=78 on=66 newbad=0
+RESULT pp/f02_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=78 on=66 newbad=0
+RESULT pp/f02_el ALLOFF==PRE YES
+  pp/f03_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_114_objects rc=0 md5=1c1ea80e
+  pp/f03_el off_pkgFoldLeftParenSpan158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=7f6c0286
+  pp/f03_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=7f6c0286
+  pp/f03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=7f6c0286
+  pp/f03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=7f6c0286
+RESULT pp/f03_el pkgFoldLeftParenSpan158 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_col on:STRICT_EQUAL_114_objects
+RESULT pp/f03_el LANDING158 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_col on:STRICT_EQUAL_114_objects
+RESULT pp/f03_el ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_col on:STRICT_EQUAL_114_objects
+RESULT pp/f03_el ALLOFF==PRE YES
+  qs/a01_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_193_objects rc=0 md5=dc582f0e
+  qs/a01_el off_aggParamFoldQualSpanByView163 cmp=0 cmplines=0 strict=STRICT_EQUAL_193_objects rc=0 md5=dc582f0e
+  qs/a01_el offL163 cmp=0 cmplines=0 strict=STRICT_EQUAL_193_objects rc=0 md5=dc582f0e
+  qs/a01_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_193_objects rc=0 md5=dc582f0e
+  qs/a01_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_193_objects rc=0 md5=dc582f0e
+RESULT qs/a01_el aggParamFoldQualSpanByView163 UNFIRED 
+RESULT qs/a01_el LANDING163 UNFIRED 
+RESULT qs/a01_el ALLOFF UNFIRED 
+RESULT qs/a01_el ALLOFF==PRE YES
+  qs/a02_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=93f0bbdf
+  qs/a02_el off_aggParamFoldQualSpanByView163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=93f0bbdf
+  qs/a02_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=93f0bbdf
+  qs/a02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=93f0bbdf
+  qs/a02_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=93f0bbdf
+RESULT qs/a02_el aggParamFoldQualSpanByView163 UNFIRED 
+RESULT qs/a02_el LANDING163 UNFIRED 
+RESULT qs/a02_el ALLOFF UNFIRED 
+RESULT qs/a02_el ALLOFF==PRE YES
+  qs/a03_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=f97abd52
+  qs/a03_el off_aggParamFoldQualSpanByView163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=f97abd52
+  qs/a03_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=f97abd52
+  qs/a03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=f97abd52
+  qs/a03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=f97abd52
+RESULT qs/a03_el aggParamFoldQualSpanByView163 UNFIRED 
+RESULT qs/a03_el LANDING163 UNFIRED 
+RESULT qs/a03_el ALLOFF UNFIRED 
+RESULT qs/a03_el ALLOFF==PRE YES
+  qs/a04_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_342_objects rc=0 md5=0b392e81
+  qs/a04_el off_aggParamFoldQualSpanByView163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=4e39b612
+  qs/a04_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=4e39b612
+  qs/a04_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=4e39b612
+  qs/a04_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=4e39b612
+RESULT qs/a04_el aggParamFoldQualSpanByView163 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_342_objects
+RESULT qs/a04_el LANDING163 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_342_objects
+RESULT qs/a04_el ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_342_objects
+RESULT qs/a04_el ALLOFF==PRE YES
+  qs/a05_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_314_objects rc=0 md5=66a16d0f
+  qs/a05_el off_aggParamFoldQualSpanByView163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=455d9be6
+  qs/a05_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=455d9be6
+  qs/a05_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=455d9be6
+  qs/a05_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=455d9be6
+RESULT qs/a05_el aggParamFoldQualSpanByView163 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_314_objects
+RESULT qs/a05_el LANDING163 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_314_objects
+RESULT qs/a05_el ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_314_objects
+RESULT qs/a05_el ALLOFF==PRE YES
+  rc/f01_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=9fd607b0
+  rc/f01_el off_paramOpCloneRelocatedSpan163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=9fd607b0
+  rc/f01_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=9fd607b0
+  rc/f01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=9fd607b0
+  rc/f01_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=9fd607b0
+RESULT rc/f01_el paramOpCloneRelocatedSpan163 UNFIRED 
+RESULT rc/f01_el LANDING163 UNFIRED 
+RESULT rc/f01_el ALLOFF UNFIRED 
+RESULT rc/f01_el ALLOFF==PRE YES
+  rc/f02_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_231_objects rc=0 md5=61f8b32c
+  rc/f02_el off_paramOpCloneRelocatedSpan163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=175d614d
+  rc/f02_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=175d614d
+  rc/f02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=175d614d
+  rc/f02_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=175d614d
+RESULT rc/f02_el paramOpCloneRelocatedSpan163 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_231_objects
+RESULT rc/f02_el LANDING163 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_231_objects
+RESULT rc/f02_el ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_231_objects
+RESULT rc/f02_el ALLOFF==PRE YES
+  rc/f03_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_421_objects rc=0 md5=c0b52366
+  rc/f03_el off_paramOpCloneRelocatedSpan163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=507676eb
+  rc/f03_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=507676eb
+  rc/f03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=507676eb
+  rc/f03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=507676eb
+RESULT rc/f03_el paramOpCloneRelocatedSpan163 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_421_objects
+RESULT rc/f03_el LANDING163 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_421_objects
+RESULT rc/f03_el ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_line on:STRICT_EQUAL_421_objects
+RESULT rc/f03_el ALLOFF==PRE YES
+  rt/r02_el on cmp=255 cmplines=130 strict=NOT_EQUAL_stage1 rc=0 md5=9426e580
+  rt/r02_el off_rootPathOwnNames157 cmp=255 cmplines=130 strict=NOT_EQUAL_stage1 rc=0 md5=9426e580
+  rt/r02_el offL158 cmp=255 cmplines=130 strict=NOT_EQUAL_stage1 rc=0 md5=9426e580
+  rt/r02_el alloff cmp=255 cmplines=130 strict=NOT_EQUAL_stage1 rc=0 md5=9426e580
+  rt/r02_el pre cmp=255 cmplines=130 strict=NOT_EQUAL_stage1 rc=0 md5=9426e580
+RESULT rt/r02_el rootPathOwnNames157 UNFIRED 
+RESULT rt/r02_el LANDING158 UNFIRED 
+RESULT rt/r02_el ALLOFF UNFIRED 
+RESULT rt/r02_el ALLOFF==PRE YES
+  rt/r01_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=138e821b
+  rt/r01_el off_rootPathOwnNames157 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=138e821b
+  rt/r01_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=138e821b
+  rt/r01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=138e821b
+  rt/r01_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=138e821b
+RESULT rt/r01_el rootPathOwnNames157 UNFIRED 
+RESULT rt/r01_el LANDING158 UNFIRED 
+RESULT rt/r01_el ALLOFF UNFIRED 
+RESULT rt/r01_el ALLOFF==PRE YES
+  rt/r03_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=a75ccfff
+  rt/r03_el off_rootPathOwnNames157 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=a0c155ab
+  rt/r03_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=a0c155ab
+  rt/r03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=a0c155ab
+  rt/r03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=a0c155ab
+RESULT rt/r03_el rootPathOwnNames157 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT rt/r03_el LANDING158 TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT rt/r03_el ALLOFF TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT rt/r03_el ALLOFF==PRE YES
+  rz/z01_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_55_objects rc=0 md5=b812a737
+  rz/z01_el off_methodRandomizeCallSpan158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=4eb115c3
+  rz/z01_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=4eb115c3
+  rz/z01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=4eb115c3
+  rz/z01_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=4eb115c3
+RESULT rz/z01_el methodRandomizeCallSpan158 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_55_objects
+RESULT rz/z01_el LANDING158 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_55_objects
+RESULT rz/z01_el ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_55_objects
+RESULT rz/z01_el ALLOFF==PRE YES
+  rt/r04_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ccf32d6b
+  rt/r04_el off_rootPathOwnNames157 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ba16fc64
+  rt/r04_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ba16fc64
+  rt/r04_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ba16fc64
+  rt/r04_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=ba16fc64
+RESULT rt/r04_el rootPathOwnNames157 TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT rt/r04_el LANDING158 TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT rt/r04_el ALLOFF TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT rt/r04_el ALLOFF==PRE YES
+  rz/z02_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_55_objects rc=0 md5=bb35ea7d
+  rz/z02_el off_methodRandomizeCallSpan158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=6caea097
+  rz/z02_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=6caea097
+  rz/z02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=6caea097
+  rz/z02_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=6caea097
+RESULT rz/z02_el methodRandomizeCallSpan158 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_55_objects
+RESULT rz/z02_el LANDING158 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_55_objects
+RESULT rz/z02_el ALLOFF TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_55_objects
+RESULT rz/z02_el ALLOFF==PRE YES
+  rz/z03_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_74_objects rc=0 md5=70c5642d
+  rz/z03_el off_methodRandomizeCallSpan158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=af2ae38d
+  rz/z03_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=af2ae38d
+  rz/z03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=af2ae38d
+  rz/z03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=af2ae38d
+RESULT rz/z03_el methodRandomizeCallSpan158 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_74_objects
+RESULT rz/z03_el LANDING158 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_74_objects
+RESULT rz/z03_el ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_74_objects
+RESULT rz/z03_el ALLOFF==PRE YES
+  sc/f01_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_44_objects rc=0 md5=73620e72
+  sc/f01_el off_sizeCastCaLitMask158 cmp=0 cmplines=0 strict=STRICT_EQUAL_44_objects rc=0 md5=73620e72
+  sc/f01_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_44_objects rc=0 md5=73620e72
+  sc/f01_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_44_objects rc=0 md5=73620e72
+  sc/f01_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_44_objects rc=0 md5=73620e72
+RESULT sc/f01_el sizeCastCaLitMask158 UNFIRED 
+RESULT sc/f01_el LANDING158 UNFIRED 
+RESULT sc/f01_el ALLOFF UNFIRED 
+RESULT sc/f01_el ALLOFF==PRE YES
+  sc/f02_el on cmp=255 cmplines=26 strict=NOT_EQUAL_stage1 rc=0 md5=dcbae0d6
+  sc/f02_el off_sizeCastCaLitMask158 cmp=255 cmplines=15 strict=NOT_EQUAL_stage1 rc=0 md5=6670cea4
+  sc/f02_el offL158 cmp=255 cmplines=15 strict=NOT_EQUAL_stage1 rc=0 md5=6670cea4
+  sc/f02_el alloff cmp=255 cmplines=15 strict=NOT_EQUAL_stage1 rc=0 md5=6670cea4
+  sc/f02_el pre cmp=255 cmplines=15 strict=NOT_EQUAL_stage1 rc=0 md5=6670cea4
+RESULT sc/f02_el sizeCastCaLitMask158 STAGE1-CLOSER off:stage1 on:stage1 dump off=105 on=98 newbad=2
+RESULT sc/f02_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=105 on=98 newbad=2
+RESULT sc/f02_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=105 on=98 newbad=2
+RESULT sc/f02_el ALLOFF==PRE YES
+  sc/f03_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_158_objects rc=0 md5=c7a9c471
+  sc/f03_el off_sizeCastCaLitMask158 cmp=0 cmplines=0 strict=STRICT_EQUAL_158_objects rc=0 md5=c7a9c471
+  sc/f03_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_158_objects rc=0 md5=c7a9c471
+  sc/f03_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_158_objects rc=0 md5=c7a9c471
+  sc/f03_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_158_objects rc=0 md5=c7a9c471
+RESULT sc/f03_el sizeCastCaLitMask158 UNFIRED 
+RESULT sc/f03_el LANDING158 UNFIRED 
+RESULT sc/f03_el ALLOFF UNFIRED 
+RESULT sc/f03_el ALLOFF==PRE YES
+  sc/f04_el on cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=47036529
+  sc/f04_el off_sizeCastCaLitMask158 cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=47036529
+  sc/f04_el offL158 cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=e3df2e91
+  sc/f04_el alloff cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=e3df2e91
+  sc/f04_el pre cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=e3df2e91
+RESULT sc/f04_el sizeCastCaLitMask158 UNFIRED 
+RESULT sc/f04_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=30 on=28 newbad=0
+RESULT sc/f04_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=30 on=28 newbad=0
+RESULT sc/f04_el ALLOFF==PRE YES
+  sc/f05_el on cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=decf0cdb
+  sc/f05_el off_sizeCastNamedWidthNoCast158v cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=decf0cdb
+  sc/f05_el off_sizeCastCaLitMask158 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=afe2d51a
+  sc/f05_el offL158 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=afe2d51a
+  sc/f05_el alloff cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=afe2d51a
+  sc/f05_el pre cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=afe2d51a
+RESULT sc/f05_el sizeCastNamedWidthNoCast158v UNFIRED 
+RESULT sc/f05_el sizeCastCaLitMask158 STAGE1-CLOSER off:stage1 on:stage1 dump off=19 on=4 newbad=2
+RESULT sc/f05_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=19 on=4 newbad=2
+RESULT sc/f05_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=19 on=4 newbad=2
+RESULT sc/f05_el ALLOFF==PRE YES
+  sc/f06_el on cmp=255 cmplines=54 strict=NOT_EQUAL_stage1 rc=0 md5=925c4aa3
+  sc/f06_el off_sizeCastCaLitMask158 cmp=255 cmplines=54 strict=NOT_EQUAL_stage1 rc=0 md5=e4d21e78
+  sc/f06_el offL158 cmp=255 cmplines=54 strict=NOT_EQUAL_stage1 rc=0 md5=e4d21e78
+  sc/f06_el alloff cmp=255 cmplines=54 strict=NOT_EQUAL_stage1 rc=0 md5=e4d21e78
+  sc/f06_el pre cmp=255 cmplines=54 strict=NOT_EQUAL_stage1 rc=0 md5=e4d21e78
+RESULT sc/f06_el sizeCastCaLitMask158 STAGE1-CLOSER off:stage1 on:stage1 dump off=111 on=104 newbad=0
+RESULT sc/f06_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=111 on=104 newbad=0
+RESULT sc/f06_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=111 on=104 newbad=0
+RESULT sc/f06_el ALLOFF==PRE YES
+  sc/f07_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_76_objects rc=0 md5=a14d6ee3
+  sc/f07_el off_sizeCastCaLitMask158 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=6c01673f
+  sc/f07_el offL158 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=6c01673f
+  sc/f07_el alloff cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=6c01673f
+  sc/f07_el pre cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=6c01673f
+RESULT sc/f07_el sizeCastCaLitMask158 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 76 objects dump off=22 on=0 newbad=0
+RESULT sc/f07_el LANDING158 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 76 objects dump off=22 on=0 newbad=0
+RESULT sc/f07_el ALLOFF STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 76 objects dump off=22 on=0 newbad=0
+RESULT sc/f07_el ALLOFF==PRE YES
+  sc/f08_el on cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=74a590ff
+  sc/f08_el off_sizeCastCaSignedSize158 cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=d511a423
+  sc/f08_el offL158 cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=d511a423
+  sc/f08_el alloff cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=d511a423
+  sc/f08_el pre cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=d511a423
+RESULT sc/f08_el sizeCastCaSignedSize158 STAGE1-CLOSER off:stage1 on:stage1 dump off=34 on=30 newbad=0
+RESULT sc/f08_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=34 on=30 newbad=0
+RESULT sc/f08_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=34 on=30 newbad=0
+RESULT sc/f08_el ALLOFF==PRE YES
+  sc/f09_el on cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=b43b1cfe
+  sc/f09_el off_sizeCastCaSignedSize158 cmp=255 cmplines=48 strict=NOT_EQUAL_stage1 rc=0 md5=36e10f5a
+  sc/f09_el offL158 cmp=255 cmplines=48 strict=NOT_EQUAL_stage1 rc=0 md5=36e10f5a
+  sc/f09_el alloff cmp=255 cmplines=48 strict=NOT_EQUAL_stage1 rc=0 md5=36e10f5a
+  sc/f09_el pre cmp=255 cmplines=48 strict=NOT_EQUAL_stage1 rc=0 md5=36e10f5a
+RESULT sc/f09_el sizeCastCaSignedSize158 STAGE1-CLOSER off:stage1 on:stage1 dump off=17 on=13 newbad=0
+RESULT sc/f09_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=17 on=13 newbad=0
+RESULT sc/f09_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=17 on=13 newbad=0
+RESULT sc/f09_el ALLOFF==PRE YES
+  sc/f10_el on cmp=255 cmplines=40 strict=NOT_EQUAL_stage1 rc=4 md5=91c90970
+  sc/f10_el off_sizeCastNamedWidthNoCast158v cmp=255 cmplines=40 strict=NOT_EQUAL_stage1 rc=4 md5=cf329af8
+  sc/f10_el off_sizeCastCaLitMask158 cmp=255 cmplines=40 strict=NOT_EQUAL_stage1 rc=4 md5=db1734b6
+  sc/f10_el offL158 cmp=255 cmplines=40 strict=NOT_EQUAL_stage1 rc=4 md5=d5cc1da4
+  sc/f10_el alloff cmp=255 cmplines=40 strict=NOT_EQUAL_stage1 rc=4 md5=d5cc1da4
+  sc/f10_el pre cmp=255 cmplines=40 strict=NOT_EQUAL_stage1 rc=4 md5=d5cc1da4
+RESULT sc/f10_el sizeCastNamedWidthNoCast158v STAGE1-CLOSER off:stage1 on:stage1 dump off=54 on=43 newbad=0
+RESULT sc/f10_el sizeCastCaLitMask158 STAGE1-CLOSER off:stage1 on:stage1 dump off=59 on=43 newbad=0
+RESULT sc/f10_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=61 on=43 newbad=0
+RESULT sc/f10_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=61 on=43 newbad=0
+RESULT sc/f10_el ALLOFF==PRE YES
+  sc/f11_el on cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=01434f13
+  sc/f11_el off_sizeCastSignedLitAbstain158v cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=5216621c
+  sc/f11_el off_sizeCastCaLitMask158 cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=01434f13
+  sc/f11_el offL158 cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=01434f13
+  sc/f11_el alloff cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=01434f13
+  sc/f11_el pre cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=01434f13
+RESULT sc/f11_el sizeCastSignedLitAbstain158v STAGE1-SAME off:stage1 on:stage1 dump off=26 on=26 newbad=4
+RESULT sc/f11_el sizeCastCaLitMask158 UNFIRED 
+RESULT sc/f11_el LANDING158 UNFIRED 
+RESULT sc/f11_el ALLOFF UNFIRED 
+RESULT sc/f11_el ALLOFF==PRE YES
+  sc/f13_el on cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=4bd9d671
+  sc/f13_el off_sizeCastCaLitMask158 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=4bd9d671
+  sc/f13_el offL158 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=4bd9d671
+  sc/f13_el alloff cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=4bd9d671
+  sc/f13_el pre cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=4bd9d671
+RESULT sc/f13_el sizeCastCaLitMask158 UNFIRED 
+RESULT sc/f13_el LANDING158 UNFIRED 
+RESULT sc/f13_el ALLOFF UNFIRED 
+RESULT sc/f13_el ALLOFF==PRE YES
+  sc/f12_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_102_objects rc=0 md5=854f0b59
+  sc/f12_el off_sizeCastNarrowTargetAbstain158v cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=bad17095
+  sc/f12_el off_sizeCastCaLitMask158 cmp=0 cmplines=0 strict=STRICT_EQUAL_102_objects rc=0 md5=854f0b59
+  sc/f12_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_102_objects rc=0 md5=854f0b59
+  sc/f12_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_102_objects rc=0 md5=854f0b59
+  sc/f12_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_102_objects rc=0 md5=854f0b59
+RESULT sc/f12_el sizeCastNarrowTargetAbstain158v STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 102 objects dump off=8 on=0 newbad=0
+RESULT sc/f12_el sizeCastCaLitMask158 UNFIRED 
+RESULT sc/f12_el LANDING158 UNFIRED 
+RESULT sc/f12_el ALLOFF UNFIRED 
+RESULT sc/f12_el ALLOFF==PRE YES
+  sc/f14_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_125_objects rc=0 md5=117a53a0
+  sc/f14_el off_sizeCastCaLitMask158 cmp=0 cmplines=0 strict=STRICT_EQUAL_125_objects rc=0 md5=117a53a0
+  sc/f14_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_125_objects rc=0 md5=117a53a0
+  sc/f14_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_125_objects rc=0 md5=117a53a0
+  sc/f14_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_125_objects rc=0 md5=117a53a0
+RESULT sc/f14_el sizeCastCaLitMask158 UNFIRED 
+RESULT sc/f14_el LANDING158 UNFIRED 
+RESULT sc/f14_el ALLOFF UNFIRED 
+RESULT sc/f14_el ALLOFF==PRE YES
+  sc/f16_el on cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=3ddbd4ca
+  sc/f16_el off_sizeCastCaSignedSize158 cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=f44ee069
+  sc/f16_el offL158 cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=f44ee069
+  sc/f16_el alloff cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=f44ee069
+  sc/f16_el pre cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=f44ee069
+RESULT sc/f16_el sizeCastCaSignedSize158 STAGE1-CLOSER off:stage1 on:stage1 dump off=34 on=30 newbad=0
+RESULT sc/f16_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=34 on=30 newbad=0
+  sc/f15_el on cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=5804e35a
+  sc/f15_el off_sizeCastCaSignedSize158 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=480fa42b
+  sc/f15_el offL158 cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=480fa42b
+  sc/f15_el alloff cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=480fa42b
+  sc/f15_el pre cmp=255 cmplines=56 strict=NOT_EQUAL_stage1 rc=0 md5=480fa42b
+RESULT sc/f15_el sizeCastCaSignedSize158 STAGE1-CLOSER off:stage1 on:stage1 dump off=42 on=38 newbad=0
+RESULT sc/f16_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=34 on=30 newbad=0
+RESULT sc/f16_el ALLOFF==PRE YES
+RESULT sc/f15_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=42 on=38 newbad=0
+RESULT sc/f15_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=42 on=38 newbad=0
+RESULT sc/f15_el ALLOFF==PRE YES
+  sc/f17_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_94_objects rc=0 md5=9d3b3971
+  sc/f17_el off_sizeCastCaSignedSize158 cmp=255 cmplines=48 strict=NOT_EQUAL_stage1 rc=0 md5=a20ae7ce
+  sc/f17_el offL158 cmp=255 cmplines=48 strict=NOT_EQUAL_stage1 rc=0 md5=a20ae7ce
+  sc/f17_el alloff cmp=255 cmplines=48 strict=NOT_EQUAL_stage1 rc=0 md5=a20ae7ce
+  sc/f17_el pre cmp=255 cmplines=48 strict=NOT_EQUAL_stage1 rc=0 md5=a20ae7ce
+RESULT sc/f17_el sizeCastCaSignedSize158 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 94 objects dump off=4 on=0 newbad=0
+RESULT sc/f17_el LANDING158 STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 94 objects dump off=4 on=0 newbad=0
+RESULT sc/f17_el ALLOFF STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 94 objects dump off=4 on=0 newbad=0
+RESULT sc/f17_el ALLOFF==PRE YES
+  sc/f18_el on cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=17ee9340
+  sc/f18_el off_sizeCastCaSignedSize158 cmp=255 cmplines=48 strict=NOT_EQUAL_stage1 rc=0 md5=cf3a8443
+  sc/f18_el offL158 cmp=255 cmplines=48 strict=NOT_EQUAL_stage1 rc=0 md5=cf3a8443
+  sc/f18_el alloff cmp=255 cmplines=48 strict=NOT_EQUAL_stage1 rc=0 md5=cf3a8443
+  sc/f18_el pre cmp=255 cmplines=48 strict=NOT_EQUAL_stage1 rc=0 md5=cf3a8443
+RESULT sc/f18_el sizeCastCaSignedSize158 STAGE1-CLOSER off:stage1 on:stage1 dump off=23 on=19 newbad=0
+RESULT sc/f18_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=23 on=19 newbad=0
+RESULT sc/f18_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=23 on=19 newbad=0
+RESULT sc/f18_el ALLOFF==PRE YES
+  sc/f19_el on cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=1b43cfb3
+  sc/f19_el off_sizeCastSignedLitAbstain158v cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=68b8ce4e
+  sc/f19_el off_sizeCastCaLitMask158 cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=1b43cfb3
+  sc/f19_el offL158 cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=1b43cfb3
+  sc/f19_el alloff cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=1b43cfb3
+  sc/f19_el pre cmp=255 cmplines=38 strict=NOT_EQUAL_stage1 rc=0 md5=1b43cfb3
+RESULT sc/f19_el sizeCastSignedLitAbstain158v STAGE1-SAME off:stage1 on:stage1 dump off=26 on=26 newbad=2
+RESULT sc/f19_el sizeCastCaLitMask158 UNFIRED 
+RESULT sc/f19_el LANDING158 UNFIRED 
+RESULT sc/f19_el ALLOFF UNFIRED 
+RESULT sc/f19_el ALLOFF==PRE YES
+  sc/f20_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_65_objects rc=0 md5=0f61ebdb
+  sc/f20_el off_sizeCastNarrowTargetAbstain158v cmp=255 cmplines=28 strict=NOT_EQUAL_stage1 rc=0 md5=83f145b2
+  sc/f20_el off_sizeCastCaLitMask158 cmp=0 cmplines=0 strict=STRICT_EQUAL_65_objects rc=0 md5=0f61ebdb
+  sc/f20_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_65_objects rc=0 md5=0f61ebdb
+  sc/f20_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_65_objects rc=0 md5=0f61ebdb
+  sc/f20_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_65_objects rc=0 md5=0f61ebdb
+RESULT sc/f20_el sizeCastNarrowTargetAbstain158v STAGE1-CLOSER off:stage1 on:STRICT_EQUAL 65 objects dump off=4 on=0 newbad=0
+RESULT sc/f20_el sizeCastCaLitMask158 UNFIRED 
+RESULT sc/f20_el LANDING158 UNFIRED 
+RESULT sc/f20_el ALLOFF UNFIRED 
+RESULT sc/f20_el ALLOFF==PRE YES
+  sy/y01_el on cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=3eca1abc
+  sy/y01_el off_elabAggFoldYCopyDefNamed163 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=3eca1abc
+  sy/y01_el offL163 cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=77b6f3e9
+  sy/y01_el alloff cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=77b6f3e9
+  sy/y01_el pre cmp=255 cmplines=90 strict=NOT_EQUAL_stage1 rc=0 md5=77b6f3e9
+RESULT sy/y01_el elabAggFoldYCopyDefNamed163 UNFIRED 
+RESULT sy/y01_el LANDING163 STAGE1-CLOSER off:stage1 on:stage1 dump off=350 on=338 newbad=0
+RESULT sy/y01_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=350 on=338 newbad=0
+RESULT sy/y01_el ALLOFF==PRE YES
+  sy/y02_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_428_objects rc=0 md5=428c9c7a
+  sy/y02_el off_elabAggFoldYCopyDefNamed163 cmp=0 cmplines=0 strict=STRICT_EQUAL_428_objects rc=0 md5=428c9c7a
+  sy/y02_el offL163 cmp=0 cmplines=0 strict=STRICT_EQUAL_428_objects rc=0 md5=bf14a265
+  sy/y02_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_428_objects rc=0 md5=bf14a265
+  sy/y02_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_428_objects rc=0 md5=bf14a265
+RESULT sy/y02_el elabAggFoldYCopyDefNamed163 UNFIRED 
+RESULT sy/y02_el LANDING163 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_428_objects on:STRICT_EQUAL_428_objects
+RESULT sy/y02_el ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_428_objects on:STRICT_EQUAL_428_objects
+RESULT sy/y02_el ALLOFF==PRE YES
+  sy/y03_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=92e5f937
+  sy/y03_el off_elabAggFoldYCopyDefNamed163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=92e5f937
+  sy/y03_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=0c6803ba
+  sy/y03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=0c6803ba
+  sy/y03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=0c6803ba
+RESULT sy/y03_el elabAggFoldYCopyDefNamed163 UNFIRED 
+RESULT sy/y03_el LANDING163 BYTES-ONLY new=0 gone=0 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT sy/y03_el ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT sy/y03_el ALLOFF==PRE YES
+  sy/y05_el on cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=7b5d3950
+  sy/y05_el off_elabAggFoldYCopyDefNamed163 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=7b5d3950
+  sy/y05_el offL163 cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=defbfb44
+  sy/y05_el alloff cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=defbfb44
+  sy/y05_el pre cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=defbfb44
+RESULT sy/y05_el elabAggFoldYCopyDefNamed163 UNFIRED 
+  sy/y04_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=010397dc
+  sy/y04_el off_elabAggFoldYCopyDefNamed163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=afd7670f
+  sy/y04_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=afd7670f
+  sy/y04_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=ebd2cd94
+  sy/y04_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=ebd2cd94
+RESULT sy/y04_el elabAggFoldYCopyDefNamed163 BYTES-ONLY new=0 gone=0 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT sy/y04_el LANDING163 BYTES-ONLY new=0 gone=0 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT sy/y04_el ALLOFF TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_fullname
+RESULT sy/y04_el ALLOFF==PRE YES
+RESULT sy/y05_el LANDING163 STAGE1-CLOSER off:stage1 on:stage1 dump off=157 on=145 newbad=0
+RESULT sy/y05_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=157 on=145 newbad=0
+RESULT sy/y05_el ALLOFF==PRE YES
+  sy/y06_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_595_objects rc=0 md5=fc351961
+  sy/y06_el off_elabAggFoldYCopyDefNamed163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=5401d999
+  sy/y06_el offL163 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=5401d999
+  sy/y06_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=01d425b1
+  sy/y06_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=01d425b1
+RESULT sy/y06_el elabAggFoldYCopyDefNamed163 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_595_objects
+RESULT sy/y06_el LANDING163 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_595_objects
+RESULT sy/y06_el ALLOFF TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_595_objects
+RESULT sy/y06_el ALLOFF==PRE YES
+  sy/y07_el on cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=f0f67bb8
+  sy/y07_el off_elabAggFoldYCopyDefNamed163 cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=27f26e75
+  sy/y07_el offL163 cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=27f26e75
+  sy/y07_el alloff cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=8f754708
+  sy/y07_el pre cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=8f754708
+RESULT sy/y07_el elabAggFoldYCopyDefNamed163 STAGE1-SAME off:stage1 on:stage1 dump off=294 on=294 newbad=0
+  th/t01_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=15f4f247
+  th/t01_el off_thisPathFormByPosition157 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=9da7752e
+  th/t01_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=9da7752e
+  th/t01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=9da7752e
+  th/t01_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=9da7752e
+RESULT th/t01_el thisPathFormByPosition157 TOWARD new=0 gone=7 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_endcol
+RESULT th/t01_el LANDING158 TOWARD new=0 gone=7 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_endcol
+RESULT th/t01_el ALLOFF TOWARD new=0 gone=7 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_endcol
+RESULT th/t01_el ALLOFF==PRE YES
+RESULT sy/y07_el LANDING163 STAGE1-SAME off:stage1 on:stage1 dump off=294 on=294 newbad=0
+RESULT sy/y07_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=298 on=294 newbad=0
+RESULT sy/y07_el ALLOFF==PRE YES
+  th/t02_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_74_objects rc=0 md5=7c8ef872
+  th/t02_el off_thisPathFormByPosition157 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=ad773b57
+  th/t02_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=ad773b57
+  th/t02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=ad773b57
+  th/t02_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=ad773b57
+RESULT th/t02_el thisPathFormByPosition157 TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_74_objects
+RESULT th/t02_el LANDING158 TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_74_objects
+RESULT th/t02_el ALLOFF TOWARD new=0 gone=8 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_74_objects
+RESULT th/t02_el ALLOFF==PRE YES
+  tu/u01_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_134_objects rc=0 md5=db6a1ef1
+  tu/u01_el off_tpUseBindsDefDefault160 cmp=0 cmplines=0 strict=STRICT_EQUAL_134_objects rc=0 md5=6107ec9f
+  tu/u01_el offL160 cmp=0 cmplines=0 strict=STRICT_EQUAL_134_objects rc=0 md5=6107ec9f
+  tu/u01_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_134_objects rc=0 md5=6107ec9f
+  tu/u01_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_134_objects rc=0 md5=6107ec9f
+RESULT tu/u01_el tpUseBindsDefDefault160 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_134_objects on:STRICT_EQUAL_134_objects
+RESULT tu/u01_el LANDING160 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_134_objects on:STRICT_EQUAL_134_objects
+RESULT tu/u01_el ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_134_objects on:STRICT_EQUAL_134_objects
+RESULT tu/u01_el ALLOFF==PRE YES
+  th/t03_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_62_objects rc=0 md5=4f0ce052
+  th/t03_el off_thisPathFormByPosition157 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=7ba93ba8
+  th/t03_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=7ba93ba8
+  th/t03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=7ba93ba8
+  th/t03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=7ba93ba8
+RESULT th/t03_el thisPathFormByPosition157 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_62_objects
+RESULT th/t03_el LANDING158 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_62_objects
+RESULT th/t03_el ALLOFF TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endcol on:STRICT_EQUAL_62_objects
+RESULT th/t03_el ALLOFF==PRE YES
+  tu/u02_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=b20bb072
+  tu/u02_el off_tpUseBindsDefDefault160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=b20bb072
+  tu/u02_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=b20bb072
+  tu/u02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=b20bb072
+  tu/u02_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=b20bb072
+RESULT tu/u02_el tpUseBindsDefDefault160 UNFIRED 
+RESULT tu/u02_el LANDING160 UNFIRED 
+RESULT tu/u02_el ALLOFF UNFIRED 
+RESULT tu/u02_el ALLOFF==PRE YES
+  tu/u03_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=456a4cfc
+  tu/u03_el off_tpUseBindsDefDefault160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=01182987
+  tu/u03_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=01182987
+  tu/u03_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=01182987
+  tu/u03_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=01182987
+RESULT tu/u03_el tpUseBindsDefDefault160 TOWARD new=0 gone=5 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_fullname
+RESULT tu/u03_el LANDING160 TOWARD new=0 gone=5 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_fullname
+RESULT tu/u03_el ALLOFF TOWARD new=0 gone=5 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_fullname
+RESULT tu/u03_el ALLOFF==PRE YES
+  tv/v01_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_153_objects rc=0 md5=3459f2db
+  tv/v01_el off_defNetTypeParamPackedVec160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=c02ec709
+  tv/v01_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=7e30c7a8
+  tv/v01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=7e30c7a8
+  tv/v01_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=7e30c7a8
+RESULT tv/v01_el defNetTypeParamPackedVec160 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline(div@20) on:STRICT_EQUAL_153_objects
+RESULT tv/v01_el LANDING160 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline(div@20) on:STRICT_EQUAL_153_objects
+RESULT tv/v01_el ALLOFF TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline(div@20) on:STRICT_EQUAL_153_objects
+RESULT tv/v01_el ALLOFF==PRE YES
+  tv/v02_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_117_objects rc=0 md5=9df96fc7
+  tv/v02_el off_defNetTypeParamPackedVec160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=c33ca7a9
+  tv/v02_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=89848b04
+  tv/v02_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=89848b04
+  tv/v02_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=89848b04
+RESULT tv/v02_el defNetTypeParamPackedVec160 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_117_objects
+RESULT tv/v02_el LANDING160 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_117_objects
+RESULT tv/v02_el ALLOFF TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endline on:STRICT_EQUAL_117_objects
+RESULT tv/v02_el ALLOFF==PRE YES
+  tv/v04_el on cmp=255 cmplines=1018 strict=NOT_EQUAL_stage1 rc=0 md5=19265a7c
+  tv/v04_el off_defNetTypeParamPackedVec160 cmp=255 cmplines=1018 strict=NOT_EQUAL_stage1 rc=0 md5=e16a3280
+  tv/v04_el offL160 cmp=255 cmplines=1018 strict=NOT_EQUAL_stage1 rc=0 md5=7057add3
+  tv/v04_el alloff cmp=255 cmplines=1018 strict=NOT_EQUAL_stage1 rc=0 md5=7057add3
+  tv/v04_el pre cmp=255 cmplines=1018 strict=NOT_EQUAL_stage1 rc=0 md5=7057add3
+RESULT tv/v04_el defNetTypeParamPackedVec160 STAGE1-AWAY off:stage1 on:stage1 dump off=42 on=55 newbad=8 | +\_logic_typespec: , line:2:33, endln:3:17
+RESULT tv/v04_el LANDING160 STAGE1-CLOSER off:stage1 on:stage1 dump off=61 on=55 newbad=8
+  tv/v03_el on cmp=255 cmplines=1018 strict=NOT_EQUAL_stage1 rc=0 md5=2656b836
+  tv/v03_el off_defNetTypeParamPackedVec160 cmp=255 cmplines=1018 strict=NOT_EQUAL_stage1 rc=0 md5=b2148a91
+  tv/v03_el offL160 cmp=255 cmplines=1018 strict=NOT_EQUAL_stage1 rc=0 md5=2a038721
+  tv/v03_el alloff cmp=255 cmplines=1018 strict=NOT_EQUAL_stage1 rc=0 md5=2a038721
+  tv/v03_el pre cmp=255 cmplines=1018 strict=NOT_EQUAL_stage1 rc=0 md5=2a038721
+RESULT tv/v03_el defNetTypeParamPackedVec160 STAGE1-AWAY off:stage1 on:stage1 dump off=81 on=96 newbad=9 | +\_logic_typespec: , line:2:33, endln:3:17
+RESULT tv/v04_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=61 on=55 newbad=8
+RESULT tv/v04_el ALLOFF==PRE YES
+RESULT tv/v03_el LANDING160 STAGE1-CLOSER off:stage1 on:stage1 dump off=98 on=96 newbad=9
+RESULT tv/v03_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=98 on=96 newbad=9
+RESULT tv/v03_el ALLOFF==PRE YES
+  tv/v05_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_169_objects rc=0 md5=24e72a43
+  tv/v05_el off_defNetTypeParamPackedVec160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=55e77ed7
+  tv/v05_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=c6d4088a
+  tv/v05_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=c6d4088a
+  tv/v05_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=c6d4088a
+RESULT tv/v05_el defNetTypeParamPackedVec160 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline(div@20) on:STRICT_EQUAL_169_objects
+RESULT tv/v05_el LANDING160 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline(div@20) on:STRICT_EQUAL_169_objects
+RESULT tv/v05_el ALLOFF TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline(div@20) on:STRICT_EQUAL_169_objects
+RESULT tv/v05_el ALLOFF==PRE YES
+  tv/v06_el on cmp=255 cmplines=485 strict=NOT_EQUAL_stage1 rc=0 md5=57680797
+  tv/v06_el off_defNetTypeParamPackedVec160 cmp=255 cmplines=485 strict=NOT_EQUAL_stage1 rc=0 md5=021bda05
+  tv/v06_el offL160 cmp=255 cmplines=485 strict=NOT_EQUAL_stage1 rc=0 md5=50a85682
+  tv/v06_el alloff cmp=255 cmplines=485 strict=NOT_EQUAL_stage1 rc=0 md5=50a85682
+  tv/v06_el pre cmp=255 cmplines=485 strict=NOT_EQUAL_stage1 rc=0 md5=50a85682
+RESULT tv/v06_el defNetTypeParamPackedVec160 STAGE1-AWAY off:stage1 on:stage1 dump off=42 on=49 newbad=5 | +\_logic_typespec: , line:2:33, endln:3:17
+RESULT tv/v06_el LANDING160 STAGE1-CLOSER off:stage1 on:stage1 dump off=61 on=49 newbad=5
+RESULT tv/v06_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=61 on=49 newbad=5
+RESULT tv/v06_el ALLOFF==PRE YES
+  tv/v07_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_243_objects rc=0 md5=b50fa6d6
+  tv/v07_el off_defNetTypeParamPackedVec160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=6bde1218
+  tv/v07_el offL160 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=8038398b
+  tv/v07_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=8038398b
+  tv/v07_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=8038398b
+RESULT tv/v07_el defNetTypeParamPackedVec160 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline(div@20) on:STRICT_EQUAL_243_objects
+RESULT tv/v07_el LANDING160 TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline(div@20) on:STRICT_EQUAL_243_objects
+RESULT tv/v07_el ALLOFF TOWARD new=0 gone=3 off:STRICT_NOTEQUAL_endline(div@20) on:STRICT_EQUAL_243_objects
+RESULT tv/v07_el ALLOFF==PRE YES
+  tv/v08_el on cmp=255 cmplines=435 strict=NOT_EQUAL_stage1 rc=0 md5=e9e6fae2
+  tv/v08_el off_defNetTypeParamPackedVec160 cmp=255 cmplines=435 strict=NOT_EQUAL_stage1 rc=0 md5=e9e6fae2
+  tv/v08_el offL160 cmp=255 cmplines=435 strict=NOT_EQUAL_stage1 rc=0 md5=e9e6fae2
+  tv/v08_el alloff cmp=255 cmplines=435 strict=NOT_EQUAL_stage1 rc=0 md5=e9e6fae2
+  tv/v08_el pre cmp=255 cmplines=435 strict=NOT_EQUAL_stage1 rc=0 md5=e9e6fae2
+RESULT tv/v08_el defNetTypeParamPackedVec160 UNFIRED 
+RESULT tv/v08_el LANDING160 UNFIRED 
+RESULT tv/v08_el ALLOFF UNFIRED 
+RESULT tv/v08_el ALLOFF==PRE YES
+  ua/u01_el on cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=3053570a
+  ua/u01_el off_aggParamFoldUnqualWholeSpan158 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=eecc9f14
+  ua/u01_el offL158 cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=eecc9f14
+  ua/u01_el alloff cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=59b40b32
+  ua/u01_el pre cmp=255 cmplines=94 strict=NOT_EQUAL_stage1 rc=0 md5=59b40b32
+RESULT ua/u01_el aggParamFoldUnqualWholeSpan158 STAGE1-SAME off:stage1 on:stage1 dump off=132 on=132 newbad=3
+RESULT ua/u01_el LANDING158 STAGE1-SAME off:stage1 on:stage1 dump off=132 on=132 newbad=3
+  ua/u02_el on cmp=255 cmplines=29 strict=NOT_EQUAL_stage1 rc=0 md5=e1459fbb
+  ua/u02_el off_aggParamFoldUnqualWholeSpan158 cmp=255 cmplines=29 strict=NOT_EQUAL_stage1 rc=0 md5=e1459fbb
+  ua/u02_el offL158 cmp=255 cmplines=29 strict=NOT_EQUAL_stage1 rc=0 md5=e1459fbb
+  ua/u02_el alloff cmp=255 cmplines=29 strict=NOT_EQUAL_stage1 rc=0 md5=0bdbba09
+  ua/u02_el pre cmp=255 cmplines=29 strict=NOT_EQUAL_stage1 rc=0 md5=0bdbba09
+RESULT ua/u02_el aggParamFoldUnqualWholeSpan158 UNFIRED 
+RESULT ua/u02_el LANDING158 UNFIRED 
+RESULT ua/u01_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=144 on=132 newbad=3
+RESULT ua/u01_el ALLOFF==PRE YES
+RESULT ua/u02_el ALLOFF STAGE1-SAME off:stage1 on:stage1 dump off=1010 on=1010 newbad=36
+RESULT ua/u02_el ALLOFF==PRE YES
+  ua/u03_el on cmp=0 cmplines=0 strict=STRICT_EQUAL_288_objects rc=0 md5=e5683913
+  ua/u03_el off_aggParamFoldUnqualWholeSpan158 cmp=0 cmplines=0 strict=STRICT_EQUAL_288_objects rc=0 md5=e5683913
+  ua/u03_el offL158 cmp=0 cmplines=0 strict=STRICT_EQUAL_288_objects rc=0 md5=e5683913
+  ua/u03_el alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_288_objects rc=0 md5=8698556b
+  ua/u03_el pre cmp=0 cmplines=0 strict=STRICT_EQUAL_288_objects rc=0 md5=8698556b
+RESULT ua/u03_el aggParamFoldUnqualWholeSpan158 UNFIRED 
+RESULT ua/u03_el LANDING158 UNFIRED 
+RESULT ua/u03_el ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_288_objects on:STRICT_EQUAL_288_objects
+RESULT ua/u03_el ALLOFF==PRE YES
+  ua/u04_el on cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=4aa7e673
+  ua/u04_el off_aggParamFoldUnqualWholeSpan158 cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=4aa7e673
+  ua/u04_el offL158 cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=4aa7e673
+  ua/u04_el alloff cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=d13b0d84
+  ua/u04_el pre cmp=255 cmplines=64 strict=NOT_EQUAL_stage1 rc=0 md5=d13b0d84
+RESULT ua/u04_el aggParamFoldUnqualWholeSpan158 UNFIRED 
+RESULT ua/u04_el LANDING158 UNFIRED 
+RESULT ua/u04_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=131 on=119 newbad=0
+RESULT ua/u04_el ALLOFF==PRE YES
+  wr/w01_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=6234dffc
+  wr/w01_el off_withRecvOnlyLastScoped157 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=1fb44839
+  wr/w01_el offL158 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=1fb44839
+  wr/w01_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=1fb44839
+  wr/w01_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=1fb44839
+RESULT wr/w01_el withRecvOnlyLastScoped157 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT wr/w01_el LANDING158 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT wr/w01_el ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_NOTEQUAL_fullname
+RESULT wr/w01_el ALLOFF==PRE YES
+  wr/w02_el on cmp=255 cmplines=750 strict=NOT_EQUAL_stage1 rc=0 md5=38d987a0
+  wr/w02_el off_withRecvOnlyLastScoped157 cmp=255 cmplines=758 strict=NOT_EQUAL_stage1 rc=0 md5=e35b34c6
+  wr/w02_el offL158 cmp=255 cmplines=758 strict=NOT_EQUAL_stage1 rc=0 md5=e35b34c6
+  wr/w02_el alloff cmp=255 cmplines=758 strict=NOT_EQUAL_stage1 rc=0 md5=e35b34c6
+  wr/w02_el pre cmp=255 cmplines=758 strict=NOT_EQUAL_stage1 rc=0 md5=e35b34c6
+RESULT wr/w02_el withRecvOnlyLastScoped157 STAGE1-CLOSER off:stage1 on:stage1 dump off=52 on=28 newbad=0
+RESULT wr/w02_el LANDING158 STAGE1-CLOSER off:stage1 on:stage1 dump off=52 on=28 newbad=0
+RESULT wr/w02_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=52 on=28 newbad=0
+RESULT wr/w02_el ALLOFF==PRE YES
+cases: 176 + NOGOLD 1

@@ -1,0 +1,20 @@
+r11u158repro/cases/gl/l4 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col objects_differing=1 rc=0
+r11u158repro/cases/ev/e16 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol objects_differing=5 rc=0
+r11u158repro/cases/hl/h3 cmp=255 cmplines=32 strict=NOT_EQUAL_stage1  rc=0
+r11u158repro/cases/sc/c10 cmp=255 cmplines=66 strict=NOT_EQUAL_stage1  rc=0
+r11v158repro/cases/sc/b09 cmp=255 cmplines=28 strict=NOT_EQUAL_stage1  rc=0
+r11v158repro/cases/sc/b03 cmp=255 cmplines=38 strict=NOT_EQUAL_stage1  rc=0
+r11v158repro/cases/sc/b08 cmp=255 cmplines=38 strict=NOT_EQUAL_stage1  rc=0
+r11v158repro/cases/rz/z06 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol objects_differing=2 rc=0
+v11u160repro/cases/MM/p03 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line objects_differing=10 rc=0
+v11u160repro/cases/MM/q08 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol objects_differing=1 rc=0
+v11u160repro/cases/MM/q20 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol objects_differing=8 rc=0
+r11u160repro/cases/BT/b03 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname objects_differing=10 rc=0
+r11u163repro/cases/pi/p08 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname objects_differing=4 rc=0
+r11u163repro/cases/rl/q03 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line objects_differing=7 rc=0
+r11u163repro/cases/hc/g02 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line objects_differing=1 rc=0
+r11v163repro/cases/lr/r01 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line objects_differing=1 rc=0
+r11v163repro/cases/sy/b08 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname objects_differing=7 rc=0
+r11v163repro/cases/ip/e04 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname objects_differing=4 rc=0
+r11v163repro/cases/tp/g08 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname objects_differing=8 rc=0
+r11v163repro/cases/tp/g02 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname objects_differing=8 rc=0

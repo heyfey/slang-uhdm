@@ -1,0 +1,91 @@
+NOGOLD: cases=1 | def NOGOLD=1 | el NOGOLD=1
+   mm/m05
+aggParamFoldQualSpanByView163: cases=5 | def TOWARD=2 UNFIRED=3 | el TOWARD=2 UNFIRED=3
+   qs/a01 qs/a02 qs/a03 qs/a04 qs/a05
+aggParamFoldUnqualWholeSpan158: cases=4 | def STAGE1-SAME=1 UNFIRED=3 | el STAGE1-SAME=1 UNFIRED=3
+   ua/u01 ua/u02 ua/u03 ua/u04
+arrQueryFoldAtBound158: cases=5 | def STAGE1-CLOSER=2 STAGE1-SAME=1 UNFIRED=2 | el STAGE1-CLOSER=2 STAGE1-SAME=1 UNFIRED=2
+   aq/q01 aq/q02 aq/q03 aq/q04 aq/q05
+arrQueryParamArgOnly158v: cases=2 | def STAGE1-CLOSER=2 | el STAGE1-CLOSER=2
+   aq/q04 aq/q05
+bodyTypeParamDefaultBound160: cases=3 | def MIXED=1 STAGE1-CLOSER=1 UNMASK=1 | el MIXED=1 STAGE1-CLOSER=1 UNMASK=1
+   bt/b01 bt/b02 bt/b03
+defNetTypeParamPackedVec160: cases=10 | def STAGE1-AWAY=3 STAGE1-CLOSER=1 TOWARD=5 UNFIRED=1 | el STAGE1-AWAY=3 STAGE1-CLOSER=1 TOWARD=5 UNFIRED=1
+   cx/x02 cx/x06 tv/v01 tv/v02 tv/v03 tv/v04 tv/v05 tv/v06 tv/v07 tv/v08
+elabAggFoldYCopyDefNamed163: cases=7 | def BYTES-ONLY=1 STAGE1-SAME=1 TOWARD=1 UNFIRED=4 | el BYTES-ONLY=1 STAGE1-SAME=1 TOWARD=1 UNFIRED=4
+   sy/y01 sy/y02 sy/y03 sy/y04 sy/y05 sy/y06 sy/y07
+elabOvArrFoldSharesDefParamTs163: cases=6 | def STAGE1-SAME=1 TOWARD=1 UNFIRED=4 | el STAGE1-SAME=2 UNFIRED=4
+   cx/x03 oa/o01 oa/o02 oa/o03 oa/o04 oa/o05
+elabTpDefaultDefNamed163: cases=7 | def BYTES-ONLY=5 STAGE1-SAME=1 UNFIRED=1 | el BYTES-ONLY=4 STAGE1-SAME=2 UNFIRED=1
+   cx/x01 cx/x02 cx/x08 cx/x09 nd/n03 nd/n04 nd/n05
+elabTpNamedElemDimDefNamed163: cases=4 | def STAGE1-SAME=1 TOWARD=1 UNFIRED=2 | el STAGE1-SAME=1 TOWARD=1 UNFIRED=2
+   nd/n01 nd/n02 nd/n06 nd/n07
+enumAliasEndAtDimOrInitDecl158: cases=7 | def TOWARD=2 UNFIRED=5 | el TOWARD=2 UNFIRED=5
+   ev/a01 ev/a02 ev/a03 ev/a04 ev/a05 ev/a06 ev/a07
+fnParamRangeNetNoFile163: cases=3 | def STAGE1-SAME=2 UNFIRED=1 | el STAGE1-SAME=2 UNFIRED=1
+   fn/f01 fn/f02 fn/f03
+foreachArrPathVarForm157: cases=3 | def STAGE1-CLOSER=1 TOWARD=1 UNFIRED=1 | el STAGE1-CLOSER=1 TOWARD=1 UNFIRED=1
+   fe/e01 fe/e02 fe/e03
+genCaLhsEnumConstClone158: cases=13 | def AWAY=4 STAGE1-AWAY=4 STAGE1-CLOSER=1 TOWARD=4 | el AWAY=4 BYTES-ONLY=5 STAGE1-AWAY=3 STAGE1-SAME=1
+   cx/x05 cx/x07 gl/g01 gl/g02 gl/g03 gl/g04 gl/g05 gl/g06 gl/g07 gl/g08 gl/g09 gl/g10 gl/g11
+genTgtLhsLeafOwnName157: cases=3 | def TOWARD=2 UNFIRED=1 | el TOWARD=2 UNFIRED=1
+   gt/q01 gt/q02 gt/q03
+hpSelRoute157: cases=12 | def STAGE1-CLOSER=3 TOWARD=1 UNFIRED=8 | el STAGE1-CLOSER=3 TOWARD=1 UNFIRED=8
+   cx/x04 hs/h01 hs/h02 hs/h03 hs/h04 hs/h05 hs/h06 hs/h07 hs/h08 hs/h09 hs/h10 hs/h11
+implNetBareParamElab160: cases=4 | def STAGE1-CLOSER=1 TOWARD=1 UNFIRED=2 | el STAGE1-CLOSER=1 TOWARD=1 UNFIRED=2
+   cp/c01 cp/c02 cp/c03 cx/x03
+importPatOpCloneParamNamed163: cases=2 | def TOWARD=2 | el TOWARD=2
+   ic/i01 ic/i02
+methodRandomizeCallSpan158: cases=3 | def TOWARD=3 | el TOWARD=3
+   rz/z01 rz/z02 rz/z03
+objMacroParenArgsTrimmed160: cases=5 | def TOWARD=2 UNFIRED=3 | el TOWARD=2 UNFIRED=3
+   ma/o01 ma/o02 ma/o03 ma/o04 ma/o05
+ovPatOpCopyAtLocalRef163v: cases=2 | def TOWARD=2 | el TOWARD=2
+   po/c03 po/c04
+ovPkgPatOpInstanceCopy163: cases=4 | def STAGE1-CLOSER=2 TOWARD=2 | el STAGE1-CLOSER=2 TOWARD=2
+   po/c01 po/c02 po/c03 po/c04
+paramOpCloneRelocatedSpan163: cases=3 | def TOWARD=2 UNFIRED=1 | el TOWARD=2 UNFIRED=1
+   rc/f01 rc/f02 rc/f03
+pasteChainRunning160v: cases=4 | def TOWARD=2 UNFIRED=2 | el TOWARD=2 UNFIRED=2
+   pa/p01 pa/p02 pa/p03 pa/p04
+pkgFoldLeftParenSpan158: cases=3 | def STAGE1-CLOSER=1 TOWARD=2 | el STAGE1-CLOSER=1 TOWARD=2
+   pp/f01 pp/f02 pp/f03
+pkgPatListingCopyWhenShared163: cases=3 | def TOWARD=2 UNFIRED=1 | el TOWARD=2 UNFIRED=1
+   pl/d01 pl/d02 pl/d03
+ppMacroBodyLines160: cases=17 | def MIXED=3 TOWARD=6 UNFIRED=8 | el MIXED=3 TOWARD=6 UNFIRED=8
+   cx/x04 mm/m01 mm/m02 mm/m03 mm/m04 mm/m06 mm/m07 mm/m08 mm/m09 mm/m10 mm/m11 mm/m12 mm/m13 pa/p01 pa/p02 pa/p03 pa/p04
+rootPathOwnNames157: cases=4 | def TOWARD=2 UNFIRED=2 | el TOWARD=2 UNFIRED=2
+   rt/r01 rt/r02 rt/r03 rt/r04
+sizeCastCaLitMask158: cases=16 | def STAGE1-CLOSER=5 STAGE1-SAME=1 UNFIRED=10 | el STAGE1-CLOSER=5 STAGE1-SAME=1 UNFIRED=10
+   cx/x06 cx/x07 sc/f01 sc/f02 sc/f03 sc/f04 sc/f05 sc/f06 sc/f07 sc/f10 sc/f11 sc/f12 sc/f13 sc/f14 sc/f19 sc/f20
+sizeCastCaSignedSize158: cases=6 | def STAGE1-CLOSER=6 | el STAGE1-CLOSER=6
+   sc/f08 sc/f09 sc/f15 sc/f16 sc/f17 sc/f18
+sizeCastNamedWidthNoCast158v: cases=2 | def STAGE1-CLOSER=1 UNFIRED=1 | el STAGE1-CLOSER=1 UNFIRED=1
+   sc/f05 sc/f10
+sizeCastNarrowTargetAbstain158v: cases=2 | def STAGE1-CLOSER=2 | el STAGE1-CLOSER=2
+   sc/f12 sc/f20
+sizeCastSignedLitAbstain158v: cases=2 | def STAGE1-SAME=2 | el STAGE1-SAME=2
+   sc/f11 sc/f19
+thisPathFormByPosition157: cases=3 | def TOWARD=3 | el TOWARD=3
+   th/t01 th/t02 th/t03
+tpCloneWholeLhsBare160: cases=12 | def STAGE1-CLOSER=1 TOWARD=1 UNFIRED=10 | el STAGE1-CLOSER=1 TOWARD=1 UNFIRED=10
+   cx/x05 gw/z01 gw/z02 gw/z03 gw/z04 gw/z05 gw/z06 gw/z07 gw/z08 gw/z09 gw/z10 gw/z11
+tpUseBindsDefDefault160: cases=7 | def BYTES-ONLY=3 TOWARD=2 UNFIRED=2 | el BYTES-ONLY=2 TOWARD=3 UNFIRED=2
+   cx/x01 cx/x02 cx/x08 cx/x09 tu/u01 tu/u02 tu/u03
+tpWholeLhsInstantiatedOnly160v: cases=4 | def TOWARD=2 UNFIRED=2 | el TOWARD=2 UNFIRED=2
+   gw/z04 gw/z05 gw/z08 gw/z11
+withRecvOnlyLastScoped157: cases=2 | def STAGE1-CLOSER=1 TOWARD=1 | el STAGE1-CLOSER=1 TOWARD=1
+   wr/w01 wr/w02
+ALLOFF: def AWAY=4 BYTES-ONLY=8 MIXED=4 STAGE1-AWAY=6 STAGE1-CLOSER=35 STAGE1-SAME=7 TOWARD=52 UNFIRED=59 UNMASK=1 | el AWAY=4 BYTES-ONLY=12 MIXED=4 STAGE1-AWAY=5 STAGE1-CLOSER=34 STAGE1-SAME=10 TOWARD=47 UNFIRED=59 UNMASK=1
+LANDING158: def AWAY=4 STAGE1-AWAY=4 STAGE1-CLOSER=21 STAGE1-SAME=3 TOWARD=21 UNFIRED=30 | el AWAY=4 BYTES-ONLY=5 STAGE1-AWAY=3 STAGE1-CLOSER=20 STAGE1-SAME=4 TOWARD=17 UNFIRED=30
+LANDING160: def BYTES-ONLY=3 MIXED=4 STAGE1-AWAY=1 STAGE1-CLOSER=6 TOWARD=16 UNFIRED=26 UNMASK=1 | el BYTES-ONLY=2 MIXED=4 STAGE1-AWAY=1 STAGE1-CLOSER=6 TOWARD=17 UNFIRED=26 UNMASK=1
+LANDING163: def BYTES-ONLY=8 STAGE1-CLOSER=4 STAGE1-SAME=6 TOWARD=13 UNFIRED=13 | el BYTES-ONLY=7 STAGE1-CLOSER=4 STAGE1-SAME=8 TOWARD=12 UNFIRED=13
+PAIR:elabTpDefaultDefNamed163+defNetTypeParamPackedVec160: def TOWARD=1 | el TOWARD=1
+PAIR:elabTpDefaultDefNamed163+tpUseBindsDefDefault160: def BYTES-ONLY=1 STAGE1-SAME=1 TOWARD=2 | el BYTES-ONLY=1 STAGE1-SAME=1 TOWARD=2
+PAIR:genCaLhsEnumConstClone158+sizeCastCaLitMask158: def STAGE1-AWAY=1 | el STAGE1-AWAY=1
+PAIR:genCaLhsEnumConstClone158+tpCloneWholeLhsBare160: def STAGE1-AWAY=1 | el STAGE1-AWAY=1
+PAIR:implNetBareParamElab160+elabOvArrFoldSharesDefParamTs163: def STAGE1-CLOSER=1 | el STAGE1-CLOSER=1
+PAIR:ppMacroBodyLines160+hpSelRoute157: def TOWARD=1 | el TOWARD=1
+PAIR:sizeCastCaLitMask158+defNetTypeParamPackedVec160: def STAGE1-CLOSER=1 | el STAGE1-CLOSER=1
+PAIR:tpUseBindsDefDefault160+defNetTypeParamPackedVec160: def TOWARD=1 | el TOWARD=1
+ALLOFF==PRE: {('def', 'YES'): 176, ('el', 'YES'): 176}

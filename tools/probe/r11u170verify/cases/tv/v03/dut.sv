@@ -1,0 +1,10 @@
+// § defNetTypeParamPackedVec160
+module sub #(parameter type T = logic [3:0], parameter int N = 2) (input T [N-1:0] i, output logic [15:0] o);
+  wire T [N-1:0] w;
+  assign w = i;
+  assign o = 16'(w);
+endmodule
+module top (input logic [3:0][1:0] a, input logic [5:0][1:0] b, output logic [15:0] o, output logic [15:0] o2);
+  sub u(.i(a), .o(o));
+  sub #(.T(logic [5:0])) u2(.i(b), .o(o2));
+endmodule

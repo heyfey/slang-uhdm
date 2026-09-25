@@ -1,0 +1,30 @@
+none catch=on rc=0 db=yes msg=
+none catch=off rc=0 db=yes msg=
+runtime catch=on rc=3 db=no msg=slang-uhdm: error: r11u170 runtime_error
+/bin/bash: line 1: 1688499 Aborted                 env $e R11U170_THROW=$k /tmp/r11u170_throw/slang-uhdm-throw dut.sv --single-unit --nobuiltin -o /tmp/r11u170_throw/o.uhdm > /tmp/r11u170_throw/$k.$c.log 2>&1
+runtime catch=off rc=134 db=no msg=  what():  r11u170 runtime_error
+logic catch=on rc=3 db=no msg=slang-uhdm: error: r11u170 logic_error
+/bin/bash: line 1: 1688515 Aborted                 env $e R11U170_THROW=$k /tmp/r11u170_throw/slang-uhdm-throw dut.sv --single-unit --nobuiltin -o /tmp/r11u170_throw/o.uhdm > /tmp/r11u170_throw/$k.$c.log 2>&1
+logic catch=off rc=134 db=no msg=  what():  r11u170 logic_error
+badalloc catch=on rc=3 db=no msg=slang-uhdm: error: std::bad_alloc
+/bin/bash: line 1: 1688531 Aborted                 env $e R11U170_THROW=$k /tmp/r11u170_throw/slang-uhdm-throw dut.sv --single-unit --nobuiltin -o /tmp/r11u170_throw/o.uhdm > /tmp/r11u170_throw/$k.$c.log 2>&1
+badalloc catch=off rc=134 db=no msg=  what():  std::bad_alloc
+outofrange catch=on rc=3 db=no msg=slang-uhdm: error: r11u170 out_of_range
+/bin/bash: line 1: 1688547 Aborted                 env $e R11U170_THROW=$k /tmp/r11u170_throw/slang-uhdm-throw dut.sv --single-unit --nobuiltin -o /tmp/r11u170_throw/o.uhdm > /tmp/r11u170_throw/$k.$c.log 2>&1
+outofrange catch=off rc=134 db=no msg=  what():  r11u170 out_of_range
+/bin/bash: line 1: 1688555 Aborted                 env $e R11U170_THROW=$k /tmp/r11u170_throw/slang-uhdm-throw dut.sv --single-unit --nobuiltin -o /tmp/r11u170_throw/o.uhdm > /tmp/r11u170_throw/$k.$c.log 2>&1
+int catch=on rc=134 db=no msg=terminate called after throwing an instance of 'int'
+/bin/bash: line 1: 1688563 Aborted                 env $e R11U170_THROW=$k /tmp/r11u170_throw/slang-uhdm-throw dut.sv --single-unit --nobuiltin -o /tmp/r11u170_throw/o.uhdm > /tmp/r11u170_throw/$k.$c.log 2>&1
+int catch=off rc=134 db=no msg=terminate called after throwing an instance of 'int'
+/bin/bash: line 1: 1688571 Aborted                 env $e R11U170_THROW=$k /tmp/r11u170_throw/slang-uhdm-throw dut.sv --single-unit --nobuiltin -o /tmp/r11u170_throw/o.uhdm > /tmp/r11u170_throw/$k.$c.log 2>&1
+cstr catch=on rc=134 db=no msg=terminate called after throwing an instance of 'char const*'
+/bin/bash: line 1: 1688579 Aborted                 env $e R11U170_THROW=$k /tmp/r11u170_throw/slang-uhdm-throw dut.sv --single-unit --nobuiltin -o /tmp/r11u170_throw/o.uhdm > /tmp/r11u170_throw/$k.$c.log 2>&1
+cstr catch=off rc=134 db=no msg=terminate called after throwing an instance of 'char const*'
+/bin/bash: line 1: 1688587 Aborted                 env $e R11U170_THROW=$k /tmp/r11u170_throw/slang-uhdm-throw dut.sv --single-unit --nobuiltin -o /tmp/r11u170_throw/o.uhdm > /tmp/r11u170_throw/$k.$c.log 2>&1
+string catch=on rc=134 db=no msg=terminate called after throwing an instance of 'std::__cxx11::basic_string<char,
+/bin/bash: line 1: 1688595 Aborted                 env $e R11U170_THROW=$k /tmp/r11u170_throw/slang-uhdm-throw dut.sv --single-unit --nobuiltin -o /tmp/r11u170_throw/o.uhdm > /tmp/r11u170_throw/$k.$c.log 2>&1
+string catch=off rc=134 db=no msg=terminate called after throwing an instance of 'std::__cxx11::basic_string<char,
+/bin/bash: line 1: 1688603 Aborted                 env $e R11U170_THROW=$k /tmp/r11u170_throw/slang-uhdm-throw dut.sv --single-unit --nobuiltin -o /tmp/r11u170_throw/o.uhdm > /tmp/r11u170_throw/$k.$c.log 2>&1
+notstd catch=on rc=134 db=no msg=terminate called after throwing an instance of 'realMain(int, char**)::NotStd'
+/bin/bash: line 1: 1688611 Aborted                 env $e R11U170_THROW=$k /tmp/r11u170_throw/slang-uhdm-throw dut.sv --single-unit --nobuiltin -o /tmp/r11u170_throw/o.uhdm > /tmp/r11u170_throw/$k.$c.log 2>&1
+notstd catch=off rc=134 db=no msg=terminate called after throwing an instance of 'realMain(int, char**)::NotStd'

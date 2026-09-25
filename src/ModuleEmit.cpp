@@ -30018,6 +30018,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
     // judge-visible, not modelled).  Switch: R11U144_TPPACKEDNET_OFF.
     const TypeParameterSymbol* tpPk144 = nullptr;
     const syntax::SyntaxNode* tpPkDim144 = nullptr;
+    bool tpVecNet170 = false;
     if (pn.rt->VpiParent() && pn.rt->VpiParent()->UhdmType() != UHDM::uhdmport &&
         r11u137Law("R11U137_DEFNETTP_OFF") && r11u144Law("R11U144_TPPACKEDNET_OFF") &&
         !portTypeParam(*pn.sym))
@@ -30065,6 +30066,23 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                                  (vec160 && vecLeaf160(lc144)))) {
                                 tpPk144 = tp144;
                                 tpPkDim144 = isn144.selectors[0];
+                                // § defNetTpVecNetKeepsEnd170v (r11u170) — a
+                                // NET declaration (`wire T [N-1:0] w;`) of
+                                // the vector half binds the default object
+                                // but does not move its end: golden keeps
+                                // `logic [3:0]` 2:33-2:44 (grid
+                                // tools/probe/r11u170verify/cases/tv v03 v04
+                                // v06), where the variable form (`T [N-1:0]
+                                // w;`, v05 v07) moves it to the dimension.
+                                // Switch R11V170_TPVECNET_OFF.
+                                if (pn.sym->kind == SymbolKind::Net &&
+                                    lc144.kind != SymbolKind::PackedStructType &&
+                                    lc144.kind != SymbolKind::PackedUnionType &&
+                                    r11v170On("R11V170_TPVECNET_OFF")) {
+                                    tpVecNet170 = true;
+                                    if (getenv("R11V170_TRACE"))
+                                        fprintf(stderr, "R11V170_TRACE TPVECNET\n");
+                                }
                             }
                         }
                 }
@@ -30123,7 +30141,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                         SourceLocation e137 = SourceLocation::NoLocation;
                         if (!dd.dimensions.empty())
                             e137 = dd.dimensions[0]->sourceRange().end();
-                        else if (tpPkDim144)
+                        else if (tpPkDim144 && !tpVecNet170)
                             e137 = tpPkDim144->sourceRange().end();
                         if (e137 != SourceLocation::NoLocation) {
                             uint32_t l137 = 0, c137 = 0;

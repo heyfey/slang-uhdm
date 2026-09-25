@@ -15005,6 +15005,18 @@ inline bool genCaLhsCtx158(const UHDM::BaseClass* parent) {
 }
 
 // ===========================================================================
+// r11u170 — the second adversarial verification of passes 158, 160 and 163
+// (tools/probe/r11u170verify).  Each refinement reads its own switch;
+// R11V170_OFF drops every one of them (the d8cfd83a bytes).
+//   R11V170_GCALHSUNIT_OFF  § genCaLhsUnitEnumShared170v   (ExprEmit.cpp)
+//   R11V170_TPVECNET_OFF    § defNetTpVecNetKeepsEnd170v   (ModuleEmit.cpp)
+//   R11V170_SCSCOPED_OFF    § sizeCastScopedNameUnsigned170v (ExprEmit.cpp)
+inline bool r11v170On(const char* one) {
+    static const bool all = getenv("R11V170_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+
+// ===========================================================================
 // r11u163 — the expression/parameter ground (tools/probe/r11u163repro).
 // Every law reads its own switch; R11U163_OFF drops every one of them (the
 // pristine bytes).  R11U163_TRACE=1 prints one stderr line per firing.

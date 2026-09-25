@@ -1,0 +1,74 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=SWU/probe.csv
+probe cases: EQUAL=2590 STRICT_NOTEQUAL=1497 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=2590 differ:fullname=599 differ:endcol=231 differ:line=230 differ:file=116 differ:type=101 differ:depth=92 differ:name=58 differ:col=43 differ:endline=21 differ:value=3 differ:decompile=3
+== probe vs golden_probe.csv
+[probe] EQUAL=2590 STRICT_NOTEQUAL=1497
+REGRESSION r11u108repro/grid/f5/f5a23_wdims_logicts_ctl EQUAL -> STRICT_NOTEQUAL differ:endline(1)
+REGRESSION r11u112repro/grid/k/k15_body_param_type EQUAL -> STRICT_NOTEQUAL differ:endline(2)
+REGRESSION r11u112repro/grid/k/k19_child EQUAL -> STRICT_NOTEQUAL differ:endline(2)
+REGRESSION r11u112repro/grid/k/k20_hdr_param_type_ctl EQUAL -> STRICT_NOTEQUAL differ:endline(2)
+REGRESSION r11u20repro/t2 EQUAL -> STRICT_NOTEQUAL differ:fullname(1)
+REGRESSION r11v32repro/h02_alwaysff_tp_pk EQUAL -> STRICT_NOTEQUAL differ:endline(1)
+REGRESSION v11u112repro/grid/brk/k/b3d_signed_packarr_member EQUAL -> STRICT_NOTEQUAL differ:endline(2)
+CHANGE r11u112repro/grid/k/k03_dims STRICT_NOTEQUAL differ:fullname(15) -> differ:fullname(16) [fullname +1]
+CHANGE r11u112repro/grid/k/k12_twodims STRICT_NOTEQUAL differ:fullname(15) -> differ:fullname(16) [fullname +1]
+CHANGE r11u112repro/grid/k/k16_comb_driven STRICT_NOTEQUAL differ:fullname(24) -> differ:fullname(26) [fullname +2]
+CHANGE r11u112repro/grid/k/k17_ff_driven STRICT_NOTEQUAL differ:fullname(18) -> differ:fullname(20) [fullname +2]
+CHANGE r11u20repro/t6 STRICT_NOTEQUAL differ:fullname(2) -> differ:fullname(4) [fullname +2]
+CHANGE r11v45repro/v7 STRICT_NOTEQUAL differ:line(4) -> differ:line(8) [line +4]
+CHANGE v11u111repro/brk/f6/x64_two_dims_positional STRICT_NOTEQUAL differ:fullname(3) -> differ:line(4)
+CHANGE v11u112repro/grid/brk/k/b3a_multi_decl STRICT_NOTEQUAL differ:decompile(1) -> differ:endline(5)
+regressions=7 conversions=0 changes=8 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=SWU/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u170_bin/uhdm-strictcmp
+
+[default] 798 tests
+  CMP_EQUAL: 437
+  SLANG_REJECT: 285
+  STRICT_NOTEQUAL: 43
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+  CMP_NOTEQUAL: 3
+
+[testflags] 798 tests
+  CMP_EQUAL: 434
+  SLANG_REJECT: 286
+  STRICT_NOTEQUAL: 40
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=437 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=43 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=434 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=40 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=SWU/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u170_bin/uhdm-strictcmp
+
+[default] 871 tests
+  CMP_EQUAL: 767
+  SLANG_REJECT: 67
+  STRICT_NOTEQUAL: 36
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 767
+  SLANG_REJECT: 67
+  STRICT_NOTEQUAL: 36
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=767 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=36
+[testflags] CMP_EQUAL=767 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=36
+REGRESSION packed_array_reset_loop default CMP_EQUAL -> STRICT_NOTEQUAL differ:endline(3)
+REGRESSION packed_array_reset_loop testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:endline(3)
+REGRESSION packed_array_struct default CMP_EQUAL -> STRICT_NOTEQUAL differ:endline(2)
+REGRESSION packed_array_struct testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:endline(2)
+CHANGE arb_idx_cast default STRICT_NOTEQUAL differ:endcol(17) -> differ:endline(19)
+CHANGE arb_idx_cast testflags STRICT_NOTEQUAL differ:endcol(17) -> differ:endline(19)
+regressions=4 conversions=0 changes=2 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+sweep rc=1

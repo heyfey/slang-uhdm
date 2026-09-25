@@ -1,0 +1,178 @@
+FIX | aq/q05 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | aq/q01 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/FIX
+FIX | bt/b01 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/FIX
+FIX | aq/q02 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/FIX
+FIX | bt/b02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | aq/q03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | bt/b03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | aq/q04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | cp/c01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | cx/x02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | cp/c02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | cp/c03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | cx/x03 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/FIX
+FIX | cx/x01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | cx/x04 | IDENTICAL | OK | OK | - | -
+FIX | cx/x05 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | cx/x06 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/FIX
+FIX | cx/x07 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth |    This indicates a serious bug in  - 
+FIX | ev/a01 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/FIX
+FIX | cx/x08 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | cx/x09 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | ev/a02 | IDENTICAL | OK | OK | - | -
+FIX | ev/a03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | ev/a04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | ev/a05 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | ev/a06 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | ev/a07 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | fe/e02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | fe/e01 | EQUIVALENT | NO_GATES | NO_GATES | nohier | ✅ All 1 common constant assignments match
+FIX | fe/e03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | fn/f01 | EQUIVALENT | OK | OK | nohier il synth | ✅ Formal equivalence check PASSED for 
+FIX | fn/f02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | fn/f03 | DIVERGENT | OK | OK | nohier il synth | ----------------------------------------------
+FIX | gl/g01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gl/g04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gl/g05 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gl/g02 | IDENTICAL | OK | OK | - | -
+FIX | gl/g06 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gl/g03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gl/g07 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gl/g08 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gl/g09 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gt/q01 | IDENTICAL | OK | OK | - | -
+FIX | gl/g10 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth |    This indicates a serious bug in  - 
+FIX | gt/q02 | IDENTICAL | OK | OK | - | -
+FIX | gl/g11 | IDENTICAL | OK | OK | - | -
+FIX | gt/q03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gw/z01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gw/z02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gw/z03 | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 2 common constant assignments match
+FIX | gw/z06 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gw/z04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gw/z07 | IDENTICAL | OK | OK | - | -
+FIX | gw/z05 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gw/z08 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gw/z09 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gw/z10 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | gw/z11 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | hs/h03 | IDENTICAL | OK | OK | - | -
+FIX | hs/h01 | IDENTICAL | OK | OK | - | -
+FIX | hs/h04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | hs/h02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | hs/h05 | IDENTICAL | OK | OK | - | -
+FIX | hs/h06 | EQUIVALENT | NO_GATES | NO_GATES | nohier | ℹ️  No common assign statements to compare — skipping
+FIX | hs/h07 | EQUIVALENT | NO_GATES | NO_GATES | nohier | ℹ️  No common assign statements to compare — skipping
+FIX | hs/h08 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | hs/h09 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | hs/h11 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | ic/i01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | ic/i02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | hs/h10 | IDENTICAL | OK | OK | - | -
+FIX | ma/o01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | mm/m01 | IDENTICAL | OK | OK | - | -
+FIX | ma/o02 | EQUIVALENT | OK | OK | nohier il synth | ✅ Formal equivalence check PASSED for 
+FIX | mm/m02 | EQUIVALENT | OK | OK | nohier il | ✅ Formal equivalence check PASSED for 
+FIX | ma/o03 | EQUIVALENT | OK | OK | nohier il | ✅ Formal equivalence check PASSED for 
+FIX | ma/o04 | IDENTICAL | OK | OK | - | -
+FIX | mm/m03 | IDENTICAL | OK | OK | - | -
+FIX | ma/o05 | IDENTICAL | OK | OK | - | -
+FIX | mm/m04 | EQUIVALENT | NO_GATES | NO_GATES | nohier | ✅ All 2 common constant assignments match
+FIX | mm/m05 | SURELOG_FAIL |  |  | - | no reference database
+FIX | mm/m09 | EQUIVALENT | NO_GATES | NO_GATES | nohier | ✅ All 1 common constant assignments match
+FIX | mm/m10 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | mm/m06 | IDENTICAL | OK | OK | - | -
+FIX | mm/m11 | EQUIVALENT | NO_GATES | NO_GATES | nohier | ✅ All 2 common constant assignments match
+FIX | mm/m07 | EQUIVALENT | OK | OK | nohier il | ✅ Formal equivalence check PASSED for 
+FIX | mm/m08 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | mm/m12 | EQUIVALENT | OK | OK | nohier il | ✅ Formal equivalence check PASSED for 
+FIX | nd/n04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | nd/n05 | EQUIVALENT | NO_GATES | NO_GATES | nohier | ℹ️  No common assign statements to compare — skipping
+FIX | mm/m13 | EQUIVALENT | OK | OK | nohier il | ✅ Formal equivalence check PASSED for 
+FIX | nd/n06 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | nd/n01 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/FIX
+FIX | nd/n07 | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 3 common constant assignments match
+FIX | nd/n02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | nd/n03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | oa/o01 | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ℹ️  No common assign statements to compare — skipping
+FIX | oa/o02 | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ℹ️  No common assign statements to compare — skipping
+FIX | oa/o05 | IDENTICAL | OK | OK | - | -
+FIX | oa/o03 | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 1 common constant assignments match
+FIX | pa/p01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | oa/o04 | IDENTICAL | OK | OK | - | -
+FIX | pa/p02 | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 1 common constant assignments match
+FIX | pa/p03 | EQUIVALENT | NO_GATES | NO_GATES | nohier | ✅ All 2 common constant assignments match
+FIX | pa/p04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | pl/d01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | po/c01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | pl/d02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | pl/d03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | po/c02 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/FIX
+FIX | po/c03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | po/c04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | pp/f01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | pp/f02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | qs/a02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | pp/f03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | qs/a03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | qs/a01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | qs/a04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | qs/a05 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | rc/f01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | rc/f02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | rt/r02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | rt/r03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | rc/f03 | IDENTICAL | OK | OK | - | -
+FIX | rt/r04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | rt/r01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | rz/z01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | rz/z02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sc/f03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | rz/z03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sc/f01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sc/f04 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/FIX
+FIX | sc/f02 | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 3 common constant assignments match
+FIX | sc/f05 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/FIX
+FIX | sc/f06 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sc/f07 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sc/f11 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sc/f08 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sc/f12 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sc/f09 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sc/f10 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sc/f13 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/FIX
+FIX | sc/f14 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sc/f15 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sc/f16 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sc/f19 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sc/f20 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sc/f17 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sc/f18 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sy/y01 | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ℹ️  No common assign statements to compare — skipping
+FIX | sy/y02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sy/y03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sy/y04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sy/y07 | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ✅ All 1 common constant assignments match
+FIX | sy/y05 | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ℹ️  No common assign statements to compare — skipping
+FIX | th/t01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | sy/y06 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | th/t02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | th/t03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | tu/u01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | tv/v02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | tu/u02 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/FIX
+FIX | tu/u03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | tv/v03 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/FIX
+FIX | tv/v01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | tv/v04 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/FIX
+FIX | tv/v05 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | tv/v06 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/FIX
+FIX | tv/v07 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | ua/u02 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | tv/v08 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u170_dsc/FIX
+FIX | ua/u03 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | ua/u01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | ua/u04 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | ux/s01 | SLANG_REJECT |  |  | - | -
+FIX | wr/w01 | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | wr/w02 | DIVERGENT | NO_GATES | NO_GATES | nohier il synth |    This indicates a serious bug in  - 
