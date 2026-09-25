@@ -1,0 +1,40 @@
+cluster N0046 (map 5 id kept; OPEN (residue of r11u137: map 5 named it, still present)): struct|ours-only:fewer-copies|logic_net|under:ref_obj
+row: uhdm2rtlil/testflags/array_assign  strict=differ:depth(1)  records golden=764 ours=767
+object: #-1 (golden) / #564 (ours)  type=logic_net name=pa 
+  golden: 
+  ours:   3 objs
+  walk parents: ref_obj(pa) < assignment < begin < always
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 558..570 ('>' = the object)
+  #558	5	constant				dut.sv	59	20	59	24	1'b1	1	BIN:1	3		000
+  #559	5	var_select	pa		work@top.pa	dut.sv	59	9	59	17		0			work@top.pa	000
+  #560	6	constant				dut.sv	59	12	59	13	1	64	UINT:1	9		000
+  #561	6	constant				dut.sv	59	15	59	16	1	64	UINT:1	9		000
+  #562	4	assignment				dut.sv	61	9	61	16						000
+  #563	5	ref_obj	pa		work@top.pa	dut.sv	61	14	61	16		0			work@top.pa	000
+> #564	6	logic_net	pa		work@top.pa	dut.sv	53	11	53	13		0			work@top.pa	000
+  #565	7	ref_typespec			work@top.pa		0	0	0	0		0			work@top.pa	000
+  #566	8	logic_typespec				dut.sv	53	5	53	19						000
+  #567	5	ref_obj	pb		work@top.pb	dut.sv	61	9	61	11		0			work@top.pb	000
+  #568	6	logic_net	pb		work@top.pb	dut.sv	54	11	54	13		0			work@top.pb	000
+  #569	7	ref_typespec			work@top.pb		0	0	0	0		0			work@top.pb	000
+  #570	8	logic_typespec				dut.sv	54	5	54	19						000
+
+--- the holder #563 on the other side: exact-record matches at [142, 563]
+  #139	6	constant				dut.sv	59	12	59	13	1	64	UINT:1	9		000
+  #140	6	constant				dut.sv	59	15	59	16	1	64	UINT:1	9		000
+  #141	4	assignment				dut.sv	61	9	61	16						000
+> #142	5	ref_obj	pa		work@top.pa	dut.sv	61	14	61	16		0			work@top.pa	000
+  #143	5	ref_obj	pb		work@top.pb	dut.sv	61	9	61	11		0			work@top.pb	000
+  #144	4	immediate_assert				dut.sv	63	9	63	34						000
+  #145	5	operation				dut.sv	63	16	63	32		0				000
+  #146	6	var_select	pb		work@top.pb	dut.sv	63	16	63	24		0			work@top.pb	000
+  #147	7	constant				dut.sv	63	19	63	20	0	64	UINT:0	9		000
+  #148	7	constant				dut.sv	63	22	63	23	1	64	UINT:1	9		000
+  #149	6	constant				dut.sv	63	28	63	32	1'b0	1	BIN:0	3		000
+  #150	4	immediate_assert				dut.sv	64	9	64	34						000
+  #151	5	operation				dut.sv	64	16	64	32		0				000
+
+facets of this row (1, first 25):
+  N0046 #-1/564 logic_net pa G[] O[3 objs]

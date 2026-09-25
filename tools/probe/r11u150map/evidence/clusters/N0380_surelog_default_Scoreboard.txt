@@ -1,0 +1,64 @@
+cluster N0380 (map 5 id kept; OPEN): span|operation|line+col+endline+endcol|under:func_call
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #62601 (golden) / #62610 (ours)  type=operation name= 
+  golden: 116:65:116:77
+  ours:   115:114:115:126
+  walk parents: func_call(uvm_report_info) < if_stmt < begin < if_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 62595..62607 ('>' = the object)
+  #62595	10	constant				uvm_message_defines.svh	116	20	116	29	"uvm_top"	56	STRING:uvm_top	6		000
+  #62596	10	hier_path	parent.get_full_name			uvm_message_defines.svh	116	30	116	52		0				000
+  #62597	11	ref_obj	parent			uvm_message_defines.svh	116	30	116	36		0				000
+  #62598	11	method_func_call	get_full_name			uvm_message_defines.svh	116	37	116	50		0				000
+  #62599	9	constant				uvm_message_defines.svh	116	54	116	57	"."	8	STRING:.	6		000
+  #62600	9	ref_obj	name		uvm_pkg::uvm_component::new::name	uvm_message_defines.svh	116	58	116	62		0			uvm_pkg::uvm_component::new::name	000
+> #62601	8	operation				uvm_message_defines.svh	116	65	116	77		0				000
+  #62602	9	ref_obj	UVM_MEDIUM		uvm_pkg::uvm_component::new::UVM_MEDIUM	uvm_message_defines.svh	116	65	116	75		0			uvm_pkg::uvm_component::new::UVM_MEDIUM	000
+  #62603	10	enum_const	UVM_MEDIUM			uvm_object_globals.svh	306	3	306	19						010
+  #62604	9	constant				uvm_message_defines.svh	116	76	116	77	1	64	UINT:1	9		000
+  #62605	8	constant				uvm_message_defines.svh	116	79	116	185	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh"	832	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh	6		000
+  #62606	8	constant				uvm_message_defines.svh	116	187	116	191	1775	64	UINT:1775	9		000
+  #62607	8	constant				uvm_message_defines.svh	116	193	116	195	""	0	STRING:	6		000
+
+--- OURS (B) records 62604..62616 ('>' = the object)
+  #62604	10	constant				uvm_message_defines.svh	1776	27	1776	36	"uvm_top"	56	STRING:uvm_top	6		000
+  #62605	10	hier_path	parent.get_full_name			uvm_message_defines.svh	1776	37	1776	59		0				000
+  #62606	11	ref_obj	parent			uvm_message_defines.svh	1776	37	1776	43		0				000
+  #62607	11	method_func_call	get_full_name			uvm_message_defines.svh	1776	44	1776	57		0				000
+  #62608	9	constant				uvm_message_defines.svh	1776	61	1776	64	"."	8	STRING:.	6		000
+  #62609	9	ref_obj	name		uvm_pkg::uvm_component::new::name	uvm_message_defines.svh	1776	65	1776	69		0			uvm_pkg::uvm_component::new::name	000
+> #62610	8	operation				uvm_message_defines.svh	115	114	115	126		0				000
+  #62611	9	ref_obj	UVM_MEDIUM		uvm_pkg::uvm_component::new::UVM_MEDIUM	uvm_message_defines.svh	115	114	115	124		0			uvm_pkg::uvm_component::new::UVM_MEDIUM	000
+  #62612	10	enum_const	UVM_MEDIUM			uvm_object_globals.svh	306	3	306	19						010
+  #62613	9	constant				uvm_message_defines.svh	115	125	115	126	1	64	UINT:1	9		000
+  #62614	8	constant				uvm_message_defines.svh	115	55	52	6	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh"	832	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh	6		000
+  #62615	8	constant				uvm_message_defines.svh	115	66	115	70	1775	64	UINT:1775	9		000
+  #62616	8	constant				uvm_message_defines.svh	115	262	115	264	""	0	STRING:	6		000
+
+facets of this row (29492, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

@@ -1,0 +1,64 @@
+cluster N1564 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id.id.id->id|under:part_select
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #524571 (golden) / #524324 (ours)  type=ref_obj name=SDW OUT
+  golden: work@top_earlgrey.u_spi_device.u_rxf_ctrl.wptr.SDW
+  ours:   work@spi_fwm_rxf_ctrl.SDW
+  walk parents: part_select(wptr) < operation < if_else < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 524565..524577 ('>' = the object)
+  #524565	12	constant				spi_fwm_rxf_ctrl.sv	96	26	96	28	'0	4	BIN:0	3		000
+  #524566	11	begin			work@top_earlgrey.u_spi_device.u_rxf_ctrl	spi_fwm_rxf_ctrl.sv	96	30	105	10					work@top_earlgrey.u_spi_device.u_rxf_ctrl	000
+  #524567	12	if_else				spi_fwm_rxf_ctrl.sv	98	9	104	12						000
+  #524568	13	operation				spi_fwm_rxf_ctrl.sv	98	13	98	44		0				000
+  #524569	14	part_select	wptr	wptr	work@top_earlgrey.u_spi_device.u_rxf_ctrl.wptr	spi_fwm_rxf_ctrl.sv	98	13	98	29		0			work@top_earlgrey.u_spi_device.u_rxf_ctrl.wptr	000
+  #524570	15	constant				spi_fwm_rxf_ctrl.sv	98	18	98	24	10	64	INT:10	7		000
+> #524571	15	ref_obj	SDW		work@top_earlgrey.u_spi_device.u_rxf_ctrl.wptr.SDW	spi_fwm_rxf_ctrl.sv	98	25	98	28		0			work@top_earlgrey.u_spi_device.u_rxf_ctrl.wptr.SDW	000
+  #524572	14	ref_obj	sramf_limit		work@top_earlgrey.u_spi_device.u_rxf_ctrl.sramf_limit	spi_fwm_rxf_ctrl.sv	98	33	98	44		0			work@top_earlgrey.u_spi_device.u_rxf_ctrl.sramf_limit	000
+  #524573	13	begin			work@top_earlgrey.u_spi_device.u_rxf_ctrl	spi_fwm_rxf_ctrl.sv	98	46	101	12					work@top_earlgrey.u_spi_device.u_rxf_ctrl	000
+  #524574	14	assignment				spi_fwm_rxf_ctrl.sv	99	11	99	40						000
+  #524575	15	operation				spi_fwm_rxf_ctrl.sv	99	27	99	40		0				000
+  #524576	16	bit_select	wptr		work@top_earlgrey.u_spi_device.u_rxf_ctrl.wptr	spi_fwm_rxf_ctrl.sv	99	33	99	39		0			work@top_earlgrey.u_spi_device.u_rxf_ctrl.wptr	000
+  #524577	17	constant				spi_fwm_rxf_ctrl.sv	99	33	99	39	11	64	INT:11	7		000
+
+--- OURS (B) records 524318..524330 ('>' = the object)
+  #524318	12	constant				spi_fwm_rxf_ctrl.sv	96	26	96	28	'0	4	BIN:0	3		000
+  #524319	11	begin			work@top_earlgrey.u_spi_device.u_rxf_ctrl	spi_fwm_rxf_ctrl.sv	96	30	105	10					work@top_earlgrey.u_spi_device.u_rxf_ctrl	000
+  #524320	12	if_else				spi_fwm_rxf_ctrl.sv	98	9	104	12						000
+  #524321	13	operation				spi_fwm_rxf_ctrl.sv	98	13	98	44		0				000
+  #524322	14	part_select	wptr	wptr	work@top_earlgrey.u_spi_device.u_rxf_ctrl.wptr	spi_fwm_rxf_ctrl.sv	98	13	98	29		0			work@top_earlgrey.u_spi_device.u_rxf_ctrl.wptr	000
+  #524323	15	constant				spi_fwm_rxf_ctrl.sv	98	18	98	24	10	64	INT:10	7		000
+> #524324	15	ref_obj	SDW		work@spi_fwm_rxf_ctrl.SDW	spi_fwm_rxf_ctrl.sv	98	25	98	28		0			work@spi_fwm_rxf_ctrl.SDW	000
+  #524325	14	ref_obj	sramf_limit		work@top_earlgrey.u_spi_device.u_rxf_ctrl.sramf_limit	spi_fwm_rxf_ctrl.sv	98	33	98	44		0			work@top_earlgrey.u_spi_device.u_rxf_ctrl.sramf_limit	000
+  #524326	13	begin			work@top_earlgrey.u_spi_device.u_rxf_ctrl	spi_fwm_rxf_ctrl.sv	98	46	101	12					work@top_earlgrey.u_spi_device.u_rxf_ctrl	000
+  #524327	14	assignment				spi_fwm_rxf_ctrl.sv	99	11	99	40						000
+  #524328	15	operation				spi_fwm_rxf_ctrl.sv	99	27	99	40		0				000
+  #524329	16	bit_select	wptr		work@top_earlgrey.u_spi_device.u_rxf_ctrl.wptr	spi_fwm_rxf_ctrl.sv	99	33	99	39		0			work@top_earlgrey.u_spi_device.u_rxf_ctrl.wptr	000
+  #524330	17	constant				spi_fwm_rxf_ctrl.sv	99	33	99	39	11	64	INT:11	7		000
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

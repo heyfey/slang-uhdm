@@ -1,0 +1,55 @@
+cluster N1953 (map 5 id kept; OPEN): span|port|col+endcol|under:ref_module
+row: probe/default/v11u110repro__brk__v3__a36_escaped_inst_name  strict=endcol  records golden=200 ours=200
+object: #78 (golden) / #78 (ours)  type=port name=rt_i 
+  golden: 13:42:13:50
+  ours:   13:38:13:46
+  walk parents: ref_module(u$x) < module_inst < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 72..84 ('>' = the object)
+  #72	6	constant				dut.sv	12	48	12	49	0	64	UINT:0	9		001
+  #73	2	port	o			dut.sv	12	67	12	68						000
+  #74	3	ref_obj	o		work@dut.o.o	dut.sv	12	67	12	68		0			work@dut.o.o	000
+  #75	3	ref_typespec			work@dut.o		0	0	0	0		0			work@dut.o	000
+  #76	4	logic_typespec				dut.sv	12	61	12	66						000
+  #77	2	ref_module	u$x	work@child		dut.sv	13	31	13	41						000
+> #78	3	port	rt_i			dut.sv	13	42	13	50						000
+  #79	4	ref_obj	a		work@dut.u$x.rt_i.a	dut.sv	13	48	13	49		0			work@dut.u$x.rt_i.a	000
+  #80	3	port	id_i			dut.sv	13	52	13	60						000
+  #81	4	ref_obj	i		work@dut.u$x.id_i.i	dut.sv	13	58	13	59		0			work@dut.u$x.id_i.i	000
+  #82	3	port	sel_o			dut.sv	13	62	13	71						000
+  #83	4	ref_obj	o		work@dut.u$x.sel_o.o	dut.sv	13	69	13	70		0			work@dut.u$x.sel_o.o	000
+  #84	1	module_inst	work@dut	work@dut		dut.sv	12	1	14	10						000
+
+--- OURS (B) records 72..84 ('>' = the object)
+  #72	6	constant				dut.sv	12	48	12	49	0	64	UINT:0	9		001
+  #73	2	port	o			dut.sv	12	67	12	68						000
+  #74	3	ref_obj	o		work@dut.o.o	dut.sv	12	67	12	68		0			work@dut.o.o	000
+  #75	3	ref_typespec			work@dut.o		0	0	0	0		0			work@dut.o	000
+  #76	4	logic_typespec				dut.sv	12	61	12	66						000
+  #77	2	ref_module	u$x	work@child		dut.sv	13	31	13	34						000
+> #78	3	port	rt_i			dut.sv	13	38	13	46						000
+  #79	4	ref_obj	a		work@dut.u$x.rt_i.a	dut.sv	13	44	13	45		0			work@dut.u$x.rt_i.a	000
+  #80	3	port	id_i			dut.sv	13	48	13	56						000
+  #81	4	ref_obj	i		work@dut.u$x.id_i.i	dut.sv	13	54	13	55		0			work@dut.u$x.id_i.i	000
+  #82	3	port	sel_o			dut.sv	13	58	13	67						000
+  #83	4	ref_obj	o		work@dut.u$x.sel_o.o	dut.sv	13	65	13	66		0			work@dut.u$x.sel_o.o	000
+  #84	1	module_inst	work@dut	work@dut		dut.sv	12	1	14	10						000
+
+facets of this row (16, first 25):
+  N2320 #77/77 ref_module u$x G[13:31:13:41] O[13:31:13:34]
+  N1953 #78/78 port rt_i G[13:42:13:50] O[13:38:13:46]
+  N0750 #79/79 ref_obj a G[13:48:13:49] O[13:44:13:45]
+  N1953 #80/80 port id_i G[13:52:13:60] O[13:48:13:56]
+  N0750 #81/81 ref_obj i G[13:58:13:59] O[13:54:13:55]
+  N1953 #82/82 port sel_o G[13:62:13:71] O[13:58:13:67]
+  N0750 #83/83 ref_obj o G[13:69:13:70] O[13:65:13:66]
+  N1952 #118/118 module_inst u$x G[13:3:13:73] O[13:3:13:69]
+  N0472 #124/124 ref_obj DEPTH G[work@child.rt_t.DEPTH] O[work@dut.u$x.rt_t.DEPTH]
+  N0470 #127/127 ref_typespec id_t G[work@dut.u$x.rt_i.id_t] O[work@dut.u$x.rt_t.id_t]
+  N0750 #171/171 ref_obj a G[13:48:13:49] O[13:44:13:45]
+  N0750 #172/172 ref_obj rt_i G[13:43:13:47] O[13:39:13:43]
+  N0750 #186/186 ref_obj i G[13:58:13:59] O[13:54:13:55]
+  N0750 #187/187 ref_obj id_i G[13:53:13:57] O[13:49:13:53]
+  N0750 #191/191 ref_obj o G[13:69:13:70] O[13:65:13:66]
+  N0750 #192/192 ref_obj sel_o G[13:63:13:68] O[13:59:13:64]

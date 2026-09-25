@@ -1,0 +1,64 @@
+cluster N0198 (map 5 id kept; OPEN): span|hier_path|endcol|under:if_stmt
+row: surelog/default/BuildUVMPkg  strict=differ:line(174)  records golden=201533 ours=201486
+object: #43341 (golden) / #43336 (ours)  type=hier_path name=this.locked 
+  golden: 71529:8:71529:19
+  ours:   71529:8:71529:12
+  walk parents: if_stmt < begin < function(uvm_vreg::Xlock_modelX) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 43335..43347 ('>' = the object)
+  #43335	4	method_func_call	this			uvm_pkg.sv	71521	9	71521	15		0				000
+  #43336	5	ref_obj	this		uvm_pkg::uvm_vreg::configure::this	uvm_pkg.sv	71521	25	71521	29		0			uvm_pkg::uvm_vreg::configure::this	000
+  #43337	5	constant				uvm_pkg.sv	71521	4	71521	8	this	4	STRING:this	6		000
+  #43338	2	function	uvm_vreg::Xlock_modelX		uvm_pkg::uvm_vreg::Xlock_modelX	uvm_pkg.sv	71528	1	71532	26					uvm_pkg::uvm_vreg::Xlock_modelX	000
+  #43339	3	begin			uvm_pkg::uvm_vreg::Xlock_modelX	uvm_pkg.sv	71531	4	71531	20					uvm_pkg::uvm_vreg::Xlock_modelX	000
+  #43340	4	if_stmt				uvm_pkg.sv	71529	4	71529	28						000
+> #43341	5	hier_path	this.locked			uvm_pkg.sv	71529	8	71529	19		0				000
+  #43342	6	ref_obj	this			uvm_pkg.sv	71529	13	71529	19		0				000
+  #43343	6	ref_obj	locked			uvm_pkg.sv	71529	13	71529	19		0				000
+  #43344	5	return_stmt				uvm_pkg.sv	71529	21	71529	27						000
+  #43345	4	assignment				uvm_pkg.sv	71531	4	71531	19						000
+  #43346	5	constant				uvm_pkg.sv	71531	18	71531	19	1	64	UINT:1	9		000
+  #43347	5	hier_path	this.locked			uvm_pkg.sv	71531	4	71531	8		0				000
+
+--- OURS (B) records 43330..43342 ('>' = the object)
+  #43330	4	method_func_call	this			uvm_pkg.sv	71521	9	71521	15		0				000
+  #43331	5	ref_obj	this		uvm_pkg::uvm_vreg::configure::this	uvm_pkg.sv	71521	25	71521	29		0			uvm_pkg::uvm_vreg::configure::this	000
+  #43332	5	constant				uvm_pkg.sv	71521	4	71521	8	this	4	STRING:this	6		000
+  #43333	2	function	uvm_vreg::Xlock_modelX		uvm_pkg::uvm_vreg::Xlock_modelX	uvm_pkg.sv	71528	1	71532	26					uvm_pkg::uvm_vreg::Xlock_modelX	000
+  #43334	3	begin			uvm_pkg::uvm_vreg::Xlock_modelX	uvm_pkg.sv	71531	4	71531	20					uvm_pkg::uvm_vreg::Xlock_modelX	000
+  #43335	4	if_stmt				uvm_pkg.sv	71529	4	71529	28						000
+> #43336	5	hier_path	this.locked			uvm_pkg.sv	71529	8	71529	12		0				000
+  #43337	6	ref_obj	this			uvm_pkg.sv	71529	8	71529	12		0				000
+  #43338	6	ref_obj	locked		uvm_pkg::uvm_vreg::Xlock_modelX::locked		0	0	0	0		0			uvm_pkg::uvm_vreg::Xlock_modelX::locked	000
+  #43339	5	return_stmt				uvm_pkg.sv	71529	21	71529	27						000
+  #43340	4	assignment				uvm_pkg.sv	71531	4	71531	19						000
+  #43341	5	constant				uvm_pkg.sv	71531	18	71531	19	1	64	UINT:1	9		000
+  #43342	5	hier_path	this.locked			uvm_pkg.sv	71531	4	71531	8		0				000
+
+facets of this row (9401, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

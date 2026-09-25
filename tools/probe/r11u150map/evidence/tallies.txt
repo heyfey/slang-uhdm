@@ -1,0 +1,10 @@
+surelog judge-equal 954 strict-equal 796 STRICT_NOTEQUAL 158
+   default 81 of 480
+   testflags 77 of 474
+   first fields: fullname 36, line 35, endcol 34, file 16, endline 13, col 8, name 6, depth 6, value 4
+uhdm2rtlil judge-equal 1606 strict-equal 1404 STRICT_NOTEQUAL 202
+   default 101 of 803
+   testflags 101 of 803
+   first fields: fullname 86, file 32, line 22, col 20, endline 10, depth 10, endcol 8, type 8, name 6
+probe judge-equal 4087 strict-equal 2308 STRICT_NOTEQUAL 1779
+   first fields: fullname 747, endcol 337, line 223, file 125, depth 102, type 94, col 57, endline 53, name 33, value 5, decompile 3

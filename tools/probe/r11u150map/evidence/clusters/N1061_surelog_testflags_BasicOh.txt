@@ -1,0 +1,61 @@
+cluster N1061 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.->|under:range
+row: surelog/testflags/BasicOh  strict=differ:fullname(22)  records golden=3837 ours=3837
+object: #644 (golden) / #644 (ours)  type=ref_obj name=AW OUT
+  golden: work@oh_fifo_async.wr_sync.AW
+  ours:   work@oh_fifo_async.AW
+  walk parents: range < module_array(wr_sync) < module_inst < design(work@oh_fifo_async)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 638..650 ('>' = the object)
+  #638	8	constant				oh_fifo_async.v	104	41	104	44	'd1	-1	DEC:1	1		000
+  #639	7	part_select	rd_addr	rd_addr	work@oh_fifo_async.rd_addr	oh_fifo_async.v	104	8	104	21		0			work@oh_fifo_async.rd_addr	000
+  #640	8	ref_obj	AW		work@oh_fifo_async.rd_addr.AW	oh_fifo_async.v	104	16	104	18		0			work@oh_fifo_async.rd_addr.AW	000
+  #641	8	constant				oh_fifo_async.v	104	19	104	20	0	64	UINT:0	9		000
+  #642	2	module_array	wr_sync		work@oh_dsync	oh_fifo_async.v	121	4	121	11					work@oh_dsync	000
+  #643	3	range				oh_fifo_async.v	121	11	121	17						000
+> #644	4	ref_obj	AW		work@oh_fifo_async.wr_sync.AW	oh_fifo_async.v	121	12	121	14		0			work@oh_fifo_async.wr_sync.AW	000
+  #645	4	constant				oh_fifo_async.v	121	15	121	16	0	64	UINT:0	9		000
+  #646	3	ref_typespec			work@oh_fifo_async.wr_sync		0	0	0	0		0			work@oh_fifo_async.wr_sync	000
+  #647	4	module_typespec	oh_dsync			oh_fifo_async.v	119	4	119	12						110
+  #648	3	port	dout			oh_fifo_async.v	121	19	121	52						000
+  #649	4	part_select	wr_addr_gray_sync	wr_addr_gray_sync	work@oh_fifo_async.wr_sync.dout.wr_addr_gray_sync	oh_fifo_async.v	121	28	121	51		0			work@oh_fifo_async.wr_sync.dout.wr_addr_gray_sync	000
+  #650	5	ref_obj	AW		work@oh_fifo_async.wr_sync.dout.wr_addr_gray_sync.AW	oh_fifo_async.v	121	46	121	48		0			work@oh_fifo_async.wr_sync.dout.wr_addr_gray_sync.AW	000
+
+--- OURS (B) records 638..650 ('>' = the object)
+  #638	8	constant				oh_fifo_async.v	104	41	104	44	'd1	-1	DEC:1	1		000
+  #639	7	part_select	rd_addr	rd_addr	work@oh_fifo_async.rd_addr	oh_fifo_async.v	104	8	104	21		0			work@oh_fifo_async.rd_addr	000
+  #640	8	ref_obj	AW		work@oh_fifo_async.AW	oh_fifo_async.v	104	16	104	18		0			work@oh_fifo_async.AW	000
+  #641	8	constant				oh_fifo_async.v	104	19	104	20	0	64	UINT:0	9		000
+  #642	2	module_array	wr_sync		work@oh_dsync	oh_fifo_async.v	121	4	121	11					work@oh_dsync	000
+  #643	3	range				oh_fifo_async.v	121	11	121	17						000
+> #644	4	ref_obj	AW		work@oh_fifo_async.AW	oh_fifo_async.v	121	12	121	14		0			work@oh_fifo_async.AW	000
+  #645	4	constant				oh_fifo_async.v	121	15	121	16	0	64	UINT:0	9		000
+  #646	3	ref_typespec			work@oh_fifo_async.wr_sync		0	0	0	0		0			work@oh_fifo_async.wr_sync	000
+  #647	4	module_typespec	oh_dsync			oh_fifo_async.v	119	4	119	12						110
+  #648	3	port	dout			oh_fifo_async.v	121	19	121	52						000
+  #649	4	part_select	wr_addr_gray_sync	wr_addr_gray_sync	work@oh_fifo_async.wr_sync.dout.wr_addr_gray_sync	oh_fifo_async.v	121	28	121	51		0			work@oh_fifo_async.wr_sync.dout.wr_addr_gray_sync	000
+  #650	5	ref_obj	AW		work@oh_fifo_async.wr_sync.dout.wr_addr_gray_sync.AW	oh_fifo_async.v	121	46	121	48		0			work@oh_fifo_async.wr_sync.dout.wr_addr_gray_sync.AW	000
+
+facets of this row (22, first 25):
+  N0076 #603/603 ref_obj AW G[work@oh_fifo_async.wr_addr.AW] O[work@oh_fifo_async.AW]
+  N0076 #610/610 ref_obj AW G[work@oh_fifo_async.wr_addr.AW] O[work@oh_fifo_async.AW]
+  N0076 #614/614 ref_obj AW G[work@oh_fifo_async.wr_addr.AW] O[work@oh_fifo_async.AW]
+  N0076 #629/629 ref_obj AW G[work@oh_fifo_async.rd_addr.AW] O[work@oh_fifo_async.AW]
+  N0076 #636/636 ref_obj AW G[work@oh_fifo_async.rd_addr.AW] O[work@oh_fifo_async.AW]
+  N0076 #640/640 ref_obj AW G[work@oh_fifo_async.rd_addr.AW] O[work@oh_fifo_async.AW]
+  N1061 #644/644 ref_obj AW G[work@oh_fifo_async.wr_sync.AW] O[work@oh_fifo_async.AW]
+  N1061 #662/662 ref_obj AW G[work@oh_fifo_async.rd_sync.AW] O[work@oh_fifo_async.AW]
+  N0076 #687/687 ref_obj AW G[work@oh_fifo_async.rd_addr_gray.AW] O[work@oh_fifo_async.AW]
+  N0076 #690/690 ref_obj AW G[work@oh_fifo_async.wr_addr_gray_sync.AW] O[work@oh_fifo_async.AW]
+  N0076 #826/826 ref_obj AW G[work@oh_fifo_async.wr_bin2gray.out.wr_addr_gray.AW] O[work@oh_fifo_async.wr_bin2gray.out.AW]
+  N0076 #830/830 ref_obj AW G[work@oh_fifo_async.wr_bin2gray.in.wr_addr.AW] O[work@oh_fifo_async.wr_bin2gray.in.AW]
+  N0076 #835/835 ref_obj AW G[work@oh_fifo_async.rd_bin2gray.out.rd_addr_gray.AW] O[work@oh_fifo_async.rd_bin2gray.out.AW]
+  N0076 #839/839 ref_obj AW G[work@oh_fifo_async.rd_bin2gray.in.rd_addr.AW] O[work@oh_fifo_async.rd_bin2gray.in.AW]
+  N0076 #1591/1591 ref_obj AW G[work@oh_fifo_async.wr_addr.AW] O[work@oh_fifo_async.AW]
+  N0076 #1598/1598 ref_obj AW G[work@oh_fifo_async.wr_addr.AW] O[work@oh_fifo_async.AW]
+  N0076 #1602/1602 ref_obj AW G[work@oh_fifo_async.wr_addr.AW] O[work@oh_fifo_async.AW]
+  N0076 #1617/1617 ref_obj AW G[work@oh_fifo_async.rd_addr.AW] O[work@oh_fifo_async.AW]
+  N0076 #1624/1624 ref_obj AW G[work@oh_fifo_async.rd_addr.AW] O[work@oh_fifo_async.AW]
+  N0076 #1628/1628 ref_obj AW G[work@oh_fifo_async.rd_addr.AW] O[work@oh_fifo_async.AW]
+  N0076 #3812/3812 ref_obj AW G[work@oh_fifo_async.rd_addr_gray.AW] O[work@oh_fifo_async.AW]
+  N0076 #3815/3815 ref_obj AW G[work@oh_fifo_async.wr_addr_gray_sync.AW] O[work@oh_fifo_async.AW]

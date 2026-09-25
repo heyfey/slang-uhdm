@@ -1,0 +1,31 @@
+cluster N0698 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id.id.id.id->id|under:cont_assign
+row: surelog/default/ComplexParamOverload  strict=differ:name(2)  records golden=546 ours=547
+object: #544 (golden) / #545 (ours)  type=ref_obj name=o OUT
+  golden: work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic.o
+  ours:   work@prim_generic.o
+  walk parents: cont_assign < module_inst(u_impl_generic) < module_inst(u_submodule) < module_inst(u_prim_pad_attr)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 538..545 ('>' = the object)
+  #538	8	int_typespec				dut.sv	28	14	28	17						000
+  #539	6	param_assign				dut.sv	28	18	28	38						000
+  #540	7	constant				dut.sv	28	37	28	38	32'b00000000000000000000000000010100	32	BIN:00000000000000000000000000010100	3		000
+  #541	8	ref_typespec			work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic		0	0	0	0		0			work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic	000
+  #542	9	int_typespec				dut.sv	28	14	28	17						000
+  #543	6	cont_assign				dut.sv	29	11	29	31						000
+> #544	7	ref_obj	o		work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic.o	dut.sv	29	11	29	12		0			work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic.o	000
+  #545	8	logic_net	o		work@prim_generic.o		29	11	29	12		0			work@prim_generic.o	000
+
+--- OURS (B) records 539..546 ('>' = the object)
+  #539	6	param_assign				dut.sv	28	18	28	38						000
+  #540	7	constant				dut.sv	28	37	28	38	32'b00000000000000000000000000010100	32	BIN:00000000000000000000000000010100	3		000
+  #541	8	ref_typespec			work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic		0	0	0	0		0			work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic	000
+  #542	9	int_typespec				dut.sv	28	14	28	17						000
+  #543	6	cont_assign				dut.sv	29	11	29	31						000
+  #544	7	ref_obj	PadTypeInGeneric		work@prim_generic.PadTypeInGeneric	dut.sv	29	15	29	31		0			work@prim_generic.PadTypeInGeneric	000
+> #545	7	ref_obj	o		work@prim_generic.o	dut.sv	29	11	29	12		0			work@prim_generic.o	000
+  #546	8	logic_net	o		work@prim_generic.o		29	11	29	12		0			work@prim_generic.o	000
+
+facets of this row (2, first 25):
+  N0739 #-1/544 ref_obj PadTypeInGeneric G[] O[1 objs]
+  N0698 #544/545 ref_obj o G[work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic.o] O[work@prim_generic.o]

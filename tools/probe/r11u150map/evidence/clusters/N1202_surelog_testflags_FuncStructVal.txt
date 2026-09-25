@@ -1,0 +1,64 @@
+cluster N1202 (map 5 id kept; OPEN): struct|ours-only:fewer-copies|io_decl|under:ref_obj
+row: surelog/testflags/FuncStructVal  strict=differ:endcol(377)  records golden=45362 ours=43270
+object: #-1 (golden) / #40367 (ours)  type=io_decl name=CVA6Cfg 
+  golden: 
+  ours:   240 objs
+  walk parents: ref_obj(CVA6Cfg) < hier_path(CVA6Cfg.NrNonIdempotentRules) < operation < typespec_member(NonIdemPotenceEn)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 40361..40373 ('>' = the object)
+  #40361	5	typespec_member	NonIdemPotenceEn			dut.sv	372	34	372	50						001
+  #40362	6	ref_typespec			<in>config_pkg::cva6_cfg_t.NonIdemPotenceEn		0	0	0	0		0			config_pkg::config_pkg::cva6_cfg_t::NonIdemPotenceEn	001
+  #40363	7	bit_typespec				dut.sv	372	5	372	8						001
+  #40364	6	operation				dut.sv	568	28	568	87		0				001
+  #40365	7	hier_path	CVA6Cfg.NrNonIdempotentRules			dut.sv	568	28	568	56		0				001
+  #40366	8	ref_obj	CVA6Cfg			dut.sv	568	28	568	35		0				001
+> #40367	9	io_decl	CVA6Cfg			dut.sv	468	86	468	93						001
+  #40368	10	ref_typespec			build_config_pkg::build_config::CVA6Cfg		0	0	0	0		0			build_config_pkg::build_config::CVA6Cfg	001
+  #40369	11	struct_typespec	config_pkg::cva6_user_cfg_t			dut.sv	176	11	293	4						001
+  #40370	12	typespec_member	XLEN			dut.sv	178	34	178	38						001
+  #40371	13	ref_typespec			<in>config_pkg::cva6_user_cfg_t.XLEN		0	0	0	0		0			config_pkg::config_pkg::cva6_user_cfg_t::XLEN	001
+  #40372	14	int_typespec				dut.sv	178	5	178	17						001
+  #40373	12	typespec_member	FPGA_EN			dut.sv	180	34	180	41						001
+
+--- the holder #40366 on the other side: exact-record matches at [14871, 15358, 41521, 42008, 43418]
+  #14868	7	bit_typespec				dut.sv	372	5	372	8						001
+  #14869	6	operation				dut.sv	568	28	568	87		0				001
+  #14870	7	hier_path	CVA6Cfg.NrNonIdempotentRules			dut.sv	568	28	568	56		0				001
+> #14871	8	ref_obj	CVA6Cfg			dut.sv	568	28	568	35		0				001
+  #14872	9	io_decl	CVA6Cfg			dut.sv	468	86	468	93						001
+  #14873	10	ref_typespec			build_config_pkg::build_config::CVA6Cfg		0	0	0	0		0			build_config_pkg::build_config::CVA6Cfg	001
+  #14874	11	struct_typespec	config_pkg::cva6_user_cfg_t			dut.sv	468	58	468	70						001
+  #14875	12	typespec_member	XLEN			dut.sv	178	34	178	38						001
+  #14876	13	ref_typespec			<in>config_pkg::cva6_user_cfg_t.XLEN		0	0	0	0		0			config_pkg::config_pkg::cva6_user_cfg_t::XLEN	001
+  #14877	14	int_typespec				dut.sv	178	5	178	17						001
+  #14878	12	typespec_member	FPGA_EN			dut.sv	180	34	180	41						001
+  #14879	13	ref_typespec			<in>config_pkg::cva6_user_cfg_t.FPGA_EN		0	0	0	0		0			config_pkg::config_pkg::cva6_user_cfg_t::FPGA_EN	001
+  #14880	14	bit_typespec				dut.sv	180	5	180	8						001
+
+facets of this row (5102, first 25):
+  N0045 #14385/-1 constant  G[3 objs] O[]
+  N0045 #14388/-1 constant  G[3 objs] O[]
+  N0045 #14424/-1 constant  G[1 objs] O[]
+  N0045 #14425/-1 constant  G[1 objs] O[]
+  N0045 #14429/-1 constant  G[3 objs] O[]
+  N0045 #14432/-1 constant  G[3 objs] O[]
+  N0045 #14438/-1 constant  G[3 objs] O[]
+  N0045 #14441/-1 constant  G[3 objs] O[]
+  N0045 #14447/-1 constant  G[3 objs] O[]
+  N0045 #14450/-1 constant  G[3 objs] O[]
+  N0045 #14456/-1 constant  G[3 objs] O[]
+  N0045 #14459/-1 constant  G[3 objs] O[]
+  N0045 #14465/-1 constant  G[3 objs] O[]
+  N0045 #14468/-1 constant  G[3 objs] O[]
+  N0045 #14474/-1 constant  G[3 objs] O[]
+  N0045 #14477/-1 constant  G[3 objs] O[]
+  N0045 #14483/-1 constant  G[3 objs] O[]
+  N0045 #14486/-1 constant  G[3 objs] O[]
+  N0045 #14492/-1 constant  G[1 objs] O[]
+  N0045 #14493/-1 constant  G[1 objs] O[]
+  N0045 #14497/-1 constant  G[1 objs] O[]
+  N0045 #14498/-1 constant  G[1 objs] O[]
+  N0045 #14502/-1 constant  G[1 objs] O[]
+  N0045 #14503/-1 constant  G[1 objs] O[]
+  N0045 #14507/-1 constant  G[1 objs] O[]

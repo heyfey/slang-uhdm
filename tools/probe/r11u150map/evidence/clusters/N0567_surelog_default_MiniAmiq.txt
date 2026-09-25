@@ -1,0 +1,64 @@
+cluster N0567 (map 5 id kept; OPEN): struct|golden-only:fewer-copies|bit_var|under:assignment
+row: surelog/default/MiniAmiq  strict=differ:line(190)  records golden=435559 ours=413982
+object: #79960 (golden) / #-1 (ours)  type=bit_var name=need_to_check_all 
+  golden: 3 objs
+  ours:   
+  walk parents: assignment < begin < task(uvm_phase::wait_for_self_and_siblings_to_drop) < package(svaunit_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 79954..79966 ('>' = the object)
+  #79954	8	bit_typespec				uvm_phase.svh	2131	3	2131	6						001
+  #79955	5	bit_var			svaunit_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings	uvm_phase.svh	2131	7	2131	15		0			svaunit_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings	000
+  #79956	6	ref_typespec			svaunit_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings		0	0	0	0		0			svaunit_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings	000
+  #79957	7	bit_typespec				uvm_phase.svh	2131	3	2131	6						000
+  #79958	4	assignment				uvm_phase.svh	2128	7	2128	28						000
+  #79959	5	constant				uvm_phase.svh	2128	27	2128	28	1	64	UINT:1	9		000
+> #79960	5	bit_var	need_to_check_all		svaunit_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::need_to_check_all	uvm_phase.svh	2128	7	2128	24		0			svaunit_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::need_to_check_all	000
+  #79961	6	ref_typespec			svaunit_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::need_to_check_all		0	0	0	0		0			svaunit_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::need_to_check_all	000
+  #79962	7	bit_typespec				uvm_phase.svh	2128	3	2128	6						000
+  #79963	4	assignment				uvm_phase.svh	2133	3	2133	32						000
+  #79964	5	ref_obj	uvm_coreservice_t::get		svaunit_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::uvm_coreservice_t::get	uvm_phase.svh	2133	8	2133	27		0			svaunit_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::uvm_coreservice_t::get	000
+  #79965	5	ref_obj	cs		svaunit_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::cs	uvm_phase.svh	2133	3	2133	5		0			svaunit_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::cs	000
+  #79966	6	class_var	cs		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::cs	uvm_phase.svh	2130	21	2130	23		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::cs	000
+
+--- the holder #79958 on the other side: exact-record matches at [15042, 78772, 300292, 362121]
+  #15039	5	ref_typespec			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings		0	0	0	0		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings	000
+  #15040	6	bit_typespec				uvm_phase.svh	2131	3	2131	6						000
+  #15041	3	begin			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop	uvm_phase.svh	2129	3	2129	16					uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop	000
+> #15042	4	assignment				uvm_phase.svh	2128	7	2128	28						000
+  #15043	5	constant				uvm_phase.svh	2128	27	2128	28	1	64	UINT:1	9		000
+  #15044	4	assignment				uvm_phase.svh	2133	3	2133	32						000
+  #15045	5	ref_obj	uvm_coreservice_t::get		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::uvm_coreservice_t::get	uvm_phase.svh	2133	8	2133	27		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::uvm_coreservice_t::get	000
+  #15046	5	ref_obj	cs		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::cs	uvm_phase.svh	2133	3	2133	5		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::cs	000
+  #15047	4	assignment				uvm_phase.svh	2134	3	2134	22						000
+  #15048	5	hier_path	cs.get_root			uvm_phase.svh	2134	9	2134	22		0				000
+  #15049	6	ref_obj	cs			uvm_phase.svh	2134	9	2134	11		0				000
+  #15050	6	method_func_call	get_root			uvm_phase.svh	2134	12	2134	20		0				000
+  #15051	5	ref_obj	top		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::top	uvm_phase.svh	2134	3	2134	6		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::top	000
+
+facets of this row (55336, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

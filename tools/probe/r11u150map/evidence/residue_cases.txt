@@ -1,0 +1,24 @@
+r11v140repro_plv_v05_task cmp=0 STRICT_NOTEQUAL fullname first=NEW:fullname|ref_obj|tok:id[id].id[id].->|under:bit_select NEW:fullname|ref_obj|tok:id[id].id[id].->|under:bit_select:2
+r11v140repro_plv_v07_basesel_opidx cmp=0 STRICT_NOTEQUAL fullname first=NEW:fullname|ref_obj|tok:id[id ^ n].id[id].->|under:operation NEW:fullname|ref_obj|tok:id[id ^ n].id[id].->|under:operation:2
+r11v140repro_plv_v11_incdec cmp=0 STRICT_NOTEQUAL col first=N0001 N0001:2 N0061:2
+r11v140repro_stm_b05_comment cmp=0 STRICT_NOTEQUAL col first=N0551 N0551:2
+r11v140repro_stm_b04_macro cmp=0 STRICT_NOTEQUAL col first=N0551 N0551:2
+r11v140repro_sca_a25_nested_bitsel_in_range cmp=0 STRICT_NOTEQUAL col first=N0036 N0036:2
+r11u137repro_grid_hb_hb07_port_range cmp=0 STRICT_NOTEQUAL col first=N0001 N0001:2 N0007:2
+v11u144repro_brk_hg_x1 cmp=0 STRICT_NOTEQUAL fullname first=NEW:fullname|ref_obj|tok:id[id].id.id.->|under:bit_select NEW:fullname|ref_obj|tok:id[id].id.id.->|under:bit_select:2 N0427:2
+v11u144repro_brk_hg_x2 cmp=0 STRICT_NOTEQUAL fullname first=NEW:fullname|ref_obj|tok:id[id * n + id].id.id.->|under:operation NEW:fullname|ref_obj|tok:id[id * n + id].id.id.->|under:operation:8
+v11u144repro_brk_hg_x4 cmp=0 STRICT_NOTEQUAL endcol first=N0276 N0061:3 N0276:2 NEW:fullname|ref_obj|tok:id[id].id[n].->|under:bit_select:2 N2069:1
+v11u144repro_brk_hg_x5 cmp=0 STRICT_NOTEQUAL fullname first=N0427 N0427:2
+v11u144repro_brk_fb_x4 cmp=0 STRICT_NOTEQUAL fullname first=N0129 N0129:1
+v11u144repro_brk_el_x3 cmp=0 STRICT_NOTEQUAL fullname first=N1017 N1017:1
+v11u144repro_brk_pf_x3 cmp=0 STRICT_NOTEQUAL endcol first=N0681 N0681:1
+v11u144repro_brk_pf_x4 cmp=0 STRICT_NOTEQUAL file first=N1169 N1169:1 N0681:1
+r11u149verify_cases_el_n08_nested_gen_member cmp=0 STRICT_NOTEQUAL endcol first=N0276 N0276:2 NEW:fullname|ref_obj|tok:id@id.id->id[id].id[n]|under:hier_path:2 N0030:2
+r11u139netbind_cases_pc_pc31_bitsel_first_pos cmp=0 STRICT_NOTEQUAL col first=N0568 N0568:1
+r11u139netbind_cases_pc_pc33_sel_index_whole cmp=0 STRICT_NOTEQUAL fullname first=N0525 N0525:1 N0562:1
+r11u148share_cases_E_e12_local_packed_arg cmp=0 STRICT_NOTEQUAL type first=N0133 N1108:1 N0133:1 N0261:1
+r11u148share_cases_E_f08_param_arith cmp=0 STRICT_NOTEQUAL type first=N0133 N1108:1 N0133:1 N0261:1
+v11u144repro_brk_el_x1_elab cmp=0 STRICT_NOTEQUAL endcol first=NEW:span|constant|endcol|under:indexed_part_select NEW:span|constant|endcol|under:indexed_part_select:8
+v11u144repro_brk_el_x3_elab cmp=0 STRICT_NOTEQUAL fullname first=N1017 N1017:1
+r11u149verify_cases_el_n06_inst_array_prop_elab cmp=0 STRICT_NOTEQUAL fullname first=NEW:fullname|property_decl|tok:id.id[n]->id|under:module_inst NEW:fullname|ref_obj|tok:id.id[n]->id|under:operation:6 NEW:fullname|property_decl|tok:id.id[n]->id|under:module_inst:1 NEW:fullname|assert_stmt|tok:id.id[n]->id|under:module_inst:1 NEW:fullname|ref_obj|tok:id.id[n]->id|under:property_spec:1 NEW:fullname|property_decl|tok:id.id[n]->id|under:ref_obj:1
+r11u149verify_cases_el_n08_nested_gen_member_elab cmp=0 STRICT_NOTEQUAL endcol first=N0276 N0276:2 NEW:fullname|ref_obj|tok:id@id.id->id[id].id[n]|under:hier_path:2 N0030:2

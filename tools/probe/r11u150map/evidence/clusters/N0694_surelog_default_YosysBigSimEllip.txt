@@ -1,0 +1,64 @@
+cluster N0694 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id.id.->|under:part_select
+row: surelog/default/YosysBigSimEllip  strict=differ:fullname(3038)  records golden=681189 ours=681181
+object: #17359 (golden) / #17359 (ours)  type=ref_obj name=i OUT
+  golden: work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].m.A.A.i
+  ours:   work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].i
+  walk parents: part_select(A) < port(A) < module_inst(m) < gen_scope
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 17353..17365 ('>' = the object)
+  #17353	14	constant				f3.v	48	15	48	16	0	64	UINT:0	9		001
+  #17354	10	port	A			f3.v	45	16	45	17						000
+  #17355	11	part_select	A	A	work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].m.A.A	f3m.v	604	19	604	27		0			work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].m.A.A	000
+  #17356	12	operation				f3m.v	604	21	604	24		0				000
+  #17357	13	ref_obj	i		work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].m.A.A.i	f3m.v	604	21	604	22		0			work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].m.A.A.i	000
+  #17358	13	constant				f3m.v	604	23	604	24	1	64	UINT:1	9		000
+> #17359	12	ref_obj	i		work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].m.A.A.i	f3m.v	604	25	604	26		0			work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].m.A.A.i	000
+  #17360	11	ref_obj	A		work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].m.A	f3.v	45	16	45	17		0			work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].m.A	000
+  #17361	11	ref_typespec			work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].m.A		0	0	0	0		0			work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].m.A	000
+  #17362	12	logic_typespec				f3.v	46	11	46	16						000
+  #17363	13	range				f3.v	46	11	46	16						001
+  #17364	14	constant				f3.v	46	12	46	13	1	64	UINT:1	9		001
+  #17365	14	constant				f3.v	46	14	46	15	0	64	UINT:0	9		001
+
+--- OURS (B) records 17353..17365 ('>' = the object)
+  #17353	14	constant				f3.v	48	15	48	16	0	64	UINT:0	9		001
+  #17354	10	port	A			f3.v	45	16	45	17						000
+  #17355	11	part_select	A	A	work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].A	f3m.v	604	19	604	27		0			work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].A	000
+  #17356	12	operation				f3m.v	604	21	604	24		0				000
+  #17357	13	ref_obj	i		work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].A.i	f3m.v	604	21	604	22		0			work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].A.i	000
+  #17358	13	constant				f3m.v	604	23	604	24	1	64	UINT:1	9		000
+> #17359	12	ref_obj	i		work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].i	f3m.v	604	25	604	26		0			work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].i	000
+  #17360	11	ref_obj	A		work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].m.A	f3.v	45	16	45	17		0			work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].m.A	000
+  #17361	11	ref_typespec			work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].m.A		0	0	0	0		0			work@point_scalar_mult.ins1.ins10.ins1.ins1.f.label[0].m.A	000
+  #17362	12	logic_typespec				f3.v	46	11	46	16						000
+  #17363	13	range				f3.v	46	11	46	16						001
+  #17364	14	constant				f3.v	46	12	46	13	1	64	UINT:1	9		001
+  #17365	14	constant				f3.v	46	14	46	15	0	64	UINT:0	9		001
+
+facets of this row (22693, first 25):
+  N0284 #-1/70374 constant  G[] O[1 objs]
+  N0006 #86781/-1 logic_net w135 G[6 objs] O[]
+  N0006 #86788/-1 logic_net w141 G[6 objs] O[]
+  N0022 #143920/-1 logic_net w17 G[6 objs] O[]
+  N0022 #144203/-1 logic_net w19 G[6 objs] O[]
+  N0022 #144486/-1 logic_net w21 G[6 objs] O[]
+  N0022 #144769/-1 logic_net w23 G[6 objs] O[]
+  N0022 #145190/-1 logic_net w26 G[6 objs] O[]
+  N0022 #145611/-1 logic_net w29 G[6 objs] O[]
+  N0022 #146032/-1 logic_net w32 G[6 objs] O[]
+  N0022 #146453/-1 logic_net w35 G[6 objs] O[]
+  N0022 #146874/-1 logic_net w38 G[6 objs] O[]
+  N0022 #147295/-1 logic_net w41 G[6 objs] O[]
+  N0022 #147716/-1 logic_net w44 G[6 objs] O[]
+  N0022 #148137/-1 logic_net w47 G[6 objs] O[]
+  N0022 #148420/-1 logic_net w49 G[6 objs] O[]
+  N0022 #148703/-1 logic_net w51 G[6 objs] O[]
+  N0022 #148986/-1 logic_net w53 G[6 objs] O[]
+  N0022 #149269/-1 logic_net w55 G[6 objs] O[]
+  N0022 #149552/-1 logic_net w57 G[6 objs] O[]
+  N0022 #149835/-1 logic_net w59 G[6 objs] O[]
+  N0022 #150118/-1 logic_net w61 G[6 objs] O[]
+  N0022 #150401/-1 logic_net w63 G[6 objs] O[]
+  N0022 #150684/-1 logic_net w65 G[6 objs] O[]
+  N0022 #150967/-1 logic_net w67 G[6 objs] O[]

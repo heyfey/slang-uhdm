@@ -1,0 +1,47 @@
+cluster N0409 (map 5 id kept; OPEN): span|enum_typespec|line+col+endline+endcol|under:module_inst
+row: surelog/testflags/FuncCase  strict=differ:line(8)  records golden=231 ours=231
+object: #112 (golden) / #112 (ours)  type=enum_typespec name=fpnew_pkg::opgroup_e 
+  golden: 7:46:7:55
+  ours:   2:1:4:15
+  walk parents: module_inst < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 106..118 ('>' = the object)
+  #106	1	module_inst		work@top	work@top	dut.sv	22	1	30	10					work@top	000
+  #107	2	parameter	p		work@top.p	dut.sv	25	14	25	15		0			work@top.p	000
+  #108	2	param_assign				dut.sv	25	14	25	39						000
+  #109	3	func_call	num_operands			dut.sv	25	18	25	30		0				000
+  #110	4	ref_obj	DIVSQRT		work@top.DIVSQRT	dut.sv	25	31	25	38		0			work@top.DIVSQRT	000
+  #111	5	enum_const	DIVSQRT			dut.sv	3	13	3	20						010
+> #112	2	enum_typespec	fpnew_pkg::opgroup_e			dut.sv	7	46	7	55						010
+  #113	3	ref_typespec			<in>fpnew_pkg::opgroup_e		0	0	0	0		0			work@top.fpnew_pkg::opgroup_e	001
+  #114	4	logic_typespec				dut.sv	2	14	2	25						001
+  #115	5	range				dut.sv	2	20	2	25						001
+  #116	6	constant				dut.sv	2	21	2	22	1	64	UINT:1	9		001
+  #117	6	constant				dut.sv	2	23	2	24	0	64	UINT:0	9		001
+  #118	3	enum_const	ADDMUL			dut.sv	3	5	3	11						001
+
+--- OURS (B) records 106..118 ('>' = the object)
+  #106	1	module_inst		work@top	work@top	dut.sv	22	1	30	10					work@top	000
+  #107	2	parameter	p		work@top.p	dut.sv	25	14	25	15		0			work@top.p	000
+  #108	2	param_assign				dut.sv	25	14	25	39						000
+  #109	3	func_call	num_operands			dut.sv	25	18	25	30		0				000
+  #110	4	ref_obj	DIVSQRT		work@top.DIVSQRT	dut.sv	25	31	25	38		0			work@top.DIVSQRT	000
+  #111	5	enum_const	DIVSQRT			dut.sv	3	13	3	20						010
+> #112	2	enum_typespec	fpnew_pkg::opgroup_e			dut.sv	2	1	4	15						010
+  #113	3	ref_typespec			<in>fpnew_pkg::opgroup_e		0	0	0	0		0			work@top.fpnew_pkg::opgroup_e	001
+  #114	4	logic_typespec				dut.sv	2	14	2	25						001
+  #115	5	range				dut.sv	2	20	2	25						001
+  #116	6	constant				dut.sv	2	21	2	22	1	64	UINT:1	9		001
+  #117	6	constant				dut.sv	2	23	2	24	0	64	UINT:0	9		001
+  #118	3	enum_const	ADDMUL			dut.sv	3	5	3	11						001
+
+facets of this row (8, first 25):
+  N0075 #2/2 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  N0266 #18/18 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  N0075 #54/54 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  N0266 #70/70 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  N0409 #112/112 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  N0266 #130/130 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  N0409 #175/175 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]
+  N0266 #193/193 enum_typespec fpnew_pkg::opgroup_e G[7:46:7:55] O[2:1:4:15]

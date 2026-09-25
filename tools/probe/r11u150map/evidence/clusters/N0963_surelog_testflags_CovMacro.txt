@@ -1,0 +1,64 @@
+cluster N0963 (map 5 id kept; OPEN): span|constant|col+endcol|under:sys_func_call
+row: surelog/testflags/CovMacro  strict=differ:endcol(118)  records golden=264 ours=264
+object: #115 (golden) / #115 (ours)  type=constant name= 
+  golden: 13:42:13:47
+  ours:   13:78:13:83
+  walk parents: sys_func_call($coverage_control) < assignment < begin < initial
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 109..121 ('>' = the object)
+  #109	5	ref_obj	i		work@top.i	dut.sv	12	9	12	10		0			work@top.i	000
+  #110	4	assignment				dut.sv	13	9	13	48						000
+  #111	5	sys_func_call	$coverage_control			dut.sv	13	13	13	48		0				000
+  #112	6	constant				dut.sv	13	31	13	32	2	64	UINT:2	9		000
+  #113	6	constant				dut.sv	13	34	13	36	23	64	UINT:23	9		000
+  #114	6	constant				dut.sv	13	38	13	40	10	64	UINT:10	9		000
+> #115	6	constant				dut.sv	13	42	13	47	"DUT"	24	STRING:DUT	6		000
+  #116	5	ref_obj	i		work@top.i	dut.sv	13	9	13	10		0			work@top.i	000
+  #117	4	assignment				dut.sv	14	9	14	58						000
+  #118	5	sys_func_call	$coverage_control			dut.sv	14	13	14	58		0				000
+  #119	6	constant				dut.sv	14	31	14	32	2	64	UINT:2	9		000
+  #120	6	constant				dut.sv	14	34	14	36	23	64	UINT:23	9		000
+  #121	6	constant				dut.sv	14	38	14	40	10	64	UINT:10	9		000
+
+--- OURS (B) records 109..121 ('>' = the object)
+  #109	5	ref_obj	i		work@top.i	dut.sv	12	9	12	10		0			work@top.i	000
+  #110	4	assignment				dut.sv	13	9	13	84						000
+  #111	5	sys_func_call	$coverage_control			dut.sv	13	13	13	84		0				000
+  #112	6	constant				dut.sv	13	31	0	0	2	64	UINT:2	9		000
+  #113	6	constant				dut.sv	13	46	0	0	23	64	UINT:23	9		000
+  #114	6	constant				dut.sv	13	62	0	0	10	64	UINT:10	9		000
+> #115	6	constant				dut.sv	13	78	13	83	"DUT"	24	STRING:DUT	6		000
+  #116	5	ref_obj	i		work@top.i	dut.sv	13	9	13	10		0			work@top.i	000
+  #117	4	assignment				dut.sv	14	9	14	94						000
+  #118	5	sys_func_call	$coverage_control			dut.sv	14	13	14	94		0				000
+  #119	6	constant				dut.sv	14	31	0	0	2	64	UINT:2	9		000
+  #120	6	constant				dut.sv	14	46	0	0	23	64	UINT:23	9		000
+  #121	6	constant				dut.sv	14	62	0	0	10	64	UINT:10	9		000
+
+facets of this row (134, first 25):
+  N0054 #101/101 assignment  G[12:9:12:52] O[12:9:12:86]
+  N0424 #102/102 sys_func_call $coverage_control G[12:13:12:52] O[12:13:12:86]
+  N0017 #103/103 constant  G[12:31:12:32] O[12:31:0:0]
+  N0934 #104/104 constant  G[12:34:12:36] O[12:46:0:0]
+  N0934 #105/105 constant  G[12:38:12:40] O[12:62:0:0]
+  N0977 #106/106 hier_path $root.top G[work@top.$root.top] O[]
+  N0243 #106/106 hier_path $root.top G[12:42:12:51] O[12:76:12:85]
+  N0001 #107/107 ref_obj $root G[12:48:12:51] O[12:76:12:81]
+  N0007 #108/108 ref_obj top G[] O[work@top.top]
+  N0001 #108/108 ref_obj top G[12:48:12:51] O[12:82:12:85]
+  N0054 #110/110 assignment  G[13:9:13:48] O[13:9:13:84]
+  N0424 #111/111 sys_func_call $coverage_control G[13:13:13:48] O[13:13:13:84]
+  N0017 #112/112 constant  G[13:31:13:32] O[13:31:0:0]
+  N0934 #113/113 constant  G[13:34:13:36] O[13:46:0:0]
+  N0934 #114/114 constant  G[13:38:13:40] O[13:62:0:0]
+  N0963 #115/115 constant  G[13:42:13:47] O[13:78:13:83]
+  N0054 #117/117 assignment  G[14:9:14:58] O[14:9:14:94]
+  N0424 #118/118 sys_func_call $coverage_control G[14:13:14:58] O[14:13:14:94]
+  N0017 #119/119 constant  G[14:31:14:32] O[14:31:0:0]
+  N0934 #120/120 constant  G[14:34:14:36] O[14:46:0:0]
+  N0934 #121/121 constant  G[14:38:14:40] O[14:62:0:0]
+  N0977 #122/122 hier_path $root.top.unit1 G[work@top.$root.top.unit1] O[]
+  N0243 #122/122 hier_path $root.top.unit1 G[14:42:14:57] O[14:78:14:93]
+  N0001 #123/123 ref_obj $root G[14:48:14:51] O[14:78:14:83]
+  N0001 #124/124 ref_obj top G[14:48:14:51] O[14:84:14:87]

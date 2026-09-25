@@ -1,0 +1,51 @@
+cluster N0951 (map 5 id kept; OPEN): struct|golden-only:elsewhere|parameter|under:ref_obj
+row: surelog/testflags/BlackBePipeInt  strict=differ:fullname(2)  records golden=338504 ours=340984
+object: #38803 (golden) / #-1 (ours)  type=parameter name=dev_addr_width_gp 
+  golden: 3 objs
+  ours:   
+  walk parents: ref_obj(dev_addr_width_gp) < int_typespec < ref_typespec < parameter(dev_addr_width_gp)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 38797..38809 ('>' = the object)
+  #38797	3	ref_typespec			bp_be_pkg::debug_reg_match_addr_gp		0	0	0	0		0			bp_be_pkg::debug_reg_match_addr_gp	000
+  #38798	4	int_typespec				dut.sv	14656	1	14656	69						000
+  #38799	2	parameter	dev_addr_width_gp		bp_be_pkg::dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20		bp_be_pkg::dev_addr_width_gp	000
+  #38800	3	ref_typespec			bp_be_pkg::dev_addr_width_gp		0	0	0	0		0			bp_be_pkg::dev_addr_width_gp	000
+  #38801	4	int_typespec				dut.sv	1793	1	1793	34						000
+  #38802	5	ref_obj	dev_addr_width_gp				0	0	0	0		0				001
+> #38803	6	parameter	dev_addr_width_gp		work@bp_be_pipe_int.dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20		work@bp_be_pipe_int.dev_addr_width_gp	001
+  #38804	7	ref_typespec			work@bp_be_pipe_int.dev_addr_width_gp		0	0	0	0		0			work@bp_be_pipe_int.dev_addr_width_gp	001
+  #38805	8	int_typespec				dut.sv	1793	1	1793	34						001
+  #38806	2	parameter	dev_id_width_gp		bp_be_pkg::dev_id_width_gp	dut.sv	1792	12	1792	27		0	UINT:4		bp_be_pkg::dev_id_width_gp	000
+  #38807	3	ref_typespec			bp_be_pkg::dev_id_width_gp		0	0	0	0		0			bp_be_pkg::dev_id_width_gp	000
+  #38808	4	int_typespec				dut.sv	1792	1	1792	33						000
+  #38809	2	parameter	dram_base_addr_gp		bp_be_pkg::dram_base_addr_gp	dut.sv	1809	12	1809	29		0	HEX:0080000000		bp_be_pkg::dram_base_addr_gp	000
+
+--- the holder #38802 on the other side: exact-record matches at []
+
+facets of this row (57137, first 25):
+  N0897 #-1/66 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/14409 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15104 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15118 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15132 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15146 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15160 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15174 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15188 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15202 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15216 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15230 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15244 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15258 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15272 parameter dev_addr_width_gp G[] O[8 objs]
+  N0868 #-1/15388 constant  G[] O[1 objs]
+  N0868 #-1/15392 constant  G[] O[1 objs]
+  N0868 #-1/15396 constant  G[] O[1 objs]
+  N0868 #-1/15400 constant  G[] O[1 objs]
+  N0868 #-1/15404 constant  G[] O[1 objs]
+  N0868 #-1/15408 constant  G[] O[1 objs]
+  N0868 #-1/15412 constant  G[] O[1 objs]
+  N0868 #-1/15416 constant  G[] O[1 objs]
+  N0868 #-1/15420 constant  G[] O[1 objs]
+  N0868 #-1/15424 constant  G[] O[1 objs]

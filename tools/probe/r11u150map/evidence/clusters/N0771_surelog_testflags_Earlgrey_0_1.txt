@@ -1,0 +1,64 @@
+cluster N0771 (map 5 id kept; OPEN): span|param_assign|endcol|under:module_inst
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #52019 (golden) / #52019 (ours)  type=param_assign name= 
+  golden: 183:25:183:47
+  ours:   183:25:183:48
+  walk parents: module_inst < design(work@prim_sync_reqack)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 52013..52025 ('>' = the object)
+  #52013	3	constant				aes_reg_pkg.sv	12	31	12	32	4	32	UINT:4	9		000
+  #52014	4	ref_typespec			work@aes		0	0	0	0		0			work@aes	000
+  #52015	5	int_typespec				aes_reg_pkg.sv	12	13	12	16						000
+  #52016	3	parameter	NumRegsData		work@aes.NumRegsData	aes_reg_pkg.sv	12	17	12	28		0	UINT:4		work@aes.NumRegsData	000
+  #52017	4	ref_typespec			work@aes.NumRegsData		0	0	0	0		0			work@aes.NumRegsData	000
+  #52018	5	int_typespec				aes_reg_pkg.sv	12	13	12	16						000
+> #52019	2	param_assign				aes_reg_pkg.sv	183	25	183	47						000
+  #52020	3	constant				aes_reg_pkg.sv	183	43	183	47	7'h0	7	HEX:0	5		000
+  #52021	4	ref_typespec			work@aes		0	0	0	0		0			work@aes	000
+  #52022	5	logic_typespec				aes_reg_pkg.sv	183	13	183	24						000
+  #52023	6	range				aes_reg_pkg.sv	183	19	183	24						001
+  #52024	7	constant				aes_reg_pkg.sv	183	20	183	21	6	64	UINT:6	9		001
+  #52025	7	constant				aes_reg_pkg.sv	183	22	183	23	0	64	UINT:0	9		001
+
+--- OURS (B) records 52013..52025 ('>' = the object)
+  #52013	3	constant				aes_reg_pkg.sv	12	31	12	32	4	32	UINT:4	9		000
+  #52014	4	ref_typespec			work@aes		0	0	0	0		0			work@aes	000
+  #52015	5	int_typespec				aes_reg_pkg.sv	12	13	12	16						000
+  #52016	3	parameter	NumRegsData		work@aes.NumRegsData	aes_reg_pkg.sv	12	17	12	28		0	UINT:4		work@aes.NumRegsData	000
+  #52017	4	ref_typespec			work@aes.NumRegsData		0	0	0	0		0			work@aes.NumRegsData	000
+  #52018	5	int_typespec				aes_reg_pkg.sv	12	13	12	16						000
+> #52019	2	param_assign				aes_reg_pkg.sv	183	25	183	48						000
+  #52020	3	constant				aes_reg_pkg.sv	183	43	183	47	7'h0	7	HEX:0	5		000
+  #52021	4	ref_typespec			work@aes		0	0	0	0		0			work@aes	000
+  #52022	5	logic_typespec				aes_reg_pkg.sv	183	13	183	24						000
+  #52023	6	range				aes_reg_pkg.sv	183	19	183	24						001
+  #52024	7	constant				aes_reg_pkg.sv	183	20	183	21	6	64	UINT:6	9		001
+  #52025	7	constant				aes_reg_pkg.sv	183	22	183	23	0	64	UINT:0	9		001
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

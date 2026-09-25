@@ -1,0 +1,44 @@
+cluster N1901 (map 5 id kept; OPEN): fullname|ref_typespec|tok:.id@id->|under:port
+row: probe/default/r11u101repro__grid__x22_nestportunused  strict=fullname  records golden=42 ours=42
+object: #21 (golden) / #21 (ours)  type=ref_typespec name= OUT
+  golden: work@sub.work@sub::innermod.i
+  ours:   work@sub::innermod.i
+  walk parents: port(i) < module_inst < design(work@sub)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 15..27 ('>' = the object)
+  #15	2	logic_net	i		work@sub.work@sub::innermod.i	dut.sv	3	32	3	33		0			work@sub.work@sub::innermod.i	000
+  #16	2	logic_net	w		work@sub.work@sub::innermod.w	dut.sv	4	10	4	11		0			work@sub.work@sub::innermod.w	000
+  #17	3	ref_typespec			work@sub.work@sub::innermod.w		0	0	0	0		0			work@sub.work@sub::innermod.w	000
+  #18	4	logic_typespec				dut.sv	4	5	4	9						000
+  #19	2	port	i			dut.sv	3	32	3	33						000
+  #20	3	ref_obj	i		work@sub.work@sub::innermod.i.i	dut.sv	3	32	3	33		0			work@sub.work@sub::innermod.i.i	000
+> #21	3	ref_typespec			work@sub.work@sub::innermod.i		0	0	0	0		0			work@sub.work@sub::innermod.i	000
+  #22	4	logic_typespec				dut.sv	3	26	3	31						000
+  #23	1	module_inst	work@sub	work@sub		dut.sv	2	1	6	10						000
+  #24	1	module_inst	work@dut	work@dut		dut.sv	7	1	9	10						000
+  #25	2	logic_net	o		work@dut.o	dut.sv	7	33	7	34		0			work@dut.o	000
+  #26	3	ref_typespec			work@dut.o		0	0	0	0		0			work@dut.o	000
+  #27	4	logic_typespec				dut.sv	7	20	7	32						000
+
+--- OURS (B) records 15..27 ('>' = the object)
+  #15	2	logic_net	i		work@sub::innermod.i	dut.sv	3	32	3	33		0			work@sub::innermod.i	000
+  #16	2	logic_net	w		work@sub::innermod.w	dut.sv	4	10	4	11		0			work@sub::innermod.w	000
+  #17	3	ref_typespec			work@sub::innermod.w		0	0	0	0		0			work@sub::innermod.w	000
+  #18	4	logic_typespec				dut.sv	4	5	4	9						000
+  #19	2	port	i			dut.sv	3	32	3	33						000
+  #20	3	ref_obj	i		work@sub::innermod.i.i	dut.sv	3	32	3	33		0			work@sub::innermod.i.i	000
+> #21	3	ref_typespec			work@sub::innermod.i		0	0	0	0		0			work@sub::innermod.i	000
+  #22	4	logic_typespec				dut.sv	3	26	3	31						000
+  #23	1	module_inst	work@sub	work@sub		dut.sv	2	1	6	10						000
+  #24	1	module_inst	work@dut	work@dut		dut.sv	7	1	9	10						000
+  #25	2	logic_net	o		work@dut.o	dut.sv	7	33	7	34		0			work@dut.o	000
+  #26	3	ref_typespec			work@dut.o		0	0	0	0		0			work@dut.o	000
+  #27	4	logic_typespec				dut.sv	7	20	7	32						000
+
+facets of this row (5, first 25):
+  N1897 #15/15 logic_net i G[work@sub.work@sub::innermod.i] O[work@sub::innermod.i]
+  N1897 #16/16 logic_net w G[work@sub.work@sub::innermod.w] O[work@sub::innermod.w]
+  N1898 #17/17 ref_typespec  G[work@sub.work@sub::innermod.w] O[work@sub::innermod.w]
+  N1900 #20/20 ref_obj i G[work@sub.work@sub::innermod.i.i] O[work@sub::innermod.i.i]
+  N1901 #21/21 ref_typespec  G[work@sub.work@sub::innermod.i] O[work@sub::innermod.i]

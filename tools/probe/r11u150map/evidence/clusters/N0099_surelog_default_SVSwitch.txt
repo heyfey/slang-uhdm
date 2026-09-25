@@ -1,0 +1,64 @@
+cluster N0099 (map 5 id kept; COVERED r11u145 (N0099)): span|ref_obj|ours-zero|under:hier_path
+row: surelog/default/SVSwitch  strict=differ:endcol(27)  records golden=5787 ours=5808
+object: #1123 (golden) / #1123 (ours)  type=ref_obj name=da 
+  golden: 105:29:105:31
+  ours:   0:0:0:0
+  walk parents: hier_path(this.da) < operation < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1117..1129 ('>' = the object)
+  #1117	7	operation				Packet.sv	105	13	105	31		0				000
+  #1118	8	hier_path	pkt.da			Packet.sv	105	13	105	19		0				000
+  #1119	9	ref_obj	pkt			Packet.sv	105	13	105	16		0				000
+  #1120	9	ref_obj	da		work@packet::compare::da	Packet.sv	105	17	105	19		0			work@packet::compare::da	000
+  #1121	8	hier_path	this.da			Packet.sv	105	24	105	31		0				000
+  #1122	9	ref_obj	this			Packet.sv	105	29	105	31		0				000
+> #1123	9	ref_obj	da			Packet.sv	105	29	105	31		0				000
+  #1124	7	begin			work@packet::compare	Packet.sv	106	10	109	13					work@packet::compare	000
+  #1125	8	sys_func_call	$display			Packet.sv	107	13	107	67		0				000
+  #1126	9	constant				Packet.sv	107	22	107	66	" ** ERROR **: pkt : Da field did not match"	336	STRING: ** ERROR **: pkt : Da field did not match	6		000
+  #1127	8	assignment				Packet.sv	108	13	108	24						000
+  #1128	9	constant				Packet.sv	108	23	108	24	0	64	UINT:0	9		000
+  #1129	9	ref_obj	compare		work@packet::compare::compare	Packet.sv	108	13	108	20		0			work@packet::compare::compare	000
+
+--- OURS (B) records 1117..1129 ('>' = the object)
+  #1117	7	operation				Packet.sv	105	13	105	31		0				000
+  #1118	8	hier_path	pkt.da			Packet.sv	105	13	105	19		0				000
+  #1119	9	ref_obj	pkt			Packet.sv	105	13	105	16		0				000
+  #1120	9	ref_obj	da		work@packet::compare::da	Packet.sv	105	17	105	19		0			work@packet::compare::da	000
+  #1121	8	hier_path	this.da			Packet.sv	105	24	105	28		0				000
+  #1122	9	ref_obj	this			Packet.sv	105	24	105	28		0				000
+> #1123	9	ref_obj	da		work@packet::compare::da		0	0	0	0		0			work@packet::compare::da	000
+  #1124	7	begin			work@packet::compare	Packet.sv	106	10	109	13					work@packet::compare	000
+  #1125	8	sys_func_call	$display			Packet.sv	107	13	107	67		0				000
+  #1126	9	constant				Packet.sv	107	22	107	66	" ** ERROR **: pkt : Da field did not match"	336	STRING: ** ERROR **: pkt : Da field did not match	6		000
+  #1127	8	assignment				Packet.sv	108	13	108	24						000
+  #1128	9	constant				Packet.sv	108	23	108	24	0	64	UINT:0	9		000
+  #1129	9	ref_obj	compare		work@packet::compare::compare	Packet.sv	108	13	108	20		0			work@packet::compare::compare	000
+
+facets of this row (90, first 25):
+  N0526 #-1/3314 logic_net clock G[] O[3 objs]
+  N0268 #-1/3348 logic_var reset G[] O[3 objs]
+  N0526 #-1/3352 logic_net clock G[] O[3 objs]
+  N0526 #-1/3407 logic_net clock G[] O[3 objs]
+  N0526 #-1/3432 logic_net clock G[] O[3 objs]
+  N0526 #-1/3457 logic_net clock G[] O[3 objs]
+  N0526 #-1/3482 logic_net clock G[] O[3 objs]
+  N1144 #88/88 hier_path pkt.randomize G[40:10:40:25] O[40:10:40:23]
+  N0095 #101/101 ref_obj bytes G[work@Driver::start::pkt.byte_pack::bytes] O[work@Driver::start::bytes]
+  N0067 #184/184 class_typespec Receiver G[Environemnt.sv 20:3:20:11] O[ 0:0:0:0]
+  N0068 #184/184 class_typespec Receiver G[20:3:20:11] O[0:0:0:0]
+  N0119 #264/264 bit_select rcvr G[43:11:43:12] O[43:6:43:13]
+  N0007 #651/651 ref_obj size G[] O[work@Receiver::start::size]
+  N0095 #756/756 ref_obj pkt_exp G[work@Scoreboard::start::pkt_rcv.compare::pkt_exp] O[work@Scoreboard::start::pkt_exp]
+  N0007 #980/980 ref_obj size G[] O[work@packet::byte_pack::size]
+  N0071 #1121/1121 hier_path this.da G[105:24:105:31] O[105:24:105:28]
+  N0001 #1122/1122 ref_obj this G[105:29:105:31] O[105:24:105:28]
+  N0007 #1123/1123 ref_obj da G[] O[work@packet::compare::da]
+  N0098 #1123/1123 ref_obj da G[Packet.sv 105:29:105:31] O[ 0:0:0:0]
+  N0099 #1123/1123 ref_obj da G[105:29:105:31] O[0:0:0:0]
+  N0071 #1135/1135 hier_path this.sa G[110:24:110:31] O[110:24:110:28]
+  N0001 #1136/1136 ref_obj this G[110:29:110:31] O[110:24:110:28]
+  N0007 #1137/1137 ref_obj sa G[] O[work@packet::compare::sa]
+  N0098 #1137/1137 ref_obj sa G[Packet.sv 110:29:110:31] O[ 0:0:0:0]
+  N0099 #1137/1137 ref_obj sa G[110:29:110:31] O[0:0:0:0]

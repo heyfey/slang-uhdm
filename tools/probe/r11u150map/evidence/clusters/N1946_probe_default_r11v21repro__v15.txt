@@ -1,0 +1,64 @@
+cluster N1946 (map 5 id kept; OPEN): struct|ours-only:fewer-copies|constant|under:typespec_member
+row: probe/default/r11v21repro__v15  strict=fullname  records golden=143 ours=135
+object: #-1 (golden) / #112 (ours)  type=constant name= 
+  golden: 
+  ours:   1 objs
+  walk parents: typespec_member(aa) < struct_typespec(loc_t) < ref_typespec < constant
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 106..118 ('>' = the object)
+  #106	3	constant				dut.sv	16	26	16	33	64'b0000000000000000000000000000101100000000000000000000000000010110	64	BIN:0000000000000000000000000000101100000000000000000000000000010110	3		000
+  #107	4	ref_typespec			work@dut		0	0	0	0		0			work@dut	000
+  #108	5	struct_typespec	loc_t			dut.sv	3	9	6	2						110
+  #109	6	typespec_member	aa			dut.sv	4	16	4	18						001
+  #110	7	ref_typespec			<in>loc_t.aa		0	0	0	0		0			work@dut.LC.loc_t.aa	001
+  #111	8	int_typespec				dut.sv	4	3	4	15						001
+> #112	7	constant				dut.sv	16	26	16	33	11	64	UINT:11	9		001
+  #113	7	constant				dut.sv	16	26	16	33	11	64	UINT:11	9		001
+  #114	6	typespec_member	bb			dut.sv	5	16	5	18						001
+  #115	7	ref_typespec			<in>loc_t.bb		0	0	0	0		0			work@dut.LC.loc_t.bb	001
+  #116	8	int_typespec				dut.sv	5	3	5	15						001
+  #117	7	constant				dut.sv	16	26	16	33	22	64	UINT:22	9		001
+  #118	7	constant				dut.sv	16	26	16	33	22	64	UINT:22	9		001
+
+--- the holder #109 on the other side: exact-record matches at [121]
+  #118	3	constant				dut.sv	16	26	16	33	64'b0000000000000000000000000000101100000000000000000000000000010110	64	BIN:0000000000000000000000000000101100000000000000000000000000010110	3		000
+  #119	4	ref_typespec			work@dut		0	0	0	0		0			work@dut	000
+  #120	5	struct_typespec	loc_t			dut.sv	3	9	6	2						110
+> #121	6	typespec_member	aa			dut.sv	4	16	4	18						001
+  #122	7	ref_typespec			<in>loc_t.aa		0	0	0	0		0			loc_t.aa	001
+  #123	8	int_typespec				dut.sv	4	3	4	15						001
+  #124	6	typespec_member	bb			dut.sv	5	16	5	18						001
+  #125	7	ref_typespec			<in>loc_t.bb		0	0	0	0		0			loc_t.bb	001
+  #126	8	int_typespec				dut.sv	5	3	5	15						001
+  #127	2	param_assign				dut.sv	20	18	20	28						000
+  #128	3	constant				dut.sv	20	23	20	25	00000000000000000000000000001011	32	BIN:00000000000000000000000000001011	3		000
+  #129	4	ref_typespec					0	0	0	0		0				000
+  #130	5	int_typespec				dut.sv	4	3	4	15						000
+
+facets of this row (30, first 25):
+  N0045 #50/-1 constant  G[1 objs] O[]
+  N0045 #51/-1 constant  G[1 objs] O[]
+  N0045 #55/-1 constant  G[1 objs] O[]
+  N0045 #56/-1 constant  G[1 objs] O[]
+  N0045 #64/-1 constant  G[1 objs] O[]
+  N0045 #65/-1 constant  G[1 objs] O[]
+  N0045 #69/-1 constant  G[1 objs] O[]
+  N0045 #70/-1 constant  G[1 objs] O[]
+  N0045 #77/-1 constant  G[1 objs] O[]
+  N0045 #78/-1 constant  G[1 objs] O[]
+  N0045 #82/-1 constant  G[1 objs] O[]
+  N0045 #83/-1 constant  G[1 objs] O[]
+  N1946 #-1/112 constant  G[] O[1 objs]
+  N1946 #-1/113 constant  G[] O[1 objs]
+  N1946 #-1/117 constant  G[] O[1 objs]
+  N1946 #-1/118 constant  G[] O[1 objs]
+  N0761 #6/6 ref_typespec  G[loc_t.aa] O[work@dut.LC.loc_t.aa]
+  N0407 #8/8 constant  G[10:10:10:12] O[16:26:16:33]
+  N0407 #9/9 constant  G[10:10:10:12] O[16:26:16:33]
+  N0761 #11/11 ref_typespec  G[loc_t.bb] O[work@dut.LC.loc_t.bb]
+  N0407 #13/13 constant  G[11:10:11:12] O[16:26:16:33]
+  N0407 #14/14 constant  G[11:10:11:12] O[16:26:16:33]
+  N0407 #104/92 constant  G[10:10:10:12] O[16:26:16:33]
+  N0407 #105/93 constant  G[10:10:10:12] O[16:26:16:33]
+  N0407 #109/97 constant  G[11:10:11:12] O[16:26:16:33]

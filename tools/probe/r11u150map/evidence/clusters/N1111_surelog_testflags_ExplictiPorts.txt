@@ -1,0 +1,55 @@
+cluster N1111 (map 5 id kept; COVERED r11u146 (residue: PortExpr / ExplictiPorts (r11u144 R1))): file|interface_inst|ours-empty|under:ref_obj
+row: surelog/testflags/ExplictiPorts  strict=differ:line(15)  records golden=337 ours=337
+object: #287 (golden) / #287 (ours)  type=interface_inst name=b 
+  golden: dut.sv 9:0:0:0
+  ours:    0:0:0:0
+  walk parents: ref_obj < port(b) < module_inst(f) < module_inst(work@test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 281..293 ('>' = the object)
+  #281	3	logic_net	b		work@test.f.b	dut.sv	46	14	46	15		0			work@test.f.b	000
+  #282	4	ref_typespec			work@test.f.b		0	0	0	0		0			work@test.f.b	000
+  #283	5	logic_typespec				dut.sv	47	7	47	7						000
+  #284	3	port	b			dut.sv	46	14	46	15						000
+  #285	4	ref_obj	a		work@test.a	dut.sv	9	11	9	12		0			work@test.a	000
+  #286	4	ref_obj			work@test.f.b	dut.sv	9	11	9	12		0			work@test.f.b	000
+> #287	5	interface_inst	b	work@a	work@test.f.b	dut.sv	9	0	0	0					work@test.f.b	000
+  #288	6	port	a			dut.sv	20	10	20	11						000
+  #289	7	ref_obj	a		work@test.f.b.a	dut.sv	20	10	20	11		0			work@test.f.b.a	000
+  #290	7	ref_typespec			work@test.f.b.a		0	0	0	0		0			work@test.f.b.a	000
+  #291	8	logic_typespec				dut.sv	21	7	21	7						000
+  #292	4	ref_typespec			work@test.f.b		0	0	0	0		0			work@test.f.b	000
+  #293	5	logic_typespec				dut.sv	47	7	47	7						000
+
+--- OURS (B) records 281..293 ('>' = the object)
+  #281	3	logic_net	b		work@test.f.b	dut.sv	47	10	47	11		0			work@test.f.b	000
+  #282	4	ref_typespec			work@test.f.b		0	0	0	0		0			work@test.f.b	000
+  #283	5	logic_typespec				dut.sv	47	7	47	7						000
+  #284	3	port	b			dut.sv	47	10	47	11						000
+  #285	4	ref_obj	a		work@test.a	dut.sv	9	11	9	12		0			work@test.a	000
+  #286	4	ref_obj			work@test.f.b	dut.sv	47	10	47	11		0			work@test.f.b	000
+> #287	5	interface_inst	b	work@a	work@test.f.b		0	0	0	0					work@test.f.b	000
+  #288	6	port	a			dut.sv	20	10	20	11						000
+  #289	7	ref_obj	a		work@test.f.b.a	dut.sv	20	10	20	11		0			work@test.f.b.a	000
+  #290	7	ref_typespec			work@test.f.b.a		0	0	0	0		0			work@test.f.b.a	000
+  #291	8	logic_typespec				dut.sv	21	7	21	7						000
+  #292	4	ref_typespec			work@test.f.b		0	0	0	0		0			work@test.f.b	000
+  #293	5	logic_typespec				dut.sv	47	7	47	7						000
+
+facets of this row (16, first 25):
+  N0081 #24/24 ref_obj b G[31:14:31:15] O[32:8:32:9]
+  N0081 #25/25 ref_obj c G[31:17:31:18] O[33:7:33:8]
+  N0055 #43/43 ref_obj b G[38:14:38:15] O[39:14:39:15]
+  N0081 #44/44 ref_obj c G[38:17:38:18] O[40:7:40:8]
+  N1085 #68/68 logic_net b G[46:14:46:15] O[47:10:47:11]
+  N1093 #69/69 port b G[46:14:46:15] O[47:10:47:11]
+  N0088 #70/70 ref_obj b G[46:14:46:15] O[47:10:47:11]
+  N0081 #214/214 ref_obj b G[31:14:31:15] O[32:8:32:9]
+  N0081 #215/215 ref_obj c G[31:17:31:18] O[33:7:33:8]
+  N0055 #254/254 ref_obj b G[38:14:38:15] O[39:14:39:15]
+  N0081 #255/255 ref_obj c G[38:17:38:18] O[40:7:40:8]
+  N1085 #281/281 logic_net b G[46:14:46:15] O[47:10:47:11]
+  N1093 #284/284 port b G[46:14:46:15] O[47:10:47:11]
+  N0088 #286/286 ref_obj  G[9:11:9:12] O[47:10:47:11]
+  N1111 #287/287 interface_inst b G[dut.sv 9:0:0:0] O[ 0:0:0:0]
+  N1148 #287/287 interface_inst b G[9:0:0:0] O[0:0:0:0]

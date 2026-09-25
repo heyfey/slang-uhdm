@@ -1,0 +1,44 @@
+cluster N0077 (map 5 id kept; OPEN (map 5 routed it to r11u140 as a residue; still present)): fullname|ref_obj|tok:id.id[id].->|under:bit_select
+row: surelog/testflags/GenForIfaceLocalparamBound  strict=differ:endcol(5)  records golden=232 ours=232
+object: #188 (golden) / #188 (ours)  type=ref_obj name=i OUT
+  golden: work@top.c.g[0].sub.ben[i].i
+  ours:   work@top.c.g[0].i
+  walk parents: bit_select(ben) < hier_path(sub.ben[i]) < cont_assign < gen_scope
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 182..194 ('>' = the object)
+  #182	6	ref_typespec			work@top.c.g[0].i		0	0	0	0		0			work@top.c.g[0].i	000
+  #183	7	int_typespec					0	0	0	0						000
+  #184	5	cont_assign				dut.sv	17	14	17	31						000
+  #185	6	hier_path	sub.ben[i]			dut.sv	17	21	17	31		0				000
+  #186	7	ref_obj	sub			dut.sv	17	21	17	24		0				000
+  #187	7	bit_select	ben		work@top.c.g[0].sub.ben[i].ben	dut.sv	17	29	17	30		0			work@top.c.g[0].sub.ben[i].ben	000
+> #188	8	ref_obj	i		work@top.c.g[0].sub.ben[i].i	dut.sv	17	29	17	30		0			work@top.c.g[0].sub.ben[i].i	000
+  #189	6	bit_select	o		work@top.c.o	dut.sv	17	14	17	18		0			work@top.c.o	000
+  #190	7	ref_obj	i		work@top.c.g[0].i	dut.sv	17	16	17	17		0			work@top.c.g[0].i	000
+  #191	3	gen_scope_array	g[1]		work@top.c.g[1]	dut.sv	16	42	18	8					work@top.c.g[1]	000
+  #192	4	gen_scope			work@top.c.g[1]	dut.sv	16	42	18	8					work@top.c.g[1]	000
+  #193	5	parameter	i		work@top.c.g[1].i	dut.sv	16	0	0	0		0	UINT:1		work@top.c.g[1].i	000
+  #194	6	ref_typespec			work@top.c.g[1].i		0	0	0	0		0			work@top.c.g[1].i	000
+
+--- OURS (B) records 182..194 ('>' = the object)
+  #182	6	ref_typespec			work@top.c.g[0].i		0	0	0	0		0			work@top.c.g[0].i	000
+  #183	7	int_typespec					0	0	0	0						000
+  #184	5	cont_assign				dut.sv	17	14	17	31						000
+  #185	6	hier_path	sub.ben[i]			dut.sv	17	21	17	31		0				000
+  #186	7	ref_obj	sub			dut.sv	17	21	17	24		0				000
+  #187	7	bit_select	ben		work@top.c.g[0].sub.ben[i].ben	dut.sv	17	29	17	30		0			work@top.c.g[0].sub.ben[i].ben	000
+> #188	8	ref_obj	i		work@top.c.g[0].i	dut.sv	17	29	17	30		0			work@top.c.g[0].i	000
+  #189	6	bit_select	o		work@top.c.o	dut.sv	17	14	17	18		0			work@top.c.o	000
+  #190	7	ref_obj	i		work@top.c.g[0].i	dut.sv	17	16	17	17		0			work@top.c.g[0].i	000
+  #191	3	gen_scope_array	g[1]		work@top.c.g[1]	dut.sv	16	42	18	8					work@top.c.g[1]	000
+  #192	4	gen_scope			work@top.c.g[1]	dut.sv	16	42	18	8					work@top.c.g[1]	000
+  #193	5	parameter	i		work@top.c.g[1].i	dut.sv	16	0	0	0		0	UINT:1		work@top.c.g[1].i	000
+  #194	6	ref_typespec			work@top.c.g[1].i		0	0	0	0		0			work@top.c.g[1].i	000
+
+facets of this row (5, first 25):
+  N0005 #165/165 constant  G[10:33:10:36] O[10:33:10:38]
+  N0077 #188/188 ref_obj i G[work@top.c.g[0].sub.ben[i].i] O[work@top.c.g[0].i]
+  N0077 #200/200 ref_obj i G[work@top.c.g[1].sub.ben[i].i] O[work@top.c.g[1].i]
+  N0077 #212/212 ref_obj i G[work@top.c.g[2].sub.ben[i].i] O[work@top.c.g[2].i]
+  N0077 #224/224 ref_obj i G[work@top.c.g[3].sub.ben[i].i] O[work@top.c.g[3].i]

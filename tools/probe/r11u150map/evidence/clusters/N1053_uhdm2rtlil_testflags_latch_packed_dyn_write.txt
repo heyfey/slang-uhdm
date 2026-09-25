@@ -1,0 +1,43 @@
+cluster N1053 (map 5 id kept; OPEN): fullname|bit_select|tok:id.->|under:operation
+row: uhdm2rtlil/testflags/latch_packed_dyn_write  strict=differ:fullname(2)  records golden=481 ours=481
+object: #194 (golden) / #194 (ours)  type=bit_select name=bit_i OUT
+  golden: work@latch_packed_dyn_write.read_write_comb.wr_be.wr_be.bit_i
+  ours:   work@latch_packed_dyn_write.read_write_comb.wr_be.bit_i
+  walk parents: operation < indexed_part_select(wr_be) < var_select(wr_be) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 188..200 ('>' = the object)
+  #188	6	assignment				dut.sv	47	16	47	51						000
+  #189	7	constant				dut.sv	47	49	47	51	'1	-1	BIN:1	3		000
+  #190	7	var_select	wr_be		work@latch_packed_dyn_write.read_write_comb.wr_be	dut.sv	47	16	47	46		0			work@latch_packed_dyn_write.read_write_comb.wr_be	000
+  #191	8	constant				dut.sv	47	22	47	23	0	64	UINT:0	9		000
+  #192	8	indexed_part_select	wr_be	wr_be	work@latch_packed_dyn_write.read_write_comb.wr_be.wr_be	dut.sv	47	25	47	45		0			work@latch_packed_dyn_write.read_write_comb.wr_be.wr_be	000
+  #193	9	operation				dut.sv	47	25	47	42		0				000
+> #194	10	bit_select	bit_i		work@latch_packed_dyn_write.read_write_comb.wr_be.wr_be.bit_i	dut.sv	47	32	47	33		0			work@latch_packed_dyn_write.read_write_comb.wr_be.wr_be.bit_i	000
+  #195	11	constant				dut.sv	47	32	47	33	2	64	UINT:2	9		000
+  #196	10	constant				dut.sv	47	36	47	41	2'b00	2	BIN:00	3		000
+  #197	9	constant				dut.sv	47	44	47	45	4	64	UINT:4	9		000
+  #198	5	case_item				dut.sv	48	7	48	30						000
+  #199	6	assignment				dut.sv	48	16	48	29						000
+  #200	7	constant				dut.sv	48	27	48	29	'1	-1	BIN:1	3		000
+
+--- OURS (B) records 188..200 ('>' = the object)
+  #188	6	assignment				dut.sv	47	16	47	51						000
+  #189	7	constant				dut.sv	47	49	47	51	'1	-1	BIN:1	3		000
+  #190	7	var_select	wr_be		work@latch_packed_dyn_write.read_write_comb.wr_be	dut.sv	47	16	47	46		0			work@latch_packed_dyn_write.read_write_comb.wr_be	000
+  #191	8	constant				dut.sv	47	22	47	23	0	64	UINT:0	9		000
+  #192	8	indexed_part_select	wr_be	wr_be	work@latch_packed_dyn_write.read_write_comb.wr_be.wr_be	dut.sv	47	25	47	45		0			work@latch_packed_dyn_write.read_write_comb.wr_be.wr_be	000
+  #193	9	operation				dut.sv	47	25	47	42		0				000
+> #194	10	bit_select	bit_i		work@latch_packed_dyn_write.read_write_comb.wr_be.bit_i	dut.sv	47	26	47	34		0			work@latch_packed_dyn_write.read_write_comb.wr_be.bit_i	000
+  #195	11	constant				dut.sv	47	32	47	33	2	64	UINT:2	9		000
+  #196	10	constant				dut.sv	47	36	47	41	2'b00	2	BIN:00	3		000
+  #197	9	constant				dut.sv	47	44	47	45	4	64	UINT:4	9		000
+  #198	5	case_item				dut.sv	48	7	48	30						000
+  #199	6	assignment				dut.sv	48	16	48	29						000
+  #200	7	constant				dut.sv	48	27	48	29	'1	-1	BIN:1	3		000
+
+facets of this row (4, first 25):
+  N1053 #194/194 bit_select bit_i G[work@latch_packed_dyn_write.read_write_comb.wr_be.wr_be.bit_i] O[work@latch_packed_dyn_write.read_write_comb.wr_be.bit_i]
+  N0036 #194/194 bit_select bit_i G[47:32:47:33] O[47:26:47:34]
+  N1053 #464/464 bit_select bit_i G[work@latch_packed_dyn_write.read_write_comb.wr_be.wr_be.bit_i] O[work@latch_packed_dyn_write.read_write_comb.wr_be.bit_i]
+  N0036 #464/464 bit_select bit_i G[47:32:47:33] O[47:26:47:34]

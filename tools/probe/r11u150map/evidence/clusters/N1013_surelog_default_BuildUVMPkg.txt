@@ -1,0 +1,64 @@
+cluster N1013 (map 5 id kept; OPEN): fullname|ref_obj|golden-empty|under:func_call
+row: surelog/default/BuildUVMPkg  strict=differ:line(174)  records golden=201533 ours=201486
+object: #54397 (golden) / #54392 (ours)  type=ref_obj name=n_bytes OUT
+  golden: 
+  ours:   uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::n_bytes
+  walk parents: func_call(ceil) < method_func_call(new) < assignment < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 54391..54403 ('>' = the object)
+  #54391	11	constant				uvm_pkg.sv	60725	24	60725	26	64	64	UINT:64	9		001
+  #54392	11	constant				uvm_pkg.sv	60725	27	60725	28	1	64	UINT:1	9		001
+  #54393	10	constant				uvm_pkg.sv	60725	29	60725	30	0	64	UINT:0	9		001
+  #54394	6	assignment				uvm_pkg.sv	76197	4	76197	44						000
+  #54395	7	method_func_call	new			uvm_pkg.sv	76197	16	76197	44		0				000
+  #54396	8	func_call	ceil			uvm_pkg.sv	76197	20	76197	43		0				000
+> #54397	9	ref_obj	n_bytes			uvm_pkg.sv	76197	25	76197	32		0				000
+  #54398	9	ref_obj	bus_width			uvm_pkg.sv	76197	33	76197	42		0				000
+  #54399	7	ref_obj	local_addr		uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::local_addr	uvm_pkg.sv	76197	4	76197	14		0			uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::local_addr	000
+  #54400	6	assignment				uvm_pkg.sv	76199	4	76199	27						000
+  #54401	7	ref_obj	base_addr		uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::base_addr	uvm_pkg.sv	76199	18	76199	27		0			uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::base_addr	000
+  #54402	7	ref_obj	lbase_addr2		uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::lbase_addr2	uvm_pkg.sv	76199	4	76199	15		0			uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::lbase_addr2	000
+  #54403	6	if_stmt				uvm_pkg.sv	76200	4	76206	8						000
+
+--- OURS (B) records 54386..54398 ('>' = the object)
+  #54386	11	constant				uvm_pkg.sv	60725	24	60725	26	64	64	UINT:64	9		001
+  #54387	11	constant				uvm_pkg.sv	60725	27	60725	28	1	64	UINT:1	9		001
+  #54388	10	constant				uvm_pkg.sv	60725	29	60725	30	0	64	UINT:0	9		001
+  #54389	6	assignment				uvm_pkg.sv	76197	4	76197	44						000
+  #54390	7	method_func_call	new			uvm_pkg.sv	76197	16	76197	44		0				000
+  #54391	8	func_call	ceil			uvm_pkg.sv	76197	20	76197	43		0				000
+> #54392	9	ref_obj	n_bytes		uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::n_bytes	uvm_pkg.sv	76197	25	76197	32		0			uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::n_bytes	000
+  #54393	9	ref_obj	bus_width		uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::bus_width	uvm_pkg.sv	76197	33	76197	42		0			uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::bus_width	000
+  #54394	7	ref_obj	local_addr		uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::local_addr	uvm_pkg.sv	76197	4	76197	14		0			uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::local_addr	000
+  #54395	6	assignment				uvm_pkg.sv	76199	4	76199	27						000
+  #54396	7	ref_obj	base_addr		uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::base_addr	uvm_pkg.sv	76199	18	76199	27		0			uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::base_addr	000
+  #54397	7	ref_obj	lbase_addr2		uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::lbase_addr2	uvm_pkg.sv	76199	4	76199	15		0			uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::lbase_addr2	000
+  #54398	6	if_stmt				uvm_pkg.sv	76200	4	76206	8						000
+
+facets of this row (9401, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

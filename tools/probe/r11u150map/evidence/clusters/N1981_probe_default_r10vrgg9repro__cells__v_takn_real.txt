@@ -1,0 +1,35 @@
+cluster N1981 (map 5 id kept; OPEN): struct|ours-only:fewer-copies|operation|under:cont_assign
+row: probe/default/r10vrgg9repro__cells__v_takn_real  strict=type  records golden=69 ours=72
+object: #-1 (golden) / #66 (ours)  type=operation name= 
+  golden: 
+  ours:   2 objs
+  walk parents: cont_assign < module_inst(u_a) < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 60..71 ('>' = the object)
+  #60	5	bit_typespec				dut.sv	2	13	2	16						000
+  #61	3	param_assign				dut.sv	2	17	2	22						000
+  #62	4	constant				dut.sv	2	21	2	22	1	1	UINT:1	9		000
+  #63	5	ref_typespec			work@top.u_a		0	0	0	0		0			work@top.u_a	000
+  #64	6	bit_typespec				dut.sv	2	13	2	16						000
+  #65	3	cont_assign				dut.sv	8	10	8	33						000
+> #66	4	operation				dut.sv	8	19	8	33		0				000
+  #67	5	ref_obj	P		work@m.P	dut.sv	8	20	8	21		0			work@m.P	000
+  #68	5	constant				dut.sv	8	25	8	28	1.5	64	REAL:1.5	2		000
+  #69	5	constant				dut.sv	8	31	8	33	42	64	UINT:42	9		000
+  #70	4	bit_select	arr		work@m.arr	dut.sv	8	10	8	16		0			work@m.arr	000
+  #71	5	constant				dut.sv	8	14	8	15	0	64	UINT:0	9		000
+
+--- the holder #65 on the other side: exact-record matches at [65]
+  #62	4	constant				dut.sv	2	21	2	22	1	1	UINT:1	9		000
+  #63	5	ref_typespec			work@top.u_a		0	0	0	0		0			work@top.u_a	000
+  #64	6	bit_typespec				dut.sv	2	13	2	16						000
+> #65	3	cont_assign				dut.sv	8	10	8	33						000
+  #66	4	constant				dut.sv	8	25	8	28	1.5	64	REAL:1.5	2		000
+  #67	4	bit_select	arr		work@top.u_a.arr	dut.sv	8	10	8	16		0			work@top.u_a.arr	000
+  #68	5	constant				dut.sv	8	14	8	15	0	64	UINT:0	9		000
+
+facets of this row (3, first 25):
+  N1984 #66/68 constant  G[4 cont_assign < module_inst(u_a)] O[5 operation < cont_assign]
+  N1981 #-1/66 operation  G[] O[2 objs]
+  N1171 #67/70 bit_select arr G[work@top.u_a.arr] O[work@m.arr]

@@ -22,7 +22,7 @@ verification pass owns the laws of the pass it verifies.
 
 Laws: 1550. Cases in the gate: 4087, tied to one law 3969, listed with `?`
 under several 106, tied to no law 12 (listed at the end).
-Laws with a commit on this branch: 977;
+Laws with a commit on this branch: 979;
 laws with cases in the gate: 676.
 
 ## 1. Laws
@@ -3369,7 +3369,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u143verify r11u144repro r11u149verify
 
 ### `defNetTypeParamPackedDim144`
-- commits: b2199096
+- commits: 98aa49db b2199096
 - pass: r11u144repro (verified by v11u144repro)
 - switches: R11U144_CALLBITSEL_OFF R11U144_DEFGENHP_OFF R11U144_ELABINST_OFF R11U144_ELABPROP_OFF R11U144_FOLDTSNAME_OFF R11U144_METHATTR_OFF R11U144_METHQUALSPAN_OFF R11U144_OFF R11U144_PARAMALIASREF_OFF R11U144_PKGQUALREF_OFF R11U144_SELBAREDEC_OFF R11U144_TPPACKEDNET_OFF
 - source: src/ModuleEmit.cpp(2)
@@ -7615,7 +7615,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r10earl_repro
 
 ### `modPkgTypedefTopTs15`
-- commits: none on this branch
+- commits: 98aa49db
 - pass: -
 - source: include/UhdmExporter.h(1) src/ModuleEmit.cpp(1) src/TypeEmit.cpp(2) src/UhdmExporter.cpp(1)
 - cases in the gate (tests/probe/): none
@@ -11741,7 +11741,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u134repro
 
 ### `tpDefaultEndTopTwin149v`
-- commits: none on this branch
+- commits: 98aa49db
 - pass: -
 - switches: R11U125_OFF R11U125_SPANFILE_OFF
 - source: src/ModuleEmit.cpp(2) src/TypeEmit.cpp(2)
@@ -13299,6 +13299,7 @@ lists it under the law).
 | r11u148share |  |  | 0 | 47 |
 | r11u149verify |  |  | 0 | 121 |
 | r11u14repro |  |  | 6 | 4 |
+| r11u150map |  |  | 0 | 0 |
 | r11u15repro |  |  | 40 | 4 |
 | r11u16repro |  |  | 0 | 14 |
 | r11u17repro |  | `genCaBoundLhsOperationRhsUnbindsRhs17` `genCaLhsArrayNetNeverBinds17` | 37 | 4 |

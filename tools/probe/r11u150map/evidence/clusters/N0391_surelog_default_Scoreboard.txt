@@ -1,0 +1,64 @@
+cluster N0391 (map 5 id kept; OPEN): span|if_else|endcol|under:begin
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #203292 (golden) / #202662 (ours)  type=if_else name= 
+  golden: 707:7:714:151
+  ours:   707:7:714:169
+  walk parents: begin < if_stmt < begin < function(get_config)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 203286..203298 ('>' = the object)
+  #203286	6	bit_typespec				uvm_misc.svh	702	55	702	58						000
+  #203287	4	begin			uvm_pkg::uvm_utils::get_config	uvm_misc.svh	704	5	704	14					uvm_pkg::uvm_utils::get_config	000
+  #203288	5	if_stmt				uvm_misc.svh	706	5	716	8						000
+  #203289	6	operation				uvm_misc.svh	706	9	706	56		0				000
+  #203290	7	ref_obj	m_uvm_config_obj_misc::get		uvm_pkg::uvm_utils::get_config::m_uvm_config_obj_misc::get	uvm_misc.svh	706	10	706	33		0			uvm_pkg::uvm_utils::get_config::m_uvm_config_obj_misc::get	000
+  #203291	6	begin			uvm_pkg::uvm_utils::get_config	uvm_misc.svh	706	58	716	8					uvm_pkg::uvm_utils::get_config	000
+> #203292	7	if_else				uvm_misc.svh	707	7	714	151						000
+  #203293	8	ref_obj	is_fatal		uvm_pkg::uvm_utils::get_config::is_fatal	uvm_misc.svh	707	11	707	19		0			uvm_pkg::uvm_utils::get_config::is_fatal	000
+  #203294	8	method_func_call	uvm_report_fatal			uvm_misc.svh	708	14	708	30		0				000
+  #203295	9	constant				uvm_misc.svh	708	31	708	43	"NO_SET_CFG"	80	STRING:NO_SET_CFG	6		000
+  #203296	9	operation				uvm_misc.svh	708	45	709	73		0				000
+  #203297	10	constant				uvm_misc.svh	708	46	708	72	"no set_config to field '"	192	STRING:no set_config to field '	6		000
+  #203298	10	ref_obj	FIELD		uvm_pkg::uvm_utils::get_config::FIELD	uvm_misc.svh	708	74	708	79		0			uvm_pkg::uvm_utils::get_config::FIELD	000
+
+--- OURS (B) records 202656..202668 ('>' = the object)
+  #202656	6	bit_typespec				uvm_misc.svh	702	55	702	58						000
+  #202657	4	begin			uvm_pkg::uvm_utils::get_config	uvm_misc.svh	704	5	704	14					uvm_pkg::uvm_utils::get_config	000
+  #202658	5	if_stmt				uvm_misc.svh	706	5	716	8						000
+  #202659	6	operation				uvm_misc.svh	706	9	706	56		0				000
+  #202660	7	ref_obj	m_uvm_config_obj_misc::get		uvm_pkg::uvm_utils::get_config::m_uvm_config_obj_misc::get	uvm_misc.svh	706	10	706	33		0			uvm_pkg::uvm_utils::get_config::m_uvm_config_obj_misc::get	000
+  #202661	6	begin			uvm_pkg::uvm_utils::get_config	uvm_misc.svh	706	58	716	8					uvm_pkg::uvm_utils::get_config	000
+> #202662	7	if_else				uvm_misc.svh	707	7	714	169						000
+  #202663	8	ref_obj	is_fatal		uvm_pkg::uvm_utils::get_config::is_fatal	uvm_misc.svh	707	11	707	19		0			uvm_pkg::uvm_utils::get_config::is_fatal	000
+  #202664	8	method_func_call	uvm_report_fatal			uvm_misc.svh	708	14	708	30		0				000
+  #202665	9	constant				uvm_misc.svh	708	31	708	43	"NO_SET_CFG"	80	STRING:NO_SET_CFG	6		000
+  #202666	9	operation				uvm_misc.svh	708	45	709	73		0				000
+  #202667	10	constant				uvm_misc.svh	708	46	708	72	"no set_config to field '"	192	STRING:no set_config to field '	6		000
+  #202668	10	ref_obj	FIELD		uvm_pkg::uvm_utils::get_config::FIELD	uvm_misc.svh	708	74	708	79		0			uvm_pkg::uvm_utils::get_config::FIELD	000
+
+facets of this row (29492, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

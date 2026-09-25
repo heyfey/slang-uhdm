@@ -1,0 +1,54 @@
+cluster N1960 (map 5 id kept; OPEN): fullname|int_var|tok:id.id::->|under:ref_obj
+row: probe/default/r10v184repro__gv184_i_minimal  strict=fullname  records golden=293 ours=281
+object: #27 (golden) / #27 (ours)  type=int_var name=ogee705 OUT
+  golden: Cavetto705::ogee705::bead.getc::ogee705
+  ours:   Cavetto705::ogee705::ogee705
+  walk parents: ref_obj(ogee705) < method_func_call(getc) < hier_path(bead.getc) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 21..33 ('>' = the object)
+  #21	8	int_typespec				dut.sv	6	22	6	25						000
+  #22	4	assignment				dut.sv	10	5	10	33						000
+  #23	5	hier_path	bead.getc			dut.sv	10	15	10	33		0				000
+  #24	6	ref_obj	bead			dut.sv	10	15	10	19		0				000
+  #25	6	method_func_call	getc			dut.sv	10	20	10	24		0				000
+  #26	7	ref_obj	ogee705		Cavetto705::ogee705::bead.getc::ogee705	dut.sv	10	25	10	32		0			Cavetto705::ogee705::bead.getc::ogee705	000
+> #27	8	int_var	ogee705		Cavetto705::ogee705::bead.getc::ogee705	dut.sv	6	22	6	25		0			Cavetto705::ogee705::bead.getc::ogee705	000
+  #28	9	ref_typespec			Cavetto705::ogee705::bead.getc::ogee705		0	0	0	0		0			Cavetto705::ogee705::bead.getc::ogee705	000
+  #29	10	int_typespec				dut.sv	6	22	6	25						000
+  #30	5	ref_obj	ogee705		Cavetto705::ogee705::ogee705	dut.sv	10	5	10	12		0			Cavetto705::ogee705::ogee705	000
+  #31	6	int_var	ogee705		Cavetto705::ogee705::ogee705	dut.sv	6	22	6	25		0			Cavetto705::ogee705::ogee705	000
+  #32	7	ref_typespec			Cavetto705::ogee705::ogee705		0	0	0	0		0			Cavetto705::ogee705::ogee705	000
+  #33	8	int_typespec				dut.sv	6	22	6	25						000
+
+--- OURS (B) records 21..33 ('>' = the object)
+  #21	8	int_typespec				dut.sv	6	22	6	25						000
+  #22	4	assignment				dut.sv	10	5	10	33						000
+  #23	5	hier_path	bead.getc			dut.sv	10	15	10	33		0				000
+  #24	6	ref_obj	bead			dut.sv	10	15	10	19		0				000
+  #25	6	method_func_call	getc			dut.sv	10	20	10	24		0				000
+  #26	7	ref_obj	ogee705		Cavetto705::ogee705::ogee705	dut.sv	10	25	10	32		0			Cavetto705::ogee705::ogee705	000
+> #27	8	int_var	ogee705		Cavetto705::ogee705::ogee705	dut.sv	6	22	6	25		0			Cavetto705::ogee705::ogee705	000
+  #28	9	ref_typespec			Cavetto705::ogee705::ogee705		0	0	0	0		0			Cavetto705::ogee705::ogee705	000
+  #29	10	int_typespec				dut.sv	6	22	6	25						000
+  #30	5	ref_obj	ogee705		Cavetto705::ogee705::ogee705	dut.sv	10	5	10	12		0			Cavetto705::ogee705::ogee705	000
+  #31	6	int_var	ogee705		Cavetto705::ogee705::ogee705	dut.sv	6	22	6	25		0			Cavetto705::ogee705::ogee705	000
+  #32	7	ref_typespec			Cavetto705::ogee705::ogee705		0	0	0	0		0			Cavetto705::ogee705::ogee705	000
+  #33	8	int_typespec				dut.sv	6	22	6	25						000
+
+facets of this row (15, first 25):
+  N0506 #59/-1 string_var bead G[3 objs] O[]
+  N0506 #143/-1 string_var bead G[3 objs] O[]
+  N0506 #185/-1 string_var bead G[3 objs] O[]
+  N0506 #251/-1 string_var bead G[3 objs] O[]
+  N0095 #26/26 ref_obj ogee705 G[Cavetto705::ogee705::bead.getc::ogee705] O[Cavetto705::ogee705::ogee705]
+  N1960 #27/27 int_var ogee705 G[Cavetto705::ogee705::bead.getc::ogee705] O[Cavetto705::ogee705::ogee705]
+  N1966 #28/28 ref_typespec  G[Cavetto705::ogee705::bead.getc::ogee705] O[Cavetto705::ogee705::ogee705]
+  N0095 #75/72 ref_obj ogee705 G[Cyma705::ogee705::bead.getc::ogee705] O[Cyma705::ogee705::ogee705]
+  N0095 #113/110 ref_obj ogee705 G[Cavetto705::ogee705::bead.getc::ogee705] O[Cavetto705::ogee705::ogee705]
+  N1960 #114/111 int_var ogee705 G[Cavetto705::ogee705::bead.getc::ogee705] O[Cavetto705::ogee705::ogee705]
+  N1966 #115/112 ref_typespec  G[Cavetto705::ogee705::bead.getc::ogee705] O[Cavetto705::ogee705::ogee705]
+  N0095 #156/150 ref_obj ogee705 G[Cyma705::ogee705::bead.getc::ogee705] O[Cyma705::ogee705::ogee705]
+  N0095 #201/192 ref_obj ogee705 G[Cyma705::ogee705::bead.getc::ogee705] O[Cyma705::ogee705::ogee705]
+  N0264 #218/209 int_typespec  G[17:3:17:24] O[17:3:17:6]
+  N0095 #267/255 ref_obj ogee705 G[Cyma705::ogee705::bead.getc::ogee705] O[Cyma705::ogee705::ogee705]

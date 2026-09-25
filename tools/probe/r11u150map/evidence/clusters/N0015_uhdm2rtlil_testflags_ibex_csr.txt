@@ -1,0 +1,51 @@
+cluster N0015 (map 5 id kept; COVERED r11u146 (N0015)): span|constant|line+col+endline+endcol|under:sys_func_call
+row: uhdm2rtlil/testflags/ibex_csr  strict=differ:line(12)  records golden=310 ours=310
+object: #56 (golden) / #56 (ours)  type=constant name= 
+  golden: 29:60:29:144
+  ours:   32:92:33:53
+  walk parents: sys_func_call($error) < begin < assert_stmt(IbexCSREnValid) < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 50..62 ('>' = the object)
+  #50	6	constant				ibex_csr.sv	26	18	26	19	0	64	UINT:0	9		001
+  #51	2	assert_stmt	IbexCSREnValid		work@ibex_csr.IbexCSREnValid	prim_assert_standard_macros.svh	78	3	81	8					work@ibex_csr.IbexCSREnValid	000
+  #52	3	begin			work@ibex_csr.IbexCSREnValid	prim_assert_standard_macros.svh	79	10	81	8					work@ibex_csr.IbexCSREnValid	000
+  #53	4	sys_func_call	$error			prim_assert.sv	29	3	33	27		0				000
+  #54	5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6		000
+  #55	5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0				000
+> #56	5	constant				prim_assert.sv	29	60	29	144	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_csr.sv"	656	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_csr.sv	6		000
+  #57	5	constant				prim_assert.sv	29	146	29	148	55	64	UINT:55	9		000
+  #58	5	constant				prim_assert.sv	33	10	33	26	"IbexCSREnValid"	112	STRING:IbexCSREnValid	6		000
+  #59	3	property_spec				prim_assert_standard_macros.svh	78	36	78	106						000
+  #60	4	operation				prim_assert_standard_macros.svh	78	38	78	51		0				000
+  #61	5	ref_obj	clk_i		work@ibex_csr.IbexCSREnValid.clk_i	prim_assert_standard_macros.svh	78	46	78	51		0			work@ibex_csr.IbexCSREnValid.clk_i	000
+  #62	2	port	clk_i			ibex_csr.sv	16	28	16	33						000
+
+--- OURS (B) records 50..62 ('>' = the object)
+  #50	6	constant				ibex_csr.sv	26	18	26	19	0	64	UINT:0	9		001
+  #51	2	assert_stmt	IbexCSREnValid		work@ibex_csr.IbexCSREnValid	prim_assert_standard_macros.svh	78	3	81	8					work@ibex_csr.IbexCSREnValid	000
+  #52	3	begin			work@ibex_csr.IbexCSREnValid	prim_assert_standard_macros.svh	79	10	81	8					work@ibex_csr.IbexCSREnValid	000
+  #53	4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0				000
+  #54	5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6		000
+  #55	5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0				000
+> #56	5	constant				prim_assert.sv	32	92	33	53	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_csr.sv"	656	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_csr.sv	6		000
+  #57	5	constant				prim_assert.sv	32	92	32	94	55	64	UINT:55	9		000
+  #58	5	constant				prim_assert.sv	33	10	23	8	"IbexCSREnValid"	112	STRING:IbexCSREnValid	6		000
+  #59	3	property_spec				prim_assert_standard_macros.svh	78	36	78	106						000
+  #60	4	operation				prim_assert_standard_macros.svh	78	38	78	51		0				000
+  #61	5	ref_obj	clk_i		work@ibex_csr.IbexCSREnValid.clk_i	prim_assert_standard_macros.svh	78	46	78	51		0			work@ibex_csr.IbexCSREnValid.clk_i	000
+  #62	2	port	clk_i			ibex_csr.sv	16	28	16	33						000
+
+facets of this row (12, first 25):
+  N0027 #53/53 sys_func_call $error G[29:3:33:27] O[32:3:33:18]
+  N0026 #54/54 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #55/55 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #56/56 constant  G[29:60:29:144] O[32:92:33:53]
+  N0015 #57/57 constant  G[29:146:29:148] O[32:92:32:94]
+  N0017 #58/58 constant  G[33:10:33:26] O[33:10:23:8]
+  N0027 #229/229 sys_func_call $error G[29:3:33:27] O[32:3:33:18]
+  N0026 #230/230 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #231/231 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #232/232 constant  G[29:60:29:144] O[32:92:33:53]
+  N0015 #233/233 constant  G[29:146:29:148] O[32:92:32:94]
+  N0017 #234/234 constant  G[33:10:33:26] O[33:10:23:8]

@@ -1,0 +1,64 @@
+cluster N0328 (map 5 id kept; OPEN): span|operation|line+col+endline+endcol|under:sys_func_call
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #27239 (golden) / #27248 (ours)  type=operation name= 
+  golden: 117:8:117:70
+  ours:   662:20:662:82
+  walk parents: sys_func_call($sformatf) < func_call(uvm_report_info) < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 27233..27245 ('>' = the object)
+  #27233	7	constant				uvm_message_defines.svh	114	46	114	60	"SEQLIB/START"	96	STRING:SEQLIB/START	6		000
+  #27234	6	func_call	uvm_report_info			uvm_message_defines.svh	115	8	118	181		0				000
+  #27235	7	constant				uvm_message_defines.svh	115	25	115	39	"SEQLIB/START"	96	STRING:SEQLIB/START	6		000
+  #27236	7	sys_func_call	$sformatf			uvm_message_defines.svh	115	41	118	45		0				000
+  #27237	8	constant				uvm_message_defines.svh	115	51	115	120	"Starting sequence library %s in %s phase: %0d iterations in mode %s"	536	STRING:Starting sequence library %s in %s phase: %0d iterations in mode %s	6		000
+  #27238	8	func_call	get_type_name			uvm_message_defines.svh	116	7	116	22		0				000
+> #27239	8	operation				uvm_message_defines.svh	117	8	117	70		0				000
+  #27240	9	operation				uvm_message_defines.svh	117	8	117	30		0				000
+  #27241	10	ref_obj	starting_phase		uvm_pkg::uvm_sequence_library::body::starting_phase	uvm_message_defines.svh	117	8	117	22		0			uvm_pkg::uvm_sequence_library::body::starting_phase	000
+  #27242	10	constant				uvm_message_defines.svh	117	26	117	30	0	64	UINT:0	11		000
+  #27243	9	hier_path	starting_phase.get_name			uvm_message_defines.svh	117	33	117	58		0				000
+  #27244	10	ref_obj	starting_phase			uvm_message_defines.svh	117	33	117	47		0				000
+  #27245	10	method_func_call	get_name			uvm_message_defines.svh	117	48	117	56		0				000
+
+--- OURS (B) records 27242..27254 ('>' = the object)
+  #27242	7	constant				uvm_message_defines.svh	114	46	114	60	"SEQLIB/START"	96	STRING:SEQLIB/START	6		000
+  #27243	6	func_call	uvm_report_info			uvm_message_defines.svh	115	8	115	417		0				000
+  #27244	7	constant				uvm_message_defines.svh	115	25	115	39	"SEQLIB/START"	96	STRING:SEQLIB/START	6		000
+  #27245	7	sys_func_call	$sformatf			uvm_message_defines.svh	115	41	663	57		0				000
+  #27246	8	constant				uvm_message_defines.svh	115	51	115	120	"Starting sequence library %s in %s phase: %0d iterations in mode %s"	536	STRING:Starting sequence library %s in %s phase: %0d iterations in mode %s	6		000
+  #27247	8	func_call	get_type_name			uvm_message_defines.svh	661	19	661	34		0				000
+> #27248	8	operation				uvm_message_defines.svh	662	20	662	82		0				000
+  #27249	9	operation				uvm_message_defines.svh	662	20	662	42		0				000
+  #27250	10	ref_obj	starting_phase		uvm_pkg::uvm_sequence_library::body::starting_phase	uvm_message_defines.svh	662	20	662	34		0			uvm_pkg::uvm_sequence_library::body::starting_phase	000
+  #27251	10	constant				uvm_message_defines.svh	662	38	662	42	0	64	UINT:0	11		000
+  #27252	9	hier_path	starting_phase.get_name			uvm_message_defines.svh	662	45	662	70		0				000
+  #27253	10	ref_obj	starting_phase			uvm_message_defines.svh	662	45	662	59		0				000
+  #27254	10	method_func_call	get_name			uvm_message_defines.svh	662	60	662	68		0				000
+
+facets of this row (29492, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

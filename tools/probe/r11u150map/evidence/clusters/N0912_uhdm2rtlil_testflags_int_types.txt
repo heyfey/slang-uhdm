@@ -1,0 +1,64 @@
+cluster N0912 (map 5 id kept; OPEN): fullname|ref_obj|ours-empty|under:assignment
+row: uhdm2rtlil/testflags/int_types  strict=differ:fullname(94)  records golden=5202 ours=5202
+object: #18 (golden) / #18 (ours)  type=ref_obj name=x OUT
+  golden: work@top.x
+  ours:   
+  walk parents: assignment < begin < gen_if < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 12..24 ('>' = the object)
+  #12	5	operation				dut.sv	4	32	4	34		0				000
+  #13	6	constant				dut.sv	4	33	4	34	1	64	UINT:1	9		000
+  #14	5	parameter	y		work@top.y	dut.sv	4	28	4	34		0			work@top.y	000
+  #15	6	ref_typespec			work@top.y		0	0	0	0		0			work@top.y	000
+  #16	7	integer_typespec				dut.sv	4	20	4	27						000
+  #17	4	assignment				dut.sv	5	23	5	28						000
+> #18	5	ref_obj	x		work@top.x	dut.sv	5	27	5	28		0			work@top.x	000
+  #19	5	logic_var	a		work@top.a	dut.sv	5	23	5	24		0			work@top.a	000
+  #20	6	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+  #21	7	logic_typespec				dut.sv	5	9	5	22						000
+  #22	8	range				dut.sv	5	15	5	22						001
+  #23	9	constant				dut.sv	5	16	5	19	127	64	UINT:127	9		001
+  #24	9	constant				dut.sv	5	20	5	21	0	64	UINT:0	9		001
+
+--- OURS (B) records 12..24 ('>' = the object)
+  #12	5	operation				dut.sv	4	32	4	34		0				000
+  #13	6	constant				dut.sv	4	33	4	34	1	64	UINT:1	9		000
+  #14	5	parameter	y		work@top.y	dut.sv	4	28	4	34		0			work@top.y	000
+  #15	6	ref_typespec			work@top.y		0	0	0	0		0			work@top.y	000
+  #16	7	integer_typespec				dut.sv	4	20	4	27						000
+  #17	4	assignment				dut.sv	5	23	5	28						000
+> #18	5	ref_obj	x			dut.sv	5	27	5	28		0				000
+  #19	5	logic_var	a		work@top.a	dut.sv	5	23	5	24		0			work@top.a	000
+  #20	6	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+  #21	7	logic_typespec				dut.sv	5	9	5	22						000
+  #22	8	range				dut.sv	5	15	5	22						001
+  #23	9	constant				dut.sv	5	16	5	19	127	64	UINT:127	9		001
+  #24	9	constant				dut.sv	5	20	5	21	0	64	UINT:0	9		001
+
+facets of this row (94, first 25):
+  N0912 #18/18 ref_obj x G[work@top.x] O[]
+  N0912 #26/26 ref_obj y G[work@top.y] O[]
+  N0912 #94/94 ref_obj x G[work@top.x] O[]
+  N0912 #102/102 ref_obj y G[work@top.y] O[]
+  N0912 #170/170 ref_obj x G[work@top.x] O[]
+  N0912 #178/178 ref_obj y G[work@top.y] O[]
+  N0912 #246/246 ref_obj x G[work@top.x] O[]
+  N0912 #254/254 ref_obj y G[work@top.y] O[]
+  N0912 #322/322 ref_obj x G[work@top.x] O[]
+  N0912 #330/330 ref_obj y G[work@top.y] O[]
+  N0912 #398/398 ref_obj x G[work@top.x] O[]
+  N0912 #406/406 ref_obj y G[work@top.y] O[]
+  N0912 #474/474 ref_obj x G[work@top.x] O[]
+  N0912 #482/482 ref_obj y G[work@top.y] O[]
+  N0912 #550/550 ref_obj x G[work@top.x] O[]
+  N0912 #558/558 ref_obj y G[work@top.y] O[]
+  N0912 #626/626 ref_obj x G[work@top.x] O[]
+  N0912 #634/634 ref_obj y G[work@top.y] O[]
+  N0912 #702/702 ref_obj x G[work@top.x] O[]
+  N0912 #710/710 ref_obj y G[work@top.y] O[]
+  N0912 #778/778 ref_obj x G[work@top.x] O[]
+  N0912 #786/786 ref_obj y G[work@top.y] O[]
+  N0912 #854/854 ref_obj x G[work@top.x] O[]
+  N0912 #862/862 ref_obj y G[work@top.y] O[]
+  N0912 #930/930 ref_obj x G[work@top.x] O[]

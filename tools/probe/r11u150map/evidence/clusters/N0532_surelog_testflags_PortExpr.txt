@@ -1,0 +1,59 @@
+cluster N0532 (map 5 id kept; COVERED r11u146 (residue: PortExpr / ExplictiPorts (r11u144 R1))): span|operation|endcol|under:port
+row: surelog/testflags/PortExpr  strict=differ:endline(14)  records golden=45 ours=43
+object: #6 (golden) / #6 (ours)  type=operation name= 
+  golden: 2:8:2:35
+  ours:   2:8:2:27
+  walk parents: port(op) < module_inst < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 0..12 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0						000
+  #1	1	module_inst		work@top	work@top	dut.sv	1	1	6	10					work@top	000
+  #2	2	logic_net	op[79]		work@top.op[79]	dut.sv	4	11	4	23		0			work@top.op[79]	000
+  #3	2	logic_net	op[78]		work@top.op[78]	dut.sv	5	11	5	23		0			work@top.op[78]	000
+  #4	2	logic_net	op		work@top.op	dut.sv	2	5	2	7		0			work@top.op	000
+  #5	2	port	op			dut.sv	2	5	2	7						000
+> #6	3	operation				dut.sv	2	8	2	35		0				000
+  #7	4	ref_obj	op[79]		work@top.op.op[79]	dut.sv	2	9	2	21		0			work@top.op.op[79]	000
+  #8	4	ref_obj	op[78]		work@top.op.op[78]	dut.sv	2	22	2	34		0			work@top.op.op[78]	000
+  #9	3	ref_typespec			work@top.op		0	0	0	0		0			work@top.op	000
+  #10	4	logic_typespec				dut.sv	4	11	4	11						000
+  #11	2	port	op[79]			dut.sv	4	11	4	23						000
+  #12	3	ref_obj	op[79]		work@top.op[79].op[79]	dut.sv	4	11	4	23		0			work@top.op[79].op[79]	000
+
+--- OURS (B) records 0..12 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0						000
+  #1	1	module_inst		work@top	work@top	dut.sv	1	1	6	10					work@top	000
+  #2	2	logic_net	op[79]		work@top.op[79]	dut.sv	4	11	5	3		0			work@top.op[79]	000
+  #3	2	logic_net	op[78]		work@top.op[78]	dut.sv	5	11	6	2		0			work@top.op[78]	000
+  #4	2	logic_net	op		work@top.op	dut.sv	2	5	2	7		0			work@top.op	000
+  #5	2	port	op			dut.sv	2	5	2	7						000
+> #6	3	operation				dut.sv	2	8	2	27		0				000
+  #7	4	ref_obj	op[79]		work@top.op.op[79]	dut.sv	4	11	5	3		0			work@top.op.op[79]	000
+  #8	4	ref_obj	op[78]		work@top.op.op[78]	dut.sv	5	11	6	2		0			work@top.op.op[78]	000
+  #9	3	ref_typespec			work@top.op		0	0	0	0		0			work@top.op	000
+  #10	4	logic_typespec				dut.sv	4	11	4	11						000
+  #11	2	port	op[79]			dut.sv	4	11	5	3						000
+  #12	3	ref_obj	op[79]		work@top.op[79].op[79]	dut.sv	4	11	5	3		0			work@top.op[79].op[79]	000
+
+facets of this row (20, first 25):
+  N1098 #32/-1 logic_net op[79] G[1 objs] O[]
+  N1098 #34/-1 logic_net op[78] G[1 objs] O[]
+  N0515 #2/2 logic_net op[79] G[4:11:4:23] O[4:11:5:3]
+  N0515 #3/3 logic_net op[78] G[5:11:5:23] O[5:11:6:2]
+  N0532 #6/6 operation  G[2:8:2:35] O[2:8:2:27]
+  N0081 #7/7 ref_obj op[79] G[2:9:2:21] O[4:11:5:3]
+  N0081 #8/8 ref_obj op[78] G[2:22:2:34] O[5:11:6:2]
+  N0824 #11/11 port op[79] G[4:11:4:23] O[4:11:5:3]
+  N0825 #12/12 ref_obj op[79] G[4:11:4:23] O[4:11:5:3]
+  N0824 #15/15 port op[78] G[5:11:5:23] O[5:11:6:2]
+  N0825 #16/16 ref_obj op[78] G[5:11:5:23] O[5:11:6:2]
+  N0515 #20/20 logic_net op[79] G[4:11:4:23] O[4:11:5:3]
+  N0515 #23/23 logic_net op[78] G[5:11:5:23] O[5:11:6:2]
+  N0532 #30/30 operation  G[2:8:2:35] O[2:8:2:27]
+  N0081 #31/31 ref_obj op[79] G[2:9:2:21] O[4:11:5:3]
+  N0081 #33/32 ref_obj op[78] G[2:22:2:34] O[5:11:6:2]
+  N0824 #37/35 port op[79] G[4:11:4:23] O[4:11:5:3]
+  N0825 #38/36 ref_obj op[79] G[4:11:4:23] O[4:11:5:3]
+  N0824 #41/39 port op[78] G[5:11:5:23] O[5:11:6:2]
+  N0825 #42/40 ref_obj op[78] G[5:11:5:23] O[5:11:6:2]

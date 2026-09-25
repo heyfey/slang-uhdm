@@ -1,0 +1,64 @@
+cluster N0962 (map 5 id kept; OPEN): fullname|hier_path|golden-empty|under:port
+row: uhdm2rtlil/testflags/mriscv_bind_sva  strict=differ:fullname(34)  records golden=24045 ours=24045
+object: #23280 (golden) / #23280 (ours)  type=hier_path name=mriscvcore_inst0.DECODE_INSTR_inst.rs1i OUT
+  golden: 
+  ours:   work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.mriscvcore_inst0.DECODE_INSTR_inst.rs1i
+  walk parents: port(cpu0_rs1i) < module_inst(S2QED_BIND) < module_inst(work@mriscvcore_top_s2qed) < design(work@mriscvcore_top_s2qed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 23274..23286 ('>' = the object)
+  #23274	5	ref_obj	FSM_inst			jg_bind_wrapper.sv	321	32	321	40		0				000
+  #23275	5	ref_obj	is_illisn		work@mriscvcore_top_s2qed.S2QED_BIND.is_illisn1.is_illisn	jg_bind_wrapper.sv	321	41	321	50		0			work@mriscvcore_top_s2qed.S2QED_BIND.is_illisn1.is_illisn	000
+  #23276	4	ref_obj	is_illisn1		work@mriscvcore_top_s2qed.S2QED_BIND.is_illisn1	jg_bind_wrapper.sv	321	4	321	14		0			work@mriscvcore_top_s2qed.S2QED_BIND.is_illisn1	000
+  #23277	4	ref_typespec			work@mriscvcore_top_s2qed.S2QED_BIND.is_illisn1		0	0	0	0		0			work@mriscvcore_top_s2qed.S2QED_BIND.is_illisn1	000
+  #23278	5	logic_typespec				jg_bind_wrapper.sv	19	9	19	9						000
+  #23279	3	port	cpu0_rs1i			jg_bind_wrapper.sv	20	15	20	24						000
+> #23280	4	hier_path	mriscvcore_inst0.DECODE_INSTR_inst.rs1i			jg_bind_wrapper.sv	322	14	322	53		0				000
+  #23281	5	ref_obj	mriscvcore_inst0			jg_bind_wrapper.sv	322	14	322	30		0				000
+  #23282	5	ref_obj	DECODE_INSTR_inst			jg_bind_wrapper.sv	322	31	322	48		0				000
+  #23283	5	ref_obj	rs1i		work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.rs1i	jg_bind_wrapper.sv	322	49	322	53		0			work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.rs1i	000
+  #23284	4	ref_obj	cpu0_rs1i		work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i	jg_bind_wrapper.sv	322	4	322	13		0			work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i	000
+  #23285	4	ref_typespec			work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i		0	0	0	0		0			work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i	000
+  #23286	5	logic_typespec				jg_bind_wrapper.sv	20	9	20	14						000
+
+--- OURS (B) records 23274..23286 ('>' = the object)
+  #23274	5	ref_obj	FSM_inst			jg_bind_wrapper.sv	321	32	321	40		0				000
+  #23275	5	ref_obj	is_illisn		work@mriscvcore_top_s2qed.S2QED_BIND.is_illisn1.is_illisn	jg_bind_wrapper.sv	321	41	321	50		0			work@mriscvcore_top_s2qed.S2QED_BIND.is_illisn1.is_illisn	000
+  #23276	4	ref_obj	is_illisn1		work@mriscvcore_top_s2qed.S2QED_BIND.is_illisn1	jg_bind_wrapper.sv	321	4	321	14		0			work@mriscvcore_top_s2qed.S2QED_BIND.is_illisn1	000
+  #23277	4	ref_typespec			work@mriscvcore_top_s2qed.S2QED_BIND.is_illisn1		0	0	0	0		0			work@mriscvcore_top_s2qed.S2QED_BIND.is_illisn1	000
+  #23278	5	logic_typespec				jg_bind_wrapper.sv	19	9	19	9						000
+  #23279	3	port	cpu0_rs1i			jg_bind_wrapper.sv	20	15	20	24						000
+> #23280	4	hier_path	mriscvcore_inst0.DECODE_INSTR_inst.rs1i		work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.mriscvcore_inst0.DECODE_INSTR_inst.rs1i	jg_bind_wrapper.sv	322	14	322	53		0			work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.mriscvcore_inst0.DECODE_INSTR_inst.rs1i	000
+  #23281	5	ref_obj	mriscvcore_inst0		work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.mriscvcore_inst0	jg_bind_wrapper.sv	322	14	322	30		0			work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.mriscvcore_inst0	000
+  #23282	5	ref_obj	DECODE_INSTR_inst		work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.DECODE_INSTR_inst	jg_bind_wrapper.sv	322	31	322	48		0			work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.DECODE_INSTR_inst	000
+  #23283	5	ref_obj	rs1i		work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.rs1i	jg_bind_wrapper.sv	322	49	322	53		0			work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.rs1i	000
+  #23284	4	ref_obj	cpu0_rs1i		work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i	jg_bind_wrapper.sv	322	4	322	13		0			work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i	000
+  #23285	4	ref_typespec			work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i		0	0	0	0		0			work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i	000
+  #23286	5	logic_typespec				jg_bind_wrapper.sv	20	9	20	14						000
+
+facets of this row (34, first 25):
+  N0076 #2106/2106 ref_obj SWORD G[work@Alg_Booth.S.SWORD] O[work@Alg_Booth.SWORD]
+  N0076 #2131/2131 ref_obj SWORD G[work@Alg_Booth.S.SWORD] O[work@Alg_Booth.SWORD]
+  N0076 #15940/15940 ref_obj SWORD G[work@Alg_Booth.S.SWORD] O[work@Alg_Booth.SWORD]
+  N0076 #15973/15973 ref_obj SWORD G[work@Alg_Booth.S.SWORD] O[work@Alg_Booth.SWORD]
+  N0962 #23280/23280 hier_path mriscvcore_inst0.DECODE_INSTR_inst.rs1i G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.mriscvcore_inst0.DECODE_INSTR_ins]
+  N0007 #23281/23281 ref_obj mriscvcore_inst0 G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.mriscvcore_inst0]
+  N0007 #23282/23282 ref_obj DECODE_INSTR_inst G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.DECODE_INSTR_inst]
+  N0962 #23291/23291 hier_path mriscvcore_inst1.DECODE_INSTR_inst.rs1i G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rs1i.mriscvcore_inst1.DECODE_INSTR_ins]
+  N0007 #23292/23292 ref_obj mriscvcore_inst1 G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rs1i.mriscvcore_inst1]
+  N0007 #23293/23293 ref_obj DECODE_INSTR_inst G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rs1i.DECODE_INSTR_inst]
+  N0962 #23302/23302 hier_path mriscvcore_inst0.DECODE_INSTR_inst.rs2i G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs2i.mriscvcore_inst0.DECODE_INSTR_ins]
+  N0007 #23303/23303 ref_obj mriscvcore_inst0 G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs2i.mriscvcore_inst0]
+  N0007 #23304/23304 ref_obj DECODE_INSTR_inst G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs2i.DECODE_INSTR_inst]
+  N0962 #23313/23313 hier_path mriscvcore_inst1.DECODE_INSTR_inst.rs2i G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rs2i.mriscvcore_inst1.DECODE_INSTR_ins]
+  N0007 #23314/23314 ref_obj mriscvcore_inst1 G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rs2i.mriscvcore_inst1]
+  N0007 #23315/23315 ref_obj DECODE_INSTR_inst G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rs2i.DECODE_INSTR_inst]
+  N0962 #23324/23324 hier_path mriscvcore_inst0.DECODE_INSTR_inst.rdi G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rdi.mriscvcore_inst0.DECODE_INSTR_inst]
+  N0007 #23325/23325 ref_obj mriscvcore_inst0 G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rdi.mriscvcore_inst0]
+  N0007 #23326/23326 ref_obj DECODE_INSTR_inst G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rdi.DECODE_INSTR_inst]
+  N0962 #23335/23335 hier_path mriscvcore_inst1.DECODE_INSTR_inst.rdi G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rdi.mriscvcore_inst1.DECODE_INSTR_inst]
+  N0007 #23336/23336 ref_obj mriscvcore_inst1 G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rdi.mriscvcore_inst1]
+  N0007 #23337/23337 ref_obj DECODE_INSTR_inst G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rdi.DECODE_INSTR_inst]
+  N0962 #23346/23346 hier_path mriscvcore_inst0.DECODE_INSTR_inst.imm G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_imm.mriscvcore_inst0.DECODE_INSTR_inst]
+  N0007 #23347/23347 ref_obj mriscvcore_inst0 G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_imm.mriscvcore_inst0]
+  N0007 #23348/23348 ref_obj DECODE_INSTR_inst G[] O[work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_imm.DECODE_INSTR_inst]

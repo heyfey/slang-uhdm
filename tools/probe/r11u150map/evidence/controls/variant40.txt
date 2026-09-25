@@ -1,0 +1,1 @@
+variant vs committed: ok=40 bad=0

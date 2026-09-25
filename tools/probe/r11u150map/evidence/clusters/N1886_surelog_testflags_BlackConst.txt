@@ -1,0 +1,52 @@
+cluster N1886 (map 5 id kept; OPEN): span|constant|col+endcol|under:indexed_part_select
+row: surelog/testflags/BlackConst  strict=differ:line(19)  records golden=581 ours=581
+object: #577 (golden) / #577 (ours)  type=constant name= 
+  golden: 10:102:10:165
+  ours:   10:64:10:127
+  walk parents: indexed_part_select(pc) < operation < cont_assign < module_inst(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 571..580 ('>' = the object)
+  #571	5	constant				dut.sv	10	7	10	74	35	64	INT:35	7		000
+  #572	5	operation				dut.sv	10	75	10	92		0				000
+  #573	6	bit_select	pc		work@top.pc	dut.sv	10	79	10	90		0			work@top.pc	000
+  #574	7	constant				dut.sv	10	79	10	90	12	64	INT:12	7		000
+  #575	4	indexed_part_select	pc	pc	work@top.pc	dut.sv	10	98	10	166		0			work@top.pc	000
+  #576	5	constant				dut.sv	10	98	10	99	0	64	UINT:0	9		000
+> #577	5	constant				dut.sv	10	102	10	165	13	64	INT:13	7		000
+  #578	2	cont_assign				dut.sv	146	10	146	17						000
+  #579	3	constant				dut.sv	146	15	146	17	11	13	UINT:11	9		000
+  #580	3	ref_obj	pc		work@top.pc	dut.sv	146	10	146	12		0			work@top.pc	000
+
+--- OURS (B) records 571..580 ('>' = the object)
+  #571	5	constant				dut.sv	10	7	10	74	35	64	INT:35	7		000
+  #572	5	operation				dut.sv	10	75	10	92		0				000
+  #573	6	bit_select	pc		work@top.pc	dut.sv	10	79	10	90		0			work@top.pc	000
+  #574	7	constant				dut.sv	10	79	10	90	12	64	INT:12	7		000
+  #575	4	indexed_part_select	pc	pc	work@top.pc	dut.sv	10	98	10	128		0			work@top.pc	000
+  #576	5	constant				dut.sv	10	98	10	99	0	64	UINT:0	9		000
+> #577	5	constant				dut.sv	10	64	10	127	13	64	INT:13	7		000
+  #578	2	cont_assign				dut.sv	146	10	146	17						000
+  #579	3	constant				dut.sv	146	15	146	17	11	13	UINT:11	9		000
+  #580	3	ref_obj	pc		work@top.pc	dut.sv	146	10	146	12		0			work@top.pc	000
+
+facets of this row (19, first 25):
+  N0722 #24/24 parameter easy G[12:11:12:15] O[156:11:156:15]
+  N1089 #53/53 param_assign  G[12:11:13:80] O[156:11:13:80]
+  N1086 #268/268 logic_net pc_sext_li G[9:27:9:37] O[154:27:154:37]
+  N0661 #270/270 logic_typespec  G[9:1:9:26] O[154:1:154:26]
+  N1048 #271/271 range  G[9:6:9:26] O[154:6:154:26]
+  N1152 #272/272 operation  G[9:7:9:23] O[154:7:154:23]
+  N0055 #273/273 ref_obj dword_width_gp G[9:7:9:21] O[154:7:154:21]
+  N0079 #274/274 constant  G[9:22:9:23] O[154:22:154:23]
+  N0639 #275/275 constant  G[9:24:9:25] O[154:24:154:25]
+  N0722 #339/339 parameter easy G[12:11:12:15] O[156:11:156:15]
+  N1089 #368/368 param_assign  G[12:11:13:80] O[156:11:13:80]
+  N1086 #555/555 logic_net pc_sext_li G[9:27:9:37] O[154:27:154:37]
+  N0661 #557/557 logic_typespec  G[9:1:9:26] O[154:1:154:26]
+  N1048 #558/558 range  G[9:6:9:26] O[154:6:154:26]
+  N0639 #559/559 constant  G[9:7:9:21] O[154:7:154:21]
+  N0639 #560/560 constant  G[9:24:9:25] O[154:24:154:25]
+  N1141 #568/568 cont_assign  G[9:27:9:37] O[154:27:154:37]
+  N1145 #575/575 indexed_part_select pc G[10:98:10:166] O[10:98:10:128]
+  N1886 #577/577 constant  G[10:102:10:165] O[10:64:10:127]

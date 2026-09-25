@@ -1,0 +1,64 @@
+cluster N0301 (map 5 id kept; OPEN): span|begin|col+endcol|under:function
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #15200 (golden) / #15214 (ours)  type=begin name= 
+  golden: 2168:1:2168:2
+  ours:   2168:71:2168:72
+  walk parents: function(uvm_phase::kill) < package(uvm_pkg) < design(work@my_scoreboard_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 15194..15206 ('>' = the object)
+  #15194	10	method_func_call	phase_done			uvm_phase.svh	2156	13	2156	23		0				000
+  #15195	11	ref_obj	sib		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::sib	uvm_phase.svh	2156	9	2156	12		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::sib	000
+  #15196	10	assignment				uvm_phase.svh	2157	9	2157	30						000
+  #15197	11	constant				uvm_phase.svh	2157	29	2157	30	1	64	UINT:1	9		000
+  #15198	11	ref_obj	need_to_check_all		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::need_to_check_all	uvm_phase.svh	2157	9	2157	26		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::need_to_check_all	000
+  #15199	2	function	uvm_phase::kill		uvm_pkg::uvm_phase::kill	uvm_phase.svh	2166	1	2175	12					uvm_pkg::uvm_phase::kill	000
+> #15200	3	begin			uvm_pkg::uvm_phase::kill	uvm_phase.svh	2168	1	2168	2					uvm_pkg::uvm_phase::kill	000
+  #15201	4	begin			uvm_pkg::uvm_phase::kill	uvm_message_defines.svh	113	4	116	7					uvm_pkg::uvm_phase::kill	000
+  #15202	5	if_stmt				uvm_message_defines.svh	114	6	115	201						000
+  #15203	6	func_call	uvm_report_enabled			uvm_message_defines.svh	114	10	114	58		0				000
+  #15204	7	ref_obj	UVM_DEBUG		uvm_pkg::uvm_phase::kill::UVM_DEBUG	uvm_message_defines.svh	114	29	114	38		0			uvm_pkg::uvm_phase::kill::UVM_DEBUG	000
+  #15205	8	enum_const	UVM_DEBUG			uvm_object_globals.svh	309	3	309	19						010
+  #15206	7	ref_obj	UVM_INFO		uvm_pkg::uvm_phase::kill::UVM_INFO	uvm_message_defines.svh	114	39	114	47		0			uvm_pkg::uvm_phase::kill::UVM_INFO	000
+
+--- OURS (B) records 15208..15220 ('>' = the object)
+  #15208	10	method_func_call	phase_done			uvm_phase.svh	2156	13	2156	23		0				000
+  #15209	11	ref_obj	sib		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::sib	uvm_phase.svh	2156	9	2156	12		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::sib	000
+  #15210	10	assignment				uvm_phase.svh	2157	9	2157	30						000
+  #15211	11	constant				uvm_phase.svh	2157	29	2157	30	1	64	UINT:1	9		000
+  #15212	11	ref_obj	need_to_check_all		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::need_to_check_all	uvm_phase.svh	2157	9	2157	26		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::need_to_check_all	000
+  #15213	2	function	uvm_phase::kill		uvm_pkg::uvm_phase::kill	uvm_phase.svh	2166	1	2175	12					uvm_pkg::uvm_phase::kill	000
+> #15214	3	begin			uvm_pkg::uvm_phase::kill	uvm_phase.svh	2168	71	2168	72					uvm_pkg::uvm_phase::kill	000
+  #15215	4	begin			uvm_pkg::uvm_phase::kill	uvm_message_defines.svh	113	4	116	7					uvm_pkg::uvm_phase::kill	000
+  #15216	5	if_stmt				uvm_message_defines.svh	114	6	115	221						000
+  #15217	6	func_call	uvm_report_enabled			uvm_message_defines.svh	114	10	114	58		0				000
+  #15218	7	ref_obj	UVM_DEBUG		uvm_pkg::uvm_phase::kill::UVM_DEBUG	uvm_message_defines.svh	114	29	114	38		0			uvm_pkg::uvm_phase::kill::UVM_DEBUG	000
+  #15219	8	enum_const	UVM_DEBUG			uvm_object_globals.svh	309	3	309	19						010
+  #15220	7	ref_obj	UVM_INFO		uvm_pkg::uvm_phase::kill::UVM_INFO	uvm_message_defines.svh	114	39	114	47		0			uvm_pkg::uvm_phase::kill::UVM_INFO	000
+
+facets of this row (29492, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

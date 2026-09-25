@@ -1,0 +1,64 @@
+cluster N1169 (map 5 id kept; COVERED r11u146 (residue: verifier face: folded call formal-indexed bit select (v11u144 residue 4, brk/pf/x4))): file|constant|ours-empty|under:cont_assign
+row: surelog/default/Rggen  strict=differ:file(9)  records golden=314498 ours=312506
+object: #37432 (golden) / #37412 (ours)  type=constant name= 
+  golden: rggen_register_common.sv 68:76:68:78
+  ours:    0:0:0:0
+  walk parents: cont_assign < module_inst(u_register_common) < module_inst(u_register) < gen_scope
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 37426..37438 ('>' = the object)
+  #37426	9	hier_path	register_if.valid			rggen_register_common.sv	65	40	65	57		0				000
+  #37427	10	ref_obj	register_if			rggen_register_common.sv	65	40	65	51		0				000
+  #37428	10	ref_obj	valid		work@rggen.u_block_0.g_register_2.u_register.u_register_common.valid	rggen_register_common.sv	65	52	65	57		0			work@rggen.u_block_0.g_register_2.u_register.u_register_common.valid	000
+  #37429	9	constant				rggen_register_common.sv	65	60	65	62	'0	-1	BIN:0	3		000
+  #37430	8	ref_obj	frontdoor_valid		work@rggen.u_block_0.g_register_2.u_register.u_register_common.frontdoor_valid	rggen_register_common.sv	65	11	65	26		0			work@rggen.u_block_0.g_register_2.u_register.u_register_common.frontdoor_valid	000
+  #37431	7	cont_assign				rggen_register_common.sv	68	11	68	78						000
+> #37432	8	constant				rggen_register_common.sv	68	76	68	78	'0	-1	BIN:0	3		000
+  #37433	8	bit_select	write_data		work@rggen.u_block_0.g_register_2.u_register.u_register_common.write_data	rggen_register_common.sv	68	11	68	24		0			work@rggen.u_block_0.g_register_2.u_register.u_register_common.write_data	000
+  #37434	9	constant				rggen_register_common.sv	68	22	68	23	0	64	UINT:0	9		000
+  #37435	7	cont_assign				rggen_register_common.sv	104	11	104	45						000
+  #37436	8	constant					0	0	0	0	2'b00	2	BIN:00	3		000
+  #37437	8	hier_path	register_if.status			rggen_register_common.sv	104	11	104	29		0				000
+  #37438	9	ref_obj	register_if			rggen_register_common.sv	104	23	104	29		0				000
+
+--- OURS (B) records 37406..37418 ('>' = the object)
+  #37406	9	hier_path	register_if.valid			rggen_register_common.sv	65	40	65	57		0				000
+  #37407	10	ref_obj	register_if			rggen_register_common.sv	65	40	65	51		0				000
+  #37408	10	ref_obj	valid		work@rggen.u_block_0.g_register_2.u_register.u_register_common.valid	rggen_register_common.sv	65	52	65	57		0			work@rggen.u_block_0.g_register_2.u_register.u_register_common.valid	000
+  #37409	9	constant				rggen_register_common.sv	65	60	65	62	'0	-1	BIN:0	3		000
+  #37410	8	ref_obj	frontdoor_valid		work@rggen.u_block_0.g_register_2.u_register.u_register_common.frontdoor_valid	rggen_register_common.sv	65	11	65	26		0			work@rggen.u_block_0.g_register_2.u_register.u_register_common.frontdoor_valid	000
+  #37411	7	cont_assign				rggen_register_common.sv	68	11	68	78						000
+> #37412	8	constant					0	0	0	0	0	64	INT:0	7		000
+  #37413	8	bit_select	write_data		work@rggen.u_block_0.g_register_2.u_register.u_register_common.write_data	rggen_register_common.sv	68	11	68	24		0			work@rggen.u_block_0.g_register_2.u_register.u_register_common.write_data	000
+  #37414	9	constant				rggen_register_common.sv	68	22	68	23	0	64	UINT:0	9		000
+  #37415	7	cont_assign				rggen_register_common.sv	104	11	104	45						000
+  #37416	8	constant					0	0	0	0	2'b00	2	BIN:00	3		000
+  #37417	8	hier_path	register_if.status			rggen_register_common.sv	104	11	104	29		0				000
+  #37418	9	ref_obj	register_if			rggen_register_common.sv	104	23	104	29		0				000
+
+facets of this row (15240, first 25):
+  N1175 #466/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/476 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/481 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #501/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #661/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/671 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/676 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #696/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #2242/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/2252 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/2257 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #2277/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #15376/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/15386 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/15391 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #15411/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17669/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17679 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17684 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17704/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17850/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17860 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17865 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17885/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #18031/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]

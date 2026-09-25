@@ -1,0 +1,64 @@
+cluster N1529 (map 5 id kept; OPEN): fullname|ref_typespec|tok:.id[n].id::id.id::id->|under:constant
+row: surelog/default/Earlgrey_0_1  strict=differ:line(1755)  records golden=2173209 ours=2173965
+object: #346678 (golden) / #346638 (ours)  type=ref_typespec name= OUT
+  golden: work@prim_prince.gen_fwd_pass[1].prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST
+  ours:   work@prim_prince
+  walk parents: constant < operation < part_select(prim_cipher_pkg::PRINCE_ROUND_CONST) < var_select(prim_cipher_pkg::PRINCE_ROUND_CONST)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 346672..346684 ('>' = the object)
+  #346672	6	ref_obj	data_state_round		work@prim_prince.gen_fwd_pass[1].data_state_round	prim_prince.sv	105	29	105	45		0			work@prim_prince.gen_fwd_pass[1].data_state_round	000
+  #346673	6	var_select	prim_cipher_pkg::PRINCE_ROUND_CONST			prim_prince.sv	106	29	106	82		0				000
+  #346674	7	ref_obj	k		work@prim_prince.gen_fwd_pass[1].prim_cipher_pkg::PRINCE_ROUND_CONST.k	prim_prince.sv	106	65	106	66		0			work@prim_prince.gen_fwd_pass[1].prim_cipher_pkg::PRINCE_ROUND_CONST.k	000
+  #346675	7	part_select	prim_cipher_pkg::PRINCE_ROUND_CONST	prim_cipher_pkg::PRINCE_ROUND_CONST		prim_prince.sv	106	68	106	81		0				000
+  #346676	8	operation				prim_prince.sv	106	68	106	79		0				000
+  #346677	9	constant				prim_prince.sv	106	68	106	77	64	32	UINT:64	9		000
+> #346678	10	ref_typespec			work@prim_prince.gen_fwd_pass[1].prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST		0	0	0	0		0			work@prim_prince.gen_fwd_pass[1].prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST	000
+  #346679	11	int_typespec				prim_prince.sv	30	13	30	16						000
+  #346680	9	constant				prim_prince.sv	106	78	106	79	1	64	UINT:1	9		000
+  #346681	8	constant				prim_prince.sv	106	80	106	81	0	64	UINT:0	9		000
+  #346682	5	ref_obj	data_state_xor		work@prim_prince.gen_fwd_pass[1].data_state_xor	prim_prince.sv	105	12	105	26		0			work@prim_prince.gen_fwd_pass[1].data_state_xor	000
+  #346683	4	gen_scope_array	gen_fwd_d64		work@prim_prince.gen_fwd_pass[1].gen_fwd_d64	prim_prince.sv	87	26	95	8					work@prim_prince.gen_fwd_pass[1].gen_fwd_d64	000
+  #346684	5	gen_scope			work@prim_prince.gen_fwd_pass[1].gen_fwd_d64	prim_prince.sv	87	26	95	8					work@prim_prince.gen_fwd_pass[1].gen_fwd_d64	000
+
+--- OURS (B) records 346632..346644 ('>' = the object)
+  #346632	6	ref_obj	data_state_round		work@prim_prince.gen_fwd_pass[1].data_state_round	prim_prince.sv	105	29	105	45		0			work@prim_prince.gen_fwd_pass[1].data_state_round	000
+  #346633	6	var_select	prim_cipher_pkg::PRINCE_ROUND_CONST			prim_prince.sv	106	29	106	82		0				000
+  #346634	7	ref_obj	k		work@prim_prince.gen_fwd_pass[1].prim_cipher_pkg::PRINCE_ROUND_CONST.k	prim_prince.sv	106	65	106	66		0			work@prim_prince.gen_fwd_pass[1].prim_cipher_pkg::PRINCE_ROUND_CONST.k	000
+  #346635	7	part_select	prim_cipher_pkg::PRINCE_ROUND_CONST	prim_cipher_pkg::PRINCE_ROUND_CONST		prim_prince.sv	106	68	106	81		0				000
+  #346636	8	operation				prim_prince.sv	106	68	106	79		0				000
+  #346637	9	constant				prim_prince.sv	106	68	106	77	64	32	UINT:64	9		000
+> #346638	10	ref_typespec			work@prim_prince		0	0	0	0		0			work@prim_prince	000
+  #346639	11	int_typespec				prim_prince.sv	30	13	30	16						000
+  #346640	9	constant				prim_prince.sv	106	78	106	79	1	64	UINT:1	9		000
+  #346641	8	constant				prim_prince.sv	106	80	106	81	0	64	UINT:0	9		000
+  #346642	5	ref_obj	data_state_xor		work@prim_prince.gen_fwd_pass[1].data_state_xor	prim_prince.sv	105	12	105	26		0			work@prim_prince.gen_fwd_pass[1].data_state_xor	000
+  #346643	4	gen_scope_array	gen_fwd_d64		work@prim_prince.gen_fwd_pass[1].gen_fwd_d64	prim_prince.sv	87	26	95	8					work@prim_prince.gen_fwd_pass[1].gen_fwd_d64	000
+  #346644	5	gen_scope			work@prim_prince.gen_fwd_pass[1].gen_fwd_d64	prim_prince.sv	87	26	95	8					work@prim_prince.gen_fwd_pass[1].gen_fwd_d64	000
+
+facets of this row (26030, first 25):
+  N0142 #130430/-1 range  G[5 objs] O[]
+  N0142 #130519/-1 range  G[5 objs] O[]
+  N0142 #134891/-1 range  G[5 objs] O[]
+  N0142 #134980/-1 range  G[5 objs] O[]
+  N0142 #136112/-1 range  G[5 objs] O[]
+  N0142 #136201/-1 range  G[5 objs] O[]
+  N0142 #137221/-1 range  G[5 objs] O[]
+  N0142 #137310/-1 range  G[5 objs] O[]
+  N0286 #-1/444664 ref_obj NrHartsAligned G[] O[1 objs]
+  N0286 #-1/444675 ref_obj NrHartsAligned G[] O[1 objs]
+  N0286 #-1/444687 ref_obj NrHartsAligned G[] O[1 objs]
+  N0286 #-1/444704 ref_obj NrHartsAligned G[] O[1 objs]
+  N0286 #-1/448371 ref_obj NrHartsAligned G[] O[1 objs]
+  N0286 #-1/448383 ref_obj NrHartsAligned G[] O[1 objs]
+  N0286 #-1/448395 ref_obj NrHartsAligned G[] O[1 objs]
+  N0286 #-1/448406 ref_obj NrHartsAligned G[] O[1 objs]
+  N0286 #-1/448423 ref_obj NrHartsAligned G[] O[1 objs]
+  N0286 #-1/452160 ref_obj DepthW G[] O[1 objs]
+  N0286 #-1/452174 ref_obj DepthW G[] O[1 objs]
+  N0286 #-1/452183 ref_obj DepthW G[] O[1 objs]
+  N0286 #-1/452194 ref_obj DepthW G[] O[1 objs]
+  N0286 #-1/452203 ref_obj DepthW G[] O[1 objs]
+  N0286 #-1/452212 ref_obj DepthW G[] O[1 objs]
+  N0286 #-1/452277 ref_obj DepthW G[] O[1 objs]
+  N0286 #-1/452291 ref_obj DepthW G[] O[1 objs]

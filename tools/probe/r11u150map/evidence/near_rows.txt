@@ -1,0 +1,76 @@
+# rows left after both pairs with <= 3 open clusters, grouped by their open-cluster set: grounds, clusters (key), row-modes
+[1 open, ground A] N0077(fullname ref_obj) :: 4 :: GenForIfaceLocalparamBound/d GenForIfaceLocalparamBound/t GenForIfaceLocalparamNestedGen/d GenForIfaceLocalparamNestedGen/t
+[1 open, ground B] N0008(fullname ref_typespec) :: 4 :: LocalParamInNestedForLoops/d/u2r LocalParamInNestedForLoops/t/u2r ibex_alu/d/u2r ibex_alu/t/u2r
+[1 open, ground B] N0103(name class_typespec) :: 2 :: ArrayMethodIterator/d ArrayMethodIterator/t
+[1 open, ground B] N0830(struct ours-only:fewer-copies) :: 2 :: ComplexHierPath/d ComplexHierPath/t
+[1 open, ground B] N0528(value constant) :: 2 :: DelayAssign/d DelayAssign/t
+[1 open, ground B] N0646(fullname ref_obj) :: 2 :: GenCaseStmt/d GenCaseStmt/t
+[1 open, ground A] N0045(struct golden-only:fewer-copies) :: 2 :: StructParamPatternInitCast/d StructParamPatternInitCast/t
+[1 open, ground A] N0820(fullname ref_obj) :: 2 :: anon_struct_packed_dim/d/u2r anon_struct_packed_dim/t/u2r
+[1 open, ground A] N0046(struct ours-only:fewer-copies) :: 2 :: array_assign/d/u2r array_assign/t/u2r
+[1 open, ground A] N0286(struct ours-only:fewer-copies) :: 2 :: comb_dyn_2d_packed_sel/d/u2r comb_dyn_2d_packed_sel/t/u2r
+[1 open, ground B] N0019(fullname ref_obj) :: 2 :: expr_width_cast/d/u2r expr_width_cast/t/u2r
+[1 open, ground A] N1118(fullname part_select) :: 2 :: genscope_module_ctx_reset/d/u2r genscope_module_ctx_reset/t/u2r
+[1 open, ground B] N0078(fullname ref_obj) :: 2 :: ibex_register_file_ff/d/u2r ibex_register_file_ff/t/u2r
+[1 open, ground A] N1063(fullname ref_obj) :: 2 :: iface_struct_field_partsel/d/u2r iface_struct_field_partsel/t/u2r
+[1 open, ground B] N0688(fullname ref_typespec) :: 2 :: iface_zero_width_field/d/u2r iface_zero_width_field/t/u2r
+[1 open, ground A] N1053(fullname bit_select) :: 2 :: latch_packed_dyn_write/d/u2r latch_packed_dyn_write/t/u2r
+[1 open, ground B] N0962(fullname hier_path) :: 2 :: mriscv_bind_sva/d/u2r mriscv_bind_sva/t/u2r
+[1 open, ground B] N0454(fullname ref_typespec) :: 2 :: packed_array_struct_port_sel/d/u2r packed_array_struct_port_sel/t/u2r
+[1 open, ground B] N0472(fullname ref_obj) :: 2 :: param_array_wildcard/d/u2r param_array_wildcard/t/u2r
+[1 open, ground B] N0274(fullname ref_obj) :: 2 :: param_name_collision_typeparam/d/u2r param_name_collision_typeparam/t/u2r
+[1 open, ground B] N0531(fullname ref_typespec) :: 2 :: struct_member_cfg_width/d/u2r struct_member_cfg_width/t/u2r
+[1 open, ground B] N0470(fullname ref_typespec) :: 2 :: type_param_packed_dim/d/u2r type_param_packed_dim/t/u2r
+[1 open, ground B] N0011(file logic_net) :: 2 :: typed_named_pattern/d/u2r typed_named_pattern/t/u2r
+[1 open, ground B] N1061(fullname ref_obj) :: 1 :: BasicOh/t
+[1 open, ground A] N0739(struct ours-only:fewer-copies) :: 1 :: ComplexParamOverload/t
+[1 open, ground B] N1174(fullname ref_typespec) :: 1 :: HierPathTypespec/t
+[2 open, ground A+B] N0012(file enum_typespec) N0150(fullname ref_typespec) :: 10 :: FENCED_1/d FENCED_1/t ParameterPassedTo3TimesNestedSubmodule/d/u2r ParameterPassedTo3TimesNestedSubmodule/t/u2r ParameterPassedToSubmoduleInGenscopeOfSubmodule/d/u2r ParameterPassedToSubmoduleInGenscopeOfSubmodule/t/u2r ParameterPassedToSubmoduleOfSubmodule/d/u2r ParameterPassedToSubmoduleOfSubmodule/t/u2r SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule/d/u2r SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule/t/u2r
+[2 open, ground A] N2383(struct golden-only:elsewhere) N2384(struct ours-only:elsewhere) :: 6 :: def_ctx_struct_param/d/u2r def_ctx_struct_param/t/u2r latch_decoder_partial/d/u2r latch_decoder_partial/t/u2r latch_tlb_napot/d/u2r latch_tlb_napot/t/u2r
+[2 open, ground A] N0455(span assignment) N0456(span ref_obj) :: 5 :: PortInitVal/d PortInitVal2/d PortInitVal2/t sat_asserts_seq/d/u2r sat_asserts_seq/t/u2r
+[2 open, ground B] N0004(fullname ref_typespec) N0265(fullname ref_typespec) :: 4 :: LargeValue2Struct/d LargeValue2Struct/t StructUnsizedVal/d StructUnsizedVal/t
+[2 open, ground B] N0163(fullname ref_typespec) N0655(name enum_typespec) :: 4 :: PackedEnumPort/d PackedEnumPort/t VarPassedTo2Submodules/d/u2r VarPassedTo2Submodules/t/u2r
+[2 open, ground A] N0417(span operation) N0534(fullname ref_typespec) :: 4 :: NestedStructArrayParameterInitializedByPatternPassedAsPort/d/u2r NestedStructArrayParameterInitializedByPatternPassedAsPort/t/u2r StructArrayParameterInitializedByPatternPassedAsPort/d/u2r StructArrayParameterInitializedByPatternPassedAsPort/t/u2r
+[2 open, ground A] N0724(struct ours-only:absent) N1129(fullname ref_typespec) :: 2 :: BlackParrotComplex/d BlackParrotComplex/t
+[2 open, ground B] N0447(file param_assign) N0498(span class_var) :: 2 :: ClassParamAsParam/d ClassParamAsParam/t
+[2 open, ground B] N0117(span unsupported_typespec) N0768(span logic_var) :: 2 :: CrossFunc/d CrossFunc/t
+[2 open, ground B] N0844(span enum_typespec) N0851(span enum_typespec) :: 2 :: EnumVar/d EnumVar/t
+[2 open, ground A+B] N0011(file logic_net) N0016(file logic_net) :: 2 :: FuncIoTypespec/d FuncIoTypespec/t
+[2 open, ground B] N0094(span constant) N1058(fullname hier_path) :: 2 :: GenForStructParamBound/d GenForStructParamBound/t
+[2 open, ground A+B] N0528(value constant) N0822(span constant) :: 2 :: HighLow/d HighLow/t
+[2 open, ground B] N0135(span struct_typespec) N0762(span struct_typespec) :: 2 :: IfGenTypeBinding/d IfGenTypeBinding/t
+[2 open, ground B] N0751(span logic_typespec) N0767(span range) :: 2 :: ImplicitArg/d ImplicitArg/t
+[2 open, ground B] N0433(file packed_array_typespec) N0436(span packed_array_typespec) :: 2 :: PackageMemberTypespec/d PackageMemberTypespec/t
+[2 open, ground A+B] N0163(fullname ref_typespec) N1115(fullname bit_select) :: 2 :: PackedArrayHighConn/d PackedArrayHighConn/t
+[2 open, ground B] N0037(file packed_array_typespec) N0062(span packed_array_typespec) :: 2 :: ParamTypespec2/d ParamTypespec2/t
+[2 open, ground A] N0006(struct golden-only:fewer-copies) N0765(fullname ref_obj) :: 2 :: StringMethod/d StringMethod/t
+[2 open, ground B] N0092(value constant) N0430(file union_typespec) :: 2 :: UnionCast/d UnionCast/t
+[2 open, ground B] N1135(span array_net) N1156(span struct_net) :: 2 :: UnpackPort/d UnpackPort/t
+[2 open, ground B] N0831(file enum_const) N0843(span enum_const) :: 2 :: MultirangesStartNotFromZero/d/u2r MultirangesStartNotFromZero/t/u2r
+[2 open, ground B] N0269(fullname ref_typespec) N0450(fullname logic_var) :: 2 :: OneNetModport/d/u2r OneNetModport/t/u2r
+[2 open, ground A] N0394(file constant) N1140(span constant) :: 2 :: PatternStruct/d/u2r PatternStruct/t/u2r
+[2 open, ground A+B] N0085(struct ours-only:fewer-copies) N0738(name logic_typespec) :: 2 :: func_typename_ret/d/u2r func_typename_ret/t/u2r
+[2 open, ground B] N0274(fullname ref_obj) N1014(fullname ref_obj) :: 2 :: gen_scope_numports/d/u2r gen_scope_numports/t/u2r
+[2 open, ground A] N0833(fullname bit_select) N1067(fullname ref_obj) :: 2 :: iface_arr_struct_field_partsel/d/u2r iface_arr_struct_field_partsel/t/u2r
+[2 open, ground A+B] N0047(fullname parameter) N0048(fullname ref_typespec) :: 2 :: iface_param_port_width/d/u2r iface_param_port_width/t/u2r
+[2 open, ground B] N1059(fullname logic_net) N1072(fullname ref_typespec) :: 2 :: iface_sig_in_child_port/d/u2r iface_sig_in_child_port/t/u2r
+[2 open, ground B] N0804(struct golden-only:elsewhere) N0805(struct ours-only:elsewhere) :: 2 :: mem_read_reg/d/u2r mem_read_reg/t/u2r
+[2 open, ground A] N0471(fullname ref_typespec) N0702(fullname ref_typespec) :: 2 :: multiplier/d/u2r multiplier/t/u2r
+[2 open, ground B] N0470(fullname ref_typespec) N0472(fullname ref_obj) :: 2 :: type_param_override_elem_sel/d/u2r type_param_override_elem_sel/t/u2r
+[2 open, ground B] N1041(span union_typespec) N1161(span union_typespec) :: 2 :: union_param_repro/d/u2r union_param_repro/t/u2r
+[2 open, ground A+B] N0698(fullname ref_obj) N0739(struct ours-only:fewer-copies) :: 1 :: ComplexParamOverload/d
+[2 open, ground B] N0114(file hier_path) N0115(span hier_path) :: 1 :: LocalScopeHierPath/d
+[2 open, ground A+B] N0016(file logic_net) N0090(span logic_typespec) :: 1 :: UnitElabBlock/t
+[3 open, ground B] N0433(file packed_array_typespec) N0436(span packed_array_typespec) N0494(fullname ref_typespec) :: 4 :: FileLevelUnionWithMultirange/d/u2r FileLevelUnionWithMultirange/t/u2r UnsupportedTypespecRange/d UnsupportedTypespecRange/t
+[3 open, ground B] N0075(span enum_typespec) N0266(span enum_typespec) N0409(span enum_typespec) :: 2 :: FuncCase/d FuncCase/t
+[3 open, ground A] N0050(span operation) N1075(span always) N1076(span assignment) :: 2 :: MacroArgMismatch/d MacroArgMismatch/t
+[3 open, ground B] N0266(span enum_typespec) N0468(span enum_typespec) N1146(span integer_typespec) :: 2 :: SimpleConstraint/d SimpleConstraint/t
+[3 open, ground A+B] N0191(span hier_path) N0853(value constant) N1127(fullname ref_typespec) :: 2 :: OutputSizeWithParameterOfInstanceInitializedByStructMember/d/u2r OutputSizeWithParameterOfInstanceInitializedByStructMember/t/u2r
+[3 open, ground A+B] N0012(file enum_typespec) N0034(span enum_typespec) N0638(fullname ref_typespec) :: 2 :: TypeParameterAsPortTypeWithEnum/d/u2r TypeParameterAsPortTypeWithEnum/t/u2r
+[3 open, ground B] N0133(struct golden-only:fewer-copies) N0438(span struct_typespec) N0487(struct ours-only:absent) :: 2 :: const_cast_signext/d/u2r const_cast_signext/t/u2r
+[3 open, ground B] N0083(struct golden-only:fewer-copies) N0130(depth logic_typespec) N0740(struct golden-only:absent) :: 2 :: packed_array_struct/d/u2r packed_array_struct/t/u2r
+[3 open, ground A+B] N0022(struct golden-only:elsewhere) N0023(struct ours-only:elsewhere) N0416(fullname ref_typespec) :: 2 :: rsp_gen_minimal/d/u2r rsp_gen_minimal/t/u2r
+[3 open, ground A+B] N0006(struct golden-only:fewer-copies) N0022(struct golden-only:elsewhere) N0023(struct ours-only:elsewhere) :: 1 :: ExplictiPorts/d
+[3 open, ground A+B] N0011(file logic_net) N0016(file logic_net) N0090(span logic_typespec) :: 1 :: UnitElabBlock/d
+[3 open, ground A+B] N0136(fullname ref_obj) N0457(fullname ref_typespec) N0775(struct golden-only:fewer-copies) :: 1 :: UnsizedParam/d
+[3 open, ground A+B] N0114(file hier_path) N0115(span hier_path) N0278(fullname ref_obj) :: 1 :: LocalScopeHierPath/t

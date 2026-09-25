@@ -1,0 +1,61 @@
+cluster N0805 (map 5 id kept; OPEN): struct|ours-only:elsewhere|struct_typespec|under:interface_inst
+row: uhdm2rtlil/testflags/mem_read_reg  strict=differ:name(5)  records golden=989 ours=989
+object: #-1 (golden) / #86 (ours)  type=struct_typespec name=p::rsp_t 
+  golden: 
+  ours:   16 objs
+  walk parents: interface_inst < design(work@mem_read_reg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 80..92 ('>' = the object)
+  #80	4	ref_typespec			<in>p::rsp_t.err		0	0	0	0		0			work@mem_read_reg.p::rsp_t.err	001
+  #81	5	logic_typespec				dut.sv	8	9	8	14						001
+  #82	3	typespec_member	pad			dut.sv	9	22	9	25						001
+  #83	4	ref_typespec			<in>p::rsp_t.pad		0	0	0	0		0			work@mem_read_reg.p::rsp_t.pad	001
+  #84	5	logic_typespec				dut.sv	9	9	9	14						001
+  #85	1	interface_inst		work@mem_if	work@mem_if	dut.sv	20	1	26	13					work@mem_if	000
+> #86	2	struct_typespec	p::rsp_t			dut.sv	5	13	10	6						010
+  #87	3	typespec_member	rdt			dut.sv	6	22	6	25						001
+  #88	4	ref_typespec			<in>p::rsp_t.rdt		0	0	0	0		0			work@mem_read_reg.p::rsp_t.rdt	001
+  #89	5	logic_typespec				dut.sv	6	9	6	21						001
+  #90	6	range				dut.sv	6	15	6	21						001
+  #91	7	constant				dut.sv	6	16	6	18	31	64	UINT:31	9		001
+  #92	7	constant				dut.sv	6	19	6	20	0	64	UINT:0	9		001
+
+--- the holder #85 on the other side: exact-record matches at [85]
+  #82	3	typespec_member	pad			dut.sv	9	22	9	25						001
+  #83	4	ref_typespec			<in>p::rsp_t.pad		0	0	0	0		0			work@mem_read_reg.p::rsp_t.pad	001
+  #84	5	logic_typespec				dut.sv	9	9	9	14						001
+> #85	1	interface_inst		work@mem_if	work@mem_if	dut.sv	20	1	26	13					work@mem_if	000
+  #86	2	struct_typespec	p::req_t			dut.sv	11	13	17	6						010
+  #87	3	typespec_member	ren			dut.sv	12	22	12	25						001
+  #88	4	ref_typespec			<in>p::req_t.ren		0	0	0	0		0			work@mem_read_reg.p::req_t.ren	001
+  #89	5	logic_typespec				dut.sv	12	9	12	14						001
+  #90	3	typespec_member	wen			dut.sv	13	22	13	25						001
+  #91	4	ref_typespec			<in>p::req_t.wen		0	0	0	0		0			work@mem_read_reg.p::req_t.wen	001
+  #92	5	logic_typespec				dut.sv	13	9	13	14						001
+  #93	3	typespec_member	byt			dut.sv	14	22	14	25						001
+  #94	4	ref_typespec			<in>p::req_t.byt		0	0	0	0		0			work@mem_read_reg.p::req_t.byt	001
+
+facets of this row (22, first 25):
+  N0805 #-1/86 struct_typespec p::rsp_t G[] O[16 objs]
+  N0804 #111/-1 struct_typespec p::rsp_t G[16 objs] O[]
+  N0805 #-1/449 struct_typespec p::rsp_t G[] O[16 objs]
+  N0804 #474/-1 struct_typespec p::rsp_t G[16 objs] O[]
+  N0805 #-1/637 struct_typespec p::rsp_t G[] O[16 objs]
+  N0804 #662/-1 struct_typespec p::rsp_t G[16 objs] O[]
+  N0001 #287/287 ref_obj sub G[34:37:34:40] O[34:41:34:44]
+  N0018 #289/289 ref_obj adr G[work@mem_core.mem.adr] O[]
+  N0001 #308/308 ref_obj sub G[35:37:35:40] O[35:41:35:44]
+  N0018 #310/310 ref_obj adr G[work@mem_core.mem.adr] O[]
+  N0001 #329/329 ref_obj sub G[36:37:36:40] O[36:41:36:44]
+  N0018 #331/331 ref_obj adr G[work@mem_core.mem.adr] O[]
+  N0001 #350/350 ref_obj sub G[37:37:37:40] O[37:41:37:44]
+  N0018 #352/352 ref_obj adr G[work@mem_core.mem.adr] O[]
+  N0001 #896/896 ref_obj sub G[34:37:34:40] O[34:41:34:44]
+  N0018 #898/898 ref_obj adr G[work@mem_core.mem.adr] O[]
+  N0001 #917/917 ref_obj sub G[35:37:35:40] O[35:41:35:44]
+  N0018 #919/919 ref_obj adr G[work@mem_core.mem.adr] O[]
+  N0001 #938/938 ref_obj sub G[36:37:36:40] O[36:41:36:44]
+  N0018 #940/940 ref_obj adr G[work@mem_core.mem.adr] O[]
+  N0001 #959/959 ref_obj sub G[37:37:37:40] O[37:41:37:44]
+  N0018 #961/961 ref_obj adr G[work@mem_core.mem.adr] O[]

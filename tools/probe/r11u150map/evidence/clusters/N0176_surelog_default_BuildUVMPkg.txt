@@ -1,0 +1,64 @@
+cluster N0176 (map 5 id kept; OPEN): span|hier_path|endcol|under:method_func_call
+row: surelog/default/BuildUVMPkg  strict=differ:line(174)  records golden=201533 ours=201486
+object: #12381 (golden) / #12379 (ours)  type=hier_path name=this.begin_time 
+  golden: 32381:51:32381:66
+  ours:   32381:51:32381:55
+  walk parents: method_func_call(open_recorder) < hier_path(stream_handle.open_recorder) < assignment < if_else
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 12375..12387 ('>' = the object)
+  #12375	8	constant				uvm_pkg.sv	32379	29	32379	33	0	64	UINT:0	11		000
+  #12376	7	assignment				uvm_pkg.sv	32380	9	32382	75						000
+  #12377	8	hier_path	stream_handle.open_recorder			uvm_pkg.sv	32380	23	32382	75		0				000
+  #12378	9	ref_obj	stream_handle			uvm_pkg.sv	32380	23	32380	36		0				000
+  #12379	9	method_func_call	open_recorder			uvm_pkg.sv	32380	37	32380	50		0				000
+  #12380	10	func_call	get_type_name			uvm_pkg.sv	32380	51	32380	66		0				000
+> #12381	10	hier_path	this.begin_time			uvm_pkg.sv	32381	51	32381	66		0				000
+  #12382	11	ref_obj	this			uvm_pkg.sv	32381	56	32381	66		0				000
+  #12383	11	ref_obj	begin_time			uvm_pkg.sv	32381	56	32381	66		0				000
+  #12384	10	constant				uvm_pkg.sv	32382	51	32382	74	"Begin_No_Parent, Link"	168	STRING:Begin_No_Parent, Link	6		000
+  #12385	8	ref_obj	tr_recorder		uvm_pkg::uvm_transaction::m_begin_tr::tr_recorder	uvm_pkg.sv	32380	9	32380	20		0			uvm_pkg::uvm_transaction::m_begin_tr::tr_recorder	000
+  #12386	7	begin			uvm_pkg::uvm_transaction::m_begin_tr	uvm_pkg.sv	32383	12	32390	10					uvm_pkg::uvm_transaction::m_begin_tr	000
+  #12387	8	assignment				uvm_pkg.sv	32384	10	32386	70						000
+
+--- OURS (B) records 12373..12385 ('>' = the object)
+  #12373	8	constant				uvm_pkg.sv	32379	29	32379	33	0	64	UINT:0	11		000
+  #12374	7	assignment				uvm_pkg.sv	32380	9	32382	75						000
+  #12375	8	hier_path	stream_handle.open_recorder			uvm_pkg.sv	32380	23	32382	75		0				000
+  #12376	9	ref_obj	stream_handle			uvm_pkg.sv	32380	23	32380	36		0				000
+  #12377	9	method_func_call	open_recorder			uvm_pkg.sv	32380	37	32380	50		0				000
+  #12378	10	func_call	get_type_name			uvm_pkg.sv	32380	51	32380	66		0				000
+> #12379	10	hier_path	this.begin_time			uvm_pkg.sv	32381	51	32381	55		0				000
+  #12380	11	ref_obj	this			uvm_pkg.sv	32381	51	32381	55		0				000
+  #12381	11	ref_obj	begin_time		uvm_pkg::uvm_transaction::m_begin_tr::begin_time		0	0	0	0		0			uvm_pkg::uvm_transaction::m_begin_tr::begin_time	000
+  #12382	10	constant				uvm_pkg.sv	32382	51	32382	74	"Begin_No_Parent, Link"	168	STRING:Begin_No_Parent, Link	6		000
+  #12383	8	ref_obj	tr_recorder		uvm_pkg::uvm_transaction::m_begin_tr::tr_recorder	uvm_pkg.sv	32380	9	32380	20		0			uvm_pkg::uvm_transaction::m_begin_tr::tr_recorder	000
+  #12384	7	begin			uvm_pkg::uvm_transaction::m_begin_tr	uvm_pkg.sv	32383	12	32390	10					uvm_pkg::uvm_transaction::m_begin_tr	000
+  #12385	8	assignment				uvm_pkg.sv	32384	10	32386	70						000
+
+facets of this row (9401, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

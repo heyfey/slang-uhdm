@@ -1,0 +1,64 @@
+cluster N0569 (map 5 id kept; OPEN): struct|golden-only:fewer-copies|string_var|under:assignment
+row: surelog/default/MiniAmiq  strict=differ:line(190)  records golden=435559 ours=413982
+object: #68793 (golden) / #-1 (ours)  type=string_var name=dash 
+  golden: 3 objs
+  ours:   
+  walk parents: assignment < begin < if_else < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 68787..68799 ('>' = the object)
+  #68787	8	string_typespec				uvm_factory.svh	1550	5	1550	11						000
+  #68788	6	string_var	space		svaunit_pkg::uvm_default_factory::print::space	uvm_factory.svh	1551	12	1551	17		0			svaunit_pkg::uvm_default_factory::print::space	000
+  #68789	7	ref_typespec			svaunit_pkg::uvm_default_factory::print::space		0	0	0	0		0			svaunit_pkg::uvm_default_factory::print::space	000
+  #68790	8	string_typespec				uvm_factory.svh	1551	5	1551	11						000
+  #68791	6	assignment				uvm_factory.svh	1550	12	1550	120						000
+  #68792	7	constant				uvm_factory.svh	1550	19	1550	120	"---------------------------------------------------------------------------------------------------"	792	STRING:---------------------------------------------------------------------------------------------------	6		000
+> #68793	7	string_var	dash		svaunit_pkg::uvm_default_factory::print::dash	uvm_factory.svh	1550	12	1550	16		0			svaunit_pkg::uvm_default_factory::print::dash	000
+  #68794	8	ref_typespec			svaunit_pkg::uvm_default_factory::print::dash		0	0	0	0		0			svaunit_pkg::uvm_default_factory::print::dash	000
+  #68795	9	string_typespec				uvm_factory.svh	1550	5	1550	11						000
+  #68796	6	assignment				uvm_factory.svh	1551	12	1551	120						000
+  #68797	7	constant				uvm_factory.svh	1551	19	1551	120	"                                                                                                   "	792	STRING:                                                                                                   	6		000
+  #68798	7	string_var	space		svaunit_pkg::uvm_default_factory::print::space	uvm_factory.svh	1551	12	1551	17		0			svaunit_pkg::uvm_default_factory::print::space	000
+  #68799	8	ref_typespec			svaunit_pkg::uvm_default_factory::print::space		0	0	0	0		0			svaunit_pkg::uvm_default_factory::print::space	000
+
+--- the holder #68791 on the other side: exact-record matches at [5208, 68577, 290713, 351926]
+  #5205	6	string_var	space		uvm_pkg::uvm_default_factory::print::space	uvm_factory.svh	1551	12	1551	17		0			uvm_pkg::uvm_default_factory::print::space	000
+  #5206	7	ref_typespec			uvm_pkg::uvm_default_factory::print::space		0	0	0	0		0			uvm_pkg::uvm_default_factory::print::space	000
+  #5207	8	string_typespec				uvm_factory.svh	1551	5	1551	11						000
+> #5208	6	assignment				uvm_factory.svh	1550	12	1550	120						000
+  #5209	7	constant				uvm_factory.svh	1550	19	1550	120	"---------------------------------------------------------------------------------------------------"	792	STRING:---------------------------------------------------------------------------------------------------	6		000
+  #5210	6	assignment				uvm_factory.svh	1551	12	1551	120						000
+  #5211	7	constant				uvm_factory.svh	1551	19	1551	120	"                                                                                                   "	792	STRING:                                                                                                   	6		000
+  #5212	6	if_else				uvm_factory.svh	1554	5	1592	8						000
+  #5213	7	operation				uvm_factory.svh	1554	8	1554	37		0				000
+  #5214	8	hier_path	sorted_override_queues.num			uvm_factory.svh	1554	9	1554	37		0				000
+  #5215	9	ref_obj	sorted_override_queues			uvm_factory.svh	1554	9	1554	31		0				000
+  #5216	9	method_func_call	num			uvm_factory.svh	1554	32	1554	35		0				000
+  #5217	7	method_func_call	push_back			uvm_factory.svh	1555	10	1555	19		0				000
+
+facets of this row (55336, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

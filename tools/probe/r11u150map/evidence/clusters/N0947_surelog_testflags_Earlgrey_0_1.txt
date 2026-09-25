@@ -1,0 +1,64 @@
+cluster N0947 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id[id - n:id].id.->|under:part_select
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #283078 (golden) / #283038 (ours)  type=ref_obj name=STIDW OUT
+  golden: work@tlul_socket_m1.drsp_fifo_o.d_source[IDW - 1:STIDW].d_source.STIDW
+  ours:   work@tlul_socket_m1.STIDW
+  walk parents: part_select(d_source) < hier_path(drsp_fifo_o.d_source[IDW - 1:STIDW]) < operation < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 283072..283084 ('>' = the object)
+  #283072	4	hier_path	drsp_fifo_o.d_source[IDW - 1:STIDW]			tlul_socket_m1.sv	231	5	231	38		0				000
+  #283073	5	ref_obj	drsp_fifo_o			tlul_socket_m1.sv	231	5	231	16		0				000
+  #283074	5	part_select	d_source		drsp_fifo_o.d_source[IDW - 1:STIDW]	tlul_socket_m1.sv	231	17	231	37		0			drsp_fifo_o.d_source[IDW - 1:STIDW]	000
+  #283075	6	operation				tlul_socket_m1.sv	231	26	231	31		0				000
+  #283076	7	ref_obj	IDW		work@tlul_socket_m1.drsp_fifo_o.d_source[IDW - 1:STIDW].d_source.IDW	tlul_socket_m1.sv	231	26	231	29		0			work@tlul_socket_m1.drsp_fifo_o.d_source[IDW - 1:STIDW].d_source.IDW	000
+  #283077	7	constant				tlul_socket_m1.sv	231	30	231	31	1	64	UINT:1	9		000
+> #283078	6	ref_obj	STIDW		work@tlul_socket_m1.drsp_fifo_o.d_source[IDW - 1:STIDW].d_source.STIDW	tlul_socket_m1.sv	231	32	231	37		0			work@tlul_socket_m1.drsp_fifo_o.d_source[IDW - 1:STIDW].d_source.STIDW	000
+  #283079	3	ref_obj	hfifo_rspid		work@tlul_socket_m1.hfifo_rspid	tlul_socket_m1.sv	229	10	229	21		0			work@tlul_socket_m1.hfifo_rspid	000
+  #283080	2	ref_module	u_devicefifo	work@tlul_fifo_sync		tlul_socket_m1.sv	148	5	148	17						000
+  #283081	3	port	clk_i			tlul_socket_m1.sv	149	5	149	11						000
+  #283082	3	port	rst_ni			tlul_socket_m1.sv	150	5	150	12						000
+  #283083	3	port	tl_h_i			tlul_socket_m1.sv	151	5	151	31						000
+  #283084	4	ref_obj	dreq_fifo_i		work@tlul_socket_m1.u_devicefifo.tl_h_i.dreq_fifo_i	tlul_socket_m1.sv	151	19	151	30		0			work@tlul_socket_m1.u_devicefifo.tl_h_i.dreq_fifo_i	000
+
+--- OURS (B) records 283032..283044 ('>' = the object)
+  #283032	4	hier_path	drsp_fifo_o.d_source[IDW - 1:STIDW]			tlul_socket_m1.sv	231	5	231	38		0				000
+  #283033	5	ref_obj	drsp_fifo_o			tlul_socket_m1.sv	231	5	231	16		0				000
+  #283034	5	part_select	d_source		drsp_fifo_o.d_source[IDW - 1:STIDW]	tlul_socket_m1.sv	231	17	231	37		0			drsp_fifo_o.d_source[IDW - 1:STIDW]	000
+  #283035	6	operation				tlul_socket_m1.sv	231	26	231	31		0				000
+  #283036	7	ref_obj	IDW		work@tlul_socket_m1.IDW	tlul_socket_m1.sv	231	26	231	29		0			work@tlul_socket_m1.IDW	000
+  #283037	7	constant				tlul_socket_m1.sv	231	30	231	31	1	64	UINT:1	9		000
+> #283038	6	ref_obj	STIDW		work@tlul_socket_m1.STIDW	tlul_socket_m1.sv	231	32	231	37		0			work@tlul_socket_m1.STIDW	000
+  #283039	3	ref_obj	hfifo_rspid		work@tlul_socket_m1.hfifo_rspid	tlul_socket_m1.sv	229	10	229	21		0			work@tlul_socket_m1.hfifo_rspid	000
+  #283040	2	ref_module	u_devicefifo	work@tlul_fifo_sync		tlul_socket_m1.sv	148	5	148	17						000
+  #283041	3	port	clk_i			tlul_socket_m1.sv	149	5	149	11						000
+  #283042	3	port	rst_ni			tlul_socket_m1.sv	150	5	150	12						000
+  #283043	3	port	tl_h_i			tlul_socket_m1.sv	151	5	151	31						000
+  #283044	4	ref_obj	dreq_fifo_i		work@tlul_socket_m1.u_devicefifo.tl_h_i.dreq_fifo_i	tlul_socket_m1.sv	151	19	151	30		0			work@tlul_socket_m1.u_devicefifo.tl_h_i.dreq_fifo_i	000
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

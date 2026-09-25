@@ -1,0 +1,64 @@
+cluster N0173 (map 5 id kept; OPEN): span|begin|ours-zero|under:task
+row: surelog/default/BuildUVMPkg  strict=differ:line(174)  records golden=201533 ours=201486
+object: #186305 (golden) / #186254 (ours)  type=begin name= 
+  golden: 60302:5:60302:33
+  ours:   0:0:0:0
+  walk parents: task(b_transport) < class_defn(uvm_tlm_b_target_socket) < class_defn(uvm_tlm_b_target_socket_base) < class_defn(uvm_port_base)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 186299..186311 ('>' = the object)
+  #186299	6	io_decl	t			uvm_pkg.sv	60290	22	60290	23						000
+  #186300	7	ref_typespec			uvm_pkg::uvm_tlm_b_target_socket::b_transport::t		0	0	0	0		0			uvm_pkg::uvm_tlm_b_target_socket::b_transport::t	000
+  #186301	8	class_typespec	uvm_tlm_generic_payload			uvm_pkg.sv	60290	20	60290	21						110
+  #186302	6	io_decl	delay			uvm_pkg.sv	60290	38	60290	43						000
+  #186303	7	ref_typespec			uvm_pkg::uvm_tlm_b_target_socket::b_transport::delay		0	0	0	0		0			uvm_pkg::uvm_tlm_b_target_socket::b_transport::delay	000
+  #186304	8	class_typespec	uvm_pkg::uvm_tlm_time			uvm_pkg.sv	57343	9	57343	17						110
+> #186305	6	begin			uvm_pkg::uvm_tlm_b_target_socket::b_transport	uvm_pkg.sv	60302	5	60302	33					uvm_pkg::uvm_tlm_b_target_socket::b_transport	000
+  #186306	7	if_stmt				uvm_pkg.sv	60291	5	60301	8						000
+  #186307	8	operation				uvm_pkg.sv	60291	9	60291	22		0				000
+  #186308	9	ref_obj	delay		uvm_pkg::uvm_tlm_b_target_socket::b_transport::delay	uvm_pkg.sv	60291	9	60291	14		0			uvm_pkg::uvm_tlm_b_target_socket::b_transport::delay	000
+  #186309	9	constant				uvm_pkg.sv	60291	18	60291	22	0	64	UINT:0	11		000
+  #186310	8	begin			uvm_pkg::uvm_tlm_b_target_socket::b_transport	uvm_pkg.sv	60291	24	60301	8					uvm_pkg::uvm_tlm_b_target_socket::b_transport	000
+  #186311	9	begin			uvm_pkg::uvm_tlm_b_target_socket::b_transport	uvm_pkg.sv	60293	4	60298	7					uvm_pkg::uvm_tlm_b_target_socket::b_transport	000
+
+--- OURS (B) records 186248..186260 ('>' = the object)
+  #186248	6	io_decl	t			uvm_pkg.sv	60290	22	60290	23						000
+  #186249	7	ref_typespec			uvm_pkg::uvm_tlm_b_target_socket::b_transport::t		0	0	0	0		0			uvm_pkg::uvm_tlm_b_target_socket::b_transport::t	000
+  #186250	8	class_typespec	uvm_tlm_generic_payload			uvm_pkg.sv	60290	20	60290	21						110
+  #186251	6	io_decl	delay			uvm_pkg.sv	60290	38	60290	43						000
+  #186252	7	ref_typespec			uvm_pkg::uvm_tlm_b_target_socket::b_transport::delay		0	0	0	0		0			uvm_pkg::uvm_tlm_b_target_socket::b_transport::delay	000
+  #186253	8	class_typespec	uvm_pkg::uvm_tlm_time			uvm_pkg.sv	57343	9	57343	17						110
+> #186254	6	begin			uvm_pkg::uvm_tlm_b_target_socket::b_transport		0	0	0	0					uvm_pkg::uvm_tlm_b_target_socket::b_transport	000
+  #186255	7	if_stmt				uvm_pkg.sv	60291	5	60301	8						000
+  #186256	8	operation				uvm_pkg.sv	60291	9	60291	22		0				000
+  #186257	9	ref_obj	delay		uvm_pkg::uvm_tlm_b_target_socket::b_transport::delay	uvm_pkg.sv	60291	9	60291	14		0			uvm_pkg::uvm_tlm_b_target_socket::b_transport::delay	000
+  #186258	9	constant				uvm_pkg.sv	60291	18	60291	22	0	64	UINT:0	11		000
+  #186259	8	begin			uvm_pkg::uvm_tlm_b_target_socket::b_transport	uvm_pkg.sv	60291	24	60301	8					uvm_pkg::uvm_tlm_b_target_socket::b_transport	000
+  #186260	9	begin			uvm_pkg::uvm_tlm_b_target_socket::b_transport	uvm_pkg.sv	60293	4	60298	7					uvm_pkg::uvm_tlm_b_target_socket::b_transport	000
+
+facets of this row (9401, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

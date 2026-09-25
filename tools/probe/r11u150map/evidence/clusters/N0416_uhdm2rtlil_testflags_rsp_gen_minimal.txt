@@ -1,0 +1,42 @@
+cluster N0416 (map 5 id kept; OPEN): fullname|ref_typespec|tok:.id.id->|under:operation
+row: uhdm2rtlil/testflags/rsp_gen_minimal  strict=differ:fullname(2)  records golden=1890 ours=1890
+object: #1712 (golden) / #1712 (ours)  type=ref_typespec name= OUT
+  golden: work@dut.u_rsp_gen.data_i
+  ours:   work@dut
+  walk parents: operation < port(data_i) < module_inst(u_rsp_gen) < module_inst(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1706..1718 ('>' = the object)
+  #1706	5	logic_typespec				dut.sv	3	10	3	22						000
+  #1707	6	range				dut.sv	3	16	3	22						001
+  #1708	7	constant				dut.sv	3	17	3	19	63	64	UINT:63	9		001
+  #1709	7	constant				dut.sv	3	20	3	21	0	64	UINT:0	9		001
+  #1710	3	port	data_i			dut.sv	2	23	2	29						000
+  #1711	4	operation				dut.sv	79	13	79	21		0				000
+> #1712	5	ref_typespec			work@dut.u_rsp_gen.data_i		0	0	0	0		0			work@dut.u_rsp_gen.data_i	000
+  #1713	6	integer_typespec				dut.sv	79	13	79	15						000
+  #1714	5	ref_obj	rsp		work@dut.u_rsp_gen.data_i.rsp	dut.sv	79	17	79	20		0			work@dut.u_rsp_gen.data_i.rsp	000
+  #1715	4	ref_obj	data_i		work@dut.u_rsp_gen.data_i	dut.sv	79	6	79	12		0			work@dut.u_rsp_gen.data_i	000
+  #1716	4	ref_typespec			work@dut.u_rsp_gen.data_i		0	0	0	0		0			work@dut.u_rsp_gen.data_i	000
+  #1717	5	logic_typespec				dut.sv	2	16	2	22						000
+  #1718	6	range				dut.sv	2	16	2	22						001
+
+--- OURS (B) records 1706..1718 ('>' = the object)
+  #1706	5	logic_typespec				dut.sv	3	10	3	22						000
+  #1707	6	range				dut.sv	3	16	3	22						001
+  #1708	7	constant				dut.sv	3	17	3	19	63	64	UINT:63	9		001
+  #1709	7	constant				dut.sv	3	20	3	21	0	64	UINT:0	9		001
+  #1710	3	port	data_i			dut.sv	2	23	2	29						000
+  #1711	4	operation				dut.sv	79	13	79	21		0				000
+> #1712	5	ref_typespec			work@dut		0	0	0	0		0			work@dut	000
+  #1713	6	integer_typespec				dut.sv	79	13	79	15						000
+  #1714	5	ref_obj	rsp		work@dut.u_rsp_gen.data_i.rsp	dut.sv	79	17	79	20		0			work@dut.u_rsp_gen.data_i.rsp	000
+  #1715	6	logic_net	rsp		work@dut.rsp	dut.sv	73	21	73	24		0			work@dut.rsp	000
+  #1716	7	ref_typespec			work@dut.rsp		0	0	0	0		0			work@dut.rsp	000
+  #1717	8	struct_typespec	tlul_pkg::tl_d2h_rsp_intg_t			dut.sv	45	11	49	4						110
+  #1718	9	typespec_member	opcode			dut.sv	46	35	46	41						001
+
+facets of this row (3, first 25):
+  N0023 #-1/1715 logic_net rsp G[] O[22 objs]
+  N0022 #1868/-1 logic_net rsp G[22 objs] O[]
+  N0416 #1712/1712 ref_typespec  G[work@dut.u_rsp_gen.data_i] O[work@dut]

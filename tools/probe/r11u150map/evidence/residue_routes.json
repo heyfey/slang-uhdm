@@ -1,0 +1,114 @@
+{
+ "N0059": [
+  "r11u145",
+  "the size cast Cfg.XLEN'(1) (r11u140 R5): ours mints integer_typespec"
+ ],
+ "N0024": [
+  "r11u145",
+  "the size cast's twin (r11u140 R5): golden's struct_typespec copy of the cast target"
+ ],
+ "N0003": [
+  "r11u145",
+  "ParamNoImport / StructParamPatternInitCast (r11u140 R4): golden's package-listing pattern reference unparented"
+ ],
+ "N0357": [
+  "r11u145",
+  "process-lvalue part-select bound names (r11u140 R12, jeras_tcb_gpio)"
+ ],
+ "N1064": [
+  "r11u145",
+  "the cont_assign twin of r11u140 R12 (iface_scalar_localparam)"
+ ],
+ "N0061": [
+  "r11u145",
+  "process-lvalue leftover (r11v140 residue 4, plv/v11_incdec)"
+ ],
+ "N0551": [
+  "r11u145",
+  "stream operand after a comment / macro (r11v140 residue 3, stm/b04 b05)"
+ ],
+ "N2385": [
+  "r11u145",
+  "N0441's successor after pass 140 (DefaultPatternInt: the package-declared default fill keeps one constant per element; ours now one)"
+ ],
+ "N0081": [
+  "r11u146",
+  "PortExpr / ExplictiPorts (r11u144 R1)"
+ ],
+ "N0515": [
+  "r11u146",
+  "PortExpr / ExplictiPorts (r11u144 R1)"
+ ],
+ "N0532": [
+  "r11u146",
+  "PortExpr / ExplictiPorts (r11u144 R1)"
+ ],
+ "N0824": [
+  "r11u146",
+  "PortExpr / ExplictiPorts (r11u144 R1)"
+ ],
+ "N0825": [
+  "r11u146",
+  "PortExpr / ExplictiPorts (r11u144 R1)"
+ ],
+ "N1098": [
+  "r11u146",
+  "PortExpr / ExplictiPorts (r11u144 R1)"
+ ],
+ "N1085": [
+  "r11u146",
+  "PortExpr / ExplictiPorts (r11u144 R1)"
+ ],
+ "N1093": [
+  "r11u146",
+  "PortExpr / ExplictiPorts (r11u144 R1)"
+ ],
+ "N1111": [
+  "r11u146",
+  "PortExpr / ExplictiPorts (r11u144 R1)"
+ ],
+ "N1148": [
+  "r11u146",
+  "PortExpr / ExplictiPorts (r11u144 R1)"
+ ],
+ "N0088": [
+  "r11u146",
+  "PortExpr / ExplictiPorts (r11u144 R1)"
+ ],
+ "N0055": [
+  "r11u146",
+  "ExplictiPorts port expression operands (r11u140 R10)"
+ ],
+ "N0568": [
+  "r11u146",
+  "pc31 (v11u144 residue 3, r11u139netbind pc31_bitsel_first_pos)"
+ ],
+ "N0525": [
+  "r11u146",
+  "pc33 (v11u144 residue 3, r11u139netbind pc33_sel_index_whole)"
+ ],
+ "N0562": [
+  "r11u146",
+  "pc33 (v11u144 residue 3, r11u139netbind pc33_sel_index_whole)"
+ ],
+ "N0427": [
+  "r11u146",
+  "verifier face: elaborated generate-scope index reference (v11u144 residue 1, brk/hg/x1 x5)"
+ ],
+ "N0276": [
+  "r11u146",
+  "verifier face: definition-view generate path span (v11u144 residue 2 brk/hg/x4, r11u149 R-b el/n08)"
+ ],
+ "N0681": [
+  "r11u146",
+  "verifier face: folded call replication (v11u144 residue 4, brk/pf/x3 x4)"
+ ],
+ "N1169": [
+  "r11u146",
+  "verifier face: folded call formal-indexed bit select (v11u144 residue 4, brk/pf/x4)"
+ ],
+ "N1017": [
+  "r11u146",
+  "verifier face: definition-view generate index name (v11u144 residue 6, brk/el/x3)"
+ ]
+}

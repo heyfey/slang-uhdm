@@ -1,0 +1,64 @@
+cluster N0258 (map 5 id kept; OPEN): span|operation|line+col+endline+endcol|under:range
+row: surelog/default/BuildUVMPkg  strict=differ:line(174)  records golden=201533 ours=201486
+object: #114618 (golden) / #114568 (ours)  type=operation name= 
+  golden: 32947:86:32947:95
+  ours:   34602:82:34602:91
+  walk parents: range < io_decl(pred_of_succ) < function(get_predecessors_for_successors) < class_defn(uvm_phase)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 114612..114624 ('>' = the object)
+  #114612	5	return_stmt				uvm_pkg.sv	32944	6	32944	12						000
+  #114613	6	ref_obj	m_ready_to_end_count		uvm_pkg::uvm_phase::get_ready_to_end_count::m_ready_to_end_count	uvm_pkg.sv	32944	13	32944	33		0			uvm_pkg::uvm_phase::get_ready_to_end_count::m_ready_to_end_count	000
+  #114614	4	function	get_predecessors_for_successors		uvm_pkg::uvm_phase::get_predecessors_for_successors	uvm_pkg.sv	32947	3	32947	9					uvm_pkg::uvm_phase::get_predecessors_for_successors	000
+  #114615	5	io_decl	pred_of_succ			uvm_pkg.sv	32947	73	32947	85						000
+  #114616	6	range				uvm_pkg.sv	32947	86	32947	95						000
+  #114617	7	constant					0	0	0	0	0	64	UINT:0	9		000
+> #114618	7	operation				uvm_pkg.sv	32947	86	32947	95		0				000
+  #114619	8	ref_obj	uvm_phase		uvm_pkg::uvm_phase::get_predecessors_for_successors::pred_of_succ::uvm_phase	uvm_pkg.sv	32947	86	32947	95		0			uvm_pkg::uvm_phase::get_predecessors_for_successors::pred_of_succ::uvm_phase	000
+  #114620	8	constant					0	0	0	0		64	INT:1	7		000
+  #114621	6	ref_typespec			uvm_pkg::uvm_phase::get_predecessors_for_successors::pred_of_succ		0	0	0	0		0			uvm_pkg::uvm_phase::get_predecessors_for_successors::pred_of_succ	000
+  #114622	7	bit_typespec				uvm_pkg.sv	32947	69	32947	72						000
+  #114623	4	task	m_wait_for_pred		uvm_pkg::uvm_phase::m_wait_for_pred	uvm_pkg.sv	32948	3	32948	38					uvm_pkg::uvm_phase::m_wait_for_pred	000
+  #114624	4	function	clear		uvm_pkg::uvm_phase::clear	uvm_pkg.sv	32956	3	32956	9					uvm_pkg::uvm_phase::clear	000
+
+--- OURS (B) records 114562..114574 ('>' = the object)
+  #114562	5	return_stmt				uvm_pkg.sv	32944	6	32944	12						000
+  #114563	6	ref_obj	m_ready_to_end_count		uvm_pkg::uvm_phase::get_ready_to_end_count::m_ready_to_end_count	uvm_pkg.sv	32944	13	32944	33		0			uvm_pkg::uvm_phase::get_ready_to_end_count::m_ready_to_end_count	000
+  #114564	4	function	get_predecessors_for_successors		uvm_pkg::uvm_phase::get_predecessors_for_successors	uvm_pkg.sv	32947	3	32947	9					uvm_pkg::uvm_phase::get_predecessors_for_successors	000
+  #114565	5	io_decl	pred_of_succ			uvm_pkg.sv	34602	69	34602	81						000
+  #114566	6	range				uvm_pkg.sv	34602	82	34602	91						000
+  #114567	7	constant					0	0	0	0	0	64	UINT:0	9		000
+> #114568	7	operation				uvm_pkg.sv	34602	82	34602	91		0				000
+  #114569	8	ref_obj	uvm_phase		uvm_pkg::uvm_phase::get_predecessors_for_successors::pred_of_succ::uvm_phase	uvm_pkg.sv	34602	82	34602	91		0			uvm_pkg::uvm_phase::get_predecessors_for_successors::pred_of_succ::uvm_phase	000
+  #114570	8	constant					0	0	0	0		64	INT:1	7		000
+  #114571	6	ref_typespec			uvm_pkg::uvm_phase::get_predecessors_for_successors::pred_of_succ		0	0	0	0		0			uvm_pkg::uvm_phase::get_predecessors_for_successors::pred_of_succ	000
+  #114572	7	bit_typespec				uvm_pkg.sv	34602	65	34602	68						000
+  #114573	4	task	m_wait_for_pred		uvm_pkg::uvm_phase::m_wait_for_pred	uvm_pkg.sv	32948	3	32948	38					uvm_pkg::uvm_phase::m_wait_for_pred	000
+  #114574	4	function	clear		uvm_pkg::uvm_phase::clear	uvm_pkg.sv	32956	3	32956	9					uvm_pkg::uvm_phase::clear	000
+
+facets of this row (9401, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

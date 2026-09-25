@@ -1,0 +1,43 @@
+cluster N1938 (map 5 id kept; OPEN): span|port|col+endcol|under:module_inst
+row: probe/default/r10yos1repro__v3_bind_outside  strict=col  records golden=26 ours=26
+object: #4 (golden) / #4 (ours)  type=port name=x 
+  golden: 5:31:5:32
+  ours:   5:27:5:28
+  walk parents: module_inst < design(work@a.b.C)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 0..10 ('>' = the object)
+  #0	0	design	work@a.b.C				0	0	0	0						000
+  #1	1	module_inst		work@a.b.C	work@a.b.C	dut.sv	5	1	7	10					work@a.b.C	000
+  #2	2	logic_net	x		work@a.b.C.x	dut.sv	5	31	5	32		0			work@a.b.C.x	000
+  #3	2	logic_net	y		work@a.b.C.y	dut.sv	5	46	5	47		0			work@a.b.C.y	000
+> #4	2	port	x			dut.sv	5	31	5	32						000
+  #5	3	ref_obj	x		work@a.b.C.x.x	dut.sv	5	31	5	32		0			work@a.b.C.x.x	000
+  #6	3	ref_typespec			work@a.b.C.x		0	0	0	0		0			work@a.b.C.x	000
+  #7	4	logic_typespec				dut.sv	5	26	5	30						000
+  #8	2	port	y			dut.sv	5	46	5	47						000
+  #9	3	ref_obj	y		work@a.b.C.y.y	dut.sv	5	46	5	47		0			work@a.b.C.y.y	000
+  #10	3	ref_typespec			work@a.b.C.y		0	0	0	0		0			work@a.b.C.y	000
+
+--- OURS (B) records 0..10 ('>' = the object)
+  #0	0	design	work@a.b.C				0	0	0	0						000
+  #1	1	module_inst		work@a.b.C	work@a.b.C	dut.sv	5	1	7	10					work@a.b.C	000
+  #2	2	logic_net	x		work@a.b.C.x	dut.sv	5	27	5	28		0			work@a.b.C.x	000
+  #3	2	logic_net	y		work@a.b.C.y	dut.sv	5	42	5	43		0			work@a.b.C.y	000
+> #4	2	port	x			dut.sv	5	27	5	28						000
+  #5	3	ref_obj	x		work@a.b.C.x.x	dut.sv	5	27	5	28		0			work@a.b.C.x.x	000
+  #6	3	ref_typespec			work@a.b.C.x		0	0	0	0		0			work@a.b.C.x	000
+  #7	4	logic_typespec				dut.sv	5	22	5	26						000
+  #8	2	port	y			dut.sv	5	42	5	43						000
+  #9	3	ref_obj	y		work@a.b.C.y.y	dut.sv	5	42	5	43		0			work@a.b.C.y.y	000
+  #10	3	ref_typespec			work@a.b.C.y		0	0	0	0		0			work@a.b.C.y	000
+
+facets of this row (8, first 25):
+  N0752 #2/2 logic_net x G[5:31:5:32] O[5:27:5:28]
+  N0752 #3/3 logic_net y G[5:46:5:47] O[5:42:5:43]
+  N1938 #4/4 port x G[5:31:5:32] O[5:27:5:28]
+  N0750 #5/5 ref_obj x G[5:31:5:32] O[5:27:5:28]
+  N0751 #7/7 logic_typespec  G[5:26:5:30] O[5:22:5:26]
+  N1938 #8/8 port y G[5:46:5:47] O[5:42:5:43]
+  N0750 #9/9 ref_obj y G[5:46:5:47] O[5:42:5:43]
+  N0751 #11/11 logic_typespec  G[5:41:5:45] O[5:37:5:41]

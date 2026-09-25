@@ -1,0 +1,64 @@
+cluster N1253 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id.id.id.id.id.id->id|under:operation
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #1164258 (golden) / #1164175 (ours)  type=ref_obj name=i OUT
+  golden: work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.mem.i
+  ours:   work@prim_generic_ram_2p.mem.i
+  walk parents: operation < indexed_part_select(mem) < var_select(mem) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1164252..1164264 ('>' = the object)
+  #1164252	22	ref_obj	DataBitsPerMask		work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.a_wdata_i.DataBitsPerMask	prim_generic_ram_2p.sv	60	27	60	42		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.a_wdata_i.DataBitsPerMask	000
+  #1164253	21	ref_obj	DataBitsPerMask		work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.DataBitsPerMask	prim_generic_ram_2p.sv	60	46	60	61		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.DataBitsPerMask	000
+  #1164254	20	var_select	mem		work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem	prim_generic_ram_2p.sv	59	13	59	64		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem	000
+  #1164255	21	ref_obj	a_addr_i		work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.a_addr_i	prim_generic_ram_2p.sv	59	17	59	25		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.a_addr_i	000
+  #1164256	21	indexed_part_select	mem	mem	work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.mem	prim_generic_ram_2p.sv	59	27	59	63		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.mem	000
+  #1164257	22	operation				prim_generic_ram_2p.sv	59	27	59	44		0				000
+> #1164258	23	ref_obj	i		work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.mem.i	prim_generic_ram_2p.sv	59	27	59	28		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.mem.i	000
+  #1164259	23	ref_obj	DataBitsPerMask		work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.mem.DataBitsPerMask	prim_generic_ram_2p.sv	59	29	59	44		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.mem.DataBitsPerMask	000
+  #1164260	22	ref_obj	DataBitsPerMask		work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.DataBitsPerMask	prim_generic_ram_2p.sv	59	48	59	63		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.DataBitsPerMask	000
+  #1164261	14	begin			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic	prim_generic_ram_2p.sv	63	16	65	10					work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic	000
+  #1164262	15	assignment				prim_generic_ram_2p.sv	64	9	64	35						000
+  #1164263	16	bit_select	mem		work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem	prim_generic_ram_2p.sv	64	26	64	34		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem	000
+  #1164264	17	ref_obj	a_addr_i		work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.a_addr_i	prim_generic_ram_2p.sv	64	26	64	34		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.a_addr_i	000
+
+--- OURS (B) records 1164169..1164181 ('>' = the object)
+  #1164169	22	ref_obj	DataBitsPerMask		work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.a_wdata_i.DataBitsPerMask	prim_generic_ram_2p.sv	60	27	60	42		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.a_wdata_i.DataBitsPerMask	000
+  #1164170	21	ref_obj	DataBitsPerMask		work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.DataBitsPerMask	prim_generic_ram_2p.sv	60	46	60	61		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.DataBitsPerMask	000
+  #1164171	20	var_select	mem		work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem	prim_generic_ram_2p.sv	59	13	59	64		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem	000
+  #1164172	21	ref_obj	a_addr_i		work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.a_addr_i	prim_generic_ram_2p.sv	59	17	59	25		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.a_addr_i	000
+  #1164173	21	indexed_part_select	mem	mem	work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.mem	prim_generic_ram_2p.sv	59	27	59	63		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.mem	000
+  #1164174	22	operation				prim_generic_ram_2p.sv	59	27	59	44		0				000
+> #1164175	23	ref_obj	i		work@prim_generic_ram_2p.mem.i	prim_generic_ram_2p.sv	59	27	59	28		0			work@prim_generic_ram_2p.mem.i	000
+  #1164176	23	ref_obj	DataBitsPerMask		work@prim_generic_ram_2p.mem.DataBitsPerMask	prim_generic_ram_2p.sv	59	29	59	44		0			work@prim_generic_ram_2p.mem.DataBitsPerMask	000
+  #1164177	22	ref_obj	DataBitsPerMask		work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.DataBitsPerMask	prim_generic_ram_2p.sv	59	48	59	63		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem.DataBitsPerMask	000
+  #1164178	14	begin			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic	prim_generic_ram_2p.sv	63	16	65	10					work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic	000
+  #1164179	15	assignment				prim_generic_ram_2p.sv	64	9	64	35						000
+  #1164180	16	bit_select	mem		work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem	prim_generic_ram_2p.sv	64	26	64	34		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.mem	000
+  #1164181	17	ref_obj	a_addr_i		work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.a_addr_i	prim_generic_ram_2p.sv	64	26	64	34		0			work@top_earlgrey.u_usbdev.u_memory_2p.u_mem.gen_generic.u_impl_generic.a_addr_i	000
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

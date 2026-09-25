@@ -1,0 +1,64 @@
+cluster N1225 (map 5 id kept; OPEN): struct|golden-only:fewer-copies|parameter|under:ref_obj
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #435981 (golden) / #-1 (ours)  type=parameter name=DepthW 
+  golden: 3 objs
+  ours:   
+  walk parents: ref_obj(DepthW) < int_typespec < ref_typespec < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 435975..435987 ('>' = the object)
+  #435975	7	operation				prim_fifo_async.sv	144	19	146	84		0				000
+  #435976	8	ref_obj	full_wclk		work@top_earlgrey.u_dm_top.dap.i_dmi_cdc.i_cdc_req.full_wclk	prim_fifo_async.sv	144	20	144	29		0			work@top_earlgrey.u_dm_top.dap.i_dmi_cdc.i_cdc_req.full_wclk	000
+  #435977	8	operation				prim_fifo_async.sv	144	33	144	47		0				000
+  #435978	9	ref_typespec			work@top_earlgrey.u_dm_top.dap.i_dmi_cdc.i_cdc_req		0	0	0	0		0			work@top_earlgrey.u_dm_top.dap.i_dmi_cdc.i_cdc_req	000
+  #435979	10	int_typespec				prim_fifo_async.sv	12	14	12	26						000
+  #435980	11	ref_obj	DepthW		<in>DepthW		0	0	0	0		0			work@prim_fifo_async.DepthW.DepthW	001
+> #435981	12	parameter	DepthW		work@top_earlgrey.u_xbar_main.u_asf_22.rspfifo.DepthW	prim_fifo_async.sv	12	27	12	33		0			work@top_earlgrey.u_xbar_main.u_asf_22.rspfifo.DepthW	001
+  #435982	13	ref_typespec			work@top_earlgrey.u_xbar_main.u_asf_22.rspfifo.DepthW		0	0	0	0		0			work@top_earlgrey.u_xbar_main.u_asf_22.rspfifo.DepthW	001
+  #435983	14	int_typespec				prim_fifo_async.sv	12	14	12	26						001
+  #435984	9	ref_obj	Depth		work@top_earlgrey.u_dm_top.dap.i_dmi_cdc.i_cdc_req.Depth	prim_fifo_async.sv	144	41	144	46		0			work@top_earlgrey.u_dm_top.dap.i_dmi_cdc.i_cdc_req.Depth	000
+  #435985	8	operation				prim_fifo_async.sv	145	19	146	84		0				000
+  #435986	9	operation				prim_fifo_async.sv	145	20	145	45		0				000
+  #435987	10	ref_obj	wptr_msb		work@top_earlgrey.u_dm_top.dap.i_dmi_cdc.i_cdc_req.wptr_msb	prim_fifo_async.sv	145	20	145	28		0			work@top_earlgrey.u_dm_top.dap.i_dmi_cdc.i_cdc_req.wptr_msb	000
+
+--- the holder #435980 on the other side: exact-record matches at [102997, 103005, 103031, 103083, 103091]
+  #102994	8	operation				prim_fifo_async.sv	145	49	145	68		0				000
+  #102995	9	ref_typespec			work@prim_fifo_async		0	0	0	0		0			work@prim_fifo_async	000
+  #102996	10	int_typespec				prim_fifo_async.sv	12	14	12	26						000
+> #102997	11	ref_obj	DepthW		<in>DepthW		0	0	0	0		0			work@prim_fifo_async.DepthW.DepthW	001
+  #102998	12	parameter	DepthW		work@top_earlgrey.u_xbar_main.u_asf_22.rspfifo.DepthW	prim_fifo_async.sv	12	27	12	33		0			work@top_earlgrey.u_xbar_main.u_asf_22.rspfifo.DepthW	001
+  #102999	13	ref_typespec			work@top_earlgrey.u_xbar_main.u_asf_22.rspfifo.DepthW		0	0	0	0		0			work@top_earlgrey.u_xbar_main.u_asf_22.rspfifo.DepthW	001
+  #103000	14	int_typespec				prim_fifo_async.sv	12	14	12	26						001
+  #103001	9	ref_obj	wptr_value		work@prim_fifo_async.wptr_value	prim_fifo_async.sv	145	57	145	67		0			work@prim_fifo_async.wptr_value	000
+  #103002	8	operation				prim_fifo_async.sv	145	71	145	95		0				000
+  #103003	9	ref_typespec			work@prim_fifo_async		0	0	0	0		0			work@prim_fifo_async	000
+  #103004	10	int_typespec				prim_fifo_async.sv	12	14	12	26						000
+  #103005	11	ref_obj	DepthW		<in>DepthW		0	0	0	0		0			work@prim_fifo_async.DepthW.DepthW	001
+  #103006	12	parameter	DepthW		work@top_earlgrey.u_xbar_main.u_asf_22.rspfifo.DepthW	prim_fifo_async.sv	12	27	12	33		0			work@top_earlgrey.u_xbar_main.u_asf_22.rspfifo.DepthW	001
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

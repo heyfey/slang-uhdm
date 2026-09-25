@@ -1,0 +1,64 @@
+cluster N0894 (map 5 id kept; OPEN): fullname|part_select|tok:id.id.id->id|under:assignment
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #526979 (golden) / #526732 (ours)  type=part_select name=i OUT
+  golden: work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.i
+  ours:   work@top_earlgrey.u_spi_device.u_fwmode_arb.u_reqarb.i
+  walk parents: assignment < begin < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 526973..526985 ('>' = the object)
+  #526973	12	begin			work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case	prim_arbiter_ppc.sv	115	37	119	10					work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case	000
+  #526974	13	if_stmt				prim_arbiter_ppc.sv	116	9	118	12						000
+  #526975	14	bit_select	winner		work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.winner	prim_arbiter_ppc.sv	116	20	116	21		0			work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.winner	000
+  #526976	15	ref_obj	i		work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.i	prim_arbiter_ppc.sv	116	20	116	21		0			work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.i	000
+  #526977	14	begin			work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case	prim_arbiter_ppc.sv	116	24	118	12					work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case	000
+  #526978	15	assignment				prim_arbiter_ppc.sv	117	11	117	30						000
+> #526979	16	part_select	i	i	work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.i	prim_arbiter_ppc.sv	117	19	117	30		0			work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.i	000
+  #526980	17	constant				prim_arbiter_ppc.sv	117	21	117	27	0	64	INT:0	7		000
+  #526981	17	constant				prim_arbiter_ppc.sv	117	28	117	29	0	64	UINT:0	9		000
+  #526982	16	ref_obj	idx_o		work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.idx_o	prim_arbiter_ppc.sv	117	11	117	16		0			work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.idx_o	000
+  #526983	9	cont_assign				prim_arbiter_ppc.sv	67	12	67	37						000
+  #526984	10	operation				prim_arbiter_ppc.sv	67	25	67	37		0				000
+  #526985	11	ref_obj	mask		work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.mask	prim_arbiter_ppc.sv	67	25	67	29		0			work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.mask	000
+
+--- OURS (B) records 526726..526738 ('>' = the object)
+  #526726	12	begin			work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case	prim_arbiter_ppc.sv	115	37	119	10					work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case	000
+  #526727	13	if_stmt				prim_arbiter_ppc.sv	116	9	118	12						000
+  #526728	14	bit_select	winner		work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.winner	prim_arbiter_ppc.sv	116	20	116	21		0			work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.winner	000
+  #526729	15	ref_obj	i		work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.i	prim_arbiter_ppc.sv	116	20	116	21		0			work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.i	000
+  #526730	14	begin			work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case	prim_arbiter_ppc.sv	116	24	118	12					work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case	000
+  #526731	15	assignment				prim_arbiter_ppc.sv	117	11	117	30						000
+> #526732	16	part_select	i	i	work@top_earlgrey.u_spi_device.u_fwmode_arb.u_reqarb.i	prim_arbiter_ppc.sv	117	19	117	30		0			work@top_earlgrey.u_spi_device.u_fwmode_arb.u_reqarb.i	000
+  #526733	17	constant				prim_arbiter_ppc.sv	117	21	117	27	0	64	INT:0	7		000
+  #526734	17	constant				prim_arbiter_ppc.sv	117	28	117	29	0	64	UINT:0	9		000
+  #526735	16	ref_obj	idx_o		work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.idx_o	prim_arbiter_ppc.sv	117	11	117	16		0			work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.idx_o	000
+  #526736	9	cont_assign				prim_arbiter_ppc.sv	67	12	67	37						000
+  #526737	10	operation				prim_arbiter_ppc.sv	67	25	67	37		0				000
+  #526738	11	ref_obj	mask		work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.mask	prim_arbiter_ppc.sv	67	25	67	29		0			work@top_earlgrey.u_spi_device.u_fwmode_arb.gen_arb_ppc.u_reqarb.gen_normal_case.mask	000
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

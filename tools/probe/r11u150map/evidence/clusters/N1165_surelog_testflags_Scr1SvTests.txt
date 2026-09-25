@@ -1,0 +1,64 @@
+cluster N1165 (map 5 id kept; OPEN): struct|ours-only:elsewhere|ref_obj|under:int_typespec
+row: surelog/testflags/Scr1SvTests  strict=differ:line(228)  records golden=83997 ours=84031
+object: #-1 (golden) / #64549 (ours)  type=ref_obj name=ALLTRIG_W 
+  golden: 
+  ours:   1 objs
+  walk parents: int_typespec < ref_typespec < parameter(ALLTRIG_W) < ref_obj(ALLTRIG_W)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 64543..64555 ('>' = the object)
+  #64543	10	ref_typespec			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu	000
+  #64544	11	int_typespec				scr1_pipe_tdu.sv	77	12	77	24						000
+  #64545	12	ref_obj	ALLTRIG_W		<in>ALLTRIG_W		0	0	0	0		0			work@scr1_pipe_tdu.ALLTRIG_W.ALLTRIG_W	001
+  #64546	13	parameter	ALLTRIG_W		work@scr1_pipe_tdu.ALLTRIG_W	scr1_pipe_tdu.sv	77	25	77	34		0			work@scr1_pipe_tdu.ALLTRIG_W	001
+  #64547	14	ref_typespec			work@scr1_pipe_tdu.ALLTRIG_W		0	0	0	0		0			work@scr1_pipe_tdu.ALLTRIG_W	001
+  #64548	15	int_typespec				scr1_pipe_tdu.sv	77	12	77	24						001
+> #64549	16	ref_obj	ALLTRIG_W		<in>ALLTRIG_W		0	0	0	0		0			work@scr1_pipe_tdu.ALLTRIG_W.ALLTRIG_W	001
+  #64550	10	ref_obj	ALLTRIG_NUM		work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.ALLTRIG_NUM	scr1_pipe_tdu.sv	322	67	322	78		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.ALLTRIG_NUM	000
+  #64551	7	ref_obj	csr_tselect_upd		work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_tselect_upd	scr1_pipe_tdu.sv	321	8	321	23		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_tselect_upd	000
+  #64552	6	cont_assign				scr1_pipe_tdu.sv	338	8	338	56						000
+  #64553	7	operation				scr1_pipe_tdu.sv	338	28	338	56		0				000
+  #64554	8	ref_obj	csr_addr_icount		work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_icount	scr1_pipe_tdu.sv	338	28	338	43		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_icount	000
+  #64555	8	ref_obj	csr_wr_req		work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_wr_req	scr1_pipe_tdu.sv	338	46	338	56		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_wr_req	000
+
+--- the holder #64548 on the other side: exact-record matches at [64558]
+  #64555	12	ref_obj	ALLTRIG_W		<in>ALLTRIG_W		0	0	0	0		0			work@scr1_pipe_tdu.ALLTRIG_W.ALLTRIG_W	001
+  #64556	13	parameter	ALLTRIG_W		work@scr1_pipe_tdu.ALLTRIG_W	scr1_pipe_tdu.sv	77	25	77	34		0			work@scr1_pipe_tdu.ALLTRIG_W	001
+  #64557	14	ref_typespec			work@scr1_pipe_tdu.ALLTRIG_W		0	0	0	0		0			work@scr1_pipe_tdu.ALLTRIG_W	001
+> #64558	15	int_typespec				scr1_pipe_tdu.sv	77	12	77	24						001
+  #64559	10	ref_obj	ALLTRIG_NUM		work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.ALLTRIG_NUM	scr1_pipe_tdu.sv	322	67	322	78		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.ALLTRIG_NUM	000
+  #64560	7	ref_obj	csr_tselect_upd		work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_tselect_upd	scr1_pipe_tdu.sv	321	8	321	23		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_tselect_upd	000
+  #64561	6	cont_assign				scr1_pipe_tdu.sv	338	8	338	56						000
+  #64562	7	operation				scr1_pipe_tdu.sv	338	28	338	56		0				000
+  #64563	8	ref_obj	csr_addr_icount		work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_icount	scr1_pipe_tdu.sv	338	28	338	43		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_icount	000
+  #64564	8	ref_obj	csr_wr_req		work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_wr_req	scr1_pipe_tdu.sv	338	46	338	56		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_wr_req	000
+  #64565	7	ref_obj	csr_icount_wr_req		work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_icount_wr_req	scr1_pipe_tdu.sv	338	8	338	25		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_icount_wr_req	000
+  #64566	6	cont_assign				scr1_pipe_tdu.sv	339	8	339	74						000
+  #64567	7	operation				scr1_pipe_tdu.sv	339	28	339	74		0				000
+
+facets of this row (1094, first 25):
+  N0965 #16033/-1 ref_typespec  G[5 objs] O[]
+  N0286 #-1/48526 ref_obj SCR1_IFU_Q_FREE_H_W G[] O[1 objs]
+  N0286 #-1/48539 ref_obj SCR1_IFU_Q_FREE_H_W G[] O[1 objs]
+  N0286 #-1/48554 ref_obj SCR1_IFU_Q_FREE_W_W G[] O[1 objs]
+  N0286 #-1/48614 ref_obj SCR1_IFU_Q_FREE_H_W G[] O[1 objs]
+  N0791 #48791/-1 ref_obj SCR1_MEM_CMD_RD G[2 objs] O[]
+  N0284 #-1/48790 constant  G[] O[1 objs]
+  N0965 #61857/-1 ref_typespec  G[5 objs] O[]
+  N0729 #63286/-1 ref_obj ALLTRIG_W G[3 objs] O[]
+  N1165 #-1/64549 ref_obj ALLTRIG_W G[] O[1 objs]
+  N0921 #-1/70144 operation  G[] O[5 objs]
+  N0921 #-1/70153 operation  G[] O[7 objs]
+  N0921 #-1/70164 operation  G[] O[11 objs]
+  N0921 #-1/70179 operation  G[] O[13 objs]
+  N0921 #-1/76044 operation  G[] O[7 objs]
+  N0064 #4/4 include_file_info  G[537:10:537:39] O[322:10:322:39]
+  N0064 #5/5 include_file_info  G[545:10:545:37] O[330:10:330:37]
+  N0064 #6/6 include_file_info  G[761:10:761:31] O[331:10:331:31]
+  N0064 #7/7 include_file_info  G[1010:10:1010:24] O[508:10:508:24]
+  N0064 #8/8 include_file_info  G[1018:10:1018:37] O[516:10:516:37]
+  N0064 #9/9 include_file_info  G[1234:10:1234:24] O[517:10:517:24]
+  N0064 #10/10 include_file_info  G[1242:10:1242:37] O[525:10:525:37]
+  N0064 #11/11 include_file_info  G[1458:10:1458:31] O[526:10:526:31]
+  N0064 #12/12 include_file_info  G[1531:10:1531:25] O[527:10:527:25]
+  N0064 #13/13 include_file_info  G[1539:10:1539:37] O[535:10:535:37]

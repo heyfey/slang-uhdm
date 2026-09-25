@@ -1,0 +1,64 @@
+cluster N0753 (map 5 id kept; OPEN): fullname|ref_obj|tok:->id.|under:port
+row: surelog/default/SimpleUVM  strict=differ:line(190)  records golden=334285 ours=333561
+object: #334113 (golden) / #333389 (ours)  type=ref_obj name=clk OUT
+  golden: work@top.clk
+  ours:   work@top.dut.clk
+  walk parents: port(clk) < interface_inst(add_sub_if0) < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 334107..334119 ('>' = the object)
+  #334107	3	enum_const	UVM_GTE			uvm_object_globals.svh	563	16	563	23						001
+  #334108	2	interface_inst	add_sub_if0	work@add_sub_if	work@top.add_sub_if0	design.sv	44	0	0	0					work@top.add_sub_if0	000
+  #334109	3	bit_var	clk		work@top.dut.add_sub_if0.clk	design.sv	25	13	25	16		0			work@top.dut.add_sub_if0.clk	000
+  #334110	4	ref_typespec			work@top.dut.add_sub_if0.clk		0	0	0	0		0			work@top.dut.add_sub_if0.clk	000
+  #334111	5	bit_typespec				design.sv	25	9	25	12						000
+  #334112	3	port	clk			design.sv	25	13	25	16						000
+> #334113	4	ref_obj	clk		work@top.clk	design.sv	45	8	45	11		0			work@top.clk	000
+  #334114	5	logic_net	clk		work@top.dut.clk	design.sv	3	20	3	23		0			work@top.dut.clk	000
+  #334115	6	ref_typespec			work@top.dut.clk		0	0	0	0		0			work@top.dut.clk	000
+  #334116	7	logic_typespec				design.sv	3	20	3	20						000
+  #334117	4	ref_obj	clk		work@top.add_sub_if0.clk	design.sv	45	4	45	7		0			work@top.add_sub_if0.clk	000
+  #334118	4	ref_typespec			work@top.dut.add_sub_if0.clk		0	0	0	0		0			work@top.dut.add_sub_if0.clk	000
+  #334119	5	bit_typespec				design.sv	25	9	25	12						000
+
+--- OURS (B) records 333383..333395 ('>' = the object)
+  #333383	3	enum_const	UVM_GTE			uvm_object_globals.svh	563	16	563	23						001
+  #333384	2	interface_inst	add_sub_if0	work@add_sub_if	work@top.add_sub_if0	design.sv	44	0	0	0					work@top.add_sub_if0	000
+  #333385	3	bit_var	clk		work@top.dut.add_sub_if0.clk	design.sv	25	13	25	16		0			work@top.dut.add_sub_if0.clk	000
+  #333386	4	ref_typespec			work@top.dut.add_sub_if0.clk		0	0	0	0		0			work@top.dut.add_sub_if0.clk	000
+  #333387	5	bit_typespec				design.sv	25	9	25	12						000
+  #333388	3	port	clk			design.sv	25	13	25	16						000
+> #333389	4	ref_obj	clk		work@top.dut.clk	design.sv	45	8	45	11		0			work@top.dut.clk	000
+  #333390	5	logic_net	clk		work@top.dut.clk	design.sv	3	20	3	23		0			work@top.dut.clk	000
+  #333391	6	ref_typespec			work@top.dut.clk		0	0	0	0		0			work@top.dut.clk	000
+  #333392	7	logic_typespec				design.sv	3	20	3	20						000
+  #333393	4	ref_obj	clk		work@top.dut.add_sub_if0.clk	design.sv	45	4	45	7		0			work@top.dut.add_sub_if0.clk	000
+  #333394	4	ref_typespec			work@top.dut.add_sub_if0.clk		0	0	0	0		0			work@top.dut.add_sub_if0.clk	000
+  #333395	5	bit_typespec				design.sv	25	9	25	12						000
+
+facets of this row (36805, first 25):
+  N0343 #-1/2484 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2914 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3160 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10177/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17758 class_var uvm_top G[] O[4 objs]
+  N0213 #20905/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20923 bit_typespec  G[] O[1 objs]
+  N0213 #21847/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21859 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25773 class_var run_ph G[] O[3 objs]
+  N0213 #74380/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74389 bit_typespec  G[] O[1 objs]
+  N0213 #74407/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74410 bit_typespec  G[] O[1 objs]
+  N0213 #74469/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74466 bit_typespec  G[] O[1 objs]
+  N0151 #78244/-1 ref_typespec  G[2 objs] O[]
+  N0197 #78752/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/78741 array_typespec  G[] O[1 objs]
+  N0213 #78771/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/78760 bit_typespec  G[] O[1 objs]
+  N0213 #79756/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79739 bit_typespec  G[] O[1 objs]
+  N0151 #80429/-1 ref_typespec  G[2 objs] O[]
+  N0151 #80433/-1 ref_typespec  G[2 objs] O[]

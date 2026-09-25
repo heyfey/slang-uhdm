@@ -1,0 +1,64 @@
+cluster N0217 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id::->|under:bit_select
+row: surelog/default/BuildUVMPkg  strict=differ:line(174)  records golden=201533 ours=201486
+object: #6270 (golden) / #6270 (ours)  type=ref_obj name=j OUT
+  golden: uvm_pkg::uvm_default_factory::print::space.substr::j
+  ours:   uvm_pkg::uvm_default_factory::print::j
+  walk parents: bit_select(m_inst_overrides) < hier_path(m_inst_overrides[j].orig.m_type_name.len) < operation < method_func_call(substr)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 6264..6276 ('>' = the object)
+  #6264	13	method_func_call	substr			uvm_pkg.sv	13183	22	13183	28		0				000
+  #6265	14	constant				uvm_pkg.sv	13183	29	13183	30	1	64	UINT:1	9		000
+  #6266	14	operation				uvm_pkg.sv	13183	31	13183	78		0				000
+  #6267	15	ref_obj	max1		uvm_pkg::uvm_default_factory::print::space.substr::max1	uvm_pkg.sv	13183	31	13183	35		0			uvm_pkg::uvm_default_factory::print::space.substr::max1	000
+  #6268	15	hier_path	m_inst_overrides[j].orig.m_type_name.len			uvm_pkg.sv	13183	36	13183	78		0				000
+  #6269	16	bit_select	m_inst_overrides		m_inst_overrides[j]	uvm_pkg.sv	13183	36	13183	52		0			m_inst_overrides[j]	000
+> #6270	17	ref_obj	j		uvm_pkg::uvm_default_factory::print::space.substr::j	uvm_pkg.sv	13183	53	13183	54		0			uvm_pkg::uvm_default_factory::print::space.substr::j	000
+  #6271	16	ref_obj	orig			uvm_pkg.sv	13183	56	13183	60		0				000
+  #6272	16	ref_obj	m_type_name			uvm_pkg.sv	13183	61	13183	72		0				000
+  #6273	16	method_func_call	len			uvm_pkg.sv	13183	73	13183	76		0				000
+  #6274	12	hier_path	m_inst_overrides[j].full_inst_path			uvm_pkg.sv	13184	16	13184	50		0				000
+  #6275	13	bit_select	m_inst_overrides		m_inst_overrides[j]	uvm_pkg.sv	13184	16	13184	32		0			m_inst_overrides[j]	000
+  #6276	14	ref_obj	j		uvm_pkg::uvm_default_factory::print::j	uvm_pkg.sv	13184	33	13184	34		0			uvm_pkg::uvm_default_factory::print::j	000
+
+--- OURS (B) records 6264..6276 ('>' = the object)
+  #6264	13	method_func_call	substr			uvm_pkg.sv	13183	22	13183	28		0				000
+  #6265	14	constant				uvm_pkg.sv	13183	29	13183	30	1	64	UINT:1	9		000
+  #6266	14	operation				uvm_pkg.sv	13183	31	13183	78		0				000
+  #6267	15	ref_obj	max1		uvm_pkg::uvm_default_factory::print::max1	uvm_pkg.sv	13183	31	13183	35		0			uvm_pkg::uvm_default_factory::print::max1	000
+  #6268	15	hier_path	m_inst_overrides[j].orig.m_type_name.len			uvm_pkg.sv	13183	36	13183	78		0				000
+  #6269	16	bit_select	m_inst_overrides		m_inst_overrides[j]	uvm_pkg.sv	13183	36	13183	52		0			m_inst_overrides[j]	000
+> #6270	17	ref_obj	j		uvm_pkg::uvm_default_factory::print::j	uvm_pkg.sv	13183	53	13183	54		0			uvm_pkg::uvm_default_factory::print::j	000
+  #6271	16	ref_obj	orig			uvm_pkg.sv	13183	56	13183	60		0				000
+  #6272	16	ref_obj	m_type_name			uvm_pkg.sv	13183	61	13183	72		0				000
+  #6273	16	method_func_call	len			uvm_pkg.sv	13183	73	13183	76		0				000
+  #6274	12	hier_path	m_inst_overrides[j].full_inst_path			uvm_pkg.sv	13184	16	13184	50		0				000
+  #6275	13	bit_select	m_inst_overrides		m_inst_overrides[j]	uvm_pkg.sv	13184	16	13184	32		0			m_inst_overrides[j]	000
+  #6276	14	ref_obj	j		uvm_pkg::uvm_default_factory::print::j	uvm_pkg.sv	13184	33	13184	34		0			uvm_pkg::uvm_default_factory::print::j	000
+
+facets of this row (9401, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

@@ -1,0 +1,54 @@
+cluster N1957 (map 5 id kept; OPEN): value|constant|value:UINT->UINT|under:operation
+row: probe/default/r11u109repro__grid__f1__p06_plainparam  strict=endcol  records golden=183 ours=183
+object: #150 (golden) / #150 (ours)  type=constant name= 
+  golden: |64|UINT:0|9
+  ours:   |64|UINT:1|9
+  walk parents: operation < param_assign < module_inst(work@dut) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 144..156 ('>' = the object)
+  #144	6	typespec_member	y			dut.sv	2	73	2	74						001
+  #145	7	ref_typespec			<in>y		0	0	0	0		0			work@dut.y	001
+  #146	8	logic_typespec				dut.sv	2	59	2	72						001
+  #147	9	range				dut.sv	2	65	2	72						001
+  #148	10	constant					0	0	0	0	63	64	INT:63	7		001
+  #149	10	constant				dut.sv	2	70	2	71	0	64	UINT:0	9		001
+> #150	4	constant				dut.sv	3	28	3	33		64	UINT:0	9		000
+  #151	4	constant				dut.sv	3	38	3	43		64	UINT:0	9		000
+  #152	2	logic_net	a_i		work@dut.a_i	dut.sv	1	49	1	52		0			work@dut.a_i	000
+  #153	3	ref_typespec			work@dut.a_i		0	0	0	0		0			work@dut.a_i	000
+  #154	4	logic_typespec				dut.sv	1	43	1	48						000
+  #155	2	logic_net	b_o		work@dut.b_o	dut.sv	1	75	1	78		0			work@dut.b_o	000
+  #156	3	ref_typespec			work@dut.b_o		0	0	0	0		0			work@dut.b_o	000
+
+--- OURS (B) records 144..156 ('>' = the object)
+  #144	6	typespec_member	y			dut.sv	2	73	2	74						001
+  #145	7	ref_typespec			<in>y		0	0	0	0		0			work@dut.y	001
+  #146	8	logic_typespec				dut.sv	2	59	2	72						001
+  #147	9	range				dut.sv	2	65	2	72						001
+  #148	10	constant					0	0	0	0	63	64	INT:63	7		001
+  #149	10	constant				dut.sv	2	70	2	71	0	64	UINT:0	9		001
+> #150	4	constant				dut.sv	3	28	3	33		64	UINT:1	9		000
+  #151	4	constant				dut.sv	3	38	3	43		64	UINT:2	9		000
+  #152	2	logic_net	a_i		work@dut.a_i	dut.sv	1	49	1	52		0			work@dut.a_i	000
+  #153	3	ref_typespec			work@dut.a_i		0	0	0	0		0			work@dut.a_i	000
+  #154	4	logic_typespec				dut.sv	1	43	1	48						000
+  #155	2	logic_net	b_o		work@dut.b_o	dut.sv	1	75	1	78		0			work@dut.b_o	000
+  #156	3	ref_typespec			work@dut.b_o		0	0	0	0		0			work@dut.b_o	000
+
+facets of this row (15, first 25):
+  N0044 #7/7 struct_typespec  G[2:26:2:32] O[2:26:2:39]
+  N0084 #9/9 ref_typespec  G[work@dut.I.x] O[x]
+  N1928 #13/13 ref_obj W G[work@dut.I.x.W] O[work@dut.it_t.W]
+  N0084 #17/17 ref_typespec  G[work@dut.I.y] O[y]
+  N1928 #21/21 ref_obj W G[work@dut.I.y.W] O[work@dut.it_t.W]
+  N0044 #26/26 struct_typespec  G[2:26:2:32] O[2:26:2:77]
+  N0044 #94/94 struct_typespec  G[2:26:2:32] O[2:26:2:39]
+  N0084 #96/96 ref_typespec  G[work@dut.I.x] O[x]
+  N1928 #100/100 ref_obj W G[work@dut.I.x.W] O[work@dut.it_t.W]
+  N0084 #104/104 ref_typespec  G[work@dut.I.y] O[y]
+  N1928 #108/108 ref_obj W G[work@dut.I.y.W] O[work@dut.it_t.W]
+  N0044 #113/113 struct_typespec  G[2:26:2:32] O[2:26:2:77]
+  N0044 #137/137 struct_typespec  G[2:26:2:32] O[2:26:2:77]
+  N1957 #150/150 constant  G[|64|UINT:0|9] O[|64|UINT:1|9]
+  N1957 #151/151 constant  G[|64|UINT:0|9] O[|64|UINT:2|9]

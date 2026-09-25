@@ -1,0 +1,64 @@
+cluster N0332 (map 5 id kept; OPEN): span|if_else|line+endline|under:begin
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #67562 (golden) / #67575 (ours)  type=if_else name= 
+  golden: 413:6:414:27
+  ours:   417:6:418:27
+  walk parents: begin < function(create) < class_defn(uvm_built_in_pair) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 67556..67568 ('>' = the object)
+  #67556	6	class_typespec				uvm_object_defines.svh	410	13	410	23						000
+  #67557	4	io_decl	name			uvm_object_defines.svh	410	39	410	43						000
+  #67558	5	constant				uvm_object_defines.svh	410	44	410	46	""	0	STRING:	6		000
+  #67559	5	ref_typespec			uvm_pkg::uvm_built_in_pair::create::name		0	0	0	0		0			uvm_pkg::uvm_built_in_pair::create::name	000
+  #67560	6	string_typespec				uvm_object_defines.svh	410	32	410	38						000
+  #67561	4	begin			uvm_pkg::uvm_built_in_pair::create	uvm_object_defines.svh	413	6	414	27					uvm_pkg::uvm_built_in_pair::create	000
+> #67562	5	if_else				uvm_object_defines.svh	413	6	414	27						000
+  #67563	6	operation				uvm_object_defines.svh	413	10	413	18		0				000
+  #67564	7	ref_obj	name		uvm_pkg::uvm_built_in_pair::create::name	uvm_object_defines.svh	413	10	413	14		0			uvm_pkg::uvm_built_in_pair::create::name	000
+  #67565	7	constant				uvm_object_defines.svh	413	16	413	18	""	0	STRING:	6		000
+  #67566	6	assignment				uvm_object_defines.svh	413	20	413	31						000
+  #67567	7	method_func_call	new				0	0	0	0		0				000
+  #67568	7	ref_obj	tmp		uvm_pkg::uvm_built_in_pair::create::tmp	uvm_object_defines.svh	413	20	413	23		0			uvm_pkg::uvm_built_in_pair::create::tmp	000
+
+--- OURS (B) records 67569..67581 ('>' = the object)
+  #67569	6	class_typespec				uvm_object_defines.svh	410	13	410	23						000
+  #67570	4	io_decl	name			uvm_object_defines.svh	410	39	410	43						000
+  #67571	5	constant				uvm_object_defines.svh	410	44	410	46	""	0	STRING:	6		000
+  #67572	5	ref_typespec			uvm_pkg::uvm_built_in_pair::create::name		0	0	0	0		0			uvm_pkg::uvm_built_in_pair::create::name	000
+  #67573	6	string_typespec				uvm_object_defines.svh	410	32	410	38						000
+  #67574	4	begin			uvm_pkg::uvm_built_in_pair::create	uvm_object_defines.svh	417	6	418	27					uvm_pkg::uvm_built_in_pair::create	000
+> #67575	5	if_else				uvm_object_defines.svh	417	6	418	27						000
+  #67576	6	operation				uvm_object_defines.svh	417	10	417	18		0				000
+  #67577	7	ref_obj	name		uvm_pkg::uvm_built_in_pair::create::name	uvm_object_defines.svh	417	10	417	14		0			uvm_pkg::uvm_built_in_pair::create::name	000
+  #67578	7	constant				uvm_object_defines.svh	417	16	417	18	""	0	STRING:	6		000
+  #67579	6	assignment				uvm_object_defines.svh	417	20	417	31						000
+  #67580	7	method_func_call	new				0	0	0	0		0				000
+  #67581	7	ref_obj	tmp		uvm_pkg::uvm_built_in_pair::create::tmp	uvm_object_defines.svh	417	20	417	23		0			uvm_pkg::uvm_built_in_pair::create::tmp	000
+
+facets of this row (29492, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

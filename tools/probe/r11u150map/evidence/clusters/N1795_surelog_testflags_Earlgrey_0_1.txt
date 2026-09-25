@@ -1,0 +1,64 @@
+cluster N1795 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id.id.id.id.id[id - n:n].id->id|under:operation
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #557317 (golden) / #557070 (ours)  type=ref_obj name=PtrW OUT
+  golden: work@top_earlgrey.u_spi_device.reg2hw.rxf_ptr.rptr.q[PtrW - 1:0].q.PtrW
+  ours:   work@spi_device.PtrW
+  walk parents: operation < part_select(q) < hier_path(reg2hw.rxf_ptr.rptr.q[PtrW - 1:0]) < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 557311..557323 ('>' = the object)
+  #557311	4	hier_path	reg2hw.rxf_ptr.rptr.q[PtrW - 1:0]			spi_device.sv	164	26	164	57		0				000
+  #557312	5	ref_obj	reg2hw			spi_device.sv	164	26	164	32		0				000
+  #557313	5	ref_obj	rxf_ptr			spi_device.sv	164	33	164	40		0				000
+  #557314	5	ref_obj	rptr			spi_device.sv	164	41	164	45		0				000
+  #557315	5	part_select	q		reg2hw.rxf_ptr.rptr.q[PtrW - 1:0]	spi_device.sv	164	46	164	56		0			reg2hw.rxf_ptr.rptr.q[PtrW - 1:0]	000
+  #557316	6	operation				spi_device.sv	164	48	164	54		0				000
+> #557317	7	ref_obj	PtrW		work@top_earlgrey.u_spi_device.reg2hw.rxf_ptr.rptr.q[PtrW - 1:0].q.PtrW	spi_device.sv	164	48	164	52		0			work@top_earlgrey.u_spi_device.reg2hw.rxf_ptr.rptr.q[PtrW - 1:0].q.PtrW	000
+  #557318	7	constant				spi_device.sv	164	53	164	54	1	64	UINT:1	9		000
+  #557319	6	constant				spi_device.sv	164	55	164	56	0	64	UINT:0	9		000
+  #557320	4	ref_obj	sram_rxf_rptr		work@top_earlgrey.u_spi_device.sram_rxf_rptr	spi_device.sv	164	10	164	23		0			work@top_earlgrey.u_spi_device.sram_rxf_rptr	000
+  #557321	3	cont_assign				spi_device.sv	165	10	165	68						000
+  #557322	4	operation				spi_device.sv	165	34	165	68		0				000
+  #557323	5	operation				spi_device.sv	165	35	165	52		0				000
+
+--- OURS (B) records 557064..557076 ('>' = the object)
+  #557064	4	hier_path	reg2hw.rxf_ptr.rptr.q[PtrW - 1:0]			spi_device.sv	164	26	164	57		0				000
+  #557065	5	ref_obj	reg2hw			spi_device.sv	164	26	164	32		0				000
+  #557066	5	ref_obj	rxf_ptr			spi_device.sv	164	33	164	40		0				000
+  #557067	5	ref_obj	rptr			spi_device.sv	164	41	164	45		0				000
+  #557068	5	part_select	q		reg2hw.rxf_ptr.rptr.q[PtrW - 1:0]	spi_device.sv	164	46	164	56		0			reg2hw.rxf_ptr.rptr.q[PtrW - 1:0]	000
+  #557069	6	operation				spi_device.sv	164	48	164	54		0				000
+> #557070	7	ref_obj	PtrW		work@spi_device.PtrW	spi_device.sv	164	48	164	52		0			work@spi_device.PtrW	000
+  #557071	7	constant				spi_device.sv	164	53	164	54	1	64	UINT:1	9		000
+  #557072	6	constant				spi_device.sv	164	55	164	56	0	64	UINT:0	9		000
+  #557073	4	ref_obj	sram_rxf_rptr		work@top_earlgrey.u_spi_device.sram_rxf_rptr	spi_device.sv	164	10	164	23		0			work@top_earlgrey.u_spi_device.sram_rxf_rptr	000
+  #557074	3	cont_assign				spi_device.sv	165	10	165	68						000
+  #557075	4	operation				spi_device.sv	165	34	165	68		0				000
+  #557076	5	operation				spi_device.sv	165	35	165	52		0				000
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

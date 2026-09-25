@@ -1,0 +1,35 @@
+{
+ "N2383": {
+  "note": "DECODED (r11u148 D2, measured here): the def_ctx_struct_param / latch_decoder_partial / latch_tlb_napot cast target after pass 140: golden stamps the member-value constants on the ELABORATED package's cfg_t cast target (golden-only here), ours on the definition package's (N2384); pass 140's law pkgTypedefCastTargetTs140 binds both listings' deferred casts to pkgTopTypedefTs while stampEvalFuncLeftovers stamps the other copy (ParamEmit.cpp drainShareDefParamTs / stampEvalFuncLeftovers): bind the definition listing's cast to the definition package's typedef"
+ },
+ "N2384": {
+  "note": "DECODED (r11u148 D2): the ours-only half of N2383 (the stamps on the definition package's cast target); ParamEmit.cpp drainShareDefParamTs (law pkgTypedefCastTargetTs140) / stampEvalFuncLeftovers"
+ },
+ "N2385": {
+  "note": "DECODED here: N0441's successor after pass 140's law defaultFillOneConstant140. DefaultPatternInt declares localparam int unsigned V[CNT] = '{default: 3} in a PACKAGE (CNT = 2); under the module listing's param_assign golden's array_expr lists TWO constants (one per element, both UINT:3 at 4:45-46), ours now one (map 5: ours one more than golden). DefaultPatternModule (the same declaration in the module body) and ParamArrayUnsizedPattern converted with one: the package-declared default fill keeps one constant per element. ParamEmit.cpp emitParameters, the '{default: X} unpacked-array expansion (law defaultFillOneConstant140)"
+ },
+ "N0045": {
+  "note": "DECODED (r11u148 D): golden stamps cfg_pkg::cfg_t members in every listing that resolves the typedef after elaboration, an operation-valued member (Flag = (c.NrRules > 0) && (c.Length > 0)) unreduced; ours stamps three listings; the caller is a module parameter DEFAULT build_config(Base): ParamEmit.cpp stampEvalFuncLeftovers (typespec_member Actual_value)"
+ },
+ "N0724": {
+  "note": "DECODED (r11u148 G): routing_matrix_p = (dims_p == 2) ? StrictXY : StrictX: golden's elaborated param_assign Rhs is StrictXY's OWN value object (the concatenation, already walked); ours folds to a 50-bit constant: a conditional whose taken arm is a bare parameter reference with an aggregate value shares that parameter's Rhs (ParamEmit.cpp, elaborated param_assign emission)"
+ },
+ "N0046": {
+  "note": "DECODED (r11u148 ARR): array_assign pb = pa in always_comb: golden's ref_obj pa Actual is the var_select pa[0][0] (the first Lhs in the block naming pa, already listed); ours binds the definition logic_net pa (3 extra records); producer candidate UhdmWriter::lateBinding (not pinned); our site the procedural reference binding (StmtEmit/ExprEmit)"
+ },
+ "N0417": {
+  "note": "DECODED (r11u148 C3 leftover): the elaborated port region_attrs_i high_conn: golden relocates the substituted pattern value to the ACTUAL's span 23:23-23:33 and names it work@top.u_hw_sel.region_attrs_i; ours keeps the package parameter's pattern span 6:49-10:5 and doubles the instance (u_hw_sel.u_hw_sel): the port-connection value substitution (ModuleEmit.cpp emitInstance high-conn, r11u140 R8)"
+ },
+ "N0534": {
+  "note": "DECODED (r11u148 C3 leftover): the Nested twin: two ref_typespecs where ours stores work@top / work@top.u_hw_sel and golden none (port-connection value substitution, r11u140 R8)"
+ },
+ "N0133": {
+  "note": "DECODED (r11u148 E): golden KEEPS the func_call (writeCont_assign: evalFunc returns a non-constant for a select of a module parameter (P) or a select-of-select on a local (V)); ours folds: law evalFuncSelectKeepsCall148 (r11u148share law.patch, ModuleEmit.cpp emitContAssigns + gen-scope emitter), pair B lands it"
+ },
+ "N0554": {
+  "note": "DECODED (r11u148 E2): adjustSize clone_tree's a UINT Rhs read by a plain Lhs naming a module-level net/variable: law genLpUintCaRhsOwnCopy148 (r11u148share law.patch, ModuleEmit.cpp gen-scope lambda)"
+ },
+ "N0764": {
+  "note": "DECODED (r11u148 I): each package listing's subroutine ranges bind that listing's own parameter value: law pkgTfSigRangeTopViewConst148 (r11u148share law.patch, TypeEmit.cpp emitSyntaxExpr tfTypeScope)"
+ }
+}

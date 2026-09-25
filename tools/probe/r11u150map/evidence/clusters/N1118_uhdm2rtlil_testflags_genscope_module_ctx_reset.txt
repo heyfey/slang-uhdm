@@ -1,0 +1,40 @@
+cluster N1118 (map 5 id kept; OPEN): fullname|part_select|tok:id.->|under:port
+row: uhdm2rtlil/testflags/genscope_module_ctx_reset  strict=differ:fullname(1)  records golden=252 ours=252
+object: #184 (golden) / #184 (ours)  type=part_select name=in_i OUT
+  golden: work@genscope_module_ctx_reset.gen_inst.u_c.ci.in_i
+  ours:   work@genscope_module_ctx_reset.u_c.ci.in_i
+  walk parents: port(ci) < module_inst(u_c) < gen_scope < gen_scope_array(gen_inst)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 178..190 ('>' = the object)
+  #178	9	constant				dut.sv	15	19	15	21	3	64	INT:3	7		001
+  #179	9	constant				dut.sv	15	24	15	25	0	64	UINT:0	9		001
+  #180	5	logic_net	co		work@genscope_module_ctx_reset.gen_inst.u_c.co	dut.sv	16	27	16	29		0			work@genscope_module_ctx_reset.gen_inst.u_c.co	000
+  #181	6	ref_typespec			work@genscope_module_ctx_reset.gen_inst.u_c.co		0	0	0	0		0			work@genscope_module_ctx_reset.gen_inst.u_c.co	000
+  #182	7	logic_typespec				dut.sv	16	12	16	17						000
+  #183	5	port	ci			dut.sv	15	27	15	29						000
+> #184	6	part_select	in_i	in_i	work@genscope_module_ctx_reset.gen_inst.u_c.ci.in_i	dut.sv	30	30	30	39		0			work@genscope_module_ctx_reset.gen_inst.u_c.ci.in_i	000
+  #185	7	constant				dut.sv	30	35	30	36	3	64	UINT:3	9		000
+  #186	7	constant				dut.sv	30	37	30	38	0	64	UINT:0	9		000
+  #187	6	ref_obj	ci		work@genscope_module_ctx_reset.gen_inst.u_c.ci	dut.sv	30	27	30	29		0			work@genscope_module_ctx_reset.gen_inst.u_c.ci	000
+  #188	6	ref_typespec			work@genscope_module_ctx_reset.gen_inst.u_c.ci		0	0	0	0		0			work@genscope_module_ctx_reset.gen_inst.u_c.ci	000
+  #189	7	logic_typespec				dut.sv	15	12	15	26						000
+  #190	8	range				dut.sv	15	18	15	26						001
+
+--- OURS (B) records 178..190 ('>' = the object)
+  #178	9	constant				dut.sv	15	19	15	21	3	64	INT:3	7		001
+  #179	9	constant				dut.sv	15	24	15	25	0	64	UINT:0	9		001
+  #180	5	logic_net	co		work@genscope_module_ctx_reset.gen_inst.u_c.co	dut.sv	16	27	16	29		0			work@genscope_module_ctx_reset.gen_inst.u_c.co	000
+  #181	6	ref_typespec			work@genscope_module_ctx_reset.gen_inst.u_c.co		0	0	0	0		0			work@genscope_module_ctx_reset.gen_inst.u_c.co	000
+  #182	7	logic_typespec				dut.sv	16	12	16	17						000
+  #183	5	port	ci			dut.sv	15	27	15	29						000
+> #184	6	part_select	in_i	in_i	work@genscope_module_ctx_reset.u_c.ci.in_i	dut.sv	30	30	30	39		0			work@genscope_module_ctx_reset.u_c.ci.in_i	000
+  #185	7	constant				dut.sv	30	35	30	36	3	64	UINT:3	9		000
+  #186	7	constant				dut.sv	30	37	30	38	0	64	UINT:0	9		000
+  #187	6	ref_obj	ci		work@genscope_module_ctx_reset.gen_inst.u_c.ci	dut.sv	30	27	30	29		0			work@genscope_module_ctx_reset.gen_inst.u_c.ci	000
+  #188	6	ref_typespec			work@genscope_module_ctx_reset.gen_inst.u_c.ci		0	0	0	0		0			work@genscope_module_ctx_reset.gen_inst.u_c.ci	000
+  #189	7	logic_typespec				dut.sv	15	12	15	26						000
+  #190	8	range				dut.sv	15	18	15	26						001
+
+facets of this row (1, first 25):
+  N1118 #184/184 part_select in_i G[work@genscope_module_ctx_reset.gen_inst.u_c.ci.in_i] O[work@genscope_module_ctx_reset.u_c.ci.in_i]

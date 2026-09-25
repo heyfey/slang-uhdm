@@ -1,0 +1,64 @@
+cluster N0516 (map 5 id kept; OPEN): fullname|int_var|tok:id->id|under:ref_obj
+row: surelog/default/MiniAmiq  strict=differ:line(190)  records golden=435559 ours=413982
+object: #79121 (golden) / #77983 (ours)  type=int_var name=succ OUT
+  golden: uvm_pkg::uvm_phase::sync::visited.exists::succ
+  ours:   svaunit_pkg::uvm_phase::sync::visited.exists::succ
+  walk parents: ref_obj(succ) < method_func_call(exists) < hier_path(visited.exists) < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 79115..79127 ('>' = the object)
+  #79115	13	if_stmt				uvm_phase.svh	1907	9	1910	12						000
+  #79116	14	operation				uvm_phase.svh	1907	13	1907	34		0				000
+  #79117	15	hier_path	visited.exists			uvm_phase.svh	1907	14	1907	34		0				000
+  #79118	16	ref_obj	visited			uvm_phase.svh	1907	14	1907	21		0				000
+  #79119	16	method_func_call	exists			uvm_phase.svh	1907	22	1907	28		0				000
+  #79120	17	ref_obj	succ		svaunit_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1907	29	1907	33		0			svaunit_pkg::uvm_phase::sync::visited.exists::succ	000
+> #79121	18	int_var	succ		uvm_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0			uvm_pkg::uvm_phase::sync::visited.exists::succ	000
+  #79122	19	ref_typespec			uvm_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0			uvm_pkg::uvm_phase::sync::visited.exists::succ	000
+  #79123	20	int_typespec				uvm_phase.svh	1896	5	1896	8						000
+  #79124	14	begin			svaunit_pkg::uvm_phase::sync	uvm_phase.svh	1907	36	1910	12					svaunit_pkg::uvm_phase::sync	000
+  #79125	15	method_func_call	push_back			uvm_phase.svh	1908	17	1908	26		0				000
+  #79126	16	ref_obj	succ		svaunit_pkg::uvm_phase::sync::succ	uvm_phase.svh	1908	27	1908	31		0			svaunit_pkg::uvm_phase::sync::succ	000
+  #79127	16	ref_obj	queue		svaunit_pkg::uvm_phase::sync::queue	uvm_phase.svh	1908	11	1908	16		0			svaunit_pkg::uvm_phase::sync::queue	000
+
+--- OURS (B) records 77977..77989 ('>' = the object)
+  #77977	13	if_stmt				uvm_phase.svh	1907	9	1910	12						000
+  #77978	14	operation				uvm_phase.svh	1907	13	1907	34		0				000
+  #77979	15	hier_path	visited.exists			uvm_phase.svh	1907	14	1907	34		0				000
+  #77980	16	ref_obj	visited			uvm_phase.svh	1907	14	1907	21		0				000
+  #77981	16	method_func_call	exists			uvm_phase.svh	1907	22	1907	28		0				000
+  #77982	17	ref_obj	succ		svaunit_pkg::uvm_phase::sync::succ	uvm_phase.svh	1907	29	1907	33		0			svaunit_pkg::uvm_phase::sync::succ	000
+> #77983	18	int_var	succ		svaunit_pkg::uvm_phase::sync::visited.exists::succ	uvm_phase.svh	1896	9	1896	16		0			svaunit_pkg::uvm_phase::sync::visited.exists::succ	000
+  #77984	19	ref_typespec			svaunit_pkg::uvm_phase::sync::visited.exists::succ		0	0	0	0		0			svaunit_pkg::uvm_phase::sync::visited.exists::succ	000
+  #77985	20	int_typespec				uvm_phase.svh	1896	5	1896	8						000
+  #77986	14	begin			svaunit_pkg::uvm_phase::sync	uvm_phase.svh	1907	36	1910	12					svaunit_pkg::uvm_phase::sync	000
+  #77987	15	method_func_call	push_back			uvm_phase.svh	1908	17	1908	26		0				000
+  #77988	16	ref_obj	succ		svaunit_pkg::uvm_phase::sync::succ	uvm_phase.svh	1908	27	1908	31		0			svaunit_pkg::uvm_phase::sync::succ	000
+  #77989	16	ref_obj	queue		svaunit_pkg::uvm_phase::sync::queue	uvm_phase.svh	1908	11	1908	16		0			svaunit_pkg::uvm_phase::sync::queue	000
+
+facets of this row (55336, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

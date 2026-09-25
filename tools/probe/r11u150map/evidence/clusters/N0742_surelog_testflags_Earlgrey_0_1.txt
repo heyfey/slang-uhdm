@@ -1,0 +1,64 @@
+cluster N0742 (map 5 id kept; OPEN): value|constant|value:UINT->UINT+decompile|under:range
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #689130 (golden) / #689110 (ours)  type=constant name= 
+  golden: 31|64|UINT:31|9
+  ours:   7|64|UINT:7|9
+  walk parents: range < logic_typespec(hmac_pkg::sha_word_t) < ref_typespec < logic_net(digest)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 689124..689136 ('>' = the object)
+  #689124	8	constant				sha2.sv	26	17	26	19	63	64	UINT:63	9		001
+  #689125	8	constant				sha2.sv	26	20	26	21	0	64	UINT:0	9		001
+  #689126	4	logic_net	digest		work@top_earlgrey.u_hmac.u_sha2.digest	sha2.sv	27	27	27	33		0			work@top_earlgrey.u_hmac.u_sha2.digest	000
+  #689127	5	ref_typespec			work@top_earlgrey.u_hmac.u_sha2.digest		0	0	0	0		0			work@top_earlgrey.u_hmac.u_sha2.digest	000
+  #689128	6	logic_typespec	hmac_pkg::sha_word_t			hmac_pkg.sv	17	11	17	23						110
+  #689129	7	range				hmac_pkg.sv	17	17	17	23						001
+> #689130	8	constant				hmac_pkg.sv	17	18	17	20	31	64	UINT:31	9		001
+  #689131	8	constant				hmac_pkg.sv	17	21	17	22	0	64	UINT:0	9		001
+  #689132	4	port	clk_i			sha2.sv	9	9	9	14						000
+  #689133	5	ref_obj	clk_i		work@top_earlgrey.u_hmac.clk_i	hmac.sv	401	6	401	11		0			work@top_earlgrey.u_hmac.clk_i	000
+  #689134	5	ref_obj	clk_i		work@top_earlgrey.u_hmac.u_sha2.clk_i	hmac.sv	401	6	401	11		0			work@top_earlgrey.u_hmac.u_sha2.clk_i	000
+  #689135	5	ref_typespec			work@top_earlgrey.u_hmac.u_sha2.clk_i		0	0	0	0		0			work@top_earlgrey.u_hmac.u_sha2.clk_i	000
+  #689136	6	logic_typespec				sha2.sv	9	9	9	9						000
+
+--- OURS (B) records 689104..689116 ('>' = the object)
+  #689104	7	ref_typespec			<in>		0	0	0	0		0			work@top_earlgrey.u_hmac.u_sha2.digest	001
+  #689105	8	logic_typespec	hmac_pkg::sha_word_t			hmac_pkg.sv	17	11	17	23						001
+  #689106	9	range				hmac_pkg.sv	17	17	17	23						001
+  #689107	10	constant				hmac_pkg.sv	17	18	17	20	31	64	UINT:31	9		001
+  #689108	10	constant				hmac_pkg.sv	17	21	17	22	0	64	UINT:0	9		001
+  #689109	7	range				sha2.sv	27	21	27	26						001
+> #689110	8	constant				sha2.sv	27	22	27	23	7	64	UINT:7	9		001
+  #689111	8	constant				sha2.sv	27	24	27	25	0	64	UINT:0	9		001
+  #689112	4	port	clk_i			sha2.sv	9	9	9	14						000
+  #689113	5	ref_obj	clk_i		work@top_earlgrey.u_hmac.clk_i	hmac.sv	401	6	401	11		0			work@top_earlgrey.u_hmac.clk_i	000
+  #689114	5	ref_obj	clk_i		work@top_earlgrey.u_hmac.u_sha2.clk_i	hmac.sv	401	6	401	11		0			work@top_earlgrey.u_hmac.u_sha2.clk_i	000
+  #689115	5	ref_typespec			work@top_earlgrey.u_hmac.u_sha2.clk_i		0	0	0	0		0			work@top_earlgrey.u_hmac.u_sha2.clk_i	000
+  #689116	6	logic_typespec				sha2.sv	9	9	9	9						000
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

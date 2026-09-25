@@ -1,0 +1,43 @@
+cluster N0427 (map 5 id kept; COVERED r11u146 (residue: verifier face: elaborated generate-scope index reference (v11u144 residue 1, brk/hg/x1 x5))): fullname|ref_obj|tok:id[id].id.->|under:bit_select
+row: surelog/default/InterfArrayBind  strict=differ:fullname(4)  records golden=186 ours=186
+object: #166 (golden) / #166 (ours)  type=ref_obj name=io_idx OUT
+  golden: work@soc_tb.io_gen[0].peripheral_io_bus[io_idx].write_en.io_idx
+  ours:   work@soc_tb.io_gen[0].io_idx
+  walk parents: bit_select(peripheral_io_bus) < hier_path(peripheral_io_bus[io_idx].write_en) < cont_assign < gen_scope
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 160..172 ('>' = the object)
+  #160	5	ref_typespec			work@soc_tb.io_gen[0].io_idx		0	0	0	0		0			work@soc_tb.io_gen[0].io_idx	000
+  #161	6	int_typespec					0	0	0	0						000
+  #162	4	cont_assign				dut.sv	22	20	22	58						000
+  #163	5	constant				dut.sv	22	57	22	58	1	64	UINT:1	9		000
+  #164	5	hier_path	peripheral_io_bus[io_idx].write_en			dut.sv	22	20	22	37		0				000
+  #165	6	bit_select	peripheral_io_bus		peripheral_io_bus[io_idx]	dut.sv	22	20	22	37		0			peripheral_io_bus[io_idx]	000
+> #166	7	ref_obj	io_idx		work@soc_tb.io_gen[0].peripheral_io_bus[io_idx].write_en.io_idx	dut.sv	22	38	22	44		0			work@soc_tb.io_gen[0].peripheral_io_bus[io_idx].write_en.io_idx	000
+  #167	6	ref_obj	write_en		peripheral_io_bus[io_idx].write_en	dut.sv	22	46	22	54		0			peripheral_io_bus[io_idx].write_en	000
+  #168	2	gen_scope_array	io_gen[1]		work@soc_tb.io_gen[1]	dut.sv	21	9	23	12					work@soc_tb.io_gen[1]	000
+  #169	3	gen_scope			work@soc_tb.io_gen[1]	dut.sv	21	9	23	12					work@soc_tb.io_gen[1]	000
+  #170	4	parameter	io_idx		work@soc_tb.io_gen[1].io_idx	dut.sv	20	0	0	0		0	UINT:1		work@soc_tb.io_gen[1].io_idx	000
+  #171	5	ref_typespec			work@soc_tb.io_gen[1].io_idx		0	0	0	0		0			work@soc_tb.io_gen[1].io_idx	000
+  #172	6	int_typespec					0	0	0	0						000
+
+--- OURS (B) records 160..172 ('>' = the object)
+  #160	5	ref_typespec			work@soc_tb.io_gen[0].io_idx		0	0	0	0		0			work@soc_tb.io_gen[0].io_idx	000
+  #161	6	int_typespec					0	0	0	0						000
+  #162	4	cont_assign				dut.sv	22	20	22	58						000
+  #163	5	constant				dut.sv	22	57	22	58	1	64	UINT:1	9		000
+  #164	5	hier_path	peripheral_io_bus[io_idx].write_en			dut.sv	22	20	22	37		0				000
+  #165	6	bit_select	peripheral_io_bus		peripheral_io_bus[io_idx]	dut.sv	22	20	22	37		0			peripheral_io_bus[io_idx]	000
+> #166	7	ref_obj	io_idx		work@soc_tb.io_gen[0].io_idx	dut.sv	22	38	22	44		0			work@soc_tb.io_gen[0].io_idx	000
+  #167	6	ref_obj	write_en		peripheral_io_bus[io_idx].write_en	dut.sv	22	46	22	54		0			peripheral_io_bus[io_idx].write_en	000
+  #168	2	gen_scope_array	io_gen[1]		work@soc_tb.io_gen[1]	dut.sv	21	9	23	12					work@soc_tb.io_gen[1]	000
+  #169	3	gen_scope			work@soc_tb.io_gen[1]	dut.sv	21	9	23	12					work@soc_tb.io_gen[1]	000
+  #170	4	parameter	io_idx		work@soc_tb.io_gen[1].io_idx	dut.sv	20	0	0	0		0	UINT:1		work@soc_tb.io_gen[1].io_idx	000
+  #171	5	ref_typespec			work@soc_tb.io_gen[1].io_idx		0	0	0	0		0			work@soc_tb.io_gen[1].io_idx	000
+  #172	6	int_typespec					0	0	0	0						000
+
+facets of this row (4, first 25):
+  N0030 #118/118 ref_obj NUM_PERIPHERALS G[work@soc_tb.peripheral_io_bus.NUM_PERIPHERALS] O[work@soc_tb.NUM_PERIPHERALS]
+  N0427 #166/166 ref_obj io_idx G[work@soc_tb.io_gen[0].peripheral_io_bus[io_idx].write_en.io_idx] O[work@soc_tb.io_gen[0].io_idx]
+  N0427 #177/177 ref_obj io_idx G[work@soc_tb.io_gen[1].peripheral_io_bus[io_idx].write_en.io_idx] O[work@soc_tb.io_gen[1].io_idx]
+  N0427 #183/183 ref_obj IO_ONES G[work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES] O[work@soc_tb.IO_ONES]

@@ -1,0 +1,64 @@
+cluster N0565 (map 5 id kept; OPEN): fullname|ref_typespec|tok:id::id::id::->id.id::id.|under:typespec_member
+row: surelog/default/SimpleUVM  strict=differ:line(190)  records golden=334285 ours=333561
+object: #63750 (golden) / #63759 (ours)  type=ref_typespec name= STABLE
+  golden: work@env::uvm_pkg::uvm_hdl_path_slice::path
+  ours:   work@top.uvm_pkg::uvm_hdl_path_slice.path
+  walk parents: typespec_member(path) < struct_typespec(uvm_pkg::uvm_hdl_path_slice) < package(uvm_pkg) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 63744..63756 ('>' = the object)
+  #63744	2	logic_typespec	uvm_pkg::uvm_hdl_data_t			uvm_hdl.svh	50	9	50	38						010
+  #63745	3	range				uvm_hdl.svh	50	15	50	38						001
+  #63746	4	constant				uvm_hdl.svh	50	16	50	33	1023	64	INT:1023	7		001
+  #63747	4	constant				uvm_hdl.svh	50	36	50	37	0	64	UINT:0	9		001
+  #63748	2	struct_typespec	uvm_pkg::uvm_hdl_path_slice			uvm_reg.svh	802	39	802	57						010
+  #63749	3	typespec_member	path			uvm_pkg.sv	126	11	126	15						001
+> #63750	4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0			work@env::uvm_pkg::uvm_hdl_path_slice::path	001
+  #63751	5	string_typespec				uvm_reg_model.svh	126	4	126	10						001
+  #63752	3	typespec_member	offset			uvm_pkg.sv	127	8	127	14						001
+  #63753	4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0			work@env::uvm_pkg::uvm_hdl_path_slice::offset	001
+  #63754	5	int_typespec				uvm_reg_model.svh	127	4	127	7						001
+  #63755	3	typespec_member	size			uvm_pkg.sv	128	8	128	12						001
+  #63756	4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.size		0	0	0	0		0			work@env::uvm_pkg::uvm_hdl_path_slice::size	001
+
+--- OURS (B) records 63753..63765 ('>' = the object)
+  #63753	2	logic_typespec	uvm_pkg::uvm_hdl_data_t			uvm_hdl.svh	50	9	50	38						010
+  #63754	3	range				uvm_hdl.svh	50	15	50	38						001
+  #63755	4	constant				uvm_hdl.svh	50	16	50	33	1023	64	INT:1023	7		001
+  #63756	4	constant				uvm_hdl.svh	50	36	50	37	0	64	UINT:0	9		001
+  #63757	2	struct_typespec	uvm_pkg::uvm_hdl_path_slice			uvm_reg_model.svh	125	9	129	2						010
+  #63758	3	typespec_member	path			uvm_reg_model.svh	126	11	126	15						001
+> #63759	4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.path		0	0	0	0		0			work@top.uvm_pkg::uvm_hdl_path_slice.path	001
+  #63760	5	string_typespec				uvm_reg_model.svh	126	4	126	10						001
+  #63761	3	typespec_member	offset			uvm_reg_model.svh	127	8	127	14						001
+  #63762	4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.offset		0	0	0	0		0			work@top.uvm_pkg::uvm_hdl_path_slice.offset	001
+  #63763	5	int_typespec				uvm_reg_model.svh	127	4	127	7						001
+  #63764	3	typespec_member	size			uvm_reg_model.svh	128	8	128	12						001
+  #63765	4	ref_typespec			<in>uvm_pkg::uvm_hdl_path_slice.size		0	0	0	0		0			work@top.uvm_pkg::uvm_hdl_path_slice.size	001
+
+facets of this row (36805, first 25):
+  N0343 #-1/2484 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2914 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3160 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10177/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17758 class_var uvm_top G[] O[4 objs]
+  N0213 #20905/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20923 bit_typespec  G[] O[1 objs]
+  N0213 #21847/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21859 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25773 class_var run_ph G[] O[3 objs]
+  N0213 #74380/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74389 bit_typespec  G[] O[1 objs]
+  N0213 #74407/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74410 bit_typespec  G[] O[1 objs]
+  N0213 #74469/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74466 bit_typespec  G[] O[1 objs]
+  N0151 #78244/-1 ref_typespec  G[2 objs] O[]
+  N0197 #78752/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/78741 array_typespec  G[] O[1 objs]
+  N0213 #78771/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/78760 bit_typespec  G[] O[1 objs]
+  N0213 #79756/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79739 bit_typespec  G[] O[1 objs]
+  N0151 #80429/-1 ref_typespec  G[2 objs] O[]
+  N0151 #80433/-1 ref_typespec  G[2 objs] O[]

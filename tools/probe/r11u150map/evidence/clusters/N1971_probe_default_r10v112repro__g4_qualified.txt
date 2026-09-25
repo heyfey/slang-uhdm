@@ -1,0 +1,43 @@
+cluster N1971 (map 5 id kept; OPEN): span|class_typespec|endcol|under:class_defn
+row: probe/default/r10v112repro__g4_qualified  strict=endcol  records golden=28 ours=28
+object: #20 (golden) / #20 (ours)  type=class_typespec name=t4 
+  golden: 9:23:9:30
+  ours:   9:23:9:45
+  walk parents: class_defn(aa4) < package(p4use) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 14..26 ('>' = the object)
+  #14	3	param_assign				dut.sv	6	35	6	43						000
+  #15	4	constant				dut.sv	6	40	6	43	"?"	8	STRING:?	6		000
+  #16	5	ref_typespec			p4box::B4		0	0	0	0		0			p4box::B4	000
+  #17	6	string_typespec				dut.sv	6	28	6	34						000
+  #18	1	package	p4use	p4use	p4use::	dut.sv	8	1	12	11					p4use::	000
+  #19	2	class_defn	aa4		p4use::aa4	dut.sv	9	3	9	58					p4use::aa4	000
+> #20	3	class_typespec	t4			dut.sv	9	23	9	30						010
+  #21	2	class_defn	bb4		p4use::bb4	dut.sv	10	3	10	58					p4use::bb4	000
+  #22	3	class_typespec	t4			dut.sv	9	23	9	30						010
+  #23	4	ref_typespec			<in>t4		0	0	0	0		0			p4use::bb4::t4	001
+  #24	5	class_typespec	t4			dut.sv	9	23	9	30						001
+  #25	2	class_defn	cc4		p4use::cc4	dut.sv	11	3	11	58					p4use::cc4	000
+  #26	3	class_typespec	t4			dut.sv	9	23	9	30						010
+
+--- OURS (B) records 14..26 ('>' = the object)
+  #14	3	param_assign				dut.sv	6	35	6	43						000
+  #15	4	constant				dut.sv	6	40	6	43	"?"	8	STRING:?	6		000
+  #16	5	ref_typespec			p4box::B4		0	0	0	0		0			p4box::B4	000
+  #17	6	string_typespec				dut.sv	6	28	6	34						000
+  #18	1	package	p4use	p4use	p4use::	dut.sv	8	1	12	11					p4use::	000
+  #19	2	class_defn	aa4		p4use::aa4	dut.sv	9	3	9	58					p4use::aa4	000
+> #20	3	class_typespec	t4			dut.sv	9	23	9	45						010
+  #21	2	class_defn	bb4		p4use::bb4	dut.sv	10	3	10	58					p4use::bb4	000
+  #22	3	class_typespec	t4			dut.sv	9	23	9	45						010
+  #23	4	ref_typespec			<in>t4		0	0	0	0		0			p4use::bb4::t4	001
+  #24	5	class_typespec	t4			dut.sv	9	23	9	45						001
+  #25	2	class_defn	cc4		p4use::cc4	dut.sv	11	3	11	58					p4use::cc4	000
+  #26	3	class_typespec	t4			dut.sv	9	23	9	45						010
+
+facets of this row (4, first 25):
+  N1971 #20/20 class_typespec t4 G[9:23:9:30] O[9:23:9:45]
+  N1971 #22/22 class_typespec t4 G[9:23:9:30] O[9:23:9:45]
+  N0051 #24/24 class_typespec t4 G[9:23:9:30] O[9:23:9:45]
+  N1971 #26/26 class_typespec t4 G[9:23:9:30] O[9:23:9:45]

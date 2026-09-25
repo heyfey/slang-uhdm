@@ -1,0 +1,64 @@
+cluster N0941 (map 5 id kept; OPEN): fullname|bit_select|tok:id.id[id]->id@id.id.id.id[id].id.id|under:hier_path
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #62230 (golden) / #62230 (ours)  type=bit_select name=key OUT
+  golden: reg2hw.key[i]
+  ours:   work@aes_core.key_init_get.reg2hw.key[i].q.key
+  walk parents: hier_path(reg2hw.key[i].q) < assignment < begin < for_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 62224..62236 ('>' = the object)
+  #62224	8	ref_obj	i		work@aes_core.key_init_get.i	aes_core.sv	108	19	108	20		0			work@aes_core.key_init_get.i	000
+  #62225	8	constant				aes_core.sv	108	21	108	22	8	64	UINT:8	9		000
+  #62226	7	begin			work@aes_core.key_init_get	aes_core.sv	108	29	111	8					work@aes_core.key_init_get	000
+  #62227	8	assignment				aes_core.sv	109	7	109	39						000
+  #62228	9	hier_path	reg2hw.key[i].q			aes_core.sv	109	24	109	39		0				000
+  #62229	10	ref_obj	reg2hw			aes_core.sv	109	24	109	30		0				000
+> #62230	10	bit_select	key		reg2hw.key[i]	aes_core.sv	109	31	109	34		0			reg2hw.key[i]	000
+  #62231	11	ref_obj	i		work@aes_core.key_init_get.i	aes_core.sv	109	35	109	36		0			work@aes_core.key_init_get.i	000
+  #62232	10	ref_obj	q		work@aes_core.key_init_get.q	aes_core.sv	109	38	109	39		0			work@aes_core.key_init_get.q	000
+  #62233	9	bit_select	key_init		work@aes_core.key_init_get.key_init	aes_core.sv	109	7	109	18		0			work@aes_core.key_init_get.key_init	000
+  #62234	10	ref_obj	i		work@aes_core.key_init_get.i	aes_core.sv	109	16	109	17		0			work@aes_core.key_init_get.i	000
+  #62235	8	assignment				aes_core.sv	110	7	110	40						000
+  #62236	9	hier_path	reg2hw.key[i].qe			aes_core.sv	110	24	110	40		0				000
+
+--- OURS (B) records 62224..62236 ('>' = the object)
+  #62224	8	ref_obj	i		work@aes_core.key_init_get.i	aes_core.sv	108	19	108	20		0			work@aes_core.key_init_get.i	000
+  #62225	8	constant				aes_core.sv	108	21	108	22	8	64	UINT:8	9		000
+  #62226	7	begin			work@aes_core.key_init_get	aes_core.sv	108	29	111	8					work@aes_core.key_init_get	000
+  #62227	8	assignment				aes_core.sv	109	7	109	39						000
+  #62228	9	hier_path	reg2hw.key[i].q			aes_core.sv	109	24	109	39		0				000
+  #62229	10	ref_obj	reg2hw			aes_core.sv	109	24	109	30		0				000
+> #62230	10	bit_select	key		work@aes_core.key_init_get.reg2hw.key[i].q.key	aes_core.sv	109	35	109	36		0			work@aes_core.key_init_get.reg2hw.key[i].q.key	000
+  #62231	11	ref_obj	i		work@aes_core.key_init_get.i	aes_core.sv	109	35	109	36		0			work@aes_core.key_init_get.i	000
+  #62232	10	ref_obj	q		work@aes_core.key_init_get.q	aes_core.sv	109	38	109	39		0			work@aes_core.key_init_get.q	000
+  #62233	9	bit_select	key_init		work@aes_core.key_init_get.key_init	aes_core.sv	109	7	109	18		0			work@aes_core.key_init_get.key_init	000
+  #62234	10	ref_obj	i		work@aes_core.key_init_get.i	aes_core.sv	109	16	109	17		0			work@aes_core.key_init_get.i	000
+  #62235	8	assignment				aes_core.sv	110	7	110	40						000
+  #62236	9	hier_path	reg2hw.key[i].qe			aes_core.sv	110	24	110	40		0				000
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

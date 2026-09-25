@@ -1,0 +1,64 @@
+cluster N0369 (map 5 id kept; OPEN): span|begin|endline|under:if_else
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #62654 (golden) / #62663 (ours)  type=begin name= 
+  golden: 164:4:169:7
+  ours:   164:4:167:7
+  walk parents: if_else < begin < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 62648..62660 ('>' = the object)
+  #62648	11	ref_obj	UVM_NONE		uvm_pkg::uvm_component::new::UVM_NONE	uvm_message_defines.svh	166	47	166	55		0			uvm_pkg::uvm_component::new::UVM_NONE	000
+  #62649	12	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+  #62650	11	constant				uvm_message_defines.svh	166	57	166	163	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh"	832	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh	6		000
+  #62651	11	constant				uvm_message_defines.svh	166	165	166	169	1783	64	UINT:1783	9		000
+  #62652	11	constant				uvm_message_defines.svh	166	171	166	173	""	0	STRING:	6		000
+  #62653	11	constant				uvm_message_defines.svh	166	175	166	176	1	64	UINT:1	9		000
+> #62654	7	begin			uvm_pkg::uvm_component::new	uvm_message_defines.svh	164	4	169	7					uvm_pkg::uvm_component::new	000
+  #62655	8	if_stmt				uvm_message_defines.svh	165	6	168	194						000
+  #62656	9	func_call	uvm_report_enabled			uvm_message_defines.svh	165	10	165	57		0				000
+  #62657	10	ref_obj	UVM_NONE		uvm_pkg::uvm_component::new::UVM_NONE	uvm_message_defines.svh	165	29	165	37		0			uvm_pkg::uvm_component::new::UVM_NONE	000
+  #62658	11	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+  #62659	10	ref_obj	UVM_FATAL		uvm_pkg::uvm_component::new::UVM_FATAL	uvm_message_defines.svh	165	38	165	47		0			uvm_pkg::uvm_component::new::UVM_FATAL	000
+  #62660	11	enum_const	UVM_FATAL			uvm_object_globals.svh	247	3	247	12						010
+
+--- OURS (B) records 62657..62669 ('>' = the object)
+  #62657	11	ref_obj	UVM_NONE		uvm_pkg::uvm_component::new::UVM_NONE	uvm_message_defines.svh	166	47	166	55		0			uvm_pkg::uvm_component::new::UVM_NONE	000
+  #62658	12	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+  #62659	11	constant				uvm_message_defines.svh	166	55	52	6	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh"	832	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh	6		000
+  #62660	11	constant				uvm_message_defines.svh	166	66	166	70	1783	64	UINT:1783	9		000
+  #62661	11	constant				uvm_message_defines.svh	166	191	166	193	""	0	STRING:	6		000
+  #62662	11	constant				uvm_message_defines.svh	166	195	166	196	1	64	UINT:1	9		000
+> #62663	7	begin			uvm_pkg::uvm_component::new	uvm_message_defines.svh	164	4	167	7					uvm_pkg::uvm_component::new	000
+  #62664	8	if_stmt				uvm_message_defines.svh	165	6	166	349						000
+  #62665	9	func_call	uvm_report_enabled			uvm_message_defines.svh	165	10	165	57		0				000
+  #62666	10	ref_obj	UVM_NONE		uvm_pkg::uvm_component::new::UVM_NONE	uvm_message_defines.svh	165	29	165	37		0			uvm_pkg::uvm_component::new::UVM_NONE	000
+  #62667	11	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+  #62668	10	ref_obj	UVM_FATAL		uvm_pkg::uvm_component::new::UVM_FATAL	uvm_message_defines.svh	165	38	165	47		0			uvm_pkg::uvm_component::new::UVM_FATAL	000
+  #62669	11	enum_const	UVM_FATAL			uvm_object_globals.svh	247	3	247	12						010
+
+facets of this row (29492, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

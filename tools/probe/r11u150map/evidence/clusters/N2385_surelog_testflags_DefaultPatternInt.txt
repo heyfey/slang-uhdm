@@ -1,0 +1,41 @@
+cluster N2385 (map 5 id none: new since map 5; COVERED r11u145 (residue: N0441's successor after pass 140 (DefaultPatternInt: the package-declared default fill keeps one constant per element; ours now one))): struct|golden-only:fewer-copies|constant|under:array_expr
+row: surelog/testflags/DefaultPatternInt  strict=differ:depth(1)  records golden=321 ours=319
+object: #114 (golden) / #-1 (ours)  type=constant name= 
+  golden: 1 objs
+  ours:   
+  walk parents: array_expr < param_assign < module_inst < ref_module(top1)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 108..120 ('>' = the object)
+  #108	5	parameter	CNT		work@top.CNT	dut.sv	2	25	2	28		0	UINT:2		work@top.CNT	000
+  #109	6	ref_typespec			work@top.CNT		0	0	0	0		0			work@top.CNT	000
+  #110	7	int_typespec				dut.sv	2	12	2	24						000
+  #111	4	param_assign				dut.sv	4	25	4	47						000
+  #112	5	array_expr					0	0	0	0		0				000
+  #113	6	constant				dut.sv	4	45	4	46	3	32	UINT:3	9		000
+> #114	6	constant				dut.sv	4	45	4	46	3	32	UINT:3	9		000
+  #115	5	parameter	V		work@top.V	dut.sv	4	25	4	26		1			work@top.V	000
+  #116	6	ref_typespec			work@top.V		0	0	0	0		0			work@top.V	000
+  #117	7	array_typespec				dut.sv	4	12	4	31						000
+  #118	8	range				dut.sv	4	27	4	30						001
+  #119	9	constant					0	0	0	0	0	64	UINT:0	9		001
+  #120	9	operation				dut.sv	4	27	4	30		0				001
+
+--- the holder #112 on the other side: exact-record matches at [112]
+  #109	6	ref_typespec			work@top.CNT		0	0	0	0		0			work@top.CNT	000
+  #110	7	int_typespec				dut.sv	2	12	2	24						000
+  #111	4	param_assign				dut.sv	4	25	4	47						000
+> #112	5	array_expr					0	0	0	0		0				000
+  #113	6	constant				dut.sv	4	45	4	46	3	32	UINT:3	9		000
+  #114	5	parameter	V		work@top.V	dut.sv	4	25	4	26		1			work@top.V	000
+  #115	6	ref_typespec			work@top.V		0	0	0	0		0			work@top.V	000
+  #116	7	array_typespec				dut.sv	4	12	4	31						000
+  #117	8	range				dut.sv	4	27	4	30						001
+  #118	9	constant					0	0	0	0	0	64	UINT:0	9		001
+  #119	9	operation				dut.sv	4	27	4	30		0				001
+  #120	10	constant				dut.sv	4	27	4	30	2	32	UINT:2	9		001
+  #121	11	ref_typespec			<in>		0	0	0	0		0			work@top.V	001
+
+facets of this row (2, first 25):
+  N2385 #114/-1 constant  G[1 objs] O[]
+  N2385 #258/-1 constant  G[1 objs] O[]

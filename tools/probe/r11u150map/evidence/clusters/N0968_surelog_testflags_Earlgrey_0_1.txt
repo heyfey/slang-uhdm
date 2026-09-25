@@ -1,0 +1,64 @@
+cluster N0968 (map 5 id kept; OPEN): fullname|bit_select|tok:id@id.id.id.id[id].id->id.id[id]|under:hier_path
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #89427 (golden) / #89427 (ours)  type=bit_select name=alert_cause OUT
+  golden: work@alert_handler_reg_wrap.gen_alert_cause.hw2reg_wrap.alert_cause[k].alert_cause
+  ours:   hw2reg_wrap.alert_cause[k]
+  walk parents: hier_path(hw2reg_wrap.alert_cause[k]) < operation < cont_assign < named_begin(gen_alert_cause)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 89421..89433 ('>' = the object)
+  #89421	9	ref_obj	reg2hw			alert_handler_reg_wrap.sv	106	39	106	45		0				000
+  #89422	9	bit_select	alert_cause		reg2hw.alert_cause[k]	alert_handler_reg_wrap.sv	106	46	106	57		0			reg2hw.alert_cause[k]	000
+  #89423	10	ref_obj	k		work@alert_handler_reg_wrap.gen_alert_cause.k	alert_handler_reg_wrap.sv	106	58	106	59		0			work@alert_handler_reg_wrap.gen_alert_cause.k	000
+  #89424	9	ref_obj	q		work@alert_handler_reg_wrap.gen_alert_cause.q	alert_handler_reg_wrap.sv	106	61	106	62		0			work@alert_handler_reg_wrap.gen_alert_cause.q	000
+  #89425	8	hier_path	hw2reg_wrap.alert_cause[k]			alert_handler_reg_wrap.sv	107	39	107	65		0				000
+  #89426	9	ref_obj	hw2reg_wrap			alert_handler_reg_wrap.sv	107	39	107	50		0				000
+> #89427	9	bit_select	alert_cause		work@alert_handler_reg_wrap.gen_alert_cause.hw2reg_wrap.alert_cause[k].alert_cause	alert_handler_reg_wrap.sv	107	63	107	64		0			work@alert_handler_reg_wrap.gen_alert_cause.hw2reg_wrap.alert_cause[k].alert_cause	000
+  #89428	10	ref_obj	k		work@alert_handler_reg_wrap.gen_alert_cause.hw2reg_wrap.alert_cause[k].k	alert_handler_reg_wrap.sv	107	63	107	64		0			work@alert_handler_reg_wrap.gen_alert_cause.hw2reg_wrap.alert_cause[k].k	000
+  #89429	7	hier_path	hw2reg.alert_cause[k].de			alert_handler_reg_wrap.sv	106	12	106	36		0				000
+  #89430	8	ref_obj	hw2reg			alert_handler_reg_wrap.sv	106	19	106	30		0				000
+  #89431	8	bit_select	alert_cause		work@alert_handler_reg_wrap.gen_alert_cause.hw2reg.alert_cause[k].de.alert_cause	alert_handler_reg_wrap.sv	106	19	106	33		0			work@alert_handler_reg_wrap.gen_alert_cause.hw2reg.alert_cause[k].de.alert_cause	000
+  #89432	9	ref_obj	k		work@alert_handler_reg_wrap.gen_alert_cause.hw2reg.alert_cause[k].de.k	alert_handler_reg_wrap.sv	106	31	106	32		0			work@alert_handler_reg_wrap.gen_alert_cause.hw2reg.alert_cause[k].de.k	000
+  #89433	8	ref_obj	de			alert_handler_reg_wrap.sv	106	34	106	36		0				000
+
+--- OURS (B) records 89421..89433 ('>' = the object)
+  #89421	9	ref_obj	reg2hw			alert_handler_reg_wrap.sv	106	39	106	45		0				000
+  #89422	9	bit_select	alert_cause		reg2hw.alert_cause[k]	alert_handler_reg_wrap.sv	106	46	106	57		0			reg2hw.alert_cause[k]	000
+  #89423	10	ref_obj	k		work@alert_handler_reg_wrap.gen_alert_cause.k	alert_handler_reg_wrap.sv	106	58	106	59		0			work@alert_handler_reg_wrap.gen_alert_cause.k	000
+  #89424	9	ref_obj	q		work@alert_handler_reg_wrap.gen_alert_cause.q	alert_handler_reg_wrap.sv	106	61	106	62		0			work@alert_handler_reg_wrap.gen_alert_cause.q	000
+  #89425	8	hier_path	hw2reg_wrap.alert_cause[k]			alert_handler_reg_wrap.sv	107	39	107	65		0				000
+  #89426	9	ref_obj	hw2reg_wrap			alert_handler_reg_wrap.sv	107	39	107	50		0				000
+> #89427	9	bit_select	alert_cause		hw2reg_wrap.alert_cause[k]	alert_handler_reg_wrap.sv	107	51	107	62		0			hw2reg_wrap.alert_cause[k]	000
+  #89428	10	ref_obj	k		work@alert_handler_reg_wrap.gen_alert_cause.k	alert_handler_reg_wrap.sv	107	63	107	64		0			work@alert_handler_reg_wrap.gen_alert_cause.k	000
+  #89429	7	hier_path	hw2reg.alert_cause[k].de			alert_handler_reg_wrap.sv	106	12	106	36		0				000
+  #89430	8	ref_obj	hw2reg			alert_handler_reg_wrap.sv	106	12	106	18		0				000
+  #89431	8	bit_select	alert_cause		hw2reg.alert_cause[k]	alert_handler_reg_wrap.sv	106	19	106	30		0			hw2reg.alert_cause[k]	000
+  #89432	9	ref_obj	k		work@alert_handler_reg_wrap.gen_alert_cause.k	alert_handler_reg_wrap.sv	106	31	106	32		0			work@alert_handler_reg_wrap.gen_alert_cause.k	000
+  #89433	8	ref_obj	de		work@alert_handler_reg_wrap.gen_alert_cause.de	alert_handler_reg_wrap.sv	106	34	106	36		0			work@alert_handler_reg_wrap.gen_alert_cause.de	000
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

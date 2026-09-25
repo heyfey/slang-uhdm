@@ -1,0 +1,64 @@
+cluster N1083 (map 5 id kept; OPEN): span|constant|line+endline+endcol|under:typespec_member
+row: uhdm2rtlil/testflags/pkg_nested_struct_param_width  strict=differ:col(7)  records golden=563 ours=475
+object: #187 (golden) / #187 (ours)  type=constant name= 
+  golden: 7:32:7:36
+  ours:   6:32:6:37
+  walk parents: typespec_member(u) < struct_typespec(pk::cfg_t) < ref_typespec < parameter(CFG)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 181..193 ('>' = the object)
+  #181	9	constant				dut.sv	4	65	4	66	3	64	UINT:3	9		001
+  #182	8	typespec_member	dataWidth			dut.sv	2	63	2	72						001
+  #183	9	ref_typespec			<in>pk::user_cfg_t.dataWidth		0	0	0	0		0			pk::pk::user_cfg_t::dataWidth	001
+  #184	10	int_typespec				dut.sv	2	50	2	62						001
+  #185	9	constant				dut.sv	4	80	4	82	32	64	UINT:32	9		001
+  #186	9	constant				dut.sv	4	80	4	82	32	64	UINT:32	9		001
+> #187	6	constant				dut.sv	7	32	7	36	0000000000000000000000000000001100000000000000000000000000100000	64	BIN:0000000000000000000000000000001100000000000000000000000000100000	3		001
+  #188	7	ref_typespec			pk		0	0	0	0		0			pk	001
+  #189	8	struct_typespec	pk::user_cfg_t			dut.sv	5	34	5	44						001
+  #190	9	typespec_member	sidWidth			dut.sv	2	40	2	48						001
+  #191	10	ref_typespec			<in>pk::user_cfg_t.sidWidth		0	0	0	0		0			pk::pk::user_cfg_t::sidWidth	001
+  #192	11	int_typespec				dut.sv	2	27	2	39						001
+  #193	10	constant				dut.sv	4	65	4	66	3	64	UINT:3	9		001
+
+--- OURS (B) records 181..193 ('>' = the object)
+  #181	9	constant				dut.sv	4	65	4	66	3	64	UINT:3	9		001
+  #182	8	typespec_member	dataWidth			dut.sv	2	63	2	72						001
+  #183	9	ref_typespec			<in>pk::user_cfg_t.dataWidth		0	0	0	0		0			pk::pk::user_cfg_t::dataWidth	001
+  #184	10	int_typespec				dut.sv	2	50	2	62						001
+  #185	9	constant				dut.sv	4	80	4	82	32	64	UINT:32	9		001
+  #186	9	constant				dut.sv	4	80	4	82	32	64	UINT:32	9		001
+> #187	6	constant				dut.sv	6	32	6	37	0000000000000000000000000000001100000000000000000000000000100000	64	BIN:0000000000000000000000000000001100000000000000000000000000100000	3		001
+  #188	7	ref_typespec			pk		0	0	0	0		0			pk	001
+  #189	8	struct_typespec	pk::user_cfg_t			dut.sv	5	34	5	44						001
+  #190	9	typespec_member	sidWidth			dut.sv	2	40	2	48						001
+  #191	10	ref_typespec			<in>pk::user_cfg_t.sidWidth		0	0	0	0		0			pk::pk::user_cfg_t::sidWidth	001
+  #192	11	int_typespec				dut.sv	2	27	2	39						001
+  #193	10	constant				dut.sv	4	65	4	66	3	64	UINT:3	9		001
+
+facets of this row (32, first 25):
+  N0411 #249/-1 constant  G[13 objs] O[]
+  N0411 #262/-1 constant  G[13 objs] O[]
+  N0411 #294/-1 constant  G[13 objs] O[]
+  N0411 #307/-1 constant  G[13 objs] O[]
+  N0411 #397/-1 constant  G[9 objs] O[]
+  N0411 #406/-1 constant  G[9 objs] O[]
+  N0411 #432/-1 constant  G[9 objs] O[]
+  N0411 #441/-1 constant  G[9 objs] O[]
+  N0001 #48/48 ref_obj CFG G[9:22:9:29] O[9:18:9:21]
+  N0001 #56/56 ref_obj CFG G[8:22:8:23] O[8:18:8:21]
+  N1083 #187/187 constant  G[7:32:7:36] O[6:32:6:37]
+  N1083 #200/200 constant  G[7:32:7:36] O[6:32:6:37]
+  N0086 #216/216 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]
+  N0087 #216/216 constant  G[0:0:0:0] O[7:26:7:37]
+  N0086 #217/217 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]
+  N0087 #217/217 constant  G[0:0:0:0] O[7:26:7:37]
+  N0086 #278/252 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]
+  N0087 #278/252 constant  G[0:0:0:0] O[7:26:7:37]
+  N0086 #279/253 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]
+  N0087 #279/253 constant  G[0:0:0:0] O[7:26:7:37]
+  N0086 #323/271 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]
+  N0087 #323/271 constant  G[0:0:0:0] O[7:26:7:37]
+  N0086 #324/272 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]
+  N0087 #324/272 constant  G[0:0:0:0] O[7:26:7:37]
+  N0086 #418/348 constant  G[ 0:0:0:0] O[dut.sv 7:26:7:37]

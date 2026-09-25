@@ -1,0 +1,64 @@
+cluster N1573 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id[id].id.id.->|under:bit_select
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #987624 (golden) / #987613 (ours)  type=ref_obj name=k OUT
+  golden: work@top_earlgrey.u_pinmux.gen_wkup_detect[0].reg2hw.wkup_detector[k].miodio.q.k
+  ours:   work@top_earlgrey.u_pinmux.gen_wkup_detect[0].k
+  walk parents: bit_select(wkup_detector) < hier_path(reg2hw.wkup_detector[k].miodio.q) < operation < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 987618..987630 ('>' = the object)
+  #987618	7	int_typespec					0	0	0	0						000
+  #987619	5	cont_assign				pinmux.sv	228	12	230	68						000
+  #987620	6	operation				pinmux.sv	228	24	230	68		0				000
+  #987621	7	hier_path	reg2hw.wkup_detector[k].miodio.q			pinmux.sv	228	25	228	57		0				000
+  #987622	8	ref_obj	reg2hw			pinmux.sv	228	25	228	31		0				000
+  #987623	8	bit_select	wkup_detector		reg2hw.wkup_detector[k]	pinmux.sv	228	32	228	45		0			reg2hw.wkup_detector[k]	000
+> #987624	9	ref_obj	k		work@top_earlgrey.u_pinmux.gen_wkup_detect[0].reg2hw.wkup_detector[k].miodio.q.k	pinmux.sv	228	46	228	47		0			work@top_earlgrey.u_pinmux.gen_wkup_detect[0].reg2hw.wkup_detector[k].miodio.q.k	000
+  #987625	8	ref_obj	miodio			pinmux.sv	228	49	228	55		0				000
+  #987626	8	ref_obj	q		work@top_earlgrey.u_pinmux.gen_wkup_detect[0].q	pinmux.sv	228	56	228	57		0			work@top_earlgrey.u_pinmux.gen_wkup_detect[0].q	000
+  #987627	7	bit_select	dio_data_mux		work@top_earlgrey.u_pinmux.gen_wkup_detect[0].dio_data_mux	pinmux.sv	229	37	229	67		0			work@top_earlgrey.u_pinmux.gen_wkup_detect[0].dio_data_mux	000
+  #987628	8	hier_path	reg2hw.wkup_detector_padsel[k]			pinmux.sv	229	37	229	67		0				000
+  #987629	9	ref_obj	reg2hw			pinmux.sv	229	37	229	43		0				000
+  #987630	9	bit_select	wkup_detector_padsel		work@top_earlgrey.u_pinmux.gen_wkup_detect[0].dio_data_mux.reg2hw.wkup_detector_padsel[k].wkup_detector_padsel	pinmux.sv	229	65	229	66		0			work@top_earlgrey.u_pinmux.gen_wkup_detect[0].dio_data_mux.reg2hw.wkup_detector_padsel[k].wkup_detector_padsel	000
+
+--- OURS (B) records 987607..987619 ('>' = the object)
+  #987607	7	int_typespec					0	0	0	0						000
+  #987608	5	cont_assign				pinmux.sv	228	12	230	68						000
+  #987609	6	operation				pinmux.sv	228	24	230	68		0				000
+  #987610	7	hier_path	reg2hw.wkup_detector[k].miodio.q			pinmux.sv	228	25	228	57		0				000
+  #987611	8	ref_obj	reg2hw			pinmux.sv	228	25	228	31		0				000
+  #987612	8	bit_select	wkup_detector		reg2hw.wkup_detector[k]	pinmux.sv	228	32	228	45		0			reg2hw.wkup_detector[k]	000
+> #987613	9	ref_obj	k		work@top_earlgrey.u_pinmux.gen_wkup_detect[0].k	pinmux.sv	228	46	228	47		0			work@top_earlgrey.u_pinmux.gen_wkup_detect[0].k	000
+  #987614	8	ref_obj	miodio			pinmux.sv	228	49	228	55		0				000
+  #987615	8	ref_obj	q		work@top_earlgrey.u_pinmux.gen_wkup_detect[0].q	pinmux.sv	228	56	228	57		0			work@top_earlgrey.u_pinmux.gen_wkup_detect[0].q	000
+  #987616	7	bit_select	dio_data_mux		work@top_earlgrey.u_pinmux.gen_wkup_detect[0].dio_data_mux	pinmux.sv	229	37	229	67		0			work@top_earlgrey.u_pinmux.gen_wkup_detect[0].dio_data_mux	000
+  #987617	8	hier_path	reg2hw.wkup_detector_padsel[k]			pinmux.sv	229	37	229	67		0				000
+  #987618	9	ref_obj	reg2hw			pinmux.sv	229	37	229	43		0				000
+  #987619	9	bit_select	wkup_detector_padsel		work@top_earlgrey.u_pinmux.gen_wkup_detect[0].dio_data_mux.reg2hw.wkup_detector_padsel[k].wkup_detector_padsel	pinmux.sv	229	65	229	66		0			work@top_earlgrey.u_pinmux.gen_wkup_detect[0].dio_data_mux.reg2hw.wkup_detector_padsel[k].wkup_detector_padsel	000
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

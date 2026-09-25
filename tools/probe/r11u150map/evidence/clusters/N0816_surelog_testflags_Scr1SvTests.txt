@@ -1,0 +1,64 @@
+cluster N0816 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id[id + n].id.->|under:operation
+row: surelog/testflags/Scr1SvTests  strict=differ:line(228)  records golden=83997 ours=84031
+object: #35376 (golden) / #35371 (ours)  type=ref_obj name=start OUT
+  golden: work@scr1_top_tb_axi.i_memory_tb.memory[start + 3].memory.start
+  ours:   work@scr1_top_tb_axi.start
+  walk parents: operation < bit_select(memory) < hier_path(i_memory_tb.memory[start + 3]) < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 35370..35382 ('>' = the object)
+  #35370	13	assignment				scr1_top_tb_runtests.sv	112	25	112	151						000
+  #35371	14	operation				scr1_top_tb_runtests.sv	112	37	112	151		0				000
+  #35372	15	hier_path	i_memory_tb.memory[start + 3]			scr1_top_tb_runtests.sv	112	38	112	65		0				000
+  #35373	16	ref_obj	i_memory_tb			scr1_top_tb_runtests.sv	112	38	112	49		0				000
+  #35374	16	bit_select	memory		work@scr1_top_tb_axi.i_memory_tb.memory[start + 3].memory	scr1_top_tb_runtests.sv	112	57	112	64		0			work@scr1_top_tb_axi.i_memory_tb.memory[start + 3].memory	000
+  #35375	17	operation				scr1_top_tb_runtests.sv	112	57	112	64		0				000
+> #35376	18	ref_obj	start		work@scr1_top_tb_axi.i_memory_tb.memory[start + 3].memory.start	scr1_top_tb_runtests.sv	112	57	112	62		0			work@scr1_top_tb_axi.i_memory_tb.memory[start + 3].memory.start	000
+  #35377	18	constant				scr1_top_tb_runtests.sv	112	63	112	64	3	64	UINT:3	9		000
+  #35378	15	hier_path	i_memory_tb.memory[start + 2]			scr1_top_tb_runtests.sv	112	67	112	94		0				000
+  #35379	16	ref_obj	i_memory_tb			scr1_top_tb_runtests.sv	112	67	112	78		0				000
+  #35380	16	bit_select	memory		work@scr1_top_tb_axi.i_memory_tb.memory[start + 2].memory	scr1_top_tb_runtests.sv	112	86	112	93		0			work@scr1_top_tb_axi.i_memory_tb.memory[start + 2].memory	000
+  #35381	17	operation				scr1_top_tb_runtests.sv	112	86	112	93		0				000
+  #35382	18	ref_obj	start		work@scr1_top_tb_axi.i_memory_tb.memory[start + 2].memory.start	scr1_top_tb_runtests.sv	112	86	112	91		0			work@scr1_top_tb_axi.i_memory_tb.memory[start + 2].memory.start	000
+
+--- OURS (B) records 35365..35377 ('>' = the object)
+  #35365	13	assignment				scr1_top_tb_runtests.sv	112	25	112	151						000
+  #35366	14	operation				scr1_top_tb_runtests.sv	112	37	112	151		0				000
+  #35367	15	hier_path	i_memory_tb.memory[start + 3]			scr1_top_tb_runtests.sv	112	38	112	65		0				000
+  #35368	16	ref_obj	i_memory_tb			scr1_top_tb_runtests.sv	112	38	112	49		0				000
+  #35369	16	bit_select	memory		work@scr1_top_tb_axi.i_memory_tb.memory[start + 3].memory	scr1_top_tb_runtests.sv	112	57	112	64		0			work@scr1_top_tb_axi.i_memory_tb.memory[start + 3].memory	000
+  #35370	17	operation				scr1_top_tb_runtests.sv	112	57	112	64		0				000
+> #35371	18	ref_obj	start		work@scr1_top_tb_axi.start	scr1_top_tb_runtests.sv	112	57	112	62		0			work@scr1_top_tb_axi.start	000
+  #35372	18	constant				scr1_top_tb_runtests.sv	112	63	112	64	3	64	UINT:3	9		000
+  #35373	15	hier_path	i_memory_tb.memory[start + 2]			scr1_top_tb_runtests.sv	112	67	112	94		0				000
+  #35374	16	ref_obj	i_memory_tb			scr1_top_tb_runtests.sv	112	67	112	78		0				000
+  #35375	16	bit_select	memory		work@scr1_top_tb_axi.i_memory_tb.memory[start + 2].memory	scr1_top_tb_runtests.sv	112	86	112	93		0			work@scr1_top_tb_axi.i_memory_tb.memory[start + 2].memory	000
+  #35376	17	operation				scr1_top_tb_runtests.sv	112	86	112	93		0				000
+  #35377	18	ref_obj	start		work@scr1_top_tb_axi.start	scr1_top_tb_runtests.sv	112	86	112	91		0			work@scr1_top_tb_axi.start	000
+
+facets of this row (1094, first 25):
+  N0965 #16033/-1 ref_typespec  G[5 objs] O[]
+  N0286 #-1/48526 ref_obj SCR1_IFU_Q_FREE_H_W G[] O[1 objs]
+  N0286 #-1/48539 ref_obj SCR1_IFU_Q_FREE_H_W G[] O[1 objs]
+  N0286 #-1/48554 ref_obj SCR1_IFU_Q_FREE_W_W G[] O[1 objs]
+  N0286 #-1/48614 ref_obj SCR1_IFU_Q_FREE_H_W G[] O[1 objs]
+  N0791 #48791/-1 ref_obj SCR1_MEM_CMD_RD G[2 objs] O[]
+  N0284 #-1/48790 constant  G[] O[1 objs]
+  N0965 #61857/-1 ref_typespec  G[5 objs] O[]
+  N0729 #63286/-1 ref_obj ALLTRIG_W G[3 objs] O[]
+  N1165 #-1/64549 ref_obj ALLTRIG_W G[] O[1 objs]
+  N0921 #-1/70144 operation  G[] O[5 objs]
+  N0921 #-1/70153 operation  G[] O[7 objs]
+  N0921 #-1/70164 operation  G[] O[11 objs]
+  N0921 #-1/70179 operation  G[] O[13 objs]
+  N0921 #-1/76044 operation  G[] O[7 objs]
+  N0064 #4/4 include_file_info  G[537:10:537:39] O[322:10:322:39]
+  N0064 #5/5 include_file_info  G[545:10:545:37] O[330:10:330:37]
+  N0064 #6/6 include_file_info  G[761:10:761:31] O[331:10:331:31]
+  N0064 #7/7 include_file_info  G[1010:10:1010:24] O[508:10:508:24]
+  N0064 #8/8 include_file_info  G[1018:10:1018:37] O[516:10:516:37]
+  N0064 #9/9 include_file_info  G[1234:10:1234:24] O[517:10:517:24]
+  N0064 #10/10 include_file_info  G[1242:10:1242:37] O[525:10:525:37]
+  N0064 #11/11 include_file_info  G[1458:10:1458:31] O[526:10:526:31]
+  N0064 #12/12 include_file_info  G[1531:10:1531:25] O[527:10:527:25]
+  N0064 #13/13 include_file_info  G[1539:10:1539:37] O[535:10:535:37]

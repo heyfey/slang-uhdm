@@ -1,0 +1,64 @@
+cluster N1091 (map 5 id kept; OPEN): span|part_select|endcol|under:assignment
+row: surelog/default/YosysOldOr  strict=differ:line(593)  records golden=243334 ours=243334
+object: #55028 (golden) / #55028 (ours)  type=part_select name=saved_addr_r 
+  golden: 181:9:181:56
+  ours:   181:9:181:69
+  walk parents: assignment < if_stmt < begin < case_item
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 55022..55034 ('>' = the object)
+  #55022	12	constant				or1200_ic_fsm.v	181	71	181	73	31	64	UINT:31	9		000
+  #55023	12	operation				or1200_ic_fsm.v	181	74	181	103		0				000
+  #55024	13	operation				or1200_ic_fsm.v	181	74	181	100		0				000
+  #55025	14	constant				or1200_ic_fsm.v	181	74	181	75	9	64	UINT:9	9		000
+  #55026	14	constant				or1200_ic_fsm.v	181	99	181	100	1	64	UINT:1	9		000
+  #55027	13	constant				or1200_ic_fsm.v	181	102	181	103	1	64	UINT:1	9		000
+> #55028	11	part_select	saved_addr_r	saved_addr_r	work@or1200_ic_fsm.saved_addr_r	or1200_ic_fsm.v	181	9	181	56		0			work@or1200_ic_fsm.saved_addr_r	000
+  #55029	12	constant				or1200_ic_fsm.v	181	22	181	24	31	64	UINT:31	9		000
+  #55030	12	operation				or1200_ic_fsm.v	181	25	181	54		0				000
+  #55031	13	operation				or1200_ic_fsm.v	181	25	181	51		0				000
+  #55032	14	constant				or1200_ic_fsm.v	181	25	181	26	9	64	UINT:9	9		000
+  #55033	14	constant				or1200_ic_fsm.v	181	50	181	51	1	64	UINT:1	9		000
+  #55034	13	constant				or1200_ic_fsm.v	181	53	181	54	1	64	UINT:1	9		000
+
+--- OURS (B) records 55022..55034 ('>' = the object)
+  #55022	12	constant				or1200_ic_fsm.v	181	84	181	86	31	64	UINT:31	9		000
+  #55023	12	operation				or1200_ic_fsm.v	181	87	181	123		0				000
+  #55024	13	operation				or1200_ic_fsm.v	181	87	181	113		0				000
+  #55025	14	constant				or1200_ic_fsm.v	181	87	181	88	9	64	UINT:9	9		000
+  #55026	14	constant				or1200_ic_fsm.v	181	112	181	113	1	64	UINT:1	9		000
+  #55027	13	constant				or1200_ic_fsm.v	181	122	181	123	1	64	UINT:1	9		000
+> #55028	11	part_select	saved_addr_r	saved_addr_r	work@or1200_ic_fsm.saved_addr_r	or1200_ic_fsm.v	181	9	181	69		0			work@or1200_ic_fsm.saved_addr_r	000
+  #55029	12	constant				or1200_ic_fsm.v	181	22	181	24	31	64	UINT:31	9		000
+  #55030	12	operation				or1200_ic_fsm.v	181	25	181	61		0				000
+  #55031	13	operation				or1200_ic_fsm.v	181	25	181	51		0				000
+  #55032	14	constant				or1200_ic_fsm.v	181	25	181	26	9	64	UINT:9	9		000
+  #55033	14	constant				or1200_ic_fsm.v	181	50	181	51	1	64	UINT:1	9		000
+  #55034	13	constant				or1200_ic_fsm.v	181	60	181	61	1	64	UINT:1	9		000
+
+facets of this row (593, first 25):
+  N0661 #53040/53040 logic_typespec  G[51:12:51:12] O[50:12:50:12]
+  N0190 #55018/55018 if_stmt  G[180:7:181:106] O[180:7:181:132]
+  N1077 #55020/55020 assignment  G[181:9:181:105] O[181:9:181:131]
+  N1090 #55021/55021 part_select start_addr G[181:60:181:105] O[181:73:181:131]
+  N0527 #55022/55022 constant  G[181:71:181:73] O[181:84:181:86]
+  N0845 #55023/55023 operation  G[181:74:181:103] O[181:87:181:123]
+  N0060 #55024/55024 operation  G[181:74:181:100] O[181:87:181:113]
+  N0287 #55025/55025 constant  G[181:74:181:75] O[181:87:181:88]
+  N0287 #55026/55026 constant  G[181:99:181:100] O[181:112:181:113]
+  N0287 #55027/55027 constant  G[181:102:181:103] O[181:122:181:123]
+  N1091 #55028/55028 part_select saved_addr_r G[181:9:181:56] O[181:9:181:69]
+  N0997 #55030/55030 operation  G[181:25:181:54] O[181:25:181:61]
+  N0287 #55034/55034 constant  G[181:53:181:54] O[181:60:181:61]
+  N0752 #55492/55492 logic_net ictag_addr G[150:38:150:48] O[150:45:150:55]
+  N0040 #55494/55494 logic_typespec  G[150:1:150:37] O[150:1:150:44]
+  N1094 #55495/55495 range  G[150:6:150:37] O[150:6:150:44]
+  N0766 #55499/55499 constant  G[150:35:150:36] O[150:42:150:43]
+  N1088 #55719/55719 operation  G[237:8:237:71] O[237:8:237:84]
+  N0561 #55720/55720 operation  G[237:9:237:61] O[237:9:237:74]
+  N0813 #55722/55722 part_select saved_addr G[237:16:237:61] O[237:16:237:74]
+  N0997 #55724/55724 operation  G[237:30:237:59] O[237:30:237:66]
+  N0287 #55728/55728 constant  G[237:58:237:59] O[237:65:237:66]
+  N0060 #55729/55729 operation  G[237:65:237:71] O[237:78:237:84]
+  N0091 #55730/55730 ref_obj tag_v G[237:66:237:71] O[237:79:237:84]
+  N0275 #55750/55750 cont_assign  G[178:8:180:45] O[178:8:180:52]

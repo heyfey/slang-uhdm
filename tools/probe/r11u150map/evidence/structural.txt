@@ -1,0 +1,48 @@
+# the structural row-modes (first field depth/type/count) at 98aa49db: 24 row-modes, 12 tests
+# class, row-mode, strict cell, first cluster, its coverage, open clusters left after the pairs, clears with the pairs
+
+## E SHARED func_call (r11u148 E: evalFunc keeps the call; law.patch): 6 row-modes, 3 tests, clear with pairs A+B: 4; measured with the share law: 6
+  uhdm2rtlil/default/FunctionParam  differ:type(1)  N0133  COVERED r11u146 (N0133, r11u148share law.patch)  open_clusters=0  after share (measured): equal (share, measured)  after both pairs: yes (share, measured)  open after pairs: 
+  uhdm2rtlil/default/SelectGivenBySelectOnParameterInFunction  differ:type(1)  N0133  COVERED r11u146 (N0133, r11u148share law.patch)  open_clusters=0  after share (measured): equal (share, measured)  after both pairs: yes (share, measured)  open after pairs: 
+  uhdm2rtlil/default/func_local_array  differ:type(1)  N0133  COVERED r11u146 (N0133, r11u148share law.patch)  open_clusters=2  after share (measured): equal (share, measured)  after both pairs: yes (share, measured)  open after pairs: 
+  uhdm2rtlil/testflags/FunctionParam  differ:type(1)  N0133  COVERED r11u146 (N0133, r11u148share law.patch)  open_clusters=0  after share (measured): equal (share, measured)  after both pairs: yes (share, measured)  open after pairs: 
+  uhdm2rtlil/testflags/SelectGivenBySelectOnParameterInFunction  differ:type(1)  N0133  COVERED r11u146 (N0133, r11u148share law.patch)  open_clusters=0  after share (measured): equal (share, measured)  after both pairs: yes (share, measured)  open after pairs: 
+  uhdm2rtlil/testflags/func_local_array  differ:type(1)  N0133  COVERED r11u146 (N0133, r11u148share law.patch)  open_clusters=2  after share (measured): equal (share, measured)  after both pairs: yes (share, measured)  open after pairs: 
+
+## E2 SHARED constant (r11u148 E2: gen-scope UINT own copy; law.patch): 2 row-modes, 1 tests, clear with pairs A+B: 2; measured with the share law: 2
+  uhdm2rtlil/default/SumOfParametersInNestedForLoops  differ:type(1)  N0554  COVERED r11u146 (N0554, r11u148share law.patch)  open_clusters=0  after share (measured): equal (share, measured)  after both pairs: yes (share, measured)  open after pairs: 
+  uhdm2rtlil/testflags/SumOfParametersInNestedForLoops  differ:type(1)  N0554  COVERED r11u146 (N0554, r11u148share law.patch)  open_clusters=0  after share (measured): equal (share, measured)  after both pairs: yes (share, measured)  open after pairs: 
+
+## I EXTRA CONSTANT under ref_obj (r11u148 I: package signature range binds the top-view constant; law.patch): 2 row-modes, 1 tests, clear with pairs A+B: 0; measured with the share law: 2
+  uhdm2rtlil/default/simple_package  differ:depth(1)  N0764  COVERED r11u146 (N0764, r11u148share law.patch)  open_clusters=1  after share (measured): equal (share, measured)  after both pairs: yes (share, measured)  open after pairs: 
+  uhdm2rtlil/testflags/simple_package  differ:depth(1)  N0764  COVERED r11u146 (N0764, r11u148share law.patch)  open_clusters=1  after share (measured): equal (share, measured)  after both pairs: yes (share, measured)  open after pairs: 
+
+## D2 CAST TARGET (r11u148 D2: the two package listings' cast targets swapped): 6 row-modes, 3 tests, clear with pairs A+B: 0; measured with the share law: 0
+  uhdm2rtlil/default/def_ctx_struct_param  differ:depth(1)  N2384  OPEN (new since r11u142map)  open_clusters=2  after share (measured): differ:depth(1)  after both pairs: no  open after pairs: N2383 N2384
+  uhdm2rtlil/default/latch_decoder_partial  differ:depth(1)  N2384  OPEN (new since r11u142map)  open_clusters=2  after share (measured): differ:depth(1)  after both pairs: no  open after pairs: N2383 N2384
+  uhdm2rtlil/default/latch_tlb_napot  differ:depth(1)  N2384  OPEN (new since r11u142map)  open_clusters=2  after share (measured): differ:depth(1)  after both pairs: no  open after pairs: N2383 N2384
+  uhdm2rtlil/testflags/def_ctx_struct_param  differ:depth(1)  N2384  OPEN (new since r11u142map)  open_clusters=2  after share (measured): differ:depth(1)  after both pairs: no  open after pairs: N2383 N2384
+  uhdm2rtlil/testflags/latch_decoder_partial  differ:depth(1)  N2384  OPEN (new since r11u142map)  open_clusters=2  after share (measured): differ:depth(1)  after both pairs: no  open after pairs: N2383 N2384
+  uhdm2rtlil/testflags/latch_tlb_napot  differ:depth(1)  N2384  OPEN (new since r11u142map)  open_clusters=2  after share (measured): differ:depth(1)  after both pairs: no  open after pairs: N2383 N2384
+
+## D MEMBER-DEFAULT COPY (r11u148 D: operation-valued member default, module-default evalFunc stamp): 2 row-modes, 1 tests, clear with pairs A+B: 0; measured with the share law: 0
+  surelog/default/StructParamFuncBodyFieldCompare  differ:depth(1)  N0045  OPEN  open_clusters=4  after share (measured): differ:depth(1)  after both pairs: no  open after pairs: N0045 N0756 N0758 N0759
+  surelog/testflags/StructParamFuncBodyFieldCompare  differ:depth(1)  N0045  OPEN  open_clusters=4  after share (measured): differ:depth(1)  after both pairs: no  open after pairs: N0045 N0756 N0758 N0759
+
+## G EXTRA FOLDED CONSTANT (r11u148 G: the kept concatenation, taken-arm parameter Rhs share): 2 row-modes, 1 tests, clear with pairs A+B: 0; measured with the share law: 0
+  surelog/default/BlackParrotComplex  differ:depth(1)  N0724  OPEN  open_clusters=2  after share (measured): differ:depth(1)  after both pairs: no  open after pairs: N0724 N1129
+  surelog/testflags/BlackParrotComplex  differ:depth(1)  N0724  OPEN  open_clusters=2  after share (measured): differ:depth(1)  after both pairs: no  open after pairs: N0724 N1129
+
+## ARR NET BINDING of a procedural reference (r11u148 ARR: binds the first var_select naming the array): 2 row-modes, 1 tests, clear with pairs A+B: 0; measured with the share law: 0
+  uhdm2rtlil/default/array_assign  differ:depth(1)  N0046  OPEN (residue of r11u137: map 5 named it, still present)  open_clusters=1  after share (measured): differ:depth(1)  after both pairs: no  open after pairs: N0046
+  uhdm2rtlil/testflags/array_assign  differ:depth(1)  N0046  OPEN (residue of r11u137: map 5 named it, still present)  open_clusters=1  after share (measured): differ:depth(1)  after both pairs: no  open after pairs: N0046
+
+## C2 CONSTANT COPIED / SHARED (array_expr default pattern): 2 row-modes, 1 tests, clear with pairs A+B: 2; measured with the share law: 0
+  surelog/default/DefaultPatternInt  differ:depth(1)  N2385  COVERED r11u145 (residue: N0441's successor after pass 140 (DefaultPatternInt: the package-declared default fill keeps one constant per element; ours now one))  open_clusters=0  after share (measured): differ:depth(1)  after both pairs: yes (optimistic)  open after pairs: 
+  surelog/testflags/DefaultPatternInt  differ:depth(1)  N2385  COVERED r11u145 (residue: N0441's successor after pass 140 (DefaultPatternInt: the package-declared default fill keeps one constant per element; ours now one))  open_clusters=0  after share (measured): differ:depth(1)  after both pairs: yes (optimistic)  open after pairs: 
+
+## C3 IMPORT-CLONE ARRAY TYPESPEC: 0 row-modes
+
+## H OTHER (first cluster outside the classes): 0 row-modes
+
+## the share law (r11u148share law.patch, landed by pair B r11u146): MEASURED cross-section in evidence/report.txt section 1

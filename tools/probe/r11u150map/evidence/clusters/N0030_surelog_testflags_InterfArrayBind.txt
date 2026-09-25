@@ -1,0 +1,40 @@
+cluster N0030 (map 5 id kept; COVERED r11u146 (N0030)): fullname|ref_obj|tok:id.->|under:operation
+row: surelog/testflags/InterfArrayBind  strict=differ:fullname(1)  records golden=96 ours=96
+object: #28 (golden) / #28 (ours)  type=ref_obj name=NUM_PERIPHERALS OUT
+  golden: work@soc_tb.peripheral_io_bus.NUM_PERIPHERALS
+  ours:   work@soc_tb.NUM_PERIPHERALS
+  walk parents: operation < range < module_array(peripheral_io_bus) < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 22..34 ('>' = the object)
+  #22	9	constant				dut.sv	10	42	10	43	1	64	UINT:1	9		001
+  #23	8	constant				dut.sv	10	44	10	45	0	64	UINT:0	9		001
+  #24	5	enum_const	IO_ONES			dut.sv	11	7	11	14						001
+  #25	2	module_array	peripheral_io_bus		work@io_bus_interface	dut.sv	14	22	14	39					work@io_bus_interface	000
+  #26	3	range				dut.sv	14	39	14	62						000
+  #27	4	operation				dut.sv	14	40	14	59		0				000
+> #28	5	ref_obj	NUM_PERIPHERALS		work@soc_tb.peripheral_io_bus.NUM_PERIPHERALS	dut.sv	14	40	14	55		0			work@soc_tb.peripheral_io_bus.NUM_PERIPHERALS	000
+  #29	5	constant				dut.sv	14	58	14	59	1	64	UINT:1	9		000
+  #30	4	constant				dut.sv	14	60	14	61	0	64	UINT:0	9		000
+  #31	3	ref_typespec			work@soc_tb.peripheral_io_bus		0	0	0	0		0			work@soc_tb.peripheral_io_bus	000
+  #32	4	module_typespec	io_bus_interface			dut.sv	14	5	14	21						110
+  #33	2	cont_assign				dut.sv	16	12	16	62						000
+  #34	3	constant				dut.sv	16	50	16	62	32'hffffffff	32	HEX:ffffffff	5		000
+
+--- OURS (B) records 22..34 ('>' = the object)
+  #22	9	constant				dut.sv	10	42	10	43	1	64	UINT:1	9		001
+  #23	8	constant				dut.sv	10	44	10	45	0	64	UINT:0	9		001
+  #24	5	enum_const	IO_ONES			dut.sv	11	7	11	14						001
+  #25	2	module_array	peripheral_io_bus		work@io_bus_interface	dut.sv	14	22	14	39					work@io_bus_interface	000
+  #26	3	range				dut.sv	14	39	14	62						000
+  #27	4	operation				dut.sv	14	40	14	59		0				000
+> #28	5	ref_obj	NUM_PERIPHERALS		work@soc_tb.NUM_PERIPHERALS	dut.sv	14	40	14	55		0			work@soc_tb.NUM_PERIPHERALS	000
+  #29	5	constant				dut.sv	14	58	14	59	1	64	UINT:1	9		000
+  #30	4	constant				dut.sv	14	60	14	61	0	64	UINT:0	9		000
+  #31	3	ref_typespec			work@soc_tb.peripheral_io_bus		0	0	0	0		0			work@soc_tb.peripheral_io_bus	000
+  #32	4	module_typespec	io_bus_interface			dut.sv	14	5	14	21						110
+  #33	2	cont_assign				dut.sv	16	12	16	62						000
+  #34	3	constant				dut.sv	16	50	16	62	32'hffffffff	32	HEX:ffffffff	5		000
+
+facets of this row (1, first 25):
+  N0030 #28/28 ref_obj NUM_PERIPHERALS G[work@soc_tb.peripheral_io_bus.NUM_PERIPHERALS] O[work@soc_tb.NUM_PERIPHERALS]

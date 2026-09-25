@@ -1,0 +1,64 @@
+cluster N0350 (map 5 id kept; OPEN): span|bit_select|line+col+endline+endcol|under:sys_func_call
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #56636 (golden) / #56645 (ours)  type=bit_select name=addrs 
+  golden: 116:27:116:28
+  ours:   1899:40:1899:41
+  walk parents: sys_func_call($sformatf) < func_call(uvm_report_info) < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 56630..56642 ('>' = the object)
+  #56630	11	func_call	get_type_name			uvm_message_defines.svh	114	47	114	62		0				000
+  #56631	10	func_call	uvm_report_info			uvm_message_defines.svh	115	8	116	183		0				000
+  #56632	11	func_call	get_type_name			uvm_message_defines.svh	115	25	115	40		0				000
+  #56633	11	sys_func_call	$sformatf			uvm_message_defines.svh	115	42	116	54		0				000
+  #56634	12	constant				uvm_message_defines.svh	115	52	115	94	"Writing 'h%0h at 'h%0h via map \\"%s\\"..."	320	STRING:Writing 'h%0h at 'h%0h via map \\"%s\\"...	6		000
+  #56635	12	ref_obj	data		uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::data	uvm_message_defines.svh	116	15	116	19		0			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::data	000
+> #56636	12	bit_select	addrs		uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::addrs	uvm_message_defines.svh	116	27	116	28		0			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::addrs	000
+  #56637	13	ref_obj	i		uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::i	uvm_message_defines.svh	116	27	116	28		0			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::i	000
+  #56638	12	hier_path	rw.map.get_full_name			uvm_message_defines.svh	116	31	116	53		0				000
+  #56639	13	ref_obj	rw			uvm_message_defines.svh	116	31	116	33		0				000
+  #56640	13	ref_obj	map			uvm_message_defines.svh	116	34	116	37		0				000
+  #56641	13	method_func_call	get_full_name			uvm_message_defines.svh	116	38	116	51		0				000
+  #56642	11	ref_obj	UVM_FULL		uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::UVM_FULL	uvm_message_defines.svh	116	56	116	64		0			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::UVM_FULL	000
+
+--- OURS (B) records 56639..56651 ('>' = the object)
+  #56639	11	func_call	get_type_name			uvm_message_defines.svh	114	47	114	62		0				000
+  #56640	10	func_call	uvm_report_info			uvm_message_defines.svh	115	8	115	298		0				000
+  #56641	11	func_call	get_type_name			uvm_message_defines.svh	115	25	115	40		0				000
+  #56642	11	sys_func_call	$sformatf			uvm_message_defines.svh	115	42	1899	67		0				000
+  #56643	12	constant				uvm_message_defines.svh	115	52	115	94	"Writing 'h%0h at 'h%0h via map \\"%s\\"..."	320	STRING:Writing 'h%0h at 'h%0h via map \\"%s\\"...	6		000
+  #56644	12	ref_obj	data		uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::data	uvm_message_defines.svh	1899	28	1899	32		0			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::data	000
+> #56645	12	bit_select	addrs		uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::addrs	uvm_message_defines.svh	1899	40	1899	41		0			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::addrs	000
+  #56646	13	ref_obj	i		uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::i	uvm_message_defines.svh	1899	40	1899	41		0			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::i	000
+  #56647	12	hier_path	rw.map.get_full_name			uvm_message_defines.svh	1899	44	1899	66		0				000
+  #56648	13	ref_obj	rw			uvm_message_defines.svh	1899	44	1899	46		0				000
+  #56649	13	ref_obj	map			uvm_message_defines.svh	1899	47	1899	50		0				000
+  #56650	13	method_func_call	get_full_name			uvm_message_defines.svh	1899	51	1899	64		0				000
+  #56651	11	ref_obj	UVM_FULL		uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::UVM_FULL	uvm_message_defines.svh	115	151	115	159		0			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::UVM_FULL	000
+
+facets of this row (29492, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

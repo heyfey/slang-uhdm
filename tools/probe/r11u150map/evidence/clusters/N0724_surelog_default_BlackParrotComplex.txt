@@ -1,0 +1,41 @@
+cluster N0724 (map 5 id kept; OPEN): struct|ours-only:absent|constant|under:param_assign
+row: surelog/default/BlackParrotComplex  strict=differ:depth(1)  records golden=939 ours=945
+object: #-1 (golden) / #878 (ours)  type=constant name= 
+  golden: 
+  ours:   6 objs
+  walk parents: param_assign < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 872..884 ('>' = the object)
+  #872	5	constant				dut.sv	34	36	34	42	3'b011	3	BIN:011	3		000
+  #873	4	operation				dut.sv	29	33	32	34		0				000
+  #874	5	constant				dut.sv	31	36	31	42	3'b111	3	BIN:111	3		000
+  #875	5	constant				dut.sv	30	36	30	42	3'b101	3	BIN:101	3		000
+  #876	5	constant				dut.sv	29	36	29	42	3'b011	3	BIN:011	3		000
+  #877	2	param_assign				dut.sv	40	48	40	102						000
+> #878	3	constant				dut.sv	40	68	40	102	553163846905791	50	UINT:553163846905791	9		000
+  #879	4	ref_typespec			work@top		0	0	0	0		0			work@top	000
+  #880	5	logic_typespec					0	0	0	0						000
+  #881	6	range					0	0	0	0						001
+  #882	7	constant					0	0	0	0		0	UINT:1	0		001
+  #883	7	constant					0	0	0	0		0	UINT:0	0		001
+  #884	2	param_assign				dut.sv	45	12	51	249						000
+
+--- the holder #877 on the other side: exact-record matches at [232, 877]
+  #229	5	constant				dut.sv	34	36	34	42	3'b011	3	BIN:011	3		000
+  #230	5	constant				dut.sv	35	36	35	42	3'b101	3	BIN:101	3		000
+  #231	5	constant				dut.sv	36	36	36	42	3'b111	3	BIN:111	3		000
+> #232	2	param_assign				dut.sv	40	48	40	102						000
+  #233	3	operation				dut.sv	40	68	40	102		0				000
+  #234	4	operation				dut.sv	40	69	40	80		0				000
+  #235	5	ref_obj	dims_p		work@top.dims_p	dut.sv	40	69	40	75		0			work@top.dims_p	000
+  #236	5	constant				dut.sv	40	79	40	80	2	64	UINT:2	9		000
+  #237	4	ref_obj	StrictXY		work@top.StrictXY	dut.sv	40	84	40	92		0			work@top.StrictXY	000
+  #238	4	ref_obj	StrictX		work@top.StrictX	dut.sv	40	95	40	102		0			work@top.StrictX	000
+  #239	2	param_assign				dut.sv	45	12	51	249						000
+  #240	3	operation				dut.sv	45	36	51	249		0				000
+  #241	4	operation				dut.sv	45	37	45	87		0				000
+
+facets of this row (2, first 25):
+  N0724 #-1/878 constant  G[] O[6 objs]
+  N1129 #932/938 ref_typespec  G[work@bottom.A3] O[work@bottom]

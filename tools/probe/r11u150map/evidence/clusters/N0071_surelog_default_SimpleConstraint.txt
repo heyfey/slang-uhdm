@@ -1,0 +1,46 @@
+cluster N0071 (map 5 id kept; COVERED r11u145+r11u146 (N0071)): span|hier_path|endcol|under:operation
+row: surelog/default/SimpleConstraint  strict=differ:line(7)  records golden=257 ours=257
+object: #212 (golden) / #212 (ours)  type=hier_path name=frame.randomize 
+  golden: 57:12:57:29
+  ours:   57:12:57:27
+  walk parents: operation < if_else < begin < if_else
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 206..218 ('>' = the object)
+  #206	7	ref_obj	multicast			top.sv	56	16	56	25		0				000
+  #207	7	method_func_call	constraint_mode			top.sv	56	26	56	41		0				000
+  #208	6	constant				top.sv	56	47	56	48	0	64	UINT:0	9		000
+  #209	5	begin			work@constaint_mode_ex	top.sv	56	50	62	9					work@constaint_mode_ex	000
+  #210	6	if_else				top.sv	57	8	61	11						000
+  #211	7	operation				top.sv	57	12	57	34		0				000
+> #212	8	hier_path	frame.randomize			top.sv	57	12	57	29		0				000
+  #213	9	ref_obj	frame			top.sv	57	12	57	17		0				000
+  #214	9	method_func_call	randomize			top.sv	57	18	57	27		0				000
+  #215	8	constant				top.sv	57	33	57	34	1	64	UINT:1	9		000
+  #216	7	begin			work@constaint_mode_ex	top.sv	57	36	59	11					work@constaint_mode_ex	000
+  #217	8	method_func_call	print			top.sv	58	16	58	21		0				000
+  #218	9	ref_obj	frame		work@constaint_mode_ex.frame	top.sv	58	10	58	15		0			work@constaint_mode_ex.frame	000
+
+--- OURS (B) records 206..218 ('>' = the object)
+  #206	7	ref_obj	multicast			top.sv	56	16	56	25		0				000
+  #207	7	method_func_call	constraint_mode			top.sv	56	26	56	41		0				000
+  #208	6	constant				top.sv	56	47	56	48	0	64	UINT:0	9		000
+  #209	5	begin			work@constaint_mode_ex	top.sv	56	50	62	9					work@constaint_mode_ex	000
+  #210	6	if_else				top.sv	57	8	61	11						000
+  #211	7	operation				top.sv	57	12	57	34		0				000
+> #212	8	hier_path	frame.randomize			top.sv	57	12	57	27		0				000
+  #213	9	ref_obj	frame			top.sv	57	12	57	17		0				000
+  #214	9	method_func_call	randomize			top.sv	57	18	57	27		0				000
+  #215	8	constant				top.sv	57	33	57	34	1	64	UINT:1	9		000
+  #216	7	begin			work@constaint_mode_ex	top.sv	57	36	59	11					work@constaint_mode_ex	000
+  #217	8	method_func_call	print			top.sv	58	16	58	21		0				000
+  #218	9	ref_obj	frame		work@constaint_mode_ex.frame	top.sv	58	10	58	15		0			work@constaint_mode_ex.frame	000
+
+facets of this row (7, first 25):
+  N0266 #95/95 enum_typespec pkt_type G[23:29:23:37] O[2:1:2:56]
+  N0266 #117/117 enum_typespec pkt_type G[23:29:23:37] O[2:1:2:56]
+  N0051 #184/184 class_typespec frame_t G[51:6:51:27] O[51:6:51:13]
+  N1146 #187/187 integer_typespec  G[52:6:52:19] O[52:6:52:13]
+  N0071 #212/212 hier_path frame.randomize G[57:12:57:29] O[57:12:57:27]
+  N0071 #241/241 hier_path frame.randomize G[73:10:73:27] O[73:10:73:25]
+  N0468 #253/253 enum_typespec pkt_type G[23:29:23:37] O[2:1:2:56]

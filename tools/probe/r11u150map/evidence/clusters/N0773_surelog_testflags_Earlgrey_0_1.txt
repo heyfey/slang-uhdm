@@ -1,0 +1,64 @@
+cluster N0773 (map 5 id kept; OPEN): fullname|part_select|tok:id.id.->|under:bit_select
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #429674 (golden) / #429613 (ours)  type=part_select name=fifo_wptr OUT
+  golden: work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.storage.fifo_wptr
+  ours:   work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.storage.fifo_wptr
+  walk parents: bit_select(storage) < assignment < begin < if_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 429668..429680 ('>' = the object)
+  #429668	11	if_stmt				prim_fifo_sync.sv	130	9	132	12						000
+  #429669	12	ref_obj	fifo_incr_wptr		work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.fifo_incr_wptr	prim_fifo_sync.sv	130	13	130	27		0			work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.fifo_incr_wptr	000
+  #429670	12	begin			work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1	prim_fifo_sync.sv	130	29	132	12					work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1	000
+  #429671	13	assignment				prim_fifo_sync.sv	131	11	131	53						000
+  #429672	14	ref_obj	wdata		work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.wdata	prim_fifo_sync.sv	131	48	131	53		0			work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.wdata	000
+  #429673	14	bit_select	storage		work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.storage	prim_fifo_sync.sv	131	11	131	44		0			work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.storage	000
+> #429674	15	part_select	fifo_wptr	fifo_wptr	work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.storage.fifo_wptr	prim_fifo_sync.sv	131	19	131	43		0			work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.storage.fifo_wptr	000
+  #429675	16	constant				prim_fifo_sync.sv	131	29	131	40	0	64	INT:0	7		000
+  #429676	16	constant				prim_fifo_sync.sv	131	41	131	42	0	64	UINT:0	9		000
+  #429677	9	cont_assign				prim_fifo_sync.sv	127	14	127	63						000
+  #429678	10	bit_select	storage		work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.storage	prim_fifo_sync.sv	127	38	127	62		0			work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.storage	000
+  #429679	11	part_select	fifo_rptr	fifo_rptr	work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.storage.fifo_rptr	prim_fifo_sync.sv	127	38	127	62		0			work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.storage.fifo_rptr	000
+  #429680	12	constant				prim_fifo_sync.sv	127	48	127	59	0	64	INT:0	7		000
+
+--- OURS (B) records 429607..429619 ('>' = the object)
+  #429607	11	if_stmt				prim_fifo_sync.sv	130	9	132	12						000
+  #429608	12	ref_obj	fifo_incr_wptr		work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.fifo_incr_wptr	prim_fifo_sync.sv	130	13	130	27		0			work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.fifo_incr_wptr	000
+  #429609	12	begin			work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1	prim_fifo_sync.sv	130	29	132	12					work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1	000
+  #429610	13	assignment				prim_fifo_sync.sv	131	11	131	53						000
+  #429611	14	ref_obj	wdata		work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.wdata	prim_fifo_sync.sv	131	48	131	53		0			work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.wdata	000
+  #429612	14	bit_select	storage		work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.storage	prim_fifo_sync.sv	131	11	131	44		0			work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.storage	000
+> #429613	15	part_select	fifo_wptr	fifo_wptr	work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.storage.fifo_wptr	prim_fifo_sync.sv	131	19	131	43		0			work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.storage.fifo_wptr	000
+  #429614	16	constant				prim_fifo_sync.sv	131	29	131	40	0	64	INT:0	7		000
+  #429615	16	constant				prim_fifo_sync.sv	131	41	131	42	0	64	UINT:0	9		000
+  #429616	9	cont_assign				prim_fifo_sync.sv	127	14	127	63						000
+  #429617	10	bit_select	storage		work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.storage	prim_fifo_sync.sv	127	38	127	62		0			work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.storage	000
+  #429618	11	part_select	fifo_rptr	fifo_rptr	work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.storage.fifo_rptr	prim_fifo_sync.sv	127	38	127	62		0			work@top_earlgrey.u_dm_top.i_dm_csrs.i_fifo.gen_normal_fifo.gen_depth_gt1.storage.fifo_rptr	000
+  #429619	12	constant				prim_fifo_sync.sv	127	48	127	59	0	64	INT:0	7		000
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

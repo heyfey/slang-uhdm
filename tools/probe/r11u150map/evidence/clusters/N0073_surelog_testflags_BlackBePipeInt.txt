@@ -1,0 +1,64 @@
+cluster N0073 (map 5 id kept; OPEN): span|constant|endcol|under:operation
+row: surelog/testflags/BlackBePipeInt  strict=differ:fullname(2)  records golden=338504 ours=340984
+object: #39703 (golden) / #41927 (ours)  type=constant name= 
+  golden: 2088:29:2088:30
+  ours:   2088:29:2088:47
+  walk parents: operation < param_assign < package(bp_be_pkg) < design(work@bp_be_pipe_int)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 39697..39709 ('>' = the object)
+  #39697	4	constant				dut.sv	2069	32	2069	33	4	32	UINT:4	9		000
+  #39698	4	constant				dut.sv	2070	32	2070	33	2	32	UINT:2	9		000
+  #39699	4	constant				dut.sv	2072	19	2072	20	8	32	UINT:8	9		000
+  #39700	4	constant				dut.sv	2074	19	2074	20	0	32	UINT:0	9		000
+  #39701	4	constant				dut.sv	2073	19	2073	20	8	32	UINT:8	9		000
+  #39702	4	constant				dut.sv	2075	19	2075	20	0	32	UINT:0	9		000
+> #39703	4	constant				dut.sv	2088	29	2088	30	1	32	UINT:1	9		000
+  #39704	4	constant				dut.sv	2089	28	2089	30	64	32	UINT:64	9		000
+  #39705	4	constant				dut.sv	2090	28	2090	29	8	32	UINT:8	9		000
+  #39706	4	constant				dut.sv	2091	28	2091	31	512	32	UINT:512	9		000
+  #39707	4	constant				dut.sv	2092	28	2092	30	64	32	UINT:64	9		000
+  #39708	4	constant				dut.sv	2077	28	2081	58	245	32	UINT:245	9		000
+  #39709	4	constant				dut.sv	2083	28	2083	30	64	32	UINT:64	9		000
+
+--- OURS (B) records 41921..41933 ('>' = the object)
+  #41921	4	constant				dut.sv	2069	32	2069	33	4	32	UINT:4	9		000
+  #41922	4	constant				dut.sv	2070	32	2070	33	2	32	UINT:2	9		000
+  #41923	4	constant				dut.sv	2072	19	2072	20	8	32	UINT:8	9		000
+  #41924	4	constant				dut.sv	2074	19	2074	20	0	32	UINT:0	9		000
+  #41925	4	constant				dut.sv	2073	19	2073	20	8	32	UINT:8	9		000
+  #41926	4	constant				dut.sv	2075	19	2075	20	0	32	UINT:0	9		000
+> #41927	4	constant				dut.sv	2088	29	2088	47	1	32	UINT:1	9		000
+  #41928	4	constant				dut.sv	2089	28	2089	30	64	32	UINT:64	9		000
+  #41929	4	constant				dut.sv	2090	28	2090	29	8	32	UINT:8	9		000
+  #41930	4	constant				dut.sv	2091	28	2091	31	512	32	UINT:512	9		000
+  #41931	4	constant				dut.sv	2092	28	2092	30	64	32	UINT:64	9		000
+  #41932	4	constant				dut.sv	2077	28	2082	63	245	32	UINT:245	9		000
+  #41933	4	constant				dut.sv	2083	28	2083	30	64	32	UINT:64	9		000
+
+facets of this row (57137, first 25):
+  N0897 #-1/66 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/14409 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15104 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15118 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15132 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15146 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15160 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15174 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15188 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15202 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15216 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15230 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15244 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15258 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15272 parameter dev_addr_width_gp G[] O[8 objs]
+  N0868 #-1/15388 constant  G[] O[1 objs]
+  N0868 #-1/15392 constant  G[] O[1 objs]
+  N0868 #-1/15396 constant  G[] O[1 objs]
+  N0868 #-1/15400 constant  G[] O[1 objs]
+  N0868 #-1/15404 constant  G[] O[1 objs]
+  N0868 #-1/15408 constant  G[] O[1 objs]
+  N0868 #-1/15412 constant  G[] O[1 objs]
+  N0868 #-1/15416 constant  G[] O[1 objs]
+  N0868 #-1/15420 constant  G[] O[1 objs]
+  N0868 #-1/15424 constant  G[] O[1 objs]

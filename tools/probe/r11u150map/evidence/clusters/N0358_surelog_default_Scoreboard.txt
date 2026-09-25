@@ -1,0 +1,64 @@
+cluster N0358 (map 5 id kept; OPEN): span|begin|col+endcol|under:task
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #28023 (golden) / #28032 (ours)  type=begin name= 
+  golden: 252:1:252:2
+  ours:   252:96:252:97
+  walk parents: task(uvm_reg_backdoor::wait_for_change) < package(uvm_pkg) < design(work@my_scoreboard_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 28017..28029 ('>' = the object)
+  #28017	3	return_stmt				uvm_reg_backdoor.svh	245	4	245	10						000
+  #28018	4	constant				uvm_reg_backdoor.svh	245	11	245	12	0	64	UINT:0	9		000
+  #28019	2	task	uvm_reg_backdoor::wait_for_change		uvm_pkg::uvm_reg_backdoor::wait_for_change	uvm_reg_backdoor.svh	251	1	253	8					uvm_pkg::uvm_reg_backdoor::wait_for_change	000
+  #28020	3	io_decl	element			uvm_reg_backdoor.svh	251	51	251	58						000
+  #28021	4	ref_typespec			uvm_pkg::uvm_reg_backdoor::wait_for_change::element		0	0	0	0		0			uvm_pkg::uvm_reg_backdoor::wait_for_change::element	000
+  #28022	5	class_typespec	uvm_object			uvm_reg_backdoor.svh	251	40	251	50						110
+> #28023	3	begin			uvm_pkg::uvm_reg_backdoor::wait_for_change	uvm_reg_backdoor.svh	252	1	252	2					uvm_pkg::uvm_reg_backdoor::wait_for_change	000
+  #28024	4	begin			uvm_pkg::uvm_reg_backdoor::wait_for_change	uvm_message_defines.svh	164	4	167	7					uvm_pkg::uvm_reg_backdoor::wait_for_change	000
+  #28025	5	if_stmt				uvm_message_defines.svh	165	6	166	240						000
+  #28026	6	func_call	uvm_report_enabled			uvm_message_defines.svh	165	10	165	59		0				000
+  #28027	7	ref_obj	UVM_NONE		uvm_pkg::uvm_reg_backdoor::wait_for_change::UVM_NONE	uvm_message_defines.svh	165	29	165	37		0			uvm_pkg::uvm_reg_backdoor::wait_for_change::UVM_NONE	000
+  #28028	8	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+  #28029	7	ref_obj	UVM_FATAL		uvm_pkg::uvm_reg_backdoor::wait_for_change::UVM_FATAL	uvm_message_defines.svh	165	38	165	47		0			uvm_pkg::uvm_reg_backdoor::wait_for_change::UVM_FATAL	000
+
+--- OURS (B) records 28026..28038 ('>' = the object)
+  #28026	3	return_stmt				uvm_reg_backdoor.svh	245	4	245	10						000
+  #28027	4	constant				uvm_reg_backdoor.svh	245	11	245	12	0	64	UINT:0	9		000
+  #28028	2	task	uvm_reg_backdoor::wait_for_change		uvm_pkg::uvm_reg_backdoor::wait_for_change	uvm_reg_backdoor.svh	251	1	253	8					uvm_pkg::uvm_reg_backdoor::wait_for_change	000
+  #28029	3	io_decl	element			uvm_reg_backdoor.svh	251	51	251	58						000
+  #28030	4	ref_typespec			uvm_pkg::uvm_reg_backdoor::wait_for_change::element		0	0	0	0		0			uvm_pkg::uvm_reg_backdoor::wait_for_change::element	000
+  #28031	5	class_typespec	uvm_object			uvm_reg_backdoor.svh	251	40	251	50						110
+> #28032	3	begin			uvm_pkg::uvm_reg_backdoor::wait_for_change	uvm_reg_backdoor.svh	252	96	252	97					uvm_pkg::uvm_reg_backdoor::wait_for_change	000
+  #28033	4	begin			uvm_pkg::uvm_reg_backdoor::wait_for_change	uvm_message_defines.svh	164	4	167	7					uvm_pkg::uvm_reg_backdoor::wait_for_change	000
+  #28034	5	if_stmt				uvm_message_defines.svh	165	6	166	260						000
+  #28035	6	func_call	uvm_report_enabled			uvm_message_defines.svh	165	10	165	59		0				000
+  #28036	7	ref_obj	UVM_NONE		uvm_pkg::uvm_reg_backdoor::wait_for_change::UVM_NONE	uvm_message_defines.svh	165	29	165	37		0			uvm_pkg::uvm_reg_backdoor::wait_for_change::UVM_NONE	000
+  #28037	8	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+  #28038	7	ref_obj	UVM_FATAL		uvm_pkg::uvm_reg_backdoor::wait_for_change::UVM_FATAL	uvm_message_defines.svh	165	38	165	47		0			uvm_pkg::uvm_reg_backdoor::wait_for_change::UVM_FATAL	000
+
+facets of this row (29492, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

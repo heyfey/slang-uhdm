@@ -1,0 +1,64 @@
+cluster N1480 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id.id.id.id[id].id.id->id.id|under:bit_select
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #1143889 (golden) / #1143878 (ours)  type=ref_obj name=i OUT
+  golden: work@top_earlgrey.u_usbdev.proc_map_buf_size.reg2hw.configin[i].buffer.q.i
+  ours:   work@usbdev.proc_map_buf_size.i
+  walk parents: bit_select(configin) < hier_path(reg2hw.configin[i].buffer.q) < assignment < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1143883..1143895 ('>' = the object)
+  #1143883	15	typespec_member	rdy			usbdev_reg_pkg.sv	241	7	241	10						001
+  #1143884	16	ref_typespec			<in>usbdev_reg_pkg::usbdev_reg2hw_configin_mreg_t.rdy		0	0	0	0		0			work@usbdev_reg_top.usbdev_reg_pkg::usbdev_reg2hw_configin_mreg_t.rdy	001
+  #1143885	17	struct_typespec				usbdev_reg_pkg.sv	239	5	239	11						001
+  #1143886	18	typespec_member	q			usbdev_reg_pkg.sv	240	20	240	21						001
+  #1143887	19	ref_typespec			<in>usbdev_reg_pkg::usbdev_reg2hw_configin_mreg_t.rdy.q		0	0	0	0		0			work@usbdev_reg_top.usbdev_reg_pkg::usbdev_reg2hw_configin_mreg_t.rdy.q	001
+  #1143888	20	logic_typespec				usbdev_reg_pkg.sv	240	7	240	12						001
+> #1143889	10	ref_obj	i		work@top_earlgrey.u_usbdev.proc_map_buf_size.reg2hw.configin[i].buffer.q.i	usbdev.sv	277	40	277	41		0			work@top_earlgrey.u_usbdev.proc_map_buf_size.reg2hw.configin[i].buffer.q.i	000
+  #1143890	9	ref_obj	buffer			usbdev.sv	277	43	277	49		0				000
+  #1143891	10	typespec_member	buffer			usbdev_reg_pkg.sv	232	7	232	13						000
+  #1143892	11	ref_typespec			work@usbdev_reg_top.usbdev_reg_pkg::usbdev_reg2hw_configin_mreg_t.buffer		0	0	0	0		0			work@usbdev_reg_top.usbdev_reg_pkg::usbdev_reg2hw_configin_mreg_t.buffer	000
+  #1143893	12	struct_typespec				usbdev_reg_pkg.sv	230	5	230	11						000
+  #1143894	13	typespec_member	q			usbdev_reg_pkg.sv	231	20	231	21						001
+  #1143895	14	ref_typespec			<in>usbdev_reg_pkg::usbdev_reg2hw_configin_mreg_t.buffer.q		0	0	0	0		0			work@usbdev_reg_top.usbdev_reg_pkg::usbdev_reg2hw_configin_mreg_t.buffer.q	001
+
+--- OURS (B) records 1143872..1143884 ('>' = the object)
+  #1143872	15	typespec_member	rdy			usbdev_reg_pkg.sv	241	7	241	10						001
+  #1143873	16	ref_typespec			<in>usbdev_reg_pkg::usbdev_reg2hw_configin_mreg_t.rdy		0	0	0	0		0			usbdev_reg_pkg::usbdev_reg_pkg::usbdev_reg2hw_configin_mreg_t::rdy	001
+  #1143874	17	struct_typespec				usbdev_reg_pkg.sv	239	5	239	11						001
+  #1143875	18	typespec_member	q			usbdev_reg_pkg.sv	240	20	240	21						001
+  #1143876	19	ref_typespec			<in>usbdev_reg_pkg::usbdev_reg2hw_configin_mreg_t.rdy.q		0	0	0	0		0			usbdev_reg_pkg::usbdev_reg_pkg::usbdev_reg2hw_configin_mreg_t::rdy::q	001
+  #1143877	20	logic_typespec				usbdev_reg_pkg.sv	240	7	240	12						001
+> #1143878	10	ref_obj	i		work@usbdev.proc_map_buf_size.i	usbdev.sv	277	40	277	41		0			work@usbdev.proc_map_buf_size.i	000
+  #1143879	9	ref_obj	buffer			usbdev.sv	277	43	277	49		0				000
+  #1143880	10	typespec_member	buffer			usbdev_reg_pkg.sv	232	7	232	13						000
+  #1143881	11	ref_typespec			usbdev_reg_pkg::usbdev_reg_pkg::usbdev_reg2hw_configin_mreg_t::buffer		0	0	0	0		0			usbdev_reg_pkg::usbdev_reg_pkg::usbdev_reg2hw_configin_mreg_t::buffer	000
+  #1143882	12	struct_typespec				usbdev_reg_pkg.sv	230	5	230	11						000
+  #1143883	13	typespec_member	q			usbdev_reg_pkg.sv	231	20	231	21						001
+  #1143884	14	ref_typespec			<in>usbdev_reg_pkg::usbdev_reg2hw_configin_mreg_t.buffer.q		0	0	0	0		0			usbdev_reg_pkg::usbdev_reg_pkg::usbdev_reg2hw_configin_mreg_t::buffer::q	001
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

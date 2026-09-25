@@ -1,0 +1,54 @@
+cluster N0969 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id.->|under:prim_term
+row: surelog/default/GenerateUnnamed  strict=differ:fullname(15)  records golden=343 ours=343
+object: #253 (golden) / #253 (ours)  type=ref_obj name=a OUT
+  golden: work@test1.genblk1.genblk1.u1.a
+  ours:   work@test1.u1.a
+  walk parents: prim_term < gate(g3) < gen_scope < gen_scope_array(u1)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 247..259 ('>' = the object)
+  #247	3	ref_typespec			work@test1.c		0	0	0	0		0			work@test1.c	000
+  #248	4	logic_typespec				top.v	3	3	3	7						000
+  #249	2	gen_scope_array	u1		work@test1.u1	top.v	37	9	40	12					work@test1.u1	000
+  #250	3	gen_scope			work@test1.u1	top.v	37	9	40	12					work@test1.u1	000
+  #251	4	gate	g3	work@xnor	work@test1.u1.g3	top.v	39	16	39	27					work@test1.u1.g3	000
+  #252	5	prim_term				top.v	39	19	39	20						000
+> #253	6	ref_obj	a		work@test1.genblk1.genblk1.u1.a	top.v	39	19	39	20		0			work@test1.genblk1.genblk1.u1.a	000
+  #254	5	prim_term				top.v	39	22	39	23						000
+  #255	6	ref_obj	b		work@test1.genblk1.genblk1.u1.b	top.v	39	22	39	23		0			work@test1.genblk1.genblk1.u1.b	000
+  #256	5	prim_term				top.v	39	25	39	26						000
+  #257	6	ref_obj	c		work@test1.genblk1.genblk1.u1.c	top.v	39	25	39	26		0			work@test1.genblk1.genblk1.u1.c	000
+  #258	2	gen_scope_array	genblk1		work@test1.genblk1	top.v	45	9	45	26					work@test1.genblk1	000
+  #259	3	gen_scope			work@test1.genblk1	top.v	45	9	45	26					work@test1.genblk1	000
+
+--- OURS (B) records 247..259 ('>' = the object)
+  #247	3	ref_typespec			work@test1.c		0	0	0	0		0			work@test1.c	000
+  #248	4	logic_typespec				top.v	3	3	3	7						000
+  #249	2	gen_scope_array	u1		work@test1.u1	top.v	39	11	39	28					work@test1.u1	000
+  #250	3	gen_scope			work@test1.u1	top.v	39	11	39	28					work@test1.u1	000
+  #251	4	gate	g3	work@xnor	work@test1.u1.g3	top.v	39	16	39	27					work@test1.u1.g3	000
+  #252	5	prim_term				top.v	39	19	39	20						000
+> #253	6	ref_obj	a		work@test1.u1.a	top.v	39	19	39	20		0			work@test1.u1.a	000
+  #254	5	prim_term				top.v	39	22	39	23						000
+  #255	6	ref_obj	b		work@test1.u1.b	top.v	39	22	39	23		0			work@test1.u1.b	000
+  #256	5	prim_term				top.v	39	25	39	26						000
+  #257	6	ref_obj	c		work@test1.u1.c	top.v	39	25	39	26		0			work@test1.u1.c	000
+  #258	2	gen_scope_array	genblk1		work@test1.genblk1	top.v	45	9	45	26					work@test1.genblk1	000
+  #259	3	gen_scope			work@test1.genblk1	top.v	45	9	45	26					work@test1.genblk1	000
+
+facets of this row (15, first 25):
+  N0482 #151/151 named_begin u1 G[] O[work@test1.u1]
+  N0482 #218/218 named_begin u1 G[] O[work@test2.pp2.u1]
+  N0486 #249/249 gen_scope_array u1 G[37:9:40:12] O[39:11:39:28]
+  N0483 #250/250 gen_scope  G[37:9:40:12] O[39:11:39:28]
+  N0969 #253/253 ref_obj a G[work@test1.genblk1.genblk1.u1.a] O[work@test1.u1.a]
+  N0969 #255/255 ref_obj b G[work@test1.genblk1.genblk1.u1.b] O[work@test1.u1.b]
+  N0969 #257/257 ref_obj c G[work@test1.genblk1.genblk1.u1.c] O[work@test1.u1.c]
+  N0969 #262/262 ref_obj a G[work@test1.genblk1.genblk1.genblk1.a] O[work@test1.genblk1.a]
+  N0969 #264/264 ref_obj b G[work@test1.genblk1.genblk1.genblk1.b] O[work@test1.genblk1.b]
+  N0969 #266/266 ref_obj c G[work@test1.genblk1.genblk1.genblk1.c] O[work@test1.genblk1.c]
+  N0969 #271/271 ref_obj a G[work@test1.genblk1.genblk1.n5.a] O[work@test1.n5.a]
+  N0969 #273/273 ref_obj b G[work@test1.genblk1.genblk1.n5.b] O[work@test1.n5.b]
+  N0969 #275/275 ref_obj c G[work@test1.genblk1.genblk1.n5.c] O[work@test1.n5.c]
+  N0796 #309/309 gen_scope_array u1 G[96:9:99:12] O[98:11:98:28]
+  N0483 #310/310 gen_scope  G[96:9:99:12] O[98:11:98:28]

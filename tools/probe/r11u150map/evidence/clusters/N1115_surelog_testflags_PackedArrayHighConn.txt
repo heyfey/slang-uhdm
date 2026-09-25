@@ -1,0 +1,45 @@
+cluster N1115 (map 5 id kept; OPEN): fullname|bit_select|tok:->id.|under:bit_select
+row: surelog/testflags/PackedArrayHighConn  strict=differ:fullname(6)  records golden=175 ours=175
+object: #104 (golden) / #104 (ours)  type=bit_select name=DioPadBank OUT
+  golden: work@dut.u_dio_pad.pad_pok.DioPadBank
+  ours:   work@dut.u_dio_pad.pok_i.pad_pok.DioPadBank
+  walk parents: bit_select(pad_pok) < port(pok_i) < ref_module(u_dio_pad) < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 98..110 ('>' = the object)
+  #98	10	constant				dut.sv	5	20	5	21	0	64	UINT:0	9		001
+  #99	7	range				dut.sv	5	17	5	22						001
+  #100	8	constant				dut.sv	5	18	5	19	7	64	UINT:7	9		001
+  #101	8	constant				dut.sv	5	20	5	21	0	64	UINT:0	9		001
+  #102	3	port	pok_i			dut.sv	16	5	16	45						000
+  #103	4	bit_select	pad_pok		work@dut.u_dio_pad.pad_pok	dut.sv	16	27	16	40		0			work@dut.u_dio_pad.pad_pok	000
+> #104	5	bit_select	DioPadBank		work@dut.u_dio_pad.pad_pok.DioPadBank	dut.sv	16	38	16	39		0			work@dut.u_dio_pad.pad_pok.DioPadBank	000
+  #105	6	constant				dut.sv	16	38	16	39	0	64	UINT:0	9		000
+  #106	1	module_inst	work@dut	work@dut		dut.sv	12	1	18	16						000
+  #107	2	packed_array_var	pad_pok		work@dut.pad_pok	dut.sv	14	19	14	26		0			work@dut.pad_pok	000
+  #108	3	ref_typespec			work@dut.pad_pok		0	0	0	0		0			work@dut.pad_pok	000
+  #109	4	logic_typespec	pad_pok_t			dut.sv	5	11	5	22						110
+  #110	5	range				dut.sv	5	17	5	22						001
+
+--- OURS (B) records 98..110 ('>' = the object)
+  #98	10	constant				dut.sv	5	20	5	21	0	64	UINT:0	9		001
+  #99	7	range				dut.sv	5	17	5	22						001
+  #100	8	constant				dut.sv	5	18	5	19	7	64	UINT:7	9		001
+  #101	8	constant				dut.sv	5	20	5	21	0	64	UINT:0	9		001
+  #102	3	port	pok_i			dut.sv	16	5	16	45						000
+  #103	4	bit_select	pad_pok		work@dut.u_dio_pad.pad_pok	dut.sv	16	27	16	40		0			work@dut.u_dio_pad.pad_pok	000
+> #104	5	bit_select	DioPadBank		work@dut.u_dio_pad.pok_i.pad_pok.DioPadBank	dut.sv	16	38	16	39		0			work@dut.u_dio_pad.pok_i.pad_pok.DioPadBank	000
+  #105	6	constant				dut.sv	16	38	16	39	0	64	UINT:0	9		000
+  #106	1	module_inst	work@dut	work@dut		dut.sv	12	1	18	16						000
+  #107	2	packed_array_var	pad_pok		work@dut.pad_pok	dut.sv	14	19	14	26		0			work@dut.pad_pok	000
+  #108	3	ref_typespec			work@dut.pad_pok		0	0	0	0		0			work@dut.pad_pok	000
+  #109	4	logic_typespec	pad_pok_t			dut.sv	5	11	5	22						110
+  #110	5	range				dut.sv	5	17	5	22						001
+
+facets of this row (6, first 25):
+  N0163 #19/19 ref_typespec  G[work@prim_pad_wrapper.prim_pad_wrapper_pkg::pad_type_e] O[work@dut.prim_pad_wrapper_pkg::pad_type_e]
+  N0163 #50/50 ref_typespec  G[work@prim_pad_wrapper.prim_pad_wrapper_pkg::pad_type_e] O[work@dut.prim_pad_wrapper_pkg::pad_type_e]
+  N0163 #81/81 ref_typespec  G[work@prim_pad_wrapper.prim_pad_wrapper_pkg::pad_type_e] O[work@dut.prim_pad_wrapper_pkg::pad_type_e]
+  N1115 #104/104 bit_select DioPadBank G[work@dut.u_dio_pad.pad_pok.DioPadBank] O[work@dut.u_dio_pad.pok_i.pad_pok.DioPadBank]
+  N0163 #133/133 ref_typespec  G[work@prim_pad_wrapper.prim_pad_wrapper_pkg::pad_type_e] O[work@dut.prim_pad_wrapper_pkg::pad_type_e]
+  N0163 #147/147 ref_typespec  G[work@prim_pad_wrapper.prim_pad_wrapper_pkg::pad_type_e] O[work@dut.prim_pad_wrapper_pkg::pad_type_e]

@@ -1,0 +1,64 @@
+cluster N0405 (map 5 id kept; OPEN): span|ref_obj|endline+endcol|under:method_func_call
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #195320 (golden) / #194683 (ours)  type=ref_obj name=tmp__ 
+  golden: 1566:56:1566:61
+  ours:   1566:56:2064:21
+  walk parents: method_func_call(push_back) < while_stmt < begin < if_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 195314..195326 ('>' = the object)
+  #195314	19	operation				uvm_object_defines.svh	1566	9	1566	31		0				000
+  #195315	20	hier_path	abstractions.size			uvm_object_defines.svh	1566	9	1566	28		0				000
+  #195316	21	ref_obj	abstractions			uvm_object_defines.svh	1566	9	1566	21		0				000
+  #195317	21	method_func_call	size			uvm_object_defines.svh	1566	22	1566	26		0				000
+  #195318	20	ref_obj	sz		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::sz	uvm_object_defines.svh	1566	29	1566	31		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::sz	000
+  #195319	19	method_func_call	push_back			uvm_object_defines.svh	1566	46	1566	55		0				000
+> #195320	20	ref_obj	tmp__		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::tmp__	uvm_object_defines.svh	1566	56	1566	61		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::tmp__	000
+  #195321	20	ref_obj	abstractions		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::abstractions	uvm_object_defines.svh	1566	33	1566	45		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::abstractions	000
+  #195322	18	while_stmt				uvm_object_defines.svh	1567	3	1567	8						000
+  #195323	19	operation				uvm_object_defines.svh	1567	9	1567	31		0				000
+  #195324	20	hier_path	abstractions.size			uvm_object_defines.svh	1567	9	1567	28		0				000
+  #195325	21	ref_obj	abstractions			uvm_object_defines.svh	1567	9	1567	21		0				000
+  #195326	21	method_func_call	size			uvm_object_defines.svh	1567	22	1567	26		0				000
+
+--- OURS (B) records 194677..194689 ('>' = the object)
+  #194677	19	operation				uvm_object_defines.svh	1566	9	1566	31		0				000
+  #194678	20	hier_path	abstractions.size			uvm_object_defines.svh	1566	9	1566	28		0				000
+  #194679	21	ref_obj	abstractions				1566	9	1566	21		0				000
+  #194680	21	method_func_call	size				1566	22	1566	26		0				000
+  #194681	20	ref_obj	sz		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::sz	uvm_object_defines.svh	1566	29	1566	31		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::sz	000
+  #194682	19	method_func_call	push_back				1566	46	1566	55		0				000
+> #194683	20	ref_obj	tmp__		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::tmp__	uvm_object_defines.svh	1566	56	2064	21		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::tmp__	000
+  #194684	20	ref_obj	abstractions		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::abstractions		1566	33	1566	45		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::abstractions	000
+  #194685	18	while_stmt				uvm_object_defines.svh	1567	3	1567	8						000
+  #194686	19	operation				uvm_object_defines.svh	1567	9	1567	31		0				000
+  #194687	20	hier_path	abstractions.size			uvm_object_defines.svh	1567	9	1567	28		0				000
+  #194688	21	ref_obj	abstractions				1567	9	1567	21		0				000
+  #194689	21	method_func_call	size				1567	22	1567	26		0				000
+
+facets of this row (29492, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

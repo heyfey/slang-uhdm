@@ -1,0 +1,64 @@
+cluster N0986 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id.id.id[id - n:n].id.->|under:operation
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #272693 (golden) / #272653 (ours)  type=ref_obj name=PtrW OUT
+  golden: work@spi_device.reg2hw.rxf_ptr.rptr.q[PtrW - 1:0].q.PtrW
+  ours:   work@spi_device.PtrW
+  walk parents: operation < part_select(q) < hier_path(reg2hw.rxf_ptr.rptr.q[PtrW - 1:0]) < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 272687..272699 ('>' = the object)
+  #272687	3	hier_path	reg2hw.rxf_ptr.rptr.q[PtrW - 1:0]			spi_device.sv	164	26	164	57		0				000
+  #272688	4	ref_obj	reg2hw			spi_device.sv	164	26	164	32		0				000
+  #272689	4	ref_obj	rxf_ptr			spi_device.sv	164	33	164	40		0				000
+  #272690	4	ref_obj	rptr			spi_device.sv	164	41	164	45		0				000
+  #272691	4	part_select	q		reg2hw.rxf_ptr.rptr.q[PtrW - 1:0]	spi_device.sv	164	46	164	56		0			reg2hw.rxf_ptr.rptr.q[PtrW - 1:0]	000
+  #272692	5	operation				spi_device.sv	164	48	164	54		0				000
+> #272693	6	ref_obj	PtrW		work@spi_device.reg2hw.rxf_ptr.rptr.q[PtrW - 1:0].q.PtrW	spi_device.sv	164	48	164	52		0			work@spi_device.reg2hw.rxf_ptr.rptr.q[PtrW - 1:0].q.PtrW	000
+  #272694	6	constant				spi_device.sv	164	53	164	54	1	64	UINT:1	9		000
+  #272695	5	constant				spi_device.sv	164	55	164	56	0	64	UINT:0	9		000
+  #272696	3	ref_obj	sram_rxf_rptr		work@spi_device.sram_rxf_rptr	spi_device.sv	164	10	164	23		0			work@spi_device.sram_rxf_rptr	000
+  #272697	2	cont_assign				spi_device.sv	165	10	165	68						000
+  #272698	3	operation				spi_device.sv	165	34	165	68		0				000
+  #272699	4	operation				spi_device.sv	165	35	165	52		0				000
+
+--- OURS (B) records 272647..272659 ('>' = the object)
+  #272647	3	hier_path	reg2hw.rxf_ptr.rptr.q[PtrW - 1:0]			spi_device.sv	164	26	164	57		0				000
+  #272648	4	ref_obj	reg2hw			spi_device.sv	164	26	164	32		0				000
+  #272649	4	ref_obj	rxf_ptr			spi_device.sv	164	33	164	40		0				000
+  #272650	4	ref_obj	rptr			spi_device.sv	164	41	164	45		0				000
+  #272651	4	part_select	q		reg2hw.rxf_ptr.rptr.q[PtrW - 1:0]	spi_device.sv	164	46	164	56		0			reg2hw.rxf_ptr.rptr.q[PtrW - 1:0]	000
+  #272652	5	operation				spi_device.sv	164	48	164	54		0				000
+> #272653	6	ref_obj	PtrW		work@spi_device.PtrW	spi_device.sv	164	48	164	52		0			work@spi_device.PtrW	000
+  #272654	6	constant				spi_device.sv	164	53	164	54	1	64	UINT:1	9		000
+  #272655	5	constant				spi_device.sv	164	55	164	56	0	64	UINT:0	9		000
+  #272656	3	ref_obj	sram_rxf_rptr		work@spi_device.sram_rxf_rptr	spi_device.sv	164	10	164	23		0			work@spi_device.sram_rxf_rptr	000
+  #272657	2	cont_assign				spi_device.sv	165	10	165	68						000
+  #272658	3	operation				spi_device.sv	165	34	165	68		0				000
+  #272659	4	operation				spi_device.sv	165	35	165	52		0				000
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

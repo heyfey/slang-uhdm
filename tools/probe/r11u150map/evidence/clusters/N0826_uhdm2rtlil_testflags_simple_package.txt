@@ -1,0 +1,45 @@
+cluster N0826 (map 5 id kept; OPEN): value|constant|size|under:ref_obj
+row: uhdm2rtlil/testflags/simple_package  strict=differ:depth(1)  records golden=969 ours=975
+object: #164 (golden) / #170 (ours)  type=constant name= 
+  golden: 32|32|UINT:32|9
+  ours:   32|64|UINT:32|9
+  walk parents: ref_obj(DATA_WIDTH) < operation < range < logic_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 158..170 ('>' = the object)
+  #158	3	logic_var			my_pkg::increment_data	dut.sv	18	24	18	46		0			my_pkg::increment_data	000
+  #159	4	ref_typespec			my_pkg::increment_data		0	0	0	0		0			my_pkg::increment_data	000
+  #160	5	logic_typespec				dut.sv	18	24	18	46						000
+  #161	6	range				dut.sv	18	30	18	46						001
+  #162	7	operation				dut.sv	18	31	18	43		0				001
+  #163	8	ref_obj	DATA_WIDTH			dut.sv	18	31	18	41		0				001
+> #164	9	constant				dut.sv	6	32	6	34	32	32	UINT:32	9		001
+  #165	10	ref_typespec			my_pkg		0	0	0	0		0			my_pkg	001
+  #166	11	int_typespec				dut.sv	6	15	6	18						001
+  #167	8	constant				dut.sv	18	42	18	43	1	64	UINT:1	9		001
+  #168	7	constant				dut.sv	18	44	18	45	0	64	UINT:0	9		001
+  #169	3	io_decl	input_data			dut.sv	18	85	18	95						000
+  #170	4	ref_typespec			my_pkg::increment_data::input_data		0	0	0	0		0			my_pkg::increment_data::input_data	000
+
+--- OURS (B) records 164..176 ('>' = the object)
+  #164	3	logic_var			my_pkg::increment_data	dut.sv	18	24	18	46		0			my_pkg::increment_data	000
+  #165	4	ref_typespec			my_pkg::increment_data		0	0	0	0		0			my_pkg::increment_data	000
+  #166	5	logic_typespec				dut.sv	18	24	18	46						000
+  #167	6	range				dut.sv	18	30	18	46						001
+  #168	7	operation				dut.sv	18	31	18	43		0				001
+  #169	8	ref_obj	DATA_WIDTH			dut.sv	18	31	18	41		0				001
+> #170	9	constant				dut.sv	6	32	6	34	32	64	UINT:32	9		001
+  #171	10	ref_typespec			my_pkg		0	0	0	0		0			my_pkg	001
+  #172	11	int_typespec				dut.sv	6	15	6	18						001
+  #173	8	constant				dut.sv	18	42	18	43	1	64	UINT:1	9		001
+  #174	7	constant				dut.sv	18	44	18	45	0	64	UINT:0	9		001
+  #175	3	io_decl	input_data			dut.sv	18	85	18	95						000
+  #176	4	ref_typespec			my_pkg::increment_data::input_data		0	0	0	0		0			my_pkg::increment_data::input_data	000
+
+facets of this row (6, first 25):
+  N0764 #-1/101 constant  G[] O[3 objs]
+  N0764 #-1/112 constant  G[] O[3 objs]
+  N0826 #164/170 constant  G[32|32|UINT:32|9] O[32|64|UINT:32|9]
+  N0826 #175/181 constant  G[32|32|UINT:32|9] O[32|64|UINT:32|9]
+  N0826 #533/539 constant  G[32|32|UINT:32|9] O[32|64|UINT:32|9]
+  N0826 #544/550 constant  G[32|32|UINT:32|9] O[32|64|UINT:32|9]

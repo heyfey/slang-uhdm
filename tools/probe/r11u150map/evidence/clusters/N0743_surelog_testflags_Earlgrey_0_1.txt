@@ -1,0 +1,64 @@
+cluster N0743 (map 5 id kept; OPEN): fullname|ref_typespec|tok:.id[n].id->|under:constant
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #348731 (golden) / #348691 (ours)  type=ref_typespec name= OUT
+  golden: work@prim_gate_gen.gen_outer_round[0].inner_data
+  ours:   work@prim_gate_gen
+  walk parents: constant < bit_select(inner_data) < cont_assign < gen_scope
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 348725..348737 ('>' = the object)
+  #348725	4	parameter	k		work@prim_gate_gen.gen_outer_round[0].k	prim_gate_gen.sv	84	0	0	0		0	UINT:0		work@prim_gate_gen.gen_outer_round[0].k	000
+  #348726	5	ref_typespec			work@prim_gate_gen.gen_outer_round[0].k		0	0	0	0		0			work@prim_gate_gen.gen_outer_round[0].k	000
+  #348727	6	int_typespec					0	0	0	0						000
+  #348728	4	cont_assign				prim_gate_gen.sv	103	12	103	50						000
+  #348729	5	bit_select	inner_data		work@prim_gate_gen.gen_outer_round[0].inner_data	prim_gate_gen.sv	103	35	103	49		0			work@prim_gate_gen.gen_outer_round[0].inner_data	000
+  #348730	6	constant				prim_gate_gen.sv	103	35	103	49	2	32	UINT:2	9		000
+> #348731	7	ref_typespec			work@prim_gate_gen.gen_outer_round[0].inner_data		0	0	0	0		0			work@prim_gate_gen.gen_outer_round[0].inner_data	000
+  #348732	8	int_typespec				prim_gate_gen.sv	68	14	68	17						000
+  #348733	5	bit_select	regs_d		work@prim_gate_gen.gen_outer_round[0].regs_d	prim_gate_gen.sv	103	12	103	21		0			work@prim_gate_gen.gen_outer_round[0].regs_d	000
+  #348734	6	ref_obj	k		work@prim_gate_gen.gen_outer_round[0].k	prim_gate_gen.sv	103	19	103	20		0			work@prim_gate_gen.gen_outer_round[0].k	000
+  #348735	4	gen_scope_array	gen_first		work@prim_gate_gen.gen_outer_round[0].gen_first	prim_gate_gen.sv	88	15	91	8					work@prim_gate_gen.gen_outer_round[0].gen_first	000
+  #348736	5	gen_scope			work@prim_gate_gen.gen_outer_round[0].gen_first	prim_gate_gen.sv	88	15	91	8					work@prim_gate_gen.gen_outer_round[0].gen_first	000
+  #348737	6	cont_assign				prim_gate_gen.sv	89	14	89	36						000
+
+--- OURS (B) records 348685..348697 ('>' = the object)
+  #348685	4	parameter	k		work@prim_gate_gen.gen_outer_round[0].k	prim_gate_gen.sv	84	0	0	0		0	UINT:0		work@prim_gate_gen.gen_outer_round[0].k	000
+  #348686	5	ref_typespec			work@prim_gate_gen.gen_outer_round[0].k		0	0	0	0		0			work@prim_gate_gen.gen_outer_round[0].k	000
+  #348687	6	int_typespec					0	0	0	0						000
+  #348688	4	cont_assign				prim_gate_gen.sv	103	12	103	50						000
+  #348689	5	bit_select	inner_data		work@prim_gate_gen.gen_outer_round[0].inner_data	prim_gate_gen.sv	103	35	103	49		0			work@prim_gate_gen.gen_outer_round[0].inner_data	000
+  #348690	6	constant				prim_gate_gen.sv	103	35	103	49	2	32	UINT:2	9		000
+> #348691	7	ref_typespec			work@prim_gate_gen		0	0	0	0		0			work@prim_gate_gen	000
+  #348692	8	int_typespec				prim_gate_gen.sv	68	14	68	17						000
+  #348693	5	bit_select	regs_d		work@prim_gate_gen.gen_outer_round[0].regs_d	prim_gate_gen.sv	103	12	103	21		0			work@prim_gate_gen.gen_outer_round[0].regs_d	000
+  #348694	6	ref_obj	k		work@prim_gate_gen.gen_outer_round[0].k	prim_gate_gen.sv	103	19	103	20		0			work@prim_gate_gen.gen_outer_round[0].k	000
+  #348695	4	gen_scope_array	gen_first		work@prim_gate_gen.gen_outer_round[0].gen_first	prim_gate_gen.sv	88	15	91	8					work@prim_gate_gen.gen_outer_round[0].gen_first	000
+  #348696	5	gen_scope			work@prim_gate_gen.gen_outer_round[0].gen_first	prim_gate_gen.sv	88	15	91	8					work@prim_gate_gen.gen_outer_round[0].gen_first	000
+  #348697	6	cont_assign				prim_gate_gen.sv	89	14	89	36						000
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

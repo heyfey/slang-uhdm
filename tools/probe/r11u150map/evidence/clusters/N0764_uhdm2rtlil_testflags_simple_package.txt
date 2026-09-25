@@ -1,0 +1,45 @@
+cluster N0764 (map 5 id kept; COVERED r11u146 (N0764, r11u148share law.patch)): struct|ours-only:fewer-copies|constant|under:ref_obj
+row: uhdm2rtlil/testflags/simple_package  strict=differ:depth(1)  records golden=969 ours=975
+object: #-1 (golden) / #101 (ours)  type=constant name= 
+  golden: 
+  ours:   3 objs
+  walk parents: ref_obj(DATA_WIDTH) < operation < range < logic_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 95..107 ('>' = the object)
+  #95	3	logic_var			my_pkg::increment_data	dut.sv	18	24	18	46		0			my_pkg::increment_data	000
+  #96	4	ref_typespec			my_pkg::increment_data		0	0	0	0		0			my_pkg::increment_data	000
+  #97	5	logic_typespec				dut.sv	18	24	18	46						000
+  #98	6	range				dut.sv	18	30	18	46						001
+  #99	7	operation				dut.sv	18	31	18	43		0				001
+  #100	8	ref_obj	DATA_WIDTH			dut.sv	18	31	18	41		0				001
+> #101	9	constant				dut.sv	6	32	6	34	32	64	UINT:32	9		001
+  #102	10	ref_typespec			my_pkg		0	0	0	0		0			my_pkg	001
+  #103	11	int_typespec				dut.sv	6	15	6	18						001
+  #104	8	constant				dut.sv	18	42	18	43	1	64	UINT:1	9		001
+  #105	7	constant				dut.sv	18	44	18	45	0	64	UINT:0	9		001
+  #106	3	io_decl	input_data			dut.sv	18	85	18	95						000
+  #107	4	ref_typespec			my_pkg::increment_data::input_data		0	0	0	0		0			my_pkg::increment_data::input_data	000
+
+--- the holder #100 on the other side: exact-record matches at [45, 100, 163, 532]
+  #42	5	logic_typespec				dut.sv	18	24	18	46						000
+  #43	6	range				dut.sv	18	30	18	46						001
+  #44	7	operation				dut.sv	18	31	18	43		0				001
+> #45	8	ref_obj	DATA_WIDTH			dut.sv	18	31	18	41		0				001
+  #46	8	constant				dut.sv	18	42	18	43	1	64	UINT:1	9		001
+  #47	7	constant				dut.sv	18	44	18	45	0	64	UINT:0	9		001
+  #48	3	io_decl	input_data			dut.sv	18	85	18	95						000
+  #49	4	ref_typespec			my_pkg::increment_data::input_data		0	0	0	0		0			my_pkg::increment_data::input_data	000
+  #50	5	logic_typespec				dut.sv	18	62	18	67						000
+  #51	6	range				dut.sv	18	68	18	84						001
+  #52	7	operation				dut.sv	18	69	18	81		0				001
+  #53	8	ref_obj	DATA_WIDTH			dut.sv	18	69	18	79		0				001
+  #54	8	constant				dut.sv	18	80	18	81	1	64	UINT:1	9		001
+
+facets of this row (6, first 25):
+  N0764 #-1/101 constant  G[] O[3 objs]
+  N0764 #-1/112 constant  G[] O[3 objs]
+  N0826 #164/170 constant  G[32|32|UINT:32|9] O[32|64|UINT:32|9]
+  N0826 #175/181 constant  G[32|32|UINT:32|9] O[32|64|UINT:32|9]
+  N0826 #533/539 constant  G[32|32|UINT:32|9] O[32|64|UINT:32|9]
+  N0826 #544/550 constant  G[32|32|UINT:32|9] O[32|64|UINT:32|9]

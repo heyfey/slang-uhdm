@@ -1,0 +1,64 @@
+cluster N0222 (map 5 id kept; OPEN): fullname|bit_select|tok:id - n->id-n|under:hier_path
+row: surelog/default/BuildUVMPkg  strict=differ:line(174)  records golden=201533 ours=201486
+object: #31530 (golden) / #31525 (ours)  type=bit_select name=fields OUT
+  golden: fields[fld_idx - 1]
+  ours:   fields[fld_idx-1]
+  walk parents: hier_path(fields[fld_idx - 1].get_lsb_pos) < assignment < begin < if_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 31524..31536 ('>' = the object)
+  #31524	8	operation				uvm_pkg.sv	64844	13	64844	22		0				000
+  #31525	9	ref_obj	fld_idx		uvm_pkg::uvm_reg_field::is_indv_accessible::fld_idx	uvm_pkg.sv	64844	13	64844	20		0			uvm_pkg::uvm_reg_field::is_indv_accessible::fld_idx	000
+  #31526	9	constant				uvm_pkg.sv	64844	21	64844	22	0	64	UINT:0	9		000
+  #31527	8	begin			uvm_pkg::uvm_reg_field::is_indv_accessible	uvm_pkg.sv	64844	24	64847	12					uvm_pkg::uvm_reg_field::is_indv_accessible	000
+  #31528	9	assignment				uvm_pkg.sv	64845	11	64845	53						000
+  #31529	10	hier_path	fields[fld_idx - 1].get_lsb_pos			uvm_pkg.sv	64845	22	64845	53		0				000
+> #31530	11	bit_select	fields		fields[fld_idx - 1]	uvm_pkg.sv	64845	22	64845	28		0			fields[fld_idx - 1]	000
+  #31531	12	operation				uvm_pkg.sv	64845	29	64845	38		0				000
+  #31532	13	ref_obj	fld_idx		uvm_pkg::uvm_reg_field::is_indv_accessible::fields[fld_idx - 1].get_lsb_pos::fld_idx	uvm_pkg.sv	64845	29	64845	36		0			uvm_pkg::uvm_reg_field::is_indv_accessible::fields[fld_idx - 1].get_lsb_pos::fld_idx	000
+  #31533	13	constant				uvm_pkg.sv	64845	37	64845	38	1	64	UINT:1	9		000
+  #31534	11	method_func_call	get_lsb_pos			uvm_pkg.sv	64845	40	64845	51		0				000
+  #31535	10	ref_obj	prev_lsb		uvm_pkg::uvm_reg_field::is_indv_accessible::prev_lsb	uvm_pkg.sv	64845	11	64845	19		0			uvm_pkg::uvm_reg_field::is_indv_accessible::prev_lsb	000
+  #31536	9	assignment				uvm_pkg.sv	64846	11	64846	52						000
+
+--- OURS (B) records 31519..31531 ('>' = the object)
+  #31519	8	operation				uvm_pkg.sv	64844	13	64844	22		0				000
+  #31520	9	ref_obj	fld_idx		uvm_pkg::uvm_reg_field::is_indv_accessible::fld_idx	uvm_pkg.sv	64844	13	64844	20		0			uvm_pkg::uvm_reg_field::is_indv_accessible::fld_idx	000
+  #31521	9	constant				uvm_pkg.sv	64844	21	64844	22	0	64	UINT:0	9		000
+  #31522	8	begin			uvm_pkg::uvm_reg_field::is_indv_accessible	uvm_pkg.sv	64844	24	64847	12					uvm_pkg::uvm_reg_field::is_indv_accessible	000
+  #31523	9	assignment				uvm_pkg.sv	64845	11	64845	53						000
+  #31524	10	hier_path	fields[fld_idx - 1].get_lsb_pos			uvm_pkg.sv	64845	22	64845	53		0				000
+> #31525	11	bit_select	fields		fields[fld_idx-1]	uvm_pkg.sv	64845	22	64845	28		0			fields[fld_idx-1]	000
+  #31526	12	operation				uvm_pkg.sv	64845	29	64845	38		0				000
+  #31527	13	ref_obj	fld_idx		uvm_pkg::uvm_reg_field::is_indv_accessible::fld_idx	uvm_pkg.sv	64845	29	64845	36		0			uvm_pkg::uvm_reg_field::is_indv_accessible::fld_idx	000
+  #31528	13	constant				uvm_pkg.sv	64845	37	64845	38	1	64	UINT:1	9		000
+  #31529	11	method_func_call	get_lsb_pos			uvm_pkg.sv	64845	40	64845	51		0				000
+  #31530	10	ref_obj	prev_lsb		uvm_pkg::uvm_reg_field::is_indv_accessible::prev_lsb	uvm_pkg.sv	64845	11	64845	19		0			uvm_pkg::uvm_reg_field::is_indv_accessible::prev_lsb	000
+  #31531	9	assignment				uvm_pkg.sv	64846	11	64846	52						000
+
+facets of this row (9401, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

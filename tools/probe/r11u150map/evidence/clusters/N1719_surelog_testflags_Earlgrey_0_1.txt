@@ -1,0 +1,64 @@
+cluster N1719 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id.id.id[n * id+:n].id->id|under:operation
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #440441 (golden) / #440266 (ours)  type=ref_obj name=i OUT
+  golden: work@top_earlgrey.u_tl_adapter_rom.tl_i.a_data[8 * i+:8].a_data.i
+  ours:   work@tlul_adapter_sram.i
+  walk parents: operation < indexed_part_select(a_data) < hier_path(tl_i.a_data[8 * i+:8]) < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 440435..440447 ('>' = the object)
+  #440435	12	ref_obj	i		work@top_earlgrey.u_tl_adapter_rom.tl_i.a_mask[i].i	tlul_adapter_sram.sv	163	38	163	39		0			work@top_earlgrey.u_tl_adapter_rom.tl_i.a_mask[i].i	000
+  #440436	10	ref_obj	we_o		work@top_earlgrey.u_tl_adapter_rom.we_o	tlul_adapter_sram.sv	163	44	163	48		0			work@top_earlgrey.u_tl_adapter_rom.we_o	000
+  #440437	9	hier_path	tl_i.a_data[8 * i+:8]			tlul_adapter_sram.sv	163	52	163	71		0				000
+  #440438	10	ref_obj	tl_i			tlul_adapter_sram.sv	163	52	163	56		0				000
+  #440439	10	indexed_part_select	a_data		tl_i.a_data[8 * i+:8]	tlul_adapter_sram.sv	163	57	163	70		0			tl_i.a_data[8 * i+:8]	000
+  #440440	11	operation				tlul_adapter_sram.sv	163	64	163	67		0				000
+> #440441	12	ref_obj	i		work@top_earlgrey.u_tl_adapter_rom.tl_i.a_data[8 * i+:8].a_data.i	tlul_adapter_sram.sv	163	66	163	67		0			work@top_earlgrey.u_tl_adapter_rom.tl_i.a_data[8 * i+:8].a_data.i	000
+  #440442	9	constant				tlul_adapter_sram.sv	163	74	163	76	'0	32	BIN:0	3		000
+  #440443	8	indexed_part_select	wdata_o	wdata_o	work@top_earlgrey.u_tl_adapter_rom.wdata_o	tlul_adapter_sram.sv	163	7	163	22		0			work@top_earlgrey.u_tl_adapter_rom.wdata_o	000
+  #440444	9	operation				tlul_adapter_sram.sv	163	15	163	18		0				000
+  #440445	10	ref_obj	i		work@top_earlgrey.u_tl_adapter_rom.wdata_o.i	tlul_adapter_sram.sv	163	17	163	18		0			work@top_earlgrey.u_tl_adapter_rom.wdata_o.i	000
+  #440446	7	assignment				tlul_adapter_sram.sv	165	7	165	45						000
+  #440447	8	operation				tlul_adapter_sram.sv	165	23	165	45		0				000
+
+--- OURS (B) records 440260..440272 ('>' = the object)
+  #440260	12	ref_obj	i		work@top_earlgrey.u_tl_adapter_rom.tl_i.a_mask[i].i	tlul_adapter_sram.sv	163	38	163	39		0			work@top_earlgrey.u_tl_adapter_rom.tl_i.a_mask[i].i	000
+  #440261	10	ref_obj	we_o		work@top_earlgrey.u_tl_adapter_rom.we_o	tlul_adapter_sram.sv	163	44	163	48		0			work@top_earlgrey.u_tl_adapter_rom.we_o	000
+  #440262	9	hier_path	tl_i.a_data[8 * i+:8]			tlul_adapter_sram.sv	163	52	163	71		0				000
+  #440263	10	ref_obj	tl_i			tlul_adapter_sram.sv	163	52	163	56		0				000
+  #440264	10	indexed_part_select	a_data		tl_i.a_data[8 * i+:8]	tlul_adapter_sram.sv	163	57	163	70		0			tl_i.a_data[8 * i+:8]	000
+  #440265	11	operation				tlul_adapter_sram.sv	163	64	163	67		0				000
+> #440266	12	ref_obj	i		work@tlul_adapter_sram.i	tlul_adapter_sram.sv	163	66	163	67		0			work@tlul_adapter_sram.i	000
+  #440267	9	constant				tlul_adapter_sram.sv	163	74	163	76	'0	32	BIN:0	3		000
+  #440268	8	indexed_part_select	wdata_o	wdata_o	work@top_earlgrey.u_tl_adapter_rom.wdata_o	tlul_adapter_sram.sv	163	7	163	22		0			work@top_earlgrey.u_tl_adapter_rom.wdata_o	000
+  #440269	9	operation				tlul_adapter_sram.sv	163	15	163	18		0				000
+  #440270	10	ref_obj	i		work@top_earlgrey.u_tl_adapter_rom.wdata_o.i	tlul_adapter_sram.sv	163	17	163	18		0			work@top_earlgrey.u_tl_adapter_rom.wdata_o.i	000
+  #440271	7	assignment				tlul_adapter_sram.sv	165	7	165	45						000
+  #440272	8	operation				tlul_adapter_sram.sv	165	23	165	45		0				000
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

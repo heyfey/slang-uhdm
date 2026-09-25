@@ -1,0 +1,13 @@
+# byteverify (tools/probe/r11v75repro/byteverify.sh, SELFCHECK=1): share sweep /tmp/r11u150_swS vs this map's pristine sweep /tmp/r11u150_swP (same-length workdirs)
+== surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+default/MiniAmiq default/SeqDriver testflags/MiniAmiq testflags/SeqDriver 4 
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+default/func_local_array default/FunctionParam default/LocalParamInNestedForLoops default/SelectGivenBySelectOnParameterInFunction default/simple_package default/SumOfParametersInNestedForLoops testflags/func_local_array testflags/FunctionParam testflags/LocalParamInNestedForLoops testflags/SelectGivenBySelectOnParameterInFunction testflags/simple_package testflags/SumOfParametersInNestedForLoops 12 
+surelog movers = the UVM order coin (MiniAmiq d/t, SeqDriver d/t); uhdm2rtlil movers = exactly r11u148share's 12 (E: FunctionParam, SelectGivenBy..., func_local_array; E2: SumOfParameters..., LocalParamInNestedForLoops; I: simple_package; both modes)
+probe: the two sweeps ran from different worktrees (/tmp/wt_r11u150share vs /tmp/wt_r11u150, different path lengths), so probe databases differ by the embedded source path on every case; the probe comparison is the strict verdict: 2 conversions + 1 change (share_sweep_summary.txt)

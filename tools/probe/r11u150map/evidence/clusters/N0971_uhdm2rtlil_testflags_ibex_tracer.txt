@@ -1,0 +1,64 @@
+cluster N0971 (map 5 id kept; OPEN): fullname|ref_typespec|tok:->id.|under:logic_typespec
+row: uhdm2rtlil/testflags/ibex_tracer  strict=differ:fullname(587)  records golden=35832 ours=35832
+object: #4420 (golden) / #4420 (ours)  type=ref_typespec name= STABLE
+  golden: ibex_tracer_pkg::lfsr_seed_t
+  ours:   ibex_tracer_pkg::RndCnstLfsrSeedDefault.lfsr_seed_t
+  walk parents: logic_typespec(lfsr_seed_t) < ref_typespec < constant < param_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 4414..4426 ('>' = the object)
+  #4414	4	ref_typespec			ibex_tracer_pkg::LfsrWidth		0	0	0	0		0			ibex_tracer_pkg::LfsrWidth	000
+  #4415	5	int_typespec				ibex_pkg.sv	719	13	719	16						000
+  #4416	2	param_assign				ibex_pkg.sv	722	25	722	62						000
+  #4417	3	constant				ibex_pkg.sv	722	50	722	62	32'hac533bf4	32	HEX:ac533bf4	5		000
+  #4418	4	ref_typespec			ibex_tracer_pkg		0	0	0	0		0			ibex_tracer_pkg	000
+  #4419	5	logic_typespec	lfsr_seed_t			ibex_pkg.sv	720	11	720	32						110
+> #4420	6	ref_typespec			<in>lfsr_seed_t		0	0	0	0		0			ibex_tracer_pkg::lfsr_seed_t	001
+  #4421	7	logic_typespec	lfsr_seed_t			ibex_pkg.sv	720	11	720	32						001
+  #4422	8	range				ibex_pkg.sv	720	17	720	32						001
+  #4423	9	constant				ibex_pkg.sv	720	18	720	27	31	64	INT:31	7		001
+  #4424	9	constant				ibex_pkg.sv	720	30	720	31	0	64	UINT:0	9		001
+  #4425	6	range				ibex_pkg.sv	720	17	720	32						001
+  #4426	7	constant				ibex_pkg.sv	720	18	720	27	31	64	INT:31	7		001
+
+--- OURS (B) records 4414..4426 ('>' = the object)
+  #4414	4	ref_typespec			ibex_tracer_pkg::LfsrWidth		0	0	0	0		0			ibex_tracer_pkg::LfsrWidth	000
+  #4415	5	int_typespec				ibex_pkg.sv	719	13	719	16						000
+  #4416	2	param_assign				ibex_pkg.sv	722	25	722	62						000
+  #4417	3	constant				ibex_pkg.sv	722	50	722	62	32'hac533bf4	32	HEX:ac533bf4	5		000
+  #4418	4	ref_typespec			ibex_tracer_pkg		0	0	0	0		0			ibex_tracer_pkg	000
+  #4419	5	logic_typespec	lfsr_seed_t			ibex_pkg.sv	720	11	720	32						110
+> #4420	6	ref_typespec			<in>lfsr_seed_t		0	0	0	0		0			ibex_tracer_pkg::RndCnstLfsrSeedDefault.lfsr_seed_t	001
+  #4421	7	logic_typespec	lfsr_seed_t			ibex_pkg.sv	720	11	720	32						001
+  #4422	8	range				ibex_pkg.sv	720	17	720	32						001
+  #4423	9	constant				ibex_pkg.sv	720	18	720	27	31	64	INT:31	7		001
+  #4424	9	constant				ibex_pkg.sv	720	30	720	31	0	64	UINT:0	9		001
+  #4425	6	range				ibex_pkg.sv	720	17	720	32						001
+  #4426	7	constant				ibex_pkg.sv	720	18	720	27	31	64	INT:31	7		001
+
+facets of this row (587, first 25):
+  N0563 #2072/2072 ref_typespec  G[ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2075/2075 ref_typespec  G[ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2078/2078 ref_typespec  G[ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2087/2087 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallMMode::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseEcallMMode.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2090/2090 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallMMode::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseEcallMMode.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2093/2093 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallMMode::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseEcallMMode.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2102/2102 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallUMode::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseEcallUMode.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2105/2105 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallUMode::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseEcallUMode.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2108/2108 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallUMode::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseEcallUMode.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2117/2117 ref_typespec  G[ibex_tracer_pkg::ExcCauseIllegalInsn::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseIllegalInsn.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2120/2120 ref_typespec  G[ibex_tracer_pkg::ExcCauseIllegalInsn::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseIllegalInsn.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2123/2123 ref_typespec  G[ibex_tracer_pkg::ExcCauseIllegalInsn::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseIllegalInsn.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2132/2132 ref_typespec  G[ibex_tracer_pkg::ExcCauseInsnAddrMisa::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseInsnAddrMisa.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2135/2135 ref_typespec  G[ibex_tracer_pkg::ExcCauseInsnAddrMisa::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseInsnAddrMisa.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2138/2138 ref_typespec  G[ibex_tracer_pkg::ExcCauseInsnAddrMisa::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseInsnAddrMisa.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2147/2147 ref_typespec  G[ibex_tracer_pkg::ExcCauseInstrAccessFault::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseInstrAccessFault.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2150/2150 ref_typespec  G[ibex_tracer_pkg::ExcCauseInstrAccessFault::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseInstrAccessFault.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2153/2153 ref_typespec  G[ibex_tracer_pkg::ExcCauseInstrAccessFault::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseInstrAccessFault.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2162/2162 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqExternalM::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseIrqExternalM.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2165/2165 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqExternalM::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseIrqExternalM.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2168/2168 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqExternalM::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseIrqExternalM.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2177/2177 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqNm::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseIrqNm.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2180/2180 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqNm::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseIrqNm.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2183/2183 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqNm::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseIrqNm.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2192/2192 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqSoftwareM::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseIrqSoftwareM.ibex_pkg::exc_cause_t.irq_int]

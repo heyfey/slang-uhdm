@@ -1,0 +1,64 @@
+cluster N0549 (map 5 id kept; OPEN): fullname|ref_typespec|tok:->.id[n].id|under:constant
+row: uhdm2rtlil/testflags/ibex_icache  strict=differ:fullname(200)  records golden=20047 ours=20047
+object: #15601 (golden) / #15601 (ours)  type=ref_typespec name= OUT
+  golden: work@ibex_icache
+  ours:   work@ibex_icache.gen_fbs[0].lookup_addr_ic0
+  walk parents: constant < part_select(lookup_addr_ic0) < operation < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 15595..15607 ('>' = the object)
+  #15595	8	operation				ibex_icache.sv	803	73	803	84		0				000
+  #15596	9	constant				ibex_icache.sv	803	73	803	82	3	32	UINT:3	9		000
+  #15597	10	ref_typespec			work@ibex_icache.gen_fbs[0].lookup_addr_ic0		0	0	0	0		0			work@ibex_icache.gen_fbs[0].lookup_addr_ic0	000
+  #15598	11	int_typespec				ibex_pkg.sv	390	13	390	25						000
+  #15599	9	constant				ibex_icache.sv	803	83	803	84	1	64	UINT:1	9		000
+  #15600	8	constant				ibex_icache.sv	803	85	803	90	2	32	UINT:2	9		000
+> #15601	9	ref_typespec			work@ibex_icache		0	0	0	0		0			work@ibex_icache	000
+  #15602	10	int_typespec				ibex_pkg.sv	385	13	385	25						000
+  #15603	6	operation				ibex_icache.sv	804	52	805	96		0				000
+  #15604	7	bit_select	fill_out_cnt_q		work@ibex_icache.gen_fbs[0].fill_out_cnt_q	ibex_icache.sv	804	67	804	69		0			work@ibex_icache.gen_fbs[0].fill_out_cnt_q	000
+  #15605	8	ref_obj	fb		work@ibex_icache.gen_fbs[0].fb	ibex_icache.sv	804	67	804	69		0			work@ibex_icache.gen_fbs[0].fb	000
+  #15606	7	operation				ibex_icache.sv	805	52	805	96		0				000
+  #15607	8	operation				ibex_icache.sv	805	53	805	76		0				000
+
+--- OURS (B) records 15595..15607 ('>' = the object)
+  #15595	8	operation				ibex_icache.sv	803	73	803	84		0				000
+  #15596	9	constant				ibex_icache.sv	803	73	803	82	3	32	UINT:3	9		000
+  #15597	10	ref_typespec			work@ibex_icache.gen_fbs[0].lookup_addr_ic0		0	0	0	0		0			work@ibex_icache.gen_fbs[0].lookup_addr_ic0	000
+  #15598	11	int_typespec				ibex_pkg.sv	390	13	390	25						000
+  #15599	9	constant				ibex_icache.sv	803	83	803	84	1	64	UINT:1	9		000
+  #15600	8	constant				ibex_icache.sv	803	85	803	90	2	32	UINT:2	9		000
+> #15601	9	ref_typespec			work@ibex_icache.gen_fbs[0].lookup_addr_ic0		0	0	0	0		0			work@ibex_icache.gen_fbs[0].lookup_addr_ic0	000
+  #15602	10	int_typespec				ibex_pkg.sv	385	13	385	25						000
+  #15603	6	operation				ibex_icache.sv	804	52	805	96		0				000
+  #15604	7	bit_select	fill_out_cnt_q		work@ibex_icache.gen_fbs[0].fill_out_cnt_q	ibex_icache.sv	804	67	804	69		0			work@ibex_icache.gen_fbs[0].fill_out_cnt_q	000
+  #15605	8	ref_obj	fb		work@ibex_icache.gen_fbs[0].fb	ibex_icache.sv	804	67	804	69		0			work@ibex_icache.gen_fbs[0].fb	000
+  #15606	7	operation				ibex_icache.sv	805	52	805	96		0				000
+  #15607	8	operation				ibex_icache.sv	805	53	805	76		0				000
+
+facets of this row (200, first 25):
+  N0008 #2446/2446 ref_typespec  G[] O[ibex_pkg::PmpAddrRst]
+  N0027 #7556/7556 sys_func_call $error G[29:3:33:24] O[32:3:33:18]
+  N0026 #7557/7557 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #7558/7558 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #7559/7559 constant  G[29:60:29:147] O[32:92:33:56]
+  N0015 #7560/7560 constant  G[29:149:29:153] O[32:92:32:96]
+  N0017 #7561/7561 constant  G[33:10:33:23] O[33:10:23:5]
+  N0027 #7567/7567 sys_func_call $error G[29:3:33:28] O[32:3:33:18]
+  N0026 #7568/7568 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #7569/7569 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #7570/7570 constant  G[29:60:29:147] O[32:92:33:56]
+  N0015 #7571/7571 constant  G[29:149:29:153] O[32:92:32:96]
+  N0017 #7572/7572 constant  G[33:10:33:27] O[33:10:23:9]
+  N0415 #7939/7939 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.fill_addr_q.fill_addr_q]
+  N0996 #8346/8346 initial  G[20:3:28:6] O[23:3:28:6]
+  N0994 #8347/8347 begin  G[20:11:28:6] O[23:11:28:6]
+  N0995 #8348/8348 immediate_assert size_param_legal G[21:5:27:10] O[24:5:27:10]
+  N0998 #8349/8349 operation  G[21:32:21:49] O[24:32:24:49]
+  N0079 #8350/8350 constant  G[21:32:21:44] O[24:32:24:44]
+  N0079 #8353/8353 constant  G[21:47:21:49] O[24:47:24:49]
+  N0993 #8354/8354 begin  G[22:12:27:10] O[25:12:27:10]
+  N0027 #8355/8355 sys_func_call $error G[29:3:33:29] O[32:3:33:18]
+  N0026 #8356/8356 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #8357/8357 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #8358/8358 constant  G[29:60:29:147] O[32:92:33:56]

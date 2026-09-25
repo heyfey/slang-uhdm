@@ -1,0 +1,29 @@
+# r11u150 verification log
+## frozen binaries (chmod 555; /tmp/r11u150_bin)
+82be8e819d67948b41f0cbf0a904f216  objrank
+134fb0c36f027328611ae600c56123c5  slang-uhdm
+79394079bc66395744ff75b6dae88e0f  slang-uhdm.g1
+8b8675cc0dae6e36c860d75f70ce56d5  slang-uhdm.share
+db96066ac072748e8d5b05cf675242f8  strictcmp_x
+5d4617d0458f34aa79e0b91009d5d1fc  uhdm-strictcmp
+main tree build/slang-uhdm (98aa49db) md5: 134fb0c36f027328611ae600c56123c5 = worktree build/slang-uhdm 134fb0c36f027328611ae600c56123c5
+## reference sweep /tmp/intr11u149 (READ-ONLY)
+slang: lines in cmds.txt (surelog + uhdm2rtlil):
+   3273 /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm
+binary built 2026-09-24 20:47:14 (/tmp/intr11u149_build.log, md5 134fb0c36f02); every .uhdm of the sweep written 20:47:51 .. 20:52:27 (after the build)
+status+strict columns vs results/golden_*.csv: surelog 1596/1596, uhdm2rtlil 1742/1742, probe 4087/4087 rows equal
+## re-run with the frozen pristine binary (evidence/controls/rerun.txt)
+uhdm2rtlil/default/sva_range rc 0 byte-identical 11537
+surelog/testflags/TypeParam rc 0 byte-identical 6974
+surelog/default/ComplexHierPath rc 0 byte-identical 12236
+uhdm2rtlil/testflags/FunctionParam rc 0 byte-identical 4661
+## variant comparator vs committed tool (40 sampled STRICT_NOTEQUAL row-modes, stdout + rc)
+variant vs committed: ok=40 bad=0
+## analyzer mode-4 rule vs tool stdout
+verify (python mode-4 rule vs tool stdout, per row): {True: 2139}
+## share sweep /tmp/r11u150_swS (evidence/share_sweep_summary.txt)
+   3273 /tmp/r11u150_bin/slang-uhdm.share
+probe: regressions=0 conversions=2 changes=1; surelog: regressions=0 conversions=0 changes=0; uhdm2rtlil: regressions=0 conversions=10 changes=2 (sweep rc=1: law index STALE from the patched src + the conversions)
+## pins (pinmulti at 98aa49db, the g1 build)
+clusters wanted: 89; pinned 84: db=SAME 76, db=DIFF 8 (UVM order coin rows: surelog/default/MiniAmiq surelog/default/Scoreboard ); no partner record (keep map 5's site): N0194 N0478 N0488 N0142 N1098 
+89 {'new-same-mint': 64, 'new-differs': 4, 'new': 8, 'map5-coin': 8}

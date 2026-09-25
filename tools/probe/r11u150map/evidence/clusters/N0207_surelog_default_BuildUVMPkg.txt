@@ -1,0 +1,64 @@
+cluster N0207 (map 5 id kept; OPEN): fullname|ref_obj|tok:::->.|under:sys_func_call
+row: surelog/default/BuildUVMPkg  strict=differ:line(174)  records golden=201533 ours=201486
+object: #58486 (golden) / #58483 (ours)  type=ref_obj name=uvm_reg_data_t OUT
+  golden: uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t
+  ours:   uvm_pkg::uvm_reg_block::check_data_width.uvm_reg_data_t
+  walk parents: sys_func_call($bits) < operation < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 58480..58492 ('>' = the object)
+  #58480	5	int_typespec				uvm_pkg.sv	78221	46	78221	49						000
+  #58481	3	begin			uvm_pkg::uvm_reg_block::check_data_width	uvm_pkg.sv	78225	4	78228	7					uvm_pkg::uvm_reg_block::check_data_width	000
+  #58482	4	if_stmt				uvm_pkg.sv	78222	4	78222	49						000
+  #58483	5	operation				uvm_pkg.sv	78222	8	78222	38		0				000
+  #58484	6	ref_obj	width		uvm_pkg::uvm_reg_block::check_data_width::width	uvm_pkg.sv	78222	8	78222	13		0			uvm_pkg::uvm_reg_block::check_data_width::width	000
+  #58485	6	sys_func_call	$bits			uvm_pkg.sv	78222	17	78222	38		0				000
+> #58486	7	ref_obj	uvm_reg_data_t		uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t	uvm_pkg.sv	78222	23	78222	37		0			uvm_pkg::uvm_reg_block::check_data_width::uvm_reg_data_t	000
+  #58487	5	return_stmt				uvm_pkg.sv	78222	40	78222	46						000
+  #58488	6	constant				uvm_pkg.sv	78222	47	78222	48	1	64	UINT:1	9		000
+  #58489	4	begin			uvm_pkg::uvm_reg_block::check_data_width	uvm_pkg.sv	78225	4	78228	7					uvm_pkg::uvm_reg_block::check_data_width	000
+  #58490	5	if_stmt				uvm_pkg.sv	78226	6	78227	269						000
+  #58491	6	func_call	uvm_report_enabled			uvm_pkg.sv	78226	10	78226	59		0				000
+  #58492	7	ref_obj	UVM_NONE		uvm_pkg::uvm_reg_block::check_data_width::UVM_NONE	uvm_pkg.sv	78226	29	78226	37		0			uvm_pkg::uvm_reg_block::check_data_width::UVM_NONE	000
+
+--- OURS (B) records 58477..58489 ('>' = the object)
+  #58477	5	int_typespec				uvm_pkg.sv	78221	46	78221	49						000
+  #58478	3	begin			uvm_pkg::uvm_reg_block::check_data_width	uvm_pkg.sv	78225	4	78228	7					uvm_pkg::uvm_reg_block::check_data_width	000
+  #58479	4	if_stmt				uvm_pkg.sv	78222	4	78222	49						000
+  #58480	5	operation				uvm_pkg.sv	78222	8	78222	38		0				000
+  #58481	6	ref_obj	width		uvm_pkg::uvm_reg_block::check_data_width::width	uvm_pkg.sv	78222	8	78222	13		0			uvm_pkg::uvm_reg_block::check_data_width::width	000
+  #58482	6	sys_func_call	$bits			uvm_pkg.sv	78222	17	78222	38		0				000
+> #58483	7	ref_obj	uvm_reg_data_t		uvm_pkg::uvm_reg_block::check_data_width.uvm_reg_data_t	uvm_pkg.sv	78222	23	78222	37		0			uvm_pkg::uvm_reg_block::check_data_width.uvm_reg_data_t	000
+  #58484	5	return_stmt				uvm_pkg.sv	78222	40	78222	46						000
+  #58485	6	constant				uvm_pkg.sv	78222	47	78222	48	1	64	UINT:1	9		000
+  #58486	4	begin			uvm_pkg::uvm_reg_block::check_data_width	uvm_pkg.sv	78225	4	78228	7					uvm_pkg::uvm_reg_block::check_data_width	000
+  #58487	5	if_stmt				uvm_pkg.sv	78226	6	78227	269						000
+  #58488	6	func_call	uvm_report_enabled			uvm_pkg.sv	78226	10	78226	59		0				000
+  #58489	7	ref_obj	UVM_NONE		uvm_pkg::uvm_reg_block::check_data_width::UVM_NONE	uvm_pkg.sv	78226	29	78226	37		0			uvm_pkg::uvm_reg_block::check_data_width::UVM_NONE	000
+
+facets of this row (9401, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

@@ -1,0 +1,64 @@
+cluster N1472 (map 5 id kept; OPEN): fullname|ref_obj|tok:id[id + n].id.id.->|under:operation
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1755)  records golden=1342584 ours=1342618
+object: #398076 (golden) / #398036 (ours)  type=ref_obj name=i OUT
+  golden: work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.pmp_cfg[i + 1].mode.pmp_cfg.i
+  ours:   work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.i
+  walk parents: operation < bit_select(pmp_cfg) < hier_path(pmp_cfg[i + 1].mode) < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 398070..398082 ('>' = the object)
+  #398070	18	ref_obj	i		work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.pmp_cfg[i].lock.i	ibex_cs_registers.sv	827	55	827	56		0			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.pmp_cfg[i].lock.i	000
+  #398071	17	ref_obj	lock		work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.lock	ibex_cs_registers.sv	827	58	827	62		0			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.lock	000
+  #398072	14	operation				ibex_cs_registers.sv	828	34	828	67		0				000
+  #398073	15	hier_path	pmp_cfg[i + 1].mode			ibex_cs_registers.sv	828	34	828	51		0				000
+  #398074	16	bit_select	pmp_cfg		pmp_cfg[i + 1]	ibex_cs_registers.sv	828	34	828	41		0			pmp_cfg[i + 1]	000
+  #398075	17	operation				ibex_cs_registers.sv	828	42	828	45		0				000
+> #398076	18	ref_obj	i		work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.pmp_cfg[i + 1].mode.pmp_cfg.i	ibex_cs_registers.sv	828	42	828	43		0			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.pmp_cfg[i + 1].mode.pmp_cfg.i	000
+  #398077	18	constant				ibex_cs_registers.sv	828	44	828	45	1	64	UINT:1	9		000
+  #398078	16	ref_obj	mode		work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.mode	ibex_cs_registers.sv	828	47	828	51		0			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.mode	000
+  #398079	15	ref_obj	PMP_MODE_TOR		work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.PMP_MODE_TOR	ibex_cs_registers.sv	828	55	828	67		0			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.PMP_MODE_TOR	000
+  #398080	16	enum_const	PMP_MODE_TOR			ibex_pkg.sv	297	3	297	25						010
+  #398081	13	operation				ibex_cs_registers.sv	829	34	829	74		0				000
+  #398082	14	ref_obj	csr_addr		work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.csr_addr	ibex_cs_registers.sv	829	34	829	42		0			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.csr_addr	000
+
+--- OURS (B) records 398030..398042 ('>' = the object)
+  #398030	18	ref_obj	i		work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.pmp_cfg[i].lock.i	ibex_cs_registers.sv	827	55	827	56		0			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.pmp_cfg[i].lock.i	000
+  #398031	17	ref_obj	lock		work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.lock	ibex_cs_registers.sv	827	58	827	62		0			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.lock	000
+  #398032	14	operation				ibex_cs_registers.sv	828	34	828	67		0				000
+  #398033	15	hier_path	pmp_cfg[i + 1].mode			ibex_cs_registers.sv	828	34	828	51		0				000
+  #398034	16	bit_select	pmp_cfg		pmp_cfg[i + 1]	ibex_cs_registers.sv	828	34	828	41		0			pmp_cfg[i + 1]	000
+  #398035	17	operation				ibex_cs_registers.sv	828	42	828	45		0				000
+> #398036	18	ref_obj	i		work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.i	ibex_cs_registers.sv	828	42	828	43		0			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.i	000
+  #398037	18	constant				ibex_cs_registers.sv	828	44	828	45	1	64	UINT:1	9		000
+  #398038	16	ref_obj	mode		work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.mode	ibex_cs_registers.sv	828	47	828	51		0			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.mode	000
+  #398039	15	ref_obj	PMP_MODE_TOR		work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.PMP_MODE_TOR	ibex_cs_registers.sv	828	55	828	67		0			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.PMP_MODE_TOR	000
+  #398040	16	enum_const	PMP_MODE_TOR			ibex_pkg.sv	297	3	297	25						010
+  #398041	13	operation				ibex_cs_registers.sv	829	34	829	74		0				000
+  #398042	14	ref_obj	csr_addr		work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.csr_addr	ibex_cs_registers.sv	829	34	829	42		0			work@top_earlgrey.u_rv_core_ibex.u_core.cs_registers_i.g_pmp_registers.g_pmp_csrs[0].g_lower.csr_addr	000
+
+facets of this row (19792, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

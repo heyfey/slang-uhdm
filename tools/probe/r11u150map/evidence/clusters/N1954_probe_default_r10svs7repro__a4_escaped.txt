@@ -1,0 +1,44 @@
+cluster N1954 (map 5 id kept; OPEN): span|ref_obj|endcol|under:assignment
+row: probe/default/r10svs7repro__a4_escaped  strict=endline  records golden=29 ours=29
+object: #12 (golden) / #12 (ours)  type=ref_obj name=esc_h7 
+  golden: 33:7:33:20
+  ours:   33:7:33:19
+  walk parents: assignment < function(new) < class_defn(esc_cls) < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 6..18 ('>' = the object)
+  #6	3	function	new		work@a4::esc_cls::new	dut.sv	32	5	34	22					work@a4::esc_cls::new	000
+  #7	4	class_var			work@a4::esc_cls::new		0	0	0	0		0			work@a4::esc_cls::new	000
+  #8	5	ref_typespec			work@a4::esc_cls::new		0	0	0	0		0			work@a4::esc_cls::new	000
+  #9	6	class_typespec					0	0	0	0						000
+  #10	4	assignment				dut.sv	33	7	33	27						000
+  #11	5	method_func_call	new				0	0	0	0		0				000
+> #12	5	ref_obj	esc_h7		work@a4::esc_cls::new::esc_h7	dut.sv	33	7	33	20		0			work@a4::esc_cls::new::esc_h7	000
+  #13	2	class_defn	esc_cov		work@a4::esc_cov	dut.sv	20	3	28	11					work@a4::esc_cov	000
+  #14	3	int_var	p		work@a4::esc_cov::p	dut.sv	21	9	21	10		0			work@a4::esc_cov::p	000
+  #15	4	ref_typespec			work@a4::esc_cov::p		0	0	0	0		0			work@a4::esc_cov::p	000
+  #16	5	int_typespec				dut.sv	21	5	21	8						000
+  #17	3	function	new		work@a4::esc_cov::new	dut.sv	25	5	27	22					work@a4::esc_cov::new	000
+  #18	4	class_var			work@a4::esc_cov::new		0	0	0	0		0			work@a4::esc_cov::new	000
+
+--- OURS (B) records 6..18 ('>' = the object)
+  #6	3	function	new		work@a4::esc_cls::new	dut.sv	32	5	34	22					work@a4::esc_cls::new	000
+  #7	4	class_var			work@a4::esc_cls::new		0	0	0	0		0			work@a4::esc_cls::new	000
+  #8	5	ref_typespec			work@a4::esc_cls::new		0	0	0	0		0			work@a4::esc_cls::new	000
+  #9	6	class_typespec					0	0	0	0						000
+  #10	4	assignment				dut.sv	33	7	33	23						000
+  #11	5	method_func_call	new				0	0	0	0		0				000
+> #12	5	ref_obj	esc_h7		work@a4::esc_cls::new::esc_h7	dut.sv	33	7	33	19		0			work@a4::esc_cls::new::esc_h7	000
+  #13	2	class_defn	esc_cov		work@a4::esc_cov	dut.sv	20	3	28	11					work@a4::esc_cov	000
+  #14	3	int_var	p		work@a4::esc_cov::p	dut.sv	21	9	21	10		0			work@a4::esc_cov::p	000
+  #15	4	ref_typespec			work@a4::esc_cov::p		0	0	0	0		0			work@a4::esc_cov::p	000
+  #16	5	int_typespec				dut.sv	21	5	21	8						000
+  #17	3	function	new		work@a4::esc_cov::new	dut.sv	25	5	27	22					work@a4::esc_cov::new	000
+  #18	4	class_var			work@a4::esc_cov::new		0	0	0	0		0			work@a4::esc_cov::new	000
+
+facets of this row (5, first 25):
+  N2020 #3/3 class_var esc_h7 G[31:10:31:22] O[31:10:32:3]
+  N2255 #10/10 assignment  G[33:7:33:27] O[33:7:33:23]
+  N1954 #12/12 ref_obj esc_h7 G[33:7:33:20] O[33:7:33:19]
+  N2255 #21/21 assignment  G[26:7:26:28] O[26:7:26:24]
+  N1954 #23/23 ref_obj esc_cg7 G[26:7:26:21] O[26:7:26:20]
