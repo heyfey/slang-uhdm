@@ -1,0 +1,888 @@
+at/n01_attr_value_static_task plain ON slrc=0 rc=0 cmp=0 ob=0 md5=317acb157bf9 | STRICT_EQUAL 7 objects
+at/n01_attr_value_static_task plain OFF slrc=0 rc=0 cmp=0 ob=2 md5=8a2c04940f9a | STRICT_NOTEQUAL endline
+at/n01_attr_value_static_task plain OWN slrc=0 rc=0 cmp=0 ob=2 md5=11f8389eca87 | STRICT_NOTEQUAL col
+at/n01_attr_value_static_task elab ON slrc=0 rc=0 cmp=0 ob=0 md5=bfd9077a0af1 | STRICT_EQUAL 7 objects
+at/n01_attr_value_static_task elab OFF slrc=0 rc=0 cmp=0 ob=2 md5=c4b42bae2f56 | STRICT_NOTEQUAL endline
+at/n01_attr_value_static_task elab OWN slrc=0 rc=0 cmp=0 ob=2 md5=b1145a0a65e4 | STRICT_NOTEQUAL col
+at/n02_attr_extern plain ON slrc=0 rc=0 cmp=0 ob=8 md5=9d59fcb63633 | STRICT_NOTEQUAL line
+at/n02_attr_extern plain OFF slrc=0 rc=0 cmp=0 ob=8 md5=9d59fcb63633 | STRICT_NOTEQUAL line
+at/n02_attr_extern plain OWN slrc=0 rc=0 cmp=0 ob=8 md5=9d59fcb63633 | STRICT_NOTEQUAL line
+at/n02_attr_extern elab ON slrc=0 rc=0 cmp=0 ob=10 md5=a8bdd21266cf | STRICT_NOTEQUAL line
+at/n02_attr_extern elab OFF slrc=0 rc=0 cmp=0 ob=10 md5=a8bdd21266cf | STRICT_NOTEQUAL line
+at/n02_attr_extern elab OWN slrc=0 rc=0 cmp=0 ob=10 md5=a8bdd21266cf | STRICT_NOTEQUAL line
+at/n03_attr_protected_func plain ON slrc=0 rc=0 cmp=0 ob=0 md5=97c12ac75909 | STRICT_EQUAL 10 objects
+at/n03_attr_protected_func plain OFF slrc=0 rc=0 cmp=0 ob=0 md5=97c12ac75909 | STRICT_EQUAL 10 objects
+at/n03_attr_protected_func plain OWN slrc=0 rc=0 cmp=0 ob=0 md5=97c12ac75909 | STRICT_EQUAL 10 objects
+at/n03_attr_protected_func elab ON slrc=0 rc=0 cmp=0 ob=0 md5=27b222c817eb | STRICT_EQUAL 17 objects
+at/n03_attr_protected_func elab OFF slrc=0 rc=0 cmp=0 ob=0 md5=27b222c817eb | STRICT_EQUAL 17 objects
+at/n03_attr_protected_func elab OWN slrc=0 rc=0 cmp=0 ob=0 md5=27b222c817eb | STRICT_EQUAL 17 objects
+dfl/n01_expr_value plain ON slrc=0 rc=0 cmp=112 ob=121 md5=be008300e589 | NOT_EQUAL stage1
+dfl/n01_expr_value plain OFF slrc=0 rc=0 cmp=136 ob=133 md5=3e19d3c12d6e | NOT_EQUAL stage1
+dfl/n01_expr_value plain OWN slrc=0 rc=0 cmp=136 ob=133 md5=3e19d3c12d6e | NOT_EQUAL stage1
+dfl/n01_expr_value elab ON slrc=0 rc=0 cmp=112 ob=105 md5=1e8bb893f2a8 | NOT_EQUAL stage1
+dfl/n01_expr_value elab OFF slrc=0 rc=0 cmp=136 ob=117 md5=05b5cbed45f5 | NOT_EQUAL stage1
+dfl/n01_expr_value elab OWN slrc=0 rc=0 cmp=136 ob=117 md5=05b5cbed45f5 | NOT_EQUAL stage1
+dfl/n02_ascending plain ON slrc=0 rc=0 cmp=112 ob=109 md5=f07d04ae68a1 | NOT_EQUAL stage1
+dfl/n02_ascending plain OFF slrc=0 rc=0 cmp=136 ob=121 md5=c5c855517df6 | NOT_EQUAL stage1
+dfl/n02_ascending plain OWN slrc=0 rc=0 cmp=136 ob=121 md5=c5c855517df6 | NOT_EQUAL stage1
+dfl/n02_ascending elab ON slrc=0 rc=0 cmp=112 ob=93 md5=bf867b00d865 | NOT_EQUAL stage1
+dfl/n02_ascending elab OFF slrc=0 rc=0 cmp=136 ob=105 md5=372da01059ab | NOT_EQUAL stage1
+dfl/n02_ascending elab OWN slrc=0 rc=0 cmp=136 ob=105 md5=372da01059ab | NOT_EQUAL stage1
+dfl/n03_iface plain ON slrc=0 rc=0 cmp=31 ob=30 md5=6184627b70fc | NOT_EQUAL stage1
+dfl/n03_iface plain OFF slrc=0 rc=0 cmp=31 ob=38 md5=76a238cc149e | NOT_EQUAL stage1
+dfl/n03_iface plain OWN slrc=0 rc=0 cmp=31 ob=38 md5=76a238cc149e | NOT_EQUAL stage1
+dfl/n03_iface elab ON slrc=0 rc=0 cmp=0 ob=34 md5=8b1549aec9e0 | STRICT_NOTEQUAL type
+dfl/n03_iface elab OFF slrc=0 rc=0 cmp=0 ob=42 md5=4f05eb9049bc | STRICT_NOTEQUAL type
+dfl/n03_iface elab OWN slrc=0 rc=0 cmp=0 ob=42 md5=4f05eb9049bc | STRICT_NOTEQUAL type
+dfl/n04_override plain ON slrc=0 rc=0 cmp=17 ob=55 md5=93d2f9dce5b4 | NOT_EQUAL stage1
+dfl/n04_override plain OFF slrc=0 rc=0 cmp=17 ob=63 md5=f3483672bd5e | NOT_EQUAL stage1
+dfl/n04_override plain OWN slrc=0 rc=0 cmp=17 ob=63 md5=f3483672bd5e | NOT_EQUAL stage1
+dfl/n04_override elab ON slrc=0 rc=0 cmp=17 ob=68 md5=660fee4ebc47 | NOT_EQUAL stage1
+dfl/n04_override elab OFF slrc=0 rc=0 cmp=17 ob=76 md5=f4e555718d76 | NOT_EQUAL stage1
+dfl/n04_override elab OWN slrc=0 rc=0 cmp=17 ob=76 md5=f4e555718d76 | NOT_EQUAL stage1
+el/n01_inst_array plain ON slrc=0 rc=0 cmp=0 ob=0 md5=d6bb18a9cc0c | STRICT_EQUAL 119 objects
+el/n01_inst_array plain OFF slrc=0 rc=0 cmp=0 ob=0 md5=d6bb18a9cc0c | STRICT_EQUAL 119 objects
+el/n01_inst_array plain OWN slrc=0 rc=0 cmp=0 ob=0 md5=d6bb18a9cc0c | STRICT_EQUAL 119 objects
+el/n01_inst_array elab ON slrc=0 rc=0 cmp=0 ob=0 md5=6f08a4c3827b | STRICT_EQUAL 118 objects
+el/n01_inst_array elab OFF slrc=0 rc=0 cmp=0 ob=0 md5=6f08a4c3827b | STRICT_EQUAL 118 objects
+el/n01_inst_array elab OWN slrc=0 rc=0 cmp=0 ob=0 md5=6f08a4c3827b | STRICT_EQUAL 118 objects
+el/n02_nested_gen_hp plain ON slrc=0 rc=0 cmp=324 ob=86 md5=1410d171a2bc | NOT_EQUAL stage1
+el/n02_nested_gen_hp plain OFF slrc=0 rc=0 cmp=324 ob=86 md5=1410d171a2bc | NOT_EQUAL stage1
+el/n02_nested_gen_hp plain OWN slrc=0 rc=0 cmp=324 ob=86 md5=1410d171a2bc | NOT_EQUAL stage1
+el/n02_nested_gen_hp elab ON slrc=4 rc=0 cmp=364 ob=846 md5=44b9c914faac | NOT_EQUAL stage1
+el/n02_nested_gen_hp elab OFF slrc=4 rc=0 cmp=364 ob=846 md5=63bb3697f7e0 | NOT_EQUAL stage1
+el/n02_nested_gen_hp elab OWN slrc=4 rc=0 cmp=364 ob=846 md5=63bb3697f7e0 | NOT_EQUAL stage1
+el/n03_bind plain ON slrc=0 rc=0 cmp=0 ob=0 md5=55d3220e7bc3 | STRICT_EQUAL 81 objects
+el/n03_bind plain OFF slrc=0 rc=0 cmp=0 ob=0 md5=55d3220e7bc3 | STRICT_EQUAL 81 objects
+el/n03_bind plain OWN slrc=0 rc=0 cmp=0 ob=0 md5=55d3220e7bc3 | STRICT_EQUAL 81 objects
+el/n03_bind elab ON slrc=0 rc=0 cmp=0 ob=0 md5=3d0feff71019 | STRICT_EQUAL 93 objects
+el/n03_bind elab OFF slrc=0 rc=0 cmp=0 ob=0 md5=3d0feff71019 | STRICT_EQUAL 93 objects
+el/n03_bind elab OWN slrc=0 rc=0 cmp=0 ob=0 md5=3d0feff71019 | STRICT_EQUAL 93 objects
+el/n04_seq_in_gen plain ON slrc=0 rc=0 cmp=353 ob=45 md5=f1303f2c0454 | NOT_EQUAL stage1
+el/n04_seq_in_gen plain OFF slrc=0 rc=0 cmp=353 ob=45 md5=f1303f2c0454 | NOT_EQUAL stage1
+el/n04_seq_in_gen plain OWN slrc=0 rc=0 cmp=353 ob=45 md5=f1303f2c0454 | NOT_EQUAL stage1
+el/n04_seq_in_gen elab ON slrc=0 rc=0 cmp=353 ob=84 md5=5bc096101e82 | NOT_EQUAL stage1
+el/n04_seq_in_gen elab OFF slrc=0 rc=0 cmp=353 ob=84 md5=5bc096101e82 | NOT_EQUAL stage1
+el/n04_seq_in_gen elab OWN slrc=0 rc=0 cmp=353 ob=84 md5=5bc096101e82 | NOT_EQUAL stage1
+el/n05_carry_chain_hp plain ON slrc=0 rc=0 cmp=0 ob=14 md5=487429853df5 | STRICT_NOTEQUAL fullname
+el/n05_carry_chain_hp plain OFF slrc=0 rc=0 cmp=0 ob=14 md5=487429853df5 | STRICT_NOTEQUAL fullname
+el/n05_carry_chain_hp plain OWN slrc=0 rc=0 cmp=0 ob=14 md5=487429853df5 | STRICT_NOTEQUAL fullname
+el/n05_carry_chain_hp elab ON slrc=0 rc=0 cmp=0 ob=522 md5=48a9b455ff35 | STRICT_NOTEQUAL fullname
+el/n05_carry_chain_hp elab OFF slrc=0 rc=0 cmp=0 ob=534 md5=99d938d11986 | STRICT_NOTEQUAL fullname
+el/n05_carry_chain_hp elab OWN slrc=0 rc=0 cmp=0 ob=534 md5=99d938d11986 | STRICT_NOTEQUAL fullname
+el/n06_inst_array_prop plain ON slrc=0 rc=0 cmp=351 ob=42 md5=5dd16fe034d3 | NOT_EQUAL stage1
+el/n06_inst_array_prop plain OFF slrc=0 rc=0 cmp=351 ob=42 md5=5dd16fe034d3 | NOT_EQUAL stage1
+el/n06_inst_array_prop plain OWN slrc=0 rc=0 cmp=351 ob=42 md5=5dd16fe034d3 | NOT_EQUAL stage1
+el/n06_inst_array_prop elab ON slrc=0 rc=0 cmp=0 ob=38 md5=d33cd4b7ea06 | STRICT_NOTEQUAL fullname
+el/n06_inst_array_prop elab OFF slrc=0 rc=0 cmp=0 ob=38 md5=d33cd4b7ea06 | STRICT_NOTEQUAL fullname
+el/n06_inst_array_prop elab OWN slrc=0 rc=0 cmp=0 ob=38 md5=d33cd4b7ea06 | STRICT_NOTEQUAL fullname
+el/n07_bind_seq_gen plain ON slrc=0 rc=0 cmp=421 ob=45 md5=065025381089 | NOT_EQUAL stage1
+el/n07_bind_seq_gen plain OFF slrc=0 rc=0 cmp=421 ob=45 md5=065025381089 | NOT_EQUAL stage1
+el/n07_bind_seq_gen plain OWN slrc=0 rc=0 cmp=421 ob=45 md5=065025381089 | NOT_EQUAL stage1
+el/n07_bind_seq_gen elab ON slrc=0 rc=0 cmp=421 ob=84 md5=239918064cd5 | NOT_EQUAL stage1
+el/n07_bind_seq_gen elab OFF slrc=0 rc=0 cmp=421 ob=84 md5=239918064cd5 | NOT_EQUAL stage1
+el/n07_bind_seq_gen elab OWN slrc=0 rc=0 cmp=421 ob=84 md5=239918064cd5 | NOT_EQUAL stage1
+el/n08_nested_gen_member plain ON slrc=0 rc=0 cmp=0 ob=44 md5=cc04e8343927 | STRICT_NOTEQUAL endcol
+el/n08_nested_gen_member plain OFF slrc=0 rc=0 cmp=0 ob=44 md5=cc04e8343927 | STRICT_NOTEQUAL endcol
+el/n08_nested_gen_member plain OWN slrc=0 rc=0 cmp=0 ob=44 md5=cc04e8343927 | STRICT_NOTEQUAL endcol
+el/n08_nested_gen_member elab ON slrc=0 rc=0 cmp=0 ob=492 md5=08ce9ea5dd87 | STRICT_NOTEQUAL endcol
+el/n08_nested_gen_member elab OFF slrc=0 rc=0 cmp=0 ob=508 md5=c0dfabcdaf88 | STRICT_NOTEQUAL endcol
+el/n08_nested_gen_member elab OWN slrc=0 rc=0 cmp=0 ob=508 md5=c0dfabcdaf88 | STRICT_NOTEQUAL endcol
+fav/n01_iface_task plain ON slrc=0 rc=0 cmp=219 ob=34 md5=be4b8bbe9cc9 | NOT_EQUAL stage1
+fav/n01_iface_task plain OFF slrc=0 rc=0 cmp=219 ob=34 md5=be4b8bbe9cc9 | NOT_EQUAL stage1
+fav/n01_iface_task plain OWN slrc=0 rc=0 cmp=219 ob=34 md5=be4b8bbe9cc9 | NOT_EQUAL stage1
+fav/n01_iface_task elab ON slrc=0 rc=0 cmp=223 ob=36 md5=d821574f37af | NOT_EQUAL stage1
+fav/n01_iface_task elab OFF slrc=0 rc=0 cmp=223 ob=36 md5=d821574f37af | NOT_EQUAL stage1
+fav/n01_iface_task elab OWN slrc=0 rc=0 cmp=223 ob=36 md5=d821574f37af | NOT_EQUAL stage1
+fav/n02_assoc plain ON slrc=0 rc=0 cmp=0 ob=0 md5=b9edcfe13acc | STRICT_EQUAL 63 objects
+fav/n02_assoc plain OFF slrc=0 rc=0 cmp=0 ob=0 md5=b9edcfe13acc | STRICT_EQUAL 63 objects
+fav/n02_assoc plain OWN slrc=0 rc=0 cmp=0 ob=0 md5=b9edcfe13acc | STRICT_EQUAL 63 objects
+fav/n02_assoc elab ON slrc=0 rc=0 cmp=0 ob=0 md5=4f7ce016c7f1 | STRICT_EQUAL 59 objects
+fav/n02_assoc elab OFF slrc=0 rc=0 cmp=0 ob=0 md5=4f7ce016c7f1 | STRICT_EQUAL 59 objects
+fav/n02_assoc elab OWN slrc=0 rc=0 cmp=0 ob=0 md5=4f7ce016c7f1 | STRICT_EQUAL 59 objects
+fav/n03_func_dynarg plain ON slrc=0 rc=0 cmp=0 ob=2 md5=6bdf9ca594b6 | STRICT_EQUAL 86 objects
+fav/n03_func_dynarg plain OFF slrc=0 rc=0 cmp=0 ob=2 md5=c305badb4f9f | STRICT_NOTEQUAL file
+fav/n03_func_dynarg plain OWN slrc=0 rc=0 cmp=0 ob=2 md5=c305badb4f9f | STRICT_NOTEQUAL file
+fav/n03_func_dynarg elab ON slrc=0 rc=0 cmp=0 ob=2 md5=b9d6b3c7f3c3 | STRICT_EQUAL 107 objects
+fav/n03_func_dynarg elab OFF slrc=0 rc=0 cmp=0 ob=2 md5=ae6ca75c0877 | STRICT_NOTEQUAL file
+fav/n03_func_dynarg elab OWN slrc=0 rc=0 cmp=0 ob=2 md5=ae6ca75c0877 | STRICT_NOTEQUAL file
+fav/n04_class_in_module plain ON slrc=0 rc=0 cmp=0 ob=0 md5=7af8a31184be | STRICT_EQUAL 27 objects
+fav/n04_class_in_module plain OFF slrc=0 rc=0 cmp=0 ob=0 md5=1d1905570ee3 | STRICT_NOTEQUAL file
+fav/n04_class_in_module plain OWN slrc=0 rc=0 cmp=0 ob=0 md5=1d1905570ee3 | STRICT_NOTEQUAL file
+fav/n04_class_in_module elab ON slrc=0 rc=0 cmp=0 ob=40 md5=56efe8f7c179 | STRICT_EQUAL 73 objects
+fav/n04_class_in_module elab OFF slrc=0 rc=0 cmp=0 ob=40 md5=a655f76ebb68 | STRICT_NOTEQUAL file
+fav/n04_class_in_module elab OWN slrc=0 rc=0 cmp=0 ob=40 md5=a655f76ebb68 | STRICT_NOTEQUAL file
+fb/n01_func_local plain ON slrc=0 rc=0 cmp=0 ob=0 md5=cd5de85d692b | STRICT_EQUAL 145 objects
+fb/n01_func_local plain OFF slrc=0 rc=0 cmp=0 ob=0 md5=cd5de85d692b | STRICT_EQUAL 145 objects
+fb/n01_func_local plain OWN slrc=0 rc=0 cmp=0 ob=0 md5=cd5de85d692b | STRICT_EQUAL 145 objects
+fb/n01_func_local elab ON slrc=0 rc=0 cmp=0 ob=0 md5=c24a4afd8e57 | STRICT_EQUAL 152 objects
+fb/n01_func_local elab OFF slrc=0 rc=0 cmp=0 ob=0 md5=c24a4afd8e57 | STRICT_EQUAL 152 objects
+fb/n01_func_local elab OWN slrc=0 rc=0 cmp=0 ob=0 md5=c24a4afd8e57 | STRICT_EQUAL 152 objects
+fb/n02_iface_var plain ON slrc=0 rc=0 cmp=0 ob=0 md5=916ad3b0d9c3 | STRICT_EQUAL 110 objects
+fb/n02_iface_var plain OFF slrc=0 rc=0 cmp=0 ob=0 md5=916ad3b0d9c3 | STRICT_EQUAL 110 objects
+fb/n02_iface_var plain OWN slrc=0 rc=0 cmp=0 ob=0 md5=916ad3b0d9c3 | STRICT_EQUAL 110 objects
+fb/n02_iface_var elab ON slrc=0 rc=0 cmp=0 ob=0 md5=3e17dbadfc4c | STRICT_EQUAL 108 objects
+fb/n02_iface_var elab OFF slrc=0 rc=0 cmp=0 ob=0 md5=3e17dbadfc4c | STRICT_EQUAL 108 objects
+fb/n02_iface_var elab OWN slrc=0 rc=0 cmp=0 ob=0 md5=3e17dbadfc4c | STRICT_EQUAL 108 objects
+fb/n03_genif_var plain ON slrc=0 rc=0 cmp=0 ob=2 md5=a4376b012c9f | STRICT_EQUAL 93 objects
+fb/n03_genif_var plain OFF slrc=0 rc=0 cmp=0 ob=2 md5=a4376b012c9f | STRICT_EQUAL 93 objects
+fb/n03_genif_var plain OWN slrc=0 rc=0 cmp=0 ob=2 md5=a4376b012c9f | STRICT_EQUAL 93 objects
+fb/n03_genif_var elab ON slrc=0 rc=0 cmp=0 ob=66 md5=ac5a613ebf6f | STRICT_EQUAL 93 objects
+fb/n03_genif_var elab OFF slrc=0 rc=0 cmp=0 ob=66 md5=ac5a613ebf6f | STRICT_EQUAL 93 objects
+fb/n03_genif_var elab OWN slrc=0 rc=0 cmp=0 ob=66 md5=ac5a613ebf6f | STRICT_EQUAL 93 objects
+fb/n04_nonansi_port plain ON slrc=0 rc=0 cmp=0 ob=0 md5=aaa9db650b29 | STRICT_EQUAL 71 objects
+fb/n04_nonansi_port plain OFF slrc=0 rc=0 cmp=0 ob=0 md5=aaa9db650b29 | STRICT_EQUAL 71 objects
+fb/n04_nonansi_port plain OWN slrc=0 rc=0 cmp=0 ob=0 md5=aaa9db650b29 | STRICT_EQUAL 71 objects
+fb/n04_nonansi_port elab ON slrc=0 rc=0 cmp=0 ob=0 md5=f80cc475dc30 | STRICT_EQUAL 69 objects
+fb/n04_nonansi_port elab OFF slrc=0 rc=0 cmp=0 ob=0 md5=f80cc475dc30 | STRICT_EQUAL 69 objects
+fb/n04_nonansi_port elab OWN slrc=0 rc=0 cmp=0 ob=0 md5=f80cc475dc30 | STRICT_EQUAL 69 objects
+fb/n05_func_local_ident plain ON slrc=0 rc=0 cmp=0 ob=0 md5=e7d18d00aea9 | STRICT_EQUAL 120 objects
+fb/n05_func_local_ident plain OFF slrc=0 rc=0 cmp=0 ob=0 md5=e7d18d00aea9 | STRICT_EQUAL 120 objects
+fb/n05_func_local_ident plain OWN slrc=0 rc=0 cmp=0 ob=0 md5=e7d18d00aea9 | STRICT_EQUAL 120 objects
+fb/n05_func_local_ident elab ON slrc=0 rc=0 cmp=0 ob=0 md5=5d80e6f673a3 | STRICT_EQUAL 127 objects
+fb/n05_func_local_ident elab OFF slrc=0 rc=0 cmp=0 ob=0 md5=5d80e6f673a3 | STRICT_EQUAL 127 objects
+fb/n05_func_local_ident elab OWN slrc=0 rc=0 cmp=0 ob=0 md5=5d80e6f673a3 | STRICT_EQUAL 127 objects
+fb/n06_struct_member_ident plain ON slrc=0 rc=0 cmp=0 ob=0 md5=ffd006893f33 | STRICT_EQUAL 109 objects
+fb/n06_struct_member_ident plain OFF slrc=0 rc=0 cmp=0 ob=0 md5=ffd006893f33 | STRICT_EQUAL 109 objects
+fb/n06_struct_member_ident plain OWN slrc=0 rc=0 cmp=0 ob=0 md5=ffd006893f33 | STRICT_EQUAL 109 objects
+fb/n06_struct_member_ident elab ON slrc=0 rc=0 cmp=0 ob=0 md5=18f507e0b897 | STRICT_EQUAL 120 objects
+fb/n06_struct_member_ident elab OFF slrc=0 rc=0 cmp=0 ob=0 md5=18f507e0b897 | STRICT_EQUAL 120 objects
+fb/n06_struct_member_ident elab OWN slrc=0 rc=0 cmp=0 ob=0 md5=18f507e0b897 | STRICT_EQUAL 120 objects
+fb/n07_nonansi_port_ident plain ON slrc=0 rc=0 cmp=15 ob=8 md5=3c292d3f877e | NOT_EQUAL stage1
+fb/n07_nonansi_port_ident plain OFF slrc=0 rc=0 cmp=15 ob=8 md5=3c292d3f877e | NOT_EQUAL stage1
+fb/n07_nonansi_port_ident plain OWN slrc=0 rc=0 cmp=15 ob=8 md5=3c292d3f877e | NOT_EQUAL stage1
+fb/n07_nonansi_port_ident elab ON slrc=0 rc=0 cmp=15 ob=8 md5=9ab93d6a0f46 | NOT_EQUAL stage1
+fb/n07_nonansi_port_ident elab OFF slrc=0 rc=0 cmp=15 ob=8 md5=9ab93d6a0f46 | NOT_EQUAL stage1
+fb/n07_nonansi_port_ident elab OWN slrc=0 rc=0 cmp=15 ob=8 md5=9ab93d6a0f46 | NOT_EQUAL stage1
+fb/n08_iface_ident plain ON slrc=0 rc=0 cmp=17 ob=9 md5=59bb5e0d5853 | NOT_EQUAL stage1
+fb/n08_iface_ident plain OFF slrc=0 rc=0 cmp=17 ob=9 md5=59bb5e0d5853 | NOT_EQUAL stage1
+fb/n08_iface_ident plain OWN slrc=0 rc=0 cmp=17 ob=9 md5=59bb5e0d5853 | NOT_EQUAL stage1
+fb/n08_iface_ident elab ON slrc=0 rc=0 cmp=17 ob=9 md5=c7ed77dd6a0c | NOT_EQUAL stage1
+fb/n08_iface_ident elab OFF slrc=0 rc=0 cmp=17 ob=9 md5=c7ed77dd6a0c | NOT_EQUAL stage1
+fb/n08_iface_ident elab OWN slrc=0 rc=0 cmp=17 ob=9 md5=c7ed77dd6a0c | NOT_EQUAL stage1
+fb/n09_genfor_ident plain ON slrc=0 rc=0 cmp=0 ob=16 md5=c40b2de99225 | STRICT_NOTEQUAL fullname
+fb/n09_genfor_ident plain OFF slrc=0 rc=0 cmp=0 ob=16 md5=c40b2de99225 | STRICT_NOTEQUAL fullname
+fb/n09_genfor_ident plain OWN slrc=0 rc=0 cmp=0 ob=16 md5=c40b2de99225 | STRICT_NOTEQUAL fullname
+fb/n09_genfor_ident elab ON slrc=0 rc=0 cmp=0 ob=240 md5=7f21d132dc44 | STRICT_NOTEQUAL fullname
+fb/n09_genfor_ident elab OFF slrc=0 rc=0 cmp=0 ob=240 md5=7f21d132dc44 | STRICT_NOTEQUAL fullname
+fb/n09_genfor_ident elab OWN slrc=0 rc=0 cmp=0 ob=240 md5=7f21d132dc44 | STRICT_NOTEQUAL fullname
+fb/n10_ansi_port_ident plain ON slrc=0 rc=0 cmp=15 ob=8 md5=c9b32bfc17db | NOT_EQUAL stage1
+fb/n10_ansi_port_ident plain OFF slrc=0 rc=0 cmp=15 ob=8 md5=c9b32bfc17db | NOT_EQUAL stage1
+fb/n10_ansi_port_ident plain OWN slrc=0 rc=0 cmp=15 ob=8 md5=c9b32bfc17db | NOT_EQUAL stage1
+fb/n10_ansi_port_ident elab ON slrc=0 rc=0 cmp=15 ob=8 md5=a0903b4e0a0a | NOT_EQUAL stage1
+fb/n10_ansi_port_ident elab OFF slrc=0 rc=0 cmp=15 ob=8 md5=a0903b4e0a0a | NOT_EQUAL stage1
+fb/n10_ansi_port_ident elab OWN slrc=0 rc=0 cmp=15 ob=8 md5=a0903b4e0a0a | NOT_EQUAL stage1
+fb/n11_two_vars_one_decl plain ON slrc=0 rc=0 cmp=0 ob=0 md5=4880009290cb | STRICT_EQUAL 115 objects
+fb/n11_two_vars_one_decl plain OFF slrc=0 rc=0 cmp=0 ob=3 md5=fbab4f86016d | STRICT_NOTEQUAL fullname
+fb/n11_two_vars_one_decl plain OWN slrc=0 rc=0 cmp=0 ob=3 md5=fbab4f86016d | STRICT_NOTEQUAL fullname
+fb/n11_two_vars_one_decl elab ON slrc=0 rc=0 cmp=0 ob=0 md5=bf0f64a0b15d | STRICT_EQUAL 102 objects
+fb/n11_two_vars_one_decl elab OFF slrc=0 rc=0 cmp=0 ob=3 md5=fe5c7edafac8 | STRICT_NOTEQUAL fullname
+fb/n11_two_vars_one_decl elab OWN slrc=0 rc=0 cmp=0 ob=3 md5=fe5c7edafac8 | STRICT_NOTEQUAL fullname
+hg/n01_param_index plain ON slrc=0 rc=0 cmp=0 ob=10 md5=f2baf7a4aae6 | STRICT_NOTEQUAL fullname
+hg/n01_param_index plain OFF slrc=0 rc=0 cmp=0 ob=22 md5=a9e45106e9cf | STRICT_NOTEQUAL endcol
+hg/n01_param_index plain OWN slrc=0 rc=0 cmp=0 ob=22 md5=a9e45106e9cf | STRICT_NOTEQUAL endcol
+hg/n01_param_index elab ON slrc=0 rc=0 cmp=0 ob=96 md5=d2165bb8a750 | STRICT_NOTEQUAL fullname
+hg/n01_param_index elab OFF slrc=0 rc=0 cmp=0 ob=108 md5=c11685ff6df5 | STRICT_NOTEQUAL endcol
+hg/n01_param_index elab OWN slrc=0 rc=0 cmp=0 ob=108 md5=c11685ff6df5 | STRICT_NOTEQUAL endcol
+hg/n02_genif_in_loop plain ON slrc=0 rc=0 cmp=0 ob=12 md5=1da3c657d95b | STRICT_NOTEQUAL fullname
+hg/n02_genif_in_loop plain OFF slrc=0 rc=0 cmp=0 ob=46 md5=c2eb129f2df5 | STRICT_NOTEQUAL endcol
+hg/n02_genif_in_loop plain OWN slrc=0 rc=0 cmp=0 ob=46 md5=c2eb129f2df5 | STRICT_NOTEQUAL endcol
+hg/n02_genif_in_loop elab ON slrc=0 rc=0 cmp=0 ob=12 md5=b2766828ee58 | STRICT_EQUAL 178 objects
+hg/n02_genif_in_loop elab OFF slrc=0 rc=0 cmp=0 ob=62 md5=b740d2fea12b | STRICT_NOTEQUAL endcol
+hg/n02_genif_in_loop elab OWN slrc=0 rc=0 cmp=0 ob=46 md5=ee01f0fe11d6 | STRICT_NOTEQUAL endcol
+hg/n03_deep_member plain ON slrc=0 rc=0 cmp=0 ob=0 md5=bb0619134121 | STRICT_EQUAL 209 objects
+hg/n03_deep_member plain OFF slrc=0 rc=0 cmp=0 ob=0 md5=bb0619134121 | STRICT_EQUAL 209 objects
+hg/n03_deep_member plain OWN slrc=0 rc=0 cmp=0 ob=0 md5=bb0619134121 | STRICT_EQUAL 209 objects
+hg/n03_deep_member elab ON slrc=0 rc=0 cmp=0 ob=0 md5=3419082f4f36 | STRICT_EQUAL 206 objects
+hg/n03_deep_member elab OFF slrc=0 rc=0 cmp=0 ob=16 md5=5a4acfb2e0b7 | STRICT_NOTEQUAL fullname
+hg/n03_deep_member elab OWN slrc=0 rc=0 cmp=0 ob=0 md5=3419082f4f36 | STRICT_EQUAL 206 objects
+hg/n04_nested_loops plain ON slrc=0 rc=0 cmp=0 ob=48 md5=db70dc502d46 | STRICT_NOTEQUAL fullname
+hg/n04_nested_loops plain OFF slrc=0 rc=0 cmp=0 ob=48 md5=db70dc502d46 | STRICT_NOTEQUAL fullname
+hg/n04_nested_loops plain OWN slrc=0 rc=0 cmp=0 ob=48 md5=db70dc502d46 | STRICT_NOTEQUAL fullname
+hg/n04_nested_loops elab ON slrc=0 rc=0 cmp=0 ob=48 md5=6b26537f6236 | STRICT_EQUAL 214 objects
+hg/n04_nested_loops elab OFF slrc=0 rc=0 cmp=0 ob=112 md5=268ba4514253 | STRICT_NOTEQUAL fullname
+hg/n04_nested_loops elab OWN slrc=0 rc=0 cmp=0 ob=48 md5=6b26537f6236 | STRICT_EQUAL 214 objects
+hg/n05_localparam_index plain ON slrc=0 rc=0 cmp=0 ob=82 md5=aa7290a22726 | STRICT_NOTEQUAL fullname
+hg/n05_localparam_index plain OFF slrc=0 rc=0 cmp=0 ob=104 md5=2314bd1a963b | STRICT_NOTEQUAL endcol
+hg/n05_localparam_index plain OWN slrc=0 rc=0 cmp=0 ob=104 md5=2314bd1a963b | STRICT_NOTEQUAL endcol
+hg/n05_localparam_index elab ON slrc=0 rc=0 cmp=0 ob=82 md5=e0ce32df5424 | STRICT_EQUAL 178 objects
+hg/n05_localparam_index elab OFF slrc=0 rc=0 cmp=0 ob=122 md5=e119918b8d16 | STRICT_NOTEQUAL endcol
+hg/n05_localparam_index elab OWN slrc=0 rc=0 cmp=0 ob=106 md5=62970234a597 | STRICT_NOTEQUAL endcol
+hg/n06_unpacked_net_array plain ON slrc=0 rc=0 cmp=0 ob=12 md5=c8d4b15e3f28 | STRICT_NOTEQUAL fullname
+hg/n06_unpacked_net_array plain OFF slrc=0 rc=0 cmp=0 ob=34 md5=51e77c96cf55 | STRICT_NOTEQUAL endcol
+hg/n06_unpacked_net_array plain OWN slrc=0 rc=0 cmp=0 ob=34 md5=51e77c96cf55 | STRICT_NOTEQUAL endcol
+hg/n06_unpacked_net_array elab ON slrc=0 rc=0 cmp=0 ob=12 md5=326cb2d351a3 | STRICT_EQUAL 171 objects
+hg/n06_unpacked_net_array elab OFF slrc=0 rc=0 cmp=0 ob=58 md5=5e714ac8b6eb | STRICT_NOTEQUAL endcol
+hg/n06_unpacked_net_array elab OWN slrc=0 rc=0 cmp=0 ob=34 md5=9a5fd6ece8fd | STRICT_NOTEQUAL endcol
+ia/n01_genloop plain ON slrc=0 rc=0 cmp=0 ob=12 md5=5d4ad1d438db | STRICT_NOTEQUAL col
+ia/n01_genloop plain OFF slrc=0 rc=0 cmp=0 ob=12 md5=5d4ad1d438db | STRICT_NOTEQUAL col
+ia/n01_genloop plain OWN slrc=0 rc=0 cmp=0 ob=12 md5=5d4ad1d438db | STRICT_NOTEQUAL col
+ia/n01_genloop elab ON slrc=0 rc=0 cmp=0 ob=12 md5=f0bd97d945fb | STRICT_NOTEQUAL col
+ia/n01_genloop elab OFF slrc=0 rc=0 cmp=0 ob=12 md5=f0bd97d945fb | STRICT_NOTEQUAL col
+ia/n01_genloop elab OWN slrc=0 rc=0 cmp=0 ob=12 md5=f0bd97d945fb | STRICT_NOTEQUAL col
+ia/n02_minus_colon plain ON slrc=0 rc=0 cmp=0 ob=20 md5=0871a2b85699 | STRICT_EQUAL 44 objects
+ia/n02_minus_colon plain OFF slrc=0 rc=0 cmp=0 ob=20 md5=7fd54a4534bd | STRICT_NOTEQUAL size
+ia/n02_minus_colon plain OWN slrc=0 rc=0 cmp=0 ob=20 md5=7fd54a4534bd | STRICT_NOTEQUAL size
+ia/n02_minus_colon elab ON slrc=0 rc=0 cmp=0 ob=20 md5=037c8c47e2eb | STRICT_EQUAL 44 objects
+ia/n02_minus_colon elab OFF slrc=0 rc=0 cmp=0 ob=20 md5=0804a8229c73 | STRICT_NOTEQUAL size
+ia/n02_minus_colon elab OWN slrc=0 rc=0 cmp=0 ob=20 md5=0804a8229c73 | STRICT_NOTEQUAL size
+ia/n03_2d_packed plain ON slrc=0 rc=0 cmp=0 ob=28 md5=c7225403735a | STRICT_EQUAL 75 objects
+ia/n03_2d_packed plain OFF slrc=0 rc=0 cmp=0 ob=28 md5=ad6436c284dd | STRICT_NOTEQUAL size
+ia/n03_2d_packed plain OWN slrc=0 rc=0 cmp=0 ob=28 md5=ad6436c284dd | STRICT_NOTEQUAL size
+ia/n03_2d_packed elab ON slrc=0 rc=0 cmp=0 ob=28 md5=aa3536eb4896 | STRICT_EQUAL 75 objects
+ia/n03_2d_packed elab OFF slrc=0 rc=0 cmp=0 ob=28 md5=370f91ac2bb9 | STRICT_NOTEQUAL size
+ia/n03_2d_packed elab OWN slrc=0 rc=0 cmp=0 ob=28 md5=370f91ac2bb9 | STRICT_NOTEQUAL size
+ia/n04_param_sub plain ON slrc=0 rc=0 cmp=0 ob=14 md5=84f26a2c457a | STRICT_EQUAL 93 objects
+ia/n04_param_sub plain OFF slrc=0 rc=0 cmp=0 ob=14 md5=ee28f04a9d00 | STRICT_NOTEQUAL size
+ia/n04_param_sub plain OWN slrc=0 rc=0 cmp=0 ob=14 md5=ee28f04a9d00 | STRICT_NOTEQUAL size
+ia/n04_param_sub elab ON slrc=0 rc=0 cmp=0 ob=14 md5=dceca13ff03a | STRICT_EQUAL 89 objects
+ia/n04_param_sub elab OFF slrc=0 rc=0 cmp=0 ob=14 md5=2aa6f503fa8e | STRICT_NOTEQUAL size
+ia/n04_param_sub elab OWN slrc=0 rc=0 cmp=0 ob=14 md5=2aa6f503fa8e | STRICT_NOTEQUAL size
+ia/n05_value_wider_than_select plain ON slrc=0 rc=0 cmp=0 ob=26 md5=7975411ddbd5 | STRICT_EQUAL 52 objects
+ia/n05_value_wider_than_select plain OFF slrc=0 rc=0 cmp=0 ob=26 md5=8f5a8d1d47e2 | STRICT_NOTEQUAL decompile
+ia/n05_value_wider_than_select plain OWN slrc=0 rc=0 cmp=0 ob=26 md5=8f5a8d1d47e2 | STRICT_NOTEQUAL decompile
+ia/n05_value_wider_than_select elab ON slrc=0 rc=0 cmp=0 ob=26 md5=341ac67b5d64 | STRICT_EQUAL 52 objects
+ia/n05_value_wider_than_select elab OFF slrc=0 rc=0 cmp=0 ob=26 md5=c01c93911c67 | STRICT_NOTEQUAL decompile
+ia/n05_value_wider_than_select elab OWN slrc=0 rc=0 cmp=0 ob=26 md5=c01c93911c67 | STRICT_NOTEQUAL decompile
+lat/n01_signed_elem plain ON slrc=0 rc=0 cmp=102 ob=105 md5=7ceb034816ba | NOT_EQUAL stage1
+lat/n01_signed_elem plain OFF slrc=0 rc=0 cmp=102 ob=143 md5=ad6ccec766b2 | NOT_EQUAL stage1
+lat/n01_signed_elem plain OWN slrc=0 rc=0 cmp=102 ob=143 md5=ad6ccec766b2 | NOT_EQUAL stage1
+lat/n01_signed_elem elab ON slrc=0 rc=0 cmp=102 ob=89 md5=c3c11b1def87 | NOT_EQUAL stage1
+lat/n01_signed_elem elab OFF slrc=0 rc=0 cmp=102 ob=127 md5=d648b8d57e82 | NOT_EQUAL stage1
+lat/n01_signed_elem elab OWN slrc=0 rc=0 cmp=102 ob=127 md5=d648b8d57e82 | NOT_EQUAL stage1
+lat/n02_byte_elem_func plain ON slrc=0 rc=0 cmp=24 ob=64 md5=82876a268fa9 | NOT_EQUAL stage1
+lat/n02_byte_elem_func plain OFF slrc=0 rc=0 cmp=24 ob=102 md5=9b4c02962265 | NOT_EQUAL stage1
+lat/n02_byte_elem_func plain OWN slrc=0 rc=0 cmp=24 ob=102 md5=9b4c02962265 | NOT_EQUAL stage1
+lat/n02_byte_elem_func elab ON slrc=0 rc=0 cmp=24 ob=64 md5=c3698c9ff143 | NOT_EQUAL stage1
+lat/n02_byte_elem_func elab OFF slrc=0 rc=0 cmp=24 ob=102 md5=e7c42b5a32b5 | NOT_EQUAL stage1
+lat/n02_byte_elem_func elab OWN slrc=0 rc=0 cmp=24 ob=102 md5=e7c42b5a32b5 | NOT_EQUAL stage1
+lat/n03_two_mods plain ON slrc=0 rc=0 cmp=0 ob=79 md5=32fd484281e7 | STRICT_NOTEQUAL fullname
+lat/n03_two_mods plain OFF slrc=0 rc=0 cmp=0 ob=119 md5=ed94c9d2ee5a | STRICT_NOTEQUAL type
+lat/n03_two_mods plain OWN slrc=0 rc=0 cmp=0 ob=119 md5=ed94c9d2ee5a | STRICT_NOTEQUAL type
+lat/n03_two_mods elab ON slrc=0 rc=0 cmp=0 ob=61 md5=4d32861f5ee6 | STRICT_EQUAL 224 objects
+lat/n03_two_mods elab OFF slrc=0 rc=0 cmp=0 ob=101 md5=bb98948cae11 | STRICT_NOTEQUAL type
+lat/n03_two_mods elab OWN slrc=0 rc=0 cmp=0 ob=101 md5=bb98948cae11 | STRICT_NOTEQUAL type
+lat/n04_localparam_use plain ON slrc=0 rc=0 cmp=22 ob=46 md5=176014b60dbc | NOT_EQUAL stage1
+lat/n04_localparam_use plain OFF slrc=0 rc=0 cmp=22 ob=86 md5=e462773d5e77 | NOT_EQUAL stage1
+lat/n04_localparam_use plain OWN slrc=0 rc=0 cmp=22 ob=86 md5=e462773d5e77 | NOT_EQUAL stage1
+lat/n04_localparam_use elab ON slrc=0 rc=0 cmp=22 ob=46 md5=402f1afe9486 | NOT_EQUAL stage1
+lat/n04_localparam_use elab OFF slrc=0 rc=0 cmp=22 ob=86 md5=4abab4b76fbc | NOT_EQUAL stage1
+lat/n04_localparam_use elab OWN slrc=0 rc=0 cmp=22 ob=86 md5=4abab4b76fbc | NOT_EQUAL stage1
+mdi/n01_struct_typed plain ON slrc=0 rc=0 cmp=0 ob=0 md5=22d3e6d6bf59 | STRICT_EQUAL 195 objects
+mdi/n01_struct_typed plain OFF slrc=0 rc=0 cmp=0 ob=12 md5=386f95ca3a7f | STRICT_NOTEQUAL line
+mdi/n01_struct_typed plain OWN slrc=0 rc=0 cmp=0 ob=12 md5=386f95ca3a7f | STRICT_NOTEQUAL line
+mdi/n01_struct_typed elab ON slrc=0 rc=0 cmp=0 ob=0 md5=64458f5b837c | STRICT_EQUAL 223 objects
+mdi/n01_struct_typed elab OFF slrc=0 rc=0 cmp=0 ob=24 md5=3a29c5fc81dc | STRICT_NOTEQUAL line
+mdi/n01_struct_typed elab OWN slrc=0 rc=0 cmp=0 ob=24 md5=3a29c5fc81dc | STRICT_NOTEQUAL line
+mdi/n02_automatic_kw plain ON slrc=0 rc=0 cmp=0 ob=0 md5=d5ac112e9ab0 | STRICT_EQUAL 135 objects
+mdi/n02_automatic_kw plain OFF slrc=0 rc=0 cmp=0 ob=8 md5=a7fc053ba299 | STRICT_NOTEQUAL line
+mdi/n02_automatic_kw plain OWN slrc=0 rc=0 cmp=0 ob=8 md5=a7fc053ba299 | STRICT_NOTEQUAL line
+mdi/n02_automatic_kw elab ON slrc=0 rc=0 cmp=0 ob=0 md5=0cbdf7970248 | STRICT_EQUAL 157 objects
+mdi/n02_automatic_kw elab OFF slrc=0 rc=0 cmp=0 ob=20 md5=debbda7d8433 | STRICT_NOTEQUAL line
+mdi/n02_automatic_kw elab OWN slrc=0 rc=0 cmp=0 ob=20 md5=debbda7d8433 | STRICT_NOTEQUAL line
+mdi/n03_pkg_func plain ON slrc=0 rc=0 cmp=0 ob=0 md5=3cf7eae0509b | STRICT_EQUAL 91 objects
+mdi/n03_pkg_func plain OFF slrc=0 rc=0 cmp=0 ob=24 md5=0c00870f2f79 | STRICT_NOTEQUAL line
+mdi/n03_pkg_func plain OWN slrc=0 rc=0 cmp=0 ob=24 md5=0c00870f2f79 | STRICT_NOTEQUAL line
+mdi/n03_pkg_func elab ON slrc=0 rc=0 cmp=0 ob=0 md5=ece2cf807515 | STRICT_EQUAL 113 objects
+mdi/n03_pkg_func elab OFF slrc=0 rc=0 cmp=0 ob=48 md5=a46eb7034fd8 | STRICT_NOTEQUAL line
+mdi/n03_pkg_func elab OWN slrc=0 rc=0 cmp=0 ob=48 md5=a46eb7034fd8 | STRICT_NOTEQUAL line
+mdi/n04_iface_func_second_multi plain ON slrc=0 rc=0 cmp=0 ob=0 md5=fd87b445bc72 | STRICT_EQUAL 91 objects
+mdi/n04_iface_func_second_multi plain OFF slrc=0 rc=0 cmp=0 ob=0 md5=fd87b445bc72 | STRICT_EQUAL 91 objects
+mdi/n04_iface_func_second_multi plain OWN slrc=0 rc=0 cmp=0 ob=0 md5=fd87b445bc72 | STRICT_EQUAL 91 objects
+mdi/n04_iface_func_second_multi elab ON slrc=0 rc=0 cmp=0 ob=0 md5=90d689591d12 | STRICT_EQUAL 91 objects
+mdi/n04_iface_func_second_multi elab OFF slrc=0 rc=0 cmp=0 ob=0 md5=90d689591d12 | STRICT_EQUAL 91 objects
+mdi/n04_iface_func_second_multi elab OWN slrc=0 rc=0 cmp=0 ob=0 md5=90d689591d12 | STRICT_EQUAL 91 objects
+mdi/n05_static_kw_task plain ON slrc=0 rc=0 cmp=0 ob=0 md5=29e5cb34db87 | STRICT_EQUAL 49 objects
+mdi/n05_static_kw_task plain OFF slrc=0 rc=0 cmp=0 ob=8 md5=c64388c66f72 | STRICT_NOTEQUAL line
+mdi/n05_static_kw_task plain OWN slrc=0 rc=0 cmp=0 ob=8 md5=c64388c66f72 | STRICT_NOTEQUAL line
+mdi/n05_static_kw_task elab ON slrc=0 rc=0 cmp=0 ob=0 md5=7c149fc6810b | STRICT_EQUAL 61 objects
+mdi/n05_static_kw_task elab OFF slrc=0 rc=0 cmp=0 ob=20 md5=9e011f2242e8 | STRICT_NOTEQUAL line
+mdi/n05_static_kw_task elab OWN slrc=0 rc=0 cmp=0 ob=20 md5=9e011f2242e8 | STRICT_NOTEQUAL line
+pf/n01_pkg_func_lit plain ON slrc=0 rc=0 cmp=0 ob=0 md5=216ba9ee70e5 | STRICT_EQUAL 56 objects
+pf/n01_pkg_func_lit plain OFF slrc=0 rc=0 cmp=0 ob=2 md5=15eced1a1e5f | STRICT_NOTEQUAL file
+pf/n01_pkg_func_lit plain OWN slrc=0 rc=0 cmp=0 ob=2 md5=15eced1a1e5f | STRICT_NOTEQUAL file
+pf/n01_pkg_func_lit elab ON slrc=0 rc=0 cmp=0 ob=0 md5=267eff8e3712 | STRICT_EQUAL 55 objects
+pf/n01_pkg_func_lit elab OFF slrc=0 rc=0 cmp=0 ob=4 md5=6c0170134710 | STRICT_NOTEQUAL file
+pf/n01_pkg_func_lit elab OWN slrc=0 rc=0 cmp=0 ob=4 md5=6c0170134710 | STRICT_NOTEQUAL file
+pf/n02_two_formals plain ON slrc=0 rc=0 cmp=0 ob=0 md5=34c057bf07c7 | STRICT_EQUAL 72 objects
+pf/n02_two_formals plain OFF slrc=0 rc=0 cmp=0 ob=2 md5=56aa9a2109ac | STRICT_NOTEQUAL file
+pf/n02_two_formals plain OWN slrc=0 rc=0 cmp=0 ob=2 md5=56aa9a2109ac | STRICT_NOTEQUAL file
+pf/n02_two_formals elab ON slrc=0 rc=0 cmp=0 ob=0 md5=68550e4cbcee | STRICT_EQUAL 71 objects
+pf/n02_two_formals elab OFF slrc=0 rc=0 cmp=0 ob=4 md5=38f5a48c47ec | STRICT_NOTEQUAL file
+pf/n02_two_formals elab OWN slrc=0 rc=0 cmp=0 ob=4 md5=38f5a48c47ec | STRICT_NOTEQUAL file
+pf/n03_dec_literal plain ON slrc=0 rc=0 cmp=0 ob=0 md5=50d6c481ceff | STRICT_EQUAL 54 objects
+pf/n03_dec_literal plain OFF slrc=0 rc=0 cmp=0 ob=2 md5=c1e5fdf60665 | STRICT_NOTEQUAL file
+pf/n03_dec_literal plain OWN slrc=0 rc=0 cmp=0 ob=2 md5=c1e5fdf60665 | STRICT_NOTEQUAL file
+pf/n03_dec_literal elab ON slrc=0 rc=0 cmp=0 ob=0 md5=1b46d912bbc8 | STRICT_EQUAL 53 objects
+pf/n03_dec_literal elab OFF slrc=0 rc=0 cmp=0 ob=4 md5=7c9807a1d787 | STRICT_NOTEQUAL file
+pf/n03_dec_literal elab OWN slrc=0 rc=0 cmp=0 ob=4 md5=7c9807a1d787 | STRICT_NOTEQUAL file
+pf/n04_concat_param_repl plain ON slrc=0 rc=0 cmp=0 ob=0 md5=8d40781148e6 | STRICT_EQUAL 77 objects
+pf/n04_concat_param_repl plain OFF slrc=0 rc=0 cmp=0 ob=0 md5=9cb2167fb92f | STRICT_NOTEQUAL endcol
+pf/n04_concat_param_repl plain OWN slrc=0 rc=0 cmp=0 ob=0 md5=9cb2167fb92f | STRICT_NOTEQUAL endcol
+pf/n04_concat_param_repl elab ON slrc=0 rc=0 cmp=0 ob=0 md5=98a2b554d29c | STRICT_EQUAL 76 objects
+pf/n04_concat_param_repl elab OFF slrc=0 rc=0 cmp=0 ob=0 md5=c82d3c39d92b | STRICT_NOTEQUAL endcol
+pf/n04_concat_param_repl elab OWN slrc=0 rc=0 cmp=0 ob=0 md5=c82d3c39d92b | STRICT_NOTEQUAL endcol
+pfp/n01_shortint plain ON slrc=0 rc=0 cmp=0 ob=6 md5=c812cf8857cf | STRICT_EQUAL 71 objects
+pfp/n01_shortint plain OFF slrc=0 rc=0 cmp=0 ob=6 md5=6e192fec4a5a | STRICT_NOTEQUAL line
+pfp/n01_shortint plain OWN slrc=0 rc=0 cmp=0 ob=6 md5=6e192fec4a5a | STRICT_NOTEQUAL line
+pfp/n01_shortint elab ON slrc=0 rc=0 cmp=0 ob=6 md5=f60b8fc7dd1e | STRICT_EQUAL 71 objects
+pfp/n01_shortint elab OFF slrc=0 rc=0 cmp=0 ob=6 md5=33d04a64e70c | STRICT_NOTEQUAL line
+pfp/n01_shortint elab OWN slrc=0 rc=0 cmp=0 ob=6 md5=33d04a64e70c | STRICT_NOTEQUAL line
+pfp/n02_int_unsigned plain ON slrc=0 rc=0 cmp=0 ob=5 md5=c35867fa3008 | STRICT_EQUAL 57 objects
+pfp/n02_int_unsigned plain OFF slrc=0 rc=0 cmp=0 ob=6 md5=130e9e1b6bb0 | STRICT_NOTEQUAL line
+pfp/n02_int_unsigned plain OWN slrc=0 rc=0 cmp=0 ob=6 md5=130e9e1b6bb0 | STRICT_NOTEQUAL line
+pfp/n02_int_unsigned elab ON slrc=0 rc=0 cmp=0 ob=5 md5=4e2058f4a5ce | STRICT_EQUAL 57 objects
+pfp/n02_int_unsigned elab OFF slrc=0 rc=0 cmp=0 ob=6 md5=99ccd96c021a | STRICT_NOTEQUAL line
+pfp/n02_int_unsigned elab OWN slrc=0 rc=0 cmp=0 ob=6 md5=99ccd96c021a | STRICT_NOTEQUAL line
+pfp/n03_three_dim plain ON slrc=0 rc=0 cmp=0 ob=69 md5=c2e14d2d9643 | STRICT_EQUAL 177 objects
+pfp/n03_three_dim plain OFF slrc=0 rc=0 cmp=0 ob=73 md5=06f455be92be | STRICT_NOTEQUAL fullname
+pfp/n03_three_dim plain OWN slrc=0 rc=0 cmp=0 ob=73 md5=06f455be92be | STRICT_NOTEQUAL fullname
+pfp/n03_three_dim elab ON slrc=0 rc=0 cmp=0 ob=69 md5=bcb335495182 | STRICT_EQUAL 177 objects
+pfp/n03_three_dim elab OFF slrc=0 rc=0 cmp=0 ob=73 md5=e8aaa9630fa5 | STRICT_NOTEQUAL fullname
+pfp/n03_three_dim elab OWN slrc=0 rc=0 cmp=0 ob=73 md5=e8aaa9630fa5 | STRICT_NOTEQUAL fullname
+pfp/n04_signed_vec_body plain ON slrc=0 rc=0 cmp=17 ob=74 md5=05c2bb25e052 | NOT_EQUAL stage1
+pfp/n04_signed_vec_body plain OFF slrc=0 rc=0 cmp=17 ob=52 md5=de5d48ac66aa | NOT_EQUAL stage1
+pfp/n04_signed_vec_body plain OWN slrc=0 rc=0 cmp=17 ob=52 md5=de5d48ac66aa | NOT_EQUAL stage1
+pfp/n04_signed_vec_body elab ON slrc=0 rc=0 cmp=17 ob=74 md5=c926b9326aff | NOT_EQUAL stage1
+pfp/n04_signed_vec_body elab OFF slrc=0 rc=0 cmp=17 ob=52 md5=9a2d6e396ab9 | NOT_EQUAL stage1
+pfp/n04_signed_vec_body elab OWN slrc=0 rc=0 cmp=17 ob=52 md5=9a2d6e396ab9 | NOT_EQUAL stage1
+pfp/n05_signed_vec_body_pos plain ON slrc=0 rc=0 cmp=0 ob=26 md5=00f07501a064 | STRICT_EQUAL 110 objects
+pfp/n05_signed_vec_body_pos plain OFF slrc=0 rc=0 cmp=0 ob=6 md5=fc32e451ca7f | STRICT_NOTEQUAL line
+pfp/n05_signed_vec_body_pos plain OWN slrc=0 rc=0 cmp=0 ob=6 md5=fc32e451ca7f | STRICT_NOTEQUAL line
+pfp/n05_signed_vec_body_pos elab ON slrc=0 rc=0 cmp=0 ob=26 md5=62daebf6989c | STRICT_EQUAL 110 objects
+pfp/n05_signed_vec_body_pos elab OFF slrc=0 rc=0 cmp=0 ob=6 md5=5b68a2dc7a0b | STRICT_NOTEQUAL line
+pfp/n05_signed_vec_body_pos elab OWN slrc=0 rc=0 cmp=0 ob=6 md5=5b68a2dc7a0b | STRICT_NOTEQUAL line
+pfp/n06_unsigned_vec_body_ctl plain ON slrc=0 rc=0 cmp=0 ob=25 md5=ce56a07397ad | STRICT_EQUAL 110 objects
+pfp/n06_unsigned_vec_body_ctl plain OFF slrc=0 rc=0 cmp=0 ob=6 md5=95099d3ac75f | STRICT_NOTEQUAL line
+pfp/n06_unsigned_vec_body_ctl plain OWN slrc=0 rc=0 cmp=0 ob=6 md5=95099d3ac75f | STRICT_NOTEQUAL line
+pfp/n06_unsigned_vec_body_ctl elab ON slrc=0 rc=0 cmp=0 ob=25 md5=ef801ec39d2d | STRICT_EQUAL 110 objects
+pfp/n06_unsigned_vec_body_ctl elab OFF slrc=0 rc=0 cmp=0 ob=6 md5=68a23fcc7061 | STRICT_NOTEQUAL line
+pfp/n06_unsigned_vec_body_ctl elab OWN slrc=0 rc=0 cmp=0 ob=6 md5=68a23fcc7061 | STRICT_NOTEQUAL line
+pfp/n07_signed_vec_hdr plain ON slrc=0 rc=0 cmp=0 ob=26 md5=600cec7a7eed | STRICT_EQUAL 110 objects
+pfp/n07_signed_vec_hdr plain OFF slrc=0 rc=0 cmp=0 ob=6 md5=50b47fce49c3 | STRICT_NOTEQUAL line
+pfp/n07_signed_vec_hdr plain OWN slrc=0 rc=0 cmp=0 ob=6 md5=50b47fce49c3 | STRICT_NOTEQUAL line
+pfp/n07_signed_vec_hdr elab ON slrc=0 rc=0 cmp=0 ob=26 md5=2ed1d61188e5 | STRICT_EQUAL 110 objects
+pfp/n07_signed_vec_hdr elab OFF slrc=0 rc=0 cmp=0 ob=6 md5=b47f4d9e99a6 | STRICT_NOTEQUAL line
+pfp/n07_signed_vec_hdr elab OWN slrc=0 rc=0 cmp=0 ob=6 md5=b47f4d9e99a6 | STRICT_NOTEQUAL line
+pfp/n08_integer_kw_body plain ON slrc=0 rc=0 cmp=0 ob=6 md5=54f42e814cba | STRICT_EQUAL 71 objects
+pfp/n08_integer_kw_body plain OFF slrc=0 rc=0 cmp=0 ob=6 md5=088921ad32fc | STRICT_NOTEQUAL line
+pfp/n08_integer_kw_body plain OWN slrc=0 rc=0 cmp=0 ob=6 md5=088921ad32fc | STRICT_NOTEQUAL line
+pfp/n08_integer_kw_body elab ON slrc=0 rc=0 cmp=0 ob=6 md5=f02437e8773b | STRICT_EQUAL 71 objects
+pfp/n08_integer_kw_body elab OFF slrc=0 rc=0 cmp=0 ob=6 md5=c514abc19183 | STRICT_NOTEQUAL line
+pfp/n08_integer_kw_body elab OWN slrc=0 rc=0 cmp=0 ob=6 md5=c514abc19183 | STRICT_NOTEQUAL line
+pfx/n01_genblk_assign plain ON slrc=0 rc=0 cmp=0 ob=94 md5=1408c16b330e | STRICT_EQUAL 205 objects
+pfx/n01_genblk_assign plain OFF slrc=0 rc=0 cmp=0 ob=98 md5=7ed630e12606 | STRICT_NOTEQUAL fullname
+pfx/n01_genblk_assign plain OWN slrc=0 rc=0 cmp=0 ob=94 md5=1408c16b330e | STRICT_EQUAL 205 objects
+pfx/n01_genblk_assign elab ON slrc=0 rc=0 cmp=0 ob=94 md5=03a301432f50 | STRICT_EQUAL 205 objects
+pfx/n01_genblk_assign elab OFF slrc=0 rc=0 cmp=0 ob=98 md5=24e8a76c8bd9 | STRICT_NOTEQUAL fullname
+pfx/n01_genblk_assign elab OWN slrc=0 rc=0 cmp=0 ob=94 md5=03a301432f50 | STRICT_EQUAL 205 objects
+pfx/n02_not_bare plain ON slrc=0 rc=0 cmp=87 ob=21 md5=a64055756c4c | NOT_EQUAL stage1
+pfx/n02_not_bare plain OFF slrc=0 rc=0 cmp=87 ob=25 md5=f83e4a1d1cd4 | NOT_EQUAL stage1
+pfx/n02_not_bare plain OWN slrc=0 rc=0 cmp=87 ob=21 md5=a64055756c4c | NOT_EQUAL stage1
+pfx/n02_not_bare elab ON slrc=0 rc=0 cmp=87 ob=21 md5=3561fe27e32e | NOT_EQUAL stage1
+pfx/n02_not_bare elab OFF slrc=0 rc=0 cmp=87 ob=25 md5=dc82bb040c71 | NOT_EQUAL stage1
+pfx/n02_not_bare elab OWN slrc=0 rc=0 cmp=87 ob=21 md5=3561fe27e32e | NOT_EQUAL stage1
+pfx/n03_two_inst_one_reads plain ON slrc=0 rc=0 cmp=87 ob=53 md5=845c4b28d789 | NOT_EQUAL stage1
+pfx/n03_two_inst_one_reads plain OFF slrc=0 rc=0 cmp=87 ob=53 md5=845c4b28d789 | NOT_EQUAL stage1
+pfx/n03_two_inst_one_reads plain OWN slrc=0 rc=0 cmp=87 ob=61 md5=5ff4380d69db | NOT_EQUAL stage1
+pfx/n03_two_inst_one_reads elab ON slrc=0 rc=0 cmp=87 ob=53 md5=e7e7a8a58a48 | NOT_EQUAL stage1
+pfx/n03_two_inst_one_reads elab OFF slrc=0 rc=0 cmp=87 ob=53 md5=e7e7a8a58a48 | NOT_EQUAL stage1
+pfx/n03_two_inst_one_reads elab OWN slrc=0 rc=0 cmp=87 ob=61 md5=6f6ab830e50f | NOT_EQUAL stage1
+plt/n01_loopvar_base plain ON slrc=0 rc=0 cmp=0 ob=0 md5=6172c39fa03b | STRICT_EQUAL 193 objects
+plt/n01_loopvar_base plain OFF slrc=0 rc=0 cmp=0 ob=6 md5=bb986fe74ccf | STRICT_NOTEQUAL fullname
+plt/n01_loopvar_base plain OWN slrc=0 rc=0 cmp=0 ob=6 md5=bb986fe74ccf | STRICT_NOTEQUAL fullname
+plt/n01_loopvar_base elab ON slrc=0 rc=0 cmp=0 ob=0 md5=b11417e33faf | STRICT_EQUAL 179 objects
+plt/n01_loopvar_base elab OFF slrc=0 rc=0 cmp=0 ob=12 md5=41b99223bbf3 | STRICT_NOTEQUAL fullname
+plt/n01_loopvar_base elab OWN slrc=0 rc=0 cmp=0 ob=12 md5=41b99223bbf3 | STRICT_NOTEQUAL fullname
+plt/n02_deep_chain plain ON slrc=0 rc=0 cmp=0 ob=0 md5=43db16ddc568 | STRICT_EQUAL 221 objects
+plt/n02_deep_chain plain OFF slrc=0 rc=0 cmp=0 ob=6 md5=2b56630b4675 | STRICT_NOTEQUAL fullname
+plt/n02_deep_chain plain OWN slrc=0 rc=0 cmp=0 ob=6 md5=2b56630b4675 | STRICT_NOTEQUAL fullname
+plt/n02_deep_chain elab ON slrc=0 rc=0 cmp=0 ob=0 md5=4a5b8f4ffe45 | STRICT_EQUAL 215 objects
+plt/n02_deep_chain elab OFF slrc=0 rc=0 cmp=0 ob=12 md5=9b5a830779e9 | STRICT_NOTEQUAL fullname
+plt/n02_deep_chain elab OWN slrc=0 rc=0 cmp=0 ob=12 md5=9b5a830779e9 | STRICT_NOTEQUAL fullname
+plt/n03_if_else plain ON slrc=0 rc=0 cmp=0 ob=0 md5=dbb956bedbd9 | STRICT_EQUAL 179 objects
+plt/n03_if_else plain OFF slrc=0 rc=0 cmp=0 ob=12 md5=fdcd9ebc6c2e | STRICT_NOTEQUAL fullname
+plt/n03_if_else plain OWN slrc=0 rc=0 cmp=0 ob=12 md5=fdcd9ebc6c2e | STRICT_NOTEQUAL fullname
+plt/n03_if_else elab ON slrc=0 rc=0 cmp=0 ob=0 md5=dd78d58449ba | STRICT_EQUAL 181 objects
+plt/n03_if_else elab OFF slrc=0 rc=0 cmp=0 ob=24 md5=b372d409aaa7 | STRICT_NOTEQUAL fullname
+plt/n03_if_else elab OWN slrc=0 rc=0 cmp=0 ob=24 md5=b372d409aaa7 | STRICT_NOTEQUAL fullname
+plv/n01_loopvar_idx plain ON slrc=0 rc=0 cmp=0 ob=0 md5=8c19fdccd9b8 | STRICT_EQUAL 157 objects
+plv/n01_loopvar_idx plain OFF slrc=0 rc=0 cmp=0 ob=4 md5=af8df51f6073 | STRICT_NOTEQUAL fullname
+plv/n01_loopvar_idx plain OWN slrc=0 rc=0 cmp=0 ob=4 md5=af8df51f6073 | STRICT_NOTEQUAL fullname
+plv/n01_loopvar_idx elab ON slrc=0 rc=0 cmp=0 ob=0 md5=c585d7876846 | STRICT_EQUAL 149 objects
+plv/n01_loopvar_idx elab OFF slrc=0 rc=0 cmp=0 ob=8 md5=decc603ddbc0 | STRICT_NOTEQUAL fullname
+plv/n01_loopvar_idx elab OWN slrc=0 rc=0 cmp=0 ob=8 md5=decc603ddbc0 | STRICT_NOTEQUAL fullname
+plv/n02_case_branch plain ON slrc=0 rc=0 cmp=0 ob=0 md5=c3a31696848b | STRICT_EQUAL 199 objects
+plv/n02_case_branch plain OFF slrc=0 rc=0 cmp=0 ob=8 md5=90b6632ac7de | STRICT_NOTEQUAL fullname
+plv/n02_case_branch plain OWN slrc=0 rc=0 cmp=0 ob=8 md5=90b6632ac7de | STRICT_NOTEQUAL fullname
+plv/n02_case_branch elab ON slrc=0 rc=0 cmp=0 ob=0 md5=c5a7e54f3ad5 | STRICT_EQUAL 189 objects
+plv/n02_case_branch elab OFF slrc=0 rc=0 cmp=0 ob=16 md5=c80c80e86233 | STRICT_NOTEQUAL fullname
+plv/n02_case_branch elab OWN slrc=0 rc=0 cmp=0 ob=16 md5=c80c80e86233 | STRICT_NOTEQUAL fullname
+plv/n03_latch plain ON slrc=0 rc=0 cmp=0 ob=0 md5=35d416bcb1c9 | STRICT_EQUAL 130 objects
+plv/n03_latch plain OFF slrc=0 rc=0 cmp=0 ob=4 md5=66e9bdea0762 | STRICT_NOTEQUAL fullname
+plv/n03_latch plain OWN slrc=0 rc=0 cmp=0 ob=4 md5=66e9bdea0762 | STRICT_NOTEQUAL fullname
+plv/n03_latch elab ON slrc=0 rc=0 cmp=0 ob=0 md5=7385978d6415 | STRICT_EQUAL 133 objects
+plv/n03_latch elab OFF slrc=0 rc=0 cmp=0 ob=8 md5=c82177bc71dc | STRICT_NOTEQUAL fullname
+plv/n03_latch elab OWN slrc=0 rc=0 cmp=0 ob=8 md5=c82177bc71dc | STRICT_NOTEQUAL fullname
+plv/n04_idx_member plain ON slrc=0 rc=0 cmp=0 ob=5 md5=ce35fc79e570 | STRICT_NOTEQUAL col
+plv/n04_idx_member plain OFF slrc=0 rc=0 cmp=0 ob=5 md5=ce35fc79e570 | STRICT_NOTEQUAL col
+plv/n04_idx_member plain OWN slrc=0 rc=0 cmp=0 ob=5 md5=ce35fc79e570 | STRICT_NOTEQUAL col
+plv/n04_idx_member elab ON slrc=0 rc=0 cmp=0 ob=10 md5=792c014104e2 | STRICT_NOTEQUAL col
+plv/n04_idx_member elab OFF slrc=0 rc=0 cmp=0 ob=10 md5=792c014104e2 | STRICT_NOTEQUAL col
+plv/n04_idx_member elab OWN slrc=0 rc=0 cmp=0 ob=10 md5=792c014104e2 | STRICT_NOTEQUAL col
+pso/n01_unary_minus plain ON slrc=0 rc=0 cmp=0 ob=14 md5=2007c463d6e5 | STRICT_EQUAL 68 objects
+pso/n01_unary_minus plain OFF slrc=0 rc=0 cmp=0 ob=20 md5=4e653d8a4f9f | STRICT_NOTEQUAL line
+pso/n01_unary_minus plain OWN slrc=0 rc=0 cmp=0 ob=20 md5=4e653d8a4f9f | STRICT_NOTEQUAL line
+pso/n01_unary_minus elab ON slrc=0 rc=0 cmp=0 ob=14 md5=282ff392660c | STRICT_EQUAL 68 objects
+pso/n01_unary_minus elab OFF slrc=0 rc=0 cmp=0 ob=20 md5=92d899395494 | STRICT_NOTEQUAL line
+pso/n01_unary_minus elab OWN slrc=0 rc=0 cmp=0 ob=20 md5=92d899395494 | STRICT_NOTEQUAL line
+pso/n02_paren_product plain ON slrc=0 rc=0 cmp=0 ob=12 md5=31615b9fa256 | STRICT_EQUAL 74 objects
+pso/n02_paren_product plain OFF slrc=0 rc=0 cmp=0 ob=18 md5=57d3dc3f8bbe | STRICT_NOTEQUAL line
+pso/n02_paren_product plain OWN slrc=0 rc=0 cmp=0 ob=18 md5=57d3dc3f8bbe | STRICT_NOTEQUAL line
+pso/n02_paren_product elab ON slrc=0 rc=0 cmp=0 ob=12 md5=444707f7bb88 | STRICT_EQUAL 74 objects
+pso/n02_paren_product elab OFF slrc=0 rc=0 cmp=0 ob=18 md5=a28d60011344 | STRICT_NOTEQUAL line
+pso/n02_paren_product elab OWN slrc=0 rc=0 cmp=0 ob=18 md5=a28d60011344 | STRICT_NOTEQUAL line
+pso/n03_ternary_cond plain ON slrc=0 rc=0 cmp=164 ob=86 md5=27fce03018ad | NOT_EQUAL stage1
+pso/n03_ternary_cond plain OFF slrc=0 rc=0 cmp=164 ob=86 md5=27fce03018ad | NOT_EQUAL stage1
+pso/n03_ternary_cond plain OWN slrc=0 rc=0 cmp=164 ob=86 md5=27fce03018ad | NOT_EQUAL stage1
+pso/n03_ternary_cond elab ON slrc=0 rc=0 cmp=164 ob=86 md5=9668ee74c384 | NOT_EQUAL stage1
+pso/n03_ternary_cond elab OFF slrc=0 rc=0 cmp=164 ob=86 md5=9668ee74c384 | NOT_EQUAL stage1
+pso/n03_ternary_cond elab OWN slrc=0 rc=0 cmp=164 ob=86 md5=9668ee74c384 | NOT_EQUAL stage1
+pso/n04_sub_override plain ON slrc=0 rc=0 cmp=0 ob=28 md5=4b309aa8d42a | STRICT_EQUAL 95 objects
+pso/n04_sub_override plain OFF slrc=0 rc=0 cmp=0 ob=40 md5=f5ade87affcf | STRICT_NOTEQUAL line
+pso/n04_sub_override plain OWN slrc=0 rc=0 cmp=0 ob=40 md5=f5ade87affcf | STRICT_NOTEQUAL line
+pso/n04_sub_override elab ON slrc=0 rc=0 cmp=0 ob=28 md5=b37f7a9aca63 | STRICT_EQUAL 95 objects
+pso/n04_sub_override elab OFF slrc=0 rc=0 cmp=0 ob=40 md5=8f0d337f5fab | STRICT_NOTEQUAL line
+pso/n04_sub_override elab OWN slrc=0 rc=0 cmp=0 ob=40 md5=8f0d337f5fab | STRICT_NOTEQUAL line
+pt/n01_iface plain ON slrc=0 rc=0 cmp=31 ob=49 md5=6e1180e1516d | NOT_EQUAL stage1
+pt/n01_iface plain OFF slrc=0 rc=0 cmp=31 ob=57 md5=eab800c63a74 | NOT_EQUAL stage1
+pt/n01_iface plain OWN slrc=0 rc=0 cmp=31 ob=57 md5=eab800c63a74 | NOT_EQUAL stage1
+pt/n01_iface elab ON slrc=0 rc=0 cmp=33 ob=53 md5=3127b84e6e52 | NOT_EQUAL stage1
+pt/n01_iface elab OFF slrc=0 rc=0 cmp=33 ob=61 md5=dbfd38826f56 | NOT_EQUAL stage1
+pt/n01_iface elab OWN slrc=0 rc=0 cmp=33 ob=61 md5=dbfd38826f56 | NOT_EQUAL stage1
+pt/n02_two_bounds plain ON slrc=0 rc=0 cmp=64 ob=37 md5=ddbeab8a1148 | NOT_EQUAL stage1
+pt/n02_two_bounds plain OFF slrc=0 rc=0 cmp=64 ob=53 md5=4acb509713d5 | NOT_EQUAL stage1
+pt/n02_two_bounds plain OWN slrc=0 rc=0 cmp=64 ob=53 md5=4acb509713d5 | NOT_EQUAL stage1
+pt/n02_two_bounds elab ON slrc=0 rc=0 cmp=64 ob=41 md5=b26aed849376 | NOT_EQUAL stage1
+pt/n02_two_bounds elab OFF slrc=0 rc=0 cmp=64 ob=57 md5=4232a48f268f | NOT_EQUAL stage1
+pt/n02_two_bounds elab OWN slrc=0 rc=0 cmp=64 ob=57 md5=4232a48f268f | NOT_EQUAL stage1
+pt/n03_localparam_sub plain ON slrc=0 rc=0 cmp=142 ob=40 md5=1d21ba2ae829 | NOT_EQUAL stage1
+pt/n03_localparam_sub plain OFF slrc=0 rc=0 cmp=142 ob=48 md5=f2e399cf245f | NOT_EQUAL stage1
+pt/n03_localparam_sub plain OWN slrc=0 rc=0 cmp=142 ob=48 md5=f2e399cf245f | NOT_EQUAL stage1
+pt/n03_localparam_sub elab ON slrc=0 rc=0 cmp=142 ob=42 md5=6debd6e4a40c | NOT_EQUAL stage1
+pt/n03_localparam_sub elab OFF slrc=0 rc=0 cmp=142 ob=50 md5=3bdc0f6e9745 | NOT_EQUAL stage1
+pt/n03_localparam_sub elab OWN slrc=0 rc=0 cmp=142 ob=50 md5=3bdc0f6e9745 | NOT_EQUAL stage1
+pt/n04_pkg_typedef_param plain ON slrc=0 rc=0 cmp=0 ob=0 md5=25a1228c1bee | STRICT_EQUAL 88 objects
+pt/n04_pkg_typedef_param plain OFF slrc=0 rc=0 cmp=0 ob=0 md5=25a1228c1bee | STRICT_EQUAL 88 objects
+pt/n04_pkg_typedef_param plain OWN slrc=0 rc=0 cmp=0 ob=0 md5=25a1228c1bee | STRICT_EQUAL 88 objects
+pt/n04_pkg_typedef_param elab ON slrc=0 rc=0 cmp=0 ob=0 md5=4c259e544a17 | STRICT_EQUAL 87 objects
+pt/n04_pkg_typedef_param elab OFF slrc=0 rc=0 cmp=0 ob=0 md5=4c259e544a17 | STRICT_EQUAL 87 objects
+pt/n04_pkg_typedef_param elab OWN slrc=0 rc=0 cmp=0 ob=0 md5=4c259e544a17 | STRICT_EQUAL 87 objects
+qb/n01_pkg_param_type plain ON slrc=0 rc=0 cmp=64 ob=24 md5=b779866e6286 | NOT_EQUAL stage1
+qb/n01_pkg_param_type plain OFF slrc=0 rc=0 cmp=64 ob=27 md5=fe224c861afe | NOT_EQUAL stage1
+qb/n01_pkg_param_type plain OWN slrc=0 rc=0 cmp=64 ob=27 md5=fe224c861afe | NOT_EQUAL stage1
+qb/n01_pkg_param_type elab ON slrc=0 rc=0 cmp=64 ob=24 md5=dc451754a688 | NOT_EQUAL stage1
+qb/n01_pkg_param_type elab OFF slrc=0 rc=0 cmp=64 ob=27 md5=fdeb9267d76f | NOT_EQUAL stage1
+qb/n01_pkg_param_type elab OWN slrc=0 rc=0 cmp=64 ob=27 md5=fdeb9267d76f | NOT_EQUAL stage1
+qb/n02_pkg_func_ret plain ON slrc=0 rc=0 cmp=64 ob=42 md5=87e9933fd776 | NOT_EQUAL stage1
+qb/n02_pkg_func_ret plain OFF slrc=0 rc=0 cmp=64 ob=42 md5=87e9933fd776 | NOT_EQUAL stage1
+qb/n02_pkg_func_ret plain OWN slrc=0 rc=0 cmp=64 ob=42 md5=87e9933fd776 | NOT_EQUAL stage1
+qb/n02_pkg_func_ret elab ON slrc=0 rc=0 cmp=64 ob=42 md5=bfc1dfdcb51c | NOT_EQUAL stage1
+qb/n02_pkg_func_ret elab OFF slrc=0 rc=0 cmp=64 ob=42 md5=bfc1dfdcb51c | NOT_EQUAL stage1
+qb/n02_pkg_func_ret elab OWN slrc=0 rc=0 cmp=64 ob=42 md5=bfc1dfdcb51c | NOT_EQUAL stage1
+qb/n03_pkg_var plain ON slrc=0 rc=0 cmp=76 ob=40 md5=4c85b217bd8d | NOT_EQUAL stage1
+qb/n03_pkg_var plain OFF slrc=0 rc=0 cmp=76 ob=40 md5=4c85b217bd8d | NOT_EQUAL stage1
+qb/n03_pkg_var plain OWN slrc=0 rc=0 cmp=76 ob=40 md5=4c85b217bd8d | NOT_EQUAL stage1
+qb/n03_pkg_var elab ON slrc=0 rc=0 cmp=76 ob=40 md5=77399bf1f8fc | NOT_EQUAL stage1
+qb/n03_pkg_var elab OFF slrc=0 rc=0 cmp=76 ob=40 md5=77399bf1f8fc | NOT_EQUAL stage1
+qb/n03_pkg_var elab OWN slrc=0 rc=0 cmp=76 ob=40 md5=77399bf1f8fc | NOT_EQUAL stage1
+qb/n04_two_dims_member plain ON slrc=0 rc=0 cmp=0 ob=0 md5=beef4d697334 | STRICT_EQUAL 142 objects
+qb/n04_two_dims_member plain OFF slrc=0 rc=0 cmp=0 ob=6 md5=6e299f86f593 | STRICT_NOTEQUAL fullname
+qb/n04_two_dims_member plain OWN slrc=0 rc=0 cmp=0 ob=6 md5=6e299f86f593 | STRICT_NOTEQUAL fullname
+qb/n04_two_dims_member elab ON slrc=0 rc=0 cmp=0 ob=0 md5=c042be27ed92 | STRICT_EQUAL 144 objects
+qb/n04_two_dims_member elab OFF slrc=0 rc=0 cmp=0 ob=6 md5=c6f51108b4aa | STRICT_NOTEQUAL fullname
+qb/n04_two_dims_member elab OWN slrc=0 rc=0 cmp=0 ob=6 md5=c6f51108b4aa | STRICT_NOTEQUAL fullname
+qb/n05_pkg_class_prop plain ON slrc=0 rc=0 cmp=0 ob=0 md5=762a49dbc216 | STRICT_EQUAL 109 objects
+qb/n05_pkg_class_prop plain OFF slrc=0 rc=0 cmp=0 ob=3 md5=cfc76c20d63b | STRICT_NOTEQUAL fullname
+qb/n05_pkg_class_prop plain OWN slrc=0 rc=0 cmp=0 ob=3 md5=cfc76c20d63b | STRICT_NOTEQUAL fullname
+qb/n05_pkg_class_prop elab ON slrc=0 rc=0 cmp=0 ob=0 md5=c0cd70e9663d | STRICT_EQUAL 114 objects
+qb/n05_pkg_class_prop elab OFF slrc=0 rc=0 cmp=0 ob=3 md5=89a8d7525514 | STRICT_NOTEQUAL fullname
+qb/n05_pkg_class_prop elab OWN slrc=0 rc=0 cmp=0 ob=3 md5=89a8d7525514 | STRICT_NOTEQUAL fullname
+rcf/n01_pkg_count plain ON slrc=0 rc=0 cmp=50 ob=125 md5=edab9bde93af | NOT_EQUAL stage1
+rcf/n01_pkg_count plain OFF slrc=0 rc=0 cmp=50 ob=125 md5=edab9bde93af | NOT_EQUAL stage1
+rcf/n01_pkg_count plain OWN slrc=0 rc=0 cmp=50 ob=125 md5=edab9bde93af | NOT_EQUAL stage1
+rcf/n01_pkg_count elab ON slrc=0 rc=0 cmp=50 ob=101 md5=430c89b27107 | NOT_EQUAL stage1
+rcf/n01_pkg_count elab OFF slrc=0 rc=0 cmp=50 ob=101 md5=430c89b27107 | NOT_EQUAL stage1
+rcf/n01_pkg_count elab OWN slrc=0 rc=0 cmp=50 ob=101 md5=430c89b27107 | NOT_EQUAL stage1
+rcf/n02_expr_count plain ON slrc=0 rc=0 cmp=58 ob=97 md5=2c5d5c064b19 | NOT_EQUAL stage1
+rcf/n02_expr_count plain OFF slrc=0 rc=0 cmp=58 ob=97 md5=2c5d5c064b19 | NOT_EQUAL stage1
+rcf/n02_expr_count plain OWN slrc=0 rc=0 cmp=58 ob=97 md5=2c5d5c064b19 | NOT_EQUAL stage1
+rcf/n02_expr_count elab ON slrc=0 rc=0 cmp=58 ob=35 md5=150f3ab16c4c | NOT_EQUAL stage1
+rcf/n02_expr_count elab OFF slrc=0 rc=0 cmp=58 ob=35 md5=150f3ab16c4c | NOT_EQUAL stage1
+rcf/n02_expr_count elab OWN slrc=0 rc=0 cmp=58 ob=35 md5=150f3ab16c4c | NOT_EQUAL stage1
+rcf/n03_genblk plain ON slrc=0 rc=0 cmp=47 ob=215 md5=d9ea861863ce | NOT_EQUAL stage1
+rcf/n03_genblk plain OFF slrc=0 rc=0 cmp=47 ob=215 md5=d9ea861863ce | NOT_EQUAL stage1
+rcf/n03_genblk plain OWN slrc=0 rc=0 cmp=47 ob=215 md5=d9ea861863ce | NOT_EQUAL stage1
+rcf/n03_genblk elab ON slrc=0 rc=0 cmp=47 ob=291 md5=365c0c215cc1 | NOT_EQUAL stage1
+rcf/n03_genblk elab OFF slrc=0 rc=0 cmp=47 ob=291 md5=365c0c215cc1 | NOT_EQUAL stage1
+rcf/n03_genblk elab OWN slrc=0 rc=0 cmp=47 ob=291 md5=365c0c215cc1 | NOT_EQUAL stage1
+sca/n01_iface_ca plain ON slrc=0 rc=0 cmp=47 ob=25 md5=e09eeee358e7 | NOT_EQUAL stage1
+sca/n01_iface_ca plain OFF slrc=0 rc=0 cmp=47 ob=29 md5=176b89d77990 | NOT_EQUAL stage1
+sca/n01_iface_ca plain OWN slrc=0 rc=0 cmp=47 ob=29 md5=176b89d77990 | NOT_EQUAL stage1
+sca/n01_iface_ca elab ON slrc=0 rc=0 cmp=47 ob=23 md5=0e68cda21693 | NOT_EQUAL stage1
+sca/n01_iface_ca elab OFF slrc=0 rc=0 cmp=47 ob=27 md5=55e6156ce857 | NOT_EQUAL stage1
+sca/n01_iface_ca elab OWN slrc=0 rc=0 cmp=47 ob=27 md5=55e6156ce857 | NOT_EQUAL stage1
+sca/n02_ternary_cond plain ON slrc=0 rc=0 cmp=0 ob=0 md5=75a49e73e213 | STRICT_EQUAL 110 objects
+sca/n02_ternary_cond plain OFF slrc=0 rc=0 cmp=0 ob=8 md5=c5266f69cf4c | STRICT_NOTEQUAL endcol
+sca/n02_ternary_cond plain OWN slrc=0 rc=0 cmp=0 ob=8 md5=c5266f69cf4c | STRICT_NOTEQUAL endcol
+sca/n02_ternary_cond elab ON slrc=0 rc=0 cmp=0 ob=0 md5=76a1d8fac033 | STRICT_EQUAL 107 objects
+sca/n02_ternary_cond elab OFF slrc=0 rc=0 cmp=0 ob=12 md5=3832153a88f9 | STRICT_NOTEQUAL endcol
+sca/n02_ternary_cond elab OWN slrc=0 rc=0 cmp=0 ob=12 md5=3832153a88f9 | STRICT_NOTEQUAL endcol
+sca/n03_macro_arg plain ON slrc=0 rc=0 cmp=0 ob=35 md5=47329e22ab22 | STRICT_EQUAL 52 objects
+sca/n03_macro_arg plain OFF slrc=0 rc=0 cmp=0 ob=39 md5=6b93c28c6a95 | STRICT_NOTEQUAL endcol
+sca/n03_macro_arg plain OWN slrc=0 rc=0 cmp=0 ob=39 md5=6b93c28c6a95 | STRICT_NOTEQUAL endcol
+sca/n03_macro_arg elab ON slrc=0 rc=0 cmp=0 ob=0 md5=60147cfe9a17 | STRICT_EQUAL 50 objects
+sca/n03_macro_arg elab OFF slrc=0 rc=0 cmp=0 ob=8 md5=1131c32319b4 | STRICT_NOTEQUAL endcol
+sca/n03_macro_arg elab OWN slrc=0 rc=0 cmp=0 ob=8 md5=1131c32319b4 | STRICT_NOTEQUAL endcol
+sca/n04_concat_operand plain ON slrc=0 rc=0 cmp=0 ob=0 md5=c2e3f985c882 | STRICT_EQUAL 89 objects
+sca/n04_concat_operand plain OFF slrc=0 rc=0 cmp=0 ob=8 md5=7dda3c281578 | STRICT_NOTEQUAL endcol
+sca/n04_concat_operand plain OWN slrc=0 rc=0 cmp=0 ob=8 md5=7dda3c281578 | STRICT_NOTEQUAL endcol
+sca/n04_concat_operand elab ON slrc=0 rc=0 cmp=0 ob=0 md5=e168d45f0ca8 | STRICT_EQUAL 86 objects
+sca/n04_concat_operand elab OFF slrc=0 rc=0 cmp=0 ob=16 md5=b458c4d8a899 | STRICT_NOTEQUAL endcol
+sca/n04_concat_operand elab OWN slrc=0 rc=0 cmp=0 ob=16 md5=b458c4d8a899 | STRICT_NOTEQUAL endcol
+at__n01_attr_value_static_task__elab           NE:endline/c0/o2                   NE:col/c0/o2                       EQ/c0/o0                           CONVERT            CONVERT
+at__n01_attr_value_static_task__plain          NE:endline/c0/o2                   NE:col/c0/o2                       EQ/c0/o0                           CONVERT            CONVERT
+at__n02_attr_extern__elab                      NE:line/c0/o10                     NE:line/c0/o10                     NE:line/c0/o10                     same-bytes         same-bytes
+at__n02_attr_extern__plain                     NE:line/c0/o8                      NE:line/c0/o8                      NE:line/c0/o8                      same-bytes         same-bytes
+at__n03_attr_protected_func__elab              EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+at__n03_attr_protected_func__plain             EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+dfl__n01_expr_value__elab                      S1/c136/o117                       S1/c136/o117                       S1/c112/o105                       STAGE1             STAGE1
+dfl__n01_expr_value__plain                     S1/c136/o133                       S1/c136/o133                       S1/c112/o121                       STAGE1             STAGE1
+dfl__n02_ascending__elab                       S1/c136/o105                       S1/c136/o105                       S1/c112/o93                        STAGE1             STAGE1
+dfl__n02_ascending__plain                      S1/c136/o121                       S1/c136/o121                       S1/c112/o109                       STAGE1             STAGE1
+dfl__n03_iface__elab                           NE:type/c0/o42                     NE:type/c0/o42                     NE:type/c0/o34                     SAME-RECS          SAME-RECS
+dfl__n03_iface__plain                          S1/c31/o38                         S1/c31/o38                         S1/c31/o30                         STAGE1             STAGE1
+dfl__n04_override__elab                        S1/c17/o76                         S1/c17/o76                         S1/c17/o68                         STAGE1             STAGE1
+dfl__n04_override__plain                       S1/c17/o63                         S1/c17/o63                         S1/c17/o55                         STAGE1             STAGE1
+el__n01_inst_array__elab                       EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+el__n01_inst_array__plain                      EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+el__n02_nested_gen_hp__elab                    S1/c364/o846                       S1/c364/o846                       S1/c364/o846                       STAGE1             STAGE1
+el__n02_nested_gen_hp__plain                   S1/c324/o86                        S1/c324/o86                        S1/c324/o86                        same-bytes         same-bytes
+el__n03_bind__elab                             EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+el__n03_bind__plain                            EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+el__n04_seq_in_gen__elab                       S1/c353/o84                        S1/c353/o84                        S1/c353/o84                        same-bytes         same-bytes
+el__n04_seq_in_gen__plain                      S1/c353/o45                        S1/c353/o45                        S1/c353/o45                        same-bytes         same-bytes
+fav__n01_iface_task__elab                      S1/c223/o36                        S1/c223/o36                        S1/c223/o36                        same-bytes         same-bytes
+fav__n01_iface_task__plain                     S1/c219/o34                        S1/c219/o34                        S1/c219/o34                        same-bytes         same-bytes
+fav__n02_assoc__elab                           EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+fav__n02_assoc__plain                          EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+fav__n03_func_dynarg__elab                     NE:file/c0/o2                      NE:file/c0/o2                      EQ/c0/o2                           CONVERT            CONVERT
+fav__n03_func_dynarg__plain                    NE:file/c0/o2                      NE:file/c0/o2                      EQ/c0/o2                           CONVERT            CONVERT
+fav__n04_class_in_module__elab                 NE:file/c0/o40                     NE:file/c0/o40                     EQ/c0/o40                          CONVERT            CONVERT
+fav__n04_class_in_module__plain                NE:file/c0/o0                      NE:file/c0/o0                      EQ/c0/o0                           CONVERT            CONVERT
+fb__n01_func_local__elab                       EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+fb__n01_func_local__plain                      EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+fb__n02_iface_var__elab                        EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+fb__n02_iface_var__plain                       EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+fb__n03_genif_var__elab                        EQ/c0/o66                          EQ/c0/o66                          EQ/c0/o66                          same-bytes         same-bytes
+fb__n03_genif_var__plain                       EQ/c0/o2                           EQ/c0/o2                           EQ/c0/o2                           same-bytes         same-bytes
+fb__n04_nonansi_port__elab                     EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+fb__n04_nonansi_port__plain                    EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+hg__n01_param_index__elab                      NE:endcol/c0/o108                  NE:endcol/c0/o108                  NE:fullname/c0/o96                 IMPROVE            IMPROVE
+hg__n01_param_index__plain                     NE:endcol/c0/o22                   NE:endcol/c0/o22                   NE:fullname/c0/o10                 IMPROVE            IMPROVE
+hg__n02_var_index__elab                        /tmp/r11u149_cw/hg__/c10/o558/rc3  /tmp/r11u149_cw/hg__/c10/o558/rc3  /tmp/r11u149_cw/hg__/c10/o558/rc3  same-bytes         same-bytes
+hg__n02_var_index__plain                       /tmp/r11u149_cw/hg__/c10/o525/rc3  /tmp/r11u149_cw/hg__/c10/o525/rc3  /tmp/r11u149_cw/hg__/c10/o525/rc3  same-bytes         same-bytes
+hg__n03_deep_member__elab                      NE:fullname/c0/o16                 EQ/c0/o0                           EQ/c0/o0                           same-bytes         CONVERT
+hg__n03_deep_member__plain                     EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+hg__n04_nested_loops__elab                     NE:fullname/c0/o112                EQ/c0/o48                          EQ/c0/o48                          same-bytes         CONVERT
+hg__n04_nested_loops__plain                    NE:fullname/c0/o48                 NE:fullname/c0/o48                 NE:fullname/c0/o48                 same-bytes         same-bytes
+hg__n05_localparam_index__elab                 NE:endcol/c0/o122                  NE:endcol/c0/o106                  EQ/c0/o82                          CONVERT            CONVERT
+hg__n05_localparam_index__plain                NE:endcol/c0/o104                  NE:endcol/c0/o104                  NE:fullname/c0/o82                 IMPROVE            IMPROVE
+ia__n01_genloop__elab                          NE:col/c0/o12                      NE:col/c0/o12                      NE:col/c0/o12                      same-bytes         same-bytes
+ia__n01_genloop__plain                         NE:col/c0/o12                      NE:col/c0/o12                      NE:col/c0/o12                      same-bytes         same-bytes
+ia__n02_minus_colon__elab                      NE:size/c0/o20                     NE:size/c0/o20                     EQ/c0/o20                          CONVERT            CONVERT
+ia__n02_minus_colon__plain                     NE:size/c0/o20                     NE:size/c0/o20                     EQ/c0/o20                          CONVERT            CONVERT
+ia__n03_2d_packed__elab                        NE:size/c0/o28                     NE:size/c0/o28                     EQ/c0/o28                          CONVERT            CONVERT
+ia__n03_2d_packed__plain                       NE:size/c0/o28                     NE:size/c0/o28                     EQ/c0/o28                          CONVERT            CONVERT
+ia__n04_param_sub__elab                        NE:size/c0/o14                     NE:size/c0/o14                     EQ/c0/o14                          CONVERT            CONVERT
+ia__n04_param_sub__plain                       NE:size/c0/o14                     NE:size/c0/o14                     EQ/c0/o14                          CONVERT            CONVERT
+lat__n01_signed_elem__elab                     S1/c102/o127                       S1/c102/o127                       S1/c102/o89                        STAGE1             STAGE1
+lat__n01_signed_elem__plain                    S1/c102/o143                       S1/c102/o143                       S1/c102/o105                       STAGE1             STAGE1
+lat__n02_byte_elem_func__elab                  S1/c24/o102                        S1/c24/o102                        S1/c24/o64                         STAGE1             STAGE1
+lat__n02_byte_elem_func__plain                 S1/c24/o102                        S1/c24/o102                        S1/c24/o64                         STAGE1             STAGE1
+lat__n03_two_mods__elab                        NE:type/c0/o101                    NE:type/c0/o101                    EQ/c0/o61                          CONVERT            CONVERT
+lat__n03_two_mods__plain                       NE:type/c0/o119                    NE:type/c0/o119                    NE:fullname/c0/o79                 UNMASK(refdiv=91)  UNMASK(refdiv=91)
+lat__n04_localparam_use__elab                  S1/c22/o86                         S1/c22/o86                         S1/c22/o46                         STAGE1             STAGE1
+lat__n04_localparam_use__plain                 S1/c22/o86                         S1/c22/o86                         S1/c22/o46                         STAGE1             STAGE1
+mdi__n01_struct_typed__elab                    NE:line/c0/o24                     NE:line/c0/o24                     EQ/c0/o0                           CONVERT            CONVERT
+mdi__n01_struct_typed__plain                   NE:line/c0/o12                     NE:line/c0/o12                     EQ/c0/o0                           CONVERT            CONVERT
+mdi__n02_automatic_kw__elab                    NE:line/c0/o20                     NE:line/c0/o20                     EQ/c0/o0                           CONVERT            CONVERT
+mdi__n02_automatic_kw__plain                   NE:line/c0/o8                      NE:line/c0/o8                      EQ/c0/o0                           CONVERT            CONVERT
+mdi__n03_pkg_func__elab                        NE:line/c0/o48                     NE:line/c0/o48                     EQ/c0/o0                           CONVERT            CONVERT
+mdi__n03_pkg_func__plain                       NE:line/c0/o24                     NE:line/c0/o24                     EQ/c0/o0                           CONVERT            CONVERT
+mdi__n04_iface_func_second_multi__elab         EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+mdi__n04_iface_func_second_multi__plain        EQ/c0/o0                           EQ/c0/o0                           EQ/c0/o0                           same-bytes         same-bytes
+pf__n01_pkg_func_lit__elab                     NE:file/c0/o4                      NE:file/c0/o4                      EQ/c0/o0                           CONVERT            CONVERT
+pf__n01_pkg_func_lit__plain                    NE:file/c0/o2                      NE:file/c0/o2                      EQ/c0/o0                           CONVERT            CONVERT
+pf__n02_two_formals__elab                      NE:file/c0/o4                      NE:file/c0/o4                      EQ/c0/o0                           CONVERT            CONVERT
+pf__n02_two_formals__plain                     NE:file/c0/o2                      NE:file/c0/o2                      EQ/c0/o0                           CONVERT            CONVERT
+pf__n03_dec_literal__elab                      NE:file/c0/o4                      NE:file/c0/o4                      EQ/c0/o0                           CONVERT            CONVERT
+pf__n03_dec_literal__plain                     NE:file/c0/o2                      NE:file/c0/o2                      EQ/c0/o0                           CONVERT            CONVERT
+pf__n04_concat_param_repl__elab                NE:endcol/c0/o0                    NE:endcol/c0/o0                    EQ/c0/o0                           CONVERT            CONVERT
+pf__n04_concat_param_repl__plain               NE:endcol/c0/o0                    NE:endcol/c0/o0                    EQ/c0/o0                           CONVERT            CONVERT
+pfp__n01_shortint__elab                        NE:line/c0/o6                      NE:line/c0/o6                      EQ/c0/o6                           CONVERT            CONVERT
+pfp__n01_shortint__plain                       NE:line/c0/o6                      NE:line/c0/o6                      EQ/c0/o6                           CONVERT            CONVERT
+pfp__n02_int_unsigned__elab                    NE:line/c0/o6                      NE:line/c0/o6                      EQ/c0/o5                           CONVERT            CONVERT
+pfp__n02_int_unsigned__plain                   NE:line/c0/o6                      NE:line/c0/o6                      EQ/c0/o5                           CONVERT            CONVERT
+pfp__n03_three_dim__elab                       NE:fullname/c0/o73                 NE:fullname/c0/o73                 EQ/c0/o69                          CONVERT            CONVERT
+pfp__n03_three_dim__plain                      NE:fullname/c0/o73                 NE:fullname/c0/o73                 EQ/c0/o69                          CONVERT            CONVERT
+pfp__n04_signed_vec_body__elab                 S1/c17/o52                         S1/c17/o52                         S1/c17/o74                         STAGE1             STAGE1
+pfp__n04_signed_vec_body__plain                S1/c17/o52                         S1/c17/o52                         S1/c17/o74                         STAGE1             STAGE1
+pfx__n01_genblk_assign__elab                   NE:fullname/c0/o98                 EQ/c0/o94                          EQ/c0/o94                          same-bytes         CONVERT
+pfx__n01_genblk_assign__plain                  NE:fullname/c0/o98                 EQ/c0/o94                          EQ/c0/o94                          same-bytes         CONVERT
+pfx__n02_not_bare__elab                        S1/c87/o25                         S1/c87/o21                         S1/c87/o21                         same-bytes         STAGE1
+pfx__n02_not_bare__plain                       S1/c87/o25                         S1/c87/o21                         S1/c87/o21                         same-bytes         STAGE1
+pfx__n03_two_inst_one_reads__elab              S1/c87/o53                         S1/c87/o61                         S1/c87/o53                         STAGE1             same-bytes
+pfx__n03_two_inst_one_reads__plain             S1/c87/o53                         S1/c87/o61                         S1/c87/o53                         STAGE1             same-bytes
+plt__n01_loopvar_base__elab                    NE:fullname/c0/o12                 NE:fullname/c0/o12                 EQ/c0/o0                           CONVERT            CONVERT
+plt__n01_loopvar_base__plain                   NE:fullname/c0/o6                  NE:fullname/c0/o6                  EQ/c0/o0                           CONVERT            CONVERT
+plt__n02_deep_chain__elab                      NE:fullname/c0/o12                 NE:fullname/c0/o12                 EQ/c0/o0                           CONVERT            CONVERT
+plt__n02_deep_chain__plain                     NE:fullname/c0/o6                  NE:fullname/c0/o6                  EQ/c0/o0                           CONVERT            CONVERT
+plt__n03_if_else__elab                         NE:fullname/c0/o24                 NE:fullname/c0/o24                 EQ/c0/o0                           CONVERT            CONVERT
+plt__n03_if_else__plain                        NE:fullname/c0/o12                 NE:fullname/c0/o12                 EQ/c0/o0                           CONVERT            CONVERT
+plv__n01_loopvar_idx__elab                     NE:fullname/c0/o8                  NE:fullname/c0/o8                  EQ/c0/o0                           CONVERT            CONVERT
+plv__n01_loopvar_idx__plain                    NE:fullname/c0/o4                  NE:fullname/c0/o4                  EQ/c0/o0                           CONVERT            CONVERT
+plv__n02_case_branch__elab                     NE:fullname/c0/o16                 NE:fullname/c0/o16                 EQ/c0/o0                           CONVERT            CONVERT
+plv__n02_case_branch__plain                    NE:fullname/c0/o8                  NE:fullname/c0/o8                  EQ/c0/o0                           CONVERT            CONVERT
+plv__n03_latch__elab                           NE:fullname/c0/o8                  NE:fullname/c0/o8                  EQ/c0/o0                           CONVERT            CONVERT
+plv__n03_latch__plain                          NE:fullname/c0/o4                  NE:fullname/c0/o4                  EQ/c0/o0                           CONVERT            CONVERT
+plv__n04_idx_member__elab                      NE:col/c0/o10                      NE:col/c0/o10                      NE:col/c0/o10                      same-bytes         same-bytes
+plv__n04_idx_member__plain                     NE:col/c0/o5                       NE:col/c0/o5                       NE:col/c0/o5                       same-bytes         same-bytes
+pso__n01_unary_minus__elab                     NE:line/c0/o20                     NE:line/c0/o20                     EQ/c0/o14                          CONVERT            CONVERT
+pso__n01_unary_minus__plain                    NE:line/c0/o20                     NE:line/c0/o20                     EQ/c0/o14                          CONVERT            CONVERT
+pso__n02_paren_product__elab                   NE:line/c0/o18                     NE:line/c0/o18                     EQ/c0/o12                          CONVERT            CONVERT
+pso__n02_paren_product__plain                  NE:line/c0/o18                     NE:line/c0/o18                     EQ/c0/o12                          CONVERT            CONVERT
+pso__n03_ternary_cond__elab                    S1/c164/o86                        S1/c164/o86                        S1/c164/o86                        same-bytes         same-bytes
+pso__n03_ternary_cond__plain                   S1/c164/o86                        S1/c164/o86                        S1/c164/o86                        same-bytes         same-bytes
+pso__n04_sub_override__elab                    NE:line/c0/o40                     NE:line/c0/o40                     EQ/c0/o28                          CONVERT            CONVERT
+pso__n04_sub_override__plain                   NE:line/c0/o40                     NE:line/c0/o40                     EQ/c0/o28                          CONVERT            CONVERT
+pt__n01_iface__elab                            S1/c33/o61                         S1/c33/o61                         S1/c33/o53                         STAGE1             STAGE1
+pt__n01_iface__plain                           S1/c31/o57                         S1/c31/o57                         S1/c31/o49                         STAGE1             STAGE1
+pt__n02_two_bounds__elab                       S1/c64/o57                         S1/c64/o57                         S1/c64/o41                         STAGE1             STAGE1
+pt__n02_two_bounds__plain                      S1/c64/o53                         S1/c64/o53                         S1/c64/o37                         STAGE1             STAGE1
+pt__n03_localparam_sub__elab                   S1/c142/o50                        S1/c142/o50                        S1/c142/o42                        STAGE1             STAGE1
+pt__n03_localparam_sub__plain                  S1/c142/o48                        S1/c142/o48                        S1/c142/o40                        STAGE1             STAGE1
+qb__n01_pkg_param_type__elab                   S1/c64/o27                         S1/c64/o27                         S1/c64/o24                         STAGE1             STAGE1
+qb__n01_pkg_param_type__plain                  S1/c64/o27                         S1/c64/o27                         S1/c64/o24                         STAGE1             STAGE1
+qb__n02_pkg_func_ret__elab                     S1/c64/o42                         S1/c64/o42                         S1/c64/o42                         same-bytes         same-bytes
+qb__n02_pkg_func_ret__plain                    S1/c64/o42                         S1/c64/o42                         S1/c64/o42                         same-bytes         same-bytes
+qb__n03_pkg_var__elab                          S1/c76/o40                         S1/c76/o40                         S1/c76/o40                         same-bytes         same-bytes
+qb__n03_pkg_var__plain                         S1/c76/o40                         S1/c76/o40                         S1/c76/o40                         same-bytes         same-bytes
+qb__n04_two_dims_member__elab                  NE:fullname/c0/o6                  NE:fullname/c0/o6                  EQ/c0/o0                           CONVERT            CONVERT
+qb__n04_two_dims_member__plain                 NE:fullname/c0/o6                  NE:fullname/c0/o6                  EQ/c0/o0                           CONVERT            CONVERT
+rcf__n01_pkg_count__elab                       S1/c50/o101                        S1/c50/o101                        S1/c50/o101                        same-bytes         same-bytes
+rcf__n01_pkg_count__plain                      S1/c50/o125                        S1/c50/o125                        S1/c50/o125                        same-bytes         same-bytes
+rcf__n02_expr_count__elab                      S1/c58/o35                         S1/c58/o35                         S1/c58/o35                         same-bytes         same-bytes
+rcf__n02_expr_count__plain                     S1/c58/o97                         S1/c58/o97                         S1/c58/o97                         same-bytes         same-bytes
+rcf__n03_genblk__elab                          S1/c47/o291                        S1/c47/o291                        S1/c47/o291                        same-bytes         same-bytes
+rcf__n03_genblk__plain                         S1/c47/o215                        S1/c47/o215                        S1/c47/o215                        same-bytes         same-bytes
+sca__n01_iface_ca__elab                        S1/c47/o27                         S1/c47/o27                         S1/c47/o23                         STAGE1             STAGE1
+sca__n01_iface_ca__plain                       S1/c47/o29                         S1/c47/o29                         S1/c47/o25                         STAGE1             STAGE1
+sca__n02_ternary_cond__elab                    NE:endcol/c0/o12                   NE:endcol/c0/o12                   EQ/c0/o0                           CONVERT            CONVERT
+sca__n02_ternary_cond__plain                   NE:endcol/c0/o8                    NE:endcol/c0/o8                    EQ/c0/o0                           CONVERT            CONVERT
+sca__n03_macro_arg__elab                       NE:endcol/c0/o8                    NE:endcol/c0/o8                    EQ/c0/o0                           CONVERT            CONVERT
+sca__n03_macro_arg__plain                      NE:endcol/c0/o39                   NE:endcol/c0/o39                   EQ/c0/o35                          CONVERT            CONVERT
+sca__n04_concat_operand__elab                  NE:endcol/c0/o16                   NE:endcol/c0/o16                   EQ/c0/o0                           CONVERT            CONVERT
+sca__n04_concat_operand__plain                 NE:endcol/c0/o8                    NE:endcol/c0/o8                    EQ/c0/o0                           CONVERT            CONVERT
+scv__n01_2d_elem_ips_width__elab               NE:fullname/c0/o8                  NE:endcol/c0/o16                   NE:fullname/c0/o8                  IMPROVE            same-bytes
+scv__n01_2d_elem_ips_width__plain              NE:fullname/c0/o4                  NE:endcol/c0/o8                    NE:fullname/c0/o4                  IMPROVE            same-bytes
+scv__n02_genblk_range__elab                    NE:endcol/c0/o6                    NE:endcol/c0/o6                    NE:endcol/c0/o6                    same-bytes         same-bytes
+scv__n02_genblk_range__plain                   S1/c31/o6                          S1/c31/o6                          S1/c31/o6                          same-bytes         same-bytes
+scv__n03_ff_lhs_range__elab                    S1/c92/o31                         S1/c92/o31                         S1/c92/o31                         same-bytes         same-bytes
+scv__n03_ff_lhs_range__plain                   S1/c92/o8                          S1/c92/o8                          S1/c92/o8                          same-bytes         same-bytes
+scv__n04_ips_base_expr_in_width_nested__elab   EQ/c0/o0                           NE:endcol/c0/o8                    EQ/c0/o0                           CONVERT            same-bytes
+scv__n04_ips_base_expr_in_width_nested__plain  EQ/c0/o0                           NE:endcol/c0/o4                    EQ/c0/o0                           CONVERT            same-bytes
+stm__n01_iface__elab                           NE:col/c0/o4                       NE:col/c0/o4                       EQ/c0/o0                           CONVERT            CONVERT
+stm__n01_iface__plain                          NE:col/c0/o4                       NE:col/c0/o4                       EQ/c0/o0                           CONVERT            CONVERT
+stm__n02_pkg_func__elab                        NE:col/c0/o16                      NE:col/c0/o16                      EQ/c0/o0                           CONVERT            CONVERT
+stm__n02_pkg_func__plain                       NE:col/c0/o8                       NE:col/c0/o8                       EQ/c0/o0                           CONVERT            CONVERT
+stm__n03_in_concat__elab                       NE:col/c0/o42                      NE:col/c0/o42                      EQ/c0/o30                          CONVERT            CONVERT
+stm__n03_in_concat__plain                      NE:col/c0/o38                      NE:col/c0/o38                      EQ/c0/o30                          CONVERT            CONVERT
+stm__n04_genfor__elab                          NE:fullname/c0/o24                 NE:fullname/c0/o24                 NE:fullname/c0/o16                 IMPROVE            IMPROVE
+stm__n04_genfor__plain                         NE:fullname/c0/o24                 NE:fullname/c0/o24                 NE:fullname/c0/o16                 IMPROVE            IMPROVE
+tdc__n01_parameter_kw__elab                    NE:type/c0/o5/rc4                  NE:type/c0/o5/rc4                  EQ/c0/o0                           CONVERT            CONVERT
+tdc__n01_parameter_kw__plain                   NE:type/c0/o5/rc4                  NE:type/c0/o5/rc4                  EQ/c0/o0                           CONVERT            CONVERT
+tdc__n02_cast_expr__elab                       NE:type/c0/o9/rc4                  NE:type/c0/o9/rc4                  NE:endcol/c0/o4                    UNMASK(refdiv=27)  UNMASK(refdiv=27)
+tdc__n02_cast_expr__plain                      S1/c62/o28/rc4                     S1/c62/o28/rc4                     S1/c62/o23                         STAGE1             STAGE1
+tdc__n03_enum_member__elab                     NE:type/c0/o5/rc4                  NE:type/c0/o5/rc4                  EQ/c0/o0                           CONVERT            CONVERT
+tdc__n03_enum_member__plain                    NE:type/c0/o5/rc4                  NE:type/c0/o5/rc4                  EQ/c0/o0                           CONVERT            CONVERT
+tq__n01_pkg_struct_default__elab               NE:endline/c0/o49                  NE:endline/c0/o49                  NE:endline/c0/o6                   NEW[2]             NEW[2]
+tq__n01_pkg_struct_default__plain              NE:endline/c0/o49                  NE:endline/c0/o49                  NE:endline/c0/o6                   NEW[2]             NEW[2]
+tq__n02_two_packed_dims__elab                  NE:endline/c0/o85                  NE:endline/c0/o85                  NE:fullname/c0/o74                 UNMASK(refdiv=18)  UNMASK(refdiv=18)
+tq__n02_two_packed_dims__plain                 NE:endline/c0/o85                  NE:endline/c0/o85                  NE:fullname/c0/o74                 UNMASK(refdiv=18)  UNMASK(refdiv=18)
+tq__n03_iface__elab                            S1/c79/o156                        S1/c79/o156                        S1/c79/o145                        STAGE1             STAGE1
+tq__n03_iface__plain                           S1/c79/o140                        S1/c79/o140                        S1/c79/o129                        STAGE1             STAGE1
+vf__n01_local_static_func__elab                NE:endline/c0/o2                   NE:endline/c0/o2                   EQ/c0/o0                           CONVERT            CONVERT
+vf__n01_local_static_func__plain               NE:endline/c0/o2                   NE:endline/c0/o2                   EQ/c0/o0                           CONVERT            CONVERT
+vf__n02_protected_virtual_func__elab           NE:col/c0/o4                       NE:col/c0/o4                       EQ/c0/o0                           CONVERT            CONVERT
+vf__n02_protected_virtual_func__plain          NE:col/c0/o2                       NE:col/c0/o2                       EQ/c0/o0                           CONVERT            CONVERT
+vf__n03_extern_virtual_task__elab              NE:line/c0/o18                     NE:line/c0/o18                     NE:line/c0/o18                     same-bytes         same-bytes
+vf__n03_extern_virtual_task__plain             NE:line/c0/o16                     NE:line/c0/o16                     NE:line/c0/o16                     same-bytes         same-bytes
+vf__n04_derived_override__elab                 NE:endline/c0/o18                  NE:endline/c0/o18                  EQ/c0/o0                           CONVERT            CONVERT
+vf__n04_derived_override__plain                NE:endline/c0/o6                   NE:endline/c0/o6                   EQ/c0/o0                           CONVERT            CONVERT
+scv/n01_2d_elem_ips_width plain ON slrc=0 rc=0 cmp=0 ob=4 md5=bc0f8177c588 | STRICT_NOTEQUAL fullname
+scv/n01_2d_elem_ips_width plain OFF slrc=0 rc=0 cmp=0 ob=4 md5=bc0f8177c588 | STRICT_NOTEQUAL fullname
+scv/n01_2d_elem_ips_width plain OWN slrc=0 rc=0 cmp=0 ob=8 md5=ec4ef00fa6b9 | STRICT_NOTEQUAL endcol
+scv/n01_2d_elem_ips_width elab ON slrc=0 rc=0 cmp=0 ob=8 md5=095d9236295b | STRICT_NOTEQUAL fullname
+scv/n01_2d_elem_ips_width elab OFF slrc=0 rc=0 cmp=0 ob=8 md5=095d9236295b | STRICT_NOTEQUAL fullname
+scv/n01_2d_elem_ips_width elab OWN slrc=0 rc=0 cmp=0 ob=16 md5=bc0d559ac93f | STRICT_NOTEQUAL endcol
+scv/n02_genblk_range plain ON slrc=0 rc=0 cmp=31 ob=6 md5=64b9b74dd779 | NOT_EQUAL stage1
+scv/n02_genblk_range plain OFF slrc=0 rc=0 cmp=31 ob=6 md5=64b9b74dd779 | NOT_EQUAL stage1
+scv/n02_genblk_range plain OWN slrc=0 rc=0 cmp=31 ob=6 md5=64b9b74dd779 | NOT_EQUAL stage1
+scv/n02_genblk_range elab ON slrc=0 rc=0 cmp=0 ob=6 md5=fd65113a8bb7 | STRICT_NOTEQUAL endcol
+scv/n02_genblk_range elab OFF slrc=0 rc=0 cmp=0 ob=6 md5=fd65113a8bb7 | STRICT_NOTEQUAL endcol
+scv/n02_genblk_range elab OWN slrc=0 rc=0 cmp=0 ob=6 md5=fd65113a8bb7 | STRICT_NOTEQUAL endcol
+scv/n03_ff_lhs_range plain ON slrc=0 rc=0 cmp=92 ob=8 md5=03d1ba43538c | NOT_EQUAL stage1
+scv/n03_ff_lhs_range plain OFF slrc=0 rc=0 cmp=92 ob=8 md5=03d1ba43538c | NOT_EQUAL stage1
+scv/n03_ff_lhs_range plain OWN slrc=0 rc=0 cmp=92 ob=8 md5=03d1ba43538c | NOT_EQUAL stage1
+scv/n03_ff_lhs_range elab ON slrc=0 rc=0 cmp=92 ob=31 md5=5d41def88f2f | NOT_EQUAL stage1
+scv/n03_ff_lhs_range elab OFF slrc=0 rc=0 cmp=92 ob=31 md5=5d41def88f2f | NOT_EQUAL stage1
+scv/n03_ff_lhs_range elab OWN slrc=0 rc=0 cmp=92 ob=31 md5=5d41def88f2f | NOT_EQUAL stage1
+scv/n04_ips_base_expr_in_width_nested plain ON slrc=0 rc=0 cmp=0 ob=0 md5=5ef7c9126b8c | STRICT_EQUAL 112 objects
+scv/n04_ips_base_expr_in_width_nested plain OFF slrc=0 rc=0 cmp=0 ob=0 md5=5ef7c9126b8c | STRICT_EQUAL 112 objects
+scv/n04_ips_base_expr_in_width_nested plain OWN slrc=0 rc=0 cmp=0 ob=4 md5=2bbde1b7b842 | STRICT_NOTEQUAL endcol
+scv/n04_ips_base_expr_in_width_nested elab ON slrc=0 rc=0 cmp=0 ob=0 md5=1f5326d8e79e | STRICT_EQUAL 109 objects
+scv/n04_ips_base_expr_in_width_nested elab OFF slrc=0 rc=0 cmp=0 ob=0 md5=1f5326d8e79e | STRICT_EQUAL 109 objects
+scv/n04_ips_base_expr_in_width_nested elab OWN slrc=0 rc=0 cmp=0 ob=8 md5=22395a7ad717 | STRICT_NOTEQUAL endcol
+stm/n01_iface plain ON slrc=0 rc=0 cmp=0 ob=0 md5=3bacf68d668b | STRICT_EQUAL 146 objects
+stm/n01_iface plain OFF slrc=0 rc=0 cmp=0 ob=4 md5=ce6b586bfa99 | STRICT_NOTEQUAL col
+stm/n01_iface plain OWN slrc=0 rc=0 cmp=0 ob=4 md5=ce6b586bfa99 | STRICT_NOTEQUAL col
+stm/n01_iface elab ON slrc=0 rc=0 cmp=0 ob=0 md5=ffc870436d09 | STRICT_EQUAL 144 objects
+stm/n01_iface elab OFF slrc=0 rc=0 cmp=0 ob=4 md5=9907d09b38a3 | STRICT_NOTEQUAL col
+stm/n01_iface elab OWN slrc=0 rc=0 cmp=0 ob=4 md5=9907d09b38a3 | STRICT_NOTEQUAL col
+stm/n02_pkg_func plain ON slrc=0 rc=0 cmp=0 ob=0 md5=89c2768aab42 | STRICT_EQUAL 103 objects
+stm/n02_pkg_func plain OFF slrc=0 rc=0 cmp=0 ob=8 md5=3843cf7825ec | STRICT_NOTEQUAL col
+stm/n02_pkg_func plain OWN slrc=0 rc=0 cmp=0 ob=8 md5=3843cf7825ec | STRICT_NOTEQUAL col
+stm/n02_pkg_func elab ON slrc=0 rc=0 cmp=0 ob=0 md5=6257e63f6cff | STRICT_EQUAL 101 objects
+stm/n02_pkg_func elab OFF slrc=0 rc=0 cmp=0 ob=16 md5=464984a315a3 | STRICT_NOTEQUAL col
+stm/n02_pkg_func elab OWN slrc=0 rc=0 cmp=0 ob=16 md5=464984a315a3 | STRICT_NOTEQUAL col
+stm/n03_in_concat plain ON slrc=0 rc=0 cmp=0 ob=30 md5=eef020efa8af | STRICT_EQUAL 112 objects
+stm/n03_in_concat plain OFF slrc=0 rc=0 cmp=0 ob=38 md5=e600c5b80c21 | STRICT_NOTEQUAL col
+stm/n03_in_concat plain OWN slrc=0 rc=0 cmp=0 ob=38 md5=e600c5b80c21 | STRICT_NOTEQUAL col
+stm/n03_in_concat elab ON slrc=0 rc=0 cmp=0 ob=30 md5=7ef11c88a2e8 | STRICT_EQUAL 110 objects
+stm/n03_in_concat elab OFF slrc=0 rc=0 cmp=0 ob=42 md5=3b344d2fc512 | STRICT_NOTEQUAL col
+stm/n03_in_concat elab OWN slrc=0 rc=0 cmp=0 ob=42 md5=3b344d2fc512 | STRICT_NOTEQUAL col
+stm/n04_genfor plain ON slrc=0 rc=0 cmp=0 ob=16 md5=740b9cea3bab | STRICT_NOTEQUAL fullname
+stm/n04_genfor plain OFF slrc=0 rc=0 cmp=0 ob=24 md5=a4cb5bdffde2 | STRICT_NOTEQUAL fullname
+stm/n04_genfor plain OWN slrc=0 rc=0 cmp=0 ob=24 md5=a4cb5bdffde2 | STRICT_NOTEQUAL fullname
+stm/n04_genfor elab ON slrc=0 rc=0 cmp=0 ob=16 md5=4e762e24f9ce | STRICT_NOTEQUAL fullname
+stm/n04_genfor elab OFF slrc=0 rc=0 cmp=0 ob=24 md5=469a72d034ef | STRICT_NOTEQUAL fullname
+stm/n04_genfor elab OWN slrc=0 rc=0 cmp=0 ob=24 md5=469a72d034ef | STRICT_NOTEQUAL fullname
+stm/n05_crlf_multiline plain ON slrc=0 rc=0 cmp=0 ob=0 md5=0b5c7e07d3a0 | STRICT_EQUAL 56 objects
+stm/n05_crlf_multiline plain OFF slrc=0 rc=0 cmp=0 ob=8 md5=34c3a40a91f2 | STRICT_NOTEQUAL line
+stm/n05_crlf_multiline plain OWN slrc=0 rc=0 cmp=0 ob=8 md5=34c3a40a91f2 | STRICT_NOTEQUAL line
+stm/n05_crlf_multiline elab ON slrc=0 rc=0 cmp=0 ob=0 md5=cea963c43354 | STRICT_EQUAL 55 objects
+stm/n05_crlf_multiline elab OFF slrc=0 rc=0 cmp=0 ob=8 md5=f782091d54b1 | STRICT_NOTEQUAL line
+stm/n05_crlf_multiline elab OWN slrc=0 rc=0 cmp=0 ob=8 md5=f782091d54b1 | STRICT_NOTEQUAL line
+tdc/n01_parameter_kw plain ON slrc=0 rc=0 cmp=0 ob=0 md5=0d5500eb9f16 | STRICT_EQUAL 157 objects
+tdc/n01_parameter_kw plain OFF slrc=0 rc=4 cmp=0 ob=5 md5=ec73521fccb0 | STRICT_NOTEQUAL type
+tdc/n01_parameter_kw plain OWN slrc=0 rc=4 cmp=0 ob=5 md5=ec73521fccb0 | STRICT_NOTEQUAL type
+tdc/n01_parameter_kw elab ON slrc=0 rc=0 cmp=0 ob=0 md5=1c3a8c0a2c42 | STRICT_EQUAL 162 objects
+tdc/n01_parameter_kw elab OFF slrc=0 rc=4 cmp=0 ob=5 md5=f846716ea58f | STRICT_NOTEQUAL type
+tdc/n01_parameter_kw elab OWN slrc=0 rc=4 cmp=0 ob=5 md5=f846716ea58f | STRICT_NOTEQUAL type
+tdc/n02_cast_expr plain ON slrc=0 rc=0 cmp=62 ob=23 md5=11b42ab476df | NOT_EQUAL stage1
+tdc/n02_cast_expr plain OFF slrc=0 rc=4 cmp=62 ob=28 md5=fa70ac127770 | NOT_EQUAL stage1
+tdc/n02_cast_expr plain OWN slrc=0 rc=4 cmp=62 ob=28 md5=fa70ac127770 | NOT_EQUAL stage1
+tdc/n02_cast_expr elab ON slrc=0 rc=0 cmp=0 ob=4 md5=6f8216f58c90 | STRICT_NOTEQUAL endcol
+tdc/n02_cast_expr elab OFF slrc=0 rc=4 cmp=0 ob=9 md5=279d95af1182 | STRICT_NOTEQUAL type
+tdc/n02_cast_expr elab OWN slrc=0 rc=4 cmp=0 ob=9 md5=279d95af1182 | STRICT_NOTEQUAL type
+tdc/n03_enum_member plain ON slrc=0 rc=0 cmp=0 ob=0 md5=1f5a2d88862a | STRICT_EQUAL 215 objects
+tdc/n03_enum_member plain OFF slrc=0 rc=4 cmp=0 ob=5 md5=9d89d8a578b8 | STRICT_NOTEQUAL type
+tdc/n03_enum_member plain OWN slrc=0 rc=4 cmp=0 ob=5 md5=9d89d8a578b8 | STRICT_NOTEQUAL type
+tdc/n03_enum_member elab ON slrc=0 rc=0 cmp=0 ob=0 md5=4a742663deb0 | STRICT_EQUAL 220 objects
+tdc/n03_enum_member elab OFF slrc=0 rc=4 cmp=0 ob=5 md5=69ac783143d0 | STRICT_NOTEQUAL type
+tdc/n03_enum_member elab OWN slrc=0 rc=4 cmp=0 ob=5 md5=69ac783143d0 | STRICT_NOTEQUAL type
+tq/n01_pkg_struct_default plain ON slrc=0 rc=0 cmp=0 ob=6 md5=b9f9aa9ed2d7 | STRICT_NOTEQUAL endline
+tq/n01_pkg_struct_default plain OFF slrc=0 rc=0 cmp=0 ob=49 md5=05e2e5802714 | STRICT_NOTEQUAL endline
+tq/n01_pkg_struct_default plain OWN slrc=0 rc=0 cmp=0 ob=49 md5=05e2e5802714 | STRICT_NOTEQUAL endline
+tq/n01_pkg_struct_default elab ON slrc=0 rc=0 cmp=0 ob=6 md5=c15e1c3d9156 | STRICT_NOTEQUAL endline
+tq/n01_pkg_struct_default elab OFF slrc=0 rc=0 cmp=0 ob=49 md5=f5cae202f7e3 | STRICT_NOTEQUAL endline
+tq/n01_pkg_struct_default elab OWN slrc=0 rc=0 cmp=0 ob=49 md5=f5cae202f7e3 | STRICT_NOTEQUAL endline
+tq/n02_two_packed_dims plain ON slrc=0 rc=0 cmp=0 ob=74 md5=4050817b6823 | STRICT_NOTEQUAL fullname
+tq/n02_two_packed_dims plain OFF slrc=0 rc=0 cmp=0 ob=85 md5=639c0d3d3d0d | STRICT_NOTEQUAL endline
+tq/n02_two_packed_dims plain OWN slrc=0 rc=0 cmp=0 ob=85 md5=639c0d3d3d0d | STRICT_NOTEQUAL endline
+tq/n02_two_packed_dims elab ON slrc=0 rc=0 cmp=0 ob=74 md5=b1528f204e2d | STRICT_NOTEQUAL fullname
+tq/n02_two_packed_dims elab OFF slrc=0 rc=0 cmp=0 ob=85 md5=49e110fe844d | STRICT_NOTEQUAL endline
+tq/n02_two_packed_dims elab OWN slrc=0 rc=0 cmp=0 ob=85 md5=49e110fe844d | STRICT_NOTEQUAL endline
+tq/n03_iface plain ON slrc=0 rc=0 cmp=79 ob=129 md5=6b786090addc | NOT_EQUAL stage1
+tq/n03_iface plain OFF slrc=0 rc=0 cmp=79 ob=140 md5=e766594fc420 | NOT_EQUAL stage1
+tq/n03_iface plain OWN slrc=0 rc=0 cmp=79 ob=140 md5=e766594fc420 | NOT_EQUAL stage1
+tq/n03_iface elab ON slrc=0 rc=0 cmp=79 ob=145 md5=859f5abce7e4 | NOT_EQUAL stage1
+tq/n03_iface elab OFF slrc=0 rc=0 cmp=79 ob=156 md5=23cfa46a6f13 | NOT_EQUAL stage1
+tq/n03_iface elab OWN slrc=0 rc=0 cmp=79 ob=156 md5=23cfa46a6f13 | NOT_EQUAL stage1
+tq/n04_pkg_union_default plain ON slrc=0 rc=0 cmp=124 ob=45 md5=c2cd7d8e3b24 | NOT_EQUAL stage1
+tq/n04_pkg_union_default plain OFF slrc=0 rc=0 cmp=124 ob=52 md5=e9db8479d0e4 | NOT_EQUAL stage1
+tq/n04_pkg_union_default plain OWN slrc=0 rc=0 cmp=124 ob=52 md5=e9db8479d0e4 | NOT_EQUAL stage1
+tq/n04_pkg_union_default elab ON slrc=0 rc=0 cmp=124 ob=49 md5=e6dc1b6afb20 | NOT_EQUAL stage1
+tq/n04_pkg_union_default elab OFF slrc=0 rc=0 cmp=124 ob=56 md5=70b94508701c | NOT_EQUAL stage1
+tq/n04_pkg_union_default elab OWN slrc=0 rc=0 cmp=124 ob=56 md5=70b94508701c | NOT_EQUAL stage1
+tq/n05_pkg_default_unused_pkg_ref plain ON slrc=0 rc=0 cmp=34 ob=24 md5=f83b8d5b2850 | NOT_EQUAL stage1
+tq/n05_pkg_default_unused_pkg_ref plain OFF slrc=0 rc=0 cmp=34 ob=61 md5=c5410dd8c715 | NOT_EQUAL stage1
+tq/n05_pkg_default_unused_pkg_ref plain OWN slrc=0 rc=0 cmp=34 ob=61 md5=c5410dd8c715 | NOT_EQUAL stage1
+tq/n05_pkg_default_unused_pkg_ref elab ON slrc=0 rc=0 cmp=34 ob=40 md5=98b91c4beb33 | NOT_EQUAL stage1
+tq/n05_pkg_default_unused_pkg_ref elab OFF slrc=0 rc=0 cmp=34 ob=77 md5=6a0cc37752a9 | NOT_EQUAL stage1
+tq/n05_pkg_default_unused_pkg_ref elab OWN slrc=0 rc=0 cmp=34 ob=77 md5=6a0cc37752a9 | NOT_EQUAL stage1
+tq/n06_local_typedef_ctl plain ON slrc=0 rc=0 cmp=0 ob=2 md5=b7b014954407 | STRICT_EQUAL 135 objects
+tq/n06_local_typedef_ctl plain OFF slrc=0 rc=0 cmp=0 ob=41 md5=271fb384d0a2 | STRICT_NOTEQUAL endline
+tq/n06_local_typedef_ctl plain OWN slrc=0 rc=0 cmp=0 ob=41 md5=271fb384d0a2 | STRICT_NOTEQUAL endline
+tq/n06_local_typedef_ctl elab ON slrc=0 rc=0 cmp=0 ob=2 md5=db96a20e0823 | STRICT_EQUAL 121 objects
+tq/n06_local_typedef_ctl elab OFF slrc=0 rc=0 cmp=0 ob=41 md5=8f817bbc1376 | STRICT_NOTEQUAL endline
+tq/n06_local_typedef_ctl elab OWN slrc=0 rc=0 cmp=0 ob=41 md5=8f817bbc1376 | STRICT_NOTEQUAL endline
+tq/n07_pkg_default_unpacked_137arm plain ON slrc=0 rc=0 cmp=0 ob=6 md5=b058d4c2d0fb | STRICT_NOTEQUAL endline
+tq/n07_pkg_default_unpacked_137arm plain OFF slrc=0 rc=0 cmp=0 ob=6 md5=b058d4c2d0fb | STRICT_NOTEQUAL endline
+tq/n07_pkg_default_unpacked_137arm plain OWN slrc=0 rc=0 cmp=0 ob=6 md5=b058d4c2d0fb | STRICT_NOTEQUAL endline
+tq/n07_pkg_default_unpacked_137arm elab ON slrc=0 rc=0 cmp=0 ob=6 md5=07d2a4b8b113 | STRICT_NOTEQUAL endline
+tq/n07_pkg_default_unpacked_137arm elab OFF slrc=0 rc=0 cmp=0 ob=6 md5=07d2a4b8b113 | STRICT_NOTEQUAL endline
+tq/n07_pkg_default_unpacked_137arm elab OWN slrc=0 rc=0 cmp=0 ob=6 md5=07d2a4b8b113 | STRICT_NOTEQUAL endline
+tq/n08_pkg_default_two_nets plain ON slrc=0 rc=0 cmp=0 ob=10 md5=75f34ca993f0 | STRICT_NOTEQUAL endline
+tq/n08_pkg_default_two_nets plain OFF slrc=0 rc=0 cmp=0 ob=70 md5=71df0e06c7d6 | STRICT_NOTEQUAL endline
+tq/n08_pkg_default_two_nets plain OWN slrc=0 rc=0 cmp=0 ob=70 md5=71df0e06c7d6 | STRICT_NOTEQUAL endline
+tq/n08_pkg_default_two_nets elab ON slrc=0 rc=0 cmp=0 ob=23 md5=7f9d1002c52d | STRICT_NOTEQUAL endline
+tq/n08_pkg_default_two_nets elab OFF slrc=0 rc=0 cmp=0 ob=79 md5=9a1ec128063b | STRICT_NOTEQUAL endline
+tq/n08_pkg_default_two_nets elab OWN slrc=0 rc=0 cmp=0 ob=79 md5=9a1ec128063b | STRICT_NOTEQUAL endline
+tq/n09_pkg_default_other_user plain ON slrc=0 rc=0 cmp=0 ob=12 md5=b9a8c7a23184 | STRICT_NOTEQUAL endline
+tq/n09_pkg_default_other_user plain OFF slrc=0 rc=0 cmp=0 ob=45 md5=f0523bc04f32 | STRICT_NOTEQUAL endline
+tq/n09_pkg_default_other_user plain OWN slrc=0 rc=0 cmp=0 ob=45 md5=f0523bc04f32 | STRICT_NOTEQUAL endline
+tq/n09_pkg_default_other_user elab ON slrc=0 rc=0 cmp=0 ob=14 md5=486ef922d1ab | STRICT_NOTEQUAL endline
+tq/n09_pkg_default_other_user elab OFF slrc=0 rc=0 cmp=0 ob=47 md5=0248069efd1b | STRICT_NOTEQUAL endline
+tq/n09_pkg_default_other_user elab OWN slrc=0 rc=0 cmp=0 ob=47 md5=0248069efd1b | STRICT_NOTEQUAL endline
+vf/n01_local_static_func plain ON slrc=0 rc=0 cmp=0 ob=0 md5=c394e0fd7219 | STRICT_EQUAL 13 objects
+vf/n01_local_static_func plain OFF slrc=0 rc=0 cmp=0 ob=2 md5=3392b68a3761 | STRICT_NOTEQUAL endline
+vf/n01_local_static_func plain OWN slrc=0 rc=0 cmp=0 ob=2 md5=3392b68a3761 | STRICT_NOTEQUAL endline
+vf/n01_local_static_func elab ON slrc=0 rc=0 cmp=0 ob=0 md5=e19533985bf0 | STRICT_EQUAL 13 objects
+vf/n01_local_static_func elab OFF slrc=0 rc=0 cmp=0 ob=2 md5=03de4e086f07 | STRICT_NOTEQUAL endline
+vf/n01_local_static_func elab OWN slrc=0 rc=0 cmp=0 ob=2 md5=03de4e086f07 | STRICT_NOTEQUAL endline
+vf/n02_protected_virtual_func plain ON slrc=0 rc=0 cmp=0 ob=0 md5=d0492630818f | STRICT_EQUAL 14 objects
+vf/n02_protected_virtual_func plain OFF slrc=0 rc=0 cmp=0 ob=2 md5=56567f49f835 | STRICT_NOTEQUAL col
+vf/n02_protected_virtual_func plain OWN slrc=0 rc=0 cmp=0 ob=2 md5=56567f49f835 | STRICT_NOTEQUAL col
+vf/n02_protected_virtual_func elab ON slrc=0 rc=0 cmp=0 ob=0 md5=d9192c613862 | STRICT_EQUAL 25 objects
+vf/n02_protected_virtual_func elab OFF slrc=0 rc=0 cmp=0 ob=4 md5=71667838aaee | STRICT_NOTEQUAL col
+vf/n02_protected_virtual_func elab OWN slrc=0 rc=0 cmp=0 ob=4 md5=71667838aaee | STRICT_NOTEQUAL col
+vf/n03_extern_virtual_task plain ON slrc=0 rc=0 cmp=0 ob=16 md5=3df8a04fd972 | STRICT_NOTEQUAL line
+vf/n03_extern_virtual_task plain OFF slrc=0 rc=0 cmp=0 ob=16 md5=3df8a04fd972 | STRICT_NOTEQUAL line
+vf/n03_extern_virtual_task plain OWN slrc=0 rc=0 cmp=0 ob=16 md5=3df8a04fd972 | STRICT_NOTEQUAL line
+vf/n03_extern_virtual_task elab ON slrc=0 rc=0 cmp=0 ob=18 md5=d017569964c9 | STRICT_NOTEQUAL line
+vf/n03_extern_virtual_task elab OFF slrc=0 rc=0 cmp=0 ob=18 md5=d017569964c9 | STRICT_NOTEQUAL line
+vf/n03_extern_virtual_task elab OWN slrc=0 rc=0 cmp=0 ob=18 md5=d017569964c9 | STRICT_NOTEQUAL line
+vf/n04_derived_override plain ON slrc=0 rc=0 cmp=0 ob=0 md5=e7ed923ee5e6 | STRICT_EQUAL 16 objects
+vf/n04_derived_override plain OFF slrc=0 rc=0 cmp=0 ob=6 md5=63a5a02e5255 | STRICT_NOTEQUAL endline
+vf/n04_derived_override plain OWN slrc=0 rc=0 cmp=0 ob=6 md5=63a5a02e5255 | STRICT_NOTEQUAL endline
+vf/n04_derived_override elab ON slrc=0 rc=0 cmp=0 ob=0 md5=958d2d06ded0 | STRICT_EQUAL 16 objects
+vf/n04_derived_override elab OFF slrc=0 rc=0 cmp=0 ob=18 md5=bfad48d1013f | STRICT_NOTEQUAL endline
+vf/n04_derived_override elab OWN slrc=0 rc=0 cmp=0 ob=18 md5=bfad48d1013f | STRICT_NOTEQUAL endline
+vf/n05_pure_then_impl plain ON slrc=0 rc=0 cmp=0 ob=0 md5=86952fa3c762 | STRICT_EQUAL 28 objects
+vf/n05_pure_then_impl plain OFF slrc=0 rc=0 cmp=0 ob=6 md5=483963af2906 | STRICT_NOTEQUAL endline
+vf/n05_pure_then_impl plain OWN slrc=0 rc=0 cmp=0 ob=6 md5=483963af2906 | STRICT_NOTEQUAL endline
+vf/n05_pure_then_impl elab ON slrc=0 rc=0 cmp=0 ob=0 md5=1d30f36c3a7d | STRICT_EQUAL 28 objects
+vf/n05_pure_then_impl elab OFF slrc=0 rc=0 cmp=0 ob=10 md5=f7aebb658473 | STRICT_NOTEQUAL endline
+vf/n05_pure_then_impl elab OWN slrc=0 rc=0 cmp=0 ob=10 md5=f7aebb658473 | STRICT_NOTEQUAL endline

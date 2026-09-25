@@ -1,0 +1,206 @@
+EQUAL	probe	r10buvm28repro/g28_a0_head	-	X0: n=3 div=False@None first=#47	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 104 objects
+EQUAL	probe	r10buvm28repro/g28_c_castr0	-	X0: n=4 div=False@None first=#114	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 225 objects
+EQUAL	probe	r10buvm29repro/g29_b_targets	-	X0: n=12 div=False@None first=#147	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 281 objects
+EQUAL	probe	r10buvm29repro/g29_c_carriers	-	X0: n=8 div=False@None first=#58	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 148 objects
+IMPROVE	probe	r10buvm29repro/g29_d_fence	-	X0: n=4 div=False@None first=#80	ON: n=2 div=False@None first=#80	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+EQUAL	probe	r10buvm29repro/g29_e_homes	-	X0: n=21 div=False@None first=#24	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 504 objects
+EQUAL	probe	r10buvm29repro/g29_f_head	-	X0: n=2 div=False@None first=#24	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 64 objects
+SAME-RECS	probe	r10buvm32repro/g32a3	-	X0: n=11 div=False@None first=#112	ON: n=11 div=False@None first=#112	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+IMPROVE	probe	r10buvm8repro/v3_argts8	-	X0: n=2 div=True@336 first=#70	ON: n=1 div=True@336 first=#336	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL type
+EQUAL	probe	r10earl109repro/g2_stale109	-	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 355 objects -> STRICT_EQUAL 355 objects
+SAME-RECS	probe	r10earl109repro/g6_carrier109	-	X0: n=2 div=False@None first=#91	ON: n=2 div=False@None first=#91	STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+IMPROVE	probe	r10earl29repro/v7_lval	-	X0: n=4 div=False@None first=#88	ON: n=2 div=False@None first=#98	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+IMPROVE	probe	r10earl52repro/v3_earl52	-	X0: n=10 div=False@None first=#195	ON: n=6 div=False@None first=#195	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+EQUAL	probe	r10earl_repro/l	-	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 187 objects -> STRICT_EQUAL 187 objects
+IMPROVE	probe	r10earl_repro/wa	-	X0: n=6 div=False@None first=#286	ON: n=5 div=False@None first=#286	STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+EQUAL	probe	r10earl_repro/wh	-	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 363 objects -> STRICT_EQUAL 363 objects
+IMPROVE	probe	r10sd3repro/g5_pkg_oob_locals	-	X0: n=8 div=False@None first=#39	ON: n=4 div=False@None first=#77	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL line
+EQUAL	probe	r10sd3repro/g8_pkg_virtual_extends	-	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 69 objects -> STRICT_EQUAL 69 objects
+IMPROVE	probe	r10svs2repro/s3_arraykind	-	X0: n=2 div=False@None first=#64	ON: n=1 div=False@None first=#98	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+IMPROVE	probe	r10svs2repro/s4_context	-	X0: n=2 div=False@None first=#30	ON: n=1 div=False@None first=#65	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+EQUAL	probe	r10svs3repro/a2_thisnew	-	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 163 objects -> STRICT_EQUAL 163 objects
+EQUAL	probe	r10svs3repro/a3_position	-	X0: n=1 div=False@None first=#43	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL file -> STRICT_EQUAL 163 objects
+EQUAL	probe	r10uvm10repro/t6	-	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 74 objects -> STRICT_EQUAL 74 objects
+IMPROVE	probe	r10uvm121repro/g121_a	-	X0: n=12 div=False@None first=#20	ON: n=8 div=False@None first=#115	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+IMPROVE	probe	r10uvm122repro/g122_d_pos	-	X0: n=4 div=False@None first=#114	ON: n=2 div=False@None first=#114	STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+EQUAL	probe	r10uvm12repro/t	-	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 88 objects -> STRICT_EQUAL 88 objects
+IMPROVE	probe	r10uvm134repro/g134_a_kinds	-	X0: n=24 div=False@None first=#17	ON: n=8 div=False@None first=#17	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+IMPROVE	probe	r10uvm134repro/g134_d_bodies	-	X0: n=17 div=False@None first=#9	ON: n=2 div=False@None first=#9	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+IMPROVE	probe	r10uvm134repro/g134_e_mult	-	X0: n=7 div=False@None first=#24	ON: n=1 div=False@None first=#24	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+IMPROVE	probe	r10uvm143repro/g143_d_foreach	-	X0: n=11 div=False@None first=#46	ON: n=10 div=False@None first=#58	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+SAME-RECS	probe	r10uvm144repro/g144_b	-	X0: n=8 div=False@None first=#26	ON: n=8 div=False@None first=#26	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+IMPROVE	probe	r10uvm145repro/g145_a_prod	-	X0: n=24 div=False@None first=#3	ON: n=20 div=False@None first=#3	STRICT_NOTEQUAL col -> STRICT_NOTEQUAL col
+SAME-RECS	probe	r10uvm14repro/t19_t	-	X0: n=6 div=False@None first=#6	ON: n=6 div=False@None first=#6	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+SAME-RECS	probe	r10uvm158repro/g158_f_witness	-	X0: n=1 div=False@None first=#35	ON: n=1 div=False@None first=#35	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+SAME-RECS	probe	r10uvm160repro/g160_f_witness	-	X0: n=11 div=False@None first=#41	ON: n=11 div=False@None first=#41	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+SAME-RECS	probe	r10uvm167repro/g167_b_spell	-	X0: n=8 div=False@None first=#79	ON: n=8 div=False@None first=#79	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+IMPROVE	probe	r10uvm193repro/g193_c_argface	-	X0: n=12 div=True@443 first=#42	ON: n=11 div=True@443 first=#42	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+IMPROVE	probe	r10uvm208repro/g208_e_head	-	X0: n=4 div=True@83 first=#50	ON: n=3 div=True@83 first=#76	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL fullname
+IMPROVE	probe	r10uvm21repro/t	-	X0: n=13 div=False@None first=#7	ON: n=3 div=False@None first=#104	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+IMPROVE	probe	r10uvm21repro/t32b_t	-	X0: n=27 div=False@None first=#7	ON: n=7 div=False@None first=#104	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+IMPROVE	probe	r10uvm21repro/t32d_t	-	X0: n=9 div=True@78 first=#7	ON: n=3 div=True@78 first=#76	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL fullname
+IMPROVE	probe	r10uvm220repro/grid220/a1_uninst_if	-	X0: n=7 div=True@105 first=#64	ON: n=2 div=True@105 first=#104	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+IMPROVE	probe	r10uvm221repro/grid221/a4_corpus	-	X0: n=4 div=False@None first=#160	ON: n=2 div=False@None first=#192	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL endcol
+IMPROVE	probe	r10uvm226repro/grid226/a12_pkgimport	-	X0: n=3 div=False@None first=#13	ON: n=2 div=False@None first=#13	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+IMPROVE	probe	r10uvm22repro/t33e_t	-	X0: n=14 div=False@None first=#11	ON: n=12 div=False@None first=#11	STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+EQUAL	probe	r10uvm28repro/t38c	-	X0: n=1 div=False@None first=#237	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL file -> STRICT_EQUAL 375 objects
+SAME-RECS	probe	r10uvm35repro/t47a	-	X0: n=3 div=False@None first=#26	ON: n=3 div=False@None first=#26	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+SAME-RECS	probe	r10uvm35repro/t47b	-	X0: n=1 div=False@None first=#57	ON: n=1 div=False@None first=#57	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+IMPROVE	probe	r10uvm37repro/t51a	-	X0: n=3 div=True@82 first=#32	ON: n=2 div=True@82 first=#70	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#292)	probe	r10uvm48repro/t67b	-	X0: n=1 div=True@292 first=#292	ON: n=1 div=False@None first=#341	STRICT_NOTEQUAL type -> STRICT_NOTEQUAL endcol
+SAME-RECS	probe	r10uvm55repro/a1	-	X0: n=21 div=False@None first=#53	ON: n=21 div=False@None first=#53	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+EQUAL	probe	r10uvm57repro/a7_forkfor	-	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 156 objects -> STRICT_EQUAL 156 objects
+IMPROVE	probe	r10uvm57repro/b2_shape	-	X0: n=2 div=False@None first=#223	ON: n=1 div=False@None first=#223	STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+SAME-RECS	probe	r10uvm57repro/b4_open	-	X0: n=1 div=False@None first=#172	ON: n=1 div=False@None first=#172	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+SAME-RECS	probe	r10uvm57repro/v1_prodcell	-	X0: n=2 div=False@None first=#188	ON: n=2 div=False@None first=#188	STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+EQUAL	probe	r10uvm57repro/v2_loopvar	-	X0: n=1 div=False@None first=#145	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL file -> STRICT_EQUAL 509 objects
+SAME-RECS	probe	r10uvm58repro/a1_witness	-	X0: n=7 div=False@None first=#6	ON: n=7 div=False@None first=#6	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+SAME-RECS	probe	r10uvm58repro/a5_spec	-	X0: n=2 div=False@None first=#6	ON: n=2 div=False@None first=#6	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+EQUAL	probe	r10uvm69repro/v1_gaps	-	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 345 objects -> STRICT_EQUAL 345 objects
+EQUAL	probe	r10uvm71repro/a2_site	-	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 321 objects -> STRICT_EQUAL 321 objects
+IMPROVE	probe	r10uvm74repro/b1_idxkind	-	X0: n=3 div=False@None first=#46	ON: n=1 div=False@None first=#46	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+IMPROVE	probe	r10uvm8repro/q1	-	X0: n=5 div=False@None first=#20	ON: n=4 div=False@None first=#77	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL line
+EQUAL	probe	r10uvm8repro/q3	-	X0: n=2 div=False@None first=#23	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL file -> STRICT_EQUAL 193 objects
+EQUAL	probe	r10uvm93repro/g93_a6_case	-	X0: n=18 div=False@None first=#91	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 247 objects
+EQUAL	probe	r10uvm93repro/v93_a1_types	-	X0: n=34 div=False@None first=#17	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 247 objects
+EQUAL	probe	r10uvm93repro/v93_a4_case	-	X0: n=20 div=False@None first=#57	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 243 objects
+EQUAL	probe	r10uvm93repro/v93_a6_sub	-	X0: n=4 div=False@None first=#62	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 288 objects
+EQUAL	probe	r10uvm93repro/v93_a9b_sysfn	-	X0: n=2 div=False@None first=#118	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 303 objects
+EQUAL	probe	r10uvm93repro/v93_c1_bitsfall	-	X0: n=24 div=False@None first=#11	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 274 objects
+EQUAL	probe	r10uvm93repro/v93_crash_min	-	X0: n=2 div=False@None first=#15	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 49 objects
+IMPROVE	probe	r10uvm94repro/g94_a0_head	-	X0: n=6 div=False@None first=#25	ON: n=5 div=False@None first=#25	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+SAME-RECS	probe	r10v113repro/v113_ord	-	X0: n=8 div=False@None first=#145	ON: n=8 div=False@None first=#145	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+SAME-RECS	probe	r10v119repro/v119_j	-	X0: n=1 div=False@None first=#36	ON: n=1 div=False@None first=#36	STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+IMPROVE	probe	r10v121repro/v121_a	-	X0: n=4 div=False@None first=#92	ON: n=3 div=False@None first=#92	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+SAME-RECS	probe	r10v121repro/v121_e2	-	X0: n=2 div=False@None first=#67	ON: n=2 div=False@None first=#67	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+IMPROVE	probe	r10v122repro/q7extra	-	X0: n=7 div=False@None first=#207	ON: n=4 div=False@None first=#333	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL endline
+EQUAL	probe	r10v133repro/v133_h_more	-	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 200 objects -> STRICT_EQUAL 200 objects
+IMPROVE	probe	r10v134repro/v134_1kinds	-	X0: n=30 div=False@None first=#17	ON: n=8 div=False@None first=#17	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+IMPROVE	probe	r10v134repro/v134_4bodies	-	X0: n=28 div=False@None first=#48	ON: n=5 div=False@None first=#48	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+EQUAL	probe	r10v141repro/v141_d_owners	-	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 166 objects -> STRICT_EQUAL 166 objects
+IMPROVE	probe	r10v145repro/v145_a_faces	-	X0: n=34 div=False@None first=#9	ON: n=32 div=False@None first=#9	STRICT_NOTEQUAL col -> STRICT_NOTEQUAL col
+IMPROVE	probe	r10v148repro/v148_g_corpus	-	X0: n=2 div=False@None first=#64	ON: n=1 div=False@None first=#251	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL endcol
+IMPROVE	probe	r10v151repro/v151_5_ctx	-	X0: n=6 div=False@None first=#19	ON: n=5 div=False@None first=#19	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+SAME-RECS	probe	r10v160repro/z05_virtual	-	X0: n=4 div=False@None first=#13	ON: n=4 div=False@None first=#13	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+SAME-RECS	probe	r10v167repro/vD_kinds	-	X0: n=4 div=False@None first=#152	ON: n=4 div=False@None first=#152	STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+IMPROVE	probe	r10v181repro/v181_e_idxbase	-	X0: n=7 div=True@74 first=#22	ON: n=5 div=True@74 first=#62	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL fullname
+IMPROVE	probe	r10v181repro/v181_f_mixed	-	X0: n=9 div=True@103 first=#33	ON: n=7 div=True@103 first=#80	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL fullname
+IMPROVE	probe	r10v208repro/v208_f_io	-	X0: n=3 div=True@141 first=#36	ON: n=1 div=True@141 first=#141	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL type
+IMPROVE	probe	r10vbuvm29repro/gv29_a_shapes	-	X0: n=12 div=False@None first=#68	ON: n=3 div=False@None first=#138	STRICT_NOTEQUAL col -> STRICT_NOTEQUAL endcol
+IMPROVE	probe	r10vbuvm29repro/gv29_b_positions	-	X0: n=29 div=False@None first=#8	ON: n=3 div=False@None first=#8	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+EQUAL	probe	r10vbuvm29repro/gv29_h_genident	-	X0: n=6 div=False@None first=#93	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 263 objects
+EQUAL	probe	r10vbuvm29repro/gv29_i1	-	X0: n=2 div=False@None first=#50	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 111 objects
+EQUAL	probe	r10vbuvm29repro/gv29_i2	-	X0: n=2 div=False@None first=#50	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 137 objects
+EQUAL	probe	r10vbuvm29repro/gv29_i3	-	X0: n=2 div=False@None first=#50	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 163 objects
+EQUAL	probe	r10vearl115repro/w4_selmem	-	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 488 objects -> STRICT_EQUAL 488 objects
+UNMASK(refdiv=#114)	probe	r11u10repro/grid/h9_1e1m_port	-	X0: n=2 div=True@114 first=#70	ON: n=7 div=False@None first=#70	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#129)	probe	r11u10repro/grid/hD_1e1mvec	-	X0: n=2 div=True@129 first=#79	ON: n=7 div=False@None first=#79	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+SAME-RECS	probe	r11u112repro/grid/k/k20_hdr_param_type_ctl	-	X0: n=2 div=False@None first=#103	ON: n=2 div=False@None first=#103	STRICT_NOTEQUAL endline -> STRICT_NOTEQUAL endline
+EQUAL	probe	r11u113repro/grid/b/b27_pkpar_of_pkpar	-	X0: n=1 div=False@None first=#104	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL col -> STRICT_EQUAL 150 objects
+UNMASK(refdiv=#82)	probe	r11u114repro/grid/f3/c05	-	X0: n=1 div=True@82 first=#82	ON: n=1 div=True@436 first=#436	STRICT_NOTEQUAL type -> STRICT_NOTEQUAL depth
+UNMASK(refdiv=#29)	probe	r11v55repro/grid/vv1c_cast	-	X0: n=1 div=True@29 first=#29	ON: n=8 div=False@None first=#43	STRICT_NOTEQUAL type -> STRICT_NOTEQUAL file
+EQUAL	probe	v11u116repro/arms/k3_unq_ovr	-	X0: n=4 div=False@None first=#118	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL line -> STRICT_EQUAL 181 objects
+IMPROVE	surelog	ApbSlave	d	X0: n=30 div=True@372 first=#4	ON: n=29 div=True@372 first=#4	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+IMPROVE	surelog	ApbSlave	t	X0: n=30 div=True@372 first=#4	ON: n=29 div=True@372 first=#4	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+IMPROVE	surelog	BuildUVMPkg	d	X0: n=210 div=True@11991 first=#873	ON: n=174 div=True@11991 first=#873	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+IMPROVE	surelog	BuildUVMPkg	t	X0: n=210 div=True@11991 first=#873	ON: n=174 div=True@11991 first=#873	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+EQUAL	surelog	CarryAdd	t	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 207 objects -> STRICT_EQUAL 207 objects
+SAME-RECS	surelog	ClassTypeParam	d	X0: n=25 div=False@None first=#121	ON: n=25 div=False@None first=#121	STRICT_NOTEQUAL endline -> STRICT_NOTEQUAL endline
+SAME-RECS	surelog	ClassTypeParam	t	X0: n=38 div=False@None first=#9	ON: n=38 div=False@None first=#9	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+EQUAL	surelog	ClassVar	d	X0: n=1 div=False@None first=#45	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL file -> STRICT_EQUAL 148 objects
+EQUAL	surelog	ClassVar	t	X0: n=1 div=False@None first=#52	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL file -> STRICT_EQUAL 98 objects
+EQUAL	surelog	ComplexExprSize	d	X0: n=1 div=False@None first=#110	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL endcol -> STRICT_EQUAL 131 objects
+EQUAL	surelog	ComplexExprSize	t	X0: n=1 div=False@None first=#20	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL endcol -> STRICT_EQUAL 40 objects
+EQUAL	surelog	DefaultPatternModule	d	X0: n=1 div=True@253 first=#253	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL depth -> STRICT_EQUAL 304 objects
+EQUAL	surelog	DefaultPatternModule	t	X0: n=1 div=True@169 first=#169	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL depth -> STRICT_EQUAL 220 objects
+UNMASK(refdiv=#51100)	surelog	Earlgrey_0_1	d	X0: n=1041 div=True@51100 first=#6	ON: n=1755 div=True@130430 first=#6	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+UNMASK(refdiv=#52346)	surelog	Earlgrey_0_1	t	X0: n=1041 div=True@52346 first=#6	ON: n=1755 div=True@131904 first=#6	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+EQUAL	surelog	GenScopeHierPath3	t	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 3394 objects -> STRICT_EQUAL 3394 objects
+EQUAL	surelog	IndexAssign	d	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 133 objects -> STRICT_EQUAL 133 objects
+EQUAL	surelog	IndexAssign	t	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 41 objects -> STRICT_EQUAL 41 objects
+EQUAL	surelog	IntegerConcat	d	X0: n=1 div=False@None first=#342	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL line -> STRICT_EQUAL 387 objects
+EQUAL	surelog	IntegerConcat	t	X0: n=1 div=False@None first=#243	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL line -> STRICT_EQUAL 288 objects
+SAME-RECS	surelog	InterfArrayBind	t	X0: n=1 div=False@None first=#28	ON: n=1 div=False@None first=#28	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+EQUAL	surelog	Kmac	d	X0: n=1 div=True@281 first=#281	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL type -> STRICT_EQUAL 643 objects
+EQUAL	surelog	Kmac	t	X0: n=1 div=True@191 first=#191	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL type -> STRICT_EQUAL 526 objects
+IMPROVE	surelog	LocalScopeHierPath	d	X0: n=4 div=False@None first=#45	ON: n=3 div=False@None first=#57	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+IMPROVE	surelog	LocalScopeHierPath	t	X0: n=5 div=False@None first=#52	ON: n=4 div=False@None first=#81	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+IMPROVE	surelog	MiniAmiq	d	X0: n=191 div=True@2450 first=#23	ON: n=190 div=True@2450 first=#23	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+IMPROVE	surelog	MiniAmiq	t	X0: n=191 div=True@2450 first=#23	ON: n=190 div=True@2450 first=#23	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+EQUAL	surelog	PackStructVar	d	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 530 objects -> STRICT_EQUAL 530 objects
+EQUAL	surelog	PackStructVar	t	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 440 objects -> STRICT_EQUAL 440 objects
+EQUAL	surelog	ParamArrayUnsizedPattern	d	X0: n=1 div=True@224 first=#224	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL depth -> STRICT_EQUAL 253 objects
+EQUAL	surelog	ParamArrayUnsizedPattern	t	X0: n=1 div=True@140 first=#140	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL depth -> STRICT_EQUAL 169 objects
+EQUAL	surelog	ParamFromPackage	d	X0: n=1 div=False@None first=#215	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL fullname -> STRICT_EQUAL 231 objects
+EQUAL	surelog	ParamFromPackage	t	X0: n=1 div=False@None first=#125	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL fullname -> STRICT_EQUAL 141 objects
+EQUAL	surelog	ParamScope	d	X0: n=2 div=False@None first=#193	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL line -> STRICT_EQUAL 219 objects
+EQUAL	surelog	ParamScope	t	X0: n=2 div=False@None first=#103	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL line -> STRICT_EQUAL 129 objects
+IMPROVE	surelog	SVSwitch	d	X0: n=33 div=True@3314 first=#88	ON: n=27 div=True@3314 first=#88	STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+IMPROVE	surelog	SVSwitch	t	X0: n=33 div=True@3314 first=#88	ON: n=27 div=True@3314 first=#88	STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+IMPROVE	surelog	Scoreboard	d	X0: n=195 div=True@2492 first=#23	ON: n=194 div=True@2492 first=#23	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+IMPROVE	surelog	SeqDriver	d	X0: n=175 div=True@2433 first=#23	ON: n=174 div=True@2433 first=#23	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+IMPROVE	surelog	SeqDriver	t	X0: n=175 div=True@2445 first=#23	ON: n=174 div=True@2445 first=#23	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+EQUAL	surelog	SequenceInst	t	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 303 objects -> STRICT_EQUAL 303 objects
+IMPROVE	surelog	SimpleUVM	d	X0: n=191 div=True@2484 first=#23	ON: n=190 div=True@2484 first=#23	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+IMPROVE	surelog	SimpleUVM	t	X0: n=191 div=True@2496 first=#23	ON: n=190 div=True@2496 first=#23	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+SAME-RECS	surelog	UnsizedParam	d	X0: n=2 div=False@None first=#194	ON: n=2 div=False@None first=#194	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+EQUAL	surelog	UnsizedParam	t	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 169 objects -> STRICT_EQUAL 169 objects
+SAME-RECS	surelog	YosysBigSimEllip	d	X0: n=3038 div=True@70374 first=#8924	ON: n=3038 div=True@70374 first=#8924	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+SAME-RECS	surelog	YosysOldOr	d	X0: n=593 div=False@None first=#53040	ON: n=593 div=False@None first=#53040	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+SAME-RECS	surelog	YosysOldOr	t	X0: n=593 div=False@None first=#53040	ON: n=593 div=False@None first=#53040	STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+UNMASK(refdiv=#236)	uhdm2rtlil	NestedStructArrayParameterInitializedByPatternPassedAsPort	d	X0: n=1 div=True@236 first=#236	ON: n=4 div=False@None first=#443	STRICT_NOTEQUAL type -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#146)	uhdm2rtlil	NestedStructArrayParameterInitializedByPatternPassedAsPort	t	X0: n=1 div=True@146 first=#146	ON: n=4 div=False@None first=#353	STRICT_NOTEQUAL type -> STRICT_NOTEQUAL fullname
+IMPROVE	uhdm2rtlil	ParameterFromPkgOnParameterPortList	d	X0: n=8 div=True@262 first=#188	ON: n=7 div=True@262 first=#188	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+IMPROVE	uhdm2rtlil	ParameterFromPkgOnParameterPortList	t	X0: n=8 div=True@172 first=#98	ON: n=7 div=True@172 first=#98	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+EQUAL	uhdm2rtlil	ParameterInitializedByPartSelectOfParametersAssignedToVar	d	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 200 objects -> STRICT_EQUAL 200 objects
+EQUAL	uhdm2rtlil	ParameterInitializedByPartSelectOfParametersAssignedToVar	t	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 110 objects -> STRICT_EQUAL 110 objects
+EQUAL	uhdm2rtlil	ParameterOfParametrizedType	d	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 193 objects -> STRICT_EQUAL 193 objects
+EQUAL	uhdm2rtlil	ParameterOfParametrizedType	t	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 103 objects -> STRICT_EQUAL 103 objects
+EQUAL	uhdm2rtlil	ParameterOfParametrizedTypeInSubmodule	d	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 335 objects -> STRICT_EQUAL 335 objects
+EQUAL	uhdm2rtlil	ParameterOfParametrizedTypeInSubmodule	t	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 245 objects -> STRICT_EQUAL 245 objects
+EQUAL	uhdm2rtlil	PkgParamAsFunctionArg	d	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 167 objects -> STRICT_EQUAL 167 objects
+EQUAL	uhdm2rtlil	PkgParamAsFunctionArg	t	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 77 objects -> STRICT_EQUAL 77 objects
+UNMASK(refdiv=#180)	uhdm2rtlil	StructArrayParameterInitializedByPatternPassedAsPort	d	X0: n=1 div=True@180 first=#180	ON: n=2 div=False@None first=#390	STRICT_NOTEQUAL type -> STRICT_NOTEQUAL line
+UNMASK(refdiv=#90)	uhdm2rtlil	StructArrayParameterInitializedByPatternPassedAsPort	t	X0: n=1 div=True@90 first=#90	ON: n=2 div=False@None first=#300	STRICT_NOTEQUAL type -> STRICT_NOTEQUAL line
+UNMASK(refdiv=#36)	uhdm2rtlil	def_ctx_struct_param	d	X0: n=1 div=True@36 first=#36	ON: n=1 div=True@43 first=#43	STRICT_NOTEQUAL type -> STRICT_NOTEQUAL depth
+UNMASK(refdiv=#35)	uhdm2rtlil	def_ctx_struct_param	t	X0: n=1 div=True@35 first=#35	ON: n=1 div=True@42 first=#42	STRICT_NOTEQUAL type -> STRICT_NOTEQUAL depth
+EQUAL	uhdm2rtlil	func_local_compound_xor	d	X0: n=2 div=False@None first=#34	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL line -> STRICT_EQUAL 431 objects
+EQUAL	uhdm2rtlil	func_local_compound_xor	t	X0: n=2 div=False@None first=#33	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL line -> STRICT_EQUAL 341 objects
+SAME-RECS	uhdm2rtlil	genvar_iface_struct	d	X0: n=1 div=False@None first=#306	ON: n=1 div=False@None first=#306	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+SAME-RECS	uhdm2rtlil	genvar_iface_struct	t	X0: n=1 div=False@None first=#216	ON: n=1 div=False@None first=#216	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5640)	uhdm2rtlil	ibex_alu	d	X0: n=2 div=True@5640 first=#2449	ON: n=9 div=False@None first=#2449	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5550)	uhdm2rtlil	ibex_alu	t	X0: n=2 div=True@5550 first=#2442	ON: n=9 div=False@None first=#2442	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5635)	uhdm2rtlil	ibex_branch_predict	d	X0: n=2 div=True@5635 first=#2453	ON: n=20 div=False@None first=#2453	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5545)	uhdm2rtlil	ibex_branch_predict	t	X0: n=2 div=True@5545 first=#2446	ON: n=20 div=False@None first=#2446	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5647)	uhdm2rtlil	ibex_compressed_decoder	d	X0: n=2 div=True@5647 first=#2453	ON: n=141 div=False@None first=#2453	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5557)	uhdm2rtlil	ibex_compressed_decoder	t	X0: n=2 div=True@5557 first=#2446	ON: n=141 div=False@None first=#2446	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5659)	uhdm2rtlil	ibex_decoder	d	X0: n=2 div=True@5659 first=#2453	ON: n=28 div=False@None first=#2453	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5569)	uhdm2rtlil	ibex_decoder	t	X0: n=2 div=True@5569 first=#2446	ON: n=28 div=False@None first=#2446	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5662)	uhdm2rtlil	ibex_icache	d	X0: n=2 div=True@5662 first=#2453	ON: n=200 div=False@None first=#2453	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5572)	uhdm2rtlil	ibex_icache	t	X0: n=2 div=True@5572 first=#2446	ON: n=200 div=False@None first=#2446	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5644)	uhdm2rtlil	ibex_multdiv_fast	d	X0: n=2 div=True@5644 first=#2453	ON: n=109 div=False@None first=#2453	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5554)	uhdm2rtlil	ibex_multdiv_fast	t	X0: n=2 div=True@5554 first=#2446	ON: n=109 div=False@None first=#2446	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5635)	uhdm2rtlil	ibex_multdiv_slow	d	X0: n=2 div=True@5635 first=#2453	ON: n=26 div=False@None first=#2453	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5545)	uhdm2rtlil	ibex_multdiv_slow	t	X0: n=2 div=True@5545 first=#2446	ON: n=26 div=False@None first=#2446	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5647)	uhdm2rtlil	ibex_pmp	d	X0: n=6 div=True@5647 first=#2404	ON: n=60 div=True@13972 first=#2404	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+UNMASK(refdiv=#5557)	uhdm2rtlil	ibex_pmp	t	X0: n=6 div=True@5557 first=#2397	ON: n=60 div=True@13882 first=#2397	STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+UNMASK(refdiv=#4880)	uhdm2rtlil	ibex_tracer	d	X0: n=87 div=True@4880 first=#2073	ON: n=587 div=False@None first=#2073	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#4879)	uhdm2rtlil	ibex_tracer	t	X0: n=87 div=True@4879 first=#2072	ON: n=587 div=False@None first=#2072	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5645)	uhdm2rtlil	ibex_wb_stage	d	X0: n=2 div=True@5645 first=#2454	ON: n=32 div=False@None first=#2454	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+UNMASK(refdiv=#5555)	uhdm2rtlil	ibex_wb_stage	t	X0: n=2 div=True@5555 first=#2447	ON: n=32 div=False@None first=#2447	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+EQUAL	uhdm2rtlil	iface_array_modport_drive	d	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 482 objects -> STRICT_EQUAL 482 objects
+EQUAL	uhdm2rtlil	iface_array_modport_drive	t	X0: n=0 div=False@None first=#None	ON: n=0 div=False@None first=#None	STRICT_EQUAL 392 objects -> STRICT_EQUAL 392 objects
+UNMASK(refdiv=#36)	uhdm2rtlil	latch_decoder_partial	d	X0: n=1 div=True@36 first=#36	ON: n=1 div=True@43 first=#43	STRICT_NOTEQUAL type -> STRICT_NOTEQUAL depth
+UNMASK(refdiv=#35)	uhdm2rtlil	latch_decoder_partial	t	X0: n=1 div=True@35 first=#35	ON: n=1 div=True@42 first=#42	STRICT_NOTEQUAL type -> STRICT_NOTEQUAL depth
+UNMASK(refdiv=#36)	uhdm2rtlil	latch_tlb_napot	d	X0: n=1 div=True@36 first=#36	ON: n=1 div=True@43 first=#43	STRICT_NOTEQUAL type -> STRICT_NOTEQUAL depth
+UNMASK(refdiv=#35)	uhdm2rtlil	latch_tlb_napot	t	X0: n=1 div=True@35 first=#35	ON: n=1 div=True@42 first=#42	STRICT_NOTEQUAL type -> STRICT_NOTEQUAL depth
+SAME-RECS	uhdm2rtlil	packed_struct_array_fifo	d	X0: n=8 div=False@None first=#438	ON: n=8 div=False@None first=#438	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+SAME-RECS	uhdm2rtlil	packed_struct_array_fifo	t	X0: n=8 div=False@None first=#348	ON: n=8 div=False@None first=#348	STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+EQUAL	uhdm2rtlil	param_struct_field_bitsel	d	X0: n=1 div=True@353 first=#353	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL type -> STRICT_EQUAL 740 objects
+EQUAL	uhdm2rtlil	param_struct_field_bitsel	t	X0: n=1 div=True@263 first=#263	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL type -> STRICT_EQUAL 650 objects
+EQUAL	uhdm2rtlil	param_unpacked_struct_array	d	X0: n=1 div=True@416 first=#416	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL type -> STRICT_EQUAL 848 objects
+EQUAL	uhdm2rtlil	param_unpacked_struct_array	t	X0: n=1 div=True@326 first=#326	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL type -> STRICT_EQUAL 758 objects
+EQUAL	uhdm2rtlil	struct_dynamic_range	d	X0: n=4 div=False@None first=#159	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL fullname -> STRICT_EQUAL 1039 objects
+EQUAL	uhdm2rtlil	struct_dynamic_range	t	X0: n=4 div=False@None first=#69	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL fullname -> STRICT_EQUAL 949 objects
+EQUAL	uhdm2rtlil	struct_member_trailing_index	d	X0: n=4 div=False@None first=#262	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL fullname -> STRICT_EQUAL 619 objects
+EQUAL	uhdm2rtlil	struct_member_trailing_index	t	X0: n=4 div=False@None first=#172	ON: n=0 div=False@None first=#None	STRICT_NOTEQUAL fullname -> STRICT_EQUAL 529 objects

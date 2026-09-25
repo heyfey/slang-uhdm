@@ -1,0 +1,262 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u149_wOF/probe.csv
+probe cases: EQUAL=2272 STRICT_NOTEQUAL=1815 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=2272 differ:fullname=742 differ:endcol=336 differ:line=219 differ:file=138 differ:depth=101 differ:type=95 differ:col=76 differ:endline=67 differ:name=33 differ:value=5 differ:decompile=3
+== probe vs golden_probe.csv
+[probe] EQUAL=2272 STRICT_NOTEQUAL=1815
+REGRESSION r10buvm28repro/g28_a0_head EQUAL -> STRICT_NOTEQUAL differ:col(3)
+REGRESSION r10buvm28repro/g28_c_castr0 EQUAL -> STRICT_NOTEQUAL differ:col(4)
+REGRESSION r10buvm29repro/g29_b_targets EQUAL -> STRICT_NOTEQUAL differ:col(12)
+REGRESSION r10buvm29repro/g29_c_carriers EQUAL -> STRICT_NOTEQUAL differ:col(8)
+REGRESSION r10buvm29repro/g29_e_homes EQUAL -> STRICT_NOTEQUAL differ:col(21)
+REGRESSION r10buvm29repro/g29_f_head EQUAL -> STRICT_NOTEQUAL differ:col(2)
+REGRESSION r10earl109repro/g2_stale109 EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+REGRESSION r10earl_repro/l EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+REGRESSION r10earl_repro/wh EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+REGRESSION r10sd3repro/g8_pkg_virtual_extends EQUAL -> STRICT_NOTEQUAL differ:endline(2)
+REGRESSION r10svs3repro/a2_thisnew EQUAL -> STRICT_NOTEQUAL differ:endline(1)
+REGRESSION r10svs3repro/a3_position EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION r10uvm10repro/t6 EQUAL -> STRICT_NOTEQUAL differ:endline(3)
+REGRESSION r10uvm12repro/t EQUAL -> STRICT_NOTEQUAL differ:endline(1)
+REGRESSION r10uvm28repro/t38c EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION r10uvm57repro/a7_forkfor EQUAL -> STRICT_NOTEQUAL differ:endline(1)
+REGRESSION r10uvm57repro/v2_loopvar EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION r10uvm69repro/v1_gaps EQUAL -> STRICT_NOTEQUAL differ:endline(1)
+REGRESSION r10uvm71repro/a2_site EQUAL -> STRICT_NOTEQUAL differ:endline(1)
+REGRESSION r10uvm8repro/q3 EQUAL -> STRICT_NOTEQUAL differ:file(2)
+REGRESSION r10uvm93repro/g93_a6_case EQUAL -> STRICT_NOTEQUAL differ:col(18)
+REGRESSION r10uvm93repro/v93_a1_types EQUAL -> STRICT_NOTEQUAL differ:col(34)
+REGRESSION r10uvm93repro/v93_a4_case EQUAL -> STRICT_NOTEQUAL differ:col(20)
+REGRESSION r10uvm93repro/v93_a6_sub EQUAL -> STRICT_NOTEQUAL differ:col(4)
+REGRESSION r10uvm93repro/v93_a9b_sysfn EQUAL -> STRICT_NOTEQUAL differ:col(2)
+REGRESSION r10uvm93repro/v93_c1_bitsfall EQUAL -> STRICT_NOTEQUAL differ:col(24)
+REGRESSION r10uvm93repro/v93_crash_min EQUAL -> STRICT_NOTEQUAL differ:col(2)
+REGRESSION r10v133repro/v133_h_more EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION r10v141repro/v141_d_owners EQUAL -> STRICT_NOTEQUAL differ:endline(2)
+REGRESSION r10vbuvm29repro/gv29_h_genident EQUAL -> STRICT_NOTEQUAL differ:col(6)
+REGRESSION r10vbuvm29repro/gv29_i1 EQUAL -> STRICT_NOTEQUAL differ:col(2)
+REGRESSION r10vbuvm29repro/gv29_i2 EQUAL -> STRICT_NOTEQUAL differ:col(2)
+REGRESSION r10vbuvm29repro/gv29_i3 EQUAL -> STRICT_NOTEQUAL differ:col(2)
+REGRESSION r10vearl115repro/w4_selmem EQUAL -> STRICT_NOTEQUAL differ:endcol(2)
+REGRESSION r11u113repro/grid/b/b27_pkpar_of_pkpar EQUAL -> STRICT_NOTEQUAL differ:col(1)
+REGRESSION v11u116repro/arms/k3_unq_ovr EQUAL -> STRICT_NOTEQUAL differ:line(4)
+CHANGE r10buvm29repro/g29_d_fence STRICT_NOTEQUAL differ:fullname(2) -> differ:fullname(4) [fullname +2]
+CHANGE r10buvm32repro/g32a3 STRICT_NOTEQUAL differ:fullname(11) -> differ:fullname(13) [fullname +2]
+CHANGE r10buvm8repro/v3_argts8 STRICT_NOTEQUAL differ:type(1) -> differ:file(2)
+CHANGE r10earl109repro/g6_carrier109 STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(3) [endcol +1]
+CHANGE r10earl29repro/v7_lval STRICT_NOTEQUAL differ:fullname(2) -> differ:fullname(4) [fullname +2]
+CHANGE r10earl52repro/v3_earl52 STRICT_NOTEQUAL differ:fullname(6) -> differ:fullname(10) [fullname +4]
+CHANGE r10earl_repro/wa STRICT_NOTEQUAL differ:endcol(5) -> differ:endcol(6) [endcol +1]
+CHANGE r10sd3repro/g5_pkg_oob_locals STRICT_NOTEQUAL differ:line(4) -> differ:file(8)
+CHANGE r10svs2repro/s3_arraykind STRICT_NOTEQUAL differ:fullname(1) -> differ:line(2)
+CHANGE r10svs2repro/s4_context STRICT_NOTEQUAL differ:fullname(1) -> differ:line(2)
+CHANGE r10uvm121repro/g121_a STRICT_NOTEQUAL differ:file(8) -> differ:file(12) [file +4]
+CHANGE r10uvm122repro/g122_d_pos STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(4) [endcol +2]
+CHANGE r10uvm134repro/g134_a_kinds STRICT_NOTEQUAL differ:file(8) -> differ:file(24) [file +16]
+CHANGE r10uvm134repro/g134_d_bodies STRICT_NOTEQUAL differ:file(2) -> differ:file(17) [file +15]
+CHANGE r10uvm134repro/g134_e_mult STRICT_NOTEQUAL differ:file(1) -> differ:file(7) [file +6]
+CHANGE r10uvm143repro/g143_d_foreach STRICT_NOTEQUAL differ:file(10) -> differ:file(11) [file +1]
+CHANGE r10uvm144repro/g144_b STRICT_NOTEQUAL differ:line(8) -> differ:line(12) [line +4]
+CHANGE r10uvm145repro/g145_a_prod STRICT_NOTEQUAL differ:col(20) -> differ:col(24) [col +4]
+CHANGE r10uvm14repro/t19_t STRICT_NOTEQUAL differ:line(6) -> differ:line(9) [line +3]
+CHANGE r10uvm158repro/g158_f_witness STRICT_NOTEQUAL differ:line(1) -> differ:endline(2)
+CHANGE r10uvm160repro/g160_f_witness STRICT_NOTEQUAL differ:line(11) -> differ:endline(12)
+CHANGE r10uvm167repro/g167_b_spell STRICT_NOTEQUAL differ:file(8) -> differ:file(10) [file +2]
+CHANGE r10uvm193repro/g193_c_argface STRICT_NOTEQUAL differ:fullname(11) -> differ:fullname(12) [fullname +1]
+CHANGE r10uvm208repro/g208_e_head STRICT_NOTEQUAL differ:fullname(3) -> differ:file(4)
+CHANGE r10uvm21repro/t STRICT_NOTEQUAL differ:file(3) -> differ:file(13) [file +10]
+CHANGE r10uvm21repro/t32b_t STRICT_NOTEQUAL differ:file(7) -> differ:file(27) [file +20]
+CHANGE r10uvm21repro/t32d_t STRICT_NOTEQUAL differ:fullname(3) -> differ:file(9)
+CHANGE r10uvm220repro/grid220/a1_uninst_if STRICT_NOTEQUAL differ:file(2) -> differ:file(7) [file +5]
+CHANGE r10uvm221repro/grid221/a4_corpus STRICT_NOTEQUAL differ:endcol(2) -> differ:file(4)
+CHANGE r10uvm226repro/grid226/a12_pkgimport STRICT_NOTEQUAL differ:fullname(2) -> differ:fullname(3) [fullname +1]
+CHANGE r10uvm22repro/t33e_t STRICT_NOTEQUAL differ:endcol(12) -> differ:endcol(14) [endcol +2]
+CHANGE r10uvm35repro/t47a STRICT_NOTEQUAL differ:line(3) -> differ:endcol(16)
+CHANGE r10uvm35repro/t47b STRICT_NOTEQUAL differ:line(1) -> differ:endcol(7)
+CHANGE r10uvm37repro/t51a STRICT_NOTEQUAL differ:fullname(2) -> differ:file(3)
+CHANGE r10uvm48repro/t67b STRICT_NOTEQUAL differ:endcol(1) -> differ:type(1)
+CHANGE r10uvm55repro/a1 STRICT_NOTEQUAL differ:line(21) -> differ:endline(28)
+CHANGE r10uvm57repro/b2_shape STRICT_NOTEQUAL differ:endcol(1) -> differ:endline(3)
+CHANGE r10uvm57repro/b4_open STRICT_NOTEQUAL differ:fullname(1) -> differ:endcol(3)
+CHANGE r10uvm57repro/v1_prodcell STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(3) [endcol +1]
+CHANGE r10uvm58repro/a1_witness STRICT_NOTEQUAL differ:line(7) -> differ:line(9) [line +2]
+CHANGE r10uvm58repro/a5_spec STRICT_NOTEQUAL differ:line(2) -> differ:line(4) [line +2]
+CHANGE r10uvm74repro/b1_idxkind STRICT_NOTEQUAL differ:file(1) -> differ:file(3) [file +2]
+CHANGE r10uvm8repro/q1 STRICT_NOTEQUAL differ:line(4) -> differ:file(5)
+CHANGE r10uvm94repro/g94_a0_head STRICT_NOTEQUAL differ:fullname(5) -> differ:fullname(6) [fullname +1]
+CHANGE r10v113repro/v113_ord STRICT_NOTEQUAL differ:line(8) -> differ:line(9) [line +1]
+CHANGE r10v119repro/v119_j STRICT_NOTEQUAL differ:endcol(1) -> differ:endline(2)
+CHANGE r10v121repro/v121_a STRICT_NOTEQUAL differ:file(3) -> differ:file(4) [file +1]
+CHANGE r10v121repro/v121_e2 STRICT_NOTEQUAL differ:file(2) -> differ:endline(4)
+CHANGE r10v122repro/q7extra STRICT_NOTEQUAL differ:endline(4) -> differ:line(7)
+CHANGE r10v134repro/v134_1kinds STRICT_NOTEQUAL differ:file(8) -> differ:file(30) [file +22]
+CHANGE r10v134repro/v134_4bodies STRICT_NOTEQUAL differ:file(5) -> differ:file(28) [file +23]
+CHANGE r10v145repro/v145_a_faces STRICT_NOTEQUAL differ:col(32) -> differ:col(34) [col +2]
+CHANGE r10v148repro/v148_g_corpus STRICT_NOTEQUAL differ:endcol(1) -> differ:file(2)
+CHANGE r10v151repro/v151_5_ctx STRICT_NOTEQUAL differ:file(5) -> differ:file(6) [file +1]
+CHANGE r10v160repro/z05_virtual STRICT_NOTEQUAL differ:line(4) -> differ:endcol(5)
+CHANGE r10v167repro/vD_kinds STRICT_NOTEQUAL differ:endcol(4) -> differ:endline(6)
+CHANGE r10v181repro/v181_e_idxbase STRICT_NOTEQUAL differ:fullname(5) -> differ:file(7)
+CHANGE r10v181repro/v181_f_mixed STRICT_NOTEQUAL differ:fullname(7) -> differ:file(9)
+CHANGE r10v208repro/v208_f_io STRICT_NOTEQUAL differ:type(1) -> differ:file(3)
+CHANGE r10vbuvm29repro/gv29_a_shapes STRICT_NOTEQUAL differ:endcol(3) -> differ:col(12)
+CHANGE r10vbuvm29repro/gv29_b_positions STRICT_NOTEQUAL differ:fullname(3) -> differ:fullname(29) [fullname +26]
+CHANGE r11u10repro/grid/h9_1e1m_port STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(2) [fullname -5]
+CHANGE r11u10repro/grid/hD_1e1mvec STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(2) [fullname -5]
+CHANGE r11u112repro/grid/k/k20_hdr_param_type_ctl STRICT_NOTEQUAL differ:endline(2) -> differ:endline(3) [endline +1]
+CHANGE r11u114repro/grid/f3/c05 STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE r11v55repro/grid/vv1c_cast STRICT_NOTEQUAL differ:file(8) -> differ:type(1)
+regressions=36 conversions=0 changes=66 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u149_wOF/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u149_bin/uhdm-strictcmp
+
+[default] 798 tests
+  CMP_EQUAL: 389
+  SLANG_REJECT: 285
+  STRICT_NOTEQUAL: 91
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+  CMP_NOTEQUAL: 3
+
+[testflags] 798 tests
+  CMP_EQUAL: 383
+  SLANG_REJECT: 286
+  STRICT_NOTEQUAL: 91
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=389 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=91 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=383 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=91 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+REGRESSION CarryAdd testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+REGRESSION ClassVar default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION ClassVar testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION ComplexExprSize default CMP_EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION ComplexExprSize testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION DefaultPatternModule default CMP_EQUAL -> STRICT_NOTEQUAL differ:depth(1)
+REGRESSION DefaultPatternModule testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:depth(1)
+REGRESSION GenScopeHierPath3 testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(163)
+REGRESSION IndexAssign default CMP_EQUAL -> STRICT_NOTEQUAL differ:decompile(1)
+REGRESSION IndexAssign testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:decompile(1)
+REGRESSION IntegerConcat default CMP_EQUAL -> STRICT_NOTEQUAL differ:line(1)
+REGRESSION IntegerConcat testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:line(1)
+REGRESSION Kmac default CMP_EQUAL -> STRICT_NOTEQUAL differ:type(1)
+REGRESSION Kmac testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:type(1)
+REGRESSION PackStructVar default CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(5)
+REGRESSION PackStructVar testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(5)
+REGRESSION ParamArrayUnsizedPattern default CMP_EQUAL -> STRICT_NOTEQUAL differ:depth(1)
+REGRESSION ParamArrayUnsizedPattern testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:depth(1)
+REGRESSION ParamFromPackage default CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(1)
+REGRESSION ParamFromPackage testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(1)
+REGRESSION ParamScope default CMP_EQUAL -> STRICT_NOTEQUAL differ:line(2)
+REGRESSION ParamScope testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:line(2)
+REGRESSION SequenceInst testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(6)
+REGRESSION UnsizedParam testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(6)
+CHANGE ApbSlave default STRICT_NOTEQUAL differ:line(29) -> differ:line(30) [line +1]
+CHANGE ApbSlave testflags STRICT_NOTEQUAL differ:line(29) -> differ:line(30) [line +1]
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:line(174) -> differ:line(210) [line +36]
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:line(174) -> differ:line(210) [line +36]
+CHANGE ClassTypeParam default STRICT_NOTEQUAL differ:endline(25) -> differ:endline(26) [endline +1]
+CHANGE ClassTypeParam testflags STRICT_NOTEQUAL differ:file(38) -> differ:file(39) [file +1]
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:line(1755) -> differ:line(1051) [line -704]
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:line(1755) -> differ:line(1051) [line -704]
+CHANGE InterfArrayBind testflags STRICT_NOTEQUAL differ:fullname(1) -> differ:fullname(3) [fullname +2]
+CHANGE LocalScopeHierPath default STRICT_NOTEQUAL differ:file(3) -> differ:file(4) [file +1]
+CHANGE LocalScopeHierPath testflags STRICT_NOTEQUAL differ:file(4) -> differ:file(5) [file +1]
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:line(190) -> differ:line(191) [line +1]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:line(190) -> differ:line(191) [line +1]
+CHANGE SVSwitch default STRICT_NOTEQUAL differ:endcol(27) -> differ:endcol(37) [endcol +10]
+CHANGE SVSwitch testflags STRICT_NOTEQUAL differ:endcol(27) -> differ:endcol(37) [endcol +10]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:line(194) -> differ:line(195) [line +1]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:line(174) -> differ:line(175) [line +1]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:line(174) -> differ:line(175) [line +1]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:line(190) -> differ:line(191) [line +1]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:line(190) -> differ:line(191) [line +1]
+CHANGE UnsizedParam default STRICT_NOTEQUAL differ:fullname(2) -> differ:fullname(8) [fullname +6]
+CHANGE YosysBigSimEllip default STRICT_NOTEQUAL differ:fullname(3038) -> differ:fullname(3039) [fullname +1]
+CHANGE YosysOldOr default STRICT_NOTEQUAL differ:line(593) -> differ:line(595) [line +2]
+CHANGE YosysOldOr testflags STRICT_NOTEQUAL differ:line(593) -> differ:line(595) [line +2]
+regressions=24 conversions=0 changes=24 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u149_wOF/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u149_bin/uhdm-strictcmp
+
+[default] 871 tests
+  CMP_EQUAL: 692
+  STRICT_NOTEQUAL: 111
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 692
+  STRICT_NOTEQUAL: 111
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=692 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=111
+[testflags] CMP_EQUAL=692 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=111
+REGRESSION ParameterInitializedByPartSelectOfParametersAssignedToVar default CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(1)
+REGRESSION ParameterInitializedByPartSelectOfParametersAssignedToVar testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(1)
+REGRESSION ParameterOfParametrizedType default CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(3)
+REGRESSION ParameterOfParametrizedType testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(3)
+REGRESSION ParameterOfParametrizedTypeInSubmodule default CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(5)
+REGRESSION ParameterOfParametrizedTypeInSubmodule testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(5)
+REGRESSION PkgParamAsFunctionArg default CMP_EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION PkgParamAsFunctionArg testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION func_local_compound_xor default CMP_EQUAL -> STRICT_NOTEQUAL differ:line(2)
+REGRESSION func_local_compound_xor testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:line(2)
+REGRESSION iface_array_modport_drive default CMP_EQUAL -> STRICT_NOTEQUAL differ:endcol(2)
+REGRESSION iface_array_modport_drive testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:endcol(2)
+REGRESSION param_struct_field_bitsel default CMP_EQUAL -> STRICT_NOTEQUAL differ:type(1)
+REGRESSION param_struct_field_bitsel testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:type(1)
+REGRESSION param_unpacked_struct_array default CMP_EQUAL -> STRICT_NOTEQUAL differ:type(1)
+REGRESSION param_unpacked_struct_array testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:type(1)
+REGRESSION struct_dynamic_range default CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(4)
+REGRESSION struct_dynamic_range testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(4)
+REGRESSION struct_member_trailing_index default CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(4)
+REGRESSION struct_member_trailing_index testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(4)
+CHANGE NestedStructArrayParameterInitializedByPatternPassedAsPort default STRICT_NOTEQUAL differ:fullname(4) -> differ:type(1)
+CHANGE NestedStructArrayParameterInitializedByPatternPassedAsPort testflags STRICT_NOTEQUAL differ:fullname(4) -> differ:type(1)
+CHANGE ParameterFromPkgOnParameterPortList default STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(8) [fullname +1]
+CHANGE ParameterFromPkgOnParameterPortList testflags STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(8) [fullname +1]
+CHANGE StructArrayParameterInitializedByPatternPassedAsPort default STRICT_NOTEQUAL differ:line(2) -> differ:type(1)
+CHANGE StructArrayParameterInitializedByPatternPassedAsPort testflags STRICT_NOTEQUAL differ:line(2) -> differ:type(1)
+CHANGE def_ctx_struct_param default STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE def_ctx_struct_param testflags STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE genvar_iface_struct default STRICT_NOTEQUAL differ:fullname(1) -> differ:endcol(3)
+CHANGE genvar_iface_struct testflags STRICT_NOTEQUAL differ:fullname(1) -> differ:endcol(3)
+CHANGE ibex_alu default STRICT_NOTEQUAL differ:fullname(9) -> differ:fullname(2) [fullname -7]
+CHANGE ibex_alu testflags STRICT_NOTEQUAL differ:fullname(9) -> differ:fullname(2) [fullname -7]
+CHANGE ibex_branch_predict default STRICT_NOTEQUAL differ:fullname(20) -> differ:fullname(2) [fullname -18]
+CHANGE ibex_branch_predict testflags STRICT_NOTEQUAL differ:fullname(20) -> differ:fullname(2) [fullname -18]
+CHANGE ibex_compressed_decoder default STRICT_NOTEQUAL differ:fullname(141) -> differ:fullname(2) [fullname -139]
+CHANGE ibex_compressed_decoder testflags STRICT_NOTEQUAL differ:fullname(141) -> differ:fullname(2) [fullname -139]
+CHANGE ibex_decoder default STRICT_NOTEQUAL differ:fullname(28) -> differ:fullname(2) [fullname -26]
+CHANGE ibex_decoder testflags STRICT_NOTEQUAL differ:fullname(28) -> differ:fullname(2) [fullname -26]
+CHANGE ibex_icache default STRICT_NOTEQUAL differ:fullname(200) -> differ:fullname(2) [fullname -198]
+CHANGE ibex_icache testflags STRICT_NOTEQUAL differ:fullname(200) -> differ:fullname(2) [fullname -198]
+CHANGE ibex_multdiv_fast default STRICT_NOTEQUAL differ:fullname(109) -> differ:fullname(2) [fullname -107]
+CHANGE ibex_multdiv_fast testflags STRICT_NOTEQUAL differ:fullname(109) -> differ:fullname(2) [fullname -107]
+CHANGE ibex_multdiv_slow default STRICT_NOTEQUAL differ:fullname(26) -> differ:fullname(2) [fullname -24]
+CHANGE ibex_multdiv_slow testflags STRICT_NOTEQUAL differ:fullname(26) -> differ:fullname(2) [fullname -24]
+CHANGE ibex_pmp default STRICT_NOTEQUAL differ:file(60) -> differ:file(6) [file -54]
+CHANGE ibex_pmp testflags STRICT_NOTEQUAL differ:file(60) -> differ:file(6) [file -54]
+CHANGE ibex_tracer default STRICT_NOTEQUAL differ:fullname(587) -> differ:fullname(87) [fullname -500]
+CHANGE ibex_tracer testflags STRICT_NOTEQUAL differ:fullname(587) -> differ:fullname(87) [fullname -500]
+CHANGE ibex_wb_stage default STRICT_NOTEQUAL differ:fullname(32) -> differ:fullname(2) [fullname -30]
+CHANGE ibex_wb_stage testflags STRICT_NOTEQUAL differ:fullname(32) -> differ:fullname(2) [fullname -30]
+CHANGE latch_decoder_partial default STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE latch_decoder_partial testflags STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE latch_tlb_napot default STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE latch_tlb_napot testflags STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE packed_struct_array_fifo default STRICT_NOTEQUAL differ:fullname(8) -> differ:endline(2)
+CHANGE packed_struct_array_fifo testflags STRICT_NOTEQUAL differ:fullname(8) -> differ:endline(2)
+regressions=20 conversions=0 changes=36 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+SWEEP_RC=1

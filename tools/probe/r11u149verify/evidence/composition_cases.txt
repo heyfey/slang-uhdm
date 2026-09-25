@@ -1,0 +1,6 @@
+cmp__c1_defgen_and_proclv__elab OFF->X4=IMPROVE OFF->X0=IMPROVE X0->ON=CONVERT X4->ON=CONVERT OFF->ON=CONVERT
+cmp__c1_defgen_and_proclv__plain OFF->X4=IMPROVE OFF->X0=IMPROVE X0->ON=IMPROVE X4->ON=IMPROVE OFF->ON=IMPROVE
+cmp__c2_elab_and_pkgref__elab OFF->X4=IMPROVE OFF->X0=IMPROVE X0->ON=IMPROVE X4->ON=IMPROVE OFF->ON=IMPROVE
+cmp__c2_elab_and_pkgref__plain OFF->X4=IMPROVE OFF->X0=same-bytes X0->ON=IMPROVE X4->ON=same-bytes OFF->ON=IMPROVE
+cmp__c3_foldts_and_lhsarr__elab OFF->X4=IMPROVE OFF->X0=same-bytes X0->ON=IMPROVE X4->ON=same-bytes OFF->ON=IMPROVE
+cmp__c3_foldts_and_lhsarr__plain OFF->X4=IMPROVE OFF->X0=same-bytes X0->ON=IMPROVE X4->ON=same-bytes OFF->ON=IMPROVE

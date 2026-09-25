@@ -1,0 +1,6 @@
+TOTAL ('probe', 'CHANGE') 66
+TOTAL ('probe', 'CONVERSION') 36
+TOTAL ('surelog', 'CHANGE') 24
+TOTAL ('surelog', 'CONVERSION') 24
+TOTAL ('uhdm2rtlil', 'CHANGE') 36
+TOTAL ('uhdm2rtlil', 'CONVERSION') 20

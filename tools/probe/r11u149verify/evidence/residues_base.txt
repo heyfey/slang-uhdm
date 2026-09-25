@@ -1,0 +1,126 @@
+# residue re-measure at 1d0c82ef (case.sh, tag RES = the base binary)
+== r11u140repro/dfl/d01_mod_int: STRICT_NOTEQUAL file
+#86 file
+  A: 4	constant				dut.sv	2	46	2	47	3	32	UINT:3	9
+  B: 4	constant					0	0	0	0	3	32	UINT:3	9
+== r11u140repro/rcf/r01_unsized: STRICT_NOTEQUAL type
+#85 type
+  A: 3	bit_select	A		work@test.A	dut.sv	3	16	3	17		0		
+  B: 3	constant				dut.sv	2	68	2	69	4294967295	32	UINT:4294967295	9
+== r11v140repro/plv/v05_task: STRICT_NOTEQUAL fullname
+#89 fullname
+  A: 6	ref_obj	ii		work@dut.setb.tbl[rr].sat[ii].ii	dut.sv	17	17	17	19		0		
+  B: 6	ref_obj	ii		work@dut.setb.ii	dut.sv	17	17	17	19		0		
+#170 fullname
+  A: 6	ref_obj	ii		work@dut.setb.tbl[rr].sat[ii].ii	dut.sv	17	17	17	19		0		
+  B: 6	ref_obj	ii		work@dut.setb.ii	dut.sv	17	17	17	19		0		
+== r11v140repro/plv/v07_basesel_opidx: STRICT_NOTEQUAL fullname
+#138 fullname
+  A: 8	ref_obj	r		work@dut.tbl[r ^ 1].sat[i].r	dut.sv	19	9	19	10		0		
+  B: 8	ref_obj	r		work@dut.r	dut.sv	19	9	19	10		0		
+#253 fullname
+  A: 8	ref_obj	r		work@dut.tbl[r ^ 1].sat[i].r	dut.sv	19	9	19	10		0		
+  B: 8	ref_obj	r		work@dut.r	dut.sv	19	9	19	10		0		
+== r11v140repro/stm/b05_comment: STRICT_NOTEQUAL col
+#19 col
+  A: 3	operation				dut.sv	3	19	3	30		0		
+  B: 3	operation				dut.sv	3	26	3	29		0		
+#51 col
+  A: 3	operation				dut.sv	3	19	3	30		0		
+  B: 3	operation				dut.sv	3	26	3	29		0		
+== r11v140repro/stm/b04_macro: STRICT_NOTEQUAL col
+#19 col
+  A: 3	operation				dut.sv	4	19	4	24		0		
+  B: 3	operation				dut.sv	4	20	4	23		0		
+#51 col
+  A: 3	operation				dut.sv	4	19	4	24		0		
+  B: 3	operation				dut.sv	4	20	4	23		0		
+== v11u144repro/brk/hg/x1: STRICT_NOTEQUAL fullname
+#172 fullname
+  A: 7	ref_obj	i		work@top.g[0].s[i].a.y.i	dut.sv	8	14	8	15		0		
+  B: 7	ref_obj	i		work@top.g[0].i	dut.sv	8	14	8	15		0		
+#179 fullname
+  A: 7	ref_obj	i		work@top.g[0].s[i].g.i	dut.sv	9	14	9	15		0		
+  B: 7	ref_obj	i		work@top.g[0].i	dut.sv	9	14	9	15		0		
+== v11u144repro/brk/hg/x2: STRICT_NOTEQUAL fullname
+#156 fullname
+  A: 11	ref_obj	i		work@top.g[0].h[0].s[i * 2 + j].f.s.i	dut.sv	12	16	12	17		0		
+  B: 11	ref_obj	i		work@top.g[0].h[0].i	dut.sv	12	16	12	17		0		
+#158 fullname
+  A: 10	ref_obj	j		work@top.g[0].h[0].s[i * 2 + j].f.s.j	dut.sv	12	20	12	21		0		
+  B: 10	ref_obj	j		work@top.g[0].h[0].j	dut.sv	12	20	12	21		0		
+== v11u144repro/brk/hg/x4: STRICT_NOTEQUAL endcol
+#63 endcol
+  A: 5	hier_path	s[i].f[0]			dut.sv	6	12	6	13		0		
+  B: 5	hier_path	s[i].f[0]			dut.sv	6	12	6	21		0		
+#66 col
+  A: 6	bit_select	f		s[i].f[0]	dut.sv	6	19	6	20		0		
+  B: 6	bit_select	f		s[i].f[0]	dut.sv	6	17	6	18		0		
+== v11u144repro/brk/hg/x5: STRICT_NOTEQUAL fullname
+#95 fullname
+  A: 7	ref_obj	i		work@top.g[0].b[i].d.i	dut.sv	6	14	6	15		0		
+  B: 7	ref_obj	i		work@top.g[0].i	dut.sv	6	14	6	15		0		
+#115 fullname
+  A: 7	ref_obj	i		work@top.g[1].b[i].d.i	dut.sv	6	14	6	15		0		
+  B: 7	ref_obj	i		work@top.g[1].i	dut.sv	6	14	6	15		0		
+== r11u139netbind/cases/pc/pc31_bitsel_first_pos: STRICT_NOTEQUAL col
+#92 col
+  A: 4	bit_select	v		work@top.u.v	dut.sv	4	9	4	13		0		
+  B: 4	bit_select	v		work@top.u.v	dut.sv	4	11	4	12		0		
+== r11u139netbind/cases/pc/pc33_sel_index_whole: STRICT_NOTEQUAL fullname
+#52 fullname
+  A: 5	ref_obj	idx		work@top.u.idx	dut.sv	4	14	4	17		0		
+  B: 5	ref_obj	idx		work@top.u.a.idx	dut.sv	4	14	4	17		0		
+#110 fullname
+  A: 5	ref_obj	idx		work@top.u.idx	dut.sv	4	14	4	17		0		
+  B: 5	ref_obj	idx		work@top.idx	dut.sv	4	14	4	17		0		
+
+# corpus residue rows (base sweep csv, name,mode,status,strict)
+DefaultPatternInt,default,STRICT_NOTEQUAL,differ:depth(1)
+DefaultPatternInt,testflags,STRICT_NOTEQUAL,differ:depth(1)
+PortExpr,default,STRICT_NOTEQUAL,differ:endline(14)
+PortExpr,testflags,STRICT_NOTEQUAL,differ:endline(14)
+ExplictiPorts,default,STRICT_NOTEQUAL,differ:line(8)
+ExplictiPorts,testflags,STRICT_NOTEQUAL,differ:line(15)
+HierPathTypespec,default,CMP_EQUAL,equal
+HierPathTypespec,testflags,STRICT_NOTEQUAL,differ:fullname(1)
+FunctionParam,default,STRICT_NOTEQUAL,differ:type(1)
+FunctionParam,testflags,STRICT_NOTEQUAL,differ:type(1)
+SelectGivenBySelectOnParameterInFunction,default,STRICT_NOTEQUAL,differ:type(1)
+SelectGivenBySelectOnParameterInFunction,testflags,STRICT_NOTEQUAL,differ:type(1)
+func_local_array,default,STRICT_NOTEQUAL,differ:type(1)
+func_local_array,testflags,STRICT_NOTEQUAL,differ:type(1)
+iface_nested_param_field,default,STRICT_NOTEQUAL,differ:fullname(5)
+iface_nested_param_field,testflags,STRICT_NOTEQUAL,differ:fullname(5)
+LocalParamInNestedForLoops,default,STRICT_NOTEQUAL,differ:fullname(2)
+LocalParamInNestedForLoops,testflags,STRICT_NOTEQUAL,differ:fullname(2)
+packed_array_struct,default,STRICT_NOTEQUAL,differ:endline(2)
+packed_array_struct,testflags,STRICT_NOTEQUAL,differ:endline(2)
+packed_struct_array_fifo,default,STRICT_NOTEQUAL,differ:fullname(8)
+packed_struct_array_fifo,testflags,STRICT_NOTEQUAL,differ:fullname(8)
+ibex_alu,default,STRICT_NOTEQUAL,differ:fullname(9)
+ibex_alu,testflags,STRICT_NOTEQUAL,differ:fullname(9)
+ibex_branch_predict,default,STRICT_NOTEQUAL,differ:fullname(20)
+ibex_branch_predict,testflags,STRICT_NOTEQUAL,differ:fullname(20)
+ibex_compressed_decoder,default,STRICT_NOTEQUAL,differ:fullname(141)
+ibex_compressed_decoder,testflags,STRICT_NOTEQUAL,differ:fullname(141)
+ibex_decoder,default,STRICT_NOTEQUAL,differ:fullname(28)
+ibex_decoder,testflags,STRICT_NOTEQUAL,differ:fullname(28)
+ibex_icache,default,STRICT_NOTEQUAL,differ:fullname(200)
+ibex_icache,testflags,STRICT_NOTEQUAL,differ:fullname(200)
+ibex_multdiv_fast,default,STRICT_NOTEQUAL,differ:fullname(109)
+ibex_multdiv_fast,testflags,STRICT_NOTEQUAL,differ:fullname(109)
+ibex_multdiv_slow,default,STRICT_NOTEQUAL,differ:fullname(26)
+ibex_multdiv_slow,testflags,STRICT_NOTEQUAL,differ:fullname(26)
+ibex_wb_stage,default,STRICT_NOTEQUAL,differ:fullname(32)
+ibex_wb_stage,testflags,STRICT_NOTEQUAL,differ:fullname(32)
+ibex_pmp,default,STRICT_NOTEQUAL,differ:file(60)
+ibex_pmp,testflags,STRICT_NOTEQUAL,differ:file(60)
+ibex_tracer,default,STRICT_NOTEQUAL,differ:fullname(587)
+ibex_tracer,testflags,STRICT_NOTEQUAL,differ:fullname(587)
+Kmac,default,CMP_EQUAL,equal
+Kmac,testflags,CMP_EQUAL,equal
+NestedStructArrayParameterInitializedByPatternPassedAsPort,default,STRICT_NOTEQUAL,differ:fullname(4)
+NestedStructArrayParameterInitializedByPatternPassedAsPort,testflags,STRICT_NOTEQUAL,differ:fullname(4)
+StructArrayParameterInitializedByPatternPassedAsPort,default,STRICT_NOTEQUAL,differ:line(2)
+StructArrayParameterInitializedByPatternPassedAsPort,testflags,STRICT_NOTEQUAL,differ:line(2)

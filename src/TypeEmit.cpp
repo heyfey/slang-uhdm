@@ -18,6 +18,8 @@ bool r11u130Law(const char* sw);
 bool r11u134Law(const char* sw);
 bool r11u137Law(const char* sw);
 bool r11u144Law(const char* sw);
+// § tpDefaultEndTopTwin149v (r11u149 verifier) — defined in ModuleEmit.cpp.
+void tpEndTopTwin149(const std::map<const UHDM::typespec*, UHDM::typespec*>& d2t);
 
 // § paramAliasBoundRefUnstored144 (r11u144) — set while makeTypespec builds
 // the packed dimensions of a PARAMETER whose written type is a module-scope
@@ -11503,6 +11505,9 @@ void UhdmExporter::modPkgTypedefTopTs15() {
     }
     if (d2t15.empty())
         return;
+    // § tpDefaultEndTopTwin149v — the type-parameter default's end move goes
+    // to the twin every module listing is about to reference.
+    tpEndTopTwin149(d2t15);
     repointModOwnedTs16(d2t15);
 }
 

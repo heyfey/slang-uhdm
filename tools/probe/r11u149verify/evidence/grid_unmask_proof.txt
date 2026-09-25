@@ -1,0 +1,4 @@
+UNMASK-PROVEN lat__n03_two_mods__plain OWN: n=1 div@91 ON: n=3 grown=3 early=0 written=0 
+UNMASK-PROVEN tdc__n02_cast_expr__elab OWN: n=1 div@27 ON: n=1 grown=1 early=0 written=0 
+UNMASK+WRITTEN tq__n02_two_packed_dims__plain OWN: n=4 div@18 ON: n=11 grown=9 early=0 written=4 #20 fullname gold[6	ref_typespec			<in>a		0	0	0	0		0] ours[6	ref_typespec			a		0	0	0	0		0]; #26 fullname gold[6	ref_typespec			<in>b		0	0	0	0		0] ours[6	ref_typespec			b		0	0	0	0		0]
+UNMASK+WRITTEN tq__n02_two_packed_dims__elab OWN: n=4 div@18 ON: n=9 grown=7 early=0 written=2 #20 fullname gold[6	ref_typespec			<in>a		0	0	0	0		0] ours[6	ref_typespec			a		0	0	0	0		0]; #26 fullname gold[6	ref_typespec			<in>b		0	0	0	0		0] ours[6	ref_typespec			b		0	0	0	0		0]

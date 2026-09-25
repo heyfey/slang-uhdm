@@ -1,0 +1,5 @@
+ON slang_lines=3273 naming_/tmp/r11u149_bin/on.bin=3273
+OF slang_lines=3273 naming_/tmp/r11u149_bin/off.sh=3273
+X0 slang_lines=3273 naming_/tmp/r11u149_bin/off140.sh=3273
+X4 slang_lines=3273 naming_/tmp/r11u149_bin/off144.sh=3273
+FX slang_lines=3273 naming_/tmp/r11u149_bin/fix.bin=3273

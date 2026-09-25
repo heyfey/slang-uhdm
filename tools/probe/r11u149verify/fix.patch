@@ -1,0 +1,106 @@
+diff --git a/src/ModuleEmit.cpp b/src/ModuleEmit.cpp
+index 7d5f808a..06cc86b4 100644
+--- a/src/ModuleEmit.cpp
++++ b/src/ModuleEmit.cpp
+@@ -627,6 +627,65 @@ bool r11u130Law(const char* sw);
+ bool r11u134Law(const char* sw);
+ bool r11u137Law(const char* sw);
+ bool r11u144Law(const char* sw);
++
++// § tpDefaultEndTopTwin149v (r11u149 verifier refinement of
++// § defNetTypeParamPackedDim144 and of § defNetTypeParamDefault137's
++// unpacked-dimension arm, the one end-move both laws share).  writeNets'
++// end-only populate lands on the object the definition net BINDS.  When the
++// type parameter's default is a PACKAGE typedef (`parameter type dtype =
++// p::d_t`), that object is the ELABORATED package's twin: golden reads the
++// moved end on the uhdmtopPackages `p::d_t` (the one every module listing
++// references after § modPkgTypedefTopTs15) and keeps the typedef's own end on
++// the uhdmallPackages definition object.  Ours moved the definition object,
++// which the re-point then leaves behind in the package definition listing
++// (cases tools/probe/r11u149verify/cases/tq/n01, n07-n09).  The move is
++// recorded here and transferred at the re-point (TypeEmit.cpp
++// modPkgTypedefTopTs15).  Switch: R11V149_TPTWIN_OFF (also off under
++// R11U144_OFF).
++namespace {
++struct TpEndMove149 {
++    UHDM::typespec* ts;
++    uint32_t l, c;
++    std::string f;
++    uint32_t ol, oc;
++    std::string of;
++};
++std::vector<TpEndMove149>& tpEndMoves149() {
++    static std::vector<TpEndMove149> v;
++    return v;
++}
++}  // namespace
++static void tpEndMoveRecord149(UHDM::typespec* ts, uint32_t l, uint32_t c,
++                               const std::string& f) {
++    if (!ts || !r11u144Law("R11V149_TPTWIN_OFF"))
++        return;
++    tpEndMoves149().push_back({ts, l, c, f, (uint32_t)ts->VpiEndLineNo(),
++                               (uint32_t)ts->VpiEndColumnNo(),
++                               std::string(ts->VpiFile())});
++}
++void tpEndTopTwin149(
++    const std::map<const UHDM::typespec*, UHDM::typespec*>& d2t) {
++    // First recorded old end per definition object (restored), last recorded
++    // new end per object (handed to the twin): the last net declared wins.
++    std::map<UHDM::typespec*, const TpEndMove149*> first, last;
++    for (auto& m : tpEndMoves149()) {
++        if (!d2t.count(m.ts))
++            continue;
++        first.emplace(m.ts, &m);
++        last[m.ts] = &m;
++    }
++    for (auto& [ts, m] : last) {
++        auto* twin = d2t.at(ts);
++        twin->VpiEndLineNo(m->l);
++        twin->VpiEndColumnNo(m->c);
++        twin->VpiFile(m->f);
++        auto* o = first.at(ts);
++        ts->VpiEndLineNo(o->ol);
++        ts->VpiEndColumnNo(o->oc);
++        ts->VpiFile(o->of);
++    }
++    tpEndMoves149().clear();
++}
+ // ============================================================================
+ // r11u139 — NET BINDING (the analyst pass's law.patch, landed by r11u137 on
+ // the module ground): which net object an elaborated reference names.  Every
+@@ -29066,6 +29125,12 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
+                         if (e137 != SourceLocation::NoLocation) {
+                             uint32_t l137 = 0, c137 = 0;
+                             locLineCol(e137, l137, c137);
++                            // § tpDefaultEndTopTwin149v (r11u149 verifier) —
++                            // remember the move so the design-final def->top
++                            // re-point can hand it to the ELABORATED twin of a
++                            // package typedef default (tpEndTopTwin149).
++                            tpEndMoveRecord149(tit137->second, l137, c137,
++                                               fullFilePath(e137));
+                             tit137->second->VpiEndLineNo(l137);
+                             tit137->second->VpiEndColumnNo(c137);
+                             tit137->second->VpiFile(fullFilePath(e137));
+diff --git a/src/TypeEmit.cpp b/src/TypeEmit.cpp
+index 984e45d7..d08313e8 100644
+--- a/src/TypeEmit.cpp
++++ b/src/TypeEmit.cpp
+@@ -18,6 +18,8 @@ bool r11u130Law(const char* sw);
+ bool r11u134Law(const char* sw);
+ bool r11u137Law(const char* sw);
+ bool r11u144Law(const char* sw);
++// § tpDefaultEndTopTwin149v (r11u149 verifier) — defined in ModuleEmit.cpp.
++void tpEndTopTwin149(const std::map<const UHDM::typespec*, UHDM::typespec*>& d2t);
+ 
+ // § paramAliasBoundRefUnstored144 (r11u144) — set while makeTypespec builds
+ // the packed dimensions of a PARAMETER whose written type is a module-scope
+@@ -11503,6 +11505,9 @@ void UhdmExporter::modPkgTypedefTopTs15() {
+     }
+     if (d2t15.empty())
+         return;
++    // § tpDefaultEndTopTwin149v — the type-parameter default's end move goes
++    // to the twin every module listing is about to reference.
++    tpEndTopTwin149(d2t15);
+     repointModOwnedTs16(d2t15);
+ }
+ 

@@ -1,0 +1,420 @@
+ON	at__n01_attr_value_static_task	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	at__n02_attr_extern	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	at__n03_attr_protected_func	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	cmp__c1_defgen_and_proclv	IDENTICAL	OK	OK	-	-
+ON	cmp__c2_elab_and_pkgref	IDENTICAL	OK	OK	-	-
+ON	cmp__c3_foldts_and_lhsarr	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+ON	dfl__n01_expr_value	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+ON	dfl__n02_ascending	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+ON	dfl__n03_iface	STATUS_DIFF	NO_GATES	READ_FAIL	-	-
+ON	dfl__n04_override	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	el__n01_inst_array	IDENTICAL	OK	OK	-	-
+ON	el__n02_nested_gen_hp	IDENTICAL	OK	OK	-	-
+ON	el__n03_bind	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	el__n04_seq_in_gen	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	el__n05_carry_chain_hp	IDENTICAL	OK	OK	-	-
+ON	el__n06_inst_array_prop	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	el__n07_bind_seq_gen	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	el__n08_nested_gen_member	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	fav__n01_iface_task	EQUIVALENT	NO_GATES	NO_GATES	nohier	ℹ️  No common assign statements to compare — skipping
+ON	fav__n02_assoc	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	fav__n03_func_dynarg	IDENTICAL	CRASH	CRASH	-	both CRASH
+ON	fav__n04_class_in_module	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	fb__n01_func_local	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	fb__n02_iface_var	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	fb__n03_genif_var	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	fb__n04_nonansi_port	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	hg__n01_param_index	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	hg__n02_genif_in_loop	IDENTICAL	OK	OK	-	-
+ON	hg__n03_deep_member	IDENTICAL	OK	OK	-	-
+ON	hg__n04_nested_loops	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	hg__n05_localparam_index	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	hg__n06_unpacked_net_array	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	ia__n01_genloop	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	ia__n02_minus_colon	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	ia__n03_2d_packed	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	ia__n04_param_sub	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	lat__n01_signed_elem	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+ON	lat__n02_byte_elem_func	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+ON	lat__n03_two_mods	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+ON	lat__n04_localparam_use	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	mdi__n01_struct_typed	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	mdi__n02_automatic_kw	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	mdi__n03_pkg_func	IDENTICAL	OK	OK	-	-
+ON	mdi__n04_iface_func_second_multi	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pf__n01_pkg_func_lit	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pf__n02_two_formals	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pf__n03_dec_literal	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pf__n04_concat_param_repl	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pfp__n01_shortint	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pfp__n02_int_unsigned	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pfp__n03_three_dim	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pfp__n04_signed_vec_body	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pfp__n05_signed_vec_body_pos	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pfp__n06_unsigned_vec_body_ctl	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pfp__n07_signed_vec_hdr	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pfp__n08_integer_kw_body	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pfx__n01_genblk_assign	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pfx__n02_not_bare	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for 
+ON	pfx__n03_two_inst_one_reads	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	plt__n01_loopvar_base	IDENTICAL	OK	OK	-	-
+ON	plt__n02_deep_chain	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	plt__n03_if_else	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	plv__n01_loopvar_idx	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	plv__n02_case_branch	IDENTICAL	OK	OK	-	-
+ON	plv__n03_latch	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	plv__n04_idx_member	IDENTICAL	OK	OK	-	-
+ON	pso__n01_unary_minus	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pso__n02_paren_product	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pso__n03_ternary_cond	EQUIVALENT	NO_GATES	NO_GATES	nohier il	ℹ️  No common assign statements to compare — skipping
+ON	pso__n04_sub_override	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pt__n01_iface	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pt__n02_two_bounds	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+ON	pt__n03_localparam_sub	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+ON	qb__n01_pkg_param_type	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	qb__n02_pkg_func_ret	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	qb__n03_pkg_var	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	qb__n04_two_dims_member	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	rcf__n01_pkg_count	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+ON	rcf__n02_expr_count	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+ON	rcf__n03_genblk	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+ON	sca__n01_iface_ca	IDENTICAL	OK	OK	-	-
+ON	sca__n02_ternary_cond	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	sca__n03_macro_arg	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	sca__n04_concat_operand	IDENTICAL	OK	OK	-	-
+ON	scv__n01_2d_elem_ips_width	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	scv__n02_genblk_range	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	scv__n03_ff_lhs_range	EQUIVALENT	OK	OK	nohier il synth	✅ Formal equivalence check PASSED for /tmp/r11u149_dsw_ON/sc
+ON	scv__n04_ips_base_expr_in_width_nested	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	stm__n01_iface	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	stm__n02_pkg_func	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	stm__n03_in_concat	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	stm__n04_genfor	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	tdc__n01_parameter_kw	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	tdc__n02_cast_expr	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	tdc__n03_enum_member	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	tq__n01_pkg_struct_default	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	tq__n02_two_packed_dims	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	tq__n03_iface	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	   This indicates a serious bug in UHDM import
+ON	tq__n04_pkg_union_default	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for 
+ON	tq__n05_pkg_default_unused_pkg_ref	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	tq__n06_local_typedef_ctl	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	tq__n07_pkg_default_unpacked_137arm	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	tq__n08_pkg_default_two_nets	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	tq__n09_pkg_default_other_user	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	vf__n01_local_static_func	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	vf__n02_protected_virtual_func	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	vf__n03_extern_virtual_task	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	vf__n04_derived_override	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	at__n01_attr_value_static_task	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	at__n02_attr_extern	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	at__n03_attr_protected_func	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	cmp__c1_defgen_and_proclv	IDENTICAL	OK	OK	-	-
+OF	cmp__c2_elab_and_pkgref	IDENTICAL	OK	OK	-	-
+OF	cmp__c3_foldts_and_lhsarr	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+OF	dfl__n01_expr_value	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+OF	dfl__n02_ascending	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+OF	dfl__n03_iface	STATUS_DIFF	NO_GATES	READ_FAIL	-	-
+OF	dfl__n04_override	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	el__n01_inst_array	IDENTICAL	OK	OK	-	-
+OF	el__n02_nested_gen_hp	IDENTICAL	OK	OK	-	-
+OF	el__n03_bind	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	el__n04_seq_in_gen	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	el__n05_carry_chain_hp	IDENTICAL	OK	OK	-	-
+OF	el__n06_inst_array_prop	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	el__n07_bind_seq_gen	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	el__n08_nested_gen_member	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	fav__n01_iface_task	EQUIVALENT	NO_GATES	NO_GATES	nohier	ℹ️  No common assign statements to compare — skipping
+OF	fav__n02_assoc	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	fav__n03_func_dynarg	IDENTICAL	CRASH	CRASH	-	both CRASH
+OF	fav__n04_class_in_module	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	fb__n01_func_local	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	fb__n02_iface_var	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	fb__n03_genif_var	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	fb__n04_nonansi_port	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	hg__n01_param_index	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	hg__n02_genif_in_loop	IDENTICAL	OK	OK	-	-
+OF	hg__n03_deep_member	IDENTICAL	OK	OK	-	-
+OF	hg__n04_nested_loops	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	hg__n05_localparam_index	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	hg__n06_unpacked_net_array	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	ia__n01_genloop	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	ia__n02_minus_colon	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	ia__n03_2d_packed	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	ia__n04_param_sub	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	lat__n01_signed_elem	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+OF	lat__n02_byte_elem_func	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+OF	lat__n03_two_mods	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+OF	lat__n04_localparam_use	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	mdi__n01_struct_typed	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	mdi__n02_automatic_kw	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	mdi__n03_pkg_func	IDENTICAL	OK	OK	-	-
+OF	mdi__n04_iface_func_second_multi	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pf__n01_pkg_func_lit	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pf__n02_two_formals	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pf__n03_dec_literal	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pf__n04_concat_param_repl	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pfp__n01_shortint	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pfp__n02_int_unsigned	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pfp__n03_three_dim	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pfp__n04_signed_vec_body	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pfp__n05_signed_vec_body_pos	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pfp__n06_unsigned_vec_body_ctl	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pfp__n07_signed_vec_hdr	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pfp__n08_integer_kw_body	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pfx__n01_genblk_assign	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pfx__n02_not_bare	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for 
+OF	pfx__n03_two_inst_one_reads	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	plt__n01_loopvar_base	IDENTICAL	OK	OK	-	-
+OF	plt__n02_deep_chain	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	plt__n03_if_else	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	plv__n01_loopvar_idx	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	plv__n02_case_branch	IDENTICAL	OK	OK	-	-
+OF	plv__n03_latch	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	plv__n04_idx_member	IDENTICAL	OK	OK	-	-
+OF	pso__n01_unary_minus	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pso__n02_paren_product	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pso__n03_ternary_cond	EQUIVALENT	NO_GATES	NO_GATES	nohier il	ℹ️  No common assign statements to compare — skipping
+OF	pso__n04_sub_override	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pt__n01_iface	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pt__n02_two_bounds	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+OF	pt__n03_localparam_sub	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+OF	qb__n01_pkg_param_type	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	qb__n02_pkg_func_ret	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	qb__n03_pkg_var	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	qb__n04_two_dims_member	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	rcf__n01_pkg_count	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+OF	rcf__n02_expr_count	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+OF	rcf__n03_genblk	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+OF	sca__n01_iface_ca	EQUIVALENT	OK	OK	nohier il	✅ Formal equivalence check PASSED for /tmp/r11u149_dsw_OF/sc
+OF	sca__n02_ternary_cond	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+OF	sca__n03_macro_arg	EQUIVALENT	NO_GATES	NO_GATES	nohier	✅ All 1 common constant assignments match
+OF	sca__n04_concat_operand	EQUIVALENT	OK	OK	nohier il	✅ Formal equivalence check PASSED for /tmp/r11u149_dsw_OF/sc
+OF	scv__n01_2d_elem_ips_width	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	scv__n02_genblk_range	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	scv__n03_ff_lhs_range	EQUIVALENT	OK	OK	nohier il synth	✅ Formal equivalence check PASSED for /tmp/r11u149_dsw_OF/sc
+OF	scv__n04_ips_base_expr_in_width_nested	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	stm__n01_iface	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	stm__n02_pkg_func	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	stm__n03_in_concat	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	stm__n04_genfor	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	tdc__n01_parameter_kw	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	tdc__n02_cast_expr	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	tdc__n03_enum_member	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	tq__n01_pkg_struct_default	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	tq__n02_two_packed_dims	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	tq__n03_iface	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	   This indicates a serious bug in UHDM import
+OF	tq__n04_pkg_union_default	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for 
+OF	tq__n05_pkg_default_unused_pkg_ref	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	tq__n06_local_typedef_ctl	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	tq__n07_pkg_default_unpacked_137arm	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	tq__n08_pkg_default_two_nets	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	tq__n09_pkg_default_other_user	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	vf__n01_local_static_func	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	vf__n02_protected_virtual_func	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	vf__n03_extern_virtual_task	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	vf__n04_derived_override	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	at__n01_attr_value_static_task	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	at__n02_attr_extern	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	at__n03_attr_protected_func	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	cmp__c1_defgen_and_proclv	IDENTICAL	OK	OK	-	-
+FX	cmp__c2_elab_and_pkgref	IDENTICAL	OK	OK	-	-
+FX	cmp__c3_foldts_and_lhsarr	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+FX	dfl__n01_expr_value	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+FX	dfl__n02_ascending	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+FX	dfl__n03_iface	STATUS_DIFF	NO_GATES	READ_FAIL	-	-
+FX	dfl__n04_override	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	el__n01_inst_array	IDENTICAL	OK	OK	-	-
+FX	el__n02_nested_gen_hp	IDENTICAL	OK	OK	-	-
+FX	el__n03_bind	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	el__n04_seq_in_gen	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	el__n05_carry_chain_hp	IDENTICAL	OK	OK	-	-
+FX	el__n06_inst_array_prop	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	el__n07_bind_seq_gen	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	el__n08_nested_gen_member	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	fav__n01_iface_task	EQUIVALENT	NO_GATES	NO_GATES	nohier	ℹ️  No common assign statements to compare — skipping
+FX	fav__n02_assoc	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	fav__n03_func_dynarg	IDENTICAL	CRASH	CRASH	-	both CRASH
+FX	fav__n04_class_in_module	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	fb__n01_func_local	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	fb__n02_iface_var	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	fb__n03_genif_var	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	fb__n04_nonansi_port	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	hg__n01_param_index	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	hg__n02_genif_in_loop	IDENTICAL	OK	OK	-	-
+FX	hg__n03_deep_member	IDENTICAL	OK	OK	-	-
+FX	hg__n04_nested_loops	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	hg__n05_localparam_index	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	hg__n06_unpacked_net_array	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	ia__n01_genloop	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	ia__n02_minus_colon	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	ia__n03_2d_packed	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	ia__n04_param_sub	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	lat__n01_signed_elem	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+FX	lat__n02_byte_elem_func	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+FX	lat__n03_two_mods	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+FX	lat__n04_localparam_use	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	mdi__n01_struct_typed	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	mdi__n02_automatic_kw	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	mdi__n03_pkg_func	IDENTICAL	OK	OK	-	-
+FX	mdi__n04_iface_func_second_multi	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pf__n01_pkg_func_lit	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pf__n02_two_formals	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pf__n03_dec_literal	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pf__n04_concat_param_repl	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pfp__n01_shortint	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pfp__n02_int_unsigned	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pfp__n03_three_dim	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pfp__n04_signed_vec_body	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pfp__n05_signed_vec_body_pos	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pfp__n06_unsigned_vec_body_ctl	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pfp__n07_signed_vec_hdr	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pfp__n08_integer_kw_body	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pfx__n01_genblk_assign	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pfx__n02_not_bare	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for 
+FX	pfx__n03_two_inst_one_reads	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	plt__n01_loopvar_base	IDENTICAL	OK	OK	-	-
+FX	plt__n02_deep_chain	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	plt__n03_if_else	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	plv__n01_loopvar_idx	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	plv__n02_case_branch	IDENTICAL	OK	OK	-	-
+FX	plv__n03_latch	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	plv__n04_idx_member	IDENTICAL	OK	OK	-	-
+FX	pso__n01_unary_minus	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pso__n02_paren_product	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pso__n03_ternary_cond	EQUIVALENT	NO_GATES	NO_GATES	nohier il	ℹ️  No common assign statements to compare — skipping
+FX	pso__n04_sub_override	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pt__n01_iface	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pt__n02_two_bounds	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+FX	pt__n03_localparam_sub	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+FX	qb__n01_pkg_param_type	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	qb__n02_pkg_func_ret	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	qb__n03_pkg_var	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	qb__n04_two_dims_member	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	rcf__n01_pkg_count	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+FX	rcf__n02_expr_count	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+FX	rcf__n03_genblk	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+FX	sca__n01_iface_ca	IDENTICAL	OK	OK	-	-
+FX	sca__n02_ternary_cond	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	sca__n03_macro_arg	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	sca__n04_concat_operand	IDENTICAL	OK	OK	-	-
+FX	scv__n01_2d_elem_ips_width	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	scv__n02_genblk_range	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	scv__n03_ff_lhs_range	EQUIVALENT	OK	OK	nohier il synth	✅ Formal equivalence check PASSED for /tmp/r11u149_dsw_FX/sc
+FX	scv__n04_ips_base_expr_in_width_nested	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	stm__n01_iface	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	stm__n02_pkg_func	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	stm__n03_in_concat	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	stm__n04_genfor	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	tdc__n01_parameter_kw	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	tdc__n02_cast_expr	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	tdc__n03_enum_member	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	tq__n01_pkg_struct_default	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	tq__n02_two_packed_dims	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	tq__n03_iface	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	   This indicates a serious bug in UHDM import
+FX	tq__n04_pkg_union_default	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for 
+FX	tq__n05_pkg_default_unused_pkg_ref	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	tq__n06_local_typedef_ctl	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	tq__n07_pkg_default_unpacked_137arm	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	tq__n08_pkg_default_two_nets	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	tq__n09_pkg_default_other_user	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	vf__n01_local_static_func	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	vf__n02_protected_virtual_func	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	vf__n03_extern_virtual_task	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	vf__n04_derived_override	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	cmp__c1_defgen_and_proclv	IDENTICAL	OK	OK	-	-
+FX	cmp__c2_elab_and_pkgref	IDENTICAL	OK	OK	-	-
+FX	cmp__c3_foldts_and_lhsarr	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+FX	el__n05_carry_chain_hp	IDENTICAL	OK	OK	-	-
+FX	el__n06_inst_array_prop	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	el__n07_bind_seq_gen	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	el__n08_nested_gen_member	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	fb__n05_func_local_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	fb__n06_struct_member_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	fb__n07_nonansi_port_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	fb__n08_iface_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	fb__n09_genfor_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	fb__n10_ansi_port_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	fb__n11_two_vars_one_decl	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	hg__n02_genif_in_loop	IDENTICAL	OK	OK	-	-
+FX	hg__n06_unpacked_net_array	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	ia__n05_value_wider_than_select	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	mdi__n05_static_kw_task	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pfp__n05_signed_vec_body_pos	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pfp__n06_unsigned_vec_body_ctl	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pfp__n07_signed_vec_hdr	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pfp__n08_integer_kw_body	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	pt__n04_pkg_typedef_param	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	qb__n05_pkg_class_prop	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	stm__n05_crlf_multiline	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	tq__n04_pkg_union_default	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for 
+FX	tq__n05_pkg_default_unused_pkg_ref	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	tq__n06_local_typedef_ctl	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	tq__n07_pkg_default_unpacked_137arm	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	tq__n08_pkg_default_two_nets	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	tq__n09_pkg_default_other_user	IDENTICAL	NO_GATES	NO_GATES	-	-
+FX	vf__n05_pure_then_impl	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	cmp__c1_defgen_and_proclv	IDENTICAL	OK	OK	-	-
+OF	cmp__c2_elab_and_pkgref	IDENTICAL	OK	OK	-	-
+OF	cmp__c3_foldts_and_lhsarr	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+OF	el__n05_carry_chain_hp	IDENTICAL	OK	OK	-	-
+OF	el__n06_inst_array_prop	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	el__n07_bind_seq_gen	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	el__n08_nested_gen_member	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	fb__n05_func_local_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	fb__n06_struct_member_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	fb__n07_nonansi_port_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	fb__n08_iface_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	fb__n09_genfor_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	fb__n10_ansi_port_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	fb__n11_two_vars_one_decl	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	hg__n02_genif_in_loop	IDENTICAL	OK	OK	-	-
+OF	hg__n06_unpacked_net_array	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	ia__n05_value_wider_than_select	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	mdi__n05_static_kw_task	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pfp__n05_signed_vec_body_pos	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pfp__n06_unsigned_vec_body_ctl	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pfp__n07_signed_vec_hdr	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pfp__n08_integer_kw_body	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	pt__n04_pkg_typedef_param	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	qb__n05_pkg_class_prop	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	stm__n05_crlf_multiline	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	tq__n04_pkg_union_default	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for 
+OF	tq__n05_pkg_default_unused_pkg_ref	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	tq__n06_local_typedef_ctl	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	tq__n07_pkg_default_unpacked_137arm	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	tq__n08_pkg_default_two_nets	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	tq__n09_pkg_default_other_user	IDENTICAL	NO_GATES	NO_GATES	-	-
+OF	vf__n05_pure_then_impl	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	cmp__c1_defgen_and_proclv	IDENTICAL	OK	OK	-	-
+ON	cmp__c2_elab_and_pkgref	IDENTICAL	OK	OK	-	-
+ON	cmp__c3_foldts_and_lhsarr	IDENTICAL	READ_FAIL	READ_FAIL	-	both READ_FAIL
+ON	el__n05_carry_chain_hp	IDENTICAL	OK	OK	-	-
+ON	el__n06_inst_array_prop	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	el__n07_bind_seq_gen	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	el__n08_nested_gen_member	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	fb__n05_func_local_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	fb__n06_struct_member_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	fb__n07_nonansi_port_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	fb__n08_iface_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	fb__n09_genfor_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	fb__n10_ansi_port_ident	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	fb__n11_two_vars_one_decl	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	hg__n02_genif_in_loop	IDENTICAL	OK	OK	-	-
+ON	hg__n06_unpacked_net_array	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	ia__n05_value_wider_than_select	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	mdi__n05_static_kw_task	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pfp__n05_signed_vec_body_pos	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pfp__n06_unsigned_vec_body_ctl	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pfp__n07_signed_vec_hdr	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pfp__n08_integer_kw_body	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	pt__n04_pkg_typedef_param	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	qb__n05_pkg_class_prop	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	stm__n05_crlf_multiline	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	tq__n04_pkg_union_default	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for 
+ON	tq__n05_pkg_default_unused_pkg_ref	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	tq__n06_local_typedef_ctl	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	tq__n07_pkg_default_unpacked_137arm	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	tq__n08_pkg_default_two_nets	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	tq__n09_pkg_default_other_user	IDENTICAL	NO_GATES	NO_GATES	-	-
+ON	vf__n05_pure_then_impl	IDENTICAL	NO_GATES	NO_GATES	-	-

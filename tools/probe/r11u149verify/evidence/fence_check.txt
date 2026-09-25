@@ -1,0 +1,9 @@
+fenced names read from RESUME.md: 4
+(0) fenced dirs resolved 4/4; unfenced tests sharing a fenced scan dir: 0; unfenced command-line tokens into a fenced dir: 0
+(1) fenced #1: word hits in r11u144repro = 0; (2) rows in predict_pristine.tsv = 0
+(1) fenced #2: word hits in r11u144repro = 0; (2) rows in predict_pristine.tsv = 0
+(1) fenced #3: word hits in r11u144repro = 0; (2) rows in predict_pristine.tsv = 0
+(1) fenced #4: word hits in r11u144repro = 0; (2) rows in predict_pristine.tsv = 0
+(3a) without FENCED: rc=1 output_written=no
+(3b) 3315 rows; 994 carry a face
+(3c) rerun == committed predict_pristine.tsv: BYTE_IDENTICAL (338916705f10)
