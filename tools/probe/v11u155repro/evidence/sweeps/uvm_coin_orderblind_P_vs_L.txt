@@ -1,0 +1,16 @@
+default/MiniAmiq-055eab74 4
+testflags/MiniAmiq-055eab74 4
+default/SeqDriver-65178d3a 4
+testflags/SeqDriver-65178d3a 4
+default/Scoreboard-72aa0ba8 0
+testflags/SimpleUVM-267de3ff 4
+OneNetModPort,default,STRICT_NOTEQUAL,differ:file(3),,differ:file(3)
+OneNetModPort,testflags,STRICT_NOTEQUAL,differ:file(3),,differ:file(3)
+Rggen,default,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
+Rggen,testflags,SURELOG_FAIL,[INF:UH0707] Elaborating UHDM...,,
+Scoreboard,default,STRICT_NOTEQUAL,differ:line(194),,differ:line(194)
+Scoreboard,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/Scoreboard/testbench.sv:12:3: error: use of undeclared identifier 'm,,
+SimpleUVM,default,STRICT_NOTEQUAL,differ:line(190),,differ:line(190)
+SimpleUVM,testflags,STRICT_NOTEQUAL,differ:line(190),,differ:line(190)
+
+[exited with code 0]

@@ -1,0 +1,5 @@
+#70374 type
+  A: 7	part_select	C	C	work@point_scalar_mult.ins1.ins10.ins1.ins6.C	f3m.v	592	12	592	22		0		
+  B: 7	constant				f3m.v	592	25	592	26	0	64	UINT:0	9
+fields: type=1 name=1 defname=1 fullname=2941 col=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=2941 (walk diverged)
+STRICT_NOTEQUAL fullname

@@ -143,7 +143,7 @@ conditional_if,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/condi
 conditional_if_else,default,CMP_EQUAL,,,equal
 const_arg_loop,default,CMP_EQUAL,,,equal
 const_ashift,default,CMP_EQUAL,,,equal
-const_cast_signext,default,STRICT_NOTEQUAL,differ:line(15),,differ:line(15)
+const_cast_signext,default,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
 const_fold_func,default,CMP_EQUAL,,,equal
 const_func,default,CMP_EQUAL,,,equal
 const_func_block_var,default,CMP_EQUAL,,,equal
@@ -282,7 +282,7 @@ generate_test,default,CMP_EQUAL,,,equal
 GenIfInside,default,CMP_EQUAL,,,equal
 genscope_async_ff_signal,default,CMP_EQUAL,,,equal
 genscope_cells,default,CMP_EQUAL,,,equal
-genscope_module_ctx_reset,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+genscope_module_ctx_reset,default,CMP_EQUAL,,,equal
 genscope_outer_reg_inner_ff,default,CMP_EQUAL,,,equal
 genscope_struct_member,default,CMP_EQUAL,,,equal
 GenScopeFunction,default,CMP_EQUAL,,,equal
@@ -365,7 +365,7 @@ iface_pkg_enum_item,default,CMP_EQUAL,,,equal
 iface_port_localparam,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/iface_port_localparam/dut.sv:28:22: error: top-level module 'iface_port_localparam' has unconnected i,,
 iface_samename_port,default,CMP_EQUAL,,,equal
 iface_scalar_localparam,default,CMP_EQUAL,,,equal
-iface_sig_in_child_port,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+iface_sig_in_child_port,default,CMP_EQUAL,,,equal
 iface_struct_field,default,CMP_EQUAL,,,equal
 iface_struct_field_bitselect,default,CMP_EQUAL,,,equal
 iface_struct_field_param_width,default,CMP_EQUAL,,,equal
@@ -530,7 +530,7 @@ OneConcat,default,CMP_EQUAL,,,equal
 OneImport,default,CMP_EQUAL,,,equal
 OneInside,default,CMP_EQUAL,,,equal
 onenet,default,CMP_EQUAL,,,equal
-OneNetModport,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+OneNetModport,default,CMP_EQUAL,,,equal
 OnePackage,default,CMP_EQUAL,,,equal
 OneReplicate,default,CMP_EQUAL,,,equal
 OneShift,default,CMP_EQUAL,,,equal
@@ -610,7 +610,7 @@ PatternDefault,default,CMP_EQUAL,,,equal
 PatternIndexes,default,CMP_EQUAL,,,equal
 PatternInFunction,default,CMP_EQUAL,,,equal
 PatternParameterInSubmodule,default,CMP_EQUAL,,,equal
-PatternStruct,default,STRICT_NOTEQUAL,differ:file(1),,differ:file(1)
+PatternStruct,default,CMP_EQUAL,,,equal
 PatternType,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/PatternType/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 pico_count_cycle,default,CMP_EQUAL,,,equal
 pkg_localparam_partsel,default,CMP_EQUAL,,,equal
@@ -828,7 +828,7 @@ unbased_unsized_param,default,CMP_EQUAL,,,equal
 unbased_unsized_shift,default,CMP_EQUAL,,,equal
 union4_repro,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/union4_repro/dut.sv:3:44: error: all members of a packed union must have the same width; 'raw' has wi,,
 union_field_partsel,default,CMP_EQUAL,,,equal
-union_param_repro,default,STRICT_NOTEQUAL,differ:line(4),,differ:line(4)
+union_param_repro,default,CMP_EQUAL,,,equal
 union_simple,default,CMP_EQUAL,,,equal
 UnionCustomTypeMultirange,default,CMP_EQUAL,,,equal
 UnionInPackageWithMultirange,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/UnionInPackageWithMultirange/dut.sv:30:3: error: cannot reference compilation unit item from within a,,
@@ -1014,7 +1014,7 @@ conditional_if,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/con
 conditional_if_else,testflags,CMP_EQUAL,,,equal
 const_arg_loop,testflags,CMP_EQUAL,,,equal
 const_ashift,testflags,CMP_EQUAL,,,equal
-const_cast_signext,testflags,STRICT_NOTEQUAL,differ:line(15),,differ:line(15)
+const_cast_signext,testflags,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
 const_fold_func,testflags,CMP_EQUAL,,,equal
 const_func,testflags,CMP_EQUAL,,,equal
 const_func_block_var,testflags,CMP_EQUAL,,,equal
@@ -1153,7 +1153,7 @@ generate_test,testflags,CMP_EQUAL,,,equal
 GenIfInside,testflags,CMP_EQUAL,,,equal
 genscope_async_ff_signal,testflags,CMP_EQUAL,,,equal
 genscope_cells,testflags,CMP_EQUAL,,,equal
-genscope_module_ctx_reset,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+genscope_module_ctx_reset,testflags,CMP_EQUAL,,,equal
 genscope_outer_reg_inner_ff,testflags,CMP_EQUAL,,,equal
 genscope_struct_member,testflags,CMP_EQUAL,,,equal
 GenScopeFunction,testflags,CMP_EQUAL,,,equal
@@ -1236,7 +1236,7 @@ iface_pkg_enum_item,testflags,CMP_EQUAL,,,equal
 iface_port_localparam,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/iface_port_localparam/dut.sv:28:22: error: top-level module 'iface_port_localparam' has unconnected i,,
 iface_samename_port,testflags,CMP_EQUAL,,,equal
 iface_scalar_localparam,testflags,CMP_EQUAL,,,equal
-iface_sig_in_child_port,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+iface_sig_in_child_port,testflags,CMP_EQUAL,,,equal
 iface_struct_field,testflags,CMP_EQUAL,,,equal
 iface_struct_field_bitselect,testflags,CMP_EQUAL,,,equal
 iface_struct_field_param_width,testflags,CMP_EQUAL,,,equal
@@ -1401,7 +1401,7 @@ OneConcat,testflags,CMP_EQUAL,,,equal
 OneImport,testflags,CMP_EQUAL,,,equal
 OneInside,testflags,CMP_EQUAL,,,equal
 onenet,testflags,CMP_EQUAL,,,equal
-OneNetModport,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+OneNetModport,testflags,CMP_EQUAL,,,equal
 OnePackage,testflags,CMP_EQUAL,,,equal
 OneReplicate,testflags,CMP_EQUAL,,,equal
 OneShift,testflags,CMP_EQUAL,,,equal
@@ -1481,7 +1481,7 @@ PatternDefault,testflags,CMP_EQUAL,,,equal
 PatternIndexes,testflags,CMP_EQUAL,,,equal
 PatternInFunction,testflags,CMP_EQUAL,,,equal
 PatternParameterInSubmodule,testflags,CMP_EQUAL,,,equal
-PatternStruct,testflags,STRICT_NOTEQUAL,differ:file(1),,differ:file(1)
+PatternStruct,testflags,CMP_EQUAL,,,equal
 PatternType,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/PatternType/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 pico_count_cycle,testflags,CMP_EQUAL,,,equal
 pkg_localparam_partsel,testflags,CMP_EQUAL,,,equal
@@ -1699,7 +1699,7 @@ unbased_unsized_param,testflags,CMP_EQUAL,,,equal
 unbased_unsized_shift,testflags,CMP_EQUAL,,,equal
 union4_repro,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/union4_repro/dut.sv:3:44: error: all members of a packed union must have the same width; 'raw' has wi,,
 union_field_partsel,testflags,CMP_EQUAL,,,equal
-union_param_repro,testflags,STRICT_NOTEQUAL,differ:line(4),,differ:line(4)
+union_param_repro,testflags,CMP_EQUAL,,,equal
 union_simple,testflags,CMP_EQUAL,,,equal
 UnionCustomTypeMultirange,testflags,CMP_EQUAL,,,equal
 UnionInPackageWithMultirange,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/UnionInPackageWithMultirange/dut.sv:30:3: error: cannot reference compilation unit item from within a,,

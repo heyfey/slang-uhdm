@@ -1,0 +1,15 @@
+== uhdm2rtlil V vs L
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== surelog V vs L
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=e284cc4f9fd4 pristine=b8c51b0fe16f
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=e21e049b8341 pristine=362b97b41681
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=2eb0117b237d pristine=73e2f8b70ae5
+MOVER ./default/SimpleUVM-267de3ff/slang.uhdm  patched=e544fc9935e1 pristine=e903edd42569
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=85e18c9cffc2 pristine=1acb1568ee8d
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=b8114425b806 pristine=af0c3618b99b
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm  patched=9452e30734ad pristine=e9fad6992f4a
+MOVERS: 7 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged

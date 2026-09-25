@@ -1,0 +1,20 @@
+default/Earlgrey_0_1-a898def8
+  P: fields: type=1 defname=2 fullname=456 file=76 line=6 col=157 endline=6 endcol=1237 size=1 objects_differing=1738 (walk diverged)
+  L: fields: type=1 defname=2 fullname=456 file=76 line=6 col=157 endline=6 endcol=1237 size=1 objects_differing=1738 (walk diverged)
+testflags/Earlgrey_0_1-a898def8
+  P: fields: type=1 defname=2 fullname=456 file=76 line=6 col=157 endline=6 endcol=1237 size=1 objects_differing=1738 (walk diverged)
+  L: fields: type=1 defname=2 fullname=456 file=76 line=6 col=157 endline=6 endcol=1237 size=1 objects_differing=1738 (walk diverged)
+default/Rggen-ee9ac8af
+  P: fields: depth=1 type=1 name=2 fullname=4 line=3 col=1 endline=3 endcol=3 objects_differing=7 (walk diverged)
+  L: fields: depth=1 type=1 name=2 fullname=4 line=3 col=1 endline=3 endcol=3 objects_differing=7 (walk diverged)
+default/OneNetModPort-66919c4f
+  P: fields: depth=1 type=1 name=1 fullname=1 file=2 line=3 col=3 endline=3 endcol=3 size=1 objects_differing=3 (walk diverged)
+  L: fields: depth=1 type=1 name=1 fullname=1 file=2 line=3 col=3 endline=3 endcol=3 size=1 objects_differing=3 (walk diverged)
+testflags/OneNetModPort-66919c4f
+  P: fields: depth=1 type=1 name=1 fullname=1 file=2 line=3 col=3 endline=3 endcol=3 size=1 objects_differing=3 (walk diverged)
+  L: fields: depth=1 type=1 name=1 fullname=1 file=2 line=3 col=3 endline=3 endcol=3 size=1 objects_differing=3 (walk diverged)
+# order-blind dump distance to golden (sorted uhdm-dump lines differing), pristine vs law:
+default/Earlgrey_0_1-a898def8 dist_pristine=507875 dist_law=507715 law_vs_pris=160
+default/Rggen-ee9ac8af dist_pristine=64486 dist_law=63856 law_vs_pris=630
+default/OneNetModPort-66919c4f dist_pristine=119 dist_law=91 law_vs_pris=28
+# OneNetModPortGeneric: moved AWAY from golden under the first law build (128 -> 156 lines, the generic port's members renamed); the final build gates the generic road out and it no longer moves

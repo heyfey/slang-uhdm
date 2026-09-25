@@ -688,6 +688,7 @@ void tpEndTopTwin149(
 }
 bool r11u146Law(const char* sw);
 bool r11u152Law(const char* sw); // the r11u152 switches (UhdmExporter.cpp)
+bool r11u155Law(const char* sw); // the r11u155 switches (UhdmExporter.cpp)
 // § genCaseItemUnnamed152 (r11u152, map N0646) — Surelog leaves a
 // case-generate item's parent UNSET (CompileStmt), which stops
 // ComputeFullName for everything under it in the definition view: the item's
@@ -5740,6 +5741,39 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                         hts->VpiName().empty())
                         if (auto* cd9 = ((UHDM::class_typespec*)hts)->Class_defn())
                             hts->VpiName(cd9->VpiName());
+                    // § initTsEndProgramLocal155 (r11u155, map N1146) — the
+                    // hoisted net of an INITIALISED process local (`integer
+                    // j = 0;`, `frame_t frame = new();`) reads a typespec that
+                    // ends at the initializer, not at the type: Surelog
+                    // compiles the program-scope Signal's type over the
+                    // declaration through its Variable_decl_assignment
+                    // (SimpleConstraint 52:6-52:19 where ours read 52:13;
+                    // the block's own variable keeps the type span).  Only a
+                    // type written as a keyword or a class name: that
+                    // typespec is this declaration's own object (a typedef
+                    // name binds a clone, grid IT s11 is stage-1).  Grid
+                    // tools/probe/r11u155repro/cases/IT.  Switch:
+                    // R11U155_PRGINITEND_OFF.
+                    if (r11u155Law("R11U155_PRGINITEND_OFF"))
+                        if (auto* ds155 = bm.getSyntax();
+                            ds155 &&
+                            ds155->kind == syntax::SyntaxKind::Declarator &&
+                            ds155->as<syntax::DeclaratorSyntax>().initializer)
+                            if (auto* dt155 = bm.getDeclaredType())
+                                if (auto* ts155 = dt155->getTypeSyntax();
+                                    ts155 &&
+                                    (ts155->kind != syntax::SyntaxKind::NamedType ||
+                                     hts->UhdmType() ==
+                                         UHDM::uhdmclass_typespec)) {
+                                    SourceLocation e155 =
+                                        ds155->as<syntax::DeclaratorSyntax>()
+                                            .initializer->expr->sourceRange()
+                                            .end();
+                                    uint32_t l155 = 0, c155 = 0;
+                                    locLineCol(e155, l155, c155);
+                                    hts->VpiEndLineNo(l155);
+                                    hts->VpiEndColumnNo(c155);
+                                }
                     auto* hrt = s.MakeRef_typespec();
                     hrt->VpiParent(hn);
                     hrt->VpiFullName(prefix + "." + std::string(bm.name));
@@ -13411,6 +13445,65 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         if (!implicitNet && !realVar &&
             unpackedArrayLeafIsNet(*it.sym, it.port != nullptr, ts)) {
             if (auto* an = emitArrayNet(*it.sym, name, fullName, m, ts)) {
+                // § nonAnsiArrayNetAtHeader155 (r11u155, map N1135 + N1156)
+                // — the ELABORATED array_net of a NON-ANSI port (`module
+                // dut(var3); output struct2 var3 [7];`) is located at the
+                // port's HEADER name, as the port's own net already is
+                // (golden UnpackPort 1:12-1:16 where ours read the body
+                // declaration's 6:18-6:22); its struct_net element starts
+                // there and keeps its end (the first unpacked dimension,
+                // 1:12-6:26), a logic_net element takes the header name span
+                // whole.  Grid tools/probe/r11u155repro/cases/UP.  Switch:
+                // R11U155_NAARRNET_OFF.
+                SourceLocation hl155 = SourceLocation::NoLocation;
+                if (r11u155Law("R11U155_NAARRNET_OFF"))
+                    for (auto pb155 : body.getPortList()) {
+                        if (pb155->kind != SymbolKind::Port ||
+                            pb155->as<PortSymbol>().internalSymbol != it.sym)
+                            continue;
+                        const syntax::SyntaxNode* pe155 = pb155->getSyntax();
+                        if (pe155 &&
+                            pe155->kind == syntax::SyntaxKind::ImplicitNonAnsiPort)
+                            pe155 = &*pe155->as<syntax::ImplicitNonAnsiPortSyntax>().expr;
+                        if (pe155)
+                            if (pe155->kind == syntax::SyntaxKind::PortReference &&
+                                !pe155->as<syntax::PortReferenceSyntax>().select &&
+                                pe155->as<syntax::PortReferenceSyntax>()
+                                        .name.valueText() == it.sym->name)
+                                hl155 = pe155->as<syntax::PortReferenceSyntax>()
+                                            .name.location();
+                        break;
+                    }
+                // § naArrNetOwnPortDecl155v (v11u155) — only when the port
+                // declaration itself declares the array net: a port
+                // re-declared by a separate net or variable declaration
+                // (`output [1:0] o [2]; wire [1:0] o [2];`, `output o;
+                // wire [1:0] o [2];`) keeps the array_net at that
+                // declaration's name, as pristine read (golden 4:14-4:15).
+                // Grid tools/probe/v11u155repro/cases/NA.  Switch:
+                // R11V155_NAARRSEP_OFF.
+                if (hl155 != SourceLocation::NoLocation &&
+                    r11u155Law("R11V155_NAARRSEP_OFF")) {
+                    auto* dsy155 = it.sym->getSyntax();
+                    if (!dsy155 || !dsy155->parent ||
+                        dsy155->parent->kind != syntax::SyntaxKind::PortDeclaration)
+                        hl155 = SourceLocation::NoLocation;
+                }
+                if (hl155 != SourceLocation::NoLocation) {
+                    auto hs155 = nameSpan(hl155, it.sym->name);
+                    setLoc(an, hs155);
+                    if (an->Nets())
+                        for (auto* en155 : *an->Nets()) {
+                            if (en155->UhdmType() == UHDM::uhdmstruct_net) {
+                                uint32_t l155 = 0, c155 = 0;
+                                locLineCol(hl155, l155, c155);
+                                en155->VpiLineNo(l155);
+                                en155->VpiColumnNo(c155);
+                            }
+                            else if (en155->UhdmType() == UHDM::uhdmlogic_net)
+                                setLoc(en155, hs155);
+                        }
+                }
                 // Share the def-view attribute objects onto both the array_net
                 // and its element logic_net (Surelog attaches to both).
                 if (auto* attrs = findAttrs(it.sym)) {
@@ -17301,12 +17394,27 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     if (h && h->UhdmType() == UHDM::uhdmpart_select) {
                         auto* pselA9 = (UHDM::part_select*)h;
                         const InstanceBodySymbol* encA9 = enclosingInstBody(inst);
+                        // § pselConnNameNotFrozen155 (r11u155, map N1118,
+                        // pass-147 sister face S3) — ref_obj::VpiFullName()
+                        // STORES the name it computes from the parent chain,
+                        // and here the instance is not yet under its generate
+                        // scope: reading it froze `work@X.u_c.ci.in_i` where
+                        // golden's chain names `work@X.gen_inst.u_c.ci.in_i`
+                        // (genscope_module_ctx_reset).  The name only feeds
+                        // the bound fold of an OPERATION bound, so it is read
+                        // only then.  Grid tools/probe/r11u155repro/cases/PS3.
+                        // Switch: R11U155_PSELNAME_OFF.
+                        const bool lazyA155 = r11u155Law("R11U155_PSELNAME_OFF");
+                        auto opBoundA155 = [&](const UHDM::any* b155) {
+                            return !lazyA155 ||
+                                   (b155 && b155->UhdmType() == UHDM::uhdmoperation);
+                        };
                         if (auto* lcA9 =
                                 foldBareParamBound(s, encA9, pselA9->Left_range())) {
                             lcA9->VpiParent(pselA9);
                             pselA9->Left_range(lcA9);
                         }
-                        else
+                        else if (opBoundA155(pselA9->Left_range()))
                             foldBareParamBoundIn(
                                 encA9, parentM, pselA9->Left_range(),
                                 std::string(pselA9->VpiFullName()));
@@ -17315,10 +17423,61 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             rcA9->VpiParent(pselA9);
                             pselA9->Right_range(rcA9);
                         }
-                        else
+                        else if (opBoundA155(pselA9->Right_range()))
                             foldBareParamBoundIn(
                                 encA9, parentM, pselA9->Right_range(),
                                 std::string(pselA9->VpiFullName()));
+                        // ...and the actual's emission (ExprEmit emitExpr)
+                        // already froze it through the same lazy getter:
+                        // the chain name without the generate scope is
+                        // re-derived from the instance's own full name.
+                        if (lazyA155 && m && !pselA9->VpiName().empty()) {
+                            std::string nm155(pselA9->VpiName());
+                            std::string tail155 = "." + std::string(ps.name) +
+                                                  "." + nm155;
+                            std::string cur155(pselA9->VpiFullName());
+                            std::string end155 = "." + instNm + tail155;
+                            std::string want155 =
+                                std::string(m->VpiFullName()) + tail155;
+                            bool frozen155 =
+                                cur155.size() > end155.size() &&
+                                cur155.compare(cur155.size() - end155.size(),
+                                               end155.size(), end155) == 0;
+                            // A generate-LOOP child's actual is named at the
+                            // loop scope (`work@top.gl[0].in_i`) where golden
+                            // keeps the chain (`work@top.gl[0].u_c.ci.in_i`).
+                            if (genvarConnFold && !genConnPrefix.empty() &&
+                                cur155 == genConnPrefix + "." + nm155)
+                                frozen155 = true;
+                            if (!m->VpiFullName().empty() && cur155 != want155 &&
+                                frozen155) {
+                                pselA9->VpiFullName(want155);
+                                // The bound references named through the
+                                // select (`...gl[0].in_i.k`) follow it.
+                                std::function<void(UHDM::any*)> rb155 =
+                                    [&](UHDM::any* e155) {
+                                        if (!e155)
+                                            return;
+                                        if (e155->UhdmType() == UHDM::uhdmref_obj) {
+                                            auto* r155 = (UHDM::ref_obj*)e155;
+                                            std::string f155(r155->VpiFullName());
+                                            if (f155.rfind(cur155 + ".", 0) == 0)
+                                                r155->VpiFullName(
+                                                    want155 +
+                                                    f155.substr(cur155.size()));
+                                        }
+                                        else if (e155->UhdmType() ==
+                                                 UHDM::uhdmoperation)
+                                            if (auto* o155 =
+                                                    ((UHDM::operation*)e155)
+                                                        ->Operands())
+                                                for (auto* x155 : *o155)
+                                                    rb155(x155);
+                                    };
+                                rb155(pselA9->Left_range());
+                                rb155(pselA9->Right_range());
+                            }
+                        }
                     }
                     // Gen-scope child HighConn refs bind their GEN-LOCAL
                     // nets (hierdefparam mod_b(.A(a))).
@@ -34768,6 +34927,38 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 pat.kind == ExpressionKind::StructuredAssignmentPattern ||
                 pat.kind == ExpressionKind::ReplicatedAssignmentPattern) {
                 if (auto* fc = tryFoldConst(*dt->getInitializer())) {
+                    // § packedStructNdaFoldConstLoc155 (r11u155, map N0394 +
+                    // N1140, pass-147 sister face S4) — the folded constant
+                    // of a ONE-element pattern (`my_struct s = '{word: 125};`,
+                    // `'{125}`) is located at that element's value (golden
+                    // PatternStruct 5:26-5:29); ours carried no location.
+                    // Wider patterns are stage-1 elsewhere (grid PS4 p02,
+                    // p04, p05, p07).  Grid tools/probe/r11u155repro/cases/
+                    // PS4.  Switch: R11U155_NDAFOLDLOC_OFF.
+                    if (fc->VpiFile().empty() && fc->VpiLineNo() == 0 &&
+                        r11u155Law("R11U155_NDAFOLDLOC_OFF")) {
+                        const Expression* el155 = nullptr;
+                        if (pat.kind == ExpressionKind::SimpleAssignmentPattern) {
+                            auto els155 =
+                                pat.as<SimpleAssignmentPatternExpression>().elements();
+                            if (els155.size() == 1)
+                                el155 = els155[0];
+                        }
+                        else if (pat.kind ==
+                                 ExpressionKind::StructuredAssignmentPattern) {
+                            auto& sp155 =
+                                pat.as<StructuredAssignmentPatternExpression>();
+                            if (sp155.memberSetters.size() == 1 &&
+                                sp155.typeSetters.empty() &&
+                                sp155.indexSetters.empty() &&
+                                !sp155.defaultSetter)
+                                el155 = sp155.memberSetters[0].expr;
+                        }
+                        if (el155 && !el155->syntax)
+                            el155 = &stripImplicitConv(*el155);
+                        if (el155 && el155->syntax)
+                            setLoc(fc, el155->syntax->sourceRange());
+                    }
                     auto* op = s.MakeOperation();
                     op->VpiOpType(vpiAssignmentPatternOp);
                     op->VpiParent(ca);
@@ -44097,6 +44288,53 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                     }
                 if (!defRhs4 || defRhs4->UhdmType() != UHDM::uhdmoperation)
                     continue;
+                // § ifacePortViewFoldAtLeftOperand155 (r11u155, map N0005,
+                // pass-147 sister face S1) — the PORT VIEW's folded constant
+                // of an operation default (`localparam int unsigned BYT =
+                // DAT/8;` read through `bus_if sub`) is its own object located
+                // at the operation's LEFT operand (golden GenForIfaceLocal-
+                // paramBound 10:33-10:36, `DAT`; `CFG.BUS.DAT/8` 15:33-15:44),
+                // a unary operation at its operator token; the connected
+                // instance's own view keeps the whole initializer (ours
+                // shared that one object).  Parentheses around the whole
+                // default are transparent.  Grid tools/probe/r11u155repro/
+                // cases/PV.  Switch: R11U155_PVLEFTOP_OFF.
+                if (pa4->Rhs()->UhdmType() == UHDM::uhdmconstant &&
+                    r11u155Law("R11U155_PVLEFTOP_OFF")) {
+                    const syntax::ExpressionSyntax* ie155 = nullptr;
+                    for (auto& pm155 : body.members())
+                        if (pm155.kind == SymbolKind::Parameter &&
+                            pm155.name == nm4) {
+                            if (auto* ds155 = pm155.getSyntax();
+                                ds155 &&
+                                ds155->kind == syntax::SyntaxKind::Declarator &&
+                                ds155->as<syntax::DeclaratorSyntax>().initializer)
+                                ie155 = ds155->as<syntax::DeclaratorSyntax>()
+                                            .initializer->expr;
+                            break;
+                        }
+                    while (ie155 &&
+                           ie155->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                        ie155 = ie155->as<syntax::ParenthesizedExpressionSyntax>()
+                                    .expression;
+                    SourceRange at155 = SourceRange::NoLocation;
+                    if (ie155 && syntax::BinaryExpressionSyntax::isKind(ie155->kind))
+                        at155 = ie155->as<syntax::BinaryExpressionSyntax>()
+                                    .left->sourceRange();
+                    else if (ie155 &&
+                             syntax::PrefixUnaryExpressionSyntax::isKind(ie155->kind))
+                        at155 = ie155->as<syntax::PrefixUnaryExpressionSyntax>()
+                                    .operatorToken.range();
+                    if (at155.start() != SourceLocation::NoLocation) {
+                        UHDM::ElaboratorContext ctx155(&s, false,
+                                                       /*muteErrors=*/true);
+                        if (auto* cp155 = UHDM::clone_tree(pa4->Rhs(), &ctx155)) {
+                            setLoc(cp155, at155);
+                            cp155->VpiParent(pa4);
+                            pa4->Rhs(cp155);
+                        }
+                    }
+                }
                 // § ifacePortViewAggParamParent120 (r11u120) — AN AGGREGATE
                 //   (assignment-pattern) PORT-VIEW PARAMETER IS PARENTED AT ITS
                 //   PARAM_ASSIGN, NOT AT THE INTERFACE INSTANCE.  Producer:
@@ -45110,6 +45348,97 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         }
         if (!mports->empty())
             iface->Modports(mports);
+        // § ifaceSigConnNamedByChildPort155 (r11u155, map N0269 + N0450 +
+        // N1059 + N1072) — in a MODPORT-qualified port view (`module mid
+        // (myif.s sub)`), a member the module connects BARE to a child
+        // instance's port (`child c (.clk(sub.clk))`, positional too) is
+        // named through that child port: golden `work@dut.m.c.clk.clk` where
+        // ours read the port view's `work@dut.m.sub.s.clk.clk`
+        // (iface_sig_in_child_port; OneNetModport `work@top.dut.sub1.inp.
+        // drive`), the LAST such connection in source order winning; the
+        // io_decl's net or variable and its ref_typespec both take it.
+        // Surelog elaborates the child's high connection onto the same
+        // object and its full name follows that last writer.  A member read
+        // under an operator (`.clk(~sub.clk)`) or only by an assign keeps the
+        // port-view name; a plain (non-modport) interface port view is
+        // untouched.  Grid tools/probe/r11u155repro/cases/IC.  Switch:
+        // R11U155_IFSIGCHILD_OFF.
+        // A GENERIC port (`interface intf`) whose modport comes from the
+        // connection keeps the port-view name (OneNetModPortGeneric's
+        // `work@TOP.dut1.middle1.intf.drive`; grid IC i08).
+        if (portView && !connModport.empty() && !connModportFromConn &&
+            iface->Modports() && r11u155Law("R11U155_IFSIGCHILD_OFF")) {
+            auto dot155 = prefix.rfind('.');
+            if (dot155 != std::string::npos) {
+                std::string owner155 = prefix.substr(0, dot155);
+                std::string pname155 = prefix.substr(dot155 + 1);
+                std::map<std::string, std::pair<SourceLocation, std::string>> w155;
+                for (auto& cm155 : portView->body.members()) {
+                    if (cm155.kind != SymbolKind::Instance)
+                        continue;
+                    auto& ci155 = cm155.as<InstanceSymbol>();
+                    for (auto* pc155 : ci155.getPortConnections()) {
+                        auto* ex155 = pc155->getExpression();
+                        // An output connection is an lvalue assignment whose
+                        // left side is the written actual.
+                        if (ex155 && ex155->kind == ExpressionKind::Assignment)
+                            ex155 = &ex155->as<AssignmentExpression>().left();
+                        if (ex155 && !ex155->syntax)
+                            ex155 = &stripImplicitConv(*ex155);
+                        if (!ex155 || !ex155->syntax)
+                            continue;
+                        auto* sx155 = ex155->syntax;
+                        if (sx155->kind != syntax::SyntaxKind::ScopedName)
+                            continue;
+                        auto& sn155 = sx155->as<syntax::ScopedNameSyntax>();
+                        if (sn155.separator.kind != parsing::TokenKind::Dot ||
+                            sn155.left->kind != syntax::SyntaxKind::IdentifierName ||
+                            sn155.right->kind != syntax::SyntaxKind::IdentifierName ||
+                            sn155.left->as<syntax::IdentifierNameSyntax>()
+                                    .identifier.valueText() != pname155)
+                            continue;
+                        std::string mem155(sn155.right->as<syntax::IdentifierNameSyntax>()
+                                               .identifier.valueText());
+                        auto loc155 = sx155->sourceRange().start();
+                        auto& slot155 = w155[mem155];
+                        if (slot155.second.empty() ||
+                            (loc155.buffer() == slot155.first.buffer() &&
+                             slot155.first < loc155))
+                            slot155 = {loc155, owner155 + "." +
+                                                   std::string(ci155.name) + "." +
+                                                   std::string(pc155->port.name) +
+                                                   "." + mem155};
+                    }
+                }
+                if (!w155.empty())
+                    for (auto* mpo155 : *iface->Modports())
+                        if (auto* ios155 = mpo155->Io_decls())
+                            for (auto* io155 : *ios155) {
+                                auto* ex155 = io155->Expr();
+                                if (!ex155)
+                                    continue;
+                                auto wit155 = w155.find(std::string(io155->VpiName()));
+                                if (wit155 == w155.end())
+                                    continue;
+                                const std::string& nf155 = wit155->second.second;
+                                UHDM::ref_typespec* rt155 = nullptr;
+                                switch (ex155->UhdmType()) {
+                                    case UHDM::uhdmlogic_net:
+                                        ((UHDM::logic_net*)ex155)->VpiFullName(nf155);
+                                        rt155 = ((UHDM::logic_net*)ex155)->Typespec();
+                                        break;
+                                    case UHDM::uhdmlogic_var:
+                                        ((UHDM::logic_var*)ex155)->VpiFullName(nf155);
+                                        rt155 = ((UHDM::logic_var*)ex155)->Typespec();
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                if (rt155)
+                                    rt155->VpiFullName(nf155);
+                            }
+            }
+        }
     }
     if (!portView)
         emitNamedClockingBlocks(body, iface, prefix, netMap,

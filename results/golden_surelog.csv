@@ -577,10 +577,10 @@ GenFor,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenFor/dut.sv:4
 GenFor,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenFor/dut.sv:4:9: error: use of undeclared identifier 'i',,
 GenForDec,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenForDec/dut.sv:4:9: error: use of undeclared identifier 'i',,
 GenForDec,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenForDec/dut.sv:4:9: error: use of undeclared identifier 'i',,
-GenForIfaceLocalparamBound,default,STRICT_NOTEQUAL,differ:endcol(1),,differ:endcol(1)
-GenForIfaceLocalparamBound,testflags,STRICT_NOTEQUAL,differ:endcol(1),,differ:endcol(1)
-GenForIfaceLocalparamNestedGen,default,STRICT_NOTEQUAL,differ:endcol(1),,differ:endcol(1)
-GenForIfaceLocalparamNestedGen,testflags,STRICT_NOTEQUAL,differ:endcol(1),,differ:endcol(1)
+GenForIfaceLocalparamBound,default,CMP_EQUAL,,,equal
+GenForIfaceLocalparamBound,testflags,CMP_EQUAL,,,equal
+GenForIfaceLocalparamNestedGen,default,CMP_EQUAL,,,equal
+GenForIfaceLocalparamNestedGen,testflags,CMP_EQUAL,,,equal
 GenForStructParamBound,default,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
 GenForStructParamBound,testflags,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
 GenIf,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIf/dut.sv:9:40: error: use of undeclared identifier 'a',,
@@ -685,16 +685,16 @@ IfGen2,default,CMP_EQUAL,,,equal
 IfGen2,testflags,CMP_EQUAL,,,equal
 IfGen3,default,CMP_EQUAL,,,equal
 IfGen3,testflags,CMP_EQUAL,,,equal
-IfGenTypeBinding,default,STRICT_NOTEQUAL,differ:endline(5),,differ:endline(5)
-IfGenTypeBinding,testflags,STRICT_NOTEQUAL,differ:endline(5),,differ:endline(5)
+IfGenTypeBinding,default,CMP_EQUAL,,,equal
+IfGenTypeBinding,testflags,CMP_EQUAL,,,equal
 IllegalZeroValue,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/IllegalZeroValue/dut.sv:3:13: error: value must be positive,,
 IllegalZeroValue,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/IllegalZeroValue/dut.sv:3:13: error: value must be positive,,
 ImplFuncArg,default,CMP_EQUAL,,,equal
 ImplFuncArg,testflags,CMP_EQUAL,,,equal
 Implicit,default,CMP_EQUAL,,,equal
 Implicit,testflags,CMP_EQUAL,,,equal
-ImplicitArg,default,STRICT_NOTEQUAL,differ:col(4),,differ:col(4)
-ImplicitArg,testflags,STRICT_NOTEQUAL,differ:col(4),,differ:col(4)
+ImplicitArg,default,CMP_EQUAL,,,equal
+ImplicitArg,testflags,CMP_EQUAL,,,equal
 ImplicitFunc,default,CMP_EQUAL,,,equal
 ImplicitFunc,testflags,CMP_EQUAL,,,equal
 ImplicitFuncArgAndReturn,default,CMP_EQUAL,,,equal
@@ -1241,8 +1241,8 @@ SimpleClass2,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleCla
 SimpleClass2,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleClass2/top.v:13:19: error: implementation not found in parent scope for 'new' [-Wmember-impl-not-,,
 SimpleCmdLineTest,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleCmdLineTest/flist2.f:1:26: error: unknown command line argument '-bad'; did you mean '--std'?,,
 SimpleCmdLineTest,testflags,NO_UHDM,[   NOTE] : 1,,
-SimpleConstraint,default,STRICT_NOTEQUAL,differ:endcol(4),,differ:endcol(4)
-SimpleConstraint,testflags,STRICT_NOTEQUAL,differ:endcol(4),,differ:endcol(4)
+SimpleConstraint,default,STRICT_NOTEQUAL,differ:endcol(2),,differ:endcol(2)
+SimpleConstraint,testflags,STRICT_NOTEQUAL,differ:endcol(2),,differ:endcol(2)
 SimpleIncludeAndMacros,default,SURELOG_FAIL,[   NOTE] : 16,,
 SimpleIncludeAndMacros,testflags,SURELOG_FAIL,[   NOTE] : 16,,
 SimpleInterface,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleInterface/simple_if.sv:5:26: error: redefinition of 'clk' [-Wredefinition],,
@@ -1459,8 +1459,8 @@ UnitThisNew,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitThisNe
 UnitThisNew,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitThisNew/dut.sv:3:75: error: use of undeclared identifier 'uvm_action',,
 UnpackedTypespec,default,CMP_EQUAL,,,equal
 UnpackedTypespec,testflags,CMP_EQUAL,,,equal
-UnpackPort,default,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
-UnpackPort,testflags,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
+UnpackPort,default,CMP_EQUAL,,,equal
+UnpackPort,testflags,CMP_EQUAL,,,equal
 UnsignedParam,default,CMP_NOTEQUAL,decompile:,,
 UnsignedParam,testflags,CMP_NOTEQUAL,decompile:,,
 UnsizeConstExpr,default,CMP_EQUAL,,,equal
@@ -1537,7 +1537,7 @@ YosysBigSimAes,default,CMP_EQUAL,,,equal
 YosysBigSimAes,testflags,CMP_EQUAL,,,equal
 YosysBigSimAmber23,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/amber23/rtl/a23_decode.v:175:24: error: expected a declaration name,,
 YosysBigSimAmber23,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/amber23/rtl/a23_decode.v:175:24: error: expected a declaration name,,
-YosysBigSimEllip,default,STRICT_NOTEQUAL,differ:fullname(2941),,differ:fullname(2941)
+YosysBigSimEllip,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 YosysBigSimEllip,testflags,NO_DATABASE,test suppresses UHDM output,-noelab,
 YosysBigSimLm32,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/lm32/rtl/lm32_adder.v:56:8: error: design element does not have a time scale de,,
 YosysBigSimLm32,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/lm32/rtl/lm32_adder.v:56:8: error: design element does not have a time scale de,,

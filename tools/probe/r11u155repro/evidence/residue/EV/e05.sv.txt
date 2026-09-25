@@ -1,0 +1,2 @@
+// residue R-EV (sister ground, ParamEmit emitPackage enum-alias clone useEnd): not a law of this pass
+module dut; typedef enum logic [7:0] {ONE, TWO} enum_t; typedef enum_t alias_t; alias_t b; endmodule

@@ -1,0 +1,86 @@
+FN/d01 | STRICT_NOTEQUAL endcol(2) -> STRICT_EQUAL 176 objects() | dist 10 -> 2
+FN/d02 | STRICT_NOTEQUAL fullname(13) -> STRICT_NOTEQUAL fullname(12) | dist 28 -> 20
+FN/d03 | STRICT_NOTEQUAL endcol(4) -> STRICT_EQUAL 204 objects() | dist 12 -> 2
+FN/d04 | STRICT_NOTEQUAL fullname(7) -> STRICT_NOTEQUAL fullname(3) | dist 26 -> 8
+FN/d05 | STRICT_NOTEQUAL type(1) -> STRICT_NOTEQUAL type(1) | dist 14 -> 6
+IA/b02 | STRICT_NOTEQUAL col(4) -> STRICT_EQUAL 17 objects() | dist 14 -> 4
+IA/b03 | STRICT_NOTEQUAL col(4) -> STRICT_EQUAL 35 objects() | dist 14 -> 4
+IA/b04 | STRICT_NOTEQUAL col(6) -> STRICT_NOTEQUAL fullname(2) | dist 17 -> 7
+IA/b05 | STRICT_NOTEQUAL col(6) -> STRICT_EQUAL 56 objects() | dist 28 -> 6
+IA/b06 | STRICT_NOTEQUAL col(7) -> STRICT_NOTEQUAL type(1) | dist 32 -> 22
+IA/b07 | STRICT_NOTEQUAL col(2) -> STRICT_EQUAL 17 objects() | dist 14 -> 4
+IA/b08 | STRICT_NOTEQUAL col(4) -> STRICT_EQUAL 41 objects() | dist 16 -> 4
+IA/b09 | STRICT_NOTEQUAL col(5) -> STRICT_NOTEQUAL type(1) | dist 32 -> 22
+IA/b10 | STRICT_NOTEQUAL col(4) -> STRICT_EQUAL 49 objects() | dist 14 -> 4
+IA/b11 | STRICT_NOTEQUAL col(4) -> STRICT_EQUAL 29 objects() | dist 14 -> 4
+IA/b12 | STRICT_NOTEQUAL col(2) -> STRICT_EQUAL 14 objects() | dist 14 -> 4
+IC/c01 | STRICT_NOTEQUAL fullname(4) -> STRICT_EQUAL 279 objects() | dist 38 -> 14
+IC/c03 | STRICT_NOTEQUAL fullname(8) -> STRICT_EQUAL 435 objects() | dist 74 -> 26
+IC/c04 | STRICT_NOTEQUAL fullname(8) -> STRICT_EQUAL 405 objects() | dist 74 -> 26
+IC/c05 | STRICT_NOTEQUAL fullname(4) -> STRICT_EQUAL 282 objects() | dist 40 -> 14
+IC/c06 | STRICT_NOTEQUAL fullname(4) -> STRICT_EQUAL 340 objects() | dist 42 -> 18
+IC/c08 | STRICT_NOTEQUAL fullname(4) -> STRICT_EQUAL 289 objects() | dist 38 -> 14
+IC/c09 | STRICT_NOTEQUAL fullname(4) -> STRICT_EQUAL 266 objects() | dist 38 -> 14
+IC/c10 | STRICT_NOTEQUAL fullname(6) -> STRICT_EQUAL 277 objects() | dist 56 -> 18
+IC/c11 | STRICT_NOTEQUAL fullname(8) -> STRICT_EQUAL 399 objects() | dist 74 -> 26
+IC/c12 | STRICT_NOTEQUAL fullname(2) -> STRICT_EQUAL 309 objects() | dist 22 -> 10
+IC/c13 | STRICT_NOTEQUAL fullname(4) -> STRICT_EQUAL 312 objects() | dist 42 -> 18
+IC/c15 | STRICT_NOTEQUAL fullname(5) -> STRICT_NOTEQUAL type(1) | dist 46 -> 22
+IT/k01 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 9 -> 3
+IT/k02 | STRICT_NOTEQUAL endcol(1) -> STRICT_EQUAL 14 objects() | dist 6 -> 2
+IT/k03 | STRICT_NOTEQUAL endcol(1) -> STRICT_EQUAL 14 objects() | dist 6 -> 2
+IT/k04 | STRICT_NOTEQUAL endcol(2) -> STRICT_EQUAL 22 objects() | dist 10 -> 2
+IT/k05 | STRICT_NOTEQUAL endcol(2) -> STRICT_NOTEQUAL endcol(2) | dist 14 -> 14
+IT/k08 | STRICT_NOTEQUAL endcol(1) -> STRICT_EQUAL 20 objects() | dist 6 -> 2
+IT/k09 | STRICT_NOTEQUAL endcol(1) -> STRICT_EQUAL 16 objects() | dist 6 -> 2
+IT/k10 | STRICT_NOTEQUAL endcol(1) -> STRICT_EQUAL 18 objects() | dist 6 -> 2
+IT/k11 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 10 -> 6
+IT/k12 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 10 -> 6
+IT/k13 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 14 -> 6
+MF/g01 | STRICT_NOTEQUAL line(4) -> STRICT_NOTEQUAL type(1) | dist 75 -> 59
+MF/g02 | STRICT_NOTEQUAL line(8) -> STRICT_EQUAL 175 objects() | dist 16 -> 2
+MF/g03 | STRICT_NOTEQUAL line(8) -> STRICT_EQUAL 230 objects() | dist 16 -> 2
+MF/g04 | STRICT_NOTEQUAL line(9) -> STRICT_EQUAL 212 objects() | dist 18 -> 2
+MF/g05 | STRICT_NOTEQUAL line(8) -> STRICT_NOTEQUAL fullname(2) | dist 16 -> 6
+MF/g06 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 21 -> 9
+MF/g07 | STRICT_NOTEQUAL line(8) -> STRICT_NOTEQUAL line(8) | dist 18 -> 18
+MF/g08 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 25 -> 9
+NA/u01 | STRICT_NOTEQUAL line(2) -> STRICT_EQUAL 72 objects() | dist 16 -> 2
+NA/u02 | STRICT_NOTEQUAL line(4) -> STRICT_EQUAL 71 objects() | dist 30 -> 2
+NA/u03 | STRICT_NOTEQUAL line(2) -> STRICT_EQUAL 61 objects() | dist 18 -> 2
+NA/u04 | STRICT_NOTEQUAL col(3) -> STRICT_NOTEQUAL col(1) | dist 24 -> 10
+NA/u05 | STRICT_NOTEQUAL line(2) -> STRICT_EQUAL 92 objects() | dist 14 -> 4
+NA/u06 | STRICT_NOTEQUAL line(4) -> STRICT_EQUAL 151 objects() | dist 30 -> 2
+NA/u08 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 22 -> 8
+PS3/r01 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 27 -> 23
+PS3/r02 | STRICT_NOTEQUAL fullname(1) -> STRICT_EQUAL 135 objects() | dist 10 -> 6
+PS3/r03 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 30 -> 18
+PS3/r04 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 16 -> 12
+PS3/r05 | STRICT_NOTEQUAL fullname(1) -> STRICT_EQUAL 172 objects() | dist 10 -> 6
+PS3/r07 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 148 -> 116
+PS3/r09 | STRICT_NOTEQUAL fullname(1) -> STRICT_EQUAL 149 objects() | dist 8 -> 6
+PS3/r10 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 12 -> 10
+PS4/q01 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 53 -> 51
+PS4/q02 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 55 -> 53
+PS4/q03 | STRICT_NOTEQUAL file(1) -> STRICT_NOTEQUAL endcol(1) | dist 51 -> 51
+PS4/q04 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 53 -> 51
+PS4/q05 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 55 -> 55
+PS4/q06 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 85 -> 85
+PS4/q08 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 53 -> 53
+PV/p01 | STRICT_NOTEQUAL endcol(1) -> STRICT_EQUAL 238 objects() | dist 38 -> 36
+PV/p02 | STRICT_NOTEQUAL endcol(1) -> STRICT_EQUAL 238 objects() | dist 38 -> 36
+PV/p04 | STRICT_NOTEQUAL endcol(1) -> STRICT_EQUAL 234 objects() | dist 38 -> 36
+PV/p05 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 247 -> 245
+PV/p06 | STRICT_NOTEQUAL endcol(1) -> STRICT_EQUAL 234 objects() | dist 38 -> 36
+PV/p07 | STRICT_NOTEQUAL endcol(1) -> STRICT_EQUAL 234 objects() | dist 39 -> 37
+PV/p08 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 170 -> 166
+PV/p11 | STRICT_NOTEQUAL endcol(1) -> STRICT_EQUAL 234 objects() | dist 38 -> 36
+PV/p12 | STRICT_NOTEQUAL endcol(2) -> STRICT_NOTEQUAL depth(1) | dist 74 -> 70
+PV/p13 | STRICT_NOTEQUAL endcol(1) -> STRICT_EQUAL 234 objects() | dist 38 -> 36
+TE/h01 | STRICT_NOTEQUAL endline(7) -> STRICT_EQUAL 117 objects() | dist 38 -> 20
+TE/h04 | STRICT_NOTEQUAL endline(5) -> STRICT_EQUAL 81 objects() | dist 14 -> 2
+TE/h06 | STRICT_NOTEQUAL endline(5) -> STRICT_EQUAL 106 objects() | dist 34 -> 20
+UF/g06 | STRICT_NOTEQUAL line(7) -> STRICT_EQUAL 171 objects() | dist 18 -> 4
+UF/g07 | NOT_EQUAL stage1() -> NOT_EQUAL stage1() | dist 38 -> 30
+UF/g08 | STRICT_NOTEQUAL line(7) -> STRICT_EQUAL 107 objects() | dist 16 -> 2
+UF/g09 | STRICT_NOTEQUAL line(7) -> STRICT_EQUAL 149 objects() | dist 18 -> 2

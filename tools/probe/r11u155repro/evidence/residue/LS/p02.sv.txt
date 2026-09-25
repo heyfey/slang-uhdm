@@ -1,0 +1,10 @@
+// residue R-SP (sister ground, ParamEmit makeParamTs): not a law of this pass
+module top(input logic a, output logic [3:0] o);
+  localparam type t = struct packed {
+    logic [3:0] x;
+    logic [3:0] y;
+  };
+  t n;
+  assign n = {a, 7'd0};
+  assign o = n.x;
+endmodule

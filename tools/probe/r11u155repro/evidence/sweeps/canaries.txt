@@ -1,0 +1,8 @@
+  SimpleConstraint               default   CHANGED STRICT_NOTEQUAL/differ:endcol(4) -> STRICT_NOTEQUAL/differ:endcol(2)
+  SimpleConstraint               testflags CHANGED STRICT_NOTEQUAL/differ:endcol(4) -> STRICT_NOTEQUAL/differ:endcol(2)
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.

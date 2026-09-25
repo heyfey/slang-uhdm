@@ -1,0 +1,3 @@
+// residue R-LT (structural: the package vector typedef binds with its packed dims dropped): not a law of this pass
+package p; typedef logic [1:0] t; endpackage
+module top(); p::t [3:0] x; endmodule

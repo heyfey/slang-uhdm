@@ -119,6 +119,16 @@ bool r11u152Law(const char* sw) {
     return getenv(sw) == nullptr;
 }
 
+// ===== r11u155 — the module/type ground on the strict axis, seventh round =====
+// Every r11u155 law sits behind its own switch; R11U155_OFF drops them all
+// and restores the pristine bytes.  The table is
+// tools/probe/r11u155repro/README.md.
+bool r11u155Law(const char* sw) {
+    if (getenv("R11U155_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 // § implicitNetNoFile119 (r11u119) — defined in ModuleEmit.cpp.
 void clearImplicitNetFiles119();
 
@@ -8468,6 +8478,83 @@ UHDM::design* UhdmExporter::exportDesign() {
         return found;
     };
 
+    // § unitAggTfArgLastWriter155 (r11u155, map N1041 + N1161) — a $unit
+    // packed struct / union typedef named by a subroutine FORMAL
+    // (`function automatic d_t mydec (u_t op);`) is relocated to that
+    // formal's type token, the LAST compiled formal winning: Surelog's
+    // CompileHelper::compileTfPortList runs `populateCoreMembers(type, type,
+    // ts)` on the typedef's own aggregate object for every ANSI argument with
+    // a written data type (the § tfArgTypedefLastWriter146 decode), and every
+    // listing reads the moved span (golden union_param_repro u_t 7:31-7:34
+    // under the design and every reference, where ours kept the typedef's
+    // 5:9-5:50).  Writers: the bare-name formals of the $unit subroutines and
+    // of the module-local subroutines; all of them must sit in ONE container
+    // ($unit, or one module definition), since the compile order across
+    // containers is not modelled (grid UF f20: another module's writer); a
+    // class method's formal or a package-qualified spelling declines.  A
+    // DPI import is not a writer (§ tfArgDpiNoWrite146v).  The writeNets
+    // end-only move of a module net (§ defNetTypedefEndWrite134) runs later
+    // and still moves the end (grid UF f22).  Grid
+    // tools/probe/r11u155repro/cases/UF.  Switches: R11U155_UNITUNIONARG_OFF
+    // (the union), R11U155_UNITSTRUCTARG_OFF (the struct's last writer and
+    // its module-signal and module-subroutine cases).
+    auto lastFormalTok155 = [&](const TypeAliasType& ta155) -> SourceRange {
+        const Type* ct155 = &ta155.getCanonicalType();
+        std::vector<std::pair<const void*, SourceRange>> w155;
+        bool poison155 = false;
+        auto scanSub155 = [&](const SubroutineSymbol& sub, const void* cont) {
+            if (sub.flags.has(MethodFlags::DPIImport))
+                return;
+            for (auto* a155 : sub.getArguments()) {
+                if (&a155->getType().getCanonicalType() != ct155)
+                    continue;
+                auto* dt155 = static_cast<const Symbol*>(a155)->getDeclaredType();
+                auto* ts155 = dt155 ? dt155->getTypeSyntax() : nullptr;
+                if (!ts155 || ts155->kind != syntax::SyntaxKind::NamedType) {
+                    poison155 = true;
+                    continue;
+                }
+                auto& nm155 = *ts155->as<syntax::NamedTypeSyntax>().name;
+                if (nm155.kind != syntax::SyntaxKind::IdentifierName ||
+                    nm155.as<syntax::IdentifierNameSyntax>().identifier.valueText() !=
+                        ta155.name) {
+                    poison155 = true;
+                    continue;
+                }
+                w155.push_back({cont, ts155->sourceRange()});
+            }
+        };
+        std::function<void(const Scope&, const void*)> scanScope155 =
+            [&](const Scope& sc, const void* cont) {
+                for (auto& m155 : sc.members()) {
+                    if (m155.kind == SymbolKind::Subroutine)
+                        scanSub155(m155.as<SubroutineSymbol>(), cont);
+                    else if (m155.kind == SymbolKind::ClassType) {
+                        for (auto& cm155 : m155.as<ClassType>().members())
+                            if (cm155.kind == SymbolKind::Subroutine)
+                                for (auto* a155 :
+                                     cm155.as<SubroutineSymbol>().getArguments())
+                                    if (&a155->getType().getCanonicalType() == ct155)
+                                        poison155 = true;
+                    }
+                }
+            };
+        for (auto unit155 : comp.getCompilationUnits())
+            scanScope155(*unit155, nullptr);
+        for (auto& [name155, inst155] : defs)
+            scanScope155(inst155->body, &inst155->getDefinition());
+        if (poison155 || w155.empty())
+            return SourceRange::NoLocation;
+        for (auto& wv : w155)
+            if (wv.first != w155.front().first)
+                return SourceRange::NoLocation;
+        SourceRange last155 = w155.front().second;
+        for (auto& wv : w155)
+            if (srcOrderLess(last155.start(), wv.second.start()))
+                last155 = wv.second;
+        return last155;
+    };
+
     // File-level (compilation-unit) typedefs: the typespec OBJECTS are built
     // in SOURCE order (so their member typespecs land in source order in the
     // arena), but the design Typespecs LIST is name-sorted like Surelog's.
@@ -8541,6 +8628,13 @@ UHDM::design* UhdmExporter::exportDesign() {
                         setLoc(ts, formalSyn->sourceRange());
                     else if (typeSyn)
                         setLoc(ts, typeSyn->sourceRange());
+                    // § unitAggTfArgLastWriter155 — the last writer wins,
+                    // module-signal uses and module subroutines included.
+                    if (r11u155Law("R11U155_UNITSTRUCTARG_OFF")) {
+                        auto lw155 = lastFormalTok155(ta);
+                        if (lw155.start() != SourceLocation::NoLocation)
+                            setLoc(ts, lw155);
+                    }
                 }
                 else if (ct.kind == SymbolKind::UnpackedStructType) {
                     ts = buildStructTs(ct.as<UnpackedStructType>(), false,
@@ -8556,6 +8650,12 @@ UHDM::design* UhdmExporter::exportDesign() {
                         ts->VpiParent(d);
                     if (typeSyn)
                         setLoc(ts, typeSyn->sourceRange());
+                    // § unitAggTfArgLastWriter155 — the union half.
+                    if (r11u155Law("R11U155_UNITUNIONARG_OFF")) {
+                        auto lw155 = lastFormalTok155(ta);
+                        if (lw155.start() != SourceLocation::NoLocation)
+                            setLoc(ts, lw155);
+                    }
                 }
                 else if (ct.kind == SymbolKind::PackedArrayType ||
                          ct.kind == SymbolKind::ScalarType) {
@@ -9033,10 +9133,54 @@ UHDM::design* UhdmExporter::exportDesign() {
     drainDefParamTs();
     // Pkg struct typedef ts spans stretch to the first module-signal USE
     // declarator (Surelog).
+    // § pkgTdStretchNonAnsiHeaderSkips155 (r11u155, map N0009's
+    // IfGenTypeBinding face, r11u153's residue) — a module whose header
+    // carries a NON-ANSI port list, the empty `()` included (`module
+    // top#(..) ();`, `module top(i); input i;`), does not stretch the
+    // imported package typedef: Surelog's definition-level net writer cannot
+    // resolve a bare typedef name in such a component, the definition net
+    // carries no typespec (isNonAnsiHeader, ModuleEmit.cpp) and writeNets'
+    // end-only populate has nothing to land on (golden IfGenTypeBinding
+    // pmp_cfg_t 3:11-8:4 where ours read 18:66).  `module top;`, a
+    // parameter-only header and an ANSI port list still stretch.  A
+    // package-qualified spelling is not gated.  Grid tools/probe/r11u155repro/
+    // cases/TE.  Switch: R11U155_TDSTRETCHHDR_OFF.
+    // § tdStretchProgramKeeps155v (v11u155) — a PROGRAM keeps the stretch
+    // whatever its header (golden `program p(); import pk::*; s_t x [2];`
+    // lists the elaborated pk::s_t at the stretched 2:37, as pristine read).
+    // Grid tools/probe/v11u155repro/cases/TE.  Switch: R11V155_TDPRG_OFF.
+    const bool prgKeeps155 = r11u155Law("R11V155_TDPRG_OFF");
+    auto nonAnsiHdr155 = [prgKeeps155](const InstanceBodySymbol& b155) -> bool {
+        auto* ds155 = b155.getDefinition().getSyntax();
+        if (!ds155 ||
+            !(ds155->kind == syntax::SyntaxKind::ModuleDeclaration ||
+              ds155->kind == syntax::SyntaxKind::InterfaceDeclaration ||
+              (ds155->kind == syntax::SyntaxKind::ProgramDeclaration &&
+               !prgKeeps155)))
+            return false;
+        const syntax::ModuleHeaderSyntax* h155 =
+            ds155->as<syntax::ModuleDeclarationSyntax>().header;
+        if (!h155 || !h155->ports)
+            return false;
+        if (h155->ports->kind == syntax::SyntaxKind::NonAnsiPortList)
+            return true;
+        return h155->ports->kind == syntax::SyntaxKind::AnsiPortList &&
+               h155->ports->as<syntax::AnsiPortListSyntax>().ports.empty();
+    };
+    const bool hdrGate155 = r11u155Law("R11U155_TDSTRETCHHDR_OFF");
     for (auto& [tsP, aliasT] : pendingPkgTsStretch) {
         // LAST use wins (Surelog last-writer semantics).
         for (auto& [nm9, inst9] : defs) {
+            const bool skipHdr155 = hdrGate155 && nonAnsiHdr155(inst9->body);
             for (auto& member : inst9->body.members()) {
+                if (skipHdr155)
+                    if (auto* dtH155 = member.getDeclaredType())
+                        if (auto* tsH155 = dtH155->getTypeSyntax();
+                            tsH155 &&
+                            tsH155->kind == syntax::SyntaxKind::NamedType &&
+                            tsH155->as<syntax::NamedTypeSyntax>().name->kind !=
+                                syntax::SyntaxKind::ScopedName)
+                            continue;
                 const DeclaredType* dt9 = nullptr;
                 if (member.kind == SymbolKind::Net ||
                     member.kind == SymbolKind::Variable ||

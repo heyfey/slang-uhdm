@@ -32,6 +32,7 @@ bool r11u144Law(const char* sw);
 void tpEndTopTwin149(const std::map<const UHDM::typespec*, UHDM::typespec*>& d2t);
 bool r11u146Law(const char* sw);
 bool r11u152Law(const char* sw); // the r11u152 switches (UhdmExporter.cpp)
+bool r11u155Law(const char* sw); // the r11u155 switches (UhdmExporter.cpp)
 
 // § paramAliasBoundRefUnstored144 (r11u144) — set while makeTypespec builds
 // the packed dimensions of a PARAMETER whose written type is a module-scope
@@ -3768,6 +3769,48 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 if ((!pkgLeaf || structMemberTsCtx || bareWritten152) &&
                     !scopedMember152)
                     setLoc(pat, patLoc);
+                // § dirlessFormalTypeAtName155 (r11u155, pass-152 residue 1,
+                // v11u152 KP p03 / KY y04) — a subroutine FORMAL written with
+                // no direction, `const`, `var` or `static` keyword (`function
+                // int f(s_t [2:0] v)`, and a follower with its own type after
+                // `input logic a,`) locates its packed_array_typespec at the
+                // type NAME only (golden 6:28-6:31 where ours ended at the
+                // dims), and a package-qualified name at its `pk::` prefix
+                // (golden 4:28-4:32; ours unlocated): Surelog's tf-port arm
+                // populates the first node of the data type, as
+                // § implicitArgDimsInner155 reads for an implicit type.  An
+                // `input` formal keeps the whole span (grid FN n08).  Grid
+                // tools/probe/r11u155repro/cases/FN.  Switch:
+                // R11U155_DIRLESSNAME_OFF.
+                if (declSymbol.kind == SymbolKind::FormalArgument &&
+                    !structMemberTsCtx && r11u155Law("R11U155_DIRLESSNAME_OFF"))
+                    if (auto* tw155 = declared->getTypeSyntax();
+                        tw155 && tw155->kind == syntax::SyntaxKind::NamedType)
+                        for (auto p155 = declSymbol.getSyntax(); p155;
+                             p155 = p155->parent)
+                            if (p155->kind == syntax::SyntaxKind::FunctionPort) {
+                                auto& fp155 =
+                                    p155->as<syntax::FunctionPortSyntax>();
+                                if (!fp155.direction && !fp155.constKeyword &&
+                                    !fp155.varKeyword && !fp155.staticKeyword) {
+                                    auto* nm155 =
+                                        &*tw155->as<syntax::NamedTypeSyntax>().name;
+                                    if (nm155->kind == syntax::SyntaxKind::ScopedName) {
+                                        auto& sn155 =
+                                            nm155->as<syntax::ScopedNameSyntax>();
+                                        setLoc(pat,
+                                               SourceRange(
+                                                   sn155.left->sourceRange().start(),
+                                                   sn155.separator.range().end()));
+                                    }
+                                    else if (nm155->kind ==
+                                             syntax::SyntaxKind::IdentifierSelectName)
+                                        setLoc(pat,
+                                               nm155->as<syntax::IdentifierSelectNameSyntax>()
+                                                   .identifier.range());
+                                }
+                                break;
+                            }
                 bool unitMember152 = false;
                 if (scopedMember152)
                     for (auto* sc152 = declSymbol.getParentScope(); sc152;
@@ -4352,6 +4395,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         return pat107;
     };
     const syntax::StructUnionTypeSyntax* anonAgg107 = nullptr;
+    SourceRange implicitArgInner155 = SourceRange::NoLocation;
     if (packedLeaf && packedLeaf->isPackedArray()) {
         auto tsyn = typeSynFor();
         const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dimSyns = nullptr;
@@ -4395,6 +4439,35 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         }
                     }
                     setLoc(ts, dr);
+                    // § implicitArgDimsInner155 (r11u155, map N0767) — a
+                    // subroutine formal written with NO direction, `const`
+                    // or `var` keyword and only packed dimensions for its
+                    // type (`function f([2:0] sdn)`, and the directionless
+                    // follower of `input [2:0] a, [3:1] b`) reads golden's
+                    // logic_typespec and its first range at the FIRST
+                    // dimension's inner text, `2:0` without the brackets
+                    // (ImplicitArg 5:4-5:7 where ours read 5:3-5:8): the
+                    // Surelog tf-port arm locates the implicit data type at
+                    // the Constant_range under the Packed_dimension.  Grid
+                    // tools/probe/r11u155repro/cases/IA.  Switch:
+                    // R11U155_IMPLARGDIM_OFF.
+                    if (declSymbol.kind == SymbolKind::FormalArgument &&
+                        r11u155Law("R11U155_IMPLARGDIM_OFF"))
+                        for (auto p155 = declSymbol.getSyntax(); p155;
+                             p155 = p155->parent)
+                            if (p155->kind == syntax::SyntaxKind::FunctionPort) {
+                                auto& fp155 =
+                                    p155->as<syntax::FunctionPortSyntax>();
+                                auto* vd155 = its.dimensions[0];
+                                if (!fp155.direction && !fp155.constKeyword &&
+                                    !fp155.varKeyword && !fp155.staticKeyword &&
+                                    vd155 && vd155->specifier) {
+                                    implicitArgInner155 =
+                                        vd155->specifier->sourceRange();
+                                    setLoc(ts, implicitArgInner155);
+                                }
+                                break;
+                            }
                 }
             }
         }
@@ -4446,6 +4519,10 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     auto* r = s.MakeRange();
                     r->VpiParent(ts);
                     setLoc(r, dimSyn->sourceRange());
+                    // § implicitArgDimsInner155 — the first range too.
+                    if (i == 0 && implicitArgInner155.start() !=
+                                      SourceLocation::NoLocation)
+                        setLoc(r, implicitArgInner155);
                     const syntax::ExpressionSyntax* lsyn = nullptr;
                     const syntax::ExpressionSyntax* rsyn = nullptr;
                     if (dimSyn->specifier &&
@@ -15953,6 +16030,62 @@ UHDM::array_typespec* UhdmExporter::copyArrayTypedefTs(
 
 // Typedefs (enums, packed structs): module Typespecs entries compiled at
 // module compile, shared by both views and by all declarations.
+// § modAggTfArgLastWriter155 (r11u155, map N0438 + N0043's module face) —
+// the MODULE-body twin of § unitAggTfArgLastWriter155 (UhdmExporter.cpp): a
+// module-local packed struct / union typedef named by a formal of one of the
+// module's own subroutines is relocated to that formal's type token, the last
+// formal in source order winning (Surelog's compileTfPortList
+// `populateCoreMembers(type, type, ts)` on the typedef's shared object; the
+// module's writeNets end-only moves run later and still move the end).
+// Golden const_cast_signext `op_t` 19:42-19:46, the third function's formal,
+// where ours kept the typedef's 15:11-15:61.  Only the module's DIRECT
+// subroutines with a bare-name spelling are writers; a class method or a
+// DPI import declines / does not write.  Grid tools/probe/r11u155repro/cases/
+// MF.  Switch: R11U155_MODAGGARG_OFF.
+static slang::SourceRange modTfArgLastTok155(const InstanceBodySymbol& body,
+                                             const TypeAliasType& ta) {
+    if (!r11u155Law("R11U155_MODAGGARG_OFF"))
+        return slang::SourceRange::NoLocation;
+    const Type* ct = &ta.getCanonicalType();
+    slang::SourceRange last = slang::SourceRange::NoLocation;
+    for (auto& mb : body.members()) {
+        if (mb.kind == SymbolKind::ClassType) {
+            for (auto& cm : mb.as<ClassType>().members())
+                if (cm.kind == SymbolKind::Subroutine)
+                    for (auto* a : cm.as<SubroutineSymbol>().getArguments())
+                        if (&a->getType().getCanonicalType() == ct)
+                            return slang::SourceRange::NoLocation;
+            continue;
+        }
+        if (mb.kind != SymbolKind::Subroutine)
+            continue;
+        auto& sub = mb.as<SubroutineSymbol>();
+        if (sub.flags.has(MethodFlags::DPIImport))
+            continue;
+        for (auto* a : sub.getArguments()) {
+            if (&a->getType().getCanonicalType() != ct)
+                continue;
+            auto* dt = static_cast<const Symbol*>(a)->getDeclaredType();
+            auto* ts = dt ? dt->getTypeSyntax() : nullptr;
+            if (!ts || ts->kind != syntax::SyntaxKind::NamedType)
+                return slang::SourceRange::NoLocation;
+            auto& nm = *ts->as<syntax::NamedTypeSyntax>().name;
+            if (nm.kind != syntax::SyntaxKind::IdentifierName ||
+                nm.as<syntax::IdentifierNameSyntax>().identifier.valueText() !=
+                    ta.name)
+                return slang::SourceRange::NoLocation;
+            auto r = ts->sourceRange();
+            if (last.start() == slang::SourceLocation::NoLocation ||
+                (r.start().buffer() == last.start().buffer() &&
+                 r.start() > last.start()))
+                last = r;
+            else if (r.start().buffer() != last.start().buffer())
+                return slang::SourceRange::NoLocation;
+        }
+    }
+    return last;
+}
+
 void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* m,
                                 const std::string& prefix, DefInfo& info) {
     auto* tds = s.MakeTypespecVec();
@@ -16031,6 +16164,10 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
                 sts->VpiParent(m);
             if (typeSyn)
                 setLoc(sts, typeSyn->sourceRange());
+            // § modAggTfArgLastWriter155 — the struct half.
+            if (auto lw155 = modTfArgLastTok155(body, ta);
+                lw155.start() != SourceLocation::NoLocation)
+                setLoc(sts, lw155);
             // An UNPACKED-ARRAY signal of this typedef (tl_h2d_t a[1:0])
             // stretches the typespec end to that declarator's FIRST unpacked
             // dimension (Surelog re-stamps the shared object; last use wins).
@@ -16095,6 +16232,10 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             uts->VpiParent(m);
             if (typeSyn)
                 setLoc(uts, typeSyn->sourceRange());
+            // § modAggTfArgLastWriter155 — the union half.
+            if (auto lw155 = modTfArgLastTok155(body, ta);
+                lw155.start() != SourceLocation::NoLocation)
+                setLoc(uts, lw155);
             ts = uts;
         }
         else if (ct.kind == SymbolKind::PackedArrayType &&
