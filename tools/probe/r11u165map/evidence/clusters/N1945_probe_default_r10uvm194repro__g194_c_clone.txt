@@ -1,0 +1,64 @@
+cluster N1945 (map 7 id kept; OPEN | ground A | site emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u138map pin] [r11u142map pin]): struct|ours-only:elsewhere|bit_select|under:ref_obj
+row: probe/default/r10uvm194repro__g194_c_clone  strict=fullname  records golden=425 ours=404
+object: #-1 (golden) / #85 (ours)  type=bit_select name=c_free 
+  golden: 
+  ours:   2 objs
+  walk parents: ref_obj(c_free) < operation < assignment < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 79..91 ('>' = the object)
+  #79	6	int_var	i		c194_src::c_free::i	dut.sv	16	9	16	10		0			c194_src::c_free::i	000
+  #80	7	ref_typespec			c194_src::c_free::i		0	0	0	0		0			c194_src::c_free::i	000
+  #81	8	int_typespec				dut.sv	16	5	16	8						000
+  #82	4	assignment				dut.sv	17	5	17	26						000
+  #83	5	operation				dut.sv	17	14	17	26		0				000
+  #84	6	ref_obj	c_free		c194_clone::c_free::c_free	dut.sv	17	15	17	21		0			c194_clone::c_free::c_free	000
+> #85	7	bit_select	c_free		c194_clone::c_free::c_free	dut.sv	18	5	18	14		0			c194_clone::c_free::c_free	000
+  #86	8	ref_obj	i		c194_clone::c_free::i	dut.sv	18	12	18	13		0			c194_clone::c_free::i	000
+  #87	6	constant				dut.sv	17	22	17	25	" "	8	STRING: 	6		000
+  #88	5	ref_obj	c_free		c194_clone::c_free::c_free	dut.sv	17	5	17	11		0			c194_clone::c_free::c_free	000
+  #89	4	assignment				dut.sv	18	5	18	22						000
+  #90	5	constant				dut.sv	18	17	18	22	8'h42	8	HEX:42	5		000
+  #91	2	function	c_drive		c194_clone::c_drive	dut.sv	24	3	29	14					c194_clone::c_drive	000
+
+--- the holder #84 on the other side: exact-record matches at [90, 207, 290, 383]
+  #87	8	int_typespec				dut.sv	16	5	16	8						000
+  #88	4	assignment				dut.sv	17	5	17	26						000
+  #89	5	operation				dut.sv	17	14	17	26		0				000
+> #90	6	ref_obj	c_free		c194_clone::c_free::c_free	dut.sv	17	15	17	21		0			c194_clone::c_free::c_free	000
+  #91	6	constant				dut.sv	17	22	17	25	" "	8	STRING: 	6		000
+  #92	5	ref_obj	c_free		c194_clone::c_free::c_free	dut.sv	17	5	17	11		0			c194_clone::c_free::c_free	000
+  #93	4	assignment				dut.sv	18	5	18	22						000
+  #94	5	constant				dut.sv	18	17	18	22	8'h42	8	HEX:42	5		000
+  #95	5	bit_select	c_free		c194_clone::c_free::c_free	dut.sv	18	5	18	14		0			c194_clone::c_free::c_free	000
+  #96	6	ref_obj	i		c194_clone::c_free::i	dut.sv	18	12	18	13		0			c194_clone::c_free::i	000
+  #97	2	function	c_drive		c194_clone::c_drive	dut.sv	24	3	29	14					c194_clone::c_drive	000
+  #98	3	class_var	h		c194_clone::c_drive::h	dut.sv	25	10	25	11		0			c194_clone::c_drive::h	000
+  #99	4	ref_typespec			c194_clone::c_drive::h		0	0	0	0		0			c194_clone::c_drive::h	000
+
+facets of this row (25, first 25):
+  N0473 #53/-1 int_var i G[3 objs] O[]
+  N0473 #79/-1 int_var i G[3 objs] O[]
+  N1945 #-1/85 bit_select c_free G[] O[2 objs]
+  N1943 #95/-1 bit_select c_free G[2 objs] O[]
+  N0510 #-1/172 string_var  G[] O[3 objs]
+  N0473 #179/-1 int_var i G[3 objs] O[]
+  N0473 #199/-1 int_var i G[3 objs] O[]
+  N1945 #-1/199 bit_select c_free G[] O[2 objs]
+  N1943 #212/-1 bit_select c_free G[2 objs] O[]
+  N0473 #253/-1 int_var i G[3 objs] O[]
+  N0473 #279/-1 int_var i G[3 objs] O[]
+  N1945 #-1/276 bit_select c_free G[] O[2 objs]
+  N1943 #295/-1 bit_select c_free G[2 objs] O[]
+  N0473 #346/-1 int_var i G[3 objs] O[]
+  N0473 #372/-1 int_var i G[3 objs] O[]
+  N1945 #-1/363 bit_select c_free G[] O[2 objs]
+  N1943 #388/-1 bit_select c_free G[2 objs] O[]
+  N0514 #49/49 string_var  G[c194_src::C194::c_out] O[c194_clone::C194::c_out]
+  N0513 #50/50 ref_typespec  G[c194_src::C194::c_out] O[c194_clone::C194::c_out]
+  N0105 #128/122 string_var  G[8:21:8:27] O[10:12:10:18]
+  N0069 #130/124 string_typespec  G[8:21:8:27] O[10:12:10:18]
+  N0514 #249/240 string_var  G[c194_src::C194::c_out] O[c194_clone::C194::c_out]
+  N0513 #250/241 ref_typespec  G[c194_src::C194::c_out] O[c194_clone::C194::c_out]
+  N0514 #342/327 string_var  G[c194_src::C194::c_out] O[c194_clone::C194::c_out]
+  N0513 #343/328 ref_typespec  G[c194_src::C194::c_out] O[c194_clone::C194::c_out]

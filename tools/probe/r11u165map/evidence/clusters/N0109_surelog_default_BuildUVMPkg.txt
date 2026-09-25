@@ -1,0 +1,64 @@
+cluster N0109 (map 7 id kept; OPEN | ground A | site operator() (StmtEmit.cpp, law classPropUnitImport21) < emitStmt (StmtEmit.cpp, law foreachLoopVarObjs9) < emitStmt (StmtEmit.cpp, law invalidChild14) [r11u156map pin (other example): emitExpr (ExprEmit.cpp, law r10fsv2) < emitExpr (ExprEmit.cpp, law shellCallKeepsItsSyntax167) < emitExpr (ExprEmit.cpp, law r10fsv2)]): file|string_typespec|ours-empty|under:ref_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:line(94)  records golden=201533 ours=201486
+object: #77289 (golden) / #77262 (ours)  type=string_typespec name= 
+  golden: uvm_pkg.sv 38318:42:38318:48
+  ours:    0:0:0:0
+  walk parents: ref_typespec < string_var(i) < foreach_stmt < function(get_children)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 77283..77295 ('>' = the object)
+  #77283	4	foreach_stmt			uvm_pkg::uvm_component::get_children	uvm_pkg.sv	39759	3	39759	10					uvm_pkg::uvm_component::get_children	000
+  #77284	5	ref_var	m_children		uvm_pkg::uvm_component::get_children::m_children	uvm_pkg.sv	39759	11	39759	21		0			uvm_pkg::uvm_component::get_children::m_children	000
+  #77285	6	ref_typespec			uvm_pkg::uvm_component::get_children::m_children		0	0	0	0		0			uvm_pkg::uvm_component::get_children::m_children	000
+  #77286	7	unsupported_typespec	m_children			uvm_pkg.sv	39759	11	39759	21						110
+  #77287	5	string_var	i		uvm_pkg::uvm_component::get_children::i	uvm_pkg.sv	39759	22	39759	23		0			uvm_pkg::uvm_component::get_children::i	000
+  #77288	6	ref_typespec			uvm_pkg::uvm_component::get_children::i		0	0	0	0		0			uvm_pkg::uvm_component::get_children::i	000
+> #77289	7	string_typespec				uvm_pkg.sv	38318	42	38318	48						000
+  #77290	5	method_func_call	push_back			uvm_pkg.sv	39760	14	39760	23		0				000
+  #77291	6	bit_select	m_children		uvm_pkg::uvm_component::get_children::m_children	uvm_pkg.sv	39760	35	39760	36		0			uvm_pkg::uvm_component::get_children::m_children	000
+  #77292	7	ref_obj	i		uvm_pkg::uvm_component::get_children::i	uvm_pkg.sv	39760	35	39760	36		0			uvm_pkg::uvm_component::get_children::i	000
+  #77293	6	ref_obj	children		uvm_pkg::uvm_component::get_children::children	uvm_pkg.sv	39760	5	39760	13		0			uvm_pkg::uvm_component::get_children::children	000
+  #77294	3	function	get_first_child		uvm_pkg::uvm_component::get_first_child	uvm_pkg.sv	39767	1	39769	12					uvm_pkg::uvm_component::get_first_child	000
+  #77295	4	int_var			uvm_pkg::uvm_component::get_first_child	uvm_pkg.sv	39767	10	39767	13		0			uvm_pkg::uvm_component::get_first_child	000
+
+--- OURS (B) records 77256..77268 ('>' = the object)
+  #77256	4	foreach_stmt			uvm_pkg::uvm_component::get_children	uvm_pkg.sv	39759	3	39759	10					uvm_pkg::uvm_component::get_children	000
+  #77257	5	ref_var	m_children		uvm_pkg::uvm_component::get_children::m_children	uvm_pkg.sv	39759	11	39759	21		0			uvm_pkg::uvm_component::get_children::m_children	000
+  #77258	6	ref_typespec			uvm_pkg::uvm_component::get_children::m_children		0	0	0	0		0			uvm_pkg::uvm_component::get_children::m_children	000
+  #77259	7	unsupported_typespec	m_children			uvm_pkg.sv	39759	11	39759	21						110
+  #77260	5	string_var	i		uvm_pkg::uvm_component::get_children::i	uvm_pkg.sv	39759	22	39759	23		0			uvm_pkg::uvm_component::get_children::i	000
+  #77261	6	ref_typespec			uvm_pkg::uvm_component::get_children::i		0	0	0	0		0			uvm_pkg::uvm_component::get_children::i	000
+> #77262	7	string_typespec					0	0	0	0						000
+  #77263	5	method_func_call	push_back			uvm_pkg.sv	39760	14	39760	23		0				000
+  #77264	6	bit_select	m_children		uvm_pkg::uvm_component::get_children::m_children	uvm_pkg.sv	39760	35	39760	36		0			uvm_pkg::uvm_component::get_children::m_children	000
+  #77265	7	ref_obj	i		uvm_pkg::uvm_component::get_children::i	uvm_pkg.sv	39760	35	39760	36		0			uvm_pkg::uvm_component::get_children::i	000
+  #77266	6	ref_obj	children		uvm_pkg::uvm_component::get_children::children	uvm_pkg.sv	39760	5	39760	13		0			uvm_pkg::uvm_component::get_children::children	000
+  #77267	3	function	get_first_child		uvm_pkg::uvm_component::get_first_child	uvm_pkg.sv	39767	1	39769	12					uvm_pkg::uvm_component::get_first_child	000
+  #77268	4	int_var			uvm_pkg::uvm_component::get_first_child	uvm_pkg.sv	39767	10	39767	13		0			uvm_pkg::uvm_component::get_first_child	000
+
+facets of this row (7140, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

@@ -1,0 +1,64 @@
+cluster N0564 (map 7 id kept; OPEN | ground A | site emitStmt (StmtEmit.cpp, law declInitWrittenNewNoStmt66) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitImportedPkgClassMethodClones (ParamEmit.cpp, law collectPkgTfListing) [r11u138map pin; the a7bee711 gdb run wrote a different database (UVM order coin)] [r11u142map pin]): struct|golden-only:fewer-copies|class_var|under:assignment
+row: surelog/default/MiniAmiq  strict=differ:line(183)  records golden=435559 ours=413982
+object: #65703 (golden) / #-1 (ours)  type=class_var name=cs 
+  golden: 3 objs
+  ours:   
+  walk parents: assignment < begin < function(uvm_object::get_object_type) < package(svaunit_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 65697..65709 ('>' = the object)
+  #65697	6	class_typespec				uvm_object.svh	834	3	834	20						000
+  #65698	4	class_var	factory		svaunit_pkg::uvm_object::get_object_type::factory	uvm_object.svh	835	15	835	22		0			svaunit_pkg::uvm_object::get_object_type::factory	000
+  #65699	5	ref_typespec			svaunit_pkg::uvm_object::get_object_type::factory		0	0	0	0		0			svaunit_pkg::uvm_object::get_object_type::factory	000
+  #65700	6	class_typespec				uvm_object.svh	835	3	835	14						000
+  #65701	4	assignment				uvm_object.svh	834	21	834	50						000
+  #65702	5	ref_obj	uvm_coreservice_t::get		svaunit_pkg::uvm_object::get_object_type::uvm_coreservice_t::get	uvm_object.svh	834	26	834	45		0			svaunit_pkg::uvm_object::get_object_type::uvm_coreservice_t::get	000
+> #65703	5	class_var	cs		svaunit_pkg::uvm_object::get_object_type::cs	uvm_object.svh	834	21	834	23		0			svaunit_pkg::uvm_object::get_object_type::cs	000
+  #65704	6	ref_typespec			svaunit_pkg::uvm_object::get_object_type::cs		0	0	0	0		0			svaunit_pkg::uvm_object::get_object_type::cs	000
+  #65705	7	class_typespec				uvm_object.svh	834	3	834	20						000
+  #65706	4	assignment				uvm_object.svh	835	15	835	39						000
+  #65707	5	hier_path	cs.get_factory			uvm_object.svh	835	23	835	39		0				000
+  #65708	6	ref_obj	cs			uvm_object.svh	835	23	835	25		0				000
+  #65709	7	class_var	cs		uvm_pkg::uvm_object::get_object_type::cs	uvm_object.svh	834	21	834	23		0			uvm_pkg::uvm_object::get_object_type::cs	000
+
+--- the holder #65701 on the other side: exact-record matches at [2397, 65642, 287915, 348991]
+  #2394	4	ref_typespec			uvm_pkg::uvm_object::get_object_type		0	0	0	0		0			uvm_pkg::uvm_object::get_object_type	000
+  #2395	5	class_typespec				uvm_object.svh	833	10	833	28						000
+  #2396	3	begin			uvm_pkg::uvm_object::get_object_type	uvm_object.svh	835	3	835	40					uvm_pkg::uvm_object::get_object_type	000
+> #2397	4	assignment				uvm_object.svh	834	21	834	50						000
+  #2398	5	ref_obj	uvm_coreservice_t::get		uvm_pkg::uvm_object::get_object_type::uvm_coreservice_t::get	uvm_object.svh	834	26	834	45		0			uvm_pkg::uvm_object::get_object_type::uvm_coreservice_t::get	000
+  #2399	4	assignment				uvm_object.svh	835	15	835	39						000
+  #2400	5	hier_path	cs.get_factory			uvm_object.svh	835	23	835	39		0				000
+  #2401	6	ref_obj	cs			uvm_object.svh	835	23	835	25		0				000
+  #2402	6	method_func_call	get_factory			uvm_object.svh	835	26	835	37		0				000
+  #2403	4	if_stmt				uvm_object.svh	836	3	836	50						000
+  #2404	5	operation				uvm_object.svh	836	6	836	36		0				000
+  #2405	6	func_call	get_type_name			uvm_object.svh	836	6	836	21		0				000
+  #2406	6	constant				uvm_object.svh	836	25	836	36	"<unknown>"	72	STRING:<unknown>	6		000
+
+facets of this row (36091, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

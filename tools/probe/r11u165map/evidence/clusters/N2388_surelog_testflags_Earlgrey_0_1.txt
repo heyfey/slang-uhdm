@@ -1,0 +1,64 @@
+cluster N2388 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site UHDM library DeepClone < DeepClone < DeepCopy (--elabuhdm, testflags) run from main (uhdm_main.cpp) [r11u150map pin]): fullname|part_select|tok:id.id[id(n'id) - n:n]->id@id.id.id.id.id.id.id[id(n'id) - n:n].id|under:hier_path
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1730)  records golden=1342584 ours=1342870
+object: #428286 (golden) / #428225 (ours)  type=part_select name=addr OUT
+  golden: dmi_req_i.addr[$clog2(4'h2) - 1:0]
+  ours:   work@top_earlgrey.u_dm_top.i_dm_csrs.csr_read_write.data_d.dmi_req_i.addr[$clog2(4'h2) - 1:0].addr
+  walk parents: hier_path(dmi_req_i.addr[$clog2(4'h2) - 1:0]) < bit_select(data_d) < assignment < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 428280..428292 ('>' = the object)
+  #428280	19	range				dm_pkg.sv	209	11	209	17						001
+  #428281	20	constant				dm_pkg.sv	209	12	209	14	31	64	UINT:31	9		001
+  #428282	20	constant				dm_pkg.sv	209	15	209	16	0	64	UINT:0	9		001
+  #428283	14	bit_select	data_d		work@top_earlgrey.u_dm_top.i_dm_csrs.csr_read_write.data_d	dm_csrs.sv	362	13	362	62		0			work@top_earlgrey.u_dm_top.i_dm_csrs.csr_read_write.data_d	000
+  #428284	15	hier_path	dmi_req_i.addr[$clog2(4'h2) - 1:0]			dm_csrs.sv	362	20	362	61		0				000
+  #428285	16	ref_obj	dmi_req_i			dm_csrs.sv	362	20	362	29		0				000
+> #428286	16	part_select	addr		dmi_req_i.addr[$clog2(4'h2) - 1:0]	dm_csrs.sv	362	30	362	60		0			dmi_req_i.addr[$clog2(4'h2) - 1:0]	000
+  #428287	17	constant				dm_csrs.sv	362	35	362	58	0	64	INT:0	7		000
+  #428288	17	constant				dm_csrs.sv	362	59	362	60	0	64	UINT:0	9		000
+  #428289	13	if_stmt				dm_csrs.sv	364	13	366	16						000
+  #428290	14	operation				dm_csrs.sv	364	17	364	70		0				000
+  #428291	15	ref_obj	autoexecdata_idx		work@top_earlgrey.u_dm_top.i_dm_csrs.csr_read_write.autoexecdata_idx	dm_csrs.sv	364	17	364	33		0			work@top_earlgrey.u_dm_top.i_dm_csrs.csr_read_write.autoexecdata_idx	000
+  #428292	15	constant				dm_csrs.sv	364	36	364	70	12	64	UINT:12	9		000
+
+--- OURS (B) records 428219..428231 ('>' = the object)
+  #428219	19	range				dm_pkg.sv	209	11	209	17						001
+  #428220	20	constant				dm_pkg.sv	209	12	209	14	31	64	UINT:31	9		001
+  #428221	20	constant				dm_pkg.sv	209	15	209	16	0	64	UINT:0	9		001
+  #428222	14	bit_select	data_d		work@top_earlgrey.u_dm_top.i_dm_csrs.csr_read_write.data_d	dm_csrs.sv	362	13	362	62		0			work@top_earlgrey.u_dm_top.i_dm_csrs.csr_read_write.data_d	000
+  #428223	15	hier_path	dmi_req_i.addr[$clog2(4'h2) - 1:0]			dm_csrs.sv	362	20	362	61		0				000
+  #428224	16	ref_obj	dmi_req_i			dm_csrs.sv	362	30	362	39		0				000
+> #428225	16	part_select	addr	addr	work@top_earlgrey.u_dm_top.i_dm_csrs.csr_read_write.data_d.dmi_req_i.addr[$clog2(4'h2) - 1:0].addr	dm_csrs.sv	362	30	362	60		0			work@top_earlgrey.u_dm_top.i_dm_csrs.csr_read_write.data_d.dmi_req_i.addr[$clog2(4'h2) - 1:0].addr	000
+  #428226	17	constant				dm_csrs.sv	362	35	362	58	0	64	INT:0	7		000
+  #428227	17	constant				dm_csrs.sv	362	59	362	60	0	64	UINT:0	9		000
+  #428228	13	if_stmt				dm_csrs.sv	364	13	366	16						000
+  #428229	14	operation				dm_csrs.sv	364	17	364	70		0				000
+  #428230	15	ref_obj	autoexecdata_idx		work@top_earlgrey.u_dm_top.i_dm_csrs.csr_read_write.autoexecdata_idx	dm_csrs.sv	364	17	364	33		0			work@top_earlgrey.u_dm_top.i_dm_csrs.csr_read_write.autoexecdata_idx	000
+  #428231	15	constant				dm_csrs.sv	364	36	364	70	12	64	UINT:12	9		000
+
+facets of this row (19098, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

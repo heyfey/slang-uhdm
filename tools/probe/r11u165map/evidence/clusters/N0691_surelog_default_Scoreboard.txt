@@ -1,0 +1,64 @@
+cluster N0691 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site designImportParamCopy146 (UhdmExporter.cpp, law unitImportHoistsPkgParams146) < exportDesign (UhdmExporter.cpp, law unitImportHoistsPkgParams146v) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u142map pin]): value|parameter|value:INT->UINT|under:design
+row: surelog/default/Scoreboard  strict=differ:line(187)  records golden=269656 ours=268952
+object: #268944 (golden) / #268325 (ours)  type=parameter name=UVM_LARGE_STRING 
+  golden: |0|INT:115199|
+  ours:   |0|UINT:115199|
+  walk parents: design(work@my_scoreboard_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 268938..268950 ('>' = the object)
+  #268938	2	ref_typespec			UVM_FLAGS_OFF		0	0	0	0		0			UVM_FLAGS_OFF	000
+  #268939	3	int_typespec				uvm_object_globals.svh	183	1	183	30						000
+  #268940	1	parameter	UVM_FLAGS_ON			uvm_object_globals.svh	182	11	182	23		0	BIN:000000101010101			000
+  #268941	1	parameter	UVM_HDL_MAX_WIDTH			uvm_hdl.svh	47	15	47	32		0	UINT:1024			000
+  #268942	2	ref_typespec			UVM_HDL_MAX_WIDTH		0	0	0	0		0			UVM_HDL_MAX_WIDTH	000
+  #268943	3	int_typespec				uvm_hdl.svh	47	11	47	14						000
+> #268944	1	parameter	UVM_LARGE_STRING			uvm_globals.svh	410	11	410	27		0	INT:115199			000
+  #268945	2	ref_typespec			UVM_LARGE_STRING		0	0	0	0		0			UVM_LARGE_STRING	000
+  #268946	3	int_typespec				uvm_globals.svh	410	1	410	62						000
+  #268947	1	parameter	UVM_LINE_WIDTH			uvm_globals.svh	407	11	407	25		0	UINT:120			000
+  #268948	2	ref_typespec			UVM_LINE_WIDTH		0	0	0	0		0			UVM_LINE_WIDTH	000
+  #268949	3	int_typespec				uvm_globals.svh	407	1	407	31						000
+  #268950	1	parameter	UVM_MACRO_EXTRAS			uvm_object_globals.svh	206	11	206	27		0	UINT:131072			000
+
+--- OURS (B) records 268319..268331 ('>' = the object)
+  #268319	2	ref_typespec			uvm_pkg::UVM_FLAGS_OFF		0	0	0	0		0			uvm_pkg::UVM_FLAGS_OFF	000
+  #268320	3	int_typespec				uvm_object_globals.svh	183	1	183	30						000
+  #268321	1	parameter	UVM_FLAGS_ON			uvm_object_globals.svh	182	11	182	23		0	BIN:000000101010101			000
+  #268322	1	parameter	UVM_HDL_MAX_WIDTH			uvm_hdl.svh	47	15	47	32		0	UINT:1024			000
+  #268323	2	ref_typespec			uvm_pkg::UVM_HDL_MAX_WIDTH		0	0	0	0		0			uvm_pkg::UVM_HDL_MAX_WIDTH	000
+  #268324	3	int_typespec				uvm_hdl.svh	47	11	47	14						000
+> #268325	1	parameter	UVM_LARGE_STRING			uvm_globals.svh	410	11	410	27		0	UINT:115199			000
+  #268326	2	ref_typespec			uvm_pkg::UVM_LARGE_STRING		0	0	0	0		0			uvm_pkg::UVM_LARGE_STRING	000
+  #268327	3	int_typespec				uvm_globals.svh	410	1	410	62						000
+  #268328	1	parameter	UVM_LINE_WIDTH			uvm_globals.svh	407	11	407	25		0	UINT:120			000
+  #268329	2	ref_typespec			uvm_pkg::UVM_LINE_WIDTH		0	0	0	0		0			uvm_pkg::UVM_LINE_WIDTH	000
+  #268330	3	int_typespec				uvm_globals.svh	407	1	407	31						000
+  #268331	1	parameter	UVM_MACRO_EXTRAS			uvm_object_globals.svh	206	11	206	27		0	UINT:131072			000
+
+facets of this row (17246, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

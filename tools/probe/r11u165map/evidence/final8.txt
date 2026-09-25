@@ -1,0 +1,5 @@
+CORPUS NE row-modes 151 tests 79 clusters 854
+PROBE NE cases 1490 with facets 1490 clusters 776
+clusters 1284 kept map-7 id 1273 new 11 (N2400..N2410) map-7 clusters gone 187
+verify (python mode-4 rule vs tool stdout, per row): {True: 1641}
+new clusters with a corpus row: N2400:9 N2401:9 N2402:7 N2403:7 N2404:7 N2405:2 N2406:2

@@ -1,0 +1,64 @@
+cluster N0777 (map 7 id kept; COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | ground B | site makeVar (TypeEmit.cpp, law pkgScopedPortAnyDirVar77) < emitInstance (ModuleEmit.cpp, law anonPackedAggDimNet109) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab) [r11u138map pin] [r11u142map pin]): span|logic_var|endline+endcol|under:module_inst
+row: uhdm2rtlil/testflags/ibex_load_store_unit  strict=differ:endline(142)  records golden=3630 ours=3630
+object: #1854 (golden) / #1854 (ours)  type=logic_var name=fcov_ls_error_exception 
+  golden: 91:11:91:34
+  ours:   91:11:92:8
+  walk parents: module_inst(work@ibex_load_store_unit) < design(work@ibex_load_store_unit)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1848..1860 ('>' = the object)
+  #1848	2	logic_var	fcov_mis_bus_err_1_d		work@ibex_load_store_unit.fcov_mis_bus_err_1_d	ibex_load_store_unit.sv	569	9	569	29		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_d	000
+  #1849	3	ref_typespec			work@ibex_load_store_unit.fcov_mis_bus_err_1_d		0	0	0	0		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_d	000
+  #1850	4	logic_typespec				ibex_load_store_unit.sv	569	3	569	8						000
+  #1851	2	logic_var	fcov_mis_bus_err_1_q		work@ibex_load_store_unit.fcov_mis_bus_err_1_q	ibex_load_store_unit.sv	569	31	569	51		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_q	000
+  #1852	3	ref_typespec			work@ibex_load_store_unit.fcov_mis_bus_err_1_q		0	0	0	0		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_q	000
+  #1853	4	logic_typespec				ibex_load_store_unit.sv	569	3	569	8						000
+> #1854	2	logic_var	fcov_ls_error_exception		work@ibex_load_store_unit.fcov_ls_error_exception	dv_fcov_macros.svh	91	11	91	34		0			work@ibex_load_store_unit.fcov_ls_error_exception	000
+  #1855	3	ref_typespec			work@ibex_load_store_unit.fcov_ls_error_exception		0	0	0	0		0			work@ibex_load_store_unit.fcov_ls_error_exception	000
+  #1856	4	logic_typespec				dv_fcov_macros.svh	91	5	91	10						000
+  #1857	2	logic_var	unused_fcov_ls_error_exception		work@ibex_load_store_unit.unused_fcov_ls_error_exception	dv_fcov_macros.svh	81	11	81	41		0			work@ibex_load_store_unit.unused_fcov_ls_error_exception	000
+  #1858	3	ref_typespec			work@ibex_load_store_unit.unused_fcov_ls_error_exception		0	0	0	0		0			work@ibex_load_store_unit.unused_fcov_ls_error_exception	000
+  #1859	4	logic_typespec				dv_fcov_macros.svh	81	5	81	10						000
+  #1860	2	logic_var	fcov_ls_pmp_exception		work@ibex_load_store_unit.fcov_ls_pmp_exception	dv_fcov_macros.svh	91	11	91	32		0			work@ibex_load_store_unit.fcov_ls_pmp_exception	000
+
+--- OURS (B) records 1848..1860 ('>' = the object)
+  #1848	2	logic_var	fcov_mis_bus_err_1_d		work@ibex_load_store_unit.fcov_mis_bus_err_1_d	ibex_load_store_unit.sv	569	9	569	29		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_d	000
+  #1849	3	ref_typespec			work@ibex_load_store_unit.fcov_mis_bus_err_1_d		0	0	0	0		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_d	000
+  #1850	4	logic_typespec				ibex_load_store_unit.sv	569	3	569	8						000
+  #1851	2	logic_var	fcov_mis_bus_err_1_q		work@ibex_load_store_unit.fcov_mis_bus_err_1_q	ibex_load_store_unit.sv	569	31	569	51		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_q	000
+  #1852	3	ref_typespec			work@ibex_load_store_unit.fcov_mis_bus_err_1_q		0	0	0	0		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_q	000
+  #1853	4	logic_typespec				ibex_load_store_unit.sv	569	3	569	8						000
+> #1854	2	logic_var	fcov_ls_error_exception		work@ibex_load_store_unit.fcov_ls_error_exception	dv_fcov_macros.svh	91	11	92	8		0			work@ibex_load_store_unit.fcov_ls_error_exception	000
+  #1855	3	ref_typespec			work@ibex_load_store_unit.fcov_ls_error_exception		0	0	0	0		0			work@ibex_load_store_unit.fcov_ls_error_exception	000
+  #1856	4	logic_typespec				dv_fcov_macros.svh	91	5	91	10						000
+  #1857	2	logic_var	unused_fcov_ls_error_exception		work@ibex_load_store_unit.unused_fcov_ls_error_exception	dv_fcov_macros.svh	81	11	82	8		0			work@ibex_load_store_unit.unused_fcov_ls_error_exception	000
+  #1858	3	ref_typespec			work@ibex_load_store_unit.unused_fcov_ls_error_exception		0	0	0	0		0			work@ibex_load_store_unit.unused_fcov_ls_error_exception	000
+  #1859	4	logic_typespec				dv_fcov_macros.svh	81	5	81	10						000
+  #1860	2	logic_var	fcov_ls_pmp_exception		work@ibex_load_store_unit.fcov_ls_pmp_exception	dv_fcov_macros.svh	91	11	92	6		0			work@ibex_load_store_unit.fcov_ls_pmp_exception	000
+
+facets of this row (142, first 25):
+  N0515 #236/236 logic_net fcov_ls_error_exception G[91:11:91:34] O[91:11:92:8]
+  N0515 #239/239 logic_net unused_fcov_ls_error_exception G[81:11:81:41] O[81:11:82:8]
+  N0515 #242/242 logic_net fcov_ls_pmp_exception G[91:11:91:32] O[91:11:92:6]
+  N0515 #245/245 logic_net unused_fcov_ls_pmp_exception G[81:11:81:39] O[81:11:82:6]
+  N0515 #248/248 logic_net fcov_ls_first_req G[91:11:91:28] O[91:11:92:2]
+  N0515 #251/251 logic_net unused_fcov_ls_first_req G[81:11:81:35] O[81:11:82:2]
+  N0515 #254/254 logic_net fcov_ls_second_req G[91:11:91:29] O[91:11:92:3]
+  N0515 #257/257 logic_net unused_fcov_ls_second_req G[81:11:81:36] O[81:11:82:3]
+  N0515 #260/260 logic_net fcov_ls_mis_pmp_err_1 G[91:11:91:32] O[91:11:92:6]
+  N0515 #263/263 logic_net unused_fcov_ls_mis_pmp_err_1 G[81:11:81:39] O[81:11:82:6]
+  N0515 #266/266 logic_net fcov_ls_mis_pmp_err_2 G[91:11:91:32] O[91:11:92:6]
+  N0515 #269/269 logic_net unused_fcov_ls_mis_pmp_err_2 G[81:11:81:39] O[81:11:82:6]
+  N0275 #1561/1561 cont_assign  G[92:12:92:77] O[92:12:92:66]
+  N0551 #1562/1562 operation  G[92:38:92:77] O[92:27:92:66]
+  N0060 #1563/1563 operation  G[92:39:92:63] O[92:28:92:52]
+  N0091 #1564/1564 ref_obj load_err_o G[92:39:92:49] O[92:28:92:38]
+  N0091 #1565/1565 ref_obj store_err_o G[92:52:92:63] O[92:41:92:52]
+  N0060 #1566/1566 operation  G[92:67:92:77] O[92:56:92:66]
+  N0091 #1567/1567 ref_obj pmp_err_q G[92:68:92:77] O[92:57:92:66]
+  N0960 #1569/1569 cont_assign  G[82:12:82:68] O[82:12:85:2]
+  N0617 #1570/1570 ref_obj fcov_ls_error_exception G[82:45:82:68] O[82:34:85:2]
+  N0275 #1572/1572 cont_assign  G[92:12:92:74] O[92:12:92:65]
+  N0551 #1573/1573 operation  G[92:36:92:74] O[92:27:92:65]
+  N0060 #1574/1574 operation  G[92:37:92:61] O[92:28:92:52]
+  N0091 #1575/1575 ref_obj load_err_o G[92:37:92:47] O[92:28:92:38]

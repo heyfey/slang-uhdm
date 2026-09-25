@@ -1,0 +1,64 @@
+cluster N0720 (map 7 id kept; COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | ground A | site emitExpr (ExprEmit.cpp, law srlgTimeLitVal) < operator() (StmtEmit.cpp, law declInitWrittenNewNoStmt66) < emitStmt (StmtEmit.cpp, law foreachArraySelfSelectAssignDropsTs19) [r11u150map pin]): span|constant|endline+endcol|under:assignment
+row: surelog/default/ApbSlave  strict=differ:line(26)  records golden=3678 ours=3682
+object: #1680 (golden) / #1684 (ours)  type=constant name= 
+  golden: 147:24:147:48
+  ours:   147:24:148:11
+  walk parents: assignment < named_begin(single_write_then_read) < begin < task(run)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1674..1686 ('>' = the object)
+  #1674	6	ref_typespec			work@apb_slave_unit_test.run.single_write_then_read.fileName		0	0	0	0		0			work@apb_slave_unit_test.run.single_write_then_read.fileName	000
+  #1675	7	string_typespec				svunit_defines.svh	149	5	149	11						000
+  #1676	5	int_var	lineNumber		work@apb_slave_unit_test.run.single_write_then_read.lineNumber	svunit_defines.svh	150	9	150	19		0			work@apb_slave_unit_test.run.single_write_then_read.lineNumber	000
+  #1677	6	ref_typespec			work@apb_slave_unit_test.run.single_write_then_read.lineNumber		0	0	0	0		0			work@apb_slave_unit_test.run.single_write_then_read.lineNumber	000
+  #1678	7	int_typespec				svunit_defines.svh	150	5	150	8						000
+  #1679	5	assignment				svunit_defines.svh	147	12	147	48						000
+> #1680	6	constant				svunit_defines.svh	147	24	147	48	"single_write_then_read"	176	STRING:single_write_then_read	6		000
+  #1681	5	assignment				svunit_defines.svh	148	13	148	60						000
+  #1682	6	hier_path	svunit_ut.get_error_count			svunit_defines.svh	148	33	148	60		0				000
+  #1683	7	ref_obj	svunit_ut			svunit_defines.svh	148	33	148	42		0				000
+  #1684	7	method_func_call	get_error_count			svunit_defines.svh	148	43	148	58		0				000
+  #1685	5	sys_func_call	$display			svunit_defines.svh	103	3	103	86		0				000
+  #1686	6	constant				svunit_defines.svh	103	12	103	35	"INFO:  [%0t][%0s]: %s"	168	STRING:INFO:  [%0t][%0s]: %s	6		000
+
+--- OURS (B) records 1678..1690 ('>' = the object)
+  #1678	6	ref_typespec			work@apb_slave_unit_test.run.single_write_then_read.fileName		0	0	0	0		0			work@apb_slave_unit_test.run.single_write_then_read.fileName	000
+  #1679	7	string_typespec				svunit_defines.svh	149	5	149	11						000
+  #1680	5	int_var	lineNumber		work@apb_slave_unit_test.run.single_write_then_read.lineNumber	svunit_defines.svh	150	9	150	19		0			work@apb_slave_unit_test.run.single_write_then_read.lineNumber	000
+  #1681	6	ref_typespec			work@apb_slave_unit_test.run.single_write_then_read.lineNumber		0	0	0	0		0			work@apb_slave_unit_test.run.single_write_then_read.lineNumber	000
+  #1682	7	int_typespec				svunit_defines.svh	150	5	150	8						000
+  #1683	5	assignment				svunit_defines.svh	147	12	148	11						000
+> #1684	6	constant				svunit_defines.svh	147	24	148	11	"single_write_then_read"	176	STRING:single_write_then_read	6		000
+  #1685	5	assignment				svunit_defines.svh	148	13	148	60						000
+  #1686	6	hier_path	svunit_ut.get_error_count			svunit_defines.svh	148	33	148	60		0				000
+  #1687	7	ref_obj	svunit_ut			svunit_defines.svh	148	33	148	42		0				000
+  #1688	7	method_func_call	get_error_count			svunit_defines.svh	148	43	148	58		0				000
+  #1689	5	sys_func_call	$display			svunit_defines.svh	103	3	103	88		0				000
+  #1690	6	constant				svunit_defines.svh	103	12	103	35	"INFO:  [%0t][%0s]: %s"	168	STRING:INFO:  [%0t][%0s]: %s	6		000
+
+facets of this row (241, first 25):
+  N0289 #-1/372 string_var svunit_version G[] O[4 objs]
+  N0064 #4/4 include_file_info  G[375:12:375:32] O[373:12:373:32]
+  N0064 #5/5 include_file_info  G[593:12:593:33] O[587:12:587:33]
+  N0064 #6/6 include_file_info  G[710:12:710:34] O[698:12:698:34]
+  N0064 #7/7 include_file_info  G[813:12:813:32] O[797:12:797:32]
+  N0714 #34/34 begin  G[103:3:79:2] O[103:3:79:43]
+  N0714 #163/163 begin  G[103:3:195:2] O[103:3:195:18]
+  N0711 #173/173 sys_func_call $sformatf G[103:50:106:16] O[103:50:195:16]
+  N0705 #175/175 ref_obj success_str G[104:5:104:16] O[193:5:193:16]
+  N0726 #176/176 operation  G[105:5:105:27] O[194:5:194:27]
+  N0055 #177/177 ref_obj test_count G[105:5:105:15] O[194:5:194:15]
+  N0055 #178/178 ref_obj error_count G[105:16:105:27] O[194:16:194:27]
+  N0705 #179/179 ref_obj test_count G[106:5:106:15] O[195:5:195:15]
+  N0711 #277/277 sys_func_call $sformatf G[103:50:106:30] O[103:50:109:30]
+  N0705 #279/279 ref_obj success_str G[104:5:104:16] O[107:5:107:16]
+  N0705 #280/280 ref_obj pass_cnt G[105:5:105:13] O[108:5:108:13]
+  N0715 #281/281 hier_path list_of_testcases.size G[106:5:106:29] O[109:5:109:29]
+  N0718 #282/282 ref_obj list_of_testcases G[106:5:106:22] O[109:5:109:22]
+  N0717 #283/283 method_func_call size G[106:23:106:27] O[109:23:109:27]
+  N0711 #364/364 sys_func_call $sformatf G[103:50:107:20] O[103:50:97:20]
+  N0705 #366/366 ref_obj success_str G[104:5:104:16] O[94:5:94:16]
+  N0705 #367/367 ref_obj pass_cnt G[105:5:105:13] O[95:5:95:13]
+  N0715 #368/368 hier_path list_of_suites.size G[106:5:106:26] O[96:5:96:26]
+  N0718 #369/369 ref_obj list_of_suites G[106:5:106:19] O[96:5:96:19]
+  N0717 #370/370 method_func_call size G[106:20:106:24] O[96:20:96:24]

@@ -1,0 +1,51 @@
+cluster N1915 (map 7 id kept; OPEN | ground ? | site -): struct|golden-only:elsewhere|range|under:logic_typespec
+row: probe/default/v11u110repro__brk__v6__s01_single_chain2_ctl  strict=fullname  records golden=177 ours=185
+object: #43 (golden) / #-1 (ours)  type=range name= 
+  golden: 3 objs
+  ours:   
+  walk parents: logic_typespec(pk::row_t) < ref_typespec < logic_typespec < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 37..49 ('>' = the object)
+  #37	12	range				dut.sv	2	17	2	22						001
+  #38	13	constant				dut.sv	2	18	2	19	3	64	UINT:3	9		001
+  #39	13	constant				dut.sv	2	20	2	21	0	64	UINT:0	9		001
+  #40	10	range				dut.sv	2	17	2	22						001
+  #41	11	constant				dut.sv	2	18	2	19	3	64	UINT:3	9		001
+  #42	11	constant				dut.sv	2	20	2	21	0	64	UINT:0	9		001
+> #43	8	range				dut.sv	2	17	2	22						001
+  #44	9	constant				dut.sv	2	18	2	19	3	64	UINT:3	9		001
+  #45	9	constant				dut.sv	2	20	2	21	0	64	UINT:0	9		001
+  #46	6	range				dut.sv	4	33	4	38						001
+  #47	7	constant				dut.sv	4	34	4	35	1	64	UINT:1	9		001
+  #48	7	constant				dut.sv	4	36	4	37	0	64	UINT:0	9		001
+  #49	3	typespec_member	v			dut.sv	4	48	4	49						001
+
+--- the holder #32 on the other side: exact-record matches at []
+
+facets of this row (58, first 25):
+  N0085 #-1/37 ref_typespec  G[] O[5 objs]
+  N1915 #43/-1 range  G[3 objs] O[]
+  N0085 #-1/88 ref_typespec  G[] O[5 objs]
+  N1915 #92/-1 range  G[3 objs] O[]
+  N0085 #-1/126 ref_typespec  G[] O[5 objs]
+  N1915 #128/-1 range  G[3 objs] O[]
+  N0085 #-1/159 ref_typespec  G[] O[5 objs]
+  N1915 #159/-1 range  G[3 objs] O[]
+  N1967 #6/6 ref_typespec  G[pk::pk::row_t] O[work@dut.pk::row_t]
+  N0031 #14/14 constant  G[dut.sv 2:18:2:19] O[ 2:18:2:19]
+  N0031 #15/15 constant  G[dut.sv 2:20:2:21] O[ 2:20:2:21]
+  N0031 #17/17 constant  G[dut.sv 2:18:2:19] O[ 2:18:2:19]
+  N0031 #18/18 constant  G[dut.sv 2:20:2:21] O[ 2:20:2:21]
+  N0738 #32/32 logic_typespec pk::row_t G[pk::row_t|] O[row_t|]
+  N1905 #32/32 logic_typespec pk::row_t G[2:11:2:22] O[3:11:3:12]
+  N1920 #33/33 ref_typespec  G[pk::pk::row_t] O[row_t]
+  N2246 #34/34 logic_typespec T G[T|] O[pk::row_t|]
+  N2207 #35/35 ref_typespec  G[T] O[work@dut.pk::row_t]
+  N0738 #36/36 logic_typespec pk::T G[pk::T|] O[T|]
+  N0031 #38/43 constant  G[dut.sv 2:18:2:19] O[ 2:18:2:19]
+  N0031 #39/44 constant  G[dut.sv 2:20:2:21] O[ 2:20:2:21]
+  N0031 #41/46 constant  G[dut.sv 2:18:2:19] O[ 2:18:2:19]
+  N0031 #42/47 constant  G[dut.sv 2:20:2:21] O[ 2:20:2:21]
+  N1967 #57/59 ref_typespec  G[pk::pk::row_t] O[work@dut.pk::row_t]
+  N0031 #65/67 constant  G[dut.sv 2:18:2:19] O[ 2:18:2:19]

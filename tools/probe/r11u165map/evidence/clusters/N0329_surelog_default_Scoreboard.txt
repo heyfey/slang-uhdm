@@ -1,0 +1,64 @@
+cluster N0329 (map 7 id kept; COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law dpiExportListedAtExportItem216) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)): span|function|endline|under:class_defn
+row: surelog/default/Scoreboard  strict=differ:line(187)  records golden=269656 ours=268952
+object: #188634 (golden) / #187997 (ours)  type=function name=new 
+  golden: 198:3:205:14
+  ours:   198:3:202:14
+  walk parents: class_defn(uvm_seq_item_pull_export) < class_defn(uvm_port_base) < package(uvm_pkg) < design(work@my_scoreboard_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 188628..188640 ('>' = the object)
+  #188628	4	type_parameter	RSP		uvm_pkg::uvm_seq_item_pull_export::RSP	uvm_sqr_connections.svh	61	53	61	56					uvm_pkg::uvm_seq_item_pull_export::RSP	010
+  #188629	5	ref_typespec			<in>RSP		0	0	0	0		0			uvm_pkg::uvm_seq_item_pull_export::RSP	001
+  #188630	6	int_typespec				uvm_tlm_defines.svh	559	18	559	21						001
+  #188631	4	extends				uvm_sqr_connections.svh	62	11	62	24						000
+  #188632	5	ref_typespec			uvm_pkg::uvm_seq_item_pull_export		0	0	0	0		0			uvm_pkg::uvm_seq_item_pull_export	000
+  #188633	6	class_typespec	uvm_port_base			uvm_sqr_connections.svh	62	11	62	24						110
+> #188634	4	function	new		uvm_pkg::uvm_seq_item_pull_export::new	uvm_tlm_imps.svh	198	3	205	14					uvm_pkg::uvm_seq_item_pull_export::new	000
+  #188635	5	class_var			uvm_pkg::uvm_seq_item_pull_export::new	uvm_tlm_imps.svh	198	24	198	28		0			uvm_pkg::uvm_seq_item_pull_export::new	000
+  #188636	6	ref_typespec			uvm_pkg::uvm_seq_item_pull_export::new		0	0	0	0		0			uvm_pkg::uvm_seq_item_pull_export::new	000
+  #188637	7	class_typespec					0	0	0	0						000
+  #188638	5	io_decl	name			uvm_tlm_imps.svh	198	24	198	28						000
+  #188639	6	ref_typespec			uvm_pkg::uvm_seq_item_pull_export::new::name		0	0	0	0		0			uvm_pkg::uvm_seq_item_pull_export::new::name	000
+  #188640	7	string_typespec				uvm_tlm_imps.svh	198	17	198	23						000
+
+--- OURS (B) records 187991..188003 ('>' = the object)
+  #187991	4	type_parameter	RSP		uvm_pkg::uvm_seq_item_pull_export::RSP	uvm_sqr_connections.svh	61	53	61	56					uvm_pkg::uvm_seq_item_pull_export::RSP	010
+  #187992	5	ref_typespec			<in>RSP		0	0	0	0		0			uvm_pkg::uvm_seq_item_pull_export::RSP	001
+  #187993	6	int_typespec				uvm_sqr_connections.svh	61	57	61	60						001
+  #187994	4	extends				uvm_sqr_connections.svh	62	11	62	24						000
+  #187995	5	ref_typespec			uvm_pkg::uvm_seq_item_pull_export		0	0	0	0		0			uvm_pkg::uvm_seq_item_pull_export	000
+  #187996	6	class_typespec	uvm_port_base			uvm_sqr_connections.svh	62	11	62	24						110
+> #187997	4	function	new		uvm_pkg::uvm_seq_item_pull_export::new	uvm_tlm_imps.svh	198	3	202	14					uvm_pkg::uvm_seq_item_pull_export::new	000
+  #187998	5	class_var			uvm_pkg::uvm_seq_item_pull_export::new	uvm_tlm_imps.svh	198	24	198	28		0			uvm_pkg::uvm_seq_item_pull_export::new	000
+  #187999	6	ref_typespec			uvm_pkg::uvm_seq_item_pull_export::new		0	0	0	0		0			uvm_pkg::uvm_seq_item_pull_export::new	000
+  #188000	7	class_typespec					0	0	0	0						000
+  #188001	5	io_decl	name			uvm_tlm_imps.svh	198	24	198	28						000
+  #188002	6	ref_typespec			uvm_pkg::uvm_seq_item_pull_export::new::name		0	0	0	0		0			uvm_pkg::uvm_seq_item_pull_export::new::name	000
+  #188003	7	string_typespec				uvm_tlm_imps.svh	198	17	198	23						000
+
+facets of this row (17246, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

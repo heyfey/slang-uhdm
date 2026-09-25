@@ -1,0 +1,64 @@
+cluster N1092 (map 7 id kept; COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | ground A | site emitExpr (ExprEmit.cpp, law genLpUseFoldParentScope47) < emitModuleDefPorts (ModuleEmit.cpp, law structParamBareImportRef) < emitInstance (ModuleEmit.cpp, law importedFreeCallTakesFirstListingImport227) [r11u138map pin] [r11u142map pin]): span|part_select|endcol|under:port
+row: surelog/default/YosysOldOr  strict=differ:line(75)  records golden=243334 ours=243334
+object: #55891 (golden) / #55891 (ours)  type=part_select name=ic_addr 
+  golden: 278:8:278:46
+  ours:   278:8:278:53
+  walk parents: port(addr) < ref_module(or1200_ic_ram) < module_inst < design(work@or1200_dc_fsm)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 55885..55897 ('>' = the object)
+  #55885	2	ref_module	or1200_ic_ram	work@or1200_ic_ram		or1200_ic_top.v	269	15	269	28						000
+  #55886	3	port	clk			or1200_ic_top.v	270	2	270	11						000
+  #55887	4	ref_obj	clk		work@or1200_ic_top.or1200_ic_ram.clk.clk	or1200_ic_top.v	270	7	270	10		0			work@or1200_ic_top.or1200_ic_ram.clk.clk	000
+  #55888	3	port	rst			or1200_ic_top.v	271	2	271	11						000
+  #55889	4	ref_obj	rst		work@or1200_ic_top.or1200_ic_ram.rst.rst	or1200_ic_top.v	271	7	271	10		0			work@or1200_ic_top.or1200_ic_ram.rst.rst	000
+  #55890	3	port	addr			or1200_ic_top.v	278	2	278	47						000
+> #55891	4	part_select	ic_addr	ic_addr	work@or1200_ic_top.or1200_ic_ram.addr.ic_addr	or1200_ic_top.v	278	8	278	46		0			work@or1200_ic_top.or1200_ic_ram.addr.ic_addr	000
+  #55892	5	operation				or1200_ic_top.v	278	16	278	42		0				000
+  #55893	6	constant				or1200_ic_top.v	278	16	278	17	9	64	UINT:9	9		000
+  #55894	6	constant				or1200_ic_top.v	278	41	278	42	1	64	UINT:1	9		000
+  #55895	5	constant				or1200_ic_top.v	278	44	278	45	2	64	UINT:2	9		000
+  #55896	3	port	en			or1200_ic_top.v	279	2	279	12						000
+  #55897	4	ref_obj	ic_en		work@or1200_ic_top.or1200_ic_ram.en.ic_en	or1200_ic_top.v	279	6	279	11		0			work@or1200_ic_top.or1200_ic_ram.en.ic_en	000
+
+--- OURS (B) records 55885..55897 ('>' = the object)
+  #55885	2	ref_module	or1200_ic_ram	work@or1200_ic_ram		or1200_ic_top.v	269	15	269	28						000
+  #55886	3	port	clk			or1200_ic_top.v	270	2	270	11						000
+  #55887	4	ref_obj	clk		work@or1200_ic_top.or1200_ic_ram.clk.clk	or1200_ic_top.v	270	7	270	10		0			work@or1200_ic_top.or1200_ic_ram.clk.clk	000
+  #55888	3	port	rst			or1200_ic_top.v	271	2	271	11						000
+  #55889	4	ref_obj	rst		work@or1200_ic_top.or1200_ic_ram.rst.rst	or1200_ic_top.v	271	7	271	10		0			work@or1200_ic_top.or1200_ic_ram.rst.rst	000
+  #55890	3	port	addr			or1200_ic_top.v	278	2	278	54						000
+> #55891	4	part_select	ic_addr	ic_addr	work@or1200_ic_top.or1200_ic_ram.addr.ic_addr	or1200_ic_top.v	278	8	278	53		0			work@or1200_ic_top.or1200_ic_ram.addr.ic_addr	000
+  #55892	5	operation				or1200_ic_top.v	278	16	278	42		0				000
+  #55893	6	constant				or1200_ic_top.v	278	16	278	17	9	64	UINT:9	9		000
+  #55894	6	constant				or1200_ic_top.v	278	41	278	42	1	64	UINT:1	9		000
+  #55895	5	constant				or1200_ic_top.v	278	51	278	52	2	64	UINT:2	9		000
+  #55896	3	port	en			or1200_ic_top.v	279	2	279	12						000
+  #55897	4	ref_obj	ic_en		work@or1200_ic_top.or1200_ic_ram.en.ic_en	or1200_ic_top.v	279	6	279	11		0			work@or1200_ic_top.or1200_ic_ram.en.ic_en	000
+
+facets of this row (75, first 25):
+  N0661 #53040/53040 logic_typespec  G[51:12:51:12] O[50:12:50:12]
+  N0190 #55018/55018 if_stmt  G[180:7:181:106] O[180:7:181:132]
+  N1077 #55020/55020 assignment  G[181:9:181:105] O[181:9:181:131]
+  N1090 #55021/55021 part_select start_addr G[181:60:181:105] O[181:73:181:131]
+  N0527 #55022/55022 constant  G[181:71:181:73] O[181:84:181:86]
+  N0845 #55023/55023 operation  G[181:74:181:103] O[181:87:181:123]
+  N0060 #55024/55024 operation  G[181:74:181:100] O[181:87:181:113]
+  N0287 #55025/55025 constant  G[181:74:181:75] O[181:87:181:88]
+  N0287 #55026/55026 constant  G[181:99:181:100] O[181:112:181:113]
+  N0287 #55027/55027 constant  G[181:102:181:103] O[181:122:181:123]
+  N1091 #55028/55028 part_select saved_addr_r G[181:9:181:56] O[181:9:181:69]
+  N0997 #55030/55030 operation  G[181:25:181:54] O[181:25:181:61]
+  N0287 #55034/55034 constant  G[181:53:181:54] O[181:60:181:61]
+  N0752 #55492/55492 logic_net ictag_addr G[150:38:150:48] O[150:45:150:55]
+  N0040 #55494/55494 logic_typespec  G[150:1:150:37] O[150:1:150:44]
+  N1094 #55495/55495 range  G[150:6:150:37] O[150:6:150:44]
+  N0766 #55499/55499 constant  G[150:35:150:36] O[150:42:150:43]
+  N1088 #55719/55719 operation  G[237:8:237:71] O[237:8:237:84]
+  N0561 #55720/55720 operation  G[237:9:237:61] O[237:9:237:74]
+  N0813 #55722/55722 part_select saved_addr G[237:16:237:61] O[237:16:237:74]
+  N0997 #55724/55724 operation  G[237:30:237:59] O[237:30:237:66]
+  N0287 #55728/55728 constant  G[237:58:237:59] O[237:65:237:66]
+  N0060 #55729/55729 operation  G[237:65:237:71] O[237:78:237:84]
+  N0091 #55730/55730 ref_obj tag_v G[237:66:237:71] O[237:79:237:84]
+  N0275 #55750/55750 cont_assign  G[178:8:180:45] O[178:8:180:52]

@@ -1,0 +1,64 @@
+cluster N1123 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site makeQueueDynArrayVar (TaskFuncEmit.cpp, law blockLocalTdDeclIsRefVarUnsupported155) < emitTaskFuncs (TaskFuncEmit.cpp, law nameBasedArrayTdDeclIsRefVar166) < emitImportedPkgClassMethodClones (ParamEmit.cpp, law collectPkgTfListing) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|ours-empty|under:class_var
+row: surelog/default/MiniAmiq  strict=differ:line(183)  records golden=435559 ours=413982
+object: #396425 (golden) / #378469 (ours)  type=ref_typespec name= TAIL
+  golden: svaunit_pkg::uvm_reg_field::do_write::fields
+  ours:   
+  walk parents: class_var < array_var(fields) < begin < task(uvm_reg_field::do_write)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 396419..396431 ('>' = the object)
+  #396419	7	range				uvm_reg_field.svh	1468	28	1468	29						001
+  #396420	8	constant					0	0	0	0	0	64	UINT:0	9		001
+  #396421	8	constant				uvm_reg_field.svh	1468	28	1468	29	$	1	STRING:$	10		001
+  #396422	7	ref_typespec			<in>		0	0	0	0		0			svaunit_pkg::uvm_reg_field::do_write::fields	001
+  #396423	8	class_typespec				uvm_reg_field.svh	1468	4	1468	17						001
+  #396424	5	class_var			svaunit_pkg::uvm_reg_field::do_write::fields	uvm_reg_field.svh	1468	21	1468	27		0			svaunit_pkg::uvm_reg_field::do_write::fields	000
+> #396425	6	ref_typespec			svaunit_pkg::uvm_reg_field::do_write::fields		0	0	0	0		0			svaunit_pkg::uvm_reg_field::do_write::fields	000
+  #396426	7	class_typespec				uvm_reg_field.svh	1468	4	1468	17						000
+  #396427	4	bit_var	bad_side_effect		svaunit_pkg::uvm_reg_field::do_write::bad_side_effect	uvm_reg_field.svh	1469	8	1469	23		0			svaunit_pkg::uvm_reg_field::do_write::bad_side_effect	000
+  #396428	5	ref_typespec			svaunit_pkg::uvm_reg_field::do_write::bad_side_effect		0	0	0	0		0			svaunit_pkg::uvm_reg_field::do_write::bad_side_effect	000
+  #396429	6	bit_typespec				uvm_reg_field.svh	1469	4	1469	7						000
+  #396430	4	method_func_call	XatomicX			uvm_reg_field.svh	1471	13	1471	21		0				000
+  #396431	5	constant				uvm_reg_field.svh	1471	22	1471	23	1	64	UINT:1	9		000
+
+--- OURS (B) records 378463..378475 ('>' = the object)
+  #378463	3	array_var	fields		svaunit_pkg::uvm_reg_field::do_write::fields	uvm_reg_field.svh	1468	21	1468	27		0			svaunit_pkg::uvm_reg_field::do_write::fields	000
+  #378464	4	ref_typespec			svaunit_pkg::uvm_reg_field::do_write::fields		0	0	0	0		0			svaunit_pkg::uvm_reg_field::do_write::fields	000
+  #378465	5	array_typespec				uvm_reg_field.svh	1468	21	1468	29						000
+  #378466	6	range				uvm_reg_field.svh	1468	28	1468	29						001
+  #378467	7	constant					0	0	0	0	0	64	UINT:0	9		001
+  #378468	7	constant				uvm_reg_field.svh	1468	28	1468	29	$	1	STRING:$	10		001
+> #378469	6	ref_typespec					0	0	0	0		0				001
+  #378470	7	class_typespec				uvm_reg_field.svh	1468	4	1468	17						001
+  #378471	4	class_var			svaunit_pkg::uvm_reg_field::do_write::fields	uvm_reg_field.svh	1468	21	1468	27		0			svaunit_pkg::uvm_reg_field::do_write::fields	000
+  #378472	5	ref_typespec			svaunit_pkg::uvm_reg_field::do_write::fields		0	0	0	0		0			svaunit_pkg::uvm_reg_field::do_write::fields	000
+  #378473	6	class_typespec				uvm_reg_field.svh	1468	4	1468	17						000
+  #378474	3	bit_var	bad_side_effect		svaunit_pkg::uvm_reg_field::do_write::bad_side_effect	uvm_reg_field.svh	1469	8	1469	23		0			svaunit_pkg::uvm_reg_field::do_write::bad_side_effect	000
+  #378475	4	ref_typespec			svaunit_pkg::uvm_reg_field::do_write::bad_side_effect		0	0	0	0		0			svaunit_pkg::uvm_reg_field::do_write::bad_side_effect	000
+
+facets of this row (36091, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

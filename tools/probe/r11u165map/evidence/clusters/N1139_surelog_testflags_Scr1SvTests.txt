@@ -1,0 +1,64 @@
+cluster N1139 (map 7 id kept; OPEN | ground B | site exportDesign (UhdmExporter.cpp, law structMemberWrittenQueueArrayTs149) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u138map pin] [r11u142map pin]): span|constant|col+endline+endcol|under:param_assign
+row: surelog/testflags/Scr1SvTests  strict=differ:line(219)  records golden=83997 ours=84026
+object: #38695 (golden) / #38690 (ours)  type=constant name= 
+  golden: 118:47:125:63
+  ours:   118:48:118:64
+  walk parents: param_assign < design(work@scr1_top_tb_axi)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 38689..38701 ('>' = the object)
+  #38689	3	ref_typespec					0	0	0	0		0				000
+  #38690	4	bit_typespec				scr1_csr.svh	117	11	117	20						000
+  #38691	5	range				scr1_csr.svh	117	15	117	20						001
+  #38692	6	constant				scr1_csr.svh	117	16	117	17	1	64	UINT:1	9		001
+  #38693	6	constant				scr1_csr.svh	117	18	117	19	0	64	UINT:0	9		001
+  #38694	1	param_assign				scr1_csr.svh	118	25	128	63						000
+> #38695	2	constant				scr1_csr.svh	118	47	125	63	1073746180	32	UINT:1073746180	9		000
+  #38696	3	ref_typespec					0	0	0	0		0				000
+  #38697	4	bit_typespec				scr1_csr.svh	118	11	118	23						000
+  #38698	5	range				scr1_csr.svh	118	15	118	23						001
+  #38699	6	constant				scr1_csr.svh	118	16	118	18	31	64	INT:31	7		001
+  #38700	6	constant				scr1_csr.svh	118	21	118	22	0	64	UINT:0	9		001
+  #38701	1	param_assign				scr1_csr.svh	133	24	133	59						000
+
+--- OURS (B) records 38684..38696 ('>' = the object)
+  #38684	3	ref_typespec					0	0	0	0		0				000
+  #38685	4	bit_typespec				scr1_csr.svh	117	11	117	20						000
+  #38686	5	range				scr1_csr.svh	117	15	117	20						001
+  #38687	6	constant				scr1_csr.svh	117	16	117	17	1	64	UINT:1	9		001
+  #38688	6	constant				scr1_csr.svh	117	18	117	19	0	64	UINT:0	9		001
+  #38689	1	param_assign				scr1_csr.svh	118	25	128	63						000
+> #38690	2	constant				scr1_csr.svh	118	48	118	64	1073746180	32	UINT:1073746180	9		000
+  #38691	3	ref_typespec					0	0	0	0		0				000
+  #38692	4	bit_typespec				scr1_csr.svh	118	11	118	23						000
+  #38693	5	range				scr1_csr.svh	118	15	118	23						001
+  #38694	6	constant				scr1_csr.svh	118	16	118	18	31	64	INT:31	7		001
+  #38695	6	constant				scr1_csr.svh	118	21	118	22	0	64	UINT:0	9		001
+  #38696	1	param_assign				scr1_csr.svh	133	24	133	59						000
+
+facets of this row (821, first 25):
+  N0965 #16033/-1 ref_typespec  G[5 objs] O[]
+  N0791 #48791/-1 ref_obj SCR1_MEM_CMD_RD G[2 objs] O[]
+  N0284 #-1/48786 constant  G[] O[1 objs]
+  N0965 #61857/-1 ref_typespec  G[5 objs] O[]
+  N2405 #63286/-1 ref_obj ALLTRIG_W G[3 objs] O[]
+  N0921 #-1/70139 operation  G[] O[5 objs]
+  N0921 #-1/70148 operation  G[] O[7 objs]
+  N0921 #-1/70159 operation  G[] O[11 objs]
+  N0921 #-1/70174 operation  G[] O[13 objs]
+  N0921 #-1/76039 operation  G[] O[7 objs]
+  N0064 #4/4 include_file_info  G[537:10:537:39] O[322:10:322:39]
+  N0064 #5/5 include_file_info  G[545:10:545:37] O[330:10:330:37]
+  N0064 #6/6 include_file_info  G[761:10:761:31] O[331:10:331:31]
+  N0064 #7/7 include_file_info  G[1010:10:1010:24] O[508:10:508:24]
+  N0064 #8/8 include_file_info  G[1018:10:1018:37] O[516:10:516:37]
+  N0064 #9/9 include_file_info  G[1234:10:1234:24] O[517:10:517:24]
+  N0064 #10/10 include_file_info  G[1242:10:1242:37] O[525:10:525:37]
+  N0064 #11/11 include_file_info  G[1458:10:1458:31] O[526:10:526:31]
+  N0064 #12/12 include_file_info  G[1531:10:1531:25] O[527:10:527:25]
+  N0064 #13/13 include_file_info  G[1539:10:1539:37] O[535:10:535:37]
+  N0064 #15/15 include_file_info  G[249:10:249:39] O[34:10:34:39]
+  N0064 #16/16 include_file_info  G[435:10:435:24] O[35:10:35:24]
+  N0064 #17/17 include_file_info  G[448:10:448:37] O[48:10:48:37]
+  N0064 #18/18 include_file_info  G[665:10:665:24] O[50:10:50:24]
+  N0064 #20/20 include_file_info  G[253:10:253:25] O[38:10:38:25]

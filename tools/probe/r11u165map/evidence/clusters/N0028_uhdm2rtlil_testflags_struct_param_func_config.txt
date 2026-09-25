@@ -1,0 +1,64 @@
+cluster N0028 (map 7 id kept; OPEN | ground B | site buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law defPkgStructParamMemberNames154) < patchParamTypespecs (ParamEmit.cpp, law paramCloneImportedCopy)): fullname|ref_typespec|tok:->id.|under:typespec_member
+row: uhdm2rtlil/testflags/struct_param_func_config  strict=differ:line(5)  records golden=2652 ours=2394
+object: #732 (golden) / #612 (ours)  type=ref_typespec name= STABLE
+  golden: work@child.p::ucfg_t.a
+  ours:   work@child.U.p::ucfg_t.a
+  walk parents: typespec_member(a) < struct_typespec(p::ucfg_t) < ref_typespec < constant
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 726..738 ('>' = the object)
+  #726	6	constant					0	0	0	0	14	64	INT:14	7		001
+  #727	2	param_assign				dut.sv	38	21	38	33						000
+  #728	3	constant				dut.sv	38	25	38	33	0000000000000000000000000000011110	34	BIN:0000000000000000000000000000011110	3		000
+  #729	4	ref_typespec			work@child		0	0	0	0		0			work@child	000
+  #730	5	struct_typespec	p::ucfg_t			dut.sv	32	40	32	46						110
+  #731	6	typespec_member	a			dut.sv	17	18	17	19						001
+> #732	7	ref_typespec			<in>p::ucfg_t.a		0	0	0	0		0			work@child.p::ucfg_t.a	001
+  #733	8	int_typespec				dut.sv	17	5	17	17						001
+  #734	7	constant				dut.sv	27	11	27	12	7	64	UINT:7	9		001
+  #735	7	constant				dut.sv	27	11	27	12	7	64	UINT:7	9		001
+  #736	6	typespec_member	flag1			dut.sv	18	9	18	14						001
+  #737	7	ref_typespec			<in>p::ucfg_t.flag1		0	0	0	0		0			work@child.p::ucfg_t.flag1	001
+  #738	8	bit_typespec				dut.sv	18	5	18	8						001
+
+--- OURS (B) records 606..618 ('>' = the object)
+  #606	6	constant				dut.sv	39	24	39	32	14	64	INT:14	7		001
+  #607	2	param_assign				dut.sv	38	21	38	33						000
+  #608	3	constant				dut.sv	38	25	38	33	0000000000000000000000000000011110	34	BIN:0000000000000000000000000000011110	3		000
+  #609	4	ref_typespec			work@child		0	0	0	0		0			work@child	000
+  #610	5	struct_typespec	p::ucfg_t			dut.sv	16	11	20	4						110
+  #611	6	typespec_member	a			dut.sv	17	18	17	19						001
+> #612	7	ref_typespec			<in>p::ucfg_t.a		0	0	0	0		0			work@child.U.p::ucfg_t.a	001
+  #613	8	int_typespec				dut.sv	17	5	17	17						001
+  #614	7	constant				dut.sv	27	11	27	12	7	64	UINT:7	9		001
+  #615	7	constant				dut.sv	27	11	27	12	7	64	UINT:7	9		001
+  #616	6	typespec_member	flag1			dut.sv	18	9	18	14						001
+  #617	7	ref_typespec			<in>p::ucfg_t.flag1		0	0	0	0		0			work@child.U.p::ucfg_t.flag1	001
+  #618	8	bit_typespec				dut.sv	18	5	18	8						001
+
+facets of this row (388, first 25):
+  N0411 #294/-1 constant  G[18 objs] O[]
+  N0411 #312/-1 constant  G[18 objs] O[]
+  N0411 #354/-1 constant  G[18 objs] O[]
+  N0411 #372/-1 constant  G[18 objs] O[]
+  N0411 #482/-1 constant  G[12 objs] O[]
+  N0411 #494/-1 constant  G[12 objs] O[]
+  N0411 #526/-1 constant  G[12 objs] O[]
+  N0411 #538/-1 constant  G[12 objs] O[]
+  N0045 #1274/-1 constant  G[1 objs] O[]
+  N0045 #1275/-1 constant  G[1 objs] O[]
+  N0045 #1279/-1 constant  G[1 objs] O[]
+  N0045 #1280/-1 constant  G[1 objs] O[]
+  N0045 #1284/-1 constant  G[1 objs] O[]
+  N0045 #1285/-1 constant  G[1 objs] O[]
+  N0045 #1292/-1 constant  G[1 objs] O[]
+  N0045 #1293/-1 constant  G[1 objs] O[]
+  N0045 #1297/-1 constant  G[1 objs] O[]
+  N0045 #1298/-1 constant  G[1 objs] O[]
+  N0045 #1302/-1 constant  G[1 objs] O[]
+  N0045 #1303/-1 constant  G[1 objs] O[]
+  N0045 #1310/-1 constant  G[1 objs] O[]
+  N0045 #1311/-1 constant  G[1 objs] O[]
+  N0045 #1315/-1 constant  G[1 objs] O[]
+  N0045 #1316/-1 constant  G[1 objs] O[]
+  N0045 #1320/-1 constant  G[1 objs] O[]

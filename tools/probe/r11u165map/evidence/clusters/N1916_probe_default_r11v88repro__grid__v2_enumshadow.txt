@@ -1,0 +1,38 @@
+cluster N1916 (map 7 id kept; OPEN | ground B | site emitInterfaceInstance (ModuleEmit.cpp, law caIfaceElabNetDeclAssignListing88) < emitInstance (ModuleEmit.cpp, law caNestedModDeclNoRefNoInst99) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab) [r11u138map pin] [r11u142map pin]): struct|golden-only:fewer-copies|logic_net|under:cont_assign
+row: probe/default/r11v88repro__grid__v2_enumshadow  strict=depth  records golden=104 ours=98
+object: #92 (golden) / #-1 (ours)  type=logic_net name=w_e 
+  golden: 6 objs
+  ours:   
+  walk parents: cont_assign < interface_inst(u_if) < module_inst(work@dut) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 86..98 ('>' = the object)
+  #86	5	logic_typespec				dut.sv	9	3	9	14						000
+  #87	6	range				dut.sv	9	8	9	14						001
+  #88	7	constant				dut.sv	9	9	9	11	31	64	UINT:31	9		001
+  #89	7	constant				dut.sv	9	12	9	13	0	64	UINT:0	9		001
+  #90	3	cont_assign				dut.sv	9	15	9	18						000
+  #91	4	constant				dut.sv	9	21	9	27	2	32	UINT:2	9		000
+> #92	4	logic_net	w_e		work@dut.u_if.w_e	dut.sv	9	15	9	18		0			work@dut.u_if.w_e	000
+  #93	5	ref_typespec			work@dut.u_if.w_e		0	0	0	0		0			work@dut.u_if.w_e	000
+  #94	6	logic_typespec				dut.sv	9	3	9	14						000
+  #95	7	range				dut.sv	9	8	9	14						001
+  #96	8	constant				dut.sv	9	9	9	11	31	64	UINT:31	9		001
+  #97	8	constant				dut.sv	9	12	9	13	0	64	UINT:0	9		001
+  #98	2	cont_assign				dut.sv	14	10	14	22						000
+
+--- the holder #90 on the other side: exact-record matches at [90]
+  #87	6	range				dut.sv	9	8	9	14						001
+  #88	7	constant				dut.sv	9	9	9	11	31	64	UINT:31	9		001
+  #89	7	constant				dut.sv	9	12	9	13	0	64	UINT:0	9		001
+> #90	3	cont_assign				dut.sv	9	15	9	18						000
+  #91	4	constant				dut.sv	9	21	9	27	2	32	UINT:2	9		000
+  #92	2	cont_assign				dut.sv	14	10	14	22						000
+  #93	3	hier_path	u_if.w_e			dut.sv	14	14	14	22		0				000
+  #94	4	ref_obj	u_if			dut.sv	14	14	14	18		0				000
+  #95	4	ref_obj	w_e		work@dut.w_e	dut.sv	14	19	14	22		0			work@dut.w_e	000
+  #96	3	ref_obj	o		work@dut.o	dut.sv	14	10	14	11		0			work@dut.o	000
+  #97	4	logic_net	o		work@dut.o	dut.sv	12	33	12	34		0			work@dut.o	000
+
+facets of this row (1, first 25):
+  N1916 #92/-1 logic_net w_e G[6 objs] O[]

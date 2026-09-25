@@ -1,0 +1,64 @@
+cluster N0585 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site operator() (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < exportDesign (UhdmExporter.cpp, law importCloneBareTdAlias16) [r11u138map pin; the a7bee711 gdb run wrote a different database (UVM order coin)] [r11u142map pin]): struct|ours-only:elsewhere|typespec_member|under:ref_obj
+row: surelog/default/MiniAmiq  strict=differ:line(183)  records golden=435559 ours=413982
+object: #-1 (golden) / #122251 (ours)  type=typespec_member name=byte_en 
+  golden: 
+  ours:   11 objs
+  walk parents: ref_obj(byte_en) < hier_path(rw_access.byte_en) < assignment < named_begin(foreach_addr)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 122245..122257 ('>' = the object)
+  #122245	13	int_typespec				uvm_reg_item.svh	287	3	287	6						000
+  #122246	8	assignment				uvm_reg_map.svh	1910	7	1910	34						000
+  #122247	9	ref_obj	byte_en		svaunit_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::byte_en	uvm_reg_map.svh	1910	27	1910	34		0			svaunit_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::byte_en	000
+  #122248	9	hier_path	rw_access.byte_en			uvm_reg_map.svh	1910	7	1910	24		0				000
+  #122249	10	ref_obj	rw_access			uvm_reg_map.svh	1910	17	1910	24		0				000
+  #122250	10	ref_obj	byte_en			uvm_reg_map.svh	1910	17	1910	24		0				000
+> #122251	11	typespec_member	byte_en			uvm_reg_item.svh	303	21	303	28						000
+  #122252	12	ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_reg_bus_op.byte_en		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_reg_bus_op.byte_en	000
+  #122253	13	bit_typespec	uvm_reg_byte_en_t			uvm_reg_model.svh	87	10	87	42						110
+  #122254	14	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0			uvm_reg_byte_en_t	001
+  #122255	15	bit_typespec	uvm_reg_byte_en_t			uvm_reg_model.svh	87	10	87	42						001
+  #122256	16	range				uvm_reg_model.svh	87	23	87	42						001
+  #122257	17	constant				uvm_reg_model.svh	87	24	87	36	7	64	INT:7	7		001
+
+--- the holder #122250 on the other side: exact-record matches at [56598, 127498, 354218, 426166]
+  #56595	9	ref_obj	byte_en		uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::byte_en	uvm_reg_map.svh	1910	27	1910	34		0			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::byte_en	000
+  #56596	9	hier_path	rw_access.byte_en			uvm_reg_map.svh	1910	7	1910	24		0				000
+  #56597	10	ref_obj	rw_access			uvm_reg_map.svh	1910	17	1910	24		0				000
+> #56598	10	ref_obj	byte_en			uvm_reg_map.svh	1910	17	1910	24		0				000
+  #56599	8	method_func_call	push_back			uvm_reg_map.svh	1912	16	1912	25		0				000
+  #56600	9	ref_obj	rw_access		uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::rw_access	uvm_reg_map.svh	1912	26	1912	35		0			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::rw_access	000
+  #56601	9	ref_obj	accesses		uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::accesses	uvm_reg_map.svh	1912	7	1912	15		0			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::accesses	000
+  #56602	8	assignment				uvm_reg_map.svh	1914	7	1914	29						000
+  #56603	9	ref_obj	bus_width		uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::bus_width	uvm_reg_map.svh	1914	20	1914	29		0			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::bus_width	000
+  #56604	9	ref_obj	curr_byte		uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::curr_byte	uvm_reg_map.svh	1914	7	1914	16		0			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::curr_byte	000
+  #56605	8	assignment				uvm_reg_map.svh	1915	7	1915	30						000
+  #56606	9	operation				uvm_reg_map.svh	1915	17	1915	30		0				000
+  #56607	10	ref_obj	bus_width		uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::bus_width	uvm_reg_map.svh	1915	17	1915	26		0			uvm_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::bus_width	000
+
+facets of this row (36091, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

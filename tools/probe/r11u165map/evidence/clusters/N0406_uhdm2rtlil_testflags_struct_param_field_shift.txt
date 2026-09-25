@@ -1,0 +1,64 @@
+cluster N0406 (map 7 id kept; OPEN | ground A | site stampEvalFuncLeftovers (ParamEmit.cpp, law memLeftFormalReadTs18) < exportDesign (UhdmExporter.cpp, law r10fsv2) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u142map pin]): fullname|ref_typespec|tok:::id.id->|under:constant
+row: uhdm2rtlil/testflags/struct_param_field_shift  strict=differ:col(41)  records golden=395 ours=395
+object: #306 (golden) / #306 (ours)  type=ref_typespec name= TAIL
+  golden: cfg_pkg::cfg_t.XLEN
+  ours:   cfg_pkg
+  walk parents: constant < typespec_member(XLEN) < struct_typespec(cfg_pkg::cfg_t) < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 300..312 ('>' = the object)
+  #300	4	ref_typespec			work@struct_param_field_shift		0	0	0	0		0			work@struct_param_field_shift	000
+  #301	5	struct_typespec	cfg_pkg::cfg_t			dut.sv	10	11	13	4						110
+  #302	6	typespec_member	XLEN			dut.sv	11	18	11	22						001
+  #303	7	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0			cfg_pkg::cfg_t.XLEN	001
+  #304	8	int_typespec				dut.sv	11	5	11	17						001
+  #305	7	constant				dut.sv	20	46	20	48	64	64	UINT:64	9		001
+> #306	8	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0			cfg_pkg::cfg_t.XLEN	001
+  #307	9	int_typespec				dut.sv	14	41	14	44						001
+  #308	7	constant				dut.sv	20	46	20	48	64	64	UINT:64	9		001
+  #309	8	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0			cfg_pkg::cfg_t.XLEN	001
+  #310	9	int_typespec				dut.sv	14	41	14	44						001
+  #311	6	typespec_member	XLEN_ALIGN_BYTES			dut.sv	12	18	12	34						001
+  #312	7	ref_typespec			<in>cfg_pkg::cfg_t.XLEN_ALIGN_BYTES		0	0	0	0		0			cfg_pkg::cfg_t.XLEN_ALIGN_BYTES	001
+
+--- OURS (B) records 300..312 ('>' = the object)
+  #300	4	ref_typespec			work@struct_param_field_shift		0	0	0	0		0			work@struct_param_field_shift	000
+  #301	5	struct_typespec	cfg_pkg::cfg_t			dut.sv	10	11	13	4						110
+  #302	6	typespec_member	XLEN			dut.sv	11	18	11	22						001
+  #303	7	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0			cfg_pkg::cfg_pkg::cfg_t::XLEN	001
+  #304	8	int_typespec				dut.sv	11	5	11	17						001
+  #305	7	constant				dut.sv	20	33	20	49	64	64	UINT:64	9		001
+> #306	8	ref_typespec			cfg_pkg		0	0	0	0		0			cfg_pkg	001
+  #307	9	int_typespec				dut.sv	14	41	14	44						001
+  #308	7	constant				dut.sv	20	33	20	49	64	64	UINT:64	9		001
+  #309	8	ref_typespec			cfg_pkg		0	0	0	0		0			cfg_pkg	001
+  #310	9	int_typespec				dut.sv	14	41	14	44						001
+  #311	6	typespec_member	XLEN_ALIGN_BYTES			dut.sv	12	18	12	34						001
+  #312	7	ref_typespec			<in>cfg_pkg::cfg_t.XLEN_ALIGN_BYTES		0	0	0	0		0			cfg_pkg::cfg_pkg::cfg_t::XLEN_ALIGN_BYTES	001
+
+facets of this row (59, first 25):
+  N0745 #66/66 constant  G[20:46:20:48] O[20:33:20:49]
+  N0745 #69/69 constant  G[20:46:20:48] O[20:33:20:49]
+  N0086 #75/75 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  N0087 #75/75 constant  G[0:0:0:0] O[20:33:20:49]
+  N0086 #76/76 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  N0087 #76/76 constant  G[0:0:0:0] O[20:33:20:49]
+  N0745 #84/84 constant  G[20:46:20:48] O[20:33:20:49]
+  N0745 #87/87 constant  G[20:46:20:48] O[20:33:20:49]
+  N0086 #93/93 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  N0087 #93/93 constant  G[0:0:0:0] O[20:33:20:49]
+  N0086 #94/94 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  N0087 #94/94 constant  G[0:0:0:0] O[20:33:20:49]
+  N0745 #99/99 constant  G[20:46:20:48] O[20:33:20:49]
+  N0745 #102/102 constant  G[20:46:20:48] O[20:33:20:49]
+  N0086 #108/108 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  N0087 #108/108 constant  G[0:0:0:0] O[20:33:20:49]
+  N0086 #109/109 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  N0087 #109/109 constant  G[0:0:0:0] O[20:33:20:49]
+  N0745 #117/117 constant  G[20:46:20:48] O[20:33:20:49]
+  N0745 #120/120 constant  G[20:46:20:48] O[20:33:20:49]
+  N0086 #126/126 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  N0087 #126/126 constant  G[0:0:0:0] O[20:33:20:49]
+  N0086 #127/127 constant  G[ 0:0:0:0] O[dut.sv 20:33:20:49]
+  N0087 #127/127 constant  G[0:0:0:0] O[20:33:20:49]
+  N0745 #134/134 constant  G[20:46:20:48] O[20:33:20:49]

@@ -1,0 +1,64 @@
+cluster N1078 (map 7 id kept; COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | ground A | site emitStmt (StmtEmit.cpp, law parBlockJoinTailAfterFirstItem131) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164) [r11u138map pin] [r11u142map pin]): span|begin|col|under:if_else
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1730)  records golden=1342584 ours=1342870
+object: #138369 (golden) / #138339 (ours)  type=begin name= 
+  golden: 193:40:196:12
+  ours:   193:41:196:12
+  walk parents: if_else < if_else < if_else < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 138363..138375 ('>' = the object)
+  #138363	13	constant				sha2.sv	192	32	192	36	1'b0	1	BIN:0	3		000
+  #138364	13	ref_obj	update_w_from_fifo		work@sha2.update_w_from_fifo	sha2.sv	192	11	192	29		0			work@sha2.update_w_from_fifo	000
+  #138365	11	if_else				sha2.sv	193	18	199	12						000
+  #138366	12	operation				sha2.sv	193	22	193	38		0				000
+  #138367	13	ref_obj	w_index		work@sha2.w_index	sha2.sv	193	22	193	29		0			work@sha2.w_index	000
+  #138368	13	constant				sha2.sv	193	33	193	38	4'd15	4	DEC:15	1		000
+> #138369	12	begin			work@sha2	sha2.sv	193	40	196	12					work@sha2	000
+  #138370	13	assignment				sha2.sv	194	11	194	31						000
+  #138371	14	ref_obj	FifoWait		work@sha2.FifoWait	sha2.sv	194	23	194	31		0			work@sha2.FifoWait	000
+  #138372	15	enum_const	FifoWait			sha2.sv	158	5	158	13						010
+  #138373	14	ref_obj	fifo_st_d		work@sha2.fifo_st_d	sha2.sv	194	11	194	20		0			work@sha2.fifo_st_d	000
+  #138374	13	assignment				sha2.sv	195	11	195	36						000
+  #138375	14	constant				sha2.sv	195	32	195	36	1'b1	1	BIN:1	3		000
+
+--- OURS (B) records 138333..138345 ('>' = the object)
+  #138333	13	constant				sha2.sv	192	32	192	36	1'b0	1	BIN:0	3		000
+  #138334	13	ref_obj	update_w_from_fifo		work@sha2.update_w_from_fifo	sha2.sv	192	11	192	29		0			work@sha2.update_w_from_fifo	000
+  #138335	11	if_else				sha2.sv	193	18	199	12						000
+  #138336	12	operation				sha2.sv	193	22	193	38		0				000
+  #138337	13	ref_obj	w_index		work@sha2.w_index	sha2.sv	193	22	193	29		0			work@sha2.w_index	000
+  #138338	13	constant				sha2.sv	193	33	193	38	4'd15	4	DEC:15	1		000
+> #138339	12	begin			work@sha2	sha2.sv	193	41	196	12					work@sha2	000
+  #138340	13	assignment				sha2.sv	194	11	194	31						000
+  #138341	14	ref_obj	FifoWait		work@sha2.FifoWait	sha2.sv	194	23	194	31		0			work@sha2.FifoWait	000
+  #138342	15	enum_const	FifoWait			sha2.sv	158	5	158	13						010
+  #138343	14	ref_obj	fifo_st_d		work@sha2.fifo_st_d	sha2.sv	194	11	194	20		0			work@sha2.fifo_st_d	000
+  #138344	13	assignment				sha2.sv	195	11	195	36						000
+  #138345	14	constant				sha2.sv	195	32	195	36	1'b1	1	BIN:1	3		000
+
+facets of this row (19098, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

@@ -1,0 +1,64 @@
+cluster N1862 (map 7 id kept; OPEN | ground B | site emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (TypeEmit.cpp, law elabVarRangeCallScopeDecl12) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|tok:id->id.id.id.id.id@in-typespec|under:operation
+row: surelog/default/Rggen  strict=differ:fullname(7)  records golden=314498 ours=312506
+object: #203768 (golden) / #202518 (ours)  type=ref_obj name=WIDTH STABLE
+  golden: work@rggen_bit_field.INITIAL_VALUE.WIDTH
+  ours:   work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field.INITIAL_VALUE.WIDTH
+  walk parents: operation < range < bit_typespec < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 203762..203774 ('>' = the object)
+  #203762	8	param_assign				rggen_bit_field.sv	5	33	5	63						000
+  #203763	9	constant				rggen_bit_field.sv	5	61	5	63	'b0	2	BIN:0	3		000
+  #203764	10	ref_typespec			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field		0	0	0	0		0			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field	000
+  #203765	11	bit_typespec				rggen_bit_field.sv	5	13	5	28						000
+  #203766	12	range				rggen_bit_field.sv	5	17	5	28						001
+  #203767	13	operation				rggen_bit_field.sv	5	18	5	25		0				001
+> #203768	14	ref_obj	WIDTH		<in>WIDTH	rggen_bit_field.sv	5	18	5	23		0			work@rggen_bit_field.INITIAL_VALUE.WIDTH	001
+  #203769	14	constant				rggen_bit_field.sv	5	24	5	25	1	64	UINT:1	9		001
+  #203770	13	constant				rggen_bit_field.sv	5	26	5	27	0	64	UINT:0	9		001
+  #203771	8	param_assign				rggen_bit_field.sv	6	33	6	76						000
+  #203772	9	constant				rggen_bit_field.sv	6	61	6	76	1	1	INT:1	7		000
+  #203773	10	ref_typespec			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field		0	0	0	0		0			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field	000
+  #203774	11	enum_typespec	rggen_rtl_pkg::rggen_sw_hw_access			rggen_rtl_pkg.sv	18	3	21	24						110
+
+--- OURS (B) records 202512..202524 ('>' = the object)
+  #202512	8	param_assign				rggen_bit_field.sv	5	33	5	63						000
+  #202513	9	constant				rggen_bit_field.sv	5	61	5	63	'b0	2	BIN:0	3		000
+  #202514	10	ref_typespec			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field		0	0	0	0		0			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field	000
+  #202515	11	bit_typespec				rggen_bit_field.sv	5	13	5	28						000
+  #202516	12	range				rggen_bit_field.sv	5	17	5	28						001
+  #202517	13	operation				rggen_bit_field.sv	5	18	5	25		0				001
+> #202518	14	ref_obj	WIDTH		<in>WIDTH	rggen_bit_field.sv	5	18	5	23		0			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field.INITIAL_VALUE.WIDTH	001
+  #202519	14	constant				rggen_bit_field.sv	5	24	5	25	1	64	UINT:1	9		001
+  #202520	13	constant				rggen_bit_field.sv	5	26	5	27	0	64	UINT:0	9		001
+  #202521	8	param_assign				rggen_bit_field.sv	6	33	6	76						000
+  #202522	9	constant				rggen_bit_field.sv	6	61	6	76	1	1	INT:1	7		000
+  #202523	10	ref_typespec			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field		0	0	0	0		0			work@rggen.u_block_0.g_register_13.g_bit_field_1.u_bit_field	000
+  #202524	11	enum_typespec	rggen_rtl_pkg::rggen_sw_hw_access			rggen_rtl_pkg.sv	18	3	21	24						110
+
+facets of this row (13500, first 25):
+  N1175 #466/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/476 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/481 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #501/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #661/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/671 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/676 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #696/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #2242/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/2252 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/2257 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #2277/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #15376/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/15386 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/15391 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #15411/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17669/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17679 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17684 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17704/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17850/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17860 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17865 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17885/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #18031/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]

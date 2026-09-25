@@ -1,0 +1,45 @@
+cluster N1963 (map 7 id kept; OPEN | ground A | site emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|tok:->id::|under:logic_typespec
+row: probe/default/r11u108repro__grid__f5__f5a20_ovr_pkgarr  strict=fullname  records golden=257 ours=257
+object: #8 (golden) / #8 (ours)  type=ref_typespec name= STABLE
+  golden: p::arr_t
+  ours:   p::p::arr_t
+  walk parents: logic_typespec(p::arr_t) < package(p) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2..14 ('>' = the object)
+  #2	2	logic_typespec	p::w_t			dut.sv	2	11	2	22						010
+  #3	3	range				dut.sv	2	17	2	22						001
+  #4	4	constant				dut.sv	2	18	2	19	1	64	UINT:1	9		001
+  #5	4	constant				dut.sv	2	20	2	21	0	64	UINT:0	9		001
+  #6	1	package	p	p	p::	dut.sv	1	1	4	11					p::	000
+  #7	2	logic_typespec	p::arr_t				0	0	0	0						010
+> #8	3	ref_typespec			<in>p::arr_t		0	0	0	0		0			p::arr_t	001
+  #9	4	logic_typespec				dut.sv	3	11	3	20						001
+  #10	5	ref_typespec					0	0	0	0		0				001
+  #11	6	logic_typespec				dut.sv	3	11	3	20						001
+  #12	7	ref_typespec					0	0	0	0		0				001
+  #13	8	logic_typespec	w_t			dut.sv	2	11	2	22						001
+  #14	9	ref_typespec			<in>w_t		0	0	0	0		0			w_t	001
+
+--- OURS (B) records 2..14 ('>' = the object)
+  #2	2	logic_typespec	p::w_t			dut.sv	2	11	2	22						010
+  #3	3	range				dut.sv	2	17	2	22						001
+  #4	4	constant				dut.sv	2	18	2	19	1	64	UINT:1	9		001
+  #5	4	constant				dut.sv	2	20	2	21	0	64	UINT:0	9		001
+  #6	1	package	p	p	p::	dut.sv	1	1	4	11					p::	000
+  #7	2	logic_typespec	p::arr_t				0	0	0	0						010
+> #8	3	ref_typespec			<in>p::arr_t		0	0	0	0		0			p::p::arr_t	001
+  #9	4	logic_typespec				dut.sv	3	11	3	20						001
+  #10	5	ref_typespec					0	0	0	0		0				001
+  #11	6	logic_typespec				dut.sv	3	11	3	20						001
+  #12	7	ref_typespec					0	0	0	0		0				001
+  #13	8	logic_typespec	w_t			dut.sv	2	11	2	22						001
+  #14	9	ref_typespec			<in>w_t		0	0	0	0		0			w_t	001
+
+facets of this row (6, first 25):
+  N1963 #8/8 ref_typespec  G[p::arr_t] O[p::p::arr_t]
+  N0738 #121/121 logic_typespec p::arr_t G[p::arr_t|] O[arr_t|]
+  N1963 #122/122 ref_typespec  G[p::arr_t] O[p::p::arr_t]
+  N0738 #157/157 logic_typespec p::arr_t G[p::arr_t|] O[arr_t|]
+  N1963 #158/158 ref_typespec  G[p::arr_t] O[p::p::arr_t]
+  N1963 #194/194 ref_typespec  G[p::arr_t] O[p::p::arr_t]

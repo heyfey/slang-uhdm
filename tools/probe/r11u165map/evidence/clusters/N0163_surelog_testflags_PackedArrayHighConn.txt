@@ -1,0 +1,45 @@
+cluster N0163 (map 7 id kept; OPEN (map 7 gave it to r11u152; pass 152 left it) | ground B | site buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < emitPackage (ParamEmit.cpp, law enumAliasEndAtDimOrInitDecl158) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)): fullname|ref_typespec|tok:id->id|under:enum_typespec
+row: surelog/testflags/PackedArrayHighConn  strict=differ:fullname(6)  records golden=175 ours=175
+object: #19 (golden) / #19 (ours)  type=ref_typespec name= STABLE
+  golden: work@prim_pad_wrapper.prim_pad_wrapper_pkg::pad_type_e
+  ours:   work@dut.prim_pad_wrapper_pkg::pad_type_e
+  walk parents: enum_typespec(prim_pad_wrapper_pkg::pad_type_e) < package(prim_pad_wrapper_pkg) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 13..25 ('>' = the object)
+  #13	1	package	prim_pad_wrapper_pkg	prim_pad_wrapper_pkg	prim_pad_wrapper_pkg::	dut.sv	1	1	6	34					prim_pad_wrapper_pkg::	000
+  #14	2	logic_typespec	prim_pad_wrapper_pkg::pad_pok_t			dut.sv	5	11	5	22						010
+  #15	3	range				dut.sv	5	17	5	22						001
+  #16	4	constant				dut.sv	5	18	5	19	7	64	UINT:7	9		001
+  #17	4	constant				dut.sv	5	20	5	21	0	64	UINT:0	9		001
+  #18	2	enum_typespec	prim_pad_wrapper_pkg::pad_type_e			dut.sv	2	3	4	16						010
+> #19	3	ref_typespec			<in>prim_pad_wrapper_pkg::pad_type_e		0	0	0	0		0			work@prim_pad_wrapper.prim_pad_wrapper_pkg::pad_type_e	001
+  #20	4	logic_typespec				dut.sv	2	16	2	27						001
+  #21	5	range				dut.sv	2	22	2	27						001
+  #22	6	constant				dut.sv	2	23	2	24	2	64	UINT:2	9		001
+  #23	6	constant				dut.sv	2	25	2	26	0	64	UINT:0	9		001
+  #24	3	enum_const	BidirStd			dut.sv	3	5	3	20						001
+  #25	1	module_inst		work@dut	work@dut	dut.sv	12	1	18	16					work@dut	000
+
+--- OURS (B) records 13..25 ('>' = the object)
+  #13	1	package	prim_pad_wrapper_pkg	prim_pad_wrapper_pkg	prim_pad_wrapper_pkg::	dut.sv	1	1	6	34					prim_pad_wrapper_pkg::	000
+  #14	2	logic_typespec	prim_pad_wrapper_pkg::pad_pok_t			dut.sv	5	11	5	22						010
+  #15	3	range				dut.sv	5	17	5	22						001
+  #16	4	constant				dut.sv	5	18	5	19	7	64	UINT:7	9		001
+  #17	4	constant				dut.sv	5	20	5	21	0	64	UINT:0	9		001
+  #18	2	enum_typespec	prim_pad_wrapper_pkg::pad_type_e			dut.sv	2	3	4	16						010
+> #19	3	ref_typespec			<in>prim_pad_wrapper_pkg::pad_type_e		0	0	0	0		0			work@dut.prim_pad_wrapper_pkg::pad_type_e	001
+  #20	4	logic_typespec				dut.sv	2	16	2	27						001
+  #21	5	range				dut.sv	2	22	2	27						001
+  #22	6	constant				dut.sv	2	23	2	24	2	64	UINT:2	9		001
+  #23	6	constant				dut.sv	2	25	2	26	0	64	UINT:0	9		001
+  #24	3	enum_const	BidirStd			dut.sv	3	5	3	20						001
+  #25	1	module_inst		work@dut	work@dut	dut.sv	12	1	18	16					work@dut	000
+
+facets of this row (6, first 25):
+  N0163 #19/19 ref_typespec  G[work@prim_pad_wrapper.prim_pad_wrapper_pkg::pad_type_e] O[work@dut.prim_pad_wrapper_pkg::pad_type_e]
+  N0163 #50/50 ref_typespec  G[work@prim_pad_wrapper.prim_pad_wrapper_pkg::pad_type_e] O[work@dut.prim_pad_wrapper_pkg::pad_type_e]
+  N0163 #81/81 ref_typespec  G[work@prim_pad_wrapper.prim_pad_wrapper_pkg::pad_type_e] O[work@dut.prim_pad_wrapper_pkg::pad_type_e]
+  N1115 #104/104 bit_select DioPadBank G[work@dut.u_dio_pad.pad_pok.DioPadBank] O[work@dut.u_dio_pad.pok_i.pad_pok.DioPadBank]
+  N0163 #133/133 ref_typespec  G[work@prim_pad_wrapper.prim_pad_wrapper_pkg::pad_type_e] O[work@dut.prim_pad_wrapper_pkg::pad_type_e]
+  N0163 #147/147 ref_typespec  G[work@prim_pad_wrapper.prim_pad_wrapper_pkg::pad_type_e] O[work@dut.prim_pad_wrapper_pkg::pad_type_e]

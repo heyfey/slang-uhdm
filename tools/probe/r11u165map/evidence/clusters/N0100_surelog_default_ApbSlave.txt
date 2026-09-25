@@ -1,0 +1,64 @@
+cluster N0100 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u150map pin]): span|bit_typespec|line+col+endline+endcol|under:ref_typespec
+row: surelog/default/ApbSlave  strict=differ:line(26)  records golden=3678 ours=3682
+object: #539 (golden) / #543 (ours)  type=bit_typespec name= 
+  golden: 58:19:58:22
+  ours:   129:10:129:13
+  walk parents: ref_typespec < bit_var < function(fail) < class_defn(svunit_testcase)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 533..545 ('>' = the object)
+  #533	6	ref_typespec			svunit_pkg::svunit_testcase::get_error_count		0	0	0	0		0			svunit_pkg::svunit_testcase::get_error_count	000
+  #534	7	integer_typespec				svunit_testcase.sv	55	19	55	26						000
+  #535	4	task	give_up		svunit_pkg::svunit_testcase::give_up	svunit_testcase.sv	56	3	56	24					svunit_pkg::svunit_testcase::give_up	000
+  #536	4	function	fail		svunit_pkg::svunit_testcase::fail	svunit_testcase.sv	58	3	58	9					svunit_pkg::svunit_testcase::fail	000
+  #537	5	bit_var			svunit_pkg::svunit_testcase::fail	svunit_testcase.sv	58	19	58	22		0			svunit_pkg::svunit_testcase::fail	000
+  #538	6	ref_typespec			svunit_pkg::svunit_testcase::fail		0	0	0	0		0			svunit_pkg::svunit_testcase::fail	000
+> #539	7	bit_typespec				svunit_testcase.sv	58	19	58	22						000
+  #540	5	io_decl	c			svunit_testcase.sv	58	35	58	36						000
+  #541	6	ref_typespec			svunit_pkg::svunit_testcase::fail::c		0	0	0	0		0			svunit_pkg::svunit_testcase::fail::c	000
+  #542	7	string_typespec				svunit_testcase.sv	58	28	58	34						000
+  #543	5	io_decl	b			svunit_testcase.sv	58	42	58	43						000
+  #544	6	ref_typespec			svunit_pkg::svunit_testcase::fail::b		0	0	0	0		0			svunit_pkg::svunit_testcase::fail::b	000
+  #545	7	bit_typespec				svunit_testcase.sv	58	38	58	41						000
+
+--- OURS (B) records 537..549 ('>' = the object)
+  #537	6	ref_typespec			svunit_pkg::svunit_testcase::get_error_count		0	0	0	0		0			svunit_pkg::svunit_testcase::get_error_count	000
+  #538	7	integer_typespec				svunit_testcase.sv	99	10	99	17						000
+  #539	4	task	give_up		svunit_pkg::svunit_testcase::give_up	svunit_testcase.sv	56	3	56	24					svunit_pkg::svunit_testcase::give_up	000
+  #540	4	function	fail		svunit_pkg::svunit_testcase::fail	svunit_testcase.sv	58	3	58	9					svunit_pkg::svunit_testcase::fail	000
+  #541	5	bit_var			svunit_pkg::svunit_testcase::fail	svunit_testcase.sv	129	10	129	13		0			svunit_pkg::svunit_testcase::fail	000
+  #542	6	ref_typespec			svunit_pkg::svunit_testcase::fail		0	0	0	0		0			svunit_pkg::svunit_testcase::fail	000
+> #543	7	bit_typespec				svunit_testcase.sv	129	10	129	13						000
+  #544	5	io_decl	c			svunit_testcase.sv	129	43	129	44						000
+  #545	6	ref_typespec			svunit_pkg::svunit_testcase::fail::c		0	0	0	0		0			svunit_pkg::svunit_testcase::fail::c	000
+  #546	7	string_typespec				svunit_testcase.sv	129	36	129	42						000
+  #547	5	io_decl	b			svunit_testcase.sv	129	50	129	51						000
+  #548	6	ref_typespec			svunit_pkg::svunit_testcase::fail::b		0	0	0	0		0			svunit_pkg::svunit_testcase::fail::b	000
+  #549	7	bit_typespec				svunit_testcase.sv	129	46	129	49						000
+
+facets of this row (241, first 25):
+  N0289 #-1/372 string_var svunit_version G[] O[4 objs]
+  N0064 #4/4 include_file_info  G[375:12:375:32] O[373:12:373:32]
+  N0064 #5/5 include_file_info  G[593:12:593:33] O[587:12:587:33]
+  N0064 #6/6 include_file_info  G[710:12:710:34] O[698:12:698:34]
+  N0064 #7/7 include_file_info  G[813:12:813:32] O[797:12:797:32]
+  N0714 #34/34 begin  G[103:3:79:2] O[103:3:79:43]
+  N0714 #163/163 begin  G[103:3:195:2] O[103:3:195:18]
+  N0711 #173/173 sys_func_call $sformatf G[103:50:106:16] O[103:50:195:16]
+  N0705 #175/175 ref_obj success_str G[104:5:104:16] O[193:5:193:16]
+  N0726 #176/176 operation  G[105:5:105:27] O[194:5:194:27]
+  N0055 #177/177 ref_obj test_count G[105:5:105:15] O[194:5:194:15]
+  N0055 #178/178 ref_obj error_count G[105:16:105:27] O[194:16:194:27]
+  N0705 #179/179 ref_obj test_count G[106:5:106:15] O[195:5:195:15]
+  N0711 #277/277 sys_func_call $sformatf G[103:50:106:30] O[103:50:109:30]
+  N0705 #279/279 ref_obj success_str G[104:5:104:16] O[107:5:107:16]
+  N0705 #280/280 ref_obj pass_cnt G[105:5:105:13] O[108:5:108:13]
+  N0715 #281/281 hier_path list_of_testcases.size G[106:5:106:29] O[109:5:109:29]
+  N0718 #282/282 ref_obj list_of_testcases G[106:5:106:22] O[109:5:109:22]
+  N0717 #283/283 method_func_call size G[106:23:106:27] O[109:23:109:27]
+  N0711 #364/364 sys_func_call $sformatf G[103:50:107:20] O[103:50:97:20]
+  N0705 #366/366 ref_obj success_str G[104:5:104:16] O[94:5:94:16]
+  N0705 #367/367 ref_obj pass_cnt G[105:5:105:13] O[95:5:95:13]
+  N0715 #368/368 hier_path list_of_suites.size G[106:5:106:26] O[96:5:96:26]
+  N0718 #369/369 ref_obj list_of_suites G[106:5:106:19] O[96:5:96:19]
+  N0717 #370/370 method_func_call size G[106:20:106:24] O[96:20:96:24]

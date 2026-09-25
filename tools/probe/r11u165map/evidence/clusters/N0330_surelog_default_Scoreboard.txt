@@ -1,0 +1,64 @@
+cluster N0330 (map 7 id kept; COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | ground A | site emitExpr (ExprEmit.cpp, law srlgTimeLitVal) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)): span|constant|col+endcol|under:method_func_call
+row: surelog/default/Scoreboard  strict=differ:line(187)  records golden=269656 ours=268952
+object: #26958 (golden) / #26967 (ours)  type=constant name= 
+  golden: 214:25:214:137
+  ours:   214:180:214:292
+  walk parents: method_func_call(uvm_report_error) < if_stmt < begin < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 26952..26964 ('>' = the object)
+  #26952	11	method_func_call	get_type_name			uvm_message_defines.svh	212	69	212	82		0				000
+  #26953	10	constant				uvm_message_defines.svh	213	9	213	64	"' is not a sequence. Cannot add to sequence library '"	424	STRING:' is not a sequence. Cannot add to sequence library '	6		000
+  #26954	10	ref_obj	name		uvm_pkg::uvm_sequence_library::m_check::name	uvm_message_defines.svh	213	65	213	69		0			uvm_pkg::uvm_sequence_library::m_check::name	000
+  #26955	10	constant				uvm_message_defines.svh	214	9	214	12	"'"	8	STRING:'	6		000
+  #26956	9	ref_obj	UVM_NONE		uvm_pkg::uvm_sequence_library::m_check::UVM_NONE	uvm_message_defines.svh	214	15	214	23		0			uvm_pkg::uvm_sequence_library::m_check::UVM_NONE	000
+  #26957	10	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+> #26958	9	constant				uvm_message_defines.svh	214	25	214	137	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/seq/uvm_sequence_library.svh"	880	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/seq/uvm_sequence_library.svh	6		000
+  #26959	9	constant				uvm_message_defines.svh	214	139	214	142	546	64	UINT:546	9		000
+  #26960	9	constant				uvm_message_defines.svh	214	144	214	146	""	0	STRING:	6		000
+  #26961	9	constant				uvm_message_defines.svh	214	148	214	149	1	64	UINT:1	9		000
+  #26962	9	ref_obj	top		uvm_pkg::uvm_sequence_library::m_check::top	uvm_message_defines.svh	212	8	212	11		0			uvm_pkg::uvm_sequence_library::m_check::top	000
+  #26963	6	return_stmt				uvm_sequence_library.svh	550	6	550	12						000
+  #26964	7	constant				uvm_sequence_library.svh	550	13	550	14	0	64	UINT:0	9		000
+
+--- OURS (B) records 26961..26973 ('>' = the object)
+  #26961	11	method_func_call	get_type_name			uvm_message_defines.svh	212	69	212	82		0				000
+  #26962	10	constant				uvm_message_defines.svh	548	29	548	84	"' is not a sequence. Cannot add to sequence library '"	424	STRING:' is not a sequence. Cannot add to sequence library '	6		000
+  #26963	10	ref_obj	name		uvm_pkg::uvm_sequence_library::m_check::name	uvm_message_defines.svh	548	85	548	89		0			uvm_pkg::uvm_sequence_library::m_check::name	000
+  #26964	10	constant				uvm_message_defines.svh	549	29	549	32	"'"	8	STRING:'	6		000
+  #26965	9	ref_obj	UVM_NONE		uvm_pkg::uvm_sequence_library::m_check::UVM_NONE	uvm_message_defines.svh	214	15	214	23		0			uvm_pkg::uvm_sequence_library::m_check::UVM_NONE	000
+  #26966	10	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+> #26967	9	constant				uvm_message_defines.svh	214	180	214	292	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/seq/uvm_sequence_library.svh"	880	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/seq/uvm_sequence_library.svh	6		000
+  #26968	9	constant				uvm_message_defines.svh	214	294	214	297	546	64	UINT:546	9		000
+  #26969	9	constant				uvm_message_defines.svh	214	144	214	146	""	0	STRING:	6		000
+  #26970	9	constant				uvm_message_defines.svh	214	148	214	149	1	64	UINT:1	9		000
+  #26971	9	ref_obj	top		uvm_pkg::uvm_sequence_library::m_check::top	uvm_message_defines.svh	212	8	212	11		0			uvm_pkg::uvm_sequence_library::m_check::top	000
+  #26972	6	return_stmt				uvm_sequence_library.svh	550	6	550	12						000
+  #26973	7	constant				uvm_sequence_library.svh	550	13	550	14	0	64	UINT:0	9		000
+
+facets of this row (17246, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

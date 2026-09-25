@@ -1,0 +1,64 @@
+cluster N0517 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site emitSyntaxExpr (TypeEmit.cpp, law syntaxMultiConcat) < operator() (ModuleEmit.cpp, law defGenElemIpsVarSel112) < emitDefGenStmts (ModuleEmit.cpp, law genRegionCondNoEnumBind) [r11u150map pin]): span|sys_func_call|endcol|under:cont_assign
+row: uhdm2rtlil/testflags/ibex_multdiv_fast  strict=differ:endcol(26)  records golden=11748 ours=11748
+object: #7477 (golden) / #7477 (ours)  type=sys_func_call name=$unsigned 
+  golden: 164:29:164:38
+  ours:   164:29:164:49
+  walk parents: cont_assign < named_begin(gen_mult_single_cycle) < gen_if_else < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 7471..7483 ('>' = the object)
+  #7471	7	sys_func_call	$signed			ibex_multdiv_fast.sv	162	49	162	56		0				000
+  #7472	8	ref_obj	summand2		work@ibex_multdiv_fast.gen_mult_single_cycle.summand2	ibex_multdiv_fast.sv	162	57	162	65		0			work@ibex_multdiv_fast.gen_mult_single_cycle.summand2	000
+  #7473	6	sys_func_call	$signed			ibex_multdiv_fast.sv	162	69	162	76		0				000
+  #7474	7	ref_obj	summand3		work@ibex_multdiv_fast.gen_mult_single_cycle.summand3	ibex_multdiv_fast.sv	162	77	162	85		0			work@ibex_multdiv_fast.gen_mult_single_cycle.summand3	000
+  #7475	5	ref_obj	mac_res_signed		work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_signed	ibex_multdiv_fast.sv	162	12	162	26		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_signed	000
+  #7476	4	cont_assign				ibex_multdiv_fast.sv	164	12	164	49						000
+> #7477	5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	164	29	164	38		0				000
+  #7478	6	ref_obj	mult1_res		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res	ibex_multdiv_fast.sv	164	39	164	48		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res	000
+  #7479	5	ref_obj	mult1_res_uns		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res_uns	ibex_multdiv_fast.sv	164	12	164	25		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res_uns	000
+  #7480	4	cont_assign				ibex_multdiv_fast.sv	165	12	165	54						000
+  #7481	5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	165	29	165	38		0				000
+  #7482	6	ref_obj	mac_res_signed		work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_signed	ibex_multdiv_fast.sv	165	39	165	53		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_signed	000
+  #7483	5	ref_obj	mac_res_ext		work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_ext	ibex_multdiv_fast.sv	165	12	165	23		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_ext	000
+
+--- OURS (B) records 7471..7483 ('>' = the object)
+  #7471	7	sys_func_call	$signed			ibex_multdiv_fast.sv	162	49	162	66		0				000
+  #7472	8	ref_obj	summand2		work@ibex_multdiv_fast.gen_mult_single_cycle.summand2	ibex_multdiv_fast.sv	162	57	162	65		0			work@ibex_multdiv_fast.gen_mult_single_cycle.summand2	000
+  #7473	6	sys_func_call	$signed			ibex_multdiv_fast.sv	162	69	162	86		0				000
+  #7474	7	ref_obj	summand3		work@ibex_multdiv_fast.gen_mult_single_cycle.summand3	ibex_multdiv_fast.sv	162	77	162	85		0			work@ibex_multdiv_fast.gen_mult_single_cycle.summand3	000
+  #7475	5	ref_obj	mac_res_signed		work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_signed	ibex_multdiv_fast.sv	162	12	162	26		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_signed	000
+  #7476	4	cont_assign				ibex_multdiv_fast.sv	164	12	164	49						000
+> #7477	5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	164	29	164	49		0				000
+  #7478	6	ref_obj	mult1_res		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res	ibex_multdiv_fast.sv	164	39	164	48		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res	000
+  #7479	5	ref_obj	mult1_res_uns		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res_uns	ibex_multdiv_fast.sv	164	12	164	25		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res_uns	000
+  #7480	4	cont_assign				ibex_multdiv_fast.sv	165	12	165	54						000
+  #7481	5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	165	29	165	54		0				000
+  #7482	6	ref_obj	mac_res_signed		work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_signed	ibex_multdiv_fast.sv	165	39	165	53		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_signed	000
+  #7483	5	ref_obj	mac_res_ext		work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_ext	ibex_multdiv_fast.sv	165	12	165	23		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_ext	000
+
+facets of this row (37, first 25):
+  N0049 #7435/7435 sys_func_call $signed G[158:24:158:31] O[158:24:158:59]
+  N0049 #7439/7439 sys_func_call $signed G[158:62:158:69] O[158:62:158:97]
+  N0049 #7446/7446 sys_func_call $signed G[159:24:159:31] O[159:24:159:59]
+  N0049 #7450/7450 sys_func_call $signed G[159:62:159:69] O[159:62:159:97]
+  N0049 #7457/7457 sys_func_call $signed G[160:24:160:31] O[160:24:160:59]
+  N0049 #7461/7461 sys_func_call $signed G[160:62:160:69] O[160:62:160:97]
+  N0049 #7469/7469 sys_func_call $signed G[162:29:162:36] O[162:29:162:46]
+  N0049 #7471/7471 sys_func_call $signed G[162:49:162:56] O[162:49:162:66]
+  N0049 #7473/7473 sys_func_call $signed G[162:69:162:76] O[162:69:162:86]
+  N0517 #7477/7477 sys_func_call $unsigned G[164:29:164:38] O[164:29:164:49]
+  N0517 #7481/7481 sys_func_call $unsigned G[165:29:165:38] O[165:29:165:54]
+  N0049 #7729/7729 sys_func_call $signed G[278:9:278:16] O[278:9:278:37]
+  N0049 #7733/7733 sys_func_call $signed G[278:40:278:47] O[278:40:278:68]
+  N0049 #7737/7737 sys_func_call $signed G[278:71:278:78] O[278:71:278:85]
+  N0517 #7741/7741 sys_func_call $unsigned G[279:29:279:38] O[279:29:279:54]
+  N0545 #11233/11233 enum_const ALBL G[ibex_multdiv_fast.sv 269:7:269:11] O[ 0:0:0:0]
+  N0546 #11233/11233 enum_const ALBL G[269:7:269:11] O[0:0:0:0]
+  N0545 #11259/11259 enum_const ALBH G[ibex_multdiv_fast.sv 269:13:269:17] O[ 0:0:0:0]
+  N0546 #11259/11259 enum_const ALBH G[269:13:269:17] O[0:0:0:0]
+  N0545 #11263/11263 enum_const ALBH G[ibex_multdiv_fast.sv 269:13:269:17] O[ 0:0:0:0]
+  N0546 #11263/11263 enum_const ALBH G[269:13:269:17] O[0:0:0:0]
+  N0545 #11318/11318 enum_const AHBL G[ibex_multdiv_fast.sv 269:19:269:23] O[ 0:0:0:0]
+  N0546 #11318/11318 enum_const AHBL G[269:19:269:23] O[0:0:0:0]
+  N0545 #11322/11322 enum_const AHBL G[ibex_multdiv_fast.sv 269:19:269:23] O[ 0:0:0:0]
+  N0546 #11322/11322 enum_const AHBL G[269:19:269:23] O[0:0:0:0]

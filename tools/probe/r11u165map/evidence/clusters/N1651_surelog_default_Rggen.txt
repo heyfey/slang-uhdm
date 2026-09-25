@@ -1,0 +1,64 @@
+cluster N1651 (map 7 id kept; OPEN | ground A | site emitParameters (ParamEmit.cpp, law modDefImportShape) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|tok:id->id.id.id.id[n]|under:parameter
+row: surelog/default/Rggen  strict=differ:fullname(7)  records golden=314498 ours=312506
+object: #22445 (golden) / #22445 (ours)  type=ref_typespec name= OUT
+  golden: work@rggen_register_if.ADDRESS_WIDTH
+  ours:   work@rggen.u_block_0.u_adapter.register_if[0].ADDRESS_WIDTH
+  walk parents: parameter(ADDRESS_WIDTH) < param_assign < interface_inst(register_if[0]) < interface_array(register_if)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 22439..22451 ('>' = the object)
+  #22439	12	constant				rggen_register_if.sv	17	24	17	25	0	64	UINT:0	9		001
+  #22440	8	param_assign				rggen_register_if.sv	2	17	2	35						000
+  #22441	9	constant				rggen_register_if.sv	2	33	2	35	16	32	UINT:16	9		000
+  #22442	10	ref_typespec			work@rggen.u_block_0.u_adapter.register_if[0]		0	0	0	0		0			work@rggen.u_block_0.u_adapter.register_if[0]	000
+  #22443	11	int_typespec				rggen_register_if.sv	2	13	2	16						000
+  #22444	9	parameter	ADDRESS_WIDTH		work@rggen_register_if.ADDRESS_WIDTH	rggen_register_if.sv	2	17	2	30		0	UINT:16		work@rggen_register_if.ADDRESS_WIDTH	000
+> #22445	10	ref_typespec			work@rggen_register_if.ADDRESS_WIDTH		0	0	0	0		0			work@rggen_register_if.ADDRESS_WIDTH	000
+  #22446	11	int_typespec				rggen_register_if.sv	2	13	2	16						000
+  #22447	8	param_assign				rggen_register_if.sv	3	17	3	35						000
+  #22448	9	constant				rggen_register_if.sv	3	33	3	35	32	32	UINT:32	9		000
+  #22449	10	ref_typespec			work@rggen.u_block_0.u_adapter.register_if[0]		0	0	0	0		0			work@rggen.u_block_0.u_adapter.register_if[0]	000
+  #22450	11	int_typespec				rggen_register_if.sv	3	13	3	16						000
+  #22451	9	parameter	BUS_WIDTH		work@rggen_register_if.BUS_WIDTH	rggen_register_if.sv	3	17	3	26		0	UINT:32		work@rggen_register_if.BUS_WIDTH	000
+
+--- OURS (B) records 22439..22451 ('>' = the object)
+  #22439	12	constant				rggen_register_if.sv	17	24	17	25	0	64	UINT:0	9		001
+  #22440	8	param_assign				rggen_register_if.sv	2	17	2	35						000
+  #22441	9	constant				rggen_register_if.sv	2	33	2	35	16	32	UINT:16	9		000
+  #22442	10	ref_typespec			work@rggen.u_block_0.u_adapter.register_if[0]		0	0	0	0		0			work@rggen.u_block_0.u_adapter.register_if[0]	000
+  #22443	11	int_typespec				rggen_register_if.sv	2	13	2	16						000
+  #22444	9	parameter	ADDRESS_WIDTH		work@rggen.u_block_0.u_adapter.register_if[0].ADDRESS_WIDTH	rggen_register_if.sv	2	17	2	30		0	UINT:16		work@rggen.u_block_0.u_adapter.register_if[0].ADDRESS_WIDTH	000
+> #22445	10	ref_typespec			work@rggen.u_block_0.u_adapter.register_if[0].ADDRESS_WIDTH		0	0	0	0		0			work@rggen.u_block_0.u_adapter.register_if[0].ADDRESS_WIDTH	000
+  #22446	11	int_typespec				rggen_register_if.sv	2	13	2	16						000
+  #22447	8	param_assign				rggen_register_if.sv	3	17	3	35						000
+  #22448	9	constant				rggen_register_if.sv	3	33	3	35	32	32	UINT:32	9		000
+  #22449	10	ref_typespec			work@rggen.u_block_0.u_adapter.register_if[0]		0	0	0	0		0			work@rggen.u_block_0.u_adapter.register_if[0]	000
+  #22450	11	int_typespec				rggen_register_if.sv	3	13	3	16						000
+  #22451	9	parameter	BUS_WIDTH		work@rggen.u_block_0.u_adapter.register_if[0].BUS_WIDTH	rggen_register_if.sv	3	17	3	26		0	UINT:32		work@rggen.u_block_0.u_adapter.register_if[0].BUS_WIDTH	000
+
+facets of this row (13500, first 25):
+  N1175 #466/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/476 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/481 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #501/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #661/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/671 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/676 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #696/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #2242/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/2252 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/2257 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #2277/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #15376/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/15386 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/15391 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #15411/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17669/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17679 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17684 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17704/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17850/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17860 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17865 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17885/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #18031/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]

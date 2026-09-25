@@ -1,0 +1,64 @@
+cluster N1016 (map 7 id kept; OPEN | ground A | site emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|tok:id@id.id.id::id.id.->id::id::@in-typespec|under:hier_path
+row: surelog/default/FuncStructVal  strict=differ:endcol(207)  records golden=18222 ours=17934
+object: #17220 (golden) / #16932 (ours)  type=ref_obj name=NrNonIdempotentRules TAIL
+  golden: work@top.CVA6Cfg.config_pkg::cva6_cfg_t.NonIdemPotenceEn.NrNonIdempotentRules
+  ours:   build_config_pkg::build_config::NrNonIdempotentRules
+  walk parents: hier_path(CVA6Cfg.NrNonIdempotentRules) < operation < typespec_member(NonIdemPotenceEn) < struct_typespec(config_pkg::cva6_cfg_t)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 17214..17226 ('>' = the object)
+  #17214	5	typespec_member	NonIdemPotenceEn			dut.sv	372	34	372	50						001
+  #17215	6	ref_typespec			<in>config_pkg::cva6_cfg_t.NonIdemPotenceEn		0	0	0	0		0			work@top.CVA6Cfg.config_pkg::cva6_cfg_t.NonIdemPotenceEn	001
+  #17216	7	bit_typespec				dut.sv	372	5	372	8						001
+  #17217	6	operation				dut.sv	568	28	568	87		0				001
+  #17218	7	hier_path	CVA6Cfg.NrNonIdempotentRules			dut.sv	568	28	568	56		0				001
+  #17219	8	ref_obj	CVA6Cfg			dut.sv	568	28	568	35		0				001
+> #17220	8	ref_obj	NrNonIdempotentRules		<in>config_pkg::cva6_cfg_t.NonIdemPotenceEn.NrNonIdempotentRules	dut.sv	568	36	568	56		0			work@top.CVA6Cfg.config_pkg::cva6_cfg_t.NonIdemPotenceEn.NrNonIdempotentRules	001
+  #17221	7	hier_path	CVA6Cfg.NonIdempotentLength			dut.sv	568	60	568	87		0				001
+  #17222	8	ref_obj	CVA6Cfg			dut.sv	568	60	568	67		0				001
+  #17223	8	ref_obj	NonIdempotentLength		<in>config_pkg::cva6_cfg_t.NonIdemPotenceEn.NonIdempotentLength	dut.sv	568	68	568	87		0			work@top.CVA6Cfg.config_pkg::cva6_cfg_t.NonIdemPotenceEn.NonIdempotentLength	001
+  #17224	6	operation				dut.sv	568	28	568	87		0				001
+  #17225	7	hier_path	CVA6Cfg.NrNonIdempotentRules			dut.sv	568	28	568	56		0				001
+  #17226	8	ref_obj	CVA6Cfg			dut.sv	568	28	568	35		0				001
+
+--- OURS (B) records 16926..16938 ('>' = the object)
+  #16926	5	typespec_member	NonIdemPotenceEn			dut.sv	372	34	372	50						001
+  #16927	6	ref_typespec			<in>config_pkg::cva6_cfg_t.NonIdemPotenceEn		0	0	0	0		0			config_pkg::config_pkg::cva6_cfg_t::NonIdemPotenceEn	001
+  #16928	7	bit_typespec				dut.sv	372	5	372	8						001
+  #16929	6	operation				dut.sv	568	28	568	87		0				001
+  #16930	7	hier_path	CVA6Cfg.NrNonIdempotentRules			dut.sv	568	28	568	56		0				001
+  #16931	8	ref_obj	CVA6Cfg			dut.sv	568	28	568	35		0				001
+> #16932	8	ref_obj	NrNonIdempotentRules		build_config_pkg::build_config::NrNonIdempotentRules	dut.sv	568	36	568	56		0			build_config_pkg::build_config::NrNonIdempotentRules	001
+  #16933	7	hier_path	CVA6Cfg.NonIdempotentLength			dut.sv	568	60	568	87		0				001
+  #16934	8	ref_obj	CVA6Cfg			dut.sv	568	60	568	67		0				001
+  #16935	8	ref_obj	NonIdempotentLength		build_config_pkg::build_config::NonIdempotentLength	dut.sv	568	68	568	87		0			build_config_pkg::build_config::NonIdempotentLength	001
+  #16936	6	operation				dut.sv	568	28	568	87		0				001
+  #16937	7	hier_path	CVA6Cfg.NrNonIdempotentRules			dut.sv	568	28	568	56		0				001
+  #16938	8	ref_obj	CVA6Cfg			dut.sv	568	28	568	35		0				001
+
+facets of this row (2261, first 25):
+  N0891 #7975/-1 operation  G[4 objs] O[]
+  N0891 #7979/-1 operation  G[4 objs] O[]
+  N0891 #7992/-1 operation  G[4 objs] O[]
+  N0891 #7996/-1 operation  G[4 objs] O[]
+  N0891 #8014/-1 operation  G[4 objs] O[]
+  N0891 #8018/-1 operation  G[4 objs] O[]
+  N0891 #8031/-1 operation  G[4 objs] O[]
+  N0891 #8035/-1 operation  G[4 objs] O[]
+  N0891 #8680/-1 operation  G[4 objs] O[]
+  N0891 #8684/-1 operation  G[4 objs] O[]
+  N0891 #8697/-1 operation  G[4 objs] O[]
+  N0891 #8701/-1 operation  G[4 objs] O[]
+  N0891 #8719/-1 operation  G[4 objs] O[]
+  N0891 #8723/-1 operation  G[4 objs] O[]
+  N0891 #8736/-1 operation  G[4 objs] O[]
+  N0891 #8740/-1 operation  G[4 objs] O[]
+  N0891 #9379/-1 operation  G[4 objs] O[]
+  N0891 #9383/-1 operation  G[4 objs] O[]
+  N0891 #9396/-1 operation  G[4 objs] O[]
+  N0891 #9400/-1 operation  G[4 objs] O[]
+  N0891 #9418/-1 operation  G[4 objs] O[]
+  N0891 #9422/-1 operation  G[4 objs] O[]
+  N0891 #9435/-1 operation  G[4 objs] O[]
+  N0891 #9439/-1 operation  G[4 objs] O[]
+  N0891 #10326/-1 operation  G[4 objs] O[]

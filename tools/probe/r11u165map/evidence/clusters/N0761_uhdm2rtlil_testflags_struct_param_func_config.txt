@@ -1,0 +1,64 @@
+cluster N0761 (map 7 id kept; OPEN | ground B | site buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law tpAnonAggParamTsNoStamp47) < patchParamTypespecs (ParamEmit.cpp, law paramCloneImportedCopy) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|tok:->id@id.id.|under:typespec_member
+row: uhdm2rtlil/testflags/struct_param_func_config  strict=differ:line(5)  records golden=2652 ours=2394
+object: #1830 (golden) / #1638 (ours)  type=ref_typespec name= STABLE
+  golden: p::cfg_t.u
+  ours:   work@struct_param_func_config.Cfg.p::cfg_t.u
+  walk parents: typespec_member(u) < struct_typespec(p::cfg_t) < ref_typespec < constant
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1824..1836 ('>' = the object)
+  #1824	6	constant					0	0	0	0	14	64	INT:14	7		001
+  #1825	2	param_assign				dut.sv	65	19	65	29						000
+  #1826	3	constant				dut.sv	65	25	65	29	66'b000000000000000000000000000001111000000000000000000000000000001110	66	BIN:000000000000000000000000000001111000000000000000000000000000001110	3		000
+  #1827	4	ref_typespec			work@struct_param_func_config		0	0	0	0		0			work@struct_param_func_config	000
+  #1828	5	struct_typespec	p::cfg_t			dut.sv	21	11	24	4						110
+  #1829	6	typespec_member	u			dut.sv	22	12	22	13						001
+> #1830	7	ref_typespec			<in>p::cfg_t.u		0	0	0	0		0			p::cfg_t.u	001
+  #1831	8	struct_typespec	p::ucfg_t			dut.sv	32	40	32	46						001
+  #1832	9	typespec_member	a			dut.sv	17	18	17	19						001
+  #1833	10	ref_typespec			<in>p::ucfg_t.a		0	0	0	0		0			p::cfg_t.u.p::ucfg_t.a	001
+  #1834	11	int_typespec				dut.sv	17	5	17	17						001
+  #1835	10	constant				dut.sv	27	11	27	12	7	64	UINT:7	9		001
+  #1836	10	constant				dut.sv	27	11	27	12	7	64	UINT:7	9		001
+
+--- OURS (B) records 1632..1644 ('>' = the object)
+  #1632	6	constant				dut.sv	39	24	39	32	14	64	INT:14	7		001
+  #1633	2	param_assign				dut.sv	65	19	65	29						000
+  #1634	3	constant				dut.sv	65	25	65	28	66'b000000000000000000000000000001111000000000000000000000000000001110	66	BIN:000000000000000000000000000001111000000000000000000000000000001110	3		000
+  #1635	4	ref_typespec			work@struct_param_func_config		0	0	0	0		0			work@struct_param_func_config	000
+  #1636	5	struct_typespec	p::cfg_t			dut.sv	21	11	24	4						110
+  #1637	6	typespec_member	u			dut.sv	22	12	22	13						001
+> #1638	7	ref_typespec			<in>p::cfg_t.u		0	0	0	0		0			work@struct_param_func_config.Cfg.p::cfg_t.u	001
+  #1639	8	struct_typespec	p::ucfg_t			dut.sv	32	40	32	46						001
+  #1640	9	typespec_member	a			dut.sv	17	18	17	19						001
+  #1641	10	ref_typespec			<in>p::ucfg_t.a		0	0	0	0		0			work@struct_param_func_config.p::ucfg_t.a	001
+  #1642	11	int_typespec				dut.sv	17	5	17	17						001
+  #1643	10	constant				dut.sv	27	11	27	12	7	64	UINT:7	9		001
+  #1644	10	constant				dut.sv	27	11	27	12	7	64	UINT:7	9		001
+
+facets of this row (388, first 25):
+  N0411 #294/-1 constant  G[18 objs] O[]
+  N0411 #312/-1 constant  G[18 objs] O[]
+  N0411 #354/-1 constant  G[18 objs] O[]
+  N0411 #372/-1 constant  G[18 objs] O[]
+  N0411 #482/-1 constant  G[12 objs] O[]
+  N0411 #494/-1 constant  G[12 objs] O[]
+  N0411 #526/-1 constant  G[12 objs] O[]
+  N0411 #538/-1 constant  G[12 objs] O[]
+  N0045 #1274/-1 constant  G[1 objs] O[]
+  N0045 #1275/-1 constant  G[1 objs] O[]
+  N0045 #1279/-1 constant  G[1 objs] O[]
+  N0045 #1280/-1 constant  G[1 objs] O[]
+  N0045 #1284/-1 constant  G[1 objs] O[]
+  N0045 #1285/-1 constant  G[1 objs] O[]
+  N0045 #1292/-1 constant  G[1 objs] O[]
+  N0045 #1293/-1 constant  G[1 objs] O[]
+  N0045 #1297/-1 constant  G[1 objs] O[]
+  N0045 #1298/-1 constant  G[1 objs] O[]
+  N0045 #1302/-1 constant  G[1 objs] O[]
+  N0045 #1303/-1 constant  G[1 objs] O[]
+  N0045 #1310/-1 constant  G[1 objs] O[]
+  N0045 #1311/-1 constant  G[1 objs] O[]
+  N0045 #1315/-1 constant  G[1 objs] O[]
+  N0045 #1316/-1 constant  G[1 objs] O[]
+  N0045 #1320/-1 constant  G[1 objs] O[]

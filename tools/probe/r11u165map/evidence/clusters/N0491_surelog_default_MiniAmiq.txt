@@ -1,0 +1,64 @@
+cluster N0491 (map 7 id kept; OPEN | ground A | site operator() (StmtEmit.cpp, law cloneLoopVarShared37) < emitStmt (StmtEmit.cpp, law foreachLoopVarObjs9) < emitStmt (StmtEmit.cpp, law invalidChild14) [r11u142map pin]): fullname|ref_var|tok:id->id|under:ref_var
+row: surelog/default/MiniAmiq  strict=differ:line(183)  records golden=435559 ours=413982
+object: #65623 (golden) / #65570 (ours)  type=ref_var name=i OUT
+  golden: uvm_pkg::uvm_has_wildcard::i
+  ours:   svaunit_pkg::uvm_has_wildcard::i
+  walk parents: ref_var(i) < foreach_stmt < begin < function(uvm_has_wildcard)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 65617..65629 ('>' = the object)
+  #65617	5	ref_var	arg		svaunit_pkg::uvm_has_wildcard::arg	uvm_misc.svh	622	11	622	14		0			svaunit_pkg::uvm_has_wildcard::arg	000
+  #65618	6	ref_typespec			svaunit_pkg::uvm_has_wildcard::arg		0	0	0	0		0			svaunit_pkg::uvm_has_wildcard::arg	000
+  #65619	7	unsupported_typespec	arg			uvm_misc.svh	622	11	622	14						110
+  #65620	5	ref_var	i		svaunit_pkg::uvm_has_wildcard::i	uvm_misc.svh	622	15	622	16		0			svaunit_pkg::uvm_has_wildcard::i	000
+  #65621	6	ref_typespec			svaunit_pkg::uvm_has_wildcard::i		0	0	0	0		0			svaunit_pkg::uvm_has_wildcard::i	000
+  #65622	7	unsupported_typespec	i			uvm_misc.svh	622	15	622	16						110
+> #65623	6	ref_var	i		uvm_pkg::uvm_has_wildcard::i	uvm_misc.svh	622	15	622	16		0			uvm_pkg::uvm_has_wildcard::i	000
+  #65624	7	ref_typespec			uvm_pkg::uvm_has_wildcard::i		0	0	0	0		0			uvm_pkg::uvm_has_wildcard::i	000
+  #65625	8	string_typespec				uvm_misc.svh	614	42	614	48						000
+  #65626	5	if_stmt				uvm_misc.svh	623	5	624	28						000
+  #65627	6	operation				uvm_misc.svh	623	9	623	62		0				000
+  #65628	7	operation				uvm_misc.svh	623	9	623	43		0				000
+  #65629	8	operation				uvm_misc.svh	623	10	623	23		0				000
+
+--- OURS (B) records 65564..65576 ('>' = the object)
+  #65564	5	ref_var	arg		svaunit_pkg::uvm_has_wildcard::arg	uvm_misc.svh	622	11	622	14		0			svaunit_pkg::uvm_has_wildcard::arg	000
+  #65565	6	ref_typespec			svaunit_pkg::uvm_has_wildcard::arg		0	0	0	0		0			svaunit_pkg::uvm_has_wildcard::arg	000
+  #65566	7	unsupported_typespec	arg			uvm_misc.svh	622	11	622	14						110
+  #65567	5	ref_var	i		svaunit_pkg::uvm_has_wildcard::i	uvm_misc.svh	622	15	622	16		0			svaunit_pkg::uvm_has_wildcard::i	000
+  #65568	6	ref_typespec			svaunit_pkg::uvm_has_wildcard::i		0	0	0	0		0			svaunit_pkg::uvm_has_wildcard::i	000
+  #65569	7	unsupported_typespec	i			uvm_misc.svh	622	15	622	16						110
+> #65570	6	ref_var	i		svaunit_pkg::uvm_has_wildcard::i	uvm_misc.svh	622	15	622	16		0			svaunit_pkg::uvm_has_wildcard::i	000
+  #65571	7	ref_typespec			svaunit_pkg::uvm_has_wildcard::i		0	0	0	0		0			svaunit_pkg::uvm_has_wildcard::i	000
+  #65572	8	unsupported_typespec	i			uvm_misc.svh	622	15	622	16						110
+  #65573	5	if_stmt				uvm_misc.svh	623	5	624	28						000
+  #65574	6	operation				uvm_misc.svh	623	9	623	62		0				000
+  #65575	7	operation				uvm_misc.svh	623	9	623	43		0				000
+  #65576	8	operation				uvm_misc.svh	623	10	623	23		0				000
+
+facets of this row (36091, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

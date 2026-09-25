@@ -1,0 +1,43 @@
+cluster N0688 (map 7 id kept; OPEN (map 7 gave it to r11u152; pass 152 left it) | ground B | site buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law tpAnonAggParamTsNoStamp47) < emitParameters (ParamEmit.cpp, law pkgParamTsRefColons131) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|tok:id@id->id::id|under:typespec_member
+row: uhdm2rtlil/testflags/iface_zero_width_field  strict=differ:fullname(4)  records golden=1430 ours=1430
+object: #101 (golden) / #101 (ours)  type=ref_typespec name= STABLE
+  golden: work@top.p::bus_t.CTL
+  ours:   p::B.p::bus_t.CTL
+  walk parents: typespec_member(CTL) < struct_typespec(p::bus_t) < ref_typespec < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 95..107 ('>' = the object)
+  #95	7	int_typespec				dut.sv	7	56	7	68						001
+  #96	2	param_assign				dut.sv	8	20	8	46						000
+  #97	3	operation				dut.sv	8	24	8	46		0				000
+  #98	4	ref_typespec					0	0	0	0		0				000
+  #99	5	struct_typespec	p::bus_t			dut.sv	7	11	7	75						110
+  #100	6	typespec_member	CTL			dut.sv	7	33	7	36						001
+> #101	7	ref_typespec			<in>p::bus_t.CTL		0	0	0	0		0			work@top.p::bus_t.CTL	001
+  #102	8	int_typespec				dut.sv	7	20	7	32						001
+  #103	6	typespec_member	DAT			dut.sv	7	51	7	54						001
+  #104	7	ref_typespec			<in>p::bus_t.DAT		0	0	0	0		0			work@top.p::bus_t.DAT	001
+  #105	8	int_typespec				dut.sv	7	38	7	50						001
+  #106	6	typespec_member	STS			dut.sv	7	69	7	72						001
+  #107	7	ref_typespec			<in>p::bus_t.STS		0	0	0	0		0			work@top.p::bus_t.STS	001
+
+--- OURS (B) records 95..107 ('>' = the object)
+  #95	7	int_typespec				dut.sv	7	56	7	68						001
+  #96	2	param_assign				dut.sv	8	20	8	46						000
+  #97	3	operation				dut.sv	8	24	8	46		0				000
+  #98	4	ref_typespec			p		0	0	0	0		0			p	000
+  #99	5	struct_typespec	p::bus_t			dut.sv	7	11	7	75						110
+  #100	6	typespec_member	CTL			dut.sv	7	33	7	36						001
+> #101	7	ref_typespec			<in>p::bus_t.CTL		0	0	0	0		0			p::B.p::bus_t.CTL	001
+  #102	8	int_typespec				dut.sv	7	20	7	32						001
+  #103	6	typespec_member	DAT			dut.sv	7	51	7	54						001
+  #104	7	ref_typespec			<in>p::bus_t.DAT		0	0	0	0		0			p::B.p::bus_t.DAT	001
+  #105	8	int_typespec				dut.sv	7	38	7	50						001
+  #106	6	typespec_member	STS			dut.sv	7	69	7	72						001
+  #107	7	ref_typespec			<in>p::bus_t.STS		0	0	0	0		0			p::B.p::bus_t.STS	001
+
+facets of this row (4, first 25):
+  N0003 #98/98 ref_typespec  G[] O[p]
+  N0688 #101/101 ref_typespec  G[work@top.p::bus_t.CTL] O[p::B.p::bus_t.CTL]
+  N0688 #104/104 ref_typespec  G[work@top.p::bus_t.DAT] O[p::B.p::bus_t.DAT]
+  N0688 #107/107 ref_typespec  G[work@top.p::bus_t.STS] O[p::B.p::bus_t.STS]

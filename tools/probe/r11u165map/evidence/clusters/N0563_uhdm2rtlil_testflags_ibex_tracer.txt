@@ -1,0 +1,64 @@
+cluster N0563 (map 7 id kept; OPEN (one shape named by r11u164: the rest of the ibex family) | ground B | site buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law tpAnonAggParamTsNoStamp47) < drainDefParamTs (ParamEmit.cpp, law paramCloneImportedCopy) [r11u142map pin]): fullname|ref_typespec|tok:::id::id::->.id::id.|under:typespec_member
+row: uhdm2rtlil/testflags/ibex_tracer  strict=differ:fullname(579)  records golden=35832 ours=35832
+object: #2072 (golden) / #2072 (ours)  type=ref_typespec name= STABLE
+  golden: ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::irq_int
+  ours:   ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.irq_int
+  walk parents: typespec_member(irq_int) < struct_typespec(ibex_pkg::exc_cause_t) < ref_typespec < parameter(ExcCauseBreakpoint)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2066..2078 ('>' = the object)
+  #2066	6	constant				ibex_pkg.sv	680	20	680	22	11	64	UINT:11	9		001
+  #2067	6	constant				ibex_pkg.sv	680	23	680	24	0	64	UINT:0	9		001
+  #2068	2	parameter	ExcCauseBreakpoint		ibex_tracer_pkg::ExcCauseBreakpoint	ibex_pkg.sv	356	26	356	44		0			ibex_tracer_pkg::ExcCauseBreakpoint	000
+  #2069	3	ref_typespec			ibex_tracer_pkg::ExcCauseBreakpoint		0	0	0	0		0			ibex_tracer_pkg::ExcCauseBreakpoint	000
+  #2070	4	struct_typespec	ibex_pkg::exc_cause_t			ibex_pkg.sv	335	11	339	4						110
+  #2071	5	typespec_member	irq_int			ibex_pkg.sv	336	17	336	24						001
+> #2072	6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0			ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::irq_int	001
+  #2073	7	logic_typespec				ibex_pkg.sv	336	5	336	10						001
+  #2074	5	typespec_member	irq_ext			ibex_pkg.sv	337	17	337	24						001
+  #2075	6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0			ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::irq_ext	001
+  #2076	7	logic_typespec				ibex_pkg.sv	337	5	337	10						001
+  #2077	5	typespec_member	lower_cause			ibex_pkg.sv	338	17	338	28						001
+  #2078	6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0			ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::lower_cause	001
+
+--- OURS (B) records 2066..2078 ('>' = the object)
+  #2066	6	constant				ibex_pkg.sv	680	20	680	22	11	64	UINT:11	9		001
+  #2067	6	constant				ibex_pkg.sv	680	23	680	24	0	64	UINT:0	9		001
+  #2068	2	parameter	ExcCauseBreakpoint		ibex_tracer_pkg::ExcCauseBreakpoint	ibex_pkg.sv	356	26	356	44		0			ibex_tracer_pkg::ExcCauseBreakpoint	000
+  #2069	3	ref_typespec			ibex_tracer_pkg::ExcCauseBreakpoint		0	0	0	0		0			ibex_tracer_pkg::ExcCauseBreakpoint	000
+  #2070	4	struct_typespec	ibex_pkg::exc_cause_t			ibex_pkg.sv	335	11	339	4						110
+  #2071	5	typespec_member	irq_int			ibex_pkg.sv	336	17	336	24						001
+> #2072	6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0			ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.irq_int	001
+  #2073	7	logic_typespec				ibex_pkg.sv	336	5	336	10						001
+  #2074	5	typespec_member	irq_ext			ibex_pkg.sv	337	17	337	24						001
+  #2075	6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0			ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.irq_ext	001
+  #2076	7	logic_typespec				ibex_pkg.sv	337	5	337	10						001
+  #2077	5	typespec_member	lower_cause			ibex_pkg.sv	338	17	338	28						001
+  #2078	6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0			ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.lower_cause	001
+
+facets of this row (579, first 25):
+  N0563 #2072/2072 ref_typespec  G[ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2075/2075 ref_typespec  G[ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2078/2078 ref_typespec  G[ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2087/2087 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallMMode::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseEcallMMode.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2090/2090 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallMMode::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseEcallMMode.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2093/2093 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallMMode::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseEcallMMode.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2102/2102 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallUMode::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseEcallUMode.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2105/2105 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallUMode::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseEcallUMode.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2108/2108 ref_typespec  G[ibex_tracer_pkg::ExcCauseEcallUMode::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseEcallUMode.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2117/2117 ref_typespec  G[ibex_tracer_pkg::ExcCauseIllegalInsn::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseIllegalInsn.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2120/2120 ref_typespec  G[ibex_tracer_pkg::ExcCauseIllegalInsn::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseIllegalInsn.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2123/2123 ref_typespec  G[ibex_tracer_pkg::ExcCauseIllegalInsn::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseIllegalInsn.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2132/2132 ref_typespec  G[ibex_tracer_pkg::ExcCauseInsnAddrMisa::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseInsnAddrMisa.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2135/2135 ref_typespec  G[ibex_tracer_pkg::ExcCauseInsnAddrMisa::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseInsnAddrMisa.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2138/2138 ref_typespec  G[ibex_tracer_pkg::ExcCauseInsnAddrMisa::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseInsnAddrMisa.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2147/2147 ref_typespec  G[ibex_tracer_pkg::ExcCauseInstrAccessFault::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseInstrAccessFault.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2150/2150 ref_typespec  G[ibex_tracer_pkg::ExcCauseInstrAccessFault::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseInstrAccessFault.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2153/2153 ref_typespec  G[ibex_tracer_pkg::ExcCauseInstrAccessFault::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseInstrAccessFault.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2162/2162 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqExternalM::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseIrqExternalM.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2165/2165 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqExternalM::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseIrqExternalM.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2168/2168 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqExternalM::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseIrqExternalM.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2177/2177 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqNm::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseIrqNm.ibex_pkg::exc_cause_t.irq_int]
+  N0563 #2180/2180 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqNm::ibex_pkg::exc_cause_t::irq_ext] O[ibex_tracer_pkg::ExcCauseIrqNm.ibex_pkg::exc_cause_t.irq_ext]
+  N0563 #2183/2183 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqNm::ibex_pkg::exc_cause_t::lower_cause] O[ibex_tracer_pkg::ExcCauseIrqNm.ibex_pkg::exc_cause_t.lower_cause]
+  N0563 #2192/2192 ref_typespec  G[ibex_tracer_pkg::ExcCauseIrqSoftwareM::ibex_pkg::exc_cause_t::irq_int] O[ibex_tracer_pkg::ExcCauseIrqSoftwareM.ibex_pkg::exc_cause_t.irq_int]

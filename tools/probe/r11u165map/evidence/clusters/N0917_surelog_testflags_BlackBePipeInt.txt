@@ -1,0 +1,64 @@
+cluster N0917 (map 7 id kept; OPEN | ground A | site emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79) [r11u138map pin] [r11u142map pin]): struct|ours-only:absent|constant|under:tagged_pattern
+row: surelog/testflags/BlackBePipeInt  strict=differ:fullname(2)  records golden=338504 ours=340984
+object: #-1 (golden) / #16980 (ours)  type=constant name= 
+  golden: 
+  ours:   1 objs
+  walk parents: tagged_pattern < operation < param_assign < package(bp_common_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 16974..16986 ('>' = the object)
+  #16974	6	string_typespec	dtlb_els_4k			dut.sv	4376	4	4376	15						110
+  #16975	4	tagged_pattern				dut.sv	4381	17	4383	68						000
+  #16976	5	constant				dut.sv	2075	19	2075	20	0	64	UINT:0	9		000
+  #16977	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #16978	6	string_typespec	dtlb_els_1g			dut.sv	4381	4	4381	15						110
+  #16979	4	tagged_pattern				dut.sv	4387	21	4389	72						000
+> #16980	5	constant				dut.sv	3793	29	3793	47	3	64	UINT:3	9		000
+  #16981	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #16982	6	string_typespec	icache_features			dut.sv	4387	4	4387	19						110
+  #16983	4	tagged_pattern				dut.sv	4392	17	4394	68						000
+  #16984	5	constant				dut.sv	4194	26	4194	28	64	64	UINT:64	9		000
+  #16985	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #16986	6	string_typespec	icache_sets			dut.sv	4392	4	4392	15						110
+
+--- the holder #16979 on the other side: exact-record matches at [16613]
+  #16610	4	tagged_pattern				dut.sv	4381	17	4383	68						000
+  #16611	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #16612	6	string_typespec	dtlb_els_1g			dut.sv	4381	4	4381	15						110
+> #16613	4	tagged_pattern				dut.sv	4387	21	4389	72						000
+  #16614	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #16615	6	string_typespec	icache_features			dut.sv	4387	4	4387	19						110
+  #16616	4	tagged_pattern				dut.sv	4392	17	4394	68						000
+  #16617	5	constant				dut.sv	4194	26	4194	28	64	64	UINT:64	9		000
+  #16618	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #16619	6	string_typespec	icache_sets			dut.sv	4392	4	4392	15						110
+  #16620	4	tagged_pattern				dut.sv	4397	18	4399	69						000
+  #16621	5	constant				dut.sv	4195	26	4195	27	8	64	UINT:8	9		000
+  #16622	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+
+facets of this row (57251, first 25):
+  N0897 #-1/66 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/14409 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15104 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15118 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15132 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15146 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15160 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15174 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15188 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15202 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15216 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15230 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15244 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15258 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15272 parameter dev_addr_width_gp G[] O[8 objs]
+  N0868 #-1/15388 constant  G[] O[1 objs]
+  N0868 #-1/15392 constant  G[] O[1 objs]
+  N0868 #-1/15396 constant  G[] O[1 objs]
+  N0868 #-1/15400 constant  G[] O[1 objs]
+  N0868 #-1/15404 constant  G[] O[1 objs]
+  N0868 #-1/15408 constant  G[] O[1 objs]
+  N0868 #-1/15412 constant  G[] O[1 objs]
+  N0868 #-1/15416 constant  G[] O[1 objs]
+  N0868 #-1/15420 constant  G[] O[1 objs]
+  N0868 #-1/15424 constant  G[] O[1 objs]

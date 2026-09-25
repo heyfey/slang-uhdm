@@ -1,0 +1,64 @@
+cluster N0135 (map 7 id kept; OPEN (map 7 gave it to r11u152; pass 152 left it) | ground B | site buildStructTs (TypeEmit.cpp, law typeParamAnonAggMemberNoReduce35) < emitTypedefs (TypeEmit.cpp, law bodyTypedefElemBoundSymbolic52) < emitModuleDef (ModuleEmit.cpp, law endBlockLabelAllOwners62) [r11u138map pin] [r11u142map pin]): span|struct_typespec|endline+endcol|under:module_inst
+row: probe/default/r11v77repro__grid__vh_arrelem  strict=endline  records golden=1094 ours=1094
+object: #392 (golden) / #392 (ours)  type=struct_typespec name=pv::si_t 
+  golden: 7:11:15:28
+  ours:   7:11:7:50
+  walk parents: module_inst < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 386..398 ('>' = the object)
+  #386	4	logic_typespec				dut.sv	9	16	9	27						001
+  #387	5	range				dut.sv	9	22	9	27						001
+  #388	6	constant				dut.sv	9	23	9	24	1	64	UINT:1	9		001
+  #389	6	constant				dut.sv	9	25	9	26	0	64	UINT:0	9		001
+  #390	3	enum_const	VA			dut.sv	9	30	9	32						001
+  #391	3	enum_const	VB			dut.sv	9	34	9	36						001
+> #392	2	struct_typespec	pv::si_t			dut.sv	7	11	15	28						010
+  #393	3	typespec_member	x			dut.sv	7	31	7	32						001
+  #394	4	ref_typespec			<in>pv::si_t.x		0	0	0	0		0			work@dut.pv::si_t.x	001
+  #395	5	int_typespec				dut.sv	7	27	7	30						001
+  #396	3	typespec_member	y			dut.sv	7	46	7	47						001
+  #397	4	ref_typespec			<in>pv::si_t.y		0	0	0	0		0			work@dut.pv::si_t.y	001
+  #398	5	logic_typespec				dut.sv	7	34	7	45						001
+
+--- OURS (B) records 386..398 ('>' = the object)
+  #386	4	logic_typespec				dut.sv	9	16	9	27						001
+  #387	5	range				dut.sv	9	22	9	27						001
+  #388	6	constant				dut.sv	9	23	9	24	1	64	UINT:1	9		001
+  #389	6	constant				dut.sv	9	25	9	26	0	64	UINT:0	9		001
+  #390	3	enum_const	VA			dut.sv	9	30	9	32						001
+  #391	3	enum_const	VB			dut.sv	9	34	9	36						001
+> #392	2	struct_typespec	pv::si_t			dut.sv	7	11	7	50						010
+  #393	3	typespec_member	x			dut.sv	7	31	7	32						001
+  #394	4	ref_typespec			<in>pv::si_t.x		0	0	0	0		0			work@dut.pv::si_t.x	001
+  #395	5	int_typespec				dut.sv	7	27	7	30						001
+  #396	3	typespec_member	y			dut.sv	7	46	7	47						001
+  #397	4	ref_typespec			<in>pv::si_t.y		0	0	0	0		0			work@dut.pv::si_t.y	001
+  #398	5	logic_typespec				dut.sv	7	34	7	45						001
+
+facets of this row (37, first 25):
+  N0762 #100/100 struct_typespec pv::sl_t G[6:11:13:28] O[6:11:6:58]
+  N2343 #113/113 union_typespec pv::un_t G[8:11:17:28] O[8:11:8:60]
+  N0040 #128/128 logic_typespec  G[10:3:10:28] O[10:3:10:14]
+  N0009 #134/134 struct_typespec pv::sl_t G[6:11:13:28] O[6:11:6:58]
+  N0009 #149/149 struct_typespec pv::sl_t G[6:11:13:28] O[6:11:6:58]
+  N2034 #164/164 union_typespec pv::un_t G[8:11:17:28] O[8:11:8:60]
+  N2034 #179/179 union_typespec pv::un_t G[8:11:17:28] O[8:11:8:60]
+  N0851 #273/273 enum_typespec pv::en_t G[9:3:19:28] O[9:3:9:44]
+  N0762 #281/281 struct_typespec pv::si_t G[7:11:15:28] O[7:11:7:50]
+  N0762 #291/291 struct_typespec pv::sl_t G[6:11:13:28] O[6:11:6:58]
+  N2343 #304/304 union_typespec pv::un_t G[8:11:17:28] O[8:11:8:60]
+  N0040 #319/319 logic_typespec  G[10:3:10:28] O[10:3:10:14]
+  N0009 #325/325 struct_typespec pv::sl_t G[6:11:13:28] O[6:11:6:58]
+  N0009 #340/340 struct_typespec pv::sl_t G[6:11:13:28] O[6:11:6:58]
+  N2034 #355/355 union_typespec pv::un_t G[8:11:17:28] O[8:11:8:60]
+  N2034 #370/370 union_typespec pv::un_t G[8:11:17:28] O[8:11:8:60]
+  N2277 #384/384 enum_typespec pv::en_t G[9:3:19:28] O[9:3:9:44]
+  N0135 #392/392 struct_typespec pv::si_t G[7:11:15:28] O[7:11:7:50]
+  N0135 #402/402 struct_typespec pv::sl_t G[6:11:13:28] O[6:11:6:58]
+  N2342 #415/415 union_typespec pv::un_t G[8:11:17:28] O[8:11:8:60]
+  N0040 #432/432 logic_typespec  G[10:3:10:28] O[10:3:10:14]
+  N0040 #438/438 logic_typespec  G[11:3:11:28] O[11:3:11:14]
+  N0009 #444/444 struct_typespec pv::sl_t G[6:11:13:28] O[6:11:6:58]
+  N0009 #459/459 struct_typespec pv::sl_t G[6:11:13:28] O[6:11:6:58]
+  N2034 #498/498 union_typespec pv::un_t G[8:11:17:28] O[8:11:8:60]

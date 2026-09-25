@@ -1,0 +1,3 @@
+case,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail,name
+../r11u165_lt/l01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,___r11u165_lt_l01
+../r11u165_lt/l02,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u165_dsLTP/___r11u165_lt_l02/equiv/___r11u165_lt_l02,___r11u165_lt_l02

@@ -1,0 +1,45 @@
+cluster N0027 (map 7 id kept; COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | ground B | site emitExpr (ExprEmit.cpp, law sysCallKwTypeArgNameSpan131) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) [DECODED (r11u131 R7): the macro line model, UhdmExporter.cpp locLineCol] [r11u142map pin]): span|sys_func_call|line+endcol|under:begin
+row: probe/default/r11v11u8repro__v12  strict=endcol  records golden=13 ours=13
+object: #4 (golden) / #4 (ours)  type=sys_func_call name=$display 
+  golden: 3:27:4:16
+  ours:   5:27:4:22
+  walk parents: begin < initial < module_inst < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 0..10 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0						000
+  #1	1	module_inst		work@top	work@top	dut.sv	3	1	5	15					work@top	000
+  #2	2	initial				dut.sv	3	13	5	5						000
+  #3	3	begin			work@top	dut.sv	3	21	5	5					work@top	000
+> #4	4	sys_func_call	$display			dut.sv	3	27	4	16		0				000
+  #5	5	constant				dut.sv	3	36	3	43	"[%0s]"	40	STRING:[%0s]	6		000
+  #6	5	constant				dut.sv	4	7	4	15	"    zz"	48	STRING:    zz	6		000
+  #7	1	module_inst	work@top	work@top		dut.sv	3	1	5	15						000
+  #8	2	initial				dut.sv	3	13	5	5						000
+  #9	3	begin			work@top	dut.sv	3	21	5	5					work@top	000
+  #10	4	sys_func_call	$display			dut.sv	3	27	4	16		0				000
+
+--- OURS (B) records 0..10 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0						000
+  #1	1	module_inst		work@top	work@top	dut.sv	3	1	5	48					work@top	000
+  #2	2	initial				dut.sv	3	13	5	38						000
+  #3	3	begin			work@top	dut.sv	3	21	5	38					work@top	000
+> #4	4	sys_func_call	$display			dut.sv	5	27	4	22		0				000
+  #5	5	constant				dut.sv	5	36	5	43	"[%0s]"	40	STRING:[%0s]	6		000
+  #6	5	constant				dut.sv	4	7	4	15	"    zz"	48	STRING:    zz	6		000
+  #7	1	module_inst	work@top	work@top		dut.sv	3	1	5	48						000
+  #8	2	initial				dut.sv	3	13	5	38						000
+  #9	3	begin			work@top	dut.sv	3	21	5	38					work@top	000
+  #10	4	sys_func_call	$display			dut.sv	5	27	4	22		0				000
+
+facets of this row (10, first 25):
+  N2409 #1/1 module_inst  G[3:1:5:15] O[3:1:5:48]
+  N2408 #2/2 initial  G[3:13:5:5] O[3:13:5:38]
+  N2407 #3/3 begin  G[3:21:5:5] O[3:21:5:38]
+  N0027 #4/4 sys_func_call $display G[3:27:4:16] O[5:27:4:22]
+  N0026 #5/5 constant  G[3:36:3:43] O[5:36:5:43]
+  N2409 #7/7 module_inst work@top G[3:1:5:15] O[3:1:5:48]
+  N2408 #8/8 initial  G[3:13:5:5] O[3:13:5:38]
+  N2407 #9/9 begin  G[3:21:5:5] O[3:21:5:38]
+  N0027 #10/10 sys_func_call $display G[3:27:4:16] O[5:27:4:22]
+  N0026 #11/11 constant  G[3:36:3:43] O[5:36:5:43]

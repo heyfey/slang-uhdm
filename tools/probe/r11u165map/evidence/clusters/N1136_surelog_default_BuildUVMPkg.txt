@@ -1,0 +1,64 @@
+cluster N1136 (map 7 id kept; OPEN | ground A | site emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u138map pin] [r11u142map pin]): span|bit_select|endcol|under:assignment
+row: surelog/default/BuildUVMPkg  strict=differ:line(94)  records golden=201533 ours=201486
+object: #121422 (golden) / #121309 (ours)  type=bit_select name=m_extensions 
+  golden: 18282:40:18282:67
+  ours:   18282:40:18282:65
+  walk parents: assignment < begin < if_else < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 121416..121428 ('>' = the object)
+  #121416	8	method_func_call	exists			uvm_pkg.sv	18281	18	18281	24		0				000
+  #121417	9	hier_path	extension.get_object_type			uvm_pkg.sv	18281	25	18281	52		0				000
+  #121418	10	ref_obj	extension			uvm_pkg.sv	18281	25	18281	34		0				000
+  #121419	10	method_func_call	get_object_type			uvm_pkg.sv	18281	35	18281	50		0				000
+  #121420	7	begin			uvm_pkg::uvm_policy::set_extension	uvm_pkg.sv	18281	55	18285	5					uvm_pkg::uvm_policy::set_extension	000
+  #121421	8	assignment				uvm_pkg.sv	18282	9	18282	68						000
+> #121422	9	bit_select	m_extensions		uvm_pkg::uvm_policy::set_extension::m_extensions	uvm_pkg.sv	18282	40	18282	67		0			uvm_pkg::uvm_policy::set_extension::m_extensions	000
+  #121423	10	hier_path	extension.get_object_type			uvm_pkg.sv	18282	40	18282	67		0				000
+  #121424	11	ref_obj	extension			uvm_pkg.sv	18282	40	18282	49		0				000
+  #121425	11	method_func_call	get_object_type			uvm_pkg.sv	18282	50	18282	65		0				000
+  #121426	9	ref_obj	m_set_extension		uvm_pkg::uvm_policy::set_extension::m_set_extension	uvm_pkg.sv	18282	9	18282	24		0			uvm_pkg::uvm_policy::set_extension::m_set_extension	000
+  #121427	8	assignment				uvm_pkg.sv	18283	9	18283	62						000
+  #121428	9	ref_obj	extension		uvm_pkg::uvm_policy::set_extension::extension	uvm_pkg.sv	18283	53	18283	62		0			uvm_pkg::uvm_policy::set_extension::extension	000
+
+--- OURS (B) records 121303..121315 ('>' = the object)
+  #121303	8	method_func_call	exists			uvm_pkg.sv	18281	18	18281	24		0				000
+  #121304	9	hier_path	extension.get_object_type			uvm_pkg.sv	18281	25	18281	52		0				000
+  #121305	10	ref_obj	extension			uvm_pkg.sv	18281	25	18281	34		0				000
+  #121306	10	method_func_call	get_object_type			uvm_pkg.sv	18281	35	18281	50		0				000
+  #121307	7	begin			uvm_pkg::uvm_policy::set_extension	uvm_pkg.sv	18281	55	18285	5					uvm_pkg::uvm_policy::set_extension	000
+  #121308	8	assignment				uvm_pkg.sv	18282	9	18282	68						000
+> #121309	9	bit_select	m_extensions		uvm_pkg::uvm_policy::set_extension::m_extensions	uvm_pkg.sv	18282	40	18282	65		0			uvm_pkg::uvm_policy::set_extension::m_extensions	000
+  #121310	10	hier_path	extension.get_object_type			uvm_pkg.sv	18282	40	18282	67		0				000
+  #121311	11	ref_obj	extension			uvm_pkg.sv	18282	40	18282	49		0				000
+  #121312	11	method_func_call	get_object_type			uvm_pkg.sv	18282	50	18282	65		0				000
+  #121313	9	ref_obj	m_set_extension		uvm_pkg::uvm_policy::set_extension::m_set_extension	uvm_pkg.sv	18282	9	18282	24		0			uvm_pkg::uvm_policy::set_extension::m_set_extension	000
+  #121314	8	assignment				uvm_pkg.sv	18283	9	18283	62						000
+  #121315	9	ref_obj	extension		uvm_pkg::uvm_policy::set_extension::extension	uvm_pkg.sv	18283	53	18283	62		0			uvm_pkg::uvm_policy::set_extension::extension	000
+
+facets of this row (7140, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

@@ -1,0 +1,50 @@
+cluster N0759 (map 7 id kept; OPEN | ground A | site emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|tok:id@id.id.id::id.id.->id::id::|under:hier_path
+row: surelog/default/StructParamFuncBodyFieldCompare  strict=differ:fullname(11)  records golden=923 ours=923
+object: #740 (golden) / #740 (ours)  type=ref_obj name=NrRules TAIL
+  golden: work@StructParamFuncBodyFieldCompare.Cfg.cfg_pkg::cfg_t.Flag.NrRules
+  ours:   cfg_pkg::build_config::NrRules
+  walk parents: hier_path(c.NrRules) < operation < operation < typespec_member(Flag)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 734..746 ('>' = the object)
+  #734	6	ref_typespec			<in>cfg_pkg::cfg_t.Flag		0	0	0	0		0			work@StructParamFuncBodyFieldCompare.Cfg.cfg_pkg::cfg_t.Flag	001
+  #735	7	logic_typespec				dut.sv	21	5	21	10						001
+  #736	6	operation				dut.sv	26	14	26	47		0				001
+  #737	7	operation				dut.sv	26	15	26	28		0				001
+  #738	8	hier_path	c.NrRules			dut.sv	26	15	26	24		0				001
+  #739	9	ref_obj	c			dut.sv	26	15	26	16		0				001
+> #740	9	ref_obj	NrRules		<in>cfg_pkg::cfg_t.Flag.NrRules	dut.sv	26	17	26	24		0			work@StructParamFuncBodyFieldCompare.Cfg.cfg_pkg::cfg_t.Flag.NrRules	001
+  #741	8	constant				dut.sv	26	27	26	28	0	64	UINT:0	9		001
+  #742	7	operation				dut.sv	26	34	26	46		0				001
+  #743	8	hier_path	c.Length			dut.sv	26	34	26	42		0				001
+  #744	9	ref_obj	c			dut.sv	26	34	26	35		0				001
+  #745	9	ref_obj	Length		<in>cfg_pkg::cfg_t.Flag.Length	dut.sv	26	36	26	42		0			work@StructParamFuncBodyFieldCompare.Cfg.cfg_pkg::cfg_t.Flag.Length	001
+  #746	8	constant				dut.sv	26	45	26	46	0	64	UINT:0	9		001
+
+--- OURS (B) records 734..746 ('>' = the object)
+  #734	6	ref_typespec			<in>cfg_pkg::cfg_t.Flag		0	0	0	0		0			cfg_pkg::cfg_pkg::cfg_t::Flag	001
+  #735	7	logic_typespec				dut.sv	21	5	21	10						001
+  #736	6	operation				dut.sv	26	14	26	47		0				001
+  #737	7	operation				dut.sv	26	15	26	28		0				001
+  #738	8	hier_path	c.NrRules			dut.sv	26	15	26	24		0				001
+  #739	9	ref_obj	c			dut.sv	26	15	26	16		0				001
+> #740	9	ref_obj	NrRules		cfg_pkg::build_config::NrRules	dut.sv	26	17	26	24		0			cfg_pkg::build_config::NrRules	001
+  #741	8	constant				dut.sv	26	27	26	28	0	64	UINT:0	9		001
+  #742	7	operation				dut.sv	26	34	26	46		0				001
+  #743	8	hier_path	c.Length			dut.sv	26	34	26	42		0				001
+  #744	9	ref_obj	c			dut.sv	26	34	26	35		0				001
+  #745	9	ref_obj	Length		cfg_pkg::build_config::Length	dut.sv	26	36	26	42		0			cfg_pkg::build_config::Length	001
+  #746	8	constant				dut.sv	26	45	26	46	0	64	UINT:0	9		001
+
+facets of this row (11, first 25):
+  N0084 #466/466 ref_typespec  G[work@StructParamFuncBodyFieldCompare.INT.S_SW] O[S_SW]
+  N0084 #476/476 ref_typespec  G[work@StructParamFuncBodyFieldCompare.INT.M_SW] O[M_SW]
+  N0009 #487/487 struct_typespec  G[42:26:42:32] O[42:26:45:4]
+  N0759 #740/740 ref_obj NrRules G[work@StructParamFuncBodyFieldCompare.Cfg.cfg_pkg::cfg_t.Flag.NrRules] O[cfg_pkg::build_config::NrRules]
+  N0759 #745/745 ref_obj Length G[work@StructParamFuncBodyFieldCompare.Cfg.cfg_pkg::cfg_t.Flag.Length] O[cfg_pkg::build_config::Length]
+  N0759 #751/751 ref_obj NrRules G[work@StructParamFuncBodyFieldCompare.Cfg.cfg_pkg::cfg_t.Flag.NrRules] O[cfg_pkg::build_config::NrRules]
+  N0759 #756/756 ref_obj Length G[work@StructParamFuncBodyFieldCompare.Cfg.cfg_pkg::cfg_t.Flag.Length] O[cfg_pkg::build_config::Length]
+  N0084 #762/762 ref_typespec  G[work@StructParamFuncBodyFieldCompare.INT.S_SW] O[S_SW]
+  N0084 #772/772 ref_typespec  G[work@StructParamFuncBodyFieldCompare.INT.M_SW] O[M_SW]
+  N0009 #783/783 struct_typespec  G[42:26:42:32] O[42:26:45:4]
+  N0009 #841/841 struct_typespec  G[42:26:42:32] O[42:26:45:4]

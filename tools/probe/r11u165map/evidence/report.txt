@@ -1,0 +1,630 @@
+== 0. fail list at f2f2d30b (the HEAD sweep /tmp/intr11u163 = results/golden_*.csv): 151 row-modes / 79 tests; probe 1490
+   surelog default: 43
+   surelog testflags: 40
+   uhdm2rtlil default: 34
+   uhdm2rtlil testflags: 34
+== 1. the decodes MEASURED (r11u161 law.patch + r11u166 law_on_d48f8f8a8 + litall + macroconn): corpus 151 -> 145 (6 converted, 0 entered); probe 1490 -> 1467 (23 converted, 0 entered)
+   converted: sur/d/GenIfIfaceParamStructField sur/d/YosysMarlann sur/t/GenIfIfaceParamStructField sur/t/YosysMarlann uhd/d/ibex_load_store_unit uhd/t/ibex_load_store_unit
+   probe converted: r10earl42repro/v42_overfire r10earl43repro/v43_h1_order r10earl54repro/v10step1 r10earl_repro/a r10earl_repro/mm r10earl_repro/ps23 r10earl_repro/tj r10uvm60repro/b7_multiline r10vearl115repro/w1_memlhs r11u25repro/grid/p13_member_lhs_fill0 r11u8repro/b5 r11u8repro/b8 r11u8repro/gA r11u8repro/gB r11v11u8repro/v1 r11v11u8repro/v10 r11v11u8repro/v11 r11v11u8repro/v12 r11v11u8repro/v13 r11v11u8repro/v2 r11v11u8repro/v4 r11v11u8repro/v5 r11v11u8repro/v8
+   entered:  | probe entered: 
+   corpus rows whose strict cell changed (not converted): 25: sur/d/ApbSlave differ:line(26) -> differ:depth(1); sur/d/ComplexHierPath differ:col(7) -> differ:depth(1); sur/d/CovMacro differ:endcol(118) -> differ:fullname(8); sur/d/Earlgrey_0_1 differ:line(1730) -> differ:fullname(520); sur/d/GenForStructParamBound differ:fullname(7) -> differ:fullname(3); sur/d/MiniAmiq differ:line(183) -> differ:file(46); sur/d/Scoreboard differ:line(187) -> differ:fullname(62); sur/d/Scr1SvTests differ:line(219) -> differ:file(143); sur/d/SeqDriver differ:line(167) -> differ:file(46); sur/d/SimpleUVM differ:line(183) -> differ:fullname(62); sur/d/YosysOldOr differ:line(75) -> differ:line(1); sur/d/YosysRiscv differ:endcol(86) -> differ:col(40); sur/t/ApbSlave differ:line(26) -> differ:depth(1); sur/t/ComplexHierPath differ:col(7) -> differ:depth(1); sur/t/CovMacro differ:endcol(118) -> differ:fullname(8); sur/t/Earlgrey_0_1 differ:line(1730) -> differ:fullname(520); sur/t/GenForStructParamBound differ:fullname(7) -> differ:fullname(3); sur/t/MiniAmiq differ:line(183) -> differ:file(46); sur/t/Scr1SvTests differ:line(219) -> differ:file(143); sur/t/SeqDriver differ:line(167) -> differ:file(46); sur/t/SimpleUVM differ:line(183) -> differ:fullname(62); sur/t/YosysOldOr differ:line(75) -> differ:line(1); sur/t/YosysRiscv differ:endcol(86) -> differ:col(40); uhd/d/ibex_pmp differ:file(52) -> differ:file(16); uhd/t/ibex_pmp differ:file(52) -> differ:file(16)
+   probe cases whose cell changed: 6: r10uvm104repro/g104_a1_sep differ:endcol(48) -> differ:endcol(44); r10uvm160repro/g160_f_witness differ:line(11) -> differ:line(2); r10v104repro/v1_pastecount differ:endcol(8) -> differ:endcol(4); r10v132repro/v4_home differ:file(50) -> differ:file(48); r10v78repro/v6_ndecl78 differ:fullname(5) -> differ:fullname(3); r11v11u8repro/v9 differ:line(6) -> differ:col(6)
+   keys new under the law (not in the pristine map): corpus 3, probe 2: file|method_func_call|other-file+span|under:sys_func_call x1254; file|method_func_call|other-file+span|under:hier_path x66; file|constant|other-file+span|under:method_func_call x7 | span|initial|col|under:module_inst x2; span|assignment|col|under:initial x2
+   clusters gone under the law: 138: N0015 N0026 N0027 N0055 N0058 N0079 N0091 N0125 N0190 N0212 N0243 N0246 N0275 N0285 N0287 N0292 N0296 N0297 N0298 N0300 N0301 N0308 N0310 N0311 N0312 N0313 N0314 N0315 N0316 N0317 N0322 N0328 N0329 N0330 N0338 N0339 N0344 N0345 N0349 N0350 N0351 N0353 N0358 N0361 N0362 N0363 N0364 N0365 N0367 N0372 N0378 N0381 N0383 N0385 N0386 N0388 N0389 N0393 N0396 N0402 N0404 N0405 N0456 N0460 N0466 N0515 N0527 N0532 N0551 N0560 N0561 N0576 N0617 N0618 N0672 N0705 N0707 N0708 N0709 N0711 N0714 N0715 N0716 N0717 N0718 N0719 N0720 N0726 N0752 N0766 N0771 N0777 N0789 N0809 N0811 N0813 N0818 N0823 N0841 N0845 N0934 N0960 N0963 N0968 N0997 N0999 N1025 N1026 N1040 N1055 N1077 N1078 N1084 N1087 N1088 N1090 N1091 N1092 N1094 N1207 N1208 N1952 N1953 N2269 N2270 N2272 N2285 N2294 N2312 N2337 N2339 N2402 N2403 N2404 N2407 N2408 N2409 N2410
+   clusters that fell (rows): N0064 14->1 N0007 24->13 N0060 11->1 N0001 24->14 N0191 9->2 N0054 15->9 N0384 7->2 N0370 7->2 N0050 11->7 N0204 9->7 N0036 14->12 N0424 4->2 N0040 11->9 N0017 6->4 N0799 2->1
+== 2. yields (row-modes / tests cleared in every NE mode / probe cases)
+   the decodes, MEASURED: 6 / 3 / 23
+   pair B r11u164 other items, optimistic (267 clusters) on the pristine map alone: 5 / 3 / 77
+   both (decodes measured, then pair B optimistic on the law cross-section): 11 row-modes / 6 tests / 100 probe
+   surelog default: today 43; after the decodes (measured) 41; after pair B too 39
+   surelog testflags: today 40; after the decodes (measured) 38; after pair B too 35
+   uhdm2rtlil default: today 34; after the decodes (measured) 33; after pair B too 33
+   uhdm2rtlil testflags: today 34; after the decodes (measured) 33; after pair B too 33
+   FAIL LIST AFTER THE DECODES + PAIR B: 140 row-modes / 73 tests (today 151 / 79); probe 1390 (today 1490)
+   rows cleared: sur/d/GenIfIfaceParamStructField[dec] sur/d/GenerateUnnamed[B] sur/d/HighLow[B] sur/d/YosysMarlann[dec] sur/t/GenIfIfaceParamStructField[dec] sur/t/GenerateUnnamed[B] sur/t/HierPathTypespec[B] sur/t/HighLow[B] sur/t/YosysMarlann[dec] uhd/d/ibex_load_store_unit[dec] uhd/t/ibex_load_store_unit[dec]
+== 4. OPEN clusters with a row after the decodes + pair B: 467 (ground A 313, B 148, ? 6)
+| # | cluster | rows left (f2f2d30b) | sl/u2r | tests | heads | alone | probe (after dec) | ground | status | key | site (mint < caller < caller) |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | N0025 | 17 (17) | 5/12 | 9 | 0 | 0 | 11 | B | OPEN (map 7 listed it: ground-B step 3; passes 152-163 left it) | `depth\|constant\|range->operation` | emitSyntaxExpr (TypeEmit.cpp, law fnLocalParamRangeNet) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (TypeEmit.cpp, law elabVarR |
+| 2 | N0033 | 17 (17) | 5/12 | 9 | 0 | 0 | 11 | B | OPEN (map 7 listed it: ground-B step 3; passes 152-163 left it) | `struct\|ours-only:fewer-copies\|operation\|under:range` | emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (TypeEmit.cpp, law elabVarRangeCallScopeDecl12) < makeTypespec (TypeEmit.cpp, law typ |
+| 3 | N0031 | 15 (15) | 9/6 | 8 | 0 | 0 | 13 | B | OPEN | `file\|constant\|ours-empty\|under:range` | operator() (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) < emitClassParameters (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) < |
+| 4 | N0043 | 14 (14) | 10/4 | 8 | 2 | 0 | 5 | B | OPEN (residue: pass 155 R-SP / pass 163 residue 3: the definition list | `span\|struct_typespec\|line+col+endline+endcol\|under:ref_typespec` | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < makeTypespec (TypeEmit.cpp, law tpCloneWholeLhsBare160) < emitParameters (ParamEmit.cpp, |
+| 5 | N0001 | 14 (24) | 22/2 | 13 | 0 | 0 | 8 | A | OPEN (map 7 listed it: ground-A step 3; passes 152-163 left it) [the d | `span\|ref_obj\|col+endcol\|under:hier_path` | emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSub |
+| 6 | N0072 | 13 (13) | 13/0 | 7 | 0 | 2 | 16 | B | OPEN (one shape named by r11u164: ClassTypeParam) | `span\|class_typespec\|line+col+endline+endcol\|under:ref_typespec` | makeTypespec (TypeEmit.cpp, law arrayElemTdClone42) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200) < emitClassDefn (UhdmExporter.c |
+| 7 | N0012 | 13 (13) | 9/4 | 7 | 4 | 0 | 5 | A | OPEN | `file\|enum_typespec\|ours-empty\|under:ref_typespec` | buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45) < emitInstance (ModuleEmit.cpp, law |
+| 8 | N0080 | 13 (13) | 13/0 | 7 | 2 | 0 | 1 | B | OPEN | `span\|struct_typespec\|line+col+endline+endcol\|under:package` | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.c |
+| 9 | N0067 | 13 (13) | 13/0 | 7 | 0 | 0 | 47 | B | OPEN (one shape named by r11u164: ApbSlave) | `file\|class_typespec\|ours-empty\|under:ref_typespec` | classElemVar (UhdmExporter.cpp, law sharedAliasNoStamp41) < emitClassDefn (UhdmExporter.cpp, law fixedClassPropIsArrayVar6) < emitPackageClasses (Uhdm |
+| 10 | N0068 | 13 (13) | 13/0 | 7 | 0 | 0 | 47 | B | OPEN (one shape named by r11u164: ApbSlave) | `span\|class_typespec\|ours-zero\|under:ref_typespec` | classElemVar (UhdmExporter.cpp, law sharedAliasNoStamp41) < emitClassDefn (UhdmExporter.cpp, law fixedClassPropIsArrayVar6) < emitPackageClasses (Uhdm |
+| 11 | N0042 | 13 (13) | 9/4 | 7 | 0 | 0 | 10 | B | OPEN | `span\|constant\|ours-zero\|under:range` | operator() (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) < emitClassParameters (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) < |
+| 12 | N0007 | 13 (24) | 22/2 | 13 | 0 | 0 | 6 | A | OPEN (map 7 listed it: ground-A step 3; passes 152-163 left it) [the d | `fullname\|ref_obj\|golden-empty\|under:hier_path` | emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubro |
+| 13 | N0034 | 13 (13) | 9/4 | 7 | 0 | 0 | 5 | A | OPEN | `span\|enum_typespec\|ours-zero\|under:ref_typespec` | buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45) < emitInstance (ModuleEmit.cpp, law |
+| 14 | N0036 | 12 (14) | 12/2 | 8 | 2 | 2 | 6 | A | OPEN (residue: r11u166 R1: the spaced based literal (YosysRiscv col(40 | `span\|bit_select\|col+endcol\|under:operation` | emitExpr (ExprEmit.cpp, law ifaceMemberTrailIdxNamesByPath147) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitMixedHierPath (ExprEmi |
+| 15 | N0092 | 12 (12) | 2/10 | 6 | 2 | 2 | 0 | B | OPEN (one shape named by r11u164: UnionCast) [residue: pass 160 S: Uni | `value\|constant\|value:UINT->UINT\|under:range` | makeBoundConst (TypeEmit.cpp, law crossPkgRangeBoundFold) < makeTypespec (TypeEmit.cpp, law typedPkgBoundElabSize113) < buildStructTs (TypeEmit.cpp, l |
+| 16 | N0086 | 12 (12) | 4/8 | 6 | 2 | 0 | 20 | A | OPEN | `file\|constant\|golden-empty\|under:typespec_member` | makeMemLeftConst (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitParameters (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitPackage  |
+| 17 | N0039 | 12 (12) | 12/0 | 7 | 0 | 0 | 219 | B | OPEN (one shape named by r11u164: ApbSlave) | `span\|int_typespec\|line+col+endline+endcol\|under:ref_typespec` | makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200) < emitClassDefn (UhdmExpor |
+| 18 | N0087 | 12 (12) | 4/8 | 6 | 0 | 0 | 20 | A | OPEN | `span\|constant\|golden-zero\|under:typespec_member` | makeMemLeftConst (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitParameters (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitPackage  |
+| 19 | N0061 | 12 (12) | 12/0 | 7 | 0 | 0 | 8 | A | OPEN | `span\|bit_select\|col+endcol\|under:hier_path` | emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxDecompiled79) < emitExpr (ExprEmit.cpp, law thisPathSelectErased4) < emitExpr (ExprEmit.cpp, law dynAr |
+| 20 | N0142 | 12 (12) | 12/0 | 7 | 0 | 0 | 0 | A | OPEN | `struct\|golden-only:fewer-copies\|range\|under:array_typespec` | makeUnpackedArrayParamTs (ParamEmit.cpp, law pkgParamTsRef) < emitParameters (ParamEmit.cpp, law importElemBareTdAlias) < exportDesign (UhdmExporter.c |
+| 21 | N0056 | 11 (11) | 9/2 | 6 | 2 | 2 | 1 | B | OPEN (residue: map 7: pass-145 R2 (sister), PreprocTest enum base bit_ | `span\|bit_typespec\|endcol\|under:ref_typespec` | buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11 |
+| 22 | N0095 | 11 (11) | 11/0 | 6 | 2 | 0 | 15 | A | OPEN | `fullname\|ref_obj\|tok:id.id::->\|under:method_func_call` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitExpr (ExprEmit.cpp, law hpNameBareIdxF |
+| 23 | N0103 | 11 (11) | 11/0 | 6 | 2 | 0 | 7 | B | OPEN (map 7 gave it to r11u152; pass 152 left it) | `name\|class_typespec\|ours-empty\|under:ref_typespec` | makeTypespec (TypeEmit.cpp, law arrayElemTdClone42) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200) < emitClassDefn (UhdmExporter.c |
+| 24 | N0094 | 11 (11) | 11/0 | 6 | 0 | 0 | 58 | B | OPEN | `span\|constant\|line+col+endline+endcol\|under:range` | makeBoundConst (TypeEmit.cpp, law crossPkgRangeBoundFold) < makeTypespec (TypeEmit.cpp, law typedPkgBoundElabSize113) < emitInterfaceInstance (ModuleE |
+| 25 | N0097 | 11 (11) | 11/0 | 6 | 0 | 0 | 12 | A | OPEN (map 7 listed it: ground-A step 6; passes 152-163 left it) | `span\|hier_path\|endcol\|under:assignment` | emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSub |
+| 26 | N0111 | 11 (11) | 11/0 | 6 | 0 | 0 | 4 | A | OPEN | `span\|constant\|line+col+endline+endcol\|under:io_decl` | emitExpr (ExprEmit.cpp, law srlgTimeLitVal) < emitTaskFuncs (TaskFuncEmit.cpp, law classArgBind12) < emitClassDefn (UhdmExporter.cpp, law externProtoI |
+| 27 | N0119 | 11 (11) | 11/0 | 6 | 0 | 0 | 1 | A | OPEN | `span\|bit_select\|col+endcol\|under:assignment` | emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) < emitExpr (ExprEmit.cpp, law shellCallKe |
+| 28 | N0118 | 11 (11) | 11/0 | 6 | 0 | 0 | 0 | A | OPEN [the decodes reduce it: rows 11->11, probe 1->0] | `span\|constant\|line+col+endline+endcol\|under:operation` | emitBadConcatOperand160 (ExprEmit.cpp, law typeParamScopedCallRef59) < emitBadConcatFromSyntax160 (ExprEmit.cpp, law classArgBind12) < emitExpr (ExprE |
+| 29 | N0129 | 10 (10) | 4/6 | 5 | 1 | 1 | 33 | B | OPEN (one shape named by r11u164: the rest of the ibex family) [residu | `fullname\|ref_typespec\|tok:->.id\|under:constant` | emitExpr (ExprEmit.cpp, law elabCaPortParamPaCopy64) < emitExpr (ExprEmit.cpp, law negLitPkgRetFoldNested30) < emitExpr (ExprEmit.cpp, law psBoundPkgP |
+| 30 | N0149 | 10 (10) | 2/8 | 5 | 8 | 0 | 0 | B | OPEN (map 7 gave it to r11u152; pass 152 left it) | `file\|struct_typespec\|other-file\|under:package` | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < emitPackage (ParamEmit.cpp, law a7) < exportDesign (UhdmExporter.cpp, law caUnelabBodyCh |
+| 31 | N0127 | 10 (10) | 10/0 | 6 | 0 | 0 | 79 | B | OPEN | `span\|array_typespec\|endcol\|under:ref_typespec` | makeIfaceArrayPortTs (ModuleEmit.cpp, law sizeDimOvrChain4) < emitPorts (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitModuleDefPorts (ModuleEmit.cpp |
+| 32 | N0128 | 10 (10) | 10/0 | 6 | 0 | 0 | 69 | B | OPEN | `span\|range\|col+endcol\|under:array_typespec` | operator() (ModuleEmit.cpp, law sizeDimOvrChain4) < makeIfaceArrayPortTs (ModuleEmit.cpp, law sizeDimOvrChain4) < emitPorts (ModuleEmit.cpp, law iface |
+| 33 | N0131 | 10 (10) | 10/0 | 5 | 0 | 0 | 17 | A | OPEN | `fullname\|ref_typespec\|ours-empty\|under:constant` | emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitStmt (StmtEmit.cpp, law negLitPkgRetFoldNested30) < emitStmt (StmtEmit.cpp, law thisSup |
+| 34 | N0140 | 10 (10) | 2/8 | 5 | 0 | 0 | 0 | B | OPEN (map 7 gave it to r11u152; pass 152 left it) | `file\|struct_typespec\|other-file\|under:ref_typespec` | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < emitPackage (ParamEmit.cpp, law a7) < exportDesign (UhdmExporter.cpp, law caUnelabBodyCh |
+| 35 | N0141 | 10 (10) | 10/0 | 6 | 0 | 0 | 0 | B | OPEN | `file\|logic_typespec\|other-file+span\|under:ref_typespec` | makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < emitTaskFuncs (TaskFuncEmit.cpp, law modTdRetCloneSymbolic20) < emitClassDefn (UhdmExporter.c |
+| 36 | N0143 | 10 (10) | 2/8 | 5 | 0 | 0 | 0 | B | OPEN (map 7 gave it to r11u152; pass 152 left it) | `file\|struct_typespec\|other-file\|under:module_inst` | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < emitPackage (ParamEmit.cpp, law a7) < exportDesign (UhdmExporter.cpp, law caUnelabBodyCh |
+| 37 | N0078 | 9 (9) | 7/2 | 5 | 2 | 2 | 0 | B | OPEN (one shape named by r11u164: the rest of the ibex family) | `fullname\|ref_obj\|ours-empty@in-typespec\|under:operation` | emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < emitSyntaxExpr (TypeEmit.cpp, law structParamPathBaseAtMember137) < operator() (TypeEmit.c |
+| 38 | N0040 | 9 (11) | 9/2 | 6 | 2 | 0 | 34 | B | OPEN [the decodes reduce it: rows 11->9, probe 34->34] | `span\|logic_typespec\|endcol\|under:ref_typespec` | makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < emitImportedPkgVarNets (ModuleEmit.cpp, law oobCtorLocalsRideTheImport203) < emitInterfaceDef |
+| 39 | N0210 | 9 (9) | 9/0 | 5 | 2 | 0 | 0 | B | OPEN | `file\|typespec_member\|other-file\|under:struct_typespec` | buildStructTs (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < exportDesign (UhdmExporter.cpp, law unitImportHoistsPkgParams146v) < main (uhdm_ma |
+| 40 | N0152 | 9 (9) | 9/0 | 5 | 0 | 0 | 71 | A | OPEN | `file\|begin\|ours-empty\|under:function` | emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitClass |
+| 41 | N0153 | 9 (9) | 9/0 | 5 | 0 | 0 | 71 | A | OPEN | `span\|begin\|ours-zero\|under:function` | emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitClass |
+| 42 | N0159 | 9 (9) | 9/0 | 5 | 0 | 0 | 7 | A | OPEN | `span\|do_while\|endline+endcol\|under:begin` | emitStmt (StmtEmit.cpp, law genScopeProcLoopCtrlNoFold76) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp,  |
+| 43 | N0109 | 9 (9) | 9/0 | 5 | 0 | 0 | 6 | A | OPEN | `file\|string_typespec\|ours-empty\|under:ref_typespec` | operator() (StmtEmit.cpp, law classPropUnitImport21) < emitStmt (StmtEmit.cpp, law foreachLoopVarObjs9) < emitStmt (StmtEmit.cpp, law invalidChild14)  |
+| 44 | N0110 | 9 (9) | 9/0 | 5 | 0 | 0 | 6 | A | OPEN | `span\|string_typespec\|ours-zero\|under:ref_typespec` | operator() (StmtEmit.cpp, law classPropUnitImport21) < emitStmt (StmtEmit.cpp, law foreachLoopVarObjs9) < emitStmt (StmtEmit.cpp, law invalidChild14)  |
+| 45 | N0160 | 9 (9) | 9/0 | 5 | 0 | 0 | 6 | A | OPEN | `span\|ref_var\|endcol\|under:foreach_stmt` | emitStmt (StmtEmit.cpp, law foreachScopedArrayWrittenClassVar33) < emitStmt (StmtEmit.cpp, law invalidChild14) < emitStmt (StmtEmit.cpp, law thisSuper |
+| 46 | N0071 | 9 (9) | 9/0 | 5 | 0 | 0 | 4 | A | OPEN (map 7 gave it to r11u152; pass 152 left it) | `span\|hier_path\|endcol\|under:operation` | emitExpr (ExprEmit.cpp, law dottedIdxRecvFromSyntax23) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law hpName |
+| 47 | N0172 | 9 (9) | 9/0 | 5 | 0 | 0 | 4 | A | OPEN | `file\|begin\|ours-empty\|under:task` | emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitClass |
+| 48 | N0173 | 9 (9) | 9/0 | 5 | 0 | 0 | 4 | A | OPEN | `span\|begin\|ours-zero\|under:task` | emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitClass |
+| 49 | N0052 | 9 (9) | 9/0 | 5 | 0 | 0 | 3 | A | OPEN | `fullname\|ref_obj\|tok:id.id[id]::->\|under:bit_select` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law hpTrailSelIdxNamesByPath133) < emitExpr (ExprEmit.cpp, law dynArray |
+| 50 | N0174 | 9 (9) | 9/0 | 5 | 0 | 0 | 3 | A | OPEN | `fullname\|ref_obj\|tok:id::->\|under:io_decl` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitTaskFuncs (TaskFuncEmit.cpp, law classArgBind12) < emitClassDefn (UhdmExporter.cpp, law ext |
+| 51 | N0175 | 9 (9) | 9/0 | 5 | 0 | 0 | 3 | A | OPEN | `fullname\|ref_obj\|tok:id[id].id::->\|under:bit_select` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79) < emitExpr (ExprEmit.cpp, law thisPat |
+| 52 | N0178 | 9 (9) | 9/0 | 5 | 0 | 0 | 3 | A | OPEN | `file\|begin\|ours-empty\|under:if_stmt` | emitStmt (StmtEmit.cpp, law parBlockJoinTailAfterFirstItem131) < emitStmt (StmtEmit.cpp, law invalidChild14) < emitStmt (StmtEmit.cpp, law castOperand |
+| 53 | N0179 | 9 (9) | 9/0 | 5 | 0 | 0 | 3 | A | OPEN | `span\|begin\|ours-zero\|under:if_stmt` | emitStmt (StmtEmit.cpp, law parBlockJoinTailAfterFirstItem131) < emitStmt (StmtEmit.cpp, law invalidChild14) < emitStmt (StmtEmit.cpp, law castOperand |
+| 54 | N0187 | 9 (9) | 9/0 | 5 | 0 | 0 | 2 | A | OPEN | `span\|func_call\|endcol\|under:bit_select` | emitExpr (ExprEmit.cpp, law defGenQualPkgCallBinds18) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79) < emitExpr (ExprEmit.cpp, law thisPa |
+| 55 | N0185 | 9 (9) | 9/0 | 5 | 0 | 0 | 1 | A | OPEN | `span\|constant\|endcol\|under:assignment` | emitExpr (ExprEmit.cpp, law srlgTimeLitVal) < operator() (StmtEmit.cpp, law declInitWrittenNewNoStmt66) < emitStmt (StmtEmit.cpp, law foreachArraySelf |
+| 56 | N0193 | 9 (9) | 9/0 | 5 | 0 | 0 | 1 | A | OPEN | `span\|hier_path\|endcol\|under:return_stmt` | emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law shellCallKeepsItsSyntax167) < emitStmt (StmtEmit.cpp, law negLitPkgRetF |
+| 57 | N0194 | 9 (9) | 9/0 | 5 | 0 | 0 | 1 | ? | OPEN | `struct\|golden-only:fewer-copies\|ref_typespec\|under:array_typespec` | - |
+| 58 | N0195 | 9 (9) | 9/0 | 5 | 0 | 0 | 1 | A | OPEN | `fullname\|ref_obj\|tok:id[id].id::->\|under:method_func_call` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitExpr (ExprEmit.cpp, law incDecMemberPa |
+| 59 | N0196 | 9 (9) | 9/0 | 5 | 0 | 0 | 1 | A | OPEN | `fullname\|ref_obj\|tok:id.id::->\|under:hier_path` | emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law cloneBuiltinMethodArgBindsReceiver184) < emitStmt (StmtEmit.cpp,  |
+| 60 | N0197 | 9 (9) | 9/0 | 5 | 0 | 0 | 1 | A | OPEN | `struct\|golden-only:fewer-copies\|string_typespec\|under:ref_typespec` | operator() (StmtEmit.cpp, law foreachAssocIdxAliasTs22) < emitStmt (StmtEmit.cpp, law foreachLoopVarObjs9) < emitStmt (StmtEmit.cpp, law invalidChild1 |
+| 61 | N0199 | 9 (9) | 9/0 | 5 | 0 | 0 | 1 | A | OPEN | `fullname\|bit_select\|tok:id.id::->\|under:method_func_call` | emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law cloneBuiltinMethodArgBindsReceiver184) < emitStmt (StmtEmit.cpp, law ca |
+| 62 | N0207 | 9 (9) | 9/0 | 5 | 0 | 0 | 1 | A | OPEN | `fullname\|ref_obj\|tok:::->.\|under:sys_func_call` | emitExpr (ExprEmit.cpp, law genCaSysCallArgBinds22) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law hpNameBar |
+| 63 | N0054 | 9 (15) | 15/0 | 8 | 0 | 0 | 0 | A | OPEN [the decodes reduce it: rows 15->9, probe 0->0] | `span\|assignment\|endcol\|under:begin` | emitStmt (StmtEmit.cpp, law declInitWrittenNewNoStmt66) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitClas |
+| 64 | N0123 | 9 (9) | 9/0 | 5 | 0 | 0 | 0 | A | OPEN | `file\|int_typespec\|other-file+span\|under:ref_typespec` | makeParamTs (ParamEmit.cpp, law tpAnonAggParamTsNoStamp47) < operator() (ParamEmit.cpp, law pkgUntypedYNoStamp60) < emitParameters (ParamEmit.cpp, law |
+| 65 | N0183 | 9 (9) | 9/0 | 5 | 0 | 0 | 0 | A | OPEN | `fullname\|ref_obj\|tok:id[id + n].id::->\|under:operation` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitMixedHierPath (ExprEmit.cpp, law |
+| 66 | N0192 | 9 (9) | 9/0 | 5 | 0 | 0 | 0 | A | OPEN | `fullname\|ref_obj\|tok:id.id::->\|under:operation` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law elabMise |
+| 67 | N0214 | 9 (9) | 9/0 | 5 | 0 | 0 | 0 | A | OPEN | `fullname\|ref_obj\|tok:id.id.id::->\|under:method_func_call` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitExpr (ExprEmit.cpp, law hpNameBareIdxF |
+| 68 | N0215 | 9 (9) | 9/0 | 5 | 0 | 0 | 0 | A | OPEN | `fullname\|ref_obj\|tok:id::->\|under:operation` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law memberAc |
+| 69 | N0216 | 9 (9) | 9/0 | 5 | 0 | 0 | 0 | A | OPEN | `span\|ref_obj\|line+col+endline+endcol\|under:io_decl` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitTaskFuncs (TaskFuncEmit.cpp, law classArgBind12) < emitClassDefn (UhdmExporter.cpp, law ext |
+| 70 | N0217 | 9 (9) | 9/0 | 5 | 0 | 0 | 0 | A | OPEN | `fullname\|ref_obj\|tok:id.id::->\|under:bit_select` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law dottedIdxRecvFromSyntax23) < emitExpr (ExprEmit.cpp, law incDecMemb |
+   probe-only OPEN clusters with the most cases (after the decodes): N1897 (119, B) N1898 (92, B) N1899 (52, B) N1900 (50, B) N0044 (46, B) N1901 (45, B) N1902 (37, A) N0739 (27, A) N1903 (21, A) N1904 (20, A) N1905 (17, B) N1907 (15, B)
+   laws with the most NE cases: badConcatOperandsFromSyntax160 71/71; loopCaParamReadKeepsLiteral116 59/123; portViewRangeRecvParams 41/55; pvExprDefaultFold115 41/50; caNestedModPortedDefShell101 36/38; srlgCondOpInstValueTernFold9 32/140; nestedParamActualTs6 29/41; tpPackedArrayTsVar108 29/73; spVoidCastValue109 27/27; caIfacePortDeclNetMint93 27/35
+== 5. first clusters of the rows left after the decodes + pair B
+| first cluster | row-modes it heads | ground | status | key | site |
+|---|---|---|---|---|---|
+| N0149 | 8 | B | OPEN (map 7 gave it to r11u152; pass 152 left it) | `file\|struct_typespec\|other-file\|under:package` | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < emitPackage (ParamEmit.cpp, law a7) < exportDesign (UhdmEx |
+| N0084 | 6 | A | OPEN (residue: pass 155 R-SP: a value parameter struct copy  | `fullname\|ref_typespec\|tok:id@id.id.->\|under:typespec_member` | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < operator() (TypeEmit.cpp, law anonPackedAggDimTs1 |
+| N0163 | 5 | B | OPEN (map 7 gave it to r11u152; pass 152 left it) | `fullname\|ref_typespec\|tok:id->id\|under:enum_typespec` | buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < emitPackage (ParamEmit.cpp, law enumAliasEndAtDimOrInitDecl158) < e |
+| N0536 | 4 | A | OPEN (map 7: residue of pass 147; still present) | `fullname\|ref_typespec\|tok:id.id->id\|under:constant` | emitExpr (ExprEmit.cpp, law caPartSelBoundFoldTs) < emitContAssigns (ModuleEmit.cpp, law elabCaTernaryArmInstall92) < em |
+| N0407 | 4 | A | OPEN | `span\|constant\|line+col+endline+endcol\|under:typespec_member` | makeMemLeftConst (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitParameters (ParamEmit.cpp, law pkgStructFuncAs |
+| N0144 | 4 | B | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|enum_typespec\|other-file+span\|under:package` | buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, la |
+| N0003 | 4 | A | OPEN (residue: pass 163 R2: the elaborated package listing o | `fullname\|ref_typespec\|golden-empty\|under:operation` | emitParameters (ParamEmit.cpp, law elabPatQualRefQualSpan133) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTyp |
+| N0047 | 4 | B | OPEN (one shape named by r11u164: pass 158 S6 iface_param_po | `fullname\|parameter\|tok:id->id.id.id\|under:param_assign` | emitParameters (ParamEmit.cpp, law unsizedBasedParamRhsSize106) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceT |
+| N0012 | 4 | A | OPEN | `file\|enum_typespec\|ours-empty\|under:ref_typespec` | buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45) < emi |
+| N0627 | 4 | B | OPEN | `fullname\|property_decl\|tok:id.id.id->id\|under:module_inst` | emitModuleDef (ModuleEmit.cpp, law shadowedImportParamFold) < exportDesign (UhdmExporter.cpp, law importedClassTsRideThe |
+| N0682 | 3 | A | OPEN | `fullname\|ref_typespec\|tok:->id::\|under:parameter` | emitParameters (ParamEmit.cpp, law modDefImportShape) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79)  |
+| N0977 | 2 | A | OPEN (residue: r11u166 R6: CovMacro $root.top hier_path name | `fullname\|hier_path\|ours-empty\|under:sys_func_call` | buildDottedHierPath (ExprEmit.cpp, law hpIdxClassBodyNeverLateBinds143) < emitExpr (ExprEmit.cpp, law implicitNetMintNoF |
+| N0415 | 2 | A | OPEN (residue: r11u166 R6: ibex_icache part-select bound ref | `fullname\|ref_typespec\|tok:->.id.id\|under:constant` | emitExpr (ExprEmit.cpp, law caPartSelBoundFoldTs) < emitExpr (ExprEmit.cpp, law genLpUseFoldParentScope47) < emitModuleD |
+| N0049 | 2 | B | OPEN (one shape named by r11u164: the rest of the ibex famil | `span\|sys_func_call\|endcol\|under:operation` | emitSyntaxExpr (TypeEmit.cpp, law syntaxMultiConcat) < emitSyntaxExpr (TypeEmit.cpp, law structParamPathBaseAtMember137) |
+| N0191 | 2 | A | OPEN [the decodes reduce it: rows 9->2, probe 1->0] | `span\|hier_path\|line+col+endline+endcol\|under:operation` | emitDroppedCall14 (StmtEmit.cpp, law classArgBind12) < emitBadConcatFromSyntax160 (ExprEmit.cpp, law classArgBind12) < e |
+| N0416 | 2 | A | OPEN | `fullname\|ref_typespec\|tok:.id.id->\|under:operation` | emitExpr (ExprEmit.cpp, law packageVarAutomaticIsDataDeclShape26) < emitInstance (ModuleEmit.cpp, law elabPortConnUnitEn |
+| N0422 | 2 | B | OPEN (map 7 listed it: ground-B step 24; passes 152-163 left | `span\|logic_typespec\|endline+endcol\|under:package` | makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exp |
+| N0525 | 2 | B | OPEN (residue: pass 163 S2: the high-conn bit-select index p | `fullname\|ref_obj\|tok:->id.\|under:bit_select` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law genLpIdxOpOperandFold112) < emitModul |
+| N0090 | 2 | B | OPEN (map 7 listed it: ground-B step 11; passes 152-163 left | `span\|logic_typespec\|endline+endcol\|under:ref_typespec` | makeTypeParamDefaultTs (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitParameters (ParamEmit.cpp, law typePara |
+| N0923 | 2 | A | OPEN | `fullname\|ref_obj\|golden-empty@in-typespec\|under:int_typespec` | stampParenCastWidthTs (ParamEmit.cpp, law parenCastWidthRefModuleCopy) < emitParameters (ParamEmit.cpp, law pkgParamTsRe |
+| N0736 | 2 | A | OPEN | `fullname\|parameter\|tok:id->id.id.id[n]\|under:param_assign` | emitParameters (ParamEmit.cpp, law unsizedBasedParamRhsSize106) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceT |
+| N0210 | 2 | B | OPEN | `file\|typespec_member\|other-file\|under:struct_typespec` | buildStructTs (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < exportDesign (UhdmExporter.cpp, law unitImportHoists |
+| N1083 | 2 | A | OPEN | `span\|constant\|line+endline+endcol\|under:typespec_member` | emitParameters (ParamEmit.cpp, law memLeftFormalReadTs18) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView |
+| N0080 | 2 | B | OPEN | `span\|struct_typespec\|line+col+endline+endcol\|under:package` | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v)  |
+| N0043 | 2 | B | OPEN (residue: pass 155 R-SP / pass 163 residue 3: the defin | `span\|struct_typespec\|line+col+endline+endcol\|under:ref_typespec` | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < makeTypespec (TypeEmit.cpp, law tpCloneWholeLhsBare160) <  |
+| N1058 | 2 | B | OPEN | `fullname\|hier_path\|golden-empty\|under:range` | operator() (TypeEmit.cpp, law elabRhsArrayTsSubBoundFolds102) < buildUnpackedRanges (TypeEmit.cpp, law rangeBoundReduceE |
+| N0219 | 2 | B | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|struct_typespec\|other-file+span\|under:ref_typespec` | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v)  |
+| N1096 | 2 | A | OPEN | `span\|ref_obj\|endcol\|under:tagged_pattern` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEmit. |
+| N0745 | 2 | A | OPEN | `span\|constant\|col+endcol\|under:typespec_member` | makeMemLeftConst (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitParameters (ParamEmit.cpp, law pkgStructFuncAs |
+| N0962 | 2 | B | OPEN (map 7 gave it to r11u152; pass 152 left it) | `fullname\|hier_path\|golden-empty\|under:port` | emitInstance (ModuleEmit.cpp, law wildcardConnRefSpan130) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46) < |
+   pristine first clusters (f2f2d30b): N0064:14 N0149:8 N0084:6 N0627:4 N0001:4 N0054:4 N0003:4 N0047:4 N0407:4 N0536:4 N0012:4 N0163:3 N0103:2 N0080:2 N0923:2 N1096:2 N0086:2 N0969:2 N1058:2 N0528:2 N0040:2 N1134:2 N0422:2 N0418:2 N0088:2
+   pristine probe first clusters: N1897:106 N0127:78 N0039:72 N0151:68 N0263:53 N0471:50 N0284:44 N0084:43 N0067:42 N0047:36 N0003:35 N0040:28 N0738:27 N0739:26 N1169:23 N0474:21 N0154:19 N0264:16 N0093:16 N0443:14 N0129:14 N0049:14 N1911:14 N0682:12 N1916:12
+== 6. pair B r11u164 covered clusters (decodes measured + the rest optimistic): rows f2f2d30b -> after the decodes; probe
+| cluster | rows f2f2d30b (sl/u2r) | after decodes | probe f2f2d30b -> after decodes | coverage | key |
+|---|---|---|---|---|---|
+| N0091 | 17 (15/2) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|col+endcol\|under:operation` |
+| N0069 | 13 (13/0) | 13 | 25 -> 25 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|string_typespec\|line+col+endline+endcol\|under:ref_typespec` |
+| N0287 | 13 (13/0) | 0 | 3 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|constant\|col+endcol\|under:operation` |
+| N0093 | 11 (11/0) | 11 | 65 -> 65 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|io_decl\|line+col+endline+endcol\|under:function` |
+| N0100 | 11 (11/0) | 11 | 11 -> 11 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|bit_typespec\|line+col+endline+endcol\|under:ref_typespec` |
+| N0104 | 11 (11/0) | 11 | 7 -> 7 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|bit_var\|line+col+endline+endcol\|under:function` |
+| N0105 | 11 (11/0) | 11 | 7 -> 7 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|string_var\|line+col+endline+endcol\|under:function` |
+| N0106 | 11 (11/0) | 11 | 7 -> 7 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|class_var\|golden-empty\|under:function` |
+| N0107 | 11 (11/0) | 11 | 7 -> 7 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|class_var\|golden-zero\|under:function` |
+| N0116 | 11 (11/0) | 11 | 2 -> 2 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|class_typespec\|col+endcol\|under:ref_typespec` |
+| N0120 | 11 (11/0) | 11 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|enum_var\|line+col+endline+endcol\|under:function` |
+| N0125 | 11 (11/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|case_item\|endcol\|under:case_stmt` |
+| N0154 | 9 (9/0) | 9 | 41 -> 41 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|int_var\|line+col+endline+endcol\|under:function` |
+| N0156 | 9 (9/0) | 9 | 14 -> 14 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|io_decl\|line+col+endline+endcol\|under:task` |
+| N0132 | 9 (9/0) | 9 | 11 -> 11 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|int_typespec\|line+endline\|under:ref_typespec` |
+| N0051 | 9 (9/0) | 9 | 9 -> 9 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|class_typespec\|endcol\|under:ref_typespec` |
+| N0157 | 9 (9/0) | 9 | 8 -> 8 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|class_var\|line+col+endline+endcol\|under:function` |
+| N0075 | 9 (9/0) | 9 | 6 -> 6 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|enum_typespec\|line+col+endline+endcol\|under:package` |
+| N0161 | 9 (9/0) | 9 | 6 -> 6 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::->\|under:class_typespec` |
+| N0162 | 9 (9/0) | 9 | 6 -> 6 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|string_typespec\|endcol\|under:ref_typespec` |
+| N0171 | 9 (9/0) | 9 | 6 -> 6 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:fewer-copies\|bit_typespec\|under:ref_typespec` |
+| N0164 | 9 (9/0) | 9 | 5 -> 5 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::id::id::->\|under:bit_typespec` |
+| N0165 | 9 (9/0) | 9 | 5 -> 5 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|range\|line+col+endline+endcol\|under:io_decl` |
+| N0166 | 9 (9/0) | 9 | 5 -> 5 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|io_decl\|line+endline\|under:function` |
+| N0170 | 9 (9/0) | 9 | 5 -> 5 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|class_var\|col+endcol\|under:function` |
+| N0167 | 9 (9/0) | 9 | 3 -> 3 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|byte_typespec\|line+col+endline+endcol\|under:ref_typespec` |
+| N0180 | 9 (9/0) | 9 | 3 -> 3 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|ours-empty\|under:enum_typespec` |
+| N0158 | 9 (9/0) | 9 | 2 -> 2 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `depth\|bit_typespec\|ref_typespec->ref_typespec` |
+| N0168 | 9 (9/0) | 9 | 2 -> 2 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|int_typespec\|col+endcol\|under:ref_typespec` |
+| N0177 | 9 (9/0) | 9 | 2 -> 2 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:absent\|bit_typespec\|under:ref_typespec` |
+| N0184 | 9 (9/0) | 9 | 2 -> 2 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|bit_var\|col+endcol\|under:function` |
+| N0186 | 9 (9/0) | 9 | 2 -> 2 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|real_typespec\|line+col+endline+endcol\|under:ref_typespec` |
+| N0188 | 9 (9/0) | 9 | 2 -> 2 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `name\|enum_typespec\|ours-empty\|under:ref_typespec` |
+| N0200 | 9 (9/0) | 9 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|array_typespec\|ours-empty\|under:ref_typespec` |
+| N0201 | 9 (9/0) | 9 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|array_typespec\|ours-zero\|under:ref_typespec` |
+| N0203 | 9 (9/0) | 9 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::id::->\|under:bit_typespec` |
+| N0204 | 9 (9/0) | 7 | 1 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|bit_select\|endcol\|under:hier_path` |
+| N0205 | 9 (9/0) | 9 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|range\|line+col+endline+endcol\|under:bit_typespec` |
+| N0206 | 9 (9/0) | 9 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|io_decl\|line+endline\|under:task` |
+| N0208 | 9 (9/0) | 9 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|logic_var\|line+col+endline+endcol\|under:function` |
+| N0209 | 9 (9/0) | 9 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|int_typespec\|line+col+endline\|under:ref_typespec` |
+| N0081 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|ref_obj\|line+col+endline+endcol\|under:operation` |
+| N0117 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|unsupported_typespec\|endcol\|under:ref_typespec` |
+| N0121 | 9 (7/2) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|enum_typespec\|other-file+span\|under:ref_typespec` |
+| N0122 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|string_typespec\|line+endline\|under:ref_typespec` |
+| N0144 | 9 (7/2) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|enum_typespec\|other-file+span\|under:package` |
+| N0190 | 9 (9/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|if_stmt\|endcol\|under:begin` |
+| N0202 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|long_int_typespec\|line+col+endline+endcol\|under:ref_typespec` |
+| N0213 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:absent\|enum_typespec\|under:ref_typespec` |
+| N0219 | 9 (7/2) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|struct_typespec\|other-file+span\|under:ref_typespec` |
+| N0223 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|time_typespec\|line+col+endline+endcol\|under:ref_typespec` |
+| N0226 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|integer_typespec\|line+col+endline+endcol\|under:ref_typespec` |
+| N0230 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|class_typespec\|line+endline\|under:ref_typespec` |
+| N0232 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:elsewhere\|ref_typespec\|under:array_typespec` |
+| N0233 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|integer_var\|line+col+endline+endcol\|under:function` |
+| N0239 | 9 (7/2) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|struct_typespec\|other-file+span\|under:package` |
+| N0243 | 9 (9/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|hier_path\|col+endcol\|under:sys_func_call` |
+| N0244 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|time_var\|line+col+endline+endcol\|under:function` |
+| N0246 | 9 (7/2) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|col+endcol\|under:bit_select` |
+| N0249 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `value\|constant\|value:STRING->UINT+decompile+size+consttype:10->9\|under:range` |
+| N0250 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|bit_typespec\|line+endline\|under:ref_typespec` |
+| N0254 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::->\|under:enum_typespec` |
+| N0255 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|class_typespec\|line+col+endline+endcol\|under:class_defn` |
+| N0256 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|class_var\|endcol\|under:function` |
+| N0257 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|long_int_var\|line+col+endline+endcol\|under:function` |
+| N0258 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|operation\|line+col+endline+endcol\|under:range` |
+| N0259 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|real_var\|line+col+endline+endcol\|under:function` |
+| N0260 | 9 (9/0) | 9 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|ref_var\|line+col+endline+endcol\|under:function` |
+| N0264 | 8 (8/0) | 8 | 30 -> 30 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|int_typespec\|endcol\|under:ref_typespec` |
+| N0151 | 7 (7/0) | 7 | 84 -> 84 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:fewer-copies\|ref_typespec\|under:parameter` |
+| N0262 | 7 (7/0) | 7 | 69 -> 69 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:fewer-copies\|constant\|under:param_assign` |
+| N0285 | 7 (7/0) | 0 | 8 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|sys_func_call\|endcol\|under:begin` |
+| N0288 | 7 (7/0) | 7 | 4 -> 4 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|golden-empty\|under:array_typespec` |
+| N0289 | 7 (7/0) | 7 | 3 -> 3 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|string_var\|under:ref_obj` |
+| N0291 | 7 (7/0) | 7 | 2 -> 2 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|enum_typespec\|line+col+endline+endcol\|under:class_defn` |
+| N0015 | 7 (7/0) | 0 | 1 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|constant\|line+col+endline+endcol\|under:sys_func_call` |
+| N0296 | 7 (7/0) | 0 | 1 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|line+col+endline+endcol\|under:hier_path` |
+| N0297 | 7 (7/0) | 0 | 1 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|method_func_call\|line+col+endline+endcol\|under:hier_path` |
+| N0298 | 7 (7/0) | 0 | 1 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|sys_func_call\|endline+endcol\|under:func_call` |
+| N0300 | 7 (7/0) | 0 | 1 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|func_call\|line+col+endline+endcol\|under:sys_func_call` |
+| N0212 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|line+col+endline+endcol\|under:operation` |
+| N0292 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|constant\|col+endcol\|under:func_call` |
+| N0301 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|begin\|col+endcol\|under:function` |
+| N0308 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|func_call\|endcol\|under:if_stmt` |
+| N0310 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|endline+endcol\|under:func_call` |
+| N0311 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|hier_path\|line+col+endline+endcol\|under:sys_func_call` |
+| N0312 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|line+col+endline+endcol\|under:sys_func_call` |
+| N0313 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|constant\|line+col+endline+endcol\|under:method_func_call` |
+| N0314 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|method_func_call\|line+col+endline+endcol\|under:sys_func_call` |
+| N0315 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|func_call\|line+col+endline+endcol\|under:operation` |
+| N0316 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|line+col+endline+endcol\|under:bit_select` |
+| N0317 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|bit_select\|line+col+endline+endcol\|under:hier_path` |
+| N0318 | 7 (7/0) | 7 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|bit_typespec\|other-file+span\|under:ref_typespec` |
+| N0321 | 7 (7/0) | 7 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|enum_typespec\|other-file+span\|under:class_defn` |
+| N0322 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|sys_func_call\|endline+endcol\|under:operation` |
+| N0327 | 7 (7/0) | 7 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|logic_typespec\|other-file\|under:ref_typespec` |
+| N0328 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|line+col+endline+endcol\|under:sys_func_call` |
+| N0329 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|function\|endline\|under:class_defn` |
+| N0330 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|constant\|col+endcol\|under:method_func_call` |
+| N0337 | 7 (7/0) | 7 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|class_typespec\|other-file+span\|under:ref_typespec` |
+| N0338 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|sys_func_call\|line+col+endline+endcol\|under:operation` |
+| N0339 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|constant\|endline+endcol\|under:string_var` |
+| N0342 | 7 (7/0) | 7 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|bit_typespec\|other-file\|under:ref_typespec` |
+| N0343 | 7 (7/0) | 7 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|class_var\|under:ref_obj` |
+| N0344 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `file\|case_item\|other-file+span\|under:case_stmt` |
+| N0345 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|line+col+endline+endcol\|under:method_func_call` |
+| N0349 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|bit_select\|line+col+endline+endcol\|under:func_call` |
+| N0350 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|bit_select\|line+col+endline+endcol\|under:sys_func_call` |
+| N0351 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|endline+endcol\|under:operation` |
+| N0353 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|constant\|line+col+endline+endcol\|under:bit_select` |
+| N0358 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|begin\|col+endcol\|under:task` |
+| N0359 | 7 (7/0) | 7 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|typespec_member\|other-file+span\|under:struct_typespec` |
+| N0360 | 7 (7/0) | 7 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|struct_typespec\|other-file+span\|under:class_defn` |
+| N0361 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `file\|if_stmt\|other-file+span\|under:begin` |
+| N0362 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `file\|operation\|other-file+span\|under:if_stmt` |
+| N0363 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `file\|constant\|other-file+span\|under:case_item` |
+| N0364 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `file\|constant\|other-file+span\|under:operation` |
+| N0365 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `file\|ref_obj\|other-file+span\|under:operation` |
+| N0367 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|line+col+endline+endcol\|under:bit_select` |
+| N0372 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|endline+endcol\|under:method_func_call` |
+| N0373 | 7 (7/0) | 7 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|struct_typespec\|line+col+endline+endcol\|under:class_defn` |
+| N0378 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|hier_path\|line+col+endline+endcol\|under:bit_select` |
+| N0381 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|line+endline+endcol\|under:hier_path` |
+| N0383 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|sys_func_call\|line+col+endline+endcol\|under:sys_func_call` |
+| N0385 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|assignment\|endline+endcol\|under:begin` |
+| N0386 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|endline+endcol\|under:assignment` |
+| N0388 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `file\|ref_obj\|other-file+span\|under:case_item` |
+| N0389 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `file\|ref_obj\|other-file+span\|under:sys_func_call` |
+| N0393 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|col+endcol\|under:method_func_call` |
+| N0395 | 7 (7/0) | 7 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|class_typespec\|other-file+span@builtin\|under:ref_typespec` |
+| N0396 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `file\|sys_func_call\|other-file+span\|under:operation` |
+| N0402 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|bit_select\|line+col+endline+endcol\|under:method_func_call` |
+| N0403 | 7 (7/0) | 7 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|byte_var\|line+col+endline+endcol\|under:function` |
+| N0404 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|func_call\|endcol\|under:sys_func_call` |
+| N0405 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|endline+endcol\|under:method_func_call` |
+| N2402 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|col+endcol\|under:func_call` |
+| N2403 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|col\|under:bit_var` |
+| N2404 | 7 (7/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|col+endcol\|under:func_call` |
+| N0423 | 6 (6/0) | 6 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:fewer-copies\|enum_typespec\|under:ref_typespec` |
+| N0275 | 6 (4/2) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|cont_assign\|endcol\|under:module_inst` |
+| N0325 | 6 (4/2) | 6 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|enum_typespec\|other-file+span\|under:module_inst` |
+| N0428 | 6 (6/0) | 6 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|enum_var\|under:ref_obj` |
+| N0434 | 6 (4/2) | 6 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|struct_typespec\|other-file+span\|under:module_inst` |
+| N0008 | 5 (5/0) | 5 | 23 -> 23 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|golden-empty\|under:constant` |
+| N0449 | 5 (5/0) | 5 | 3 -> 3 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id@id.id::id.->id::id::id::\|under:typespec_member` |
+| N0182 | 5 (5/0) | 5 | 2 -> 2 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:fewer-copies\|typespec_member\|under:struct_typespec` |
+| N0459 | 5 (5/0) | 5 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::id::->\|under:int_typespec` |
+| N0460 | 5 (5/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|begin\|col\|under:if_stmt` |
+| N0466 | 5 (3/2) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|assignment\|endline+endcol\|under:named_begin` |
+| N0467 | 5 (5/0) | 5 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|array_typespec\|under:ref_typespec` |
+| N0479 | 4 (4/0) | 4 | 17 -> 17 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:fewer-copies\|class_typespec\|under:ref_typespec` |
+| N0480 | 4 (4/0) | 4 | 16 -> 16 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|int_var\|under:function` |
+| N0481 | 4 (4/0) | 4 | 16 -> 16 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id->id\|under:int_var` |
+| N0485 | 4 (4/0) | 4 | 14 -> 14 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|int_var\|tok:id->id\|under:function` |
+| N0492 | 4 (4/0) | 4 | 8 -> 8 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|ours-empty\|under:array_typespec` |
+| N0493 | 4 (4/0) | 4 | 8 -> 8 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:fewer-copies\|ref_typespec\|under:ref_var` |
+| N0503 | 4 (4/0) | 4 | 6 -> 6 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|class_var\|tok:id::id->id\|under:array_var` |
+| N0504 | 4 (4/0) | 4 | 6 -> 6 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id->id\|under:class_var` |
+| N0505 | 4 (4/0) | 4 | 6 -> 6 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|int_var\|under:ref_obj` |
+| N0507 | 4 (4/0) | 4 | 5 -> 5 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `name\|bit_typespec\|tok:id::->\|under:ref_typespec` |
+| N0409 | 4 (4/0) | 4 | 4 -> 4 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|enum_typespec\|line+col+endline+endcol\|under:module_inst` |
+| N0509 | 4 (4/0) | 4 | 4 -> 4 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id@id.id::id.id.->\|under:bit_typespec` |
+| N0510 | 4 (4/0) | 4 | 4 -> 4 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|string_var\|under:function` |
+| N0511 | 4 (4/0) | 4 | 4 -> 4 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id->id\|under:bit_var` |
+| N0512 | 4 (4/0) | 4 | 4 -> 4 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|bit_var\|tok:id->id\|under:function` |
+| N0513 | 4 (4/0) | 4 | 4 -> 4 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id->id\|under:string_var` |
+| N0514 | 4 (4/0) | 4 | 4 -> 4 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|string_var\|tok:id->id\|under:function` |
+| N0516 | 4 (4/0) | 4 | 4 -> 4 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|int_var\|tok:id->id\|under:ref_obj` |
+| N0517 | 4 (2/2) | 4 | 3 -> 3 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|sys_func_call\|endcol\|under:cont_assign` |
+| N0420 | 4 (4/0) | 4 | 2 -> 2 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:elsewhere\|typespec_member\|under:struct_typespec` |
+| N0520 | 4 (4/0) | 4 | 2 -> 2 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|bit_var\|under:function` |
+| N0521 | 4 (4/0) | 4 | 2 -> 2 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id->id\|under:class_var` |
+| N0529 | 4 (4/0) | 4 | 2 -> 2 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id@id.id::id.->id::id::id::id::\|under:type_parameter` |
+| N0530 | 4 (4/0) | 4 | 2 -> 2 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|type_parameter\|tok:id@id.id::id.->id::id::id::id::@in-typespec\|under:class_typespec` |
+| N0535 | 4 (4/0) | 4 | 2 -> 2 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id->id\|under:io_decl` |
+| N0452 | 4 (4/0) | 4 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:->::id\|under:bit_var` |
+| N0537 | 4 (4/0) | 4 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|class_var\|under:function` |
+| N0538 | 4 (4/0) | 4 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:fewer-copies\|bit_var\|under:array_var` |
+| N0539 | 4 (4/0) | 4 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|class_var\|tok:id->id\|under:function` |
+| N0541 | 4 (4/0) | 4 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|logic_net\|line+col+endline+endcol\|under:ref_obj` |
+| N0543 | 4 (4/0) | 4 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::id::id::id::id::id::->\|under:bit_typespec` |
+| N0544 | 4 (4/0) | 4 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|bit_var\|tok:->::id\|under:begin` |
+| N0550 | 4 (4/0) | 4 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|class_var\|tok:id->id\|under:ref_obj` |
+| N0553 | 4 (4/0) | 4 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id->id\|under:logic_var` |
+| N0556 | 4 (4/0) | 4 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_obj\|ours-empty@in-typespec\|under:range` |
+| N0559 | 4 (4/0) | 4 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `name\|bit_typespec\|tok:->id::\|under:ref_typespec` |
+| N0561 | 4 (4/0) | 0 | 1 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|endcol\|under:operation` |
+| N0065 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `depth\|typespec_member\|struct_typespec->struct_typespec` |
+| N0066 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `depth\|ref_typespec\|typespec_member->typespec_member` |
+| N0082 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `depth\|struct_typespec\|ref_typespec->ref_typespec` |
+| N0340 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|class_var\|tok:->::id\|under:begin` |
+| N0341 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:->::id\|under:class_var` |
+| N0429 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:fewer-copies\|ref_typespec\|under:typespec_member` |
+| N0430 | 4 (2/2) | 4 | 0 -> 0 | COVERED r11u164 (UnionCast union file (TypeEmit buildUnionTs)) | `file\|union_typespec\|ours-empty\|under:ref_typespec` |
+| N0438 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|struct_typespec\|line+col+endline+endcol\|under:module_inst` |
+| N0461 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_obj\|tok:id::->\|under:hier_path` |
+| N0527 | 4 (4/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|constant\|col+endcol\|under:part_select` |
+| N0551 | 4 (0/4) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|col+endcol\|under:cont_assign` |
+| N0560 | 4 (4/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|endcol\|under:cont_assign` |
+| N0570 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:fewer-copies\|class_var\|under:array_var` |
+| N0571 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::id::id::id::id::->id@id.id::id.\|under:typespec_member` |
+| N0574 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:fewer-copies\|string_var\|under:array_var` |
+| N0575 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|enum_var\|under:function` |
+| N0576 | 4 (4/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `struct\|golden-only:absent\|class_typespec\|under:ref_typespec` |
+| N0580 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|integer_var\|under:function` |
+| N0581 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|typespec_member\|other-file\|under:ref_obj` |
+| N0585 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:elsewhere\|typespec_member\|under:ref_obj` |
+| N0588 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:->::id\|under:string_var` |
+| N0589 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|string_var\|tok:->::id\|under:begin` |
+| N0590 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::id::id::->\|under:int_typespec` |
+| N0592 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:elsewhere\|ref_typespec\|under:bit_typespec` |
+| N0593 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|logic_var\|under:function` |
+| N0595 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:fewer-copies\|ref_typespec\|under:bit_typespec` |
+| N0596 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|logic_net\|line+endline\|under:ref_obj` |
+| N0598 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|integer_var\|tok:id->id\|under:function` |
+| N0599 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id->id\|under:integer_var` |
+| N0601 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::id::id::id::id::id::id::->id@id.id::id.\|under:typespec_member` |
+| N0606 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|enum_var\|tok:id->id\|under:function` |
+| N0607 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id->id\|under:enum_var` |
+| N0608 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|time_var\|under:function` |
+| N0609 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `depth\|enum_const\|enum_typespec->enum_typespec` |
+| N0612 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:absent\|bit_var\|under:ref_obj` |
+| N0613 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:elsewhere\|class_var\|under:function` |
+| N0617 | 4 (0/4) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|col+endline+endcol\|under:cont_assign` |
+| N0618 | 4 (4/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|assignment\|col+endcol\|under:case_item` |
+| N0620 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::id::id::id::id::id::id::id::->\|under:bit_typespec` |
+| N0621 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id->id\|under:time_var` |
+| N0622 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|time_var\|tok:id->id\|under:function` |
+| N0623 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:elsewhere\|begin\|under:function` |
+| N0624 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:absent\|class_typespec\|under:ref_typespec` |
+| N0625 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:elsewhere\|range\|under:bit_typespec` |
+| N0626 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|io_decl\|under:function` |
+| N0630 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::id::id::id::->id@id.id::id.\|under:typespec_member` |
+| N0631 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::id::id::id::id::id::id::id->id@id.id::id.id\|under:bit_typespec` |
+| N0632 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:absent\|class_var\|under:ref_obj` |
+| N0634 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|bit_var\|under:ref_obj` |
+| N0636 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `depth\|enum_typespec\|ref_typespec->ref_typespec` |
+| N0637 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|logic_var\|tok:id->id\|under:function` |
+| N0641 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|byte_var\|under:function` |
+| N0642 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|long_int_var\|under:function` |
+| N0643 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|real_var\|under:function` |
+| N0644 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|ref_var\|under:function` |
+| N0647 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::id::id::id::->\|under:logic_typespec` |
+| N0648 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::id::id::id::id::id::->id@id.id::id.\|under:typespec_member` |
+| N0649 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:::id->\|under:io_decl` |
+| N0651 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::id::id->id\|under:bit_var` |
+| N0656 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:elsewhere\|class_typespec\|under:ref_typespec` |
+| N0657 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:elsewhere\|io_decl\|under:function` |
+| N0658 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:elsewhere\|array_typespec\|under:ref_typespec` |
+| N0664 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|byte_var\|tok:id->id\|under:function` |
+| N0665 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|long_int_var\|tok:id->id\|under:function` |
+| N0666 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|real_var\|tok:id->id\|under:function` |
+| N0667 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id->id\|under:byte_var` |
+| N0668 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id->id\|under:long_int_var` |
+| N0669 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id->id\|under:real_var` |
+| N0671 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_var\|tok:id->id\|under:function` |
+| N0677 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `name\|io_decl\|tok:id->id\|under:function` |
+| N0678 | 4 (4/0) | 4 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|class_typespec\|under:package` |
+| N0055 | 3 (3/0) | 0 | 1 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|line+endline\|under:operation` |
+| N0691 | 3 (3/0) | 3 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `value\|parameter\|value:INT->UINT\|under:design` |
+| N0692 | 3 (3/0) | 3 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `value\|parameter\|value:INT->UINT\|under:param_assign` |
+| N0693 | 3 (3/0) | 3 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|struct_typespec\|line+col+endline+endcol\|under:design` |
+| N0458 | 3 (3/0) | 3 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|enum_typespec\|other-file+span\|under:design` |
+| N0468 | 3 (3/0) | 3 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|enum_typespec\|line+col+endline+endcol\|under:design` |
+| N0701 | 3 (3/0) | 3 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id@id::id::id::id::->\|under:bit_typespec` |
+| N0705 | 3 (3/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|line+endline\|under:sys_func_call` |
+| N0707 | 3 (3/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|col+endcol\|under:sys_func_call` |
+| N0708 | 3 (3/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|sys_func_call\|endcol\|under:sys_func_call` |
+| N0709 | 3 (3/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|sys_func_call\|endcol\|under:if_else` |
+| N0711 | 3 (3/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|sys_func_call\|endline\|under:sys_func_call` |
+| N0714 | 3 (3/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|begin\|endcol\|under:function` |
+| N0715 | 3 (3/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|hier_path\|line+endline\|under:sys_func_call` |
+| N0716 | 3 (3/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|if_else\|endcol\|under:named_begin` |
+| N0717 | 3 (3/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|method_func_call\|line+endline\|under:hier_path` |
+| N0718 | 3 (3/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|line+endline\|under:hier_path` |
+| N0719 | 3 (3/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|sys_func_call\|endcol\|under:named_begin` |
+| N0720 | 3 (3/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|constant\|endline+endcol\|under:assignment` |
+| N0726 | 3 (3/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|line+endline\|under:sys_func_call` |
+| N0730 | 3 (3/0) | 3 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|struct_typespec\|other-file+span\|under:design` |
+| N0732 | 3 (3/0) | 3 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|class_var\|tok:id@id->id\|under:array_var` |
+| N0734 | 3 (3/0) | 3 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id@id->id\|under:class_var` |
+| N0742 | 2 (2/0) | 2 | 17 -> 17 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `value\|constant\|value:UINT->UINT+decompile\|under:range` |
+| N0266 | 2 (2/0) | 2 | 6 -> 6 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|enum_typespec\|line+col+endline+endcol\|under:ref_typespec` |
+| N0686 | 2 (2/0) | 2 | 4 -> 4 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|int_typespec\|line+endline+endcol\|under:ref_typespec` |
+| N0757 | 2 (2/0) | 2 | 4 -> 4 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|typespec_member\|endcol\|under:struct_typespec` |
+| N0518 | 2 (0/2) | 0 | 3 -> 3 | COVERED r11u164 (row named: the rest of the ibex family) | `span\|cont_assign\|endcol\|under:named_begin` |
+| N0771 | 2 (2/0) | 0 | 2 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|param_assign\|endcol\|under:module_inst` |
+| N0781 | 2 (2/0) | 2 | 2 -> 2 | COVERED r11u164 (row named: ClassTypeParam) | `file\|type_parameter\|golden-empty\|under:class_typespec` |
+| N0782 | 2 (2/0) | 2 | 2 -> 2 | COVERED r11u164 (row named: ClassTypeParam) | `span\|param_assign\|golden-zero\|under:class_typespec` |
+| N0783 | 2 (2/0) | 2 | 2 -> 2 | COVERED r11u164 (row named: ClassTypeParam) | `span\|type_parameter\|golden-zero\|under:class_typespec` |
+| N0532 | 2 (2/0) | 0 | 1 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|endcol\|under:port` |
+| N0778 | 2 (2/0) | 2 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::->\|under:enum_typespec` |
+| N0789 | 2 (2/0) | 0 | 1 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|port\|endcol\|under:ref_module` |
+| N0799 | 2 (2/0) | 1 | 1 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_obj\|tok:id.id[id].id.->\|under:bit_select` |
+| N0811 | 2 (2/0) | 0 | 1 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `fullname\|bit_select\|tok:id@id.id.id.id[id].id.id->id.id[id]\|under:hier_path` |
+| N0834 | 2 (2/0) | 2 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|part_select\|golden-empty\|under:var_select` |
+| N0835 | 2 (2/0) | 2 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_obj\|ours-empty\|under:sys_func_call` |
+| N0846 | 2 (2/0) | 2 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_obj\|tok:id::id::id::id::id::id::->id@id.id.id::id.id::id.\|under:operation` |
+| N0850 | 2 (0/2) | 0 | 1 -> 1 | COVERED r11u164 (row named: the rest of the ibex family) | `span\|cont_assign\|endline+endcol\|under:named_begin` |
+| N0515 | 2 (0/2) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|logic_net\|endline+endcol\|under:module_inst` |
+| N0528 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (pass 158 S1: HighLow's $high fold (ModuleEmit emitContAssigns)) | `value\|constant\|value:UINT->UINT\|under:cont_assign` |
+| N0565 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::id::->id.id::id.\|under:typespec_member` |
+| N0594 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::id::id::->id@id.\|under:enum_typespec` |
+| N0616 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id::id::id::->id@id.\|under:enum_typespec` |
+| N0639 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|constant\|line+endline\|under:range` |
+| N0672 | 2 (0/2) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|cont_assign\|endcol\|under:gen_scope` |
+| N0703 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|enum_typespec\|other-file+span\|under:interface_inst` |
+| N0706 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:elsewhere\|bit_typespec\|under:ref_typespec` |
+| N0752 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|logic_net\|col+endcol\|under:module_inst` |
+| N0766 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|constant\|col+endcol\|under:range` |
+| N0777 | 2 (0/2) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|logic_var\|endline+endcol\|under:module_inst` |
+| N0809 | 2 (0/2) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|logic_net\|endline+endcol\|under:ref_obj` |
+| N0813 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|part_select\|endcol\|under:operation` |
+| N0818 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|hier_path\|col+endcol\|under:operation` |
+| N0823 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|endcol\|under:assignment` |
+| N0841 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|constant\|col+endcol\|under:assignment` |
+| N0845 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|col+endcol\|under:part_select` |
+| N0924 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|bit_select\|tok:id[n].id.id.id.id.id[n->id.id.id.id.id[id\|under:hier_path` |
+| N0930 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:elsewhere\|begin\|under:task` |
+| N0934 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|constant\|col+endline+endcol\|under:sys_func_call` |
+| N0945 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|bit_select\|tok:id@id.id.id.id.id.id[id].id->id.id[id]\|under:hier_path` |
+| N0960 | 2 (0/2) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|cont_assign\|endline+endcol\|under:module_inst` |
+| N0963 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|constant\|col+endcol\|under:sys_func_call` |
+| N0968 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `fullname\|bit_select\|tok:id@id.id.id.id[id].id->id.id[id]\|under:hier_path` |
+| N0969 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (GenerateUnnamed (r11u160 decode, ModuleEmit emitGates)) | `fullname\|ref_obj\|tok:id.id.->\|under:prim_term` |
+| N0974 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|class_typespec\|under:ref_typespec` |
+| N0976 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|bit_select\|tok:id[n].->\|under:hier_path` |
+| N0981 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|logic_typespec\|endline\|under:ref_typespec` |
+| N0997 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|endcol\|under:part_select` |
+| N0999 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|part_select\|col+endcol\|under:hier_path` |
+| N1002 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|part_select\|tok:id.->\|under:cont_assign` |
+| N1025 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|constant\|col+endcol\|under:bit_select` |
+| N1026 | 2 (0/2) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|logic_var\|endline+endcol\|under:gen_scope` |
+| N1039 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|enum_typespec\|line+col+endline+endcol\|under:interface_inst` |
+| N1040 | 2 (0/2) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|ref_obj\|endline+endcol\|under:cont_assign` |
+| N1043 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:elsewhere\|io_decl\|under:task` |
+| N1044 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|golden-only:fewer-copies\|bit_var\|under:task` |
+| N1045 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|io_decl\|under:task` |
+| N1052 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|struct_typespec\|other-file+span\|under:interface_inst` |
+| N1054 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|bit_select\|tok:id@id.id.id.id.id[id].id->id.id[id]\|under:hier_path` |
+| N1055 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `fullname\|bit_select\|tok:id@id.id.id.id.id[id].id.id->id.id[id]\|under:hier_path` |
+| N1074 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|var_select\|golden-empty\|under:operation` |
+| N1077 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|assignment\|endcol\|under:if_stmt` |
+| N1078 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|begin\|col\|under:if_else` |
+| N1081 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (row named: ClassTypeParam) | `span\|class_typespec\|endline+endcol\|under:ref_typespec` |
+| N1084 | 2 (0/2) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|cont_assign\|endline+endcol\|under:gen_scope` |
+| N1087 | 2 (0/2) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|logic_var\|endline+endcol\|under:assignment` |
+| N1088 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|operation\|endcol\|under:if_else` |
+| N1090 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|part_select\|col+endcol\|under:assignment` |
+| N1091 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|part_select\|endcol\|under:assignment` |
+| N1092 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|part_select\|endcol\|under:port` |
+| N1094 | 2 (2/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|range\|endcol\|under:logic_typespec` |
+| N1099 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:elsewhere\|bit_var\|under:task` |
+| N1116 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|bit_select\|tok:id@id.id.id.id.id.id.id[id].id->id.id.id[id]\|under:hier_path` |
+| N1121 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_obj\|tok:id.id.id[id].->\|under:bit_select` |
+| N1123 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|ours-empty\|under:class_var` |
+| N1131 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id@id.->id::\|under:enum_typespec` |
+| N1138 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (row named: ClassTypeParam) | `span\|class_typespec\|endline+endcol\|under:design` |
+| N1153 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|range\|line+endline\|under:io_decl` |
+| N1157 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `span\|struct_typespec\|line+col+endline+endcol\|under:interface_inst` |
+| N1163 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:elsewhere\|class_typespec\|under:ref_typespec` |
+| N1164 | 2 (2/0) | 2 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:elsewhere\|class_var\|under:array_var` |
+| N1174 | 1 (1/0) | 1 | 4 -> 4 | COVERED r11u164 (HierPathTypespec t (pass 163 S4)) | `fullname\|ref_typespec\|tok:id::id::->\|under:typespec_member` |
+| N0447 | 1 (1/0) | 1 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `file\|param_assign\|golden-empty\|under:class_typespec` |
+| N1184 | 1 (1/0) | 1 | 1 -> 1 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|cont_assign\|under:module_inst` |
+| N0454 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id@id.id.id.id.->\|under:typespec_member` |
+| N1181 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:elsewhere\|cont_assign\|under:module_inst` |
+| N1207 | 1 (1/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|gen_scope_array\|col\|under:gen_scope` |
+| N1208 | 1 (1/0) | 0 | 0 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|gen_scope\|col\|under:gen_scope_array` |
+| N1218 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|typespec_member\|under:struct_typespec` |
+| N1292 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `struct\|ours-only:fewer-copies\|typespec_member\|under:ref_obj` |
+| N1480 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_obj\|tok:id.id.id.id.id[id].id.id->id.id\|under:bit_select` |
+| N1525 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_obj\|tok:id.id.id.id.id[id].id->id.id\|under:bit_select` |
+| N1543 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_obj\|tok:id.id.id.id[id].id->id\|under:bit_select` |
+| N1565 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_obj\|tok:id.id.id.id.id.id[id+:id]->id\|under:indexed_part_select` |
+| N1566 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_obj\|tok:id.id.id.id.id.id[id].id->id.id\|under:bit_select` |
+| N1573 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_obj\|tok:id.id[id].id.id.->\|under:bit_select` |
+| N1599 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (row named: ClassTypeParam) | `file\|type_parameter\|golden-empty\|under:param_assign` |
+| N1619 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_obj\|tok:id.id.id.id.id[n * id+:n].id->id\|under:operation` |
+| N1631 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (row named: ClassTypeParam) | `span\|type_parameter\|golden-zero\|under:param_assign` |
+| N1719 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_obj\|tok:id.id.id.id[n * id+:n].id->id\|under:operation` |
+| N1797 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_obj\|tok:id.id.id.id[n - id].id.id->id\|under:operation` |
+| N2382 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|ref_typespec\|tok:id@id.id::id.id.->id::id::id::id::\|under:typespec_member` |
+| N2387 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|bit_select\|tok:id.id[id]->id@id.id.id.id.id.id[id].id.id\|under:hier_path` |
+| N2388 | 1 (1/0) | 1 | 0 -> 0 | COVERED r11u164 (UVM/Earlgrey-only, ground B) | `fullname\|part_select\|tok:id.id[id(n'id) - n:n]->id@id.id.id.id.id.id.id[id(n'id) - n:n].id\|under:hier_path` |
+| N0026 | 0 (0/0) | 0 | 10 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|constant\|line+endline\|under:sys_func_call` |
+| N0108 | 0 (0/0) | 0 | 7 -> 7 | COVERED r11u164 (r11u160 residue 4: the procedural localparam type struct (probe r11u112 k | `fullname\|ref_typespec\|tok:id@id.id.id.->\|under:typespec_member` |
+| N0027 | 0 (0/0) | 0 | 5 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|sys_func_call\|line+endcol\|under:begin` |
+| N2339 | 0 (0/0) | 0 | 4 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|sys_func_call\|line\|under:begin` |
+| N2407 | 0 (0/0) | 0 | 3 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|begin\|endcol\|under:initial` |
+| N2408 | 0 (0/0) | 0 | 3 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|initial\|endcol\|under:module_inst` |
+| N2409 | 0 (0/0) | 0 | 3 -> 0 | COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | `span\|module_inst\|endcol\|under:design` |
+== 7. structural rows (first field depth / type / count) and probe cases
+   f2f2d30b: 1 row-modes: sur/d/YosysBigSimEllip differ:type(1) first=N0284
+   after the decodes: 5 row-modes: sur/d/ApbSlave differ:depth(1) first=N0289; sur/d/ComplexHierPath differ:depth(1) first=N0830; sur/d/YosysBigSimEllip differ:type(1) first=N0284; sur/t/ApbSlave differ:depth(1) first=N0289; sur/t/ComplexHierPath differ:depth(1) first=N0830
+   probe structural first fields: {'type': 101, 'depth': 92}
+== 8. greedy sets per ground on top of the decodes (measured) + pair B (optimistic); base cleared 11 row-modes / 6 tests
+   rows left by open-cluster count (6 = 6+): {1: 19, 2: 26, 3: 16, 4: 18, 5: 14, 6: 47} ; by ground: {'A': 16, 'both': 66, 'B': 45, '?': 13}
+   every OPEN cluster of ground A (313) clears 16 row-modes (27 with the pairs)
+   every OPEN cluster of ground B (148) clears 45 row-modes (56 with the pairs)
+## ground A: 7 candidate sets
+| step | clusters added | +row-modes | cum row-modes | cum tests | rows | key(s) | site of the first |
+|---|---|---|---|---|---|---|---|
+| 1 | N0009 + N0084 + N0759 | 6 | 17 | 9 | StructParamFieldRange/d StructParamFuncBodyFieldCompare/d StructParamFieldRange/t StructParamFuncBodyFieldCompare/t cva6_struct_param_field/d/u2r cva6_struct_param_field/t/u2r | `span\|struct_typespec\|endline+endcol\|under:ref_typespec`; `fullname\|ref_typespec\|tok:id@id.id.->\|under:typespec_member`; `fullname\|ref_obj\|tok:id@id.id.id::id.id.->id::id::\|under:hier_path` | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < makeTypespec (TypeEmit.cpp, law tpCloneWholeLhsBare160) < emitParameters (ParamEmit.cpp, |
+| 2 | N0036 | 2 | 19 | 10 | YosysRiscv/d YosysRiscv/t | `span\|bit_select\|col+endcol\|under:operation` | emitExpr (ExprEmit.cpp, law ifaceMemberTrailIdxNamesByPath147) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitMixedHierPath (ExprEmi |
+| 3 | N0977 | 2 | 21 | 11 | CovMacro/d CovMacro/t | `fullname\|hier_path\|ours-empty\|under:sys_func_call` | buildDottedHierPath (ExprEmit.cpp, law hpIdxClassBodyNeverLateBinds143) < emitExpr (ExprEmit.cpp, law implicitNetMintNoFile131) < emitExpr (ExprEmit.c |
+| 4 | N0471 + N0943 | 2 | 23 | 12 | ibex_pmp/d/u2r ibex_pmp/t/u2r | `fullname\|ref_typespec\|tok:.id[n]->\|under:constant`; `struct\|golden-only:fewer-copies\|ref_typespec\|under:var_select` | emitExpr (ExprEmit.cpp, law loopCaParamReadKeepsLiteral116) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < operator() (ModuleEmit.cpp, l |
+| 5 | N0278 | 1 | 24 | 13 | LocalScopeHierPath/t | `fullname\|ref_obj\|tok:id.id[id].id::->\|under:bit_select` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79) < emitExpr (ExprEmit.cpp, law thisPat |
+| 6 | N0427 | 1 | 25 | 14 | InterfArrayBind/d | `fullname\|ref_obj\|tok:id[id].id.->\|under:bit_select` | emitExpr (ExprEmit.cpp) < operator() (ModuleEmit.cpp, law genCaParamFoldOneHopPool95) < emitGenScopes (ModuleEmit.cpp, law genLoopUnitMiseval) [r11u15 |
+
+ground A: the 9 clusters above clear 14 row-modes on top of the pairs (25 with them)
+
+## ground B: 16 candidate sets
+| step | clusters added | +row-modes | cum row-modes | cum tests | rows | key(s) | site of the first |
+|---|---|---|---|---|---|---|---|
+| 1 | N0072 | 2 | 13 | 7 | ClassTypeParam/d ClassTypeParam/t | `span\|class_typespec\|line+col+endline+endcol\|under:ref_typespec` | makeTypespec (TypeEmit.cpp, law arrayElemTdClone42) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200) < emitClassDefn (UhdmExporter.c |
+| 2 | N0092 | 2 | 15 | 8 | UnionCast/d UnionCast/t | `value\|constant\|value:UINT->UINT\|under:range` | makeBoundConst (TypeEmit.cpp, law crossPkgRangeBoundFold) < makeTypespec (TypeEmit.cpp, law typedPkgBoundElabSize113) < buildStructTs (TypeEmit.cpp, l |
+| 3 | N0056 | 2 | 17 | 9 | PreprocTest/d PreprocTest/t | `span\|bit_typespec\|endcol\|under:ref_typespec` | buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11 |
+| 4 | N0078 | 2 | 19 | 10 | ibex_register_file_ff/d/u2r ibex_register_file_ff/t/u2r | `fullname\|ref_obj\|ours-empty@in-typespec\|under:operation` | emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < emitSyntaxExpr (TypeEmit.cpp, law structParamPathBaseAtMember137) < operator() (TypeEmit.c |
+| 5 | N0830 | 2 | 21 | 11 | ComplexHierPath/d ComplexHierPath/t | `struct\|ours-only:fewer-copies\|logic_net\|under:cont_assign` | operator() (ModuleEmit.cpp, law readerWidthIsTheSecondAdjust104) < operator() (ModuleEmit.cpp, law elseArmFirstItemReplaces48) < operator() (ModuleEmi |
+| 6 | N0661 | 2 | 23 | 12 | YosysOldOr/d YosysOldOr/t | `span\|logic_typespec\|line+endline\|under:ref_typespec` | makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < sharedTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitPorts (ModuleEmit.cp |
+| 7 | N0094 + N1058 | 2 | 25 | 13 | GenForStructParamBound/d GenForStructParamBound/t | `span\|constant\|line+col+endline+endcol\|under:range`; `fullname\|hier_path\|golden-empty\|under:range` | makeBoundConst (TypeEmit.cpp, law crossPkgRangeBoundFold) < makeTypespec (TypeEmit.cpp, law typedPkgBoundElabSize113) < emitInterfaceInstance (ModuleE |
+| 8 | N0064 + N0129 | 2 | 27 | 14 | YosysOldOpen/d YosysOldOpen/t | `span\|include_file_info\|line+endline\|under:design`; `fullname\|ref_typespec\|tok:->.id\|under:constant` | emitIncludeFileInfos (UhdmExporter.cpp, law includeInactiveTabNotText141v) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab) < main (uhdm_m |
+| 9 | N0525 + N0562 | 2 | 29 | 15 | StructArrayNet/d StructArrayNet/t | `fullname\|ref_obj\|tok:->id.\|under:bit_select`; `fullname\|ref_obj\|tok:id.->\|under:bit_select` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law genLpIdxOpOperandFold112) < emitModuleDefPorts (ModuleEmit.cpp, law |
+| 10 | N0163 + N1115 | 2 | 31 | 16 | PackedArrayHighConn/d PackedArrayHighConn/t | `fullname\|ref_typespec\|tok:id->id\|under:enum_typespec`; `fullname\|bit_select\|tok:->id.\|under:bit_select` | buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < emitPackage (ParamEmit.cpp, law enumAliasEndAtDimOrInitDecl158) < exportDesign (UhdmExporter.cpp, |
+| 11 | N0804 + N0805 | 2 | 33 | 17 | mem_read_reg/d/u2r mem_read_reg/t/u2r | `struct\|golden-only:elsewhere\|struct_typespec\|under:interface_inst`; `struct\|ours-only:elsewhere\|struct_typespec\|under:interface_inst` | exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u138map pin] [r11u142 |
+| 12 | N0043 + N0133 + N0487 | 2 | 35 | 18 | const_cast_signext/d/u2r const_cast_signext/t/u2r | `span\|struct_typespec\|line+col+endline+endcol\|under:ref_typespec`; `struct\|golden-only:fewer-copies\|func_call\|under:cont_assign`; `struct\|ours-only:absent\|constant\|under:cont_assign` | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < makeTypespec (TypeEmit.cpp, law tpCloneWholeLhsBare160) < emitParameters (ParamEmit.cpp, |
+| 13 | N0268 + N0418 + N0419 | 2 | 37 | 19 | OneNetModPort/d OneNetModPort/t | `struct\|ours-only:fewer-copies\|logic_var\|under:io_decl`; `file\|ref_obj\|golden-empty\|under:port`; `span\|ref_obj\|golden-zero\|under:port` | makeVar (TypeEmit.cpp, law pkgScopedPortAnyDirVar77) < emitInterfaceInstance (ModuleEmit.cpp, law defNetEndOnlyLoc130) < emitInstance (ModuleEmit.cpp, |
+| 14 | N0083 + N0422 + N0484 + N1149 | 2 | 39 | 20 | LogicTypespec/d LogicTypespec/t | `struct\|golden-only:fewer-copies\|range\|under:logic_typespec`; `span\|logic_typespec\|endline+endcol\|under:package`; `name\|logic_typespec\|ours-empty\|under:ref_typespec`; `span\|logic_typespec\|line+col+endcol\|under:ref_typespec` | makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45) < emitInterfaceInstance (ModuleEmi |
+| 15 | N0136 + N0457 + N0775 | 1 | 40 | 21 | UnsizedParam/d | `fullname\|ref_obj\|tok:id.id->id\|under:cont_assign`; `fullname\|ref_typespec\|tok:id.id->id\|under:operation`; `struct\|golden-only:fewer-copies\|cont_assign\|under:module_inst` | UHDM library DeepClone < DeepClone < elabModule_inst (--elabuhdm, testflags) run from main (uhdm_main.cpp) [DECODED (r11u131 R10): as N0030 (InterfIns |
+
+ground B: the 29 clusters above clear 29 row-modes on top of the pairs (40 with them)
+
+## ground A+B: 52 candidate sets
+| step | clusters added | +row-modes | cum row-modes | cum tests | rows | key(s) | site of the first |
+|---|---|---|---|---|---|---|---|
+| 1 | N0009 + N0084 + N0759 | 6 | 17 | 9 | StructParamFieldRange/d StructParamFuncBodyFieldCompare/d StructParamFieldRange/t StructParamFuncBodyFieldCompare/t cva6_struct_param_field/d/u2r cva6_struct_param_field/t/u2r | `span\|struct_typespec\|endline+endcol\|under:ref_typespec`; `fullname\|ref_typespec\|tok:id@id.id.->\|under:typespec_member`; `fullname\|ref_obj\|tok:id@id.id.id::id.id.->id::id::\|under:hier_path` | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < makeTypespec (TypeEmit.cpp, law tpCloneWholeLhsBare160) < emitParameters (ParamEmit.cpp, |
+| 2 | N0072 | 2 | 19 | 10 | ClassTypeParam/d ClassTypeParam/t | `span\|class_typespec\|line+col+endline+endcol\|under:ref_typespec` | makeTypespec (TypeEmit.cpp, law arrayElemTdClone42) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200) < emitClassDefn (UhdmExporter.c |
+| 3 | N0036 | 2 | 21 | 11 | YosysRiscv/d YosysRiscv/t | `span\|bit_select\|col+endcol\|under:operation` | emitExpr (ExprEmit.cpp, law ifaceMemberTrailIdxNamesByPath147) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitMixedHierPath (ExprEmi |
+| 4 | N0092 | 2 | 23 | 12 | UnionCast/d UnionCast/t | `value\|constant\|value:UINT->UINT\|under:range` | makeBoundConst (TypeEmit.cpp, law crossPkgRangeBoundFold) < makeTypespec (TypeEmit.cpp, law typedPkgBoundElabSize113) < buildStructTs (TypeEmit.cpp, l |
+| 5 | N0056 | 2 | 25 | 13 | PreprocTest/d PreprocTest/t | `span\|bit_typespec\|endcol\|under:ref_typespec` | buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11 |
+| 6 | N0078 | 2 | 27 | 14 | ibex_register_file_ff/d/u2r ibex_register_file_ff/t/u2r | `fullname\|ref_obj\|ours-empty@in-typespec\|under:operation` | emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < emitSyntaxExpr (TypeEmit.cpp, law structParamPathBaseAtMember137) < operator() (TypeEmit.c |
+| 7 | N0830 | 2 | 29 | 15 | ComplexHierPath/d ComplexHierPath/t | `struct\|ours-only:fewer-copies\|logic_net\|under:cont_assign` | operator() (ModuleEmit.cpp, law readerWidthIsTheSecondAdjust104) < operator() (ModuleEmit.cpp, law elseArmFirstItemReplaces48) < operator() (ModuleEmi |
+| 8 | N0661 | 2 | 31 | 16 | YosysOldOr/d YosysOldOr/t | `span\|logic_typespec\|line+endline\|under:ref_typespec` | makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < sharedTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitPorts (ModuleEmit.cp |
+| 9 | N0977 | 2 | 33 | 17 | CovMacro/d CovMacro/t | `fullname\|hier_path\|ours-empty\|under:sys_func_call` | buildDottedHierPath (ExprEmit.cpp, law hpIdxClassBodyNeverLateBinds143) < emitExpr (ExprEmit.cpp, law implicitNetMintNoFile131) < emitExpr (ExprEmit.c |
+| 10 | N0025 + N0033 + N0140 + N0143 + N0149 | 6 | 39 | 20 | rp32_r5p_bru/d/u2r rp32_r5p_mdu/d/u2r rp32_r5p_wbu/d/u2r rp32_r5p_bru/t/u2r rp32_r5p_mdu/t/u2r rp32_r5p_wbu/t/u2r | `depth\|constant\|range->operation`; `struct\|ours-only:fewer-copies\|operation\|under:range`; `file\|struct_typespec\|other-file\|under:ref_typespec`; `file\|struct_typespec\|other-file\|under:module_inst`; `file\|struct_typespec\|other-file\|under:package` | emitSyntaxExpr (TypeEmit.cpp, law fnLocalParamRangeNet) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (TypeEmit.cpp, law elabVarR |
+| 11 | N0049 + N0545 + N0546 | 4 | 43 | 22 | ibex_multdiv_fast/d/u2r rp32_r5p_alu/d/u2r ibex_multdiv_fast/t/u2r rp32_r5p_alu/t/u2r | `span\|sys_func_call\|endcol\|under:operation`; `file\|enum_const\|ours-empty\|under:ref_obj`; `span\|enum_const\|ours-zero\|under:ref_obj` | emitSyntaxExpr (TypeEmit.cpp, law syntaxMultiConcat) < emitSyntaxExpr (TypeEmit.cpp, law structParamPathBaseAtMember137) < operator() (ModuleEmit.cpp, |
+| 12 | N0047 + N0048 + N0129 + N0442 + N0475 | 5 | 48 | 24 | YosysOldOpen/t iface_param_port_width/d/u2r interface_array/d/u2r iface_param_port_width/t/u2r interface_array/t/u2r | `fullname\|parameter\|tok:id->id.id.id\|under:param_assign`; `fullname\|ref_typespec\|tok:id->id.id.id\|under:parameter`; `fullname\|ref_typespec\|tok:->.id\|under:constant`; `struct\|ours-only:fewer-copies\|parameter\|under:param_assign`; `struct\|ours-only:fewer-copies\|ref_typespec\|under:constant` | emitParameters (ParamEmit.cpp, law unsizedBasedParamRhsSize106) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitInstance (Modu |
+| 13 | N0012 + N0034 + N0281 + N0638 | 4 | 52 | 26 | TypeParameterAsPortTypeWithEnum/d/u2r TypeParameterAsPortTypeWithEnumOfParametrizedWidth/d/u2r TypeParameterAsPortTypeWithEnum/t/u2r TypeParameterAsPortTypeWithEnumOfParametrizedWidth/t/u2r | `file\|enum_typespec\|ours-empty\|under:ref_typespec`; `span\|enum_typespec\|ours-zero\|under:ref_typespec`; `fullname\|ref_obj\|tok:id.->@in-typespec\|under:operation`; `fullname\|ref_typespec\|tok:id@id.id.id.->\|under:enum_typespec` | buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45) < emitInstance (ModuleEmit.cpp, law |
+| 14 | N0097 + N0103 | 2 | 54 | 27 | ArrayMethodIterator/d ArrayMethodIterator/t | `span\|hier_path\|endcol\|under:assignment`; `name\|class_typespec\|ours-empty\|under:ref_typespec` | emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSub |
+| 15 | N0007 + N0962 | 2 | 56 | 28 | mriscv_bind_sva/d/u2r mriscv_bind_sva/t/u2r | `fullname\|ref_obj\|golden-empty\|under:hier_path`; `fullname\|hier_path\|golden-empty\|under:port` | emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubro |
+| 16 | N0003 + N0014 | 2 | 58 | 29 | StructParamPatternInitCast/d StructParamPatternInitCast/t | `fullname\|ref_typespec\|golden-empty\|under:operation`; `fullname\|ref_typespec\|tok:id.->\|under:typespec_member` | emitParameters (ParamEmit.cpp, law elabPatQualRefQualSpan133) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitInstance (Module |
+| 17 | N0820 | 2 | 60 | 30 | anon_struct_packed_dim/d/u2r anon_struct_packed_dim/t/u2r | `fullname\|ref_obj\|tok:id[id].id[n - id][n:n].id.->\|under:operation` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law everyPar |
+| 18 | N0688 | 2 | 62 | 31 | iface_zero_width_field/d/u2r iface_zero_width_field/t/u2r | `fullname\|ref_typespec\|tok:id@id->id::id\|under:typespec_member` | buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law tpAnonAggParamTsNoStamp47) < emitParameters (Pa |
+| 19 | N0094 + N1058 | 2 | 64 | 32 | GenForStructParamBound/d GenForStructParamBound/t | `span\|constant\|line+col+endline+endcol\|under:range`; `fullname\|hier_path\|golden-empty\|under:range` | makeBoundConst (TypeEmit.cpp, law crossPkgRangeBoundFold) < makeTypespec (TypeEmit.cpp, law typedPkgBoundElabSize113) < emitInterfaceInstance (ModuleE |
+| 20 | N0525 + N0562 | 2 | 66 | 33 | StructArrayNet/d StructArrayNet/t | `fullname\|ref_obj\|tok:->id.\|under:bit_select`; `fullname\|ref_obj\|tok:id.->\|under:bit_select` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law genLpIdxOpOperandFold112) < emitModuleDefPorts (ModuleEmit.cpp, law |
+| 21 | N0163 + N1115 | 2 | 68 | 34 | PackedArrayHighConn/d PackedArrayHighConn/t | `fullname\|ref_typespec\|tok:id->id\|under:enum_typespec`; `fullname\|bit_select\|tok:->id.\|under:bit_select` | buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < emitPackage (ParamEmit.cpp, law enumAliasEndAtDimOrInitDecl158) < exportDesign (UhdmExporter.cpp, |
+| 22 | N0085 + N0738 | 2 | 70 | 35 | func_typename_ret/d/u2r func_typename_ret/t/u2r | `struct\|ours-only:fewer-copies\|ref_typespec\|under:logic_typespec`; `name\|logic_typespec\|tok:id::->\|under:ref_typespec` | makeParamTs (ParamEmit.cpp, law pkgParamOwnDefRange) < drainDefParamTs (ParamEmit.cpp, law paramCloneImportedCopy) < exportDesign (UhdmExporter.cpp, l |
+| 23 | N0736 + N0737 | 2 | 72 | 36 | interface_array_fanout/d/u2r interface_array_fanout/t/u2r | `fullname\|parameter\|tok:id->id.id.id[n]\|under:param_assign`; `fullname\|ref_typespec\|tok:id->id.id.id[n]\|under:parameter` | emitParameters (ParamEmit.cpp, law unsizedBasedParamRhsSize106) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitInstance (Modu |
+| 24 | N0471 + N0943 | 2 | 74 | 37 | ibex_pmp/d/u2r ibex_pmp/t/u2r | `fullname\|ref_typespec\|tok:.id[n]->\|under:constant`; `struct\|golden-only:fewer-copies\|ref_typespec\|under:var_select` | emitExpr (ExprEmit.cpp, law loopCaParamReadKeepsLiteral116) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < operator() (ModuleEmit.cpp, l |
+| 25 | N0804 + N0805 | 2 | 76 | 38 | mem_read_reg/d/u2r mem_read_reg/t/u2r | `struct\|golden-only:elsewhere\|struct_typespec\|under:interface_inst`; `struct\|ours-only:elsewhere\|struct_typespec\|under:interface_inst` | exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u138map pin] [r11u142 |
+| 26 | N0278 | 1 | 77 | 39 | LocalScopeHierPath/t | `fullname\|ref_obj\|tok:id.id[id].id::->\|under:bit_select` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79) < emitExpr (ExprEmit.cpp, law thisPat |
+| 27 | N0427 | 1 | 78 | 40 | InterfArrayBind/d | `fullname\|ref_obj\|tok:id[id].id.->\|under:bit_select` | emitExpr (ExprEmit.cpp) < operator() (ModuleEmit.cpp, law genCaParamFoldOneHopPool95) < emitGenScopes (ModuleEmit.cpp, law genLoopUnitMiseval) [r11u15 |
+| 28 | N0064 | 1 | 79 | 41 | YosysOldOpen/d | `span\|include_file_info\|line+endline\|under:design` | emitIncludeFileInfos (UhdmExporter.cpp, law includeInactiveTabNotText141v) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab) < main (uhdm_m |
+| 29 | N0040 + N0268 + N0418 + N0419 + N0526 | 4 | 83 | 43 | InterfaceModPort/d OneNetModPort/d InterfaceModPort/t OneNetModPort/t | `span\|logic_typespec\|endcol\|under:ref_typespec`; `struct\|ours-only:fewer-copies\|logic_var\|under:io_decl`; `file\|ref_obj\|golden-empty\|under:port`; `span\|ref_obj\|golden-zero\|under:port`; `struct\|ours-only:fewer-copies\|logic_net\|under:io_decl` | makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < emitImportedPkgVarNets (ModuleEmit.cpp, law oobCtorLocalsRideTheImport203) < emitInterfaceDef |
+| 30 | N0299 + N0431 + N0627 + N0628 + N1047 | 4 | 87 | 45 | AssertDelayError/d AssertTempError/d AssertDelayError/t AssertTempError/t | `fullname\|ref_obj\|tok:id.id.id->id\|under:operation`; `fullname\|assert_stmt\|tok:id.id.id->id\|under:module_inst`; `fullname\|property_decl\|tok:id.id.id->id\|under:module_inst`; `fullname\|ref_obj\|tok:id.id.id->id\|under:property_spec`; `fullname\|property_decl\|tok:id.id.id->id\|under:ref_obj` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law memberActualLeak) < emitContAssigns (ModuleEmit.cpp, law elabCaTern |
+| 31 | N0043 + N0133 + N0487 | 2 | 89 | 46 | const_cast_signext/d/u2r const_cast_signext/t/u2r | `span\|struct_typespec\|line+col+endline+endcol\|under:ref_typespec`; `struct\|golden-only:fewer-copies\|func_call\|under:cont_assign`; `struct\|ours-only:absent\|constant\|under:cont_assign` | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < makeTypespec (TypeEmit.cpp, law tpCloneWholeLhsBare160) < emitParameters (ParamEmit.cpp, |
+| 32 | N0011 + N0016 + N0090 | 2 | 91 | 47 | UnitElabBlock/d UnitElabBlock/t | `file\|logic_net\|golden-empty\|under:ref_obj`; `file\|logic_net\|golden-empty\|under:module_inst`; `span\|logic_typespec\|endline+endcol\|under:ref_typespec` | thisImplicitNetBoth38 (TypeEmit.cpp, law hoistedThisRidesTheForwardedBlock219) < exportDesign (UhdmExporter.cpp, law hoistedThisRidesTheForwardedBlock |
+| 33 | N0443 + N0448 + N0684 | 2 | 93 | 48 | arb_idx_cast/d/u2r arb_idx_cast/t/u2r | `fullname\|ref_typespec\|tok:.id.id->\|under:constant`; `span\|constant\|endcol\|under:range`; `fullname\|ref_obj\|golden-empty\|under:operation` | genLpUseFoldBound47 (ExprEmit.cpp, law genLpUseFoldParentScope47) < emitExpr (ExprEmit.cpp, law genCaSysCallArgBinds22) < operator() (ModuleEmit.cpp,  |
+| 34 | N0022 + N0023 + N0416 | 2 | 95 | 49 | rsp_gen_minimal/d/u2r rsp_gen_minimal/t/u2r | `struct\|golden-only:elsewhere\|logic_net\|under:ref_obj`; `struct\|ours-only:elsewhere\|logic_net\|under:ref_obj`; `fullname\|ref_typespec\|tok:.id.id->\|under:operation` | emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law negLitPkgRetFoldNested30) < emitContAssigns (ModuleEmit.cpp, law el |
+| 35 | N0039 + N0067 + N0068 + N0111 | 2 | 97 | 50 | ApbSlave/d ApbSlave/t | `span\|int_typespec\|line+col+endline+endcol\|under:ref_typespec`; `file\|class_typespec\|ours-empty\|under:ref_typespec`; `span\|class_typespec\|ours-zero\|under:ref_typespec`; `span\|constant\|line+col+endline+endcol\|under:io_decl` | makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200) < emitClassDefn (UhdmExpor |
+| 36 | N0080 + N0086 + N0087 + N0131 | 2 | 99 | 51 | FuncStructValSimple/d FuncStructValSimple/t | `span\|struct_typespec\|line+col+endline+endcol\|under:package`; `file\|constant\|golden-empty\|under:typespec_member`; `span\|constant\|golden-zero\|under:typespec_member`; `fullname\|ref_typespec\|ours-empty\|under:constant` | buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.c |
+| 37 | N0411 + N1083 | 2 | 101 | 52 | pkg_nested_struct_param_width/d/u2r pkg_nested_struct_param_width/t/u2r | `struct\|golden-only:absent\|constant\|under:typespec_member`; `span\|constant\|line+endline+endcol\|under:typespec_member` | buildStructTs (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExpo |
+| 38 | N0005 + N0267 + N0406 + N0745 | 2 | 103 | 53 | struct_param_field_shift/d/u2r struct_param_field_shift/t/u2r | `span\|constant\|endcol\|under:param_assign`; `fullname\|ref_typespec\|tok:id@id.id.id::id.id->id\|under:constant`; `fullname\|ref_typespec\|tok:::id.id->\|under:constant`; `span\|constant\|col+endcol\|under:typespec_member` | emitExpr (ExprEmit.cpp, law srlgTimeLitVal) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsP |
+| 39 | N0001 + N0191 + N0853 + N1127 | 2 | 105 | 54 | OutputSizeWithParameterOfInstanceInitializedByStructMember/d/u2r OutputSizeWithParameterOfInstanceInitializedByStructMember/t/u2r | `span\|ref_obj\|col+endcol\|under:hier_path`; `span\|hier_path\|line+col+endline+endcol\|under:operation`; `value\|constant\|value:BIN->UINT+decompile+size+consttype:3->9\|under:cont_assign`; `fullname\|ref_typespec\|tok:->id@id.id.id.\|under:hier_path` | emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSub |
+| 40 | N0415 + N0474 + N0549 + N0942 | 2 | 107 | 55 | ibex_icache/d/u2r ibex_icache/t/u2r | `fullname\|ref_typespec\|tok:->.id.id\|under:constant`; `fullname\|ref_typespec\|tok:->.id[n]\|under:constant`; `fullname\|ref_typespec\|tok:->.id[n].id\|under:constant`; `fullname\|ref_typespec\|tok:->.id[n].id.id\|under:constant` | emitExpr (ExprEmit.cpp, law caPartSelBoundFoldTs) < emitExpr (ExprEmit.cpp, law genLpUseFoldParentScope47) < emitModuleDefPorts (ModuleEmit.cpp, law s |
+
+ground A+B: the 97 clusters above clear 96 row-modes on top of the pairs (107 with them)
+
+== 9. family view
+| family | row-modes / tests | clusters per row at f2f2d30b | open per row after the decodes + pair B | distinct clusters -> open | cleared |
+|---|---|---|---|---|---|
+| UVM | 9 / 5 | 167-431 | 102-178 | 506 -> 210 | 0 |
+| Earlgrey | 2 / 1 | 112-115 | 60-70 | 128 -> 70 | 0 |
+| Rggen | 1 / 1 | 67-67 | 64-64 | 67 -> 64 | 0 |
+| BlackBePipeInt | 2 / 1 | 28-30 | 28-30 | 30 -> 30 | 0 |
+| Scr1 | 2 / 1 | 25-25 | 24-24 | 25 -> 24 | 0 |
+| ibex | 12 / 6 | 1-21 | 0-6 | 43 -> 17 | 2 |
+| rp32 | 8 / 4 | 6-7 | 6-7 | 7 -> 7 | 0 |
+| ApbSlave | 2 / 1 | 33-33 | 4-4 | 33 -> 4 | 0 |
+   NEAR rows (one open cluster after the decodes + pair B): 19 row-modes / 11 tests: sur/d/ClassTypeParam N0072; sur/d/ComplexHierPath N0830; sur/d/CovMacro N0977; sur/d/InterfArrayBind N0427; sur/d/PreprocTest N0056; sur/d/UnionCast N0092; sur/d/YosysOldOr N0661; sur/d/YosysRiscv N0036; sur/t/ClassTypeParam N0072; sur/t/ComplexHierPath N0830; sur/t/CovMacro N0977; sur/t/LocalScopeHierPath N0278; sur/t/PreprocTest N0056; sur/t/UnionCast N0092; sur/t/YosysOldOpen N0129; sur/t/YosysOldOr N0661; sur/t/YosysRiscv N0036; uhd/d/ibex_register_file_ff N0078; uhd/t/ibex_register_file_ff N0078
+   two open clusters: 26 row-modes: sur/d/GenForStructParamBound N0094+N1058; sur/d/PackedArrayHighConn N0163+N1115; sur/d/StructArrayNet N0525+N0562; sur/d/StructParamFieldRange N0009+N0084; sur/d/YosysOldOpen N0064+N0129; sur/t/GenForStructParamBound N0094+N1058; sur/t/PackedArrayHighConn N0163+N1115; sur/t/StructArrayNet N0525+N0562; sur/t/StructParamFieldRange N0009+N0084; sur/t/UnitElabBlock N0016+N0090; uhd/d/anon_struct_packed_dim N0014+N0820; uhd/d/cva6_struct_param_field N0009+N0084; uhd/d/func_typename_ret N0085+N0738; uhd/d/ibex_pmp N0471+N0943; uhd/d/iface_param_port_width N0047+N0048; uhd/d/iface_zero_width_field N0003+N0688; uhd/d/mem_read_reg N0804+N0805; uhd/d/mriscv_bind_sva N0007+N0962; uhd/t/anon_struct_packed_dim N0014+N0820; uhd/t/cva6_struct_param_field N0009+N0084; uhd/t/func_typename_ret N0085+N0738; uhd/t/ibex_pmp N0471+N0943; uhd/t/iface_param_port_width N0047+N0048; uhd/t/iface_zero_width_field N0003+N0688; uhd/t/mem_read_reg N0804+N0805; uhd/t/mriscv_bind_sva N0007+N0962
+   single-cluster rows at f2f2d30b: 12 row-modes / 8 tests: sur/d/GenerateUnnamed N0969; sur/d/HighLow N0528; sur/d/InterfArrayBind N0427; sur/d/PreprocTest N0056; sur/t/GenerateUnnamed N0969; sur/t/HierPathTypespec N1174; sur/t/HighLow N0528; sur/t/LocalScopeHierPath N0278; sur/t/PreprocTest N0056; sur/t/YosysOldOpen N0129; uhd/d/ibex_register_file_ff N0078; uhd/t/ibex_register_file_ff N0078

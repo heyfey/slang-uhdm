@@ -1,0 +1,46 @@
+== surelog
+PATH_SETS_IDENTICAL (952 paths)
+MOVER ./default/ApbSlave-d7e70938/slang.uhdm  patched=92ba3eb99e01 pristine=27c524dfbd45
+MOVER ./default/ComplexHierPath-4b826093/slang.uhdm  patched=f51770f2902e pristine=422b9f6bc66d
+MOVER ./default/CovMacro-54a60c21/slang.uhdm  patched=d5912dbbef75 pristine=d704c6a89d16
+MOVER ./default/Earlgrey_0_1-a898def8/slang.uhdm  patched=38e2c9a20c51 pristine=c4b0b691e5aa
+MOVER ./default/GenForStructParamBound-1a61c8d8/slang.uhdm  patched=acf238119b47 pristine=68289d335f1e
+MOVER ./default/GenIfIfaceParamStructField-defc4948/slang.uhdm  patched=b500dc964287 pristine=bbad5d352791
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=cd545fd79aa8 pristine=9e18a0419ae1
+MOVER ./default/OneNetModPort-66919c4f/slang.uhdm  patched=454dff85fd7c pristine=f5e9e2644dac
+MOVER ./default/Rggen-ee9ac8af/slang.uhdm  patched=05530fd3cc5a pristine=6191179e0a34
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=79da14d98343 pristine=24f77318cb3f
+MOVER ./default/Scr1SvTests-fa4609ad/slang.uhdm  patched=543c615cba35 pristine=aaf3cf0dd56f
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=faf59436e931 pristine=c0c6e442f963
+MOVER ./default/SimpleUVM-267de3ff/slang.uhdm  patched=f5d1cb12d832 pristine=25de3cd04f06
+MOVER ./default/YosysMarlann-3ea8d091/slang.uhdm  patched=dea253089df0 pristine=d244eda3d899
+MOVER ./default/YosysOldOr-31ade310/slang.uhdm  patched=52df0e4ff1cd pristine=7eed6bbfc8c3
+MOVER ./default/YosysRiscv-feee3eb7/slang.uhdm  patched=3739b16e156b pristine=96d5737cbe33
+MOVER ./testflags/ApbSlave-d7e70938/slang.uhdm  patched=92ba3eb99e01 pristine=27c524dfbd45
+MOVER ./testflags/ComplexHierPath-4b826093/slang.uhdm  patched=7896bbbe3e7d pristine=ade9ae3cb607
+MOVER ./testflags/CovMacro-54a60c21/slang.uhdm  patched=05474de1be89 pristine=e53b53cd35a9
+MOVER ./testflags/Earlgrey_0_1-a898def8/slang.uhdm  patched=08ec6c0a95a3 pristine=3d6b68da33b1
+MOVER ./testflags/GenForStructParamBound-1a61c8d8/slang.uhdm  patched=7e753fe2331b pristine=a707b688a91f
+MOVER ./testflags/GenIfIfaceParamStructField-defc4948/slang.uhdm  patched=7c115bed57cf pristine=847a1e092e57
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=dc2aa25d788b pristine=021ca3ddfba2
+MOVER ./testflags/OneNetModPort-66919c4f/slang.uhdm  patched=ed2246cad457 pristine=535dcedc450c
+MOVER ./testflags/Scr1SvTests-fa4609ad/slang.uhdm  patched=9adc6b41065c pristine=afbd729e4296
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=1ec7a6ccd8b0 pristine=f5dbdf05dc85
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm  patched=348a1499424e pristine=b3dac5be06ee
+MOVER ./testflags/YosysMarlann-3ea8d091/slang.uhdm  patched=dea253089df0 pristine=d244eda3d899
+MOVER ./testflags/YosysOldOr-31ade310/slang.uhdm  patched=52df0e4ff1cd pristine=7eed6bbfc8c3
+MOVER ./testflags/YosysRiscv-feee3eb7/slang.uhdm  patched=3739b16e156b pristine=96d5737cbe33
+MOVERS: 30 / 952
+SELFCHECK (every file vs one fixed file): 951 / 952 flagged
+== uhdm2rtlil
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/genvar_iface_struct-8e0dbeb3/slang.uhdm  patched=ddd424ee2a39 pristine=d3035236db94
+MOVER ./default/ibex_load_store_unit-b1a3aebc/slang.uhdm  patched=74e0552707b7 pristine=cbd5ac4a3305
+MOVER ./default/ibex_pmp-f78ab5fc/slang.uhdm  patched=756d0aa38e35 pristine=ef42ad000250
+MOVER ./default/iface_array_modport_drive-0013b130/slang.uhdm  patched=6bd91b3c71e4 pristine=8f50a006e809
+MOVER ./testflags/genvar_iface_struct-8e0dbeb3/slang.uhdm  patched=88ca6e9395bc pristine=f2013926a4d4
+MOVER ./testflags/ibex_load_store_unit-b1a3aebc/slang.uhdm  patched=20d408690c48 pristine=422c294cd00f
+MOVER ./testflags/ibex_pmp-f78ab5fc/slang.uhdm  patched=e2b86a2f6cdf pristine=72870b05a439
+MOVER ./testflags/iface_array_modport_drive-0013b130/slang.uhdm  patched=277110f1ccb8 pristine=3e32e0a773e4
+MOVERS: 8 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged

@@ -1,0 +1,64 @@
+cluster N0397 (map 7 id kept; OPEN | ground A | site emitExpr (ExprEmit.cpp) < emitExpr (ExprEmit.cpp, law namedTfArgsFormalSlots4) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u142map pin]): fullname|ref_obj|tok:::->.|under:hier_path
+row: surelog/default/Scoreboard  strict=differ:line(187)  records golden=269656 ours=268952
+object: #144394 (golden) / #143757 (ours)  type=ref_obj name=compiled_regex OUT
+  golden: uvm_pkg::uvm_component_name_check_visitor::end_v::compiled_regex
+  ours:   uvm_pkg::uvm_component_name_check_visitor::end_v.compiled_regex
+  walk parents: hier_path(visit.compiled_regex) < func_call(uvm_dpi_regfree) < begin < function(end_v)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 144388..144400 ('>' = the object)
+  #144388	6	ref_obj	_root		uvm_pkg::uvm_component_name_check_visitor::begin_v::_root	uvm_traversal.svh	277	3	277	8		0			uvm_pkg::uvm_component_name_check_visitor::begin_v::_root	000
+  #144389	3	function	end_v		uvm_pkg::uvm_component_name_check_visitor::end_v	uvm_traversal.svh	282	2	282	9					uvm_pkg::uvm_component_name_check_visitor::end_v	000
+  #144390	4	begin			uvm_pkg::uvm_component_name_check_visitor::end_v	uvm_traversal.svh	285	3	285	29					uvm_pkg::uvm_component_name_check_visitor::end_v	000
+  #144391	5	func_call	uvm_dpi_regfree			uvm_traversal.svh	284	3	284	40		0				000
+  #144392	6	hier_path	visit.compiled_regex			uvm_traversal.svh	284	19	284	39		0				000
+  #144393	7	ref_obj	visit			uvm_traversal.svh	284	19	284	24		0				000
+> #144394	7	ref_obj	compiled_regex		uvm_pkg::uvm_component_name_check_visitor::end_v::compiled_regex	uvm_traversal.svh	284	25	284	39		0			uvm_pkg::uvm_component_name_check_visitor::end_v::compiled_regex	000
+  #144395	5	assignment				uvm_traversal.svh	285	3	285	28						000
+  #144396	6	constant				uvm_traversal.svh	285	24	285	28	0	64	UINT:0	11		000
+  #144397	6	hier_path	visit.compiled_regex			uvm_traversal.svh	285	3	285	23		0				000
+  #144398	7	ref_obj	visit			uvm_traversal.svh	285	9	285	23		0				000
+  #144399	7	ref_obj	compiled_regex			uvm_traversal.svh	285	9	285	23		0				000
+  #144400	2	class_defn	uvm_component_proxy		uvm_pkg::uvm_component_proxy	uvm_traversal.svh	214	1	222	9					uvm_pkg::uvm_component_proxy	000
+
+--- OURS (B) records 143751..143763 ('>' = the object)
+  #143751	6	ref_obj	_root		uvm_pkg::uvm_component_name_check_visitor::begin_v::_root	uvm_traversal.svh	277	3	277	8		0			uvm_pkg::uvm_component_name_check_visitor::begin_v::_root	000
+  #143752	3	function	end_v		uvm_pkg::uvm_component_name_check_visitor::end_v	uvm_traversal.svh	282	2	282	9					uvm_pkg::uvm_component_name_check_visitor::end_v	000
+  #143753	4	begin			uvm_pkg::uvm_component_name_check_visitor::end_v	uvm_traversal.svh	285	3	285	29					uvm_pkg::uvm_component_name_check_visitor::end_v	000
+  #143754	5	func_call	uvm_dpi_regfree			uvm_traversal.svh	284	3	284	40		0				000
+  #143755	6	hier_path	visit.compiled_regex			uvm_traversal.svh	284	19	284	39		0				000
+  #143756	7	ref_obj	visit			uvm_traversal.svh	284	19	284	24		0				000
+> #143757	7	ref_obj	compiled_regex		uvm_pkg::uvm_component_name_check_visitor::end_v.compiled_regex	uvm_traversal.svh	284	25	284	39		0			uvm_pkg::uvm_component_name_check_visitor::end_v.compiled_regex	000
+  #143758	5	assignment				uvm_traversal.svh	285	3	285	28						000
+  #143759	6	constant				uvm_traversal.svh	285	24	285	28	0	64	UINT:0	11		000
+  #143760	6	hier_path	visit.compiled_regex			uvm_traversal.svh	285	3	285	23		0				000
+  #143761	7	ref_obj	visit			uvm_traversal.svh	285	9	285	23		0				000
+  #143762	7	ref_obj	compiled_regex			uvm_traversal.svh	285	9	285	23		0				000
+  #143763	2	class_defn	uvm_component_proxy		uvm_pkg::uvm_component_proxy	uvm_traversal.svh	214	1	222	9					uvm_pkg::uvm_component_proxy	000
+
+facets of this row (17246, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

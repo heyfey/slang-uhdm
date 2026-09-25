@@ -1,0 +1,64 @@
+cluster N1525 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site UHDM library DeepClone < DeepCopy < DeepClone (--elabuhdm, testflags) run from main (uhdm_main.cpp) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|tok:id.id.id.id.id[id].id->id.id|under:bit_select
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1730)  records golden=1342584 ours=1342870
+object: #1002995 (golden) / #1003128 (ours)  type=ref_obj name=kk OUT
+  golden: work@top_earlgrey.u_padctrl.p_regs.reg2hw.dio_pads[kk].qe.kk
+  ours:   work@padctrl.p_regs.kk
+  walk parents: bit_select(dio_pads) < hier_path(reg2hw.dio_pads[kk].qe) < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1002989..1003001 ('>' = the object)
+  #1002989	21	range				padctrl_reg_pkg.sv	18	11	18	16						001
+  #1002990	22	constant				padctrl_reg_pkg.sv	18	12	18	13	7	64	UINT:7	9		001
+  #1002991	22	constant				padctrl_reg_pkg.sv	18	14	18	15	0	64	UINT:0	9		001
+  #1002992	18	typespec_member	qe			padctrl_reg_pkg.sv	19	18	19	20						001
+  #1002993	19	ref_typespec			<in>padctrl_reg_pkg::padctrl_reg2hw_dio_pads_mreg_t.qe		0	0	0	0		0			work@padring.padctrl_reg_pkg::padctrl_reg2hw_dio_pads_mreg_t.qe	001
+  #1002994	20	logic_typespec				padctrl_reg_pkg.sv	19	5	19	10						001
+> #1002995	13	ref_obj	kk		work@top_earlgrey.u_padctrl.p_regs.reg2hw.dio_pads[kk].qe.kk	padctrl.sv	79	29	79	31		0			work@top_earlgrey.u_padctrl.p_regs.reg2hw.dio_pads[kk].qe.kk	000
+  #1002996	12	ref_obj	qe		work@top_earlgrey.u_padctrl.p_regs.qe	padctrl.sv	79	33	79	35		0			work@top_earlgrey.u_padctrl.p_regs.qe	000
+  #1002997	13	typespec_member	qe			padctrl_reg_pkg.sv	19	18	19	20						000
+  #1002998	14	ref_typespec			work@padring.padctrl_reg_pkg::padctrl_reg2hw_dio_pads_mreg_t.qe		0	0	0	0		0			work@padring.padctrl_reg_pkg::padctrl_reg2hw_dio_pads_mreg_t.qe	000
+  #1002999	15	logic_typespec				padctrl_reg_pkg.sv	19	5	19	10						000
+  #1003000	11	begin			work@top_earlgrey.u_padctrl.p_regs	padctrl.sv	79	37	81	12					work@top_earlgrey.u_padctrl.p_regs	000
+  #1003001	12	assignment				padctrl.sv	80	11	80	50						000
+
+--- OURS (B) records 1003122..1003134 ('>' = the object)
+  #1003122	21	range				padctrl_reg_pkg.sv	18	11	18	16						001
+  #1003123	22	constant				padctrl_reg_pkg.sv	18	12	18	13	7	64	UINT:7	9		001
+  #1003124	22	constant				padctrl_reg_pkg.sv	18	14	18	15	0	64	UINT:0	9		001
+  #1003125	18	typespec_member	qe			padctrl_reg_pkg.sv	19	18	19	20						001
+  #1003126	19	ref_typespec			<in>padctrl_reg_pkg::padctrl_reg2hw_dio_pads_mreg_t.qe		0	0	0	0		0			work@padring.padctrl_reg_pkg::padctrl_reg2hw_dio_pads_mreg_t.qe	001
+  #1003127	20	logic_typespec				padctrl_reg_pkg.sv	19	5	19	10						001
+> #1003128	13	ref_obj	kk		work@padctrl.p_regs.kk	padctrl.sv	79	29	79	31		0			work@padctrl.p_regs.kk	000
+  #1003129	12	ref_obj	qe		work@top_earlgrey.u_padctrl.p_regs.qe	padctrl.sv	79	33	79	35		0			work@top_earlgrey.u_padctrl.p_regs.qe	000
+  #1003130	13	typespec_member	qe			padctrl_reg_pkg.sv	19	18	19	20						000
+  #1003131	14	ref_typespec			work@padring.padctrl_reg_pkg::padctrl_reg2hw_dio_pads_mreg_t.qe		0	0	0	0		0			work@padring.padctrl_reg_pkg::padctrl_reg2hw_dio_pads_mreg_t.qe	000
+  #1003132	15	logic_typespec				padctrl_reg_pkg.sv	19	5	19	10						000
+  #1003133	11	begin			work@top_earlgrey.u_padctrl.p_regs	padctrl.sv	79	37	81	12					work@top_earlgrey.u_padctrl.p_regs	000
+  #1003134	12	assignment				padctrl.sv	80	11	80	50						000
+
+facets of this row (19098, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

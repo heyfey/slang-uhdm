@@ -1,0 +1,35 @@
+cluster N0046 (map 7 id kept; OPEN (map 7: residue of pass 147; still present) | ground A | site emitModuleDef (ModuleEmit.cpp, law caNetDeclStrengthDropped90) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [DECODED (r11u131 R1, class A mirror): a continuous-assignment RHS operand: golden binds the ELABORATED net, ours the definition net; the same function (ModuleEmit.cpp emitContAssigns)] [DECODED (r11u148 ARR): array_assign pb = pa in always_comb: golden's ref_obj pa Actual is the var_select pa[0][0] (the first Lhs in the block naming pa, already listed); ours binds the definition logic_net pa (3 extra records); producer candidate UhdmWriter::lateBinding (not pinned); our site the procedural reference binding (StmtEmit/ExprEmit)] [r11u150map pin]): struct|ours-only:fewer-copies|logic_net|under:ref_obj
+row: probe/default/r10uvm99repro__g99_a2_proc  strict=depth  records golden=242 ours=240
+object: #-1 (golden) / #239 (ours)  type=logic_net name=flg99 
+  golden: 
+  ours:   1 objs
+  walk parents: ref_obj(flg99) < cont_assign < module_inst(work@omicron99) < design(work@omicron99)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 233..239 ('>' = the object)
+  #233	3	operation				dut.sv	6	18	6	45		0				000
+  #234	4	ref_obj	pin99		work@omicron99.pin99	dut.sv	6	18	6	23		0			work@omicron99.pin99	000
+  #235	4	operation				dut.sv	6	32	6	44		0				000
+  #236	5	constant				dut.sv	6	33	6	37	8'd3	8	DEC:3	1		000
+  #237	5	constant				dut.sv	6	38	6	43	8'd12	8	DEC:12	1		000
+  #238	3	ref_obj	flg99		work@omicron99.flg99	dut.sv	6	10	6	15		0			work@omicron99.flg99	000
+> #239	4	logic_net	flg99		work@omicron99.flg99	dut.sv	3	57	3	62		0			work@omicron99.flg99	000
+
+--- the holder #238 on the other side: exact-record matches at [108, 241]
+  #105	4	operation				dut.sv	6	32	6	44		0				000
+  #106	5	constant				dut.sv	6	33	6	37	8'd3	8	DEC:3	1		000
+  #107	5	constant				dut.sv	6	38	6	43	8'd12	8	DEC:12	1		000
+> #108	3	ref_obj	flg99		work@omicron99.flg99	dut.sv	6	10	6	15		0			work@omicron99.flg99	000
+  #109	1	module_inst	work@omicron99	work@omicron99		dut.sv	3	1	23	10						000
+  #110	2	logic_var	hit99		work@omicron99.hit99	dut.sv	4	9	4	14		0			work@omicron99.hit99	000
+  #111	3	ref_typespec			work@omicron99.hit99		0	0	0	0		0			work@omicron99.hit99	000
+  #112	4	logic_typespec				dut.sv	4	3	4	8						000
+  #113	2	int_var	reg99		work@omicron99.reg99	dut.sv	5	7	5	12		0			work@omicron99.reg99	000
+  #114	3	ref_typespec			work@omicron99.reg99		0	0	0	0		0			work@omicron99.reg99	000
+  #115	4	int_typespec				dut.sv	5	3	5	6						000
+  #116	2	task	tsk99		work@omicron99.tsk99	dut.sv	12	3	15	10					work@omicron99.tsk99	000
+  #117	3	io_decl	uv			dut.sv	12	28	12	30						000
+
+facets of this row (2, first 25):
+  N1916 #232/-1 logic_net wire99 G[3 objs] O[]
+  N0046 #-1/239 logic_net flg99 G[] O[1 objs]

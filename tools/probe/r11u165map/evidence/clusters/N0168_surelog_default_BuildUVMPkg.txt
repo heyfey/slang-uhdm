@@ -1,0 +1,64 @@
+cluster N0168 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitClassParameters (UhdmExporter.cpp, law classTpTdGroupNonClsRootShared91) < emitClassDefn (UhdmExporter.cpp, law classDefnVirtualFromVirtualIfaceDecl6) [r11u142map pin]): span|int_typespec|col+endcol|under:ref_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:line(94)  records golden=201533 ours=201486
+object: #67509 (golden) / #67506 (ours)  type=int_typespec name= 
+  golden: 48582:35:48582:38
+  ours:   48582:19:48582:22
+  walk parents: ref_typespec < io_decl(req) < task(transport) < class_defn(uvm_blocking_transport_export)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 67503..67515 ('>' = the object)
+  #67503	6	string_typespec				uvm_pkg.sv	48575	20	48575	26						000
+  #67504	4	return_stmt				uvm_pkg.sv	48576	5	48576	11						000
+  #67505	5	constant				uvm_pkg.sv	48576	12	48576	43	"uvm_blocking_transport_export"	232	STRING:uvm_blocking_transport_export	6		000
+  #67506	3	task	transport		uvm_pkg::uvm_blocking_transport_export::transport	uvm_pkg.sv	48582	3	48584	10					uvm_pkg::uvm_blocking_transport_export::transport	000
+  #67507	4	io_decl	req			uvm_pkg.sv	48582	23	48582	26						000
+  #67508	5	ref_typespec			uvm_pkg::uvm_blocking_transport_export::transport::req		0	0	0	0		0			uvm_pkg::uvm_blocking_transport_export::transport::req	000
+> #67509	6	int_typespec				uvm_pkg.sv	48582	35	48582	38						000
+  #67510	4	io_decl	rsp			uvm_pkg.sv	48582	39	48582	42						000
+  #67511	5	ref_typespec			uvm_pkg::uvm_blocking_transport_export::transport::rsp		0	0	0	0		0			uvm_pkg::uvm_blocking_transport_export::transport::rsp	000
+  #67512	6	int_typespec				uvm_pkg.sv	48582	35	48582	38						000
+  #67513	4	method_func_call	this			uvm_pkg.sv	48583	10	48583	14		0				000
+  #67514	5	ref_obj	req		uvm_pkg::uvm_blocking_transport_export::transport::req	uvm_pkg.sv	48583	25	48583	28		0			uvm_pkg::uvm_blocking_transport_export::transport::req	000
+  #67515	5	ref_obj	rsp		uvm_pkg::uvm_blocking_transport_export::transport::rsp	uvm_pkg.sv	48583	30	48583	33		0			uvm_pkg::uvm_blocking_transport_export::transport::rsp	000
+
+--- OURS (B) records 67500..67512 ('>' = the object)
+  #67500	6	string_typespec				uvm_pkg.sv	48575	20	48575	26						000
+  #67501	4	return_stmt				uvm_pkg.sv	48576	5	48576	11						000
+  #67502	5	constant				uvm_pkg.sv	48576	12	48576	43	"uvm_blocking_transport_export"	232	STRING:uvm_blocking_transport_export	6		000
+  #67503	3	task	transport		uvm_pkg::uvm_blocking_transport_export::transport	uvm_pkg.sv	48582	3	48584	10					uvm_pkg::uvm_blocking_transport_export::transport	000
+  #67504	4	io_decl	req			uvm_pkg.sv	48582	23	48582	26						000
+  #67505	5	ref_typespec			uvm_pkg::uvm_blocking_transport_export::transport::req		0	0	0	0		0			uvm_pkg::uvm_blocking_transport_export::transport::req	000
+> #67506	6	int_typespec				uvm_pkg.sv	48582	19	48582	22						000
+  #67507	4	io_decl	rsp			uvm_pkg.sv	48582	39	48582	42						000
+  #67508	5	ref_typespec			uvm_pkg::uvm_blocking_transport_export::transport::rsp		0	0	0	0		0			uvm_pkg::uvm_blocking_transport_export::transport::rsp	000
+  #67509	6	int_typespec				uvm_pkg.sv	48582	35	48582	38						000
+  #67510	4	method_func_call	this			uvm_pkg.sv	48583	10	48583	14		0				000
+  #67511	5	ref_obj	req		uvm_pkg::uvm_blocking_transport_export::transport::req	uvm_pkg.sv	48583	25	48583	28		0			uvm_pkg::uvm_blocking_transport_export::transport::req	000
+  #67512	5	ref_obj	rsp		uvm_pkg::uvm_blocking_transport_export::transport::rsp	uvm_pkg.sv	48583	30	48583	33		0			uvm_pkg::uvm_blocking_transport_export::transport::rsp	000
+
+facets of this row (7140, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

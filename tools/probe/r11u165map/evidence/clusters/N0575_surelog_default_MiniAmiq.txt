@@ -1,0 +1,64 @@
+cluster N0575 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitImportedPkgClassMethodClones (ParamEmit.cpp, law collectPkgTfListing) < emitPackage (ParamEmit.cpp, law LAW) [r11u138map pin; the a7bee711 gdb run wrote a different database (UVM order coin)] [r11u142map pin]): struct|ours-only:fewer-copies|enum_var|under:function
+row: surelog/default/MiniAmiq  strict=differ:line(183)  records golden=435559 ours=413982
+object: #-1 (golden) / #296921 (ours)  type=enum_var name= 
+  golden: 
+  ours:   9 objs
+  walk parents: function(uvm_phase::get_phase_type) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 296915..296927 ('>' = the object)
+  #296915	6	operation				uvm_phase.svh	1089	21	1089	53		0				000
+  #296916	7	ref_obj	get_full_name		svaunit_pkg::uvm_phase::get_full_name::get_full_name	uvm_phase.svh	1089	22	1089	35		0			svaunit_pkg::uvm_phase::get_full_name::get_full_name	000
+  #296917	7	constant				uvm_phase.svh	1089	37	1089	40	"."	8	STRING:.	6		000
+  #296918	7	func_call	get_name			uvm_phase.svh	1089	42	1089	52		0				000
+  #296919	6	ref_obj	get_full_name		svaunit_pkg::uvm_phase::get_full_name::get_full_name	uvm_phase.svh	1089	5	1089	18		0			svaunit_pkg::uvm_phase::get_full_name::get_full_name	000
+  #296920	2	function	uvm_phase::get_phase_type		svaunit_pkg::uvm_phase::get_phase_type	uvm_phase.svh	1096	1	1098	12					svaunit_pkg::uvm_phase::get_phase_type	000
+> #296921	3	enum_var			svaunit_pkg::uvm_phase::get_phase_type	uvm_phase.svh	1096	10	1096	24		0			svaunit_pkg::uvm_phase::get_phase_type	000
+  #296922	4	ref_typespec			svaunit_pkg::uvm_phase::get_phase_type		0	0	0	0		0			svaunit_pkg::uvm_phase::get_phase_type	000
+  #296923	5	enum_typespec	uvm_pkg::uvm_phase_type			uvm_object_globals.svh	470	1	476	18						110
+  #296924	6	enum_const	UVM_PHASE_IMP			uvm_object_globals.svh	470	16	470	29						001
+  #296925	6	enum_const	UVM_PHASE_NODE			uvm_object_globals.svh	471	16	471	30						001
+  #296926	6	enum_const	UVM_PHASE_TERMINAL			uvm_object_globals.svh	472	16	472	34						001
+  #296927	6	enum_const	UVM_PHASE_SCHEDULE			uvm_object_globals.svh	473	16	473	34						001
+
+--- the holder #296920 on the other side: exact-record matches at [76039, 307951, 374707]
+  #76036	7	constant				uvm_phase.svh	1089	37	1089	40	"."	8	STRING:.	6		000
+  #76037	7	func_call	get_name			uvm_phase.svh	1089	42	1089	52		0				000
+  #76038	6	ref_obj	get_full_name		svaunit_pkg::uvm_phase::get_full_name::get_full_name	uvm_phase.svh	1089	5	1089	18		0			svaunit_pkg::uvm_phase::get_full_name::get_full_name	000
+> #76039	2	function	uvm_phase::get_phase_type		svaunit_pkg::uvm_phase::get_phase_type	uvm_phase.svh	1096	1	1098	12					svaunit_pkg::uvm_phase::get_phase_type	000
+  #76040	3	enum_var			uvm_pkg::uvm_phase::get_phase_type	uvm_phase.svh	1096	10	1096	24		0			uvm_pkg::uvm_phase::get_phase_type	000
+  #76041	4	ref_typespec			uvm_pkg::uvm_phase::get_phase_type		0	0	0	0		0			uvm_pkg::uvm_phase::get_phase_type	000
+  #76042	5	enum_typespec	uvm_pkg::uvm_phase_type			uvm_phase.svh	152	23	152	37						110
+  #76043	6	enum_const	UVM_PHASE_IMP			uvm_object_globals.svh	470	16	470	29						001
+  #76044	6	enum_const	UVM_PHASE_NODE			uvm_object_globals.svh	471	16	471	30						001
+  #76045	6	enum_const	UVM_PHASE_TERMINAL			uvm_object_globals.svh	472	16	472	34						001
+  #76046	6	enum_const	UVM_PHASE_SCHEDULE			uvm_object_globals.svh	473	16	473	34						001
+  #76047	6	enum_const	UVM_PHASE_DOMAIN			uvm_object_globals.svh	474	16	474	32						001
+  #76048	6	enum_const	UVM_PHASE_GLOBAL			uvm_object_globals.svh	475	16	475	32						001
+
+facets of this row (36091, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

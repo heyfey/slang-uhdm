@@ -1,0 +1,64 @@
+cluster N0845 (map 7 id kept; COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | ground A | site emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law genLpUseFoldParentScope47) < operator() (ExprEmit.cpp, law pkgTdCloneRefNoBind18) [r11u138map pin] [r11u142map pin]): span|operation|col+endcol|under:part_select
+row: surelog/default/YosysOldOr  strict=differ:line(75)  records golden=243334 ours=243334
+object: #55023 (golden) / #55023 (ours)  type=operation name= 
+  golden: 181:74:181:103
+  ours:   181:87:181:123
+  walk parents: part_select(start_addr) < assignment < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 55017..55029 ('>' = the object)
+  #55017	11	ref_obj	cache_inhibit		work@or1200_ic_fsm.cache_inhibit	or1200_ic_fsm.v	178	9	178	22		0			work@or1200_ic_fsm.cache_inhibit	000
+  #55018	9	if_stmt				or1200_ic_fsm.v	180	7	181	106						000
+  #55019	10	ref_obj	hitmiss_eval		work@or1200_ic_fsm.hitmiss_eval	or1200_ic_fsm.v	180	11	180	23		0			work@or1200_ic_fsm.hitmiss_eval	000
+  #55020	10	assignment				or1200_ic_fsm.v	181	9	181	105						000
+  #55021	11	part_select	start_addr	start_addr	work@or1200_ic_fsm.start_addr	or1200_ic_fsm.v	181	60	181	105		0			work@or1200_ic_fsm.start_addr	000
+  #55022	12	constant				or1200_ic_fsm.v	181	71	181	73	31	64	UINT:31	9		000
+> #55023	12	operation				or1200_ic_fsm.v	181	74	181	103		0				000
+  #55024	13	operation				or1200_ic_fsm.v	181	74	181	100		0				000
+  #55025	14	constant				or1200_ic_fsm.v	181	74	181	75	9	64	UINT:9	9		000
+  #55026	14	constant				or1200_ic_fsm.v	181	99	181	100	1	64	UINT:1	9		000
+  #55027	13	constant				or1200_ic_fsm.v	181	102	181	103	1	64	UINT:1	9		000
+  #55028	11	part_select	saved_addr_r	saved_addr_r	work@or1200_ic_fsm.saved_addr_r	or1200_ic_fsm.v	181	9	181	56		0			work@or1200_ic_fsm.saved_addr_r	000
+  #55029	12	constant				or1200_ic_fsm.v	181	22	181	24	31	64	UINT:31	9		000
+
+--- OURS (B) records 55017..55029 ('>' = the object)
+  #55017	11	ref_obj	cache_inhibit		work@or1200_ic_fsm.cache_inhibit	or1200_ic_fsm.v	178	9	178	22		0			work@or1200_ic_fsm.cache_inhibit	000
+  #55018	9	if_stmt				or1200_ic_fsm.v	180	7	181	132						000
+  #55019	10	ref_obj	hitmiss_eval		work@or1200_ic_fsm.hitmiss_eval	or1200_ic_fsm.v	180	11	180	23		0			work@or1200_ic_fsm.hitmiss_eval	000
+  #55020	10	assignment				or1200_ic_fsm.v	181	9	181	131						000
+  #55021	11	part_select	start_addr	start_addr	work@or1200_ic_fsm.start_addr	or1200_ic_fsm.v	181	73	181	131		0			work@or1200_ic_fsm.start_addr	000
+  #55022	12	constant				or1200_ic_fsm.v	181	84	181	86	31	64	UINT:31	9		000
+> #55023	12	operation				or1200_ic_fsm.v	181	87	181	123		0				000
+  #55024	13	operation				or1200_ic_fsm.v	181	87	181	113		0				000
+  #55025	14	constant				or1200_ic_fsm.v	181	87	181	88	9	64	UINT:9	9		000
+  #55026	14	constant				or1200_ic_fsm.v	181	112	181	113	1	64	UINT:1	9		000
+  #55027	13	constant				or1200_ic_fsm.v	181	122	181	123	1	64	UINT:1	9		000
+  #55028	11	part_select	saved_addr_r	saved_addr_r	work@or1200_ic_fsm.saved_addr_r	or1200_ic_fsm.v	181	9	181	69		0			work@or1200_ic_fsm.saved_addr_r	000
+  #55029	12	constant				or1200_ic_fsm.v	181	22	181	24	31	64	UINT:31	9		000
+
+facets of this row (75, first 25):
+  N0661 #53040/53040 logic_typespec  G[51:12:51:12] O[50:12:50:12]
+  N0190 #55018/55018 if_stmt  G[180:7:181:106] O[180:7:181:132]
+  N1077 #55020/55020 assignment  G[181:9:181:105] O[181:9:181:131]
+  N1090 #55021/55021 part_select start_addr G[181:60:181:105] O[181:73:181:131]
+  N0527 #55022/55022 constant  G[181:71:181:73] O[181:84:181:86]
+  N0845 #55023/55023 operation  G[181:74:181:103] O[181:87:181:123]
+  N0060 #55024/55024 operation  G[181:74:181:100] O[181:87:181:113]
+  N0287 #55025/55025 constant  G[181:74:181:75] O[181:87:181:88]
+  N0287 #55026/55026 constant  G[181:99:181:100] O[181:112:181:113]
+  N0287 #55027/55027 constant  G[181:102:181:103] O[181:122:181:123]
+  N1091 #55028/55028 part_select saved_addr_r G[181:9:181:56] O[181:9:181:69]
+  N0997 #55030/55030 operation  G[181:25:181:54] O[181:25:181:61]
+  N0287 #55034/55034 constant  G[181:53:181:54] O[181:60:181:61]
+  N0752 #55492/55492 logic_net ictag_addr G[150:38:150:48] O[150:45:150:55]
+  N0040 #55494/55494 logic_typespec  G[150:1:150:37] O[150:1:150:44]
+  N1094 #55495/55495 range  G[150:6:150:37] O[150:6:150:44]
+  N0766 #55499/55499 constant  G[150:35:150:36] O[150:42:150:43]
+  N1088 #55719/55719 operation  G[237:8:237:71] O[237:8:237:84]
+  N0561 #55720/55720 operation  G[237:9:237:61] O[237:9:237:74]
+  N0813 #55722/55722 part_select saved_addr G[237:16:237:61] O[237:16:237:74]
+  N0997 #55724/55724 operation  G[237:30:237:59] O[237:30:237:66]
+  N0287 #55728/55728 constant  G[237:58:237:59] O[237:65:237:66]
+  N0060 #55729/55729 operation  G[237:65:237:71] O[237:78:237:84]
+  N0091 #55730/55730 ref_obj tag_v G[237:66:237:71] O[237:79:237:84]
+  N0275 #55750/55750 cont_assign  G[178:8:180:45] O[178:8:180:52]

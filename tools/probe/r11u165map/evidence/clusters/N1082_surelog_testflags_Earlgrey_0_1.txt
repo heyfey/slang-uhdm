@@ -1,0 +1,64 @@
+cluster N1082 (map 7 id kept; OPEN | ground A | site tryFoldConst (ExprEmit.cpp, law srlgSizeCastUbShiftMask93) < operator() (ParamEmit.cpp, law castElabFoldTargetKinds) < emitParameters (ParamEmit.cpp, law castElabFoldTargetKinds) [r11u138map pin] [r11u142map pin]): span|constant|col|under:param_assign
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1730)  records golden=1342584 ours=1342870
+object: #27073 (golden) / #27073 (ours)  type=constant name= 
+  golden: 43:53:43:63
+  ours:   43:28:43:63
+  walk parents: param_assign < package(flash_phy_pkg) < design(work@prim_sync_reqack)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 27067..27079 ('>' = the object)
+  #27067	5	int_typespec				flash_phy_pkg.sv	38	13	38	16						000
+  #27068	2	param_assign				flash_phy_pkg.sv	42	17	42	51						000
+  #27069	3	constant				flash_phy_pkg.sv	42	30	42	51	1	32	UINT:1	9		000
+  #27070	4	ref_typespec			flash_phy_pkg		0	0	0	0		0			flash_phy_pkg	000
+  #27071	5	int_typespec				flash_phy_pkg.sv	42	13	42	16						000
+  #27072	2	param_assign				flash_phy_pkg.sv	43	17	43	63						000
+> #27073	3	constant				flash_phy_pkg.sv	43	53	43	63	1	32	UINT:1	9		000
+  #27074	4	ref_typespec			flash_phy_pkg		0	0	0	0		0			flash_phy_pkg	000
+  #27075	5	int_typespec				flash_phy_pkg.sv	43	13	43	16						000
+  #27076	2	param_assign				flash_phy_pkg.sv	46	17	46	56						000
+  #27077	3	constant				flash_phy_pkg.sv	46	34	46	43	15	32	INT:15	7		000
+  #27078	4	ref_typespec			flash_phy_pkg		0	0	0	0		0			flash_phy_pkg	000
+  #27079	5	int_typespec				flash_phy_pkg.sv	46	13	46	16						000
+
+--- OURS (B) records 27067..27079 ('>' = the object)
+  #27067	5	int_typespec				flash_phy_pkg.sv	38	13	38	16						000
+  #27068	2	param_assign				flash_phy_pkg.sv	42	17	42	51						000
+  #27069	3	constant				flash_phy_pkg.sv	42	30	42	51	1	32	UINT:1	9		000
+  #27070	4	ref_typespec			flash_phy_pkg		0	0	0	0		0			flash_phy_pkg	000
+  #27071	5	int_typespec				flash_phy_pkg.sv	42	13	42	16						000
+  #27072	2	param_assign				flash_phy_pkg.sv	43	17	43	63						000
+> #27073	3	constant				flash_phy_pkg.sv	43	28	43	63	1	32	UINT:1	9		000
+  #27074	4	ref_typespec			flash_phy_pkg		0	0	0	0		0			flash_phy_pkg	000
+  #27075	5	int_typespec				flash_phy_pkg.sv	43	13	43	16						000
+  #27076	2	param_assign				flash_phy_pkg.sv	46	17	46	56						000
+  #27077	3	constant				flash_phy_pkg.sv	46	34	46	43	15	32	INT:15	7		000
+  #27078	4	ref_typespec			flash_phy_pkg		0	0	0	0		0			flash_phy_pkg	000
+  #27079	5	int_typespec				flash_phy_pkg.sv	46	13	46	16						000
+
+facets of this row (19098, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

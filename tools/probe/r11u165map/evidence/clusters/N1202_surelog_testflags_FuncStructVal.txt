@@ -1,0 +1,64 @@
+cluster N1202 (map 7 id kept; OPEN | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law classScopedTdDeclTsUnsupported11) < emitPackage (ParamEmit.cpp, law LAW) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u138map pin] [r11u142map pin]): struct|ours-only:fewer-copies|io_decl|under:ref_obj
+row: surelog/testflags/FuncStructVal  strict=differ:endcol(363)  records golden=45362 ours=46057
+object: #-1 (golden) / #43154 (ours)  type=io_decl name=CVA6Cfg 
+  golden: 
+  ours:   240 objs
+  walk parents: ref_obj(CVA6Cfg) < hier_path(CVA6Cfg.NrNonIdempotentRules) < operation < typespec_member(NonIdemPotenceEn)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 43148..43160 ('>' = the object)
+  #43148	5	typespec_member	NonIdemPotenceEn			dut.sv	372	34	372	50						001
+  #43149	6	ref_typespec			<in>config_pkg::cva6_cfg_t.NonIdemPotenceEn		0	0	0	0		0			config_pkg::config_pkg::cva6_cfg_t::NonIdemPotenceEn	001
+  #43150	7	bit_typespec				dut.sv	372	5	372	8						001
+  #43151	6	operation				dut.sv	568	28	568	87		0				001
+  #43152	7	hier_path	CVA6Cfg.NrNonIdempotentRules			dut.sv	568	28	568	56		0				001
+  #43153	8	ref_obj	CVA6Cfg			dut.sv	568	28	568	35		0				001
+> #43154	9	io_decl	CVA6Cfg			dut.sv	468	86	468	93						001
+  #43155	10	ref_typespec			build_config_pkg::build_config::CVA6Cfg		0	0	0	0		0			build_config_pkg::build_config::CVA6Cfg	001
+  #43156	11	struct_typespec	config_pkg::cva6_user_cfg_t			dut.sv	176	11	293	4						001
+  #43157	12	typespec_member	XLEN			dut.sv	178	34	178	38						001
+  #43158	13	ref_typespec			<in>config_pkg::cva6_user_cfg_t.XLEN		0	0	0	0		0			config_pkg::config_pkg::cva6_user_cfg_t::XLEN	001
+  #43159	14	int_typespec				dut.sv	178	5	178	17						001
+  #43160	12	typespec_member	FPGA_EN			dut.sv	180	34	180	41						001
+
+--- the holder #43153 on the other side: exact-record matches at [14871, 15358, 41521, 42008, 43418]
+  #14868	7	bit_typespec				dut.sv	372	5	372	8						001
+  #14869	6	operation				dut.sv	568	28	568	87		0				001
+  #14870	7	hier_path	CVA6Cfg.NrNonIdempotentRules			dut.sv	568	28	568	56		0				001
+> #14871	8	ref_obj	CVA6Cfg			dut.sv	568	28	568	35		0				001
+  #14872	9	io_decl	CVA6Cfg			dut.sv	468	86	468	93						001
+  #14873	10	ref_typespec			build_config_pkg::build_config::CVA6Cfg		0	0	0	0		0			build_config_pkg::build_config::CVA6Cfg	001
+  #14874	11	struct_typespec	config_pkg::cva6_user_cfg_t			dut.sv	468	58	468	70						001
+  #14875	12	typespec_member	XLEN			dut.sv	178	34	178	38						001
+  #14876	13	ref_typespec			<in>config_pkg::cva6_user_cfg_t.XLEN		0	0	0	0		0			config_pkg::config_pkg::cva6_user_cfg_t::XLEN	001
+  #14877	14	int_typespec				dut.sv	178	5	178	17						001
+  #14878	12	typespec_member	FPGA_EN			dut.sv	180	34	180	41						001
+  #14879	13	ref_typespec			<in>config_pkg::cva6_user_cfg_t.FPGA_EN		0	0	0	0		0			config_pkg::config_pkg::cva6_user_cfg_t::FPGA_EN	001
+  #14880	14	bit_typespec				dut.sv	180	5	180	8						001
+
+facets of this row (3711, first 25):
+  N1946 #-1/13254 constant  G[] O[3 objs]
+  N0891 #14765/-1 operation  G[4 objs] O[]
+  N0891 #14769/-1 operation  G[4 objs] O[]
+  N0891 #14782/-1 operation  G[4 objs] O[]
+  N0891 #14786/-1 operation  G[4 objs] O[]
+  N0891 #14804/-1 operation  G[4 objs] O[]
+  N0891 #14808/-1 operation  G[4 objs] O[]
+  N0891 #14821/-1 operation  G[4 objs] O[]
+  N0891 #14825/-1 operation  G[4 objs] O[]
+  N0891 #16430/-1 operation  G[4 objs] O[]
+  N0891 #16434/-1 operation  G[4 objs] O[]
+  N0891 #16447/-1 operation  G[4 objs] O[]
+  N0891 #16451/-1 operation  G[4 objs] O[]
+  N0891 #16469/-1 operation  G[4 objs] O[]
+  N0891 #16473/-1 operation  G[4 objs] O[]
+  N0891 #16486/-1 operation  G[4 objs] O[]
+  N0891 #16490/-1 operation  G[4 objs] O[]
+  N0891 #18089/-1 operation  G[4 objs] O[]
+  N0891 #18093/-1 operation  G[4 objs] O[]
+  N0891 #18106/-1 operation  G[4 objs] O[]
+  N0891 #18110/-1 operation  G[4 objs] O[]
+  N0891 #18128/-1 operation  G[4 objs] O[]
+  N0891 #18132/-1 operation  G[4 objs] O[]
+  N0891 #18145/-1 operation  G[4 objs] O[]
+  N0891 #18149/-1 operation  G[4 objs] O[]

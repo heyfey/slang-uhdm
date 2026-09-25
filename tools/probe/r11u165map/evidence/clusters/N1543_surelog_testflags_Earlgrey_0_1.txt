@@ -1,0 +1,64 @@
+cluster N1543 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site UHDM library DeepClone < DeepCopy < DeepClone (--elabuhdm, testflags) run from main (uhdm_main.cpp) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|tok:id.id.id.id[id].id->id|under:bit_select
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1730)  records golden=1342584 ours=1342870
+object: #680807 (golden) / #680926 (ours)  type=ref_obj name=i OUT
+  golden: work@top_earlgrey.u_hmac.reg2hw.key[i].qe.i
+  ours:   work@hmac.i
+  walk parents: bit_select(key) < hier_path(reg2hw.key[i].qe) < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 680801..680813 ('>' = the object)
+  #680801	9	constant				hmac.sv	451	28	451	29	8	64	UINT:8	9		000
+  #680802	8	begin			work@top_earlgrey.u_hmac	hmac.sv	451	37	455	10					work@top_earlgrey.u_hmac	000
+  #680803	9	if_stmt				hmac.sv	452	9	454	12						000
+  #680804	10	hier_path	reg2hw.key[i].qe			hmac.sv	452	13	452	29		0				000
+  #680805	11	ref_obj	reg2hw			hmac.sv	452	13	452	19		0				000
+  #680806	11	bit_select	key		reg2hw.key[i]	hmac.sv	452	20	452	23		0			reg2hw.key[i]	000
+> #680807	12	ref_obj	i		work@top_earlgrey.u_hmac.reg2hw.key[i].qe.i	hmac.sv	452	24	452	25		0			work@top_earlgrey.u_hmac.reg2hw.key[i].qe.i	000
+  #680808	11	ref_obj	qe		work@top_earlgrey.u_hmac.qe	hmac.sv	452	27	452	29		0			work@top_earlgrey.u_hmac.qe	000
+  #680809	10	begin			work@top_earlgrey.u_hmac	hmac.sv	452	31	454	12					work@top_earlgrey.u_hmac	000
+  #680810	11	assignment				hmac.sv	453	11	453	67						000
+  #680811	12	operation				hmac.sv	453	37	453	67		0				000
+  #680812	13	ref_obj	update_seckey_inprocess		work@top_earlgrey.u_hmac.update_seckey_inprocess	hmac.sv	453	37	453	60		0			work@top_earlgrey.u_hmac.update_seckey_inprocess	000
+  #680813	13	constant				hmac.sv	453	63	453	67	1'b1	1	BIN:1	3		000
+
+--- OURS (B) records 680920..680932 ('>' = the object)
+  #680920	9	constant				hmac.sv	451	28	451	29	8	64	UINT:8	9		000
+  #680921	8	begin			work@top_earlgrey.u_hmac	hmac.sv	451	37	455	10					work@top_earlgrey.u_hmac	000
+  #680922	9	if_stmt				hmac.sv	452	9	454	12						000
+  #680923	10	hier_path	reg2hw.key[i].qe			hmac.sv	452	13	452	29		0				000
+  #680924	11	ref_obj	reg2hw			hmac.sv	452	13	452	19		0				000
+  #680925	11	bit_select	key		reg2hw.key[i]	hmac.sv	452	20	452	23		0			reg2hw.key[i]	000
+> #680926	12	ref_obj	i		work@hmac.i	hmac.sv	452	24	452	25		0			work@hmac.i	000
+  #680927	11	ref_obj	qe		work@top_earlgrey.u_hmac.qe	hmac.sv	452	27	452	29		0			work@top_earlgrey.u_hmac.qe	000
+  #680928	10	begin			work@top_earlgrey.u_hmac	hmac.sv	452	31	454	12					work@top_earlgrey.u_hmac	000
+  #680929	11	assignment				hmac.sv	453	11	453	67						000
+  #680930	12	operation				hmac.sv	453	37	453	67		0				000
+  #680931	13	ref_obj	update_seckey_inprocess		work@top_earlgrey.u_hmac.update_seckey_inprocess	hmac.sv	453	37	453	60		0			work@top_earlgrey.u_hmac.update_seckey_inprocess	000
+  #680932	13	constant				hmac.sv	453	63	453	67	1'b1	1	BIN:1	3		000
+
+facets of this row (19098, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

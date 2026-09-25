@@ -1,0 +1,64 @@
+cluster N0290 (map 7 id kept; OPEN | ground A | site emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164) [r11u142map pin]): span|method_func_call|endline+endcol|under:hier_path
+row: surelog/default/Scoreboard  strict=differ:line(187)  records golden=269656 ours=268952
+object: #26940 (golden) / #26949 (ours)  type=method_func_call name=uvm_report_enabled 
+  golden: 211:14:211:32
+  ours:   211:14:551:3
+  walk parents: hier_path(top.uvm_report_enabled) < if_stmt < begin < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 26934..26946 ('>' = the object)
+  #26934	7	ref_obj	obj		uvm_pkg::uvm_sequence_library::m_check::obj	uvm_sequence_library.svh	545	19	545	22		0			uvm_pkg::uvm_sequence_library::m_check::obj	000
+  #26935	5	begin			uvm_pkg::uvm_sequence_library::m_check	uvm_sequence_library.svh	545	25	551	6					uvm_pkg::uvm_sequence_library::m_check	000
+  #26936	6	begin			uvm_pkg::uvm_sequence_library::m_check	uvm_message_defines.svh	210	4	215	7					uvm_pkg::uvm_sequence_library::m_check	000
+  #26937	7	if_stmt				uvm_message_defines.svh	211	6	214	151						000
+  #26938	8	hier_path	top.uvm_report_enabled			uvm_message_defines.svh	211	10	211	74		0				000
+  #26939	9	ref_obj	top			uvm_message_defines.svh	211	10	211	13		0				000
+> #26940	9	method_func_call	uvm_report_enabled			uvm_message_defines.svh	211	14	211	32		0				000
+  #26941	10	ref_obj	UVM_NONE		uvm_pkg::uvm_sequence_library::m_check::top.uvm_report_enabled::UVM_NONE	uvm_message_defines.svh	211	33	211	41		0			uvm_pkg::uvm_sequence_library::m_check::top.uvm_report_enabled::UVM_NONE	000
+  #26942	11	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+  #26943	10	ref_obj	UVM_ERROR		uvm_pkg::uvm_sequence_library::m_check::top.uvm_report_enabled::UVM_ERROR	uvm_message_defines.svh	211	42	211	51		0			uvm_pkg::uvm_sequence_library::m_check::top.uvm_report_enabled::UVM_ERROR	000
+  #26944	11	enum_const	UVM_ERROR			uvm_object_globals.svh	246	3	246	12						010
+  #26945	10	constant				uvm_message_defines.svh	211	52	211	73	"SEQLIB/BAD_SEQ_TYPE"	152	STRING:SEQLIB/BAD_SEQ_TYPE	6		000
+  #26946	8	method_func_call	uvm_report_error			uvm_message_defines.svh	212	12	212	28		0				000
+
+--- OURS (B) records 26943..26955 ('>' = the object)
+  #26943	7	ref_obj	obj		uvm_pkg::uvm_sequence_library::m_check::obj	uvm_sequence_library.svh	545	19	545	22		0			uvm_pkg::uvm_sequence_library::m_check::obj	000
+  #26944	5	begin			uvm_pkg::uvm_sequence_library::m_check	uvm_sequence_library.svh	545	25	551	6					uvm_pkg::uvm_sequence_library::m_check	000
+  #26945	6	begin			uvm_pkg::uvm_sequence_library::m_check	uvm_message_defines.svh	210	4	215	7					uvm_pkg::uvm_sequence_library::m_check	000
+  #26946	7	if_stmt				uvm_message_defines.svh	211	6	214	151						000
+  #26947	8	hier_path	top.uvm_report_enabled			uvm_message_defines.svh	211	10	211	74		0				000
+  #26948	9	ref_obj	top			uvm_message_defines.svh	211	10	211	13		0				000
+> #26949	9	method_func_call	uvm_report_enabled			uvm_message_defines.svh	211	14	551	3		0				000
+  #26950	10	ref_obj	UVM_NONE		uvm_pkg::uvm_sequence_library::m_check::UVM_NONE	uvm_message_defines.svh	211	33	211	41		0			uvm_pkg::uvm_sequence_library::m_check::UVM_NONE	000
+  #26951	11	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+  #26952	10	ref_obj	UVM_ERROR		uvm_pkg::uvm_sequence_library::m_check::UVM_ERROR	uvm_message_defines.svh	211	42	211	51		0			uvm_pkg::uvm_sequence_library::m_check::UVM_ERROR	000
+  #26953	11	enum_const	UVM_ERROR			uvm_object_globals.svh	246	3	246	12						010
+  #26954	10	constant				uvm_message_defines.svh	211	52	211	73	"SEQLIB/BAD_SEQ_TYPE"	152	STRING:SEQLIB/BAD_SEQ_TYPE	6		000
+  #26955	8	method_func_call	uvm_report_error			uvm_message_defines.svh	212	12	551	1		0				000
+
+facets of this row (17246, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

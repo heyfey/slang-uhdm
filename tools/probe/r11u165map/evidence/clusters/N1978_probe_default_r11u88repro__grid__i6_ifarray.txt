@@ -1,0 +1,62 @@
+cluster N1978 (map 7 id kept; OPEN | ground B | site makeHoistHolder77 (ModuleEmit.cpp, law caImportedPkgHoistUnpackedBuilder80) < emitHoistedPkgListing83 (ModuleEmit.cpp, law caImportedPkgHoistUnpackedIsWrappedScalar77) < emitInterfaceInstance (ModuleEmit.cpp, law caNamesakeImportCopyShadows82) [r11u138map pin] [r11u142map pin]): span|struct_net|endcol|under:array_net
+row: probe/default/r11u88repro__grid__i6_ifarray  strict=endline  records golden=523 ours=523
+object: #454 (golden) / #454 (ours)  type=struct_net name=v_sarr 
+  golden: 7:15:7:27
+  ours:   7:15:7:21
+  walk parents: array_net(v_sarr) < interface_inst(u_if) < module_inst(work@dut) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 448..460 ('>' = the object)
+  #448	3	import_typespec	pk			dut.sv	13	10	13	15						010
+  #449	4	constant					0	0	0	0	*	8	STRING:*	8		001
+  #450	3	array_net	v_sarr		work@dut.u_if.v_sarr	dut.sv	7	15	7	21		2			work@dut.u_if.v_sarr	000
+  #451	4	range				dut.sv	7	22	7	27						000
+  #452	5	constant				dut.sv	7	23	7	24	0	64	UINT:0	9		000
+  #453	5	constant				dut.sv	7	25	7	26	1	64	UINT:1	9		000
+> #454	4	struct_net	v_sarr		work@dut.u_if.v_sarr.v_sarr	dut.sv	7	15	7	27		0			work@dut.u_if.v_sarr.v_sarr	000
+  #455	5	ref_typespec			work@dut.u_if.v_sarr.v_sarr		0	0	0	0		0			work@dut.u_if.v_sarr.v_sarr	000
+  #456	6	struct_typespec	pk::st_t			dut.sv	5	11	7	27						110
+  #457	7	typespec_member	a			dut.sv	5	39	5	40						001
+  #458	8	ref_typespec			<in>pk::st_t.a		0	0	0	0		0			work@ifc.pk::st_t.a	001
+  #459	9	logic_typespec				dut.sv	5	27	5	38						001
+  #460	10	range				dut.sv	5	33	5	38						001
+
+--- OURS (B) records 448..460 ('>' = the object)
+  #448	3	import_typespec	pk			dut.sv	13	10	13	15						010
+  #449	4	constant					0	0	0	0	*	8	STRING:*	8		001
+  #450	3	array_net	v_sarr		work@dut.u_if.v_sarr	dut.sv	7	15	7	21		2			work@dut.u_if.v_sarr	000
+  #451	4	range				dut.sv	7	22	7	27						000
+  #452	5	constant				dut.sv	7	23	7	24	0	64	UINT:0	9		000
+  #453	5	constant				dut.sv	7	25	7	26	1	64	UINT:1	9		000
+> #454	4	struct_net	v_sarr		work@dut.u_if.v_sarr.v_sarr	dut.sv	7	15	7	21		0			work@dut.u_if.v_sarr.v_sarr	000
+  #455	5	ref_typespec			work@dut.u_if.v_sarr.v_sarr		0	0	0	0		0			work@dut.u_if.v_sarr.v_sarr	000
+  #456	6	struct_typespec	pk::st_t			dut.sv	5	11	5	58						110
+  #457	7	typespec_member	a			dut.sv	5	39	5	40						001
+  #458	8	ref_typespec			<in>pk::st_t.a		0	0	0	0		0			work@ifc.pk::st_t.a	001
+  #459	9	logic_typespec				dut.sv	5	27	5	38						001
+  #460	10	range				dut.sv	5	33	5	38						001
+
+facets of this row (23, first 25):
+  N0762 #20/20 struct_typespec pk::st_t G[5:11:7:27] O[5:11:5:58]
+  N0009 #35/35 struct_typespec pk::st_t G[5:11:7:27] O[5:11:5:58]
+  N0040 #50/50 logic_typespec  G[8:3:8:27] O[8:3:8:14]
+  N0762 #73/73 struct_typespec pk::st_t G[5:11:7:27] O[5:11:5:58]
+  N0009 #88/88 struct_typespec pk::st_t G[5:11:7:27] O[5:11:5:58]
+  N0040 #103/103 logic_typespec  G[8:3:8:27] O[8:3:8:14]
+  N2333 #108/108 struct_typespec pk::st_t G[5:11:7:27] O[5:11:5:58]
+  N0040 #125/125 logic_typespec  G[6:3:6:27] O[6:3:6:14]
+  N0009 #131/131 struct_typespec pk::st_t G[5:11:7:27] O[5:11:5:58]
+  N0040 #146/146 logic_typespec  G[8:3:8:27] O[8:3:8:14]
+  N0040 #168/168 logic_typespec  G[6:3:6:27] O[6:3:6:14]
+  N0009 #178/178 struct_typespec pk::st_t G[5:11:7:27] O[5:11:5:58]
+  N0040 #197/197 logic_typespec  G[8:3:8:27] O[8:3:8:14]
+  N2333 #260/260 struct_typespec pk::st_t G[5:11:7:27] O[5:11:5:58]
+  N0040 #277/277 logic_typespec  G[6:3:6:27] O[6:3:6:14]
+  N0009 #283/283 struct_typespec pk::st_t G[5:11:7:27] O[5:11:5:58]
+  N0040 #298/298 logic_typespec  G[8:3:8:27] O[8:3:8:14]
+  N0040 #320/320 logic_typespec  G[6:3:6:27] O[6:3:6:14]
+  N0009 #330/330 struct_typespec pk::st_t G[5:11:7:27] O[5:11:5:58]
+  N0040 #349/349 logic_typespec  G[8:3:8:27] O[8:3:8:14]
+  N2333 #435/435 struct_typespec pk::st_t G[5:11:7:27] O[5:11:5:58]
+  N1978 #454/454 struct_net v_sarr G[7:15:7:27] O[7:15:7:21]
+  N0009 #456/456 struct_typespec pk::st_t G[5:11:7:27] O[5:11:5:58]

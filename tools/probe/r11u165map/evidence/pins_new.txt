@@ -1,0 +1,682 @@
+== N0060 probe/default/r10earl54repro__v10step1 object #94 operation '' dut.sv 7:44:7:50 id=69 db=SAME
+  rank 11:
+    #0 MakeOperation at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:31124
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:31188
+    #3 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:15264
+    #4 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:31164
+    #5 emitModuleDefPorts at /tmp/r11u165_g1/src/ModuleEmit.cpp:7722
+    #6 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:12153
+    #7 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9990
+    #8 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #9 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0287 probe/default/r10earl_repro__a object #46 constant '' dut.sv 7:45:7:50 id=37 db=SAME
+  rank 15:
+    #0 MakeConstant at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:22343
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:35025
+    #3 emitParameters at /tmp/r11u165_g1/src/ParamEmit.cpp:18762
+    #4 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:30123
+    #5 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8063
+    #6 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #7 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0055 probe/default/r10uvm160repro__g160_f_witness object #125 ref_obj 'TYPE::type_name' dut.sv 59:60:59:66 id=119 db=SAME
+  rank 14:
+    #0 MakeRef_obj at ?:0
+    #1 emitBadConcatOperand160 at /tmp/r11u165_g1/src/ExprEmit.cpp:3647
+    #2 emitBadConcatFromSyntax160 at /tmp/r11u165_g1/src/ExprEmit.cpp:3853
+    #3 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:39191
+    #4 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:27603
+    #5 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:39256
+    #6 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #7 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6527
+    #8 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #9 emitClassDefn at /tmp/r11u165_g1/src/UhdmExporter.cpp:4398
+    #10 emitPackageClasses at /tmp/r11u165_g1/src/UhdmExporter.cpp:5352
+    #11 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33222
+== N0195 probe/default/r10uvm193repro__g193_c_argface object #320 ref_obj 'kink193' dut.sv 100:48:100:55 id=309 db=SAME
+  rank 42:
+    #0 MakeRef_obj at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:15455
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:25940
+    #3 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:22336
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:5920
+    #5 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6371
+    #6 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #7 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33216
+    #8 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8063
+    #9 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #10 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0036 probe/default/r10uvm79repro__c2_idxkind object #99 bit_select 'midx' dut.sv 24:19:24:20 id=121 db=SAME
+  rank 8:
+    #0 MakeBit_select at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:32068
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:22334
+    #3 emitMixedHierPath at /tmp/r11u165_g1/src/ExprEmit.cpp:9993
+    #4 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:34682
+    #5 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:15054
+    #6 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #7 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6371
+    #8 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #9 emitClassDefn at /tmp/r11u165_g1/src/UhdmExporter.cpp:4398
+    #10 operator() at /tmp/r11u165_g1/src/UhdmExporter.cpp:9955
+    #11 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9968
+== N0051 probe/default/r10v112repro__g4_qualified object #24 class_typespec 't4' dut.sv 9:23:9:45 id=19 db=SAME
+  rank 1:
+    #0 MakeClass_typespec at ?:0
+    #1 buildClassTypedefTs at /tmp/r11u165_g1/src/UhdmExporter.cpp:6544
+    #2 emitClassTypedefs at /tmp/r11u165_g1/src/UhdmExporter.cpp:6257
+    #3 emitClassDefn at /tmp/r11u165_g1/src/UhdmExporter.cpp:4388
+    #4 emitPackageClasses at /tmp/r11u165_g1/src/UhdmExporter.cpp:5352
+    #5 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33222
+    #6 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8068
+    #7 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #8 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0008 probe/default/r10v146repro__v05_second_pkg object #87 ref_typespec ''  0:0:0:0 id=28 db=SAME
+  rank 7:
+    #0 MakeRef_typespec at ?:0
+    #1 emitParameters at /tmp/r11u165_g1/src/ParamEmit.cpp:21019
+    #2 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:30123
+    #3 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8068
+    #4 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #5 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0014 probe/default/r11u107repro__grid__a18_anon_typedef object #13 ref_typespec ''  0:0:0:0 id=10 db=SAME
+  rank 1:
+    #0 MakeRef_typespec at ?:0
+    #1 buildStructTs at /tmp/r11u165_g1/src/TypeEmit.cpp:14783
+    #2 operator() at /tmp/r11u165_g1/src/TypeEmit.cpp:4433
+    #3 makeTypespec at /tmp/r11u165_g1/src/TypeEmit.cpp:6659
+    #4 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9237
+    #5 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #6 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0030 probe/default/r11u112repro__grid__f__g09_for_lp_sub object #44 ref_obj 'i' dut.sv 4:14:4:15 id=27 db=SAME
+  rank 4:
+    #0 MakeRef_obj at ?:0
+    #1 emitSyntaxExpr at /tmp/r11u165_g1/src/TypeEmit.cpp:17238
+    #2 emitSyntaxExpr at /tmp/r11u165_g1/src/TypeEmit.cpp:19773
+    #3 emitSyntaxExpr at /tmp/r11u165_g1/src/TypeEmit.cpp:17847
+    #4 operator() at /tmp/r11u165_g1/src/ModuleEmit.cpp:48483
+    #5 function const&, bool) const at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #6 emitDefGenStmts at /tmp/r11u165_g1/src/ModuleEmit.cpp:49642
+    #7 emitModuleDef at /tmp/r11u165_g1/src/ModuleEmit.cpp:6244
+    #8 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9694
+    #9 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #10 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0009 probe/default/r11u112repro__grid__k__k14_unpacked object #110 struct_typespec '' dut.sv 2:26:2:32 id=56 db=SAME
+  rank 2:
+    #0 MakeStruct_typespec at ?:0
+    #1 buildStructTs at /tmp/r11u165_g1/src/TypeEmit.cpp:13801
+    #2 makeTypespec at /tmp/r11u165_g1/src/TypeEmit.cpp:4218
+    #3 emitParameters at /tmp/r11u165_g1/src/ParamEmit.cpp:22468
+    #4 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:12314
+    #5 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9990
+    #6 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #7 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0015 probe/default/r11v11u8repro__v10 object #8 constant '' dut.sv 5:64:5:71 id=9 db=SAME
+  rank 3:
+    #0 MakeConstant at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:22599
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:31112
+    #3 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #5 emitProcess at /tmp/r11u165_g1/src/StmtEmit.cpp:310
+    #6 emitModuleDef at /tmp/r11u165_g1/src/ModuleEmit.cpp:6180
+    #7 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9694
+    #8 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #9 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N2410 probe/default/r11v11u8repro__v9 object #11 assignment '' dut.sv 12:11:11:16 id=11 db=SAME
+  rank 2:
+    #0 MakeAssignment at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:14915
+    #2 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #3 emitProcess at /tmp/r11u165_g1/src/StmtEmit.cpp:310
+    #4 emitModuleDef at /tmp/r11u165_g1/src/ModuleEmit.cpp:6180
+    #5 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9694
+    #6 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #7 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0003 probe/default/r11v4repro__v6 object #98 ref_typespec ''  0:0:0:0 id=67 db=SAME
+  rank 13:
+    #0 MakeRef_typespec at ?:0
+    #1 emitParameters at /tmp/r11u165_g1/src/ParamEmit.cpp:15475
+    #2 emitInterfaceInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:43709
+    #3 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:15592
+    #4 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:15997
+    #5 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9990
+    #6 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #7 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0028 probe/default/r11vu13repro__v9 object #988 ref_typespec ''  0:0:0:0 id=414 db=SAME
+  rank 80:
+    #0 MakeRef_typespec at ?:0
+    #1 buildStructTs at /tmp/r11u165_g1/src/TypeEmit.cpp:14783
+    #2 makeParamTs at /tmp/r11u165_g1/src/ParamEmit.cpp:25873
+    #3 patchParamTypespecs at /tmp/r11u165_g1/src/ParamEmit.cpp:26877
+    #4 emitTopPorts at /tmp/r11u165_g1/src/ModuleEmit.cpp:31272
+    #5 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:10053
+    #6 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #7 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0684 probe/default/v11u113repro__grid__brk2__t12_genfor_modtp_two_iter object #89 ref_obj 'a' dut.sv 3:26:3:27 id=78 db=SAME
+  rank 7:
+    #0 MakeRef_obj at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:15455
+    #2 operator() at /tmp/r11u165_g1/src/ExprEmit.cpp:24843
+    #3 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:24844
+    #4 operator() at /tmp/r11u165_g1/src/ModuleEmit.cpp:27225
+    #5 BaseClass*) const at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #6 emitGenScopes at /tmp/r11u165_g1/src/ModuleEmit.cpp:29430
+    #7 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:18460
+    #8 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9990
+    #9 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #10 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0018 probe/default/v11u117repro__grid__b02 object #404 ref_obj 'cfg' dut.sv 10:41:10:44 id=111 db=SAME
+  rank 2:
+    #0 MakeRef_obj at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:34944
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:27603
+    #3 emitParameters at /tmp/r11u165_g1/src/ParamEmit.cpp:18762
+    #4 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9679
+    #5 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #6 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0192 surelog/default/BuildUVMPkg object #27575 ref_obj 'sequences_executed' uvm_pkg.sv 56935:52:56935:70 id=146938 db=SAME
+  rank 32425:
+    #0 MakeRef_obj at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:15455
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:22334
+    #3 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:31112
+    #4 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:26078
+    #5 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:15054
+    #6 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #7 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6371
+    #8 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #9 emitPackageClassMethodClones at /tmp/r11u165_g1/src/ParamEmit.cpp:33347
+    #10 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33226
+    #11 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8068
+== N0214 surelog/default/BuildUVMPkg object #30359 ref_obj 'm_parent' uvm_pkg.sv 64449:47:64449:55 id=149297 db=SAME
+  rank 33049:
+    #0 MakeRef_obj at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:15455
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:25940
+    #3 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:15054
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #5 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #6 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #7 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6371
+    #8 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #9 emitPackageClassMethodClones at /tmp/r11u165_g1/src/ParamEmit.cpp:33347
+    #10 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33226
+    #11 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8068
+== N2400 surelog/default/BuildUVMPkg object #82304 ref_obj 'addr' uvm_pkg.sv 61920:33:61920:37 id=83063 db=SAME
+  rank 17685:
+    #0 MakeRef_obj at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:34944
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:31690
+    #3 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:14999
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #5 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #6 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #7 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2838
+    #8 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4517
+    #9 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6527
+    #10 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #11 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4567
+== N2406 surelog/default/BuildUVMPkg object #96711 ref_obj 'uvm_run_phase::get' uvm_pkg.sv 35405:59:35405:74 id=23252 db=SAME
+  rank 4841:
+    #0 MakeRef_obj at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:25283
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:25940
+    #3 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:26152
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #5 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6371
+    #6 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #7 emitClassDefn at /tmp/r11u165_g1/src/UhdmExporter.cpp:4398
+    #8 emitPackageClasses at /tmp/r11u165_g1/src/UhdmExporter.cpp:5352
+    #9 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33222
+    #10 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8068
+    #11 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+== N2401 surelog/default/BuildUVMPkg object #164604 ref_obj 'obj' uvm_pkg.sv 42134:46:42134:49 id=40712 db=SAME
+  rank 8471:
+    #0 MakeRef_obj at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:34944
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:31690
+    #3 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:14999
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #5 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #6 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #7 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #8 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:3012
+    #9 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #10 emitClassDefn at /tmp/r11u165_g1/src/UhdmExporter.cpp:4398
+    #11 emitPackageClasses at /tmp/r11u165_g1/src/UhdmExporter.cpp:5352
+== N0117 surelog/default/BuildUVMPkg object #197597 unsupported_typespec 'uvm_resource_types::rsrc_q_t' uvm_pkg.sv 16625:35:16625:63 id=94408 db=SAME
+  rank 434:
+    #0 MakeUnsupported_typespec at ?:0
+    #1 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:5258
+    #2 emitClassDefn at /tmp/r11u165_g1/src/UhdmExporter.cpp:4398
+    #3 emitPackageClasses at /tmp/r11u165_g1/src/UhdmExporter.cpp:5352
+    #4 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33222
+    #5 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8068
+    #6 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #7 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0438 surelog/default/SimpleUVM object #203769 struct_typespec 'uvm_pkg::uvm_printer_row_info' uvm_printer.svh 28:9:34:2 id=3474 db=DIFF
+  rank 5:
+    #0 MakeStruct_typespec at ?:0
+    #1 buildStructTs at /tmp/r11u165_g1/src/TypeEmit.cpp:13801
+    #2 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:31530
+    #3 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8068
+    #4 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #5 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0050 surelog/default/YosysRiscv object #208 operation '' shifter64.v 60:18:60:30 id=90 db=SAME
+  rank 8:
+    #0 MakeOperation at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:31174
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:15054
+    #3 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:5059
+    #5 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2838
+    #6 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #7 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #8 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1936
+    #9 emitProcess at /tmp/r11u165_g1/src/StmtEmit.cpp:310
+    #10 emitModuleDef at /tmp/r11u165_g1/src/ModuleEmit.cpp:6180
+    #11 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9694
+== N0670 surelog/testflags/Scr1SvTests object #63099 ref_typespec ''  0:0:0:0 id=8042 db=SAME
+  rank 1178:
+    #0 MakeRef_typespec at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:24745
+    #2 emitContAssigns at /tmp/r11u165_g1/src/ModuleEmit.cpp:39105
+    #3 emitModuleDef at /tmp/r11u165_g1/src/ModuleEmit.cpp:5975
+    #4 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9694
+    #5 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #6 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N2405 surelog/testflags/Scr1SvTests holder #63274 int_typespec '' scr1_pipe_tdu.sv 77:12:77:24 id=37527 db=SAME
+  rank 129:
+    #0 MakeInt_typespec at ?:0
+    #1 emitSyntaxExpr at /tmp/r11u165_g1/src/TypeEmit.cpp:16789
+    #2 emitSyntaxExpr at /tmp/r11u165_g1/src/TypeEmit.cpp:19773
+    #3 operator() at /tmp/r11u165_g1/src/TypeEmit.cpp:5765
+    #4 makeTypespec at /tmp/r11u165_g1/src/TypeEmit.cpp:6653
+    #5 sharedTypespec at /tmp/r11u165_g1/src/TypeEmit.cpp:7777
+    #6 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:13406
+    #7 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:15997
+    #8 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:15997
+    #9 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:15997
+    #10 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:15997
+    #11 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9990
+== N0021 surelog/testflags/Scr1SvTests object #75997 ref_obj 'SCR1_TCM_ADDR_MASK' scr1_top_axi.sv 367:27:367:45 id=43800 db=SAME
+  rank 11722:
+    #0 MakeRef_obj at ?:0
+    #1 cloneUnitParamRhs at /tmp/r11u165_g1/src/UhdmExporter.cpp:2471
+    #2 cloneUnitParamRhs at /tmp/r11u165_g1/src/UhdmExporter.cpp:2503
+    #3 cloneUnitParamRhs at /tmp/r11u165_g1/src/UhdmExporter.cpp:2503
+    #4 cloneUnitParamRhs at /tmp/r11u165_g1/src/UhdmExporter.cpp:2503
+    #5 emitSyntaxExpr at /tmp/r11u165_g1/src/TypeEmit.cpp:16753
+    #6 emitSyntaxExpr at /tmp/r11u165_g1/src/TypeEmit.cpp:19773
+    #7 emitSyntaxExpr at /tmp/r11u165_g1/src/TypeEmit.cpp:16774
+    #8 emitSyntaxExpr at /tmp/r11u165_g1/src/TypeEmit.cpp:19773
+    #9 operator() at /tmp/r11u165_g1/src/TypeEmit.cpp:22446
+    #10 buildUnpackedRanges at /tmp/r11u165_g1/src/TypeEmit.cpp:22514
+    #11 emitArrayVar at /tmp/r11u165_g1/src/TypeEmit.cpp:22633
+== N0273 probe/default/r10earl56repro__v2_nestedsel56 object #194 part_select 'PN' dut.sv 26:42:26:49 id=152 db=SAME
+  rank 2:
+    #0 MakePart_select at ?:0
+    #1 emitSyntaxExpr at /tmp/r11u165_g1/src/TypeEmit.cpp:17761
+    #2 emitSyntaxExpr at /tmp/r11u165_g1/src/TypeEmit.cpp:17885
+    #3 emitSyntaxExpr at /tmp/r11u165_g1/src/TypeEmit.cpp:17820
+    #4 emitSyntaxExpr at /tmp/r11u165_g1/src/TypeEmit.cpp:17885
+    #5 operator() at /tmp/r11u165_g1/src/ModuleEmit.cpp:48672
+    #6 function const&, bool) const at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #7 emitDefGenStmts at /tmp/r11u165_g1/src/ModuleEmit.cpp:49142
+    #8 emitModuleDef at /tmp/r11u165_g1/src/ModuleEmit.cpp:6244
+    #9 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9694
+    #10 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #11 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0071 probe/default/r10svs2repro__w2_spacedot object #30 hier_path 'd.size' dut.sv 15:13:15:19 id=46 db=SAME
+  rank 4:
+    #0 MakeHier_path at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:29843
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:22336
+    #3 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:15054
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #5 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6371
+    #6 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #7 emitClassDefn at /tmp/r11u165_g1/src/UhdmExporter.cpp:4398
+    #8 operator() at /tmp/r11u165_g1/src/UhdmExporter.cpp:9955
+    #9 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9968
+    #10 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #11 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0193 probe/default/r10uvm167repro__g167_b_spell object #224 hier_path 'r.mf167' dut.sv 71:14:71:21 id=254 db=SAME
+  rank 3:
+    #0 MakeHier_path at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:25986
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:39256
+    #3 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:5920
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6527
+    #5 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #6 emitClassDefn at /tmp/r11u165_g1/src/UhdmExporter.cpp:4398
+    #7 emitPackageClasses at /tmp/r11u165_g1/src/UhdmExporter.cpp:5352
+    #8 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33222
+    #9 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8068
+    #10 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #11 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0109 probe/default/r10uvm22repro__t33e_t object #92 string_typespec ''  0:0:0:0 id=50 db=SAME
+  rank 3:
+    #0 MakeString_typespec at ?:0
+    #1 operator() at /tmp/r11u165_g1/src/StmtEmit.cpp:4325
+    #2 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4501
+    #3 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6527
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6371
+    #5 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #6 emitClassDefn at /tmp/r11u165_g1/src/UhdmExporter.cpp:4398
+    #7 emitPackageClasses at /tmp/r11u165_g1/src/UhdmExporter.cpp:5352
+    #8 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33222
+    #9 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8068
+    #10 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #11 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0110 probe/default/r10uvm22repro__t33e_t object #92 string_typespec ''  0:0:0:0 id=50 db=SAME
+  rank 3:
+    #0 MakeString_typespec at ?:0
+    #1 operator() at /tmp/r11u165_g1/src/StmtEmit.cpp:4325
+    #2 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4501
+    #3 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6527
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6371
+    #5 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #6 emitClassDefn at /tmp/r11u165_g1/src/UhdmExporter.cpp:4398
+    #7 emitPackageClasses at /tmp/r11u165_g1/src/UhdmExporter.cpp:5352
+    #8 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33222
+    #9 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8068
+    #10 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #11 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0005 probe/default/r10v104repro__v3_ifdef object #9 constant '' dut.sv 18:26:18:35 id=6 db=SAME
+  rank 1:
+    #0 MakeConstant at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:22599
+    #2 emitParameters at /tmp/r11u165_g1/src/ParamEmit.cpp:18762
+    #3 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:30123
+    #4 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8063
+    #5 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #6 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0098 probe/default/r10v132repro__v4_home object #22 ref_obj 'q1'  4:9:4:11 id=21 db=SAME
+  rank 1:
+    #0 MakeRef_obj at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:30106
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:22334
+    #3 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:3007
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #5 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #6 emitProcess at /tmp/r11u165_g1/src/StmtEmit.cpp:310
+    #7 emitModuleDef at /tmp/r11u165_g1/src/ModuleEmit.cpp:6180
+    #8 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9694
+    #9 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #10 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0426 probe/default/r10v78repro__v6_ndecl78 object #31 ref_obj 'TW' dut.sv 20:27:20:29 id=44 db=SAME
+  rank 5:
+    #0 MakeRef_obj at ?:0
+    #1 emitSyntaxExpr at /tmp/r11u165_g1/src/TypeEmit.cpp:17238
+    #2 emitSyntaxExpr at /tmp/r11u165_g1/src/TypeEmit.cpp:17907
+    #3 operator() at /tmp/r11u165_g1/src/ModuleEmit.cpp:47385
+    #4 function const&, bool) const at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #5 emitDefGenStmts at /tmp/r11u165_g1/src/ModuleEmit.cpp:49142
+    #6 emitModuleDef at /tmp/r11u165_g1/src/ModuleEmit.cpp:6244
+    #7 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9694
+    #8 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #9 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0024 probe/default/r11u107repro__grid__t13_iface_tp_struct holder #120 ref_typespec ''  0:0:0:0 id=73 db=SAME
+  rank 12:
+    #0 MakeRef_typespec at ?:0
+    #1 emitInterfaceInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:44783
+    #2 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:15923
+    #3 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9990
+    #4 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #5 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0443 probe/default/r11u112repro__grid__f__g12_hop_if_bare_ctl object #105 ref_typespec ''  0:0:0:0 id=86 db=SAME
+  rank 14:
+    #0 MakeRef_typespec at ?:0
+    #1 genLpUseFoldBound47 at /tmp/r11u165_g1/src/ExprEmit.cpp:13447
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:32285
+    #3 operator() at /tmp/r11u165_g1/src/ModuleEmit.cpp:27225
+    #4 BaseClass*) const at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #5 operator() at /tmp/r11u165_g1/src/ModuleEmit.cpp:29377
+    #6 function*) const at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #7 operator() at /tmp/r11u165_g1/src/ModuleEmit.cpp:29298
+    #8 BaseClass*) const at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #9 emitGenScopes at /tmp/r11u165_g1/src/ModuleEmit.cpp:29430
+    #10 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:18460
+    #11 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9990
+== N0044 probe/default/r11u19repro__grid__q02_mod_packedstruct_defzero object #14 struct_typespec '' dut.sv 1:41:1:54 id=65 db=SAME
+  rank 3:
+    #0 MakeStruct_typespec at ?:0
+    #1 buildStructTs at /tmp/r11u165_g1/src/TypeEmit.cpp:13801
+    #2 makeTypespec at /tmp/r11u165_g1/src/TypeEmit.cpp:4218
+    #3 emitTopPorts at /tmp/r11u165_g1/src/ModuleEmit.cpp:31003
+    #4 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:10053
+    #5 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #6 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N2409 probe/default/r11v11u8repro__v12 object #1 module_inst '' dut.sv 3:1:5:48 id=2 db=SAME
+  rank 1:
+    #0 MakeModule_inst at ?:0
+    #1 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9639
+    #2 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #3 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N2408 probe/default/r11v11u8repro__v12 object #2 initial '' dut.sv 3:13:5:38 id=3 db=SAME
+  rank 1:
+    #0 MakeInitial at ?:0
+    #1 emitProcess at /tmp/r11u165_g1/src/StmtEmit.cpp:295
+    #2 emitModuleDef at /tmp/r11u165_g1/src/ModuleEmit.cpp:6180
+    #3 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9694
+    #4 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #5 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N2407 probe/default/r11v11u8repro__v12 object #3 begin '' dut.sv 3:21:5:38 id=4 db=SAME
+  rank 1:
+    #0 MakeBegin at ?:0
+    #1 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2200
+    #2 emitProcess at /tmp/r11u165_g1/src/StmtEmit.cpp:310
+    #3 emitModuleDef at /tmp/r11u165_g1/src/ModuleEmit.cpp:6180
+    #4 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9694
+    #5 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #6 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0043 probe/default/r11v47repro__arms__v28 object #7 struct_typespec '' dut.sv 3:26:3:32 id=23 db=SAME
+  rank 1:
+    #0 MakeStruct_typespec at ?:0
+    #1 buildStructTs at /tmp/r11u165_g1/src/TypeEmit.cpp:13801
+    #2 makeTypespec at /tmp/r11u165_g1/src/TypeEmit.cpp:4218
+    #3 emitParameters at /tmp/r11u165_g1/src/ParamEmit.cpp:22468
+    #4 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9679
+    #5 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #6 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0284 probe/default/r11v69repro__grid__w9_sharehead object #123 constant '' dut.sv 7:31:7:34 id=99 db=SAME
+  rank 14:
+    #0 MakeConstant at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:22343
+    #2 emitCaStructParamSubst55 at /tmp/r11u165_g1/src/ModuleEmit.cpp:34208
+    #3 operator() at /tmp/r11u165_g1/src/ModuleEmit.cpp:26347
+    #4 BaseClass*) const at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #5 operator() at /tmp/r11u165_g1/src/ModuleEmit.cpp:29377
+    #6 function*) const at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #7 emitGenScopes at /tmp/r11u165_g1/src/ModuleEmit.cpp:29512
+    #8 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:18460
+    #9 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9990
+    #10 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #11 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0448 probe/default/v11u110repro__brk__v5__k11_logic_param_range object #14 constant '' dut.sv 13:24:13:29 id=68 db=SAME
+  rank 9:
+    #0 MakeConstant at ?:0
+    #1 operator() at /tmp/r11u165_g1/src/TypeEmit.cpp:5845
+    #2 makeTypespec at /tmp/r11u165_g1/src/TypeEmit.cpp:6653
+    #3 emitParameters at /tmp/r11u165_g1/src/ParamEmit.cpp:22468
+    #4 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:12314
+    #5 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:15997
+    #6 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9990
+    #7 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #8 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0471 probe/default/v11u116repro__arms__f1s_ovr object #98 ref_typespec ''  0:0:0:0 id=86 db=SAME
+  rank 16:
+    #0 MakeRef_typespec at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:20058
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:22336
+    #3 operator() at /tmp/r11u165_g1/src/ModuleEmit.cpp:27225
+    #4 BaseClass*) const at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #5 emitGenScopes at /tmp/r11u165_g1/src/ModuleEmit.cpp:29430
+    #6 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:18460
+    #7 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9990
+    #8 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #9 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0460 surelog/default/ApbSlave object #1744 begin '' svunit_defines.svh 28:178:30:6 id=1147 db=SAME
+  rank 52:
+    #0 MakeBegin at ?:0
+    #1 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2200
+    #2 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #3 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #5 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #6 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2838
+    #7 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #8 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6371
+    #9 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #10 emitModuleDef at /tmp/r11u165_g1/src/ModuleEmit.cpp:5843
+    #11 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9694
+== N0292 surelog/default/Scoreboard object #9165 constant '' uvm_message_defines.svh 151:222:151:325 id=132045 db=SAME
+  rank 16615:
+    #0 MakeConstant at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:22599
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:27603
+    #3 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #5 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2838
+    #6 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #7 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #8 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6371
+    #9 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #10 emitPackageClassMethodClones at /tmp/r11u165_g1/src/ParamEmit.cpp:33347
+    #11 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33226
+== N0330 surelog/default/Scoreboard object #26967 constant '' uvm_message_defines.svh 214:180:214:292 id=147924 db=SAME
+  rank 18933:
+    #0 MakeConstant at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:22599
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:26152
+    #3 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #5 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2838
+    #6 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #7 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #8 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6371
+    #9 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #10 emitPackageClassMethodClones at /tmp/r11u165_g1/src/ParamEmit.cpp:33347
+    #11 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33226
+== N2402 surelog/default/Scoreboard object #11126 ref_obj 'UVM_DEBUG' uvm_message_defines.svh 124:863:124:872 id=133938 db=SAME
+  rank 30112:
+    #0 MakeRef_obj at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:15455
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:27603
+    #3 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #5 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2838
+    #6 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #7 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #8 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6371
+    #9 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #10 emitPackageClassMethodClones at /tmp/r11u165_g1/src/ParamEmit.cpp:33347
+    #11 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33226
+== N2403 surelog/default/Scoreboard object #69001 ref_obj 'uvm_callbacks::m_register_pair' uvm_callback_defines.svh 60:41:60:109 id=86663 db=SAME
+  rank 18952:
+    #0 MakeRef_obj at ?:0
+    #1 emitClassPropInit29 at /tmp/r11u165_g1/src/UhdmExporter.cpp:3243
+    #2 emitClassDefn at /tmp/r11u165_g1/src/UhdmExporter.cpp:4406
+    #3 emitPackageClasses at /tmp/r11u165_g1/src/UhdmExporter.cpp:5352
+    #4 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33222
+    #5 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8068
+    #6 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #7 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0393 surelog/default/Scoreboard object #174369 ref_obj 'UVM_LOW' uvm_message_defines.svh 183:132:183:139 id=108502 db=SAME
+  rank 23823:
+    #0 MakeRef_obj at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:15455
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:26152
+    #3 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #5 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2838
+    #6 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #7 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #8 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6371
+    #9 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #10 emitClassDefn at /tmp/r11u165_g1/src/UhdmExporter.cpp:4398
+    #11 emitPackageClasses at /tmp/r11u165_g1/src/UhdmExporter.cpp:5352
+== N0308 surelog/default/Scoreboard object #12372 func_call 'uvm_report_info' uvm_message_defines.svh 115:8:116:177 id=135138 db=SAME
+  rank 3280:
+    #0 MakeFunc_call at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:27151
+    #2 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #3 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2838
+    #5 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2820
+    #6 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #7 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6371
+    #8 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #9 emitPackageClassMethodClones at /tmp/r11u165_g1/src/ParamEmit.cpp:33347
+    #10 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33226
+    #11 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8068
+== N0344 surelog/default/Scoreboard object #47115 case_item '' uvm_mem.svh 1161:10:151:7 id=165362 db=SAME
+  rank 515:
+    #0 MakeCase_item at ?:0
+    #1 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4922
+    #2 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:5059
+    #3 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:6371
+    #4 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #5 emitPackageClassMethodClones at /tmp/r11u165_g1/src/ParamEmit.cpp:33347
+    #6 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33226
+    #7 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8068
+    #8 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #9 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N2404 surelog/default/Scoreboard object #62610 operation '' uvm_message_defines.svh 116:114:116:126 id=178233 db=SAME
+  rank 9994:
+    #0 MakeOperation at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:22329
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:27603
+    #3 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:1996
+    #4 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #5 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:2838
+    #6 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:4593
+    #7 emitCtorBody27 at /tmp/r11u165_g1/src/StmtEmit.cpp:1581
+    #8 emitStmt at /tmp/r11u165_g1/src/StmtEmit.cpp:5994
+    #9 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:7133
+    #10 emitPackageClassMethodClones at /tmp/r11u165_g1/src/ParamEmit.cpp:33347
+    #11 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33226
+== N0329 surelog/default/Scoreboard object #187997 function 'new' uvm_tlm_imps.svh 198:3:202:14 id=96366 db=SAME
+  rank 2626:
+    #0 MakeFunction at ?:0
+    #1 emitTaskFuncs at /tmp/r11u165_g1/src/TaskFuncEmit.cpp:3724
+    #2 emitClassDefn at /tmp/r11u165_g1/src/UhdmExporter.cpp:4398
+    #3 emitPackageClasses at /tmp/r11u165_g1/src/UhdmExporter.cpp:5352
+    #4 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:33222
+    #5 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8068
+    #6 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #7 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0661 surelog/default/YosysOldOr object #53040 logic_typespec '' or1200_fpu_intfloat_conv_except.v 50:12:50:12 id=31805 db=SAME
+  rank 695:
+    #0 MakeLogic_typespec at ?:0
+    #1 makeTypespec at /tmp/r11u165_g1/src/TypeEmit.cpp:4326
+    #2 sharedTypespec at /tmp/r11u165_g1/src/TypeEmit.cpp:7777
+    #3 emitPorts at /tmp/r11u165_g1/src/ModuleEmit.cpp:32520
+    #4 emitModuleDefPorts at /tmp/r11u165_g1/src/ModuleEmit.cpp:7130
+    #5 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:12153
+    #6 emitInstance at /tmp/r11u165_g1/src/ModuleEmit.cpp:15997
+    #7 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9990
+    #8 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #9 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0163 surelog/testflags/PackedArrayHighConn object #19 ref_typespec ''  0:0:0:0 id=20 db=SAME
+  rank 2:
+    #0 MakeRef_typespec at ?:0
+    #1 buildEnumTs at /tmp/r11u165_g1/src/TypeEmit.cpp:8737
+    #2 emitPackage at /tmp/r11u165_g1/src/ParamEmit.cpp:32029
+    #3 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:8068
+    #4 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #5 main at /tmp/r11u165_g1/uhdm_main.cpp:1251
+== N0091 uhdm2rtlil/testflags/ibex_load_store_unit object #1564 ref_obj 'load_err_o' dv_fcov_macros.svh 92:28:92:38 id=333 db=SAME
+  rank 85:
+    #0 MakeRef_obj at ?:0
+    #1 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:15455
+    #2 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:22334
+    #3 emitExpr at /tmp/r11u165_g1/src/ExprEmit.cpp:22334
+    #4 emitContAssigns at /tmp/r11u165_g1/src/ModuleEmit.cpp:39105
+    #5 emitModuleDef at /tmp/r11u165_g1/src/ModuleEmit.cpp:5975
+    #6 exportDesign at /tmp/r11u165_g1/src/UhdmExporter.cpp:9694
+    #7 realMain at /tmp/r11u165_g1/uhdm_main.cpp:1084
+    #8 main at /tmp/r11u165_g1/uhdm_main.cpp:1251

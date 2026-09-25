@@ -1,0 +1,64 @@
+cluster N0846 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < emitSyntaxExpr (TypeEmit.cpp, law selChainDecideBeforeMint41) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|tok:id::id::id::id::id::id::->id@id.id.id::id.id::id.|under:operation
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1730)  records golden=1342584 ours=1342870
+object: #216212 (golden) / #216172 (ours)  type=ref_obj name=DataWidth OUT
+  golden: prim_cipher_pkg::PRINCE_ROUND_CONST::prim_cipher_pkg::PRINCE_ROUND_CONST::prim_cipher_pkg::PRINCE_ROUND_CONST::DataWidth
+  ours:   work@prim_prince.p_pre_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST.DataWidth
+  walk parents: operation < part_select(prim_cipher_pkg::PRINCE_ROUND_CONST) < var_select(prim_cipher_pkg::PRINCE_ROUND_CONST) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 216206..216218 ('>' = the object)
+  #216206	6	constant				prim_prince.sv	80	16	80	17	0	64	UINT:0	9		000
+  #216207	4	assignment				prim_prince.sv	81	5	81	75						000
+  #216208	5	var_select	prim_cipher_pkg::PRINCE_ROUND_CONST			prim_prince.sv	81	22	81	75		0				000
+  #216209	6	constant				prim_prince.sv	81	58	81	59	0	64	UINT:0	9		000
+  #216210	6	part_select	prim_cipher_pkg::PRINCE_ROUND_CONST	prim_cipher_pkg::PRINCE_ROUND_CONST		prim_prince.sv	81	61	81	74		0				000
+  #216211	7	operation				prim_prince.sv	81	61	81	72		0				000
+> #216212	8	ref_obj	DataWidth		prim_cipher_pkg::PRINCE_ROUND_CONST::prim_cipher_pkg::PRINCE_ROUND_CONST::prim_cipher_pkg::PRINCE_ROUND_CONST::DataWidth	prim_prince.sv	81	61	81	70		0			prim_cipher_pkg::PRINCE_ROUND_CONST::prim_cipher_pkg::PRINCE_ROUND_CONST::prim_cipher_pkg::PRINCE_ROUND_CONST::DataWidth	000
+  #216213	8	constant				prim_prince.sv	81	71	81	72	1	64	UINT:1	9		000
+  #216214	7	constant				prim_prince.sv	81	73	81	74	0	64	UINT:0	9		000
+  #216215	5	bit_select	data_state		work@prim_prince.p_pre_round_xor.data_state	prim_prince.sv	81	5	81	18		0			work@prim_prince.p_pre_round_xor.data_state	000
+  #216216	6	constant				prim_prince.sv	81	16	81	17	0	64	UINT:0	9		000
+  #216217	2	always				prim_prince.sv	165	3	170	6						000
+  #216218	3	named_begin	p_post_round_xor		work@prim_prince.p_post_round_xor	prim_prince.sv	165	23	165	39					work@prim_prince.p_post_round_xor	000
+
+--- OURS (B) records 216166..216178 ('>' = the object)
+  #216166	6	constant				prim_prince.sv	80	16	80	17	0	64	UINT:0	9		000
+  #216167	4	assignment				prim_prince.sv	81	5	81	75						000
+  #216168	5	var_select	prim_cipher_pkg::PRINCE_ROUND_CONST			prim_prince.sv	81	22	81	75		0				000
+  #216169	6	constant				prim_prince.sv	81	58	81	59	0	64	UINT:0	9		000
+  #216170	6	part_select	prim_cipher_pkg::PRINCE_ROUND_CONST	prim_cipher_pkg::PRINCE_ROUND_CONST		prim_prince.sv	81	61	81	74		0				000
+  #216171	7	operation				prim_prince.sv	81	61	81	72		0				000
+> #216172	8	ref_obj	DataWidth		work@prim_prince.p_pre_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST.DataWidth	prim_prince.sv	81	61	81	70		0			work@prim_prince.p_pre_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST.DataWidth	000
+  #216173	8	constant				prim_prince.sv	81	71	81	72	1	64	UINT:1	9		000
+  #216174	7	constant				prim_prince.sv	81	73	81	74	0	64	UINT:0	9		000
+  #216175	5	bit_select	data_state		work@prim_prince.p_pre_round_xor.data_state	prim_prince.sv	81	5	81	18		0			work@prim_prince.p_pre_round_xor.data_state	000
+  #216176	6	constant				prim_prince.sv	81	16	81	17	0	64	UINT:0	9		000
+  #216177	2	always				prim_prince.sv	165	3	170	6						000
+  #216178	3	named_begin	p_post_round_xor		work@prim_prince.p_post_round_xor	prim_prince.sv	165	23	165	39					work@prim_prince.p_post_round_xor	000
+
+facets of this row (19098, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

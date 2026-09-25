@@ -1,0 +1,14 @@
+surelog/default/1364_2005 rc=0 STRICT_EQUAL 159 objects dumps: 159/159 identical=yes | 
+1364_2005,default,CMP_EQUAL,,,equal
+surelog/default/HierPathInterfBlock rc=0 STRICT_EQUAL 226 objects dumps: 226/226 identical=yes | 
+HierPathInterfBlock,default,CMP_EQUAL,,,equal
+uhdm2rtlil/default/1DUnpackedArray rc=0 STRICT_EQUAL 194 objects dumps: 194/194 identical=yes | 
+1DUnpackedArray,default,CMP_EQUAL,,,equal
+/bin/bash: uhdm2rtlil_default_stamped_gen_param.a: No such file or directory
+/bin/bash: uhdm2rtlil_default_stamped_gen_param.b: No such file or directory
+uhdm2rtlil/default/stamped_gen_param rc=1 NOT_EQUAL stage1 dumps: / identical=no | lhsPath: design(work@stamped_gen_param) > module_inst(work@stamped_gen_param) > gen_scope_array(gen_grps[0]) > gen_scope > param_assign > constant
+stamped_gen_param,default,CMP_NOTEQUAL,decompile:,,
+/bin/bash: uhdm2rtlil_testflags_stamped_gen_param.a: No such file or directory
+/bin/bash: uhdm2rtlil_testflags_stamped_gen_param.b: No such file or directory
+uhdm2rtlil/testflags/stamped_gen_param rc=1 NOT_EQUAL stage1 dumps: / identical=no | lhsPath: design(work@stamped_gen_param) > module_inst(work@stamped_gen_param) > gen_scope_array(gen_grps[0]) > gen_scope > param_assign > constant
+stamped_gen_param,testflags,CMP_NOTEQUAL,decompile:,,

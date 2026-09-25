@@ -1,0 +1,64 @@
+cluster N1224 (map 7 id kept; OPEN | ground B | site emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (ModuleEmit.cpp, law genConnReplCastActual) < operator() (ModuleEmit.cpp, law defGenElemIpsVarSel112) [r11u138map pin] [r11u142map pin]): span|ref_obj|endline+endcol|under:hier_path
+row: surelog/default/Rggen  strict=differ:fullname(7)  records golden=314498 ours=312506
+object: #3202 (golden) / #3202 (ours)  type=ref_obj name=read_mask 
+  golden: 4:28:4:37
+  ours:   4:28:186:3
+  walk parents: hier_path(bit_field_sub_if.read_mask) < cont_assign < named_begin(g_bit_field_0) < gen_if
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 3196..3208 ('>' = the object)
+  #3196	10	ref_obj	bit_field_if			block_0.sv	4	52	4	64		0				000
+  #3197	10	indexed_part_select	read_mask		bit_field_if.read_mask[0+:4]	block_0.sv	4	65	4	79		0			bit_field_if.read_mask[0+:4]	000
+  #3198	11	constant				block_0.sv	4	75	4	76	0	64	UINT:0	9		000
+  #3199	11	constant				block_0.sv	4	78	4	79	4	64	UINT:4	9		000
+  #3200	9	hier_path	bit_field_sub_if.read_mask			block_0.sv	4	11	4	37		0				000
+  #3201	10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0				000
+> #3202	10	ref_obj	read_mask			block_0.sv	4	28	4	37		0				000
+  #3203	8	cont_assign				block_0.sv	5	11	5	81						000
+  #3204	9	hier_path	bit_field_if.write_mask[0+:4]			block_0.sv	5	52	5	81		0				000
+  #3205	10	ref_obj	bit_field_if			block_0.sv	5	52	5	64		0				000
+  #3206	10	indexed_part_select	write_mask		bit_field_if.write_mask[0+:4]	block_0.sv	5	65	5	80		0			bit_field_if.write_mask[0+:4]	000
+  #3207	11	constant				block_0.sv	5	76	5	77	0	64	UINT:0	9		000
+  #3208	11	constant				block_0.sv	5	79	5	80	4	64	UINT:4	9		000
+
+--- OURS (B) records 3196..3208 ('>' = the object)
+  #3196	10	ref_obj	bit_field_if			block_0.sv	4	52	4	64		0				000
+  #3197	10	indexed_part_select	read_mask		bit_field_if.read_mask[0+:4]	block_0.sv	4	65	4	79		0			bit_field_if.read_mask[0+:4]	000
+  #3198	11	constant				block_0.sv	4	75	4	76	0	64	UINT:0	9		000
+  #3199	11	constant				block_0.sv	4	78	4	79	4	64	UINT:4	9		000
+  #3200	9	hier_path	bit_field_sub_if.read_mask			block_0.sv	4	11	4	37		0				000
+  #3201	10	ref_obj	bit_field_sub_if			block_0.sv	4	11	4	27		0				000
+> #3202	10	ref_obj	read_mask		work@block_0.g_register_0.g_bit_field_0.read_mask	block_0.sv	4	28	186	3		0			work@block_0.g_register_0.g_bit_field_0.read_mask	000
+  #3203	8	cont_assign				block_0.sv	5	11	5	81						000
+  #3204	9	hier_path	bit_field_if.write_mask[0+:4]			block_0.sv	5	52	5	81		0				000
+  #3205	10	ref_obj	bit_field_if			block_0.sv	5	52	5	64		0				000
+  #3206	10	indexed_part_select	write_mask		bit_field_if.write_mask[0+:4]	block_0.sv	5	65	5	80		0			bit_field_if.write_mask[0+:4]	000
+  #3207	11	constant				block_0.sv	5	76	5	77	0	64	UINT:0	9		000
+  #3208	11	constant				block_0.sv	5	79	5	80	4	64	UINT:4	9		000
+
+facets of this row (13500, first 25):
+  N1175 #466/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/476 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/481 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #501/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #661/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/671 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/676 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #696/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #2242/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/2252 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/2257 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #2277/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #15376/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/15386 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/15391 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #15411/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17669/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17679 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17684 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17704/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17850/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17860 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17865 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17885/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #18031/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]

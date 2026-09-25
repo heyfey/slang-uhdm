@@ -1,0 +1,64 @@
+cluster N0260 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) [r11u142map pin]): span|ref_var|line+col+endline+endcol|under:function
+row: surelog/default/BuildUVMPkg  strict=differ:line(94)  records golden=201533 ours=201486
+object: #169033 (golden) / #168977 (ours)  type=ref_var name= 
+  golden: 31982:19:31982:33
+  ours:   32177:10:32177:24
+  walk parents: function(get_event_pool) < class_defn(uvm_transaction) < class_defn(uvm_object) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 169027..169039 ('>' = the object)
+  #169027	7	bit_typespec				uvm_pkg.sv	31961	19	31961	22						000
+  #169028	4	function	is_active		uvm_pkg::uvm_transaction::is_active	uvm_pkg.sv	31970	3	31970	9					uvm_pkg::uvm_transaction::is_active	000
+  #169029	5	bit_var			uvm_pkg::uvm_transaction::is_active	uvm_pkg.sv	31970	19	31970	22		0			uvm_pkg::uvm_transaction::is_active	000
+  #169030	6	ref_typespec			uvm_pkg::uvm_transaction::is_active		0	0	0	0		0			uvm_pkg::uvm_transaction::is_active	000
+  #169031	7	bit_typespec				uvm_pkg.sv	31970	19	31970	22						000
+  #169032	4	function	get_event_pool		uvm_pkg::uvm_transaction::get_event_pool	uvm_pkg.sv	31982	3	31982	9					uvm_pkg::uvm_transaction::get_event_pool	000
+> #169033	5	ref_var			uvm_pkg::uvm_transaction::get_event_pool	uvm_pkg.sv	31982	19	31982	33		0			uvm_pkg::uvm_transaction::get_event_pool	000
+  #169034	6	ref_typespec			uvm_pkg::uvm_transaction::get_event_pool		0	0	0	0		0			uvm_pkg::uvm_transaction::get_event_pool	000
+  #169035	7	class_typespec	uvm_pkg::uvm_event_pool			uvm_pkg.sv	14624	9	14624	31						110
+  #169036	4	function	set_initiator		uvm_pkg::uvm_transaction::set_initiator	uvm_pkg.sv	31994	3	31994	9					uvm_pkg::uvm_transaction::set_initiator	000
+  #169037	5	io_decl	initiator			uvm_pkg.sv	31994	53	31994	62						000
+  #169038	6	ref_typespec			uvm_pkg::uvm_transaction::set_initiator::initiator		0	0	0	0		0			uvm_pkg::uvm_transaction::set_initiator::initiator	000
+  #169039	7	class_typespec	uvm_component			uvm_pkg.sv	31994	39	31994	52						110
+
+--- OURS (B) records 168971..168983 ('>' = the object)
+  #168971	7	bit_typespec				uvm_pkg.sv	32316	10	32316	13						000
+  #168972	4	function	is_active		uvm_pkg::uvm_transaction::is_active	uvm_pkg.sv	31970	3	31970	9					uvm_pkg::uvm_transaction::is_active	000
+  #168973	5	bit_var			uvm_pkg::uvm_transaction::is_active	uvm_pkg.sv	32185	10	32185	13		0			uvm_pkg::uvm_transaction::is_active	000
+  #168974	6	ref_typespec			uvm_pkg::uvm_transaction::is_active		0	0	0	0		0			uvm_pkg::uvm_transaction::is_active	000
+  #168975	7	bit_typespec				uvm_pkg.sv	32185	10	32185	13						000
+  #168976	4	function	get_event_pool		uvm_pkg::uvm_transaction::get_event_pool	uvm_pkg.sv	31982	3	31982	9					uvm_pkg::uvm_transaction::get_event_pool	000
+> #168977	5	ref_var			uvm_pkg::uvm_transaction::get_event_pool	uvm_pkg.sv	32177	10	32177	24		0			uvm_pkg::uvm_transaction::get_event_pool	000
+  #168978	6	ref_typespec			uvm_pkg::uvm_transaction::get_event_pool		0	0	0	0		0			uvm_pkg::uvm_transaction::get_event_pool	000
+  #168979	7	class_typespec				uvm_pkg.sv	32177	10	32177	24						000
+  #168980	4	function	set_initiator		uvm_pkg::uvm_transaction::set_initiator	uvm_pkg.sv	31994	3	31994	9					uvm_pkg::uvm_transaction::set_initiator	000
+  #168981	5	io_decl	initiator			uvm_pkg.sv	32163	60	32163	69						000
+  #168982	6	ref_typespec			uvm_pkg::uvm_transaction::set_initiator::initiator		0	0	0	0		0			uvm_pkg::uvm_transaction::set_initiator::initiator	000
+  #168983	7	class_typespec	uvm_component			uvm_pkg.sv	32163	46	32163	59						110
+
+facets of this row (7140, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

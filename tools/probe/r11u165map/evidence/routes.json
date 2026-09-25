@@ -1,0 +1,155 @@
+{
+ "pairB": {
+  "N0108": "r11u160 residue 4: the procedural localparam type struct (probe r11u112 k-series)",
+  "N1174": "HierPathTypespec t (pass 163 S4)",
+  "N0969": "GenerateUnnamed (r11u160 decode, ModuleEmit emitGates)",
+  "N0528": "pass 158 S1: HighLow's $high fold (ModuleEmit emitContAssigns)",
+  "N0430": "UnionCast union file (TypeEmit buildUnionTs)"
+ },
+ "pairB_rows": {
+  "ibex_icache": {
+   "why": "the rest of the ibex family"
+  },
+  "ibex_multdiv_fast": {
+   "why": "the rest of the ibex family"
+  },
+  "ibex_pmp": {
+   "why": "the rest of the ibex family"
+  },
+  "ibex_register_file_ff": {
+   "why": "the rest of the ibex family"
+  },
+  "ibex_tracer": {
+   "why": "the rest of the ibex family"
+  },
+  "ibex_load_store_unit": {
+   "why": "the rest of the ibex family"
+  },
+  "ApbSlave": {
+   "why": "ApbSlave"
+  },
+  "GenerateUnnamed": {
+   "why": "GenerateUnnamed"
+  },
+  "ClassTypeParam": {
+   "why": "ClassTypeParam"
+  },
+  "UnionCast": {
+   "why": "UnionCast"
+  },
+  "HighLow": {
+   "why": "pass 158 S1 HighLow"
+  },
+  "iface_param_port_width": {
+   "why": "pass 158 S6 iface_param_port_width"
+  },
+  "HierPathTypespec": {
+   "why": "HierPathTypespec t",
+   "modes": [
+    "testflags"
+   ]
+  }
+ },
+ "shape": {},
+ "residue": {
+  "N0129": "pass 163 S1: ModuleEmit substNdaParamRefs names the part-select bound constant ref_typespec (YosysOldOpen t); decoded, sister ground",
+  "N0427": "pass 154 R1a: the default view names the interface-array element index through the path (InterfArrayBind d); not reached by passes 158/163",
+  "N0278": "pass 163 R1: under --elabuhdm golden stores no full name on the foreach index j (LocalScopeHierPath t); rule not decoded",
+  "N0525": "pass 163 S2: the high-conn bit-select index prefix (StructArrayNet), ModuleEmit hcPrefix",
+  "N0562": "pass 163 S2: the --elabuhdm twin of N0525 (StructArrayNet t)",
+  "N1115": "pass 163 S5: the high conn bit_select full name (PackedArrayHighConn), ModuleEmit port emission",
+  "N0457": "pass 163 S6: an implicit-net cont_assign gets the instance its own copy (UnsizedParam d), ModuleEmit emitContAssigns",
+  "N0136": "pass 163 S6: the --elabuhdm twin (UnsizedParam)",
+  "N0775": "pass 163 S6 (UnsizedParam d: the cont_assign golden lists per instance)",
+  "N0284": "pass 163 S7: YosysBigSimEllip d type(1), a cont_assign missing or reordered in the elaborated listing; not decoded",
+  "N0014": "pass 154 R3: a package struct typedef reached through two members of an anonymous struct names its members by the last writer (anon_struct_packed_dim), TypeEmit buildStructTs",
+  "N0820": "pass 154 R3 (anon_struct_packed_dim, with N0014)",
+  "N0003": "pass 163 R2: the elaborated package listing of an UNPACKED struct pattern parameter (iface_zero_width_field; StructParamPatternInitCast)",
+  "N0084": "pass 155 R-SP: a value parameter struct copy names its members through the parameter (StructParamFieldRange, cva6_struct_param_field); pass 163 landed the aggregate-default half only",
+  "N0009": "pass 155 R-SP: the struct copy span after the formal relocation (StructParamFieldRange, cva6_struct_param_field)",
+  "N0043": "pass 155 R-SP / pass 163 residue 3: the definition listing copy relocated span (const_cast_signext)",
+  "N0036": "r11u166 R1: the spaced based literal (YosysRiscv col(40) after litall); the index span is ExprEmit",
+  "N0977": "r11u166 R6: CovMacro $root.top hier_path name (pair A)",
+  "N0049": "r11u166 R6: ibex_multdiv_fast $signed sys_func_call spans the name only in golden (ExprEmit); rp32_r5p_alu's shape is TypeEmit emitSyntaxExpr",
+  "N0415": "r11u166 R6: ibex_icache part-select bound ref_typespec full names (pair A)",
+  "N0092": "pass 160 S: UnionCast's value is the based literal's written digits (ExprEmit IntegerLiteral); the rp32 shape is TypeEmit makeBoundConst",
+  "N0056": "map 7: pass-145 R2 (sister), PreprocTest enum base bit_typespec end; pass 152 did not take it",
+  "N0661": "r11u166 R6: YosysOldOr's non-ANSI port typespec line (ModuleEmit)",
+  "N0830": "unmasked by r11u161: ComplexHierPath walk divergence #190 (ours lists the gen-scope logic_net z where golden has the cont_assign)",
+  "N0289": "unmasked by r11u166: ApbSlave walk divergence #372 (svunit_pkg string var, pre-existing)"
+ },
+ "m7listed": {
+  "N0005": "ground-A step 1",
+  "N0063": "ground-A step 2",
+  "N0001": "ground-A step 3",
+  "N0007": "ground-A step 3",
+  "N0003": "ground-A step 4",
+  "N1132": "ground-A step 4",
+  "N0018": "ground-A step 5",
+  "N0097": "ground-A step 6",
+  "N0129": "ground-A step 7",
+  "N0286": "ground-A step 8",
+  "N0357": "ground-A step 9",
+  "N0016": "ground-A step 10",
+  "N0010": "ground-A step 11",
+  "N1118": "ground-A step 12",
+  "N0822": "ground-A step 13",
+  "N0276": "ground-A step 14",
+  "N1064": "ground-A step 15",
+  "N1063": "ground-A step 16",
+  "N1115": "ground-A step 17",
+  "N0006": "ground-A step 18",
+  "N0765": "ground-A step 18",
+  "N0833": "ground-A step 19",
+  "N1067": "ground-A step 19",
+  "N0394": "ground-A step 20",
+  "N1140": "ground-A step 20",
+  "N0427": "ground-A step 21",
+  "N0739": "ground-A step 22",
+  "N0050": "ground-A step 23",
+  "N0091": "ground-A step 23",
+  "N1075": "ground-A step 23",
+  "N1076": "ground-A step 23",
+  "N0009": "ground-B step 1",
+  "N0057": "ground-B step 2",
+  "N0025": "ground-B step 3",
+  "N0033": "ground-B step 3",
+  "N0014": "ground-B step 4",
+  "N0044": "ground-B step 4",
+  "N0043": "ground-B step 5",
+  "N0049": "ground-B step 6",
+  "N0430": "ground-B step 7",
+  "N0767": "ground-B step 8",
+  "N1146": "ground-B step 9",
+  "N0083": "ground-B step 10",
+  "N0740": "ground-B step 10",
+  "N0090": "ground-B step 11",
+  "N0533": "ground-B step 11",
+  "N0117": "ground-B step 12",
+  "N0768": "ground-B step 12",
+  "N0269": "ground-B step 13",
+  "N0450": "ground-B step 13",
+  "N0438": "ground-B step 14",
+  "N0487": "ground-B step 14",
+  "N0447": "ground-B step 15",
+  "N0498": "ground-B step 15",
+  "N1135": "ground-B step 16",
+  "N1156": "ground-B step 16",
+  "N1041": "ground-B step 17",
+  "N1161": "ground-B step 17",
+  "N0796": "ground-B step 18",
+  "N0969": "ground-B step 18",
+  "N1015": "ground-B step 19",
+  "N1062": "ground-B step 19",
+  "N0831": "ground-B step 20",
+  "N0843": "ground-B step 20",
+  "N0844": "ground-B step 21",
+  "N0851": "ground-B step 21",
+  "N1059": "ground-B step 22",
+  "N1072": "ground-B step 22",
+  "N1174": "ground-B step 23",
+  "N0422": "ground-B step 24",
+  "N0484": "ground-B step 24",
+  "N1149": "ground-B step 24"
+ }
+}

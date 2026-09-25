@@ -1,0 +1,53 @@
+cluster N1941 (map 7 id kept; OPEN | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law assocLocalArrayVar40) < emitPackage (ParamEmit.cpp, law LAW) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u138map pin] [r11u142map pin]): span|int_var|col+endcol|under:task
+row: probe/default/r10uvm145repro__g145_e_zero  strict=col  records golden=105 ours=105
+object: #32 (golden) / #32 (ours)  type=int_var name=t1 
+  golden: 25:5:25:8
+  ours:   25:9:25:11
+  walk parents: task(zeroTaskIo145) < package(pe145) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 26..38 ('>' = the object)
+  #26	3	begin			pe145::zeroTwoParen145	dut.sv	21	5	21	16					pe145::zeroTwoParen145	000
+  #27	4	assignment				dut.sv	20	9	20	15						000
+  #28	5	constant				dut.sv	20	14	20	15	4	64	UINT:4	9		000
+  #29	4	assignment				dut.sv	21	9	21	15						000
+  #30	5	constant				dut.sv	21	14	21	15	5	64	UINT:5	9		000
+  #31	2	task	zeroTaskIo145		pe145::zeroTaskIo145	dut.sv	23	3	27	10					pe145::zeroTaskIo145	000
+> #32	3	int_var	t1		pe145::zeroTaskIo145::t1	dut.sv	25	5	25	8		0			pe145::zeroTaskIo145::t1	000
+  #33	4	ref_typespec			pe145::zeroTaskIo145::t1		0	0	0	0		0			pe145::zeroTaskIo145::t1	000
+  #34	5	int_typespec				dut.sv	25	5	25	8						000
+  #35	3	int_var	t2		pe145::zeroTaskIo145::t2	dut.sv	26	5	26	8		0			pe145::zeroTaskIo145::t2	000
+  #36	4	ref_typespec			pe145::zeroTaskIo145::t2		0	0	0	0		0			pe145::zeroTaskIo145::t2	000
+  #37	5	int_typespec				dut.sv	26	5	26	8						000
+  #38	3	io_decl	gg			dut.sv	24	15	24	17						000
+
+--- OURS (B) records 26..38 ('>' = the object)
+  #26	3	begin			pe145::zeroTwoParen145	dut.sv	21	5	21	16					pe145::zeroTwoParen145	000
+  #27	4	assignment				dut.sv	20	9	20	15						000
+  #28	5	constant				dut.sv	20	14	20	15	4	64	UINT:4	9		000
+  #29	4	assignment				dut.sv	21	9	21	15						000
+  #30	5	constant				dut.sv	21	14	21	15	5	64	UINT:5	9		000
+  #31	2	task	zeroTaskIo145		pe145::zeroTaskIo145	dut.sv	23	3	27	10					pe145::zeroTaskIo145	000
+> #32	3	int_var	t1		pe145::zeroTaskIo145::t1	dut.sv	25	9	25	11		0			pe145::zeroTaskIo145::t1	000
+  #33	4	ref_typespec			pe145::zeroTaskIo145::t1		0	0	0	0		0			pe145::zeroTaskIo145::t1	000
+  #34	5	int_typespec				dut.sv	25	5	25	8						000
+  #35	3	int_var	t2		pe145::zeroTaskIo145::t2	dut.sv	26	9	26	11		0			pe145::zeroTaskIo145::t2	000
+  #36	4	ref_typespec			pe145::zeroTaskIo145::t2		0	0	0	0		0			pe145::zeroTaskIo145::t2	000
+  #37	5	int_typespec				dut.sv	26	5	26	8						000
+  #38	3	io_decl	gg			dut.sv	24	15	24	17						000
+
+facets of this row (14, first 25):
+  N1921 #3/3 int_var k1 G[13:5:13:8] O[13:9:13:11]
+  N1921 #6/6 int_var k2 G[14:5:14:8] O[14:9:14:11]
+  N1921 #10/10 int_var w1 G[17:5:17:8] O[17:9:17:11]
+  N1921 #13/13 int_var w2 G[17:5:17:8] O[17:17:17:19]
+  N1921 #16/16 int_var w3 G[17:5:17:8] O[17:25:17:27]
+  N1941 #32/32 int_var t1 G[25:5:25:8] O[25:9:25:11]
+  N1941 #35/35 int_var t2 G[26:5:26:8] O[26:9:26:11]
+  N1921 #55/55 int_var k1 G[13:5:13:8] O[13:9:13:11]
+  N1921 #58/58 int_var k2 G[14:5:14:8] O[14:9:14:11]
+  N1921 #62/62 int_var w1 G[17:5:17:8] O[17:9:17:11]
+  N1921 #65/65 int_var w2 G[17:5:17:8] O[17:17:17:19]
+  N1921 #68/68 int_var w3 G[17:5:17:8] O[17:25:17:27]
+  N1941 #84/84 int_var t1 G[25:5:25:8] O[25:9:25:11]
+  N1941 #87/87 int_var t2 G[26:5:26:8] O[26:9:26:11]

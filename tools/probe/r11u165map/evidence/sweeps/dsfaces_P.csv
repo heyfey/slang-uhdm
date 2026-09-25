@@ -1,0 +1,44 @@
+case,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail,name
+tools/probe/r11u158repro/cases/sc/c1,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c1
+tools/probe/r11u158repro/cases/sc/c10,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 2 common constant assignments match,tools_probe_r11u158repro_cases_sc_c10
+tools/probe/r11u158repro/cases/sc/c11,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c11
+tools/probe/r11u158repro/cases/sc/c12,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 2 common constant assignments match,tools_probe_r11u158repro_cases_sc_c12
+tools/probe/r11u158repro/cases/sc/c13,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c13
+tools/probe/r11u158repro/cases/sc/c14,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c14
+tools/probe/r11u158repro/cases/sc/c15,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c15
+tools/probe/r11u158repro/cases/sc/c16,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c16
+tools/probe/r11u158repro/cases/sc/c17,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c17
+tools/probe/r11u158repro/cases/sc/c2,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c2
+tools/probe/r11u158repro/cases/sc/c3,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c3
+tools/probe/r11u158repro/cases/sc/c4,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c4
+tools/probe/r11u158repro/cases/sc/c5,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c5
+tools/probe/r11u158repro/cases/sc/c6,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c6
+tools/probe/r11u158repro/cases/sc/c7,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c7
+tools/probe/r11u158repro/cases/sc/c8,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c8
+tools/probe/r11u158repro/cases/sc/c9,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c9
+tools/probe/r11u159verify/cases/dv/d01_multi_assign,IDENTICAL,OK,OK,1,1,,,tools_probe_r11u159verify_cases_dv_d01_multi_assign
+tools/probe/r11u159verify/cases/dv/d02_many_digits,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u159verify_cases_dv_d02_many_digits
+tools/probe/r11u159verify/cases/dv/d03_concat_lhs,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u159verify_cases_dv_d03_concat_lhs
+tools/probe/r11u159verify/cases/dv/d04_multi_assign_int_ctl,IDENTICAL,OK,OK,1,1,,,tools_probe_r11u159verify_cases_dv_d04_multi_assign_int_ctl
+tools/probe/r11u161gen/cases/al/e01_bare_import,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e01_bare_import
+tools/probe/r11u161gen/cases/al/e02_module_alias,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u165_dsP/tools_probe_r11u161gen_cases_al_e02_module_,tools_probe_r11u161gen_cases_al_e02_module_alias
+tools/probe/r11u161gen/cases/al/e03_member,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e03_member
+tools/probe/r11u161gen/cases/al/e04_local_alias_local_enum,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u165_dsP/tools_probe_r11u161gen_cases_al_e04_local_a,tools_probe_r11u161gen_cases_al_e04_local_alias_local_enum
+tools/probe/r11u161gen/cases/al/e05_local_alias_import,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u165_dsP/tools_probe_r11u161gen_cases_al_e05_local_a,tools_probe_r11u161gen_cases_al_e05_local_alias_import
+tools/probe/r11u161gen/cases/al/e06_pkg_alias_other_pkg_bare,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e06_pkg_alias_other_pkg_bare
+tools/probe/r11u161gen/cases/al/e07_unit_alias,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u165_dsP/tools_probe_r11u161gen_cases_al_e07_unit_al,tools_probe_r11u161gen_cases_al_e07_unit_alias
+tools/probe/r11u161gen/cases/al/e08_iface_alias,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e08_iface_alias
+tools/probe/r11u161gen/cases/al/e09_mod_local_2elem,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u165_dsP/tools_probe_r11u161gen_cases_al_e09_mod_loc,tools_probe_r11u161gen_cases_al_e09_mod_local_2elem
+tools/probe/r11u161gen/cases/al/e10_mod_alias_scalar_var,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u165_dsP/tools_probe_r11u161gen_cases_al_e10_mod_ali,tools_probe_r11u161gen_cases_al_e10_mod_alias_scalar_var
+tools/probe/r11u161gen/cases/al/e11_mod_alias_of_pkg_alias,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u165_dsP/tools_probe_r11u161gen_cases_al_e11_mod_ali,tools_probe_r11u161gen_cases_al_e11_mod_alias_of_pkg_alias
+tools/probe/r11u161gen/cases/al/e12_mod_alias_port,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u165_dsP/tools_probe_r11u161gen_cases_al_e12_mod_ali,tools_probe_r11u161gen_cases_al_e12_mod_alias_port
+tools/probe/r11u161gen/cases/al/e13_iface_alias_2elem,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e13_iface_alias_2elem
+tools/probe/r11u161gen/cases/al/e14_mod_alias_struct_ctl,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e14_mod_alias_struct_ctl
+tools/probe/r11u161gen/cases/al/e15_mod_alias_packed_dim_ctl,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u165_dsP/tools_probe_r11u161gen_cases_al_e15_mod_ali,tools_probe_r11u161gen_cases_al_e15_mod_alias_packed_dim_ctl
+tools/probe/r11u161gen/cases/al/e16_mod_two_aliases_same_enum,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u165_dsP/tools_probe_r11u161gen_cases_al_e16_mod_two,tools_probe_r11u161gen_cases_al_e16_mod_two_aliases_same_enum
+tools/probe/r11u161gen/cases/al/e17_mod_alias_param_base,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u165_dsP/tools_probe_r11u161gen_cases_al_e17_mod_ali,tools_probe_r11u161gen_cases_al_e17_mod_alias_param_base
+tools/probe/r11u161gen/cases/al/e18_unit_alias_local_enum,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u165_dsP/tools_probe_r11u161gen_cases_al_e18_unit_al,tools_probe_r11u161gen_cases_al_e18_unit_alias_local_enum
+tools/probe/r11u166mac/cases/ds/c05_macro_conn,EQUIVALENT,OK,OK,2,2,nohier il synth,✅ Formal equivalence check PASSED for /tmp/r11u165_dsP/tools_probe_r11u166mac_cases_ds_c05_macro_conn/equiv/tools_probe_,tools_probe_r11u166mac_cases_ds_c05_macro_conn
+tools/probe/r11u166mac/cases/ds/c08_macro_first_then_plain,EQUIVALENT,OK,OK,3,3,nohier il synth,✅ Formal equivalence check PASSED for /tmp/r11u165_dsP/tools_probe_r11u166mac_cases_ds_c08_macro_first_then_plain/equiv/,tools_probe_r11u166mac_cases_ds_c08_macro_first_then_plain
+tools/probe/r11u166mac/cases/ds/l06_iface_spaced_path,STATUS_DIFF,NO_GATES,READ_FAIL,0,0,,,tools_probe_r11u166mac_cases_ds_l06_iface_spaced_path
+tools/probe/r11u166mac/cases/ds/p04_spaced_path_bound,STATUS_DIFF,NO_GATES,READ_FAIL,0,0,,,tools_probe_r11u166mac_cases_ds_p04_spaced_path_bound

@@ -1,0 +1,43 @@
+cluster N1959 (map 7 id kept; OPEN | ground A | site emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < operator() (ExprEmit.cpp, law pkgTdCloneRefNoBind18) < emitExpr (ExprEmit.cpp, law pkgTdCloneRefNoBind18) [r11u138map pin] [r11u142map pin]): fullname|bit_select|golden-empty|under:operation
+row: probe/default/r11u113repro__grid__c__c26_genfor_gvsel  strict=fullname  records golden=170 ours=170
+object: #153 (golden) / #153 (ours)  type=bit_select name=v OUT
+  golden: 
+  ours:   work@top.g[0].v
+  walk parents: operation < cont_assign < gen_scope < gen_scope_array(g[0])
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 147..159 ('>' = the object)
+  #147	5	ref_typespec			work@top.g[0].k		0	0	0	0		0			work@top.g[0].k	000
+  #148	6	int_typespec					0	0	0	0						000
+  #149	4	cont_assign				dut.sv	3	12	3	31						000
+  #150	5	operation				dut.sv	3	19	3	31		0				000
+  #151	6	ref_typespec			work@top.g[0]		0	0	0	0		0			work@top.g[0]	000
+  #152	7	unsupported_typespec	idx_t			dut.sv	3	19	3	24						110
+> #153	6	bit_select	v			dut.sv	3	28	3	29		0				000
+  #154	7	ref_obj	k			dut.sv	3	28	3	29		0				000
+  #155	5	bit_select	n		work@top.g[0].n	dut.sv	3	12	3	16		0			work@top.g[0].n	000
+  #156	6	ref_obj	k		work@top.g[0].k	dut.sv	3	14	3	15		0			work@top.g[0].k	000
+  #157	2	gen_scope_array	g[1]		work@top.g[1]	dut.sv	2	34	4	6					work@top.g[1]	000
+  #158	3	gen_scope			work@top.g[1]	dut.sv	2	34	4	6					work@top.g[1]	000
+  #159	4	parameter	k		work@top.g[1].k	dut.sv	2	0	0	0		0	UINT:1		work@top.g[1].k	000
+
+--- OURS (B) records 147..159 ('>' = the object)
+  #147	5	ref_typespec			work@top.g[0].k		0	0	0	0		0			work@top.g[0].k	000
+  #148	6	int_typespec					0	0	0	0						000
+  #149	4	cont_assign				dut.sv	3	12	3	31						000
+  #150	5	operation				dut.sv	3	19	3	31		0				000
+  #151	6	ref_typespec			work@top.g[0]		0	0	0	0		0			work@top.g[0]	000
+  #152	7	unsupported_typespec	idx_t			dut.sv	3	19	3	24						110
+> #153	6	bit_select	v		work@top.g[0].v	dut.sv	3	28	3	29		0			work@top.g[0].v	000
+  #154	7	ref_obj	k		work@top.g[0].k	dut.sv	3	28	3	29		0			work@top.g[0].k	000
+  #155	5	bit_select	n		work@top.g[0].n	dut.sv	3	12	3	16		0			work@top.g[0].n	000
+  #156	6	ref_obj	k		work@top.g[0].k	dut.sv	3	14	3	15		0			work@top.g[0].k	000
+  #157	2	gen_scope_array	g[1]		work@top.g[1]	dut.sv	2	34	4	6					work@top.g[1]	000
+  #158	3	gen_scope			work@top.g[1]	dut.sv	2	34	4	6					work@top.g[1]	000
+  #159	4	parameter	k		work@top.g[1].k	dut.sv	2	0	0	0		0	UINT:1		work@top.g[1].k	000
+
+facets of this row (4, first 25):
+  N1959 #153/153 bit_select v G[] O[work@top.g[0].v]
+  N1961 #154/154 ref_obj k G[] O[work@top.g[0].k]
+  N1959 #166/166 bit_select v G[] O[work@top.g[1].v]
+  N1961 #167/167 ref_obj k G[] O[work@top.g[1].k]

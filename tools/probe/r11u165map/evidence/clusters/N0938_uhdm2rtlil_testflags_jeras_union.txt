@@ -1,0 +1,64 @@
+cluster N0938 (map 7 id kept; OPEN | ground A | site emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u142map pin]): fullname|ref_typespec|tok:->id.id.id::|under:logic_typespec
+row: uhdm2rtlil/testflags/jeras_union  strict=differ:fullname(54)  records golden=19822 ours=19858
+object: #167 (golden) / #167 (ours)  type=ref_typespec name= STABLE
+  golden: work@test_union.riscv_isa_pkg::imm_l_t
+  ours:   work@test_union.riscv_isa_pkg::ctl_ldu_t.imm.riscv_isa_pkg::imm_l_t
+  walk parents: logic_typespec(riscv_isa_pkg::imm_l_t) < ref_typespec < typespec_member(imm) < struct_typespec(riscv_isa_pkg::ctl_ldu_t)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 161..173 ('>' = the object)
+  #161	6	enum_const	LHU			riscv_isa_pkg.sv	75	3	75	15						001
+  #162	6	enum_const	LWU			riscv_isa_pkg.sv	76	3	76	15						001
+  #163	6	enum_const	LDU			riscv_isa_pkg.sv	77	3	77	15						001
+  #164	3	typespec_member	imm			riscv_isa_pkg.sv	219	14	219	17						001
+  #165	4	ref_typespec			<in>riscv_isa_pkg::ctl_ldu_t.imm		0	0	0	0		0			riscv_isa_pkg::riscv_isa_pkg::ctl_ldu_t::imm	001
+  #166	5	logic_typespec	riscv_isa_pkg::imm_l_t			riscv_isa_pkg.sv	132	9	132	31						001
+> #167	6	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0			work@test_union.riscv_isa_pkg::imm_l_t	001
+  #168	7	logic_typespec	imm_i_t			riscv_isa_pkg.sv	132	9	132	31						001
+  #169	8	ref_typespec			<in>imm_i_t		0	0	0	0		0			imm_i_t	001
+  #170	9	logic_typespec	riscv_isa_pkg::imm_i_t			riscv_isa_pkg.sv	132	9	132	31						001
+  #171	10	range				riscv_isa_pkg.sv	132	22	132	31						001
+  #172	11	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7		001
+  #173	11	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9		001
+
+--- OURS (B) records 161..173 ('>' = the object)
+  #161	6	enum_const	LHU			riscv_isa_pkg.sv	75	3	75	15						001
+  #162	6	enum_const	LWU			riscv_isa_pkg.sv	76	3	76	15						001
+  #163	6	enum_const	LDU			riscv_isa_pkg.sv	77	3	77	15						001
+  #164	3	typespec_member	imm			riscv_isa_pkg.sv	219	14	219	17						001
+  #165	4	ref_typespec			<in>riscv_isa_pkg::ctl_ldu_t.imm		0	0	0	0		0			riscv_isa_pkg::riscv_isa_pkg::ctl_ldu_t::imm	001
+  #166	5	logic_typespec	riscv_isa_pkg::imm_l_t			riscv_isa_pkg.sv	132	9	132	31						001
+> #167	6	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0			work@test_union.riscv_isa_pkg::ctl_ldu_t.imm.riscv_isa_pkg::imm_l_t	001
+  #168	7	logic_typespec	imm_i_t			riscv_isa_pkg.sv	132	9	132	31						001
+  #169	8	ref_typespec			<in>imm_i_t		0	0	0	0		0			imm_i_t	001
+  #170	9	logic_typespec	riscv_isa_pkg::imm_i_t			riscv_isa_pkg.sv	132	9	132	31						001
+  #171	10	range				riscv_isa_pkg.sv	132	22	132	31						001
+  #172	11	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7		001
+  #173	11	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9		001
+
+facets of this row (219, first 25):
+  N0025 #8585/8588 constant  G[11 range < logic_typespec] O[12 operation < range]
+  N0033 #-1/8585 operation  G[] O[3 objs]
+  N0025 #8625/8631 constant  G[11 range < logic_typespec] O[12 operation < range]
+  N0033 #-1/8628 operation  G[] O[3 objs]
+  N0025 #8657/8666 constant  G[11 range < logic_typespec] O[12 operation < range]
+  N0033 #-1/8663 operation  G[] O[3 objs]
+  N0025 #8689/8701 constant  G[11 range < logic_typespec] O[12 operation < range]
+  N0033 #-1/8698 operation  G[] O[3 objs]
+  N0025 #12851/12866 constant  G[11 range < logic_typespec] O[12 operation < range]
+  N0033 #-1/12863 operation  G[] O[3 objs]
+  N0025 #12891/12909 constant  G[11 range < logic_typespec] O[12 operation < range]
+  N0033 #-1/12906 operation  G[] O[3 objs]
+  N0025 #12923/12944 constant  G[11 range < logic_typespec] O[12 operation < range]
+  N0033 #-1/12941 operation  G[] O[3 objs]
+  N0025 #12955/12979 constant  G[11 range < logic_typespec] O[12 operation < range]
+  N0033 #-1/12976 operation  G[] O[3 objs]
+  N0025 #18982/19009 constant  G[11 range < logic_typespec] O[12 operation < range]
+  N0033 #-1/19006 operation  G[] O[3 objs]
+  N0025 #19022/19052 constant  G[11 range < logic_typespec] O[12 operation < range]
+  N0033 #-1/19049 operation  G[] O[3 objs]
+  N0025 #19054/19087 constant  G[11 range < logic_typespec] O[12 operation < range]
+  N0033 #-1/19084 operation  G[] O[3 objs]
+  N0025 #19086/19122 constant  G[11 range < logic_typespec] O[12 operation < range]
+  N0033 #-1/19119 operation  G[] O[3 objs]
+  N0938 #167/167 ref_typespec  G[work@test_union.riscv_isa_pkg::imm_l_t] O[work@test_union.riscv_isa_pkg::ctl_ldu_t.imm.riscv_isa_pkg::imm_l_t]

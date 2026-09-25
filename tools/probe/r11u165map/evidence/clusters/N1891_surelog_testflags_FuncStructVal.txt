@@ -1,0 +1,64 @@
+cluster N1891 (map 7 id kept; OPEN | ground A | site makeMemLeftConst (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitParameters (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitInstance (ModuleEmit.cpp, law elabParamTsRebind) [r11u138map pin] [r11u142map pin]): struct|ours-only:absent|constant|under:typespec_member
+row: surelog/testflags/FuncStructVal  strict=differ:endcol(363)  records golden=45362 ours=46057
+object: #-1 (golden) / #39745 (ours)  type=constant name= 
+  golden: 
+  ours:   1 objs
+  walk parents: typespec_member(NrRgprPorts) < ref_obj(NrRgprPorts) < hier_path(cfg.NrRgprPorts) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 39739..39751 ('>' = the object)
+  #39739	5	hier_path	cfg.NrRgprPorts			dut.sv	539	5	539	20		0				000
+  #39740	6	ref_obj	cfg			dut.sv	539	9	539	20		0				000
+  #39741	6	ref_obj	NrRgprPorts			dut.sv	539	9	539	20		0				000
+  #39742	7	typespec_member	NrRgprPorts			dut.sv	343	18	343	29						000
+  #39743	8	ref_typespec			config_pkg::config_pkg::cva6_cfg_t::NrRgprPorts		0	0	0	0		0			config_pkg::config_pkg::cva6_cfg_t::NrRgprPorts	000
+  #39744	9	int_typespec				dut.sv	343	5	343	17						000
+> #39745	8	constant				dut.sv	614	45	615	35	2	64	UINT:2	9		000
+  #39746	4	assignment				dut.sv	540	5	540	41						000
+  #39747	5	sys_func_call	$unsigned			dut.sv	540	21	540	41		0				000
+  #39748	6	ref_obj	NrWbPorts		build_config_pkg::build_config::NrWbPorts	dut.sv	540	31	540	40		0			build_config_pkg::build_config::NrWbPorts	000
+  #39749	7	int_var	NrWbPorts		build_config_pkg::build_config::NrWbPorts	dut.sv	490	18	490	27		0			build_config_pkg::build_config::NrWbPorts	000
+  #39750	8	ref_typespec			build_config_pkg::build_config::NrWbPorts		0	0	0	0		0			build_config_pkg::build_config::NrWbPorts	000
+  #39751	9	int_typespec				dut.sv	490	5	490	17						000
+
+--- the holder #39742 on the other side: exact-record matches at [9347, 12514, 36322, 40011]
+  #9344	9	bit_typespec				dut.sv	342	5	342	8						001
+  #9345	8	constant					0	0	0	0		1	BIN:0	3		001
+  #9346	8	constant					0	0	0	0		1	BIN:0	3		001
+> #9347	7	typespec_member	NrRgprPorts			dut.sv	343	18	343	29						001
+  #9348	8	ref_typespec			<in>config_pkg::cva6_cfg_t.NrRgprPorts		0	0	0	0		0			config_pkg::config_pkg::cva6_cfg_t::NrRgprPorts	001
+  #9349	9	int_typespec				dut.sv	343	5	343	17						001
+  #9350	8	constant				dut.sv	539	33	539	34	2	64	UINT:2	9		001
+  #9351	8	constant				dut.sv	539	33	539	34	2	64	UINT:2	9		001
+  #9352	7	typespec_member	NrWbPorts			dut.sv	344	18	344	27						001
+  #9353	8	ref_typespec			<in>config_pkg::cva6_cfg_t.NrWbPorts		0	0	0	0		0			config_pkg::config_pkg::cva6_cfg_t::NrWbPorts	001
+  #9354	9	int_typespec				dut.sv	344	5	344	17						001
+  #9355	8	constant					0	0	0	0	4	64	INT:4	7		001
+  #9356	8	constant					0	0	0	0	4	64	INT:4	7		001
+
+facets of this row (3711, first 25):
+  N1946 #-1/13254 constant  G[] O[3 objs]
+  N0891 #14765/-1 operation  G[4 objs] O[]
+  N0891 #14769/-1 operation  G[4 objs] O[]
+  N0891 #14782/-1 operation  G[4 objs] O[]
+  N0891 #14786/-1 operation  G[4 objs] O[]
+  N0891 #14804/-1 operation  G[4 objs] O[]
+  N0891 #14808/-1 operation  G[4 objs] O[]
+  N0891 #14821/-1 operation  G[4 objs] O[]
+  N0891 #14825/-1 operation  G[4 objs] O[]
+  N0891 #16430/-1 operation  G[4 objs] O[]
+  N0891 #16434/-1 operation  G[4 objs] O[]
+  N0891 #16447/-1 operation  G[4 objs] O[]
+  N0891 #16451/-1 operation  G[4 objs] O[]
+  N0891 #16469/-1 operation  G[4 objs] O[]
+  N0891 #16473/-1 operation  G[4 objs] O[]
+  N0891 #16486/-1 operation  G[4 objs] O[]
+  N0891 #16490/-1 operation  G[4 objs] O[]
+  N0891 #18089/-1 operation  G[4 objs] O[]
+  N0891 #18093/-1 operation  G[4 objs] O[]
+  N0891 #18106/-1 operation  G[4 objs] O[]
+  N0891 #18110/-1 operation  G[4 objs] O[]
+  N0891 #18128/-1 operation  G[4 objs] O[]
+  N0891 #18132/-1 operation  G[4 objs] O[]
+  N0891 #18145/-1 operation  G[4 objs] O[]
+  N0891 #18149/-1 operation  G[4 objs] O[]

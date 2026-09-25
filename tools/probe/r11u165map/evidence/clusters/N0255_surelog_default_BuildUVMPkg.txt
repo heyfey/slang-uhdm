@@ -1,0 +1,64 @@
+cluster N0255 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site buildClassTypedefTs (UhdmExporter.cpp, law classTpTdGroupNonClsRootShared91) < classElemVar (UhdmExporter.cpp, law classPropElemTsFollowsScalarTd9) < emitClassDefn (UhdmExporter.cpp, law fixedClassPropIsArrayVar6) [r11u142map pin]): span|class_typespec|line+col+endline+endcol|under:class_defn
+row: surelog/default/BuildUVMPkg  strict=differ:line(94)  records golden=201533 ours=201486
+object: #87922 (golden) / #87877 (ours)  type=class_typespec name=rsp_type 
+  golden: 53934:58:53934:61
+  ours:   53759:11:53759:14
+  walk parents: class_defn(uvm_sequencer_param_base) < class_defn(uvm_sequencer_base) < class_defn(uvm_component) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 87916..87928 ('>' = the object)
+  #87916	5	type_parameter	REQ		uvm_pkg::uvm_sequencer_param_base::REQ	uvm_pkg.sv	53754	40	53754	43					uvm_pkg::uvm_sequencer_param_base::REQ	010
+  #87917	6	ref_typespec			<in>REQ		0	0	0	0		0			uvm_pkg::uvm_sequencer_param_base::REQ	001
+  #87918	7	class_typespec	rsp_type			uvm_pkg.sv	53934	58	53934	61						001
+  #87919	5	type_parameter	RSP		uvm_pkg::uvm_sequencer_param_base::RSP	uvm_pkg.sv	53755	39	53755	42					uvm_pkg::uvm_sequencer_param_base::RSP	010
+  #87920	6	ref_typespec			<in>RSP		0	0	0	0		0			uvm_pkg::uvm_sequencer_param_base::RSP	001
+  #87921	7	class_typespec	rsp_type			uvm_pkg.sv	53934	58	53934	61						001
+> #87922	5	class_typespec	rsp_type			uvm_pkg.sv	53934	58	53934	61						010
+  #87923	5	class_typespec	this_type			uvm_pkg.sv	57039	9	57039	33						010
+  #87924	6	ref_typespec			<in>this_type		0	0	0	0		0			uvm_pkg::uvm_sequencer_param_base::this_type	001
+  #87925	7	class_typespec	uvm_pkg::uvm_default_sequencer_param_type			uvm_pkg.sv	57039	9	57039	33						001
+  #87926	5	extends				uvm_pkg.sv	53755	58	53755	76						000
+  #87927	6	ref_typespec			uvm_pkg::uvm_sequencer_param_base		0	0	0	0		0			uvm_pkg::uvm_sequencer_param_base	000
+  #87928	7	class_typespec	uvm_sequencer_base			uvm_pkg.sv	53755	58	53755	76						110
+
+--- OURS (B) records 87871..87883 ('>' = the object)
+  #87871	5	type_parameter	REQ		uvm_pkg::uvm_sequencer_param_base::REQ	uvm_pkg.sv	53754	40	53754	43					uvm_pkg::uvm_sequencer_param_base::REQ	010
+  #87872	6	ref_typespec			<in>REQ		0	0	0	0		0			uvm_pkg::uvm_sequencer_param_base::REQ	001
+  #87873	7	class_typespec	rsp_type			uvm_pkg.sv	57039	36	57039	53						001
+  #87874	5	type_parameter	RSP		uvm_pkg::uvm_sequencer_param_base::RSP	uvm_pkg.sv	53755	39	53755	42					uvm_pkg::uvm_sequencer_param_base::RSP	010
+  #87875	6	ref_typespec			<in>RSP		0	0	0	0		0			uvm_pkg::uvm_sequencer_param_base::RSP	001
+  #87876	7	class_typespec	rsp_type			uvm_pkg.sv	57039	55	57039	72						001
+> #87877	5	class_typespec	rsp_type			uvm_pkg.sv	53759	11	53759	14						010
+  #87878	5	class_typespec	this_type			uvm_pkg.sv	57039	9	57039	33						010
+  #87879	6	ref_typespec			<in>this_type		0	0	0	0		0			uvm_sequencer_param_base::this_type	001
+  #87880	7	class_typespec	uvm_pkg::uvm_default_sequencer_param_type			uvm_pkg.sv	57039	9	57039	33						001
+  #87881	5	extends				uvm_pkg.sv	53755	58	53755	76						000
+  #87882	6	ref_typespec			uvm_pkg::uvm_sequencer_param_base		0	0	0	0		0			uvm_pkg::uvm_sequencer_param_base	000
+  #87883	7	class_typespec	uvm_sequencer_base			uvm_pkg.sv	53755	58	53755	76						110
+
+facets of this row (7140, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

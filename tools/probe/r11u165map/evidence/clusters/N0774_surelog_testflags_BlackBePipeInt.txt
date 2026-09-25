@@ -1,0 +1,64 @@
+cluster N0774 (map 7 id kept; OPEN | ground A | site enumMemberSubstConst (ExprEmit.cpp, law enumSubstDecBare) < emitSyntaxExpr (TypeEmit.cpp, law basedLiteralWsCompact) < emitSyntaxExpr (TypeEmit.cpp, law genSyntaxSimplePattern) [r11u138map pin] [r11u142map pin]): span|constant|endcol|under:tagged_pattern
+row: surelog/testflags/BlackBePipeInt  strict=differ:fullname(2)  records golden=338504 ours=340984
+object: #40040 (golden) / #42264 (ours)  type=constant name= 
+  golden: 2120:25:2120:52
+  ours:   2120:25:2120:68
+  walk parents: tagged_pattern < operation < param_assign < package(bp_be_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 40034..40046 ('>' = the object)
+  #40034	6	string_typespec	fe_queue_fifo_els			dut.sv	2235	4	2235	21						110
+  #40035	4	tagged_pattern				dut.sv	2240	21	2240	53						000
+  #40036	5	constant				dut.sv	2119	25	2119	26	4	32	UINT:4	9		000
+  #40037	5	ref_typespec			bp_be_pkg		0	0	0	0		0			bp_be_pkg	000
+  #40038	6	string_typespec	fe_cmd_fifo_els			dut.sv	2240	4	2240	19						110
+  #40039	4	tagged_pattern				dut.sv	2245	20	2245	51						000
+> #40040	5	constant				dut.sv	2120	25	2120	52	7	32	UINT:7	9		000
+  #40041	5	ref_typespec			bp_be_pkg		0	0	0	0		0			bp_be_pkg	000
+  #40042	6	string_typespec	muldiv_support			dut.sv	2245	4	2245	18						110
+  #40043	4	tagged_pattern				dut.sv	2250	17	2250	45						000
+  #40044	5	constant				dut.sv	2121	25	2121	26	1	32	UINT:1	9		000
+  #40045	5	ref_typespec			bp_be_pkg		0	0	0	0		0			bp_be_pkg	000
+  #40046	6	string_typespec	fpu_support			dut.sv	2250	4	2250	15						110
+
+--- OURS (B) records 42258..42270 ('>' = the object)
+  #42258	6	string_typespec	fe_queue_fifo_els			dut.sv	2235	4	2235	21						110
+  #42259	4	tagged_pattern				dut.sv	2240	21	2240	53						000
+  #42260	5	constant				dut.sv	2119	25	2119	26	4	32	UINT:4	9		000
+  #42261	5	ref_typespec			bp_be_pkg		0	0	0	0		0			bp_be_pkg	000
+  #42262	6	string_typespec	fe_cmd_fifo_els			dut.sv	2240	4	2240	19						110
+  #42263	4	tagged_pattern				dut.sv	2245	20	2245	51						000
+> #42264	5	constant				dut.sv	2120	25	2120	68	7	32	UINT:7	9		000
+  #42265	5	ref_typespec			bp_be_pkg		0	0	0	0		0			bp_be_pkg	000
+  #42266	6	string_typespec	muldiv_support			dut.sv	2245	4	2245	18						110
+  #42267	4	tagged_pattern				dut.sv	2250	17	2250	45						000
+  #42268	5	constant				dut.sv	2121	25	2121	26	1	32	UINT:1	9		000
+  #42269	5	ref_typespec			bp_be_pkg		0	0	0	0		0			bp_be_pkg	000
+  #42270	6	string_typespec	fpu_support			dut.sv	2250	4	2250	15						110
+
+facets of this row (57251, first 25):
+  N0897 #-1/66 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/14409 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15104 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15118 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15132 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15146 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15160 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15174 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15188 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15202 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15216 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15230 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15244 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15258 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15272 parameter dev_addr_width_gp G[] O[8 objs]
+  N0868 #-1/15388 constant  G[] O[1 objs]
+  N0868 #-1/15392 constant  G[] O[1 objs]
+  N0868 #-1/15396 constant  G[] O[1 objs]
+  N0868 #-1/15400 constant  G[] O[1 objs]
+  N0868 #-1/15404 constant  G[] O[1 objs]
+  N0868 #-1/15408 constant  G[] O[1 objs]
+  N0868 #-1/15412 constant  G[] O[1 objs]
+  N0868 #-1/15416 constant  G[] O[1 objs]
+  N0868 #-1/15420 constant  G[] O[1 objs]
+  N0868 #-1/15424 constant  G[] O[1 objs]

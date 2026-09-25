@@ -1,0 +1,48 @@
+cluster N0750 (map 7 id kept; OPEN [the decodes reduce it: rows 2->2, probe 2->1] | ground B | site emitPorts (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitModuleDefPorts (ModuleEmit.cpp, law caNestedModDefNameScoped99) < exportDesign (UhdmExporter.cpp, law classTdTopOnlyShare50) [r11u138map pin] [r11u142map pin]): span|ref_obj|col+endcol|under:port
+row: surelog/testflags/OneNetModPortGeneric  strict=differ:line(2)  records golden=448 ours=454
+object: #432 (golden) / #432 (ours)  type=ref_obj name= 
+  golden: 19:16:19:29
+  ours:   19:17:19:21
+  walk parents: port(intf) < module_inst(obs) < module_inst(work@TOP) < design(work@TOP)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 426..438 ('>' = the object)
+  #426	6	modport	dut			dut.v	12	11	12	14						000
+  #427	7	io_decl	drive			dut.v	13	11	13	16						000
+  #428	7	io_decl	observe			dut.v	14	12	14	19						000
+  #429	6	modport	tb			dut.v	16	11	16	13						000
+  #430	7	io_decl	drive			dut.v	17	12	17	17						000
+  #431	7	io_decl	observe			dut.v	18	11	18	18						000
+> #432	4	ref_obj			work@TOP.obs.intf	tb.v	19	16	19	29		0			work@TOP.obs.intf	000
+  #433	5	interface_inst	intf	work@ConnectTB	work@TOP.obs.intf	tb.v	19	0	0	0					work@TOP.obs.intf	000
+  #434	6	modport	dut			dut.v	12	11	12	14						000
+  #435	7	io_decl	drive			dut.v	13	11	13	16						000
+  #436	7	io_decl	observe			dut.v	14	12	14	19						000
+  #437	6	modport	tb			dut.v	16	11	16	13						000
+  #438	7	io_decl	drive			dut.v	17	12	17	17						000
+
+--- OURS (B) records 426..438 ('>' = the object)
+  #426	6	modport	dut			dut.v	12	11	12	14						000
+  #427	7	io_decl	drive			dut.v	13	11	13	16						000
+  #428	7	io_decl	observe			dut.v	14	12	14	19						000
+  #429	6	modport	tb			dut.v	16	11	16	13						000
+  #430	7	io_decl	drive			dut.v	17	12	17	17						000
+  #431	7	io_decl	observe			dut.v	18	11	18	18						000
+> #432	4	ref_obj			work@TOP.obs.intf	tb.v	19	17	19	21		0			work@TOP.obs.intf	000
+  #433	5	interface_inst	intf	work@ConnectTB	work@TOP.obs.intf	tb.v	19	0	0	0					work@TOP.obs.intf	000
+  #434	6	logic_var	drive		work@TOP.obs.intf.drive	dut.v	10	9	10	14		0			work@TOP.obs.intf.drive	000
+  #435	7	ref_typespec			work@TOP.obs.intf.drive		0	0	0	0		0			work@TOP.obs.intf.drive	000
+  #436	8	logic_typespec				dut.v	10	3	10	8						000
+  #437	6	logic_var	observe		work@TOP.obs.intf.observe	dut.v	11	9	11	16		0			work@TOP.obs.intf.observe	000
+  #438	7	ref_typespec			work@TOP.obs.intf.observe		0	0	0	0		0			work@TOP.obs.intf.observe	000
+
+facets of this row (9, first 25):
+  N0268 #-1/300 logic_var drive G[] O[3 objs]
+  N0268 #-1/304 logic_var observe G[] O[3 objs]
+  N0819 #310/-1 logic_var drive G[3 objs] O[]
+  N0819 #313/-1 logic_var observe G[3 objs] O[]
+  N1000 #-1/434 logic_var drive G[] O[3 objs]
+  N1000 #-1/437 logic_var observe G[] O[3 objs]
+  N0088 #297/297 ref_obj  G[1:31:1:35] O[18:17:18:21]
+  N0088 #364/364 ref_obj  G[22:26:22:30] O[6:20:6:24]
+  N0750 #432/432 ref_obj  G[19:16:19:29] O[19:17:19:21]

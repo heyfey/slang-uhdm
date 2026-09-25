@@ -1,0 +1,64 @@
+cluster N1009 (map 7 id kept; OPEN | ground B | site cloneUnitParamRhs (UhdmExporter.cpp, law unitRefSubst) < emitSyntaxExpr (TypeEmit.cpp, law elabMisevalRefSubst) < emitSyntaxExpr (TypeEmit.cpp, law sysCallArgOperatorTree) [r11u138map pin] [r11u142map pin]): file|operation|other-file+span|under:sys_func_call
+row: surelog/testflags/Scr1SvTests  strict=differ:line(219)  records golden=83997 ours=84026
+object: #76030 (golden) / #76059 (ours)  type=operation name= 
+  golden: scr1_dp_memory.sv 19:27:19:36
+  ours:   scr1_top_axi.sv 101:19:101:32
+  walk parents: sys_func_call($clog2) < operation < range < logic_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 76024..76036 ('>' = the object)
+  #76024	5	logic_net	addra		work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra	scr1_dp_memory.sv	19	45	19	50		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra	000
+  #76025	6	ref_typespec			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra	000
+  #76026	7	logic_typespec				scr1_dp_memory.sv	19	13	19	42						000
+  #76027	8	range				scr1_dp_memory.sv	19	19	19	42						001
+  #76028	9	operation				scr1_dp_memory.sv	19	20	19	39		0				001
+  #76029	10	sys_func_call	$clog2			scr1_dp_memory.sv	19	20	19	37		0				001
+> #76030	11	operation				scr1_dp_memory.sv	19	27	19	36		0				001
+  #76031	12	ref_typespec			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory	001
+  #76032	13	integer_typespec				scr1_top_axi.sv	367	22	367	24						001
+  #76033	12	operation				scr1_top_axi.sv	367	26	367	52		0				001
+  #76034	13	operation				scr1_top_axi.sv	367	26	367	45		0				001
+  #76035	14	ref_obj	SCR1_TCM_ADDR_MASK		work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.SCR1_TCM_ADDR_MASK	scr1_top_axi.sv	367	27	367	45		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.SCR1_TCM_ADDR_MASK	001
+  #76036	13	constant				scr1_top_axi.sv	367	48	367	52	1'b1	1	BIN:1	3		001
+
+--- OURS (B) records 76053..76065 ('>' = the object)
+  #76053	5	logic_net	addra		work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra	scr1_dp_memory.sv	19	45	19	50		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra	000
+  #76054	6	ref_typespec			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.addra	000
+  #76055	7	logic_typespec				scr1_dp_memory.sv	19	13	19	42						000
+  #76056	8	range				scr1_dp_memory.sv	19	19	19	42						001
+  #76057	9	operation				scr1_dp_memory.sv	19	20	19	39		0				001
+  #76058	10	sys_func_call	$clog2			scr1_dp_memory.sv	19	20	19	37		0				001
+> #76059	11	operation				scr1_top_axi.sv	101	19	101	32		0				001
+  #76060	12	ref_typespec			<in>		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_tcm	001
+  #76061	13	integer_typespec				scr1_top_axi.sv	367	22	367	24						001
+  #76062	12	operation				scr1_top_axi.sv	367	26	367	52		0				001
+  #76063	13	operation				scr1_top_axi.sv	367	26	367	45		0				001
+  #76064	14	ref_obj	SCR1_TCM_ADDR_MASK		<in>SCR1_TCM_ADDR_MASK	scr1_top_axi.sv	367	27	367	45		0			work@scr1_top_tb_axi.i_top.i_tcm.SCR1_TCM_ADDR_MASK	001
+  #76065	13	constant				scr1_top_axi.sv	367	48	367	52	1'b1	1	BIN:1	3		001
+
+facets of this row (821, first 25):
+  N0965 #16033/-1 ref_typespec  G[5 objs] O[]
+  N0791 #48791/-1 ref_obj SCR1_MEM_CMD_RD G[2 objs] O[]
+  N0284 #-1/48786 constant  G[] O[1 objs]
+  N0965 #61857/-1 ref_typespec  G[5 objs] O[]
+  N2405 #63286/-1 ref_obj ALLTRIG_W G[3 objs] O[]
+  N0921 #-1/70139 operation  G[] O[5 objs]
+  N0921 #-1/70148 operation  G[] O[7 objs]
+  N0921 #-1/70159 operation  G[] O[11 objs]
+  N0921 #-1/70174 operation  G[] O[13 objs]
+  N0921 #-1/76039 operation  G[] O[7 objs]
+  N0064 #4/4 include_file_info  G[537:10:537:39] O[322:10:322:39]
+  N0064 #5/5 include_file_info  G[545:10:545:37] O[330:10:330:37]
+  N0064 #6/6 include_file_info  G[761:10:761:31] O[331:10:331:31]
+  N0064 #7/7 include_file_info  G[1010:10:1010:24] O[508:10:508:24]
+  N0064 #8/8 include_file_info  G[1018:10:1018:37] O[516:10:516:37]
+  N0064 #9/9 include_file_info  G[1234:10:1234:24] O[517:10:517:24]
+  N0064 #10/10 include_file_info  G[1242:10:1242:37] O[525:10:525:37]
+  N0064 #11/11 include_file_info  G[1458:10:1458:31] O[526:10:526:31]
+  N0064 #12/12 include_file_info  G[1531:10:1531:25] O[527:10:527:25]
+  N0064 #13/13 include_file_info  G[1539:10:1539:37] O[535:10:535:37]
+  N0064 #15/15 include_file_info  G[249:10:249:39] O[34:10:34:39]
+  N0064 #16/16 include_file_info  G[435:10:435:24] O[35:10:35:24]
+  N0064 #17/17 include_file_info  G[448:10:448:37] O[48:10:48:37]
+  N0064 #18/18 include_file_info  G[665:10:665:24] O[50:10:50:24]
+  N0064 #20/20 include_file_info  G[253:10:253:25] O[38:10:38:25]

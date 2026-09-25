@@ -1,0 +1,64 @@
+cluster N0841 (map 7 id kept; COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | ground A | site emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u138map pin] [r11u142map pin]): span|constant|col+endcol|under:assignment
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1730)  records golden=1342584 ours=1342870
+object: #139062 (golden) / #139022 (ours)  type=constant name= 
+  golden: 83:31:83:44
+  ours:   83:32:83:45
+  walk parents: assignment < case_item < case_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 139056..139068 ('>' = the object)
+  #139056	12	part_select	message_length	message_length	work@sha2_pad.message_length	sha2_pad.sv	82	22	82	41		0			work@sha2_pad.message_length	000
+  #139057	13	constant				sha2_pad.sv	82	37	82	38	4	64	UINT:4	9		000
+  #139058	13	constant				sha2_pad.sv	82	39	82	40	3	64	UINT:3	9		000
+  #139059	12	case_item				sha2_pad.sv	83	11	83	45						000
+  #139060	13	constant				sha2_pad.sv	83	11	83	16	2'b00	2	BIN:00	3		000
+  #139061	13	assignment				sha2_pad.sv	83	18	83	44						000
+> #139062	14	constant				sha2_pad.sv	83	31	83	44	32'h80000000	32	HEX:80000000	5		000
+  #139063	14	ref_obj	shaf_rdata		work@sha2_pad.shaf_rdata	sha2_pad.sv	83	18	83	28		0			work@sha2_pad.shaf_rdata	000
+  #139064	12	case_item				sha2_pad.sv	84	11	84	69						000
+  #139065	13	constant				sha2_pad.sv	84	11	84	16	2'b01	2	BIN:01	3		000
+  #139066	13	assignment				sha2_pad.sv	84	18	84	68						000
+  #139067	14	operation				sha2_pad.sv	84	31	84	68		0				000
+  #139068	15	hier_path	fifo_rdata.data[31:24]			sha2_pad.sv	84	32	84	54		0				000
+
+--- OURS (B) records 139016..139028 ('>' = the object)
+  #139016	12	part_select	message_length	message_length	work@sha2_pad.message_length	sha2_pad.sv	82	22	82	41		0			work@sha2_pad.message_length	000
+  #139017	13	constant				sha2_pad.sv	82	37	82	38	4	64	UINT:4	9		000
+  #139018	13	constant				sha2_pad.sv	82	39	82	40	3	64	UINT:3	9		000
+  #139019	12	case_item				sha2_pad.sv	83	11	83	47						000
+  #139020	13	constant				sha2_pad.sv	83	11	83	16	2'b00	2	BIN:00	3		000
+  #139021	13	assignment				sha2_pad.sv	83	19	83	46						000
+> #139022	14	constant				sha2_pad.sv	83	32	83	45	32'h80000000	32	HEX:80000000	5		000
+  #139023	14	ref_obj	shaf_rdata		work@sha2_pad.shaf_rdata	sha2_pad.sv	83	19	83	29		0			work@sha2_pad.shaf_rdata	000
+  #139024	12	case_item				sha2_pad.sv	84	11	84	71						000
+  #139025	13	constant				sha2_pad.sv	84	11	84	16	2'b01	2	BIN:01	3		000
+  #139026	13	assignment				sha2_pad.sv	84	19	84	70						000
+  #139027	14	operation				sha2_pad.sv	84	32	84	70		0				000
+  #139028	15	hier_path	fifo_rdata.data[31:24]			sha2_pad.sv	84	33	84	55		0				000
+
+facets of this row (19098, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

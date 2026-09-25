@@ -1,0 +1,64 @@
+cluster N0631 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < emitPackage (ParamEmit.cpp, law a7) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u138map pin; the a7bee711 gdb run wrote a different database (UVM order coin)] [r11u142map pin]): fullname|ref_typespec|tok:id::id::id::id::id::id::id::id::id->id@id.id::id.id|under:bit_typespec
+row: surelog/default/MiniAmiq  strict=differ:line(183)  records golden=435559 ours=413982
+object: #128832 (golden) / #123177 (ours)  type=ref_typespec name= TAIL
+  golden: svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::rw_access::uvm_pkg::uvm_reg_bus_op::addr::uvm_reg_addr_t
+  ours:   work@svaunit_vpi_interface.uvm_pkg::uvm_reg_bus_op.addr
+  walk parents: bit_typespec(uvm_reg_addr_t) < ref_typespec < typespec_member(addr) < struct_typespec(uvm_pkg::uvm_reg_bus_op)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 128826..128838 ('>' = the object)
+  #128826	15	enum_const	UVM_WRITE			uvm_reg_model.svh	229	7	229	16						001
+  #128827	15	enum_const	UVM_BURST_READ			uvm_reg_model.svh	230	7	230	21						001
+  #128828	15	enum_const	UVM_BURST_WRITE			uvm_reg_model.svh	231	7	231	22						001
+  #128829	12	typespec_member	addr			uvm_pkg.sv	270	18	270	22						001
+  #128830	13	ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.addr		0	0	0	0		0			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::rw_access::uvm_pkg::uvm_reg_bus_op::addr	001
+  #128831	14	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31						001
+> #128832	15	ref_typespec			<in>uvm_reg_addr_t		0	0	0	0		0			svaunit_pkg::uvm_reg_map::do_bus_read::foreach_value::rw_access::uvm_pkg::uvm_reg_bus_op::addr::uvm_reg_addr_t	001
+  #128833	16	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31						001
+  #128834	17	range				uvm_reg_model.svh	73	23	73	31						001
+  #128835	18	constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7		001
+  #128836	18	constant				uvm_reg_model.svh	73	29	73	30	0	64	UINT:0	9		001
+  #128837	15	range				uvm_reg_model.svh	73	23	73	31						001
+  #128838	16	constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7		001
+
+--- OURS (B) records 123171..123183 ('>' = the object)
+  #123171	16	enum_typespec	uvm_pkg::uvm_access_e			uvm_reg_model.svh	227	4	232	19						001
+  #123172	17	enum_const	UVM_READ			uvm_reg_model.svh	228	7	228	15						001
+  #123173	17	enum_const	UVM_WRITE			uvm_reg_model.svh	229	7	229	16						001
+  #123174	17	enum_const	UVM_BURST_READ			uvm_reg_model.svh	230	7	230	21						001
+  #123175	17	enum_const	UVM_BURST_WRITE			uvm_reg_model.svh	231	7	231	22						001
+  #123176	14	typespec_member	addr			uvm_reg_item.svh	270	18	270	22						001
+> #123177	15	ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.addr		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_reg_bus_op.addr	001
+  #123178	16	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31						001
+  #123179	17	ref_typespec			<in>uvm_reg_addr_t		0	0	0	0		0			uvm_reg_addr_t	001
+  #123180	18	bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31						001
+  #123181	19	range				uvm_reg_model.svh	73	23	73	31						001
+  #123182	20	constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7		001
+  #123183	20	constant				uvm_reg_model.svh	73	29	73	30	0	64	UINT:0	9		001
+
+facets of this row (36091, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

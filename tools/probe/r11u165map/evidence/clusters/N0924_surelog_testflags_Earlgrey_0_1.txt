@@ -1,0 +1,64 @@
+cluster N0924 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site UHDM library DeepClone < DeepClone < DeepCopy (--elabuhdm, testflags) run from main (uhdm_main.cpp) [r11u138map pin] [r11u142map pin]): fullname|bit_select|tok:id[n].id.id.id.id.id[n->id.id.id.id.id[id|under:hier_path
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1730)  records golden=1342584 ours=1342870
+object: #511873 (golden) / #511770 (ours)  type=bit_select name=q OUT
+  golden: work@top_earlgrey.u_gpio.gen_filter[0].filter.enable_i.reg2hw.ctrl_en_input_filter.q[0].q
+  ours:   work@top_earlgrey.u_gpio.filter.enable_i.reg2hw.ctrl_en_input_filter.q[i].q
+  walk parents: hier_path(reg2hw.ctrl_en_input_filter.q[0]) < port(enable_i) < module_inst(filter) < gen_scope
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 511867..511879 ('>' = the object)
+  #511867	6	port	enable_i			prim_filter_ctr.sv	18	10	18	18						000
+  #511868	7	hier_path	reg2hw.ctrl_en_input_filter.q[0]			gpio.sv	40	17	40	49		0				000
+  #511869	8	ref_typespec			work@top_earlgrey.u_gpio.gen_filter[0].filter.enable_i.reg2hw.ctrl_en_input_filter.q[0]		0	0	0	0		0			work@top_earlgrey.u_gpio.gen_filter[0].filter.enable_i.reg2hw.ctrl_en_input_filter.q[0]	000
+  #511870	9	struct_typespec	gpio_reg_pkg::gpio_reg2hw_t			gpio_reg_pkg.sv	158	11	173	4						110
+  #511871	8	ref_obj	reg2hw			gpio.sv	40	17	40	23		0				000
+  #511872	8	ref_obj	ctrl_en_input_filter			gpio.sv	40	24	40	44		0				000
+> #511873	8	bit_select	q		work@top_earlgrey.u_gpio.gen_filter[0].filter.enable_i.reg2hw.ctrl_en_input_filter.q[0].q	gpio.sv	40	47	40	48		0			work@top_earlgrey.u_gpio.gen_filter[0].filter.enable_i.reg2hw.ctrl_en_input_filter.q[0].q	000
+  #511874	9	constant				gpio.sv	40	47	40	48	0	64	UINT:0	9		000
+  #511875	7	ref_obj	enable_i		work@top_earlgrey.u_gpio.gen_filter[0].filter.enable_i	gpio.sv	40	8	40	16		0			work@top_earlgrey.u_gpio.gen_filter[0].filter.enable_i	000
+  #511876	7	ref_typespec			work@top_earlgrey.u_gpio.gen_filter[0].filter.enable_i		0	0	0	0		0			work@top_earlgrey.u_gpio.gen_filter[0].filter.enable_i	000
+  #511877	8	logic_typespec				prim_filter_ctr.sv	18	10	18	10						000
+  #511878	6	port	filter_i			prim_filter_ctr.sv	19	10	19	18						000
+  #511879	7	bit_select	cio_gpio_i		work@top_earlgrey.u_gpio.cio_gpio_i	gpio.sv	41	28	41	29		0			work@top_earlgrey.u_gpio.cio_gpio_i	000
+
+--- OURS (B) records 511764..511776 ('>' = the object)
+  #511764	6	port	enable_i			prim_filter_ctr.sv	18	10	18	18						000
+  #511765	7	hier_path	reg2hw.ctrl_en_input_filter.q[0]			gpio.sv	40	17	40	49		0				000
+  #511766	8	ref_typespec			work@top_earlgrey.u_gpio.gen_filter[0].filter.enable_i.reg2hw.ctrl_en_input_filter.q[0]		0	0	0	0		0			work@top_earlgrey.u_gpio.gen_filter[0].filter.enable_i.reg2hw.ctrl_en_input_filter.q[0]	000
+  #511767	9	struct_typespec	gpio_reg_pkg::gpio_reg2hw_t			gpio_reg_pkg.sv	158	11	173	4						110
+  #511768	8	ref_obj	reg2hw			gpio.sv	40	17	40	23		0				000
+  #511769	8	ref_obj	ctrl_en_input_filter			gpio.sv	40	24	40	44		0				000
+> #511770	8	bit_select	q		work@top_earlgrey.u_gpio.filter.enable_i.reg2hw.ctrl_en_input_filter.q[i].q	gpio.sv	40	47	40	48		0			work@top_earlgrey.u_gpio.filter.enable_i.reg2hw.ctrl_en_input_filter.q[i].q	000
+  #511771	9	constant				gpio.sv	40	47	40	48	0	64	UINT:0	9		000
+  #511772	7	ref_obj	enable_i		work@top_earlgrey.u_gpio.gen_filter[0].filter.enable_i	gpio.sv	40	8	40	16		0			work@top_earlgrey.u_gpio.gen_filter[0].filter.enable_i	000
+  #511773	7	ref_typespec			work@top_earlgrey.u_gpio.gen_filter[0].filter.enable_i		0	0	0	0		0			work@top_earlgrey.u_gpio.gen_filter[0].filter.enable_i	000
+  #511774	8	logic_typespec				prim_filter_ctr.sv	18	10	18	10						000
+  #511775	6	port	filter_i			prim_filter_ctr.sv	19	10	19	18						000
+  #511776	7	bit_select	cio_gpio_i		work@top_earlgrey.u_gpio.cio_gpio_i	gpio.sv	41	28	41	29		0			work@top_earlgrey.u_gpio.cio_gpio_i	000
+
+facets of this row (19098, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

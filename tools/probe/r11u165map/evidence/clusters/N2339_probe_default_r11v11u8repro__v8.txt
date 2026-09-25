@@ -1,0 +1,45 @@
+cluster N2339 (map 7 id kept; COVERED r11u164 (decodes r11u161+r11u166, MEASURED: gone under the law binary) | ground A | site emitExpr (ExprEmit.cpp, law sysCallKwTypeArgNameSpan131) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) [r11u138map pin] [r11u142map pin]): span|sys_func_call|line|under:begin
+row: probe/default/r11v11u8repro__v8  strict=endcol  records golden=15 ours=15
+object: #4 (golden) / #4 (ours)  type=sys_func_call name=$display 
+  golden: 3:27:4:46
+  ours:   5:27:4:46
+  walk parents: begin < initial < module_inst < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 0..10 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0						000
+  #1	1	module_inst		work@top	work@top	dut.sv	3	1	5	15					work@top	000
+  #2	2	initial				dut.sv	3	13	5	5						000
+  #3	3	begin			work@top	dut.sv	3	21	5	5					work@top	000
+> #4	4	sys_func_call	$display			dut.sv	3	27	4	46		0				000
+  #5	5	constant				dut.sv	3	36	3	41	"%0s"	24	STRING:%0s	6		000
+  #6	5	constant				dut.sv	4	9	4	31	"   literal with lead"	160	STRING:   literal with lead	6		000
+  #7	5	constant				dut.sv	4	33	4	45	"   another"	80	STRING:   another	6		000
+  #8	1	module_inst	work@top	work@top		dut.sv	3	1	5	15						000
+  #9	2	initial				dut.sv	3	13	5	5						000
+  #10	3	begin			work@top	dut.sv	3	21	5	5					work@top	000
+
+--- OURS (B) records 0..10 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0						000
+  #1	1	module_inst		work@top	work@top	dut.sv	3	1	5	64					work@top	000
+  #2	2	initial				dut.sv	3	13	5	54						000
+  #3	3	begin			work@top	dut.sv	3	21	5	54					work@top	000
+> #4	4	sys_func_call	$display			dut.sv	5	27	4	46		0				000
+  #5	5	constant				dut.sv	5	36	5	41	"%0s"	24	STRING:%0s	6		000
+  #6	5	constant				dut.sv	4	9	4	31	"   literal with lead"	160	STRING:   literal with lead	6		000
+  #7	5	constant				dut.sv	4	33	4	45	"   another"	80	STRING:   another	6		000
+  #8	1	module_inst	work@top	work@top		dut.sv	3	1	5	64						000
+  #9	2	initial				dut.sv	3	13	5	54						000
+  #10	3	begin			work@top	dut.sv	3	21	5	54					work@top	000
+
+facets of this row (10, first 25):
+  N2409 #1/1 module_inst  G[3:1:5:15] O[3:1:5:64]
+  N2408 #2/2 initial  G[3:13:5:5] O[3:13:5:54]
+  N2407 #3/3 begin  G[3:21:5:5] O[3:21:5:54]
+  N2339 #4/4 sys_func_call $display G[3:27:4:46] O[5:27:4:46]
+  N0026 #5/5 constant  G[3:36:3:41] O[5:36:5:41]
+  N2409 #8/8 module_inst work@top G[3:1:5:15] O[3:1:5:64]
+  N2408 #9/9 initial  G[3:13:5:5] O[3:13:5:54]
+  N2407 #10/10 begin  G[3:21:5:5] O[3:21:5:54]
+  N2339 #11/11 sys_func_call $display G[3:27:4:46] O[5:27:4:46]
+  N0026 #12/12 constant  G[3:36:3:41] O[5:36:5:41]

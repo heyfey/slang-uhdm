@@ -1,0 +1,64 @@
+cluster N0118 (map 7 id kept; OPEN [the decodes reduce it: rows 11->11, probe 1->0] | ground A | site emitBadConcatOperand160 (ExprEmit.cpp, law typeParamScopedCallRef59) < emitBadConcatFromSyntax160 (ExprEmit.cpp, law classArgBind12) < emitExpr (ExprEmit.cpp, law droppedIdxRecvCall26) [r11u142map pin]): span|constant|line+col+endline+endcol|under:operation
+row: surelog/default/BuildUVMPkg  strict=differ:line(94)  records golden=201533 ours=201486
+object: #85255 (golden) / #85210 (ours)  type=constant name= 
+  golden: 52368:59:52368:60
+  ours:   53120:62:53120:63
+  walk parents: operation < io_decl(item_priority) < task(wait_for_grant) < class_defn(uvm_sequencer_base)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 85249..85261 ('>' = the object)
+  #85249	4	task	wait_for_grant		uvm_pkg::uvm_sequencer_base::wait_for_grant	uvm_pkg.sv	52367	3	52369	59					uvm_pkg::uvm_sequencer_base::wait_for_grant	000
+  #85250	5	io_decl	sequence_ptr			uvm_pkg.sv	52367	56	52367	68						000
+  #85251	6	ref_typespec			uvm_pkg::uvm_sequencer_base::wait_for_grant::sequence_ptr		0	0	0	0		0			uvm_pkg::uvm_sequencer_base::wait_for_grant::sequence_ptr	000
+  #85252	7	class_typespec	uvm_sequence_base			uvm_pkg.sv	52367	38	52367	55						110
+  #85253	5	io_decl	item_priority			uvm_pkg.sv	52368	42	52368	55						000
+  #85254	6	operation				uvm_pkg.sv	52368	58	52368	60		0				000
+> #85255	7	constant				uvm_pkg.sv	52368	59	52368	60	1	64	UINT:1	9		000
+  #85256	6	ref_typespec			uvm_pkg::uvm_sequencer_base::wait_for_grant::item_priority		0	0	0	0		0			uvm_pkg::uvm_sequencer_base::wait_for_grant::item_priority	000
+  #85257	7	int_typespec				uvm_pkg.sv	52368	38	52368	41						000
+  #85258	5	io_decl	lock_request			uvm_pkg.sv	52369	42	52369	54						000
+  #85259	6	constant				uvm_pkg.sv	52369	57	52369	58	0	64	UINT:0	9		000
+  #85260	6	ref_typespec			uvm_pkg::uvm_sequencer_base::wait_for_grant::lock_request		0	0	0	0		0			uvm_pkg::uvm_sequencer_base::wait_for_grant::lock_request	000
+  #85261	7	bit_typespec				uvm_pkg.sv	52369	38	52369	41						000
+
+--- OURS (B) records 85204..85216 ('>' = the object)
+  #85204	4	task	wait_for_grant		uvm_pkg::uvm_sequencer_base::wait_for_grant	uvm_pkg.sv	52367	3	52369	59					uvm_pkg::uvm_sequencer_base::wait_for_grant	000
+  #85205	5	io_decl	sequence_ptr			uvm_pkg.sv	53119	59	53119	71						000
+  #85206	6	ref_typespec			uvm_pkg::uvm_sequencer_base::wait_for_grant::sequence_ptr		0	0	0	0		0			uvm_pkg::uvm_sequencer_base::wait_for_grant::sequence_ptr	000
+  #85207	7	class_typespec	uvm_sequence_base			uvm_pkg.sv	53119	41	53119	58						110
+  #85208	5	io_decl	item_priority			uvm_pkg.sv	53120	45	53120	58						000
+  #85209	6	operation				uvm_pkg.sv	53120	61	53120	63		0				000
+> #85210	7	constant				uvm_pkg.sv	53120	62	53120	63	1	64	UINT:1	9		000
+  #85211	6	ref_typespec			uvm_pkg::uvm_sequencer_base::wait_for_grant::item_priority		0	0	0	0		0			uvm_pkg::uvm_sequencer_base::wait_for_grant::item_priority	000
+  #85212	7	int_typespec				uvm_pkg.sv	53120	41	53120	44						000
+  #85213	5	io_decl	lock_request			uvm_pkg.sv	53121	45	53121	57						000
+  #85214	6	constant				uvm_pkg.sv	53121	60	53121	61	0	64	UINT:0	9		000
+  #85215	6	ref_typespec			uvm_pkg::uvm_sequencer_base::wait_for_grant::lock_request		0	0	0	0		0			uvm_pkg::uvm_sequencer_base::wait_for_grant::lock_request	000
+  #85216	7	bit_typespec				uvm_pkg.sv	53121	41	53121	44						000
+
+facets of this row (7140, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

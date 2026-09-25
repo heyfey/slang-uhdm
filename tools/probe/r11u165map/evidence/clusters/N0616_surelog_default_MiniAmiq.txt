@@ -1,0 +1,64 @@
+cluster N0616 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < emitPackage (ParamEmit.cpp, law importCopyAggFormalOwnCopy32) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|tok:id::id::id::->id@id.|under:enum_typespec
+row: surelog/default/MiniAmiq  strict=differ:line(183)  records golden=435559 ours=413982
+object: #88375 (golden) / #86368 (ours)  type=ref_typespec name= STABLE
+  golden: svaunit_pkg::uvm_report_enabled::severity::uvm_pkg::uvm_severity
+  ours:   work@svaunit_vpi_interface.uvm_pkg::uvm_severity
+  walk parents: enum_typespec(uvm_pkg::uvm_severity) < ref_typespec < io_decl(severity) < function(uvm_report_enabled)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 88369..88381 ('>' = the object)
+  #88369	3	io_decl	verbosity			uvm_globals.svh	133	38	133	47						000
+  #88370	4	ref_typespec			svaunit_pkg::uvm_report_enabled::verbosity		0	0	0	0		0			svaunit_pkg::uvm_report_enabled::verbosity	000
+  #88371	5	int_typespec				uvm_globals.svh	133	34	133	37						000
+  #88372	3	io_decl	severity			uvm_globals.svh	134	47	134	55						000
+  #88373	4	ref_typespec			svaunit_pkg::uvm_report_enabled::severity		0	0	0	0		0			svaunit_pkg::uvm_report_enabled::severity	000
+  #88374	5	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73						110
+> #88375	6	ref_typespec			<in>uvm_pkg::uvm_severity		0	0	0	0		0			svaunit_pkg::uvm_report_enabled::severity::uvm_pkg::uvm_severity	001
+  #88376	7	bit_typespec				uvm_object_globals.svh	242	14	242	23						001
+  #88377	8	range				uvm_object_globals.svh	242	18	242	23						001
+  #88378	9	constant				uvm_object_globals.svh	242	19	242	20	1	64	UINT:1	9		001
+  #88379	9	constant				uvm_object_globals.svh	242	21	242	22	0	64	UINT:0	9		001
+  #88380	6	enum_const	UVM_INFO			uvm_object_globals.svh	244	3	244	11						001
+  #88381	6	enum_const	UVM_WARNING			uvm_object_globals.svh	245	3	245	14						001
+
+--- OURS (B) records 86362..86374 ('>' = the object)
+  #86362	3	io_decl	verbosity			uvm_globals.svh	133	38	133	47						000
+  #86363	4	ref_typespec			svaunit_pkg::uvm_report_enabled::verbosity		0	0	0	0		0			svaunit_pkg::uvm_report_enabled::verbosity	000
+  #86364	5	int_typespec				uvm_globals.svh	133	34	133	37						000
+  #86365	3	io_decl	severity			uvm_globals.svh	134	47	134	55						000
+  #86366	4	ref_typespec			svaunit_pkg::uvm_report_enabled::severity		0	0	0	0		0			svaunit_pkg::uvm_report_enabled::severity	000
+  #86367	5	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16						110
+> #86368	6	ref_typespec			<in>uvm_pkg::uvm_severity		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_severity	001
+  #86369	7	bit_typespec				uvm_object_globals.svh	242	14	242	23						001
+  #86370	8	range				uvm_object_globals.svh	242	18	242	23						001
+  #86371	9	constant				uvm_object_globals.svh	242	19	242	20	1	64	UINT:1	9		001
+  #86372	9	constant				uvm_object_globals.svh	242	21	242	22	0	64	UINT:0	9		001
+  #86373	6	enum_const	UVM_INFO			uvm_object_globals.svh	244	3	244	11						001
+  #86374	6	enum_const	UVM_WARNING			uvm_object_globals.svh	245	3	245	14						001
+
+facets of this row (36091, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

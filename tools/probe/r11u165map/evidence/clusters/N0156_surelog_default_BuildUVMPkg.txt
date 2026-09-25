@@ -1,0 +1,64 @@
+cluster N0156 (map 7 id kept; COVERED r11u164 (UVM/Earlgrey-only, ground B) | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law classScopedTdDeclTsUnsupported11) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) [r11u142map pin]): span|io_decl|line+col+endline+endcol|under:task
+row: surelog/default/BuildUVMPkg  strict=differ:line(94)  records golden=201533 ours=201486
+object: #76569 (golden) / #76542 (ours)  type=io_decl name=phase 
+  golden: 37094:43:37094:48
+  ours:   40284:50:40284:55
+  walk parents: task(run_phase) < class_defn(uvm_component) < package(uvm_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 76563..76575 ('>' = the object)
+  #76563	6	class_typespec	uvm_phase			uvm_pkg.sv	37067	57	37067	66						110
+  #76564	3	function	start_of_simulation_phase		uvm_pkg::uvm_component::start_of_simulation_phase	uvm_pkg.sv	37076	3	37076	9					uvm_pkg::uvm_component::start_of_simulation_phase	000
+  #76565	4	io_decl	phase			uvm_pkg.sv	37076	68	37076	73						000
+  #76566	5	ref_typespec			uvm_pkg::uvm_component::start_of_simulation_phase::phase		0	0	0	0		0			uvm_pkg::uvm_component::start_of_simulation_phase::phase	000
+  #76567	6	class_typespec	uvm_phase			uvm_pkg.sv	37076	58	37076	67						110
+  #76568	3	task	run_phase		uvm_pkg::uvm_component::run_phase	uvm_pkg.sv	37094	3	37094	49					uvm_pkg::uvm_component::run_phase	000
+> #76569	4	io_decl	phase			uvm_pkg.sv	37094	43	37094	48						000
+  #76570	5	ref_typespec			uvm_pkg::uvm_component::run_phase::phase		0	0	0	0		0			uvm_pkg::uvm_component::run_phase::phase	000
+  #76571	6	class_typespec	uvm_phase			uvm_pkg.sv	37094	33	37094	42						110
+  #76572	3	task	pre_reset_phase		uvm_pkg::uvm_component::pre_reset_phase	uvm_pkg.sv	37115	3	37115	55					uvm_pkg::uvm_component::pre_reset_phase	000
+  #76573	4	io_decl	phase			uvm_pkg.sv	37115	49	37115	54						000
+  #76574	5	ref_typespec			uvm_pkg::uvm_component::pre_reset_phase::phase		0	0	0	0		0			uvm_pkg::uvm_component::pre_reset_phase::phase	000
+  #76575	6	class_typespec	uvm_phase			uvm_pkg.sv	37115	39	37115	48						110
+
+--- OURS (B) records 76536..76548 ('>' = the object)
+  #76536	6	class_typespec	uvm_phase			uvm_pkg.sv	40278	55	40278	64						110
+  #76537	3	function	start_of_simulation_phase		uvm_pkg::uvm_component::start_of_simulation_phase	uvm_pkg.sv	37076	3	37076	9					uvm_pkg::uvm_component::start_of_simulation_phase	000
+  #76538	4	io_decl	phase			uvm_pkg.sv	40272	66	40272	71						000
+  #76539	5	ref_typespec			uvm_pkg::uvm_component::start_of_simulation_phase::phase		0	0	0	0		0			uvm_pkg::uvm_component::start_of_simulation_phase::phase	000
+  #76540	6	class_typespec	uvm_phase			uvm_pkg.sv	40272	56	40272	65						110
+  #76541	3	task	run_phase		uvm_pkg::uvm_component::run_phase	uvm_pkg.sv	37094	3	37094	49					uvm_pkg::uvm_component::run_phase	000
+> #76542	4	io_decl	phase			uvm_pkg.sv	40284	50	40284	55						000
+  #76543	5	ref_typespec			uvm_pkg::uvm_component::run_phase::phase		0	0	0	0		0			uvm_pkg::uvm_component::run_phase::phase	000
+  #76544	6	class_typespec	uvm_phase			uvm_pkg.sv	40284	40	40284	49						110
+  #76545	3	task	pre_reset_phase		uvm_pkg::uvm_component::pre_reset_phase	uvm_pkg.sv	37115	3	37115	55					uvm_pkg::uvm_component::pre_reset_phase	000
+  #76546	4	io_decl	phase			uvm_pkg.sv	40328	47	40328	52						000
+  #76547	5	ref_typespec			uvm_pkg::uvm_component::pre_reset_phase::phase		0	0	0	0		0			uvm_pkg::uvm_component::pre_reset_phase::phase	000
+  #76548	6	class_typespec	uvm_phase			uvm_pkg.sv	40328	37	40328	46						110
+
+facets of this row (7140, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

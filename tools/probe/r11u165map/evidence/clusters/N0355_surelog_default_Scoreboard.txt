@@ -1,0 +1,64 @@
+cluster N0355 (map 7 id kept; OPEN | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law hpTrailSelIdxNamesByPath133) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) [r11u142map pin]): fullname|ref_obj|tok:.id.id[id]::id->|under:bit_select
+row: surelog/default/Scoreboard  strict=differ:line(187)  records golden=269656 ours=268952
+object: #6594 (golden) / #6610 (ours)  type=ref_obj name=value OUT
+  golden: uvm_pkg::uvm_printer::print_object::value.__m_uvm_status_container.cycle_check[value]::value
+  ours:   uvm_pkg::uvm_printer::print_object::value
+  walk parents: bit_select(cycle_check) < hier_path(value.__m_uvm_status_container.cycle_check[value]) < assignment < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 6588..6600 ('>' = the object)
+  #6588	8	assignment				uvm_printer.svh	763	7	763	60						000
+  #6589	9	constant				uvm_printer.svh	763	59	763	60	1	64	UINT:1	9		000
+  #6590	9	hier_path	value.__m_uvm_status_container.cycle_check[value]			uvm_printer.svh	763	7	763	56		0				000
+  #6591	10	ref_obj	value			uvm_printer.svh	763	13	763	37		0				000
+  #6592	10	ref_obj	__m_uvm_status_container			uvm_printer.svh	763	13	763	37		0				000
+  #6593	10	bit_select	cycle_check		uvm_pkg::uvm_printer::print_object::value.__m_uvm_status_container.cycle_check[value]::cycle_check	uvm_printer.svh	763	38	763	56		0			uvm_pkg::uvm_printer::print_object::value.__m_uvm_status_container.cycle_check[value]::cycle_check	000
+> #6594	11	ref_obj	value		uvm_pkg::uvm_printer::print_object::value.__m_uvm_status_container.cycle_check[value]::value	uvm_printer.svh	763	50	763	55		0			uvm_pkg::uvm_printer::print_object::value.__m_uvm_status_container.cycle_check[value]::value	000
+  #6595	8	if_else				uvm_printer.svh	764	7	767	28						000
+  #6596	9	operation				uvm_printer.svh	764	10	764	33		0				000
+  #6597	10	operation				uvm_printer.svh	764	10	764	18		0				000
+  #6598	11	ref_obj	name		uvm_pkg::uvm_printer::print_object::name	uvm_printer.svh	764	10	764	14		0			uvm_pkg::uvm_printer::print_object::name	000
+  #6599	11	constant				uvm_printer.svh	764	16	764	18	""	0	STRING:	6		000
+  #6600	10	operation				uvm_printer.svh	764	22	764	33		0				000
+
+--- OURS (B) records 6604..6616 ('>' = the object)
+  #6604	8	assignment				uvm_printer.svh	763	7	763	60						000
+  #6605	9	constant				uvm_printer.svh	763	59	763	60	1	64	UINT:1	9		000
+  #6606	9	hier_path	value.__m_uvm_status_container.cycle_check[value]			uvm_printer.svh	763	7	763	56		0				000
+  #6607	10	ref_obj	value			uvm_printer.svh	763	13	763	37		0				000
+  #6608	10	ref_obj	__m_uvm_status_container			uvm_printer.svh	763	13	763	37		0				000
+  #6609	10	bit_select	cycle_check		uvm_pkg::uvm_printer::print_object::value.__m_uvm_status_container.cycle_check[value]::cycle_check	uvm_printer.svh	763	38	763	56		0			uvm_pkg::uvm_printer::print_object::value.__m_uvm_status_container.cycle_check[value]::cycle_check	000
+> #6610	11	ref_obj	value		uvm_pkg::uvm_printer::print_object::value	uvm_printer.svh	763	50	763	55		0			uvm_pkg::uvm_printer::print_object::value	000
+  #6611	8	if_else				uvm_printer.svh	764	7	767	28						000
+  #6612	9	operation				uvm_printer.svh	764	10	764	33		0				000
+  #6613	10	operation				uvm_printer.svh	764	10	764	18		0				000
+  #6614	11	ref_obj	name		uvm_pkg::uvm_printer::print_object::name	uvm_printer.svh	764	10	764	14		0			uvm_pkg::uvm_printer::print_object::name	000
+  #6615	11	constant				uvm_printer.svh	764	16	764	18	""	0	STRING:	6		000
+  #6616	10	operation				uvm_printer.svh	764	22	764	33		0				000
+
+facets of this row (17246, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

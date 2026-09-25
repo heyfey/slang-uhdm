@@ -1,0 +1,23 @@
+== surelog (fence-clean hard-link mirrors: mirrored=2560 fenced_skipped=8 )
+PATH_SETS_IDENTICAL (952 paths)
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=9e18a0419ae1 pristine=d9e1c4fbedd0
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=c0c6e442f963 pristine=477e1551d222
+MOVER ./default/SimpleUVM-267de3ff/slang.uhdm  patched=25de3cd04f06 pristine=88b3cc4f937f
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=021ca3ddfba2 pristine=8f0fdef4b0c0
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=f5dbdf05dc85 pristine=45d975ba74d8
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm  patched=b3dac5be06ee pristine=aa595483e46c
+MOVERS: 6 / 952
+SELFCHECK (every file vs one fixed file): 951 / 952 flagged
+== uhdm2rtlil (fence-clean hard-link mirrors: mirrored=2560 fenced_skipped=8 )
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== UVM coin, order-blind path-normalised uhdm-dump lines
+default MiniAmiq orderblind_lines=4 <       |UINT: >       |UINT: 
+default SeqDriver orderblind_lines=4 <       |UINT: >       |UINT: 
+default SimpleUVM orderblind_lines=4 <       |UINT: >       |UINT: 
+testflags MiniAmiq orderblind_lines=4 <       |UINT: >       |UINT: 
+testflags SeqDriver orderblind_lines=4 <       |UINT: >       |UINT: 
+testflags SimpleUVM orderblind_lines=4 <       |UINT: >       |UINT: 
+== probe: databases embed the checkout path (worktree vs main tree): 4087/4087 differ in bytes; path-normalised uhdm-dump of every 68th case (61): 0 differ; probe.csv byte-identical to results/golden_probe.csv

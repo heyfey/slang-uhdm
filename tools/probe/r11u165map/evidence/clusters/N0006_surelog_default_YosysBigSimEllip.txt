@@ -1,0 +1,51 @@
+cluster N0006 (map 7 id kept; OPEN (map 7: residue of pass 147; still present) | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law negLitPkgRetFoldNested30) < emitContAssigns (ModuleEmit.cpp, law caLhsDefNetUnlessOpRhs139) [DECODED (r11u131 R1, class A net binding): a continuous assignment whose right-hand side Surelog REDUCES to a constant (UhdmWriter writeCont_assign's simplified==false reduce clones the assign with a context-free ElaboratorContext, so the LHS ref_obj keeps the DEFINITION net); ours binds the elaborated net. Fix site: ModuleEmit.cpp emitContAssigns, the COMPUTED-RHS fold rule beside law caStrengthAndDelayDeclined88 (an element select of a parameter is the missing kind). HOLDER pinned] [r11u150map pin]): struct|golden-only:fewer-copies|logic_net|under:ref_obj
+row: surelog/default/YosysBigSimEllip  strict=differ:type(1)  records golden=681189 ours=681181
+object: #86781 (golden) / #-1 (ours)  type=logic_net name=w135 
+  golden: 6 objs
+  ours:   
+  walk parents: ref_obj(w135) < operation < port(A) < module_inst(a142)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 86775..86787 ('>' = the object)
+  #86775	9	operation				f3m.v	725	32	725	38		0				000
+  #86776	10	bit_select	w13		work@point_scalar_mult.ins1.ins10.ins2.ins1.a142.A.w13	f3m.v	725	32	725	38		0			work@point_scalar_mult.ins1.ins10.ins2.ins1.a142.A.w13	000
+  #86777	11	constant				f3m.v	725	36	725	37	0	64	UINT:0	9		000
+  #86778	10	bit_select	w13		work@point_scalar_mult.ins1.ins10.ins2.ins1.a142.A.w13	f3m.v	725	40	725	46		0			work@point_scalar_mult.ins1.ins10.ins2.ins1.a142.A.w13	000
+  #86779	11	constant				f3m.v	725	44	725	45	1	64	UINT:1	9		000
+  #86780	9	ref_obj	w135		work@point_scalar_mult.ins1.ins10.ins2.ins1.a142.A.w135	f3m.v	725	49	725	53		0			work@point_scalar_mult.ins1.ins10.ins2.ins1.a142.A.w135	000
+> #86781	10	logic_net	w135		work@func8.w135	f3m.v	722	12	722	16		0			work@func8.w135	000
+  #86782	11	ref_typespec			work@func8.w135		0	0	0	0		0			work@func8.w135	000
+  #86783	12	logic_typespec				f3m.v	722	1	722	11						000
+  #86784	13	range				f3m.v	722	6	722	11						001
+  #86785	14	constant				f3m.v	722	7	722	8	1	64	UINT:1	9		001
+  #86786	14	constant				f3m.v	722	9	722	10	0	64	UINT:0	9		001
+  #86787	9	ref_obj	w141		work@point_scalar_mult.ins1.ins10.ins2.ins1.a142.A.w141	f3m.v	725	55	725	59		0			work@point_scalar_mult.ins1.ins10.ins2.ins1.a142.A.w141	000
+
+--- the holder #86780 on the other side: exact-record matches at []
+
+facets of this row (602, first 25):
+  N0284 #-1/70374 constant  G[] O[1 objs]
+  N0006 #86781/-1 logic_net w135 G[6 objs] O[]
+  N0006 #86788/-1 logic_net w141 G[6 objs] O[]
+  N0022 #143920/-1 logic_net w17 G[6 objs] O[]
+  N0022 #144203/-1 logic_net w19 G[6 objs] O[]
+  N0022 #144486/-1 logic_net w21 G[6 objs] O[]
+  N0022 #144769/-1 logic_net w23 G[6 objs] O[]
+  N0022 #145190/-1 logic_net w26 G[6 objs] O[]
+  N0022 #145611/-1 logic_net w29 G[6 objs] O[]
+  N0022 #146032/-1 logic_net w32 G[6 objs] O[]
+  N0022 #146453/-1 logic_net w35 G[6 objs] O[]
+  N0022 #146874/-1 logic_net w38 G[6 objs] O[]
+  N0022 #147295/-1 logic_net w41 G[6 objs] O[]
+  N0022 #147716/-1 logic_net w44 G[6 objs] O[]
+  N0022 #148137/-1 logic_net w47 G[6 objs] O[]
+  N0022 #148420/-1 logic_net w49 G[6 objs] O[]
+  N0022 #148703/-1 logic_net w51 G[6 objs] O[]
+  N0022 #148986/-1 logic_net w53 G[6 objs] O[]
+  N0022 #149269/-1 logic_net w55 G[6 objs] O[]
+  N0022 #149552/-1 logic_net w57 G[6 objs] O[]
+  N0022 #149835/-1 logic_net w59 G[6 objs] O[]
+  N0022 #150118/-1 logic_net w61 G[6 objs] O[]
+  N0022 #150401/-1 logic_net w63 G[6 objs] O[]
+  N0022 #150684/-1 logic_net w65 G[6 objs] O[]
+  N0022 #150967/-1 logic_net w67 G[6 objs] O[]

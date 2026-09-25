@@ -1,0 +1,64 @@
+cluster N0522 (map 7 id kept; OPEN | ground A | site emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitImportedPkgClassMethodClones (ParamEmit.cpp, law collectPkgTfListing) [r11u142map pin]): struct|golden-only:fewer-copies|enum_var|under:begin
+row: surelog/default/MiniAmiq  strict=differ:line(183)  records golden=435559 ours=413982
+object: #81201 (golden) / #-1 (ours)  type=enum_var name=tmp_verb 
+  golden: 9 objs
+  ours:   
+  walk parents: begin < function(uvm_root::m_do_verbosity_settings) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 81195..81207 ('>' = the object)
+  #81195	8	constant				uvm_root.svh	661	21	661	22	$	1	STRING:$	10		001
+  #81196	7	ref_typespec			<in>		0	0	0	0		0			svaunit_pkg::uvm_root::m_do_verbosity_settings::split_vals	001
+  #81197	8	string_typespec				uvm_root.svh	661	3	661	9						001
+  #81198	5	string_var			svaunit_pkg::uvm_root::m_do_verbosity_settings::split_vals	uvm_root.svh	661	10	661	20		0			svaunit_pkg::uvm_root::m_do_verbosity_settings::split_vals	000
+  #81199	6	ref_typespec			svaunit_pkg::uvm_root::m_do_verbosity_settings::split_vals		0	0	0	0		0			svaunit_pkg::uvm_root::m_do_verbosity_settings::split_vals	000
+  #81200	7	string_typespec				uvm_root.svh	661	3	661	9						000
+> #81201	4	enum_var	tmp_verb		svaunit_pkg::uvm_root::m_do_verbosity_settings::tmp_verb	uvm_root.svh	662	17	662	25		0			svaunit_pkg::uvm_root::m_do_verbosity_settings::tmp_verb	000
+  #81202	5	ref_typespec			svaunit_pkg::uvm_root::m_do_verbosity_settings::tmp_verb		0	0	0	0		0			svaunit_pkg::uvm_root::m_do_verbosity_settings::tmp_verb	000
+  #81203	6	enum_typespec	uvm_pkg::uvm_verbosity			uvm_object_globals.svh	302	1	310	17						110
+  #81204	7	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						001
+  #81205	7	enum_const	UVM_LOW			uvm_object_globals.svh	305	3	305	19						001
+  #81206	7	enum_const	UVM_MEDIUM			uvm_object_globals.svh	306	3	306	19						001
+  #81207	7	enum_const	UVM_HIGH			uvm_object_globals.svh	307	3	307	19						001
+
+--- the holder #81172 on the other side: exact-record matches at [79850, 301250, 363199]
+  #79847	6	enum_const	UVM_HIGH			uvm_object_globals.svh	307	3	307	19						001
+  #79848	6	enum_const	UVM_FULL			uvm_object_globals.svh	308	3	308	19						001
+  #79849	6	enum_const	UVM_DEBUG			uvm_object_globals.svh	309	3	309	19						001
+> #79850	3	begin			svaunit_pkg::uvm_root::m_do_verbosity_settings	uvm_root.svh	661	3	661	24					svaunit_pkg::uvm_root::m_do_verbosity_settings	000
+  #79851	4	method_func_call	get_arg_values			uvm_root.svh	665	13	665	27		0				000
+  #79852	5	constant				uvm_root.svh	665	28	665	49	"+uvm_set_verbosity="	152	STRING:+uvm_set_verbosity=	6		000
+  #79853	5	ref_obj	set_verbosity_settings		svaunit_pkg::uvm_root::m_do_verbosity_settings::set_verbosity_settings	uvm_root.svh	665	51	665	73		0			svaunit_pkg::uvm_root::m_do_verbosity_settings::set_verbosity_settings	000
+  #79854	6	array_var	set_verbosity_settings		uvm_pkg::uvm_root::m_do_verbosity_settings::set_verbosity_settings	uvm_root.svh	660	10	660	32		0			uvm_pkg::uvm_root::m_do_verbosity_settings::set_verbosity_settings	000
+  #79855	7	ref_typespec			uvm_pkg::uvm_root::m_do_verbosity_settings::set_verbosity_settings		0	0	0	0		0			uvm_pkg::uvm_root::m_do_verbosity_settings::set_verbosity_settings	000
+  #79856	8	array_typespec				uvm_root.svh	660	10	660	34						000
+  #79857	9	range				uvm_root.svh	660	33	660	34						001
+  #79858	10	constant					0	0	0	0	0	64	UINT:0	9		001
+  #79859	10	constant				uvm_root.svh	660	33	660	34	$	1	STRING:$	10		001
+
+facets of this row (36091, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]
