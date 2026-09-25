@@ -1,0 +1,41 @@
+bad_A 73823 bad_B 73271 fixed 966 new 414
+  NEW 1 \_ref_obj: (bit_field_sub_if), line:4:28, endln:186:3
+  NEW 1 \_ref_obj: (read_mask), line:4:28, endln:186:3
+  NEW 1 \_ref_obj: (bit_field_sub_if), line:5:28, endln:186:4
+  NEW 1 \_ref_obj: (write_mask), line:5:28, endln:186:4
+  NEW 1 \_ref_obj: (bit_field_sub_if), line:6:28, endln:186:4
+  NEW 1 \_ref_obj: (write_data), line:6:28, endln:186:4
+  NEW 1 \_ref_obj: (bit_field_sub_if), line:4:28, endln:212:3
+  NEW 1 \_ref_obj: (read_mask), line:4:28, endln:212:3
+  NEW 1 \_ref_obj: (bit_field_sub_if), line:5:28, endln:212:4
+  NEW 1 \_ref_obj: (write_mask), line:5:28, endln:212:4
+  NEW 1 \_ref_obj: (bit_field_sub_if), line:6:28, endln:212:4
+  NEW 1 \_ref_obj: (write_data), line:6:28, endln:212:4
+  NEW 1 \_ref_obj: (bit_field_sub_if), line:4:28, endln:238:3
+  NEW 1 \_ref_obj: (read_mask), line:4:28, endln:238:3
+  NEW 1 \_ref_obj: (bit_field_sub_if), line:5:28, endln:238:4
+  NEW 1 \_ref_obj: (write_mask), line:5:28, endln:238:4
+  NEW 1 \_ref_obj: (bit_field_sub_if), line:6:28, endln:238:4
+  NEW 1 \_ref_obj: (write_data), line:6:28, endln:238:4
+  NEW 1 \_ref_obj: (bit_field_sub_if), line:4:28, endln:264:3
+  NEW 1 \_ref_obj: (read_mask), line:4:28, endln:264:3
+  FIXED 67 \_ref_obj: (bit_field_sub_if), line:3:11, endln:3:27
+  FIXED 67 \_ref_obj: (bit_field_sub_if), line:4:11, endln:4:27
+  FIXED 67 \_ref_obj: (bit_field_sub_if), line:5:11, endln:5:27
+  FIXED 67 \_ref_obj: (bit_field_sub_if), line:6:11, endln:6:27
+  FIXED 67 \_ref_obj: (bit_field_if), line:7:11, endln:7:23
+  FIXED 67 \_ref_obj: (bit_field_if), line:8:11, endln:8:23
+  FIXED 2 \_ref_obj: (bit_field_sub_if), line:3:11, endln:3:27
+  FIXED 2 \_ref_obj: (bit_field_sub_if), line:4:11, endln:4:27
+  FIXED 2 \_ref_obj: (bit_field_sub_if), line:5:11, endln:5:27
+  FIXED 2 \_ref_obj: (bit_field_sub_if), line:6:11, endln:6:27
+  FIXED 2 \_ref_obj: (bit_field_if), line:7:11, endln:7:23
+  FIXED 2 \_ref_obj: (bit_field_if), line:8:11, endln:8:23
+  FIXED 1 |vpiFullName:work@block_0.g_register_0.g_bit_field_0.valid
+  FIXED 1 \_ref_obj: (work@block_0.g_register_0.g_bit_field_0.valid), line:3:28, endln:3:33
+  FIXED 1 \_ref_obj: (work@block_0.g_register_0.g_bit_field_0.read_mask), line:4:28, endln:186:3
+  FIXED 1 |vpiFullName:work@block_0.g_register_0.g_bit_field_0.read_mask
+  FIXED 1 \_ref_obj: (work@block_0.g_register_0.g_bit_field_0.write_mask), line:5:28, endln:186:4
+  FIXED 1 |vpiFullName:work@block_0.g_register_0.g_bit_field_0.write_mask
+  FIXED 1 \_ref_obj: (work@block_0.g_register_0.g_bit_field_0.write_data), line:6:28, endln:186:4
+  FIXED 1 |vpiFullName:work@block_0.g_register_0.g_bit_field_0.write_data

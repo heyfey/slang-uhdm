@@ -1,0 +1,54 @@
+P0 | r11u161gen/cases/gp/a01_ca_lhs_genif_2lvl | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/a02_ca_lhs_genif_3lvl | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/a03_ca_lhs_iface_port_genif | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/a04_ca_lhs_iface_port_genfor | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/a05_ca_lhs_struct_member_genif | IDENTICAL | OK | OK | - | -
+P0 | r11u161gen/cases/gp/a06_ca_lhs_iface_inst_gencase | IDENTICAL | OK | OK | - | -
+P0 | r11u161gen/cases/gp/a07_ca_lhs_nested_gen | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/a08_ca_rhs_genif_ctl | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/b01_genif_cond_iface_param | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/b02_genif_cond_struct_param | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/b03_genif_cond_nested_iface_struct | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/b04_genif_cond_bits_ctl | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/b05_gencase_cond_iface | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/c01_genfor_bound_iface_param | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/c02_genfor_bound_struct_param | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/c03_genfor_init_bound_iface | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/c04_genfor_bound_struct_3lvl | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/d01_port_conn_genif | IDENTICAL | OK | OK | - | -
+P0 | r11u161gen/cases/gp/d02_port_conn_named_genif | IDENTICAL | OK | OK | - | -
+P0 | r11u161gen/cases/gp/e01_ca_lhs_partsel_genif | IDENTICAL | OK | OK | - | -
+P0 | r11u161gen/cases/gp/e02_ca_lhs_bitsel_const_genif | IDENTICAL | OK | OK | - | -
+P0 | r11u161gen/cases/gp/e03_ca_lhs_mid_select_genfor | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/e04_range_in_genblock | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/e05_genif_cond_ternary | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/gp/e06_ca_lhs_module_level_ctl | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/pc/p01_bind_named_hier | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/pc/p02_named_hier_conn | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/pc/p03_ordered_hier_conn | IDENTICAL | OK | OK | - | -
+P0 | r11u161gen/cases/pc/p04_ordered_3lvl | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/pc/p05_ordered_struct_member | IDENTICAL | OK | OK | - | -
+P0 | r11u161gen/cases/pc/p06_ordered_in_genblock | IDENTICAL | OK | OK | - | -
+P0 | r11u161gen/cases/pc/p07_ordered_mixed_named_ctl | IDENTICAL | OK | OK | - | -
+P0 | r11u161gen/cases/pc/p08_ordered_output_first | IDENTICAL | OK | OK | - | -
+P0 | r11u161gen/cases/pc/p09_ordered_three_inputs | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/pc/p10_single_ordered | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/pc/p11_bind_from_wrapper | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/al/e01_bare_import | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/al/e02_module_alias | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u161_dsc/P0/
+P0 | r11u161gen/cases/al/e03_member | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/al/e04_local_alias_local_enum | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u161_dsc/P0/
+P0 | r11u161gen/cases/al/e05_local_alias_import | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u161_dsc/P0/
+P0 | r11u161gen/cases/al/e06_pkg_alias_other_pkg_bare | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/al/e07_unit_alias | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u161_dsc/P0/
+P0 | r11u161gen/cases/al/e08_iface_alias | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/al/e09_mod_local_2elem | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u161_dsc/P0/
+P0 | r11u161gen/cases/al/e10_mod_alias_scalar_var | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u161_dsc/P0/
+P0 | r11u161gen/cases/al/e11_mod_alias_of_pkg_alias | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u161_dsc/P0/
+P0 | r11u161gen/cases/al/e12_mod_alias_port | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u161_dsc/P0/
+P0 | r11u161gen/cases/al/e13_iface_alias_2elem | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/al/e14_mod_alias_struct_ctl | IDENTICAL | NO_GATES | NO_GATES | - | -
+P0 | r11u161gen/cases/al/e15_mod_alias_packed_dim_ctl | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u161_dsc/P0/
+P0 | r11u161gen/cases/al/e16_mod_two_aliases_same_enum | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u161_dsc/P0/
+P0 | r11u161gen/cases/al/e17_mod_alias_param_base | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u161_dsc/P0/
+P0 | r11u161gen/cases/al/e18_unit_alias_local_enum | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u161_dsc/P0/

@@ -1,0 +1,36 @@
+P23 sub.rsp[i] 8:12:8:22 <cont_assign> mint=TypeEmit.cpp:19045 emitSyntaxExpr < ModuleEmit.cpp:47978 operator < std_function.h:591 BaseClass* 
+   E24 ref_obj sub full='' span=8:12:8:15 | mint=TypeEmit.cpp:19452 emitSyntaxExpr < ModuleEmit.cpp:47978 operator | set='sub'@TypeEmit.cpp:19470 emitSyntaxExpr
+   E25 bit_select rsp full='sub.rsp[i]' span=8:16:8:19 | mint=? | set='sub.rsp[i]'@TypeEmit.cpp:19311 emitSyntaxExpr
+P27 sub.sel[i] 8:25:8:35 <cont_assign> mint=TypeEmit.cpp:19045 emitSyntaxExpr < ModuleEmit.cpp:48167 operator < std_function.h:591 BaseClass* 
+   E28 ref_obj sub full='' span=8:25:8:28 | mint=TypeEmit.cpp:19452 emitSyntaxExpr < ModuleEmit.cpp:48167 operator | set='sub'@TypeEmit.cpp:19470 emitSyntaxExpr
+   E29 bit_select sel full='sub.sel[i]' span=8:29:8:32 | mint=? | set='sub.sel[i]'@TypeEmit.cpp:19311 emitSyntaxExpr
+P36 b.sel 13:10:13:15 <cont_assign> mint=ExprEmit.cpp:36780 emitExpr < ModuleEmit.cpp:39233 emitContAssigns < ModuleEmit.cpp:5940 emitModuleDef
+   E37 ref_obj b full='' span=13:12:13:15 | mint=ExprEmit.cpp:36976 emitExpr < ModuleEmit.cpp:39233 emitContAssigns | set=-
+   E38 ref_obj sel full='' span=13:12:13:15 | mint=ExprEmit.cpp:36976 emitExpr < ModuleEmit.cpp:39233 emitContAssigns | set=-
+P40 b.rsp 14:14:14:19 <cont_assign> mint=ExprEmit.cpp:36780 emitExpr < ModuleEmit.cpp:38781 emitContAssigns < ModuleEmit.cpp:5940 emitModuleDef
+   E41 ref_obj b full='' span=14:14:14:15 | mint=ExprEmit.cpp:36976 emitExpr < ModuleEmit.cpp:38781 emitContAssigns | set=-
+   E42 ref_obj rsp full='work@top.rsp' span=14:16:14:19 | mint=ExprEmit.cpp:36976 emitExpr < ModuleEmit.cpp:38781 emitContAssigns | set='work@top.rsp'@ExprEmit.cpp:36981 emitExpr
+P116 sub.sel[i] 8:25:8:35 <cont_assign> mint=ExprEmit.cpp:31201 emitExpr < ModuleEmit.cpp:27065 operator < std_function.h:591 gen_scope_array* 
+   E117 ref_obj sub full='' span=8:25:8:28 | mint=ExprEmit.cpp:31268 emitExpr < ModuleEmit.cpp:27065 operator | set='sub'@ExprEmit.cpp:31270 emitExpr
+   E118 bit_select sel full='work@top.c.g[0].sub.sel[i].sel' span=8:33:8:34 | mint=? | set=-
+P120 sub.rsp[i] 8:12:8:22 <cont_assign> mint=ExprEmit.cpp:31201 emitExpr < ModuleEmit.cpp:28337 operator < std_function.h:591 gen_scope_array* 
+   E121 ref_obj sub full='' span=8:12:8:15 | mint=ExprEmit.cpp:31268 emitExpr < ModuleEmit.cpp:28337 operator | set='sub'@ExprEmit.cpp:31270 emitExpr
+   E122 bit_select rsp full='work@top.c.g[0].sub.rsp[i].rsp' span=8:20:8:21 | mint=? | set=-
+P129 sub.sel[i] 8:25:8:35 <cont_assign> mint=ExprEmit.cpp:31201 emitExpr < ModuleEmit.cpp:27065 operator < std_function.h:591 gen_scope_array* 
+   E130 ref_obj sub full='' span=8:25:8:28 | mint=ExprEmit.cpp:31268 emitExpr < ModuleEmit.cpp:27065 operator | set='sub'@ExprEmit.cpp:31270 emitExpr
+   E131 bit_select sel full='work@top.c.g[1].sub.sel[i].sel' span=8:33:8:34 | mint=? | set=-
+P133 sub.rsp[i] 8:12:8:22 <cont_assign> mint=ExprEmit.cpp:31201 emitExpr < ModuleEmit.cpp:28337 operator < std_function.h:591 gen_scope_array* 
+   E134 ref_obj sub full='' span=8:12:8:15 | mint=ExprEmit.cpp:31268 emitExpr < ModuleEmit.cpp:28337 operator | set='sub'@ExprEmit.cpp:31270 emitExpr
+   E135 bit_select rsp full='work@top.c.g[1].sub.rsp[i].rsp' span=8:20:8:21 | mint=? | set=-
+P142 sub.sel[i] 8:25:8:35 <cont_assign> mint=ExprEmit.cpp:31201 emitExpr < ModuleEmit.cpp:27065 operator < std_function.h:591 gen_scope_array* 
+   E143 ref_obj sub full='' span=8:25:8:28 | mint=ExprEmit.cpp:31268 emitExpr < ModuleEmit.cpp:27065 operator | set='sub'@ExprEmit.cpp:31270 emitExpr
+   E144 bit_select sel full='work@top.c.g[2].sub.sel[i].sel' span=8:33:8:34 | mint=? | set=-
+P146 sub.rsp[i] 8:12:8:22 <cont_assign> mint=ExprEmit.cpp:31201 emitExpr < ModuleEmit.cpp:28337 operator < std_function.h:591 gen_scope_array* 
+   E147 ref_obj sub full='' span=8:12:8:15 | mint=ExprEmit.cpp:31268 emitExpr < ModuleEmit.cpp:28337 operator | set='sub'@ExprEmit.cpp:31270 emitExpr
+   E148 bit_select rsp full='work@top.c.g[2].sub.rsp[i].rsp' span=8:20:8:21 | mint=? | set=-
+P155 sub.sel[i] 8:25:8:35 <cont_assign> mint=ExprEmit.cpp:31201 emitExpr < ModuleEmit.cpp:27065 operator < std_function.h:591 gen_scope_array* 
+   E156 ref_obj sub full='' span=8:25:8:28 | mint=ExprEmit.cpp:31268 emitExpr < ModuleEmit.cpp:27065 operator | set='sub'@ExprEmit.cpp:31270 emitExpr
+   E157 bit_select sel full='work@top.c.g[3].sub.sel[i].sel' span=8:33:8:34 | mint=? | set=-
+P159 sub.rsp[i] 8:12:8:22 <cont_assign> mint=ExprEmit.cpp:31201 emitExpr < ModuleEmit.cpp:28337 operator < std_function.h:591 gen_scope_array* 
+   E160 ref_obj sub full='' span=8:12:8:15 | mint=ExprEmit.cpp:31268 emitExpr < ModuleEmit.cpp:28337 operator | set='sub'@ExprEmit.cpp:31270 emitExpr
+   E161 bit_select rsp full='work@top.c.g[3].sub.rsp[i].rsp' span=8:20:8:21 | mint=? | set=-

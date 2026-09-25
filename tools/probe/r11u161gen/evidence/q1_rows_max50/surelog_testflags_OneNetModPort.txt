@@ -1,0 +1,15 @@
+#71 file
+  G: ref_obj 'intf' full=work@TESTBENCH.intf.intf :0:0-0:0 [0]
+     < port 'intf' 1:34 < program '' 1:1 < design 'work@TOP' 0:0
+  O: ref_obj 'intf' full=work@TESTBENCH.intf.intf tb.v:1:34-1:38 [0]
+     < port 'intf' 1:34 < program '' 1:1 < design 'work@TOP' 0:0
+#160 file
+  G: ref_obj 'intf' full=work@TESTBENCH.intf.intf :0:0-0:0 [0]
+     < port 'intf' 1:34 < program '' 1:1 < ref_module 'tb' 18:13 < module_inst '' 15:1 < design 'work@TOP' 0:0
+  O: ref_obj 'intf' full=work@TESTBENCH.intf.intf tb.v:1:34-1:38 [0]
+     < port 'intf' 1:34 < program '' 1:1 < ref_module 'tb' 18:13 < module_inst '' 15:1 < design 'work@TOP' 0:0
+#279 depth
+  G: io_decl 'observe' dut.v:18:11-18:18
+     < modport 'tb' 16:11 < ref_obj '' 18:16 < port 'intf' 1:34 < program 'tb' 18:3 < module_inst 'work@TOP' 15:1 < design 'work@TOP' 0:0
+  O: logic_var 'drive' full=work@TOP.tb.intf.drive dut.v:10:9-10:14 [0]
+     < io_decl 'drive' 17:12 < modport 'tb' 16:11 < ref_obj '' 18:16 < port 'intf' 1:34 < program 'tb' 18:3 < module_inst 'work@TOP' 15:1

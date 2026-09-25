@@ -1,0 +1,200 @@
+surelog_default_BasicOh records 50
+    20 other:ref_obj fullname
+    13 other:constant file
+    11 other:ref_typespec fullname
+    6 other:part_select fullname
+surelog_default_BlackBePipeInt records 2
+    1 other:ref_obj fullname
+    1 other:parameter depth
+surelog_default_BuildUVMPkg records 50
+    32 other:ref_obj fullname
+    14 other:enum_typespec line
+    3 other:struct_typespec line
+    1 other:ref_typespec fullname
+surelog_default_ComplexHierPath records 10
+    3 path:def:cont_assign col
+    3 path:def:cont_assign fullname
+    2 path:elab:cont_assign fullname
+    1 path:elab:cont_assign endcol
+    1 other:cont_assign depth
+surelog_default_Earlgrey_0_1 records 50
+    33 other:param_assign endcol
+    12 other:ref_obj fullname
+    5 other:include_file_info line
+surelog_default_GenForStructParamBound records 29
+    12 other:ref_typespec fullname
+    8 path:mod:range fullname
+    2 path:def:gen_for col
+    2 path:def:gen_for fullname
+    2 other:parameter file
+    1 other:constant line
+    1 other:cont_assign file
+    1 other:bit_select file
+surelog_default_GenIfIfaceParamStructField records 13
+    6 other:ref_typespec fullname
+    1 path:def:gen_if_else col
+    1 path:def:gen_if_else fullname
+    1 path:def:cont_assign col
+    1 path:def:cont_assign fullname
+    1 path:def:gen_if col
+    1 path:def:gen_if fullname
+    1 other:parameter file
+surelog_default_MiniAmiq records 50
+    50 other:include_file_info line
+surelog_default_OneNetModPort records 3
+    2 other:ref_obj file
+    1 other:io_decl depth
+surelog_default_Rggen records 7
+    5 other:ref_typespec fullname
+    1 other:enum_typespec file
+    1 other:parameter depth
+surelog_default_Scoreboard records 50
+    50 other:include_file_info line
+surelog_default_Scr1SvTests records 50
+    50 other:include_file_info line
+surelog_default_SeqDriver records 50
+    50 other:include_file_info line
+surelog_default_SimpleUVM records 50
+    50 other:include_file_info line
+surelog_testflags_BasicOh records 50
+    28 other:ref_obj fullname
+    16 other:constant file
+    2 other:begin fullname
+    2 other:for_stmt fullname
+    2 other:ref_var fullname
+surelog_testflags_BlackBePipeInt records 2
+    1 other:ref_obj fullname
+    1 other:parameter depth
+surelog_testflags_BuildUVMPkg records 50
+    32 other:ref_obj fullname
+    14 other:enum_typespec line
+    3 other:struct_typespec line
+    1 other:ref_typespec fullname
+surelog_testflags_ComplexHierPath records 8
+    3 path:def:cont_assign col
+    3 path:def:cont_assign fullname
+    1 path:elab:cont_assign endcol
+    1 other:cont_assign depth
+surelog_testflags_Earlgrey_0_1 records 50
+    33 other:param_assign endcol
+    12 other:ref_obj fullname
+    5 other:include_file_info line
+surelog_testflags_GenForStructParamBound records 29
+    12 other:ref_typespec fullname
+    8 path:mod:range fullname
+    2 path:def:gen_for col
+    2 path:def:gen_for fullname
+    2 other:parameter file
+    1 other:constant line
+    1 other:cont_assign file
+    1 other:bit_select file
+surelog_testflags_GenIfIfaceParamStructField records 13
+    6 other:ref_typespec fullname
+    1 path:def:gen_if_else col
+    1 path:def:gen_if_else fullname
+    1 path:def:cont_assign col
+    1 path:def:cont_assign fullname
+    1 path:def:gen_if col
+    1 path:def:gen_if fullname
+    1 other:parameter file
+surelog_testflags_MiniAmiq records 50
+    50 other:include_file_info line
+surelog_testflags_OneNetModPort records 3
+    2 other:ref_obj file
+    1 other:io_decl depth
+surelog_testflags_Rggen records 0
+surelog_testflags_Scoreboard records 0
+surelog_testflags_Scr1SvTests records 50
+    50 other:include_file_info line
+surelog_testflags_SeqDriver records 50
+    50 other:include_file_info line
+surelog_testflags_SimpleUVM records 50
+    50 other:include_file_info line
+uhdm2rtlil_default_cfg_func_width_loop records 5
+    2 other:func_call endcol
+    1 other:logic_typespec line
+    1 other:ref_typespec fullname
+    1 other:constant type
+uhdm2rtlil_default_ibex_icache records 28
+    15 other:parameter value
+    11 other:ref_obj fullname
+    1 other:ref_typespec fullname
+    1 other:parameter depth
+uhdm2rtlil_default_ibex_multdiv_fast records 28
+    15 other:parameter value
+    11 other:ref_obj fullname
+    1 other:ref_typespec fullname
+    1 other:parameter depth
+uhdm2rtlil_default_int_types records 50
+    46 other:ref_obj fullname
+    4 other:logic_typespec endcol
+uhdm2rtlil_default_jeras_union records 50
+    27 other:constant file
+    14 other:ref_typespec fullname
+    9 other:constant value
+uhdm2rtlil_default_mriscv_bind_sva records 50
+    30 path:mod:port fullname
+    10 other:logic_net file
+    4 other:ref_obj fullname
+    4 other:constant file
+    2 other:parameter file
+uhdm2rtlil_default_rp32_r5p_alu records 50
+    35 other:constant value
+    11 other:ref_typespec fullname
+    4 other:struct_typespec file
+uhdm2rtlil_default_rp32_r5p_bru records 50
+    35 other:constant value
+    11 other:ref_typespec fullname
+    4 other:struct_typespec file
+uhdm2rtlil_default_rp32_r5p_mdu records 50
+    35 other:constant value
+    11 other:ref_typespec fullname
+    4 other:struct_typespec file
+uhdm2rtlil_default_rp32_r5p_wbu records 50
+    35 other:constant value
+    11 other:ref_typespec fullname
+    4 other:struct_typespec file
+uhdm2rtlil_testflags_cfg_func_width_loop records 5
+    2 other:func_call endcol
+    1 other:logic_typespec line
+    1 other:ref_typespec fullname
+    1 other:constant type
+uhdm2rtlil_testflags_ibex_icache records 28
+    15 other:parameter value
+    11 other:ref_obj fullname
+    1 other:ref_typespec fullname
+    1 other:parameter depth
+uhdm2rtlil_testflags_ibex_multdiv_fast records 28
+    15 other:parameter value
+    11 other:ref_obj fullname
+    1 other:ref_typespec fullname
+    1 other:parameter depth
+uhdm2rtlil_testflags_int_types records 50
+    46 other:ref_obj fullname
+    4 other:logic_typespec endcol
+uhdm2rtlil_testflags_jeras_union records 50
+    27 other:constant file
+    14 other:ref_typespec fullname
+    9 other:constant value
+uhdm2rtlil_testflags_mriscv_bind_sva records 50
+    30 path:mod:port fullname
+    10 other:logic_net file
+    4 other:ref_obj fullname
+    4 other:constant file
+    2 other:parameter file
+uhdm2rtlil_testflags_rp32_r5p_alu records 50
+    35 other:constant value
+    11 other:ref_typespec fullname
+    4 other:struct_typespec file
+uhdm2rtlil_testflags_rp32_r5p_bru records 50
+    35 other:constant value
+    11 other:ref_typespec fullname
+    4 other:struct_typespec file
+uhdm2rtlil_testflags_rp32_r5p_mdu records 50
+    35 other:constant value
+    11 other:ref_typespec fullname
+    4 other:struct_typespec file
+uhdm2rtlil_testflags_rp32_r5p_wbu records 50
+    35 other:constant value
+    11 other:ref_typespec fullname
+    4 other:struct_typespec file

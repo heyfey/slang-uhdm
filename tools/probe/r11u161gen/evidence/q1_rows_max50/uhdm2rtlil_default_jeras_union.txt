@@ -1,0 +1,250 @@
+#168 fullname
+  G: ref_typespec '' full=<in>riscv_isa_pkg::imm_l_t :0:0-0:0 [0]
+     < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+  O: ref_typespec '' full=<in>riscv_isa_pkg::imm_l_t :0:0-0:0 [0]
+     < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+#176 file
+  G: constant '' riscv_isa_pkg.sv:132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14
+  O: constant '' :132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14
+#177 file
+  G: constant '' riscv_isa_pkg.sv:132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14
+  O: constant '' :132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14
+#179 file
+  G: constant '' riscv_isa_pkg.sv:132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < package 'riscv_isa_pkg' 19:1
+  O: constant '' :132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < package 'riscv_isa_pkg' 19:1
+#180 file
+  G: constant '' riscv_isa_pkg.sv:132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < package 'riscv_isa_pkg' 19:1
+  O: constant '' :132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < package 'riscv_isa_pkg' 19:1
+#450 fullname
+  G: ref_typespec '' full=<in>riscv_isa_pkg::imm_l_t :0:0-0:0 [0]
+     < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < ref_typespec '' 0:0 < typespec_member 'ldu' 264:13
+  O: ref_typespec '' full=<in>riscv_isa_pkg::imm_l_t :0:0-0:0 [0]
+     < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < ref_typespec '' 0:0 < typespec_member 'ldu' 264:13
+#458 file
+  G: constant '' riscv_isa_pkg.sv:132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14
+  O: constant '' :132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14
+#459 file
+  G: constant '' riscv_isa_pkg.sv:132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14
+  O: constant '' :132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14
+#461 file
+  G: constant '' riscv_isa_pkg.sv:132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < ref_typespec '' 0:0
+  O: constant '' :132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < ref_typespec '' 0:0
+#462 file
+  G: constant '' riscv_isa_pkg.sv:132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < ref_typespec '' 0:0
+  O: constant '' :132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < ref_typespec '' 0:0
+#813 value
+  G: constant '' riscv_isa_pkg.sv:108:34-108:36 [00 64 UINT:00 9]
+     < range '' 108:30 < logic_typespec '' 108:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_0' 108:38 < struct_typespec 'riscv_isa_pkg::op32_i_t' 168:37 < package 'riscv_isa_pkg' 19:1
+  O: constant '' riscv_isa_pkg.sv:108:34-108:36 [00 64 UINT:0 9]
+     < range '' 108:30 < logic_typespec '' 108:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_0' 108:38 < struct_typespec 'riscv_isa_pkg::op32_i_t' 168:37 < package 'riscv_isa_pkg' 19:1
+#1245 value
+  G: constant '' riscv_isa_pkg.sv:109:34-109:36 [05 64 UINT:05 9]
+     < range '' 109:30 < logic_typespec '' 109:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_5' 109:38 < struct_typespec 'riscv_isa_pkg::op32_s_t' 147:37 < package 'riscv_isa_pkg' 19:1
+  O: constant '' riscv_isa_pkg.sv:109:34-109:36 [05 64 UINT:5 9]
+     < range '' 109:30 < logic_typespec '' 109:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_5' 109:38 < struct_typespec 'riscv_isa_pkg::op32_s_t' 147:37 < package 'riscv_isa_pkg' 19:1
+#1525 value
+  G: constant '' riscv_isa_pkg.sv:108:34-108:36 [00 64 UINT:00 9]
+     < range '' 108:30 < logic_typespec '' 108:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_0' 108:38 < struct_typespec 'riscv_isa_pkg::op32_i_t' 168:37 < ref_typespec '' 0:0
+  O: constant '' riscv_isa_pkg.sv:108:34-108:36 [00 64 UINT:0 9]
+     < range '' 108:30 < logic_typespec '' 108:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_0' 108:38 < struct_typespec 'riscv_isa_pkg::op32_i_t' 168:37 < ref_typespec '' 0:0
+#1610 value
+  G: constant '' riscv_isa_pkg.sv:109:34-109:36 [05 64 UINT:05 9]
+     < range '' 109:30 < logic_typespec '' 109:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_5' 109:38 < struct_typespec 'riscv_isa_pkg::op32_s_t' 147:37 < ref_typespec '' 0:0
+  O: constant '' riscv_isa_pkg.sv:109:34-109:36 [05 64 UINT:5 9]
+     < range '' 109:30 < logic_typespec '' 109:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_5' 109:38 < struct_typespec 'riscv_isa_pkg::op32_s_t' 147:37 < ref_typespec '' 0:0
+#2057 value
+  G: constant '' riscv_isa_pkg.sv:108:34-108:36 [00 64 UINT:00 9]
+     < range '' 108:30 < logic_typespec '' 108:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_0' 108:38 < struct_typespec 'riscv_isa_pkg::op32_i_t' 168:37 < ref_typespec '' 0:0
+  O: constant '' riscv_isa_pkg.sv:108:34-108:36 [00 64 UINT:0 9]
+     < range '' 108:30 < logic_typespec '' 108:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_0' 108:38 < struct_typespec 'riscv_isa_pkg::op32_i_t' 168:37 < ref_typespec '' 0:0
+#2180 value
+  G: constant '' riscv_isa_pkg.sv:109:34-109:36 [05 64 UINT:05 9]
+     < range '' 109:30 < logic_typespec '' 109:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_5' 109:38 < struct_typespec 'riscv_isa_pkg::op32_s_t' 147:37 < ref_typespec '' 0:0
+  O: constant '' riscv_isa_pkg.sv:109:34-109:36 [05 64 UINT:5 9]
+     < range '' 109:30 < logic_typespec '' 109:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_5' 109:38 < struct_typespec 'riscv_isa_pkg::op32_s_t' 147:37 < ref_typespec '' 0:0
+#2696 value
+  G: constant '' riscv_isa_pkg.sv:108:34-108:36 [00 64 UINT:00 9]
+     < range '' 108:30 < logic_typespec '' 108:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_0' 108:38 < struct_typespec 'riscv_isa_pkg::op32_i_t' 168:37 < ref_typespec '' 0:0
+  O: constant '' riscv_isa_pkg.sv:108:34-108:36 [00 64 UINT:0 9]
+     < range '' 108:30 < logic_typespec '' 108:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_0' 108:38 < struct_typespec 'riscv_isa_pkg::op32_i_t' 168:37 < ref_typespec '' 0:0
+#3037 fullname
+  G: ref_typespec '' full=<in>riscv_isa_pkg::imm_l_t :0:0-0:0 [0]
+     < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < ref_typespec '' 0:0 < typespec_member 'ldu' 264:13
+  O: ref_typespec '' full=<in>riscv_isa_pkg::imm_l_t :0:0-0:0 [0]
+     < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < ref_typespec '' 0:0 < typespec_member 'ldu' 264:13
+#3045 file
+  G: constant '' riscv_isa_pkg.sv:132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14
+  O: constant '' :132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14
+#3046 file
+  G: constant '' riscv_isa_pkg.sv:132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14
+  O: constant '' :132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14
+#3048 file
+  G: constant '' riscv_isa_pkg.sv:132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < ref_typespec '' 0:0
+  O: constant '' :132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < ref_typespec '' 0:0
+#3049 file
+  G: constant '' riscv_isa_pkg.sv:132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < ref_typespec '' 0:0
+  O: constant '' :132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < ref_typespec '' 0:0
+#3330 value
+  G: constant '' riscv_isa_pkg.sv:108:34-108:36 [00 64 UINT:00 9]
+     < range '' 108:30 < logic_typespec '' 108:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_0' 108:38 < struct_typespec 'riscv_isa_pkg::op32_i_t' 168:37 < ref_typespec '' 0:0
+  O: constant '' riscv_isa_pkg.sv:108:34-108:36 [00 64 UINT:0 9]
+     < range '' 108:30 < logic_typespec '' 108:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_0' 108:38 < struct_typespec 'riscv_isa_pkg::op32_i_t' 168:37 < ref_typespec '' 0:0
+#3415 value
+  G: constant '' riscv_isa_pkg.sv:109:34-109:36 [05 64 UINT:05 9]
+     < range '' 109:30 < logic_typespec '' 109:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_5' 109:38 < struct_typespec 'riscv_isa_pkg::op32_s_t' 147:37 < ref_typespec '' 0:0
+  O: constant '' riscv_isa_pkg.sv:109:34-109:36 [05 64 UINT:5 9]
+     < range '' 109:30 < logic_typespec '' 109:24 < ref_typespec '' 0:0 < typespec_member 'imm_11_5' 109:38 < struct_typespec 'riscv_isa_pkg::op32_s_t' 147:37 < ref_typespec '' 0:0
+#4505 file
+  G: constant '' riscv_isa_pkg.sv:132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 213:14 < struct_typespec 'riscv_isa_pkg::ctl_alu_t' 210:9 < package 'riscv_isa_pkg' 19:1
+  O: constant '' :132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 213:14 < struct_typespec 'riscv_isa_pkg::ctl_alu_t' 210:9 < package 'riscv_isa_pkg' 19:1
+#4506 file
+  G: constant '' riscv_isa_pkg.sv:132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 213:14 < struct_typespec 'riscv_isa_pkg::ctl_alu_t' 210:9 < package 'riscv_isa_pkg' 19:1
+  O: constant '' :132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 213:14 < struct_typespec 'riscv_isa_pkg::ctl_alu_t' 210:9 < package 'riscv_isa_pkg' 19:1
+#4531 file
+  G: constant '' riscv_isa_pkg.sv:135:23-135:27 [12 64 INT:12 7]
+     < range '' 135:22 < logic_typespec 'imm_b_t' 135:9 < ref_typespec '' 0:0 < typespec_member 'imm' 206:14 < struct_typespec 'riscv_isa_pkg::ctl_bru_t' 204:9 < package 'riscv_isa_pkg' 19:1
+  O: constant '' :135:23-135:27 [12 64 INT:12 7]
+     < range '' 135:22 < logic_typespec 'imm_b_t' 135:9 < ref_typespec '' 0:0 < typespec_member 'imm' 206:14 < struct_typespec 'riscv_isa_pkg::ctl_bru_t' 204:9 < package 'riscv_isa_pkg' 19:1
+#4532 file
+  G: constant '' riscv_isa_pkg.sv:135:30-135:31 [0 64 UINT:0 9]
+     < range '' 135:22 < logic_typespec 'imm_b_t' 135:9 < ref_typespec '' 0:0 < typespec_member 'imm' 206:14 < struct_typespec 'riscv_isa_pkg::ctl_bru_t' 204:9 < package 'riscv_isa_pkg' 19:1
+  O: constant '' :135:30-135:31 [0 64 UINT:0 9]
+     < range '' 135:22 < logic_typespec 'imm_b_t' 135:9 < ref_typespec '' 0:0 < typespec_member 'imm' 206:14 < struct_typespec 'riscv_isa_pkg::ctl_bru_t' 204:9 < package 'riscv_isa_pkg' 19:1
+#4535 fullname
+  G: ref_typespec '' full=<in>riscv_isa_pkg::ctl_gpr_t.ena :0:0-0:0 [0]
+     < typespec_member 'ena' 192:13 < struct_typespec 'riscv_isa_pkg::ctl_gpr_t' 191:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+  O: ref_typespec '' full=<in>riscv_isa_pkg::ctl_gpr_t.ena :0:0-0:0 [0]
+     < typespec_member 'ena' 192:13 < struct_typespec 'riscv_isa_pkg::ctl_gpr_t' 191:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+#4547 fullname
+  G: ref_typespec '' full=<in>riscv_isa_pkg::ctl_gpr_t.adr :0:0-0:0 [0]
+     < typespec_member 'adr' 193:13 < struct_typespec 'riscv_isa_pkg::ctl_gpr_t' 191:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+  O: ref_typespec '' full=<in>riscv_isa_pkg::ctl_gpr_t.adr :0:0-0:0 [0]
+     < typespec_member 'adr' 193:13 < struct_typespec 'riscv_isa_pkg::ctl_gpr_t' 191:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+#4577 file
+  G: constant '' riscv_isa_pkg.sv:132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 235:14 < struct_typespec 'riscv_isa_pkg::ctl_jmp_t' 234:9 < package 'riscv_isa_pkg' 19:1
+  O: constant '' :132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 235:14 < struct_typespec 'riscv_isa_pkg::ctl_jmp_t' 234:9 < package 'riscv_isa_pkg' 19:1
+#4578 file
+  G: constant '' riscv_isa_pkg.sv:132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 235:14 < struct_typespec 'riscv_isa_pkg::ctl_jmp_t' 234:9 < package 'riscv_isa_pkg' 19:1
+  O: constant '' :132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 235:14 < struct_typespec 'riscv_isa_pkg::ctl_jmp_t' 234:9 < package 'riscv_isa_pkg' 19:1
+#4610 fullname
+  G: ref_typespec '' full=<in>riscv_isa_pkg::imm_l_t :0:0-0:0 [0]
+     < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+  O: ref_typespec '' full=<in>riscv_isa_pkg::imm_l_t :0:0-0:0 [0]
+     < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+#4618 file
+  G: constant '' riscv_isa_pkg.sv:132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14
+  O: constant '' :132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14
+#4619 file
+  G: constant '' riscv_isa_pkg.sv:132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14
+  O: constant '' :132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14
+#4621 file
+  G: constant '' riscv_isa_pkg.sv:132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < package 'riscv_isa_pkg' 19:1
+  O: constant '' :132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < package 'riscv_isa_pkg' 19:1
+#4622 file
+  G: constant '' riscv_isa_pkg.sv:132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < package 'riscv_isa_pkg' 19:1
+  O: constant '' :132:29-132:30 [0 64 UINT:0 9]
+     < range '' 132:22 < logic_typespec 'riscv_isa_pkg::imm_l_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 219:14 < struct_typespec 'riscv_isa_pkg::ctl_ldu_t' 217:9 < package 'riscv_isa_pkg' 19:1
+#4646 file
+  G: constant '' riscv_isa_pkg.sv:134:23-134:25 [11 64 INT:11 7]
+     < range '' 134:22 < logic_typespec 'imm_s_t' 134:9 < ref_typespec '' 0:0 < typespec_member 'imm' 225:14 < struct_typespec 'riscv_isa_pkg::ctl_stu_t' 223:9 < package 'riscv_isa_pkg' 19:1
+  O: constant '' :134:23-134:25 [11 64 INT:11 7]
+     < range '' 134:22 < logic_typespec 'imm_s_t' 134:9 < ref_typespec '' 0:0 < typespec_member 'imm' 225:14 < struct_typespec 'riscv_isa_pkg::ctl_stu_t' 223:9 < package 'riscv_isa_pkg' 19:1
+#4647 file
+  G: constant '' riscv_isa_pkg.sv:134:29-134:30 [0 64 UINT:0 9]
+     < range '' 134:22 < logic_typespec 'imm_s_t' 134:9 < ref_typespec '' 0:0 < typespec_member 'imm' 225:14 < struct_typespec 'riscv_isa_pkg::ctl_stu_t' 223:9 < package 'riscv_isa_pkg' 19:1
+  O: constant '' :134:29-134:30 [0 64 UINT:0 9]
+     < range '' 134:22 < logic_typespec 'imm_s_t' 134:9 < ref_typespec '' 0:0 < typespec_member 'imm' 225:14 < struct_typespec 'riscv_isa_pkg::ctl_stu_t' 223:9 < package 'riscv_isa_pkg' 19:1
+#4650 fullname
+  G: ref_typespec '' full=<in>riscv_isa_pkg::ctl_t.ill :0:0-0:0 [0]
+     < typespec_member 'ill' 258:13 < struct_typespec 'riscv_isa_pkg::ctl_t' 257:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+  O: ref_typespec '' full=<in>riscv_isa_pkg::ctl_t.ill :0:0-0:0 [0]
+     < typespec_member 'ill' 258:13 < struct_typespec 'riscv_isa_pkg::ctl_t' 257:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+#4658 fullname
+  G: ref_typespec '' full=<in>riscv_isa_pkg::ctl_t.siz :0:0-0:0 [0]
+     < typespec_member 'siz' 259:13 < struct_typespec 'riscv_isa_pkg::ctl_t' 257:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+  O: ref_typespec '' full=<in>riscv_isa_pkg::ctl_t.siz :0:0-0:0 [0]
+     < typespec_member 'siz' 259:13 < struct_typespec 'riscv_isa_pkg::ctl_t' 257:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+#4661 fullname
+  G: ref_typespec '' full=<in>riscv_isa_pkg::ctl_t.opc :0:0-0:0 [0]
+     < typespec_member 'opc' 260:13 < struct_typespec 'riscv_isa_pkg::ctl_t' 257:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+  O: ref_typespec '' full=<in>riscv_isa_pkg::ctl_t.opc :0:0-0:0 [0]
+     < typespec_member 'opc' 260:13 < struct_typespec 'riscv_isa_pkg::ctl_t' 257:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+#4740 fullname
+  G: ref_typespec '' full=<in>riscv_isa_pkg::ctl_t.gpr :0:0-0:0 [0]
+     < typespec_member 'gpr' 261:13 < struct_typespec 'riscv_isa_pkg::ctl_t' 257:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+  O: ref_typespec '' full=<in>riscv_isa_pkg::ctl_t.gpr :0:0-0:0 [0]
+     < typespec_member 'gpr' 261:13 < struct_typespec 'riscv_isa_pkg::ctl_t' 257:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+#4743 fullname
+  G: ref_typespec '' full=<in>riscv_isa_pkg::ctl_gpr_t.ena :0:0-0:0 [0]
+     < typespec_member 'ena' 192:13 < struct_typespec 'riscv_isa_pkg::ctl_gpr_t' 191:9 < ref_typespec '' 0:0 < typespec_member 'gpr' 261:13 < struct_typespec 'riscv_isa_pkg::ctl_t' 257:9 < package 'riscv_isa_pkg' 19:1
+  O: ref_typespec '' full=<in>riscv_isa_pkg::ctl_gpr_t.ena :0:0-0:0 [0]
+     < typespec_member 'ena' 192:13 < struct_typespec 'riscv_isa_pkg::ctl_gpr_t' 191:9 < ref_typespec '' 0:0 < typespec_member 'gpr' 261:13 < struct_typespec 'riscv_isa_pkg::ctl_t' 257:9 < package 'riscv_isa_pkg' 19:1
+#4755 fullname
+  G: ref_typespec '' full=<in>riscv_isa_pkg::ctl_gpr_t.adr :0:0-0:0 [0]
+     < typespec_member 'adr' 193:13 < struct_typespec 'riscv_isa_pkg::ctl_gpr_t' 191:9 < ref_typespec '' 0:0 < typespec_member 'gpr' 261:13 < struct_typespec 'riscv_isa_pkg::ctl_t' 257:9 < package 'riscv_isa_pkg' 19:1
+  O: ref_typespec '' full=<in>riscv_isa_pkg::ctl_gpr_t.adr :0:0-0:0 [0]
+     < typespec_member 'adr' 193:13 < struct_typespec 'riscv_isa_pkg::ctl_gpr_t' 191:9 < ref_typespec '' 0:0 < typespec_member 'gpr' 261:13 < struct_typespec 'riscv_isa_pkg::ctl_t' 257:9 < package 'riscv_isa_pkg' 19:1
+#4776 fullname
+  G: ref_typespec '' full=<in>riscv_isa_pkg::ctl_t.bru :0:0-0:0 [0]
+     < typespec_member 'bru' 262:13 < struct_typespec 'riscv_isa_pkg::ctl_t' 257:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+  O: ref_typespec '' full=<in>riscv_isa_pkg::ctl_t.bru :0:0-0:0 [0]
+     < typespec_member 'bru' 262:13 < struct_typespec 'riscv_isa_pkg::ctl_t' 257:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+#4801 file
+  G: constant '' riscv_isa_pkg.sv:135:23-135:27 [12 64 INT:12 7]
+     < range '' 135:22 < logic_typespec 'imm_b_t' 135:9 < ref_typespec '' 0:0 < typespec_member 'imm' 206:14 < struct_typespec 'riscv_isa_pkg::ctl_bru_t' 204:9 < ref_typespec '' 0:0
+  O: constant '' :135:23-135:27 [12 64 INT:12 7]
+     < range '' 135:22 < logic_typespec 'imm_b_t' 135:9 < ref_typespec '' 0:0 < typespec_member 'imm' 206:14 < struct_typespec 'riscv_isa_pkg::ctl_bru_t' 204:9 < ref_typespec '' 0:0
+#4802 file
+  G: constant '' riscv_isa_pkg.sv:135:30-135:31 [0 64 UINT:0 9]
+     < range '' 135:22 < logic_typespec 'imm_b_t' 135:9 < ref_typespec '' 0:0 < typespec_member 'imm' 206:14 < struct_typespec 'riscv_isa_pkg::ctl_bru_t' 204:9 < ref_typespec '' 0:0
+  O: constant '' :135:30-135:31 [0 64 UINT:0 9]
+     < range '' 135:22 < logic_typespec 'imm_b_t' 135:9 < ref_typespec '' 0:0 < typespec_member 'imm' 206:14 < struct_typespec 'riscv_isa_pkg::ctl_bru_t' 204:9 < ref_typespec '' 0:0
+#4804 fullname
+  G: ref_typespec '' full=<in>riscv_isa_pkg::ctl_t.alu :0:0-0:0 [0]
+     < typespec_member 'alu' 263:13 < struct_typespec 'riscv_isa_pkg::ctl_t' 257:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+  O: ref_typespec '' full=<in>riscv_isa_pkg::ctl_t.alu :0:0-0:0 [0]
+     < typespec_member 'alu' 263:13 < struct_typespec 'riscv_isa_pkg::ctl_t' 257:9 < package 'riscv_isa_pkg' 19:1 < design 'work@test_union' 0:0
+#4834 file
+  G: constant '' riscv_isa_pkg.sv:132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 213:14 < struct_typespec 'riscv_isa_pkg::ctl_alu_t' 210:9 < ref_typespec '' 0:0
+  O: constant '' :132:23-132:25 [11 64 INT:11 7]
+     < range '' 132:22 < logic_typespec 'imm_i_t' 132:9 < ref_typespec '' 0:0 < typespec_member 'imm' 213:14 < struct_typespec 'riscv_isa_pkg::ctl_alu_t' 210:9 < ref_typespec '' 0:0

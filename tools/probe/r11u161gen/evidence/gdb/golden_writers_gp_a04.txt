@@ -1,0 +1,36 @@
+P12 sub.rsp[i] 8:12:8:22 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt
+   E13 ref_obj sub full='' span=8:16:8:19 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='sub'@compileSelectExpression
+   E14 bit_select rsp full='work@child.g.sub.rsp[i].rsp' span=8:16:8:22 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < compileStmt | set='work@child.g.sub.rsp[i].rsp'@SAVE
+P17 sub.sel[i] 8:25:8:35 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E18 ref_obj sub full='' span=8:25:8:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='sub'@compileComplexFuncCall
+   E20 bit_select sel full='work@child.g.sub.sel[i].sel' span=8:33:8:34 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@child.g.sub.sel[i].sel'@SAVE
+P23 b.sel 13:10:13:15 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E24 ref_obj b full='' span=13:12:13:15 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='b'@compileSelectExpression
+   E25 ref_obj sel full='' span=13:12:13:15 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='sel'@compileSelectExpression
+P30 b.rsp 14:14:14:19 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E31 ref_obj b full='' span=14:14:14:15 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='b'@compileComplexFuncCall
+   E32 ref_obj rsp full='work@top.rsp' span=14:16:14:19 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@top.rsp'@SAVE
+P121 sub.rsp[i] 8:12:8:22 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E122 ref_obj sub full='' span=8:16:8:19 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='sub'@compileSelectExpression
+   E123 bit_select rsp full='work@top.c.g[0].sub.rsp[i].rsp' span=8:16:8:22 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='work@top.c.g[0].sub.rsp[i].rsp'@SAVE
+P126 sub.sel[i] 8:25:8:35 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E127 ref_obj sub full='' span=8:25:8:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='sub'@compileComplexFuncCall
+   E129 bit_select sel full='work@top.c.g[0].sub.sel[i].sel' span=8:33:8:34 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@top.c.g[0].sub.sel[i].sel'@SAVE
+P136 sub.rsp[i] 8:12:8:22 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E137 ref_obj sub full='' span=8:16:8:19 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='sub'@compileSelectExpression
+   E138 bit_select rsp full='work@top.c.g[1].sub.rsp[i].rsp' span=8:16:8:22 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='work@top.c.g[1].sub.rsp[i].rsp'@SAVE
+P141 sub.sel[i] 8:25:8:35 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E142 ref_obj sub full='' span=8:25:8:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='sub'@compileComplexFuncCall
+   E144 bit_select sel full='work@top.c.g[1].sub.sel[i].sel' span=8:33:8:34 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@top.c.g[1].sub.sel[i].sel'@SAVE
+P151 sub.rsp[i] 8:12:8:22 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E152 ref_obj sub full='' span=8:16:8:19 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='sub'@compileSelectExpression
+   E153 bit_select rsp full='work@top.c.g[2].sub.rsp[i].rsp' span=8:16:8:22 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='work@top.c.g[2].sub.rsp[i].rsp'@SAVE
+P156 sub.sel[i] 8:25:8:35 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E157 ref_obj sub full='' span=8:25:8:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='sub'@compileComplexFuncCall
+   E159 bit_select sel full='work@top.c.g[2].sub.sel[i].sel' span=8:33:8:34 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@top.c.g[2].sub.sel[i].sel'@SAVE
+P166 sub.rsp[i] 8:12:8:22 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E167 ref_obj sub full='' span=8:16:8:19 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='sub'@compileSelectExpression
+   E168 bit_select rsp full='work@top.c.g[3].sub.rsp[i].rsp' span=8:16:8:22 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='work@top.c.g[3].sub.rsp[i].rsp'@SAVE
+P171 sub.sel[i] 8:25:8:35 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E172 ref_obj sub full='' span=8:25:8:28 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='sub'@compileComplexFuncCall
+   E174 bit_select sel full='work@top.c.g[3].sub.sel[i].sel' span=8:33:8:34 par=hp | mint=compileSelectExpression < compileComplexFuncCall < compileExpression < compileExpression | set='work@top.c.g[3].sub.sel[i].sel'@SAVE

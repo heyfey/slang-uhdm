@@ -1,0 +1,145 @@
+#61 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 9:33 < struct_typespec 'p::cfg_t' 9:11 < ref_typespec '' 0:0 < parameter 'CFG_DEF' 10:20 < package 'p' 7:1 < design 'work@top' 0:0
+  O: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 9:33 < struct_typespec 'p::cfg_t' 9:11 < ref_typespec '' 0:0 < parameter 'CFG_DEF' 10:20 < package 'p' 7:1 < design 'work@top' 0:0
+#70 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.DAT :0:0-0:0 [0]
+     < typespec_member 'DAT' 9:51 < struct_typespec 'p::cfg_t' 9:11 < ref_typespec '' 0:0 < parameter 'CFG_DEF' 10:20 < package 'p' 7:1 < design 'work@top' 0:0
+  O: ref_typespec '' full=<in>p::cfg_t.DAT :0:0-0:0 [0]
+     < typespec_member 'DAT' 9:51 < struct_typespec 'p::cfg_t' 9:11 < ref_typespec '' 0:0 < parameter 'CFG_DEF' 10:20 < package 'p' 7:1 < design 'work@top' 0:0
+#86 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 9:33 < struct_typespec 'p::cfg_t' 9:11 < package 'p' 7:1 < design 'work@top' 0:0
+  O: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 9:33 < struct_typespec 'p::cfg_t' 9:11 < package 'p' 7:1 < design 'work@top' 0:0
+#95 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.DAT :0:0-0:0 [0]
+     < typespec_member 'DAT' 9:51 < struct_typespec 'p::cfg_t' 9:11 < package 'p' 7:1 < design 'work@top' 0:0
+  O: ref_typespec '' full=<in>p::cfg_t.DAT :0:0-0:0 [0]
+     < typespec_member 'DAT' 9:51 < struct_typespec 'p::cfg_t' 9:11 < package 'p' 7:1 < design 'work@top' 0:0
+#192 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 9:33 < struct_typespec 'p::cfg_t' 9:11 < ref_typespec '' 0:0 < parameter 'CFG' 12:39 < interface_inst '' 12:1 < design 'work@top' 0:0
+  O: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 9:33 < struct_typespec 'p::cfg_t' 9:11 < ref_typespec '' 0:0 < parameter 'CFG' 12:39 < interface_inst '' 12:1 < design 'work@top' 0:0
+#201 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.DAT :0:0-0:0 [0]
+     < typespec_member 'DAT' 9:51 < struct_typespec 'p::cfg_t' 9:11 < ref_typespec '' 0:0 < parameter 'CFG' 12:39 < interface_inst '' 12:1 < design 'work@top' 0:0
+  O: ref_typespec '' full=<in>p::cfg_t.DAT :0:0-0:0 [0]
+     < typespec_member 'DAT' 9:51 < struct_typespec 'p::cfg_t' 9:11 < ref_typespec '' 0:0 < parameter 'CFG' 12:39 < interface_inst '' 12:1 < design 'work@top' 0:0
+#221 fullname
+  G: hier_path 'CFG.HSK.DLY' dut.sv:13:16-13:27 [0]
+     < range '' 13:13 < array_net 'dly' 13:9 < interface_inst '' 12:1 < design 'work@top' 0:0
+  O: hier_path 'CFG.HSK.DLY' full=work@bus_if.dly.CFG.HSK.DLY dut.sv:13:16-13:27 [0]
+     < range '' 13:13 < array_net 'dly' 13:9 < interface_inst '' 12:1 < design 'work@top' 0:0
+#222 fullname
+  G: ref_obj 'CFG' dut.sv:13:20-13:23 [0]
+     < hier_path 'CFG.HSK.DLY' 13:16 < range '' 13:13 < array_net 'dly' 13:9 < interface_inst '' 12:1 < design 'work@top' 0:0
+  O: ref_obj 'CFG' full=work@bus_if.dly.CFG dut.sv:13:20-13:23 [0]
+     < hier_path 'CFG.HSK.DLY' 13:16 < range '' 13:13 < array_net 'dly' 13:9 < interface_inst '' 12:1 < design 'work@top' 0:0
+#223 fullname
+  G: ref_obj 'HSK' dut.sv:13:20-13:23 [0]
+     < hier_path 'CFG.HSK.DLY' 13:16 < range '' 13:13 < array_net 'dly' 13:9 < interface_inst '' 12:1 < design 'work@top' 0:0
+  O: ref_obj 'HSK' full=work@bus_if.dly.HSK dut.sv:13:20-13:23 [0]
+     < hier_path 'CFG.HSK.DLY' 13:16 < range '' 13:13 < array_net 'dly' 13:9 < interface_inst '' 12:1 < design 'work@top' 0:0
+#224 fullname
+  G: ref_obj 'DLY' dut.sv:13:24-13:27 [0]
+     < hier_path 'CFG.HSK.DLY' 13:16 < range '' 13:13 < array_net 'dly' 13:9 < interface_inst '' 12:1 < design 'work@top' 0:0
+  O: ref_obj 'DLY' full=work@bus_if.dly.DLY dut.sv:13:24-13:27 [0]
+     < hier_path 'CFG.HSK.DLY' 13:16 < range '' 13:13 < array_net 'dly' 13:9 < interface_inst '' 12:1 < design 'work@top' 0:0
+#241 col
+  G: ref_obj 'CFG' dut.sv:16:33-16:36 [0]
+     < hier_path 'CFG.HSK.DLY' 16:29 < operation '' 16:24 < gen_for '' 0:0 < interface_inst '' 12:1 < design 'work@top' 0:0
+  O: ref_obj 'CFG' dut.sv:16:29-16:32 [0]
+     < hier_path 'CFG.HSK.DLY' 16:29 < operation '' 16:24 < gen_for '' 0:0 < interface_inst '' 12:1 < design 'work@top' 0:0
+#243 fullname
+  G: ref_obj 'DLY' dut.sv:16:37-16:40 [0]
+     < hier_path 'CFG.HSK.DLY' 16:29 < operation '' 16:24 < gen_for '' 0:0 < interface_inst '' 12:1 < design 'work@top' 0:0
+  O: ref_obj 'DLY' full=work@bus_if.DLY dut.sv:16:37-16:40 [0]
+     < hier_path 'CFG.HSK.DLY' 16:29 < operation '' 16:24 < gen_for '' 0:0 < interface_inst '' 12:1 < design 'work@top' 0:0
+#275 file
+  G: parameter 'CFG_DEF' full=work@top.CFG_DEF dut.sv:10:20-10:27 [0]
+     < param_assign '' 10:20 < module_inst '' 23:1 < design 'work@top' 0:0
+  O: parameter 'CFG_DEF' full=work@top.CFG_DEF :10:20-10:27 [0]
+     < param_assign '' 10:20 < module_inst '' 23:1 < design 'work@top' 0:0
+#292 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 9:33 < struct_typespec 'p::cfg_t' 9:11 < module_inst '' 23:1 < design 'work@top' 0:0
+  O: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 9:33 < struct_typespec 'p::cfg_t' 9:11 < module_inst '' 23:1 < design 'work@top' 0:0
+#301 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.DAT :0:0-0:0 [0]
+     < typespec_member 'DAT' 9:51 < struct_typespec 'p::cfg_t' 9:11 < module_inst '' 23:1 < design 'work@top' 0:0
+  O: ref_typespec '' full=<in>p::cfg_t.DAT :0:0-0:0 [0]
+     < typespec_member 'DAT' 9:51 < struct_typespec 'p::cfg_t' 9:11 < module_inst '' 23:1 < design 'work@top' 0:0
+#329 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 9:33 < struct_typespec 'p::cfg_t' 9:11 < ref_typespec '' 0:0 < parameter 'CFG' 12:39 < interface_inst '' 12:1 < ref_module 'b' 25:21
+  O: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 9:33 < struct_typespec 'p::cfg_t' 9:11 < ref_typespec '' 0:0 < parameter 'CFG' 12:39 < interface_inst '' 12:1 < ref_module 'b' 25:21
+#338 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.DAT :0:0-0:0 [0]
+     < typespec_member 'DAT' 9:51 < struct_typespec 'p::cfg_t' 9:11 < ref_typespec '' 0:0 < parameter 'CFG' 12:39 < interface_inst '' 12:1 < ref_module 'b' 25:21
+  O: ref_typespec '' full=<in>p::cfg_t.DAT :0:0-0:0 [0]
+     < typespec_member 'DAT' 9:51 < struct_typespec 'p::cfg_t' 9:11 < ref_typespec '' 0:0 < parameter 'CFG' 12:39 < interface_inst '' 12:1 < ref_module 'b' 25:21
+#358 fullname
+  G: hier_path 'CFG.HSK.DLY' dut.sv:13:16-13:27 [0]
+     < range '' 13:13 < array_net 'dly' 13:9 < interface_inst '' 12:1 < ref_module 'b' 25:21 < module_inst '' 23:1 < design 'work@top' 0:0
+  O: hier_path 'CFG.HSK.DLY' full=work@bus_if.dly.CFG.HSK.DLY dut.sv:13:16-13:27 [0]
+     < range '' 13:13 < array_net 'dly' 13:9 < interface_inst '' 12:1 < ref_module 'b' 25:21 < module_inst '' 23:1 < design 'work@top' 0:0
+#359 fullname
+  G: ref_obj 'CFG' dut.sv:13:20-13:23 [0]
+     < hier_path 'CFG.HSK.DLY' 13:16 < range '' 13:13 < array_net 'dly' 13:9 < interface_inst '' 12:1 < ref_module 'b' 25:21 < module_inst '' 23:1
+  O: ref_obj 'CFG' full=work@bus_if.dly.CFG dut.sv:13:20-13:23 [0]
+     < hier_path 'CFG.HSK.DLY' 13:16 < range '' 13:13 < array_net 'dly' 13:9 < interface_inst '' 12:1 < ref_module 'b' 25:21 < module_inst '' 23:1
+#360 fullname
+  G: ref_obj 'HSK' dut.sv:13:20-13:23 [0]
+     < hier_path 'CFG.HSK.DLY' 13:16 < range '' 13:13 < array_net 'dly' 13:9 < interface_inst '' 12:1 < ref_module 'b' 25:21 < module_inst '' 23:1
+  O: ref_obj 'HSK' full=work@bus_if.dly.HSK dut.sv:13:20-13:23 [0]
+     < hier_path 'CFG.HSK.DLY' 13:16 < range '' 13:13 < array_net 'dly' 13:9 < interface_inst '' 12:1 < ref_module 'b' 25:21 < module_inst '' 23:1
+#361 fullname
+  G: ref_obj 'DLY' dut.sv:13:24-13:27 [0]
+     < hier_path 'CFG.HSK.DLY' 13:16 < range '' 13:13 < array_net 'dly' 13:9 < interface_inst '' 12:1 < ref_module 'b' 25:21 < module_inst '' 23:1
+  O: ref_obj 'DLY' full=work@bus_if.dly.DLY dut.sv:13:24-13:27 [0]
+     < hier_path 'CFG.HSK.DLY' 13:16 < range '' 13:13 < array_net 'dly' 13:9 < interface_inst '' 12:1 < ref_module 'b' 25:21 < module_inst '' 23:1
+#378 col
+  G: ref_obj 'CFG' dut.sv:16:33-16:36 [0]
+     < hier_path 'CFG.HSK.DLY' 16:29 < operation '' 16:24 < gen_for '' 0:0 < interface_inst '' 12:1 < ref_module 'b' 25:21 < module_inst '' 23:1
+  O: ref_obj 'CFG' dut.sv:16:29-16:32 [0]
+     < hier_path 'CFG.HSK.DLY' 16:29 < operation '' 16:24 < gen_for '' 0:0 < interface_inst '' 12:1 < ref_module 'b' 25:21 < module_inst '' 23:1
+#380 fullname
+  G: ref_obj 'DLY' dut.sv:16:37-16:40 [0]
+     < hier_path 'CFG.HSK.DLY' 16:29 < operation '' 16:24 < gen_for '' 0:0 < interface_inst '' 12:1 < ref_module 'b' 25:21 < module_inst '' 23:1
+  O: ref_obj 'DLY' full=work@bus_if.DLY dut.sv:16:37-16:40 [0]
+     < hier_path 'CFG.HSK.DLY' 16:29 < operation '' 16:24 < gen_for '' 0:0 < interface_inst '' 12:1 < ref_module 'b' 25:21 < module_inst '' 23:1
+#408 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 9:33 < struct_typespec 'p::cfg_t' 9:11 < module_inst 'work@top' 23:1 < design 'work@top' 0:0
+  O: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 9:33 < struct_typespec 'p::cfg_t' 9:11 < module_inst 'work@top' 23:1 < design 'work@top' 0:0
+#417 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.DAT :0:0-0:0 [0]
+     < typespec_member 'DAT' 9:51 < struct_typespec 'p::cfg_t' 9:11 < module_inst 'work@top' 23:1 < design 'work@top' 0:0
+  O: ref_typespec '' full=<in>p::cfg_t.DAT :0:0-0:0 [0]
+     < typespec_member 'DAT' 9:51 < struct_typespec 'p::cfg_t' 9:11 < module_inst 'work@top' 23:1 < design 'work@top' 0:0
+#441 line
+  G: constant '' dut.sv:10:39-10:40 [1 64 UINT:1 9]
+     < range '' 13:13 < array_var 'dly' 13:9 < interface_inst 'b' 25:3 < module_inst 'work@top' 23:1 < design 'work@top' 0:0
+  O: constant '' dut.sv:13:16-13:27 [1 64 UINT:1 9]
+     < range '' 13:13 < array_var 'dly' 13:9 < interface_inst 'b' 25:3 < module_inst 'work@top' 23:1 < design 'work@top' 0:0
+#480 file
+  G: cont_assign '' dut.sv:14:10-14:23
+     < interface_inst 'b' 25:3 < module_inst 'work@top' 23:1 < design 'work@top' 0:0
+  O: cont_assign '' :14:10-14:23
+     < interface_inst 'b' 25:3 < module_inst 'work@top' 23:1 < design 'work@top' 0:0
+#482 file
+  G: bit_select 'dly' full=work@top.b.dly dut.sv:14:10-14:16 [0]
+     < cont_assign '' 14:10 < interface_inst 'b' 25:3 < module_inst 'work@top' 23:1 < design 'work@top' 0:0
+  O: bit_select 'dly' full=work@top.b.dly :14:10-14:16 [0]
+     < cont_assign '' 14:10 < interface_inst 'b' 25:3 < module_inst 'work@top' 23:1 < design 'work@top' 0:0
+#489 file
+  G: parameter 'i' full=work@top.b.g[1].i dut.sv:16:0-0:0 [0 UINT:1]
+     < gen_scope '' 16:47 < gen_scope_array 'g[1]' 16:47 < interface_inst 'b' 25:3 < module_inst 'work@top' 23:1 < design 'work@top' 0:0
+  O: parameter 'i' full=work@top.b.g[1].i :16:0-0:0 [0 UINT:1]
+     < gen_scope '' 16:47 < gen_scope_array 'g[1]' 16:47 < interface_inst 'b' 25:3 < module_inst 'work@top' 23:1 < design 'work@top' 0:0

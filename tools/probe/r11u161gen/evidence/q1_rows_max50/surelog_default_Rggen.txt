@@ -1,0 +1,35 @@
+#101 file
+  G: enum_typespec 'rggen_rtl_pkg::rggen_access' rggen_register_common.sv:74:5-74:17
+     < package 'rggen_rtl_pkg' 1:1 < design 'work@rggen' 0:0
+  O: enum_typespec 'rggen_rtl_pkg::rggen_access' rggen_rtl_pkg.sv:2:3-6:18
+     < package 'rggen_rtl_pkg' 1:1 < design 'work@rggen' 0:0
+#102 fullname
+  G: ref_typespec '' full=<in>rggen_rtl_pkg::rggen_access :0:0-0:0 [0]
+     < enum_typespec 'rggen_rtl_pkg::rggen_access' 74:5 < package 'rggen_rtl_pkg' 1:1 < design 'work@rggen' 0:0
+  O: ref_typespec '' full=<in>rggen_rtl_pkg::rggen_access :0:0-0:0 [0]
+     < enum_typespec 'rggen_rtl_pkg::rggen_access' 2:3 < package 'rggen_rtl_pkg' 1:1 < design 'work@rggen' 0:0
+#111 fullname
+  G: ref_typespec '' full=<in>rggen_rtl_pkg::rggen_polarity :0:0-0:0 [0]
+     < enum_typespec 'rggen_rtl_pkg::rggen_polarity' 23:3 < package 'rggen_rtl_pkg' 1:1 < design 'work@rggen' 0:0
+  O: ref_typespec '' full=<in>rggen_rtl_pkg::rggen_polarity :0:0-0:0 [0]
+     < enum_typespec 'rggen_rtl_pkg::rggen_polarity' 23:3 < package 'rggen_rtl_pkg' 1:1 < design 'work@rggen' 0:0
+#116 fullname
+  G: ref_typespec '' full=<in>rggen_rtl_pkg::rggen_status :0:0-0:0 [0]
+     < enum_typespec 'rggen_rtl_pkg::rggen_status' 11:3 < package 'rggen_rtl_pkg' 1:1 < design 'work@rggen' 0:0
+  O: ref_typespec '' full=<in>rggen_rtl_pkg::rggen_status :0:0-0:0 [0]
+     < enum_typespec 'rggen_rtl_pkg::rggen_status' 11:3 < package 'rggen_rtl_pkg' 1:1 < design 'work@rggen' 0:0
+#126 fullname
+  G: ref_typespec '' full=<in>rggen_rtl_pkg::rggen_sw_action :0:0-0:0 [0]
+     < enum_typespec 'rggen_rtl_pkg::rggen_sw_action' 28:3 < package 'rggen_rtl_pkg' 1:1 < design 'work@rggen' 0:0
+  O: ref_typespec '' full=<in>rggen_rtl_pkg::rggen_sw_action :0:0-0:0 [0]
+     < enum_typespec 'rggen_rtl_pkg::rggen_sw_action' 28:3 < package 'rggen_rtl_pkg' 1:1 < design 'work@rggen' 0:0
+#146 fullname
+  G: ref_typespec '' full=<in>rggen_rtl_pkg::rggen_sw_hw_access :0:0-0:0 [0]
+     < enum_typespec 'rggen_rtl_pkg::rggen_sw_hw_access' 18:3 < package 'rggen_rtl_pkg' 1:1 < design 'work@rggen' 0:0
+  O: ref_typespec '' full=<in>rggen_rtl_pkg::rggen_sw_hw_access :0:0-0:0 [0]
+     < enum_typespec 'rggen_rtl_pkg::rggen_sw_hw_access' 18:3 < package 'rggen_rtl_pkg' 1:1 < design 'work@rggen' 0:0
+#439 depth
+  G: parameter 'RGGEN_ACCESS_DATA_BIT' full=work@rggen_bus_if.RGGEN_ACCESS_DATA_BIT rggen_rtl_pkg.sv:8:19-8:40 [0 UINT:0]
+     < param_assign '' 8:19 < interface_inst '' 1:1 < design 'work@rggen' 0:0
+  O: param_assign '' rggen_rtl_pkg.sv:9:19-9:50
+     < interface_inst '' 1:1 < design 'work@rggen' 0:0

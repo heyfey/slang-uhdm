@@ -1,0 +1,9 @@
+surelog	default	Rggen	dist_A=153478	dist_B=152788	A_vs_B=1656
+surelog	default	ComplexHierPath	dist_A=115	dist_B=100	A_vs_B=15
+surelog	testflags	ComplexHierPath	dist_A=88	dist_B=73	A_vs_B=15
+surelog	default	GenForStructParamBound	dist_A=637	dist_B=632	A_vs_B=5
+surelog	default	GenIfIfaceParamStructField	dist_A=607	dist_B=602	A_vs_B=5
+surelog	default	OneNetModPort	dist_A=361	dist_B=356	A_vs_B=5
+surelog	testflags	OneNetModPort	dist_A=311	dist_B=306	A_vs_B=5
+surelog	default	Earlgrey_0_1	dist_A=747327	dist_B=747045	A_vs_B=282
+surelog	testflags	Earlgrey_0_1	dist_A=7343384	dist_B=7343182	A_vs_B=282

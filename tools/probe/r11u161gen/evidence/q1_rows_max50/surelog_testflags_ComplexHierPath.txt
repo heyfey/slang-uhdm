@@ -1,0 +1,40 @@
+#30 col
+  G: ref_obj 'B' dut.sv:11:58-11:59 [0]
+     < hier_path 'B.x' 11:56 < cont_assign '' 11:56 < named_begin 'C' 0:0 < gen_if '' 9:41 < named_begin 'B' 0:0 < gen_if '' 7:33
+  O: ref_obj 'B' dut.sv:11:56-11:57 [0]
+     < hier_path 'B.x' 11:56 < cont_assign '' 11:56 < named_begin 'C' 0:0 < gen_if '' 9:41 < named_begin 'B' 0:0 < gen_if '' 7:33
+#31 fullname
+  G: ref_obj 'x' dut.sv:11:58-11:59 [0]
+     < hier_path 'B.x' 11:56 < cont_assign '' 11:56 < named_begin 'C' 0:0 < gen_if '' 9:41 < named_begin 'B' 0:0 < gen_if '' 7:33
+  O: ref_obj 'x' full=work@genblk_dive_top.Z.A.B.C.x dut.sv:11:58-11:59 [0]
+     < hier_path 'B.x' 11:56 < cont_assign '' 11:56 < named_begin 'C' 0:0 < gen_if '' 9:41 < named_begin 'B' 0:0 < gen_if '' 7:33
+#39 col
+  G: ref_obj 'A' dut.sv:14:50-14:51 [0]
+     < hier_path 'A.x' 14:48 < cont_assign '' 14:48 < named_begin 'B' 0:0 < gen_if '' 7:33 < named_begin 'A' 0:0 < gen_if '' 5:25
+  O: ref_obj 'A' dut.sv:14:48-14:49 [0]
+     < hier_path 'A.x' 14:48 < cont_assign '' 14:48 < named_begin 'B' 0:0 < gen_if '' 7:33 < named_begin 'A' 0:0 < gen_if '' 5:25
+#40 fullname
+  G: ref_obj 'x' dut.sv:14:50-14:51 [0]
+     < hier_path 'A.x' 14:48 < cont_assign '' 14:48 < named_begin 'B' 0:0 < gen_if '' 7:33 < named_begin 'A' 0:0 < gen_if '' 5:25
+  O: ref_obj 'x' full=work@genblk_dive_top.Z.A.B.x dut.sv:14:50-14:51 [0]
+     < hier_path 'A.x' 14:48 < cont_assign '' 14:48 < named_begin 'B' 0:0 < gen_if '' 7:33 < named_begin 'A' 0:0 < gen_if '' 5:25
+#46 col
+  G: ref_obj 'B' dut.sv:16:42-16:43 [0]
+     < hier_path 'B.C.x' 16:40 < cont_assign '' 16:40 < named_begin 'A' 0:0 < gen_if '' 5:25 < named_begin 'Z' 0:0 < gen_if '' 4:17
+  O: ref_obj 'B' dut.sv:16:40-16:41 [0]
+     < hier_path 'B.C.x' 16:40 < cont_assign '' 16:40 < named_begin 'A' 0:0 < gen_if '' 5:25 < named_begin 'Z' 0:0 < gen_if '' 4:17
+#48 fullname
+  G: ref_obj 'x' dut.sv:16:44-16:45 [0]
+     < hier_path 'B.C.x' 16:40 < cont_assign '' 16:40 < named_begin 'A' 0:0 < gen_if '' 5:25 < named_begin 'Z' 0:0 < gen_if '' 4:17
+  O: ref_obj 'x' full=work@genblk_dive_top.Z.A.x dut.sv:16:44-16:45 [0]
+     < hier_path 'B.C.x' 16:40 < cont_assign '' 16:40 < named_begin 'A' 0:0 < gen_if '' 5:25 < named_begin 'Z' 0:0 < gen_if '' 4:17
+#84 endcol
+  G: hier_path 'B.C.x' dut.sv:16:40-16:45 [0]
+     < cont_assign '' 16:40 < gen_scope '' 5:32 < ref_obj 'A' 14:54 < hier_path 'A.B.C.x' 14:54 < cont_assign '' 14:48 < gen_scope '' 7:40
+  O: hier_path 'B.C.x' dut.sv:16:40-16:43 [0]
+     < cont_assign '' 16:40 < gen_scope '' 5:32 < ref_obj 'A' 14:54 < hier_path 'A.B.C.x' 14:54 < cont_assign '' 14:48 < gen_scope '' 7:40
+#106 depth
+  G: cont_assign '' dut.sv:11:56-11:63
+     < gen_scope '' 9:48 < ref_obj 'C' 12:62 < hier_path 'A.B.C.x' 12:58 < cont_assign '' 12:54 < gen_scope '' 9:48 < ref_obj 'C' 16:42
+  O: logic_net 'z' full=work@genblk_dive_top.Z.A.B.C.z dut.sv:12:54-12:55 [0]
+     < cont_assign '' 12:54 < gen_scope '' 9:48 < ref_obj 'C' 12:62 < hier_path 'A.B.C.x' 12:58 < cont_assign '' 12:54 < gen_scope '' 9:48

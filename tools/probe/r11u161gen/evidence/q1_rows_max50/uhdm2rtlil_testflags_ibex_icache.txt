@@ -1,0 +1,140 @@
+#357 fullname
+  G: ref_obj 'LfsrWidth' full=<in>lfsr_seed_t.LfsrWidth ibex_pkg.sv:720:18-720:27 [0]
+     < operation '' 720:18 < range '' 720:17 < logic_typespec 'lfsr_seed_t' 720:11 < ref_typespec '' 0:0 < parameter 'RndCnstLfsrSeedDefault' 722:25 < package 'ibex_pkg' 9:1
+  O: ref_obj 'LfsrWidth' full=ibex_pkg::RndCnstLfsrSeedDefault.LfsrWidth ibex_pkg.sv:720:18-720:27 [0]
+     < operation '' 720:18 < range '' 720:17 < logic_typespec 'lfsr_seed_t' 720:11 < ref_typespec '' 0:0 < parameter 'RndCnstLfsrSeedDefault' 722:25 < package 'ibex_pkg' 9:1
+#384 fullname
+  G: ref_obj 'LfsrWidth' full=<in>lfsr_perm_t.LfsrWidth ibex_pkg.sv:721:18-721:27 [0]
+     < operation '' 721:18 < range '' 721:17 < logic_typespec 'lfsr_perm_t' 721:11 < ref_typespec '' 0:0 < parameter 'RndCnstLfsrPermDefault' 723:25 < package 'ibex_pkg' 9:1
+  O: ref_obj 'LfsrWidth' full=ibex_pkg::RndCnstLfsrPermDefault.LfsrWidth ibex_pkg.sv:721:18-721:27 [0]
+     < operation '' 721:18 < range '' 721:17 < logic_typespec 'lfsr_perm_t' 721:11 < ref_typespec '' 0:0 < parameter 'RndCnstLfsrPermDefault' 723:25 < package 'ibex_pkg' 9:1
+#398 fullname
+  G: ref_obj 'SCRAMBLE_KEY_W' full=<in>SCRAMBLE_KEY_W ibex_pkg.sv:726:20-726:34 [0]
+     < operation '' 726:20 < range '' 726:19 < logic_typespec '' 726:13 < ref_typespec '' 0:0 < parameter 'RndCnstIbexKeyDefault' 726:42 < package 'ibex_pkg' 9:1
+  O: ref_obj 'SCRAMBLE_KEY_W' full=<in>SCRAMBLE_KEY_W ibex_pkg.sv:726:20-726:34 [0]
+     < operation '' 726:20 < range '' 726:19 < logic_typespec '' 726:13 < ref_typespec '' 0:0 < parameter 'RndCnstIbexKeyDefault' 726:42 < package 'ibex_pkg' 9:1
+#409 fullname
+  G: ref_obj 'SCRAMBLE_NONCE_W' full=<in>SCRAMBLE_NONCE_W ibex_pkg.sv:728:20-728:36 [0]
+     < operation '' 728:20 < range '' 728:19 < logic_typespec '' 728:13 < ref_typespec '' 0:0 < parameter 'RndCnstIbexNonceDefault' 728:42 < package 'ibex_pkg' 9:1
+  O: ref_obj 'SCRAMBLE_NONCE_W' full=<in>SCRAMBLE_NONCE_W ibex_pkg.sv:728:20-728:36 [0]
+     < operation '' 728:20 < range '' 728:19 < logic_typespec '' 728:13 < ref_typespec '' 0:0 < parameter 'RndCnstIbexNonceDefault' 728:42 < package 'ibex_pkg' 9:1
+#433 fullname
+  G: ref_obj 'IbexMuBiWidth' full=<in>ibex_mubi_t.IbexMuBiWidth ibex_pkg.sv:734:18-734:31 [0]
+     < operation '' 734:18 < range '' 734:17 < logic_typespec 'ibex_mubi_t' 734:11 < ref_typespec '' 0:0 < parameter 'IbexMuBiOn' 740:25 < package 'ibex_pkg' 9:1
+  O: ref_obj 'IbexMuBiWidth' full=ibex_pkg::IbexMuBiOn.IbexMuBiWidth ibex_pkg.sv:734:18-734:31 [0]
+     < operation '' 734:18 < range '' 734:17 < logic_typespec 'ibex_mubi_t' 734:11 < ref_typespec '' 0:0 < parameter 'IbexMuBiOn' 740:25 < package 'ibex_pkg' 9:1
+#451 fullname
+  G: ref_obj 'IbexMuBiWidth' full=<in>ibex_mubi_t.IbexMuBiWidth ibex_pkg.sv:734:18-734:31 [0]
+     < operation '' 734:18 < range '' 734:17 < logic_typespec 'ibex_mubi_t' 734:11 < ref_typespec '' 0:0 < parameter 'IbexMuBiOff' 741:25 < package 'ibex_pkg' 9:1
+  O: ref_obj 'IbexMuBiWidth' full=ibex_pkg::IbexMuBiOff.IbexMuBiWidth ibex_pkg.sv:734:18-734:31 [0]
+     < operation '' 734:18 < range '' 734:17 < logic_typespec 'ibex_mubi_t' 734:11 < ref_typespec '' 0:0 < parameter 'IbexMuBiOff' 741:25 < package 'ibex_pkg' 9:1
+#914 fullname
+  G: ref_obj 'LfsrWidth' full=<in>lfsr_seed_t.LfsrWidth ibex_pkg.sv:720:18-720:27 [0]
+     < operation '' 720:18 < range '' 720:17 < logic_typespec 'lfsr_seed_t' 720:11 < ref_typespec '' 0:0 < constant '' 722:50 < param_assign '' 722:25
+  O: ref_obj 'LfsrWidth' full=ibex_pkg::RndCnstLfsrSeedDefault.LfsrWidth ibex_pkg.sv:720:18-720:27 [0]
+     < operation '' 720:18 < range '' 720:17 < logic_typespec 'lfsr_seed_t' 720:11 < ref_typespec '' 0:0 < constant '' 722:50 < param_assign '' 722:25
+#926 fullname
+  G: ref_obj 'SCRAMBLE_KEY_W' full=<in>SCRAMBLE_KEY_W ibex_pkg.sv:726:20-726:34 [0]
+     < operation '' 726:20 < range '' 726:19 < logic_typespec '' 726:13 < ref_typespec '' 0:0 < constant '' 727:7 < param_assign '' 726:42
+  O: ref_obj 'SCRAMBLE_KEY_W' full=<in>SCRAMBLE_KEY_W ibex_pkg.sv:726:20-726:34 [0]
+     < operation '' 726:20 < range '' 726:19 < logic_typespec '' 726:13 < ref_typespec '' 0:0 < constant '' 727:7 < param_assign '' 726:42
+#935 fullname
+  G: ref_obj 'SCRAMBLE_NONCE_W' full=<in>SCRAMBLE_NONCE_W ibex_pkg.sv:728:20-728:36 [0]
+     < operation '' 728:20 < range '' 728:19 < logic_typespec '' 728:13 < ref_typespec '' 0:0 < constant '' 729:7 < param_assign '' 728:42
+  O: ref_obj 'SCRAMBLE_NONCE_W' full=<in>SCRAMBLE_NONCE_W ibex_pkg.sv:728:20-728:36 [0]
+     < operation '' 728:20 < range '' 728:19 < logic_typespec '' 728:13 < ref_typespec '' 0:0 < constant '' 729:7 < param_assign '' 728:42
+#955 fullname
+  G: ref_obj 'IbexMuBiWidth' full=<in>ibex_mubi_t.IbexMuBiWidth ibex_pkg.sv:734:18-734:31 [0]
+     < operation '' 734:18 < range '' 734:17 < logic_typespec 'ibex_mubi_t' 734:11 < ref_typespec '' 0:0 < constant '' 740:39 < param_assign '' 740:25
+  O: ref_obj 'IbexMuBiWidth' full=ibex_pkg::IbexMuBiOn.IbexMuBiWidth ibex_pkg.sv:734:18-734:31 [0]
+     < operation '' 734:18 < range '' 734:17 < logic_typespec 'ibex_mubi_t' 734:11 < ref_typespec '' 0:0 < constant '' 740:39 < param_assign '' 740:25
+#971 fullname
+  G: ref_obj 'IbexMuBiWidth' full=<in>ibex_mubi_t.IbexMuBiWidth ibex_pkg.sv:734:18-734:31 [0]
+     < operation '' 734:18 < range '' 734:17 < logic_typespec 'ibex_mubi_t' 734:11 < ref_typespec '' 0:0 < constant '' 741:39 < param_assign '' 741:25
+  O: ref_obj 'IbexMuBiWidth' full=ibex_pkg::IbexMuBiOff.IbexMuBiWidth ibex_pkg.sv:734:18-734:31 [0]
+     < operation '' 734:18 < range '' 734:17 < logic_typespec 'ibex_mubi_t' 734:11 < ref_typespec '' 0:0 < constant '' 741:39 < param_assign '' 741:25
+#2174 value
+  G: parameter 'BUS_BYTES' full=ibex_pkg::BUS_BYTES ibex_pkg.sv:384:26-384:35 [0 INT:4]
+     < package 'ibex_pkg' 9:1 < design 'work@ibex_icache' 0:0
+  O: parameter 'BUS_BYTES' full=ibex_pkg::BUS_BYTES ibex_pkg.sv:384:26-384:35 [0 UINT:4]
+     < package 'ibex_pkg' 9:1 < design 'work@ibex_icache' 0:0
+#2189 value
+  G: parameter 'IC_LINE_BYTES' full=ibex_pkg::IC_LINE_BYTES ibex_pkg.sv:389:26-389:39 [0 INT:8]
+     < package 'ibex_pkg' 9:1 < design 'work@ibex_icache' 0:0
+  O: parameter 'IC_LINE_BYTES' full=ibex_pkg::IC_LINE_BYTES ibex_pkg.sv:389:26-389:39 [0 UINT:8]
+     < package 'ibex_pkg' 9:1 < design 'work@ibex_icache' 0:0
+#2195 value
+  G: parameter 'IC_NUM_LINES' full=ibex_pkg::IC_NUM_LINES ibex_pkg.sv:391:26-391:38 [0 INT:256]
+     < package 'ibex_pkg' 9:1 < design 'work@ibex_icache' 0:0
+  O: parameter 'IC_NUM_LINES' full=ibex_pkg::IC_NUM_LINES ibex_pkg.sv:391:26-391:38 [0 UINT:256]
+     < package 'ibex_pkg' 9:1 < design 'work@ibex_icache' 0:0
+#2198 value
+  G: parameter 'IC_LINE_BEATS' full=ibex_pkg::IC_LINE_BEATS ibex_pkg.sv:392:26-392:39 [0 INT:2]
+     < package 'ibex_pkg' 9:1 < design 'work@ibex_icache' 0:0
+  O: parameter 'IC_LINE_BEATS' full=ibex_pkg::IC_LINE_BEATS ibex_pkg.sv:392:26-392:39 [0 UINT:2]
+     < package 'ibex_pkg' 9:1 < design 'work@ibex_icache' 0:0
+#2207 value
+  G: parameter 'IC_INDEX_HI' full=ibex_pkg::IC_INDEX_HI ibex_pkg.sv:395:26-395:37 [0 INT:10]
+     < package 'ibex_pkg' 9:1 < design 'work@ibex_icache' 0:0
+  O: parameter 'IC_INDEX_HI' full=ibex_pkg::IC_INDEX_HI ibex_pkg.sv:395:26-395:37 [0 UINT:10]
+     < package 'ibex_pkg' 9:1 < design 'work@ibex_icache' 0:0
+#2210 value
+  G: parameter 'IC_TAG_SIZE' full=ibex_pkg::IC_TAG_SIZE ibex_pkg.sv:396:26-396:37 [0 INT:22]
+     < package 'ibex_pkg' 9:1 < design 'work@ibex_icache' 0:0
+  O: parameter 'IC_TAG_SIZE' full=ibex_pkg::IC_TAG_SIZE ibex_pkg.sv:396:26-396:37 [0 UINT:22]
+     < package 'ibex_pkg' 9:1 < design 'work@ibex_icache' 0:0
+#2213 value
+  G: parameter 'IC_OUTPUT_BEATS' full=ibex_pkg::IC_OUTPUT_BEATS ibex_pkg.sv:397:26-397:41 [0 INT:2]
+     < package 'ibex_pkg' 9:1 < design 'work@ibex_icache' 0:0
+  O: parameter 'IC_OUTPUT_BEATS' full=ibex_pkg::IC_OUTPUT_BEATS ibex_pkg.sv:397:26-397:41 [0 UINT:2]
+     < package 'ibex_pkg' 9:1 < design 'work@ibex_icache' 0:0
+#2446 fullname
+  G: ref_typespec '' :0:0-0:0 [0]
+     < constant '' 772:20 < range '' 772:19 < logic_typespec '' 772:13 < ref_typespec '' 0:0 < array_typespec '' 772:13 < ref_typespec '' 0:0
+  O: ref_typespec '' full=<in> :0:0-0:0 [0]
+     < constant '' 772:20 < range '' 772:19 < logic_typespec '' 772:13 < ref_typespec '' 0:0 < array_typespec '' 772:13 < ref_typespec '' 0:0
+#3901 value
+  G: parameter 'BUS_BYTES' full=work@ibex_icache.BUS_BYTES ibex_pkg.sv:384:26-384:35 [0 INT:4]
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+  O: parameter 'BUS_BYTES' full=work@ibex_icache.BUS_BYTES ibex_pkg.sv:384:26-384:35 [0 UINT:4]
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+#4165 value
+  G: parameter 'IC_INDEX_HI' full=work@ibex_icache.IC_INDEX_HI ibex_pkg.sv:395:26-395:37 [0 INT:10]
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+  O: parameter 'IC_INDEX_HI' full=work@ibex_icache.IC_INDEX_HI ibex_pkg.sv:395:26-395:37 [0 UINT:10]
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+#4171 value
+  G: parameter 'IC_LINE_BEATS' full=work@ibex_icache.IC_LINE_BEATS ibex_pkg.sv:392:26-392:39 [0 INT:2]
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+  O: parameter 'IC_LINE_BEATS' full=work@ibex_icache.IC_LINE_BEATS ibex_pkg.sv:392:26-392:39 [0 UINT:2]
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+#4177 value
+  G: parameter 'IC_LINE_BYTES' full=work@ibex_icache.IC_LINE_BYTES ibex_pkg.sv:389:26-389:39 [0 INT:8]
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+  O: parameter 'IC_LINE_BYTES' full=work@ibex_icache.IC_LINE_BYTES ibex_pkg.sv:389:26-389:39 [0 UINT:8]
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+#4186 value
+  G: parameter 'IC_NUM_LINES' full=work@ibex_icache.IC_NUM_LINES ibex_pkg.sv:391:26-391:38 [0 INT:256]
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+  O: parameter 'IC_NUM_LINES' full=work@ibex_icache.IC_NUM_LINES ibex_pkg.sv:391:26-391:38 [0 UINT:256]
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+#4192 value
+  G: parameter 'IC_OUTPUT_BEATS' full=work@ibex_icache.IC_OUTPUT_BEATS ibex_pkg.sv:397:26-397:41 [0 INT:2]
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+  O: parameter 'IC_OUTPUT_BEATS' full=work@ibex_icache.IC_OUTPUT_BEATS ibex_pkg.sv:397:26-397:41 [0 UINT:2]
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+#4201 value
+  G: parameter 'IC_TAG_SIZE' full=work@ibex_icache.IC_TAG_SIZE ibex_pkg.sv:396:26-396:37 [0 INT:22]
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+  O: parameter 'IC_TAG_SIZE' full=work@ibex_icache.IC_TAG_SIZE ibex_pkg.sv:396:26-396:37 [0 UINT:22]
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+#4387 value
+  G: parameter 'TagSizeECC' full=work@ibex_icache.TagSizeECC ibex_icache.sv:17:26-17:36 [0 INT:22]
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+  O: parameter 'TagSizeECC' full=work@ibex_icache.TagSizeECC ibex_icache.sv:17:26-17:36 [0 UINT:22]
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+#4419 depth
+  G: parameter 'ExcCauseIrqSoftwareM' full=work@ibex_icache.ExcCauseIrqSoftwareM ibex_pkg.sv:341:26-341:46 [0]
+     < param_assign '' 341:26 < module_inst '' 13:1 < design 'work@ibex_icache' 0:0
+  O: param_assign '' ibex_pkg.sv:343:26-344:56
+     < module_inst '' 13:1 < design 'work@ibex_icache' 0:0

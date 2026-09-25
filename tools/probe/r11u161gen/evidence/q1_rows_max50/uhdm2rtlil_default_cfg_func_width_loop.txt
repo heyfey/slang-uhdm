@@ -1,0 +1,25 @@
+#379 endcol
+  G: func_call 'q::maxw' dut.sv:39:19-39:22 [0]
+     < operation '' 39:19 < range '' 39:18 < logic_typespec '' 39:12 < ref_typespec '' 0:0 < port 'a' 39:35 < module_inst '' 36:1
+  O: func_call 'q::maxw' dut.sv:39:19-39:26 [0]
+     < operation '' 39:19 < range '' 39:18 < logic_typespec '' 39:12 < ref_typespec '' 0:0 < port 'a' 39:35 < module_inst '' 36:1
+#396 endcol
+  G: func_call 'q::maxw' dut.sv:41:19-41:22 [0]
+     < operation '' 41:19 < range '' 41:18 < logic_typespec '' 41:12 < ref_typespec '' 0:0 < port 'b' 41:35 < module_inst '' 36:1
+  O: func_call 'q::maxw' dut.sv:41:19-41:26 [0]
+     < operation '' 41:19 < range '' 41:18 < logic_typespec '' 41:12 < ref_typespec '' 0:0 < port 'b' 41:35 < module_inst '' 36:1
+#464 line
+  G: logic_typespec 'mask_t' dut.sv:27:40-27:46
+     < ref_typespec '' 0:0 < constant '' 37:29 < param_assign '' 37:25 < module_inst 'u' 53:3 < module_inst 'work@cfg_func_width_loop' 47:1 < design 'work@cfg_func_width_loop' 0:0
+  O: logic_typespec 'mask_t' dut.sv:16:11-16:25
+     < ref_typespec '' 0:0 < constant '' 37:29 < param_assign '' 37:25 < module_inst 'u' 53:3 < module_inst 'work@cfg_func_width_loop' 47:1 < design 'work@cfg_func_width_loop' 0:0
+#465 fullname
+  G: ref_typespec '' full=<in>mask_t :0:0-0:0 [0]
+     < logic_typespec 'mask_t' 27:40 < ref_typespec '' 0:0 < constant '' 37:29 < param_assign '' 37:25 < module_inst 'u' 53:3 < module_inst 'work@cfg_func_width_loop' 47:1
+  O: ref_typespec '' full=<in>mask_t :0:0-0:0 [0]
+     < logic_typespec 'mask_t' 16:11 < ref_typespec '' 0:0 < constant '' 37:29 < param_assign '' 37:25 < module_inst 'u' 53:3 < module_inst 'work@cfg_func_width_loop' 47:1
+#472 type
+  G: constant '' dut.sv:16:20-16:22 [2 64 INT:2 7]
+     < range '' 16:17 < logic_typespec 'mask_t' 27:40 < ref_typespec '' 0:0 < constant '' 37:29 < param_assign '' 37:25 < module_inst 'u' 53:3
+  O: operation '' dut.sv:16:20-16:24 [0]
+     < range '' 16:17 < logic_typespec 'mask_t' 16:11 < ref_typespec '' 0:0 < constant '' 37:29 < param_assign '' 37:25 < module_inst 'u' 53:3

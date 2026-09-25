@@ -1,0 +1,250 @@
+#2196 fullname
+  G: ref_obj 'SWORD' full=work@Alg_Booth.S.SWORD MULT.v:80:30-80:35 [0]
+     < part_select 'S' 80:28 < operation '' 80:10 < assignment '' 80:6 < begin '' 78:11 < case_item '' 78:5 < case_stmt '' 73:4
+  O: ref_obj 'SWORD' full=work@Alg_Booth.SWORD MULT.v:80:30-80:35 [0]
+     < part_select 'S' 80:28 < operation '' 80:10 < assignment '' 80:6 < begin '' 78:11 < case_item '' 78:5 < case_stmt '' 73:4
+#2221 fullname
+  G: ref_obj 'SWORD' full=work@Alg_Booth.S.SWORD MULT.v:85:30-85:35 [0]
+     < part_select 'S' 85:28 < operation '' 85:10 < assignment '' 85:6 < begin '' 83:11 < case_item '' 83:5 < case_stmt '' 73:4
+  O: ref_obj 'SWORD' full=work@Alg_Booth.SWORD MULT.v:85:30-85:35 [0]
+     < part_select 'S' 85:28 < operation '' 85:10 < assignment '' 85:6 < begin '' 83:11 < case_item '' 83:5 < case_stmt '' 73:4
+#7848 file
+  G: logic_net 'inp0' full=work@s2qed.inp0 :45:2-45:6 [0]
+     < ref_obj 'inp0' 45:2 < operation '' 45:2 < property_spec '' 44:2 < property_decl 'p_S2QED_MAPPED_VAL' 43:10 < module_inst '' 9:1 < design 'work@Wrapper' 0:0
+  O: logic_net 'inp0' full=work@s2qed.inp0 jg_bind_wrapper.sv:45:2-45:6 [0]
+     < ref_obj 'inp0' 45:2 < operation '' 45:2 < property_spec '' 44:2 < property_decl 'p_S2QED_MAPPED_VAL' 43:10 < module_inst '' 9:1 < design 'work@Wrapper' 0:0
+#7851 file
+  G: logic_net 'inp1' full=work@s2qed.inp1 :45:18-45:22 [0]
+     < ref_obj 'inp1' 45:18 < func_call 'reg_map' 45:10 < operation '' 45:2 < property_spec '' 44:2 < property_decl 'p_S2QED_MAPPED_VAL' 43:10 < module_inst '' 9:1
+  O: logic_net 'inp1' full=work@s2qed.inp1 jg_bind_wrapper.sv:45:18-45:22 [0]
+     < ref_obj 'inp1' 45:18 < func_call 'reg_map' 45:10 < operation '' 45:2 < property_spec '' 44:2 < property_decl 'p_S2QED_MAPPED_VAL' 43:10 < module_inst '' 9:1
+#7888 file
+  G: logic_net 'state' full=work@s2qed.state :70:48-70:53 [0]
+     < ref_obj 'state' 70:48 < operation '' 70:34 < operation '' 70:3 < operation '' 70:2 < property_spec '' 69:2 < property_decl 'p_S2QED_SAME_REG_N_STATE' 68:10
+  O: logic_net 'state' full=work@s2qed.state jg_bind_wrapper.sv:70:48-70:53 [0]
+     < ref_obj 'state' 70:48 < operation '' 70:34 < operation '' 70:3 < operation '' 70:2 < property_spec '' 69:2 < property_decl 'p_S2QED_SAME_REG_N_STATE' 68:10
+#7892 file
+  G: logic_net 'num' full=work@s2qed.num :70:69-70:72 [0]
+     < ref_obj 'num' 70:69 < bit_select 'cpu0_reg' 70:69 < operation '' 70:60 < operation '' 70:2 < property_spec '' 69:2 < property_decl 'p_S2QED_SAME_REG_N_STATE' 68:10
+  O: logic_net 'num' full=work@s2qed.num jg_bind_wrapper.sv:70:69-70:72 [0]
+     < ref_obj 'num' 70:69 < bit_select 'cpu0_reg' 70:69 < operation '' 70:60 < operation '' 70:2 < property_spec '' 69:2 < property_decl 'p_S2QED_SAME_REG_N_STATE' 68:10
+#7905 file
+  G: logic_net 'opcode' full=work@s2qed.opcode :191:10-191:16 [0]
+     < ref_obj 'opcode' 191:10 < operation '' 191:10 < operation '' 191:10 < property_spec '' 190:3 < property_decl 'allow_opcodes' 189:15 < module_inst '' 9:1
+  O: logic_net 'opcode' full=work@s2qed.opcode jg_bind_wrapper.sv:191:10-191:16 [0]
+     < ref_obj 'opcode' 191:10 < operation '' 191:10 < operation '' 191:10 < property_spec '' 190:3 < property_decl 'allow_opcodes' 189:15 < module_inst '' 9:1
+#7906 file
+  G: constant '' jg_bind_wrapper.sv:191:20-191:30 [7'b0110011 7 BIN:0110011 3]
+     < operation '' 191:10 < operation '' 191:10 < property_spec '' 190:3 < property_decl 'allow_opcodes' 189:15 < module_inst '' 9:1 < design 'work@Wrapper' 0:0
+  O: constant '' rv32_opcodes.v:191:20-191:30 [7'b0110011 7 BIN:0110011 3]
+     < operation '' 191:10 < operation '' 191:10 < property_spec '' 190:3 < property_decl 'allow_opcodes' 189:15 < module_inst '' 9:1 < design 'work@Wrapper' 0:0
+#7909 file
+  G: constant '' jg_bind_wrapper.sv:192:20-192:30 [7'b0010011 7 BIN:0010011 3]
+     < operation '' 192:10 < operation '' 191:10 < property_spec '' 190:3 < property_decl 'allow_opcodes' 189:15 < module_inst '' 9:1 < design 'work@Wrapper' 0:0
+  O: constant '' rv32_opcodes.v:192:20-192:30 [7'b0010011 7 BIN:0010011 3]
+     < operation '' 192:10 < operation '' 191:10 < property_spec '' 190:3 < property_decl 'allow_opcodes' 189:15 < module_inst '' 9:1 < design 'work@Wrapper' 0:0
+#16031 fullname
+  G: ref_obj 'SWORD' full=work@Alg_Booth.S.SWORD MULT.v:80:30-80:35 [0]
+     < part_select 'S' 80:28 < operation '' 80:10 < assignment '' 80:6 < begin '' 78:11 < case_item '' 78:5 < case_stmt '' 73:4
+  O: ref_obj 'SWORD' full=work@Alg_Booth.SWORD MULT.v:80:30-80:35 [0]
+     < part_select 'S' 80:28 < operation '' 80:10 < assignment '' 80:6 < begin '' 78:11 < case_item '' 78:5 < case_stmt '' 73:4
+#16064 fullname
+  G: ref_obj 'SWORD' full=work@Alg_Booth.S.SWORD MULT.v:85:30-85:35 [0]
+     < part_select 'S' 85:28 < operation '' 85:10 < assignment '' 85:6 < begin '' 83:11 < case_item '' 83:5 < case_stmt '' 73:4
+  O: ref_obj 'SWORD' full=work@Alg_Booth.SWORD MULT.v:85:30-85:35 [0]
+     < part_select 'S' 85:28 < operation '' 85:10 < assignment '' 85:6 < begin '' 83:11 < case_item '' 83:5 < case_stmt '' 73:4
+#22643 file
+  G: logic_net 'inp0' full=work@s2qed.inp0 :45:2-45:6 [0]
+     < ref_obj 'inp0' 45:2 < operation '' 45:2 < property_spec '' 44:2 < property_decl 'p_S2QED_MAPPED_VAL' 43:10 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1
+  O: logic_net 'inp0' full=work@s2qed.inp0 jg_bind_wrapper.sv:45:2-45:6 [0]
+     < ref_obj 'inp0' 45:2 < operation '' 45:2 < property_spec '' 44:2 < property_decl 'p_S2QED_MAPPED_VAL' 43:10 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1
+#22646 file
+  G: logic_net 'inp1' full=work@s2qed.inp1 :45:18-45:22 [0]
+     < ref_obj 'inp1' 45:18 < func_call 'reg_map' 45:10 < operation '' 45:2 < property_spec '' 44:2 < property_decl 'p_S2QED_MAPPED_VAL' 43:10 < module_inst 'S2QED_BIND' 311:27
+  O: logic_net 'inp1' full=work@s2qed.inp1 jg_bind_wrapper.sv:45:18-45:22 [0]
+     < ref_obj 'inp1' 45:18 < func_call 'reg_map' 45:10 < operation '' 45:2 < property_spec '' 44:2 < property_decl 'p_S2QED_MAPPED_VAL' 43:10 < module_inst 'S2QED_BIND' 311:27
+#22683 file
+  G: logic_net 'state' full=work@s2qed.state :70:48-70:53 [0]
+     < ref_obj 'state' 70:48 < operation '' 70:34 < operation '' 70:3 < operation '' 70:2 < property_spec '' 69:2 < property_decl 'p_S2QED_SAME_REG_N_STATE' 68:10
+  O: logic_net 'state' full=work@s2qed.state jg_bind_wrapper.sv:70:48-70:53 [0]
+     < ref_obj 'state' 70:48 < operation '' 70:34 < operation '' 70:3 < operation '' 70:2 < property_spec '' 69:2 < property_decl 'p_S2QED_SAME_REG_N_STATE' 68:10
+#22687 file
+  G: logic_net 'num' full=work@s2qed.num :70:69-70:72 [0]
+     < ref_obj 'num' 70:69 < bit_select 'cpu0_reg' 70:69 < operation '' 70:60 < operation '' 70:2 < property_spec '' 69:2 < property_decl 'p_S2QED_SAME_REG_N_STATE' 68:10
+  O: logic_net 'num' full=work@s2qed.num jg_bind_wrapper.sv:70:69-70:72 [0]
+     < ref_obj 'num' 70:69 < bit_select 'cpu0_reg' 70:69 < operation '' 70:60 < operation '' 70:2 < property_spec '' 69:2 < property_decl 'p_S2QED_SAME_REG_N_STATE' 68:10
+#22700 file
+  G: logic_net 'opcode' full=work@s2qed.opcode :191:10-191:16 [0]
+     < ref_obj 'opcode' 191:10 < operation '' 191:10 < operation '' 191:10 < property_spec '' 190:3 < property_decl 'allow_opcodes' 189:15 < module_inst 'S2QED_BIND' 311:27
+  O: logic_net 'opcode' full=work@s2qed.opcode jg_bind_wrapper.sv:191:10-191:16 [0]
+     < ref_obj 'opcode' 191:10 < operation '' 191:10 < operation '' 191:10 < property_spec '' 190:3 < property_decl 'allow_opcodes' 189:15 < module_inst 'S2QED_BIND' 311:27
+#22701 file
+  G: constant '' jg_bind_wrapper.sv:191:20-191:30 [7'b0110011 7 BIN:0110011 3]
+     < operation '' 191:10 < operation '' 191:10 < property_spec '' 190:3 < property_decl 'allow_opcodes' 189:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1
+  O: constant '' rv32_opcodes.v:191:20-191:30 [7'b0110011 7 BIN:0110011 3]
+     < operation '' 191:10 < operation '' 191:10 < property_spec '' 190:3 < property_decl 'allow_opcodes' 189:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1
+#22704 file
+  G: constant '' jg_bind_wrapper.sv:192:20-192:30 [7'b0010011 7 BIN:0010011 3]
+     < operation '' 192:10 < operation '' 191:10 < property_spec '' 190:3 < property_decl 'allow_opcodes' 189:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1
+  O: constant '' rv32_opcodes.v:192:20-192:30 [7'b0010011 7 BIN:0010011 3]
+     < operation '' 192:10 < operation '' 191:10 < property_spec '' 190:3 < property_decl 'allow_opcodes' 189:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1
+#23371 fullname
+  G: hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rs1i' jg_bind_wrapper.sv:322:14-322:53 [0]
+     < port 'cpu0_rs1i' 20:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rs1i' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.mriscvcore_inst0.DECODE_INSTR_inst.rs1i jg_bind_wrapper.sv:322:14-322:53 [0]
+     < port 'cpu0_rs1i' 20:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23372 fullname
+  G: ref_obj 'mriscvcore_inst0' jg_bind_wrapper.sv:322:14-322:30 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rs1i' 322:14 < port 'cpu0_rs1i' 20:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'mriscvcore_inst0' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.mriscvcore_inst0 jg_bind_wrapper.sv:322:14-322:30 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rs1i' 322:14 < port 'cpu0_rs1i' 20:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23373 fullname
+  G: ref_obj 'DECODE_INSTR_inst' jg_bind_wrapper.sv:322:31-322:48 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rs1i' 322:14 < port 'cpu0_rs1i' 20:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'DECODE_INSTR_inst' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs1i.DECODE_INSTR_inst jg_bind_wrapper.sv:322:31-322:48 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rs1i' 322:14 < port 'cpu0_rs1i' 20:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23382 fullname
+  G: hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rs1i' jg_bind_wrapper.sv:323:14-323:53 [0]
+     < port 'cpu1_rs1i' 21:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rs1i' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rs1i.mriscvcore_inst1.DECODE_INSTR_inst.rs1i jg_bind_wrapper.sv:323:14-323:53 [0]
+     < port 'cpu1_rs1i' 21:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23383 fullname
+  G: ref_obj 'mriscvcore_inst1' jg_bind_wrapper.sv:323:14-323:30 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rs1i' 323:14 < port 'cpu1_rs1i' 21:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'mriscvcore_inst1' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rs1i.mriscvcore_inst1 jg_bind_wrapper.sv:323:14-323:30 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rs1i' 323:14 < port 'cpu1_rs1i' 21:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23384 fullname
+  G: ref_obj 'DECODE_INSTR_inst' jg_bind_wrapper.sv:323:31-323:48 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rs1i' 323:14 < port 'cpu1_rs1i' 21:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'DECODE_INSTR_inst' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rs1i.DECODE_INSTR_inst jg_bind_wrapper.sv:323:31-323:48 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rs1i' 323:14 < port 'cpu1_rs1i' 21:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23393 fullname
+  G: hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rs2i' jg_bind_wrapper.sv:324:14-324:53 [0]
+     < port 'cpu0_rs2i' 22:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rs2i' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs2i.mriscvcore_inst0.DECODE_INSTR_inst.rs2i jg_bind_wrapper.sv:324:14-324:53 [0]
+     < port 'cpu0_rs2i' 22:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23394 fullname
+  G: ref_obj 'mriscvcore_inst0' jg_bind_wrapper.sv:324:14-324:30 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rs2i' 324:14 < port 'cpu0_rs2i' 22:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'mriscvcore_inst0' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs2i.mriscvcore_inst0 jg_bind_wrapper.sv:324:14-324:30 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rs2i' 324:14 < port 'cpu0_rs2i' 22:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23395 fullname
+  G: ref_obj 'DECODE_INSTR_inst' jg_bind_wrapper.sv:324:31-324:48 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rs2i' 324:14 < port 'cpu0_rs2i' 22:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'DECODE_INSTR_inst' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rs2i.DECODE_INSTR_inst jg_bind_wrapper.sv:324:31-324:48 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rs2i' 324:14 < port 'cpu0_rs2i' 22:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23404 fullname
+  G: hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rs2i' jg_bind_wrapper.sv:325:14-325:53 [0]
+     < port 'cpu1_rs2i' 23:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rs2i' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rs2i.mriscvcore_inst1.DECODE_INSTR_inst.rs2i jg_bind_wrapper.sv:325:14-325:53 [0]
+     < port 'cpu1_rs2i' 23:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23405 fullname
+  G: ref_obj 'mriscvcore_inst1' jg_bind_wrapper.sv:325:14-325:30 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rs2i' 325:14 < port 'cpu1_rs2i' 23:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'mriscvcore_inst1' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rs2i.mriscvcore_inst1 jg_bind_wrapper.sv:325:14-325:30 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rs2i' 325:14 < port 'cpu1_rs2i' 23:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23406 fullname
+  G: ref_obj 'DECODE_INSTR_inst' jg_bind_wrapper.sv:325:31-325:48 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rs2i' 325:14 < port 'cpu1_rs2i' 23:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'DECODE_INSTR_inst' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rs2i.DECODE_INSTR_inst jg_bind_wrapper.sv:325:31-325:48 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rs2i' 325:14 < port 'cpu1_rs2i' 23:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23415 fullname
+  G: hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rdi' jg_bind_wrapper.sv:326:13-326:51 [0]
+     < port 'cpu0_rdi' 24:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rdi' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rdi.mriscvcore_inst0.DECODE_INSTR_inst.rdi jg_bind_wrapper.sv:326:13-326:51 [0]
+     < port 'cpu0_rdi' 24:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23416 fullname
+  G: ref_obj 'mriscvcore_inst0' jg_bind_wrapper.sv:326:13-326:29 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rdi' 326:13 < port 'cpu0_rdi' 24:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'mriscvcore_inst0' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rdi.mriscvcore_inst0 jg_bind_wrapper.sv:326:13-326:29 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rdi' 326:13 < port 'cpu0_rdi' 24:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23417 fullname
+  G: ref_obj 'DECODE_INSTR_inst' jg_bind_wrapper.sv:326:30-326:47 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rdi' 326:13 < port 'cpu0_rdi' 24:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'DECODE_INSTR_inst' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_rdi.DECODE_INSTR_inst jg_bind_wrapper.sv:326:30-326:47 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.rdi' 326:13 < port 'cpu0_rdi' 24:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23426 fullname
+  G: hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rdi' jg_bind_wrapper.sv:327:13-327:51 [0]
+     < port 'cpu1_rdi' 25:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rdi' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rdi.mriscvcore_inst1.DECODE_INSTR_inst.rdi jg_bind_wrapper.sv:327:13-327:51 [0]
+     < port 'cpu1_rdi' 25:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23427 fullname
+  G: ref_obj 'mriscvcore_inst1' jg_bind_wrapper.sv:327:13-327:29 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rdi' 327:13 < port 'cpu1_rdi' 25:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'mriscvcore_inst1' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rdi.mriscvcore_inst1 jg_bind_wrapper.sv:327:13-327:29 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rdi' 327:13 < port 'cpu1_rdi' 25:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23428 fullname
+  G: ref_obj 'DECODE_INSTR_inst' jg_bind_wrapper.sv:327:30-327:47 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rdi' 327:13 < port 'cpu1_rdi' 25:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'DECODE_INSTR_inst' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_rdi.DECODE_INSTR_inst jg_bind_wrapper.sv:327:30-327:47 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.rdi' 327:13 < port 'cpu1_rdi' 25:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23437 fullname
+  G: hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.imm' jg_bind_wrapper.sv:328:13-328:51 [0]
+     < port 'cpu0_imm' 26:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.imm' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_imm.mriscvcore_inst0.DECODE_INSTR_inst.imm jg_bind_wrapper.sv:328:13-328:51 [0]
+     < port 'cpu0_imm' 26:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23438 fullname
+  G: ref_obj 'mriscvcore_inst0' jg_bind_wrapper.sv:328:13-328:29 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.imm' 328:13 < port 'cpu0_imm' 26:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'mriscvcore_inst0' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_imm.mriscvcore_inst0 jg_bind_wrapper.sv:328:13-328:29 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.imm' 328:13 < port 'cpu0_imm' 26:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23439 fullname
+  G: ref_obj 'DECODE_INSTR_inst' jg_bind_wrapper.sv:328:30-328:47 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.imm' 328:13 < port 'cpu0_imm' 26:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'DECODE_INSTR_inst' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_imm.DECODE_INSTR_inst jg_bind_wrapper.sv:328:30-328:47 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.imm' 328:13 < port 'cpu0_imm' 26:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23448 fullname
+  G: hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.imm' jg_bind_wrapper.sv:329:13-329:51 [0]
+     < port 'cpu1_imm' 27:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.imm' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_imm.mriscvcore_inst1.DECODE_INSTR_inst.imm jg_bind_wrapper.sv:329:13-329:51 [0]
+     < port 'cpu1_imm' 27:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23449 fullname
+  G: ref_obj 'mriscvcore_inst1' jg_bind_wrapper.sv:329:13-329:29 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.imm' 329:13 < port 'cpu1_imm' 27:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'mriscvcore_inst1' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_imm.mriscvcore_inst1 jg_bind_wrapper.sv:329:13-329:29 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.imm' 329:13 < port 'cpu1_imm' 27:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23450 fullname
+  G: ref_obj 'DECODE_INSTR_inst' jg_bind_wrapper.sv:329:30-329:47 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.imm' 329:13 < port 'cpu1_imm' 27:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'DECODE_INSTR_inst' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_imm.DECODE_INSTR_inst jg_bind_wrapper.sv:329:30-329:47 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.imm' 329:13 < port 'cpu1_imm' 27:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23459 fullname
+  G: hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.codif' jg_bind_wrapper.sv:330:15-330:55 [0]
+     < port 'cpu0_codif' 28:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.codif' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_codif.mriscvcore_inst0.DECODE_INSTR_inst.codif jg_bind_wrapper.sv:330:15-330:55 [0]
+     < port 'cpu0_codif' 28:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23460 fullname
+  G: ref_obj 'mriscvcore_inst0' jg_bind_wrapper.sv:330:15-330:31 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.codif' 330:15 < port 'cpu0_codif' 28:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'mriscvcore_inst0' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_codif.mriscvcore_inst0 jg_bind_wrapper.sv:330:15-330:31 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.codif' 330:15 < port 'cpu0_codif' 28:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23461 fullname
+  G: ref_obj 'DECODE_INSTR_inst' jg_bind_wrapper.sv:330:32-330:49 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.codif' 330:15 < port 'cpu0_codif' 28:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'DECODE_INSTR_inst' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu0_codif.DECODE_INSTR_inst jg_bind_wrapper.sv:330:32-330:49 [0]
+     < hier_path 'mriscvcore_inst0.DECODE_INSTR_inst.codif' 330:15 < port 'cpu0_codif' 28:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23470 fullname
+  G: hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.codif' jg_bind_wrapper.sv:331:15-331:55 [0]
+     < port 'cpu1_codif' 29:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.codif' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_codif.mriscvcore_inst1.DECODE_INSTR_inst.codif jg_bind_wrapper.sv:331:15-331:55 [0]
+     < port 'cpu1_codif' 29:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23471 fullname
+  G: ref_obj 'mriscvcore_inst1' jg_bind_wrapper.sv:331:15-331:31 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.codif' 331:15 < port 'cpu1_codif' 29:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'mriscvcore_inst1' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_codif.mriscvcore_inst1 jg_bind_wrapper.sv:331:15-331:31 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.codif' 331:15 < port 'cpu1_codif' 29:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23472 fullname
+  G: ref_obj 'DECODE_INSTR_inst' jg_bind_wrapper.sv:331:32-331:49 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.codif' 331:15 < port 'cpu1_codif' 29:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: ref_obj 'DECODE_INSTR_inst' full=work@mriscvcore_top_s2qed.S2QED_BIND.cpu1_codif.DECODE_INSTR_inst jg_bind_wrapper.sv:331:32-331:49 [0]
+     < hier_path 'mriscvcore_inst1.DECODE_INSTR_inst.codif' 331:15 < port 'cpu1_codif' 29:15 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23482 file
+  G: parameter 'i' full=work@mriscvcore_top_s2qed.S2QED_BIND.genblk1[0].i jg_bind_wrapper.sv:74:0-0:0 [0 UINT:0]
+     < gen_scope '' 74:33 < gen_scope_array 'genblk1[0]' 74:33 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: parameter 'i' full=work@mriscvcore_top_s2qed.S2QED_BIND.genblk1[0].i :74:0-0:0 [0 UINT:0]
+     < gen_scope '' 74:33 < gen_scope_array 'genblk1[0]' 74:33 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+#23492 file
+  G: parameter 'i' full=work@mriscvcore_top_s2qed.S2QED_BIND.genblk1[1].i jg_bind_wrapper.sv:74:0-0:0 [0 UINT:1]
+     < gen_scope '' 74:33 < gen_scope_array 'genblk1[1]' 74:33 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0
+  O: parameter 'i' full=work@mriscvcore_top_s2qed.S2QED_BIND.genblk1[1].i :74:0-0:0 [0 UINT:1]
+     < gen_scope '' 74:33 < gen_scope_array 'genblk1[1]' 74:33 < module_inst 'S2QED_BIND' 311:27 < module_inst 'work@mriscvcore_top_s2qed' 2:1 < design 'work@Wrapper' 0:0

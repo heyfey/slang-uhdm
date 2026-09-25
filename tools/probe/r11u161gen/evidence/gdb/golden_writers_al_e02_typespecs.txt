@@ -1,0 +1,9 @@
+logic_typespec 6 compileBuiltinTypespec < compileTypespec < compileTypeDef < compileDataDeclaration < collectObjects_
+enum_typespec 7 compileTypeDef < compileDataDeclaration < collectObjects_ < compile < operator
+logic_typespec 16 compileBuiltinTypespec < compileTypespec < compileTypeDef < compileDataDeclaration < collectObjects_
+enum_typespec 17 compileTypeDef < compileDataDeclaration < collectObjects_ < compile < operator
+enum_typespec 31 DeepClone < bindTypedefs_ < elaboration_ < elaborate < compile
+logic_typespec 33 DeepClone < DeepCopy < DeepClone < DeepCopy < DeepClone
+logic_typespec 44 compileBuiltinTypespec < compileTypespec < elab_ports_nets_ < elab_ports_nets_ < elaborate_
+logic_typespec 49 compileBuiltinTypespec < compileTypespec < elabSignal < elab_ports_nets_ < elab_ports_nets_
+logic_typespec 73 compileBuiltinTypespec < compileTypespec < writePorts < writeModule < write

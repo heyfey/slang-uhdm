@@ -1,0 +1,65 @@
+#44 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 5:33 < struct_typespec 'p::cfg_t' 5:11 < ref_typespec '' 0:0 < parameter 'CFG_DEF' 6:20 < package 'p' 3:1 < design 'work@top' 0:0
+  O: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 5:33 < struct_typespec 'p::cfg_t' 5:11 < ref_typespec '' 0:0 < parameter 'CFG_DEF' 6:20 < package 'p' 3:1 < design 'work@top' 0:0
+#61 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 5:33 < struct_typespec 'p::cfg_t' 5:11 < package 'p' 3:1 < design 'work@top' 0:0
+  O: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 5:33 < struct_typespec 'p::cfg_t' 5:11 < package 'p' 3:1 < design 'work@top' 0:0
+#158 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 5:33 < struct_typespec 'p::cfg_t' 5:11 < ref_typespec '' 0:0 < parameter 'CFG' 8:39 < interface_inst '' 8:1 < design 'work@top' 0:0
+  O: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 5:33 < struct_typespec 'p::cfg_t' 5:11 < ref_typespec '' 0:0 < parameter 'CFG' 8:39 < interface_inst '' 8:1 < design 'work@top' 0:0
+#203 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 5:33 < struct_typespec 'p::cfg_t' 5:11 < ref_typespec '' 0:0 < parameter 'CFG' 8:39 < interface_inst '' 8:1 < ref_obj 'sub' 13:22
+  O: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 5:33 < struct_typespec 'p::cfg_t' 5:11 < ref_typespec '' 0:0 < parameter 'CFG' 8:39 < interface_inst '' 8:1 < ref_obj 'sub' 13:22
+#246 col
+  G: ref_obj 'sub' dut.sv:15:13-15:16 [0]
+     < hier_path 'sub.CFG.HSK.DLY' 15:9 < operation '' 15:9 < gen_if_else '' 15:5 < begin '' 0:0 < gen_region '' 0:0 < module_inst '' 13:1
+  O: ref_obj 'sub' dut.sv:15:9-15:12 [0]
+     < hier_path 'sub.CFG.HSK.DLY' 15:9 < operation '' 15:9 < gen_if_else '' 15:5 < begin '' 0:0 < gen_region '' 0:0 < module_inst '' 13:1
+#249 fullname
+  G: ref_obj 'DLY' dut.sv:15:21-15:24 [0]
+     < hier_path 'sub.CFG.HSK.DLY' 15:9 < operation '' 15:9 < gen_if_else '' 15:5 < begin '' 0:0 < gen_region '' 0:0 < module_inst '' 13:1
+  O: ref_obj 'DLY' full=work@child.DLY dut.sv:15:21-15:24 [0]
+     < hier_path 'sub.CFG.HSK.DLY' 15:9 < operation '' 15:9 < gen_if_else '' 15:5 < begin '' 0:0 < gen_region '' 0:0 < module_inst '' 13:1
+#257 col
+  G: ref_obj 'sub' dut.sv:16:18-16:25 [0]
+     < hier_path 'sub.rsp_sel' 16:14 < cont_assign '' 16:14 < begin '' 0:0 < gen_if_else '' 15:5 < begin '' 0:0 < gen_region '' 0:0
+  O: ref_obj 'sub' dut.sv:16:14-16:17 [0]
+     < hier_path 'sub.rsp_sel' 16:14 < cont_assign '' 16:14 < begin '' 0:0 < gen_if_else '' 15:5 < begin '' 0:0 < gen_region '' 0:0
+#258 fullname
+  G: ref_obj 'rsp_sel' dut.sv:16:18-16:25 [0]
+     < hier_path 'sub.rsp_sel' 16:14 < cont_assign '' 16:14 < begin '' 0:0 < gen_if_else '' 15:5 < begin '' 0:0 < gen_region '' 0:0
+  O: ref_obj 'rsp_sel' full=work@child.rsp_sel dut.sv:16:18-16:25 [0]
+     < hier_path 'sub.rsp_sel' 16:14 < cont_assign '' 16:14 < begin '' 0:0 < gen_if_else '' 15:5 < begin '' 0:0 < gen_region '' 0:0
+#263 col
+  G: ref_obj 'sub' dut.sv:17:22-17:25 [0]
+     < hier_path 'sub.CFG.HSK.DLY' 17:18 < operation '' 17:18 < gen_if '' 17:14 < begin '' 0:0 < gen_if_else '' 15:5 < begin '' 0:0
+  O: ref_obj 'sub' dut.sv:17:18-17:21 [0]
+     < hier_path 'sub.CFG.HSK.DLY' 17:18 < operation '' 17:18 < gen_if '' 17:14 < begin '' 0:0 < gen_if_else '' 15:5 < begin '' 0:0
+#266 fullname
+  G: ref_obj 'DLY' dut.sv:17:30-17:33 [0]
+     < hier_path 'sub.CFG.HSK.DLY' 17:18 < operation '' 17:18 < gen_if '' 17:14 < begin '' 0:0 < gen_if_else '' 15:5 < begin '' 0:0
+  O: ref_obj 'DLY' full=work@child.DLY dut.sv:17:30-17:33 [0]
+     < hier_path 'sub.CFG.HSK.DLY' 17:18 < operation '' 17:18 < gen_if '' 17:14 < begin '' 0:0 < gen_if_else '' 15:5 < begin '' 0:0
+#320 file
+  G: parameter 'CFG_DEF' full=work@top.CFG_DEF dut.sv:6:20-6:27 [0]
+     < param_assign '' 6:20 < module_inst '' 24:1 < design 'work@top' 0:0
+  O: parameter 'CFG_DEF' full=work@top.CFG_DEF :6:20-6:27 [0]
+     < param_assign '' 6:20 < module_inst '' 24:1 < design 'work@top' 0:0
+#331 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 5:33 < struct_typespec 'p::cfg_t' 5:11 < module_inst '' 24:1 < design 'work@top' 0:0
+  O: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 5:33 < struct_typespec 'p::cfg_t' 5:11 < module_inst '' 24:1 < design 'work@top' 0:0
+#424 fullname
+  G: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 5:33 < struct_typespec 'p::cfg_t' 5:11 < module_inst 'work@top' 24:1 < design 'work@top' 0:0
+  O: ref_typespec '' full=<in>p::cfg_t.HSK :0:0-0:0 [0]
+     < typespec_member 'HSK' 5:33 < struct_typespec 'p::cfg_t' 5:11 < module_inst 'work@top' 24:1 < design 'work@top' 0:0

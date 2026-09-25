@@ -1,0 +1,12 @@
+P19 b.d 11:10:11:13 <cont_assign> mint=ExprEmit.cpp:36780 emitExpr < ModuleEmit.cpp:39233 emitContAssigns < ModuleEmit.cpp:5940 emitModuleDef
+   E20 ref_obj b full='' span=11:12:11:13 | mint=ExprEmit.cpp:36976 emitExpr < ModuleEmit.cpp:39233 emitContAssigns | set=-
+   E21 ref_obj d full='' span=11:12:11:13 | mint=ExprEmit.cpp:36976 emitExpr < ModuleEmit.cpp:39233 emitContAssigns | set=-
+P23 b.q 13:14:13:17 <cont_assign> mint=ExprEmit.cpp:36780 emitExpr < ModuleEmit.cpp:38781 emitContAssigns < ModuleEmit.cpp:5940 emitModuleDef
+   E24 ref_obj b full='' span=13:14:13:15 | mint=ExprEmit.cpp:36976 emitExpr < ModuleEmit.cpp:38781 emitContAssigns | set=-
+   E25 ref_obj q full='work@top.q' span=13:16:13:17 | mint=ExprEmit.cpp:36976 emitExpr < ModuleEmit.cpp:38781 emitContAssigns | set='work@top.q'@ExprEmit.cpp:36981 emitExpr
+P97 b.d 12:12:12:15 <port> mint=ExprEmit.cpp:36780 emitExpr < ModuleEmit.cpp:17195 emitInstance < ModuleEmit.cpp:15903 emitInstance
+   E98 ref_obj b full='' span=12:12:12:13 | mint=ExprEmit.cpp:36976 emitExpr < ModuleEmit.cpp:17195 emitInstance | set=-
+   E99 ref_obj d full='work@top.u0.i.d' span=12:14:12:15 | mint=ExprEmit.cpp:36976 emitExpr < ModuleEmit.cpp:17195 emitInstance | set='work@top.d'@ExprEmit.cpp:36981 emitExpr;'work@top.u0.i.d'@ModuleEmit.cpp:17724 emitInstance
+P103 b.q 12:17:12:20 <port> mint=ExprEmit.cpp:36780 emitExpr < ModuleEmit.cpp:17195 emitInstance < ModuleEmit.cpp:15903 emitInstance
+   E104 ref_obj b full='' span=12:17:12:18 | mint=ExprEmit.cpp:36976 emitExpr < ModuleEmit.cpp:17195 emitInstance | set=-
+   E105 ref_obj q full='work@top.u0.y.q' span=12:19:12:20 | mint=ExprEmit.cpp:36976 emitExpr < ModuleEmit.cpp:17195 emitInstance | set='work@top.q'@ExprEmit.cpp:36981 emitExpr;'work@top.u0.y.q'@ModuleEmit.cpp:17724 emitInstance

@@ -1,0 +1,250 @@
+#137 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_MACRO_NUMFLAGS' 7981:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_MACRO_NUMFLAGS.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_MACRO_NUMFLAGS' 7981:28 < package 'uvm_pkg' 7351:1
+#155 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_DEFAULT' 7986:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_DEFAULT.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_DEFAULT' 7986:28 < package 'uvm_pkg' 7351:1
+#173 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_ALL_ON' 7987:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_ALL_ON.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_ALL_ON' 7987:28 < package 'uvm_pkg' 7351:1
+#191 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_FLAGS_ON' 7988:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_FLAGS_ON.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_FLAGS_ON' 7988:28 < package 'uvm_pkg' 7351:1
+#209 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_FLAGS_OFF' 7989:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_FLAGS_OFF.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_FLAGS_OFF' 7989:28 < package 'uvm_pkg' 7351:1
+#227 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_COPY' 7993:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_COPY.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_COPY' 7993:28 < package 'uvm_pkg' 7351:1
+#245 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_NOCOPY' 7994:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_NOCOPY.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_NOCOPY' 7994:28 < package 'uvm_pkg' 7351:1
+#263 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_COMPARE' 7995:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_COMPARE.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_COMPARE' 7995:28 < package 'uvm_pkg' 7351:1
+#281 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_NOCOMPARE' 7996:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_NOCOMPARE.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_NOCOMPARE' 7996:28 < package 'uvm_pkg' 7351:1
+#299 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_PRINT' 7997:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_PRINT.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_PRINT' 7997:28 < package 'uvm_pkg' 7351:1
+#317 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_NOPRINT' 7998:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_NOPRINT.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_NOPRINT' 7998:28 < package 'uvm_pkg' 7351:1
+#335 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_RECORD' 7999:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_RECORD.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_RECORD' 7999:28 < package 'uvm_pkg' 7351:1
+#353 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_NORECORD' 8000:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_NORECORD.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_NORECORD' 8000:28 < package 'uvm_pkg' 7351:1
+#371 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_PACK' 8001:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_PACK.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_PACK' 8001:28 < package 'uvm_pkg' 7351:1
+#389 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_NOPACK' 8002:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_NOPACK.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_NOPACK' 8002:28 < package 'uvm_pkg' 7351:1
+#407 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_UNPACK' 8003:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_UNPACK.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_UNPACK' 8003:28 < package 'uvm_pkg' 7351:1
+#425 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_NOUNPACK' 8004:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_NOUNPACK.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_NOUNPACK' 8004:28 < package 'uvm_pkg' 7351:1
+#443 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_SET' 8005:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_SET.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_SET' 8005:28 < package 'uvm_pkg' 7351:1
+#461 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_NOSET' 8006:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_NOSET.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_NOSET' 8006:28 < package 'uvm_pkg' 7351:1
+#479 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_NODEFPRINT' 8012:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_NODEFPRINT.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_NODEFPRINT' 8012:28 < package 'uvm_pkg' 7351:1
+#497 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_MACRO_EXTRAS' 8018:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_MACRO_EXTRAS.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_MACRO_EXTRAS' 8018:28 < package 'uvm_pkg' 7351:1
+#515 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_FLAGS' 8019:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_FLAGS.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_FLAGS' 8019:28 < package 'uvm_pkg' 7351:1
+#533 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_CHECK_FIELDS' 8020:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_CHECK_FIELDS.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_CHECK_FIELDS' 8020:28 < package 'uvm_pkg' 7351:1
+#551 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_END_DATA_EXTRA' 8021:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_END_DATA_EXTRA.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_END_DATA_EXTRA' 8021:28 < package 'uvm_pkg' 7351:1
+#569 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_START_FUNCS' 8026:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_START_FUNCS.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_START_FUNCS' 8026:28 < package 'uvm_pkg' 7351:1
+#587 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_END_FUNCS' 8027:28 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_END_FUNCS.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < parameter 'UVM_END_FUNCS' 8027:28 < package 'uvm_pkg' 7351:1
+#673 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < constant '' 7981:52 < param_assign '' 7981:28
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_MACRO_NUMFLAGS.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < constant '' 7981:52 < param_assign '' 7981:28
+#689 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < constant '' 7986:46 < param_assign '' 7986:28
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_DEFAULT.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < constant '' 7986:46 < param_assign '' 7986:28
+#705 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < constant '' 7987:46 < param_assign '' 7987:28
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_ALL_ON.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < constant '' 7987:46 < param_assign '' 7987:28
+#721 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < constant '' 7988:46 < param_assign '' 7988:28
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_FLAGS_ON.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < constant '' 7988:46 < param_assign '' 7988:28
+#737 fullname
+  G: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=<in>uvm_field_flag_t.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < constant '' 7989:46 < param_assign '' 7989:28
+  O: ref_obj 'UVM_FIELD_FLAG_RESERVED_BITS' full=uvm_pkg::UVM_FLAGS_OFF.UVM_FIELD_FLAG_RESERVED_BITS uvm_pkg.sv:7859:14-7859:42 [0]
+     < operation '' 7859:14 < range '' 7859:13 < bit_typespec 'uvm_field_flag_t' 7859:9 < ref_typespec '' 0:0 < constant '' 7989:46 < param_assign '' 7989:28
+#873 line
+  G: struct_typespec 'uvm_pkg::m_uvm_factory_type_pair_t' uvm_pkg.sv:13427:55-13427:80
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: struct_typespec 'uvm_pkg::m_uvm_factory_type_pair_t' uvm_pkg.sv:11401:9-11402:49
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#909 line
+  G: enum_typespec 'uvm_pkg::uvm_check_e' uvm_pkg.sv:79053:35-79053:46
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: enum_typespec 'uvm_pkg::uvm_check_e' uvm_pkg.sv:60837:4-60840:18
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#943 line
+  G: enum_typespec 'uvm_pkg::uvm_door_e' uvm_pkg.sv:79320:47-79320:57
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: enum_typespec 'uvm_pkg::uvm_door_e' uvm_pkg.sv:60818:4-60823:17
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#952 line
+  G: enum_typespec 'uvm_pkg::uvm_endianness_e' uvm_pkg.sv:79201:48-79201:64
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: enum_typespec 'uvm_pkg::uvm_endianness_e' uvm_pkg.sv:60853:4-60859:23
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#970 line
+  G: struct_typespec 'uvm_pkg::uvm_hdl_path_slice' uvm_pkg.sv:74437:37-74437:55
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: struct_typespec 'uvm_pkg::uvm_hdl_path_slice' uvm_pkg.sv:60777:9-60781:2
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#985 line
+  G: enum_typespec 'uvm_pkg::uvm_hier_e' uvm_pkg.sv:78555:47-78555:57
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: enum_typespec 'uvm_pkg::uvm_hier_e' uvm_pkg.sv:60899:4-60902:17
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#1004 line
+  G: enum_typespec 'uvm_pkg::uvm_phase_state' uvm_pkg.sv:35101:43-35101:58
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: enum_typespec 'uvm_pkg::uvm_phase_state' uvm_pkg.sv:8333:4-8344:37
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#1016 line
+  G: enum_typespec 'uvm_pkg::uvm_phase_type' uvm_pkg.sv:33173:25-33173:39
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: enum_typespec 'uvm_pkg::uvm_phase_type' uvm_pkg.sv:8271:1-8277:18
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#1027 line
+  G: enum_typespec 'uvm_pkg::uvm_predict_e' uvm_pkg.sv:67554:35-67554:48
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: enum_typespec 'uvm_pkg::uvm_predict_e' uvm_pkg.sv:60913:4-60917:20
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#1031 line
+  G: enum_typespec 'uvm_pkg::uvm_radix_enum' uvm_pkg.sv:20066:47-20066:61
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: enum_typespec 'uvm_pkg::uvm_radix_enum' uvm_pkg.sv:7880:1-7895:18
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#1060 line
+  G: enum_typespec 'uvm_pkg::uvm_recursion_policy_enum' uvm_pkg.sv:21584:51-21584:76
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: enum_typespec 'uvm_pkg::uvm_recursion_policy_enum' uvm_pkg.sv:7930:1-7935:30
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#1091 line
+  G: struct_typespec 'uvm_pkg::uvm_reg_bus_op' uvm_pkg.sv:76787:40-76787:54
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: struct_typespec 'uvm_pkg::uvm_reg_bus_op' uvm_pkg.sv:61351:9-61383:2
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#1135 fullname
+  G: ref_typespec '' full=<in>uvm_reg_byte_en_t :0:0-0:0 [0]
+     < bit_typespec 'uvm_reg_byte_en_t' 60739:10 < ref_typespec '' 0:0 < typespec_member 'byte_en' 61377:21 < struct_typespec 'uvm_pkg::uvm_reg_bus_op' 76787:40 < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: ref_typespec '' full=<in>uvm_reg_byte_en_t :0:0-0:0 [0]
+     < bit_typespec 'uvm_reg_byte_en_t' 60739:10 < ref_typespec '' 0:0 < typespec_member 'byte_en' 61377:21 < struct_typespec 'uvm_pkg::uvm_reg_bus_op' 61351:9 < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#1161 line
+  G: enum_typespec 'uvm_pkg::uvm_status_e' uvm_pkg.sv:79156:45-79156:57
+     < ref_typespec '' 0:0 < typespec_member 'status' 61381:16 < struct_typespec 'uvm_pkg::uvm_reg_bus_op' 76787:40 < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: enum_typespec 'uvm_pkg::uvm_status_e' uvm_pkg.sv:60800:4-60804:19
+     < ref_typespec '' 0:0 < typespec_member 'status' 61381:16 < struct_typespec 'uvm_pkg::uvm_reg_bus_op' 61351:9 < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#1264 line
+  G: enum_typespec 'uvm_pkg::uvm_severity' uvm_pkg.sv:40203:65-40203:77
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: enum_typespec 'uvm_pkg::uvm_severity' uvm_pkg.sv:8049:1-8055:16
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#1274 line
+  G: enum_typespec 'uvm_pkg::uvm_status_e' uvm_pkg.sv:79156:45-79156:57
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: enum_typespec 'uvm_pkg::uvm_status_e' uvm_pkg.sv:60800:4-60804:19
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#1307 line
+  G: enum_typespec 'uvm_pkg::uvm_wait_op' uvm_pkg.sv:34944:55-34944:66
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: enum_typespec 'uvm_pkg::uvm_wait_op' uvm_pkg.sv:8359:1-8365:15
+     < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#1512 line
+  G: enum_typespec 'uvm_pkg::uvm_radix_enum' uvm_pkg.sv:20066:47-20066:61
+     < ref_typespec '' 0:0 < io_decl 'radix' 7902:52 < function 'uvm_radix_to_string' 7902:1 < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+  O: enum_typespec 'uvm_pkg::uvm_radix_enum' uvm_pkg.sv:7880:1-7895:18
+     < ref_typespec '' 0:0 < io_decl 'radix' 7902:52 < function 'uvm_radix_to_string' 7902:1 < package 'uvm_pkg' 7351:1 < design 'unnamed' 0:0
+#1683 fullname
+  G: ref_obj 'pos' full=uvm_pkg::uvm_instance_scope::uvm_instance_scope.substr::pos uvm_pkg.sv:8626:52-8626:55 [0]
+     < method_func_call 'substr' 8626:43 < hier_path 'uvm_instance_scope.substr' 8626:24 < assignment '' 8626:3 < begin '' 8611:3 < function 'uvm_instance_scope' 8609:1 < package 'uvm_pkg' 7351:1
+  O: ref_obj 'pos' full=uvm_pkg::uvm_instance_scope::pos uvm_pkg.sv:8626:52-8626:55 [0]
+     < method_func_call 'substr' 8626:43 < hier_path 'uvm_instance_scope.substr' 8626:24 < assignment '' 8626:3 < begin '' 8611:3 < function 'uvm_instance_scope' 8609:1 < package 'uvm_pkg' 7351:1

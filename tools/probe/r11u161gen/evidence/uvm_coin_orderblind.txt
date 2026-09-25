@@ -1,0 +1,6 @@
+default MiniAmiq orderblind_lines=4       1 <UINT       1 >UINT       1 <vpiDecompile       1 >vpiDecompile 
+default SeqDriver orderblind_lines=4       1 <UINT       1 >UINT       1 <vpiDecompile       1 >vpiDecompile 
+default SimpleUVM orderblind_lines=4       1 <UINT       1 >UINT       1 <vpiDecompile       1 >vpiDecompile 
+testflags MiniAmiq orderblind_lines=4       1 <UINT       1 >UINT       1 <vpiDecompile       1 >vpiDecompile 
+testflags SeqDriver orderblind_lines=4       1 <UINT       1 >UINT       1 <vpiDecompile       1 >vpiDecompile 
+testflags SimpleUVM orderblind_lines=4       1 <UINT       1 >UINT       1 <vpiDecompile       1 >vpiDecompile 

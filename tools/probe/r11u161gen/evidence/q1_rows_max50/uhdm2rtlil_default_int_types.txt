@@ -1,0 +1,250 @@
+#108 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#116 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#184 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#192 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#260 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#268 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#336 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#344 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#412 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#420 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#488 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#496 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#564 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#572 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#640 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#648 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#716 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#724 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#792 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#800 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#868 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#876 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#944 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#952 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1020 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1028 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1096 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1104 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1172 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1180 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1248 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1256 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1324 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1332 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1392 endcol
+  G: logic_typespec '' dut.sv:3:9-3:12
+     < ref_typespec '' 0:0 < logic_var 'x' 3:22 < assignment '' 3:22 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1
+  O: logic_typespec '' dut.sv:3:9-3:21
+     < ref_typespec '' 0:0 < logic_var 'x' 3:22 < assignment '' 3:22 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1
+#1398 endcol
+  G: logic_typespec '' dut.sv:4:20-4:23
+     < ref_typespec '' 0:0 < parameter 'y' 4:33 < param_assign '' 4:33 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1
+  O: logic_typespec '' dut.sv:4:20-4:32
+     < ref_typespec '' 0:0 < parameter 'y' 4:33 < param_assign '' 4:33 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1
+#1400 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1408 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1482 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1490 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1564 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1572 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1646 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1654 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1722 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1730 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1798 fullname
+  G: ref_obj 'x' full=work@top.x dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'x' dut.sv:5:27-5:28 [0]
+     < assignment '' 5:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1806 fullname
+  G: ref_obj 'y' full=work@top.y dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+  O: ref_obj 'y' dut.sv:6:27-6:28 [0]
+     < assignment '' 6:23 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1 < design 'work@top' 0:0
+#1866 endcol
+  G: logic_typespec '' dut.sv:3:9-3:14
+     < ref_typespec '' 0:0 < logic_var 'x' 3:24 < assignment '' 3:24 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1
+  O: logic_typespec '' dut.sv:3:9-3:23
+     < ref_typespec '' 0:0 < logic_var 'x' 3:24 < assignment '' 3:24 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1
+#1872 endcol
+  G: logic_typespec '' dut.sv:4:20-4:25
+     < ref_typespec '' 0:0 < parameter 'y' 4:35 < param_assign '' 4:35 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1
+  O: logic_typespec '' dut.sv:4:20-4:34
+     < ref_typespec '' 0:0 < parameter 'y' 4:35 < param_assign '' 4:35 < begin '' 0:0 < gen_if '' 2:5 < module_inst '' 37:1

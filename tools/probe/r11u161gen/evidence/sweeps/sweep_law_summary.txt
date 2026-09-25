@@ -1,0 +1,38 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u161_swL7/probe.csv
+probe cases: EQUAL=2495 STRICT_NOTEQUAL=1592 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=2495 differ:fullname=656 differ:endcol=271 differ:line=225 differ:file=117 differ:type=99 differ:depth=98 differ:endline=48 differ:col=39 differ:name=33 differ:value=3 differ:decompile=3
+== probe vs golden_probe.csv
+[probe] EQUAL=2495 STRICT_NOTEQUAL=1592
+CONVERSION r10earl_repro/ps23 STRICT_NOTEQUAL differ:col(2) -> EQUAL
+CONVERSION r10earl_repro/tj STRICT_NOTEQUAL differ:col(6) -> EQUAL
+CONVERSION r10vearl115repro/w1_memlhs STRICT_NOTEQUAL differ:col(2) -> EQUAL
+CONVERSION r11u25repro/grid/p13_member_lhs_fill0 STRICT_NOTEQUAL differ:col(2) -> EQUAL
+CHANGE r10v78repro/v6_ndecl78 STRICT_NOTEQUAL differ:fullname(5) -> differ:fullname(3) [fullname -2]
+regressions=0 conversions=4 changes=1 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u161_swL7/surelog.csv
+[default] 798 tests
+[testflags] 798 tests
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=418 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=62 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=417 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=57 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CONVERSION GenIfIfaceParamStructField default STRICT_NOTEQUAL differ:col(2) -> CMP_EQUAL
+CONVERSION GenIfIfaceParamStructField testflags STRICT_NOTEQUAL differ:col(2) -> CMP_EQUAL
+CHANGE ComplexHierPath default STRICT_NOTEQUAL differ:col(10) -> differ:endcol(4)
+CHANGE ComplexHierPath testflags STRICT_NOTEQUAL differ:col(8) -> differ:endcol(2)
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:line(1738) -> differ:line(1694) [line -44]
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:line(1738) -> differ:line(1694) [line -44]
+CHANGE GenForStructParamBound default STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(3) [fullname -4]
+CHANGE GenForStructParamBound testflags STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(3) [fullname -4]
+regressions=0 conversions=2 changes=6 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u161_swL7/uhdm2rtlil.csv
+[default] 871 tests
+[testflags] 871 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=736 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=67
+[testflags] CMP_EQUAL=736 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+EXIT=1

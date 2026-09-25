@@ -1,0 +1,15 @@
+P14 sub.M 6:9:6:14 <gen_case> mint=compileSelectExpression < compileExpression < compileExpression < compileGenStmt
+   E15 ref_obj sub full='' span=6:13:6:14 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileGenStmt | set='sub'@compileSelectExpression
+   E16 ref_obj M full='' span=6:13:6:14 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileGenStmt | set='M'@compileSelectExpression
+P17 sub.K 7:5:7:10 <case_item> mint=compileSelectExpression < compileExpression < compileExpression < compileGenStmt
+   E18 ref_obj sub full='' span=7:9:7:10 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileGenStmt | set='sub'@compileSelectExpression
+   E19 ref_obj K full='' span=7:9:7:10 par=hp | mint=compileSelectExpression < compileExpression < compileExpression < compileGenStmt | set='K'@compileSelectExpression
+P22 sub.d 8:18:8:23 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E23 ref_obj sub full='' span=8:18:8:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='sub'@compileComplexFuncCall
+   E24 ref_obj d full='c0.d' span=8:22:8:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='c0.d'@SAVE
+P33 b.d 17:10:17:13 <cont_assign> mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_
+   E34 ref_obj b full='' span=17:12:17:13 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='b'@compileSelectExpression
+   E35 ref_obj d full='' span=17:12:17:13 par=hp | mint=compileSelectExpression < compileExpression < compileContinuousAssignment < collectModuleObjects_ | set='d'@compileSelectExpression
+P170 sub.d 8:18:8:23 <cont_assign> mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment
+   E171 ref_obj sub full='' span=8:18:8:21 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='sub'@compileComplexFuncCall
+   E172 ref_obj d full='work@top.c.c0.d' span=8:22:8:23 par=hp | mint=compileComplexFuncCall < compileExpression < compileExpression < compileContinuousAssignment | set='work@top.c.c0.d'@SAVE
