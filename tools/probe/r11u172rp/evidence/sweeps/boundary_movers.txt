@@ -1,0 +1,15 @@
+tools/probe/r11u146repro/grid/fa/f6 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 110 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 110 objects |  | obdist a=2 b=2 | restored-by: DEPTH_OFF
+tools/probe/r11u153verify/cases/fa/g03_output_arg | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 100 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 100 objects |  | obdist a=2 b=2 | restored-by: DEPTH_OFF
+tools/probe/r11u153verify/cases/lpb/l01_sysfunc_parent | P: rc=0 cmp=255 cmplines=56 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=56 strict=1 NOT_EQUAL stage1 |  | obdist a=30 b=26 | restored-by: SPAN_OFF
+tools/probe/r11v140repro/tdc/t07_pkg_func | P: rc=0 cmp=255 cmplines=70 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=70 strict=1 NOT_EQUAL stage1 |  | obdist a=34 b=34 | restored-by: DEPTH_OFF
+tools/probe/r11v17repro/grid/va14_sysfunc_arg_modlhs_op_rebind | P: rc=0 cmp=255 cmplines=17 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=17 strict=1 NOT_EQUAL stage1 |  | obdist a=19 b=15 | restored-by: SPAN_OFF
+tools/probe/r11v17repro/grid/va15_sysfunc_arg_genlocallhs_op_keep | P: rc=0 cmp=255 cmplines=17 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=17 strict=1 NOT_EQUAL stage1 |  | obdist a=21 b=17 | restored-by: SPAN_OFF
+tools/probe/r11v17repro/grid/w05_syscall_castarg_op_topmod | P: rc=0 cmp=255 cmplines=52 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=52 strict=1 NOT_EQUAL stage1 |  | obdist a=28 b=24 | restored-by: SPAN_OFF
+tools/probe/r11v17repro/grid/w02_syscall_castarg_op | P: rc=0 cmp=255 cmplines=52 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=52 strict=1 NOT_EQUAL stage1 |  | obdist a=28 b=24 | restored-by: SPAN_OFF
+tools/probe/r11v17repro/grid/w06_syscall_castarg_funccall_op | P: rc=0 cmp=255 cmplines=52 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=52 strict=1 NOT_EQUAL stage1 |  | obdist a=40 b=32 | restored-by: SPAN_OFF
+tools/probe/r11v42repro/grid42v/v10 | P: rc=0 cmp=255 cmplines=126 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=126 strict=1 NOT_EQUAL stage1 |  | obdist a=39 b=39 | restored-by: FILE_OFF
+tools/probe/v11u115repro/grid/f1/a02_gf_unsigned | P: rc=0 cmp=255 cmplines=46 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=46 strict=1 NOT_EQUAL stage1 |  | obdist a=200 b=196 | restored-by: SPAN_OFF
+tools/probe/v11u115repro/grid/f1/a19_gf_signed_S | P: rc=0 cmp=255 cmplines=46 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=46 strict=1 NOT_EQUAL stage1 |  | obdist a=200 b=196 | restored-by: SPAN_OFF
+tools/probe/v11u115repro/grid/f3/c06_genif_sys_underop | P: rc=0 cmp=255 cmplines=52 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=52 strict=1 NOT_EQUAL stage1 |  | obdist a=64 b=60 | restored-by: SPAN_OFF
+tools/probe/v11u134repro/grid/td16 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL file | L: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL file | obdist a=28 b=28 | restored-by: FILE_OFF
+td16 strict fields: pristine file=26 objects_differing=26 -> law file=18 objects_differing=18 (the struct_typespec's file; the include-file members stay, R3)

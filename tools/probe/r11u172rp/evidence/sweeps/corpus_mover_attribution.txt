@@ -1,0 +1,18 @@
+surelog/default/Earlgrey_0_1 VALUE_OFF:partial FILE_OFF:partial DEPTH_OFF:partial SPAN_OFF:partial
+surelog/testflags/Earlgrey_0_1 VALUE_OFF:partial FILE_OFF:partial DEPTH_OFF:partial SPAN_OFF:partial
+surelog/default/UnionCast VALUE_OFF:PRISTINE FILE_OFF:law DEPTH_OFF:law SPAN_OFF:law
+surelog/testflags/UnionCast VALUE_OFF:PRISTINE FILE_OFF:law DEPTH_OFF:law SPAN_OFF:law
+uhdm2rtlil/default/ibex_multdiv_fast VALUE_OFF:law FILE_OFF:law DEPTH_OFF:law SPAN_OFF:PRISTINE
+uhdm2rtlil/testflags/ibex_multdiv_fast VALUE_OFF:law FILE_OFF:law DEPTH_OFF:law SPAN_OFF:PRISTINE
+uhdm2rtlil/default/jeras_union VALUE_OFF:partial FILE_OFF:law DEPTH_OFF:partial SPAN_OFF:law
+uhdm2rtlil/testflags/jeras_union VALUE_OFF:partial FILE_OFF:law DEPTH_OFF:partial SPAN_OFF:law
+uhdm2rtlil/default/rp32_r5p_alu VALUE_OFF:partial FILE_OFF:partial DEPTH_OFF:partial SPAN_OFF:partial
+uhdm2rtlil/testflags/rp32_r5p_alu VALUE_OFF:partial FILE_OFF:partial DEPTH_OFF:partial SPAN_OFF:partial
+uhdm2rtlil/default/rp32_r5p_bru VALUE_OFF:partial FILE_OFF:partial DEPTH_OFF:partial SPAN_OFF:law
+uhdm2rtlil/testflags/rp32_r5p_bru VALUE_OFF:partial FILE_OFF:partial DEPTH_OFF:partial SPAN_OFF:law
+uhdm2rtlil/default/rp32_r5p_mdu VALUE_OFF:partial FILE_OFF:partial DEPTH_OFF:partial SPAN_OFF:law
+uhdm2rtlil/testflags/rp32_r5p_mdu VALUE_OFF:partial FILE_OFF:partial DEPTH_OFF:partial SPAN_OFF:law
+uhdm2rtlil/default/rp32_r5p_wbu VALUE_OFF:partial FILE_OFF:partial DEPTH_OFF:partial SPAN_OFF:law
+uhdm2rtlil/testflags/rp32_r5p_wbu VALUE_OFF:partial FILE_OFF:partial DEPTH_OFF:partial SPAN_OFF:law
+surelog/default/Earlgrey_0_1 NONE:law VALUE_OFF:law FILE_OFF:partial DEPTH_OFF:law SPAN_OFF:partial
+surelog/testflags/Earlgrey_0_1 NONE:law VALUE_OFF:law FILE_OFF:partial DEPTH_OFF:law SPAN_OFF:partial

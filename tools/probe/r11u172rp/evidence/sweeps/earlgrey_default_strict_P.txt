@@ -1,0 +1,64 @@
+#6 line
+  A: 1	include_file_info				prim_generic_ram_1p.sv	256	12	256	34				
+  B: 1	include_file_info				prim_generic_ram_1p.sv	57	12	57	34				
+#9 line
+  A: 1	include_file_info				prim_generic_rom.sv	227	12	227	34				
+  B: 1	include_file_info				prim_generic_rom.sv	28	12	28	34				
+#27 line
+  A: 1	include_file_info				prim_ram_1p_adv.sv	216	10	216	25				
+  B: 1	include_file_info				prim_ram_1p_adv.sv	17	10	17	25				
+#29 line
+  A: 1	include_file_info				prim_ram_2p_async_adv.sv	216	10	216	25				
+  B: 1	include_file_info				prim_ram_2p_async_adv.sv	17	10	17	25				
+#46 line
+  A: 1	include_file_info				prim_ram_2p_adv.sv	216	10	216	25				
+  B: 1	include_file_info				prim_ram_2p_adv.sv	17	10	17	25				
+#2563 endcol
+  A: 2	param_assign				alert_handler_reg_pkg.sv	529	25	529	63				
+  B: 2	param_assign				alert_handler_reg_pkg.sv	529	25	529	64				
+#2570 endcol
+  A: 2	param_assign				alert_handler_reg_pkg.sv	530	25	530	64				
+  B: 2	param_assign				alert_handler_reg_pkg.sv	530	25	530	65				
+#2577 endcol
+  A: 2	param_assign				alert_handler_reg_pkg.sv	531	25	531	62				
+  B: 2	param_assign				alert_handler_reg_pkg.sv	531	25	531	63				
+#2584 endcol
+  A: 2	param_assign				alert_handler_reg_pkg.sv	532	25	532	58				
+  B: 2	param_assign				alert_handler_reg_pkg.sv	532	25	532	59				
+#2591 endcol
+  A: 2	param_assign				alert_handler_reg_pkg.sv	533	25	533	70				
+  B: 2	param_assign				alert_handler_reg_pkg.sv	533	25	533	71				
+#2598 endcol
+  A: 2	param_assign				alert_handler_reg_pkg.sv	534	25	534	62				
+  B: 2	param_assign				alert_handler_reg_pkg.sv	534	25	534	63				
+#2605 endcol
+  A: 2	param_assign				alert_handler_reg_pkg.sv	535	25	535	65				
+  B: 2	param_assign				alert_handler_reg_pkg.sv	535	25	535	66				
+#2612 endcol
+  A: 2	param_assign				alert_handler_reg_pkg.sv	536	25	536	65				
+  B: 2	param_assign				alert_handler_reg_pkg.sv	536	25	536	66				
+#2619 endcol
+  A: 2	param_assign				alert_handler_reg_pkg.sv	537	25	537	66				
+  B: 2	param_assign				alert_handler_reg_pkg.sv	537	25	537	67				
+#2626 endcol
+  A: 2	param_assign				alert_handler_reg_pkg.sv	538	25	538	69				
+  B: 2	param_assign				alert_handler_reg_pkg.sv	538	25	538	70				
+#2633 endcol
+  A: 2	param_assign				alert_handler_reg_pkg.sv	539	25	539	69				
+  B: 2	param_assign				alert_handler_reg_pkg.sv	539	25	539	70				
+#2640 endcol
+  A: 2	param_assign				alert_handler_reg_pkg.sv	540	25	540	65				
+  B: 2	param_assign				alert_handler_reg_pkg.sv	540	25	540	66				
+#2647 endcol
+  A: 2	param_assign				alert_handler_reg_pkg.sv	541	25	541	66				
+  B: 2	param_assign				alert_handler_reg_pkg.sv	541	25	541	67				
+#2654 endcol
+  A: 2	param_assign				alert_handler_reg_pkg.sv	542	25	542	64				
+  B: 2	param_assign				alert_handler_reg_pkg.sv	542	25	542	65				
+#2661 endcol
+  A: 2	param_assign				alert_handler_reg_pkg.sv	543	25	543	70				
+  B: 2	param_assign				alert_handler_reg_pkg.sv	543	25	543	71				
+... (records elided)
+objects 2173209 vs 2173853
+fields: type=1 defname=2 fullname=416 file=76 line=6 col=142 endline=6 endcol=1212 size=1 objects_differing=1686 (walk diverged)
+STRICT_NOTEQUAL line

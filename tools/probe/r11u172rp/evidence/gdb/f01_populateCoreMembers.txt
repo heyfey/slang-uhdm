@@ -1,0 +1,132 @@
+PCM start=38 end=38 obj=vtable for UHDM::package + 16
+#1  0x00000000007a9513 in SURELOG::ResolveSymbols::createFastLookup() ()
+PCM start=40 end=40 obj=vtable for UHDM::package + 16
+#1  0x00000000007a9513 in SURELOG::ResolveSymbols::createFastLookup() ()
+PCM start=38 end=38 obj=vtable for UHDM::package + 16
+#1  0x00000000007415fd in SURELOG::CompilePackage::compile(SURELOG::Reduce) ()
+PCM start=5 end=5 obj=vtable for UHDM::struct_typespec + 16
+#1  0x0000000000756da4 in SURELOG::CompileHelper::compileTypespec
+PCM start=8 end=8 obj=vtable for UHDM::constant + 16
+#1  0x0000000000827a8f in SURELOG::compileConst(SURELOG::FileContent const*, SURELOG::NodeId, UHDM::Serializer&) ()
+PCM start=12 end=12 obj=vtable for UHDM::constant + 16
+#1  0x0000000000827a8f in SURELOG::compileConst(SURELOG::FileContent const*, SURELOG::NodeId, UHDM::Serializer&) ()
+PCM start=17 end=17 obj=vtable for UHDM::range + 16
+#1  0x00000000008415ff in SURELOG::CompileHelper::compileRanges
+PCM start=7 end=7 obj=vtable for UHDM::logic_typespec + 16
+#1  0x0000000000753f71 in SURELOG::CompileHelper::compileBuiltinTypespec
+PCM start=0 end=17 obj=vtable for UHDM::logic_typespec + 16
+#1  0x0000000000757fc1 in SURELOG::CompileHelper::compileTypespec
+PCM start=24 end=24 obj=vtable for UHDM::logic_typespec + 16
+#1  0x0000000000753f71 in SURELOG::CompileHelper::compileBuiltinTypespec
+PCM start=31 end=31 obj=vtable for UHDM::struct_typespec + 16
+#1  0x0000000000724e22 in SURELOG::CompileHelper::compileTypeDef
+PCM start=38 end=38 obj=vtable for UHDM::package + 16
+#1  0x00000000007415fd in SURELOG::CompilePackage::compile(SURELOG::Reduce) ()
+PCM start=5 end=5 obj=vtable for UHDM::struct_typespec + 16
+#1  0x0000000000756da4 in SURELOG::CompileHelper::compileTypespec
+PCM start=8 end=8 obj=vtable for UHDM::constant + 16
+#1  0x0000000000827a8f in SURELOG::compileConst(SURELOG::FileContent const*, SURELOG::NodeId, UHDM::Serializer&) ()
+PCM start=12 end=12 obj=vtable for UHDM::constant + 16
+#1  0x0000000000827a8f in SURELOG::compileConst(SURELOG::FileContent const*, SURELOG::NodeId, UHDM::Serializer&) ()
+PCM start=17 end=17 obj=vtable for UHDM::range + 16
+#1  0x00000000008415ff in SURELOG::CompileHelper::compileRanges
+PCM start=7 end=7 obj=vtable for UHDM::logic_typespec + 16
+#1  0x0000000000753f71 in SURELOG::CompileHelper::compileBuiltinTypespec
+PCM start=0 end=17 obj=vtable for UHDM::logic_typespec + 16
+#1  0x0000000000757fc1 in SURELOG::CompileHelper::compileTypespec
+PCM start=24 end=24 obj=vtable for UHDM::logic_typespec + 16
+#1  0x0000000000753f71 in SURELOG::CompileHelper::compileBuiltinTypespec
+PCM start=31 end=31 obj=vtable for UHDM::struct_typespec + 16
+#1  0x0000000000724e22 in SURELOG::CompileHelper::compileTypeDef
+PCM start=40 end=40 obj=vtable for UHDM::package + 16
+#1  0x00000000007415fd in SURELOG::CompilePackage::compile(SURELOG::Reduce) ()
+PCM start=5 end=5 obj=vtable for UHDM::import_typespec + 16
+#1  0x0000000000722410 in SURELOG::CompileHelper::compileImportDeclaration
+PCM start=36 end=36 obj=vtable for UHDM::function + 16
+#1  0x000000000074fbd5 in SURELOG::CompileHelper::compileFunction
+PCM start=11 end=11 obj=vtable for UHDM::logic_typespec + 16
+#1  0x0000000000753f71 in SURELOG::CompileHelper::compileBuiltinTypespec
+PCM start=12 end=12 obj=vtable for UHDM::logic_var + 16
+#1  0x000000000075beed in SURELOG::CompileHelper::compileVariable
+PCM start=19 end=19 obj=vtable for UHDM::io_decl + 16
+#1  0x0000000000747fc5 in SURELOG::CompileHelper::compileTfPortList
+PCM start=16 end=16 obj=vtable for UHDM::struct_typespec + 16
+#1  0x000000000074808b in SURELOG::CompileHelper::compileTfPortList
+PCM start=22 end=22 obj=vtable for UHDM::ref_obj + 16
+#1  0x0000000000832d3c in SURELOG::CompileHelper::compileComplexFuncCall
+PCM start=23 end=23 obj=vtable for UHDM::ref_obj + 16
+#1  0x0000000000832380 in SURELOG::CompileHelper::compileComplexFuncCall
+PCM start=26 end=26 obj=vtable for UHDM::hier_path + 16
+#1  0x00000000008362c1 in SURELOG::CompileHelper::compileExpression
+PCM start=29 end=29 obj=vtable for UHDM::return_stmt + 16
+#1  0x000000000074b2ff in SURELOG::CompileHelper::compileStmt
+PCM start=40 end=40 obj=vtable for UHDM::package + 16
+#1  0x00000000007415fd in SURELOG::CompilePackage::compile(SURELOG::Reduce) ()
+PCM start=5 end=5 obj=vtable for UHDM::import_typespec + 16
+#1  0x0000000000722410 in SURELOG::CompileHelper::compileImportDeclaration
+PCM start=36 end=36 obj=vtable for UHDM::function + 16
+#1  0x000000000074fbd5 in SURELOG::CompileHelper::compileFunction
+PCM start=11 end=11 obj=vtable for UHDM::logic_typespec + 16
+#1  0x0000000000753f71 in SURELOG::CompileHelper::compileBuiltinTypespec
+PCM start=12 end=12 obj=vtable for UHDM::logic_var + 16
+#1  0x000000000075beed in SURELOG::CompileHelper::compileVariable
+PCM start=19 end=19 obj=vtable for UHDM::io_decl + 16
+#1  0x0000000000747fc5 in SURELOG::CompileHelper::compileTfPortList
+PCM start=16 end=16 obj=vtable for UHDM::struct_typespec + 16
+#1  0x000000000074808b in SURELOG::CompileHelper::compileTfPortList
+PCM start=22 end=22 obj=vtable for UHDM::ref_obj + 16
+#1  0x0000000000832d3c in SURELOG::CompileHelper::compileComplexFuncCall
+PCM start=23 end=23 obj=vtable for UHDM::ref_obj + 16
+#1  0x0000000000832380 in SURELOG::CompileHelper::compileComplexFuncCall
+PCM start=26 end=26 obj=vtable for UHDM::hier_path + 16
+#1  0x00000000008362c1 in SURELOG::CompileHelper::compileExpression
+PCM start=29 end=29 obj=vtable for UHDM::return_stmt + 16
+#1  0x000000000074b2ff in SURELOG::CompileHelper::compileStmt
+PCM start=26 end=26 obj=vtable for UHDM::ref_obj + 16
+#1  0x000000000083c64d in SURELOG::CompileHelper::compileExpression
+PCM start=30 end=30 obj=vtable for UHDM::func_call + 16
+#1  0x0000000000831e91 in SURELOG::CompileHelper::compileComplexFuncCall
+PCM start=35 end=35 obj=vtable for UHDM::ref_obj + 16
+#1  0x000000000083c64d in SURELOG::CompileHelper::compileExpression
+PCM start=43 end=43 obj=vtable for UHDM::cont_assign + 16
+#1  0x0000000000726810 in SURELOG::CompileHelper::compileContinuousAssignment
+PCM start=13 end=13 obj=vtable for UHDM::port + 16
+#1  0x000000000079a43d in SURELOG::NetlistElaboration::elab_ports_nets_(SURELOG::ModuleInstance*, SURELOG::ModuleInstance*, SURELOG::Netlist*, SURELOG::Netlist*, SURELOG::DesignComponent*, std::basic_string_view<char, std::char_traits<char> >, bool) ()
+PCM start=21 end=21 obj=vtable for UHDM::port + 16
+#1  0x000000000079a43d in SURELOG::NetlistElaboration::elab_ports_nets_(SURELOG::ModuleInstance*, SURELOG::ModuleInstance*, SURELOG::Netlist*, SURELOG::Netlist*, SURELOG::DesignComponent*, std::basic_string_view<char, std::char_traits<char> >, bool) ()
+PCM start=16 end=16 obj=vtable for UHDM::logic_typespec + 16
+#1  0x0000000000753f71 in SURELOG::CompileHelper::compileBuiltinTypespec
+PCM start=13 end=13 obj=vtable for UHDM::struct_net + 16
+#1  0x00000000007965e6 in SURELOG::NetlistElaboration::elabSignal(SURELOG::Signal*, SURELOG::ModuleInstance*, SURELOG::ModuleInstance*, SURELOG::Netlist*, SURELOG::Netlist*, SURELOG::DesignComponent*, std::basic_string_view<char, std::char_traits<char> >, bool, std::map<SURELOG::NodeId, UHDM::typespec*, std::less<SURELOG::NodeId>, std::allocator<std::pair<SURELOG::NodeId const, UHDM::typespec*> > >&, SURELOG::Reduce) ()
+PCM start=16 end=16 obj=vtable for UHDM::logic_typespec + 16
+#1  0x0000000000753f71 in SURELOG::CompileHelper::compileBuiltinTypespec
+PCM start=21 end=21 obj=vtable for UHDM::logic_net + 16
+#1  0x00000000007965e6 in SURELOG::NetlistElaboration::elabSignal(SURELOG::Signal*, SURELOG::ModuleInstance*, SURELOG::ModuleInstance*, SURELOG::Netlist*, SURELOG::Netlist*, SURELOG::DesignComponent*, std::basic_string_view<char, std::char_traits<char> >, bool, std::map<SURELOG::NodeId, UHDM::typespec*, std::less<SURELOG::NodeId>, std::allocator<std::pair<SURELOG::NodeId const, UHDM::typespec*> > >&, SURELOG::Reduce) ()
+PCM start=13 end=13 obj=vtable for UHDM::ref_obj + 16
+#1  0x000000000079ad5f in SURELOG::NetlistElaboration::elab_ports_nets_(SURELOG::ModuleInstance*, SURELOG::ModuleInstance*, SURELOG::Netlist*, SURELOG::Netlist*, SURELOG::DesignComponent*, std::basic_string_view<char, std::char_traits<char> >, bool) ()
+PCM start=21 end=21 obj=vtable for UHDM::ref_obj + 16
+#1  0x000000000079ad5f in SURELOG::NetlistElaboration::elab_ports_nets_(SURELOG::ModuleInstance*, SURELOG::ModuleInstance*, SURELOG::Netlist*, SURELOG::Netlist*, SURELOG::DesignComponent*, std::basic_string_view<char, std::char_traits<char> >, bool) ()
+PCM start=2 end=38 obj=vtable for UHDM::package + 16
+#1  0x00000000007cf8a0 in SURELOG::UhdmWriter::write(SURELOG::PathId) ()
+PCM start=2 end=40 obj=vtable for UHDM::package + 16
+#1  0x00000000007cf8a0 in SURELOG::UhdmWriter::write(SURELOG::PathId) ()
+PCM start=2 end=38 obj=vtable for UHDM::package + 16
+#1  0x00000000007cfc01 in SURELOG::UhdmWriter::write(SURELOG::PathId) ()
+PCM start=2 end=40 obj=vtable for UHDM::package + 16
+#1  0x00000000007cfc01 in SURELOG::UhdmWriter::write(SURELOG::PathId) ()
+PCM start=2 end=49 obj=vtable for UHDM::module_inst + 16
+#1  0x00000000007d02e7 in SURELOG::UhdmWriter::write(SURELOG::PathId) ()
+PCM start=13 end=13 obj=vtable for UHDM::port + 16
+#1  0x00000000007b9a2e in SURELOG::UhdmWriter::writePorts
+PCM start=21 end=21 obj=vtable for UHDM::port + 16
+#1  0x00000000007b9a2e in SURELOG::UhdmWriter::writePorts
+PCM start=16 end=16 obj=vtable for UHDM::logic_typespec + 16
+#1  0x0000000000753f71 in SURELOG::CompileHelper::compileBuiltinTypespec
+PCM start=13 end=13 obj=vtable for UHDM::ref_obj + 16
+#1  0x00000000007bc875 in SURELOG::UhdmWriter::writeNets
+PCM start=13 end=13 obj=vtable for UHDM::logic_net + 16
+#1  0x00000000007bc4b1 in SURELOG::UhdmWriter::writeNets
+PCM start=21 end=21 obj=vtable for UHDM::ref_obj + 16
+#1  0x00000000007bc875 in SURELOG::UhdmWriter::writeNets
+PCM start=21 end=21 obj=vtable for UHDM::logic_net + 16
+#1  0x00000000007bc4b1 in SURELOG::UhdmWriter::writeNets

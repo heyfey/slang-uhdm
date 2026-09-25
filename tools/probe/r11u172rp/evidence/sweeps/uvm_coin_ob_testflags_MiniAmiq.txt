@@ -1,0 +1,6 @@
+	      |UINT:0
+      |UINT:728
+	      |vpiDecompile:0
+      |vpiDecompile:728
+	surelog/testflags/MiniAmiq-055eab74/slang.uhdm: Restored design Pre-Elab: 
+surelog/testflags/MiniAmiq-055eab74/slang.uhdm: Restored design Pre-Elab: 

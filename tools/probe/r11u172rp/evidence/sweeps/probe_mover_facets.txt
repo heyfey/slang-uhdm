@@ -1,0 +1,12 @@
+r10buvm8repro__v4order8: facet rows 0 -> 0; up 0 
+r10buvm8repro__vfwdts8: facet rows 0 -> 0; up 0 
+r10buvm8repro__vxpkg8: facet rows 29 -> 29; up 0 
+r10uvm123repro__g123_c_otherpkg: facet rows 10 -> 8; up 0 1->0 depth|constant|range->operation; 1->0 struct|ours-only:fewer-copies|operation|under:range
+r10v180repro__v180_a_share: facet rows 7 -> 7; up 0 
+r10v180repro__v180_e_ret: facet rows 10 -> 10; up 0 
+r10v180repro__v180_i_inst: facet rows 2 -> 2; up 0 
+r10earl59repro__v59v2_earl59: facet rows 3 -> 2; up 0 1->0 span|sys_func_call|endcol|under:cont_assign
+r10earl98repro__g3_rhs98: facet rows 5 -> 4; up 0 1->0 span|sys_func_call|endcol|under:cont_assign
+r11v46repro__grid7: facet rows 2 -> 1; up 0 1->0 span|sys_func_call|endcol|under:assignment
+v11u115repro__grid__f1__a01_gf_signed: facet rows 3 -> 2; up 0 1->0 span|sys_func_call|endcol|under:operation
+v11u115repro__grid__f1__a20_gf_unsigned_W: facet rows 3 -> 2; up 0 1->0 span|sys_func_call|endcol|under:operation

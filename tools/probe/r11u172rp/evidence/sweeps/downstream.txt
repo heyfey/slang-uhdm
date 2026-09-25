@@ -1,0 +1,11 @@
+downstream: pristine /tmp/r11u172_swP/downstream.csv vs law /tmp/r11u172_swL/downstream.csv
+identical on every column of all 871 rows
+law verdicts {'IDENTICAL': 803, 'SLANG_REJECT': 66, 'EQUIVALENT': 2}
+verdict differences vs results/downstream_uhdm2rtlil.csv: 0
+rp32_r5p_alu,IDENTICAL,OK,OK,1332,1332,,
+rp32_r5p_bru,IDENTICAL,OK,OK,174,174,,
+rp32_r5p_mdu,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+rp32_r5p_wbu,IDENTICAL,OK,OK,320,320,,
+jeras_union,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+ibex_multdiv_fast,IDENTICAL,OK,OK,3906,3906,,
+cfg_func_width_loop,IDENTICAL,OK,OK,10,10,,

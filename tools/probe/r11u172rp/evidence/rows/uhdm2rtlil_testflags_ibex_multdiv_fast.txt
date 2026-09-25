@@ -1,0 +1,75 @@
+=== P (pristine 4c55e61f) uhdm2rtlil/testflags/ibex_multdiv_fast: uhdm-cmp lines 0
+#7435 endcol
+  A: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	158	24	158	31		0		
+  B: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	158	24	158	59		0		
+#7439 endcol
+  A: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	158	62	158	69		0		
+  B: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	158	62	158	97		0		
+#7446 endcol
+  A: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	159	24	159	31		0		
+  B: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	159	24	159	59		0		
+#7450 endcol
+  A: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	159	62	159	69		0		
+  B: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	159	62	159	97		0		
+#7457 endcol
+  A: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	160	24	160	31		0		
+  B: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	160	24	160	59		0		
+#7461 endcol
+  A: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	160	62	160	69		0		
+  B: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	160	62	160	97		0		
+#7469 endcol
+  A: 7	sys_func_call	$signed			ibex_multdiv_fast.sv	162	29	162	36		0		
+  B: 7	sys_func_call	$signed			ibex_multdiv_fast.sv	162	29	162	46		0		
+#7471 endcol
+  A: 7	sys_func_call	$signed			ibex_multdiv_fast.sv	162	49	162	56		0		
+  B: 7	sys_func_call	$signed			ibex_multdiv_fast.sv	162	49	162	66		0		
+#7473 endcol
+  A: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	162	69	162	76		0		
+  B: 6	sys_func_call	$signed			ibex_multdiv_fast.sv	162	69	162	86		0		
+#7477 endcol
+  A: 5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	164	29	164	38		0		
+  B: 5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	164	29	164	49		0		
+#7481 endcol
+  A: 5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	165	29	165	38		0		
+  B: 5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	165	29	165	54		0		
+#7729 endcol
+  A: 7	sys_func_call	$signed			ibex_multdiv_fast.sv	278	9	278	16		0		
+  B: 7	sys_func_call	$signed			ibex_multdiv_fast.sv	278	9	278	37		0		
+fields: file=11 line=11 col=11 endline=11 endcol=26 objects_differing=26
+STRICT_NOTEQUAL endcol
+=== L (law cd06c3e9) uhdm2rtlil/testflags/ibex_multdiv_fast: uhdm-cmp lines 0
+#11233 file
+  A: 9	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 9	enum_const	ALBL				0	0	0	0				
+#11259 file
+  A: 11	enum_const	ALBH			ibex_multdiv_fast.sv	269	13	269	17				
+  B: 11	enum_const	ALBH				0	0	0	0				
+#11263 file
+  A: 9	enum_const	ALBH			ibex_multdiv_fast.sv	269	13	269	17				
+  B: 9	enum_const	ALBH				0	0	0	0				
+#11318 file
+  A: 11	enum_const	AHBL			ibex_multdiv_fast.sv	269	19	269	23				
+  B: 11	enum_const	AHBL				0	0	0	0				
+#11322 file
+  A: 9	enum_const	AHBL			ibex_multdiv_fast.sv	269	19	269	23				
+  B: 9	enum_const	AHBL				0	0	0	0				
+#11376 file
+  A: 13	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 13	enum_const	ALBL				0	0	0	0				
+#11392 file
+  A: 13	enum_const	AHBH			ibex_multdiv_fast.sv	269	25	269	29				
+  B: 13	enum_const	AHBH				0	0	0	0				
+#11396 file
+  A: 9	enum_const	AHBH			ibex_multdiv_fast.sv	269	25	269	29				
+  B: 9	enum_const	AHBH				0	0	0	0				
+#11451 file
+  A: 11	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 11	enum_const	ALBL				0	0	0	0				
+#11461 file
+  A: 11	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 11	enum_const	ALBL				0	0	0	0				
+#11477 file
+  A: 11	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 11	enum_const	ALBL				0	0	0	0				
+fields: file=11 line=11 col=11 endline=11 endcol=11 objects_differing=11
+STRICT_NOTEQUAL file

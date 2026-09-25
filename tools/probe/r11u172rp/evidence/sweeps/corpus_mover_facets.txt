@@ -1,0 +1,25 @@
+surelog/default/UnionCast: facet rows 26 -> 2; clusters down 1, up 0
+       24 ->      0  value|constant|value:UINT->UINT|under:range
+surelog/testflags/UnionCast: facet rows 28 -> 2; clusters down 1, up 0
+       26 ->      0  value|constant|value:UINT->UINT|under:range
+uhdm2rtlil/default/ibex_multdiv_fast: facet rows 37 -> 22; clusters down 2, up 0
+        3 ->      0  span|sys_func_call|endcol|under:cont_assign
+       12 ->      0  span|sys_func_call|endcol|under:operation
+uhdm2rtlil/testflags/ibex_multdiv_fast: facet rows 37 -> 22; clusters down 2, up 0
+        3 ->      0  span|sys_func_call|endcol|under:cont_assign
+       12 ->      0  span|sys_func_call|endcol|under:operation
+uhdm2rtlil/default/rp32_r5p_alu: facet rows 248 -> 0; clusters down 7, up 0
+       39 ->      0  depth|constant|range->operation
+        4 ->      0  file|struct_typespec|other-file|under:module_inst
+        3 ->      0  file|struct_typespec|other-file|under:package
+       10 ->      0  file|struct_typespec|other-file|under:ref_typespec
+        1 ->      0  span|sys_func_call|endcol|under:operation
+       39 ->      0  struct|ours-only:fewer-copies|operation|under:range
+      152 ->      0  value|constant|value:UINT->UINT|under:range
+uhdm2rtlil/testflags/rp32_r5p_bru: facet rows 231 -> 0; clusters down 6, up 0
+       39 ->      0  depth|constant|range->operation
+        2 ->      0  file|struct_typespec|other-file|under:module_inst
+        3 ->      0  file|struct_typespec|other-file|under:package
+        8 ->      0  file|struct_typespec|other-file|under:ref_typespec
+       39 ->      0  struct|ours-only:fewer-copies|operation|under:range
+      140 ->      0  value|constant|value:UINT->UINT|under:range

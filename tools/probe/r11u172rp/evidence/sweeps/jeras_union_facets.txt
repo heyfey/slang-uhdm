@@ -1,0 +1,30 @@
+P default facet rows 219
+      60 file|constant|ours-empty|under:range
+      44 value|constant|value:UINT->UINT|under:range
+      41 fullname|ref_typespec|tok:->id.id.id::|under:typespec_member
+      20 fullname|ref_typespec|tok:->id.id.id::|under:logic_typespec
+      14 fullname|ref_typespec|tok:->id.id.id::id.id.id::|under:typespec_member
+      12 depth|constant|range->operation
+      12 struct|ours-only:fewer-copies|operation|under:range
+       7 fullname|ref_typespec|tok:->id@id.|under:typespec_member
+       7 fullname|ref_typespec|tok:->id.id.id::id.id.id::id.id.id::|under:enum_typespec
+       2 file|union_typespec|ours-empty|under:ref_typespec
+P testflags facet rows 219
+      60 file|constant|ours-empty|under:range
+      44 value|constant|value:UINT->UINT|under:range
+      41 fullname|ref_typespec|tok:->id.id.id::|under:typespec_member
+      20 fullname|ref_typespec|tok:->id.id.id::|under:logic_typespec
+      14 fullname|ref_typespec|tok:->id.id.id::id.id.id::|under:typespec_member
+      12 depth|constant|range->operation
+      12 struct|ours-only:fewer-copies|operation|under:range
+       7 fullname|ref_typespec|tok:->id@id.|under:typespec_member
+       7 fullname|ref_typespec|tok:->id.id.id::id.id.id::id.id.id::|under:enum_typespec
+       2 file|union_typespec|ours-empty|under:ref_typespec
+L default facet rows 77
+      60 file|constant|ours-empty|under:range
+      15 fullname|ref_typespec|tok:->id.id.id::|under:logic_typespec
+       2 file|union_typespec|ours-empty|under:ref_typespec
+L testflags facet rows 77
+      60 file|constant|ours-empty|under:range
+      15 fullname|ref_typespec|tok:->id.id.id::|under:logic_typespec
+       2 file|union_typespec|ours-empty|under:ref_typespec

@@ -1,0 +1,48 @@
+=== P (pristine 4c55e61f) surelog/testflags/UnionCast: uhdm-cmp lines 0
+#178 value
+  A: 7	constant				dut.sv	108	34	108	36	00	64	UINT:00	9
+  B: 7	constant				dut.sv	108	34	108	36	00	64	UINT:0	9
+#610 value
+  A: 7	constant				dut.sv	109	34	109	36	05	64	UINT:05	9
+  B: 7	constant				dut.sv	109	34	109	36	05	64	UINT:5	9
+#890 value
+  A: 10	constant				dut.sv	108	34	108	36	00	64	UINT:00	9
+  B: 10	constant				dut.sv	108	34	108	36	00	64	UINT:0	9
+#975 value
+  A: 10	constant				dut.sv	109	34	109	36	05	64	UINT:05	9
+  B: 10	constant				dut.sv	109	34	109	36	05	64	UINT:5	9
+#1551 value
+  A: 7	constant				dut.sv	108	34	108	36	00	64	UINT:00	9
+  B: 7	constant				dut.sv	108	34	108	36	00	64	UINT:0	9
+#1971 value
+  A: 7	constant				dut.sv	109	34	109	36	05	64	UINT:05	9
+  B: 7	constant				dut.sv	109	34	109	36	05	64	UINT:5	9
+#2239 value
+  A: 10	constant				dut.sv	108	34	108	36	00	64	UINT:00	9
+  B: 10	constant				dut.sv	108	34	108	36	00	64	UINT:0	9
+#2320 value
+  A: 10	constant				dut.sv	109	34	109	36	05	64	UINT:05	9
+  B: 10	constant				dut.sv	109	34	109	36	05	64	UINT:5	9
+#2888 value
+  A: 7	constant				dut.sv	108	34	108	36	00	64	UINT:00	9
+  B: 7	constant				dut.sv	108	34	108	36	00	64	UINT:0	9
+#3308 value
+  A: 7	constant				dut.sv	109	34	109	36	05	64	UINT:05	9
+  B: 7	constant				dut.sv	109	34	109	36	05	64	UINT:5	9
+#3576 value
+  A: 10	constant				dut.sv	108	34	108	36	00	64	UINT:00	9
+  B: 10	constant				dut.sv	108	34	108	36	00	64	UINT:0	9
+#3657 value
+  A: 10	constant				dut.sv	109	34	109	36	05	64	UINT:05	9
+  B: 10	constant				dut.sv	109	34	109	36	05	64	UINT:5	9
+fields: file=2 value=26 objects_differing=28
+STRICT_NOTEQUAL value
+=== L (law cd06c3e9) surelog/testflags/UnionCast: uhdm-cmp lines 0
+#4717 file
+  A: 5	union_typespec	riscv_isa_pkg::op32_t			dut.sv	115	9	123	2				
+  B: 5	union_typespec	riscv_isa_pkg::op32_t				115	9	123	2				
+#7340 file
+  A: 5	union_typespec	riscv_isa_pkg::op32_t			dut.sv	115	9	123	2				
+  B: 5	union_typespec	riscv_isa_pkg::op32_t				115	9	123	2				
+fields: file=2 objects_differing=2
+STRICT_NOTEQUAL file

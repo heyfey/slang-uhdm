@@ -1,0 +1,79 @@
+=== P (pristine 4c55e61f) uhdm2rtlil/default/jeras_union: uhdm-cmp lines 0
+#168 fullname
+  A: 6	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+#176 file
+  A: 9	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 9	constant					132	23	132	25	11	64	INT:11	7
+#177 file
+  A: 9	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9
+  B: 9	constant					132	29	132	30	0	64	UINT:0	9
+#179 file
+  A: 7	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 7	constant					132	23	132	25	11	64	INT:11	7
+#180 file
+  A: 7	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9
+  B: 7	constant					132	29	132	30	0	64	UINT:0	9
+#450 fullname
+  A: 9	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+  B: 9	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+#458 file
+  A: 12	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 12	constant					132	23	132	25	11	64	INT:11	7
+#459 file
+  A: 12	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9
+  B: 12	constant					132	29	132	30	0	64	UINT:0	9
+#461 file
+  A: 10	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 10	constant					132	23	132	25	11	64	INT:11	7
+#462 file
+  A: 10	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9
+  B: 10	constant					132	29	132	30	0	64	UINT:0	9
+#813 value
+  A: 7	constant				riscv_isa_pkg.sv	108	34	108	36	00	64	UINT:00	9
+  B: 7	constant				riscv_isa_pkg.sv	108	34	108	36	00	64	UINT:0	9
+#1245 value
+  A: 7	constant				riscv_isa_pkg.sv	109	34	109	36	05	64	UINT:05	9
+  B: 7	constant				riscv_isa_pkg.sv	109	34	109	36	05	64	UINT:5	9
+objects 19912 vs 19948
+fields: type=1 fullname=7 file=28 endcol=1 decompile=1 size=1 value=19 consttype=1 objects_differing=54 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== L (law cd06c3e9) uhdm2rtlil/default/jeras_union: uhdm-cmp lines 0
+#168 fullname
+  A: 6	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+#176 file
+  A: 9	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 9	constant					132	23	132	25	11	64	INT:11	7
+#177 file
+  A: 9	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9
+  B: 9	constant					132	29	132	30	0	64	UINT:0	9
+#179 file
+  A: 7	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 7	constant					132	23	132	25	11	64	INT:11	7
+#180 file
+  A: 7	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9
+  B: 7	constant					132	29	132	30	0	64	UINT:0	9
+#450 fullname
+  A: 9	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+  B: 9	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+#458 file
+  A: 12	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 12	constant					132	23	132	25	11	64	INT:11	7
+#459 file
+  A: 12	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9
+  B: 12	constant					132	29	132	30	0	64	UINT:0	9
+#461 file
+  A: 10	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 10	constant					132	23	132	25	11	64	INT:11	7
+#462 file
+  A: 10	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9
+  B: 10	constant					132	29	132	30	0	64	UINT:0	9
+#3037 fullname
+  A: 12	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+  B: 12	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+#3045 file
+  A: 15	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 15	constant					132	23	132	25	11	64	INT:11	7
+fields: fullname=15 file=62 objects_differing=77
+STRICT_NOTEQUAL fullname

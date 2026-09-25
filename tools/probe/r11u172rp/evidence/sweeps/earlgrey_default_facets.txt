@@ -1,0 +1,7 @@
+P facet rows 24787 analyzer verify True
+L facet rows 18121 analyzer verify True
+   184 ->      0  file|struct_typespec|other-file|under:module_inst
+     4 ->      0  file|struct_typespec|other-file|under:package
+  6464 ->      0  file|struct_typespec|other-file|under:ref_typespec
+     2 ->      0  span|sys_func_call|endcol|under:cont_assign
+    12 ->      0  span|sys_func_call|endcol|under:operation

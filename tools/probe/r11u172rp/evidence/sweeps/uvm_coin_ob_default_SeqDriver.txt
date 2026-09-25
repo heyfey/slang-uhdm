@@ -1,0 +1,6 @@
+      |UINT:1044
+	      |UINT:595
+      |vpiDecompile:1044
+	      |vpiDecompile:595
+	surelog/default/SeqDriver-65178d3a/slang.uhdm: Restored design Pre-Elab: 
+surelog/default/SeqDriver-65178d3a/slang.uhdm: Restored design Pre-Elab: 
