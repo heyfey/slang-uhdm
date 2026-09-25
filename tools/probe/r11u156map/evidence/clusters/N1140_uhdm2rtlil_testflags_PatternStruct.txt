@@ -1,0 +1,41 @@
+cluster N1140 (map 5 id kept; COVERED r11u147 (N1140)): span|constant|ours-zero|under:operation
+row: uhdm2rtlil/testflags/PatternStruct  strict=differ:file(1)  records golden=79 ours=79
+object: #63 (golden) / #63 (ours)  type=constant name= 
+  golden: 5:26:5:29
+  ours:   0:0:0:0
+  walk parents: operation < cont_assign < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 57..69 ('>' = the object)
+  #57	4	logic_typespec				dut.sv	1	19	1	30						000
+  #58	5	range				dut.sv	1	25	1	30						001
+  #59	6	constant				dut.sv	1	26	1	27	7	64	UINT:7	9		001
+  #60	6	constant				dut.sv	1	28	1	29	0	64	UINT:0	9		001
+  #61	2	cont_assign				dut.sv	5	14	5	15						000
+  #62	3	operation				dut.sv	5	18	5	30		0				000
+> #63	4	constant				dut.sv	5	26	5	29	125	8	UINT:125	9		000
+  #64	3	struct_net	s		work@top.s	dut.sv	5	14	5	15		0			work@top.s	000
+  #65	4	ref_typespec			work@top.s		0	0	0	0		0			work@top.s	000
+  #66	5	struct_typespec	my_struct			dut.sv	2	12	4	5						110
+  #67	6	typespec_member	word			dut.sv	3	19	3	23						001
+  #68	7	ref_typespec			<in>my_struct.word		0	0	0	0		0			my_struct.word	001
+  #69	8	logic_typespec				dut.sv	3	7	3	18						001
+
+--- OURS (B) records 57..69 ('>' = the object)
+  #57	4	logic_typespec				dut.sv	1	19	1	30						000
+  #58	5	range				dut.sv	1	25	1	30						001
+  #59	6	constant				dut.sv	1	26	1	27	7	64	UINT:7	9		001
+  #60	6	constant				dut.sv	1	28	1	29	0	64	UINT:0	9		001
+  #61	2	cont_assign				dut.sv	5	14	5	15						000
+  #62	3	operation				dut.sv	5	18	5	30		0				000
+> #63	4	constant					0	0	0	0	125	8	UINT:125	9		000
+  #64	3	struct_net	s		work@top.s	dut.sv	5	14	5	15		0			work@top.s	000
+  #65	4	ref_typespec			work@top.s		0	0	0	0		0			work@top.s	000
+  #66	5	struct_typespec	my_struct			dut.sv	2	12	4	5						110
+  #67	6	typespec_member	word			dut.sv	3	19	3	23						001
+  #68	7	ref_typespec			<in>my_struct.word		0	0	0	0		0			my_struct.word	001
+  #69	8	logic_typespec				dut.sv	3	7	3	18						001
+
+facets of this row (2, first 25):
+  N0394 #63/63 constant  G[dut.sv 5:26:5:29] O[ 0:0:0:0]
+  N1140 #63/63 constant  G[5:26:5:29] O[0:0:0:0]

@@ -1,0 +1,64 @@
+cluster N1113 (map 5 id kept; OPEN): file|operation|other-file|under:param_assign
+row: surelog/testflags/Scr1SvTests  strict=differ:line(220)  records golden=83997 ours=84031
+object: #76004 (golden) / #76031 (ours)  type=operation name= 
+  golden: scr1_tcm.sv 101:19:101:32
+  ours:   scr1_top_axi.sv 101:19:101:32
+  walk parents: param_assign < module_inst(i_dp_memory) < module_inst(i_tcm) < module_inst(i_top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 75998..76010 ('>' = the object)
+  #75998	7	int_typespec				scr1_dp_memory.sv	72	12	72	24						000
+  #75999	5	param_assign				scr1_dp_memory.sv	11	15	11	33						000
+  #76000	6	constant				scr1_dp_memory.sv	11	31	11	33	32	32	UINT:32	9		000
+  #76001	7	ref_typespec			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory	000
+  #76002	8	int_typespec				scr1_dp_memory.sv	11	5	11	33						000
+  #76003	5	param_assign				scr1_dp_memory.sv	12	15	12	43						000
+> #76004	6	operation				scr1_tcm.sv	101	19	101	32		0				000
+  #76005	7	ref_typespec			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory	000
+  #76006	8	integer_typespec				scr1_top_axi.sv	367	22	367	24						000
+  #76007	7	operation				scr1_top_axi.sv	367	26	367	52		0				000
+  #76008	8	operation				scr1_top_axi.sv	367	26	367	45		0				000
+  #76009	9	ref_obj	SCR1_TCM_ADDR_MASK		work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.SCR1_TCM_ADDR_MASK	scr1_top_axi.sv	367	27	367	45		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory.SCR1_TCM_ADDR_MASK	000
+  #76010	8	constant				scr1_top_axi.sv	367	48	367	52	1'b1	1	BIN:1	3		000
+
+--- OURS (B) records 76025..76037 ('>' = the object)
+  #76025	7	int_typespec				scr1_dp_memory.sv	72	12	72	24						000
+  #76026	5	param_assign				scr1_dp_memory.sv	11	15	11	33						000
+  #76027	6	constant				scr1_dp_memory.sv	11	31	11	33	32	32	UINT:32	9		000
+  #76028	7	ref_typespec			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_tcm.i_dp_memory	000
+  #76029	8	int_typespec				scr1_dp_memory.sv	11	5	11	33						000
+  #76030	5	param_assign				scr1_dp_memory.sv	12	15	12	43						000
+> #76031	6	operation				scr1_top_axi.sv	101	19	101	32		0				000
+  #76032	7	ref_typespec			work@scr1_top_tb_axi.i_top.i_tcm		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_tcm	000
+  #76033	8	integer_typespec				scr1_top_axi.sv	367	22	367	24						000
+  #76034	7	operation				scr1_top_axi.sv	367	26	367	52		0				000
+  #76035	8	operation				scr1_top_axi.sv	367	26	367	45		0				000
+  #76036	9	ref_obj	SCR1_TCM_ADDR_MASK		work@scr1_top_tb_axi.i_top.i_tcm.SCR1_TCM_ADDR_MASK	scr1_top_axi.sv	367	27	367	45		0			work@scr1_top_tb_axi.i_top.i_tcm.SCR1_TCM_ADDR_MASK	000
+  #76037	8	constant				scr1_top_axi.sv	367	48	367	52	1'b1	1	BIN:1	3		000
+
+facets of this row (854, first 25):
+  N0965 #16033/-1 ref_typespec  G[5 objs] O[]
+  N0286 #-1/48526 ref_obj SCR1_IFU_Q_FREE_H_W G[] O[1 objs]
+  N0286 #-1/48539 ref_obj SCR1_IFU_Q_FREE_H_W G[] O[1 objs]
+  N0286 #-1/48554 ref_obj SCR1_IFU_Q_FREE_W_W G[] O[1 objs]
+  N0286 #-1/48614 ref_obj SCR1_IFU_Q_FREE_H_W G[] O[1 objs]
+  N0791 #48791/-1 ref_obj SCR1_MEM_CMD_RD G[2 objs] O[]
+  N0284 #-1/48790 constant  G[] O[1 objs]
+  N0965 #61857/-1 ref_typespec  G[5 objs] O[]
+  N0729 #63286/-1 ref_obj ALLTRIG_W G[3 objs] O[]
+  N1165 #-1/64549 ref_obj ALLTRIG_W G[] O[1 objs]
+  N0921 #-1/70144 operation  G[] O[5 objs]
+  N0921 #-1/70153 operation  G[] O[7 objs]
+  N0921 #-1/70164 operation  G[] O[11 objs]
+  N0921 #-1/70179 operation  G[] O[13 objs]
+  N0921 #-1/76044 operation  G[] O[7 objs]
+  N0064 #4/4 include_file_info  G[537:10:537:39] O[322:10:322:39]
+  N0064 #5/5 include_file_info  G[545:10:545:37] O[330:10:330:37]
+  N0064 #6/6 include_file_info  G[761:10:761:31] O[331:10:331:31]
+  N0064 #7/7 include_file_info  G[1010:10:1010:24] O[508:10:508:24]
+  N0064 #8/8 include_file_info  G[1018:10:1018:37] O[516:10:516:37]
+  N0064 #9/9 include_file_info  G[1234:10:1234:24] O[517:10:517:24]
+  N0064 #10/10 include_file_info  G[1242:10:1242:37] O[525:10:525:37]
+  N0064 #11/11 include_file_info  G[1458:10:1458:31] O[526:10:526:31]
+  N0064 #12/12 include_file_info  G[1531:10:1531:25] O[527:10:527:25]
+  N0064 #13/13 include_file_info  G[1539:10:1539:37] O[535:10:535:37]

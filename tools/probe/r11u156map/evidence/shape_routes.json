@@ -1,0 +1,34 @@
+{
+ "N0001": [
+  "r11u147+r11u152",
+  "r11v145 V4 psb/x23 (struct-parameter member bound) + pass-146 R2 (hier_path base placement outside TypeEmit: ComplexHierPath, mem_ff_partial_rsp, portsel_struct_param, expr_width_cast)"
+ ],
+ "N0007": [
+  "r11u147",
+  "r11v145 V4 psb/x23"
+ ],
+ "N0005": [
+  "r11u147+r11u152",
+  "pass-144 S4/S5 + pass-145 R4 (ibex_alu enum default) -> A; pass-145 R6 (interface port-view share) -> B"
+ ],
+ "N0009": [
+  "r11u147+r11u152",
+  "pass-144 S3 (packed_array_struct) -> A; v11u146 R1 + pass-146 R3 (ig/i11) -> B"
+ ],
+ "N0083": [
+  "r11u147+r11u152",
+  "pass-144 S3 (packed_array_struct) -> A; v11u146 R6 / r11u153 B1 (tn/k6 k9 k10, j03 j12) -> B"
+ ],
+ "N0263": [
+  "r11u152",
+  "v11u146 R6 / r11u153 B1 (tn/k6 k9, j03 j12)"
+ ],
+ "N0275": [
+  "r11u152",
+  "v11u146 R4 (esc/x4: a based literal on an escaped-identifier line)"
+ ],
+ "N0224": [
+  "r11u152",
+  "r11u153 N6 (esc/y03: an escaped struct member in a hier_path)"
+ ]
+}

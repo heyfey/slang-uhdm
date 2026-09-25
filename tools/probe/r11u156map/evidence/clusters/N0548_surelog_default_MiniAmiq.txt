@@ -1,0 +1,64 @@
+cluster N0548 (map 5 id kept; OPEN): struct|golden-only:fewer-copies|ref_var|under:assignment
+row: surelog/default/MiniAmiq  strict=differ:line(190)  records golden=435559 ours=413982
+object: #88126 (golden) / #-1 (ours)  type=ref_var name=p 
+  golden: 3 objs
+  ours:   
+  walk parents: assignment < begin < if_else < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 88120..88132 ('>' = the object)
+  #88120	12	unsupported_typespec	process			uvm_component.svh	3612	9	3612	16						110
+  #88121	9	string_var	p_rand		svaunit_pkg::uvm_component::m_apply_verbosity_settings::p_rand	uvm_component.svh	3613	16	3613	22		0			svaunit_pkg::uvm_component::m_apply_verbosity_settings::p_rand	000
+  #88122	10	ref_typespec			svaunit_pkg::uvm_component::m_apply_verbosity_settings::p_rand		0	0	0	0		0			svaunit_pkg::uvm_component::m_apply_verbosity_settings::p_rand	000
+  #88123	11	string_typespec				uvm_component.svh	3613	9	3613	15						000
+  #88124	9	assignment				uvm_component.svh	3612	17	3612	36						000
+  #88125	10	ref_obj	process::self		svaunit_pkg::uvm_component::m_apply_verbosity_settings::process::self	uvm_component.svh	3612	21	3612	30		0			svaunit_pkg::uvm_component::m_apply_verbosity_settings::process::self	000
+> #88126	10	ref_var	p		svaunit_pkg::uvm_component::m_apply_verbosity_settings::p	uvm_component.svh	3612	17	3612	18		0			svaunit_pkg::uvm_component::m_apply_verbosity_settings::p	000
+  #88127	11	ref_typespec			svaunit_pkg::uvm_component::m_apply_verbosity_settings::p		0	0	0	0		0			svaunit_pkg::uvm_component::m_apply_verbosity_settings::p	000
+  #88128	12	unsupported_typespec	process			uvm_component.svh	3612	9	3612	16						110
+  #88129	9	assignment				uvm_component.svh	3613	16	3613	42						000
+  #88130	10	hier_path	p.get_randstate			uvm_component.svh	3613	25	3613	42		0				000
+  #88131	11	ref_obj	p			uvm_component.svh	3613	25	3613	26		0				000
+  #88132	11	method_func_call	get_randstate			uvm_component.svh	3613	27	3613	40		0				000
+
+--- the holder #88124 on the other side: exact-record matches at [21737, 86156, 306864, 369505]
+  #21734	9	string_var	p_rand		uvm_pkg::uvm_component::m_apply_verbosity_settings::p_rand	uvm_component.svh	3613	16	3613	22		0			uvm_pkg::uvm_component::m_apply_verbosity_settings::p_rand	000
+  #21735	10	ref_typespec			uvm_pkg::uvm_component::m_apply_verbosity_settings::p_rand		0	0	0	0		0			uvm_pkg::uvm_component::m_apply_verbosity_settings::p_rand	000
+  #21736	11	string_typespec				uvm_component.svh	3613	9	3613	15						000
+> #21737	9	assignment				uvm_component.svh	3612	17	3612	36						000
+  #21738	10	ref_obj	process::self		uvm_pkg::uvm_component::m_apply_verbosity_settings::process::self	uvm_component.svh	3612	21	3612	30		0			uvm_pkg::uvm_component::m_apply_verbosity_settings::process::self	000
+  #21739	9	assignment				uvm_component.svh	3613	16	3613	42						000
+  #21740	10	hier_path	p.get_randstate			uvm_component.svh	3613	25	3613	42		0				000
+  #21741	11	ref_obj	p			uvm_component.svh	3613	25	3613	26		0				000
+  #21742	11	method_func_call	get_randstate			uvm_component.svh	3613	27	3613	40		0				000
+  #21743	9	fork_stmt			uvm_pkg::uvm_component::m_apply_verbosity_settings	uvm_component.svh	3614	9	3621	22					uvm_pkg::uvm_component::m_apply_verbosity_settings	000
+  #21744	10	begin			uvm_pkg::uvm_component::m_apply_verbosity_settings	uvm_component.svh	3614	14	3621	12					uvm_pkg::uvm_component::m_apply_verbosity_settings	000
+  #21745	11	ref_var	setting		uvm_pkg::uvm_component::m_apply_verbosity_settings::setting	uvm_component.svh	3615	31	3615	38		0			uvm_pkg::uvm_component::m_apply_verbosity_settings::setting	000
+  #21746	12	ref_typespec			uvm_pkg::uvm_component::m_apply_verbosity_settings::setting		0	0	0	0		0			uvm_pkg::uvm_component::m_apply_verbosity_settings::setting	000
+
+facets of this row (55220, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

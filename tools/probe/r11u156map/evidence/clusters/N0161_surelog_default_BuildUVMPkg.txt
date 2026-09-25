@@ -1,0 +1,64 @@
+cluster N0161 (map 5 id kept; OPEN): fullname|ref_typespec|tok:id::->|under:class_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:line(165)  records golden=201533 ours=201486
+object: #71346 (golden) / #71343 (ours)  type=ref_typespec name= STABLE
+  golden: uvm_pkg::uvm_callbacks::this_type
+  ours:   uvm_callbacks::this_type
+  walk parents: class_typespec(this_type) < ref_typespec < class_var(m_inst) < class_defn(uvm_callbacks)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 71340..71352 ('>' = the object)
+  #71340	4	return_stmt				uvm_pkg.sv	27703	7	27703	13						000
+  #71341	5	ref_obj	m_cb		uvm_pkg::uvm_callback_iter::get_cb::m_cb	uvm_pkg.sv	27703	14	27703	18		0			uvm_pkg::uvm_callback_iter::get_cb::m_cb	000
+  #71342	2	class_defn	uvm_callbacks		uvm_pkg::uvm_callbacks	uvm_pkg.sv	27013	1	27546	9					uvm_pkg::uvm_callbacks	000
+  #71343	3	class_var	m_inst		uvm_pkg::uvm_callbacks::m_inst	uvm_pkg.sv	27035	26	27035	32		0			uvm_pkg::uvm_callbacks::m_inst	000
+  #71344	4	ref_typespec			uvm_pkg::uvm_callbacks::m_inst		0	0	0	0		0			uvm_pkg::uvm_callbacks::m_inst	000
+  #71345	5	class_typespec	this_type			uvm_pkg.sv	42788	9	42788	22						110
+> #71346	6	ref_typespec			<in>this_type		0	0	0	0		0			uvm_pkg::uvm_callbacks::this_type	001
+  #71347	3	class_var	m_typeid		uvm_pkg::uvm_callbacks::m_typeid	uvm_pkg.sv	27038	26	27038	34		0			uvm_pkg::uvm_callbacks::m_typeid	000
+  #71348	4	ref_typespec			uvm_pkg::uvm_callbacks::m_typeid		0	0	0	0		0			uvm_pkg::uvm_callbacks::m_typeid	000
+  #71349	5	class_typespec	uvm_typeid_base			uvm_pkg.sv	27038	10	27038	25						110
+  #71350	3	class_var	m_cb_typeid		uvm_pkg::uvm_callbacks::m_cb_typeid	uvm_pkg.sv	27039	26	27039	37		0			uvm_pkg::uvm_callbacks::m_cb_typeid	000
+  #71351	4	ref_typespec			uvm_pkg::uvm_callbacks::m_cb_typeid		0	0	0	0		0			uvm_pkg::uvm_callbacks::m_cb_typeid	000
+  #71352	5	class_typespec	uvm_typeid_base			uvm_pkg.sv	27039	10	27039	25						110
+
+--- OURS (B) records 71337..71349 ('>' = the object)
+  #71337	4	return_stmt				uvm_pkg.sv	27703	7	27703	13						000
+  #71338	5	ref_obj	m_cb		uvm_pkg::uvm_callback_iter::get_cb::m_cb	uvm_pkg.sv	27703	14	27703	18		0			uvm_pkg::uvm_callback_iter::get_cb::m_cb	000
+  #71339	2	class_defn	uvm_callbacks		uvm_pkg::uvm_callbacks	uvm_pkg.sv	27013	1	27546	9					uvm_pkg::uvm_callbacks	000
+  #71340	3	class_var	m_inst		uvm_pkg::uvm_callbacks::m_inst	uvm_pkg.sv	27035	26	27035	32		0			uvm_pkg::uvm_callbacks::m_inst	000
+  #71341	4	ref_typespec			uvm_pkg::uvm_callbacks::m_inst		0	0	0	0		0			uvm_pkg::uvm_callbacks::m_inst	000
+  #71342	5	class_typespec	this_type			uvm_pkg.sv	42788	9	42788	22						110
+> #71343	6	ref_typespec			<in>this_type		0	0	0	0		0			uvm_callbacks::this_type	001
+  #71344	3	class_var	m_typeid		uvm_pkg::uvm_callbacks::m_typeid	uvm_pkg.sv	27038	26	27038	34		0			uvm_pkg::uvm_callbacks::m_typeid	000
+  #71345	4	ref_typespec			uvm_pkg::uvm_callbacks::m_typeid		0	0	0	0		0			uvm_pkg::uvm_callbacks::m_typeid	000
+  #71346	5	class_typespec	uvm_typeid_base			uvm_pkg.sv	27038	10	27038	25						110
+  #71347	3	class_var	m_cb_typeid		uvm_pkg::uvm_callbacks::m_cb_typeid	uvm_pkg.sv	27039	26	27039	37		0			uvm_pkg::uvm_callbacks::m_cb_typeid	000
+  #71348	4	ref_typespec			uvm_pkg::uvm_callbacks::m_cb_typeid		0	0	0	0		0			uvm_pkg::uvm_callbacks::m_cb_typeid	000
+  #71349	5	class_typespec	uvm_typeid_base			uvm_pkg.sv	27039	10	27039	25						110
+
+facets of this row (9283, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

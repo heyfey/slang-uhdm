@@ -1,0 +1,64 @@
+cluster N0596 (map 5 id kept; OPEN): span|logic_net|line+endline|under:ref_obj
+row: surelog/default/SimpleUVM  strict=differ:line(190)  records golden=334285 ours=333561
+object: #105958 (golden) / #105204 (ours)  type=logic_net name=m_fname 
+  golden: 1121:4:1121:11
+  ours:   1581:4:1581:11
+  walk parents: ref_obj(m_fname) < assignment < begin < function(do_predict)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 105952..105964 ('>' = the object)
+  #105952	8	return_stmt				uvm_reg_field.svh	1119	6	1119	12						000
+  #105953	7	assignment				uvm_reg_field.svh	1121	4	1121	22						000
+  #105954	8	hier_path	rw.fname			uvm_reg_field.svh	1121	14	1121	22		0				000
+  #105955	9	ref_obj	rw			uvm_reg_field.svh	1121	14	1121	16		0				000
+  #105956	9	ref_obj	fname		uvm_pkg::uvm_reg_field::do_predict::fname	uvm_reg_field.svh	1121	17	1121	22		0			uvm_pkg::uvm_reg_field::do_predict::fname	000
+  #105957	8	ref_obj	m_fname		uvm_pkg::uvm_reg_field::do_predict::m_fname	uvm_reg_field.svh	1121	4	1121	11		0			uvm_pkg::uvm_reg_field::do_predict::m_fname	000
+> #105958	9	logic_net	m_fname		work@top.m_fname		1121	4	1121	11		0			work@top.m_fname	000
+  #105959	7	assignment				uvm_reg_field.svh	1122	4	1122	24						000
+  #105960	8	hier_path	rw.lineno			uvm_reg_field.svh	1122	15	1122	24		0				000
+  #105961	9	ref_obj	rw			uvm_reg_field.svh	1122	15	1122	17		0				000
+  #105962	9	ref_obj	lineno		uvm_pkg::uvm_reg_field::do_predict::lineno	uvm_reg_field.svh	1122	18	1122	24		0			uvm_pkg::uvm_reg_field::do_predict::lineno	000
+  #105963	8	ref_obj	m_lineno		uvm_pkg::uvm_reg_field::do_predict::m_lineno	uvm_reg_field.svh	1122	4	1122	12		0			uvm_pkg::uvm_reg_field::do_predict::m_lineno	000
+  #105964	9	logic_net	m_lineno		work@top.m_lineno		1122	4	1122	12		0			work@top.m_lineno	000
+
+--- OURS (B) records 105198..105210 ('>' = the object)
+  #105198	8	return_stmt				uvm_reg_field.svh	1119	6	1119	12						000
+  #105199	7	assignment				uvm_reg_field.svh	1121	4	1121	22						000
+  #105200	8	hier_path	rw.fname			uvm_reg_field.svh	1121	14	1121	22		0				000
+  #105201	9	ref_obj	rw			uvm_reg_field.svh	1121	14	1121	16		0				000
+  #105202	9	ref_obj	fname		uvm_pkg::uvm_reg_field::do_predict::fname	uvm_reg_field.svh	1121	17	1121	22		0			uvm_pkg::uvm_reg_field::do_predict::fname	000
+  #105203	8	ref_obj	m_fname		uvm_pkg::uvm_reg_field::do_predict::m_fname	uvm_reg_field.svh	1121	4	1121	11		0			uvm_pkg::uvm_reg_field::do_predict::m_fname	000
+> #105204	9	logic_net	m_fname		work@top.m_fname		1581	4	1581	11		0			work@top.m_fname	000
+  #105205	7	assignment				uvm_reg_field.svh	1122	4	1122	24						000
+  #105206	8	hier_path	rw.lineno			uvm_reg_field.svh	1122	15	1122	24		0				000
+  #105207	9	ref_obj	rw			uvm_reg_field.svh	1122	15	1122	17		0				000
+  #105208	9	ref_obj	lineno		uvm_pkg::uvm_reg_field::do_predict::lineno	uvm_reg_field.svh	1122	18	1122	24		0			uvm_pkg::uvm_reg_field::do_predict::lineno	000
+  #105209	8	ref_obj	m_lineno		uvm_pkg::uvm_reg_field::do_predict::m_lineno	uvm_reg_field.svh	1122	4	1122	12		0			uvm_pkg::uvm_reg_field::do_predict::m_lineno	000
+  #105210	9	logic_net	m_lineno		work@top.m_lineno		1582	4	1582	12		0			work@top.m_lineno	000
+
+facets of this row (36635, first 25):
+  N0343 #-1/2484 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2914 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3160 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10177/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17758 class_var uvm_top G[] O[4 objs]
+  N0213 #20905/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20923 bit_typespec  G[] O[1 objs]
+  N0213 #21847/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21859 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25773 class_var run_ph G[] O[3 objs]
+  N0213 #74380/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74389 bit_typespec  G[] O[1 objs]
+  N0213 #74407/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74410 bit_typespec  G[] O[1 objs]
+  N0213 #74469/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74466 bit_typespec  G[] O[1 objs]
+  N0151 #78244/-1 ref_typespec  G[2 objs] O[]
+  N0197 #78752/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/78741 array_typespec  G[] O[1 objs]
+  N0213 #78771/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/78760 bit_typespec  G[] O[1 objs]
+  N0213 #79756/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79739 bit_typespec  G[] O[1 objs]
+  N0151 #80429/-1 ref_typespec  G[2 objs] O[]
+  N0151 #80433/-1 ref_typespec  G[2 objs] O[]

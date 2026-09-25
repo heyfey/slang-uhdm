@@ -1,0 +1,64 @@
+cluster N1056 (map 5 id kept; OPEN): fullname|bit_select|tok:id[id].id::id::->|under:bit_select
+row: surelog/default/MiniAmiq  strict=differ:line(190)  records golden=435559 ours=413982
+object: #243595 (golden) / #233978 (ours)  type=bit_select name=check_index OUT
+  golden: svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index].attempt_time::attempt_time::check_index
+  ours:   svaunit_pkg::svaunit_immediate_assertion_info::get_checks::check_index
+  walk parents: bit_select(attempt_time) < hier_path(checks_details[details_index].attempt_time) < func_call(get_checks) < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 243589..243601 ('>' = the object)
+  #243589	12	method_func_call	get_check_name			svaunit_immediate_assertion_info.svh	238	46	238	60		0				000
+  #243590	11	ref_obj	a_test_name		svaunit_pkg::svaunit_immediate_assertion_info::get_checks::a_test_name	svaunit_immediate_assertion_info.svh	239	16	239	27		0			svaunit_pkg::svaunit_immediate_assertion_info::get_checks::a_test_name	000
+  #243591	11	hier_path	checks_details[details_index].attempt_time			svaunit_immediate_assertion_info.svh	240	16	240	78		0				000
+  #243592	12	bit_select	checks_details		checks_details[details_index]	svaunit_immediate_assertion_info.svh	240	16	240	30		0			checks_details[details_index]	000
+  #243593	13	ref_obj	details_index		svaunit_pkg::svaunit_immediate_assertion_info::get_checks::details_index	svaunit_immediate_assertion_info.svh	240	31	240	44		0			svaunit_pkg::svaunit_immediate_assertion_info::get_checks::details_index	000
+  #243594	12	bit_select	attempt_time		svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index].attempt_time::attempt_time	svaunit_immediate_assertion_info.svh	240	59	240	77		0			svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index].attempt_time::attempt_time	000
+> #243595	13	bit_select	check_index		svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index].attempt_time::attempt_time::check_index	svaunit_immediate_assertion_info.svh	240	71	240	76		0			svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index].attempt_time::attempt_time::check_index	000
+  #243596	14	ref_obj	index		svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index].attempt_time::attempt_time::index	svaunit_immediate_assertion_info.svh	240	71	240	76		0			svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index].attempt_time::attempt_time::index	000
+  #243597	11	hier_path	checks_details[details_index].check_states			svaunit_immediate_assertion_info.svh	241	16	241	78		0				000
+  #243598	12	bit_select	checks_details		checks_details[details_index]	svaunit_immediate_assertion_info.svh	241	16	241	30		0			checks_details[details_index]	000
+  #243599	13	ref_obj	details_index		svaunit_pkg::svaunit_immediate_assertion_info::get_checks::details_index	svaunit_immediate_assertion_info.svh	241	31	241	44		0			svaunit_pkg::svaunit_immediate_assertion_info::get_checks::details_index	000
+  #243600	12	bit_select	check_states		svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index].check_states::check_states	svaunit_immediate_assertion_info.svh	241	59	241	77		0			svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index].check_states::check_states	000
+  #243601	13	bit_select	check_index		svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index].check_states::check_states::check_index	svaunit_immediate_assertion_info.svh	241	71	241	76		0			svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index].check_states::check_states::check_index	000
+
+--- OURS (B) records 233972..233984 ('>' = the object)
+  #233972	12	method_func_call	get_check_name			svaunit_immediate_assertion_info.svh	238	46	238	60		0				000
+  #233973	11	ref_obj	a_test_name		svaunit_pkg::svaunit_immediate_assertion_info::get_checks::a_test_name	svaunit_immediate_assertion_info.svh	239	16	239	27		0			svaunit_pkg::svaunit_immediate_assertion_info::get_checks::a_test_name	000
+  #233974	11	hier_path	checks_details[details_index].attempt_time			svaunit_immediate_assertion_info.svh	240	16	240	78		0				000
+  #233975	12	bit_select	checks_details		checks_details[details_index]	svaunit_immediate_assertion_info.svh	240	16	240	30		0			checks_details[details_index]	000
+  #233976	13	ref_obj	details_index		svaunit_pkg::svaunit_immediate_assertion_info::get_checks::details_index	svaunit_immediate_assertion_info.svh	240	31	240	44		0			svaunit_pkg::svaunit_immediate_assertion_info::get_checks::details_index	000
+  #233977	12	bit_select	attempt_time		svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index].attempt_time::attempt_time	svaunit_immediate_assertion_info.svh	240	59	240	77		0			svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index].attempt_time::attempt_time	000
+> #233978	13	bit_select	check_index		svaunit_pkg::svaunit_immediate_assertion_info::get_checks::check_index	svaunit_immediate_assertion_info.svh	240	71	240	76		0			svaunit_pkg::svaunit_immediate_assertion_info::get_checks::check_index	000
+  #233979	14	ref_obj	index		svaunit_pkg::svaunit_immediate_assertion_info::get_checks::index	svaunit_immediate_assertion_info.svh	240	71	240	76		0			svaunit_pkg::svaunit_immediate_assertion_info::get_checks::index	000
+  #233980	11	hier_path	checks_details[details_index].check_states			svaunit_immediate_assertion_info.svh	241	16	241	78		0				000
+  #233981	12	bit_select	checks_details		checks_details[details_index]	svaunit_immediate_assertion_info.svh	241	16	241	30		0			checks_details[details_index]	000
+  #233982	13	ref_obj	details_index		svaunit_pkg::svaunit_immediate_assertion_info::get_checks::details_index	svaunit_immediate_assertion_info.svh	241	31	241	44		0			svaunit_pkg::svaunit_immediate_assertion_info::get_checks::details_index	000
+  #233983	12	bit_select	check_states		svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index].check_states::check_states	svaunit_immediate_assertion_info.svh	241	59	241	77		0			svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index].check_states::check_states	000
+  #233984	13	bit_select	check_index		svaunit_pkg::svaunit_immediate_assertion_info::get_checks::check_index	svaunit_immediate_assertion_info.svh	241	71	241	76		0			svaunit_pkg::svaunit_immediate_assertion_info::get_checks::check_index	000
+
+facets of this row (55220, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

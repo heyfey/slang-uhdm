@@ -1,0 +1,64 @@
+cluster N1153 (map 5 id kept; OPEN): span|range|line+endline|under:io_decl
+row: surelog/default/BuildUVMPkg  strict=differ:line(165)  records golden=201533 ours=201486
+object: #152330 (golden) / #152217 (ours)  type=range name= 
+  golden: 75245:26:75245:28
+  ours:   76157:26:76157:28
+  walk parents: io_decl(addr) < function(get_physical_addresses_to_map) < class_defn(uvm_reg_map) < class_defn(uvm_object)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 152324..152336 ('>' = the object)
+  #152324	9	constant				uvm_pkg.sv	60725	24	60725	26	63	64	INT:63	7		001
+  #152325	9	constant				uvm_pkg.sv	60725	29	60725	30	0	64	UINT:0	9		001
+  #152326	5	io_decl	n_bytes			uvm_pkg.sv	75244	22	75244	29						000
+  #152327	6	ref_typespec			uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::n_bytes		0	0	0	0		0			uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::n_bytes	000
+  #152328	7	int_typespec				uvm_pkg.sv	75244	3	75244	6						000
+  #152329	5	io_decl	addr			uvm_pkg.sv	75245	22	75245	26						000
+> #152330	6	range				uvm_pkg.sv	75245	26	75245	28						000
+  #152331	7	constant				uvm_pkg.sv	75245	26	75245	27	0	64	UINT:0	9		000
+  #152332	7	constant				uvm_pkg.sv	75245	26	75245	27	unsized	0	STRING:unsized	6		000
+  #152333	6	ref_typespec			uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::addr		0	0	0	0		0			uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::addr	000
+  #152334	7	bit_typespec	uvm_reg_addr_t			uvm_pkg.sv	75245	7	75245	21						110
+  #152335	8	ref_typespec			<in>uvm_reg_addr_t		0	0	0	0		0			uvm_reg_addr_t	001
+  #152336	9	bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_pkg.sv	60725	10	60725	31						001
+
+--- OURS (B) records 152211..152223 ('>' = the object)
+  #152211	9	constant				uvm_pkg.sv	60725	24	60725	26	63	64	INT:63	7		001
+  #152212	9	constant				uvm_pkg.sv	60725	29	60725	30	0	64	UINT:0	9		001
+  #152213	5	io_decl	n_bytes			uvm_pkg.sv	76156	22	76156	29						000
+  #152214	6	ref_typespec			uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::n_bytes		0	0	0	0		0			uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::n_bytes	000
+  #152215	7	int_typespec				uvm_pkg.sv	76156	3	76156	6						000
+  #152216	5	io_decl	addr			uvm_pkg.sv	76157	22	76157	26						000
+> #152217	6	range				uvm_pkg.sv	76157	26	76157	28						000
+  #152218	7	constant				uvm_pkg.sv	76157	26	76157	27	0	64	UINT:0	9		000
+  #152219	7	constant				uvm_pkg.sv	76157	26	76157	27	unsized	0	STRING:unsized	6		000
+  #152220	6	ref_typespec			uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::addr		0	0	0	0		0			uvm_pkg::uvm_reg_map::get_physical_addresses_to_map::addr	000
+  #152221	7	bit_typespec	uvm_reg_addr_t			uvm_pkg.sv	76157	7	76157	21						110
+  #152222	8	ref_typespec			<in>uvm_reg_addr_t		0	0	0	0		0			uvm_reg_addr_t	001
+  #152223	9	bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_pkg.sv	60725	10	60725	31						001
+
+facets of this row (9283, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

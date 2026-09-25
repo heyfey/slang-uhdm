@@ -1,0 +1,54 @@
+cluster N0276 (map 5 id kept; OPEN (map 6 routed it to pass 146 (r11u146) as a residue; still present)): span|hier_path|endcol|under:cont_assign
+row: surelog/testflags/ComplexHierPath  strict=differ:col(8)  records golden=145 ours=148
+object: #84 (golden) / #84 (ours)  type=hier_path name=B.C.x 
+  golden: 16:40:16:45
+  ours:   16:40:16:43
+  walk parents: cont_assign < gen_scope < ref_obj(A) < hier_path(A.B.C.x)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 78..90 ('>' = the object)
+  #78	16	ref_obj	A			dut.sv	14	54	14	55		0				000
+  #79	17	gen_scope			work@genblk_dive_top.Z.A	dut.sv	5	32	17	28					work@genblk_dive_top.Z.A	000
+  #80	18	cont_assign				dut.sv	16	40	16	51						000
+  #81	19	hier_path	B.x			dut.sv	16	48	16	51		0				000
+  #82	20	ref_obj	B			dut.sv	16	48	16	49		0				000
+  #83	20	ref_obj	x		work@genblk_dive_top.Z.A.x	dut.sv	16	50	16	51		0			work@genblk_dive_top.Z.A.x	000
+> #84	19	hier_path	B.C.x			dut.sv	16	40	16	45		0				000
+  #85	20	ref_obj	B			dut.sv	16	42	16	43		0				000
+  #86	20	ref_obj	C			dut.sv	16	42	16	43		0				000
+  #87	21	gen_scope			work@genblk_dive_top.Z.A.B.C	dut.sv	9	48	13	44					work@genblk_dive_top.Z.A.B.C	000
+  #88	22	logic_net	x		work@genblk_dive_top.Z.A.B.C.x	dut.sv	10	54	10	55		0			work@genblk_dive_top.Z.A.B.C.x	000
+  #89	23	ref_typespec			work@genblk_dive_top.Z.A.B.C.x		0	0	0	0		0			work@genblk_dive_top.Z.A.B.C.x	000
+  #90	24	logic_typespec				dut.sv	10	49	10	53						000
+
+--- OURS (B) records 78..90 ('>' = the object)
+  #78	16	ref_obj	A			dut.sv	14	54	14	55		0				000
+  #79	17	gen_scope			work@genblk_dive_top.Z.A	dut.sv	5	32	17	28					work@genblk_dive_top.Z.A	000
+  #80	18	cont_assign				dut.sv	16	40	16	51						000
+  #81	19	hier_path	B.x			dut.sv	16	48	16	51		0				000
+  #82	20	ref_obj	B			dut.sv	16	48	16	49		0				000
+  #83	20	ref_obj	x		work@genblk_dive_top.Z.A.x	dut.sv	16	50	16	51		0			work@genblk_dive_top.Z.A.x	000
+> #84	19	hier_path	B.C.x			dut.sv	16	40	16	43		0				000
+  #85	20	ref_obj	B			dut.sv	16	42	16	43		0				000
+  #86	20	ref_obj	C			dut.sv	16	42	16	43		0				000
+  #87	21	gen_scope			work@genblk_dive_top.Z.A.B.C	dut.sv	9	48	13	44					work@genblk_dive_top.Z.A.B.C	000
+  #88	22	logic_net	x		work@genblk_dive_top.Z.A.B.C.x	dut.sv	10	54	10	55		0			work@genblk_dive_top.Z.A.B.C.x	000
+  #89	23	ref_typespec			work@genblk_dive_top.Z.A.B.C.x		0	0	0	0		0			work@genblk_dive_top.Z.A.B.C.x	000
+  #90	24	logic_typespec				dut.sv	10	49	10	53						000
+
+facets of this row (15, first 25):
+  N0830 #-1/106 logic_net z G[] O[3 objs]
+  N0001 #30/30 ref_obj B G[11:58:11:59] O[11:56:11:57]
+  N0007 #31/31 ref_obj x G[] O[work@genblk_dive_top.Z.A.B.C.x]
+  N0001 #39/39 ref_obj A G[14:50:14:51] O[14:48:14:49]
+  N0007 #40/40 ref_obj x G[] O[work@genblk_dive_top.Z.A.B.x]
+  N0001 #46/46 ref_obj B G[16:42:16:43] O[16:40:16:41]
+  N0007 #48/48 ref_obj x G[] O[work@genblk_dive_top.Z.A.x]
+  N0276 #84/84 hier_path B.C.x G[16:40:16:45] O[16:40:16:43]
+  N0007 #110/113 ref_obj x G[] O[B.x]
+  N0007 #115/118 ref_obj x G[] O[B.x]
+  N0007 #116/119 ref_obj x G[] O[B.C.x]
+  N0007 #123/126 ref_obj x G[] O[A.x]
+  N0007 #129/132 ref_obj x G[] O[A.x]
+  N0276 #132/135 hier_path B.C.x G[16:40:16:45] O[16:40:16:43]
+  N0007 #135/138 ref_obj x G[] O[B.C.x]

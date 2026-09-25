@@ -1,0 +1,64 @@
+cluster N0965 (map 5 id kept; OPEN): struct|golden-only:fewer-copies|ref_typespec|under:indexed_part_select
+row: surelog/testflags/Scr1SvTests  strict=differ:line(220)  records golden=83997 ours=84031
+object: #16033 (golden) / #-1 (ours)  type=ref_typespec name= 
+  golden: 5 objs
+  ours:   
+  walk parents: indexed_part_select(din) < func_call(scr1_search_one_2) < assignment < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 16027..16039 ('>' = the object)
+  #16027	13	typespec_member	idx			scr1_ipic.sv	63	45	63	48						001
+  #16028	14	ref_typespec			<in>type_scr1_search_one_2_s.idx		0	0	0	0		0			work@scr1_ipic.type_scr1_search_one_2_s.idx	001
+  #16029	15	logic_typespec				scr1_ipic.sv	63	5	63	10						001
+  #16030	10	assignment				scr1_ipic.sv	116	9	116	51						000
+  #16031	11	func_call	scr1_search_one_2			scr1_ipic.sv	116	15	116	51		0				000
+  #16032	12	indexed_part_select	din	din	work@scr1_ipic.scr1_search_one_16.din	scr1_ipic.sv	116	37	116	49		0			work@scr1_ipic.scr1_search_one_16.din	000
+> #16033	13	ref_typespec			work@scr1_ipic.scr1_search_one_16.din		0	0	0	0		0			work@scr1_ipic.scr1_search_one_16.din	000
+  #16034	14	logic_typespec				scr1_ipic.sv	90	13	90	26						000
+  #16035	15	range				scr1_ipic.sv	90	21	90	26						001
+  #16036	16	constant				scr1_ipic.sv	90	22	90	23	1	64	UINT:1	9		001
+  #16037	16	constant				scr1_ipic.sv	90	24	90	25	0	64	UINT:0	9		001
+  #16038	13	operation				scr1_ipic.sv	116	37	116	46		0				000
+  #16039	14	operation				scr1_ipic.sv	116	37	116	44		0				000
+
+--- the holder #16032 on the other side: exact-record matches at [16032, 61854]
+  #16029	15	logic_typespec				scr1_ipic.sv	63	5	63	10						001
+  #16030	10	assignment				scr1_ipic.sv	116	9	116	51						000
+  #16031	11	func_call	scr1_search_one_2			scr1_ipic.sv	116	15	116	51		0				000
+> #16032	12	indexed_part_select	din	din	work@scr1_ipic.scr1_search_one_16.din	scr1_ipic.sv	116	37	116	49		0			work@scr1_ipic.scr1_search_one_16.din	000
+  #16033	13	operation				scr1_ipic.sv	116	37	116	46		0				000
+  #16034	14	operation				scr1_ipic.sv	116	37	116	44		0				000
+  #16035	15	operation				scr1_ipic.sv	116	38	116	41		0				000
+  #16036	16	ref_obj	i		work@scr1_ipic.scr1_search_one_16.din.i	scr1_ipic.sv	116	38	116	39		0			work@scr1_ipic.scr1_search_one_16.din.i	000
+  #16037	16	constant				scr1_ipic.sv	116	40	116	41	1	64	UINT:1	9		000
+  #16038	15	constant				scr1_ipic.sv	116	43	116	44	2	64	UINT:2	9		000
+  #16039	14	constant				scr1_ipic.sv	116	45	116	46	1	64	UINT:1	9		000
+  #16040	13	constant				scr1_ipic.sv	116	48	116	49	2	64	UINT:2	9		000
+  #16041	11	ref_obj	tmp		work@scr1_ipic.scr1_search_one_16.tmp	scr1_ipic.sv	116	9	116	12		0			work@scr1_ipic.scr1_search_one_16.tmp	000
+
+facets of this row (854, first 25):
+  N0965 #16033/-1 ref_typespec  G[5 objs] O[]
+  N0286 #-1/48526 ref_obj SCR1_IFU_Q_FREE_H_W G[] O[1 objs]
+  N0286 #-1/48539 ref_obj SCR1_IFU_Q_FREE_H_W G[] O[1 objs]
+  N0286 #-1/48554 ref_obj SCR1_IFU_Q_FREE_W_W G[] O[1 objs]
+  N0286 #-1/48614 ref_obj SCR1_IFU_Q_FREE_H_W G[] O[1 objs]
+  N0791 #48791/-1 ref_obj SCR1_MEM_CMD_RD G[2 objs] O[]
+  N0284 #-1/48790 constant  G[] O[1 objs]
+  N0965 #61857/-1 ref_typespec  G[5 objs] O[]
+  N0729 #63286/-1 ref_obj ALLTRIG_W G[3 objs] O[]
+  N1165 #-1/64549 ref_obj ALLTRIG_W G[] O[1 objs]
+  N0921 #-1/70144 operation  G[] O[5 objs]
+  N0921 #-1/70153 operation  G[] O[7 objs]
+  N0921 #-1/70164 operation  G[] O[11 objs]
+  N0921 #-1/70179 operation  G[] O[13 objs]
+  N0921 #-1/76044 operation  G[] O[7 objs]
+  N0064 #4/4 include_file_info  G[537:10:537:39] O[322:10:322:39]
+  N0064 #5/5 include_file_info  G[545:10:545:37] O[330:10:330:37]
+  N0064 #6/6 include_file_info  G[761:10:761:31] O[331:10:331:31]
+  N0064 #7/7 include_file_info  G[1010:10:1010:24] O[508:10:508:24]
+  N0064 #8/8 include_file_info  G[1018:10:1018:37] O[516:10:516:37]
+  N0064 #9/9 include_file_info  G[1234:10:1234:24] O[517:10:517:24]
+  N0064 #10/10 include_file_info  G[1242:10:1242:37] O[525:10:525:37]
+  N0064 #11/11 include_file_info  G[1458:10:1458:31] O[526:10:526:31]
+  N0064 #12/12 include_file_info  G[1531:10:1531:25] O[527:10:527:25]
+  N0064 #13/13 include_file_info  G[1539:10:1539:37] O[535:10:535:37]

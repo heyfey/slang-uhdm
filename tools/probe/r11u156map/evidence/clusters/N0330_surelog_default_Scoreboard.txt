@@ -1,0 +1,64 @@
+cluster N0330 (map 5 id kept; OPEN): span|constant|col+endcol|under:method_func_call
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #69405 (golden) / #69418 (ours)  type=constant name= 
+  golden: 182:214:182:217
+  ours:   182:69:182:72
+  walk parents: method_func_call(uvm_report_info) < if_stmt < begin < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 69399..69411 ('>' = the object)
+  #69399	8	method_func_call	uvm_report_info			uvm_message_defines.svh	182	16	182	31		0				000
+  #69400	9	constant				uvm_message_defines.svh	182	33	182	53	"UVM/REPORT/CATCHER"	144	STRING:UVM/REPORT/CATCHER	6		000
+  #69401	9	func_call	uvm_pkg::m_uvm_string_queue_join			uvm_message_defines.svh	182	55	182	62		0				000
+  #69402	10	ref_obj	q		uvm_pkg::uvm_report_catcher::print_catcher::q	uvm_message_defines.svh	182	88	182	89		0			uvm_pkg::uvm_report_catcher::print_catcher::q	000
+  #69403	9	ref_obj	UVM_LOW		uvm_pkg::uvm_report_catcher::print_catcher::UVM_LOW	uvm_message_defines.svh	182	92	182	99		0			uvm_pkg::uvm_report_catcher::print_catcher::UVM_LOW	000
+  #69404	9	constant				uvm_message_defines.svh	182	101	182	212	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_report_catcher.svh"	872	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_report_catcher.svh	6		000
+> #69405	9	constant				uvm_message_defines.svh	182	214	182	217	404	64	UINT:404	9		000
+  #69406	9	constant				uvm_message_defines.svh	182	219	182	221	""	0	STRING:	6		000
+  #69407	9	constant				uvm_message_defines.svh	182	223	182	224	1	64	UINT:1	9		000
+  #69408	9	ref_obj	uvm_top		uvm_pkg::uvm_report_catcher::print_catcher::uvm_top	uvm_message_defines.svh	182	8	182	15		0			uvm_pkg::uvm_report_catcher::print_catcher::uvm_top	000
+  #69409	4	function	debug_report_catcher		uvm_pkg::uvm_report_catcher::debug_report_catcher	uvm_report_catcher.svh	414	3	414	9					uvm_pkg::uvm_report_catcher::debug_report_catcher	000
+  #69410	5	io_decl	what			uvm_report_catcher.svh	414	49	414	53						000
+  #69411	6	constant				uvm_report_catcher.svh	414	55	414	56	0	64	UINT:0	9		000
+
+--- OURS (B) records 69412..69424 ('>' = the object)
+  #69412	8	method_func_call	uvm_report_info			uvm_message_defines.svh	182	16	406	1		0				000
+  #69413	9	constant				uvm_message_defines.svh	182	33	182	53	"UVM/REPORT/CATCHER"	144	STRING:UVM/REPORT/CATCHER	6		000
+  #69414	9	func_call	uvm_pkg::m_uvm_string_queue_join			uvm_message_defines.svh	182	55	182	62		0				000
+  #69415	10	ref_obj	q		uvm_pkg::uvm_report_catcher::print_catcher::q	uvm_message_defines.svh	182	88	182	89		0			uvm_pkg::uvm_report_catcher::print_catcher::q	000
+  #69416	9	ref_obj	UVM_LOW		uvm_pkg::uvm_report_catcher::print_catcher::UVM_LOW	uvm_message_defines.svh	182	92	182	99		0			uvm_pkg::uvm_report_catcher::print_catcher::UVM_LOW	000
+  #69417	9	constant				uvm_message_defines.svh	182	58	55	2	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_report_catcher.svh"	872	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_report_catcher.svh	6		000
+> #69418	9	constant				uvm_message_defines.svh	182	69	182	72	404	64	UINT:404	9		000
+  #69419	9	constant				uvm_message_defines.svh	182	239	182	241	""	0	STRING:	6		000
+  #69420	9	constant				uvm_message_defines.svh	182	243	182	244	1	64	UINT:1	9		000
+  #69421	9	ref_obj	uvm_top		uvm_pkg::uvm_report_catcher::print_catcher::uvm_top	uvm_message_defines.svh	182	8	182	15		0			uvm_pkg::uvm_report_catcher::print_catcher::uvm_top	000
+  #69422	4	function	debug_report_catcher		uvm_pkg::uvm_report_catcher::debug_report_catcher	uvm_report_catcher.svh	414	3	414	9					uvm_pkg::uvm_report_catcher::debug_report_catcher	000
+  #69423	5	io_decl	what			uvm_report_catcher.svh	414	49	414	53						000
+  #69424	6	constant				uvm_report_catcher.svh	414	55	414	56	0	64	UINT:0	9		000
+
+facets of this row (29390, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

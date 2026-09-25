@@ -1,0 +1,43 @@
+cluster N1059 (map 5 id kept; OPEN): fullname|logic_net|tok:id->id.id|under:io_decl
+row: uhdm2rtlil/testflags/iface_sig_in_child_port  strict=differ:fullname(4)  records golden=250 ours=250
+object: #175 (golden) / #175 (ours)  type=logic_net name=clk OUT
+  golden: work@dut.m.c.clk.clk
+  ours:   work@dut.m.sub.s.clk.clk
+  walk parents: io_decl(clk) < modport(s) < ref_obj < port(sub)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 169..181 ('>' = the object)
+  #169	7	io_decl	clk			dut.sv	6	20	6	23						000
+  #170	7	io_decl	rst			dut.sv	6	31	6	34						000
+  #171	7	io_decl	sig			dut.sv	6	43	6	46						000
+  #172	4	ref_obj			work@dut.m.sub	dut.sv	17	11	17	14		0			work@dut.m.sub	000
+  #173	5	modport	s			dut.sv	6	11	6	12						000
+  #174	6	io_decl	clk			dut.sv	6	20	6	23						000
+> #175	7	logic_net	clk		work@dut.m.c.clk.clk	dut.sv	4	29	4	32		0			work@dut.m.c.clk.clk	000
+  #176	8	ref_typespec			work@dut.m.c.clk.clk		0	0	0	0		0			work@dut.m.c.clk.clk	000
+  #177	9	logic_typespec				dut.sv	4	23	4	28						000
+  #178	6	io_decl	rst			dut.sv	6	31	6	34						000
+  #179	7	logic_net	rst		work@dut.m.c.rst.rst	dut.sv	4	46	4	49		0			work@dut.m.c.rst.rst	000
+  #180	8	ref_typespec			work@dut.m.c.rst.rst		0	0	0	0		0			work@dut.m.c.rst.rst	000
+  #181	9	logic_typespec				dut.sv	4	40	4	45						000
+
+--- OURS (B) records 169..181 ('>' = the object)
+  #169	7	io_decl	clk			dut.sv	6	20	6	23						000
+  #170	7	io_decl	rst			dut.sv	6	31	6	34						000
+  #171	7	io_decl	sig			dut.sv	6	43	6	46						000
+  #172	4	ref_obj			work@dut.m.sub	dut.sv	17	11	17	14		0			work@dut.m.sub	000
+  #173	5	modport	s			dut.sv	6	11	6	12						000
+  #174	6	io_decl	clk			dut.sv	6	20	6	23						000
+> #175	7	logic_net	clk		work@dut.m.sub.s.clk.clk	dut.sv	4	29	4	32		0			work@dut.m.sub.s.clk.clk	000
+  #176	8	ref_typespec			work@dut.m.sub.s.clk.clk		0	0	0	0		0			work@dut.m.sub.s.clk.clk	000
+  #177	9	logic_typespec				dut.sv	4	23	4	28						000
+  #178	6	io_decl	rst			dut.sv	6	31	6	34						000
+  #179	7	logic_net	rst		work@dut.m.sub.s.rst.rst	dut.sv	4	46	4	49		0			work@dut.m.sub.s.rst.rst	000
+  #180	8	ref_typespec			work@dut.m.sub.s.rst.rst		0	0	0	0		0			work@dut.m.sub.s.rst.rst	000
+  #181	9	logic_typespec				dut.sv	4	40	4	45						000
+
+facets of this row (4, first 25):
+  N1059 #175/175 logic_net clk G[work@dut.m.c.clk.clk] O[work@dut.m.sub.s.clk.clk]
+  N1072 #176/176 ref_typespec  G[work@dut.m.c.clk.clk] O[work@dut.m.sub.s.clk.clk]
+  N1059 #179/179 logic_net rst G[work@dut.m.c.rst.rst] O[work@dut.m.sub.s.rst.rst]
+  N1072 #180/180 ref_typespec  G[work@dut.m.c.rst.rst] O[work@dut.m.sub.s.rst.rst]

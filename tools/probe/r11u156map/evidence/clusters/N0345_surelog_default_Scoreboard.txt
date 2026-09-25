@@ -1,0 +1,64 @@
+cluster N0345 (map 5 id kept; OPEN): span|ref_obj|line+col+endline+endcol|under:method_func_call
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #15326 (golden) / #15340 (ours)  type=ref_obj name=top 
+  golden: 116:68:116:71
+  ours:   2241:80:2241:83
+  walk parents: method_func_call(get_objection_total) < hier_path(phase_done.get_objection_total) < sys_func_call($sformatf) < func_call(uvm_report_info)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 15320..15332 ('>' = the object)
+  #15320	9	sys_func_call	$sformatf			uvm_message_defines.svh	115	41	116	73		0				000
+  #15321	10	constant				uvm_message_defines.svh	115	51	115	90	"phase %s outstanding objections = %0d"	296	STRING:phase %s outstanding objections = %0d	6		000
+  #15322	10	func_call	get_name			uvm_message_defines.svh	116	25	116	35		0				000
+  #15323	10	hier_path	phase_done.get_objection_total			uvm_message_defines.svh	116	37	116	72		0				000
+  #15324	11	ref_obj	phase_done			uvm_message_defines.svh	116	37	116	47		0				000
+  #15325	11	method_func_call	get_objection_total			uvm_message_defines.svh	116	48	116	67		0				000
+> #15326	12	ref_obj	top		uvm_pkg::uvm_phase::m_print_termination_state::phase_done.get_objection_total::top	uvm_message_defines.svh	116	68	116	71		0			uvm_pkg::uvm_phase::m_print_termination_state::phase_done.get_objection_total::top	000
+  #15327	9	ref_obj	UVM_DEBUG		uvm_pkg::uvm_phase::m_print_termination_state::UVM_DEBUG	uvm_message_defines.svh	116	75	116	84		0			uvm_pkg::uvm_phase::m_print_termination_state::UVM_DEBUG	000
+  #15328	10	enum_const	UVM_DEBUG			uvm_object_globals.svh	309	3	309	19						010
+  #15329	9	constant				uvm_message_defines.svh	116	86	116	188	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_phase.svh"	800	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_phase.svh	6		000
+  #15330	9	constant				uvm_message_defines.svh	116	190	116	194	2239	64	UINT:2239	9		000
+  #15331	9	constant				uvm_message_defines.svh	116	196	116	198	""	0	STRING:	6		000
+  #15332	9	constant				uvm_message_defines.svh	116	200	116	201	1	64	UINT:1	9		000
+
+--- OURS (B) records 15334..15346 ('>' = the object)
+  #15334	9	sys_func_call	$sformatf			uvm_message_defines.svh	115	41	2241	85		0				000
+  #15335	10	constant				uvm_message_defines.svh	115	51	115	90	"phase %s outstanding objections = %0d"	296	STRING:phase %s outstanding objections = %0d	6		000
+  #15336	10	func_call	get_name			uvm_message_defines.svh	2241	37	2241	47		0				000
+  #15337	10	hier_path	phase_done.get_objection_total			uvm_message_defines.svh	2241	49	2241	84		0				000
+  #15338	11	ref_obj	phase_done			uvm_message_defines.svh	2241	49	2241	59		0				000
+  #15339	11	method_func_call	get_objection_total			uvm_message_defines.svh	2241	60	2241	79		0				000
+> #15340	12	ref_obj	top		uvm_pkg::uvm_phase::m_print_termination_state::top	uvm_message_defines.svh	2241	80	2241	83		0			uvm_pkg::uvm_phase::m_print_termination_state::top	000
+  #15341	9	ref_obj	UVM_DEBUG		uvm_pkg::uvm_phase::m_print_termination_state::UVM_DEBUG	uvm_message_defines.svh	115	166	115	175		0			uvm_pkg::uvm_phase::m_print_termination_state::UVM_DEBUG	000
+  #15342	10	enum_const	UVM_DEBUG			uvm_object_globals.svh	309	3	309	19						010
+  #15343	9	constant				uvm_message_defines.svh	115	55	52	2	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_phase.svh"	800	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_phase.svh	6		000
+  #15344	9	constant				uvm_message_defines.svh	115	66	115	70	2239	64	UINT:2239	9		000
+  #15345	9	constant				uvm_message_defines.svh	115	307	115	309	""	0	STRING:	6		000
+  #15346	9	constant				uvm_message_defines.svh	115	311	115	312	1	64	UINT:1	9		000
+
+facets of this row (29390, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

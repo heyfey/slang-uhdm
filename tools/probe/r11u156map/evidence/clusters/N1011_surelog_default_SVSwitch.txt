@@ -1,0 +1,64 @@
+cluster N1011 (map 5 id kept; OPEN): fullname|interface_inst|tok:id->id@id.id|under:interface_array
+row: surelog/default/SVSwitch  strict=differ:endcol(27)  records golden=5787 ours=5808
+object: #3380 (golden) / #3389 (ours)  type=interface_inst name=output_intf[0] OUT
+  golden: output_intf.output_intf[0]
+  ours:   work@top.TC.output_intf[0]
+  walk parents: interface_array(output_intf) < ref_obj < port(output_intf) < program(TC)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 3374..3386 ('>' = the object)
+  #3374	5	interface_array	output_intf			testcase.sv	18	95	18	106						000
+  #3375	6	range				testcase.sv	18	107	18	108						000
+  #3376	7	constant					0	0	0	0	0	64	UINT:0	9		000
+  #3377	7	operation				testcase.sv	18	107	18	108		0				000
+  #3378	8	constant				testcase.sv	18	107	18	108	4	64	UINT:4	9		000
+  #3379	8	constant					0	0	0	0		64	INT:1	7		000
+> #3380	6	interface_inst	output_intf[0]	work@output_interface	output_intf.output_intf[0]	top.sv	44	0	0	0					output_intf.output_intf[0]	000
+  #3381	7	bit_var	clock		output_intf.output_intf[0].clock	interface.sv	58	38	58	43		0			output_intf.output_intf[0].clock	000
+  #3382	8	ref_typespec			output_intf.output_intf[0].clock		0	0	0	0		0			output_intf.output_intf[0].clock	000
+  #3383	9	bit_typespec				interface.sv	58	34	58	37						000
+  #3384	7	logic_var	data_out		output_intf.output_intf[0].data_out	interface.sv	59	18	59	26		0			output_intf.output_intf[0].data_out	000
+  #3385	8	ref_typespec			output_intf.output_intf[0].data_out		0	0	0	0		0			output_intf.output_intf[0].data_out	000
+  #3386	9	logic_typespec				interface.sv	59	3	59	17						000
+
+--- OURS (B) records 3383..3395 ('>' = the object)
+  #3383	5	interface_array	output_intf			testcase.sv	18	95	18	106						000
+  #3384	6	range				testcase.sv	18	106	18	109						000
+  #3385	7	constant					0	0	0	0	0	64	UINT:0	9		000
+  #3386	7	operation				testcase.sv	18	107	18	108		0				000
+  #3387	8	constant				testcase.sv	18	107	18	108	4	64	UINT:4	9		000
+  #3388	8	constant					0	0	0	0		64	INT:1	7		000
+> #3389	6	interface_inst	output_intf[0]	work@output_interface	work@top.TC.output_intf[0]	top.sv	44	0	0	0					work@top.TC.output_intf[0]	000
+  #3390	7	bit_var	clock		work@top.TC.output_intf[0].clock	interface.sv	58	38	58	43		0			work@top.TC.output_intf[0].clock	000
+  #3391	8	ref_typespec			work@top.TC.output_intf[0].clock		0	0	0	0		0			work@top.TC.output_intf[0].clock	000
+  #3392	9	bit_typespec				interface.sv	58	34	58	37						000
+  #3393	7	logic_var	data_out		work@top.TC.output_intf[0].data_out	interface.sv	59	18	59	26		0			work@top.TC.output_intf[0].data_out	000
+  #3394	8	ref_typespec			work@top.TC.output_intf[0].data_out		0	0	0	0		0			work@top.TC.output_intf[0].data_out	000
+  #3395	9	logic_typespec				interface.sv	59	3	59	17						000
+
+facets of this row (90, first 25):
+  N0526 #-1/3314 logic_net clock G[] O[3 objs]
+  N0268 #-1/3348 logic_var reset G[] O[3 objs]
+  N0526 #-1/3352 logic_net clock G[] O[3 objs]
+  N0526 #-1/3407 logic_net clock G[] O[3 objs]
+  N0526 #-1/3432 logic_net clock G[] O[3 objs]
+  N0526 #-1/3457 logic_net clock G[] O[3 objs]
+  N0526 #-1/3482 logic_net clock G[] O[3 objs]
+  N1144 #88/88 hier_path pkt.randomize G[40:10:40:25] O[40:10:40:23]
+  N0095 #101/101 ref_obj bytes G[work@Driver::start::pkt.byte_pack::bytes] O[work@Driver::start::bytes]
+  N0067 #184/184 class_typespec Receiver G[Environemnt.sv 20:3:20:11] O[ 0:0:0:0]
+  N0068 #184/184 class_typespec Receiver G[20:3:20:11] O[0:0:0:0]
+  N0119 #264/264 bit_select rcvr G[43:11:43:12] O[43:6:43:13]
+  N0007 #651/651 ref_obj size G[] O[work@Receiver::start::size]
+  N0095 #756/756 ref_obj pkt_exp G[work@Scoreboard::start::pkt_rcv.compare::pkt_exp] O[work@Scoreboard::start::pkt_exp]
+  N0007 #980/980 ref_obj size G[] O[work@packet::byte_pack::size]
+  N0071 #1121/1121 hier_path this.da G[105:24:105:31] O[105:24:105:28]
+  N0001 #1122/1122 ref_obj this G[105:29:105:31] O[105:24:105:28]
+  N0007 #1123/1123 ref_obj da G[] O[work@packet::compare::da]
+  N0098 #1123/1123 ref_obj da G[Packet.sv 105:29:105:31] O[ 0:0:0:0]
+  N0099 #1123/1123 ref_obj da G[105:29:105:31] O[0:0:0:0]
+  N0071 #1135/1135 hier_path this.sa G[110:24:110:31] O[110:24:110:28]
+  N0001 #1136/1136 ref_obj this G[110:29:110:31] O[110:24:110:28]
+  N0007 #1137/1137 ref_obj sa G[] O[work@packet::compare::sa]
+  N0098 #1137/1137 ref_obj sa G[Packet.sv 110:29:110:31] O[ 0:0:0:0]
+  N0099 #1137/1137 ref_obj sa G[110:29:110:31] O[0:0:0:0]

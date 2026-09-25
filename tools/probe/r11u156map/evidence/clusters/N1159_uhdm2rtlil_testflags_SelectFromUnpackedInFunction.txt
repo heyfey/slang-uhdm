@@ -1,0 +1,43 @@
+cluster N1159 (map 5 id kept; OPEN): span|tagged_pattern|ours-zero|under:operation
+row: uhdm2rtlil/testflags/SelectFromUnpackedInFunction  strict=differ:file(2)  records golden=124 ours=124
+object: #54 (golden) / #54 (ours)  type=tagged_pattern name= 
+  golden: 6:37:6:50
+  ours:   0:0:0:0
+  walk parents: operation < array_var(a) < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 48..60 ('>' = the object)
+  #48	3	ref_obj	o		work@top.o	dut.sv	9	11	9	12		0			work@top.o	000
+  #49	1	module_inst	work@top	work@top		dut.sv	1	1	10	10						000
+  #50	2	array_var	a		work@top.a	dut.sv	6	16	6	17		4			work@top.a	000
+  #51	3	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+  #52	4	array_typespec					0	0	0	0						000
+  #53	3	operation				dut.sv	6	26	6	51		0				000
+> #54	4	tagged_pattern				dut.sv	6	37	6	50						000
+  #55	5	operation				dut.sv	6	37	6	50		0				000
+  #56	6	tagged_pattern				dut.sv	6	48	6	49						000
+  #57	7	constant				dut.sv	6	48	6	49	0	64	UINT:0	9		000
+  #58	7	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+  #59	8	string_typespec	default			dut.sv	6	39	6	46						110
+  #60	5	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+
+--- OURS (B) records 48..60 ('>' = the object)
+  #48	3	ref_obj	o		work@top.o	dut.sv	9	11	9	12		0			work@top.o	000
+  #49	1	module_inst	work@top	work@top		dut.sv	1	1	10	10						000
+  #50	2	array_var	a		work@top.a	dut.sv	6	16	6	17		4			work@top.a	000
+  #51	3	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+  #52	4	array_typespec					0	0	0	0						000
+  #53	3	operation				dut.sv	6	26	6	51		0				000
+> #54	4	tagged_pattern					0	0	0	0						000
+  #55	5	operation				dut.sv	6	37	6	50		0				000
+  #56	6	tagged_pattern				dut.sv	6	48	6	49						000
+  #57	7	constant				dut.sv	6	48	6	49	0	64	UINT:0	9		000
+  #58	7	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+  #59	8	string_typespec	default				0	0	0	0						110
+  #60	5	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+
+facets of this row (4, first 25):
+  N1114 #54/54 tagged_pattern  G[dut.sv 6:37:6:50] O[ 0:0:0:0]
+  N1159 #54/54 tagged_pattern  G[6:37:6:50] O[0:0:0:0]
+  N0109 #59/59 string_typespec default G[dut.sv 6:39:6:46] O[ 0:0:0:0]
+  N0110 #59/59 string_typespec default G[6:39:6:46] O[0:0:0:0]

@@ -1,0 +1,64 @@
+cluster N0618 (map 5 id kept; OPEN): span|assignment|col+endcol|under:case_item
+row: surelog/default/YosysRiscv  strict=differ:endcol(86)  records golden=10319 ours=10319
+object: #207 (golden) / #207 (ours)  type=assignment name= 
+  golden: 60:12:60:29
+  ours:   60:13:60:30
+  walk parents: case_item < case_stmt < begin < if_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 201..213 ('>' = the object)
+  #201	7	case_stmt				shifter64.v	59	4	63	11						000
+  #202	8	operation				shifter64.v	59	11	59	27		0				000
+  #203	9	ref_obj	insn30		work@shifter64.insn30	shifter64.v	59	12	59	18		0			work@shifter64.insn30	000
+  #204	9	ref_obj	insn29		work@shifter64.insn29	shifter64.v	59	20	59	26		0			work@shifter64.insn29	000
+  #205	8	case_item				shifter64.v	60	5	60	30						000
+  #206	9	constant				shifter64.v	60	5	60	10	2'b0z	2	BIN:0z	3		000
+> #207	9	assignment				shifter64.v	60	12	60	29						000
+  #208	10	operation				shifter64.v	60	17	60	29		0				000
+  #209	11	constant				shifter64.v	60	18	60	20	64	64	UINT:64	9		000
+  #210	11	operation				shifter64.v	60	20	60	28		0				000
+  #211	12	ref_obj	insn29		work@shifter64.insn29	shifter64.v	60	21	60	27		0			work@shifter64.insn29	000
+  #212	10	ref_obj	bb		work@shifter64.bb	shifter64.v	60	12	60	14		0			work@shifter64.bb	000
+  #213	8	case_item				shifter64.v	61	5	61	45						000
+
+--- OURS (B) records 201..213 ('>' = the object)
+  #201	7	case_stmt				shifter64.v	59	4	63	11						000
+  #202	8	operation				shifter64.v	59	11	59	27		0				000
+  #203	9	ref_obj	insn30		work@shifter64.insn30	shifter64.v	59	12	59	18		0			work@shifter64.insn30	000
+  #204	9	ref_obj	insn29		work@shifter64.insn29	shifter64.v	59	20	59	26		0			work@shifter64.insn29	000
+  #205	8	case_item				shifter64.v	60	5	60	31						000
+  #206	9	constant				shifter64.v	60	5	60	10	2'b0z	2	BIN:0z	3		000
+> #207	9	assignment				shifter64.v	60	13	60	30						000
+  #208	10	operation				shifter64.v	60	18	60	30		0				000
+  #209	11	constant				shifter64.v	60	19	60	21	64	64	UINT:64	9		000
+  #210	11	operation				shifter64.v	60	21	60	29		0				000
+  #211	12	ref_obj	insn29		work@shifter64.insn29	shifter64.v	60	22	60	28		0			work@shifter64.insn29	000
+  #212	10	ref_obj	bb		work@shifter64.bb	shifter64.v	60	13	60	15		0			work@shifter64.bb	000
+  #213	8	case_item				shifter64.v	61	5	61	46						000
+
+facets of this row (86, first 25):
+  N0125 #205/205 case_item  G[60:5:60:30] O[60:5:60:31]
+  N0618 #207/207 assignment  G[60:12:60:29] O[60:13:60:30]
+  N0050 #208/208 operation  G[60:17:60:29] O[60:18:60:30]
+  N0287 #209/209 constant  G[60:18:60:20] O[60:19:60:21]
+  N0060 #210/210 operation  G[60:20:60:28] O[60:21:60:29]
+  N0091 #211/211 ref_obj insn29 G[60:21:60:27] O[60:22:60:28]
+  N0614 #212/212 ref_obj bb G[60:12:60:14] O[60:13:60:15]
+  N0125 #213/213 case_item  G[61:5:61:45] O[61:5:61:46]
+  N0618 #215/215 assignment  G[61:12:61:44] O[61:13:61:45]
+  N0050 #216/216 operation  G[61:17:61:44] O[61:18:61:45]
+  N0287 #217/217 constant  G[61:18:61:20] O[61:19:61:21]
+  N0060 #218/218 operation  G[61:20:61:43] O[61:21:61:44]
+  N0060 #219/219 operation  G[61:21:61:42] O[61:22:61:43]
+  N0091 #220/220 ref_obj wmode G[61:21:61:26] O[61:22:61:27]
+  N0036 #221/221 bit_select A G[61:31:61:33] O[61:32:61:34]
+  N1025 #222/222 constant  G[61:31:61:33] O[61:32:61:34]
+  N0036 #223/223 bit_select A G[61:39:61:41] O[61:40:61:42]
+  N1025 #224/224 constant  G[61:39:61:41] O[61:40:61:42]
+  N0614 #225/225 ref_obj bb G[61:12:61:14] O[61:13:61:15]
+  N0125 #226/226 case_item  G[62:5:62:19] O[62:5:62:20]
+  N0618 #228/228 assignment  G[62:12:62:18] O[62:13:62:19]
+  N0614 #229/229 ref_obj A G[62:17:62:18] O[62:18:62:19]
+  N0614 #230/230 ref_obj bb G[62:12:62:14] O[62:13:62:15]
+  N0036 #1843/1843 bit_select butterfly G[174:18:174:77] O[174:19:174:76]
+  N0036 #1863/1863 bit_select butterfly G[174:90:174:136] O[174:91:174:135]

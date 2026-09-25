@@ -1,0 +1,64 @@
+cluster N1157 (map 5 id kept; OPEN): span|struct_typespec|line+col+endline+endcol|under:interface_inst
+row: surelog/default/MiniAmiq  strict=differ:line(190)  records golden=435559 ours=413982
+object: #362559 (golden) / #347238 (ours)  type=struct_typespec name=uvm_pkg::uvm_printer_row_info 
+  golden: 212:46:212:66
+  ours:   28:9:34:2
+  walk parents: interface_inst < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 362553..362565 ('>' = the object)
+  #362553	3	enum_const	UVM_IMPLEMENTATION			uvm_object_globals.svh	337	3	337	21						001
+  #362554	2	enum_typespec	uvm_pkg::uvm_predict_e			uvm_reg_indirect.svh	115	38	115	51						010
+  #362555	3	enum_const	UVM_PREDICT_DIRECT			uvm_reg_model.svh	257	7	257	25						001
+  #362556	3	enum_const	UVM_PREDICT_READ			uvm_reg_model.svh	258	7	258	23						001
+  #362557	3	enum_const	UVM_PREDICT_WRITE			uvm_reg_model.svh	259	7	259	24						001
+  #362558	2	class_typespec	uvm_pkg::uvm_table_printer_knobs			uvm_printer.svh	631	9	631	26						010
+> #362559	2	struct_typespec	uvm_pkg::uvm_printer_row_info			uvm_printer.svh	212	46	212	66						010
+  #362560	3	typespec_member	level			uvm_pkg.sv	29	10	29	15						001
+  #362561	4	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.level		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_printer_row_info.level	001
+  #362562	5	int_typespec				uvm_printer.svh	29	3	29	6						001
+  #362563	3	typespec_member	name			uvm_pkg.sv	30	10	30	14						001
+  #362564	4	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.name		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_printer_row_info.name	001
+  #362565	5	string_typespec				uvm_printer.svh	30	3	30	9						001
+
+--- OURS (B) records 347232..347244 ('>' = the object)
+  #347232	3	enum_const	UVM_IMPLEMENTATION			uvm_object_globals.svh	337	3	337	21						001
+  #347233	2	enum_typespec	uvm_pkg::uvm_predict_e			uvm_reg_model.svh	256	4	260	20						010
+  #347234	3	enum_const	UVM_PREDICT_DIRECT			uvm_reg_model.svh	257	7	257	25						001
+  #347235	3	enum_const	UVM_PREDICT_READ			uvm_reg_model.svh	258	7	258	23						001
+  #347236	3	enum_const	UVM_PREDICT_WRITE			uvm_reg_model.svh	259	7	259	24						001
+  #347237	2	class_typespec	uvm_pkg::uvm_table_printer_knobs			uvm_printer.svh	631	9	631	26						010
+> #347238	2	struct_typespec	uvm_pkg::uvm_printer_row_info			uvm_printer.svh	28	9	34	2						010
+  #347239	3	typespec_member	level			uvm_printer.svh	29	10	29	15						001
+  #347240	4	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.level		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_printer_row_info.level	001
+  #347241	5	int_typespec				uvm_printer.svh	29	3	29	6						001
+  #347242	3	typespec_member	name			uvm_printer.svh	30	10	30	14						001
+  #347243	4	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.name		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_printer_row_info.name	001
+  #347244	5	string_typespec				uvm_printer.svh	30	3	30	9						001
+
+facets of this row (55220, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

@@ -1,0 +1,51 @@
+cluster N1962 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id[{n'id,}].id.->|under:hier_path
+row: probe/default/r10earl29repro__a4_ctx  strict=fullname  records golden=293 ours=293
+object: #86 (golden) / #86 (ours)  type=ref_obj name=addr OUT
+  golden: work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr
+  ours:   work@a4_ctx.addr
+  walk parents: hier_path(rq.addr) < operation < bit_select(autoexecprogbuf) < hier_path(q.autoexecprogbuf[{1'b1,}])
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 80..92 ('>' = the object)
+  #80	6	ref_obj	q			dut.sv	27	10	27	11		0				000
+  #81	6	bit_select	autoexecprogbuf		work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf	dut.sv	27	28	27	43		0			work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf	000
+  #82	7	operation				dut.sv	27	28	27	43		0				000
+  #83	8	constant				dut.sv	27	29	27	33	1'b1	1	BIN:1	3		000
+  #84	8	hier_path	rq.addr			dut.sv	27	35	27	42		0				000
+  #85	9	ref_obj	rq			dut.sv	27	35	27	37		0				000
+> #86	9	ref_obj	addr		work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr	dut.sv	27	38	27	42		0			work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr	000
+  #87	5	ref_obj	c2		work@a4_ctx.c2	dut.sv	27	5	27	7		0			work@a4_ctx.c2	000
+  #88	2	always				dut.sv	30	3	32	6						000
+  #89	3	named_begin	nb		work@a4_ctx.nb	dut.sv	30	23	30	25					work@a4_ctx.nb	000
+  #90	4	assignment				dut.sv	31	5	31	44						000
+  #91	5	hier_path	q.autoexecprogbuf[{1'b1,}]			dut.sv	31	10	31	44		0				000
+  #92	6	ref_obj	q			dut.sv	31	10	31	11		0				000
+
+--- OURS (B) records 80..92 ('>' = the object)
+  #80	6	ref_obj	q			dut.sv	27	10	27	11		0				000
+  #81	6	bit_select	autoexecprogbuf		work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf	dut.sv	27	28	27	43		0			work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf	000
+  #82	7	operation				dut.sv	27	28	27	43		0				000
+  #83	8	constant				dut.sv	27	29	27	33	1'b1	1	BIN:1	3		000
+  #84	8	hier_path	rq.addr			dut.sv	27	35	27	42		0				000
+  #85	9	ref_obj	rq			dut.sv	27	35	27	37		0				000
+> #86	9	ref_obj	addr		work@a4_ctx.addr	dut.sv	27	38	27	42		0			work@a4_ctx.addr	000
+  #87	5	ref_obj	c2		work@a4_ctx.c2	dut.sv	27	5	27	7		0			work@a4_ctx.c2	000
+  #88	2	always				dut.sv	30	3	32	6						000
+  #89	3	named_begin	nb		work@a4_ctx.nb	dut.sv	30	23	30	25					work@a4_ctx.nb	000
+  #90	4	assignment				dut.sv	31	5	31	44						000
+  #91	5	hier_path	q.autoexecprogbuf[{1'b1,}]			dut.sv	31	10	31	44		0				000
+  #92	6	ref_obj	q			dut.sv	31	10	31	11		0				000
+
+facets of this row (12, first 25):
+  N1962 #86/86 ref_obj addr G[work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr] O[work@a4_ctx.addr]
+  N1962 #98/98 ref_obj addr G[work@a4_ctx.nb.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr] O[work@a4_ctx.nb.addr]
+  N1962 #113/113 ref_obj addr G[work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr] O[work@a4_ctx.addr]
+  N0001 #125/125 ref_obj rq G[39:30:39:32] O[39:33:39:37]
+  N0018 #126/126 ref_obj addr G[work@a4_ctx.t.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr] O[]
+  N1962 #135/135 ref_obj addr G[work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr] O[work@a4_ctx.addr]
+  N1962 #237/237 ref_obj addr G[work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr] O[work@a4_ctx.addr]
+  N1962 #250/250 ref_obj addr G[work@a4_ctx.nb.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr] O[work@a4_ctx.nb.addr]
+  N1962 #267/267 ref_obj addr G[work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr] O[work@a4_ctx.addr]
+  N0001 #280/280 ref_obj rq G[39:30:39:32] O[39:33:39:37]
+  N0018 #281/281 ref_obj addr G[work@a4_ctx.t.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr] O[]
+  N1962 #290/290 ref_obj addr G[work@a4_ctx.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf.addr] O[work@a4_ctx.addr]

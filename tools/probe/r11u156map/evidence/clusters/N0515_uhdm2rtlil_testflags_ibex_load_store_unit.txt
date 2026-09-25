@@ -1,0 +1,64 @@
+cluster N0515 (map 5 id kept; OPEN (map 6 routed it to pass 146 (r11u146) as a residue; still present)): span|logic_net|endline+endcol|under:module_inst
+row: uhdm2rtlil/testflags/ibex_load_store_unit  strict=differ:endline(240)  records golden=3630 ours=3630
+object: #236 (golden) / #236 (ours)  type=logic_net name=fcov_ls_error_exception 
+  golden: 91:11:91:34
+  ours:   91:11:92:8
+  walk parents: module_inst < design(work@ibex_load_store_unit)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 230..242 ('>' = the object)
+  #230	2	logic_net	fcov_mis_bus_err_1_d		work@ibex_load_store_unit.fcov_mis_bus_err_1_d	ibex_load_store_unit.sv	569	9	569	29		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_d	000
+  #231	3	ref_typespec			work@ibex_load_store_unit.fcov_mis_bus_err_1_d		0	0	0	0		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_d	000
+  #232	4	logic_typespec				ibex_load_store_unit.sv	569	3	569	8						000
+  #233	2	logic_net	fcov_mis_bus_err_1_q		work@ibex_load_store_unit.fcov_mis_bus_err_1_q	ibex_load_store_unit.sv	569	31	569	51		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_q	000
+  #234	3	ref_typespec			work@ibex_load_store_unit.fcov_mis_bus_err_1_q		0	0	0	0		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_q	000
+  #235	4	logic_typespec				ibex_load_store_unit.sv	569	3	569	8						000
+> #236	2	logic_net	fcov_ls_error_exception		work@ibex_load_store_unit.fcov_ls_error_exception	dv_fcov_macros.svh	91	11	91	34		0			work@ibex_load_store_unit.fcov_ls_error_exception	000
+  #237	3	ref_typespec			work@ibex_load_store_unit.fcov_ls_error_exception		0	0	0	0		0			work@ibex_load_store_unit.fcov_ls_error_exception	000
+  #238	4	logic_typespec				dv_fcov_macros.svh	91	5	91	10						000
+  #239	2	logic_net	unused_fcov_ls_error_exception		work@ibex_load_store_unit.unused_fcov_ls_error_exception	dv_fcov_macros.svh	81	11	81	41		0			work@ibex_load_store_unit.unused_fcov_ls_error_exception	000
+  #240	3	ref_typespec			work@ibex_load_store_unit.unused_fcov_ls_error_exception		0	0	0	0		0			work@ibex_load_store_unit.unused_fcov_ls_error_exception	000
+  #241	4	logic_typespec				dv_fcov_macros.svh	81	5	81	10						000
+  #242	2	logic_net	fcov_ls_pmp_exception		work@ibex_load_store_unit.fcov_ls_pmp_exception	dv_fcov_macros.svh	91	11	91	32		0			work@ibex_load_store_unit.fcov_ls_pmp_exception	000
+
+--- OURS (B) records 230..242 ('>' = the object)
+  #230	2	logic_net	fcov_mis_bus_err_1_d		work@ibex_load_store_unit.fcov_mis_bus_err_1_d	ibex_load_store_unit.sv	569	9	569	29		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_d	000
+  #231	3	ref_typespec			work@ibex_load_store_unit.fcov_mis_bus_err_1_d		0	0	0	0		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_d	000
+  #232	4	logic_typespec				ibex_load_store_unit.sv	569	3	569	8						000
+  #233	2	logic_net	fcov_mis_bus_err_1_q		work@ibex_load_store_unit.fcov_mis_bus_err_1_q	ibex_load_store_unit.sv	569	31	569	51		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_q	000
+  #234	3	ref_typespec			work@ibex_load_store_unit.fcov_mis_bus_err_1_q		0	0	0	0		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_q	000
+  #235	4	logic_typespec				ibex_load_store_unit.sv	569	3	569	8						000
+> #236	2	logic_net	fcov_ls_error_exception		work@ibex_load_store_unit.fcov_ls_error_exception	dv_fcov_macros.svh	91	11	92	8		0			work@ibex_load_store_unit.fcov_ls_error_exception	000
+  #237	3	ref_typespec			work@ibex_load_store_unit.fcov_ls_error_exception		0	0	0	0		0			work@ibex_load_store_unit.fcov_ls_error_exception	000
+  #238	4	logic_typespec				dv_fcov_macros.svh	91	5	91	10						000
+  #239	2	logic_net	unused_fcov_ls_error_exception		work@ibex_load_store_unit.unused_fcov_ls_error_exception	dv_fcov_macros.svh	81	11	82	8		0			work@ibex_load_store_unit.unused_fcov_ls_error_exception	000
+  #240	3	ref_typespec			work@ibex_load_store_unit.unused_fcov_ls_error_exception		0	0	0	0		0			work@ibex_load_store_unit.unused_fcov_ls_error_exception	000
+  #241	4	logic_typespec				dv_fcov_macros.svh	81	5	81	10						000
+  #242	2	logic_net	fcov_ls_pmp_exception		work@ibex_load_store_unit.fcov_ls_pmp_exception	dv_fcov_macros.svh	91	11	92	6		0			work@ibex_load_store_unit.fcov_ls_pmp_exception	000
+
+facets of this row (240, first 25):
+  N0515 #236/236 logic_net fcov_ls_error_exception G[91:11:91:34] O[91:11:92:8]
+  N0515 #239/239 logic_net unused_fcov_ls_error_exception G[81:11:81:41] O[81:11:82:8]
+  N0515 #242/242 logic_net fcov_ls_pmp_exception G[91:11:91:32] O[91:11:92:6]
+  N0515 #245/245 logic_net unused_fcov_ls_pmp_exception G[81:11:81:39] O[81:11:82:6]
+  N0515 #248/248 logic_net fcov_ls_first_req G[91:11:91:28] O[91:11:92:2]
+  N0515 #251/251 logic_net unused_fcov_ls_first_req G[81:11:81:35] O[81:11:82:2]
+  N0515 #254/254 logic_net fcov_ls_second_req G[91:11:91:29] O[91:11:92:3]
+  N0515 #257/257 logic_net unused_fcov_ls_second_req G[81:11:81:36] O[81:11:82:3]
+  N0515 #260/260 logic_net fcov_ls_mis_pmp_err_1 G[91:11:91:32] O[91:11:92:6]
+  N0515 #263/263 logic_net unused_fcov_ls_mis_pmp_err_1 G[81:11:81:39] O[81:11:82:6]
+  N0515 #266/266 logic_net fcov_ls_mis_pmp_err_2 G[91:11:91:32] O[91:11:92:6]
+  N0515 #269/269 logic_net unused_fcov_ls_mis_pmp_err_2 G[81:11:81:39] O[81:11:82:6]
+  N0027 #274/274 sys_func_call $error G[29:3:33:30] O[32:3:33:18]
+  N0026 #275/275 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #276/276 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #277/277 constant  G[29:60:29:156] O[32:92:33:65]
+  N0015 #278/278 constant  G[29:158:29:161] O[32:92:32:95]
+  N0017 #279/279 constant  G[33:10:33:29] O[33:10:23:11]
+  N0027 #285/285 sys_func_call $error G[29:3:33:32] O[32:3:33:18]
+  N0026 #286/286 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #287/287 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #288/288 constant  G[29:60:29:156] O[32:92:33:65]
+  N0015 #289/289 constant  G[29:158:29:161] O[32:92:32:95]
+  N0017 #290/290 constant  G[33:10:33:31] O[33:10:23:13]
+  N0027 #296/296 sys_func_call $error G[29:3:33:34] O[32:3:33:18]

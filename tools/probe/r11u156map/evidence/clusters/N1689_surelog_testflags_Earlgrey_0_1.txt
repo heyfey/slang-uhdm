@@ -1,0 +1,64 @@
+cluster N1689 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id.id[n].id.id.id.id.id.id.id.id->id|under:operation
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1747)  records golden=1342584 ours=1342618
+object: #456773 (golden) / #456598 (ours)  type=ref_obj name=i OUT
+  golden: work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.mem.i
+  ours:   work@prim_generic_ram_1p.mem.i
+  walk parents: operation < indexed_part_select(mem) < var_select(mem) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 456767..456779 ('>' = the object)
+  #456767	28	ref_obj	DataBitsPerMask		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.wdata_i.DataBitsPerMask	prim_generic_ram_1p.sv	48	25	48	40		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.wdata_i.DataBitsPerMask	000
+  #456768	27	ref_obj	DataBitsPerMask		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.DataBitsPerMask	prim_generic_ram_1p.sv	48	44	48	59		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.DataBitsPerMask	000
+  #456769	26	var_select	mem		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem	prim_generic_ram_1p.sv	47	13	47	62		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem	000
+  #456770	27	ref_obj	addr_i		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.addr_i	prim_generic_ram_1p.sv	47	17	47	23		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.addr_i	000
+  #456771	27	indexed_part_select	mem	mem	work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.mem	prim_generic_ram_1p.sv	47	25	47	61		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.mem	000
+  #456772	28	operation				prim_generic_ram_1p.sv	47	25	47	42		0				000
+> #456773	29	ref_obj	i		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.mem.i	prim_generic_ram_1p.sv	47	25	47	26		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.mem.i	000
+  #456774	29	ref_obj	DataBitsPerMask		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.mem.DataBitsPerMask	prim_generic_ram_1p.sv	47	27	47	42		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.mem.DataBitsPerMask	000
+  #456775	28	ref_obj	DataBitsPerMask		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.DataBitsPerMask	prim_generic_ram_1p.sv	47	46	47	61		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.DataBitsPerMask	000
+  #456776	20	begin			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic	prim_generic_ram_1p.sv	51	16	53	10					work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic	000
+  #456777	21	assignment				prim_generic_ram_1p.sv	52	9	52	31						000
+  #456778	22	bit_select	mem		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem	prim_generic_ram_1p.sv	52	24	52	30		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem	000
+  #456779	23	ref_obj	addr_i		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.addr_i	prim_generic_ram_1p.sv	52	24	52	30		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.addr_i	000
+
+--- OURS (B) records 456592..456604 ('>' = the object)
+  #456592	28	ref_obj	DataBitsPerMask		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.wdata_i.DataBitsPerMask	prim_generic_ram_1p.sv	48	25	48	40		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.wdata_i.DataBitsPerMask	000
+  #456593	27	ref_obj	DataBitsPerMask		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.DataBitsPerMask	prim_generic_ram_1p.sv	48	44	48	59		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.DataBitsPerMask	000
+  #456594	26	var_select	mem		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem	prim_generic_ram_1p.sv	47	13	47	62		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem	000
+  #456595	27	ref_obj	addr_i		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.addr_i	prim_generic_ram_1p.sv	47	17	47	23		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.addr_i	000
+  #456596	27	indexed_part_select	mem	mem	work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.mem	prim_generic_ram_1p.sv	47	25	47	61		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.mem	000
+  #456597	28	operation				prim_generic_ram_1p.sv	47	25	47	42		0				000
+> #456598	29	ref_obj	i		work@prim_generic_ram_1p.mem.i	prim_generic_ram_1p.sv	47	25	47	26		0			work@prim_generic_ram_1p.mem.i	000
+  #456599	29	ref_obj	DataBitsPerMask		work@prim_generic_ram_1p.mem.DataBitsPerMask	prim_generic_ram_1p.sv	47	27	47	42		0			work@prim_generic_ram_1p.mem.DataBitsPerMask	000
+  #456600	28	ref_obj	DataBitsPerMask		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.DataBitsPerMask	prim_generic_ram_1p.sv	47	46	47	61		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem.DataBitsPerMask	000
+  #456601	20	begin			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic	prim_generic_ram_1p.sv	51	16	53	10					work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic	000
+  #456602	21	assignment				prim_generic_ram_1p.sv	52	9	52	31						000
+  #456603	22	bit_select	mem		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem	prim_generic_ram_1p.sv	52	24	52	30		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.mem	000
+  #456604	23	ref_obj	addr_i		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.addr_i	prim_generic_ram_1p.sv	52	24	52	30		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.u_mem.gen_generic.u_impl_generic.addr_i	000
+
+facets of this row (19659, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

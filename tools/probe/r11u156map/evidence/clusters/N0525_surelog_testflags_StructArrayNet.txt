@@ -1,0 +1,41 @@
+cluster N0525 (map 5 id kept; OPEN (map 6 routed it to pass 146 (r11u146) as a residue; still present)): fullname|ref_obj|tok:->id.|under:bit_select
+row: surelog/testflags/StructArrayNet  strict=differ:fullname(2)  records golden=94 ours=94
+object: #59 (golden) / #59 (ours)  type=ref_obj name=sel OUT
+  golden: work@dut.m.sel
+  ours:   work@dut.m.struct_i.sel
+  walk parents: bit_select(struct_array) < port(struct_i) < ref_module(m) < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 53..65 ('>' = the object)
+  #53	6	struct_typespec	pkg::Struct			dut.sv	3	12	3	38						110
+  #54	7	typespec_member	x			dut.sv	3	34	3	35						001
+  #55	8	ref_typespec			<in>pkg::Struct.x		0	0	0	0		0			pkg::pkg::Struct::x	001
+  #56	9	logic_typespec				dut.sv	3	28	3	33						001
+  #57	3	port	struct_i			dut.sv	12	10	12	38						000
+  #58	4	bit_select	struct_array		work@dut.m.struct_array	dut.sv	12	33	12	36		0			work@dut.m.struct_array	000
+> #59	5	ref_obj	sel		work@dut.m.sel	dut.sv	12	33	12	36		0			work@dut.m.sel	000
+  #60	1	module_inst	work@dut	work@dut		dut.sv	9	1	13	10						000
+  #61	2	int_var	sel		work@dut.sel	dut.sv	9	22	9	25		0			work@dut.sel	000
+  #62	3	ref_typespec			work@dut.sel		0	0	0	0		0			work@dut.sel	000
+  #63	4	int_typespec				dut.sv	9	18	9	21						000
+  #64	2	packed_array_net	struct_array		work@dut.struct_array	dut.sv	10	32	10	44		0			work@dut.struct_array	000
+  #65	3	range				dut.sv	10	16	10	28						000
+
+--- OURS (B) records 53..65 ('>' = the object)
+  #53	6	struct_typespec	pkg::Struct			dut.sv	3	12	3	38						110
+  #54	7	typespec_member	x			dut.sv	3	34	3	35						001
+  #55	8	ref_typespec			<in>pkg::Struct.x		0	0	0	0		0			pkg::pkg::Struct::x	001
+  #56	9	logic_typespec				dut.sv	3	28	3	33						001
+  #57	3	port	struct_i			dut.sv	12	10	12	38						000
+  #58	4	bit_select	struct_array		work@dut.m.struct_array	dut.sv	12	33	12	36		0			work@dut.m.struct_array	000
+> #59	5	ref_obj	sel		work@dut.m.struct_i.sel	dut.sv	12	33	12	36		0			work@dut.m.struct_i.sel	000
+  #60	1	module_inst	work@dut	work@dut		dut.sv	9	1	13	10						000
+  #61	2	int_var	sel		work@dut.sel	dut.sv	9	22	9	25		0			work@dut.sel	000
+  #62	3	ref_typespec			work@dut.sel		0	0	0	0		0			work@dut.sel	000
+  #63	4	int_typespec				dut.sv	9	18	9	21						000
+  #64	2	packed_array_net	struct_array		work@dut.struct_array	dut.sv	10	32	10	44		0			work@dut.struct_array	000
+  #65	3	range				dut.sv	10	16	10	28						000
+
+facets of this row (2, first 25):
+  N0525 #59/59 ref_obj sel G[work@dut.m.sel] O[work@dut.m.struct_i.sel]
+  N0562 #87/87 ref_obj sel G[work@dut.m.sel] O[work@dut.sel]

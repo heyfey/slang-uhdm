@@ -1,0 +1,64 @@
+cluster N0792 (map 5 id kept; OPEN): file|constant|golden-empty|under:param_assign
+row: uhdm2rtlil/testflags/param_nested_struct_field_width  strict=differ:line(5)  records golden=876 ours=788
+object: #822 (golden) / #734 (ours)  type=constant name= 
+  golden:  0:0:0:0
+  ours:   dut.sv 38:37:39:51
+  walk parents: param_assign < module_inst(work@dut) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 816..828 ('>' = the object)
+  #816	5	int_typespec				dut.sv	7	5	7	17						000
+  #817	2	param_assign				dut.sv	37	26	37	48						000
+  #818	3	constant				dut.sv	37	37	37	40	00000000000000000000000001000000	32	BIN:00000000000000000000000001000000	3		000
+  #819	4	ref_typespec					0	0	0	0		0				000
+  #820	5	int_typespec				dut.sv	13	5	13	17						000
+  #821	2	param_assign				dut.sv	38	26	39	51						000
+> #822	3	constant					0	0	0	0	10	32	INT:10	7		000
+  #823	2	param_assign				dut.sv	40	26	40	49						000
+  #824	3	constant				dut.sv	40	37	40	49	4	32	UINT:4	9		000
+  #825	2	logic_net	clk_i		work@dut.clk_i	dut.sv	45	19	45	24		0			work@dut.clk_i	000
+  #826	3	ref_typespec			work@dut.clk_i		0	0	0	0		0			work@dut.clk_i	000
+  #827	4	logic_typespec				dut.sv	45	12	45	17						000
+  #828	2	logic_net	o		work@dut.o	dut.sv	49	19	49	20		0			work@dut.o	000
+
+--- OURS (B) records 728..740 ('>' = the object)
+  #728	5	int_typespec				dut.sv	7	5	7	17						000
+  #729	2	param_assign				dut.sv	37	26	37	48						000
+  #730	3	constant				dut.sv	37	37	37	40	00000000000000000000000001000000	32	BIN:00000000000000000000000001000000	3		000
+  #731	4	ref_typespec					0	0	0	0		0				000
+  #732	5	int_typespec				dut.sv	13	5	13	17						000
+  #733	2	param_assign				dut.sv	38	26	39	51						000
+> #734	3	constant				dut.sv	38	37	39	51	10	32	INT:10	7		000
+  #735	2	param_assign				dut.sv	40	26	40	49						000
+  #736	3	constant				dut.sv	40	37	40	49	4	32	UINT:4	9		000
+  #737	2	logic_net	clk_i		work@dut.clk_i	dut.sv	45	19	45	24		0			work@dut.clk_i	000
+  #738	3	ref_typespec			work@dut.clk_i		0	0	0	0		0			work@dut.clk_i	000
+  #739	4	logic_typespec				dut.sv	45	12	45	17						000
+  #740	2	logic_net	o		work@dut.o	dut.sv	49	19	49	20		0			work@dut.o	000
+
+facets of this row (61, first 25):
+  N0411 #232/-1 constant  G[13 objs] O[]
+  N0411 #245/-1 constant  G[13 objs] O[]
+  N0411 #277/-1 constant  G[13 objs] O[]
+  N0411 #290/-1 constant  G[13 objs] O[]
+  N0411 #372/-1 constant  G[9 objs] O[]
+  N0411 #381/-1 constant  G[9 objs] O[]
+  N0411 #407/-1 constant  G[9 objs] O[]
+  N0411 #416/-1 constant  G[9 objs] O[]
+  N0407 #170/170 constant  G[31:38:31:42] O[30:32:30:37]
+  N0407 #183/183 constant  G[31:38:31:42] O[30:32:30:37]
+  N0086 #199/199 constant  G[ 0:0:0:0] O[dut.sv 31:32:31:43]
+  N0087 #199/199 constant  G[0:0:0:0] O[31:32:31:43]
+  N0086 #200/200 constant  G[ 0:0:0:0] O[dut.sv 31:32:31:43]
+  N0087 #200/200 constant  G[0:0:0:0] O[31:32:31:43]
+  N0086 #261/235 constant  G[ 0:0:0:0] O[dut.sv 31:32:31:43]
+  N0087 #261/235 constant  G[0:0:0:0] O[31:32:31:43]
+  N0086 #262/236 constant  G[ 0:0:0:0] O[dut.sv 31:32:31:43]
+  N0087 #262/236 constant  G[0:0:0:0] O[31:32:31:43]
+  N0086 #306/254 constant  G[ 0:0:0:0] O[dut.sv 31:32:31:43]
+  N0087 #306/254 constant  G[0:0:0:0] O[31:32:31:43]
+  N0086 #307/255 constant  G[ 0:0:0:0] O[dut.sv 31:32:31:43]
+  N0087 #307/255 constant  G[0:0:0:0] O[31:32:31:43]
+  N0086 #393/323 constant  G[ 0:0:0:0] O[dut.sv 31:32:31:43]
+  N0087 #393/323 constant  G[0:0:0:0] O[31:32:31:43]
+  N0086 #394/324 constant  G[ 0:0:0:0] O[dut.sv 31:32:31:43]

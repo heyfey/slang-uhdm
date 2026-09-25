@@ -1,0 +1,45 @@
+cluster N1979 (map 5 id kept; OPEN): struct|ours-only:fewer-copies|always|under:interface_inst
+row: probe/default/r10v226repro__arms__b12_multiproc  strict=fullname  records golden=76 ours=96
+object: #-1 (golden) / #76 (ours)  type=always name= 
+  golden: 
+  ours:   6 objs
+  walk parents: interface_inst(b) < module_inst(work@bm_top) < design(work@bm_top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 70..82 ('>' = the object)
+  #70	4	ref_typespec			work@bm_top.b.q		0	0	0	0		0			work@bm_top.b.q	000
+  #71	5	int_typespec				dut.sv	4	3	4	6						000
+  #72	3	initial				dut.sv	5	3	5	17						000
+  #73	4	assignment				dut.sv	5	11	5	16						000
+  #74	5	constant				dut.sv	5	15	5	16	1	64	UINT:1	9		000
+  #75	5	ref_obj	q		work@bm_if.q	dut.sv	5	11	5	12		0			work@bm_if.q	000
+> #76	3	always				dut.sv	6	3	6	25						000
+  #77	4	assignment				dut.sv	6	15	6	24						000
+  #78	5	operation				dut.sv	6	19	6	24		0				000
+  #79	6	ref_obj	q		work@bm_if.q	dut.sv	6	19	6	20		0			work@bm_if.q	000
+  #80	6	constant				dut.sv	6	23	6	24	1	64	UINT:1	9		000
+  #81	5	ref_obj	q		work@bm_if.q	dut.sv	6	15	6	16		0			work@bm_if.q	000
+  #82	2	interface_inst	c	work@bm_if	work@bm_top.c	dut.sv	18	3	18	13					work@bm_top.c	000
+
+--- the holder #68 on the other side: exact-record matches at [68]
+  #65	6	ref_obj	q		work@bm_if.q	dut.sv	6	19	6	20		0			work@bm_if.q	000
+  #66	6	constant				dut.sv	6	23	6	24	1	64	UINT:1	9		000
+  #67	5	ref_obj	q		work@bm_if.q	dut.sv	6	15	6	16		0			work@bm_if.q	000
+> #68	2	interface_inst	b	work@bm_if	work@bm_top.b	dut.sv	17	3	17	13					work@bm_top.b	000
+  #69	3	int_var	q		work@bm_top.b.q	dut.sv	4	7	4	8		0			work@bm_top.b.q	000
+  #70	4	ref_typespec			work@bm_top.b.q		0	0	0	0		0			work@bm_top.b.q	000
+  #71	5	int_typespec				dut.sv	4	3	4	6						000
+  #72	2	interface_inst	c	work@bm_if	work@bm_top.c	dut.sv	18	3	18	13					work@bm_top.c	000
+  #73	3	int_var	q		work@bm_top.c.q	dut.sv	4	7	4	8		0			work@bm_top.c.q	000
+  #74	4	ref_typespec			work@bm_top.c.q		0	0	0	0		0			work@bm_top.c.q	000
+  #75	5	int_typespec				dut.sv	4	3	4	6						000
+
+facets of this row (8, first 25):
+  N1980 #-1/72 initial  G[] O[4 objs]
+  N1979 #-1/76 always  G[] O[6 objs]
+  N1980 #-1/86 initial  G[] O[4 objs]
+  N1979 #-1/90 always  G[] O[6 objs]
+  N0516 #23/23 int_var q G[work@bm_top.a.q] O[work@bm_top.c.q]
+  N0481 #24/24 ref_typespec  G[work@bm_top.a.q] O[work@bm_top.c.q]
+  N0516 #42/42 int_var q G[work@bm_top.a.q] O[work@bm_top.c.q]
+  N0481 #43/43 ref_typespec  G[work@bm_top.a.q] O[work@bm_top.c.q]

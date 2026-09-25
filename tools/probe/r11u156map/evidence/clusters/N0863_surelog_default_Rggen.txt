@@ -1,0 +1,64 @@
+cluster N0863 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id.id.id->id|under:operation
+row: surelog/default/Rggen  strict=differ:fullname(7)  records golden=314498 ours=312506
+object: #25724 (golden) / #25737 (ours)  type=ref_obj name=INSERT_SLICER OUT
+  golden: work@rggen.u_block_0.u_adapter.u_adapter_common.INSERT_SLICER
+  ours:   work@rggen_adapter_common.INSERT_SLICER
+  walk parents: operation < operation < operation < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 25718..25730 ('>' = the object)
+  #25718	12	constant				rggen_adapter_common.sv	138	20	138	21	1	64	UINT:1	9		001
+  #25719	11	constant				rggen_adapter_common.sv	138	22	138	23	0	64	UINT:0	9		001
+  #25720	5	cont_assign				rggen_adapter_common.sv	161	11	161	97						000
+  #25721	6	operation				rggen_adapter_common.sv	161	31	161	97		0				000
+  #25722	7	operation				rggen_adapter_common.sv	161	32	161	56		0				000
+  #25723	8	operation				rggen_adapter_common.sv	161	33	161	47		0				000
+> #25724	9	ref_obj	INSERT_SLICER		work@rggen.u_block_0.u_adapter.u_adapter_common.INSERT_SLICER	rggen_adapter_common.sv	161	34	161	47		0			work@rggen.u_block_0.u_adapter.u_adapter_common.INSERT_SLICER	000
+  #25725	8	ref_obj	busy		work@rggen.u_block_0.u_adapter.u_adapter_common.busy	rggen_adapter_common.sv	161	52	161	56		0			work@rggen.u_block_0.u_adapter.u_adapter_common.busy	000
+  #25726	7	operation				rggen_adapter_common.sv	161	62	161	96		0				000
+  #25727	8	operation				rggen_adapter_common.sv	161	63	161	74		0				000
+  #25728	9	ref_obj	ready		work@rggen.u_block_0.u_adapter.u_adapter_common.ready	rggen_adapter_common.sv	161	63	161	68		0			work@rggen.u_block_0.u_adapter.u_adapter_common.ready	000
+  #25729	10	logic_net	ready		work@rggen_adapter_common.ready	rggen_adapter_common.sv	132	45	132	50		0			work@rggen_adapter_common.ready	000
+  #25730	11	ref_typespec			work@rggen_adapter_common.ready		0	0	0	0		0			work@rggen_adapter_common.ready	000
+
+--- OURS (B) records 25731..25743 ('>' = the object)
+  #25731	12	constant				rggen_adapter_common.sv	138	20	138	21	1	64	UINT:1	9		001
+  #25732	11	constant				rggen_adapter_common.sv	138	22	138	23	0	64	UINT:0	9		001
+  #25733	5	cont_assign				rggen_adapter_common.sv	161	11	161	97						000
+  #25734	6	operation				rggen_adapter_common.sv	161	31	161	97		0				000
+  #25735	7	operation				rggen_adapter_common.sv	161	32	161	56		0				000
+  #25736	8	operation				rggen_adapter_common.sv	161	33	161	47		0				000
+> #25737	9	ref_obj	INSERT_SLICER		work@rggen_adapter_common.INSERT_SLICER	rggen_adapter_common.sv	161	34	161	47		0			work@rggen_adapter_common.INSERT_SLICER	000
+  #25738	8	ref_obj	busy		work@rggen_adapter_common.busy	rggen_adapter_common.sv	161	52	161	56		0			work@rggen_adapter_common.busy	000
+  #25739	7	operation				rggen_adapter_common.sv	161	62	161	96		0				000
+  #25740	8	operation				rggen_adapter_common.sv	161	63	161	74		0				000
+  #25741	9	ref_obj	ready		work@rggen_adapter_common.ready	rggen_adapter_common.sv	161	63	161	68		0			work@rggen_adapter_common.ready	000
+  #25742	10	logic_net	ready		work@rggen_adapter_common.ready	rggen_adapter_common.sv	132	45	132	50		0			work@rggen_adapter_common.ready	000
+  #25743	11	ref_typespec			work@rggen_adapter_common.ready		0	0	0	0		0			work@rggen_adapter_common.ready	000
+
+facets of this row (14812, first 25):
+  N1175 #466/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/476 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/481 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #501/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #661/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/671 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/676 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #696/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #2242/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/2252 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/2257 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #2277/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #15376/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/15386 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/15391 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #15411/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17669/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17679 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17684 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17704/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17850/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17860 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17865 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17885/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #18031/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]

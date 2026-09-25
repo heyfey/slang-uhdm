@@ -1,0 +1,30 @@
+# binaries (frozen chmod 555 in /tmp/r11u156_bin before any measurement)
+3e213a154aab7f619443de5f11646f0a  /tmp/r11u156_bin/objrank
+1b89f73ee8704d8bb4979a668115366c  /tmp/r11u156_bin/slang-uhdm
+bba0a5056cce42e6264e3c2c5d03b95d  /tmp/r11u156_bin/slang-uhdm.g1
+9aadd8ecf6fc1bed78a6477aa95a96ae  /tmp/r11u156_bin/slang-uhdm.law
+db96066ac072748e8d5b05cf675242f8  /tmp/r11u156_bin/strictcmp_x
+5d4617d0458f34aa79e0b91009d5d1fc  /tmp/r11u156_bin/uhdm-strictcmp
+main-tree build/slang-uhdm at 89d599ef (built 03:00, the reference sweep /tmp/intr11u153's binary): 1b89f73ee8704d8bb4979a668115366c
+# reference sweep audit
+/tmp/intr11u153 cmds.txt slang lines:
+   3273 /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm
+/tmp/r11u156swP cmds.txt slang lines:
+   3273 /tmp/r11u156_bin/slang-uhdm
+/tmp/r11u156swM cmds.txt slang lines:
+   3273 /tmp/r11u156_bin/slang-uhdm.law
+/tmp/intr11u147 (pass 147 integration sweep, read-only) cmds.txt slang lines:
+   3273 /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm
+# strict-run exit codes (strictcmp_x --max 50 --dump-a --dump-b)
+corpus:
+    319 rc=2
+probe:
+   2390 rc=0
+   1697 rc=2
+# analyzer mode-4 rule vs the tool's stdout, per row
+CORPUS NE row-modes analysed 319 tests 163 clusters 1016 families 206
+PROBE NE cases analysed 1697 with facets 1697 clusters 856
+verify (python mode-4 rule vs tool stdout, per row): {True: 2016}
+0
+/tmp/r11u156_WS {('corpus', True): 305, ('probe', True): 1697}
+/tmp/r11u156_WS2 {('corpus', True): 291, ('probe', True): 1642}

@@ -1,0 +1,64 @@
+cluster N0928 (map 5 id kept; OPEN): span|indexed_part_select|endcol|under:hier_path
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1747)  records golden=1342584 ours=1342618
+object: #1238481 (golden) / #1238551 (ours)  type=indexed_part_select name=a_source 
+  golden: 97:17:97:40
+  ours:   97:17:97:39
+  walk parents: hier_path(tl_h_i[i].a_source[0+:8 - 2]) < operation < cont_assign < gen_scope
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1238475..1238487 ('>' = the object)
+  #1238475	7	ref_obj	reqid_sub		work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].reqid_sub	tlul_socket_m1.sv	95	12	95	21		0			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].reqid_sub	000
+  #1238476	6	cont_assign				tlul_socket_m1.sv	96	12	99	6						000
+  #1238477	7	operation				tlul_socket_m1.sv	96	25	99	6		0				000
+  #1238478	8	hier_path	tl_h_i[i].a_source[0+:8 - 2]			tlul_socket_m1.sv	97	7	97	41		0				000
+  #1238479	9	bit_select	tl_h_i		tl_h_i[i]	tlul_socket_m1.sv	97	7	97	13		0			tl_h_i[i]	000
+  #1238480	10	ref_obj	i		work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[i].a_source[0+:8 - 2].i	tlul_socket_m1.sv	97	14	97	15		0			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[i].a_source[0+:8 - 2].i	000
+> #1238481	9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	40		0			tl_h_i[i].a_source[0+:8 - 2]	000
+  #1238482	10	constant				tlul_socket_m1.sv	97	26	97	27	0	64	UINT:0	9		000
+  #1238483	10	constant				tlul_socket_m1.sv	97	30	97	39	6	64	INT:6	7		000
+  #1238484	8	ref_obj	reqid_sub		work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].reqid_sub	tlul_socket_m1.sv	98	7	98	16		0			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].reqid_sub	000
+  #1238485	7	ref_obj	shifted_id		work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].shifted_id	tlul_socket_m1.sv	96	12	96	22		0			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].shifted_id	000
+  #1238486	6	cont_assign				tlul_socket_m1.sv	105	12	105	67						000
+  #1238487	7	hier_path	tl_h_i[i].a_source[8 - 1-:2]			tlul_socket_m1.sv	105	33	105	67		0				000
+
+--- OURS (B) records 1238545..1238557 ('>' = the object)
+  #1238545	7	ref_obj	reqid_sub		work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].reqid_sub	tlul_socket_m1.sv	95	12	95	21		0			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].reqid_sub	000
+  #1238546	6	cont_assign				tlul_socket_m1.sv	96	12	99	6						000
+  #1238547	7	operation				tlul_socket_m1.sv	96	25	99	6		0				000
+  #1238548	8	hier_path	tl_h_i[i].a_source[0+:8 - 2]			tlul_socket_m1.sv	97	7	97	41		0				000
+  #1238549	9	bit_select	tl_h_i		tl_h_i[i]	tlul_socket_m1.sv	97	7	97	13		0			tl_h_i[i]	000
+  #1238550	10	ref_obj	i		work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[i].a_source[0+:8 - 2].i	tlul_socket_m1.sv	97	14	97	15		0			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[i].a_source[0+:8 - 2].i	000
+> #1238551	9	indexed_part_select	a_source		tl_h_i[i].a_source[0+:8 - 2]	tlul_socket_m1.sv	97	17	97	39		0			tl_h_i[i].a_source[0+:8 - 2]	000
+  #1238552	10	constant				tlul_socket_m1.sv	97	26	97	27	0	64	UINT:0	9		000
+  #1238553	10	constant				tlul_socket_m1.sv	97	30	97	39	6	64	INT:6	7		000
+  #1238554	8	ref_obj	reqid_sub		work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].reqid_sub	tlul_socket_m1.sv	98	7	98	16		0			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].reqid_sub	000
+  #1238555	7	ref_obj	shifted_id		work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].shifted_id	tlul_socket_m1.sv	96	12	96	22		0			work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].shifted_id	000
+  #1238556	6	cont_assign				tlul_socket_m1.sv	105	12	105	67						000
+  #1238557	7	hier_path	tl_h_i[i].a_source[8 - 1-:2]			tlul_socket_m1.sv	105	33	105	67		0				000
+
+facets of this row (19659, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

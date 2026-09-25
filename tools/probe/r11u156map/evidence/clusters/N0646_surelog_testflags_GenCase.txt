@@ -1,0 +1,43 @@
+cluster N0646 (map 5 id kept; COVERED r11u152 (N0646)): fullname|ref_obj|golden-empty|under:case_item
+row: surelog/testflags/GenCase  strict=differ:fullname(4)  records golden=81 ours=81
+object: #40 (golden) / #40 (ours)  type=ref_obj name=x_1sb1 OUT
+  golden: 
+  ours:   work@top.x_1sb1
+  walk parents: case_item < gen_case < module_inst < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 34..46 ('>' = the object)
+  #34	6	range				dut.sv	9	26	9	31						001
+  #35	7	constant				dut.sv	9	27	9	28	1	64	UINT:1	9		001
+  #36	7	constant				dut.sv	9	29	9	30	0	64	UINT:0	9		001
+  #37	2	gen_case					0	0	0	0						000
+  #38	3	ref_obj	x_2sb11		work@top.x_2sb11	dut.sv	11	9	11	16		0			work@top.x_2sb11	000
+  #39	3	case_item					0	0	0	0						000
+> #40	4	ref_obj	x_1sb1			dut.sv	12	5	12	11		0				000
+  #41	4	named_begin	tag1				0	0	0	0						000
+  #42	5	ref_module	u2	work@GOOD		dut.sv	13	12	13	14						000
+  #43	3	case_item					0	0	0	0						000
+  #44	4	begin					0	0	0	0						000
+  #45	5	ref_module	u3	work@BAD		dut.sv	15	18	15	20						000
+  #46	1	module_inst	work@top	work@top		dut.sv	5	1	19	10						000
+
+--- OURS (B) records 34..46 ('>' = the object)
+  #34	6	range				dut.sv	9	26	9	31						001
+  #35	7	constant				dut.sv	9	27	9	28	1	64	UINT:1	9		001
+  #36	7	constant				dut.sv	9	29	9	30	0	64	UINT:0	9		001
+  #37	2	gen_case					0	0	0	0						000
+  #38	3	ref_obj	x_2sb11		work@top.x_2sb11	dut.sv	11	9	11	16		0			work@top.x_2sb11	000
+  #39	3	case_item					0	0	0	0						000
+> #40	4	ref_obj	x_1sb1		work@top.x_1sb1	dut.sv	12	5	12	11		0			work@top.x_1sb1	000
+  #41	4	named_begin	tag1		work@top.tag1		0	0	0	0					work@top.tag1	000
+  #42	5	ref_module	u2	work@GOOD		dut.sv	13	12	13	14						000
+  #43	3	case_item					0	0	0	0						000
+  #44	4	begin					0	0	0	0						000
+  #45	5	ref_module	u3	work@BAD		dut.sv	15	18	15	20						000
+  #46	1	module_inst	work@top	work@top		dut.sv	5	1	19	10						000
+
+facets of this row (4, first 25):
+  N0646 #40/40 ref_obj x_1sb1 G[] O[work@top.x_1sb1]
+  N0482 #41/41 named_begin tag1 G[] O[work@top.tag1]
+  N0486 #78/78 gen_scope_array tag1 G[12:13:14:8] O[13:7:13:17]
+  N0483 #79/79 gen_scope  G[12:13:14:8] O[13:7:13:17]

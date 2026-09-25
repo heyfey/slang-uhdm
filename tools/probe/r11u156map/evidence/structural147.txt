@@ -1,0 +1,36 @@
+# the structural row-modes (first field depth/type/count) at 89d599ef: 14 row-modes, 7 tests
+# class, row-mode, strict cell, first cluster, its coverage, open clusters left after the pairs, clears with the pairs
+
+## D2 CAST TARGET (r11u151 D2: the two package listings' cast targets swapped; law pkgTdCastTargetOwnView151): 6 row-modes, 3 tests, clear with pairs A+B: 6; measured with the law binary: 6
+  uhdm2rtlil/default/def_ctx_struct_param  differ:depth(1)  N2384  COVERED r11u147 (N2384, r11u151 law_after_r11u145.patch)  open_clusters=0  after the law (measured): equal (law, measured)  after both pairs: yes (law, measured)  open after pairs: 
+  uhdm2rtlil/default/latch_decoder_partial  differ:depth(1)  N2384  COVERED r11u147 (N2384, r11u151 law_after_r11u145.patch)  open_clusters=0  after the law (measured): equal (law, measured)  after both pairs: yes (law, measured)  open after pairs: 
+  uhdm2rtlil/default/latch_tlb_napot  differ:depth(1)  N2384  COVERED r11u147 (N2384, r11u151 law_after_r11u145.patch)  open_clusters=0  after the law (measured): equal (law, measured)  after both pairs: yes (law, measured)  open after pairs: 
+  uhdm2rtlil/testflags/def_ctx_struct_param  differ:depth(1)  N2384  COVERED r11u147 (N2384, r11u151 law_after_r11u145.patch)  open_clusters=0  after the law (measured): equal (law, measured)  after both pairs: yes (law, measured)  open after pairs: 
+  uhdm2rtlil/testflags/latch_decoder_partial  differ:depth(1)  N2384  COVERED r11u147 (N2384, r11u151 law_after_r11u145.patch)  open_clusters=0  after the law (measured): equal (law, measured)  after both pairs: yes (law, measured)  open after pairs: 
+  uhdm2rtlil/testflags/latch_tlb_napot  differ:depth(1)  N2384  COVERED r11u147 (N2384, r11u151 law_after_r11u145.patch)  open_clusters=0  after the law (measured): equal (law, measured)  after both pairs: yes (law, measured)  open after pairs: 
+
+## ARR PROCEDURAL WHOLE-REFERENCE BINDING (r11u151 ARR: blockLhsVarSelBindsWholeRef151 + nonblockingSelLhsBindsWholeRef151): 2 row-modes, 1 tests, clear with pairs A+B: 2; measured with the law binary: 2
+  uhdm2rtlil/default/array_assign  differ:depth(1)  N0046  COVERED r11u147 (N0046, r11u151 law_after_r11u145.patch)  open_clusters=0  after the law (measured): equal (law, measured)  after both pairs: yes (law, measured)  open after pairs: 
+  uhdm2rtlil/testflags/array_assign  differ:depth(1)  N0046  COVERED r11u147 (N0046, r11u151 law_after_r11u145.patch)  open_clusters=0  after the law (measured): equal (law, measured)  after both pairs: yes (law, measured)  open after pairs: 
+
+## G THE KEPT CONCATENATION (r11u151 G: condTakenParamRhsShared151 + concatArrParamDefTs151): 2 row-modes, 1 tests, clear with pairs A+B: 2; measured with the law binary: 2
+  surelog/default/BlackParrotComplex  differ:depth(1)  N0724  COVERED r11u147 (N0724, r11u151 law_after_r11u145.patch)  open_clusters=0  after the law (measured): equal (law, measured)  after both pairs: yes (law, measured)  open after pairs: 
+  surelog/testflags/BlackParrotComplex  differ:depth(1)  N0724  COVERED r11u147 (N0724, r11u151 law_after_r11u145.patch)  open_clusters=0  after the law (measured): equal (law, measured)  after both pairs: yes (law, measured)  open after pairs: 
+
+## D MEMBER-DEFAULT LEFTOVERS (r11u151 D: patLeftoverOrphanCopy151 + hierSizeCastBaseStructTs151): 2 row-modes, 1 tests, clear with pairs A+B: 0; measured with the law binary: 0
+  surelog/default/StructParamFuncBodyFieldCompare  differ:depth(1)  N0045  COVERED r11u147 (N0045, r11u151 law_after_r11u145.patch)  open_clusters=7  after the law (measured): differ:fullname(15)  after both pairs: no  open after pairs: N0001 N0009 N0018 N0759
+  surelog/testflags/StructParamFuncBodyFieldCompare  differ:depth(1)  N0045  COVERED r11u147 (N0045, r11u151 law_after_r11u145.patch)  open_clusters=7  after the law (measured): differ:fullname(15)  after both pairs: no  open after pairs: N0001 N0009 N0018 N0759
+
+## C3 PORT CONNECTION OPERATION (r11u151 C3: nestedPatOpTsNoParent151 + the pair-B scratch): 0 row-modes
+
+## E SHARED func_call (r11u148 E, landed by pass 146: its frontier): 0 row-modes
+
+## C2 THE DEFAULT FILL (pass 145 defaultFillImportCopies145): 0 row-modes
+
+## P0286 comb_dyn_2d_packed_sel SEL_W reference (pair A N0286): 2 row-modes, 1 tests, clear with pairs A+B: 2; measured with the law binary: 0
+  uhdm2rtlil/default/comb_dyn_2d_packed_sel  differ:depth(1)  N0286  COVERED r11u147 (N0286)  open_clusters=0  after the law (measured): differ:depth(1)  after both pairs: no  open after pairs: N0286
+  uhdm2rtlil/testflags/comb_dyn_2d_packed_sel  differ:depth(1)  N0286  COVERED r11u147 (N0286)  open_clusters=0  after the law (measured): differ:depth(1)  after both pairs: no  open after pairs: N0286
+
+## H OTHER (first cluster outside the classes): 0 row-modes
+
+## the law binary (r11u151 law_after_r11u145.patch + pairB_c3_scratch.patch): MEASURED cross-section in evidence/report.txt section 1

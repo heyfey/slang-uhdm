@@ -1,0 +1,64 @@
+cluster N0326 (map 5 id kept; OPEN): span|method_func_call|endline+endcol|under:begin
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #11384 (golden) / #11398 (ours)  type=method_func_call name=phase_state_change 
+  golden: 168:11:168:29
+  ours:   168:11:169:9
+  walk parents: begin < while_stmt < begin < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 11378..11390 ('>' = the object)
+  #11378	7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0				000
+  #11379	5	while_stmt				uvm_callback_defines.svh	166	6	166	11						000
+  #11380	6	operation				uvm_callback_defines.svh	166	12	166	22		0				000
+  #11381	7	ref_obj	cb		uvm_pkg::uvm_phase::add::cb	uvm_callback_defines.svh	166	12	166	14		0			uvm_pkg::uvm_phase::add::cb	000
+  #11382	7	constant				uvm_callback_defines.svh	166	18	166	22	0	64	UINT:0	11		000
+  #11383	6	begin			uvm_pkg::uvm_phase::add	uvm_callback_defines.svh	166	24	170	9					uvm_pkg::uvm_phase::add	000
+> #11384	7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0				000
+  #11385	8	ref_obj	tmp_node		uvm_pkg::uvm_phase::add::tmp_node	uvm_callback_defines.svh	168	30	168	38		0			uvm_pkg::uvm_phase::add::tmp_node	000
+  #11386	8	ref_obj	state_chg		uvm_pkg::uvm_phase::add::state_chg	uvm_callback_defines.svh	168	40	168	49		0			uvm_pkg::uvm_phase::add::state_chg	000
+  #11387	8	ref_obj	cb		uvm_pkg::uvm_phase::add::cb	uvm_callback_defines.svh	168	8	168	10		0			uvm_pkg::uvm_phase::add::cb	000
+  #11388	7	assignment				uvm_callback_defines.svh	169	8	169	24						000
+  #11389	8	hier_path	iter.next			uvm_callback_defines.svh	169	13	169	24		0				000
+  #11390	9	ref_obj	iter			uvm_callback_defines.svh	169	13	169	17		0				000
+
+--- OURS (B) records 11392..11404 ('>' = the object)
+  #11392	7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0				000
+  #11393	5	while_stmt				uvm_callback_defines.svh	166	6	166	11						000
+  #11394	6	operation				uvm_callback_defines.svh	166	12	166	22		0				000
+  #11395	7	ref_obj	cb		uvm_pkg::uvm_phase::add::cb	uvm_callback_defines.svh	166	12	166	14		0			uvm_pkg::uvm_phase::add::cb	000
+  #11396	7	constant				uvm_callback_defines.svh	166	18	166	22	0	64	UINT:0	11		000
+  #11397	6	begin			uvm_pkg::uvm_phase::add	uvm_callback_defines.svh	166	24	170	9					uvm_pkg::uvm_phase::add	000
+> #11398	7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0				000
+  #11399	8	ref_obj	tmp_node		uvm_pkg::uvm_phase::add::tmp_node	uvm_callback_defines.svh	168	30	168	38		0			uvm_pkg::uvm_phase::add::tmp_node	000
+  #11400	8	ref_obj	state_chg		uvm_pkg::uvm_phase::add::state_chg	uvm_callback_defines.svh	168	40	168	49		0			uvm_pkg::uvm_phase::add::state_chg	000
+  #11401	8	ref_obj	cb		uvm_pkg::uvm_phase::add::cb	uvm_callback_defines.svh	168	8	168	10		0			uvm_pkg::uvm_phase::add::cb	000
+  #11402	7	assignment				uvm_callback_defines.svh	169	8	169	24						000
+  #11403	8	hier_path	iter.next			uvm_callback_defines.svh	169	13	169	24		0				000
+  #11404	9	ref_obj	iter			uvm_callback_defines.svh	169	13	169	17		0				000
+
+facets of this row (29390, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

@@ -1,0 +1,47 @@
+cluster N1075 (map 5 id kept; OPEN): span|always|endcol|under:module_inst
+row: surelog/testflags/MacroArgMismatch  strict=differ:endcol(8)  records golden=39 ours=39
+object: #10 (golden) / #10 (ours)  type=always name= 
+  golden: 4:1:5:17
+  ours:   4:1:5:18
+  walk parents: module_inst < design(work@test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 4..16 ('>' = the object)
+  #4	3	ref_typespec			work@test.d		0	0	0	0		0			work@test.d	000
+  #5	4	logic_typespec				dut.sv	3	1	3	4						000
+  #6	2	port	clk			dut.sv	2	19	2	22						000
+  #7	3	ref_obj	clk		work@test.clk.clk	dut.sv	2	19	2	22		0			work@test.clk.clk	000
+  #8	3	ref_typespec			work@test.clk		0	0	0	0		0			work@test.clk	000
+  #9	4	logic_typespec				dut.sv	2	19	2	19						000
+> #10	2	always				dut.sv	4	1	5	17						000
+  #11	3	event_control				dut.sv	4	8	4	22						000
+  #12	4	operation				dut.sv	4	10	4	21		0				000
+  #13	5	ref_obj	clk		work@test.clk	dut.sv	4	18	4	21		0			work@test.clk	000
+  #14	4	assignment				dut.sv	5	5	5	16						000
+  #15	5	operation				dut.sv	5	13	5	15		0				000
+  #16	6	ref_obj	d		work@test.d	dut.sv	5	14	5	15		0			work@test.d	000
+
+--- OURS (B) records 4..16 ('>' = the object)
+  #4	3	ref_typespec			work@test.d		0	0	0	0		0			work@test.d	000
+  #5	4	logic_typespec				dut.sv	3	1	3	4						000
+  #6	2	port	clk			dut.sv	2	19	2	22						000
+  #7	3	ref_obj	clk		work@test.clk.clk	dut.sv	2	19	2	22		0			work@test.clk.clk	000
+  #8	3	ref_typespec			work@test.clk		0	0	0	0		0			work@test.clk	000
+  #9	4	logic_typespec				dut.sv	2	19	2	19						000
+> #10	2	always				dut.sv	4	1	5	18						000
+  #11	3	event_control				dut.sv	4	8	4	22						000
+  #12	4	operation				dut.sv	4	10	4	21		0				000
+  #13	5	ref_obj	clk		work@test.clk	dut.sv	4	18	4	21		0			work@test.clk	000
+  #14	4	assignment				dut.sv	5	5	5	17						000
+  #15	5	operation				dut.sv	5	14	5	16		0				000
+  #16	6	ref_obj	d		work@test.d	dut.sv	5	15	5	16		0			work@test.d	000
+
+facets of this row (8, first 25):
+  N1075 #10/10 always  G[4:1:5:17] O[4:1:5:18]
+  N1076 #14/14 assignment  G[5:5:5:16] O[5:5:5:17]
+  N0050 #15/15 operation  G[5:13:5:15] O[5:14:5:16]
+  N0091 #16/16 ref_obj d G[5:14:5:15] O[5:15:5:16]
+  N1075 #30/30 always  G[4:1:5:17] O[4:1:5:18]
+  N1076 #34/34 assignment  G[5:5:5:16] O[5:5:5:17]
+  N0050 #35/35 operation  G[5:13:5:15] O[5:14:5:16]
+  N0091 #36/36 ref_obj d G[5:14:5:15] O[5:15:5:16]

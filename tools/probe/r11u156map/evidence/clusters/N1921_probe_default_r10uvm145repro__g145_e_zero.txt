@@ -1,0 +1,47 @@
+cluster N1921 (map 5 id kept; OPEN): span|int_var|col+endcol|under:function
+row: probe/default/r10uvm145repro__g145_e_zero  strict=col  records golden=105 ours=105
+object: #3 (golden) / #3 (ours)  type=int_var name=k1 
+  golden: 13:5:13:8
+  ours:   13:9:13:11
+  walk parents: function(zeroTwoNoParen145) < package(pe145) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 0..9 ('>' = the object)
+  #0	0	design	unnamed				0	0	0	0						000
+  #1	1	package	pe145	pe145	pe145::	dut.sv	11	1	32	11					pe145::	000
+  #2	2	function	zeroTwoNoParen145		pe145::zeroTwoNoParen145	dut.sv	12	3	15	14					pe145::zeroTwoNoParen145	000
+> #3	3	int_var	k1		pe145::zeroTwoNoParen145::k1	dut.sv	13	5	13	8		0			pe145::zeroTwoNoParen145::k1	000
+  #4	4	ref_typespec			pe145::zeroTwoNoParen145::k1		0	0	0	0		0			pe145::zeroTwoNoParen145::k1	000
+  #5	5	int_typespec				dut.sv	13	5	13	8						000
+  #6	3	int_var	k2		pe145::zeroTwoNoParen145::k2	dut.sv	14	5	14	8		0			pe145::zeroTwoNoParen145::k2	000
+  #7	4	ref_typespec			pe145::zeroTwoNoParen145::k2		0	0	0	0		0			pe145::zeroTwoNoParen145::k2	000
+  #8	5	int_typespec				dut.sv	14	5	14	8						000
+  #9	2	function	zeroThreeNoParen145		pe145::zeroThreeNoParen145	dut.sv	16	3	18	14					pe145::zeroThreeNoParen145	000
+
+--- OURS (B) records 0..9 ('>' = the object)
+  #0	0	design	unnamed				0	0	0	0						000
+  #1	1	package	pe145	pe145	pe145::	dut.sv	11	1	32	11					pe145::	000
+  #2	2	function	zeroTwoNoParen145		pe145::zeroTwoNoParen145	dut.sv	12	3	15	14					pe145::zeroTwoNoParen145	000
+> #3	3	int_var	k1		pe145::zeroTwoNoParen145::k1	dut.sv	13	9	13	11		0			pe145::zeroTwoNoParen145::k1	000
+  #4	4	ref_typespec			pe145::zeroTwoNoParen145::k1		0	0	0	0		0			pe145::zeroTwoNoParen145::k1	000
+  #5	5	int_typespec				dut.sv	13	5	13	8						000
+  #6	3	int_var	k2		pe145::zeroTwoNoParen145::k2	dut.sv	14	9	14	11		0			pe145::zeroTwoNoParen145::k2	000
+  #7	4	ref_typespec			pe145::zeroTwoNoParen145::k2		0	0	0	0		0			pe145::zeroTwoNoParen145::k2	000
+  #8	5	int_typespec				dut.sv	14	5	14	8						000
+  #9	2	function	zeroThreeNoParen145		pe145::zeroThreeNoParen145	dut.sv	16	3	18	14					pe145::zeroThreeNoParen145	000
+
+facets of this row (14, first 25):
+  N1921 #3/3 int_var k1 G[13:5:13:8] O[13:9:13:11]
+  N1921 #6/6 int_var k2 G[14:5:14:8] O[14:9:14:11]
+  N1921 #10/10 int_var w1 G[17:5:17:8] O[17:9:17:11]
+  N1921 #13/13 int_var w2 G[17:5:17:8] O[17:17:17:19]
+  N1921 #16/16 int_var w3 G[17:5:17:8] O[17:25:17:27]
+  N1941 #32/32 int_var t1 G[25:5:25:8] O[25:9:25:11]
+  N1941 #35/35 int_var t2 G[26:5:26:8] O[26:9:26:11]
+  N1921 #55/55 int_var k1 G[13:5:13:8] O[13:9:13:11]
+  N1921 #58/58 int_var k2 G[14:5:14:8] O[14:9:14:11]
+  N1921 #62/62 int_var w1 G[17:5:17:8] O[17:9:17:11]
+  N1921 #65/65 int_var w2 G[17:5:17:8] O[17:17:17:19]
+  N1921 #68/68 int_var w3 G[17:5:17:8] O[17:25:17:27]
+  N1941 #84/84 int_var t1 G[25:5:25:8] O[25:9:25:11]
+  N1941 #87/87 int_var t2 G[26:5:26:8] O[26:9:26:11]

@@ -1,0 +1,41 @@
+cluster N0117 (map 5 id kept; OPEN): span|unsupported_typespec|endcol|under:ref_typespec
+row: surelog/testflags/CrossFunc  strict=differ:endcol(2)  records golden=141 ours=141
+object: #70 (golden) / #70 (ours)  type=unsupported_typespec name=cg 
+  golden: 24:2:24:21
+  ours:   24:2:24:22
+  walk parents: ref_typespec < logic_net(cg_inst) < module_inst < design(work@mod_m)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 64..76 ('>' = the object)
+  #64	4	logic_typespec				dut.sv	2	2	2	14						000
+  #65	5	range				dut.sv	2	8	2	14						001
+  #66	6	constant				dut.sv	2	9	2	11	31	64	UINT:31	9		001
+  #67	6	constant				dut.sv	2	12	2	13	0	64	UINT:0	9		001
+  #68	2	logic_net	cg_inst		work@mod_m.cg_inst	dut.sv	24	5	24	12		0			work@mod_m.cg_inst	000
+  #69	3	ref_typespec			work@mod_m.cg_inst		0	0	0	0		0			work@mod_m.cg_inst	000
+> #70	4	unsupported_typespec	cg			dut.sv	24	2	24	21						110
+  #71	1	module_inst	work@mod_m	work@mod_m		dut.sv	1	1	32	10						000
+  #72	2	logic_var	a		work@mod_m.a	dut.sv	2	15	2	16		0			work@mod_m.a	000
+  #73	3	ref_typespec			work@mod_m.a		0	0	0	0		0			work@mod_m.a	000
+  #74	4	logic_typespec				dut.sv	2	2	2	14						000
+  #75	5	range				dut.sv	2	8	2	14						001
+  #76	6	constant				dut.sv	2	9	2	11	31	64	UINT:31	9		001
+
+--- OURS (B) records 64..76 ('>' = the object)
+  #64	4	logic_typespec				dut.sv	2	2	2	14						000
+  #65	5	range				dut.sv	2	8	2	14						001
+  #66	6	constant				dut.sv	2	9	2	11	31	64	UINT:31	9		001
+  #67	6	constant				dut.sv	2	12	2	13	0	64	UINT:0	9		001
+  #68	2	logic_net	cg_inst		work@mod_m.cg_inst	dut.sv	24	5	24	12		0			work@mod_m.cg_inst	000
+  #69	3	ref_typespec			work@mod_m.cg_inst		0	0	0	0		0			work@mod_m.cg_inst	000
+> #70	4	unsupported_typespec	cg			dut.sv	24	2	24	22						110
+  #71	1	module_inst	work@mod_m	work@mod_m		dut.sv	1	1	32	10						000
+  #72	2	logic_var	a		work@mod_m.a	dut.sv	2	15	2	16		0			work@mod_m.a	000
+  #73	3	ref_typespec			work@mod_m.a		0	0	0	0		0			work@mod_m.a	000
+  #74	4	logic_typespec				dut.sv	2	2	2	14						000
+  #75	5	range				dut.sv	2	8	2	14						001
+  #76	6	constant				dut.sv	2	9	2	11	31	64	UINT:31	9		001
+
+facets of this row (2, first 25):
+  N0117 #70/70 unsupported_typespec cg G[24:2:24:21] O[24:2:24:22]
+  N0768 #84/84 logic_var cg_inst G[24:5:24:21] O[24:5:24:12]

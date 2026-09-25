@@ -1,0 +1,63 @@
+cluster N0561 (map 5 id kept; OPEN): span|operation|endcol|under:operation
+row: surelog/default/YosysMarlann  strict=differ:endcol(24)  records golden=5403 ours=5403
+object: #747 (golden) / #747 (ours)  type=operation name= 
+  golden: 167:51:167:82
+  ours:   167:51:167:83
+  walk parents: operation < assignment < begin < event_control
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 741..753 ('>' = the object)
+  #741	4	operation				marlann_compute.v	166	11	166	24		0				000
+  #742	5	ref_obj	clock		work@marlann_compute.clock	marlann_compute.v	166	19	166	24		0			work@marlann_compute.clock	000
+  #743	4	begin			work@marlann_compute	marlann_compute.v	166	26	175	5					work@marlann_compute	000
+  #744	5	assignment				marlann_compute.v	167	3	167	83						000
+  #745	6	operation				marlann_compute.v	167	36	167	83		0				000
+  #746	7	ref_obj	memlock_res		work@marlann_compute.memlock_res	marlann_compute.v	167	36	167	47		0			work@marlann_compute.memlock_res	000
+> #747	7	operation				marlann_compute.v	167	51	167	82		0				000
+  #748	8	ref_obj	s1_stall		work@marlann_compute.s1_stall	marlann_compute.v	167	51	167	59		0			work@marlann_compute.s1_stall	000
+  #749	8	constant				marlann_compute.v	167	62	167	67	10'b0	10	BIN:0	3		000
+  #750	8	ref_obj	memlock_mask		work@marlann_compute.memlock_mask	marlann_compute.v	167	70	167	82		0			work@marlann_compute.memlock_mask	000
+  #751	6	operation				marlann_compute.v	167	3	167	32		0				000
+  #752	7	ref_obj	memlock_res		work@marlann_compute.memlock_res	marlann_compute.v	167	4	167	15		0			work@marlann_compute.memlock_res	000
+  #753	7	ref_obj	memlock_expect		work@marlann_compute.memlock_expect	marlann_compute.v	167	17	167	31		0			work@marlann_compute.memlock_expect	000
+
+--- OURS (B) records 741..753 ('>' = the object)
+  #741	4	operation				marlann_compute.v	166	11	166	24		0				000
+  #742	5	ref_obj	clock		work@marlann_compute.clock	marlann_compute.v	166	19	166	24		0			work@marlann_compute.clock	000
+  #743	4	begin			work@marlann_compute	marlann_compute.v	166	26	175	5					work@marlann_compute	000
+  #744	5	assignment				marlann_compute.v	167	3	167	84						000
+  #745	6	operation				marlann_compute.v	167	36	167	83		0				000
+  #746	7	ref_obj	memlock_res		work@marlann_compute.memlock_res	marlann_compute.v	167	36	167	47		0			work@marlann_compute.memlock_res	000
+> #747	7	operation				marlann_compute.v	167	51	167	83		0				000
+  #748	8	ref_obj	s1_stall		work@marlann_compute.s1_stall	marlann_compute.v	167	51	167	59		0			work@marlann_compute.s1_stall	000
+  #749	8	constant				marlann_compute.v	167	62	167	67	10'b0	10	BIN:0	3		000
+  #750	8	ref_obj	memlock_mask		work@marlann_compute.memlock_mask	marlann_compute.v	167	71	167	83		0			work@marlann_compute.memlock_mask	000
+  #751	6	operation				marlann_compute.v	167	3	167	32		0				000
+  #752	7	ref_obj	memlock_res		work@marlann_compute.memlock_res	marlann_compute.v	167	4	167	15		0			work@marlann_compute.memlock_res	000
+  #753	7	ref_obj	memlock_expect		work@marlann_compute.memlock_expect	marlann_compute.v	167	17	167	31		0			work@marlann_compute.memlock_expect	000
+
+facets of this row (24, first 25):
+  N0054 #744/744 assignment  G[167:3:167:83] O[167:3:167:84]
+  N0561 #747/747 operation  G[167:51:167:82] O[167:51:167:83]
+  N0091 #750/750 ref_obj memlock_mask G[167:70:167:82] O[167:71:167:83]
+  N0054 #1470/1470 assignment  G[390:3:390:47] O[390:3:390:48]
+  N0823 #1471/1471 operation  G[390:12:390:47] O[390:12:390:48]
+  N0091 #1475/1475 ref_obj acc0zn G[390:41:390:47] O[390:42:390:48]
+  N0054 #1646/1646 assignment  G[435:3:435:59] O[435:3:435:60]
+  N0823 #1647/1647 operation  G[435:18:435:59] O[435:18:435:60]
+  N0091 #1651/1651 ref_obj new_acc0_add G[435:47:435:59] O[435:48:435:60]
+  N0460 #1713/1713 begin  G[455:32:458:7] O[455:33:458:7]
+  N0460 #1927/1927 begin  G[523:32:525:7] O[523:33:525:7]
+  N0460 #1943/1943 begin  G[528:33:531:7] O[528:34:531:7]
+  N0054 #2891/2891 assignment  G[167:3:167:83] O[167:3:167:84]
+  N0561 #2900/2900 operation  G[167:51:167:82] O[167:51:167:83]
+  N0091 #2906/2906 ref_obj memlock_mask G[167:70:167:82] O[167:71:167:83]
+  N0054 #3781/3781 assignment  G[390:3:390:47] O[390:3:390:48]
+  N0823 #3782/3782 operation  G[390:12:390:47] O[390:12:390:48]
+  N0091 #3786/3786 ref_obj acc0zn G[390:41:390:47] O[390:42:390:48]
+  N0054 #4005/4005 assignment  G[435:3:435:59] O[435:3:435:60]
+  N0823 #4006/4006 operation  G[435:18:435:59] O[435:18:435:60]
+  N0091 #4010/4010 ref_obj new_acc0_add G[435:47:435:59] O[435:48:435:60]
+  N0460 #4099/4099 begin  G[455:32:458:7] O[455:33:458:7]
+  N0460 #4367/4367 begin  G[523:32:525:7] O[523:33:525:7]
+  N0460 #4383/4383 begin  G[528:33:531:7] O[528:34:531:7]

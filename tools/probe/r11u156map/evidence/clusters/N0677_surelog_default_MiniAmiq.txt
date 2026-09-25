@@ -1,0 +1,64 @@
+cluster N0677 (map 5 id kept; OPEN): name|io_decl|tok:id->id|under:function
+row: surelog/default/MiniAmiq  strict=differ:line(190)  records golden=435559 ours=413982
+object: #344676 (golden) / #331506 (ours)  type=io_decl name=map 
+  golden: map|
+  ours:   offset|
+  walk parents: function(uvm_mem::get_address) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 344670..344682 ('>' = the object)
+  #344670	8	range				uvm_reg_model.svh	73	23	73	31						001
+  #344671	9	constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7		001
+  #344672	9	constant				uvm_reg_model.svh	73	29	73	30	0	64	UINT:0	9		001
+  #344673	6	range				uvm_reg_model.svh	73	23	73	31						001
+  #344674	7	constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7		001
+  #344675	7	constant				uvm_reg_model.svh	73	29	73	30	0	64	UINT:0	9		001
+> #344676	3	io_decl	map			uvm_mem.svh	1338	58	1338	61						000
+  #344677	4	ref_typespec			svaunit_pkg::uvm_mem::get_address::map		0	0	0	0		0			svaunit_pkg::uvm_mem::get_address::map	000
+  #344678	5	class_typespec	uvm_reg_map			uvm_mem.svh	1338	46	1338	57						110
+  #344679	3	begin			svaunit_pkg::uvm_mem::get_address	uvm_mem.svh	1340	4	1340	44					svaunit_pkg::uvm_mem::get_address	000
+  #344680	4	bit_var			svaunit_pkg::uvm_mem::get_address	uvm_mem.svh	1339	20	1339	24		0			svaunit_pkg::uvm_mem::get_address	000
+  #344681	5	ref_typespec			svaunit_pkg::uvm_mem::get_address		0	0	0	0		0			svaunit_pkg::uvm_mem::get_address	000
+  #344682	6	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31						110
+
+--- OURS (B) records 331500..331512 ('>' = the object)
+  #331500	8	range				uvm_reg_model.svh	73	23	73	31						001
+  #331501	9	constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7		001
+  #331502	9	constant				uvm_reg_model.svh	73	29	73	30	0	64	UINT:0	9		001
+  #331503	6	range				uvm_reg_model.svh	73	23	73	31						001
+  #331504	7	constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7		001
+  #331505	7	constant				uvm_reg_model.svh	73	29	73	30	0	64	UINT:0	9		001
+> #331506	3	io_decl	offset			uvm_mem.svh	1337	61	1337	67						000
+  #331507	4	ref_typespec			svaunit_pkg::uvm_mem::get_address::offset		0	0	0	0		0			svaunit_pkg::uvm_mem::get_address::offset	000
+  #331508	5	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31						110
+  #331509	6	ref_typespec			<in>uvm_reg_addr_t		0	0	0	0		0			uvm_reg_addr_t	001
+  #331510	7	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31						001
+  #331511	8	range				uvm_reg_model.svh	73	23	73	31						001
+  #331512	9	constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7		001
+
+facets of this row (55220, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

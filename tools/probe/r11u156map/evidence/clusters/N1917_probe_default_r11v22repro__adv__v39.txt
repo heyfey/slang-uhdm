@@ -1,0 +1,43 @@
+cluster N1917 (map 5 id kept; OPEN): fullname|ref_obj|tok:->id@id.|under:cont_assign
+row: probe/default/r11v22repro__adv__v39  strict=fullname  records golden=61 ours=61
+object: #28 (golden) / #28 (ours)  type=ref_obj name=o OUT
+  golden: gb.o
+  ours:   work@top.gb.o
+  walk parents: cont_assign < named_begin(gb) < case_item < gen_case
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 22..34 ('>' = the object)
+  #22	4	named_begin	gb				0	0	0	0						000
+  #23	5	cont_assign				dut.sv	4	14	4	34						000
+  #24	6	operation				dut.sv	4	18	4	34		0				000
+  #25	7	constant				dut.sv	4	19	4	20	1	64	UINT:1	9		000
+  #26	7	constant				dut.sv	4	24	4	29	32'd7	32	DEC:7	1		000
+  #27	7	constant				dut.sv	4	32	4	34	'0	-1	BIN:0	3		000
+> #28	6	ref_obj	o		gb.o	dut.sv	4	14	4	15		0			gb.o	000
+  #29	1	module_inst	work@top	work@top		dut.sv	1	1	7	10						000
+  #30	2	logic_net	a		work@top.a	dut.sv	1	31	1	32		0			work@top.a	000
+  #31	3	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+  #32	4	logic_typespec				dut.sv	1	18	1	30						000
+  #33	5	range				dut.sv	1	24	1	30						001
+  #34	6	constant				dut.sv	1	25	1	27	31	64	UINT:31	9		001
+
+--- OURS (B) records 22..34 ('>' = the object)
+  #22	4	named_begin	gb		work@top.gb		0	0	0	0					work@top.gb	000
+  #23	5	cont_assign				dut.sv	4	14	4	34						000
+  #24	6	operation				dut.sv	4	18	4	34		0				000
+  #25	7	constant				dut.sv	4	19	4	20	1	64	UINT:1	9		000
+  #26	7	constant				dut.sv	4	24	4	29	32'd7	32	DEC:7	1		000
+  #27	7	constant				dut.sv	4	32	4	34	'0	-1	BIN:0	3		000
+> #28	6	ref_obj	o		work@top.gb.o	dut.sv	4	14	4	15		0			work@top.gb.o	000
+  #29	1	module_inst	work@top	work@top		dut.sv	1	1	7	10						000
+  #30	2	logic_net	a		work@top.a	dut.sv	1	31	1	32		0			work@top.a	000
+  #31	3	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+  #32	4	logic_typespec				dut.sv	1	18	1	30						000
+  #33	5	range				dut.sv	1	24	1	30						001
+  #34	6	constant				dut.sv	1	25	1	27	31	64	UINT:31	9		001
+
+facets of this row (4, first 25):
+  N0482 #22/22 named_begin gb G[] O[work@top.gb]
+  N1917 #28/28 ref_obj o G[gb.o] O[work@top.gb.o]
+  N0486 #56/56 gen_scope_array gb G[3:8:5:8] O[4:7:4:35]
+  N0483 #57/57 gen_scope  G[3:8:5:8] O[4:7:4:35]

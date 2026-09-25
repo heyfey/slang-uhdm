@@ -1,0 +1,64 @@
+cluster N1055 (map 5 id kept; OPEN): fullname|bit_select|tok:id@id.id.id.id.id[id].id.id->id.id[id]|under:hier_path
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1747)  records golden=1342584 ours=1342618
+object: #207164 (golden) / #207124 (ours)  type=bit_select name=dio_out_sleep_val OUT
+  golden: work@pinmux.gen_dio_sleep.gen_warl_connect.hw2reg.dio_out_sleep_val[k].d.dio_out_sleep_val
+  ours:   hw2reg.dio_out_sleep_val[k]
+  walk parents: hier_path(hw2reg.dio_out_sleep_val[k].d) < cont_assign < named_begin(gen_warl_connect) < gen_if_else
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 207158..207170 ('>' = the object)
+  #207158	5	named_begin	gen_warl_connect		work@pinmux.gen_dio_sleep.gen_warl_connect		0	0	0	0					work@pinmux.gen_dio_sleep.gen_warl_connect	000
+  #207159	6	cont_assign				pinmux.sv	109	14	109	68						000
+  #207160	7	bit_select	dio_out_sleep_val_q		work@pinmux.gen_dio_sleep.gen_warl_connect.dio_out_sleep_val_q	pinmux.sv	109	66	109	67		0			work@pinmux.gen_dio_sleep.gen_warl_connect.dio_out_sleep_val_q	000
+  #207161	8	ref_obj	k		work@pinmux.gen_dio_sleep.gen_warl_connect.k	pinmux.sv	109	66	109	67		0			work@pinmux.gen_dio_sleep.gen_warl_connect.k	000
+  #207162	7	hier_path	hw2reg.dio_out_sleep_val[k].d			pinmux.sv	109	14	109	43		0				000
+  #207163	8	ref_obj	hw2reg			pinmux.sv	109	21	109	38		0				000
+> #207164	8	bit_select	dio_out_sleep_val		work@pinmux.gen_dio_sleep.gen_warl_connect.hw2reg.dio_out_sleep_val[k].d.dio_out_sleep_val	pinmux.sv	109	21	109	41		0			work@pinmux.gen_dio_sleep.gen_warl_connect.hw2reg.dio_out_sleep_val[k].d.dio_out_sleep_val	000
+  #207165	9	ref_obj	k		work@pinmux.gen_dio_sleep.gen_warl_connect.hw2reg.dio_out_sleep_val[k].d.k	pinmux.sv	109	39	109	40		0			work@pinmux.gen_dio_sleep.gen_warl_connect.hw2reg.dio_out_sleep_val[k].d.k	000
+  #207166	8	ref_obj	d			pinmux.sv	109	42	109	43		0				000
+  #207167	6	cont_assign				pinmux.sv	111	14	113	61						000
+  #207168	7	operation				pinmux.sv	111	39	113	61		0				000
+  #207169	8	hier_path	reg2hw.dio_out_sleep_val[k].qe			pinmux.sv	111	40	111	70		0				000
+  #207170	9	ref_obj	reg2hw			pinmux.sv	111	40	111	46		0				000
+
+--- OURS (B) records 207118..207130 ('>' = the object)
+  #207118	5	named_begin	gen_warl_connect		work@pinmux.gen_dio_sleep.gen_warl_connect		0	0	0	0					work@pinmux.gen_dio_sleep.gen_warl_connect	000
+  #207119	6	cont_assign				pinmux.sv	109	14	109	68						000
+  #207120	7	bit_select	dio_out_sleep_val_q		work@pinmux.gen_dio_sleep.gen_warl_connect.dio_out_sleep_val_q	pinmux.sv	109	66	109	67		0			work@pinmux.gen_dio_sleep.gen_warl_connect.dio_out_sleep_val_q	000
+  #207121	8	ref_obj	k		work@pinmux.gen_dio_sleep.gen_warl_connect.k	pinmux.sv	109	66	109	67		0			work@pinmux.gen_dio_sleep.gen_warl_connect.k	000
+  #207122	7	hier_path	hw2reg.dio_out_sleep_val[k].d			pinmux.sv	109	14	109	43		0				000
+  #207123	8	ref_obj	hw2reg			pinmux.sv	109	14	109	20		0				000
+> #207124	8	bit_select	dio_out_sleep_val		hw2reg.dio_out_sleep_val[k]	pinmux.sv	109	21	109	38		0			hw2reg.dio_out_sleep_val[k]	000
+  #207125	9	ref_obj	k		work@pinmux.gen_dio_sleep.gen_warl_connect.k	pinmux.sv	109	39	109	40		0			work@pinmux.gen_dio_sleep.gen_warl_connect.k	000
+  #207126	8	ref_obj	d		work@pinmux.gen_dio_sleep.gen_warl_connect.d	pinmux.sv	109	42	109	43		0			work@pinmux.gen_dio_sleep.gen_warl_connect.d	000
+  #207127	6	cont_assign				pinmux.sv	111	14	113	61						000
+  #207128	7	operation				pinmux.sv	111	39	113	61		0				000
+  #207129	8	hier_path	reg2hw.dio_out_sleep_val[k].qe			pinmux.sv	111	40	111	70		0				000
+  #207130	9	ref_obj	reg2hw			pinmux.sv	111	40	111	46		0				000
+
+facets of this row (19659, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

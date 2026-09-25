@@ -1,0 +1,54 @@
+cluster N0454 (map 5 id kept; COVERED r11u152 (N0454)): fullname|ref_typespec|tok:id@id.id.id.id.->|under:typespec_member
+row: surelog/testflags/TypeParamElab  strict=differ:endline(15)  records golden=217 ours=217
+object: #131 (golden) / #131 (ours)  type=ref_typespec name= TAIL
+  golden: work@axi_node_arbiter.i_arb_inp.DATA_T.axi_meta_t.aux
+  ours:   aux
+  walk parents: typespec_member(aux) < struct_typespec(axi_meta_t) < ref_typespec < type_parameter(DATA_T)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 125..137 ('>' = the object)
+  #125	7	constant				dut.sv	29	23	29	24	0	64	UINT:0	9		001
+  #126	2	module_inst	i_arb_inp	work@stream_arbiter	work@axi_node_arbiter.i_arb_inp	dut.sv	32	2	35	19					work@axi_node_arbiter.i_arb_inp	000
+  #127	3	type_parameter	DATA_T		work@axi_node_arbiter.i_arb_inp.DATA_T		0	0	0	0					work@axi_node_arbiter.i_arb_inp.DATA_T	010
+  #128	4	ref_typespec			<in>DATA_T		0	0	0	0		0			work@axi_node_arbiter.i_arb_inp.DATA_T	001
+  #129	5	struct_typespec	axi_meta_t			dut.sv	27	11	30	4						001
+  #130	6	typespec_member	aux			dut.sv	28	27	28	30						001
+> #131	7	ref_typespec			<in>axi_meta_t.aux		0	0	0	0		0			work@axi_node_arbiter.i_arb_inp.DATA_T.axi_meta_t.aux	001
+  #132	8	logic_typespec				dut.sv	28	5	28	26						001
+  #133	9	range				dut.sv	28	11	28	26						001
+  #134	10	operation				dut.sv	28	12	28	23		0				001
+  #135	11	ref_obj	AUX_WIDTH		<in>axi_meta_t.aux.AUX_WIDTH	dut.sv	28	12	28	21		0			work@axi_node_arbiter.i_arb_inp.DATA_T.axi_meta_t.aux.AUX_WIDTH	001
+  #136	11	constant				dut.sv	28	22	28	23	1	64	UINT:1	9		001
+  #137	10	constant				dut.sv	28	24	28	25	0	64	UINT:0	9		001
+
+--- OURS (B) records 125..137 ('>' = the object)
+  #125	7	constant				dut.sv	29	23	29	24	0	64	UINT:0	9		001
+  #126	2	module_inst	i_arb_inp	work@stream_arbiter	work@axi_node_arbiter.i_arb_inp	dut.sv	32	2	35	19					work@axi_node_arbiter.i_arb_inp	000
+  #127	3	type_parameter	DATA_T		work@axi_node_arbiter.i_arb_inp.DATA_T		0	0	0	0					work@axi_node_arbiter.i_arb_inp.DATA_T	010
+  #128	4	ref_typespec			<in>DATA_T		0	0	0	0		0			work@axi_node_arbiter.i_arb_inp.DATA_T	001
+  #129	5	struct_typespec	axi_meta_t			dut.sv	27	11	27	24						001
+  #130	6	typespec_member	aux			dut.sv	28	27	28	30						001
+> #131	7	ref_typespec			aux		0	0	0	0		0			aux	001
+  #132	8	logic_typespec				dut.sv	28	5	28	26						001
+  #133	9	range				dut.sv	28	11	28	26						001
+  #134	10	operation				dut.sv	28	12	28	23		0				001
+  #135	11	ref_obj	AUX_WIDTH		work@axi_node_arbiter.i_arb_inp.DATA_T.AUX_WIDTH	dut.sv	28	12	28	21		0			work@axi_node_arbiter.i_arb_inp.DATA_T.AUX_WIDTH	001
+  #136	11	constant				dut.sv	28	22	28	23	1	64	UINT:1	9		001
+  #137	10	constant				dut.sv	28	24	28	25	0	64	UINT:0	9		001
+
+facets of this row (15, first 25):
+  N0009 #129/129 struct_typespec axi_meta_t G[27:11:30:4] O[27:11:27:24]
+  N0454 #131/131 ref_typespec  G[work@axi_node_arbiter.i_arb_inp.DATA_T.axi_meta_t.aux] O[aux]
+  N1062 #135/135 ref_obj AUX_WIDTH G[work@axi_node_arbiter.i_arb_inp.DATA_T.axi_meta_t.aux.AUX_WIDTH] O[work@axi_node_arbiter.i_arb_inp.DATA_T.AUX_WIDTH]
+  N0454 #139/139 ref_typespec  G[work@axi_node_arbiter.i_arb_inp.DATA_T.axi_meta_t.id] O[id]
+  N1062 #143/143 ref_obj ID_WIDTH G[work@axi_node_arbiter.i_arb_inp.DATA_T.axi_meta_t.id.ID_WIDTH] O[work@axi_node_arbiter.i_arb_inp.DATA_T.ID_WIDTH]
+  N0009 #163/163 struct_typespec axi_meta_t G[27:11:30:4] O[27:11:27:24]
+  N0531 #165/165 ref_typespec  G[work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T.axi_meta_t.aux] O[aux]
+  N1015 #169/169 ref_obj AUX_WIDTH G[work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T.axi_meta_t.aux.AUX_WIDTH] O[work@axi_node_arbiter.i_arb_inp.DATA_T.AUX_WIDTH]
+  N0531 #173/173 ref_typespec  G[work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T.axi_meta_t.id] O[id]
+  N1015 #177/177 ref_obj ID_WIDTH G[work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T.axi_meta_t.id.ID_WIDTH] O[work@axi_node_arbiter.i_arb_inp.DATA_T.ID_WIDTH]
+  N0009 #182/182 struct_typespec axi_meta_t G[27:11:30:4] O[27:11:27:24]
+  N0531 #184/184 ref_typespec  G[work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T.axi_meta_t.aux] O[aux]
+  N1015 #188/188 ref_obj AUX_WIDTH G[work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T.axi_meta_t.aux.AUX_WIDTH] O[work@axi_node_arbiter.i_arb_inp.DATA_T.AUX_WIDTH]
+  N0531 #192/192 ref_typespec  G[work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T.axi_meta_t.id] O[id]
+  N1015 #196/196 ref_obj ID_WIDTH G[work@axi_node_arbiter.i_arb_inp.i_arb.DATA_T.axi_meta_t.id.ID_WIDTH] O[work@axi_node_arbiter.i_arb_inp.DATA_T.ID_WIDTH]

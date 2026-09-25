@@ -1,0 +1,48 @@
+cluster N0819 (map 5 id kept; OPEN): struct|golden-only:elsewhere|logic_var|under:interface_inst
+row: surelog/testflags/OneNetModPortGeneric  strict=differ:line(2)  records golden=448 ours=454
+object: #310 (golden) / #-1 (ours)  type=logic_var name=drive 
+  golden: 3 objs
+  ours:   
+  walk parents: interface_inst(conntb) < module_inst(work@TOP) < design(work@TOP)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 304..316 ('>' = the object)
+  #304	3	logic_var	drive		work@TOP.conntb.drive	dut.v	10	9	10	14		0			work@TOP.conntb.drive	000
+  #305	4	ref_typespec			work@TOP.conntb.drive		0	0	0	0		0			work@TOP.conntb.drive	000
+  #306	5	logic_typespec				dut.v	10	3	10	8						000
+  #307	3	logic_var	observe		work@TOP.conntb.observe	dut.v	11	9	11	16		0			work@TOP.conntb.observe	000
+  #308	4	ref_typespec			work@TOP.conntb.observe		0	0	0	0		0			work@TOP.conntb.observe	000
+  #309	5	logic_typespec				dut.v	11	3	11	8						000
+> #310	3	logic_var	drive		work@TOP.conntb.drive	dut.v	10	9	10	14		0			work@TOP.conntb.drive	000
+  #311	4	ref_typespec			work@TOP.conntb.drive		0	0	0	0		0			work@TOP.conntb.drive	000
+  #312	5	logic_typespec				dut.v	10	3	10	8						000
+  #313	3	logic_var	observe		work@TOP.conntb.observe	dut.v	11	9	11	16		0			work@TOP.conntb.observe	000
+  #314	4	ref_typespec			work@TOP.conntb.observe		0	0	0	0		0			work@TOP.conntb.observe	000
+  #315	5	logic_typespec				dut.v	11	3	11	8						000
+  #316	3	modport	dut			dut.v	12	11	12	14						000
+
+--- the holder #303 on the other side: exact-record matches at [309]
+  #306	9	logic_typespec				dut.v	11	3	11	8						000
+  #307	4	ref_typespec			work@TOP.tb.intf		0	0	0	0		0			work@TOP.tb.intf	000
+  #308	5	unsupported_typespec	intf			tb.v	1	31	1	35						110
+> #309	2	interface_inst	conntb	work@ConnectTB	work@TOP.conntb	tb.v	16	3	16	22					work@TOP.conntb	000
+  #310	3	logic_var	drive		work@TOP.conntb.drive	dut.v	10	9	10	14		0			work@TOP.conntb.drive	000
+  #311	4	ref_typespec			work@TOP.conntb.drive		0	0	0	0		0			work@TOP.conntb.drive	000
+  #312	5	logic_typespec				dut.v	10	3	10	8						000
+  #313	3	logic_var	observe		work@TOP.conntb.observe	dut.v	11	9	11	16		0			work@TOP.conntb.observe	000
+  #314	4	ref_typespec			work@TOP.conntb.observe		0	0	0	0		0			work@TOP.conntb.observe	000
+  #315	5	logic_typespec				dut.v	11	3	11	8						000
+  #316	3	modport	dut			dut.v	12	11	12	14						000
+  #317	4	io_decl	drive			dut.v	13	11	13	16						000
+  #318	4	io_decl	observe			dut.v	14	12	14	19						000
+
+facets of this row (9, first 25):
+  N0268 #-1/300 logic_var drive G[] O[3 objs]
+  N0268 #-1/304 logic_var observe G[] O[3 objs]
+  N0819 #310/-1 logic_var drive G[3 objs] O[]
+  N0819 #313/-1 logic_var observe G[3 objs] O[]
+  N1000 #-1/434 logic_var drive G[] O[3 objs]
+  N1000 #-1/437 logic_var observe G[] O[3 objs]
+  N0088 #297/297 ref_obj  G[1:31:1:35] O[18:17:18:21]
+  N0088 #364/364 ref_obj  G[22:26:22:30] O[6:20:6:24]
+  N0750 #432/432 ref_obj  G[19:16:19:29] O[19:17:19:21]

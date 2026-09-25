@@ -1,0 +1,64 @@
+cluster N0315 (map 5 id kept; OPEN): span|func_call|line+col+endline+endcol|under:operation
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #13545 (golden) / #13559 (ours)  type=func_call name=get_full_name 
+  golden: 116:75:116:90
+  ours:   115:156:115:171
+  walk parents: operation < operation < func_call(uvm_report_info) < if_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 13539..13551 ('>' = the object)
+  #13539	18	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0				000
+  #13540	17	hier_path	succ.get_inst_id			uvm_message_defines.svh	116	30	116	48		0				000
+  #13541	18	ref_obj	succ			uvm_message_defines.svh	116	30	116	34		0				000
+  #13542	18	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0				000
+  #13543	16	operation				uvm_message_defines.svh	116	50	116	91		0				000
+  #13544	17	constant				uvm_message_defines.svh	116	51	116	74	"Scheduled from phase "	168	STRING:Scheduled from phase 	6		000
+> #13545	17	func_call	get_full_name			uvm_message_defines.svh	116	75	116	90		0				000
+  #13546	15	ref_obj	UVM_LOW		uvm_pkg::uvm_phase::execute_phase::UVM_LOW	uvm_message_defines.svh	116	94	116	101		0			uvm_pkg::uvm_phase::execute_phase::UVM_LOW	000
+  #13547	16	enum_const	UVM_LOW			uvm_object_globals.svh	305	3	305	19						010
+  #13548	15	constant				uvm_message_defines.svh	116	103	116	205	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_phase.svh"	800	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_phase.svh	6		000
+  #13549	15	constant				uvm_message_defines.svh	116	207	116	211	1655	64	UINT:1655	9		000
+  #13550	15	constant				uvm_message_defines.svh	116	213	116	215	""	0	STRING:	6		000
+  #13551	15	constant				uvm_message_defines.svh	116	217	116	218	1	64	UINT:1	9		000
+
+--- OURS (B) records 13553..13565 ('>' = the object)
+  #13553	18	method_func_call	get_full_name			uvm_message_defines.svh	115	94	1656	21		0				000
+  #13554	17	hier_path	succ.get_inst_id			uvm_message_defines.svh	115	111	115	129		0				000
+  #13555	18	ref_obj	succ			uvm_message_defines.svh	115	111	115	115		0				000
+  #13556	18	method_func_call	get_inst_id			uvm_message_defines.svh	115	116	1656	19		0				000
+  #13557	16	operation				uvm_message_defines.svh	115	131	115	172		0				000
+  #13558	17	constant				uvm_message_defines.svh	115	132	115	155	"Scheduled from phase "	168	STRING:Scheduled from phase 	6		000
+> #13559	17	func_call	get_full_name			uvm_message_defines.svh	115	156	115	171		0				000
+  #13560	15	ref_obj	UVM_LOW		uvm_pkg::uvm_phase::execute_phase::UVM_LOW	uvm_message_defines.svh	115	175	115	182		0			uvm_pkg::uvm_phase::execute_phase::UVM_LOW	000
+  #13561	16	enum_const	UVM_LOW			uvm_object_globals.svh	305	3	305	19						010
+  #13562	15	constant				uvm_message_defines.svh	115	55	52	2	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_phase.svh"	800	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_phase.svh	6		000
+  #13563	15	constant				uvm_message_defines.svh	115	66	115	70	1655	64	UINT:1655	9		000
+  #13564	15	constant				uvm_message_defines.svh	115	314	115	316	""	0	STRING:	6		000
+  #13565	15	constant				uvm_message_defines.svh	115	318	115	319	1	64	UINT:1	9		000
+
+facets of this row (29390, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

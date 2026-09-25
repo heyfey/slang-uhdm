@@ -1,0 +1,64 @@
+cluster N0119 (map 5 id kept; OPEN): span|bit_select|col+endcol|under:assignment
+row: surelog/default/SVSwitch  strict=differ:endcol(27)  records golden=5787 ours=5808
+object: #264 (golden) / #264 (ours)  type=bit_select name=rcvr 
+  golden: 43:11:43:12
+  ours:   43:6:43:13
+  walk parents: assignment < foreach_stmt < begin < function(build)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 258..270 ('>' = the object)
+  #258	7	unsupported_typespec	i			Environemnt.sv	42	17	42	18						110
+  #259	5	assignment				Environemnt.sv	43	6	43	42						000
+  #260	6	method_func_call	new				0	0	0	0		0				000
+  #261	7	bit_select	output_intf		work@Environment::build::output_intf	Environemnt.sv	43	31	43	32		0			work@Environment::build::output_intf	000
+  #262	8	ref_obj	i		work@Environment::build::i	Environemnt.sv	43	31	43	32		0			work@Environment::build::i	000
+  #263	7	ref_obj	rcvr2sb		work@Environment::build::rcvr2sb	Environemnt.sv	43	34	43	41		0			work@Environment::build::rcvr2sb	000
+> #264	6	bit_select	rcvr		work@Environment::build::rcvr	Environemnt.sv	43	11	43	12		0			work@Environment::build::rcvr	000
+  #265	7	ref_obj	i		work@Environment::build::i	Environemnt.sv	43	11	43	12		0			work@Environment::build::i	000
+  #266	4	sys_func_call	$display			Environemnt.sv	44	4	44	64		0				000
+  #267	5	constant				Environemnt.sv	44	13	44	57	" %0d : Environemnt : end of build() method"	336	STRING: %0d : Environemnt : end of build() method	6		000
+  #268	5	sys_func_call	$time			Environemnt.sv	44	58	44	63		0				000
+  #269	2	task	reset		work@Environment::reset	Environemnt.sv	47	1	67	16					work@Environment::reset	000
+  #270	3	begin			work@Environment::reset	Environemnt.sv	50	3	50	34					work@Environment::reset	000
+
+--- OURS (B) records 258..270 ('>' = the object)
+  #258	7	unsupported_typespec	i			Environemnt.sv	42	17	42	18						110
+  #259	5	assignment				Environemnt.sv	43	6	43	42						000
+  #260	6	method_func_call	new				0	0	0	0		0				000
+  #261	7	bit_select	output_intf		work@Environment::build::output_intf	Environemnt.sv	43	31	43	32		0			work@Environment::build::output_intf	000
+  #262	8	ref_obj	i		work@Environment::build::i	Environemnt.sv	43	31	43	32		0			work@Environment::build::i	000
+  #263	7	ref_obj	rcvr2sb		work@Environment::build::rcvr2sb	Environemnt.sv	43	34	43	41		0			work@Environment::build::rcvr2sb	000
+> #264	6	bit_select	rcvr		work@Environment::build::rcvr	Environemnt.sv	43	6	43	13		0			work@Environment::build::rcvr	000
+  #265	7	ref_obj	i		work@Environment::build::i	Environemnt.sv	43	11	43	12		0			work@Environment::build::i	000
+  #266	4	sys_func_call	$display			Environemnt.sv	44	4	44	64		0				000
+  #267	5	constant				Environemnt.sv	44	13	44	57	" %0d : Environemnt : end of build() method"	336	STRING: %0d : Environemnt : end of build() method	6		000
+  #268	5	sys_func_call	$time			Environemnt.sv	44	58	44	63		0				000
+  #269	2	task	reset		work@Environment::reset	Environemnt.sv	47	1	67	16					work@Environment::reset	000
+  #270	3	begin			work@Environment::reset	Environemnt.sv	50	3	50	34					work@Environment::reset	000
+
+facets of this row (90, first 25):
+  N0526 #-1/3314 logic_net clock G[] O[3 objs]
+  N0268 #-1/3348 logic_var reset G[] O[3 objs]
+  N0526 #-1/3352 logic_net clock G[] O[3 objs]
+  N0526 #-1/3407 logic_net clock G[] O[3 objs]
+  N0526 #-1/3432 logic_net clock G[] O[3 objs]
+  N0526 #-1/3457 logic_net clock G[] O[3 objs]
+  N0526 #-1/3482 logic_net clock G[] O[3 objs]
+  N1144 #88/88 hier_path pkt.randomize G[40:10:40:25] O[40:10:40:23]
+  N0095 #101/101 ref_obj bytes G[work@Driver::start::pkt.byte_pack::bytes] O[work@Driver::start::bytes]
+  N0067 #184/184 class_typespec Receiver G[Environemnt.sv 20:3:20:11] O[ 0:0:0:0]
+  N0068 #184/184 class_typespec Receiver G[20:3:20:11] O[0:0:0:0]
+  N0119 #264/264 bit_select rcvr G[43:11:43:12] O[43:6:43:13]
+  N0007 #651/651 ref_obj size G[] O[work@Receiver::start::size]
+  N0095 #756/756 ref_obj pkt_exp G[work@Scoreboard::start::pkt_rcv.compare::pkt_exp] O[work@Scoreboard::start::pkt_exp]
+  N0007 #980/980 ref_obj size G[] O[work@packet::byte_pack::size]
+  N0071 #1121/1121 hier_path this.da G[105:24:105:31] O[105:24:105:28]
+  N0001 #1122/1122 ref_obj this G[105:29:105:31] O[105:24:105:28]
+  N0007 #1123/1123 ref_obj da G[] O[work@packet::compare::da]
+  N0098 #1123/1123 ref_obj da G[Packet.sv 105:29:105:31] O[ 0:0:0:0]
+  N0099 #1123/1123 ref_obj da G[105:29:105:31] O[0:0:0:0]
+  N0071 #1135/1135 hier_path this.sa G[110:24:110:31] O[110:24:110:28]
+  N0001 #1136/1136 ref_obj this G[110:29:110:31] O[110:24:110:28]
+  N0007 #1137/1137 ref_obj sa G[] O[work@packet::compare::sa]
+  N0098 #1137/1137 ref_obj sa G[Packet.sv 110:29:110:31] O[ 0:0:0:0]
+  N0099 #1137/1137 ref_obj sa G[110:29:110:31] O[0:0:0:0]

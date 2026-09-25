@@ -1,0 +1,42 @@
+== surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/BlackParrotComplex-85655aee/slang.uhdm  patched=4b56c419e883 pristine=5b51f34b2ec0
+MOVER ./default/FuncStructVal-9244d8c4/slang.uhdm  patched=424300c0d771 pristine=9f37ad55d8fb
+MOVER ./default/FuncStructValSimple-7042c7a5/slang.uhdm  patched=d3200904e5e9 pristine=54ab50c04c2c
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=4b610abac6bd pristine=9bce418606fa
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=f42126e08ba8 pristine=ff4b459caa32
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=80b803112676 pristine=1f13a59981fa
+MOVER ./default/StructParamFieldRange-2f684d9b/slang.uhdm  patched=1fec5fc3fcfe pristine=3bbf9cc4efb2
+MOVER ./default/StructParamFuncBodyFieldCompare-8bdad600/slang.uhdm  patched=a25f6cb11c3d pristine=1329a619fc1f
+MOVER ./default/StructParamPatternInitCast-cec842a1/slang.uhdm  patched=ca565c14bfc0 pristine=83ed0459143a
+MOVER ./testflags/BlackParrotComplex-85655aee/slang.uhdm  patched=91b44e7142c0 pristine=7b1840ba3a7c
+MOVER ./testflags/FuncStructVal-9244d8c4/slang.uhdm  patched=8422ebba7e40 pristine=2741c2572ac5
+MOVER ./testflags/FuncStructValSimple-7042c7a5/slang.uhdm  patched=3c2ec77e794c pristine=245352d037a0
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=a105861a2427 pristine=0035199db3c5
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=d6c1eb99b046 pristine=d658a92e51d3
+MOVER ./testflags/StructParamFieldRange-2f684d9b/slang.uhdm  patched=1fec5fc3fcfe pristine=3bbf9cc4efb2
+MOVER ./testflags/StructParamFuncBodyFieldCompare-8bdad600/slang.uhdm  patched=a25f6cb11c3d pristine=1329a619fc1f
+MOVER ./testflags/StructParamPatternInitCast-cec842a1/slang.uhdm  patched=ca565c14bfc0 pristine=83ed0459143a
+MOVERS: 17 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/array_assign-1c62b8e6/slang.uhdm  patched=6226f1fb9e96 pristine=06eebe1ff0f5
+MOVER ./default/cva6_struct_param_field-7cd1ec7b/slang.uhdm  patched=911b6b94f2e7 pristine=bb9583e0bfad
+MOVER ./default/def_ctx_struct_param-b2c44da7/slang.uhdm  patched=ae881f01010a pristine=8bca339d7d86
+MOVER ./default/latch_decoder_partial-a91a0d0e/slang.uhdm  patched=baf52fc39d82 pristine=c3a16ddaf5a8
+MOVER ./default/latch_tlb_napot-58807a5d/slang.uhdm  patched=84e622e85fe4 pristine=c6c2ca56919b
+MOVER ./default/NestedStructArrayParameterInitializedByPatternPassedAsPort-e14d8143/slang.uhdm  patched=9cf0b577959a pristine=eb89a3cf0597
+MOVER ./default/StructArrayParameterInitializedByPatternPassedAsPort-0d936620/slang.uhdm  patched=361e0473b016 pristine=a457e71798cd
+MOVER ./testflags/array_assign-1c62b8e6/slang.uhdm  patched=7a71fbc53712 pristine=0bdb125d6fc0
+MOVER ./testflags/cva6_struct_param_field-7cd1ec7b/slang.uhdm  patched=679146437248 pristine=3a55052c51e3
+MOVER ./testflags/def_ctx_struct_param-b2c44da7/slang.uhdm  patched=284c05f35576 pristine=b492ae0ba5f9
+MOVER ./testflags/latch_decoder_partial-a91a0d0e/slang.uhdm  patched=4483b5407fdd pristine=0b4b4cc2ef69
+MOVER ./testflags/latch_tlb_napot-58807a5d/slang.uhdm  patched=18a14b9061f0 pristine=dfd4b1561347
+MOVER ./testflags/NestedStructArrayParameterInitializedByPatternPassedAsPort-e14d8143/slang.uhdm  patched=b04dcbe2f0a7 pristine=99b931f3a458
+MOVER ./testflags/StructArrayParameterInitializedByPatternPassedAsPort-0d936620/slang.uhdm  patched=e196dc37a404 pristine=0f8b4854c6e7
+MOVERS: 14 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+probe databases: 4087 of 4087 differ by bytes (the two sweeps ran from different worktree paths, which the probe databases embed); compared by strict verdict instead (sweep_law.txt)

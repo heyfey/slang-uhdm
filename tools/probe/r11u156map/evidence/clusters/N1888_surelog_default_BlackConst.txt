@@ -1,0 +1,64 @@
+cluster N1888 (map 5 id kept; OPEN): span|operation|col+endcol|under:indexed_part_select
+row: surelog/default/BlackConst  strict=differ:line(29)  records golden=785 ours=785
+object: #760 (golden) / #760 (ours)  type=operation name= 
+  golden: 10:102:10:165
+  ours:   10:64:10:127
+  walk parents: indexed_part_select(pc) < operation < cont_assign < module_inst(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 754..766 ('>' = the object)
+  #754	6	bit_select	pc		work@top.pc	dut.sv	10	79	10	90		0			work@top.pc	000
+  #755	7	operation				dut.sv	10	79	10	90		0				000
+  #756	8	constant				dut.sv	10	79	10	88	13	64	UINT:13	9		000
+  #757	8	constant				dut.sv	10	89	10	90	1	64	UINT:1	9		000
+  #758	4	indexed_part_select	pc	pc	work@top.pc	dut.sv	10	98	10	166		0			work@top.pc	000
+  #759	5	constant				dut.sv	10	98	10	99	0	64	UINT:0	9		000
+> #760	5	operation				dut.sv	10	102	10	165		0				000
+  #761	6	operation				dut.sv	10	103	10	131		0				000
+  #762	7	constant				dut.sv	10	104	10	118	48	32	UINT:48	9		000
+  #763	8	ref_typespec			work@top.pc		0	0	0	0		0			work@top.pc	000
+  #764	9	int_typespec				dut.sv	143	3	143	32						000
+  #765	7	constant				dut.sv	10	121	10	130	13	64	UINT:13	9		000
+  #766	6	constant				dut.sv	10	136	10	150	48	32	UINT:48	9		000
+
+--- OURS (B) records 754..766 ('>' = the object)
+  #754	6	bit_select	pc		work@top.pc	dut.sv	10	79	10	90		0			work@top.pc	000
+  #755	7	operation				dut.sv	10	79	10	90		0				000
+  #756	8	constant				dut.sv	10	79	10	88	13	64	UINT:13	9		000
+  #757	8	constant				dut.sv	10	89	10	90	1	64	UINT:1	9		000
+  #758	4	indexed_part_select	pc	pc	work@top.pc	dut.sv	10	98	10	128		0			work@top.pc	000
+  #759	5	constant				dut.sv	10	98	10	99	0	64	UINT:0	9		000
+> #760	5	operation				dut.sv	10	64	10	127		0				000
+  #761	6	operation				dut.sv	10	65	10	93		0				000
+  #762	7	constant				dut.sv	10	66	10	80	48	32	UINT:48	9		000
+  #763	8	ref_typespec			work@top.pc		0	0	0	0		0			work@top.pc	000
+  #764	9	int_typespec				dut.sv	143	3	143	32						000
+  #765	7	constant				dut.sv	10	83	10	92	13	64	UINT:13	9		000
+  #766	6	constant				dut.sv	10	98	10	112	48	32	UINT:48	9		000
+
+facets of this row (29, first 25):
+  N0722 #114/114 parameter easy G[12:11:12:15] O[156:11:156:15]
+  N1089 #143/143 param_assign  G[12:11:13:80] O[156:11:13:80]
+  N1086 #388/388 logic_net pc_sext_li G[9:27:9:37] O[154:27:154:37]
+  N0661 #390/390 logic_typespec  G[9:1:9:26] O[154:1:154:26]
+  N1048 #391/391 range  G[9:6:9:26] O[154:6:154:26]
+  N1152 #392/392 operation  G[9:7:9:23] O[154:7:154:23]
+  N0055 #393/393 ref_obj dword_width_gp G[9:7:9:21] O[154:7:154:21]
+  N0079 #394/394 constant  G[9:22:9:23] O[154:22:154:23]
+  N0639 #395/395 constant  G[9:24:9:25] O[154:24:154:25]
+  N0722 #459/459 parameter easy G[12:11:12:15] O[156:11:156:15]
+  N1089 #488/488 param_assign  G[12:11:13:80] O[156:11:13:80]
+  N1086 #723/723 logic_net pc_sext_li G[9:27:9:37] O[154:27:154:37]
+  N0661 #725/725 logic_typespec  G[9:1:9:26] O[154:1:154:26]
+  N1048 #726/726 range  G[9:6:9:26] O[154:6:154:26]
+  N0639 #727/727 constant  G[9:7:9:21] O[154:7:154:21]
+  N0639 #728/728 constant  G[9:24:9:25] O[154:24:154:25]
+  N1141 #736/736 cont_assign  G[9:27:9:37] O[154:27:154:37]
+  N1145 #758/758 indexed_part_select pc G[10:98:10:166] O[10:98:10:128]
+  N1888 #760/760 operation  G[10:102:10:165] O[10:64:10:127]
+  N0060 #761/761 operation  G[10:103:10:131] O[10:65:10:93]
+  N0287 #762/762 constant  G[10:104:10:118] O[10:66:10:80]
+  N0287 #765/765 constant  G[10:121:10:130] O[10:83:10:92]
+  N0287 #766/766 constant  G[10:136:10:150] O[10:98:10:112]
+  N0287 #769/769 constant  G[10:155:10:164] O[10:117:10:126]
+  N1887 #770/770 logic_net pc_sext_li G[9:27:9:37] O[154:27:154:37]

@@ -1,0 +1,64 @@
+cluster N0744 (map 5 id kept; OPEN): span|param_assign|endcol|under:package
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1747)  records golden=1342584 ours=1342618
+object: #2513 (golden) / #2513 (ours)  type=param_assign name= 
+  golden: 529:25:529:63
+  ours:   529:25:529:64
+  walk parents: package(alert_handler_reg_pkg) < design(work@prim_sync_reqack)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2507..2519 ('>' = the object)
+  #2507	4	ref_typespec			alert_handler_reg_pkg		0	0	0	0		0			alert_handler_reg_pkg	000
+  #2508	5	int_typespec				alert_handler_reg_pkg.sv	20	13	20	16						000
+  #2509	2	param_assign				alert_handler_reg_pkg.sv	21	17	21	29						000
+  #2510	3	constant				alert_handler_reg_pkg.sv	21	28	21	29	2	64	UINT:2	9		000
+  #2511	4	ref_typespec			alert_handler_reg_pkg		0	0	0	0		0			alert_handler_reg_pkg	000
+  #2512	5	int_typespec				alert_handler_reg_pkg.sv	21	13	21	16						000
+> #2513	2	param_assign				alert_handler_reg_pkg.sv	529	25	529	63						000
+  #2514	3	constant				alert_handler_reg_pkg.sv	529	59	529	63	8'h0	8	HEX:0	5		000
+  #2515	4	ref_typespec			alert_handler_reg_pkg		0	0	0	0		0			alert_handler_reg_pkg	000
+  #2516	5	logic_typespec				alert_handler_reg_pkg.sv	529	13	529	24						000
+  #2517	6	range				alert_handler_reg_pkg.sv	529	19	529	24						001
+  #2518	7	constant				alert_handler_reg_pkg.sv	529	20	529	21	7	64	UINT:7	9		001
+  #2519	7	constant				alert_handler_reg_pkg.sv	529	22	529	23	0	64	UINT:0	9		001
+
+--- OURS (B) records 2507..2519 ('>' = the object)
+  #2507	4	ref_typespec			alert_handler_reg_pkg		0	0	0	0		0			alert_handler_reg_pkg	000
+  #2508	5	int_typespec				alert_handler_reg_pkg.sv	20	13	20	16						000
+  #2509	2	param_assign				alert_handler_reg_pkg.sv	21	17	21	29						000
+  #2510	3	constant				alert_handler_reg_pkg.sv	21	28	21	29	2	64	UINT:2	9		000
+  #2511	4	ref_typespec			alert_handler_reg_pkg		0	0	0	0		0			alert_handler_reg_pkg	000
+  #2512	5	int_typespec				alert_handler_reg_pkg.sv	21	13	21	16						000
+> #2513	2	param_assign				alert_handler_reg_pkg.sv	529	25	529	64						000
+  #2514	3	constant				alert_handler_reg_pkg.sv	529	59	529	63	8'h0	8	HEX:0	5		000
+  #2515	4	ref_typespec			alert_handler_reg_pkg		0	0	0	0		0			alert_handler_reg_pkg	000
+  #2516	5	logic_typespec				alert_handler_reg_pkg.sv	529	13	529	24						000
+  #2517	6	range				alert_handler_reg_pkg.sv	529	19	529	24						001
+  #2518	7	constant				alert_handler_reg_pkg.sv	529	20	529	21	7	64	UINT:7	9		001
+  #2519	7	constant				alert_handler_reg_pkg.sv	529	22	529	23	0	64	UINT:0	9		001
+
+facets of this row (19659, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

@@ -1,0 +1,64 @@
+cluster N0787 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id[id][n * id+:n]::id::->|under:var_select
+row: surelog/default/BuildUVMPkg  strict=differ:line(165)  records golden=201533 ours=201486
+object: #57555 (golden) / #57552 (ours)  type=ref_obj name=idx OUT
+  golden: uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::idx
+  ours:   uvm_pkg::uvm_reg_map::do_bus_access::idx
+  walk parents: var_select(value) < hier_path(rw.value[idx][8 * i+:8]) < method_func_call(push_back) < for_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 57549..57561 ('>' = the object)
+  #57549	8	ref_obj	i		uvm_pkg::uvm_reg_map::do_bus_access::i	uvm_pkg.sv	76966	16	76966	17		0			uvm_pkg::uvm_reg_map::do_bus_access::i	000
+  #57550	8	ref_obj	bytes_per_value		uvm_pkg::uvm_reg_map::do_bus_access::bytes_per_value	uvm_pkg.sv	76966	18	76966	33		0			uvm_pkg::uvm_reg_map::do_bus_access::bytes_per_value	000
+  #57551	7	method_func_call	push_back			uvm_pkg.sv	76967	7	76967	16		0				000
+  #57552	8	hier_path	rw.value[idx][8 * i+:8]			uvm_pkg.sv	76967	17	76967	38		0				000
+  #57553	9	ref_obj	rw			uvm_pkg.sv	76967	17	76967	19		0				000
+  #57554	9	var_select	value		uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value	uvm_pkg.sv	76967	20	76967	38		0			uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value	000
+> #57555	10	ref_obj	idx		uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::idx	uvm_pkg.sv	76967	26	76967	29		0			uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::idx	000
+  #57556	10	indexed_part_select	value	value	uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value	uvm_pkg.sv	76967	31	76967	37		0			uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value	000
+  #57557	11	operation				uvm_pkg.sv	76967	31	76967	34		0				000
+  #57558	12	constant				uvm_pkg.sv	76967	31	76967	32	8	64	UINT:8	9		000
+  #57559	12	ref_obj	i		uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value::i	uvm_pkg.sv	76967	33	76967	34		0			uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value::i	000
+  #57560	11	constant				uvm_pkg.sv	76967	36	76967	37	8	64	UINT:8	9		000
+  #57561	8	ref_obj	p		uvm_pkg::uvm_reg_map::do_bus_access::p	uvm_pkg.sv	76967	5	76967	6		0			uvm_pkg::uvm_reg_map::do_bus_access::p	000
+
+--- OURS (B) records 57546..57558 ('>' = the object)
+  #57546	8	ref_obj	i		uvm_pkg::uvm_reg_map::do_bus_access::i	uvm_pkg.sv	76966	16	76966	17		0			uvm_pkg::uvm_reg_map::do_bus_access::i	000
+  #57547	8	ref_obj	bytes_per_value		uvm_pkg::uvm_reg_map::do_bus_access::bytes_per_value	uvm_pkg.sv	76966	18	76966	33		0			uvm_pkg::uvm_reg_map::do_bus_access::bytes_per_value	000
+  #57548	7	method_func_call	push_back			uvm_pkg.sv	76967	7	76967	16		0				000
+  #57549	8	hier_path	rw.value[idx][8 * i+:8]			uvm_pkg.sv	76967	17	76967	38		0				000
+  #57550	9	ref_obj	rw			uvm_pkg.sv	76967	17	76967	19		0				000
+  #57551	9	var_select	value		uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value	uvm_pkg.sv	76967	20	76967	38		0			uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value	000
+> #57552	10	ref_obj	idx		uvm_pkg::uvm_reg_map::do_bus_access::idx	uvm_pkg.sv	76967	26	76967	29		0			uvm_pkg::uvm_reg_map::do_bus_access::idx	000
+  #57553	10	indexed_part_select	value	value	uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value.value	uvm_pkg.sv	76967	31	76967	37		0			uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value.value	000
+  #57554	11	operation				uvm_pkg.sv	76967	31	76967	34		0				000
+  #57555	12	constant				uvm_pkg.sv	76967	31	76967	32	8	64	UINT:8	9		000
+  #57556	12	ref_obj	i		uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value.value::i	uvm_pkg.sv	76967	33	76967	34		0			uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value.value::i	000
+  #57557	11	constant				uvm_pkg.sv	76967	36	76967	37	8	64	UINT:8	9		000
+  #57558	8	ref_obj	p		uvm_pkg::uvm_reg_map::do_bus_access::p	uvm_pkg.sv	76967	5	76967	6		0			uvm_pkg::uvm_reg_map::do_bus_access::p	000
+
+facets of this row (9283, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

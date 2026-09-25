@@ -1,0 +1,64 @@
+cluster N0671 (map 5 id kept; OPEN): fullname|ref_var|tok:id->id|under:function
+row: surelog/default/MiniAmiq  strict=differ:line(190)  records golden=435559 ours=413982
+object: #74406 (golden) / #73608 (ours)  type=ref_var name= OUT
+  golden: uvm_pkg::uvm_transaction::get_event_pool
+  ours:   svaunit_pkg::uvm_transaction::get_event_pool
+  walk parents: function(uvm_transaction::get_event_pool) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 74400..74412 ('>' = the object)
+  #74400	3	class_var			uvm_pkg::uvm_transaction::get_initiator	uvm_transaction.svh	513	10	513	23		0			uvm_pkg::uvm_transaction::get_initiator	000
+  #74401	4	ref_typespec			uvm_pkg::uvm_transaction::get_initiator		0	0	0	0		0			uvm_pkg::uvm_transaction::get_initiator	000
+  #74402	5	class_typespec				uvm_transaction.svh	513	10	513	23						000
+  #74403	3	return_stmt				uvm_transaction.svh	514	3	514	9						000
+  #74404	4	ref_obj	initiator		svaunit_pkg::uvm_transaction::get_initiator::initiator	uvm_transaction.svh	514	10	514	19		0			svaunit_pkg::uvm_transaction::get_initiator::initiator	000
+  #74405	2	function	uvm_transaction::get_event_pool		svaunit_pkg::uvm_transaction::get_event_pool	uvm_transaction.svh	520	1	522	12					svaunit_pkg::uvm_transaction::get_event_pool	000
+> #74406	3	ref_var			uvm_pkg::uvm_transaction::get_event_pool	uvm_transaction.svh	520	10	520	24		0			uvm_pkg::uvm_transaction::get_event_pool	000
+  #74407	4	ref_typespec			uvm_pkg::uvm_transaction::get_event_pool		0	0	0	0		0			uvm_pkg::uvm_transaction::get_event_pool	000
+  #74408	5	class_typespec	uvm_pkg::uvm_event_pool			uvm_pool.svh	344	9	344	31						110
+  #74409	3	return_stmt				uvm_transaction.svh	521	3	521	9						000
+  #74410	4	ref_obj	events		svaunit_pkg::uvm_transaction::get_event_pool::events	uvm_transaction.svh	521	10	521	16		0			svaunit_pkg::uvm_transaction::get_event_pool::events	000
+  #74411	2	function	uvm_transaction::is_active		svaunit_pkg::uvm_transaction::is_active	uvm_transaction.svh	528	1	530	12					svaunit_pkg::uvm_transaction::is_active	000
+  #74412	3	bit_var			uvm_pkg::uvm_transaction::is_active	uvm_transaction.svh	528	10	528	13		0			uvm_pkg::uvm_transaction::is_active	000
+
+--- OURS (B) records 73602..73614 ('>' = the object)
+  #73602	3	class_var			svaunit_pkg::uvm_transaction::get_initiator	uvm_transaction.svh	513	10	513	23		0			svaunit_pkg::uvm_transaction::get_initiator	000
+  #73603	4	ref_typespec			svaunit_pkg::uvm_transaction::get_initiator		0	0	0	0		0			svaunit_pkg::uvm_transaction::get_initiator	000
+  #73604	5	class_typespec				uvm_transaction.svh	513	10	513	23						000
+  #73605	3	return_stmt				uvm_transaction.svh	514	3	514	9						000
+  #73606	4	ref_obj	initiator		svaunit_pkg::uvm_transaction::get_initiator::initiator	uvm_transaction.svh	514	10	514	19		0			svaunit_pkg::uvm_transaction::get_initiator::initiator	000
+  #73607	2	function	uvm_transaction::get_event_pool		svaunit_pkg::uvm_transaction::get_event_pool	uvm_transaction.svh	520	1	522	12					svaunit_pkg::uvm_transaction::get_event_pool	000
+> #73608	3	ref_var			svaunit_pkg::uvm_transaction::get_event_pool	uvm_transaction.svh	520	10	520	24		0			svaunit_pkg::uvm_transaction::get_event_pool	000
+  #73609	4	ref_typespec			svaunit_pkg::uvm_transaction::get_event_pool		0	0	0	0		0			svaunit_pkg::uvm_transaction::get_event_pool	000
+  #73610	5	class_typespec				uvm_transaction.svh	520	10	520	24						000
+  #73611	3	return_stmt				uvm_transaction.svh	521	3	521	9						000
+  #73612	4	ref_obj	events		svaunit_pkg::uvm_transaction::get_event_pool::events	uvm_transaction.svh	521	10	521	16		0			svaunit_pkg::uvm_transaction::get_event_pool::events	000
+  #73613	2	function	uvm_transaction::is_active		svaunit_pkg::uvm_transaction::is_active	uvm_transaction.svh	528	1	530	12					svaunit_pkg::uvm_transaction::is_active	000
+  #73614	3	bit_var			svaunit_pkg::uvm_transaction::is_active	uvm_transaction.svh	528	10	528	13		0			svaunit_pkg::uvm_transaction::is_active	000
+
+facets of this row (55220, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

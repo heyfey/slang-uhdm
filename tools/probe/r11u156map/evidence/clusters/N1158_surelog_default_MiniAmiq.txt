@@ -1,0 +1,64 @@
+cluster N1158 (map 5 id kept; OPEN): span|sys_func_call|endcol|under:return_stmt
+row: surelog/default/MiniAmiq  strict=differ:line(190)  records golden=435559 ours=413982
+object: #217949 (golden) / #210592 (ours)  type=sys_func_call name=$sformatf 
+  golden: 433:14:434:75
+  ours:   433:14:434:85
+  walk parents: return_stmt < function(create_html_header) < class_defn(svaunit_test) < class_defn(svaunit_base)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 217943..217955 ('>' = the object)
+  #217943	12	constant				svaunit_test.svh	426	42	426	43	2	64	UINT:2	9		000
+  #217944	6	function	create_html_header		svaunit_pkg::svaunit_test::create_html_header	svaunit_test.svh	432	4	432	11					svaunit_pkg::svaunit_test::create_html_header	000
+  #217945	7	string_var			svaunit_pkg::svaunit_test::create_html_header	svaunit_test.svh	432	21	432	27		0			svaunit_pkg::svaunit_test::create_html_header	000
+  #217946	8	ref_typespec			svaunit_pkg::svaunit_test::create_html_header		0	0	0	0		0			svaunit_pkg::svaunit_test::create_html_header	000
+  #217947	9	string_typespec				svaunit_test.svh	432	21	432	27						000
+  #217948	7	return_stmt				svaunit_test.svh	433	7	433	13						000
+> #217949	8	sys_func_call	$sformatf			svaunit_test.svh	433	14	434	75		0				000
+  #217950	9	constant				svaunit_test.svh	433	24	433	69	"Automatically generated on %s by %s with %s"	344	STRING:Automatically generated on %s by %s with %s	6		000
+  #217951	9	func_call	get_date_with_format			svaunit_test.svh	434	10	434	42		0				000
+  #217952	10	constant				svaunit_test.svh	434	31	434	41	"%Y-%m-%d"	64	STRING:%Y-%m-%d	6		000
+  #217953	9	func_call	get_user_name			svaunit_test.svh	434	44	434	59		0				000
+  #217954	9	constant				svaunit_test.svh	434	61	434	74	"SVAUNIT.3.2"	88	STRING:SVAUNIT.3.2	6		000
+  #217955	6	function	create_html_style		svaunit_pkg::svaunit_test::create_html_style	svaunit_test.svh	440	4	440	11					svaunit_pkg::svaunit_test::create_html_style	000
+
+--- OURS (B) records 210586..210598 ('>' = the object)
+  #210586	12	constant				svaunit_test.svh	426	42	426	43	2	64	UINT:2	9		000
+  #210587	6	function	create_html_header		svaunit_pkg::svaunit_test::create_html_header	svaunit_test.svh	432	4	432	11					svaunit_pkg::svaunit_test::create_html_header	000
+  #210588	7	string_var			svaunit_pkg::svaunit_test::create_html_header	svaunit_test.svh	432	21	432	27		0			svaunit_pkg::svaunit_test::create_html_header	000
+  #210589	8	ref_typespec			svaunit_pkg::svaunit_test::create_html_header		0	0	0	0		0			svaunit_pkg::svaunit_test::create_html_header	000
+  #210590	9	string_typespec				svaunit_test.svh	432	21	432	27						000
+  #210591	7	return_stmt				svaunit_test.svh	433	7	433	13						000
+> #210592	8	sys_func_call	$sformatf			svaunit_test.svh	433	14	434	85		0				000
+  #210593	9	constant				svaunit_test.svh	433	24	433	69	"Automatically generated on %s by %s with %s"	344	STRING:Automatically generated on %s by %s with %s	6		000
+  #210594	9	func_call	get_date_with_format			svaunit_test.svh	434	10	434	42		0				000
+  #210595	10	constant				svaunit_test.svh	434	31	434	41	"%Y-%m-%d"	64	STRING:%Y-%m-%d	6		000
+  #210596	9	func_call	get_user_name			svaunit_test.svh	434	44	434	59		0				000
+  #210597	9	constant				svaunit_test.svh	434	61	434	74	"SVAUNIT.3.2"	88	STRING:SVAUNIT.3.2	6		000
+  #210598	6	function	create_html_style		svaunit_pkg::svaunit_test::create_html_style	svaunit_test.svh	440	4	440	11					svaunit_pkg::svaunit_test::create_html_style	000
+
+facets of this row (55220, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

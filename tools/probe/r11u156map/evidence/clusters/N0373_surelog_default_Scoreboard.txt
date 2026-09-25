@@ -1,0 +1,64 @@
+cluster N0373 (map 5 id kept; OPEN): span|struct_typespec|line+col+endline+endcol|under:class_defn
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #85695 (golden) / #85058 (ours)  type=struct_typespec name=uvm_pkg::uvm_printer_row_info 
+  golden: 212:46:212:66
+  ours:   28:9:34:2
+  walk parents: class_defn(work@my_scoreboard) < class_defn(uvm_scoreboard) < class_defn(uvm_component) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 85689..85701 ('>' = the object)
+  #85689	6	enum_const	UVM_EXPORT			uvm_object_globals.svh	336	3	336	13						001
+  #85690	6	enum_const	UVM_IMPLEMENTATION			uvm_object_globals.svh	337	3	337	21						001
+  #85691	5	enum_typespec	uvm_pkg::uvm_predict_e			uvm_reg_indirect.svh	115	38	115	51						010
+  #85692	6	enum_const	UVM_PREDICT_DIRECT			uvm_reg_model.svh	257	7	257	25						001
+  #85693	6	enum_const	UVM_PREDICT_READ			uvm_reg_model.svh	258	7	258	23						001
+  #85694	6	enum_const	UVM_PREDICT_WRITE			uvm_reg_model.svh	259	7	259	24						001
+> #85695	5	struct_typespec	uvm_pkg::uvm_printer_row_info			uvm_printer.svh	212	46	212	66						010
+  #85696	6	typespec_member	level			uvm_pkg.sv	29	10	29	15						001
+  #85697	7	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.level		0	0	0	0		0			work@my_scoreboard::uvm_pkg::uvm_printer_row_info::level	001
+  #85698	8	int_typespec				uvm_printer.svh	29	3	29	6						001
+  #85699	6	typespec_member	name			uvm_pkg.sv	30	10	30	14						001
+  #85700	7	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.name		0	0	0	0		0			work@my_scoreboard::uvm_pkg::uvm_printer_row_info::name	001
+  #85701	8	string_typespec				uvm_printer.svh	30	3	30	9						001
+
+--- OURS (B) records 85052..85064 ('>' = the object)
+  #85052	6	enum_const	UVM_EXPORT			uvm_object_globals.svh	336	3	336	13						001
+  #85053	6	enum_const	UVM_IMPLEMENTATION			uvm_object_globals.svh	337	3	337	21						001
+  #85054	5	enum_typespec	uvm_pkg::uvm_predict_e			uvm_reg_model.svh	256	4	260	20						010
+  #85055	6	enum_const	UVM_PREDICT_DIRECT			uvm_reg_model.svh	257	7	257	25						001
+  #85056	6	enum_const	UVM_PREDICT_READ			uvm_reg_model.svh	258	7	258	23						001
+  #85057	6	enum_const	UVM_PREDICT_WRITE			uvm_reg_model.svh	259	7	259	24						001
+> #85058	5	struct_typespec	uvm_pkg::uvm_printer_row_info			uvm_printer.svh	28	9	34	2						010
+  #85059	6	typespec_member	level			uvm_printer.svh	29	10	29	15						001
+  #85060	7	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.level		0	0	0	0		0			uvm_pkg::uvm_pkg::uvm_printer_row_info::level	001
+  #85061	8	int_typespec				uvm_printer.svh	29	3	29	6						001
+  #85062	6	typespec_member	name			uvm_printer.svh	30	10	30	14						001
+  #85063	7	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.name		0	0	0	0		0			uvm_pkg::uvm_pkg::uvm_printer_row_info::name	001
+  #85064	8	string_typespec				uvm_printer.svh	30	3	30	9						001
+
+facets of this row (29390, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

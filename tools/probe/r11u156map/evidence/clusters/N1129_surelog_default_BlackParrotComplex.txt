@@ -1,0 +1,41 @@
+cluster N1129 (map 5 id kept; COVERED r11u147 (N1129, r11u151 law_after_r11u145.patch)): fullname|ref_typespec|tok:.id->|under:array_typespec
+row: surelog/default/BlackParrotComplex  strict=differ:depth(1)  records golden=939 ours=945
+object: #932 (golden) / #938 (ours)  type=ref_typespec name= STABLE
+  golden: work@bottom.A3
+  ours:   work@bottom
+  walk parents: array_typespec < ref_typespec < operation < param_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 926..938 ('>' = the object)
+  #926	3	operation				dut.sv	81	27	81	36		0				000
+  #927	4	ref_typespec			work@bottom		0	0	0	0		0			work@bottom	000
+  #928	5	array_typespec				dut.sv	81	13	81	24						000
+  #929	6	range				dut.sv	81	19	81	24						001
+  #930	7	constant				dut.sv	81	20	81	21	0	64	UINT:0	9		001
+  #931	7	constant				dut.sv	81	22	81	23	2	64	UINT:2	9		001
+> #932	6	ref_typespec			<in>		0	0	0	0		0			work@bottom.A3	001
+  #933	7	int_typespec				dut.sv	81	13	81	16						001
+  #934	4	constant				dut.sv	81	28	81	29	1	64	UINT:1	9		000
+  #935	4	constant				dut.sv	81	31	81	32	2	64	UINT:2	9		000
+  #936	4	constant				dut.sv	81	34	81	35	3	64	UINT:3	9		000
+  #937	2	param_assign				dut.sv	82	13	82	22						000
+  #938	3	constant				dut.sv	82	17	82	22	3	64	UINT:3	9		000
+
+--- OURS (B) records 932..944 ('>' = the object)
+  #932	3	operation				dut.sv	81	27	81	36		0				000
+  #933	4	ref_typespec			work@bottom		0	0	0	0		0			work@bottom	000
+  #934	5	array_typespec				dut.sv	81	13	81	24						000
+  #935	6	range				dut.sv	81	19	81	24						001
+  #936	7	constant				dut.sv	81	20	81	21	0	64	UINT:0	9		001
+  #937	7	constant				dut.sv	81	22	81	23	2	64	UINT:2	9		001
+> #938	6	ref_typespec			<in>		0	0	0	0		0			work@bottom	001
+  #939	7	int_typespec				dut.sv	81	13	81	16						001
+  #940	4	constant				dut.sv	81	28	81	29	1	64	UINT:1	9		000
+  #941	4	constant				dut.sv	81	31	81	32	2	64	UINT:2	9		000
+  #942	4	constant				dut.sv	81	34	81	35	3	64	UINT:3	9		000
+  #943	2	param_assign				dut.sv	82	13	82	22						000
+  #944	3	constant				dut.sv	82	17	82	22	3	64	UINT:3	9		000
+
+facets of this row (2, first 25):
+  N0724 #-1/878 constant  G[] O[6 objs]
+  N1129 #932/938 ref_typespec  G[work@bottom.A3] O[work@bottom]

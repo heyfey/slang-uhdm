@@ -1,0 +1,64 @@
+cluster N0078 (map 5 id kept; COVERED r11u152 (N0078)): fullname|ref_obj|ours-empty@in-typespec|under:operation
+row: uhdm2rtlil/testflags/ibex_register_file_ff  strict=differ:fullname(31)  records golden=1950 ours=1950
+object: #568 (golden) / #568 (ours)  type=ref_obj name=DataWidth TAIL
+  golden: work@ibex_register_file_ff.DataWidth
+  ours:   
+  walk parents: operation < range < logic_typespec < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 562..574 ('>' = the object)
+  #562	9	assignment				ibex_register_file_ff.sv	63	9	63	32						000
+  #563	10	constant				ibex_register_file_ff.sv	63	21	63	32	32'b0	32	BIN:0	3		000
+  #564	11	ref_typespec			work@ibex_register_file_ff		0	0	0	0		0			work@ibex_register_file_ff	000
+  #565	12	logic_typespec				ibex_register_file_ff.sv	17	13	17	34						000
+  #566	13	range				ibex_register_file_ff.sv	17	19	17	34						001
+  #567	14	operation				ibex_register_file_ff.sv	17	20	17	31		0				001
+> #568	15	ref_obj	DataWidth		<in>DataWidth	ibex_register_file_ff.sv	17	20	17	29		0			work@ibex_register_file_ff.DataWidth	001
+  #569	15	constant				ibex_register_file_ff.sv	17	30	17	31	1	64	UINT:1	9		001
+  #570	14	constant				ibex_register_file_ff.sv	17	32	17	33	0	64	UINT:0	9		001
+  #571	10	ref_obj	rf_reg_q		work@ibex_register_file_ff.g_rf_flops[1].rf_reg_q	ibex_register_file_ff.sv	63	9	63	17		0			work@ibex_register_file_ff.g_rf_flops[1].rf_reg_q	000
+  #572	8	if_stmt				ibex_register_file_ff.sv	64	16	66	10						000
+  #573	9	bit_select	we_a_dec		work@ibex_register_file_ff.g_rf_flops[1].we_a_dec	ibex_register_file_ff.sv	64	29	64	30		0			work@ibex_register_file_ff.g_rf_flops[1].we_a_dec	000
+  #574	10	ref_obj	i		work@ibex_register_file_ff.g_rf_flops[1].i	ibex_register_file_ff.sv	64	29	64	30		0			work@ibex_register_file_ff.g_rf_flops[1].i	000
+
+--- OURS (B) records 562..574 ('>' = the object)
+  #562	9	assignment				ibex_register_file_ff.sv	63	9	63	32						000
+  #563	10	constant				ibex_register_file_ff.sv	63	21	63	32	32'b0	32	BIN:0	3		000
+  #564	11	ref_typespec			work@ibex_register_file_ff		0	0	0	0		0			work@ibex_register_file_ff	000
+  #565	12	logic_typespec				ibex_register_file_ff.sv	17	13	17	34						000
+  #566	13	range				ibex_register_file_ff.sv	17	19	17	34						001
+  #567	14	operation				ibex_register_file_ff.sv	17	20	17	31		0				001
+> #568	15	ref_obj	DataWidth			ibex_register_file_ff.sv	17	20	17	29		0				001
+  #569	15	constant				ibex_register_file_ff.sv	17	30	17	31	1	64	UINT:1	9		001
+  #570	14	constant				ibex_register_file_ff.sv	17	32	17	33	0	64	UINT:0	9		001
+  #571	10	ref_obj	rf_reg_q		work@ibex_register_file_ff.g_rf_flops[1].rf_reg_q	ibex_register_file_ff.sv	63	9	63	17		0			work@ibex_register_file_ff.g_rf_flops[1].rf_reg_q	000
+  #572	8	if_stmt				ibex_register_file_ff.sv	64	16	66	10						000
+  #573	9	bit_select	we_a_dec		work@ibex_register_file_ff.g_rf_flops[1].we_a_dec	ibex_register_file_ff.sv	64	29	64	30		0			work@ibex_register_file_ff.g_rf_flops[1].we_a_dec	000
+  #574	10	ref_obj	i		work@ibex_register_file_ff.g_rf_flops[1].i	ibex_register_file_ff.sv	64	29	64	30		0			work@ibex_register_file_ff.g_rf_flops[1].i	000
+
+facets of this row (31, first 25):
+  N0078 #568/568 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #612/612 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #656/656 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #700/700 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #744/744 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #788/788 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #832/832 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #876/876 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #920/920 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #964/964 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #1008/1008 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #1052/1052 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #1096/1096 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #1140/1140 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #1184/1184 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #1228/1228 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #1272/1272 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #1316/1316 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #1360/1360 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #1404/1404 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #1448/1448 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #1492/1492 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #1536/1536 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #1580/1580 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]
+  N0078 #1624/1624 ref_obj DataWidth G[work@ibex_register_file_ff.DataWidth] O[]

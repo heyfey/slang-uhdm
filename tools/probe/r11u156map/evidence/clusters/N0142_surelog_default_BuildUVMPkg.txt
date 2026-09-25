@@ -1,0 +1,51 @@
+cluster N0142 (map 5 id kept; OPEN): struct|golden-only:fewer-copies|range|under:array_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:line(165)  records golden=201533 ours=201486
+object: #118186 (golden) / #-1 (ours)  type=range name= 
+  golden: 5 objs
+  ours:   
+  walk parents: array_typespec < ref_typespec < ref_var(predecessors) < foreach_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 118180..118192 ('>' = the object)
+  #118180	9	constant				uvm_pkg.sv	34554	14	34554	15	1	64	UINT:1	9		000
+  #118181	9	ref_obj	done		uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::done	uvm_pkg.sv	34554	7	34554	11		0			uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::done	000
+  #118182	8	foreach_stmt			uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes	uvm_pkg.sv	34555	7	34555	14					uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes	000
+  #118183	9	ref_var	predecessors		uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors	uvm_pkg.sv	34555	16	34555	28		0			uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors	000
+  #118184	10	ref_typespec			uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors		0	0	0	0		0			uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors	000
+  #118185	11	array_typespec				uvm_pkg.sv	34544	8	34544	31						000
+> #118186	12	range				uvm_pkg.sv	34544	20	34544	31						001
+  #118187	13	constant				uvm_pkg.sv	34544	20	34544	21	0	64	UINT:0	9		001
+  #118188	13	constant				uvm_pkg.sv	34544	20	34544	21	associative	0	STRING:associative	6		001
+  #118189	14	ref_typespec					0	0	0	0		0				001
+  #118190	15	class_typespec	uvm_phase			uvm_pkg.sv	34544	21	34544	30						001
+  #118191	12	ref_typespec					0	0	0	0		0				001
+  #118192	13	class_typespec	uvm_phase			uvm_pkg.sv	34544	21	34544	30						001
+
+--- the holder #118185 on the other side: exact-record matches at []
+
+facets of this row (9283, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

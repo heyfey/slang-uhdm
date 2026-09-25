@@ -1,0 +1,64 @@
+cluster N0523 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id->id|under:hier_path
+row: surelog/default/Rggen  strict=differ:fullname(7)  records golden=314498 ours=312506
+object: #210905 (golden) / #209600 (ours)  type=ref_obj name=valid OUT
+  golden: work@rggen.u_bridge.valid
+  ours:   work@rggen_apb_bridge.valid
+  walk parents: hier_path(bus_if.valid) < operation < cont_assign < module_inst(u_bridge)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 210899..210911 ('>' = the object)
+  #210899	5	ref_obj	psel			rggen_apb_bridge.sv	20	18	20	22		0				000
+  #210900	3	cont_assign				rggen_apb_bridge.sv	21	11	21	55						000
+  #210901	4	operation				rggen_apb_bridge.sv	21	29	21	55		0				000
+  #210902	5	ref_obj	busy		work@rggen.u_bridge.busy	rggen_apb_bridge.sv	21	30	21	34		0			work@rggen.u_bridge.busy	000
+  #210903	5	hier_path	bus_if.valid			rggen_apb_bridge.sv	21	38	21	50		0				000
+  #210904	6	ref_obj	bus_if			rggen_apb_bridge.sv	21	38	21	44		0				000
+> #210905	6	ref_obj	valid		work@rggen.u_bridge.valid	rggen_apb_bridge.sv	21	45	21	50		0			work@rggen.u_bridge.valid	000
+  #210906	5	constant				rggen_apb_bridge.sv	21	53	21	55	'0	-1	BIN:0	3		000
+  #210907	4	hier_path	apb_if.penable			rggen_apb_bridge.sv	21	11	21	25		0				000
+  #210908	5	ref_obj	apb_if			rggen_apb_bridge.sv	21	18	21	25		0				000
+  #210909	5	ref_obj	penable			rggen_apb_bridge.sv	21	18	21	25		0				000
+  #210910	3	cont_assign				rggen_apb_bridge.sv	22	11	22	59						000
+  #210911	4	operation				rggen_apb_bridge.sv	22	29	22	59		0				000
+
+--- OURS (B) records 209594..209606 ('>' = the object)
+  #209594	5	ref_obj	psel			rggen_apb_bridge.sv	20	18	20	22		0				000
+  #209595	3	cont_assign				rggen_apb_bridge.sv	21	11	21	55						000
+  #209596	4	operation				rggen_apb_bridge.sv	21	29	21	55		0				000
+  #209597	5	ref_obj	busy		work@rggen_apb_bridge.busy	rggen_apb_bridge.sv	21	30	21	34		0			work@rggen_apb_bridge.busy	000
+  #209598	5	hier_path	bus_if.valid			rggen_apb_bridge.sv	21	38	21	50		0				000
+  #209599	6	ref_obj	bus_if			rggen_apb_bridge.sv	21	38	21	44		0				000
+> #209600	6	ref_obj	valid		work@rggen_apb_bridge.valid	rggen_apb_bridge.sv	21	45	21	50		0			work@rggen_apb_bridge.valid	000
+  #209601	5	constant				rggen_apb_bridge.sv	21	53	21	55	'0	-1	BIN:0	3		000
+  #209602	4	hier_path	apb_if.penable			rggen_apb_bridge.sv	21	11	21	25		0				000
+  #209603	5	ref_obj	apb_if			rggen_apb_bridge.sv	21	18	21	25		0				000
+  #209604	5	ref_obj	penable			rggen_apb_bridge.sv	21	18	21	25		0				000
+  #209605	3	cont_assign				rggen_apb_bridge.sv	22	11	22	59						000
+  #209606	4	operation				rggen_apb_bridge.sv	22	29	22	59		0				000
+
+facets of this row (14812, first 25):
+  N1175 #466/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/476 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/481 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #501/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #661/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/671 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/676 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #696/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #2242/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/2252 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/2257 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #2277/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #15376/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/15386 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/15391 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #15411/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17669/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17679 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17684 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17704/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17850/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17860 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17865 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17885/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #18031/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]

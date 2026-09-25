@@ -1,0 +1,43 @@
+cluster N1014 (map 5 id kept; COVERED r11u152 (N1014)): fullname|ref_obj|tok:id->id.id.id[n].id@in-typespec|under:operation
+row: uhdm2rtlil/testflags/gen_scope_numports  strict=differ:fullname(4)  records golden=727 ours=727
+object: #321 (golden) / #321 (ours)  type=ref_obj name=DataWidth TAIL
+  golden: work@tc_sram_wrapper.data_t.DataWidth
+  ours:   work@tb.t.gen_cut[0].i_tc_sram_wrapper.data_t.DataWidth
+  walk parents: operation < range < logic_typespec < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 315..327 ('>' = the object)
+  #315	5	module_inst	i_tc_sram_wrapper	work@tc_sram_wrapper	work@tb.t.gen_cut[0].i_tc_sram_wrapper	dut.sv	39	9	42	11					work@tb.t.gen_cut[0].i_tc_sram_wrapper	000
+  #316	6	packed_array_var	wdata_i		work@tb.t.gen_cut[0].i_tc_sram_wrapper.wdata_i	dut.sv	23	34	23	41		0			work@tb.t.gen_cut[0].i_tc_sram_wrapper.wdata_i	000
+  #317	7	ref_typespec			work@tb.t.gen_cut[0].i_tc_sram_wrapper.wdata_i		0	0	0	0		0			work@tb.t.gen_cut[0].i_tc_sram_wrapper.wdata_i	000
+  #318	8	logic_typespec				dut.sv	19	40	19	61						000
+  #319	9	range				dut.sv	19	46	19	61						001
+  #320	10	operation				dut.sv	19	47	19	58		0				001
+> #321	11	ref_obj	DataWidth		<in>data_t.DataWidth	dut.sv	19	47	19	56		0			work@tc_sram_wrapper.data_t.DataWidth	001
+  #322	11	constant				dut.sv	19	57	19	58	1	64	UINT:1	9		001
+  #323	10	constant				dut.sv	19	59	19	60	0	64	UINT:0	9		001
+  #324	7	range				dut.sv	23	19	23	33						000
+  #325	8	constant				dut.sv	23	20	23	28	0	64	INT:0	7		000
+  #326	8	constant				dut.sv	23	31	23	32	0	64	UINT:0	9		000
+  #327	7	logic_var			work@tb.t.gen_cut[0].i_tc_sram_wrapper.wdata_i		0	0	0	0		0			work@tb.t.gen_cut[0].i_tc_sram_wrapper.wdata_i	000
+
+--- OURS (B) records 315..327 ('>' = the object)
+  #315	5	module_inst	i_tc_sram_wrapper	work@tc_sram_wrapper	work@tb.t.gen_cut[0].i_tc_sram_wrapper	dut.sv	39	9	42	11					work@tb.t.gen_cut[0].i_tc_sram_wrapper	000
+  #316	6	packed_array_var	wdata_i		work@tb.t.gen_cut[0].i_tc_sram_wrapper.wdata_i	dut.sv	23	34	23	41		0			work@tb.t.gen_cut[0].i_tc_sram_wrapper.wdata_i	000
+  #317	7	ref_typespec			work@tb.t.gen_cut[0].i_tc_sram_wrapper.wdata_i		0	0	0	0		0			work@tb.t.gen_cut[0].i_tc_sram_wrapper.wdata_i	000
+  #318	8	logic_typespec				dut.sv	19	40	19	61						000
+  #319	9	range				dut.sv	19	46	19	61						001
+  #320	10	operation				dut.sv	19	47	19	58		0				001
+> #321	11	ref_obj	DataWidth		<in>DataWidth	dut.sv	19	47	19	56		0			work@tb.t.gen_cut[0].i_tc_sram_wrapper.data_t.DataWidth	001
+  #322	11	constant				dut.sv	19	57	19	58	1	64	UINT:1	9		001
+  #323	10	constant				dut.sv	19	59	19	60	0	64	UINT:0	9		001
+  #324	7	range				dut.sv	23	19	23	33						000
+  #325	8	constant				dut.sv	23	20	23	28	0	64	INT:0	7		000
+  #326	8	constant				dut.sv	23	31	23	32	0	64	UINT:0	9		000
+  #327	7	logic_var			work@tb.t.gen_cut[0].i_tc_sram_wrapper.wdata_i		0	0	0	0		0			work@tb.t.gen_cut[0].i_tc_sram_wrapper.wdata_i	000
+
+facets of this row (4, first 25):
+  N1014 #321/321 ref_obj DataWidth G[work@tc_sram_wrapper.data_t.DataWidth] O[work@tb.t.gen_cut[0].i_tc_sram_wrapper.data_t.DataWidth]
+  N1014 #333/333 ref_obj DataWidth G[work@tc_sram_wrapper.data_t.DataWidth] O[work@tb.t.gen_cut[0].i_tc_sram_wrapper.data_t.DataWidth]
+  N1014 #532/532 ref_obj DataWidth G[work@tc_sram_wrapper.data_t.DataWidth] O[work@tb.t.gen_cut[1].i_tc_sram_wrapper.data_t.DataWidth]
+  N1014 #544/544 ref_obj DataWidth G[work@tc_sram_wrapper.data_t.DataWidth] O[work@tb.t.gen_cut[1].i_tc_sram_wrapper.data_t.DataWidth]

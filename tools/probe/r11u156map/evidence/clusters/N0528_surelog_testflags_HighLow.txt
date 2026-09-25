@@ -1,0 +1,36 @@
+cluster N0528 (map 5 id kept; COVERED r11u152 (N0528)): value|constant|value:UINT->UINT|under:cont_assign
+row: surelog/testflags/HighLow  strict=differ:line(5)  records golden=104 ours=104
+object: #101 (golden) / #101 (ours)  type=constant name= 
+  golden: |0|UINT:2|0
+  ours:   |0|UINT:0|0
+  walk parents: cont_assign < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 95..103 ('>' = the object)
+  #95	3	gen_scope			work@top.genblk3	dut.sv	21	5	21	18					work@top.genblk3	000
+  #96	4	module_inst	good3	work@GOOD	work@top.genblk3.good3	dut.sv	21	5	21	18					work@top.genblk3.good3	000
+  #97	2	gen_scope_array	genblk4		work@top.genblk4	dut.sv	24	5	24	18					work@top.genblk4	000
+  #98	3	gen_scope			work@top.genblk4	dut.sv	24	5	24	18					work@top.genblk4	000
+  #99	4	module_inst	good4	work@GOOD	work@top.genblk4.good4	dut.sv	24	5	24	18					work@top.genblk4.good4	000
+  #100	2	cont_assign				dut.sv	12	10	12	24						000
+> #101	3	constant					0	0	0	0		0	UINT:2	0		000
+  #102	3	ref_obj	ccc		work@top.ccc	dut.sv	12	10	12	13		0			work@top.ccc	000
+  #103	4	logic_net	ccc		work@top.ccc		12	10	12	13		0			work@top.ccc	000
+
+--- OURS (B) records 95..103 ('>' = the object)
+  #95	3	gen_scope			work@top.genblk3	dut.sv	21	5	21	18					work@top.genblk3	000
+  #96	4	module_inst	good3	work@GOOD	work@top.genblk3.good3	dut.sv	21	5	21	18					work@top.genblk3.good3	000
+  #97	2	gen_scope_array	genblk4		work@top.genblk4	dut.sv	24	5	24	18					work@top.genblk4	000
+  #98	3	gen_scope			work@top.genblk4	dut.sv	24	5	24	18					work@top.genblk4	000
+  #99	4	module_inst	good4	work@GOOD	work@top.genblk4.good4	dut.sv	24	5	24	18					work@top.genblk4.good4	000
+  #100	2	cont_assign				dut.sv	12	10	12	24						000
+> #101	3	constant					0	0	0	0		0	UINT:0	0		000
+  #102	3	ref_obj	ccc		work@top.ccc	dut.sv	12	10	12	13		0			work@top.ccc	000
+  #103	4	logic_net	ccc		work@top.ccc		12	10	12	13		0			work@top.ccc	000
+
+facets of this row (5, first 25):
+  N0822 #81/81 constant  G[6:14:6:15] O[7:21:7:29]
+  N0822 #83/83 constant  G[6:16:6:17] O[8:20:8:27]
+  N0822 #85/85 constant  G[6:14:6:15] O[9:21:9:29]
+  N0822 #87/87 constant  G[6:16:6:17] O[10:22:10:31]
+  N0528 #101/101 constant  G[|0|UINT:2|0] O[|0|UINT:0|0]

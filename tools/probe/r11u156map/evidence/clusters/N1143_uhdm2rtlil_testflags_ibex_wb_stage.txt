@@ -1,0 +1,64 @@
+cluster N1143 (map 5 id kept; OPEN): span|hier_path|col+endcol|under:cont_assign
+row: uhdm2rtlil/testflags/ibex_wb_stage  strict=differ:fullname(25)  records golden=9505 ours=9505
+object: #6967 (golden) / #6967 (ours)  type=hier_path name=g_writeback_stage.wb_valid_q 
+  golden: 106:30:106:58
+  ours:   106:29:106:57
+  walk parents: cont_assign < named_begin(g_fcov_wb_valid) < gen_if_else < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 6961..6973 ('>' = the object)
+  #6961	5	constant				ibex_wb_stage.sv	238	37	238	41	1'b0	1	BIN:0	3		000
+  #6962	5	ref_obj	instr_done_wb_o		work@ibex_wb_stage.g_bypass_wb.instr_done_wb_o	ibex_wb_stage.sv	238	12	238	27		0			work@ibex_wb_stage.g_bypass_wb.instr_done_wb_o	000
+  #6963	2	gen_if_else					0	0	0	0						000
+  #6964	3	ref_obj	WritebackStage		work@ibex_wb_stage.WritebackStage	dv_fcov_macros.svh	105	9	105	23		0			work@ibex_wb_stage.WritebackStage	000
+  #6965	3	named_begin	g_fcov_wb_valid		work@ibex_wb_stage.g_fcov_wb_valid		0	0	0	0					work@ibex_wb_stage.g_fcov_wb_valid	000
+  #6966	4	cont_assign				dv_fcov_macros.svh	106	14	106	58						000
+> #6967	5	hier_path	g_writeback_stage.wb_valid_q			dv_fcov_macros.svh	106	30	106	58		0				000
+  #6968	6	ref_obj	g_writeback_stage			dv_fcov_macros.svh	106	30	106	47		0				000
+  #6969	6	ref_obj	wb_valid_q		work@ibex_wb_stage.g_fcov_wb_valid.wb_valid_q	dv_fcov_macros.svh	106	48	106	58		0			work@ibex_wb_stage.g_fcov_wb_valid.wb_valid_q	000
+  #6970	5	ref_obj	fcov_wb_valid		work@ibex_wb_stage.g_fcov_wb_valid.fcov_wb_valid	dv_fcov_macros.svh	106	14	106	27		0			work@ibex_wb_stage.g_fcov_wb_valid.fcov_wb_valid	000
+  #6971	3	named_begin	g_no_fcov_wb_valid		work@ibex_wb_stage.g_no_fcov_wb_valid		0	0	0	0					work@ibex_wb_stage.g_no_fcov_wb_valid	000
+  #6972	4	cont_assign				dv_fcov_macros.svh	108	14	108	32						000
+  #6973	5	constant				dv_fcov_macros.svh	108	30	108	32	'0	-1	BIN:0	3		000
+
+--- OURS (B) records 6961..6973 ('>' = the object)
+  #6961	5	constant				ibex_wb_stage.sv	238	37	238	41	1'b0	1	BIN:0	3		000
+  #6962	5	ref_obj	instr_done_wb_o		work@ibex_wb_stage.g_bypass_wb.instr_done_wb_o	ibex_wb_stage.sv	238	12	238	27		0			work@ibex_wb_stage.g_bypass_wb.instr_done_wb_o	000
+  #6963	2	gen_if_else					0	0	0	0						000
+  #6964	3	ref_obj	WritebackStage		work@ibex_wb_stage.WritebackStage	dv_fcov_macros.svh	105	9	105	23		0			work@ibex_wb_stage.WritebackStage	000
+  #6965	3	named_begin	g_fcov_wb_valid		work@ibex_wb_stage.g_fcov_wb_valid		0	0	0	0					work@ibex_wb_stage.g_fcov_wb_valid	000
+  #6966	4	cont_assign				dv_fcov_macros.svh	106	14	106	57						000
+> #6967	5	hier_path	g_writeback_stage.wb_valid_q			dv_fcov_macros.svh	106	29	106	57		0				000
+  #6968	6	ref_obj	g_writeback_stage			dv_fcov_macros.svh	106	29	106	46		0				000
+  #6969	6	ref_obj	wb_valid_q		work@ibex_wb_stage.g_fcov_wb_valid.wb_valid_q	dv_fcov_macros.svh	106	47	106	57		0			work@ibex_wb_stage.g_fcov_wb_valid.wb_valid_q	000
+  #6970	5	ref_obj	fcov_wb_valid		work@ibex_wb_stage.g_fcov_wb_valid.fcov_wb_valid	dv_fcov_macros.svh	106	14	106	27		0			work@ibex_wb_stage.g_fcov_wb_valid.fcov_wb_valid	000
+  #6971	3	named_begin	g_no_fcov_wb_valid		work@ibex_wb_stage.g_no_fcov_wb_valid		0	0	0	0					work@ibex_wb_stage.g_no_fcov_wb_valid	000
+  #6972	4	cont_assign				dv_fcov_macros.svh	108	14	108	31						000
+  #6973	5	constant				dv_fcov_macros.svh	108	29	108	31	'0	-1	BIN:0	3		000
+
+facets of this row (25, first 25):
+  N0008 #2447/2447 ref_typespec  G[] O[ibex_pkg::PmpAddrRst]
+  N0027 #6361/6361 sys_func_call $error G[29:3:33:37] O[32:3:33:18]
+  N0026 #6362/6362 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #6363/6363 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #6364/6364 constant  G[29:60:29:149] O[32:92:33:58]
+  N0015 #6365/6365 constant  G[29:151:29:154] O[32:92:32:95]
+  N0017 #6366/6366 constant  G[33:10:33:36] O[33:10:23:18]
+  N0275 #6549/6549 cont_assign  G[82:12:82:48] O[82:12:82:47]
+  N1095 #6550/6550 ref_obj fcov_wb_valid G[82:35:82:48] O[82:34:82:47]
+  N0518 #6966/6966 cont_assign  G[106:14:106:58] O[106:14:106:57]
+  N1143 #6967/6967 hier_path g_writeback_stage.wb_valid_q G[106:30:106:58] O[106:29:106:57]
+  N0001 #6968/6968 ref_obj g_writeback_stage G[106:30:106:47] O[106:29:106:46]
+  N0001 #6969/6969 ref_obj wb_valid_q G[106:48:106:58] O[106:47:106:57]
+  N0518 #6972/6972 cont_assign  G[108:14:108:32] O[108:14:108:31]
+  N0842 #6973/6973 constant  G[108:30:108:32] O[108:29:108:31]
+  N0027 #9192/9192 sys_func_call $error G[29:3:33:37] O[32:3:33:18]
+  N0026 #9193/9193 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #9194/9194 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #9195/9195 constant  G[29:60:29:149] O[32:92:33:58]
+  N0015 #9196/9196 constant  G[29:151:29:154] O[32:92:32:95]
+  N0017 #9197/9197 constant  G[33:10:33:36] O[33:10:23:18]
+  N0672 #9459/9459 cont_assign  G[108:14:108:32] O[108:14:108:31]
+  N0842 #9460/9460 constant  G[108:30:108:32] O[108:29:108:31]
+  N0275 #9496/9496 cont_assign  G[82:12:82:48] O[82:12:82:47]
+  N1095 #9497/9497 ref_obj fcov_wb_valid G[82:35:82:48] O[82:34:82:47]

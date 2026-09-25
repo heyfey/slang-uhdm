@@ -1,0 +1,64 @@
+cluster N1866 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id.id.id.id[id - n:n].id->id|under:operation
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1747)  records golden=1342584 ours=1342618
+object: #606525 (golden) / #606437 (ours)  type=ref_obj name=DataBitWidth OUT
+  golden: work@top_earlgrey.u_flash_ctrl.reg2hw.addr.q[DataBitWidth - 1:0].q.DataBitWidth
+  ours:   work@flash_ctrl.DataBitWidth
+  walk parents: operation < part_select(q) < hier_path(reg2hw.addr.q[DataBitWidth - 1:0]) < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 606519..606531 ('>' = the object)
+  #606519	3	cont_assign				flash_ctrl.sv	453	10	453	59						000
+  #606520	4	hier_path	reg2hw.addr.q[DataBitWidth - 1:0]			flash_ctrl.sv	453	28	453	59		0				000
+  #606521	5	ref_obj	reg2hw			flash_ctrl.sv	453	28	453	34		0				000
+  #606522	5	ref_obj	addr			flash_ctrl.sv	453	35	453	39		0				000
+  #606523	5	part_select	q		reg2hw.addr.q[DataBitWidth - 1:0]	flash_ctrl.sv	453	40	453	58		0			reg2hw.addr.q[DataBitWidth - 1:0]	000
+  #606524	6	operation				flash_ctrl.sv	453	42	453	56		0				000
+> #606525	7	ref_obj	DataBitWidth		work@top_earlgrey.u_flash_ctrl.reg2hw.addr.q[DataBitWidth - 1:0].q.DataBitWidth	flash_ctrl.sv	453	42	453	54		0			work@top_earlgrey.u_flash_ctrl.reg2hw.addr.q[DataBitWidth - 1:0].q.DataBitWidth	000
+  #606526	7	constant				flash_ctrl.sv	453	55	453	56	1	64	UINT:1	9		000
+  #606527	6	constant				flash_ctrl.sv	453	57	453	58	0	64	UINT:0	9		000
+  #606528	4	ref_obj	unused_byte_sel		work@top_earlgrey.u_flash_ctrl.unused_byte_sel	flash_ctrl.sv	453	10	453	25		0			work@top_earlgrey.u_flash_ctrl.unused_byte_sel	000
+  #606529	3	cont_assign				flash_ctrl.sv	454	10	454	59						000
+  #606530	4	hier_path	reg2hw.addr.q[31:17]			flash_ctrl.sv	454	36	454	59		0				000
+  #606531	5	ref_obj	reg2hw			flash_ctrl.sv	454	36	454	42		0				000
+
+--- OURS (B) records 606431..606443 ('>' = the object)
+  #606431	3	cont_assign				flash_ctrl.sv	453	10	453	59						000
+  #606432	4	hier_path	reg2hw.addr.q[DataBitWidth - 1:0]			flash_ctrl.sv	453	28	453	59		0				000
+  #606433	5	ref_obj	reg2hw			flash_ctrl.sv	453	28	453	34		0				000
+  #606434	5	ref_obj	addr			flash_ctrl.sv	453	35	453	39		0				000
+  #606435	5	part_select	q		reg2hw.addr.q[DataBitWidth - 1:0]	flash_ctrl.sv	453	40	453	58		0			reg2hw.addr.q[DataBitWidth - 1:0]	000
+  #606436	6	operation				flash_ctrl.sv	453	42	453	56		0				000
+> #606437	7	ref_obj	DataBitWidth		work@flash_ctrl.DataBitWidth	flash_ctrl.sv	453	42	453	54		0			work@flash_ctrl.DataBitWidth	000
+  #606438	7	constant				flash_ctrl.sv	453	55	453	56	1	64	UINT:1	9		000
+  #606439	6	constant				flash_ctrl.sv	453	57	453	58	0	64	UINT:0	9		000
+  #606440	4	ref_obj	unused_byte_sel		work@top_earlgrey.u_flash_ctrl.unused_byte_sel	flash_ctrl.sv	453	10	453	25		0			work@top_earlgrey.u_flash_ctrl.unused_byte_sel	000
+  #606441	3	cont_assign				flash_ctrl.sv	454	10	454	59						000
+  #606442	4	hier_path	reg2hw.addr.q[31:17]			flash_ctrl.sv	454	36	454	59		0				000
+  #606443	5	ref_obj	reg2hw			flash_ctrl.sv	454	36	454	42		0				000
+
+facets of this row (19659, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

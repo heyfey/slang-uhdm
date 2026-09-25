@@ -1,0 +1,64 @@
+cluster N0598 (map 5 id kept; OPEN): fullname|integer_var|tok:id->id|under:function
+row: surelog/default/MiniAmiq  strict=differ:line(190)  records golden=435559 ours=413982
+object: #74385 (golden) / #73587 (ours)  type=integer_var name= OUT
+  golden: uvm_pkg::uvm_transaction::get_transaction_id
+  ours:   svaunit_pkg::uvm_transaction::get_transaction_id
+  walk parents: function(uvm_transaction::get_transaction_id) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 74379..74391 ('>' = the object)
+  #74379	4	ref_typespec			svaunit_pkg::uvm_transaction::set_transaction_id::id		0	0	0	0		0			svaunit_pkg::uvm_transaction::set_transaction_id::id	000
+  #74380	5	integer_typespec				uvm_transaction.svh	494	51	494	58						000
+  #74381	3	assignment				uvm_transaction.svh	495	5	495	26						000
+  #74382	4	ref_obj	id		svaunit_pkg::uvm_transaction::set_transaction_id::id	uvm_transaction.svh	495	24	495	26		0			svaunit_pkg::uvm_transaction::set_transaction_id::id	000
+  #74383	4	ref_obj	m_transaction_id		svaunit_pkg::uvm_transaction::set_transaction_id::m_transaction_id	uvm_transaction.svh	495	5	495	21		0			svaunit_pkg::uvm_transaction::set_transaction_id::m_transaction_id	000
+  #74384	2	function	uvm_transaction::get_transaction_id		svaunit_pkg::uvm_transaction::get_transaction_id	uvm_transaction.svh	499	1	501	12					svaunit_pkg::uvm_transaction::get_transaction_id	000
+> #74385	3	integer_var			uvm_pkg::uvm_transaction::get_transaction_id	uvm_transaction.svh	499	10	499	17		0			uvm_pkg::uvm_transaction::get_transaction_id	000
+  #74386	4	ref_typespec			uvm_pkg::uvm_transaction::get_transaction_id		0	0	0	0		0			uvm_pkg::uvm_transaction::get_transaction_id	000
+  #74387	5	integer_typespec				uvm_transaction.svh	499	10	499	17						000
+  #74388	3	return_stmt				uvm_transaction.svh	500	5	500	11						000
+  #74389	4	ref_obj	m_transaction_id		svaunit_pkg::uvm_transaction::get_transaction_id::m_transaction_id	uvm_transaction.svh	500	13	500	29		0			svaunit_pkg::uvm_transaction::get_transaction_id::m_transaction_id	000
+  #74390	2	function	uvm_transaction::set_initiator		svaunit_pkg::uvm_transaction::set_initiator	uvm_transaction.svh	506	1	508	12					svaunit_pkg::uvm_transaction::set_initiator	000
+  #74391	3	io_decl	initiator			uvm_transaction.svh	506	60	506	69						000
+
+--- OURS (B) records 73581..73593 ('>' = the object)
+  #73581	4	ref_typespec			svaunit_pkg::uvm_transaction::set_transaction_id::id		0	0	0	0		0			svaunit_pkg::uvm_transaction::set_transaction_id::id	000
+  #73582	5	integer_typespec				uvm_transaction.svh	494	51	494	58						000
+  #73583	3	assignment				uvm_transaction.svh	495	5	495	26						000
+  #73584	4	ref_obj	id		svaunit_pkg::uvm_transaction::set_transaction_id::id	uvm_transaction.svh	495	24	495	26		0			svaunit_pkg::uvm_transaction::set_transaction_id::id	000
+  #73585	4	ref_obj	m_transaction_id		svaunit_pkg::uvm_transaction::set_transaction_id::m_transaction_id	uvm_transaction.svh	495	5	495	21		0			svaunit_pkg::uvm_transaction::set_transaction_id::m_transaction_id	000
+  #73586	2	function	uvm_transaction::get_transaction_id		svaunit_pkg::uvm_transaction::get_transaction_id	uvm_transaction.svh	499	1	501	12					svaunit_pkg::uvm_transaction::get_transaction_id	000
+> #73587	3	integer_var			svaunit_pkg::uvm_transaction::get_transaction_id	uvm_transaction.svh	499	10	499	17		0			svaunit_pkg::uvm_transaction::get_transaction_id	000
+  #73588	4	ref_typespec			svaunit_pkg::uvm_transaction::get_transaction_id		0	0	0	0		0			svaunit_pkg::uvm_transaction::get_transaction_id	000
+  #73589	5	integer_typespec				uvm_transaction.svh	499	10	499	17						000
+  #73590	3	return_stmt				uvm_transaction.svh	500	5	500	11						000
+  #73591	4	ref_obj	m_transaction_id		svaunit_pkg::uvm_transaction::get_transaction_id::m_transaction_id	uvm_transaction.svh	500	13	500	29		0			svaunit_pkg::uvm_transaction::get_transaction_id::m_transaction_id	000
+  #73592	2	function	uvm_transaction::set_initiator		svaunit_pkg::uvm_transaction::set_initiator	uvm_transaction.svh	506	1	508	12					svaunit_pkg::uvm_transaction::set_initiator	000
+  #73593	3	io_decl	initiator			uvm_transaction.svh	506	60	506	69						000
+
+facets of this row (55220, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

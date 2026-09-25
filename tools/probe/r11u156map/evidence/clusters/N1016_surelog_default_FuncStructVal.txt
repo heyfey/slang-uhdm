@@ -1,0 +1,64 @@
+cluster N1016 (map 5 id kept; OPEN): fullname|ref_obj|tok:id@id.id.id::id.id.->id::id::@in-typespec|under:hier_path
+row: surelog/default/FuncStructVal  strict=differ:endcol(165)  records golden=18222 ours=16134
+object: #17220 (golden) / #15132 (ours)  type=ref_obj name=NrNonIdempotentRules TAIL
+  golden: work@top.CVA6Cfg.config_pkg::cva6_cfg_t.NonIdemPotenceEn.NrNonIdempotentRules
+  ours:   build_config_pkg::build_config::NrNonIdempotentRules
+  walk parents: hier_path(CVA6Cfg.NrNonIdempotentRules) < operation < typespec_member(NonIdemPotenceEn) < struct_typespec(config_pkg::cva6_cfg_t)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 17214..17226 ('>' = the object)
+  #17214	5	typespec_member	NonIdemPotenceEn			dut.sv	372	34	372	50						001
+  #17215	6	ref_typespec			<in>config_pkg::cva6_cfg_t.NonIdemPotenceEn		0	0	0	0		0			work@top.CVA6Cfg.config_pkg::cva6_cfg_t.NonIdemPotenceEn	001
+  #17216	7	bit_typespec				dut.sv	372	5	372	8						001
+  #17217	6	operation				dut.sv	568	28	568	87		0				001
+  #17218	7	hier_path	CVA6Cfg.NrNonIdempotentRules			dut.sv	568	28	568	56		0				001
+  #17219	8	ref_obj	CVA6Cfg			dut.sv	568	28	568	35		0				001
+> #17220	8	ref_obj	NrNonIdempotentRules		<in>config_pkg::cva6_cfg_t.NonIdemPotenceEn.NrNonIdempotentRules	dut.sv	568	36	568	56		0			work@top.CVA6Cfg.config_pkg::cva6_cfg_t.NonIdemPotenceEn.NrNonIdempotentRules	001
+  #17221	7	hier_path	CVA6Cfg.NonIdempotentLength			dut.sv	568	60	568	87		0				001
+  #17222	8	ref_obj	CVA6Cfg			dut.sv	568	60	568	67		0				001
+  #17223	8	ref_obj	NonIdempotentLength		<in>config_pkg::cva6_cfg_t.NonIdemPotenceEn.NonIdempotentLength	dut.sv	568	68	568	87		0			work@top.CVA6Cfg.config_pkg::cva6_cfg_t.NonIdemPotenceEn.NonIdempotentLength	001
+  #17224	6	operation				dut.sv	568	28	568	87		0				001
+  #17225	7	hier_path	CVA6Cfg.NrNonIdempotentRules			dut.sv	568	28	568	56		0				001
+  #17226	8	ref_obj	CVA6Cfg			dut.sv	568	28	568	35		0				001
+
+--- OURS (B) records 15126..15138 ('>' = the object)
+  #15126	5	typespec_member	NonIdemPotenceEn			dut.sv	372	34	372	50						001
+  #15127	6	ref_typespec			<in>config_pkg::cva6_cfg_t.NonIdemPotenceEn		0	0	0	0		0			config_pkg::config_pkg::cva6_cfg_t::NonIdemPotenceEn	001
+  #15128	7	bit_typespec				dut.sv	372	5	372	8						001
+  #15129	6	operation				dut.sv	568	28	568	87		0				001
+  #15130	7	hier_path	CVA6Cfg.NrNonIdempotentRules			dut.sv	568	28	568	56		0				001
+  #15131	8	ref_obj	CVA6Cfg			dut.sv	568	28	568	35		0				001
+> #15132	8	ref_obj	NrNonIdempotentRules		build_config_pkg::build_config::NrNonIdempotentRules	dut.sv	568	36	568	56		0			build_config_pkg::build_config::NrNonIdempotentRules	001
+  #15133	7	hier_path	CVA6Cfg.NonIdempotentLength			dut.sv	568	60	568	87		0				001
+  #15134	8	ref_obj	CVA6Cfg			dut.sv	568	60	568	67		0				001
+  #15135	8	ref_obj	NonIdempotentLength		build_config_pkg::build_config::NonIdempotentLength	dut.sv	568	68	568	87		0			build_config_pkg::build_config::NonIdempotentLength	001
+  #15136	6	operation				dut.sv	568	28	568	87		0				001
+  #15137	7	hier_path	CVA6Cfg.NrNonIdempotentRules			dut.sv	568	28	568	56		0				001
+  #15138	8	ref_obj	CVA6Cfg			dut.sv	568	28	568	35		0				001
+
+facets of this row (3161, first 25):
+  N0045 #7595/-1 constant  G[3 objs] O[]
+  N0045 #7598/-1 constant  G[3 objs] O[]
+  N0045 #7634/-1 constant  G[1 objs] O[]
+  N0045 #7635/-1 constant  G[1 objs] O[]
+  N0045 #7639/-1 constant  G[3 objs] O[]
+  N0045 #7642/-1 constant  G[3 objs] O[]
+  N0045 #7648/-1 constant  G[3 objs] O[]
+  N0045 #7651/-1 constant  G[3 objs] O[]
+  N0045 #7657/-1 constant  G[3 objs] O[]
+  N0045 #7660/-1 constant  G[3 objs] O[]
+  N0045 #7666/-1 constant  G[3 objs] O[]
+  N0045 #7669/-1 constant  G[3 objs] O[]
+  N0045 #7675/-1 constant  G[3 objs] O[]
+  N0045 #7678/-1 constant  G[3 objs] O[]
+  N0045 #7684/-1 constant  G[3 objs] O[]
+  N0045 #7687/-1 constant  G[3 objs] O[]
+  N0045 #7693/-1 constant  G[3 objs] O[]
+  N0045 #7696/-1 constant  G[3 objs] O[]
+  N0045 #7702/-1 constant  G[1 objs] O[]
+  N0045 #7703/-1 constant  G[1 objs] O[]
+  N0045 #7707/-1 constant  G[1 objs] O[]
+  N0045 #7708/-1 constant  G[1 objs] O[]
+  N0045 #7712/-1 constant  G[1 objs] O[]
+  N0045 #7713/-1 constant  G[1 objs] O[]
+  N0045 #7717/-1 constant  G[1 objs] O[]

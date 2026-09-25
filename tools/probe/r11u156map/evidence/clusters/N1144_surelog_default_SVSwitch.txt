@@ -1,0 +1,64 @@
+cluster N1144 (map 5 id kept; OPEN): span|hier_path|endcol|under:if_else
+row: surelog/default/SVSwitch  strict=differ:endcol(27)  records golden=5787 ours=5808
+object: #88 (golden) / #88 (ours)  type=hier_path name=pkt.randomize 
+  golden: 40:10:40:25
+  ours:   40:10:40:23
+  walk parents: if_else < begin < repeat < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 82..94 ('>' = the object)
+  #82	10	ref_obj	clock		work@Driver::start::clock	Driver.sv	37	39	37	44		0			work@Driver::start::clock	000
+  #83	6	assignment				Driver.sv	38	6	38	20						000
+  #84	7	method_func_call	new				0	0	0	0		0				000
+  #85	8	ref_obj	gpkt		work@Driver::start::gpkt	Driver.sv	38	16	38	20		0			work@Driver::start::gpkt	000
+  #86	7	ref_obj	pkt		work@Driver::start::pkt	Driver.sv	38	6	38	9		0			work@Driver::start::pkt	000
+  #87	6	if_else				Driver.sv	40	5	72	10						000
+> #88	7	hier_path	pkt.randomize			Driver.sv	40	10	40	25		0				000
+  #89	8	ref_obj	pkt			Driver.sv	40	10	40	13		0				000
+  #90	8	method_func_call	randomize			Driver.sv	40	14	40	23		0				000
+  #91	7	begin			work@Driver::start	Driver.sv	41	6	66	9					work@Driver::start	000
+  #92	8	sys_func_call	$display			Driver.sv	42	8	42	71		0				000
+  #93	9	constant				Driver.sv	42	18	42	64	" %0d : Driver : Randomization Successesfull."	352	STRING: %0d : Driver : Randomization Successesfull.	6		000
+  #94	9	sys_func_call	$time			Driver.sv	42	65	42	70		0				000
+
+--- OURS (B) records 82..94 ('>' = the object)
+  #82	10	ref_obj	clock		work@Driver::start::clock	Driver.sv	37	39	37	44		0			work@Driver::start::clock	000
+  #83	6	assignment				Driver.sv	38	6	38	20						000
+  #84	7	method_func_call	new				0	0	0	0		0				000
+  #85	8	ref_obj	gpkt		work@Driver::start::gpkt	Driver.sv	38	16	38	20		0			work@Driver::start::gpkt	000
+  #86	7	ref_obj	pkt		work@Driver::start::pkt	Driver.sv	38	6	38	9		0			work@Driver::start::pkt	000
+  #87	6	if_else				Driver.sv	40	5	72	10						000
+> #88	7	hier_path	pkt.randomize			Driver.sv	40	10	40	23		0				000
+  #89	8	ref_obj	pkt			Driver.sv	40	10	40	13		0				000
+  #90	8	method_func_call	randomize			Driver.sv	40	14	40	23		0				000
+  #91	7	begin			work@Driver::start	Driver.sv	41	6	66	9					work@Driver::start	000
+  #92	8	sys_func_call	$display			Driver.sv	42	8	42	71		0				000
+  #93	9	constant				Driver.sv	42	18	42	64	" %0d : Driver : Randomization Successesfull."	352	STRING: %0d : Driver : Randomization Successesfull.	6		000
+  #94	9	sys_func_call	$time			Driver.sv	42	65	42	70		0				000
+
+facets of this row (90, first 25):
+  N0526 #-1/3314 logic_net clock G[] O[3 objs]
+  N0268 #-1/3348 logic_var reset G[] O[3 objs]
+  N0526 #-1/3352 logic_net clock G[] O[3 objs]
+  N0526 #-1/3407 logic_net clock G[] O[3 objs]
+  N0526 #-1/3432 logic_net clock G[] O[3 objs]
+  N0526 #-1/3457 logic_net clock G[] O[3 objs]
+  N0526 #-1/3482 logic_net clock G[] O[3 objs]
+  N1144 #88/88 hier_path pkt.randomize G[40:10:40:25] O[40:10:40:23]
+  N0095 #101/101 ref_obj bytes G[work@Driver::start::pkt.byte_pack::bytes] O[work@Driver::start::bytes]
+  N0067 #184/184 class_typespec Receiver G[Environemnt.sv 20:3:20:11] O[ 0:0:0:0]
+  N0068 #184/184 class_typespec Receiver G[20:3:20:11] O[0:0:0:0]
+  N0119 #264/264 bit_select rcvr G[43:11:43:12] O[43:6:43:13]
+  N0007 #651/651 ref_obj size G[] O[work@Receiver::start::size]
+  N0095 #756/756 ref_obj pkt_exp G[work@Scoreboard::start::pkt_rcv.compare::pkt_exp] O[work@Scoreboard::start::pkt_exp]
+  N0007 #980/980 ref_obj size G[] O[work@packet::byte_pack::size]
+  N0071 #1121/1121 hier_path this.da G[105:24:105:31] O[105:24:105:28]
+  N0001 #1122/1122 ref_obj this G[105:29:105:31] O[105:24:105:28]
+  N0007 #1123/1123 ref_obj da G[] O[work@packet::compare::da]
+  N0098 #1123/1123 ref_obj da G[Packet.sv 105:29:105:31] O[ 0:0:0:0]
+  N0099 #1123/1123 ref_obj da G[105:29:105:31] O[0:0:0:0]
+  N0071 #1135/1135 hier_path this.sa G[110:24:110:31] O[110:24:110:28]
+  N0001 #1136/1136 ref_obj this G[110:29:110:31] O[110:24:110:28]
+  N0007 #1137/1137 ref_obj sa G[] O[work@packet::compare::sa]
+  N0098 #1137/1137 ref_obj sa G[Packet.sv 110:29:110:31] O[ 0:0:0:0]
+  N0099 #1137/1137 ref_obj sa G[110:29:110:31] O[0:0:0:0]

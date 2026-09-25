@@ -1,0 +1,43 @@
+cluster N1067 (map 5 id kept; COVERED r11u147 (N1067)): fullname|ref_obj|tok:id.id[n].id[id(id) - n:n].id.->|under:sys_func_call
+row: uhdm2rtlil/testflags/iface_arr_struct_field_partsel  strict=differ:fullname(4)  records golden=298 ours=298
+object: #169 (golden) / #169 (ours)  type=ref_obj name=BYT OUT
+  golden: work@mem.sub.req_dly[0].adr[$clog2(BYT) - 1:0].adr.BYT
+  ours:   work@mem.BYT
+  walk parents: sys_func_call($clog2) < operation < part_select(adr) < hier_path(sub.req_dly[0].adr[$clog2(BYT) - 1:0])
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 163..175 ('>' = the object)
+  #163	6	ref_obj	sub			dut.sv	18	14	18	17		0				000
+  #164	6	bit_select	req_dly		sub.req_dly[0]	dut.sv	18	18	18	25		0			sub.req_dly[0]	000
+  #165	7	constant				dut.sv	18	26	18	27	0	64	UINT:0	9		000
+  #166	6	part_select	adr		sub.req_dly[0].adr[$clog2(BYT) - 1:0]	dut.sv	18	29	18	48		0			sub.req_dly[0].adr[$clog2(BYT) - 1:0]	000
+  #167	7	operation				dut.sv	18	33	18	46		0				000
+  #168	8	sys_func_call	$clog2			dut.sv	18	33	18	44		0				000
+> #169	9	ref_obj	BYT		work@mem.sub.req_dly[0].adr[$clog2(BYT) - 1:0].adr.BYT	dut.sv	18	40	18	43		0			work@mem.sub.req_dly[0].adr[$clog2(BYT) - 1:0].adr.BYT	000
+  #170	8	constant				dut.sv	18	45	18	46	1	64	UINT:1	9		000
+  #171	7	constant				dut.sv	18	47	18	48	0	64	UINT:0	9		000
+  #172	5	ref_obj	o		work@mem.o	dut.sv	18	10	18	11		0			work@mem.o	000
+  #173	3	port	sub			dut.sv	23	10	23	21						000
+  #174	4	hier_path	s.sub			dut.sv	23	15	23	20		0				000
+  #175	5	ref_obj	s			dut.sv	23	15	23	16		0				000
+
+--- OURS (B) records 163..175 ('>' = the object)
+  #163	6	ref_obj	sub			dut.sv	18	14	18	17		0				000
+  #164	6	bit_select	req_dly		req_dly[0]	dut.sv	18	18	18	25		0			req_dly[0]	000
+  #165	7	constant				dut.sv	18	26	18	27	0	64	UINT:0	9		000
+  #166	6	part_select	adr		sub.req_dly[0].adr[$clog2(BYT) - 1:0]	dut.sv	18	29	18	48		0			sub.req_dly[0].adr[$clog2(BYT) - 1:0]	000
+  #167	7	operation				dut.sv	18	33	18	46		0				000
+  #168	8	sys_func_call	$clog2			dut.sv	18	33	18	44		0				000
+> #169	9	ref_obj	BYT		work@mem.BYT	dut.sv	18	40	18	43		0			work@mem.BYT	000
+  #170	8	constant				dut.sv	18	45	18	46	1	64	UINT:1	9		000
+  #171	7	constant				dut.sv	18	47	18	48	0	64	UINT:0	9		000
+  #172	5	ref_obj	o		work@mem.o	dut.sv	18	10	18	11		0			work@mem.o	000
+  #173	3	port	sub			dut.sv	23	10	23	21						000
+  #174	4	hier_path	s.sub			dut.sv	23	15	23	20		0				000
+  #175	5	ref_obj	s			dut.sv	23	15	23	16		0				000
+
+facets of this row (4, first 25):
+  N0833 #164/164 bit_select req_dly G[sub.req_dly[0]] O[req_dly[0]]
+  N1067 #169/169 ref_obj BYT G[work@mem.sub.req_dly[0].adr[$clog2(BYT) - 1:0].adr.BYT] O[work@mem.BYT]
+  N0833 #281/281 bit_select req_dly G[sub.req_dly[0]] O[req_dly[0]]
+  N1067 #286/286 ref_obj BYT G[work@mem.sub.req_dly[0].adr[$clog2(BYT) - 1:0].adr.BYT] O[work@mem.BYT]

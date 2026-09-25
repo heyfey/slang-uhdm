@@ -1,0 +1,44 @@
+cluster N0135 (map 5 id kept; COVERED r11u152 (residue: pass-146 R3: IfGenTypeBinding (grid ig/i11))): span|struct_typespec|endline+endcol|under:module_inst
+row: surelog/default/IfGenTypeBinding  strict=differ:endline(5)  records golden=231 ours=231
+object: #134 (golden) / #134 (ours)  type=struct_typespec name=ibex_pkg::pmp_cfg_t 
+  golden: 3:11:8:4
+  ours:   3:11:18:66
+  walk parents: module_inst < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 128..140 ('>' = the object)
+  #128	4	ref_typespec			work@top		0	0	0	0		0			work@top	000
+  #129	5	bit_typespec				dut.sv	13	23	13	26						000
+  #130	2	param_assign				dut.sv	15	20	15	37						000
+  #131	3	constant				dut.sv	15	36	15	37	2	64	UINT:2	9		000
+  #132	4	ref_typespec			work@top		0	0	0	0		0			work@top	000
+  #133	5	int_typespec				dut.sv	15	16	15	19						000
+> #134	2	struct_typespec	ibex_pkg::pmp_cfg_t			dut.sv	3	11	8	4						010
+  #135	3	typespec_member	lock			dut.sv	4	20	4	24						001
+  #136	4	ref_typespec			<in>ibex_pkg::pmp_cfg_t.lock		0	0	0	0		0			work@top.ibex_pkg::pmp_cfg_t.lock	001
+  #137	5	logic_typespec				dut.sv	4	5	4	10						001
+  #138	3	typespec_member	exec			dut.sv	5	20	5	24						001
+  #139	4	ref_typespec			<in>ibex_pkg::pmp_cfg_t.exec		0	0	0	0		0			work@top.ibex_pkg::pmp_cfg_t.exec	001
+  #140	5	logic_typespec				dut.sv	5	5	5	10						001
+
+--- OURS (B) records 128..140 ('>' = the object)
+  #128	4	ref_typespec			work@top		0	0	0	0		0			work@top	000
+  #129	5	bit_typespec				dut.sv	13	23	13	26						000
+  #130	2	param_assign				dut.sv	15	20	15	37						000
+  #131	3	constant				dut.sv	15	36	15	37	2	64	UINT:2	9		000
+  #132	4	ref_typespec			work@top		0	0	0	0		0			work@top	000
+  #133	5	int_typespec				dut.sv	15	16	15	19						000
+> #134	2	struct_typespec	ibex_pkg::pmp_cfg_t			dut.sv	3	11	18	66						010
+  #135	3	typespec_member	lock			dut.sv	4	20	4	24						001
+  #136	4	ref_typespec			<in>ibex_pkg::pmp_cfg_t.lock		0	0	0	0		0			work@top.ibex_pkg::pmp_cfg_t.lock	001
+  #137	5	logic_typespec				dut.sv	4	5	4	10						001
+  #138	3	typespec_member	exec			dut.sv	5	20	5	24						001
+  #139	4	ref_typespec			<in>ibex_pkg::pmp_cfg_t.exec		0	0	0	0		0			work@top.ibex_pkg::pmp_cfg_t.exec	001
+  #140	5	logic_typespec				dut.sv	5	5	5	10						001
+
+facets of this row (5, first 25):
+  N0762 #23/23 struct_typespec ibex_pkg::pmp_cfg_t G[3:11:8:4] O[3:11:18:66]
+  N0135 #134/134 struct_typespec ibex_pkg::pmp_cfg_t G[3:11:8:4] O[3:11:18:66]
+  N0135 #168/168 struct_typespec ibex_pkg::pmp_cfg_t G[3:11:8:4] O[3:11:18:66]
+  N0009 #193/193 struct_typespec ibex_pkg::pmp_cfg_t G[3:11:8:4] O[3:11:18:66]
+  N0009 #218/218 struct_typespec ibex_pkg::pmp_cfg_t G[3:11:8:4] O[3:11:18:66]

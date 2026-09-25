@@ -1,0 +1,64 @@
+cluster N0588 (map 5 id kept; OPEN): fullname|ref_typespec|tok:->::id|under:string_var
+row: surelog/default/MiniAmiq  strict=differ:line(190)  records golden=435559 ours=413982
+object: #87383 (golden) / #85421 (ours)  type=ref_typespec name= OUT
+  golden: svaunit_pkg::uvm_component::m_set_cl_action
+  ours:   svaunit_pkg::uvm_component::m_set_cl_action::values
+  walk parents: string_var < begin < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 87377..87389 ('>' = the object)
+  #87377	3	begin			svaunit_pkg::uvm_component::m_set_cl_action	uvm_component.svh	3498	3	3526	6					svaunit_pkg::uvm_component::m_set_cl_action	000
+  #87378	4	if_stmt				uvm_component.svh	3471	3	3496	6						000
+  #87379	5	operation				uvm_component.svh	3471	6	3471	18		0				000
+  #87380	6	ref_obj	initialized		svaunit_pkg::uvm_component::m_set_cl_action::initialized	uvm_component.svh	3471	7	3471	18		0			svaunit_pkg::uvm_component::m_set_cl_action::initialized	000
+  #87381	5	begin			svaunit_pkg::uvm_component::m_set_cl_action	uvm_component.svh	3471	20	3496	6					svaunit_pkg::uvm_component::m_set_cl_action	000
+  #87382	6	string_var			svaunit_pkg::uvm_component::m_set_cl_action	uvm_component.svh	3472	9	3472	15		0			svaunit_pkg::uvm_component::m_set_cl_action	000
+> #87383	7	ref_typespec			svaunit_pkg::uvm_component::m_set_cl_action		0	0	0	0		0			svaunit_pkg::uvm_component::m_set_cl_action	000
+  #87384	8	string_typespec				uvm_component.svh	3472	2	3472	8						000
+  #87385	6	array_var	values		svaunit_pkg::uvm_component::m_set_cl_action::values	uvm_component.svh	3472	9	3472	15		0			svaunit_pkg::uvm_component::m_set_cl_action::values	000
+  #87386	7	ref_typespec			svaunit_pkg::uvm_component::m_set_cl_action::values		0	0	0	0		0			svaunit_pkg::uvm_component::m_set_cl_action::values	000
+  #87387	8	array_typespec				uvm_component.svh	3472	9	3472	17						000
+  #87388	9	range				uvm_component.svh	3472	16	3472	17						001
+  #87389	10	constant					0	0	0	0	0	64	UINT:0	9		001
+
+--- OURS (B) records 85415..85427 ('>' = the object)
+  #85415	6	ref_obj	initialized		svaunit_pkg::uvm_component::m_set_cl_action::initialized	uvm_component.svh	3471	7	3471	18		0			svaunit_pkg::uvm_component::m_set_cl_action::initialized	000
+  #85416	7	bit_var	initialized		uvm_pkg::uvm_component::m_set_cl_action::initialized	uvm_component.svh	3467	14	3467	25		0			uvm_pkg::uvm_component::m_set_cl_action::initialized	000
+  #85417	8	ref_typespec			uvm_pkg::uvm_component::m_set_cl_action::initialized		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_action::initialized	000
+  #85418	9	bit_typespec				uvm_component.svh	3467	10	3467	13						000
+  #85419	5	begin			svaunit_pkg::uvm_component::m_set_cl_action	uvm_component.svh	3471	20	3496	6					svaunit_pkg::uvm_component::m_set_cl_action	000
+  #85420	6	string_var			svaunit_pkg::uvm_component::m_set_cl_action::values	uvm_component.svh	3472	9	3472	15		0			svaunit_pkg::uvm_component::m_set_cl_action::values	000
+> #85421	7	ref_typespec			svaunit_pkg::uvm_component::m_set_cl_action::values		0	0	0	0		0			svaunit_pkg::uvm_component::m_set_cl_action::values	000
+  #85422	8	string_typespec				uvm_component.svh	3472	2	3472	8						000
+  #85423	6	array_var	values		svaunit_pkg::uvm_component::m_set_cl_action::values	uvm_component.svh	3472	9	3472	15		0			svaunit_pkg::uvm_component::m_set_cl_action::values	000
+  #85424	7	ref_typespec			svaunit_pkg::uvm_component::m_set_cl_action::values		0	0	0	0		0			svaunit_pkg::uvm_component::m_set_cl_action::values	000
+  #85425	8	array_typespec				uvm_component.svh	3472	9	3472	17						000
+  #85426	9	range				uvm_component.svh	3472	16	3472	17						001
+  #85427	10	constant					0	0	0	0	0	64	UINT:0	9		001
+
+facets of this row (55220, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

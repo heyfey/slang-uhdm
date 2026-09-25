@@ -1,0 +1,64 @@
+cluster N0931 (map 5 id kept; OPEN): fullname|part_select|tok:id.id.id->id|under:operation
+row: surelog/testflags/Earlgrey_0_1  strict=differ:line(1747)  records golden=1342584 ours=1342618
+object: #389609 (golden) / #389569 (ours)  type=part_select name=mult1_res OUT
+  golden: work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.mult1_res
+  ours:   work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.mult1_res
+  walk parents: operation < assignment < begin < always
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 389603..389615 ('>' = the object)
+  #389603	14	constant				ibex_multdiv_fast.sv	183	27	183	29	15	64	UINT:15	9		000
+  #389604	14	constant				ibex_multdiv_fast.sv	183	30	183	31	0	64	UINT:0	9		000
+  #389605	13	ref_obj	mult3_op_b		work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.mult3_op_b	ibex_multdiv_fast.sv	183	7	183	17		0			work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.mult3_op_b	000
+  #389606	12	assignment				ibex_multdiv_fast.sv	185	7	185	43						000
+  #389607	13	operation				ibex_multdiv_fast.sv	185	18	185	43		0				000
+  #389608	14	constant				ibex_multdiv_fast.sv	185	19	185	24	18'h0	18	HEX:0	5		000
+> #389609	14	part_select	mult1_res	mult1_res	work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.mult1_res	ibex_multdiv_fast.sv	185	26	185	42		0			work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.mult1_res	000
+  #389610	15	constant				ibex_multdiv_fast.sv	185	36	185	38	31	64	UINT:31	9		000
+  #389611	15	constant				ibex_multdiv_fast.sv	185	39	185	41	16	64	UINT:16	9		000
+  #389612	13	ref_obj	summand1		work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.summand1	ibex_multdiv_fast.sv	185	7	185	15		0			work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.summand1	000
+  #389613	12	assignment				ibex_multdiv_fast.sv	186	7	186	27						000
+  #389614	13	ref_obj	mult2_res		work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.mult2_res	ibex_multdiv_fast.sv	186	18	186	27		0			work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.mult2_res	000
+  #389615	13	ref_obj	summand2		work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.summand2	ibex_multdiv_fast.sv	186	7	186	15		0			work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.summand2	000
+
+--- OURS (B) records 389563..389575 ('>' = the object)
+  #389563	14	constant				ibex_multdiv_fast.sv	183	27	183	29	15	64	UINT:15	9		000
+  #389564	14	constant				ibex_multdiv_fast.sv	183	30	183	31	0	64	UINT:0	9		000
+  #389565	13	ref_obj	mult3_op_b		work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.mult3_op_b	ibex_multdiv_fast.sv	183	7	183	17		0			work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.mult3_op_b	000
+  #389566	12	assignment				ibex_multdiv_fast.sv	185	7	185	43						000
+  #389567	13	operation				ibex_multdiv_fast.sv	185	18	185	43		0				000
+  #389568	14	constant				ibex_multdiv_fast.sv	185	19	185	24	18'h0	18	HEX:0	5		000
+> #389569	14	part_select	mult1_res	mult1_res	work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.mult1_res	ibex_multdiv_fast.sv	185	26	185	42		0			work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.multdiv_i.mult1_res	000
+  #389570	15	constant				ibex_multdiv_fast.sv	185	36	185	38	31	64	UINT:31	9		000
+  #389571	15	constant				ibex_multdiv_fast.sv	185	39	185	41	16	64	UINT:16	9		000
+  #389572	13	ref_obj	summand1		work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.summand1	ibex_multdiv_fast.sv	185	7	185	15		0			work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.summand1	000
+  #389573	12	assignment				ibex_multdiv_fast.sv	186	7	186	27						000
+  #389574	13	ref_obj	mult2_res		work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.mult2_res	ibex_multdiv_fast.sv	186	18	186	27		0			work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.mult2_res	000
+  #389575	13	ref_obj	summand2		work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.summand2	ibex_multdiv_fast.sv	186	7	186	15		0			work@top_earlgrey.u_rv_core_ibex.u_core.ex_block_i.gen_multdiv_single_cycle.multdiv_i.gen_multiv_single_cycle.summand2	000
+
+facets of this row (19659, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N1225 #435981/-1 parameter DepthW G[3 objs] O[]
+  N1225 #435994/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436002/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436012/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436020/-1 parameter DepthW G[3 objs] O[]
+  N1225 #436028/-1 parameter DepthW G[3 objs] O[]

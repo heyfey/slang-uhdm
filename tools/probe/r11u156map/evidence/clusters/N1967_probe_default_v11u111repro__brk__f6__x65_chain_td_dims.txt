@@ -1,0 +1,54 @@
+cluster N1967 (map 5 id kept; OPEN): fullname|ref_typespec|tok:id::->id@id.|under:logic_typespec
+row: probe/default/v11u111repro__brk__f6__x65_chain_td_dims  strict=fullname  records golden=134 ours=134
+object: #8 (golden) / #8 (ours)  type=ref_typespec name= STABLE
+  golden: pk::pk::w2_t
+  ours:   work@dut.pk::w2_t
+  walk parents: logic_typespec(pk::w2_t) < package(pk) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2..14 ('>' = the object)
+  #2	2	logic_typespec	pk::w_t			dut.sv	2	11	2	22						010
+  #3	3	range				dut.sv	2	17	2	22						001
+  #4	4	constant				dut.sv	2	18	2	19	1	64	UINT:1	9		001
+  #5	4	constant				dut.sv	2	20	2	21	0	64	UINT:0	9		001
+  #6	1	package	pk	pk	pk::	dut.sv	1	1	4	11					pk::	000
+  #7	2	logic_typespec	pk::w2_t			dut.sv	2	11	2	22						010
+> #8	3	ref_typespec			<in>pk::w2_t		0	0	0	0		0			pk::pk::w2_t	001
+  #9	4	logic_typespec	w_t			dut.sv	2	11	2	22						001
+  #10	5	ref_typespec			<in>w_t		0	0	0	0		0			w_t	001
+  #11	6	logic_typespec	pk::w_t			dut.sv	2	11	2	22						001
+  #12	7	range				dut.sv	2	17	2	22						001
+  #13	8	constant				dut.sv	2	18	2	19	1	64	UINT:1	9		001
+  #14	8	constant				dut.sv	2	20	2	21	0	64	UINT:0	9		001
+
+--- OURS (B) records 2..14 ('>' = the object)
+  #2	2	logic_typespec	pk::w_t			dut.sv	2	11	2	22						010
+  #3	3	range				dut.sv	2	17	2	22						001
+  #4	4	constant				dut.sv	2	18	2	19	1	64	UINT:1	9		001
+  #5	4	constant				dut.sv	2	20	2	21	0	64	UINT:0	9		001
+  #6	1	package	pk	pk	pk::	dut.sv	1	1	4	11					pk::	000
+  #7	2	logic_typespec	pk::w2_t			dut.sv	2	11	2	22						010
+> #8	3	ref_typespec			<in>pk::w2_t		0	0	0	0		0			work@dut.pk::w2_t	001
+  #9	4	logic_typespec	w_t			dut.sv	2	11	2	22						001
+  #10	5	ref_typespec			<in>w_t		0	0	0	0		0			w_t	001
+  #11	6	logic_typespec	pk::w_t			dut.sv	2	11	2	22						001
+  #12	7	range				dut.sv	2	17	2	22						001
+  #13	8	constant				dut.sv	2	18	2	19	1	64	UINT:1	9		001
+  #14	8	constant				dut.sv	2	20	2	21	0	64	UINT:0	9		001
+
+facets of this row (15, first 25):
+  N1967 #8/8 ref_typespec  G[pk::pk::w2_t] O[work@dut.pk::w2_t]
+  N0031 #16/16 constant  G[dut.sv 2:18:2:19] O[ 2:18:2:19]
+  N0031 #17/17 constant  G[dut.sv 2:20:2:21] O[ 2:20:2:21]
+  N0031 #19/19 constant  G[dut.sv 2:18:2:19] O[ 2:18:2:19]
+  N0031 #20/20 constant  G[dut.sv 2:20:2:21] O[ 2:20:2:21]
+  N1967 #87/87 ref_typespec  G[pk::pk::w2_t] O[work@dut.pk::w2_t]
+  N0031 #95/95 constant  G[dut.sv 2:18:2:19] O[ 2:18:2:19]
+  N0031 #96/96 constant  G[dut.sv 2:20:2:21] O[ 2:20:2:21]
+  N0031 #98/98 constant  G[dut.sv 2:18:2:19] O[ 2:18:2:19]
+  N0031 #99/99 constant  G[dut.sv 2:20:2:21] O[ 2:20:2:21]
+  N1967 #103/103 ref_typespec  G[pk::pk::w2_t] O[work@dut.pk::w2_t]
+  N0031 #111/111 constant  G[dut.sv 2:18:2:19] O[ 2:18:2:19]
+  N0031 #112/112 constant  G[dut.sv 2:20:2:21] O[ 2:20:2:21]
+  N0031 #114/114 constant  G[dut.sv 2:18:2:19] O[ 2:18:2:19]
+  N0031 #115/115 constant  G[dut.sv 2:20:2:21] O[ 2:20:2:21]

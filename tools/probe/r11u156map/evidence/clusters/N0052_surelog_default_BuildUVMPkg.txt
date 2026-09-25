@@ -1,0 +1,64 @@
+cluster N0052 (map 5 id kept; OPEN (residue of pass 145 (r11u145): map 6 named it, still present)): fullname|ref_obj|tok:id.id[id]::->|under:bit_select
+row: surelog/default/BuildUVMPkg  strict=differ:line(165)  records golden=201533 ours=201486
+object: #1863 (golden) / #1863 (ours)  type=ref_obj name=type_id OUT
+  golden: uvm_pkg::uvm_create_random_seed::seed_map.seed_table[type_id]::type_id
+  ours:   uvm_pkg::uvm_create_random_seed::type_id
+  walk parents: bit_select(seed_table) < hier_path(seed_map.seed_table[type_id]) < assignment < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1857..1869 ('>' = the object)
+  #1857	9	constant				uvm_pkg.sv	8684	62	8684	66	"::"	16	STRING:::	6		000
+  #1858	9	ref_obj	inst_id		uvm_pkg::uvm_create_random_seed::inst_id	uvm_pkg.sv	8684	67	8684	74		0			uvm_pkg::uvm_create_random_seed::inst_id	000
+  #1859	8	ref_obj	uvm_global_random_seed		uvm_pkg::uvm_create_random_seed::uvm_global_random_seed	uvm_pkg.sv	8684	77	8684	99		0			uvm_pkg::uvm_create_random_seed::uvm_global_random_seed	000
+  #1860	7	hier_path	seed_map.seed_table[type_id]			uvm_pkg.sv	8684	5	8684	33		0				000
+  #1861	8	ref_obj	seed_map			uvm_pkg.sv	8684	14	8684	24		0				000
+  #1862	8	bit_select	seed_table		uvm_pkg::uvm_create_random_seed::seed_map.seed_table[type_id]::seed_table	uvm_pkg.sv	8684	14	8684	33		0			uvm_pkg::uvm_create_random_seed::seed_map.seed_table[type_id]::seed_table	000
+> #1863	9	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::seed_map.seed_table[type_id]::type_id	uvm_pkg.sv	8684	25	8684	32		0			uvm_pkg::uvm_create_random_seed::seed_map.seed_table[type_id]::type_id	000
+  #1864	4	if_stmt				uvm_pkg.sv	8686	3	8688	6						000
+  #1865	5	operation				uvm_pkg.sv	8686	7	8686	38		0				000
+  #1866	6	hier_path	seed_map.count.exists			uvm_pkg.sv	8686	8	8686	38		0				000
+  #1867	7	ref_obj	seed_map			uvm_pkg.sv	8686	8	8686	16		0				000
+  #1868	7	ref_obj	count			uvm_pkg.sv	8686	17	8686	22		0				000
+  #1869	7	method_func_call	exists			uvm_pkg.sv	8686	23	8686	29		0				000
+
+--- OURS (B) records 1857..1869 ('>' = the object)
+  #1857	9	constant				uvm_pkg.sv	8684	62	8684	66	"::"	16	STRING:::	6		000
+  #1858	9	ref_obj	inst_id		uvm_pkg::uvm_create_random_seed::inst_id	uvm_pkg.sv	8684	67	8684	74		0			uvm_pkg::uvm_create_random_seed::inst_id	000
+  #1859	8	ref_obj	uvm_global_random_seed		uvm_pkg::uvm_create_random_seed::uvm_global_random_seed	uvm_pkg.sv	8684	77	8684	99		0			uvm_pkg::uvm_create_random_seed::uvm_global_random_seed	000
+  #1860	7	hier_path	seed_map.seed_table[type_id]			uvm_pkg.sv	8684	5	8684	33		0				000
+  #1861	8	ref_obj	seed_map			uvm_pkg.sv	8684	14	8684	24		0				000
+  #1862	8	bit_select	seed_table		uvm_pkg::uvm_create_random_seed::seed_map.seed_table[type_id]::seed_table	uvm_pkg.sv	8684	14	8684	33		0			uvm_pkg::uvm_create_random_seed::seed_map.seed_table[type_id]::seed_table	000
+> #1863	9	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::type_id	uvm_pkg.sv	8684	25	8684	32		0			uvm_pkg::uvm_create_random_seed::type_id	000
+  #1864	4	if_stmt				uvm_pkg.sv	8686	3	8688	6						000
+  #1865	5	operation				uvm_pkg.sv	8686	7	8686	38		0				000
+  #1866	6	hier_path	seed_map.count.exists			uvm_pkg.sv	8686	8	8686	38		0				000
+  #1867	7	ref_obj	seed_map			uvm_pkg.sv	8686	8	8686	16		0				000
+  #1868	7	ref_obj	count			uvm_pkg.sv	8686	17	8686	22		0				000
+  #1869	7	method_func_call	exists			uvm_pkg.sv	8686	23	8686	29		0				000
+
+facets of this row (9283, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

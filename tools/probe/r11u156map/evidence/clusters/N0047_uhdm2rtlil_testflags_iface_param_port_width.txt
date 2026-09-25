@@ -1,0 +1,41 @@
+cluster N0047 (map 5 id kept; OPEN): fullname|parameter|tok:id->id.id.id|under:param_assign
+row: uhdm2rtlil/testflags/iface_param_port_width  strict=differ:fullname(2)  records golden=177 ours=177
+object: #162 (golden) / #162 (ours)  type=parameter name=DATA_WIDTH OUT
+  golden: work@bus_if.DATA_WIDTH
+  ours:   work@top.m0.bus.DATA_WIDTH
+  walk parents: param_assign < interface_inst(bus) < module_inst(m0) < module_inst(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 156..168 ('>' = the object)
+  #156	7	constant				dut.sv	14	49	14	50	0	64	UINT:0	9		001
+  #157	3	interface_inst	bus	work@bus_if	work@top.m0.bus	dut.sv	23	0	0	0					work@top.m0.bus	000
+  #158	4	param_assign				dut.sv	8	30	8	45						000
+  #159	5	constant				dut.sv	8	43	8	45	16	32	UINT:16	9		000
+  #160	6	ref_typespec			work@top.m0.bus		0	0	0	0		0			work@top.m0.bus	000
+  #161	7	int_typespec				dut.sv	8	20	8	45						000
+> #162	5	parameter	DATA_WIDTH		work@bus_if.DATA_WIDTH	dut.sv	8	30	8	40		0	UINT:16		work@bus_if.DATA_WIDTH	000
+  #163	6	ref_typespec			work@bus_if.DATA_WIDTH		0	0	0	0		0			work@bus_if.DATA_WIDTH	000
+  #164	7	int_typespec				dut.sv	8	20	8	45						000
+  #165	3	cont_assign				dut.sv	15	12	15	26						000
+  #166	4	ref_obj	din		work@bus_master.din	dut.sv	15	23	15	26		0			work@bus_master.din	000
+  #167	5	logic_net	din		work@bus_master.din	dut.sv	14	52	14	55		0			work@bus_master.din	000
+  #168	4	hier_path	bus.data			dut.sv	15	12	15	20		0				000
+
+--- OURS (B) records 156..168 ('>' = the object)
+  #156	7	constant				dut.sv	14	49	14	50	0	64	UINT:0	9		001
+  #157	3	interface_inst	bus	work@bus_if	work@top.m0.bus	dut.sv	23	0	0	0					work@top.m0.bus	000
+  #158	4	param_assign				dut.sv	8	30	8	45						000
+  #159	5	constant				dut.sv	8	43	8	45	16	32	UINT:16	9		000
+  #160	6	ref_typespec			work@top.m0.bus		0	0	0	0		0			work@top.m0.bus	000
+  #161	7	int_typespec				dut.sv	8	20	8	45						000
+> #162	5	parameter	DATA_WIDTH		work@top.m0.bus.DATA_WIDTH	dut.sv	8	30	8	40		0	UINT:16		work@top.m0.bus.DATA_WIDTH	000
+  #163	6	ref_typespec			work@top.m0.bus.DATA_WIDTH		0	0	0	0		0			work@top.m0.bus.DATA_WIDTH	000
+  #164	7	int_typespec				dut.sv	8	20	8	45						000
+  #165	3	cont_assign				dut.sv	15	12	15	26						000
+  #166	4	ref_obj	din		work@bus_master.din	dut.sv	15	23	15	26		0			work@bus_master.din	000
+  #167	5	logic_net	din		work@bus_master.din	dut.sv	14	52	14	55		0			work@bus_master.din	000
+  #168	4	hier_path	bus.data			dut.sv	15	12	15	20		0				000
+
+facets of this row (2, first 25):
+  N0047 #162/162 parameter DATA_WIDTH G[work@bus_if.DATA_WIDTH] O[work@top.m0.bus.DATA_WIDTH]
+  N0048 #163/163 ref_typespec  G[work@bus_if.DATA_WIDTH] O[work@top.m0.bus.DATA_WIDTH]

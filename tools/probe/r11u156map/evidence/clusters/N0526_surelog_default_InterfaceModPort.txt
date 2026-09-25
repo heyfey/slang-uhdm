@@ -1,0 +1,64 @@
+cluster N0526 (map 5 id kept; OPEN): struct|ours-only:fewer-copies|logic_net|under:io_decl
+row: surelog/default/InterfaceModPort  strict=differ:endcol(17)  records golden=790 ours=817
+object: #-1 (golden) / #529 (ours)  type=logic_net name=clk 
+  golden: 
+  ours:   3 objs
+  walk parents: io_decl(clk) < modport(tb) < ref_obj < port(tif)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 523..535 ('>' = the object)
+  #523	7	ref_obj	clk		work@interface_modports.miff.clk	top.v	119	13	119	16		0			work@interface_modports.miff.clk	000
+  #524	7	ref_typespec			work@interface_modports.miff.clk		0	0	0	0		0			work@interface_modports.miff.clk	000
+  #525	8	logic_typespec				top.v	26	25	26	29						000
+  #526	4	ref_obj			work@interface_modports.U_test.tif	top.v	122	15	122	19		0			work@interface_modports.U_test.tif	000
+  #527	5	modport	tb			top.v	53	12	53	14						000
+  #528	6	io_decl	clk			top.v	53	22	53	25						000
+> #529	7	logic_net	clk		work@interface_modports.U_test.tif.tb.clk.clk	top.v	26	30	26	33		0			work@interface_modports.U_test.tif.tb.clk.clk	000
+  #530	8	ref_typespec			work@interface_modports.U_test.tif.tb.clk.clk		0	0	0	0		0			work@interface_modports.U_test.tif.tb.clk.clk	000
+  #531	9	logic_typespec				top.v	26	25	26	29						000
+  #532	6	io_decl	ready_sys			top.v	53	27	53	36						000
+  #533	7	logic_var	ready_sys		work@interface_modports.U_test.tif.ready_sys	top.v	30	16	30	25		0			work@interface_modports.U_test.tif.ready_sys	000
+  #534	8	ref_typespec			work@interface_modports.U_test.tif.ready_sys		0	0	0	0		0			work@interface_modports.U_test.tif.ready_sys	000
+  #535	9	logic_typespec				top.v	30	3	30	8						000
+
+--- the holder #528 on the other side: exact-record matches at [528]
+  #525	8	logic_typespec				top.v	26	25	26	29						000
+  #526	4	ref_obj			work@interface_modports.U_test.tif	top.v	122	15	122	19		0			work@interface_modports.U_test.tif	000
+  #527	5	modport	tb			top.v	53	12	53	14						000
+> #528	6	io_decl	clk			top.v	53	22	53	25						000
+  #529	6	io_decl	ready_sys			top.v	53	27	53	36						000
+  #530	6	io_decl	reset			top.v	54	23	54	28						000
+  #531	6	io_decl	we_sys			top.v	54	29	54	35						000
+  #532	6	io_decl	cmd_valid_sys			top.v	54	37	54	50						000
+  #533	6	io_decl	addr_sys			top.v	54	52	54	60						000
+  #534	6	io_decl	data_sys			top.v	55	19	55	27						000
+  #535	4	ref_typespec			work@interface_modports.U_test.tif		0	0	0	0		0			work@interface_modports.U_test.tif	000
+  #536	5	interface_typespec	tb			top.v	99	21	99	23						110
+  #537	2	interface_inst	miff	work@mem_if	work@interface_modports.miff	top.v	119	1	119	18					work@interface_modports.miff	000
+
+facets of this row (27, first 25):
+  N0526 #-1/529 logic_net clk G[] O[3 objs]
+  N0268 #-1/533 logic_var ready_sys G[] O[3 objs]
+  N0268 #-1/537 logic_var reset G[] O[3 objs]
+  N0268 #-1/541 logic_var we_sys G[] O[3 objs]
+  N0268 #-1/545 logic_var cmd_valid_sys G[] O[3 objs]
+  N0268 #-1/549 logic_var addr_sys G[] O[6 objs]
+  N0268 #-1/556 logic_var data_sys G[] O[6 objs]
+  N0040 #95/95 logic_typespec  G[27:3:27:8] O[27:3:27:21]
+  N0040 #98/98 logic_typespec  G[28:3:28:8] O[28:3:28:22]
+  N0040 #101/101 logic_typespec  G[29:3:29:8] O[29:3:29:29]
+  N0040 #104/104 logic_typespec  G[30:3:30:8] O[30:3:30:25]
+  N0040 #119/119 logic_typespec  G[33:3:33:8] O[33:3:33:22]
+  N0040 #122/122 logic_typespec  G[34:3:34:8] O[34:3:34:22]
+  N0418 #231/231 ref_obj tif G[ 0:0:0:0] O[top.v 99:24:99:27]
+  N0419 #231/231 ref_obj tif G[0:0:0:0] O[99:24:99:27]
+  N0040 #246/246 logic_typespec  G[27:3:27:8] O[27:3:27:21]
+  N0040 #249/249 logic_typespec  G[28:3:28:8] O[28:3:28:22]
+  N0040 #252/252 logic_typespec  G[29:3:29:8] O[29:3:29:29]
+  N0040 #255/255 logic_typespec  G[30:3:30:8] O[30:3:30:25]
+  N0040 #270/270 logic_typespec  G[33:3:33:8] O[33:3:33:22]
+  N0040 #273/273 logic_typespec  G[34:3:34:8] O[34:3:34:22]
+  N0001 #380/380 ref_obj mif G[71:8:71:11] O[71:12:71:20]
+  N0018 #381/381 ref_obj addr_mem G[work@memory_model.mem.addr_mem] O[]
+  N0418 #420/420 ref_obj tif G[ 0:0:0:0] O[top.v 99:24:99:27]
+  N0419 #420/420 ref_obj tif G[0:0:0:0] O[99:24:99:27]

@@ -1,0 +1,114 @@
+{
+ "N0427": [
+  "r11u147",
+  "pass-145 R9: the bare base index named by the path (Scr1SvTests req_status[req_aval_ptr].req_resp.req_aval_ptr; InterfArrayBind the same rule in a generate)"
+ ],
+ "N0129": [
+  "r11u147",
+  "pass-145 R10: N0129's remaining shapes (Earlgrey flash_ctrl, ibex_icache, YosysOldOpen BASE_ADDR; r11v145 V5 uop/x11 and V4 psb/x17)"
+ ],
+ "N0536": [
+  "r11u147",
+  "pass-145 R10: the child-view reference name of the imported arithmetic copy (case iaw/ae4)"
+ ],
+ "N0475": [
+  "r11u147",
+  "pass-145 R5: the imported package parameter read in a continuous assignment (case usp/u04)"
+ ],
+ "N1983": [
+  "r11u147",
+  "pass-145 R5 (cases usp/u04, u08: decompile)"
+ ],
+ "N1276": [
+  "r11u147",
+  "pass-145 R7: the function-body read of the imported pattern parameter (case dfi/i03)"
+ ],
+ "N0446": [
+  "r11u147",
+  "r11v145 V2: an operand part-select bound named by the select (case lpb/x15)"
+ ],
+ "N2268": [
+  "r11u147",
+  "r11v145 V4: a qualified bound constant endcol (case psb/x18)"
+ ],
+ "N0453": [
+  "r11u147",
+  "r11v145 V4: a generate-if process part_select name (case psb/x20)"
+ ],
+ "N0010": [
+  "r11u147",
+  "r11v145 V6 (iaw/x06 x08) + pass-144 S4 (HierPathStructTypespec constant span)"
+ ],
+ "N0740": [
+  "r11u147",
+  "pass-144 S3: packed_array_struct body localparam type has no typeParamDefaultTs (ParamEmit emitParameters defTypeSyn)"
+ ],
+ "N0130": [
+  "r11u147+r11u152",
+  "pass-144 S3 (packed_array_struct) + pass-146 R4 (grid tp/t5)"
+ ],
+ "N0133": [
+  "r11u147+r11u152",
+  "pass-145 R7 (case dfi/i01) + r11u153 N2 (e148/q05: the imported-parameter select keeps the call)"
+ ],
+ "N0284": [
+  "r11u147+r11u152",
+  "pass-145 R7 (case dfi/i01) + r11u153 N2 (e148/q05)"
+ ],
+ "N0139": [
+  "r11u152",
+  "pass-146 R1: member names in parameter typespec copies"
+ ],
+ "N0762": [
+  "r11u152",
+  "pass-146 R3: IfGenTypeBinding (defNetTypedefEndWrite134 over-fires; grid ig/i11)"
+ ],
+ "N0135": [
+  "r11u152",
+  "pass-146 R3: IfGenTypeBinding (grid ig/i11)"
+ ],
+ "N0084": [
+  "r11u152",
+  "pass-146 R4: the type-parameter default's member references (grid tp/t4 t7)"
+ ],
+ "N0108": [
+  "r11u152",
+  "pass-146 R4 (grid tp/t5_iface)"
+ ],
+ "N0075": [
+  "r11u152",
+  "pass-146 R5: tfArgTypedefLastWriter146 declined shapes (grid fa/f11; probe g114_f_twopkg, g27_a0_head: package-held class methods)"
+ ],
+ "N0266": [
+  "r11u152",
+  "pass-146 R5 (grid fa/f11)"
+ ],
+ "N0409": [
+  "r11u152",
+  "pass-146 R5 (probe g114_f_twopkg, g27_a0_head)"
+ ],
+ "N2320": [
+  "r11u152",
+  "v11u146 R2: escaped instance ref_module end (esc/x2)"
+ ],
+ "N0751": [
+  "r11u152",
+  "v11u146 R6: the interface type-parameter default typespec span (tn/k10)"
+ ],
+ "N0056": [
+  "r11u152",
+  "pass-145 R2 (sister): PreprocTest enum base bit_typespec spans the keyword (TypeEmit buildEnumTs)"
+ ],
+ "N0482": [
+  "r11u152",
+  "pass-145 R1 (sister): GenCase generate-case item names and spans (ModuleEmit gen_case)"
+ ],
+ "N0483": [
+  "r11u152",
+  "pass-145 R1 (sister): GenCase"
+ ],
+ "N0486": [
+  "r11u152",
+  "pass-145 R1 (sister): GenCase"
+ ]
+}

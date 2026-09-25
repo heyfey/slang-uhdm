@@ -1,0 +1,64 @@
+cluster N0690 (map 5 id kept; OPEN): fullname|ref_obj|tok:id->id@in-typespec|under:operation
+row: surelog/default/Rggen  strict=differ:fullname(7)  records golden=314498 ours=312506
+object: #27022 (golden) / #27048 (ours)  type=ref_obj name=WIDTH STABLE
+  golden: work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_address_matcher.WIDTH
+  ours:   work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.BEGIN_ADDRESS.WIDTH
+  walk parents: operation < operation < range < bit_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 27016..27028 ('>' = the object)
+  #27016	14	constant				rggen_address_decoder.sv	34	57	34	70	6'b000000	6	BIN:000000	3		000
+  #27017	15	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_address_matcher		0	0	0	0		0			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_address_matcher	000
+  #27018	16	bit_typespec				rggen_address_decoder.sv	17	15	17	34						000
+  #27019	17	range				rggen_address_decoder.sv	17	19	17	34						001
+  #27020	18	operation				rggen_address_decoder.sv	17	20	17	31		0				001
+  #27021	19	operation				rggen_address_decoder.sv	17	20	17	29		0				001
+> #27022	20	ref_obj	WIDTH		<in>WIDTH	rggen_address_decoder.sv	17	20	17	25		0			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_address_matcher.WIDTH	001
+  #27023	20	ref_obj	LSB		<in>LSB	rggen_address_decoder.sv	17	26	17	29		0			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_address_matcher.LSB	001
+  #27024	19	constant				rggen_address_decoder.sv	17	30	17	31	1	64	UINT:1	9		001
+  #27025	18	constant				rggen_address_decoder.sv	17	32	17	33	0	64	UINT:0	9		001
+  #27026	13	ref_obj	address_match		work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_address_matcher.address_match	rggen_address_decoder.sv	34	15	34	28		0			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_address_matcher.address_match	000
+  #27027	10	gen_scope_array	g_access_matcher		work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_access_matcher	rggen_address_decoder.sv	51	31	53	8					work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_access_matcher	000
+  #27028	11	gen_scope			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_access_matcher	rggen_address_decoder.sv	51	31	53	8					work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_access_matcher	000
+
+--- OURS (B) records 27042..27054 ('>' = the object)
+  #27042	14	constant				rggen_address_decoder.sv	34	57	34	70	6'b000000	6	BIN:000000	3		000
+  #27043	15	ref_typespec			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_address_matcher		0	0	0	0		0			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_address_matcher	000
+  #27044	16	bit_typespec				rggen_address_decoder.sv	17	15	17	34						000
+  #27045	17	range				rggen_address_decoder.sv	17	19	17	34						001
+  #27046	18	operation				rggen_address_decoder.sv	17	20	17	31		0				001
+  #27047	19	operation				rggen_address_decoder.sv	17	20	17	29		0				001
+> #27048	20	ref_obj	WIDTH		<in>WIDTH	rggen_address_decoder.sv	17	20	17	25		0			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.BEGIN_ADDRESS.WIDTH	001
+  #27049	20	ref_obj	LSB		<in>LSB	rggen_address_decoder.sv	17	26	17	29		0			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.BEGIN_ADDRESS.LSB	001
+  #27050	19	constant				rggen_address_decoder.sv	17	30	17	31	1	64	UINT:1	9		001
+  #27051	18	constant				rggen_address_decoder.sv	17	32	17	33	0	64	UINT:0	9		001
+  #27052	13	ref_obj	address_match		work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_address_matcher.address_match	rggen_address_decoder.sv	34	15	34	28		0			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_address_matcher.address_match	000
+  #27053	10	gen_scope_array	g_access_matcher		work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_access_matcher	rggen_address_decoder.sv	51	31	53	8					work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_access_matcher	000
+  #27054	11	gen_scope			work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_access_matcher	rggen_address_decoder.sv	51	31	53	8					work@rggen.u_block_0.g_register_0.u_register.u_register_common.g_decoder[0].u_decoder.g_access_matcher	000
+
+facets of this row (14812, first 25):
+  N1175 #466/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/476 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/481 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #501/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #661/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/671 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/676 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #696/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #2242/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/2252 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/2257 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #2277/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #15376/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/15386 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/15391 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #15411/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17669/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17679 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17684 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17704/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17850/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17860 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17865 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17885/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #18031/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]

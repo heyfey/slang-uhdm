@@ -1,0 +1,41 @@
+cluster N0286 (map 5 id kept; COVERED r11u147 (N0286)): struct|ours-only:fewer-copies|ref_obj|under:int_typespec
+row: uhdm2rtlil/testflags/comb_dyn_2d_packed_sel  strict=differ:depth(1)  records golden=668 ours=670
+object: #-1 (golden) / #653 (ours)  type=ref_obj name=SEL_W 
+  golden: 
+  ours:   1 objs
+  walk parents: int_typespec < ref_typespec < parameter(SEL_W) < ref_obj(SEL_W)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 647..659 ('>' = the object)
+  #647	5	ref_typespec			work@dut		0	0	0	0		0			work@dut	000
+  #648	6	int_typespec				dut.sv	26	14	26	17						000
+  #649	7	ref_obj	SEL_W		<in>SEL_W		0	0	0	0		0			work@dut.SEL_W.SEL_W	001
+  #650	8	parameter	SEL_W		work@dut.SEL_W	dut.sv	26	18	26	23		0			work@dut.SEL_W	001
+  #651	9	ref_typespec			work@dut.SEL_W		0	0	0	0		0			work@dut.SEL_W	001
+  #652	10	int_typespec				dut.sv	26	14	26	17						001
+> #653	11	ref_obj	SEL_W		<in>SEL_W		0	0	0	0		0			work@dut.SEL_W.SEL_W	001
+  #654	5	constant				dut.sv	32	43	32	44	1	64	UINT:1	9		000
+  #655	4	operation				dut.sv	32	48	32	57		0				000
+  #656	5	ref_typespec			work@dut		0	0	0	0		0			work@dut	000
+  #657	6	int_typespec				dut.sv	26	14	26	17						000
+  #658	7	ref_obj	SEL_W		<in>SEL_W		0	0	0	0		0			work@dut.SEL_W.SEL_W	001
+  #659	8	parameter	SEL_W		work@dut.SEL_W	dut.sv	26	18	26	23		0			work@dut.SEL_W	001
+
+--- the holder #652 on the other side: exact-record matches at [652, 660]
+  #649	7	ref_obj	SEL_W		<in>SEL_W		0	0	0	0		0			work@dut.SEL_W.SEL_W	001
+  #650	8	parameter	SEL_W		work@dut.SEL_W	dut.sv	26	18	26	23		0			work@dut.SEL_W	001
+  #651	9	ref_typespec			work@dut.SEL_W		0	0	0	0		0			work@dut.SEL_W	001
+> #652	10	int_typespec				dut.sv	26	14	26	17						001
+  #653	5	constant				dut.sv	32	43	32	44	1	64	UINT:1	9		000
+  #654	4	operation				dut.sv	32	48	32	57		0				000
+  #655	5	ref_typespec			work@dut		0	0	0	0		0			work@dut	000
+  #656	6	int_typespec				dut.sv	26	14	26	17						000
+  #657	7	ref_obj	SEL_W		<in>SEL_W		0	0	0	0		0			work@dut.SEL_W.SEL_W	001
+  #658	8	parameter	SEL_W		work@dut.SEL_W	dut.sv	26	18	26	23		0			work@dut.SEL_W	001
+  #659	9	ref_typespec			work@dut.SEL_W		0	0	0	0		0			work@dut.SEL_W	001
+  #660	10	int_typespec				dut.sv	26	14	26	17						001
+  #661	5	constant				dut.sv	32	55	32	56	2	64	UINT:2	9		000
+
+facets of this row (2, first 25):
+  N0286 #-1/653 ref_obj SEL_W G[] O[1 objs]
+  N0286 #-1/662 ref_obj SEL_W G[] O[1 objs]

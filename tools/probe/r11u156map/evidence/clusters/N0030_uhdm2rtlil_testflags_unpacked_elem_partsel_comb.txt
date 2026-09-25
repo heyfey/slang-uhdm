@@ -1,0 +1,43 @@
+cluster N0030 (map 5 id kept; OPEN (residue of pass 146 (r11u146): map 6 named it, still present)): fullname|ref_obj|tok:id.->|under:operation
+row: uhdm2rtlil/testflags/unpacked_elem_partsel_comb  strict=differ:fullname(4)  records golden=344 ours=344
+object: #280 (golden) / #280 (ours)  type=ref_obj name=off_i OUT
+  golden: work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.cl_rdata.off_i
+  ours:   work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.off_i
+  walk parents: operation < indexed_part_select(cl_rdata) < var_select(cl_rdata) < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 274..286 ('>' = the object)
+  #274	6	int_typespec					0	0	0	0						000
+  #275	4	cont_assign				dut.sv	20	12	20	56						000
+  #276	5	var_select	cl_rdata		work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata	dut.sv	20	24	20	56		0			work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata	000
+  #277	6	ref_obj	i		work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.i	dut.sv	20	33	20	34		0			work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.i	000
+  #278	6	indexed_part_select	cl_rdata	cl_rdata	work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.cl_rdata	dut.sv	20	36	20	55		0			work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.cl_rdata	000
+  #279	7	operation				dut.sv	20	36	20	49		0				000
+> #280	8	ref_obj	off_i		work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.cl_rdata.off_i	dut.sv	20	37	20	42		0			work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.cl_rdata.off_i	000
+  #281	8	constant				dut.sv	20	44	20	48	3'b0	3	BIN:0	3		000
+  #282	7	constant				dut.sv	20	53	20	55	8	32	UINT:8	9		000
+  #283	8	ref_typespec			work@unpacked_elem_partsel_comb		0	0	0	0		0			work@unpacked_elem_partsel_comb	000
+  #284	9	int_typespec				dut.sv	7	60	7	63						000
+  #285	5	bit_select	cl_sel		work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_sel	dut.sv	20	12	20	21		0			work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_sel	000
+  #286	6	ref_obj	i		work@unpacked_elem_partsel_comb.gen_cmpsel[0].i	dut.sv	20	19	20	20		0			work@unpacked_elem_partsel_comb.gen_cmpsel[0].i	000
+
+--- OURS (B) records 274..286 ('>' = the object)
+  #274	6	int_typespec					0	0	0	0						000
+  #275	4	cont_assign				dut.sv	20	12	20	56						000
+  #276	5	var_select	cl_rdata		work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata	dut.sv	20	24	20	56		0			work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata	000
+  #277	6	ref_obj	i		work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.i	dut.sv	20	33	20	34		0			work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.i	000
+  #278	6	indexed_part_select	cl_rdata	cl_rdata	work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.cl_rdata	dut.sv	20	36	20	55		0			work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.cl_rdata	000
+  #279	7	operation				dut.sv	20	36	20	49		0				000
+> #280	8	ref_obj	off_i		work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.off_i	dut.sv	20	37	20	42		0			work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.off_i	000
+  #281	8	constant				dut.sv	20	44	20	48	3'b0	3	BIN:0	3		000
+  #282	7	constant				dut.sv	20	53	20	55	8	32	UINT:8	9		000
+  #283	8	ref_typespec			work@unpacked_elem_partsel_comb		0	0	0	0		0			work@unpacked_elem_partsel_comb	000
+  #284	9	int_typespec				dut.sv	7	60	7	63						000
+  #285	5	bit_select	cl_sel		work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_sel	dut.sv	20	12	20	21		0			work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_sel	000
+  #286	6	ref_obj	i		work@unpacked_elem_partsel_comb.gen_cmpsel[0].i	dut.sv	20	19	20	20		0			work@unpacked_elem_partsel_comb.gen_cmpsel[0].i	000
+
+facets of this row (4, first 25):
+  N0030 #280/280 ref_obj off_i G[work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.cl_rdata.off_i] O[work@unpacked_elem_partsel_comb.gen_cmpsel[0].cl_rdata.off_i]
+  N0030 #297/297 ref_obj off_i G[work@unpacked_elem_partsel_comb.gen_cmpsel[1].cl_rdata.cl_rdata.off_i] O[work@unpacked_elem_partsel_comb.gen_cmpsel[1].cl_rdata.off_i]
+  N0030 #314/314 ref_obj off_i G[work@unpacked_elem_partsel_comb.gen_cmpsel[2].cl_rdata.cl_rdata.off_i] O[work@unpacked_elem_partsel_comb.gen_cmpsel[2].cl_rdata.off_i]
+  N0030 #331/331 ref_obj off_i G[work@unpacked_elem_partsel_comb.gen_cmpsel[3].cl_rdata.cl_rdata.off_i] O[work@unpacked_elem_partsel_comb.gen_cmpsel[3].cl_rdata.off_i]

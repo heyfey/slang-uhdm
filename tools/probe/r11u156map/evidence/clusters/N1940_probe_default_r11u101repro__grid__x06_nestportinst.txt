@@ -1,0 +1,40 @@
+cluster N1940 (map 5 id kept; OPEN): fullname|logic_net|tok:.id@id->|under:ref_obj
+row: probe/default/r11u101repro__grid__x06_nestportinst  strict=fullname  records golden=80 ours=80
+object: #75 (golden) / #75 (ours)  type=logic_net name=r OUT
+  golden: work@sub.work@sub::innermod.r
+  ours:   work@sub::innermod.r
+  walk parents: ref_obj(r) < cont_assign < module_inst(u_i) < module_inst(u_s)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 69..79 ('>' = the object)
+  #69	7	range				dut.sv	3	33	3	39						001
+  #70	8	constant				dut.sv	3	34	3	36	31	64	UINT:31	9		001
+  #71	8	constant				dut.sv	3	37	3	38	0	64	UINT:0	9		001
+  #72	4	cont_assign				dut.sv	4	12	4	21						000
+  #73	5	constant				dut.sv	4	16	4	21	32'd2	32	DEC:2	1		000
+  #74	5	ref_obj	r		work@dut.u_s.u_i.r	dut.sv	4	12	4	13		0			work@dut.u_s.u_i.r	000
+> #75	6	logic_net	r		work@sub.work@sub::innermod.r	dut.sv	3	40	3	41		0			work@sub.work@sub::innermod.r	000
+  #76	2	cont_assign				dut.sv	11	10	11	19						000
+  #77	3	constant				dut.sv	11	14	11	19	32'd0	32	DEC:0	1		000
+  #78	3	ref_obj	o		work@dut.o	dut.sv	11	10	11	11		0			work@dut.o	000
+  #79	4	logic_net	o		work@dut.o	dut.sv	9	33	9	34		0			work@dut.o	000
+
+--- OURS (B) records 69..79 ('>' = the object)
+  #69	7	range				dut.sv	3	33	3	39						001
+  #70	8	constant				dut.sv	3	34	3	36	31	64	UINT:31	9		001
+  #71	8	constant				dut.sv	3	37	3	38	0	64	UINT:0	9		001
+  #72	4	cont_assign				dut.sv	4	12	4	21						000
+  #73	5	constant				dut.sv	4	16	4	21	32'd2	32	DEC:2	1		000
+  #74	5	ref_obj	r		work@dut.u_s.u_i.r	dut.sv	4	12	4	13		0			work@dut.u_s.u_i.r	000
+> #75	6	logic_net	r		work@sub::innermod.r	dut.sv	3	40	3	41		0			work@sub::innermod.r	000
+  #76	2	cont_assign				dut.sv	11	10	11	19						000
+  #77	3	constant				dut.sv	11	14	11	19	32'd0	32	DEC:0	1		000
+  #78	3	ref_obj	o		work@dut.o	dut.sv	11	10	11	11		0			work@dut.o	000
+  #79	4	logic_net	o		work@dut.o	dut.sv	9	33	9	34		0			work@dut.o	000
+
+facets of this row (5, first 25):
+  N1897 #25/25 logic_net r G[work@sub.work@sub::innermod.r] O[work@sub::innermod.r]
+  N1900 #27/27 ref_obj r G[work@sub.work@sub::innermod.r.r] O[work@sub::innermod.r.r]
+  N1901 #28/28 ref_typespec  G[work@sub.work@sub::innermod.r] O[work@sub::innermod.r]
+  N1902 #35/35 ref_obj r G[work@sub.work@sub::innermod.r] O[work@sub::innermod::r]
+  N1940 #75/75 logic_net r G[work@sub.work@sub::innermod.r] O[work@sub::innermod.r]

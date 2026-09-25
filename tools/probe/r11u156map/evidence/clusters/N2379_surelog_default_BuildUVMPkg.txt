@@ -1,0 +1,64 @@
+cluster N2379 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id::id::->|under:bit_select
+row: surelog/default/BuildUVMPkg  strict=differ:line(165)  records golden=201533 ours=201486
+object: #51989 (golden) / #51984 (ours)  type=ref_obj name=i OUT
+  golden: uvm_pkg::uvm_reg_map::m_set_reg_offset::top_map.m_regs_by_offset::m_regs_by_offset::info.addr[i]::i
+  ours:   uvm_pkg::uvm_reg_map::m_set_reg_offset::info.addr[i]::i
+  walk parents: bit_select(addr) < hier_path(info.addr[i]) < bit_select(m_regs_by_offset) < hier_path(top_map.m_regs_by_offset)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 51983..51995 ('>' = the object)
+  #51983	15	hier_path	top_map.m_regs_by_offset			uvm_pkg.sv	75445	22	75445	60		0				000
+  #51984	16	ref_obj	top_map			uvm_pkg.sv	75445	22	75445	29		0				000
+  #51985	16	bit_select	m_regs_by_offset		uvm_pkg::uvm_reg_map::m_set_reg_offset::top_map.m_regs_by_offset::m_regs_by_offset	uvm_pkg.sv	75445	47	75445	59		0			uvm_pkg::uvm_reg_map::m_set_reg_offset::top_map.m_regs_by_offset::m_regs_by_offset	000
+  #51986	17	hier_path	info.addr[i]			uvm_pkg.sv	75445	47	75445	59		0				000
+  #51987	18	ref_obj	info			uvm_pkg.sv	75445	47	75445	51		0				000
+  #51988	18	bit_select	addr		uvm_pkg::uvm_reg_map::m_set_reg_offset::top_map.m_regs_by_offset::m_regs_by_offset::info.addr[i]::addr	uvm_pkg.sv	75445	57	75445	58		0			uvm_pkg::uvm_reg_map::m_set_reg_offset::top_map.m_regs_by_offset::m_regs_by_offset::info.addr[i]::addr	000
+> #51989	19	ref_obj	i		uvm_pkg::uvm_reg_map::m_set_reg_offset::top_map.m_regs_by_offset::m_regs_by_offset::info.addr[i]::i	uvm_pkg.sv	75445	57	75445	58		0			uvm_pkg::uvm_reg_map::m_set_reg_offset::top_map.m_regs_by_offset::m_regs_by_offset::info.addr[i]::i	000
+  #51990	15	ref_obj	rg		uvm_pkg::uvm_reg_map::m_set_reg_offset::rg	uvm_pkg.sv	75445	64	75445	66		0			uvm_pkg::uvm_reg_map::m_set_reg_offset::rg	000
+  #51991	14	begin			uvm_pkg::uvm_reg_map::m_set_reg_offset	uvm_pkg.sv	75445	68	75450	21					uvm_pkg::uvm_reg_map::m_set_reg_offset	000
+  #51992	15	assignment				uvm_pkg.sv	75446	21	75447	64						000
+  #51993	16	hier_path	top_map.m_regs_by_offset_wo			uvm_pkg.sv	75447	23	75447	64		0				000
+  #51994	17	ref_obj	top_map			uvm_pkg.sv	75447	23	75447	30		0				000
+  #51995	17	bit_select	m_regs_by_offset_wo		uvm_pkg::uvm_reg_map::m_set_reg_offset::top_map.m_regs_by_offset_wo::m_regs_by_offset_wo	uvm_pkg.sv	75447	51	75447	63		0			uvm_pkg::uvm_reg_map::m_set_reg_offset::top_map.m_regs_by_offset_wo::m_regs_by_offset_wo	000
+
+--- OURS (B) records 51978..51990 ('>' = the object)
+  #51978	15	hier_path	top_map.m_regs_by_offset			uvm_pkg.sv	75445	22	75445	60		0				000
+  #51979	16	ref_obj	top_map			uvm_pkg.sv	75445	22	75445	29		0				000
+  #51980	16	bit_select	m_regs_by_offset		uvm_pkg::uvm_reg_map::m_set_reg_offset::top_map.m_regs_by_offset::m_regs_by_offset	uvm_pkg.sv	75445	47	75445	59		0			uvm_pkg::uvm_reg_map::m_set_reg_offset::top_map.m_regs_by_offset::m_regs_by_offset	000
+  #51981	17	hier_path	info.addr[i]			uvm_pkg.sv	75445	47	75445	59		0				000
+  #51982	18	ref_obj	info			uvm_pkg.sv	75445	47	75445	51		0				000
+  #51983	18	bit_select	addr		uvm_pkg::uvm_reg_map::m_set_reg_offset::top_map.m_regs_by_offset::m_regs_by_offset::info.addr[i]::addr	uvm_pkg.sv	75445	57	75445	58		0			uvm_pkg::uvm_reg_map::m_set_reg_offset::top_map.m_regs_by_offset::m_regs_by_offset::info.addr[i]::addr	000
+> #51984	19	ref_obj	i		uvm_pkg::uvm_reg_map::m_set_reg_offset::info.addr[i]::i	uvm_pkg.sv	75445	57	75445	58		0			uvm_pkg::uvm_reg_map::m_set_reg_offset::info.addr[i]::i	000
+  #51985	15	ref_obj	rg		uvm_pkg::uvm_reg_map::m_set_reg_offset::rg	uvm_pkg.sv	75445	64	75445	66		0			uvm_pkg::uvm_reg_map::m_set_reg_offset::rg	000
+  #51986	14	begin			uvm_pkg::uvm_reg_map::m_set_reg_offset	uvm_pkg.sv	75445	68	75450	21					uvm_pkg::uvm_reg_map::m_set_reg_offset	000
+  #51987	15	assignment				uvm_pkg.sv	75446	21	75447	64						000
+  #51988	16	hier_path	top_map.m_regs_by_offset_wo			uvm_pkg.sv	75447	23	75447	64		0				000
+  #51989	17	ref_obj	top_map			uvm_pkg.sv	75447	23	75447	30		0				000
+  #51990	17	bit_select	m_regs_by_offset_wo		uvm_pkg::uvm_reg_map::m_set_reg_offset::top_map.m_regs_by_offset_wo::m_regs_by_offset_wo	uvm_pkg.sv	75447	51	75447	63		0			uvm_pkg::uvm_reg_map::m_set_reg_offset::top_map.m_regs_by_offset_wo::m_regs_by_offset_wo	000
+
+facets of this row (9283, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

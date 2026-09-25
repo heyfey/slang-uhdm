@@ -1,0 +1,51 @@
+cluster N2384 (map 5 id kept; COVERED r11u147 (N2384, r11u151 law_after_r11u145.patch)): struct|ours-only:elsewhere|constant|under:typespec_member
+row: uhdm2rtlil/testflags/def_ctx_struct_param  strict=differ:depth(1)  records golden=724 ours=724
+object: #-1 (golden) / #42 (ours)  type=constant name= 
+  golden: 
+  ours:   1 objs
+  walk parents: typespec_member(XLEN) < struct_typespec(dcs_cfg_pkg::cfg_t) < ref_typespec < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 36..48 ('>' = the object)
+  #36	6	typespec_member	XLEN			dut.sv	12	18	12	22						001
+  #37	7	ref_typespec			<in>dcs_cfg_pkg::cfg_t.XLEN		0	0	0	0		0			dcs_cfg_pkg::dcs_cfg_pkg::cfg_t::XLEN	001
+  #38	8	logic_typespec				dut.sv	12	5	12	17						001
+  #39	9	range				dut.sv	12	11	12	17						001
+  #40	10	constant				dut.sv	12	12	12	14	31	64	UINT:31	9		001
+  #41	10	constant				dut.sv	12	15	12	16	0	64	UINT:0	9		001
+> #42	7	constant				dut.sv	28	14	28	16	32	64	UINT:32	9		001
+  #43	7	constant				dut.sv	28	14	28	16	32	64	UINT:32	9		001
+  #44	6	typespec_member	RVC			dut.sv	13	18	13	21						001
+  #45	7	ref_typespec			<in>dcs_cfg_pkg::cfg_t.RVC		0	0	0	0		0			dcs_cfg_pkg::dcs_cfg_pkg::cfg_t::RVC	001
+  #46	8	logic_typespec				dut.sv	13	5	13	10						001
+  #47	7	constant				dut.sv	29	14	29	18	1'b1	1	BIN:1	3		001
+  #48	7	constant				dut.sv	29	14	29	18	1'b1	1	BIN:1	3		001
+
+--- the holder #36 on the other side: exact-record matches at [36, 68, 83, 160, 183]
+  #33	3	operation				dut.sv	25	31	25	40		0				000
+  #34	4	ref_typespec			dcs_cfg_pkg		0	0	0	0		0			dcs_cfg_pkg	000
+  #35	5	struct_typespec	dcs_cfg_pkg::cfg_t			dut.sv	11	11	15	4						110
+> #36	6	typespec_member	XLEN			dut.sv	12	18	12	22						001
+  #37	7	ref_typespec			<in>dcs_cfg_pkg::cfg_t.XLEN		0	0	0	0		0			dcs_cfg_pkg::dcs_cfg_pkg::cfg_t::XLEN	001
+  #38	8	logic_typespec				dut.sv	12	5	12	17						001
+  #39	9	range				dut.sv	12	11	12	17						001
+  #40	10	constant				dut.sv	12	12	12	14	31	64	UINT:31	9		001
+  #41	10	constant				dut.sv	12	15	12	16	0	64	UINT:0	9		001
+  #42	6	typespec_member	RVC			dut.sv	13	18	13	21						001
+  #43	7	ref_typespec			<in>dcs_cfg_pkg::cfg_t.RVC		0	0	0	0		0			dcs_cfg_pkg::dcs_cfg_pkg::cfg_t::RVC	001
+  #44	8	logic_typespec				dut.sv	13	5	13	10						001
+  #45	6	typespec_member	RVH			dut.sv	14	18	14	21						001
+
+facets of this row (12, first 25):
+  N2384 #-1/42 constant  G[] O[1 objs]
+  N2384 #-1/43 constant  G[] O[1 objs]
+  N2384 #-1/47 constant  G[] O[1 objs]
+  N2384 #-1/48 constant  G[] O[1 objs]
+  N2384 #-1/52 constant  G[] O[1 objs]
+  N2384 #-1/53 constant  G[] O[1 objs]
+  N2383 #166/-1 constant  G[1 objs] O[]
+  N2383 #167/-1 constant  G[1 objs] O[]
+  N2383 #171/-1 constant  G[1 objs] O[]
+  N2383 #172/-1 constant  G[1 objs] O[]
+  N2383 #176/-1 constant  G[1 objs] O[]
+  N2383 #177/-1 constant  G[1 objs] O[]

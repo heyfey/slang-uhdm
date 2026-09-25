@@ -1,0 +1,64 @@
+cluster N0699 (map 5 id kept; OPEN): fullname|ref_obj|tok:id.id.id->id|under:hier_path
+row: surelog/default/Rggen  strict=differ:fullname(7)  records golden=314498 ours=312506
+object: #25778 (golden) / #25791 (ours)  type=ref_obj name=psel OUT
+  golden: work@rggen.u_block_0.u_adapter.psel
+  ours:   work@rggen_apb_adapter.psel
+  walk parents: hier_path(apb_if.psel) < operation < operation < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 25772..25784 ('>' = the object)
+  #25772	7	ref_obj	read_data			rggen_adapter_common.sv	163	18	163	27		0				000
+  #25773	4	cont_assign				rggen_apb_adapter.sv	22	11	22	74						000
+  #25774	5	operation				rggen_apb_adapter.sv	22	31	22	74		0				000
+  #25775	6	operation				rggen_apb_adapter.sv	22	32	22	63		0				000
+  #25776	7	hier_path	apb_if.psel			rggen_apb_adapter.sv	22	32	22	43		0				000
+  #25777	8	ref_obj	apb_if			rggen_apb_adapter.sv	22	32	22	38		0				000
+> #25778	8	ref_obj	psel		work@rggen.u_block_0.u_adapter.psel	rggen_apb_adapter.sv	22	39	22	43		0			work@rggen.u_block_0.u_adapter.psel	000
+  #25779	7	operation				rggen_apb_adapter.sv	22	48	22	62		0				000
+  #25780	8	hier_path	apb_if.pready			rggen_apb_adapter.sv	22	49	22	62		0				000
+  #25781	9	ref_obj	apb_if			rggen_apb_adapter.sv	22	49	22	55		0				000
+  #25782	9	ref_obj	pready		work@rggen.u_block_0.u_adapter.pready	rggen_apb_adapter.sv	22	56	22	62		0			work@rggen.u_block_0.u_adapter.pready	000
+  #25783	6	constant				rggen_apb_adapter.sv	22	67	22	69	'1	-1	BIN:1	3		000
+  #25784	6	constant				rggen_apb_adapter.sv	22	72	22	74	'0	-1	BIN:0	3		000
+
+--- OURS (B) records 25785..25797 ('>' = the object)
+  #25785	7	ref_obj	read_data			rggen_adapter_common.sv	163	18	163	27		0				000
+  #25786	4	cont_assign				rggen_apb_adapter.sv	22	11	22	74						000
+  #25787	5	operation				rggen_apb_adapter.sv	22	31	22	74		0				000
+  #25788	6	operation				rggen_apb_adapter.sv	22	32	22	63		0				000
+  #25789	7	hier_path	apb_if.psel			rggen_apb_adapter.sv	22	32	22	43		0				000
+  #25790	8	ref_obj	apb_if			rggen_apb_adapter.sv	22	32	22	38		0				000
+> #25791	8	ref_obj	psel		work@rggen_apb_adapter.psel	rggen_apb_adapter.sv	22	39	22	43		0			work@rggen_apb_adapter.psel	000
+  #25792	7	operation				rggen_apb_adapter.sv	22	48	22	62		0				000
+  #25793	8	hier_path	apb_if.pready			rggen_apb_adapter.sv	22	49	22	62		0				000
+  #25794	9	ref_obj	apb_if			rggen_apb_adapter.sv	22	49	22	55		0				000
+  #25795	9	ref_obj	pready		work@rggen_apb_adapter.pready	rggen_apb_adapter.sv	22	56	22	62		0			work@rggen_apb_adapter.pready	000
+  #25796	6	constant				rggen_apb_adapter.sv	22	67	22	69	'1	-1	BIN:1	3		000
+  #25797	6	constant				rggen_apb_adapter.sv	22	72	22	74	'0	-1	BIN:0	3		000
+
+facets of this row (14812, first 25):
+  N1175 #466/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/476 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/481 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #501/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #661/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/671 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/676 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #696/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #2242/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/2252 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/2257 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #2277/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #15376/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/15386 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/15391 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #15411/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17669/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17679 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17684 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17704/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17850/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17860 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17865 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17885/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #18031/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]

@@ -1,0 +1,64 @@
+cluster N0546 (map 5 id kept; OPEN): span|enum_const|ours-zero|under:ref_obj
+row: uhdm2rtlil/testflags/ibex_multdiv_fast  strict=differ:fullname(102)  records golden=11748 ours=11748
+object: #11233 (golden) / #11233 (ours)  type=enum_const name=ALBL 
+  golden: 269:7:269:11
+  ours:   0:0:0:0
+  walk parents: ref_obj(ALBL) < case_item < case_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 11227..11239 ('>' = the object)
+  #11227	7	constant				ibex_multdiv_fast.sv	291	22	291	26	1'b0	1	BIN:0	3		000
+  #11228	7	ref_obj	mult_hold		work@ibex_multdiv_fast.gen_mult_fast.mult_hold	ibex_multdiv_fast.sv	291	7	291	16		0			work@ibex_multdiv_fast.gen_mult_fast.mult_hold	000
+  #11229	6	case_stmt				ibex_multdiv_fast.sv	293	7	364	14						000
+  #11230	7	ref_obj	mult_state_q		work@ibex_multdiv_fast.gen_mult_fast.mult_state_q	ibex_multdiv_fast.sv	293	20	293	32		0			work@ibex_multdiv_fast.gen_mult_fast.mult_state_q	000
+  #11231	7	case_item				ibex_multdiv_fast.sv	295	9	304	12						000
+  #11232	8	ref_obj	ALBL		work@ibex_multdiv_fast.gen_mult_fast.ALBL	ibex_multdiv_fast.sv	295	9	295	13		0			work@ibex_multdiv_fast.gen_mult_fast.ALBL	000
+> #11233	9	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11						010
+  #11234	8	begin			work@ibex_multdiv_fast.gen_mult_fast	ibex_multdiv_fast.sv	295	15	304	12					work@ibex_multdiv_fast.gen_mult_fast	000
+  #11235	9	assignment				ibex_multdiv_fast.sv	297	11	297	35						000
+  #11236	10	part_select	op_a_i	op_a_i	work@ibex_multdiv_fast.gen_mult_fast.op_a_i	ibex_multdiv_fast.sv	297	23	297	35		0			work@ibex_multdiv_fast.gen_mult_fast.op_a_i	000
+  #11237	11	constant				ibex_multdiv_fast.sv	297	30	297	32	15	64	UINT:15	9		000
+  #11238	11	constant				ibex_multdiv_fast.sv	297	33	297	34	0	64	UINT:0	9		000
+  #11239	10	ref_obj	mult_op_a		work@ibex_multdiv_fast.gen_mult_fast.mult_op_a	ibex_multdiv_fast.sv	297	11	297	20		0			work@ibex_multdiv_fast.gen_mult_fast.mult_op_a	000
+
+--- OURS (B) records 11227..11239 ('>' = the object)
+  #11227	7	constant				ibex_multdiv_fast.sv	291	22	291	26	1'b0	1	BIN:0	3		000
+  #11228	7	ref_obj	mult_hold		work@ibex_multdiv_fast.gen_mult_fast.mult_hold	ibex_multdiv_fast.sv	291	7	291	16		0			work@ibex_multdiv_fast.gen_mult_fast.mult_hold	000
+  #11229	6	case_stmt				ibex_multdiv_fast.sv	293	7	364	14						000
+  #11230	7	ref_obj	mult_state_q		work@ibex_multdiv_fast.gen_mult_fast.mult_state_q	ibex_multdiv_fast.sv	293	20	293	32		0			work@ibex_multdiv_fast.gen_mult_fast.mult_state_q	000
+  #11231	7	case_item				ibex_multdiv_fast.sv	295	9	304	12						000
+  #11232	8	ref_obj	ALBL		work@ibex_multdiv_fast.gen_mult_fast.ALBL	ibex_multdiv_fast.sv	295	9	295	13		0			work@ibex_multdiv_fast.gen_mult_fast.ALBL	000
+> #11233	9	enum_const	ALBL				0	0	0	0						010
+  #11234	8	begin			work@ibex_multdiv_fast.gen_mult_fast	ibex_multdiv_fast.sv	295	15	304	12					work@ibex_multdiv_fast.gen_mult_fast	000
+  #11235	9	assignment				ibex_multdiv_fast.sv	297	11	297	35						000
+  #11236	10	part_select	op_a_i	op_a_i	work@ibex_multdiv_fast.op_a_i	ibex_multdiv_fast.sv	297	23	297	35		0			work@ibex_multdiv_fast.op_a_i	000
+  #11237	11	constant				ibex_multdiv_fast.sv	297	30	297	32	15	64	UINT:15	9		000
+  #11238	11	constant				ibex_multdiv_fast.sv	297	33	297	34	0	64	UINT:0	9		000
+  #11239	10	ref_obj	mult_op_a		work@ibex_multdiv_fast.gen_mult_fast.mult_op_a	ibex_multdiv_fast.sv	297	11	297	20		0			work@ibex_multdiv_fast.gen_mult_fast.mult_op_a	000
+
+facets of this row (113, first 25):
+  N0008 #2446/2446 ref_typespec  G[] O[ibex_pkg::PmpAddrRst]
+  N0005 #5663/5663 constant  G[18:39:18:49] O[18:39:18:58]
+  N0027 #6561/6561 sys_func_call $error G[29:3:33:23] O[32:3:33:18]
+  N0026 #6562/6562 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #6563/6563 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #6564/6564 constant  G[29:60:29:153] O[32:92:33:62]
+  N0015 #6565/6565 constant  G[29:155:29:158] O[32:92:32:95]
+  N0017 #6566/6566 constant  G[33:10:33:22] O[33:10:23:4]
+  N0027 #6572/6572 sys_func_call $error G[29:3:33:24] O[32:3:33:18]
+  N0026 #6573/6573 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #6574/6574 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #6575/6575 constant  G[29:60:29:153] O[32:92:33:62]
+  N0015 #6576/6576 constant  G[29:155:29:158] O[32:92:32:95]
+  N0017 #6577/6577 constant  G[33:10:33:23] O[33:10:23:5]
+  N0027 #6583/6583 sys_func_call $error G[29:3:33:27] O[32:3:33:18]
+  N0026 #6584/6584 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #6585/6585 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #6586/6586 constant  G[29:60:29:153] O[32:92:33:62]
+  N0015 #6587/6587 constant  G[29:155:29:158] O[32:92:32:95]
+  N0017 #6588/6588 constant  G[33:10:33:26] O[33:10:23:8]
+  N0146 #6592/6592 assert_stmt IbexMultDivStateValid G[78:3:82:8] O[78:3:81:8]
+  N0147 #6593/6593 begin  G[80:10:82:8] O[79:10:81:8]
+  N0027 #6594/6594 sys_func_call $error G[29:3:33:34] O[32:3:33:18]
+  N0026 #6595/6595 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #6596/6596 sys_func_call $time G[29:53:29:58] O[32:53:32:58]

@@ -1,0 +1,64 @@
+cluster N0175 (map 5 id kept; OPEN): fullname|ref_obj|tok:id[id].id::->|under:bit_select
+row: surelog/default/BuildUVMPkg  strict=differ:line(165)  records golden=201533 ours=201486
+object: #18697 (golden) / #18710 (ours)  type=ref_obj name=i OUT
+  golden: uvm_pkg::uvm_root::m_do_factory_settings::args[i].substr::i
+  ours:   uvm_pkg::uvm_root::m_do_factory_settings::i
+  walk parents: bit_select(args) < hier_path(args[i].len) < operation < method_func_call(substr)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 18691..18703 ('>' = the object)
+  #18691	9	ref_obj	i		uvm_pkg::uvm_root::m_do_factory_settings::i	uvm_pkg.sv	39206	32	39206	33		0			uvm_pkg::uvm_root::m_do_factory_settings::i	000
+  #18692	8	method_func_call	substr			uvm_pkg.sv	39206	35	39206	41		0				000
+  #18693	9	constant				uvm_pkg.sv	39206	42	39206	44	23	64	UINT:23	9		000
+  #18694	9	operation				uvm_pkg.sv	39206	46	39206	61		0				000
+  #18695	10	hier_path	args[i].len			uvm_pkg.sv	39206	46	39206	59		0				000
+  #18696	11	bit_select	args		args[i]	uvm_pkg.sv	39206	46	39206	50		0			args[i]	000
+> #18697	12	ref_obj	i		uvm_pkg::uvm_root::m_do_factory_settings::args[i].substr::i	uvm_pkg.sv	39206	51	39206	52		0			uvm_pkg::uvm_root::m_do_factory_settings::args[i].substr::i	000
+  #18698	11	method_func_call	len			uvm_pkg.sv	39206	54	39206	57		0				000
+  #18699	10	constant				uvm_pkg.sv	39206	60	39206	61	1	64	UINT:1	9		000
+  #18700	4	method_func_call	get_arg_matches			uvm_pkg.sv	39208	12	39208	27		0				000
+  #18701	5	constant				uvm_pkg.sv	39208	28	39208	82	"/^\\\\+(UVM_SET_TYPE_OVERRIDE|uvm_set_type_override)=/"	416	STRING:/^\\\\+(UVM_SET_TYPE_OVERRIDE|uvm_set_type_override)=/	6		000
+  #18702	5	ref_obj	args		uvm_pkg::uvm_root::m_do_factory_settings::args	uvm_pkg.sv	39208	83	39208	87		0			uvm_pkg::uvm_root::m_do_factory_settings::args	000
+  #18703	5	ref_obj	clp		uvm_pkg::uvm_root::m_do_factory_settings::clp	uvm_pkg.sv	39208	8	39208	11		0			uvm_pkg::uvm_root::m_do_factory_settings::clp	000
+
+--- OURS (B) records 18704..18716 ('>' = the object)
+  #18704	9	ref_obj	i		uvm_pkg::uvm_root::m_do_factory_settings::i	uvm_pkg.sv	39206	32	39206	33		0			uvm_pkg::uvm_root::m_do_factory_settings::i	000
+  #18705	8	method_func_call	substr			uvm_pkg.sv	39206	35	39206	41		0				000
+  #18706	9	constant				uvm_pkg.sv	39206	42	39206	44	23	64	UINT:23	9		000
+  #18707	9	operation				uvm_pkg.sv	39206	46	39206	61		0				000
+  #18708	10	hier_path	args[i].len			uvm_pkg.sv	39206	46	39206	59		0				000
+  #18709	11	bit_select	args		args[i]	uvm_pkg.sv	39206	46	39206	50		0			args[i]	000
+> #18710	12	ref_obj	i		uvm_pkg::uvm_root::m_do_factory_settings::i	uvm_pkg.sv	39206	51	39206	52		0			uvm_pkg::uvm_root::m_do_factory_settings::i	000
+  #18711	11	method_func_call	len			uvm_pkg.sv	39206	54	39206	57		0				000
+  #18712	10	constant				uvm_pkg.sv	39206	60	39206	61	1	64	UINT:1	9		000
+  #18713	4	method_func_call	get_arg_matches			uvm_pkg.sv	39208	12	39208	27		0				000
+  #18714	5	constant				uvm_pkg.sv	39208	28	39208	82	"/^\\\\+(UVM_SET_TYPE_OVERRIDE|uvm_set_type_override)=/"	416	STRING:/^\\\\+(UVM_SET_TYPE_OVERRIDE|uvm_set_type_override)=/	6		000
+  #18715	5	ref_obj	args		uvm_pkg::uvm_root::m_do_factory_settings::args	uvm_pkg.sv	39208	83	39208	87		0			uvm_pkg::uvm_root::m_do_factory_settings::args	000
+  #18716	5	ref_obj	clp		uvm_pkg::uvm_root::m_do_factory_settings::clp	uvm_pkg.sv	39208	8	39208	11		0			uvm_pkg::uvm_root::m_do_factory_settings::clp	000
+
+facets of this row (9283, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

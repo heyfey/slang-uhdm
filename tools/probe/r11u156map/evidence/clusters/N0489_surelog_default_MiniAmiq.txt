@@ -1,0 +1,64 @@
+cluster N0489 (map 5 id kept; OPEN): struct|golden-only:fewer-copies|class_var|under:begin
+row: surelog/default/MiniAmiq  strict=differ:line(190)  records golden=435559 ours=413982
+object: #64705 (golden) / #-1 (ours)  type=class_var name=seed_map 
+  golden: 3 objs
+  ours:   
+  walk parents: begin < function(uvm_create_random_seed) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 64699..64711 ('>' = the object)
+  #64699	5	string_typespec				uvm_misc.svh	402	48	402	54						000
+  #64700	3	io_decl	inst_id			uvm_misc.svh	402	71	402	78						000
+  #64701	4	constant				uvm_misc.svh	402	79	402	81	""	0	STRING:	6		000
+  #64702	4	ref_typespec			svaunit_pkg::uvm_create_random_seed::inst_id		0	0	0	0		0			svaunit_pkg::uvm_create_random_seed::inst_id	000
+  #64703	5	string_typespec				uvm_misc.svh	402	64	402	70						000
+  #64704	3	begin			svaunit_pkg::uvm_create_random_seed	uvm_misc.svh	405	3	406	28					svaunit_pkg::uvm_create_random_seed	000
+> #64705	4	class_var	seed_map		svaunit_pkg::uvm_create_random_seed::seed_map	uvm_misc.svh	403	16	403	24		0			svaunit_pkg::uvm_create_random_seed::seed_map	000
+  #64706	5	ref_typespec			svaunit_pkg::uvm_create_random_seed::seed_map		0	0	0	0		0			svaunit_pkg::uvm_create_random_seed::seed_map	000
+  #64707	6	class_typespec				uvm_misc.svh	403	3	403	15						000
+  #64708	4	if_stmt				uvm_misc.svh	405	3	406	28						000
+  #64709	5	operation				uvm_misc.svh	405	6	405	19		0				000
+  #64710	6	ref_obj	inst_id		svaunit_pkg::uvm_create_random_seed::inst_id	uvm_misc.svh	405	6	405	13		0			svaunit_pkg::uvm_create_random_seed::inst_id	000
+  #64711	6	constant				uvm_misc.svh	405	17	405	19	""	0	STRING:	6		000
+
+--- the holder #64704 on the other side: exact-record matches at [64675, 287018, 348024]
+  #64672	4	constant				uvm_misc.svh	402	79	402	81	""	0	STRING:	6		000
+  #64673	4	ref_typespec			svaunit_pkg::uvm_create_random_seed::inst_id		0	0	0	0		0			svaunit_pkg::uvm_create_random_seed::inst_id	000
+  #64674	5	string_typespec				uvm_misc.svh	402	64	402	70						000
+> #64675	3	begin			svaunit_pkg::uvm_create_random_seed	uvm_misc.svh	405	3	406	28					svaunit_pkg::uvm_create_random_seed	000
+  #64676	4	if_stmt				uvm_misc.svh	405	3	406	28						000
+  #64677	5	operation				uvm_misc.svh	405	6	405	19		0				000
+  #64678	6	ref_obj	inst_id		svaunit_pkg::uvm_create_random_seed::inst_id	uvm_misc.svh	405	6	405	13		0			svaunit_pkg::uvm_create_random_seed::inst_id	000
+  #64679	6	constant				uvm_misc.svh	405	17	405	19	""	0	STRING:	6		000
+  #64680	5	assignment				uvm_misc.svh	406	5	406	27						000
+  #64681	6	constant				uvm_misc.svh	406	15	406	27	"__global__"	80	STRING:__global__	6		000
+  #64682	6	ref_obj	inst_id		svaunit_pkg::uvm_create_random_seed::inst_id	uvm_misc.svh	406	5	406	12		0			svaunit_pkg::uvm_create_random_seed::inst_id	000
+  #64683	4	if_stmt				uvm_misc.svh	408	3	409	49						000
+  #64684	5	operation				uvm_misc.svh	408	6	408	51		0				000
+
+facets of this row (55220, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

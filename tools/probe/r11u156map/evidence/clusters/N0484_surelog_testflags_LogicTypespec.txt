@@ -1,0 +1,43 @@
+cluster N0484 (map 5 id kept; OPEN): name|logic_typespec|ours-empty|under:ref_typespec
+row: surelog/testflags/LogicTypespec  strict=differ:endline(3)  records golden=32 ours=29
+object: #14 (golden) / #14 (ours)  type=logic_typespec name=my_package::typedef_logic_typespec 
+  golden: my_package::typedef_logic_typespec|
+  ours:   |
+  walk parents: ref_typespec < logic_net(my_instance) < module_inst < design(work@logic_typespec)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 8..20 ('>' = the object)
+  #8	3	range				dut.sv	2	15	2	20						001
+  #9	4	constant				dut.sv	2	16	2	17	1	64	UINT:1	9		001
+  #10	4	constant				dut.sv	2	18	2	19	0	64	UINT:0	9		001
+  #11	1	module_inst		work@logic_typespec	work@logic_typespec	dut.sv	5	1	9	27					work@logic_typespec	000
+  #12	2	logic_net	my_instance		work@logic_typespec.my_instance	dut.sv	7	50	7	61		0			work@logic_typespec.my_instance	000
+  #13	3	ref_typespec			work@logic_typespec.my_instance		0	0	0	0		0			work@logic_typespec.my_instance	000
+> #14	4	logic_typespec	my_package::typedef_logic_typespec			dut.sv	2	9	7	44						110
+  #15	5	range				dut.sv	2	15	2	20						001
+  #16	6	constant				dut.sv	2	16	2	17	1	64	UINT:1	9		001
+  #17	6	constant				dut.sv	2	18	2	19	0	64	UINT:0	9		001
+  #18	1	module_inst	work@logic_typespec	work@logic_typespec		dut.sv	5	1	9	27						000
+  #19	2	packed_array_var	my_instance		work@logic_typespec.my_instance	dut.sv	7	50	7	61		0			work@logic_typespec.my_instance	000
+  #20	3	ref_typespec			work@logic_typespec.my_instance		0	0	0	0		0			work@logic_typespec.my_instance	000
+
+--- OURS (B) records 8..20 ('>' = the object)
+  #8	3	range				dut.sv	2	15	2	20						001
+  #9	4	constant				dut.sv	2	16	2	17	1	64	UINT:1	9		001
+  #10	4	constant				dut.sv	2	18	2	19	0	64	UINT:0	9		001
+  #11	1	module_inst		work@logic_typespec	work@logic_typespec	dut.sv	5	1	9	27					work@logic_typespec	000
+  #12	2	logic_net	my_instance		work@logic_typespec.my_instance	dut.sv	7	50	7	61		0			work@logic_typespec.my_instance	000
+  #13	3	ref_typespec			work@logic_typespec.my_instance		0	0	0	0		0			work@logic_typespec.my_instance	000
+> #14	4	logic_typespec				dut.sv	7	1	7	49						000
+  #15	1	module_inst	work@logic_typespec	work@logic_typespec		dut.sv	5	1	9	27						000
+  #16	2	packed_array_var	my_instance		work@logic_typespec.my_instance	dut.sv	7	50	7	61		0			work@logic_typespec.my_instance	000
+  #17	3	ref_typespec			work@logic_typespec.my_instance		0	0	0	0		0			work@logic_typespec.my_instance	000
+  #18	4	logic_typespec	typedef_logic_typespec			dut.sv	2	9	2	20						110
+  #19	5	range				dut.sv	2	15	2	20						001
+  #20	6	constant				dut.sv	2	16	2	17	1	64	UINT:1	9		001
+
+facets of this row (4, first 25):
+  N0083 #15/-1 range  G[3 objs] O[]
+  N0422 #7/7 logic_typespec my_package::typedef_logic_typespec G[2:9:7:44] O[2:9:2:20]
+  N0484 #14/14 logic_typespec my_package::typedef_logic_typespec G[my_package::typedef_logic_typespec|] O[|]
+  N1149 #14/14 logic_typespec my_package::typedef_logic_typespec G[2:9:7:44] O[7:1:7:49]

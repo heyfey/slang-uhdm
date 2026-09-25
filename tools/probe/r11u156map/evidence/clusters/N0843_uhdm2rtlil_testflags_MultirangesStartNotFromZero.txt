@@ -1,0 +1,43 @@
+cluster N0843 (map 5 id kept; OPEN): span|enum_const|golden-zero|under:ref_obj
+row: uhdm2rtlil/testflags/MultirangesStartNotFromZero  strict=differ:file(2)  records golden=664 ours=664
+object: #592 (golden) / #592 (ours)  type=enum_const name=e_e 
+  golden: 0:0:0:0
+  ours:   10:43:10:46
+  walk parents: ref_obj(e_e) < part_select(io_fwd_link_li) < var_select(io_fwd_link_li) < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 586..598 ('>' = the object)
+  #586	7	ref_obj	w_e		work@top.gen_cmd_link[0].io_fwd_mesh_li.io_fwd_mesh_li.w_e	dut.sv	30	65	30	68		0			work@top.gen_cmd_link[0].io_fwd_mesh_li.io_fwd_mesh_li.w_e	000
+  #587	8	enum_const	w_e				0	0	0	0						010
+  #588	5	var_select	io_fwd_link_li		work@top.gen_cmd_link[0].io_fwd_link_li	dut.sv	30	14	30	40		0			work@top.gen_cmd_link[0].io_fwd_link_li	000
+  #589	6	ref_obj	i		work@top.gen_cmd_link[0].io_fwd_link_li.i	dut.sv	30	29	30	30		0			work@top.gen_cmd_link[0].io_fwd_link_li.i	000
+  #590	6	part_select	io_fwd_link_li	io_fwd_link_li	work@top.gen_cmd_link[0].io_fwd_link_li.io_fwd_link_li	dut.sv	30	32	30	39		0			work@top.gen_cmd_link[0].io_fwd_link_li.io_fwd_link_li	000
+  #591	7	ref_obj	e_e		work@top.gen_cmd_link[0].io_fwd_link_li.io_fwd_link_li.e_e	dut.sv	30	32	30	35		0			work@top.gen_cmd_link[0].io_fwd_link_li.io_fwd_link_li.e_e	000
+> #592	8	enum_const	e_e				0	0	0	0						010
+  #593	7	ref_obj	w_e		work@top.gen_cmd_link[0].io_fwd_link_li.io_fwd_link_li.w_e	dut.sv	30	36	30	39		0			work@top.gen_cmd_link[0].io_fwd_link_li.io_fwd_link_li.w_e	000
+  #594	8	enum_const	w_e				0	0	0	0						010
+  #595	2	cont_assign				dut.sv	13	10	13	47						000
+  #596	3	bit_select	mem_ver_link_lo		work@top.mem_ver_link_lo	dut.sv	13	43	13	46		0			work@top.mem_ver_link_lo	000
+  #597	4	ref_obj	n_e		work@top.n_e	dut.sv	13	43	13	46		0			work@top.n_e	000
+  #598	5	enum_const	n_e			dut.sv	10	48	10	51						010
+
+--- OURS (B) records 586..598 ('>' = the object)
+  #586	7	ref_obj	w_e		work@top.gen_cmd_link[0].io_fwd_mesh_li.io_fwd_mesh_li.w_e	dut.sv	30	65	30	68		0			work@top.gen_cmd_link[0].io_fwd_mesh_li.io_fwd_mesh_li.w_e	000
+  #587	8	enum_const	w_e				0	0	0	0						010
+  #588	5	var_select	io_fwd_link_li		work@top.gen_cmd_link[0].io_fwd_link_li	dut.sv	30	14	30	40		0			work@top.gen_cmd_link[0].io_fwd_link_li	000
+  #589	6	ref_obj	i		work@top.gen_cmd_link[0].io_fwd_link_li.i	dut.sv	30	29	30	30		0			work@top.gen_cmd_link[0].io_fwd_link_li.i	000
+  #590	6	part_select	io_fwd_link_li	io_fwd_link_li	work@top.gen_cmd_link[0].io_fwd_link_li.io_fwd_link_li	dut.sv	30	32	30	39		0			work@top.gen_cmd_link[0].io_fwd_link_li.io_fwd_link_li	000
+  #591	7	ref_obj	e_e		work@top.gen_cmd_link[0].io_fwd_link_li.io_fwd_link_li.e_e	dut.sv	30	32	30	35		0			work@top.gen_cmd_link[0].io_fwd_link_li.io_fwd_link_li.e_e	000
+> #592	8	enum_const	e_e			dut.sv	10	43	10	46						010
+  #593	7	ref_obj	w_e		work@top.gen_cmd_link[0].io_fwd_link_li.io_fwd_link_li.w_e	dut.sv	30	36	30	39		0			work@top.gen_cmd_link[0].io_fwd_link_li.io_fwd_link_li.w_e	000
+  #594	8	enum_const	w_e			dut.sv	10	38	10	41						010
+  #595	2	cont_assign				dut.sv	13	10	13	47						000
+  #596	3	bit_select	mem_ver_link_lo		work@top.mem_ver_link_lo	dut.sv	13	43	13	46		0			work@top.mem_ver_link_lo	000
+  #597	4	ref_obj	n_e		work@top.n_e	dut.sv	13	43	13	46		0			work@top.n_e	000
+  #598	5	enum_const	n_e			dut.sv	10	48	10	51						010
+
+facets of this row (4, first 25):
+  N0831 #592/592 enum_const e_e G[ 0:0:0:0] O[dut.sv 10:43:10:46]
+  N0843 #592/592 enum_const e_e G[0:0:0:0] O[10:43:10:46]
+  N0831 #594/594 enum_const w_e G[ 0:0:0:0] O[dut.sv 10:38:10:41]
+  N0843 #594/594 enum_const w_e G[0:0:0:0] O[10:38:10:41]

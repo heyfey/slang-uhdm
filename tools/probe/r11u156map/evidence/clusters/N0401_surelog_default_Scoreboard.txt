@@ -1,0 +1,64 @@
+cluster N0401 (map 5 id kept; OPEN): span|begin|endline|under:task
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #195365 (golden) / #194728 (ours)  type=begin name= 
+  golden: 113:4:117:7
+  ours:   113:4:116:7
+  walk parents: task(body) < class_defn(uvm_reg_mem_hdl_paths_seq) < package(uvm_pkg) < design(work@my_scoreboard_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 195359..195371 ('>' = the object)
+  #195359	5	constant				uvm_reg_mem_hdl_paths_seq.svh	59	30	59	57	"uvm_reg_mem_hdl_paths_seq"	200	STRING:uvm_reg_mem_hdl_paths_seq	6		000
+  #195360	5	ref_typespec			uvm_pkg::uvm_reg_mem_hdl_paths_seq::new::name		0	0	0	0		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::new::name	000
+  #195361	6	string_typespec				uvm_reg_mem_hdl_paths_seq.svh	59	18	59	24						000
+  #195362	4	method_func_call	super.new				0	0	0	0		0				000
+  #195363	5	ref_obj	name		uvm_pkg::uvm_reg_mem_hdl_paths_seq::new::name	uvm_reg_mem_hdl_paths_seq.svh	60	19	60	23		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::new::name	000
+  #195364	3	task	body		uvm_pkg::uvm_reg_mem_hdl_paths_seq::body	uvm_reg_mem_hdl_paths_seq.svh	63	5	83	18					uvm_pkg::uvm_reg_mem_hdl_paths_seq::body	000
+> #195365	4	begin			uvm_pkg::uvm_reg_mem_hdl_paths_seq::body	uvm_message_defines.svh	113	4	117	7					uvm_pkg::uvm_reg_mem_hdl_paths_seq::body	000
+  #195366	5	if_stmt				uvm_reg_mem_hdl_paths_seq.svh	65	9	68	12						000
+  #195367	6	operation				uvm_reg_mem_hdl_paths_seq.svh	65	13	65	26		0				000
+  #195368	7	ref_obj	model		uvm_pkg::uvm_reg_mem_hdl_paths_seq::body::model	uvm_reg_mem_hdl_paths_seq.svh	65	13	65	18		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::body::model	000
+  #195369	7	constant				uvm_reg_mem_hdl_paths_seq.svh	65	22	65	26	0	64	UINT:0	11		000
+  #195370	6	begin			uvm_pkg::uvm_reg_mem_hdl_paths_seq::body	uvm_reg_mem_hdl_paths_seq.svh	65	28	68	12					uvm_pkg::uvm_reg_mem_hdl_paths_seq::body	000
+  #195371	7	func_call	uvm_report_error			uvm_reg_mem_hdl_paths_seq.svh	66	13	66	91		0				000
+
+--- OURS (B) records 194722..194734 ('>' = the object)
+  #194722	5	constant				uvm_reg_mem_hdl_paths_seq.svh	59	30	59	57	"uvm_reg_mem_hdl_paths_seq"	200	STRING:uvm_reg_mem_hdl_paths_seq	6		000
+  #194723	5	ref_typespec			uvm_pkg::uvm_reg_mem_hdl_paths_seq::new::name		0	0	0	0		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::new::name	000
+  #194724	6	string_typespec				uvm_reg_mem_hdl_paths_seq.svh	59	18	59	24						000
+  #194725	4	method_func_call	super.new				0	0	0	0		0				000
+  #194726	5	ref_obj	name		uvm_pkg::uvm_reg_mem_hdl_paths_seq::new::name	uvm_reg_mem_hdl_paths_seq.svh	60	19	60	23		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::new::name	000
+  #194727	3	task	body		uvm_pkg::uvm_reg_mem_hdl_paths_seq::body	uvm_reg_mem_hdl_paths_seq.svh	63	5	83	18					uvm_pkg::uvm_reg_mem_hdl_paths_seq::body	000
+> #194728	4	begin			uvm_pkg::uvm_reg_mem_hdl_paths_seq::body	uvm_message_defines.svh	113	4	116	7					uvm_pkg::uvm_reg_mem_hdl_paths_seq::body	000
+  #194729	5	if_stmt				uvm_reg_mem_hdl_paths_seq.svh	65	9	68	12						000
+  #194730	6	operation				uvm_reg_mem_hdl_paths_seq.svh	65	13	65	26		0				000
+  #194731	7	ref_obj	model		uvm_pkg::uvm_reg_mem_hdl_paths_seq::body::model	uvm_reg_mem_hdl_paths_seq.svh	65	13	65	18		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::body::model	000
+  #194732	7	constant				uvm_reg_mem_hdl_paths_seq.svh	65	22	65	26	0	64	UINT:0	11		000
+  #194733	6	begin			uvm_pkg::uvm_reg_mem_hdl_paths_seq::body	uvm_reg_mem_hdl_paths_seq.svh	65	28	68	12					uvm_pkg::uvm_reg_mem_hdl_paths_seq::body	000
+  #194734	7	func_call	uvm_report_error			uvm_reg_mem_hdl_paths_seq.svh	66	13	66	91		0				000
+
+facets of this row (29390, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

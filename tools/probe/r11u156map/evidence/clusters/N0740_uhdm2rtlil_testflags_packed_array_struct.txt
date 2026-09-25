@@ -1,0 +1,55 @@
+cluster N0740 (map 5 id kept; COVERED r11u147 (residue: pass-144 S3: packed_array_struct body localparam type has no typeParamDefaultTs (ParamEmit emitParameters defTypeSyn))): struct|golden-only:absent|struct_typespec|under:ref_typespec
+row: uhdm2rtlil/testflags/packed_array_struct  strict=differ:endline(2)  records golden=250 ours=178
+object: #27 (golden) / #-1 (ours)  type=struct_typespec name= 
+  golden: 3 objs
+  ours:   
+  walk parents: ref_typespec < logic_net(scalar_sig) < module_inst < design(work@packed_array_struct)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 21..33 ('>' = the object)
+  #21	9	constant				dut.sv	13	16	13	17	7	64	UINT:7	9		001
+  #22	9	constant				dut.sv	13	18	13	19	0	64	UINT:0	9		001
+  #23	2	logic_net	clk		work@packed_array_struct.clk	dut.sv	7	18	7	21		0			work@packed_array_struct.clk	000
+  #24	2	logic_net	sum		work@packed_array_struct.sum	dut.sv	8	25	8	28		0			work@packed_array_struct.sum	000
+  #25	2	logic_net	scalar_sig		work@packed_array_struct.scalar_sig	dut.sv	16	17	16	27		0			work@packed_array_struct.scalar_sig	000
+  #26	3	ref_typespec			work@packed_array_struct.scalar_sig		0	0	0	0		0			work@packed_array_struct.scalar_sig	000
+> #27	4	struct_typespec				dut.sv	10	28	17	15						000
+  #28	5	typespec_member	a			dut.sv	11	22	11	23						001
+  #29	6	ref_typespec			<in>a		0	0	0	0		0			a	001
+  #30	7	logic_typespec				dut.sv	11	9	11	21						001
+  #31	8	range				dut.sv	11	15	11	21						001
+  #32	9	constant				dut.sv	11	16	11	18	31	64	UINT:31	9		001
+  #33	9	constant				dut.sv	11	19	11	20	0	64	UINT:0	9		001
+
+--- the holder #26 on the other side: exact-record matches at [26, 95]
+  #23	2	logic_net	clk		work@packed_array_struct.clk	dut.sv	7	18	7	21		0			work@packed_array_struct.clk	000
+  #24	2	logic_net	sum		work@packed_array_struct.sum	dut.sv	8	25	8	28		0			work@packed_array_struct.sum	000
+  #25	2	logic_net	scalar_sig		work@packed_array_struct.scalar_sig	dut.sv	16	17	16	27		0			work@packed_array_struct.scalar_sig	000
+> #26	3	ref_typespec			work@packed_array_struct.scalar_sig		0	0	0	0		0			work@packed_array_struct.scalar_sig	000
+  #27	4	logic_typespec				dut.sv	16	5	16	9						000
+  #28	2	logic_net	arr		work@packed_array_struct.arr	dut.sv	17	17	17	20		0			work@packed_array_struct.arr	000
+  #29	3	ref_typespec			work@packed_array_struct.arr		0	0	0	0		0			work@packed_array_struct.arr	000
+  #30	4	logic_typespec				dut.sv	17	5	17	15						000
+  #31	2	port	clk			dut.sv	7	18	7	21						000
+  #32	3	ref_obj	clk		work@packed_array_struct.clk.clk	dut.sv	7	18	7	21		0			work@packed_array_struct.clk.clk	000
+  #33	3	ref_typespec			work@packed_array_struct.clk		0	0	0	0		0			work@packed_array_struct.clk	000
+  #34	4	logic_typespec				dut.sv	7	12	7	17						000
+  #35	2	port	sum			dut.sv	8	25	8	28						000
+
+facets of this row (16, first 25):
+  N0130 #30/27 logic_typespec  G[7 ref_typespec < typespec_member(a)] O[4 ref_typespec < logic_net(scalar_sig)]
+  N0740 #27/-1 struct_typespec  G[3 objs] O[]
+  N0083 #31/-1 range  G[3 objs] O[]
+  N0130 #51/30 logic_typespec  G[7 ref_typespec < typespec_member(a)] O[4 ref_typespec < logic_net(arr)]
+  N0740 #48/-1 struct_typespec  G[3 objs] O[]
+  N0083 #52/-1 range  G[3 objs] O[]
+  N0130 #195/156 logic_typespec  G[9 ref_typespec < typespec_member(a)] O[6 ref_typespec < logic_net(scalar_sig)]
+  N0740 #192/-1 struct_typespec  G[3 objs] O[]
+  N0083 #196/-1 range  G[3 objs] O[]
+  N0130 #219/162 logic_typespec  G[9 ref_typespec < typespec_member(a)] O[6 ref_typespec < logic_net(arr)]
+  N0740 #216/-1 struct_typespec  G[3 objs] O[]
+  N0083 #220/-1 range  G[3 objs] O[]
+  N0009 #4/4 struct_typespec  G[10:28:17:15] O[10:28:10:34]
+  N0009 #102/66 struct_typespec  G[10:28:17:15] O[10:28:10:34]
+  N0009 #132/96 struct_typespec  G[10:28:17:15] O[10:28:10:34]
+  N0009 #157/121 struct_typespec  G[10:28:17:15] O[10:28:10:34]

@@ -1,0 +1,38 @@
+cluster N0494 (map 5 id kept; COVERED r11u152 (N0494)): fullname|ref_typespec|golden-empty|under:packed_array_typespec
+row: surelog/testflags/UnsupportedTypespecRange  strict=differ:file(2)  records golden=26 ours=26
+object: #21 (golden) / #21 (ours)  type=ref_typespec name= TAIL
+  golden: 
+  ours:   top_flag_t.atype_t
+  walk parents: packed_array_typespec < ref_typespec < typespec_member(atype_t) < union_typespec(top_flag_t)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 15..25 ('>' = the object)
+  #15	5	range				dut.sv	10	36	10	41						001
+  #16	6	constant				dut.sv	10	37	10	38	3	64	UINT:3	9		001
+  #17	6	constant				dut.sv	10	39	10	40	0	64	UINT:0	9		001
+  #18	5	range				dut.sv	10	41	10	46						001
+  #19	6	constant				dut.sv	10	42	10	43	7	64	UINT:7	9		001
+  #20	6	constant				dut.sv	10	44	10	45	0	64	UINT:0	9		001
+> #21	5	ref_typespec					0	0	0	0		0				001
+  #22	6	struct_typespec	foo_flags_pkg::common_flags_t			dut.sv	2	11	4	4						001
+  #23	7	typespec_member	a			dut.sv	3	11	3	12						001
+  #24	8	ref_typespec			<in>foo_flags_pkg::common_flags_t.a		0	0	0	0		0			foo_flags_pkg::foo_flags_pkg::common_flags_t::a	001
+  #25	9	logic_typespec				dut.sv	3	5	3	10						001
+
+--- OURS (B) records 15..25 ('>' = the object)
+  #15	5	range				dut.sv	10	36	10	41						001
+  #16	6	constant				dut.sv	10	37	10	38	3	64	UINT:3	9		001
+  #17	6	constant				dut.sv	10	39	10	40	0	64	UINT:0	9		001
+  #18	5	range				dut.sv	10	41	10	46						001
+  #19	6	constant				dut.sv	10	42	10	43	7	64	UINT:7	9		001
+  #20	6	constant				dut.sv	10	44	10	45	0	64	UINT:0	9		001
+> #21	5	ref_typespec			<in>top_flag_t.atype_t		0	0	0	0		0			top_flag_t.atype_t	001
+  #22	6	struct_typespec	foo_flags_pkg::common_flags_t			dut.sv	2	11	4	4						001
+  #23	7	typespec_member	a			dut.sv	3	11	3	12						001
+  #24	8	ref_typespec			<in>foo_flags_pkg::common_flags_t.a		0	0	0	0		0			foo_flags_pkg::foo_flags_pkg::common_flags_t::a	001
+  #25	9	logic_typespec				dut.sv	3	5	3	10						001
+
+facets of this row (3, first 25):
+  N0433 #14/14 packed_array_typespec  G[ 0:0:0:0] O[dut.sv 10:5:10:46]
+  N0436 #14/14 packed_array_typespec  G[0:0:0:0] O[10:5:10:46]
+  N0494 #21/21 ref_typespec  G[] O[top_flag_t.atype_t]

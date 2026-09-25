@@ -1,0 +1,64 @@
+cluster N0686 (map 5 id kept; OPEN): span|int_typespec|line+endline+endcol|under:ref_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:line(165)  records golden=201533 ours=201486
+object: #98712 (golden) / #98662 (ours)  type=int_typespec name= 
+  golden: 46495:33:46495:34
+  ours:   46457:33:46457:36
+  walk parents: ref_typespec < type_parameter(T) < class_defn(uvm_get_peek_imp) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 98706..98718 ('>' = the object)
+  #98706	2	class_defn	uvm_get_peek_imp		uvm_pkg::uvm_get_peek_imp	uvm_pkg.sv	46457	1	46504	9					uvm_pkg::uvm_get_peek_imp	000
+  #98707	3	int_var	m_imp		uvm_pkg::uvm_get_peek_imp::m_imp	uvm_pkg.sv	46460	13	46460	18		0			uvm_pkg::uvm_get_peek_imp::m_imp	000
+  #98708	4	ref_typespec			uvm_pkg::uvm_get_peek_imp::m_imp		0	0	0	0		0			uvm_pkg::uvm_get_peek_imp::m_imp	000
+  #98709	5	int_typespec				uvm_pkg.sv	46461	30	46461	33						000
+  #98710	3	type_parameter	T		uvm_pkg::uvm_get_peek_imp::T	uvm_pkg.sv	46457	31	46457	32					uvm_pkg::uvm_get_peek_imp::T	010
+  #98711	4	ref_typespec			<in>T		0	0	0	0		0			uvm_pkg::uvm_get_peek_imp::T	001
+> #98712	5	int_typespec				uvm_pkg.sv	46495	33	46495	34						001
+  #98713	3	type_parameter	IMP		uvm_pkg::uvm_get_peek_imp::IMP	uvm_pkg.sv	46457	43	46457	46					uvm_pkg::uvm_get_peek_imp::IMP	010
+  #98714	4	ref_typespec			<in>IMP		0	0	0	0		0			uvm_pkg::uvm_get_peek_imp::IMP	001
+  #98715	5	int_typespec				uvm_pkg.sv	46461	30	46461	33						001
+  #98716	3	extends				uvm_pkg.sv	46458	11	46458	24						000
+  #98717	4	ref_typespec			uvm_pkg::uvm_get_peek_imp		0	0	0	0		0			uvm_pkg::uvm_get_peek_imp	000
+  #98718	5	class_typespec	uvm_port_base			uvm_pkg.sv	46458	11	46458	24						110
+
+--- OURS (B) records 98656..98668 ('>' = the object)
+  #98656	2	class_defn	uvm_get_peek_imp		uvm_pkg::uvm_get_peek_imp	uvm_pkg.sv	46457	1	46504	9					uvm_pkg::uvm_get_peek_imp	000
+  #98657	3	int_var	m_imp		uvm_pkg::uvm_get_peek_imp::m_imp	uvm_pkg.sv	46460	13	46460	18		0			uvm_pkg::uvm_get_peek_imp::m_imp	000
+  #98658	4	ref_typespec			uvm_pkg::uvm_get_peek_imp::m_imp		0	0	0	0		0			uvm_pkg::uvm_get_peek_imp::m_imp	000
+  #98659	5	int_typespec				uvm_pkg.sv	46460	9	46460	12						000
+  #98660	3	type_parameter	T		uvm_pkg::uvm_get_peek_imp::T	uvm_pkg.sv	46457	31	46457	32					uvm_pkg::uvm_get_peek_imp::T	010
+  #98661	4	ref_typespec			<in>T		0	0	0	0		0			uvm_pkg::uvm_get_peek_imp::T	001
+> #98662	5	int_typespec				uvm_pkg.sv	46457	33	46457	36						001
+  #98663	3	type_parameter	IMP		uvm_pkg::uvm_get_peek_imp::IMP	uvm_pkg.sv	46457	43	46457	46					uvm_pkg::uvm_get_peek_imp::IMP	010
+  #98664	4	ref_typespec			<in>IMP		0	0	0	0		0			uvm_pkg::uvm_get_peek_imp::IMP	001
+  #98665	5	int_typespec				uvm_pkg.sv	46457	47	46457	50						001
+  #98666	3	extends				uvm_pkg.sv	46458	11	46458	24						000
+  #98667	4	ref_typespec			uvm_pkg::uvm_get_peek_imp		0	0	0	0		0			uvm_pkg::uvm_get_peek_imp	000
+  #98668	5	class_typespec	uvm_port_base			uvm_pkg.sv	46458	11	46458	24						110
+
+facets of this row (9283, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

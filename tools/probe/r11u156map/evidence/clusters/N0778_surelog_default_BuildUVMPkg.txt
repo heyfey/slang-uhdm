@@ -1,0 +1,64 @@
+cluster N0778 (map 5 id kept; OPEN): fullname|ref_typespec|tok:id::->|under:enum_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:line(165)  records golden=201533 ours=201486
+object: #25472 (golden) / #25467 (ours)  type=ref_typespec name= STABLE
+  golden: uvm_pkg::uvm_pkg::UVM_SEQ_ARB_TYPE
+  ours:   uvm_pkg::UVM_SEQ_ARB_TYPE
+  walk parents: enum_typespec(uvm_pkg::UVM_SEQ_ARB_TYPE) < ref_typespec < io_decl(val) < function(uvm_sequencer_base::set_arbitration)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 25466..25478 ('>' = the object)
+  #25466	4	return_stmt				uvm_pkg.sv	53452	3	53452	9						000
+  #25467	5	constant				uvm_pkg.sv	53452	10	53452	11	0	64	UINT:0	9		000
+  #25468	2	function	uvm_sequencer_base::set_arbitration		uvm_pkg::uvm_sequencer_base::set_arbitration	uvm_pkg.sv	53459	1	53461	12					uvm_pkg::uvm_sequencer_base::set_arbitration	000
+  #25469	3	io_decl	val			uvm_pkg.sv	53459	68	53459	71						000
+  #25470	4	ref_typespec			uvm_pkg::uvm_sequencer_base::set_arbitration::val		0	0	0	0		0			uvm_pkg::uvm_sequencer_base::set_arbitration::val	000
+  #25471	5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_pkg.sv	52451	40	52451	56						110
+> #25472	6	ref_typespec			<in>uvm_pkg::UVM_SEQ_ARB_TYPE		0	0	0	0		0			uvm_pkg::uvm_pkg::UVM_SEQ_ARB_TYPE	001
+  #25473	7	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode			uvm_pkg.sv	8160	1	8168	26						001
+  #25474	8	enum_const	UVM_SEQ_ARB_FIFO			uvm_pkg.sv	8162	3	8162	19						001
+  #25475	8	enum_const	UVM_SEQ_ARB_WEIGHTED			uvm_pkg.sv	8163	3	8163	23						001
+  #25476	8	enum_const	UVM_SEQ_ARB_RANDOM			uvm_pkg.sv	8164	3	8164	21						001
+  #25477	8	enum_const	UVM_SEQ_ARB_STRICT_FIFO			uvm_pkg.sv	8165	3	8165	26						001
+  #25478	8	enum_const	UVM_SEQ_ARB_STRICT_RANDOM			uvm_pkg.sv	8166	3	8166	28						001
+
+--- OURS (B) records 25461..25473 ('>' = the object)
+  #25461	4	return_stmt				uvm_pkg.sv	53452	3	53452	9						000
+  #25462	5	constant				uvm_pkg.sv	53452	10	53452	11	0	64	UINT:0	9		000
+  #25463	2	function	uvm_sequencer_base::set_arbitration		uvm_pkg::uvm_sequencer_base::set_arbitration	uvm_pkg.sv	53459	1	53461	12					uvm_pkg::uvm_sequencer_base::set_arbitration	000
+  #25464	3	io_decl	val			uvm_pkg.sv	53459	68	53459	71						000
+  #25465	4	ref_typespec			uvm_pkg::uvm_sequencer_base::set_arbitration::val		0	0	0	0		0			uvm_pkg::uvm_sequencer_base::set_arbitration::val	000
+  #25466	5	enum_typespec	uvm_pkg::UVM_SEQ_ARB_TYPE			uvm_pkg.sv	8160	1	8168	26						110
+> #25467	6	ref_typespec			<in>uvm_pkg::UVM_SEQ_ARB_TYPE		0	0	0	0		0			uvm_pkg::UVM_SEQ_ARB_TYPE	001
+  #25468	7	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode			uvm_pkg.sv	8160	1	8168	26						001
+  #25469	8	enum_const	UVM_SEQ_ARB_FIFO			uvm_pkg.sv	8162	3	8162	19						001
+  #25470	8	enum_const	UVM_SEQ_ARB_WEIGHTED			uvm_pkg.sv	8163	3	8163	23						001
+  #25471	8	enum_const	UVM_SEQ_ARB_RANDOM			uvm_pkg.sv	8164	3	8164	21						001
+  #25472	8	enum_const	UVM_SEQ_ARB_STRICT_FIFO			uvm_pkg.sv	8165	3	8165	26						001
+  #25473	8	enum_const	UVM_SEQ_ARB_STRICT_RANDOM			uvm_pkg.sv	8166	3	8166	28						001
+
+facets of this row (9283, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

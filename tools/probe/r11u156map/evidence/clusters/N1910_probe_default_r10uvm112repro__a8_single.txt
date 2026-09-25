@@ -1,0 +1,41 @@
+cluster N1910 (map 5 id kept; OPEN): fullname|ref_typespec|tok:->id::|under:type_parameter
+row: probe/default/r10uvm112repro__a8_single  strict=fullname  records golden=41 ours=41
+object: #5 (golden) / #5 (ours)  type=ref_typespec name= STABLE
+  golden: pk8use::pk8use::sid8::Q
+  ours:   pk8use::solo8::pk8use::sid8::Q
+  walk parents: type_parameter(Q) < class_typespec(pk8use::sid8) < package(pk8use) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 0..11 ('>' = the object)
+  #0	0	design	unnamed				0	0	0	0						000
+  #1	1	package	pk8box	pk8box	pk8box::	dut.sv	3	1	5	11					pk8box::	000
+  #2	1	package	pk8use	pk8use	pk8use::	dut.sv	6	1	11	11					pk8use::	000
+  #3	2	class_typespec	pk8use::sid8			dut.sv	9	13	9	18						010
+  #4	3	type_parameter	Q		<in>pk8use::sid8.Q		0	0	0	0					pk8use::pk8use::sid8::Q	001
+> #5	4	ref_typespec			<in>Q		0	0	0	0		0			pk8use::pk8use::sid8::Q	001
+  #6	5	class_typespec	solo8			dut.sv	9	19	9	35						001
+  #7	3	param_assign					0	0	0	0						001
+  #8	4	type_parameter	Q		pk8box::BoxS8::Q	dut.sv	4	22	4	23					pk8box::BoxS8::Q	001
+  #9	5	ref_typespec			<in>Q		0	0	0	0		0			pk8box::BoxS8::Q	001
+  #10	6	int_typespec				dut.sv	4	26	4	29						001
+  #11	2	import_typespec	pk8box			dut.sv	7	10	7	19						010
+
+--- OURS (B) records 0..11 ('>' = the object)
+  #0	0	design	unnamed				0	0	0	0						000
+  #1	1	package	pk8box	pk8box	pk8box::	dut.sv	3	1	5	11					pk8box::	000
+  #2	1	package	pk8use	pk8use	pk8use::	dut.sv	6	1	11	11					pk8use::	000
+  #3	2	class_typespec	pk8use::sid8			dut.sv	9	13	9	18						010
+  #4	3	type_parameter	Q		<in>pk8use::sid8.Q		0	0	0	0					pk8use::solo8::pk8use::sid8::Q	001
+> #5	4	ref_typespec			<in>Q		0	0	0	0		0			pk8use::solo8::pk8use::sid8::Q	001
+  #6	5	class_typespec	solo8			dut.sv	9	19	9	35						001
+  #7	3	param_assign					0	0	0	0						001
+  #8	4	type_parameter	Q		pk8box::BoxS8::Q	dut.sv	4	22	4	23					pk8box::BoxS8::Q	001
+  #9	5	ref_typespec			<in>Q		0	0	0	0		0			pk8box::BoxS8::Q	001
+  #10	6	int_typespec				dut.sv	4	26	4	29						001
+  #11	2	import_typespec	pk8box			dut.sv	7	10	7	19						010
+
+facets of this row (4, first 25):
+  N1911 #4/4 type_parameter Q G[pk8use::pk8use::sid8::Q] O[pk8use::solo8::pk8use::sid8::Q]
+  N1910 #5/5 ref_typespec  G[pk8use::pk8use::sid8::Q] O[pk8use::solo8::pk8use::sid8::Q]
+  N1911 #30/30 type_parameter Q G[pk8use::pk8use::sid8::Q] O[pk8use::solo8::pk8use::sid8::Q]
+  N1910 #31/31 ref_typespec  G[pk8use::pk8use::sid8::Q] O[pk8use::solo8::pk8use::sid8::Q]

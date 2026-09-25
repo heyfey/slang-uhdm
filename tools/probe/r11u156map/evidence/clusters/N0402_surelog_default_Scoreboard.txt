@@ -1,0 +1,64 @@
+cluster N0402 (map 5 id kept; OPEN): span|bit_select|line+col+endline+endcol|under:method_func_call
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #198083 (golden) / #197446 (ours)  type=bit_select name=maps 
+  golden: 134:47:134:48
+  ours:   114:65:114:66
+  walk parents: method_func_call(get_access) < hier_path(fields[j].get_access) < operation < func_call(uvm_report_warning)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 198077..198089 ('>' = the object)
+  #198077	18	method_func_call	get_full_name			uvm_message_defines.svh	132	67	132	80		0				000
+  #198078	17	constant				uvm_message_defines.svh	133	21	133	61	"' has field with unknown access type '"	304	STRING:' has field with unknown access type '	6		000
+  #198079	17	hier_path	fields[j].get_access			uvm_message_defines.svh	134	21	134	50		0				000
+  #198080	18	bit_select	fields		fields[j]	uvm_message_defines.svh	134	21	134	27		0			fields[j]	000
+  #198081	19	ref_obj	j		uvm_pkg::uvm_reg_single_access_seq::body::j	uvm_message_defines.svh	134	28	134	29		0			uvm_pkg::uvm_reg_single_access_seq::body::j	000
+  #198082	18	method_func_call	get_access			uvm_message_defines.svh	134	31	134	41		0				000
+> #198083	19	bit_select	maps		uvm_pkg::uvm_reg_single_access_seq::body::fields[j].get_access::maps	uvm_message_defines.svh	134	47	134	48		0			uvm_pkg::uvm_reg_single_access_seq::body::fields[j].get_access::maps	000
+  #198084	20	ref_obj	k		uvm_pkg::uvm_reg_single_access_seq::body::fields[j].get_access::k	uvm_message_defines.svh	134	47	134	48		0			uvm_pkg::uvm_reg_single_access_seq::body::fields[j].get_access::k	000
+  #198085	17	constant				uvm_message_defines.svh	134	51	134	64	"', skipping"	88	STRING:', skipping	6		000
+  #198086	16	ref_obj	UVM_NONE		uvm_pkg::uvm_reg_single_access_seq::body::UVM_NONE	uvm_message_defines.svh	134	67	134	75		0			uvm_pkg::uvm_reg_single_access_seq::body::UVM_NONE	000
+  #198087	16	constant				uvm_message_defines.svh	134	77	134	197	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/reg/sequences/uvm_reg_access_seq.svh"	944	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/reg/sequences/uvm_reg_access_seq.svh	6		000
+  #198088	16	constant				uvm_message_defines.svh	134	199	134	202	112	64	UINT:112	9		000
+  #198089	16	constant				uvm_message_defines.svh	134	204	134	206	""	0	STRING:	6		000
+
+--- OURS (B) records 197440..197452 ('>' = the object)
+  #197440	18	method_func_call	get_full_name			uvm_message_defines.svh	132	67	132	80		0				000
+  #197441	17	constant				uvm_message_defines.svh	113	39	113	79	"' has field with unknown access type '"	304	STRING:' has field with unknown access type '	6		000
+  #197442	17	hier_path	fields[j].get_access			uvm_message_defines.svh	114	39	114	68		0				000
+  #197443	18	bit_select	fields		fields[j]	uvm_message_defines.svh	114	39	114	45		0			fields[j]	000
+  #197444	19	ref_obj	j		uvm_pkg::uvm_reg_single_access_seq::body::j	uvm_message_defines.svh	114	46	114	47		0			uvm_pkg::uvm_reg_single_access_seq::body::j	000
+  #197445	18	method_func_call	get_access			uvm_message_defines.svh	114	49	114	59		0				000
+> #197446	19	bit_select	maps		uvm_pkg::uvm_reg_single_access_seq::body::maps	uvm_message_defines.svh	114	65	114	66		0			uvm_pkg::uvm_reg_single_access_seq::body::maps	000
+  #197447	20	ref_obj	k		uvm_pkg::uvm_reg_single_access_seq::body::k	uvm_message_defines.svh	114	65	114	66		0			uvm_pkg::uvm_reg_single_access_seq::body::k	000
+  #197448	17	constant				uvm_message_defines.svh	114	69	114	82	"', skipping"	88	STRING:', skipping	6		000
+  #197449	16	ref_obj	UVM_NONE		uvm_pkg::uvm_reg_single_access_seq::body::UVM_NONE	uvm_message_defines.svh	132	212	132	220		0			uvm_pkg::uvm_reg_single_access_seq::body::UVM_NONE	000
+  #197450	16	constant				uvm_message_defines.svh	132	57	55	11	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/reg/sequences/uvm_reg_access_seq.svh"	944	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/reg/sequences/uvm_reg_access_seq.svh	6		000
+  #197451	16	constant				uvm_message_defines.svh	132	68	132	71	112	64	UINT:112	9		000
+  #197452	16	constant				uvm_message_defines.svh	132	369	132	371	""	0	STRING:	6		000
+
+facets of this row (29390, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

@@ -1,0 +1,64 @@
+cluster N0378 (map 5 id kept; OPEN): span|hier_path|line+col+endline+endcol|under:bit_select
+row: surelog/default/Scoreboard  strict=differ:line(194)  records golden=269656 ours=268952
+object: #17533 (golden) / #17547 (ours)  type=hier_path name=child.get_name 
+  golden: 133:41:133:46
+  ours:   1828:46:1828:62
+  walk parents: bit_select(m_children) < hier_path(m_children[].get_type_name) < sys_func_call($sformatf) < func_call(uvm_report_warning)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 17527..17539 ('>' = the object)
+  #17527	10	constant				uvm_message_defines.svh	132	47	132	103	"A child with the name '%0s' (type=%0s) already exists."	432	STRING:A child with the name '%0s' (type=%0s) already exists.	6		000
+  #17528	10	hier_path	child.get_name			uvm_message_defines.svh	133	12	133	28		0				000
+  #17529	11	ref_obj	child			uvm_message_defines.svh	133	12	133	17		0				000
+  #17530	11	method_func_call	get_name			uvm_message_defines.svh	133	18	133	26		0				000
+  #17531	10	hier_path	m_children[].get_type_name			uvm_message_defines.svh	133	30	133	74		0				000
+  #17532	11	bit_select	m_children		m_children[]	uvm_message_defines.svh	133	30	133	40		0			m_children[]	000
+> #17533	12	hier_path	child.get_name			uvm_message_defines.svh	133	41	133	46		0				000
+  #17534	13	ref_obj	child			uvm_message_defines.svh	133	46	133	46		0				000
+  #17535	13	method_func_call	get_name			uvm_message_defines.svh	133	47	133	55		0				000
+  #17536	11	method_func_call	get_type_name			uvm_message_defines.svh	133	59	133	72		0				000
+  #17537	9	ref_obj	UVM_NONE		uvm_pkg::uvm_component::m_add_child::UVM_NONE	uvm_message_defines.svh	133	77	133	85		0			uvm_pkg::uvm_component::m_add_child::UVM_NONE	000
+  #17538	10	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+  #17539	9	constant				uvm_message_defines.svh	133	87	133	193	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh"	832	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh	6		000
+
+--- OURS (B) records 17541..17553 ('>' = the object)
+  #17541	10	constant				uvm_message_defines.svh	132	47	132	103	"A child with the name '%0s' (type=%0s) already exists."	432	STRING:A child with the name '%0s' (type=%0s) already exists.	6		000
+  #17542	10	hier_path	child.get_name			uvm_message_defines.svh	1828	17	1828	33		0				000
+  #17543	11	ref_obj	child			uvm_message_defines.svh	1828	17	1828	22		0				000
+  #17544	11	method_func_call	get_name			uvm_message_defines.svh	1828	23	1828	31		0				000
+  #17545	10	hier_path	m_children[].get_type_name			uvm_message_defines.svh	1828	35	1828	79		0				000
+  #17546	11	bit_select	m_children		m_children[]	uvm_message_defines.svh	1828	35	1828	45		0			m_children[]	000
+> #17547	12	hier_path	child.get_name			uvm_message_defines.svh	1828	46	1828	62		0				000
+  #17548	13	ref_obj	child			uvm_message_defines.svh	1828	46	1828	51		0				000
+  #17549	13	method_func_call	get_name			uvm_message_defines.svh	1828	52	1828	60		0				000
+  #17550	11	method_func_call	get_type_name			uvm_message_defines.svh	1828	64	1828	77		0				000
+  #17551	9	ref_obj	UVM_NONE		uvm_pkg::uvm_component::m_add_child::UVM_NONE	uvm_message_defines.svh	132	181	132	189		0			uvm_pkg::uvm_component::m_add_child::UVM_NONE	000
+  #17552	10	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+  #17553	9	constant				uvm_message_defines.svh	132	57	52	6	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh"	832	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh	6		000
+
+facets of this row (29390, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

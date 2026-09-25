@@ -1,0 +1,44 @@
+cluster N1926 (map 5 id kept; OPEN): fullname|ref_typespec|tok:.id@id->|under:parameter
+row: probe/default/r11u101repro__grid__x08_nestparaminmid  strict=fullname  records golden=65 ours=65
+object: #23 (golden) / #23 (ours)  type=ref_typespec name= OUT
+  golden: work@sub.work@sub::mid.P
+  ours:   work@sub::mid.P
+  walk parents: parameter(P) < module_inst < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 17..29 ('>' = the object)
+  #17	6	logic_typespec				dut.sv	9	3	9	14						000
+  #18	7	range				dut.sv	9	8	9	14						001
+  #19	8	constant				dut.sv	9	9	9	11	31	64	UINT:31	9		001
+  #20	8	constant				dut.sv	9	12	9	13	0	64	UINT:0	9		001
+  #21	1	module_inst		work@sub::mid	work@sub::mid	dut.sv	3	3	8	12					work@sub::mid	000
+  #22	2	parameter	P		work@sub.work@sub::mid.P	dut.sv	3	30	3	31		0	UINT:1		work@sub.work@sub::mid.P	000
+> #23	3	ref_typespec			work@sub.work@sub::mid.P		0	0	0	0		0			work@sub.work@sub::mid.P	000
+  #24	4	int_typespec				dut.sv	3	26	3	29						000
+  #25	2	param_assign				dut.sv	3	30	3	35						000
+  #26	3	constant				dut.sv	3	34	3	35	1	64	UINT:1	9		000
+  #27	4	ref_typespec			work@sub.work@sub::mid		0	0	0	0		0			work@sub.work@sub::mid	000
+  #28	5	int_typespec				dut.sv	3	26	3	29						000
+  #29	2	logic_net	m		work@sub.work@sub::mid.m	dut.sv	7	10	7	11		0			work@sub.work@sub::mid.m	000
+
+--- OURS (B) records 17..29 ('>' = the object)
+  #17	6	logic_typespec				dut.sv	9	3	9	14						000
+  #18	7	range				dut.sv	9	8	9	14						001
+  #19	8	constant				dut.sv	9	9	9	11	31	64	UINT:31	9		001
+  #20	8	constant				dut.sv	9	12	9	13	0	64	UINT:0	9		001
+  #21	1	module_inst		work@sub::mid	work@sub::mid	dut.sv	3	3	8	12					work@sub::mid	000
+  #22	2	parameter	P		work@sub::mid.P	dut.sv	3	30	3	31		0	UINT:1		work@sub::mid.P	000
+> #23	3	ref_typespec			work@sub::mid.P		0	0	0	0		0			work@sub::mid.P	000
+  #24	4	int_typespec				dut.sv	3	26	3	29						000
+  #25	2	param_assign				dut.sv	3	30	3	35						000
+  #26	3	constant				dut.sv	3	34	3	35	1	64	UINT:1	9		000
+  #27	4	ref_typespec			work@sub::mid		0	0	0	0		0			work@sub::mid	000
+  #28	5	int_typespec				dut.sv	3	26	3	29						000
+  #29	2	logic_net	m		work@sub::mid.m	dut.sv	7	10	7	11		0			work@sub::mid.m	000
+
+facets of this row (5, first 25):
+  N1922 #22/22 parameter P G[work@sub.work@sub::mid.P] O[work@sub::mid.P]
+  N1926 #23/23 ref_typespec  G[work@sub.work@sub::mid.P] O[work@sub::mid.P]
+  N1925 #27/27 ref_typespec  G[work@sub.work@sub::mid] O[work@sub::mid]
+  N1897 #29/29 logic_net m G[work@sub.work@sub::mid.m] O[work@sub::mid.m]
+  N1898 #30/30 ref_typespec  G[work@sub.work@sub::mid.m] O[work@sub::mid.m]

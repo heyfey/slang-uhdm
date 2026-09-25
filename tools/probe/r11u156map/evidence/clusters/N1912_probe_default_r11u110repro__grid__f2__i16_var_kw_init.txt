@@ -1,0 +1,48 @@
+cluster N1912 (map 5 id kept; OPEN): span|packed_array_typespec|endline+endcol|under:ref_typespec
+row: probe/default/r11u110repro__grid__f2__i16_var_kw_init  strict=endline  records golden=99 ours=99
+object: #10 (golden) / #10 (ours)  type=packed_array_typespec name= 
+  golden: 1:72:2:21
+  ours:   1:72:1:82
+  walk parents: ref_typespec < type_parameter(rt_t) < module_inst < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 4..16 ('>' = the object)
+  #4	4	logic_typespec				dut.sv	1	36	1	47						001
+  #5	5	range				dut.sv	1	42	1	47						001
+  #6	6	constant				dut.sv	1	43	1	44	1	64	UINT:1	9		001
+  #7	6	constant				dut.sv	1	45	1	46	0	64	UINT:0	9		001
+  #8	2	type_parameter	rt_t		work@dut.rt_t	dut.sv	1	65	1	69					work@dut.rt_t	010
+  #9	3	ref_typespec			<in>rt_t		0	0	0	0		0			work@dut.rt_t	001
+> #10	4	packed_array_typespec				dut.sv	1	72	2	21						001
+  #11	5	range					0	0	0	0						001
+  #12	6	constant				dut.sv	1	78	1	79	3	64	UINT:3	9		001
+  #13	6	constant				dut.sv	1	80	1	81	0	64	UINT:0	9		001
+  #14	5	ref_typespec	id_t		<in>id_t		0	0	0	0		0			work@dut.x.id_t	001
+  #15	6	logic_typespec				dut.sv	1	36	1	47						001
+  #16	7	range				dut.sv	1	42	1	47						001
+
+--- OURS (B) records 4..16 ('>' = the object)
+  #4	4	logic_typespec				dut.sv	1	36	1	47						001
+  #5	5	range				dut.sv	1	42	1	47						001
+  #6	6	constant				dut.sv	1	43	1	44	1	64	UINT:1	9		001
+  #7	6	constant				dut.sv	1	45	1	46	0	64	UINT:0	9		001
+  #8	2	type_parameter	rt_t		work@dut.rt_t	dut.sv	1	65	1	69					work@dut.rt_t	010
+  #9	3	ref_typespec			<in>rt_t		0	0	0	0		0			work@dut.rt_t	001
+> #10	4	packed_array_typespec				dut.sv	1	72	1	82						001
+  #11	5	range					0	0	0	0						001
+  #12	6	constant				dut.sv	1	78	1	79	3	64	UINT:3	9		001
+  #13	6	constant				dut.sv	1	80	1	81	0	64	UINT:0	9		001
+  #14	5	ref_typespec	id_t		<in>rt_t.id_t		0	0	0	0		0			work@dut.rt_t.id_t	001
+  #15	6	logic_typespec				dut.sv	1	36	1	47						001
+  #16	7	range				dut.sv	1	42	1	47						001
+
+facets of this row (9, first 25):
+  N1912 #10/10 packed_array_typespec  G[1:72:2:21] O[1:72:1:82]
+  N0470 #14/14 ref_typespec id_t G[work@dut.x.id_t] O[work@dut.rt_t.id_t]
+  N1912 #22/22 packed_array_typespec  G[1:72:2:21] O[1:72:1:82]
+  N0470 #26/26 ref_typespec id_t G[work@dut.x.id_t] O[work@dut.rt_t.id_t]
+  N1912 #44/44 packed_array_typespec  G[1:72:2:21] O[1:72:1:82]
+  N1912 #62/62 packed_array_typespec  G[1:72:2:21] O[1:72:1:82]
+  N0470 #66/66 ref_typespec id_t G[work@dut.x.id_t] O[work@dut.rt_t.id_t]
+  N1912 #88/88 packed_array_typespec  G[1:72:2:21] O[1:72:1:82]
+  N0470 #92/92 ref_typespec id_t G[work@dut.x.id_t] O[work@dut.rt_t.id_t]

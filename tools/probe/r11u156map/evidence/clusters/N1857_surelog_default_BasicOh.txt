@@ -1,0 +1,64 @@
+cluster N1857 (map 5 id kept; OPEN): fullname|part_select|tok:id.->|under:var_select
+row: surelog/default/BasicOh  strict=differ:fullname(29)  records golden=4010 ours=4010
+object: #3893 (golden) / #3893 (ours)  type=part_select name=wr_addr OUT
+  golden: work@oh_fifo_async.oh_memory_dp.genblk1.ram.wr_addr
+  ours:   work@oh_fifo_async.oh_memory_dp.ram.wr_addr
+  walk parents: var_select(ram) < assignment < if_stmt < for_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 3887..3899 ('>' = the object)
+  #3887	10	bit_select	wr_wem		work@oh_fifo_async.oh_memory_dp.genblk1.wr_wem	oh_memory_dp.v	55	26	55	27		0			work@oh_fifo_async.oh_memory_dp.genblk1.wr_wem	000
+  #3888	11	ref_obj	i		work@oh_fifo_async.oh_memory_dp.genblk1.i	oh_memory_dp.v	55	26	55	27		0			work@oh_fifo_async.oh_memory_dp.genblk1.i	000
+  #3889	9	assignment				oh_memory_dp.v	56	16	56	51						000
+  #3890	10	bit_select	wr_din		work@oh_fifo_async.oh_memory_dp.genblk1.wr_din	oh_memory_dp.v	56	49	56	50		0			work@oh_fifo_async.oh_memory_dp.genblk1.wr_din	000
+  #3891	11	ref_obj	i		work@oh_fifo_async.oh_memory_dp.genblk1.i	oh_memory_dp.v	56	49	56	50		0			work@oh_fifo_async.oh_memory_dp.genblk1.i	000
+  #3892	10	var_select	ram		work@oh_fifo_async.oh_memory_dp.genblk1.ram	oh_memory_dp.v	56	16	56	39		0			work@oh_fifo_async.oh_memory_dp.genblk1.ram	000
+> #3893	11	part_select	wr_addr	wr_addr	work@oh_fifo_async.oh_memory_dp.genblk1.ram.wr_addr	oh_memory_dp.v	56	20	56	35		0			work@oh_fifo_async.oh_memory_dp.genblk1.ram.wr_addr	000
+  #3894	12	operation				oh_memory_dp.v	56	28	56	32		0				000
+  #3895	13	ref_obj	AW		work@oh_fifo_async.oh_memory_dp.genblk1.ram.wr_addr.AW	oh_memory_dp.v	56	28	56	30		0			work@oh_fifo_async.oh_memory_dp.genblk1.ram.wr_addr.AW	000
+  #3896	13	constant				oh_memory_dp.v	56	31	56	32	1	64	UINT:1	9		000
+  #3897	12	constant				oh_memory_dp.v	56	33	56	34	0	64	UINT:0	9		000
+  #3898	11	ref_obj	i		work@oh_fifo_async.oh_memory_dp.genblk1.ram.i	oh_memory_dp.v	56	37	56	38		0			work@oh_fifo_async.oh_memory_dp.genblk1.ram.i	000
+  #3899	5	always				oh_memory_dp.v	63	3	65	37						000
+
+--- OURS (B) records 3887..3899 ('>' = the object)
+  #3887	10	bit_select	wr_wem		work@oh_fifo_async.oh_memory_dp.genblk1.wr_wem	oh_memory_dp.v	55	26	55	27		0			work@oh_fifo_async.oh_memory_dp.genblk1.wr_wem	000
+  #3888	11	ref_obj	i		work@oh_fifo_async.oh_memory_dp.genblk1.i	oh_memory_dp.v	55	26	55	27		0			work@oh_fifo_async.oh_memory_dp.genblk1.i	000
+  #3889	9	assignment				oh_memory_dp.v	56	16	56	51						000
+  #3890	10	bit_select	wr_din		work@oh_fifo_async.oh_memory_dp.genblk1.wr_din	oh_memory_dp.v	56	49	56	50		0			work@oh_fifo_async.oh_memory_dp.genblk1.wr_din	000
+  #3891	11	ref_obj	i		work@oh_fifo_async.oh_memory_dp.genblk1.i	oh_memory_dp.v	56	49	56	50		0			work@oh_fifo_async.oh_memory_dp.genblk1.i	000
+  #3892	10	var_select	ram		work@oh_fifo_async.oh_memory_dp.genblk1.ram	oh_memory_dp.v	56	16	56	39		0			work@oh_fifo_async.oh_memory_dp.genblk1.ram	000
+> #3893	11	part_select	wr_addr	wr_addr	work@oh_fifo_async.oh_memory_dp.ram.wr_addr	oh_memory_dp.v	56	20	56	35		0			work@oh_fifo_async.oh_memory_dp.ram.wr_addr	000
+  #3894	12	operation				oh_memory_dp.v	56	28	56	32		0				000
+  #3895	13	ref_obj	AW		work@oh_fifo_async.oh_memory_dp.genblk1.ram.wr_addr.AW	oh_memory_dp.v	56	28	56	30		0			work@oh_fifo_async.oh_memory_dp.genblk1.ram.wr_addr.AW	000
+  #3896	13	constant				oh_memory_dp.v	56	31	56	32	1	64	UINT:1	9		000
+  #3897	12	constant				oh_memory_dp.v	56	33	56	34	0	64	UINT:0	9		000
+  #3898	11	ref_obj	i		work@oh_fifo_async.oh_memory_dp.genblk1.ram.i	oh_memory_dp.v	56	37	56	38		0			work@oh_fifo_async.oh_memory_dp.genblk1.ram.i	000
+  #3899	5	always				oh_memory_dp.v	63	3	65	37						000
+
+facets of this row (29, first 25):
+  N0453 #1708/1708 part_select sync_pipe G[work@oh_fifo_async.wr_rsync.genblk1.sync_pipe] O[work@oh_fifo_async.wr_rsync.sync_pipe]
+  N0446 #1711/1711 ref_typespec  G[work@oh_fifo_async.wr_rsync.genblk1.sync_pipe] O[work@oh_fifo_async.wr_rsync.genblk1]
+  N0273 #1717/1717 part_select sync_pipe G[work@oh_fifo_async.wr_rsync.genblk1.sync_pipe] O[work@oh_fifo_async.wr_rsync.sync_pipe]
+  N0446 #1720/1720 ref_typespec  G[work@oh_fifo_async.wr_rsync.genblk1.sync_pipe] O[work@oh_fifo_async.wr_rsync.genblk1]
+  N0453 #1725/1725 part_select sync_pipe G[work@oh_fifo_async.wr_rsync.genblk1.sync_pipe] O[work@oh_fifo_async.wr_rsync.sync_pipe]
+  N0446 #1728/1728 ref_typespec  G[work@oh_fifo_async.wr_rsync.genblk1.sync_pipe] O[work@oh_fifo_async.wr_rsync.genblk1]
+  N0453 #1806/1806 part_select sync_pipe G[work@oh_fifo_async.rd_rsync.genblk1.sync_pipe] O[work@oh_fifo_async.rd_rsync.sync_pipe]
+  N0446 #1809/1809 ref_typespec  G[work@oh_fifo_async.rd_rsync.genblk1.sync_pipe] O[work@oh_fifo_async.rd_rsync.genblk1]
+  N0273 #1815/1815 part_select sync_pipe G[work@oh_fifo_async.rd_rsync.genblk1.sync_pipe] O[work@oh_fifo_async.rd_rsync.sync_pipe]
+  N0446 #1818/1818 ref_typespec  G[work@oh_fifo_async.rd_rsync.genblk1.sync_pipe] O[work@oh_fifo_async.rd_rsync.genblk1]
+  N0453 #1823/1823 part_select sync_pipe G[work@oh_fifo_async.rd_rsync.genblk1.sync_pipe] O[work@oh_fifo_async.rd_rsync.sync_pipe]
+  N0446 #1826/1826 ref_typespec  G[work@oh_fifo_async.rd_rsync.genblk1.sync_pipe] O[work@oh_fifo_async.rd_rsync.genblk1]
+  N0446 #2049/2049 ref_typespec  G[work@oh_fifo_async.wr_sync[0].genblk1.sync_pipe] O[work@oh_fifo_async.wr_sync[0].genblk1]
+  N0446 #2176/2176 ref_typespec  G[work@oh_fifo_async.wr_sync[1].genblk1.sync_pipe] O[work@oh_fifo_async.wr_sync[1].genblk1]
+  N0446 #2303/2303 ref_typespec  G[work@oh_fifo_async.wr_sync[2].genblk1.sync_pipe] O[work@oh_fifo_async.wr_sync[2].genblk1]
+  N0446 #2430/2430 ref_typespec  G[work@oh_fifo_async.wr_sync[3].genblk1.sync_pipe] O[work@oh_fifo_async.wr_sync[3].genblk1]
+  N0446 #2557/2557 ref_typespec  G[work@oh_fifo_async.wr_sync[4].genblk1.sync_pipe] O[work@oh_fifo_async.wr_sync[4].genblk1]
+  N0446 #2684/2684 ref_typespec  G[work@oh_fifo_async.wr_sync[5].genblk1.sync_pipe] O[work@oh_fifo_async.wr_sync[5].genblk1]
+  N0446 #2866/2866 ref_typespec  G[work@oh_fifo_async.rd_sync[0].genblk1.sync_pipe] O[work@oh_fifo_async.rd_sync[0].genblk1]
+  N0446 #2993/2993 ref_typespec  G[work@oh_fifo_async.rd_sync[1].genblk1.sync_pipe] O[work@oh_fifo_async.rd_sync[1].genblk1]
+  N0446 #3120/3120 ref_typespec  G[work@oh_fifo_async.rd_sync[2].genblk1.sync_pipe] O[work@oh_fifo_async.rd_sync[2].genblk1]
+  N0446 #3247/3247 ref_typespec  G[work@oh_fifo_async.rd_sync[3].genblk1.sync_pipe] O[work@oh_fifo_async.rd_sync[3].genblk1]
+  N0446 #3374/3374 ref_typespec  G[work@oh_fifo_async.rd_sync[4].genblk1.sync_pipe] O[work@oh_fifo_async.rd_sync[4].genblk1]
+  N0446 #3501/3501 ref_typespec  G[work@oh_fifo_async.rd_sync[5].genblk1.sync_pipe] O[work@oh_fifo_async.rd_sync[5].genblk1]
+  N1857 #3893/3893 part_select wr_addr G[work@oh_fifo_async.oh_memory_dp.genblk1.ram.wr_addr] O[work@oh_fifo_async.oh_memory_dp.ram.wr_addr]

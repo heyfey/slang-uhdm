@@ -1,0 +1,46 @@
+cluster N0037 (map 5 id kept; OPEN): file|packed_array_typespec|ours-empty|under:ref_typespec
+row: surelog/testflags/ParamTypespec2  strict=differ:fullname(5)  records golden=240 ours=240
+object: #100 (golden) / #100 (ours)  type=packed_array_typespec name= 
+  golden: dut.sv 15:10:15:24
+  ours:    0:0:0:0
+  walk parents: ref_typespec < port(a) < module_inst < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 94..106 ('>' = the object)
+  #94	3	constant					0	0	0	0	*	8	STRING:*	8		001
+  #95	2	logic_net	a		work@nmi_gen.a	dut.sv	15	25	15	26		0			work@nmi_gen.a	000
+  #96	2	logic_net	x		work@nmi_gen.x	dut.sv	16	15	16	16		0			work@nmi_gen.x	000
+  #97	2	port	a			dut.sv	15	25	15	26						000
+  #98	3	ref_obj	a		work@nmi_gen.a.a	dut.sv	15	25	15	26		0			work@nmi_gen.a.a	000
+  #99	3	ref_typespec			work@nmi_gen.a		0	0	0	0		0			work@nmi_gen.a	000
+> #100	4	packed_array_typespec				dut.sv	15	10	15	24						000
+  #101	5	range				dut.sv	15	19	15	24						001
+  #102	6	constant				dut.sv	15	20	15	21	2	64	UINT:2	9		001
+  #103	6	constant				dut.sv	15	22	15	23	0	64	UINT:0	9		001
+  #104	5	ref_typespec					0	0	0	0		0				001
+  #105	6	struct_typespec	prim_esc_pkg::esc_tx_t			dut.sv	2	11	5	4						001
+  #106	7	typespec_member	esc_p			dut.sv	3	11	3	16						001
+
+--- OURS (B) records 94..106 ('>' = the object)
+  #94	3	constant					0	0	0	0	*	8	STRING:*	8		001
+  #95	2	logic_net	a		work@nmi_gen.a	dut.sv	15	25	15	26		0			work@nmi_gen.a	000
+  #96	2	logic_net	x		work@nmi_gen.x	dut.sv	16	15	16	16		0			work@nmi_gen.x	000
+  #97	2	port	a			dut.sv	15	25	15	26						000
+  #98	3	ref_obj	a		work@nmi_gen.a.a	dut.sv	15	25	15	26		0			work@nmi_gen.a.a	000
+  #99	3	ref_typespec			work@nmi_gen.a		0	0	0	0		0			work@nmi_gen.a	000
+> #100	4	packed_array_typespec					0	0	0	0						000
+  #101	5	range				dut.sv	15	19	15	24						001
+  #102	6	constant				dut.sv	15	20	15	21	2	64	UINT:2	9		001
+  #103	6	constant				dut.sv	15	22	15	23	0	64	UINT:0	9		001
+  #104	5	ref_typespec					0	0	0	0		0				001
+  #105	6	struct_typespec	prim_esc_pkg::esc_tx_t			dut.sv	2	11	5	4						001
+  #106	7	typespec_member	esc_p			dut.sv	3	11	3	16						001
+
+facets of this row (7, first 25):
+  N0003 #40/40 ref_typespec  G[] O[prim_esc_pkg]
+  N0037 #100/100 packed_array_typespec  G[dut.sv 15:10:15:24] O[ 0:0:0:0]
+  N0062 #100/100 packed_array_typespec  G[15:10:15:24] O[0:0:0:0]
+  N0014 #184/184 ref_typespec  G[work@top.u_nmi_gen.ESC_TX_DEFAULT.prim_esc_pkg::esc_tx_t.esc_p] O[work@top.u_nmi_gen.prim_esc_pkg::esc_tx_t.esc_p]
+  N0014 #187/187 ref_typespec  G[work@top.u_nmi_gen.ESC_TX_DEFAULT.prim_esc_pkg::esc_tx_t.esc_n] O[work@top.u_nmi_gen.prim_esc_pkg::esc_tx_t.esc_n]
+  N0037 #217/217 packed_array_typespec  G[dut.sv 15:10:15:24] O[ 0:0:0:0]
+  N0062 #217/217 packed_array_typespec  G[15:10:15:24] O[0:0:0:0]

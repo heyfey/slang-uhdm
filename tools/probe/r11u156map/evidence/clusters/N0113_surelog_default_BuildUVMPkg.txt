@@ -1,0 +1,64 @@
+cluster N0113 (map 5 id kept; OPEN): span|bit_select|col+endcol|under:bit_select
+row: surelog/default/BuildUVMPkg  strict=differ:line(165)  records golden=201533 ours=201486
+object: #17385 (golden) / #17383 (ours)  type=bit_select name=m_sync 
+  golden: 35130:21:35130:22
+  ours:   35130:14:35130:23
+  walk parents: bit_select(siblings) < assignment < begin < foreach_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 17379..17391 ('>' = the object)
+  #17379	6	ref_typespec			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::i		0	0	0	0		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::i	000
+  #17380	7	unsupported_typespec	i			uvm_pkg.sv	35129	19	35129	20						110
+  #17381	5	begin			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop	uvm_pkg.sv	35129	23	35131	6					uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop	000
+  #17382	6	assignment				uvm_pkg.sv	35130	5	35130	28						000
+  #17383	7	constant				uvm_pkg.sv	35130	27	35130	28	1	64	UINT:1	9		000
+  #17384	7	bit_select	siblings		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings	uvm_pkg.sv	35130	5	35130	24		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings	000
+> #17385	8	bit_select	m_sync		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings::m_sync	uvm_pkg.sv	35130	21	35130	22		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings::m_sync	000
+  #17386	9	ref_obj	i		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings::i	uvm_pkg.sv	35130	21	35130	22		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings::i	000
+  #17387	4	while_stmt				uvm_pkg.sv	35133	3	35133	8						000
+  #17388	5	ref_obj	need_to_check_all		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::need_to_check_all	uvm_pkg.sv	35133	10	35133	27		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::need_to_check_all	000
+  #17389	5	begin			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop	uvm_pkg.sv	35133	29	35156	6					uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop	000
+  #17390	6	class_var	phase_done		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::phase_done	uvm_pkg.sv	35134	19	35134	29		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::phase_done	000
+  #17391	7	ref_typespec			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::phase_done		0	0	0	0		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::phase_done	000
+
+--- OURS (B) records 17377..17389 ('>' = the object)
+  #17377	6	ref_typespec			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::i		0	0	0	0		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::i	000
+  #17378	7	unsupported_typespec	i			uvm_pkg.sv	35129	19	35129	20						110
+  #17379	5	begin			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop	uvm_pkg.sv	35129	23	35131	6					uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop	000
+  #17380	6	assignment				uvm_pkg.sv	35130	5	35130	28						000
+  #17381	7	constant				uvm_pkg.sv	35130	27	35130	28	1	64	UINT:1	9		000
+  #17382	7	bit_select	siblings		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings	uvm_pkg.sv	35130	5	35130	24		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings	000
+> #17383	8	bit_select	m_sync		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings::m_sync	uvm_pkg.sv	35130	14	35130	23		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings::m_sync	000
+  #17384	9	ref_obj	i		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings::i	uvm_pkg.sv	35130	21	35130	22		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::siblings::i	000
+  #17385	4	while_stmt				uvm_pkg.sv	35133	3	35133	8						000
+  #17386	5	ref_obj	need_to_check_all		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::need_to_check_all	uvm_pkg.sv	35133	10	35133	27		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::need_to_check_all	000
+  #17387	5	begin			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop	uvm_pkg.sv	35133	29	35156	6					uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop	000
+  #17388	6	class_var	phase_done		uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::phase_done	uvm_pkg.sv	35134	19	35134	29		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::phase_done	000
+  #17389	7	ref_typespec			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::phase_done		0	0	0	0		0			uvm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop::phase_done	000
+
+facets of this row (9283, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

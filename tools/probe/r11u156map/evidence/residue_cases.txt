@@ -1,0 +1,41 @@
+A r11u145repro_iaw_q02 cmp=0 STRICT_NOTEQUAL value first=NEW:value|constant|value:INT->UINT+consttype:7->9|under:cont_assign NEW:value|constant|value:INT->UINT+consttype:7->9|under:cont_assign:1
+A r11u145repro_iaw_q06 cmp=0 STRICT_NOTEQUAL value first=NEW:value|constant|value:INT->UINT+consttype:7->9|under:cont_assign NEW:value|constant|value:INT->UINT+consttype:7->9|under:cont_assign:1
+A r11u145repro_iaw_ae4 cmp=0 STRICT_NOTEQUAL fullname first=N0536 N0536:1 NEW:value|constant|value:INT->UINT+consttype:7->9|under:cont_assign:1
+A r11u145repro_usp_u04 cmp=0 STRICT_NOTEQUAL decompile first=N1983 N0475:1 N1983:1
+A r11u145repro_usp_u08 cmp=0 STRICT_NOTEQUAL decompile first=N1983 N1983:1
+A r11u145repro_dfi_i01_func_body cmp=0 STRICT_NOTEQUAL type first=N0133 N0133:1 N0284:1
+A r11u145repro_dfi_i03_static_func cmp=0 STRICT_NOTEQUAL type first=N1276 NEW:depth|constant|bit_select->cont_assign:1 N1276:1
+A r11v145repro_lpb_x15_ips_in_compare cmp=0 STRICT_NOTEQUAL fullname first=N0446 N0446:1
+A r11v145repro_bso_x06_gen_scope cmp=0 STRICT_NOTEQUAL fullname first=NEW:fullname|ref_obj|tok:id[id + n].id.->|under:operation NEW:fullname|ref_obj|tok:id[id + n].id.->|under:operation:1
+A r11v145repro_bso_x09_sysfunc_idx_ctl cmp=0 STRICT_NOTEQUAL fullname first=NEW:fullname|ref_obj|tok:id[].id.->|under:sys_func_call NEW:fullname|ref_obj|tok:id[].id.->|under:sys_func_call:2
+A r11v145repro_bso_x14_bitsel_in_op cmp=0 STRICT_NOTEQUAL fullname first=NEW:fullname|part_select|tok:->id.|under:operation NEW:fullname|part_select|tok:->id.|under:operation:2
+A r11v145repro_bso_x15_call_in_op cmp=0 STRICT_NOTEQUAL endcol first=NEW:span|func_call|endcol|under:operation NEW:span|func_call|endcol|under:operation:2 NEW:fullname|ref_obj|tok:id[ + n].id.->|under:func_call:2 NEW:fullname|ref_typespec|tok:id[ + n].id.->|under:ref_obj:2
+A r11v145repro_psb_x11_member_ps cmp=0 STRICT_NOTEQUAL fullname first=NEW:fullname|ref_obj|tok:id.id[id:id].id.->|under:part_select NEW:fullname|ref_obj|tok:id.id[id:id].id.->|under:part_select:4
+A r11v145repro_psb_x14_modport cmp=0 STRICT_NOTEQUAL fullname first=NEW:fullname|ref_obj|tok:id.id[id:id].id.->|under:part_select NEW:fullname|ref_obj|tok:id.id[id:id].id.->|under:part_select:4
+A r11v145repro_psb_x17_pkg_param_bound cmp=0 STRICT_NOTEQUAL fullname first=N0129 N0129:4
+A r11v145repro_psb_x18_qualified_bound cmp=0 STRICT_NOTEQUAL endcol first=N2268 N2268:4
+A r11v145repro_psb_x20_gen_if_proc cmp=0 STRICT_NOTEQUAL fullname first=N0453 N0453:1
+A r11v145repro_psb_x23_struct_param_bound cmp=0 STRICT_NOTEQUAL col first=N0001 N0001:4 N0007:4
+A r11v145repro_uop_x11_pkg_param cmp=0 STRICT_NOTEQUAL fullname first=N0129 N0129:1
+A r11v145repro_iaw_x06_paren cmp=0 STRICT_NOTEQUAL col first=N0010 N0010:1
+A r11v145repro_iaw_x08_cast_init cmp=0 STRICT_NOTEQUAL col first=N0010 N0010:1
+A r11u153verify_cases_lpb_l02_func_arg cmp=46 NOT_EQUAL stage1
+B r11u146repro_grid_fa_f11 cmp=0 STRICT_NOTEQUAL line first=N0075 N0266:4 N0075:2
+B r11u146repro_grid_ig_i11 cmp=0 STRICT_NOTEQUAL endline first=N0762 N0135:2 N0762:1 N0009:1
+B r11u146repro_grid_tp_t4_unused cmp=0 STRICT_NOTEQUAL fullname first=N0084 N0084:2
+B r11u146repro_grid_tp_t5_iface cmp=0 STRICT_NOTEQUAL fullname first=N0108 N0108:5 N0130:1 N0024:1 N0083:1 N1930:1 N1927:1 N1932:1 N1929:1
+B r11u146repro_grid_tp_t7_body_var cmp=0 STRICT_NOTEQUAL fullname first=N0084 N0084:4
+B v11u146repro_cases_esc_x2_inst cmp=0 STRICT_NOTEQUAL endcol first=N2320 N2320:1
+B v11u146repro_cases_esc_x9_param cmp=0 STRICT_NOTEQUAL endcol first=NEW:span|parameter|endcol|under:module_inst NEW:span|parameter|endcol|under:module_inst:2
+B v11u146repro_cases_esc_x4_number cmp=0 STRICT_NOTEQUAL endcol first=N0275 NEW:span|cont_assign|col+endcol|under:module_inst:4 N0551:4 N0091:4 N0287:4 N1095:4 N0275:2
+B v11u146repro_cases_tn_k6_iface cmp=0 STRICT_NOTEQUAL line first=N0263 N0083:6 N0263:6 N1930:1 N1927:1 N1932:1 N1929:1 N0472:1
+B v11u146repro_cases_tn_k9_iface_port cmp=0 STRICT_NOTEQUAL line first=N0263 N0083:1 N0263:1 N1930:1 N1927:1 N1932:1 N1929:1 N0472:1
+B v11u146repro_cases_tn_k10_iface_ansi cmp=0 STRICT_NOTEQUAL col first=N0751 N0083:7 N0751:4 N0263:3 N1930:1 N1927:1 N1932:1 N1929:1 N0472:1
+B r11u153verify_cases_tn_j03_gen_local_net cmp=0 STRICT_NOTEQUAL line first=N0263 N0083:1 N0263:1
+B r11u153verify_cases_tn_j12_genfor_local_net cmp=0 STRICT_NOTEQUAL line first=N0263 N0083:2 N0263:2
+B r11u153verify_cases_esc_y03_struct_member cmp=0 STRICT_NOTEQUAL col first=N0224 N0224:6
+B r11u153verify_cases_esc_y14_param_value_after cmp=0 STRICT_NOTEQUAL endcol first=NEW:span|parameter|endcol|under:module_inst NEW:span|parameter|endcol|under:module_inst:2
+B r11u153verify_cases_ucp_v02_mixed cmp=88 NOT_EQUAL stage1
+B r11u153verify_cases_e2148_g03_logic_var_lhs cmp=64 NOT_EQUAL stage1
+B r11u153verify_cases_e148_q05_default_fill_import cmp=0 STRICT_NOTEQUAL type first=N0133 N0133:1 N0284:1
+DONE

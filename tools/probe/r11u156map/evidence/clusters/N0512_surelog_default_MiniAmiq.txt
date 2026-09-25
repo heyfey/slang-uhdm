@@ -1,0 +1,64 @@
+cluster N0512 (map 5 id kept; OPEN): fullname|bit_var|tok:id->id|under:function
+row: surelog/default/MiniAmiq  strict=differ:line(190)  records golden=435559 ours=413982
+object: #66158 (golden) / #66081 (ours)  type=bit_var name= OUT
+  golden: uvm_pkg::uvm_object::compare
+  ours:   svaunit_pkg::uvm_object::compare
+  walk parents: function(uvm_object::compare) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 66152..66164 ('>' = the object)
+  #66152	3	int_var	style		svaunit_pkg::uvm_object::compare::style	uvm_object.svh	1050	14	1050	19		0			svaunit_pkg::uvm_object::compare::style	000
+  #66153	4	ref_typespec			svaunit_pkg::uvm_object::compare::style		0	0	0	0		0			svaunit_pkg::uvm_object::compare::style	000
+  #66154	5	int_typespec				uvm_object.svh	1050	10	1050	13						000
+  #66155	3	bit_var	done		svaunit_pkg::uvm_object::compare::done	uvm_object.svh	1051	7	1051	11		0			svaunit_pkg::uvm_object::compare::done	000
+  #66156	4	ref_typespec			svaunit_pkg::uvm_object::compare::done		0	0	0	0		0			svaunit_pkg::uvm_object::compare::done	000
+  #66157	5	bit_typespec				uvm_object.svh	1051	3	1051	6						000
+> #66158	3	bit_var			uvm_pkg::uvm_object::compare	uvm_object.svh	1047	10	1047	13		0			uvm_pkg::uvm_object::compare	000
+  #66159	4	ref_typespec			uvm_pkg::uvm_object::compare		0	0	0	0		0			uvm_pkg::uvm_object::compare	000
+  #66160	5	bit_typespec				uvm_object.svh	1047	10	1047	13						000
+  #66161	3	io_decl	rhs			uvm_object.svh	1047	47	1047	50						000
+  #66162	4	ref_typespec			svaunit_pkg::uvm_object::compare::rhs		0	0	0	0		0			svaunit_pkg::uvm_object::compare::rhs	000
+  #66163	5	class_typespec	uvm_object			uvm_object.svh	1047	36	1047	46						110
+  #66164	3	io_decl	comparer			uvm_object.svh	1048	49	1048	57						000
+
+--- OURS (B) records 66075..66087 ('>' = the object)
+  #66075	3	int_var	style		svaunit_pkg::uvm_object::compare::style	uvm_object.svh	1050	14	1050	19		0			svaunit_pkg::uvm_object::compare::style	000
+  #66076	4	ref_typespec			svaunit_pkg::uvm_object::compare::style		0	0	0	0		0			svaunit_pkg::uvm_object::compare::style	000
+  #66077	5	int_typespec				uvm_object.svh	1050	10	1050	13						000
+  #66078	3	bit_var	done		svaunit_pkg::uvm_object::compare::done	uvm_object.svh	1051	7	1051	11		0			svaunit_pkg::uvm_object::compare::done	000
+  #66079	4	ref_typespec			svaunit_pkg::uvm_object::compare::done		0	0	0	0		0			svaunit_pkg::uvm_object::compare::done	000
+  #66080	5	bit_typespec				uvm_object.svh	1051	3	1051	6						000
+> #66081	3	bit_var			svaunit_pkg::uvm_object::compare	uvm_object.svh	1047	10	1047	13		0			svaunit_pkg::uvm_object::compare	000
+  #66082	4	ref_typespec			svaunit_pkg::uvm_object::compare		0	0	0	0		0			svaunit_pkg::uvm_object::compare	000
+  #66083	5	bit_typespec				uvm_object.svh	1047	10	1047	13						000
+  #66084	3	io_decl	rhs			uvm_object.svh	1047	47	1047	50						000
+  #66085	4	ref_typespec			svaunit_pkg::uvm_object::compare::rhs		0	0	0	0		0			svaunit_pkg::uvm_object::compare::rhs	000
+  #66086	5	class_typespec	uvm_object			uvm_object.svh	1047	36	1047	46						110
+  #66087	3	io_decl	comparer			uvm_object.svh	1048	49	1048	57						000
+
+facets of this row (55220, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

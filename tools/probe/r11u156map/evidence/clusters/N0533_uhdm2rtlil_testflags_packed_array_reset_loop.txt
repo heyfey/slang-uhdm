@@ -1,0 +1,52 @@
+cluster N0533 (map 5 id kept; OPEN): span|logic_typespec|line+col|under:ref_typespec
+row: uhdm2rtlil/testflags/packed_array_reset_loop  strict=differ:endline(3)  records golden=287 ours=277
+object: #31 (golden) / #31 (ours)  type=logic_typespec name= 
+  golden: 9:37:17:17
+  ours:   17:3:17:17
+  walk parents: ref_typespec < logic_net(q) < module_inst < design(work@packed_array_reset_loop)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 25..37 ('>' = the object)
+  #25	2	logic_net	rst_ni		work@packed_array_reset_loop.rst_ni	dut.sv	12	32	12	38		0			work@packed_array_reset_loop.rst_ni	000
+  #26	2	logic_net	en_i		work@packed_array_reset_loop.en_i	dut.sv	13	32	13	36		0			work@packed_array_reset_loop.en_i	000
+  #27	2	logic_net	d_i		work@packed_array_reset_loop.d_i	dut.sv	14	32	14	35		0			work@packed_array_reset_loop.d_i	000
+  #28	2	logic_net	q_o		work@packed_array_reset_loop.q_o	dut.sv	15	32	15	35		0			work@packed_array_reset_loop.q_o	000
+  #29	2	logic_net	q		work@packed_array_reset_loop.q	dut.sv	17	18	17	19		0			work@packed_array_reset_loop.q	000
+  #30	3	ref_typespec			work@packed_array_reset_loop.q		0	0	0	0		0			work@packed_array_reset_loop.q	000
+> #31	4	logic_typespec				dut.sv	9	37	17	17						000
+  #32	5	range				dut.sv	9	43	9	50						001
+  #33	6	operation				dut.sv	9	44	9	47		0				001
+  #34	7	ref_obj	W			dut.sv	9	44	9	45		0				001
+  #35	7	constant				dut.sv	9	46	9	47	1	64	UINT:1	9		001
+  #36	6	constant				dut.sv	9	48	9	49	0	64	UINT:0	9		001
+  #37	2	port	clk_i			dut.sv	11	32	11	37						000
+
+--- OURS (B) records 25..37 ('>' = the object)
+  #25	2	logic_net	rst_ni		work@packed_array_reset_loop.rst_ni	dut.sv	12	32	12	38		0			work@packed_array_reset_loop.rst_ni	000
+  #26	2	logic_net	en_i		work@packed_array_reset_loop.en_i	dut.sv	13	32	13	36		0			work@packed_array_reset_loop.en_i	000
+  #27	2	logic_net	d_i		work@packed_array_reset_loop.d_i	dut.sv	14	32	14	35		0			work@packed_array_reset_loop.d_i	000
+  #28	2	logic_net	q_o		work@packed_array_reset_loop.q_o	dut.sv	15	32	15	35		0			work@packed_array_reset_loop.q_o	000
+  #29	2	logic_net	q		work@packed_array_reset_loop.q	dut.sv	17	18	17	19		0			work@packed_array_reset_loop.q	000
+  #30	3	ref_typespec			work@packed_array_reset_loop.q		0	0	0	0		0			work@packed_array_reset_loop.q	000
+> #31	4	logic_typespec				dut.sv	17	3	17	17						000
+  #32	2	port	clk_i			dut.sv	11	32	11	37						000
+  #33	3	ref_obj	clk_i		work@packed_array_reset_loop.clk_i.clk_i	dut.sv	11	32	11	37		0			work@packed_array_reset_loop.clk_i.clk_i	000
+  #34	3	ref_typespec			work@packed_array_reset_loop.clk_i		0	0	0	0		0			work@packed_array_reset_loop.clk_i	000
+  #35	4	logic_typespec				dut.sv	11	12	11	17						000
+  #36	2	port	rst_ni			dut.sv	12	32	12	38						000
+  #37	3	ref_obj	rst_ni		work@packed_array_reset_loop.rst_ni.rst_ni	dut.sv	12	32	12	38		0			work@packed_array_reset_loop.rst_ni.rst_ni	000
+
+facets of this row (13, first 25):
+  N0083 #32/-1 range  G[5 objs] O[]
+  N0083 #280/-1 range  G[5 objs] O[]
+  N0090 #10/10 logic_typespec  G[9:37:17:17] O[9:37:9:50]
+  N0533 #31/31 logic_typespec  G[9:37:17:17] O[17:3:17:17]
+  N0090 #52/47 logic_typespec  G[9:37:17:17] O[9:37:9:50]
+  N0090 #61/56 logic_typespec  G[9:37:17:17] O[9:37:9:50]
+  N0090 #125/120 logic_typespec  G[9:37:17:17] O[9:37:9:50]
+  N0090 #137/132 logic_typespec  G[9:37:17:17] O[9:37:9:50]
+  N0090 #149/144 logic_typespec  G[9:37:17:17] O[9:37:9:50]
+  N0090 #167/162 logic_typespec  G[9:37:17:17] O[9:37:9:50]
+  N0090 #205/200 logic_typespec  G[9:37:17:17] O[9:37:9:50]
+  N0090 #214/209 logic_typespec  G[9:37:17:17] O[9:37:9:50]
+  N0533 #279/274 logic_typespec  G[9:37:17:17] O[17:3:17:17]

@@ -1,0 +1,52 @@
+cluster N1064 (map 5 id kept; OPEN (map 6 routed it to pass 145 (r11u145) as a residue; still present)): fullname|ref_obj|tok:id.id[id - n:].id.->|under:operation
+row: uhdm2rtlil/testflags/iface_scalar_localparam  strict=differ:fullname(13)  records golden=426 ours=426
+object: #213 (golden) / #213 (ours)  type=ref_obj name=ADR OUT
+  golden: work@mem.sub.adr[ADR - 1:].adr.ADR
+  ours:   work@mem.ADR
+  walk parents: operation < part_select(adr) < hier_path(sub.adr[ADR - 1:]) < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 207..219 ('>' = the object)
+  #207	8	constant				dut.sv	12	43	12	44	0	64	UINT:0	9		001
+  #208	4	cont_assign				dut.sv	18	10	18	36						000
+  #209	5	hier_path	sub.adr[ADR - 1:]			dut.sv	18	14	18	36		0				000
+  #210	6	ref_obj	sub			dut.sv	18	14	18	17		0				000
+  #211	6	part_select	adr		sub.adr[ADR - 1:]	dut.sv	18	18	18	35		0			sub.adr[ADR - 1:]	000
+  #212	7	operation				dut.sv	18	22	18	27		0				000
+> #213	8	ref_obj	ADR		work@mem.sub.adr[ADR - 1:].adr.ADR	dut.sv	18	22	18	25		0			work@mem.sub.adr[ADR - 1:].adr.ADR	000
+  #214	8	constant				dut.sv	18	26	18	27	1	64	UINT:1	9		000
+  #215	7	hier_path	sub.OFF			dut.sv	18	28	18	35		0				000
+  #216	8	ref_obj	sub			dut.sv	18	32	18	35		0				000
+  #217	8	ref_obj	OFF			dut.sv	18	32	18	35		0				000
+  #218	5	ref_obj	a		work@mem.a	dut.sv	18	10	18	11		0			work@mem.a	000
+  #219	4	cont_assign				dut.sv	19	10	19	20						000
+
+--- OURS (B) records 207..219 ('>' = the object)
+  #207	8	constant				dut.sv	12	43	12	44	0	64	UINT:0	9		001
+  #208	4	cont_assign				dut.sv	18	10	18	36						000
+  #209	5	hier_path	sub.adr[ADR - 1:]			dut.sv	18	14	18	36		0				000
+  #210	6	ref_obj	sub			dut.sv	18	14	18	17		0				000
+  #211	6	part_select	adr		sub.adr[ADR - 1:]	dut.sv	18	18	18	35		0			sub.adr[ADR - 1:]	000
+  #212	7	operation				dut.sv	18	22	18	27		0				000
+> #213	8	ref_obj	ADR		work@mem.ADR	dut.sv	18	22	18	25		0			work@mem.ADR	000
+  #214	8	constant				dut.sv	18	26	18	27	1	64	UINT:1	9		000
+  #215	7	hier_path	sub.OFF			dut.sv	18	28	18	35		0				000
+  #216	8	ref_obj	sub			dut.sv	18	28	18	31		0				000
+  #217	8	ref_obj	OFF		work@mem.OFF	dut.sv	18	32	18	35		0			work@mem.OFF	000
+  #218	5	ref_obj	a		work@mem.a	dut.sv	18	10	18	11		0			work@mem.a	000
+  #219	4	cont_assign				dut.sv	19	10	19	20						000
+
+facets of this row (13, first 25):
+  N0139 #68/68 ref_typespec  G[p::p::cfg_t::BUS] O[work@tif.CFG.p::cfg_t.BUS]
+  N0001 #92/92 ref_obj CFG G[7:37:7:40] O[7:33:7:36]
+  N0007 #94/94 ref_obj DAT G[] O[work@tif.DAT]
+  N0139 #135/135 ref_typespec  G[p::p::cfg_t::BUS] O[work@tif.CFG.p::cfg_t.BUS]
+  N0001 #159/159 ref_obj CFG G[7:37:7:40] O[7:33:7:36]
+  N0007 #161/161 ref_obj DAT G[] O[work@tif.DAT]
+  N1064 #213/213 ref_obj ADR G[work@mem.sub.adr[ADR - 1:].adr.ADR] O[work@mem.ADR]
+  N0001 #216/216 ref_obj sub G[18:32:18:35] O[18:28:18:31]
+  N0007 #217/217 ref_obj OFF G[] O[work@mem.OFF]
+  N0063 #362/362 ref_typespec  G[work@iface_scalar_localparam.u.sub] O[]
+  N1064 #396/396 ref_obj ADR G[work@mem.sub.adr[ADR - 1:].adr.ADR] O[work@mem.ADR]
+  N0001 #399/399 ref_obj sub G[18:32:18:35] O[18:28:18:31]
+  N0007 #400/400 ref_obj OFF G[] O[work@mem.OFF]

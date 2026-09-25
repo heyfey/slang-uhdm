@@ -1,0 +1,51 @@
+cluster N0418 (map 5 id kept; OPEN): file|ref_obj|golden-empty|under:port
+row: surelog/testflags/OneNetModPort  strict=differ:file(3)  records golden=378 ours=384
+object: #71 (golden) / #71 (ours)  type=ref_obj name=intf 
+  golden:  0:0:0:0
+  ours:   tb.v 1:34:1:38
+  walk parents: port(intf) < program < design(work@TOP)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 65..77 ('>' = the object)
+  #65	6	sys_func_call	$fatal			tb.v	9	65	9	105		0				000
+  #66	7	constant				tb.v	9	72	9	73	1	64	UINT:1	9		000
+  #67	7	constant				tb.v	9	75	9	104	"intf.drive != intf.observe!"	216	STRING:intf.drive != intf.observe!	6		000
+  #68	4	delay_control				tb.v	10	5	10	9						000
+  #69	5	sys_func_call	$finish			tb.v	10	10	10	19		0				000
+  #70	2	port	intf			tb.v	1	34	1	38						000
+> #71	3	ref_obj	intf		work@TESTBENCH.intf.intf		0	0	0	0		0			work@TESTBENCH.intf.intf	000
+  #72	1	module_inst		work@SUB	work@SUB	dut.v	26	1	28	10					work@SUB	000
+  #73	2	logic_net	inp		work@SUB.inp	dut.v	26	24	26	27		0			work@SUB.inp	000
+  #74	2	logic_net	out		work@SUB.out	dut.v	26	40	26	43		0			work@SUB.out	000
+  #75	2	port	inp			dut.v	26	24	26	27						000
+  #76	3	ref_obj	inp		work@SUB.inp.inp	dut.v	26	24	26	27		0			work@SUB.inp.inp	000
+  #77	3	ref_typespec			work@SUB.inp		0	0	0	0		0			work@SUB.inp	000
+
+--- OURS (B) records 65..77 ('>' = the object)
+  #65	6	sys_func_call	$fatal			tb.v	9	65	9	105		0				000
+  #66	7	constant				tb.v	9	72	9	73	1	64	UINT:1	9		000
+  #67	7	constant				tb.v	9	75	9	104	"intf.drive != intf.observe!"	216	STRING:intf.drive != intf.observe!	6		000
+  #68	4	delay_control				tb.v	10	5	10	9						000
+  #69	5	sys_func_call	$finish			tb.v	10	10	10	19		0				000
+  #70	2	port	intf			tb.v	1	34	1	38						000
+> #71	3	ref_obj	intf		work@TESTBENCH.intf.intf	tb.v	1	34	1	38		0			work@TESTBENCH.intf.intf	000
+  #72	1	module_inst		work@SUB	work@SUB	dut.v	26	1	28	10					work@SUB	000
+  #73	2	logic_net	inp		work@SUB.inp	dut.v	26	24	26	27		0			work@SUB.inp	000
+  #74	2	logic_net	out		work@SUB.out	dut.v	26	40	26	43		0			work@SUB.out	000
+  #75	2	port	inp			dut.v	26	24	26	27						000
+  #76	3	ref_obj	inp		work@SUB.inp.inp	dut.v	26	24	26	27		0			work@SUB.inp.inp	000
+  #77	3	ref_typespec			work@SUB.inp		0	0	0	0		0			work@SUB.inp	000
+
+facets of this row (12, first 25):
+  N0268 #-1/279 logic_var drive G[] O[3 objs]
+  N0268 #-1/283 logic_var observe G[] O[3 objs]
+  N0418 #71/71 ref_obj intf G[ 0:0:0:0] O[tb.v 1:34:1:38]
+  N0419 #71/71 ref_obj intf G[0:0:0:0] O[1:34:1:38]
+  N0418 #160/160 ref_obj intf G[ 0:0:0:0] O[tb.v 1:34:1:38]
+  N0419 #160/160 ref_obj intf G[0:0:0:0] O[1:34:1:38]
+  N0001 #298/304 ref_obj conntb G[17:19:17:24] O[17:12:17:18]
+  N0007 #299/305 ref_obj drive G[] O[work@TOP.dut1.i.drive]
+  N0450 #336/342 logic_var drive G[work@TOP.dut1.middle1.sub1.inp.drive] O[work@TOP.dut1.middle1.intf.drive]
+  N0269 #337/343 ref_typespec  G[work@TOP.dut1.middle1.sub1.inp.drive] O[work@TOP.dut1.middle1.intf.drive]
+  N0450 #340/346 logic_var observe G[work@TOP.dut1.middle1.sub1.out.observe] O[work@TOP.dut1.middle1.intf.observe]
+  N0269 #341/347 ref_typespec  G[work@TOP.dut1.middle1.sub1.out.observe] O[work@TOP.dut1.middle1.intf.observe]

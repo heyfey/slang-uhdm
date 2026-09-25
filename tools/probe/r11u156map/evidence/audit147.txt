@@ -1,0 +1,64 @@
+# pass 147 moved 28 of this map's 319 dispatched row-modes (the fenced pair moved too, not dispatched here)
+  surelog/default/BlackParrotComplex  map7 said: yes (law, measured)  first=N0724  clusters: N0724[A] N1129[A]
+  surelog/testflags/BlackParrotComplex  map7 said: yes (law, measured)  first=N0724  clusters: N0724[A] N1129[A]
+  uhdm2rtlil/default/ParameterPassedTo3TimesNestedSubmodule  map7 said: no  first=N0012  clusters: N0012[open] N0028[open] N0057[open] N0150[open]
+  uhdm2rtlil/default/ParameterPassedToSubmoduleInGenscopeOfSubmodule  map7 said: no  first=N0012  clusters: N0012[open] N0028[open] N0057[open] N0150[open]
+  uhdm2rtlil/default/ParameterPassedToSubmoduleOfSubmodule  map7 said: no  first=N0012  clusters: N0012[open] N0028[open] N0057[open] N0150[open]
+  uhdm2rtlil/default/SelectFromUnpackedInFunction  map7 said: no  first=N1114  clusters: N0109[open] N0110[open] N1114[open] N1159[open]
+  uhdm2rtlil/default/SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule  map7 said: no  first=N0012  clusters: N0012[open] N0028[open] N0057[open] N0150[open]
+  uhdm2rtlil/default/array_assign  map7 said: yes (law, measured)  first=N0046  clusters: N0046[A]
+  uhdm2rtlil/default/def_ctx_struct_param  map7 said: yes (law, measured)  first=N2384  clusters: N2383[A] N2384[A]
+  uhdm2rtlil/default/latch_decoder_partial  map7 said: yes (law, measured)  first=N2384  clusters: N2383[A] N2384[A]
+  uhdm2rtlil/default/latch_packed_dyn_write  map7 said: no  first=N1053  clusters: N0036[open] N1053[A]
+  uhdm2rtlil/default/latch_tlb_napot  map7 said: yes (law, measured)  first=N2384  clusters: N2383[A] N2384[A]
+  uhdm2rtlil/default/mem_packed_2d_byte_write  map7 said: no  first=N0030  clusters: N0030[open]
+  uhdm2rtlil/default/multiplier  map7 said: no  first=N0568  clusters: N0471[A] N0568[open] N0702[A]
+  uhdm2rtlil/default/unpacked_elem_partsel_comb  map7 said: no  first=N0030  clusters: N0030[open]
+  uhdm2rtlil/testflags/ParameterPassedTo3TimesNestedSubmodule  map7 said: no  first=N0012  clusters: N0012[open] N0028[open] N0057[open] N0150[open]
+  uhdm2rtlil/testflags/ParameterPassedToSubmoduleInGenscopeOfSubmodule  map7 said: no  first=N0012  clusters: N0012[open] N0028[open] N0057[open] N0150[open]
+  uhdm2rtlil/testflags/ParameterPassedToSubmoduleOfSubmodule  map7 said: no  first=N0012  clusters: N0012[open] N0028[open] N0057[open] N0150[open]
+  uhdm2rtlil/testflags/SelectFromUnpackedInFunction  map7 said: no  first=N1114  clusters: N0109[open] N0110[open] N1114[open] N1159[open]
+  uhdm2rtlil/testflags/SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule  map7 said: no  first=N0012  clusters: N0012[open] N0028[open] N0057[open] N0150[open]
+  uhdm2rtlil/testflags/array_assign  map7 said: yes (law, measured)  first=N0046  clusters: N0046[A]
+  uhdm2rtlil/testflags/def_ctx_struct_param  map7 said: yes (law, measured)  first=N2384  clusters: N2383[A] N2384[A]
+  uhdm2rtlil/testflags/latch_decoder_partial  map7 said: yes (law, measured)  first=N2384  clusters: N2383[A] N2384[A]
+  uhdm2rtlil/testflags/latch_packed_dyn_write  map7 said: no  first=N1053  clusters: N0036[open] N1053[A]
+  uhdm2rtlil/testflags/latch_tlb_napot  map7 said: yes (law, measured)  first=N2384  clusters: N2383[A] N2384[A]
+  uhdm2rtlil/testflags/mem_packed_2d_byte_write  map7 said: no  first=N0030  clusters: N0030[open]
+  uhdm2rtlil/testflags/multiplier  map7 said: no  first=N0568  clusters: N0471[A] N0568[open] N0702[A]
+  uhdm2rtlil/testflags/unpacked_elem_partsel_comb  map7 said: no  first=N0030  clusters: N0030[open]
+
+# rows this map predicted cleared by pair A alone (law measured + named optimistic): 25; moved 10
+  MOVED surelog/default/BlackParrotComplex  yes (law, measured)  clusters N0724 N1129
+  NOT MOVED surelog/default/HierPathStructTypespec  yes (optimistic)  clusters N0010
+  NOT MOVED surelog/default/InterfArrayBind  yes (optimistic)  clusters N0427
+  NOT MOVED surelog/default/StringMethod  yes (optimistic)  clusters N0006 N0765
+  MOVED surelog/testflags/BlackParrotComplex  yes (law, measured)  clusters N0724 N1129
+  NOT MOVED surelog/testflags/ComplexParamOverload  yes (optimistic)  clusters N0739
+  NOT MOVED surelog/testflags/HierPathStructTypespec  yes (optimistic)  clusters N0010
+  NOT MOVED surelog/testflags/StringMethod  yes (optimistic)  clusters N0006 N0765
+  NOT MOVED surelog/testflags/YosysOldOpen  yes (optimistic)  clusters N0129
+  NOT MOVED uhdm2rtlil/default/PatternStruct  yes (optimistic)  clusters N0394 N1140
+  MOVED uhdm2rtlil/default/array_assign  yes (law, measured)  clusters N0046
+  NOT MOVED uhdm2rtlil/default/comb_dyn_2d_packed_sel  yes (optimistic)  clusters N0286
+  MOVED uhdm2rtlil/default/def_ctx_struct_param  yes (law, measured)  clusters N2383 N2384
+  NOT MOVED uhdm2rtlil/default/genscope_module_ctx_reset  yes (optimistic)  clusters N1118
+  NOT MOVED uhdm2rtlil/default/iface_arr_struct_field_partsel  yes (optimistic)  clusters N0833 N1067
+  MOVED uhdm2rtlil/default/latch_decoder_partial  yes (law, measured)  clusters N2383 N2384
+  MOVED uhdm2rtlil/default/latch_tlb_napot  yes (law, measured)  clusters N2383 N2384
+  NOT MOVED uhdm2rtlil/testflags/PatternStruct  yes (optimistic)  clusters N0394 N1140
+  MOVED uhdm2rtlil/testflags/array_assign  yes (law, measured)  clusters N0046
+  NOT MOVED uhdm2rtlil/testflags/comb_dyn_2d_packed_sel  yes (optimistic)  clusters N0286
+  MOVED uhdm2rtlil/testflags/def_ctx_struct_param  yes (law, measured)  clusters N2383 N2384
+  NOT MOVED uhdm2rtlil/testflags/genscope_module_ctx_reset  yes (optimistic)  clusters N1118
+  NOT MOVED uhdm2rtlil/testflags/iface_arr_struct_field_partsel  yes (optimistic)  clusters N0833 N1067
+  MOVED uhdm2rtlil/testflags/latch_decoder_partial  yes (law, measured)  clusters N2383 N2384
+  MOVED uhdm2rtlil/testflags/latch_tlb_napot  yes (law, measured)  clusters N2383 N2384
+
+# pair-A covered clusters (law + named + routed) with a row at 89d599ef: 34
+  gone 8: N0046 2->0 N0702 3->0 N0724 2->0 N0758 2->0 N1053 2->0 N1129 2->0 N2383 6->0 N2384 6->0
+  fell 3: N0045 10->2 N0077 9->2 N0471 4->2
+  unchanged 23: N0006 3->3 N0010 4->4 N0129 10->10 N0130 2->2 N0133 4->4 N0284 3->3 N0286 7->7 N0394 2->2 N0427 3->3 N0446 5->5 N0453 5->5 N0475 4->4 N0536 4->4 N0739 2->2 N0740 2->2 N0765 2->2 N0820 2->2 N0833 2->2 N1063 2->2 N1067 2->2 N1118 2->2 N1140 2->2 N1276 1->1
+
+# clusters NOT covered by pair A that pass 147 cleared or reduced: 23
+  N0113 11->0 (OPEN; A) N0028 12->4 (OPEN (residue of pass 14; B) N0012 21->13 (OPEN; A) N0005 24->16 (OPEN (one shape named by; A) N0024 12->4 (OPEN (map 6 routed it to; A) N0057 12->4 (OPEN (residue of pass 14; B) N0059 8->0 (OPEN (map 6 routed it to; A) N0150 8->0 (OPEN; B) N0030 10->4 (OPEN (residue of pass 14; B) N0036 18->14 (OPEN (residue of pass 14; A) N0568 4->0 (OPEN (map 6 routed it to; A) N0003 14->12 (OPEN (map 6 routed it to; A) N0110 11->9 (OPEN; A) N0109 11->9 (OPEN; A) N1024 2->0 (OPEN; A) N0816 2->0 (OPEN; A) N0756 2->0 (OPEN; A) N1159 2->0 (OPEN; A) N1114 2->0 (OPEN; A) N1260 1->0 (OPEN; B) N1689 1->0 (OPEN; B) N1688 1->0 (OPEN; B) N1253 1->0 (OPEN; B)

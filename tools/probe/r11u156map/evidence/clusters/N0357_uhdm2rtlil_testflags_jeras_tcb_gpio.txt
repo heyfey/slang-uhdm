@@ -1,0 +1,43 @@
+cluster N0357 (map 5 id kept; OPEN (map 6 routed it to pass 145 (r11u145) as a residue; still present)): fullname|ref_obj|tok:id.id[id - n:n].id.->|under:operation
+row: uhdm2rtlil/testflags/jeras_tcb_gpio  strict=differ:fullname(4)  records golden=1565 ours=1565
+object: #408 (golden) / #408 (ours)  type=ref_obj name=GW OUT
+  golden: work@tcb_gpio.bus.wdt[GW - 1:0].wdt.GW
+  ours:   work@tcb_gpio.GW
+  walk parents: operation < part_select(wdt) < hier_path(bus.wdt[GW - 1:0]) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 402..414 ('>' = the object)
+  #402	11	constant				tcb_gpio.sv	77	9	77	13	4'h0	4	HEX:0	5		000
+  #403	11	assignment				tcb_gpio.sv	77	18	77	43						000
+  #404	12	hier_path	bus.wdt[GW - 1:0]			tcb_gpio.sv	77	28	77	43		0				000
+  #405	13	ref_obj	bus			tcb_gpio.sv	77	28	77	31		0				000
+  #406	13	part_select	wdt		bus.wdt[GW - 1:0]	tcb_gpio.sv	77	32	77	42		0			bus.wdt[GW - 1:0]	000
+  #407	14	operation				tcb_gpio.sv	77	36	77	40		0				000
+> #408	15	ref_obj	GW		work@tcb_gpio.bus.wdt[GW - 1:0].wdt.GW	tcb_gpio.sv	77	36	77	38		0			work@tcb_gpio.bus.wdt[GW - 1:0].wdt.GW	000
+  #409	15	constant				tcb_gpio.sv	77	39	77	40	1	64	UINT:1	9		000
+  #410	14	constant				tcb_gpio.sv	77	41	77	42	0	64	UINT:0	9		000
+  #411	12	ref_obj	gpio_o		work@tcb_gpio.gpio_o	tcb_gpio.sv	77	18	77	24		0			work@tcb_gpio.gpio_o	000
+  #412	10	case_item				tcb_gpio.sv	78	9	78	44						000
+  #413	11	constant				tcb_gpio.sv	78	9	78	13	4'h4	4	HEX:4	5		000
+  #414	11	assignment				tcb_gpio.sv	78	18	78	43						000
+
+--- OURS (B) records 402..414 ('>' = the object)
+  #402	11	constant				tcb_gpio.sv	77	9	77	13	4'h0	4	HEX:0	5		000
+  #403	11	assignment				tcb_gpio.sv	77	18	77	43						000
+  #404	12	hier_path	bus.wdt[GW - 1:0]			tcb_gpio.sv	77	28	77	43		0				000
+  #405	13	ref_obj	bus			tcb_gpio.sv	77	28	77	31		0				000
+  #406	13	part_select	wdt		bus.wdt[GW - 1:0]	tcb_gpio.sv	77	32	77	42		0			bus.wdt[GW - 1:0]	000
+  #407	14	operation				tcb_gpio.sv	77	36	77	40		0				000
+> #408	15	ref_obj	GW		work@tcb_gpio.GW	tcb_gpio.sv	77	36	77	38		0			work@tcb_gpio.GW	000
+  #409	15	constant				tcb_gpio.sv	77	39	77	40	1	64	UINT:1	9		000
+  #410	14	constant				tcb_gpio.sv	77	41	77	42	0	64	UINT:0	9		000
+  #411	12	ref_obj	gpio_o		work@tcb_gpio.gpio_o	tcb_gpio.sv	77	18	77	24		0			work@tcb_gpio.gpio_o	000
+  #412	10	case_item				tcb_gpio.sv	78	9	78	44						000
+  #413	11	constant				tcb_gpio.sv	78	9	78	13	4'h4	4	HEX:4	5		000
+  #414	11	assignment				tcb_gpio.sv	78	18	78	43						000
+
+facets of this row (4, first 25):
+  N0357 #408/408 ref_obj GW G[work@tcb_gpio.bus.wdt[GW - 1:0].wdt.GW] O[work@tcb_gpio.GW]
+  N0357 #419/419 ref_obj GW G[work@tcb_gpio.bus.wdt[GW - 1:0].wdt.GW] O[work@tcb_gpio.GW]
+  N0357 #1491/1491 ref_obj GW G[work@tcb_gpio.bus.wdt[GW - 1:0].wdt.GW] O[work@tcb_gpio.GW]
+  N0357 #1502/1502 ref_obj GW G[work@tcb_gpio.bus.wdt[GW - 1:0].wdt.GW] O[work@tcb_gpio.GW]

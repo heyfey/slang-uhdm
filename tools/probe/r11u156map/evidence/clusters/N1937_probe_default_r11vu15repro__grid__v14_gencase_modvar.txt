@@ -1,0 +1,50 @@
+cluster N1937 (map 5 id kept; OPEN): fullname|ref_typespec|tok:->id@id.|under:logic_var
+row: probe/default/r11vu15repro__grid__v14_gencase_modvar  strict=fullname  records golden=121 ours=121
+object: #41 (golden) / #41 (ours)  type=ref_typespec name= OUT
+  golden: gb.loc
+  ours:   work@top.gb.loc
+  walk parents: logic_var(loc) < assignment < named_begin(gb) < case_item
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 35..47 ('>' = the object)
+  #35	3	ref_obj	P		work@top.P	dut.sv	3	9	3	10		0			work@top.P	000
+  #36	3	case_item					0	0	0	0						000
+  #37	4	constant				dut.sv	4	5	4	6	1	64	UINT:1	9		000
+  #38	4	named_begin	gb				0	0	0	0						000
+  #39	5	assignment				dut.sv	5	20	5	23						000
+  #40	6	logic_var	loc		gb.loc	dut.sv	5	20	5	23		0			gb.loc	000
+> #41	7	ref_typespec			gb.loc		0	0	0	0		0			gb.loc	000
+  #42	8	logic_typespec				dut.sv	5	7	5	19						000
+  #43	9	range				dut.sv	5	13	5	19						001
+  #44	10	constant				dut.sv	5	14	5	16	31	64	UINT:31	9		001
+  #45	10	constant				dut.sv	5	17	5	18	0	64	UINT:0	9		001
+  #46	5	cont_assign				dut.sv	6	14	6	21						000
+  #47	6	ref_obj	a		gb.a	dut.sv	6	20	6	21		0			gb.a	000
+
+--- OURS (B) records 35..47 ('>' = the object)
+  #35	3	ref_obj	P		work@top.P	dut.sv	3	9	3	10		0			work@top.P	000
+  #36	3	case_item					0	0	0	0						000
+  #37	4	constant				dut.sv	4	5	4	6	1	64	UINT:1	9		000
+  #38	4	named_begin	gb		work@top.gb		0	0	0	0					work@top.gb	000
+  #39	5	assignment				dut.sv	5	20	5	23						000
+  #40	6	logic_var	loc		work@top.gb.loc	dut.sv	5	20	5	23		0			work@top.gb.loc	000
+> #41	7	ref_typespec			work@top.gb.loc		0	0	0	0		0			work@top.gb.loc	000
+  #42	8	logic_typespec				dut.sv	5	7	5	19						000
+  #43	9	range				dut.sv	5	13	5	19						001
+  #44	10	constant				dut.sv	5	14	5	16	31	64	UINT:31	9		001
+  #45	10	constant				dut.sv	5	17	5	18	0	64	UINT:0	9		001
+  #46	5	cont_assign				dut.sv	6	14	6	21						000
+  #47	6	ref_obj	a		work@top.gb.a	dut.sv	6	20	6	21		0			work@top.gb.a	000
+
+facets of this row (11, first 25):
+  N0482 #38/38 named_begin gb G[] O[work@top.gb]
+  N1936 #40/40 logic_var loc G[gb.loc] O[work@top.gb.loc]
+  N1937 #41/41 ref_typespec  G[gb.loc] O[work@top.gb.loc]
+  N1917 #47/47 ref_obj a G[gb.a] O[work@top.gb.a]
+  N1917 #48/48 ref_obj mv G[gb.mv] O[work@top.gb.mv]
+  N1917 #50/50 ref_obj mv G[gb.mv] O[work@top.gb.mv]
+  N1917 #51/51 ref_obj loc G[gb.loc] O[work@top.gb.loc]
+  N0482 #53/53 named_begin gd G[] O[work@top.gd]
+  N1917 #56/56 ref_obj mv G[gd.mv] O[work@top.gd.mv]
+  N0486 #97/97 gen_scope_array gb G[4:8:8:8] O[5:7:5:24]
+  N0483 #98/98 gen_scope  G[4:8:8:8] O[5:7:5:24]

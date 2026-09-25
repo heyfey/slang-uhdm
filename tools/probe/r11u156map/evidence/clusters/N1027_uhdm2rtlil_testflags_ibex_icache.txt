@@ -1,0 +1,64 @@
+cluster N1027 (map 5 id kept; OPEN): span|operation|line+endline|under:operation
+row: uhdm2rtlil/testflags/ibex_icache  strict=differ:fullname(193)  records golden=20047 ours=20047
+object: #8380 (golden) / #8380 (ours)  type=operation name= 
+  golden: 21:35:21:45
+  ours:   24:35:24:45
+  walk parents: operation < immediate_assert(ecc_data_param_legal) < begin < initial
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 8374..8386 ('>' = the object)
+  #8374	7	constant				prim_assert.sv	29	149	29	153	1312	64	UINT:1312	9		000
+  #8375	7	constant				prim_assert.sv	33	10	33	31	"ecc_tag_param_legal"	152	STRING:ecc_tag_param_legal	6		000
+  #8376	2	initial				prim_assert_standard_macros.svh	20	3	28	6						000
+  #8377	3	begin			work@ibex_icache	prim_assert_standard_macros.svh	20	11	28	6					work@ibex_icache	000
+  #8378	4	immediate_assert	ecc_data_param_legal			prim_assert_standard_macros.svh	21	5	27	10						000
+  #8379	5	operation				prim_assert_standard_macros.svh	21	35	21	65		0				000
+> #8380	6	operation				prim_assert_standard_macros.svh	21	35	21	45		0				000
+  #8381	7	ref_obj	ICacheECC		work@ibex_icache.ecc_data_param_legal.ICacheECC	prim_assert_standard_macros.svh	21	36	21	45		0			work@ibex_icache.ecc_data_param_legal.ICacheECC	000
+  #8382	6	operation				prim_assert_standard_macros.svh	21	50	21	64		0				000
+  #8383	7	constant				prim_assert_standard_macros.svh	21	50	21	58	32	32	UINT:32	9		000
+  #8384	8	ref_typespec			work@ibex_icache.ecc_data_param_legal		0	0	0	0		0			work@ibex_icache.ecc_data_param_legal	000
+  #8385	9	int_typespec				ibex_pkg.sv	383	13	383	25						000
+  #8386	7	constant				prim_assert_standard_macros.svh	21	62	21	64	32	64	UINT:32	9		000
+
+--- OURS (B) records 8374..8386 ('>' = the object)
+  #8374	7	constant				prim_assert.sv	32	92	32	96	1312	64	UINT:1312	9		000
+  #8375	7	constant				prim_assert.sv	33	10	23	13	"ecc_tag_param_legal"	152	STRING:ecc_tag_param_legal	6		000
+  #8376	2	initial				prim_assert_standard_macros.svh	23	3	28	6						000
+  #8377	3	begin			work@ibex_icache	prim_assert_standard_macros.svh	23	11	28	6					work@ibex_icache	000
+  #8378	4	immediate_assert	ecc_data_param_legal			prim_assert_standard_macros.svh	24	5	27	10						000
+  #8379	5	operation				prim_assert_standard_macros.svh	24	35	24	65		0				000
+> #8380	6	operation				prim_assert_standard_macros.svh	24	35	24	45		0				000
+  #8381	7	ref_obj	ICacheECC		work@ibex_icache.ecc_data_param_legal.ICacheECC	prim_assert_standard_macros.svh	24	36	24	45		0			work@ibex_icache.ecc_data_param_legal.ICacheECC	000
+  #8382	6	operation				prim_assert_standard_macros.svh	24	50	24	64		0				000
+  #8383	7	constant				prim_assert_standard_macros.svh	24	50	24	58	32	32	UINT:32	9		000
+  #8384	8	ref_typespec			work@ibex_icache.ecc_data_param_legal		0	0	0	0		0			work@ibex_icache.ecc_data_param_legal	000
+  #8385	9	int_typespec				ibex_pkg.sv	383	13	383	25						000
+  #8386	7	constant				prim_assert_standard_macros.svh	24	62	24	64	32	64	UINT:32	9		000
+
+facets of this row (193, first 25):
+  N0008 #2446/2446 ref_typespec  G[] O[ibex_pkg::PmpAddrRst]
+  N0027 #7556/7556 sys_func_call $error G[29:3:33:24] O[32:3:33:18]
+  N0026 #7557/7557 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #7558/7558 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #7559/7559 constant  G[29:60:29:147] O[32:92:33:56]
+  N0015 #7560/7560 constant  G[29:149:29:153] O[32:92:32:96]
+  N0017 #7561/7561 constant  G[33:10:33:23] O[33:10:23:5]
+  N0027 #7567/7567 sys_func_call $error G[29:3:33:28] O[32:3:33:18]
+  N0026 #7568/7568 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #7569/7569 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #7570/7570 constant  G[29:60:29:147] O[32:92:33:56]
+  N0015 #7571/7571 constant  G[29:149:29:153] O[32:92:32:96]
+  N0017 #7572/7572 constant  G[33:10:33:27] O[33:10:23:9]
+  N0415 #7939/7939 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.fill_addr_q.fill_addr_q]
+  N0996 #8346/8346 initial  G[20:3:28:6] O[23:3:28:6]
+  N0994 #8347/8347 begin  G[20:11:28:6] O[23:11:28:6]
+  N0995 #8348/8348 immediate_assert size_param_legal G[21:5:27:10] O[24:5:27:10]
+  N0998 #8349/8349 operation  G[21:32:21:49] O[24:32:24:49]
+  N0079 #8350/8350 constant  G[21:32:21:44] O[24:32:24:44]
+  N0079 #8353/8353 constant  G[21:47:21:49] O[24:47:24:49]
+  N0993 #8354/8354 begin  G[22:12:27:10] O[25:12:27:10]
+  N0027 #8355/8355 sys_func_call $error G[29:3:33:29] O[32:3:33:18]
+  N0026 #8356/8356 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #8357/8357 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #8358/8358 constant  G[29:60:29:147] O[32:92:33:56]

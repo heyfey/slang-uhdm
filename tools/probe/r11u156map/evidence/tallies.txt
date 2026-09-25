@@ -1,0 +1,9 @@
+# first-field tallies from the detail column of results/golden_*.csv at 89d599ef (and at b6af876c, pass 147)
+== /tmp/wt_r11u156/results
+surelog: 143 {'default': 74, 'testflags': 69} tests 75: fullname 39, endcol 30, line 26, file 15, endline 11, col 8, name 6, depth 4, value 4
+uhdm2rtlil: 178 {'default': 89, 'testflags': 89} tests 89: fullname 84, file 30, line 22, endline 12, depth 10, col 10, name 6, endcol 4
+probe: 1697: fullname 740, endcol 282, line 224, file 118, depth 102, type 99, endline 48, col 43, name 33, value 5, decompile 3
+== /tmp/r11u156_W/golden_b6af876c
+surelog: 139 {'default': 72, 'testflags': 67} tests 73: fullname 41, endcol 30, line 26, file 13, endline 11, col 8, name 6, value 4
+uhdm2rtlil: 152 {'default': 76, 'testflags': 76} tests 76: fullname 76, line 24, file 20, endline 12, col 8, name 6, endcol 4, depth 2
+probe: 1642: fullname 692, endcol 279, line 224, file 118, type 99, depth 98, endline 48, col 43, name 33, value 5, decompile 3
