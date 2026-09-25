@@ -1,0 +1,133 @@
+ON | arr/a01_task_body | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | arr/a02_initial | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | arr/a03_named_in_for | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | arr/b01_nb_reset_if | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | arr/b02_nb_partsel | IDENTICAL | OK | OK | - | -
+ON | c3n/n01_three_level | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | c3n/n02_module_local | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cf/f01_named_partial | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cf/f02_type_param_default | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cf/f03_func_arg | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cg/u01_empty_parens | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cg/u02_in_gen | EQUIVALENT | NO_GATES | NO_GATES | nohier | ℹ️  No common assign statements to compare — skipping
+ON | cg/u03_two_args_comment | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cn/n01_named_arg | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cn/n02_two_nested_args | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cn/n03_extends_nested | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cn/n04_pkg_typedef | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cv/s01_spec_static_call | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cv/s02_spec_named_pa | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cv/s03_typedef_spec_new | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cv/s04_nested_class_scoped | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cv/s05_iface_scope | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cv/s06_spec_new_args | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cv/v01_copy_new | EQUIVALENT | NO_GATES | NO_GATES | nohier | ℹ️  No common assign statements to compare — skipping
+ON | cv/v02_method_call | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cv/v03_new_then_noinit | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cv/v04_ternary_null | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cv/v05_var_kw | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cv/v06_static_kw | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cv/v07_copy_new_same_decl | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cv/v08_three_decl_null_new_copy | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cv/v09_spec_copy_new_ctl | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cv/v10_copy_new_only | EQUIVALENT | NO_GATES | NO_GATES | nohier | ℹ️  No common assign statements to compare — skipping
+ON | cv/v11_typed_ctor | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cv/v12_copy_new_paren | SLANG_REJECT |  |  | - | -
+ON | cx/x01_nested_port_two_inst | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cx/x02_nested_port_read_too | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cx/x03_nested_port_hier | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cx/x04_clone_and_alias | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cx/x05_alias_member_clone | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cx/x06_repl_and_lp | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cx/x07_bound_and_lp | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cx/x08_tp_and_enum_default | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ℹ️  No common assign statements to compare — skipping
+ON | cx/x09_enum_default_typed_by_tp | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | cx/x10_iface_tp_elem | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for
+ON | cx/x11_port_tp_elem_idx | DIVERGENT | NO_GATES | NO_GATES | nohier il synth |    This indicates a serious bug in UHDM import
+ON | d2/d01_enum_member | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 1 common constant assignments match
+ON | d2/d02_cast_concat | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 1 common constant assignments match
+ON | d2/d03_two_pkgs | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ✅ All 1 common constant assignments match
+ON | dd/e01_two_members | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | dd/e02_child_holder | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | dd/x01_size_cast_ca | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for
+ON | dd/x02_size_cast_proc | IDENTICAL | OK | OK | - | -
+ON | dfp/n01_gen_block_var | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | dfp/n02_struct_arr | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ON | dfp/n03_ff_reset | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | dfp/n04_typedef_elem | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | dv/d01_multi_assign | IDENTICAL | OK | OK | - | -
+ON | dv/d02_many_digits | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | dv/d03_concat_lhs | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | dv/d04_multi_assign_int_ctl | IDENTICAL | OK | OK | - | -
+ON | ea/e01_bare_import | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ea/e02_module_alias | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for
+ON | ea/e03_member | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ea/e04_local_alias_local_enum | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for
+ON | ea/e05_local_alias_import | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for
+ON | ea/e06_pkg_alias_other_pkg_bare | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ea/e07_unit_alias | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for
+ON | ea/e08_iface_alias | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ✅ All 1 common constant assignments match
+ON | g2/h01_gen_elem_read | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for
+ON | g2/h02_two_inst_override | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ℹ️  No common assign statements to compare — skipping
+ON | g/c01_three_level | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | g/c02_repl_nested | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | g/c03_child_cond_override | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gc/c01_multi_label_named_loop | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gc/c02_in_interface | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | gc/c03_unnamed_wire | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ipb/v01_repl_base | IDENTICAL | OK | OK | - | -
+ON | ipb/v02_unary_base | IDENTICAL | OK | OK | - | -
+ON | ipb/v03_gen_loop_proc | IDENTICAL | OK | OK | - | -
+ON | ipb/v04_task_body | IDENTICAL | OK | OK | - | -
+ON | lp/l01_named_if_in_loop | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | lp/l02_outer_genvar_idx | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | lp/l03_case_in_loop | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | lp/l04_iface_nested | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | lvi/l01_case_ff | IDENTICAL | OK | OK | - | -
+ON | lvi/l02_foreach | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | lvi/l03_latch | IDENTICAL | OK | OK | - | -
+ON | lvi/l04_unpacked_idx | IDENTICAL | OK | OK | - | -
+ON | mec/m01_export | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | mec/m02_port_type | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | mec/m03_nested_struct | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | mul/b01_two_bare | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | mul/b02_paren_bare | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | mul/g01_nested_loop | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | mul/g02_child_override | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | mul/g03_ips_bound | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | mul/g04_loop_in_if | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pb/x01_width_from_pkg | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pb/x02_module_default | IDENTICAL | READ_FAIL | READ_FAIL | - | both READ_FAIL
+ON | pb/x03_localparam_pkg | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pc/q01_two_ports_out_of_order | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pc/q02_escaped_inst | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pc/q03_header_import | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pc/q04_param_child_deep | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pc/q05_pkg_qualified_ctl | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pc/q06_positional_ctl | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pl/l01_module_typedef_import | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pl/l02_iface_port_import | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pl/l03_output_var_import | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pl/l04_member_bare_import | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | pos/p01_param_idx | IDENTICAL | OK | OK | - | -
+ON | pos/p02_macro_sel | EQUIVALENT | OK | OK | nohier il synth | ✅ Formal equivalence check PASSED for pos__p02_macro_sel/equ
+ON | pos/p03_escaped_first | IDENTICAL | OK | OK | - | -
+ON | pos/p04_gen_genvar | IDENTICAL | OK | OK | - | -
+ON | ps/s01_union | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ps/s02_gen_scope_typedef | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ps/s03_nested_struct | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | ps/s04_enum_member | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ℹ️  No common assign statements to compare — skipping
+ON | qen/q01_twice_inst | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | qen/q02_type_param_mod | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | qen/q03_import_and_qual | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | tp/t01_iface_port | STATUS_DIFF | OK | NO_GATES | - | -
+ON | tp/t02_two_dims | IDENTICAL | OK | OK | - | -
+ON | tp/t03_parent_override | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | tp/t04_pkg_elem | IDENTICAL | OK | OK | - | -
+ON | tsi/t01_idx_is_member | DIVERGENT | NO_GATES | NO_GATES | nohier il synth |    This indicates a serious bug in UHDM import
+ON | tsi/t02_nested_iface | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ℹ️  No common assign statements to compare — skipping
+ON | tsi/t03_ternary_ff | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | tsi/t04_escaped_port | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | uq/u01_module_union | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | uq/u02_iface_typedef | IDENTICAL | NO_GATES | NO_GATES | - | -
+ON | uq/u03_three_dims_pkg | IDENTICAL | NO_GATES | NO_GATES | - | -

@@ -13864,11 +13864,29 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 if (!nt || !nt->name ||
                     nt->name->kind != syntax::SyntaxKind::IdentifierName)
                     return true;
+                // § classVarInitCopyNew159v (r11u159, verifier refinement of
+                // § classVarInitNewDecl152v) — Surelog's class_new production
+                // is `class_scope? NEW ( ( list_of_arguments ) | expression )?`
+                // (SV3_1aParser.g4 class_new), so the shallow copy
+                // `C c1 = new c0;` (slang's CopyClassExpression) is a `new`
+                // initializer too: golden spans the handle through it
+                // (grid tools/probe/r11u159verify/cases/cv/v01_copy_new,
+                // v10_copy_new_only).  Switch R11V159_CLSVARCOPY_OFF.
+                static const bool copy159v =
+                    getenv("R11V159_CLSVARCOPY_OFF") == nullptr;
                 for (auto* dc : dd.declarators)
                     if (dc->initializer && dc->initializer->expr &&
-                        dc->initializer->expr->kind ==
-                            syntax::SyntaxKind::NewClassExpression)
+                        (dc->initializer->expr->kind ==
+                             syntax::SyntaxKind::NewClassExpression ||
+                         (copy159v &&
+                          dc->initializer->expr->kind ==
+                              syntax::SyntaxKind::CopyClassExpression))) {
+                        if (dc->initializer->expr->kind ==
+                                syntax::SyntaxKind::CopyClassExpression &&
+                            getenv("R11V159_TRACE"))
+                            fprintf(stderr, "R11V159 CLSVARCOPY\n");
                         return true;
+                    }
                 return false;
             };
             if (!it.port && v->UhdmType() == UHDM::uhdmclass_var &&

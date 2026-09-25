@@ -1,0 +1,9 @@
+law EQUIVALENT nohier il synth
+    surelog wire width 4 output 1 \o ; wire width 4 \b.w
+    slanguh wire width 4 output 1 \o ; wire width 32 \b.w
+law_ELEMALIAS_OFF IDENTICAL -
+    surelog wire width 4 output 1 \o ; wire width 4 \b.w
+    slanguh wire width 4 output 1 \o ; wire width 4 \b.w
+fix IDENTICAL -
+    surelog wire width 4 output 1 \o ; wire width 4 \b.w
+    slanguh wire width 4 output 1 \o ; wire width 4 \b.w

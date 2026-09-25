@@ -1,0 +1,319 @@
+=== surelog/default/ClassTypeParam
+off: [] on: []
+#121 SAME-REC
+   off endline: G A: 4	class_typespec	m_uvm_config_obj_misc			dut.sv	20	9	24	36
+       O B: 4	class_typespec	m_uvm_config_obj_misc			dut.sv	20	9	20	43
+#122 SAME-REC
+   off file: G A: 5	type_parameter	T		<in>m_uvm_config_obj_misc.T		0	0	0	0
+       O B: 5	type_parameter	T		<in>m_uvm_config_obj_misc.T	dut.sv	16	27	16	28
+#124 SAME-REC
+   off col: G A: 7	class_typespec	uvm_object			dut.sv	20	22	20	43
+       O B: 7	class_typespec	uvm_object			dut.sv	20	24	20	34
+#128 RE-RENDERED
+   off file: G A: 5	param_assign					0	0	0	0
+       O B: 5	param_assign				dut.sv	16	27	16	28
+   on  line: G A: 5	param_assign					0	0	0	0
+       O B: 5	param_assign					16	27	16	28
+#132 FIXED
+   off file: G A: 5	param_assign					16	39	16	41
+       O B: 5	param_assign				dut.sv	16	39	16	41
+#138 FIXED
+   off endcol: G A: 4	class_typespec	uvm_config_db			dut.sv	26	3	26	49
+       O B: 4	class_typespec	uvm_config_db			dut.sv	26	3	26	37
+#139 SAME-REC
+   off file: G A: 5	type_parameter	T		<in>uvm_config_db.T		0	0	0	0
+       O B: 5	type_parameter	T		<in>uvm_config_db.T	dut.sv	16	27	16	28
+#141 SAME-REC
+   off line: G A: 7	class_typespec	uvm_object			dut.sv	26	16	26	37
+       O B: 7	class_typespec	uvm_object			dut.sv	20	24	20	34
+#144 SAME-REC
+   off line: G A: 7	string_typespec				dut.sv	26	30	26	36
+       O B: 7	string_typespec				dut.sv	20	36	20	42
+#145 RE-RENDERED
+   off file: G A: 5	param_assign					0	0	0	0
+       O B: 5	param_assign				dut.sv	16	27	16	28
+   on  line: G A: 5	param_assign					0	0	0	0
+       O B: 5	param_assign					16	27	16	28
+#146 FIXED
+   off file: G A: 5	param_assign					16	39	16	41
+       O B: 5	param_assign				dut.sv	16	39	16	41
+#148 SAME-REC
+   off endline: G A: 1	class_typespec	m_uvm_config_obj_misc			dut.sv	20	9	24	36
+       O B: 1	class_typespec	m_uvm_config_obj_misc			dut.sv	20	9	20	43
+#149 SAME-REC
+   off file: G A: 2	type_parameter	T		<in>m_uvm_config_obj_misc.T		0	0	0	0
+       O B: 2	type_parameter	T		<in>m_uvm_config_obj_misc.T	dut.sv	16	27	16	28
+#151 SAME-REC
+   off col: G A: 4	class_typespec	uvm_object			dut.sv	20	22	20	43
+       O B: 4	class_typespec	uvm_object			dut.sv	20	24	20	34
+#155 RE-RENDERED
+   off file: G A: 2	param_assign					0	0	0	0
+       O B: 2	param_assign				dut.sv	16	27	16	28
+   on  line: G A: 2	param_assign					0	0	0	0
+       O B: 2	param_assign					16	27	16	28
+#159 FIXED
+   off file: G A: 2	param_assign					16	39	16	41
+       O B: 2	param_assign				dut.sv	16	39	16	41
+#164 FIXED
+   off endcol: G A: 2	class_var	misc1		work@top.misc1	dut.sv	24	25	24	36		0
+       O B: 2	class_var	misc1		work@top.misc1	dut.sv	24	25	24	30		0
+#166 SAME-REC
+   off endline: G A: 4	class_typespec	m_uvm_config_obj_misc			dut.sv	20	9	24	36
+       O B: 4	class_typespec	m_uvm_config_obj_misc			dut.sv	20	9	20	43
+#168 FIXED
+   off endcol: G A: 2	class_var	misc2		work@top.misc2	dut.sv	26	38	26	49		0
+       O B: 2	class_var	misc2		work@top.misc2	dut.sv	26	38	26	43		0
+#170 FIXED
+   off endcol: G A: 4	class_typespec	uvm_config_db			dut.sv	26	3	26	16
+       O B: 4	class_typespec	uvm_config_db			dut.sv	26	3	26	37
+#171 SAME-REC
+   off file: G A: 5	type_parameter	T		<in>uvm_config_db.T		0	0	0	0
+       O B: 5	type_parameter	T		<in>uvm_config_db.T	dut.sv	16	27	16	28
+#173 SAME-REC
+   off line: G A: 7	class_typespec	uvm_object			dut.sv	26	16	26	37
+       O B: 7	class_typespec	uvm_object			dut.sv	20	24	20	34
+#176 SAME-REC
+   off line: G A: 7	string_typespec				dut.sv	26	30	26	36
+       O B: 7	string_typespec				dut.sv	20	36	20	42
+#177 RE-RENDERED
+   off file: G A: 5	param_assign					0	0	0	0
+       O B: 5	param_assign				dut.sv	16	27	16	28
+   on  line: G A: 5	param_assign					0	0	0	0
+       O B: 5	param_assign					16	27	16	28
+#178 FIXED
+   off file: G A: 5	param_assign					16	39	16	41
+       O B: 5	param_assign				dut.sv	16	39	16	41
+=== surelog/testflags/ClassTypeParam
+off: [] on: []
+#9 SAME-REC
+   off file: G A: 3	type_parameter	T		m_uvm_config_obj_misc.T		0	0	0	0
+       O B: 3	type_parameter	T		m_uvm_config_obj_misc.T	dut.sv	16	27	16	28
+#11 SAME-REC
+   off col: G A: 5	class_typespec	uvm_object			dut.sv	20	22	20	43
+       O B: 5	class_typespec	uvm_object			dut.sv	20	24	20	34
+#23 SAME-REC
+   off file: G A: 3	type_parameter	T		uvm_config_db.T		0	0	0	0
+       O B: 3	type_parameter	T		uvm_config_db.T	dut.sv	16	27	16	28
+#25 SAME-REC
+   off line: G A: 5	class_typespec	uvm_object			dut.sv	26	16	26	37
+       O B: 5	class_typespec	uvm_object			dut.sv	20	24	20	34
+#32 SAME-REC
+   off line: G A: 5	string_typespec				dut.sv	26	30	26	36
+       O B: 5	string_typespec				dut.sv	20	36	20	42
+#45 SAME-REC
+   off file: G A: 3	type_parameter	T		m_uvm_config_obj_misc.T		0	0	0	0
+       O B: 3	type_parameter	T		m_uvm_config_obj_misc.T	dut.sv	16	27	16	28
+#47 SAME-REC
+   off col: G A: 5	class_typespec	uvm_object			dut.sv	20	22	20	43
+       O B: 5	class_typespec	uvm_object			dut.sv	20	24	20	34
+#52 SAME-REC
+   off file: G A: 3	type_parameter	T		uvm_config_db.T		0	0	0	0
+       O B: 3	type_parameter	T		uvm_config_db.T	dut.sv	16	27	16	28
+#54 SAME-REC
+   off line: G A: 5	class_typespec	uvm_object			dut.sv	26	16	26	37
+       O B: 5	class_typespec	uvm_object			dut.sv	20	24	20	34
+#66 SAME-REC
+   off file: G A: 3	type_parameter	T		m_uvm_config_obj_misc.T		0	0	0	0
+       O B: 3	type_parameter	T		m_uvm_config_obj_misc.T	dut.sv	16	27	16	28
+#68 SAME-REC
+   off col: G A: 5	class_typespec	uvm_object			dut.sv	20	22	20	43
+       O B: 5	class_typespec	uvm_object			dut.sv	20	24	20	34
+#73 SAME-REC
+   off file: G A: 3	type_parameter	T		uvm_config_db.T		0	0	0	0
+       O B: 3	type_parameter	T		uvm_config_db.T	dut.sv	16	27	16	28
+#75 SAME-REC
+   off line: G A: 5	class_typespec	uvm_object			dut.sv	26	16	26	37
+       O B: 5	class_typespec	uvm_object			dut.sv	20	24	20	34
+#87 SAME-REC
+   off endline: G A: 4	class_typespec	m_uvm_config_obj_misc			dut.sv	20	9	24	36
+       O B: 4	class_typespec	m_uvm_config_obj_misc			dut.sv	20	9	20	43
+#88 SAME-REC
+   off file: G A: 5	type_parameter	T		<in>m_uvm_config_obj_misc.T		0	0	0	0
+       O B: 5	type_parameter	T		<in>m_uvm_config_obj_misc.T	dut.sv	16	27	16	28
+#90 SAME-REC
+   off col: G A: 7	class_typespec	uvm_object			dut.sv	20	22	20	43
+       O B: 7	class_typespec	uvm_object			dut.sv	20	24	20	34
+#94 RE-RENDERED
+   off file: G A: 5	param_assign					0	0	0	0
+       O B: 5	param_assign				dut.sv	16	27	16	28
+   on  line: G A: 5	param_assign					0	0	0	0
+       O B: 5	param_assign					16	27	16	28
+#98 FIXED
+   off file: G A: 5	param_assign					16	39	16	41
+       O B: 5	param_assign				dut.sv	16	39	16	41
+#104 FIXED
+   off endcol: G A: 4	class_typespec	uvm_config_db			dut.sv	26	3	26	49
+       O B: 4	class_typespec	uvm_config_db			dut.sv	26	3	26	37
+#105 SAME-REC
+   off file: G A: 5	type_parameter	T		<in>uvm_config_db.T		0	0	0	0
+       O B: 5	type_parameter	T		<in>uvm_config_db.T	dut.sv	16	27	16	28
+#107 SAME-REC
+   off line: G A: 7	class_typespec	uvm_object			dut.sv	26	16	26	37
+       O B: 7	class_typespec	uvm_object			dut.sv	20	24	20	34
+#110 SAME-REC
+   off line: G A: 7	string_typespec				dut.sv	26	30	26	36
+       O B: 7	string_typespec				dut.sv	20	36	20	42
+#111 RE-RENDERED
+   off file: G A: 5	param_assign					0	0	0	0
+       O B: 5	param_assign				dut.sv	16	27	16	28
+   on  line: G A: 5	param_assign					0	0	0	0
+       O B: 5	param_assign					16	27	16	28
+#112 FIXED
+   off file: G A: 5	param_assign					16	39	16	41
+       O B: 5	param_assign				dut.sv	16	39	16	41
+#114 SAME-REC
+   off endline: G A: 1	class_typespec	m_uvm_config_obj_misc			dut.sv	20	9	24	36
+       O B: 1	class_typespec	m_uvm_config_obj_misc			dut.sv	20	9	20	43
+#115 SAME-REC
+   off file: G A: 2	type_parameter	T		<in>m_uvm_config_obj_misc.T		0	0	0	0
+       O B: 2	type_parameter	T		<in>m_uvm_config_obj_misc.T	dut.sv	16	27	16	28
+#117 SAME-REC
+   off col: G A: 4	class_typespec	uvm_object			dut.sv	20	22	20	43
+       O B: 4	class_typespec	uvm_object			dut.sv	20	24	20	34
+#121 RE-RENDERED
+   off file: G A: 2	param_assign					0	0	0	0
+       O B: 2	param_assign				dut.sv	16	27	16	28
+   on  line: G A: 2	param_assign					0	0	0	0
+       O B: 2	param_assign					16	27	16	28
+#125 FIXED
+   off file: G A: 2	param_assign					16	39	16	41
+       O B: 2	param_assign				dut.sv	16	39	16	41
+#130 FIXED
+   off endcol: G A: 2	class_var	misc1		work@top.misc1	dut.sv	24	25	24	36		0
+       O B: 2	class_var	misc1		work@top.misc1	dut.sv	24	25	24	30		0
+#132 SAME-REC
+   off endline: G A: 4	class_typespec	m_uvm_config_obj_misc			dut.sv	20	9	24	36
+       O B: 4	class_typespec	m_uvm_config_obj_misc			dut.sv	20	9	20	43
+#134 FIXED
+   off endcol: G A: 2	class_var	misc2		work@top.misc2	dut.sv	26	38	26	49		0
+       O B: 2	class_var	misc2		work@top.misc2	dut.sv	26	38	26	43		0
+#136 FIXED
+   off endcol: G A: 4	class_typespec	uvm_config_db			dut.sv	26	3	26	16
+       O B: 4	class_typespec	uvm_config_db			dut.sv	26	3	26	37
+#137 SAME-REC
+   off file: G A: 5	type_parameter	T		<in>uvm_config_db.T		0	0	0	0
+       O B: 5	type_parameter	T		<in>uvm_config_db.T	dut.sv	16	27	16	28
+#139 SAME-REC
+   off line: G A: 7	class_typespec	uvm_object			dut.sv	26	16	26	37
+       O B: 7	class_typespec	uvm_object			dut.sv	20	24	20	34
+#142 SAME-REC
+   off line: G A: 7	string_typespec				dut.sv	26	30	26	36
+       O B: 7	string_typespec				dut.sv	20	36	20	42
+#143 RE-RENDERED
+   off file: G A: 5	param_assign					0	0	0	0
+       O B: 5	param_assign				dut.sv	16	27	16	28
+   on  line: G A: 5	param_assign					0	0	0	0
+       O B: 5	param_assign					16	27	16	28
+#144 FIXED
+   off file: G A: 5	param_assign					16	39	16	41
+       O B: 5	param_assign				dut.sv	16	39	16	41
+=== uhdm2rtlil/default/gen_scope_typaram
+off: [] on: []
+#236 FIXED
+   off endcol: G A: 8	struct_typespec	pair_t			dut.sv	17	13	17	60
+       O B: 8	struct_typespec	pair_t			dut.sv	17	13	17	26
+#238 RE-RENDERED
+   off fullname: G A: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+       O B: 10	ref_typespec			x		0	0	0	0		0
+   on  fullname: G A: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+       O B: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+#244 RE-RENDERED
+   off fullname: G A: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+       O B: 10	ref_typespec			y		0	0	0	0		0
+   on  fullname: G A: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+       O B: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+#251 FIXED
+   off endcol: G A: 8	struct_typespec	pair_t			dut.sv	17	13	17	60
+       O B: 8	struct_typespec	pair_t			dut.sv	17	13	17	26
+#253 RE-RENDERED
+   off fullname: G A: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+       O B: 10	ref_typespec			x		0	0	0	0		0
+   on  fullname: G A: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+       O B: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+#259 RE-RENDERED
+   off fullname: G A: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+       O B: 10	ref_typespec			y		0	0	0	0		0
+   on  fullname: G A: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+       O B: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+#266 FIXED
+   off endcol: G A: 8	struct_typespec	pair_t			dut.sv	17	13	17	60
+       O B: 8	struct_typespec	pair_t			dut.sv	17	13	17	26
+#268 RE-RENDERED
+   off fullname: G A: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+       O B: 10	ref_typespec			x		0	0	0	0		0
+   on  fullname: G A: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+       O B: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+#274 RE-RENDERED
+   off fullname: G A: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+       O B: 10	ref_typespec			y		0	0	0	0		0
+   on  fullname: G A: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+       O B: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+=== uhdm2rtlil/testflags/gen_scope_typaram
+off: [] on: []
+#146 FIXED
+   off endcol: G A: 8	struct_typespec	pair_t			dut.sv	17	13	17	60
+       O B: 8	struct_typespec	pair_t			dut.sv	17	13	17	26
+#148 RE-RENDERED
+   off fullname: G A: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+       O B: 10	ref_typespec			x		0	0	0	0		0
+   on  fullname: G A: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+       O B: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+#154 RE-RENDERED
+   off fullname: G A: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+       O B: 10	ref_typespec			y		0	0	0	0		0
+   on  fullname: G A: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+       O B: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+#161 FIXED
+   off endcol: G A: 8	struct_typespec	pair_t			dut.sv	17	13	17	60
+       O B: 8	struct_typespec	pair_t			dut.sv	17	13	17	26
+#163 RE-RENDERED
+   off fullname: G A: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+       O B: 10	ref_typespec			x		0	0	0	0		0
+   on  fullname: G A: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+       O B: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+#169 RE-RENDERED
+   off fullname: G A: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+       O B: 10	ref_typespec			y		0	0	0	0		0
+   on  fullname: G A: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+       O B: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+#176 FIXED
+   off endcol: G A: 8	struct_typespec	pair_t			dut.sv	17	13	17	60
+       O B: 8	struct_typespec	pair_t			dut.sv	17	13	17	26
+#178 RE-RENDERED
+   off fullname: G A: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+       O B: 10	ref_typespec			x		0	0	0	0		0
+   on  fullname: G A: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+       O B: 10	ref_typespec			<in>pair_t.x		0	0	0	0		0
+#184 RE-RENDERED
+   off fullname: G A: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+       O B: 10	ref_typespec			y		0	0	0	0		0
+   on  fullname: G A: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+       O B: 10	ref_typespec			<in>pair_t.y		0	0	0	0		0
+=== probe v11u108repro/brk/f5/b15_child_ports
+off: [] on: []
+#133 RE-RENDERED
+   off fullname: G A: 8	ref_obj	D		<in>rt_t.D	dut.sv	1	111	1	112		0
+       O B: 8	ref_obj	D		<in>D	dut.sv	1	111	1	112		0
+   on  fullname: G A: 8	ref_obj	D		<in>rt_t.D	dut.sv	1	111	1	112		0
+       O B: 8	ref_obj	D		<in>rt_t.D	dut.sv	1	111	1	112		0
+#136 FIXED
+   off fullname: G A: 6	ref_typespec	id_t		<in>id_t		0	0	0	0		0
+       O B: 6	ref_typespec	id_t				0	0	0	0		0
+#146 RE-RENDERED
+   off fullname: G A: 8	ref_obj	D		<in>rt_t.D	dut.sv	1	111	1	112		0
+       O B: 8	ref_obj	D		<in>D	dut.sv	1	111	1	112		0
+   on  fullname: G A: 8	ref_obj	D		<in>rt_t.D	dut.sv	1	111	1	112		0
+       O B: 8	ref_obj	D		<in>rt_t.D	dut.sv	1	111	1	112		0
+#221 RE-RENDERED
+   off fullname: G A: 8	ref_obj	D		<in>rt_t.D	dut.sv	1	111	1	112		0
+       O B: 8	ref_obj	D		<in>D	dut.sv	1	111	1	112		0
+   on  fullname: G A: 8	ref_obj	D		<in>rt_t.D	dut.sv	1	111	1	112		0
+       O B: 8	ref_obj	D		<in>rt_t.D	dut.sv	1	111	1	112		0
+#224 FIXED
+   off fullname: G A: 6	ref_typespec	id_t		<in>id_t		0	0	0	0		0
+       O B: 6	ref_typespec	id_t				0	0	0	0		0
+#231 RE-RENDERED
+   off fullname: G A: 8	ref_obj	D		<in>rt_t.D	dut.sv	1	111	1	112		0
+       O B: 8	ref_obj	D		<in>D	dut.sv	1	111	1	112		0
+   on  fullname: G A: 8	ref_obj	D		<in>rt_t.D	dut.sv	1	111	1	112		0
+       O B: 8	ref_obj	D		<in>rt_t.D	dut.sv	1	111	1	112		0

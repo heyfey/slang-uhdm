@@ -1,0 +1,33 @@
+res/r11u147repro_mec_f02_param_import_explicit on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=bb0551d5
+res/r11u147repro_mec_f03_var_not_param on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=9cee6b13
+res/r11u147repro_pos_n5_pos_var_idx on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=a47983d1
+res/r11u147repro_tsi_a6_gen_ca_param on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=95f8328a
+res/r11u147repro_tsi_b2_lhs_proc on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=4a71059f
+res/r11u152repro_cases_C3_c07_pkg_qualified on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=d96a93ee
+res/r11u152repro_cases_C3_c10_in_generate on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=f990a700
+res/r11u152repro_cases_CV_v02_param_class on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=f1389f97
+res/r11v147repro_brk_mec_c1_explicit_vals on cmp=255 cmplines=32 strict=NOT_EQUAL_stage1 rc=0 md5=7796d6ea
+res/r11v147repro_brk_tsi_x4_top_inst_gen on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=cbb24027
+res/r11v147repro_brk_tsi_x7_partsel_idx on cmp=255 cmplines=148 strict=NOT_EQUAL_stage1 rc=0 md5=e0eaa7fa
+res/v11u152repro_cases_K3_k08_positional on cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=ce3235eb
+res/v11u152repro_cases_KE_e01_alias_of_alias on cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=bc10c7c3
+res/v11u152repro_cases_KP_p03_function_arg on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=6d301a93
+res/v11u152repro_cases_KW_w06_cg_null on cmp=255 cmplines=184 strict=NOT_EQUAL_stage1 rc=0 md5=a5fdd20a
+res/v11u152repro_cases_KY_y04_pkg_func_arg_bare_leaf on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=4446a25f
+r11u147repro_mec_f02_param_import_explicit objects_differing=8 STRICT_NOTEQUAL fullname
+r11u147repro_mec_f03_var_not_param objects_differing=7 STRICT_NOTEQUAL fullname
+r11u147repro_pos_n5_pos_var_idx objects_differing=2 STRICT_NOTEQUAL fullname
+r11u147repro_tsi_a6_gen_ca_param objects_differing=10 STRICT_NOTEQUAL fullname
+r11u147repro_tsi_b2_lhs_proc objects_differing=4 STRICT_NOTEQUAL col
+r11u152_EA_e03_local_alias  NOT_EQUAL stage1
+r11u152repro_cases_C3_c07_pkg_qualified objects_differing=3 STRICT_NOTEQUAL col
+r11u152repro_cases_C3_c10_in_generate objects_differing=2 STRICT_NOTEQUAL fullname
+r11u152repro_cases_CV_v02_param_class objects_differing=1 STRICT_NOTEQUAL line
+r11v147repro_brk_mec_c1_explicit_vals  NOT_EQUAL stage1
+r11v147repro_brk_tsi_x4_top_inst_gen objects_differing=2 STRICT_NOTEQUAL fullname
+r11v147repro_brk_tsi_x7_partsel_idx  NOT_EQUAL stage1
+v11u152repro_cases_K3_k08_positional  NOT_EQUAL stage1
+v11u152repro_cases_KE_e01_alias_of_alias  NOT_EQUAL stage1
+v11u152repro_cases_KP_p03_function_arg objects_differing=4 STRICT_NOTEQUAL endcol
+v11u152repro_cases_KW_w06_cg_null  NOT_EQUAL stage1
+v11u152repro_cases_KY_y04_pkg_func_arg_bare_leaf objects_differing=4 STRICT_NOTEQUAL endcol

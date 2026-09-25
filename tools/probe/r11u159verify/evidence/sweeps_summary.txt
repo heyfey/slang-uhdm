@@ -1,0 +1,119 @@
+== sweep L
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u159_swL/probe.csv
+probe cases: EQUAL=2491 STRICT_NOTEQUAL=1596 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+[probe] EQUAL=2491 STRICT_NOTEQUAL=1596
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u159_swL/surelog.csv
+== surelog vs golden_surelog.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u159_swL/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+SWEEP_RC=1
+== sweep A
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u159_swA/probe.csv
+probe cases: EQUAL=2390 STRICT_NOTEQUAL=1697 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+[probe] EQUAL=2390 STRICT_NOTEQUAL=1697
+regressions=101 conversions=0 changes=98 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u159_swA/surelog.csv
+== surelog vs golden_surelog.csv
+regressions=22 conversions=0 changes=24 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u159_swA/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=44 conversions=0 changes=24 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+SWEEP_RC=1
+== sweep X
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u159_swX/probe.csv
+probe cases: EQUAL=2436 STRICT_NOTEQUAL=1651 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+[probe] EQUAL=2436 STRICT_NOTEQUAL=1651
+regressions=55 conversions=0 changes=33 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u159_swX/surelog.csv
+== surelog vs golden_surelog.csv
+regressions=4 conversions=0 changes=18 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u159_swX/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=30 conversions=0 changes=10 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+SWEEP_RC=1
+== sweep Y
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u159_swY/probe.csv
+probe cases: EQUAL=2445 STRICT_NOTEQUAL=1642 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+[probe] EQUAL=2445 STRICT_NOTEQUAL=1642
+regressions=46 conversions=0 changes=65 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u159_swY/surelog.csv
+== surelog vs golden_surelog.csv
+regressions=18 conversions=0 changes=8 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u159_swY/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=18 conversions=0 changes=22 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+SWEEP_RC=1
+== sweep P
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u159_swP/probe.csv
+probe cases: EQUAL=2390 STRICT_NOTEQUAL=1697 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+[probe] EQUAL=2390 STRICT_NOTEQUAL=1697
+regressions=101 conversions=0 changes=98 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u159_swP/surelog.csv
+== surelog vs golden_surelog.csv
+regressions=22 conversions=0 changes=24 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u159_swP/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=44 conversions=0 changes=24 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+SWEEP_RC=1
+== sweep Q
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u159_swQ/probe.csv
+probe cases: EQUAL=2445 STRICT_NOTEQUAL=1642 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+[probe] EQUAL=2445 STRICT_NOTEQUAL=1642
+regressions=46 conversions=0 changes=65 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u159_swQ/surelog.csv
+== surelog vs golden_surelog.csv
+regressions=18 conversions=0 changes=8 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u159_swQ/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=18 conversions=0 changes=22 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+SWEEP_RC=1
+== sweep F
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u159_swF/probe.csv
+probe cases: EQUAL=2491 STRICT_NOTEQUAL=1596 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+[probe] EQUAL=2491 STRICT_NOTEQUAL=1596
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u159_swF/surelog.csv
+== surelog vs golden_surelog.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u159_swF/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+SWEEP_RC=1

@@ -1,0 +1,20 @@
+# fix census (R11V159_TRACE through drivers/tracewrap.sh on every command of the fix gate sweep), written BEFORE the byte comparison
+# firing rows (fix declines § packedElemAliasTypedef152 outside a package; CLSVARCOPY fired nowhere):
+surelog/default/IncompFunc       2 R11V159 ELEMALIAS
+surelog/testflags/IncompFunc       2 R11V159 ELEMALIAS
+surelog/default/LhsOp       1 R11V159 ELEMALIAS
+surelog/testflags/LhsOp       1 R11V159 ELEMALIAS
+surelog/default/PackedEnum       2 R11V159 ELEMALIAS
+surelog/testflags/PackedEnum       2 R11V159 ELEMALIAS
+surelog/default/PackedEnumVar       2 R11V159 ELEMALIAS
+surelog/testflags/PackedEnumVar       2 R11V159 ELEMALIAS
+uhdm2rtlil/default/AssignmentToConcatenation       1 R11V159 ELEMALIAS
+uhdm2rtlil/testflags/AssignmentToConcatenation       1 R11V159 ELEMALIAS
+uhdm2rtlil/default/ReturnEnumArray       2 R11V159 ELEMALIAS
+uhdm2rtlil/testflags/ReturnEnumArray       2 R11V159 ELEMALIAS
+uhdm2rtlil/default/latch_packed_enum_loop       2 R11V159 ELEMALIAS
+uhdm2rtlil/testflags/latch_packed_enum_loop       2 R11V159 ELEMALIAS
+downstream/AssignmentToConcatenation       1 R11V159 ELEMALIAS
+downstream/ReturnEnumArray       2 R11V159 ELEMALIAS
+downstream/latch_packed_enum_loop       2 R11V159 ELEMALIAS
+# PREDICTED byte movers vs the HEAD sweep: a subset of the firing corpus row-modes above (a firing row moves only where the law's alias pick differs from the canonical scan's pick), plus the UVM coin family; probe: 0 (no probe firing)

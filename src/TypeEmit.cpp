@@ -2992,9 +2992,34 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             // (named lc_tx_t, Typedef_alias -> lc_tx_e), not the first
             // typedef of the same canonical type the scan below finds.
             // Switch R11U152_ELEMALIAS_OFF.
+            // § elemAliasPkgScope159v (r11u159, verifier refinement of
+            // § packedElemAliasTypedef152) — only an alias declared in a
+            // PACKAGE: Surelog's alias typedef is a clone of the aliased
+            // enum renamed (the enum's span, Typedef_alias -> the enum), and
+            // our package alias object is that; a MODULE-local alias
+            // (`typedef lp::tx_e my_t; my_t [0:0] w;`) is still our own
+            // declaration-spanned object without the alias reference, so
+            // naming the element by it moved the element's span away from
+            // golden (module, $unit and interface aliases: grid
+            // tools/probe/r11u159verify/cases/ea/e02 e04 e05 e07 e08, and
+            // r11u152repro EA e03), and in an interface the plugin then
+            // read the variable 32 bits wide where golden's is 4 (e08:
+            // downstream IDENTICAL -> EQUIVALENT).
+            // Switch R11V159_ELEMALIAS_OFF.
+            static const bool aliasPkg159v =
+                getenv("R11V159_ELEMALIAS_OFF") == nullptr;
+            auto aliasInPkg159v = [&]() {
+                if (!aliasPkg159v)
+                    return true;
+                auto* ps = leaf->getParentScope();
+                bool in = ps && ps->asSymbol().kind == SymbolKind::Package;
+                if (!in && getenv("R11V159_TRACE"))
+                    fprintf(stderr, "R11V159 ELEMALIAS\n");
+                return in;
+            };
             if (leaf->kind == SymbolKind::TypeAlias &&
                 lc.kind == SymbolKind::EnumType &&
-                r11u152Law("R11U152_ELEMALIAS_OFF"))
+                r11u152Law("R11U152_ELEMALIAS_OFF") && aliasInPkg159v())
                 if (auto ait152 = typedefTs.find(leaf);
                     ait152 != typedefTs.end() && ait152->second)
                     elemTs = ait152->second;

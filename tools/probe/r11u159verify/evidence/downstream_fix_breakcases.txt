@@ -1,0 +1,7 @@
+FIX | cv/v01_copy_new | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | cv/v10_copy_new_only | IDENTICAL | NO_GATES | NO_GATES | - | -
+FIX | ea/e02_module_alias | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for
+FIX | ea/e04_local_alias_local_enum | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for
+FIX | ea/e05_local_alias_import | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for
+FIX | ea/e07_unit_alias | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for
+FIX | ea/e08_iface_alias | IDENTICAL | NO_GATES | NO_GATES | - | -
