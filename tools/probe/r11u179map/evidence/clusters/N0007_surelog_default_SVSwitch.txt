@@ -1,0 +1,64 @@
+cluster N0007 (id kept from an earlier map; OPEN (map 8 listed it: ground-A+B step 15; passes 164-174 left it) | ground A | site emitExpr (ExprEmit.cpp, law parensLessCallIsPathRefObj) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law newArrayArgNoBind16) [r11u179 pin]): fullname|ref_obj|golden-empty|under:hier_path
+row: surelog/default/SVSwitch  strict=differ:fullname(11)  records golden=5787 ours=5808
+object: #651 (golden) / #651 (ours)  type=ref_obj name=size OUT
+  golden: 
+  ours:   work@Receiver::start::size
+  walk parents: hier_path(bytes.size) < operation < method_func_call(new) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 645..657 ('>' = the object)
+  #645	7	begin			work@Receiver::start	Receiver.sv	39	5	43	8					work@Receiver::start	000
+  #646	8	assignment				Receiver.sv	40	8	40	42						000
+  #647	9	method_func_call	new			Receiver.sv	40	16	40	42		0				000
+  #648	10	operation				Receiver.sv	40	20	40	34		0				000
+  #649	11	hier_path	bytes.size			Receiver.sv	40	20	40	30		0				000
+  #650	12	ref_obj	bytes			Receiver.sv	40	20	40	25		0				000
+> #651	12	ref_obj	size			Receiver.sv	40	26	40	30		0				000
+  #652	11	constant				Receiver.sv	40	33	40	34	1	64	UINT:1	9		000
+  #653	10	ref_obj	bytes			Receiver.sv	40	36	40	41		0				000
+  #654	9	ref_obj	bytes		work@Receiver::start::bytes	Receiver.sv	40	8	40	13		0			work@Receiver::start::bytes	000
+  #655	8	assignment				Receiver.sv	41	8	41	55						000
+  #656	9	hier_path	output_intf.cb.data_out			Receiver.sv	41	32	41	55		0				000
+  #657	10	ref_obj	output_intf			Receiver.sv	41	32	41	43		0				000
+
+--- OURS (B) records 645..657 ('>' = the object)
+  #645	7	begin			work@Receiver::start	Receiver.sv	39	5	43	8					work@Receiver::start	000
+  #646	8	assignment				Receiver.sv	40	8	40	42						000
+  #647	9	method_func_call	new			Receiver.sv	40	16	40	42		0				000
+  #648	10	operation				Receiver.sv	40	20	40	34		0				000
+  #649	11	hier_path	bytes.size			Receiver.sv	40	20	40	30		0				000
+  #650	12	ref_obj	bytes			Receiver.sv	40	20	40	25		0				000
+> #651	12	ref_obj	size		work@Receiver::start::size	Receiver.sv	40	26	40	30		0			work@Receiver::start::size	000
+  #652	11	constant				Receiver.sv	40	33	40	34	1	64	UINT:1	9		000
+  #653	10	ref_obj	bytes			Receiver.sv	40	36	40	41		0				000
+  #654	9	ref_obj	bytes		work@Receiver::start::bytes	Receiver.sv	40	8	40	13		0			work@Receiver::start::bytes	000
+  #655	8	assignment				Receiver.sv	41	8	41	55						000
+  #656	9	hier_path	output_intf.cb.data_out			Receiver.sv	41	32	41	55		0				000
+  #657	10	ref_obj	output_intf			Receiver.sv	41	32	41	43		0				000
+
+facets of this row (64, first 25):
+  N0526 #-1/3314 logic_net clock G[] O[3 objs]
+  N0268 #-1/3348 logic_var reset G[] O[3 objs]
+  N0526 #-1/3352 logic_net clock G[] O[3 objs]
+  N0526 #-1/3407 logic_net clock G[] O[3 objs]
+  N0526 #-1/3432 logic_net clock G[] O[3 objs]
+  N0526 #-1/3457 logic_net clock G[] O[3 objs]
+  N0526 #-1/3482 logic_net clock G[] O[3 objs]
+  N0095 #101/101 ref_obj bytes G[work@Driver::start::pkt.byte_pack::bytes] O[work@Driver::start::bytes]
+  N0067 #184/184 class_typespec Receiver G[Environemnt.sv 20:3:20:11] O[ 0:0:0:0]
+  N0068 #184/184 class_typespec Receiver G[20:3:20:11] O[0:0:0:0]
+  N0119 #264/264 bit_select rcvr G[43:11:43:12] O[43:6:43:13]
+  N0007 #651/651 ref_obj size G[] O[work@Receiver::start::size]
+  N0095 #756/756 ref_obj pkt_exp G[work@Scoreboard::start::pkt_rcv.compare::pkt_exp] O[work@Scoreboard::start::pkt_exp]
+  N0007 #980/980 ref_obj size G[] O[work@packet::byte_pack::size]
+  N0418 #1397/1397 ref_obj mem_intf G[ 0:0:0:0] O[testcase.sv 18:36:18:44]
+  N0419 #1397/1397 ref_obj mem_intf G[0:0:0:0] O[18:36:18:44]
+  N0418 #1399/1399 ref_obj input_intf G[ 0:0:0:0] O[testcase.sv 18:64:18:74]
+  N0419 #1399/1399 ref_obj input_intf G[0:0:0:0] O[18:64:18:74]
+  N0418 #1401/1401 ref_obj output_intf G[ 0:0:0:0] O[testcase.sv 18:95:18:106]
+  N0419 #1401/1401 ref_obj output_intf G[0:0:0:0] O[18:95:18:106]
+  N0090 #1951/1951 logic_typespec  G[2:6:1:479] O[2:6:2:6]
+  N0680 #3375/3384 range  G[18:107:18:108] O[18:106:18:109]
+  N1011 #3380/3389 interface_inst output_intf[0] G[output_intf.output_intf[0]] O[work@top.TC.output_intf[0]]
+  N1010 #3381/3390 bit_var clock G[output_intf.output_intf[0].clock] O[work@top.TC.output_intf[0].clock]
+  N1019 #3382/3391 ref_typespec  G[output_intf.output_intf[0].clock] O[work@top.TC.output_intf[0].clock]

@@ -22,7 +22,7 @@ verification pass owns the laws of the pass it verifies.
 
 Laws: 1757. Cases in the gate: 4087, tied to one law 3969, listed with `?`
 under several 106, tied to no law 12 (listed at the end).
-Laws with a commit on this branch: 1177;
+Laws with a commit on this branch: 1180;
 laws with cases in the gate: 676.
 
 ## 1. Laws
@@ -65,7 +65,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): r11u124repro/rng/g01_struct/dut.sv r11u124repro/rng/g02_union/dut.sv r11u124repro/rng/g03_2d/dut.sv r11u124repro/rng/g04_used/dut.sv r11u124repro/rng/g05_param/dut.sv r11u124repro/rng/g06_vec_ctl/dut.sv r11v124repro/gx/g02_parambound/dut.sv r11v124repro/gx/g03_asc/dut.sv r11v124repro/gx/g04_spaces/dut.sv r11v124repro/gx/g05_macro/dut.sv r11v124repro/gx/g06_crosspkg/dut.sv r11v124repro/gx/g07_union2d/dut.sv r11v124repro/gx/g08_multiline/dut.sv
 
 ### `aggFoldReanchorFile177v`
-- commits: none on this branch
+- commits: 5e8d08d96
 - pass: -
 - switches: R11V177_AGGREANCHORFILE_OFF R11V177_OFF R11V177_TRACE
 - source: src/ExprEmit.cpp(1)
@@ -8195,7 +8195,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u149verify
 
 ### `memLeftFormalArgLoc169`
-- commits: 31739f79c
+- commits: 5e8d08d96 31739f79c
 - pass: r11u169repro (verified by r11v169repro)
 - switches: R11U169_MLARGLOC_OFF R11U169_OFF R11U169_PATFLATSPAN_OFF
 - source: src/ParamEmit.cpp(5)
@@ -8345,7 +8345,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u149verify
 
 ### `mlArgLocFileAtActual177v`
-- commits: none on this branch
+- commits: 5e8d08d96
 - pass: -
 - switches: R11V177_MLARGFILE_OFF R11V177_OFF R11V177_TRACE
 - source: src/ParamEmit.cpp(1)
@@ -11367,7 +11367,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u166mac r11u168repro r11u177verify
 
 ### `ppReincludeSplice166`
-- commits: f34d9d7cc f2f2d30bc
+- commits: 5e8d08d96 f34d9d7cc f2f2d30bc
 - pass: -
 - switches: R11U130_OFF R11U134_OFF R11U137_OFF R11U144_OFF R11U166_INCL_REINC_OFF
 - source: src/UhdmExporter.cpp(3)
@@ -12974,7 +12974,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u171repro v11u171repro
 
 ### `tagPatSortSrcOrder177v`
-- commits: none on this branch
+- commits: 5e8d08d96
 - pass: -
 - switches: R11V177_OFF R11V177_TAGSORT_OFF R11V177_TRACE
 - source: src/ExprEmit.cpp(2)
@@ -15196,6 +15196,7 @@ lists it under the law).
 | r11u174repro |  | `asmRefQualWholeSpanElab174` `elabParamLeftoverRefUnnamed174` `elabStructMemberOpFoldUnlocated174` | 0 | 48 |
 | r11u175uvm |  |  | 0 | 43 |
 | r11u177verify |  |  | 0 | 150 |
+| r11u179map |  |  | 0 | 0 |
 | r11u17repro |  | `genCaBoundLhsOperationRhsUnbindsRhs17` `genCaLhsArrayNetNeverBinds17` | 37 | 4 |
 | r11u18repro |  | `memLeftFormalReadTs18` `typeParamLocalKeyword18` | 7 | 11 |
 | r11u19repro |  | `caTernFillArmKeepsEncoding19` `genCaPackedPatternFold19` | 46 | 46 |

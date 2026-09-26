@@ -1,0 +1,40 @@
+cluster N0775 (id kept from an earlier map; COVERED r11u176 (pass 171 R8: UnsizedParam's per-instance cont_assign copy (the missing clone)) | ground B | site emitInstance (ModuleEmit.cpp, law genvarConnFold) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab) [r11u138map pin] [r11u142map pin]): struct|golden-only:fewer-copies|cont_assign|under:module_inst
+row: surelog/default/UnsizedParam  strict=differ:fullname(2)  records golden=249 ours=244
+object: #244 (golden) / #-1 (ours)  type=cont_assign name= 
+  golden: 5 objs
+  ours:   
+  walk parents: module_inst(u_sub_5) < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 238..248 ('>' = the object)
+  #238	3	logic_typespec	my_type_t			dut.sv	3	12	3	25						010
+  #239	4	range				dut.sv	3	18	3	25						001
+  #240	5	operation				dut.sv	3	19	3	22		0				001
+  #241	6	ref_obj	X		<in>my_type_t.X	dut.sv	3	19	3	20		0			work@submodule.my_type_t.X	001
+  #242	6	constant				dut.sv	3	21	3	22	1	64	UINT:1	9		001
+  #243	5	constant				dut.sv	3	23	3	24	0	64	UINT:0	9		001
+> #244	3	cont_assign				dut.sv	5	11	5	22						000
+  #245	4	operation				dut.sv	5	15	5	22		0				000
+  #246	5	ref_typespec			work@top.u_sub_5		0	0	0	0		0			work@top.u_sub_5	000
+  #247	6	int_typespec				dut.sv	5	15	5	18						000
+  #248	4	ref_obj	a		work@top.u_sub_5.a	dut.sv	5	11	5	12		0			work@top.u_sub_5.a	000
+
+--- the holder #199 on the other side: exact-record matches at [199]
+  #196	5	ref_obj	Y		work@submodule.Y	dut.sv	5	20	5	21		0			work@submodule.Y	000
+  #197	4	ref_obj	a		work@submodule.a	dut.sv	5	11	5	12		0			work@submodule.a	000
+  #198	5	logic_net	a		work@submodule.a		5	11	5	12		0			work@submodule.a	000
+> #199	2	module_inst	u_sub_5	work@submodule	work@top.u_sub_5	dut.sv	10	4	10	33					work@top.u_sub_5	000
+  #200	3	parameter	X		work@top.u_sub_5.X	dut.sv	2	18	2	19		0	UINT:20		work@top.u_sub_5.X	000
+  #201	4	ref_typespec			work@top.u_sub_5.X		0	0	0	0		0			work@top.u_sub_5.X	000
+  #202	5	int_typespec				dut.sv	2	14	2	17						000
+  #203	3	parameter	Y		work@top.u_sub_5.Y	dut.sv	4	24	4	25		0	BIN:1		work@top.u_sub_5.Y	000
+  #204	4	ref_typespec			work@top.u_sub_5.Y		0	0	0	0		0			work@top.u_sub_5.Y	000
+  #205	5	logic_typespec	my_type_t			dut.sv	3	12	3	25						110
+  #206	6	ref_typespec			<in>my_type_t		0	0	0	0		0			work@top.u_sub_5.Y.my_type_t	001
+  #207	7	logic_typespec	my_type_t			dut.sv	3	12	3	25						001
+  #208	8	range				dut.sv	3	18	3	25						001
+
+facets of this row (3, first 25):
+  N0775 #244/-1 cont_assign  G[5 objs] O[]
+  N0457 #194/194 ref_typespec  G[work@top.u_sub_default] O[work@submodule]
+  N0136 #197/197 ref_obj a G[work@top.u_sub_default.a] O[work@submodule.a]

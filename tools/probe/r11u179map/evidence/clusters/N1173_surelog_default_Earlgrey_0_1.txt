@@ -1,0 +1,64 @@
+cluster N1173 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < operator() (ModuleEmit.cpp, law genCaTernaryFoldGenScope22) < emitGenScopes (ModuleEmit.cpp, law genLoopUnitMiseval) [r11u138map pin] [r11u142map pin]): struct|ours-only:fewer-copies|hier_path|under:cont_assign
+row: surelog/default/Earlgrey_0_1  strict=differ:fullname(436)  records golden=2173209 ours=2173853
+object: #-1 (golden) / #658520 (ours)  type=hier_path name=tl_h_o.a_ready 
+  golden: 
+  ours:   3 objs
+  walk parents: cont_assign < module_inst(err_resp) < module_inst(u_socket) < module_inst(u_reg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 658514..658526 ('>' = the object)
+  #658514	10	ref_typespec			<in>tlul_pkg::tl_d2h_t.d_error		0	0	0	0		0			tlul_pkg::tl_d2h_t.d_error	001
+  #658515	11	logic_typespec				tlul_pkg.sv	55	5	55	10						001
+  #658516	9	typespec_member	a_ready			tlul_pkg.sv	57	35	57	42						001
+  #658517	10	ref_typespec			<in>tlul_pkg::tl_d2h_t.a_ready		0	0	0	0		0			tlul_pkg::tl_d2h_t.a_ready	001
+  #658518	11	logic_typespec				tlul_pkg.sv	57	5	57	10						001
+  #658519	6	cont_assign				tlul_err_resp.sv	38	10	38	83						000
+> #658520	7	hier_path	tl_h_o.a_ready			tlul_err_resp.sv	38	10	38	24		0				000
+  #658521	8	ref_obj	tl_h_o			tlul_err_resp.sv	38	17	38	24		0				000
+  #658522	8	ref_obj	a_ready			tlul_err_resp.sv	38	17	38	24		0				000
+  #658523	6	cont_assign				tlul_err_resp.sv	39	10	39	61						000
+  #658524	7	hier_path	tl_h_o.d_valid			tlul_err_resp.sv	39	10	39	24		0				000
+  #658525	8	ref_obj	tl_h_o			tlul_err_resp.sv	39	17	39	24		0				000
+  #658526	8	ref_obj	d_valid			tlul_err_resp.sv	39	17	39	24		0				000
+
+--- the holder #658519 on the other side: exact-record matches at [612091]
+  #612088	12	assignment				tlul_err_resp.sv	55	7	55	30						000
+  #612089	13	constant				tlul_err_resp.sv	55	26	55	30	1'b0	1	BIN:0	3		000
+  #612090	13	ref_obj	err_rsp_pending		work@tlul_err_resp.err_rsp_pending	tlul_err_resp.sv	55	7	55	22		0			work@tlul_err_resp.err_rsp_pending	000
+> #612091	6	cont_assign				tlul_err_resp.sv	38	10	38	83						000
+  #612092	7	operation				tlul_err_resp.sv	38	28	38	83		0				000
+  #612093	8	operation				tlul_err_resp.sv	38	28	38	44		0				000
+  #612094	9	ref_obj	err_rsp_pending		work@tlul_err_resp.err_rsp_pending	tlul_err_resp.sv	38	29	38	44		0			work@tlul_err_resp.err_rsp_pending	000
+  #612095	8	operation				tlul_err_resp.sv	38	47	38	83		0				000
+  #612096	9	operation				tlul_err_resp.sv	38	49	38	82		0				000
+  #612097	10	ref_obj	err_req_pending		work@tlul_err_resp.err_req_pending	tlul_err_resp.sv	38	49	38	64		0			work@tlul_err_resp.err_req_pending	000
+  #612098	10	operation				tlul_err_resp.sv	38	67	38	82		0				000
+  #612099	11	hier_path	tl_h_i.d_ready			tlul_err_resp.sv	38	68	38	82		0				000
+  #612100	12	ref_obj	tl_h_i			tlul_err_resp.sv	38	68	38	74		0				000
+
+facets of this row (14666, first 25):
+  N0142 #130430/-1 range  G[5 objs] O[]
+  N0142 #130519/-1 range  G[5 objs] O[]
+  N0142 #134891/-1 range  G[5 objs] O[]
+  N0142 #134980/-1 range  G[5 objs] O[]
+  N0142 #136112/-1 range  G[5 objs] O[]
+  N0142 #136201/-1 range  G[5 objs] O[]
+  N0142 #137221/-1 range  G[5 objs] O[]
+  N0142 #137310/-1 range  G[5 objs] O[]
+  N1173 #-1/658520 hier_path tl_h_o.a_ready G[] O[3 objs]
+  N1184 #-1/658523 cont_assign  G[] O[4 objs]
+  N1181 #-1/658527 cont_assign  G[] O[1 objs]
+  N1173 #-1/658540 hier_path tl_h_o.d_opcode G[] O[3 objs]
+  N1181 #-1/658543 cont_assign  G[] O[1 objs]
+  N1184 #-1/670225 cont_assign  G[] O[4 objs]
+  N1184 #-1/670229 cont_assign  G[] O[4 objs]
+  N1184 #-1/670233 cont_assign  G[] O[4 objs]
+  N1184 #-1/670237 cont_assign  G[] O[4 objs]
+  N1184 #-1/670241 cont_assign  G[] O[4 objs]
+  N1184 #-1/670245 cont_assign  G[] O[4 objs]
+  N1184 #-1/670249 cont_assign  G[] O[4 objs]
+  N1184 #-1/670253 cont_assign  G[] O[4 objs]
+  N1184 #-1/670257 cont_assign  G[] O[4 objs]
+  N1184 #-1/670261 cont_assign  G[] O[4 objs]
+  N1184 #-1/670265 cont_assign  G[] O[5 objs]
+  N1184 #-1/670270 cont_assign  G[] O[5 objs]

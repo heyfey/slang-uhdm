@@ -1,0 +1,64 @@
+cluster N0903 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp) < emitExpr (ExprEmit.cpp, law memberActualLeak) < emitContAssigns (ModuleEmit.cpp, law elabCaTernaryArmInstall92) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|tok:id.id.id.id->id|under:hier_path
+row: surelog/default/Rggen  strict=differ:fullname(7)  records golden=314498 ours=311774
+object: #210558 (golden) / #208858 (ours)  type=ref_obj name=valid OUT
+  golden: work@rggen.u_block_0.g_register_15.u_register.valid
+  ours:   work@rggen_external_register.valid
+  walk parents: hier_path(bus_if.valid) < operation < cont_assign < module_inst(u_register)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 210552..210564 ('>' = the object)
+  #210552	8	ref_obj	register_if			rggen_external_register.sv	69	23	69	29		0				000
+  #210553	8	ref_obj	active			rggen_external_register.sv	69	23	69	29		0				000
+  #210554	6	cont_assign				rggen_external_register.sv	70	11	70	69						000
+  #210555	7	operation				rggen_external_register.sv	70	35	70	69		0				000
+  #210556	8	hier_path	bus_if.valid			rggen_external_register.sv	70	36	70	48		0				000
+  #210557	9	ref_obj	bus_if			rggen_external_register.sv	70	36	70	42		0				000
+> #210558	9	ref_obj	valid		work@rggen.u_block_0.g_register_15.u_register.valid	rggen_external_register.sv	70	43	70	48		0			work@rggen.u_block_0.g_register_15.u_register.valid	000
+  #210559	8	hier_path	bus_if.ready			rggen_external_register.sv	70	52	70	64		0				000
+  #210560	9	ref_obj	bus_if			rggen_external_register.sv	70	52	70	58		0				000
+  #210561	9	ref_obj	ready		work@rggen.u_block_0.g_register_15.u_register.ready	rggen_external_register.sv	70	59	70	64		0			work@rggen.u_block_0.g_register_15.u_register.ready	000
+  #210562	8	constant				rggen_external_register.sv	70	67	70	69	'0	-1	BIN:0	3		000
+  #210563	7	hier_path	register_if.ready			rggen_external_register.sv	70	11	70	28		0				000
+  #210564	8	ref_obj	register_if			rggen_external_register.sv	70	23	70	28		0				000
+
+--- OURS (B) records 208852..208864 ('>' = the object)
+  #208852	8	ref_obj	register_if			rggen_external_register.sv	69	23	69	29		0				000
+  #208853	8	ref_obj	active			rggen_external_register.sv	69	23	69	29		0				000
+  #208854	6	cont_assign				rggen_external_register.sv	70	11	70	69						000
+  #208855	7	operation				rggen_external_register.sv	70	35	70	69		0				000
+  #208856	8	hier_path	bus_if.valid			rggen_external_register.sv	70	36	70	48		0				000
+  #208857	9	ref_obj	bus_if			rggen_external_register.sv	70	36	70	42		0				000
+> #208858	9	ref_obj	valid		work@rggen_external_register.valid	rggen_external_register.sv	70	43	70	48		0			work@rggen_external_register.valid	000
+  #208859	8	hier_path	bus_if.ready			rggen_external_register.sv	70	52	70	64		0				000
+  #208860	9	ref_obj	bus_if			rggen_external_register.sv	70	52	70	58		0				000
+  #208861	9	ref_obj	ready		work@rggen_external_register.ready	rggen_external_register.sv	70	59	70	64		0			work@rggen_external_register.ready	000
+  #208862	8	constant				rggen_external_register.sv	70	67	70	69	'0	-1	BIN:0	3		000
+  #208863	7	hier_path	register_if.ready			rggen_external_register.sv	70	11	70	28		0				000
+  #208864	8	ref_obj	register_if			rggen_external_register.sv	70	23	70	28		0				000
+
+facets of this row (11587, first 25):
+  N1175 #466/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/476 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/481 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #501/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #661/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/671 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/676 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #696/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #2242/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/2252 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/2257 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #2277/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #15376/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/15386 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/15391 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #15411/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17669/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17679 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17684 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17704/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #17850/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]
+  N1176 #-1/17860 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[] O[5 objs]
+  N1176 #-1/17865 enum_typespec rggen_rtl_pkg::rggen_polarity G[] O[5 objs]
+  N1175 #17885/-1 enum_typespec rggen_rtl_pkg::rggen_sw_hw_access G[5 objs] O[]
+  N1175 #18031/-1 enum_typespec rggen_rtl_pkg::rggen_polarity G[5 objs] O[]

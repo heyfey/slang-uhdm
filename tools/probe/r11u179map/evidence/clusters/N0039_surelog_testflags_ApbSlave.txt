@@ -1,0 +1,64 @@
+cluster N0039 (id kept from an earlier map; OPEN (map 8 listed it: ground-A+B step 35; passes 164-174 left it) [r11u175 reduces it: rows 12->10, probe 219->156] | ground B | site makeTypespec (TypeEmit.cpp, law implicitArgDimsInner155) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) [r11u179 pin] [DECODED (r11u130 R3 + K0070): the int_typespec declaration-vs-use span; its corpus head TypeParam is the type-parameter definition net (materializeDefNetTs -> makeTypespec)] [pass-133 R5 (measured here): tools/probe/r11u133repro/lhs l01 l07 l09 l11 read first=N0039 alone (the elaborated Q = X over a wildcard-imported package parameter: golden's Rhs constant typespec is Q's own declaration span) — ONE shape of N0039, whose corpus head (TypeParam) is the type-parameter definition net]): span|int_typespec|line+col+endline+endcol|under:ref_typespec
+row: surelog/testflags/ApbSlave  strict=differ:depth(1)  records golden=3678 ours=3682
+object: #554 (golden) / #558 (ours)  type=int_typespec name= 
+  golden: 58:65:58:68
+  ours:   129:73:129:76
+  walk parents: ref_typespec < io_decl(l) < function(fail) < class_defn(svunit_testcase)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 548..560 ('>' = the object)
+  #548	7	string_typespec				svunit_testcase.sv	58	45	58	51						000
+  #549	5	io_decl	f			svunit_testcase.sv	58	62	58	63						000
+  #550	6	ref_typespec			svunit_pkg::svunit_testcase::fail::f		0	0	0	0		0			svunit_pkg::svunit_testcase::fail::f	000
+  #551	7	string_typespec				svunit_testcase.sv	58	55	58	61						000
+  #552	5	io_decl	l			svunit_testcase.sv	58	69	58	70						000
+  #553	6	ref_typespec			svunit_pkg::svunit_testcase::fail::l		0	0	0	0		0			svunit_pkg::svunit_testcase::fail::l	000
+> #554	7	int_typespec				svunit_testcase.sv	58	65	58	68						000
+  #555	5	io_decl	d			svunit_testcase.sv	58	79	58	80						000
+  #556	6	constant				svunit_testcase.sv	58	83	58	85	""	0	STRING:	6		000
+  #557	6	ref_typespec			svunit_pkg::svunit_testcase::fail::d		0	0	0	0		0			svunit_pkg::svunit_testcase::fail::d	000
+  #558	7	string_typespec				svunit_testcase.sv	58	72	58	78						000
+  #559	4	function	start		svunit_pkg::svunit_testcase::start	svunit_testcase.sv	60	3	60	9					svunit_pkg::svunit_testcase::start	000
+  #560	4	function	stop		svunit_pkg::svunit_testcase::stop	svunit_testcase.sv	61	3	61	9					svunit_pkg::svunit_testcase::stop	000
+
+--- OURS (B) records 552..564 ('>' = the object)
+  #552	7	string_typespec				svunit_testcase.sv	129	53	129	59						000
+  #553	5	io_decl	f			svunit_testcase.sv	129	70	129	71						000
+  #554	6	ref_typespec			svunit_pkg::svunit_testcase::fail::f		0	0	0	0		0			svunit_pkg::svunit_testcase::fail::f	000
+  #555	7	string_typespec				svunit_testcase.sv	129	63	129	69						000
+  #556	5	io_decl	l			svunit_testcase.sv	129	77	129	78						000
+  #557	6	ref_typespec			svunit_pkg::svunit_testcase::fail::l		0	0	0	0		0			svunit_pkg::svunit_testcase::fail::l	000
+> #558	7	int_typespec				svunit_testcase.sv	129	73	129	76						000
+  #559	5	io_decl	d			svunit_testcase.sv	129	87	129	88						000
+  #560	6	constant				svunit_testcase.sv	129	91	129	93	""	0	STRING:	6		000
+  #561	6	ref_typespec			svunit_pkg::svunit_testcase::fail::d		0	0	0	0		0			svunit_pkg::svunit_testcase::fail::d	000
+  #562	7	string_typespec				svunit_testcase.sv	129	80	129	86						000
+  #563	4	function	start		svunit_pkg::svunit_testcase::start	svunit_testcase.sv	60	3	60	9					svunit_pkg::svunit_testcase::start	000
+  #564	4	function	stop		svunit_pkg::svunit_testcase::stop	svunit_testcase.sv	61	3	61	9					svunit_pkg::svunit_testcase::stop	000
+
+facets of this row (47, first 25):
+  N0289 #-1/372 string_var svunit_version G[] O[4 objs]
+  N0106 #442/446 class_var  G[ 0:0:0:0] O[svunit_base.sv 59:34:59:38]
+  N0107 #442/446 class_var  G[0:0:0:0] O[59:34:59:38]
+  N0093 #445/449 io_decl name G[43:30:43:34] O[59:34:59:38]
+  N0069 #447/451 string_typespec  G[43:23:43:29] O[59:27:59:33]
+  N0105 #449/453 string_var  G[44:19:44:25] O[68:10:68:16]
+  N0069 #451/455 string_typespec  G[44:19:44:25] O[68:10:68:16]
+  N0120 #453/457 enum_var  G[45:19:45:28] O[87:10:87:19]
+  N0106 #524/528 class_var  G[ 0:0:0:0] O[svunit_testcase.sv 81:38:81:42]
+  N0107 #524/528 class_var  G[0:0:0:0] O[81:38:81:42]
+  N0093 #527/531 io_decl name G[52:30:52:34] O[81:38:81:42]
+  N0069 #529/533 string_typespec  G[52:23:52:29] O[81:31:81:37]
+  N0233 #532/536 integer_var  G[55:19:55:26] O[99:10:99:17]
+  N0226 #534/538 integer_typespec  G[55:19:55:26] O[99:10:99:17]
+  N0104 #537/541 bit_var  G[58:19:58:22] O[129:10:129:13]
+  N0100 #539/543 bit_typespec  G[58:19:58:22] O[129:10:129:13]
+  N0093 #540/544 io_decl c G[58:35:58:36] O[129:43:129:44]
+  N0069 #542/546 string_typespec  G[58:28:58:34] O[129:36:129:42]
+  N0093 #543/547 io_decl b G[58:42:58:43] O[129:50:129:51]
+  N0100 #545/549 bit_typespec  G[58:38:58:41] O[129:46:129:49]
+  N0093 #546/550 io_decl s G[58:52:58:53] O[129:60:129:61]
+  N0069 #548/552 string_typespec  G[58:45:58:51] O[129:53:129:59]
+  N0093 #549/553 io_decl f G[58:62:58:63] O[129:70:129:71]
+  N0069 #551/555 string_typespec  G[58:55:58:61] O[129:63:129:69]
+  N0093 #552/556 io_decl l G[58:69:58:70] O[129:77:129:78]

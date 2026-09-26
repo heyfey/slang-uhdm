@@ -1,0 +1,64 @@
+cluster N0541 (id kept from an earlier map; OPEN (map 8 gave it to r11u164; passes 164-174 left it) | ground B | site emitInterfaceInstance (ModuleEmit.cpp, law defNetEndOnlyLoc130) < emitInstance (ModuleEmit.cpp, law caNestedModDeclNoRefNoInst99) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab) [r11u142map pin]): span|logic_net|line+col+endline+endcol|under:ref_obj
+row: surelog/default/SimpleUVM  strict=differ:fullname(45)  records golden=334285 ours=333561
+object: #75572 (golden) / #75563 (ours)  type=logic_net name=m_parent 
+  golden: 1001:10:1001:18
+  ours:   1925:11:1925:19
+  walk parents: ref_obj(m_parent) < return_stmt < function(get_parent) < class_defn(uvm_component)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 75566..75578 ('>' = the object)
+  #75566	3	function	get_parent		uvm_pkg::uvm_component::get_parent	uvm_component.svh	1924	1	1926	12					uvm_pkg::uvm_component::get_parent	000
+  #75567	4	class_var			uvm_pkg::uvm_component::get_parent	uvm_component.svh	1924	10	1924	23		0			uvm_pkg::uvm_component::get_parent	000
+  #75568	5	ref_typespec			uvm_pkg::uvm_component::get_parent		0	0	0	0		0			uvm_pkg::uvm_component::get_parent	000
+  #75569	6	class_typespec				uvm_component.svh	1924	10	1924	23						000
+  #75570	4	return_stmt				uvm_component.svh	1925	3	1925	9						000
+  #75571	5	ref_obj	m_parent		uvm_pkg::uvm_component::get_parent::m_parent	uvm_component.svh	1925	11	1925	19		0			uvm_pkg::uvm_component::get_parent::m_parent	000
+> #75572	6	logic_net	m_parent		work@top.m_parent		1001	10	1001	18		0			work@top.m_parent	000
+  #75573	3	function	set_name		uvm_pkg::uvm_component::set_name	uvm_component.svh	1932	1	1940	12					uvm_pkg::uvm_component::set_name	000
+  #75574	4	io_decl	name			uvm_component.svh	1932	47	1932	51						000
+  #75575	5	ref_typespec			uvm_pkg::uvm_component::set_name::name		0	0	0	0		0			uvm_pkg::uvm_component::set_name::name	000
+  #75576	6	string_typespec				uvm_component.svh	1932	40	1932	46						000
+  #75577	4	begin			uvm_pkg::uvm_component::set_name	uvm_component.svh	1937	3	1937	24					uvm_pkg::uvm_component::set_name	000
+  #75578	5	if_stmt				uvm_component.svh	1933	3	1936	6						000
+
+--- OURS (B) records 75557..75569 ('>' = the object)
+  #75557	3	function	get_parent		uvm_pkg::uvm_component::get_parent	uvm_component.svh	1924	1	1926	12					uvm_pkg::uvm_component::get_parent	000
+  #75558	4	class_var			uvm_pkg::uvm_component::get_parent	uvm_component.svh	1924	10	1924	23		0			uvm_pkg::uvm_component::get_parent	000
+  #75559	5	ref_typespec			uvm_pkg::uvm_component::get_parent		0	0	0	0		0			uvm_pkg::uvm_component::get_parent	000
+  #75560	6	class_typespec				uvm_component.svh	1924	10	1924	23						000
+  #75561	4	return_stmt				uvm_component.svh	1925	3	1925	9						000
+  #75562	5	ref_obj	m_parent		uvm_pkg::uvm_component::get_parent::m_parent	uvm_component.svh	1925	11	1925	19		0			uvm_pkg::uvm_component::get_parent::m_parent	000
+> #75563	6	logic_net	m_parent		work@top.m_parent		1925	11	1925	19		0			work@top.m_parent	000
+  #75564	3	function	set_name		uvm_pkg::uvm_component::set_name	uvm_component.svh	1932	1	1940	12					uvm_pkg::uvm_component::set_name	000
+  #75565	4	io_decl	name			uvm_component.svh	1932	47	1932	51						000
+  #75566	5	ref_typespec			uvm_pkg::uvm_component::set_name::name		0	0	0	0		0			uvm_pkg::uvm_component::set_name::name	000
+  #75567	6	string_typespec				uvm_component.svh	1932	40	1932	46						000
+  #75568	4	begin			uvm_pkg::uvm_component::set_name	uvm_component.svh	1937	3	1937	24					uvm_pkg::uvm_component::set_name	000
+  #75569	5	if_stmt				uvm_component.svh	1933	3	1936	6						000
+
+facets of this row (10739, first 25):
+  N0343 #-1/2484 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2914 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3160 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10177/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17758 class_var uvm_top G[] O[4 objs]
+  N0213 #20905/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20923 bit_typespec  G[] O[1 objs]
+  N0213 #21847/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21859 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25773 class_var run_ph G[] O[3 objs]
+  N0213 #74380/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74389 bit_typespec  G[] O[1 objs]
+  N0213 #74407/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74410 bit_typespec  G[] O[1 objs]
+  N0213 #74469/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74466 bit_typespec  G[] O[1 objs]
+  N0151 #78244/-1 ref_typespec  G[2 objs] O[]
+  N0197 #78752/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/78741 array_typespec  G[] O[1 objs]
+  N0213 #78771/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/78760 bit_typespec  G[] O[1 objs]
+  N0213 #79756/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79739 bit_typespec  G[] O[1 objs]
+  N0151 #80429/-1 ref_typespec  G[2 objs] O[]
+  N0151 #80433/-1 ref_typespec  G[2 objs] O[]

@@ -1,0 +1,86 @@
+# r11u175 per-patch attribution on the law binary slang-uhdm.law175 (5e8d08d9 + both patches).
+# A = R11U175_FSPAN_OFF=1 (law_exprstmt.patch alone: MULT, FULLNAME, ESPAN on); B = R11U175_MULT_OFF=1 R11U175_FULLNAME_OFF=1 R11U175_ESPAN_OFF=1 (law_typeemit.patch alone).
+# probe: scripts/check_probe.py --jobs 3 (all 4087); surelog: scripts/verify_golden.py --mode both --filter the 7 moved tests.
+r10buvm13repro/a7_dpi13	both:equal	A:equal	B:differ:fullname(10)	exprstmt alone
+r10buvm15repro/v5_named15	both:equal	A:differ:line(4)	B:equal	typeemit alone
+r10buvm30repro/g30_b_context	both:equal	A:differ:line(10)	B:equal	typeemit alone
+r10buvm32repro/g32a3	both:equal	A:differ:line(10)	B:differ:fullname(1)	needs both
+r10buvm8repro/v6ctx8	both:equal	A:differ:line(4)	B:differ:endcol(4)	needs both
+r10buvm8repro/voob8	both:equal	A:differ:line(6)	B:equal	typeemit alone
+r10sd10repro/q10_pkgtype_oob_local	both:equal	A:differ:line(2)	B:equal	typeemit alone
+r10sd10repro/q11_clstype_assoc_local	both:equal	A:differ:line(2)	B:equal	typeemit alone
+r10sd10repro/q3_oob_method_queue	both:equal	A:differ:line(2)	B:equal	typeemit alone
+r10sd10repro/q9_clstype_oob_local	both:equal	A:differ:line(2)	B:equal	typeemit alone
+r10sd10repro/qv13_clstype_flat_oob	both:equal	A:differ:line(2)	B:equal	typeemit alone
+r10sd10repro/v5_oob_extern	both:equal	A:differ:line(1)	B:equal	typeemit alone
+r10sd3repro/g1_pkg_oob	both:equal	A:differ:line(4)	B:equal	typeemit alone
+r10sd3repro/g5_pkg_oob_locals	both:equal	A:differ:line(4)	B:equal	typeemit alone
+r10sd3repro/g6_pkg_two_classes	both:equal	A:differ:line(8)	B:equal	typeemit alone
+r10sd3repro/g7_pkg_mixed	both:equal	A:differ:line(4)	B:equal	typeemit alone
+r10svs8repro/v3_refargs	both:equal	A:equal	B:differ:fullname(4)	exprstmt alone
+r10uvm121repro/g121_a	both:equal	A:differ:file(8)	B:equal	typeemit alone
+r10uvm123repro/g123_a_clsmethod	both:equal	A:differ:line(4)	B:equal	typeemit alone
+r10uvm123repro/g123_c_otherpkg	both:equal	A:equal	B:differ:type(1)	exprstmt alone
+r10uvm127repro/g127_b_oob	both:equal	A:differ:line(20)	B:equal	typeemit alone
+r10uvm12repro/t12_t	both:equal	A:differ:line(2)	B:equal	typeemit alone
+r10uvm138repro/g138_d_inst	both:equal	A:differ:line(1)	B:equal	typeemit alone
+r10uvm143repro/g143_d_foreach	both:equal	A:differ:line(4)	B:equal	typeemit alone
+r10uvm144repro/g144_b	both:equal	A:differ:line(8)	B:equal	typeemit alone
+r10uvm144repro/g144_c	both:equal	A:differ:line(12)	B:equal	typeemit alone
+r10uvm144repro/g144_g	both:equal	A:differ:line(6)	B:equal	typeemit alone
+r10uvm153repro/g153_b_pos	both:equal	A:differ:line(4)	B:equal	typeemit alone
+r10uvm161repro/g161_a_win	both:equal	A:differ:line(2)	B:equal	typeemit alone
+r10uvm161repro/g161_c_sites	both:equal	A:equal	B:differ:endcol(1)	exprstmt alone
+r10uvm17repro/t29_t	both:equal	A:equal	B:differ:fullname(2)	exprstmt alone
+r10uvm194repro/g194_a_homes	both:equal	A:differ:line(6)	B:equal	typeemit alone
+r10uvm195repro/g195_d_control	both:equal	A:differ:line(3)	B:equal	typeemit alone
+r10uvm195repro/g195_e_head	both:equal	A:differ:line(3)	B:differ:type(1)	needs both
+r10uvm213repro/g213_h_muststay	both:equal	A:differ:line(5)	B:equal	typeemit alone
+r10uvm218repro/grid218/a2_window	both:equal	A:equal	B:differ:fullname(1)	exprstmt alone
+r10uvm227repro/grid227/a7_only_p1	both:equal	A:equal	B:differ:type(1)	exprstmt alone
+r10uvm26repro/t36d	both:equal	A:differ:line(2)	B:equal	typeemit alone
+r10uvm27repro/t37b	both:equal	A:differ:file(3)	B:equal	typeemit alone
+r10uvm28repro/t38b	both:equal	A:differ:file(3)	B:equal	typeemit alone
+r10uvm28repro/t38e	both:equal	A:differ:line(4)	B:equal	typeemit alone
+r10uvm51repro/a4	both:equal	A:equal	B:differ:fullname(2)	exprstmt alone
+r10uvm56repro/a3_scope	both:equal	A:differ:line(4)	B:equal	typeemit alone
+r10uvm57repro/b1_argctrl	both:equal	A:differ:line(6)	B:equal	typeemit alone
+r10uvm57repro/b4_open	both:equal	A:equal	B:differ:fullname(1)	exprstmt alone
+r10uvm57repro/v4_superexpr	both:equal	A:equal	B:differ:fullname(2)	exprstmt alone
+r10uvm69repro/a2_scope	both:equal	A:differ:line(16)	B:equal	typeemit alone
+r10uvm81repro/c4_pkgbind81	both:equal	A:differ:line(8)	B:equal	typeemit alone
+r10uvm81repro/c5_bindpos81	both:equal	A:differ:line(2)	B:equal	typeemit alone
+r10uvm84repro/g84_b3_pkgoob	both:equal	A:differ:line(2)	B:equal	typeemit alone
+r10uvm85repro/g85_a8_corpus	both:equal	A:differ:line(2)	B:equal	typeemit alone
+r10uvm85repro/v85x6_esc	both:equal	A:differ:line(2)	B:equal	typeemit alone
+r10uvm86repro/g86_a3_nest	both:equal	A:differ:line(30)	B:differ:endcol(2)	needs both
+r10uvm88repro/v88_b4_nonsub	both:equal	A:equal	B:differ:fullname(1)	exprstmt alone
+r10uvm8repro/q1	both:equal	A:differ:line(4)	B:equal	typeemit alone
+r10uvm99repro/g99_a8_class	both:equal	A:differ:line(4)	B:equal	typeemit alone
+r10v107repro/v107_b12	both:equal	A:equal	B:differ:fullname(2)	exprstmt alone
+r10v113repro/v113_ord	both:equal	A:differ:line(8)	B:equal	typeemit alone
+r10v131repro/v131_g_more	both:equal	A:equal	B:differ:endline(2)	exprstmt alone
+r10v144repro/v144_d_named	both:equal	A:differ:line(2)	B:equal	typeemit alone
+r10v150repro/v150_b	both:equal	A:differ:line(2)	B:equal	typeemit alone
+r10v150repro/v150_e	both:equal	A:differ:line(8)	B:equal	typeemit alone
+r10v153repro/v153_c_order	both:equal	A:differ:line(8)	B:equal	typeemit alone
+r10v153repro/v153_d_hoist	both:equal	A:differ:line(4)	B:equal	typeemit alone
+r10v179repro/v179_f_nomod	both:equal	A:equal	B:differ:fullname(2)	exprstmt alone
+r10v180repro/v180_e_ret	both:equal	A:equal	B:differ:type(1)	exprstmt alone
+r10v180repro/v180_i_inst	both:equal	A:equal	B:differ:type(1)	exprstmt alone
+r10v194repro/v194_d_scopes	both:equal	A:differ:line(14)	B:equal	typeemit alone
+r10v195repro/v195_b_reads	both:equal	A:differ:line(3)	B:differ:type(1)	needs both
+r10v214repro/va10_taskstmt	both:equal	A:differ:line(4)	B:equal	typeemit alone
+r10v226repro/arms/b09_nestediface	both:equal	A:equal	B:differ:endcol(1)	exprstmt alone
+r10vbuvm20repro/v7_multiinst	both:equal	A:differ:line(1)	B:equal	typeemit alone
+r10vbuvm30repro/vg30_d_import	both:equal	A:differ:line(4)	B:equal	typeemit alone
+r10vbuvm30repro/vg30_g_ctrl	both:equal	A:differ:line(16)	B:equal	typeemit alone
+r10vbuvm32repro/vb32r1	both:equal	A:differ:line(8)	B:equal	typeemit alone
+r10vbuvm32repro/vb32s1	both:equal	A:differ:line(14)	B:equal	typeemit alone
+# totals: conversions 76 exprstmt alone 17 typeemit alone 54 needs both 5
+# A: regressions vs golden_probe.csv 0
+# A: surelog cells vs golden_surelog.csv: BuildUVMPkg/d differ:line(94) -> differ:line(69); BuildUVMPkg/t differ:line(94) -> differ:line(69); MiniAmiq/d differ:file(29) -> differ:file(26); MiniAmiq/t differ:file(29) -> differ:file(26); SVSwitch/d differ:fullname(11) -> differ:file(9); SVSwitch/t differ:fullname(11) -> differ:file(9); Scoreboard/d differ:fullname(45) -> differ:fullname(42); SeqDriver/d differ:file(29) -> differ:file(26); SeqDriver/t differ:file(29) -> differ:file(26); SimpleUVM/d differ:fullname(45) -> differ:fullname(42); SimpleUVM/t differ:fullname(45) -> differ:fullname(42)
+#    binaries: every surelog cmds.txt slang: line of both attribution runs names /tmp/r11u179_bin/slang-uhdm.law175 (28 of 28)
+# B: regressions vs golden_probe.csv 0
+# B: surelog cells vs golden_surelog.csv: none changed
+#    binaries: every surelog cmds.txt slang: line of both attribution runs names /tmp/r11u179_bin/slang-uhdm.law175 (28 of 28)

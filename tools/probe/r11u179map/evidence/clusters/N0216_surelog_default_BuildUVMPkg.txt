@@ -1,0 +1,64 @@
+cluster N0216 (id kept from an earlier map; COVERED r11u175 (law patches, MEASURED: gone under the patch binary) | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitTaskFuncs (TaskFuncEmit.cpp, law classArgBind12) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) [r11u142map pin]): span|ref_obj|line+col+endline+endcol|under:io_decl
+row: surelog/default/BuildUVMPkg  strict=differ:line(94)  records golden=201533 ours=201486
+object: #101060 (golden) / #101010 (ours)  type=ref_obj name=UVM_NO_COVERAGE 
+  golden: 72578:57:72578:72
+  ours:   73029:56:73029:71
+  walk parents: io_decl(has_coverage) < function(new) < class_defn(uvm_mem) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 101054..101066 ('>' = the object)
+  #101054	6	int_typespec				uvm_pkg.sv	72576	25	72576	28						000
+  #101055	4	io_decl	access			uvm_pkg.sv	72577	42	72577	48						000
+  #101056	5	constant				uvm_pkg.sv	72577	51	72577	55	"RW"	16	STRING:RW	6		000
+  #101057	5	ref_typespec			uvm_pkg::uvm_mem::new::access		0	0	0	0		0			uvm_pkg::uvm_mem::new::access	000
+  #101058	6	string_typespec				uvm_pkg.sv	72577	25	72577	31						000
+  #101059	4	io_decl	has_coverage			uvm_pkg.sv	72578	42	72578	54						000
+> #101060	5	ref_obj	UVM_NO_COVERAGE		uvm_pkg::uvm_mem::new::has_coverage::UVM_NO_COVERAGE	uvm_pkg.sv	72578	57	72578	72		0			uvm_pkg::uvm_mem::new::has_coverage::UVM_NO_COVERAGE	000
+  #101061	5	ref_typespec			uvm_pkg::uvm_mem::new::has_coverage		0	0	0	0		0			uvm_pkg::uvm_mem::new::has_coverage	000
+  #101062	6	int_typespec				uvm_pkg.sv	72578	25	72578	28						000
+  #101063	3	function	configure		uvm_pkg::uvm_mem::configure	uvm_pkg.sv	72583	4	72583	10					uvm_pkg::uvm_mem::configure	000
+  #101064	4	io_decl	parent			uvm_pkg.sv	72583	50	72583	56						000
+  #101065	5	ref_typespec			uvm_pkg::uvm_mem::configure::parent		0	0	0	0		0			uvm_pkg::uvm_mem::configure::parent	000
+  #101066	6	class_typespec	uvm_reg_block			uvm_pkg.sv	72583	36	72583	49						110
+
+--- OURS (B) records 101004..101016 ('>' = the object)
+  #101004	6	int_typespec				uvm_pkg.sv	73027	24	73027	27						000
+  #101005	4	io_decl	access			uvm_pkg.sv	73028	41	73028	47						000
+  #101006	5	constant				uvm_pkg.sv	73028	50	73028	54	"RW"	16	STRING:RW	6		000
+  #101007	5	ref_typespec			uvm_pkg::uvm_mem::new::access		0	0	0	0		0			uvm_pkg::uvm_mem::new::access	000
+  #101008	6	string_typespec				uvm_pkg.sv	73028	24	73028	30						000
+  #101009	4	io_decl	has_coverage			uvm_pkg.sv	73029	41	73029	53						000
+> #101010	5	ref_obj	UVM_NO_COVERAGE		uvm_pkg::uvm_mem::new::UVM_NO_COVERAGE	uvm_pkg.sv	73029	56	73029	71		0			uvm_pkg::uvm_mem::new::UVM_NO_COVERAGE	000
+  #101011	5	ref_typespec			uvm_pkg::uvm_mem::new::has_coverage		0	0	0	0		0			uvm_pkg::uvm_mem::new::has_coverage	000
+  #101012	6	int_typespec				uvm_pkg.sv	73029	24	73029	27						000
+  #101013	3	function	configure		uvm_pkg::uvm_mem::configure	uvm_pkg.sv	72583	4	72583	10					uvm_pkg::uvm_mem::configure	000
+  #101014	4	io_decl	parent			uvm_pkg.sv	73057	49	73057	55						000
+  #101015	5	ref_typespec			uvm_pkg::uvm_mem::configure::parent		0	0	0	0		0			uvm_pkg::uvm_mem::configure::parent	000
+  #101016	6	class_typespec	uvm_reg_block			uvm_pkg.sv	73057	34	73057	47						110
+
+facets of this row (7140, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

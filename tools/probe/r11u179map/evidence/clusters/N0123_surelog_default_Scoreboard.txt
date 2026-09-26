@@ -1,0 +1,64 @@
+cluster N0123 (id kept from an earlier map; OPEN | ground A | site makeParamTs (ParamEmit.cpp, law tpAnonAggParamTsNoStamp47) < operator() (ParamEmit.cpp, law pkgUntypedYNoStamp60) < emitParameters (ParamEmit.cpp, law pkgUntypedYNoStamp60) [r11u142map pin; the 98aa49db gdb run wrote a different database (UVM order coin)] [r11u150map pin]): file|int_typespec|other-file+span|under:ref_typespec
+row: surelog/default/Scoreboard  strict=differ:fullname(45)  records golden=269656 ours=268952
+object: #15398 (golden) / #15412 (ours)  type=int_typespec name=UVM_FILE 
+  golden: uvm_root.svh 348:39:348:47
+  ours:   uvm_object_globals.svh 313:9:313:12
+  walk parents: ref_typespec < io_decl(file) < function(uvm_root::report_header) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 15392..15404 ('>' = the object)
+  #15392	7	string_typespec				uvm_root.svh	352	2	352	8						001
+  #15393	4	string_var			uvm_pkg::uvm_root::report_header::args	uvm_root.svh	352	9	352	13		0			uvm_pkg::uvm_root::report_header::args	000
+  #15394	5	ref_typespec			uvm_pkg::uvm_root::report_header::args		0	0	0	0		0			uvm_pkg::uvm_root::report_header::args	000
+  #15395	6	string_typespec				uvm_root.svh	352	2	352	8						000
+  #15396	3	io_decl	file			uvm_root.svh	348	48	348	52						000
+  #15397	4	ref_typespec			uvm_pkg::uvm_root::report_header::file		0	0	0	0		0			uvm_pkg::uvm_root::report_header::file	000
+> #15398	5	int_typespec	UVM_FILE			uvm_root.svh	348	39	348	47						110
+  #15399	6	ref_typespec			<in>UVM_FILE		0	0	0	0		0			UVM_FILE	001
+  #15400	7	int_typespec	uvm_pkg::UVM_FILE			uvm_object_globals.svh	313	9	313	12						001
+  #15401	3	begin			uvm_pkg::uvm_root::report_header	uvm_root.svh	350	2	350	25					uvm_pkg::uvm_root::report_header	000
+  #15402	4	assignment				uvm_root.svh	354	2	354	40						000
+  #15403	5	ref_obj	uvm_report_server::get_server		uvm_pkg::uvm_root::report_header::uvm_report_server::get_server	uvm_root.svh	354	9	354	28		0			uvm_pkg::uvm_root::report_header::uvm_report_server::get_server	000
+  #15404	5	ref_obj	srvr		uvm_pkg::uvm_root::report_header::srvr	uvm_root.svh	354	2	354	6		0			uvm_pkg::uvm_root::report_header::srvr	000
+
+--- OURS (B) records 15406..15418 ('>' = the object)
+  #15406	7	string_typespec				uvm_root.svh	352	2	352	8						001
+  #15407	4	string_var			uvm_pkg::uvm_root::report_header::args	uvm_root.svh	352	9	352	13		0			uvm_pkg::uvm_root::report_header::args	000
+  #15408	5	ref_typespec			uvm_pkg::uvm_root::report_header::args		0	0	0	0		0			uvm_pkg::uvm_root::report_header::args	000
+  #15409	6	string_typespec				uvm_root.svh	352	2	352	8						000
+  #15410	3	io_decl	file			uvm_root.svh	348	48	348	52						000
+  #15411	4	ref_typespec			uvm_pkg::uvm_root::report_header::file		0	0	0	0		0			uvm_pkg::uvm_root::report_header::file	000
+> #15412	5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12						110
+  #15413	6	ref_typespec			<in>UVM_FILE		0	0	0	0		0			UVM_FILE	001
+  #15414	7	int_typespec	uvm_pkg::UVM_FILE			uvm_object_globals.svh	313	9	313	12						001
+  #15415	3	begin			uvm_pkg::uvm_root::report_header	uvm_root.svh	350	2	350	25					uvm_pkg::uvm_root::report_header	000
+  #15416	4	assignment				uvm_root.svh	354	2	354	40						000
+  #15417	5	ref_obj	uvm_report_server::get_server		uvm_pkg::uvm_root::report_header::uvm_report_server::get_server	uvm_root.svh	354	9	354	28		0			uvm_pkg::uvm_root::report_header::uvm_report_server::get_server	000
+  #15418	5	ref_obj	srvr		uvm_pkg::uvm_root::report_header::srvr	uvm_root.svh	354	2	354	6		0			uvm_pkg::uvm_root::report_header::srvr	000
+
+facets of this row (8947, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

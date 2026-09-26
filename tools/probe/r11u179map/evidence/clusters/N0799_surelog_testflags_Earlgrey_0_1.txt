@@ -1,0 +1,64 @@
+cluster N0799 (id kept from an earlier map; OPEN (map 8 gave it to r11u164; passes 164-174 left it) | ground B | site emitSyntaxExpr (TypeEmit.cpp, law hpMidGenvarSelect) < operator() (ModuleEmit.cpp, law genConnReplCastActual) < emitDefGenStmts (ModuleEmit.cpp, law genForInitPkgParamFold) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|tok:id.id[id].id.->|under:bit_select
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(436)  records golden=1342584 ours=1342870
+object: #893691 (golden) / #893824 (ours)  type=ref_obj name=s OUT
+  golden: work@top_earlgrey.u_rv_plic.gen_ie0[0].reg2hw.ie0[s].q.s
+  ours:   work@top_earlgrey.u_rv_plic.gen_ie0[0].s
+  walk parents: bit_select(ie0) < hier_path(reg2hw.ie0[s].q) < cont_assign < gen_scope
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 893685..893697 ('>' = the object)
+  #893685	6	ref_typespec			work@top_earlgrey.u_rv_plic.gen_ie0[0].s		0	0	0	0		0			work@top_earlgrey.u_rv_plic.gen_ie0[0].s	000
+  #893686	7	int_typespec					0	0	0	0						000
+  #893687	5	cont_assign				rv_plic.sv	183	12	183	38						000
+  #893688	6	hier_path	reg2hw.ie0[s].q			rv_plic.sv	183	23	183	38		0				000
+  #893689	7	ref_obj	reg2hw			rv_plic.sv	183	23	183	29		0				000
+  #893690	7	bit_select	ie0		reg2hw.ie0[s]	rv_plic.sv	183	30	183	33		0			reg2hw.ie0[s]	000
+> #893691	8	ref_obj	s		work@top_earlgrey.u_rv_plic.gen_ie0[0].reg2hw.ie0[s].q.s	rv_plic.sv	183	34	183	35		0			work@top_earlgrey.u_rv_plic.gen_ie0[0].reg2hw.ie0[s].q.s	000
+  #893692	7	ref_obj	q		work@top_earlgrey.u_rv_plic.gen_ie0[0].q	rv_plic.sv	183	37	183	38		0			work@top_earlgrey.u_rv_plic.gen_ie0[0].q	000
+  #893693	6	var_select	ie		work@top_earlgrey.u_rv_plic.gen_ie0[0].ie	rv_plic.sv	183	12	183	20		0			work@top_earlgrey.u_rv_plic.gen_ie0[0].ie	000
+  #893694	7	constant				rv_plic.sv	183	15	183	16	0	64	UINT:0	9		000
+  #893695	7	ref_obj	s		work@top_earlgrey.u_rv_plic.gen_ie0[0].ie.s	rv_plic.sv	183	18	183	19		0			work@top_earlgrey.u_rv_plic.gen_ie0[0].ie.s	000
+  #893696	3	gen_scope_array	gen_ie0[1]		work@top_earlgrey.u_rv_plic.gen_ie0[1]	rv_plic.sv	182	35	184	6					work@top_earlgrey.u_rv_plic.gen_ie0[1]	000
+  #893697	4	gen_scope			work@top_earlgrey.u_rv_plic.gen_ie0[1]	rv_plic.sv	182	35	184	6					work@top_earlgrey.u_rv_plic.gen_ie0[1]	000
+
+--- OURS (B) records 893818..893830 ('>' = the object)
+  #893818	6	ref_typespec			work@top_earlgrey.u_rv_plic.gen_ie0[0].s		0	0	0	0		0			work@top_earlgrey.u_rv_plic.gen_ie0[0].s	000
+  #893819	7	int_typespec					0	0	0	0						000
+  #893820	5	cont_assign				rv_plic.sv	183	12	183	38						000
+  #893821	6	hier_path	reg2hw.ie0[s].q			rv_plic.sv	183	23	183	38		0				000
+  #893822	7	ref_obj	reg2hw			rv_plic.sv	183	23	183	29		0				000
+  #893823	7	bit_select	ie0		reg2hw.ie0[s]	rv_plic.sv	183	30	183	33		0			reg2hw.ie0[s]	000
+> #893824	8	ref_obj	s		work@top_earlgrey.u_rv_plic.gen_ie0[0].s	rv_plic.sv	183	34	183	35		0			work@top_earlgrey.u_rv_plic.gen_ie0[0].s	000
+  #893825	7	ref_obj	q		work@top_earlgrey.u_rv_plic.gen_ie0[0].q	rv_plic.sv	183	37	183	38		0			work@top_earlgrey.u_rv_plic.gen_ie0[0].q	000
+  #893826	6	var_select	ie		work@top_earlgrey.u_rv_plic.gen_ie0[0].ie	rv_plic.sv	183	12	183	20		0			work@top_earlgrey.u_rv_plic.gen_ie0[0].ie	000
+  #893827	7	constant				rv_plic.sv	183	15	183	16	0	64	UINT:0	9		000
+  #893828	7	ref_obj	s		work@top_earlgrey.u_rv_plic.gen_ie0[0].ie.s	rv_plic.sv	183	18	183	19		0			work@top_earlgrey.u_rv_plic.gen_ie0[0].ie.s	000
+  #893829	3	gen_scope_array	gen_ie0[1]		work@top_earlgrey.u_rv_plic.gen_ie0[1]	rv_plic.sv	182	35	184	6					work@top_earlgrey.u_rv_plic.gen_ie0[1]	000
+  #893830	4	gen_scope			work@top_earlgrey.u_rv_plic.gen_ie0[1]	rv_plic.sv	182	35	184	6					work@top_earlgrey.u_rv_plic.gen_ie0[1]	000
+
+facets of this row (8643, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

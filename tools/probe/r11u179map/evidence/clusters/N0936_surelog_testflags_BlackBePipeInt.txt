@@ -1,0 +1,64 @@
+cluster N0936 (id kept from an earlier map; OPEN | ground A | site emitParameters (ParamEmit.cpp, law elabModOwnEnumBinFold61) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u138map pin] [r11u142map pin]): span|constant|endline+endcol|under:operation
+row: surelog/testflags/BlackBePipeInt  strict=differ:fullname(2)  records golden=338504 ours=340984
+object: #294300 (golden) / #296523 (ours)  type=constant name= 
+  golden: 2077:28:2081:58
+  ours:   2077:28:2082:63
+  walk parents: operation < param_assign < module_inst(work@bp_be_pipe_int) < design(work@bp_be_pipe_int)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 294294..294306 ('>' = the object)
+  #294294	4	constant				dut.sv	2075	19	2075	20	0	32	UINT:0	9		000
+  #294295	4	constant				dut.sv	2088	29	2088	30	1	32	UINT:1	9		000
+  #294296	4	constant				dut.sv	2089	28	2089	30	64	32	UINT:64	9		000
+  #294297	4	constant				dut.sv	2090	28	2090	29	8	32	UINT:8	9		000
+  #294298	4	constant				dut.sv	2091	28	2091	31	512	32	UINT:512	9		000
+  #294299	4	constant				dut.sv	2092	28	2092	30	64	32	UINT:64	9		000
+> #294300	4	constant				dut.sv	2077	28	2081	58	245	32	UINT:245	9		000
+  #294301	4	constant				dut.sv	2083	28	2083	30	64	32	UINT:64	9		000
+  #294302	4	constant				dut.sv	2084	28	2084	29	8	32	UINT:8	9		000
+  #294303	4	constant				dut.sv	2085	28	2085	31	512	32	UINT:512	9		000
+  #294304	4	constant				dut.sv	2086	28	2086	30	64	32	UINT:64	9		000
+  #294305	4	constant				dut.sv	2094	29	2094	30	1	32	UINT:1	9		000
+  #294306	4	constant				dut.sv	2095	28	2095	30	64	32	UINT:64	9		000
+
+--- OURS (B) records 296517..296529 ('>' = the object)
+  #296517	4	constant				dut.sv	2075	19	2075	20	0	32	UINT:0	9		000
+  #296518	4	constant				dut.sv	2088	29	2088	47	1	32	UINT:1	9		000
+  #296519	4	constant				dut.sv	2089	28	2089	30	64	32	UINT:64	9		000
+  #296520	4	constant				dut.sv	2090	28	2090	29	8	32	UINT:8	9		000
+  #296521	4	constant				dut.sv	2091	28	2091	31	512	32	UINT:512	9		000
+  #296522	4	constant				dut.sv	2092	28	2092	30	64	32	UINT:64	9		000
+> #296523	4	constant				dut.sv	2077	28	2082	63	245	32	UINT:245	9		000
+  #296524	4	constant				dut.sv	2083	28	2083	30	64	32	UINT:64	9		000
+  #296525	4	constant				dut.sv	2084	28	2084	29	8	32	UINT:8	9		000
+  #296526	4	constant				dut.sv	2085	28	2085	31	512	32	UINT:512	9		000
+  #296527	4	constant				dut.sv	2086	28	2086	30	64	32	UINT:64	9		000
+  #296528	4	constant				dut.sv	2094	29	2094	47	1	32	UINT:1	9		000
+  #296529	4	constant				dut.sv	2095	28	2095	30	64	32	UINT:64	9		000
+
+facets of this row (57081, first 25):
+  N0897 #-1/66 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/14409 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15104 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15118 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15132 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15146 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15160 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15174 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15188 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15202 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15216 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15230 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15244 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15258 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15272 parameter dev_addr_width_gp G[] O[8 objs]
+  N0868 #-1/15388 constant  G[] O[1 objs]
+  N0868 #-1/15392 constant  G[] O[1 objs]
+  N0868 #-1/15396 constant  G[] O[1 objs]
+  N0868 #-1/15400 constant  G[] O[1 objs]
+  N0868 #-1/15404 constant  G[] O[1 objs]
+  N0868 #-1/15408 constant  G[] O[1 objs]
+  N0868 #-1/15412 constant  G[] O[1 objs]
+  N0868 #-1/15416 constant  G[] O[1 objs]
+  N0868 #-1/15420 constant  G[] O[1 objs]
+  N0868 #-1/15424 constant  G[] O[1 objs]

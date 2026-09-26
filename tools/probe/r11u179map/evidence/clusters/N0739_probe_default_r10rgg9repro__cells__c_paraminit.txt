@@ -1,0 +1,30 @@
+cluster N0739 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitContAssigns (ModuleEmit.cpp, law elabCaTernaryArmInstall92) < emitModuleDef (ModuleEmit.cpp, law shadowedImportParamFold) [r11u142map pin]): struct|ours-only:fewer-copies|ref_obj|under:cont_assign
+row: probe/default/r10rgg9repro__cells__c_paraminit  strict=type  records golden=80 ours=81
+object: #-1 (golden) / #78 (ours)  type=ref_obj name=Z 
+  golden: 
+  ours:   1 objs
+  walk parents: cont_assign < module_inst(u_a) < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 72..80 ('>' = the object)
+  #72	6	bit_typespec				dut.sv	2	13	2	16						000
+  #73	3	param_assign				dut.sv	7	18	7	33						000
+  #74	4	constant				dut.sv	7	22	7	33	4	32	UINT:4	9		000
+  #75	5	ref_typespec			work@top.u_a		0	0	0	0		0			work@top.u_a	000
+  #76	6	int_typespec				dut.sv	7	14	7	17						000
+  #77	3	cont_assign				dut.sv	9	10	9	20						000
+> #78	4	ref_obj	Z		work@m.Z	dut.sv	9	19	9	20		0			work@m.Z	000
+  #79	4	bit_select	arr		work@m.arr	dut.sv	9	10	9	16		0			work@m.arr	000
+  #80	5	constant				dut.sv	9	14	9	15	0	64	UINT:0	9		000
+
+--- the holder #77 on the other side: exact-record matches at [77]
+  #74	4	constant				dut.sv	7	22	7	33	4	32	UINT:4	9		000
+  #75	5	ref_typespec			work@top.u_a		0	0	0	0		0			work@top.u_a	000
+  #76	6	int_typespec				dut.sv	7	14	7	17						000
+> #77	3	cont_assign				dut.sv	9	10	9	20						000
+  #78	4	bit_select	arr		work@top.u_a.arr	dut.sv	9	10	9	16		0			work@top.u_a.arr	000
+  #79	5	constant				dut.sv	9	14	9	15	0	64	UINT:0	9		000
+
+facets of this row (2, first 25):
+  N0739 #-1/78 ref_obj Z G[] O[1 objs]
+  N1171 #78/79 bit_select arr G[work@top.u_a.arr] O[work@m.arr]

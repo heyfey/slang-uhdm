@@ -1,0 +1,56 @@
+cluster N0684 (id kept from an earlier map; OPEN (map 8 listed it: ground-A+B step 33; passes 164-174 left it) | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < operator() (ExprEmit.cpp, law pkgTdCloneRefNoBind18) < emitExpr (ExprEmit.cpp, law pkgTdCloneRefNoBind18) [r11u165map pin]): fullname|ref_obj|golden-empty|under:operation
+row: uhdm2rtlil/testflags/arb_idx_cast  strict=differ:endcol(17)  records golden=468 ours=468
+object: #388 (golden) / #388 (ours)  type=ref_obj name=sel OUT
+  golden: 
+  ours:   work@dut.gen_levels[1].gen_level[0].gen_first_level.sel
+  walk parents: operation < cont_assign < gen_scope < gen_scope_array(gen_first_level)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 382..394 ('>' = the object)
+  #382	13	ref_obj	level		work@dut.gen_levels[1].gen_level[0].gen_first_level.rr_i.level	dut.sv	25	82	25	87		0			work@dut.gen_levels[1].gen_level[0].gen_first_level.rr_i.level	000
+  #383	9	ref_obj	sel		work@dut.gen_levels[1].gen_level[0].gen_first_level.sel	dut.sv	25	16	25	19		0			work@dut.gen_levels[1].gen_level[0].gen_first_level.sel	000
+  #384	8	cont_assign				dut.sv	26	16	26	47						000
+  #385	9	operation				dut.sv	26	36	26	47		0				000
+  #386	10	ref_typespec			work@dut.gen_levels[1].gen_level[0].gen_first_level		0	0	0	0		0			work@dut.gen_levels[1].gen_level[0].gen_first_level	000
+  #387	11	unsupported_typespec	idx_t			dut.sv	26	36	26	41						110
+> #388	10	ref_obj	sel			dut.sv	26	43	26	46		0				000
+  #389	9	bit_select	index_nodes		work@dut.gen_levels[1].gen_level[0].gen_first_level.index_nodes	dut.sv	26	16	26	33		0			work@dut.gen_levels[1].gen_level[0].gen_first_level.index_nodes	000
+  #390	10	constant				dut.sv	26	28	26	32	1	32	INT:1	7		000
+  #391	11	ref_typespec			work@dut.gen_levels[1].gen_level[0].gen_first_level.index_nodes		0	0	0	0		0			work@dut.gen_levels[1].gen_level[0].gen_first_level.index_nodes	000
+  #392	12	int_typespec				dut.sv	21	18	21	30						000
+  #393	4	gen_scope_array	gen_level[1]		work@dut.gen_levels[1].gen_level[1]	dut.sv	19	43	34	8					work@dut.gen_levels[1].gen_level[1]	000
+  #394	5	gen_scope			work@dut.gen_levels[1].gen_level[1]	dut.sv	19	43	34	8					work@dut.gen_levels[1].gen_level[1]	000
+
+--- OURS (B) records 382..394 ('>' = the object)
+  #382	13	ref_obj	level		work@dut.gen_levels[1].gen_level[0].gen_first_level.rr_i.level	dut.sv	25	82	25	87		0			work@dut.gen_levels[1].gen_level[0].gen_first_level.rr_i.level	000
+  #383	9	ref_obj	sel		work@dut.gen_levels[1].gen_level[0].gen_first_level.sel	dut.sv	25	16	25	19		0			work@dut.gen_levels[1].gen_level[0].gen_first_level.sel	000
+  #384	8	cont_assign				dut.sv	26	16	26	47						000
+  #385	9	operation				dut.sv	26	36	26	47		0				000
+  #386	10	ref_typespec			work@dut.gen_levels[1].gen_level[0].gen_first_level		0	0	0	0		0			work@dut.gen_levels[1].gen_level[0].gen_first_level	000
+  #387	11	unsupported_typespec	idx_t			dut.sv	26	36	26	41						110
+> #388	10	ref_obj	sel		work@dut.gen_levels[1].gen_level[0].gen_first_level.sel	dut.sv	26	43	26	46		0			work@dut.gen_levels[1].gen_level[0].gen_first_level.sel	000
+  #389	9	bit_select	index_nodes		work@dut.gen_levels[1].gen_level[0].gen_first_level.index_nodes	dut.sv	26	16	26	33		0			work@dut.gen_levels[1].gen_level[0].gen_first_level.index_nodes	000
+  #390	10	constant				dut.sv	26	28	26	32	1	32	INT:1	7		000
+  #391	11	ref_typespec			work@dut.gen_levels[1].gen_level[0]		0	0	0	0		0			work@dut.gen_levels[1].gen_level[0]	000
+  #392	12	int_typespec				dut.sv	21	18	21	30						000
+  #393	4	gen_scope_array	gen_level[1]		work@dut.gen_levels[1].gen_level[1]	dut.sv	19	43	34	8					work@dut.gen_levels[1].gen_level[1]	000
+  #394	5	gen_scope			work@dut.gen_levels[1].gen_level[1]	dut.sv	19	43	34	8					work@dut.gen_levels[1].gen_level[1]	000
+
+facets of this row (17, first 25):
+  N0448 #119/119 constant  G[15:10:15:22] O[15:10:15:11]
+  N0443 #232/232 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0443 #237/237 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0443 #242/242 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0443 #249/249 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0443 #255/255 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0090 #270/270 logic_typespec  G[8:40:15:27] O[8:40:8:60]
+  N0443 #281/281 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.index_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0090 #294/294 logic_typespec  G[8:40:15:27] O[8:40:8:60]
+  N0443 #304/304 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.index_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0443 #316/316 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.index_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0443 #361/361 ref_typespec  G[work@dut.gen_levels[1].gen_level[0].gen_first_level.req_nodes] O[work@dut.gen_levels[1].gen_level[0]]
+  N0684 #388/388 ref_obj sel G[] O[work@dut.gen_levels[1].gen_level[0].gen_first_level.sel]
+  N0443 #391/391 ref_typespec  G[work@dut.gen_levels[1].gen_level[0].gen_first_level.index_nodes] O[work@dut.gen_levels[1].gen_level[0]]
+  N0443 #431/431 ref_typespec  G[work@dut.gen_levels[1].gen_level[1].gen_first_level.req_nodes] O[work@dut.gen_levels[1].gen_level[1]]
+  N0684 #458/458 ref_obj sel G[] O[work@dut.gen_levels[1].gen_level[1].gen_first_level.sel]
+  N0443 #461/461 ref_typespec  G[work@dut.gen_levels[1].gen_level[1].gen_first_level.index_nodes] O[work@dut.gen_levels[1].gen_level[1]]

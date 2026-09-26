@@ -1,0 +1,51 @@
+cluster N0706 (id kept from an earlier map; OPEN (map 8 gave it to r11u164; passes 164-174 left it) | ground B | site buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < emitPackage (ParamEmit.cpp, law importCopyAggFormalOwnCopy32) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u138map pin] [r11u142map pin]): struct|golden-only:elsewhere|bit_typespec|under:ref_typespec
+row: surelog/default/SeqDriver  strict=differ:file(29)  records golden=475526 ours=462179
+object: #121981 (golden) / #-1 (ours)  type=bit_typespec name=uvm_reg_addr_t 
+  golden: 9 objs
+  ours:   
+  walk parents: ref_typespec < ref_var(reg_addr) < ref_var(reg_addr) < foreach_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 121975..121987 ('>' = the object)
+  #121975	11	ref_obj	m_regs_by_offset		adpcm_pkg::uvm_reg_map::m_set_mem_offset::m_regs_by_offset		0	0	0	0		0			adpcm_pkg::uvm_reg_map::m_set_mem_offset::m_regs_by_offset	000
+  #121976	10	ref_var	reg_addr		adpcm_pkg::uvm_reg_map::m_set_mem_offset::reg_addr	uvm_reg_map.svh	936	47	936	55		0			adpcm_pkg::uvm_reg_map::m_set_mem_offset::reg_addr	000
+  #121977	11	ref_typespec			adpcm_pkg::uvm_reg_map::m_set_mem_offset::reg_addr		0	0	0	0		0			adpcm_pkg::uvm_reg_map::m_set_mem_offset::reg_addr	000
+  #121978	12	unsupported_typespec	reg_addr			uvm_reg_map.svh	936	47	936	55						110
+  #121979	11	ref_var	reg_addr		uvm_pkg::uvm_reg_map::m_set_mem_offset::reg_addr	uvm_reg_map.svh	936	47	936	55		0			uvm_pkg::uvm_reg_map::m_set_mem_offset::reg_addr	000
+  #121980	12	ref_typespec			uvm_pkg::uvm_reg_map::m_set_mem_offset::reg_addr		0	0	0	0		0			uvm_pkg::uvm_reg_map::m_set_mem_offset::reg_addr	000
+> #121981	13	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31						110
+  #121982	14	ref_typespec			<in>uvm_reg_addr_t		0	0	0	0		0			uvm_reg_addr_t	001
+  #121983	15	bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31						001
+  #121984	16	range				uvm_reg_model.svh	73	23	73	31						001
+  #121985	17	constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7		001
+  #121986	17	constant				uvm_reg_model.svh	73	29	73	30	0	64	UINT:0	9		001
+  #121987	14	range				uvm_reg_model.svh	73	23	73	31						001
+
+--- the holder #121980 on the other side: exact-record matches at []
+
+facets of this row (19158, first 25):
+  N0343 #-1/2433 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2848 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3091 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10090/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17653 class_var uvm_top G[] O[4 objs]
+  N0213 #20788/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20806 bit_typespec  G[] O[1 objs]
+  N0213 #21730/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21742 bit_typespec  G[] O[1 objs]
+  N0423 #24900/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24921/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25639 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63688 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63754 ref_typespec  G[] O[2 objs]
+  N0524 #64437/-1 byte_var c G[3 objs] O[]
+  N0473 #64440/-1 int_var pos G[3 objs] O[]
+  N0501 #64527/-1 bit_var msb G[3 objs] O[]
+  N0501 #64530/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64536/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64568/-1 int_var _byte G[3 objs] O[]
+  N0495 #64600/-1 int_var _bit G[3 objs] O[]
+  N0489 #64661/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64794/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64797/-1 int_var pos G[3 objs] O[]
+  N0473 #64800/-1 int_var bmatches G[3 objs] O[]

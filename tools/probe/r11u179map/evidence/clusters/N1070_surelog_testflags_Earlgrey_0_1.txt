@@ -1,0 +1,64 @@
+cluster N1070 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law caPartSelBoundFoldTs) < emitExpr (ExprEmit.cpp, law everyPartSelIsConstSel78) < emitContAssigns (ModuleEmit.cpp, law elabCaTernaryArmInstall92) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|tok:->.id.id.id[n:n].id|under:constant
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(436)  records golden=1342584 ours=1342870
+object: #108579 (golden) / #108579 (ours)  type=ref_typespec name= OUT
+  golden: work@flash_ctrl
+  ours:   work@flash_ctrl.reg2hw.addr.q[31:17].q
+  walk parents: constant < part_select(q) < hier_path(reg2hw.addr.q[31:17]) < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 108573..108585 ('>' = the object)
+  #108573	3	hier_path	reg2hw.addr.q[31:17]			flash_ctrl.sv	454	36	454	59		0				000
+  #108574	4	ref_obj	reg2hw			flash_ctrl.sv	454	36	454	42		0				000
+  #108575	4	ref_obj	addr			flash_ctrl.sv	454	43	454	47		0				000
+  #108576	4	part_select	q		reg2hw.addr.q[31:17]	flash_ctrl.sv	454	48	454	58		0			reg2hw.addr.q[31:17]	000
+  #108577	5	constant				flash_ctrl.sv	454	50	454	52	31	64	UINT:31	9		000
+  #108578	5	constant				flash_ctrl.sv	454	53	454	58	17	32	UINT:17	9		000
+> #108579	6	ref_typespec			work@flash_ctrl		0	0	0	0		0			work@flash_ctrl	000
+  #108580	7	int_typespec				flash_ctrl_pkg.sv	18	14	18	17						000
+  #108581	3	ref_obj	unused_higher_addr_bits		work@flash_ctrl.unused_higher_addr_bits	flash_ctrl.sv	454	10	454	33		0			work@flash_ctrl.unused_higher_addr_bits	000
+  #108582	2	cont_assign				flash_ctrl.sv	455	10	455	41						000
+  #108583	3	hier_path	reg2hw.scratch			flash_ctrl.sv	455	27	455	41		0				000
+  #108584	4	ref_obj	reg2hw			flash_ctrl.sv	455	27	455	33		0				000
+  #108585	4	ref_obj	scratch		work@flash_ctrl.scratch	flash_ctrl.sv	455	34	455	41		0			work@flash_ctrl.scratch	000
+
+--- OURS (B) records 108573..108585 ('>' = the object)
+  #108573	3	hier_path	reg2hw.addr.q[31:17]			flash_ctrl.sv	454	36	454	59		0				000
+  #108574	4	ref_obj	reg2hw			flash_ctrl.sv	454	36	454	42		0				000
+  #108575	4	ref_obj	addr			flash_ctrl.sv	454	43	454	47		0				000
+  #108576	4	part_select	q		reg2hw.addr.q[31:17]	flash_ctrl.sv	454	48	454	58		0			reg2hw.addr.q[31:17]	000
+  #108577	5	constant				flash_ctrl.sv	454	50	454	52	31	64	UINT:31	9		000
+  #108578	5	constant				flash_ctrl.sv	454	53	454	58	17	32	UINT:17	9		000
+> #108579	6	ref_typespec			work@flash_ctrl.reg2hw.addr.q[31:17].q		0	0	0	0		0			work@flash_ctrl.reg2hw.addr.q[31:17].q	000
+  #108580	7	int_typespec				flash_ctrl_pkg.sv	18	14	18	17						000
+  #108581	3	ref_obj	unused_higher_addr_bits		work@flash_ctrl.unused_higher_addr_bits	flash_ctrl.sv	454	10	454	33		0			work@flash_ctrl.unused_higher_addr_bits	000
+  #108582	2	cont_assign				flash_ctrl.sv	455	10	455	41						000
+  #108583	3	hier_path	reg2hw.scratch			flash_ctrl.sv	455	27	455	41		0				000
+  #108584	4	ref_obj	reg2hw			flash_ctrl.sv	455	27	455	33		0				000
+  #108585	4	ref_obj	scratch		work@flash_ctrl.scratch	flash_ctrl.sv	455	34	455	41		0			work@flash_ctrl.scratch	000
+
+facets of this row (8643, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

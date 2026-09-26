@@ -1,0 +1,64 @@
+cluster N0028 (id kept from an earlier map; OPEN | ground B | site buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law defPkgStructParamMemberNames154) < patchParamTypespecs (ParamEmit.cpp, law paramCloneImportedCopy) [r11u179 pin]): fullname|ref_typespec|tok:->id.|under:typespec_member
+row: uhdm2rtlil/testflags/struct_param_func_config  strict=differ:line(8)  records golden=2652 ours=2514
+object: #1349 (golden) / #1325 (ours)  type=ref_typespec name= STABLE
+  golden: work@struct_param_func_config.p::cfg_t.u
+  ours:   work@struct_param_func_config.Cfg.p::cfg_t.u
+  walk parents: typespec_member(u) < struct_typespec(p::cfg_t) < ref_typespec < parameter(Cfg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1343..1355 ('>' = the object)
+  #1343	6	constant				dut.sv	29	15	29	19	1'b0	1	BIN:0	3		001
+  #1344	6	constant				dut.sv	29	15	29	19	1'b0	1	BIN:0	3		001
+  #1345	2	parameter	Cfg		work@struct_param_func_config.Cfg	dut.sv	65	19	65	22		0	BIN:000000000000000000000000000001111000000000000000000000000000001110		work@struct_param_func_config.Cfg	000
+  #1346	3	ref_typespec			work@struct_param_func_config.Cfg		0	0	0	0		0			work@struct_param_func_config.Cfg	000
+  #1347	4	struct_typespec	p::cfg_t			dut.sv	21	11	24	4						110
+  #1348	5	typespec_member	u			dut.sv	22	12	22	13						001
+> #1349	6	ref_typespec			<in>p::cfg_t.u		0	0	0	0		0			work@struct_param_func_config.p::cfg_t.u	001
+  #1350	7	struct_typespec	p::ucfg_t			dut.sv	32	40	32	46						001
+  #1351	8	typespec_member	a			dut.sv	17	18	17	19						001
+  #1352	9	ref_typespec			<in>p::ucfg_t.a		0	0	0	0		0			work@struct_param_func_config.p::ucfg_t.a	001
+  #1353	10	int_typespec				dut.sv	17	5	17	17						001
+  #1354	8	typespec_member	flag1			dut.sv	18	9	18	14						001
+  #1355	9	ref_typespec			<in>p::ucfg_t.flag1		0	0	0	0		0			work@struct_param_func_config.p::ucfg_t.flag1	001
+
+--- OURS (B) records 1319..1331 ('>' = the object)
+  #1319	6	ref_typespec			<in>p::ucfg_t.flag2		0	0	0	0		0			work@struct_param_func_config.U.p::ucfg_t.flag2	001
+  #1320	7	bit_typespec				dut.sv	19	5	19	8						001
+  #1321	2	parameter	Cfg		work@struct_param_func_config.Cfg	dut.sv	65	19	65	22		0	BIN:000000000000000000000000000001111000000000000000000000000000001110		work@struct_param_func_config.Cfg	000
+  #1322	3	ref_typespec			work@struct_param_func_config.Cfg		0	0	0	0		0			work@struct_param_func_config.Cfg	000
+  #1323	4	struct_typespec	p::cfg_t			dut.sv	21	11	24	4						110
+  #1324	5	typespec_member	u			dut.sv	22	12	22	13						001
+> #1325	6	ref_typespec			<in>p::cfg_t.u		0	0	0	0		0			work@struct_param_func_config.Cfg.p::cfg_t.u	001
+  #1326	7	struct_typespec	p::ucfg_t			dut.sv	32	40	32	46						001
+  #1327	8	typespec_member	a			dut.sv	17	18	17	19						001
+  #1328	9	ref_typespec			<in>p::ucfg_t.a		0	0	0	0		0			work@struct_param_func_config.p::ucfg_t.a	001
+  #1329	10	int_typespec				dut.sv	17	5	17	17						001
+  #1330	8	typespec_member	flag1			dut.sv	18	9	18	14						001
+  #1331	9	ref_typespec			<in>p::ucfg_t.flag1		0	0	0	0		0			work@struct_param_func_config.p::ucfg_t.flag1	001
+
+facets of this row (173, first 25):
+  N0045 #1274/-1 constant  G[1 objs] O[]
+  N0045 #1275/-1 constant  G[1 objs] O[]
+  N0045 #1279/-1 constant  G[1 objs] O[]
+  N0045 #1280/-1 constant  G[1 objs] O[]
+  N0045 #1284/-1 constant  G[1 objs] O[]
+  N0045 #1285/-1 constant  G[1 objs] O[]
+  N0045 #1292/-1 constant  G[1 objs] O[]
+  N0045 #1293/-1 constant  G[1 objs] O[]
+  N0045 #1297/-1 constant  G[1 objs] O[]
+  N0045 #1298/-1 constant  G[1 objs] O[]
+  N0045 #1302/-1 constant  G[1 objs] O[]
+  N0045 #1303/-1 constant  G[1 objs] O[]
+  N0045 #1310/-1 constant  G[1 objs] O[]
+  N0045 #1311/-1 constant  G[1 objs] O[]
+  N0045 #1315/-1 constant  G[1 objs] O[]
+  N0045 #1316/-1 constant  G[1 objs] O[]
+  N0045 #1320/-1 constant  G[1 objs] O[]
+  N0045 #1321/-1 constant  G[1 objs] O[]
+  N0045 #1333/-1 constant  G[1 objs] O[]
+  N0045 #1334/-1 constant  G[1 objs] O[]
+  N0045 #1338/-1 constant  G[1 objs] O[]
+  N0045 #1339/-1 constant  G[1 objs] O[]
+  N0045 #1343/-1 constant  G[1 objs] O[]
+  N0045 #1344/-1 constant  G[1 objs] O[]
+  N0045 #1396/-1 constant  G[1 objs] O[]

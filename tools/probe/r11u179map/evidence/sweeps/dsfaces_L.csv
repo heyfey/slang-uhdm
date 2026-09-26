@@ -1,0 +1,60 @@
+case,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail,name
+tools/probe/r11u158repro/cases/sc/c1,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c1
+tools/probe/r11u158repro/cases/sc/c10,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 2 common constant assignments match,tools_probe_r11u158repro_cases_sc_c10
+tools/probe/r11u158repro/cases/sc/c11,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c11
+tools/probe/r11u158repro/cases/sc/c12,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 2 common constant assignments match,tools_probe_r11u158repro_cases_sc_c12
+tools/probe/r11u158repro/cases/sc/c13,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c13
+tools/probe/r11u158repro/cases/sc/c14,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c14
+tools/probe/r11u158repro/cases/sc/c15,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c15
+tools/probe/r11u158repro/cases/sc/c16,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c16
+tools/probe/r11u158repro/cases/sc/c17,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c17
+tools/probe/r11u158repro/cases/sc/c2,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c2
+tools/probe/r11u158repro/cases/sc/c3,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c3
+tools/probe/r11u158repro/cases/sc/c4,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c4
+tools/probe/r11u158repro/cases/sc/c5,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c5
+tools/probe/r11u158repro/cases/sc/c6,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c6
+tools/probe/r11u158repro/cases/sc/c7,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c7
+tools/probe/r11u158repro/cases/sc/c8,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c8
+tools/probe/r11u158repro/cases/sc/c9,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c9
+tools/probe/r11u161gen/cases/al/e01_bare_import,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e01_bare_import
+tools/probe/r11u161gen/cases/al/e02_module_alias,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e02_module_alias
+tools/probe/r11u161gen/cases/al/e03_member,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e03_member
+tools/probe/r11u161gen/cases/al/e04_local_alias_local_enum,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e04_local_alias_local_enum
+tools/probe/r11u161gen/cases/al/e05_local_alias_import,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e05_local_alias_import
+tools/probe/r11u161gen/cases/al/e06_pkg_alias_other_pkg_bare,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e06_pkg_alias_other_pkg_bare
+tools/probe/r11u161gen/cases/al/e07_unit_alias,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e07_unit_alias
+tools/probe/r11u161gen/cases/al/e08_iface_alias,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e08_iface_alias
+tools/probe/r11u161gen/cases/al/e09_mod_local_2elem,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e09_mod_local_2elem
+tools/probe/r11u161gen/cases/al/e10_mod_alias_scalar_var,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e10_mod_alias_scalar_var
+tools/probe/r11u161gen/cases/al/e11_mod_alias_of_pkg_alias,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e11_mod_alias_of_pkg_alias
+tools/probe/r11u161gen/cases/al/e12_mod_alias_port,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e12_mod_alias_port
+tools/probe/r11u161gen/cases/al/e13_iface_alias_2elem,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e13_iface_alias_2elem
+tools/probe/r11u161gen/cases/al/e14_mod_alias_struct_ctl,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e14_mod_alias_struct_ctl
+tools/probe/r11u161gen/cases/al/e15_mod_alias_packed_dim_ctl,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u179_dsL/tools_probe_r11u161gen_cases_al_e15_mod_ali,tools_probe_r11u161gen_cases_al_e15_mod_alias_packed_dim_ctl
+tools/probe/r11u161gen/cases/al/e16_mod_two_aliases_same_enum,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e16_mod_two_aliases_same_enum
+tools/probe/r11u161gen/cases/al/e17_mod_alias_param_base,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e17_mod_alias_param_base
+tools/probe/r11u161gen/cases/al/e18_unit_alias_local_enum,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u161gen_cases_al_e18_unit_alias_local_enum
+tools/probe/r11u166mac/cases/ds/c05_macro_conn,IDENTICAL,OK,OK,2,2,,,tools_probe_r11u166mac_cases_ds_c05_macro_conn
+tools/probe/r11u166mac/cases/ds/c08_macro_first_then_plain,IDENTICAL,OK,OK,3,3,,,tools_probe_r11u166mac_cases_ds_c08_macro_first_then_plain
+tools/probe/r11u166mac/cases/ds/l06_iface_spaced_path,STATUS_DIFF,NO_GATES,READ_FAIL,0,0,,,tools_probe_r11u166mac_cases_ds_l06_iface_spaced_path
+tools/probe/r11u166mac/cases/ds/p04_spaced_path_bound,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u166mac_cases_ds_p04_spaced_path_bound
+tools/probe/r11u173verify/cases/hw/w12_index_member_blanks,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in UHDM import,tools_probe_r11u173verify_cases_hw_w12_index_member_blanks
+tools/probe/r11u173verify/cases/hw/w13_index_member_noblank_ctl,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in UHDM import,tools_probe_r11u173verify_cases_hw_w13_index_member_noblank_ctl
+tools/probe/r11u173verify/cases/rq/q03_high_var_genscope_decl,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u173verify_cases_rq_q03_high_var_genscope_decl
+tools/probe/r11u173verify/cases/rq/q08_high_param_genfor,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u179_dsL/tools_probe_r11u173verify_cases_rq_q08_high,tools_probe_r11u173verify_cases_rq_q08_high_param_genfor
+tools/probe/v11u171repro/cases/Q/c01_tail_const,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c01_tail_const
+tools/probe/v11u171repro/cases/Q/c02_tail_op,EQUIVALENT,OK,OK,4,4,nohier il,✅ Formal equivalence check PASSED for /tmp/r11u179_dsL/tools_probe_v11u171repro_cases_Q_c02_tail_op/equiv/tools_probe_v1,tools_probe_v11u171repro_cases_Q_c02_tail_op
+tools/probe/v11u171repro/cases/Q/c03_nested_concat_first,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c03_nested_concat_first
+tools/probe/v11u171repro/cases/Q/c04_repl_first,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c04_repl_first
+tools/probe/v11u171repro/cases/Q/c05_tail_partsel,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c05_tail_partsel
+tools/probe/v11u171repro/cases/Q/c06_gen_for_inst,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c06_gen_for_inst
+tools/probe/v11u171repro/cases/Q/c07_const_in_concat,EQUIVALENT,OK,OK,2,2,nohier il synth,✅ Formal equivalence check PASSED for /tmp/r11u179_dsL/tools_probe_v11u171repro_cases_Q_c07_const_in_concat/equiv/tools_,tools_probe_v11u171repro_cases_Q_c07_const_in_concat
+tools/probe/v11u171repro/cases/Q/c08_inst_array,EQUIVALENT,OK,OK,2,2,nohier il synth,✅ Formal equivalence check PASSED for /tmp/r11u179_dsL/tools_probe_v11u171repro_cases_Q_c08_inst_array/equiv/tools_probe,tools_probe_v11u171repro_cases_Q_c08_inst_array
+tools/probe/v11u171repro/cases/Q/c09_hier_child,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c09_hier_child
+tools/probe/v11u171repro/cases/Q/c10_two_port,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c10_two_port
+tools/probe/v11u171repro/cases/Q/c11_var_select,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c11_var_select
+tools/probe/v11u171repro/cases/Q/c12_op_in_concat,EQUIVALENT,OK,OK,3,2,nohier il synth,✅ Formal equivalence check PASSED for /tmp/r11u179_dsL/tools_probe_v11u171repro_cases_Q_c12_op_in_concat/equiv/tools_pro,tools_probe_v11u171repro_cases_Q_c12_op_in_concat
+tools/probe/v11u171repro/cases/Q/c13_param_in_concat,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c13_param_in_concat
+tools/probe/v11u171repro/cases/Q/c14_const_select,EQUIVALENT,OK,OK,2,2,nohier il,✅ Formal equivalence check PASSED for /tmp/r11u179_dsL/tools_probe_v11u171repro_cases_Q_c14_const_select/equiv/tools_pro,tools_probe_v11u171repro_cases_Q_c14_const_select
+../r11u179_dscases/LT/l01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,___r11u179_dscases_LT_l01
+../r11u179_dscases/LT/l02,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u179_dsL/___r11u179_dscases_LT_l02/equiv/___r11u179_,___r11u179_dscases_LT_l02

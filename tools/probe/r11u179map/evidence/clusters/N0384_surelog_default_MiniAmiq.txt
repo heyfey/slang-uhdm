@@ -1,0 +1,64 @@
+cluster N0384 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law elabMisevalArgNoFold) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) [r11u142map pin]): span|method_func_call|col+endcol|under:hier_path
+row: surelog/default/MiniAmiq  strict=differ:file(29)  records golden=435559 ours=413982
+object: #435243 (golden) / #413666 (ours)  type=method_func_call name=get_nof_attempts_successful_covered 
+  golden: 627:17:627:52
+  ours:   627:1:627:36
+  walk parents: hier_path(cover_info[index].get_nof_attempts_successful_covered) < sys_func_call($sformatf) < assignment < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 435237..435249 ('>' = the object)
+  #435237	8	assignment				svaunit_vpi_interface.sv	626	13	627	108						000
+  #435238	9	sys_func_call	$sformatf			svaunit_vpi_interface.sv	626	21	627	108		0				000
+  #435239	10	constant				svaunit_vpi_interface.sv	626	31	626	58	"%0d SUCCEEDED, %0d FAILED"	200	STRING:%0d SUCCEEDED, %0d FAILED	6		000
+  #435240	10	hier_path	cover_info[index].get_nof_attempts_successful_covered			svaunit_vpi_interface.sv	626	60	627	54		0				000
+  #435241	11	bit_select	cover_info		cover_info[index]	svaunit_vpi_interface.sv	626	60	626	70		0			cover_info[index]	000
+  #435242	12	ref_obj	index		work@svaunit_vpi_interface.report_for_sva.index	svaunit_vpi_interface.sv	626	71	626	76		0			work@svaunit_vpi_interface.report_for_sva.index	000
+> #435243	11	method_func_call	get_nof_attempts_successful_covered			svaunit_vpi_interface.sv	627	17	627	52		0				000
+  #435244	10	hier_path	cover_info[index].get_nof_attempts_failed_covered			svaunit_vpi_interface.sv	627	56	627	107		0				000
+  #435245	11	bit_select	cover_info		cover_info[index]	svaunit_vpi_interface.sv	627	56	627	66		0			cover_info[index]	000
+  #435246	12	ref_obj	index		work@svaunit_vpi_interface.report_for_sva.index	svaunit_vpi_interface.sv	627	67	627	72		0			work@svaunit_vpi_interface.report_for_sva.index	000
+  #435247	11	method_func_call	get_nof_attempts_failed_covered			svaunit_vpi_interface.sv	627	74	627	105		0				000
+  #435248	9	ref_obj	extra		work@svaunit_vpi_interface.report_for_sva.extra	svaunit_vpi_interface.sv	626	13	626	18		0			work@svaunit_vpi_interface.report_for_sva.extra	000
+  #435249	8	assignment				svaunit_vpi_interface.sv	629	13	629	95						000
+
+--- OURS (B) records 413660..413672 ('>' = the object)
+  #413660	8	assignment				svaunit_vpi_interface.sv	626	13	627	108						000
+  #413661	9	sys_func_call	$sformatf			svaunit_vpi_interface.sv	626	21	627	108		0				000
+  #413662	10	constant				svaunit_vpi_interface.sv	626	31	626	58	"%0d SUCCEEDED, %0d FAILED"	200	STRING:%0d SUCCEEDED, %0d FAILED	6		000
+  #413663	10	hier_path	cover_info[index].get_nof_attempts_successful_covered			svaunit_vpi_interface.sv	626	60	627	54		0				000
+  #413664	11	bit_select	cover_info		cover_info[index]	svaunit_vpi_interface.sv	626	60	626	70		0			cover_info[index]	000
+  #413665	12	ref_obj	index		work@svaunit_vpi_interface.report_for_sva.index	svaunit_vpi_interface.sv	626	71	626	76		0			work@svaunit_vpi_interface.report_for_sva.index	000
+> #413666	11	method_func_call	get_nof_attempts_successful_covered			svaunit_vpi_interface.sv	627	1	627	36		0				000
+  #413667	10	hier_path	cover_info[index].get_nof_attempts_failed_covered			svaunit_vpi_interface.sv	627	56	627	107		0				000
+  #413668	11	bit_select	cover_info		cover_info[index]	svaunit_vpi_interface.sv	627	56	627	66		0			cover_info[index]	000
+  #413669	12	ref_obj	index		work@svaunit_vpi_interface.report_for_sva.index	svaunit_vpi_interface.sv	627	67	627	72		0			work@svaunit_vpi_interface.report_for_sva.index	000
+  #413670	11	method_func_call	get_nof_attempts_failed_covered			svaunit_vpi_interface.sv	627	74	627	105		0				000
+  #413671	9	ref_obj	extra		work@svaunit_vpi_interface.report_for_sva.extra	svaunit_vpi_interface.sv	626	13	626	18		0			work@svaunit_vpi_interface.report_for_sva.extra	000
+  #413672	8	assignment				svaunit_vpi_interface.sv	629	13	629	95						000
+
+facets of this row (23307, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

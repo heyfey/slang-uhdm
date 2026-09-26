@@ -1,0 +1,41 @@
+cluster N0765 (id kept from an earlier map; OPEN [r11u175 reduces it: rows 0->0, probe 3->2] | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law cloneBuiltinMethodArgBindsReceiver184) < emitInstance (ModuleEmit.cpp, law elabCaReuses) [r11u142map pin]): fullname|ref_obj|tok:id.id.->|under:method_func_call
+row: probe/default/v11u112repro__grid__brk__t__b2c_iface_fn  strict=fullname  records golden=189 ours=189
+object: #65 (golden) / #65 (ours)  type=ref_obj name=x OUT
+  golden: work@m.u.sx.x
+  ours:   work@m.x
+  walk parents: method_func_call(sx) < hier_path(u.sx) < cont_assign < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 59..71 ('>' = the object)
+  #59	6	constant				dut.sv	6	45	6	47	15	64	UINT:15	9		001
+  #60	6	constant				dut.sv	6	48	6	49	0	64	UINT:0	9		001
+  #61	2	cont_assign				dut.sv	8	10	8	21						000
+  #62	3	hier_path	u.sx			dut.sv	8	14	8	21		0				000
+  #63	4	ref_obj	u			dut.sv	8	14	8	15		0				000
+  #64	4	method_func_call	sx			dut.sv	8	16	8	18		0				000
+> #65	5	ref_obj	x		work@m.u.sx.x	dut.sv	8	19	8	20		0			work@m.u.sx.x	000
+  #66	3	ref_obj	y		work@m.y	dut.sv	8	10	8	11		0			work@m.y	000
+  #67	2	ref_module	u	work@bi		dut.sv	7	6	7	7						000
+  #68	3	interface_inst		work@bi	work@bi	dut.sv	1	1	5	13					work@bi	000
+  #69	4	logic_typespec	s_t			dut.sv	2	11	2	30						010
+  #70	5	range				dut.sv	2	24	2	30						001
+  #71	6	constant				dut.sv	2	25	2	27	15	64	UINT:15	9		001
+
+--- OURS (B) records 59..71 ('>' = the object)
+  #59	6	constant				dut.sv	6	45	6	47	15	64	UINT:15	9		001
+  #60	6	constant				dut.sv	6	48	6	49	0	64	UINT:0	9		001
+  #61	2	cont_assign				dut.sv	8	10	8	21						000
+  #62	3	hier_path	u.sx			dut.sv	8	14	8	21		0				000
+  #63	4	ref_obj	u			dut.sv	8	14	8	15		0				000
+  #64	4	method_func_call	sx			dut.sv	8	16	8	18		0				000
+> #65	5	ref_obj	x		work@m.x	dut.sv	8	19	8	20		0			work@m.x	000
+  #66	3	ref_obj	y		work@m.y	dut.sv	8	10	8	11		0			work@m.y	000
+  #67	2	ref_module	u	work@bi		dut.sv	7	6	7	7						000
+  #68	3	interface_inst		work@bi	work@bi	dut.sv	1	1	5	13					work@bi	000
+  #69	4	logic_typespec	s_t			dut.sv	2	11	2	30						010
+  #70	5	range				dut.sv	2	24	2	30						001
+  #71	6	constant				dut.sv	2	25	2	27	15	64	UINT:15	9		001
+
+facets of this row (2, first 25):
+  N0765 #65/65 ref_obj x G[work@m.u.sx.x] O[work@m.x]
+  N0765 #185/185 ref_obj x G[work@m.u.sx.x] O[work@m.x]

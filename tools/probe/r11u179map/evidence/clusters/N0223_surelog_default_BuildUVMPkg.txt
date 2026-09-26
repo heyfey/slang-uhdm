@@ -1,0 +1,64 @@
+cluster N0223 (id kept from an earlier map; COVERED r11u175 (law patches, MEASURED: gone under the patch binary) | ground B | site makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < sharedTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200) [r11u142map pin]): span|time_typespec|line+col+endline+endcol|under:ref_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:line(94)  records golden=201533 ours=201486
+object: #76947 (golden) / #76920 (ours)  type=time_typespec name= 
+  golden: 38089:55:38089:59
+  ours:   40493:41:40493:45
+  walk parents: ref_typespec < io_decl(accept_time) < function(accept_tr) < class_defn(uvm_component)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 76941..76953 ('>' = the object)
+  #76941	4	io_decl	tr			uvm_pkg.sv	38089	51	38089	53						000
+  #76942	5	ref_typespec			uvm_pkg::uvm_component::accept_tr::tr		0	0	0	0		0			uvm_pkg::uvm_component::accept_tr::tr	000
+  #76943	6	class_typespec	uvm_transaction			uvm_pkg.sv	38089	35	38089	50						110
+  #76944	4	io_decl	accept_time			uvm_pkg.sv	38089	60	38089	71						000
+  #76945	5	constant				uvm_pkg.sv	38089	74	38089	75	0	64	UINT:0	9		000
+  #76946	5	ref_typespec			uvm_pkg::uvm_component::accept_tr::accept_time		0	0	0	0		0			uvm_pkg::uvm_component::accept_tr::accept_time	000
+> #76947	6	time_typespec				uvm_pkg.sv	38089	55	38089	59						000
+  #76948	3	function	do_accept_tr		uvm_pkg::uvm_component::do_accept_tr	uvm_pkg.sv	38099	3	38099	9					uvm_pkg::uvm_component::do_accept_tr	000
+  #76949	4	io_decl	tr			uvm_pkg.sv	38099	72	38099	74						000
+  #76950	5	ref_typespec			uvm_pkg::uvm_component::do_accept_tr::tr		0	0	0	0		0			uvm_pkg::uvm_component::do_accept_tr::tr	000
+  #76951	6	class_typespec	uvm_transaction			uvm_pkg.sv	38099	56	38099	71						110
+  #76952	3	function	begin_tr		uvm_pkg::uvm_component::begin_tr	uvm_pkg.sv	38128	4	38128	10					uvm_pkg::uvm_component::begin_tr	000
+  #76953	4	int_var			uvm_pkg::uvm_component::begin_tr	uvm_pkg.sv	38128	20	38128	23		0			uvm_pkg::uvm_component::begin_tr	000
+
+--- OURS (B) records 76914..76926 ('>' = the object)
+  #76914	4	io_decl	tr			uvm_pkg.sv	40492	57	40492	59						000
+  #76915	5	ref_typespec			uvm_pkg::uvm_component::accept_tr::tr		0	0	0	0		0			uvm_pkg::uvm_component::accept_tr::tr	000
+  #76916	6	class_typespec	uvm_transaction			uvm_pkg.sv	40492	41	40492	56						110
+  #76917	4	io_decl	accept_time			uvm_pkg.sv	40493	46	40493	57						000
+  #76918	5	constant				uvm_pkg.sv	40493	58	40493	59	0	64	UINT:0	9		000
+  #76919	5	ref_typespec			uvm_pkg::uvm_component::accept_tr::accept_time		0	0	0	0		0			uvm_pkg::uvm_component::accept_tr::accept_time	000
+> #76920	6	time_typespec				uvm_pkg.sv	40493	41	40493	45						000
+  #76921	3	function	do_accept_tr		uvm_pkg::uvm_component::do_accept_tr	uvm_pkg.sv	38099	3	38099	9					uvm_pkg::uvm_component::do_accept_tr	000
+  #76922	4	io_decl	tr			uvm_pkg.sv	40852	60	40852	62						000
+  #76923	5	ref_typespec			uvm_pkg::uvm_component::do_accept_tr::tr		0	0	0	0		0			uvm_pkg::uvm_component::do_accept_tr::tr	000
+  #76924	6	class_typespec	uvm_transaction			uvm_pkg.sv	40852	44	40852	59						110
+  #76925	3	function	begin_tr		uvm_pkg::uvm_component::begin_tr	uvm_pkg.sv	38128	4	38128	10					uvm_pkg::uvm_component::begin_tr	000
+  #76926	4	int_var			uvm_pkg::uvm_component::begin_tr	uvm_pkg.sv	40509	10	40509	13		0			uvm_pkg::uvm_component::begin_tr	000
+
+facets of this row (7140, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

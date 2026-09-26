@@ -1,0 +1,64 @@
+cluster N0976 (id kept from an earlier map; OPEN (map 8 gave it to r11u164; passes 164-174 left it) | ground B | site UHDM library DeepClone < DeepClone < DeepCopy (--elabuhdm, testflags) run from main (uhdm_main.cpp) [r11u138map pin] [r11u142map pin]): fullname|bit_select|tok:id[n].->|under:hier_path
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(436)  records golden=1342584 ours=1342870
+object: #454811 (golden) / #454708 (ours)  type=bit_select name=buf_sel OUT
+  golden: work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_rsp_match[0].rsp_fifo_rdata.buf_sel[i].buf_sel
+  ours:   work@top_earlgrey.u_flash_eflash.i_core.i_rd.gen_buf_rsp_match[0].rsp_fifo_rdata.buf_sel[i].buf_sel
+  walk parents: hier_path(rsp_fifo_rdata.buf_sel[i]) < operation < operation < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 454805..454817 ('>' = the object)
+  #454805	9	cont_assign				flash_phy_rd.sv	252	12	252	88						000
+  #454806	10	operation				flash_phy_rd.sv	252	31	252	88		0				000
+  #454807	11	ref_obj	rsp_fifo_vld		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_rsp_match[0].rsp_fifo_vld	flash_phy_rd.sv	252	31	252	43		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_rsp_match[0].rsp_fifo_vld	000
+  #454808	11	operation				flash_phy_rd.sv	252	47	252	87		0				000
+  #454809	12	hier_path	rsp_fifo_rdata.buf_sel[i]			flash_phy_rd.sv	252	47	252	72		0				000
+  #454810	13	ref_obj	rsp_fifo_rdata			flash_phy_rd.sv	252	47	252	61		0				000
+> #454811	13	bit_select	buf_sel		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_rsp_match[0].rsp_fifo_rdata.buf_sel[i].buf_sel	flash_phy_rd.sv	252	70	252	71		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_rsp_match[0].rsp_fifo_rdata.buf_sel[i].buf_sel	000
+  #454812	14	typespec_member	buf_sel			flash_phy_pkg.sv	63	24	63	31						000
+  #454813	15	ref_typespec			work@flash_phy_rd_buffers.flash_phy_pkg::rsp_fifo_entry_t.buf_sel		0	0	0	0		0			work@flash_phy_rd_buffers.flash_phy_pkg::rsp_fifo_entry_t.buf_sel	000
+  #454814	16	logic_typespec				flash_phy_pkg.sv	63	5	63	23						000
+  #454815	17	range				flash_phy_pkg.sv	63	11	63	23						001
+  #454816	18	constant				flash_phy_pkg.sv	63	12	63	18	3	64	INT:3	7		001
+  #454817	18	constant				flash_phy_pkg.sv	63	21	63	22	0	64	UINT:0	9		001
+
+--- OURS (B) records 454702..454714 ('>' = the object)
+  #454702	9	cont_assign				flash_phy_rd.sv	252	12	252	88						000
+  #454703	10	operation				flash_phy_rd.sv	252	31	252	88		0				000
+  #454704	11	ref_obj	rsp_fifo_vld		work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_rsp_match[0].rsp_fifo_vld	flash_phy_rd.sv	252	31	252	43		0			work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_buf_rsp_match[0].rsp_fifo_vld	000
+  #454705	11	operation				flash_phy_rd.sv	252	47	252	87		0				000
+  #454706	12	hier_path	rsp_fifo_rdata.buf_sel[i]			flash_phy_rd.sv	252	47	252	72		0				000
+  #454707	13	ref_obj	rsp_fifo_rdata			flash_phy_rd.sv	252	47	252	61		0				000
+> #454708	13	bit_select	buf_sel		work@top_earlgrey.u_flash_eflash.i_core.i_rd.gen_buf_rsp_match[0].rsp_fifo_rdata.buf_sel[i].buf_sel	flash_phy_rd.sv	252	70	252	71		0			work@top_earlgrey.u_flash_eflash.i_core.i_rd.gen_buf_rsp_match[0].rsp_fifo_rdata.buf_sel[i].buf_sel	000
+  #454709	14	typespec_member	buf_sel			flash_phy_pkg.sv	63	24	63	31						000
+  #454710	15	ref_typespec			work@flash_phy_rd_buffers.flash_phy_pkg::rsp_fifo_entry_t.buf_sel		0	0	0	0		0			work@flash_phy_rd_buffers.flash_phy_pkg::rsp_fifo_entry_t.buf_sel	000
+  #454711	16	logic_typespec				flash_phy_pkg.sv	63	5	63	23						000
+  #454712	17	range				flash_phy_pkg.sv	63	11	63	23						001
+  #454713	18	constant				flash_phy_pkg.sv	63	12	63	18	3	64	INT:3	7		001
+  #454714	18	constant				flash_phy_pkg.sv	63	21	63	22	0	64	UINT:0	9		001
+
+facets of this row (8643, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

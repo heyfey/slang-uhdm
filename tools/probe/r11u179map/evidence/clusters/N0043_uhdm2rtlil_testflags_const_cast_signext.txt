@@ -1,0 +1,51 @@
+cluster N0043 (id kept from an earlier map; OPEN (map 8 listed it: ground-B step 12; passes 164-174 left it) | ground B | site buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < makeTypespec (TypeEmit.cpp, law tpCloneWholeLhsBare160) < emitParameters (ParamEmit.cpp, law elabTpDefaultDefNamed163) [DECODED (r11u130 R2): as N0009] [r11u165map pin]): span|struct_typespec|line+col+endline+endcol|under:ref_typespec
+row: uhdm2rtlil/testflags/const_cast_signext  strict=differ:line(5)  records golden=531 ours=527
+object: #249 (golden) / #249 (ours)  type=struct_typespec name=op_t 
+  golden: 19:42:19:46
+  ours:   15:11:15:61
+  walk parents: ref_typespec < parameter(OP_F) < module_inst(work@const_cast_signext) < design(work@const_cast_signext)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 243..255 ('>' = the object)
+  #243	3	func_call	szc			dut.sv	27	20	27	30		0				000
+  #244	4	ref_obj	OP_8		work@const_cast_signext.OP_8	dut.sv	27	25	27	29		0			work@const_cast_signext.OP_8	000
+  #245	3	ref_obj	imm_sz		work@const_cast_signext.imm_sz	dut.sv	27	10	27	16		0			work@const_cast_signext.imm_sz	000
+  #246	1	module_inst	work@const_cast_signext	work@const_cast_signext		dut.sv	8	1	28	10						000
+  #247	2	parameter	OP_F		work@const_cast_signext.OP_F	dut.sv	21	19	21	23		0			work@const_cast_signext.OP_F	000
+  #248	3	ref_typespec			work@const_cast_signext.OP_F		0	0	0	0		0			work@const_cast_signext.OP_F	000
+> #249	4	struct_typespec	op_t			dut.sv	19	42	19	46						110
+  #250	5	typespec_member	hi			dut.sv	15	40	15	42						001
+  #251	6	ref_typespec			<in>op_t.hi		0	0	0	0		0			work@const_cast_signext.OP_F.op_t.hi	001
+  #252	7	logic_typespec				dut.sv	15	27	15	39						001
+  #253	8	range				dut.sv	15	33	15	39						001
+  #254	9	constant				dut.sv	15	34	15	36	19	64	UINT:19	9		001
+  #255	9	constant				dut.sv	15	37	15	38	0	64	UINT:0	9		001
+
+--- OURS (B) records 243..255 ('>' = the object)
+  #243	3	func_call	szc			dut.sv	27	20	27	30		0				000
+  #244	4	ref_obj	OP_8		work@const_cast_signext.OP_8	dut.sv	27	25	27	29		0			work@const_cast_signext.OP_8	000
+  #245	3	ref_obj	imm_sz		work@const_cast_signext.imm_sz	dut.sv	27	10	27	16		0			work@const_cast_signext.imm_sz	000
+  #246	1	module_inst	work@const_cast_signext	work@const_cast_signext		dut.sv	8	1	28	10						000
+  #247	2	parameter	OP_F		work@const_cast_signext.OP_F	dut.sv	21	19	21	23		0			work@const_cast_signext.OP_F	000
+  #248	3	ref_typespec			work@const_cast_signext.OP_F		0	0	0	0		0			work@const_cast_signext.OP_F	000
+> #249	4	struct_typespec	op_t			dut.sv	15	11	15	61						110
+  #250	5	typespec_member	hi			dut.sv	15	40	15	42						001
+  #251	6	ref_typespec			<in>op_t.hi		0	0	0	0		0			work@const_cast_signext.OP_F.op_t.hi	001
+  #252	7	logic_typespec				dut.sv	15	27	15	39						001
+  #253	8	range				dut.sv	15	33	15	39						001
+  #254	9	constant				dut.sv	15	34	15	36	19	64	UINT:19	9		001
+  #255	9	constant				dut.sv	15	37	15	38	0	64	UINT:0	9		001
+
+facets of this row (12, first 25):
+  N0133 #512/-1 func_call sext G[2 objs] O[]
+  N0487 #-1/512 constant  G[] O[1 objs]
+  N0133 #517/-1 func_call sext G[2 objs] O[]
+  N0487 #-1/516 constant  G[] O[1 objs]
+  N0133 #522/-1 func_call uext G[2 objs] O[]
+  N0487 #-1/520 constant  G[] O[1 objs]
+  N0133 #527/-1 func_call szc G[2 objs] O[]
+  N0487 #-1/524 constant  G[] O[1 objs]
+  N0043 #249/249 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]
+  N0043 #264/264 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]
+  N0043 #280/280 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]
+  N0043 #298/298 struct_typespec op_t G[19:42:19:46] O[15:11:15:61]

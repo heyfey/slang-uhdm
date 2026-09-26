@@ -1,0 +1,19 @@
+== P
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+== L
+  SVSwitch                       default   CHANGED STRICT_NOTEQUAL/differ:fullname(11) -> STRICT_NOTEQUAL/differ:file(9)
+  SVSwitch                       testflags CHANGED STRICT_NOTEQUAL/differ:fullname(11) -> STRICT_NOTEQUAL/differ:file(9)
+  SimpleUVM                      default   CHANGED STRICT_NOTEQUAL/differ:fullname(45) -> STRICT_NOTEQUAL/differ:fullname(42)
+  SimpleUVM                      testflags CHANGED STRICT_NOTEQUAL/differ:fullname(45) -> STRICT_NOTEQUAL/differ:fullname(42)
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:file(29) -> STRICT_NOTEQUAL/differ:file(26)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:file(29) -> STRICT_NOTEQUAL/differ:file(26)
+  BuildUVMPkg                    default   CHANGED STRICT_NOTEQUAL/differ:line(94) -> STRICT_NOTEQUAL/differ:line(69)
+  BuildUVMPkg                    testflags CHANGED STRICT_NOTEQUAL/differ:line(94) -> STRICT_NOTEQUAL/differ:line(69)
+  Scoreboard                     default   CHANGED STRICT_NOTEQUAL/differ:fullname(45) -> STRICT_NOTEQUAL/differ:fullname(42)
+---- canary rows: ok=43 changed=9 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.

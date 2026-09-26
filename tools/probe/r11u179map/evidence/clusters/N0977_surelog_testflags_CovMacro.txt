@@ -1,0 +1,47 @@
+cluster N0977 (id kept from an earlier map; COVERED r11u178 (map 8 ground-A step 3: CovMacro's $root.top hier_path name) | ground A | site buildDottedHierPath (ExprEmit.cpp, law hpIdxClassBodyNeverLateBinds143) < emitExpr (ExprEmit.cpp, law implicitNetMintNoFile131) < emitExpr (ExprEmit.cpp, law elabMisevalArgNoFold) [r11u138map pin] [r11u142map pin]): fullname|hier_path|ours-empty|under:sys_func_call
+row: surelog/testflags/CovMacro  strict=differ:fullname(8)  records golden=264 ours=264
+object: #106 (golden) / #106 (ours)  type=hier_path name=$root.top OUT
+  golden: work@top.$root.top
+  ours:   
+  walk parents: sys_func_call($coverage_control) < assignment < begin < initial
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 100..112 ('>' = the object)
+  #100	3	begin			work@top	dut.sv	11	13	24	8					work@top	000
+  #101	4	assignment				dut.sv	12	9	12	52						000
+  #102	5	sys_func_call	$coverage_control			dut.sv	12	13	12	52		0				000
+  #103	6	constant				dut.sv	12	31	12	32	3	64	UINT:3	9		000
+  #104	6	constant				dut.sv	12	34	12	36	23	64	UINT:23	9		000
+  #105	6	constant				dut.sv	12	38	12	40	11	64	UINT:11	9		000
+> #106	6	hier_path	$root.top		work@top.$root.top	dut.sv	12	42	12	51		0			work@top.$root.top	000
+  #107	7	ref_obj	$root			dut.sv	12	48	12	51		0				000
+  #108	7	ref_obj	top			dut.sv	12	48	12	51		0				000
+  #109	5	ref_obj	i		work@top.i	dut.sv	12	9	12	10		0			work@top.i	000
+  #110	4	assignment				dut.sv	13	9	13	48						000
+  #111	5	sys_func_call	$coverage_control			dut.sv	13	13	13	48		0				000
+  #112	6	constant				dut.sv	13	31	13	32	2	64	UINT:2	9		000
+
+--- OURS (B) records 100..112 ('>' = the object)
+  #100	3	begin			work@top	dut.sv	11	13	24	8					work@top	000
+  #101	4	assignment				dut.sv	12	9	12	52						000
+  #102	5	sys_func_call	$coverage_control			dut.sv	12	13	12	52		0				000
+  #103	6	constant				dut.sv	12	31	12	32	3	64	UINT:3	9		000
+  #104	6	constant				dut.sv	12	34	12	36	23	64	UINT:23	9		000
+  #105	6	constant				dut.sv	12	38	12	40	11	64	UINT:11	9		000
+> #106	6	hier_path	$root.top			dut.sv	12	42	12	51		0				000
+  #107	7	ref_obj	$root			dut.sv	12	48	12	51		0				000
+  #108	7	ref_obj	top			dut.sv	12	48	12	51		0				000
+  #109	5	ref_obj	i		work@top.i	dut.sv	12	9	12	10		0			work@top.i	000
+  #110	4	assignment				dut.sv	13	9	13	48						000
+  #111	5	sys_func_call	$coverage_control			dut.sv	13	13	13	48		0				000
+  #112	6	constant				dut.sv	13	31	13	32	2	64	UINT:2	9		000
+
+facets of this row (8, first 25):
+  N0977 #106/106 hier_path $root.top G[work@top.$root.top] O[]
+  N0977 #122/122 hier_path $root.top.unit1 G[work@top.$root.top.unit1] O[]
+  N0977 #132/132 hier_path $root.top.unit2 G[work@top.$root.top.unit2] O[]
+  N0977 #154/154 hier_path $root.top.unit1 G[work@top.$root.top.unit1] O[]
+  N0977 #192/192 hier_path $root.top G[work@top.$root.top] O[]
+  N0977 #208/208 hier_path $root.top.unit1 G[work@top.$root.top.unit1] O[]
+  N0977 #219/219 hier_path $root.top.unit2 G[work@top.$root.top.unit2] O[]
+  N0977 #242/242 hier_path $root.top.unit1 G[work@top.$root.top.unit1] O[]

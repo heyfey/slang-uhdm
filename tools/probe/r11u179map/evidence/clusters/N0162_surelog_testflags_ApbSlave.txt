@@ -1,0 +1,64 @@
+cluster N0162 (id kept from an earlier map; OPEN (map 8 gave it to r11u164; passes 164-174 left it) | ground B | site makeTypespec (TypeEmit.cpp, law unsignedScalarVecTsAtKeyword137) < emitImportedPkgVarNets (ModuleEmit.cpp, law oobCtorLocalsRideTheImport203) < emitInterfaceDef (ModuleEmit.cpp, law interfaceDefViewNeverLateBinds223v) [r11u179 pin]): span|string_typespec|endcol|under:ref_typespec
+row: surelog/testflags/ApbSlave  strict=differ:depth(1)  records golden=3678 ours=3682
+object: #2264 (golden) / #2268 (ours)  type=string_typespec name= 
+  golden: 29:9:29:92
+  ours:   29:9:29:15
+  walk parents: ref_typespec < logic_net(svunit_version) < module_inst < design(work@apb_slave_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2258..2270 ('>' = the object)
+  #2258	5	ref_obj	paddr		work@apb_slave_unit_test.idle.paddr	testbench.sv	252	5	252	10		0			work@apb_slave_unit_test.idle.paddr	000
+  #2259	4	assignment				testbench.sv	253	5	253	15						000
+  #2260	5	constant				testbench.sv	253	14	253	15	0	64	UINT:0	9		000
+  #2261	5	ref_obj	pwdata		work@apb_slave_unit_test.idle.pwdata	testbench.sv	253	5	253	11		0			work@apb_slave_unit_test.idle.pwdata	000
+  #2262	2	logic_net	svunit_version		work@apb_slave_unit_test.svunit_version	svunit_pkg.sv	29	16	29	30		0			work@apb_slave_unit_test.svunit_version	000
+  #2263	3	ref_typespec			work@apb_slave_unit_test.svunit_version		0	0	0	0		0			work@apb_slave_unit_test.svunit_version	000
+> #2264	4	string_typespec				svunit_pkg.sv	29	9	29	92						000
+  #2265	2	logic_net	current_tc		work@apb_slave_unit_test.current_tc	svunit_globals.svh	24	17	24	27		0			work@apb_slave_unit_test.current_tc	000
+  #2266	3	ref_typespec			work@apb_slave_unit_test.current_tc		0	0	0	0		0			work@apb_slave_unit_test.current_tc	000
+  #2267	4	class_typespec	svunit_testcase			svunit_globals.svh	24	1	24	16						110
+  #2268	2	logic_net	svunit_version		work@apb_slave_unit_test.svunit_version	svunit_pkg.sv	29	16	29	30		0			work@apb_slave_unit_test.svunit_version	000
+  #2269	3	ref_typespec			work@apb_slave_unit_test.svunit_version		0	0	0	0		0			work@apb_slave_unit_test.svunit_version	000
+  #2270	4	string_typespec				svunit_pkg.sv	29	9	29	92						000
+
+--- OURS (B) records 2262..2274 ('>' = the object)
+  #2262	5	ref_obj	paddr		work@apb_slave_unit_test.idle.paddr	testbench.sv	252	5	252	10		0			work@apb_slave_unit_test.idle.paddr	000
+  #2263	4	assignment				testbench.sv	253	5	253	15						000
+  #2264	5	constant				testbench.sv	253	14	253	15	0	64	UINT:0	9		000
+  #2265	5	ref_obj	pwdata		work@apb_slave_unit_test.idle.pwdata	testbench.sv	253	5	253	11		0			work@apb_slave_unit_test.idle.pwdata	000
+  #2266	2	logic_net	svunit_version		work@apb_slave_unit_test.svunit_version	svunit_pkg.sv	29	16	29	30		0			work@apb_slave_unit_test.svunit_version	000
+  #2267	3	ref_typespec			work@apb_slave_unit_test.svunit_version		0	0	0	0		0			work@apb_slave_unit_test.svunit_version	000
+> #2268	4	string_typespec				svunit_pkg.sv	29	9	29	15						000
+  #2269	2	logic_net	current_tc		work@apb_slave_unit_test.current_tc	svunit_globals.svh	24	17	24	27		0			work@apb_slave_unit_test.current_tc	000
+  #2270	3	ref_typespec			work@apb_slave_unit_test.current_tc		0	0	0	0		0			work@apb_slave_unit_test.current_tc	000
+  #2271	4	class_typespec	svunit_testcase			svunit_globals.svh	24	1	24	16						110
+  #2272	2	logic_net	svunit_version		work@apb_slave_unit_test.svunit_version	svunit_pkg.sv	29	16	29	30		0			work@apb_slave_unit_test.svunit_version	000
+  #2273	3	ref_typespec			work@apb_slave_unit_test.svunit_version		0	0	0	0		0			work@apb_slave_unit_test.svunit_version	000
+  #2274	4	string_typespec				svunit_pkg.sv	29	9	29	15						000
+
+facets of this row (47, first 25):
+  N0289 #-1/372 string_var svunit_version G[] O[4 objs]
+  N0106 #442/446 class_var  G[ 0:0:0:0] O[svunit_base.sv 59:34:59:38]
+  N0107 #442/446 class_var  G[0:0:0:0] O[59:34:59:38]
+  N0093 #445/449 io_decl name G[43:30:43:34] O[59:34:59:38]
+  N0069 #447/451 string_typespec  G[43:23:43:29] O[59:27:59:33]
+  N0105 #449/453 string_var  G[44:19:44:25] O[68:10:68:16]
+  N0069 #451/455 string_typespec  G[44:19:44:25] O[68:10:68:16]
+  N0120 #453/457 enum_var  G[45:19:45:28] O[87:10:87:19]
+  N0106 #524/528 class_var  G[ 0:0:0:0] O[svunit_testcase.sv 81:38:81:42]
+  N0107 #524/528 class_var  G[0:0:0:0] O[81:38:81:42]
+  N0093 #527/531 io_decl name G[52:30:52:34] O[81:38:81:42]
+  N0069 #529/533 string_typespec  G[52:23:52:29] O[81:31:81:37]
+  N0233 #532/536 integer_var  G[55:19:55:26] O[99:10:99:17]
+  N0226 #534/538 integer_typespec  G[55:19:55:26] O[99:10:99:17]
+  N0104 #537/541 bit_var  G[58:19:58:22] O[129:10:129:13]
+  N0100 #539/543 bit_typespec  G[58:19:58:22] O[129:10:129:13]
+  N0093 #540/544 io_decl c G[58:35:58:36] O[129:43:129:44]
+  N0069 #542/546 string_typespec  G[58:28:58:34] O[129:36:129:42]
+  N0093 #543/547 io_decl b G[58:42:58:43] O[129:50:129:51]
+  N0100 #545/549 bit_typespec  G[58:38:58:41] O[129:46:129:49]
+  N0093 #546/550 io_decl s G[58:52:58:53] O[129:60:129:61]
+  N0069 #548/552 string_typespec  G[58:45:58:51] O[129:53:129:59]
+  N0093 #549/553 io_decl f G[58:62:58:63] O[129:70:129:71]
+  N0069 #551/555 string_typespec  G[58:55:58:61] O[129:63:129:69]
+  N0093 #552/556 io_decl l G[58:69:58:70] O[129:77:129:78]

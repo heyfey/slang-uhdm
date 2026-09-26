@@ -1,0 +1,64 @@
+cluster N0555 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79) < emitExpr (ExprEmit.cpp, law thisPathSelectErased4) [r11u142map pin]): fullname|bit_select|tok:id::->|under:bit_select
+row: surelog/default/MiniAmiq  strict=differ:file(29)  records golden=435559 ours=413982
+object: #90429 (golden) / #88220 (ours)  type=bit_select name=avail_sequences OUT
+  golden: svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::arb_sequence_q::avail_sequences
+  ours:   svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::avail_sequences
+  walk parents: bit_select(arb_sequence_q) < hier_path(arb_sequence_q[[i]].sequence_ptr) < func_call(is_blocked) < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 90423..90435 ('>' = the object)
+  #90423	7	begin			svaunit_pkg::uvm_sequencer_base::m_choose_next_request	uvm_sequencer_base.svh	790	50	795	8					svaunit_pkg::uvm_sequencer_base::m_choose_next_request	000
+  #90424	8	if_stmt				uvm_sequencer_base.svh	791	7	794	10						000
+  #90425	9	operation				uvm_sequencer_base.svh	791	11	791	75		0				000
+  #90426	10	func_call	is_blocked			uvm_sequencer_base.svh	791	11	791	70		0				000
+  #90427	11	hier_path	arb_sequence_q[[i]].sequence_ptr			uvm_sequencer_base.svh	791	22	791	69		0				000
+  #90428	12	bit_select	arb_sequence_q		arb_sequence_q[[i]]	uvm_sequencer_base.svh	791	22	791	36		0			arb_sequence_q[[i]]	000
+> #90429	13	bit_select	avail_sequences		svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::arb_sequence_q::avail_sequences	uvm_sequencer_base.svh	791	37	791	55		0			svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::arb_sequence_q::avail_sequences	000
+  #90430	14	ref_obj	i		svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::arb_sequence_q::i	uvm_sequencer_base.svh	791	53	791	54		0			svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::arb_sequence_q::i	000
+  #90431	12	ref_obj	sequence_ptr		svaunit_pkg::uvm_sequencer_base::m_choose_next_request::sequence_ptr	uvm_sequencer_base.svh	791	57	791	69		0			svaunit_pkg::uvm_sequencer_base::m_choose_next_request::sequence_ptr	000
+  #90432	10	constant				uvm_sequencer_base.svh	791	74	791	75	0	64	UINT:0	9		000
+  #90433	9	begin			svaunit_pkg::uvm_sequencer_base::m_choose_next_request	uvm_sequencer_base.svh	791	77	794	10					svaunit_pkg::uvm_sequencer_base::m_choose_next_request	000
+  #90434	10	method_func_call	delete			uvm_sequencer_base.svh	792	25	792	31		0				000
+  #90435	11	ref_obj	i		svaunit_pkg::uvm_sequencer_base::m_choose_next_request::i	uvm_sequencer_base.svh	792	32	792	33		0			svaunit_pkg::uvm_sequencer_base::m_choose_next_request::i	000
+
+--- OURS (B) records 88214..88226 ('>' = the object)
+  #88214	7	begin			svaunit_pkg::uvm_sequencer_base::m_choose_next_request	uvm_sequencer_base.svh	790	50	795	8					svaunit_pkg::uvm_sequencer_base::m_choose_next_request	000
+  #88215	8	if_stmt				uvm_sequencer_base.svh	791	7	794	10						000
+  #88216	9	operation				uvm_sequencer_base.svh	791	11	791	75		0				000
+  #88217	10	func_call	is_blocked			uvm_sequencer_base.svh	791	11	791	70		0				000
+  #88218	11	hier_path	arb_sequence_q[[i]].sequence_ptr			uvm_sequencer_base.svh	791	22	791	69		0				000
+  #88219	12	bit_select	arb_sequence_q		arb_sequence_q[[i]]	uvm_sequencer_base.svh	791	22	791	36		0			arb_sequence_q[[i]]	000
+> #88220	13	bit_select	avail_sequences		svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::avail_sequences	uvm_sequencer_base.svh	791	37	791	55		0			svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::avail_sequences	000
+  #88221	14	ref_obj	i		svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::i	uvm_sequencer_base.svh	791	53	791	54		0			svaunit_pkg::uvm_sequencer_base::m_choose_next_request::arb_sequence_q[[i]].sequence_ptr::i	000
+  #88222	12	ref_obj	sequence_ptr		svaunit_pkg::uvm_sequencer_base::m_choose_next_request::sequence_ptr	uvm_sequencer_base.svh	791	57	791	69		0			svaunit_pkg::uvm_sequencer_base::m_choose_next_request::sequence_ptr	000
+  #88223	10	constant				uvm_sequencer_base.svh	791	74	791	75	0	64	UINT:0	9		000
+  #88224	9	begin			svaunit_pkg::uvm_sequencer_base::m_choose_next_request	uvm_sequencer_base.svh	791	77	794	10					svaunit_pkg::uvm_sequencer_base::m_choose_next_request	000
+  #88225	10	method_func_call	delete			uvm_sequencer_base.svh	792	25	792	31		0				000
+  #88226	11	ref_obj	i		svaunit_pkg::uvm_sequencer_base::m_choose_next_request::i	uvm_sequencer_base.svh	792	32	792	33		0			svaunit_pkg::uvm_sequencer_base::m_choose_next_request::i	000
+
+facets of this row (23307, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]

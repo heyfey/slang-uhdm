@@ -1,0 +1,64 @@
+cluster N0847 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law caPartSelBoundFoldTs) < emitExpr (ExprEmit.cpp, law genLpUseFoldParentScope47) < emitExpr (ExprEmit.cpp, law negLitPkgRetFoldNested30) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|tok:->.id.id.id|under:constant
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(436)  records golden=1342584 ours=1342870
+object: #125783 (golden) / #125783 (ours)  type=ref_typespec name= OUT
+  golden: work@flash_phy_core
+  ours:   work@flash_phy_core.i_flash.addr_i.muxed_addr
+  walk parents: constant < part_select(muxed_addr) < port(addr_i) < ref_module(i_flash)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 125777..125789 ('>' = the object)
+  #125777	5	operation				flash_phy_core.sv	226	24	226	35		0				000
+  #125778	6	constant				flash_phy_core.sv	226	24	226	33	16	32	UINT:16	9		000
+  #125779	7	ref_typespec			work@flash_phy_core.i_flash.addr_i.muxed_addr		0	0	0	0		0			work@flash_phy_core.i_flash.addr_i.muxed_addr	000
+  #125780	8	int_typespec				flash_phy_pkg.sv	24	13	24	16						000
+  #125781	6	constant				flash_phy_core.sv	226	34	226	35	1	64	UINT:1	9		000
+  #125782	5	constant				flash_phy_core.sv	226	36	226	46	1	32	UINT:1	9		000
+> #125783	6	ref_typespec			work@flash_phy_core		0	0	0	0		0			work@flash_phy_core	000
+  #125784	7	int_typespec				flash_phy_pkg.sv	42	13	42	16						000
+  #125785	3	port	prog_data_i			flash_phy_core.sv	227	5	227	28						000
+  #125786	4	ref_obj	prog_data		work@flash_phy_core.i_flash.prog_data_i.prog_data	flash_phy_core.sv	227	18	227	27		0			work@flash_phy_core.i_flash.prog_data_i.prog_data	000
+  #125787	3	port	ack_o			flash_phy_core.sv	228	5	228	16						000
+  #125788	4	ref_obj	ack		work@flash_phy_core.i_flash.ack_o.ack	flash_phy_core.sv	228	12	228	15		0			work@flash_phy_core.i_flash.ack_o.ack	000
+  #125789	3	port	rd_data_o			flash_phy_core.sv	229	5	229	28						000
+
+--- OURS (B) records 125777..125789 ('>' = the object)
+  #125777	5	operation				flash_phy_core.sv	226	24	226	35		0				000
+  #125778	6	constant				flash_phy_core.sv	226	24	226	33	16	32	UINT:16	9		000
+  #125779	7	ref_typespec			work@flash_phy_core.i_flash.addr_i.muxed_addr		0	0	0	0		0			work@flash_phy_core.i_flash.addr_i.muxed_addr	000
+  #125780	8	int_typespec				flash_phy_pkg.sv	24	13	24	16						000
+  #125781	6	constant				flash_phy_core.sv	226	34	226	35	1	64	UINT:1	9		000
+  #125782	5	constant				flash_phy_core.sv	226	36	226	46	1	32	UINT:1	9		000
+> #125783	6	ref_typespec			work@flash_phy_core.i_flash.addr_i.muxed_addr		0	0	0	0		0			work@flash_phy_core.i_flash.addr_i.muxed_addr	000
+  #125784	7	int_typespec				flash_phy_pkg.sv	42	13	42	16						000
+  #125785	3	port	prog_data_i			flash_phy_core.sv	227	5	227	28						000
+  #125786	4	ref_obj	prog_data		work@flash_phy_core.i_flash.prog_data_i.prog_data	flash_phy_core.sv	227	18	227	27		0			work@flash_phy_core.i_flash.prog_data_i.prog_data	000
+  #125787	3	port	ack_o			flash_phy_core.sv	228	5	228	16						000
+  #125788	4	ref_obj	ack		work@flash_phy_core.i_flash.ack_o.ack	flash_phy_core.sv	228	12	228	15		0			work@flash_phy_core.i_flash.ack_o.ack	000
+  #125789	3	port	rd_data_o			flash_phy_core.sv	229	5	229	28						000
+
+facets of this row (8643, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

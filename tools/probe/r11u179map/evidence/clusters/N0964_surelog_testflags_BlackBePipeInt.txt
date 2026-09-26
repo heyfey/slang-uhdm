@@ -1,0 +1,64 @@
+cluster N0964 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79) [r11u138map pin] [r11u142map pin]): span|constant|col+endcol|under:tagged_pattern
+row: surelog/testflags/BlackBePipeInt  strict=differ:fullname(2)  records golden=338504 ours=340984
+object: #15554 (golden) / #15722 (ours)  type=constant name= 
+  golden: 2992:26:2992:46
+  ours:   2992:27:2992:45
+  walk parents: tagged_pattern < operation < param_assign < package(bp_common_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 15548..15560 ('>' = the object)
+  #15548	6	string_typespec	icache_block_width			dut.sv	2989	5	2989	23						110
+  #15549	4	tagged_pattern				dut.sv	2990	26	2990	28						000
+  #15550	5	constant				dut.sv	2990	26	2990	28	64	64	UINT:64	9		000
+  #15551	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #15552	6	string_typespec	icache_fill_width			dut.sv	2990	5	2990	22						110
+  #15553	4	tagged_pattern				dut.sv	2992	26	2992	67						000
+> #15554	5	constant				dut.sv	2992	26	2992	46	17	64	UINT:17	9		000
+  #15555	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #15556	6	string_typespec	dcache_features			dut.sv	2992	5	2992	20						110
+  #15557	4	tagged_pattern				dut.sv	2993	26	2993	29						000
+  #15558	5	constant				dut.sv	2993	26	2993	29	128	64	UINT:128	9		000
+  #15559	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #15560	6	string_typespec	dcache_sets			dut.sv	2993	5	2993	16						110
+
+--- OURS (B) records 15716..15728 ('>' = the object)
+  #15716	6	string_typespec	icache_block_width			dut.sv	2989	5	2989	23						110
+  #15717	4	tagged_pattern				dut.sv	2990	26	2990	28						000
+  #15718	5	constant				dut.sv	2990	26	2990	28	64	64	UINT:64	9		000
+  #15719	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #15720	6	string_typespec	icache_fill_width			dut.sv	2990	5	2990	22						110
+  #15721	4	tagged_pattern				dut.sv	2992	26	2992	67						000
+> #15722	5	constant				dut.sv	2992	27	2992	45	17	64	UINT:17	9		000
+  #15723	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #15724	6	string_typespec	dcache_features			dut.sv	2992	5	2992	20						110
+  #15725	4	tagged_pattern				dut.sv	2993	26	2993	29						000
+  #15726	5	constant				dut.sv	2993	26	2993	29	128	64	UINT:128	9		000
+  #15727	5	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #15728	6	string_typespec	dcache_sets			dut.sv	2993	5	2993	16						110
+
+facets of this row (57081, first 25):
+  N0897 #-1/66 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/14409 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15104 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15118 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15132 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15146 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15160 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15174 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15188 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15202 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15216 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15230 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15244 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15258 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15272 parameter dev_addr_width_gp G[] O[8 objs]
+  N0868 #-1/15388 constant  G[] O[1 objs]
+  N0868 #-1/15392 constant  G[] O[1 objs]
+  N0868 #-1/15396 constant  G[] O[1 objs]
+  N0868 #-1/15400 constant  G[] O[1 objs]
+  N0868 #-1/15404 constant  G[] O[1 objs]
+  N0868 #-1/15408 constant  G[] O[1 objs]
+  N0868 #-1/15412 constant  G[] O[1 objs]
+  N0868 #-1/15416 constant  G[] O[1 objs]
+  N0868 #-1/15420 constant  G[] O[1 objs]
+  N0868 #-1/15424 constant  G[] O[1 objs]

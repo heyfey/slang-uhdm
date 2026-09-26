@@ -1,0 +1,64 @@
+cluster N0050 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law insideOpenRangeMemberIsOneListOp30) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u179 pin, db=DIFF (UVM order coin), rank verified]): span|operation|col+endcol|under:assignment
+row: surelog/default/Scoreboard  strict=differ:fullname(45)  records golden=269656 ours=268952
+object: #183684 (golden) / #183047 (ours)  type=operation name= 
+  golden: 3494:15:3494:26
+  ours:   3494:16:3494:25
+  walk parents: assignment < begin < begin < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 183678..183690 ('>' = the object)
+  #183678	14	operation				uvm_object_defines.svh	3494	47	3494	62		0				000
+  #183679	15	constant				uvm_object_defines.svh	3494	47	3494	49	64	64	UINT:64	9		000
+  #183680	15	constant				uvm_object_defines.svh	3494	52	3494	57	32	64	UINT:32	9		000
+  #183681	13	operation				uvm_object_defines.svh	3494	65	3494	71		0				000
+  #183682	14	constant				uvm_object_defines.svh	3494	66	3494	70	1'b0	1	BIN:0	3		000
+  #183683	12	ref_obj	__vector		uvm_pkg::uvm_tlm_generic_payload::do_pack::__vector	uvm_object_defines.svh	3494	74	3494	82		0			uvm_pkg::uvm_tlm_generic_payload::do_pack::__vector	000
+> #183684	11	operation				uvm_object_defines.svh	3494	15	3494	26		0				000
+  #183685	12	constant					0	0	0	0	32	64	UINT:32	9		000
+  #183686	12	operation				uvm_object_defines.svh	3494	6	3494	27		0				000
+  #183687	13	ref_obj	__array		uvm_pkg::uvm_tlm_generic_payload::do_pack::__array	uvm_object_defines.svh	3494	17	3494	24		0			uvm_pkg::uvm_tlm_generic_payload::do_pack::__array	000
+  #183688	9	method_func_call	pack_ints			uvm_object_defines.svh	3496	11	3496	20		0				000
+  #183689	10	ref_obj	__array		uvm_pkg::uvm_tlm_generic_payload::do_pack::__array	uvm_object_defines.svh	3496	21	3496	28		0			uvm_pkg::uvm_tlm_generic_payload::do_pack::__array	000
+  #183690	10	constant				uvm_object_defines.svh	3496	30	3496	32	64	64	UINT:64	9		000
+
+--- OURS (B) records 183041..183053 ('>' = the object)
+  #183041	14	operation				uvm_object_defines.svh	3494	47	3494	62		0				000
+  #183042	15	constant				uvm_object_defines.svh	3494	47	3494	49	64	64	UINT:64	9		000
+  #183043	15	constant				uvm_object_defines.svh	3494	52	3494	57	32	64	UINT:32	9		000
+  #183044	13	operation				uvm_object_defines.svh	3494	65	3494	71		0				000
+  #183045	14	constant				uvm_object_defines.svh	3494	66	3494	70	1'b0	1	BIN:0	3		000
+  #183046	12	ref_obj	__vector		uvm_pkg::uvm_tlm_generic_payload::do_pack::__vector	uvm_object_defines.svh	3494	74	3494	82		0			uvm_pkg::uvm_tlm_generic_payload::do_pack::__vector	000
+> #183047	11	operation				uvm_object_defines.svh	3494	16	3494	25		0				000
+  #183048	12	constant					0	0	0	0	32	64	UINT:32	9		000
+  #183049	12	operation				uvm_object_defines.svh	3494	6	3494	27		0				000
+  #183050	13	ref_obj	__array		uvm_pkg::uvm_tlm_generic_payload::do_pack::__array	uvm_object_defines.svh	3494	17	3494	24		0			uvm_pkg::uvm_tlm_generic_payload::do_pack::__array	000
+  #183051	9	method_func_call	pack_ints			uvm_object_defines.svh	3496	11	3496	20		0				000
+  #183052	10	ref_obj	__array		uvm_pkg::uvm_tlm_generic_payload::do_pack::__array	uvm_object_defines.svh	3496	21	3496	28		0			uvm_pkg::uvm_tlm_generic_payload::do_pack::__array	000
+  #183053	10	constant				uvm_object_defines.svh	3496	30	3496	32	64	64	UINT:64	9		000
+
+facets of this row (8947, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

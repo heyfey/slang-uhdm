@@ -1,0 +1,42 @@
+cluster N0136 (id kept from an earlier map; COVERED r11u176 (pass 171 R8: UnsizedParam's per-instance cont_assign copy (--elabuhdm twin)) | ground B | site UHDM library DeepClone < DeepClone < elabModule_inst (--elabuhdm, testflags) run from main (uhdm_main.cpp) [DECODED (r11u131 R10): as N0030 (InterfInst), ModuleEmit.cpp] [r11u142map pin]): fullname|ref_obj|tok:id.id->id|under:cont_assign
+row: surelog/default/UnsizedParam  strict=differ:fullname(2)  records golden=249 ours=244
+object: #197 (golden) / #197 (ours)  type=ref_obj name=a OUT
+  golden: work@top.u_sub_default.a
+  ours:   work@submodule.a
+  walk parents: cont_assign < module_inst(u_sub_default) < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 191..203 ('>' = the object)
+  #191	5	constant				dut.sv	3	23	3	24	0	64	UINT:0	9		001
+  #192	3	cont_assign				dut.sv	5	11	5	22						000
+  #193	4	operation				dut.sv	5	15	5	22		0				000
+  #194	5	ref_typespec			work@top.u_sub_default		0	0	0	0		0			work@top.u_sub_default	000
+  #195	6	int_typespec				dut.sv	5	15	5	18						000
+  #196	5	ref_obj	Y		work@submodule.Y	dut.sv	5	20	5	21		0			work@submodule.Y	000
+> #197	4	ref_obj	a		work@top.u_sub_default.a	dut.sv	5	11	5	12		0			work@top.u_sub_default.a	000
+  #198	5	logic_net	a		work@submodule.a		5	11	5	12		0			work@submodule.a	000
+  #199	2	module_inst	u_sub_5	work@submodule	work@top.u_sub_5	dut.sv	10	4	10	33					work@top.u_sub_5	000
+  #200	3	parameter	X		work@top.u_sub_5.X	dut.sv	2	18	2	19		0	UINT:20		work@top.u_sub_5.X	000
+  #201	4	ref_typespec			work@top.u_sub_5.X		0	0	0	0		0			work@top.u_sub_5.X	000
+  #202	5	int_typespec				dut.sv	2	14	2	17						000
+  #203	3	parameter	Y		work@top.u_sub_5.Y	dut.sv	4	24	4	25		0	BIN:1		work@top.u_sub_5.Y	000
+
+--- OURS (B) records 191..203 ('>' = the object)
+  #191	5	constant				dut.sv	3	23	3	24	0	64	UINT:0	9		001
+  #192	3	cont_assign				dut.sv	5	11	5	22						000
+  #193	4	operation				dut.sv	5	15	5	22		0				000
+  #194	5	ref_typespec			work@submodule		0	0	0	0		0			work@submodule	000
+  #195	6	int_typespec				dut.sv	5	15	5	18						000
+  #196	5	ref_obj	Y		work@submodule.Y	dut.sv	5	20	5	21		0			work@submodule.Y	000
+> #197	4	ref_obj	a		work@submodule.a	dut.sv	5	11	5	12		0			work@submodule.a	000
+  #198	5	logic_net	a		work@submodule.a		5	11	5	12		0			work@submodule.a	000
+  #199	2	module_inst	u_sub_5	work@submodule	work@top.u_sub_5	dut.sv	10	4	10	33					work@top.u_sub_5	000
+  #200	3	parameter	X		work@top.u_sub_5.X	dut.sv	2	18	2	19		0	UINT:20		work@top.u_sub_5.X	000
+  #201	4	ref_typespec			work@top.u_sub_5.X		0	0	0	0		0			work@top.u_sub_5.X	000
+  #202	5	int_typespec				dut.sv	2	14	2	17						000
+  #203	3	parameter	Y		work@top.u_sub_5.Y	dut.sv	4	24	4	25		0	BIN:1		work@top.u_sub_5.Y	000
+
+facets of this row (3, first 25):
+  N0775 #244/-1 cont_assign  G[5 objs] O[]
+  N0457 #194/194 ref_typespec  G[work@top.u_sub_default] O[work@submodule]
+  N0136 #197/197 ref_obj a G[work@top.u_sub_default.a] O[work@submodule.a]

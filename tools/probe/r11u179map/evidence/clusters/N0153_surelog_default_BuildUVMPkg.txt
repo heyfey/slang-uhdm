@@ -1,0 +1,64 @@
+cluster N0153 (id kept from an earlier map; OPEN | ground A | site emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) [r11u142map pin]): span|begin|ours-zero|under:function
+row: surelog/default/BuildUVMPkg  strict=differ:line(94)  records golden=201533 ours=201486
+object: #81814 (golden) / #81769 (ours)  type=begin name= 
+  golden: 45155:5:45155:36
+  ours:   0:0:0:0
+  walk parents: function(get_connected_to) < class_defn(uvm_port_component) < class_defn(uvm_port_component_base) < class_defn(uvm_component)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 81808..81820 ('>' = the object)
+  #81808	7	class_var			uvm_pkg::uvm_port_component::get_connected_to::list1	uvm_pkg.sv	45154	10	45154	15		0			uvm_pkg::uvm_port_component::get_connected_to::list1	000
+  #81809	8	ref_typespec			uvm_pkg::uvm_port_component::get_connected_to::list1		0	0	0	0		0			uvm_pkg::uvm_port_component::get_connected_to::list1	000
+  #81810	9	class_typespec	uvm_object			uvm_pkg.sv	45123	52	45123	56						110
+  #81811	6	io_decl	list			uvm_pkg.sv	45153	60	45153	64						000
+  #81812	7	ref_typespec			uvm_pkg::uvm_port_component::get_connected_to::list		0	0	0	0		0			uvm_pkg::uvm_port_component::get_connected_to::list	000
+  #81813	8	class_typespec	uvm_pkg::uvm_port_list			uvm_pkg.sv	45049	9	45049	32						110
+> #81814	6	begin			uvm_pkg::uvm_port_component::get_connected_to	uvm_pkg.sv	45155	5	45155	36					uvm_pkg::uvm_port_component::get_connected_to	000
+  #81815	7	method_func_call	get_connected_to			uvm_pkg.sv	45155	12	45155	28		0				000
+  #81816	8	ref_obj	list1		uvm_pkg::uvm_port_component::get_connected_to::list1	uvm_pkg.sv	45155	29	45155	34		0			uvm_pkg::uvm_port_component::get_connected_to::list1	000
+  #81817	8	ref_obj	m_port		uvm_pkg::uvm_port_component::get_connected_to::m_port	uvm_pkg.sv	45155	5	45155	11		0			uvm_pkg::uvm_port_component::get_connected_to::m_port	000
+  #81818	7	method_func_call	delete			uvm_pkg.sv	45156	10	45156	16		0				000
+  #81819	8	ref_obj	list		uvm_pkg::uvm_port_component::get_connected_to::list	uvm_pkg.sv	45156	5	45156	9		0			uvm_pkg::uvm_port_component::get_connected_to::list	000
+  #81820	7	foreach_stmt			uvm_pkg::uvm_port_component::get_connected_to	uvm_pkg.sv	45157	5	45157	12					uvm_pkg::uvm_port_component::get_connected_to	000
+
+--- OURS (B) records 81763..81775 ('>' = the object)
+  #81763	7	class_var			uvm_pkg::uvm_port_component::get_connected_to::list1	uvm_pkg.sv	45154	10	45154	15		0			uvm_pkg::uvm_port_component::get_connected_to::list1	000
+  #81764	8	ref_typespec			uvm_pkg::uvm_port_component::get_connected_to::list1		0	0	0	0		0			uvm_pkg::uvm_port_component::get_connected_to::list1	000
+  #81765	9	class_typespec				uvm_pkg.sv	45154	5	45154	9						000
+  #81766	6	io_decl	list			uvm_pkg.sv	45153	60	45153	64						000
+  #81767	7	ref_typespec			uvm_pkg::uvm_port_component::get_connected_to::list		0	0	0	0		0			uvm_pkg::uvm_port_component::get_connected_to::list	000
+  #81768	8	class_typespec	uvm_pkg::uvm_port_list			uvm_pkg.sv	45049	9	45049	32						110
+> #81769	6	begin			uvm_pkg::uvm_port_component::get_connected_to		0	0	0	0					uvm_pkg::uvm_port_component::get_connected_to	000
+  #81770	7	method_func_call	get_connected_to			uvm_pkg.sv	45155	12	45155	28		0				000
+  #81771	8	ref_obj	list1		uvm_pkg::uvm_port_component::get_connected_to::list1	uvm_pkg.sv	45155	29	45155	34		0			uvm_pkg::uvm_port_component::get_connected_to::list1	000
+  #81772	8	ref_obj	m_port		uvm_pkg::uvm_port_component::get_connected_to::m_port	uvm_pkg.sv	45155	5	45155	11		0			uvm_pkg::uvm_port_component::get_connected_to::m_port	000
+  #81773	7	method_func_call	delete			uvm_pkg.sv	45156	10	45156	16		0				000
+  #81774	8	ref_obj	list		uvm_pkg::uvm_port_component::get_connected_to::list	uvm_pkg.sv	45156	5	45156	9		0			uvm_pkg::uvm_port_component::get_connected_to::list	000
+  #81775	7	foreach_stmt			uvm_pkg::uvm_port_component::get_connected_to	uvm_pkg.sv	45157	5	45157	12					uvm_pkg::uvm_port_component::get_connected_to	000
+
+facets of this row (7140, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

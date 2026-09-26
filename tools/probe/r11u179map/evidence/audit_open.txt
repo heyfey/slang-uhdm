@@ -1,0 +1,99 @@
+sur/d/ApbSlave	map8_open=4	still=4	gone=0	now_total=16	untouched	still:N0039 N0067 N0068 N0111	gone:
+sur/d/ArrayMethodIterator	map8_open=3	still=3	gone=0	now_total=3	untouched	still:N0072 N0097 N0103	gone:
+sur/d/AssertDelayError	map8_open=4	still=4	gone=0	now_total=4	untouched	still:N0299 N0431 N0627 N0628	gone:
+sur/d/AssertTempError	map8_open=4	still=4	gone=0	now_total=4	untouched	still:N0299 N0431 N0627 N0628	gone:
+sur/d/BlackBePipeInt	map8_open=30	still=28	gone=2	now_total=28	partly	still:N0003 N0014 N0028 N0063 N0073 N0118 N0286 N0413 N0563 N0790 N0800 N0864 N0868 N0873 N0893 N0897 N0905 N0907 N0908 N0917 	gone:N0774 N1004
+sur/d/BuildUVMPkg	map8_open=102	still=102	gone=0	now_total=167	untouched	still:N0001 N0007 N0012 N0017 N0018 N0025 N0031 N0033 N0034 N0036 N0039 N0042 N0043 N0052 N0054 N0061 N0067 N0068 N0071 N0072 	gone:
+sur/d/ClassTypeParam	map8_open=1	still=1	gone=0	now_total=8	untouched	still:N0072	gone:
+sur/d/CovMacro	map8_open=1	still=1	gone=0	now_total=1	untouched	still:N0977	gone:
+sur/d/Earlgrey_0_1	map8_open=70	still=63	gone=7	now_total=80	partly	still:N0001 N0005 N0018 N0030 N0040 N0061 N0073 N0077 N0085 N0090 N0123 N0129 N0131 N0141 N0142 N0163 N0273 N0299 N0415 N0416 	gone:N0049 N0140 N0143 N0149 N0562 N0743 N1650
+sur/d/FuncStructVal	map8_open=10	still=8	gone=2	now_total=8	partly	still:N0080 N0086 N0087 N0131 N0407 N0891 N0980 N1096	gone:N0267 N1016
+sur/d/FuncStructValSimple	map8_open=4	still=4	gone=0	now_total=4	untouched	still:N0080 N0086 N0087 N0131	gone:
+sur/d/InterfArrayBind	map8_open=1	still=1	gone=0	now_total=1	untouched	still:N0427	gone:
+sur/d/InterfaceModPort	map8_open=5	still=5	gone=0	now_total=5	untouched	still:N0040 N0268 N0418 N0419 N0526	gone:
+sur/d/InterfaceStructMemberPort	map8_open=5	still=5	gone=0	now_total=5	untouched	still:N0519 N1117 N1126 N1128 N1134	gone:
+sur/d/LogicTypespec	map8_open=4	still=4	gone=0	now_total=4	untouched	still:N0083 N0422 N0484 N1149	gone:
+sur/d/MiniAmiq	map8_open=178	still=174	gone=4	now_total=370	partly	still:N0001 N0007 N0012 N0017 N0024 N0031 N0034 N0036 N0039 N0042 N0043 N0050 N0052 N0054 N0056 N0061 N0067 N0068 N0071 N0072 	gone:N0210 NEWL:file|constant|other-file+span|under:method_func_call NEWL:file|method_func_call|other-file+span|under:hier_pa
+sur/d/OneNetModPort	map8_open=3	still=3	gone=0	now_total=3	untouched	still:N0268 N0418 N0419	gone:
+sur/d/OneNetModPortGeneric	map8_open=5	still=5	gone=0	now_total=5	untouched	still:N0088 N0268 N0750 N0819 N1000	gone:
+sur/d/PackedArrayHighConn	map8_open=2	still=1	gone=1	now_total=1	partly	still:N0163	gone:N1115
+sur/d/PreprocTest	map8_open=1	still=1	gone=0	now_total=1	untouched	still:N0056	gone:
+sur/d/Rggen	map8_open=64	still=56	gone=8	now_total=56	partly	still:N0001 N0039 N0040 N0061 N0089 N0127 N0128 N0141 N0142 N0145 N0163 N0273 N0414 N0443 N0448 N0451 N0457 N0523 N0670 N0680 	gone:N0047 N0048 N0078 N0442 N1191 N1192 N1642 N1651
+sur/d/SVSwitch	map8_open=17	still=17	gone=0	now_total=17	untouched	still:N0007 N0067 N0068 N0090 N0095 N0119 N0268 N0418 N0419 N0526 N0680 N0954 N0958 N1010 N1011 N1019 N1020	gone:
+sur/d/Scoreboard	map8_open=110	still=106	gone=4	now_total=200	partly	still:N0001 N0007 N0012 N0025 N0031 N0033 N0034 N0036 N0039 N0042 N0043 N0050 N0052 N0054 N0056 N0061 N0067 N0068 N0071 N0072 	gone:N0210 NEWL:file|constant|other-file+span|under:method_func_call NEWL:file|method_func_call|other-file+span|under:hier_pa
+sur/d/Scr1SvTests	map8_open=24	still=23	gone=1	now_total=23	partly	still:N0021 N0030 N0040 N0078 N0284 N0416 N0426 N0427 N0448 N0670 N0741 N0779 N0791 N0836 N0921 N0965 N1009 N1069 N1112 N1113 	gone:N0210
+sur/d/SeqDriver	map8_open=170	still=166	gone=4	now_total=354	partly	still:N0001 N0007 N0011 N0012 N0024 N0031 N0034 N0036 N0039 N0042 N0043 N0050 N0052 N0054 N0056 N0061 N0067 N0068 N0071 N0072 	gone:N0210 NEWL:file|constant|other-file+span|under:method_func_call NEWL:file|method_func_call|other-file+span|under:hier_pa
+sur/d/SimpleUVM	map8_open=115	still=111	gone=4	now_total=210	partly	still:N0001 N0007 N0011 N0012 N0025 N0031 N0033 N0034 N0036 N0039 N0042 N0043 N0050 N0052 N0054 N0056 N0061 N0067 N0068 N0071 	gone:N0210 NEWL:file|constant|other-file+span|under:method_func_call NEWL:file|method_func_call|other-file+span|under:hier_pa
+sur/d/StructParamPatternInitCast	map8_open=4	still=2	gone=2	now_total=2	partly	still:N0003 N0014	gone:N0009 N0084
+sur/d/UnitElabBlock	map8_open=3	still=3	gone=0	now_total=3	untouched	still:N0011 N0016 N0090	gone:
+sur/d/UnsizedParam	map8_open=3	still=3	gone=0	now_total=3	untouched	still:N0136 N0457 N0775	gone:
+sur/d/YosysRiscv	map8_open=1	still=1	gone=0	now_total=1	untouched	still:N0036	gone:
+sur/t/ApbSlave	map8_open=4	still=4	gone=0	now_total=16	untouched	still:N0039 N0067 N0068 N0111	gone:
+sur/t/ArrayMethodIterator	map8_open=3	still=3	gone=0	now_total=3	untouched	still:N0072 N0097 N0103	gone:
+sur/t/AssertDelayError	map8_open=5	still=5	gone=0	now_total=5	untouched	still:N0299 N0431 N0627 N0628 N1047	gone:
+sur/t/AssertTempError	map8_open=5	still=5	gone=0	now_total=5	untouched	still:N0299 N0431 N0627 N0628 N1047	gone:
+sur/t/BlackBePipeInt	map8_open=28	still=26	gone=2	now_total=26	partly	still:N0003 N0014 N0028 N0063 N0073 N0118 N0286 N0413 N0563 N0790 N0800 N0864 N0868 N0873 N0893 N0897 N0905 N0907 N0908 N0917 	gone:N0774 N1004
+sur/t/BuildUVMPkg	map8_open=102	still=102	gone=0	now_total=167	untouched	still:N0001 N0007 N0012 N0017 N0018 N0025 N0031 N0033 N0034 N0036 N0039 N0042 N0043 N0052 N0054 N0061 N0067 N0068 N0071 N0072 	gone:
+sur/t/ClassTypeParam	map8_open=1	still=1	gone=0	now_total=10	untouched	still:N0072	gone:
+sur/t/CovMacro	map8_open=1	still=1	gone=0	now_total=1	untouched	still:N0977	gone:
+sur/t/Earlgrey_0_1	map8_open=60	still=54	gone=6	now_total=85	partly	still:N0001 N0005 N0018 N0030 N0040 N0061 N0073 N0077 N0085 N0090 N0123 N0129 N0131 N0141 N0142 N0163 N0273 N0299 N0415 N0416 	gone:N0049 N0140 N0143 N0149 N0562 N0743
+sur/t/FuncStructVal	map8_open=14	still=10	gone=4	now_total=10	partly	still:N0043 N0080 N0086 N0087 N0131 N0407 N0891 N0980 N1096 N1946	gone:N0267 N1016 N1202 N1891
+sur/t/FuncStructValSimple	map8_open=4	still=4	gone=0	now_total=4	untouched	still:N0080 N0086 N0087 N0131	gone:
+sur/t/HierPathTypespec	map8_open=0	still=0	gone=0	now_total=1	untouched	still:	gone:
+sur/t/InterfaceModPort	map8_open=5	still=5	gone=0	now_total=5	untouched	still:N0040 N0268 N0418 N0419 N0526	gone:
+sur/t/InterfaceStructMemberPort	map8_open=5	still=5	gone=0	now_total=5	untouched	still:N0519 N1117 N1126 N1128 N1134	gone:
+sur/t/LocalScopeHierPath	map8_open=1	still=1	gone=0	now_total=1	untouched	still:N0278	gone:
+sur/t/LogicTypespec	map8_open=4	still=4	gone=0	now_total=4	untouched	still:N0083 N0422 N0484 N1149	gone:
+sur/t/MiniAmiq	map8_open=178	still=174	gone=4	now_total=370	partly	still:N0001 N0007 N0012 N0017 N0024 N0031 N0034 N0036 N0039 N0042 N0043 N0050 N0052 N0054 N0056 N0061 N0067 N0068 N0071 N0072 	gone:N0210 NEWL:file|constant|other-file+span|under:method_func_call NEWL:file|method_func_call|other-file+span|under:hier_pa
+sur/t/OneNetModPort	map8_open=3	still=3	gone=0	now_total=3	untouched	still:N0268 N0418 N0419	gone:
+sur/t/OneNetModPortGeneric	map8_open=5	still=5	gone=0	now_total=5	untouched	still:N0088 N0268 N0750 N0819 N1000	gone:
+sur/t/PackedArrayHighConn	map8_open=2	still=1	gone=1	now_total=1	partly	still:N0163	gone:N1115
+sur/t/PreprocTest	map8_open=1	still=1	gone=0	now_total=1	untouched	still:N0056	gone:
+sur/t/SVSwitch	map8_open=17	still=17	gone=0	now_total=17	untouched	still:N0007 N0067 N0068 N0090 N0095 N0119 N0268 N0418 N0419 N0526 N0680 N0954 N0958 N1010 N1011 N1019 N1020	gone:
+sur/t/Scr1SvTests	map8_open=24	still=23	gone=1	now_total=23	partly	still:N0021 N0030 N0040 N0078 N0284 N0416 N0426 N0427 N0448 N0670 N0741 N0779 N0791 N0836 N0921 N0965 N1009 N1069 N1112 N1113 	gone:N0210
+sur/t/SeqDriver	map8_open=170	still=166	gone=4	now_total=354	partly	still:N0001 N0007 N0011 N0012 N0024 N0031 N0034 N0036 N0039 N0042 N0043 N0050 N0052 N0054 N0056 N0061 N0067 N0068 N0071 N0072 	gone:N0210 NEWL:file|constant|other-file+span|under:method_func_call NEWL:file|method_func_call|other-file+span|under:hier_pa
+sur/t/SimpleUVM	map8_open=115	still=111	gone=4	now_total=210	partly	still:N0001 N0007 N0011 N0012 N0025 N0031 N0033 N0034 N0036 N0039 N0042 N0043 N0050 N0052 N0054 N0056 N0061 N0067 N0068 N0071 	gone:N0210 NEWL:file|constant|other-file+span|under:method_func_call NEWL:file|method_func_call|other-file+span|under:hier_pa
+sur/t/StructParamPatternInitCast	map8_open=4	still=2	gone=2	now_total=2	partly	still:N0003 N0014	gone:N0009 N0084
+sur/t/UnitElabBlock	map8_open=2	still=2	gone=0	now_total=2	untouched	still:N0016 N0090	gone:
+sur/t/YosysRiscv	map8_open=1	still=1	gone=0	now_total=1	untouched	still:N0036	gone:
+uhd/d/OutputSizeWithParameterOfInstanceInitializedByStructMember	map8_open=4	still=4	gone=0	now_total=4	untouched	still:N0001 N0191 N0853 N1127	gone:
+uhd/d/ParameterFromPkgInNestedModule	map8_open=10	still=10	gone=0	now_total=10	untouched	still:N0031 N0042 N0083 N0444 N0445 N0476 N0477 N0499 N0536 N0679	gone:
+uhd/d/ParameterFromPkgOnParameterPortList	map8_open=10	still=10	gone=0	now_total=10	untouched	still:N0031 N0042 N0083 N0444 N0445 N0476 N0477 N0499 N0536 N0679	gone:
+uhd/d/TypeParameterAsPortTypeWithEnum	map8_open=3	still=3	gone=0	now_total=3	untouched	still:N0012 N0034 N0638	gone:
+uhd/d/TypeParameterAsPortTypeWithEnumOfParametrizedWidth	map8_open=4	still=4	gone=0	now_total=4	untouched	still:N0012 N0034 N0281 N0638	gone:
+uhd/d/anon_struct_packed_dim	map8_open=2	still=2	gone=0	now_total=2	untouched	still:N0014 N0820	gone:
+uhd/d/arb_idx_cast	map8_open=4	still=4	gone=0	now_total=4	untouched	still:N0090 N0443 N0448 N0684	gone:
+uhd/d/cfg_func_width_loop	map8_open=7	still=7	gone=0	now_total=7	untouched	still:N0025 N0033 N0133 N0263 N0487 N0754 N0794	gone:
+uhd/d/const_cast_signext	map8_open=3	still=3	gone=0	now_total=3	untouched	still:N0043 N0133 N0487	gone:
+uhd/d/func_typename_ret	map8_open=2	still=2	gone=0	now_total=2	untouched	still:N0085 N0738	gone:
+uhd/d/ibex_icache	map8_open=5	still=5	gone=0	now_total=5	untouched	still:N0129 N0415 N0474 N0549 N0942	gone:
+uhd/d/ibex_multdiv_fast	map8_open=3	still=2	gone=1	now_total=2	partly	still:N0545 N0546	gone:N0049
+uhd/d/ibex_pmp	map8_open=2	still=1	gone=1	now_total=7	partly	still:N0943	gone:N0471
+uhd/d/ibex_tracer	map8_open=6	still=6	gone=0	now_total=6	untouched	still:N0003 N0563 N0763 N0957 N0971 N0979	gone:
+uhd/d/iface_zero_width_field	map8_open=2	still=2	gone=0	now_total=2	untouched	still:N0003 N0688	gone:
+uhd/d/int_types	map8_open=8	still=8	gone=0	now_total=8	untouched	still:N0040 N0056 N0852 N0912 N1137 N1147 N1150 N1155	gone:
+uhd/d/jeras_union	map8_open=9	still=2	gone=7	now_total=2	partly	still:N0031 N0938	gone:N0025 N0032 N0033 N0092 N0922 N0948 N0988
+uhd/d/mem_read_reg	map8_open=2	still=2	gone=0	now_total=2	untouched	still:N0804 N0805	gone:
+uhd/d/rsp_gen_minimal	map8_open=3	still=3	gone=0	now_total=3	untouched	still:N0022 N0023 N0416	gone:
+uhd/d/struct_param_func_config	map8_open=15	still=6	gone=9	now_total=8	partly	still:N0028 N0043 N0045 N0552 N0761 N0817	gone:N0005 N0086 N0087 N0267 N0406 N0407 N0411 N0760 N0821
+uhd/t/OutputSizeWithParameterOfInstanceInitializedByStructMember	map8_open=4	still=4	gone=0	now_total=4	untouched	still:N0001 N0191 N0853 N1127	gone:
+uhd/t/ParameterFromPkgInNestedModule	map8_open=10	still=10	gone=0	now_total=10	untouched	still:N0031 N0042 N0083 N0444 N0445 N0476 N0477 N0499 N0536 N0679	gone:
+uhd/t/ParameterFromPkgOnParameterPortList	map8_open=10	still=10	gone=0	now_total=10	untouched	still:N0031 N0042 N0083 N0444 N0445 N0476 N0477 N0499 N0536 N0679	gone:
+uhd/t/TypeParameterAsPortTypeWithEnum	map8_open=3	still=3	gone=0	now_total=3	untouched	still:N0012 N0034 N0638	gone:
+uhd/t/TypeParameterAsPortTypeWithEnumOfParametrizedWidth	map8_open=4	still=4	gone=0	now_total=4	untouched	still:N0012 N0034 N0281 N0638	gone:
+uhd/t/anon_struct_packed_dim	map8_open=2	still=2	gone=0	now_total=2	untouched	still:N0014 N0820	gone:
+uhd/t/arb_idx_cast	map8_open=4	still=4	gone=0	now_total=4	untouched	still:N0090 N0443 N0448 N0684	gone:
+uhd/t/cfg_func_width_loop	map8_open=7	still=7	gone=0	now_total=7	untouched	still:N0025 N0033 N0133 N0263 N0487 N0754 N0794	gone:
+uhd/t/const_cast_signext	map8_open=3	still=3	gone=0	now_total=3	untouched	still:N0043 N0133 N0487	gone:
+uhd/t/func_typename_ret	map8_open=2	still=2	gone=0	now_total=2	untouched	still:N0085 N0738	gone:
+uhd/t/ibex_icache	map8_open=5	still=5	gone=0	now_total=5	untouched	still:N0129 N0415 N0474 N0549 N0942	gone:
+uhd/t/ibex_multdiv_fast	map8_open=3	still=2	gone=1	now_total=2	partly	still:N0545 N0546	gone:N0049
+uhd/t/ibex_pmp	map8_open=2	still=1	gone=1	now_total=7	partly	still:N0943	gone:N0471
+uhd/t/ibex_tracer	map8_open=6	still=6	gone=0	now_total=6	untouched	still:N0003 N0563 N0763 N0957 N0971 N0979	gone:
+uhd/t/iface_zero_width_field	map8_open=2	still=2	gone=0	now_total=2	untouched	still:N0003 N0688	gone:
+uhd/t/int_types	map8_open=8	still=8	gone=0	now_total=8	untouched	still:N0040 N0056 N0852 N0912 N1137 N1147 N1150 N1155	gone:
+uhd/t/jeras_union	map8_open=9	still=2	gone=7	now_total=2	partly	still:N0031 N0938	gone:N0025 N0032 N0033 N0092 N0922 N0948 N0988
+uhd/t/mem_read_reg	map8_open=2	still=2	gone=0	now_total=2	untouched	still:N0804 N0805	gone:
+uhd/t/rsp_gen_minimal	map8_open=3	still=3	gone=0	now_total=3	untouched	still:N0022 N0023 N0416	gone:
+uhd/t/struct_param_func_config	map8_open=15	still=6	gone=9	now_total=8	partly	still:N0028 N0043 N0045 N0552 N0761 N0817	gone:N0005 N0086 N0087 N0267 N0406 N0407 N0411 N0760 N0821
+{'untouched': 70, 'partly': 28}

@@ -1,0 +1,422 @@
+== N0001 probe/default/r10svs2repro__w2_spacedot object #32 ref_obj 'size' dut.sv 15:15:15:19 id=48 db=SAME
+  rank 9:
+    #0 MakeRef_obj at ?:0
+    #1 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:30569
+    #2 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:22651
+    #3 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:15220
+    #4 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:1996
+    #5 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:6371
+    #6 emitTaskFuncs at /tmp/wt_r11u179/src/TaskFuncEmit.cpp:7133
+    #7 emitClassDefn at /tmp/wt_r11u179/src/UhdmExporter.cpp:6104
+    #8 operator() at /tmp/wt_r11u179/src/UhdmExporter.cpp:11693
+    #9 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11706
+    #10 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #11 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0003 probe/default/r11v4repro__v6 object #98 ref_typespec ''  0:0:0:0 id=67 db=SAME
+  rank 13:
+    #0 MakeRef_typespec at ?:0
+    #1 emitParameters at /tmp/wt_r11u179/src/ParamEmit.cpp:16330
+    #2 emitInterfaceInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:44410
+    #3 emitInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:15681
+    #4 emitInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:16086
+    #5 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11728
+    #6 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #7 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0007 probe/default/r10svs2repro__s4_context object #65 ref_obj 'size' dut.sv 20:22:20:26 id=76 db=SAME
+  rank 17:
+    #0 MakeRef_obj at ?:0
+    #1 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:30569
+    #2 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:22649
+    #3 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:38848
+    #4 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:15220
+    #5 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:1996
+    #6 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:6371
+    #7 emitTaskFuncs at /tmp/wt_r11u179/src/TaskFuncEmit.cpp:7133
+    #8 emitClassDefn at /tmp/wt_r11u179/src/UhdmExporter.cpp:6104
+    #9 operator() at /tmp/wt_r11u179/src/UhdmExporter.cpp:11693
+    #10 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11706
+    #11 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+== N0017 surelog/default/BuildUVMPkg object #55515 constant '' uvm_pkg.sv 76494:54:76496:102 id=170838 db=SAME
+  rank 22339:
+    #0 MakeConstant at ?:0
+    #1 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:22916
+    #2 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:31476
+    #3 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:27967
+    #4 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:1996
+    #5 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:4593
+    #6 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:2838
+    #7 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:4593
+    #8 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:2820
+    #9 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:4593
+    #10 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:2820
+    #11 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:4517
+== N0028 uhdm2rtlil/testflags/struct_param_func_config object #1325 ref_typespec ''  0:0:0:0 id=495 db=SAME
+  rank 92:
+    #0 MakeRef_typespec at ?:0
+    #1 buildStructTs at /tmp/wt_r11u179/src/TypeEmit.cpp:15218
+    #2 makeParamTs at /tmp/wt_r11u179/src/ParamEmit.cpp:26900
+    #3 patchParamTypespecs at /tmp/wt_r11u179/src/ParamEmit.cpp:27904
+    #4 emitTopPorts at /tmp/wt_r11u179/src/ModuleEmit.cpp:31655
+    #5 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11791
+    #6 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #7 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0036 probe/default/r10uvm79repro__c2_idxkind object #99 bit_select 'midx' dut.sv 24:19:24:20 id=121 db=SAME
+  rank 8:
+    #0 MakeBit_select at ?:0
+    #1 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:32432
+    #2 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:22649
+    #3 emitMixedHierPath at /tmp/wt_r11u179/src/ExprEmit.cpp:10066
+    #4 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:35046
+    #5 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:15220
+    #6 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:1996
+    #7 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:6371
+    #8 emitTaskFuncs at /tmp/wt_r11u179/src/TaskFuncEmit.cpp:7133
+    #9 emitClassDefn at /tmp/wt_r11u179/src/UhdmExporter.cpp:6104
+    #10 operator() at /tmp/wt_r11u179/src/UhdmExporter.cpp:11693
+    #11 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11706
+== N0039 probe/default/r10uvm59repro__g01_innerbound object #20 int_typespec '' dut.sv 11:7:11:8 id=18 db=SAME
+  rank 2:
+    #0 MakeInt_typespec at ?:0
+    #1 makeTypespec at /tmp/wt_r11u179/src/TypeEmit.cpp:4083
+    #2 emitTaskFuncs at /tmp/wt_r11u179/src/TaskFuncEmit.cpp:6300
+    #3 emitClassDefn at /tmp/wt_r11u179/src/UhdmExporter.cpp:6104
+    #4 emitPackageClasses at /tmp/wt_r11u179/src/UhdmExporter.cpp:7058
+    #5 emitPackage at /tmp/wt_r11u179/src/ParamEmit.cpp:34424
+    #6 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:9774
+    #7 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #8 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0050 surelog/default/SimpleUVM object #182854 operation '' uvm_object_defines.svh 3494:16:3494:25 id=112246 db=DIFF-rankverified
+  rank 5795:
+    #0 MakeOperation at ?:0
+    #1 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:38646
+    #2 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:15165
+    #3 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:1996
+    #4 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:2820
+    #5 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:2820
+    #6 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:6371
+    #7 emitTaskFuncs at /tmp/wt_r11u179/src/TaskFuncEmit.cpp:7133
+    #8 emitClassDefn at /tmp/wt_r11u179/src/UhdmExporter.cpp:6104
+    #9 emitPackageClasses at /tmp/wt_r11u179/src/UhdmExporter.cpp:7058
+    #10 emitPackage at /tmp/wt_r11u179/src/ParamEmit.cpp:34424
+    #11 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:9774
+== N0054 surelog/default/BuildUVMPkg object #42255 assignment '' uvm_pkg.sv 70758:4:70758:52 id=159587 db=SAME
+  rank 6567:
+    #0 MakeAssignment at ?:0
+    #1 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:15081
+    #2 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:1996
+    #3 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:6371
+    #4 emitTaskFuncs at /tmp/wt_r11u179/src/TaskFuncEmit.cpp:7133
+    #5 emitPackageClassMethodClones at /tmp/wt_r11u179/src/ParamEmit.cpp:34549
+    #6 emitPackage at /tmp/wt_r11u179/src/ParamEmit.cpp:34428
+    #7 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:9774
+    #8 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #9 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0067 probe/default/r10sd10repro__g3_class_own_assoc_control object #11 class_typespec 'k3'  0:0:0:0 id=6 db=SAME
+  rank 1:
+    #0 MakeClass_typespec at ?:0
+    #1 classElemVar at /tmp/wt_r11u179/src/UhdmExporter.cpp:6298
+    #2 emitClassDefn at /tmp/wt_r11u179/src/UhdmExporter.cpp:5237
+    #3 emitPackageClasses at /tmp/wt_r11u179/src/UhdmExporter.cpp:7058
+    #4 emitPackage at /tmp/wt_r11u179/src/ParamEmit.cpp:34424
+    #5 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:9774
+    #6 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #7 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0068 probe/default/r10sd10repro__g3_class_own_assoc_control object #11 class_typespec 'k3'  0:0:0:0 id=6 db=SAME
+  rank 1:
+    #0 MakeClass_typespec at ?:0
+    #1 classElemVar at /tmp/wt_r11u179/src/UhdmExporter.cpp:6298
+    #2 emitClassDefn at /tmp/wt_r11u179/src/UhdmExporter.cpp:5237
+    #3 emitPackageClasses at /tmp/wt_r11u179/src/UhdmExporter.cpp:7058
+    #4 emitPackage at /tmp/wt_r11u179/src/ParamEmit.cpp:34424
+    #5 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:9774
+    #6 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #7 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0073 probe/default/r10rgg4repro__c9_litarith_noovr object #210 constant '' dut.sv 9:18:9:21 id=264 db=SAME
+  rank 54:
+    #0 MakeConstant at ?:0
+    #1 fillSizeDimRange at /tmp/wt_r11u179/src/ModuleEmit.cpp:42724
+    #2 emitInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:15892
+    #3 emitInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:16086
+    #4 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11728
+    #5 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #6 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0078 surelog/testflags/Scr1SvTests object #63246 ref_obj 'SCR1_TDU_MTRIG_NUM' scr1_pipe_tdu.sv 92:8:92:17 id=37495 db=SAME
+  rank 10163:
+    #0 MakeRef_obj at ?:0
+    #1 emitSyntaxExpr at /tmp/wt_r11u179/src/TypeEmit.cpp:17807
+    #2 emitSyntaxExpr at /tmp/wt_r11u179/src/TypeEmit.cpp:17343
+    #3 emitSyntaxExpr at /tmp/wt_r11u179/src/TypeEmit.cpp:20453
+    #4 operator() at /tmp/wt_r11u179/src/TypeEmit.cpp:5890
+    #5 makeTypespec at /tmp/wt_r11u179/src/TypeEmit.cpp:6778
+    #6 sharedTypespec at /tmp/wt_r11u179/src/TypeEmit.cpp:8000
+    #7 emitInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:13495
+    #8 emitInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:16086
+    #9 emitInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:16086
+    #10 emitInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:16086
+    #11 emitInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:16086
+== N0086 surelog/default/FuncStructValSimple object #117 constant '' dut.sv 67:46:68:35 id=310 db=SAME
+  rank 42:
+    #0 MakeConstant at ?:0
+    #1 makeMemLeftConst at /tmp/wt_r11u179/src/ParamEmit.cpp:3482
+    #2 emitParameters at /tmp/wt_r11u179/src/ParamEmit.cpp:12602
+    #3 emitInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:12403
+    #4 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11728
+    #5 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #6 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0087 surelog/default/FuncStructValSimple object #117 constant '' dut.sv 67:46:68:35 id=310 db=SAME
+  rank 42:
+    #0 MakeConstant at ?:0
+    #1 makeMemLeftConst at /tmp/wt_r11u179/src/ParamEmit.cpp:3482
+    #2 emitParameters at /tmp/wt_r11u179/src/ParamEmit.cpp:12602
+    #3 emitInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:12403
+    #4 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11728
+    #5 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #6 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0093 probe/default/r10uvm12repro__t12_t object #24 io_decl 'f' dut.sv 13:28:13:29 id=12 db=SAME
+  rank 2:
+    #0 MakeIo_decl at ?:0
+    #1 emitTaskFuncs at /tmp/wt_r11u179/src/TaskFuncEmit.cpp:4694
+    #2 emitClassDefn at /tmp/wt_r11u179/src/UhdmExporter.cpp:6104
+    #3 emitPackageClasses at /tmp/wt_r11u179/src/UhdmExporter.cpp:7058
+    #4 emitPackage at /tmp/wt_r11u179/src/ParamEmit.cpp:34424
+    #5 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:9774
+    #6 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #7 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0094 probe/default/r11u93repro__grid__pb14_ifbothstr object #60 constant '' dut.sv 5:26:5:28 id=41 db=SAME
+  rank 7:
+    #0 MakeConstant at ?:0
+    #1 makeBoundConst at /tmp/wt_r11u179/src/TypeEmit.cpp:7575
+    #2 makeTypespec at /tmp/wt_r11u179/src/TypeEmit.cpp:6778
+    #3 emitInterfaceInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:45376
+    #4 emitInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:16012
+    #5 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11728
+    #6 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #7 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0100 probe/default/r10buvm11repro__w5v_param11 object #14 bit_typespec '' dut.sv 8:5:8:6 id=55 db=SAME
+  rank 2:
+    #0 MakeBit_typespec at ?:0
+    #1 makeTypespec at /tmp/wt_r11u179/src/TypeEmit.cpp:4449
+    #2 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11747
+    #3 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #4 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0104 probe/default/r10sd3repro__g1_pkg_oob object #24 bit_var '' dut.sv 8:12:8:15 id=6 db=SAME
+  rank 1:
+    #0 MakeBit_var at ?:0
+    #1 emitTaskFuncs at /tmp/wt_r11u179/src/TaskFuncEmit.cpp:4115
+    #2 emitClassDefn at /tmp/wt_r11u179/src/UhdmExporter.cpp:6104
+    #3 emitPackageClasses at /tmp/wt_r11u179/src/UhdmExporter.cpp:7058
+    #4 emitPackage at /tmp/wt_r11u179/src/ParamEmit.cpp:34424
+    #5 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:9774
+    #6 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #7 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0105 probe/default/r10uvm194repro__g194_c_clone object #122 string_var '' dut.sv 10:12:10:18 id=97 db=SAME
+  rank 6:
+    #0 MakeString_var at ?:0
+    #1 emitTaskFuncs at /tmp/wt_r11u179/src/TaskFuncEmit.cpp:4115
+    #2 emitClassDefn at /tmp/wt_r11u179/src/UhdmExporter.cpp:6104
+    #3 emitPackageClasses at /tmp/wt_r11u179/src/UhdmExporter.cpp:7058
+    #4 emitPackage at /tmp/wt_r11u179/src/ParamEmit.cpp:34424
+    #5 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:9774
+    #6 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #7 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0106 probe/default/r10v153repro__v153_c_order object #92 class_var '' dut.sv 9:29:9:30 id=50 db=SAME
+  rank 1:
+    #0 MakeClass_var at ?:0
+    #1 emitTaskFuncs at /tmp/wt_r11u179/src/TaskFuncEmit.cpp:3910
+    #2 emitClassDefn at /tmp/wt_r11u179/src/UhdmExporter.cpp:6104
+    #3 emitPackageClasses at /tmp/wt_r11u179/src/UhdmExporter.cpp:7058
+    #4 emitPackage at /tmp/wt_r11u179/src/ParamEmit.cpp:34424
+    #5 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:9774
+    #6 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #7 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0107 probe/default/r10v153repro__v153_c_order object #92 class_var '' dut.sv 9:29:9:30 id=50 db=SAME
+  rank 1:
+    #0 MakeClass_var at ?:0
+    #1 emitTaskFuncs at /tmp/wt_r11u179/src/TaskFuncEmit.cpp:3910
+    #2 emitClassDefn at /tmp/wt_r11u179/src/UhdmExporter.cpp:6104
+    #3 emitPackageClasses at /tmp/wt_r11u179/src/UhdmExporter.cpp:7058
+    #4 emitPackage at /tmp/wt_r11u179/src/ParamEmit.cpp:34424
+    #5 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:9774
+    #6 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #7 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0111 probe/default/r10uvm195repro__g195_d_control object #40 constant '' dut.sv 7:46:7:48 id=34 db=SAME
+  rank 4:
+    #0 MakeConstant at ?:0
+    #1 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:22916
+    #2 emitTaskFuncs at /tmp/wt_r11u179/src/TaskFuncEmit.cpp:4919
+    #3 emitClassDefn at /tmp/wt_r11u179/src/UhdmExporter.cpp:6104
+    #4 emitPackageClasses at /tmp/wt_r11u179/src/UhdmExporter.cpp:7058
+    #5 emitPackage at /tmp/wt_r11u179/src/ParamEmit.cpp:34424
+    #6 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:9774
+    #7 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #8 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0120 probe/default/r10uvm138repro__g138_d_inst object #33 enum_var '' dut.sv 14:12:14:16 id=24 db=SAME
+  rank 3:
+    #0 MakeEnum_var at ?:0
+    #1 emitTaskFuncs at /tmp/wt_r11u179/src/TaskFuncEmit.cpp:4115
+    #2 emitClassDefn at /tmp/wt_r11u179/src/UhdmExporter.cpp:6104
+    #3 emitPackageClasses at /tmp/wt_r11u179/src/UhdmExporter.cpp:7058
+    #4 emitPackage at /tmp/wt_r11u179/src/ParamEmit.cpp:34424
+    #5 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:9774
+    #6 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #7 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0129 probe/default/r11v23repro__adv__x09_concat_64bit_param_small object #110 ref_typespec ''  0:0:0:0 id=86 db=SAME
+  rank 13:
+    #0 MakeRef_typespec at ?:0
+    #1 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:19823
+    #2 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:31528
+    #3 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:15427
+    #4 operator() at /tmp/wt_r11u179/src/ModuleEmit.cpp:27516
+    #5 BaseClass*) const at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #6 operator() at /tmp/wt_r11u179/src/ModuleEmit.cpp:29668
+    #7 function*) const at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #8 emitGenScopes at /tmp/wt_r11u179/src/ModuleEmit.cpp:29803
+    #9 emitInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:18738
+    #10 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11728
+    #11 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+== N0162 probe/default/r10v223repro__arms__v7_filescope_noimport_iface object #27 string_typespec '' dut.sv 6:3:6:9 id=27 db=SAME
+  rank 3:
+    #0 MakeString_typespec at ?:0
+    #1 makeTypespec at /tmp/wt_r11u179/src/TypeEmit.cpp:3079
+    #2 emitImportedPkgVarNets at /tmp/wt_r11u179/src/ModuleEmit.cpp:4927
+    #3 emitInterfaceDef at /tmp/wt_r11u179/src/ModuleEmit.cpp:43006
+    #4 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11430
+    #5 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #6 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0226 surelog/default/ApbSlave object #538 integer_typespec '' svunit_testcase.sv 99:10:99:17 id=120 db=SAME
+  rank 1:
+    #0 MakeInteger_typespec at ?:0
+    #1 makeTypespec at /tmp/wt_r11u179/src/TypeEmit.cpp:4089
+    #2 emitTaskFuncs at /tmp/wt_r11u179/src/TaskFuncEmit.cpp:4449
+    #3 emitClassDefn at /tmp/wt_r11u179/src/UhdmExporter.cpp:6104
+    #4 emitPackageClasses at /tmp/wt_r11u179/src/UhdmExporter.cpp:7058
+    #5 emitPackage at /tmp/wt_r11u179/src/ParamEmit.cpp:34424
+    #6 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:9774
+    #7 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #8 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0233 surelog/default/ApbSlave object #536 integer_var '' svunit_testcase.sv 99:10:99:17 id=119 db=SAME
+  rank 1:
+    #0 MakeInteger_var at ?:0
+    #1 makeReturnVar at /tmp/wt_r11u179/src/EmitHelpers.h:4018
+    #2 emitTaskFuncs at /tmp/wt_r11u179/src/TaskFuncEmit.cpp:4115
+    #3 emitClassDefn at /tmp/wt_r11u179/src/UhdmExporter.cpp:6104
+    #4 emitPackageClasses at /tmp/wt_r11u179/src/UhdmExporter.cpp:7058
+    #5 emitPackage at /tmp/wt_r11u179/src/ParamEmit.cpp:34424
+    #6 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:9774
+    #7 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #8 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0273 probe/default/r10earl56repro__v2_nestedsel56 object #194 part_select 'PN' dut.sv 26:42:26:49 id=152 db=SAME
+  rank 2:
+    #0 MakePart_select at ?:0
+    #1 emitSyntaxExpr at /tmp/wt_r11u179/src/TypeEmit.cpp:18330
+    #2 emitSyntaxExpr at /tmp/wt_r11u179/src/TypeEmit.cpp:18454
+    #3 emitSyntaxExpr at /tmp/wt_r11u179/src/TypeEmit.cpp:18389
+    #4 emitSyntaxExpr at /tmp/wt_r11u179/src/TypeEmit.cpp:18454
+    #5 operator() at /tmp/wt_r11u179/src/ModuleEmit.cpp:49564
+    #6 function const&, bool) const at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/std_function.h:591
+    #7 emitDefGenStmts at /tmp/wt_r11u179/src/ModuleEmit.cpp:50034
+    #8 emitModuleDef at /tmp/wt_r11u179/src/ModuleEmit.cpp:6328
+    #9 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11432
+    #10 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #11 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0289 probe/default/r10uvm88repro__g88_a2_bound object #58 string_var 'cv88' dut.sv 9:16:9:27 id=57 db=SAME
+  rank 2:
+    #0 MakeString_var at ?:0
+    #1 makeVar at /tmp/wt_r11u179/src/TypeEmit.cpp:6949
+    #2 emitPackageVar at /tmp/wt_r11u179/src/ParamEmit.cpp:35303
+    #3 operator() at /tmp/wt_r11u179/src/ParamEmit.cpp:33914
+    #4 emitPackage at /tmp/wt_r11u179/src/ParamEmit.cpp:34225
+    #5 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:9774
+    #6 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #7 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0297 surelog/default/SimpleUVM object #13545 method_func_call 'get_full_name' uvm_message_defines.svh 115:94:1656:21 id=136218 db=DIFF-rankverified
+  rank 6169:
+    #0 MakeMethod_func_call at ?:0
+    #1 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:26385
+    #2 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:31476
+    #3 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:31528
+    #4 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:27967
+    #5 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:1996
+    #6 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:4593
+    #7 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:2838
+    #8 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:4593
+    #9 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:2820
+    #10 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:4593
+    #11 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:2838
+== N0488 probe/default/r11v32repro__w1_regression_witness holder #41 bit_typespec '' dut.sv 2:38:5:10 id=6 db=SAME
+  rank 1:
+    #0 MakeBit_typespec at ?:0
+    #1 makeTypeParamDefaultTs at /tmp/wt_r11u179/src/TypeEmit.cpp:7878
+    #2 emitParameters at /tmp/wt_r11u179/src/ParamEmit.cpp:23406
+    #3 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11417
+    #4 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #5 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N0675 uhdm2rtlil/testflags/struct_param_func_config object #2359 ref_typespec ''  0:0:0:0 id=551 db=SAME
+  rank 114:
+    #0 MakeRef_typespec at ?:0
+    #1 leftRefFix174 at /tmp/wt_r11u179/src/ParamEmit.cpp:4012
+    #2 leftRefWalk174 at /tmp/wt_r11u179/src/ParamEmit.cpp:4038
+    #3 leftRefWalk174 at /tmp/wt_r11u179/src/ParamEmit.cpp:4043
+    #4 leftRefWalk174 at /tmp/wt_r11u179/src/ParamEmit.cpp:4034
+    #5 stampEvalFuncLeftovers at /tmp/wt_r11u179/src/ParamEmit.cpp:4609
+    #6 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:12209
+    #7 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #8 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N2345 probe/default/r11u88repro__grid__a6_commadrive holder #195 cont_assign '' dut.sv 8:13:8:33 id=85 db=SAME
+  rank 7:
+    #0 MakeCont_assign at ?:0
+    #1 emitInterfaceInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:46840
+    #2 emitInstance at /tmp/wt_r11u179/src/ModuleEmit.cpp:16012
+    #3 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11728
+    #4 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #5 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N2411 surelog/default/SimpleUVM object #194186 constant '' uvm_printer_defines.svh 270:42:270:63 id=80360 db=DIFF-rankverified
+  rank 10022:
+    #0 MakeConstant at ?:0
+    #1 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:22916
+    #2 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:26516
+    #3 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:1996
+    #4 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:2820
+    #5 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:3029
+    #6 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:2838
+    #7 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:4593
+    #8 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:2838
+    #9 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:5059
+    #10 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:2838
+    #11 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:2820
+== N2412 uhdm2rtlil/testflags/struct_param_func_config object #1776 ref_typespec ''  0:0:0:0 id=544 db=SAME
+  rank 111:
+    #0 MakeRef_typespec at ?:0
+    #1 leftRefFix174 at /tmp/wt_r11u179/src/ParamEmit.cpp:4012
+    #2 leftRefWalk174 at /tmp/wt_r11u179/src/ParamEmit.cpp:4038
+    #3 stampEvalFuncLeftovers at /tmp/wt_r11u179/src/ParamEmit.cpp:4609
+    #4 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:12209
+    #5 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #6 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N2413 probe/default/r11v11u8repro__v9 object #11 assignment '' dut.sv 10:11:11:16 id=11 db=SAME
+  rank 2:
+    #0 MakeAssignment at ?:0
+    #1 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:15081
+    #2 emitStmt at /tmp/wt_r11u179/src/StmtEmit.cpp:1996
+    #3 emitProcess at /tmp/wt_r11u179/src/StmtEmit.cpp:310
+    #4 emitModuleDef at /tmp/wt_r11u179/src/ModuleEmit.cpp:6264
+    #5 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11432
+    #6 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #7 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N2414 probe/default/r11v11u8repro__v9 object #10 initial '' dut.sv 10:3:11:17 id=10 db=SAME
+  rank 2:
+    #0 MakeInitial at ?:0
+    #1 emitProcess at /tmp/wt_r11u179/src/StmtEmit.cpp:295
+    #2 emitModuleDef at /tmp/wt_r11u179/src/ModuleEmit.cpp:6264
+    #3 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11432
+    #4 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #5 main at /tmp/wt_r11u179/uhdm_main.cpp:1251
+== N2415 probe/default/r11u88repro__grid__a6_commadrive object #196 constant '' dut.sv 8:28:8:33 id=35 db=SAME
+  rank 3:
+    #0 MakeConstant at ?:0
+    #1 emitExpr at /tmp/wt_r11u179/src/ExprEmit.cpp:22658
+    #2 emitContAssigns at /tmp/wt_r11u179/src/ModuleEmit.cpp:39806
+    #3 emitInterfaceDef at /tmp/wt_r11u179/src/ModuleEmit.cpp:43306
+    #4 exportDesign at /tmp/wt_r11u179/src/UhdmExporter.cpp:11430
+    #5 realMain at /tmp/wt_r11u179/uhdm_main.cpp:1084
+    #6 main at /tmp/wt_r11u179/uhdm_main.cpp:1251

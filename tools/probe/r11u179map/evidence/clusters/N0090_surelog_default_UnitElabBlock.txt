@@ -1,0 +1,52 @@
+cluster N0090 (id kept from an earlier map; OPEN (map 8 listed it: ground-A+B step 32; passes 164-174 left it) | ground B | site makeTypeParamDefaultTs (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) [r11u142map pin]): span|logic_typespec|endline+endcol|under:ref_typespec
+row: surelog/default/UnitElabBlock  strict=differ:endline(13)  records golden=217 ours=217
+object: #97 (golden) / #97 (ours)  type=logic_typespec name= 
+  golden: 4:1:3:7
+  ours:   4:1:4:1
+  walk parents: ref_typespec < port(stim1) < module_inst < design(work@wave)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 91..103 ('>' = the object)
+  #91	1	module_inst		work@cct	work@cct	top.v	1	1	8	10					work@cct	000
+  #92	2	logic_net	stim1		work@cct.stim1	top.v	2	7	2	12		0			work@cct.stim1	000
+  #93	2	logic_net	stim2		work@cct.stim2	top.v	2	14	2	19		0			work@cct.stim2	000
+  #94	2	port	stim1			top.v	2	7	2	12						000
+  #95	3	ref_obj	stim1		work@cct.stim1.stim1	top.v	2	7	2	12		0			work@cct.stim1.stim1	000
+  #96	3	ref_typespec			work@cct.stim1		0	0	0	0		0			work@cct.stim1	000
+> #97	4	logic_typespec				top.v	4	1	3	7						000
+  #98	2	port	stim2			top.v	2	14	2	19						000
+  #99	3	ref_obj	stim2		work@cct.stim2.stim2	top.v	2	14	2	19		0			work@cct.stim2.stim2	000
+  #100	3	ref_typespec			work@cct.stim2		0	0	0	0		0			work@cct.stim2	000
+  #101	4	logic_typespec				top.v	4	1	3	7						000
+  #102	2	ref_module	amod	work@mod		top.v	6	5	6	9						000
+  #103	3	module_inst		work@mod	work@mod	top.v	9	1	23	10					work@mod	000
+
+--- OURS (B) records 91..103 ('>' = the object)
+  #91	1	module_inst		work@cct	work@cct	top.v	1	1	8	10					work@cct	000
+  #92	2	logic_net	stim1		work@cct.stim1	top.v	2	7	2	12		0			work@cct.stim1	000
+  #93	2	logic_net	stim2		work@cct.stim2	top.v	2	14	2	19		0			work@cct.stim2	000
+  #94	2	port	stim1			top.v	2	7	2	12						000
+  #95	3	ref_obj	stim1		work@cct.stim1.stim1	top.v	2	7	2	12		0			work@cct.stim1.stim1	000
+  #96	3	ref_typespec			work@cct.stim1		0	0	0	0		0			work@cct.stim1	000
+> #97	4	logic_typespec				top.v	4	1	4	1						000
+  #98	2	port	stim2			top.v	2	14	2	19						000
+  #99	3	ref_obj	stim2		work@cct.stim2.stim2	top.v	2	14	2	19		0			work@cct.stim2.stim2	000
+  #100	3	ref_typespec			work@cct.stim2		0	0	0	0		0			work@cct.stim2	000
+  #101	4	logic_typespec				top.v	4	1	4	1						000
+  #102	2	ref_module	amod	work@mod		top.v	6	5	6	9						000
+  #103	3	module_inst		work@mod	work@mod	top.v	9	1	23	10					work@mod	000
+
+facets of this row (13, first 25):
+  N0090 #97/97 logic_typespec  G[4:1:3:7] O[4:1:4:1]
+  N0090 #101/101 logic_typespec  G[4:1:3:7] O[4:1:4:1]
+  N0016 #105/105 logic_net hold G[ 21:1:21:5] O[top.v 21:1:21:5]
+  N0090 #109/109 logic_typespec  G[12:2:11:8] O[12:2:12:2]
+  N0090 #172/172 logic_typespec  G[4:1:3:7] O[4:1:4:1]
+  N0090 #175/175 logic_typespec  G[4:1:3:7] O[4:1:4:1]
+  N0090 #180/180 logic_typespec  G[4:1:3:7] O[4:1:4:1]
+  N0090 #185/185 logic_typespec  G[4:1:3:7] O[4:1:4:1]
+  N0090 #189/189 logic_typespec  G[12:2:11:8] O[12:2:12:2]
+  N0090 #194/194 logic_typespec  G[12:2:11:8] O[12:2:12:2]
+  N0011 #207/207 logic_net hold G[ 21:1:21:5] O[top.v 21:1:21:5]
+  N0090 #211/211 logic_typespec  G[12:2:11:8] O[12:2:12:2]
+  N0090 #216/216 logic_typespec  G[12:2:11:8] O[12:2:12:2]

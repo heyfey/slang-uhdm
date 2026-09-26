@@ -1,0 +1,64 @@
+cluster N0938 (id kept from an earlier map; OPEN | ground A | site emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u142map pin]): fullname|ref_typespec|tok:->id.id.id::|under:logic_typespec
+row: uhdm2rtlil/testflags/jeras_union  strict=differ:fullname(75)  records golden=19822 ours=19822
+object: #167 (golden) / #167 (ours)  type=ref_typespec name= STABLE
+  golden: work@test_union.riscv_isa_pkg::imm_l_t
+  ours:   work@test_union.riscv_isa_pkg::ctl_ldu_t.imm.riscv_isa_pkg::imm_l_t
+  walk parents: logic_typespec(riscv_isa_pkg::imm_l_t) < ref_typespec < typespec_member(imm) < struct_typespec(riscv_isa_pkg::ctl_ldu_t)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 161..173 ('>' = the object)
+  #161	6	enum_const	LHU			riscv_isa_pkg.sv	75	3	75	15						001
+  #162	6	enum_const	LWU			riscv_isa_pkg.sv	76	3	76	15						001
+  #163	6	enum_const	LDU			riscv_isa_pkg.sv	77	3	77	15						001
+  #164	3	typespec_member	imm			riscv_isa_pkg.sv	219	14	219	17						001
+  #165	4	ref_typespec			<in>riscv_isa_pkg::ctl_ldu_t.imm		0	0	0	0		0			riscv_isa_pkg::riscv_isa_pkg::ctl_ldu_t::imm	001
+  #166	5	logic_typespec	riscv_isa_pkg::imm_l_t			riscv_isa_pkg.sv	132	9	132	31						001
+> #167	6	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0			work@test_union.riscv_isa_pkg::imm_l_t	001
+  #168	7	logic_typespec	imm_i_t			riscv_isa_pkg.sv	132	9	132	31						001
+  #169	8	ref_typespec			<in>imm_i_t		0	0	0	0		0			imm_i_t	001
+  #170	9	logic_typespec	riscv_isa_pkg::imm_i_t			riscv_isa_pkg.sv	132	9	132	31						001
+  #171	10	range				riscv_isa_pkg.sv	132	22	132	31						001
+  #172	11	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7		001
+  #173	11	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9		001
+
+--- OURS (B) records 161..173 ('>' = the object)
+  #161	6	enum_const	LHU			riscv_isa_pkg.sv	75	3	75	15						001
+  #162	6	enum_const	LWU			riscv_isa_pkg.sv	76	3	76	15						001
+  #163	6	enum_const	LDU			riscv_isa_pkg.sv	77	3	77	15						001
+  #164	3	typespec_member	imm			riscv_isa_pkg.sv	219	14	219	17						001
+  #165	4	ref_typespec			<in>riscv_isa_pkg::ctl_ldu_t.imm		0	0	0	0		0			riscv_isa_pkg::riscv_isa_pkg::ctl_ldu_t::imm	001
+  #166	5	logic_typespec	riscv_isa_pkg::imm_l_t			riscv_isa_pkg.sv	132	9	132	31						001
+> #167	6	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0			work@test_union.riscv_isa_pkg::ctl_ldu_t.imm.riscv_isa_pkg::imm_l_t	001
+  #168	7	logic_typespec	imm_i_t			riscv_isa_pkg.sv	132	9	132	31						001
+  #169	8	ref_typespec			<in>imm_i_t		0	0	0	0		0			imm_i_t	001
+  #170	9	logic_typespec	riscv_isa_pkg::imm_i_t			riscv_isa_pkg.sv	132	9	132	31						001
+  #171	10	range				riscv_isa_pkg.sv	132	22	132	31						001
+  #172	11	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7		001
+  #173	11	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9		001
+
+facets of this row (75, first 25):
+  N0938 #167/167 ref_typespec  G[work@test_union.riscv_isa_pkg::imm_l_t] O[work@test_union.riscv_isa_pkg::ctl_ldu_t.imm.riscv_isa_pkg::imm_l_t]
+  N0031 #175/175 constant  G[riscv_isa_pkg.sv 132:23:132:25] O[ 132:23:132:25]
+  N0031 #176/176 constant  G[riscv_isa_pkg.sv 132:29:132:30] O[ 132:29:132:30]
+  N0031 #178/178 constant  G[riscv_isa_pkg.sv 132:23:132:25] O[ 132:23:132:25]
+  N0031 #179/179 constant  G[riscv_isa_pkg.sv 132:29:132:30] O[ 132:29:132:30]
+  N0938 #449/449 ref_typespec  G[work@test_union.riscv_isa_pkg::imm_l_t] O[work@test_union.riscv_isa_pkg::ctl_ldu_t.imm.riscv_isa_pkg::imm_l_t]
+  N0031 #457/457 constant  G[riscv_isa_pkg.sv 132:23:132:25] O[ 132:23:132:25]
+  N0031 #458/458 constant  G[riscv_isa_pkg.sv 132:29:132:30] O[ 132:29:132:30]
+  N0031 #460/460 constant  G[riscv_isa_pkg.sv 132:23:132:25] O[ 132:23:132:25]
+  N0031 #461/461 constant  G[riscv_isa_pkg.sv 132:29:132:30] O[ 132:29:132:30]
+  N0938 #3036/3036 ref_typespec  G[work@test_union.riscv_isa_pkg::imm_l_t] O[work@test_union.riscv_isa_pkg::ctl_ldu_t.imm.riscv_isa_pkg::imm_l_t]
+  N0031 #3044/3044 constant  G[riscv_isa_pkg.sv 132:23:132:25] O[ 132:23:132:25]
+  N0031 #3045/3045 constant  G[riscv_isa_pkg.sv 132:29:132:30] O[ 132:29:132:30]
+  N0031 #3047/3047 constant  G[riscv_isa_pkg.sv 132:23:132:25] O[ 132:23:132:25]
+  N0031 #3048/3048 constant  G[riscv_isa_pkg.sv 132:29:132:30] O[ 132:29:132:30]
+  N0938 #4603/4603 ref_typespec  G[work@test_union.riscv_isa_pkg::imm_l_t] O[work@test_union.riscv_isa_pkg::ctl_ldu_t.imm.riscv_isa_pkg::imm_l_t]
+  N0031 #4611/4611 constant  G[riscv_isa_pkg.sv 132:23:132:25] O[ 132:23:132:25]
+  N0031 #4612/4612 constant  G[riscv_isa_pkg.sv 132:29:132:30] O[ 132:29:132:30]
+  N0031 #4614/4614 constant  G[riscv_isa_pkg.sv 132:23:132:25] O[ 132:23:132:25]
+  N0031 #4615/4615 constant  G[riscv_isa_pkg.sv 132:29:132:30] O[ 132:29:132:30]
+  N0938 #4851/4851 ref_typespec  G[work@test_union.riscv_isa_pkg::imm_l_t] O[work@test_union.riscv_isa_pkg::ctl_ldu_t.imm.riscv_isa_pkg::imm_l_t]
+  N0031 #4859/4859 constant  G[riscv_isa_pkg.sv 132:23:132:25] O[ 132:23:132:25]
+  N0031 #4860/4860 constant  G[riscv_isa_pkg.sv 132:29:132:30] O[ 132:29:132:30]
+  N0031 #4862/4862 constant  G[riscv_isa_pkg.sv 132:23:132:25] O[ 132:23:132:25]
+  N0031 #4863/4863 constant  G[riscv_isa_pkg.sv 132:29:132:30] O[ 132:29:132:30]

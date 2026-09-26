@@ -1,0 +1,64 @@
+cluster N0036 (id kept from an earlier map; COVERED r11u178 (map 8 ground-A step 2: YosysRiscv's index span) | ground A | site emitExpr (ExprEmit.cpp, law ifaceMemberTrailIdxNamesByPath147) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79) [r11u179 pin]): span|bit_select|col+endcol|under:operation
+row: surelog/default/YosysRiscv  strict=differ:col(40)  records golden=10319 ours=10319
+object: #1843 (golden) / #1843 (ours)  type=bit_select name=butterfly 
+  golden: 174:18:174:77
+  ours:   174:19:174:76
+  walk parents: operation < assignment < if_stmt < for_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1837..1849 ('>' = the object)
+  #1837	11	constant				smartbextdep.v	172	19	172	21	16	64	UINT:16	9		000
+  #1838	10	if_stmt				smartbextdep.v	173	4	174	139						000
+  #1839	11	bit_select	s16		work@smartbextdep_bfly_fwd.s16	smartbextdep.v	173	12	173	13		0			work@smartbextdep_bfly_fwd.s16	000
+  #1840	12	ref_obj	i		work@smartbextdep_bfly_fwd.i	smartbextdep.v	173	12	173	13		0			work@smartbextdep_bfly_fwd.i	000
+  #1841	11	assignment				smartbextdep.v	173	16	174	138						000
+  #1842	12	operation				smartbextdep.v	174	7	174	138		0				000
+> #1843	13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	174	18	174	77		0			work@smartbextdep_bfly_fwd.butterfly	000
+  #1844	14	operation				smartbextdep.v	174	19	174	76		0				000
+  #1845	15	operation				smartbextdep.v	174	20	174	64		0				000
+  #1846	16	operation				smartbextdep.v	174	20	174	47		0				000
+  #1847	17	operation				smartbextdep.v	174	21	174	29		0				000
+  #1848	18	constant				smartbextdep.v	174	21	174	22	2	64	UINT:2	9		000
+  #1849	18	constant				smartbextdep.v	174	27	174	28	4	64	UINT:4	9		000
+
+--- OURS (B) records 1837..1849 ('>' = the object)
+  #1837	11	constant				smartbextdep.v	172	19	172	21	16	64	UINT:16	9		000
+  #1838	10	if_stmt				smartbextdep.v	173	4	174	139						000
+  #1839	11	bit_select	s16		work@smartbextdep_bfly_fwd.s16	smartbextdep.v	173	12	173	13		0			work@smartbextdep_bfly_fwd.s16	000
+  #1840	12	ref_obj	i		work@smartbextdep_bfly_fwd.i	smartbextdep.v	173	12	173	13		0			work@smartbextdep_bfly_fwd.i	000
+  #1841	11	assignment				smartbextdep.v	173	16	174	138						000
+  #1842	12	operation				smartbextdep.v	174	7	174	138		0				000
+> #1843	13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	174	19	174	76		0			work@smartbextdep_bfly_fwd.butterfly	000
+  #1844	14	operation				smartbextdep.v	174	19	174	76		0				000
+  #1845	15	operation				smartbextdep.v	174	20	174	64		0				000
+  #1846	16	operation				smartbextdep.v	174	20	174	47		0				000
+  #1847	17	operation				smartbextdep.v	174	21	174	29		0				000
+  #1848	18	constant				smartbextdep.v	174	21	174	22	2	64	UINT:2	9		000
+  #1849	18	constant				smartbextdep.v	174	27	174	28	4	64	UINT:4	9		000
+
+facets of this row (40, first 25):
+  N0036 #1843/1843 bit_select butterfly G[174:18:174:77] O[174:19:174:76]
+  N0036 #1863/1863 bit_select butterfly G[174:90:174:136] O[174:91:174:135]
+  N0036 #1933/1933 bit_select butterfly G[178:18:178:77] O[178:19:178:76]
+  N0036 #1953/1953 bit_select butterfly G[178:90:178:136] O[178:91:178:135]
+  N0036 #2023/2023 bit_select butterfly G[182:18:182:77] O[182:19:182:76]
+  N0036 #2043/2043 bit_select butterfly G[182:90:182:136] O[182:91:182:135]
+  N0036 #2113/2113 bit_select butterfly G[186:18:186:77] O[186:19:186:76]
+  N0036 #2133/2133 bit_select butterfly G[186:90:186:136] O[186:91:186:135]
+  N0036 #2203/2203 bit_select butterfly G[190:18:190:77] O[190:19:190:76]
+  N0036 #2223/2223 bit_select butterfly G[190:90:190:136] O[190:91:190:135]
+  N0036 #2391/2391 bit_select butterfly G[208:18:208:77] O[208:19:208:76]
+  N0036 #2411/2411 bit_select butterfly G[208:90:208:136] O[208:91:208:135]
+  N0036 #2481/2481 bit_select butterfly G[212:18:212:77] O[212:19:212:76]
+  N0036 #2501/2501 bit_select butterfly G[212:90:212:136] O[212:91:212:135]
+  N0036 #2571/2571 bit_select butterfly G[216:18:216:77] O[216:19:216:76]
+  N0036 #2591/2591 bit_select butterfly G[216:90:216:136] O[216:91:216:135]
+  N0036 #2661/2661 bit_select butterfly G[220:18:220:77] O[220:19:220:76]
+  N0036 #2681/2681 bit_select butterfly G[220:90:220:136] O[220:91:220:135]
+  N0036 #2751/2751 bit_select butterfly G[224:18:224:77] O[224:19:224:76]
+  N0036 #2771/2771 bit_select butterfly G[224:90:224:136] O[224:91:224:135]
+  N0036 #9245/9245 bit_select butterfly G[174:18:174:77] O[174:19:174:76]
+  N0036 #9265/9265 bit_select butterfly G[174:90:174:136] O[174:91:174:135]
+  N0036 #9335/9335 bit_select butterfly G[178:18:178:77] O[178:19:178:76]
+  N0036 #9355/9355 bit_select butterfly G[178:90:178:136] O[178:91:178:135]
+  N0036 #9425/9425 bit_select butterfly G[182:18:182:77] O[182:19:182:76]

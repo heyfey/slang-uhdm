@@ -1,0 +1,64 @@
+cluster N0461 (id kept from an earlier map; OPEN (map 8 gave it to r11u164; passes 164-174 left it) | ground B | site UHDM library DeepClone < DeepClone < DeepClone (--elabuhdm, testflags) run from main (uhdm_main.cpp) [r11u142map pin; the 98aa49db gdb run wrote a different database (UVM order coin)] [r11u150map pin]): fullname|ref_obj|tok:id::->|under:hier_path
+row: surelog/default/MiniAmiq  strict=differ:file(29)  records golden=435559 ours=413982
+object: #89822 (golden) / #87695 (ours)  type=ref_obj name=request OUT
+  golden: svaunit_pkg::uvm_sequencer_base::grant_queued_locks::arb_sequence_q::request
+  ours:   svaunit_pkg::uvm_sequencer_base::grant_queued_locks::request
+  walk parents: hier_path(item.request) < operation < operation < method_func_call(find)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 89816..89828 ('>' = the object)
+  #89816	7	method_func_call	find			uvm_sequencer_base.svh	664	23	664	27		0				000
+  #89817	8	ref_obj	item		svaunit_pkg::uvm_sequencer_base::grant_queued_locks::arb_sequence_q::item	uvm_sequencer_base.svh	664	28	664	32		0			svaunit_pkg::uvm_sequencer_base::grant_queued_locks::arb_sequence_q::item	000
+  #89818	8	operation				uvm_sequencer_base.svh	664	40	664	136		0				000
+  #89819	9	operation				uvm_sequencer_base.svh	664	40	664	67		0				000
+  #89820	10	hier_path	item.request			uvm_sequencer_base.svh	664	40	664	52		0				000
+  #89821	11	ref_obj	item			uvm_sequencer_base.svh	664	40	664	44		0				000
+> #89822	11	ref_obj	request		svaunit_pkg::uvm_sequencer_base::grant_queued_locks::arb_sequence_q::request	uvm_sequencer_base.svh	664	45	664	52		0			svaunit_pkg::uvm_sequencer_base::grant_queued_locks::arb_sequence_q::request	000
+  #89823	10	ref_obj	SEQ_TYPE_LOCK		svaunit_pkg::uvm_sequencer_base::grant_queued_locks::arb_sequence_q::SEQ_TYPE_LOCK	uvm_sequencer_base.svh	664	54	664	67		0			svaunit_pkg::uvm_sequencer_base::grant_queued_locks::arb_sequence_q::SEQ_TYPE_LOCK	000
+  #89824	9	operation				uvm_sequencer_base.svh	664	71	664	136		0				000
+  #89825	10	hier_path	item.process_id.status			uvm_sequencer_base.svh	664	71	664	93		0				000
+  #89826	11	ref_obj	item			uvm_sequencer_base.svh	664	71	664	75		0				000
+  #89827	11	ref_obj	process_id			uvm_sequencer_base.svh	664	76	664	86		0				000
+  #89828	11	ref_obj	status		svaunit_pkg::uvm_sequencer_base::grant_queued_locks::arb_sequence_q::status	uvm_sequencer_base.svh	664	87	664	93		0			svaunit_pkg::uvm_sequencer_base::grant_queued_locks::arb_sequence_q::status	000
+
+--- OURS (B) records 87689..87701 ('>' = the object)
+  #87689	7	method_func_call	find			uvm_sequencer_base.svh	664	23	664	27		0				000
+  #87690	8	ref_obj	item		svaunit_pkg::uvm_sequencer_base::grant_queued_locks::arb_sequence_q::item	uvm_sequencer_base.svh	664	28	664	32		0			svaunit_pkg::uvm_sequencer_base::grant_queued_locks::arb_sequence_q::item	000
+  #87691	8	operation				uvm_sequencer_base.svh	664	40	664	136		0				000
+  #87692	9	operation				uvm_sequencer_base.svh	664	40	664	67		0				000
+  #87693	10	hier_path	item.request			uvm_sequencer_base.svh	664	40	664	52		0				000
+  #87694	11	ref_obj	item			uvm_sequencer_base.svh	664	40	664	44		0				000
+> #87695	11	ref_obj	request		svaunit_pkg::uvm_sequencer_base::grant_queued_locks::request	uvm_sequencer_base.svh	664	45	664	52		0			svaunit_pkg::uvm_sequencer_base::grant_queued_locks::request	000
+  #87696	10	ref_obj	SEQ_TYPE_LOCK		svaunit_pkg::uvm_sequencer_base::grant_queued_locks::SEQ_TYPE_LOCK	uvm_sequencer_base.svh	664	54	664	67		0			svaunit_pkg::uvm_sequencer_base::grant_queued_locks::SEQ_TYPE_LOCK	000
+  #87697	9	operation				uvm_sequencer_base.svh	664	71	664	136		0				000
+  #87698	10	hier_path	item.process_id.status			uvm_sequencer_base.svh	664	71	664	93		0				000
+  #87699	11	ref_obj	item			uvm_sequencer_base.svh	664	71	664	75		0				000
+  #87700	11	ref_obj	process_id			uvm_sequencer_base.svh	664	76	664	86		0				000
+  #87701	11	ref_obj	status		svaunit_pkg::uvm_sequencer_base::grant_queued_locks::status	uvm_sequencer_base.svh	664	87	664	93		0			svaunit_pkg::uvm_sequencer_base::grant_queued_locks::status	000
+
+facets of this row (23307, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0524 #64481/-1 byte_var c G[3 objs] O[]
+  N0473 #64484/-1 int_var pos G[3 objs] O[]
+  N0501 #64571/-1 bit_var msb G[3 objs] O[]
+  N0501 #64574/-1 bit_var current_byte G[6 objs] O[]
+  N0501 #64580/-1 bit_var crc1 G[6 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0489 #64705/-1 class_var seed_map G[3 objs] O[]
+  N0524 #64838/-1 byte_var bracket_match G[3 objs] O[]
+  N0473 #64841/-1 int_var pos G[3 objs] O[]
+  N0473 #64844/-1 int_var bmatches G[3 objs] O[]
