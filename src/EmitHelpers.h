@@ -15106,4 +15106,24 @@ inline void trace169(const char* law) {
     if (on)
         fprintf(stderr, "R11U169_TRACE %s\n", law);
 }
+// ===========================================================================
+// r11u174 — the expression/parameter ground (tools/probe/r11u174repro).
+// Every law reads its own switch; R11U174_OFF drops every one of them,
+// r11u172's law included (the pristine bytes).  R11U174_TRACE=1 prints one
+// stderr line per firing.
+//   R11U172_DEPTH_OFF      § pkgFnCastTopListing172        (ExprEmit.cpp; r11u172's
+//                          law_exprEmit.patch, landed here; R11U172_OFF drops it too)
+//   R11U174_LEFTREF_OFF    § elabParamLeftoverRefUnnamed174 (ParamEmit.cpp)
+//   R11U174_ASMSPAN_OFF    § asmRefQualWholeSpanElab174    (ParamEmit.cpp)
+//   R11U174_MOPUNLOC_OFF   § elabStructMemberOpFoldUnlocated174 (ParamEmit.cpp)
+// ===========================================================================
+inline bool r11u174On(const char* one) {
+    static const bool all = getenv("R11U174_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+inline void trace174(const char* law) {
+    static const bool on = getenv("R11U174_TRACE") != nullptr;
+    if (on)
+        fprintf(stderr, "R11U174_TRACE %s\n", law);
+}
 } // namespace slang_uhdm

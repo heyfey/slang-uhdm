@@ -1,0 +1,36 @@
+== surelog
+databases: patched=952 pristine=952
+PATH_SETS_IDENTICAL (952 paths)
+MOVER ./default/FuncStructVal-9244d8c4/slang.uhdm  patched=83d6875ab313 pristine=4086bc100a71
+MOVER ./default/FuncStructValSimple-7042c7a5/slang.uhdm  patched=2ed5d2768069 pristine=d3200904e5e9
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=0df4313cd4eb pristine=673970c88a08
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=be15ee5ca71d pristine=c561d1b872f6
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=5e8cb4773691 pristine=550d766f4118
+MOVER ./default/SimpleUVM-267de3ff/slang.uhdm  patched=55fc73947cd1 pristine=e3fb5175dd52
+MOVER ./testflags/FuncStructVal-9244d8c4/slang.uhdm  patched=92a8e2514de3 pristine=f6e07166d37b
+MOVER ./testflags/FuncStructValSimple-7042c7a5/slang.uhdm  patched=f22b5a3a7c0f pristine=3c2ec77e794c
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=7400b34df508 pristine=f0368f2a9e84
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=53d8323a77d1 pristine=9c8a42022c47
+MOVERS: 10 / 952
+SELFCHECK (every file vs one fixed file): 951 / 952 flagged
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/jeras_union-394df907/slang.uhdm  patched=bc6823a14360 pristine=098203b7ad7e
+MOVER ./default/param_nested_struct_field_width-5f0b6d8d/slang.uhdm  patched=04cb0898d01d pristine=4b62f80dc2e1
+MOVER ./default/rp32_r5p_alu-5dbac76d/slang.uhdm  patched=887460f53439 pristine=4ff80b20b244
+MOVER ./default/rp32_r5p_bru-8a818f2f/slang.uhdm  patched=562fcc8efa68 pristine=43232270680c
+MOVER ./default/rp32_r5p_mdu-8aad7cbd/slang.uhdm  patched=443a5076564d pristine=3d4f78b1c85d
+MOVER ./default/rp32_r5p_wbu-e7eb0208/slang.uhdm  patched=5f61c75662ef pristine=77a04c5608e6
+MOVER ./default/struct_param_field_shift-8eed4a85/slang.uhdm  patched=30c3d74fecf0 pristine=abf8e2e86cab
+MOVER ./default/struct_param_func_config-121ce6d3/slang.uhdm  patched=0f0ab6607150 pristine=28239c412961
+MOVER ./testflags/jeras_union-394df907/slang.uhdm  patched=7c5d1b2b67e1 pristine=b7aa4cb2a873
+MOVER ./testflags/param_nested_struct_field_width-5f0b6d8d/slang.uhdm  patched=a48f31580f1d pristine=ea5523687bdf
+MOVER ./testflags/rp32_r5p_alu-5dbac76d/slang.uhdm  patched=6e1951b07560 pristine=82544e862d43
+MOVER ./testflags/rp32_r5p_bru-8a818f2f/slang.uhdm  patched=1f6859f9f7e6 pristine=41b1a76161fc
+MOVER ./testflags/rp32_r5p_mdu-8aad7cbd/slang.uhdm  patched=b740d731171c pristine=79444318519b
+MOVER ./testflags/rp32_r5p_wbu-e7eb0208/slang.uhdm  patched=5df94d5b6770 pristine=ffa873b56809
+MOVER ./testflags/struct_param_field_shift-8eed4a85/slang.uhdm  patched=62d8b848f9ca pristine=fd3da8c6e871
+MOVER ./testflags/struct_param_func_config-121ce6d3/slang.uhdm  patched=563a4d01d77d pristine=020e9ceb7a1c
+MOVERS: 16 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged

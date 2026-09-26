@@ -3897,6 +3897,213 @@ static UHDM::any* cloneStampTree167(UHDM::Serializer& s, const UHDM::any* x,
     }
 }
 
+// § asmRefQualWholeSpanElab174 — the elaborated asmRefPa entry's whole
+// reference range, keyed by its param_assign (recorded in emitParameters,
+// read in the drain below).
+// § elabParamLeftoverRefUnnamed174 — each parameter the law gave its own
+// struct copy: (the shared struct, the copy).
+static std::map<const UHDM::parameter*,
+                std::pair<const UHDM::typespec*, UHDM::typespec*>>&
+leftRefRepoint174() {
+    static std::map<const UHDM::parameter*,
+                    std::pair<const UHDM::typespec*, UHDM::typespec*>>
+        m;
+    return m;
+}
+// § elabStructMemberOpFoldUnlocated174 — the parameters whose elaborated
+// constant that law unlocated (a later operation reading one is unlocated too).
+static std::set<const slang::ast::Symbol*>& memOpUnlocatedParams174() {
+    static std::set<const slang::ast::Symbol*> m;
+    return m;
+}
+static std::set<const UHDM::param_assign*>& asmRefSibling174() {
+    static std::set<const UHDM::param_assign*> m;
+    return m;
+}
+static std::map<const UHDM::param_assign*, slang::SourceRange>&
+asmRefWholeRange174() {
+    static std::map<const UHDM::param_assign*, slang::SourceRange> m;
+    return m;
+}
+
+static std::set<const UHDM::any*>& leftRefLeftovers174() {
+    static std::set<const UHDM::any*> m;
+    return m;
+}
+static std::set<const UHDM::any*>& leftRefMinted174() {
+    static std::set<const UHDM::any*> m;
+    return m;
+}
+// § elabParamLeftoverRefUnnamed174 — a leftover constant whose reference
+// stores a name, or whose own parent is not a struct member (the module-held
+// stamp's minted constant, parented at its call: golden ml/m02's definition
+// listing computes an empty name there, its elaborated copy
+// `<in>p::cfg_t.A`).
+static bool leftRefNeeds174(const UHDM::any* v) {
+    if (!v || v->UhdmType() != UHDM::uhdmconstant ||
+        !leftRefLeftovers174().count(v))
+        return false;
+    auto* rt = ((const UHDM::constant*)v)->Typespec();
+    if (!rt)
+        return false;
+    return !rt->VpiFullName().empty() || !v->VpiParent() ||
+           v->VpiParent()->UhdmType() != UHDM::uhdmtypespec_member;
+}
+// The parameter's own struct copy (a struct already parented at the
+// parameter is that copy — § evalFuncBodyRhsStampClone167's — and is edited
+// in place), each such leftover cloned at its member with its reference
+// unnamed.
+static void leftRefFix174(UHDM::Serializer& s, UHDM::parameter* pa) {
+    auto* prt = pa->Typespec();
+    auto* t = prt ? prt->Actual_typespec() : nullptr;
+    if (!t || t->UhdmType() != UHDM::uhdmstruct_typespec ||
+        !((UHDM::struct_typespec*)t)->Members())
+        return;
+    auto* st = (UHDM::struct_typespec*)t;
+    bool need = false;
+    for (auto* tm : *st->Members())
+        if (tm && leftRefNeeds174(tm->Actual_value()))
+            need = true;
+    if (!need)
+        return;
+    UHDM::struct_typespec* nst = st;
+    if (st->VpiParent() != pa) {
+        nst = s.MakeStruct_typespec();
+        uint32_t nid = nst->UhdmId();
+        *nst = *st;
+        nst->UhdmId(nid);
+        nst->VpiParent(pa);
+        auto* nmv = s.MakeTypespec_memberVec();
+        for (auto* tm : *st->Members()) {
+            auto* ntm = s.MakeTypespec_member();
+            uint32_t tid = ntm->UhdmId();
+            *ntm = *tm;
+            ntm->UhdmId(tid);
+            ntm->VpiParent(nst);
+            if (auto* mrt = tm->Typespec()) {
+                auto* nrt = s.MakeRef_typespec();
+                uint32_t rid = nrt->UhdmId();
+                *nrt = *mrt;
+                nrt->UhdmId(rid);
+                nrt->VpiParent(ntm);
+                nrt->VpiFullName("");
+                ntm->Typespec(nrt);
+            }
+            nmv->push_back(ntm);
+        }
+        nst->Members(nmv);
+        prt->Actual_typespec(nst);
+        leftRefRepoint174()[pa] = {st, nst};
+        trace174("LEFTREF copy");
+    } else {
+        trace174("LEFTREF inplace");
+    }
+    for (auto* tm : *nst->Members()) {
+        auto* v = tm ? tm->Actual_value() : nullptr;
+        if (!leftRefNeeds174(v))
+            continue;
+        auto* c0 = (const UHDM::constant*)v;
+        auto* rt0 = c0->Typespec();
+        auto* n = s.MakeConstant();
+        uint32_t id = n->UhdmId();
+        *n = *c0;
+        n->UhdmId(id);
+        n->VpiParent(tm);
+        auto* nrt = s.MakeRef_typespec();
+        uint32_t rid = nrt->UhdmId();
+        *nrt = *rt0;
+        nrt->UhdmId(rid);
+        nrt->VpiParent(n);
+        nrt->VpiFullName("");
+        n->Typespec(nrt);
+        tm->Actual_value(n);
+        bool m174 = leftRefMinted174().count(v) != 0;
+        trace174(!rt0->VpiFullName().empty()
+                     ? (m174 ? "LEFTREF minted" : "LEFTREF other")
+                     : (m174 ? "LEFTREF minted reparent"
+                             : "LEFTREF other reparent"));
+    }
+}
+// The elaborated walk: every parameter of the instance, its child instances
+// and those inside generate scopes.  `importsOnly` (the definition listing):
+// the import copies alone, no recursion.
+static void leftRefWalkGs174(UHDM::Serializer& s, UHDM::gen_scope* g);
+static void leftRefWalk174(UHDM::Serializer& s, UHDM::module_inst* m,
+                           bool importsOnly) {
+    if (m->Parameters())
+        for (auto* pa : *m->Parameters())
+            if (pa->UhdmType() == UHDM::uhdmparameter &&
+                (!importsOnly ||
+                 !((UHDM::parameter*)pa)->VpiImported().empty()))
+                leftRefFix174(s, (UHDM::parameter*)pa);
+    if (importsOnly)
+        return;
+    if (m->Modules())
+        for (auto* sub : *m->Modules())
+            leftRefWalk174(s, sub, false);
+    if (m->Gen_scope_arrays())
+        for (auto* ga : *m->Gen_scope_arrays())
+            if (ga && ga->Gen_scopes())
+                for (auto* g : *ga->Gen_scopes())
+                    leftRefWalkGs174(s, g);
+}
+static void leftRefWalkGs174(UHDM::Serializer& s, UHDM::gen_scope* g) {
+    if (!g)
+        return;
+    if (g->Modules())
+        for (auto* sub : *g->Modules())
+            leftRefWalk174(s, sub, false);
+    if (g->Gen_scope_arrays())
+        for (auto* ga : *g->Gen_scope_arrays())
+            if (ga && ga->Gen_scopes())
+                for (auto* g2 : *ga->Gen_scopes())
+                    leftRefWalkGs174(s, g2);
+}
+// The re-pointed parameters' param_assign constants follow the copy.
+static void leftRefRepointGs174(UHDM::gen_scope* g);
+static void leftRefRepointPa174(UHDM::module_inst* m) {
+    auto& rp = leftRefRepoint174();
+    if (rp.empty())
+        return;
+    if (auto* pas = m->Param_assigns())
+        for (auto* pas1 : *pas) {
+            if (!pas1 || !pas1->Lhs() ||
+                pas1->Lhs()->UhdmType() != UHDM::uhdmparameter)
+                continue;
+            auto it = rp.find((const UHDM::parameter*)pas1->Lhs());
+            if (it == rp.end())
+                continue;
+            auto* r = pas1->Rhs();
+            if (!r || r->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            auto* crt = ((UHDM::constant*)r)->Typespec();
+            if (crt && crt->Actual_typespec() == it->second.first) {
+                crt->Actual_typespec(it->second.second);
+                trace174("LEFTREF param_assign");
+            }
+        }
+    if (m->Modules())
+        for (auto* sub : *m->Modules())
+            leftRefRepointPa174(sub);
+    if (m->Gen_scope_arrays())
+        for (auto* ga : *m->Gen_scope_arrays())
+            if (ga && ga->Gen_scopes())
+                for (auto* g : *ga->Gen_scopes())
+                    leftRefRepointGs174(g);
+}
+static void leftRefRepointGs174(UHDM::gen_scope* g) {
+    if (!g)
+        return;
+    if (g->Modules())
+        for (auto* sub : *g->Modules())
+            leftRefRepointPa174(sub);
+    if (g->Gen_scope_arrays())
+        for (auto* ga : *g->Gen_scope_arrays())
+            if (ga && ga->Gen_scopes())
+                for (auto* g2 : *ga->Gen_scopes())
+                    leftRefRepointGs174(g2);
+}
+
 void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
     // § evalFuncBodyRhsStampClone167 — the S2 leftovers (function-body Rhs).
     std::set<const UHDM::any*> bodyRhsStamps167;
@@ -4362,6 +4569,48 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
             for (auto* m : *tm)
                 walk167(m);
     }
+    // § elabParamLeftoverRefUnnamed174 — A MODULE-SIDE STRUCT PARAMETER'S
+    // LEFTOVER CARRIES AN UNNAMED TYPESPEC REFERENCE, ON THE PARAMETER'S OWN
+    // STRUCT COPY.  The leftover a whole-formal read leaves (`c.A = x`, the
+    // caller's actual with the formal's typespec: § memLeftFormalReadTs18,
+    // and the parameter-actual copy of § memLeftFormalArgLoc169) stores the
+    // package name on its ref_typespec in golden's PACKAGE listings and in
+    // the definition module listing that resolves the package's struct
+    // (`p`), but every MODULE-SIDE parameter that holds its own struct copy
+    // — the elaborated module parameter, per instance and inside generate
+    // scopes, and the import copy a wildcard-importing module materializes
+    // in both module listings — carries a copy of that leftover whose
+    // reference stores no name, so it computes through the copy's member
+    // (golden struct_param_field_shift `<in>cfg_pkg::cfg_t.XLEN`,
+    // param_nested_struct_field_width `<in>pk::cfg_t.u`; grid
+    // tools/probe/r11u174repro/cases/lr).  Ours shared the package's struct
+    // and its leftover everywhere.  The law gives such a parameter its own
+    // struct copy (the copy § evalFuncBodyRhsStampClone167 builds for its S2
+    // hits; a struct already parented at the parameter is that copy and is
+    // edited in place), clones each leftover constant whose reference stores
+    // a name with the reference unnamed, and re-points the parameter's
+    // param_assign constant at the copy.  Runs before the assemble arms, so
+    // the constants they mint read the copy.  Switch R11U174_LEFTREF_OFF.
+    // (The definition listing's import copies are fixed after the
+    // definition-listing re-point below, which settles their struct.)
+    if (!memLeftStamps.empty() && r11u174On("R11U174_LEFTREF_OFF")) {
+        auto& left174 = leftRefLeftovers174();
+        auto& minted174 = leftRefMinted174();
+        for (auto& st : memLeftStamps) {
+            for (auto* v : st.values)
+                if (v)
+                    left174.insert(v);
+            for (auto* v : st.minted)
+                if (v)
+                    minted174.insert(v);
+        }
+        if (auto* tm = d->TopModules())
+            for (auto* m : *tm)
+                leftRefWalk174(s, m, false);
+        if (auto* tm = d->TopModules())
+            for (auto* m : *tm)
+                leftRefRepointPa174(m);
+    }
     // § pkgStructFuncAssembleBin — and the struct typespec copy of every
     // parameter this law assembled, wherever that copy lives.  A module that
     // WILDCARD-IMPORTS the package materializes its own copy of the package
@@ -4518,6 +4767,17 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
         mc->Typespec(mrt);
         if (ma.up && ma.up->Typespec() && ma.up->Typespec()->Actual_typespec())
             mrt->Actual_typespec(ma.up->Typespec()->Actual_typespec());
+        // § elabParamLeftoverRefUnnamed174 — the MODULE-held assembled
+        // constant keeps the stamped struct the parameter shared before the
+        // law gave it its own copy (golden ml/m02: the elaborated
+        // param_assign constant's leftover computes an empty name, the
+        // parameter's copy `<in>p::cfg_t.A`).
+        if (auto rp174 = leftRefRepoint174().find(ma.up);
+            rp174 != leftRefRepoint174().end() &&
+            mrt->Actual_typespec() == rp174->second.second) {
+            mrt->Actual_typespec((UHDM::typespec*)rp174->second.first);
+            trace174("LEFTREF modasm keeps stamped");
+        }
         ma.pa->Rhs(mc);
     }
     // The DEF module listing's copy of the parameter resolves the SAME struct
@@ -4535,6 +4795,21 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
                 rt->Actual_typespec(st.stamped);
                 break;
             }
+    }
+    // § elabParamLeftoverRefUnnamed174 — the import copies a
+    // wildcard-importing module materializes (vpiImported set) in the
+    // DEFINITION listing (golden struct_param_func_config `work@child.C`,
+    // grid lr/l05 `work@top.D`), once the re-point above has settled their
+    // struct; the definition listing's own parameters keep the shared one.
+    if (!memLeftStamps.empty() && r11u174On("R11U174_LEFTREF_OFF")) {
+        if (auto* am = d->AllModules())
+            for (auto* m : *am)
+                if (m && m->UhdmType() == UHDM::uhdmmodule_inst)
+                    leftRefWalk174(s, (UHDM::module_inst*)m, true);
+        if (auto* am = d->AllModules())
+            for (auto* m : *am)
+                if (m && m->UhdmType() == UHDM::uhdmmodule_inst)
+                    leftRefRepointPa174((UHDM::module_inst*)m);
     }
     // § memSelAsmBaseOv (r11u11) — THE MEMBER SELECT OF AN ASSEMBLED BASE.
     // Runs LAST, after both assemble arms have applied the producer's own bail
@@ -4602,12 +4877,47 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
             rc->VpiEndLineNo(old->VpiEndLineNo());
             rc->VpiEndColumnNo(old->VpiEndColumnNo());
         }
+        // § asmRefQualWholeSpanElab174 — THE ELABORATED LISTING SPANS THE
+        // WHOLE WRITTEN REFERENCE.  The assembled constant a module parameter
+        // reads whole out of a function-built package parameter (`parameter
+        // cfg_t Cfg = p::D`) is located, in the ELABORATED module listing, at
+        // the whole reference (golden struct_param_field_shift
+        // `cfg_pkg::DefaultCfg` 24:36-55, param_nested_struct_field_width
+        // `pk::CFG` 35:37-44), while the definition listing keeps the
+        // qualifier (24:36-45): the view split § aggParamFoldQualSpanByView163
+        // already writes for a constant fold, which this drain-minted
+        // constant never reached (its emitted fold is the unfolded call, so
+        // the qualifier span stood).  Grid tools/probe/r11u174repro/cases/as.
+        // Switch R11U174_ASMSPAN_OFF.
+        if (ar.elabView && r11u174On("R11U174_ASMSPAN_OFF")) {
+            auto wr174 = asmRefWholeRange174().find(ar.pa);
+            if (wr174 != asmRefWholeRange174().end()) {
+                uint32_t el0 = rc->VpiEndLineNo(), ec0 = rc->VpiEndColumnNo();
+                setLoc(rc, wr174->second);
+                trace174(el0 != rc->VpiEndLineNo() ||
+                                 ec0 != rc->VpiEndColumnNo()
+                             ? "ASMSPAN whole"
+                             : "ASMSPAN same");
+            }
+        }
         auto* rrt = s.MakeRef_typespec();
         rrt->VpiFullName(ar.tsName);
         rrt->VpiParent(rc);
         rc->Typespec(rrt);
         if (ar.up && ar.up->Typespec() && ar.up->Typespec()->Actual_typespec())
             rrt->Actual_typespec(ar.up->Typespec()->Actual_typespec());
+        // § elabParamLeftoverRefUnnamed174 — a SIBLING read (`C2 = Cfg`, a
+        // base that is not a package parameter) keeps the stamped struct the
+        // reader shared before the law gave it its own copy (golden grid
+        // as/a02, as/a05: the elaborated param_assign constant's leftovers
+        // store `p`); a package read follows the copy (lr/l01).
+        if (auto rp174 = leftRefRepoint174().find(ar.up);
+            rp174 != leftRefRepoint174().end() &&
+            rrt->Actual_typespec() == rp174->second.second &&
+            asmRefSibling174().count(ar.pa)) {
+            rrt->Actual_typespec((UHDM::typespec*)rp174->second.first);
+            trace174("LEFTREF asmref sibling keeps stamped");
+        }
         ar.pa->Rhs(rc);
         if (ar.up)
             ar.up->VpiValue(bv9);
@@ -12224,6 +12534,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             atp9.resize(atp9.size() - 2);
                         asmRefPa.push_back({pa, up, ab9, atp9, aw9,
                                             !defViewOrig9});
+                        // § asmRefQualWholeSpanElab174 — the reference's
+                        // whole written range, read by the drain.
+                        if (!defViewOrig9)
+                            asmRefWholeRange174()[pa] = init->sourceRange;
+                        // § elabParamLeftoverRefUnnamed174 — the immediate
+                        // referent is not a package parameter (a sibling).
+                        if (!apk9)
+                            asmRefSibling174().insert(pa);
                     }
                 }
             }
@@ -22304,6 +22622,139 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rc9->VpiConstType(e9.ct);
                         rc9->VpiSize(e9.size);
                         rc9->VpiDecompile(e9.dec);
+                    }
+                }
+            }
+        }
+        // § elabStructMemberOpFoldUnlocated174 — AN ELABORATED PARAMETER
+        // FOLDED FROM AN OPERATION THAT READS A STRUCT PARAMETER'S MEMBER IS
+        // UNLOCATED.  Surelog cannot reduce `Cfg.A / Cfg.B` while it compiles
+        // the module (the member value exists only once the struct parameter
+        // is elaborated), so the elaborated listing's value is the constant
+        // UHDM's ExprEval mints at elaboration, which carries no location
+        // (golden param_nested_struct_field_width `NOUT = CFG.u.dataWidth /
+        // CFG.u.sidWidth`: INT:10, file empty, 0:0-0:0; grid
+        // tools/probe/r11u174repro/cases/ub: `/`, `+`, `*`, unary `-`, a
+        // nested operation, the member on either side, a body localparam), and
+        // so is a parameter folded from an operation that reads such a
+        // parameter (ub/u16 `Y = X + 1`).  A compile-time reducible operation
+        // keeps its span (ub/u05 `P / 2`), and so does a system call over a
+        // member (ub/u07 `$clog2(Cfg.A)`).  The default arm of a module
+        // parameter only; an override, a call, a conditional, a select or a
+        // cast anywhere in the tree abstains.  Switch R11U174_MOPUNLOC_OFF.
+        if (topView && !defViewOrig9 && !inPackage && !isImported &&
+            !overridden && pa->Rhs() &&
+            pa->Rhs()->UhdmType() == UHDM::uhdmconstant &&
+            r11u174On("R11U174_MOPUNLOC_OFF")) {
+            if (auto* pi174 = ps.getInitializer()) {
+                auto& unl174 = memOpUnlocatedParams174();
+                std::function<int(const Expression&)> dep174 =
+                    [&](const Expression& e0) -> int {
+                    const Expression* e = &e0;
+                    // A cast is no reduce boundary (ub/u20 `int'(Cfg.A) / 2`).
+                    while (e->kind == ExpressionKind::Conversion)
+                        e = &e->as<ConversionExpression>().operand();
+                    switch (e->kind) {
+                    case ExpressionKind::BinaryOp: {
+                        auto& b = e->as<BinaryExpression>();
+                        int l = dep174(b.left()), r = dep174(b.right());
+                        if (l < 0 || r < 0)
+                            return -1;
+                        return (l || r) ? 1 : 0;
+                    }
+                    case ExpressionKind::UnaryOp:
+                        return dep174(e->as<UnaryExpression>().operand());
+                    case ExpressionKind::MemberAccess: {
+                        const Expression* b = e;
+                        for (int h = 0;
+                             h < 8 && b->kind == ExpressionKind::MemberAccess;
+                             h++)
+                            b = &stripImplicitConv(
+                                b->as<MemberAccessExpression>().value());
+                        if (b->kind != ExpressionKind::NamedValue)
+                            return -1;
+                        auto& bs = b->as<NamedValueExpression>().symbol;
+                        if (bs.kind != SymbolKind::Parameter ||
+                            bs.as<ParameterSymbol>()
+                                    .getType()
+                                    .getCanonicalType()
+                                    .kind != SymbolKind::PackedStructType)
+                            return -1;
+                        // § mopPkgBaseReduces174v (r11v174) — a member read
+                        // straight off a PACKAGE parameter (`p::D.A`, or
+                        // `D.A` through an import) reduces while Surelog
+                        // compiles the module (the package is elaborated
+                        // first), so its fold keeps its span: golden
+                        // tools/probe/r11v174repro/cases/mo b01 b12 b16 b17
+                        // (located, as pristine).  Such an operand is a
+                        // reducible leaf; a module parameter chained to the
+                        // package parameter still is not (mo b14 b15).
+                        // Switch R11V174_MOPPKG_OFF.
+                        if (auto* bp174 = bs.getParentScope();
+                            bp174 &&
+                            bp174->asSymbol().kind == SymbolKind::Package &&
+                            r11u174On("R11V174_MOPPKG_OFF")) {
+                            trace174("MOPUNLOC pkg base reduces");
+                            return 0;
+                        }
+                        // Only a struct built by a constant FUNCTION is
+                        // unknown at compile time: a pattern-built one
+                        // reduces there and keeps the span (ub/u21).  The
+                        // chain of whole parameter reads is followed to its
+                        // call; an overridden link abstains.
+                        const ParameterSymbol* ch = &bs.as<ParameterSymbol>();
+                        for (int h = 0; h < 8 && ch; h++) {
+                            if (isOverriddenParam(*ch))
+                                return -1;
+                            auto* ci = ch->getInitializer();
+                            if (!ci)
+                                return -1;
+                            auto& cx = stripImplicitConv(*ci);
+                            if (cx.kind == ExpressionKind::Call)
+                                return cx.as<CallExpression>().isSystemCall()
+                                           ? -1
+                                           : 1;
+                            const Symbol* nx = nullptr;
+                            if (cx.kind == ExpressionKind::NamedValue)
+                                nx = &cx.as<NamedValueExpression>().symbol;
+                            else if (cx.kind == ExpressionKind::HierarchicalValue)
+                                nx = &cx.as<HierarchicalValueExpression>().symbol;
+                            if (!nx || nx->kind != SymbolKind::Parameter)
+                                return 0;
+                            ch = &nx->as<ParameterSymbol>();
+                        }
+                        return -1;
+                    }
+                    case ExpressionKind::NamedValue:
+                        return unl174.count(
+                                   &e->as<NamedValueExpression>().symbol)
+                                   ? 1
+                                   : 0;
+                    case ExpressionKind::IntegerLiteral:
+                    case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+                        return 0;
+                    default:
+                        return -1;
+                    }
+                };
+                const Expression* tp174 = pi174;
+                while (tp174->kind == ExpressionKind::Conversion)
+                    tp174 = &tp174->as<ConversionExpression>().operand();
+                auto& top174 = *tp174;
+                if (top174.kind == ExpressionKind::BinaryOp ||
+                    top174.kind == ExpressionKind::UnaryOp) {
+                    int d174 = dep174(top174);
+                    if (d174 > 0) {
+                        auto* rc174 = pa->Rhs();
+                        rc174->VpiFile("");
+                        rc174->VpiLineNo(0);
+                        rc174->VpiColumnNo(0);
+                        rc174->VpiEndLineNo(0);
+                        rc174->VpiEndColumnNo(0);
+                        unl174.insert(&ps);
+                        trace174("MOPUNLOC");
+                    } else if (d174 < 0) {
+                        trace174("MOPUNLOC abstain");
                     }
                 }
             }

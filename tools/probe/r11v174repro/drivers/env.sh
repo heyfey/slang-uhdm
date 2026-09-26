@@ -1,0 +1,12 @@
+export SURELOG_ROOT=/home/heyfey/git-repos/slang-uhdm/third_party/Surelog
+export UHDM2RTLIL_TESTS=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test
+export SURELOG=/home/heyfey/git-repos/Surelog/build/bin/surelog
+export UHDM_CMP=/home/heyfey/git-repos/Surelog/build/third_party/UHDM/bin/uhdm-cmp
+export UHDM_DUMP=/home/heyfey/git-repos/Surelog/build/third_party/UHDM/bin/uhdm-dump
+export UHDM2RTLIL_ROOT=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil
+export FENCED="$(sed -n 78,79p /home/heyfey/git-repos/slang-uhdm/RESUME.md | grep -o '`[A-Za-z]*`' | tr -d '`' | tr '\n' ' ')"
+export FENCED="$FENCED $(sed -n 80p /home/heyfey/git-repos/slang-uhdm/RESUME.md | grep -o '`[A-Za-z]*`' | head -2 | tr -d '`' | tr '\n' ' ')"
+export FENCED="$(echo $FENCED)"
+export STRICT_CMP=/tmp/v11u174_bin/strictcmp
+export PRIS=/tmp/v11u174_bin/pris
+export LAW=/tmp/v11u174_bin/law

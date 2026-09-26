@@ -1,0 +1,63 @@
+# R11U174_OFF=1 on the verified binary vs pristine, bytes (same output path)
+probe (tests/probe, 4087): 4087 SAME, 0 DIFF, 0 NODB
+tools/probe grids of passes 118-173 (5123 cases): 5103 SAME, 0 DIFF, 20 NODB
+# the implementer's law binary vs the verified binary on the same 5123: 5103 SAME, 0 DIFF, 20 NODB
+# pristine vs the verified binary (all laws on) on the same 5123: 5045 SAME, 58 DIFF, 20 NODB
+DIFF r11u146repro/grid/fa/f6
+DIFF r11u151struct/cases/D2/d01_cast_and_func
+DIFF r11u151struct/cases/D2/d03_union
+DIFF r11u151struct/cases/D2/d04_two_casts
+DIFF r11u151struct/cases/D2/d05_qual_spelling
+DIFF r11u151struct/cases/D2/d07_cross_pkg
+DIFF r11u151struct/cases/D2/d08_func_first
+DIFF r11u153verify/cases/fa/g03_output_arg
+DIFF r11u159verify/cases/dd/x01_size_cast_ca
+DIFF r11u169repro/cases/ml/m01
+DIFF r11u169repro/cases/ml/m02
+DIFF r11u169repro/cases/ml/m03
+DIFF r11u169repro/cases/ml/m04
+DIFF r11u169repro/cases/ml/m05
+DIFF r11u169repro/cases/ml/m06
+DIFF r11u169repro/cases/ml/m07
+DIFF r11u169repro/cases/ml/m08
+DIFF r11u169repro/cases/ml/m09
+DIFF r11u169repro/cases/ml/m10
+DIFF r11u169repro/cases/ml/m11
+DIFF r11u169repro/cases/ml/m13
+DIFF r11u169repro/cases/ml/m12
+DIFF r11u169repro/cases/ml/m14
+DIFF r11u169repro/cases/ml/m15
+DIFF r11u169repro/cases/ml/m16
+DIFF r11u169repro/cases/ml/m18
+DIFF r11u172rp/cases/D/d02_pkgfn_struct_cast
+DIFF r11u172rp/cases/D/d01_pkgfn_cast
+DIFF r11u172rp/cases/D/d03_pkgfn_enum_cast
+DIFF r11u172rp/cases/D/d05_pkgfn_union_cast
+DIFF r11u172rp/cases/D/d08_pkgfn_two_casts
+DIFF r11u172rp/cases/D/d10_pkgtask_cast
+DIFF r11u172rp/cases/D/d09_pkgfn_param_bound
+DIFF r11v140repro/tdc/t07_pkg_func
+DIFF r11v169repro/cases/ml/mb01
+DIFF r11v169repro/cases/ml/mb02
+DIFF r11v169repro/cases/ml/mb04
+DIFF r11v169repro/cases/ml/mb03
+DIFF r11v169repro/cases/ml/mb05
+DIFF r11v169repro/cases/ml/mb06
+DIFF r11v169repro/cases/ml/mb07
+DIFF r11v169repro/cases/ml/mb08
+DIFF r11v169repro/cases/ml/mb09
+DIFF r11v169repro/cases/ml/mb10
+DIFF r11v169repro/cases/ml/mb12
+DIFF r11v169repro/cases/ml/mb11
+DIFF r11v169repro/cases/ml/mb13
+DIFF r11v169repro/cases/ml/mb14
+DIFF r11v169repro/cases/ml/mb15
+DIFF r11v169repro/cases/ml/mb16
+DIFF r11v169repro/cases/ml/mb17
+DIFF r11v169repro/cases/ml/mb18
+DIFF r11v169repro/cases/ml/mc01
+DIFF r11v169repro/cases/ml/mc02
+DIFF r11v169repro/cases/ml/mc03
+DIFF r11v169repro/cases/ml/mc04
+DIFF r11v169repro/cases/ml/mc05
+DIFF r11v169repro/cases/ml/mc06

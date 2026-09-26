@@ -23899,6 +23899,51 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // function body, a VECTOR-typedef cast gets a FRESH
                     // clone with a Typedef_alias ref instead.
                     cts = typedefTs[expr.type];
+                    // § pkgFnCastTopListing172 (r11u172, map N0025 + N0033,
+                    // the rp32 face) — a cast written in a subroutine of the
+                    // typedef's OWN package reaches, in the ELABORATED
+                    // package, that view's typedef listing (the folded one),
+                    // not the definition listing: golden rp32
+                    // riscv_isa_i_pkg::imm_i_f `imm_t'(...)` lists `range <
+                    // constant INT:31` behind the clone's alias, and dec32's
+                    // `op32_b_t'(op)` reaches the member `fn3_t` clone with
+                    // `INT:2`, where we reached the definition listing's
+                    // `32-1` / `3-1` operations (the clone's own range
+                    // already followed the view).  The view rule the
+                    // elaborated formals and return variables already follow
+                    // (TaskFuncEmit).  The logic clone's vpiInstance still
+                    // reads the definition listing's.  Grid
+                    // tools/probe/r11u172rp/cases/D.  Switch
+                    // R11U172_DEPTH_OFF.
+                    UHDM::typespec* cts172 = nullptr;
+                    // (r11u174 landed it: R11U174_OFF drops it with the rest
+                    // of the pass; the trace reads R11U174_TRACE.)
+                    if (pkgTopEmit && currentSubSym &&
+                        getenv("R11U172_OFF") == nullptr &&
+                        getenv("R11U172_DEPTH_OFF") == nullptr &&
+                        r11u174On("R11U172_DEPTH_OFF")) {
+                        auto ps172 = currentSubSym->getParentScope();
+                        const Scope* hp172 = nullptr;
+                        for (auto sc = expr.type->getParentScope(); sc;
+                             sc = sc->asSymbol().getParentScope())
+                            if (sc->asSymbol().kind == SymbolKind::Package) {
+                                hp172 = sc;
+                                break;
+                            }
+                        if (ps172 && hp172 == ps172 &&
+                            ps172->asSymbol().kind == SymbolKind::Package)
+                            if (auto t172 = pkgTopTypedefTs.find(
+                                    (const void*)expr.type);
+                                t172 != pkgTopTypedefTs.end() && t172->second &&
+                                t172->second->UhdmType() == cts->UhdmType())
+                                cts172 = t172->second;
+                    }
+                    if (cts172)
+                        trace174(cts->UhdmType() != UHDM::uhdmlogic_typespec
+                                     ? "DEPTH172 top"
+                                     : "DEPTH172 top logic alias");
+                    if (cts172 && cts->UhdmType() != UHDM::uhdmlogic_typespec)
+                        cts = cts172;
                     // § modFnLocalTdCastClone112 — a module-local logic / bit
                     // / int typedef cast inside a function or task of the
                     // same module: a fresh self-named copy aliased to the
@@ -23987,7 +24032,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             auto* art2 = s.MakeRef_typespec();
                             art2->VpiFullName(std::string(ta2.name));
                             art2->VpiParent(cl2);
-                            art2->Actual_typespec(cts);
+                            art2->Actual_typespec(cts172 ? cts172 : cts);
+                            if (cts172)
+                                trace174("DEPTH172 alias written");
                             ((UHDM::logic_typespec*)cl2)->Typedef_alias(art2);
                             cts = cl2;
                         }

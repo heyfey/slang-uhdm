@@ -1,0 +1,11 @@
+downstream databases compared=805 (fenced excluded) movers=8: jeras_union param_nested_struct_field_width rp32_r5p_alu rp32_r5p_bru rp32_r5p_mdu rp32_r5p_wbu struct_param_field_shift struct_param_func_config
+their <test>_nohier.il, <test>.il and <test>_synth.v (slang lane) byte-identical to the pristine sweep's; downstream.csv byte-identical to the pristine sweep's
+jeras_union,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+param_nested_struct_field_width,IDENTICAL,OK,OK,70,70,,
+pkg_nested_struct_param_width,IDENTICAL,OK,OK,66,66,,
+rp32_r5p_alu,IDENTICAL,OK,OK,1332,1332,,
+rp32_r5p_bru,IDENTICAL,OK,OK,174,174,,
+rp32_r5p_mdu,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+rp32_r5p_wbu,IDENTICAL,OK,OK,320,320,,
+struct_param_field_shift,IDENTICAL,OK,OK,1,1,,
+struct_param_func_config,IDENTICAL,NO_GATES,NO_GATES,0,0,,

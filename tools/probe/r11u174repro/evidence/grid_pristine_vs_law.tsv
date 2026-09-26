@@ -1,0 +1,48 @@
+as/a01	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_385_objects	cmp-text-same	away 9 -> 0  missing 9 ->
+as/a02	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_466_objects	cmp-text-same	away 13 -> 0  missing 13 ->
+as/a03	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_385_objects	cmp-text-same	away 9 -> 0  missing 9 ->
+as/a04	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_385_objects	cmp-text-same	away 9 -> 0  missing 9 ->
+as/a05	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_466_objects	cmp-text-same	away 13 -> 0  missing 13 ->
+as/a06	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_385_objects	cmp-text-same	away 9 -> 0  missing 9 ->
+as/a07	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_723_objects	cmp-text-same	away 29 -> 0  missing 29 ->
+as/a08	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_465_objects	cmp-text-same	away 13 -> 0  missing 13 ->
+lr/l01	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_385_objects	cmp-text-same	away 9 -> 0  missing 9 ->
+lr/l02	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_465_objects	cmp-text-same	away 18 -> 0  missing 18 ->
+lr/l03	cmp=255 strict=NOT_EQUAL_stage1	cmp=255 strict=NOT_EQUAL_stage1	cmp-text-same
+lr/l04	cmp=255 strict=NOT_EQUAL_stage1	cmp=255 strict=NOT_EQUAL_stage1	cmp-text-same
+lr/l05	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_723_objects	cmp-text-same	away 28 -> 0  missing 28 ->
+lr/l06	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_389_objects	cmp-text-same	away 4 -> 0  missing 4 ->
+lr/l07	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_385_objects	cmp-text-same	away 9 -> 0  missing 9 ->
+lr/l08	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_385_objects	cmp-text-same	away 9 -> 0  missing 9 ->
+lr/l09	cmp=255 strict=NOT_EQUAL_stage1	cmp=255 strict=NOT_EQUAL_stage1	cmp-text-same
+lr/l10	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_563_objects	cmp-text-same	away 27 -> 0  missing 27 ->
+lr/l11	cmp=255 strict=NOT_EQUAL_stage1	cmp=255 strict=NOT_EQUAL_stage1	cmp-text-same
+lr/l12	cmp=255 strict=NOT_EQUAL_stage1	cmp=255 strict=NOT_EQUAL_stage1	cmp-text-same
+lr/l14	cmp=255 strict=NOT_EQUAL_stage1	cmp=255 strict=NOT_EQUAL_stage1	cmp-text-same
+lr/l15	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp-text-same	away 10 -> 1  missing 36 ->
+lr/l16	cmp=255 strict=NOT_EQUAL_stage1	cmp=255 strict=NOT_EQUAL_stage1	cmp-text-same
+lr/l17	cmp=255 strict=NOT_EQUAL_stage1	cmp=255 strict=NOT_EQUAL_stage1	cmp-text-same
+lr/l18	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_495_objects	cmp-text-same	away 13 -> 0  missing 13 ->
+ub/u01	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_401_objects	cmp-text-same	away 10 -> 0  missing 10 ->
+ub/u02	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_399_objects	cmp-text-same	away 10 -> 0  missing 10 ->
+ub/u03	cmp=255 strict=NOT_EQUAL_stage1	cmp=255 strict=NOT_EQUAL_stage1	cmp-text-same
+ub/u04	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_401_objects	cmp-text-same	away 10 -> 0  missing 10 ->
+ub/u05	cmp=0 strict=STRICT_EQUAL_307_objects	cmp=0 strict=STRICT_EQUAL_307_objects	cmp-text-same	away 0 -> 0  missing 0 ->
+ub/u06	cmp=255 strict=NOT_EQUAL_stage1	cmp=255 strict=NOT_EQUAL_stage1	cmp-text-same
+ub/u07	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_400_objects	cmp-text-same	away 9 -> 0  missing 9 ->
+ub/u08	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_415_objects	cmp-text-same	away 10 -> 0  missing 10 ->
+ub/u09	cmp=255 strict=NOT_EQUAL_stage1	cmp=255 strict=NOT_EQUAL_stage1	cmp-text-same
+ub/u10	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_398_objects	cmp-text-same	away 10 -> 0  missing 10 ->
+ub/u11	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_413_objects	cmp-text-same	away 10 -> 0  missing 10 ->
+ub/u12	cmp=0 strict=STRICT_NOTEQUAL_line	cmp=0 strict=STRICT_NOTEQUAL_line	cmp-text-same	away 65 -> 60  missing 65 ->
+ub/u13	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_385_objects	cmp-text-same	away 9 -> 0  missing 9 ->
+ub/u14	cmp=0 strict=STRICT_NOTEQUAL_col	cmp=0 strict=STRICT_NOTEQUAL_col	cmp-text-same	away 13 -> 4  missing 13 ->
+ub/u15	cmp=255 strict=NOT_EQUAL_stage1	cmp=255 strict=NOT_EQUAL_stage1	cmp-text-same
+ub/u16	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_413_objects	cmp-text-same	away 11 -> 0  missing 11 ->
+ub/u17	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_402_objects	cmp-text-same	away 9 -> 0  missing 9 ->
+ub/u18	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_486_objects	cmp-text-same	away 20 -> 0  missing 20 ->
+ub/u19	cmp=255 strict=NOT_EQUAL_stage1	cmp=255 strict=NOT_EQUAL_stage1	cmp-text-same
+ub/u20	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_402_objects	cmp-text-same	away 10 -> 0  missing 10 ->
+ub/u21	cmp=0 strict=STRICT_EQUAL_132_objects	cmp=0 strict=STRICT_EQUAL_132_objects	cmp-text-same	away 0 -> 0  missing 0 ->
+ub/u22	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_402_objects	cmp-text-same	away 10 -> 0  missing 10 ->
+ub/u23	cmp=0 strict=STRICT_NOTEQUAL_fullname	cmp=0 strict=STRICT_EQUAL_482_objects	cmp-text-same	away 14 -> 0  missing 14 ->
