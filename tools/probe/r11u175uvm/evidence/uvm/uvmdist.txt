@@ -1,0 +1,17 @@
+# uvmdist.sh (order-blind: dist = ours-not-in-golden, rev = golden-not-in-ours, records depth dropped)
+# pristine e3f14d0a sweep
+pristine MiniAmiq/default dist=16872 rev=38449 total=55321 mfc_file_away=15 golden_records=435569 ours_records=413992
+pristine MiniAmiq/testflags dist=16871 rev=38448 total=55319 mfc_file_away=15 golden_records=435569 ours_records=413992
+pristine SeqDriver/default dist=15772 rev=29119 total=44891 mfc_file_away=15 golden_records=475526 ours_records=462179
+pristine SeqDriver/testflags dist=15771 rev=29118 total=44889 mfc_file_away=15 golden_records=475538 ours_records=462191
+pristine SimpleUVM/default dist=10672 rev=11396 total=22068 mfc_file_away=15 golden_records=334285 ours_records=333561
+pristine SimpleUVM/testflags dist=10672 rev=11396 total=22068 mfc_file_away=15 golden_records=334297 ours_records=333573
+pristine Scoreboard/default dist=9306 rev=10010 total=19316 mfc_file_away=15 golden_records=269656 ours_records=268952
+# law sweep
+law MiniAmiq/default dist=12565 rev=19412 total=31977 mfc_file_away=15 golden_records=435569 ours_records=428722
+law MiniAmiq/testflags dist=12565 rev=19412 total=31977 mfc_file_away=15 golden_records=435569 ours_records=428722
+law SeqDriver/default dist=11024 rev=14551 total=25575 mfc_file_away=15 golden_records=475526 ours_records=471999
+law SeqDriver/testflags dist=11024 rev=14551 total=25575 mfc_file_away=15 golden_records=475538 ours_records=472011
+law SimpleUVM/default dist=5393 rev=6117 total=11510 mfc_file_away=15 golden_records=334285 ours_records=333561
+law SimpleUVM/testflags dist=5393 rev=6117 total=11510 mfc_file_away=15 golden_records=334297 ours_records=333573
+law Scoreboard/default dist=4276 rev=4980 total=9256 mfc_file_away=15 golden_records=269656 ours_records=268952

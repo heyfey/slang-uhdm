@@ -1,0 +1,154 @@
+diff --git a/src/TaskFuncEmit.cpp b/src/TaskFuncEmit.cpp
+index 94918d2a2..3c41d2221 100644
+--- a/src/TaskFuncEmit.cpp
++++ b/src/TaskFuncEmit.cpp
+@@ -20,6 +20,14 @@ namespace slang_uhdm {
+ bool r11u137Law(const char* sw);
+ bool r11u144Law(const char* sw);
+ 
++// The r11u175 switches (tools/probe/r11u175uvm/README.md): every r11u175 law
++// reads its own R11U175_<LAW>_OFF switch; R11U175_OFF drops all of them.
++static bool r11u175LawB(const char* sw) {
++    if (getenv("R11U175_OFF") != nullptr)
++        return false;
++    return getenv(sw) == nullptr;
++}
++
+ // § classHandleRetTsNameUnlessSameHomeComponent156 — the HOME DESIGN COMPONENT
+ // of a scope, keyed the way Surelog's class REGISTRY keys it
+ // (`Design::addClassDefinition`, and the `Compile class "…"` lines of its own
+@@ -3914,7 +3922,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
+             // ...unless a class-item qualifier displaced the anchor, in which
+             // case the `varId` that span comes from is invalid too
+             // (§ qualifiedCtorLosesPortListAndBody27, t37f).
+-            if (!args0.empty() && !qualCtor27)
++            // § externProtoFormalsFromPrototype175, the CONSTRUCTOR half —
++            // the class-body listing of an `extern function new(...)` is the
++            // prototype compile (compileFunctionPrototype), whose return
++            // class_var is never located: golden `class_var` 0:0 with no
++            // file (grid f4/a03_ctor).  Switch R11U175_FSPAN_OFF.
++            if (!args0.empty() && !qualCtor27 &&
++                !(protoOf && r11u175LawB("R11U175_FSPAN_OFF")))
+                 setLoc(rv, nameSpan(args0[0]->location, args0[0]->name));
+             auto* cts = s.MakeClass_typespec();
+             // ...but only in the CLASS's own listing. The def-view package
+@@ -4021,6 +4035,28 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
+             rv46->VpiParent(tf);
+             ((UHDM::function*)tf)->Return(rv46);
+         }
++        // § externProtoFormalsFromPrototype175, the RETURN half — the
++        // class-body listing of an `extern` method compiles its return
++        // variable from the PROTOTYPE's return type (compileFunctionPrototype
++        // -> compileVariable over the prototype's Function_data_type), so the
++        // return var, its typespec and its range bounds sit at the
++        // prototype's return-type token (grid f4/a04_class_formal
++        // `extern function item get(...)` 4:21-4:25, f4/a05_ranges
++        // `bit [3:0]` 3:21-3:30).  Switch R11U175_FSPAN_OFF.
++        auto retTypeSyn175 = [&](const SubroutineSymbol& s175)
++            -> const syntax::SyntaxNode* {
++            if (protoOf && r11u175LawB("R11U175_FSPAN_OFF"))
++                if (const syntax::SyntaxNode* p175 = protoOf->getSyntax()) {
++                    if (p175->kind == syntax::SyntaxKind::ClassMethodPrototype)
++                        p175 = p175->as<syntax::ClassMethodPrototypeSyntax>()
++                                   .prototype;
++                    if (p175 &&
++                        p175->kind == syntax::SyntaxKind::FunctionPrototype)
++                        return p175->as<syntax::FunctionPrototypeSyntax>()
++                            .returnType;
++                }
++            return returnTypeSyntax(s175);
++        };
+         // Function return: an anonymous variable carrying only the full name,
+         // anchored at the return-type syntax like its typespec.
+         if (isFunc && !qualLifetime46 && sub.returnValVar &&
+@@ -4114,7 +4150,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
+                           ? lateRv10
+                           : makeReturnVar(
+                                 s, sub.getReturnType(),
+-                                implicitRetWrittenSigning70(returnTypeSyntax(sub)));
++                                implicitRetWrittenSigning70(retTypeSyn175(sub)));
+             // § atomVarSignedWritten68, site 3 of 7 — THE ordinary return
+             // variable, in-class, out-of-body `extern`, package-homed and
+             // module-homed alike (arm a5 cells 12:12 pkf, 21:10 V5::ex_ret,
+@@ -4127,7 +4163,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
+             // An IMPLICIT return type ("function f;") yields a bare return var:
+             // no typespec, no location.
+             bool implicitRet = false;
+-            if (auto* rsyn = returnTypeSyntax(sub)) {
++            if (auto* rsyn = retTypeSyn175(sub)) {
+                 if (rsyn->kind == syntax::SyntaxKind::ImplicitType) {
+                     auto& its = rsyn->as<syntax::ImplicitTypeSyntax>();
+                     implicitRet = its.dimensions.empty() && !its.signing.valid();
+@@ -4401,7 +4437,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
+                     // class reference instead of leaving it null.
+                     else
+                         pendingClassTsLink.push_back({cts9, &rct9});
+-                    if (auto* rsyn9 = returnTypeSyntax(sub))
++                    if (auto* rsyn9 = retTypeSyn175(sub))
+                         setLoc(cts9, rsyn9->sourceRange());
+                     // § classHandleRetTsNameUnlessSameHomeComponent156 —
+                     // the class-handle return is anonymous ONLY when Surelog's
+@@ -4426,7 +4462,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
+                     // has a winning typedef.  Arm a2 `c_sites::m_ret`.
+                     if (sub.returnValVar)
+                         if (auto gnR87 = classTpGroupDeclName87(
+-                                *sub.returnValVar, returnTypeSyntax(sub));
++                                *sub.returnValVar, retTypeSyn175(sub));
+                             !gnR87.empty()) {
+                             cts9->VpiName(gnR87);
+                             tpGroupTs87.insert(cts9);
+@@ -4446,7 +4482,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
+                     tdCloneRefNoBind18 = true;  // § pkgTdCloneRefNoBind18
+                 }
+                 tfTypeScope = pkgScope ? sub.getParentScope() : nullptr;
+-                ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
++                ts = makeTypespec(*sub.returnValVar, retTypeSyn175(sub));
+                 tdCloneRefNoBind18 = savedNb18;
+                 tfTypeScope = nullptr;
+                 tfContext = false;
+@@ -4533,7 +4569,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
+                 ts->UhdmType() == UHDM::uhdmenum_typespec ||
+                 ts->UhdmType() == UHDM::uhdmarray_typespec ||
+                 typedefRetClone || pkgUnitRet9) {
+-                if (auto* rsyn = returnTypeSyntax(sub)) {
++                if (auto* rsyn = retTypeSyn175(sub)) {
+                     auto rr9 = rsyn->sourceRange();
+                     std::string rw9 = rawText(rr9);
+                     auto re9 = rr9.end();
+@@ -4563,7 +4599,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
+                     // The range and its bounds anchor at the DIM tokens
+                     // ([1:0] / 1 / 0) when the return-type syntax has them.
+                     std::vector<DimSpan> rSpans;
+-                    if (auto* rsyn9 = returnTypeSyntax(sub)) {
++                    if (auto* rsyn9 = retTypeSyn175(sub)) {
+                         auto rr9 = rsyn9->sourceRange();
+                         if (rr9.start() != SourceLocation::NoLocation)
+                             rSpans = scanDimSpans(
+@@ -4690,7 +4726,26 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
+         }
+ 
+         auto* ios = s.MakeIo_declVec();
+-        for (auto arg : sub.getArguments()) {
++        // § externProtoFormalsFromPrototype175 (r11u175) — the CLASS-BODY
++        // listing of an `extern` method (`protoOf` set) lists the formals
++        // Surelog compiled from the PROTOTYPE, not the out-of-body
++        // definition's: CompileHelper::compileFunctionPrototype /
++        // compileTaskPrototype (CompileStmt.cpp) run compileTfPortList over
++        // the prototype's own Tf_port_list, and the definition's later
++        // compile finds that object already populated (`if (func->Io_decls()
++        // || ...) return true;`, CompileStmt.cpp compileFunction) and leaves
++        // it.  So every io_decl of that listing, its default constant, its
++        // typespec and its range bounds are located at the PROTOTYPE's
++        // tokens (golden uvm_component::new io_decl `name` 76:31-76:35, the
++        // prototype, where ours read the definition 1728:37-1728:41).  The
++        // package listing's definition (`C::m`) keeps the definition's
++        // formals.  Grid tools/probe/r11u175uvm/cases/f4.  Switch
++        // R11U175_FSPAN_OFF (R11U175_OFF drops every r11u175 law).
++        auto args175 = sub.getArguments();
++        if (protoOf && r11u175LawB("R11U175_FSPAN_OFF") &&
++            protoOf->getArguments().size() == args175.size())
++            args175 = protoOf->getArguments();
++        for (auto arg : args175) {
+             auto* io = s.MakeIo_decl();
+             io->VpiName(arg->name);
+             io->VpiParent(tf);

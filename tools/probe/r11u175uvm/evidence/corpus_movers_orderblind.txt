@@ -1,0 +1,6 @@
+surelog/default/ApbSlave 46+42=88 8+4=12
+surelog/testflags/ApbSlave 46+42=88 8+4=12
+surelog/default/SVSwitch 74+53=127 72+51=123
+surelog/testflags/SVSwitch 74+53=127 72+51=123
+surelog/default/BuildUVMPkg 7393+7440=14833 2571+2618=5189
+surelog/testflags/BuildUVMPkg 7393+7440=14833 2571+2618=5189
