@@ -1,0 +1,29 @@
+== swP
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+== swM
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+== swP
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+== swM
+  SVSwitch                       default   CHANGED STRICT_NOTEQUAL/differ:fullname(11) -> STRICT_NOTEQUAL/differ:file(9)
+  SVSwitch                       testflags CHANGED STRICT_NOTEQUAL/differ:fullname(11) -> STRICT_NOTEQUAL/differ:file(9)
+  SimpleUVM                      default   CHANGED STRICT_NOTEQUAL/differ:fullname(45) -> STRICT_NOTEQUAL/differ:fullname(42)
+  SimpleUVM                      testflags CHANGED STRICT_NOTEQUAL/differ:fullname(45) -> STRICT_NOTEQUAL/differ:fullname(42)
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:file(29) -> STRICT_NOTEQUAL/differ:file(26)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:file(29) -> STRICT_NOTEQUAL/differ:file(26)
+  BuildUVMPkg                    default   CHANGED STRICT_NOTEQUAL/differ:line(94) -> STRICT_NOTEQUAL/differ:line(69)
+  BuildUVMPkg                    testflags CHANGED STRICT_NOTEQUAL/differ:line(94) -> STRICT_NOTEQUAL/differ:line(69)
+  Scoreboard                     default   CHANGED STRICT_NOTEQUAL/differ:fullname(45) -> STRICT_NOTEQUAL/differ:fullname(42)
+---- canary rows: ok=43 changed=9 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25

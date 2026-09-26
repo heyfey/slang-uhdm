@@ -1,0 +1,59 @@
+# fix1 + R11U178_OFF vs pristine sweep, and fix1 + R11V178_OFF vs law sweep, on the re-run mover rows (drivers/rowsoff.sh); DIFF rows attributed order-blind (drivers/coin.sh)
+SAME R11U178_OFF:surelog ./default/BitSelectExpr-ff5ac7cf/slang.uhdm
+SAME R11U178_OFF:surelog ./default/BlackBePipeInt-1fcd9dad/slang.uhdm
+SAME R11U178_OFF:surelog ./default/BuildUVMPkg-fc55bd0c/slang.uhdm
+SAME R11U178_OFF:surelog ./default/Earlgrey_0_1-a898def8/slang.uhdm
+SAME R11U178_OFF:surelog ./default/GenScopeHierPath3-caa0b54e/slang.uhdm
+SAME R11U178_OFF:surelog ./default/LocalScopeHierPath-d34532d7/slang.uhdm
+DIFF R11U178_OFF:surelog ./default/MiniAmiq-055eab74/slang.uhdm dump_lines_diff=6 orderblind_diff=6
+DIFF R11U178_OFF:surelog ./default/Scoreboard-72aa0ba8/slang.uhdm dump_lines_diff=94 orderblind_diff=2
+SAME R11U178_OFF:surelog ./default/Scr1SvTests-fa4609ad/slang.uhdm
+SAME R11U178_OFF:surelog ./default/SeqDriver-65178d3a/slang.uhdm
+DIFF R11U178_OFF:surelog ./default/SimpleUVM-267de3ff/slang.uhdm dump_lines_diff=6 orderblind_diff=6
+SAME R11U178_OFF:surelog ./default/SVSwitch-07f2b6b3/slang.uhdm
+SAME R11U178_OFF:surelog ./testflags/BitSelectExpr-ff5ac7cf/slang.uhdm
+SAME R11U178_OFF:surelog ./testflags/BlackBePipeInt-1fcd9dad/slang.uhdm
+SAME R11U178_OFF:surelog ./testflags/BuildUVMPkg-fc55bd0c/slang.uhdm
+SAME R11U178_OFF:surelog ./testflags/Earlgrey_0_1-a898def8/slang.uhdm
+SAME R11U178_OFF:surelog ./testflags/GenScopeHierPath3-caa0b54e/slang.uhdm
+SAME R11U178_OFF:surelog ./testflags/LocalScopeHierPath-d34532d7/slang.uhdm
+DIFF R11U178_OFF:surelog ./testflags/MiniAmiq-055eab74/slang.uhdm dump_lines_diff=6 orderblind_diff=6
+SAME R11U178_OFF:surelog ./testflags/Scr1SvTests-fa4609ad/slang.uhdm
+DIFF R11U178_OFF:surelog ./testflags/SeqDriver-65178d3a/slang.uhdm dump_lines_diff=6 orderblind_diff=6
+SAME R11U178_OFF:surelog ./testflags/SimpleUVM-267de3ff/slang.uhdm
+SAME R11U178_OFF:surelog ./testflags/SVSwitch-07f2b6b3/slang.uhdm
+SAME R11U178_OFF:uhdm2rtlil ./default/ExpressionInIndex-0cd2d518/slang.uhdm
+SAME R11U178_OFF:uhdm2rtlil ./default/iface_zero_width_field-9966c829/slang.uhdm
+SAME R11U178_OFF:uhdm2rtlil ./default/packed_struct_array_shift-bb8b1464/slang.uhdm
+SAME R11U178_OFF:uhdm2rtlil ./testflags/ExpressionInIndex-0cd2d518/slang.uhdm
+SAME R11U178_OFF:uhdm2rtlil ./testflags/iface_zero_width_field-9966c829/slang.uhdm
+SAME R11U178_OFF:uhdm2rtlil ./testflags/packed_struct_array_shift-bb8b1464/slang.uhdm
+SAME R11V178_OFF:surelog ./default/BitSelectExpr-ff5ac7cf/slang.uhdm
+SAME R11V178_OFF:surelog ./default/BlackBePipeInt-1fcd9dad/slang.uhdm
+SAME R11V178_OFF:surelog ./default/BuildUVMPkg-fc55bd0c/slang.uhdm
+SAME R11V178_OFF:surelog ./default/Earlgrey_0_1-a898def8/slang.uhdm
+SAME R11V178_OFF:surelog ./default/GenScopeHierPath3-caa0b54e/slang.uhdm
+SAME R11V178_OFF:surelog ./default/LocalScopeHierPath-d34532d7/slang.uhdm
+DIFF R11V178_OFF:surelog ./default/MiniAmiq-055eab74/slang.uhdm dump_lines_diff=6 orderblind_diff=6
+DIFF R11V178_OFF:surelog ./default/Scoreboard-72aa0ba8/slang.uhdm dump_lines_diff=28 orderblind_diff=2
+SAME R11V178_OFF:surelog ./default/Scr1SvTests-fa4609ad/slang.uhdm
+DIFF R11V178_OFF:surelog ./default/SeqDriver-65178d3a/slang.uhdm dump_lines_diff=6 orderblind_diff=6
+DIFF R11V178_OFF:surelog ./default/SimpleUVM-267de3ff/slang.uhdm dump_lines_diff=6 orderblind_diff=6
+SAME R11V178_OFF:surelog ./default/SVSwitch-07f2b6b3/slang.uhdm
+SAME R11V178_OFF:surelog ./testflags/BitSelectExpr-ff5ac7cf/slang.uhdm
+SAME R11V178_OFF:surelog ./testflags/BlackBePipeInt-1fcd9dad/slang.uhdm
+SAME R11V178_OFF:surelog ./testflags/BuildUVMPkg-fc55bd0c/slang.uhdm
+SAME R11V178_OFF:surelog ./testflags/Earlgrey_0_1-a898def8/slang.uhdm
+SAME R11V178_OFF:surelog ./testflags/GenScopeHierPath3-caa0b54e/slang.uhdm
+SAME R11V178_OFF:surelog ./testflags/LocalScopeHierPath-d34532d7/slang.uhdm
+DIFF R11V178_OFF:surelog ./testflags/MiniAmiq-055eab74/slang.uhdm dump_lines_diff=6 orderblind_diff=6
+SAME R11V178_OFF:surelog ./testflags/Scr1SvTests-fa4609ad/slang.uhdm
+DIFF R11V178_OFF:surelog ./testflags/SeqDriver-65178d3a/slang.uhdm dump_lines_diff=6 orderblind_diff=6
+SAME R11V178_OFF:surelog ./testflags/SimpleUVM-267de3ff/slang.uhdm
+SAME R11V178_OFF:surelog ./testflags/SVSwitch-07f2b6b3/slang.uhdm
+SAME R11V178_OFF:uhdm2rtlil ./default/ExpressionInIndex-0cd2d518/slang.uhdm
+SAME R11V178_OFF:uhdm2rtlil ./default/iface_zero_width_field-9966c829/slang.uhdm
+SAME R11V178_OFF:uhdm2rtlil ./default/packed_struct_array_shift-bb8b1464/slang.uhdm
+SAME R11V178_OFF:uhdm2rtlil ./testflags/ExpressionInIndex-0cd2d518/slang.uhdm
+SAME R11V178_OFF:uhdm2rtlil ./testflags/iface_zero_width_field-9966c829/slang.uhdm
+SAME R11V178_OFF:uhdm2rtlil ./testflags/packed_struct_array_shift-bb8b1464/slang.uhdm

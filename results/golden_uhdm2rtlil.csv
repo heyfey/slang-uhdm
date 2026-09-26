@@ -374,7 +374,7 @@ iface_struct_field_slice_read,default,CMP_EQUAL,,,equal
 iface_unpacked_signal,default,CMP_EQUAL,,,equal
 iface_unpacked_struct_array,default,CMP_EQUAL,,,equal
 iface_wholestruct_param,default,CMP_EQUAL,,,equal
-iface_zero_width_field,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+iface_zero_width_field,default,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
 ImportedDoubleCastedParameter,default,CMP_EQUAL,,,equal
 ImportedEnumCast,default,CMP_EQUAL,,,equal
 ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor,default,CMP_EQUAL,,,equal
@@ -1245,7 +1245,7 @@ iface_struct_field_slice_read,testflags,CMP_EQUAL,,,equal
 iface_unpacked_signal,testflags,CMP_EQUAL,,,equal
 iface_unpacked_struct_array,testflags,CMP_EQUAL,,,equal
 iface_wholestruct_param,testflags,CMP_EQUAL,,,equal
-iface_zero_width_field,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
+iface_zero_width_field,testflags,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
 ImportedDoubleCastedParameter,testflags,CMP_EQUAL,,,equal
 ImportedEnumCast,testflags,CMP_EQUAL,,,equal
 ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor,testflags,CMP_EQUAL,,,equal

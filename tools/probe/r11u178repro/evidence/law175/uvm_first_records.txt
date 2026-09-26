@@ -1,0 +1,108 @@
+== MiniAmiq default swP
+#573 file
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_block.svh	1671	35	1671	46
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_model.svh	180	4	183	18
+#600 file
+  A: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_block.svh	1819	48	1819	64
+  B: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_model.svh	196	4	202	23
+objects 435559 vs 413982
+fields: depth=1 type=1 name=1 fullname=5 file=21 line=19 col=22 endline=19 endcol=22 objects_differing=29 (walk diverged)
+== MiniAmiq default swL
+#573 file
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_block.svh	1671	35	1671	46
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_model.svh	180	4	183	18
+#600 file
+  A: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_block.svh	1819	48	1819	64
+  B: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_model.svh	196	4	202	23
+objects 435559 vs 428712
+fields: depth=1 type=1 name=1 fullname=2 file=21 line=19 col=22 endline=19 endcol=22 objects_differing=26 (walk diverged)
+== SeqDriver default swP
+#556 file
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_block.svh	1671	35	1671	46
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_model.svh	180	4	183	18
+#583 file
+  A: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_block.svh	1819	48	1819	64
+  B: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_model.svh	196	4	202	23
+objects 475526 vs 462179
+fields: depth=1 type=1 name=1 fullname=5 file=21 line=19 col=22 endline=19 endcol=22 objects_differing=29 (walk diverged)
+== SeqDriver default swL
+#556 file
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_block.svh	1671	35	1671	46
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_model.svh	180	4	183	18
+#583 file
+  A: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_block.svh	1819	48	1819	64
+  B: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_model.svh	196	4	202	23
+objects 475526 vs 471999
+fields: depth=1 type=1 name=1 fullname=2 file=21 line=19 col=22 endline=19 endcol=22 objects_differing=26 (walk diverged)
+== SimpleUVM default swP
+#458 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+#464 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0
+objects 334285 vs 333561
+fields: depth=1 type=1 name=1 fullname=21 file=21 line=19 col=22 endline=19 endcol=22 objects_differing=45 (walk diverged)
+== SimpleUVM default swL
+#458 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+#464 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0
+objects 334285 vs 333561
+fields: depth=1 type=1 name=1 fullname=18 file=21 line=19 col=22 endline=19 endcol=22 objects_differing=42 (walk diverged)
+== Scoreboard default swP
+#466 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+#472 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0
+objects 269656 vs 268952
+fields: depth=1 type=1 name=1 fullname=21 file=21 line=19 col=22 endline=19 endcol=22 objects_differing=45 (walk diverged)
+== Scoreboard default swL
+#466 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+#472 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0
+objects 269656 vs 268952
+fields: depth=1 type=1 name=1 fullname=18 file=21 line=19 col=22 endline=19 endcol=22 objects_differing=42 (walk diverged)
+== BuildUVMPkg default swP
+#873 line
+  A: 2	struct_typespec	uvm_pkg::m_uvm_factory_type_pair_t			uvm_pkg.sv	13427	55	13427	80
+  B: 2	struct_typespec	uvm_pkg::m_uvm_factory_type_pair_t			uvm_pkg.sv	11401	9	11402	49
+#909 line
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_pkg.sv	79053	35	79053	46
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_pkg.sv	60837	4	60840	18
+objects 201533 vs 201486
+fields: depth=1 type=1 name=1 fullname=40 file=1 line=49 col=52 endline=51 endcol=55 size=1 objects_differing=94 (walk diverged)
+== BuildUVMPkg default swL
+#873 line
+  A: 2	struct_typespec	uvm_pkg::m_uvm_factory_type_pair_t			uvm_pkg.sv	13427	55	13427	80
+  B: 2	struct_typespec	uvm_pkg::m_uvm_factory_type_pair_t			uvm_pkg.sv	11401	9	11402	49
+#909 line
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_pkg.sv	79053	35	79053	46
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_pkg.sv	60837	4	60840	18
+objects 201533 vs 201486
+fields: depth=1 type=1 name=1 fullname=17 file=1 line=49 col=52 endline=49 endcol=53 size=1 objects_differing=69 (walk diverged)
+== SVSwitch default swP
+#101 fullname
+  A: 11	ref_obj	bytes		work@Driver::start::pkt.byte_pack::bytes	Driver.sv	47	31	47	36		0
+  B: 11	ref_obj	bytes		work@Driver::start::bytes	Driver.sv	47	31	47	36		0
+#184 file
+  A: 5	class_typespec	Receiver			Environemnt.sv	20	3	20	11
+  B: 5	class_typespec	Receiver				0	0	0	0
+objects 5787 vs 5808
+fields: depth=1 type=1 name=1 fullname=5 file=5 line=5 col=6 endline=6 endcol=7 objects_differing=11 (walk diverged)
+== SVSwitch default swL
+#184 file
+  A: 5	class_typespec	Receiver			Environemnt.sv	20	3	20	11
+  B: 5	class_typespec	Receiver				0	0	0	0
+#264 col
+  A: 6	bit_select	rcvr		work@Environment::build::rcvr	Environemnt.sv	43	11	43	12		0
+  B: 6	bit_select	rcvr		work@Environment::build::rcvr	Environemnt.sv	43	6	43	13		0
+objects 5787 vs 5808
+fields: depth=1 type=1 name=1 fullname=3 file=5 line=5 col=6 endline=6 endcol=7 objects_differing=9 (walk diverged)

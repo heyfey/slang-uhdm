@@ -11,7 +11,91 @@
 #include <functional>
 #include <optional>
 
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/clone_tree.h>
+
 namespace slang_uhdm {
+
+// The r11u175 switches (tools/probe/r11u175uvm/README.md): every r11u175 law
+// reads its own R11U175_<LAW>_OFF switch; R11U175_OFF drops all of them.
+static bool r11u175LawA(const char* sw) {
+    // R11U178_OFF (pass r11u178, which lands these laws) drops them too.
+    if (getenv("R11U175_OFF") != nullptr || getenv("R11U178_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
+// § importCloneBodyLocalCopies175 (r11u175) — the objects a wildcard
+// IMPORTER's listing holds for a local the home body declares.  Surelog
+// compiles a body declaration ONCE (CompileStmt.cpp compileDataDeclaration:
+// the variable -- and, for an unpacked array, its element variable FIRST --
+// is pushed onto the enclosing scope's Variables, and the same object is the
+// declaration assignment's Lhs; compileFunction / compileTask push it onto the
+// subroutine's Variables too), so in the HOME listing one object is reached
+// from every list and a walk meets it once.  The importer's listing is a
+// `clone_tree` of that function (CompileHelper.cpp importPackage, `inPackage`:
+// ElaboratorContext(&s, false, true)), and DeepClone copies each LIST: the
+// subroutine's Variables, the wrapper begin's Variables and the assignment's
+// Lhs each get their OWN copy, parented at the clone that lists it.  Golden
+// c02_extern_import: p2::base::print's begin lists `key`, the element int_var
+// of `arr` (full name `p2::base::print`, parented at the begin), `arr`, `h`,
+// `id` as objects distinct from the function's; the home p1 listing lists the
+// same five as the function's own objects.  So in an importer clone
+// (`pkgImportCloneEmit`) those two lists take copies made the way Surelog makes
+// them (UHDM's clone_tree).  Grid tools/probe/r11u175uvm/cases/f2.  Switch
+// R11U175_MULT_OFF.
+static UHDM::any* cloneLocal175(UHDM::Serializer& s, const UHDM::any* o,
+                                UHDM::any* parent) {
+    // Made design-final (drainImportCloneLocalCopies175), after every
+    // deferred link and fold has reached the home object, with Surelog's own
+    // context: ElaboratorContext(&s, false, /*muteErrors=*/true), typespecs
+    // uniquified (the listener's default), so a copy's typespec is parented
+    // in the copy and its unnamed references take the copy's full name
+    // (golden `p2::base::print::arr` on the element reference of the begin
+    // copy's array typespec, c02_extern_import).
+    UHDM::ElaboratorContext ctx(&s, false, /*muteErrors=*/true);
+    auto* c = (UHDM::any*)UHDM::clone_tree(o, &ctx);
+    if (c)
+        c->VpiParent(parent);
+    return c;
+}
+// Recorded at emission, copied design-final: a copy made while the body is
+// emitted misses the links and folds drained later onto the home object
+// (measured: a null class_defn link and a folded range bound on SeqDriver,
+// uhdm-cmp differences).
+struct CloneLocalWrap175 {
+    UHDM::begin* ub;
+    std::vector<UHDM::variables*> vars;  // the wrapper's list, element first
+    std::vector<bool> elem;              // entry is an array's element var
+    std::string prefix;
+};
+static std::vector<CloneLocalWrap175> cloneLocalWraps175;
+// the v11u178 verifier switches (ExprEmit.cpp)
+bool r11v178On(const char* sw);
+static std::vector<std::pair<UHDM::assignment*, UHDM::variables*>> cloneLocalLhs175;
+void drainImportCloneLocalCopies175(UHDM::Serializer& s) {
+    for (auto& w : cloneLocalWraps175) {
+        auto* bv = s.MakeVariablesVec();
+        for (size_t i = 0; i < w.vars.size(); i++) {
+            auto* c = (UHDM::variables*)cloneLocal175(s, w.vars[i], w.ub);
+            if (!c)
+                continue;
+            if (w.elem[i]) {
+                // The element copy is parented at the begin, so its
+                // (unnamed) full name is the begin's.
+                c->VpiFullName(w.prefix);
+                if (auto* rt = c->Typespec())
+                    rt->VpiFullName(w.prefix);
+            }
+            bv->push_back(c);
+        }
+        w.ub->Variables(bv);
+    }
+    for (auto& [as, v] : cloneLocalLhs175)
+        as->Lhs((UHDM::expr*)cloneLocal175(s, v, as));
+    cloneLocalWraps175.clear();
+    cloneLocalLhs175.clear();
+}
 
 // § controlBodyNoBind28 — the BODY of a conditional or loop statement.  See
 // UhdmExporter.h's ctrlBodyDepth28: a class method's reference-binding
@@ -2789,8 +2873,14 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     asn->VpiParent(b);
                     if (auto dsyn = vs.getSyntax())
                         setLoc(asn, dsyn->sourceRange());
+                    // § importCloneBodyLocalCopies175 — a WRITTEN block's
+                    // declaration assignment in an importer clone: the
+                    // block's Variables keep the object, the Lhs is a copy.
                     vit->second->VpiParent(asn);
                     asn->Lhs((UHDM::expr*)vit->second);
+                    if (pkgImportCloneEmit && r11u175LawA("R11U175_MULT_OFF"))
+                        cloneLocalLhs175.emplace_back(
+                            asn, (UHDM::variables*)vit->second);
                     if (auto* rhs = emitExpr(*init, asn, innerPrefix, blockMap))
                         asn->Rhs((UHDM::expr*)rhs);
                     stmts->push_back(asn);
@@ -3019,6 +3109,43 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             auto* w = s.MakeDo_while();
             w->VpiParent(parent);
             setLoc(w, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 2));
+            // § doWhileSpansToCloseParen175 (r11u175) — golden's do_while
+            // runs from the `do` keyword to the condition's CLOSING
+            // PARENTHESIS (the end column is the `)` itself): `do begin ...
+            // end while (i < 3);` 5:5-7:21, `do i = i + 1; while (i < 3);`
+            // 5:5-5:31, uvm_default_factory::print's `do begin ... end
+            // while(m_type_names.next(key));` 1628:5-1640:37, where ours
+            // stopped at the keyword (5:5-5:7).  Grid
+            // tools/probe/r11u175uvm/cases/f7 d1-d5 (module initial, module
+            // function, package function, class method; begin and single
+            // statement bodies).  Same-buffer only.  Switch R11U175_ESPAN_OFF.
+            if (stmt.syntax &&
+                stmt.syntax->kind == syntax::SyntaxKind::DoWhileStatement &&
+                r11u175LawA("R11U175_ESPAN_OFF")) {
+                auto& dws175 = stmt.syntax->as<syntax::DoWhileStatementSyntax>();
+                auto cp175 = dws175.closeParen.location();
+                // § doWhileEndsAtCondEnd178v (v11u178, the adversarial
+                // verification of r11u178) — golden's end is the CONDITION's
+                // end, which is the `)` only when nothing stands between
+                // them: `while ( i < 3 );` 5:5-5:26 (after the `3`, the `)`
+                // is col 27), `while (j < 3 /* c */);` ends after the `3`,
+                // `while (\n j > 0\n );` ends on the condition's line
+                // (12:12, the `)` sits on line 13), `while ((k < 3));` after
+                // the inner `)`.  Grid tools/probe/r11v178repro/cases/dw.
+                // Same-buffer only (else the closing parenthesis, as
+                // landed).  Switch R11V178_DWCOND_OFF.
+                if (r11v178On("R11V178_DWCOND_OFF") && dws175.expr) {
+                    auto ce178 = dws175.expr->sourceRange().end();
+                    if (ce178.valid() &&
+                        ce178.buffer() == stmt.sourceRange.start().buffer() &&
+                        stmt.sourceRange.start() < ce178)
+                        cp175 = ce178;
+                }
+                if (cp175.valid() &&
+                    cp175.buffer() == stmt.sourceRange.start().buffer() &&
+                    stmt.sourceRange.start() < cp175)
+                    setLoc(w, SourceRange(stmt.sourceRange.start(), cp175));
+            }
             {   // § genScopeProcLoopCtrlNoFold76 — the do-while CONDITION
                 LoopCtrl76 lc76(procLoopCtrlDepth76);
                 if (auto* c = emitExpr(dw.cond, w, prefix, netMap))
@@ -6248,6 +6375,20 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     }
                     bvars->push_back((UHDM::variables*)it->second);
                 }
+            // § importCloneBodyLocalCopies175 — in an importer clone the
+            // wrapper's list holds COPIES (see the law above), made
+            // design-final.
+            if (!bvars->empty() && pkgImportCloneEmit &&
+                r11u175LawA("R11U175_MULT_OFF")) {
+                CloneLocalWrap175 w175{ub, {}, {}, prefix};
+                for (auto* bv175 : *bvars) {
+                    w175.vars.push_back(bv175);
+                    w175.elem.push_back(bv175->VpiParent() &&
+                                        bv175->VpiParent()->UhdmType() ==
+                                            UHDM::uhdmarray_var);
+                }
+                cloneLocalWraps175.push_back(std::move(w175));
+            }
             if (!bvars->empty())
                 ub->Variables(bvars);
             // § stmtScopeTdListedOnEnclosingScope157, SITE 2 of 3 — the
@@ -6352,8 +6493,12 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     setLoc(as, syn->sourceRange());
                 if (auto it = netMap.find(vsym); it != netMap.end()) {
                     auto* v = (UHDM::variables*)it->second;
+                    // § importCloneBodyLocalCopies175 — the Lhs of an
+                    // importer clone's declaration assignment is its own copy.
                     v->VpiParent(as);
                     as->Lhs((UHDM::expr*)v);
+                    if (pkgImportCloneEmit && r11u175LawA("R11U175_MULT_OFF"))
+                        cloneLocalLhs175.emplace_back(as, v);
                 }
                 if (auto* r = emitExpr(*init, as, prefix, netMap))
                     as->Rhs((UHDM::expr*)r);

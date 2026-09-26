@@ -1,0 +1,11 @@
+probe/r10v158repro__v158_d.uhdm INCDEC 0 ELABCA 0 DWCOND 1
+surelog/default/MiniAmiq-055eab74/slang.uhdm INCDEC 8 ELABCA 0 DWCOND 0
+surelog/default/Scoreboard-72aa0ba8/slang.uhdm INCDEC 4 ELABCA 0 DWCOND 0
+surelog/default/Scr1SvTests-fa4609ad/slang.uhdm INCDEC 0 ELABCA 28 DWCOND 0
+surelog/default/SeqDriver-65178d3a/slang.uhdm INCDEC 8 ELABCA 0 DWCOND 0
+surelog/default/SimpleUVM-267de3ff/slang.uhdm INCDEC 4 ELABCA 0 DWCOND 0
+surelog/testflags/GenScopeHierPath3-caa0b54e/slang.uhdm INCDEC 0 ELABCA 1 DWCOND 0
+surelog/testflags/MiniAmiq-055eab74/slang.uhdm INCDEC 8 ELABCA 0 DWCOND 0
+surelog/testflags/Scr1SvTests-fa4609ad/slang.uhdm INCDEC 0 ELABCA 28 DWCOND 0
+surelog/testflags/SeqDriver-65178d3a/slang.uhdm INCDEC 8 ELABCA 0 DWCOND 0
+surelog/testflags/SimpleUVM-267de3ff/slang.uhdm INCDEC 4 ELABCA 0 DWCOND 0

@@ -1,0 +1,10 @@
+R11U175_MULT_OFF regressions=0 conversions=13 changes=29 only-fresh=0 only-committed=0
+R11U175_FULLNAME_OFF regressions=0 conversions=8 changes=52 only-fresh=0 only-committed=0
+R11U175_ESPAN_OFF regressions=0 conversions=15 changes=55 only-fresh=0 only-committed=0
+R11U178_MIDIDX_OFF regressions=0 conversions=18 changes=62 only-fresh=0 only-committed=0
+R11U178_MIDIDXNAME_OFF regressions=0 conversions=18 changes=62 only-fresh=0 only-committed=0
+R11U178_PATUNQUAL_OFF regressions=0 conversions=17 changes=60 only-fresh=0 only-committed=0
+R11V178_INCDEC_OFF regressions=0 conversions=18 changes=64 only-fresh=0 only-committed=0
+R11V178_ELABCA_OFF regressions=0 conversions=18 changes=64 only-fresh=0 only-committed=0
+R11V178_DWCOND_OFF regressions=0 conversions=18 changes=64 only-fresh=0 only-committed=0
+R11U178_OFF regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0

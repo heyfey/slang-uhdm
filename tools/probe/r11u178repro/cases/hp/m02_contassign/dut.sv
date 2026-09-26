@@ -1,0 +1,9 @@
+// § hierPathSelIdxAtPath178
+module top;
+  typedef struct { int v; } s_t;
+  typedef struct { s_t w[4]; } m_t;
+  m_t m;
+  logic [1:0] k;
+  int r;
+  assign r = m.w[k].v;
+endmodule

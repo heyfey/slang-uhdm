@@ -13,6 +13,7 @@
 #include "EmitHelpers.h"
 
 #include "slang/ast/EvalContext.h"
+#include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
 
 namespace slang_uhdm {
 
@@ -23675,7 +23676,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
 // `emitParameters`, so a version of this law that read the source Rhs at the
 // end of the emitting call saw an unreduced `ref_obj`/`operation` on exactly
 // the parameters it is about and moved NOTHING (measured, not assumed).
+// § importCloneBodyLocalCopies175 (r11u175) — defined in StmtEmit.cpp; the
+// importer clones' local copies are made here, design-final (every deferred
+// link and fold before this point has reached the home objects they copy).
+void drainImportCloneLocalCopies175(UHDM::Serializer& s);
+// § refFullNameThroughNamedExpr175 (r11u175) — defined in ExprEmit.cpp.
+void refFullNameThroughNamedExpr175(UHDM::Serializer& s);
+
+// § hierPathSelIdxAtPath178 (r11u178) — defined in ExprEmit.cpp.
+void drainHierPathSelIdx178(UHDM::Serializer& s);
+
 void UhdmExporter::drainPaNameCopySrc38() {
+    drainImportCloneLocalCopies175(s);
+    refFullNameThroughNamedExpr175(s);
+    drainHierPathSelIdx178(s);
     // § portViewNestedPatTsNamed154 — A PORT VIEW'S NESTED PATTERN TYPESPEC
     // IS NAMED BY THE VIEW.  An interface parameter whose default is a
     // NESTED assignment pattern (`parameter cfg_t CFG = '{BUS: '{DAT:
@@ -29345,6 +29359,87 @@ static void arrTsLhsOwnCopy140(UHDM::Serializer& s, UHDM::design* d) {
                 scope(m->Param_assigns(), m->Parameters());
 }
 
+// § pkgPatUnqualReadTsNoParent178 (r11u178) — A NAMED-MEMBER PACKAGE PATTERN
+// PARAMETER READ BY MEMBER INSIDE ITS OWN PACKAGE LISTS ITS FLATTENED COPY
+// WITH AN UNPARENTED TYPESPEC REFERENCE.  § pkgPatReadTsNoParent131's
+// producer road (CompileHelper::getValue writes the expanded pattern back,
+// ExprEval::flattenPatternAssignments mints the reference without a parent)
+// is reached through the COMPONENT arm too (CompileExpression.cpp, the
+// `component->getParam_assigns()` loop after the qualified arm): an
+// unqualified `B.D` reduced inside package `p` -- a typedef range
+// (`logic [B.D-1:0]`, iface_zero_width_field `logic [B.CTL-1:0]`), a
+// localparam value (`localparam int W = B.D`), a function body (`return
+// B.D`) -- leaves golden's elaborated package listing with the flattened
+// operands and an unnamed reference, where ours kept `p`.  Measured bounds
+// (grid tools/probe/r11u178repro/cases/pz): a POSITIONAL pattern (`'{2, 8}`,
+// z12) keeps the parent (nothing to flatten: the original operation stands);
+// a whole-value read (`localparam cfg_t C = B`, z08) and `$bits(B)` (z10) do
+// not reduce the members (golden keeps the tagged listing, as ours does); a
+// read from ANOTHER package through an import (z11) does not flatten the
+// home listing in golden (ours flattens there: a residue, not touched).  The
+// law therefore fires only when ours' listing is itself flattened (no
+// tagged_pattern operand left), the written pattern names its members, and
+// the package reads the parameter by member without a qualifier.  Switch
+// R11U178_PATUNQUAL_OFF.
+bool r11u178Law(const char* sw);  // the r11u178 switches (ExprEmit.cpp)
+static bool pkgPatUnqualRead178(const Compilation& comp,
+                                std::string_view pkgName,
+                                std::string_view name) {
+    static bool built = false;
+    static std::set<std::string> reads, named;
+    if (!r11u178Law("R11U178_PATUNQUAL_OFF"))
+        return false;
+    if (!built) {
+        built = true;
+        auto scan = [&](auto&& self, const syntax::SyntaxNode& node,
+                        const std::string& pkg) -> void {
+            std::string here = pkg;
+            if (node.kind == syntax::SyntaxKind::PackageDeclaration)
+                here = std::string(node.as<syntax::ModuleDeclarationSyntax>()
+                                       .header->name.valueText());
+            if (!here.empty()) {
+                if (node.kind == syntax::SyntaxKind::ScopedName) {
+                    auto& sn = node.as<syntax::ScopedNameSyntax>();
+                    if (sn.separator.kind == parsing::TokenKind::Dot && sn.left &&
+                        sn.left->kind == syntax::SyntaxKind::IdentifierName)
+                        reads.insert(here + "::" +
+                                     std::string(sn.left->as<syntax::IdentifierNameSyntax>()
+                                                     .identifier.valueText()));
+                }
+                if (node.kind == syntax::SyntaxKind::Declarator) {
+                    auto& d = node.as<syntax::DeclaratorSyntax>();
+                    if (d.initializer && d.initializer->expr) {
+                        const syntax::ExpressionSyntax* e = d.initializer->expr;
+                        while (e->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                            e = e->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                        if (e->kind == syntax::SyntaxKind::AssignmentPatternExpression &&
+                            e->as<syntax::AssignmentPatternExpressionSyntax>().pattern->kind ==
+                                syntax::SyntaxKind::StructuredAssignmentPattern)
+                            named.insert(here + "::" + std::string(d.name.valueText()));
+                    }
+                }
+            }
+            for (size_t i = 0, n = node.getChildCount(); i < n; i++)
+                if (auto* ch = node.childNode(i))
+                    self(self, *ch, here);
+        };
+        for (auto& tree : comp.getSyntaxTrees())
+            scan(scan, tree->root(), std::string());
+    }
+    std::string key = std::string(pkgName) + "::" + std::string(name);
+    return reads.count(key) && named.count(key);
+}
+// The listing's pattern operation is flattened: no tagged_pattern operand.
+static bool patFlattened178(const UHDM::operation* op) {
+    auto* os = op ? op->Operands() : nullptr;
+    if (!os || os->empty())
+        return false;
+    for (auto* o : *os)
+        if (!o || o->UhdmType() == UHDM::uhdmtagged_pattern)
+            return false;
+    return true;
+}
+
 void UhdmExporter::drainShareDefParamTs() {
     // § pkgTypedefCastTargetTs140 — bind the deferred package-typedef cast
     // targets, now that every package lists its typedefs.
@@ -29509,6 +29604,15 @@ void UhdmExporter::drainShareDefParamTs() {
                             // tools/probe/r11u167repro/cases/pc.  Switch
                             // R11U167_PATCALLARG_OFF.
                             bool rd167 = pkgPatScopedRef34(pn, l->VpiName());
+                            // § pkgPatUnqualReadTsNoParent178 — the read set
+                            // also holds an UNQUALIFIED member read of a
+                            // NAMED-member pattern parameter inside its own
+                            // package (law at pkgPatUnqualRead178).
+                            if (!rd167 && rt &&
+                                pkgPatInit131().count(pn + "::" + std::string(l->VpiName())) &&
+                                pkgPatUnqualRead178(comp, pn, l->VpiName()) &&
+                                patFlattened178((UHDM::operation*)r))
+                                rd167 = true;
                             if (!rd167 && rt &&
                                 pkgPatInit131().count(pn + "::" + std::string(l->VpiName())) &&
                                 r11u167On("R11U167_PATCALLARG_OFF") &&

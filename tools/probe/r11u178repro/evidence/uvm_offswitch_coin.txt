@@ -1,0 +1,10 @@
+# law178.bin under R11U178_OFF=1 vs the pristine sweep's database (uhdm-dump, workdir paths normalised; each count includes the 2 header lines that name the dump path)
+testflags/SeqDriver-65178d3a dumpdiff_lines=6 orderblind_lines=6
+default/Scoreboard-72aa0ba8 dumpdiff_lines=94 orderblind_lines=2
+default/SimpleUVM-267de3ff dumpdiff_lines=6 orderblind_lines=6
+default/SeqDriver-65178d3a dumpdiff_lines=6 orderblind_lines=6
+default/MiniAmiq-055eab74 dumpdiff_lines=6 orderblind_lines=6
+testflags/MiniAmiq-055eab74 dumpdiff_lines=6 orderblind_lines=6
+# the 4 content lines on each 6-line row are the UINT/vpiDecompile pair of the known UVM order coin, e.g. SeqDriver default:
+#   |vpiDecompile:0 / |vpiDecompile:949 and |UINT:0 / |UINT:949 at dump line 1750937/1750939
+# Scoreboard default: 94 dump lines, 0 order-blind content lines (the svunit_pkg vpiTaskFunc list order flip)

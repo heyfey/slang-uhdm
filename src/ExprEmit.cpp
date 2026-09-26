@@ -24,6 +24,330 @@
 
 namespace slang_uhdm {
 
+// The r11u175 switches (tools/probe/r11u175uvm/README.md): every r11u175 law
+// reads its own R11U175_<LAW>_OFF switch; R11U175_OFF drops all of them.
+static bool r11u175LawE(const char* sw) {
+    // R11U178_OFF (pass r11u178, which lands these laws) drops them too.
+    if (getenv("R11U175_OFF") != nullptr || getenv("R11U178_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
+// UHDM's BaseClass::ComputeFullName (BaseClass.cpp), the name a reader
+// synthesises for an object whose vpiFullName was never set, replicated here
+// (the library keeps it protected).
+static std::string chainFullName175(const UHDM::BaseClass* o) {
+    if (o->UhdmType() == UHDM::uhdmmodule_inst && o->VpiParent() &&
+        o->VpiParent()->UhdmType() == UHDM::uhdmmodule_inst)
+        return std::string(o->VpiDefName());
+    std::vector<std::string_view> names;
+    const UHDM::BaseClass* parent = o;
+    const UHDM::BaseClass* child = nullptr;
+    bool column = false;
+    while (parent) {
+        const UHDM::BaseClass* ap = parent->VpiParent();
+        auto pt = parent->UhdmType();
+        auto apt = ap ? ap->UhdmType() : UHDM::uhdmunsupported_stmt;
+        if (pt == UHDM::uhdmdesign)
+            break;
+        if (pt == UHDM::uhdmpackage || pt == UHDM::uhdmclass_defn)
+            column = true;
+        std::string_view name =
+            parent->VpiName().empty() ? parent->VpiDefName() : parent->VpiName();
+        bool skip = apt == UHDM::uhdmref_obj ||
+                    pt == UHDM::uhdmmethod_func_call ||
+                    pt == UHDM::uhdmmethod_task_call ||
+                    pt == UHDM::uhdmfunc_call || pt == UHDM::uhdmtask_call ||
+                    pt == UHDM::uhdmsys_func_call || pt == UHDM::uhdmsys_task_call;
+        if (child) {
+            auto ct = child->UhdmType();
+            if (ct == UHDM::uhdmbit_select && pt == UHDM::uhdmport)
+                skip = true;
+            if (ct == UHDM::uhdmref_obj &&
+                (pt == UHDM::uhdmbit_select || pt == UHDM::uhdmindexed_part_select ||
+                 pt == UHDM::uhdmhier_path))
+                skip = true;
+        }
+        if (!name.empty() && !skip)
+            names.emplace_back(name);
+        child = parent;
+        parent = parent->VpiParent();
+    }
+    std::string full;
+    for (size_t i = names.size(); i-- > 0;) {
+        full += names[i];
+        if (i > 0)
+            full += column ? "::" : ".";
+    }
+    return full;
+}
+
+// § refFullNameThroughNamedExpr175 (r11u175) — a reference whose parent chain
+// passes through a NAMED expression before it reaches its scope takes that
+// name into its full name.  Surelog never sets these references' vpiFullName
+// (CompileExpression.cpp sets one only for the special spellings: `$root`,
+// package-scoped names, the select arms), so the reader synthesises it from
+// the vpiParent chain (UHDM BaseClass::ComputeFullName): every named ancestor
+// but a call, and the hier_path / bit_select a reference sits DIRECTLY in.
+// Ours set the scope's name + the reference's, skipping the named ancestor.
+// The three shapes, each measured (grid tools/probe/r11u175uvm/cases/f5):
+//   * a formal's DEFAULT value (parent io_decl): golden
+//     `p1::report::verbosity::MED` (e01; map N0174, `uvm_report_info`);
+//   * an ARGUMENT of a call that is a hier_path's last element (parent
+//     method_func_call under hier_path): `...::create_by_name::
+//     wrapper.create_object::name` (e02; N0095), `work@top.g.w.f.k` (e05);
+//   * an INDEX of a select inside a hier_path (parent bit_select under
+//     hier_path): `...::get::seed_map.count[type_id]::type_id` (e03; N0175,
+//     N0052).
+// Applied design-final (the chain is complete) and only where the name ours
+// set is the chain name with those ancestors dropped (same root, same leaf),
+// so every other explicit name is left as it is.  Switch
+// R11U175_FULLNAME_OFF.
+void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
+    if (!r11u175LawE("R11U175_FULLNAME_OFF"))
+        return;
+    std::map<const UHDM::BaseClass*, const UHDM::BaseClass*> ioOfDefault;
+    for (auto& kv : s.AllObjects())
+        if (kv.first && kv.first->UhdmType() == UHDM::uhdmio_decl)
+            if (auto* x = ((const UHDM::io_decl*)kv.first)->Expr();
+                x && x->UhdmType() == UHDM::uhdmref_obj)
+                ioOfDefault[x] = kv.first;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmref_obj)
+            continue;
+        const UHDM::BaseClass* p = o->VpiParent();
+        // A formal's default value is the io_decl's vpiExpr, which ours
+        // leaves unparented: read the io_decl as its parent (golden's).
+        if (auto it = ioOfDefault.find(o); it != ioOfDefault.end())
+            p = it->second;
+        if (!p)
+            continue;
+        const UHDM::BaseClass* gp = p->VpiParent();
+        auto pt = p->UhdmType();
+        bool shape = pt == UHDM::uhdmio_decl;
+        // ...only as the hier_path's LAST element: a select or call in a
+        // leading or middle position keeps the bare name (golden
+        // `p1::top_c::get::j` for `m.lfs[j].v`, `...::i` for `ms[i].w[0]`,
+        // and LocalScopeHierPath's `path.slices[j].spath` in the default
+        // mode; grid f5/e07_bitsel_positions).
+        if (!shape && gp && gp->UhdmType() == UHDM::uhdmhier_path &&
+            (pt == UHDM::uhdmmethod_func_call || pt == UHDM::uhdmbit_select)) {
+            auto* pe175 = ((const UHDM::hier_path*)gp)->Path_elems();
+            shape = pe175 && !pe175->empty() && pe175->back() == p;
+        }
+        if (!shape)
+            continue;
+        // Inside a SUBROUTINE only: an elaborated module / generate scope
+        // names its references itself (golden `work@tj.gen_a[0].k` for a
+        // select index under a generate scope's hier_path, probe
+        // r10earl_repro/tj).
+        bool inTf = false;
+        for (const UHDM::BaseClass* q = p; q; q = q->VpiParent()) {
+            auto qt = q->UhdmType();
+            if (qt == UHDM::uhdmfunction || qt == UHDM::uhdmtask) {
+                inTf = true;
+                break;
+            }
+            if (qt == UHDM::uhdmmodule_inst || qt == UHDM::uhdminterface_inst ||
+                qt == UHDM::uhdmgen_scope || qt == UHDM::uhdmpackage ||
+                qt == UHDM::uhdmclass_defn || qt == UHDM::uhdmprogram)
+                break;
+        }
+        if (!inTf)
+            continue;
+        auto* ro175 = (UHDM::ref_obj*)o;
+        std::string have(ro175->VpiFullName());
+        std::string want;
+        if (p != o->VpiParent()) {
+            want = chainFullName175(p);
+            bool col = want.find("::") != std::string::npos;
+            for (auto* q = p; q; q = q->VpiParent())
+                if (q->UhdmType() == UHDM::uhdmpackage ||
+                    q->UhdmType() == UHDM::uhdmclass_defn)
+                    col = true;
+            if (!want.empty())
+                want += (col ? "::" : ".") + std::string(o->VpiName());
+        }
+        else
+            want = chainFullName175(o);
+        if (want.empty() || have == want || have.empty())
+            continue;
+        // Same leaf and same root: `have` must be `want` minus ancestors.
+        std::string_view nm = o->VpiName();
+        auto endsWith = [](const std::string& a, std::string_view b) {
+            return a.size() >= b.size() &&
+                   a.compare(a.size() - b.size(), b.size(), b) == 0;
+        };
+        if (nm.empty() || !endsWith(have, nm) || !endsWith(want, nm))
+            continue;
+        size_t hr = have.find_first_of(":.");
+        if (hr == std::string::npos || want.compare(0, hr + 1, have, 0, hr + 1) != 0)
+            continue;
+        ro175->VpiFullName(want);
+    }
+}
+
+// The r11u178 switches (tools/probe/r11u178repro/README.md): every r11u178
+// law reads its own R11U178_<LAW>_OFF switch; R11U178_OFF drops all of them
+// (and the r11u175 laws this pass lands, which keep their R11U175_* switches).
+bool r11u178Law(const char* sw) {
+    if (getenv("R11U178_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
+// § hierPathSelIdxAtPath178 (r11u178) — the index of a NON-TRAILING select in
+// an RVALUE hier_path hangs off the HIER_PATH, whatever its kind.  Surelog
+// compiles a path element's select with the path as the index's parent; only
+// the TRAILING select keeps its own bit_select as the parent, and an lvalue
+// path parents every select index at its bit_select (compiled through the
+// lvalue arm).  Measured on the pinned Surelog (grid
+// tools/probe/r11u178repro/cases/hp): `m.w[k].v`, `m.w[k].x[j]` (the `k`),
+// `m.w[k + 1].v`, `m.w[f(k)].v`, `m.w[s.k].v`, `m.w[$clog2(k)].v`,
+// `a[k + 1].v`, `a[f(k)].v` -- module initial, continuous assignment,
+// generate scope, module task/function, package function, class method --
+// golden's index parent is the hier_path; `m.w[k].x[j]`'s `j` (trailing), a
+// constant index (unparented) and the lvalues `m.w[k].v = ...` keep ours.
+// Ours hung every member-select index (and a base select's non-reference
+// index) at its bit_select.  Strict-visible twice: (1) a reference inside a
+// reparented operation or call index is named through the path (golden
+// `work@top.m.w[k + 1].v.k`, ours `work@top.k`), and (2) under --elabuhdm the
+// listener clones the definition's process, and a clone whose name is
+// unstored recomputes it from the clone's chain (§ elabCloneFullNameUnstored137
+// unstores a name equal to its own chain): the index's chain through the
+// hier_path equals the stored bare name, so the clone reads golden's
+// `pack::uvm_mem_mam::check_reg::path.slices[j].spath::j` (LocalScopeHierPath
+// testflags) where ours copied `...::check_reg::j`.  The reparent is made at
+// emission (ExprEmit.cpp, the member-select and base-select sites); the
+// names of the references inside a reparented operation / call index are
+// set design-final from the chain (drainHierPathSelIdx178, called from
+// drainPaNameCopySrc38).  Switch R11U178_MIDIDX_OFF (the reparent) and
+// R11U178_MIDIDXNAME_OFF (the operand names).
+static std::vector<std::pair<const UHDM::any*, UHDM::any*>>& hpSelIdx178() {
+    static std::vector<std::pair<const UHDM::any*, UHDM::any*>> v;
+    return v;
+}
+static void noteHpSelIdx178(UHDM::hier_path* hp, UHDM::bit_select* bs,
+                            bool refToo) {
+    if (!r11u178Law("R11U178_MIDIDX_OFF"))
+        return;
+    auto* ix = bs ? (UHDM::any*)bs->VpiIndex() : nullptr;
+    if (!ix || ix->VpiParent() != bs)
+        return;
+    // A path NESTED in another path's select index keeps ours: golden
+    // `m.w[n.w[k].v + 1].v` parents the inner `k` at its bit_select and names
+    // it through both paths (grid hp/h09, h10 line 15); a path inside a plain
+    // select's index is not nested (`arr[m.w[k].v]`, h10 line 14).
+    for (const UHDM::any* a = hp->VpiParent(); a; a = a->VpiParent()) {
+        if (a->UhdmType() == UHDM::uhdmhier_path) {
+            // ...and its reference index is named through both paths by the
+            // chain (golden `work@top.m.w[ + 1].v.n.w[k].v.k`): the drain
+            // names it (R11U178_MIDIDXNAME_OFF).
+            if (ix->UhdmType() == UHDM::uhdmref_obj)
+                hpSelIdx178().push_back({bs, ix});
+            return;
+        }
+        if (!dynamic_cast<const UHDM::expr*>(a))
+            break;
+    }
+    auto t = ix->UhdmType();
+    // A constant stays as it is (unparented, or parented by the view rules
+    // above); a base select's reference index is already at the path.
+    if (t == UHDM::uhdmconstant || (t == UHDM::uhdmref_obj && !refToo))
+        return;
+    ix->VpiParent(hp);
+    hpSelIdx178().push_back({hp, ix});
+}
+// § hierPathSelIdxCloneKeepsElem178v (v11u178, the adversarial verification
+// of § hierPathSelIdxAtPath178) — TWO RVALUE-LOOKING POSITIONS KEEP THE
+// INDEX AT ITS BIT_SELECT, NAMED THROUGH IT.  Measured on the pinned Surelog
+// (grid tools/probe/r11v178repro/cases/hk):
+//   * an INC/DEC OPERAND is an lvalue: `m.w[k+1].v++`, `--m.w[k*2].v`,
+//     `x = m.w[k].v++` (module initial, always_comb, a for step, module /
+//     package function, class method) keep golden's index at the member
+//     bit_select, where § hierPathSelIdxAtPath178 hung it on the path (the
+//     inc/dec operand reaches the member-select site with `inLhs` false);
+//     pristine had the parent right;
+//   * the ELABORATED module's continuous assignment whose right-hand side
+//     Surelog re-writes as a clone (UhdmWriter::writeCont_assign's operation
+//     arm: `assign y = c ? m.w[i-1].v : m.w[i].u`, `~m.w[i^1].v`,
+//     `{m.w[i+2].v, ...}`): clone_tree gives the index the CLONE's
+//     bit_select as its parent, whatever the definition view holds; the
+//     definition view, a generate scope and a net declaration assignment
+//     compile it fresh and keep the path (the law stands there).
+// In both, golden's references read UHDM's chain name through the
+// bit_select (`work@top.m.w[k + 1].v.w.k`, `work@top.m.w[i].u.i`), which
+// the drain below sets from the chain.  Switches R11V178_INCDEC_OFF and
+// R11V178_ELABCA_OFF (each restores § hierPathSelIdxAtPath178 as the
+// implementer landed it there); R11V178_OFF drops both.
+bool r11v178On(const char* sw) {
+    return getenv("R11V178_OFF") == nullptr && getenv(sw) == nullptr;
+}
+static void noteHpSelIdxKeep178v(UHDM::bit_select* bs) {
+    if (!r11u178Law("R11U178_MIDIDX_OFF"))
+        return;
+    auto* ix = bs ? (UHDM::any*)bs->VpiIndex() : nullptr;
+    if (!ix || ix->VpiParent() != bs || ix->UhdmType() == UHDM::uhdmconstant)
+        return;
+    // (first = the bit_select the index stays at: the drain names it there)
+    hpSelIdx178().push_back({bs, ix});
+}
+void drainHierPathSelIdx178(UHDM::Serializer& s) {
+    (void)s;
+    auto& v = hpSelIdx178();
+    if (!r11u178Law("R11U178_MIDIDXNAME_OFF")) {
+        v.clear();
+        return;
+    }
+    std::function<void(UHDM::any*)> walk = [&](UHDM::any* e) {
+        if (!e)
+            return;
+        switch (e->UhdmType()) {
+        case UHDM::uhdmref_obj: {
+            auto* r = (UHDM::ref_obj*)e;
+            std::string have(r->VpiFullName());
+            std::string want = chainFullName175(r);
+            std::string_view nm = r->VpiName();
+            auto endsWith = [](const std::string& a, std::string_view b) {
+                return a.size() >= b.size() &&
+                       a.compare(a.size() - b.size(), b.size(), b) == 0;
+            };
+            if (have.empty() || want.empty() || have == want || nm.empty() ||
+                !endsWith(have, nm) || !endsWith(want, nm))
+                return;
+            size_t hr = have.find_first_of(":.");
+            if (hr == std::string::npos ||
+                want.compare(0, hr + 1, have, 0, hr + 1) != 0)
+                return;
+            r->VpiFullName(want);
+            return;
+        }
+        case UHDM::uhdmoperation:
+            if (auto* os = ((UHDM::operation*)e)->Operands())
+                for (auto* o : *os)
+                    if (o && o->VpiParent() == e)
+                        walk(o);
+            return;
+        case UHDM::uhdmfunc_call:
+        case UHDM::uhdmsys_func_call:
+            if (auto* as = ((UHDM::tf_call*)e)->Tf_call_args())
+                for (auto* a : *as)
+                    if (a && a->VpiParent() == e)
+                        walk(a);
+            return;
+        default:
+            return;
+        }
+    };
+    // (first = the parent the index was left at: the path it was hung on,
+    // or, for a nested path's reference index, its own bit_select)
+    for (auto& [hp, ix] : v)
+        if (ix->VpiParent() == hp)
+            walk(ix);
+    v.clear();
+}
+
 // r11u112 kill switches (tools/probe/r11u112repro/README.md): R11U112_OFF drops
 // every r11u112 law, R11U112_<X>_OFF drops one.  The ModuleEmit.cpp twin reads
 // the same environment.
@@ -9657,6 +9981,13 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
         // a4 cell f2), while the LEAF below it still takes the dotted one.
         bool vifIns5 = false;
     };
+    // § hierPathSelIdxCloneKeepsElem178v — the inc/dec operand and the
+    // elaborated cont-assign clone keep the index at its bit_select.
+    const bool keep178v =
+        (r11v178On("R11V178_INCDEC_OFF") &&
+         (incDecOperand124() == &expr ||
+          incDecOperand124() == &stripImplicitConv(expr))) ||
+        (r11v178On("R11V178_ELABCA_OFF") && contAssignView == 2);
     std::vector<Comp> comps;
     const Expression* cur = &expr;
     std::vector<Sel> pendingSels; // collected outer-to-inner
@@ -10075,6 +10406,18 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                     }
                     bs->VpiIndex((UHDM::expr*)ix);
                 }
+                // § hierPathSelIdxAtPath178 — SITE 1 of 2 (the BASE select):
+                // a non-reference, non-constant index of a non-trailing base
+                // select hangs off the path too.
+                // (lvalue too: golden `a[k + 1].v = 1` and `a[f(k)].v = 2`
+                // parent the index at the path, as the reference rule above
+                // does; grid hp/m12.)
+                if (!selIdx79 && mid79) {
+                    if (keep178v)  // § hierPathSelIdxCloneKeepsElem178v
+                        noteHpSelIdxKeep178v(bs);
+                    else
+                        noteHpSelIdx178(hp, bs, /*refToo=*/false);
+                }
                 // § patCaGenIdxValueRender112 — SITE 1 of 2 (the BASE select).
                 // Placed AFTER the index emission and gated on the result
                 // still being a `ref_obj`, exactly the way
@@ -10443,6 +10786,15 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                     ((UHDM::any*)ix)->VpiParent(hp);
                     setLoc((UHDM::any*)ix, sel.sel->sourceRange);
                 }
+            }
+            // § hierPathSelIdxAtPath178 — SITE 2 of 2 (a MEMBER select): a
+            // non-trailing rvalue select's index of any kind hangs off the
+            // path (law at noteHpSelIdx178).
+            if (!selIdx79b && !inLhs && !lastMember) {
+                if (keep178v)  // § hierPathSelIdxCloneKeepsElem178v
+                    noteHpSelIdxKeep178v(bs);
+                else
+                    noteHpSelIdx178(hp, bs, /*refToo=*/true);
             }
             // § patCaGenIdxValueRender112 — SITE 2 of 2 (a MEMBER select).
             // The same post-emission, still-a-ref_obj gate as SITE 1: the six

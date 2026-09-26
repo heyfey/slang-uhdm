@@ -1,0 +1,75 @@
+CONVERSION	r10buvm13repro/a7_dpi13	20	0	TOWARD	STRICT_NOTEQUAL differ:fullname(10) -> EQUAL
+CONVERSION	r10svs8repro/v3_refargs	8	0	TOWARD	STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION	r10uvm123repro/g123_c_otherpkg	88	0	TOWARD	STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION	r10uvm161repro/g161_c_sites	2	0	TOWARD	STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION	r10uvm17repro/t29_t	4	0	TOWARD	STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION	r10uvm218repro/grid218/a2_window	2	0	TOWARD	STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION	r10uvm227repro/grid227/a7_only_p1	6	0	TOWARD	STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION	r10uvm51repro/a4	4	0	TOWARD	STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION	r10uvm57repro/b4_open	2	0	TOWARD	STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION	r10uvm57repro/v4_superexpr	4	0	TOWARD	STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION	r10uvm88repro/v88_b4_nonsub	2	0	TOWARD	STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION	r10v107repro/v107_b12	4	0	TOWARD	STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION	r10v131repro/v131_g_more	4	0	TOWARD	STRICT_NOTEQUAL differ:endline(2) -> EQUAL
+CONVERSION	r10v179repro/v179_f_nomod	16	0	TOWARD	STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION	r10v180repro/v180_e_ret	110	24	TOWARD	STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION	r10v180repro/v180_i_inst	22	4	TOWARD	STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION	r10v226repro/arms/b09_nestediface	2	0	TOWARD	STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CHANGE	r10buvm13repro/v3_clone13	62	14	TOWARD	STRICT_NOTEQUAL differ:fullname(17) -> differ:depth(1)
+CHANGE	r10buvm21repro/g21b	92	90	TOWARD	STRICT_NOTEQUAL differ:line(27) -> differ:line(26) [line -1]
+CHANGE	r10buvm32repro/g32a3	22	20	TOWARD	STRICT_NOTEQUAL differ:fullname(11) -> differ:line(10)
+CHANGE	r10buvm5repro/a1_refvarbind	62	58	TOWARD	STRICT_NOTEQUAL differ:fullname(31) -> differ:line(29)
+CHANGE	r10buvm8repro/v6ctx8	16	8	TOWARD	STRICT_NOTEQUAL differ:endcol(8) -> differ:line(4)
+CHANGE	r10svs4repro/g1_thisidx	6	4	TOWARD	STRICT_NOTEQUAL differ:fullname(3) -> differ:col(2)
+CHANGE	r10svs4repro/g3_assoc	4	2	TOWARD	STRICT_NOTEQUAL differ:file(2) -> differ:file(1) [file -1]
+CHANGE	r10uvm122repro/g122_f_clone	113	77	TOWARD	STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(8) [endcol +6]
+CHANGE	r10uvm167repro/g167_b_spell	16	12	TOWARD	STRICT_NOTEQUAL differ:file(8) -> differ:file(6) [file -2]
+CHANGE	r10uvm171repro/g171_a_pos	72	0	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:depth(1)
+CHANGE	r10uvm171repro/g171_b_homes	41	17	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:depth(1)
+CHANGE	r10uvm171repro/g171_c_shapes	36	0	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:depth(1)
+CHANGE	r10uvm180repro/g180_a_kinds	197	113	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:depth(1)
+CHANGE	r10uvm193repro/g193_c_argface	772	266	TOWARD	STRICT_NOTEQUAL differ:fullname(4) -> differ:fullname(3) [fullname -1]
+CHANGE	r10uvm193repro/g193_d_propfence	90	46	TOWARD	STRICT_NOTEQUAL differ:fullname(3) -> differ:fullname(18) [fullname +15]
+CHANGE	r10uvm195repro/g195_e_head	28	6	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:line(3)
+CHANGE	r10uvm198repro/g198_a_homes	40	12	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:fullname(5)
+CHANGE	r10uvm202repro/g202_a_kinds	74	2	TOWARD	STRICT_NOTEQUAL differ:fullname(2) -> differ:fullname(7) [fullname +5]
+CHANGE	r10uvm204repro/g204_b_ctx	51	27	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:depth(1)
+CHANGE	r10uvm204repro/g204_c_shadow	72	36	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:depth(1)
+CHANGE	r10uvm207repro/g207_c_share	239	21	TOWARD	STRICT_NOTEQUAL differ:fullname(11) -> differ:fullname(23) [fullname +12]
+CHANGE	r10uvm207repro/g207_e_head	129	33	TOWARD	STRICT_NOTEQUAL differ:fullname(11) -> differ:fullname(29) [fullname +18]
+CHANGE	r10uvm207repro/g207_g_class	12	0	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:fullname(1)
+CHANGE	r10uvm207repro/g207_h_foreign	182	18	TOWARD	STRICT_NOTEQUAL differ:fullname(11) -> differ:fullname(66) [fullname +55]
+CHANGE	r10uvm208repro/g208_e_head	157	133	TOWARD	STRICT_NOTEQUAL differ:fullname(3) -> differ:fullname(6) [fullname +3]
+CHANGE	r10uvm213repro/g213_c_pkgimp	10	6	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:line(3)
+CHANGE	r10uvm21repro/t32g_t	46	34	TOWARD	STRICT_NOTEQUAL differ:endcol(22) -> differ:endcol(16) [endcol -6]
+CHANGE	r10uvm227repro/grid227/a1_iface_uninst	11	2	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:endcol(1)
+CHANGE	r10uvm227repro/grid227/a3_module	14	2	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:endcol(1)
+CHANGE	r10uvm227repro/grid227/a5_order_p1first	8	2	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:endcol(1)
+CHANGE	r10uvm227repro/grid227/a9_class_holder	15	3	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:depth(1)
+CHANGE	r10uvm37repro/t51a	68	26	TOWARD	STRICT_NOTEQUAL differ:fullname(2) -> differ:fullname(4) [fullname +2]
+CHANGE	r10uvm52repro/a1	43	29	TOWARD	STRICT_NOTEQUAL differ:fullname(9) -> differ:line(5)
+CHANGE	r10uvm57repro/v1_prodcell	4	2	TOWARD	STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(1) [endcol -1]
+CHANGE	r10uvm84repro/v84x6_stmt	4	2	TOWARD	STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(1) [endcol -1]
+CHANGE	r10uvm85repro/v85x4_pos	4	2	TOWARD	STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(1) [endcol -1]
+CHANGE	r10uvm86repro/g86_a3_nest	64	60	TOWARD	STRICT_NOTEQUAL differ:endcol(32) -> differ:line(30)
+CHANGE	r10v111repro/v111_b1	64	58	TOWARD	STRICT_NOTEQUAL differ:fullname(5) -> differ:fullname(26) [fullname +21]
+CHANGE	r10v121repro/v121_a	6	4	TOWARD	STRICT_NOTEQUAL differ:file(3) -> differ:file(2) [file -1]
+CHANGE	r10v122repro/q6clone	101	77	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:fullname(3)
+CHANGE	r10v122repro/q7extra	8	4	TOWARD	STRICT_NOTEQUAL differ:endline(4) -> differ:endcol(2)
+CHANGE	r10v134repro/v134_4bodies	10	8	TOWARD	STRICT_NOTEQUAL differ:file(5) -> differ:file(4) [file -1]
+CHANGE	r10v151repro/v151_5_ctx	10	8	TOWARD	STRICT_NOTEQUAL differ:file(5) -> differ:file(4) [file -1]
+CHANGE	r10v167repro/vA_meth	38	20	TOWARD	STRICT_NOTEQUAL differ:file(19) -> differ:file(10) [file -9]
+CHANGE	r10v167repro/vD_kinds	8	4	TOWARD	STRICT_NOTEQUAL differ:endcol(4) -> differ:endcol(2) [endcol -2]
+CHANGE	r10v169repro/v169_g_control	14	8	TOWARD	STRICT_NOTEQUAL differ:fullname(3) -> differ:fullname(14) [fullname +11]
+CHANGE	r10v180repro/v180_a_share	57	23	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:depth(1)
+CHANGE	r10v182repro/v182_g_names	630	72	TOWARD	STRICT_NOTEQUAL differ:fullname(4) -> differ:fullname(36) [fullname +32]
+CHANGE	r10v184repro/gv184_h_retpin	116	44	TOWARD	STRICT_NOTEQUAL differ:fullname(3) -> differ:fullname(13) [fullname +10]
+CHANGE	r10v184repro/gv184_i_minimal	14	2	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:endcol(1)
+CHANGE	r10v194repro/v194_e_explclone	29	17	TOWARD	STRICT_NOTEQUAL differ:fullname(3) -> differ:fullname(5) [fullname +2]
+CHANGE	r10v195repro/v195_b_reads	52	6	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:line(3)
+CHANGE	r10v202repro/v202_6_twotd	12	4	TOWARD	STRICT_NOTEQUAL differ:fullname(2) -> differ:fullname(4) [fullname +2]
+CHANGE	r10v204repro/v204_c_clones	40	22	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:depth(1)
+CHANGE	r10v204repro/v204_m_module	21	9	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:depth(1)
+CHANGE	r10v204repro/v204_v_extra	64	40	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:depth(1)
+CHANGE	r10v208repro/v208_f_io	332	132	TOWARD	STRICT_NOTEQUAL differ:type(1) -> differ:fullname(3)
+CHANGE	r10vbuvm24repro/gv24g	8	4	TOWARD	STRICT_NOTEQUAL differ:fullname(4) -> differ:endcol(2)
