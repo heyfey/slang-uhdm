@@ -12616,8 +12616,33 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             // copy.  We park all three at the call.
                             setLoc(c9, init->sourceRange);
                             if (auto ar169 = memLeftSiteLoc169(
-                                    c9, *init, (*leftovers)[li9]))
+                                    c9, *init, (*leftovers)[li9])) {
+                                // § mlArgLocFileAtActual177v (r11u177, the
+                                // second verification of pass 169) — the
+                                // relocated leftover takes the ACTUAL's file
+                                // too.  setLoc keeps a file already stamped,
+                                // and the call's first line can read another
+                                // file than its actual under § ppOutputFile166
+                                // (text before a multi-line invocation reads
+                                // the definition file: `mk(`XW,\n 5)` with a
+                                // multi-line `XW from an include files the call
+                                // at the include, golden files the `5` at the
+                                // caller's file).  Grid
+                                // tools/probe/r11u177verify/cases/Y.  Switch
+                                // R11V177_MLARGFILE_OFF (and R11V177_OFF).
+                                static const bool mlFile177 =
+                                    getenv("R11V177_OFF") == nullptr &&
+                                    getenv("R11V177_MLARGFILE_OFF") == nullptr;
+                                std::string f177(c9->VpiFile());
+                                if (mlFile177)
+                                    c9->VpiFile("");
                                 setLoc(c9, *ar169);
+                                if (mlFile177 && getenv("R11V177_TRACE") &&
+                                    f177 != c9->VpiFile())
+                                    fprintf(stderr,
+                                            "R11V177_TRACE mlargfile moved %s -> %s\n",
+                                            f177.c_str(), std::string(c9->VpiFile()).c_str());
+                            }
                             st9.names.push_back(std::string(f9.name));
                             st9.values.push_back(c9);
                             // § r10fsv2 L1: a `Pat` member's real leftover is

@@ -1,0 +1,20 @@
+ON | X/x09_multiline_macro_actual_include | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Y/y06_objml_samefile_control | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Y/y07_plain_multiline_call_control | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Y/y01_objml_incl_literal_nextline | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Y/y02_funcml_incl_literal_nextline | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Y/y08_module_header_default | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ON | Y/y03_objml_incl_literal_sameline | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Y/y09_objml_incl_both_literal_first | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Y/y04_objml_incl_param_nextline | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Z/z01_pkg_param_ref_default | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Y/y05_objml_incl_binary_nextline | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Z/z02_pkg_struct_param_ref_default | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Z/z03_module_localparam_ref | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Z/z09_other_root_scalar_control | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Z/z04_pkg_param_ref_instance_override | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Z/z10_other_root_localparam_body | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Z/z05_pkg_other_root_struct_ref_default | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Z/z06_pkg_include_struct_ref_default | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Z/z07_other_root_unqualified_import | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | Z/z08_other_root_instance_override | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -

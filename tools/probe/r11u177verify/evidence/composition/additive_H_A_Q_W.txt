@@ -1,0 +1,8 @@
+== probe: 168/169 delta on HEAD base 111 rows (79 conversions); on the 164/167/173-off base 111 rows (79 conversions); identical (from,to) on both: 111
+== surelog: 168/169 delta on HEAD base 31 rows (8 conversions); on the 164/167/173-off base 31 rows (6 conversions); identical (from,to) on both: 27
+   DIFFERENT-MOVE Earlgrey_0_1/d HEAD-base (('STRICT_NOTEQUAL', 'differ:line(1686)'), ('STRICT_NOTEQUAL', 'differ:fullname(511)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(1730)'), ('STRICT_NOTEQUAL', 'differ:fullname(555)'))
+   DIFFERENT-MOVE Earlgrey_0_1/t HEAD-base (('STRICT_NOTEQUAL', 'differ:line(1686)'), ('STRICT_NOTEQUAL', 'differ:fullname(511)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(1730)'), ('STRICT_NOTEQUAL', 'differ:fullname(555)'))
+   DIFFERENT-MOVE GenForStructParamBound/d HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(3)'), ('CMP_EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(7)'), ('STRICT_NOTEQUAL', 'differ:col(4)'))
+   DIFFERENT-MOVE GenForStructParamBound/t HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(3)'), ('CMP_EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(7)'), ('STRICT_NOTEQUAL', 'differ:col(4)'))
+== uhdm2rtlil: 168/169 delta on HEAD base 12 rows (4 conversions); on the 164/167/173-off base 12 rows (4 conversions); identical (from,to) on both: 12
+== bytes: databases 6647; 168/169 movers on HEAD base 175, on the off base 175, both 175

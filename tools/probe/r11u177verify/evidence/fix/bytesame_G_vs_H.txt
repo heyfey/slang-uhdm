@@ -1,0 +1,9 @@
+databases 6647 (fenced skipped) differ 5
+  DIFF surelog/testflags/SeqDriver-65178d3a/slang.uhdm
+  DIFF surelog/testflags/MiniAmiq-055eab74/slang.uhdm
+  DIFF surelog/default/MiniAmiq-055eab74/slang.uhdm
+  DIFF surelog/default/Scoreboard-72aa0ba8/slang.uhdm
+  DIFF surelog/default/SimpleUVM-267de3ff/slang.uhdm
+  csv probe: identical
+  csv surelog: DIFFER
+  csv uhdm2rtlil: identical

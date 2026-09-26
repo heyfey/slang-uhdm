@@ -1,0 +1,178 @@
+r10earl105repro/g5_int105 FTOWARD lost=8 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r10earl42repro/v42_overfire FTOWARD lost=8 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 423 objects
+r10earl43repro/v43_h1_order FTOWARD lost=4 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 152 objects
+r10earl54repro/v10step1 FTOWARD lost=24 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 319 objects
+r10earl81repro/g3_norm81 FTOWARD lost=2 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 195 objects
+r10earl_repro/a FTOWARD lost=8 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 95 objects
+r10earl_repro/mm FTOWARD lost=26 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL col -> STRICT_EQUAL 329 objects
+r10earl_repro/pv20 FTOWARD lost=2 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 465 objects
+r10earl_repro/qd21 FTOWARD lost=4 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 262 objects
+r10earl_repro/qe21 FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 304 objects
+r10earl_repro/qf21 FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 451 objects
+r10uvm104repro/g104_a1_sep FTOWARD lost=4 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+r10uvm160repro/g160_f_witness FTOWARD lost=28 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+r10uvm60repro/b7_multiline FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endline -> STRICT_EQUAL 144 objects
+r10v104repro/v1_pastecount FTOWARD lost=4 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+r10v132repro/v4_home FTOWARD lost=4 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+r10v212repro/gridv_v7_macro_clone_design FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_EQUAL 72 objects -> STRICT_EQUAL 72 objects
+r10v81repro/v6_edge81 FTOWARD lost=4 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 320 objects
+r10vearl105repro/v4_home105 FTOWARD lost=2 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 502 objects
+r10vearl105repro/v7_repl105 FTOWARD lost=14 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r10vearl95repro/v95a_ctx FTOWARD lost=3 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/b02_shl FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/b03_x32 FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/b04_dec FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/c01_x64 FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/c05_x3sub FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/f07_add FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/f08_shl FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/f09_unary FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/f19_orcasts FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/f20_sub FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/f21_shlsub FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/f24_shladd FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/p09_shift FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u115repro/grid/r/k/k06_modhdr_p09_add FTOWARD lost=2 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 414 objects
+r11u115repro/grid/r/v/v10_genfor_modparam_ctl FTOWARD lost=2 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 357 objects
+r11u11repro/a3 FTOWARD lost=60 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 237 objects
+r11u11repro/a5 FTOWARD lost=60 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL fullname
+r11u11repro/a8 FTOWARD lost=130 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL fullname
+r11u13repro/b3 FTOWARD lost=140 neutral=0 offdiv=263 ondiv=263 unmasked=1 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+r11u13repro/b6 FTOWARD lost=150 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL fullname
+r11u14repro/c8 FTOWARD lost=200 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 321 objects
+r11u18repro/b4 FTOWARD lost=126 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL fullname
+r11u20repro/b1 FTOWARD lost=126 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL fullname
+r11u20repro/b2 FTOWARD lost=70 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL col -> STRICT_EQUAL 216 objects
+r11u20repro/b3 FTOWARD lost=126 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL fullname
+r11u20repro/b4 FTOWARD lost=280 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL fullname
+r11u20repro/b5 FTOWARD lost=126 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL col -> STRICT_EQUAL 328 objects
+r11u20repro/b6 FTOWARD lost=84 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL fullname
+r11u20repro/t5 FTOWARD lost=18 neutral=0 offdiv=232 ondiv=None unmasked=5 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+r11u21repro/t1 FTOWARD lost=18 neutral=0 offdiv=232 ondiv=None unmasked=6 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+r11u82repro/grid/s1_modform FTOWARD lost=24 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL fullname
+r11u82repro/grid/s2_childpath FTOWARD lost=24 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL fullname
+r11u82repro/grid/v2_aliaschain FTOWARD lost=36 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL fullname
+r11u82repro/grid/v3_rootpath FTOWARD lost=24 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL fullname
+r11u8repro/b5 FTOWARD lost=4 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 25 objects
+r11u8repro/b8 FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL line -> STRICT_EQUAL 19 objects
+r11u8repro/gA FTOWARD lost=30 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL line -> STRICT_EQUAL 45 objects
+r11u8repro/gB FTOWARD lost=32 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 43 objects
+r11v11u8repro/v1 FTOWARD lost=14 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 19 objects
+r11v11u8repro/v10 FTOWARD lost=26 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 19 objects
+r11v11u8repro/v11 FTOWARD lost=4 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 19 objects
+r11v11u8repro/v12 FTOWARD lost=14 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 13 objects
+r11v11u8repro/v13 FTOWARD lost=10 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 19 objects
+r11v11u8repro/v2 FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL line -> STRICT_EQUAL 25 objects
+r11v11u8repro/v4 FTOWARD lost=28 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 31 objects
+r11v11u8repro/v5 FTOWARD lost=2 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 25 objects
+r11v11u8repro/v8 FTOWARD lost=12 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 15 objects
+r11v11u8repro/v9 FTOWARD lost=8 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL col
+r11v21repro/v1 FTOWARD lost=18 neutral=0 offdiv=232 ondiv=None unmasked=5 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+r11v66repro/a3_inst66 FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+r11v75repro/grid/xl_impclimb FTOWARD lost=36 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL fullname
+r11vu13repro/v2 FTOWARD lost=16 neutral=0 offdiv=294 ondiv=None unmasked=0 | STRICT_NOTEQUAL line -> STRICT_EQUAL 734 objects
+r11vu13repro/v4 FTOWARD lost=16 neutral=0 offdiv=294 ondiv=None unmasked=7 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+r11vu13repro/v9 FTOWARD lost=32 neutral=0 offdiv=376 ondiv=None unmasked=13 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+r11vu3repro/vK FTOWARD lost=60 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 344 objects
+v11u116repro/arms/f1_allf_body FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_allf_hdr FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_allf_lp FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_bin_body FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_bin_hdr FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_bin_lp FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_bnd_body FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_bnd_hdr FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_bnd_lp FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_dsz_body FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_dsz_hdr FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_dsz_lp FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_expr_body FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_expr_hdr FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_expr_lp FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_lhex_body FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_lhex_hdr FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_lhex_lp FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_nar8_body FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_nar8_hdr FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_nar8_lp FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_neg1_body FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 178 objects
+v11u116repro/arms/f1_neg1_hdr FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 178 objects
+v11u116repro/arms/f1_neg1_lp FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 178 objects
+v11u116repro/arms/f1_oct_body FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_oct_hdr FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_oct_lp FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_shex_body FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+v11u116repro/arms/f1_shex_hdr FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+v11u116repro/arms/f1_shex_lp FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+v11u116repro/arms/f1_und_body FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_und_hdr FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_und_lp FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_uns_body FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_uns_hdr FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_uns_lp FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_wid40_body FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_wid40_hdr FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_wid40_lp FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_xz_body FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_xz_hdr FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1_xz_lp FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 179 objects
+v11u116repro/arms/f1s_gvar FTOWARD lost=4 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 136 objects
+v11u116repro/arms/f1s_ibexlike FTOWARD lost=3 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 177 objects
+v11u116repro/arms/f1s_ovr FTOWARD lost=2 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 116 objects
+v11u116repro/arms/f1s_twop FTOWARD lost=4 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 154 objects
+v11u116repro/arms/f1t_intdec FTOWARD lost=4 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 146 objects
+v11u116repro/arms/f1t_intnd FTOWARD lost=4 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 146 objects
+v11u116repro/arms/f1t_intsig FTOWARD lost=4 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL endcol
+-- probe tally: FSAME=14 FTOWARD=111
+surelog/default/ApbSlave FTOWARD lost=45 neutral=0 offdiv=372 ondiv=372 unmasked=1 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL depth
+surelog/default/BlackBePipeInt FSAME lost=0 neutral=0 offdiv=67 ondiv=67 unmasked=1 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+surelog/default/CovMacro FTOWARD lost=224 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL fullname
+surelog/default/Earlgrey_0_1 FTOWARD lost=1294 neutral=0 offdiv=130430 ondiv=130430 unmasked=1 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+surelog/default/FuncStructVal FTOWARD lost=554 neutral=0 offdiv=7975 ondiv=7975 unmasked=1 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+surelog/default/GenForStructParamBound FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL col
+surelog/default/MiniAmiq FTOWARD lost=274 neutral=0 offdiv=2450 ondiv=2450 unmasked=1 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL file
+surelog/default/PackedArrayHighConn FTOWARD lost=1 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+surelog/default/Rggen FSAME lost=0 neutral=0 offdiv=469 ondiv=469 unmasked=1 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+surelog/default/Scoreboard FTOWARD lost=250 neutral=0 offdiv=2492 ondiv=2492 unmasked=1 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+surelog/default/Scr1SvTests FTOWARD lost=152 neutral=0 offdiv=16033 ondiv=16033 unmasked=1 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL file
+surelog/default/SeqDriver FTOWARD lost=242 neutral=0 offdiv=2433 ondiv=2433 unmasked=1 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL file
+surelog/default/SimpleUVM FTOWARD lost=242 neutral=0 offdiv=2484 ondiv=2484 unmasked=1 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+surelog/default/StructArrayNet FTOWARD lost=2 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 184 objects
+surelog/default/StructParamFuncBodyFieldCompare FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+surelog/default/StructParamPatternInitCast FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+surelog/default/YosysMarlann FTOWARD lost=30 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 5403 objects
+surelog/default/YosysOldOpen FTOWARD lost=30 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL line -> STRICT_EQUAL 31337 objects
+surelog/default/YosysOldOr FTOWARD lost=110 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+surelog/default/YosysRiscv FTOWARD lost=86 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL col
+surelog/testflags/ApbSlave FTOWARD lost=45 neutral=0 offdiv=372 ondiv=372 unmasked=1 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL depth
+surelog/testflags/BlackBePipeInt FSAME lost=0 neutral=0 offdiv=66 ondiv=66 unmasked=1 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+surelog/testflags/CovMacro FTOWARD lost=224 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL fullname
+surelog/testflags/Earlgrey_0_1 FTOWARD lost=1294 neutral=0 offdiv=131904 ondiv=131904 unmasked=1 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+surelog/testflags/FuncStructVal FTOWARD lost=921 neutral=0 offdiv=13254 ondiv=13254 unmasked=1 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+surelog/testflags/GenForStructParamBound FTOWARD lost=6 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL col
+surelog/testflags/MiniAmiq FTOWARD lost=274 neutral=0 offdiv=2450 ondiv=2450 unmasked=1 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL file
+surelog/testflags/PackedArrayHighConn FTOWARD lost=1 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+surelog/testflags/Scr1SvTests FTOWARD lost=152 neutral=0 offdiv=16033 ondiv=16033 unmasked=1 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL file
+surelog/testflags/SeqDriver FTOWARD lost=242 neutral=0 offdiv=2445 ondiv=2445 unmasked=1 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL file
+surelog/testflags/SimpleUVM FTOWARD lost=242 neutral=0 offdiv=2496 ondiv=2496 unmasked=1 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+surelog/testflags/StructArrayNet FTOWARD lost=2 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 94 objects
+surelog/testflags/StructParamFuncBodyFieldCompare FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+surelog/testflags/StructParamPatternInitCast FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+surelog/testflags/YosysMarlann FTOWARD lost=30 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 5403 objects
+surelog/testflags/YosysOldOpen FTOWARD lost=4 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 31337 objects
+surelog/testflags/YosysOldOr FTOWARD lost=110 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+surelog/testflags/YosysRiscv FTOWARD lost=86 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL col
+-- surelog tally: FSAME=7 FTOWARD=31
+uhdm2rtlil/default/ibex_load_store_unit FTOWARD lost=284 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endline -> STRICT_EQUAL 3720 objects
+uhdm2rtlil/default/ibex_pmp FTOWARD lost=73 neutral=0 offdiv=13972 ondiv=13972 unmasked=1 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+uhdm2rtlil/default/param_nested_struct_field_width FTOWARD lost=18 neutral=0 offdiv=239 ondiv=None unmasked=6 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+uhdm2rtlil/default/pkg_nested_struct_param_width FTOWARD lost=16 neutral=0 offdiv=256 ondiv=None unmasked=0 | STRICT_NOTEQUAL line -> STRICT_EQUAL 653 objects
+uhdm2rtlil/default/struct_param_field_shift FTOWARD lost=126 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL fullname
+uhdm2rtlil/default/struct_param_func_config FTOWARD lost=18 neutral=0 offdiv=301 ondiv=1364 unmasked=14 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+uhdm2rtlil/testflags/ibex_load_store_unit FTOWARD lost=284 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endline -> STRICT_EQUAL 3630 objects
+uhdm2rtlil/testflags/ibex_pmp FTOWARD lost=73 neutral=0 offdiv=13882 ondiv=13882 unmasked=1 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+uhdm2rtlil/testflags/param_nested_struct_field_width FTOWARD lost=18 neutral=0 offdiv=232 ondiv=None unmasked=6 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+uhdm2rtlil/testflags/pkg_nested_struct_param_width FTOWARD lost=16 neutral=0 offdiv=249 ondiv=None unmasked=0 | STRICT_NOTEQUAL line -> STRICT_EQUAL 563 objects
+uhdm2rtlil/testflags/struct_param_field_shift FTOWARD lost=126 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL fullname
+uhdm2rtlil/testflags/struct_param_func_config FTOWARD lost=18 neutral=0 offdiv=294 ondiv=1274 unmasked=14 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL fullname
+-- uhdm2rtlil tally: FTOWARD=12

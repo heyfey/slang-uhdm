@@ -1,0 +1,77 @@
+== probe: rows 4087; conversions L vs A = 79: OWN168=21 OWN169=58
+  CONV OWN168: r10earl42repro/v42_overfire, r10earl43repro/v43_h1_order, r10earl54repro/v10step1, r10earl81repro/g3_norm81, r10earl_repro/a, r10earl_repro/mm, r10uvm60repro/b7_multiline, r10v81repro/v6_edge81, r11u8repro/b5, r11u8repro/b8, r11u8repro/gA, r11u8repro/gB, r11v11u8repro/v1, r11v11u8repro/v10, r11v11u8repro/v11, r11v11u8repro/v12, r11v11u8repro/v13, r11v11u8repro/v2, r11v11u8repro/v4, r11v11u8repro/v5, r11v11u8repro/v8
+  CONV OWN169: r10earl_repro/pv20, r10earl_repro/qd21, r10earl_repro/qe21, r10earl_repro/qf21, r10vearl105repro/v4_home105, r11u115repro/grid/r/k/k06_modhdr_p09_add, r11u115repro/grid/r/v/v10_genfor_modparam_ctl, r11u11repro/a3, r11u14repro/c8, r11u20repro/b2, r11u20repro/b5, r11vu13repro/v2, r11vu3repro/vK, v11u116repro/arms/f1_allf_body, v11u116repro/arms/f1_allf_hdr, v11u116repro/arms/f1_allf_lp, v11u116repro/arms/f1_bin_body, v11u116repro/arms/f1_bin_hdr, v11u116repro/arms/f1_bin_lp, v11u116repro/arms/f1_bnd_body, v11u116repro/arms/f1_bnd_hdr, v11u116repro/arms/f1_bnd_lp, v11u116repro/arms/f1_dsz_body, v11u116repro/arms/f1_dsz_hdr, v11u116repro/arms/f1_dsz_lp, v11u116repro/arms/f1_expr_body, v11u116repro/arms/f1_expr_hdr, v11u116repro/arms/f1_expr_lp, v11u116repro/arms/f1_lhex_body, v11u116repro/arms/f1_lhex_hdr, v11u116repro/arms/f1_lhex_lp, v11u116repro/arms/f1_nar8_body, v11u116repro/arms/f1_nar8_hdr, v11u116repro/arms/f1_nar8_lp, v11u116repro/arms/f1_neg1_body, v11u116repro/arms/f1_neg1_hdr, v11u116repro/arms/f1_neg1_lp, v11u116repro/arms/f1_oct_body, v11u116repro/arms/f1_oct_hdr, v11u116repro/arms/f1_oct_lp, v11u116repro/arms/f1_und_body, v11u116repro/arms/f1_und_hdr, v11u116repro/arms/f1_und_lp, v11u116repro/arms/f1_uns_body, v11u116repro/arms/f1_uns_hdr, v11u116repro/arms/f1_uns_lp, v11u116repro/arms/f1_wid40_body, v11u116repro/arms/f1_wid40_hdr, v11u116repro/arms/f1_wid40_lp, v11u116repro/arms/f1_xz_body, v11u116repro/arms/f1_xz_hdr, v11u116repro/arms/f1_xz_lp, v11u116repro/arms/f1s_gvar, v11u116repro/arms/f1s_ibexlike, v11u116repro/arms/f1s_ovr, v11u116repro/arms/f1s_twop, v11u116repro/arms/f1t_intdec, v11u116repro/arms/f1t_intnd
+  CHANGE (L vs A, not a conversion): OWN168=5 OWN169=27
+    OWN168 r10uvm104repro/g104_a1_sep: A=('STRICT_NOTEQUAL', 'differ:endcol(48)') L=('STRICT_NOTEQUAL', 'differ:endcol(44)')
+    OWN168 r10uvm160repro/g160_f_witness: A=('STRICT_NOTEQUAL', 'differ:line(11)') L=('STRICT_NOTEQUAL', 'differ:line(2)')
+    OWN168 r10v104repro/v1_pastecount: A=('STRICT_NOTEQUAL', 'differ:endcol(8)') L=('STRICT_NOTEQUAL', 'differ:endcol(4)')
+    OWN168 r10v132repro/v4_home: A=('STRICT_NOTEQUAL', 'differ:file(50)') L=('STRICT_NOTEQUAL', 'differ:file(48)')
+    OWN168 r11v11u8repro/v9: A=('STRICT_NOTEQUAL', 'differ:line(6)') L=('STRICT_NOTEQUAL', 'differ:col(6)')
+    OWN169 r10earl105repro/g5_int105: A=('STRICT_NOTEQUAL', 'differ:fullname(10)') L=('STRICT_NOTEQUAL', 'differ:fullname(2)')
+    OWN169 r10vearl105repro/v7_repl105: A=('STRICT_NOTEQUAL', 'differ:fullname(22)') L=('STRICT_NOTEQUAL', 'differ:fullname(8)')
+    OWN169 r10vearl95repro/v95a_ctx: A=('STRICT_NOTEQUAL', 'differ:fullname(12)') L=('STRICT_NOTEQUAL', 'differ:fullname(9)')
+    OWN169 r11u11repro/a5: A=('STRICT_NOTEQUAL', 'differ:file(14)') L=('STRICT_NOTEQUAL', 'differ:fullname(2)')
+    OWN169 r11u11repro/a8: A=('STRICT_NOTEQUAL', 'differ:file(33)') L=('STRICT_NOTEQUAL', 'differ:fullname(7)')
+    OWN169 r11u13repro/b3: A=('STRICT_NOTEQUAL', 'differ:line(57)') L=('STRICT_NOTEQUAL', 'differ:line(29)')
+    OWN169 r11u13repro/b6: A=('STRICT_NOTEQUAL', 'differ:file(39)') L=('STRICT_NOTEQUAL', 'differ:fullname(9)')
+    OWN169 r11u18repro/b4: A=('STRICT_NOTEQUAL', 'differ:col(41)') L=('STRICT_NOTEQUAL', 'differ:fullname(5)')
+    OWN169 r11u20repro/b1: A=('STRICT_NOTEQUAL', 'differ:col(41)') L=('STRICT_NOTEQUAL', 'differ:fullname(5)')
+    OWN169 r11u20repro/b3: A=('STRICT_NOTEQUAL', 'differ:col(41)') L=('STRICT_NOTEQUAL', 'differ:fullname(5)')
+    OWN169 r11u20repro/b4: A=('STRICT_NOTEQUAL', 'differ:col(95)') L=('STRICT_NOTEQUAL', 'differ:fullname(15)')
+    OWN169 r11u20repro/b6: A=('STRICT_NOTEQUAL', 'differ:col(26)') L=('STRICT_NOTEQUAL', 'differ:fullname(2)')
+    OWN169 r11u20repro/t5: A=('STRICT_NOTEQUAL', 'differ:line(5)') L=('STRICT_NOTEQUAL', 'differ:fullname(5)')
+    OWN169 r11u21repro/t1: A=('STRICT_NOTEQUAL', 'differ:line(5)') L=('STRICT_NOTEQUAL', 'differ:fullname(6)')
+    OWN169 r11u82repro/grid/s1_modform: A=('STRICT_NOTEQUAL', 'differ:col(14)') L=('STRICT_NOTEQUAL', 'differ:fullname(2)')
+    OWN169 r11u82repro/grid/s2_childpath: A=('STRICT_NOTEQUAL', 'differ:col(14)') L=('STRICT_NOTEQUAL', 'differ:fullname(2)')
+    OWN169 r11u82repro/grid/v2_aliaschain: A=('STRICT_NOTEQUAL', 'differ:col(22)') L=('STRICT_NOTEQUAL', 'differ:fullname(4)')
+    OWN169 r11u82repro/grid/v3_rootpath: A=('STRICT_NOTEQUAL', 'differ:col(16)') L=('STRICT_NOTEQUAL', 'differ:fullname(4)')
+    OWN169 r11v21repro/v1: A=('STRICT_NOTEQUAL', 'differ:line(5)') L=('STRICT_NOTEQUAL', 'differ:fullname(5)')
+    OWN169 r11v66repro/a3_inst66: A=('STRICT_NOTEQUAL', 'differ:endcol(12)') L=('STRICT_NOTEQUAL', 'differ:endcol(6)')
+    OWN169 r11v75repro/grid/xl_impclimb: A=('STRICT_NOTEQUAL', 'differ:col(23)') L=('STRICT_NOTEQUAL', 'differ:fullname(5)')
+    OWN169 r11vu13repro/v4: A=('STRICT_NOTEQUAL', 'differ:line(5)') L=('STRICT_NOTEQUAL', 'differ:fullname(7)')
+    OWN169 r11vu13repro/v9: A=('STRICT_NOTEQUAL', 'differ:line(9)') L=('STRICT_NOTEQUAL', 'differ:fullname(13)')
+    OWN169 v11u116repro/arms/f1_shex_body: A=('STRICT_NOTEQUAL', 'differ:file(13)') L=('STRICT_NOTEQUAL', 'differ:file(7)')
+    OWN169 v11u116repro/arms/f1_shex_hdr: A=('STRICT_NOTEQUAL', 'differ:file(13)') L=('STRICT_NOTEQUAL', 'differ:file(7)')
+    OWN169 v11u116repro/arms/f1_shex_lp: A=('STRICT_NOTEQUAL', 'differ:file(13)') L=('STRICT_NOTEQUAL', 'differ:file(7)')
+    OWN169 v11u116repro/arms/f1t_intsig: A=('STRICT_NOTEQUAL', 'differ:fullname(8)') L=('STRICT_NOTEQUAL', 'differ:endcol(4)')
+  CANCEL (same in L and A, different with one landing off): 0
+== surelog: rows 1588; conversions L vs A = 8: OWN168=8
+  CONV OWN168: GenForStructParamBound/d, GenForStructParamBound/t, StructArrayNet/d, StructArrayNet/t, YosysMarlann/d, YosysMarlann/t, YosysOldOpen/d, YosysOldOpen/t
+  CHANGE (L vs A, not a conversion): OWN168=21 OWN169=2
+    OWN168 ApbSlave/d: A=('STRICT_NOTEQUAL', 'differ:line(26)') L=('STRICT_NOTEQUAL', 'differ:depth(1)')
+    OWN168 ApbSlave/t: A=('STRICT_NOTEQUAL', 'differ:line(26)') L=('STRICT_NOTEQUAL', 'differ:depth(1)')
+    OWN168 CovMacro/d: A=('STRICT_NOTEQUAL', 'differ:endcol(118)') L=('STRICT_NOTEQUAL', 'differ:fullname(8)')
+    OWN168 CovMacro/t: A=('STRICT_NOTEQUAL', 'differ:endcol(118)') L=('STRICT_NOTEQUAL', 'differ:fullname(8)')
+    OWN168 Earlgrey_0_1/d: A=('STRICT_NOTEQUAL', 'differ:line(1686)') L=('STRICT_NOTEQUAL', 'differ:fullname(511)')
+    OWN168 Earlgrey_0_1/t: A=('STRICT_NOTEQUAL', 'differ:line(1686)') L=('STRICT_NOTEQUAL', 'differ:fullname(511)')
+    OWN168 MiniAmiq/d: A=('STRICT_NOTEQUAL', 'differ:line(183)') L=('STRICT_NOTEQUAL', 'differ:file(46)')
+    OWN168 MiniAmiq/t: A=('STRICT_NOTEQUAL', 'differ:line(183)') L=('STRICT_NOTEQUAL', 'differ:file(46)')
+    OWN168 PackedArrayHighConn/d: A=('STRICT_NOTEQUAL', 'differ:fullname(6)') L=('STRICT_NOTEQUAL', 'differ:fullname(5)')
+    OWN168 PackedArrayHighConn/t: A=('STRICT_NOTEQUAL', 'differ:fullname(6)') L=('STRICT_NOTEQUAL', 'differ:fullname(5)')
+    OWN168 Scoreboard/d: A=('STRICT_NOTEQUAL', 'differ:line(187)') L=('STRICT_NOTEQUAL', 'differ:fullname(62)')
+    OWN168 Scr1SvTests/d: A=('STRICT_NOTEQUAL', 'differ:line(219)') L=('STRICT_NOTEQUAL', 'differ:file(143)')
+    OWN168 Scr1SvTests/t: A=('STRICT_NOTEQUAL', 'differ:line(219)') L=('STRICT_NOTEQUAL', 'differ:file(143)')
+    OWN168 SeqDriver/d: A=('STRICT_NOTEQUAL', 'differ:line(167)') L=('STRICT_NOTEQUAL', 'differ:file(46)')
+    OWN168 SeqDriver/t: A=('STRICT_NOTEQUAL', 'differ:line(167)') L=('STRICT_NOTEQUAL', 'differ:file(46)')
+    OWN168 SimpleUVM/d: A=('STRICT_NOTEQUAL', 'differ:line(183)') L=('STRICT_NOTEQUAL', 'differ:fullname(62)')
+    OWN168 SimpleUVM/t: A=('STRICT_NOTEQUAL', 'differ:line(183)') L=('STRICT_NOTEQUAL', 'differ:fullname(62)')
+    OWN168 YosysOldOr/d: A=('STRICT_NOTEQUAL', 'differ:line(75)') L=('STRICT_NOTEQUAL', 'differ:line(1)')
+    OWN168 YosysOldOr/t: A=('STRICT_NOTEQUAL', 'differ:line(75)') L=('STRICT_NOTEQUAL', 'differ:line(1)')
+    OWN168 YosysRiscv/d: A=('STRICT_NOTEQUAL', 'differ:endcol(86)') L=('STRICT_NOTEQUAL', 'differ:col(40)')
+    OWN168 YosysRiscv/t: A=('STRICT_NOTEQUAL', 'differ:endcol(86)') L=('STRICT_NOTEQUAL', 'differ:col(40)')
+    OWN169 FuncStructVal/d: A=('STRICT_NOTEQUAL', 'differ:endcol(207)') L=('STRICT_NOTEQUAL', 'differ:endcol(95)')
+    OWN169 FuncStructVal/t: A=('STRICT_NOTEQUAL', 'differ:endcol(363)') L=('STRICT_NOTEQUAL', 'differ:endcol(177)')
+  CANCEL (same in L and A, different with one landing off): 0
+== uhdm2rtlil: rows 1742; conversions L vs A = 4: OWN168=2 OWN169=2
+  CONV OWN168: ibex_load_store_unit/d, ibex_load_store_unit/t
+  CONV OWN169: pkg_nested_struct_param_width/d, pkg_nested_struct_param_width/t
+  CHANGE (L vs A, not a conversion): JOINT=2 OWN169=6
+    JOINT ibex_pmp/d: A=('STRICT_NOTEQUAL', 'differ:file(52)') L=('STRICT_NOTEQUAL', 'differ:file(15)')
+    JOINT ibex_pmp/t: A=('STRICT_NOTEQUAL', 'differ:file(52)') L=('STRICT_NOTEQUAL', 'differ:file(15)')
+    OWN169 param_nested_struct_field_width/d: A=('STRICT_NOTEQUAL', 'differ:line(5)') L=('STRICT_NOTEQUAL', 'differ:fullname(6)')
+    OWN169 param_nested_struct_field_width/t: A=('STRICT_NOTEQUAL', 'differ:line(5)') L=('STRICT_NOTEQUAL', 'differ:fullname(6)')
+    OWN169 struct_param_field_shift/d: A=('STRICT_NOTEQUAL', 'differ:col(41)') L=('STRICT_NOTEQUAL', 'differ:fullname(5)')
+    OWN169 struct_param_field_shift/t: A=('STRICT_NOTEQUAL', 'differ:col(41)') L=('STRICT_NOTEQUAL', 'differ:fullname(5)')
+    OWN169 struct_param_func_config/d: A=('STRICT_NOTEQUAL', 'differ:line(5)') L=('STRICT_NOTEQUAL', 'differ:fullname(14)')
+    OWN169 struct_param_func_config/t: A=('STRICT_NOTEQUAL', 'differ:line(5)') L=('STRICT_NOTEQUAL', 'differ:fullname(14)')
+  CANCEL (same in L and A, different with one landing off): 0

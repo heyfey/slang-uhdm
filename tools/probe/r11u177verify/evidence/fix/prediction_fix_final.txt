@@ -1,0 +1,11 @@
+# r11u177 final fix census (drivers/census.sh on /tmp/r11u177_bin/fix4.bin = law.bin + fix.patch, R11V177_TRACE=1), written 2026-09-26T03:27:08Z BEFORE the final fix gate sweep swG
+# rows dispatched: surelog 1588 row-modes (fence filter: 4 tests x 2 modes excluded), uhdm2rtlil 1742, probe 4087 cases; fenced mentions: 0
+# firings (a file moved / an order changed): surelog 0, uhdm2rtlil 0, probe 0
+# PREDICTED byte movers of the fix vs law.bin: NONE (0 corpus row-modes, 0 probe cases); the UVM coin rows (MiniAmiq, SeqDriver, SimpleUVM, Scoreboard) may differ by the known 0-or-4-line order coin
+# positive control (the same tracewrap on this directory's cases):
+y01_objml_incl_literal_nextline.uhdm       2 R11V177_TRACE aggreanchorfile moved Y/y01_objml_incl_literal_nextline/defs.svh -> Y/y01_objml_incl_literal_nextline/dut.sv
+y01_objml_incl_literal_nextline.uhdm       1 R11V177_TRACE mlargfile moved Y/y01_objml_incl_literal_nextline/defs.svh -> Y/y01_objml_incl_literal_nextline/dut.sv
+z05_pkg_other_root_struct_ref_default.uhdm       1 R11V177_TRACE aggreanchorfile moved Z/z05_pkg_other_root_struct_ref_default/pkg.sv -> Z/z05_pkg_other_root_struct_ref_default/dut.sv
+z02_pkg_struct_param_ref_default.uhdm       1 R11V177_TRACE aggreanchorfile moved Z/z02_pkg_struct_param_ref_default/defs.svh -> Z/z02_pkg_struct_param_ref_default/dut.sv
+t01_named_decl_order_ml.uhdm       1 R11V177_TRACE tagsort reordered
+x11_patflat_multiline_macro.uhdm       1 R11V177_TRACE tagsort reordered

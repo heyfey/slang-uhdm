@@ -1,0 +1,11 @@
+# pass 169's census reproduced: r11u169repro/drivers/census.sh + predict.py on law.bin under R11U166_OFF R11U168_OFF R11V173_OFF R11V169_INSIDESET_OFF (= its law8 on its base; <scratch>/r11u177_cen169)
+rows: 134; vs committed evidence/census_all_firings.tsv:
+IDENTICAL
+predicted movers (committed predicted_movers.tsv): 118; measured 169 movers at this base (sw9 vs swH bytes): 122
+movers not predicted:
+surelog	MiniAmiq	default
+surelog	MiniAmiq	testflags
+surelog	Scoreboard	default
+surelog	SeqDriver	default
+predicted not moving:
+(the four unpredicted rows are the UVM coin: evidence/composition/orderblind_H_vs_off169_uvm.txt)

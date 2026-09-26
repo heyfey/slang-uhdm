@@ -1,0 +1,224 @@
+  T/t03_named_oneline_control on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=cb7b9f39
+  T/t03_named_oneline_control off_ppOutputLine166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=cb7b9f39
+  T/t03_named_oneline_control off_ppOutputCol166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=cb7b9f39
+  T/t03_named_oneline_control off_tagPatSortSrcOrder177v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=cb7b9f39
+  T/t03_named_oneline_control offL168 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=cb7b9f39
+  T/t03_named_oneline_control offL169 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=782fde56
+  T/t03_named_oneline_control alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=782fde56
+  T/t03_named_oneline_control preoff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=782fde56
+  T/t03_named_oneline_control pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=782fde56
+RESULT T/t03_named_oneline_control ppOutputLine166 UNFIRED 
+RESULT T/t03_named_oneline_control ppOutputCol166 UNFIRED 
+RESULT T/t03_named_oneline_control tagPatSortSrcOrder177v UNFIRED 
+RESULT T/t03_named_oneline_control LANDING168 UNFIRED 
+RESULT T/t03_named_oneline_control LANDING169 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT T/t03_named_oneline_control ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT T/t03_named_oneline_control ALLOFF==PRE YES
+  T/t02_named_reversed_ml on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=89ae47dc
+  T/t02_named_reversed_ml off_ppOutputLine166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=89ae47dc
+  T/t02_named_reversed_ml off_ppOutputCol166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=d68ae71d
+  T/t02_named_reversed_ml off_tagPatSortSrcOrder177v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=89ae47dc
+  T/t02_named_reversed_ml offL168 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=d68ae71d
+  T/t02_named_reversed_ml offL169 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=ce83e587
+  T/t02_named_reversed_ml alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=a4541fb1
+  T/t02_named_reversed_ml preoff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=a4541fb1
+  T/t02_named_reversed_ml pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=a4541fb1
+RESULT T/t02_named_reversed_ml ppOutputLine166 UNFIRED 
+RESULT T/t02_named_reversed_ml ppOutputCol166 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t02_named_reversed_ml tagPatSortSrcOrder177v UNFIRED 
+RESULT T/t02_named_reversed_ml LANDING168 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t02_named_reversed_ml LANDING169 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT T/t02_named_reversed_ml ALLOFF TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t02_named_reversed_ml ALLOFF==PRE YES
+  T/t01_named_decl_order_ml on cmp=255 cmplines=132 strict=NOT_EQUAL_stage1 rc=0 md5=b71819c9
+  T/t01_named_decl_order_ml off_ppOutputLine166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=78c78455
+  T/t01_named_decl_order_ml off_ppOutputCol166 cmp=255 cmplines=132 strict=NOT_EQUAL_stage1 rc=0 md5=7205b038
+  T/t01_named_decl_order_ml off_tagPatSortSrcOrder177v cmp=255 cmplines=132 strict=NOT_EQUAL_stage1 rc=0 md5=b71819c9
+  T/t01_named_decl_order_ml offL168 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=dd11d4dd
+  T/t01_named_decl_order_ml offL169 cmp=255 cmplines=132 strict=NOT_EQUAL_stage1 rc=0 md5=82e1803e
+  T/t01_named_decl_order_ml alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=6beb0ce6
+  T/t01_named_decl_order_ml preoff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=6beb0ce6
+  T/t01_named_decl_order_ml pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=6beb0ce6
+RESULT T/t01_named_decl_order_ml ppOutputLine166 STAGE1-CLOSER off:STRICT_NOTEQUAL endline on:stage1 dump off=34 on=0 newbad=0
+RESULT T/t01_named_decl_order_ml ppOutputCol166 STAGE1-CLOSER off:stage1 on:stage1 dump off=60 on=0 newbad=0
+RESULT T/t01_named_decl_order_ml tagPatSortSrcOrder177v UNFIRED 
+RESULT T/t01_named_decl_order_ml LANDING168 STAGE1-CLOSER off:STRICT_NOTEQUAL endcol on:stage1 dump off=60 on=0 newbad=0
+RESULT T/t01_named_decl_order_ml LANDING169 STAGE1-CLOSER off:stage1 on:stage1 dump off=4 on=0 newbad=0
+RESULT T/t01_named_decl_order_ml ALLOFF STAGE1-CLOSER off:STRICT_NOTEQUAL endcol on:stage1 dump off=62 on=0 newbad=0
+RESULT T/t01_named_decl_order_ml ALLOFF==PRE YES
+  T/t03_named_oneline_control_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=d675289d
+  T/t03_named_oneline_control_el off_ppOutputLine166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=d675289d
+  T/t03_named_oneline_control_el off_ppOutputCol166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=d675289d
+  T/t03_named_oneline_control_el off_tagPatSortSrcOrder177v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=d675289d
+  T/t03_named_oneline_control_el offL168 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=d675289d
+  T/t03_named_oneline_control_el offL169 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=0e402f42
+  T/t03_named_oneline_control_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=0e402f42
+  T/t03_named_oneline_control_el preoff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=0e402f42
+  T/t03_named_oneline_control_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=0e402f42
+RESULT T/t03_named_oneline_control_el ppOutputLine166 UNFIRED 
+RESULT T/t03_named_oneline_control_el ppOutputCol166 UNFIRED 
+RESULT T/t03_named_oneline_control_el tagPatSortSrcOrder177v UNFIRED 
+RESULT T/t03_named_oneline_control_el LANDING168 UNFIRED 
+  T/t02_named_reversed_ml_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=26e1eae3
+  T/t02_named_reversed_ml_el off_ppOutputLine166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=26e1eae3
+  T/t02_named_reversed_ml_el off_ppOutputCol166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=bbef6dfc
+  T/t02_named_reversed_ml_el off_tagPatSortSrcOrder177v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=26e1eae3
+  T/t02_named_reversed_ml_el offL168 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=bbef6dfc
+  T/t02_named_reversed_ml_el offL169 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=a0b1a757
+  T/t02_named_reversed_ml_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=1c7f2c11
+  T/t02_named_reversed_ml_el preoff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=1c7f2c11
+  T/t02_named_reversed_ml_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=1c7f2c11
+RESULT T/t02_named_reversed_ml_el ppOutputLine166 UNFIRED 
+RESULT T/t03_named_oneline_control_el LANDING169 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT T/t02_named_reversed_ml_el ppOutputCol166 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t02_named_reversed_ml_el tagPatSortSrcOrder177v UNFIRED 
+RESULT T/t03_named_oneline_control_el ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT T/t02_named_reversed_ml_el LANDING168 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t03_named_oneline_control_el ALLOFF==PRE YES
+RESULT T/t02_named_reversed_ml_el LANDING169 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT T/t02_named_reversed_ml_el ALLOFF TOWARD new=0 gone=6 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t02_named_reversed_ml_el ALLOFF==PRE YES
+  T/t01_named_decl_order_ml_el on cmp=255 cmplines=132 strict=NOT_EQUAL_stage1 rc=0 md5=15117ce1
+  T/t01_named_decl_order_ml_el off_ppOutputLine166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=a7c59e07
+  T/t01_named_decl_order_ml_el off_ppOutputCol166 cmp=255 cmplines=132 strict=NOT_EQUAL_stage1 rc=0 md5=377953b8
+  T/t01_named_decl_order_ml_el off_tagPatSortSrcOrder177v cmp=255 cmplines=132 strict=NOT_EQUAL_stage1 rc=0 md5=15117ce1
+  T/t01_named_decl_order_ml_el offL168 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=5556445a
+  T/t01_named_decl_order_ml_el offL169 cmp=255 cmplines=132 strict=NOT_EQUAL_stage1 rc=0 md5=208eec52
+  T/t01_named_decl_order_ml_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=a31c01be
+  T/t01_named_decl_order_ml_el preoff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=a31c01be
+  T/t01_named_decl_order_ml_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=a31c01be
+RESULT T/t01_named_decl_order_ml_el ppOutputLine166 STAGE1-CLOSER off:STRICT_NOTEQUAL endline on:stage1 dump off=34 on=0 newbad=0
+RESULT T/t01_named_decl_order_ml_el ppOutputCol166 STAGE1-CLOSER off:stage1 on:stage1 dump off=60 on=0 newbad=0
+RESULT T/t01_named_decl_order_ml_el tagPatSortSrcOrder177v UNFIRED 
+RESULT T/t01_named_decl_order_ml_el LANDING168 STAGE1-CLOSER off:STRICT_NOTEQUAL endcol on:stage1 dump off=60 on=0 newbad=0
+RESULT T/t01_named_decl_order_ml_el LANDING169 STAGE1-CLOSER off:stage1 on:stage1 dump off=4 on=0 newbad=0
+RESULT T/t01_named_decl_order_ml_el ALLOFF STAGE1-CLOSER off:STRICT_NOTEQUAL endcol on:stage1 dump off=62 on=0 newbad=0
+RESULT T/t01_named_decl_order_ml_el ALLOFF==PRE YES
+  T/t04_index_setters_ml on cmp=255 cmplines=54 strict=NOT_EQUAL_stage1 rc=0 md5=855c8aa3
+  T/t04_index_setters_ml off_ppOutputLine166 cmp=255 cmplines=54 strict=NOT_EQUAL_stage1 rc=0 md5=855c8aa3
+  T/t04_index_setters_ml off_ppOutputCol166 cmp=255 cmplines=54 strict=NOT_EQUAL_stage1 rc=0 md5=3cfe5e7b
+  T/t04_index_setters_ml off_tagPatSortSrcOrder177v cmp=255 cmplines=54 strict=NOT_EQUAL_stage1 rc=0 md5=855c8aa3
+  T/t04_index_setters_ml offL168 cmp=255 cmplines=54 strict=NOT_EQUAL_stage1 rc=0 md5=3cfe5e7b
+  T/t04_index_setters_ml offL169 cmp=255 cmplines=54 strict=NOT_EQUAL_stage1 rc=0 md5=855c8aa3
+  T/t04_index_setters_ml alloff cmp=255 cmplines=54 strict=NOT_EQUAL_stage1 rc=0 md5=3cfe5e7b
+  T/t04_index_setters_ml preoff cmp=255 cmplines=54 strict=NOT_EQUAL_stage1 rc=0 md5=3cfe5e7b
+  T/t04_index_setters_ml pre cmp=255 cmplines=54 strict=NOT_EQUAL_stage1 rc=0 md5=3cfe5e7b
+RESULT T/t04_index_setters_ml ppOutputLine166 UNFIRED 
+  T/t05_default_first_ml on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=98ca5eb1
+  T/t05_default_first_ml off_ppOutputLine166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=98ca5eb1
+  T/t05_default_first_ml off_ppOutputCol166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=318ec855
+  T/t05_default_first_ml off_tagPatSortSrcOrder177v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=98ca5eb1
+  T/t05_default_first_ml offL168 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=318ec855
+  T/t05_default_first_ml offL169 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=551940c7
+  T/t05_default_first_ml alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=cec827f7
+  T/t05_default_first_ml preoff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=cec827f7
+  T/t05_default_first_ml pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=cec827f7
+RESULT T/t05_default_first_ml ppOutputLine166 UNFIRED 
+RESULT T/t05_default_first_ml ppOutputCol166 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t05_default_first_ml tagPatSortSrcOrder177v UNFIRED 
+RESULT T/t05_default_first_ml LANDING168 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t05_default_first_ml LANDING169 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT T/t05_default_first_ml ALLOFF TOWARD new=0 gone=5 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t05_default_first_ml ALLOFF==PRE YES
+RESULT T/t04_index_setters_ml ppOutputCol166 STAGE1-CLOSER off:stage1 on:stage1 dump off=70 on=44 newbad=2
+RESULT T/t04_index_setters_ml tagPatSortSrcOrder177v UNFIRED 
+RESULT T/t04_index_setters_ml LANDING168 STAGE1-CLOSER off:stage1 on:stage1 dump off=70 on=44 newbad=2
+RESULT T/t04_index_setters_ml LANDING169 UNFIRED 
+RESULT T/t04_index_setters_ml ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=70 on=44 newbad=2
+RESULT T/t04_index_setters_ml ALLOFF==PRE YES
+  T/t06_contassign_pattern_ml on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=291559bb
+  T/t06_contassign_pattern_ml off_ppOutputLine166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=291559bb
+  T/t06_contassign_pattern_ml off_ppOutputCol166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=2d6b66b3
+  T/t06_contassign_pattern_ml off_tagPatSortSrcOrder177v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=291559bb
+  T/t06_contassign_pattern_ml offL168 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=2d6b66b3
+  T/t06_contassign_pattern_ml offL169 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=291559bb
+  T/t06_contassign_pattern_ml alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=2d6b66b3
+  T/t06_contassign_pattern_ml preoff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=2d6b66b3
+  T/t06_contassign_pattern_ml pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=2d6b66b3
+RESULT T/t06_contassign_pattern_ml ppOutputLine166 UNFIRED 
+RESULT T/t06_contassign_pattern_ml ppOutputCol166 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t06_contassign_pattern_ml tagPatSortSrcOrder177v UNFIRED 
+RESULT T/t06_contassign_pattern_ml LANDING168 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t06_contassign_pattern_ml LANDING169 UNFIRED 
+RESULT T/t06_contassign_pattern_ml ALLOFF TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t06_contassign_pattern_ml ALLOFF==PRE YES
+  T/t05_default_first_ml_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=e0bfba96
+  T/t05_default_first_ml_el off_ppOutputLine166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=e0bfba96
+  T/t05_default_first_ml_el off_ppOutputCol166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=0696ff3e
+  T/t05_default_first_ml_el off_tagPatSortSrcOrder177v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=e0bfba96
+  T/t05_default_first_ml_el offL168 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=0696ff3e
+  T/t05_default_first_ml_el offL169 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=d77cefce
+  T/t05_default_first_ml_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=e69f4a4d
+  T/t05_default_first_ml_el preoff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=e69f4a4d
+  T/t05_default_first_ml_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=e69f4a4d
+RESULT T/t05_default_first_ml_el ppOutputLine166 UNFIRED 
+RESULT T/t05_default_first_ml_el ppOutputCol166 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t05_default_first_ml_el tagPatSortSrcOrder177v UNFIRED 
+RESULT T/t05_default_first_ml_el LANDING168 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t05_default_first_ml_el LANDING169 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT T/t05_default_first_ml_el ALLOFF TOWARD new=0 gone=5 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t05_default_first_ml_el ALLOFF==PRE YES
+  T/t04_index_setters_ml_el on cmp=255 cmplines=58 strict=NOT_EQUAL_stage1 rc=0 md5=1c790e8f
+  T/t04_index_setters_ml_el off_ppOutputLine166 cmp=255 cmplines=58 strict=NOT_EQUAL_stage1 rc=0 md5=1c790e8f
+  T/t04_index_setters_ml_el off_ppOutputCol166 cmp=255 cmplines=58 strict=NOT_EQUAL_stage1 rc=0 md5=3e7bb219
+  T/t04_index_setters_ml_el off_tagPatSortSrcOrder177v cmp=255 cmplines=58 strict=NOT_EQUAL_stage1 rc=0 md5=1c790e8f
+  T/t04_index_setters_ml_el offL168 cmp=255 cmplines=58 strict=NOT_EQUAL_stage1 rc=0 md5=3e7bb219
+  T/t04_index_setters_ml_el offL169 cmp=255 cmplines=58 strict=NOT_EQUAL_stage1 rc=0 md5=1c790e8f
+  T/t04_index_setters_ml_el alloff cmp=255 cmplines=58 strict=NOT_EQUAL_stage1 rc=0 md5=3e7bb219
+  T/t04_index_setters_ml_el preoff cmp=255 cmplines=58 strict=NOT_EQUAL_stage1 rc=0 md5=3e7bb219
+  T/t04_index_setters_ml_el pre cmp=255 cmplines=58 strict=NOT_EQUAL_stage1 rc=0 md5=3e7bb219
+RESULT T/t04_index_setters_ml_el ppOutputLine166 UNFIRED 
+RESULT T/t04_index_setters_ml_el ppOutputCol166 STAGE1-CLOSER off:stage1 on:stage1 dump off=74 on=48 newbad=2
+RESULT T/t04_index_setters_ml_el tagPatSortSrcOrder177v UNFIRED 
+RESULT T/t04_index_setters_ml_el LANDING168 STAGE1-CLOSER off:stage1 on:stage1 dump off=74 on=48 newbad=2
+RESULT T/t04_index_setters_ml_el LANDING169 UNFIRED 
+RESULT T/t04_index_setters_ml_el ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=74 on=48 newbad=2
+RESULT T/t04_index_setters_ml_el ALLOFF==PRE YES
+  T/t06_contassign_pattern_ml_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=0061baab
+  T/t06_contassign_pattern_ml_el off_ppOutputLine166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=0061baab
+  T/t06_contassign_pattern_ml_el off_ppOutputCol166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=1cb92713
+  T/t06_contassign_pattern_ml_el off_tagPatSortSrcOrder177v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=0061baab
+  T/t06_contassign_pattern_ml_el offL168 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=1cb92713
+  T/t06_contassign_pattern_ml_el offL169 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=0061baab
+  T/t06_contassign_pattern_ml_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=1cb92713
+  T/t06_contassign_pattern_ml_el preoff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=1cb92713
+  T/t06_contassign_pattern_ml_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=1cb92713
+RESULT T/t06_contassign_pattern_ml_el ppOutputLine166 UNFIRED 
+RESULT T/t06_contassign_pattern_ml_el ppOutputCol166 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t06_contassign_pattern_ml_el tagPatSortSrcOrder177v UNFIRED 
+RESULT T/t06_contassign_pattern_ml_el LANDING168 TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t06_contassign_pattern_ml_el LANDING169 UNFIRED 
+RESULT T/t06_contassign_pattern_ml_el ALLOFF TOWARD new=0 gone=4 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t06_contassign_pattern_ml_el ALLOFF==PRE YES
+  T/t07_named_ml_both_first on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=57799019
+  T/t07_named_ml_both_first off_ppOutputLine166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=e6a9169b
+  T/t07_named_ml_both_first off_ppOutputCol166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=134ee7e9
+  T/t07_named_ml_both_first off_tagPatSortSrcOrder177v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=57799019
+  T/t07_named_ml_both_first offL168 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=52f080c7
+  T/t07_named_ml_both_first offL169 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=43ab912a
+  T/t07_named_ml_both_first alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=e0c4f90b
+  T/t07_named_ml_both_first preoff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=e0c4f90b
+  T/t07_named_ml_both_first pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=e0c4f90b
+RESULT T/t07_named_ml_both_first ppOutputLine166 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT T/t07_named_ml_both_first ppOutputCol166 TOWARD new=0 gone=5 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t07_named_ml_both_first tagPatSortSrcOrder177v UNFIRED 
+RESULT T/t07_named_ml_both_first LANDING168 TOWARD new=0 gone=5 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t07_named_ml_both_first LANDING169 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT T/t07_named_ml_both_first ALLOFF TOWARD new=0 gone=7 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t07_named_ml_both_first ALLOFF==PRE YES
+  T/t07_named_ml_both_first_el on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=5dfbadfd
+  T/t07_named_ml_both_first_el off_ppOutputLine166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=3eb7a410
+  T/t07_named_ml_both_first_el off_ppOutputCol166 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=5ad09b41
+  T/t07_named_ml_both_first_el off_tagPatSortSrcOrder177v cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=5dfbadfd
+  T/t07_named_ml_both_first_el offL168 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=eeea7fcd
+  T/t07_named_ml_both_first_el offL169 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_col rc=0 md5=e7456903
+  T/t07_named_ml_both_first_el alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=3705cdd4
+  T/t07_named_ml_both_first_el preoff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=3705cdd4
+  T/t07_named_ml_both_first_el pre cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endcol rc=0 md5=3705cdd4
+RESULT T/t07_named_ml_both_first_el ppOutputLine166 TOWARD new=0 gone=1 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT T/t07_named_ml_both_first_el ppOutputCol166 TOWARD new=0 gone=5 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t07_named_ml_both_first_el tagPatSortSrcOrder177v UNFIRED 
+RESULT T/t07_named_ml_both_first_el LANDING168 TOWARD new=0 gone=5 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t07_named_ml_both_first_el LANDING169 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_col on:STRICT_NOTEQUAL_col
+RESULT T/t07_named_ml_both_first_el ALLOFF TOWARD new=0 gone=7 off:STRICT_NOTEQUAL_endcol on:STRICT_NOTEQUAL_col
+RESULT T/t07_named_ml_both_first_el ALLOFF==PRE YES

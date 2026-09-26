@@ -1,0 +1,16 @@
+# r11u177: r11u168repro/drivers/predict168.py (the committed script) re-run over the sources of this pass's both-landings-off sweep (/tmp/r11u177_swA; the pinned corpus sources), rows with a trigger kept
+== surelog: rerun 92 rows; committed pred2 (written before the final sweep) 90; committed pred3_posthoc 92
+-- rerun vs pred2:
+52a53,54
+> PackedArrayHighConn	default	HC
+> PackedArrayHighConn	testflags	HC
+-- rerun vs pred3_posthoc:
+(identical)
+== uhdm2rtlil: rerun 89 rows; committed pred2 (written before the final sweep) 89; committed pred3_posthoc 89
+-- rerun vs pred2:
+-- rerun vs pred3_posthoc:
+(identical)
+== probe: rerun 98 rows; committed pred2 (written before the final sweep) 97; committed pred3_posthoc -
+-- rerun vs pred2:
+6a7
+> r10earl29repro/v8_sites2	probe	HC

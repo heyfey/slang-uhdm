@@ -1,0 +1,27 @@
+FIX-MOVES cases/T/t01_named_decl_order_ml 
+FIX-MOVES cases/T/t01_named_decl_order_ml --elabuhdm
+FIX-MOVES cases/X/x09_multiline_macro_actual_include 
+FIX-MOVES cases/X/x09_multiline_macro_actual_include --elabuhdm
+FIX-MOVES cases/X/x11_patflat_multiline_macro 
+FIX-MOVES cases/X/x11_patflat_multiline_macro --elabuhdm
+FIX-MOVES cases/Y/y01_objml_incl_literal_nextline 
+FIX-MOVES cases/Y/y01_objml_incl_literal_nextline --elabuhdm
+FIX-MOVES cases/Y/y02_funcml_incl_literal_nextline 
+FIX-MOVES cases/Y/y02_funcml_incl_literal_nextline --elabuhdm
+FIX-MOVES cases/Y/y03_objml_incl_literal_sameline 
+FIX-MOVES cases/Y/y03_objml_incl_literal_sameline --elabuhdm
+FIX-MOVES cases/Y/y04_objml_incl_param_nextline 
+FIX-MOVES cases/Y/y04_objml_incl_param_nextline --elabuhdm
+FIX-MOVES cases/Y/y05_objml_incl_binary_nextline 
+FIX-MOVES cases/Y/y05_objml_incl_binary_nextline --elabuhdm
+FIX-MOVES cases/Y/y08_module_header_default 
+FIX-MOVES cases/Y/y08_module_header_default --elabuhdm
+FIX-MOVES cases/Z/z02_pkg_struct_param_ref_default 
+FIX-MOVES cases/Z/z02_pkg_struct_param_ref_default --elabuhdm
+FIX-MOVES cases/Z/z05_pkg_other_root_struct_ref_default 
+FIX-MOVES cases/Z/z05_pkg_other_root_struct_ref_default --elabuhdm
+FIX-MOVES cases/Z/z06_pkg_include_struct_ref_default 
+FIX-MOVES cases/Z/z06_pkg_include_struct_ref_default --elabuhdm
+FIX-MOVES cases/Z/z10_other_root_localparam_body 
+FIX-MOVES cases/Z/z10_other_root_localparam_body --elabuhdm
+runs 298; R11V177_OFF!=law: 0; fix==law: 272

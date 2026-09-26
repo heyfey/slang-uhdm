@@ -1,0 +1,13 @@
+ON | K/k01_macro_inst_after_plain | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | T/t04_index_setters_ml | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | K/k02_macro_inst_before_plain | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | T/t05_default_first_ml | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | K/k03_macro_inst_then_gen | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | T/t06_contassign_pattern_ml | IDENTICAL | OK | OK | 14 | 14 | - | -
+ON | T/t01_named_decl_order_ml | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | T/t07_named_ml_both_first | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | T/t02_named_reversed_ml | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | T/t08_named_reversed_plain_control | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | T/t03_named_oneline_control | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | T/t09_named_reversed_ml_first | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | X/x11_patflat_multiline_macro | IDENTICAL | OK | OK | 1 | 1 | - | -

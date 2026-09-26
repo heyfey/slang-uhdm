@@ -14863,6 +14863,21 @@ static bool genCaUseSiteChainName169(const UHDM::BaseClass* parent,
 }
 
 
+// § tagPatSortSrcOrder177v — the tagged operands' source-order keys: the
+// expansion point of the operand's start in the file (buffer id, offset).
+static std::unordered_map<const UHDM::any*, uint64_t> tagKeys177;
+static void tagKey177f(const slang::SourceManager* sm, const UHDM::any* tp,
+                       slang::SourceRange r) {
+    slang::SourceLocation l = r.start();
+    if (l == slang::SourceLocation::NoLocation)
+        return;
+    if (sm->isMacroLoc(l))
+        l = sm->getFullyExpandedLoc(l);
+    if (l == slang::SourceLocation::NoLocation || !l.buffer().valid())
+        return;
+    tagKeys177[tp] = ((uint64_t)l.buffer().getId() << 32) | (uint64_t)l.offset();
+}
+
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
@@ -16451,6 +16466,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (auto* pini = psym.getInitializer()) {
                         auto* folded = emitExpr(*pini, parent, prefix, netMap);
                         if (folded) {
+                            // § aggFoldReanchorFile177v (r11u177, the second
+                            // verification of pass 168) — the re-anchored fold
+                            // takes the READING reference's file with its span:
+                            // setLoc keeps a file already stamped, and the fold
+                            // was stamped where the package writes the value
+                            // (another root file: golden files the elaborated
+                            // `C = p::D` operation at the module's file; the
+                            // package in the same file after a multi-line
+                            // macro from an include, which § ppOutputFile166
+                            // files at the include).  Grid
+                            // tools/probe/r11u177verify/cases/Z.  Switch
+                            // R11V177_AGGREANCHORFILE_OFF (and R11V177_OFF).
+                            static const bool reFile177 =
+                                getenv("R11V177_OFF") == nullptr &&
+                                getenv("R11V177_AGGREANCHORFILE_OFF") == nullptr;
+                            std::string f177(folded->VpiFile());
+                            if (reFile177)
+                                folded->VpiFile("");
+                            auto tr177 = [&]() {
+                                if (reFile177 && getenv("R11V177_TRACE") &&
+                                    f177 != folded->VpiFile())
+                                    fprintf(stderr,
+                                            "R11V177_TRACE aggreanchorfile moved %s -> %s\n",
+                                            f177.c_str(),
+                                            std::string(folded->VpiFile()).c_str());
+                            };
                             // Surelog anchors the folded op at the package
                             // qualifier span (pkg::) of the reference, not the
                             // full pkg::NAME span.
@@ -16471,6 +16512,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                              std::string::npos) {
                                 trace158("AGGUNQSPAN");
                                 setLoc(folded, expr.sourceRange);
+                                tr177();
                                 return folded;
                             }
                             // § aggParamFoldQualSpanByView163 — a QUALIFIED
@@ -16493,6 +16535,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 folded->UhdmType() == UHDM::uhdmconstant) {
                                 trace163("AGGQUALSPAN elab");
                                 setLoc(folded, expr.sourceRange);
+                                tr177();
                                 return folded;
                             }
                             if (qs163 && paramRhsView163() == 1 && expr.syntax &&
@@ -16504,6 +16547,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                       scope->asSymbol().name.size() + 2)
                                     trace163("AGGQUALSPAN def");
                                 setLoc(folded, q163);
+                                tr177();
                                 return folded;
                             }
                             setLoc(folded,
@@ -16511,6 +16555,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                expr.sourceRange.start() +
                                                    scope->asSymbol().name.size() +
                                                    2));
+                            tr177();
                             return folded;
                         }
                     }
@@ -36998,6 +37043,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (size_t sp9 = basedLiteralSpanShrink(rawText(tpr9)))
                         tpr9 = SourceRange(tpr9.start(), tpr9.end() - sp9);
                     setLoc(tp, tpr9);
+                    tagKey177f(sm, tp, tpr9);
                 }
                 bool savedPV2 = inPatternValue;
                 inPatternValue = true;
@@ -37588,6 +37634,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 auto* tp = s.MakeTagged_pattern();
                 tp->VpiParent(op);
                 setLoc(tp, setter.expr->sourceRange);
+                tagKey177f(sm, tp, setter.expr->sourceRange);
                 bool sup9 = suppressConstParent, fcp9 = forceConstParent;
                 suppressConstParent = true;
                 forceConstParent = false;
@@ -37636,6 +37683,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 auto* tp = s.MakeTagged_pattern();
                 tp->VpiParent(op);
                 setLoc(tp, setter.expr->sourceRange);
+                tagKey177f(sm, tp, setter.expr->sourceRange);
                 bool sup0 = suppressConstParent, fcp0 = forceConstParent;
                 suppressConstParent = true;
                 forceConstParent = false;
@@ -37682,6 +37730,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto* tp = s.MakeTagged_pattern();
                     tp->VpiParent(op);
                     setLoc(tp, ap.defaultSetter->sourceRange);
+                    tagKey177f(sm, tp, ap.defaultSetter->sourceRange);
                     // § nestedDefaultPatLoc147 — the syntax of a `default:`
                     // value that is itself an assignment pattern
                     // (`'{default: '{default: 0}}`); see below.
@@ -37689,8 +37738,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         nestedDefaultValueSyntax147(psyn);
                     if (dvSyn147)
                         trace147("NESTDEFLOC");
-                    if (dvSyn147 && !tp->VpiLineNo())
+                    if (dvSyn147 && !tp->VpiLineNo()) {
                         setLoc(tp, dvSyn147->sourceRange());
+                        tagKey177f(sm, tp, dvSyn147->sourceRange());
+                    }
                     bool sup0 = suppressConstParent, fcp0 = forceConstParent;
                     suppressConstParent = true;
                     forceConstParent = false;
@@ -37787,7 +37838,47 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         allTagged9 = false;
                         break;
                     }
-                if (allTagged9)
+                // § tagPatSortSrcOrder177v (r11u177, the second verification
+                // of pass 168) — the SOURCE order is the written order, not the
+                // written location: under § ppOutputLine166 a tagged operand
+                // whose value starts in a multi-line macro reads Surelog's
+                // output-line mapping (`'{x: `ADD2(W, 1) * 2, y: W - ...}`: x at
+                // 3:3, y at 2:10 in golden too), which is not monotonic in the
+                // text, and golden keeps x first.  The key is the operand's
+                // expansion point in the file (buffer, offset).  Grid
+                // tools/probe/r11u177verify/cases/T.  Switch
+                // R11V177_TAGSORT_OFF (and R11V177_OFF).
+                static const bool tagSort177 =
+                    getenv("R11V177_OFF") == nullptr &&
+                    getenv("R11V177_TAGSORT_OFF") == nullptr;
+                bool keys177 = tagSort177;
+                if (keys177)
+                    for (auto* o9 : *operands)
+                        if (!tagKeys177.count(o9)) {
+                            keys177 = false;
+                            break;
+                        }
+                if (allTagged9 && keys177) {
+                    std::vector<UHDM::any*> before177(operands->begin(), operands->end());
+                    std::stable_sort(operands->begin(), operands->end(),
+                                     [](UHDM::any* a, UHDM::any* b) {
+                                         return tagKeys177[a] < tagKeys177[b];
+                                     });
+                    if (getenv("R11V177_TRACE")) {
+                        std::vector<UHDM::any*> old177 = before177;
+                        std::stable_sort(old177.begin(), old177.end(),
+                                         [](UHDM::any* a, UHDM::any* b) {
+                                             auto* ta = (UHDM::tagged_pattern*)a;
+                                             auto* tb = (UHDM::tagged_pattern*)b;
+                                             return ta->VpiLineNo() != tb->VpiLineNo()
+                                                        ? ta->VpiLineNo() < tb->VpiLineNo()
+                                                        : ta->VpiColumnNo() < tb->VpiColumnNo();
+                                         });
+                        if (!std::equal(old177.begin(), old177.end(), operands->begin()))
+                            fprintf(stderr, "R11V177_TRACE tagsort reordered\n");
+                    }
+                }
+                else if (allTagged9)
                     std::stable_sort(
                         operands->begin(), operands->end(),
                         [](UHDM::any* a, UHDM::any* b) {

@@ -1,0 +1,7 @@
+surelog/testflags/SeqDriver ordered_bytes=differ orderblind_lines=4
+surelog/testflags/MiniAmiq ordered_bytes=differ orderblind_lines=4
+surelog/testflags/SimpleUVM ordered_bytes=differ orderblind_lines=4
+surelog/default/SeqDriver ordered_bytes=differ orderblind_lines=4
+surelog/default/MiniAmiq ordered_bytes=differ orderblind_lines=4
+surelog/default/Scoreboard ordered_bytes=differ orderblind_lines=0
+surelog/default/SimpleUVM ordered_bytes=differ orderblind_lines=0

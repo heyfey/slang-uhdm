@@ -1,0 +1,35 @@
+== preoff (R11U166_OFF R11U168_OFF R11U169_OFF R11V173_OFF) vs pre.bin (edb34d8a)
+databases 6647 (fenced skipped) differ 7
+  DIFF surelog/testflags/SeqDriver-65178d3a/slang.uhdm
+  DIFF surelog/testflags/MiniAmiq-055eab74/slang.uhdm
+  DIFF surelog/testflags/SimpleUVM-267de3ff/slang.uhdm
+  DIFF surelog/default/SeqDriver-65178d3a/slang.uhdm
+  DIFF surelog/default/MiniAmiq-055eab74/slang.uhdm
+  DIFF surelog/default/Scoreboard-72aa0ba8/slang.uhdm
+  DIFF surelog/default/SimpleUVM-267de3ff/slang.uhdm
+  csv probe: identical
+  csv surelog: DIFFER
+  csv uhdm2rtlil: identical
+== alloff vs pre.bin
+databases 6647 (fenced skipped) differ 7
+  DIFF surelog/testflags/SeqDriver-65178d3a/slang.uhdm
+  DIFF surelog/testflags/MiniAmiq-055eab74/slang.uhdm
+  DIFF surelog/testflags/SimpleUVM-267de3ff/slang.uhdm
+  DIFF surelog/default/SeqDriver-65178d3a/slang.uhdm
+  DIFF surelog/default/MiniAmiq-055eab74/slang.uhdm
+  DIFF surelog/default/Scoreboard-72aa0ba8/slang.uhdm
+  DIFF surelog/default/SimpleUVM-267de3ff/slang.uhdm
+  csv probe: identical
+  csv surelog: DIFFER
+  csv uhdm2rtlil: identical
+== fix2 vs HEAD
+databases 6647 (fenced skipped) differ 6
+  DIFF surelog/testflags/SeqDriver-65178d3a/slang.uhdm
+  DIFF surelog/testflags/MiniAmiq-055eab74/slang.uhdm
+  DIFF surelog/default/SeqDriver-65178d3a/slang.uhdm
+  DIFF surelog/default/MiniAmiq-055eab74/slang.uhdm
+  DIFF surelog/default/Scoreboard-72aa0ba8/slang.uhdm
+  DIFF surelog/default/SimpleUVM-267de3ff/slang.uhdm
+  csv probe: identical
+  csv surelog: DIFFER
+  csv uhdm2rtlil: identical

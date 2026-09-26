@@ -1,0 +1,15 @@
+# drivers/uvmdist.sh on HEAD (swH) and both landings off (swA); dist = ours-not-in-golden strict records order-blind; mfc_file_away = (name,file) of method_func_call ours holds more often than golden; all_file_away = (type,name,file) triples of every kind
+swH SeqDriver/default dist=15771 mfc_file_away=15 all_file_away=5190 golden_records=475526 ours_records=462179
+swH SeqDriver/testflags dist=15771 mfc_file_away=15 all_file_away=5190 golden_records=475538 ours_records=462191
+swH SimpleUVM/default dist=10672 mfc_file_away=15 all_file_away=3714 golden_records=334285 ours_records=333561
+swH SimpleUVM/testflags dist=10672 mfc_file_away=15 all_file_away=3714 golden_records=334297 ours_records=333573
+swH Scoreboard/default dist=9306 mfc_file_away=15 all_file_away=3001 golden_records=269656 ours_records=268952
+swA SeqDriver/default dist=29455 mfc_file_away=15 all_file_away=5270 golden_records=475526 ours_records=462179
+swA SeqDriver/testflags dist=29455 mfc_file_away=15 all_file_away=5270 golden_records=475538 ours_records=462191
+swA SimpleUVM/default dist=20221 mfc_file_away=15 all_file_away=3784 golden_records=334285 ours_records=333561
+swA SimpleUVM/testflags dist=20221 mfc_file_away=15 all_file_away=3784 golden_records=334297 ours_records=333573
+swA Scoreboard/default dist=16921 mfc_file_away=15 all_file_away=3056 golden_records=269656 ours_records=268952
+swH MiniAmiq/default dist=16872 mfc_file_away=15 all_file_away=4867 golden_records=435569 ours_records=413992
+swH MiniAmiq/testflags dist=16872 mfc_file_away=15 all_file_away=4867 golden_records=435569 ours_records=413992
+swA MiniAmiq/default dist=28599 mfc_file_away=15 all_file_away=4934 golden_records=435569 ours_records=413992
+swA MiniAmiq/testflags dist=28599 mfc_file_away=15 all_file_away=4934 golden_records=435569 ours_records=413992
