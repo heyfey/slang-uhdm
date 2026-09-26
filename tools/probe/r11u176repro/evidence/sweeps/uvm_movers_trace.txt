@@ -1,0 +1,10 @@
+surelog/default/BuildUVMPkg-fc55bd0c trace: CLSMETHOD:24 CLSMETHODAPPLY:24  alloff: BYTES-EQUAL
+surelog/default/MiniAmiq-055eab74 trace: CLSMETHOD:24 CLSMETHODAPPLY:24  alloff: bytes-differ orderblind-lines=4
+surelog/default/Rggen-ee9ac8af trace: CASTCLONE:46  alloff: BYTES-EQUAL
+surelog/default/Scoreboard-72aa0ba8 trace: CLSMETHOD:23 CLSMETHODAPPLY:23  alloff: bytes-differ orderblind-lines=0
+surelog/default/SeqDriver-65178d3a trace: CLSMETHOD:23 CLSMETHODAPPLY:23  alloff: bytes-differ orderblind-lines=4
+surelog/default/SimpleUVM-267de3ff trace: CLSMETHOD:23 CLSMETHODAPPLY:23  alloff: bytes-differ orderblind-lines=4
+surelog/testflags/BuildUVMPkg-fc55bd0c trace: CLSMETHOD:24 CLSMETHODAPPLY:24  alloff: BYTES-EQUAL
+surelog/testflags/MiniAmiq-055eab74 trace: CLSMETHOD:24 CLSMETHODAPPLY:24  alloff: bytes-differ orderblind-lines=4
+surelog/testflags/SeqDriver-65178d3a trace: CLSMETHOD:23 CLSMETHODAPPLY:23  alloff: bytes-differ orderblind-lines=4
+surelog/testflags/SimpleUVM-267de3ff trace: CLSMETHOD:23 CLSMETHODAPPLY:23  alloff: BYTES-EQUAL

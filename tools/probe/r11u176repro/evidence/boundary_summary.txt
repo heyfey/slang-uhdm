@@ -1,0 +1,8 @@
+NOTE r11u173verify/cases/cx/x07_pview_generic_struct_param_iface NOT_EQUAL cmplines=486 ob=303 -> STRICT_NOTEQUAL cmplines=0 ob=303 SAME
+boundary movers judged against the pinned-Surelog golden (pristine -> final4, order-blind uhdm-dump distance): 68
+32 ('NOT_EQUAL->NOT_EQUAL', 'TOWARD')
+2 ('NOT_EQUAL->STRICT_EQUAL', 'TOWARD')
+1 ('NOT_EQUAL->STRICT_NOTEQUAL', 'SAME')
+3 ('STRICT_EQUAL->STRICT_EQUAL', 'TOWARD')
+21 ('STRICT_NOTEQUAL->STRICT_EQUAL', 'TOWARD')
+9 ('STRICT_NOTEQUAL->STRICT_NOTEQUAL', 'TOWARD')

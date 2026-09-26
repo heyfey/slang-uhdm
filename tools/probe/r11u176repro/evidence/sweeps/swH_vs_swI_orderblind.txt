@@ -1,0 +1,4 @@
+default/MiniAmiq H-vs-I orderblind-lines=4
+testflags/MiniAmiq H-vs-I orderblind-lines=4
+default/SeqDriver H-vs-I orderblind-lines=4
+testflags/SeqDriver H-vs-I orderblind-lines=4

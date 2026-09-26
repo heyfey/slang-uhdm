@@ -1,0 +1,21 @@
+  InterfaceModPort               default   CHANGED STRICT_NOTEQUAL/differ:endcol(15) -> STRICT_NOTEQUAL/differ:endcol(12)
+  InterfaceModPort               testflags CHANGED STRICT_NOTEQUAL/differ:endcol(15) -> STRICT_NOTEQUAL/differ:endcol(12)
+  FuncStructVal                  testflags CHANGED STRICT_NOTEQUAL/differ:endcol(177) -> STRICT_NOTEQUAL/differ:endcol(165)
+  SVSwitch                       default   CHANGED STRICT_NOTEQUAL/differ:fullname(11) -> STRICT_NOTEQUAL/differ:fullname(18)
+  SVSwitch                       testflags CHANGED STRICT_NOTEQUAL/differ:fullname(11) -> STRICT_NOTEQUAL/differ:fullname(18)
+  SimpleUVM                      default   CHANGED STRICT_NOTEQUAL/differ:fullname(45) -> STRICT_NOTEQUAL/differ:fullname(27)
+  SimpleUVM                      testflags CHANGED STRICT_NOTEQUAL/differ:fullname(45) -> STRICT_NOTEQUAL/differ:fullname(27)
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:file(29) -> STRICT_NOTEQUAL/differ:fullname(11)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:file(29) -> STRICT_NOTEQUAL/differ:fullname(11)
+  BuildUVMPkg                    default   CHANGED STRICT_NOTEQUAL/differ:line(94) -> STRICT_NOTEQUAL/differ:fullname(49)
+  BuildUVMPkg                    testflags CHANGED STRICT_NOTEQUAL/differ:line(94) -> STRICT_NOTEQUAL/differ:fullname(49)
+  Scoreboard                     default   CHANGED STRICT_NOTEQUAL/differ:fullname(45) -> STRICT_NOTEQUAL/differ:fullname(27)
+---- canary rows: ok=40 changed=12 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+-- pristine sweep controls
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25

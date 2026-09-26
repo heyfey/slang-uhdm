@@ -1,0 +1,86 @@
+=== jeras_union default (swI)
+#168 fullname
+  A: 6	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+#176 file
+  A: 9	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 9	constant					132	23	132	25	11	64	INT:11	7
+#177 file
+  A: 9	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9
+  B: 9	constant					132	29	132	30	0	64	UINT:0	9
+#179 file
+  A: 7	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 7	constant					132	23	132	25	11	64	INT:11	7
+#180 file
+  A: 7	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9
+  B: 7	constant					132	29	132	30	0	64	UINT:0	9
+#450 fullname
+  A: 9	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+  B: 9	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+#458 file
+  A: 12	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 12	constant					132	23	132	25	11	64	INT:11	7
+#459 file
+  A: 12	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9
+  B: 12	constant					132	29	132	30	0	64	UINT:0	9
+#461 file
+  A: 10	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 10	constant					132	23	132	25	11	64	INT:11	7
+#462 file
+  A: 10	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9
+  B: 10	constant					132	29	132	30	0	64	UINT:0	9
+objects 19912 vs 19948
+fields: type=1 fullname=7 file=28 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=36 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== ibex_multdiv_fast default (swI)
+#11323 file
+  A: 9	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 9	enum_const	ALBL				0	0	0	0				
+#11349 file
+  A: 11	enum_const	ALBH			ibex_multdiv_fast.sv	269	13	269	17				
+  B: 11	enum_const	ALBH				0	0	0	0				
+#11353 file
+  A: 9	enum_const	ALBH			ibex_multdiv_fast.sv	269	13	269	17				
+  B: 9	enum_const	ALBH				0	0	0	0				
+#11408 file
+  A: 11	enum_const	AHBL			ibex_multdiv_fast.sv	269	19	269	23				
+  B: 11	enum_const	AHBL				0	0	0	0				
+#11412 file
+  A: 9	enum_const	AHBL			ibex_multdiv_fast.sv	269	19	269	23				
+  B: 9	enum_const	AHBL				0	0	0	0				
+#11466 file
+  A: 13	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 13	enum_const	ALBL				0	0	0	0				
+#11482 file
+  A: 13	enum_const	AHBH			ibex_multdiv_fast.sv	269	25	269	29				
+  B: 13	enum_const	AHBH				0	0	0	0				
+#11486 file
+  A: 9	enum_const	AHBH			ibex_multdiv_fast.sv	269	25	269	29				
+  B: 9	enum_const	AHBH				0	0	0	0				
+#11541 file
+  A: 11	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 11	enum_const	ALBL				0	0	0	0				
+#11551 file
+  A: 11	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 11	enum_const	ALBL				0	0	0	0				
+fields: file=11 line=11 col=11 endline=11 endcol=11 objects_differing=11
+STRICT_NOTEQUAL file
+=== ibex_pmp default (swI)
+#2404 file
+  A: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+  B: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+#4375 file
+  A: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+  B: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+#5655 file
+  A: 7	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+  B: 7	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+#7760 file
+  A: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+  B: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+#13972 type
+  A: 9	ref_typespec			work@ibex_pmp.g_access_check[0].g_regions[0].region_basic_perm_check		0	0	0	0		0		
+  B: 9	ref_obj	c		work@ibex_pmp.g_access_check[0].g_regions[0].region_basic_perm_check.c	ibex_pmp.sv	227	83	227	84		0		
+objects 16037 vs 16021
+fields: type=1 name=1 fullname=1 file=5 line=5 col=5 endline=5 endcol=5 objects_differing=5 (walk diverged)
+STRICT_NOTEQUAL file

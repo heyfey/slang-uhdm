@@ -1,0 +1,20 @@
+surelog/default/ApbSlave-d7e70938 trace: none restores: R11U175_FSPAN_OFF
+surelog/default/FuncStructVal-9244d8c4 trace: QUALAGG:1  restores: R11U176_QUALFORMAL_OFF
+surelog/default/FuncStructValSimple-7042c7a5 trace: QUALAGG:1  restores: R11U176_QUALFORMAL_OFF
+surelog/default/InterfaceModPort-190d62ef trace: PROGLCLOC:1 PROGMPDEF:1  restores: none
+surelog/default/OneNetModPort-66919c4f trace: PROGLCLOC:1 PROGMPDEF:1  restores: none
+surelog/default/OneNetModPortGeneric-5ded4420 trace: GENMPLOC:2 GENPLAINLOC:1 GENPLAINVARS:1 PROGMPDEF:1  restores: none
+surelog/default/Scr1SvTests-fa4609ad trace: CASTCLONE:1  restores: R11U176_CASTCLONE_OFF
+surelog/default/SVSwitch-07f2b6b3 trace: PROGLCLOC:3 PROGMPDEF:2  restores: none
+surelog/default/UnsizedParam-0e760a16 trace: CASTCLONE:2  restores: R11U176_CASTCLONE_OFF
+surelog/testflags/ApbSlave-d7e70938 trace: none restores: R11U175_FSPAN_OFF
+surelog/testflags/FuncStructVal-9244d8c4 trace: QUALAGG:1  restores: R11U176_QUALFORMAL_OFF
+surelog/testflags/FuncStructValSimple-7042c7a5 trace: QUALAGG:1  restores: R11U176_QUALFORMAL_OFF
+surelog/testflags/InterfaceModPort-190d62ef trace: PROGLCLOC:1 PROGMPDEF:1  restores: none
+surelog/testflags/OneNetModPort-66919c4f trace: PROGLCLOC:1 PROGMPDEF:1  restores: none
+surelog/testflags/OneNetModPortGeneric-5ded4420 trace: GENMPLOC:2 GENPLAINLOC:1 GENPLAINVARS:1 PROGMPDEF:1  restores: none
+surelog/testflags/Scr1SvTests-fa4609ad trace: CASTCLONE:1  restores: R11U176_CASTCLONE_OFF
+surelog/testflags/SVSwitch-07f2b6b3 trace: PROGLCLOC:3 PROGMPDEF:2  restores: none
+surelog/testflags/UnsizedParam-0e760a16 trace: CASTCLONE:2  restores: R11U176_CASTCLONE_OFF
+uhdm2rtlil/default/ibex_pmp-f78ab5fc trace: QUALAGG:1  restores: R11U176_QUALFORMAL_OFF
+uhdm2rtlil/testflags/ibex_pmp-f78ab5fc trace: QUALAGG:1  restores: R11U176_QUALFORMAL_OFF

@@ -1,0 +1,345 @@
+=== MiniAmiq default (swI)
+#770 fullname
+  A: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+#899 file
+  A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73				
+  B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16				
+#1456 col
+  A: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	34	409	41		0		
+  B: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	5	409	42		0		
+#1485 fullname
+  A: 9	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::seed_map.seed_table[type_id]::type_id	uvm_misc.svh	415	25	415	32		0		
+  B: 9	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::type_id	uvm_misc.svh	415	25	415	32		0		
+#1499 fullname
+  A: 9	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::type_id	uvm_misc.svh	418	20	418	27		0		
+  B: 9	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::type_id	uvm_misc.svh	418	20	418	27		0		
+#1513 fullname
+  A: 7	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::seed_map.seed_table[type_id]::type_id	uvm_misc.svh	424	23	424	30		0		
+  B: 7	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::type_id	uvm_misc.svh	424	23	424	30		0		
+#1516 col
+  A: 6	ref_obj	seed_map			uvm_misc.svh	425	12	425	17		0		
+  B: 6	ref_obj	seed_map			uvm_misc.svh	425	3	425	11		0		
+#1517 col
+  A: 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	12	425	26		0		
+  B: 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	18	425	25		0		
+#1694 file
+  A: 5	logic_typespec	uvm_bitstream_t			uvm_misc.svh	483	42	483	57				
+  B: 5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	483	42	483	57				
+#1858 file
+  A: 5	logic_typespec	uvm_integral_t			uvm_misc.svh	515	41	515	55				
+  B: 5	logic_typespec	uvm_integral_t			uvm_object_globals.svh	515	41	515	55				
+objects 435559 vs 413982
+fields: depth=1 type=1 name=1 fullname=5 file=5 line=2 col=5 endline=2 endcol=5 objects_differing=12 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== SeqDriver default (swI)
+#753 fullname
+  A: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+#1439 col
+  A: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	34	409	41		0		
+  B: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	5	409	42		0		
+#1468 fullname
+  A: 9	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::seed_map.seed_table[type_id]::type_id	uvm_misc.svh	415	25	415	32		0		
+  B: 9	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::type_id	uvm_misc.svh	415	25	415	32		0		
+#1482 fullname
+  A: 9	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::type_id	uvm_misc.svh	418	20	418	27		0		
+  B: 9	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::type_id	uvm_misc.svh	418	20	418	27		0		
+#1496 fullname
+  A: 7	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::seed_map.seed_table[type_id]::type_id	uvm_misc.svh	424	23	424	30		0		
+  B: 7	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::type_id	uvm_misc.svh	424	23	424	30		0		
+#1499 col
+  A: 6	ref_obj	seed_map			uvm_misc.svh	425	12	425	17		0		
+  B: 6	ref_obj	seed_map			uvm_misc.svh	425	3	425	11		0		
+#1500 col
+  A: 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	12	425	26		0		
+  B: 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	18	425	25		0		
+#1677 file
+  A: 5	logic_typespec	uvm_bitstream_t			uvm_misc.svh	483	42	483	57				
+  B: 5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	483	42	483	57				
+#1841 file
+  A: 5	logic_typespec	uvm_integral_t			uvm_misc.svh	515	41	515	55				
+  B: 5	logic_typespec	uvm_integral_t			uvm_object_globals.svh	515	41	515	55				
+#1997 file
+  A: 5	logic_typespec	uvm_bitstream_t			uvm_misc.svh	545	38	545	53				
+  B: 5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	545	38	545	53				
+objects 475526 vs 462179
+fields: depth=1 type=1 name=1 fullname=5 file=4 line=1 col=4 endline=1 endcol=4 objects_differing=11 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== SimpleUVM default (swI)
+#458 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#464 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+#483 fullname
+  A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0		
+#490 fullname
+  A: 6	ref_typespec			UVM_START_FUNCS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_START_FUNCS		0	0	0	0		0		
+#496 fullname
+  A: 5	ref_typespec			UVM_SET		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg::UVM_SET		0	0	0	0		0		
+#509 fullname
+  A: 5	ref_typespec			UVM_SETSTR		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg::UVM_SETSTR		0	0	0	0		0		
+#535 fullname
+  A: 7	ref_typespec			UVM_LINE_WIDTH		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::UVM_LINE_WIDTH		0	0	0	0		0		
+#546 fullname
+  A: 8	ref_typespec			UVM_NUM_LINES		0	0	0	0		0		
+  B: 8	ref_typespec			uvm_pkg::UVM_NUM_LINES		0	0	0	0		0		
+#579 fullname
+  A: 7	ref_typespec			UVM_STREAMBITS		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::UVM_STREAMBITS		0	0	0	0		0		
+#621 fullname
+  A: 7	ref_typespec			UVM_HDL_MAX_WIDTH		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::UVM_HDL_MAX_WIDTH		0	0	0	0		0		
+objects 334285 vs 333561
+fields: depth=1 type=1 name=1 fullname=21 file=4 line=1 col=4 endline=1 endcol=4 objects_differing=27 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== Scoreboard default (swI)
+#466 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#472 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+#491 fullname
+  A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0		
+#498 fullname
+  A: 6	ref_typespec			UVM_START_FUNCS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_START_FUNCS		0	0	0	0		0		
+#504 fullname
+  A: 5	ref_typespec			UVM_SET		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg::UVM_SET		0	0	0	0		0		
+#517 fullname
+  A: 5	ref_typespec			UVM_SETSTR		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg::UVM_SETSTR		0	0	0	0		0		
+#543 fullname
+  A: 7	ref_typespec			UVM_LINE_WIDTH		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::UVM_LINE_WIDTH		0	0	0	0		0		
+#554 fullname
+  A: 8	ref_typespec			UVM_NUM_LINES		0	0	0	0		0		
+  B: 8	ref_typespec			uvm_pkg::UVM_NUM_LINES		0	0	0	0		0		
+#587 fullname
+  A: 7	ref_typespec			UVM_STREAMBITS		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::UVM_STREAMBITS		0	0	0	0		0		
+#629 fullname
+  A: 7	ref_typespec			UVM_HDL_MAX_WIDTH		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::UVM_HDL_MAX_WIDTH		0	0	0	0		0		
+objects 269656 vs 268952
+fields: depth=1 type=1 name=1 fullname=21 file=4 line=1 col=4 endline=1 endcol=4 objects_differing=27 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== BuildUVMPkg default (swI)
+#1135 fullname
+  A: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+#1834 col
+  A: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_pkg.sv	8678	34	8678	41		0		
+  B: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_pkg.sv	8678	5	8678	42		0		
+#1863 fullname
+  A: 9	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::seed_map.seed_table[type_id]::type_id	uvm_pkg.sv	8684	25	8684	32		0		
+  B: 9	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::type_id	uvm_pkg.sv	8684	25	8684	32		0		
+#1877 fullname
+  A: 9	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::type_id	uvm_pkg.sv	8687	20	8687	27		0		
+  B: 9	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::type_id	uvm_pkg.sv	8687	20	8687	27		0		
+#1891 fullname
+  A: 7	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::seed_map.seed_table[type_id]::type_id	uvm_pkg.sv	8693	23	8693	30		0		
+  B: 7	ref_obj	type_id		uvm_pkg::uvm_create_random_seed::type_id	uvm_pkg.sv	8693	23	8693	30		0		
+#1894 col
+  A: 6	ref_obj	seed_map			uvm_pkg.sv	8694	12	8694	17		0		
+  B: 6	ref_obj	seed_map			uvm_pkg.sv	8694	3	8694	11		0		
+#1895 col
+  A: 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_pkg.sv	8694	12	8694	26		0		
+  B: 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_pkg.sv	8694	18	8694	25		0		
+#2803 fullname
+  A: 7	ref_obj	verbosity		uvm_pkg::uvm_report_enabled::top.uvm_report_enabled::verbosity	uvm_pkg.sv	9554	33	9554	42		0		
+  B: 7	ref_obj	verbosity		uvm_pkg::uvm_report_enabled::verbosity	uvm_pkg.sv	9554	33	9554	42		0		
+#2804 fullname
+  A: 7	ref_obj	severity		uvm_pkg::uvm_report_enabled::top.uvm_report_enabled::severity	uvm_pkg.sv	9554	43	9554	51		0		
+  B: 7	ref_obj	severity		uvm_pkg::uvm_report_enabled::severity	uvm_pkg.sv	9554	43	9554	51		0		
+#2805 fullname
+  A: 7	ref_obj	id		uvm_pkg::uvm_report_enabled::top.uvm_report_enabled::id	uvm_pkg.sv	9554	52	9554	54		0		
+  B: 7	ref_obj	id		uvm_pkg::uvm_report_enabled::id	uvm_pkg.sv	9554	52	9554	54		0		
+objects 201533 vs 201486
+fields: depth=1 type=1 name=1 fullname=40 file=1 line=4 col=7 endline=6 endcol=10 size=1 objects_differing=49 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== ApbSlave default (swI)
+#372 depth
+  A: 2	function	svunit_base::new		svunit_pkg::svunit_base::new	svunit_base.sv	59	1	61	12				
+  B: 7	string_var	svunit_version		svunit_pkg::svunit_version	svunit_pkg.sv	29	16	29	92		0		
+objects 3678 vs 3682
+fields: depth=1 type=1 name=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+=== CovMacro default (swI)
+#106 fullname
+  A: 6	hier_path	$root.top		work@top.$root.top	dut.sv	12	42	12	51		0		
+  B: 6	hier_path	$root.top			dut.sv	12	42	12	51		0		
+#122 fullname
+  A: 6	hier_path	$root.top.unit1		work@top.$root.top.unit1	dut.sv	14	42	14	57		0		
+  B: 6	hier_path	$root.top.unit1			dut.sv	14	42	14	57		0		
+#132 fullname
+  A: 6	hier_path	$root.top.unit2		work@top.$root.top.unit2	dut.sv	15	43	15	58		0		
+  B: 6	hier_path	$root.top.unit2			dut.sv	15	43	15	58		0		
+#154 fullname
+  A: 6	hier_path	$root.top.unit1		work@top.$root.top.unit1	dut.sv	18	35	18	50		0		
+  B: 6	hier_path	$root.top.unit1			dut.sv	18	35	18	50		0		
+#192 fullname
+  A: 6	hier_path	$root.top		work@top.$root.top	dut.sv	12	42	12	51		0		
+  B: 6	hier_path	$root.top			dut.sv	12	42	12	51		0		
+#211 fullname
+  A: 6	hier_path	$root.top.unit1		work@top.$root.top.unit1	dut.sv	14	42	14	57		0		
+  B: 6	hier_path	$root.top.unit1			dut.sv	14	42	14	57		0		
+#221 fullname
+  A: 6	hier_path	$root.top.unit2		work@top.$root.top.unit2	dut.sv	15	43	15	58		0		
+  B: 6	hier_path	$root.top.unit2			dut.sv	15	43	15	58		0		
+#243 fullname
+  A: 6	hier_path	$root.top.unit1		work@top.$root.top.unit1	dut.sv	18	35	18	50		0		
+  B: 6	hier_path	$root.top.unit1			dut.sv	18	35	18	50		0		
+fields: fullname=8 objects_differing=8
+STRICT_NOTEQUAL fullname
+=== Scr1SvTests default (swI)
+#16033 type
+  A: 13	ref_typespec			work@scr1_ipic.scr1_search_one_16.din		0	0	0	0		0		
+  B: 13	operation				scr1_ipic.sv	116	37	116	46		0		
+objects 84098 vs 84127
+fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+=== SVSwitch default (swI)
+#101 fullname
+  A: 11	ref_obj	bytes		work@Driver::start::pkt.byte_pack::bytes	Driver.sv	47	31	47	36		0		
+  B: 11	ref_obj	bytes		work@Driver::start::bytes	Driver.sv	47	31	47	36		0		
+#184 file
+  A: 5	class_typespec	Receiver			Environemnt.sv	20	3	20	11				
+  B: 5	class_typespec	Receiver				0	0	0	0				
+#264 col
+  A: 6	bit_select	rcvr		work@Environment::build::rcvr	Environemnt.sv	43	11	43	12		0		
+  B: 6	bit_select	rcvr		work@Environment::build::rcvr	Environemnt.sv	43	6	43	13		0		
+#651 fullname
+  A: 12	ref_obj	size			Receiver.sv	40	26	40	30		0		
+  B: 12	ref_obj	size		work@Receiver::start::size	Receiver.sv	40	26	40	30		0		
+#756 fullname
+  A: 9	ref_obj	pkt_exp		work@Scoreboard::start::pkt_rcv.compare::pkt_exp	Scoreboard.sv	31	24	31	31		0		
+  B: 9	ref_obj	pkt_exp		work@Scoreboard::start::pkt_exp	Scoreboard.sv	31	24	31	31		0		
+#980 fullname
+  A: 8	ref_obj	size			Packet.sv	71	20	71	24		0		
+  B: 8	ref_obj	size		work@packet::byte_pack::size	Packet.sv	71	20	71	24		0		
+#1951 endline
+  A: 4	logic_typespec				rtl.sv	2	6	1	479				
+  B: 4	logic_typespec				rtl.sv	2	6	2	6				
+#3375 col
+  A: 6	range				testcase.sv	18	107	18	108				
+  B: 6	range				testcase.sv	18	106	18	109				
+#3380 fullname
+  A: 6	interface_inst	output_intf[0]	work@output_interface	output_intf.output_intf[0]	top.sv	44	0	0	0				
+  B: 6	interface_inst	output_intf[0]	work@output_interface	work@top.TC.output_intf[0]	top.sv	44	0	0	0				
+#3381 fullname
+  A: 7	bit_var	clock		output_intf.output_intf[0].clock	interface.sv	58	38	58	43		0		
+  B: 7	bit_var	clock		work@top.TC.output_intf[0].clock	interface.sv	58	38	58	43		0		
+objects 5787 vs 5799
+fields: depth=1 type=1 fullname=14 file=1 line=1 col=3 endline=2 endcol=4 size=1 objects_differing=18 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== InterfaceModPort default (swI)
+#95 endcol
+  A: 4	logic_typespec				top.v	27	3	27	8				
+  B: 4	logic_typespec				top.v	27	3	27	21				
+#98 endcol
+  A: 4	logic_typespec				top.v	28	3	28	8				
+  B: 4	logic_typespec				top.v	28	3	28	22				
+#101 endcol
+  A: 4	logic_typespec				top.v	29	3	29	8				
+  B: 4	logic_typespec				top.v	29	3	29	29				
+#104 endcol
+  A: 4	logic_typespec				top.v	30	3	30	8				
+  B: 4	logic_typespec				top.v	30	3	30	25				
+#119 endcol
+  A: 4	logic_typespec				top.v	33	3	33	8				
+  B: 4	logic_typespec				top.v	33	3	33	22				
+#122 endcol
+  A: 4	logic_typespec				top.v	34	3	34	8				
+  B: 4	logic_typespec				top.v	34	3	34	22				
+#246 endcol
+  A: 6	logic_typespec				top.v	27	3	27	8				
+  B: 6	logic_typespec				top.v	27	3	27	21				
+#249 endcol
+  A: 6	logic_typespec				top.v	28	3	28	8				
+  B: 6	logic_typespec				top.v	28	3	28	22				
+#252 endcol
+  A: 6	logic_typespec				top.v	29	3	29	8				
+  B: 6	logic_typespec				top.v	29	3	29	29				
+#255 endcol
+  A: 6	logic_typespec				top.v	30	3	30	8				
+  B: 6	logic_typespec				top.v	30	3	30	25				
+fields: endcol=12 objects_differing=12
+STRICT_NOTEQUAL endcol
+=== FuncStructVal default (swI)
+#747 endcol
+  A: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	28		0		
+  B: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	46		0		
+#4148 file
+  A: 7	constant					0	0	0	0	32	64	INT:32	7
+  B: 7	constant				dut.sv	614	45	615	35	32	64	INT:32	7
+#4149 file
+  A: 7	constant					0	0	0	0	32	64	INT:32	7
+  B: 7	constant				dut.sv	614	45	615	35	32	64	INT:32	7
+#4153 file
+  A: 7	constant					0	0	0	0	34	64	INT:34	7
+  B: 7	constant				dut.sv	614	45	615	35	34	64	INT:34	7
+#4154 file
+  A: 7	constant					0	0	0	0	34	64	INT:34	7
+  B: 7	constant				dut.sv	614	45	615	35	34	64	INT:34	7
+#4168 file
+  A: 7	constant					0	0	0	0	2	64	UINT:2	9
+  B: 7	constant				dut.sv	614	45	615	35	2	64	UINT:2	9
+#4169 file
+  A: 7	constant					0	0	0	0	2	64	UINT:2	9
+  B: 7	constant				dut.sv	614	45	615	35	2	64	UINT:2	9
+#4173 file
+  A: 7	constant					0	0	0	0	1	64	INT:1	7
+  B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+#4174 file
+  A: 7	constant					0	0	0	0	1	64	INT:1	7
+  B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+#4320 file
+  A: 7	constant					0	0	0	0	3	64	UINT:3	9
+  B: 7	constant				dut.sv	614	45	615	35	3	64	UINT:3	9
+objects 18222 vs 17934
+fields: depth=1 type=1 name=1 fullname=14 file=74 line=79 col=79 endline=79 endcol=81 size=1 objects_differing=95 (walk diverged)
+STRICT_NOTEQUAL endcol
+=== FuncStructValSimple default (swI)
+#117 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#118 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#129 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0		
+  B: 8	ref_typespec					0	0	0	0		0		
+#132 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0		
+  B: 8	ref_typespec					0	0	0	0		0		
+#145 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#146 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#157 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0		
+  B: 8	ref_typespec					0	0	0	0		0		
+#160 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0		
+  B: 8	ref_typespec					0	0	0	0		0		
+#226 file
+  A: 6	constant					0	0	0	0	2	64	INT:2	7
+  B: 6	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#227 file
+  A: 6	constant					0	0	0	0	2	64	INT:2	7
+  B: 6	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+fields: fullname=21 file=20 line=20 col=20 endline=20 endcol=20 objects_differing=41
+STRICT_NOTEQUAL file

@@ -1,0 +1,6 @@
+/tmp/r11u176_swA MiniAmiq default ours-not-golden=12512 golden-not-ours=34089
+/tmp/r11u176_swA SeqDriver default ours-not-golden=11305 golden-not-ours=24652
+/tmp/r11u176_swA SimpleUVM default ours-not-golden=6124 golden-not-ours=6848
+/tmp/r11u176_swA Scoreboard default ours-not-golden=4925 golden-not-ours=5629
+/tmp/r11u176_swA BuildUVMPkg default ours-not-golden=3458 golden-not-ours=3505
+/tmp/r11u176_swA ApbSlave default ours-not-golden=8 golden-not-ours=4

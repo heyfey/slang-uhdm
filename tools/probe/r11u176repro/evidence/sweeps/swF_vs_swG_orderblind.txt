@@ -1,0 +1,6 @@
+default/MiniAmiq F-vs-G orderblind-lines=4
+testflags/MiniAmiq F-vs-G orderblind-lines=4
+default/SeqDriver F-vs-G orderblind-lines=4
+testflags/SeqDriver F-vs-G orderblind-lines=4
+default/Scoreboard F-vs-G orderblind-lines=0
+default/OneNetModPortGeneric F-vs-G orderblind-lines=4

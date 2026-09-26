@@ -1,0 +1,660 @@
+=== MiniAmiq default (swP)
+#573 file
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_block.svh	1671	35	1671	46				
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_model.svh	180	4	183	18				
+#600 file
+  A: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_block.svh	1819	48	1819	64				
+  B: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_model.svh	196	4	202	23				
+#612 file
+  A: 2	struct_typespec	uvm_pkg::uvm_hdl_path_slice			uvm_mem.svh	2168	37	2168	55				
+  B: 2	struct_typespec	uvm_pkg::uvm_hdl_path_slice			uvm_reg_model.svh	125	9	129	2				
+#627 file
+  A: 2	enum_typespec	uvm_pkg::uvm_hier_e			uvm_reg_block.svh	1229	47	1229	57				
+  B: 2	enum_typespec	uvm_pkg::uvm_hier_e			uvm_reg_model.svh	242	4	245	17				
+#646 file
+  A: 2	enum_typespec	uvm_pkg::uvm_path_e			uvm_reg_block.svh	1778	49	1778	59				
+  B: 2	enum_typespec	uvm_pkg::uvm_path_e			uvm_reg_model.svh	165	4	170	17				
+#651 file
+  A: 2	enum_typespec	uvm_pkg::uvm_phase_state			uvm_phase.svh	2109	43	2109	58				
+  B: 2	enum_typespec	uvm_pkg::uvm_phase_state			uvm_object_globals.svh	532	4	543	37				
+#663 file
+  A: 2	enum_typespec	uvm_pkg::uvm_phase_type			uvm_phase.svh	786	25	786	39				
+  B: 2	enum_typespec	uvm_pkg::uvm_phase_type			uvm_object_globals.svh	470	1	476	18				
+#674 file
+  A: 2	enum_typespec	uvm_pkg::uvm_predict_e			uvm_reg.svh	1961	35	1961	48				
+  B: 2	enum_typespec	uvm_pkg::uvm_predict_e			uvm_reg_model.svh	256	4	260	20				
+#678 line
+  A: 2	struct_typespec	uvm_pkg::uvm_printer_row_info			uvm_printer.svh	651	42	651	62				
+  B: 2	struct_typespec	uvm_pkg::uvm_printer_row_info			uvm_printer.svh	28	9	34	2				
+#694 file
+  A: 2	enum_typespec	uvm_pkg::uvm_radix_enum			uvm_printer.svh	890	45	890	59				
+  B: 2	enum_typespec	uvm_pkg::uvm_radix_enum			uvm_object_globals.svh	82	1	97	18				
+objects 435559 vs 413982
+fields: depth=1 type=1 name=1 fullname=5 file=21 line=19 col=22 endline=19 endcol=22 objects_differing=29 (walk diverged)
+STRICT_NOTEQUAL file
+=== MiniAmiq testflags (swP)
+#573 file
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_block.svh	1671	35	1671	46				
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_model.svh	180	4	183	18				
+#600 file
+  A: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_block.svh	1819	48	1819	64				
+  B: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_model.svh	196	4	202	23				
+#612 file
+  A: 2	struct_typespec	uvm_pkg::uvm_hdl_path_slice			uvm_mem.svh	2168	37	2168	55				
+  B: 2	struct_typespec	uvm_pkg::uvm_hdl_path_slice			uvm_reg_model.svh	125	9	129	2				
+#627 file
+  A: 2	enum_typespec	uvm_pkg::uvm_hier_e			uvm_reg_block.svh	1229	47	1229	57				
+  B: 2	enum_typespec	uvm_pkg::uvm_hier_e			uvm_reg_model.svh	242	4	245	17				
+#646 file
+  A: 2	enum_typespec	uvm_pkg::uvm_path_e			uvm_reg_block.svh	1778	49	1778	59				
+  B: 2	enum_typespec	uvm_pkg::uvm_path_e			uvm_reg_model.svh	165	4	170	17				
+#651 file
+  A: 2	enum_typespec	uvm_pkg::uvm_phase_state			uvm_phase.svh	2109	43	2109	58				
+  B: 2	enum_typespec	uvm_pkg::uvm_phase_state			uvm_object_globals.svh	532	4	543	37				
+#663 file
+  A: 2	enum_typespec	uvm_pkg::uvm_phase_type			uvm_phase.svh	786	25	786	39				
+  B: 2	enum_typespec	uvm_pkg::uvm_phase_type			uvm_object_globals.svh	470	1	476	18				
+#674 file
+  A: 2	enum_typespec	uvm_pkg::uvm_predict_e			uvm_reg.svh	1961	35	1961	48				
+  B: 2	enum_typespec	uvm_pkg::uvm_predict_e			uvm_reg_model.svh	256	4	260	20				
+#678 line
+  A: 2	struct_typespec	uvm_pkg::uvm_printer_row_info			uvm_printer.svh	651	42	651	62				
+  B: 2	struct_typespec	uvm_pkg::uvm_printer_row_info			uvm_printer.svh	28	9	34	2				
+#694 file
+  A: 2	enum_typespec	uvm_pkg::uvm_radix_enum			uvm_printer.svh	890	45	890	59				
+  B: 2	enum_typespec	uvm_pkg::uvm_radix_enum			uvm_object_globals.svh	82	1	97	18				
+objects 435559 vs 413982
+fields: depth=1 type=1 name=1 fullname=5 file=21 line=19 col=22 endline=19 endcol=22 objects_differing=29 (walk diverged)
+STRICT_NOTEQUAL file
+=== SeqDriver default (swP)
+#556 file
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_block.svh	1671	35	1671	46				
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_model.svh	180	4	183	18				
+#583 file
+  A: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_block.svh	1819	48	1819	64				
+  B: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_model.svh	196	4	202	23				
+#595 file
+  A: 2	struct_typespec	uvm_pkg::uvm_hdl_path_slice			uvm_mem.svh	2168	37	2168	55				
+  B: 2	struct_typespec	uvm_pkg::uvm_hdl_path_slice			uvm_reg_model.svh	125	9	129	2				
+#610 file
+  A: 2	enum_typespec	uvm_pkg::uvm_hier_e			uvm_reg_block.svh	1229	47	1229	57				
+  B: 2	enum_typespec	uvm_pkg::uvm_hier_e			uvm_reg_model.svh	242	4	245	17				
+#629 file
+  A: 2	enum_typespec	uvm_pkg::uvm_path_e			uvm_reg_block.svh	1778	49	1778	59				
+  B: 2	enum_typespec	uvm_pkg::uvm_path_e			uvm_reg_model.svh	165	4	170	17				
+#634 file
+  A: 2	enum_typespec	uvm_pkg::uvm_phase_state			uvm_phase.svh	2109	43	2109	58				
+  B: 2	enum_typespec	uvm_pkg::uvm_phase_state			uvm_object_globals.svh	532	4	543	37				
+#646 file
+  A: 2	enum_typespec	uvm_pkg::uvm_phase_type			uvm_phase.svh	786	25	786	39				
+  B: 2	enum_typespec	uvm_pkg::uvm_phase_type			uvm_object_globals.svh	470	1	476	18				
+#657 file
+  A: 2	enum_typespec	uvm_pkg::uvm_predict_e			uvm_reg.svh	1961	35	1961	48				
+  B: 2	enum_typespec	uvm_pkg::uvm_predict_e			uvm_reg_model.svh	256	4	260	20				
+#661 line
+  A: 2	struct_typespec	uvm_pkg::uvm_printer_row_info			uvm_printer.svh	651	42	651	62				
+  B: 2	struct_typespec	uvm_pkg::uvm_printer_row_info			uvm_printer.svh	28	9	34	2				
+#677 file
+  A: 2	enum_typespec	uvm_pkg::uvm_radix_enum			uvm_printer.svh	890	45	890	59				
+  B: 2	enum_typespec	uvm_pkg::uvm_radix_enum			uvm_object_globals.svh	82	1	97	18				
+objects 475526 vs 462179
+fields: depth=1 type=1 name=1 fullname=5 file=21 line=19 col=22 endline=19 endcol=22 objects_differing=29 (walk diverged)
+STRICT_NOTEQUAL file
+=== SeqDriver testflags (swP)
+#568 file
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_block.svh	1671	35	1671	46				
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_model.svh	180	4	183	18				
+#595 file
+  A: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_block.svh	1819	48	1819	64				
+  B: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_model.svh	196	4	202	23				
+#607 file
+  A: 2	struct_typespec	uvm_pkg::uvm_hdl_path_slice			uvm_mem.svh	2168	37	2168	55				
+  B: 2	struct_typespec	uvm_pkg::uvm_hdl_path_slice			uvm_reg_model.svh	125	9	129	2				
+#622 file
+  A: 2	enum_typespec	uvm_pkg::uvm_hier_e			uvm_reg_block.svh	1229	47	1229	57				
+  B: 2	enum_typespec	uvm_pkg::uvm_hier_e			uvm_reg_model.svh	242	4	245	17				
+#641 file
+  A: 2	enum_typespec	uvm_pkg::uvm_path_e			uvm_reg_block.svh	1778	49	1778	59				
+  B: 2	enum_typespec	uvm_pkg::uvm_path_e			uvm_reg_model.svh	165	4	170	17				
+#646 file
+  A: 2	enum_typespec	uvm_pkg::uvm_phase_state			uvm_phase.svh	2109	43	2109	58				
+  B: 2	enum_typespec	uvm_pkg::uvm_phase_state			uvm_object_globals.svh	532	4	543	37				
+#658 file
+  A: 2	enum_typespec	uvm_pkg::uvm_phase_type			uvm_phase.svh	786	25	786	39				
+  B: 2	enum_typespec	uvm_pkg::uvm_phase_type			uvm_object_globals.svh	470	1	476	18				
+#669 file
+  A: 2	enum_typespec	uvm_pkg::uvm_predict_e			uvm_reg.svh	1961	35	1961	48				
+  B: 2	enum_typespec	uvm_pkg::uvm_predict_e			uvm_reg_model.svh	256	4	260	20				
+#673 line
+  A: 2	struct_typespec	uvm_pkg::uvm_printer_row_info			uvm_printer.svh	651	42	651	62				
+  B: 2	struct_typespec	uvm_pkg::uvm_printer_row_info			uvm_printer.svh	28	9	34	2				
+#689 file
+  A: 2	enum_typespec	uvm_pkg::uvm_radix_enum			uvm_printer.svh	890	45	890	59				
+  B: 2	enum_typespec	uvm_pkg::uvm_radix_enum			uvm_object_globals.svh	82	1	97	18				
+objects 475538 vs 462191
+fields: depth=1 type=1 name=1 fullname=5 file=21 line=19 col=22 endline=19 endcol=22 objects_differing=29 (walk diverged)
+STRICT_NOTEQUAL file
+=== SimpleUVM default (swP)
+#458 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#464 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+#483 fullname
+  A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0		
+#490 fullname
+  A: 6	ref_typespec			UVM_START_FUNCS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_START_FUNCS		0	0	0	0		0		
+#496 fullname
+  A: 5	ref_typespec			UVM_SET		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg::UVM_SET		0	0	0	0		0		
+#509 fullname
+  A: 5	ref_typespec			UVM_SETSTR		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg::UVM_SETSTR		0	0	0	0		0		
+#535 fullname
+  A: 7	ref_typespec			UVM_LINE_WIDTH		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::UVM_LINE_WIDTH		0	0	0	0		0		
+#546 fullname
+  A: 8	ref_typespec			UVM_NUM_LINES		0	0	0	0		0		
+  B: 8	ref_typespec			uvm_pkg::UVM_NUM_LINES		0	0	0	0		0		
+#579 fullname
+  A: 7	ref_typespec			UVM_STREAMBITS		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::UVM_STREAMBITS		0	0	0	0		0		
+#583 file
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_block.svh	1671	35	1671	46				
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_model.svh	180	4	183	18				
+objects 334285 vs 333561
+fields: depth=1 type=1 name=1 fullname=21 file=21 line=19 col=22 endline=19 endcol=22 objects_differing=45 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== SimpleUVM testflags (swP)
+#470 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#476 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+#495 fullname
+  A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0		
+#502 fullname
+  A: 6	ref_typespec			UVM_START_FUNCS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_START_FUNCS		0	0	0	0		0		
+#508 fullname
+  A: 5	ref_typespec			UVM_SET		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg::UVM_SET		0	0	0	0		0		
+#521 fullname
+  A: 5	ref_typespec			UVM_SETSTR		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg::UVM_SETSTR		0	0	0	0		0		
+#547 fullname
+  A: 7	ref_typespec			UVM_LINE_WIDTH		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::UVM_LINE_WIDTH		0	0	0	0		0		
+#558 fullname
+  A: 8	ref_typespec			UVM_NUM_LINES		0	0	0	0		0		
+  B: 8	ref_typespec			uvm_pkg::UVM_NUM_LINES		0	0	0	0		0		
+#591 fullname
+  A: 7	ref_typespec			UVM_STREAMBITS		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::UVM_STREAMBITS		0	0	0	0		0		
+#595 file
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_block.svh	1671	35	1671	46				
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_model.svh	180	4	183	18				
+objects 334297 vs 333573
+fields: depth=1 type=1 name=1 fullname=21 file=21 line=19 col=22 endline=19 endcol=22 objects_differing=45 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== Scoreboard default (swP)
+#466 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#472 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+#491 fullname
+  A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0		
+#498 fullname
+  A: 6	ref_typespec			UVM_START_FUNCS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_START_FUNCS		0	0	0	0		0		
+#504 fullname
+  A: 5	ref_typespec			UVM_SET		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg::UVM_SET		0	0	0	0		0		
+#517 fullname
+  A: 5	ref_typespec			UVM_SETSTR		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg::UVM_SETSTR		0	0	0	0		0		
+#543 fullname
+  A: 7	ref_typespec			UVM_LINE_WIDTH		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::UVM_LINE_WIDTH		0	0	0	0		0		
+#554 fullname
+  A: 8	ref_typespec			UVM_NUM_LINES		0	0	0	0		0		
+  B: 8	ref_typespec			uvm_pkg::UVM_NUM_LINES		0	0	0	0		0		
+#587 fullname
+  A: 7	ref_typespec			UVM_STREAMBITS		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::UVM_STREAMBITS		0	0	0	0		0		
+#591 file
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_block.svh	1671	35	1671	46				
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_model.svh	180	4	183	18				
+objects 269656 vs 268952
+fields: depth=1 type=1 name=1 fullname=21 file=21 line=19 col=22 endline=19 endcol=22 objects_differing=45 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== Scoreboard testflags (swP)
+/tmp/r11u176_swP/surelog/testflags/Scoreboard-72aa0ba8/slang.uhdm: File does not exist!
+=== BuildUVMPkg default (swP)
+#873 line
+  A: 2	struct_typespec	uvm_pkg::m_uvm_factory_type_pair_t			uvm_pkg.sv	13427	55	13427	80				
+  B: 2	struct_typespec	uvm_pkg::m_uvm_factory_type_pair_t			uvm_pkg.sv	11401	9	11402	49				
+#909 line
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_pkg.sv	79053	35	79053	46				
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_pkg.sv	60837	4	60840	18				
+#943 line
+  A: 2	enum_typespec	uvm_pkg::uvm_door_e			uvm_pkg.sv	79320	47	79320	57				
+  B: 2	enum_typespec	uvm_pkg::uvm_door_e			uvm_pkg.sv	60818	4	60823	17				
+#952 line
+  A: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_pkg.sv	79201	48	79201	64				
+  B: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_pkg.sv	60853	4	60859	23				
+#970 line
+  A: 2	struct_typespec	uvm_pkg::uvm_hdl_path_slice			uvm_pkg.sv	74437	37	74437	55				
+  B: 2	struct_typespec	uvm_pkg::uvm_hdl_path_slice			uvm_pkg.sv	60777	9	60781	2				
+#985 line
+  A: 2	enum_typespec	uvm_pkg::uvm_hier_e			uvm_pkg.sv	78555	47	78555	57				
+  B: 2	enum_typespec	uvm_pkg::uvm_hier_e			uvm_pkg.sv	60899	4	60902	17				
+#1004 line
+  A: 2	enum_typespec	uvm_pkg::uvm_phase_state			uvm_pkg.sv	35101	43	35101	58				
+  B: 2	enum_typespec	uvm_pkg::uvm_phase_state			uvm_pkg.sv	8333	4	8344	37				
+#1016 line
+  A: 2	enum_typespec	uvm_pkg::uvm_phase_type			uvm_pkg.sv	33173	25	33173	39				
+  B: 2	enum_typespec	uvm_pkg::uvm_phase_type			uvm_pkg.sv	8271	1	8277	18				
+#1027 line
+  A: 2	enum_typespec	uvm_pkg::uvm_predict_e			uvm_pkg.sv	67554	35	67554	48				
+  B: 2	enum_typespec	uvm_pkg::uvm_predict_e			uvm_pkg.sv	60913	4	60917	20				
+#1031 line
+  A: 2	enum_typespec	uvm_pkg::uvm_radix_enum			uvm_pkg.sv	20066	47	20066	61				
+  B: 2	enum_typespec	uvm_pkg::uvm_radix_enum			uvm_pkg.sv	7880	1	7895	18				
+objects 201533 vs 201486
+fields: depth=1 type=1 name=1 fullname=40 file=1 line=49 col=52 endline=51 endcol=55 size=1 objects_differing=94 (walk diverged)
+STRICT_NOTEQUAL line
+=== BuildUVMPkg testflags (swP)
+#873 line
+  A: 2	struct_typespec	uvm_pkg::m_uvm_factory_type_pair_t			uvm_pkg.sv	13427	55	13427	80				
+  B: 2	struct_typespec	uvm_pkg::m_uvm_factory_type_pair_t			uvm_pkg.sv	11401	9	11402	49				
+#909 line
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_pkg.sv	79053	35	79053	46				
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_pkg.sv	60837	4	60840	18				
+#943 line
+  A: 2	enum_typespec	uvm_pkg::uvm_door_e			uvm_pkg.sv	79320	47	79320	57				
+  B: 2	enum_typespec	uvm_pkg::uvm_door_e			uvm_pkg.sv	60818	4	60823	17				
+#952 line
+  A: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_pkg.sv	79201	48	79201	64				
+  B: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_pkg.sv	60853	4	60859	23				
+#970 line
+  A: 2	struct_typespec	uvm_pkg::uvm_hdl_path_slice			uvm_pkg.sv	74437	37	74437	55				
+  B: 2	struct_typespec	uvm_pkg::uvm_hdl_path_slice			uvm_pkg.sv	60777	9	60781	2				
+#985 line
+  A: 2	enum_typespec	uvm_pkg::uvm_hier_e			uvm_pkg.sv	78555	47	78555	57				
+  B: 2	enum_typespec	uvm_pkg::uvm_hier_e			uvm_pkg.sv	60899	4	60902	17				
+#1004 line
+  A: 2	enum_typespec	uvm_pkg::uvm_phase_state			uvm_pkg.sv	35101	43	35101	58				
+  B: 2	enum_typespec	uvm_pkg::uvm_phase_state			uvm_pkg.sv	8333	4	8344	37				
+#1016 line
+  A: 2	enum_typespec	uvm_pkg::uvm_phase_type			uvm_pkg.sv	33173	25	33173	39				
+  B: 2	enum_typespec	uvm_pkg::uvm_phase_type			uvm_pkg.sv	8271	1	8277	18				
+#1027 line
+  A: 2	enum_typespec	uvm_pkg::uvm_predict_e			uvm_pkg.sv	67554	35	67554	48				
+  B: 2	enum_typespec	uvm_pkg::uvm_predict_e			uvm_pkg.sv	60913	4	60917	20				
+#1031 line
+  A: 2	enum_typespec	uvm_pkg::uvm_radix_enum			uvm_pkg.sv	20066	47	20066	61				
+  B: 2	enum_typespec	uvm_pkg::uvm_radix_enum			uvm_pkg.sv	7880	1	7895	18				
+objects 201533 vs 201486
+fields: depth=1 type=1 name=1 fullname=40 file=1 line=49 col=52 endline=51 endcol=55 size=1 objects_differing=94 (walk diverged)
+STRICT_NOTEQUAL line
+=== ApbSlave default (swP)
+#372 depth
+  A: 2	function	svunit_base::new		svunit_pkg::svunit_base::new	svunit_base.sv	59	1	61	12				
+  B: 7	string_var	svunit_version		svunit_pkg::svunit_version	svunit_pkg.sv	29	16	29	92		0		
+objects 3678 vs 3682
+fields: depth=1 type=1 name=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+=== ApbSlave testflags (swP)
+#372 depth
+  A: 2	function	svunit_base::new		svunit_pkg::svunit_base::new	svunit_base.sv	59	1	61	12				
+  B: 7	string_var	svunit_version		svunit_pkg::svunit_version	svunit_pkg.sv	29	16	29	92		0		
+objects 3678 vs 3682
+fields: depth=1 type=1 name=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth
+=== CovMacro default (swP)
+#106 fullname
+  A: 6	hier_path	$root.top		work@top.$root.top	dut.sv	12	42	12	51		0		
+  B: 6	hier_path	$root.top			dut.sv	12	42	12	51		0		
+#122 fullname
+  A: 6	hier_path	$root.top.unit1		work@top.$root.top.unit1	dut.sv	14	42	14	57		0		
+  B: 6	hier_path	$root.top.unit1			dut.sv	14	42	14	57		0		
+#132 fullname
+  A: 6	hier_path	$root.top.unit2		work@top.$root.top.unit2	dut.sv	15	43	15	58		0		
+  B: 6	hier_path	$root.top.unit2			dut.sv	15	43	15	58		0		
+#154 fullname
+  A: 6	hier_path	$root.top.unit1		work@top.$root.top.unit1	dut.sv	18	35	18	50		0		
+  B: 6	hier_path	$root.top.unit1			dut.sv	18	35	18	50		0		
+#192 fullname
+  A: 6	hier_path	$root.top		work@top.$root.top	dut.sv	12	42	12	51		0		
+  B: 6	hier_path	$root.top			dut.sv	12	42	12	51		0		
+#211 fullname
+  A: 6	hier_path	$root.top.unit1		work@top.$root.top.unit1	dut.sv	14	42	14	57		0		
+  B: 6	hier_path	$root.top.unit1			dut.sv	14	42	14	57		0		
+#221 fullname
+  A: 6	hier_path	$root.top.unit2		work@top.$root.top.unit2	dut.sv	15	43	15	58		0		
+  B: 6	hier_path	$root.top.unit2			dut.sv	15	43	15	58		0		
+#243 fullname
+  A: 6	hier_path	$root.top.unit1		work@top.$root.top.unit1	dut.sv	18	35	18	50		0		
+  B: 6	hier_path	$root.top.unit1			dut.sv	18	35	18	50		0		
+fields: fullname=8 objects_differing=8
+STRICT_NOTEQUAL fullname
+=== CovMacro testflags (swP)
+#106 fullname
+  A: 6	hier_path	$root.top		work@top.$root.top	dut.sv	12	42	12	51		0		
+  B: 6	hier_path	$root.top			dut.sv	12	42	12	51		0		
+#122 fullname
+  A: 6	hier_path	$root.top.unit1		work@top.$root.top.unit1	dut.sv	14	42	14	57		0		
+  B: 6	hier_path	$root.top.unit1			dut.sv	14	42	14	57		0		
+#132 fullname
+  A: 6	hier_path	$root.top.unit2		work@top.$root.top.unit2	dut.sv	15	43	15	58		0		
+  B: 6	hier_path	$root.top.unit2			dut.sv	15	43	15	58		0		
+#154 fullname
+  A: 6	hier_path	$root.top.unit1		work@top.$root.top.unit1	dut.sv	18	35	18	50		0		
+  B: 6	hier_path	$root.top.unit1			dut.sv	18	35	18	50		0		
+#192 fullname
+  A: 6	hier_path	$root.top		work@top.$root.top	dut.sv	12	42	12	51		0		
+  B: 6	hier_path	$root.top			dut.sv	12	42	12	51		0		
+#208 fullname
+  A: 6	hier_path	$root.top.unit1		work@top.$root.top.unit1	dut.sv	14	42	14	57		0		
+  B: 6	hier_path	$root.top.unit1			dut.sv	14	42	14	57		0		
+#219 fullname
+  A: 6	hier_path	$root.top.unit2		work@top.$root.top.unit2	dut.sv	15	43	15	58		0		
+  B: 6	hier_path	$root.top.unit2			dut.sv	15	43	15	58		0		
+#242 fullname
+  A: 6	hier_path	$root.top.unit1		work@top.$root.top.unit1	dut.sv	18	35	18	50		0		
+  B: 6	hier_path	$root.top.unit1			dut.sv	18	35	18	50		0		
+fields: fullname=8 objects_differing=8
+STRICT_NOTEQUAL fullname
+=== Scr1SvTests default (swP)
+#16033 type
+  A: 13	ref_typespec			work@scr1_ipic.scr1_search_one_16.din		0	0	0	0		0		
+  B: 13	operation				scr1_ipic.sv	116	37	116	46		0		
+objects 84098 vs 84127
+fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+=== Scr1SvTests testflags (swP)
+#16033 type
+  A: 13	ref_typespec			work@scr1_ipic.scr1_search_one_16.din		0	0	0	0		0		
+  B: 13	operation				scr1_ipic.sv	116	37	116	46		0		
+objects 83997 vs 84026
+fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+=== SVSwitch default (swP)
+#101 fullname
+  A: 11	ref_obj	bytes		work@Driver::start::pkt.byte_pack::bytes	Driver.sv	47	31	47	36		0		
+  B: 11	ref_obj	bytes		work@Driver::start::bytes	Driver.sv	47	31	47	36		0		
+#184 file
+  A: 5	class_typespec	Receiver			Environemnt.sv	20	3	20	11				
+  B: 5	class_typespec	Receiver				0	0	0	0				
+#264 col
+  A: 6	bit_select	rcvr		work@Environment::build::rcvr	Environemnt.sv	43	11	43	12		0		
+  B: 6	bit_select	rcvr		work@Environment::build::rcvr	Environemnt.sv	43	6	43	13		0		
+#651 fullname
+  A: 12	ref_obj	size			Receiver.sv	40	26	40	30		0		
+  B: 12	ref_obj	size		work@Receiver::start::size	Receiver.sv	40	26	40	30		0		
+#756 fullname
+  A: 9	ref_obj	pkt_exp		work@Scoreboard::start::pkt_rcv.compare::pkt_exp	Scoreboard.sv	31	24	31	31		0		
+  B: 9	ref_obj	pkt_exp		work@Scoreboard::start::pkt_exp	Scoreboard.sv	31	24	31	31		0		
+#980 fullname
+  A: 8	ref_obj	size			Packet.sv	71	20	71	24		0		
+  B: 8	ref_obj	size		work@packet::byte_pack::size	Packet.sv	71	20	71	24		0		
+#1397 file
+  A: 3	ref_obj	mem_intf		work@testcase.mem_intf.mem_intf		0	0	0	0		0		
+  B: 3	ref_obj	mem_intf		work@testcase.mem_intf.mem_intf	testcase.sv	18	36	18	44		0		
+#1399 file
+  A: 3	ref_obj	input_intf		work@testcase.input_intf.input_intf		0	0	0	0		0		
+  B: 3	ref_obj	input_intf		work@testcase.input_intf.input_intf	testcase.sv	18	64	18	74		0		
+#1401 file
+  A: 3	ref_obj	output_intf		work@testcase.output_intf.output_intf		0	0	0	0		0		
+  B: 3	ref_obj	output_intf		work@testcase.output_intf.output_intf	testcase.sv	18	95	18	106		0		
+#1951 endline
+  A: 4	logic_typespec				rtl.sv	2	6	1	479				
+  B: 4	logic_typespec				rtl.sv	2	6	2	6				
+objects 5787 vs 5808
+fields: depth=1 type=1 name=1 fullname=5 file=5 line=5 col=6 endline=6 endcol=7 objects_differing=11 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== SVSwitch testflags (swP)
+#101 fullname
+  A: 11	ref_obj	bytes		work@Driver::start::pkt.byte_pack::bytes	Driver.sv	47	31	47	36		0		
+  B: 11	ref_obj	bytes		work@Driver::start::bytes	Driver.sv	47	31	47	36		0		
+#184 file
+  A: 5	class_typespec	Receiver			Environemnt.sv	20	3	20	11				
+  B: 5	class_typespec	Receiver				0	0	0	0				
+#264 col
+  A: 6	bit_select	rcvr		work@Environment::build::rcvr	Environemnt.sv	43	11	43	12		0		
+  B: 6	bit_select	rcvr		work@Environment::build::rcvr	Environemnt.sv	43	6	43	13		0		
+#651 fullname
+  A: 12	ref_obj	size			Receiver.sv	40	26	40	30		0		
+  B: 12	ref_obj	size		work@Receiver::start::size	Receiver.sv	40	26	40	30		0		
+#756 fullname
+  A: 9	ref_obj	pkt_exp		work@Scoreboard::start::pkt_rcv.compare::pkt_exp	Scoreboard.sv	31	24	31	31		0		
+  B: 9	ref_obj	pkt_exp		work@Scoreboard::start::pkt_exp	Scoreboard.sv	31	24	31	31		0		
+#980 fullname
+  A: 8	ref_obj	size			Packet.sv	71	20	71	24		0		
+  B: 8	ref_obj	size		work@packet::byte_pack::size	Packet.sv	71	20	71	24		0		
+#1397 file
+  A: 3	ref_obj	mem_intf		work@testcase.mem_intf.mem_intf		0	0	0	0		0		
+  B: 3	ref_obj	mem_intf		work@testcase.mem_intf.mem_intf	testcase.sv	18	36	18	44		0		
+#1399 file
+  A: 3	ref_obj	input_intf		work@testcase.input_intf.input_intf		0	0	0	0		0		
+  B: 3	ref_obj	input_intf		work@testcase.input_intf.input_intf	testcase.sv	18	64	18	74		0		
+#1401 file
+  A: 3	ref_obj	output_intf		work@testcase.output_intf.output_intf		0	0	0	0		0		
+  B: 3	ref_obj	output_intf		work@testcase.output_intf.output_intf	testcase.sv	18	95	18	106		0		
+#1951 endline
+  A: 4	logic_typespec				rtl.sv	2	6	1	479				
+  B: 4	logic_typespec				rtl.sv	2	6	2	6				
+objects 5787 vs 5808
+fields: depth=1 type=1 name=1 fullname=5 file=5 line=5 col=6 endline=6 endcol=7 objects_differing=11 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== InterfaceModPort default (swP)
+#95 endcol
+  A: 4	logic_typespec				top.v	27	3	27	8				
+  B: 4	logic_typespec				top.v	27	3	27	21				
+#98 endcol
+  A: 4	logic_typespec				top.v	28	3	28	8				
+  B: 4	logic_typespec				top.v	28	3	28	22				
+#101 endcol
+  A: 4	logic_typespec				top.v	29	3	29	8				
+  B: 4	logic_typespec				top.v	29	3	29	29				
+#104 endcol
+  A: 4	logic_typespec				top.v	30	3	30	8				
+  B: 4	logic_typespec				top.v	30	3	30	25				
+#119 endcol
+  A: 4	logic_typespec				top.v	33	3	33	8				
+  B: 4	logic_typespec				top.v	33	3	33	22				
+#122 endcol
+  A: 4	logic_typespec				top.v	34	3	34	8				
+  B: 4	logic_typespec				top.v	34	3	34	22				
+#231 file
+  A: 3	ref_obj	tif		work@test.tif.tif		0	0	0	0		0		
+  B: 3	ref_obj	tif		work@test.tif.tif	top.v	99	24	99	27		0		
+#246 endcol
+  A: 6	logic_typespec				top.v	27	3	27	8				
+  B: 6	logic_typespec				top.v	27	3	27	21				
+#249 endcol
+  A: 6	logic_typespec				top.v	28	3	28	8				
+  B: 6	logic_typespec				top.v	28	3	28	22				
+#252 endcol
+  A: 6	logic_typespec				top.v	29	3	29	8				
+  B: 6	logic_typespec				top.v	29	3	29	29				
+objects 790 vs 817
+fields: depth=1 type=1 name=1 fullname=1 file=2 line=3 col=3 endline=3 endcol=15 size=1 objects_differing=15 (walk diverged)
+STRICT_NOTEQUAL endcol
+=== InterfaceModPort testflags (swP)
+#95 endcol
+  A: 4	logic_typespec				top.v	27	3	27	8				
+  B: 4	logic_typespec				top.v	27	3	27	21				
+#98 endcol
+  A: 4	logic_typespec				top.v	28	3	28	8				
+  B: 4	logic_typespec				top.v	28	3	28	22				
+#101 endcol
+  A: 4	logic_typespec				top.v	29	3	29	8				
+  B: 4	logic_typespec				top.v	29	3	29	29				
+#104 endcol
+  A: 4	logic_typespec				top.v	30	3	30	8				
+  B: 4	logic_typespec				top.v	30	3	30	25				
+#119 endcol
+  A: 4	logic_typespec				top.v	33	3	33	8				
+  B: 4	logic_typespec				top.v	33	3	33	22				
+#122 endcol
+  A: 4	logic_typespec				top.v	34	3	34	8				
+  B: 4	logic_typespec				top.v	34	3	34	22				
+#231 file
+  A: 3	ref_obj	tif		work@test.tif.tif		0	0	0	0		0		
+  B: 3	ref_obj	tif		work@test.tif.tif	top.v	99	24	99	27		0		
+#246 endcol
+  A: 6	logic_typespec				top.v	27	3	27	8				
+  B: 6	logic_typespec				top.v	27	3	27	21				
+#249 endcol
+  A: 6	logic_typespec				top.v	28	3	28	8				
+  B: 6	logic_typespec				top.v	28	3	28	22				
+#252 endcol
+  A: 6	logic_typespec				top.v	29	3	29	8				
+  B: 6	logic_typespec				top.v	29	3	29	29				
+objects 790 vs 817
+fields: depth=1 type=1 name=1 fullname=1 file=2 line=3 col=3 endline=3 endcol=15 size=1 objects_differing=15 (walk diverged)
+STRICT_NOTEQUAL endcol
+=== FuncStructVal default (swP)
+#747 endcol
+  A: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	28		0		
+  B: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	46		0		
+#4148 file
+  A: 7	constant					0	0	0	0	32	64	INT:32	7
+  B: 7	constant				dut.sv	614	45	615	35	32	64	INT:32	7
+#4149 file
+  A: 7	constant					0	0	0	0	32	64	INT:32	7
+  B: 7	constant				dut.sv	614	45	615	35	32	64	INT:32	7
+#4153 file
+  A: 7	constant					0	0	0	0	34	64	INT:34	7
+  B: 7	constant				dut.sv	614	45	615	35	34	64	INT:34	7
+#4154 file
+  A: 7	constant					0	0	0	0	34	64	INT:34	7
+  B: 7	constant				dut.sv	614	45	615	35	34	64	INT:34	7
+#4168 file
+  A: 7	constant					0	0	0	0	2	64	UINT:2	9
+  B: 7	constant				dut.sv	614	45	615	35	2	64	UINT:2	9
+#4169 file
+  A: 7	constant					0	0	0	0	2	64	UINT:2	9
+  B: 7	constant				dut.sv	614	45	615	35	2	64	UINT:2	9
+#4173 file
+  A: 7	constant					0	0	0	0	1	64	INT:1	7
+  B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+#4174 file
+  A: 7	constant					0	0	0	0	1	64	INT:1	7
+  B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+#4320 file
+  A: 7	constant					0	0	0	0	3	64	UINT:3	9
+  B: 7	constant				dut.sv	614	45	615	35	3	64	UINT:3	9
+objects 18222 vs 17934
+fields: depth=1 type=1 name=1 fullname=14 file=74 line=79 col=79 endline=79 endcol=81 size=1 objects_differing=95 (walk diverged)
+STRICT_NOTEQUAL endcol
+=== FuncStructVal testflags (swP)
+#746 endcol
+  A: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	28		0		
+  B: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	46		0		
+#5535 file
+  A: 7	constant					0	0	0	0	32	64	INT:32	7
+  B: 7	constant				dut.sv	614	45	615	35	32	64	INT:32	7
+#5536 file
+  A: 7	constant					0	0	0	0	32	64	INT:32	7
+  B: 7	constant				dut.sv	614	45	615	35	32	64	INT:32	7
+#5540 file
+  A: 7	constant					0	0	0	0	34	64	INT:34	7
+  B: 7	constant				dut.sv	614	45	615	35	34	64	INT:34	7
+#5541 file
+  A: 7	constant					0	0	0	0	34	64	INT:34	7
+  B: 7	constant				dut.sv	614	45	615	35	34	64	INT:34	7
+#5555 file
+  A: 7	constant					0	0	0	0	2	64	UINT:2	9
+  B: 7	constant				dut.sv	614	45	615	35	2	64	UINT:2	9
+#5556 file
+  A: 7	constant					0	0	0	0	2	64	UINT:2	9
+  B: 7	constant				dut.sv	614	45	615	35	2	64	UINT:2	9
+#5560 file
+  A: 7	constant					0	0	0	0	1	64	INT:1	7
+  B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+#5561 file
+  A: 7	constant					0	0	0	0	1	64	INT:1	7
+  B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+#5707 file
+  A: 7	constant					0	0	0	0	3	64	UINT:3	9
+  B: 7	constant				dut.sv	614	45	615	35	3	64	UINT:3	9
+objects 45362 vs 45097
+fields: depth=1 type=1 fullname=18 file=137 line=158 col=158 endline=158 endcol=159 decompile=1 size=1 value=1 consttype=1 objects_differing=177 (walk diverged)
+STRICT_NOTEQUAL endcol
+=== FuncStructValSimple default (swP)
+#117 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#118 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#129 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0		
+  B: 8	ref_typespec					0	0	0	0		0		
+#132 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0		
+  B: 8	ref_typespec					0	0	0	0		0		
+#145 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#146 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#157 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0		
+  B: 8	ref_typespec					0	0	0	0		0		
+#160 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0		
+  B: 8	ref_typespec					0	0	0	0		0		
+#226 file
+  A: 6	constant					0	0	0	0	2	64	INT:2	7
+  B: 6	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#227 file
+  A: 6	constant					0	0	0	0	2	64	INT:2	7
+  B: 6	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+fields: fullname=21 file=20 line=21 col=21 endline=21 endcol=21 objects_differing=42
+STRICT_NOTEQUAL file
+=== FuncStructValSimple testflags (swP)
+#116 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#117 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#128 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0		
+  B: 8	ref_typespec					0	0	0	0		0		
+#131 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0		
+  B: 8	ref_typespec					0	0	0	0		0		
+#144 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#145 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#156 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0		
+  B: 8	ref_typespec					0	0	0	0		0		
+#159 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0		
+  B: 8	ref_typespec					0	0	0	0		0		
+#188 file
+  A: 8	constant					0	0	0	0	2	64	INT:2	7
+  B: 8	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#189 file
+  A: 8	constant					0	0	0	0	2	64	INT:2	7
+  B: 8	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+fields: fullname=31 file=30 line=31 col=31 endline=31 endcol=31 objects_differing=62
+STRICT_NOTEQUAL file

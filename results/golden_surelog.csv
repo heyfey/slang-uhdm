@@ -167,8 +167,8 @@ BlockingAssignRewrite,default,CMP_EQUAL,,,equal
 BlockingAssignRewrite,testflags,CMP_EQUAL,,,equal
 BuildOVMPkg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
 BuildOVMPkg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
-BuildUVMPkg,default,STRICT_NOTEQUAL,differ:line(69),,differ:line(69)
-BuildUVMPkg,testflags,STRICT_NOTEQUAL,differ:line(69),,differ:line(69)
+BuildUVMPkg,default,STRICT_NOTEQUAL,differ:fullname(24),,differ:fullname(24)
+BuildUVMPkg,testflags,STRICT_NOTEQUAL,differ:fullname(24),,differ:fullname(24)
 BuiltInMethod,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BuiltInMethod/dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
 BuiltInMethod,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BuiltInMethod/dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
 CarryAdd,default,CMP_EQUAL,,,equal
@@ -540,9 +540,9 @@ FuncStatic,testflags,CMP_EQUAL,,,equal
 FuncStruct,default,CMP_EQUAL,,,equal
 FuncStruct,testflags,CMP_EQUAL,,,equal
 FuncStructVal,default,STRICT_NOTEQUAL,differ:endcol(95),,differ:endcol(95)
-FuncStructVal,testflags,STRICT_NOTEQUAL,differ:endcol(177),,differ:endcol(177)
-FuncStructValSimple,default,STRICT_NOTEQUAL,differ:file(40),,differ:file(40)
-FuncStructValSimple,testflags,STRICT_NOTEQUAL,differ:file(60),,differ:file(60)
+FuncStructVal,testflags,STRICT_NOTEQUAL,differ:endcol(165),,differ:endcol(165)
+FuncStructValSimple,default,STRICT_NOTEQUAL,differ:file(39),,differ:file(39)
+FuncStructValSimple,testflags,STRICT_NOTEQUAL,differ:file(59),,differ:file(59)
 FuncWidthScope,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScope/dut.sv:13:19: error: cannot call a function declared inside a generate block in a consta,,
 FuncWidthScope,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScope/dut.sv:13:19: error: cannot call a function declared inside a generate block in a consta,,
 FuncWidthScopeOverride,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScopeOverride/dut.sv:8:34: error: reference to 'WIDTH_A' by hierarchical name is not allowed i,,
@@ -747,8 +747,8 @@ InterfaceFuncCall,default,CMP_EQUAL,,,equal
 InterfaceFuncCall,testflags,CMP_EQUAL,,,equal
 InterfaceModExp,default,CMP_EQUAL,,,equal
 InterfaceModExp,testflags,CMP_EQUAL,,,equal
-InterfaceModPort,default,STRICT_NOTEQUAL,differ:endcol(15),,differ:endcol(15)
-InterfaceModPort,testflags,STRICT_NOTEQUAL,differ:endcol(15),,differ:endcol(15)
+InterfaceModPort,default,STRICT_NOTEQUAL,differ:endcol(12),,differ:endcol(12)
+InterfaceModPort,testflags,STRICT_NOTEQUAL,differ:endcol(12),,differ:endcol(12)
 InterfaceParamOverrideProp,default,CMP_EQUAL,,,equal
 InterfaceParamOverrideProp,testflags,CMP_EQUAL,,,equal
 InterfaceProcess,default,CMP_EQUAL,,,equal
@@ -855,8 +855,8 @@ MaskNeg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv
 MaskNeg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 MBadder,default,CMP_EQUAL,,,equal
 MBadder,testflags,CMP_EQUAL,,,equal
-MiniAmiq,default,STRICT_NOTEQUAL,differ:file(26),,differ:file(26)
-MiniAmiq,testflags,STRICT_NOTEQUAL,differ:file(26),,differ:file(26)
+MiniAmiq,default,STRICT_NOTEQUAL,differ:fullname(9),,differ:fullname(9)
+MiniAmiq,testflags,STRICT_NOTEQUAL,differ:fullname(9),,differ:fullname(9)
 MinTypMax,default,CMP_EQUAL,,,equal
 MinTypMax,testflags,CMP_EQUAL,,,equal
 ModPortArrayBind,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortArrayBind/dut.sv:15:18: error: top-level module 'r5p_bus_dec' has unconnected interface port 'm',,
@@ -927,10 +927,10 @@ OneNet,default,CMP_EQUAL,,,equal
 OneNet,testflags,CMP_EQUAL,,,equal
 OneNetInterf,default,CMP_EQUAL,,,equal
 OneNetInterf,testflags,CMP_EQUAL,,,equal
-OneNetModPort,default,STRICT_NOTEQUAL,differ:file(3),,differ:file(3)
-OneNetModPort,testflags,STRICT_NOTEQUAL,differ:file(3),,differ:file(3)
-OneNetModPortGeneric,default,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
-OneNetModPortGeneric,testflags,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
+OneNetModPort,default,CMP_EQUAL,,,equal
+OneNetModPort,testflags,CMP_EQUAL,,,equal
+OneNetModPortGeneric,default,CMP_EQUAL,,,equal
+OneNetModPortGeneric,testflags,CMP_EQUAL,,,equal
 OneNetNonAnsi,default,CMP_EQUAL,,,equal
 OneNetNonAnsi,testflags,CMP_EQUAL,,,equal
 OneNetRange,default,CMP_EQUAL,,,equal
@@ -1199,7 +1199,7 @@ Rsd,default,DEFERRED,late-phase: golden uncacheable on this machine,,
 Rsd,testflags,DEFERRED,late-phase: golden uncacheable on this machine,,
 ScalarParam,default,CMP_EQUAL,,,equal
 ScalarParam,testflags,CMP_EQUAL,,,equal
-Scoreboard,default,STRICT_NOTEQUAL,differ:fullname(42),,differ:fullname(42)
+Scoreboard,default,STRICT_NOTEQUAL,differ:fullname(24),,differ:fullname(24)
 Scoreboard,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scoreboard/testbench.sv:12:3: error: use of undeclared identifier 'my_scoreboard',,
 Scr1,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
 Scr1,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
@@ -1211,8 +1211,8 @@ Selects,default,CMP_EQUAL,,,equal
 Selects,testflags,CMP_EQUAL,,,equal
 SelectSelect,default,CMP_EQUAL,,,equal
 SelectSelect,testflags,CMP_EQUAL,,,equal
-SeqDriver,default,STRICT_NOTEQUAL,differ:file(26),,differ:file(26)
-SeqDriver,testflags,STRICT_NOTEQUAL,differ:file(26),,differ:file(26)
+SeqDriver,default,STRICT_NOTEQUAL,differ:fullname(8),,differ:fullname(8)
+SeqDriver,testflags,STRICT_NOTEQUAL,differ:fullname(8),,differ:fullname(8)
 SequenceInst,default,CMP_EQUAL,,,equal
 SequenceInst,testflags,CMP_EQUAL,,,equal
 SeqUseNonTemp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SeqUseNonTemp/dut.sv:15:10: error: redefinition of 'p1_count_increment' [-Wredefinition],,
@@ -1255,8 +1255,8 @@ SimpleParserTestCache,default,SURELOG_FAIL,[   NOTE] : 0,,
 SimpleParserTestCache,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 SimpleTask,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleTask/top_2.v:2:8: error: duplicate definition of 'bus_wr_rd_task' [-Wduplicate-definition],,
 SimpleTask,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleTask/top_2.v:2:8: error: duplicate definition of 'bus_wr_rd_task' [-Wduplicate-definition],,
-SimpleUVM,default,STRICT_NOTEQUAL,differ:fullname(42),,differ:fullname(42)
-SimpleUVM,testflags,STRICT_NOTEQUAL,differ:fullname(42),,differ:fullname(42)
+SimpleUVM,default,STRICT_NOTEQUAL,differ:fullname(24),,differ:fullname(24)
+SimpleUVM,testflags,STRICT_NOTEQUAL,differ:fullname(24),,differ:fullname(24)
 SimpleVMM,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but decl,,
 SimpleVMM,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but decl,,
 SimplifyHierPath,default,CMP_EQUAL,,,equal
@@ -1309,8 +1309,8 @@ StructVarImp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVar
 StructVarImp,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVarImp/dut.sv:36:43: error: use of undeclared identifier 'MpRegions'; did you mean 'NumRegions'?,,
 SurelogMacro,default,CMP_EQUAL,,,equal
 SurelogMacro,testflags,CMP_EQUAL,,,equal
-SVSwitch,default,STRICT_NOTEQUAL,differ:file(9),,differ:file(9)
-SVSwitch,testflags,STRICT_NOTEQUAL,differ:file(9),,differ:file(9)
+SVSwitch,default,STRICT_NOTEQUAL,differ:file(16),,differ:file(16)
+SVSwitch,testflags,STRICT_NOTEQUAL,differ:file(16),,differ:file(16)
 SynthFilterDollarError,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SynthFilterDollarError/dut.sv:4:10: error: unknown package 'pack',,
 SynthFilterDollarError,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SynthFilterDollarError/dut.sv:4:10: error: unknown package 'pack',,
 SynthForeach,default,CMP_EQUAL,,,equal
@@ -1481,7 +1481,7 @@ UnsizedLiteral2,default,CMP_EQUAL,,,equal
 UnsizedLiteral2,testflags,CMP_EQUAL,,,equal
 UnsizedPacked,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnsizedPacked/dut.sv:5:5: error: dimension requires a constant range,,
 UnsizedPacked,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnsizedPacked/dut.sv:5:5: error: dimension requires a constant range,,
-UnsizedParam,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+UnsizedParam,default,CMP_EQUAL,,,equal
 UnsizedParam,testflags,CMP_EQUAL,,,equal
 UnsupportedTypespecRange,default,CMP_EQUAL,,,equal
 UnsupportedTypespecRange,testflags,CMP_EQUAL,,,equal

@@ -185,6 +185,23 @@ bool v11u171Law(const char* sw) {
         return false;
     return getenv(sw) == nullptr;
 }
+void castRhsCloneDrain176(UHDM::Serializer& s); // § castRhsClonePerInst176 (ModuleEmit.cpp)
+void progViewDrain176(); // § progPlainPortViewUnparented176 (ModuleEmit.cpp)
+void genPlainViewDrain176(UHDM::Serializer& s); // § genericPlainNamedView176 (ModuleEmit.cpp)
+// The r11u176 switches (tools/probe/r11u176repro/README.md): every r11u176
+// law reads its own R11U176_<LAW>_OFF switch; R11U176_OFF drops all of them.
+bool r11u176Law(const char* sw) {
+    if (getenv("R11U176_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// R11U176_TRACE=1 names every firing of an r11u176 law on stderr
+// (`R11U176 <LAW> <detail>`), for the mover attribution.
+void trace176(const char* law, const std::string& detail) {
+    static const bool on = getenv("R11U176_TRACE") != nullptr;
+    if (on)
+        fprintf(stderr, "R11U176 %s %s\n", law, detail.c_str());
+}
 // R11U171_TRACE=1 names every firing of an r11u171 law on stderr
 // (`R11U171 <LAW> <detail>`), for the mover attribution.
 void trace171(const char* law, const std::string& detail) {
@@ -13598,6 +13615,15 @@ UHDM::design* UhdmExporter::exportDesign() {
     pkgTsRefObjChainName134(s);
     // § tsHierPathElemNoName134 (law and decode at the function).
     tsHierPathElemNoName134(s);
+    // § castRhsClonePerInst176 (r11u176) — design-final, after every drain
+    // that writes a definition cont_assign (law and decode at ModuleEmit.cpp).
+    castRhsCloneDrain176(s);
+    // § progPlainPortViewUnparented176 (r11u176) — design-final (law and
+    // decode at ModuleEmit.cpp).
+    progViewDrain176();
+    // § genericPlainNamedView176 (r11u176) — design-final (law and decode at
+    // ModuleEmit.cpp).
+    genPlainViewDrain176(s);
     // § implicitNetNoFile119 (r11u119, LAW L2) — LAST, so no later setLoc
     // re-stamps the file (law and decode at ModuleEmit.cpp).
     clearImplicitNetFiles119();
@@ -13644,6 +13670,33 @@ UHDM::design* UhdmExporter::exportDesign() {
 
     if (!r11u146Law("R11U146_TFARGTD_OFF"))
         return d;
+    // § tfArgQualOutsideWriter176 (r11u176) — a PACKAGE-QUALIFIED argument
+    // type (`ibex_pkg::pmp_cfg_t region_csr_pmp_cfg`) is a writer like a bare
+    // name: compileTfPortList runs the same populateCoreMembers(type, type,
+    // ts) over the argument's data type node, whose first token is the
+    // package qualifier, and compileTypespec answers the elaborated package's
+    // aggregate object; the span is the qualifier's, `p::` from the package
+    // name to the end of the `::` token (golden ibex_pmp `ibex_pkg::`
+    // ibex_pmp.sv 114:47-114:57, 130:48-130:58, 132:48-132:58; grid
+    // tools/probe/r11u176repro/cases/PQ: q01 enum, q02 struct, q03 two
+    // functions (the later wins), q04 a task, q05 a qualified and a bare
+    // writer (the later wins), q06 another package's function, q07 `p :: e_t`
+    // (5:30-5:34), q09 a union, q16 an uncalled function).  A qualified
+    // writer inside the typedef's own package is not modelled (q15, stage 1
+    // on every binary) and still leaves the typedef alone.  Switch
+    // R11U176_QUALFORMAL_OFF.
+    const bool qual176 = r11u176Law("R11U176_QUALFORMAL_OFF");
+    // § tfArgClassMethodOrder176 (r11u176, r11u175's F3 decode) — a method
+    // of a class a PACKAGE holds writes the package typedef too (§ 146's
+    // decline was ours, not Surelog's): Surelog compiles a package's classes
+    // after its own items are registered, class by class in the NAME order of
+    // the package's class map, each class's formals in source order, and the
+    // package's own subroutines (out-of-body `C::m` definitions included)
+    // after every class, in source order; the last writer wins.  Grid
+    // tools/probe/r11u175uvm/cases/f3 t1-t6 + tools/probe/r11u176repro/
+    // cases/F3.  Switch R11U176_CLSMETHOD_OFF.
+    const bool clsm176 = r11u176Law("R11U176_CLSMETHOD_OFF");
+    std::set<const Symbol*> aggTd176;
     // Emitted typedefs by name.
     std::map<std::string, std::vector<const Symbol*>> byName;
     for (auto& [sym, ts] : typedefTs) {
@@ -13651,9 +13704,21 @@ UHDM::design* UhdmExporter::exportDesign() {
             continue;
         // Measured on an ENUM typedef only: a struct argument leaves the
         // typedef's span in golden (grid fa/f14).
+        // § tfArgQualOutsideWriter176 — ...when the writer sits in the
+        // typedef's own package; a writer OUTSIDE the package moves a
+        // struct or union typedef's elaborated object too (grid
+        // tools/probe/r11u176repro/cases/PQ q02, q06, q09, q17; ibex_pmp
+        // `ibex_pkg::pmp_cfg_t`): such a typedef is a candidate here and
+        // `aggTd176` restricts it to an outside last writer below.
         auto& ct = sym->as<TypeAliasType>().getCanonicalType();
-        if (ct.kind != SymbolKind::EnumType)
-            continue;
+        if (ct.kind != SymbolKind::EnumType) {
+            if (!(qual176 && (ct.kind == SymbolKind::PackedStructType ||
+                              ct.kind == SymbolKind::PackedUnionType ||
+                              ct.kind == SymbolKind::UnpackedStructType ||
+                              ct.kind == SymbolKind::UnpackedUnionType)))
+                continue;
+            aggTd176.insert(sym);
+        }
         auto& v = byName[std::string(sym->name)];
         if (std::find(v.begin(), v.end(), sym) == v.end())
             v.push_back(sym);
@@ -13664,7 +13729,11 @@ UHDM::design* UhdmExporter::exportDesign() {
         const Symbol* td;
         SourceRange tok;
         const syntax::SyntaxNode* container;
+        const syntax::SyntaxNode* unit176 = nullptr;
+        const syntax::SyntaxNode* cls176 = nullptr;
+        uint64_t seq176 = 0;
     };
+    uint64_t seq176 = 0;
     std::map<const Symbol*, std::vector<Writer>> writers;
     std::set<const Symbol*> poisoned;
     std::function<void(const syntax::SyntaxNode&, const syntax::SyntaxNode*,
@@ -13744,7 +13813,55 @@ UHDM::design* UhdmExporter::exportDesign() {
                     // typedef is left alone.
                     else if (nm.kind == syntax::SyntaxKind::ScopedName) {
                         auto& sn = nm.as<syntax::ScopedNameSyntax>();
-                        if (sn.right->kind == syntax::SyntaxKind::IdentifierName)
+                        bool qualDone176 = false;
+                        // § tfArgQualOutsideWriter176 — the qualified writer.
+                        if (qual176 &&
+                            sn.left->kind == syntax::SyntaxKind::IdentifierName &&
+                            sn.right->kind == syntax::SyntaxKind::IdentifierName &&
+                            sn.separator.kind == parsing::TokenKind::DoubleColon)
+                            if (auto bi = byName.find(std::string(
+                                    sn.right->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText()));
+                                bi != byName.end()) {
+                                auto pq176 = sn.left->as<syntax::IdentifierNameSyntax>()
+                                                 .identifier.valueText();
+                                const Symbol* hit176 = nullptr;
+                                int n176 = 0;
+                                for (auto* t : bi->second)
+                                    if (auto* ps = t->getParentScope();
+                                        ps && ps->asSymbol().kind == SymbolKind::Package &&
+                                        ps->asSymbol().name == pq176) {
+                                        hit176 = t;
+                                        ++n176;
+                                    }
+                                if (n176 == 1) {
+                                    auto* psyn176 =
+                                        hit176->getParentScope()->asSymbol().getSyntax();
+                                    // inside its own package: not modelled
+                                    if (psyn176 && unit == psyn176)
+                                        poisoned.insert(hit176);
+                                    else
+                                        // With a direction keyword the
+                                        // data type node is the whole
+                                        // scoped name (`input p::e_t x`
+                                        // 5:36-5:42, grid PQ q04, q19);
+                                        // without, its first child, the
+                                        // qualifier.
+                                        writers[hit176].push_back(
+                                            {hit176,
+                                             SourceRange(
+                                                 sn.left->getFirstToken().location(),
+                                                 fp.direction.valid()
+                                                     ? sn.right->getLastToken()
+                                                           .range()
+                                                           .end()
+                                                     : sn.separator.range().end()),
+                                             cls ? cls : unit, unit, cls, ++seq176});
+                                    qualDone176 = true;
+                                }
+                            }
+                        if (!qualDone176 &&
+                            sn.right->kind == syntax::SyntaxKind::IdentifierName)
                             if (auto bi = byName.find(std::string(
                                     sn.right->as<syntax::IdentifierNameSyntax>()
                                         .identifier.valueText()));
@@ -13764,8 +13881,11 @@ UHDM::design* UhdmExporter::exportDesign() {
                                 // not write it (the UVM enums keep their
                                 // own spans in golden: uvm_verbosity,
                                 // uvm_port_type_e, ...): declined.
+                                // § tfArgClassMethodOrder176 lifts it (the
+                                // order is applied below).
                                 if (cls && unit &&
-                                    unit->kind == syntax::SyntaxKind::PackageDeclaration)
+                                    unit->kind == syntax::SyntaxKind::PackageDeclaration &&
+                                    !clsm176)
                                     poisoned.insert(td);
                                 auto* ps = td->getParentScope();
                                 bool ok = qual.empty() ||
@@ -13776,7 +13896,8 @@ UHDM::design* UhdmExporter::exportDesign() {
                                     poisoned.insert(td);
                                 else
                                     writers[td].push_back(
-                                        {td, tok, cls ? cls : unit});
+                                        {td, tok, cls ? cls : unit, unit, cls,
+                                         ++seq176});
                             }
                         }
                 }
@@ -13788,32 +13909,156 @@ UHDM::design* UhdmExporter::exportDesign() {
         };
     for (auto tree : comp.getSyntaxTrees())
         walk(tree->root(), nullptr, nullptr);
+    auto w0seq176 = [](const std::vector<Writer>& v) {
+        for (auto& w : v)
+            if (!w.seq176)
+                return false;
+        return true;
+    };
     for (auto& [td, ws] : writers) {
         if (poisoned.count(td) || ws.empty())
             continue;
         bool one = true;
-        for (auto& w : ws)
-            if (w.container != ws.front().container)
-                one = false;
-        if (!one)
-            continue;
+        // § tfArgClassMethodOrder176 — writers of one PACKAGE, some of them
+        // inside its classes: the compile order (classes by name, each in
+        // source order, then the package's own items in source order) picks
+        // the last writer; the walk's sequence number is source order across
+        // `include` buffers.
+        bool clsOrder176 = false;
+        const syntax::SyntaxNode* pkgSyn176 = nullptr;
+        if (auto* ps = td->getParentScope();
+            ps && ps->asSymbol().kind == SymbolKind::Package)
+            pkgSyn176 = ps->asSymbol().getSyntax();
+        if (clsm176 && pkgSyn176) {
+            bool anyCls = false, oneUnit = true;
+            for (auto& w : ws) {
+                if (w.cls176)
+                    anyCls = true;
+                if (w.unit176 != ws.front().unit176)
+                    oneUnit = false;
+            }
+            clsOrder176 = anyCls && oneUnit && ws.front().unit176 == pkgSyn176;
+        }
+        // § tfArgDefTopSplit176 (r11u176) — writers INSIDE the typedef's
+        // package (its own subroutines) and writers OUTSIDE it in one other
+        // container (another package's or a module's subroutine, bare or
+        // qualified) split the two listings the same way: the definition
+        // listing takes the last inside writer, the elaborated package's
+        // object the last outside one (golden r11u146 grid fa/f11: `p`'s own
+        // `f(e_t g)` 4:26 in the definition listing, `q::h(p::e_t k)`'s
+        // `p::` 9:26 in every later listing).  Outside writers in two
+        // containers, or outside writers beside class writers, are not
+        // modelled (the typedef is left alone).  Switch R11U176_DEFTOPSPLIT_OFF.
+        const Writer* splitIn176 = nullptr;
+        const Writer* splitOut176 = nullptr;
+        if (!clsOrder176 && pkgSyn176 && r11u176Law("R11U176_DEFTOPSPLIT_OFF")) {
+            const syntax::SyntaxNode* outC = nullptr;
+            bool ok = true, anyIn = false, anyOut = false;
+            for (auto& w : ws) {
+                if (w.unit176 == pkgSyn176 && !w.cls176) {
+                    anyIn = true;
+                    if (!splitIn176 || splitIn176->seq176 < w.seq176)
+                        splitIn176 = &w;
+                }
+                else if (w.unit176 != pkgSyn176) {
+                    anyOut = true;
+                    if (outC && outC != w.container)
+                        ok = false;
+                    outC = w.container;
+                    if (!splitOut176 || splitOut176->seq176 < w.seq176)
+                        splitOut176 = &w;
+                }
+                else
+                    ok = false;  // a class writer beside outside writers
+            }
+            if (!(ok && anyIn && anyOut && w0seq176(ws)))
+                splitIn176 = splitOut176 = nullptr;
+        }
         const Writer* last = &ws.front();
-        for (auto& w : ws)
-            if (w.tok.start().buffer() == last->tok.start().buffer() &&
-                last->tok.start() < w.tok.start())
-                last = &w;
-            else if (w.tok.start().buffer() != last->tok.start().buffer())
-                one = false;
-        if (!one)
-            continue;
-        auto apply = [&](UHDM::typespec* ts) {
-            if (!ts)
+        // § tfArgClassMethodOrder176 — the two listings take two writers:
+        // the DEFINITION package listing is written by the package's own
+        // items (subroutines and out-of-body `C::m` definitions, source
+        // order; an aggregate typedef keeps its span, grid fa/f14), and the
+        // ELABORATED package's object by the class methods, which compile
+        // later (the last one in the class map's NAME order, each class in
+        // source order): golden f3/t1 and t3 keep the definition listing,
+        // t4 and f4/a08 read the out-of-body definition there and the
+        // prototype in the elaborated listing, t6 the package function and
+        // the class method.
+        const Writer* lastCls176 = nullptr;
+        const Writer* lastPkg176 = nullptr;
+        if (clsOrder176) {
+            auto clsName176 = [](const syntax::SyntaxNode* c) -> std::string_view {
+                if (!c || c->kind != syntax::SyntaxKind::ClassDeclaration)
+                    return {};
+                return c->as<syntax::ClassDeclarationSyntax>().name.valueText();
+            };
+            for (auto& w : ws) {
+                if (w.cls176) {
+                    if (!lastCls176)
+                        lastCls176 = &w;
+                    else {
+                        auto na = clsName176(lastCls176->cls176),
+                             nb = clsName176(w.cls176);
+                        if (na < nb || (na == nb && lastCls176->seq176 < w.seq176))
+                            lastCls176 = &w;
+                    }
+                }
+                else if (!lastPkg176 || lastPkg176->seq176 < w.seq176)
+                    lastPkg176 = &w;
+            }
+            last = lastCls176;
+            trace176("CLSMETHOD", std::string(td->name));
+        }
+        else if (splitIn176 && splitOut176) {
+            last = splitOut176;
+        }
+        else {
+            for (auto& w : ws)
+                if (w.container != ws.front().container)
+                    one = false;
+            if (!one)
+                continue;
+            for (auto& w : ws)
+                if (w.tok.start().buffer() == last->tok.start().buffer() &&
+                    last->tok.start() < w.tok.start())
+                    last = &w;
+                else if (w.tok.start().buffer() != last->tok.start().buffer())
+                    one = false;
+            if (!one)
+                continue;
+        }
+        auto applyW = [&](UHDM::typespec* ts, const Writer* wr) {
+            if (!ts || !wr)
                 return;
             uint32_t el = ts->VpiEndLineNo(), ec = ts->VpiEndColumnNo();
             // An end a write-time populate already moved away from the
             // typedef's own span stays (it runs after compilation).
             // (the typedef's own span ends with its declaration's `;`)
             bool endMoved = false;
+            // § tfArgQualOutsideWriter176 — an aggregate's object spans its
+            // TYPE (`struct packed {...}`, from the `struct` keyword to the
+            // closing brace), not the whole typedef declaration, so a moved
+            // end is read against the type's own end (grid r11u42 g2:
+            // golden keeps writeNets' 15:22 behind the formal's 48:30).
+            if (aggTd176.count(td))
+                if (auto* tsyn = td->getSyntax();
+                    tsyn && tsyn->kind == syntax::SyntaxKind::TypedefDeclaration) {
+                    auto tr176 =
+                        tsyn->as<syntax::TypedefDeclarationSyntax>().type->sourceRange();
+                    uint32_t ol = 0, oc = 0, sl = 0, sc = 0;
+                    locLineCol(tr176.end(), ol, oc);
+                    locLineCol(tr176.start(), sl, sc);
+                    endMoved = !(ol == el && oc == ec) &&
+                               ts->VpiLineNo() == sl && ts->VpiColumnNo() == sc;
+                    setLoc(ts, wr->tok);
+                    ts->VpiFile(fullFilePath(wr->tok.start()));
+                    if (endMoved) {
+                        ts->VpiEndLineNo(el);
+                        ts->VpiEndColumnNo(ec);
+                    }
+                    return;
+                }
             if (auto* tsyn = td->getSyntax()) {
                 uint32_t ol = 0, oc = 0;
                 locLineCol(tsyn->sourceRange().end(), ol, oc);
@@ -13834,13 +14079,46 @@ UHDM::design* UhdmExporter::exportDesign() {
                         endMoved = false;
                 }
             }
-            setLoc(ts, last->tok);
-            ts->VpiFile(fullFilePath(last->tok.start()));
+            setLoc(ts, wr->tok);
+            ts->VpiFile(fullFilePath(wr->tok.start()));
             if (endMoved) {
                 ts->VpiEndLineNo(el);
                 ts->VpiEndColumnNo(ec);
             }
         };
+        auto apply = [&](UHDM::typespec* ts) { applyW(ts, last); };
+        if (splitIn176 && splitOut176) {
+            auto dit = typedefTs.find(td);
+            auto tit = pkgTopTypedefTs.find((const void*)td);
+            UHDM::typespec* defTs = dit != typedefTs.end() ? dit->second : nullptr;
+            UHDM::typespec* topTs =
+                tit != pkgTopTypedefTs.end() ? tit->second : nullptr;
+            if (defTs && topTs && defTs != topTs) {
+                if (!aggTd176.count(td))
+                    applyW(defTs, splitIn176);
+                applyW(topTs, splitOut176);
+                trace176("DEFTOPSPLIT", std::string(td->name));
+            }
+            continue;
+        }
+        if (clsOrder176) {
+            auto dit = typedefTs.find(td);
+            auto tit = pkgTopTypedefTs.find((const void*)td);
+            UHDM::typespec* defTs = dit != typedefTs.end() ? dit->second : nullptr;
+            UHDM::typespec* topTs =
+                tit != pkgTopTypedefTs.end() ? tit->second : nullptr;
+            if (defTs && topTs && defTs != topTs) {
+                // an aggregate too (grid F3 s01, s03: an out-of-body
+                // definition's struct formal moves the definition listing)
+                if (lastPkg176)
+                    applyW(defTs, lastPkg176);
+                applyW(topTs, lastCls176);
+            }
+            else
+                applyW(topTs ? topTs : defTs, lastCls176);
+            trace176("CLSMETHODAPPLY", std::string(td->name));
+            continue;
+        }
         // A PACKAGE typedef written from outside its package (an importing
         // module's function) reaches only the ELABORATED package's object:
         // the importer binds the elaborated compile, and the definition
@@ -13853,6 +14131,12 @@ UHDM::design* UhdmExporter::exportDesign() {
             auto* psyn = ps->asSymbol().getSyntax();
             outside = !psyn || last->container != psyn;
         }
+        // § tfArgQualOutsideWriter176 — an aggregate moves only for an
+        // outside last writer (grid fa/f14 keeps the inside case unmoved).
+        if (aggTd176.count(td) && !outside)
+            continue;
+        if (aggTd176.count(td))
+            trace176("QUALAGG", std::string(td->name));
         if (auto it = typedefTs.find(td); it != typedefTs.end() && !outside)
             apply(it->second);
         if (auto it = pkgTopTypedefTs.find((const void*)td);

@@ -1,0 +1,5 @@
+MiniAmiq     default file-facet (type,name,file) records ours holds more often than golden: pristine=3832 final=2851
+SeqDriver    default file-facet (type,name,file) records ours holds more often than golden: pristine=4035 final=2732
+SimpleUVM    default file-facet (type,name,file) records ours holds more often than golden: pristine=2841 final=1710
+Scoreboard   default file-facet (type,name,file) records ours holds more often than golden: pristine=2335 final=1412
+BuildUVMPkg  default file-facet (type,name,file) records ours holds more often than golden: pristine=463 final=437

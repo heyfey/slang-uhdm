@@ -1,0 +1,57 @@
+CC__u01_row restores: R11U176_CASTCLONE_OFF moves: none
+CC__u02_intparam restores: R11U176_CASTCLONE_OFF moves: none
+CC__u03_net restores: R11U176_CASTCLONE_OFF moves: none
+CC__u05_one_inst restores: R11U176_CASTCLONE_OFF moves: none
+CC__u06_sized restores: R11U176_CASTCLONE_OFF moves: none
+CC__u07_unsigned_cast restores: R11U176_CASTCLONE_OFF moves: none
+CC__u09_literal restores: R11U176_CASTCLONE_OFF moves: none
+CC__u14_cast_one_inst_net restores: R11U176_CASTCLONE_OFF moves: none
+CC__u18_cast_top restores: R11U176_CASTCLONE_OFF moves: none
+CC__u19_cast_typedef restores: R11U176_CASTCLONE_OFF moves: none
+CC__u20_partsel_lhs restores: R11U176_CASTCLONE_OFF moves: none
+CC__u21_bitsel_lhs restores: R11U176_CASTCLONE_OFF moves: none
+CC__u22_concat_lhs restores: R11U176_CASTCLONE_OFF moves: none
+CC__u25_delay restores: R11U176_CASTCLONE_OFF moves: none
+CC__u28_nested_inst restores: R11U176_CASTCLONE_OFF moves: none
+CC__u29_two_assigns restores: R11U176_CASTCLONE_OFF moves: none
+F3__s01_extern_def_struct restores: none moves: R11U175_FSPAN_OFF R11U176_QUALFORMAL_OFF R11U176_CLSMETHOD_OFF
+F3__s03_extern_def_struct_unpacked restores: none moves: R11U175_FSPAN_OFF R11U176_QUALFORMAL_OFF R11U176_CLSMETHOD_OFF
+F3__s05_extern_def_enum_two_classes restores: none moves: R11U175_FSPAN_OFF R11U176_CLSMETHOD_OFF
+F3__s06_class_typedef_unused restores: R11U176_CLSMETHOD_OFF moves: none
+F3__s07_class_task_and_func restores: R11U176_CLSMETHOD_OFF moves: none
+GE__e03_else_begin_ifelse restores: R11U176_ELSEBEGIN_OFF moves: none
+GE__e04_else_begin_case restores: R11U176_ELSEBEGIN_OFF moves: none
+GE__e05_else_begin_if_nobegin restores: R11U176_ELSEBEGIN_OFF moves: none
+GE__e06_else_begin_if_array restores: R11U176_ELSEBEGIN_OFF R11U176_GENARR_OFF moves: none
+GE__e07_two_instances restores: R11U176_ELSEBEGIN_OFF moves: none
+PG__g01_mp_pos restores: none moves: R11U176_PROGLCLOC_OFF R11U176_PROGMPDEF_OFF
+PG__g02_mp_named restores: none moves: R11U176_PROGLCLOC_OFF R11U176_PROGMPDEF_OFF
+PG__g03_plain_pos restores: none moves: R11U176_PROGLCLOC_OFF R11U176_PROGVIEW_OFF
+PG__g04_plain_named restores: none moves: R11U176_PROGLCLOC_OFF R11U176_PROGVIEW_OFF
+PG__g06_generic_named restores: none moves: R11U176_GENPLAINLOC_OFF R11U176_GENPLAINVARS_OFF R11U176_PROGVIEW_OFF
+PG__g08_mp_two_ports restores: none moves: R11U176_PROGLCLOC_OFF R11U176_PROGMPDEF_OFF
+PG__g09_two_progs restores: none moves: R11U176_PROGLCLOC_OFF R11U176_PROGMPDEF_OFF
+PG__g11_mp_nested restores: none moves: R11U176_PROGLCLOC_OFF R11U176_PROGMPDEF_OFF
+PG__g12_mp_generic_conn_dut restores: none moves: R11U176_PROGMPDEF_OFF R11U176_GENMPLOC_OFF
+PG__g13_mod_generic_mpconn_named restores: R11U176_GENMPLOC_OFF moves: none
+PG__g15_generic_mpconn_two_ports restores: none moves: R11U176_PROGMPDEF_OFF R11U176_GENMPLOC_OFF
+PG__g17_mod_generic_named_plain restores: none moves: R11U176_GENPLAINLOC_OFF R11U176_GENPLAINVARS_OFF
+PG__g18_mod_generic_named_plain_two restores: none moves: R11U176_GENPLAINLOC_OFF R11U176_GENPLAINVARS_OFF
+PG__g20_generic_named_two_levels restores: none moves: R11U176_GENPLAINLOC_OFF R11U176_GENPLAINVARS_OFF
+PQ__q01_enum restores: R11U176_QUALFORMAL_OFF moves: none
+PQ__q02_struct restores: R11U176_QUALFORMAL_OFF moves: none
+PQ__q03_two_funcs restores: R11U176_QUALFORMAL_OFF moves: none
+PQ__q04_task restores: R11U176_QUALFORMAL_OFF moves: none
+PQ__q05_mix_bare restores: R11U176_QUALFORMAL_OFF moves: none
+PQ__q06_pkgfunc_other_pkg restores: R11U176_QUALFORMAL_OFF moves: none
+PQ__q07_spaced restores: R11U176_QUALFORMAL_OFF moves: none
+PQ__q08_port_and_formal restores: R11U176_QUALFORMAL_OFF moves: none
+PQ__q09_union restores: R11U176_QUALFORMAL_OFF moves: none
+PQ__q14_unpacked_formal restores: R11U176_QUALFORMAL_OFF moves: none
+PQ__q16_unused_func restores: R11U176_QUALFORMAL_OFF moves: none
+PQ__q17_struct_bare_import restores: R11U176_QUALFORMAL_OFF moves: none
+PQ__q19_func_input_dir restores: R11U176_QUALFORMAL_OFF moves: none
+PQ__q21_inside_and_outside restores: R11U176_QUALFORMAL_OFF R11U176_DEFTOPSPLIT_OFF moves: none
+TD__td01_three_files_tie restores: R11U176_TDTIE_OFF moves: none
+TD__td02_key_three_pkgs restores: R11U176_TDKEY_OFF moves: none
+UD__u3_concat_lit_implicit restores: R11U176_UDPLV_OFF moves: none

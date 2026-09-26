@@ -1,0 +1,12 @@
+trace wrapper (TDKEY|TDKEYUNRES|TDTIE) over the UVM rows MiniAmiq SeqDriver SimpleUVM Scoreboard BuildUVMPkg, both modes: 0 lines; positive control TT/t3: 2 lines
+name,mode,status,detail,blocked_by,strict
+BuildUVMPkg,default,STRICT_NOTEQUAL,differ:fullname(49),,differ:fullname(49)
+BuildUVMPkg,testflags,STRICT_NOTEQUAL,differ:fullname(49),,differ:fullname(49)
+MiniAmiq,default,STRICT_NOTEQUAL,differ:fullname(12),,differ:fullname(12)
+MiniAmiq,testflags,STRICT_NOTEQUAL,differ:fullname(12),,differ:fullname(12)
+Scoreboard,default,STRICT_NOTEQUAL,differ:fullname(27),,differ:fullname(27)
+Scoreboard,testflags,SLANG_REJECT,rc=3,,
+SeqDriver,default,STRICT_NOTEQUAL,differ:fullname(11),,differ:fullname(11)
+SeqDriver,testflags,STRICT_NOTEQUAL,differ:fullname(11),,differ:fullname(11)
+SimpleUVM,default,STRICT_NOTEQUAL,differ:fullname(27),,differ:fullname(27)
+SimpleUVM,testflags,STRICT_NOTEQUAL,differ:fullname(27),,differ:fullname(27)

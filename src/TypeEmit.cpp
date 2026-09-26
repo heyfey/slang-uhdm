@@ -13,6 +13,8 @@
 
 namespace slang_uhdm {
 bool r11u171Law(const char* sw); // the r11u171 switches (UhdmExporter.cpp)
+bool r11u176Law(const char* sw); // the r11u176 switches (UhdmExporter.cpp)
+void trace176(const char* law, const std::string& detail); // R11U176_TRACE
 void trace171(const char* law, const std::string& detail); // R11U171_TRACE
 
 // r11u148 (tools/probe/r11u148share/README.md): R11U148_OFF drops every law of
@@ -12777,10 +12779,34 @@ void UhdmExporter::pkgImportCloneLastWriter32() {
     struct Site {
         std::vector<std::string> files;
         LC end{0, 0};
+        // § tdKeyKeepsUnresolved176v: per writer (parallel to `files`), the
+        // typedef its bare name resolves to in its package (nullptr when not
+        // resolved: a module / interface / program subroutine, a qualified
+        // name) and its type token's end.
+        std::vector<const Symbol*> syms176v;
+        std::vector<LC> ends176v;
     };
     using Key = std::pair<LC, std::string>;
     std::map<Key, Site> formalAt;                     // formal type token start
     std::map<Key, std::vector<std::string>> declEnd;  // declarator ends
+    // § tdMoveKeyResolved176 (r11u176, v11u171 residue R2) — a formal of a
+    // PACKAGE subroutine is keyed on the typedef its bare name RESOLVES to in
+    // that package (imports included), so `pa::s_t` and `pz::s_t` formals
+    // written as `s_t` at one position in two files stay apart (grid
+    // v11u171 F/h10: golden files `pa::s_t` at b_pkg.sv, the name key merged
+    // it with c_pkg.sv's `pz::s_t` formal).  Switch R11U176_TDKEY_OFF.
+    static const bool tdKey176 = r11u176Law("R11U176_TDKEY_OFF");
+    std::map<std::pair<LC, const Symbol*>, Site> formalAtSym176;
+    const PackageSymbol* curPkg176 = nullptr;
+    // § tdEndMoveModuleOrder176 (r11u176, v11u171 residue R1) — two files
+    // holding a declarator of the same type name at the same position: the
+    // end-only move is writeNets', run module by module in the design's
+    // definition map, NAME order, so the alphabetically last MODULE is the
+    // last writer (grid v11u171 F/h05, h07: golden m1.sv over dut.sv).
+    // Switch R11U176_TDTIE_OFF.
+    static const bool tdTie176 = r11u176Law("R11U176_TDTIE_OFF");
+    std::map<Key, std::vector<std::pair<std::string, std::string>>> declEndMod176;
+    std::string curMod176;
     auto typeName = [](const syntax::DataTypeSyntax* dt) -> std::string {
         if (!dt || dt->kind != syntax::SyntaxKind::NamedType)
             return {};
@@ -12807,6 +12833,19 @@ void UhdmExporter::pkgImportCloneLastWriter32() {
                         auto& st = formalAt[{k, tn}];
                         st.files.push_back(fullFilePath(r.start()));
                         st.end = e;
+                        const Symbol* res176v = nullptr;
+                        if (tdKey176 && curPkg176 &&
+                            fp.dataType->as<syntax::NamedTypeSyntax>().name->kind ==
+                                syntax::SyntaxKind::IdentifierName)
+                            if (auto* rs176 = curPkg176->lookupName(tn);
+                                rs176 && rs176->kind == SymbolKind::TypeAlias) {
+                                auto& s176 = formalAtSym176[{k, rs176}];
+                                s176.files.push_back(fullFilePath(r.start()));
+                                s176.end = e;
+                                res176v = rs176;
+                            }
+                        st.syms176v.push_back(res176v);
+                        st.ends176v.push_back(e);
                     }
                 }
             }
@@ -12832,14 +12871,26 @@ void UhdmExporter::pkgImportCloneLastWriter32() {
                     LC k{0, 0};
                     locLineCol(l, k.first, k.second);
                     declEnd[{k, tn}].push_back(fullFilePath(l));
+                    if (tdTie176)
+                        declEndMod176[{k, tn}].push_back({curMod176, fullFilePath(l)});
                 };
                 note(n.sourceRange().end());
                 if (!dd.dimensions.empty())
                     note(dd.dimensions[0]->sourceRange().end());
             }
+            const PackageSymbol* savedPkg176 = curPkg176;
+            std::string savedMod176 = curMod176;
+            if (n.kind == syntax::SyntaxKind::PackageDeclaration)
+                curPkg176 = comp.getPackage(
+                    n.as<syntax::ModuleDeclarationSyntax>().header->name.valueText());
+            if (n.kind == syntax::SyntaxKind::ModuleDeclaration)
+                curMod176 = std::string(
+                    n.as<syntax::ModuleDeclarationSyntax>().header->name.valueText());
             for (size_t i = 0; i < n.getChildCount(); i++)
                 if (auto* c = n.childNode(i))
                     walk(*c);
+            curPkg176 = savedPkg176;
+            curMod176 = savedMod176;
         };
     for (auto tree : comp.getSyntaxTrees())
         walk(tree->root());
@@ -12886,18 +12937,69 @@ void UhdmExporter::pkgImportCloneLastWriter32() {
         LC ce{ts->VpiEndLineNo(), ts->VpiEndColumnNo()};
         const std::string tn(sym->name);
         const std::vector<std::string>* pick = nullptr;
+        // § tdEndMoveModuleOrder176 — the declarator-end writer of the
+        // alphabetically last module (ties keep syntax order).
+        std::vector<std::string> modPick176;
+        Site keep176v;  // § tdKeyKeepsUnresolved176v (the filtered site)
+        auto endPick176 = [&](const std::vector<std::string>* dflt)
+            -> const std::vector<std::string>* {
+            if (!tdTie176)
+                return dflt;
+            auto m = declEndMod176.find({ce, tn});
+            if (m == declEndMod176.end() || m->second.size() < 2)
+                return dflt;
+            const std::pair<std::string, std::string>* best = &m->second.front();
+            for (auto& e176 : m->second)
+                if (!(e176.first < best->first))
+                    best = &e176;
+            modPick176 = {best->second};
+            trace176("TDTIE", tn + " " + best->second);
+            return &modPick176;
+        };
         if (cs != os) {
             auto f = formalAt.find({cs, tn});
             if (f == formalAt.end())
                 continue;
-            if (f->second.end == ce)
-                pick = &f->second.files;
+            const Site* site176 = &f->second;
+            // § tdKeyKeepsUnresolved176v (v11u176, verifier refinement of
+            // § tdMoveKeyResolved176) — the resolved key drops only the
+            // writers KNOWN to resolve to another typedef: a formal of a
+            // module / interface / program subroutine (or a qualified one) is
+            // not resolved by the key and stays a writer at its position, in
+            // syntax order, as the name key had it.  The law's site held the
+            // package formals alone, so a module function's `s_t v` (import
+            // pa::*) at the position of a package function's `s_t v` in
+            // another file lost the last-writer pick (golden dut.sv, the
+            // module's file; tools/probe/v11u176repro/cases/TT/t3: STRICT_EQUAL
+            // on the base binary, `file` under the law).  Switch
+            // R11V176_TDKEYUNRES_OFF.  (`keep176v` lives at loop scope:
+            // `pick` points into it past this block.)
+            if (tdKey176)
+                if (auto fs = formalAtSym176.find({cs, sym}); fs != formalAtSym176.end()) {
+                    if (fs->second.files != f->second.files)
+                        trace176("TDKEY", tn + " " + fs->second.files.back());
+                    site176 = &fs->second;
+                    if (r11u176Law("R11V176_TDKEYUNRES_OFF") &&
+                        f->second.syms176v.size() == f->second.files.size()) {
+                        for (size_t i176 = 0; i176 < f->second.files.size(); i176++)
+                            if (!f->second.syms176v[i176] ||
+                                f->second.syms176v[i176] == sym) {
+                                keep176v.files.push_back(f->second.files[i176]);
+                                keep176v.end = f->second.ends176v[i176];
+                            }
+                        if (keep176v.files != fs->second.files)
+                            trace176("TDKEYUNRES", tn + " " + keep176v.files.back());
+                        site176 = &keep176v;
+                    }
+                }
+            if (site176->end == ce)
+                pick = &site176->files;
             else if (auto d = declEnd.find({ce, tn}); d != declEnd.end())
-                pick = &d->second;
+                pick = endPick176(&d->second);
         }
         else if (ce != oe) {
             if (auto d = declEnd.find({ce, tn}); d != declEnd.end())
-                pick = &d->second;
+                pick = endPick176(&d->second);
         }
         if (!pick || pick->empty())
             continue;

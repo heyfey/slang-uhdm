@@ -1,0 +1,4 @@
+probe byte movers (swI vs swP): 116
+predicted (pred_final): 130
+moved-not-predicted: 0
+predicted-not-moved: 14

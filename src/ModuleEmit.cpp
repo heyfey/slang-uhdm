@@ -695,6 +695,247 @@ bool r11u168Law(const char* sw); // the r11u168 switches (UhdmExporter.cpp)
 bool r11u171Law(const char* sw); // the r11u171 switches (UhdmExporter.cpp)
 bool v11u171Law(const char* sw); // the v11u171 refinements (UhdmExporter.cpp)
 void trace171(const char* law, const std::string& detail); // R11U171_TRACE
+bool r11u176Law(const char* sw); // the r11u176 switches (UhdmExporter.cpp)
+void trace176(const char* law, const std::string& detail); // R11U176_TRACE
+// § castRhsClonePerInst176 (r11u176) — Surelog's UhdmWriter::writeCont_assign
+// (third_party/Surelog/src/DesignCompile/UhdmWriter.cpp) walks the
+// DEFINITION's cont_assign objects of every elaborated instance (the netlist
+// holds the component's own objects, NetlistElaboration::elaborate_) and
+// replaces one with a per-instance COPY in three legs: (1) a whole-name Lhs
+// that bindVariable finds among the instance's nets and variables with an
+// OPERATION Rhs (clone + reduce; the general path models it), (2) an Lhs
+// that carries a typespec, and (3), with neither, an OPERATION Rhs that
+// carries a TYPESPEC of its own -- a cast (`int'(Y)`, `8'(w)`, `b_t'(w)`):
+//     assign = clone_tree(assign, ElaboratorContext(&s, false, true));
+//     assign->VpiParent(m);
+//     ((operation*)rhs)->Operands(((operation*)tmp)->Operands());
+// where `tmp` is flattenPatternAssignments over the ORIGINAL Rhs (the cast
+// itself when no pattern is involved), so the copy's operation lists the
+// definition's operand objects while the cont_assign, its Lhs subtree, the
+// operation and its ref_typespec are fresh and parented at the instance: the
+// Lhs reference and the ref_typespec read the instance's full name
+// (`work@top.u_sub_default.a`, `work@top.u_sub_default`) through the parent
+// chain, and every instance lists its own copy.  Leg (3) is reached by an
+// IMPLICIT net Lhs (the elaborated instance drops the implicit net, so the
+// bind fails) and by a select or concatenation Lhs, which our emitter shared
+// with the definition (UnsizedParam default: `assign a = int'(Y)` onto an
+// implicit `a`, golden `work@top.u_sub_default.a` / `work@top.u_sub_5.a`;
+// grid tools/probe/r11u176repro/cases/CC).  A bare operation without a
+// typespec (`w & 1'b1`, `~w`, `{w, w}`) keeps the shared object, as golden
+// does.  The copy is made DESIGN-FINAL (castRhsCloneDrain176, called from
+// exportDesign's post-passes) so it copies the definition object after every
+// later drain wrote it, as Surelog's write-time clone copies the compiled
+// object.  Not modelled: an assignment-pattern operand (the flatten), a delay
+// reference (leg 0).  Switch R11U176_CASTCLONE_OFF.
+namespace {
+struct CastClone176 {
+    std::vector<UHDM::cont_assign*>* cas;
+    size_t idx;
+    UHDM::cont_assign* def;
+    UHDM::BaseClass* m;
+};
+std::vector<CastClone176> castClone176;
+bool castRhsClones176(const UHDM::cont_assign* dca) {
+    if (!dca || !dca->Rhs() || dca->Rhs()->UhdmType() != UHDM::uhdmoperation)
+        return false;
+    auto* op = (const UHDM::operation*)dca->Rhs();
+    if (op->VpiOpType() != vpiCastOp || !op->Typespec())
+        return false;
+    if (op->Operands())
+        for (auto* o : *op->Operands())
+            if (o && o->UhdmType() == UHDM::uhdmoperation &&
+                ((const UHDM::operation*)o)->VpiOpType() ==
+                    vpiAssignmentPatternOp)
+                return false;
+    if (dca->Delay() && dca->Delay()->UhdmType() == UHDM::uhdmref_obj)
+        return false;
+    return true;
+}
+std::vector<UHDM::interface_inst*> progViews176;
+struct GenPlainView176 {
+    UHDM::interface_inst* view;
+    const slang::ast::Symbol* actual;
+    std::map<const slang::ast::Symbol*, UHDM::interface_inst*>* listed;
+    UHDM::port* port;
+};
+std::vector<GenPlainView176> genPlainViews176;
+} // namespace
+// § genericPlainNamedView176 — the drain (law and decode at the site in
+// emitInstance): the view's variables and nets move, in order, to the end of
+// the connected (listed) instance's lists, named and parented by it, and the
+// view lists that same vector (both objects read the one netlist).
+void genPlainViewDrain176(UHDM::Serializer& s) {
+    // Group the views by the connected (listed) instance, in record order:
+    // every view of one instance reads the one netlist vector.
+    std::vector<UHDM::interface_inst*> order;
+    std::map<UHDM::interface_inst*, std::vector<UHDM::interface_inst*>> views;
+    // The HighConn's interface_inst (the connected instance as the port's
+    // actual) reads the same netlist too.
+    std::map<UHDM::interface_inst*, std::vector<UHDM::interface_inst*>> hcs;
+    for (auto& r : genPlainViews176) {
+        auto it = r.listed->find(r.actual);
+        if (it == r.listed->end() || !it->second || it->second == r.view)
+            continue;
+        if (!views.count(it->second))
+            order.push_back(it->second);
+        auto& vv = views[it->second];
+        if (std::find(vv.begin(), vv.end(), r.view) == vv.end())
+            vv.push_back(r.view);
+        if (r.port && r.port->High_conn() &&
+            r.port->High_conn()->UhdmType() == UHDM::uhdmref_obj)
+            if (auto* a = ((UHDM::ref_obj*)r.port->High_conn())->Actual_group();
+                a && a->UhdmType() == UHDM::uhdminterface_inst &&
+                a != it->second && a != r.view) {
+                auto& hv = hcs[it->second];
+                if (std::find(hv.begin(), hv.end(), a) == hv.end())
+                    hv.push_back((UHDM::interface_inst*)a);
+            }
+    }
+    for (auto* dst : order) {
+        std::string pre(dst->VpiFullName());
+        auto& vv = views[dst];
+        // Our listing already repeats the connected instance's own objects
+        // for each view (the same pointers again, which uhdm-cmp reads as
+        // visited): each object is listed once, then each view's own.
+        auto* nv = s.MakeVariablesVec();
+        auto* nn = s.MakeNetVec();
+        std::set<const UHDM::any*> seen;
+        if (auto* dv = dst->Variables())
+            for (auto* v : *dv)
+                if (seen.insert(v).second)
+                    nv->push_back(v);
+        if (auto* dn = dst->Nets())
+            for (auto* n : *dn)
+                if (seen.insert(n).second)
+                    nn->push_back(n);
+        // The view's signals are elaborated in the CONNECTED instance's
+        // context (its parameters: golden `data` [5:0] under `W = 6`, grid
+        // tools/probe/r11u130repro/grid/g6/p06_generic), so each view adds a
+        // COPY of the connected instance's own signals (UHDM clone_tree, the
+        // copy named and parented by that instance), not the view's own
+        // objects, which our port-view emission elaborated with the
+        // definition's parameters.
+        std::vector<UHDM::variables*> ownV(nv->begin(), nv->end());
+        std::vector<UHDM::net*> ownN(nn->begin(), nn->end());
+        for (size_t vi = 0; vi < vv.size(); vi++) {
+            UHDM::ElaboratorContext ctx176(&s, false, true);
+            std::map<std::string, UHDM::any*> copyByName;
+            for (auto* v : ownV)
+                if (auto* c = (UHDM::variables*)UHDM::clone_tree(v, &ctx176)) {
+                    c->VpiParent(dst);
+                    nv->push_back(c);
+                    copyByName[std::string(c->VpiName())] = c;
+                }
+            for (auto* n : ownN)
+                if (auto* c = (UHDM::net*)UHDM::clone_tree(n, &ctx176)) {
+                    c->VpiParent(dst);
+                    nn->push_back(c);
+                    copyByName[std::string(c->VpiName())] = c;
+                }
+            // the view's modports bind these copies (elab_interface_'s
+            // io_decl binding reads the netlist the signals were written to)
+            if (auto* mps = vv[vi]->Modports())
+                for (auto* mp : *mps)
+                    if (auto* ios = mp->Io_decls())
+                        for (auto* io : *ios)
+                            if (auto* ex = io->Expr();
+                                ex && ex->VpiParent() == vv[vi])
+                                if (auto cb = copyByName.find(std::string(io->VpiName()));
+                                    cb != copyByName.end())
+                                    io->Expr(cb->second);
+        }
+        bool hadV = dst->Variables() && !dst->Variables()->empty();
+        bool hadN = dst->Nets() && !dst->Nets()->empty();
+        if (hadV || !nv->empty())
+            dst->Variables(nv);
+        if (hadN || !nn->empty())
+            dst->Nets(nn);
+        for (auto* view : vv) {
+            if (view->Variables() || !nv->empty())
+                view->Variables(nv);
+            // (the view's nets are not the connected instance's: golden
+            // r11u173 cx/x07's view lists no net)
+            trace176("GENPLAINVARS", pre + " <- " + std::string(view->VpiName()));
+        }
+        // The HighConn's copy lists the variables alone (golden r11u173
+        // cx/x07's `work@top.bus` 13:0 lists no net).
+        for (auto* hc : hcs[dst])
+            if (hc->Variables() || !nv->empty())
+                hc->Variables(nv);
+    }
+    genPlainViews176.clear();
+}
+// § progPlainPortViewUnparented176 — the drain (law and decode at the site in
+// emitInstance): design-final, so no later lookup reads the cleared names.
+void progViewDrain176() {
+    for (auto* ii : progViews176) {
+        ii->VpiParent(nullptr);
+        ii->VpiFullName("");
+        if (auto* vs = ii->Variables())
+            for (auto* v : *vs) {
+                v->VpiFullName("");
+                if (auto* rt = v->Typespec())
+                    rt->VpiFullName("");
+            }
+        if (auto* ns = ii->Nets())
+            for (auto* n : *ns) {
+                n->VpiFullName("");
+                if (auto* rt = n->Typespec())
+                    rt->VpiFullName("");
+            }
+        trace176("PROGVIEW", std::string(ii->VpiName()));
+    }
+    progViews176.clear();
+}
+void castRhsCloneDrain176(UHDM::Serializer& s) {
+    for (auto& r : castClone176) {
+        if (r.idx >= r.cas->size() || (*r.cas)[r.idx] != r.def)
+            continue;
+        UHDM::ElaboratorContext ctx(&s, false, true);
+        auto* c = (UHDM::cont_assign*)UHDM::clone_tree(r.def, &ctx);
+        if (!c || !c->Rhs() || c->Rhs()->UhdmType() != UHDM::uhdmoperation)
+            continue;
+        c->VpiParent(r.m);
+        auto* dop = (UHDM::operation*)r.def->Rhs();
+        auto* cop = (UHDM::operation*)c->Rhs();
+        cop->Operands(dop->Operands());
+        // The copy's own objects read their full names through the new
+        // parent chain (none is stored on golden's definition objects).
+        if (cop->Typespec())
+            cop->Typespec()->VpiFullName("");
+        std::function<void(UHDM::any*)> unname = [&](UHDM::any* x) {
+            if (!x)
+                return;
+            switch (x->UhdmType()) {
+            case UHDM::uhdmref_obj:
+                ((UHDM::ref_obj*)x)->VpiFullName("");
+                break;
+            case UHDM::uhdmbit_select:
+                ((UHDM::bit_select*)x)->VpiFullName("");
+                break;
+            case UHDM::uhdmpart_select:
+                ((UHDM::part_select*)x)->VpiFullName("");
+                break;
+            case UHDM::uhdmindexed_part_select:
+                ((UHDM::indexed_part_select*)x)->VpiFullName("");
+                break;
+            case UHDM::uhdmoperation:
+                if (auto* os = ((UHDM::operation*)x)->Operands())
+                    for (auto* o : *os)
+                        unname(o);
+                break;
+            default:
+                break;
+            }
+        };
+        unname(c->Lhs());
+        (*r.cas)[r.idx] = c;
+        trace176("CASTCLONE", std::string(r.m->VpiName()) + " " +
+                                  std::to_string(c->VpiLineNo()) + ":" +
+                                  std::to_string(c->VpiColumnNo()));
+    }
+    castClone176.clear();
+}
 // § hcSelIdxInstName168 — the references inside a bit_select HighConn's
 // INDEX are named through the child INSTANCE, exactly like the select
 // itself (`.a(v[sel])` -> `work@dut.m.sel`, `.a(v[i+j])` -> `work@dut.m.v.i`,
@@ -6386,6 +6627,53 @@ static const InstanceSymbol& elabConnDonor(const InstanceSymbol& inst) {
     return inst;
 }
 
+// § udpFormNetLvalueFirst176 (r11u176, v11u171 residue R4) — Surelog's
+// parser reads a fully positional, parameterless instantiation as a
+// udp_instantiation only when its FIRST connection is an output_terminal,
+// i.e. a net_lvalue: a (hierarchical) name with selects, a member access, or
+// a concatenation of those.  A first actual holding a literal or an operation
+// (`ch a142 ({1'b0, w1}, w135, w141)`, `({w1 & w2, w1}, ...)`) makes it an
+// ordinary module_instantiation everywhere: the definition view lists its
+// ref_module and binds its names, and no connection is swallowed (golden
+// keeps the concatenation whole on port A at 8:10-8:20 and `w135` on its own
+// port as `work@dut.w135`; tools/probe/v11u171repro/cases/Q c07, c12, which
+// uhdm-cmp rejected on every binary).  § udpSwallowLvalueOnly171v applied the
+// rule to the early swallow only; this applies it to the LATE wrap (the
+// pristine path).  The other readers of the UDP shape (the definition view's
+// ref_module and bound names: EmitHelpers.h udpShapedInstantiation /
+// isNetLvalueSyntax, whose concatenation arm does not look inside) are the
+// sister ground's and keep their rule.  Switch R11U176_UDPLV_OFF.
+static bool netLvalueSyntax176(const syntax::SyntaxNode* e) {
+    // a port connection holds a property expression wrapping the expression
+    while (e && (e->kind == syntax::SyntaxKind::SimplePropertyExpr ||
+                 e->kind == syntax::SyntaxKind::SimpleSequenceExpr)) {
+        if (e->kind == syntax::SyntaxKind::SimplePropertyExpr)
+            e = e->as<syntax::SimplePropertyExprSyntax>().expr;
+        else
+            e = e->as<syntax::SimpleSequenceExprSyntax>().expr;
+    }
+    if (!e)
+        return false;
+    switch (e->kind) {
+        case syntax::SyntaxKind::IdentifierName:
+        case syntax::SyntaxKind::IdentifierSelectName:
+        case syntax::SyntaxKind::ScopedName:
+            return true;
+        case syntax::SyntaxKind::ElementSelectExpression:
+            return netLvalueSyntax176(
+                e->as<syntax::ElementSelectExpressionSyntax>().left);
+        case syntax::SyntaxKind::MemberAccessExpression:
+            return netLvalueSyntax176(
+                e->as<syntax::MemberAccessExpressionSyntax>().left);
+        case syntax::SyntaxKind::ConcatenationExpression:
+            for (auto* x : e->as<syntax::ConcatenationExpressionSyntax>().expressions)
+                if (!netLvalueSyntax176(x))
+                    return false;
+            return true;
+        default:
+            return false;
+    }
+}
 static bool udpFormInstantiation(const syntax::SyntaxNode* from) {
     const syntax::HierarchyInstantiationSyntax* hi = nullptr;
     for (auto p = from; p; p = p->parent)
@@ -6401,6 +6689,30 @@ static bool udpFormInstantiation(const syntax::SyntaxNode* from) {
         for (auto* c : hinst->connections)
             if (c->kind != syntax::SyntaxKind::OrderedPortConnection)
                 return false;
+    }
+    return true;
+}
+// § udpFormNetLvalueFirst176 — the swallow's own test: the UDP form AND a
+// net_lvalue first connection in every instance of the statement.
+static bool udpFormSwallow176(const syntax::SyntaxNode* from) {
+    if (!udpFormInstantiation(from))
+        return false;
+    if (!r11u176Law("R11U176_UDPLV_OFF"))
+        return true;
+    const syntax::HierarchyInstantiationSyntax* hi = nullptr;
+    for (auto p = from; p; p = p->parent)
+        if (p->kind == syntax::SyntaxKind::HierarchyInstantiation) {
+            hi = &p->as<syntax::HierarchyInstantiationSyntax>();
+            break;
+        }
+    if (!hi)
+        return false;
+    for (auto* hinst : hi->instances) {
+        auto& oc176 = hinst->connections[0]->as<syntax::OrderedPortConnectionSyntax>();
+        if (oc176.expr && !netLvalueSyntax176(oc176.expr)) {
+            trace176("UDPLV", std::string(hinst->decl ? hinst->decl->name.valueText() : ""));
+            return false;
+        }
     }
     return true;
 }
@@ -15292,7 +15604,64 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // MULTI-port instance falls back to the child's PORT
                 // DECLARATION span, a SINGLE-port one keeps the connection
                 // expression (Surelog).
-                if (auto npc = findConnSyntax(inst, ip.name))
+                // § genericMpConnLowConnAtDecl176 (r11u176) — a GENERIC port
+                // (`interface intf`) connected BY NAME to a modport-qualified
+                // actual (`.intf(conntb.tb)`) anchors its LowConn at the PORT
+                // DECLARATION's name, module and program alike (golden
+                // OneNetModPortGeneric `work@TOP.tb.intf` tb.v 1:31-1:35, the
+                // formal `.intf` being 18:17): NetlistElaboration's
+                // `net->UhdmType() == uhdmmodport && lowconn_is_nettype` leg
+                // copies the elaborated PORT's own span onto the reference it
+                // mints (`ref->VpiFile(p->VpiFile()); ref->VpiLineNo(...)`),
+                // and a named connection's port was already populated at its
+                // declaration.  A positional connection keeps the existing
+                // rule (grid PG g13 module / g12 program named -> decl, g14,
+                // g07 positional unchanged).  Switch R11U176_GENMPLOC_OFF.
+                // Both view laws below read the connected instance from the
+                // INSTANTIATING scope's own netlist (`parentNetlist->
+                // getInstanceMap().find(sigName)` / `getModPortMap()`): an
+                // instance declared in an enclosing scope (a connection
+                // written inside a generate block, r10vrgg16 cells/v2 u3) or
+                // reached through a port (a second level, r11u173 pv/p04 l)
+                // is not there, and neither law applies.
+                auto sameScope176 = [&](const Symbol* a176) {
+                    return a176 && a176->getParentScope() == inst.getParentScope();
+                };
+                bool genMpNamed176 = false;
+                if (isUnboundGenericIfacePort(ip) &&
+                    r11u176Law("R11U176_GENMPLOC_OFF") &&
+                    findConnSyntax(inst, ip.name)) {
+                    auto gconn176 = ip.getConnection();
+                    genMpNamed176 = gconn176.first && gconn176.second &&
+                                    sameScope176(gconn176.first);
+                }
+                // § genericPlainNamedView176, the LOCATION face (r11u176) — a
+                // GENERIC port connected BY NAME to a plain interface instance
+                // (`.intf(conntb)`) takes the WHOLE named connection's span:
+                // the `uhdminterface_inst && lowconn_is_nettype` leg of
+                // NetlistElaboration runs `fC->populateCoreMembers(
+                // Named_port_connection, Named_port_connection, ref)` (golden
+                // OneNetModPortGeneric `obs` 19:16-19:29; grid PG g17).
+                // Switch R11U176_GENPLAINLOC_OFF.
+                bool genPlainNamed176 = false;
+                if (!genMpNamed176 && isUnboundGenericIfacePort(ip) &&
+                    r11u176Law("R11U176_GENPLAINLOC_OFF")) {
+                    auto gconn176 = ip.getConnection();
+                    genPlainNamed176 = gconn176.first && !gconn176.second &&
+                                       gconn176.first->kind ==
+                                           SymbolKind::Instance &&
+                                       sameScope176(gconn176.first) &&
+                                       findConnSyntax(inst, ip.name);
+                }
+                if (genMpNamed176) {
+                    setLocNamed(lc, ip);
+                    trace176("GENMPLOC", std::string(lc->VpiFullName()));
+                }
+                else if (genPlainNamed176) {
+                    setLoc(lc, findConnSyntax(inst, ip.name)->sourceRange());
+                    trace176("GENPLAINLOC", std::string(lc->VpiFullName()));
+                }
+                else if (auto npc = findConnSyntax(inst, ip.name))
                     setLoc(lc, SourceRange(npc->name.location(),
                                            npc->name.location() + ip.name.size()));
                 else if (iconn && connectionExpr(*iconn) &&
@@ -15678,6 +16047,40 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     connMp9 = std::string(conn.second->name);
                     connMpFromConn9 = true;
                 }
+                // § progLowConnDefModport176 (r11u176) — a PROGRAM's port
+                // whose LowConn binds a modport binds the INTERFACE
+                // DEFINITION's modport object, not the port view's:
+                // UhdmWriter::writeElabProgram re-points every such LowConn
+                // (`const_cast<ref_obj*>(ro)->Actual_group(it2->second)`)
+                // through modPortMap, which writeInterface filled with the
+                // definition listing's modports (`modPortMap.emplace(
+                // &orig_modport.second, dest_modport)`); the module writer
+                // has no such step.  So golden's io_decls under that LowConn
+                // carry no Expr (the definition's `output drive` has none)
+                // where ours listed the view's minted `work@TOP.tb.intf.drive`
+                // (OneNetModPort, OneNetModPortGeneric, InterfaceModPort: the
+                // walk divergence after the LowConn; grid PG g01, g02, g08,
+                // g09, g11, g12).  Switch R11U176_PROGMPDEF_OFF.
+                const DefinitionSymbol* pdef176 =
+                    ip.interfaceDef
+                        ? ip.interfaceDef
+                        : &conn.first->as<InstanceSymbol>().getDefinition();
+                auto progDefModport176 =
+                    [&](UHDM::modport* umod,
+                        std::string_view mpName) -> UHDM::modport* {
+                    if (!m || m->UhdmType() != UHDM::uhdmprogram ||
+                        !r11u176Law("R11U176_PROGMPDEF_OFF"))
+                        return umod;
+                    if (auto dit = modportsByDef.find(pdef176);
+                        dit != modportsByDef.end())
+                        if (auto mit = dit->second.find(std::string(mpName));
+                            mit != dit->second.end() && mit->second) {
+                            trace176("PROGMPDEF", prefix + "." +
+                                                      std::string(ip.name));
+                            return mit->second;
+                        }
+                    return umod;
+                };
                 auto* ii = emitInterfaceInstance(
                     conn.first->as<InstanceSymbol>(),
                     prefix + "." + std::string(portBase->name), m, &topNets, &instRefs,
@@ -15699,6 +16102,36 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // instead (double listing, LowConn -> the view, parent
                 // dropped) — r10imex_repro/t4+t5.
                 bool genericPort9 = isUnboundGenericIfacePort(ip);
+                // § genericPlainNamedView176, the VARIABLES face (r11u176) —
+                // for a GENERIC port connected BY NAME to a plain interface
+                // instance, NetlistElaboration hands elab_interface_ the
+                // CONNECTED instance itself (`elab_interface_(instance,
+                // orig_instance, ...)`), whose elab_ports_nets_ writes the
+                // view's signals into `interf_instance->getNetlist()` -- the
+                // connected instance's own netlist.  So the view lists no
+                // variables or nets, and the connected instance lists its
+                // own followed by the view's, named and parented by it
+                // (golden `work@TOP.conntb` lists drive, observe, drive,
+                // observe; grid PG g17, OneNetModPortGeneric `obs`).  A typed
+                // port and a modport-qualified connection elaborate a fresh
+                // ModuleInstance and keep the view's own.  Design-final
+                // (genPlainViewDrain176).  Switch R11U176_GENPLAINVARS_OFF.
+                if (genericPort9 && !conn.second &&
+                    conn.first->kind == SymbolKind::Instance &&
+                    conn.first->getParentScope() == inst.getParentScope() &&
+                    findConnSyntax(inst, ip.name) &&
+                    r11u176Law("R11U176_GENPLAINVARS_OFF"))
+                {
+                    for (auto* pp176 : ifPortList)
+                        if (pp176->VpiName() == ip.name)
+                            genPlainViews176.push_back(
+                                {ii, conn.first, &ifaceInstMap, pp176});
+                    // § progPlainPortViewUnparented176 — a program's generic
+                    // port view is not listed either (grid PG g06).
+                    if (m->UhdmType() == UHDM::uhdmprogram &&
+                        r11u176Law("R11U176_PROGVIEW_OFF"))
+                        progViews176.push_back(ii);
+                }
                 if (genericPort9) {
                     if (!conn.second)
                         for (auto* pp : ifPortList)
@@ -15713,7 +16146,8 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                 for (auto* umod : *ii->Modports())
                                     if (umod->VpiName() == conn.second->name)
                                         ((UHDM::ref_obj*)pp->Low_conn())
-                                            ->Actual_group(umod);
+                                            ->Actual_group(progDefModport176(
+                                                umod, conn.second->name));
                 }
                 // A plain (no-modport) interface port lists the view TWICE
                 // under vpiInterface and re-points the LowConn ref at it,
@@ -15727,6 +16161,19 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             lr->Actual_group(ii);
                             lr->VpiParent(nullptr);
                         }
+                    // § progPlainPortViewUnparented176 (r11u176) — a PROGRAM
+                    // lists no interfaces (UhdmWriter::writeElabProgram writes
+                    // ports, nets, variables, processes, never the netlist's
+                    // interface instances), so the plain port's view that
+                    // elab_interface_ minted keeps neither a parent nor a
+                    // stored full name: golden `interface_inst intf` with an
+                    // empty full name, its variables `intf.drive` through the
+                    // parent chain (grid PG g03, g04; p03 of pass 164's
+                    // residue).  A module lists and names it.  Switch
+                    // R11U176_PROGVIEW_OFF.
+                    if (m->UhdmType() == UHDM::uhdmprogram &&
+                        r11u176Law("R11U176_PROGVIEW_OFF"))
+                        progViews176.push_back(ii);
                 }
                 // Re-point the port's Low_conn ref_obj from the shared def
                 // modport to this port view's own modport (which carries the
@@ -15738,7 +16185,8 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             for (auto* umod : *ii->Modports())
                                 if (umod->VpiName() == ip.modport)
                                     ((UHDM::ref_obj*)pp->Low_conn())
-                                        ->Actual_group(umod);
+                                        ->Actual_group(progDefModport176(
+                                            umod, ip.modport));
             }
             // A WHOLE interface-ARRAY port (.m(arr)): conn.first is a
             // port-named InstanceArray whose .elements are the child-side
@@ -18235,7 +18683,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         if (!swallow171 &&
                             h->UhdmType() == UHDM::uhdmoperation &&
                             ((UHDM::operation*)h)->VpiOpType() == vpiConcatOp &&
-                            udpFormInstantiation(connInst.getSyntax())) {
+                            udpFormSwallow176(connInst.getSyntax())) {
                             std::vector<const Expression*> ordE9;
                             for (auto* pc9 : connInst.getPortConnections())
                                 ordE9.push_back(connectionExpr(*pc9));
@@ -32543,6 +32991,25 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                     if (auto nit = netMap.find(portBase); nit != netMap.end())
                         lc->Actual_group(nit->second);
                 }
+                // § progTypedPortLowConnUnlocated176 (r11u176) — ...and the
+                // typed port's LowConn is not located at all: golden's
+                // work@TESTBENCH.intf.intf reads 0:0 with no file (OneNetModPort
+                // tb.v, InterfaceModPort `program test(mem_if.tb tif)`; grid
+                // tools/probe/r11u176repro/cases/PG g01-g04, g08, g09, g11:
+                // modport-qualified and plain, positional and named).  Surelog's
+                // program writer (UhdmWriter::writeProgram -> writePorts) mints
+                // this reference without the populateCoreMembers the module
+                // writer's port-type binding runs; the generic port, an
+                // ordinary net port to Surelog, keeps its span (g05-g07, g12).
+                // Switch R11U176_PROGLCLOC_OFF.
+                else if (r11u176Law("R11U176_PROGLCLOC_OFF")) {
+                    lc->VpiFile("");
+                    lc->VpiLineNo(0);
+                    lc->VpiColumnNo(0);
+                    lc->VpiEndLineNo(0);
+                    lc->VpiEndColumnNo(0);
+                    trace176("PROGLCLOC", std::string(lc->VpiFullName()));
+                }
                 p->Low_conn(lc);
                 ports->push_back(p);
                 continue;
@@ -33472,6 +33939,60 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
                 }
             }
         }
+        // § genElseBeginIfDepth176 (r11u176, v11u171 residue G/a03) — an
+        // `else begin if (...) begin ... end end` body is two generate blocks
+        // in slang's chain and in Surelog's path (`work@dut.genblk1.genblk1`),
+        // where our generate-scope naming lists one: when the prefix lists
+        // FEWER generate segments than the chain has blocks, the terminal
+        // path is the instance path plus the chain's names.  Switch
+        // R11U176_ELSEBEGIN_OFF.
+        if (ok171 && !anyDup171 && segs171.size() >= 2 &&
+            r11u176Law("R11U176_ELSEBEGIN_OFF")) {
+            std::string inst176;
+            for (UHDM::BaseClass* o = m; o; o = o->VpiParent()) {
+                auto t = o->UhdmType();
+                if (t == UHDM::uhdmgen_scope || t == UHDM::uhdmgen_scope_array)
+                    continue;
+                if (auto* sc176 = dynamic_cast<UHDM::scope*>(o))
+                    inst176 = std::string(sc176->VpiFullName());
+                break;
+            }
+            bool elseBody176 = false;
+            for (auto& sg : segs171)
+                (void)sg;
+            // the chain's outer block must be an unnamed ELSE body
+            {
+                const Scope* sc = &body;
+                const Scope* outer = nullptr;
+                while (sc && sc->asSymbol().kind == SymbolKind::GenerateBlock) {
+                    outer = sc;
+                    sc = sc->asSymbol().getParentScope();
+                }
+                (void)outer;
+                for (const Scope* s2 = &body;
+                     s2 && s2->asSymbol().kind == SymbolKind::GenerateBlock;
+                     s2 = s2->asSymbol().getParentScope()) {
+                    auto& gb2 = s2->asSymbol().as<GenerateBlockSymbol>();
+                    if (auto* gs2 = gb2.getSyntax();
+                        gb2.isUnnamed && gs2 && gs2->parent &&
+                        gs2->parent->kind == syntax::SyntaxKind::ElseClause)
+                        elseBody176 = true;
+                }
+            }
+            if (elseBody176 && !inst176.empty() && prefix.size() > inst176.size() &&
+                prefix.compare(0, inst176.size(), inst176) == 0 &&
+                prefix[inst176.size()] == '.') {
+                const size_t ev176 = (size_t)std::count(
+                    prefix.begin() + (std::ptrdiff_t)inst176.size(), prefix.end(), '.');
+                if (ev176 < segs171.size()) {
+                    std::string path = inst176;
+                    for (auto& sg : segs171)
+                        path += "." + sg.name;
+                    termScope171 = path;
+                    trace176("ELSEBEGIN", path);
+                }
+            }
+        }
         if (ok171 && anyDup171 && !segs171.empty()) {
             // The instance path is `prefix` without the (flattened) generate
             // segments.  The innermost block is `prefix`'s last segment (it
@@ -33609,7 +34130,15 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
             rvec->push_back(rng);
             ga->Ranges(rvec);
             std::string gfull = topView ? afull : (afull + "." + std::string(arr.name));
-            std::string refScope = topView ? prefix : gfull;
+            // § genElseIfGateArrayPath176 (r11u176, v11u171 residue G/a05) —
+            // a gate ARRAY's terminals take § genElseIfGateTermPath171's path
+            // like a single gate's (golden `work@dut.genblk1.genblk1.c` for
+            // `xor g1 [1:0] (c, a, b)` in an unnamed else-if body).  Switch
+            // R11U176_GENARR_OFF.
+            std::string refScope = topView ? (r11u176Law("R11U176_GENARR_OFF")
+                                                  ? termScope171
+                                                  : prefix)
+                                           : gfull;
             auto* g = buildGate(rep, pname, pmIt->second, std::string(arr.name),
                                 gfull, refScope, ga, &stmtLoc, true);
             auto* gprims = s.MakePrimitiveVec();
@@ -36167,8 +36696,14 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 lc0.as<NamedValueExpression>().symbol.as<NetSymbol>().isImplicit &&
                 !implicitNetKeptInElab(&lc0.as<NamedValueExpression>().symbol,
                                        body)) {
-                if (defInfo && myIdx < defInfo->contAssigns.size())
+                if (defInfo && myIdx < defInfo->contAssigns.size()) {
                     cas->push_back(defInfo->contAssigns[myIdx]);
+                    // § castRhsClonePerInst176, the implicit-net Lhs (leg 3).
+                    if (m && r11u176Law("R11U176_CASTCLONE_OFF") &&
+                        castRhsClones176(defInfo->contAssigns[myIdx]))
+                        castClone176.push_back({cas, cas->size() - 1,
+                                                defInfo->contAssigns[myIdx], m});
+                }
                 continue;
             }
         }
@@ -37313,6 +37848,13 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                             liveCalledSubs.insert(*sp9);
             }
             cas->push_back(defInfo->contAssigns[myIdx]);
+            // § castRhsClonePerInst176, the select / concatenation Lhs
+            // (leg 3; a whole-name Lhs never shares a cast Rhs here).
+            if (topView && m && !plainLhs && !caMemSelBase &&
+                r11u176Law("R11U176_CASTCLONE_OFF") &&
+                castRhsClones176(defInfo->contAssigns[myIdx]))
+                castClone176.push_back({cas, cas->size() - 1,
+                                        defInfo->contAssigns[myIdx], m});
             // § caAsmMemberSliceFold (r11u16) — the SHARED slot.  The
             // definition listing's object is what both views carry today; if
             // the base turns out to have assembled, the drain replaces THIS

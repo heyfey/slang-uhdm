@@ -1,0 +1,66 @@
+== surelog/default/ApbSlave-d7e70938
+v11u176_swP: first=[#372 depth] objects 3678 vs 3682 ob=88 STRICT_NOTEQUAL depth
+v11u176_swL: first=[#372 depth] objects 3678 vs 3682 ob=12 STRICT_NOTEQUAL depth
+== surelog/default/BuildUVMPkg-fc55bd0c
+v11u176_swP: first=[#873 line] objects 201533 vs 201486 ob=14833 STRICT_NOTEQUAL line
+v11u176_swL: first=[#1135 fullname] objects 201533 vs 201486 ob=5431 STRICT_NOTEQUAL fullname
+== surelog/default/FuncStructVal-9244d8c4
+v11u176_swP: first=[#747 endcol] objects 18222 vs 17934 ob=1372 STRICT_NOTEQUAL endcol
+v11u176_swL: first=[#747 endcol] objects 18222 vs 17934 ob=1360 STRICT_NOTEQUAL endcol
+== surelog/default/FuncStructValSimple-7042c7a5
+v11u176_swP: first=[#117 file]  ob=94 STRICT_NOTEQUAL file
+v11u176_swL: first=[#117 file]  ob=82 STRICT_NOTEQUAL file
+== surelog/default/InterfaceModPort-190d62ef
+v11u176_swP: first=[#95 endcol] objects 790 vs 817 ob=47 STRICT_NOTEQUAL endcol
+v11u176_swL: first=[#95 endcol]  ob=24 STRICT_NOTEQUAL endcol
+== surelog/default/MiniAmiq-055eab74
+v11u176_swP: first=[#573 file] objects 435559 vs 413982 ob=53273 STRICT_NOTEQUAL file
+v11u176_swL: first=[#770 fullname] objects 435559 vs 413982 ob=44429 STRICT_NOTEQUAL fullname
+== surelog/default/Rggen-ee9ac8af
+v11u176_swP: first=[#111 fullname] objects 314498 vs 311774 ob=17674 STRICT_NOTEQUAL fullname
+v11u176_swL: first=[#111 fullname] objects 314498 vs 312249 ob=17193 STRICT_NOTEQUAL fullname
+== surelog/default/Scoreboard-72aa0ba8
+v11u176_swP: first=[#466 fullname] objects 269656 vs 268952 ob=18002 STRICT_NOTEQUAL fullname
+v11u176_swL: first=[#466 fullname] objects 269656 vs 268952 ob=8638 STRICT_NOTEQUAL fullname
+== surelog/default/Scr1SvTests-fa4609ad
+v11u176_swP: first=[#16033 type] objects 84098 vs 84127 ob=263 STRICT_NOTEQUAL type
+v11u176_swL: first=[#16033 type] objects 84098 vs 84127 ob=261 STRICT_NOTEQUAL type
+== surelog/default/SeqDriver-65178d3a
+v11u176_swP: first=[#556 file] objects 475526 vs 462179 ob=42605 STRICT_NOTEQUAL file
+v11u176_swL: first=[#753 fullname] objects 475526 vs 462179 ob=33161 STRICT_NOTEQUAL fullname
+== surelog/default/SimpleUVM-267de3ff
+v11u176_swP: first=[#458 fullname] objects 334285 vs 333561 ob=20344 STRICT_NOTEQUAL fullname
+v11u176_swL: first=[#458 fullname] objects 334285 vs 333561 ob=10594 STRICT_NOTEQUAL fullname
+== surelog/testflags/ApbSlave-d7e70938
+v11u176_swP: first=[#372 depth] objects 3678 vs 3682 ob=88 STRICT_NOTEQUAL depth
+v11u176_swL: first=[#372 depth] objects 3678 vs 3682 ob=12 STRICT_NOTEQUAL depth
+== surelog/testflags/BuildUVMPkg-fc55bd0c
+v11u176_swP: first=[#873 line] objects 201533 vs 201486 ob=14833 STRICT_NOTEQUAL line
+v11u176_swL: first=[#1135 fullname] objects 201533 vs 201486 ob=5431 STRICT_NOTEQUAL fullname
+== surelog/testflags/FuncStructVal-9244d8c4
+v11u176_swP: first=[#746 endcol] objects 45362 vs 45097 ob=2209 STRICT_NOTEQUAL endcol
+v11u176_swL: first=[#746 endcol] objects 45362 vs 45097 ob=2031 STRICT_NOTEQUAL endcol
+== surelog/testflags/FuncStructValSimple-7042c7a5
+v11u176_swP: first=[#116 file]  ob=138 STRICT_NOTEQUAL file
+v11u176_swL: first=[#116 file]  ob=122 STRICT_NOTEQUAL file
+== surelog/testflags/InterfaceModPort-190d62ef
+v11u176_swP: first=[#95 endcol] objects 790 vs 817 ob=47 STRICT_NOTEQUAL endcol
+v11u176_swL: first=[#95 endcol]  ob=24 STRICT_NOTEQUAL endcol
+== surelog/testflags/MiniAmiq-055eab74
+v11u176_swP: first=[#573 file] objects 435559 vs 413982 ob=53273 STRICT_NOTEQUAL file
+v11u176_swL: first=[#770 fullname] objects 435559 vs 413982 ob=44429 STRICT_NOTEQUAL fullname
+== surelog/testflags/Scr1SvTests-fa4609ad
+v11u176_swP: first=[#16033 type] objects 83997 vs 84026 ob=263 STRICT_NOTEQUAL type
+v11u176_swL: first=[#16033 type] objects 83997 vs 84026 ob=261 STRICT_NOTEQUAL type
+== surelog/testflags/SeqDriver-65178d3a
+v11u176_swP: first=[#568 file] objects 475538 vs 462191 ob=42607 STRICT_NOTEQUAL file
+v11u176_swL: first=[#765 fullname] objects 475538 vs 462191 ob=33161 STRICT_NOTEQUAL fullname
+== surelog/testflags/SimpleUVM-267de3ff
+v11u176_swP: first=[#470 fullname] objects 334297 vs 333573 ob=20344 STRICT_NOTEQUAL fullname
+v11u176_swL: first=[#470 fullname] objects 334297 vs 333573 ob=10594 STRICT_NOTEQUAL fullname
+== uhdm2rtlil/default/ibex_pmp-f78ab5fc
+v11u176_swP: first=[#2404 file] objects 16037 vs 16021 ob=152 STRICT_NOTEQUAL file
+v11u176_swL: first=[#2404 file] objects 16037 vs 16021 ob=24 STRICT_NOTEQUAL file
+== uhdm2rtlil/testflags/ibex_pmp-f78ab5fc
+v11u176_swP: first=[#2397 file] objects 15947 vs 15931 ob=152 STRICT_NOTEQUAL file
+v11u176_swL: first=[#2397 file] objects 15947 vs 15931 ob=24 STRICT_NOTEQUAL file
