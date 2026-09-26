@@ -1,0 +1,61 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=2783 STRICT_NOTEQUAL=1304 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=2783 STRICT_NOTEQUAL=1304
+REGRESSION r10earl_repro/qf22 EQUAL -> STRICT_NOTEQUAL differ:endcol(4)
+REGRESSION r11u17repro/grid/c07_lhsmod_sysfunc_genlocal EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION r11u17repro/grid/c08_multdiv_shape EQUAL -> STRICT_NOTEQUAL differ:endcol(2)
+REGRESSION r11u17repro/grid/c24_multdiv_onesigned EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION r11u17repro/grid/c25_unsignedlhs_signedop EQUAL -> STRICT_NOTEQUAL differ:endcol(2)
+REGRESSION r11u17repro/grid/c26_child_multdiv_modlhs EQUAL -> STRICT_NOTEQUAL differ:endcol(2)
+REGRESSION r11u17repro/grid/c27_child_multdiv_genlocallhs EQUAL -> STRICT_NOTEQUAL differ:endcol(2)
+REGRESSION r11u25repro/grid/q15_ctl_mul EQUAL -> STRICT_NOTEQUAL differ:endcol(2)
+REGRESSION r11v17repro/grid/w03_syscall_concatarg_op EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION r11v17repro/grid/w04_syscall_barearg_op EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION r11v17repro/grid/w07_syscall_addop_arg_op EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION r11v17repro/grid/w08_syscall_castinop_arg EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION r11v17repro/grid/w09_syscall_castinconcat_arg EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+CHANGE r10earl59repro/v59v2_earl59 STRICT_NOTEQUAL differ:fullname(3) -> differ:endcol(4)
+CHANGE r10earl98repro/g3_rhs98 STRICT_NOTEQUAL differ:line(4) -> differ:endcol(5)
+CHANGE r11v46repro/grid7 STRICT_NOTEQUAL differ:fullname(1) -> differ:endcol(2)
+CHANGE v11u115repro/grid/f1/a01_gf_signed STRICT_NOTEQUAL differ:fullname(2) -> differ:endcol(3)
+CHANGE v11u115repro/grid/f1/a20_gf_unsigned_W STRICT_NOTEQUAL differ:fullname(2) -> differ:endcol(3)
+regressions=13 conversions=0 changes=5 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=446 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=34 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=443 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=31 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+REGRESSION GenerateUnnamed default CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(9)
+REGRESSION GenerateUnnamed testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(9)
+REGRESSION UnionCast default CMP_EQUAL -> STRICT_NOTEQUAL differ:value(26)
+REGRESSION UnionCast testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:value(28)
+REGRESSION YosysBigSimEllip default CMP_EQUAL -> STRICT_NOTEQUAL differ:type(1)
+REGRESSION YosysOldOr default CMP_EQUAL -> STRICT_NOTEQUAL differ:line(1)
+REGRESSION YosysOldOr testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:line(1)
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:fullname(436) -> differ:fullname(511) [fullname +75]
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(436) -> differ:fullname(511) [fullname +75]
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(29) -> differ:file(46) [file +17]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(29) -> differ:file(46) [file +17]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(45) -> differ:fullname(62) [fullname +17]
+CHANGE Scr1SvTests default STRICT_NOTEQUAL differ:type(1) -> differ:file(143)
+CHANGE Scr1SvTests testflags STRICT_NOTEQUAL differ:type(1) -> differ:file(143)
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:file(29) -> differ:file(46) [file +17]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:file(29) -> differ:file(46) [file +17]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(45) -> differ:fullname(62) [fullname +17]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(45) -> differ:fullname(62) [fullname +17]
+regressions=7 conversions=0 changes=11 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=779 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=24
+[testflags] CMP_EQUAL=779 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=24
+REGRESSION rp32_r5p_alu default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(170)
+REGRESSION rp32_r5p_alu testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(170)
+REGRESSION rp32_r5p_bru default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(153)
+REGRESSION rp32_r5p_bru testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(153)
+REGRESSION rp32_r5p_mdu default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(153)
+REGRESSION rp32_r5p_mdu testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(153)
+REGRESSION rp32_r5p_wbu default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(169)
+REGRESSION rp32_r5p_wbu testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(169)
+CHANGE ibex_multdiv_fast default STRICT_NOTEQUAL differ:file(11) -> differ:endcol(26)
+CHANGE ibex_multdiv_fast testflags STRICT_NOTEQUAL differ:file(11) -> differ:endcol(26)
+CHANGE jeras_union default STRICT_NOTEQUAL differ:fullname(75) -> differ:fullname(121) [fullname +46]
+CHANGE jeras_union testflags STRICT_NOTEQUAL differ:fullname(75) -> differ:fullname(121) [fullname +46]
+regressions=8 conversions=0 changes=4 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+SWEEP_RC=1
+cmds audit: slang lines / naming /tmp/r11u182_bin/off171.sh: 3273 3273

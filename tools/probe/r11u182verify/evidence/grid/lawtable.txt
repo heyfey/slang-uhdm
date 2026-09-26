@@ -1,0 +1,20 @@
+asmRefQualWholeSpanElab174 cells=10 cmp:same=10 strict:ne-both=10
+boundLitWrittenDigits172 cells=16 cmp:same=16 strict:gained=4 strict:ne-both=12
+castUnionCloneFile171 cells=6 cmp:same=6 ds:same=3 dump-lost-cells=6 strict:ne-both=6
+defNetEndOutputCol171 cells=8 cmp:same=6 strict:gained=6 unfired=2
+elabParamLeftoverRefUnnamed174 cells=10 cmp:same=10 strict:gained=4 strict:ne-both=6
+elabStructMemberOpFoldUnlocated174 cells=18 cmp:same=10 ds:same=4 strict:gained=2 strict:ne-both=8 unfired=8
+genCaFoldTsChainNamed169 cells=2 unfired=2
+genElseIfFlatOnly171v cells=6 cmp:same=2 strict:ne-both=2 unfired=4
+genElseIfGateTermPath171 cells=20 cmp:same=12 ds:same=5 strict:gained=8 strict:ne-both=4 unfired=8
+memLeftFormalArgLoc169 cells=2 cmp:same=2 strict:ne-both=2
+mlArgLocFileAtActual177v cells=2 cmp:same=2 strict:ne-both=2
+mopPkgBaseReduces174v cells=6 cmp:same=6 ds:same=1 strict:ne-both=6
+pkgFnCastTopListing172 cells=10 cmp:same=10 strict:gained=4 strict:ne-both=6
+selLhsBareDecRhsShared171 cells=10 cmp:same=10 ds:same=4 dump-lost-cells=6 strict:gained=2 strict:ne-both=8
+splitPortTsKeyOnPortDecl171 cells=8 cmp:same=8 ds:same=4 strict:gained=4 strict:ne-both=4
+sysSignNameSpanSyntax172 cells=8 cmp:same=8 strict:gained=1 strict:ne-both=7
+tdMoveCarriesFile172 cells=18 cmp:same=14 strict:gained=6 strict:ne-both=8 unfired=4
+tsMemberRootFile171 cells=10 cmp:same=10 strict:gained=10
+udpFormConcatSwallowSpans171 cells=18 cmp:same=12 ds:same=6 rec-away-cells=1 strict:gained=2 strict:ne-both=10 unfired=6
+udpSwallowLvalueOnly171v cells=6 cmp:same=6 ds:same=2 dump-lost-cells=4 rec-away-cells=4 strict:ne-both=6

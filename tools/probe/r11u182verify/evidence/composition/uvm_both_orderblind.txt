@@ -1,0 +1,5 @@
+surelog/testflags/SeqDriver H-vs-off174 ordered=4 orderblind=4
+surelog/testflags/MiniAmiq H-vs-off174 ordered=4 orderblind=4
+surelog/default/SeqDriver H-vs-off174 ordered=4 orderblind=4
+surelog/default/MiniAmiq H-vs-off174 ordered=4 orderblind=4
+surelog/default/Scoreboard H-vs-off174 ordered=26 orderblind=0

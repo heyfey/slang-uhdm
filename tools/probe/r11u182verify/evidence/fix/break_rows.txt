@@ -1,0 +1,16 @@
+surelog.default.UnionCast golden memberFullName(work@-prefixed/bare)=74/7 castClone:dut.sv parent=ref_typespec#1359: uhdm-cmp=0 strict=-
+surelog.default.UnionCast offU memberFullName(work@-prefixed/bare)=74/7 castClone:115:9-123:2  uhdm-cmp=0 strict=STRICT_NOTEQUAL file
+surelog.default.UnionCast on memberFullName(work@-prefixed/bare)=67/14 castClone:dut.sv parent=- uhdm-cmp=0 strict=STRICT_EQUAL 8079 objects
+surelog.default.UnionCast fix memberFullName(work@-prefixed/bare)=74/7 castClone:dut.sv parent=ref_typespec#1575: uhdm-cmp=0 strict=STRICT_EQUAL 8079 objects
+surelog.testflags.UnionCast golden memberFullName(work@-prefixed/bare)=74/7 castClone:dut.sv parent=ref_typespec#1274: uhdm-cmp=0 strict=-
+surelog.testflags.UnionCast offU memberFullName(work@-prefixed/bare)=74/7 castClone:115:9-123:2  uhdm-cmp=0 strict=STRICT_NOTEQUAL file
+surelog.testflags.UnionCast on memberFullName(work@-prefixed/bare)=67/14 castClone:dut.sv parent=- uhdm-cmp=0 strict=STRICT_EQUAL 8152 objects
+surelog.testflags.UnionCast fix memberFullName(work@-prefixed/bare)=74/7 castClone:dut.sv parent=ref_typespec#1491: uhdm-cmp=0 strict=STRICT_EQUAL 8152 objects
+uhdm2rtlil.default.jeras_union golden memberFullName(work@-prefixed/bare)=74/7 castClone:riscv_isa_pkg.sv parent=ref_typespec#3266: uhdm-cmp=0 strict=-
+uhdm2rtlil.default.jeras_union offU memberFullName(work@-prefixed/bare)=74/7 castClone:275:33-275:39  uhdm-cmp=0 strict=STRICT_NOTEQUAL fullname
+uhdm2rtlil.default.jeras_union on memberFullName(work@-prefixed/bare)=67/14 castClone:riscv_isa_pkg.sv parent=- uhdm-cmp=0 strict=STRICT_NOTEQUAL fullname
+uhdm2rtlil.default.jeras_union fix memberFullName(work@-prefixed/bare)=74/7 castClone:riscv_isa_pkg.sv parent=ref_typespec#3318: uhdm-cmp=0 strict=STRICT_NOTEQUAL fullname
+uhdm2rtlil.testflags.jeras_union golden memberFullName(work@-prefixed/bare)=74/7 castClone:riscv_isa_pkg.sv parent=ref_typespec#3181: uhdm-cmp=0 strict=-
+uhdm2rtlil.testflags.jeras_union offU memberFullName(work@-prefixed/bare)=74/7 castClone:275:33-275:39  uhdm-cmp=0 strict=STRICT_NOTEQUAL fullname
+uhdm2rtlil.testflags.jeras_union on memberFullName(work@-prefixed/bare)=67/14 castClone:riscv_isa_pkg.sv parent=- uhdm-cmp=0 strict=STRICT_NOTEQUAL fullname
+uhdm2rtlil.testflags.jeras_union fix memberFullName(work@-prefixed/bare)=74/7 castClone:riscv_isa_pkg.sv parent=ref_typespec#3234: uhdm-cmp=0 strict=STRICT_NOTEQUAL fullname

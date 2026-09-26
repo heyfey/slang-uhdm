@@ -1,0 +1,54 @@
+== probe: 18 rows differ
+r10earl59repro/v59v2_earl59 SUBSET | STRICT_NOTEQUAL differ:endcol(4) -> STRICT_NOTEQUAL differ:fullname(3) | off 4 rec (diverged) on 3 rec (diverged)
+r10earl98repro/g3_rhs98 SUBSET | STRICT_NOTEQUAL differ:endcol(5) -> STRICT_NOTEQUAL differ:line(4) | off 5 rec on 4 rec
+r10earl_repro/qf22 CONVERSION | STRICT_NOTEQUAL differ:endcol(4) -> EQUAL equal | off 4 rec on 0 rec
+r11u17repro/grid/c07_lhsmod_sysfunc_genlocal CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec
+r11u17repro/grid/c08_multdiv_shape CONVERSION | STRICT_NOTEQUAL differ:endcol(2) -> EQUAL equal | off 2 rec on 0 rec
+r11u17repro/grid/c24_multdiv_onesigned CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec
+r11u17repro/grid/c25_unsignedlhs_signedop CONVERSION | STRICT_NOTEQUAL differ:endcol(2) -> EQUAL equal | off 2 rec on 0 rec
+r11u17repro/grid/c26_child_multdiv_modlhs CONVERSION | STRICT_NOTEQUAL differ:endcol(2) -> EQUAL equal | off 2 rec on 0 rec
+r11u17repro/grid/c27_child_multdiv_genlocallhs CONVERSION | STRICT_NOTEQUAL differ:endcol(2) -> EQUAL equal | off 2 rec on 0 rec
+r11u25repro/grid/q15_ctl_mul CONVERSION | STRICT_NOTEQUAL differ:endcol(2) -> EQUAL equal | off 2 rec on 0 rec
+r11v17repro/grid/w03_syscall_concatarg_op CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec
+r11v17repro/grid/w04_syscall_barearg_op CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec
+r11v17repro/grid/w07_syscall_addop_arg_op CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec
+r11v17repro/grid/w08_syscall_castinop_arg CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec
+r11v17repro/grid/w09_syscall_castinconcat_arg CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec
+r11v46repro/grid7 SUBSET | STRICT_NOTEQUAL differ:endcol(2) -> STRICT_NOTEQUAL differ:fullname(1) | off 2 rec on 1 rec
+v11u115repro/grid/f1/a01_gf_signed SUBSET | STRICT_NOTEQUAL differ:endcol(3) -> STRICT_NOTEQUAL differ:fullname(2) | off 3 rec on 2 rec
+v11u115repro/grid/f1/a20_gf_unsigned_W SUBSET | STRICT_NOTEQUAL differ:endcol(3) -> STRICT_NOTEQUAL differ:fullname(2) | off 3 rec on 2 rec
+-- probe tally: CONVERSION=13 SUBSET=5
+== surelog: 18 rows differ
+surelog/default/Earlgrey_0_1 SUBSET | STRICT_NOTEQUAL differ:fullname(511) -> STRICT_NOTEQUAL differ:fullname(436) | off 511 rec (diverged) on 436 rec (diverged)
+surelog/testflags/Earlgrey_0_1 SUBSET | STRICT_NOTEQUAL differ:fullname(511) -> STRICT_NOTEQUAL differ:fullname(436) | off 511 rec (diverged) on 436 rec (diverged)
+surelog/default/GenerateUnnamed CONVERSION | STRICT_NOTEQUAL differ:fullname(9) -> CMP_EQUAL equal | off 9 rec on 0 rec
+surelog/testflags/GenerateUnnamed CONVERSION | STRICT_NOTEQUAL differ:fullname(9) -> CMP_EQUAL equal | off 9 rec on 0 rec
+surelog/default/MiniAmiq SUBSET | STRICT_NOTEQUAL differ:file(46) -> STRICT_NOTEQUAL differ:file(29) | off 46 rec (diverged) on 29 rec (diverged)
+surelog/testflags/MiniAmiq SUBSET | STRICT_NOTEQUAL differ:file(46) -> STRICT_NOTEQUAL differ:file(29) | off 46 rec (diverged) on 29 rec (diverged)
+surelog/default/Scoreboard SUBSET | STRICT_NOTEQUAL differ:fullname(62) -> STRICT_NOTEQUAL differ:fullname(45) | off 62 rec (diverged) on 45 rec (diverged)
+surelog/default/Scr1SvTests SUBSET | STRICT_NOTEQUAL differ:file(143) -> STRICT_NOTEQUAL differ:type(1) | off 143 rec (diverged) on 1 rec (diverged)
+surelog/testflags/Scr1SvTests SUBSET | STRICT_NOTEQUAL differ:file(143) -> STRICT_NOTEQUAL differ:type(1) | off 143 rec (diverged) on 1 rec (diverged)
+surelog/default/SeqDriver SUBSET | STRICT_NOTEQUAL differ:file(46) -> STRICT_NOTEQUAL differ:file(29) | off 46 rec (diverged) on 29 rec (diverged)
+surelog/testflags/SeqDriver SUBSET | STRICT_NOTEQUAL differ:file(46) -> STRICT_NOTEQUAL differ:file(29) | off 46 rec (diverged) on 29 rec (diverged)
+surelog/default/SimpleUVM SUBSET | STRICT_NOTEQUAL differ:fullname(62) -> STRICT_NOTEQUAL differ:fullname(45) | off 62 rec (diverged) on 45 rec (diverged)
+surelog/testflags/SimpleUVM SUBSET | STRICT_NOTEQUAL differ:fullname(62) -> STRICT_NOTEQUAL differ:fullname(45) | off 62 rec (diverged) on 45 rec (diverged)
+surelog/default/UnionCast CONVERSION | STRICT_NOTEQUAL differ:value(26) -> CMP_EQUAL equal | off 26 rec on 0 rec
+surelog/testflags/UnionCast CONVERSION | STRICT_NOTEQUAL differ:value(28) -> CMP_EQUAL equal | off 28 rec on 0 rec
+surelog/default/YosysBigSimEllip CONVERSION | STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL equal | off 1 rec (diverged) on 0 rec
+surelog/default/YosysOldOr CONVERSION | STRICT_NOTEQUAL differ:line(1) -> CMP_EQUAL equal | off 1 rec on 0 rec
+surelog/testflags/YosysOldOr CONVERSION | STRICT_NOTEQUAL differ:line(1) -> CMP_EQUAL equal | off 1 rec on 0 rec
+-- surelog tally: CONVERSION=7 SUBSET=11
+== uhdm2rtlil: 12 rows differ
+uhdm2rtlil/default/ibex_multdiv_fast SUBSET | STRICT_NOTEQUAL differ:endcol(26) -> STRICT_NOTEQUAL differ:file(11) | off 26 rec on 11 rec
+uhdm2rtlil/testflags/ibex_multdiv_fast SUBSET | STRICT_NOTEQUAL differ:endcol(26) -> STRICT_NOTEQUAL differ:file(11) | off 26 rec on 11 rec
+uhdm2rtlil/default/jeras_union SUBSET | STRICT_NOTEQUAL differ:fullname(121) -> STRICT_NOTEQUAL differ:fullname(75) | off 121 rec on 75 rec
+uhdm2rtlil/testflags/jeras_union SUBSET | STRICT_NOTEQUAL differ:fullname(121) -> STRICT_NOTEQUAL differ:fullname(75) | off 121 rec on 75 rec
+uhdm2rtlil/default/rp32_r5p_alu CONVERSION | STRICT_NOTEQUAL differ:file(170) -> CMP_EQUAL equal | off 170 rec on 0 rec
+uhdm2rtlil/testflags/rp32_r5p_alu CONVERSION | STRICT_NOTEQUAL differ:file(170) -> CMP_EQUAL equal | off 170 rec on 0 rec
+uhdm2rtlil/default/rp32_r5p_bru CONVERSION | STRICT_NOTEQUAL differ:file(153) -> CMP_EQUAL equal | off 153 rec on 0 rec
+uhdm2rtlil/testflags/rp32_r5p_bru CONVERSION | STRICT_NOTEQUAL differ:file(153) -> CMP_EQUAL equal | off 153 rec on 0 rec
+uhdm2rtlil/default/rp32_r5p_mdu CONVERSION | STRICT_NOTEQUAL differ:file(153) -> CMP_EQUAL equal | off 153 rec on 0 rec
+uhdm2rtlil/testflags/rp32_r5p_mdu CONVERSION | STRICT_NOTEQUAL differ:file(153) -> CMP_EQUAL equal | off 153 rec on 0 rec
+uhdm2rtlil/default/rp32_r5p_wbu CONVERSION | STRICT_NOTEQUAL differ:file(169) -> CMP_EQUAL equal | off 169 rec on 0 rec
+uhdm2rtlil/testflags/rp32_r5p_wbu CONVERSION | STRICT_NOTEQUAL differ:file(169) -> CMP_EQUAL equal | off 169 rec on 0 rec
+-- uhdm2rtlil tally: CONVERSION=8 SUBSET=4

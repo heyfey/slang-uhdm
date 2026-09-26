@@ -1,0 +1,14 @@
+/tmp/r11u182_swH MiniAmiq/default dist=15848 mfc_file_away=15 all_file_away=3832 golden_records=435569 ours_records=413992
+/tmp/r11u182_swH MiniAmiq/testflags dist=15847 mfc_file_away=15 all_file_away=3832 golden_records=435569 ours_records=413992
+/tmp/r11u182_swH SeqDriver/default dist=14629 mfc_file_away=15 all_file_away=4035 golden_records=475526 ours_records=462179
+/tmp/r11u182_swH SeqDriver/testflags dist=14630 mfc_file_away=15 all_file_away=4035 golden_records=475538 ours_records=462191
+/tmp/r11u182_swH SimpleUVM/default dist=9810 mfc_file_away=15 all_file_away=2841 golden_records=334285 ours_records=333561
+/tmp/r11u182_swH SimpleUVM/testflags dist=9810 mfc_file_away=15 all_file_away=2841 golden_records=334297 ours_records=333573
+/tmp/r11u182_swH Scoreboard/default dist=8649 mfc_file_away=15 all_file_away=2335 golden_records=269656 ours_records=268952
+/tmp/r11u182_swA MiniAmiq/default dist=16872 mfc_file_away=15 all_file_away=4867 golden_records=435569 ours_records=413992
+/tmp/r11u182_swA MiniAmiq/testflags dist=16872 mfc_file_away=15 all_file_away=4867 golden_records=435569 ours_records=413992
+/tmp/r11u182_swA SeqDriver/default dist=15772 mfc_file_away=15 all_file_away=5190 golden_records=475526 ours_records=462179
+/tmp/r11u182_swA SeqDriver/testflags dist=15772 mfc_file_away=15 all_file_away=5190 golden_records=475538 ours_records=462191
+/tmp/r11u182_swA SimpleUVM/default dist=10672 mfc_file_away=15 all_file_away=3714 golden_records=334285 ours_records=333561
+/tmp/r11u182_swA SimpleUVM/testflags dist=10672 mfc_file_away=15 all_file_away=3714 golden_records=334297 ours_records=333573
+/tmp/r11u182_swA Scoreboard/default dist=9306 mfc_file_away=15 all_file_away=3001 golden_records=269656 ours_records=268952

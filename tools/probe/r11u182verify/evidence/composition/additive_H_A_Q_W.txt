@@ -1,0 +1,41 @@
+== probe: 171/174 delta on HEAD base 69 rows (41 conversions); on the 168/169-off base 64 rows (24 conversions); identical (from,to) on both: 51
+   ONLY-ONE-BASE r11u20repro/t5 HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(5)'), ('EQUAL', 'equal')) | off-base None
+   ONLY-ONE-BASE r11u21repro/t1 HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(6)'), ('EQUAL', 'equal')) | off-base None
+   ONLY-ONE-BASE r11v21repro/v1 HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(5)'), ('EQUAL', 'equal')) | off-base None
+   ONLY-ONE-BASE r11vu13repro/v4 HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(7)'), ('EQUAL', 'equal')) | off-base None
+   ONLY-ONE-BASE r11vu13repro/v9 HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(13)'), ('EQUAL', 'equal')) | off-base None
+   DIFFERENT-MOVE r11u11repro/a5 HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(2)'), ('EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:file(14)'), ('STRICT_NOTEQUAL', 'differ:file(12)'))
+   DIFFERENT-MOVE r11u11repro/a8 HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(7)'), ('EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:file(33)'), ('STRICT_NOTEQUAL', 'differ:file(26)'))
+   DIFFERENT-MOVE r11u13repro/b6 HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(9)'), ('EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:file(39)'), ('STRICT_NOTEQUAL', 'differ:file(30)'))
+   DIFFERENT-MOVE r11u18repro/b4 HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(5)'), ('EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:col(41)'), ('STRICT_NOTEQUAL', 'differ:col(36)'))
+   DIFFERENT-MOVE r11u20repro/b1 HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(5)'), ('EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:col(41)'), ('STRICT_NOTEQUAL', 'differ:col(36)'))
+   DIFFERENT-MOVE r11u20repro/b3 HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(5)'), ('EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:col(41)'), ('STRICT_NOTEQUAL', 'differ:col(36)'))
+   DIFFERENT-MOVE r11u20repro/b4 HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(15)'), ('EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:col(95)'), ('STRICT_NOTEQUAL', 'differ:col(80)'))
+   DIFFERENT-MOVE r11u20repro/b6 HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(2)'), ('EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:col(26)'), ('STRICT_NOTEQUAL', 'differ:col(24)'))
+   DIFFERENT-MOVE r11u82repro/grid/s1_modform HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(2)'), ('EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:col(14)'), ('STRICT_NOTEQUAL', 'differ:col(12)'))
+   DIFFERENT-MOVE r11u82repro/grid/s2_childpath HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(2)'), ('EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:col(14)'), ('STRICT_NOTEQUAL', 'differ:col(12)'))
+   DIFFERENT-MOVE r11u82repro/grid/v2_aliaschain HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(4)'), ('EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:col(22)'), ('STRICT_NOTEQUAL', 'differ:col(18)'))
+   DIFFERENT-MOVE r11u82repro/grid/v3_rootpath HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(4)'), ('STRICT_NOTEQUAL', 'differ:fullname(2)')) | off-base (('STRICT_NOTEQUAL', 'differ:col(16)'), ('STRICT_NOTEQUAL', 'differ:col(14)'))
+   DIFFERENT-MOVE r11v75repro/grid/xl_impclimb HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(5)'), ('EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:col(23)'), ('STRICT_NOTEQUAL', 'differ:col(18)'))
+== surelog: 171/174 delta on HEAD base 20 rows (7 conversions); on the 168/169-off base 20 rows (5 conversions); identical (from,to) on both: 7
+   DIFFERENT-MOVE Earlgrey_0_1/d HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(511)'), ('STRICT_NOTEQUAL', 'differ:fullname(436)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(1686)'), ('STRICT_NOTEQUAL', 'differ:line(1611)'))
+   DIFFERENT-MOVE Earlgrey_0_1/t HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(511)'), ('STRICT_NOTEQUAL', 'differ:fullname(436)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(1686)'), ('STRICT_NOTEQUAL', 'differ:line(1611)'))
+   DIFFERENT-MOVE MiniAmiq/d HEAD-base (('STRICT_NOTEQUAL', 'differ:file(46)'), ('STRICT_NOTEQUAL', 'differ:file(29)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(183)'), ('STRICT_NOTEQUAL', 'differ:line(166)'))
+   DIFFERENT-MOVE MiniAmiq/t HEAD-base (('STRICT_NOTEQUAL', 'differ:file(46)'), ('STRICT_NOTEQUAL', 'differ:file(29)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(183)'), ('STRICT_NOTEQUAL', 'differ:line(166)'))
+   DIFFERENT-MOVE Scoreboard/d HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(62)'), ('STRICT_NOTEQUAL', 'differ:fullname(45)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(187)'), ('STRICT_NOTEQUAL', 'differ:line(170)'))
+   DIFFERENT-MOVE Scr1SvTests/d HEAD-base (('STRICT_NOTEQUAL', 'differ:file(143)'), ('STRICT_NOTEQUAL', 'differ:type(1)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(219)'), ('STRICT_NOTEQUAL', 'differ:line(77)'))
+   DIFFERENT-MOVE Scr1SvTests/t HEAD-base (('STRICT_NOTEQUAL', 'differ:file(143)'), ('STRICT_NOTEQUAL', 'differ:type(1)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(219)'), ('STRICT_NOTEQUAL', 'differ:line(77)'))
+   DIFFERENT-MOVE SeqDriver/d HEAD-base (('STRICT_NOTEQUAL', 'differ:file(46)'), ('STRICT_NOTEQUAL', 'differ:file(29)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(167)'), ('STRICT_NOTEQUAL', 'differ:line(150)'))
+   DIFFERENT-MOVE SeqDriver/t HEAD-base (('STRICT_NOTEQUAL', 'differ:file(46)'), ('STRICT_NOTEQUAL', 'differ:file(29)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(167)'), ('STRICT_NOTEQUAL', 'differ:line(150)'))
+   DIFFERENT-MOVE SimpleUVM/d HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(62)'), ('STRICT_NOTEQUAL', 'differ:fullname(45)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(183)'), ('STRICT_NOTEQUAL', 'differ:line(166)'))
+   DIFFERENT-MOVE SimpleUVM/t HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(62)'), ('STRICT_NOTEQUAL', 'differ:fullname(45)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(183)'), ('STRICT_NOTEQUAL', 'differ:line(166)'))
+   DIFFERENT-MOVE YosysOldOr/d HEAD-base (('STRICT_NOTEQUAL', 'differ:line(1)'), ('CMP_EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:line(75)'), ('STRICT_NOTEQUAL', 'differ:endcol(74)'))
+   DIFFERENT-MOVE YosysOldOr/t HEAD-base (('STRICT_NOTEQUAL', 'differ:line(1)'), ('CMP_EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:line(75)'), ('STRICT_NOTEQUAL', 'differ:endcol(74)'))
+== uhdm2rtlil: 171/174 delta on HEAD base 18 rows (12 conversions); on the 168/169-off base 14 rows (8 conversions); identical (from,to) on both: 12
+   ONLY-ONE-BASE param_nested_struct_field_width/d HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(6)'), ('CMP_EQUAL', 'equal')) | off-base None
+   ONLY-ONE-BASE param_nested_struct_field_width/t HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(6)'), ('CMP_EQUAL', 'equal')) | off-base None
+   ONLY-ONE-BASE struct_param_func_config/d HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(14)'), ('STRICT_NOTEQUAL', 'differ:line(8)')) | off-base None
+   ONLY-ONE-BASE struct_param_func_config/t HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(14)'), ('STRICT_NOTEQUAL', 'differ:line(8)')) | off-base None
+   DIFFERENT-MOVE struct_param_field_shift/d HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(5)'), ('CMP_EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:col(41)'), ('STRICT_NOTEQUAL', 'differ:col(36)'))
+   DIFFERENT-MOVE struct_param_field_shift/t HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(5)'), ('CMP_EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:col(41)'), ('STRICT_NOTEQUAL', 'differ:col(36)'))
+== bytes: databases 6647; 171/174 movers on HEAD base 129, on the off base 129, both 129

@@ -1,0 +1,75 @@
+== probe: 51 rows differ
+r11u11repro/a5 CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec
+r11u11repro/a8 CONVERSION | STRICT_NOTEQUAL differ:fullname(7) -> EQUAL equal | off 7 rec on 0 rec
+r11u13repro/b6 CONVERSION | STRICT_NOTEQUAL differ:fullname(9) -> EQUAL equal | off 9 rec on 0 rec
+r11u14repro/c5 CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec
+r11u18repro/b4 CONVERSION | STRICT_NOTEQUAL differ:fullname(5) -> EQUAL equal | off 5 rec on 0 rec
+r11u18repro/t5 CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec
+r11u20repro/b1 CONVERSION | STRICT_NOTEQUAL differ:fullname(5) -> EQUAL equal | off 5 rec on 0 rec
+r11u20repro/b3 CONVERSION | STRICT_NOTEQUAL differ:fullname(5) -> EQUAL equal | off 5 rec on 0 rec
+r11u20repro/b4 CONVERSION | STRICT_NOTEQUAL differ:fullname(15) -> EQUAL equal | off 15 rec on 0 rec
+r11u20repro/b6 CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec
+r11u20repro/t5 CONVERSION | STRICT_NOTEQUAL differ:fullname(5) -> EQUAL equal | off 5 rec on 0 rec
+r11u21repro/t1 CONVERSION | STRICT_NOTEQUAL differ:fullname(6) -> EQUAL equal | off 6 rec on 0 rec
+r11u21repro/t6 CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec
+r11u21repro/t7 CONVERSION | STRICT_NOTEQUAL differ:endcol(2) -> EQUAL equal | off 2 rec on 0 rec
+r11u21repro/t9 SUBSET | STRICT_NOTEQUAL differ:col(4) -> STRICT_NOTEQUAL differ:col(3) | off 4 rec on 3 rec
+r11u24repro/n1 SUBSET | STRICT_NOTEQUAL differ:col(4) -> STRICT_NOTEQUAL differ:col(3) | off 4 rec on 3 rec
+r11u24repro/n12 SUBSET | STRICT_NOTEQUAL differ:fullname(6) -> STRICT_NOTEQUAL differ:fullname(5) | off 6 rec on 5 rec
+r11u24repro/n2 CONVERSION | STRICT_NOTEQUAL differ:endcol(2) -> EQUAL equal | off 2 rec on 0 rec
+r11u24repro/n3 SUBSET | STRICT_NOTEQUAL differ:fullname(7) -> STRICT_NOTEQUAL differ:fullname(5) | off 7 rec on 5 rec
+r11u26repro/m12 SUBSET | STRICT_NOTEQUAL differ:fullname(7) -> STRICT_NOTEQUAL differ:fullname(6) | off 7 rec on 6 rec
+r11u26repro/m13 SUBSET | STRICT_NOTEQUAL differ:fullname(6) -> STRICT_NOTEQUAL differ:fullname(5) | off 6 rec on 5 rec
+r11u26repro/m15 SUBSET | STRICT_NOTEQUAL differ:fullname(6) -> STRICT_NOTEQUAL differ:fullname(5) | off 6 rec on 5 rec
+r11u26repro/m16 CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec
+r11u26repro/m6 SUBSET | STRICT_NOTEQUAL differ:fullname(11) -> STRICT_NOTEQUAL differ:fullname(9) | off 11 rec on 9 rec
+r11u26repro/m8 SUBSET | STRICT_NOTEQUAL differ:fullname(7) -> STRICT_NOTEQUAL differ:fullname(5) | off 7 rec on 5 rec
+r11u26repro/m9 SUBSET | STRICT_NOTEQUAL differ:fullname(10) -> STRICT_NOTEQUAL differ:fullname(5) | off 10 rec on 5 rec
+r11u28repro/a12 CONVERSION | STRICT_NOTEQUAL differ:fullname(5) -> EQUAL equal | off 5 rec on 0 rec
+r11u28repro/a16 SUBSET | STRICT_NOTEQUAL differ:fullname(6) -> STRICT_NOTEQUAL differ:fullname(5) | off 6 rec on 5 rec
+r11u28repro/a4 SUBSET | STRICT_NOTEQUAL differ:fullname(6) -> STRICT_NOTEQUAL differ:fullname(5) | off 6 rec on 5 rec
+r11u28repro/a5 SUBSET | STRICT_NOTEQUAL differ:fullname(11) -> STRICT_NOTEQUAL differ:fullname(10) | off 11 rec on 10 rec
+r11u28repro/a6 SUBSET | STRICT_NOTEQUAL differ:fullname(6) -> STRICT_NOTEQUAL differ:fullname(5) | off 6 rec on 5 rec
+r11u28repro/a7 SUBSET | STRICT_NOTEQUAL differ:fullname(6) -> STRICT_NOTEQUAL differ:fullname(5) | off 6 rec on 5 rec
+r11u28repro/a8 CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec
+r11u28repro/a9 CONVERSION | STRICT_NOTEQUAL differ:fullname(5) -> EQUAL equal | off 5 rec on 0 rec
+r11u82repro/grid/s1_modform CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec
+r11u82repro/grid/s2_childpath CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec
+r11u82repro/grid/v2_aliaschain CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec
+r11u82repro/grid/v3_rootpath SUBSET | STRICT_NOTEQUAL differ:fullname(4) -> STRICT_NOTEQUAL differ:fullname(2) | off 4 rec on 2 rec
+r11v11u9repro/g13 CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec
+r11v11u9repro/g3 CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec
+r11v21repro/v1 CONVERSION | STRICT_NOTEQUAL differ:fullname(5) -> EQUAL equal | off 5 rec on 0 rec
+r11v26repro/v12 SUBSET | STRICT_NOTEQUAL differ:fullname(6) -> STRICT_NOTEQUAL differ:fullname(5) | off 6 rec on 5 rec
+r11v26repro/v13 SUBSET | STRICT_NOTEQUAL differ:fullname(10) -> STRICT_NOTEQUAL differ:fullname(9) | off 10 rec on 9 rec
+r11v26repro/v15 SUBSET | STRICT_NOTEQUAL differ:fullname(6) -> STRICT_NOTEQUAL differ:fullname(5) | off 6 rec on 5 rec
+r11v26repro/v16 SUBSET | STRICT_NOTEQUAL differ:fullname(6) -> STRICT_NOTEQUAL differ:fullname(5) | off 6 rec on 5 rec
+r11v26repro/v18 SUBSET | STRICT_NOTEQUAL differ:fullname(6) -> STRICT_NOTEQUAL differ:fullname(5) | off 6 rec on 5 rec
+r11v26repro/v2 SUBSET | STRICT_NOTEQUAL differ:fullname(10) -> STRICT_NOTEQUAL differ:fullname(9) | off 10 rec on 9 rec
+r11v26repro/v9 SUBSET | STRICT_NOTEQUAL differ:fullname(6) -> STRICT_NOTEQUAL differ:fullname(5) | off 6 rec on 5 rec
+r11v75repro/grid/xl_impclimb CONVERSION | STRICT_NOTEQUAL differ:fullname(5) -> EQUAL equal | off 5 rec on 0 rec
+r11vu13repro/v4 CONVERSION | STRICT_NOTEQUAL differ:fullname(7) -> EQUAL equal | off 7 rec on 0 rec
+r11vu13repro/v9 CONVERSION | STRICT_NOTEQUAL differ:fullname(13) -> EQUAL equal | off 13 rec on 0 rec
+-- probe tally: CONVERSION=28 SUBSET=23
+== surelog: 2 rows differ
+surelog/default/FuncStructValSimple SUBSET | STRICT_NOTEQUAL differ:file(42) -> STRICT_NOTEQUAL differ:file(40) | off 42 rec on 40 rec
+surelog/testflags/FuncStructValSimple SUBSET | STRICT_NOTEQUAL differ:file(62) -> STRICT_NOTEQUAL differ:file(60) | off 62 rec on 60 rec
+-- surelog tally: SUBSET=2
+== uhdm2rtlil: 16 rows differ
+uhdm2rtlil/default/jeras_union UNMASK | STRICT_NOTEQUAL differ:fullname(36) -> STRICT_NOTEQUAL differ:fullname(75) | off 36 rec (diverged) on 75 rec
+uhdm2rtlil/testflags/jeras_union UNMASK | STRICT_NOTEQUAL differ:fullname(36) -> STRICT_NOTEQUAL differ:fullname(75) | off 36 rec (diverged) on 75 rec
+uhdm2rtlil/default/param_nested_struct_field_width CONVERSION | STRICT_NOTEQUAL differ:fullname(6) -> CMP_EQUAL equal | off 6 rec on 0 rec
+uhdm2rtlil/testflags/param_nested_struct_field_width CONVERSION | STRICT_NOTEQUAL differ:fullname(6) -> CMP_EQUAL equal | off 6 rec on 0 rec
+uhdm2rtlil/default/rp32_r5p_alu CONVERSION | STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL equal | off 1 rec (diverged) on 0 rec
+uhdm2rtlil/testflags/rp32_r5p_alu CONVERSION | STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL equal | off 1 rec (diverged) on 0 rec
+uhdm2rtlil/default/rp32_r5p_bru CONVERSION | STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL equal | off 1 rec (diverged) on 0 rec
+uhdm2rtlil/testflags/rp32_r5p_bru CONVERSION | STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL equal | off 1 rec (diverged) on 0 rec
+uhdm2rtlil/default/rp32_r5p_mdu CONVERSION | STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL equal | off 1 rec (diverged) on 0 rec
+uhdm2rtlil/testflags/rp32_r5p_mdu CONVERSION | STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL equal | off 1 rec (diverged) on 0 rec
+uhdm2rtlil/default/rp32_r5p_wbu CONVERSION | STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL equal | off 1 rec (diverged) on 0 rec
+uhdm2rtlil/testflags/rp32_r5p_wbu CONVERSION | STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL equal | off 1 rec (diverged) on 0 rec
+uhdm2rtlil/default/struct_param_field_shift CONVERSION | STRICT_NOTEQUAL differ:fullname(5) -> CMP_EQUAL equal | off 5 rec on 0 rec
+uhdm2rtlil/testflags/struct_param_field_shift CONVERSION | STRICT_NOTEQUAL differ:fullname(5) -> CMP_EQUAL equal | off 5 rec on 0 rec
+uhdm2rtlil/default/struct_param_func_config SUBSET | STRICT_NOTEQUAL differ:fullname(14) -> STRICT_NOTEQUAL differ:line(8) | off 14 rec (diverged) on 8 rec (diverged)
+uhdm2rtlil/testflags/struct_param_func_config SUBSET | STRICT_NOTEQUAL differ:fullname(14) -> STRICT_NOTEQUAL differ:line(8) | off 14 rec (diverged) on 8 rec (diverged)
+-- uhdm2rtlil tally: CONVERSION=12 SUBSET=2 UNMASK=2

@@ -1,0 +1,8 @@
+v11u171repro/cases/F/h05_net_unpacked_two_files: fields: file=9 objects_differing=9 | alloff: fields: file=9 objects_differing=9
+v11u171repro/cases/F/h10_samename_imported: fields: file=10 objects_differing=10 | alloff: fields: file=20 objects_differing=20
+v11u171repro/cases/F/h01_samename_two_pkgs: fields: file=2 line=1 col=2 endline=1 endcol=2 objects_differing=2 | alloff: fields: file=2 line=1 col=2 endline=1 endcol=2 objects_differing=2
+v11u171repro/cases/G/a03_else_begin_if: fields: fullname=3 objects_differing=3 | alloff: fields: fullname=3 objects_differing=3
+v11u171repro/cases/G/a05_elseif_gate_array: fields: fullname=3 objects_differing=3 | alloff: fields: fullname=3 objects_differing=3
+r11v174repro/cases/mo/b06: fields: file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 | alloff: fields: fullname=12 file=2 line=2 col=2 endline=2 endcol=3 objects_differing=15
+r11u174repro/cases/ub/u12: fields: fullname=28 line=32 col=32 endline=32 endcol=32 objects_differing=60 | alloff: fields: fullname=32 file=1 line=33 col=33 endline=33 endcol=33 objects_differing=65
+r11u174repro/cases/lr/l15: fields: depth=1 type=1 name=1 defname=1 fullname=2 line=1 col=1 endline=1 endcol=2 size=1 value=1 objects_differing=2 (walk diverged) | alloff: fields: depth=1 type=1 name=1 defname=1 fullname=2 line=1 col=1 endline=1 endcol=2 size=1 value=1 objects_differing=2 (walk diverged)

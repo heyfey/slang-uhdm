@@ -1,0 +1,44 @@
+surelog/default/BuildUVMPkg FSAME lost=0 neutral=0 offdiv=11992 ondiv=11992 unmasked=1 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+surelog/default/Earlgrey_0_1 FTOWARD lost=75 neutral=0 offdiv=130430 ondiv=130430 unmasked=1 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+surelog/default/GenerateUnnamed FTOWARD lost=9 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 343 objects
+surelog/default/ImplicitPorts2 FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_EQUAL 150 objects -> STRICT_EQUAL 150 objects
+surelog/default/IndexAssign FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_EQUAL 133 objects -> STRICT_EQUAL 133 objects
+surelog/default/MiniAmiq FTOWARD lost=17 neutral=0 offdiv=2450 ondiv=2450 unmasked=1 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+surelog/default/Scoreboard FTOWARD lost=17 neutral=0 offdiv=2492 ondiv=2492 unmasked=1 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+surelog/default/Scr1SvTests FTOWARD lost=142 neutral=0 offdiv=16033 ondiv=16033 unmasked=1 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL type
+surelog/default/SeqDriver FTOWARD lost=17 neutral=0 offdiv=2433 ondiv=2433 unmasked=1 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+surelog/default/SimpleUVM FTOWARD lost=17 neutral=0 offdiv=2484 ondiv=2484 unmasked=1 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+surelog/default/UnionCast FTOWARD lost=26 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL value -> STRICT_EQUAL 8079 objects
+surelog/default/YosysBigSimEllip FSAME lost=0 neutral=0 offdiv=70374 ondiv=None unmasked=0 | STRICT_NOTEQUAL type -> STRICT_EQUAL 681189 objects
+surelog/default/YosysOldOr FTOWARD lost=2 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL line -> STRICT_EQUAL 243334 objects
+surelog/default/YosysOldUsb FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_EQUAL 4582 objects -> STRICT_EQUAL 4582 objects
+surelog/testflags/BuildUVMPkg FSAME lost=0 neutral=0 offdiv=11992 ondiv=11992 unmasked=1 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+surelog/testflags/Earlgrey_0_1 FTOWARD lost=75 neutral=0 offdiv=131904 ondiv=131904 unmasked=1 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+surelog/testflags/GenerateUnnamed FTOWARD lost=9 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 343 objects
+surelog/testflags/ImplicitPorts2 FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_EQUAL 60 objects -> STRICT_EQUAL 60 objects
+surelog/testflags/IndexAssign FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_EQUAL 41 objects -> STRICT_EQUAL 41 objects
+surelog/testflags/MiniAmiq FTOWARD lost=17 neutral=0 offdiv=2450 ondiv=2450 unmasked=1 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+surelog/testflags/Scr1SvTests FTOWARD lost=142 neutral=0 offdiv=16033 ondiv=16033 unmasked=1 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL type
+surelog/testflags/SeqDriver FTOWARD lost=17 neutral=0 offdiv=2445 ondiv=2445 unmasked=1 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+surelog/testflags/SimpleUVM FTOWARD lost=17 neutral=0 offdiv=2496 ondiv=2496 unmasked=1 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+surelog/testflags/UnionCast FTOWARD lost=28 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL value -> STRICT_EQUAL 8152 objects
+surelog/testflags/YosysOldOr FTOWARD lost=2 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL line -> STRICT_EQUAL 243334 objects
+surelog/testflags/YosysOldUsb FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_EQUAL 4582 objects -> STRICT_EQUAL 4582 objects
+-- surelog tally: FSAME=9 FTOWARD=17
+uhdm2rtlil/default/ibex_multdiv_fast FTOWARD lost=15 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL file
+uhdm2rtlil/default/jeras_union FTOWARD lost=46 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+uhdm2rtlil/default/mem2reg_test4 FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_EQUAL 265 objects -> STRICT_EQUAL 265 objects
+uhdm2rtlil/default/mem2reg_test5 FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_EQUAL 185 objects -> STRICT_EQUAL 185 objects
+uhdm2rtlil/default/rp32_r5p_alu FTOWARD lost=170 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 60921 objects
+uhdm2rtlil/default/rp32_r5p_bru FTOWARD lost=153 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 52181 objects
+uhdm2rtlil/default/rp32_r5p_mdu FTOWARD lost=153 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 52107 objects
+uhdm2rtlil/default/rp32_r5p_wbu FTOWARD lost=169 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 59448 objects
+uhdm2rtlil/testflags/ibex_multdiv_fast FTOWARD lost=15 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL file
+uhdm2rtlil/testflags/jeras_union FTOWARD lost=46 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+uhdm2rtlil/testflags/mem2reg_test4 FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_EQUAL 175 objects -> STRICT_EQUAL 175 objects
+uhdm2rtlil/testflags/mem2reg_test5 FSAME lost=0 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_EQUAL 95 objects -> STRICT_EQUAL 95 objects
+uhdm2rtlil/testflags/rp32_r5p_alu FTOWARD lost=170 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 60831 objects
+uhdm2rtlil/testflags/rp32_r5p_bru FTOWARD lost=153 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 52091 objects
+uhdm2rtlil/testflags/rp32_r5p_mdu FTOWARD lost=153 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 52017 objects
+uhdm2rtlil/testflags/rp32_r5p_wbu FTOWARD lost=169 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_EQUAL 59358 objects
+-- uhdm2rtlil tally: FSAME=4 FTOWARD=12

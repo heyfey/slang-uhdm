@@ -496,7 +496,8 @@ static void pkgTsRefObjChainName134(UHDM::Serializer& s) {
         r->VpiFullName(nm);
 }
 
-static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s) {
+static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
+                                  const std::set<const UHDM::BaseClass*>& keep182) {
     const bool lastWriter = r11u134Law("R11U134_TDPARENT_OFF");
     const bool caUnparent = r11u134Law("R11U134_CAUNPARENT_OFF");
     if (!d || (!lastWriter && !caUnparent))
@@ -699,7 +700,8 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s) {
     };
     if (!keys.empty())
         for (auto* o : all)
-            if (named(o) && keys.count(key(o)) && !inUnelabPkg(o))
+            if (named(o) && keys.count(key(o)) && !inUnelabPkg(o) &&
+                !keep182.count(o))
                 setNP(o, nullptr);
     // Keep only the objects whose parent actually changes.
     std::map<const UHDM::BaseClass*, UHDM::BaseClass*> moving;
@@ -13566,7 +13568,27 @@ UHDM::design* UhdmExporter::exportDesign() {
     applyPkgFlatBits117();
     // § typedefParentLastWriter134 / § contAssignLhsTsUnparented134 — after
     // every typespec and name exists (law and decode at the function).
-    typedefParentModel134(d, s);
+    // § castUnionCloneKeepsCastParent182v (r11u182, the second verification
+    // of pass 171) — the fresh union clone a cast to a package UNION typedef
+    // binds (ExprEmit's castUnionClone arm) is a re-elaborated COPY, not the
+    // typedef's own object: Surelog's writeCont_assign unparents the LHS
+    // typespec, which is TypeDef::getTypespec (the listing object), and the
+    // cast copies keep their cast ref_typespec parent (golden UnionCast,
+    // jeras_union: `riscv_isa_pkg::op32_t` under the cast's ref_typespec,
+    // its members `work@...riscv_isa_pkg::op32_t.<m>`).  The clone carried
+    // no file until § castUnionCloneFile171 stamped its typedef's, which
+    // made its key (kind, name, FILE, line:col) equal the listing object's,
+    // so § contAssignLhsTsUnparented134 unparented it with the typedef and
+    // rewrote its member full names (7 away per rp32-style design).  The
+    // clones are kept out of the unparent key.  Grid
+    // tools/probe/r11u182verify/cases/D.  Switch R11V182_UNIONPARENT_OFF.
+    std::set<const UHDM::BaseClass*> keep182;
+    if (getenv("R11V182_OFF") == nullptr &&
+        getenv("R11V182_UNIONPARENT_OFF") == nullptr)
+        for (auto& [ty182, ucl182] : castUnionClone)
+            if (ucl182)
+                keep182.insert(ucl182);
+    typedefParentModel134(d, s, keep182);
     // § packedArrTdElemRefName137 — after the parent model (law and decode
     // at the function).
     packedArrTdElemRefName137(d, s);

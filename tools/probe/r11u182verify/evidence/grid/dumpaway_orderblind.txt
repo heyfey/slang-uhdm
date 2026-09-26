@@ -1,0 +1,557 @@
+A/a05_include_of_include alloff lost=0 gained=4 
+A/a05_include_of_include offL171 lost=0 gained=4 
+A/a05_include_of_include pre lost=0 gained=4 
+A/a05_include_of_include preoff lost=0 gained=4 
+A/a05_include_of_include_el alloff lost=0 gained=4 
+A/a05_include_of_include_el offL171 lost=0 gained=4 
+A/a05_include_of_include_el pre lost=0 gained=4 
+A/a05_include_of_include_el preoff lost=0 gained=4 
+C/c01_nested_signed_unsigned alloff lost=0 gained=10 
+C/c01_nested_signed_unsigned offL171 lost=0 gained=10 
+C/c01_nested_signed_unsigned off_sysSignNameSpanSyntax172 lost=0 gained=10 
+C/c01_nested_signed_unsigned pre lost=0 gained=10 
+C/c01_nested_signed_unsigned preoff lost=0 gained=10 
+C/c01_nested_signed_unsigned_el alloff lost=0 gained=10 
+C/c01_nested_signed_unsigned_el offL171 lost=0 gained=10 
+C/c01_nested_signed_unsigned_el off_sysSignNameSpanSyntax172 lost=0 gained=10 
+C/c01_nested_signed_unsigned_el pre lost=0 gained=10 
+C/c01_nested_signed_unsigned_el preoff lost=0 gained=10 
+C/c02_signed_in_range_bound alloff lost=0 gained=6 
+C/c02_signed_in_range_bound offL171 lost=0 gained=6 
+C/c02_signed_in_range_bound off_sysSignNameSpanSyntax172 lost=0 gained=6 
+C/c02_signed_in_range_bound pre lost=0 gained=6 
+C/c02_signed_in_range_bound preoff lost=0 gained=6 
+C/c02_signed_in_range_bound_el alloff lost=0 gained=6 
+C/c02_signed_in_range_bound_el offL171 lost=0 gained=6 
+C/c02_signed_in_range_bound_el off_sysSignNameSpanSyntax172 lost=0 gained=6 
+C/c02_signed_in_range_bound_el pre lost=0 gained=6 
+C/c02_signed_in_range_bound_el preoff lost=0 gained=6 
+C/c03_signed_case_item alloff lost=0 gained=4 
+C/c03_signed_case_item offL171 lost=0 gained=4 
+C/c03_signed_case_item off_sysSignNameSpanSyntax172 lost=0 gained=4 
+C/c03_signed_case_item pre lost=0 gained=4 
+C/c03_signed_case_item preoff lost=0 gained=4 
+C/c03_signed_case_item_el alloff lost=0 gained=4 
+C/c03_signed_case_item_el offL171 lost=0 gained=4 
+C/c03_signed_case_item_el off_sysSignNameSpanSyntax172 lost=0 gained=4 
+C/c03_signed_case_item_el pre lost=0 gained=4 
+C/c03_signed_case_item_el preoff lost=0 gained=4 
+C/c04_signed_param_and_genif alloff lost=0 gained=4 
+C/c04_signed_param_and_genif offL171 lost=0 gained=4 
+C/c04_signed_param_and_genif off_sysSignNameSpanSyntax172 lost=0 gained=4 
+C/c04_signed_param_and_genif pre lost=0 gained=4 
+C/c04_signed_param_and_genif preoff lost=0 gained=4 
+C/c04_signed_param_and_genif_el alloff lost=0 gained=4 
+C/c04_signed_param_and_genif_el offL171 lost=0 gained=4 
+C/c04_signed_param_and_genif_el off_sysSignNameSpanSyntax172 lost=0 gained=4 
+C/c04_signed_param_and_genif_el pre lost=0 gained=4 
+C/c04_signed_param_and_genif_el preoff lost=0 gained=4 
+D/d01_union_in_struct_pkg_otherfile alloff lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d01_union_in_struct_pkg_otherfile fix lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d01_union_in_struct_pkg_otherfile offL171 lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d01_union_in_struct_pkg_otherfile off_castUnionCloneFile171 lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d01_union_in_struct_pkg_otherfile pre lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d01_union_in_struct_pkg_otherfile preoff lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d01_union_in_struct_pkg_otherfile_el alloff lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d01_union_in_struct_pkg_otherfile_el fix lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d01_union_in_struct_pkg_otherfile_el offL171 lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d01_union_in_struct_pkg_otherfile_el off_castUnionCloneFile171 lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d01_union_in_struct_pkg_otherfile_el pre lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d01_union_in_struct_pkg_otherfile_el preoff lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d02_union_typedef_chain alloff lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::v_t.raw)
+D/d02_union_typedef_chain fix lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::v_t.raw)
+D/d02_union_typedef_chain offL171 lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::v_t.raw)
+D/d02_union_typedef_chain off_castUnionCloneFile171 lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::v_t.raw)
+D/d02_union_typedef_chain pre lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::v_t.raw)
+D/d02_union_typedef_chain preoff lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::v_t.raw)
+D/d02_union_typedef_chain_el alloff lost=77 gained=0  | |vpiParent: || \_union_typespec: (pu::u_t), line:2:11, endln:5:4 || |vpiParent:
+D/d02_union_typedef_chain_el fix lost=77 gained=0  | |vpiParent: || \_union_typespec: (pu::u_t), line:2:11, endln:5:4 || |vpiParent:
+D/d02_union_typedef_chain_el offL171 lost=77 gained=0  | |vpiParent: || \_union_typespec: (pu::u_t), line:2:11, endln:5:4 || |vpiParent:
+D/d02_union_typedef_chain_el off_castUnionCloneFile171 lost=77 gained=0  | |vpiParent: || \_union_typespec: (pu::u_t), line:2:11, endln:5:4 || |vpiParent:
+D/d02_union_typedef_chain_el pre lost=77 gained=0  | |vpiParent: || \_union_typespec: (pu::u_t), line:2:11, endln:5:4 || |vpiParent:
+D/d02_union_typedef_chain_el preoff lost=77 gained=0  | |vpiParent: || \_union_typespec: (pu::u_t), line:2:11, endln:5:4 || |vpiParent:
+D/d03_union_header_two_modules alloff lost=12 gained=12  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d03_union_header_two_modules fix lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d03_union_header_two_modules offL171 lost=12 gained=12  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d03_union_header_two_modules off_castUnionCloneFile171 lost=12 gained=0  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d03_union_header_two_modules pre lost=12 gained=12  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d03_union_header_two_modules preoff lost=12 gained=12  | |vpiParent: || \_ref_typespec: (work@dut) || \_ref_typespec: (work@dut.pu::u_t.raw)
+D/d03_union_header_two_modules_el alloff lost=45 gained=12  | |vpiParent: || \_union_typespec: (pu::u_t), line:1:9, endln:7:2 || |vpiParent:
+D/d03_union_header_two_modules_el fix lost=45 gained=0  | |vpiParent: || \_union_typespec: (pu::u_t), line:1:9, endln:7:2 || |vpiParent:
+D/d03_union_header_two_modules_el offL171 lost=45 gained=12  | |vpiParent: || \_union_typespec: (pu::u_t), line:1:9, endln:7:2 || |vpiParent:
+D/d03_union_header_two_modules_el off_castUnionCloneFile171 lost=45 gained=0  | |vpiParent: || \_union_typespec: (pu::u_t), line:1:9, endln:7:2 || |vpiParent:
+D/d03_union_header_two_modules_el pre lost=45 gained=12  | |vpiParent: || \_union_typespec: (pu::u_t), line:1:9, endln:7:2 || |vpiParent:
+D/d03_union_header_two_modules_el preoff lost=45 gained=12  | |vpiParent: || \_union_typespec: (pu::u_t), line:1:9, endln:7:2 || |vpiParent:
+E/e01_union_struct_chain_include alloff lost=0 gained=10 
+E/e01_union_struct_chain_include offL171 lost=0 gained=10 
+E/e01_union_struct_chain_include off_tsMemberRootFile171 lost=0 gained=10 
+E/e01_union_struct_chain_include pre lost=0 gained=10 
+E/e01_union_struct_chain_include preoff lost=0 gained=10 
+E/e01_union_struct_chain_include_el alloff lost=0 gained=10 
+E/e01_union_struct_chain_include_el offL171 lost=0 gained=10 
+E/e01_union_struct_chain_include_el off_tsMemberRootFile171 lost=0 gained=10 
+E/e01_union_struct_chain_include_el pre lost=0 gained=10 
+E/e01_union_struct_chain_include_el preoff lost=0 gained=10 
+E/e02_member_include_of_include alloff lost=0 gained=2 
+E/e02_member_include_of_include offL171 lost=0 gained=2 
+E/e02_member_include_of_include off_tsMemberRootFile171 lost=0 gained=2 
+E/e02_member_include_of_include pre lost=0 gained=2 
+E/e02_member_include_of_include preoff lost=0 gained=2 
+E/e02_member_include_of_include_el alloff lost=0 gained=2 
+E/e02_member_include_of_include_el offL171 lost=0 gained=2 
+E/e02_member_include_of_include_el off_tsMemberRootFile171 lost=0 gained=2 
+E/e02_member_include_of_include_el pre lost=0 gained=2 
+E/e02_member_include_of_include_el preoff lost=0 gained=2 
+E/e03_macro_from_other_root alloff lost=0 gained=2 
+E/e03_macro_from_other_root offL171 lost=0 gained=2 
+E/e03_macro_from_other_root off_tsMemberRootFile171 lost=0 gained=2 
+E/e03_macro_from_other_root pre lost=0 gained=2 
+E/e03_macro_from_other_root preoff lost=0 gained=2 
+E/e03_macro_from_other_root_el alloff lost=0 gained=2 
+E/e03_macro_from_other_root_el offL171 lost=0 gained=2 
+E/e03_macro_from_other_root_el off_tsMemberRootFile171 lost=0 gained=2 
+E/e03_macro_from_other_root_el pre lost=0 gained=2 
+E/e03_macro_from_other_root_el preoff lost=0 gained=2 
+E/e04_class_struct_header alloff lost=0 gained=2 
+E/e04_class_struct_header offL171 lost=0 gained=2 
+E/e04_class_struct_header off_tsMemberRootFile171 lost=0 gained=2 
+E/e04_class_struct_header pre lost=0 gained=2 
+E/e04_class_struct_header preoff lost=0 gained=2 
+E/e04_class_struct_header_el alloff lost=0 gained=4 
+E/e04_class_struct_header_el offL171 lost=0 gained=4 
+E/e04_class_struct_header_el off_tsMemberRootFile171 lost=0 gained=4 
+E/e04_class_struct_header_el pre lost=0 gained=4 
+E/e04_class_struct_header_el preoff lost=0 gained=4 
+F/f01_integer_redecl alloff lost=0 gained=0 
+F/f01_integer_redecl offL171 lost=0 gained=0 
+F/f01_integer_redecl off_splitPortTsKeyOnPortDecl171 lost=0 gained=0 
+F/f01_integer_redecl pre lost=0 gained=0 
+F/f01_integer_redecl preoff lost=0 gained=0 
+F/f01_integer_redecl_el alloff lost=0 gained=0 
+F/f01_integer_redecl_el offL171 lost=0 gained=0 
+F/f01_integer_redecl_el off_splitPortTsKeyOnPortDecl171 lost=0 gained=0 
+F/f01_integer_redecl_el pre lost=0 gained=0 
+F/f01_integer_redecl_el preoff lost=0 gained=0 
+F/f02_wire_redecl_ranges alloff lost=0 gained=44 
+F/f02_wire_redecl_ranges offL171 lost=0 gained=44 
+F/f02_wire_redecl_ranges off_splitPortTsKeyOnPortDecl171 lost=0 gained=44 
+F/f02_wire_redecl_ranges pre lost=0 gained=44 
+F/f02_wire_redecl_ranges preoff lost=0 gained=44 
+F/f02_wire_redecl_ranges_el alloff lost=0 gained=44 
+F/f02_wire_redecl_ranges_el offL171 lost=0 gained=44 
+F/f02_wire_redecl_ranges_el off_splitPortTsKeyOnPortDecl171 lost=0 gained=44 
+F/f02_wire_redecl_ranges_el pre lost=0 gained=44 
+F/f02_wire_redecl_ranges_el preoff lost=0 gained=44 
+F/f03_reg_redecl_in_generate alloff lost=0 gained=22 
+F/f03_reg_redecl_in_generate offL171 lost=0 gained=22 
+F/f03_reg_redecl_in_generate off_splitPortTsKeyOnPortDecl171 lost=0 gained=22 
+F/f03_reg_redecl_in_generate pre lost=0 gained=22 
+F/f03_reg_redecl_in_generate preoff lost=0 gained=22 
+F/f03_reg_redecl_in_generate_el alloff lost=0 gained=22 
+F/f03_reg_redecl_in_generate_el offL171 lost=0 gained=22 
+F/f03_reg_redecl_in_generate_el off_splitPortTsKeyOnPortDecl171 lost=0 gained=22 
+F/f03_reg_redecl_in_generate_el pre lost=0 gained=22 
+F/f03_reg_redecl_in_generate_el preoff lost=0 gained=22 
+F/f04_mixed_port_decls alloff lost=0 gained=3 
+F/f04_mixed_port_decls offL171 lost=0 gained=3 
+F/f04_mixed_port_decls off_splitPortTsKeyOnPortDecl171 lost=0 gained=3 
+F/f04_mixed_port_decls pre lost=0 gained=3 
+F/f04_mixed_port_decls preoff lost=0 gained=3 
+F/f04_mixed_port_decls_el alloff lost=0 gained=3 
+F/f04_mixed_port_decls_el offL171 lost=0 gained=3 
+F/f04_mixed_port_decls_el off_splitPortTsKeyOnPortDecl171 lost=0 gained=3 
+F/f04_mixed_port_decls_el pre lost=0 gained=3 
+F/f04_mixed_port_decls_el preoff lost=0 gained=3 
+G/g01_unpacked_elem_selects alloff lost=0 gained=0 
+G/g01_unpacked_elem_selects offL171 lost=0 gained=0 
+G/g01_unpacked_elem_selects off_selLhsBareDecRhsShared171 lost=0 gained=0 
+G/g01_unpacked_elem_selects pre lost=0 gained=0 
+G/g01_unpacked_elem_selects preoff lost=0 gained=0 
+G/g01_unpacked_elem_selects_el alloff lost=0 gained=24 
+G/g01_unpacked_elem_selects_el offL171 lost=0 gained=24 
+G/g01_unpacked_elem_selects_el off_selLhsBareDecRhsShared171 lost=0 gained=24 
+G/g01_unpacked_elem_selects_el pre lost=0 gained=24 
+G/g01_unpacked_elem_selects_el preoff lost=0 gained=24 
+G/g02_sized_and_negative alloff lost=4 gained=0  | |vpiParent: || |vpiSize:64
+G/g02_sized_and_negative offL171 lost=4 gained=0  | |vpiParent: || |vpiSize:64
+G/g02_sized_and_negative off_selLhsBareDecRhsShared171 lost=4 gained=0  | |vpiParent: || |vpiSize:64
+G/g02_sized_and_negative pre lost=4 gained=0  | |vpiParent: || |vpiSize:64
+G/g02_sized_and_negative preoff lost=4 gained=0  | |vpiParent: || |vpiSize:64
+G/g02_sized_and_negative_el alloff lost=16 gained=0  | |vpiParent: || |vpiParent: || |vpiParent:
+G/g02_sized_and_negative_el offL171 lost=16 gained=0  | |vpiParent: || |vpiParent: || |vpiParent:
+G/g02_sized_and_negative_el off_selLhsBareDecRhsShared171 lost=16 gained=0  | |vpiParent: || |vpiParent: || |vpiParent:
+G/g02_sized_and_negative_el pre lost=16 gained=0  | |vpiParent: || |vpiParent: || |vpiParent:
+G/g02_sized_and_negative_el preoff lost=16 gained=0  | |vpiParent: || |vpiParent: || |vpiParent:
+G/g03_in_generates alloff lost=0 gained=0 
+G/g03_in_generates offL171 lost=0 gained=0 
+G/g03_in_generates off_selLhsBareDecRhsShared171 lost=0 gained=0 
+G/g03_in_generates pre lost=0 gained=0 
+G/g03_in_generates preoff lost=0 gained=0 
+G/g03_in_generates_el alloff lost=7 gained=0  | |vpiParent: || \_module_inst: work@sub (work@dut.u1), file:dut.sv, line:12:3, endln:12:13 || \_cont_assign: , line:9:10, endln:9:20
+G/g03_in_generates_el offL171 lost=7 gained=0  | |vpiParent: || \_module_inst: work@sub (work@dut.u1), file:dut.sv, line:12:3, endln:12:13 || \_cont_assign: , line:9:10, endln:9:20
+G/g03_in_generates_el off_selLhsBareDecRhsShared171 lost=7 gained=0  | |vpiParent: || \_module_inst: work@sub (work@dut.u1), file:dut.sv, line:12:3, endln:12:13 || \_cont_assign: , line:9:10, endln:9:20
+G/g03_in_generates_el pre lost=7 gained=0  | |vpiParent: || \_module_inst: work@sub (work@dut.u1), file:dut.sv, line:12:3, endln:12:13 || \_cont_assign: , line:9:10, endln:9:20
+G/g03_in_generates_el preoff lost=7 gained=0  | |vpiParent: || \_module_inst: work@sub (work@dut.u1), file:dut.sv, line:12:3, endln:12:13 || \_cont_assign: , line:9:10, endln:9:20
+G/g04_decimal_underscore_signed alloff lost=0 gained=0 
+G/g04_decimal_underscore_signed offL171 lost=0 gained=0 
+G/g04_decimal_underscore_signed off_selLhsBareDecRhsShared171 lost=0 gained=0 
+G/g04_decimal_underscore_signed pre lost=0 gained=0 
+G/g04_decimal_underscore_signed preoff lost=0 gained=0 
+G/g04_decimal_underscore_signed_el alloff lost=12 gained=19  | \_module_inst: work@sub (work@dut.u1), file:dut.sv, line:9:3, endln:9:16 || \_cont_assign: , line:3:10, endln:3:23 || |vpiRhs:
+G/g04_decimal_underscore_signed_el offL171 lost=12 gained=19  | \_module_inst: work@sub (work@dut.u1), file:dut.sv, line:9:3, endln:9:16 || \_cont_assign: , line:3:10, endln:3:23 || |vpiRhs:
+G/g04_decimal_underscore_signed_el off_selLhsBareDecRhsShared171 lost=12 gained=19  | \_module_inst: work@sub (work@dut.u1), file:dut.sv, line:9:3, endln:9:16 || \_cont_assign: , line:3:10, endln:3:23 || |vpiRhs:
+G/g04_decimal_underscore_signed_el pre lost=12 gained=19  | \_module_inst: work@sub (work@dut.u1), file:dut.sv, line:9:3, endln:9:16 || \_cont_assign: , line:3:10, endln:3:23 || |vpiRhs:
+G/g04_decimal_underscore_signed_el preoff lost=12 gained=19  | \_module_inst: work@sub (work@dut.u1), file:dut.sv, line:9:3, endln:9:16 || \_cont_assign: , line:3:10, endln:3:23 || |vpiRhs:
+H/h01_member_access_first alloff lost=0 gained=7 
+H/h01_member_access_first offL171 lost=0 gained=7 
+H/h01_member_access_first off_udpFormConcatSwallowSpans171 lost=0 gained=7 
+H/h01_member_access_first pre lost=0 gained=7 
+H/h01_member_access_first preoff lost=0 gained=7 
+H/h01_member_access_first_el alloff lost=0 gained=7 
+H/h01_member_access_first_el offL171 lost=0 gained=7 
+H/h01_member_access_first_el off_udpFormConcatSwallowSpans171 lost=0 gained=7 
+H/h01_member_access_first_el pre lost=0 gained=7 
+H/h01_member_access_first_el preoff lost=0 gained=7 
+H/h02_single_element_concat alloff lost=0 gained=8 
+H/h02_single_element_concat offL171 lost=0 gained=8 
+H/h02_single_element_concat off_udpFormConcatSwallowSpans171 lost=0 gained=8 
+H/h02_single_element_concat pre lost=0 gained=8 
+H/h02_single_element_concat preoff lost=0 gained=8 
+H/h02_single_element_concat_el alloff lost=0 gained=17 
+H/h02_single_element_concat_el offL171 lost=0 gained=17 
+H/h02_single_element_concat_el off_udpFormConcatSwallowSpans171 lost=0 gained=17 
+H/h02_single_element_concat_el pre lost=0 gained=17 
+H/h02_single_element_concat_el preoff lost=0 gained=17 
+H/h03_part_selects_and_expr_tail alloff lost=0 gained=5 
+H/h03_part_selects_and_expr_tail offL171 lost=0 gained=5 
+H/h03_part_selects_and_expr_tail off_udpFormConcatSwallowSpans171 lost=0 gained=5 
+H/h03_part_selects_and_expr_tail pre lost=0 gained=5 
+H/h03_part_selects_and_expr_tail preoff lost=0 gained=5 
+H/h03_part_selects_and_expr_tail_el alloff lost=0 gained=5 
+H/h03_part_selects_and_expr_tail_el offL171 lost=0 gained=5 
+H/h03_part_selects_and_expr_tail_el off_udpFormConcatSwallowSpans171 lost=0 gained=5 
+H/h03_part_selects_and_expr_tail_el pre lost=0 gained=5 
+H/h03_part_selects_and_expr_tail_el preoff lost=0 gained=5 
+H/h04_replication_inside off_udpSwallowLvalueOnly171v lost=2 gained=0  | \_operation: , line:6:10, endln:6:16 || \_operation: , line:6:10, endln:6:16
+H/h04_replication_inside_el off_udpSwallowLvalueOnly171v lost=2 gained=0  | \_operation: , line:6:10, endln:6:16 || \_operation: , line:6:10, endln:6:16
+H/h05_nested_bitselects alloff lost=0 gained=9 
+H/h05_nested_bitselects offL171 lost=0 gained=9 
+H/h05_nested_bitselects off_udpFormConcatSwallowSpans171 lost=0 gained=9 
+H/h05_nested_bitselects pre lost=0 gained=9 
+H/h05_nested_bitselects preoff lost=0 gained=9 
+H/h05_nested_bitselects_el alloff lost=0 gained=14 
+H/h05_nested_bitselects_el offL171 lost=0 gained=14 
+H/h05_nested_bitselects_el off_udpFormConcatSwallowSpans171 lost=0 gained=14 
+H/h05_nested_bitselects_el pre lost=0 gained=14 
+H/h05_nested_bitselects_el preoff lost=0 gained=14 
+H/h06_first_literal_mixed off_udpSwallowLvalueOnly171v lost=0 gained=0 
+H/h06_first_literal_mixed_el off_udpSwallowLvalueOnly171v lost=0 gained=2 
+H/h07_in_generate_loop alloff lost=0 gained=36 
+H/h07_in_generate_loop offL171 lost=0 gained=36 
+H/h07_in_generate_loop off_udpFormConcatSwallowSpans171 lost=0 gained=36 
+H/h07_in_generate_loop pre lost=0 gained=36 
+H/h07_in_generate_loop preoff lost=0 gained=36 
+H/h07_in_generate_loop_el alloff lost=0 gained=30 
+H/h07_in_generate_loop_el offL171 lost=0 gained=30 
+H/h07_in_generate_loop_el off_udpFormConcatSwallowSpans171 lost=0 gained=30 
+H/h07_in_generate_loop_el pre lost=0 gained=30 
+H/h07_in_generate_loop_el preoff lost=0 gained=30 
+H/h08_first_op_element off_udpSwallowLvalueOnly171v lost=3 gained=0  | \_operation: , line:6:10, endln:6:18 || \_operation: , line:6:10, endln:6:18
+H/h08_first_op_element_el off_udpSwallowLvalueOnly171v lost=3 gained=1  | \_operation: , line:6:10, endln:6:18 || \_operation: , line:6:10, endln:6:18
+I/i02_multiline_macro_dim alloff lost=0 gained=7 
+I/i02_multiline_macro_dim offL171 lost=0 gained=7 
+I/i02_multiline_macro_dim off_defNetEndOutputCol171 lost=0 gained=7 
+I/i02_multiline_macro_dim pre lost=0 gained=7 
+I/i02_multiline_macro_dim preoff lost=0 gained=7 
+I/i02_multiline_macro_dim_el alloff lost=0 gained=7 
+I/i02_multiline_macro_dim_el offL171 lost=0 gained=7 
+I/i02_multiline_macro_dim_el off_defNetEndOutputCol171 lost=0 gained=7 
+I/i02_multiline_macro_dim_el pre lost=0 gained=7 
+I/i02_multiline_macro_dim_el preoff lost=0 gained=7 
+I/i03_stringify_same_line alloff lost=0 gained=3 
+I/i03_stringify_same_line offL171 lost=0 gained=3 
+I/i03_stringify_same_line off_defNetEndOutputCol171 lost=0 gained=3 
+I/i03_stringify_same_line pre lost=0 gained=3 
+I/i03_stringify_same_line preoff lost=0 gained=3 
+I/i03_stringify_same_line_el alloff lost=0 gained=3 
+I/i03_stringify_same_line_el offL171 lost=0 gained=3 
+I/i03_stringify_same_line_el off_defNetEndOutputCol171 lost=0 gained=3 
+I/i03_stringify_same_line_el pre lost=0 gained=3 
+I/i03_stringify_same_line_el preoff lost=0 gained=3 
+I/i04_macro_unpacked_and_packed2 alloff lost=0 gained=7 
+I/i04_macro_unpacked_and_packed2 offL171 lost=0 gained=7 
+I/i04_macro_unpacked_and_packed2 off_defNetEndOutputCol171 lost=0 gained=7 
+I/i04_macro_unpacked_and_packed2 pre lost=0 gained=7 
+I/i04_macro_unpacked_and_packed2 preoff lost=0 gained=7 
+I/i04_macro_unpacked_and_packed2_el alloff lost=0 gained=7 
+I/i04_macro_unpacked_and_packed2_el offL171 lost=0 gained=7 
+I/i04_macro_unpacked_and_packed2_el off_defNetEndOutputCol171 lost=0 gained=7 
+I/i04_macro_unpacked_and_packed2_el pre lost=0 gained=7 
+I/i04_macro_unpacked_and_packed2_el preoff lost=0 gained=7 
+J/j03_nobegin_elseif_begin_body alloff lost=0 gained=12 
+J/j03_nobegin_elseif_begin_body offL171 lost=0 gained=12 
+J/j03_nobegin_elseif_begin_body off_genElseIfGateTermPath171 lost=0 gained=12 
+J/j03_nobegin_elseif_begin_body pre lost=0 gained=12 
+J/j03_nobegin_elseif_begin_body preoff lost=0 gained=12 
+J/j03_nobegin_elseif_begin_body_el alloff lost=0 gained=12 
+J/j03_nobegin_elseif_begin_body_el offL171 lost=0 gained=12 
+J/j03_nobegin_elseif_begin_body_el off_genElseIfGateTermPath171 lost=0 gained=12 
+J/j03_nobegin_elseif_begin_body_el pre lost=0 gained=12 
+J/j03_nobegin_elseif_begin_body_el preoff lost=0 gained=12 
+J/j04_three_level_chain alloff lost=0 gained=6 
+J/j04_three_level_chain offL171 lost=0 gained=6 
+J/j04_three_level_chain off_genElseIfGateTermPath171 lost=0 gained=6 
+J/j04_three_level_chain pre lost=0 gained=6 
+J/j04_three_level_chain preoff lost=0 gained=6 
+J/j04_three_level_chain_el alloff lost=0 gained=6 
+J/j04_three_level_chain_el offL171 lost=0 gained=6 
+J/j04_three_level_chain_el off_genElseIfGateTermPath171 lost=0 gained=6 
+J/j04_three_level_chain_el pre lost=0 gained=6 
+J/j04_three_level_chain_el preoff lost=0 gained=6 
+J/j05_named_in_chain alloff lost=0 gained=0 
+J/j05_named_in_chain offL171 lost=0 gained=0 
+J/j05_named_in_chain off_genElseIfGateTermPath171 lost=0 gained=0 
+J/j05_named_in_chain pre lost=0 gained=0 
+J/j05_named_in_chain preoff lost=0 gained=0 
+J/j05_named_in_chain_el alloff lost=0 gained=0 
+J/j05_named_in_chain_el offL171 lost=0 gained=0 
+J/j05_named_in_chain_el off_genElseIfGateTermPath171 lost=0 gained=0 
+J/j05_named_in_chain_el pre lost=0 gained=0 
+J/j05_named_in_chain_el preoff lost=0 gained=0 
+J/j06_udp_in_elseif alloff lost=0 gained=6 
+J/j06_udp_in_elseif offL171 lost=0 gained=6 
+J/j06_udp_in_elseif off_genElseIfGateTermPath171 lost=0 gained=6 
+J/j06_udp_in_elseif pre lost=0 gained=6 
+J/j06_udp_in_elseif preoff lost=0 gained=6 
+J/j06_udp_in_elseif_el alloff lost=0 gained=6 
+J/j06_udp_in_elseif_el offL171 lost=0 gained=6 
+J/j06_udp_in_elseif_el off_genElseIfGateTermPath171 lost=0 gained=6 
+J/j06_udp_in_elseif_el pre lost=0 gained=6 
+J/j06_udp_in_elseif_el preoff lost=0 gained=6 
+J/j07_elseif_two_instances alloff lost=0 gained=12 
+J/j07_elseif_two_instances offL171 lost=0 gained=12 
+J/j07_elseif_two_instances off_genElseIfGateTermPath171 lost=0 gained=12 
+J/j07_elseif_two_instances pre lost=0 gained=12 
+J/j07_elseif_two_instances preoff lost=0 gained=12 
+J/j07_elseif_two_instances_el alloff lost=0 gained=12 
+J/j07_elseif_two_instances_el offL171 lost=0 gained=12 
+J/j07_elseif_two_instances_el off_genElseIfGateTermPath171 lost=0 gained=12 
+J/j07_elseif_two_instances_el pre lost=0 gained=12 
+J/j07_elseif_two_instances_el preoff lost=0 gained=12 
+J/j08_flat_chain_in_named alloff lost=0 gained=6 
+J/j08_flat_chain_in_named offL171 lost=0 gained=6 
+J/j08_flat_chain_in_named off_genElseIfGateTermPath171 lost=0 gained=6 
+J/j08_flat_chain_in_named pre lost=0 gained=6 
+J/j08_flat_chain_in_named preoff lost=0 gained=6 
+J/j08_flat_chain_in_named_el alloff lost=0 gained=6 
+J/j08_flat_chain_in_named_el offL171 lost=0 gained=6 
+J/j08_flat_chain_in_named_el off_genElseIfGateTermPath171 lost=0 gained=6 
+J/j08_flat_chain_in_named_el pre lost=0 gained=6 
+J/j08_flat_chain_in_named_el preoff lost=0 gained=6 
+J/j10_flat_chain_gate_array off_genElseIfFlatOnly171v lost=0 gained=0 
+J/j10_flat_chain_gate_array_el off_genElseIfFlatOnly171v lost=0 gained=0 
+L/l01_genfor_per_iter alloff lost=0 gained=125 
+L/l01_genfor_per_iter offL174 lost=0 gained=125 
+L/l01_genfor_per_iter off_elabParamLeftoverRefUnnamed174 lost=0 gained=125 
+L/l01_genfor_per_iter pre lost=0 gained=125 
+L/l01_genfor_per_iter preoff lost=0 gained=125 
+L/l01_genfor_per_iter_el alloff lost=0 gained=127 
+L/l01_genfor_per_iter_el offL174 lost=0 gained=127 
+L/l01_genfor_per_iter_el off_elabParamLeftoverRefUnnamed174 lost=0 gained=127 
+L/l01_genfor_per_iter_el pre lost=0 gained=127 
+L/l01_genfor_per_iter_el preoff lost=0 gained=127 
+L/l02_parent_fnbuilt_override alloff lost=0 gained=257 
+L/l02_parent_fnbuilt_override offL174 lost=0 gained=257 
+L/l02_parent_fnbuilt_override off_elabParamLeftoverRefUnnamed174 lost=0 gained=255 
+L/l02_parent_fnbuilt_override pre lost=0 gained=257 
+L/l02_parent_fnbuilt_override preoff lost=0 gained=257 
+L/l02_parent_fnbuilt_override_el alloff lost=0 gained=257 
+L/l02_parent_fnbuilt_override_el offL174 lost=0 gained=257 
+L/l02_parent_fnbuilt_override_el off_elabParamLeftoverRefUnnamed174 lost=0 gained=255 
+L/l02_parent_fnbuilt_override_el pre lost=0 gained=257 
+L/l02_parent_fnbuilt_override_el preoff lost=0 gained=257 
+L/l03_two_wildcard_importers alloff lost=0 gained=388 
+L/l03_two_wildcard_importers offL174 lost=0 gained=388 
+L/l03_two_wildcard_importers off_elabParamLeftoverRefUnnamed174 lost=0 gained=388 
+L/l03_two_wildcard_importers pre lost=0 gained=388 
+L/l03_two_wildcard_importers preoff lost=0 gained=388 
+L/l03_two_wildcard_importers_el alloff lost=0 gained=388 
+L/l03_two_wildcard_importers_el offL174 lost=0 gained=388 
+L/l03_two_wildcard_importers_el off_elabParamLeftoverRefUnnamed174 lost=0 gained=388 
+L/l03_two_wildcard_importers_el pre lost=0 gained=388 
+L/l03_two_wildcard_importers_el preoff lost=0 gained=388 
+L/l04_instance_array_sibling alloff lost=0 gained=384 
+L/l04_instance_array_sibling offL174 lost=0 gained=384 
+L/l04_instance_array_sibling off_elabParamLeftoverRefUnnamed174 lost=0 gained=380 
+L/l04_instance_array_sibling pre lost=0 gained=384 
+L/l04_instance_array_sibling preoff lost=0 gained=384 
+L/l04_instance_array_sibling_el alloff lost=0 gained=384 
+L/l04_instance_array_sibling_el offL174 lost=0 gained=384 
+L/l04_instance_array_sibling_el off_elabParamLeftoverRefUnnamed174 lost=0 gained=380 
+L/l04_instance_array_sibling_el pre lost=0 gained=384 
+L/l04_instance_array_sibling_el preoff lost=0 gained=384 
+M/m01_member_read_qualified alloff lost=0 gained=97 
+M/m01_member_read_qualified offL174 lost=0 gained=97 
+M/m01_member_read_qualified off_asmRefQualWholeSpanElab174 lost=0 gained=2 
+M/m01_member_read_qualified pre lost=0 gained=97 
+M/m01_member_read_qualified preoff lost=0 gained=97 
+M/m01_member_read_qualified_el alloff lost=0 gained=97 
+M/m01_member_read_qualified_el offL174 lost=0 gained=97 
+M/m01_member_read_qualified_el off_asmRefQualWholeSpanElab174 lost=0 gained=2 
+M/m01_member_read_qualified_el pre lost=0 gained=97 
+M/m01_member_read_qualified_el preoff lost=0 gained=97 
+M/m02_comment_inside_ref alloff lost=0 gained=97 
+M/m02_comment_inside_ref offL174 lost=0 gained=97 
+M/m02_comment_inside_ref off_asmRefQualWholeSpanElab174 lost=0 gained=2 
+M/m02_comment_inside_ref pre lost=0 gained=97 
+M/m02_comment_inside_ref preoff lost=0 gained=97 
+M/m02_comment_inside_ref_el alloff lost=0 gained=97 
+M/m02_comment_inside_ref_el offL174 lost=0 gained=97 
+M/m02_comment_inside_ref_el off_asmRefQualWholeSpanElab174 lost=0 gained=2 
+M/m02_comment_inside_ref_el pre lost=0 gained=97 
+M/m02_comment_inside_ref_el preoff lost=0 gained=97 
+M/m03_interface_param alloff lost=0 gained=2 
+M/m03_interface_param offL174 lost=0 gained=2 
+M/m03_interface_param off_asmRefQualWholeSpanElab174 lost=0 gained=2 
+M/m03_interface_param pre lost=0 gained=2 
+M/m03_interface_param preoff lost=0 gained=2 
+M/m03_interface_param_el alloff lost=0 gained=2 
+M/m03_interface_param_el offL174 lost=0 gained=2 
+M/m03_interface_param_el off_asmRefQualWholeSpanElab174 lost=0 gained=2 
+M/m03_interface_param_el pre lost=0 gained=2 
+M/m03_interface_param_el preoff lost=0 gained=2 
+M/m04_two_modules_two_instances alloff lost=0 gained=388 
+M/m04_two_modules_two_instances offL174 lost=0 gained=388 
+M/m04_two_modules_two_instances off_asmRefQualWholeSpanElab174 lost=0 gained=8 
+M/m04_two_modules_two_instances pre lost=0 gained=388 
+M/m04_two_modules_two_instances preoff lost=0 gained=388 
+M/m04_two_modules_two_instances_el alloff lost=0 gained=388 
+M/m04_two_modules_two_instances_el offL174 lost=0 gained=388 
+M/m04_two_modules_two_instances_el off_asmRefQualWholeSpanElab174 lost=0 gained=8 
+M/m04_two_modules_two_instances_el pre lost=0 gained=388 
+M/m04_two_modules_two_instances_el preoff lost=0 gained=388 
+M/m05_exported_pkg_ref alloff lost=0 gained=97 
+M/m05_exported_pkg_ref offL174 lost=0 gained=97 
+M/m05_exported_pkg_ref off_asmRefQualWholeSpanElab174 lost=0 gained=2 
+M/m05_exported_pkg_ref pre lost=0 gained=97 
+M/m05_exported_pkg_ref preoff lost=0 gained=97 
+M/m05_exported_pkg_ref_el alloff lost=0 gained=97 
+M/m05_exported_pkg_ref_el offL174 lost=0 gained=97 
+M/m05_exported_pkg_ref_el off_asmRefQualWholeSpanElab174 lost=0 gained=2 
+M/m05_exported_pkg_ref_el pre lost=0 gained=97 
+M/m05_exported_pkg_ref_el preoff lost=0 gained=97 
+N/n01_pkg_pattern_and_fn_base off_mopPkgBaseReduces174v lost=0 gained=2 
+N/n01_pkg_pattern_and_fn_base_el off_mopPkgBaseReduces174v lost=0 gained=2 
+N/n02_unit_base alloff lost=0 gained=0 
+N/n02_unit_base offL174 lost=0 gained=0 
+N/n02_unit_base off_elabStructMemberOpFoldUnlocated174 lost=0 gained=0 
+N/n02_unit_base pre lost=0 gained=0 
+N/n02_unit_base preoff lost=0 gained=0 
+N/n02_unit_base_el alloff lost=0 gained=0 
+N/n02_unit_base_el offL174 lost=0 gained=0 
+N/n02_unit_base_el off_elabStructMemberOpFoldUnlocated174 lost=0 gained=0 
+N/n02_unit_base_el pre lost=0 gained=0 
+N/n02_unit_base_el preoff lost=0 gained=0 
+N/n03_class_static_base alloff lost=0 gained=0 
+N/n03_class_static_base offL174 lost=0 gained=0 
+N/n03_class_static_base off_elabStructMemberOpFoldUnlocated174 lost=0 gained=0 
+N/n03_class_static_base pre lost=0 gained=0 
+N/n03_class_static_base preoff lost=0 gained=0 
+N/n03_class_static_base_el alloff lost=0 gained=0 
+N/n03_class_static_base_el offL174 lost=0 gained=0 
+N/n03_class_static_base_el off_elabStructMemberOpFoldUnlocated174 lost=0 gained=0 
+N/n03_class_static_base_el pre lost=0 gained=0 
+N/n03_class_static_base_el preoff lost=0 gained=0 
+N/n05_casts_over_members alloff lost=0 gained=193 
+N/n05_casts_over_members offL174 lost=0 gained=193 
+N/n05_casts_over_members off_elabStructMemberOpFoldUnlocated174 lost=0 gained=1 
+N/n05_casts_over_members pre lost=0 gained=193 
+N/n05_casts_over_members preoff lost=0 gained=193 
+N/n05_casts_over_members_el alloff lost=0 gained=193 
+N/n05_casts_over_members_el offL174 lost=0 gained=193 
+N/n05_casts_over_members_el off_elabStructMemberOpFoldUnlocated174 lost=0 gained=1 
+N/n05_casts_over_members_el pre lost=0 gained=193 
+N/n05_casts_over_members_el preoff lost=0 gained=193 
+N/n06_interface_base alloff lost=0 gained=2 
+N/n06_interface_base offL174 lost=0 gained=2 
+N/n06_interface_base off_elabStructMemberOpFoldUnlocated174 lost=0 gained=0 
+N/n06_interface_base pre lost=0 gained=2 
+N/n06_interface_base preoff lost=0 gained=2 
+N/n06_interface_base_el alloff lost=0 gained=2 
+N/n06_interface_base_el offL174 lost=0 gained=2 
+N/n06_interface_base_el off_elabStructMemberOpFoldUnlocated174 lost=0 gained=0 
+N/n06_interface_base_el pre lost=0 gained=2 
+N/n06_interface_base_el preoff lost=0 gained=2 
+N/n07_import_pkg_mixed alloff lost=0 gained=201 
+N/n07_import_pkg_mixed offL174 lost=0 gained=201 
+N/n07_import_pkg_mixed off_mopPkgBaseReduces174v lost=0 gained=2 
+N/n07_import_pkg_mixed pre lost=0 gained=201 
+N/n07_import_pkg_mixed preoff lost=0 gained=201 
+N/n07_import_pkg_mixed_el alloff lost=0 gained=201 
+N/n07_import_pkg_mixed_el offL174 lost=0 gained=201 
+N/n07_import_pkg_mixed_el off_mopPkgBaseReduces174v lost=0 gained=2 
+N/n07_import_pkg_mixed_el pre lost=0 gained=201 
+N/n07_import_pkg_mixed_el preoff lost=0 gained=201 
+N/n08_pkg_cast_unary off_mopPkgBaseReduces174v lost=0 gained=3 
+N/n08_pkg_cast_unary_el off_mopPkgBaseReduces174v lost=0 gained=3 
+X/x01_file_x_mlarg_macro_actual alloff lost=0 gained=61 
+X/x01_file_x_mlarg_macro_actual off2_memLeftFormalArgLoc169_mlArgLocFileAtActual177v lost=0 gained=6 
+X/x01_file_x_mlarg_macro_actual off2_tdMoveCarriesFile172_memLeftFormalArgLoc169 lost=0 gained=6 
+X/x01_file_x_mlarg_macro_actual offL169 lost=0 gained=6 
+X/x01_file_x_mlarg_macro_actual off_memLeftFormalArgLoc169 lost=0 gained=6 
+X/x01_file_x_mlarg_macro_actual pre lost=0 gained=61 
+X/x01_file_x_mlarg_macro_actual preoff lost=0 gained=61 
+X/x01_file_x_mlarg_macro_actual_el alloff lost=0 gained=61 
+X/x01_file_x_mlarg_macro_actual_el off2_memLeftFormalArgLoc169_mlArgLocFileAtActual177v lost=0 gained=6 
+X/x01_file_x_mlarg_macro_actual_el off2_tdMoveCarriesFile172_memLeftFormalArgLoc169 lost=0 gained=6 
+X/x01_file_x_mlarg_macro_actual_el offL169 lost=0 gained=6 
+X/x01_file_x_mlarg_macro_actual_el off_memLeftFormalArgLoc169 lost=0 gained=6 
+X/x01_file_x_mlarg_macro_actual_el pre lost=0 gained=61 
+X/x01_file_x_mlarg_macro_actual_el preoff lost=0 gained=61 
+X/x02_memberroot_x_leftref alloff lost=0 gained=200 
+X/x02_memberroot_x_leftref off2_tsMemberRootFile171_elabParamLeftoverRefUnnamed174 lost=0 gained=196 
+X/x02_memberroot_x_leftref offL171 lost=0 gained=12 
+X/x02_memberroot_x_leftref offL174 lost=0 gained=194 
+X/x02_memberroot_x_leftref off_elabParamLeftoverRefUnnamed174 lost=0 gained=190 
+X/x02_memberroot_x_leftref off_tsMemberRootFile171 lost=0 gained=12 
+X/x02_memberroot_x_leftref pre lost=0 gained=200 
+X/x02_memberroot_x_leftref preoff lost=0 gained=200 
+X/x02_memberroot_x_leftref_el alloff lost=0 gained=200 
+X/x02_memberroot_x_leftref_el off2_tsMemberRootFile171_elabParamLeftoverRefUnnamed174 lost=0 gained=196 
+X/x02_memberroot_x_leftref_el offL171 lost=0 gained=12 
+X/x02_memberroot_x_leftref_el offL174 lost=0 gained=194 
+X/x02_memberroot_x_leftref_el off_elabParamLeftoverRefUnnamed174 lost=0 gained=190 
+X/x02_memberroot_x_leftref_el off_tsMemberRootFile171 lost=0 gained=12 
+X/x02_memberroot_x_leftref_el pre lost=0 gained=200 
+X/x02_memberroot_x_leftref_el preoff lost=0 gained=200 
+X/x03_udp_x_gcachain alloff lost=0 gained=36 
+X/x03_udp_x_gcachain off2_udpFormConcatSwallowSpans171_genCaFoldTsChainNamed169 lost=0 gained=36 
+X/x03_udp_x_gcachain offL171 lost=0 gained=36 
+X/x03_udp_x_gcachain off_udpFormConcatSwallowSpans171 lost=0 gained=36 
+X/x03_udp_x_gcachain pre lost=0 gained=36 
+X/x03_udp_x_gcachain preoff lost=0 gained=36 
+X/x03_udp_x_gcachain_el alloff lost=0 gained=30 
+X/x03_udp_x_gcachain_el off2_udpFormConcatSwallowSpans171_genCaFoldTsChainNamed169 lost=0 gained=30 
+X/x03_udp_x_gcachain_el offL171 lost=0 gained=30 
+X/x03_udp_x_gcachain_el off_udpFormConcatSwallowSpans171 lost=0 gained=30 
+X/x03_udp_x_gcachain_el pre lost=0 gained=30 
+X/x03_udp_x_gcachain_el preoff lost=0 gained=30 
+X/x05_seldec_x_mopunloc alloff lost=2 gained=150  | |vpiParent:
+X/x05_seldec_x_mopunloc off2_selLhsBareDecRhsShared171_elabStructMemberOpFoldUnlocated174 lost=6 gained=2  | |vpiParent:
+X/x05_seldec_x_mopunloc offL171 lost=6 gained=0  | |vpiParent:
+X/x05_seldec_x_mopunloc offL174 lost=0 gained=154 
+X/x05_seldec_x_mopunloc off_elabStructMemberOpFoldUnlocated174 lost=0 gained=2 
+X/x05_seldec_x_mopunloc off_selLhsBareDecRhsShared171 lost=6 gained=0  | |vpiParent:
+X/x05_seldec_x_mopunloc pre lost=2 gained=150  | |vpiParent:
+X/x05_seldec_x_mopunloc preoff lost=2 gained=150  | |vpiParent:
+X/x05_seldec_x_mopunloc_el alloff lost=20 gained=142  | |vpiParent: || |vpiParent: || \_module_inst: work@sub (work@dut.u1), file:dut.sv, line:21:3, endln:21:13
+X/x05_seldec_x_mopunloc_el off2_selLhsBareDecRhsShared171_elabStructMemberOpFoldUnlocated174 lost=28 gained=2  | |vpiParent: || |vpiParent: || |vpiParent:
+X/x05_seldec_x_mopunloc_el offL171 lost=28 gained=0  | |vpiParent: || |vpiParent: || |vpiParent:
+X/x05_seldec_x_mopunloc_el offL174 lost=0 gained=154 
+X/x05_seldec_x_mopunloc_el off_elabStructMemberOpFoldUnlocated174 lost=0 gained=2 
+X/x05_seldec_x_mopunloc_el off_selLhsBareDecRhsShared171 lost=28 gained=0  | |vpiParent: || |vpiParent: || |vpiParent:
+X/x05_seldec_x_mopunloc_el pre lost=20 gained=142  | |vpiParent: || |vpiParent: || \_module_inst: work@sub (work@dut.u1), file:dut.sv, line:21:3, endln:21:13
+X/x05_seldec_x_mopunloc_el preoff lost=20 gained=142  | |vpiParent: || |vpiParent: || \_module_inst: work@sub (work@dut.u1), file:dut.sv, line:21:3, endln:21:13
+tp/r11u174repro/cases/lr/l15 alloff lost=0 gained=97 
+tp/r11u174repro/cases/ub/u12 alloff lost=0 gained=90 
+tp/r11v174repro/cases/mo/b06 alloff lost=0 gained=193 

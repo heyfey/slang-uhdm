@@ -1,0 +1,27 @@
+surelog/default/FuncStructVal FSAME lost=0 neutral=0 offdiv=7975 ondiv=7975 unmasked=1 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+surelog/default/FuncStructValSimple FTOWARD lost=2 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+surelog/default/MiniAmiq FSAME lost=0 neutral=0 offdiv=2450 ondiv=2450 unmasked=1 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+surelog/default/Scoreboard FSAME lost=0 neutral=0 offdiv=2492 ondiv=2492 unmasked=1 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+surelog/default/SeqDriver FSAME lost=0 neutral=0 offdiv=2433 ondiv=2433 unmasked=1 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+surelog/testflags/FuncStructVal FSAME lost=0 neutral=0 offdiv=13254 ondiv=13254 unmasked=1 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL endcol
+surelog/testflags/FuncStructValSimple FTOWARD lost=2 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+surelog/testflags/MiniAmiq FSAME lost=0 neutral=0 offdiv=2450 ondiv=2450 unmasked=1 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+surelog/testflags/SeqDriver FSAME lost=0 neutral=0 offdiv=2445 ondiv=2445 unmasked=1 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+-- surelog tally: FSAME=7 FTOWARD=2
+uhdm2rtlil/default/jeras_union FSAME lost=0 neutral=0 offdiv=8592 ondiv=None unmasked=40 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+uhdm2rtlil/default/param_nested_struct_field_width FTOWARD lost=10 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 966 objects
+uhdm2rtlil/default/rp32_r5p_alu FSAME lost=0 neutral=0 offdiv=15963 ondiv=None unmasked=0 | STRICT_NOTEQUAL type -> STRICT_EQUAL 60921 objects
+uhdm2rtlil/default/rp32_r5p_bru FSAME lost=0 neutral=0 offdiv=15963 ondiv=None unmasked=0 | STRICT_NOTEQUAL type -> STRICT_EQUAL 52181 objects
+uhdm2rtlil/default/rp32_r5p_mdu FSAME lost=0 neutral=0 offdiv=15963 ondiv=None unmasked=0 | STRICT_NOTEQUAL type -> STRICT_EQUAL 52107 objects
+uhdm2rtlil/default/rp32_r5p_wbu FSAME lost=0 neutral=0 offdiv=15963 ondiv=None unmasked=0 | STRICT_NOTEQUAL type -> STRICT_EQUAL 59448 objects
+uhdm2rtlil/default/struct_param_field_shift FTOWARD lost=5 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 485 objects
+uhdm2rtlil/default/struct_param_func_config FTOWARD lost=6 neutral=0 offdiv=1364 ondiv=1364 unmasked=1 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL line
+uhdm2rtlil/testflags/jeras_union FSAME lost=0 neutral=0 offdiv=8585 ondiv=None unmasked=40 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+uhdm2rtlil/testflags/param_nested_struct_field_width FTOWARD lost=10 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 876 objects
+uhdm2rtlil/testflags/rp32_r5p_alu FSAME lost=0 neutral=0 offdiv=15956 ondiv=None unmasked=0 | STRICT_NOTEQUAL type -> STRICT_EQUAL 60831 objects
+uhdm2rtlil/testflags/rp32_r5p_bru FSAME lost=0 neutral=0 offdiv=15956 ondiv=None unmasked=0 | STRICT_NOTEQUAL type -> STRICT_EQUAL 52091 objects
+uhdm2rtlil/testflags/rp32_r5p_mdu FSAME lost=0 neutral=0 offdiv=15956 ondiv=None unmasked=0 | STRICT_NOTEQUAL type -> STRICT_EQUAL 52017 objects
+uhdm2rtlil/testflags/rp32_r5p_wbu FSAME lost=0 neutral=0 offdiv=15956 ondiv=None unmasked=0 | STRICT_NOTEQUAL type -> STRICT_EQUAL 59358 objects
+uhdm2rtlil/testflags/struct_param_field_shift FTOWARD lost=5 neutral=0 offdiv=None ondiv=None unmasked=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 395 objects
+uhdm2rtlil/testflags/struct_param_func_config FTOWARD lost=6 neutral=0 offdiv=1274 ondiv=1274 unmasked=1 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL line
+-- uhdm2rtlil tally: FSAME=10 FTOWARD=6

@@ -1,0 +1,4 @@
+surelog/default/MiniAmiq X-vs-H orderblind=4
+surelog/testflags/MiniAmiq X-vs-H orderblind=4
+surelog/testflags/SeqDriver X-vs-H orderblind=4
+surelog/default/Scoreboard X-vs-H orderblind=0

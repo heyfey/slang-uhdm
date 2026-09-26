@@ -1,0 +1,96 @@
+ON | F/f01_integer_redecl | DIVERGENT | OK | OK | 1 | 7 | nohier il synth | ----------------------------------------------
+ON | F/f02_wire_redecl_ranges | IDENTICAL | OK | OK | 31 | 31 | - | -
+ON | F/f03_reg_redecl_in_generate | IDENTICAL | OK | OK | 46 | 46 | - | -
+ON | F/f04_mixed_port_decls | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | H/h01_member_access_first | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | H/h02_single_element_concat | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | H/h03_part_selects_and_expr_tail | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ON | H/h04_replication_inside | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ON | H/h05_nested_bitselects | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | H/h06_first_literal_mixed | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ON | H/h07_in_generate_loop | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | J/j01_gate_array_elseif | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | J/j02_else_begin_if_end | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | J/j03_nobegin_elseif_begin_body | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | J/j04_three_level_chain | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | J/j05_named_in_chain | STATUS_DIFF | OK | NO_GATES | 1 | 0 | - | -
+ON | J/j06_udp_in_elseif | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | J/j07_elseif_two_instances | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | N/n01_pkg_pattern_and_fn_base | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | N/n02_unit_base | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ON | N/n03_class_static_base | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ON | N/n04_generate_localparam_base | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | N/n05_casts_over_members | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | N/n06_interface_base | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ON | X/x03_udp_x_gcachain | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | G/g01_unpacked_elem_selects | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | G/g02_sized_and_negative | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | G/g03_in_generates | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | G/g04_decimal_underscore_signed | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u182_dsc/ON/
+ON | D/d01_union_in_struct_pkg_otherfile | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | D/d02_union_typedef_chain | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | D/d03_union_header_two_modules | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | F/f01_integer_redecl | DIVERGENT | OK | OK | 1 | 7 | nohier il synth | ----------------------------------------------
+ALLOFF | F/f02_wire_redecl_ranges | IDENTICAL | OK | OK | 31 | 31 | - | -
+ALLOFF | F/f03_reg_redecl_in_generate | IDENTICAL | OK | OK | 46 | 46 | - | -
+ALLOFF | F/f04_mixed_port_decls | IDENTICAL | OK | OK | 1 | 1 | - | -
+ALLOFF | H/h01_member_access_first | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | H/h02_single_element_concat | IDENTICAL | OK | OK | 1 | 1 | - | -
+ALLOFF | H/h03_part_selects_and_expr_tail | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ALLOFF | H/h04_replication_inside | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | H/h05_nested_bitselects | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | H/h06_first_literal_mixed | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | H/h07_in_generate_loop | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | J/j01_gate_array_elseif | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | J/j02_else_begin_if_end | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | J/j03_nobegin_elseif_begin_body | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | J/j04_three_level_chain | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | J/j05_named_in_chain | STATUS_DIFF | OK | NO_GATES | 1 | 0 | - | -
+ALLOFF | J/j06_udp_in_elseif | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | J/j07_elseif_two_instances | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | N/n01_pkg_pattern_and_fn_base | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | N/n02_unit_base | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ALLOFF | N/n03_class_static_base | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ALLOFF | N/n04_generate_localparam_base | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | N/n05_casts_over_members | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | N/n06_interface_base | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | X/x03_udp_x_gcachain | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | G/g01_unpacked_elem_selects | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | G/g02_sized_and_negative | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | G/g03_in_generates | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | G/g04_decimal_underscore_signed | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u182_dsc/ALL
+ALLOFF | D/d01_union_in_struct_pkg_otherfile | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | D/d02_union_typedef_chain | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | D/d03_union_header_two_modules | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | F/f01_integer_redecl | DIVERGENT | OK | OK | 1 | 7 | nohier il synth | ----------------------------------------------
+OWN | F/f02_wire_redecl_ranges | IDENTICAL | OK | OK | 31 | 31 | - | -
+OWN | F/f03_reg_redecl_in_generate | IDENTICAL | OK | OK | 46 | 46 | - | -
+OWN | F/f04_mixed_port_decls | IDENTICAL | OK | OK | 1 | 1 | - | -
+OWN | H/h01_member_access_first | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | H/h02_single_element_concat | IDENTICAL | OK | OK | 1 | 1 | - | -
+OWN | H/h03_part_selects_and_expr_tail | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+OWN | H/h04_replication_inside | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+OWN | H/h05_nested_bitselects | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | H/h06_first_literal_mixed | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+OWN | H/h07_in_generate_loop | IDENTICAL | OK | OK | 2 | 2 | - | -
+OWN | J/j01_gate_array_elseif | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | J/j02_else_begin_if_end | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | J/j03_nobegin_elseif_begin_body | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | J/j04_three_level_chain | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | J/j05_named_in_chain | STATUS_DIFF | OK | NO_GATES | 1 | 0 | - | -
+OWN | J/j06_udp_in_elseif | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | J/j07_elseif_two_instances | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | N/n01_pkg_pattern_and_fn_base | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | N/n02_unit_base | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+OWN | N/n03_class_static_base | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+OWN | N/n04_generate_localparam_base | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | N/n05_casts_over_members | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | N/n06_interface_base | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+OWN | X/x03_udp_x_gcachain | IDENTICAL | OK | OK | 2 | 2 | - | -
+OWN | G/g01_unpacked_elem_selects | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | G/g02_sized_and_negative | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | G/g03_in_generates | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | G/g04_decimal_underscore_signed | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u182_dsc/OWN
+OWN | D/d01_union_in_struct_pkg_otherfile | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | D/d02_union_typedef_chain | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | D/d03_union_header_two_modules | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -

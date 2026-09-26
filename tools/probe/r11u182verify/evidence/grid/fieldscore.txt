@@ -1,0 +1,903 @@
+A/a01_formal_three_files alloff FTOWARD lost=18 neutral=0
+A/a01_formal_three_files offL171 FTOWARD lost=18 neutral=0
+A/a01_formal_three_files off_tdMoveCarriesFile172 FTOWARD lost=18 neutral=0
+A/a01_formal_three_files pre FTOWARD lost=18 neutral=0
+A/a01_formal_three_files preoff FTOWARD lost=18 neutral=0
+A/a01_formal_three_files_el alloff FTOWARD lost=21 neutral=0
+A/a01_formal_three_files_el offL171 FTOWARD lost=21 neutral=0
+A/a01_formal_three_files_el off_tdMoveCarriesFile172 FTOWARD lost=21 neutral=0
+A/a01_formal_three_files_el pre FTOWARD lost=21 neutral=0
+A/a01_formal_three_files_el preoff FTOWARD lost=21 neutral=0
+A/a02_netend_three_files alloff FNEUTRAL lost=0 neutral=13
+A/a02_netend_three_files offL171 FNEUTRAL lost=0 neutral=13
+A/a02_netend_three_files off_tdMoveCarriesFile172 FNEUTRAL lost=0 neutral=13
+A/a02_netend_three_files pre FNEUTRAL lost=0 neutral=13
+A/a02_netend_three_files preoff FNEUTRAL lost=0 neutral=13
+A/a02_netend_three_files_el alloff FNEUTRAL lost=0 neutral=13
+A/a02_netend_three_files_el offL171 FNEUTRAL lost=0 neutral=13
+A/a02_netend_three_files_el off_tdMoveCarriesFile172 FNEUTRAL lost=0 neutral=13
+A/a02_netend_three_files_el pre FNEUTRAL lost=0 neutral=13
+A/a02_netend_three_files_el preoff FNEUTRAL lost=0 neutral=13
+A/a03_samepos_three_rev alloff FTOWARD lost=13 neutral=0
+A/a03_samepos_three_rev offL171 FTOWARD lost=13 neutral=0
+A/a03_samepos_three_rev off_tdMoveCarriesFile172 FTOWARD lost=13 neutral=0
+A/a03_samepos_three_rev pre FTOWARD lost=13 neutral=0
+A/a03_samepos_three_rev preoff FTOWARD lost=13 neutral=0
+A/a03_samepos_three_rev_el alloff FTOWARD lost=13 neutral=0
+A/a03_samepos_three_rev_el offL171 FTOWARD lost=13 neutral=0
+A/a03_samepos_three_rev_el off_tdMoveCarriesFile172 FTOWARD lost=13 neutral=0
+A/a03_samepos_three_rev_el pre FTOWARD lost=13 neutral=0
+A/a03_samepos_three_rev_el preoff FTOWARD lost=13 neutral=0
+A/a04_qualified_and_plain alloff FTOWARD lost=14 neutral=0
+A/a04_qualified_and_plain offL171 FTOWARD lost=14 neutral=0
+A/a04_qualified_and_plain off_tdMoveCarriesFile172 FTOWARD lost=14 neutral=0
+A/a04_qualified_and_plain pre FTOWARD lost=14 neutral=0
+A/a04_qualified_and_plain preoff FTOWARD lost=14 neutral=0
+A/a04_qualified_and_plain_el alloff FTOWARD lost=17 neutral=0
+A/a04_qualified_and_plain_el offL171 FTOWARD lost=17 neutral=0
+A/a04_qualified_and_plain_el off_tdMoveCarriesFile172 FTOWARD lost=17 neutral=0
+A/a04_qualified_and_plain_el pre FTOWARD lost=17 neutral=0
+A/a04_qualified_and_plain_el preoff FTOWARD lost=17 neutral=0
+A/a05_include_of_include alloff FTOWARD lost=38 neutral=0
+A/a05_include_of_include offL171 FTOWARD lost=38 neutral=0
+A/a05_include_of_include off_tdMoveCarriesFile172 FTOWARD lost=12 neutral=0
+A/a05_include_of_include pre FTOWARD lost=38 neutral=0
+A/a05_include_of_include preoff FTOWARD lost=38 neutral=0
+A/a05_include_of_include_el alloff FTOWARD lost=43 neutral=0
+A/a05_include_of_include_el offL171 FTOWARD lost=43 neutral=0
+A/a05_include_of_include_el off_tdMoveCarriesFile172 FTOWARD lost=13 neutral=0
+A/a05_include_of_include_el pre FTOWARD lost=43 neutral=0
+A/a05_include_of_include_el preoff FTOWARD lost=43 neutral=0
+A/a06_module_fn_formal alloff FSAME lost=0 neutral=0
+A/a06_module_fn_formal offL171 FSAME lost=0 neutral=0
+A/a06_module_fn_formal off_tdMoveCarriesFile172 FSAME lost=0 neutral=0
+A/a06_module_fn_formal pre FSAME lost=0 neutral=0
+A/a06_module_fn_formal preoff FSAME lost=0 neutral=0
+A/a06_module_fn_formal_el alloff FSAME lost=0 neutral=0
+A/a06_module_fn_formal_el offL171 FSAME lost=0 neutral=0
+A/a06_module_fn_formal_el off_tdMoveCarriesFile172 FSAME lost=0 neutral=0
+A/a06_module_fn_formal_el pre FSAME lost=0 neutral=0
+A/a06_module_fn_formal_el preoff FSAME lost=0 neutral=0
+A/a07_enum_formal_and_net alloff SKIP STAGE1
+A/a07_enum_formal_and_net offL171 SKIP STAGE1
+A/a07_enum_formal_and_net off_tdMoveCarriesFile172 SKIP STAGE1
+A/a07_enum_formal_and_net pre SKIP STAGE1
+A/a07_enum_formal_and_net preoff SKIP STAGE1
+A/a07_enum_formal_and_net_el alloff SKIP STAGE1
+A/a07_enum_formal_and_net_el offL171 SKIP STAGE1
+A/a07_enum_formal_and_net_el off_tdMoveCarriesFile172 SKIP STAGE1
+A/a07_enum_formal_and_net_el pre SKIP STAGE1
+A/a07_enum_formal_and_net_el preoff SKIP STAGE1
+A/a08_task_formal_nested alloff FTOWARD lost=10 neutral=0
+A/a08_task_formal_nested offL171 FTOWARD lost=10 neutral=0
+A/a08_task_formal_nested off_tdMoveCarriesFile172 FTOWARD lost=10 neutral=0
+A/a08_task_formal_nested pre FTOWARD lost=10 neutral=0
+A/a08_task_formal_nested preoff FTOWARD lost=10 neutral=0
+A/a08_task_formal_nested_el alloff FTOWARD lost=11 neutral=0
+A/a08_task_formal_nested_el offL171 FTOWARD lost=11 neutral=0
+A/a08_task_formal_nested_el off_tdMoveCarriesFile172 FTOWARD lost=11 neutral=0
+A/a08_task_formal_nested_el pre FTOWARD lost=11 neutral=0
+A/a08_task_formal_nested_el preoff FTOWARD lost=11 neutral=0
+B/b01_zeros_mod_net alloff FTOWARD lost=21 neutral=0
+B/b01_zeros_mod_net offL171 FTOWARD lost=21 neutral=0
+B/b01_zeros_mod_net off_boundLitWrittenDigits172 FTOWARD lost=21 neutral=0
+B/b01_zeros_mod_net pre FTOWARD lost=21 neutral=0
+B/b01_zeros_mod_net preoff FTOWARD lost=21 neutral=0
+B/b01_zeros_mod_net_el alloff FTOWARD lost=18 neutral=0
+B/b01_zeros_mod_net_el offL171 FTOWARD lost=18 neutral=0
+B/b01_zeros_mod_net_el off_boundLitWrittenDigits172 FTOWARD lost=18 neutral=0
+B/b01_zeros_mod_net_el pre FTOWARD lost=18 neutral=0
+B/b01_zeros_mod_net_el preoff FTOWARD lost=18 neutral=0
+B/b02_generate_bounds alloff FTOWARD lost=4 neutral=0
+B/b02_generate_bounds offL171 FTOWARD lost=4 neutral=0
+B/b02_generate_bounds off_boundLitWrittenDigits172 FTOWARD lost=4 neutral=0
+B/b02_generate_bounds pre FTOWARD lost=4 neutral=0
+B/b02_generate_bounds preoff FTOWARD lost=4 neutral=0
+B/b02_generate_bounds_el alloff FTOWARD lost=4 neutral=0
+B/b02_generate_bounds_el offL171 FTOWARD lost=4 neutral=0
+B/b02_generate_bounds_el off_boundLitWrittenDigits172 FTOWARD lost=4 neutral=0
+B/b02_generate_bounds_el pre FTOWARD lost=4 neutral=0
+B/b02_generate_bounds_el preoff FTOWARD lost=4 neutral=0
+B/b03_package_bounds alloff SKIP STAGE1
+B/b03_package_bounds offL171 SKIP STAGE1
+B/b03_package_bounds off_boundLitWrittenDigits172 SKIP STAGE1
+B/b03_package_bounds pre SKIP STAGE1
+B/b03_package_bounds preoff SKIP STAGE1
+B/b03_package_bounds_el alloff SKIP STAGE1
+B/b03_package_bounds_el offL171 SKIP STAGE1
+B/b03_package_bounds_el off_boundLitWrittenDigits172 SKIP STAGE1
+B/b03_package_bounds_el pre SKIP STAGE1
+B/b03_package_bounds_el preoff SKIP STAGE1
+B/b04_based_and_unpacked alloff SKIP STAGE1
+B/b04_based_and_unpacked offL171 SKIP STAGE1
+B/b04_based_and_unpacked off_boundLitWrittenDigits172 SKIP STAGE1
+B/b04_based_and_unpacked pre SKIP STAGE1
+B/b04_based_and_unpacked preoff SKIP STAGE1
+B/b04_based_and_unpacked_el alloff SKIP STAGE1
+B/b04_based_and_unpacked_el offL171 SKIP STAGE1
+B/b04_based_and_unpacked_el off_boundLitWrittenDigits172 SKIP STAGE1
+B/b04_based_and_unpacked_el pre SKIP STAGE1
+B/b04_based_and_unpacked_el preoff SKIP STAGE1
+B/b05_class_and_typedef_gen alloff SKIP STAGE1
+B/b05_class_and_typedef_gen offL171 SKIP STAGE1
+B/b05_class_and_typedef_gen off_boundLitWrittenDigits172 SKIP STAGE1
+B/b05_class_and_typedef_gen pre SKIP STAGE1
+B/b05_class_and_typedef_gen preoff SKIP STAGE1
+B/b05_class_and_typedef_gen_el alloff SKIP STAGE1
+B/b05_class_and_typedef_gen_el offL171 SKIP STAGE1
+B/b05_class_and_typedef_gen_el off_boundLitWrittenDigits172 SKIP STAGE1
+B/b05_class_and_typedef_gen_el pre SKIP STAGE1
+B/b05_class_and_typedef_gen_el preoff SKIP STAGE1
+B/b06_port_ranges_elab alloff FTOWARD lost=19 neutral=0
+B/b06_port_ranges_elab offL171 FTOWARD lost=19 neutral=0
+B/b06_port_ranges_elab off_boundLitWrittenDigits172 FTOWARD lost=19 neutral=0
+B/b06_port_ranges_elab pre FTOWARD lost=19 neutral=0
+B/b06_port_ranges_elab preoff FTOWARD lost=19 neutral=0
+B/b06_port_ranges_elab_el alloff FTOWARD lost=19 neutral=0
+B/b06_port_ranges_elab_el offL171 FTOWARD lost=19 neutral=0
+B/b06_port_ranges_elab_el off_boundLitWrittenDigits172 FTOWARD lost=19 neutral=0
+B/b06_port_ranges_elab_el pre FTOWARD lost=19 neutral=0
+B/b06_port_ranges_elab_el preoff FTOWARD lost=19 neutral=0
+B/b07_underscore_bounds alloff SKIP STAGE1
+B/b07_underscore_bounds offL171 SKIP STAGE1
+B/b07_underscore_bounds off_boundLitWrittenDigits172 SKIP STAGE1
+B/b07_underscore_bounds pre SKIP STAGE1
+B/b07_underscore_bounds preoff SKIP STAGE1
+B/b07_underscore_bounds_el alloff SKIP STAGE1
+B/b07_underscore_bounds_el offL171 SKIP STAGE1
+B/b07_underscore_bounds_el off_boundLitWrittenDigits172 SKIP STAGE1
+B/b07_underscore_bounds_el pre SKIP STAGE1
+B/b07_underscore_bounds_el preoff SKIP STAGE1
+C/c01_nested_signed_unsigned alloff SKIP STAGE1
+C/c01_nested_signed_unsigned offL171 SKIP STAGE1
+C/c01_nested_signed_unsigned off_sysSignNameSpanSyntax172 SKIP STAGE1
+C/c01_nested_signed_unsigned pre SKIP STAGE1
+C/c01_nested_signed_unsigned preoff SKIP STAGE1
+C/c01_nested_signed_unsigned_el alloff FTOWARD lost=5 neutral=0
+C/c01_nested_signed_unsigned_el offL171 FTOWARD lost=5 neutral=0
+C/c01_nested_signed_unsigned_el off_sysSignNameSpanSyntax172 FTOWARD lost=5 neutral=0
+C/c01_nested_signed_unsigned_el pre FTOWARD lost=5 neutral=0
+C/c01_nested_signed_unsigned_el preoff FTOWARD lost=5 neutral=0
+C/c02_signed_in_range_bound alloff SKIP STAGE1
+C/c02_signed_in_range_bound offL171 SKIP STAGE1
+C/c02_signed_in_range_bound off_sysSignNameSpanSyntax172 SKIP STAGE1
+C/c02_signed_in_range_bound pre SKIP STAGE1
+C/c02_signed_in_range_bound preoff SKIP STAGE1
+C/c02_signed_in_range_bound_el alloff SKIP STAGE1
+C/c02_signed_in_range_bound_el offL171 SKIP STAGE1
+C/c02_signed_in_range_bound_el off_sysSignNameSpanSyntax172 SKIP STAGE1
+C/c02_signed_in_range_bound_el pre SKIP STAGE1
+C/c02_signed_in_range_bound_el preoff SKIP STAGE1
+C/c03_signed_case_item alloff SKIP STAGE1
+C/c03_signed_case_item offL171 SKIP STAGE1
+C/c03_signed_case_item off_sysSignNameSpanSyntax172 SKIP STAGE1
+C/c03_signed_case_item pre SKIP STAGE1
+C/c03_signed_case_item preoff SKIP STAGE1
+C/c03_signed_case_item_el alloff SKIP STAGE1
+C/c03_signed_case_item_el offL171 SKIP STAGE1
+C/c03_signed_case_item_el off_sysSignNameSpanSyntax172 SKIP STAGE1
+C/c03_signed_case_item_el pre SKIP STAGE1
+C/c03_signed_case_item_el preoff SKIP STAGE1
+C/c04_signed_param_and_genif alloff SKIP STAGE1
+C/c04_signed_param_and_genif offL171 SKIP STAGE1
+C/c04_signed_param_and_genif off_sysSignNameSpanSyntax172 SKIP STAGE1
+C/c04_signed_param_and_genif pre SKIP STAGE1
+C/c04_signed_param_and_genif preoff SKIP STAGE1
+C/c04_signed_param_and_genif_el alloff SKIP STAGE1
+C/c04_signed_param_and_genif_el offL171 SKIP STAGE1
+C/c04_signed_param_and_genif_el off_sysSignNameSpanSyntax172 SKIP STAGE1
+C/c04_signed_param_and_genif_el pre SKIP STAGE1
+C/c04_signed_param_and_genif_el preoff SKIP STAGE1
+D/d01_union_in_struct_pkg_otherfile alloff SKIP STAGE1
+D/d01_union_in_struct_pkg_otherfile fix SKIP STAGE1
+D/d01_union_in_struct_pkg_otherfile fixoff SKIP STAGE1
+D/d01_union_in_struct_pkg_otherfile offL171 SKIP STAGE1
+D/d01_union_in_struct_pkg_otherfile off_castUnionCloneFile171 SKIP STAGE1
+D/d01_union_in_struct_pkg_otherfile pre SKIP STAGE1
+D/d01_union_in_struct_pkg_otherfile preoff SKIP STAGE1
+D/d01_union_in_struct_pkg_otherfile_el alloff SKIP STAGE1
+D/d01_union_in_struct_pkg_otherfile_el fix SKIP STAGE1
+D/d01_union_in_struct_pkg_otherfile_el fixoff SKIP STAGE1
+D/d01_union_in_struct_pkg_otherfile_el offL171 SKIP STAGE1
+D/d01_union_in_struct_pkg_otherfile_el off_castUnionCloneFile171 SKIP STAGE1
+D/d01_union_in_struct_pkg_otherfile_el pre SKIP STAGE1
+D/d01_union_in_struct_pkg_otherfile_el preoff SKIP STAGE1
+D/d02_union_typedef_chain alloff SKIP STAGE1
+D/d02_union_typedef_chain fix SKIP STAGE1
+D/d02_union_typedef_chain fixoff SKIP STAGE1
+D/d02_union_typedef_chain offL171 SKIP STAGE1
+D/d02_union_typedef_chain off_castUnionCloneFile171 SKIP STAGE1
+D/d02_union_typedef_chain pre SKIP STAGE1
+D/d02_union_typedef_chain preoff SKIP STAGE1
+D/d02_union_typedef_chain_el alloff SKIP STAGE1
+D/d02_union_typedef_chain_el fix SKIP STAGE1
+D/d02_union_typedef_chain_el fixoff SKIP STAGE1
+D/d02_union_typedef_chain_el offL171 SKIP STAGE1
+D/d02_union_typedef_chain_el off_castUnionCloneFile171 SKIP STAGE1
+D/d02_union_typedef_chain_el pre SKIP STAGE1
+D/d02_union_typedef_chain_el preoff SKIP STAGE1
+D/d03_union_header_two_modules alloff SKIP STAGE1
+D/d03_union_header_two_modules fix SKIP STAGE1
+D/d03_union_header_two_modules fixoff SKIP STAGE1
+D/d03_union_header_two_modules offL171 SKIP STAGE1
+D/d03_union_header_two_modules off_castUnionCloneFile171 SKIP STAGE1
+D/d03_union_header_two_modules pre SKIP STAGE1
+D/d03_union_header_two_modules preoff SKIP STAGE1
+D/d03_union_header_two_modules_el alloff SKIP STAGE1
+D/d03_union_header_two_modules_el fix SKIP STAGE1
+D/d03_union_header_two_modules_el fixoff SKIP STAGE1
+D/d03_union_header_two_modules_el offL171 SKIP STAGE1
+D/d03_union_header_two_modules_el off_castUnionCloneFile171 SKIP STAGE1
+D/d03_union_header_two_modules_el pre SKIP STAGE1
+D/d03_union_header_two_modules_el preoff SKIP STAGE1
+E/e01_union_struct_chain_include alloff FTOWARD lost=62 neutral=0
+E/e01_union_struct_chain_include offL171 FTOWARD lost=62 neutral=0
+E/e01_union_struct_chain_include off_tsMemberRootFile171 FTOWARD lost=62 neutral=0
+E/e01_union_struct_chain_include pre FTOWARD lost=62 neutral=0
+E/e01_union_struct_chain_include preoff FTOWARD lost=62 neutral=0
+E/e01_union_struct_chain_include_el alloff FTOWARD lost=62 neutral=0
+E/e01_union_struct_chain_include_el offL171 FTOWARD lost=62 neutral=0
+E/e01_union_struct_chain_include_el off_tsMemberRootFile171 FTOWARD lost=62 neutral=0
+E/e01_union_struct_chain_include_el pre FTOWARD lost=62 neutral=0
+E/e01_union_struct_chain_include_el preoff FTOWARD lost=62 neutral=0
+E/e02_member_include_of_include alloff FTOWARD lost=8 neutral=0
+E/e02_member_include_of_include offL171 FTOWARD lost=8 neutral=0
+E/e02_member_include_of_include off_tsMemberRootFile171 FTOWARD lost=8 neutral=0
+E/e02_member_include_of_include pre FTOWARD lost=8 neutral=0
+E/e02_member_include_of_include preoff FTOWARD lost=8 neutral=0
+E/e02_member_include_of_include_el alloff FTOWARD lost=9 neutral=0
+E/e02_member_include_of_include_el offL171 FTOWARD lost=9 neutral=0
+E/e02_member_include_of_include_el off_tsMemberRootFile171 FTOWARD lost=9 neutral=0
+E/e02_member_include_of_include_el pre FTOWARD lost=9 neutral=0
+E/e02_member_include_of_include_el preoff FTOWARD lost=9 neutral=0
+E/e03_macro_from_other_root alloff FTOWARD lost=10 neutral=0
+E/e03_macro_from_other_root offL171 FTOWARD lost=10 neutral=0
+E/e03_macro_from_other_root off_tsMemberRootFile171 FTOWARD lost=10 neutral=0
+E/e03_macro_from_other_root pre FTOWARD lost=10 neutral=0
+E/e03_macro_from_other_root preoff FTOWARD lost=10 neutral=0
+E/e03_macro_from_other_root_el alloff FTOWARD lost=9 neutral=0
+E/e03_macro_from_other_root_el offL171 FTOWARD lost=9 neutral=0
+E/e03_macro_from_other_root_el off_tsMemberRootFile171 FTOWARD lost=9 neutral=0
+E/e03_macro_from_other_root_el pre FTOWARD lost=9 neutral=0
+E/e03_macro_from_other_root_el preoff FTOWARD lost=9 neutral=0
+E/e04_class_struct_header alloff FTOWARD lost=4 neutral=0
+E/e04_class_struct_header offL171 FTOWARD lost=4 neutral=0
+E/e04_class_struct_header off_tsMemberRootFile171 FTOWARD lost=4 neutral=0
+E/e04_class_struct_header pre FTOWARD lost=4 neutral=0
+E/e04_class_struct_header preoff FTOWARD lost=4 neutral=0
+E/e04_class_struct_header_el alloff FTOWARD lost=4 neutral=0
+E/e04_class_struct_header_el offL171 FTOWARD lost=4 neutral=0
+E/e04_class_struct_header_el off_tsMemberRootFile171 FTOWARD lost=4 neutral=0
+E/e04_class_struct_header_el pre FTOWARD lost=4 neutral=0
+E/e04_class_struct_header_el preoff FTOWARD lost=4 neutral=0
+F/f01_integer_redecl alloff SKIP STAGE1
+F/f01_integer_redecl offL171 SKIP STAGE1
+F/f01_integer_redecl off_splitPortTsKeyOnPortDecl171 SKIP STAGE1
+F/f01_integer_redecl pre SKIP STAGE1
+F/f01_integer_redecl preoff SKIP STAGE1
+F/f01_integer_redecl_el alloff SKIP STAGE1
+F/f01_integer_redecl_el offL171 SKIP STAGE1
+F/f01_integer_redecl_el off_splitPortTsKeyOnPortDecl171 SKIP STAGE1
+F/f01_integer_redecl_el pre SKIP STAGE1
+F/f01_integer_redecl_el preoff SKIP STAGE1
+F/f02_wire_redecl_ranges alloff FTOWARD lost=16 neutral=0
+F/f02_wire_redecl_ranges offL171 FTOWARD lost=16 neutral=0
+F/f02_wire_redecl_ranges off_splitPortTsKeyOnPortDecl171 FTOWARD lost=16 neutral=0
+F/f02_wire_redecl_ranges pre FTOWARD lost=16 neutral=0
+F/f02_wire_redecl_ranges preoff FTOWARD lost=16 neutral=0
+F/f02_wire_redecl_ranges_el alloff FTOWARD lost=16 neutral=0
+F/f02_wire_redecl_ranges_el offL171 FTOWARD lost=16 neutral=0
+F/f02_wire_redecl_ranges_el off_splitPortTsKeyOnPortDecl171 FTOWARD lost=16 neutral=0
+F/f02_wire_redecl_ranges_el pre FTOWARD lost=16 neutral=0
+F/f02_wire_redecl_ranges_el preoff FTOWARD lost=16 neutral=0
+F/f03_reg_redecl_in_generate alloff SKIP STAGE1
+F/f03_reg_redecl_in_generate offL171 SKIP STAGE1
+F/f03_reg_redecl_in_generate off_splitPortTsKeyOnPortDecl171 SKIP STAGE1
+F/f03_reg_redecl_in_generate pre SKIP STAGE1
+F/f03_reg_redecl_in_generate preoff SKIP STAGE1
+F/f03_reg_redecl_in_generate_el alloff SKIP STAGE1
+F/f03_reg_redecl_in_generate_el offL171 SKIP STAGE1
+F/f03_reg_redecl_in_generate_el off_splitPortTsKeyOnPortDecl171 SKIP STAGE1
+F/f03_reg_redecl_in_generate_el pre SKIP STAGE1
+F/f03_reg_redecl_in_generate_el preoff SKIP STAGE1
+F/f04_mixed_port_decls alloff FTOWARD lost=4 neutral=0
+F/f04_mixed_port_decls offL171 FTOWARD lost=4 neutral=0
+F/f04_mixed_port_decls off_splitPortTsKeyOnPortDecl171 FTOWARD lost=4 neutral=0
+F/f04_mixed_port_decls pre FTOWARD lost=4 neutral=0
+F/f04_mixed_port_decls preoff FTOWARD lost=4 neutral=0
+F/f04_mixed_port_decls_el alloff FTOWARD lost=4 neutral=0
+F/f04_mixed_port_decls_el offL171 FTOWARD lost=4 neutral=0
+F/f04_mixed_port_decls_el off_splitPortTsKeyOnPortDecl171 FTOWARD lost=4 neutral=0
+F/f04_mixed_port_decls_el pre FTOWARD lost=4 neutral=0
+F/f04_mixed_port_decls_el preoff FTOWARD lost=4 neutral=0
+G/g01_unpacked_elem_selects alloff SKIP DIVERGED->ALIGNED
+G/g01_unpacked_elem_selects offL171 SKIP DIVERGED->ALIGNED
+G/g01_unpacked_elem_selects off_selLhsBareDecRhsShared171 SKIP DIVERGED->ALIGNED
+G/g01_unpacked_elem_selects pre SKIP DIVERGED->ALIGNED
+G/g01_unpacked_elem_selects preoff SKIP DIVERGED->ALIGNED
+G/g01_unpacked_elem_selects_el alloff SKIP DIVERGED->ALIGNED
+G/g01_unpacked_elem_selects_el offL171 SKIP DIVERGED->ALIGNED
+G/g01_unpacked_elem_selects_el off_selLhsBareDecRhsShared171 SKIP DIVERGED->ALIGNED
+G/g01_unpacked_elem_selects_el pre SKIP DIVERGED->ALIGNED
+G/g01_unpacked_elem_selects_el preoff SKIP DIVERGED->ALIGNED
+G/g02_sized_and_negative alloff SKIP STAGE1
+G/g02_sized_and_negative offL171 SKIP STAGE1
+G/g02_sized_and_negative off_selLhsBareDecRhsShared171 SKIP STAGE1
+G/g02_sized_and_negative pre SKIP STAGE1
+G/g02_sized_and_negative preoff SKIP STAGE1
+G/g02_sized_and_negative_el alloff SKIP DIVERGED
+G/g02_sized_and_negative_el offL171 SKIP DIVERGED
+G/g02_sized_and_negative_el off_selLhsBareDecRhsShared171 SKIP DIVERGED
+G/g02_sized_and_negative_el pre SKIP DIVERGED
+G/g02_sized_and_negative_el preoff SKIP DIVERGED
+G/g03_in_generates alloff SKIP STAGE1
+G/g03_in_generates offL171 SKIP STAGE1
+G/g03_in_generates off_selLhsBareDecRhsShared171 SKIP STAGE1
+G/g03_in_generates pre SKIP STAGE1
+G/g03_in_generates preoff SKIP STAGE1
+G/g03_in_generates_el alloff SKIP STAGE1
+G/g03_in_generates_el offL171 SKIP STAGE1
+G/g03_in_generates_el off_selLhsBareDecRhsShared171 SKIP STAGE1
+G/g03_in_generates_el pre SKIP STAGE1
+G/g03_in_generates_el preoff SKIP STAGE1
+G/g04_decimal_underscore_signed alloff SKIP STAGE1
+G/g04_decimal_underscore_signed offL171 SKIP STAGE1
+G/g04_decimal_underscore_signed off_selLhsBareDecRhsShared171 SKIP STAGE1
+G/g04_decimal_underscore_signed pre SKIP STAGE1
+G/g04_decimal_underscore_signed preoff SKIP STAGE1
+G/g04_decimal_underscore_signed_el alloff SKIP STAGE1
+G/g04_decimal_underscore_signed_el offL171 SKIP STAGE1
+G/g04_decimal_underscore_signed_el off_selLhsBareDecRhsShared171 SKIP STAGE1
+G/g04_decimal_underscore_signed_el pre SKIP STAGE1
+G/g04_decimal_underscore_signed_el preoff SKIP STAGE1
+H/h01_member_access_first alloff SKIP STAGE1
+H/h01_member_access_first offL171 SKIP STAGE1
+H/h01_member_access_first off_udpFormConcatSwallowSpans171 SKIP STAGE1
+H/h01_member_access_first pre SKIP STAGE1
+H/h01_member_access_first preoff SKIP STAGE1
+H/h01_member_access_first_el alloff SKIP STAGE1
+H/h01_member_access_first_el offL171 SKIP STAGE1
+H/h01_member_access_first_el off_udpFormConcatSwallowSpans171 SKIP STAGE1
+H/h01_member_access_first_el pre SKIP STAGE1
+H/h01_member_access_first_el preoff SKIP STAGE1
+H/h02_single_element_concat alloff SKIP DIVERGED->EQUAL
+H/h02_single_element_concat offL171 SKIP DIVERGED->EQUAL
+H/h02_single_element_concat off_udpFormConcatSwallowSpans171 SKIP DIVERGED->EQUAL
+H/h02_single_element_concat pre SKIP DIVERGED->EQUAL
+H/h02_single_element_concat preoff SKIP DIVERGED->EQUAL
+H/h02_single_element_concat_el alloff FTOWARD lost=6 neutral=0
+H/h02_single_element_concat_el offL171 FTOWARD lost=6 neutral=0
+H/h02_single_element_concat_el off_udpFormConcatSwallowSpans171 FTOWARD lost=6 neutral=0
+H/h02_single_element_concat_el pre FTOWARD lost=6 neutral=0
+H/h02_single_element_concat_el preoff FTOWARD lost=6 neutral=0
+H/h03_part_selects_and_expr_tail alloff SKIP STAGE1
+H/h03_part_selects_and_expr_tail offL171 SKIP STAGE1
+H/h03_part_selects_and_expr_tail off_udpFormConcatSwallowSpans171 SKIP STAGE1
+H/h03_part_selects_and_expr_tail pre SKIP STAGE1
+H/h03_part_selects_and_expr_tail preoff SKIP STAGE1
+H/h03_part_selects_and_expr_tail_el alloff SKIP STAGE1
+H/h03_part_selects_and_expr_tail_el offL171 SKIP STAGE1
+H/h03_part_selects_and_expr_tail_el off_udpFormConcatSwallowSpans171 SKIP STAGE1
+H/h03_part_selects_and_expr_tail_el pre SKIP STAGE1
+H/h03_part_selects_and_expr_tail_el preoff SKIP STAGE1
+H/h04_replication_inside alloff SKIP STAGE1
+H/h04_replication_inside offL171 SKIP STAGE1
+H/h04_replication_inside off_udpFormConcatSwallowSpans171 SKIP STAGE1
+H/h04_replication_inside off_udpSwallowLvalueOnly171v SKIP STAGE1
+H/h04_replication_inside pre SKIP STAGE1
+H/h04_replication_inside preoff SKIP STAGE1
+H/h04_replication_inside_el alloff SKIP STAGE1
+H/h04_replication_inside_el offL171 SKIP STAGE1
+H/h04_replication_inside_el off_udpFormConcatSwallowSpans171 SKIP STAGE1
+H/h04_replication_inside_el off_udpSwallowLvalueOnly171v SKIP STAGE1
+H/h04_replication_inside_el pre SKIP STAGE1
+H/h04_replication_inside_el preoff SKIP STAGE1
+H/h05_nested_bitselects alloff SKIP DIVERGED->ALIGNED
+H/h05_nested_bitselects offL171 SKIP DIVERGED->ALIGNED
+H/h05_nested_bitselects off_udpFormConcatSwallowSpans171 SKIP DIVERGED->ALIGNED
+H/h05_nested_bitselects pre SKIP DIVERGED->ALIGNED
+H/h05_nested_bitselects preoff SKIP DIVERGED->ALIGNED
+H/h05_nested_bitselects_el alloff FTOWARD lost=6 neutral=0
+H/h05_nested_bitselects_el offL171 FTOWARD lost=6 neutral=0
+H/h05_nested_bitselects_el off_udpFormConcatSwallowSpans171 FTOWARD lost=6 neutral=0
+H/h05_nested_bitselects_el pre FTOWARD lost=6 neutral=0
+H/h05_nested_bitselects_el preoff FTOWARD lost=6 neutral=0
+H/h06_first_literal_mixed alloff SKIP STAGE1
+H/h06_first_literal_mixed offL171 SKIP STAGE1
+H/h06_first_literal_mixed off_udpFormConcatSwallowSpans171 SKIP STAGE1
+H/h06_first_literal_mixed off_udpSwallowLvalueOnly171v SKIP STAGE1
+H/h06_first_literal_mixed pre SKIP STAGE1
+H/h06_first_literal_mixed preoff SKIP STAGE1
+H/h06_first_literal_mixed_el alloff SKIP STAGE1
+H/h06_first_literal_mixed_el offL171 SKIP STAGE1
+H/h06_first_literal_mixed_el off_udpFormConcatSwallowSpans171 SKIP STAGE1
+H/h06_first_literal_mixed_el off_udpSwallowLvalueOnly171v SKIP STAGE1
+H/h06_first_literal_mixed_el pre SKIP STAGE1
+H/h06_first_literal_mixed_el preoff SKIP STAGE1
+H/h07_in_generate_loop alloff SKIP STAGE1
+H/h07_in_generate_loop offL171 SKIP STAGE1
+H/h07_in_generate_loop off_udpFormConcatSwallowSpans171 SKIP STAGE1
+H/h07_in_generate_loop pre SKIP STAGE1
+H/h07_in_generate_loop preoff SKIP STAGE1
+H/h07_in_generate_loop_el alloff SKIP STAGE1
+H/h07_in_generate_loop_el offL171 SKIP STAGE1
+H/h07_in_generate_loop_el off_udpFormConcatSwallowSpans171 SKIP STAGE1
+H/h07_in_generate_loop_el pre SKIP STAGE1
+H/h07_in_generate_loop_el preoff SKIP STAGE1
+H/h08_first_op_element alloff SKIP STAGE1
+H/h08_first_op_element offL171 SKIP STAGE1
+H/h08_first_op_element off_udpFormConcatSwallowSpans171 SKIP STAGE1
+H/h08_first_op_element off_udpSwallowLvalueOnly171v SKIP STAGE1
+H/h08_first_op_element pre SKIP STAGE1
+H/h08_first_op_element preoff SKIP STAGE1
+H/h08_first_op_element_el alloff SKIP STAGE1
+H/h08_first_op_element_el offL171 SKIP STAGE1
+H/h08_first_op_element_el off_udpFormConcatSwallowSpans171 SKIP STAGE1
+H/h08_first_op_element_el off_udpSwallowLvalueOnly171v SKIP STAGE1
+H/h08_first_op_element_el pre SKIP STAGE1
+H/h08_first_op_element_el preoff SKIP STAGE1
+I/i01_paste_packed_dim alloff FSAME lost=0 neutral=0
+I/i01_paste_packed_dim offL171 FSAME lost=0 neutral=0
+I/i01_paste_packed_dim off_defNetEndOutputCol171 FSAME lost=0 neutral=0
+I/i01_paste_packed_dim pre FSAME lost=0 neutral=0
+I/i01_paste_packed_dim preoff FSAME lost=0 neutral=0
+I/i01_paste_packed_dim_el alloff FSAME lost=0 neutral=0
+I/i01_paste_packed_dim_el offL171 FSAME lost=0 neutral=0
+I/i01_paste_packed_dim_el off_defNetEndOutputCol171 FSAME lost=0 neutral=0
+I/i01_paste_packed_dim_el pre FSAME lost=0 neutral=0
+I/i01_paste_packed_dim_el preoff FSAME lost=0 neutral=0
+I/i02_multiline_macro_dim alloff FTOWARD lost=3 neutral=0
+I/i02_multiline_macro_dim offL171 FTOWARD lost=3 neutral=0
+I/i02_multiline_macro_dim off_defNetEndOutputCol171 FTOWARD lost=3 neutral=0
+I/i02_multiline_macro_dim pre FTOWARD lost=3 neutral=0
+I/i02_multiline_macro_dim preoff FTOWARD lost=3 neutral=0
+I/i02_multiline_macro_dim_el alloff FTOWARD lost=2 neutral=0
+I/i02_multiline_macro_dim_el offL171 FTOWARD lost=2 neutral=0
+I/i02_multiline_macro_dim_el off_defNetEndOutputCol171 FTOWARD lost=2 neutral=0
+I/i02_multiline_macro_dim_el pre FTOWARD lost=2 neutral=0
+I/i02_multiline_macro_dim_el preoff FTOWARD lost=2 neutral=0
+I/i03_stringify_same_line alloff FTOWARD lost=1 neutral=0
+I/i03_stringify_same_line offL171 FTOWARD lost=1 neutral=0
+I/i03_stringify_same_line off_defNetEndOutputCol171 FTOWARD lost=1 neutral=0
+I/i03_stringify_same_line pre FTOWARD lost=1 neutral=0
+I/i03_stringify_same_line preoff FTOWARD lost=1 neutral=0
+I/i03_stringify_same_line_el alloff FTOWARD lost=1 neutral=0
+I/i03_stringify_same_line_el offL171 FTOWARD lost=1 neutral=0
+I/i03_stringify_same_line_el off_defNetEndOutputCol171 FTOWARD lost=1 neutral=0
+I/i03_stringify_same_line_el pre FTOWARD lost=1 neutral=0
+I/i03_stringify_same_line_el preoff FTOWARD lost=1 neutral=0
+I/i04_macro_unpacked_and_packed2 alloff FTOWARD lost=2 neutral=0
+I/i04_macro_unpacked_and_packed2 offL171 FTOWARD lost=2 neutral=0
+I/i04_macro_unpacked_and_packed2 off_defNetEndOutputCol171 FTOWARD lost=2 neutral=0
+I/i04_macro_unpacked_and_packed2 pre FTOWARD lost=2 neutral=0
+I/i04_macro_unpacked_and_packed2 preoff FTOWARD lost=2 neutral=0
+I/i04_macro_unpacked_and_packed2_el alloff FTOWARD lost=2 neutral=0
+I/i04_macro_unpacked_and_packed2_el offL171 FTOWARD lost=2 neutral=0
+I/i04_macro_unpacked_and_packed2_el off_defNetEndOutputCol171 FTOWARD lost=2 neutral=0
+I/i04_macro_unpacked_and_packed2_el pre FTOWARD lost=2 neutral=0
+I/i04_macro_unpacked_and_packed2_el preoff FTOWARD lost=2 neutral=0
+J/j01_gate_array_elseif alloff FSAME lost=0 neutral=0
+J/j01_gate_array_elseif offL171 FSAME lost=0 neutral=0
+J/j01_gate_array_elseif off_genElseIfGateTermPath171 FSAME lost=0 neutral=0
+J/j01_gate_array_elseif pre FSAME lost=0 neutral=0
+J/j01_gate_array_elseif preoff FSAME lost=0 neutral=0
+J/j01_gate_array_elseif_el alloff FSAME lost=0 neutral=0
+J/j01_gate_array_elseif_el offL171 FSAME lost=0 neutral=0
+J/j01_gate_array_elseif_el off_genElseIfGateTermPath171 FSAME lost=0 neutral=0
+J/j01_gate_array_elseif_el pre FSAME lost=0 neutral=0
+J/j01_gate_array_elseif_el preoff FSAME lost=0 neutral=0
+J/j02_else_begin_if_end alloff FSAME lost=0 neutral=0
+J/j02_else_begin_if_end offL171 FSAME lost=0 neutral=0
+J/j02_else_begin_if_end off_genElseIfGateTermPath171 FSAME lost=0 neutral=0
+J/j02_else_begin_if_end pre FSAME lost=0 neutral=0
+J/j02_else_begin_if_end preoff FSAME lost=0 neutral=0
+J/j02_else_begin_if_end_el alloff FSAME lost=0 neutral=0
+J/j02_else_begin_if_end_el offL171 FSAME lost=0 neutral=0
+J/j02_else_begin_if_end_el off_genElseIfGateTermPath171 FSAME lost=0 neutral=0
+J/j02_else_begin_if_end_el pre FSAME lost=0 neutral=0
+J/j02_else_begin_if_end_el preoff FSAME lost=0 neutral=0
+J/j03_nobegin_elseif_begin_body alloff FTOWARD lost=6 neutral=0
+J/j03_nobegin_elseif_begin_body offL171 FTOWARD lost=6 neutral=0
+J/j03_nobegin_elseif_begin_body off_genElseIfGateTermPath171 FTOWARD lost=6 neutral=0
+J/j03_nobegin_elseif_begin_body pre FTOWARD lost=6 neutral=0
+J/j03_nobegin_elseif_begin_body preoff FTOWARD lost=6 neutral=0
+J/j03_nobegin_elseif_begin_body_el alloff FTOWARD lost=6 neutral=0
+J/j03_nobegin_elseif_begin_body_el offL171 FTOWARD lost=6 neutral=0
+J/j03_nobegin_elseif_begin_body_el off_genElseIfGateTermPath171 FTOWARD lost=6 neutral=0
+J/j03_nobegin_elseif_begin_body_el pre FTOWARD lost=6 neutral=0
+J/j03_nobegin_elseif_begin_body_el preoff FTOWARD lost=6 neutral=0
+J/j04_three_level_chain alloff FTOWARD lost=3 neutral=0
+J/j04_three_level_chain offL171 FTOWARD lost=3 neutral=0
+J/j04_three_level_chain off_genElseIfGateTermPath171 FTOWARD lost=3 neutral=0
+J/j04_three_level_chain pre FTOWARD lost=3 neutral=0
+J/j04_three_level_chain preoff FTOWARD lost=3 neutral=0
+J/j04_three_level_chain_el alloff FTOWARD lost=3 neutral=0
+J/j04_three_level_chain_el offL171 FTOWARD lost=3 neutral=0
+J/j04_three_level_chain_el off_genElseIfGateTermPath171 FTOWARD lost=3 neutral=0
+J/j04_three_level_chain_el pre FTOWARD lost=3 neutral=0
+J/j04_three_level_chain_el preoff FTOWARD lost=3 neutral=0
+J/j05_named_in_chain alloff SKIP STAGE1
+J/j05_named_in_chain offL171 SKIP STAGE1
+J/j05_named_in_chain off_genElseIfGateTermPath171 SKIP STAGE1
+J/j05_named_in_chain pre SKIP STAGE1
+J/j05_named_in_chain preoff SKIP STAGE1
+J/j05_named_in_chain_el alloff SKIP STAGE1
+J/j05_named_in_chain_el offL171 SKIP STAGE1
+J/j05_named_in_chain_el off_genElseIfGateTermPath171 SKIP STAGE1
+J/j05_named_in_chain_el pre SKIP STAGE1
+J/j05_named_in_chain_el preoff SKIP STAGE1
+J/j06_udp_in_elseif alloff SKIP STAGE1
+J/j06_udp_in_elseif offL171 SKIP STAGE1
+J/j06_udp_in_elseif off_genElseIfGateTermPath171 SKIP STAGE1
+J/j06_udp_in_elseif pre SKIP STAGE1
+J/j06_udp_in_elseif preoff SKIP STAGE1
+J/j06_udp_in_elseif_el alloff SKIP STAGE1
+J/j06_udp_in_elseif_el offL171 SKIP STAGE1
+J/j06_udp_in_elseif_el off_genElseIfGateTermPath171 SKIP STAGE1
+J/j06_udp_in_elseif_el pre SKIP STAGE1
+J/j06_udp_in_elseif_el preoff SKIP STAGE1
+J/j07_elseif_two_instances alloff FTOWARD lost=6 neutral=0
+J/j07_elseif_two_instances offL171 FTOWARD lost=6 neutral=0
+J/j07_elseif_two_instances off_genElseIfGateTermPath171 FTOWARD lost=6 neutral=0
+J/j07_elseif_two_instances pre FTOWARD lost=6 neutral=0
+J/j07_elseif_two_instances preoff FTOWARD lost=6 neutral=0
+J/j07_elseif_two_instances_el alloff FTOWARD lost=6 neutral=0
+J/j07_elseif_two_instances_el offL171 FTOWARD lost=6 neutral=0
+J/j07_elseif_two_instances_el off_genElseIfGateTermPath171 FTOWARD lost=6 neutral=0
+J/j07_elseif_two_instances_el pre FTOWARD lost=6 neutral=0
+J/j07_elseif_two_instances_el preoff FTOWARD lost=6 neutral=0
+J/j08_flat_chain_in_named alloff FTOWARD lost=3 neutral=0
+J/j08_flat_chain_in_named offL171 FTOWARD lost=3 neutral=0
+J/j08_flat_chain_in_named off_genElseIfFlatOnly171v FSAME lost=0 neutral=0
+J/j08_flat_chain_in_named off_genElseIfGateTermPath171 FTOWARD lost=3 neutral=0
+J/j08_flat_chain_in_named pre FTOWARD lost=3 neutral=0
+J/j08_flat_chain_in_named preoff FTOWARD lost=3 neutral=0
+J/j08_flat_chain_in_named_el alloff FTOWARD lost=3 neutral=0
+J/j08_flat_chain_in_named_el offL171 FTOWARD lost=3 neutral=0
+J/j08_flat_chain_in_named_el off_genElseIfFlatOnly171v FSAME lost=0 neutral=0
+J/j08_flat_chain_in_named_el off_genElseIfGateTermPath171 FTOWARD lost=3 neutral=0
+J/j08_flat_chain_in_named_el pre FTOWARD lost=3 neutral=0
+J/j08_flat_chain_in_named_el preoff FTOWARD lost=3 neutral=0
+J/j09_flat_elseif_nested_if alloff FSAME lost=0 neutral=0
+J/j09_flat_elseif_nested_if offL171 FSAME lost=0 neutral=0
+J/j09_flat_elseif_nested_if off_genElseIfFlatOnly171v FSAME lost=0 neutral=0
+J/j09_flat_elseif_nested_if off_genElseIfGateTermPath171 FSAME lost=0 neutral=0
+J/j09_flat_elseif_nested_if pre FSAME lost=0 neutral=0
+J/j09_flat_elseif_nested_if preoff FSAME lost=0 neutral=0
+J/j09_flat_elseif_nested_if_el alloff FSAME lost=0 neutral=0
+J/j09_flat_elseif_nested_if_el offL171 FSAME lost=0 neutral=0
+J/j09_flat_elseif_nested_if_el off_genElseIfFlatOnly171v FSAME lost=0 neutral=0
+J/j09_flat_elseif_nested_if_el off_genElseIfGateTermPath171 FSAME lost=0 neutral=0
+J/j09_flat_elseif_nested_if_el pre FSAME lost=0 neutral=0
+J/j09_flat_elseif_nested_if_el preoff FSAME lost=0 neutral=0
+J/j10_flat_chain_gate_array alloff SKIP STAGE1
+J/j10_flat_chain_gate_array offL171 SKIP STAGE1
+J/j10_flat_chain_gate_array off_genElseIfFlatOnly171v SKIP STAGE1
+J/j10_flat_chain_gate_array off_genElseIfGateTermPath171 SKIP STAGE1
+J/j10_flat_chain_gate_array pre SKIP STAGE1
+J/j10_flat_chain_gate_array preoff SKIP STAGE1
+J/j10_flat_chain_gate_array_el alloff SKIP STAGE1
+J/j10_flat_chain_gate_array_el offL171 SKIP STAGE1
+J/j10_flat_chain_gate_array_el off_genElseIfFlatOnly171v SKIP STAGE1
+J/j10_flat_chain_gate_array_el off_genElseIfGateTermPath171 SKIP STAGE1
+J/j10_flat_chain_gate_array_el pre SKIP STAGE1
+J/j10_flat_chain_gate_array_el preoff SKIP STAGE1
+K/k01_from_other_package alloff SKIP DIVERGED->EQUAL
+K/k01_from_other_package offL174 SKIP DIVERGED->EQUAL
+K/k01_from_other_package off_pkgFnCastTopListing172 SKIP DIVERGED->EQUAL
+K/k01_from_other_package pre SKIP DIVERGED->EQUAL
+K/k01_from_other_package preoff SKIP DIVERGED->EQUAL
+K/k01_from_other_package_el alloff SKIP DIVERGED->EQUAL
+K/k01_from_other_package_el offL174 SKIP DIVERGED->EQUAL
+K/k01_from_other_package_el off_pkgFnCastTopListing172 SKIP DIVERGED->EQUAL
+K/k01_from_other_package_el pre SKIP DIVERGED->EQUAL
+K/k01_from_other_package_el preoff SKIP DIVERGED->EQUAL
+K/k02_from_class alloff SKIP DIVERGED->EQUAL
+K/k02_from_class offL174 SKIP DIVERGED->EQUAL
+K/k02_from_class off_pkgFnCastTopListing172 SKIP DIVERGED->EQUAL
+K/k02_from_class pre SKIP DIVERGED->EQUAL
+K/k02_from_class preoff SKIP DIVERGED->EQUAL
+K/k02_from_class_el alloff SKIP DIVERGED->EQUAL
+K/k02_from_class_el offL174 SKIP DIVERGED->EQUAL
+K/k02_from_class_el off_pkgFnCastTopListing172 SKIP DIVERGED->EQUAL
+K/k02_from_class_el pre SKIP DIVERGED->EQUAL
+K/k02_from_class_el preoff SKIP DIVERGED->EQUAL
+K/k03_from_module_param alloff SKIP STAGE1
+K/k03_from_module_param offL174 SKIP STAGE1
+K/k03_from_module_param off_pkgFnCastTopListing172 SKIP STAGE1
+K/k03_from_module_param pre SKIP STAGE1
+K/k03_from_module_param preoff SKIP STAGE1
+K/k03_from_module_param_el alloff SKIP STAGE1
+K/k03_from_module_param_el offL174 SKIP STAGE1
+K/k03_from_module_param_el off_pkgFnCastTopListing172 SKIP STAGE1
+K/k03_from_module_param_el pre SKIP STAGE1
+K/k03_from_module_param_el preoff SKIP STAGE1
+K/k04_typedef_chain_cast alloff SKIP STAGE1
+K/k04_typedef_chain_cast offL174 SKIP STAGE1
+K/k04_typedef_chain_cast off_pkgFnCastTopListing172 SKIP STAGE1
+K/k04_typedef_chain_cast pre SKIP STAGE1
+K/k04_typedef_chain_cast preoff SKIP STAGE1
+K/k04_typedef_chain_cast_el alloff SKIP STAGE1
+K/k04_typedef_chain_cast_el offL174 SKIP STAGE1
+K/k04_typedef_chain_cast_el off_pkgFnCastTopListing172 SKIP STAGE1
+K/k04_typedef_chain_cast_el pre SKIP STAGE1
+K/k04_typedef_chain_cast_el preoff SKIP STAGE1
+L/l01_genfor_per_iter alloff SKIP STAGE1
+L/l01_genfor_per_iter offL174 SKIP STAGE1
+L/l01_genfor_per_iter off_elabParamLeftoverRefUnnamed174 SKIP STAGE1
+L/l01_genfor_per_iter pre SKIP STAGE1
+L/l01_genfor_per_iter preoff SKIP STAGE1
+L/l01_genfor_per_iter_el alloff SKIP STAGE1
+L/l01_genfor_per_iter_el offL174 SKIP STAGE1
+L/l01_genfor_per_iter_el off_elabParamLeftoverRefUnnamed174 SKIP STAGE1
+L/l01_genfor_per_iter_el pre SKIP STAGE1
+L/l01_genfor_per_iter_el preoff SKIP STAGE1
+L/l02_parent_fnbuilt_override alloff SKIP STAGE1
+L/l02_parent_fnbuilt_override offL174 SKIP STAGE1
+L/l02_parent_fnbuilt_override off_elabParamLeftoverRefUnnamed174 SKIP STAGE1
+L/l02_parent_fnbuilt_override pre SKIP STAGE1
+L/l02_parent_fnbuilt_override preoff SKIP STAGE1
+L/l02_parent_fnbuilt_override_el alloff SKIP STAGE1
+L/l02_parent_fnbuilt_override_el offL174 SKIP STAGE1
+L/l02_parent_fnbuilt_override_el off_elabParamLeftoverRefUnnamed174 SKIP STAGE1
+L/l02_parent_fnbuilt_override_el pre SKIP STAGE1
+L/l02_parent_fnbuilt_override_el preoff SKIP STAGE1
+L/l03_two_wildcard_importers alloff SKIP DIVERGED
+L/l03_two_wildcard_importers offL174 SKIP DIVERGED
+L/l03_two_wildcard_importers off_elabParamLeftoverRefUnnamed174 SKIP DIVERGED
+L/l03_two_wildcard_importers pre SKIP DIVERGED
+L/l03_two_wildcard_importers preoff SKIP DIVERGED
+L/l03_two_wildcard_importers_el alloff SKIP DIVERGED
+L/l03_two_wildcard_importers_el offL174 SKIP DIVERGED
+L/l03_two_wildcard_importers_el off_elabParamLeftoverRefUnnamed174 SKIP DIVERGED
+L/l03_two_wildcard_importers_el pre SKIP DIVERGED
+L/l03_two_wildcard_importers_el preoff SKIP DIVERGED
+L/l04_instance_array_sibling alloff FTOWARD lost=26 neutral=0
+L/l04_instance_array_sibling offL174 FTOWARD lost=26 neutral=0
+L/l04_instance_array_sibling off_elabParamLeftoverRefUnnamed174 FTOWARD lost=24 neutral=0
+L/l04_instance_array_sibling pre FTOWARD lost=26 neutral=0
+L/l04_instance_array_sibling preoff FTOWARD lost=26 neutral=0
+L/l04_instance_array_sibling_el alloff FTOWARD lost=26 neutral=0
+L/l04_instance_array_sibling_el offL174 FTOWARD lost=26 neutral=0
+L/l04_instance_array_sibling_el off_elabParamLeftoverRefUnnamed174 FTOWARD lost=24 neutral=0
+L/l04_instance_array_sibling_el pre FTOWARD lost=26 neutral=0
+L/l04_instance_array_sibling_el preoff FTOWARD lost=26 neutral=0
+M/m01_member_read_qualified alloff SKIP STAGE1
+M/m01_member_read_qualified offL174 SKIP STAGE1
+M/m01_member_read_qualified off_asmRefQualWholeSpanElab174 SKIP STAGE1
+M/m01_member_read_qualified pre SKIP STAGE1
+M/m01_member_read_qualified preoff SKIP STAGE1
+M/m01_member_read_qualified_el alloff SKIP STAGE1
+M/m01_member_read_qualified_el offL174 SKIP STAGE1
+M/m01_member_read_qualified_el off_asmRefQualWholeSpanElab174 SKIP STAGE1
+M/m01_member_read_qualified_el pre SKIP STAGE1
+M/m01_member_read_qualified_el preoff SKIP STAGE1
+M/m02_comment_inside_ref alloff SKIP STAGE1
+M/m02_comment_inside_ref offL174 SKIP STAGE1
+M/m02_comment_inside_ref off_asmRefQualWholeSpanElab174 SKIP STAGE1
+M/m02_comment_inside_ref pre SKIP STAGE1
+M/m02_comment_inside_ref preoff SKIP STAGE1
+M/m02_comment_inside_ref_el alloff SKIP STAGE1
+M/m02_comment_inside_ref_el offL174 SKIP STAGE1
+M/m02_comment_inside_ref_el off_asmRefQualWholeSpanElab174 SKIP STAGE1
+M/m02_comment_inside_ref_el pre SKIP STAGE1
+M/m02_comment_inside_ref_el preoff SKIP STAGE1
+M/m03_interface_param alloff SKIP STAGE1
+M/m03_interface_param offL174 SKIP STAGE1
+M/m03_interface_param off_asmRefQualWholeSpanElab174 SKIP STAGE1
+M/m03_interface_param pre SKIP STAGE1
+M/m03_interface_param preoff SKIP STAGE1
+M/m03_interface_param_el alloff SKIP STAGE1
+M/m03_interface_param_el offL174 SKIP STAGE1
+M/m03_interface_param_el off_asmRefQualWholeSpanElab174 SKIP STAGE1
+M/m03_interface_param_el pre SKIP STAGE1
+M/m03_interface_param_el preoff SKIP STAGE1
+M/m04_two_modules_two_instances alloff SKIP STAGE1
+M/m04_two_modules_two_instances offL174 SKIP STAGE1
+M/m04_two_modules_two_instances off_asmRefQualWholeSpanElab174 SKIP STAGE1
+M/m04_two_modules_two_instances pre SKIP STAGE1
+M/m04_two_modules_two_instances preoff SKIP STAGE1
+M/m04_two_modules_two_instances_el alloff SKIP STAGE1
+M/m04_two_modules_two_instances_el offL174 SKIP STAGE1
+M/m04_two_modules_two_instances_el off_asmRefQualWholeSpanElab174 SKIP STAGE1
+M/m04_two_modules_two_instances_el pre SKIP STAGE1
+M/m04_two_modules_two_instances_el preoff SKIP STAGE1
+M/m05_exported_pkg_ref alloff SKIP STAGE1
+M/m05_exported_pkg_ref offL174 SKIP STAGE1
+M/m05_exported_pkg_ref off_asmRefQualWholeSpanElab174 SKIP STAGE1
+M/m05_exported_pkg_ref pre SKIP STAGE1
+M/m05_exported_pkg_ref preoff SKIP STAGE1
+M/m05_exported_pkg_ref_el alloff SKIP STAGE1
+M/m05_exported_pkg_ref_el offL174 SKIP STAGE1
+M/m05_exported_pkg_ref_el off_asmRefQualWholeSpanElab174 SKIP STAGE1
+M/m05_exported_pkg_ref_el pre SKIP STAGE1
+M/m05_exported_pkg_ref_el preoff SKIP STAGE1
+N/n01_pkg_pattern_and_fn_base alloff SKIP STAGE1
+N/n01_pkg_pattern_and_fn_base offL174 SKIP STAGE1
+N/n01_pkg_pattern_and_fn_base off_elabStructMemberOpFoldUnlocated174 SKIP STAGE1
+N/n01_pkg_pattern_and_fn_base off_mopPkgBaseReduces174v SKIP STAGE1
+N/n01_pkg_pattern_and_fn_base pre SKIP STAGE1
+N/n01_pkg_pattern_and_fn_base preoff SKIP STAGE1
+N/n01_pkg_pattern_and_fn_base_el alloff SKIP STAGE1
+N/n01_pkg_pattern_and_fn_base_el offL174 SKIP STAGE1
+N/n01_pkg_pattern_and_fn_base_el off_elabStructMemberOpFoldUnlocated174 SKIP STAGE1
+N/n01_pkg_pattern_and_fn_base_el off_mopPkgBaseReduces174v SKIP STAGE1
+N/n01_pkg_pattern_and_fn_base_el pre SKIP STAGE1
+N/n01_pkg_pattern_and_fn_base_el preoff SKIP STAGE1
+N/n02_unit_base alloff SKIP STAGE1
+N/n02_unit_base offL174 SKIP STAGE1
+N/n02_unit_base off_elabStructMemberOpFoldUnlocated174 SKIP STAGE1
+N/n02_unit_base pre SKIP STAGE1
+N/n02_unit_base preoff SKIP STAGE1
+N/n02_unit_base_el alloff SKIP STAGE1
+N/n02_unit_base_el offL174 SKIP STAGE1
+N/n02_unit_base_el off_elabStructMemberOpFoldUnlocated174 SKIP STAGE1
+N/n02_unit_base_el pre SKIP STAGE1
+N/n02_unit_base_el preoff SKIP STAGE1
+N/n03_class_static_base alloff SKIP STAGE1
+N/n03_class_static_base offL174 SKIP STAGE1
+N/n03_class_static_base off_elabStructMemberOpFoldUnlocated174 SKIP STAGE1
+N/n03_class_static_base pre SKIP STAGE1
+N/n03_class_static_base preoff SKIP STAGE1
+N/n03_class_static_base_el alloff SKIP STAGE1
+N/n03_class_static_base_el offL174 SKIP STAGE1
+N/n03_class_static_base_el off_elabStructMemberOpFoldUnlocated174 SKIP STAGE1
+N/n03_class_static_base_el pre SKIP STAGE1
+N/n03_class_static_base_el preoff SKIP STAGE1
+N/n04_generate_localparam_base alloff SKIP STAGE1
+N/n04_generate_localparam_base offL174 SKIP STAGE1
+N/n04_generate_localparam_base off_elabStructMemberOpFoldUnlocated174 SKIP STAGE1
+N/n04_generate_localparam_base pre SKIP STAGE1
+N/n04_generate_localparam_base preoff SKIP STAGE1
+N/n04_generate_localparam_base_el alloff SKIP STAGE1
+N/n04_generate_localparam_base_el offL174 SKIP STAGE1
+N/n04_generate_localparam_base_el off_elabStructMemberOpFoldUnlocated174 SKIP STAGE1
+N/n04_generate_localparam_base_el pre SKIP STAGE1
+N/n04_generate_localparam_base_el preoff SKIP STAGE1
+N/n05_casts_over_members alloff SKIP STAGE1
+N/n05_casts_over_members offL174 SKIP STAGE1
+N/n05_casts_over_members off_elabStructMemberOpFoldUnlocated174 SKIP STAGE1
+N/n05_casts_over_members pre SKIP STAGE1
+N/n05_casts_over_members preoff SKIP STAGE1
+N/n05_casts_over_members_el alloff SKIP STAGE1
+N/n05_casts_over_members_el offL174 SKIP STAGE1
+N/n05_casts_over_members_el off_elabStructMemberOpFoldUnlocated174 SKIP STAGE1
+N/n05_casts_over_members_el pre SKIP STAGE1
+N/n05_casts_over_members_el preoff SKIP STAGE1
+N/n06_interface_base alloff SKIP STAGE1
+N/n06_interface_base offL174 SKIP STAGE1
+N/n06_interface_base off_elabStructMemberOpFoldUnlocated174 SKIP STAGE1
+N/n06_interface_base pre SKIP STAGE1
+N/n06_interface_base preoff SKIP STAGE1
+N/n06_interface_base_el alloff SKIP STAGE1
+N/n06_interface_base_el offL174 SKIP STAGE1
+N/n06_interface_base_el off_elabStructMemberOpFoldUnlocated174 SKIP STAGE1
+N/n06_interface_base_el pre SKIP STAGE1
+N/n06_interface_base_el preoff SKIP STAGE1
+N/n07_import_pkg_mixed alloff SKIP STAGE1
+N/n07_import_pkg_mixed offL174 SKIP STAGE1
+N/n07_import_pkg_mixed off_elabStructMemberOpFoldUnlocated174 SKIP STAGE1
+N/n07_import_pkg_mixed off_mopPkgBaseReduces174v SKIP STAGE1
+N/n07_import_pkg_mixed pre SKIP STAGE1
+N/n07_import_pkg_mixed preoff SKIP STAGE1
+N/n07_import_pkg_mixed_el alloff SKIP STAGE1
+N/n07_import_pkg_mixed_el offL174 SKIP STAGE1
+N/n07_import_pkg_mixed_el off_elabStructMemberOpFoldUnlocated174 SKIP STAGE1
+N/n07_import_pkg_mixed_el off_mopPkgBaseReduces174v SKIP STAGE1
+N/n07_import_pkg_mixed_el pre SKIP STAGE1
+N/n07_import_pkg_mixed_el preoff SKIP STAGE1
+N/n08_pkg_cast_unary alloff SKIP STAGE1
+N/n08_pkg_cast_unary offL174 SKIP STAGE1
+N/n08_pkg_cast_unary off_elabStructMemberOpFoldUnlocated174 SKIP STAGE1
+N/n08_pkg_cast_unary off_mopPkgBaseReduces174v SKIP STAGE1
+N/n08_pkg_cast_unary pre SKIP STAGE1
+N/n08_pkg_cast_unary preoff SKIP STAGE1
+N/n08_pkg_cast_unary_el alloff SKIP STAGE1
+N/n08_pkg_cast_unary_el offL174 SKIP STAGE1
+N/n08_pkg_cast_unary_el off_elabStructMemberOpFoldUnlocated174 SKIP STAGE1
+N/n08_pkg_cast_unary_el off_mopPkgBaseReduces174v SKIP STAGE1
+N/n08_pkg_cast_unary_el pre SKIP STAGE1
+N/n08_pkg_cast_unary_el preoff SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual alloff SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual off2_memLeftFormalArgLoc169_mlArgLocFileAtActual177v SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual off2_tdMoveCarriesFile172_memLeftFormalArgLoc169 SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual off2_tdMoveCarriesFile172_mlArgLocFileAtActual177v SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual offL169 SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual offL171 SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual offL177 SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual off_memLeftFormalArgLoc169 SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual off_mlArgLocFileAtActual177v SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual off_tdMoveCarriesFile172 SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual pre SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual preoff SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual_el alloff SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual_el off2_memLeftFormalArgLoc169_mlArgLocFileAtActual177v SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual_el off2_tdMoveCarriesFile172_memLeftFormalArgLoc169 SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual_el off2_tdMoveCarriesFile172_mlArgLocFileAtActual177v SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual_el offL169 SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual_el offL171 SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual_el offL177 SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual_el off_memLeftFormalArgLoc169 SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual_el off_mlArgLocFileAtActual177v SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual_el off_tdMoveCarriesFile172 SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual_el pre SKIP STAGE1
+X/x01_file_x_mlarg_macro_actual_el preoff SKIP STAGE1
+X/x02_memberroot_x_leftref alloff FTOWARD lost=63 neutral=0
+X/x02_memberroot_x_leftref off2_tsMemberRootFile171_elabParamLeftoverRefUnnamed174 FTOWARD lost=61 neutral=0
+X/x02_memberroot_x_leftref offL171 FTOWARD lost=45 neutral=0
+X/x02_memberroot_x_leftref offL174 FTOWARD lost=18 neutral=0
+X/x02_memberroot_x_leftref off_elabParamLeftoverRefUnnamed174 FTOWARD lost=16 neutral=0
+X/x02_memberroot_x_leftref off_tsMemberRootFile171 FTOWARD lost=45 neutral=0
+X/x02_memberroot_x_leftref pre FTOWARD lost=63 neutral=0
+X/x02_memberroot_x_leftref preoff FTOWARD lost=63 neutral=0
+X/x02_memberroot_x_leftref_el alloff FTOWARD lost=81 neutral=0
+X/x02_memberroot_x_leftref_el off2_tsMemberRootFile171_elabParamLeftoverRefUnnamed174 FTOWARD lost=79 neutral=0
+X/x02_memberroot_x_leftref_el offL171 FTOWARD lost=63 neutral=0
+X/x02_memberroot_x_leftref_el offL174 FTOWARD lost=18 neutral=0
+X/x02_memberroot_x_leftref_el off_elabParamLeftoverRefUnnamed174 FTOWARD lost=16 neutral=0
+X/x02_memberroot_x_leftref_el off_tsMemberRootFile171 FTOWARD lost=63 neutral=0
+X/x02_memberroot_x_leftref_el pre FTOWARD lost=81 neutral=0
+X/x02_memberroot_x_leftref_el preoff FTOWARD lost=81 neutral=0
+X/x03_udp_x_gcachain alloff SKIP STAGE1
+X/x03_udp_x_gcachain off2_udpFormConcatSwallowSpans171_genCaFoldTsChainNamed169 SKIP STAGE1
+X/x03_udp_x_gcachain offL169 SKIP STAGE1
+X/x03_udp_x_gcachain offL171 SKIP STAGE1
+X/x03_udp_x_gcachain off_genCaFoldTsChainNamed169 SKIP STAGE1
+X/x03_udp_x_gcachain off_udpFormConcatSwallowSpans171 SKIP STAGE1
+X/x03_udp_x_gcachain pre SKIP STAGE1
+X/x03_udp_x_gcachain preoff SKIP STAGE1
+X/x03_udp_x_gcachain_el alloff SKIP STAGE1
+X/x03_udp_x_gcachain_el off2_udpFormConcatSwallowSpans171_genCaFoldTsChainNamed169 SKIP STAGE1
+X/x03_udp_x_gcachain_el offL169 SKIP STAGE1
+X/x03_udp_x_gcachain_el offL171 SKIP STAGE1
+X/x03_udp_x_gcachain_el off_genCaFoldTsChainNamed169 SKIP STAGE1
+X/x03_udp_x_gcachain_el off_udpFormConcatSwallowSpans171 SKIP STAGE1
+X/x03_udp_x_gcachain_el pre SKIP STAGE1
+X/x03_udp_x_gcachain_el preoff SKIP STAGE1
+X/x04_digits_x_depth alloff SKIP STAGE1
+X/x04_digits_x_depth off2_boundLitWrittenDigits172_pkgFnCastTopListing172 SKIP STAGE1
+X/x04_digits_x_depth offL171 SKIP STAGE1
+X/x04_digits_x_depth offL174 SKIP STAGE1
+X/x04_digits_x_depth off_boundLitWrittenDigits172 SKIP STAGE1
+X/x04_digits_x_depth off_pkgFnCastTopListing172 SKIP STAGE1
+X/x04_digits_x_depth pre SKIP STAGE1
+X/x04_digits_x_depth preoff SKIP STAGE1
+X/x04_digits_x_depth_el alloff SKIP STAGE1
+X/x04_digits_x_depth_el off2_boundLitWrittenDigits172_pkgFnCastTopListing172 SKIP STAGE1
+X/x04_digits_x_depth_el offL171 SKIP STAGE1
+X/x04_digits_x_depth_el offL174 SKIP STAGE1
+X/x04_digits_x_depth_el off_boundLitWrittenDigits172 SKIP STAGE1
+X/x04_digits_x_depth_el off_pkgFnCastTopListing172 SKIP STAGE1
+X/x04_digits_x_depth_el pre SKIP STAGE1
+X/x04_digits_x_depth_el preoff SKIP STAGE1
+X/x05_seldec_x_mopunloc alloff SKIP DIVERGED->EQUAL
+X/x05_seldec_x_mopunloc off2_selLhsBareDecRhsShared171_elabStructMemberOpFoldUnlocated174 SKIP DIVERGED->EQUAL
+X/x05_seldec_x_mopunloc offL171 SKIP DIVERGED->EQUAL
+X/x05_seldec_x_mopunloc offL174 FTOWARD lost=28 neutral=0
+X/x05_seldec_x_mopunloc off_elabStructMemberOpFoldUnlocated174 FTOWARD lost=10 neutral=0
+X/x05_seldec_x_mopunloc off_selLhsBareDecRhsShared171 SKIP DIVERGED->EQUAL
+X/x05_seldec_x_mopunloc pre SKIP DIVERGED->EQUAL
+X/x05_seldec_x_mopunloc preoff SKIP DIVERGED->EQUAL
+X/x05_seldec_x_mopunloc_el alloff SKIP DIVERGED->EQUAL
+X/x05_seldec_x_mopunloc_el off2_selLhsBareDecRhsShared171_elabStructMemberOpFoldUnlocated174 SKIP DIVERGED->EQUAL
+X/x05_seldec_x_mopunloc_el offL171 SKIP DIVERGED->EQUAL
+X/x05_seldec_x_mopunloc_el offL174 FTOWARD lost=28 neutral=0
+X/x05_seldec_x_mopunloc_el off_elabStructMemberOpFoldUnlocated174 FTOWARD lost=10 neutral=0
+X/x05_seldec_x_mopunloc_el off_selLhsBareDecRhsShared171 SKIP DIVERGED->EQUAL
+X/x05_seldec_x_mopunloc_el pre SKIP DIVERGED->EQUAL
+X/x05_seldec_x_mopunloc_el preoff SKIP DIVERGED->EQUAL
+tp/r11u174repro/cases/lr/l15 alloff SKIP DIVERGED
+tp/r11u174repro/cases/ub/u12 alloff FTOWARD lost=9 neutral=0
+tp/r11v174repro/cases/mo/b06 alloff FTOWARD lost=18 neutral=0
+tp/v11u171repro/cases/F/h01_samename_two_pkgs alloff FSAME lost=0 neutral=0
+tp/v11u171repro/cases/F/h02_formal_in_include alloff FSAME lost=0 neutral=0
+tp/v11u171repro/cases/F/h03_formal_via_macro alloff FSAME lost=0 neutral=0
+tp/v11u171repro/cases/F/h05_net_unpacked_two_files alloff FNEUTRAL lost=0 neutral=9
+tp/v11u171repro/cases/F/h07_two_tops alloff FNEUTRAL lost=0 neutral=9
+tp/v11u171repro/cases/F/h09_two_tops_alpha alloff FTOWARD lost=9 neutral=0
+tp/v11u171repro/cases/F/h10_samename_imported alloff FTOWARD lost=10 neutral=10
+tp/v11u171repro/cases/G/a03_else_begin_if alloff FSAME lost=0 neutral=0
+tp/v11u171repro/cases/G/a05_elseif_gate_array alloff FSAME lost=0 neutral=0
+tp/v11u171repro/cases/G/a12_outer_nobegin_inner_begin alloff FSAME lost=0 neutral=0
+tp/v11u171repro/cases/Q/c07_const_in_concat alloff SKIP STAGE1
+tp/v11u171repro/cases/Q/c12_op_in_concat alloff SKIP STAGE1
