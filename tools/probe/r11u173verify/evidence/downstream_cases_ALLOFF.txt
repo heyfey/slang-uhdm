@@ -1,0 +1,125 @@
+ALLOFF | bu/u01_bind_type_two_instances | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | bu/u02_bind_unresolved_selected | EQUIVALENT | NO_GATES | NO_GATES | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | bu/u03_bind_instance_path_target | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | cx/x01_pview_struct_typed_iface_param | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | cx/x02_pview_header_type_param | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | cx/x03_gen_netdecl_and_proc_fold | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | cx/x04_alias_enum_in_func_body | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u173_dsc/ALL
+ALLOFF | cx/x05_defgen_vs_elab_path_select | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | cx/x06_range_query_param_fold | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | cx/x07_pview_generic_struct_param_iface | IDENTICAL | READ_FAIL | READ_FAIL | - | both READ_FAIL
+ALLOFF | dl/d01_localparam_expr_list | IDENTICAL | OK | OK | - | -
+ALLOFF | dl/d02_pkg_param_list | IDENTICAL | OK | OK | - | -
+ALLOFF | dl/d03_expr_list | IDENTICAL | OK | OK | - | -
+ALLOFF | dl/d04_genif_literal_list | IDENTICAL | OK | OK | - | -
+ALLOFF | dl/d05_mintypmax_list | IDENTICAL | OK | OK | - | -
+ALLOFF | dl/d06_param_iface_two_insts | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | dl/d07_real_param | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | dl/d08_three_list_param_child | IDENTICAL | OK | OK | - | -
+ALLOFF | ea/e01_pkg_param_base_module_enum | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u173_dsc/ALL
+ALLOFF | ea/e02_alias_chain_iface | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ALLOFF | ea/e03_alias_in_program | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | ea/e04_iface_alias_modport_var | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u173_dsc/ALL
+ALLOFF | ea/e05_header_param_base_override | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u173_dsc/ALL
+ALLOFF | ea/e06_unit_alias_expr_base | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u173_dsc/ALL
+ALLOFF | fb/b01_part_select | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | fb/b02_indexed_part_select | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | fb/b03_concat | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | fb/b04_user_call | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | fb/b05_size_cast | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | fb/b06_ternary | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ℹ️  No common assign statements to compare — skipping
+ALLOFF | fb/b07_unary_reduction | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | fb/b08_sys_call | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | fb/b09_nested_member | DIVERGENT | NO_GATES | NO_GATES | nohier il synth |    This indicates a serious bug in UHDM import
+ALLOFF | fb/b10_row_select | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | fo/f01_ordered_iface_struct_member | IDENTICAL | OK | OK | - | -
+ALLOFF | fo/f02_ordered_instance_array | DIVERGENT | OK | OK | nohier il synth |    This indicates a serious bug in /tmp/r11u173_dsc/ALLOFF/fo__f02_ordered_insta
+ALLOFF | fo/f03_ordered_concat_first | IDENTICAL | OK | OK | - | -
+ALLOFF | fo/f04_ordered_param_and_ports_genblk | IDENTICAL | OK | OK | - | -
+ALLOFF | gp/g01_nested_iface_lhs_genif | EQUIVALENT | NO_GATES | NO_GATES | nohier il | ℹ️  No common assign statements to compare — skipping
+ALLOFF | gp/g02_genif_cond_two_paths | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | gp/g03_concat_lhs_genif | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | gp/g04_genfor_port_param_bound | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | gp/g05_gencase_item_struct_param | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | gs/z01_struct_typed_param | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | gs/z02_signed_genfor | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ✅ All 3 common constant assignments match
+ALLOFF | gs/z03_typedef_typed_param | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | gs/z04_int_typed_param | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | gs/z05_gencase_wide_range | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | gs/z06_ascending_range_bit | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | hw/w01_blank_after_dot_lhs | STATUS_DIFF | NO_GATES | READ_FAIL | - | -
+ALLOFF | hw/w02_port_actual | STATUS_DIFF | OK | READ_FAIL | - | -
+ALLOFF | hw/w03_if_condition | STATUS_DIFF | OK | READ_FAIL | - | -
+ALLOFF | hw/w04_genblock_scope_path | STATUS_DIFF | NO_GATES | READ_FAIL | - | -
+ALLOFF | hw/w05_genblock_target_def_view | STATUS_DIFF | NO_GATES | READ_FAIL | - | -
+ALLOFF | hw/w06_three_dots_mixed | DIVERGENT | NO_GATES | NO_GATES | nohier il synth |    This indicates a serious bug in UHDM import
+ALLOFF | hw/w07_root_path | DIVERGENT | NO_GATES | NO_GATES | nohier il synth |    This indicates a serious bug in UHDM import
+ALLOFF | hw/w08_genarray_elem | STATUS_DIFF | NO_GATES | READ_FAIL | - | -
+ALLOFF | nd/n01_two_declarators | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | nd/n02_tri_nettype | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | nd/n03_in_interface_genblk | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | nd/n04_signed_vec_genfor | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | pc/c01_nested_call | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | pc/c02_genif_localparam | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | pc/c03_member_arg_user_fn | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | pc/c04_iface_header_default | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | pv/p01_shorthand_two_params | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | pv/p02_wildcard_passthrough | STATUS_DIFF | NO_GATES | READ_FAIL | - | -
+ALLOFF | pv/p03_iface_array_port | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | pv/p04_generic_two_levels | IDENTICAL | READ_FAIL | READ_FAIL | - | both READ_FAIL
+ALLOFF | pv/p05_ordered_three_levels | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | pv/p06_derived_localparam_ordered | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | pv/p07_array_elem_genfor_named | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | pv/p08_generic_modport_ordered_two_ifs | STATUS_DIFF | READ_FAIL | NO_GATES | - | -
+ALLOFF | rq/q01_left_param_onto_wider | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | rq/q02_right_unpacked_var_implicit | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u173_dsc/ALL
+ALLOFF | rq/q03_high_var_genscope_decl | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | rq/q04_low_localparam_implicit | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | rq/q05_low_net_masked | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | rq/q06_high_packed2d_onto_2bit | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | rq/q07_left_port_onto_decl | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | rq/q08_high_param_genfor | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u173_dsc/ALL
+ALLOFF | sb/s01_genvar_expr_base | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | sb/s02_iface_array_leaf | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | sb/s03_union_leaf | DIVERGENT | NO_GATES | NO_GATES | nohier il synth |    This indicates a serious bug in /tmp/r11u173_dsc/ALLOFF/sb__s03_union_leaf/eq
+ALLOFF | sb/s04_gencase_inside_for | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | tp/t01_three_value_params_forms | IDENTICAL | OK | OK | - | -
+ALLOFF | tp/t02_function_formal_user | DIVERGENT | OK | OK | nohier il synth | ----------------------------------------------
+ALLOFF | tp/t03_unpacked_struct | IDENTICAL | OK | OK | - | -
+ALLOFF | tp/t04_nested_type_params | DIVERGENT | OK | OK | nohier il synth | ----------------------------------------------
+ALLOFF | tp/t05_header_default_two_insts_one_override | EQUIVALENT | NO_GATES | NO_GATES | nohier il synth | ✅ All 1 common constant assignments match
+ALLOFF | tp/t06_packed_union | IDENTICAL | OK | OK | - | -
+ALLOFF | tp/t07_task_formal_and_ports | DIVERGENT | NO_GATES | NO_GATES | nohier il synth |    This indicates a serious bug in /tmp/r11u173_dsc/ALLOFF/tp__t07_task_formal_a
+ALLOFF | pv/p09_named_absolute_path_actual | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | pv/p10_two_parents_different_values | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | dl/d09_imported_param | IDENTICAL | OK | OK | - | -
+ALLOFF | dl/d10_param_delay_genfor_list | IDENTICAL | OK | OK | - | -
+ALLOFF | gp/g06_genif_cond_call_arg | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u173_dsc/ALL
+ALLOFF | fo/f05_empty_first_ordered | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | ea/e07_unpacked_dim_alias | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | ea/e08_param_valued_members | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u173_dsc/ALL
+ALLOFF | tp/t08_alias_of_type_param | IDENTICAL | OK | OK | - | -
+ALLOFF | tp/t09_cast_in_body | IDENTICAL | OK | OK | - | -
+ALLOFF | gs/z07_param_select_genfor | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | hw/w11_macro_path | STATUS_DIFF | NO_GATES | READ_FAIL | - | -
+ALLOFF | fb/b11_instance_array | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | nd/n05_iface_port_member | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | bu/u04_bind_genscope_path | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | rq/q09_high_param_onto_var | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | hw/w09_root_path_noblank_ctl | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | hw/w10_genblock_scope_path_noblank_ctl | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | gp/g07_rhs_concat_paths | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | fo/f06_partsel_first | IDENTICAL | OK | OK | - | -
+ALLOFF | hw/w12_index_member_blanks | DIVERGENT | NO_GATES | NO_GATES | nohier il synth |    This indicates a serious bug in UHDM import
+ALLOFF | gs/z08_genscope_contassign_ctl | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | gs/z09_param_in_genproc_expr | IDENTICAL | OK | OK | - | -
+ALLOFF | ea/e09_unit_import_alias | DIVERGENT | NO_GATES | NO_GATES | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u173_dsc/ALL
+ALLOFF | pv/p11_iface_in_genblock_ordered | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | pv/p12_top_ordered_ctl | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | pv/p13_genif_view_iface_outside | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | pv/p14_genfor_ordered_elem | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | pv/p15_view_below_genblock_module | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | pv/p16_genif_named_inscope_ctl | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | hw/w13_index_member_noblank_ctl | DIVERGENT | NO_GATES | NO_GATES | nohier il synth |    This indicates a serious bug in UHDM import
+ALLOFF | cx/x08_one_genscope_netdecl_and_fold | IDENTICAL | NO_GATES | NO_GATES | - | -
+ALLOFF | cx/x09_pview_header_param_and_tp_struct | IDENTICAL | NO_GATES | NO_GATES | - | -

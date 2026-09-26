@@ -1,0 +1,250 @@
+FIXRESULT bu/u02_bind_unresolved_selected UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT bu/u01_bind_type_two_instances UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT bu/u04_bind_genscope_path UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 168 objects | 
+FIXRESULT bu/u03_bind_instance_path_target UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 118 objects | 
+FIXRESULT cx/x01_pview_struct_typed_iface_param UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT cx/x02_pview_header_type_param UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT cx/x04_alias_enum_in_func_body UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT cx/x03_gen_netdecl_and_proc_fold UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT cx/x06_range_query_param_fold UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT cx/x05_defgen_vs_elab_path_select UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 79 objects | 
+FIXRESULT dl/d01_localparam_expr_list UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 80 objects | 
+FIXRESULT cx/x07_pview_generic_struct_param_iface UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT dl/d02_pkg_param_list UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT dl/d03_expr_list UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT dl/d04_genif_literal_list UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT dl/d05_mintypmax_list UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 67 objects | 
+FIXRESULT dl/d06_param_iface_two_insts UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT dl/d07_real_param UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 51 objects | 
+FIXRESULT dl/d09_imported_param UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT dl/d08_three_list_param_child UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 190 objects | 
+FIXRESULT ea/e01_pkg_param_base_module_enum UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT dl/d10_param_delay_genfor_list UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ea/e02_alias_chain_iface UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL name | 
+FIXRESULT ea/e03_alias_in_program UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ea/e04_iface_alias_modport_var UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 232 objects | 
+FIXRESULT ea/e05_header_param_base_override UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ea/e06_unit_alias_expr_base UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 155 objects | 
+FIXRESULT ea/e07_unpacked_dim_alias UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ea/e08_param_valued_members UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ea/e09_unit_import_alias UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 167 objects | 
+FIXRESULT fb/b01_part_select UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 555 objects | 
+FIXRESULT fb/b02_indexed_part_select UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 555 objects | 
+FIXRESULT fb/b03_concat UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 573 objects | 
+FIXRESULT fb/b04_user_call UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT fb/b05_size_cast UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT fb/b06_ternary UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT fb/b07_unary_reduction UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 501 objects | 
+FIXRESULT fb/b08_sys_call UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT fb/b09_nested_member UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT fb/b10_row_select UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT fb/b11_instance_array UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 542 objects | 
+FIXRESULT fo/f01_ordered_iface_struct_member UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 235 objects | 
+FIXRESULT fo/f02_ordered_instance_array UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT fo/f03_ordered_concat_first UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL col | 
+FIXRESULT fo/f04_ordered_param_and_ports_genblk UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT fo/f05_empty_first_ordered UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 134 objects | 
+FIXRESULT fo/f06_partsel_first UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL col | 
+FIXRESULT gp/g01_nested_iface_lhs_genif UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gp/g02_genif_cond_two_paths UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 169 objects | 
+FIXRESULT gp/g03_concat_lhs_genif UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL col | 
+FIXRESULT gp/g04_genfor_port_param_bound UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 251 objects | 
+FIXRESULT gp/g05_gencase_item_struct_param UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gp/g06_genif_cond_call_arg UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gp/g07_rhs_concat_paths UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 89 objects | 
+FIXRESULT gs/z01_struct_typed_param UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gs/z02_signed_genfor UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gs/z03_typedef_typed_param UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gs/z04_int_typed_param UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 62 objects | 
+FIXRESULT gs/z05_gencase_wide_range UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 135 objects | 
+FIXRESULT gs/z06_ascending_range_bit UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 94 objects | 
+FIXRESULT gs/z07_param_select_genfor UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 165 objects | 
+FIXRESULT gs/z08_genscope_contassign_ctl UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 92 objects | 
+FIXRESULT gs/z09_param_in_genproc_expr UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 188 objects | 
+FIXRESULT hw/w01_blank_after_dot_lhs UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 89 objects | 
+FIXRESULT hw/w02_port_actual UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 142 objects | 
+FIXRESULT hw/w03_if_condition UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 139 objects | 
+FIXRESULT hw/w04_genblock_scope_path UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT hw/w05_genblock_target_def_view UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT hw/w06_three_dots_mixed UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 137 objects | 
+FIXRESULT hw/w07_root_path UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT hw/w08_genarray_elem UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 83 objects | 
+FIXRESULT hw/w09_root_path_noblank_ctl UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT hw/w10_genblock_scope_path_noblank_ctl UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT hw/w11_macro_path UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 89 objects | 
+FIXRESULT hw/w12_index_member_blanks UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT hw/w13_index_member_noblank_ctl UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT nd/n01_two_declarators UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT nd/n02_tri_nettype UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT nd/n03_in_interface_genblk UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT nd/n04_signed_vec_genfor UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT nd/n05_iface_port_member UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 110 objects | 
+FIXRESULT pc/c01_nested_call UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pc/c02_genif_localparam UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pc/c03_member_arg_user_fn UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT pc/c04_iface_header_default UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pv/p01_shorthand_two_params UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 127 objects | 
+FIXRESULT pv/p02_wildcard_passthrough UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pv/p03_iface_array_port UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 148 objects | 
+FIXRESULT pv/p04_generic_two_levels UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pv/p05_ordered_three_levels UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 157 objects | 
+FIXRESULT pv/p06_derived_localparam_ordered UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 127 objects | 
+FIXRESULT pv/p07_array_elem_genfor_named UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 152 objects | 
+FIXRESULT pv/p08_generic_modport_ordered_two_ifs UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pv/p09_named_absolute_path_actual UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 101 objects | 
+FIXRESULT pv/p10_two_parents_different_values UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pv/p11_iface_in_genblock_ordered UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pv/p12_top_ordered_ctl UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 101 objects | 
+FIXRESULT pv/p13_genif_view_iface_outside UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pv/p14_genfor_ordered_elem UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pv/p15_view_below_genblock_module UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pv/p16_genif_named_inscope_ctl UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT rq/q01_left_param_onto_wider UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT rq/q02_right_unpacked_var_implicit UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT rq/q03_high_var_genscope_decl UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL type | 
+FIXRESULT rq/q04_low_localparam_implicit UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 39 objects | 
+FIXRESULT rq/q05_low_net_masked UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT rq/q06_high_packed2d_onto_2bit UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT rq/q07_left_port_onto_decl UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT rq/q08_high_param_genfor UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT rq/q09_high_param_onto_var UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sb/s01_genvar_expr_base UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL endcol | 
+FIXRESULT sb/s02_iface_array_leaf UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sb/s03_union_leaf UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sb/s04_gencase_inside_for UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT tp/t01_three_value_params_forms UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT tp/t02_function_formal_user UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL line | 
+FIXRESULT tp/t03_unpacked_struct UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT tp/t04_nested_type_params UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT tp/t05_header_default_two_insts_one_override UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT tp/t06_packed_union UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 211 objects | 
+FIXRESULT tp/t07_task_formal_and_ports UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL line | 
+FIXRESULT tp/t08_alias_of_type_param UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT tp/t09_cast_in_body UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT bu/u02_bind_unresolved_selected_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT bu/u01_bind_type_two_instances_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT bu/u03_bind_instance_path_target_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 116 objects | 
+FIXRESULT bu/u04_bind_genscope_path_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 166 objects | 
+FIXRESULT cx/x01_pview_struct_typed_iface_param_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT cx/x02_pview_header_type_param_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT cx/x03_gen_netdecl_and_proc_fold_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL depth | 
+FIXRESULT cx/x04_alias_enum_in_func_body_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT cx/x05_defgen_vs_elab_path_select_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 85 objects | 
+FIXRESULT cx/x06_range_query_param_fold_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT cx/x07_pview_generic_struct_param_iface_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT dl/d01_localparam_expr_list_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 78 objects | 
+FIXRESULT dl/d02_pkg_param_list_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT dl/d03_expr_list_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT dl/d05_mintypmax_list_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 65 objects | 
+FIXRESULT dl/d04_genif_literal_list_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT dl/d07_real_param_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 49 objects | 
+FIXRESULT dl/d06_param_iface_two_insts_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT dl/d09_imported_param_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT dl/d08_three_list_param_child_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 187 objects | 
+FIXRESULT dl/d10_param_delay_genfor_list_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ea/e01_pkg_param_base_module_enum_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ea/e02_alias_chain_iface_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL name | 
+FIXRESULT ea/e04_iface_alias_modport_var_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 228 objects | 
+FIXRESULT ea/e03_alias_in_program_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ea/e06_unit_alias_expr_base_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 133 objects | 
+FIXRESULT ea/e05_header_param_base_override_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ea/e08_param_valued_members_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ea/e07_unpacked_dim_alias_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT ea/e09_unit_import_alias_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 145 objects | 
+FIXRESULT fb/b01_part_select_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT fb/b02_indexed_part_select_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT fb/b03_concat_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 758 objects | 
+FIXRESULT fb/b05_size_cast_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT fb/b04_user_call_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT fb/b06_ternary_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT fb/b07_unary_reduction_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 652 objects | 
+FIXRESULT fb/b09_nested_member_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT fb/b08_sys_call_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT fb/b10_row_select_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT fb/b11_instance_array_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 716 objects | 
+FIXRESULT fo/f01_ordered_iface_struct_member_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 243 objects | 
+FIXRESULT fo/f02_ordered_instance_array_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT fo/f04_ordered_param_and_ports_genblk_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT fo/f03_ordered_concat_first_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL col | 
+FIXRESULT fo/f06_partsel_first_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL col | 
+FIXRESULT fo/f05_empty_first_ordered_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 132 objects | 
+FIXRESULT gp/g02_genif_cond_two_paths_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 167 objects | 
+FIXRESULT gp/g01_nested_iface_lhs_genif_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gp/g03_concat_lhs_genif_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL col | 
+FIXRESULT gp/g04_genfor_port_param_bound_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 249 objects | 
+FIXRESULT gp/g05_gencase_item_struct_param_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gp/g06_genif_cond_call_arg_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gs/z01_struct_typed_param_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gp/g07_rhs_concat_paths_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 104 objects | 
+FIXRESULT gs/z02_signed_genfor_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gs/z03_typedef_typed_param_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT gs/z04_int_typed_param_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 62 objects | 
+FIXRESULT gs/z05_gencase_wide_range_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 125 objects | 
+FIXRESULT gs/z06_ascending_range_bit_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 100 objects | 
+FIXRESULT gs/z07_param_select_genfor_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 171 objects | 
+FIXRESULT gs/z08_genscope_contassign_ctl_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 98 objects | 
+FIXRESULT gs/z09_param_in_genproc_expr_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 194 objects | 
+FIXRESULT hw/w01_blank_after_dot_lhs_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 87 objects | 
+FIXRESULT hw/w02_port_actual_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 140 objects | 
+FIXRESULT hw/w03_if_condition_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 136 objects | 
+FIXRESULT hw/w04_genblock_scope_path_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL depth | 
+FIXRESULT hw/w05_genblock_target_def_view_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT hw/w06_three_dots_mixed_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 129 objects | 
+FIXRESULT hw/w08_genarray_elem_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 86 objects | 
+FIXRESULT hw/w07_root_path_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT hw/w09_root_path_noblank_ctl_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT hw/w10_genblock_scope_path_noblank_ctl_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL depth | 
+FIXRESULT hw/w11_macro_path_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 87 objects | 
+FIXRESULT hw/w12_index_member_blanks_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT nd/n01_two_declarators_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL depth | 
+FIXRESULT hw/w13_index_member_noblank_ctl_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT nd/n02_tri_nettype_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL depth | 
+FIXRESULT nd/n03_in_interface_genblk_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL depth | 
+FIXRESULT nd/n04_signed_vec_genfor_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT nd/n05_iface_port_member_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 112 objects | 
+FIXRESULT pc/c01_nested_call_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pc/c02_genif_localparam_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pc/c03_member_arg_user_fn_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT pc/c04_iface_header_default_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pv/p01_shorthand_two_params_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 124 objects | 
+FIXRESULT pv/p02_wildcard_passthrough_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pv/p03_iface_array_port_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 148 objects | 
+FIXRESULT pv/p04_generic_two_levels_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pv/p05_ordered_three_levels_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 154 objects | 
+FIXRESULT pv/p06_derived_localparam_ordered_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 124 objects | 
+FIXRESULT pv/p07_array_elem_genfor_named_el TOWARD fixoff==HEAD:YES switches:PVELABGEN | fix: STRICT_EQUAL 191 objects | new=0 gone=4 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_191_objects
+FIXRESULT pv/p08_generic_modport_ordered_two_ifs_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pv/p09_named_absolute_path_actual_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 101 objects | 
+FIXRESULT pv/p10_two_parents_different_values_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT pv/p11_iface_in_genblock_ordered_el STAGE1-CLOSER fixoff==HEAD:YES switches:PVELABGEN | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=34 on=26 newbad=7
+FIXRESULT pv/p12_top_ordered_ctl_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 98 objects | 
+FIXRESULT pv/p13_genif_view_iface_outside_el STAGE1-CLOSER fixoff==HEAD:YES switches:PVELABGEN | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=56 on=48 newbad=7
+FIXRESULT pv/p14_genfor_ordered_elem_el STAGE1-CLOSER fixoff==HEAD:YES switches:PVELABGEN | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=60 on=42 newbad=14
+FIXRESULT pv/p15_view_below_genblock_module_el STAGE1-CLOSER fixoff==HEAD:YES switches:PVELABGEN | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=78 on=60 newbad=14
+FIXRESULT pv/p16_genif_named_inscope_ctl_el TOWARD fixoff==HEAD:YES switches:PVELABGEN | fix: STRICT_EQUAL 121 objects | new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_121_objects
+FIXRESULT rq/q01_left_param_onto_wider_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT rq/q02_right_unpacked_var_implicit_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT rq/q04_low_localparam_implicit_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 39 objects | 
+FIXRESULT rq/q03_high_var_genscope_decl_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL line | 
+FIXRESULT rq/q05_low_net_masked_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT rq/q06_high_packed2d_onto_2bit_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT rq/q07_left_port_onto_decl_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT rq/q08_high_param_genfor_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL line | 
+FIXRESULT rq/q09_high_param_onto_var_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sb/s01_genvar_expr_base_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL endcol | 
+FIXRESULT sb/s02_iface_array_leaf_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sb/s03_union_leaf_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT tp/t01_three_value_params_forms_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT sb/s04_gencase_inside_for_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 210 objects | 
+FIXRESULT tp/t03_unpacked_struct_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT tp/t02_function_formal_user_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT tp/t04_nested_type_params_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT tp/t05_header_default_two_insts_one_override_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT tp/t07_task_formal_and_ports_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT tp/t06_packed_union_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 222 objects | 
+FIXRESULT tp/t09_cast_in_body_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT tp/t08_alias_of_type_param_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_NOTEQUAL fullname | 
+FIXRESULT cx/x08_one_genscope_netdecl_and_fold UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 164 objects | 
+FIXRESULT cx/x09_pview_header_param_and_tp_struct UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 
+FIXRESULT cx/x08_one_genscope_netdecl_and_fold_el UNFIRED fixoff==HEAD:YES switches:- | fix: STRICT_EQUAL 180 objects | 
+FIXRESULT cx/x09_pview_header_param_and_tp_struct_el UNFIRED fixoff==HEAD:YES switches:- | fix: NOT_EQUAL stage1 | 

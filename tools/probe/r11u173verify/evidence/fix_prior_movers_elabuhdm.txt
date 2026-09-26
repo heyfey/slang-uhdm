@@ -1,0 +1,23 @@
+RESULT r10rgg16repro/cells/g2 STAGE1-CLOSER | law: NOT_EQUAL stage1 | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=132 on=96 newbad=28
+RESULT r10rgg16repro/cells/g3 STAGE1-CLOSER | law: NOT_EQUAL stage1 | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=188 on=152 newbad=28
+RESULT r10rgg16repro/cells/g4 STAGE1-CLOSER | law: NOT_EQUAL stage1 | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=273 on=233 newbad=28
+RESULT r10rgg16repro/cells/g5 TOWARD | law: STRICT_NOTEQUAL fullname | fix: STRICT_EQUAL 375 objects | new=0 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_375_objects
+RESULT r10vrgg16repro/cells/v10 STAGE1-CLOSER | law: NOT_EQUAL stage1 | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=197 on=165 newbad=28
+RESULT r10vrgg16repro/cells/v11 STAGE1-CLOSER | law: NOT_EQUAL stage1 | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=165 on=145 newbad=14
+RESULT r10vrgg16repro/cells/v13 STAGE1-CLOSER | law: NOT_EQUAL stage1 | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=980 on=972 newbad=7
+RESULT r10vrgg16repro/cells/v1 STAGE1-CLOSER | law: NOT_EQUAL stage1 | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=225 on=165 newbad=42
+RESULT r10vrgg16repro/cells/v3 STAGE1-CLOSER | law: NOT_EQUAL stage1 | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=1152 on=1072 newbad=28
+RESULT r10vrgg16repro/cells/v6 TOWARD | law: STRICT_NOTEQUAL fullname | fix: STRICT_EQUAL 788 objects | new=0 gone=20 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_788_objects
+RESULT r10vrgg16repro/cells/v9 STAGE1-CLOSER | law: NOT_EQUAL stage1 | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=329 on=309 newbad=14
+RESULT r10vrgg3repro/x5_iface_in_generate STAGE1-CLOSER | law: NOT_EQUAL stage1 | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=2217 on=1988 newbad=63
+RESULT r10vrgg3repro/x6_recv_in_generate STAGE1-CLOSER | law: NOT_EQUAL stage1 | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=940 on=449 newbad=126
+RESULT r11u115repro/grid/i/n05_one_mp_named_gen TOWARD | law: STRICT_NOTEQUAL fullname | fix: STRICT_EQUAL 226 objects | new=0 gone=6 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_226_objects
+RESULT r11u115repro/grid/i/o01_nmp_gen_recvA TOWARD | law: STRICT_NOTEQUAL fullname | fix: STRICT_EQUAL 315 objects | new=0 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_315_objects
+RESULT r11u115repro/grid/i/o02_nmp_passport_gen STAGE1-CLOSER | law: NOT_EQUAL stage1 | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=163 on=115 newbad=21
+RESULT r11u115repro/grid/i/o03_nmp_passport_gen_recvA STAGE1-CLOSER | law: NOT_EQUAL stage1 | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=162 on=114 newbad=21
+RESULT r11u115repro/grid/i/o06_nmp_genfor_recvA TOWARD | law: STRICT_NOTEQUAL fullname | fix: STRICT_EQUAL 444 objects | new=0 gone=16 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_444_objects
+RESULT r11u115repro/grid/i/o07_nmp_outer_gen TOWARD | law: STRICT_NOTEQUAL fullname | fix: STRICT_EQUAL 281 objects | new=0 gone=8 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_281_objects
+RESULT r11u164repro/cases/PV/a16_mp_ordered_genblk TOWARD | law: STRICT_NOTEQUAL fullname | fix: STRICT_EQUAL 121 objects | new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_121_objects
+RESULT r11u164repro/cases/PV/a20_named_out_of_scope TOWARD | law: STRICT_NOTEQUAL fullname | fix: STRICT_EQUAL 121 objects | new=0 gone=2 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_121_objects
+RESULT r11v1repro/vK STAGE1-CLOSER | law: NOT_EQUAL stage1 | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=231 on=191 newbad=14
+RESULT v11u164repro/cases/PV/p15_genblk_inscope STAGE1-CLOSER | law: NOT_EQUAL stage1 | fix: NOT_EQUAL stage1 | off:stage1 on:stage1 dump off=34 on=26 newbad=7

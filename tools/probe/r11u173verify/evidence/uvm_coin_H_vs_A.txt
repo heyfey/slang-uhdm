@@ -1,0 +1,15 @@
+surelog/default/MiniAmiq orderblind_lines=4
+>       |UINT:1232
+<       |UINT:527
+>       |vpiDecompile:1232
+<       |vpiDecompile:527
+surelog/testflags/MiniAmiq orderblind_lines=4
+>       |UINT:1376
+<       |UINT:1455
+>       |vpiDecompile:1376
+<       |vpiDecompile:1455
+surelog/default/SeqDriver orderblind_lines=4
+<       |UINT:0
+>       |UINT:778
+<       |vpiDecompile:0
+>       |vpiDecompile:778

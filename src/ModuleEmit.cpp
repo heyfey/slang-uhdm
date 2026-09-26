@@ -741,6 +741,13 @@ static void hcSelIdxRescope168(UHDM::any* idx, const std::string& oldScope,
             break;
     }
 }
+// r11u173 — the second adversarial verification of passes 164 and 167
+// (tools/probe/r11u173verify).  Each refinement reads its own switch;
+// R11V173_OFF drops every one of them (the edb34d8a bytes).
+static bool r11v173On(const char* one) {
+    static const bool all = getenv("R11V173_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
 // § defGenPathSel161 (r11u161) — defined in TypeEmit.cpp: marks the
 // definition-view generate cont_assign whose LHS is being emitted.
 void setDefGenCaLhs161(const UHDM::BaseClass* ca);
@@ -47022,6 +47029,52 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // r11u115repro/grid/i/o08_nmp_mpexpr_gen, r11v1repro/vL).
     if (actualOutOfScope16)
         namedPlain164 = false;
+    // § pvElabGenDefParamLhs173v (r11u173, refinement of
+    // § modportPortViewParamDef164) — UNDER `--elabuhdm`, A PORT VIEW WHOSE
+    // RECEIVING INSTANCE LIES INSIDE A GENERATE SCOPE (directly, or through
+    // any instance above it) TAKES THE DEFINITION'S OWN PARAMETER AS ITS
+    // param_assign Lhs INSTEAD OF A COPY STORING THE DEFINITION NAME.
+    // Surelog's elab_parameters_ hands the copy the definition's parameter
+    // object (`inst_assign->Lhs(mod_assign->Lhs())`, NetlistElaboration.cpp),
+    // whose full name is unstored; UHDM's ElaboratorListener (run under
+    // `-elabuhdm` alone) re-clones the generate scope's instances, and a
+    // DeepClone recomputes an unstored name from the clone's own parent
+    // chain (§ elabCloneFullNameUnstored137): golden lists the view under
+    // the elaborated instance as `work@top.g.u.b.W` and the view the
+    // hier_path reaches as `work@my_if.W`.  The law's STORED `work@my_if.W`
+    // was copied verbatim into the clone (grid tools/probe/r11u173verify/
+    // cases/pv p13 p14 p15 p16, p07 and p11 under --elabuhdm: the clone's
+    // name moved AWAY from golden).  A top-level instance (pv/p12) is not
+    // re-cloned and keeps the law.  Switch R11V173_PVELABGEN_OFF.
+    bool elabGen173 = false;
+    UHDM::interface_inst* defIface173 = nullptr;
+    if (portView && elabUhdmView121 && r11v173On("R11V173_PVELABGEN_OFF")) {
+        const Symbol* sy173 = portView;
+        while (sy173 && !elabGen173) {
+            auto* sc173 = sy173->getParentScope();
+            if (!sc173)
+                break;
+            auto& ss173 = sc173->asSymbol();
+            if (ss173.kind == SymbolKind::GenerateBlock)
+                elabGen173 = true;
+            else if (ss173.kind == SymbolKind::InstanceBody)
+                sy173 = ss173.as<InstanceBodySymbol>().parentInstance;
+            else
+                sy173 = &ss173;
+        }
+        if (elabGen173)
+            if (auto dit173 = ifaceDefMap.find(&def); dit173 != ifaceDefMap.end())
+                defIface173 = dit173->second;
+    }
+    auto defParam173 = [&](const std::string& nm) -> UHDM::parameter* {
+        if (!defIface173 || !defIface173->Parameters())
+            return nullptr;
+        for (auto* a173 : *defIface173->Parameters())
+            if (a173 && a173->UhdmType() == UHDM::uhdmparameter &&
+                a173->VpiName() == nm)
+                return (UHDM::parameter*)a173;
+        return nullptr;
+    };
     if (portView && !namedModportPortView9 && !namedPlain164 &&
         iface->Param_assigns()) {
         static std::map<std::pair<const void*, std::string>, UHDM::parameter*>
@@ -47040,6 +47093,12 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             if (!connModport.empty() &&
                 pp164->VpiFullName() == prefix + "." + nm164 &&
                 r11u164Law("R11U164_PVMPDEF_OFF")) {
+                if (auto* dp173 = defParam173(nm164)) {
+                    if (getenv("R11V173_TRACE"))
+                        fprintf(stderr, "R11V173_TRACE PVELABGEN\n");
+                    pa164->Lhs(dp173);
+                    continue;
+                }
                 pp164->VpiFullName(dn164);
                 if (auto* rt164 = pp164->Typespec();
                     rt164 && rt164->VpiFullName() == prefix + "." + nm164)

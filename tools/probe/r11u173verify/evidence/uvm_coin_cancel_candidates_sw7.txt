@@ -1,0 +1,16 @@
+surelog/testflags/SeqDriver orderblind_lines=4
+>       |UINT:0
+<       |UINT:542
+>       |vpiDecompile:0
+<       |vpiDecompile:542
+surelog/default/SimpleUVM orderblind_lines=4
+>       |UINT:0
+<       |UINT:1531
+>       |vpiDecompile:0
+<       |vpiDecompile:1531
+surelog/testflags/SimpleUVM orderblind_lines=4
+>       |UINT:0
+<       |UINT:771
+>       |vpiDecompile:0
+<       |vpiDecompile:771
+surelog/default/Scoreboard orderblind_lines=0

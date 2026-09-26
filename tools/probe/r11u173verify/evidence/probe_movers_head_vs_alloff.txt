@@ -1,0 +1,5 @@
+probe byte movers, HEAD vs both landings off: 169
+pass 164 prediction (probe rows): 173  pass 167 prediction (probe rows): 43
+movers predicted by 164: 126  by 167: 43  by both: 0
+unpredicted: 0
+predicted, not moving: 164 47  167 0
