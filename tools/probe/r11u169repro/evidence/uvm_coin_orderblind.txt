@@ -1,0 +1,6 @@
+default MiniAmiq ordered=4 orderblind=4
+testflags MiniAmiq ordered=4 orderblind=4
+default Scoreboard ordered=92 orderblind=0
+default SeqDriver ordered=4 orderblind=4
+testflags SeqDriver ordered=4 orderblind=4
+testflags SimpleUVM ordered=4 orderblind=4

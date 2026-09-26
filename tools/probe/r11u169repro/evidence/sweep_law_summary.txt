@@ -1,0 +1,14 @@
+probe cases: EQUAL=2734 STRICT_NOTEQUAL=1353 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=2734 STRICT_NOTEQUAL=1353
+regressions=0 conversions=58 changes=27 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=442 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=38 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=439 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=35 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=2 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=776 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=27
+[testflags] CMP_EQUAL=776 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=27
+regressions=0 conversions=2 changes=8 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+/tmp/r11u169_swL/uhdm2rtlil.csv:pkg_nested_struct_param_width,default,CMP_EQUAL,,,equal
+/tmp/r11u169_swL/uhdm2rtlil.csv:pkg_nested_struct_param_width,testflags,CMP_EQUAL,,,equal
+/tmp/r11u169_swL/downstream.csv:pkg_nested_struct_param_width,IDENTICAL,OK,OK,66,66,,

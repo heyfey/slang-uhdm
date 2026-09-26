@@ -1,0 +1,135 @@
+corpus	name	mode	branches fired
+probe	r10earl105repro/g5_int105	-	GCACHAIN c5 abstain,GCACHAIN c9,GCACHAIN c9 abstain
+probe	r10earl105repro/h1_head105	-	GCACHAIN c5 abstain
+probe	r10earl105repro/h2_child105	-	GCACHAIN c5 abstain
+probe	r10earl41repro/v41v_comment	-	GCACHAIN c9 abstain
+probe	r10earl_repro/pv20	-	GCACHAIN c9
+probe	r10earl_repro/qd21	-	GCACHAIN c9
+probe	r10earl_repro/qe21	-	GCACHAIN c9
+probe	r10earl_repro/qf21	-	GCACHAIN c9
+probe	r10vearl105repro/v4_home105	-	GCACHAIN c9
+probe	r10vearl105repro/v7_repl105	-	GCACHAIN c5,GCACHAIN c5 abstain,GCACHAIN c9,GCACHAIN c9 abstain
+probe	r10vearl95repro/v95a_ctx	-	GCACHAIN c9
+probe	r11u109repro/grid/f1/b01_casts	-	MLLOC reads deferred
+probe	r11u109repro/grid/f1/b02_shl	-	MLLOC reads deferred,PATFLATSPAN bin
+probe	r11u109repro/grid/f1/b03_x32	-	MLLOC reads deferred,PATFLATSPAN bin
+probe	r11u109repro/grid/f1/b04_dec	-	MLLOC reads deferred,PATFLATSPAN bin
+probe	r11u109repro/grid/f1/c01_x64	-	PATFLATSPAN bin
+probe	r11u109repro/grid/f1/c05_x3sub	-	PATFLATSPAN bin
+probe	r11u109repro/grid/f1/f07_add	-	PATFLATSPAN bin
+probe	r11u109repro/grid/f1/f08_shl	-	PATFLATSPAN bin
+probe	r11u109repro/grid/f1/f09_unary	-	PATFLATSPAN un
+probe	r11u109repro/grid/f1/f19_orcasts	-	PATFLATSPAN bin
+probe	r11u109repro/grid/f1/f20_sub	-	PATFLATSPAN bin
+probe	r11u109repro/grid/f1/f21_shlsub	-	PATFLATSPAN bin
+probe	r11u109repro/grid/f1/f24_shladd	-	PATFLATSPAN bin
+probe	r11u109repro/grid/f1/p09_shift	-	PATFLATSPAN bin
+probe	r11u112repro/grid/v/v02_minus	-	GCACHAIN c9 abstain
+probe	r11u112repro/grid/v/v03_constbase	-	GCACHAIN c9 abstain
+probe	r11u115repro/grid/r/k/k06_modhdr_p01_ibex	-	GCACHAIN c9 abstain
+probe	r11u115repro/grid/r/k/k06_modhdr_p02_replcat	-	GCACHAIN c9 abstain
+probe	r11u115repro/grid/r/k/k06_modhdr_p09_add	-	GCACHAIN c9
+probe	r11u115repro/grid/r/k/k07_modlp_p01_ibex	-	GCACHAIN c9 abstain
+probe	r11u115repro/grid/r/v/v10_genfor_modparam_ctl	-	GCACHAIN c9
+probe	r11u11repro/a3	-	MLLOC
+probe	r11u11repro/a5	-	MLLOC
+probe	r11u11repro/a8	-	MLLOC
+probe	r11u13repro/b3	-	MLLOC
+probe	r11u13repro/b6	-	MLLOC
+probe	r11u14repro/c8	-	MLLOC
+probe	r11u18repro/b4	-	MLARGLOC site,MLLOC
+probe	r11u20repro/b1	-	MLARGLOC site,MLLOC
+probe	r11u20repro/b2	-	MLARGLOC site,MLLOC
+probe	r11u20repro/b3	-	MLARGLOC site,MLLOC
+probe	r11u20repro/b4	-	MLARGLOC site,MLLOC
+probe	r11u20repro/b5	-	MLARGLOC site,MLLOC
+probe	r11u20repro/b6	-	MLARGLOC site,MLLOC
+probe	r11u20repro/t5	-	MLARGLOC paramcopy,MLARGLOC site,MLLOC reads,MLLOC reads deferred
+probe	r11u21repro/t1	-	MLARGLOC paramcopy,MLARGLOC site,MLLOC reads,MLLOC reads deferred
+probe	r11u82repro/grid/s1_modform	-	MLARGLOC site
+probe	r11u82repro/grid/s2_childpath	-	MLARGLOC site
+probe	r11u82repro/grid/v2_aliaschain	-	MLARGLOC site
+probe	r11u82repro/grid/v3_rootpath	-	MLARGLOC site
+probe	r11v21repro/v1	-	MLARGLOC paramcopy,MLARGLOC site,MLLOC reads,MLLOC reads deferred
+probe	r11v66repro/a3_inst66	-	PATFLATSPAN bin
+probe	r11v75repro/grid/xl_impclimb	-	MLARGLOC site
+probe	r11vu13repro/v2	-	MLARGLOC paramcopy,MLARGLOC site,MLLOC reads,MLLOC reads deferred
+probe	r11vu13repro/v4	-	MLARGLOC paramcopy,MLARGLOC site,MLLOC reads,MLLOC reads deferred
+probe	r11vu13repro/v9	-	MLARGLOC paramcopy,MLARGLOC site,MLLOC reads,MLLOC reads deferred
+probe	r11vu3repro/vK	-	MLLOC
+probe	v11u116repro/arms/f1_allf_body	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_allf_hdr	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_allf_lp	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_bin_body	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_bin_hdr	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_bin_lp	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_bnd_body	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_bnd_hdr	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_bnd_lp	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_dsz_body	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_dsz_hdr	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_dsz_lp	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_expr_body	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_expr_hdr	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_expr_lp	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_lhex_body	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_lhex_hdr	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_lhex_lp	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_nar8_body	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_nar8_hdr	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_nar8_lp	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_neg1_body	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_neg1_hdr	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_neg1_lp	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_oct_body	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_oct_hdr	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_oct_lp	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_shex_body	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_shex_hdr	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_shex_lp	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_und_body	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_und_hdr	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_und_lp	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_uns_body	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_uns_hdr	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_uns_lp	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_wid40_body	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_wid40_hdr	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_wid40_lp	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_xz_body	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_xz_hdr	-	GCACHAIN c9
+probe	v11u116repro/arms/f1_xz_lp	-	GCACHAIN c9
+probe	v11u116repro/arms/f1s_child	-	GCACHAIN c9 abstain
+probe	v11u116repro/arms/f1s_gvar	-	GCACHAIN c9
+probe	v11u116repro/arms/f1s_ibexlike	-	GCACHAIN c9,GCACHAIN c9 abstain
+probe	v11u116repro/arms/f1s_ovr	-	GCACHAIN c9
+probe	v11u116repro/arms/f1s_twop	-	GCACHAIN c9
+probe	v11u116repro/arms/f1t_intdec	-	GCACHAIN c9
+probe	v11u116repro/arms/f1t_intnd	-	GCACHAIN c9
+probe	v11u116repro/arms/f1t_intsig	-	GCACHAIN c9
+surelog	BlackBePipeInt	default	PATFLATSPAN bin
+surelog	BlackBePipeInt	testflags	PATFLATSPAN bin
+surelog	Earlgrey_0_1	default	GCACHAIN c5 abstain,GCACHAIN c9,GCACHAIN c9 abstain
+surelog	Earlgrey_0_1	testflags	GCACHAIN c5 abstain,GCACHAIN c9,GCACHAIN c9 abstain
+surelog	FuncStructVal	default	MLLOC,MLLOC castlit,MLLOC reads deferred,MLLOC reads pattern keep
+surelog	FuncStructVal	testflags	MLLOC,MLLOC castlit,MLLOC reads deferred,MLLOC reads pattern keep
+surelog	FuncStructValSimple	default	MLLOC reads deferred,MLLOC reads pattern keep
+surelog	FuncStructValSimple	testflags	MLLOC reads deferred,MLLOC reads pattern keep
+surelog	StructParamFuncBodyFieldCompare	default	MLLOC reads deferred,PATFLATSPAN bin
+surelog	StructParamFuncBodyFieldCompare	testflags	MLLOC reads deferred,PATFLATSPAN bin
+surelog	StructParamPatternInitCast	default	PATFLATSPAN bin
+surelog	StructParamPatternInitCast	testflags	PATFLATSPAN bin
+uhdm2rtlil	ibex_pmp	default	GCACHAIN c9,GCACHAIN c9 abstain
+uhdm2rtlil	ibex_pmp	testflags	GCACHAIN c9,GCACHAIN c9 abstain
+uhdm2rtlil	multiplier	default	GCACHAIN c9 abstain
+uhdm2rtlil	multiplier	testflags	GCACHAIN c9 abstain
+uhdm2rtlil	param_nested_struct_field_width	default	MLARGLOC paramcopy,MLARGLOC site,MLLOC reads,MLLOC reads deferred
+uhdm2rtlil	param_nested_struct_field_width	testflags	MLARGLOC paramcopy,MLARGLOC site,MLLOC reads,MLLOC reads deferred
+uhdm2rtlil	pkg_nested_struct_param_width	default	MLARGLOC paramcopy,MLARGLOC site,MLLOC reads,MLLOC reads deferred
+uhdm2rtlil	pkg_nested_struct_param_width	testflags	MLARGLOC paramcopy,MLARGLOC site,MLLOC reads,MLLOC reads deferred
+uhdm2rtlil	struct_param_field_shift	default	MLARGLOC site,MLLOC
+uhdm2rtlil	struct_param_field_shift	testflags	MLARGLOC site,MLLOC
+uhdm2rtlil	struct_param_func_config	default	MLARGLOC paramcopy,MLARGLOC site,MLLOC reads,MLLOC reads deferred
+uhdm2rtlil	struct_param_func_config	testflags	MLARGLOC paramcopy,MLARGLOC site,MLLOC reads,MLLOC reads deferred
+uhdm2rtlil	unpacked_elem_partsel_comb	default	GCACHAIN c9 abstain
+uhdm2rtlil	unpacked_elem_partsel_comb	testflags	GCACHAIN c9 abstain

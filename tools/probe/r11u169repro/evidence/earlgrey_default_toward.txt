@@ -1,0 +1,28 @@
+# Earlgrey_0_1/default: every uhdm-dump line whose count moved (pristine -> law), against golden's count
+  14 ->    8 (golden    8) TOWARD  \_ref_typespec: (work@prim_gate_gen)
+   2 ->    4 (golden    4) TOWARD  \_ref_typespec: (work@prim_gate_gen.gen_outer_round[0].inner_data)
+   2 ->    4 (golden    4) TOWARD  \_ref_typespec: (work@prim_gate_gen.gen_outer_round[1].inner_data)
+   2 ->    4 (golden    4) TOWARD  \_ref_typespec: (work@prim_gate_gen.gen_outer_round[2].inner_data)
+  38 ->   28 (golden    8) TOWARD  \_ref_typespec: (work@prim_prince)
+   0 ->    2 (golden    2) TOWARD  \_ref_typespec: (work@prim_prince.gen_bwd_pass[1].prim_cipher_pkg::PRINCE_ROUND_CONST)
+   0 ->    2 (golden    2) TOWARD  \_ref_typespec: (work@prim_prince.gen_bwd_pass[2].prim_cipher_pkg::PRINCE_ROUND_CONST)
+   0 ->    2 (golden    2) TOWARD  \_ref_typespec: (work@prim_prince.gen_bwd_pass[3].prim_cipher_pkg::PRINCE_ROUND_CONST)
+   0 ->    2 (golden    2) TOWARD  \_ref_typespec: (work@prim_prince.gen_bwd_pass[4].prim_cipher_pkg::PRINCE_ROUND_CONST)
+   0 ->    2 (golden    2) TOWARD  \_ref_typespec: (work@prim_prince.gen_bwd_pass[5].prim_cipher_pkg::PRINCE_ROUND_CONST)
+   5 ->    1 (golden    1) TOWARD  \_ref_typespec: (work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i)
+   0 ->    2 (golden    2) TOWARD  \_ref_typespec: (work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.gen_rd_rev[0].rdata_outstanding_q)
+   0 ->    2 (golden    2) TOWARD  \_ref_typespec: (work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.gen_rd_rev[1].rdata_outstanding_q)
+  12 ->    9 (golden    9) TOWARD  |vpiFullName:work@prim_gate_gen
+   4 ->    5 (golden    5) TOWARD  |vpiFullName:work@prim_gate_gen.gen_outer_round[0].inner_data
+   4 ->    5 (golden    5) TOWARD  |vpiFullName:work@prim_gate_gen.gen_outer_round[1].inner_data
+   4 ->    5 (golden    5) TOWARD  |vpiFullName:work@prim_gate_gen.gen_outer_round[2].inner_data
+  24 ->   19 (golden    9) TOWARD  |vpiFullName:work@prim_prince
+   0 ->    1 (golden    1) TOWARD  |vpiFullName:work@prim_prince.gen_bwd_pass[1].prim_cipher_pkg::PRINCE_ROUND_CONST
+   0 ->    1 (golden    1) TOWARD  |vpiFullName:work@prim_prince.gen_bwd_pass[2].prim_cipher_pkg::PRINCE_ROUND_CONST
+   0 ->    1 (golden    1) TOWARD  |vpiFullName:work@prim_prince.gen_bwd_pass[3].prim_cipher_pkg::PRINCE_ROUND_CONST
+   0 ->    1 (golden    1) TOWARD  |vpiFullName:work@prim_prince.gen_bwd_pass[4].prim_cipher_pkg::PRINCE_ROUND_CONST
+   0 ->    1 (golden    1) TOWARD  |vpiFullName:work@prim_prince.gen_bwd_pass[5].prim_cipher_pkg::PRINCE_ROUND_CONST
+   4 ->    2 (golden    2) TOWARD  |vpiFullName:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i
+   1 ->    2 (golden    2) TOWARD  |vpiFullName:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.gen_rd_rev[0].rdata_outstanding_q
+   1 ->    2 (golden    2) TOWARD  |vpiFullName:work@top_earlgrey.u_rv_core_ibex.u_core.if_stage_i.gen_prefetch_buffer.prefetch_buffer_i.gen_rd_rev[1].rdata_outstanding_q
+TOWARD=26 AWAY=0 SAME=0

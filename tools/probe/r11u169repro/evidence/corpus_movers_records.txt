@@ -1,0 +1,120 @@
+surelog default BlackBePipeInt | pristine: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+  leave=0 enter=0
+surelog default Earlgrey_0_1 | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+surelog default FuncStructVal | pristine: STRICT_NOTEQUAL endcol | law: STRICT_NOTEQUAL endcol
+  LEAVE #4158 file B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+  LEAVE #4159 file B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+  LEAVE #4163 file B: 7	constant				dut.sv	614	45	615	35	0	64	INT:0	7
+  LEAVE #4164 file B: 7	constant				dut.sv	614	45	615	35	0	64	INT:0	7
+  LEAVE #4325 file B: 7	constant				dut.sv	614	45	615	35		1	BIN:0	3
+  LEAVE #4326 file B: 7	constant				dut.sv	614	45	615	35		1	BIN:0	3
+  leave=112 enter=0
+surelog default StructParamFuncBodyFieldCompare | pristine: STRICT_EQUAL 923 objects | law: STRICT_EQUAL 923 objects
+  leave=0 enter=0
+surelog default StructParamPatternInitCast | pristine: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+  leave=0 enter=0
+uhdm2rtlil default ibex_pmp | pristine: STRICT_NOTEQUAL file | law: STRICT_NOTEQUAL file
+  LEAVE #13647 fullname B: 8	ref_typespec			work@ibex_pmp		0	0	0	0		0
+  leave=1 enter=0
+uhdm2rtlil default param_nested_struct_field_width | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL fullname
+  LEAVE #177 line B: 6	constant				dut.sv	30	32	30	37	0000000000000000000000000000001100000000000000000000000000100000	64	BIN:0000000000000000000000000000001100000000000000000000000000100000	3
+  LEAVE #190 line B: 6	constant				dut.sv	30	32	30	37	0000000000000000000000000000001100000000000000000000000000100000	64	BIN:0000000000000000000000000000001100000000000000000000000000100000	3
+  LEAVE #206 file B: 6	constant				dut.sv	31	32	31	43	64	64	INT:64	7
+  LEAVE #207 file B: 6	constant				dut.sv	31	32	31	43	64	64	INT:64	7
+  LEAVE #239 depth B: 6	typespec_member	derived			dut.sv	13	18	13	25
+  ENTER #789 fullname B: 7	ref_typespec			pk		0	0	0	0		0
+  ENTER #802 fullname B: 7	ref_typespec			pk		0	0	0	0		0
+  ENTER #856 endcol B: 3	constant				dut.sv	35	37	35	41	96'b000000000000000000000000000000110000000000000000000000000010000000000000000000000000000001000000	96	BIN:000000000000000000000000000000110000000000000000000000000010000000000000000000000000000001000000	3
+  ENTER #873 fullname B: 8	ref_typespec			pk		0	0	0	0		0
+  ENTER #886 fullname B: 8	ref_typespec			pk		0	0	0	0		0
+  ENTER #912 file B: 3	constant				dut.sv	38	37	39	51	10	32	INT:10	7
+  leave=5 enter=6
+uhdm2rtlil default pkg_nested_struct_param_width | pristine: STRICT_NOTEQUAL line | law: STRICT_EQUAL 653 objects
+  LEAVE #194 line B: 6	constant				dut.sv	6	32	6	37	0000000000000000000000000000001100000000000000000000000000100000	64	BIN:0000000000000000000000000000001100000000000000000000000000100000	3
+  LEAVE #207 line B: 6	constant				dut.sv	6	32	6	37	0000000000000000000000000000001100000000000000000000000000100000	64	BIN:0000000000000000000000000000001100000000000000000000000000100000	3
+  LEAVE #223 file B: 6	constant				dut.sv	7	26	7	37	64	64	INT:64	7
+  LEAVE #224 file B: 6	constant				dut.sv	7	26	7	37	64	64	INT:64	7
+  LEAVE #256 depth B: 6	typespec_member	derived			dut.sv	3	54	3	61
+  leave=5 enter=0
+uhdm2rtlil default struct_param_field_shift | pristine: STRICT_NOTEQUAL col | law: STRICT_NOTEQUAL fullname
+  LEAVE #100 file B: 7	constant				dut.sv	20	33	20	49	3	64	UINT:3	9
+  LEAVE #101 file B: 7	constant				dut.sv	20	33	20	49	3	64	UINT:3	9
+  LEAVE #106 col B: 4	constant				dut.sv	20	33	20	49	64	64	UINT:64	9
+  LEAVE #109 col B: 4	constant				dut.sv	20	33	20	49	64	64	UINT:64	9
+  LEAVE #115 file B: 4	constant				dut.sv	20	33	20	49	3	64	UINT:3	9
+  LEAVE #116 file B: 4	constant				dut.sv	20	33	20	49	3	64	UINT:3	9
+  leave=36 enter=0
+uhdm2rtlil default struct_param_func_config | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL fullname
+  LEAVE #219 line B: 6	constant				dut.sv	38	25	38	33	0000000000000000000000000000011110	34	BIN:0000000000000000000000000000011110	3
+  LEAVE #237 line B: 6	constant				dut.sv	38	25	38	33	0000000000000000000000000000011110	34	BIN:0000000000000000000000000000011110	3
+  LEAVE #258 file B: 6	constant				dut.sv	39	24	39	32	14	64	INT:14	7
+  LEAVE #259 file B: 6	constant				dut.sv	39	24	39	32	14	64	INT:14	7
+  LEAVE #301 depth B: 6	typespec_member	d			dut.sv	23	18	23	19
+  ENTER #1038 fullname B: 7	ref_typespec			<in>p::cfg_t.d		0	0	0	0		0
+  ENTER #1364 depth B: 8	typespec_member	flag1			dut.sv	18	9	18	14
+  ENTER #697 fullname B: 7	ref_typespec			p		0	0	0	0		0
+  ENTER #715 fullname B: 7	ref_typespec			p		0	0	0	0		0
+  ENTER #739 line B: 4	struct_typespec	p::ucfg_t			dut.sv	16	11	20	4
+  ENTER #759 fullname B: 6	ref_typespec			<in>p::cfg_t.u		0	0	0	0		0
+  leave=5 enter=14
+surelog testflags BlackBePipeInt | pristine: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+  leave=0 enter=0
+surelog testflags Earlgrey_0_1 | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL line
+  leave=0 enter=0
+surelog testflags FuncStructVal | pristine: STRICT_NOTEQUAL endcol | law: STRICT_NOTEQUAL endcol
+  LEAVE #10599 file B: 8	constant				dut.sv	614	45	615	35	12	64	UINT:12	9
+  LEAVE #10600 file B: 8	constant				dut.sv	614	45	615	35	12	64	UINT:12	9
+  LEAVE #10604 file B: 8	constant				dut.sv	614	45	615	35	22	64	INT:22	7
+  LEAVE #10605 file B: 8	constant				dut.sv	614	45	615	35	22	64	INT:22	7
+  LEAVE #10637 file B: 8	constant				dut.sv	614	45	615	35	12	64	UINT:12	9
+  LEAVE #10638 file B: 8	constant				dut.sv	614	45	615	35	12	64	UINT:12	9
+  leave=186 enter=0
+surelog testflags StructParamFuncBodyFieldCompare | pristine: STRICT_EQUAL 923 objects | law: STRICT_EQUAL 923 objects
+  leave=0 enter=0
+surelog testflags StructParamPatternInitCast | pristine: STRICT_NOTEQUAL fullname | law: STRICT_NOTEQUAL fullname
+  leave=0 enter=0
+uhdm2rtlil testflags ibex_pmp | pristine: STRICT_NOTEQUAL file | law: STRICT_NOTEQUAL file
+  LEAVE #13557 fullname B: 8	ref_typespec			work@ibex_pmp		0	0	0	0		0
+  leave=1 enter=0
+uhdm2rtlil testflags param_nested_struct_field_width | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL fullname
+  LEAVE #170 line B: 6	constant				dut.sv	30	32	30	37	0000000000000000000000000000001100000000000000000000000000100000	64	BIN:0000000000000000000000000000001100000000000000000000000000100000	3
+  LEAVE #183 line B: 6	constant				dut.sv	30	32	30	37	0000000000000000000000000000001100000000000000000000000000100000	64	BIN:0000000000000000000000000000001100000000000000000000000000100000	3
+  LEAVE #199 file B: 6	constant				dut.sv	31	32	31	43	64	64	INT:64	7
+  LEAVE #200 file B: 6	constant				dut.sv	31	32	31	43	64	64	INT:64	7
+  LEAVE #232 depth B: 6	typespec_member	derived			dut.sv	13	18	13	25
+  ENTER #699 fullname B: 7	ref_typespec			pk		0	0	0	0		0
+  ENTER #712 fullname B: 7	ref_typespec			pk		0	0	0	0		0
+  ENTER #766 endcol B: 3	constant				dut.sv	35	37	35	41	96'b000000000000000000000000000000110000000000000000000000000010000000000000000000000000000001000000	96	BIN:000000000000000000000000000000110000000000000000000000000010000000000000000000000000000001000000	3
+  ENTER #783 fullname B: 8	ref_typespec			pk		0	0	0	0		0
+  ENTER #796 fullname B: 8	ref_typespec			pk		0	0	0	0		0
+  ENTER #822 file B: 3	constant				dut.sv	38	37	39	51	10	32	INT:10	7
+  leave=5 enter=6
+uhdm2rtlil testflags pkg_nested_struct_param_width | pristine: STRICT_NOTEQUAL line | law: STRICT_EQUAL 563 objects
+  LEAVE #187 line B: 6	constant				dut.sv	6	32	6	37	0000000000000000000000000000001100000000000000000000000000100000	64	BIN:0000000000000000000000000000001100000000000000000000000000100000	3
+  LEAVE #200 line B: 6	constant				dut.sv	6	32	6	37	0000000000000000000000000000001100000000000000000000000000100000	64	BIN:0000000000000000000000000000001100000000000000000000000000100000	3
+  LEAVE #216 file B: 6	constant				dut.sv	7	26	7	37	64	64	INT:64	7
+  LEAVE #217 file B: 6	constant				dut.sv	7	26	7	37	64	64	INT:64	7
+  LEAVE #249 depth B: 6	typespec_member	derived			dut.sv	3	54	3	61
+  leave=5 enter=0
+uhdm2rtlil testflags struct_param_field_shift | pristine: STRICT_NOTEQUAL col | law: STRICT_NOTEQUAL fullname
+  LEAVE #102 col B: 4	constant				dut.sv	20	33	20	49	64	64	UINT:64	9
+  LEAVE #108 file B: 4	constant				dut.sv	20	33	20	49	3	64	UINT:3	9
+  LEAVE #109 file B: 4	constant				dut.sv	20	33	20	49	3	64	UINT:3	9
+  LEAVE #117 col B: 7	constant				dut.sv	20	33	20	49	64	64	UINT:64	9
+  LEAVE #120 col B: 7	constant				dut.sv	20	33	20	49	64	64	UINT:64	9
+  LEAVE #126 file B: 7	constant				dut.sv	20	33	20	49	3	64	UINT:3	9
+  leave=36 enter=0
+uhdm2rtlil testflags struct_param_func_config | pristine: STRICT_NOTEQUAL line | law: STRICT_NOTEQUAL fullname
+  LEAVE #212 line B: 6	constant				dut.sv	38	25	38	33	0000000000000000000000000000011110	34	BIN:0000000000000000000000000000011110	3
+  LEAVE #230 line B: 6	constant				dut.sv	38	25	38	33	0000000000000000000000000000011110	34	BIN:0000000000000000000000000000011110	3
+  LEAVE #251 file B: 6	constant				dut.sv	39	24	39	32	14	64	INT:14	7
+  LEAVE #252 file B: 6	constant				dut.sv	39	24	39	32	14	64	INT:14	7
+  LEAVE #294 depth B: 6	typespec_member	d			dut.sv	23	18	23	19
+  ENTER #1274 depth B: 8	typespec_member	flag1			dut.sv	18	9	18	14
+  ENTER #607 fullname B: 7	ref_typespec			p		0	0	0	0		0
+  ENTER #625 fullname B: 7	ref_typespec			p		0	0	0	0		0
+  ENTER #649 line B: 4	struct_typespec	p::ucfg_t			dut.sv	16	11	20	4
+  ENTER #669 fullname B: 6	ref_typespec			<in>p::cfg_t.u		0	0	0	0		0
+  ENTER #723 fullname B: 6	ref_typespec			<in>p::cfg_t.d		0	0	0	0		0
+  leave=5 enter=14

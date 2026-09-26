@@ -14785,6 +14785,84 @@ static bool condPredEarlyBound81(const slang::syntax::SyntaxNode* n) {
     return inPred;
 }
 
+/// § genCaFoldTsChainNamed169 — the name the folded constant's ref_typespec
+/// takes at its use site under a generate-scope cont_assign (`scopeFull` is
+/// the prefix the operand is emitted under: the generate scope's full name,
+/// or the select base's inside an index), or false (abstain: the landed instance
+/// name stands).  Measured on grid tools/probe/r11u169repro/cases/gc:
+///  * an operand of a BINARY operation or a conditional, at any depth, and
+///    the whole right side: the scope (`a[c] & P`, `(a[c] > P) ? a[c] : P`,
+///    `{a[c], (P + 1)}`, `o = P`, `o = (P)`: `work@dut.g[0]`);
+///  * an index of a select, directly or under an operation: the select
+///    (`a[c][P]`, `a[c][P % 4]`: `work@dut.g[0].a`);
+///  * a DIRECT operand of a concatenation, a replication or a unary
+///    operation, and a part-select bound, keep the instance's name (`{P, a}`,
+///    `{P{1'b1}}`, `{2{P}}`, `~P`, `a[c][P:0]`: `work@dut`).
+// § gcaChainInsideSetKeepsInst169v (v11u169, the adversarial verification of
+// r11u169) — the inside operations whose SET members are being emitted right
+// now (the left operand is emitted before the op enters this set).  A folded
+// parameter that is a member of an inside set, directly (`a inside {P, 3}`,
+// `a inside {P}`) or as a range bound (`a inside {[P:9]}`, `{[1:P]}`), keeps
+// the instance's name in golden (`work@dut`): Surelog leaves the substituted
+// constant at its param_assign there, as for a direct concatenation operand.
+// The left operand (`P inside {a, 3}`) is not a set member and is left to
+// § genCaFoldTsChainNamed169.  Grid tools/probe/v11u169verify/cases/gi.
+// Switch: R11V169_INSIDESET_OFF.
+static std::set<const UHDM::BaseClass*> insideSetOps169v;
+static bool gcaInsideSetOn169v() {
+    static const bool off = getenv("R11V169_INSIDESET_OFF") != nullptr;
+    return !off;
+}
+
+static bool genCaUseSiteChainName169(const UHDM::BaseClass* parent,
+                                     const std::string& scopeFull,
+                                     std::string& out) {
+    if (scopeFull.empty())
+        return false;
+    bool direct = true;
+    for (const UHDM::BaseClass* a = parent; a; a = a->VpiParent(), direct = false) {
+        switch (a->UhdmType()) {
+        case UHDM::uhdmcont_assign:
+            out = scopeFull;
+            return true;
+        case UHDM::uhdmoperation: {
+            int t = ((const UHDM::operation*)a)->VpiOpType();
+            if (direct && (t == vpiConcatOp || t == vpiMultiConcatOp ||
+                           (t >= vpiMinusOp && t <= vpiUnaryXNorOp)))
+                return false;
+            // § gcaChainInsideSetKeepsInst169v — an inside SET member keeps
+            // the instance's name.
+            if (t == vpiInsideOp && insideSetOps169v.count(a) &&
+                gcaInsideSetOn169v()) {
+                trace169("GCACHAIN insideset abstain");
+                return false;
+            }
+            continue;
+        }
+        case UHDM::uhdmbit_select:
+        case UHDM::uhdmvar_select: {
+            // An index is named through the select: an operation index is
+            // emitted under the select base's own prefix already
+            // (`work@dut.g[0].a`), a bare one under the scope's
+            // (`q[NUM_REQS]`: `work@qe21.gen_rev[0]` + `.q`).
+            std::string nm(a->VpiName());
+            if (nm.empty())
+                return false;
+            std::string tail = "." + nm;
+            out = scopeFull;
+            if (out.size() < tail.size() ||
+                out.compare(out.size() - tail.size(), tail.size(), tail) != 0)
+                out += tail;
+            return true;
+        }
+        default:
+            return false;
+        }
+    }
+    return false;
+}
+
+
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
@@ -19965,6 +20043,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         c5->VpiParent(pa9);
                                         if (mi9 && genCaSelBasePfx.empty())
                                             tsN5 = mi9->VpiFullName();
+                                        // § genCaFoldTsChainNamed169 — the
+                                        // encoding copy's half (see c9's).
+                                        if (mi9 && genCaSelBasePfx.empty() &&
+                                            r11u169On("R11U169_GCACHAIN_OFF")) {
+                                            std::string ch5;
+                                            if (genCaUseSiteChainName169(
+                                                    parent, prefix, ch5)) {
+                                                trace169(ch5 != tsN5
+                                                             ? "GCACHAIN c5"
+                                                             : "GCACHAIN c5 same");
+                                                tsN5 = ch5;
+                                            }
+                                            else
+                                                trace169("GCACHAIN c5 abstain");
+                                        }
                                     }
                                     else
                                         c5->VpiParent(parent);
@@ -20125,6 +20218,37 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             c9->VpiParent(pa9);
                             if (mi9)
                                 tsName9 = mi9->VpiFullName();
+                            // § genCaFoldTsChainNamed169 (r11u169) — THE
+                            // FOLDED CONSTANT'S TYPESPEC REFERENCE IS NAMED
+                            // AT ITS USE SITE.  Surelog substitutes the
+                            // parameter's value at the reference and the
+                            // operation (or the cont_assign, or the select)
+                            // that reads it re-parents the substituted
+                            // constant, so the ref_typespec's full name is
+                            // BaseClass::ComputeFullName's walk from the use
+                            // site: the generate scope (`a[c] & P`, `o = P`,
+                            // `(a > P) ? a : P`: `work@dut.g[0]`) or the
+                            // select it indexes (`a[c][P]`, `a[c][P % 4]`:
+                            // `work@dut.g[0].a`).  A DIRECT operand of a
+                            // concatenation, a replication or a unary
+                            // operation, and a part-select bound, keep the
+                            // instance's name (golden `{P, a}`, `{P{1'b1}}`,
+                            // `~P`, `a[c][P:0]`: the landed name).  Grid
+                            // tools/probe/r11u169repro/cases/gc; the probe
+                            // cases v11u116repro/arms (N0471) and ibex_pmp.
+                            // Switch: R11U169_GCACHAIN_OFF.
+                            if (mi9 && r11u169On("R11U169_GCACHAIN_OFF")) {
+                                std::string ch9;
+                                if (genCaUseSiteChainName169(parent, prefix,
+                                                             ch9)) {
+                                    trace169(ch9 != tsName9
+                                                 ? "GCACHAIN c9"
+                                                 : "GCACHAIN c9 same");
+                                    tsName9 = ch9;
+                                }
+                                else
+                                    trace169("GCACHAIN c9 abstain");
+                            }
                         }
                         else
                             c9->VpiParent(parent);
@@ -38260,6 +38384,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (auto* l = emitExpr(ie.left(), op, prefix, netMap))
                 operands->push_back(l);
             const bool openRange30 = insideOpenRange30(ie);
+            // § gcaChainInsideSetKeepsInst169v — the set members follow.
+            insideSetOps169v.insert(op);
             for (auto* rle : ie.rangeList()) {
                 if (!openRange30) {
                     if (auto* e = emitExpr(*rle, op, prefix, netMap))
@@ -38290,6 +38416,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     operands->push_back(ol30);
                 }
             }
+            insideSetOps169v.erase(op);
             op->Operands(operands);
             return op;
         }

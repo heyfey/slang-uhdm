@@ -1,0 +1,49 @@
+=== L vs P surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+default/BlackBePipeInt
+default/Earlgrey_0_1
+default/FuncStructVal
+default/MiniAmiq
+default/Scoreboard
+default/SeqDriver
+default/StructParamFuncBodyFieldCompare
+default/StructParamPatternInitCast
+testflags/BlackBePipeInt
+testflags/Earlgrey_0_1
+testflags/FuncStructVal
+testflags/MiniAmiq
+testflags/SeqDriver
+testflags/StructParamFuncBodyFieldCompare
+testflags/StructParamPatternInitCast
+15
+=== F vs L surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+./default/MiniAmiq-055eab74/slang.uhdm
+./default/SeqDriver-65178d3a/slang.uhdm
+./testflags/MiniAmiq-055eab74/slang.uhdm
+./testflags/SeqDriver-65178d3a/slang.uhdm
+4
+=== L vs P uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+default/ibex_pmp
+default/param_nested_struct_field_width
+default/pkg_nested_struct_param_width
+default/struct_param_field_shift
+default/struct_param_func_config
+testflags/ibex_pmp
+testflags/param_nested_struct_field_width
+testflags/pkg_nested_struct_param_width
+testflags/struct_param_field_shift
+testflags/struct_param_func_config
+10
+=== F vs L uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+0

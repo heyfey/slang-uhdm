@@ -1,0 +1,26 @@
+# BlackBePipeInt/default: every uhdm-dump line whose count moved (pristine -> law), against golden's count
+   3 ->   22 (golden  262) TOWARD  \_constant: , line:2077:28, endln:2081:58
+  23 ->    4 (golden    0) TOWARD  \_constant: , line:2077:28, endln:2082:63
+   5 ->   32 (golden  278) TOWARD  \_constant: , line:2088:29, endln:2088:30
+  31 ->    4 (golden    0) TOWARD  \_constant: , line:2088:29, endln:2088:47
+  32 ->   59 (golden 1688) TOWARD  \_constant: , line:2094:29, endln:2094:30
+  31 ->    4 (golden    0) TOWARD  \_constant: , line:2094:29, endln:2094:47
+   3 ->   22 (golden  262) TOWARD  \_constant: , line:2104:28, endln:2108:58
+  23 ->    4 (golden    0) TOWARD  \_constant: , line:2104:28, endln:2109:63
+  32 ->   59 (golden 1688) TOWARD  \_constant: , line:2120:25, endln:2120:52
+  31 ->    4 (golden    0) TOWARD  \_constant: , line:2120:25, endln:2120:68
+   0 ->    9 (golden   34) TOWARD  \_constant: , line:2992:26, endln:2992:46
+  11 ->    2 (golden    0) TOWARD  \_constant: , line:2992:26, endln:2992:67
+   0 ->    9 (golden   34) TOWARD  \_constant: , line:2999:19, endln:2999:41
+  11 ->    2 (golden    0) TOWARD  \_constant: , line:2999:19, endln:2999:70
+   0 ->    9 (golden   34) TOWARD  \_constant: , line:3396:26, endln:3396:46
+  11 ->    2 (golden    0) TOWARD  \_constant: , line:3396:26, endln:3396:67
+   2 ->   11 (golden   34) TOWARD  \_constant: , line:3403:19, endln:3407:49
+  11 ->    2 (golden    0) TOWARD  \_constant: , line:3403:19, endln:3408:54
+   0 ->    5 (golden 1419) TOWARD  \_constant: , line:3793:28, endln:3793:48
+   7 ->    2 (golden    0) TOWARD  \_constant: , line:3793:28, endln:3793:72
+  28 ->   33 (golden 1419) TOWARD  \_constant: , line:3794:28, endln:3799:58
+   7 ->    2 (golden    0) TOWARD  \_constant: , line:3794:28, endln:3800:63
+   0 ->    5 (golden 1419) TOWARD  \_constant: , line:3801:28, endln:3801:48
+   7 ->    2 (golden    0) TOWARD  \_constant: , line:3801:28, endln:3801:73
+TOWARD=24 AWAY=0 SAME=0

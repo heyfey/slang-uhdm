@@ -319,7 +319,7 @@ ibex_load_store_unit,default,CMP_EQUAL,,,equal
 ibex_lockstep,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
 ibex_multdiv_fast,default,STRICT_NOTEQUAL,differ:endcol(26),,differ:endcol(26)
 ibex_multdiv_slow,default,CMP_EQUAL,,,equal
-ibex_pmp,default,STRICT_NOTEQUAL,differ:file(16),,differ:file(16)
+ibex_pmp,default,STRICT_NOTEQUAL,differ:file(15),,differ:file(15)
 ibex_prefetch_buffer,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
 ibex_register_file_ff,default,CMP_EQUAL,,,equal
 ibex_register_file_fpga,default,CMP_EQUAL,,,equal
@@ -554,7 +554,7 @@ param_array_wildcard,default,CMP_EQUAL,,,equal
 param_fill_default_paramod,default,CMP_EQUAL,,,equal
 param_int_types,default,CMP_EQUAL,,,equal
 param_name_collision_typeparam,default,CMP_EQUAL,,,equal
-param_nested_struct_field_width,default,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
+param_nested_struct_field_width,default,STRICT_NOTEQUAL,differ:fullname(6),,differ:fullname(6)
 param_no_default,default,CMP_EQUAL,,,equal
 param_packed_array_subst,default,CMP_EQUAL,,,equal
 param_struct_field_bitsel,default,CMP_EQUAL,,,equal
@@ -614,7 +614,7 @@ PatternStruct,default,CMP_EQUAL,,,equal
 PatternType,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/PatternType/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 pico_count_cycle,default,CMP_EQUAL,,,equal
 pkg_localparam_partsel,default,CMP_EQUAL,,,equal
-pkg_nested_struct_param_width,default,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
+pkg_nested_struct_param_width,default,CMP_EQUAL,,,equal
 PkgParamAsFunctionArg,default,CMP_EQUAL,,,equal
 port_chained_type_param,default,CMP_EQUAL,,,equal
 port_int_types,default,CMP_EQUAL,,,equal
@@ -736,9 +736,9 @@ struct_member_expr_index,default,CMP_EQUAL,,,equal
 struct_member_trailing_index,default,CMP_EQUAL,,,equal
 struct_negative_index,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_negative_index/dut.sv:14:13: error: cannot refer to element -1 of 'bit[3:0][7:0]' [-Windex-oob,,
 struct_param_dim,default,CMP_EQUAL,,,equal
-struct_param_field_shift,default,STRICT_NOTEQUAL,differ:col(41),,differ:col(41)
+struct_param_field_shift,default,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
 struct_param_func_arg,default,CMP_EQUAL,,,equal
-struct_param_func_config,default,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
+struct_param_func_config,default,STRICT_NOTEQUAL,differ:fullname(14),,differ:fullname(14)
 struct_param_func_loop,default,CMP_EQUAL,,,equal
 struct_param_pattern_packing,default,CMP_EQUAL,,,equal
 struct_param_repl_count,default,CMP_EQUAL,,,equal
@@ -1190,7 +1190,7 @@ ibex_load_store_unit,testflags,CMP_EQUAL,,,equal
 ibex_lockstep,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
 ibex_multdiv_fast,testflags,STRICT_NOTEQUAL,differ:endcol(26),,differ:endcol(26)
 ibex_multdiv_slow,testflags,CMP_EQUAL,,,equal
-ibex_pmp,testflags,STRICT_NOTEQUAL,differ:file(16),,differ:file(16)
+ibex_pmp,testflags,STRICT_NOTEQUAL,differ:file(15),,differ:file(15)
 ibex_prefetch_buffer,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
 ibex_register_file_ff,testflags,CMP_EQUAL,,,equal
 ibex_register_file_fpga,testflags,CMP_EQUAL,,,equal
@@ -1425,7 +1425,7 @@ param_array_wildcard,testflags,CMP_EQUAL,,,equal
 param_fill_default_paramod,testflags,CMP_EQUAL,,,equal
 param_int_types,testflags,CMP_EQUAL,,,equal
 param_name_collision_typeparam,testflags,CMP_EQUAL,,,equal
-param_nested_struct_field_width,testflags,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
+param_nested_struct_field_width,testflags,STRICT_NOTEQUAL,differ:fullname(6),,differ:fullname(6)
 param_no_default,testflags,CMP_EQUAL,,,equal
 param_packed_array_subst,testflags,CMP_EQUAL,,,equal
 param_struct_field_bitsel,testflags,CMP_EQUAL,,,equal
@@ -1485,7 +1485,7 @@ PatternStruct,testflags,CMP_EQUAL,,,equal
 PatternType,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/PatternType/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 pico_count_cycle,testflags,CMP_EQUAL,,,equal
 pkg_localparam_partsel,testflags,CMP_EQUAL,,,equal
-pkg_nested_struct_param_width,testflags,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
+pkg_nested_struct_param_width,testflags,CMP_EQUAL,,,equal
 PkgParamAsFunctionArg,testflags,CMP_EQUAL,,,equal
 port_chained_type_param,testflags,CMP_EQUAL,,,equal
 port_int_types,testflags,CMP_EQUAL,,,equal
@@ -1607,9 +1607,9 @@ struct_member_expr_index,testflags,CMP_EQUAL,,,equal
 struct_member_trailing_index,testflags,CMP_EQUAL,,,equal
 struct_negative_index,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_negative_index/dut.sv:14:13: error: cannot refer to element -1 of 'bit[3:0][7:0]' [-Windex-oob,,
 struct_param_dim,testflags,CMP_EQUAL,,,equal
-struct_param_field_shift,testflags,STRICT_NOTEQUAL,differ:col(41),,differ:col(41)
+struct_param_field_shift,testflags,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
 struct_param_func_arg,testflags,CMP_EQUAL,,,equal
-struct_param_func_config,testflags,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
+struct_param_func_config,testflags,STRICT_NOTEQUAL,differ:fullname(14),,differ:fullname(14)
 struct_param_func_loop,testflags,CMP_EQUAL,,,equal
 struct_param_pattern_packing,testflags,CMP_EQUAL,,,equal
 struct_param_repl_count,testflags,CMP_EQUAL,,,equal

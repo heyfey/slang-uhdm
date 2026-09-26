@@ -1,0 +1,103 @@
+# r11u170 item (3), measured on the pristine binary (45b8e774), full probe + both corpora sweeps, byte compared with the pristine sweep
+== M1 (R11U158_AGGUNQSPAN_OFF=1)
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm
+MOVERS: 4 / 960
+MOVER ./default/struct_param_func_config-121ce6d3/slang.uhdm
+MOVER ./testflags/struct_param_func_config-121ce6d3/slang.uhdm
+MOVERS: 2 / 1608
+probe byte movers: r11vu13repro__v4 r11vu13repro__v9
+== M2 (R11U163_AGGQUALSPAN_OFF=1)
+CHANGE r11u108repro/grid/pk/k10e_member_child_sel_q STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u108repro/grid/pk/k11_member_v_qualified STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u111repro/grid/f2/b04_imp_q_w16 STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u111repro/grid/f2/b05_q_q_w80 STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u111repro/grid/f2/b08_imp_q_w80 STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u111repro/grid/f2/b10_q_q_w64 STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u111repro/grid/f2/b11_localparam_q_w16 STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u111repro/grid/f2/b12_sub_q_w16 STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u111repro/grid/f2/b17_q_q_w16_plainmember_ctl STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE v11u111repro/brk/f2/x26_q_twoinst_override STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+regressions=0 conversions=0 changes=10 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm
+MOVERS: 4 / 960
+MOVERS: 0 / 1608
+probe byte movers: r11u108repro__grid__pk__k10e_member_child_sel_q r11u108repro__grid__pk__k11_member_v_qualified r11u111repro__grid__f2__b04_imp_q_w16 r11u111repro__grid__f2__b05_q_q_w80 r11u111repro__grid__f2__b08_imp_q_w80 r11u111repro__grid__f2__b10_q_q_w64 r11u111repro__grid__f2__b11_localparam_q_w16 r11u111repro__grid__f2__b12_sub_q_w16 r11u111repro__grid__f2__b17_q_q_w16_plainmember_ctl v11u111repro__brk__f2__x26_q_twoinst_override
+== M3 (R11U158_AGGUNQSPAN_OFF+R11U163_AGGQUALSPAN_OFF=1)
+REGRESSION r11u108repro/grid/pk/k10h_noassign EQUAL -> STRICT_NOTEQUAL differ:endline(1)
+REGRESSION r11u108repro/grid/pk/k10i_noassign_nochild EQUAL -> STRICT_NOTEQUAL differ:endline(1)
+REGRESSION r11u108repro/grid/pk/k23_lv2s_copy EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION r11u108repro/grid/pk/k23c_samekey EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION r11u108repro/grid/pk/k23d_nowidth EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+CHANGE r11u108repro/grid/pk/k10_member_v_pkgparam STRICT_NOTEQUAL differ:name(2) -> differ:endline(3)
+CHANGE r11u108repro/grid/pk/k10b_member_child_sel STRICT_NOTEQUAL differ:name(2) -> differ:endline(3)
+CHANGE r11u108repro/grid/pk/k10c_member_widthparam STRICT_NOTEQUAL differ:name(2) -> differ:endline(3)
+CHANGE r11u108repro/grid/pk/k10d_member_child_nosel STRICT_NOTEQUAL differ:name(2) -> differ:endline(3)
+CHANGE r11u108repro/grid/pk/k10e_member_child_sel_q STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u108repro/grid/pk/k10f_member_bodyimport STRICT_NOTEQUAL differ:name(2) -> differ:endline(3)
+CHANGE r11u108repro/grid/pk/k10g_member_bodyimport_child STRICT_NOTEQUAL differ:name(2) -> differ:endline(3)
+CHANGE r11u108repro/grid/pk/k10j_wide STRICT_NOTEQUAL differ:name(2) -> differ:endline(3)
+CHANGE r11u108repro/grid/pk/k10k_w32 STRICT_NOTEQUAL differ:name(2) -> differ:endline(3)
+CHANGE r11u108repro/grid/pk/k10l_w33 STRICT_NOTEQUAL differ:name(2) -> differ:endline(3)
+CHANGE r11u108repro/grid/pk/k11_member_v_qualified STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u111repro/grid/f2/b03_q_imp_w16 STRICT_NOTEQUAL differ:name(2) -> differ:endline(3)
+CHANGE r11u111repro/grid/f2/b04_imp_q_w16 STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u111repro/grid/f2/b05_q_q_w80 STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u111repro/grid/f2/b06_imp_imp_w80 STRICT_NOTEQUAL differ:name(2) -> differ:endline(3)
+CHANGE r11u111repro/grid/f2/b07_q_imp_w80 STRICT_NOTEQUAL differ:name(2) -> differ:endline(3)
+CHANGE r11u111repro/grid/f2/b08_imp_q_w80 STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u111repro/grid/f2/b10_q_q_w64 STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u111repro/grid/f2/b11_localparam_q_w16 STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u111repro/grid/f2/b12_sub_q_w16 STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u111repro/grid/f2/b13_sub_imp_w80 STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE r11u111repro/grid/f2/b14_hdrimp_imp_w80 STRICT_NOTEQUAL differ:name(2) -> differ:endline(3)
+CHANGE r11u111repro/grid/f2/b17_q_q_w16_plainmember_ctl STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+CHANGE v11u111repro/brk/f2/x22_explicit_imp_wide STRICT_NOTEQUAL differ:name(2) -> differ:endline(3)
+CHANGE v11u111repro/brk/f2/x26_q_twoinst_override STRICT_NOTEQUAL differ:name(2) -> differ:endcol(3)
+regressions=5 conversions=0 changes=25 only-fresh=0 only-committed=0
+REGRESSION LargeValue2Struct default CMP_EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION LargeValue2Struct testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION StructUnsizedVal default CMP_EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION StructUnsizedVal testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+regressions=4 conversions=0 changes=0 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+MOVER ./default/LargeValue2Struct-557e5899/slang.uhdm
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm
+MOVER ./default/StructUnsizedVal-86891aa7/slang.uhdm
+MOVER ./testflags/LargeValue2Struct-557e5899/slang.uhdm
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm
+MOVER ./testflags/StructUnsizedVal-86891aa7/slang.uhdm
+MOVERS: 9 / 960
+MOVER ./default/struct_param_func_config-121ce6d3/slang.uhdm
+MOVER ./testflags/struct_param_func_config-121ce6d3/slang.uhdm
+MOVERS: 2 / 1608
+probe byte movers: r11u108repro__grid__pk__k10b_member_child_sel r11u108repro__grid__pk__k10c_member_widthparam r11u108repro__grid__pk__k10d_member_child_nosel r11u108repro__grid__pk__k10e_member_child_sel_q r11u108repro__grid__pk__k10f_member_bodyimport r11u108repro__grid__pk__k10g_member_bodyimport_child r11u108repro__grid__pk__k10h_noassign r11u108repro__grid__pk__k10i_noassign_nochild r11u108repro__grid__pk__k10j_wide r11u108repro__grid__pk__k10k_w32 r11u108repro__grid__pk__k10l_w33 r11u108repro__grid__pk__k10_member_v_pkgparam r11u108repro__grid__pk__k11_member_v_qualified r11u108repro__grid__pk__k23c_samekey r11u108repro__grid__pk__k23d_nowidth r11u108repro__grid__pk__k23_lv2s_copy r11u111repro__grid__f2__b03_q_imp_w16 r11u111repro__grid__f2__b04_imp_q_w16 r11u111repro__grid__f2__b05_q_q_w80 r11u111repro__grid__f2__b06_imp_imp_w80 r11u111repro__grid__f2__b07_q_imp_w80 r11u111repro__grid__f2__b08_imp_q_w80 r11u111repro__grid__f2__b10_q_q_w64 r11u111repro__grid__f2__b11_localparam_q_w16 r11u111repro__grid__f2__b12_sub_q_w16 r11u111repro__grid__f2__b13_sub_imp_w80 r11u111repro__grid__f2__b14_hdrimp_imp_w80 r11u111repro__grid__f2__b17_q_q_w16_plainmember_ctl r11vu13repro__v4 r11vu13repro__v9 v11u111repro__brk__f2__x22_explicit_imp_wide v11u111repro__brk__f2__x26_q_twoinst_override
+== M4 (R11U163_TPDEFNAME_OFF=1)
+CHANGE r11u20repro/t6 STRICT_NOTEQUAL differ:fullname(2) -> differ:fullname(3) [fullname +1]
+regressions=0 conversions=0 changes=1 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm
+MOVERS: 4 / 960
+MOVER ./default/gen_scope_numports-3f4035e6/slang.uhdm
+MOVER ./default/param_name_collision_typeparam-1d3c31fb/slang.uhdm
+MOVER ./testflags/gen_scope_numports-3f4035e6/slang.uhdm
+MOVER ./testflags/param_name_collision_typeparam-1d3c31fb/slang.uhdm
+MOVERS: 4 / 1608
+probe byte movers: r11u20repro__t3 r11u20repro__t6

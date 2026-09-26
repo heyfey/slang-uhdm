@@ -15088,4 +15088,22 @@ inline void trace167(const char* law) {
         fprintf(stderr, "R11U167_TRACE %s\n", law);
 }
 
+// ===========================================================================
+// r11u169 — the expression/parameter ground (tools/probe/r11u169repro).
+// Every law reads its own switch; R11U169_OFF drops every one of them (the
+// pristine bytes).  R11U169_TRACE=1 prints one stderr line per firing.
+//   R11U169_GCACHAIN_OFF   § genCaFoldTsChainNamed169    (ExprEmit.cpp)
+//   R11U169_MLLOC_OFF      § memLeftSliceUnlocated169    (ParamEmit.cpp)
+//   R11U169_MLARGLOC_OFF   § memLeftFormalArgLoc169      (ParamEmit.cpp)
+//   R11U169_PATFLATSPAN_OFF § patFlatMemberLeftSpan169   (ParamEmit.cpp)
+// ===========================================================================
+inline bool r11u169On(const char* one) {
+    static const bool all = getenv("R11U169_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+inline void trace169(const char* law) {
+    static const bool on = getenv("R11U169_TRACE") != nullptr;
+    if (on)
+        fprintf(stderr, "R11U169_TRACE %s\n", law);
+}
 } // namespace slang_uhdm

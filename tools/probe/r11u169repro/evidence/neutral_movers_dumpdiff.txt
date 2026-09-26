@@ -1,0 +1,18 @@
+== BlackBePipeInt ordered-diff-lines=340 orderblind=340
+<       \_constant: , line:2088:29, endln:2088:47
+>       \_constant: , line:2088:29, endln:2088:30
+<       \_constant: , line:2077:28, endln:2082:63
+>       \_constant: , line:2077:28, endln:2081:58
+<       \_constant: , line:2094:29, endln:2094:47
+>       \_constant: , line:2094:29, endln:2094:30
+== StructParamPatternInitCast ordered-diff-lines=0 orderblind=0
+== StructParamFuncBodyFieldCompare ordered-diff-lines=0 orderblind=0
+== Earlgrey_0_1 ordered-diff-lines=60 orderblind=60
+<                   \_ref_typespec: (work@prim_prince)
+>                   \_ref_typespec: (work@prim_prince.gen_bwd_pass[1].prim_cipher_pkg::PRINCE_ROUND_CONST)
+<                     |vpiFullName:work@prim_prince
+>                     |vpiFullName:work@prim_prince.gen_bwd_pass[1].prim_cipher_pkg::PRINCE_ROUND_CONST
+<                   \_ref_typespec: (work@prim_prince)
+>                   \_ref_typespec: (work@prim_prince.gen_bwd_pass[2].prim_cipher_pkg::PRINCE_ROUND_CONST)
+
+[exited with code 0]

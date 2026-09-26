@@ -1,0 +1,13 @@
+R11U169_GCACHAIN_OFF grid=gc identical_to_pristine=37 differ=0:
+R11U169_GCACHAIN_OFF grid=ml identical_to_pristine=1 differ=16: m01 m02 m03 m04 m05 m06 m07 m08 m09 m10 m11 m12 m13 m14 m15 m16
+R11U169_GCACHAIN_OFF grid=pf identical_to_pristine=0 differ=10: p01 p02 p03 p04 p05 p06 p07 p08 p09 p10
+R11U169_MLLOC_OFF grid=gc identical_to_pristine=16 differ=21: a01 a02 a05 a06 a09 a11 a13 a16 b03 b04 b05 b06 b07 b08 b09 b11 c03 c05 c06 c07 c10
+R11U169_MLLOC_OFF grid=ml identical_to_pristine=4 differ=13: m01 m02 m03 m04 m05 m06 m07 m08 m09 m10 m11 m13 m14
+R11U169_MLLOC_OFF grid=pf identical_to_pristine=0 differ=10: p01 p02 p03 p04 p05 p06 p07 p08 p09 p10
+R11U169_MLARGLOC_OFF grid=gc identical_to_pristine=16 differ=21: a01 a02 a05 a06 a09 a11 a13 a16 b03 b04 b05 b06 b07 b08 b09 b11 c03 c05 c06 c07 c10
+R11U169_MLARGLOC_OFF grid=ml identical_to_pristine=1 differ=16: m01 m02 m03 m04 m05 m06 m07 m08 m09 m10 m11 m12 m13 m14 m15 m16
+R11U169_MLARGLOC_OFF grid=pf identical_to_pristine=0 differ=10: p01 p02 p03 p04 p05 p06 p07 p08 p09 p10
+R11U169_PATFLATSPAN_OFF grid=gc identical_to_pristine=16 differ=21: a01 a02 a05 a06 a09 a11 a13 a16 b03 b04 b05 b06 b07 b08 b09 b11 c03 c05 c06 c07 c10
+R11U169_PATFLATSPAN_OFF grid=ml identical_to_pristine=1 differ=16: m01 m02 m03 m04 m05 m06 m07 m08 m09 m10 m11 m12 m13 m14 m15 m16
+R11U169_PATFLATSPAN_OFF grid=pf identical_to_pristine=10 differ=0:
+R11U169_MLLOC_OFF+R11U169_MLARGLOC_OFF grid=ml identical_to_pristine=17 differ=0

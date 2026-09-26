@@ -3325,6 +3325,138 @@ const ParameterSymbol* UhdmExporter::memLeftCallPatArg(const Expression& init,
     return &sy.as<ParameterSymbol>();
 }
 
+/// The span CompileExpression's tail gives a REDUCED binary operation:
+/// `populateCoreMembers(child, child, result)` on the expression node's first
+/// child, the LEFT operand's own node with its parentheses (§ memLeftFormalArgLoc169,
+/// § patFlatMemberLeftSpan169; the rule § elabParamOpSubtreeFold86 decoded).
+static slang::SourceRange binaryLeftChildRange169(const slang::ast::Expression& e) {
+    const slang::syntax::SyntaxNode* sy = e.syntax;
+    while (sy && sy->kind == slang::syntax::SyntaxKind::ParenthesizedExpression)
+        sy = sy->as<slang::syntax::ParenthesizedExpressionSyntax>().expression;
+    if (sy && slang::syntax::BinaryExpressionSyntax::isKind(sy->kind))
+        return sy->as<slang::syntax::BinaryExpressionSyntax>().left->sourceRange();
+    return e.as<slang::ast::BinaryExpression>().left().sourceRange;
+}
+// § memLeftFormalArgLoc169 (r11u169) — the leftover of a WHOLE FORMAL READ
+// (`c.A = x`) is what the producer's evaluator bound the formal to: the
+// CALLER's actual, reduced where the actual is written.  A literal actual
+// leaves the literal itself (`mk(64, 5)`: 15:27-29 and 15:31-32), a parameter
+// actual a copy of the parameter's value at the reference (`build(UC)`:
+// 18:28-30), an operation the constant the reduction writes at its left
+// operand (`mk(32 + 32, 5)`: 15:27-29).  Grid tools/probe/r11u169repro/cases/ml.
+// The expression whose span the leftover carries, or null (abstain: the
+// landed call span stands).
+static std::optional<SourceRange> memLeftActualLoc169(const Expression& init,
+                                                     int idx) {
+    auto& si = stripImplicitConv(init);
+    if (idx < 0 || si.kind != ExpressionKind::Call)
+        return std::nullopt;
+    auto args = si.as<CallExpression>().arguments();
+    if ((size_t)idx >= args.size() || !args[(size_t)idx])
+        return std::nullopt;
+    const Expression* a = &stripImplicitConv(*args[(size_t)idx]);
+    // A defaulted formal's expression is written in the subroutine header,
+    // not at the call: abstain.
+    auto cr = si.sourceRange;
+    auto ar = a->sourceRange;
+    if (ar.start().buffer() != cr.start().buffer() ||
+        ar.start().offset() < cr.start().offset() ||
+        ar.end().offset() > cr.end().offset())
+        return std::nullopt;
+    // A reduced binary operation is written at its LEFT operand's own node,
+    // parentheses included (CompileExpression's tail
+    // `populateCoreMembers(child, child, result)`; pass 167's rs/r07
+    // `(W'(1) << (W - 1)) | W'(1)` at 7:28-7:46).
+    if (a->kind == ExpressionKind::BinaryOp)
+        return binaryLeftChildRange169(*a);
+    switch (a->kind) {
+    case ExpressionKind::IntegerLiteral:
+    case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+        return a->sourceRange;
+    case ExpressionKind::NamedValue:
+        if (a->as<NamedValueExpression>().symbol.kind == SymbolKind::Parameter)
+            return a->sourceRange;
+        return std::nullopt;
+    default:
+        return std::nullopt;
+    }
+}
+// The minted leftovers § memLeftFormalArgLoc169 relocated (the drain's
+// parameter-actual copy reads the location back from them).
+static std::set<const UHDM::any*> memLeftArgLoc169;
+// The minted leftovers of a body right side that reads a formal's member
+// (§ memLeftSliceUnlocated169 decides them in the drain).
+static std::set<const UHDM::any*> memLeftReadsDeferred169;
+// § memLeftSliceUnlocated169 (r11u169) — a COMPUTED member's leftover (the
+// body writes an expression the producer's evaluator reduces: `x / 8`,
+// `$clog2(x / 8)`, `e == 1'b1 ? (c.A / 16) : 1`, `3 * 4`, `PK + 1`) is the
+// fresh constant reduceExpr mints, and it carries NO location (golden file
+// empty, 0:0-0:0: r11u11 a3/a5/a8, r11u13 b6, r11u14 c8, r11vu3 vK,
+// struct_param_field_shift's XLEN_ALIGN_BYTES, param_nested_struct_field_width's
+// derived).  The literal, parameter-read, pattern-element and concat
+// leftovers keep their landed resolutions.  Switches R11U169_MLLOC_OFF (the
+// computed half) and R11U169_MLARGLOC_OFF (the formal-read half).
+// Returns the expression whose span a whole-formal-read leftover takes (the
+// caller relocates it), or null.
+template <typename Lo>
+static std::optional<SourceRange> memLeftSiteLoc169(UHDM::constant* c9,
+                                                    const Expression& init,
+                                                    const Lo& lo) {
+    if (lo.argWhole >= 0) {
+        if (!r11u169On("R11U169_MLARGLOC_OFF"))
+            return std::nullopt;
+        auto ar = memLeftActualLoc169(init, lo.argWhole);
+        if (ar) {
+            memLeftArgLoc169.insert(c9);
+            trace169("MLARGLOC site");
+        }
+        else
+            trace169("MLARGLOC abstain");
+        return ar;
+    }
+    if (lo.litRhs || lo.paramRead || lo.catRhs ||
+        lo.enc == SrlgMemLeftEnc::Pat || !lo.srcMember.empty())
+        return std::nullopt;
+    if (!r11u169On("R11U169_MLLOC_OFF"))
+        return std::nullopt;
+    // A body right side that reads a FORMAL's member (`CVA6Cfg.RVC == 1'b1 ?
+    // ...`) is decided in the drain: when a read member's caller actual is a
+    // PATTERN parameter (an elaborated element exists), golden writes it at a
+    // read site of the parameter (FuncStructVal INSTR_PER_FETCH at
+    // `CVA6Cfg.INSTR_PER_FETCH`, 618:22-45: not modelled, the landed call
+    // span stands); otherwise it is the plain unlocated reduction (grid ml/m13
+    // `c.der = uu.d * 2` with `build(UC)`).
+    if (!lo.reads.empty()) {
+        // decided in the drain, where the caller's pattern elements are known
+        memLeftReadsDeferred169.insert(c9);
+        trace169("MLLOC reads deferred");
+        return std::nullopt;
+    }
+    // A SIGN cast of a literal (`cfg.NrRgprPorts = unsigned'(2)`) is the
+    // literal's own node: golden FuncStructVal 539:33-34.  A type cast
+    // (`r.w = bit'(1)`, r11u14 c8) is a fresh reduction: unlocated.
+    const Expression* rx169 =
+        lo.rhsExpr ? &stripImplicitConv(*lo.rhsExpr) : nullptr;
+    if (rx169 && rx169->kind == ExpressionKind::Conversion &&
+        !rx169->as<ConversionExpression>().isImplicit() && rx169->syntax &&
+        rx169->syntax->kind == syntax::SyntaxKind::SignedCastExpression) {
+        auto& op = stripImplicitConv(
+            rx169->as<ConversionExpression>().operand());
+        if (op.kind == ExpressionKind::IntegerLiteral ||
+            op.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+            trace169("MLLOC castlit");
+            return op.sourceRange;
+        }
+    }
+    c9->VpiFile("");
+    c9->VpiLineNo(0);
+    c9->VpiColumnNo(0);
+    c9->VpiEndLineNo(0);
+    c9->VpiEndColumnNo(0);
+    trace169("MLLOC");
+    return std::nullopt;
+}
+
 // § pkgStructFuncAssembleNested24 — `selOff`/`selWidth` override the field's
 // own range when the write that WON this member went below the first level:
 // the leftover golden stamps is the RHS's constant, whose value is the folded
@@ -3908,6 +4040,38 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
             if (i < st.argWholeParam.size() && st.argWholeParam[i]) {
                 auto ait = elabParamConst.find(st.argWholeParam[i]);
                 if (ait != elabParamConst.end() && ait->second) {
+                    // § memLeftFormalArgLoc169 — a PARAMETER actual's
+                    // leftover is a copy of the parameter's constant written
+                    // at the reference (golden param_nested_struct_field_width
+                    // `c.u = uu` with `build(UCFG)`: 31:38-42, the parameter's
+                    // own constant stays at 30:32), not the shared object.
+                    auto* prev169 = st.values[i];
+                    if (prev169 && memLeftArgLoc169.count(prev169) &&
+                        ait->second->UhdmType() == UHDM::uhdmconstant &&
+                        r11u169On("R11U169_MLARGLOC_OFF")) {
+                        auto* o169 = (const UHDM::constant*)ait->second;
+                        auto* c169 = s.MakeConstant();
+                        c169->VpiValue(o169->VpiValue());
+                        c169->VpiSize(o169->VpiSize());
+                        c169->VpiConstType(o169->VpiConstType());
+                        c169->VpiDecompile(o169->VpiDecompile());
+                        c169->VpiFile(prev169->VpiFile());
+                        c169->VpiLineNo(prev169->VpiLineNo());
+                        c169->VpiColumnNo(prev169->VpiColumnNo());
+                        c169->VpiEndLineNo(prev169->VpiEndLineNo());
+                        c169->VpiEndColumnNo(prev169->VpiEndColumnNo());
+                        if (auto* rt0 = o169->Typespec()) {
+                            auto* rt169 = s.MakeRef_typespec();
+                            rt169->VpiParent(c169);
+                            rt169->VpiFullName(rt0->VpiFullName());
+                            rt169->Actual_typespec(
+                                (UHDM::typespec*)rt0->Actual_typespec());
+                            c169->Typespec(rt169);
+                        }
+                        st.values[i] = c169;
+                        trace169("MLARGLOC paramcopy");
+                        continue;
+                    }
                     st.values[i] = (UHDM::expr*)ait->second;
                     continue;
                 }
@@ -3976,6 +4140,31 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
                         st.values[i] = cc9;
             }
         }
+        // § memLeftSliceUnlocated169 — the deferred half: a computed
+        // leftover that reads formal members none of whose caller actuals is
+        // a recorded pattern is the plain unlocated reduction.
+        if (!memLeftReadsDeferred169.empty() &&
+            r11u169On("R11U169_MLLOC_OFF"))
+            for (size_t i = 0; i < st.values.size() && i < st.reads.size();
+                 i++) {
+                auto* v169 = st.values[i];
+                if (!v169 || !memLeftReadsDeferred169.count(v169))
+                    continue;
+                bool pat169 = false;
+                for (auto& [rp, mn] : st.reads[i])
+                    if (patElabElems.count(rp))
+                        pat169 = true;
+                if (pat169) {
+                    trace169("MLLOC reads pattern keep");
+                    continue;
+                }
+                v169->VpiFile("");
+                v169->VpiLineNo(0);
+                v169->VpiColumnNo(0);
+                v169->VpiEndLineNo(0);
+                v169->VpiEndColumnNo(0);
+                trace169("MLLOC reads");
+            }
         // § memLeftFormalReadTs18 (r11u18) — THE FORMAL'S TYPESPEC ON A
         // WHOLE-FORMAL-READ LEFTOVER.  `c.M = <formal>` reduces to the
         // CALLER's actual, and golden's leftover carries a ref_typespec to
@@ -12108,6 +12297,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             // pattern constant (28:21) for the wide member
                             // copy.  We park all three at the call.
                             setLoc(c9, init->sourceRange);
+                            if (auto ar169 = memLeftSiteLoc169(
+                                    c9, *init, (*leftovers)[li9]))
+                                setLoc(c9, *ar169);
                             st9.names.push_back(std::string(f9.name));
                             st9.values.push_back(c9);
                             // § r10fsv2 L1: a `Pat` member's real leftover is
@@ -16785,6 +16977,45 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             }
                             c2->VpiParent(op2);
                             setLoc(c2, se->sourceRange);
+                            // § patFlatMemberLeftSpan169 (r11u169) — THE
+                            // FLATTENED MEMBER VALUE IS WRITTEN AT ITS LEFT
+                            // OPERAND.  The elaborated listing re-compiles the
+                            // member with Reduce::Yes, and CompileExpression's
+                            // tail stamps the reduced constant (minted with no
+                            // location) at `populateCoreMembers(child, child,
+                            // result)`: the expression node's FIRST CHILD, the
+                            // left operand's own node with its parentheses for
+                            // a binary operation (pass 167's rs/r07
+                            // `(W'(1) << (W - 1)) | W'(1)`: golden 7:28-7:46,
+                            // ours the whole member 7:28-7:54), the operator
+                            // token for a unary one (the rule
+                            // § elabParamOpSubtreeFold86 decoded for operand
+                            // subtrees).  Grid tools/probe/r11u169repro/cases/pf.
+                            // Switch: R11U169_PATFLATSPAN_OFF.
+                            if (r11u169On("R11U169_PATFLATSPAN_OFF")) {
+                                auto& sb169 = stripImplicitConv(*se);
+                                const syntax::SyntaxNode* sy169 = sb169.syntax;
+                                while (sy169 &&
+                                       sy169->kind == syntax::SyntaxKind::
+                                                          ParenthesizedExpression)
+                                    sy169 = sy169->as<syntax::
+                                                          ParenthesizedExpressionSyntax>()
+                                                .expression;
+                                if (sb169.kind == ExpressionKind::BinaryOp) {
+                                    setLoc(c2, binaryLeftChildRange169(sb169));
+                                    trace169("PATFLATSPAN bin");
+                                }
+                                else if (sb169.kind == ExpressionKind::UnaryOp &&
+                                         sy169 &&
+                                         syntax::PrefixUnaryExpressionSyntax::
+                                             isKind(sy169->kind)) {
+                                    setLoc(c2,
+                                           sy169->as<syntax::
+                                                         PrefixUnaryExpressionSyntax>()
+                                               .operatorToken.range());
+                                    trace169("PATFLATSPAN un");
+                                }
+                            }
                             opnds->push_back(c2);
                         }
                     }
