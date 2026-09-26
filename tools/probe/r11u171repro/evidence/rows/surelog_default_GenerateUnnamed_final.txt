@@ -1,0 +1,1 @@
+STRICT_EQUAL 343 objects

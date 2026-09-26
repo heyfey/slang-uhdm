@@ -1,0 +1,33 @@
+#168 fullname
+  A: 6	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+#176 file
+  A: 9	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 9	constant					132	23	132	25	11	64	INT:11	7
+#177 file
+  A: 9	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9
+  B: 9	constant					132	29	132	30	0	64	UINT:0	9
+#179 file
+  A: 7	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 7	constant					132	23	132	25	11	64	INT:11	7
+#180 file
+  A: 7	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9
+  B: 7	constant					132	29	132	30	0	64	UINT:0	9
+#450 fullname
+  A: 9	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+  B: 9	ref_typespec			<in>riscv_isa_pkg::imm_l_t		0	0	0	0		0		
+#458 file
+  A: 12	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 12	constant					132	23	132	25	11	64	INT:11	7
+#459 file
+  A: 12	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9
+  B: 12	constant					132	29	132	30	0	64	UINT:0	9
+#461 file
+  A: 10	constant				riscv_isa_pkg.sv	132	23	132	25	11	64	INT:11	7
+  B: 10	constant					132	23	132	25	11	64	INT:11	7
+#462 file
+  A: 10	constant				riscv_isa_pkg.sv	132	29	132	30	0	64	UINT:0	9
+  B: 10	constant					132	29	132	30	0	64	UINT:0	9
+objects 19912 vs 19948
+fields: type=1 fullname=7 file=28 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=36 (walk diverged)
+STRICT_NOTEQUAL fullname

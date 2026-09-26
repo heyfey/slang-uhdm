@@ -1,0 +1,33 @@
+#466 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#472 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+#491 fullname
+  A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0		
+#498 fullname
+  A: 6	ref_typespec			UVM_START_FUNCS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_START_FUNCS		0	0	0	0		0		
+#504 fullname
+  A: 5	ref_typespec			UVM_SET		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg::UVM_SET		0	0	0	0		0		
+#517 fullname
+  A: 5	ref_typespec			UVM_SETSTR		0	0	0	0		0		
+  B: 5	ref_typespec			uvm_pkg::UVM_SETSTR		0	0	0	0		0		
+#543 fullname
+  A: 7	ref_typespec			UVM_LINE_WIDTH		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::UVM_LINE_WIDTH		0	0	0	0		0		
+#554 fullname
+  A: 8	ref_typespec			UVM_NUM_LINES		0	0	0	0		0		
+  B: 8	ref_typespec			uvm_pkg::UVM_NUM_LINES		0	0	0	0		0		
+#587 fullname
+  A: 7	ref_typespec			UVM_STREAMBITS		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::UVM_STREAMBITS		0	0	0	0		0		
+#591 file
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_block.svh	1671	35	1671	46				
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_model.svh	180	4	183	18				
+objects 269656 vs 268952
+fields: depth=1 type=1 name=1 fullname=21 file=21 line=19 col=22 endline=19 endcol=22 objects_differing=45 (walk diverged)
+STRICT_NOTEQUAL fullname

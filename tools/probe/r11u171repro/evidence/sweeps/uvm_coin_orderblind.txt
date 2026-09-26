@@ -1,0 +1,22 @@
+== surelog/default/MiniAmiq
+recordsA=413992 recordsB=413992 onlyA=1036 onlyB=1036 file-only pairs=1035
+  A constant 1
+  A typespec_member 1035
+  B constant 1
+  B typespec_member 1035
+== surelog/testflags/MiniAmiq
+recordsA=413992 recordsB=413992 onlyA=1036 onlyB=1036 file-only pairs=1035
+  A constant 1
+  A typespec_member 1035
+  B constant 1
+  B typespec_member 1035
+== surelog/testflags/SeqDriver
+recordsA=462191 recordsB=462191 onlyA=1156 onlyB=1156 file-only pairs=1155
+  A constant 1
+  A typespec_member 1155
+  B constant 1
+  B typespec_member 1155
+== surelog/default/Scoreboard
+recordsA=268952 recordsB=268952 onlyA=666 onlyB=666 file-only pairs=666
+  A typespec_member 666
+  B typespec_member 666

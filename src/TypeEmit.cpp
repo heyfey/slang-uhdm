@@ -12,6 +12,8 @@
 #include "slang/syntax/SyntaxTree.h"
 
 namespace slang_uhdm {
+bool r11u171Law(const char* sw); // the r11u171 switches (UhdmExporter.cpp)
+void trace171(const char* law, const std::string& detail); // R11U171_TRACE
 
 // r11u148 (tools/probe/r11u148share/README.md): R11U148_OFF drops every law of
 // the pass, R11U148_I_OFF this file's one.
@@ -7518,6 +7520,56 @@ UHDM::expr* UhdmExporter::typeParamDefaultBound20(
     return (UHDM::expr*)e20;
 }
 
+
+// § tsMemberRootFile171 (r11u171, map N0210: Scr1SvTests, the UVM rows, r11u172
+// R3) — a struct / union typespec_member is filed at the ROOT source file of
+// the compilation (the file named on the command line whose preprocessing
+// produced the member), whatever file its tokens came from.  Surelog builds
+// every member through CompileHelper::buildTypespecMember
+// (DesignCompile/CompileType.cpp) with `fC->getFileId()` — the FileContent's
+// own file, one per root file — beside `fC->Line(...)`, the node's line in the
+// included file, and writes `VpiRefFile(fC->getFileId())` the same way; every
+// other object reaches populateCoreMembers, which reads the node's own file.
+// So Scr1SvTests' `type_scr1_hdu_...` members declared in scr1_hdu.svh read
+// `scr1_pipe_hdu.sv 76:41` in golden where we wrote `scr1_hdu.svh 76:41`.  A
+// macro token climbs from its expansion point; the root is the top of the
+// include chain.  Grid tools/probe/r11u171repro/cases/M.  Switch
+// R11U171_MEMBERROOTFILE_OFF.
+static std::string memberRootFile171(const slang::SourceManager* sm,
+                                     slang::SourceLocation loc) {
+    if (loc == slang::SourceLocation::NoLocation)
+        return "";
+    if (sm->isMacroLoc(loc))
+        loc = sm->getFullyExpandedLoc(loc);
+    if (loc == slang::SourceLocation::NoLocation || !loc.buffer().valid())
+        return "";
+    auto buf = loc.buffer();
+    for (int guard = 0; guard < 64; guard++) {
+        auto up = sm->getIncludedFrom(buf);
+        if (up == slang::SourceLocation::NoLocation || !up.buffer().valid())
+            break;
+        if (sm->isMacroLoc(up))
+            up = sm->getFullyExpandedLoc(up);
+        if (up == slang::SourceLocation::NoLocation || !up.buffer().valid())
+            break;
+        buf = up.buffer();
+    }
+    return sm->getFullPath(buf).string();
+}
+
+// ===== r11u172 — the rp32 and struct-typespec file families
+// (tools/probe/r11u172rp/README.md) =====
+// Every r11u172 law reads its own axis switch: R11U172_VALUE_OFF (a range
+// bound literal's value text), R11U172_FILE_OFF (the file a moved typedef
+// object carries), R11U172_SPAN_OFF (a sign call's name span in the syntax
+// view); R11U172_DEPTH_OFF is ExprEmit's (the elaborated package cast's
+// typedef listing).  R11U172_OFF drops every one of them (pristine bytes).
+static bool r11u172On(const char* sw) {
+    if (getenv("R11U172_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 UHDM::constant* UhdmExporter::makeBoundConst(const syntax::SyntaxNode* syn, int64_t value,
                                              UHDM::BaseClass* parent) {
     auto* c = s.MakeConstant();
@@ -7531,6 +7583,36 @@ UHDM::constant* UhdmExporter::makeBoundConst(const syntax::SyntaxNode* syn, int6
         // not map into the buffer) — fall back to the numeric value.
         std::string raw = rawText(syn->sourceRange());
         c->VpiDecompile(raw.empty() ? std::to_string(value) : raw);
+        // § boundLitWrittenDigits172 (r11u172, map N0092) — a bound WRITTEN
+        // as an unsized decimal literal keeps its written digits as its
+        // value: Surelog's compileConst (CompileExpression.cpp, the
+        // `slIntConst` arm) stores `"UINT:" + text` with only the `_`
+        // separators removed and never evaluates it ("keep it as in the
+        // source text"), and a range bound that is already a constant is
+        // not re-reduced.  So `logic [11:00] imm_11_0` lists `UINT:00` where
+        // we wrote the evaluated `UINT:0` (rp32 riscv_isa_i_pkg op32_*_t
+        // 118:34, 119:34; UnionCast 108:34, 109:34).  Only the digits text
+        // of a literal that evaluates to this very value; a folded bound,
+        // a based or sized literal and a 20-digit one keep the evaluated
+        // text.  Grid tools/probe/r11u172rp/cases/V.  Switch
+        // R11U172_VALUE_OFF.
+        if (syn->kind == syntax::SyntaxKind::IntegerLiteralExpression &&
+            !raw.empty() && r11u172On("R11U172_VALUE_OFF")) {
+            std::string dig;
+            bool ok = true;
+            for (char ch : raw) {
+                if (ch == '_')
+                    continue;
+                if (ch < '0' || ch > '9') {
+                    ok = false;
+                    break;
+                }
+                dig.push_back(ch);
+            }
+            if (ok && !dig.empty() && dig.size() < 19 &&
+                std::stoll(dig) == value)
+                c->VpiValue("UINT:" + dig);
+        }
     }
     return c;
 }
@@ -7894,6 +7976,24 @@ UHDM::typespec* UhdmExporter::sharedTypespec(const Symbol& declSymbol, TsCache& 
         if (auto tsyn = declared->getTypeSyntax())
             key = tsyn;
     }
+    // § splitPortTsKeyOnPortDecl171 (r11u171, map N0661: YosysOldOr d/t) — a
+    // SPLIT (Verilog-95) port whose variable is re-declared in the body
+    // (`output opa_dn; output opb_dn;` then `reg opa_dn, opb_dn;`) takes its
+    // typespec from its PORT declaration (makeTypespec's mergedPort branch:
+    // the port declaration's type syntax and first declarator), so the
+    // objects are shared by port declaration, not by the body declaration:
+    // keyed on the body's `reg`, every later port of `reg a, b;` reused the
+    // first port's object and its location.  Surelog compiles each port
+    // declaration's type on its own node (golden or1200_fpu_intfloat_conv_
+    // except `opb_dn` 51:12, ours 50:12, `opa_dn`'s).  Ports of ONE port
+    // declaration (`output x, y;`) still share.  Grid
+    // tools/probe/r11u171repro/cases/N.  Switch R11U171_SPLITPORTKEY_OFF.
+    if (portCtx && hasBodyDecl(declSymbol) &&
+        r11u171Law("R11U171_SPLITPORTKEY_OFF"))
+        if (auto* psyn171 = mergedPortDeclTypeSyn9(*portCtx, declSymbol)) {
+            key = psyn171;
+            trace171("SPLITPORTKEY", std::string(declSymbol.name));
+        }
     auto it = cache.find(key);
     if (it != cache.end())
         return it->second;
@@ -12603,6 +12703,207 @@ void UhdmExporter::pkgImportCloneLastWriter32() {
     for (auto& [ts, inst] : enumAliasHomeOwner36)
         if (ts && inst)
             ts->Instance(inst);
+    // § castUnionCloneFile171 (r11u171, map N0430: UnionCast d/t, jeras_union)
+    // — the fresh union clone a cast to a package UNION typedef binds
+    // (`op32_t'(ins)`, ExprEmit's castUnionClone arm) carries its typedef's
+    // FILE like every other field it copies: Surelog re-elaborates the cast
+    // target through compileTypespec on the typedef, whose
+    // populateCoreMembers (Design/FileContent.cpp) writes vpiFile with the
+    // span.  The clone copies the listing object's span and left the file
+    // empty (golden UnionCast `riscv_isa_pkg::op32_t dut.sv 115:9-123:2`
+    // under the cast's ref_typespec in both views, ours no file).  The file
+    // is the listing object's when the spans agree, else the typedef
+    // declaration's.  Applied design-final beside the other last-writer
+    // stamps; the clone is ExprEmit's (the one-line alternative is the file
+    // copy beside its span copy there).  Grid
+    // tools/probe/r11u171repro/cases/U.  Switch R11U171_CASTUNIONFILE_OFF.
+    if (r11u171Law("R11U171_CASTUNIONFILE_OFF"))
+        for (auto& [ty, ucl] : castUnionClone) {
+            if (!ty || !ucl || !std::string_view(ucl->VpiFile()).empty())
+                continue;
+            std::string f171;
+            if (auto it = typedefTs.find(ty); it != typedefTs.end() &&
+                                              it->second &&
+                                              it->second->VpiLineNo() ==
+                                                  ucl->VpiLineNo() &&
+                                              it->second->VpiColumnNo() ==
+                                                  ucl->VpiColumnNo())
+                f171 = std::string(it->second->VpiFile());
+            if (f171.empty() && ty->kind == SymbolKind::TypeAlias)
+                if (auto* ds = ty->getSyntax();
+                    ds && ds->kind == syntax::SyntaxKind::TypedefDeclaration) {
+                    auto r = ds->as<syntax::TypedefDeclarationSyntax>()
+                                 .type->sourceRange();
+                    if (r.start() != SourceLocation::NoLocation &&
+                        !sm->isMacroLoc(r.start()))
+                        f171 = fullFilePath(r.start());
+                }
+            if (!f171.empty()) {
+                ucl->VpiFile(f171);
+                trace171("CASTUNIONFILE", f171);
+            }
+        }
+    // § tdMoveCarriesFile172 (r11u172, map N0149 / N0140 / N0143) — a shared
+    // typedef object that Surelog MOVES to a use site takes that use site's
+    // FILE with the span.  FileContent::populateCoreMembers
+    // (Design/FileContent.cpp) writes vpiFile on every call: from the START
+    // node when it has one, else from the END node.  So
+    //  * the package subroutine formal's relocation (CompileHelper
+    //    compileTfPortList `populateCoreMembers(type, type, ts)`; ours is
+    //    emitPackage's last-writer loop, ParamEmit.cpp) files the object at
+    //    the FORMAL's file: rp32 riscv_isa_pkg::isa_t, declared in
+    //    riscv_isa_pkg.sv, lists 417:34-417:39 in riscv_isa_i_pkg.sv (the
+    //    enc32 formal) in golden, where we kept riscv_isa_pkg.sv;
+    //  * writeNets' end-only move (UhdmWriter `populateCoreMembers(
+    //    InvalidNodeId, dimensions, ts)`; ours is the pendingPkgTsStretch
+    //    pass, UhdmExporter.cpp) files it at the DECLARATION's file:
+    //    Earlgrey tlul_pkg::tl_h2d_t 32:11-61:31 in xbar_peri.sv.
+    // Our movers write the span through setLoc (which only fills an EMPTY
+    // file) or write the end alone, so the object keeps its declaring file.
+    // Applied design-final, after every mover: an object of a package or
+    // module typedef (struct / union / enum) whose START is not its own
+    // declaration's takes the file of the one subroutine formal type token
+    // that starts there (unless its end then moved on: the end's
+    // declarator), and one whose END alone moved takes the file of the one
+    // declarator that ends there, the writer written last (syntax-tree
+    // order) when two files share the position and the type name.
+    // Grid tools/probe/r11u172rp/cases/F.  Switch R11U172_FILE_OFF.
+    if (!r11u172On("R11U172_FILE_OFF"))
+        return;
+    using LC = std::pair<uint32_t, uint32_t>;
+    // Writer positions keyed by (position, the type NAME written there);
+    // each holds the writers' files in syntax-tree (compile) order, the last
+    // one being the last writer when two files share the position.
+    struct Site {
+        std::vector<std::string> files;
+        LC end{0, 0};
+    };
+    using Key = std::pair<LC, std::string>;
+    std::map<Key, Site> formalAt;                     // formal type token start
+    std::map<Key, std::vector<std::string>> declEnd;  // declarator ends
+    auto typeName = [](const syntax::DataTypeSyntax* dt) -> std::string {
+        if (!dt || dt->kind != syntax::SyntaxKind::NamedType)
+            return {};
+        const syntax::NameSyntax* nm = dt->as<syntax::NamedTypeSyntax>().name;
+        while (nm && nm->kind == syntax::SyntaxKind::ScopedName)
+            nm = nm->as<syntax::ScopedNameSyntax>().right;
+        if (nm && nm->kind == syntax::SyntaxKind::IdentifierName)
+            return std::string(
+                nm->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+        return {};
+    };
+    std::function<void(const syntax::SyntaxNode&)> walk =
+        [&](const syntax::SyntaxNode& n) {
+            if (n.kind == syntax::SyntaxKind::FunctionPort) {
+                auto& fp = n.as<syntax::FunctionPortSyntax>();
+                std::string tn = typeName(fp.dataType);
+                if (!tn.empty()) {
+                    auto r = fp.dataType->sourceRange();
+                    if (r.start() != SourceLocation::NoLocation &&
+                        !sm->isMacroLoc(r.start())) {
+                        LC k{0, 0}, e{0, 0};
+                        locLineCol(r.start(), k.first, k.second);
+                        locLineCol(r.end(), e.first, e.second);
+                        auto& st = formalAt[{k, tn}];
+                        st.files.push_back(fullFilePath(r.start()));
+                        st.end = e;
+                    }
+                }
+            }
+            if (n.kind == syntax::SyntaxKind::Declarator) {
+                auto& dd = n.as<syntax::DeclaratorSyntax>();
+                std::string tn;
+                for (auto q = n.parent; q; q = q->parent) {
+                    if (q->kind == syntax::SyntaxKind::DataDeclaration) {
+                        tn = typeName(q->as<syntax::DataDeclarationSyntax>().type);
+                        break;
+                    }
+                    if (q->kind == syntax::SyntaxKind::NetDeclaration) {
+                        tn = typeName(q->as<syntax::NetDeclarationSyntax>().type);
+                        break;
+                    }
+                    if (q->kind == syntax::SyntaxKind::Declarator)
+                        break;
+                }
+                auto note = [&](SourceLocation l) {
+                    if (tn.empty() || l == SourceLocation::NoLocation ||
+                        sm->isMacroLoc(l))
+                        return;
+                    LC k{0, 0};
+                    locLineCol(l, k.first, k.second);
+                    declEnd[{k, tn}].push_back(fullFilePath(l));
+                };
+                note(n.sourceRange().end());
+                if (!dd.dimensions.empty())
+                    note(dd.dimensions[0]->sourceRange().end());
+            }
+            for (size_t i = 0; i < n.getChildCount(); i++)
+                if (auto* c = n.childNode(i))
+                    walk(*c);
+        };
+    for (auto tree : comp.getSyntaxTrees())
+        walk(tree->root());
+    // The typedef symbols the maps may key (pkgTopTypedefTs keys are void*).
+    std::set<const void*> aliases;
+    for (auto& [sym, ts] : typedefTs)
+        if (sym && sym->kind == SymbolKind::TypeAlias)
+            aliases.insert(sym);
+    for (auto& [sym, ts] : pkgImportCloneTs)
+        if (sym && sym->kind == SymbolKind::TypeAlias)
+            aliases.insert(sym);
+    for (auto* pk : comp.getPackages())
+        for (auto& m : pk->members())
+            if (m.kind == SymbolKind::TypeAlias)
+                aliases.insert(&m);
+    std::vector<std::pair<const Symbol*, UHDM::typespec*>> objs;
+    for (auto& [sym, ts] : typedefTs)
+        objs.push_back({sym, ts});
+    for (auto& [sym, ts] : pkgImportCloneTs)
+        objs.push_back({sym, ts});
+    for (auto& [key, ts] : pkgTopTypedefTs)
+        if (aliases.count(key))
+            objs.push_back({(const Symbol*)key, ts});
+    std::set<UHDM::typespec*> done;
+    for (auto& [sym, ts] : objs) {
+        if (!sym || !ts || sym->kind != SymbolKind::TypeAlias ||
+            !done.insert(ts).second)
+            continue;
+        auto k = ts->UhdmType();
+        if (k != UHDM::uhdmstruct_typespec && k != UHDM::uhdmunion_typespec &&
+            k != UHDM::uhdmenum_typespec)
+            continue;
+        auto* dsyn = sym->getSyntax();
+        if (!dsyn || dsyn->kind != syntax::SyntaxKind::TypedefDeclaration)
+            continue;
+        auto own = dsyn->as<syntax::TypedefDeclarationSyntax>().type->sourceRange();
+        if (own.start() == SourceLocation::NoLocation ||
+            own.end() == SourceLocation::NoLocation)
+            continue;
+        LC os{0, 0}, oe{0, 0};
+        locLineCol(own.start(), os.first, os.second);
+        locLineCol(own.end(), oe.first, oe.second);
+        LC cs{ts->VpiLineNo(), ts->VpiColumnNo()};
+        LC ce{ts->VpiEndLineNo(), ts->VpiEndColumnNo()};
+        const std::string tn(sym->name);
+        const std::vector<std::string>* pick = nullptr;
+        if (cs != os) {
+            auto f = formalAt.find({cs, tn});
+            if (f == formalAt.end())
+                continue;
+            if (f->second.end == ce)
+                pick = &f->second.files;
+            else if (auto d = declEnd.find({ce, tn}); d != declEnd.end())
+                pick = &d->second;
+        }
+        else if (ce != oe) {
+            if (auto d = declEnd.find({ce, tn}); d != declEnd.end())
+                pick = &d->second;
+        }
+        if (!pick || pick->empty())
+            continue;
+        if (std::string(ts->VpiFile()) != pick->back())
+            ts->VpiFile(pick->back());
+    }
 }
 
 // § lawSCopyHomeInstance36 — WHICH package owns a LAW-S bare per-declaration
@@ -14029,6 +14330,14 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         tm->VpiName(fm.name);
         tm->VpiParent(sts);
         setLoc(tm, nameSpan(fm.location, fm.name));
+        // § tsMemberRootFile171 (helper above makeBoundConst).
+        const bool rootFile171 = r11u171Law("R11U171_MEMBERROOTFILE_OFF");
+        if (rootFile171)
+            if (auto rf171 = memberRootFile171(sm, fm.location); !rf171.empty()) {
+                if (rf171 != std::string(tm->VpiFile()))
+                    trace171("MEMBERROOTFILE", std::string(fm.name) + " " + rf171);
+                tm->VpiFile(rf171);
+            }
         // An UNPACKED-array member (foo_t f [7]) spans name..last dim
         // (Surelog).
         if (fm.getDeclaredType() &&
@@ -14925,7 +15234,8 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         if (memberTypeSyn) {
             auto sr = memberTypeSyn->sourceRange();
             if (sr.start() != SourceLocation::NoLocation) {
-                tm->VpiRefFile(fullFilePath(sr.start()));
+                tm->VpiRefFile(rootFile171 ? memberRootFile171(sm, sr.start())
+                                           : fullFilePath(sr.start()));
                 tm->VpiRefLineNo(sm->getLineNumber(sr.start()));
                 tm->VpiRefColumnNo(sm->getColumnNumber(sr.start()));
                 tm->VpiRefEndLineNo(sm->getLineNumber(sr.end()));
@@ -14979,6 +15289,14 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
         tm->VpiName(fm.name);
         tm->VpiParent(uts);
         setLoc(tm, nameSpan(fm.location, fm.name));
+        // § tsMemberRootFile171 (helper above makeBoundConst).
+        const bool rootFile171 = r11u171Law("R11U171_MEMBERROOTFILE_OFF");
+        if (rootFile171)
+            if (auto rf171 = memberRootFile171(sm, fm.location); !rf171.empty()) {
+                if (rf171 != std::string(tm->VpiFile()))
+                    trace171("MEMBERROOTFILE", std::string(fm.name) + " " + rf171);
+                tm->VpiFile(rf171);
+            }
         // An UNPACKED-array member (foo_t f [7]) spans name..last dim
         // (Surelog).
         if (fm.getDeclaredType() &&
@@ -15679,7 +15997,8 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
         if (memberTypeSyn) {
             auto sr = memberTypeSyn->sourceRange();
             if (sr.start() != SourceLocation::NoLocation) {
-                tm->VpiRefFile(fullFilePath(sr.start()));
+                tm->VpiRefFile(rootFile171 ? memberRootFile171(sm, sr.start())
+                                           : fullFilePath(sr.start()));
                 tm->VpiRefLineNo(sm->getLineNumber(sr.start()));
                 tm->VpiRefColumnNo(sm->getColumnNumber(sr.start()));
                 tm->VpiRefEndLineNo(sm->getLineNumber(sr.end()));
@@ -18286,7 +18605,27 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 // emitter applies through inCastSize, measured on the two
                 // $clog2 calls of ClogCast (line 55 plain gen-if condition ->
                 // full span; line 63 the same call as a cast size -> name).
-                if (inCastSize)
+                // § sysSignNameSpanSyntax172 (r11u172, map N0049, the rp32
+                // face) — `$signed(..)` / `$unsigned(..)` keep the NAME-token
+                // span in every syntax-view position, the rule the bound
+                // emitter already follows for them (ExprEmit
+                // kNameOnlyFuncs): Surelog compiles them in compileExpression's
+                // `paSystem_task_names` arm, whose object takes its span
+                // from the name node at the end of compileExpression
+                // (`populateCoreMembers(child, child, result)`), where the
+                // other system calls reach a whole-call span.  Golden
+                // rp32_r5p_alu gen_shf `XLEN'($signed(shf_ext) >>> shf_amm)`
+                // 297:28-297:35 where we wrote 297:28-297:44; grid
+                // tools/probe/r11u172rp/cases/S (a def-view gen-block
+                // assign plain, under an operation, as a cast operand, in a
+                // concatenation and nested, a gen-if and a gen-for
+                // condition, a def-view net range bound: all name-only).
+                // `signed'(x)` (SignedCastExpression) keeps its whole span.
+                // Switch R11U172_SPAN_OFF.
+                const bool signName172 =
+                    (sysName == "$signed" || sysName == "$unsigned") &&
+                    r11u172On("R11U172_SPAN_OFF");
+                if (inCastSize || signName172)
                     setLoc(sfc, SourceRange(syn.sourceRange().start(),
                                             syn.sourceRange().start() +
                                                 sysName.size()));

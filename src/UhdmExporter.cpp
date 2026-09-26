@@ -170,6 +170,29 @@ bool r11u168Law(const char* sw) {
     return getenv(sw) == nullptr;
 }
 
+// The r11u171 switches (tools/probe/r11u171repro/README.md): every r11u171
+// law reads its own R11U171_<LAW>_OFF switch; R11U171_OFF drops all of them.
+bool r11u171Law(const char* sw) {
+    if (getenv("R11U171_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// The v11u171 refinements (tools/probe/v11u171repro/README.md, the adversarial
+// verification of r11u171): each reads its own R11V171_<NAME>_OFF switch;
+// R11V171_OFF drops all of them (the r11u171 laws as delivered).
+bool v11u171Law(const char* sw) {
+    if (getenv("R11V171_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// R11U171_TRACE=1 names every firing of an r11u171 law on stderr
+// (`R11U171 <LAW> <detail>`), for the mover attribution.
+void trace171(const char* law, const std::string& detail) {
+    static const bool on = getenv("R11U171_TRACE") != nullptr;
+    if (on)
+        fprintf(stderr, "R11U171 %s %s\n", law, detail.c_str());
+}
+
 // § enumAliasClone161 (r11u161) — defined in TypeEmit.cpp.
 bool r11u161Law(const char* sw);
 const slang::syntax::SyntaxNode* enumAliasSyn161(const slang::ast::TypeAliasType& ta);

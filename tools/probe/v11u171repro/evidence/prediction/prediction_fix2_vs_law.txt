@@ -1,0 +1,7 @@
+v11u171 prediction written 2026-09-25T22:04:26-04:00, BEFORE reading any result of sweep /tmp/v11u171_swV (launched, unread)
+Refinements: § genElseIfGateTermPath171 declines where prefix segs > chain blocks (GENFLAT); § udpFormConcatSwallowSpans171 declines on a non-lvalue first concat (UDPLVALUE).
+A decline can only move bytes where the r11u171 law fired and produced a different path/structure.
+Law firing rows in the corpora (law movers attributed to these laws): GenerateUnnamed d/t (GENELSEIF), YosysBigSimEllip d (UDPSWALLOW 132 firings).
+Trace runs of law.bin vs fix2.bin on those two rows: identical firings, byte-identical databases.
+PREDICTION corpus movers fix2 vs law: 0 (surelog + uhdm2rtlil). Statuses and strict columns identical to swL.
+PREDICTION probe: 0 status changes vs swL.

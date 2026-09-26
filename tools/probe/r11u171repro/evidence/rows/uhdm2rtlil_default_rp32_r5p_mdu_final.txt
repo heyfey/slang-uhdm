@@ -1,0 +1,6 @@
+#15963 type
+  A: 10	constant				riscv_isa_i_pkg.sv	144	27	144	29	31	64	INT:31	7
+  B: 10	operation				riscv_isa_i_pkg.sv	144	27	144	31		0		
+objects 52107 vs 52185
+fields: type=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type

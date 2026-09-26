@@ -1,0 +1,6 @@
+#16033 type
+  A: 13	ref_typespec			work@scr1_ipic.scr1_search_one_16.din		0	0	0	0		0		
+  B: 13	operation				scr1_ipic.sv	116	37	116	46		0		
+objects 84098 vs 84127
+fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type

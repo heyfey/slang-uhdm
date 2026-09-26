@@ -317,7 +317,7 @@ ibex_id_stage,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/r
 ibex_if_stage,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_if_stage.sv:325:5: error: unknown module 'ibex_prefetch_buffer',,
 ibex_load_store_unit,default,CMP_EQUAL,,,equal
 ibex_lockstep,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
-ibex_multdiv_fast,default,STRICT_NOTEQUAL,differ:endcol(26),,differ:endcol(26)
+ibex_multdiv_fast,default,STRICT_NOTEQUAL,differ:file(11),,differ:file(11)
 ibex_multdiv_slow,default,CMP_EQUAL,,,equal
 ibex_pmp,default,STRICT_NOTEQUAL,differ:file(15),,differ:file(15)
 ibex_prefetch_buffer,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
@@ -411,7 +411,7 @@ issue326_packed_mem,default,CMP_EQUAL,,,equal
 jeras_gpr,default,CMP_EQUAL,,,equal
 jeras_reverse,default,CMP_EQUAL,,,equal
 jeras_tcb_gpio,default,CMP_EQUAL,,,equal
-jeras_union,default,STRICT_NOTEQUAL,differ:fullname(54),,differ:fullname(54)
+jeras_union,default,STRICT_NOTEQUAL,differ:fullname(36),,differ:fullname(36)
 LargeModuleParameter,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/LargeModuleParameter/dut.sv:19:1: error: unknown module 'PRIMITIVE',,
 latch_002,default,CMP_EQUAL,,,equal
 latch_axi_adapter,default,CMP_EQUAL,,,equal
@@ -649,18 +649,18 @@ ReturnEnumArray,default,CMP_EQUAL,,,equal
 ReturnFunctionCall,default,CMP_EQUAL,,,equal
 rmw_comb_var,default,CMP_EQUAL,,,equal
 rotate,default,CMP_EQUAL,,,equal
-rp32_r5p_alu,default,STRICT_NOTEQUAL,differ:file(46),,differ:file(46)
-rp32_r5p_bru,default,STRICT_NOTEQUAL,differ:file(46),,differ:file(46)
+rp32_r5p_alu,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+rp32_r5p_bru,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 rp32_r5p_csr,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/degu/r5p32_csr_pkg.sv:324:16: error: no implicit conversion from 'bit[0:0]' to 'csr_vector_t'; e,,
 rp32_r5p_degu,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/degu/r5p_degu.sv:56:19: error: top-level module 'r5p_degu' has unconnected interface port 'tcb_i,,
 rp32_r5p_degu_soc_top,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/tcb/lite_lib/tcb_lite_lib_passthrough.sv:23:21: error: top-level module 'tcb_lite_lib_passthroug,,
 rp32_r5p_gpr_1r1w,default,CMP_EQUAL,,,equal
 rp32_r5p_hamster,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/hamster/r5p_hamster.sv:267:22: error: no member named 'alu' in 'dec_t',,
-rp32_r5p_mdu,default,STRICT_NOTEQUAL,differ:file(46),,differ:file(46)
+rp32_r5p_mdu,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 rp32_r5p_mouse,default,CMP_EQUAL,,,equal
 rp32_r5p_mouse_soc_simple_top,default,CMP_EQUAL,,,equal
 rp32_r5p_mouse_soc_top,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/tcb/lite_lib/tcb_lite_lib_passthrough.sv:23:21: error: top-level module 'tcb_lite_lib_passthroug,,
-rp32_r5p_wbu,default,STRICT_NOTEQUAL,differ:file(46),,differ:file(46)
+rp32_r5p_wbu,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 rp32_soc_vfriendly,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/tcb/lite_lib/tcb_lite_lib_passthrough.sv:23:21: error: top-level module 'tcb_lite_lib_passthroug,,
 rsp_gen_minimal,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
 sat_asserts_seq,default,CMP_EQUAL,,,equal
@@ -1188,7 +1188,7 @@ ibex_id_stage,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex
 ibex_if_stage,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_if_stage.sv:325:5: error: unknown module 'ibex_prefetch_buffer',,
 ibex_load_store_unit,testflags,CMP_EQUAL,,,equal
 ibex_lockstep,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
-ibex_multdiv_fast,testflags,STRICT_NOTEQUAL,differ:endcol(26),,differ:endcol(26)
+ibex_multdiv_fast,testflags,STRICT_NOTEQUAL,differ:file(11),,differ:file(11)
 ibex_multdiv_slow,testflags,CMP_EQUAL,,,equal
 ibex_pmp,testflags,STRICT_NOTEQUAL,differ:file(15),,differ:file(15)
 ibex_prefetch_buffer,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
@@ -1282,7 +1282,7 @@ issue326_packed_mem,testflags,CMP_EQUAL,,,equal
 jeras_gpr,testflags,CMP_EQUAL,,,equal
 jeras_reverse,testflags,CMP_EQUAL,,,equal
 jeras_tcb_gpio,testflags,CMP_EQUAL,,,equal
-jeras_union,testflags,STRICT_NOTEQUAL,differ:fullname(54),,differ:fullname(54)
+jeras_union,testflags,STRICT_NOTEQUAL,differ:fullname(36),,differ:fullname(36)
 LargeModuleParameter,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/LargeModuleParameter/dut.sv:19:1: error: unknown module 'PRIMITIVE',,
 latch_002,testflags,CMP_EQUAL,,,equal
 latch_axi_adapter,testflags,CMP_EQUAL,,,equal
@@ -1520,18 +1520,18 @@ ReturnEnumArray,testflags,CMP_EQUAL,,,equal
 ReturnFunctionCall,testflags,CMP_EQUAL,,,equal
 rmw_comb_var,testflags,CMP_EQUAL,,,equal
 rotate,testflags,CMP_EQUAL,,,equal
-rp32_r5p_alu,testflags,STRICT_NOTEQUAL,differ:file(46),,differ:file(46)
-rp32_r5p_bru,testflags,STRICT_NOTEQUAL,differ:file(46),,differ:file(46)
+rp32_r5p_alu,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+rp32_r5p_bru,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 rp32_r5p_csr,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/degu/r5p32_csr_pkg.sv:324:16: error: no implicit conversion from 'bit[0:0]' to 'csr_vector_t'; e,,
 rp32_r5p_degu,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/degu/r5p_degu.sv:56:19: error: top-level module 'r5p_degu' has unconnected interface port 'tcb_i,,
 rp32_r5p_degu_soc_top,testflags,SLANG_REJECT,                                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~,,
 rp32_r5p_gpr_1r1w,testflags,CMP_EQUAL,,,equal
 rp32_r5p_hamster,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/hamster/r5p_hamster.sv:267:22: error: no member named 'alu' in 'dec_t',,
-rp32_r5p_mdu,testflags,STRICT_NOTEQUAL,differ:file(46),,differ:file(46)
+rp32_r5p_mdu,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 rp32_r5p_mouse,testflags,CMP_EQUAL,,,equal
 rp32_r5p_mouse_soc_simple_top,testflags,CMP_EQUAL,,,equal
 rp32_r5p_mouse_soc_top,testflags,SLANG_REJECT,                                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~,,
-rp32_r5p_wbu,testflags,STRICT_NOTEQUAL,differ:file(46),,differ:file(46)
+rp32_r5p_wbu,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 rp32_soc_vfriendly,testflags,SLANG_REJECT,                                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~,,
 rsp_gen_minimal,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
 sat_asserts_seq,testflags,CMP_EQUAL,,,equal

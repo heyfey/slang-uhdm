@@ -1,0 +1,40 @@
+== rp32_r5p_bru default swP
+#1157 file
+  A: 2	struct_typespec	riscv_isa_pkg::isa_t			riscv_isa_i_pkg.sv	417	34	417	39				
+  B: 2	struct_typespec	riscv_isa_pkg::isa_t			riscv_isa_pkg.sv	417	34	417	39				
+#1358 value
+  A: 7	constant				riscv_isa_i_pkg.sv	118	34	118	36	00	64	UINT:00	9
+  B: 7	constant				riscv_isa_i_pkg.sv	118	34	118	36	00	64	UINT:0	9
+#1799 value
+  A: 7	constant				riscv_isa_i_pkg.sv	119	34	119	36	05	64	UINT:05	9
+  B: 7	constant				riscv_isa_i_pkg.sv	119	34	119	36	05	64	UINT:5	9
+objects 52181 vs 52259
+fields: type=1 file=5 endcol=1 decompile=1 size=1 value=41 consttype=1 objects_differing=46 (walk diverged)
+STRICT_NOTEQUAL file
+== rp32_r5p_bru default swV
+#15963 type
+  A: 10	constant				riscv_isa_i_pkg.sv	144	27	144	29	31	64	INT:31	7
+  B: 10	operation				riscv_isa_i_pkg.sv	144	27	144	31		0		
+objects 52181 vs 52259
+fields: type=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+== rp32_r5p_alu default swP
+#1157 file
+  A: 2	struct_typespec	riscv_isa_pkg::isa_t			riscv_isa_i_pkg.sv	417	34	417	39				
+  B: 2	struct_typespec	riscv_isa_pkg::isa_t			riscv_isa_pkg.sv	417	34	417	39				
+#1358 value
+  A: 7	constant				riscv_isa_i_pkg.sv	118	34	118	36	00	64	UINT:00	9
+  B: 7	constant				riscv_isa_i_pkg.sv	118	34	118	36	00	64	UINT:0	9
+#1799 value
+  A: 7	constant				riscv_isa_i_pkg.sv	119	34	119	36	05	64	UINT:05	9
+  B: 7	constant				riscv_isa_i_pkg.sv	119	34	119	36	05	64	UINT:5	9
+objects 60921 vs 60999
+fields: type=1 file=5 endcol=1 decompile=1 size=1 value=41 consttype=1 objects_differing=46 (walk diverged)
+STRICT_NOTEQUAL file
+== rp32_r5p_alu default swV
+#15963 type
+  A: 10	constant				riscv_isa_i_pkg.sv	144	27	144	29	31	64	INT:31	7
+  B: 10	operation				riscv_isa_i_pkg.sv	144	27	144	31		0		
+objects 60921 vs 60999
+fields: type=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type

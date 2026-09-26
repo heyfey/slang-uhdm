@@ -1,0 +1,32 @@
+#1843 col
+  A: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	174	18	174	77		0		
+  B: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	174	19	174	76		0		
+#1863 col
+  A: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	174	90	174	136		0		
+  B: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	174	91	174	135		0		
+#1933 col
+  A: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	178	18	178	77		0		
+  B: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	178	19	178	76		0		
+#1953 col
+  A: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	178	90	178	136		0		
+  B: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	178	91	178	135		0		
+#2023 col
+  A: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	182	18	182	77		0		
+  B: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	182	19	182	76		0		
+#2043 col
+  A: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	182	90	182	136		0		
+  B: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	182	91	182	135		0		
+#2113 col
+  A: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	186	18	186	77		0		
+  B: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	186	19	186	76		0		
+#2133 col
+  A: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	186	90	186	136		0		
+  B: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	186	91	186	135		0		
+#2203 col
+  A: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	190	18	190	77		0		
+  B: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	190	19	190	76		0		
+#2223 col
+  A: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	190	90	190	136		0		
+  B: 13	bit_select	butterfly		work@smartbextdep_bfly_fwd.butterfly	smartbextdep.v	190	91	190	135		0		
+fields: col=40 endcol=40 objects_differing=40
+STRICT_NOTEQUAL col

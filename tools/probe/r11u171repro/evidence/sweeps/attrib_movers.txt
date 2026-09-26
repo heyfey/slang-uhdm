@@ -1,0 +1,43 @@
+surelog/default/ImplicitPorts2 pris=3ed903982176 pris2=same final=35db1601eb5e alloff=PRIS trace=[SPLITPORTKEY:1 ] R11U171_SPLITPORTKEY_OFF:moves(restores)
+surelog/default/IndexAssign pris=53333d4769b4 pris2=same final=19bcbe1ddb85 alloff=PRIS trace=[SELDECSHARE:1 ] R11U171_SELDECSHARE_OFF:moves(restores)
+surelog/default/GenerateUnnamed pris=f895929b4f2e pris2=same final=8e087e1fc049 alloff=PRIS trace=[GENELSEIF:3 ] R11U171_GENELSEIF_OFF:moves(restores)
+surelog/default/UnionCast pris=b18622a9589f pris2=same final=dc04c10db606 alloff=PRIS trace=[CASTUNIONFILE:1 ] R11U172_VALUE_OFF:moves R11U171_CASTUNIONFILE_OFF:moves
+surelog/default/Scr1SvTests pris=2f6de36aabb4 pris2=same final=c10c8f7f9134 alloff=PRIS trace=[MEMBERROOTFILE:65 NETENDCOL:23 ] R11U171_MEMBERROOTFILE_OFF:moves R11U171_NETENDCOL_OFF:moves
+surelog/default/YosysOldUsb pris=47042e6c33f0 pris2=same final=3ba49eeb86c5 alloff=PRIS trace=[SPLITPORTKEY:7 ] R11U171_SPLITPORTKEY_OFF:moves(restores)
+surelog/testflags/GenerateUnnamed pris=f895929b4f2e pris2=same final=8e087e1fc049 alloff=PRIS trace=[GENELSEIF:3 ] R11U171_GENELSEIF_OFF:moves(restores)
+surelog/testflags/ImplicitPorts2 pris=3b21d8aad1c3 pris2=same final=a3abddf36065 alloff=PRIS trace=[SPLITPORTKEY:1 ] R11U171_SPLITPORTKEY_OFF:moves(restores)
+surelog/testflags/IndexAssign pris=fdd2102b3f4b pris2=same final=afc9011c449d alloff=PRIS trace=[SELDECSHARE:1 ] R11U171_SELDECSHARE_OFF:moves(restores)
+surelog/testflags/Scr1SvTests pris=422dd817ef79 pris2=same final=ed7a35f363c3 alloff=PRIS trace=[MEMBERROOTFILE:65 NETENDCOL:23 ] R11U171_MEMBERROOTFILE_OFF:moves R11U171_NETENDCOL_OFF:moves
+surelog/testflags/UnionCast pris=c7d8c397f451 pris2=same final=b7414e552f57 alloff=PRIS trace=[CASTUNIONFILE:1 ] R11U172_VALUE_OFF:moves R11U171_CASTUNIONFILE_OFF:moves
+surelog/default/YosysOldOr pris=52df0e4ff1cd pris2=same final=a2175f2b237e alloff=PRIS trace=[NETENDCOL:29 SELDECSHARE:2 SPLITPORTKEY:82 ] R11U171_SPLITPORTKEY_OFF:moves R11U171_SELDECSHARE_OFF:moves
+surelog/testflags/YosysOldUsb pris=47042e6c33f0 pris2=same final=3ba49eeb86c5 alloff=PRIS trace=[SPLITPORTKEY:7 ] R11U171_SPLITPORTKEY_OFF:moves(restores)
+uhdm2rtlil/default/ibex_multdiv_fast pris=aac67144107f pris2=same final=c35d42ee245d alloff=PRIS trace=[] R11U172_SPAN_OFF:moves(restores)
+uhdm2rtlil/default/jeras_union pris=098203b7ad7e pris2=same final=0a6d8cbb4318 alloff=PRIS trace=[CASTUNIONFILE:1 ] R11U172_VALUE_OFF:moves R11U171_CASTUNIONFILE_OFF:moves
+uhdm2rtlil/default/mem2reg_test4 pris=7fc2cc71182a pris2=same final=cde94119857f alloff=PRIS trace=[NETENDCOL:1 SELDECSHARE:3 ] R11U171_SELDECSHARE_OFF:moves(restores)
+uhdm2rtlil/default/mem2reg_test5 pris=d64b4d71f959 pris2=same final=2da3bb8b48d9 alloff=PRIS trace=[NETENDCOL:2 SELDECSHARE:2 ] R11U171_SELDECSHARE_OFF:moves(restores)
+uhdm2rtlil/default/rp32_r5p_alu pris=4ff80b20b244 pris2=same final=3eb49e3ea993 alloff=PRIS trace=[] R11U172_VALUE_OFF:moves R11U172_FILE_OFF:moves R11U172_SPAN_OFF:moves
+uhdm2rtlil/default/rp32_r5p_bru pris=43232270680c pris2=same final=7e2af18d345c alloff=PRIS trace=[] R11U172_VALUE_OFF:moves R11U172_FILE_OFF:moves
+uhdm2rtlil/default/rp32_r5p_mdu pris=3d4f78b1c85d pris2=same final=7539a04b78b4 alloff=PRIS trace=[NETENDCOL:1 ] R11U172_VALUE_OFF:moves R11U172_FILE_OFF:moves
+uhdm2rtlil/default/rp32_r5p_wbu pris=77a04c5608e6 pris2=same final=6672ace41847 alloff=PRIS trace=[] R11U172_VALUE_OFF:moves R11U172_FILE_OFF:moves
+uhdm2rtlil/testflags/ibex_multdiv_fast pris=02795acbab4f pris2=same final=f09ce555e110 alloff=PRIS trace=[] R11U172_SPAN_OFF:moves(restores)
+uhdm2rtlil/testflags/jeras_union pris=b7aa4cb2a873 pris2=same final=0ccc30085d47 alloff=PRIS trace=[CASTUNIONFILE:1 ] R11U172_VALUE_OFF:moves R11U171_CASTUNIONFILE_OFF:moves
+uhdm2rtlil/testflags/mem2reg_test4 pris=0f2fa791311a pris2=same final=fe8f10aa06df alloff=PRIS trace=[NETENDCOL:1 SELDECSHARE:3 ] R11U171_SELDECSHARE_OFF:moves(restores)
+uhdm2rtlil/testflags/mem2reg_test5 pris=c16f511bc365 pris2=same final=6ca82f37ac5e alloff=PRIS trace=[NETENDCOL:2 SELDECSHARE:2 ] R11U171_SELDECSHARE_OFF:moves(restores)
+uhdm2rtlil/testflags/rp32_r5p_alu pris=82544e862d43 pris2=same final=852cd68a4786 alloff=PRIS trace=[] R11U172_VALUE_OFF:moves R11U172_FILE_OFF:moves R11U172_SPAN_OFF:moves
+uhdm2rtlil/testflags/rp32_r5p_bru pris=41b1a76161fc pris2=same final=381866715e5d alloff=PRIS trace=[] R11U172_VALUE_OFF:moves R11U172_FILE_OFF:moves
+uhdm2rtlil/testflags/rp32_r5p_mdu pris=79444318519b pris2=same final=78c38db6609f alloff=PRIS trace=[NETENDCOL:1 ] R11U172_VALUE_OFF:moves R11U172_FILE_OFF:moves
+uhdm2rtlil/testflags/rp32_r5p_wbu pris=ffa873b56809 pris2=same final=58a314775eff alloff=PRIS trace=[] R11U172_VALUE_OFF:moves R11U172_FILE_OFF:moves
+surelog/testflags/YosysOldOr pris=52df0e4ff1cd pris2=same final=a2175f2b237e alloff=PRIS trace=[NETENDCOL:29 SELDECSHARE:2 SPLITPORTKEY:82 ] R11U171_SPLITPORTKEY_OFF:moves R11U171_SELDECSHARE_OFF:moves
+surelog/default/YosysBigSimEllip pris=ee7d5656e530 pris2=same final=22f6c6dddef3 alloff=PRIS trace=[SELDECSHARE:6 UDPSWALLOW:132 ] R11U171_SELDECSHARE_OFF:moves R11U171_UDPSWALLOW_OFF:moves
+surelog/default/BuildUVMPkg pris=8934b91d74c8 pris2=same final=bd85aef54a66 alloff=PRIS trace=[] R11U171_MEMBERROOTFILE_OFF:moves(restores)
+surelog/default/Scoreboard pris=22248f0d26d0 pris2=COIN final=952019ae5f75 alloff=PRIS trace=[MEMBERROOTFILE:46 ] R11U172_FILE_OFF:moves R11U171_CASTUNIONFILE_OFF:moves R11U171_MEMBERROOTFILE_OFF:moves R11U171_SPLITPORTKEY_OFF:moves R11U171_UDPSWALLOW_OFF:moves
+surelog/default/MiniAmiq pris=4e322717af03 pris2=COIN final=63bd7b8d3b81 alloff=DIFF trace=[MEMBERROOTFILE:46 ] R11U172_FILE_OFF:moves R11U171_CASTUNIONFILE_OFF:moves R11U171_MEMBERROOTFILE_OFF:moves R11U171_SELDECSHARE_OFF:moves R11U171_UDPSWALLOW_OFF:moves
+surelog/default/SimpleUVM pris=55fc73947cd1 pris2=same final=131b6f15299d alloff=PRIS trace=[MEMBERROOTFILE:46 ] R11U172_VALUE_OFF:moves R11U171_MEMBERROOTFILE_OFF:moves(restores) R11U171_UDPSWALLOW_OFF:moves
+surelog/default/Earlgrey_0_1 pris=0c572b9f9052 pris2=same final=f9b13b9ea742 alloff=PRIS trace=[NETENDCOL:161 ] R11U172_FILE_OFF:moves R11U172_SPAN_OFF:moves
+surelog/default/SeqDriver pris=5e8cb4773691 pris2=same final=4c21ebb054af alloff=PRIS trace=[MEMBERROOTFILE:46 ] R11U172_VALUE_OFF:moves R11U172_FILE_OFF:moves R11U172_SPAN_OFF:moves R11U171_CASTUNIONFILE_OFF:moves R11U171_MEMBERROOTFILE_OFF:moves(restores) R11U171_SPLITPORTKEY_OFF:moves R11U171_SELDECSHARE_OFF:moves R11U171_UDPSWALLOW_OFF:moves R11U171_NETENDCOL_OFF:moves R11U171_GENELSEIF_OFF:moves
+surelog/testflags/BuildUVMPkg pris=8934b91d74c8 pris2=same final=bd85aef54a66 alloff=PRIS trace=[] R11U171_MEMBERROOTFILE_OFF:moves(restores)
+surelog/testflags/MiniAmiq pris=ef6d45d3dbd8 pris2=COIN final=7e8d472e0a94 alloff=DIFF trace=[MEMBERROOTFILE:46 ] R11U172_VALUE_OFF:moves R11U172_FILE_OFF:moves R11U172_SPAN_OFF:moves R11U171_CASTUNIONFILE_OFF:moves R11U171_MEMBERROOTFILE_OFF:moves R11U171_SPLITPORTKEY_OFF:moves R11U171_SELDECSHARE_OFF:moves R11U171_UDPSWALLOW_OFF:moves R11U171_NETENDCOL_OFF:moves R11U171_GENELSEIF_OFF:moves
+surelog/testflags/SeqDriver pris=8966b10c8800 pris2=COIN final=19915fe96d1e alloff=DIFF trace=[MEMBERROOTFILE:46 ] R11U172_VALUE_OFF:moves R11U172_FILE_OFF:moves R11U172_SPAN_OFF:moves R11U171_CASTUNIONFILE_OFF:moves R11U171_MEMBERROOTFILE_OFF:moves R11U171_SPLITPORTKEY_OFF:moves R11U171_SELDECSHARE_OFF:moves R11U171_UDPSWALLOW_OFF:moves R11U171_NETENDCOL_OFF:moves R11U171_GENELSEIF_OFF:moves
+surelog/testflags/SimpleUVM pris=56ce47339566 pris2=same final=c17e2bfea2a4 alloff=PRIS trace=[MEMBERROOTFILE:46 ] R11U171_MEMBERROOTFILE_OFF:moves(restores)
+surelog/testflags/Earlgrey_0_1 pris=6ec8de6c2d84 pris2=same final=ba5a7164d4d5 alloff=PRIS trace=[NETENDCOL:161 ] R11U172_FILE_OFF:moves R11U172_SPAN_OFF:moves
+DONE

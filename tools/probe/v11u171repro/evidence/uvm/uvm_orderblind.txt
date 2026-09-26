@@ -1,0 +1,18 @@
+# order-blind strict-record multisets (uhdm-strictcmp --dump-a on each database against itself), swP (pristine) vs swL (law.bin)
+surelog_default_MiniAmiq pristineOnly=1036 lawOnly=1036 kinds:  2 constant; 2070 typespec_member; typespec_member records with the FILE column removed: identical
+   coin constant: constant	991	64	UINT:991
+   coin constant: constant	623	64	UINT:623
+surelog_default_SeqDriver pristineOnly=1156 lawOnly=1156 kinds:  2 constant; 2310 typespec_member; typespec_member records with the FILE column removed: identical
+   coin constant: constant	1483	64	UINT:1483
+   coin constant: constant	1305	64	UINT:1305
+surelog_default_Scoreboard pristineOnly=666 lawOnly=666 kinds:  1332 typespec_member; typespec_member records with the FILE column removed: identical
+surelog_default_SimpleUVM pristineOnly=874 lawOnly=874 kinds:  2 constant; 1746 typespec_member; typespec_member records with the FILE column removed: identical
+   coin constant: constant	985	64	UINT:985
+   coin constant: constant	0	64	UINT:0
+
+# swV (fix2) vs swL (law.bin) movers: the UVM coin only
+surelog_default_MiniAmiq LawOnly= 1 constant; Fix2Only=constant 1521 64 UINT:1521;
+surelog_default_SeqDriver LawOnly= 1 constant; Fix2Only=constant 0 64 UINT:0;
+surelog_default_Scoreboard LawOnly= Fix2Only=
+surelog_default_SimpleUVM LawOnly= 1 constant; Fix2Only=constant 0 64 UINT:0;
+surelog_testflags_MiniAmiq LawOnly= 1 constant; Fix2Only=constant 1192 64 UINT:1192;

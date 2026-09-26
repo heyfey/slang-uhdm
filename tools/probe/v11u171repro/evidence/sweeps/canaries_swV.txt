@@ -1,0 +1,21 @@
+== canaries.sh swV surelog
+  Scr1SvTests                    default   CHANGED STRICT_NOTEQUAL/differ:file(143) -> STRICT_NOTEQUAL/differ:type(1)
+  Scr1SvTests                    testflags CHANGED STRICT_NOTEQUAL/differ:file(143) -> STRICT_NOTEQUAL/differ:type(1)
+  Earlgrey_0_1                   default   CHANGED STRICT_NOTEQUAL/differ:fullname(511) -> STRICT_NOTEQUAL/differ:fullname(436)
+  Earlgrey_0_1                   testflags CHANGED STRICT_NOTEQUAL/differ:fullname(511) -> STRICT_NOTEQUAL/differ:fullname(436)
+  YosysOldOr                     default   CHANGED STRICT_NOTEQUAL/differ:line(1) -> CMP_EQUAL/equal
+  YosysOldOr                     testflags CHANGED STRICT_NOTEQUAL/differ:line(1) -> CMP_EQUAL/equal
+  SimpleUVM                      default   CHANGED STRICT_NOTEQUAL/differ:fullname(62) -> STRICT_NOTEQUAL/differ:fullname(45)
+  SimpleUVM                      testflags CHANGED STRICT_NOTEQUAL/differ:fullname(62) -> STRICT_NOTEQUAL/differ:fullname(45)
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:file(46) -> STRICT_NOTEQUAL/differ:file(29)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:file(46) -> STRICT_NOTEQUAL/differ:file(29)
+  Scoreboard                     default   CHANGED STRICT_NOTEQUAL/differ:fullname(62) -> STRICT_NOTEQUAL/differ:fullname(45)
+---- canary rows: ok=41 changed=11 absent=0 unknown-names=7
+== canaries.sh swV uhdm2rtlil
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+== ctcan2 surelog
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+== ctcan2 uhdm2rtlil
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.

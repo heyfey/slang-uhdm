@@ -1,0 +1,33 @@
+#576 file
+  A: 5	typespec_member	except			scr1_pipe_hdu.sv	76	41	76	47				
+  B: 5	typespec_member	except			scr1_hdu.svh	76	41	76	47				
+#579 file
+  A: 5	typespec_member	ebreak			scr1_pipe_hdu.sv	77	41	77	47				
+  B: 5	typespec_member	ebreak			scr1_hdu.svh	77	41	77	47				
+#582 file
+  A: 5	typespec_member	dbg_state			scr1_pipe_hdu.sv	78	41	78	50				
+  B: 5	typespec_member	dbg_state			scr1_hdu.svh	78	41	78	50				
+#597 file
+  A: 5	typespec_member	except			scr1_pipe_hdu.sv	76	41	76	47				
+  B: 5	typespec_member	except			scr1_hdu.svh	76	41	76	47				
+#600 file
+  A: 5	typespec_member	ebreak			scr1_pipe_hdu.sv	77	41	77	47				
+  B: 5	typespec_member	ebreak			scr1_hdu.svh	77	41	77	47				
+#603 file
+  A: 5	typespec_member	dbg_state			scr1_pipe_hdu.sv	78	41	78	50				
+  B: 5	typespec_member	dbg_state			scr1_hdu.svh	78	41	78	50				
+#1076 file
+  A: 7	typespec_member	data			scr1_scu.sv	46	49	46	53				
+  B: 7	typespec_member	data			scr1_scu.svh	46	49	46	53				
+#1082 file
+  A: 7	typespec_member	addr			scr1_scu.sv	47	49	47	53				
+  B: 7	typespec_member	addr			scr1_scu.svh	47	49	47	53				
+#1088 file
+  A: 7	typespec_member	op			scr1_scu.sv	48	49	48	51				
+  B: 7	typespec_member	op			scr1_scu.svh	48	49	48	51				
+#1097 file
+  A: 7	typespec_member	data			scr1_scu.sv	46	49	46	53				
+  B: 7	typespec_member	data			scr1_scu.svh	46	49	46	53				
+objects 84098 vs 84127
+fields: type=1 fullname=1 file=142 line=1 col=1 endline=1 endcol=2 objects_differing=143 (walk diverged)
+STRICT_NOTEQUAL file

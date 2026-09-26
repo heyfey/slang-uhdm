@@ -1,0 +1,52 @@
+D/d01_pkgfn_cast rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL type | fields: type=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+D/d02_pkgfn_struct_cast rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 265 objects | 
+D/d03_pkgfn_enum_cast rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL type | fields: type=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+D/d04_pkgfn_bit_cast rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 147 objects | 
+D/d05_pkgfn_union_cast rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL type | fields: type=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+D/d06_modfn_cast_ctl rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 189 objects | 
+D/d07_pkgfn_imported_cast rc=0 cmp=255 cmplines=298 strict=1 NOT_EQUAL stage1 | 
+D/d08_pkgfn_two_casts rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL type | fields: type=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+D/d09_pkgfn_param_bound rc=0 cmp=255 cmplines=33 strict=1 NOT_EQUAL stage1 | 
+D/d10_pkgtask_cast rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL type | fields: type=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+F/f01_pkgfn_arg rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 174 objects | 
+F/f02_pkg_unpacked_net rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 134 objects | 
+F/f03_pkgfn_union_arg rc=0 cmp=255 cmplines=101 strict=1 NOT_EQUAL stage1 | 
+F/f04_samefile_ctl rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 174 objects | 
+F/f05_enum_arg_crossfile rc=0 cmp=255 cmplines=36 strict=1 NOT_EQUAL stage1 | 
+F/f06_include_typedef rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL file | fields: file=18 objects_differing=18
+F/f07_two_formals_two_files rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 285 objects | 
+F/f08_mod_unpacked_samefile_ctl rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 134 objects | 
+F/f09_two_mods_unpacked rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 264 objects | 
+F/f10_formal_then_net rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 234 objects | 
+F/f11_enum_unpacked_net rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 153 objects | 
+F/f12_unit_typedef_other_file rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 160 objects | 
+S/s01_gen_ca_cast_operand rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 129 objects | 
+S/s02_gen_ca_plain rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 103 objects | 
+S/s03_gen_ca_under_op rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 123 objects | 
+S/s04_gen_ca_unsigned rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 129 objects | 
+S/s05_gen_for_ca rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 140 objects | 
+S/s06_gen_ca_clog2_ctl rc=0 cmp=255 cmplines=46 strict=1 NOT_EQUAL stage1 | 
+S/s07_gen_ca_concat rc=0 cmp=255 cmplines=15 strict=1 NOT_EQUAL stage1 | 
+S/s08_gen_ca_nested_sys rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 134 objects | 
+S/s09_gen_ca_signed_kw rc=0 cmp=255 cmplines=31 strict=1 NOT_EQUAL stage1 | 
+S/s10_mod_ca_ctl rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 104 objects | 
+S/s11_gen_if_cond rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 99 objects | 
+S/s12_net_range_def rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 152 objects | 
+S/s13_gen_for_cond rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 161 objects | 
+S/s14_gen_ca_task_stmt_ctl rc=0 cmp=255 cmplines=82 strict=1 NOT_EQUAL stage1 | 
+V/v01_pkg_struct_member rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 183 objects | 
+V/v02_mod_net rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 77 objects | 
+V/v03_underscore rc=0 cmp=255 cmplines=36 strict=1 NOT_EQUAL stage1 | 
+V/v04_sized_ctl rc=0 cmp=255 cmplines=36 strict=1 NOT_EQUAL stage1 | 
+V/v05_hex_ctl rc=0 cmp=255 cmplines=36 strict=1 NOT_EQUAL stage1 | 
+V/v06_param_elab rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 122 objects | 
+V/v07_fn_arg rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 97 objects | 
+V/v08_mod_typedef rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 95 objects | 
+V/v09_unpacked_dim rc=0 cmp=255 cmplines=36 strict=1 NOT_EQUAL stage1 | 
+V/v10_mod_struct rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 99 objects | 
+V/v11_pkg_param_range rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL decompile | fields: depth=1 type=1 name=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 decompile=1 value=1 consttype=1 objects_differing=2 (walk diverged)
+V/v12_expr_literal_ctl rc=0 cmp=255 cmplines=36 strict=1 NOT_EQUAL stage1 | 
+V/v13_td_unpacked rc=0 cmp=255 cmplines=36 strict=1 NOT_EQUAL stage1 | 
+V/v14_pkg_td_unpacked rc=0 cmp=255 cmplines=85 strict=1 NOT_EQUAL stage1 | 
+V/v15_unpacked_struct_member rc=0 cmp=255 cmplines=36 strict=1 NOT_EQUAL stage1 | 
+V/v16_port_range rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 104 objects | 

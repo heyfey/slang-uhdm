@@ -692,6 +692,9 @@ bool r11u155Law(const char* sw); // the r11u155 switches (UhdmExporter.cpp)
 bool r11u160Law(const char* sw); // the r11u160 switches (UhdmExporter.cpp)
 bool r11u164Law(const char* sw); // the r11u164 switches (UhdmExporter.cpp)
 bool r11u168Law(const char* sw); // the r11u168 switches (UhdmExporter.cpp)
+bool r11u171Law(const char* sw); // the r11u171 switches (UhdmExporter.cpp)
+bool v11u171Law(const char* sw); // the v11u171 refinements (UhdmExporter.cpp)
+void trace171(const char* law, const std::string& detail); // R11U171_TRACE
 // § hcSelIdxInstName168 — the references inside a bit_select HighConn's
 // INDEX are named through the child INSTANCE, exactly like the select
 // itself (`.a(v[sel])` -> `work@dut.m.sel`, `.a(v[i+j])` -> `work@dut.m.v.i`,
@@ -17794,6 +17797,116 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                         argPfx + std::string(r9->VpiName()));
                             }
                     }
+                    // § udpFormConcatSwallowSpans171 (r11u171,
+                    // YosysBigSimEllip's structural head after pass 168) — the
+                    // UDP-FORM swallow below (a fully positional instantiation
+                    // whose FIRST actual is a concatenation: port[0]'s
+                    // HighConn is a concat holding that concat and the
+                    // remaining actuals) is ONE expression Surelog compiles
+                    // under the port, so it is built HERE, before the
+                    // connection naming and binding: the swallowed actuals
+                    // are named `<parent>.<instance>.<formal>.<name>` and
+                    // bound like every reference inside an operation actual
+                    // (§ connLeftmostLeafElab139), where the late wrap left
+                    // them parent-named and unbound.  Two spans of the quirk:
+                    // the inner concatenation spans its FIRST element only,
+                    // and a bit-select element spans the whole select (the
+                    // list-position rule of § firstOrderedConnBitSelWhole147
+                    // reaching every element).  Golden f3m.v:725 `f3_add a142
+                    // ({w13[0], w13[1]}, w135, w141)`: inner concat 725:32-38,
+                    // `w13[0]` 32-38, `w13[1]` 40-46, `w135`
+                    // `...a142.A.w135` bound to the net.  Grid
+                    // tools/probe/r11u171repro/cases/Q.  Switch
+                    // R11U171_UDPSWALLOW_OFF.
+                    bool swallow171 = false;
+                    if (h && h->UhdmType() == UHDM::uhdmoperation &&
+                        ((UHDM::operation*)h)->VpiOpType() == vpiConcatOp &&
+                        r11u171Law("R11U171_UDPSWALLOW_OFF") &&
+                        udpFormInstantiation(connInst.getSyntax())) {
+                        std::vector<const Expression*> ordE171;
+                        for (auto* pc171 : connInst.getPortConnections())
+                            ordE171.push_back(connectionExpr(*pc171));
+                        // § udpSwallowLvalueOnly171v (v11u171) — Surelog
+                        // reads the instantiation in UDP form only when the
+                        // first actual parses as a net_lvalue: a
+                        // concatenation of names, selects and member
+                        // accesses (any index, `{w13[s], w13[1]}` swallows)
+                        // and nested such concatenations.  A literal or an
+                        // operation element (`{1'b0, w1}`, `{a & b, c}`)
+                        // makes it a module instantiation: golden keeps the
+                        // concatenation whole (its own span, its refs named
+                        // through the formal) and the other actuals on their
+                        // own ports, so the law's spans and names moved away
+                        // from golden there (tools/probe/v11u171repro/cases/
+                        // Q/c07, c12).  Such an instantiation keeps the
+                        // pristine late wrap.  Switch
+                        // R11V171_UDPLVALUE_OFF.
+                        std::function<bool(const Expression&)> lv171 =
+                            [&](const Expression& e0) -> bool {
+                            auto& e = stripImplicitConv(e0);
+                            switch (e.kind) {
+                                case ExpressionKind::NamedValue:
+                                case ExpressionKind::HierarchicalValue:
+                                    return true;
+                                case ExpressionKind::ElementSelect:
+                                    return lv171(e.as<ElementSelectExpression>().value());
+                                case ExpressionKind::RangeSelect:
+                                    return lv171(e.as<RangeSelectExpression>().value());
+                                case ExpressionKind::MemberAccess:
+                                    return lv171(e.as<MemberAccessExpression>().value());
+                                case ExpressionKind::Concatenation:
+                                    for (auto* o : e.as<ConcatenationExpression>().operands())
+                                        if (!o || !lv171(*o))
+                                            return false;
+                                    return true;
+                                default:
+                                    return false;
+                            }
+                        };
+                        const bool lvOk171 =
+                            !v11u171Law("R11V171_UDPLVALUE_OFF") || lv171(*expr);
+                        if (!lvOk171)
+                            trace171("UDPLVALUE-DECLINE", prefix + "." + std::string(ps.name));
+                        if (lvOk171 && ordE171.size() > 1 && ordE171[0] == expr) {
+                            auto* in171 = (UHDM::operation*)h;
+                            if (auto* iops171 = in171->Operands()) {
+                                auto& ce171 = stripImplicitConv(*expr);
+                                if (ce171.kind == ExpressionKind::Concatenation) {
+                                    auto el171 =
+                                        ce171.as<ConcatenationExpression>().operands();
+                                    for (size_t k171 = 0;
+                                         k171 < iops171->size() && k171 < el171.size();
+                                         k171++) {
+                                        auto* o171 = (*iops171)[k171];
+                                        auto& x171 = stripImplicitConv(*el171[k171]);
+                                        if (o171 &&
+                                            o171->UhdmType() == UHDM::uhdmbit_select &&
+                                            x171.kind == ExpressionKind::ElementSelect)
+                                            setLoc(o171, x171.sourceRange);
+                                    }
+                                    if (!el171.empty())
+                                        setLoc(in171,
+                                               stripImplicitConv(*el171[0]).sourceRange);
+                                }
+                            }
+                            auto* wrap171 = s.MakeOperation();
+                            wrap171->VpiOpType(vpiConcatOp);
+                            wrap171->VpiParent(p);
+                            setLoc(wrap171, expr->sourceRange);
+                            auto* wops171 = s.MakeAnyVec();
+                            h->VpiParent(wrap171);
+                            wops171->push_back(h);
+                            for (size_t k171 = 1; k171 < ordE171.size(); k171++)
+                                if (ordE171[k171])
+                                    if (auto* e171 = emitExpr(*ordE171[k171], wrap171,
+                                                              hcPrefix, *parentNets))
+                                        wops171->push_back(e171);
+                            wrap171->Operands(wops171);
+                            h = wrap171;
+                            swallow171 = true;
+                            trace171("UDPSWALLOW", prefix + "." + std::string(ps.name));
+                        }
+                    }
                     // A CONCAT HighConn's direct ref operands scope through
                     // the child instance + formal too (Surelog).
                     if (h && h->UhdmType() == UHDM::uhdmoperation &&
@@ -18119,7 +18232,8 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         // `#(.P(1))`-parameterized twin does not.
                         // (YosysBigSimEllip f3m.v:725 `f3_add a142
                         // ({w13[0], w13[1]}, w135, w141)`.)
-                        if (h->UhdmType() == UHDM::uhdmoperation &&
+                        if (!swallow171 &&
+                            h->UhdmType() == UHDM::uhdmoperation &&
                             ((UHDM::operation*)h)->VpiOpType() == vpiConcatOp &&
                             udpFormInstantiation(connInst.getSyntax())) {
                             std::vector<const Expression*> ordE9;
@@ -30723,6 +30837,83 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             }
         }
     }
+    // § defNetEndOutputCol171 (r11u171, Scr1SvTests' first face after the
+    // member file) — the def-view net typespec's END stretches below (to the
+    // first unpacked dimension, or to the first packed dimension of a
+    // multi-dimension packed net) are written in PREPROCESSOR OUTPUT
+    // coordinates like every other location (the r11u166 model,
+    // § ppOutputCol166): writeNets' populateCoreMembers reads the end node's
+    // line and column in the preprocessed text.  The stretches wrote the raw
+    // source column: `logic [`SCR1_IMEM_DWIDTH/2-1:0] q_data [N];` (the macro
+    // text `SCR1_IMEM_DWIDTH` 17 wide, its body `32` two) ends at 173:52 in
+    // golden, 173:67 in ours.  The end goes through setLoc's end query (the
+    // start kept as written).  Grid tools/probe/r11u171repro/cases/K.  Switch
+    // R11U171_NETENDCOL_OFF.
+    static const bool netEnd171 = r11u171Law("R11U171_NETENDCOL_OFF");
+    // The model does not align a token PASTE (r11u166's listed limit: a
+    // pasted dimension `[`SZ(Q)]` reads 4:35 through it where the raw
+    // column is golden's 4:28), so a declaration any of whose tokens comes
+    // from a macro whose body pastes keeps the raw column (case K/k07).
+    // Switch R11U171_NETENDPASTE_OFF drops the guard.
+    static std::set<std::string> pasteMacros171;
+    static bool pasteMacrosBuilt171 = false;
+    if (netEnd171 && !pasteMacrosBuilt171) {
+        pasteMacrosBuilt171 = true;
+        for (auto& tree171 : comp.getSyntaxTrees())
+            for (auto* def171 : tree171->getDefinedMacros()) {
+                if (!def171)
+                    continue;
+                for (auto tk171 : def171->body)
+                    if (tk171.kind == parsing::TokenKind::MacroPaste) {
+                        pasteMacros171.insert(std::string(def171->name.valueText()));
+                        break;
+                    }
+            }
+    }
+    auto touchesPaste171 = [&]() {
+        if (pasteMacros171.empty() || getenv("R11U171_NETENDPASTE_OFF"))
+            return false;
+        bool hit = false;
+        std::function<void(const syntax::SyntaxNode*)> walk171 =
+            [&](const syntax::SyntaxNode* n) {
+                if (!n || hit)
+                    return;
+                for (size_t i = 0; i < n->getChildCount() && !hit; i++) {
+                    if (auto* c = n->childNode(i))
+                        walk171(c);
+                    else {
+                        auto t = n->childToken(i);
+                        if (t && sm->isMacroLoc(t.location()) &&
+                            pasteMacros171.count(
+                                std::string(sm->getMacroName(t.location()))))
+                            hit = true;
+                    }
+                }
+            };
+        if (auto dt171 = pn.sym->getDeclaredType())
+            walk171(dt171->getTypeSyntax());
+        walk171(pn.sym->getSyntax());
+        return hit;
+    };
+    auto writeEnd171 = [&](SourceLocation st, SourceLocation de) {
+        if (netEnd171 && st != SourceLocation::NoLocation && !touchesPaste171()) {
+            const uint32_t l0 = ts->VpiLineNo();
+            const uint32_t c0 = ts->VpiColumnNo();
+            setLoc(ts, SourceRange(st, de));
+            ts->VpiLineNo(l0);
+            ts->VpiColumnNo(c0);
+            trace171("NETENDCOL", std::string(pn.sym->name));
+            return;
+        }
+        ts->VpiEndLineNo(sm->getLineNumber(de));
+        ts->VpiEndColumnNo(sm->getColumnNumber(de));
+    };
+    auto tsStart171 = [&]() -> SourceLocation {
+        if (auto dt171 = pn.sym->getDeclaredType())
+            if (auto ts171 = dt171->getTypeSyntax())
+                return ts171->sourceRange().start();
+        return SourceLocation::NoLocation;
+    };
     // Unpacked-array def-view nets: the typespec span reaches the end of the
     // FIRST unpacked dimension (Surelog's element-span-plus-first-dim).  The
     // rule reads the WRITTEN dims, so it covers the unsized spellings too
@@ -30740,8 +30931,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 auto& dd = dsyn->as<syntax::DeclaratorSyntax>();
                 if (!dd.dimensions.empty()) {
                     auto de = dd.dimensions[0]->sourceRange().end();
-                    ts->VpiEndLineNo(sm->getLineNumber(de));
-                    ts->VpiEndColumnNo(sm->getColumnNumber(de));
+                    writeEnd171(tsStart171(), de);
                 }
             }
         }
@@ -30753,8 +30943,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 auto& dims3 = tsyn3->as<syntax::IntegerTypeSyntax>().dimensions;
                 if (dims3.size() >= 2) {
                     auto de = dims3[0]->sourceRange().end();
-                    ts->VpiEndLineNo(sm->getLineNumber(de));
-                    ts->VpiEndColumnNo(sm->getColumnNumber(de));
+                    writeEnd171(tsStart171(), de);
                 }
             }
             // Implicit-type nets (wire [3:0][7:0] t) likewise.
@@ -30762,8 +30951,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 auto& dims3 = tsyn3->as<syntax::ImplicitTypeSyntax>().dimensions;
                 if (dims3.size() >= 2) {
                     auto de = dims3[0]->sourceRange().end();
-                    ts->VpiEndLineNo(sm->getLineNumber(de));
-                    ts->VpiEndColumnNo(sm->getColumnNumber(de));
+                    writeEnd171(tsStart171(), de);
                 }
             }
         }
@@ -33198,6 +33386,127 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
 
     UHDM::VectorOfprimitive* prims = nullptr;
     UHDM::VectorOfprimitive_array* primArrs = nullptr;
+    // § genElseIfGateTermPath171 (r11u171, GenerateUnnamed d/t) — a gate
+    // terminal's reference inside a generate block is named by the
+    // generate path Surelog's elaboration built, where the UNNAMED body of
+    // an `else if` branch stands for TWO levels: the else branch's own
+    // conditional and its block, both `genblkN` (DesignElaboration expands
+    // an else-if as a nested conditional generate).  The generate scope
+    // tree flattens them as ours does; only the terminal names keep the
+    // path: golden `work@test1.genblk1.genblk1.u1.a` for a gate in a case
+    // block inside an unnamed else-if body (ours `work@test1.u1.a`),
+    // `genblk1.genblk1.genblk1` for an unnamed `if (1)` block inside it,
+    // `genblk1.genblk1` for a gate directly in it.  A NAMED else-if body, a
+    // plain `else` body and a first branch keep one level (grid
+    // tools/probe/r11u171repro/cases/G).  Loop generates are left alone.
+    // Switch R11U171_GENELSEIF_OFF.
+    std::string termScope171 = prefix;
+    if (topView && r11u171Law("R11U171_GENELSEIF_OFF")) {
+        struct Seg171 {
+            std::string name;
+            bool dup;
+        };
+        std::vector<Seg171> segs171;
+        bool ok171 = true, anyDup171 = false;
+        for (const Scope* sc = &body; sc;) {
+            auto& sy = sc->asSymbol();
+            if (sy.kind == SymbolKind::InstanceBody)
+                break;
+            if (sy.kind != SymbolKind::GenerateBlock) {
+                ok171 = false;
+                break;
+            }
+            auto& gb = sy.as<GenerateBlockSymbol>();
+            if (gb.getArrayIndex()) {
+                ok171 = false;
+                break;
+            }
+            bool dup = false;
+            if (gb.isUnnamed)
+                if (auto* gs = gb.getSyntax())
+                    for (const syntax::SyntaxNode* q = gs->parent; q; q = q->parent) {
+                        if (q->kind == syntax::SyntaxKind::IfGenerate) {
+                            dup = q->parent &&
+                                  q->parent->kind == syntax::SyntaxKind::ElseClause;
+                            break;
+                        }
+                        if (q->kind != syntax::SyntaxKind::GenerateBlock)
+                            break;
+                    }
+            anyDup171 |= dup;
+            segs171.insert(segs171.begin(),
+                           {std::string(gb.getExternalName()), dup});
+            sc = sy.getParentScope();
+        }
+        // § genElseIfFlatOnly171v (v11u171) — the doubling below assumes our
+        // generate-scope NAMING lists one segment per block of slang's
+        // chain, where slang flattens every else-if (LRM 27.5 direct
+        // nesting) and the begin..end body names `work@dut.genblk1`.  Where
+        // the naming already lists MORE generate segments than the chain has
+        // blocks (a top-level else-if chain without begin..end bodies: prefix
+        // `work@dut.genblk1.genblk1` for a one-block chain, golden's terminal
+        // path exactly), the law added a third `genblk1` away from golden
+        // (tools/probe/v11u171repro/cases/G/a08, a10).  So the law declines
+        // there.  Switch R11V171_GENFLAT_OFF.
+        if (ok171 && anyDup171 && !segs171.empty() &&
+            v11u171Law("R11V171_GENFLAT_OFF")) {
+            std::string inst171;
+            for (UHDM::BaseClass* o = m; o; o = o->VpiParent()) {
+                auto t = o->UhdmType();
+                if (t == UHDM::uhdmgen_scope || t == UHDM::uhdmgen_scope_array)
+                    continue;
+                if (auto* sc171 = dynamic_cast<UHDM::scope*>(o))
+                    inst171 = std::string(sc171->VpiFullName());
+                break;
+            }
+            if (!inst171.empty() && prefix.size() > inst171.size() &&
+                prefix.compare(0, inst171.size(), inst171) == 0 &&
+                prefix[inst171.size()] == '.') {
+                const size_t ev171 = (size_t)std::count(
+                    prefix.begin() + (std::ptrdiff_t)inst171.size(), prefix.end(), '.');
+                if (ev171 > segs171.size()) {
+                    ok171 = false;
+                    trace171("GENFLAT-DECLINE", prefix + " prefixSegs=" +
+                                                    std::to_string(ev171) + " chain=" +
+                                                    std::to_string(segs171.size()));
+                }
+            }
+        }
+        if (ok171 && anyDup171 && !segs171.empty()) {
+            // The instance path is `prefix` without the (flattened) generate
+            // segments.  The innermost block is `prefix`'s last segment (it
+            // carries the producer's genblk number, which our generate-scope
+            // naming already computes); the outer ones are stripped where
+            // they are still listed, matching the chain's names in order.
+            std::string head = prefix;
+            if (auto dot0 = head.rfind('.'); dot0 != std::string::npos) {
+                segs171.back().name = head.substr(dot0 + 1);
+                head.resize(dot0);
+            }
+            size_t si = segs171.size() - 1;
+            while (si > 0) {
+                auto dot = head.rfind('.');
+                if (dot == std::string::npos)
+                    break;
+                std::string last = head.substr(dot + 1);
+                size_t k = si;
+                while (k > 0 && segs171[k - 1].name != last)
+                    k--;
+                if (k == 0)
+                    break;
+                head.resize(dot);
+                si = k - 1;
+            }
+            std::string path = head;
+            for (auto& sg : segs171) {
+                if (sg.dup)
+                    path += "." + sg.name;
+                path += "." + sg.name;
+            }
+            termScope171 = path;
+            trace171("GENELSEIF", path);
+        }
+    }
     for (auto& member : body.members()) {
         if (member.kind == SymbolKind::PrimitiveInstance) {
             auto& pi = member.as<PrimitiveInstanceSymbol>();
@@ -33222,7 +33531,7 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
             // (prefix.u_buf0.out_buf0); the ELAB view names them in the
             // module scope (prefix.out_buf0) — same split as a gate ARRAY.
             auto* g = buildGate(pi, pname, primType, gname,
-                                gfull, topView ? prefix : gfull, m, nullptr,
+                                gfull, topView ? termScope171 : gfull, m, nullptr,
                                 false, *sw, isUdp);
             if (!prims)
                 prims = s.MakePrimitiveVec();
@@ -39276,6 +39585,34 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             }
             if (!signExt9 && raw.find('\'') != std::string::npos)
                 rhs = (UHDM::any*)defInfo->contAssigns[myIdx]->Rhs();
+            // § selLhsBareDecRhsShared171 (r11u171, YosysBigSimEllip's
+            // structural head) — a BARE DECIMAL onto a bit-select or
+            // part-select Lhs of a packed vector keeps the definition's
+            // constant OBJECT too.  UhdmWriter::writeCont_assign (Surelog
+            // UhdmWriter.cpp, the `reduceExpr` arm) clones the cont_assign
+            // (clone_tree: constant::DeepClone hands back `this` for a sized
+            // constant), then runs `adjustSize(tps, ...)` with `tps` =
+            // `lhs->Typespec()`, which a select Lhs does not carry: no
+            // uniquifying clone, `res->VpiParent(assign)`, `assign->Rhs(res)`.
+            // So every elaborated cell of `assign C[195:194] = 0;` lists the
+            // ONE definition constant (the walk visits it once), re-parented
+            // at the last cell; a whole-net Lhs has a typespec and clones
+            // (`C = 0` stays fresh per instance).  Its value was already
+            // right (§ selBareDec144 keeps the literal's own shape); only
+            // the identity moves.  f3m.v 592 `assign C[195:194] = 0;` under
+            // point_scalar_mult's func3 instances; grid
+            // tools/probe/r11u171repro/cases/Y.  Switch
+            // R11U171_SELDECSHARE_OFF.
+            else if (!signExt9 && selLitLhs && !memberSelLitLhs && !bitsRhs &&
+                     r11u144Law("R11U144_SELBAREDEC_OFF") &&
+                     r11u171Law("R11U171_SELDECSHARE_OFF") && defRhs9 &&
+                     defRhs9->UhdmType() == UHDM::uhdmconstant &&
+                     stripImplicitConv(ae.right()).kind ==
+                         ExpressionKind::IntegerLiteral) {
+                rhs = (UHDM::any*)defRhs9;
+                ((UHDM::constant*)defRhs9)->VpiParent(ca);
+                trace171("SELDECSHARE", prefix);
+            }
         }
         // Dotted-LHS re-emits share the def Rhs object wholesale.
         if (!rhs && topView && (dottedLhs || callIdxLhs) && shareWithDef && defInfo &&

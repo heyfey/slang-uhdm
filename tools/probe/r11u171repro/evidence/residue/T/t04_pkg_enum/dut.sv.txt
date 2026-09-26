@@ -1,0 +1,17 @@
+// residue (sister ground): the type-parameter enum copy minted by ParamEmit emitParameters
+package p;
+  typedef enum logic [2:0] {A = 3'd1, B = 3'd2} e_t;
+endpackage
+module test_module #(
+  parameter type T = logic [2:0]
+) (
+  input T state_i,
+  output T state_o
+);
+  T r;
+  assign r = state_i;
+  assign state_o = r;
+endmodule
+module top(input p::e_t i, output p::e_t o);
+  test_module #(.T(p::e_t)) inst1 (.state_i(i), .state_o(o));
+endmodule

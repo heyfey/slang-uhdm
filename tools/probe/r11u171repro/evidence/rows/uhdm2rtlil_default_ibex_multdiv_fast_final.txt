@@ -1,0 +1,32 @@
+#11323 file
+  A: 9	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 9	enum_const	ALBL				0	0	0	0				
+#11349 file
+  A: 11	enum_const	ALBH			ibex_multdiv_fast.sv	269	13	269	17				
+  B: 11	enum_const	ALBH				0	0	0	0				
+#11353 file
+  A: 9	enum_const	ALBH			ibex_multdiv_fast.sv	269	13	269	17				
+  B: 9	enum_const	ALBH				0	0	0	0				
+#11408 file
+  A: 11	enum_const	AHBL			ibex_multdiv_fast.sv	269	19	269	23				
+  B: 11	enum_const	AHBL				0	0	0	0				
+#11412 file
+  A: 9	enum_const	AHBL			ibex_multdiv_fast.sv	269	19	269	23				
+  B: 9	enum_const	AHBL				0	0	0	0				
+#11466 file
+  A: 13	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 13	enum_const	ALBL				0	0	0	0				
+#11482 file
+  A: 13	enum_const	AHBH			ibex_multdiv_fast.sv	269	25	269	29				
+  B: 13	enum_const	AHBH				0	0	0	0				
+#11486 file
+  A: 9	enum_const	AHBH			ibex_multdiv_fast.sv	269	25	269	29				
+  B: 9	enum_const	AHBH				0	0	0	0				
+#11541 file
+  A: 11	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 11	enum_const	ALBL				0	0	0	0				
+#11551 file
+  A: 11	enum_const	ALBL			ibex_multdiv_fast.sv	269	7	269	11				
+  B: 11	enum_const	ALBL				0	0	0	0				
+fields: file=11 line=11 col=11 endline=11 endcol=11 objects_differing=11
+STRICT_NOTEQUAL file

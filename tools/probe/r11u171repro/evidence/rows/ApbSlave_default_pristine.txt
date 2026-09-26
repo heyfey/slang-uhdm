@@ -1,0 +1,6 @@
+#372 depth
+  A: 2	function	svunit_base::new		svunit_pkg::svunit_base::new	svunit_base.sv	59	1	61	12				
+  B: 7	string_var	svunit_version		svunit_pkg::svunit_version	svunit_pkg.sv	29	16	29	92		0		
+objects 3678 vs 3682
+fields: depth=1 type=1 name=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL depth

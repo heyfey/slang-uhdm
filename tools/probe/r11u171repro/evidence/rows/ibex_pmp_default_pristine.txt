@@ -1,0 +1,33 @@
+#2404 file
+  A: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+  B: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+#3797 file
+  A: 2	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+  B: 2	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+#3832 file
+  A: 2	enum_typespec	ibex_pkg::pmp_req_e			ibex_pmp.sv	130	48	130	58				
+  B: 2	enum_typespec	ibex_pkg::pmp_req_e			ibex_pkg.sv	419	3	423	15				
+#3841 file
+  A: 2	enum_typespec	ibex_pkg::priv_lvl_e			ibex_pmp.sv	132	48	132	58				
+  B: 2	enum_typespec	ibex_pkg::priv_lvl_e			ibex_pkg.sv	216	3	221	16				
+#6305 file
+  A: 2	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+  B: 2	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+#6340 file
+  A: 2	enum_typespec	ibex_pkg::pmp_req_e			ibex_pmp.sv	130	48	130	58				
+  B: 2	enum_typespec	ibex_pkg::pmp_req_e			ibex_pkg.sv	419	3	423	15				
+#6349 file
+  A: 2	enum_typespec	ibex_pkg::priv_lvl_e			ibex_pmp.sv	132	48	132	58				
+  B: 2	enum_typespec	ibex_pkg::priv_lvl_e			ibex_pkg.sv	216	3	221	16				
+#6944 file
+  A: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+  B: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+#7012 file
+  A: 6	enum_typespec	ibex_pkg::priv_lvl_e			ibex_pmp.sv	132	48	132	58				
+  B: 6	enum_typespec	ibex_pkg::priv_lvl_e			ibex_pkg.sv	216	3	221	16				
+#7048 file
+  A: 6	enum_typespec	ibex_pkg::pmp_req_e			ibex_pmp.sv	130	48	130	58				
+  B: 6	enum_typespec	ibex_pkg::pmp_req_e			ibex_pkg.sv	419	3	423	15				
+objects 16037 vs 16021
+fields: type=1 name=1 fullname=2 file=15 line=15 col=15 endline=15 endcol=15 objects_differing=16 (walk diverged)
+STRICT_NOTEQUAL file

@@ -379,8 +379,8 @@ DynArrayKind,default,CMP_EQUAL,,,equal
 DynArrayKind,testflags,CMP_EQUAL,,,equal
 Earlgrey,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
 Earlgrey,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
-Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(511),,differ:fullname(511)
-Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(511),,differ:fullname(511)
+Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(436),,differ:fullname(436)
+Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(436),,differ:fullname(436)
 Earlgrey_nexysvideo,default,DEFERRED,late-phase: golden uncacheable on this machine,,
 Earlgrey_nexysvideo,testflags,DEFERRED,late-phase: golden uncacheable on this machine,,
 Earlgrey_Verilator_01_05_21,default,DEFERRED,late-phase: golden uncacheable on this machine,,
@@ -571,8 +571,8 @@ GenerateModule,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Generat
 GenerateModule,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenerateModule/top.v:9:9: error: unknown module 'M1',,
 GenerateRegion,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenerateRegion/dut.sv:12:23: error: use of undeclared identifier 'clk',,
 GenerateRegion,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenerateRegion/dut.sv:12:23: error: use of undeclared identifier 'clk',,
-GenerateUnnamed,default,STRICT_NOTEQUAL,differ:fullname(9),,differ:fullname(9)
-GenerateUnnamed,testflags,STRICT_NOTEQUAL,differ:fullname(9),,differ:fullname(9)
+GenerateUnnamed,default,CMP_EQUAL,,,equal
+GenerateUnnamed,testflags,CMP_EQUAL,,,equal
 GenFor,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenFor/dut.sv:4:9: error: use of undeclared identifier 'i',,
 GenFor,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenFor/dut.sv:4:9: error: use of undeclared identifier 'i',,
 GenForDec,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenForDec/dut.sv:4:9: error: use of undeclared identifier 'i',,
@@ -855,8 +855,8 @@ MaskNeg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv
 MaskNeg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 MBadder,default,CMP_EQUAL,,,equal
 MBadder,testflags,CMP_EQUAL,,,equal
-MiniAmiq,default,STRICT_NOTEQUAL,differ:file(46),,differ:file(46)
-MiniAmiq,testflags,STRICT_NOTEQUAL,differ:file(46),,differ:file(46)
+MiniAmiq,default,STRICT_NOTEQUAL,differ:file(29),,differ:file(29)
+MiniAmiq,testflags,STRICT_NOTEQUAL,differ:file(29),,differ:file(29)
 MinTypMax,default,CMP_EQUAL,,,equal
 MinTypMax,testflags,CMP_EQUAL,,,equal
 ModPortArrayBind,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortArrayBind/dut.sv:15:18: error: top-level module 'r5p_bus_dec' has unconnected interface port 'm',,
@@ -1199,20 +1199,20 @@ Rsd,default,DEFERRED,late-phase: golden uncacheable on this machine,,
 Rsd,testflags,DEFERRED,late-phase: golden uncacheable on this machine,,
 ScalarParam,default,CMP_EQUAL,,,equal
 ScalarParam,testflags,CMP_EQUAL,,,equal
-Scoreboard,default,STRICT_NOTEQUAL,differ:fullname(62),,differ:fullname(62)
+Scoreboard,default,STRICT_NOTEQUAL,differ:fullname(45),,differ:fullname(45)
 Scoreboard,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scoreboard/testbench.sv:12:3: error: use of undeclared identifier 'my_scoreboard',,
 Scr1,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
 Scr1,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
-Scr1SvTests,default,STRICT_NOTEQUAL,differ:file(143),,differ:file(143)
-Scr1SvTests,testflags,STRICT_NOTEQUAL,differ:file(143),,differ:file(143)
+Scr1SvTests,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+Scr1SvTests,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 SelectHierPath,default,CMP_EQUAL,,,equal
 SelectHierPath,testflags,CMP_EQUAL,,,equal
 Selects,default,CMP_EQUAL,,,equal
 Selects,testflags,CMP_EQUAL,,,equal
 SelectSelect,default,CMP_EQUAL,,,equal
 SelectSelect,testflags,CMP_EQUAL,,,equal
-SeqDriver,default,STRICT_NOTEQUAL,differ:file(46),,differ:file(46)
-SeqDriver,testflags,STRICT_NOTEQUAL,differ:file(46),,differ:file(46)
+SeqDriver,default,STRICT_NOTEQUAL,differ:file(29),,differ:file(29)
+SeqDriver,testflags,STRICT_NOTEQUAL,differ:file(29),,differ:file(29)
 SequenceInst,default,CMP_EQUAL,,,equal
 SequenceInst,testflags,CMP_EQUAL,,,equal
 SeqUseNonTemp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SeqUseNonTemp/dut.sv:15:10: error: redefinition of 'p1_count_increment' [-Wredefinition],,
@@ -1255,8 +1255,8 @@ SimpleParserTestCache,default,SURELOG_FAIL,[   NOTE] : 0,,
 SimpleParserTestCache,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 SimpleTask,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleTask/top_2.v:2:8: error: duplicate definition of 'bus_wr_rd_task' [-Wduplicate-definition],,
 SimpleTask,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleTask/top_2.v:2:8: error: duplicate definition of 'bus_wr_rd_task' [-Wduplicate-definition],,
-SimpleUVM,default,STRICT_NOTEQUAL,differ:fullname(62),,differ:fullname(62)
-SimpleUVM,testflags,STRICT_NOTEQUAL,differ:fullname(62),,differ:fullname(62)
+SimpleUVM,default,STRICT_NOTEQUAL,differ:fullname(45),,differ:fullname(45)
+SimpleUVM,testflags,STRICT_NOTEQUAL,differ:fullname(45),,differ:fullname(45)
 SimpleVMM,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but decl,,
 SimpleVMM,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but decl,,
 SimplifyHierPath,default,CMP_EQUAL,,,equal
@@ -1415,8 +1415,8 @@ UndersVal,default,CMP_EQUAL,,,equal
 UndersVal,testflags,CMP_EQUAL,,,equal
 UnelabPack,default,CMP_EQUAL,,,equal
 UnelabPack,testflags,CMP_EQUAL,,,equal
-UnionCast,default,STRICT_NOTEQUAL,differ:value(26),,differ:value(26)
-UnionCast,testflags,STRICT_NOTEQUAL,differ:value(28),,differ:value(28)
+UnionCast,default,CMP_EQUAL,,,equal
+UnionCast,testflags,CMP_EQUAL,,,equal
 Unisim,default,SLANG_REJECT,error: no input files,,
 Unisim,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/XilinxUnisimLibrary/batch.txt:1:1: error: expected member,,
 UnitAmiqEth,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/UnitAmiqEth/amiq_eth_pkg.sv.ck0:2205:30: error: use of undeclared identifier 'client_data',,
@@ -1537,7 +1537,7 @@ YosysBigSimAes,default,CMP_EQUAL,,,equal
 YosysBigSimAes,testflags,CMP_EQUAL,,,equal
 YosysBigSimAmber23,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/amber23/rtl/a23_decode.v:175:24: error: expected a declaration name,,
 YosysBigSimAmber23,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/amber23/rtl/a23_decode.v:175:24: error: expected a declaration name,,
-YosysBigSimEllip,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+YosysBigSimEllip,default,CMP_EQUAL,,,equal
 YosysBigSimEllip,testflags,NO_DATABASE,test suppresses UHDM output,-noelab,
 YosysBigSimLm32,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/lm32/rtl/lm32_adder.v:56:8: error: design element does not have a time scale de,,
 YosysBigSimLm32,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/lm32/rtl/lm32_adder.v:56:8: error: design element does not have a time scale de,,
@@ -1565,8 +1565,8 @@ YosysOldI2c,default,CMP_EQUAL,,,equal
 YosysOldI2c,testflags,CMP_EQUAL,,,equal
 YosysOldOpen,default,CMP_EQUAL,,,equal
 YosysOldOpen,testflags,CMP_EQUAL,,,equal
-YosysOldOr,default,STRICT_NOTEQUAL,differ:line(1),,differ:line(1)
-YosysOldOr,testflags,STRICT_NOTEQUAL,differ:line(1),,differ:line(1)
+YosysOldOr,default,CMP_EQUAL,,,equal
+YosysOldOr,testflags,CMP_EQUAL,,,equal
 YosysOldSasc,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysOldTests/sasc/cache/synth.v:1:8: error: design element does not have a time scale defi,,
 YosysOldSasc,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysOldTests/sasc/cache/synth.v:1:8: error: design element does not have a time scale defi,,
 YosysOldSimpleSpi,default,CMP_EQUAL,,,equal

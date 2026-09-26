@@ -1,0 +1,33 @@
+#25840 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::csr_op_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::csr_op_e		0	0	0	0		0		
+#25850 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::dbg_cause_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::dbg_cause_e		0	0	0	0		0		
+#25861 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::exc_cause_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::exc_cause_e		0	0	0	0		0		
+#25879 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::exc_pc_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::exc_pc_sel_e		0	0	0	0		0		
+#25889 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::imm_a_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::imm_a_sel_e		0	0	0	0		0		
+#25948 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::opcode_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::opcode_e		0	0	0	0		0		
+#25965 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::pc_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::pc_sel_e		0	0	0	0		0		
+#25976 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::pmp_cfg_mode_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::pmp_cfg_mode_e		0	0	0	0		0		
+#25985 file
+  A: 2	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_core.sv	302	9	254	44				
+  B: 2	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	302	9	254	44				
+#25992 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::pmp_cfg_mode_e		0	0	0	0		0		
+  B: 6	ref_typespec			<in>ibex_pkg::pmp_cfg_mode_e		0	0	0	0		0		
+objects 2173209 vs 2173853
+fields: type=1 defname=2 fullname=407 file=76 line=1 col=28 endline=1 endcol=51 size=1 objects_differing=511 (walk diverged)
+STRICT_NOTEQUAL fullname

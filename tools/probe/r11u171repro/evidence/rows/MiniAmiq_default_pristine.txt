@@ -1,0 +1,33 @@
+#573 file
+  A: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_block.svh	1671	35	1671	46				
+  B: 2	enum_typespec	uvm_pkg::uvm_check_e			uvm_reg_model.svh	180	4	183	18				
+#600 file
+  A: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_block.svh	1819	48	1819	64				
+  B: 2	enum_typespec	uvm_pkg::uvm_endianness_e			uvm_reg_model.svh	196	4	202	23				
+#612 file
+  A: 2	struct_typespec	uvm_pkg::uvm_hdl_path_slice			uvm_mem.svh	2168	37	2168	55				
+  B: 2	struct_typespec	uvm_pkg::uvm_hdl_path_slice			uvm_reg_model.svh	125	9	129	2				
+#613 file
+  A: 3	typespec_member	path			uvm_pkg.sv	126	11	126	15				
+  B: 3	typespec_member	path			uvm_reg_model.svh	126	11	126	15				
+#616 file
+  A: 3	typespec_member	offset			uvm_pkg.sv	127	8	127	14				
+  B: 3	typespec_member	offset			uvm_reg_model.svh	127	8	127	14				
+#619 file
+  A: 3	typespec_member	size			uvm_pkg.sv	128	8	128	12				
+  B: 3	typespec_member	size			uvm_reg_model.svh	128	8	128	12				
+#627 file
+  A: 2	enum_typespec	uvm_pkg::uvm_hier_e			uvm_reg_block.svh	1229	47	1229	57				
+  B: 2	enum_typespec	uvm_pkg::uvm_hier_e			uvm_reg_model.svh	242	4	245	17				
+#646 file
+  A: 2	enum_typespec	uvm_pkg::uvm_path_e			uvm_reg_block.svh	1778	49	1778	59				
+  B: 2	enum_typespec	uvm_pkg::uvm_path_e			uvm_reg_model.svh	165	4	170	17				
+#651 file
+  A: 2	enum_typespec	uvm_pkg::uvm_phase_state			uvm_phase.svh	2109	43	2109	58				
+  B: 2	enum_typespec	uvm_pkg::uvm_phase_state			uvm_object_globals.svh	532	4	543	37				
+#663 file
+  A: 2	enum_typespec	uvm_pkg::uvm_phase_type			uvm_phase.svh	786	25	786	39				
+  B: 2	enum_typespec	uvm_pkg::uvm_phase_type			uvm_object_globals.svh	470	1	476	18				
+objects 435559 vs 413982
+fields: depth=1 type=1 name=1 fullname=5 file=38 line=19 col=22 endline=19 endcol=22 objects_differing=46 (walk diverged)
+STRICT_NOTEQUAL file

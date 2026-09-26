@@ -1,0 +1,225 @@
+G/a01_elseif_body_local_net              pris rc=0 cmp=255/29 strict=1 NOT_EQUAL stage1 | 
+G/a01_elseif_body_local_net              law  rc=0 cmp=255/29 strict=1 NOT_EQUAL stage1 | 
+G/a01_elseif_body_local_net              fix2 rc=0 cmp=255/29 strict=1 NOT_EQUAL stage1 | 
+G/a02_elseif_two_instances               pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3
+G/a02_elseif_two_instances               law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 221 objects | 
+G/a02_elseif_two_instances               fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 221 objects | 
+G/a03_else_begin_if                      pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3
+G/a03_else_begin_if                      law  rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3
+G/a03_else_begin_if                      fix2 rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3
+G/a04_elseif_in_for                      pris rc=0 cmp=255/32 strict=1 NOT_EQUAL stage1 | 
+G/a04_elseif_in_for                      law  rc=0 cmp=255/32 strict=1 NOT_EQUAL stage1 | 
+G/a04_elseif_in_for                      fix2 rc=0 cmp=255/32 strict=1 NOT_EQUAL stage1 | 
+G/a05_elseif_gate_array                  pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3
+G/a05_elseif_gate_array                  law  rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3
+G/a05_elseif_gate_array                  fix2 rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3
+G/a06_elseif_else_branch_selected        pris rc=0 cmp=0/0 strict=0 STRICT_EQUAL 74 objects | 
+G/a06_elseif_else_branch_selected        law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 74 objects | 
+G/a06_elseif_else_branch_selected        fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 74 objects | 
+G/a07_elseif_elseif_nested_unnamed       pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3
+G/a07_elseif_elseif_nested_unnamed       law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 98 objects | 
+G/a07_elseif_elseif_nested_unnamed       fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 98 objects | 
+G/a08_elseif_no_begin                    pris rc=0 cmp=255/111 strict=1 NOT_EQUAL stage1 | 
+G/a08_elseif_no_begin                    law  rc=0 cmp=255/111 strict=1 NOT_EQUAL stage1 | 
+G/a08_elseif_no_begin                    fix2 rc=0 cmp=255/111 strict=1 NOT_EQUAL stage1 | 
+G/a09_elseif_bufif_multi_out             pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=6 objects_differing=6
+G/a09_elseif_bufif_multi_out             law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 92 objects | 
+G/a09_elseif_bufif_multi_out             fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 92 objects | 
+G/a10_elseif_nobegin_three               pris rc=0 cmp=255/111 strict=1 NOT_EQUAL stage1 | 
+G/a10_elseif_nobegin_three               law  rc=0 cmp=255/111 strict=1 NOT_EQUAL stage1 | 
+G/a10_elseif_nobegin_three               fix2 rc=0 cmp=255/111 strict=1 NOT_EQUAL stage1 | 
+G/a11_outer_begin_inner_nobegin          pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3
+G/a11_outer_begin_inner_nobegin          law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 98 objects | 
+G/a11_outer_begin_inner_nobegin          fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 98 objects | 
+G/a12_outer_nobegin_inner_begin          pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3
+G/a12_outer_nobegin_inner_begin          law  rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3
+G/a12_outer_nobegin_inner_begin          fix2 rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3
+G/a13_elseif_named_outer_block           pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3
+G/a13_elseif_named_outer_block           law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 78 objects | 
+G/a13_elseif_named_outer_block           fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 78 objects | 
+Q/c01_tail_const                         pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL col | fields: depth=1 type=1 name=1 fullname=2 line=1 col=4 endline=1 endcol=4 objects_differing=5 (walk diverged)
+Q/c01_tail_const                         law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 133 objects | 
+Q/c01_tail_const                         fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 133 objects | 
+Q/c02_tail_op                            pris rc=0 cmp=255/62 strict=1 NOT_EQUAL stage1 | 
+Q/c02_tail_op                            law  rc=0 cmp=255/62 strict=1 NOT_EQUAL stage1 | 
+Q/c02_tail_op                            fix2 rc=0 cmp=255/62 strict=1 NOT_EQUAL stage1 | 
+Q/c03_nested_concat_first                pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL col | fields: depth=1 type=1 name=1 fullname=2 line=1 col=3 endline=1 endcol=3 objects_differing=4 (walk diverged)
+Q/c03_nested_concat_first                law  rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL col | fields: col=1 endcol=1 objects_differing=1
+Q/c03_nested_concat_first                fix2 rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL col | fields: col=1 endcol=1 objects_differing=1
+Q/c04_repl_first                         pris rc=0 cmp=0/0 strict=0 STRICT_EQUAL 151 objects | 
+Q/c04_repl_first                         law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 151 objects | 
+Q/c04_repl_first                         fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 151 objects | 
+Q/c05_tail_partsel                       pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL col | fields: depth=1 type=1 name=1 fullname=2 line=1 col=4 endline=1 endcol=4 objects_differing=5 (walk diverged)
+Q/c05_tail_partsel                       law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 158 objects | 
+Q/c05_tail_partsel                       fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 158 objects | 
+Q/c06_gen_for_inst                       pris rc=0 cmp=255/27 strict=1 NOT_EQUAL stage1 | 
+Q/c06_gen_for_inst                       law  rc=0 cmp=255/27 strict=1 NOT_EQUAL stage1 | 
+Q/c06_gen_for_inst                       fix2 rc=0 cmp=255/27 strict=1 NOT_EQUAL stage1 | 
+Q/c07_const_in_concat                    pris rc=0 cmp=255/287 strict=1 NOT_EQUAL stage1 | 
+Q/c07_const_in_concat                    law  rc=0 cmp=255/287 strict=1 NOT_EQUAL stage1 | 
+Q/c07_const_in_concat                    fix2 rc=0 cmp=255/287 strict=1 NOT_EQUAL stage1 | 
+Q/c08_inst_array                         pris rc=0 cmp=255/176 strict=1 NOT_EQUAL stage1 | 
+Q/c08_inst_array                         law  rc=0 cmp=255/176 strict=1 NOT_EQUAL stage1 | 
+Q/c08_inst_array                         fix2 rc=0 cmp=255/176 strict=1 NOT_EQUAL stage1 | 
+Q/c09_hier_child                         pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL col | fields: depth=1 type=1 name=1 fullname=2 line=1 col=4 endline=1 endcol=4 objects_differing=5 (walk diverged)
+Q/c09_hier_child                         law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 342 objects | 
+Q/c09_hier_child                         fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 342 objects | 
+Q/c10_two_port                           pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL col | fields: depth=1 type=1 name=1 fullname=2 line=1 col=2 endline=1 endcol=2 objects_differing=3 (walk diverged)
+Q/c10_two_port                           law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 110 objects | 
+Q/c10_two_port                           fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 110 objects | 
+Q/c11_var_select                         pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL col | fields: depth=1 type=1 name=1 fullname=2 line=1 col=4 endline=1 endcol=4 objects_differing=5 (walk diverged)
+Q/c11_var_select                         law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 177 objects | 
+Q/c11_var_select                         fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 177 objects | 
+Q/c12_op_in_concat                       pris rc=0 cmp=255/371 strict=1 NOT_EQUAL stage1 | 
+Q/c12_op_in_concat                       law  rc=0 cmp=255/371 strict=1 NOT_EQUAL stage1 | 
+Q/c12_op_in_concat                       fix2 rc=0 cmp=255/371 strict=1 NOT_EQUAL stage1 | 
+Q/c13_param_in_concat                    pris rc=0 cmp=255/28 strict=1 NOT_EQUAL stage1 | 
+Q/c13_param_in_concat                    law  rc=0 cmp=255/28 strict=1 NOT_EQUAL stage1 | 
+Q/c13_param_in_concat                    fix2 rc=0 cmp=255/28 strict=1 NOT_EQUAL stage1 | 
+Q/c14_const_select                       pris rc=0 cmp=255/32 strict=1 NOT_EQUAL stage1 | 
+Q/c14_const_select                       law  rc=0 cmp=255/32 strict=1 NOT_EQUAL stage1 | 
+Q/c14_const_select                       fix2 rc=0 cmp=255/32 strict=1 NOT_EQUAL stage1 | 
+Y/b01_param_width_sel                    pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL type | fields: type=1 name=1 defname=1 fullname=1 col=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+Y/b01_param_width_sel                    law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 221 objects | 
+Y/b01_param_width_sel                    fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 221 objects | 
+Y/b02_trunc_value                        pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL type | fields: type=1 name=1 defname=1 fullname=1 col=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+Y/b02_trunc_value                        law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 197 objects | 
+Y/b02_trunc_value                        fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 197 objects | 
+Y/b03_unpacked_elem                      pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL type | fields: type=1 name=1 fullname=1 col=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+Y/b03_unpacked_elem                      law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 247 objects | 
+Y/b03_unpacked_elem                      fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 247 objects | 
+Y/b04_indexed_psel                       pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL type | fields: type=1 name=1 defname=1 fullname=1 col=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+Y/b04_indexed_psel                       law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 218 objects | 
+Y/b04_indexed_psel                       fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 218 objects | 
+Y/b05_concat_lhs                         pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=2 objects_differing=2
+Y/b05_concat_lhs                         law  rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=2 objects_differing=2
+Y/b05_concat_lhs                         fix2 rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=2 objects_differing=2
+Y/b06_logic_var_lhs                      pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL type | fields: type=1 name=1 defname=1 fullname=1 col=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+Y/b06_logic_var_lhs                      law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 232 objects | 
+Y/b06_logic_var_lhs                      fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 232 objects | 
+Y/b07_nested_three_levels                pris rc=0 cmp=255/383 strict=1 NOT_EQUAL stage1 | 
+Y/b07_nested_three_levels                law  rc=0 cmp=255/383 strict=1 NOT_EQUAL stage1 | 
+Y/b07_nested_three_levels                fix2 rc=0 cmp=255/383 strict=1 NOT_EQUAL stage1 | 
+Y/b08_signed_neg_dec                     pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL type | fields: type=1 name=1 defname=1 fullname=1 col=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+Y/b08_signed_neg_dec                     law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 190 objects | 
+Y/b08_signed_neg_dec                     fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 190 objects | 
+K/d01_multiline_macro_before             pris rc=0 cmp=0/0 strict=0 STRICT_EQUAL 132 objects | 
+K/d01_multiline_macro_before             law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 132 objects | 
+K/d01_multiline_macro_before             fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 132 objects | 
+K/d02_include_before                     pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL endcol | fields: endcol=2 objects_differing=2
+K/d02_include_before                     law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 160 objects | 
+K/d02_include_before                     fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 160 objects | 
+K/d03_line_directive                     pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL endline | fields: line=38 endline=40 objects_differing=40
+K/d03_line_directive                     law  rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL endline | fields: line=38 endline=40 objects_differing=40
+K/d03_line_directive                     fix2 rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL endline | fields: line=38 endline=40 objects_differing=40
+K/d04_macro_unpacked_dim_multiline       pris rc=0 cmp=255/240 strict=1 NOT_EQUAL stage1 | 
+K/d04_macro_unpacked_dim_multiline       law  rc=0 cmp=255/240 strict=1 NOT_EQUAL stage1 | 
+K/d04_macro_unpacked_dim_multiline       fix2 rc=0 cmp=255/240 strict=1 NOT_EQUAL stage1 | 
+K/d05_typedef_net_macro                  pris rc=0 cmp=255/17 strict=1 NOT_EQUAL stage1 | 
+K/d05_typedef_net_macro                  law  rc=0 cmp=255/17 strict=1 NOT_EQUAL stage1 | 
+K/d05_typedef_net_macro                  fix2 rc=0 cmp=255/17 strict=1 NOT_EQUAL stage1 | 
+K/d06_wire_macro_2d                      pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL endcol | fields: endcol=2 objects_differing=2
+K/d06_wire_macro_2d                      law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 108 objects | 
+K/d06_wire_macro_2d                      fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 108 objects | 
+K/d07_macro_after_decl_same_line         pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL endcol | fields: endcol=2 objects_differing=2
+K/d07_macro_after_decl_same_line         law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 131 objects | 
+K/d07_macro_after_decl_same_line         fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 131 objects | 
+K/d08_macro_whole_type                   pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL endcol | fields: endcol=1 objects_differing=1
+K/d08_macro_whole_type                   law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 104 objects | 
+K/d08_macro_whole_type                   fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 104 objects | 
+M/e01_include_in_struct_body             pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=10 objects_differing=10
+M/e01_include_in_struct_body             law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 116 objects | 
+M/e01_include_in_struct_body             fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 116 objects | 
+M/e02_union_hdr_unpacked                 pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=20 objects_differing=20
+M/e02_union_hdr_unpacked                 law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 236 objects | 
+M/e02_union_hdr_unpacked                 fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 236 objects | 
+M/e03_two_roots_hdr                      pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=10 objects_differing=10
+M/e03_two_roots_hdr                      law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 133 objects | 
+M/e03_two_roots_hdr                      fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 133 objects | 
+M/e04_macro_def_hdr_used_hdr2            pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=10 objects_differing=10
+M/e04_macro_def_hdr_used_hdr2            law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 132 objects | 
+M/e04_macro_def_hdr_used_hdr2            fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 132 objects | 
+M/e05_struct_param_default_hdr           pris rc=0 cmp=255/84 strict=1 NOT_EQUAL stage1 | 
+M/e05_struct_param_default_hdr           law  rc=0 cmp=255/84 strict=1 NOT_EQUAL stage1 | 
+M/e05_struct_param_default_hdr           fix2 rc=0 cmp=255/84 strict=1 NOT_EQUAL stage1 | 
+N/f01_one_redecl_one_not                 pris rc=0 cmp=0/0 strict=0 STRICT_EQUAL 150 objects | 
+N/f01_one_redecl_one_not                 law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 150 objects | 
+N/f01_one_redecl_one_not                 fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 150 objects | 
+N/f02_ranged_ports_wire                  pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL line | fields: line=4 endline=4 objects_differing=4
+N/f02_ranged_ports_wire                  law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 151 objects | 
+N/f02_ranged_ports_wire                  fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 151 objects | 
+N/f03_shared_port_sep_body               pris rc=0 cmp=0/0 strict=0 STRICT_EQUAL 152 objects | 
+N/f03_shared_port_sep_body               law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 152 objects | 
+N/f03_shared_port_sep_body               fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 152 objects | 
+N/f04_ranged_outputs_reg                 pris rc=0 cmp=255/305 strict=1 NOT_EQUAL stage1 | 
+N/f04_ranged_outputs_reg                 law  rc=0 cmp=255/305 strict=1 NOT_EQUAL stage1 | 
+N/f04_ranged_outputs_reg                 fix2 rc=0 cmp=255/305 strict=1 NOT_EQUAL stage1 | 
+N/f05_top_level_split                    pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL line | fields: line=2 endline=2 objects_differing=2
+N/f05_top_level_split                    law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 110 objects | 
+N/f05_top_level_split                    fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 110 objects | 
+N/f06_integer_redecl                     pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL line | fields: line=4 endline=4 objects_differing=4
+N/f06_integer_redecl                     law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 141 objects | 
+N/f06_integer_redecl                     fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 141 objects | 
+F/h01_samename_two_pkgs                  pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=2 line=1 col=2 endline=1 endcol=2 objects_differing=2
+F/h01_samename_two_pkgs                  law  rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=2 line=1 col=2 endline=1 endcol=2 objects_differing=2
+F/h01_samename_two_pkgs                  fix2 rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=2 line=1 col=2 endline=1 endcol=2 objects_differing=2
+F/h02_formal_in_include                  pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1
+F/h02_formal_in_include                  law  rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1
+F/h02_formal_in_include                  fix2 rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1
+F/h03_formal_via_macro                   pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1
+F/h03_formal_via_macro                   law  rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1
+F/h03_formal_via_macro                   fix2 rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1
+F/h04_task_formal_enum                   pris rc=0 cmp=255/36 strict=1 NOT_EQUAL stage1 | 
+F/h04_task_formal_enum                   law  rc=0 cmp=255/36 strict=1 NOT_EQUAL stage1 | 
+F/h04_task_formal_enum                   fix2 rc=0 cmp=255/36 strict=1 NOT_EQUAL stage1 | 
+F/h05_net_unpacked_two_files             pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=9 objects_differing=9
+F/h05_net_unpacked_two_files             law  rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=9 objects_differing=9
+F/h05_net_unpacked_two_files             fix2 rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=9 objects_differing=9
+F/h06_net_two_files_rev                  pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=9 objects_differing=9
+F/h06_net_two_files_rev                  law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 259 objects | 
+F/h06_net_two_files_rev                  fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 259 objects | 
+F/h07_two_tops                           pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=9 objects_differing=9
+F/h07_two_tops                           law  rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=9 objects_differing=9
+F/h07_two_tops                           fix2 rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=9 objects_differing=9
+F/h08_two_tops_rev                       pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=9 objects_differing=9
+F/h08_two_tops_rev                       law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 257 objects | 
+F/h08_two_tops_rev                       fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 257 objects | 
+F/h09_two_tops_alpha                     pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=9 objects_differing=9
+F/h09_two_tops_alpha                     law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 257 objects | 
+F/h09_two_tops_alpha                     fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 257 objects | 
+F/h10_samename_imported                  pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=20 objects_differing=20
+F/h10_samename_imported                  law  rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=10 objects_differing=10
+F/h10_samename_imported                  fix2 rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=10 objects_differing=10
+V/i01_leading_zero_elab                  pris rc=0 cmp=255/36 strict=1 NOT_EQUAL stage1 | 
+V/i01_leading_zero_elab                  law  rc=0 cmp=255/36 strict=1 NOT_EQUAL stage1 | 
+V/i01_leading_zero_elab                  fix2 rc=0 cmp=255/36 strict=1 NOT_EQUAL stage1 | 
+V/i02_func_return_and_unpacked           pris rc=0 cmp=255/36 strict=1 NOT_EQUAL stage1 | 
+V/i02_func_return_and_unpacked           law  rc=0 cmp=255/36 strict=1 NOT_EQUAL stage1 | 
+V/i02_func_return_and_unpacked           fix2 rc=0 cmp=255/36 strict=1 NOT_EQUAL stage1 | 
+V/i03_typedef_in_pkg_and_param           pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL value | fields: value=14 objects_differing=14
+V/i03_typedef_in_pkg_and_param           law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 92 objects | 
+V/i03_typedef_in_pkg_and_param           fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 92 objects | 
+V/i04_big_digits                         pris rc=0 cmp=255/36 strict=1 NOT_EQUAL stage1 | 
+V/i04_big_digits                         law  rc=0 cmp=255/36 strict=1 NOT_EQUAL stage1 | 
+V/i04_big_digits                         fix2 rc=0 cmp=255/36 strict=1 NOT_EQUAL stage1 | 
+V/i05_struct_member_elab                 pris rc=0 cmp=255/36 strict=1 NOT_EQUAL stage1 | 
+V/i05_struct_member_elab                 law  rc=0 cmp=255/36 strict=1 NOT_EQUAL stage1 | 
+V/i05_struct_member_elab                 fix2 rc=0 cmp=255/36 strict=1 NOT_EQUAL stage1 | 
+S/j01_macro_signed                       pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL endcol | fields: endcol=4 objects_differing=4
+S/j01_macro_signed                       law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 138 objects | 
+S/j01_macro_signed                       fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 138 objects | 
+S/j02_nested_arg_macro                   pris rc=0 cmp=255/38 strict=1 NOT_EQUAL stage1 | 
+S/j02_nested_arg_macro                   law  rc=0 cmp=255/38 strict=1 NOT_EQUAL stage1 | 
+S/j02_nested_arg_macro                   fix2 rc=0 cmp=255/38 strict=1 NOT_EQUAL stage1 | 
+S/j03_gen_for_signed_cond                pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL endcol | fields: endcol=3 objects_differing=3
+S/j03_gen_for_signed_cond                law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 129 objects | 
+S/j03_gen_for_signed_cond                fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 129 objects | 
+S/j04_multiline_signed                   pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL endline | fields: endline=1 endcol=2 objects_differing=2
+S/j04_multiline_signed                   law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 99 objects | 
+S/j04_multiline_signed                   fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 99 objects | 
+U/k01_union_pkg_other_root               pris rc=0 cmp=255/101 strict=1 NOT_EQUAL stage1 | 
+U/k01_union_pkg_other_root               law  rc=0 cmp=255/101 strict=1 NOT_EQUAL stage1 | 
+U/k01_union_pkg_other_root               fix2 rc=0 cmp=255/101 strict=1 NOT_EQUAL stage1 | 
+U/k02_union_hdr_two_casts                pris rc=0 cmp=0/0 strict=2 STRICT_NOTEQUAL file | fields: file=28 objects_differing=28
+U/k02_union_hdr_two_casts                law  rc=0 cmp=0/0 strict=0 STRICT_EQUAL 320 objects | 
+U/k02_union_hdr_two_casts                fix2 rc=0 cmp=0/0 strict=0 STRICT_EQUAL 320 objects | 
