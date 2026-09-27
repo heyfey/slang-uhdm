@@ -1,0 +1,26 @@
+== surelog_default_MiniAmiq-055eab74 (order-blind uhdm-dump diff, law vs verified): 4 lines
+<       |UINT:1272
+>       |UINT:796
+<       |vpiDecompile:1272
+>       |vpiDecompile:796
+== surelog_default_SeqDriver-65178d3a (order-blind uhdm-dump diff, law vs verified): 4 lines
+<       |UINT:0
+>       |UINT:739
+<       |vpiDecompile:0
+>       |vpiDecompile:739
+== surelog_default_SimpleUVM-267de3ff (order-blind uhdm-dump diff, law vs verified): 4 lines
+<       |UINT:0
+>       |UINT:938
+<       |vpiDecompile:0
+>       |vpiDecompile:938
+== surelog_testflags_MiniAmiq-055eab74 (order-blind uhdm-dump diff, law vs verified): 4 lines
+<       |UINT:1466
+>       |UINT:1520
+<       |vpiDecompile:1466
+>       |vpiDecompile:1520
+== surelog_testflags_SeqDriver-65178d3a (order-blind uhdm-dump diff, law vs verified): 4 lines
+<       |UINT:0
+>       |UINT:1329
+<       |vpiDecompile:0
+>       |vpiDecompile:1329
+== surelog_default_Scoreboard-72aa0ba8 (order-blind uhdm-dump diff, law vs verified): 0 lines

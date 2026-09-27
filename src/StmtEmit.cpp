@@ -72,6 +72,28 @@ struct CloneLocalWrap175 {
 static std::vector<CloneLocalWrap175> cloneLocalWraps175;
 // the v11u178 verifier switches (ExprEmit.cpp)
 bool r11v178On(const char* sw);
+// The r11u181 switches and census trace (ExprEmit.cpp).
+bool r11u181Law(const char* sw);
+void trace181(const char* law);
+// § invalidStmtAnchorSyntax181 (r11u181) — THE SUBROUTINE BODY'S WRAPPER
+// ANCHORS AT ITS SECOND ITEM EVEN WHEN SLANG COULD NOT BIND IT.  Surelog
+// populates the synthesised body `begin` from the second body item's parse
+// node (CompileStmt.cpp compileTask / compileFunction; the wrapper rule
+// above), whatever that statement compiles to.  A statement slang leaves
+// INVALID (an unbound call in an uninstantiated parameterized class,
+// `f.note(T::get(), nm);`, r10uvm59repro/d10_argstmt; `r = pf167(T167::nm167);`,
+// r10v167repro/probe0; map clusters N0152 / N0153, 71 probe cases and the UVM
+// rows) carries no source range, so the wrapper came out unlocated (golden
+// 12:7-28, the statement through its semicolon).  The statement's syntax
+// node holds the same range a bound statement has.  Switch
+// R11U181_INVSTMT_OFF.
+static slang::SourceRange invalidStmtAnchor181(const slang::ast::Statement& st) {
+    if (st.sourceRange.start().valid() || !st.syntax ||
+        !r11u181Law("R11U181_INVSTMT_OFF"))
+        return st.sourceRange;
+    trace181("INVSTMT");
+    return st.syntax->sourceRange();
+}
 static std::vector<std::pair<UHDM::assignment*, UHDM::variables*>> cloneLocalLhs175;
 void drainImportCloneLocalCopies175(UHDM::Serializer& s) {
     for (auto& w : cloneLocalWraps175) {
@@ -3109,6 +3131,22 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             auto* w = s.MakeDo_while();
             w->VpiParent(parent);
             setLoc(w, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 2));
+            // § doWhileSyntaxFromCond181 (r11u181) — the two do-while span
+            // laws below read the statement's syntax, which slang leaves null
+            // on a do-while whose body block declares a local inside an
+            // uninstantiated parameterized class's method (the block is
+            // re-bound; r10v158repro/v158_d `do begin SS b5; ... end while
+            // (n5 > 0);`, golden 88:7-92:24, ours stopped at `do`).  The
+            // condition expression's syntax parent IS the do-while's syntax
+            // node, so the laws read it from there.  Switch
+            // R11U181_DWSYN_OFF.
+            const syntax::SyntaxNode* dwSyn181 = stmt.syntax;
+            if (!dwSyn181 && dw.cond.syntax && dw.cond.syntax->parent &&
+                dw.cond.syntax->parent->kind == syntax::SyntaxKind::DoWhileStatement &&
+                r11u181Law("R11U181_DWSYN_OFF")) {
+                trace181("DWSYN");
+                dwSyn181 = dw.cond.syntax->parent;
+            }
             // § doWhileSpansToCloseParen175 (r11u175) — golden's do_while
             // runs from the `do` keyword to the condition's CLOSING
             // PARENTHESIS (the end column is the `)` itself): `do begin ...
@@ -3119,10 +3157,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // tools/probe/r11u175uvm/cases/f7 d1-d5 (module initial, module
             // function, package function, class method; begin and single
             // statement bodies).  Same-buffer only.  Switch R11U175_ESPAN_OFF.
-            if (stmt.syntax &&
-                stmt.syntax->kind == syntax::SyntaxKind::DoWhileStatement &&
+            if (dwSyn181 &&
+                dwSyn181->kind == syntax::SyntaxKind::DoWhileStatement &&
                 r11u175LawA("R11U175_ESPAN_OFF")) {
-                auto& dws175 = stmt.syntax->as<syntax::DoWhileStatementSyntax>();
+                auto& dws175 = dwSyn181->as<syntax::DoWhileStatementSyntax>();
                 auto cp175 = dws175.closeParen.location();
                 // § doWhileEndsAtCondEnd178v (v11u178, the adversarial
                 // verification of r11u178) — golden's end is the CONDITION's
@@ -3134,14 +3172,40 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // the inner `)`.  Grid tools/probe/r11v178repro/cases/dw.
                 // Same-buffer only (else the closing parenthesis, as
                 // landed).  Switch R11V178_DWCOND_OFF.
+                // § doWhileMacroCondEnd181 (r11u181) — a condition written
+                // through an object-like macro (`do j++; while \`C;` with
+                // `` `define C (i < 5) ``) ends in the macro's expansion
+                // buffer, which the same-buffer test refused (ours stopped at
+                // `do`, 8:5-7).  Golden lays the condition's end out in the
+                // expanded line like every macro-born column (8:5-25, the
+                // location model's columns): the end is taken through
+                // setLoc's macro model when the do keyword itself is not
+                // macro-born and the condition's end expands on the
+                // keyword's own line.  Grid tools/probe/r11u181repro/cases/dw.
+                // Switch R11U181_DWMACRO_OFF.
+                bool dwMacro181 = false;
                 if (r11v178On("R11V178_DWCOND_OFF") && dws175.expr) {
                     auto ce178 = dws175.expr->sourceRange().end();
                     if (ce178.valid() &&
                         ce178.buffer() == stmt.sourceRange.start().buffer() &&
                         stmt.sourceRange.start() < ce178)
                         cp175 = ce178;
+                    else if (ce178.valid() && sm->isMacroLoc(ce178) &&
+                             !sm->isMacroLoc(stmt.sourceRange.start()) &&
+                             r11u181Law("R11U181_DWMACRO_OFF")) {
+                        auto oe181 = sm->getFullyExpandedLoc(ce178);
+                        if (oe181.valid() &&
+                            oe181.buffer() == stmt.sourceRange.start().buffer() &&
+                            stmt.sourceRange.start() < oe181 &&
+                            sm->getLineNumber(oe181) ==
+                                sm->getLineNumber(stmt.sourceRange.start())) {
+                            trace181("DWMACRO");
+                            dwMacro181 = true;
+                            setLoc(w, SourceRange(stmt.sourceRange.start(), ce178));
+                        }
+                    }
                 }
-                if (cp175.valid() &&
+                if (!dwMacro181 && cp175.valid() &&
                     cp175.buffer() == stmt.sourceRange.start().buffer() &&
                     stmt.sourceRange.start() < cp175)
                     setLoc(w, SourceRange(stmt.sourceRange.start(), cp175));
@@ -6349,9 +6413,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             else if (anch9)
                 setLoc(ub, anch9->sourceRange());
             else if (second140 < sl.list.size())
-                setLoc(ub, sl.list[second140]->sourceRange);
+                setLoc(ub, invalidStmtAnchor181(*sl.list[second140]));
             else if (sl.list.size() >= 2)
-                setLoc(ub, sl.list[1]->sourceRange);
+                setLoc(ub, invalidStmtAnchor181(*sl.list[1]));
             else
                 setLoc(ub, stmt.sourceRange);
             auto* bvars = s.MakeVariablesVec();

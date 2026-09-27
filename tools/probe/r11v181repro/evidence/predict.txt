@@ -1,0 +1,13 @@
+# predict181v on the law sweep's databases (fenced excluded)
+listed 6647 fenced_excluded 8
+predicted: 0 of 6647
+# positive control (this pass's cases, law binary databases)
+lx/x01/L.uhdm NESTRD
+lx/x02/L.uhdm NESTRD
+lx/x03/L.uhdm NESTRD,RDCALL
+lx/x04/L.uhdm -
+lc/c01/L.uhdm -
+lc/c02/L.uhdm LVCALLPS
+lc/c03/L.uhdm LVCALLPS
+us/d06/L.uhdm DECBIG
+lv/l02/L.uhdm -

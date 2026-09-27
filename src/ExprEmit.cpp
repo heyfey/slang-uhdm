@@ -228,6 +228,35 @@ static std::vector<std::pair<const UHDM::any*, UHDM::any*>>& hpSelIdx178() {
     static std::vector<std::pair<const UHDM::any*, UHDM::any*>> v;
     return v;
 }
+// The r11u181 switches and census trace (defined below, beside the laws).
+bool r11u181Law(const char* sw);
+void trace181(const char* law);
+// § lvIdxMixedPathIsRead181 — the path being built is a read nested in an
+// lvalue's select index (set by emitMixedHierPath, see there), and the paths
+// so built (their reference names are set design-final from the chain).
+static bool& lvIdxReadNow181() {
+    static thread_local bool v = false;
+    return v;
+}
+static std::vector<UHDM::hier_path*>& lvIdxReadHps181() {
+    static std::vector<UHDM::hier_path*> v;
+    return v;
+}
+// The v11u181 verifier switches (tools/probe/r11v181repro/README.md): each
+// refinement reads its own R11V181_<X>_OFF switch; R11V181_OFF drops all of
+// them, and R11U181_OFF (the pass switch) drops them with the pass's laws.
+static bool r11v181On(const char* sw) {
+    if (getenv("R11U181_OFF") != nullptr || getenv("R11V181_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// § lvIdxReadNestedKeepsLvalue181v / § lvIdxReadCallNameSpan181v — how deep
+// the builder is inside a path § lvIdxMixedPathIsRead181 built as a read
+// (raised for the read path and everything emitted below it).
+static int& lvIdxReadDepth181() {
+    static thread_local int d = 0;
+    return d;
+}
 static void noteHpSelIdx178(UHDM::hier_path* hp, UHDM::bit_select* bs,
                             bool refToo) {
     if (!r11u178Law("R11U178_MIDIDX_OFF"))
@@ -235,11 +264,22 @@ static void noteHpSelIdx178(UHDM::hier_path* hp, UHDM::bit_select* bs,
     auto* ix = bs ? (UHDM::any*)bs->VpiIndex() : nullptr;
     if (!ix || ix->VpiParent() != bs)
         return;
+    // § lvIdxMixedPathIsRead181 — a path nested in an LVALUE's select index
+    // is an ordinary read: golden hangs its non-trailing index at the path
+    // (`m.w[n.w[k].v + 1].v = 2`: `work@top.m.w[ + 1].v.w.k`, grid
+    // tools/probe/r11u181repro/cases/lx), so the nested-path exception below
+    // (measured with an RVALUE outer path, pass 178's h09) is skipped.
+    const bool lvRead181 = lvIdxReadNow181();
+    if (lvRead181) {
+        trace181("LVIDXREAD idx");
+        lvIdxReadHps181().push_back(hp);
+    }
     // A path NESTED in another path's select index keeps ours: golden
     // `m.w[n.w[k].v + 1].v` parents the inner `k` at its bit_select and names
     // it through both paths (grid hp/h09, h10 line 15); a path inside a plain
     // select's index is not nested (`arr[m.w[k].v]`, h10 line 14).
-    for (const UHDM::any* a = hp->VpiParent(); a; a = a->VpiParent()) {
+    for (const UHDM::any* a = lvRead181 ? nullptr : hp->VpiParent(); a;
+         a = a->VpiParent()) {
         if (a->UhdmType() == UHDM::uhdmhier_path) {
             // ...and its reference index is named through both paths by the
             // chain (golden `work@top.m.w[ + 1].v.n.w[k].v.k`): the drain
@@ -346,6 +386,348 @@ void drainHierPathSelIdx178(UHDM::Serializer& s) {
         if (ix->VpiParent() == hp)
             walk(ix);
     v.clear();
+}
+
+// The r11u181 switches (tools/probe/r11u181repro/README.md): every r11u181
+// law reads its own R11U181_<LAW>_OFF switch; R11U181_OFF drops all of them.
+// R11U181_TRACE=1 prints one stderr line per firing (the census / predictor).
+bool r11u181Law(const char* sw) {
+    if (getenv("R11U181_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+void trace181(const char* law) {
+    static const bool on = getenv("R11U181_TRACE") != nullptr;
+    if (on)
+        fprintf(stderr, "R11U181 law %s\n", law);
+}
+
+// § bitSelParenIdxSpan181 (r11u181) — AN RVALUE BIT-SELECT WRITTEN WITH A
+// PARENTHESIZED INDEX SPANS THE PARENTHESES.  Surelog anchors an rvalue
+// bit_select at its index expression, and the index node it populates from
+// is the Expression node the parser made for the bracket's content, which
+// for `b[(i*2+1)]` is the parenthesized primary: golden spans `(i*2+1)`
+// (7:47-52), the outermost pair for `din[((i))]` (3:18-23).  slang binds the
+// parentheses away, so the selector's range is the content alone (ours
+// 7:48-51, 3:20-21).  Measured on the pinned Surelog (grid
+// tools/probe/r11u181repro/cases/bx): a concatenation operand on either side
+// of a procedural assignment, a continuous assignment, a ternary arm, an
+// operation operand, a call argument, a memory word, an if condition, a
+// nonblocking right-hand side, a macro-born index whose body is parenthesized
+// (YosysRiscv's `butterfly[\`smartbextdep_bfly_idx_b(4, i)]`, golden 174:18-77,
+// ours 174:19-76), both views; an unparenthesized index (b06) and every
+// lvalue select (the whole-select span) are unchanged.  The helper returns
+// the outermost ParenthesizedExpression the selector's syntax is (slang keeps
+// that node on the bound selector, whose range is the content's), walked
+// through the syntax parents, else the selector's own range.
+// Switch R11U181_PARENIDX_OFF.
+static SourceRange parenIdxRange181(const Expression& sel) {
+    if (!r11u181Law("R11U181_PARENIDX_OFF"))
+        return sel.sourceRange;
+    const syntax::SyntaxNode* n = sel.syntax;
+    if (!n)
+        n = stripImplicitConv(sel).syntax;
+    if (!n)
+        return sel.sourceRange;
+    // (the bound selector keeps the parenthesized syntax node but the
+    // content's range; an enclosing pair is walked through the parents)
+    const syntax::SyntaxNode* top = nullptr;
+    for (const syntax::SyntaxNode* p = n;
+         p && p->kind == syntax::SyntaxKind::ParenthesizedExpression; p = p->parent)
+        top = p;
+    if (!top)
+        return sel.sourceRange;
+    trace181("PARENIDX");
+    return top->sourceRange();
+}
+
+// § incDecMixedPathIsLvalue181 (r11u181) — AN INC/DEC OPERAND THAT IS A MEMBER
+// PATH THROUGH AN ELEMENT SELECT IS BUILT AS AN LVALUE PATH.  Surelog
+// compiles the operand of ++/-- through its Variable_lvalue arm
+// (§ incDecMemberPathIsLvalue124's decode; § incDecBitSelWholeSpan181 is the
+// plain-select twin), so `m.w[k+1].v++` takes the lvalue path's shape: the
+// base reference on the first member's token (golden 8:7-8, ours 8:5-6), the
+// bit_select spanning the whole select and named by its chain
+// (`work@top.m.w[k + 1].v.w`, 8:7-13; ours `m.w[k + 1]`, 8:7-8), the leaf
+// storing its own name (ours `work@top.v`).  Measured on the pinned Surelog
+// (grid tools/probe/r11u181repro/cases/im): post/pre increment and
+// decrement, operation / reference / constant indices, a module initial, a
+// module function, a class method and a generate scope's always_comb, both
+// views.  § incDecMemberPathIsLvalue124 already gave the select-free member
+// path that form; the mixed path's builder (emitMixedHierPath) reads
+// `inLhs`, which the operand is emitted under.  Switch R11U181_INCDECMIX_OFF.
+static bool incDecMixedPath181(const Expression& e) {
+    if (!r11u181Law("R11U181_INCDECMIX_OFF"))
+        return false;
+    if (e.kind != ExpressionKind::MemberAccess)
+        return false;
+    for (const Expression* b = &e;;) {
+        b = &stripImplicitConv(*b);
+        if (b->kind == ExpressionKind::MemberAccess)
+            b = &b->as<MemberAccessExpression>().value();
+        else if (b->kind == ExpressionKind::ElementSelect)
+            return true;
+        else
+            return false;
+    }
+}
+
+// A path that is (inside) a STREAMING concatenation's operand of an lvalue
+// (`{>>{m.w[k+2].v}} = x`): its parent is the stream operation, directly or
+// through concatenations.  Golden compiles it as an rvalue (pass 178's V1),
+// so the procedural-lvalue laws below abstain there.
+// The streaming arm raises the depth around its operands (their concat is
+// parented only afterwards, so the chain cannot be climbed then).
+static int& streamDepth181() {
+    static thread_local int d = 0;
+    return d;
+}
+static bool lvStreamOperand181(const UHDM::BaseClass* parent) {
+    if (streamDepth181() > 0)
+        return true;
+    for (const UHDM::BaseClass* p = parent;
+         p && p->UhdmType() == UHDM::uhdmoperation; p = p->VpiParent()) {
+        int ot = ((const UHDM::operation*)p)->VpiOpType();
+        if (ot == vpiStreamLROp || ot == vpiStreamRLOp)
+            return true;
+    }
+    return false;
+}
+
+// § lvSelIdxChainName181 (r11u181) — A PROCEDURAL LVALUE PATH'S MEMBER
+// SELECT AND THE REFERENCES IN ITS INDEX READ THEIR CHAIN NAMES.  Surelog
+// stores no full name on these objects (the Variable_lvalue arm), so the
+// reader computes each from the parent chain (UHDM BaseClass::ComputeFullName).
+// Ours froze the bit_select's name through the getter while the path was
+// being built (a generate scope's process was not yet linked to its scope:
+// `work@top.r.w[g].v.w`, golden `work@top.G.r.w[g].v.w`, grid
+// tools/probe/r11u181repro/cases/im m06) and named every index reference by
+// the path's prefix, which is the chain only for a reference DIRECTLY under
+// the bit_select (the bit_select's name is skipped there): a reference inside
+// an operation or call index reads the bit_select's name too (`m.w[k+1].v =
+// 3`: golden `work@top.m.w[k + 1].v.w.k`, ours `work@top.m.w[k + 1].v.k`,
+// m04; the compound assignment and the inc/dec operand alike), and a class
+// method's chain is `::`-joined (`work@top::C::g::q.w[j].v::j`, m05).
+// Applied design-final to the bit_selects the process lvalue arms build and
+// the references below their indices, only where the stored name is the
+// chain name with ancestors dropped or separators changed (same root, same
+// leaf), so every other explicit name stands.  Switch R11U181_LVCHAIN_OFF.
+static std::vector<UHDM::bit_select*>& lvSelChain181() {
+    static std::vector<UHDM::bit_select*> v;
+    return v;
+}
+static void noteLvSelChain181(UHDM::bit_select* bs) {
+    if (r11u181Law("R11U181_LVCHAIN_OFF"))
+        lvSelChain181().push_back(bs);
+}
+static bool chainFix181(UHDM::BaseClass* o, std::string_view have) {
+    std::string want = chainFullName175(o);
+    std::string h(have);
+    if (want.empty() || h.empty() || h == want)
+        return false;
+    std::string_view nm = o->VpiName();
+    auto endsWith = [](const std::string& a, std::string_view b) {
+        return a.size() >= b.size() &&
+               a.compare(a.size() - b.size(), b.size(), b) == 0;
+    };
+    if (nm.empty() || !endsWith(h, nm) || !endsWith(want, nm))
+        return false;
+    size_t hr = h.find_first_of(":.");
+    if (hr == std::string::npos || want.compare(0, hr, h, 0, hr) != 0)
+        return false;
+    return true;
+}
+void drainLvSelChain181(UHDM::Serializer& s) {
+    (void)s;
+    auto& v = lvSelChain181();
+    if (!r11u181Law("R11U181_LVCHAIN_OFF")) {
+        v.clear();
+        return;
+    }
+    std::function<void(UHDM::any*, const UHDM::any*)> walk =
+        [&](UHDM::any* e, const UHDM::any* par) {
+            if (!e || e->VpiParent() != par)
+                return;
+            switch (e->UhdmType()) {
+            case UHDM::uhdmref_obj: {
+                auto* r = (UHDM::ref_obj*)e;
+                if (chainFix181(r, r->VpiFullName())) {
+                    trace181("LVCHAIN ref");
+                    r->VpiFullName(chainFullName175(r));
+                }
+                return;
+            }
+            case UHDM::uhdmoperation:
+                if (auto* os = ((UHDM::operation*)e)->Operands())
+                    for (auto* o : *os)
+                        walk(o, e);
+                return;
+            case UHDM::uhdmfunc_call:
+            case UHDM::uhdmsys_func_call:
+                if (auto* as = ((UHDM::tf_call*)e)->Tf_call_args())
+                    for (auto* a : *as)
+                        walk(a, e);
+                return;
+            case UHDM::uhdmbit_select: {
+                // a select used as the index (`h.arr[midx[i]].f = 4`,
+                // golden `...::h.arr[[i]].f::arr::midx` and its `i`
+                // `...::arr::i`, probe r10uvm79repro/v79v2_recv)
+                auto* b = (UHDM::bit_select*)e;
+                if (chainFix181(b, b->VpiFullName())) {
+                    trace181("LVCHAIN idxsel");
+                    b->VpiFullName(chainFullName175(b));
+                }
+                if (auto* ix = (UHDM::any*)b->VpiIndex())
+                    walk(ix, e);
+                return;
+            }
+            default:
+                return;
+            }
+        };
+    for (auto* bs : v) {
+        if (chainFix181(bs, bs->VpiFullName())) {
+            trace181("LVCHAIN bitsel");
+            bs->VpiFullName(chainFullName175(bs));
+        }
+        if (auto* ix = (UHDM::any*)bs->VpiIndex())
+            walk(ix, bs);
+    }
+    v.clear();
+}
+// § lvIdxMixedPathIsRead181 — the design-final half: the reference elements
+// of a path read inside an lvalue's select index read their chain names
+// (golden's leaf `work@top.m.w[ + 1].v.w.v`, ours `work@top.m.w[ + 1].v.v`),
+// where the stored name is that chain with ancestors dropped.
+void drainLvIdxRead181(UHDM::Serializer& s) {
+    (void)s;
+    auto& v = lvIdxReadHps181();
+    if (!r11u181Law("R11U181_LVIDXREAD_OFF")) {
+        v.clear();
+        return;
+    }
+    std::set<UHDM::hier_path*> done;
+    for (auto* hp : v) {
+        if (!done.insert(hp).second)
+            continue;
+        if (auto* el = hp->Path_elems())
+            for (auto* e : *el) {
+                if (!e || e->UhdmType() != UHDM::uhdmref_obj)
+                    continue;
+                auto* r = (UHDM::ref_obj*)e;
+                if (chainFix181(r, r->VpiFullName())) {
+                    trace181("LVIDXREAD name");
+                    r->VpiFullName(chainFullName175(r));
+                }
+            }
+    }
+    v.clear();
+}
+
+// § newLhsBitSelAtIndex181 — the armed flag and the left side it names (the
+// law's statement is at the bit_select's anchor).
+static bool& newLhsSel181() {
+    static thread_local bool v = false;
+    return v;
+}
+static const slang::ast::Expression*& newLhsTop181() {
+    static thread_local const slang::ast::Expression* p = nullptr;
+    return p;
+}
+
+// § rootPathFullNameByChain181 (r11u181) — A `$root` PATH STORES NO FULL NAME.
+// Surelog builds a `$root.`-rooted path in CompileHelper::compileComplexFuncCall's
+// paDollar_root_keyword arm (CompileExpression.cpp, `if (fC->Type(name) ==
+// VObjectType::paDollar_root_keyword)`): the hier_path takes its VpiName and
+// its parent and never a VpiFullName, so the reader computes it from the
+// parent chain (UHDM BaseClass::ComputeFullName: `work@top.$root.top`,
+// `work@sub.t.$root.top.v`, `work@top.u.g.$root.top.v` in an elaborated
+// clone).  Ours stored the name itself (the no-full-name idiom), which reads
+// empty.  Measured on the pinned Surelog in every position (grid
+// tools/probe/r11u181repro/cases/rt: a system function / task argument
+// (CovMacro's `$coverage_control(..., $root.top)`), a user call argument, an
+// operand, a whole lvalue, a module task / function body, a nonblocking
+// assignment, an event control, a generate-if and generate-for scope, a
+// continuous assignment, a port actual, an if / case condition, a macro-born
+// path, a class method, a ternary arm, a concatenation, both views): golden's
+// hier_path reads its chain name every time.  Applied design-final to every
+// hier_path whose name starts with `$root.` (the chain is complete; the
+// --elabuhdm clones then compute their own).  One position is excluded: an
+// ASSIGNMENT TARGET whose path holds a select (`$root.top.v[1] = ...`,
+// `$root.top.v[$root.top.i] = ...`, grid rt/s05, g06) is compiled by the
+// lvalue arm, which stores the name (golden reads none; ours already did);
+// a select-free target (`$root.top.v = ...`, g05) reads its chain in golden
+// like every read.  Switch R11U181_ROOTFN_OFF.
+//
+// § rootPathElemOwnName181 (r11u181) — the same arm stores every REFERENCE
+// element's own name (`ref->VpiFullName(fC->SymName(nameId))`), so none reads
+// a full name in golden, whatever the position (grid rt: every case, the
+// lvalue arm alike).  Ours named the leaf through a port actual's chain
+// (`work@sub.u3.a.v`, rt/g14), a generate scope's (`work@sub.g.v`, g11) and a
+// class method's (`work@sub::C::f.v`, g17 elab).  Applied with the law above,
+// to the reference elements only (a bit_select element keeps ours: residue).
+// Switch R11U181_ROOTELEM_OFF.
+static bool rootPathLvalueSel181(const UHDM::hier_path* hp) {
+    const UHDM::any* p = hp->VpiParent();
+    bool lhs = false;
+    if (p && p->UhdmType() == UHDM::uhdmassignment)
+        lhs = ((const UHDM::assignment*)p)->Lhs() == hp;
+    else if (p && p->UhdmType() == UHDM::uhdmcont_assign)
+        lhs = ((const UHDM::cont_assign*)p)->Lhs() == hp;
+    if (!lhs)
+        return false;
+    if (hp->VpiName().find('[') != std::string_view::npos)
+        return true;
+    if (auto* el = hp->Path_elems())
+        for (auto* e : *el)
+            if (e && e->UhdmType() != UHDM::uhdmref_obj)
+                return true;
+    return false;
+}
+void rootPathFullNameByChain181(UHDM::Serializer& s) {
+    const bool fn181 = r11u181Law("R11U181_ROOTFN_OFF");
+    const bool el181 = r11u181Law("R11U181_ROOTELEM_OFF");
+    if (!fn181 && !el181)
+        return;
+    std::vector<UHDM::hier_path*> hps;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmhier_path)
+            continue;
+        auto* hp = (UHDM::hier_path*)o;
+        if (hp->VpiName().rfind("$root.", 0) != 0)
+            continue;
+        hps.push_back(hp);
+    }
+    std::sort(hps.begin(), hps.end(),
+              [](const UHDM::hier_path* a, const UHDM::hier_path* b) {
+                  return a->UhdmId() < b->UhdmId();
+              });
+    for (auto* hp : hps) {
+        if (fn181) {
+            if (rootPathLvalueSel181(hp)) {
+                trace181("ROOTFN lvalue-select keep");
+            } else {
+                trace181("ROOTFN");
+                hp->VpiFullName(std::string_view());
+            }
+        }
+        if (el181)
+            if (auto* el = hp->Path_elems())
+                for (auto* e : *el) {
+                    if (!e || e->UhdmType() != UHDM::uhdmref_obj)
+                        continue;
+                    auto* r = (UHDM::ref_obj*)e;
+                    if (r->VpiName().empty())
+                        continue;
+                    // (the getter computes the chain name when none is
+                    // stored; the element is overwritten either way)
+                    if (r->VpiFullName() == r->VpiName())
+                        continue;
+                    trace181("ROOTELEM");
+                    r->VpiFullName(r->VpiName());
+                }
+    }
 }
 
 // r11u112 kill switches (tools/probe/r11u112repro/README.md): R11U112_OFF drops
@@ -9981,6 +10363,81 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
         // a4 cell f2), while the LEAF below it still takes the dotted one.
         bool vifIns5 = false;
     };
+    // § classMethodLvIsProcess181 (r11u181) — a CLASS METHOD's lvalue path is
+    // a procedural lvalue.  The arms below tell the process lvalue (member +
+    // index span, the chain name) from the continuous assignment's (the
+    // index span, the dotted name) by `inProcessEmit`, which only a module's
+    // processes and subroutines raise; a class method's body is emitted
+    // outside it and took the continuous-assignment form (grid
+    // tools/probe/r11u181repro/cases/im m05: `q.w[j].v = 1` golden
+    // bit_select 5:45-49 `work@top::C::g::q.w[j].v::w`, ours 5:47-48
+    // `q.w[j]`; the inc/dec operand m03 alike).  Switch
+    // R11U181_LVCLASS_OFF.
+    // § lvIdxMixedPathIsRead181 (r11u181) — § lvIdxPathIsRead154's twin
+    // for the MIXED path builder: a member path through selects NESTED in
+    // an lvalue's select index (`m.w[n.w[k].v + 1].v = 2`) is a read, and
+    // golden builds it as one (grid tools/probe/r11u181repro/cases/adv a01,
+    // cases/lx: the inner base `n` at its own token 18:9, its bit_select
+    // named `n.w[k]` on the member token, the leaf named through the chain),
+    // where ours applied the lvalue arms because the whole left-hand side is
+    // emitted under `inLhs`.  The path is built with `inLhs` cleared.
+    // Switch R11U181_LVIDXREAD_OFF.
+    struct LhsRestore181 {
+        bool& r;
+        bool v;
+        bool& n;
+        bool nv;
+        ~LhsRestore181() {
+            r = v;
+            n = nv;
+        }
+    } lhsRestore181{inLhs, inLhs, lvIdxReadNow181(), lvIdxReadNow181()};
+    struct DepthRestore181 {
+        int v;
+        ~DepthRestore181() { lvIdxReadDepth181() = v; }
+    } depthRestore181{lvIdxReadDepth181()};
+    bool lvIdxReadFired181 = false;
+    if (inLhs && lvIdxParent154(parent) &&
+        r11u181Law("R11U181_LVIDXREAD_OFF")) {
+        trace181("LVIDXREAD");
+        inLhs = false;
+        lvIdxReadNow181() = true;
+        ++lvIdxReadDepth181();
+        lvIdxReadFired181 = true;
+    }
+    // § lvIdxReadNestedKeepsLvalue181v (v11u181, the adversarial
+    // verification of r11u181) — a member path through selects nested in
+    // the select index OF the read path above (`m.w[n.w[o.w[k].v].v].v = 2`,
+    // `arr[n.w[o.w[k].v].v] = 3`: the inner `o.w[k].v`) is not that law's:
+    // golden builds it in the nested-path shape (base `o` on the member token
+    // 9:15-16, bit_select `w[k]` 9:15-19 named through both paths, leaf
+    // unnamed; the rvalue twin `y = n.w[o.w[k].v].v` alike), which pristine
+    // gave it by emitting it under `inLhs`, and the law's flag, inherited,
+    // built it as a read (`o` 9:13-14, `o.w[k]` 9:15-16, the leaf named).
+    // The pristine form is restored for it.  Grid
+    // tools/probe/r11v181repro/cases/lx.  Switch R11V181_NESTRD_OFF.
+    // Its selects and their index references then read their chain names
+    // (§ lvSelIdxChainName181's drain: golden `work@top.arr.n.w[].v.o.w[k].v.w`
+    // and `...o.w[k].v.k`, the pristine prefix having lost the read path).
+    bool nestRd181v = false;
+    if (!lvIdxReadFired181 && !inLhs && lvIdxReadNow181() &&
+        r11v181On("R11V181_NESTRD_OFF")) {
+        trace181("V181 NESTRD");
+        inLhs = true;
+        lvIdxReadNow181() = false;
+        nestRd181v = true;
+    }
+    // (A path inside a STREAMING lvalue, or nested in an lvalue's select
+    // index, is not the class-method law's: golden compiles those as reads,
+    // and the pristine arms stand there; break-hunt grid cases/adv a01.)
+    const bool streamOrIdx181 = inLhs && (lvStreamOperand181(parent) ||
+                                          lvIdxParent154(parent));
+    const bool ipe181 =
+        inProcessEmit ||
+        (inLhs && !streamOrIdx181 && currentSubSym &&
+         currentSubSym->getParentScope() &&
+         currentSubSym->getParentScope()->asSymbol().kind == SymbolKind::ClassType &&
+         r11u181Law("R11U181_LVCLASS_OFF") && (trace181("LVCLASS"), true));
     // § hierPathSelIdxCloneKeepsElem178v — the inc/dec operand and the
     // elaborated cont-assign clone keep the index at its bit_select.
     const bool keep178v =
@@ -10660,7 +11117,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             // work@-prefixed doubled form, index constant parents to the
             // bit_select. Rvalue: loc is the member token only, fullname is the
             // dotted path so far, index constant is unparented.
-            if (inLhs && inProcessEmit && lastMember && baseSelMode &&
+            if (inLhs && ipe181 && lastMember && baseSelMode &&
                 procLvBaseSelTrailAtIdx140On()) {
                 // § procLvBaseSelTrailAtIdx140 — a process lvalue whose BASE
                 // is selected (`tbl[r].sat[i] = ...`,
@@ -10674,9 +11131,11 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                         emitExpr(*sel.sel, bs, prefix + "." + dotted, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
             }
-            else if (inLhs && inProcessEmit) {
+            else if (inLhs && ipe181) {
                 setLoc(bs, SourceRange(comp.nameSpan.start(), sel.selEnd));
                 (void)bs->VpiFullName();
+                if (!streamOrIdx181 || nestRd181v)
+                    noteLvSelChain181(bs);
                 // A VARIABLE index ref names itself by the parent chain: the
                 // bit_select contributes nothing (UHDM skips a bit_select
                 // above a ref_obj) but the enclosing hier_path does, so the
@@ -10694,6 +11153,8 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 // fullname (work@<mod>.<dotted>.<name>) — Surelog.
                 setLoc(bs, SourceRange(comp.nameSpan.start(), sel.selEnd));
                 (void)bs->VpiFullName();
+                if (!streamOrIdx181 || nestRd181v)
+                    noteLvSelChain181(bs);
                 if (auto* ix =
                         emitExpr(*sel.sel, bs, prefix + "." + dotted, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
@@ -10757,7 +11218,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             // § procLvTrailIdxNamesByPath140 — SITE 1 of 2: and in a PROCESS lvalue
             // (`s.sat[i] = ...`: golden `work@dut.s.sat[i].i`; grid
             // r11u140repro/plv).
-            if ((!inLhs || (inProcessEmit && procLvTrailIdxNamesByPath140On())) &&
+            if ((!inLhs || (ipe181 && procLvTrailIdxNamesByPath140On())) &&
                 lastMember && !selIdx79b && bs->VpiIndex())
                 trailIdx133 = bs;
             // § hpMidSelIdxAtPath79 — SITE 2 of 2, the post-pass half: the
@@ -15514,6 +15975,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     dynArrayNewLvalueBase110(ae, *rhsExpr))
                 lhsE110 = base110;
             inLhs = true;
+            // § newLhsBitSelAtIndex181 (r11u181) — see newLhsSel181.
+            const bool savedNewLhs181 = newLhsSel181();
+            const Expression* savedNewTop181 = newLhsTop181();
+            newLhsSel181() =
+                stripImplicitConv(*lhsE110).kind == ExpressionKind::ElementSelect &&
+                sourceIsNewClassExpr55(*rhsExpr) &&
+                r11u181Law("R11U181_NEWLHS_OFF");
+            newLhsTop181() = &stripImplicitConv(*lhsE110);
+            struct NewLhsRestore181 {
+                bool v;
+                const Expression* e;
+                ~NewLhsRestore181() {
+                    newLhsSel181() = v;
+                    newLhsTop181() = e;
+                }
+            } newLhsRestore181{savedNewLhs181, savedNewTop181};
             if (auto* lhs = emitExpr(*lhsE110, asn, prefix, netMap)) {
                 if (lhsE110 != &ae.left())
                     setLoc(lhs, ae.left().sourceRange);
@@ -22975,8 +23452,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (opType == vpiPostIncOp || opType == vpiPreIncOp ||
                 opType == vpiPostDecOp || opType == vpiPreDecOp)
                 incDecOperand124() = &stripImplicitConv(ue.operand());
+            // § incDecMixedPathIsLvalue181 (r11u181) — see incDecMixedPath181.
+            const bool savedLhs181 = inLhs;
+            if ((opType == vpiPostIncOp || opType == vpiPreIncOp ||
+                 opType == vpiPostDecOp || opType == vpiPreDecOp) &&
+                !inLhs && incDecMixedPath181(stripImplicitConv(ue.operand()))) {
+                trace181("INCDECMIX");
+                inLhs = true;
+            }
             if (auto* e = emitExpr(ue.operand(), op, prefix, netMap))
                 operands->push_back(e);
+            inLhs = savedLhs181;
             incDecOperand124() = idSaved124;
             if (armed21)
                 incDecBindElig21.clear();
@@ -23083,9 +23569,45 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     c->VpiSize(-1);
                     c->VpiValue("DEC:" + dg9);
                     c->VpiConstType(vpiDecConst);
+                    // § bigDecUnderscoreDropped181v (v11u181) — the wide
+                    // twin of § bareDecUnderscoreDropped181: compileConst
+                    // erases every `_` before it sets the decompile, so a
+                    // bare decimal wider than 64 bits reads
+                    // `1000000000000000000000` in golden where ours kept the
+                    // written `1_000_..._000` (the value was already
+                    // `DEC:<digits>`).  Grid tools/probe/r11v181repro/cases/us.
+                    // Switch R11V181_DECBIG_OFF.
+                    if (raw.find('_') != std::string::npos &&
+                        r11v181On("R11V181_DECBIG_OFF")) {
+                        trace181("V181 DECBIG");
+                        c->VpiDecompile(dg9);
+                    }
                 }
                 else {
                     c->VpiSize(64);
+                    // § bareDecUnderscoreDropped181 (r11u181) — A BARE
+                    // DECIMAL'S DIGIT SEPARATORS ARE DROPPED FROM ITS
+                    // DECOMPILE AND ITS VALUE.  Surelog's compileConst reads
+                    // an slIntConst's digits with the underscores removed
+                    // (golden `1_0` -> vpiDecompile `10`, `UINT:10`); ours kept
+                    // the written text in both, and the value string
+                    // `UINT:1_0` reads back as 1 (the reader's strtoull stops
+                    // at the separator: a downstream-visible value,
+                    // v11u182 G/g04 DIVERGENT).  Measured on the pinned
+                    // Surelog (grid tools/probe/r11u181repro/cases/us): a
+                    // select or a whole net's continuous assignment, a
+                    // parameter default and a localparam, a procedural
+                    // assignment, a case item, a cast operand, a select index
+                    // and a part-select bound, a parameter override and a
+                    // port actual, a comparison operand; sized and based
+                    // literals already drop them (the tick arm above).
+                    // Switch R11U181_DECUS_OFF.
+                    if (raw.find('_') != std::string::npos &&
+                        r11u181Law("R11U181_DECUS_OFF")) {
+                        trace181("DECUS");
+                        raw = dg9;
+                        c->VpiDecompile(raw);
+                    }
                     c->VpiValue("UINT:" + raw);
                     c->VpiConstType(vpiUIntConst);
                 }
@@ -27948,7 +28470,48 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 fc->VpiParent(parent);
                 // Param-init calls and LHS bit-select INDEX calls
                 // (intermediate[depth2Index(1)] = ...) anchor at the name.
-                if (inParamInit || inLhs)
+                // § procLvIdxCallWholeSpan181 (r11u181) — ...only in a
+                // CONTINUOUS assignment's lvalue (mem2reg_test4's `assign
+                // intermediate[depth2Index(1)] = 1`).  A PROCEDURAL lvalue's
+                // index call spans the whole call like any rvalue call: a
+                // module initial / always_comb, a module function and task,
+                // a package function, a class method, a plain and a member
+                // path select, an operation index, a compound assignment
+                // (grid tools/probe/r11u181repro/cases/lc: `arr[f(k)] = 1`
+                // golden 7:9-13, ours 7:9-10; pass 178's R2 lvalue half).
+                // Switch R11U181_LVCALL_OFF.
+                // § lvIdxReadCallNameSpan181v (v11u181) — a call inside the
+                // index of a path § lvIdxMixedPathIsRead181 built as a read
+                // (`m.w[n.w[f(k)].v].v = 4`) keeps the name span pristine
+                // gave it (golden 13:13-14: a call indexing a READ path spans
+                // its name, pass 178's R2), where the law's cleared `inLhs`
+                // sent it to the whole-call rvalue span.  Switch
+                // R11V181_RDCALL_OFF.
+                const bool rdCall181 = lvIdxReadDepth181() > 0 &&
+                                       r11v181On("R11V181_RDCALL_OFF");
+                // § procLvPartSelBoundCallName181v (v11u181) — a call that is
+                // a PART-SELECT bound of a procedural lvalue keeps the name
+                // span (`a[f(3):f(0)] = 4'h1`, `{a[f(5):f(4)], b} = ...`:
+                // golden 8:7-8 and 8:12-13, pristine alike, the law 8:7-11);
+                // an indexed part-select base, a bit_select index at any
+                // dimension and an associative key span the whole call
+                // (grid tools/probe/r11v181repro/cases/lc).  Switch
+                // R11V181_LVCALLPS_OFF.
+                const bool psBound181 =
+                    parent && parent->UhdmType() == UHDM::uhdmpart_select &&
+                    r11v181On("R11V181_LVCALLPS_OFF");
+                const bool procLvCall181 =
+                    inLhs && !inParamInit && (inProcessEmit || currentSubSym) &&
+                    !rdCall181 && !psBound181 &&
+                    r11u181Law("R11U181_LVCALL_OFF");
+                if (procLvCall181)
+                    trace181("LVCALL");
+                else if (inLhs && !inParamInit && (inProcessEmit || currentSubSym) &&
+                         (rdCall181 || psBound181))
+                    trace181(rdCall181 ? "V181 RDCALL lhs" : "V181 LVCALLPS");
+                if (rdCall181 && !inLhs && !inParamInit)
+                    trace181("V181 RDCALL");
+                if ((inParamInit || inLhs || rdCall181) && !procLvCall181)
                     setLoc(fc, nameSpan(expr.sourceRange.start(), sub.name));
                 else
                     setLoc(fc, expr.sourceRange);
@@ -32863,9 +33426,53 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 trace147("LVIDXBS");
             if (firstPos147)
                 trace147("FIRSTPOS");
-            setLoc(bs, ((inLhs && !lvIdx147) || inParamInit || firstPos147)
+            // § incDecBitSelWholeSpan181 (r11u181) — AN INC/DEC OPERAND
+            // SPANS THE WHOLE SELECT.  Surelog compiles the operand of a pre/
+            // post increment or decrement through its Variable_lvalue arm
+            // (§ incDecMemberPathIsLvalue124's decode), so a bit_select there
+            // takes the lvalue span, `cnt[i]` whole, where ours anchored it at
+            // the index like any rvalue.  Measured on the pinned Surelog (grid
+            // tools/probe/r11u181repro/cases/ix): post/pre increment and
+            // decrement, a parenthesized / operation / parameter index, a
+            // module initial, an always_ff in nested generate scopes
+            // (v11u116's f2_incd arms, `cnt[P%4]++` golden 15:11-19), a
+            // subexpression `y = cnt[i]++`, a for step, a module function,
+            // task and class method, both views: golden spans the whole
+            // select every time.  Switch R11U181_INCDECBS_OFF.
+            // § newLhsBitSelAtIndex181 (r11u181) — A CLASS-HANDLE ARRAY
+            // ELEMENT ASSIGNED A `new` OBJECT ANCHORS AT ITS INDEX.  The
+            // assignment whose right side is a class `new` is compiled from
+            // its left side as an EXPRESSION in Surelog (the class-new arm of
+            // the blocking assignment; the same source rule as
+            // § invalidNewCallFromSyntax55's Lhs re-parent), so the element
+            // select takes the rvalue anchor, the index, where every other
+            // lvalue select spans the whole select: SVSwitch
+            // `rcvr[i]= new(output_intf[i],rcvr2sb);` golden 43:11-12, ours
+            // 43:6-13 (map N0119, the UVM rows' twin).  Measured on the pinned
+            // Surelog (grid tools/probe/r11u181repro/cases/nw): with and without
+            // arguments, a reference / operation / constant index, a class
+            // method in a module and in a package; controls: a handle
+            // assigned to an element (`rs[k] = h`), a dynamic array `new[4]`
+            // and an element write keep the whole select.  The flag is armed
+            // around the plain element-select left side only.  Switch
+            // R11U181_NEWLHS_OFF.
+            const bool newLhs181 = inLhs && newLhsSel181() &&
+                                   &stripImplicitConv(expr) == newLhsTop181();
+            if (newLhs181)
+                trace181("NEWLHS");
+            static const bool incDecBs181 = r11u181Law("R11U181_INCDECBS_OFF");
+            const bool incDecSel181 =
+                incDecBs181 && !inLhs && !inParamInit && !firstPos147 &&
+                (incDecOperand124() == &expr ||
+                 incDecOperand124() == &stripImplicitConv(expr));
+            if (incDecSel181)
+                trace181("INCDECBS");
+            // § bitSelParenIdxSpan181 — the rvalue anchor keeps the
+            // index's parentheses.
+            setLoc(bs, ((inLhs && !lvIdx147 && !newLhs181) || inParamInit ||
+                        firstPos147 || incDecSel181)
                            ? expr.sourceRange
-                           : es.selector().sourceRange);
+                           : parenIdxRange181(es.selector()));
             // ELAB gen-scope CONN index FOLD: an index OPERATION that is
             // constant after genvar substitution (CC[i+1] in a for-generate
             // body) collapses to ONE UINT constant spanning the FIRST source
@@ -38561,6 +39168,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (hpRoute157NameOn())
                     selName157 = r157 == HpRoute157::Sel;
             }
+            // § rootNetPathOwnNames181 (r11u181) — § rootPathOwnNames157's
+            // twin at the HIERARCHICAL-VALUE arm.  A `$root.` path whose target
+            // is a net or variable (`$root.top.v`, `$root.top.u2.y`) reaches
+            // here, not buildDottedHierPath (which builds the parameter-member
+            // and instance paths, where pass 157 put the law).  Surelog builds
+            // both in the same paDollar_root_keyword arm
+            // (CompileExpression.cpp, compileComplexFuncCall): `$root` is
+            // populated from the NEXT name node and every element stores its
+            // own name (grid tools/probe/r11u181repro/cases/rt: golden `$root`
+            // 3:42-45 on `top`, the leaf `v` unnamed, in every rvalue position
+            // and both views; r11u170's R2).  An lvalue is already on that
+            // form.  Switch R11U181_ROOTNET_OFF.
+            if (raw.rfind("$root.", 0) == 0 && parts.size() > 1 &&
+                (!selSpan157 || !selName157) &&
+                r11u181Law("R11U181_ROOTNET_OFF")) {
+                trace181("ROOTNET");
+                selSpan157 = true;
+                selName157 = true;
+            }
             for (size_t i = 0; i < parts.size(); i++) {
                 auto& [pname, dispOff] = parts[i];
                 (void)dispOff;
@@ -38988,9 +39614,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             cc->VpiOpType(vpiConcatOp);
             setLoc(cc, expr.sourceRange);
             auto* operands = s.MakeAnyVec();
+            ++streamDepth181();  // (the concat is not parented yet)
             for (auto& strm : sc2.streams())
                 if (auto* e = emitExpr(*strm.operand, cc, prefix, netMap))
                     operands->push_back(e);
+            --streamDepth181();
             cc->Operands(operands);
             // A stream operation (vpiStreamRLOp) wrapping the concat, located
             // at the {..} operand braces; a sliced stream ({ << 8 {x} }) adds

@@ -1,0 +1,13 @@
+# drivers/ds.sh: downstream verdict (scripts/downstream_uhdm2rtlil.py one()) of this pass's synthesizable cases,
+# pristine.bin -> ver2.bin (the verified patch)
+px/p01 EQUIVALENT -> IDENTICAL
+px/p02 IDENTICAL -> IDENTICAL
+px/p03 EQUIVALENT -> IDENTICAL
+px/p04 EQUIVALENT -> IDENTICAL
+px/p06 EQUIVALENT -> IDENTICAL
+lc/c01 IDENTICAL -> IDENTICAL
+lc/c03 IDENTICAL -> IDENTICAL
+us/d03 EQUIVALENT -> IDENTICAL
+us/d05 DIVERGENT -> IDENTICAL   (the digit separators: `assign y[15:8] = 2_0` read as 2 before)
+id/i01 IDENTICAL -> IDENTICAL
+rt/r05 DIVERGENT -> DIVERGENT   (a `$root` path with a genvar select: stage 1 on both)

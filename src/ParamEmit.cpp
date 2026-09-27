@@ -23685,11 +23685,20 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s);
 
 // § hierPathSelIdxAtPath178 (r11u178) — defined in ExprEmit.cpp.
 void drainHierPathSelIdx178(UHDM::Serializer& s);
+// § rootPathFullNameByChain181 (r11u181) — defined in ExprEmit.cpp.
+void rootPathFullNameByChain181(UHDM::Serializer& s);
+// § lvSelIdxChainName181 (r11u181) — defined in ExprEmit.cpp.
+void drainLvSelChain181(UHDM::Serializer& s);
+// § lvIdxMixedPathIsRead181 (r11u181) — defined in ExprEmit.cpp.
+void drainLvIdxRead181(UHDM::Serializer& s);
 
 void UhdmExporter::drainPaNameCopySrc38() {
     drainImportCloneLocalCopies175(s);
     refFullNameThroughNamedExpr175(s);
     drainHierPathSelIdx178(s);
+    rootPathFullNameByChain181(s);
+    drainLvSelChain181(s);
+    drainLvIdxRead181(s);
     // § portViewNestedPatTsNamed154 — A PORT VIEW'S NESTED PATTERN TYPESPEC
     // IS NAMED BY THE VIEW.  An interface parameter whose default is a
     // NESTED assignment pattern (`parameter cfg_t CFG = '{BUS: '{DAT:

@@ -1,0 +1,17 @@
+surelog/default/CovMacro 8+8=16 0+0=0
+surelog/testflags/CovMacro 8+8=16 0+0=0
+surelog/default/YosysRiscv 40+40=80 0+0=0
+surelog/testflags/YosysRiscv 40+40=80 0+0=0
+surelog/default/SVSwitch 72+51=123 71+50=121
+surelog/testflags/SVSwitch 72+51=123 71+50=121
+surelog/default/BuildUVMPkg 6548+6595=13143 6518+6565=13083
+surelog/testflags/BuildUVMPkg 6548+6595=13143 6518+6565=13083
+surelog/default/MiniAmiq 14587+21434=36021 14490+21337=35827
+surelog/testflags/MiniAmiq 14586+21433=36019 14489+21336=35825
+surelog/default/SeqDriver 13023+16550=29573 12911+16438=29349
+surelog/testflags/SeqDriver 13022+16549=29571 12911+16438=29349
+surelog/default/SimpleUVM 8251+8975=17226 8169+8893=17062
+surelog/testflags/SimpleUVM 8251+8975=17226 8169+8893=17062
+surelog/default/Scoreboard 7379+8083=15462 7312+8016=15328
+surelog/default/Earlgrey_0_1 6825+6181=13006 6817+6173=12990
+surelog/testflags/Earlgrey_0_1 6366+6080=12446 6366+6080=12446

@@ -1,0 +1,22 @@
+== SVSwitch default: LEAVE 1 ENTER 0 CHANGED 0 SAME 8
+   LEAVE #264 bit_select|rcvr||work@Environment::build::rcvr|Environemnt.sv|43|11|43|12  ours was bit_select|rcvr||work@Environment::build::rcvr|Environemnt.sv|43|6|43|13
+== SVSwitch testflags: LEAVE 1 ENTER 0 CHANGED 0 SAME 8
+   LEAVE #264 bit_select|rcvr||work@Environment::build::rcvr|Environemnt.sv|43|11|43|12  ours was bit_select|rcvr||work@Environment::build::rcvr|Environemnt.sv|43|6|43|13
+== SimpleUVM default: LEAVE 1 ENTER 0 CHANGED 0 SAME 41
+   LEAVE #1481 bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_misc.svh|409|34|409|41  ours was bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_misc.svh|409|5|409|42
+== SimpleUVM testflags: LEAVE 1 ENTER 0 CHANGED 0 SAME 41
+   LEAVE #1493 bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_misc.svh|409|34|409|41  ours was bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_misc.svh|409|5|409|42
+== SeqDriver default: LEAVE 1 ENTER 0 CHANGED 0 SAME 25
+   LEAVE #1439 bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_misc.svh|409|34|409|41  ours was bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_misc.svh|409|5|409|42
+== SeqDriver testflags: LEAVE 1 ENTER 0 CHANGED 0 SAME 25
+   LEAVE #1451 bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_misc.svh|409|34|409|41  ours was bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_misc.svh|409|5|409|42
+== MiniAmiq default: LEAVE 1 ENTER 0 CHANGED 0 SAME 25
+   LEAVE #1456 bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_misc.svh|409|34|409|41  ours was bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_misc.svh|409|5|409|42
+== MiniAmiq testflags: LEAVE 1 ENTER 0 CHANGED 0 SAME 25
+   LEAVE #1456 bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_misc.svh|409|34|409|41  ours was bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_misc.svh|409|5|409|42
+== BuildUVMPkg default: LEAVE 1 ENTER 0 CHANGED 0 SAME 68
+   LEAVE #1834 bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_pkg.sv|8678|34|8678|41  ours was bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_pkg.sv|8678|5|8678|42
+== BuildUVMPkg testflags: LEAVE 1 ENTER 0 CHANGED 0 SAME 68
+   LEAVE #1834 bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_pkg.sv|8678|34|8678|41  ours was bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_pkg.sv|8678|5|8678|42
+== Scoreboard default: LEAVE 1 ENTER 0 CHANGED 0 SAME 41
+   LEAVE #1489 bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_misc.svh|409|34|409|41  ours was bit_select|uvm_random_seed_table_lookup||uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup|uvm_misc.svh|409|5|409|42
