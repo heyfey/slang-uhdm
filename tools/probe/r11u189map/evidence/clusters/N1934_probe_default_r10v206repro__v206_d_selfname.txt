@@ -1,0 +1,40 @@
+cluster N1934 (id kept from an earlier map; OPEN | ground A | site emitPackage (ParamEmit.cpp, law classNestedClassTdJoinsPkgGroup50) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|tok:id@id.->id::|under:class_typespec
+row: probe/default/r10v206repro__v206_d_selfname  strict=fullname  records golden=47 ours=47
+object: #5 (golden) / #5 (ours)  type=ref_typespec name= STABLE
+  golden: work@td206.pe206::ee206_t
+  ours:   pe206::pe206::ee206_t
+  walk parents: class_typespec(pe206::ee206_t) < package(pe206) < design(work@td206)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 0..11 ('>' = the object)
+  #0	0	design	work@td206				0	0	0	0						000
+  #1	1	package	pe206	pe206	pe206::	dut.sv	4	1	10	11					pe206::	000
+  #2	1	package	pe206	pe206	pe206::	dut.sv	4	1	10	11					pe206::	000
+  #3	2	class_typespec	pe206::aa206_t			dut.sv	9	11	9	16						010
+  #4	2	class_typespec	pe206::ee206_t			dut.sv	9	11	9	16						010
+> #5	3	ref_typespec			<in>pe206::ee206_t		0	0	0	0		0			work@td206.pe206::ee206_t	001
+  #6	4	class_typespec	pe206::aa206_t			dut.sv	9	11	9	16						001
+  #7	2	class_defn	ee206		pe206::ee206	dut.sv	5	3	7	11					pe206::ee206	000
+  #8	3	int_var	q		pe206::ee206::q	dut.sv	6	9	6	10		0			pe206::ee206::q	000
+  #9	4	ref_typespec			pe206::ee206::q		0	0	0	0		0			pe206::ee206::q	000
+  #10	5	int_typespec				dut.sv	6	5	6	8						000
+  #11	3	class_typespec	pe206::ee206_t			dut.sv	9	11	9	16						010
+
+--- OURS (B) records 0..11 ('>' = the object)
+  #0	0	design	work@td206				0	0	0	0						000
+  #1	1	package	pe206	pe206	pe206::	dut.sv	4	1	10	11					pe206::	000
+  #2	1	package	pe206	pe206	pe206::	dut.sv	4	1	10	11					pe206::	000
+  #3	2	class_typespec	pe206::aa206_t			dut.sv	9	11	9	16						010
+  #4	2	class_typespec	pe206::ee206_t			dut.sv	9	11	9	16						010
+> #5	3	ref_typespec			<in>pe206::ee206_t		0	0	0	0		0			pe206::pe206::ee206_t	001
+  #6	4	class_typespec	pe206::aa206_t			dut.sv	9	11	9	16						001
+  #7	2	class_defn	ee206		pe206::ee206	dut.sv	5	3	7	11					pe206::ee206	000
+  #8	3	int_var	q		pe206::ee206::q	dut.sv	6	9	6	10		0			pe206::ee206::q	000
+  #9	4	ref_typespec			pe206::ee206::q		0	0	0	0		0			pe206::ee206::q	000
+  #10	5	int_typespec				dut.sv	6	5	6	8						000
+  #11	3	class_typespec	pe206::ee206_t			dut.sv	9	11	9	16						010
+
+facets of this row (3, first 25):
+  N1934 #5/5 ref_typespec  G[work@td206.pe206::ee206_t] O[pe206::pe206::ee206_t]
+  N1934 #15/15 ref_typespec  G[work@td206.pe206::ee206_t] O[pe206::pe206::ee206_t]
+  N1934 #31/31 ref_typespec  G[work@td206.pe206::ee206_t] O[pe206::pe206::ee206_t]

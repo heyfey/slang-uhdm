@@ -1,0 +1,51 @@
+cluster N1928 (id kept from an earlier map; OPEN | ground B | site emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (TypeEmit.cpp, law elabVarRangeCallScopeDecl12) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|tok:id.id->id@in-typespec|under:operation
+row: probe/default/r11u47repro__arms__g2  strict=fullname  records golden=191 ours=159
+object: #13 (golden) / #13 (ours)  type=ref_obj name=W TAIL
+  golden: work@dut.I.x.W
+  ours:   work@dut.it_t.W
+  walk parents: operation < range < logic_typespec < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 7..19 ('>' = the object)
+  #7	4	union_typespec				dut.sv	2	26	2	31						001
+  #8	5	typespec_member	x			dut.sv	3	19	3	20						001
+  #9	6	ref_typespec			<in>x		0	0	0	0		0			work@dut.I.x	001
+  #10	7	logic_typespec				dut.sv	3	5	3	18						001
+  #11	8	range				dut.sv	3	11	3	18						001
+  #12	9	operation				dut.sv	3	12	3	15		0				001
+> #13	10	ref_obj	W		<in>x.W	dut.sv	3	12	3	13		0			work@dut.I.x.W	001
+  #14	10	constant				dut.sv	3	14	3	15	1	64	UINT:1	9		001
+  #15	9	constant				dut.sv	3	16	3	17	0	64	UINT:0	9		001
+  #16	5	typespec_member	y			dut.sv	4	19	4	20						001
+  #17	6	ref_typespec			<in>y		0	0	0	0		0			work@dut.I.y	001
+  #18	7	logic_typespec				dut.sv	4	5	4	18						001
+  #19	8	range				dut.sv	4	11	4	18						001
+
+--- OURS (B) records 7..19 ('>' = the object)
+  #7	4	union_typespec				dut.sv	2	26	2	31						001
+  #8	5	typespec_member	x			dut.sv	3	19	3	20						001
+  #9	6	ref_typespec			<in>x		0	0	0	0		0			x	001
+  #10	7	logic_typespec				dut.sv	3	5	3	18						001
+  #11	8	range				dut.sv	3	11	3	18						001
+  #12	9	operation				dut.sv	3	12	3	15		0				001
+> #13	10	ref_obj	W		work@dut.it_t.W	dut.sv	3	12	3	13		0			work@dut.it_t.W	001
+  #14	10	constant				dut.sv	3	14	3	15	1	64	UINT:1	9		001
+  #15	9	constant				dut.sv	3	16	3	17	0	64	UINT:0	9		001
+  #16	5	typespec_member	y			dut.sv	4	19	4	20						001
+  #17	6	ref_typespec			<in>y		0	0	0	0		0			y	001
+  #18	7	logic_typespec				dut.sv	4	5	4	18						001
+  #19	8	range				dut.sv	4	11	4	18						001
+
+facets of this row (12, first 25):
+  N2361 #50/-1 union_typespec  G[17 objs] O[]
+  N0059 #-1/50 integer_typespec  G[] O[1 objs]
+  N2361 #142/-1 union_typespec  G[17 objs] O[]
+  N0059 #-1/126 integer_typespec  G[] O[1 objs]
+  N0084 #9/9 ref_typespec  G[work@dut.I.x] O[x]
+  N1928 #13/13 ref_obj W G[work@dut.I.x.W] O[work@dut.it_t.W]
+  N0084 #17/17 ref_typespec  G[work@dut.I.y] O[y]
+  N1928 #21/21 ref_obj W G[work@dut.I.y.W] O[work@dut.it_t.W]
+  N0084 #101/85 ref_typespec  G[work@dut.I.x] O[x]
+  N1928 #105/89 ref_obj W G[work@dut.I.x.W] O[work@dut.it_t.W]
+  N0084 #109/93 ref_typespec  G[work@dut.I.y] O[y]
+  N1928 #113/97 ref_obj W G[work@dut.I.y.W] O[work@dut.it_t.W]

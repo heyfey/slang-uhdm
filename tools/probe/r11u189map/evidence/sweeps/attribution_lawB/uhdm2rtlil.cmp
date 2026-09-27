@@ -1,0 +1,9 @@
+[default] CMP_EQUAL=6 STRICT_NOTEQUAL=3
+[testflags] CMP_EQUAL=6 STRICT_NOTEQUAL=3
+CONVERSION ParameterFromPkgInNestedModule default STRICT_NOTEQUAL differ:fullname(7) -> CMP_EQUAL
+CONVERSION ParameterFromPkgInNestedModule testflags STRICT_NOTEQUAL differ:fullname(7) -> CMP_EQUAL
+CONVERSION ParameterFromPkgOnParameterPortList default STRICT_NOTEQUAL differ:fullname(7) -> CMP_EQUAL
+CONVERSION ParameterFromPkgOnParameterPortList testflags STRICT_NOTEQUAL differ:fullname(7) -> CMP_EQUAL
+CHANGE jeras_union default STRICT_NOTEQUAL differ:fullname(75) -> differ:file(60)
+CHANGE jeras_union testflags STRICT_NOTEQUAL differ:fullname(75) -> differ:file(60)
+regressions=0 conversions=4 changes=2 only-fresh=0 only-committed=0

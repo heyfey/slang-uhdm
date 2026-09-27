@@ -1,0 +1,64 @@
+cluster N0424 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law sysCallKwTypeArgNameSpan131) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u142map pin]): span|sys_func_call|endcol|under:assignment
+row: surelog/default/MiniAmiq  strict=differ:fullname(8)  records golden=435559 ours=428712
+object: #239977 (golden) / #235892 (ours)  type=sys_func_call name=$time 
+  golden: 81:27:81:32
+  ours:   81:27:81:34
+  walk parents: assignment < begin < function(create_new_sva) < class_defn(svaunit_concurrent_assertion_info)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 239971..239983 ('>' = the object)
+  #239971	5	begin			svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva	svaunit_concurrent_assertion_info.svh	80	7	80	73					svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva	000
+  #239972	6	assignment				svaunit_concurrent_assertion_info.svh	79	14	79	28						000
+  #239973	7	constant				svaunit_concurrent_assertion_info.svh	79	26	79	28	""	0	STRING:	6		000
+  #239974	6	assignment				svaunit_concurrent_assertion_info.svh	80	47	80	72						000
+  #239975	7	ref_obj	SVAUNIT_IDLE		svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::SVAUNIT_IDLE	svaunit_concurrent_assertion_info.svh	80	60	80	72		0			svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::SVAUNIT_IDLE	000
+  #239976	6	assignment				svaunit_concurrent_assertion_info.svh	81	12	81	34						000
+> #239977	7	sys_func_call	$time			svaunit_concurrent_assertion_info.svh	81	27	81	32		0				000
+  #239978	6	assignment				svaunit_concurrent_assertion_info.svh	83	7	83	28						000
+  #239979	7	ref_obj	a_sva_name		svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::a_sva_name	svaunit_concurrent_assertion_info.svh	83	18	83	28		0			svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::a_sva_name	000
+  #239980	7	ref_obj	sva_name		svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::sva_name	svaunit_concurrent_assertion_info.svh	83	7	83	15		0			svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::sva_name	000
+  #239981	6	assignment				svaunit_concurrent_assertion_info.svh	84	7	84	28						000
+  #239982	7	ref_obj	a_sva_type		svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::a_sva_type	svaunit_concurrent_assertion_info.svh	84	18	84	28		0			svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::a_sva_type	000
+  #239983	7	ref_obj	sva_type		svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::sva_type	svaunit_concurrent_assertion_info.svh	84	7	84	15		0			svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::sva_type	000
+
+--- OURS (B) records 235886..235898 ('>' = the object)
+  #235886	5	begin			svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva	svaunit_concurrent_assertion_info.svh	80	7	80	73					svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva	000
+  #235887	6	assignment				svaunit_concurrent_assertion_info.svh	79	14	79	28						000
+  #235888	7	constant				svaunit_concurrent_assertion_info.svh	79	26	79	28	""	0	STRING:	6		000
+  #235889	6	assignment				svaunit_concurrent_assertion_info.svh	80	47	80	72						000
+  #235890	7	ref_obj	SVAUNIT_IDLE		svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::SVAUNIT_IDLE	svaunit_concurrent_assertion_info.svh	80	60	80	72		0			svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::SVAUNIT_IDLE	000
+  #235891	6	assignment				svaunit_concurrent_assertion_info.svh	81	12	81	34						000
+> #235892	7	sys_func_call	$time			svaunit_concurrent_assertion_info.svh	81	27	81	34		0				000
+  #235893	6	assignment				svaunit_concurrent_assertion_info.svh	83	7	83	28						000
+  #235894	7	ref_obj	a_sva_name		svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::a_sva_name	svaunit_concurrent_assertion_info.svh	83	18	83	28		0			svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::a_sva_name	000
+  #235895	7	ref_obj	sva_name		svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::sva_name	svaunit_concurrent_assertion_info.svh	83	7	83	15		0			svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::sva_name	000
+  #235896	6	assignment				svaunit_concurrent_assertion_info.svh	84	7	84	28						000
+  #235897	7	ref_obj	a_sva_type		svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::a_sva_type	svaunit_concurrent_assertion_info.svh	84	18	84	28		0			svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::a_sva_type	000
+  #235898	7	ref_obj	sva_type		svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::sva_type	svaunit_concurrent_assertion_info.svh	84	7	84	15		0			svaunit_pkg::svaunit_concurrent_assertion_info::create_new_sva::sva_type	000
+
+facets of this row (13479, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0197 #65625/-1 string_typespec  G[1 objs] O[]
+  N0408 #-1/65611 unsupported_typespec i G[] O[1 objs]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66858 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66946 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]

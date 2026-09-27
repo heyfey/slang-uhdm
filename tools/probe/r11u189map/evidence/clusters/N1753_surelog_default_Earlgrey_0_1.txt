@@ -1,0 +1,64 @@
+cluster N1753 (id kept from an earlier map; OPEN | ground A | site emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxDecompiled79) < emitExpr (ExprEmit.cpp, law thisPathSelectErased4) < emitContAssigns (ModuleEmit.cpp, law caUnbasedFillPackedAggregateKeepsRaw43) [r11u138map pin] [r11u142map pin]): fullname|bit_select|tok:id->id.id|under:hier_path
+row: surelog/default/Earlgrey_0_1  strict=differ:col(102)  records golden=2173209 ours=2173853
+object: #738245 (golden) / #738302 (ours)  type=bit_select name=intr_state0 OUT
+  golden: work@rv_timer.hw2reg.intr_state0[0].de.intr_state0
+  ours:   work@top_earlgrey.u_rv_timer.hw2reg.intr_state0[0].de.intr_state0
+  walk parents: hier_path(hw2reg.intr_state0[0].de) < cont_assign < module_inst(u_rv_timer) < module_inst(work@top_earlgrey)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 738239..738251 ('>' = the object)
+  #738239	10	constant				rv_timer.sv	44	20	44	21	0	64	UINT:0	9		001
+  #738240	5	var_select	mtimecmp_update		work@rv_timer.mtimecmp_update	rv_timer.sv	72	59	72	80		0			work@rv_timer.mtimecmp_update	000
+  #738241	6	constant				rv_timer.sv	72	75	72	76	0	64	UINT:0	9		000
+  #738242	6	constant				rv_timer.sv	72	78	72	79	0	64	UINT:0	9		000
+  #738243	4	hier_path	hw2reg.intr_state0[0].de			rv_timer.sv	72	10	72	34		0				000
+  #738244	5	ref_obj	hw2reg			rv_timer.sv	72	17	72	28		0				000
+> #738245	5	bit_select	intr_state0		work@rv_timer.hw2reg.intr_state0[0].de.intr_state0	rv_timer.sv	72	17	72	31		0			work@rv_timer.hw2reg.intr_state0[0].de.intr_state0	000
+  #738246	6	constant				rv_timer.sv	72	29	72	30	0	64	UINT:0	9		000
+  #738247	5	ref_obj	de			rv_timer.sv	72	32	72	34		0				000
+  #738248	3	cont_assign				rv_timer.sv	73	10	73	80						000
+  #738249	4	operation				rv_timer.sv	73	37	73	80		0				000
+  #738250	5	ref_obj	intr_timer_state_d		work@rv_timer.intr_timer_state_d	rv_timer.sv	73	37	73	55		0			work@rv_timer.intr_timer_state_d	000
+  #738251	6	logic_net	intr_timer_state_d		work@rv_timer.intr_timer_state_d	rv_timer.sv	45	32	45	50		0			work@rv_timer.intr_timer_state_d	000
+
+--- OURS (B) records 738296..738308 ('>' = the object)
+  #738296	10	constant				rv_timer.sv	44	20	44	21	0	64	UINT:0	9		001
+  #738297	5	var_select	mtimecmp_update		work@rv_timer.mtimecmp_update	rv_timer.sv	72	59	72	80		0			work@rv_timer.mtimecmp_update	000
+  #738298	6	constant				rv_timer.sv	72	75	72	76	0	64	UINT:0	9		000
+  #738299	6	constant				rv_timer.sv	72	78	72	79	0	64	UINT:0	9		000
+  #738300	4	hier_path	hw2reg.intr_state0[0].de			rv_timer.sv	72	10	72	34		0				000
+  #738301	5	ref_obj	hw2reg			rv_timer.sv	72	17	72	28		0				000
+> #738302	5	bit_select	intr_state0		work@top_earlgrey.u_rv_timer.hw2reg.intr_state0[0].de.intr_state0	rv_timer.sv	72	17	72	31		0			work@top_earlgrey.u_rv_timer.hw2reg.intr_state0[0].de.intr_state0	000
+  #738303	6	constant				rv_timer.sv	72	29	72	30	0	64	UINT:0	9		000
+  #738304	5	ref_obj	de			rv_timer.sv	72	32	72	34		0				000
+  #738305	3	cont_assign				rv_timer.sv	73	10	73	80						000
+  #738306	4	operation				rv_timer.sv	73	37	73	80		0				000
+  #738307	5	ref_obj	intr_timer_state_d		work@rv_timer.intr_timer_state_d	rv_timer.sv	73	37	73	55		0			work@rv_timer.intr_timer_state_d	000
+  #738308	6	logic_net	intr_timer_state_d		work@rv_timer.intr_timer_state_d	rv_timer.sv	45	32	45	50		0			work@rv_timer.intr_timer_state_d	000
+
+facets of this row (6489, first 25):
+  N0142 #130430/-1 range  G[5 objs] O[]
+  N0142 #130519/-1 range  G[5 objs] O[]
+  N0142 #134891/-1 range  G[5 objs] O[]
+  N0142 #134980/-1 range  G[5 objs] O[]
+  N0142 #136112/-1 range  G[5 objs] O[]
+  N0142 #136201/-1 range  G[5 objs] O[]
+  N0142 #137221/-1 range  G[5 objs] O[]
+  N0142 #137310/-1 range  G[5 objs] O[]
+  N1173 #-1/658520 hier_path tl_h_o.a_ready G[] O[3 objs]
+  N1184 #-1/658523 cont_assign  G[] O[4 objs]
+  N1181 #-1/658527 cont_assign  G[] O[1 objs]
+  N1173 #-1/658540 hier_path tl_h_o.d_opcode G[] O[3 objs]
+  N1181 #-1/658543 cont_assign  G[] O[1 objs]
+  N1184 #-1/670225 cont_assign  G[] O[4 objs]
+  N1184 #-1/670229 cont_assign  G[] O[4 objs]
+  N1184 #-1/670233 cont_assign  G[] O[4 objs]
+  N1184 #-1/670237 cont_assign  G[] O[4 objs]
+  N1184 #-1/670241 cont_assign  G[] O[4 objs]
+  N1184 #-1/670245 cont_assign  G[] O[4 objs]
+  N1184 #-1/670249 cont_assign  G[] O[4 objs]
+  N1184 #-1/670253 cont_assign  G[] O[4 objs]
+  N1184 #-1/670257 cont_assign  G[] O[4 objs]
+  N1184 #-1/670261 cont_assign  G[] O[4 objs]
+  N1184 #-1/670265 cont_assign  G[] O[5 objs]
+  N1184 #-1/670270 cont_assign  G[] O[5 objs]

@@ -1,0 +1,46 @@
+cluster N0289 (id kept from an earlier map; OPEN (map 9 listed it: ground-B step 11; passes 176-181 left it) [r11u183 reduces it: rows 7->4, probe 3->1] | ground B | site makeVar (TypeEmit.cpp, law tpPackedArrayTsVarInit110) < emitPackageVar (ParamEmit.cpp, law caPkgCloneReadsTheElaboratedEntry84) < operator() (ParamEmit.cpp, law caPkgListingKindTable79) [r11u189 pin]): struct|ours-only:fewer-copies|string_var|under:ref_obj
+row: surelog/default/ApbSlave  strict=differ:depth(1)  records golden=3678 ours=3682
+object: #-1 (golden) / #372 (ours)  type=string_var name=svunit_version 
+  golden: 
+  ours:   4 objs
+  walk parents: ref_obj(svunit_version) < sys_func_call($sformatf) < sys_func_call($display) < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 366..378 ('>' = the object)
+  #366	6	ref_obj	success_str		svunit_pkg::svunit_testrunner::report::success_str	svunit_defines.svh	104	5	104	16		0			svunit_pkg::svunit_testrunner::report::success_str	000
+  #367	6	ref_obj	pass_cnt		svunit_pkg::svunit_testrunner::report::pass_cnt	svunit_defines.svh	105	5	105	13		0			svunit_pkg::svunit_testrunner::report::pass_cnt	000
+  #368	6	hier_path	list_of_suites.size			svunit_defines.svh	106	5	106	26		0				000
+  #369	7	ref_obj	list_of_suites			svunit_defines.svh	106	5	106	19		0				000
+  #370	7	method_func_call	size			svunit_defines.svh	106	20	106	24		0				000
+  #371	6	ref_obj	svunit_version		svunit_pkg::svunit_testrunner::report::svunit_version	svunit_defines.svh	107	5	107	19		0			svunit_pkg::svunit_testrunner::report::svunit_version	000
+> #372	7	string_var	svunit_version		svunit_pkg::svunit_version	svunit_pkg.sv	29	16	29	92		0			svunit_pkg::svunit_version	000
+  #373	8	ref_typespec			svunit_pkg::svunit_version		0	0	0	0		0			svunit_pkg::svunit_version	000
+  #374	9	string_typespec				svunit_pkg.sv	29	9	29	15						000
+  #375	8	constant				svunit_pkg.sv	29	33	29	92	"For SVUnit Version info, see: $SVUNIT_INSTALL/VERSION.txt"	456	STRING:For SVUnit Version info, see: $SVUNIT_INSTALL/VERSION.txt	6		000
+  #376	2	function	svunit_base::new		svunit_pkg::svunit_base::new	svunit_base.sv	59	1	61	12					svunit_pkg::svunit_base::new	000
+  #377	3	class_var			svunit_pkg::svunit_base::new	svunit_base.sv	59	34	59	38		0			svunit_pkg::svunit_base::new	000
+  #378	4	ref_typespec			svunit_pkg::svunit_base::new		0	0	0	0		0			svunit_pkg::svunit_base::new	000
+
+--- the holder #371 on the other side: exact-record matches at [371, 1585]
+  #368	6	hier_path	list_of_suites.size			svunit_defines.svh	106	5	106	26		0				000
+  #369	7	ref_obj	list_of_suites			svunit_defines.svh	106	5	106	19		0				000
+  #370	7	method_func_call	size			svunit_defines.svh	106	20	106	24		0				000
+> #371	6	ref_obj	svunit_version		svunit_pkg::svunit_testrunner::report::svunit_version	svunit_defines.svh	107	5	107	19		0			svunit_pkg::svunit_testrunner::report::svunit_version	000
+  #372	2	function	svunit_base::new		svunit_pkg::svunit_base::new	svunit_base.sv	59	1	61	12					svunit_pkg::svunit_base::new	000
+  #373	3	class_var			svunit_pkg::svunit_base::new	svunit_base.sv	59	34	59	38		0			svunit_pkg::svunit_base::new	000
+  #374	4	ref_typespec			svunit_pkg::svunit_base::new		0	0	0	0		0			svunit_pkg::svunit_base::new	000
+  #375	5	class_typespec					0	0	0	0						000
+  #376	3	io_decl	name			svunit_base.sv	59	34	59	38						000
+  #377	4	ref_typespec			svunit_pkg::svunit_base::new::name		0	0	0	0		0			svunit_pkg::svunit_base::new::name	000
+  #378	5	string_typespec				svunit_base.sv	59	27	59	33						000
+  #379	3	assignment				svunit_base.sv	60	3	60	19						000
+  #380	4	ref_obj	name		svunit_pkg::svunit_base::new::name	svunit_base.sv	60	15	60	19		0			svunit_pkg::svunit_base::new::name	000
+
+facets of this row (7, first 25):
+  N0289 #-1/372 string_var svunit_version G[] O[4 objs]
+  N0067 #713/717 class_typespec svunit_testsuite G[svunit_testrunner.sv 32:9:32:25] O[ 0:0:0:0]
+  N0068 #713/717 class_typespec svunit_testsuite G[32:9:32:25] O[0:0:0:0]
+  N0067 #832/836 class_typespec svunit_testcase G[svunit_testsuite.sv 32:9:32:24] O[ 0:0:0:0]
+  N0068 #832/836 class_typespec svunit_testcase G[32:9:32:24] O[0:0:0:0]
+  N0162 #2264/2268 string_typespec  G[29:9:29:92] O[29:9:29:15]
+  N0162 #2270/2274 string_typespec  G[29:9:29:92] O[29:9:29:15]

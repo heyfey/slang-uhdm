@@ -1,0 +1,64 @@
+cluster N0621 (id kept from an earlier map; OPEN | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law pkgTdRangeViewFold18) < emitImportedPkgClassMethodClones (ParamEmit.cpp, law collectPkgTfListing) < emitPackage (ParamEmit.cpp, law LAW) [r11u138map pin; the a7bee711 gdb run wrote a different database (UVM order coin)] [r11u142map pin]): fullname|ref_typespec|tok:id->id|under:time_var
+row: surelog/default/MiniAmiq  strict=differ:fullname(8)  records golden=435559 ours=428712
+object: #73781 (golden) / #73557 (ours)  type=ref_typespec name= OUT
+  golden: uvm_pkg::uvm_packer::unpack_time
+  ours:   svaunit_pkg::uvm_packer::unpack_time
+  walk parents: time_var < function(uvm_packer::unpack_time) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 73775..73787 ('>' = the object)
+  #73775	5	return_stmt				uvm_packer.svh	874	5	874	11						000
+  #73776	6	sys_func_call	$bitstoreal			uvm_packer.svh	874	12	874	45		0				000
+  #73777	7	func_call	unpack_field_int			uvm_packer.svh	874	24	874	44		0				000
+  #73778	8	constant				uvm_packer.svh	874	41	874	43	64	64	UINT:64	9		000
+  #73779	2	function	uvm_packer::unpack_time		svaunit_pkg::uvm_packer::unpack_time	uvm_packer.svh	882	1	886	12					svaunit_pkg::uvm_packer::unpack_time	000
+  #73780	3	time_var			uvm_pkg::uvm_packer::unpack_time	uvm_packer.svh	882	10	882	14		0			uvm_pkg::uvm_packer::unpack_time	000
+> #73781	4	ref_typespec			uvm_pkg::uvm_packer::unpack_time		0	0	0	0		0			uvm_pkg::uvm_packer::unpack_time	000
+  #73782	5	time_typespec				uvm_packer.svh	882	10	882	14						000
+  #73783	3	if_stmt				uvm_packer.svh	883	3	885	6						000
+  #73784	4	func_call	enough_bits			uvm_packer.svh	883	7	883	29		0				000
+  #73785	5	constant				uvm_packer.svh	883	19	883	21	64	64	UINT:64	9		000
+  #73786	5	constant				uvm_packer.svh	883	22	883	28	"time"	32	STRING:time	6		000
+  #73787	4	begin			svaunit_pkg::uvm_packer::unpack_time	uvm_packer.svh	883	31	885	6					svaunit_pkg::uvm_packer::unpack_time	000
+
+--- OURS (B) records 73551..73563 ('>' = the object)
+  #73551	5	return_stmt				uvm_packer.svh	874	5	874	11						000
+  #73552	6	sys_func_call	$bitstoreal			uvm_packer.svh	874	12	874	45		0				000
+  #73553	7	func_call	unpack_field_int			uvm_packer.svh	874	24	874	44		0				000
+  #73554	8	constant				uvm_packer.svh	874	41	874	43	64	64	UINT:64	9		000
+  #73555	2	function	uvm_packer::unpack_time		svaunit_pkg::uvm_packer::unpack_time	uvm_packer.svh	882	1	886	12					svaunit_pkg::uvm_packer::unpack_time	000
+  #73556	3	time_var			svaunit_pkg::uvm_packer::unpack_time	uvm_packer.svh	882	10	882	14		0			svaunit_pkg::uvm_packer::unpack_time	000
+> #73557	4	ref_typespec			svaunit_pkg::uvm_packer::unpack_time		0	0	0	0		0			svaunit_pkg::uvm_packer::unpack_time	000
+  #73558	5	time_typespec				uvm_packer.svh	882	10	882	14						000
+  #73559	3	if_stmt				uvm_packer.svh	883	3	885	6						000
+  #73560	4	func_call	enough_bits			uvm_packer.svh	883	7	883	29		0				000
+  #73561	5	constant				uvm_packer.svh	883	19	883	21	64	64	UINT:64	9		000
+  #73562	5	constant				uvm_packer.svh	883	22	883	28	"time"	32	STRING:time	6		000
+  #73563	4	begin			svaunit_pkg::uvm_packer::unpack_time	uvm_packer.svh	883	31	885	6					svaunit_pkg::uvm_packer::unpack_time	000
+
+facets of this row (13479, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0197 #65625/-1 string_typespec  G[1 objs] O[]
+  N0408 #-1/65611 unsupported_typespec i G[] O[1 objs]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66858 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66946 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]

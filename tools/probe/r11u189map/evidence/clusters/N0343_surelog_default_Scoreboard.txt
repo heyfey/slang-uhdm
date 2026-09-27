@@ -1,0 +1,64 @@
+cluster N0343 (id kept from an earlier map; OPEN [r11u183 reduces it: rows 7->4, probe 0->0] | ground B | site makeVar (TypeEmit.cpp, law tpPackedArrayTsVarInit110) < emitPackageVar (ParamEmit.cpp, law caPkgCloneReadsTheElaboratedEntry84) < operator() (ParamEmit.cpp, law caPkgListingKindTable79) [r11u142map pin]): struct|ours-only:fewer-copies|class_var|under:ref_obj
+row: surelog/default/Scoreboard  strict=differ:fullname(23)  records golden=269656 ours=268952
+object: #-1 (golden) / #2492 (ours)  type=class_var name=uvm_default_printer 
+  golden: 
+  ours:   8 objs
+  walk parents: ref_obj(uvm_default_printer) < assignment < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 2486..2498 ('>' = the object)
+  #2486	4	if_stmt				uvm_object.svh	877	3	878	35						000
+  #2487	5	operation				uvm_object.svh	877	7	877	20		0				000
+  #2488	6	ref_obj	printer		uvm_pkg::uvm_object::print::printer	uvm_object.svh	877	7	877	14		0			uvm_pkg::uvm_object::print::printer	000
+  #2489	6	constant				uvm_object.svh	877	16	877	20	0	64	UINT:0	11		000
+  #2490	5	assignment				uvm_object.svh	878	5	878	34						000
+  #2491	6	ref_obj	uvm_default_printer		uvm_pkg::uvm_object::print::uvm_default_printer	uvm_object.svh	878	15	878	34		0			uvm_pkg::uvm_object::print::uvm_default_printer	000
+> #2492	7	class_var	uvm_default_printer		uvm_pkg::uvm_default_printer	uvm_object_globals.svh	637	13	637	32		0			uvm_pkg::uvm_default_printer	000
+  #2493	8	ref_typespec			uvm_pkg::uvm_default_printer		0	0	0	0		0			uvm_pkg::uvm_default_printer	000
+  #2494	9	class_typespec	uvm_printer			uvm_object_globals.svh	637	1	637	12						110
+  #2495	8	ref_obj	uvm_default_table_printer		uvm_pkg::uvm_default_printer::uvm_default_table_printer	uvm_object_globals.svh	637	35	637	60		0			uvm_pkg::uvm_default_printer::uvm_default_table_printer	000
+  #2496	9	class_var	uvm_default_table_printer		uvm_pkg::uvm_default_table_printer	uvm_object_globals.svh	610	19	610	52		0			uvm_pkg::uvm_default_table_printer	000
+  #2497	10	ref_typespec			uvm_pkg::uvm_default_table_printer		0	0	0	0		0			uvm_pkg::uvm_default_table_printer	000
+  #2498	11	class_typespec	uvm_table_printer			uvm_object_globals.svh	610	1	610	18						110
+
+--- the holder #2491 on the other side: exact-record matches at [2491]
+  #2488	6	ref_obj	printer		uvm_pkg::uvm_object::print::printer	uvm_object.svh	877	7	877	14		0			uvm_pkg::uvm_object::print::printer	000
+  #2489	6	constant				uvm_object.svh	877	16	877	20	0	64	UINT:0	11		000
+  #2490	5	assignment				uvm_object.svh	878	5	878	34						000
+> #2491	6	ref_obj	uvm_default_printer		uvm_pkg::uvm_object::print::uvm_default_printer	uvm_object.svh	878	15	878	34		0			uvm_pkg::uvm_object::print::uvm_default_printer	000
+  #2492	6	ref_obj	printer		uvm_pkg::uvm_object::print::printer	uvm_object.svh	878	5	878	12		0			uvm_pkg::uvm_object::print::printer	000
+  #2493	4	if_stmt				uvm_object.svh	879	3	150	7						000
+  #2494	5	operation				uvm_object.svh	879	7	879	22		0				000
+  #2495	6	ref_obj	printer		uvm_pkg::uvm_object::print::printer	uvm_object.svh	879	7	879	14		0			uvm_pkg::uvm_object::print::printer	000
+  #2496	6	constant				uvm_object.svh	879	18	879	22	0	64	UINT:0	11		000
+  #2497	5	begin			uvm_pkg::uvm_object::print	uvm_message_defines.svh	147	4	150	7					uvm_pkg::uvm_object::print	000
+  #2498	6	if_stmt				uvm_message_defines.svh	148	6	149	199						000
+  #2499	7	func_call	uvm_report_enabled			uvm_message_defines.svh	148	10	148	62		0				000
+  #2500	8	ref_obj	UVM_NONE		uvm_pkg::uvm_object::print::UVM_NONE	uvm_message_defines.svh	148	29	148	37		0			uvm_pkg::uvm_object::print::UVM_NONE	000
+
+facets of this row (2641, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0423 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0423 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0423 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0423 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0423 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0423 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0423 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

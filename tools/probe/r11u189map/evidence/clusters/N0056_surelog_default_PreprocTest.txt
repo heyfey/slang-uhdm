@@ -1,0 +1,41 @@
+cluster N0056 (id kept from an earlier map; COVERED r11u186 (map 9 ground-B remainder: PreprocTest's enum base bit_typespec end (pass 180 R8: not implementable on this ground; counted optimistically)) | ground B | site buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u150map pin (other example): makeParamTs (ParamEmit.cpp, law srlgTimeLitVal) < emitParameters (ParamEmit.cpp, law pkgParamTsRefColons131) < exportDesign (UhdmExporter.cpp, law importedClass]): span|bit_typespec|endcol|under:ref_typespec
+row: surelog/default/PreprocTest  strict=differ:endcol(2)  records golden=115 ours=115
+object: #9 (golden) / #9 (ours)  type=bit_typespec name= 
+  golden: 5:14:5:17
+  ours:   5:14:5:23
+  walk parents: ref_typespec < enum_typespec(bp_common_pkg::bp_lce_cce_resp_type_e) < package(bp_common_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 3..15 ('>' = the object)
+  #3	1	include_file_info				bp_fe_icache_pkg.vh	6	10	6	27						000
+  #4	1	include_file_info				bp_fe_icache_pkg.vh	10	10	10	30						000
+  #5	1	package	builtin	builtin	builtin::		0	0	0	0					builtin::	000
+  #6	1	package	bp_common_pkg	bp_common_pkg	bp_common_pkg::	bp_common_pkg.vh	3	1	7	27					bp_common_pkg::	000
+  #7	2	enum_typespec	bp_common_pkg::bp_lce_cce_resp_type_e			bp_common_me_if.vh	5	1	9	26						010
+  #8	3	ref_typespec			<in>bp_common_pkg::bp_lce_cce_resp_type_e		0	0	0	0		0			bp_common_pkg::bp_common_pkg::bp_lce_cce_resp_type_e	001
+> #9	4	bit_typespec				bp_common_me_if.vh	5	14	5	17						001
+  #10	5	range				bp_common_me_if.vh	5	18	5	23						001
+  #11	6	constant				bp_common_me_if.vh	5	19	5	20	2	64	UINT:2	9		001
+  #12	6	constant				bp_common_me_if.vh	5	21	5	22	0	64	UINT:0	9		001
+  #13	3	enum_const	e_lce_cce_sync_ack			bp_common_me_if.vh	7	3	7	38						001
+  #14	3	enum_const	e_lce_cce_inv_ack			bp_common_me_if.vh	8	4	8	38						001
+  #15	1	package	bp_fe_icache_pkg	bp_fe_icache_pkg	bp_fe_icache_pkg::	bp_fe_icache_pkg.vh	2	1	9	30					bp_fe_icache_pkg::	000
+
+--- OURS (B) records 3..15 ('>' = the object)
+  #3	1	include_file_info				bp_fe_icache_pkg.vh	6	10	6	27						000
+  #4	1	include_file_info				bp_fe_icache_pkg.vh	10	10	10	30						000
+  #5	1	package	builtin	builtin	builtin::		0	0	0	0					builtin::	000
+  #6	1	package	bp_common_pkg	bp_common_pkg	bp_common_pkg::	bp_common_pkg.vh	3	1	7	27					bp_common_pkg::	000
+  #7	2	enum_typespec	bp_common_pkg::bp_lce_cce_resp_type_e			bp_common_me_if.vh	5	1	9	26						010
+  #8	3	ref_typespec			<in>bp_common_pkg::bp_lce_cce_resp_type_e		0	0	0	0		0			bp_common_pkg::bp_common_pkg::bp_lce_cce_resp_type_e	001
+> #9	4	bit_typespec				bp_common_me_if.vh	5	14	5	23						001
+  #10	5	range				bp_common_me_if.vh	5	18	5	23						001
+  #11	6	constant				bp_common_me_if.vh	5	19	5	20	2	64	UINT:2	9		001
+  #12	6	constant				bp_common_me_if.vh	5	21	5	22	0	64	UINT:0	9		001
+  #13	3	enum_const	e_lce_cce_sync_ack			bp_common_me_if.vh	7	3	7	38						001
+  #14	3	enum_const	e_lce_cce_inv_ack			bp_common_me_if.vh	8	4	8	38						001
+  #15	1	package	bp_fe_icache_pkg	bp_fe_icache_pkg	bp_fe_icache_pkg::	bp_fe_icache_pkg.vh	2	1	9	30					bp_fe_icache_pkg::	000
+
+facets of this row (2, first 25):
+  N0056 #9/9 bit_typespec  G[5:14:5:17] O[5:14:5:23]
+  N0056 #25/25 bit_typespec  G[5:14:5:17] O[5:14:5:23]

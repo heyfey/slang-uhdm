@@ -1,0 +1,64 @@
+cluster N0039 (id kept from an earlier map; OPEN | ground B | site makeTypespec (TypeEmit.cpp, law splitPortIntRedeclLogicTs180) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) [r11u189 pin] [DECODED (r11u130 R3 + K0070): the int_typespec declaration-vs-use span; its corpus head TypeParam is the type-parameter definition net (materializeDefNetTs -> makeTypespec)] [pass-133 R5 (measured here): tools/probe/r11u133repro/lhs l01 l07 l09 l11 read first=N0039 alone (the elaborated Q = X over a wildcard-imported package parameter: golden's Rhs constant typespec is Q's own declaration span) — ONE shape of N0039, whose corpus head (TypeParam) is the type-parameter definition net]): span|int_typespec|line+col+endline+endcol|under:ref_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(23)  records golden=201533 ours=201486
+object: #65653 (golden) / #65650 (ours)  type=int_typespec name= 
+  golden: 50738:55:50738:66
+  ours:   50728:9:50728:20
+  walk parents: ref_typespec < int_var(m_transformer) < class_defn(uvm_algorithmic_comparator) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 65647..65659 ('>' = the object)
+  #65647	5	class_typespec	uvm_analysis_export			uvm_pkg.sv	50724	3	50724	22						110
+  #65648	3	class_var	comp		uvm_pkg::uvm_algorithmic_comparator::comp	uvm_pkg.sv	50727	48	50727	52		0			uvm_pkg::uvm_algorithmic_comparator::comp	000
+  #65649	4	ref_typespec			uvm_pkg::uvm_algorithmic_comparator::comp		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator::comp	000
+  #65650	5	class_typespec	uvm_in_order_class_comparator			uvm_pkg.sv	50727	9	50727	38						110
+  #65651	3	int_var	m_transformer		uvm_pkg::uvm_algorithmic_comparator::m_transformer	uvm_pkg.sv	50728	21	50728	34		0			uvm_pkg::uvm_algorithmic_comparator::m_transformer	000
+  #65652	4	ref_typespec			uvm_pkg::uvm_algorithmic_comparator::m_transformer		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator::m_transformer	000
+> #65653	5	int_typespec				uvm_pkg.sv	50738	55	50738	66						000
+  #65654	3	type_parameter	BEFORE		uvm_pkg::uvm_algorithmic_comparator::BEFORE	uvm_pkg.sv	50680	42	50680	48					uvm_pkg::uvm_algorithmic_comparator::BEFORE	010
+  #65655	4	ref_typespec			<in>BEFORE		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator::BEFORE	001
+  #65656	5	int_typespec				uvm_pkg.sv	50753	30	50753	36						001
+  #65657	3	type_parameter	AFTER		uvm_pkg::uvm_algorithmic_comparator::AFTER	uvm_pkg.sv	50681	42	50681	47					uvm_pkg::uvm_algorithmic_comparator::AFTER	010
+  #65658	4	ref_typespec			<in>AFTER		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator::AFTER	001
+  #65659	5	int_typespec				uvm_pkg.sv	50681	48	50681	51						001
+
+--- OURS (B) records 65644..65656 ('>' = the object)
+  #65644	5	class_typespec	uvm_analysis_export			uvm_pkg.sv	50724	3	50724	22						110
+  #65645	3	class_var	comp		uvm_pkg::uvm_algorithmic_comparator::comp	uvm_pkg.sv	50727	48	50727	52		0			uvm_pkg::uvm_algorithmic_comparator::comp	000
+  #65646	4	ref_typespec			uvm_pkg::uvm_algorithmic_comparator::comp		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator::comp	000
+  #65647	5	class_typespec	uvm_in_order_class_comparator			uvm_pkg.sv	50727	9	50727	38						110
+  #65648	3	int_var	m_transformer		uvm_pkg::uvm_algorithmic_comparator::m_transformer	uvm_pkg.sv	50728	21	50728	34		0			uvm_pkg::uvm_algorithmic_comparator::m_transformer	000
+  #65649	4	ref_typespec			uvm_pkg::uvm_algorithmic_comparator::m_transformer		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator::m_transformer	000
+> #65650	5	int_typespec				uvm_pkg.sv	50728	9	50728	20						000
+  #65651	3	type_parameter	BEFORE		uvm_pkg::uvm_algorithmic_comparator::BEFORE	uvm_pkg.sv	50680	42	50680	48					uvm_pkg::uvm_algorithmic_comparator::BEFORE	010
+  #65652	4	ref_typespec			<in>BEFORE		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator::BEFORE	001
+  #65653	5	int_typespec				uvm_pkg.sv	50680	49	50680	52						001
+  #65654	3	type_parameter	AFTER		uvm_pkg::uvm_algorithmic_comparator::AFTER	uvm_pkg.sv	50681	42	50681	47					uvm_pkg::uvm_algorithmic_comparator::AFTER	010
+  #65655	4	ref_typespec			<in>AFTER		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator::AFTER	001
+  #65656	5	int_typespec				uvm_pkg.sv	50681	48	50681	51						001
+
+facets of this row (1311, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0423 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0423 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0423 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0423 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0423 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0423 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0423 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

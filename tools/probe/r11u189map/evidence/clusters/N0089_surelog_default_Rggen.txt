@@ -1,0 +1,64 @@
+cluster N0089 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law memberActualLeak) < emitContAssigns (ModuleEmit.cpp, law elabCaTernaryArmInstall92) [r11u150map pin]): fullname|ref_obj|tok:id.id->id|under:operation
+row: surelog/default/Rggen  strict=differ:endcol(634)  records golden=314498 ours=312249
+object: #210902 (golden) / #209456 (ours)  type=ref_obj name=busy OUT
+  golden: work@rggen.u_bridge.busy
+  ours:   work@rggen_apb_bridge.busy
+  walk parents: operation < cont_assign < module_inst(u_bridge) < module_inst(work@rggen)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 210896..210908 ('>' = the object)
+  #210896	5	ref_obj	valid		work@rggen_apb_bridge.valid	rggen_apb_bridge.sv	20	36	20	41		0			work@rggen_apb_bridge.valid	000
+  #210897	4	hier_path	apb_if.psel			rggen_apb_bridge.sv	20	11	20	22		0				000
+  #210898	5	ref_obj	apb_if			rggen_apb_bridge.sv	20	18	20	22		0				000
+  #210899	5	ref_obj	psel			rggen_apb_bridge.sv	20	18	20	22		0				000
+  #210900	3	cont_assign				rggen_apb_bridge.sv	21	11	21	55						000
+  #210901	4	operation				rggen_apb_bridge.sv	21	29	21	55		0				000
+> #210902	5	ref_obj	busy		work@rggen.u_bridge.busy	rggen_apb_bridge.sv	21	30	21	34		0			work@rggen.u_bridge.busy	000
+  #210903	5	hier_path	bus_if.valid			rggen_apb_bridge.sv	21	38	21	50		0				000
+  #210904	6	ref_obj	bus_if			rggen_apb_bridge.sv	21	38	21	44		0				000
+  #210905	6	ref_obj	valid		work@rggen.u_bridge.valid	rggen_apb_bridge.sv	21	45	21	50		0			work@rggen.u_bridge.valid	000
+  #210906	5	constant				rggen_apb_bridge.sv	21	53	21	55	'0	-1	BIN:0	3		000
+  #210907	4	hier_path	apb_if.penable			rggen_apb_bridge.sv	21	11	21	25		0				000
+  #210908	5	ref_obj	apb_if			rggen_apb_bridge.sv	21	18	21	25		0				000
+
+--- OURS (B) records 209450..209462 ('>' = the object)
+  #209450	5	ref_obj	valid		work@rggen_apb_bridge.valid	rggen_apb_bridge.sv	20	36	20	41		0			work@rggen_apb_bridge.valid	000
+  #209451	4	hier_path	apb_if.psel			rggen_apb_bridge.sv	20	11	20	22		0				000
+  #209452	5	ref_obj	apb_if			rggen_apb_bridge.sv	20	18	20	22		0				000
+  #209453	5	ref_obj	psel			rggen_apb_bridge.sv	20	18	20	22		0				000
+  #209454	3	cont_assign				rggen_apb_bridge.sv	21	11	21	55						000
+  #209455	4	operation				rggen_apb_bridge.sv	21	29	21	55		0				000
+> #209456	5	ref_obj	busy		work@rggen_apb_bridge.busy	rggen_apb_bridge.sv	21	30	21	34		0			work@rggen_apb_bridge.busy	000
+  #209457	5	hier_path	bus_if.valid			rggen_apb_bridge.sv	21	38	21	50		0				000
+  #209458	6	ref_obj	bus_if			rggen_apb_bridge.sv	21	38	21	44		0				000
+  #209459	6	ref_obj	valid		work@rggen_apb_bridge.valid	rggen_apb_bridge.sv	21	45	21	50		0			work@rggen_apb_bridge.valid	000
+  #209460	5	constant				rggen_apb_bridge.sv	21	53	21	55	'0	-1	BIN:0	3		000
+  #209461	4	hier_path	apb_if.penable			rggen_apb_bridge.sv	21	11	21	25		0				000
+  #209462	5	ref_obj	apb_if			rggen_apb_bridge.sv	21	18	21	25		0				000
+
+facets of this row (8734, first 25):
+  N0683 #23168/23166 constant  G[14 operation < range] O[13 range < logic_typespec]
+  N1172 #23166/-1 operation  G[2 objs] O[]
+  N0683 #26509/26505 constant  G[16 operation < range] O[15 range < logic_typespec]
+  N1172 #26507/-1 operation  G[2 objs] O[]
+  N0683 #28776/28770 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28774/-1 operation  G[2 objs] O[]
+  N0683 #28785/28777 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28783/-1 operation  G[2 objs] O[]
+  N0683 #28794/28784 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28792/-1 operation  G[2 objs] O[]
+  N0683 #29654/29642 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29652/-1 operation  G[2 objs] O[]
+  N0683 #29663/29649 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29661/-1 operation  G[2 objs] O[]
+  N0683 #29672/29656 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29670/-1 operation  G[2 objs] O[]
+  N0683 #30427/30409 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30425/-1 operation  G[2 objs] O[]
+  N0683 #30436/30416 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30434/-1 operation  G[2 objs] O[]
+  N0683 #30445/30423 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30443/-1 operation  G[2 objs] O[]
+  N0683 #31206/31182 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #31204/-1 operation  G[2 objs] O[]
+  N0683 #31215/31189 constant  G[17 operation < range] O[16 range < logic_typespec]

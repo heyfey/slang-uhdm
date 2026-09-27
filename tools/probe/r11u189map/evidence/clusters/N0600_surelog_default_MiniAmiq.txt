@@ -1,0 +1,64 @@
+cluster N0600 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79) [r11u150map pin; the 89d599ef gdb run wrote a different database (UVM order coin)]): fullname|ref_obj|tok:id[id + n].id::id::->|under:operation
+row: surelog/default/MiniAmiq  strict=differ:fullname(8)  records golden=435559 ours=428712
+object: #98867 (golden) / #98377 (ours)  type=ref_obj name=fld_idx OUT
+  golden: svaunit_pkg::uvm_reg_field::is_indv_accessible::fields[fld_idx + 1].get_lsb_pos::fields::fld_idx
+  ours:   svaunit_pkg::uvm_reg_field::is_indv_accessible::fld_idx
+  walk parents: operation < bit_select(fields) < hier_path(fields[fld_idx + 1].get_lsb_pos) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 98861..98873 ('>' = the object)
+  #98861	10	constant				uvm_reg_field.svh	1775	37	1775	38	1	64	UINT:1	9		000
+  #98862	8	begin			svaunit_pkg::uvm_reg_field::is_indv_accessible	uvm_reg_field.svh	1775	40	1778	12					svaunit_pkg::uvm_reg_field::is_indv_accessible	000
+  #98863	9	assignment				uvm_reg_field.svh	1776	11	1776	53						000
+  #98864	10	hier_path	fields[fld_idx + 1].get_lsb_pos			uvm_reg_field.svh	1776	22	1776	53		0				000
+  #98865	11	bit_select	fields		fields[fld_idx + 1]	uvm_reg_field.svh	1776	22	1776	28		0			fields[fld_idx + 1]	000
+  #98866	12	operation				uvm_reg_field.svh	1776	29	1776	38		0				000
+> #98867	13	ref_obj	fld_idx		svaunit_pkg::uvm_reg_field::is_indv_accessible::fields[fld_idx + 1].get_lsb_pos::fields::fld_idx	uvm_reg_field.svh	1776	29	1776	36		0			svaunit_pkg::uvm_reg_field::is_indv_accessible::fields[fld_idx + 1].get_lsb_pos::fields::fld_idx	000
+  #98868	13	constant				uvm_reg_field.svh	1776	37	1776	38	1	64	UINT:1	9		000
+  #98869	11	method_func_call	get_lsb_pos			uvm_reg_field.svh	1776	40	1776	51		0				000
+  #98870	10	ref_obj	next_lsb		svaunit_pkg::uvm_reg_field::is_indv_accessible::next_lsb	uvm_reg_field.svh	1776	11	1776	19		0			svaunit_pkg::uvm_reg_field::is_indv_accessible::next_lsb	000
+  #98871	11	int_var	next_lsb		uvm_pkg::uvm_reg_field::is_indv_accessible::next_lsb	uvm_reg_field.svh	1756	31	1756	39		0			uvm_pkg::uvm_reg_field::is_indv_accessible::next_lsb	000
+  #98872	12	ref_typespec			uvm_pkg::uvm_reg_field::is_indv_accessible::next_lsb		0	0	0	0		0			uvm_pkg::uvm_reg_field::is_indv_accessible::next_lsb	000
+  #98873	13	int_typespec				uvm_reg_field.svh	1756	9	1756	12						000
+
+--- OURS (B) records 98371..98383 ('>' = the object)
+  #98371	10	constant				uvm_reg_field.svh	1775	37	1775	38	1	64	UINT:1	9		000
+  #98372	8	begin			svaunit_pkg::uvm_reg_field::is_indv_accessible	uvm_reg_field.svh	1775	40	1778	12					svaunit_pkg::uvm_reg_field::is_indv_accessible	000
+  #98373	9	assignment				uvm_reg_field.svh	1776	11	1776	53						000
+  #98374	10	hier_path	fields[fld_idx + 1].get_lsb_pos			uvm_reg_field.svh	1776	22	1776	53		0				000
+  #98375	11	bit_select	fields		fields[fld_idx+1]	uvm_reg_field.svh	1776	22	1776	28		0			fields[fld_idx+1]	000
+  #98376	12	operation				uvm_reg_field.svh	1776	29	1776	38		0				000
+> #98377	13	ref_obj	fld_idx		svaunit_pkg::uvm_reg_field::is_indv_accessible::fld_idx	uvm_reg_field.svh	1776	29	1776	36		0			svaunit_pkg::uvm_reg_field::is_indv_accessible::fld_idx	000
+  #98378	13	constant				uvm_reg_field.svh	1776	37	1776	38	1	64	UINT:1	9		000
+  #98379	11	method_func_call	get_lsb_pos			uvm_reg_field.svh	1776	40	1776	51		0				000
+  #98380	10	ref_obj	next_lsb		svaunit_pkg::uvm_reg_field::is_indv_accessible::next_lsb	uvm_reg_field.svh	1776	11	1776	19		0			svaunit_pkg::uvm_reg_field::is_indv_accessible::next_lsb	000
+  #98381	11	int_var	next_lsb		uvm_pkg::uvm_reg_field::is_indv_accessible::next_lsb	uvm_reg_field.svh	1756	31	1756	39		0			uvm_pkg::uvm_reg_field::is_indv_accessible::next_lsb	000
+  #98382	12	ref_typespec			uvm_pkg::uvm_reg_field::is_indv_accessible::next_lsb		0	0	0	0		0			uvm_pkg::uvm_reg_field::is_indv_accessible::next_lsb	000
+  #98383	13	int_typespec				uvm_reg_field.svh	1756	9	1756	12						000
+
+facets of this row (13479, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0197 #65625/-1 string_typespec  G[1 objs] O[]
+  N0408 #-1/65611 unsupported_typespec i G[] O[1 objs]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66858 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66946 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]

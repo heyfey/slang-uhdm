@@ -1,0 +1,46 @@
+cluster N0068 (id kept from an earlier map; COVERED r11u186 (map 9 ground-B remainder (ApbSlave's class_typespec) + pass 181 S1 (span twin)) | ground B | site classElemVar (UhdmExporter.cpp, law sharedAliasNoStamp41) < emitClassDefn (UhdmExporter.cpp, law fixedClassPropIsArrayVar6) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) [r11u189 pin]): span|class_typespec|ours-zero|under:ref_typespec
+row: surelog/default/ApbSlave  strict=differ:depth(1)  records golden=3678 ours=3682
+object: #713 (golden) / #717 (ours)  type=class_typespec name=svunit_testsuite 
+  golden: 32:9:32:25
+  ours:   0:0:0:0
+  walk parents: ref_typespec < class_var < array_var(list_of_suites) < class_defn(svunit_testrunner)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 707..719 ('>' = the object)
+  #707	3	class_defn	svunit_testrunner		svunit_pkg::svunit_testrunner	svunit_testrunner.sv	26	1	43	9					svunit_pkg::svunit_testrunner	000
+  #708	4	array_var	list_of_suites		svunit_pkg::svunit_testrunner::list_of_suites	svunit_testrunner.sv	32	26	32	40		1			svunit_pkg::svunit_testrunner::list_of_suites	000
+  #709	5	ref_typespec			svunit_pkg::svunit_testrunner::list_of_suites		0	0	0	0		0			svunit_pkg::svunit_testrunner::list_of_suites	000
+  #710	6	array_typespec					0	0	0	0						000
+  #711	5	class_var			svunit_pkg::svunit_testrunner::list_of_suites	svunit_testrunner.sv	32	26	32	40		0			svunit_pkg::svunit_testrunner::list_of_suites	000
+  #712	6	ref_typespec			svunit_pkg::svunit_testrunner::list_of_suites		0	0	0	0		0			svunit_pkg::svunit_testrunner::list_of_suites	000
+> #713	7	class_typespec	svunit_testsuite			svunit_testrunner.sv	32	9	32	25						110
+  #714	4	extends				svunit_testrunner.sv	26	33	26	44						000
+  #715	5	ref_typespec			svunit_pkg::svunit_testrunner		0	0	0	0		0			svunit_pkg::svunit_testrunner	000
+  #716	6	class_typespec	svunit_base			svunit_testrunner.sv	26	33	26	44						110
+  #717	4	function	new		svunit_pkg::svunit_testrunner::new	svunit_testrunner.sv	38	3	38	9					svunit_pkg::svunit_testrunner::new	000
+  #718	5	class_var			svunit_pkg::svunit_testrunner::new		0	0	0	0		0			svunit_pkg::svunit_testrunner::new	000
+  #719	6	ref_typespec			svunit_pkg::svunit_testrunner::new		0	0	0	0		0			svunit_pkg::svunit_testrunner::new	000
+
+--- OURS (B) records 711..723 ('>' = the object)
+  #711	3	class_defn	svunit_testrunner		svunit_pkg::svunit_testrunner	svunit_testrunner.sv	26	1	43	9					svunit_pkg::svunit_testrunner	000
+  #712	4	array_var	list_of_suites		svunit_pkg::svunit_testrunner::list_of_suites	svunit_testrunner.sv	32	26	32	40		1			svunit_pkg::svunit_testrunner::list_of_suites	000
+  #713	5	ref_typespec			svunit_pkg::svunit_testrunner::list_of_suites		0	0	0	0		0			svunit_pkg::svunit_testrunner::list_of_suites	000
+  #714	6	array_typespec					0	0	0	0						000
+  #715	5	class_var			svunit_pkg::svunit_testrunner::list_of_suites	svunit_testrunner.sv	32	26	32	40		0			svunit_pkg::svunit_testrunner::list_of_suites	000
+  #716	6	ref_typespec			svunit_pkg::svunit_testrunner::list_of_suites		0	0	0	0		0			svunit_pkg::svunit_testrunner::list_of_suites	000
+> #717	7	class_typespec	svunit_testsuite				0	0	0	0						110
+  #718	4	extends				svunit_testrunner.sv	26	33	26	44						000
+  #719	5	ref_typespec			svunit_pkg::svunit_testrunner		0	0	0	0		0			svunit_pkg::svunit_testrunner	000
+  #720	6	class_typespec	svunit_base			svunit_testrunner.sv	26	33	26	44						110
+  #721	4	function	new		svunit_pkg::svunit_testrunner::new	svunit_testrunner.sv	38	3	38	9					svunit_pkg::svunit_testrunner::new	000
+  #722	5	class_var			svunit_pkg::svunit_testrunner::new		0	0	0	0		0			svunit_pkg::svunit_testrunner::new	000
+  #723	6	ref_typespec			svunit_pkg::svunit_testrunner::new		0	0	0	0		0			svunit_pkg::svunit_testrunner::new	000
+
+facets of this row (7, first 25):
+  N0289 #-1/372 string_var svunit_version G[] O[4 objs]
+  N0067 #713/717 class_typespec svunit_testsuite G[svunit_testrunner.sv 32:9:32:25] O[ 0:0:0:0]
+  N0068 #713/717 class_typespec svunit_testsuite G[32:9:32:25] O[0:0:0:0]
+  N0067 #832/836 class_typespec svunit_testcase G[svunit_testsuite.sv 32:9:32:24] O[ 0:0:0:0]
+  N0068 #832/836 class_typespec svunit_testcase G[32:9:32:24] O[0:0:0:0]
+  N0162 #2264/2268 string_typespec  G[29:9:29:92] O[29:9:29:15]
+  N0162 #2270/2274 string_typespec  G[29:9:29:92] O[29:9:29:15]

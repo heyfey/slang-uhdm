@@ -1,0 +1,64 @@
+cluster N0051 (id kept from an earlier map; OPEN | ground B | site buildClassTypedefTs (UhdmExporter.cpp, law classTpTdGroupNonClsRootShared91) < emitClassTypedefs (UhdmExporter.cpp, law typedefAliasSharesTypespec25) < emitClassDefn (UhdmExporter.cpp, law classDefnVirtualFromVirtualIfaceDecl6) [r11u165map pin]): span|class_typespec|endcol|under:ref_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(23)  records golden=201533 ours=201486
+object: #67672 (golden) / #67669 (ours)  type=class_typespec name=uvm_structure_proxy 
+  golden: 43596:55:43596:74
+  ours:   43596:55:43596:86
+  walk parents: ref_typespec < io_decl(p) < function(accept) < class_defn(uvm_bottom_up_visitor_adapter)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 67666..67678 ('>' = the object)
+  #67666	6	class_typespec	uvm_component			uvm_pkg.sv	43596	32	43596	41						110
+  #67667	4	io_decl	v			uvm_pkg.sv	43596	53	43596	54						000
+  #67668	5	ref_typespec			uvm_pkg::uvm_bottom_up_visitor_adapter::accept::v		0	0	0	0		0			uvm_pkg::uvm_bottom_up_visitor_adapter::accept::v	000
+  #67669	6	class_typespec	uvm_visitor			uvm_pkg.sv	43596	45	43596	52						110
+  #67670	4	io_decl	p			uvm_pkg.sv	43596	87	43596	88						000
+  #67671	5	ref_typespec			uvm_pkg::uvm_bottom_up_visitor_adapter::accept::p		0	0	0	0		0			uvm_pkg::uvm_bottom_up_visitor_adapter::accept::p	000
+> #67672	6	class_typespec	uvm_structure_proxy			uvm_pkg.sv	43596	55	43596	74						110
+  #67673	4	io_decl	invoke_begin_end			uvm_pkg.sv	43596	94	43596	110						000
+  #67674	5	constant				uvm_pkg.sv	43596	111	43596	112	1	64	UINT:1	9		000
+  #67675	5	ref_typespec			uvm_pkg::uvm_bottom_up_visitor_adapter::accept::invoke_begin_end		0	0	0	0		0			uvm_pkg::uvm_bottom_up_visitor_adapter::accept::invoke_begin_end	000
+  #67676	6	bit_typespec				uvm_pkg.sv	43596	90	43596	93						000
+  #67677	4	begin			uvm_pkg::uvm_bottom_up_visitor_adapter::accept	uvm_pkg.sv	43599	5	43600	19					uvm_pkg::uvm_bottom_up_visitor_adapter::accept	000
+  #67678	5	if_stmt				uvm_pkg.sv	43599	5	43600	19						000
+
+--- OURS (B) records 67663..67675 ('>' = the object)
+  #67663	6	class_typespec	uvm_component			uvm_pkg.sv	43596	32	43596	41						110
+  #67664	4	io_decl	v			uvm_pkg.sv	43596	53	43596	54						000
+  #67665	5	ref_typespec			uvm_pkg::uvm_bottom_up_visitor_adapter::accept::v		0	0	0	0		0			uvm_pkg::uvm_bottom_up_visitor_adapter::accept::v	000
+  #67666	6	class_typespec	uvm_visitor			uvm_pkg.sv	43596	45	43596	52						110
+  #67667	4	io_decl	p			uvm_pkg.sv	43596	87	43596	88						000
+  #67668	5	ref_typespec			uvm_pkg::uvm_bottom_up_visitor_adapter::accept::p		0	0	0	0		0			uvm_pkg::uvm_bottom_up_visitor_adapter::accept::p	000
+> #67669	6	class_typespec	uvm_structure_proxy			uvm_pkg.sv	43596	55	43596	86						110
+  #67670	4	io_decl	invoke_begin_end			uvm_pkg.sv	43596	94	43596	110						000
+  #67671	5	constant				uvm_pkg.sv	43596	111	43596	112	1	64	UINT:1	9		000
+  #67672	5	ref_typespec			uvm_pkg::uvm_bottom_up_visitor_adapter::accept::invoke_begin_end		0	0	0	0		0			uvm_pkg::uvm_bottom_up_visitor_adapter::accept::invoke_begin_end	000
+  #67673	6	bit_typespec				uvm_pkg.sv	43596	90	43596	93						000
+  #67674	4	begin			uvm_pkg::uvm_bottom_up_visitor_adapter::accept	uvm_pkg.sv	43599	5	43600	19					uvm_pkg::uvm_bottom_up_visitor_adapter::accept	000
+  #67675	5	if_stmt				uvm_pkg.sv	43599	5	43600	19						000
+
+facets of this row (1311, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0423 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0423 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0423 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0423 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0423 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0423 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0423 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

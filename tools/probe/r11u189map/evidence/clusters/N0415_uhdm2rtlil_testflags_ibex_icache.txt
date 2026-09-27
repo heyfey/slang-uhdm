@@ -1,0 +1,64 @@
+cluster N0415 (id kept from an earlier map; COVERED r11u184 (map 9 ground-A remainder (r11u178 routed): ibex_icache's constant ref_typespec names) | ground A | site emitExpr (ExprEmit.cpp, law caPartSelBoundFoldTs) < emitExpr (ExprEmit.cpp, law genLpUseFoldParentScope47) < emitModuleDefPorts (ModuleEmit.cpp, law structParamBareImportRef) [r11u156map pin]): fullname|ref_typespec|tok:->.id.id|under:constant
+row: uhdm2rtlil/testflags/ibex_icache  strict=differ:fullname(49)  records golden=20047 ours=20047
+object: #7939 (golden) / #7939 (ours)  type=ref_typespec name= OUT
+  golden: work@ibex_icache
+  ours:   work@ibex_icache.fill_addr_q.fill_addr_q
+  walk parents: constant < part_select(fill_addr_q) < var_select(fill_addr_q) < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 7933..7945 ('>' = the object)
+  #7933	12	operation				ibex_icache.sv	993	46	993	54		0				000
+  #7934	13	constant				ibex_icache.sv	993	46	993	52	32	32	UINT:32	9		000
+  #7935	14	ref_typespec			work@ibex_icache.fill_addr_q.fill_addr_q		0	0	0	0		0			work@ibex_icache.fill_addr_q.fill_addr_q	000
+  #7936	15	int_typespec				ibex_pkg.sv	382	13	382	25						000
+  #7937	13	constant				ibex_icache.sv	993	53	993	54	1	64	UINT:1	9		000
+  #7938	12	constant				ibex_icache.sv	993	55	993	64	3	32	UINT:3	9		000
+> #7939	13	ref_typespec			work@ibex_icache		0	0	0	0		0			work@ibex_icache	000
+  #7940	14	int_typespec				ibex_pkg.sv	390	13	390	25						000
+  #7941	10	bit_select	fill_ext_off		work@ibex_icache.fill_ext_off	ibex_icache.sv	993	80	993	81		0			work@ibex_icache.fill_ext_off	000
+  #7942	11	ref_obj	i		work@ibex_icache.i	ibex_icache.sv	993	80	993	81		0			work@ibex_icache.i	000
+  #7943	9	ref_obj	fill_ext_req_addr		work@ibex_icache.fill_ext_req_addr	ibex_icache.sv	993	9	993	26		0			work@ibex_icache.fill_ext_req_addr	000
+  #7944	2	always				ibex_icache.sv	999	3	1010	6						000
+  #7945	3	begin			work@ibex_icache	ibex_icache.sv	999	15	1010	6					work@ibex_icache	000
+
+--- OURS (B) records 7933..7945 ('>' = the object)
+  #7933	12	operation				ibex_icache.sv	993	46	993	54		0				000
+  #7934	13	constant				ibex_icache.sv	993	46	993	52	32	32	UINT:32	9		000
+  #7935	14	ref_typespec			work@ibex_icache.fill_addr_q.fill_addr_q		0	0	0	0		0			work@ibex_icache.fill_addr_q.fill_addr_q	000
+  #7936	15	int_typespec				ibex_pkg.sv	382	13	382	25						000
+  #7937	13	constant				ibex_icache.sv	993	53	993	54	1	64	UINT:1	9		000
+  #7938	12	constant				ibex_icache.sv	993	55	993	64	3	32	UINT:3	9		000
+> #7939	13	ref_typespec			work@ibex_icache.fill_addr_q.fill_addr_q		0	0	0	0		0			work@ibex_icache.fill_addr_q.fill_addr_q	000
+  #7940	14	int_typespec				ibex_pkg.sv	390	13	390	25						000
+  #7941	10	bit_select	fill_ext_off		work@ibex_icache.fill_ext_off	ibex_icache.sv	993	80	993	81		0			work@ibex_icache.fill_ext_off	000
+  #7942	11	ref_obj	i		work@ibex_icache.i	ibex_icache.sv	993	80	993	81		0			work@ibex_icache.i	000
+  #7943	9	ref_obj	fill_ext_req_addr		work@ibex_icache.fill_ext_req_addr	ibex_icache.sv	993	9	993	26		0			work@ibex_icache.fill_ext_req_addr	000
+  #7944	2	always				ibex_icache.sv	999	3	1010	6						000
+  #7945	3	begin			work@ibex_icache	ibex_icache.sv	999	15	1010	6					work@ibex_icache	000
+
+facets of this row (49, first 25):
+  N0415 #7939/7939 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.fill_addr_q.fill_addr_q]
+  N0129 #8403/8403 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.lookup_addr_ic0]
+  N0129 #8477/8477 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.lookup_addr_ic0]
+  N0129 #8480/8480 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.lookup_addr_ic0]
+  N0129 #8490/8490 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.fill_ram_req_addr]
+  N0129 #8493/8493 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.fill_ram_req_addr]
+  N0129 #8710/8710 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.lookup_addr_ic0]
+  N0129 #8725/8725 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.instr_addr]
+  N0415 #14362/14362 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.fill_addr_q.fill_addr_q]
+  N0474 #15440/15440 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.gen_fbs[0]]
+  N0474 #15451/15451 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.gen_fbs[0]]
+  N0549 #15601/15601 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.gen_fbs[0].lookup_addr_ic0]
+  N0474 #15609/15609 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.gen_fbs[0]]
+  N0942 #15675/15675 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.gen_fbs[0].fill_addr_q.fill_addr_q]
+  N0942 #15681/15681 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.gen_fbs[0].fill_ext_cnt_q.fill_ext_cnt_q]
+  N0942 #15711/15711 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.gen_fbs[0].fill_addr_q.fill_addr_q]
+  N0942 #15717/15717 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.gen_fbs[0].fill_rvd_cnt_q.fill_rvd_cnt_q]
+  N0474 #15893/15893 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.gen_fbs[0]]
+  N0474 #16415/16415 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.gen_fbs[1]]
+  N0474 #16426/16426 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.gen_fbs[1]]
+  N0549 #16576/16576 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.gen_fbs[1].lookup_addr_ic0]
+  N0474 #16584/16584 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.gen_fbs[1]]
+  N0942 #16650/16650 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.gen_fbs[1].fill_addr_q.fill_addr_q]
+  N0942 #16656/16656 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.gen_fbs[1].fill_ext_cnt_q.fill_ext_cnt_q]
+  N0942 #16686/16686 ref_typespec  G[work@ibex_icache] O[work@ibex_icache.gen_fbs[1].fill_addr_q.fill_addr_q]

@@ -1,0 +1,46 @@
+cluster N0162 (id kept from an earlier map; COVERED r11u183 (law patches, MEASURED: gone under the patch binary) | ground B | site makeTypespec (TypeEmit.cpp, law unsignedScalarVecTsAtKeyword137) < emitImportedPkgVarNets (ModuleEmit.cpp, law oobCtorLocalsRideTheImport203) < emitInterfaceDef (ModuleEmit.cpp, law interfaceDefViewNeverLateBinds223v) [r11u189 pin]): span|string_typespec|endcol|under:ref_typespec
+row: surelog/default/ApbSlave  strict=differ:depth(1)  records golden=3678 ours=3682
+object: #2264 (golden) / #2268 (ours)  type=string_typespec name= 
+  golden: 29:9:29:92
+  ours:   29:9:29:15
+  walk parents: ref_typespec < logic_net(svunit_version) < module_inst < design(work@apb_slave_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2258..2270 ('>' = the object)
+  #2258	5	ref_obj	paddr		work@apb_slave_unit_test.idle.paddr	testbench.sv	252	5	252	10		0			work@apb_slave_unit_test.idle.paddr	000
+  #2259	4	assignment				testbench.sv	253	5	253	15						000
+  #2260	5	constant				testbench.sv	253	14	253	15	0	64	UINT:0	9		000
+  #2261	5	ref_obj	pwdata		work@apb_slave_unit_test.idle.pwdata	testbench.sv	253	5	253	11		0			work@apb_slave_unit_test.idle.pwdata	000
+  #2262	2	logic_net	svunit_version		work@apb_slave_unit_test.svunit_version	svunit_pkg.sv	29	16	29	30		0			work@apb_slave_unit_test.svunit_version	000
+  #2263	3	ref_typespec			work@apb_slave_unit_test.svunit_version		0	0	0	0		0			work@apb_slave_unit_test.svunit_version	000
+> #2264	4	string_typespec				svunit_pkg.sv	29	9	29	92						000
+  #2265	2	logic_net	current_tc		work@apb_slave_unit_test.current_tc	svunit_globals.svh	24	17	24	27		0			work@apb_slave_unit_test.current_tc	000
+  #2266	3	ref_typespec			work@apb_slave_unit_test.current_tc		0	0	0	0		0			work@apb_slave_unit_test.current_tc	000
+  #2267	4	class_typespec	svunit_testcase			svunit_globals.svh	24	1	24	16						110
+  #2268	2	logic_net	svunit_version		work@apb_slave_unit_test.svunit_version	svunit_pkg.sv	29	16	29	30		0			work@apb_slave_unit_test.svunit_version	000
+  #2269	3	ref_typespec			work@apb_slave_unit_test.svunit_version		0	0	0	0		0			work@apb_slave_unit_test.svunit_version	000
+  #2270	4	string_typespec				svunit_pkg.sv	29	9	29	92						000
+
+--- OURS (B) records 2262..2274 ('>' = the object)
+  #2262	5	ref_obj	paddr		work@apb_slave_unit_test.idle.paddr	testbench.sv	252	5	252	10		0			work@apb_slave_unit_test.idle.paddr	000
+  #2263	4	assignment				testbench.sv	253	5	253	15						000
+  #2264	5	constant				testbench.sv	253	14	253	15	0	64	UINT:0	9		000
+  #2265	5	ref_obj	pwdata		work@apb_slave_unit_test.idle.pwdata	testbench.sv	253	5	253	11		0			work@apb_slave_unit_test.idle.pwdata	000
+  #2266	2	logic_net	svunit_version		work@apb_slave_unit_test.svunit_version	svunit_pkg.sv	29	16	29	30		0			work@apb_slave_unit_test.svunit_version	000
+  #2267	3	ref_typespec			work@apb_slave_unit_test.svunit_version		0	0	0	0		0			work@apb_slave_unit_test.svunit_version	000
+> #2268	4	string_typespec				svunit_pkg.sv	29	9	29	15						000
+  #2269	2	logic_net	current_tc		work@apb_slave_unit_test.current_tc	svunit_globals.svh	24	17	24	27		0			work@apb_slave_unit_test.current_tc	000
+  #2270	3	ref_typespec			work@apb_slave_unit_test.current_tc		0	0	0	0		0			work@apb_slave_unit_test.current_tc	000
+  #2271	4	class_typespec	svunit_testcase			svunit_globals.svh	24	1	24	16						110
+  #2272	2	logic_net	svunit_version		work@apb_slave_unit_test.svunit_version	svunit_pkg.sv	29	16	29	30		0			work@apb_slave_unit_test.svunit_version	000
+  #2273	3	ref_typespec			work@apb_slave_unit_test.svunit_version		0	0	0	0		0			work@apb_slave_unit_test.svunit_version	000
+  #2274	4	string_typespec				svunit_pkg.sv	29	9	29	15						000
+
+facets of this row (7, first 25):
+  N0289 #-1/372 string_var svunit_version G[] O[4 objs]
+  N0067 #713/717 class_typespec svunit_testsuite G[svunit_testrunner.sv 32:9:32:25] O[ 0:0:0:0]
+  N0068 #713/717 class_typespec svunit_testsuite G[32:9:32:25] O[0:0:0:0]
+  N0067 #832/836 class_typespec svunit_testcase G[svunit_testsuite.sv 32:9:32:24] O[ 0:0:0:0]
+  N0068 #832/836 class_typespec svunit_testcase G[32:9:32:24] O[0:0:0:0]
+  N0162 #2264/2268 string_typespec  G[29:9:29:92] O[29:9:29:15]
+  N0162 #2270/2274 string_typespec  G[29:9:29:92] O[29:9:29:15]

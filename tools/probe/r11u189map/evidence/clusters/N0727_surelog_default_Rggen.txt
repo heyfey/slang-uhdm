@@ -1,0 +1,64 @@
+cluster N0727 (id kept from an earlier map; OPEN | ground B | site emitSyntaxExpr (TypeEmit.cpp, law fnLocalParamRangeNet) < fillSizeDimRange (ModuleEmit.cpp, law sizeDimOvrChain4) < emitInstance (ModuleEmit.cpp, law progPortIfaceArrayUnowned13) [r11u142map pin]): file|constant|other-file|under:operation
+row: surelog/default/Rggen  strict=differ:endcol(634)  records golden=314498 ours=312249
+object: #22375 (golden) / #22375 (ours)  type=constant name= 
+  golden: rggen_apb_adapter.sv 18:39:18:48
+  ours:   block_0.sv 18:39:18:48
+  walk parents: operation < range < interface_array(register_if) < ref_obj
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 22369..22381 ('>' = the object)
+  #22369	8	io_decl	value			rggen_register_if.sv	41	13	41	18						000
+  #22370	5	ref_obj			work@rggen.u_block_0.u_adapter.register_if	block_0.sv	163	6	163	17		0			work@rggen.u_block_0.u_adapter.register_if	000
+  #22371	6	interface_array	register_if		work@rggen.u_block_0.u_adapter.register_if	rggen_apb_adapter.sv	18	27	18	38					work@rggen.u_block_0.u_adapter.register_if	000
+  #22372	7	range				rggen_apb_adapter.sv	18	39	18	48						000
+  #22373	8	constant					0	0	0	0	0	64	UINT:0	9		000
+  #22374	8	operation				rggen_apb_adapter.sv	18	39	18	48		0				000
+> #22375	9	constant				rggen_apb_adapter.sv	18	39	18	48	25	64	UINT:25	9		000
+  #22376	9	constant					0	0	0	0		64	INT:1	7		000
+  #22377	7	interface_inst	register_if[0]	work@rggen_register_if	work@rggen.u_block_0.u_adapter.register_if[0]	block_0.sv	148	0	0	0					work@rggen.u_block_0.u_adapter.register_if[0]	000
+  #22378	8	logic_var	valid		work@rggen.u_block_0.u_adapter.register_if[0].valid	rggen_register_if.sv	8	29	8	34		0			work@rggen.u_block_0.u_adapter.register_if[0].valid	000
+  #22379	9	ref_typespec			work@rggen.u_block_0.u_adapter.register_if[0].valid		0	0	0	0		0			work@rggen.u_block_0.u_adapter.register_if[0].valid	000
+  #22380	10	logic_typespec				rggen_register_if.sv	8	3	8	8						000
+  #22381	8	enum_var	access		work@rggen.u_block_0.u_adapter.register_if[0].access	rggen_register_if.sv	9	29	9	35		0			work@rggen.u_block_0.u_adapter.register_if[0].access	000
+
+--- OURS (B) records 22369..22381 ('>' = the object)
+  #22369	8	io_decl	value			rggen_register_if.sv	41	13	41	18						000
+  #22370	5	ref_obj			work@rggen.u_block_0.u_adapter.register_if	block_0.sv	163	6	163	17		0			work@rggen.u_block_0.u_adapter.register_if	000
+  #22371	6	interface_array	register_if		work@rggen.u_block_0.u_adapter.register_if	rggen_apb_adapter.sv	18	27	18	38					work@rggen.u_block_0.u_adapter.register_if	000
+  #22372	7	range				rggen_apb_adapter.sv	18	38	18	49						000
+  #22373	8	constant					0	0	0	0	0	64	UINT:0	9		000
+  #22374	8	operation				rggen_apb_adapter.sv	18	39	18	48		0				000
+> #22375	9	constant				block_0.sv	18	39	18	48	25	64	UINT:25	9		000
+  #22376	9	constant					0	0	0	0		64	INT:1	7		000
+  #22377	7	interface_inst	register_if[0]	work@rggen_register_if	work@rggen.u_block_0.u_adapter.register_if[0]	block_0.sv	148	0	0	0					work@rggen.u_block_0.u_adapter.register_if[0]	000
+  #22378	8	logic_var	valid		work@rggen.u_block_0.u_adapter.register_if[0].valid	rggen_register_if.sv	8	29	8	34		0			work@rggen.u_block_0.u_adapter.register_if[0].valid	000
+  #22379	9	ref_typespec			work@rggen.u_block_0.u_adapter.register_if[0].valid		0	0	0	0		0			work@rggen.u_block_0.u_adapter.register_if[0].valid	000
+  #22380	10	logic_typespec				rggen_register_if.sv	8	3	8	8						000
+  #22381	8	enum_var	access		work@rggen.u_block_0.u_adapter.register_if[0].access	rggen_register_if.sv	9	29	9	35		0			work@rggen.u_block_0.u_adapter.register_if[0].access	000
+
+facets of this row (8734, first 25):
+  N0683 #23168/23166 constant  G[14 operation < range] O[13 range < logic_typespec]
+  N1172 #23166/-1 operation  G[2 objs] O[]
+  N0683 #26509/26505 constant  G[16 operation < range] O[15 range < logic_typespec]
+  N1172 #26507/-1 operation  G[2 objs] O[]
+  N0683 #28776/28770 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28774/-1 operation  G[2 objs] O[]
+  N0683 #28785/28777 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28783/-1 operation  G[2 objs] O[]
+  N0683 #28794/28784 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28792/-1 operation  G[2 objs] O[]
+  N0683 #29654/29642 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29652/-1 operation  G[2 objs] O[]
+  N0683 #29663/29649 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29661/-1 operation  G[2 objs] O[]
+  N0683 #29672/29656 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29670/-1 operation  G[2 objs] O[]
+  N0683 #30427/30409 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30425/-1 operation  G[2 objs] O[]
+  N0683 #30436/30416 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30434/-1 operation  G[2 objs] O[]
+  N0683 #30445/30423 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30443/-1 operation  G[2 objs] O[]
+  N0683 #31206/31182 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #31204/-1 operation  G[2 objs] O[]
+  N0683 #31215/31189 constant  G[17 operation < range] O[16 range < logic_typespec]

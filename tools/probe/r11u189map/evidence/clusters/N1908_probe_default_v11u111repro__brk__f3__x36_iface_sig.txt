@@ -1,0 +1,44 @@
+cluster N1908 (id kept from an earlier map; OPEN | ground B | site makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < emitInterfaceInstance (ModuleEmit.cpp, law caIfaceElabNetDeclAssignListing88) < emitInstance (ModuleEmit.cpp, law caNestedModDeclNoRefNoInst99) [r11u138map pin] [r11u142map pin]): span|logic_typespec|golden-zero|under:ref_typespec
+row: probe/default/v11u111repro__brk__f3__x36_iface_sig  strict=name  records golden=229 ours=196
+object: #181 (golden) / #181 (ours)  type=logic_typespec name=q2::row_t 
+  golden: 0:0:0:0
+  ours:   3:11:3:21
+  walk parents: ref_typespec < logic_var(r) < interface_inst(ri) < module_inst(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 175..187 ('>' = the object)
+  #175	5	range				dut.sv	9	47	9	52						001
+  #176	6	constant				dut.sv	9	48	9	49	5	64	UINT:5	9		001
+  #177	6	constant				dut.sv	9	50	9	51	0	64	UINT:0	9		001
+  #178	2	interface_inst	ri	work@rif	work@dut.ri	dut.sv	10	3	10	13					work@dut.ri	000
+  #179	3	logic_var	r		work@dut.ri.r	dut.sv	6	13	6	14		0			work@dut.ri.r	000
+  #180	4	ref_typespec			work@dut.ri.r		0	0	0	0		0			work@dut.ri.r	000
+> #181	5	logic_typespec	q2::row_t				0	0	0	0						110
+  #182	6	ref_typespec			<in>q2::row_t		0	0	0	0		0			q2::q2::row_t	001
+  #183	7	logic_typespec				dut.sv	3	11	3	21						001
+  #184	8	ref_typespec					0	0	0	0		0				001
+  #185	9	logic_typespec				dut.sv	3	11	3	21						001
+  #186	10	ref_typespec					0	0	0	0		0				001
+  #187	11	logic_typespec	ut_e			dut.sv	2	11	2	22						001
+
+--- OURS (B) records 175..187 ('>' = the object)
+  #175	5	range				dut.sv	9	47	9	52						001
+  #176	6	constant				dut.sv	9	48	9	49	5	64	UINT:5	9		001
+  #177	6	constant				dut.sv	9	50	9	51	0	64	UINT:0	9		001
+  #178	2	interface_inst	ri	work@rif	work@dut.ri	dut.sv	10	3	10	13					work@dut.ri	000
+  #179	3	logic_var	r		work@dut.ri.r	dut.sv	6	13	6	14		0			work@dut.ri.r	000
+  #180	4	ref_typespec			work@dut.ri.r		0	0	0	0		0			work@dut.ri.r	000
+> #181	5	logic_typespec	row_t			dut.sv	3	11	3	21						110
+  #182	3	modport	m			dut.sv	7	11	7	12						000
+  #183	4	io_decl	r			dut.sv	7	21	7	22						000
+  #184	2	cont_assign				dut.sv	11	10	11	18						000
+  #185	3	ref_obj	i		work@dut.i	dut.sv	11	17	11	18		0			work@dut.i	000
+  #186	4	logic_net	i		work@dut.i	dut.sv	9	31	9	32		0			work@dut.i	000
+  #187	3	hier_path	ri.r			dut.sv	11	10	11	14		0				000
+
+facets of this row (5, first 25):
+  N1955 #182/-1 ref_typespec  G[30 objs] O[]
+  N0083 #212/-1 range  G[3 objs] O[]
+  N0738 #181/181 logic_typespec q2::row_t G[q2::row_t|] O[row_t|]
+  N1906 #181/181 logic_typespec q2::row_t G[ 0:0:0:0] O[dut.sv 3:11:3:21]
+  N1908 #181/181 logic_typespec q2::row_t G[0:0:0:0] O[3:11:3:21]

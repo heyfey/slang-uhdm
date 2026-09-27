@@ -1,0 +1,64 @@
+cluster N0446 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law genProcParamFold) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law memberActualLeak) [r11u142map pin]): fullname|ref_typespec|tok:.id->|under:constant
+row: surelog/testflags/Earlgrey_0_1  strict=differ:col(102)  records golden=1342584 ours=1342870
+object: #446024 (golden) / #445921 (ours)  type=ref_typespec name= OUT
+  golden: work@top_earlgrey.u_ram1p_ram_main
+  ours:   work@top_earlgrey
+  walk parents: constant < indexed_part_select(rdata_sram) < cont_assign < gen_scope
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 446018..446030 ('>' = the object)
+  #446018	6	ref_obj	wdata_i		work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.wdata_i	prim_ram_1p_adv.sv	161	22	161	29		0			work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.wdata_i	000
+  #446019	6	ref_obj	wdata_d		work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.wdata_d	prim_ram_1p_adv.sv	161	12	161	19		0			work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.wdata_d	000
+  #446020	5	cont_assign				prim_ram_1p_adv.sv	163	12	163	43						000
+  #446021	6	indexed_part_select	rdata_sram	rdata_sram	work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.rdata_sram	prim_ram_1p_adv.sv	163	34	163	42		0			work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.rdata_sram	000
+  #446022	7	constant				prim_ram_1p_adv.sv	163	34	163	35	0	64	UINT:0	9		000
+  #446023	7	constant				prim_ram_1p_adv.sv	163	37	163	42	32	32	UINT:32	9		000
+> #446024	8	ref_typespec			work@top_earlgrey.u_ram1p_ram_main		0	0	0	0		0			work@top_earlgrey.u_ram1p_ram_main	000
+  #446025	9	int_typespec				prim_ram_1p_adv.sv	21	14	21	17						000
+  #446026	6	ref_obj	rdata_d		work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.rdata_d	prim_ram_1p_adv.sv	163	12	163	19		0			work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.rdata_d	000
+  #446027	5	cont_assign				prim_ram_1p_adv.sv	164	12	164	25						000
+  #446028	6	constant				prim_ram_1p_adv.sv	164	23	164	25	'0	2	BIN:0	3		000
+  #446029	6	ref_obj	rerror_d		work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.rerror_d	prim_ram_1p_adv.sv	164	12	164	20		0			work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.rerror_d	000
+  #446030	3	gen_scope_array	gen_dirconnect_input		work@top_earlgrey.u_ram1p_ram_main.gen_dirconnect_input	prim_ram_1p_adv.sv	190	12	196	6					work@top_earlgrey.u_ram1p_ram_main.gen_dirconnect_input	000
+
+--- OURS (B) records 445915..445927 ('>' = the object)
+  #445915	6	ref_obj	wdata_i		work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.wdata_i	prim_ram_1p_adv.sv	161	22	161	29		0			work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.wdata_i	000
+  #445916	6	ref_obj	wdata_d		work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.wdata_d	prim_ram_1p_adv.sv	161	12	161	19		0			work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.wdata_d	000
+  #445917	5	cont_assign				prim_ram_1p_adv.sv	163	12	163	43						000
+  #445918	6	indexed_part_select	rdata_sram	rdata_sram	work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.rdata_sram	prim_ram_1p_adv.sv	163	34	163	42		0			work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.rdata_sram	000
+  #445919	7	constant				prim_ram_1p_adv.sv	163	34	163	35	0	64	UINT:0	9		000
+  #445920	7	constant				prim_ram_1p_adv.sv	163	37	163	42	32	32	UINT:32	9		000
+> #445921	8	ref_typespec			work@top_earlgrey		0	0	0	0		0			work@top_earlgrey	000
+  #445922	9	int_typespec				prim_ram_1p_adv.sv	21	14	21	17						000
+  #445923	6	ref_obj	rdata_d		work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.rdata_d	prim_ram_1p_adv.sv	163	12	163	19		0			work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.rdata_d	000
+  #445924	5	cont_assign				prim_ram_1p_adv.sv	164	12	164	25						000
+  #445925	6	constant				prim_ram_1p_adv.sv	164	23	164	25	'0	2	BIN:0	3		000
+  #445926	6	ref_obj	rerror_d		work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.rerror_d	prim_ram_1p_adv.sv	164	12	164	20		0			work@top_earlgrey.u_ram1p_ram_main.gen_nosecded_noparity.rerror_d	000
+  #445927	3	gen_scope_array	gen_dirconnect_input		work@top_earlgrey.u_ram1p_ram_main.gen_dirconnect_input	prim_ram_1p_adv.sv	190	12	196	6					work@top_earlgrey.u_ram1p_ram_main.gen_dirconnect_input	000
+
+facets of this row (6146, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

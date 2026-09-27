@@ -1,0 +1,64 @@
+cluster N0703 (id kept from an earlier map; OPEN | ground B | site buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u142map pin]): file|enum_typespec|other-file+span|under:interface_inst
+row: surelog/default/MiniAmiq  strict=differ:fullname(8)  records golden=435559 ours=428712
+object: #362385 (golden) / #356884 (ours)  type=enum_typespec name=uvm_pkg::uvm_active_passive_enum 
+  golden: uvm_globals.svh 532:52:532:53
+  ours:   uvm_object_globals.svh 147:1:147:74
+  walk parents: interface_inst < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 362379..362391 ('>' = the object)
+  #362379	3	enum_const	UVM_LOG			uvm_object_globals.svh	278	3	278	28						001
+  #362380	3	enum_const	UVM_COUNT			uvm_object_globals.svh	279	3	279	28						001
+  #362381	3	enum_const	UVM_EXIT			uvm_object_globals.svh	280	3	280	28						001
+  #362382	3	enum_const	UVM_CALL_HOOK			uvm_object_globals.svh	281	3	281	28						001
+  #362383	3	enum_const	UVM_STOP			uvm_object_globals.svh	282	3	282	28						001
+  #362384	3	enum_const	UVM_RM_RECORD			uvm_object_globals.svh	283	3	283	28						001
+> #362385	2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_globals.svh	532	52	532	53						010
+  #362386	3	ref_typespec			<in>uvm_pkg::uvm_active_passive_enum		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_active_passive_enum	001
+  #362387	4	bit_typespec				uvm_object_globals.svh	147	14	147	17						001
+  #362388	3	enum_const	UVM_PASSIVE			uvm_object_globals.svh	147	20	147	33						001
+  #362389	3	enum_const	UVM_ACTIVE			uvm_object_globals.svh	147	35	147	47						001
+  #362390	2	class_typespec	svaunit_pkg::this_type			uvm_algorithmic_comparator.svh	74	11	74	37						010
+  #362391	2	enum_typespec	uvm_pkg::uvm_apprepend			uvm_callback.svh	246	55	246	68						010
+
+--- OURS (B) records 356878..356890 ('>' = the object)
+  #356878	3	enum_const	UVM_LOG			uvm_object_globals.svh	278	3	278	28						001
+  #356879	3	enum_const	UVM_COUNT			uvm_object_globals.svh	279	3	279	28						001
+  #356880	3	enum_const	UVM_EXIT			uvm_object_globals.svh	280	3	280	28						001
+  #356881	3	enum_const	UVM_CALL_HOOK			uvm_object_globals.svh	281	3	281	28						001
+  #356882	3	enum_const	UVM_STOP			uvm_object_globals.svh	282	3	282	28						001
+  #356883	3	enum_const	UVM_RM_RECORD			uvm_object_globals.svh	283	3	283	28						001
+> #356884	2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_object_globals.svh	147	1	147	74						010
+  #356885	3	ref_typespec			<in>uvm_pkg::uvm_active_passive_enum		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_active_passive_enum	001
+  #356886	4	bit_typespec				uvm_object_globals.svh	147	14	147	17						001
+  #356887	3	enum_const	UVM_PASSIVE			uvm_object_globals.svh	147	20	147	33						001
+  #356888	3	enum_const	UVM_ACTIVE			uvm_object_globals.svh	147	35	147	47						001
+  #356889	2	class_typespec	svaunit_pkg::this_type			uvm_algorithmic_comparator.svh	74	11	74	37						010
+  #356890	2	enum_typespec	uvm_pkg::uvm_apprepend			uvm_callback.svh	246	55	246	68						010
+
+facets of this row (13479, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0197 #65625/-1 string_typespec  G[1 objs] O[]
+  N0408 #-1/65611 unsupported_typespec i G[] O[1 objs]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66858 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66946 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]

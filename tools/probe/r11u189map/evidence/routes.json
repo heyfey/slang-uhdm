@@ -1,0 +1,94 @@
+{
+ "pairA": {
+  "N0086": "pass 181 R1a: the constant-function leftover read site (FuncStructValSimple INSTR_PER_FETCH located at the call, golden unlocated)",
+  "N0087": "pass 181 R1a: the constant-function leftover read site (span twin of N0086)",
+  "N0131": "pass 181 R1b / map 9 ground-A step 1: the package listing's element constant reference name (cva6_config_pkg)",
+  "N0965": "pass 181 R5 / pass 176 residue 6: the evaluator's formal typespec on Scr1SvTests' call argument (UHDM ExprEval::evalFunc)",
+  "N0545": "pass 176 residue 6: ibex_multdiv_fast's generate-block enum constants",
+  "N0546": "pass 176 residue 6: ibex_multdiv_fast's generate-block enum constants (span twin)",
+  "N0012": "pass 176 residue 6: TypeParameterAsPortTypeWithEnum's enum copy (ParamEmit emitParameters)",
+  "N0034": "pass 176 residue 6: TypeParameterAsPortTypeWithEnum's enum copy (span twin)",
+  "N0638": "pass 176 residue 6: the base range's reference named through the enum copy",
+  "N0281": "pass 176 residue 6: TypeParameterAsPortTypeWithEnumOfParametrizedWidth's operand reference",
+  "N0688": "re-verifiers' residue (pass 178 R3, r11u182/r11u185 re-measured; r11u180 S4 ParamEmit drainShareDefParamTs): iface_zero_width_field's struct members under the unparented reference",
+  "N0003": "map 9 ground-A remainder (r11u178 routed, not landed; r11u180 S1 ParamEmit op75 MakeRef_typespec): StructParamPatternInitCast's A half, also ibex_tracer",
+  "N0416": "map 9 ground-A remainder: rsp_gen_minimal's A half",
+  "N0022": "map 9 ground-A remainder: rsp_gen_minimal's A half",
+  "N0938": "map 9 ground-A remainder: jeras_union's A half (r11u183 aliasOfTdSharedKeepsModName183 covers it when measured)",
+  "N0191": "map 9 ground-A remainder: OutputSizeWithParameterOfInstanceInitializedByStructMember's A half",
+  "N0443": "map 9 ground-A remainder: arb_idx_cast's A half",
+  "N0684": "map 9 ground-A remainder: arb_idx_cast's A half",
+  "N0299": "map 9 ground-A remainder: AssertDelayError / AssertTempError A half",
+  "N0628": "map 9 ground-A remainder: AssertDelayError / AssertTempError A half",
+  "N0476": "map 9 ground-A remainder: ParameterFromPkg* bare-vector parameter typespec",
+  "N0477": "map 9 ground-A remainder: ParameterFromPkg* bare-vector parameter typespec (span twin)",
+  "N0499": "map 9 ground-A remainder: ParameterFromPkg* range constant",
+  "N0682": "map 9 ground-A remainder, UVM: the package parameter UVM_MACRO_NUMFLAGS reference full name",
+  "N0001": "map 9 ground-A remainder, UVM + OutputSize: hier_path element spans",
+  "N0007": "map 9 ground-A remainder, UVM: hier_path element names",
+  "N0061": "map 9 ground-A remainder, UVM: hier_path bit_select spans",
+  "N0119": "map 9 ground-A remainder, UVM: assignment bit_select spans",
+  "N0152": "map 9 ground-A remainder, UVM: method body begin with no file",
+  "N0153": "map 9 ground-A remainder, UVM: method body begin with no span",
+  "N0172": "map 9 ground-A remainder, UVM: task body begin with no file",
+  "N0173": "map 9 ground-A remainder, UVM: task body begin with no span",
+  "N0178": "map 9 ground-A remainder, UVM: if-branch begin with no file",
+  "N0179": "map 9 ground-A remainder, UVM: if-branch begin with no span",
+  "N0160": "map 9 ground-A remainder, UVM: the foreach ref_var end",
+  "N2411": "map 9 ground-A remainder, UVM: the macro-argument constant column",
+  "N0943": "map 9 ground-A remainder (r11u178 routed, not landed): ibex_pmp's var_select ref_typespec",
+  "N0427": "map 9 ground-A remainder (r11u178 routed, not landed; pass 181 S4: the ModuleEmit half is needed too): InterfArrayBind d",
+  "N0407": "map 9 ground-A remainder (r11u178 routed): the makeMemLeftConst member-default spans",
+  "N0745": "map 9 ground-A remainder (r11u178 routed): the makeMemLeftConst member-default spans",
+  "N1083": "map 9 ground-A remainder (r11u178 routed): the makeMemLeftConst member-default spans",
+  "N0415": "map 9 ground-A remainder (r11u178 routed): ibex_icache's constant ref_typespec names",
+  "N0474": "map 9 ground-A remainder (r11u178 routed): ibex_icache's constant ref_typespec names",
+  "N0549": "map 9 ground-A remainder (r11u178 routed): ibex_icache's constant ref_typespec names",
+  "N0942": "map 9 ground-A remainder (r11u178 routed): ibex_icache's constant ref_typespec names",
+  "N0097": "map 9 ground-A remainder (r11u178 routed; pass 180 S2): ArrayMethodIterator's with-clause hier_path end"
+ },
+ "pairA_rows": {
+  "FuncStructValSimple": {
+   "why": "pass 181 R1 FuncStructValSimple"
+  },
+  "ibex_multdiv_fast": {
+   "why": "pass 176 residue 6 ibex_multdiv_fast"
+  },
+  "TypeParameterAsPortTypeWithEnum": {
+   "why": "pass 176 residue 6 TypeParameterAsPortTypeWithEnum"
+  },
+  "TypeParameterAsPortTypeWithEnumOfParametrizedWidth": {
+   "why": "pass 176 residue 6 TypeParameterAsPortTypeWithEnum"
+  },
+  "iface_zero_width_field": {
+   "why": "re-verifiers' residue pass 178 R3 iface_zero_width_field"
+  }
+ },
+ "pairB": {
+  "N0056": "map 9 ground-B remainder: PreprocTest's enum base bit_typespec end (pass 180 R8: not implementable on this ground; counted optimistically)",
+  "N0014": "map 9 ground-B remainder: StructParamPatternInitCast's B half (also anon_struct_packed_dim)",
+  "N1174": "map 9 ground-B remainder: HierPathTypespec t (naming context-dependent)",
+  "N0067": "map 9 ground-B remainder (ApbSlave's class_typespec) + pass 181 S1 (a class member array's class_typespec has no file)",
+  "N0068": "map 9 ground-B remainder (ApbSlave's class_typespec) + pass 181 S1 (span twin)"
+ },
+ "pairB_rows": {
+  "PreprocTest": {
+   "why": "map 9 ground-B PreprocTest"
+  },
+  "HierPathTypespec": {
+   "why": "map 9 ground-B HierPathTypespec t",
+   "modes": [
+    "testflags"
+   ]
+  }
+ },
+ "pairB_first_records": "the UVM (MiniAmiq, SeqDriver, SimpleUVM, Scoreboard, BuildUVMPkg) and Earlgrey_0_1 rows' first ten differing records at the r11u183 cross-section: their ground-B clusters whose rows are all UVM/Earlgrey rows",
+ "unmapped": [
+  "pair A: pass 181 R2 / R7 streaming and nested-in-index lvalue paths (a01, h09, hk/k06), R3 call-as-index span, R4 the lvalue $root endcol, R6 the unsized based literal as a whole continuous-assign value (stage 1): evidence cases, no STRICT_NOTEQUAL gate row or probe case carries a cluster of their own",
+  "pair A: the parenthesized member-select index (pass 181 sister of bitSelParenIdxSpan181): evidence cases only",
+  "pair A: r11u185 new 3 (PU/u02 a package pattern member read in a task body): evidence case, wrong-to-wrong",
+  "pair B: pass 180's residues: the two-package interface import order (grid H h17), enums cast to, the included-file typedef file (r11u185 XP/x04), type-parameter groups with a winning typedef (pass 180 R10 a19-a23), the bareScalarTypedefVarTs determinism law (bytes only: Earlgrey_0_1): evidence cases; no gate row maps to them alone",
+  "pair B: pass 181's sister faces S2 (the $root column in the definition view's generate scope, rt/g11) and S3 (digit separators in range bounds and constants outside the literal emitter, us/u03 u08): evidence cases",
+  "pair B: LogicTypespec: measured only (a user decision, a Surelog-defect candidate)"
+ ]
+}

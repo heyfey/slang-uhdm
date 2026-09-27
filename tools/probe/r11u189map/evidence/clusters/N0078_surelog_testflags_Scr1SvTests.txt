@@ -1,0 +1,64 @@
+cluster N0078 (id kept from an earlier map; OPEN | ground B | site emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < emitSyntaxExpr (TypeEmit.cpp, law elabMisevalRefSubst) < emitSyntaxExpr (TypeEmit.cpp, law defGenPathSel161) [r11u179 pin] [r11u179map pin]): fullname|ref_obj|ours-empty@in-typespec|under:operation
+row: surelog/testflags/Scr1SvTests  strict=differ:type(1)  records golden=83997 ours=84026
+object: #63257 (golden) / #63246 (ours)  type=ref_obj name=SCR1_TDU_MTRIG_NUM TAIL
+  golden: work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_mcontrol.SCR1_TDU_MTRIG_NUM
+  ours:   
+  walk parents: operation < range < logic_typespec < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 63251..63263 ('>' = the object)
+  #63251	8	logic_typespec				scr1_pipe_tdu.sv	91	1	91	6						000
+  #63252	6	logic_var	csr_addr_mcontrol		work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_mcontrol	scr1_pipe_tdu.sv	92	49	92	66		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_mcontrol	000
+  #63253	7	ref_typespec			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_mcontrol		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_mcontrol	000
+  #63254	8	logic_typespec				scr1_pipe_tdu.sv	92	1	92	22						000
+  #63255	9	range				scr1_pipe_tdu.sv	92	7	92	22						001
+  #63256	10	operation				scr1_pipe_tdu.sv	92	8	92	19		0				001
+> #63257	11	ref_obj	SCR1_TDU_MTRIG_NUM		<in>SCR1_TDU_MTRIG_NUM	scr1_pipe_tdu.sv	92	8	92	17		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_mcontrol.SCR1_TDU_MTRIG_NUM	001
+  #63258	12	ref_typespec			<in>SCR1_TDU_MTRIG_NUM		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_mcontrol.SCR1_TDU_MTRIG_NUM	001
+  #63259	13	int_typespec				scr1_pipe_tdu.sv	75	12	75	24						001
+  #63260	11	constant				scr1_pipe_tdu.sv	92	18	92	19	1	64	UINT:1	9		001
+  #63261	10	constant				scr1_pipe_tdu.sv	92	20	92	21	0	64	UINT:0	9		001
+  #63262	6	logic_var	csr_addr_tdata2		work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_tdata2	scr1_pipe_tdu.sv	93	49	93	64		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_tdata2	000
+  #63263	7	ref_typespec			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_tdata2		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_tdata2	000
+
+--- OURS (B) records 63240..63252 ('>' = the object)
+  #63240	8	logic_typespec				scr1_pipe_tdu.sv	91	1	91	6						000
+  #63241	6	logic_var	csr_addr_mcontrol		work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_mcontrol	scr1_pipe_tdu.sv	92	49	92	66		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_mcontrol	000
+  #63242	7	ref_typespec			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_mcontrol		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_mcontrol	000
+  #63243	8	logic_typespec				scr1_pipe_tdu.sv	92	1	92	22						000
+  #63244	9	range				scr1_pipe_tdu.sv	92	7	92	22						001
+  #63245	10	operation				scr1_pipe_tdu.sv	92	8	92	19		0				001
+> #63246	11	ref_obj	SCR1_TDU_MTRIG_NUM			scr1_pipe_tdu.sv	92	8	92	17		0				001
+  #63247	12	ref_typespec			<in>SCR1_TDU_MTRIG_NUM		0	0	0	0		0			SCR1_TDU_MTRIG_NUM	001
+  #63248	13	int_typespec				scr1_pipe_tdu.sv	75	12	75	24						001
+  #63249	11	constant				scr1_pipe_tdu.sv	92	18	92	19	1	64	UINT:1	9		001
+  #63250	10	constant				scr1_pipe_tdu.sv	92	20	92	21	0	64	UINT:0	9		001
+  #63251	6	logic_var	csr_addr_tdata2		work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_tdata2	scr1_pipe_tdu.sv	93	49	93	64		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_tdata2	000
+  #63252	7	ref_typespec			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_tdata2		0	0	0	0		0			work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_tdata2	000
+
+facets of this row (111, first 25):
+  N0965 #16033/-1 ref_typespec  G[5 objs] O[]
+  N0791 #48791/-1 ref_obj SCR1_MEM_CMD_RD G[2 objs] O[]
+  N0284 #-1/48786 constant  G[] O[1 objs]
+  N0965 #61857/-1 ref_typespec  G[5 objs] O[]
+  N2405 #63286/-1 ref_obj ALLTRIG_W G[3 objs] O[]
+  N0921 #-1/70139 operation  G[] O[5 objs]
+  N0921 #-1/70148 operation  G[] O[7 objs]
+  N0921 #-1/70159 operation  G[] O[11 objs]
+  N0921 #-1/70174 operation  G[] O[13 objs]
+  N0921 #-1/76039 operation  G[] O[7 objs]
+  N0448 #30855/30850 constant  G[211:13:211:15] O[211:13:211:17]
+  N0040 #31055/31050 logic_typespec  G[29:12:29:39] O[29:12:29:28]
+  N0040 #31069/31064 logic_typespec  G[30:12:30:40] O[30:12:30:28]
+  N0040 #31083/31078 logic_typespec  G[31:12:31:34] O[31:12:31:28]
+  N0040 #31095/31090 logic_typespec  G[32:12:32:34] O[32:12:32:28]
+  N0040 #31125/31120 logic_typespec  G[37:12:37:41] O[37:12:37:28]
+  N0040 #31139/31134 logic_typespec  G[38:12:38:43] O[38:12:38:28]
+  N0040 #31191/31186 logic_typespec  G[45:12:45:39] O[45:12:45:28]
+  N0040 #31205/31200 logic_typespec  G[46:12:46:34] O[46:12:46:28]
+  N0040 #31226/31221 logic_typespec  G[50:12:50:39] O[50:12:50:28]
+  N0040 #31240/31235 logic_typespec  G[51:12:51:40] O[51:12:51:28]
+  N0040 #31254/31249 logic_typespec  G[52:12:52:34] O[52:12:52:28]
+  N0040 #31266/31261 logic_typespec  G[53:12:53:34] O[53:12:53:28]
+  N0040 #31278/31273 logic_typespec  G[54:12:54:34] O[54:12:54:28]
+  N0040 #31317/31312 logic_typespec  G[60:12:60:39] O[60:12:60:28]

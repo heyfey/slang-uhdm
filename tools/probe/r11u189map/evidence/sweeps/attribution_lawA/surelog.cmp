@@ -1,0 +1,14 @@
+[default] CMP_EQUAL=4 STRICT_NOTEQUAL=9
+[testflags] CMP_EQUAL=4 SLANG_REJECT=1 STRICT_NOTEQUAL=7 SURELOG_FAIL=1
+CONVERSION ArrayMethodIterator default STRICT_NOTEQUAL differ:endcol(1) -> CMP_EQUAL
+CONVERSION ArrayMethodIterator testflags STRICT_NOTEQUAL differ:endcol(1) -> CMP_EQUAL
+CHANGE ApbSlave default STRICT_NOTEQUAL differ:depth(1) -> differ:file(4)
+CHANGE ApbSlave testflags STRICT_NOTEQUAL differ:depth(1) -> differ:file(4)
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:fullname(8) -> differ:fullname(30) [fullname +22]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:fullname(8) -> differ:fullname(30) [fullname +22]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(23) -> differ:fullname(57) [fullname +34]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(29) [fullname +22]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(29) [fullname +22]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(23) -> differ:fullname(57) [fullname +34]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(23) -> differ:fullname(57) [fullname +34]
+regressions=0 conversions=2 changes=9 only-fresh=0 only-committed=0

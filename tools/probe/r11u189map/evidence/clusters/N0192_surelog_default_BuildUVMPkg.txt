@@ -1,0 +1,64 @@
+cluster N0192 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law elabMisevalArgNoFold) [r11u165map pin]): fullname|ref_obj|tok:id.id::->|under:operation
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(23)  records golden=201533 ours=201486
+object: #27580 (golden) / #27575 (ours)  type=ref_obj name=sequences_executed OUT
+  golden: uvm_pkg::uvm_sequence_library::execute::factory.create_object_by_type::sequences_executed
+  ours:   uvm_pkg::uvm_sequence_library::execute::sequences_executed
+  walk parents: operation < sys_func_call($sformatf) < method_func_call(create_object_by_type) < hier_path(factory.create_object_by_type)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 27574..27586 ('>' = the object)
+  #27574	7	sys_func_call	$sformatf			uvm_pkg.sv	56935	12	56935	73		0				000
+  #27575	8	constant				uvm_pkg.sv	56935	22	56935	30	"%s:%0d"	48	STRING:%s:%0d	6		000
+  #27576	8	hier_path	wrap.get_type_name			uvm_pkg.sv	56935	31	56935	51		0				000
+  #27577	9	ref_obj	wrap			uvm_pkg.sv	56935	31	56935	35		0				000
+  #27578	9	method_func_call	get_type_name			uvm_pkg.sv	56935	36	56935	49		0				000
+  #27579	8	operation				uvm_pkg.sv	56935	52	56935	72		0				000
+> #27580	9	ref_obj	sequences_executed		uvm_pkg::uvm_sequence_library::execute::factory.create_object_by_type::sequences_executed	uvm_pkg.sv	56935	52	56935	70		0			uvm_pkg::uvm_sequence_library::execute::factory.create_object_by_type::sequences_executed	000
+  #27581	9	constant				uvm_pkg.sv	56935	71	56935	72	1	64	UINT:1	9		000
+  #27582	5	ref_obj	obj		uvm_pkg::uvm_sequence_library::execute::obj	uvm_pkg.sv	56934	3	56934	6		0			uvm_pkg::uvm_sequence_library::execute::obj	000
+  #27583	4	if_stmt				uvm_pkg.sv	56937	3	56950	6						000
+  #27584	5	operation				uvm_pkg.sv	56937	7	56937	28		0				000
+  #27585	6	sys_func_call	$cast			uvm_pkg.sv	56937	8	56937	28		0				000
+  #27586	7	ref_obj	seq_base		uvm_pkg::uvm_sequence_library::execute::seq_base	uvm_pkg.sv	56937	14	56937	22		0			uvm_pkg::uvm_sequence_library::execute::seq_base	000
+
+--- OURS (B) records 27569..27581 ('>' = the object)
+  #27569	7	sys_func_call	$sformatf			uvm_pkg.sv	56935	12	56935	73		0				000
+  #27570	8	constant				uvm_pkg.sv	56935	22	56935	30	"%s:%0d"	48	STRING:%s:%0d	6		000
+  #27571	8	hier_path	wrap.get_type_name			uvm_pkg.sv	56935	31	56935	51		0				000
+  #27572	9	ref_obj	wrap			uvm_pkg.sv	56935	31	56935	35		0				000
+  #27573	9	method_func_call	get_type_name			uvm_pkg.sv	56935	36	56935	49		0				000
+  #27574	8	operation				uvm_pkg.sv	56935	52	56935	72		0				000
+> #27575	9	ref_obj	sequences_executed		uvm_pkg::uvm_sequence_library::execute::sequences_executed	uvm_pkg.sv	56935	52	56935	70		0			uvm_pkg::uvm_sequence_library::execute::sequences_executed	000
+  #27576	9	constant				uvm_pkg.sv	56935	71	56935	72	1	64	UINT:1	9		000
+  #27577	5	ref_obj	obj		uvm_pkg::uvm_sequence_library::execute::obj	uvm_pkg.sv	56934	3	56934	6		0			uvm_pkg::uvm_sequence_library::execute::obj	000
+  #27578	4	if_stmt				uvm_pkg.sv	56937	3	56950	6						000
+  #27579	5	operation				uvm_pkg.sv	56937	7	56937	28		0				000
+  #27580	6	sys_func_call	$cast			uvm_pkg.sv	56937	8	56937	28		0				000
+  #27581	7	ref_obj	seq_base		uvm_pkg::uvm_sequence_library::execute::seq_base	uvm_pkg.sv	56937	14	56937	22		0			uvm_pkg::uvm_sequence_library::execute::seq_base	000
+
+facets of this row (1311, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0423 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0423 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0423 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0423 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0423 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0423 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0423 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

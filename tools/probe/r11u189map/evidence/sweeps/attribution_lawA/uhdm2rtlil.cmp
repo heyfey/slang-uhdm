@@ -1,0 +1,5 @@
+[default] CMP_EQUAL=4 STRICT_NOTEQUAL=5
+[testflags] CMP_EQUAL=4 STRICT_NOTEQUAL=5
+CHANGE jeras_union default STRICT_NOTEQUAL differ:fullname(75) -> differ:fullname(15) [fullname -60]
+CHANGE jeras_union testflags STRICT_NOTEQUAL differ:fullname(75) -> differ:fullname(15) [fullname -60]
+regressions=0 conversions=0 changes=2 only-fresh=0 only-committed=0

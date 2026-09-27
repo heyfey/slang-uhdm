@@ -1,0 +1,22 @@
+[probe] EQUAL=2902 STRICT_NOTEQUAL=1185
+CONVERSION r10uvm153repro/g153_a_mech STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10uvm57repro/b2_shape STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10uvm57repro/v1_prodcell STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10uvm80repro/c2_autokinds STRICT_NOTEQUAL differ:endcol(4) -> EQUAL
+CONVERSION r10uvm80repro/v5_edges80 STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CONVERSION r10uvm88repro/g88_a2_bound STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v152repro/v152_e_pos STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CHANGE r10uvm151repro/g151_a_body STRICT_NOTEQUAL differ:file(4) -> differ:file(1) [file -3]
+CHANGE r10uvm151repro/g151_e_ctx STRICT_NOTEQUAL differ:file(8) -> differ:file(3) [file -5]
+CHANGE r10uvm193repro/g193_c_argface STRICT_NOTEQUAL differ:fullname(3) -> differ:fullname(102) [fullname +99]
+CHANGE r10uvm21repro/t32d_t STRICT_NOTEQUAL differ:fullname(3) -> differ:type(1)
+CHANGE r10uvm37repro/t51a STRICT_NOTEQUAL differ:fullname(4) -> differ:fullname(2) [fullname -2]
+CHANGE r10v151repro/v151_5_ctx STRICT_NOTEQUAL differ:file(4) -> differ:file(2) [file -2]
+CHANGE r10v181repro/v181_e_idxbase STRICT_NOTEQUAL differ:fullname(5) -> differ:fullname(3) [fullname -2]
+CHANGE r10v181repro/v181_f_mixed STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(5) [fullname -2]
+CHANGE r10v181repro/v181_h_nofe STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(11)
+CHANGE r10v208repro/v208_f_io STRICT_NOTEQUAL differ:fullname(3) -> differ:name(15)
+CHANGE r11u111repro/grid/f1/a10_q_chain STRICT_NOTEQUAL differ:fullname(25) -> differ:fullname(5) [fullname -20]
+CHANGE v11u110repro/brk/v6/s01_single_chain2_ctl STRICT_NOTEQUAL differ:fullname(11) -> differ:fullname(7) [fullname -4]
+CHANGE v11u111repro/brk/f6/x65_chain_td_dims STRICT_NOTEQUAL differ:fullname(15) -> differ:fullname(3) [fullname -12]
+regressions=0 conversions=7 changes=13 only-fresh=0 only-committed=0

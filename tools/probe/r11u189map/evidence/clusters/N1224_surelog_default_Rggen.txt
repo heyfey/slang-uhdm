@@ -1,0 +1,64 @@
+cluster N1224 (id kept from an earlier map; COVERED r11u183 (law patches, MEASURED: gone under the patch binary) | ground B | site emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (ModuleEmit.cpp, law genConnReplCastActual) < operator() (ModuleEmit.cpp, law defGenElemIpsVarSel112) [r11u138map pin] [r11u142map pin]): span|ref_obj|endline+endcol|under:hier_path
+row: surelog/default/Rggen  strict=differ:endcol(634)  records golden=314498 ours=312249
+object: #3201 (golden) / #3201 (ours)  type=ref_obj name=bit_field_sub_if 
+  golden: 4:28:4:37
+  ours:   4:28:186:3
+  walk parents: hier_path(bit_field_sub_if.read_mask) < cont_assign < named_begin(g_bit_field_0) < gen_if
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 3195..3207 ('>' = the object)
+  #3195	9	hier_path	bit_field_if.read_mask[0+:4]			block_0.sv	4	52	4	80		0				000
+  #3196	10	ref_obj	bit_field_if			block_0.sv	4	52	4	64		0				000
+  #3197	10	indexed_part_select	read_mask		bit_field_if.read_mask[0+:4]	block_0.sv	4	65	4	79		0			bit_field_if.read_mask[0+:4]	000
+  #3198	11	constant				block_0.sv	4	75	4	76	0	64	UINT:0	9		000
+  #3199	11	constant				block_0.sv	4	78	4	79	4	64	UINT:4	9		000
+  #3200	9	hier_path	bit_field_sub_if.read_mask			block_0.sv	4	11	4	37		0				000
+> #3201	10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0				000
+  #3202	10	ref_obj	read_mask			block_0.sv	4	28	4	37		0				000
+  #3203	8	cont_assign				block_0.sv	5	11	5	81						000
+  #3204	9	hier_path	bit_field_if.write_mask[0+:4]			block_0.sv	5	52	5	81		0				000
+  #3205	10	ref_obj	bit_field_if			block_0.sv	5	52	5	64		0				000
+  #3206	10	indexed_part_select	write_mask		bit_field_if.write_mask[0+:4]	block_0.sv	5	65	5	80		0			bit_field_if.write_mask[0+:4]	000
+  #3207	11	constant				block_0.sv	5	76	5	77	0	64	UINT:0	9		000
+
+--- OURS (B) records 3195..3207 ('>' = the object)
+  #3195	9	hier_path	bit_field_if.read_mask[0+:4]			block_0.sv	4	52	4	80		0				000
+  #3196	10	ref_obj	bit_field_if			block_0.sv	4	52	4	64		0				000
+  #3197	10	indexed_part_select	read_mask		bit_field_if.read_mask[0+:4]	block_0.sv	4	65	4	79		0			bit_field_if.read_mask[0+:4]	000
+  #3198	11	constant				block_0.sv	4	75	4	76	0	64	UINT:0	9		000
+  #3199	11	constant				block_0.sv	4	78	4	79	4	64	UINT:4	9		000
+  #3200	9	hier_path	bit_field_sub_if.read_mask			block_0.sv	4	11	4	37		0				000
+> #3201	10	ref_obj	bit_field_sub_if			block_0.sv	4	28	186	3		0				000
+  #3202	10	ref_obj	read_mask			block_0.sv	4	28	186	3		0				000
+  #3203	8	cont_assign				block_0.sv	5	11	5	81						000
+  #3204	9	hier_path	bit_field_if.write_mask[0+:4]			block_0.sv	5	52	5	81		0				000
+  #3205	10	ref_obj	bit_field_if			block_0.sv	5	52	5	64		0				000
+  #3206	10	indexed_part_select	write_mask		bit_field_if.write_mask[0+:4]	block_0.sv	5	65	5	80		0			bit_field_if.write_mask[0+:4]	000
+  #3207	11	constant				block_0.sv	5	76	5	77	0	64	UINT:0	9		000
+
+facets of this row (8734, first 25):
+  N0683 #23168/23166 constant  G[14 operation < range] O[13 range < logic_typespec]
+  N1172 #23166/-1 operation  G[2 objs] O[]
+  N0683 #26509/26505 constant  G[16 operation < range] O[15 range < logic_typespec]
+  N1172 #26507/-1 operation  G[2 objs] O[]
+  N0683 #28776/28770 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28774/-1 operation  G[2 objs] O[]
+  N0683 #28785/28777 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28783/-1 operation  G[2 objs] O[]
+  N0683 #28794/28784 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28792/-1 operation  G[2 objs] O[]
+  N0683 #29654/29642 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29652/-1 operation  G[2 objs] O[]
+  N0683 #29663/29649 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29661/-1 operation  G[2 objs] O[]
+  N0683 #29672/29656 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29670/-1 operation  G[2 objs] O[]
+  N0683 #30427/30409 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30425/-1 operation  G[2 objs] O[]
+  N0683 #30436/30416 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30434/-1 operation  G[2 objs] O[]
+  N0683 #30445/30423 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30443/-1 operation  G[2 objs] O[]
+  N0683 #31206/31182 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #31204/-1 operation  G[2 objs] O[]
+  N0683 #31215/31189 constant  G[17 operation < range] O[16 range < logic_typespec]

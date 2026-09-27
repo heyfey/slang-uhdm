@@ -1,0 +1,64 @@
+cluster N0981 (id kept from an earlier map; OPEN | ground B | site makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < sharedTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitInstance (ModuleEmit.cpp, law utdVarKwDecline106v) [r11u138map pin] [r11u142map pin]): span|logic_typespec|endline|under:ref_typespec
+row: surelog/testflags/Earlgrey_0_1  strict=differ:col(102)  records golden=1342584 ours=1342870
+object: #1100013 (golden) / #1100146 (ours)  type=logic_typespec name= 
+  golden: 32:16:32:30
+  ours:   32:16:33:30
+  walk parents: ref_typespec < logic_net(phase_cyc_i) < module_inst(i_esc_timer) < gen_scope
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1100007..1100019 ('>' = the object)
+  #1100007	10	constant				alert_handler_esc_timer.sv	30	29	30	30	0	64	UINT:0	9		001
+  #1100008	9	range				alert_handler_esc_timer.sv	31	16	31	30						001
+  #1100009	10	constant				alert_handler_esc_timer.sv	31	17	31	25	1	64	INT:1	7		001
+  #1100010	10	constant				alert_handler_esc_timer.sv	31	28	31	29	0	64	UINT:0	9		001
+  #1100011	6	logic_net	phase_cyc_i		work@top_earlgrey.u_alert_handler.gen_classes[0].i_esc_timer.phase_cyc_i	alert_handler_esc_timer.sv	33	32	33	43		0			work@top_earlgrey.u_alert_handler.gen_classes[0].i_esc_timer.phase_cyc_i	000
+  #1100012	7	ref_typespec			work@top_earlgrey.u_alert_handler.gen_classes[0].i_esc_timer.phase_cyc_i		0	0	0	0		0			work@top_earlgrey.u_alert_handler.gen_classes[0].i_esc_timer.phase_cyc_i	000
+> #1100013	8	logic_typespec				alert_handler_esc_timer.sv	32	16	32	30						000
+  #1100014	9	range				alert_handler_esc_timer.sv	32	16	32	30						001
+  #1100015	10	constant				alert_handler_esc_timer.sv	32	17	32	25	3	64	INT:3	7		001
+  #1100016	10	constant				alert_handler_esc_timer.sv	32	28	32	29	0	64	UINT:0	9		001
+  #1100017	9	range				alert_handler_esc_timer.sv	33	16	33	30						001
+  #1100018	10	constant				alert_handler_esc_timer.sv	33	17	33	25	31	64	INT:31	7		001
+  #1100019	10	constant				alert_handler_esc_timer.sv	33	28	33	29	0	64	UINT:0	9		001
+
+--- OURS (B) records 1100140..1100152 ('>' = the object)
+  #1100140	10	constant				alert_handler_esc_timer.sv	30	29	30	30	0	64	UINT:0	9		001
+  #1100141	9	range				alert_handler_esc_timer.sv	31	16	31	30						001
+  #1100142	10	constant				alert_handler_esc_timer.sv	31	17	31	25	1	64	INT:1	7		001
+  #1100143	10	constant				alert_handler_esc_timer.sv	31	28	31	29	0	64	UINT:0	9		001
+  #1100144	6	logic_net	phase_cyc_i		work@top_earlgrey.u_alert_handler.gen_classes[0].i_esc_timer.phase_cyc_i	alert_handler_esc_timer.sv	33	32	33	43		0			work@top_earlgrey.u_alert_handler.gen_classes[0].i_esc_timer.phase_cyc_i	000
+  #1100145	7	ref_typespec			work@top_earlgrey.u_alert_handler.gen_classes[0].i_esc_timer.phase_cyc_i		0	0	0	0		0			work@top_earlgrey.u_alert_handler.gen_classes[0].i_esc_timer.phase_cyc_i	000
+> #1100146	8	logic_typespec				alert_handler_esc_timer.sv	32	16	33	30						000
+  #1100147	9	range				alert_handler_esc_timer.sv	32	16	32	30						001
+  #1100148	10	constant				alert_handler_esc_timer.sv	32	17	32	25	3	64	INT:3	7		001
+  #1100149	10	constant				alert_handler_esc_timer.sv	32	28	32	29	0	64	UINT:0	9		001
+  #1100150	9	range				alert_handler_esc_timer.sv	33	16	33	30						001
+  #1100151	10	constant				alert_handler_esc_timer.sv	33	17	33	25	31	64	INT:31	7		001
+  #1100152	10	constant				alert_handler_esc_timer.sv	33	28	33	29	0	64	UINT:0	9		001
+
+facets of this row (6146, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

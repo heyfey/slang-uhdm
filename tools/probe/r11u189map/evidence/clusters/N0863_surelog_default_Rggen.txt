@@ -1,0 +1,64 @@
+cluster N0863 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|tok:id.id.id.id->id|under:operation
+row: surelog/default/Rggen  strict=differ:endcol(634)  records golden=314498 ours=312249
+object: #25724 (golden) / #25722 (ours)  type=ref_obj name=INSERT_SLICER OUT
+  golden: work@rggen.u_block_0.u_adapter.u_adapter_common.INSERT_SLICER
+  ours:   work@rggen_adapter_common.INSERT_SLICER
+  walk parents: operation < operation < operation < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 25718..25730 ('>' = the object)
+  #25718	12	constant				rggen_adapter_common.sv	138	20	138	21	1	64	UINT:1	9		001
+  #25719	11	constant				rggen_adapter_common.sv	138	22	138	23	0	64	UINT:0	9		001
+  #25720	5	cont_assign				rggen_adapter_common.sv	161	11	161	97						000
+  #25721	6	operation				rggen_adapter_common.sv	161	31	161	97		0				000
+  #25722	7	operation				rggen_adapter_common.sv	161	32	161	56		0				000
+  #25723	8	operation				rggen_adapter_common.sv	161	33	161	47		0				000
+> #25724	9	ref_obj	INSERT_SLICER		work@rggen.u_block_0.u_adapter.u_adapter_common.INSERT_SLICER	rggen_adapter_common.sv	161	34	161	47		0			work@rggen.u_block_0.u_adapter.u_adapter_common.INSERT_SLICER	000
+  #25725	8	ref_obj	busy		work@rggen.u_block_0.u_adapter.u_adapter_common.busy	rggen_adapter_common.sv	161	52	161	56		0			work@rggen.u_block_0.u_adapter.u_adapter_common.busy	000
+  #25726	7	operation				rggen_adapter_common.sv	161	62	161	96		0				000
+  #25727	8	operation				rggen_adapter_common.sv	161	63	161	74		0				000
+  #25728	9	ref_obj	ready		work@rggen.u_block_0.u_adapter.u_adapter_common.ready	rggen_adapter_common.sv	161	63	161	68		0			work@rggen.u_block_0.u_adapter.u_adapter_common.ready	000
+  #25729	10	logic_net	ready		work@rggen_adapter_common.ready	rggen_adapter_common.sv	132	45	132	50		0			work@rggen_adapter_common.ready	000
+  #25730	11	ref_typespec			work@rggen_adapter_common.ready		0	0	0	0		0			work@rggen_adapter_common.ready	000
+
+--- OURS (B) records 25716..25728 ('>' = the object)
+  #25716	12	constant				rggen_adapter_common.sv	138	20	138	21	1	64	UINT:1	9		001
+  #25717	11	constant				rggen_adapter_common.sv	138	22	138	23	0	64	UINT:0	9		001
+  #25718	5	cont_assign				rggen_adapter_common.sv	161	11	161	97						000
+  #25719	6	operation				rggen_adapter_common.sv	161	31	161	97		0				000
+  #25720	7	operation				rggen_adapter_common.sv	161	32	161	56		0				000
+  #25721	8	operation				rggen_adapter_common.sv	161	33	161	47		0				000
+> #25722	9	ref_obj	INSERT_SLICER		work@rggen_adapter_common.INSERT_SLICER	rggen_adapter_common.sv	161	34	161	47		0			work@rggen_adapter_common.INSERT_SLICER	000
+  #25723	8	ref_obj	busy		work@rggen_adapter_common.busy	rggen_adapter_common.sv	161	52	161	56		0			work@rggen_adapter_common.busy	000
+  #25724	7	operation				rggen_adapter_common.sv	161	62	161	96		0				000
+  #25725	8	operation				rggen_adapter_common.sv	161	63	161	74		0				000
+  #25726	9	ref_obj	ready		work@rggen_adapter_common.ready	rggen_adapter_common.sv	161	63	161	68		0			work@rggen_adapter_common.ready	000
+  #25727	10	logic_net	ready		work@rggen_adapter_common.ready	rggen_adapter_common.sv	132	45	132	50		0			work@rggen_adapter_common.ready	000
+  #25728	11	ref_typespec			work@rggen_adapter_common.ready		0	0	0	0		0			work@rggen_adapter_common.ready	000
+
+facets of this row (8734, first 25):
+  N0683 #23168/23166 constant  G[14 operation < range] O[13 range < logic_typespec]
+  N1172 #23166/-1 operation  G[2 objs] O[]
+  N0683 #26509/26505 constant  G[16 operation < range] O[15 range < logic_typespec]
+  N1172 #26507/-1 operation  G[2 objs] O[]
+  N0683 #28776/28770 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28774/-1 operation  G[2 objs] O[]
+  N0683 #28785/28777 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28783/-1 operation  G[2 objs] O[]
+  N0683 #28794/28784 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28792/-1 operation  G[2 objs] O[]
+  N0683 #29654/29642 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29652/-1 operation  G[2 objs] O[]
+  N0683 #29663/29649 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29661/-1 operation  G[2 objs] O[]
+  N0683 #29672/29656 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29670/-1 operation  G[2 objs] O[]
+  N0683 #30427/30409 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30425/-1 operation  G[2 objs] O[]
+  N0683 #30436/30416 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30434/-1 operation  G[2 objs] O[]
+  N0683 #30445/30423 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30443/-1 operation  G[2 objs] O[]
+  N0683 #31206/31182 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #31204/-1 operation  G[2 objs] O[]
+  N0683 #31215/31189 constant  G[17 operation < range] O[16 range < logic_typespec]

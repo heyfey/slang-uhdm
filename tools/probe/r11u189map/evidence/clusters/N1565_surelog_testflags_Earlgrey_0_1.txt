@@ -1,0 +1,64 @@
+cluster N1565 (id kept from an earlier map; OPEN | ground B | site UHDM library DeepClone < DeepCopy < DeepClone (--elabuhdm, testflags) run from main (uhdm_main.cpp) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|tok:id.id.id.id.id.id[id+:id]->id|under:indexed_part_select
+row: surelog/testflags/Earlgrey_0_1  strict=differ:col(102)  records golden=1342584 ours=1342870
+object: #557280 (golden) / #557177 (ours)  type=ref_obj name=SDW OUT
+  golden: work@top_earlgrey.u_spi_device.reg2hw.rxf_addr.base.q[SDW+:SramAw].SDW
+  ours:   work@spi_device.SDW
+  walk parents: indexed_part_select(q) < hier_path(reg2hw.rxf_addr.base.q[SDW+:SramAw]) < cont_assign < module_inst(u_spi_device)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 557274..557286 ('>' = the object)
+  #557274	3	cont_assign				spi_device.sv	159	10	159	63						000
+  #557275	4	hier_path	reg2hw.rxf_addr.base.q[SDW+:SramAw]			spi_device.sv	159	28	159	63		0				000
+  #557276	5	ref_obj	reg2hw			spi_device.sv	159	28	159	34		0				000
+  #557277	5	ref_obj	rxf_addr			spi_device.sv	159	35	159	43		0				000
+  #557278	5	ref_obj	base			spi_device.sv	159	44	159	48		0				000
+  #557279	5	indexed_part_select	q		reg2hw.rxf_addr.base.q[SDW+:SramAw]	spi_device.sv	159	49	159	62		0			reg2hw.rxf_addr.base.q[SDW+:SramAw]	000
+> #557280	6	ref_obj	SDW		work@top_earlgrey.u_spi_device.reg2hw.rxf_addr.base.q[SDW+:SramAw].SDW	spi_device.sv	159	51	159	54		0			work@top_earlgrey.u_spi_device.reg2hw.rxf_addr.base.q[SDW+:SramAw].SDW	000
+  #557281	6	ref_obj	SramAw		work@top_earlgrey.u_spi_device.reg2hw.rxf_addr.base.q[SDW+:SramAw].SramAw	spi_device.sv	159	56	159	62		0			work@top_earlgrey.u_spi_device.reg2hw.rxf_addr.base.q[SDW+:SramAw].SramAw	000
+  #557282	4	ref_obj	sram_rxf_bindex		work@top_earlgrey.u_spi_device.sram_rxf_bindex	spi_device.sv	159	10	159	25		0			work@top_earlgrey.u_spi_device.sram_rxf_bindex	000
+  #557283	3	cont_assign				spi_device.sv	160	10	160	64						000
+  #557284	4	hier_path	reg2hw.rxf_addr.limit.q[SDW+:SramAw]			spi_device.sv	160	28	160	64		0				000
+  #557285	5	ref_obj	reg2hw			spi_device.sv	160	28	160	34		0				000
+  #557286	5	ref_obj	rxf_addr			spi_device.sv	160	35	160	43		0				000
+
+--- OURS (B) records 557171..557183 ('>' = the object)
+  #557171	3	cont_assign				spi_device.sv	159	10	159	63						000
+  #557172	4	hier_path	reg2hw.rxf_addr.base.q[SDW+:SramAw]			spi_device.sv	159	28	159	63		0				000
+  #557173	5	ref_obj	reg2hw			spi_device.sv	159	28	159	34		0				000
+  #557174	5	ref_obj	rxf_addr			spi_device.sv	159	35	159	43		0				000
+  #557175	5	ref_obj	base			spi_device.sv	159	44	159	48		0				000
+  #557176	5	indexed_part_select	q		reg2hw.rxf_addr.base.q[SDW+:SramAw]	spi_device.sv	159	49	159	62		0			reg2hw.rxf_addr.base.q[SDW+:SramAw]	000
+> #557177	6	ref_obj	SDW		work@spi_device.SDW	spi_device.sv	159	51	159	54		0			work@spi_device.SDW	000
+  #557178	6	ref_obj	SramAw		work@spi_device.SramAw	spi_device.sv	159	56	159	62		0			work@spi_device.SramAw	000
+  #557179	4	ref_obj	sram_rxf_bindex		work@top_earlgrey.u_spi_device.sram_rxf_bindex	spi_device.sv	159	10	159	25		0			work@top_earlgrey.u_spi_device.sram_rxf_bindex	000
+  #557180	3	cont_assign				spi_device.sv	160	10	160	64						000
+  #557181	4	hier_path	reg2hw.rxf_addr.limit.q[SDW+:SramAw]			spi_device.sv	160	28	160	64		0				000
+  #557182	5	ref_obj	reg2hw			spi_device.sv	160	28	160	34		0				000
+  #557183	5	ref_obj	rxf_addr			spi_device.sv	160	35	160	43		0				000
+
+facets of this row (6146, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

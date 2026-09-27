@@ -1,0 +1,64 @@
+cluster N0117 (id kept from an earlier map; OPEN | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law classScopedTdFormalUnsupported34) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) [r11u156map pin (other example): makeTypespec (TypeEmit.cpp, law arrayElemTdClone42) < materializeDefNetTs (ModuleEmit.cpp, law mergedPortDefRangeSymbolic) < emitTopPorts (ModuleEmit.cpp, law t]): span|unsupported_typespec|endcol|under:ref_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(23)  records golden=201533 ours=201486
+object: #197644 (golden) / #197597 (ours)  type=unsupported_typespec name=uvm_resource_types::rsrc_q_t 
+  golden: 16625:35:16625:55
+  ours:   16625:35:16625:63
+  walk parents: ref_typespec < io_decl(rq) < function(m_print_resources) < class_defn(uvm_resource_pool)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 197638..197650 ('>' = the object)
+  #197638	3	function	m_print_resources		uvm_pkg::uvm_resource_pool::m_print_resources	uvm_pkg.sv	16624	3	16676	34					uvm_pkg::uvm_resource_pool::m_print_resources	000
+  #197639	4	io_decl	printer			uvm_pkg.sv	16624	47	16624	54						000
+  #197640	5	ref_typespec			uvm_pkg::uvm_resource_pool::m_print_resources::printer		0	0	0	0		0			uvm_pkg::uvm_resource_pool::m_print_resources::printer	000
+  #197641	6	class_typespec	uvm_printer			uvm_pkg.sv	16624	35	16624	46						110
+  #197642	4	io_decl	rq			uvm_pkg.sv	16625	64	16625	66						000
+  #197643	5	ref_typespec			uvm_pkg::uvm_resource_pool::m_print_resources::rq		0	0	0	0		0			uvm_pkg::uvm_resource_pool::m_print_resources::rq	000
+> #197644	6	unsupported_typespec	uvm_resource_types::rsrc_q_t			uvm_pkg.sv	16625	35	16625	55						110
+  #197645	4	io_decl	audit			uvm_pkg.sv	16626	39	16626	44						000
+  #197646	5	constant				uvm_pkg.sv	16626	47	16626	48	0	64	UINT:0	9		000
+  #197647	5	ref_typespec			uvm_pkg::uvm_resource_pool::m_print_resources::audit		0	0	0	0		0			uvm_pkg::uvm_resource_pool::m_print_resources::audit	000
+  #197648	6	bit_typespec				uvm_pkg.sv	16626	35	16626	38						000
+  #197649	4	begin			uvm_pkg::uvm_resource_pool::m_print_resources	uvm_pkg.sv	16633	5	16672	8					uvm_pkg::uvm_resource_pool::m_print_resources	000
+  #197650	5	method_func_call	push_element			uvm_pkg.sv	16628	13	16628	25		0				000
+
+--- OURS (B) records 197591..197603 ('>' = the object)
+  #197591	3	function	m_print_resources		uvm_pkg::uvm_resource_pool::m_print_resources	uvm_pkg.sv	16624	3	16676	34					uvm_pkg::uvm_resource_pool::m_print_resources	000
+  #197592	4	io_decl	printer			uvm_pkg.sv	16624	47	16624	54						000
+  #197593	5	ref_typespec			uvm_pkg::uvm_resource_pool::m_print_resources::printer		0	0	0	0		0			uvm_pkg::uvm_resource_pool::m_print_resources::printer	000
+  #197594	6	class_typespec	uvm_printer			uvm_pkg.sv	16624	35	16624	46						110
+  #197595	4	io_decl	rq			uvm_pkg.sv	16625	64	16625	66						000
+  #197596	5	ref_typespec			uvm_pkg::uvm_resource_pool::m_print_resources::rq		0	0	0	0		0			uvm_pkg::uvm_resource_pool::m_print_resources::rq	000
+> #197597	6	unsupported_typespec	uvm_resource_types::rsrc_q_t			uvm_pkg.sv	16625	35	16625	63						110
+  #197598	4	io_decl	audit			uvm_pkg.sv	16626	39	16626	44						000
+  #197599	5	constant				uvm_pkg.sv	16626	47	16626	48	0	64	UINT:0	9		000
+  #197600	5	ref_typespec			uvm_pkg::uvm_resource_pool::m_print_resources::audit		0	0	0	0		0			uvm_pkg::uvm_resource_pool::m_print_resources::audit	000
+  #197601	6	bit_typespec				uvm_pkg.sv	16626	35	16626	38						000
+  #197602	4	begin			uvm_pkg::uvm_resource_pool::m_print_resources	uvm_pkg.sv	16633	5	16672	8					uvm_pkg::uvm_resource_pool::m_print_resources	000
+  #197603	5	method_func_call	push_element			uvm_pkg.sv	16628	13	16628	25		0				000
+
+facets of this row (1311, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0423 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0423 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0423 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0423 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0423 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0423 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0423 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

@@ -1,0 +1,51 @@
+cluster N0024 (id kept from an earlier map; OPEN | ground A | site emitInterfaceInstance (ModuleEmit.cpp, law defNetEndOnlyLoc130) < emitInstance (ModuleEmit.cpp, law caNestedModDeclNoRefNoInst99) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab) [r11u156map pin (other example): emitModuleDef (ModuleEmit.cpp, law ifaceDefNetTypespecIsTheModuleRule224) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_] [NOTE (r11u131 R6): the tagged-pattern key's cast typespec (golden struct, ours integer_typespec); not decoded]): struct|golden-only:fewer-copies|struct_typespec|under:ref_typespec
+row: surelog/default/MiniAmiq  strict=differ:fullname(8)  records golden=435559 ours=428712
+object: #121302 (golden) / #-1 (ours)  type=struct_typespec name=uvm_pkg::uvm_reg_map_addr_range 
+  golden: 26 objs
+  ours:   
+  walk parents: ref_typespec < ref_var(range) < ref_var(range) < foreach_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 121296..121308 ('>' = the object)
+  #121296	13	ref_obj	m_mems_by_offset		svaunit_pkg::uvm_reg_map::m_set_reg_offset::m_mems_by_offset		0	0	0	0		0			svaunit_pkg::uvm_reg_map::m_set_reg_offset::m_mems_by_offset	000
+  #121297	12	ref_var	range		svaunit_pkg::uvm_reg_map::m_set_reg_offset::range	uvm_reg_map.svh	825	50	825	55		0			svaunit_pkg::uvm_reg_map::m_set_reg_offset::range	000
+  #121298	13	ref_typespec			svaunit_pkg::uvm_reg_map::m_set_reg_offset::range		0	0	0	0		0			svaunit_pkg::uvm_reg_map::m_set_reg_offset::range	000
+  #121299	14	unsupported_typespec	range			uvm_reg_map.svh	825	50	825	55						110
+  #121300	13	ref_var	range		uvm_pkg::uvm_reg_map::m_set_reg_offset::range	uvm_reg_map.svh	825	50	825	55		0			uvm_pkg::uvm_reg_map::m_set_reg_offset::range	000
+  #121301	14	ref_typespec			uvm_pkg::uvm_reg_map::m_set_reg_offset::range		0	0	0	0		0			uvm_pkg::uvm_reg_map::m_set_reg_offset::range	000
+> #121302	15	struct_typespec	uvm_pkg::uvm_reg_map_addr_range			uvm_reg_model.svh	408	9	412	4						110
+  #121303	16	typespec_member	min			uvm_pkg.sv	409	18	409	21						001
+  #121304	17	ref_typespec			<in>uvm_pkg::uvm_reg_map_addr_range.min		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_reg_map_addr_range.min	001
+  #121305	18	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31						001
+  #121306	19	ref_typespec			<in>uvm_reg_addr_t		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_reg_map_addr_range.min.uvm_reg_addr_t	001
+  #121307	20	bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31						001
+  #121308	21	range				uvm_reg_model.svh	73	23	73	31						001
+
+--- the holder #121301 on the other side: exact-record matches at []
+
+facets of this row (13479, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0678 #-1/63732 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63798 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0197 #65625/-1 string_typespec  G[1 objs] O[]
+  N0408 #-1/65611 unsupported_typespec i G[] O[1 objs]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66858 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66946 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]

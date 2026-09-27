@@ -1,0 +1,51 @@
+cluster N0219 (id kept from an earlier map; OPEN (map 9 gave it to r11u176; passes 176-181 left it) | ground B | site buildStructTs (TypeEmit.cpp, law anonMemberRefChainName134) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u142map pin]): file|struct_typespec|other-file+span|under:ref_typespec
+row: uhdm2rtlil/testflags/ibex_pmp  strict=differ:file(5)  records golden=15947 ours=15931
+object: #2397 (golden) / #2397 (ours)  type=struct_typespec name=ibex_pkg::pmp_cfg_t 
+  golden: ibex_pmp.sv 114:47:114:57
+  ours:   ibex_pkg.sv 433:11:439:4
+  walk parents: ref_typespec < array_typespec < ref_typespec < parameter(PmpCfgRst)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2391..2403 ('>' = the object)
+  #2391	6	operation				ibex_pkg.sv	750	33	750	48		0				001
+  #2392	7	constant				ibex_pkg.sv	750	33	750	48	16	32	UINT:16	9		001
+  #2393	8	ref_typespec			ibex_pkg::PmpCfgRst		0	0	0	0		0			ibex_pkg::PmpCfgRst	001
+  #2394	9	int_typespec				ibex_pkg.sv	405	13	405	25						001
+  #2395	7	constant					0	0	0	0		64	INT:1	7		001
+  #2396	5	ref_typespec			<in>		0	0	0	0		0			ibex_pkg::PmpCfgRst	001
+> #2397	6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57						001
+  #2398	7	typespec_member	lock			ibex_pkg.sv	434	20	434	24						001
+  #2399	8	ref_typespec			<in>ibex_pkg::pmp_cfg_t.lock		0	0	0	0		0			work@ibex_pmp.ibex_pkg::pmp_cfg_t.lock	001
+  #2400	9	logic_typespec				ibex_pkg.sv	434	5	434	10						001
+  #2401	7	typespec_member	mode			ibex_pkg.sv	435	20	435	24						001
+  #2402	8	ref_typespec			<in>ibex_pkg::pmp_cfg_t.mode		0	0	0	0		0			work@ibex_pmp.ibex_pkg::pmp_cfg_t.mode	001
+  #2403	9	enum_typespec	ibex_pkg::pmp_cfg_mode_e			ibex_pkg.sv	426	3	431	20						001
+
+--- OURS (B) records 2391..2403 ('>' = the object)
+  #2391	6	operation				ibex_pkg.sv	750	33	750	48		0				001
+  #2392	7	constant				ibex_pkg.sv	750	33	750	48	16	32	UINT:16	9		001
+  #2393	8	ref_typespec			ibex_pkg::PmpCfgRst		0	0	0	0		0			ibex_pkg::PmpCfgRst	001
+  #2394	9	int_typespec				ibex_pkg.sv	405	13	405	25						001
+  #2395	7	constant					0	0	0	0		64	INT:1	7		001
+  #2396	5	ref_typespec			<in>		0	0	0	0		0			ibex_pkg::PmpCfgRst	001
+> #2397	6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4						001
+  #2398	7	typespec_member	lock			ibex_pkg.sv	434	20	434	24						001
+  #2399	8	ref_typespec			<in>ibex_pkg::pmp_cfg_t.lock		0	0	0	0		0			ibex_pkg::ibex_pkg::pmp_cfg_t::lock	001
+  #2400	9	logic_typespec				ibex_pkg.sv	434	5	434	10						001
+  #2401	7	typespec_member	mode			ibex_pkg.sv	435	20	435	24						001
+  #2402	8	ref_typespec			<in>ibex_pkg::pmp_cfg_t.mode		0	0	0	0		0			ibex_pkg::ibex_pkg::pmp_cfg_t::mode	001
+  #2403	9	enum_typespec	ibex_pkg::pmp_cfg_mode_e			ibex_pkg.sv	426	3	431	20						001
+
+facets of this row (12, first 25):
+  N0943 #13882/-1 ref_typespec  G[2 objs] O[]
+  N0943 #14156/-1 ref_typespec  G[2 objs] O[]
+  N0943 #14430/-1 ref_typespec  G[2 objs] O[]
+  N0943 #14704/-1 ref_typespec  G[2 objs] O[]
+  N0943 #15086/-1 ref_typespec  G[2 objs] O[]
+  N0943 #15360/-1 ref_typespec  G[2 objs] O[]
+  N0943 #15634/-1 ref_typespec  G[2 objs] O[]
+  N0943 #15908/-1 ref_typespec  G[2 objs] O[]
+  N0219 #2397/2397 struct_typespec ibex_pkg::pmp_cfg_t G[ibex_pmp.sv 114:47:114:57] O[ibex_pkg.sv 433:11:439:4]
+  N0219 #4285/4285 struct_typespec ibex_pkg::pmp_cfg_t G[ibex_pkg.sv 433:11:439:4] O[ibex_pmp.sv 114:47:114:57]
+  N0219 #5565/5565 struct_typespec ibex_pkg::pmp_cfg_t G[ibex_pkg.sv 433:11:439:4] O[ibex_pmp.sv 114:47:114:57]
+  N0219 #7670/7670 struct_typespec ibex_pkg::pmp_cfg_t G[ibex_pkg.sv 433:11:439:4] O[ibex_pmp.sv 114:47:114:57]

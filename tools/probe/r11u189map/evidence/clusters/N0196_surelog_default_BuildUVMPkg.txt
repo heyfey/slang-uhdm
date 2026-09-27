@@ -1,0 +1,64 @@
+cluster N0196 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law cloneBuiltinMethodArgBindsReceiver184) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164) [r11u142map pin]): fullname|ref_obj|tok:id.id::->|under:hier_path
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(23)  records golden=201533 ours=201486
+object: #22556 (golden) / #22563 (ours)  type=ref_obj name=verbosity OUT
+  golden: uvm_pkg::uvm_component::m_set_cl_verb::clp.m_convert_verb::verbosity
+  ours:   uvm_pkg::uvm_component::m_set_cl_verb::verbosity
+  walk parents: hier_path(setting.verbosity) < method_func_call(m_convert_verb) < hier_path(clp.m_convert_verb) < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 22550..22562 ('>' = the object)
+  #22550	12	ref_obj	clp			uvm_pkg.sv	41186	57	41186	60		0				000
+  #22551	12	method_func_call	m_convert_verb			uvm_pkg.sv	41186	61	41186	75		0				000
+  #22552	13	bit_select	args		uvm_pkg::uvm_component::m_set_cl_verb::clp.m_convert_verb::args	uvm_pkg.sv	41186	81	41186	82		0			uvm_pkg::uvm_component::m_set_cl_verb::clp.m_convert_verb::args	000
+  #22553	14	constant				uvm_pkg.sv	41186	81	41186	82	2	64	UINT:2	9		000
+  #22554	13	hier_path	setting.verbosity			uvm_pkg.sv	41186	85	41186	102		0				000
+  #22555	14	ref_obj	setting			uvm_pkg.sv	41186	85	41186	92		0				000
+> #22556	14	ref_obj	verbosity		uvm_pkg::uvm_component::m_set_cl_verb::clp.m_convert_verb::verbosity	uvm_pkg.sv	41186	93	41186	102		0			uvm_pkg::uvm_component::m_set_cl_verb::clp.m_convert_verb::verbosity	000
+  #22557	11	constant				uvm_pkg.sv	41186	107	41186	108	1	64	UINT:1	9		000
+  #22558	9	method_func_call	push_back			uvm_pkg.sv	41187	9	41187	18		0				000
+  #22559	10	bit_select	values		uvm_pkg::uvm_component::m_set_cl_verb::values	uvm_pkg.sv	41187	26	41187	27		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+  #22560	11	ref_obj	i		uvm_pkg::uvm_component::m_set_cl_verb::i	uvm_pkg.sv	41187	26	41187	27		0			uvm_pkg::uvm_component::m_set_cl_verb::i	000
+  #22561	10	ref_obj	t		uvm_pkg::uvm_component::m_set_cl_verb::t	uvm_pkg.sv	41187	7	41187	8		0			uvm_pkg::uvm_component::m_set_cl_verb::t	000
+  #22562	9	func_call	uvm_report_warning			uvm_pkg.sv	41189	7	41189	112		0				000
+
+--- OURS (B) records 22557..22569 ('>' = the object)
+  #22557	12	ref_obj	clp			uvm_pkg.sv	41186	57	41186	60		0				000
+  #22558	12	method_func_call	m_convert_verb			uvm_pkg.sv	41186	61	41186	75		0				000
+  #22559	13	bit_select	args		uvm_pkg::uvm_component::m_set_cl_verb::args	uvm_pkg.sv	41186	81	41186	82		0			uvm_pkg::uvm_component::m_set_cl_verb::args	000
+  #22560	14	constant				uvm_pkg.sv	41186	81	41186	82	2	64	UINT:2	9		000
+  #22561	13	hier_path	setting.verbosity			uvm_pkg.sv	41186	85	41186	102		0				000
+  #22562	14	ref_obj	setting			uvm_pkg.sv	41186	85	41186	92		0				000
+> #22563	14	ref_obj	verbosity		uvm_pkg::uvm_component::m_set_cl_verb::verbosity	uvm_pkg.sv	41186	93	41186	102		0			uvm_pkg::uvm_component::m_set_cl_verb::verbosity	000
+  #22564	11	constant				uvm_pkg.sv	41186	107	41186	108	1	64	UINT:1	9		000
+  #22565	9	method_func_call	push_back			uvm_pkg.sv	41187	9	41187	18		0				000
+  #22566	10	bit_select	values		uvm_pkg::uvm_component::m_set_cl_verb::values	uvm_pkg.sv	41187	26	41187	27		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+  #22567	11	ref_obj	i		uvm_pkg::uvm_component::m_set_cl_verb::i	uvm_pkg.sv	41187	26	41187	27		0			uvm_pkg::uvm_component::m_set_cl_verb::i	000
+  #22568	10	ref_obj	t		uvm_pkg::uvm_component::m_set_cl_verb::t	uvm_pkg.sv	41187	7	41187	8		0			uvm_pkg::uvm_component::m_set_cl_verb::t	000
+  #22569	9	func_call	uvm_report_warning			uvm_pkg.sv	41189	7	41189	112		0				000
+
+facets of this row (1311, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0423 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0423 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0423 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0423 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0423 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0423 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0423 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

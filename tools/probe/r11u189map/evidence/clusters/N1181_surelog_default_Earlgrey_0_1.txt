@@ -1,0 +1,64 @@
+cluster N1181 (id kept from an earlier map; OPEN | ground B | site emitContAssigns (ModuleEmit.cpp, law caAsmMemberSliceFold) < emitModuleDef (ModuleEmit.cpp, law shadowedImportParamFold) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) [r11u138map pin] [r11u142map pin]): struct|ours-only:elsewhere|cont_assign|under:module_inst
+row: surelog/default/Earlgrey_0_1  strict=differ:col(102)  records golden=2173209 ours=2173853
+object: #-1 (golden) / #658527 (ours)  type=cont_assign name= 
+  golden: 
+  ours:   1 objs
+  walk parents: module_inst(err_resp) < module_inst(u_socket) < module_inst(u_reg) < module_inst(u_flash_ctrl)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 658521..658533 ('>' = the object)
+  #658521	8	ref_obj	tl_h_o			tlul_err_resp.sv	38	17	38	24		0				000
+  #658522	8	ref_obj	a_ready			tlul_err_resp.sv	38	17	38	24		0				000
+  #658523	6	cont_assign				tlul_err_resp.sv	39	10	39	61						000
+  #658524	7	hier_path	tl_h_o.d_valid			tlul_err_resp.sv	39	10	39	24		0				000
+  #658525	8	ref_obj	tl_h_o			tlul_err_resp.sv	39	17	39	24		0				000
+  #658526	8	ref_obj	d_valid			tlul_err_resp.sv	39	17	39	24		0				000
+> #658527	6	cont_assign				tlul_err_resp.sv	40	10	40	30						000
+  #658528	7	hier_path	tl_h_o.d_data			tlul_err_resp.sv	40	10	40	23		0				000
+  #658529	8	ref_obj	tl_h_o			tlul_err_resp.sv	40	17	40	23		0				000
+  #658530	8	ref_obj	d_data			tlul_err_resp.sv	40	17	40	23		0				000
+  #658531	6	cont_assign				tlul_err_resp.sv	42	10	42	30						000
+  #658532	7	hier_path	tl_h_o.d_sink			tlul_err_resp.sv	42	10	42	23		0				000
+  #658533	8	ref_obj	tl_h_o			tlul_err_resp.sv	42	17	42	23		0				000
+
+--- the holder #658033 on the other side: exact-record matches at [658073]
+  #658070	9	cont_assign				prim_fifo_sync.sv	49	12	49	30						000
+  #658071	10	ref_obj	clr_i		work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.fifo_h.rspfifo.gen_passthru_fifo.clr_i	prim_fifo_sync.sv	49	25	49	30		0			work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.fifo_h.rspfifo.gen_passthru_fifo.clr_i	000
+  #658072	10	ref_obj	unused_clr		work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.fifo_h.rspfifo.gen_passthru_fifo.unused_clr	prim_fifo_sync.sv	49	12	49	22		0			work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.fifo_h.rspfifo.gen_passthru_fifo.unused_clr	000
+> #658073	5	module_inst	err_resp	work@tlul_err_resp	work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.err_resp	tlul_socket_1n.sv	212	3	216	30					work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.err_resp	000
+  #658074	6	struct_var	tl_h_i		work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.err_resp.tl_h_i	tlul_err_resp.sv	12	29	12	35		0			work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.err_resp.tl_h_i	000
+  #658075	7	ref_typespec			work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.err_resp.tl_h_i		0	0	0	0		0			work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.err_resp.tl_h_i	000
+  #658076	8	struct_typespec	tlul_pkg::tl_h2d_t			xbar_peri.sv	32	11	61	31						110
+  #658077	9	typespec_member	a_valid			tlul_pkg.sv	33	35	33	42						001
+  #658078	10	ref_typespec			<in>tlul_pkg::tl_h2d_t.a_valid		0	0	0	0		0			tlul_pkg::tl_h2d_t.a_valid	001
+  #658079	11	logic_typespec				tlul_pkg.sv	33	5	33	10						001
+  #658080	9	typespec_member	a_opcode			tlul_pkg.sv	34	35	34	43						001
+  #658081	10	ref_typespec			<in>tlul_pkg::tl_h2d_t.a_opcode		0	0	0	0		0			tlul_pkg::tl_h2d_t.a_opcode	001
+  #658082	11	enum_typespec	tlul_pkg::tl_a_op_e			tlul_pkg.sv	16	3	20	15						001
+
+facets of this row (6489, first 25):
+  N0142 #130430/-1 range  G[5 objs] O[]
+  N0142 #130519/-1 range  G[5 objs] O[]
+  N0142 #134891/-1 range  G[5 objs] O[]
+  N0142 #134980/-1 range  G[5 objs] O[]
+  N0142 #136112/-1 range  G[5 objs] O[]
+  N0142 #136201/-1 range  G[5 objs] O[]
+  N0142 #137221/-1 range  G[5 objs] O[]
+  N0142 #137310/-1 range  G[5 objs] O[]
+  N1173 #-1/658520 hier_path tl_h_o.a_ready G[] O[3 objs]
+  N1184 #-1/658523 cont_assign  G[] O[4 objs]
+  N1181 #-1/658527 cont_assign  G[] O[1 objs]
+  N1173 #-1/658540 hier_path tl_h_o.d_opcode G[] O[3 objs]
+  N1181 #-1/658543 cont_assign  G[] O[1 objs]
+  N1184 #-1/670225 cont_assign  G[] O[4 objs]
+  N1184 #-1/670229 cont_assign  G[] O[4 objs]
+  N1184 #-1/670233 cont_assign  G[] O[4 objs]
+  N1184 #-1/670237 cont_assign  G[] O[4 objs]
+  N1184 #-1/670241 cont_assign  G[] O[4 objs]
+  N1184 #-1/670245 cont_assign  G[] O[4 objs]
+  N1184 #-1/670249 cont_assign  G[] O[4 objs]
+  N1184 #-1/670253 cont_assign  G[] O[4 objs]
+  N1184 #-1/670257 cont_assign  G[] O[4 objs]
+  N1184 #-1/670261 cont_assign  G[] O[4 objs]
+  N1184 #-1/670265 cont_assign  G[] O[5 objs]
+  N1184 #-1/670270 cont_assign  G[] O[5 objs]

@@ -1,0 +1,109 @@
+== A. conversions per landing since map 9 (committed baselines)
+   r11u182 (312e26e2): 0 row-modes / 0 tests, 0 probe cases, 0 strict-cell changes; left CMP_EQUAL 0
+   pass 178 (80a1c2af): 1 row-modes / 1 tests, 18 probe cases, 13 strict-cell changes; left CMP_EQUAL 0
+       sur/t/LocalScopeHierPath
+   pass 176 (804e3b75): 5 row-modes / 3 tests, 66 probe cases, 18 strict-cell changes; left CMP_EQUAL 0
+       sur/d/OneNetModPort sur/d/OneNetModPortGeneric sur/d/UnsizedParam sur/t/OneNetModPort sur/t/OneNetModPortGeneric
+   pass 181 (1eeff71d): 4 row-modes / 2 tests, 6 probe cases, 11 strict-cell changes; left CMP_EQUAL 0
+       sur/d/CovMacro sur/d/YosysRiscv sur/t/CovMacro sur/t/YosysRiscv
+   r11u183 (459b7cdf): 0 row-modes / 0 tests, 0 probe cases, 0 strict-cell changes; left CMP_EQUAL 0
+   pass 180 (a3a62624): 4 row-modes / 2 tests, 9 probe cases, 9 strict-cell changes; left CMP_EQUAL 0
+       sur/d/PackedArrayHighConn sur/t/PackedArrayHighConn uhd/d/mem_read_reg uhd/t/mem_read_reg
+   r11u185 (2b97649e): 0 row-modes / 0 tests, 0 probe cases, 0 strict-cell changes; left CMP_EQUAL 0
+   total: 14 row-modes, 99 probe cases
+== B. map 9 predicted, on its 5e8d08d9 fail list (98 row-modes)
+   r11u175 (measured) + pairs r11u178 / r11u176 optimistic: 15 row-modes; named-row upper bound adds 4
+   section-9 list A: 2 row-modes
+   section-9 list B: 23 row-modes
+   section-9 list A+B: 53 row-modes
+   predicted by any of them: 68
+   predicted-by x landed-by (row-modes):
+     A+B1                         open         2  uhd/d/anon_struct_packed_dim uhd/t/anon_struct_packed_dim
+     A+B11                        open         2  uhd/d/func_typename_ret uhd/t/func_typename_ret
+     A+B14                        open         2  sur/d/InterfaceModPort sur/t/InterfaceModPort
+     A+B15                        open         4  sur/d/AssertDelayError sur/d/AssertTempError sur/t/AssertDelayError sur/t/AssertTempError
+     A+B16                        open         2  sur/d/UnitElabBlock sur/t/UnitElabBlock
+     A+B17                        open         2  uhd/d/arb_idx_cast uhd/t/arb_idx_cast
+     A+B18                        open         2  uhd/d/rsp_gen_minimal uhd/t/rsp_gen_minimal
+     A+B20                        open         2  uhd/d/OutputSizeWithParameterOfInstanceInitializedByStructMember uhd/t/OutputSizeWithParameterOfInstanceInitializedByStructMember
+     A+B22                        pass 176     2  sur/d/OneNetModPortGeneric sur/t/OneNetModPortGeneric
+     A+B23                        open         2  uhd/d/ibex_tracer uhd/t/ibex_tracer
+     A+B24                        open         2  sur/d/InterfaceStructMemberPort sur/t/InterfaceStructMemberPort
+     A+B8                         open         2  uhd/d/jeras_union uhd/t/jeras_union
+     A+B9                         open         2  sur/d/FuncStructVal sur/t/FuncStructVal
+     B1 A+B2                      open         2  sur/d/PreprocTest sur/t/PreprocTest
+     B11 A+B19                    open         2  sur/d/ApbSlave sur/t/ApbSlave
+     B12 A+B21                    open         2  sur/d/LogicTypespec sur/t/LogicTypespec
+     B2 A+B1                      open         2  sur/d/StructParamPatternInitCast sur/t/StructParamPatternInitCast
+     B3 A+B4                      pass 180     2  sur/d/PackedArrayHighConn sur/t/PackedArrayHighConn
+     B4 A+B5                      open         2  uhd/d/ibex_icache uhd/t/ibex_icache
+     B5 A+B6                      open         2  uhd/d/iface_zero_width_field uhd/t/iface_zero_width_field
+     B6 A+B7                      open         2  sur/d/ArrayMethodIterator sur/t/ArrayMethodIterator
+     B7 A+B12                     pass 180     2  uhd/d/mem_read_reg uhd/t/mem_read_reg
+     B8 A+B13                     open         1  sur/t/HierPathTypespec
+     B9 A+B10                     open         2  uhd/d/const_cast_signext uhd/t/const_cast_signext
+     named A1 A+B3                open         2  sur/d/FuncStructValSimple sur/t/FuncStructValSimple
+     named B10 A+B14              pass 176     2  sur/d/OneNetModPort sur/t/OneNetModPort
+     none                         open        30  sur/d/BlackBePipeInt sur/d/BuildUVMPkg sur/d/ClassTypeParam sur/d/Earlgrey_0_1 sur/d/MiniAmiq sur/d/Rggen sur/d/SVSwitch sur/d/Scoreboard sur/d/Scr1SvTests sur/d/SeqDriver sur/d/SimpleUVM sur/t/BlackBePipeInt sur/t/BuildUVMPkg sur/t/ClassTypeParam sur/t/Earlgrey_0_1 sur/t/MiniAmiq sur/t/SVSwitch sur/t/Scr1SvTests sur/t/SeqDriver sur/t/SimpleUVM uhd/d/ParameterFromPkgInNestedModule uhd/d/ParameterFromPkgOnParameterPortList uhd/d/cfg_func_width_loop uhd/d/int_types uhd/d/struct_param_func_config uhd/t/ParameterFromPkgInNestedModule uhd/t/ParameterFromPkgOnParameterPortList uhd/t/cfg_func_width_loop uhd/t/int_types uhd/t/struct_param_func_config
+     r11u175+pairs                open         9  sur/d/InterfArrayBind uhd/d/TypeParameterAsPortTypeWithEnum uhd/d/TypeParameterAsPortTypeWithEnumOfParametrizedWidth uhd/d/ibex_multdiv_fast uhd/d/ibex_pmp uhd/t/TypeParameterAsPortTypeWithEnum uhd/t/TypeParameterAsPortTypeWithEnumOfParametrizedWidth uhd/t/ibex_multdiv_fast uhd/t/ibex_pmp
+     r11u175+pairs                pass 176     1  sur/d/UnsizedParam
+     r11u175+pairs                pass 178     1  sur/t/LocalScopeHierPath
+     r11u175+pairs                pass 181     4  sur/d/CovMacro sur/d/YosysRiscv sur/t/CovMacro sur/t/YosysRiscv
+   tally: {('predicted', 'open'): 54, ('not predicted', 'open'): 30, ('predicted', 'converted'): 14}
+   list A: 2 predicted, 0 converted: sur/d/FuncStructValSimple sur/t/FuncStructValSimple (still open)
+   list B: 23 predicted, 6 converted: sur/d/ApbSlave sur/d/ArrayMethodIterator sur/d/LogicTypespec sur/d/PreprocTest sur/d/StructParamPatternInitCast sur/t/ApbSlave sur/t/ArrayMethodIterator sur/t/HierPathTypespec sur/t/LogicTypespec sur/t/PreprocTest sur/t/StructParamPatternInitCast uhd/d/const_cast_signext uhd/d/ibex_icache uhd/d/iface_zero_width_field uhd/t/const_cast_signext uhd/t/ibex_icache uhd/t/iface_zero_width_field (still open)
+   list A+B: 53 predicted, 8 converted: sur/d/ApbSlave sur/d/ArrayMethodIterator sur/d/AssertDelayError sur/d/AssertTempError sur/d/FuncStructVal sur/d/FuncStructValSimple sur/d/InterfaceModPort sur/d/InterfaceStructMemberPort sur/d/LogicTypespec sur/d/PreprocTest sur/d/StructParamPatternInitCast sur/d/UnitElabBlock sur/t/ApbSlave sur/t/ArrayMethodIterator sur/t/AssertDelayError sur/t/AssertTempError sur/t/FuncStructVal sur/t/FuncStructValSimple sur/t/HierPathTypespec sur/t/InterfaceModPort sur/t/InterfaceStructMemberPort sur/t/LogicTypespec sur/t/PreprocTest sur/t/StructParamPatternInitCast sur/t/UnitElabBlock uhd/d/OutputSizeWithParameterOfInstanceInitializedByStructMember uhd/d/anon_struct_packed_dim uhd/d/arb_idx_cast uhd/d/const_cast_signext uhd/d/func_typename_ret uhd/d/ibex_icache uhd/d/ibex_tracer uhd/d/iface_zero_width_field uhd/d/jeras_union uhd/d/rsp_gen_minimal uhd/t/OutputSizeWithParameterOfInstanceInitializedByStructMember uhd/t/anon_struct_packed_dim uhd/t/arb_idx_cast uhd/t/const_cast_signext uhd/t/func_typename_ret uhd/t/ibex_icache uhd/t/ibex_tracer uhd/t/iface_zero_width_field uhd/t/jeras_union uhd/t/rsp_gen_minimal (still open)
+   r11u175+pairs: 15 predicted, 6 converted; open: sur/d/InterfArrayBind uhd/d/TypeParameterAsPortTypeWithEnum uhd/d/TypeParameterAsPortTypeWithEnumOfParametrizedWidth uhd/d/ibex_multdiv_fast uhd/d/ibex_pmp uhd/t/TypeParameterAsPortTypeWithEnum uhd/t/TypeParameterAsPortTypeWithEnumOfParametrizedWidth uhd/t/ibex_multdiv_fast uhd/t/ibex_pmp
+== C. per converted row: predicted by, map 9 first open cluster after its pairs and its pin, the landing law files
+   pass 176  sur/d/OneNetModPort                      named row                                    first=N0418 pin=ModuleEmit     laws=progTypedPortLowConnUnlocated176 progLowConnDefModport176 (ModuleEmit) -> pin right (mint)
+   pass 176  sur/d/OneNetModPortGeneric               list-A+B step 22 (N0088 + N0750 + N0819 + N1000) first=N0088 pin=ModuleEmit     laws=genericMpConnLowConnAtDecl176 progLowConnDefModport176 genericPlainNamedView176 (ModuleEmit+UhdmExporter) -> pin right (mint)
+   pass 176  sur/d/UnsizedParam                       r11u175+pairs                                first=N0457 pin=ExprEmit       laws=castRhsClonePerInst176 (ModuleEmit+UhdmExporter) -> pin right (a caller)
+   pass 176  sur/t/OneNetModPort                      named row                                    first=N0418 pin=ModuleEmit     laws=progTypedPortLowConnUnlocated176 progLowConnDefModport176 (ModuleEmit) -> pin right (mint)
+   pass 176  sur/t/OneNetModPortGeneric               list-A+B step 22 (N0088 + N0750 + N0819 + N1000) first=N0088 pin=ModuleEmit     laws=genericMpConnLowConnAtDecl176 progLowConnDefModport176 genericPlainNamedView176 (ModuleEmit+UhdmExporter) -> pin right (mint)
+   pass 178  sur/t/LocalScopeHierPath                 r11u175+pairs                                first=N0278 pin=ExprEmit       laws=hierPathSelIdxAtPath178 (ExprEmit+ParamEmit) -> pin right (mint)
+   pass 180  sur/d/PackedArrayHighConn                list-A+B step 4 (N0163)                      first=N0163 pin=TypeEmit       laws=enumImportParentLastWriter180 (ModuleEmit+UhdmExporter) -> pin right (a caller)
+   pass 180  sur/t/PackedArrayHighConn                list-A+B step 4 (N0163)                      first=N0163 pin=TypeEmit       laws=enumImportParentLastWriter180 (ModuleEmit+UhdmExporter) -> pin right (a caller)
+   pass 180  uhd/d/mem_read_reg                       list-A+B step 12 (N0804 + N0805)             first=N0805 pin=TypeEmit       laws=ifaceWildcardTdNameOrder180 (ModuleEmit) -> pin misses
+   pass 180  uhd/t/mem_read_reg                       list-A+B step 12 (N0804 + N0805)             first=N0805 pin=TypeEmit       laws=ifaceWildcardTdNameOrder180 (ModuleEmit) -> pin misses
+   pass 181  sur/d/CovMacro                           r11u175+pairs                                first=N0977 pin=ExprEmit       laws=rootPathFullNameByChain181 (ExprEmit+ParamEmit) -> pin right (mint)
+   pass 181  sur/d/YosysRiscv                         r11u175+pairs                                first=N0036 pin=ExprEmit       laws=bitSelParenIdxSpan181 (ExprEmit) -> pin right (mint)
+   pass 181  sur/t/CovMacro                           r11u175+pairs                                first=N0977 pin=ExprEmit       laws=rootPathFullNameByChain181 (ExprEmit+ParamEmit) -> pin right (mint)
+   pass 181  sur/t/YosysRiscv                         r11u175+pairs                                first=N0036 pin=ExprEmit       laws=bitSelParenIdxSpan181 (ExprEmit) -> pin right (mint)
+   tally (landing, predicted): {('pass 176', 'predicted'): 5, ('pass 178', 'predicted'): 1, ('pass 180', 'predicted'): 4, ('pass 181', 'predicted'): 4}
+   site verdicts: {'pin right (mint)': 9, 'pin right (a caller)': 3, 'pin misses': 2}
+   site verdicts by landing: {('pass 176', 'pin right (mint)'): 4, ('pass 176', 'pin right (a caller)'): 1, ('pass 178', 'pin right (mint)'): 1, ('pass 180', 'pin right (a caller)'): 2, ('pass 180', 'pin misses'): 2, ('pass 181', 'pin right (mint)'): 4}
+== D. map 9 covered (r11u175 measured + pairs r11u178 / r11u176 optimistic): 145 clusters: {'fell': 7, 'unchanged': 30, 'rows cleared': 2, 'gone': 105, 'grew': 1}
+     fell: N0003 8->4 N0075 9->2 N0121 9->7 N0144 9->7 N0278 8->4 N0325 6->4 N0775 2->1
+     unchanged: N0012 13->13 N0034 13->13 N0086 4->4 N0087 4->4 N0097 11->11 N0134 4->4 N0151 7->7 N0175 9->9 N0182 5->5 N0219 9->9 N0262 7->7 N0281 2->2 N0407 2->2 N0408 6->6 N0415 4->4 N0427 3->3 N0474 4->4 N0490 4->4 N0491 4->4 N0536 4->4 N0545 4->4 N0546 4->4 N0549 4->4 N0638 4->4 N0942 2->2 N0943 2->2 N0965 2->2 N0980 2->2 N1096 2->2 N1946 1->1
+     rows cleared: N0036 11->0 N0136 1->0
+     gone: N0052 0->0 N0065 0->0 N0066 0->0 N0080 13->0 N0082 0->0 N0093 0->0 N0095 0->0 N0104 0->0 N0105 0->0 N0106 0->0 N0107 0->0 N0111 0->0 N0154 0->0 N0156 0->0 N0157 0->0 N0165 0->0 N0166 0->0 N0174 0->0 N0195 0->0 N0202 0->0 N0205 0->0 N0206 0->0 N0208 0->0 N0214 0->0 N0216 0->0 N0218 0->0 N0221 0->0 N0223 0->0 N0226 0->0 N0231 0->0 N0233 0->0 N0239 9->0 N0240 0->0 N0242 0->0 N0244 0->0 N0250 0->0 N0257 0->0 N0258 0->0 N0259 0->0 N0260 0->0 N0355 0->0 N0403 0->0 N0429 0->0 N0434 6->0 N0437 0->0 N0457 2->0 N0489 0->0 N0493 0->0 N0497 0->0 N0500 0->0 N0502 0->0 N0506 0->0 N0508 0->0 N0522 0->0 N0524 0->0 N0542 0->0 N0548 0->0 N0566 0->0 N0567 0->0 N0572 0->0 N0577 0->0 N0591 0->0 N0592 0->0 N0594 0->0 N0595 0->0 N0602 0->0 N0609 0->0 N0611 0->0 N0613 0->0 N0616 0->0 N0625 0->0 N0626 0->0 N0631 0->0 N0633 0->0 N0636 0->0 N0639 0->0 N0649 0->0 N0651 0->0 N0656 0->0 N0657 0->0 ...
+     grew: N1163 0->4
+== D. map 9 section-9 lists: 65 clusters: {'unchanged': 51, 'fell': 4, 'rows cleared': 1, 'gone': 9}
+     unchanged: N0001(A+B20) 14->14 N0011(A+B16) 5->5 N0014(B2) 6->6 N0016(A+B16) 2->2 N0022(A+B18) 2->2 N0023(A+B18) 2->2 N0031(A+B8) 15->15 N0040(A+B14) 9->9 N0056(B1) 11->11 N0067(B11) 13->13 N0068(B11) 13->13 N0083(B12) 6->6 N0085(A+B11) 4->4 N0090(A+B16) 8->8 N0129(B4) 4->4 N0131(A1) 10->10 N0133(B9) 4->4 N0162(B11) 9->9 N0191(A+B20) 2->2 N0289(B11) 7->7 N0299(A+B15) 6->6 N0416(A+B18) 6->6 N0422(B12) 2->2 N0431(A+B15) 6->6 N0443(A+B17) 5->5 N0448(A+B17) 5->5 N0484(B12) 4->4 N0487(B9) 4->4 N0519(A+B24) 4->4 N0563(A+B23) 4->4 N0627(A+B15) 4->4 N0628(A+B15) 4->4 N0684(A+B17) 3->3 N0688(B5) 2->2 N0738(A+B11) 2->2 N0763(A+B23) 2->2 N0820(A+B1) 2->2 N0853(A+B20) 2->2 N0891(A+B9) 2->2 N0938(A+B8) 2->2 N0957(A+B23) 2->2 N0971(A+B23) 2->2 N0979(A+B23) 2->2 N1047(A+B15) 2->2 N1117(A+B24) 2->2 N1126(A+B24) 2->2 N1127(A+B20) 2->2 N1128(A+B24) 2->2 N1134(A+B24) 2->2 N1149(B12) 2->2 N1174(B8) 1->1
+     fell: N0043(B9) 14->6 N0072(B6) 13->11 N0103(B6) 11->9 N0526(A+B14) 4->2
+     rows cleared: N0088(A+B22) 2->0
+     gone: N0163(B3) 5->0 N0268(B10) 8->0 N0418(B10) 6->0 N0419(B10) 6->0 N0750(A+B22) 2->0 N0804(B7) 2->0 N0805(B7) 2->0 N0819(A+B22) 2->0 N1000(A+B22) 2->0
+== E. clusters map 9 did not route (covered / section 9) whose rows cleared or fell: 36: N0119 11->0 N0187 9->0 N0173 9->0 N0172 9->0 N0153 9->0 N0152 9->0 N0116 11->2 N0395 7->0 N0373 7->0 N0366 7->0 N0360 7->0 N0302 7->0 N0291 7->0 N0204 7->0 N0438 4->0 N0409 4->0 N0730 3->0 N0693 3->0 N0670 3->0 N0468 3->0 N1157 2->0 N1052 2->0 N1039 2->0 N0828 2->0 N1797 1->0 N1573 1->0 N1566 1->0 N1543 1->0 N1525 1->0 N1480 1->0 N1187 1->0 N1176 1->0 N1175 1->0 N0959 1->0 N0799 1->0 N0414 5->4
+== F. map 9 section-9 items recounted at 2b97649e (rows = row-modes carrying the cluster; the row = the item's target)
+| item | clusters | rows 5e8d08d9 -> 2b97649e (per cluster) | probe 5e8d08d9 -> 2b97649e | target row status 2b97649e | converted by |
+|---|---|---|---|---|---|
+| B1 | N0056 | N0056 11->11 | 1->1 | PreprocTest d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B2 | N0014 | N0014 6->6 | 12->12 | StructParamPatternInitCast d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B3 | N0163 | N0163 5->0 | 5->0 | PackedArrayHighConn d:CMP_EQUAL / t:CMP_EQUAL | pass 180 |
+| B4 | N0129 | N0129 4->4 | 15->15 | ibex_icache d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B5 | N0688 | N0688 2->2 | 2->2 | iface_zero_width_field d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B6 | N0072 N0103 | N0072 13->11 N0103 11->9 | 16->2 7->3 | ArrayMethodIterator d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B7 | N0804 N0805 | N0804 2->0 N0805 2->0 | 1->0 1->0 | mem_read_reg d:CMP_EQUAL / t:CMP_EQUAL | pass 180 |
+| B8 | N1174 | N1174 1->1 | 4->5 | HierPathTypespec d:CMP_EQUAL / t:STRICT_NOTEQUAL | - |
+| B9 | N0043 N0133 N0487 | N0043 14->6 N0133 4->4 N0487 4->4 | 5->3 10->10 10->10 | const_cast_signext d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B10 | N0268 N0418 N0419 | N0268 8->0 N0418 6->0 N0419 6->0 | 3->0 3->0 3->0 | OneNetModPort d:CMP_EQUAL / t:CMP_EQUAL | pass 176 |
+| B11 | N0067 N0068 N0162 N0289 | N0067 13->13 N0068 13->13 N0162 9->9 N0289 7->7 | 47->46 47->46 6->6 3->3 | ApbSlave d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B12 | N0083 N0422 N0484 N1149 | N0083 6->6 N0422 2->2 N0484 4->4 N1149 2->2 | 23->23 0->0 13->13 0->0 | LogicTypespec d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A1 | N0131 | N0131 10->10 | 5->5 | FuncStructValSimple d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A2a | N0416 N0022 N0023 | N0416 6->6 N0022 2->2 N0023 2->2 | 4->4 1->1 1->1 | rsp_gen_minimal d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A2b | N0938 N0031 | N0938 2->2 N0031 15->15 | 0->0 13->13 | jeras_union d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A2c | N0191 N0001 N0853 N1127 | N0191 2->2 N0001 14->14 N0853 2->2 N1127 2->2 | 0->0 8->8 1->1 0->0 | OutputSizeWithParameterOfInstanceInitializedByStructMember d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A2d | N0443 N0684 N0448 | N0443 5->5 N0684 3->3 N0448 5->5 | 16->16 5->5 3->3 | arb_idx_cast d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A2e | N0299 N0628 N0627 N0431 N1047 | N0299 6->6 N0628 4->4 N0627 4->4 N0431 6->6 N1047 2->2 | 1->1 0->0 0->0 0->0 0->0 | AssertDelayError d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A2f | N0476 N0477 N0499 | N0476 4->4 N0477 4->4 N0499 4->4 | 21->21 21->21 7->7 | ParameterFromPkgInNestedModule d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A3 | N0682 N0001 N0007 N0061 N0119 N0152 N0153 | N0682 3->3 N0001 14->14 N0007 11->11 N0061 12->12 N0119 11->0 N0152 9->0 N0153 9->0 | 15->15 8->8 6->6 8->6 1->1 71->1 71->1 | SimpleUVM d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |

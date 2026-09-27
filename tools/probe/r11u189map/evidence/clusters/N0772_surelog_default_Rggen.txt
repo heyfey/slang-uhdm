@@ -1,0 +1,64 @@
+cluster N0772 (id kept from an earlier map; OPEN | ground B | site emitContAssigns (ModuleEmit.cpp, law caAsmMemberSliceFold) < emitModuleDef (ModuleEmit.cpp, law shadowedImportParamFold) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) [r11u138map pin] [r11u142map pin]): span|cont_assign|line+endline+endcol|under:module_inst
+row: surelog/default/Rggen  strict=differ:endcol(634)  records golden=314498 ours=312249
+object: #34920 (golden) / #34872 (ours)  type=cont_assign name= 
+  golden: 68:11:68:78
+  ours:   104:11:104:45
+  walk parents: module_inst(u_register_common) < module_inst(u_register) < gen_scope < gen_scope_array(g_register_1)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 34914..34926 ('>' = the object)
+  #34914	9	ref_obj	active		work@rggen.u_block_0.g_register_1.u_register.u_register_common.active	rggen_register_common.sv	65	30	65	36		0			work@rggen.u_block_0.g_register_1.u_register.u_register_common.active	000
+  #34915	9	hier_path	register_if.valid			rggen_register_common.sv	65	40	65	57		0				000
+  #34916	10	ref_obj	register_if			rggen_register_common.sv	65	40	65	51		0				000
+  #34917	10	ref_obj	valid		work@rggen.u_block_0.g_register_1.u_register.u_register_common.valid	rggen_register_common.sv	65	52	65	57		0			work@rggen.u_block_0.g_register_1.u_register.u_register_common.valid	000
+  #34918	9	constant				rggen_register_common.sv	65	60	65	62	'0	-1	BIN:0	3		000
+  #34919	8	ref_obj	frontdoor_valid		work@rggen.u_block_0.g_register_1.u_register.u_register_common.frontdoor_valid	rggen_register_common.sv	65	11	65	26		0			work@rggen.u_block_0.g_register_1.u_register.u_register_common.frontdoor_valid	000
+> #34920	7	cont_assign				rggen_register_common.sv	68	11	68	78						000
+  #34921	8	operation				rggen_register_common.sv	68	29	68	78		0				000
+  #34922	9	ref_obj	WRITABLE		work@rggen.u_block_0.g_register_1.u_register.u_register_common.WRITABLE	rggen_register_common.sv	68	30	68	38		0			work@rggen.u_block_0.g_register_1.u_register.u_register_common.WRITABLE	000
+  #34923	9	operation				rggen_register_common.sv	68	42	68	73		0				000
+  #34924	10	ref_obj	WORDS		work@rggen.u_block_0.g_register_1.u_register.u_register_common.WORDS	rggen_register_common.sv	68	43	68	48		0			work@rggen.u_block_0.g_register_1.u_register.u_register_common.WORDS	000
+  #34925	10	operation				rggen_register_common.sv	68	48	68	72		0				000
+  #34926	11	hier_path	register_if.write_data			rggen_register_common.sv	68	49	68	71		0				000
+
+--- OURS (B) records 34866..34878 ('>' = the object)
+  #34866	9	ref_obj	active		work@rggen.u_block_0.g_register_1.u_register.u_register_common.active	rggen_register_common.sv	65	30	65	36		0			work@rggen.u_block_0.g_register_1.u_register.u_register_common.active	000
+  #34867	9	hier_path	register_if.valid			rggen_register_common.sv	65	40	65	57		0				000
+  #34868	10	ref_obj	register_if			rggen_register_common.sv	65	40	65	51		0				000
+  #34869	10	ref_obj	valid		work@rggen.u_block_0.g_register_1.u_register.u_register_common.valid	rggen_register_common.sv	65	52	65	57		0			work@rggen.u_block_0.g_register_1.u_register.u_register_common.valid	000
+  #34870	9	constant				rggen_register_common.sv	65	60	65	62	'0	-1	BIN:0	3		000
+  #34871	8	ref_obj	frontdoor_valid		work@rggen.u_block_0.g_register_1.u_register.u_register_common.frontdoor_valid	rggen_register_common.sv	65	11	65	26		0			work@rggen.u_block_0.g_register_1.u_register.u_register_common.frontdoor_valid	000
+> #34872	7	cont_assign				rggen_register_common.sv	104	11	104	45						000
+  #34873	8	constant					0	0	0	0	2'b00	2	BIN:00	3		000
+  #34874	8	hier_path	register_if.status			rggen_register_common.sv	104	11	104	29		0				000
+  #34875	9	ref_obj	register_if			rggen_register_common.sv	104	23	104	29		0				000
+  #34876	9	ref_obj	status			rggen_register_common.sv	104	23	104	29		0				000
+  #34877	7	cont_assign				rggen_register_common.sv	106	11	106	67						000
+  #34878	8	operation				rggen_register_common.sv	106	35	106	67		0				000
+
+facets of this row (8734, first 25):
+  N0683 #23168/23166 constant  G[14 operation < range] O[13 range < logic_typespec]
+  N1172 #23166/-1 operation  G[2 objs] O[]
+  N0683 #26509/26505 constant  G[16 operation < range] O[15 range < logic_typespec]
+  N1172 #26507/-1 operation  G[2 objs] O[]
+  N0683 #28776/28770 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28774/-1 operation  G[2 objs] O[]
+  N0683 #28785/28777 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28783/-1 operation  G[2 objs] O[]
+  N0683 #28794/28784 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28792/-1 operation  G[2 objs] O[]
+  N0683 #29654/29642 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29652/-1 operation  G[2 objs] O[]
+  N0683 #29663/29649 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29661/-1 operation  G[2 objs] O[]
+  N0683 #29672/29656 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29670/-1 operation  G[2 objs] O[]
+  N0683 #30427/30409 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30425/-1 operation  G[2 objs] O[]
+  N0683 #30436/30416 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30434/-1 operation  G[2 objs] O[]
+  N0683 #30445/30423 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30443/-1 operation  G[2 objs] O[]
+  N0683 #31206/31182 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #31204/-1 operation  G[2 objs] O[]
+  N0683 #31215/31189 constant  G[17 operation < range] O[16 range < logic_typespec]

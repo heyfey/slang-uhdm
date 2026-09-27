@@ -1,0 +1,64 @@
+cluster N0961 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitContAssigns (ModuleEmit.cpp, law caUnbasedFillPackedAggregateKeepsRaw43) < emitModuleDef (ModuleEmit.cpp, law shadowedImportParamFold) [r11u138map pin] [r11u142map pin]): fullname|bit_select|tok:id.id.id.id.id->id|under:cont_assign
+row: surelog/default/Rggen  strict=differ:endcol(634)  records golden=314498 ours=312249
+object: #27180 (golden) / #27176 (ours)  type=bit_select name=write_data OUT
+  golden: work@rggen.u_block_0.g_register_0.u_register.u_register_common.write_data
+  ours:   work@rggen_register_common.write_data
+  walk parents: cont_assign < module_inst(u_register_common) < module_inst(u_register) < gen_scope
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 27174..27186 ('>' = the object)
+  #27174	10	ref_obj	WORDS		work@rggen.u_block_0.g_register_0.u_register.u_register_common.WORDS	rggen_register_common.sv	68	43	68	48		0			work@rggen.u_block_0.g_register_0.u_register.u_register_common.WORDS	000
+  #27175	10	operation				rggen_register_common.sv	68	48	68	72		0				000
+  #27176	11	hier_path	register_if.write_data			rggen_register_common.sv	68	49	68	71		0				000
+  #27177	12	ref_obj	register_if			rggen_register_common.sv	68	49	68	60		0				000
+  #27178	12	ref_obj	write_data		work@rggen.u_block_0.g_register_0.u_register.u_register_common.write_data	rggen_register_common.sv	68	61	68	71		0			work@rggen.u_block_0.g_register_0.u_register.u_register_common.write_data	000
+  #27179	9	constant				rggen_register_common.sv	68	76	68	78	'0	-1	BIN:0	3		000
+> #27180	8	bit_select	write_data		work@rggen.u_block_0.g_register_0.u_register.u_register_common.write_data	rggen_register_common.sv	68	11	68	24		0			work@rggen.u_block_0.g_register_0.u_register.u_register_common.write_data	000
+  #27181	9	constant				rggen_register_common.sv	68	22	68	23	0	64	UINT:0	9		000
+  #27182	7	cont_assign				rggen_register_common.sv	102	11	102	41						000
+  #27183	8	ref_obj	active		work@rggen_register_common.active	rggen_register_common.sv	102	35	102	41		0			work@rggen_register_common.active	000
+  #27184	8	hier_path	register_if.active			rggen_register_common.sv	102	11	102	29		0				000
+  #27185	9	ref_obj	register_if			rggen_register_common.sv	102	23	102	29		0				000
+  #27186	9	ref_obj	active			rggen_register_common.sv	102	23	102	29		0				000
+
+--- OURS (B) records 27170..27182 ('>' = the object)
+  #27170	10	ref_obj	WORDS		work@rggen_register_common.WORDS	rggen_register_common.sv	68	43	68	48		0			work@rggen_register_common.WORDS	000
+  #27171	10	operation				rggen_register_common.sv	68	48	68	72		0				000
+  #27172	11	hier_path	register_if.write_data			rggen_register_common.sv	68	49	68	71		0				000
+  #27173	12	ref_obj	register_if			rggen_register_common.sv	68	49	68	60		0				000
+  #27174	12	ref_obj	write_data		work@rggen_register_common.write_data	rggen_register_common.sv	68	61	68	71		0			work@rggen_register_common.write_data	000
+  #27175	9	constant				rggen_register_common.sv	68	76	68	78	'0	-1	BIN:0	3		000
+> #27176	8	bit_select	write_data		work@rggen_register_common.write_data	rggen_register_common.sv	68	11	68	24		0			work@rggen_register_common.write_data	000
+  #27177	9	constant				rggen_register_common.sv	68	22	68	23	0	64	UINT:0	9		000
+  #27178	7	cont_assign				rggen_register_common.sv	102	11	102	41						000
+  #27179	8	ref_obj	active		work@rggen_register_common.active	rggen_register_common.sv	102	35	102	41		0			work@rggen_register_common.active	000
+  #27180	8	hier_path	register_if.active			rggen_register_common.sv	102	11	102	29		0				000
+  #27181	9	ref_obj	register_if			rggen_register_common.sv	102	23	102	29		0				000
+  #27182	9	ref_obj	active			rggen_register_common.sv	102	23	102	29		0				000
+
+facets of this row (8734, first 25):
+  N0683 #23168/23166 constant  G[14 operation < range] O[13 range < logic_typespec]
+  N1172 #23166/-1 operation  G[2 objs] O[]
+  N0683 #26509/26505 constant  G[16 operation < range] O[15 range < logic_typespec]
+  N1172 #26507/-1 operation  G[2 objs] O[]
+  N0683 #28776/28770 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28774/-1 operation  G[2 objs] O[]
+  N0683 #28785/28777 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28783/-1 operation  G[2 objs] O[]
+  N0683 #28794/28784 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28792/-1 operation  G[2 objs] O[]
+  N0683 #29654/29642 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29652/-1 operation  G[2 objs] O[]
+  N0683 #29663/29649 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29661/-1 operation  G[2 objs] O[]
+  N0683 #29672/29656 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29670/-1 operation  G[2 objs] O[]
+  N0683 #30427/30409 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30425/-1 operation  G[2 objs] O[]
+  N0683 #30436/30416 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30434/-1 operation  G[2 objs] O[]
+  N0683 #30445/30423 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30443/-1 operation  G[2 objs] O[]
+  N0683 #31206/31182 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #31204/-1 operation  G[2 objs] O[]
+  N0683 #31215/31189 constant  G[17 operation < range] O[16 range < logic_typespec]

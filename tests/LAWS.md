@@ -22,7 +22,7 @@ verification pass owns the laws of the pass it verifies.
 
 Laws: 1841. Cases in the gate: 4087, tied to one law 3969, listed with `?`
 under several 106, tied to no law 12 (listed at the end).
-Laws with a commit on this branch: 1253;
+Laws with a commit on this branch: 1264;
 laws with cases in the gate: 676.
 
 ## 1. Laws
@@ -6297,7 +6297,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): none
 
 ### `genLocalEnumConstShared184`
-- commits: none on this branch
+- commits: 443933679
 - pass: r11u184repro (verified by r11v184repro)
 - switches: R11U181_OFF R11U181_TRACE R11U184_GENENUM_OFF R11U184_GSTRAIL_OFF R11U184_HPIDXCALL_OFF R11U184_INCDECSEL_OFF R11U184_LVIDXSEL_OFF R11U184_MEMPAREN_OFF R11U184_OFF R11U184_ROOTLV_OFF R11U184_STREAMRD_OFF R11U184_TPENUMCA_OFF R11U184_TPENUM_OFF R11U184_TRACE R11V184_IDTOP_OFF R11V184_OFF R11V184_TPCA_OFF
 - source: src/ExprEmit.cpp(2)
@@ -6689,7 +6689,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u162verify
 
 ### `genScopeTrailSelNameLate184`
-- commits: none on this branch
+- commits: 443933679
 - pass: r11u184repro (verified by r11v184repro)
 - switches: R11U184_GENENUM_OFF R11U184_GSTRAIL_OFF R11U184_HPIDXCALL_OFF R11U184_INCDECSEL_OFF R11U184_LVIDXSEL_OFF R11U184_MEMPAREN_OFF R11U184_OFF R11U184_ROOTLV_OFF R11U184_STREAMRD_OFF R11U184_TPENUMCA_OFF R11U184_TPENUM_OFF
 - source: src/ExprEmit.cpp(2)
@@ -7070,7 +7070,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r10earl69repro
 
 ### `hpIdxCallNameSpan184`
-- commits: none on this branch
+- commits: 443933679
 - pass: r11u184repro (verified by r11v184repro)
 - switches: R11U184_GENENUM_OFF R11U184_GSTRAIL_OFF R11U184_HPIDXCALL_OFF R11U184_INCDECSEL_OFF R11U184_LVIDXSEL_OFF R11U184_MEMPAREN_OFF R11U184_OFF R11U184_ROOTLV_OFF R11U184_STREAMRD_OFF R11U184_TPENUMCA_OFF R11U184_TPENUM_OFF
 - source: src/ExprEmit.cpp(2)
@@ -7996,7 +7996,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u181repro r11u184repro r11v178repro
 
 ### `incDecMemberSelIsLvalue184`
-- commits: none on this branch
+- commits: 443933679
 - pass: r11u184repro (verified by r11v184repro)
 - switches: R11U184_GENENUM_OFF R11U184_GSTRAIL_OFF R11U184_HPIDXCALL_OFF R11U184_INCDECSEL_OFF R11U184_LVIDXSEL_OFF R11U184_MEMPAREN_OFF R11U184_OFF R11U184_ROOTLV_OFF R11U184_STREAMRD_OFF R11U184_TPENUMCA_OFF R11U184_TPENUM_OFF R11V184_IDTOP_OFF R11V184_OFF R11V184_TPCA_OFF
 - source: src/ExprEmit.cpp(2)
@@ -8030,7 +8030,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r10v144repro
 
 ### `incDecSelTopRestore184v`
-- commits: none on this branch
+- commits: 443933679
 - pass: - (verified by r11v184repro)
 - switches: R11U184_OFF R11V184_IDTOP_OFF R11V184_OFF R11V184_TPCA_OFF
 - source: src/ExprEmit.cpp(1)
@@ -8406,7 +8406,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u154repro r11u159verify
 
 ### `lvIdxMemberSelIsRead184`
-- commits: none on this branch
+- commits: 443933679
 - pass: r11u184repro (verified by r11v184repro)
 - switches: R11U184_GENENUM_OFF R11U184_GSTRAIL_OFF R11U184_HPIDXCALL_OFF R11U184_INCDECSEL_OFF R11U184_LVIDXSEL_OFF R11U184_MEMPAREN_OFF R11U184_OFF R11U184_ROOTLV_OFF R11U184_STREAMRD_OFF R11U184_TPENUMCA_OFF R11U184_TPENUM_OFF
 - source: src/ExprEmit.cpp(1)
@@ -8759,7 +8759,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): r11u120repro/grid/gA/a01_two_inst/dut.sv? r11u120repro/grid/gA/a02_genif/dut.sv? r11u120repro/grid/gA/a03_sized_idxpart/dut.sv? r11u120repro/grid/gA/a04_param_rhs/dut.sv? r11u120repro/grid/gA/a05_nested/dut.sv? r11u120repro/grid/gA/a06_union/dut.sv? r11u120repro/grid/gA/a07_dec_multibit/dut.sv? r11u120repro/grid/gA/a08_param_child/dut.sv? r11u120repro/grid/gA/a09_genfor/dut.sv? r11u120repro/grid/gA/a10_arr_elem_member/dut.sv? r11u120repro/grid/gB/b01_arr1_two_readers/dut.sv? r11u120repro/grid/gB/b02_twomember_B/dut.sv? r11u120repro/grid/gB/b03_generic_port/dut.sv? r11u120repro/grid/gB/b04_genfor_arr/dut.sv? r11u120repro/grid/gB/b05_scalar_and_agg/dut.sv? r11u120repro/grid/gB/b06_single_default/dut.sv? r11u120repro/grid/gD/d01_vec_default_child/dut.sv? r11u120repro/grid/gD/d02_vec_default_top/dut.sv? r11u120repro/grid/gD/d03_scalar_default/dut.sv? r11u120repro/grid/gD/d04_vec_overridden/dut.sv? r11u120repro/grid/gD/d05_bit_vec/dut.sv? r11u120repro/grid/gD/d06_gen_scope/dut.sv? r11u120repro/grid/gD/d07_two_dims/dut.sv? r11u120repro/grid/gD/d08_output_port/dut.sv? r11u120repro/grid/gF/f01_inactive_on/dut.sv? r11u120repro/grid/gF/f02_inactive_on_macro/dut.sv? r11u120repro/grid/gF/f03_stray_on/dut.sv? r11u120repro/grid/gF/f04_active_pair/dut.sv? r11u120repro/grid/gF/f05_two_inactive/dut.sv? r11u120repro/grid/gF/f06_active_ifdef_pair/dut.sv? r11u120repro/grid/gF/f07_inactive_else/dut.sv? r11u120repro/grid/gF/f08_macro_noarg_resync/dut.sv? r11u120repro/grid/gF/f09_on_then_macro_same_line/dut.sv? r11u120repro/grid/gF/f10_second_module/dut.sv? r11u120repro/grid/gF/f11_region_inside_module_inst/dut.sv? r11u120repro/grid/gF/f12_multiline_macro_resync/dut.sv? r11u120repro/grid/gT/t01_row_shape/dut.sv? r11u120repro/grid/gT/t02_nonlocal_default/dut.sv? r11u120repro/grid/gT/t03_ordered_override/dut.sv? r11u120repro/grid/gT/t04_two_inst/dut.sv? r11u120repro/grid/gT/t05_local_plain/dut.sv? r11u120repro/grid/gT/t06_gen_inst/dut.sv? r11u120repro/grid/gT/t07_local_dep_value/dut.sv? r11u120repro/grid/gT/t08_body_localparam_type/dut.sv? r11v120repro/grid/D/d01_typedef_chain/dut.sv? r11v120repro/grid/D/d02_signed_vec/dut.sv? r11v120repro/grid/D/d03_int_control/dut.sv? r11v120repro/grid/D/d04_two_inst_W/dut.sv? r11v120repro/grid/D/d05_nonansi/dut.sv? r11v120repro/grid/D/d06_ordered_type_override/dut.sv? r11v120repro/grid/D/d07_header_localparam_type/dut.sv? r11v120repro/grid/D/d08_top_ports_inout/dut.sv? r11v120repro/grid/F/x01_trailing_off/dut.sv? r11v120repro/grid/F/x02_block_comment/dut.sv? r11v120repro/grid/F/x03_comma_off/dut.sv? r11v120repro/grid/F/x04_mixed_prefix/dut.sv? r11v120repro/grid/F/x05_off_inactive_on_active/dut.sv? r11v120repro/grid/F/x06_inactive_on_then_include/dut.sv? r11v120repro/grid/F/x07_inactive_on_in_header/dut.sv? r11v120repro/grid/F/x08_elsif_inactive/dut.sv? r11v120repro/grid/F/x09_stray_on_eol/dut.sv? r11v120repro/grid/F/x10_two_on_inactive_no_off/dut.sv? r11v120repro/grid/F/x11_macro_def_then_inactive/dut.sv? r11v120repro/grid/F/x12_upper_case/dut.sv? r11v120repro/grid/F/x13_nested_ifdef_inactive/dut.sv? r11v120repro/grid/F/x14_include_resync_ops/dut.sv? r11v120repro/grid/F/x15_inc_has_inactive_region/dut.sv? r11v120repro/grid/F/x16_ops_two_modules_macro/dut.sv? r11v120repro/grid/F/x17_ifdef_synth_active_region/dut.sv? r11v120repro/grid/F/x18_stray_on_active_ops/dut.sv? r11v120repro/grid/F/x19_balanced_ifdef_in_region/dut.sv? r11v120repro/grid/F/x20_define_in_region/dut.sv? r11v120repro/grid/F/x21_inactive_region_balanced_inner/dut.sv? r11v120repro/grid/I/i01_named_modport_two_fields/dut.sv? r11v120repro/grid/I/i02_generic_iface_port/dut.sv? r11v120repro/grid/I/i03_array_pattern_param/dut.sv? r11v120repro/grid/I/i04_scalar_and_agg/dut.sv? r11v120repro/grid/M/m01_genif_else_diff_lits/dut.sv? r11v120repro/grid/M/m02_netdecl_before/dut.sv? r11v120repro/grid/M/m03_casegen_lits/dut.sv? r11v120repro/grid/M/m04_param_width_ones/dut.sv? r11v120repro/grid/M/m05_genfor_member_lit/dut.sv? r11v120repro/grid/M/m06_hex_and_neg/dut.sv? r11v120repro/grid/T/t01_genfor_named/dut.sv? r11v120repro/grid/T/t02_nested_named/dut.sv? r11v120repro/grid/T/t03_dependent_typeparam/dut.sv? r11v120repro/grid/T/t04_valuedep_typeparam/dut.sv? r11v120repro/grid/T/t05_escaped_inst/dut.sv? r11v120repro/grid/T/t06_genif_named/dut.sv? r11v120repro/grid/T/t07_ordered_and_default_mix/dut.sv? r11v120repro/grid/T/t08_elem_sel_row_two_levels/dut.sv?
 
 ### `memberSelParenIdxSpan184`
-- commits: none on this branch
+- commits: 443933679
 - pass: r11u184repro (verified by r11v184repro)
 - switches: R11U184_GENENUM_OFF R11U184_GSTRAIL_OFF R11U184_HPIDXCALL_OFF R11U184_INCDECSEL_OFF R11U184_LVIDXSEL_OFF R11U184_MEMPAREN_OFF R11U184_OFF R11U184_ROOTLV_OFF R11U184_STREAMRD_OFF R11U184_TPENUMCA_OFF R11U184_TPENUM_OFF
 - source: src/ExprEmit.cpp(4)
@@ -12685,7 +12685,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): r10uvm150repro/g150_a.sv r10uvm150repro/g150_b.sv r10uvm150repro/g150_d.sv r10uvm150repro/g150_e.sv r10v150repro/v150_a.sv r10v150repro/v150_c.sv r10v150repro/v150_f2.sv r10v150repro/v150_f3.sv r10v150repro/v150_f4.sv
 
 ### `rootLvalueSpanAtRoot184`
-- commits: none on this branch
+- commits: 443933679
 - pass: r11u184repro (verified by r11v184repro)
 - switches: R11U184_GENENUM_OFF R11U184_GSTRAIL_OFF R11U184_HPIDXCALL_OFF R11U184_INCDECSEL_OFF R11U184_LVIDXSEL_OFF R11U184_MEMPAREN_OFF R11U184_OFF R11U184_ROOTLV_OFF R11U184_STREAMRD_OFF R11U184_TPENUMCA_OFF R11U184_TPENUM_OFF
 - source: src/ExprEmit.cpp(1)
@@ -13324,7 +13324,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): r10uvm157repro/g157_a_scope.sv r10uvm157repro/g157_b_form.sv r10uvm157repro/g157_c_count.sv r10uvm157repro/g157_d_sub.sv r10uvm157repro/g157_e_edge.sv r10v157repro/arms/v157_a_home.sv r10v157repro/arms/v157_b_shape.sv r10v157repro/arms/v157_c_face.sv r10v157repro/arms/v157_d_carve.sv r10v157repro/arms/v157_e_count.sv r10v157repro/arms/v157_p1_null.sv r10v157repro/arms/v157_p2_let.sv r10v157repro/arms/v157_p4_rt.sv r10v157repro/arms/v157_p5_unit.sv
 
 ### `streamLvMemberPathRead184`
-- commits: none on this branch
+- commits: 443933679
 - pass: r11u184repro (verified by r11v184repro)
 - switches: R11U184_GENENUM_OFF R11U184_GSTRAIL_OFF R11U184_HPIDXCALL_OFF R11U184_INCDECSEL_OFF R11U184_LVIDXSEL_OFF R11U184_MEMPAREN_OFF R11U184_OFF R11U184_ROOTLV_OFF R11U184_STREAMRD_OFF R11U184_TPENUMCA_OFF R11U184_TPENUM_OFF
 - source: src/ExprEmit.cpp(3)
@@ -14172,7 +14172,7 @@ laws with cases in the gate: 676.
 - also mentioned by: r11u111repro
 
 ### `tpEnumCaBindsInstVar184v`
-- commits: none on this branch
+- commits: 443933679
 - pass: - (verified by r11v184repro)
 - switches: R11U184_OFF R11V184_IDTOP_OFF R11V184_OFF R11V184_TPCA_OFF
 - source: src/ParamEmit.cpp(1)
@@ -14180,7 +14180,7 @@ laws with cases in the gate: 676.
 - cases in the evidence (tools/probe/): r11v184repro/cases/T/vt01_net_decl_assign/dut.sv r11v184repro/cases/T/vt02_gen_ca/dut.sv r11v184repro/cases/T/vt03_typedef_of_typedef/dut.sv r11v184repro/cases/T/vt04_include_macro/dut.sv r11v184repro/cases/T/vt05_packed_arr_ca/dut.sv r11v184repro/cases/T/vt06_repass_ca/dut.sv r11v184repro/cases/T/vt07_iface_child/dut.sv r11v184repro/cases/T/vt08_cast_ca_param_width/dut.sv r11v184repro/cases/T/vt09_packed_arr_only/dut.sv r11v184repro/cases/T/vt10_concat_lhs_only/dut.sv r11v184repro/cases/T/vt11_genfor_ca/dut.sv r11v184repro/cases/T/vt12_wire_ca/dut.sv r11v184repro/cases/T/vt13_gen_if_nested_ca/dut.sv r11v184repro/cases/T/vt14_gen_ca_select_ctl/dut.sv r11v184repro/cases/T/vt15_class_specialization/dut.sv r11v184repro/cases/T/vt16_inst_in_generate/dut.sv r11v184repro/cases/T/vt17_positional_two_ca/dut.sv
 
 ### `tpEnumCopyAtTypedef184`
-- commits: none on this branch
+- commits: 443933679
 - pass: r11u184repro (verified by r11v184repro)
 - switches: R11U184_GENENUM_OFF R11U184_GSTRAIL_OFF R11U184_HPIDXCALL_OFF R11U184_INCDECSEL_OFF R11U184_LVIDXSEL_OFF R11U184_MEMPAREN_OFF R11U184_OFF R11U184_ROOTLV_OFF R11U184_STREAMRD_OFF R11U184_TPENUMCA_OFF R11U184_TPENUM_OFF R11V184_IDTOP_OFF R11V184_OFF R11V184_TPCA_OFF
 - source: src/ParamEmit.cpp(1)
@@ -15933,6 +15933,7 @@ lists it under the law).
 | r11u183dec |  |  | 0 | 147 |
 | r11u184repro |  | `genLocalEnumConstShared184` `genScopeTrailSelNameLate184` `hpIdxCallNameSpan184` `incDecMemberSelIsLvalue184` `lvIdxMemberSelIsRead184` `memberSelParenIdxSpan184` `rootLvalueSpanAtRoot184` `streamLvMemberPathRead184` `tpEnumCopyAtTypedef184` | 0 | 70 |
 | r11u185verify |  |  | 0 | 135 |
+| r11u189map |  |  | 0 | 0 |
 | r11u18repro |  | `memLeftFormalReadTs18` `typeParamLocalKeyword18` | 7 | 11 |
 | r11u19repro |  | `caTernFillArmKeepsEncoding19` `genCaPackedPatternFold19` | 46 | 46 |
 | r11u1repro |  |  | 1 | 2 |
