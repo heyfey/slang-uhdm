@@ -1,0 +1,596 @@
+DW/d01 alloff lost=0 gained=6 
+DW/d01 offL181 lost=0 gained=6 
+DW/d01 off_doWhileMacroCondEnd181 lost=0 gained=6 
+DW/d01 wide lost=0 gained=9 
+DW/d01_el alloff lost=0 gained=12 
+DW/d01_el offL181 lost=0 gained=12 
+DW/d01_el off_doWhileMacroCondEnd181 lost=0 gained=12 
+DW/d01_el wide lost=0 gained=18 
+DW/d02 alloff lost=0 gained=3 
+DW/d02 offL181 lost=0 gained=3 
+DW/d02 off_doWhileSyntaxFromCond181 lost=0 gained=3 
+DW/d02 wide lost=0 gained=3 
+DW/d02_el alloff lost=0 gained=3 
+DW/d02_el offL181 lost=0 gained=3 
+DW/d02_el off_doWhileSyntaxFromCond181 lost=0 gained=3 
+DW/d02_el wide lost=0 gained=3 
+DW/d03 alloff lost=0 gained=3 
+DW/d03 offL181 lost=0 gained=3 
+DW/d03 off_doWhileMacroCondEnd181 lost=0 gained=3 
+DW/d03 wide lost=0 gained=9 
+DW/d03_el alloff lost=0 gained=6 
+DW/d03_el offL181 lost=0 gained=6 
+DW/d03_el off_doWhileMacroCondEnd181 lost=0 gained=6 
+DW/d03_el wide lost=0 gained=18 
+E/e01 alloff lost=0 gained=3 
+E/e01 offL180 lost=0 gained=3 
+E/e01 off_enumImpDefOwner180v lost=0 gained=1 
+E/e01 off_enumImportParentLastWriter180 lost=0 gained=3 
+E/e01 wide lost=0 gained=3 
+E/e01_el alloff lost=0 gained=3 
+E/e01_el offL180 lost=0 gained=3 
+E/e01_el off_enumImpDefOwner180v lost=0 gained=1 
+E/e01_el off_enumImportParentLastWriter180 lost=0 gained=3 
+E/e01_el wide lost=0 gained=3 
+E/e02 wide lost=0 gained=2 
+E/e02_el wide lost=0 gained=2 
+E/e05 alloff lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e05 fix lost=3 gained=0  | \_module_inst: work@amod (work@amod), file:dut.sv, line:9:1, endln:12:10 || \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e05 fix_R11V190_NESTIDX_OFF lost=3 gained=0  | \_module_inst: work@amod (work@amod), file:dut.sv, line:9:1, endln:12:10 || \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e05 offL180 lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e05 off_enumImportParentLastWriter180 lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e05 wide lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e05_el alloff lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e05_el fix lost=3 gained=0  | \_module_inst: work@amod (work@amod), file:dut.sv, line:9:1, endln:12:10 || \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e05_el fix_R11V190_NESTIDX_OFF lost=3 gained=0  | \_module_inst: work@amod (work@amod), file:dut.sv, line:9:1, endln:12:10 || \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e05_el offL180 lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e05_el off_enumImportParentLastWriter180 lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e05_el wide lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e08 alloff lost=0 gained=2 
+E/e08 offL180 lost=0 gained=2 
+E/e08 off_enumImportParentLastWriter180 lost=0 gained=2 
+E/e08 wide lost=0 gained=2 
+E/e08_el alloff lost=0 gained=2 
+E/e08_el offL180 lost=0 gained=2 
+E/e08_el off_enumImportParentLastWriter180 lost=0 gained=2 
+E/e08_el wide lost=0 gained=2 
+E/e09 fix lost=3 gained=0  | \_interface_inst: work@aif (work@aif), file:dut.sv, line:10:1, endln:13:13 || \_ref_typespec: (work@aif.p::e_t) || |vpiFullName:work@aif.p::e_t
+E/e09 fix_R11V190_NESTIDX_OFF lost=3 gained=0  | \_interface_inst: work@aif (work@aif), file:dut.sv, line:10:1, endln:13:13 || \_ref_typespec: (work@aif.p::e_t) || |vpiFullName:work@aif.p::e_t
+E/e09_el fix lost=3 gained=0  | \_interface_inst: work@aif (work@aif), file:dut.sv, line:10:1, endln:13:13 || \_ref_typespec: (work@aif.p::e_t) || |vpiFullName:work@aif.p::e_t
+E/e09_el fix_R11V190_NESTIDX_OFF lost=3 gained=0  | \_interface_inst: work@aif (work@aif), file:dut.sv, line:10:1, endln:13:13 || \_ref_typespec: (work@aif.p::e_t) || |vpiFullName:work@aif.p::e_t
+E/e10 alloff lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e10 fix lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e10 fix_R11V190_NESTIDX_OFF lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e10 offL180 lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e10 off_enumImpHdrBranch180 lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e10 off_enumImportParentLastWriter180 lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e10 wide lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e10_el alloff lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e10_el fix lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e10_el fix_R11V190_NESTIDX_OFF lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e10_el offL180 lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e10_el off_enumImpHdrBranch180 lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e10_el off_enumImportParentLastWriter180 lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e10_el wide lost=2 gained=0  | \_ref_typespec: (work@amod.p::e_t) || |vpiFullName:work@amod.p::e_t
+E/e11 fix lost=3 gained=0  | \_interface_inst: work@aif (work@aif), file:dut.sv, line:10:1, endln:13:13 || \_ref_typespec: (work@aif.p::e_t) || |vpiFullName:work@aif.p::e_t
+E/e11 fix_R11V190_NESTIDX_OFF lost=3 gained=0  | \_interface_inst: work@aif (work@aif), file:dut.sv, line:10:1, endln:13:13 || \_ref_typespec: (work@aif.p::e_t) || |vpiFullName:work@aif.p::e_t
+E/e11_el fix lost=3 gained=0  | \_interface_inst: work@aif (work@aif), file:dut.sv, line:10:1, endln:13:13 || \_ref_typespec: (work@aif.p::e_t) || |vpiFullName:work@aif.p::e_t
+E/e11_el fix_R11V190_NESTIDX_OFF lost=3 gained=0  | \_interface_inst: work@aif (work@aif), file:dut.sv, line:10:1, endln:13:13 || \_ref_typespec: (work@aif.p::e_t) || |vpiFullName:work@aif.p::e_t
+E/e13 alloff lost=0 gained=0 
+E/e13 fix lost=3 gained=0  | \_module_inst: work@ylit (work@ylit), file:dut.sv, line:5:1, endln:10:10 || \_ref_typespec: (work@ylit.p::e_t) || |vpiFullName:work@ylit.p::e_t
+E/e13 fix_R11V190_NESTIDX_OFF lost=3 gained=0  | \_module_inst: work@ylit (work@ylit), file:dut.sv, line:5:1, endln:10:10 || \_ref_typespec: (work@ylit.p::e_t) || |vpiFullName:work@ylit.p::e_t
+E/e13 offL180 lost=0 gained=0 
+E/e13 off_enumImportParentLastWriter180 lost=0 gained=0 
+E/e13 wide lost=0 gained=0 
+E/e13_el alloff lost=0 gained=0 
+E/e13_el fix lost=3 gained=0  | \_module_inst: work@ylit (work@ylit), file:dut.sv, line:5:1, endln:10:10 || \_ref_typespec: (work@ylit.p::e_t) || |vpiFullName:work@ylit.p::e_t
+E/e13_el fix_R11V190_NESTIDX_OFF lost=3 gained=0  | \_module_inst: work@ylit (work@ylit), file:dut.sv, line:5:1, endln:10:10 || \_ref_typespec: (work@ylit.p::e_t) || |vpiFullName:work@ylit.p::e_t
+E/e13_el offL180 lost=0 gained=0 
+E/e13_el off_enumImportParentLastWriter180 lost=0 gained=0 
+E/e13_el wide lost=0 gained=0 
+G/g01 alloff lost=0 gained=2 
+G/g01 offL180 lost=0 gained=2 
+G/g01 off_modAggCloneOwnDefOnly180v lost=2 gained=0  | \_struct_typespec: (op_t), line:4:42, endln:4:46 || \_struct_typespec: (op_t), line:4:42, endln:4:46
+G/g01 off_modAggTfArgCloneFollows180 lost=0 gained=2 
+G/g01 wide lost=0 gained=2 
+G/g01_el alloff lost=0 gained=2 
+G/g01_el offL180 lost=0 gained=2 
+G/g01_el off_modAggCloneOwnDefOnly180v lost=2 gained=0  | \_struct_typespec: (op_t), line:4:42, endln:4:46 || \_struct_typespec: (op_t), line:4:42, endln:4:46
+G/g01_el off_modAggTfArgCloneFollows180 lost=0 gained=2 
+G/g01_el wide lost=0 gained=2 
+G/g02 aggX_R11U176_DEFTOPSPLIT_OFF lost=0 gained=8 
+G/g02 aggX_R11U176_QUALFORMAL_OFF lost=0 gained=8 
+G/g02 agg_R11U176_DEFTOPSPLIT_OFF lost=0 gained=8 
+G/g02 alloff lost=0 gained=2 
+G/g02 offL180 lost=0 gained=2 
+G/g02 off_pkgAggTfArgCloneFollows180 lost=0 gained=2 
+G/g02 wide lost=0 gained=8 
+G/g02_el aggX_R11U176_DEFTOPSPLIT_OFF lost=0 gained=11 
+G/g02_el aggX_R11U176_QUALFORMAL_OFF lost=0 gained=11 
+G/g02_el agg_R11U176_DEFTOPSPLIT_OFF lost=0 gained=11 
+G/g02_el alloff lost=0 gained=2 
+G/g02_el offL180 lost=0 gained=2 
+G/g02_el off_pkgAggTfArgCloneFollows180 lost=0 gained=2 
+G/g02_el wide lost=0 gained=11 
+G/g03 alloff lost=0 gained=2 
+G/g03 offL180 lost=0 gained=2 
+G/g03 off_modAggTfArgCloneFollows180 lost=0 gained=2 
+G/g03 wide lost=0 gained=2 
+G/g03_el alloff lost=0 gained=2 
+G/g03_el offL180 lost=0 gained=2 
+G/g03_el off_modAggTfArgCloneFollows180 lost=0 gained=2 
+G/g03_el wide lost=0 gained=2 
+G/g04 alloff lost=0 gained=1 
+G/g04 offL180 lost=0 gained=1 
+G/g04 off_modAggTfArgCloneFollows180 lost=0 gained=1 
+G/g04 wide lost=0 gained=1 
+G/g04_el alloff lost=0 gained=1 
+G/g04_el offL180 lost=0 gained=1 
+G/g04_el off_modAggTfArgCloneFollows180 lost=0 gained=1 
+G/g04_el wide lost=0 gained=1 
+G/g06 alloff lost=0 gained=13 
+G/g06 offL180 lost=0 gained=13 
+G/g06 off_pkgAggTfArgCloneFollows180 lost=0 gained=13 
+G/g06 wide lost=0 gained=13 
+G/g06_el alloff lost=0 gained=13 
+G/g06_el offL180 lost=0 gained=13 
+G/g06_el off_pkgAggTfArgCloneFollows180 lost=0 gained=13 
+G/g06_el wide lost=0 gained=13 
+I/i04 wide lost=0 gained=5 
+I/i04_el wide lost=0 gained=5 
+ID/i01 alloff lost=0 gained=8 
+ID/i01 offL181 lost=0 gained=8 
+ID/i01 off_incDecBitSelWholeSpan181 lost=0 gained=8 
+ID/i01 wide lost=0 gained=8 
+ID/i01_el alloff lost=0 gained=16 
+ID/i01_el offL181 lost=0 gained=16 
+ID/i01_el off_incDecBitSelWholeSpan181 lost=0 gained=16 
+ID/i01_el wide lost=0 gained=16 
+ID/i02 alloff lost=0 gained=16 
+ID/i02 offL181 lost=0 gained=16 
+ID/i02 off_classMethodLvIsProcess181 lost=0 gained=20 
+ID/i02 off_incDecBitSelWholeSpan181 lost=0 gained=0 
+ID/i02 off_incDecMixedPathIsLvalue181 lost=0 gained=16 
+ID/i02 off_lvSelIdxChainName181 lost=0 gained=8 
+ID/i02 wide lost=0 gained=24 
+ID/i02_el alloff lost=0 gained=16 
+ID/i02_el offL181 lost=0 gained=16 
+ID/i02_el off_classMethodLvIsProcess181 lost=0 gained=20 
+ID/i02_el off_incDecBitSelWholeSpan181 lost=0 gained=0 
+ID/i02_el off_incDecMixedPathIsLvalue181 lost=0 gained=16 
+ID/i02_el off_lvSelIdxChainName181 lost=0 gained=8 
+ID/i02_el wide lost=0 gained=24 
+ID/i03 alloff lost=0 gained=8 
+ID/i03 offL181 lost=0 gained=8 
+ID/i03 off_incDecBitSelWholeSpan181 lost=0 gained=8 
+ID/i03 wide lost=0 gained=14 
+ID/i03_el alloff lost=0 gained=12 
+ID/i03_el offL181 lost=0 gained=12 
+ID/i03_el off_incDecBitSelWholeSpan181 lost=0 gained=12 
+ID/i03_el wide lost=0 gained=18 
+IV/i01 alloff lost=0 gained=12 
+IV/i01 offL181 lost=0 gained=12 
+IV/i01 off_invalidStmtAnchorSyntax181 lost=0 gained=12 
+IV/i01 wide lost=0 gained=12 
+IV/i01_el alloff lost=0 gained=15 
+IV/i01_el offL181 lost=0 gained=15 
+IV/i01_el off_invalidStmtAnchorSyntax181 lost=0 gained=15 
+IV/i01_el wide lost=0 gained=15 
+IV/i02 alloff lost=0 gained=6 
+IV/i02 offL181 lost=0 gained=6 
+IV/i02 off_invalidStmtAnchorSyntax181 lost=0 gained=6 
+IV/i02 wide lost=0 gained=6 
+IV/i02_el alloff lost=0 gained=7 
+IV/i02_el offL181 lost=0 gained=7 
+IV/i02_el off_invalidStmtAnchorSyntax181 lost=0 gained=7 
+IV/i02_el wide lost=0 gained=7 
+LC/c02 alloff lost=0 gained=9 
+LC/c02 offL181 lost=0 gained=9 
+LC/c02 off_procLvIdxCallWholeSpan181 lost=0 gained=9 
+LC/c02 off_procLvPartSelBoundCallName181v lost=0 gained=6 
+LC/c02 wide lost=0 gained=9 
+LC/c02_el alloff lost=0 gained=13 
+LC/c02_el offL181 lost=0 gained=13 
+LC/c02_el off_procLvIdxCallWholeSpan181 lost=0 gained=13 
+LC/c02_el off_procLvPartSelBoundCallName181v lost=0 gained=8 
+LC/c02_el wide lost=0 gained=13 
+LC/c03 alloff lost=0 gained=17 
+LC/c03 fix lost=8 gained=0  | \_ref_obj: (o), line:10:15, endln:10:16 || \_bit_select: (o.w[k]), line:10:17, endln:10:18 || |vpiFullName:o.w[k]
+LC/c03 fix_R11V190_ENUMITEM_OFF lost=8 gained=0  | \_ref_obj: (o), line:10:15, endln:10:16 || \_bit_select: (o.w[k]), line:10:17, endln:10:18 || |vpiFullName:o.w[k]
+LC/c03 offL181 lost=0 gained=17 
+LC/c03 off_lvIdxMixedPathIsRead181 lost=0 gained=21 
+LC/c03 off_lvIdxReadCallNameSpan181v lost=0 gained=2 
+LC/c03 off_lvIdxReadNestedKeepsLvalue181v lost=8 gained=7  | \_ref_obj: (o), line:10:15, endln:10:16 || \_bit_select: (o.w[k]), line:10:17, endln:10:18 || |vpiFullName:o.w[k]
+LC/c03 wide lost=0 gained=17 
+LC/c03_el alloff lost=0 gained=37 
+LC/c03_el fix lost=14 gained=0  | \_ref_obj: (o), line:10:15, endln:10:16 || \_bit_select: (o.w[k]), line:10:17, endln:10:18 || |vpiFullName:o.w[k]
+LC/c03_el fix_R11V190_ENUMITEM_OFF lost=14 gained=0  | \_ref_obj: (o), line:10:15, endln:10:16 || \_bit_select: (o.w[k]), line:10:17, endln:10:18 || |vpiFullName:o.w[k]
+LC/c03_el offL181 lost=0 gained=37 
+LC/c03_el off_lvIdxMixedPathIsRead181 lost=0 gained=43 
+LC/c03_el off_lvIdxReadCallNameSpan181v lost=0 gained=4 
+LC/c03_el off_lvIdxReadNestedKeepsLvalue181v lost=14 gained=15  | \_ref_obj: (o), line:10:15, endln:10:16 || \_bit_select: (o.w[k]), line:10:17, endln:10:18 || |vpiFullName:o.w[k]
+LC/c03_el wide lost=0 gained=37 
+LC/c04 alloff lost=6 gained=29  | |vpiParent: || \_operation: , line:9:13, endln:9:28 || \_operation: , line:11:13, endln:11:25
+LC/c04 fix lost=29 gained=0  | \_ref_obj: (o), line:9:15, endln:9:16 || \_bit_select: (o.w[k]), line:9:17, endln:9:18 || |vpiFullName:o.w[k]
+LC/c04 fix_R11V190_ENUMITEM_OFF lost=29 gained=0  | \_ref_obj: (o), line:9:15, endln:9:16 || \_bit_select: (o.w[k]), line:9:17, endln:9:18 || |vpiFullName:o.w[k]
+LC/c04 offL181 lost=6 gained=29  | |vpiParent: || \_operation: , line:9:13, endln:9:28 || \_operation: , line:11:13, endln:11:25
+LC/c04 off_lvIdxMixedPathIsRead181 lost=6 gained=33  | |vpiParent: || \_operation: , line:9:13, endln:9:28 || \_operation: , line:11:13, endln:11:25
+LC/c04 off_lvIdxReadNestedKeepsLvalue181v lost=22 gained=7  | \_ref_obj: (o), line:9:15, endln:9:16 || \_bit_select: (o.w[k]), line:9:17, endln:9:18 || |vpiFullName:o.w[k]
+LC/c04 wide lost=6 gained=29  | |vpiParent: || \_operation: , line:9:13, endln:9:28 || \_operation: , line:11:13, endln:11:25
+LC/c04_el alloff lost=11 gained=61  | |vpiParent: || \_operation: , line:9:13, endln:9:28 || \_operation: , line:11:13, endln:11:25
+LC/c04_el fix lost=52 gained=0  | \_ref_obj: (o), line:9:15, endln:9:16 || \_bit_select: (o.w[k]), line:9:17, endln:9:18 || |vpiFullName:o.w[k]
+LC/c04_el fix_R11V190_ENUMITEM_OFF lost=52 gained=0  | \_ref_obj: (o), line:9:15, endln:9:16 || \_bit_select: (o.w[k]), line:9:17, endln:9:18 || |vpiFullName:o.w[k]
+LC/c04_el offL181 lost=11 gained=61  | |vpiParent: || \_operation: , line:9:13, endln:9:28 || \_operation: , line:11:13, endln:11:25
+LC/c04_el off_lvIdxMixedPathIsRead181 lost=11 gained=65  | |vpiParent: || \_operation: , line:9:13, endln:9:28 || \_operation: , line:11:13, endln:11:25
+LC/c04_el off_lvIdxReadNestedKeepsLvalue181v lost=40 gained=12  | \_ref_obj: (o), line:9:15, endln:9:16 || \_bit_select: (o.w[k]), line:9:17, endln:9:18 || |vpiFullName:o.w[k]
+LC/c04_el wide lost=11 gained=61  | |vpiParent: || \_operation: , line:9:13, endln:9:28 || \_operation: , line:11:13, endln:11:25
+LV/l01 alloff lost=0 gained=10 
+LV/l01 offL181 lost=0 gained=10 
+LV/l01 off_classMethodLvIsProcess181 lost=0 gained=10 
+LV/l01 off_lvSelIdxChainName181 lost=0 gained=4 
+LV/l01 wide lost=0 gained=10 
+LV/l01_el alloff lost=0 gained=20 
+LV/l01_el offL181 lost=0 gained=20 
+LV/l01_el off_classMethodLvIsProcess181 lost=0 gained=20 
+LV/l01_el off_lvSelIdxChainName181 lost=0 gained=8 
+LV/l01_el wide lost=0 gained=20 
+LV/l03 alloff lost=0 gained=12 
+LV/l03 offL181 lost=0 gained=12 
+LV/l03 off_classMethodLvIsProcess181 lost=0 gained=10 
+LV/l03 off_lvSelIdxChainName181 lost=0 gained=4 
+LV/l03 off_procLvIdxCallWholeSpan181 lost=0 gained=2 
+LV/l03 wide lost=0 gained=12 
+LV/l03_el alloff lost=0 gained=12 
+LV/l03_el offL181 lost=0 gained=12 
+LV/l03_el off_classMethodLvIsProcess181 lost=0 gained=10 
+LV/l03_el off_lvSelIdxChainName181 lost=0 gained=4 
+LV/l03_el off_procLvIdxCallWholeSpan181 lost=0 gained=2 
+LV/l03_el wide lost=0 gained=12 
+NW/n02 alloff lost=0 gained=4 
+NW/n02 offL181 lost=0 gained=4 
+NW/n02 off_newLhsBitSelAtIndex181 lost=0 gained=2 
+NW/n02 wide lost=0 gained=4 
+NW/n02_el alloff lost=0 gained=7 
+NW/n02_el offL181 lost=0 gained=7 
+NW/n02_el off_newLhsBitSelAtIndex181 lost=0 gained=3 
+NW/n02_el wide lost=0 gained=7 
+PX/p01 alloff lost=0 gained=10 
+PX/p01 offL181 lost=0 gained=10 
+PX/p01 off_bitSelParenIdxSpan181 lost=0 gained=10 
+PX/p01 wide lost=0 gained=10 
+PX/p01_el alloff lost=0 gained=20 
+PX/p01_el offL181 lost=0 gained=20 
+PX/p01_el off_bitSelParenIdxSpan181 lost=0 gained=20 
+PX/p01_el wide lost=0 gained=20 
+PX/p02 alloff lost=0 gained=10 
+PX/p02 offL181 lost=0 gained=10 
+PX/p02 off_bitSelParenIdxSpan181 lost=0 gained=10 
+PX/p02 wide lost=0 gained=10 
+PX/p02_el alloff lost=0 gained=10 
+PX/p02_el offL181 lost=0 gained=10 
+PX/p02_el off_bitSelParenIdxSpan181 lost=0 gained=10 
+PX/p02_el wide lost=0 gained=10 
+R/r01 alloff lost=0 gained=6 
+R/r01 offL180 lost=0 gained=6 
+R/r01 off_splitPortIntRedeclLogicTs180 lost=0 gained=6 
+R/r01 wide lost=0 gained=6 
+R/r01_el alloff lost=0 gained=6 
+R/r01_el offL180 lost=0 gained=6 
+R/r01_el off_splitPortIntRedeclLogicTs180 lost=0 gained=6 
+R/r01_el wide lost=0 gained=6 
+R/r02 alloff lost=0 gained=8 
+R/r02 offL180 lost=0 gained=8 
+R/r02 off_splitPortIntRedeclLogicTs180 lost=0 gained=8 
+R/r02 wide lost=0 gained=8 
+R/r02_el alloff lost=0 gained=8 
+R/r02_el offL180 lost=0 gained=8 
+R/r02_el off_splitPortIntRedeclLogicTs180 lost=0 gained=8 
+R/r02_el wide lost=0 gained=8 
+R/r03 alloff lost=0 gained=4 
+R/r03 offL180 lost=0 gained=4 
+R/r03 off_splitPortIntRedeclLogicTs180 lost=0 gained=4 
+R/r03 wide lost=0 gained=4 
+R/r03_el alloff lost=0 gained=4 
+R/r03_el offL180 lost=0 gained=4 
+R/r03_el off_splitPortIntRedeclLogicTs180 lost=0 gained=4 
+R/r03_el wide lost=0 gained=4 
+R/r04 alloff lost=0 gained=6 
+R/r04 offL180 lost=0 gained=6 
+R/r04 off_splitPortIntRedeclLogicTs180 lost=0 gained=6 
+R/r04 wide lost=0 gained=6 
+R/r04_el alloff lost=0 gained=6 
+R/r04_el offL180 lost=0 gained=6 
+R/r04_el off_splitPortIntRedeclLogicTs180 lost=0 gained=6 
+R/r04_el wide lost=0 gained=6 
+RT/r01 alloff lost=0 gained=0 
+RT/r01 offL181 lost=0 gained=0 
+RT/r01 off_rootPathFullNameByChain181 lost=0 gained=0 
+RT/r01 wide lost=0 gained=0 
+RT/r01_el alloff lost=0 gained=0 
+RT/r01_el offL181 lost=0 gained=0 
+RT/r01_el off_rootPathFullNameByChain181 lost=0 gained=0 
+RT/r01_el wide lost=0 gained=0 
+RT/r02 alloff lost=0 gained=14 
+RT/r02 offL181 lost=0 gained=14 
+RT/r02 off_rootNetPathOwnNames181 lost=0 gained=1 
+RT/r02 off_rootPathFullNameByChain181 lost=0 gained=12 
+RT/r02 wide lost=0 gained=14 
+RT/r02_el alloff lost=0 gained=25 
+RT/r02_el offL181 lost=0 gained=25 
+RT/r02_el off_rootNetPathOwnNames181 lost=0 gained=2 
+RT/r02_el off_rootPathFullNameByChain181 lost=0 gained=22 
+RT/r02_el wide lost=0 gained=25 
+RT/r03 alloff lost=0 gained=8 
+RT/r03 offL181 lost=0 gained=8 
+RT/r03 off_rootNetPathOwnNames181 lost=0 gained=4 
+RT/r03 off_rootPathFullNameByChain181 lost=0 gained=0 
+RT/r03 wide lost=0 gained=8 
+RT/r03_el alloff lost=0 gained=7 
+RT/r03_el offL181 lost=0 gained=7 
+RT/r03_el off_rootNetPathOwnNames181 lost=0 gained=5 
+RT/r03_el off_rootPathFullNameByChain181 lost=0 gained=0 
+RT/r03_el wide lost=0 gained=7 
+RT/r04 alloff lost=0 gained=0 
+RT/r04 offL181 lost=0 gained=0 
+RT/r04 off_rootPathFullNameByChain181 lost=0 gained=0 
+RT/r04 wide lost=0 gained=0 
+RT/r04_el alloff lost=0 gained=0 
+RT/r04_el offL181 lost=0 gained=0 
+RT/r04_el off_rootPathFullNameByChain181 lost=0 gained=0 
+RT/r04_el wide lost=0 gained=0 
+RT/r05 alloff lost=0 gained=38 
+RT/r05 offL181 lost=0 gained=38 
+RT/r05 off_rootNetPathOwnNames181 lost=0 gained=3 
+RT/r05 off_rootPathElemOwnName181 lost=0 gained=5 
+RT/r05 off_rootPathFullNameByChain181 lost=0 gained=30 
+RT/r05 wide lost=0 gained=38 
+RT/r05_el alloff lost=0 gained=32 
+RT/r05_el offL181 lost=0 gained=32 
+RT/r05_el off_rootNetPathOwnNames181 lost=0 gained=3 
+RT/r05_el off_rootPathElemOwnName181 lost=0 gained=2 
+RT/r05_el off_rootPathFullNameByChain181 lost=0 gained=27 
+RT/r05_el wide lost=0 gained=32 
+T/t01 alloff lost=0 gained=0 
+T/t01 offL180 lost=0 gained=0 
+T/t01 off_classTpDefaultTsAtUse180 lost=0 gained=0 
+T/t01 wide lost=0 gained=0 
+T/t01_el alloff lost=0 gained=0 
+T/t01_el offL180 lost=0 gained=0 
+T/t01_el off_classTpDefaultTsAtUse180 lost=0 gained=0 
+T/t01_el wide lost=0 gained=0 
+T/t02 alloff lost=0 gained=5 
+T/t02 offL180 lost=0 gained=5 
+T/t02 off_classTpChainRootShares180 lost=0 gained=4 
+T/t02 off_classTpDefaultTsAtUse180 lost=0 gained=2 
+T/t02 off_classTpFormalMovesTs180 lost=0 gained=5 
+T/t02 wide lost=0 gained=5 
+T/t02_el alloff lost=0 gained=5 
+T/t02_el offL180 lost=0 gained=5 
+T/t02_el off_classTpChainRootShares180 lost=0 gained=4 
+T/t02_el off_classTpDefaultTsAtUse180 lost=0 gained=2 
+T/t02_el off_classTpFormalMovesTs180 lost=0 gained=5 
+T/t02_el wide lost=0 gained=5 
+T/t03 alloff lost=0 gained=3 
+T/t03 offL180 lost=0 gained=3 
+T/t03 off_classTpDefaultTsAtUse180 lost=0 gained=2 
+T/t03 off_classTpFormalMovesTs180 lost=0 gained=3 
+T/t03 wide lost=0 gained=3 
+T/t03_el alloff lost=0 gained=3 
+T/t03_el offL180 lost=0 gained=3 
+T/t03_el off_classTpDefaultTsAtUse180 lost=0 gained=2 
+T/t03_el off_classTpFormalMovesTs180 lost=0 gained=3 
+T/t03_el wide lost=0 gained=3 
+T/t04 alloff lost=0 gained=3 
+T/t04 offL180 lost=0 gained=3 
+T/t04 off_classTpDefaultTsAtUse180 lost=0 gained=2 
+T/t04 off_classTpFormalMovesTs180 lost=0 gained=3 
+T/t04 wide lost=0 gained=3 
+T/t04_el alloff lost=0 gained=3 
+T/t04_el offL180 lost=0 gained=3 
+T/t04_el off_classTpDefaultTsAtUse180 lost=0 gained=2 
+T/t04_el off_classTpFormalMovesTs180 lost=0 gained=3 
+T/t04_el wide lost=0 gained=3 
+T/t05 alloff lost=0 gained=2 
+T/t05 offL180 lost=0 gained=2 
+T/t05 off_classTpDefaultTsAtUse180 lost=0 gained=1 
+T/t05 off_classTpFormalMovesTs180 lost=0 gained=2 
+T/t05 wide lost=0 gained=2 
+T/t05_el alloff lost=0 gained=2 
+T/t05_el offL180 lost=0 gained=2 
+T/t05_el off_classTpDefaultTsAtUse180 lost=0 gained=1 
+T/t05_el off_classTpFormalMovesTs180 lost=0 gained=2 
+T/t05_el wide lost=0 gained=2 
+T/t06 alloff lost=0 gained=2 
+T/t06 offL180 lost=0 gained=2 
+T/t06 off_classTpDefaultTsAtUse180 lost=0 gained=1 
+T/t06 off_classTpFormalMovesTs180 lost=0 gained=2 
+T/t06 wide lost=0 gained=2 
+T/t06_el alloff lost=0 gained=2 
+T/t06_el offL180 lost=0 gained=2 
+T/t06_el off_classTpDefaultTsAtUse180 lost=0 gained=1 
+T/t06_el off_classTpFormalMovesTs180 lost=0 gained=2 
+T/t06_el wide lost=0 gained=2 
+T/t08 alloff lost=0 gained=2 
+T/t08 offL180 lost=0 gained=2 
+T/t08 off_classTpDefaultTsAtUse180 lost=0 gained=1 
+T/t08 off_classTpFormalMovesTs180 lost=0 gained=2 
+T/t08 wide lost=0 gained=5 
+T/t08_el alloff lost=0 gained=2 
+T/t08_el offL180 lost=0 gained=2 
+T/t08_el off_classTpDefaultTsAtUse180 lost=0 gained=1 
+T/t08_el off_classTpFormalMovesTs180 lost=0 gained=2 
+T/t08_el wide lost=0 gained=5 
+US/u01 alloff lost=0 gained=12 
+US/u01 offL181 lost=0 gained=12 
+US/u01 off_bareDecUnderscoreDropped181 lost=0 gained=12 
+US/u01 off_bigDecUnderscoreDropped181v lost=0 gained=0 
+US/u01 wide lost=0 gained=12 
+US/u01_el alloff lost=0 gained=12 
+US/u01_el offL181 lost=0 gained=12 
+US/u01_el off_bareDecUnderscoreDropped181 lost=0 gained=12 
+US/u01_el off_bigDecUnderscoreDropped181v lost=0 gained=0 
+US/u01_el wide lost=0 gained=12 
+US/u02 alloff lost=0 gained=16 
+US/u02 offL181 lost=0 gained=16 
+US/u02 off_bareDecUnderscoreDropped181 lost=0 gained=16 
+US/u02 wide lost=0 gained=16 
+US/u02_el alloff lost=0 gained=16 
+US/u02_el offL181 lost=0 gained=16 
+US/u02_el off_bareDecUnderscoreDropped181 lost=0 gained=16 
+US/u02_el wide lost=0 gained=16 
+US/u03 alloff lost=0 gained=6 
+US/u03 offL181 lost=0 gained=6 
+US/u03 off_bareDecUnderscoreDropped181 lost=0 gained=6 
+US/u03 wide lost=0 gained=6 
+US/u03_el alloff lost=0 gained=6 
+US/u03_el offL181 lost=0 gained=6 
+US/u03_el off_bareDecUnderscoreDropped181 lost=0 gained=6 
+US/u03_el wide lost=0 gained=6 
+US/u04 alloff lost=0 gained=2 
+US/u04 offL181 lost=0 gained=2 
+US/u04 off_bareDecUnderscoreDropped181 lost=0 gained=2 
+US/u04 wide lost=0 gained=2 
+US/u04_el alloff lost=0 gained=2 
+US/u04_el offL181 lost=0 gained=2 
+US/u04_el off_bareDecUnderscoreDropped181 lost=0 gained=2 
+US/u04_el wide lost=0 gained=2 
+W/w02 aggX_R11U176_CLSMETHOD_OFF lost=0 gained=9 
+W/w02 aggX_R11U176_QUALFORMAL_OFF lost=0 gained=9 
+W/w02 agg_R11U176_CLSMETHOD_OFF lost=0 gained=9 
+W/w02 alloff lost=0 gained=5 
+W/w02 offL180 lost=0 gained=5 
+W/w02 wide lost=0 gained=10 
+W/w02_el aggX_R11U176_CLSMETHOD_OFF lost=0 gained=11 
+W/w02_el aggX_R11U176_QUALFORMAL_OFF lost=0 gained=11 
+W/w02_el agg_R11U176_CLSMETHOD_OFF lost=0 gained=11 
+W/w02_el alloff lost=0 gained=5 
+W/w02_el offL180 lost=0 gained=5 
+W/w02_el wide lost=0 gained=11 
+X/x01 alloff lost=0 gained=19 
+X/x01 off2_enumImportParentLastWriter180_rootPathElemOwnName181 lost=0 gained=3 
+X/x01 off2_enumImportParentLastWriter180_rootPathFullNameByChain181 lost=0 gained=15 
+X/x01 off2_rootPathElemOwnName181_rootPathFullNameByChain181 lost=0 gained=12 
+X/x01 offL180 lost=0 gained=3 
+X/x01 offL181 lost=0 gained=16 
+X/x01 off_enumImportParentLastWriter180 lost=0 gained=3 
+X/x01 off_rootPathFullNameByChain181 lost=0 gained=12 
+X/x01 wide lost=0 gained=19 
+X/x01_el alloff lost=0 gained=31 
+X/x01_el off2_enumImportParentLastWriter180_rootPathElemOwnName181 lost=0 gained=3 
+X/x01_el off2_enumImportParentLastWriter180_rootPathFullNameByChain181 lost=0 gained=25 
+X/x01_el off2_rootPathElemOwnName181_rootPathFullNameByChain181 lost=0 gained=22 
+X/x01_el offL180 lost=0 gained=3 
+X/x01_el offL181 lost=0 gained=28 
+X/x01_el off_enumImportParentLastWriter180 lost=0 gained=3 
+X/x01_el off_rootPathFullNameByChain181 lost=0 gained=22 
+X/x01_el wide lost=0 gained=31 
+X/x02 alloff lost=0 gained=15 
+X/x02 off2_modAggTfArgCloneFollows180_lvIdxReadNestedKeepsLvalue181v lost=0 gained=7 
+X/x02 offL180 lost=0 gained=2 
+X/x02 offL181 lost=0 gained=13 
+X/x02 off_lvIdxMixedPathIsRead181 lost=0 gained=9 
+X/x02 off_lvIdxReadNestedKeepsLvalue181v lost=0 gained=5 
+X/x02 off_modAggTfArgCloneFollows180 lost=0 gained=2 
+X/x02 wide lost=0 gained=15 
+X/x02_el alloff lost=0 gained=25 
+X/x02_el off2_modAggTfArgCloneFollows180_lvIdxReadNestedKeepsLvalue181v lost=0 gained=12 
+X/x02_el offL180 lost=0 gained=2 
+X/x02_el offL181 lost=0 gained=23 
+X/x02_el off_lvIdxMixedPathIsRead181 lost=0 gained=15 
+X/x02_el off_lvIdxReadNestedKeepsLvalue181v lost=0 gained=10 
+X/x02_el off_modAggTfArgCloneFollows180 lost=0 gained=2 
+X/x02_el wide lost=0 gained=25 
+X/x03 alloff lost=0 gained=4 
+X/x03 off2_splitPortIntRedeclLogicTs180_procLvPartSelBoundCallName181v lost=0 gained=12 
+X/x03 offL180 lost=0 gained=4 
+X/x03 off_procLvPartSelBoundCallName181v lost=0 gained=8 
+X/x03 off_splitPortIntRedeclLogicTs180 lost=0 gained=4 
+X/x03 wide lost=0 gained=4 
+X/x03_el alloff lost=0 gained=4 
+X/x03_el off2_splitPortIntRedeclLogicTs180_procLvPartSelBoundCallName181v lost=0 gained=16 
+X/x03_el offL180 lost=0 gained=4 
+X/x03_el off_procLvPartSelBoundCallName181v lost=0 gained=12 
+X/x03_el off_splitPortIntRedeclLogicTs180 lost=0 gained=4 
+X/x03_el wide lost=0 gained=4 
+X/x04 alloff lost=0 gained=3 
+X/x04 off2_ifaceWildcardTdNameOrder180_doWhileMacroCondEnd181 lost=0 gained=3 
+X/x04 offL181 lost=0 gained=3 
+X/x04 off_doWhileMacroCondEnd181 lost=0 gained=3 
+X/x04 wide lost=0 gained=3 
+X/x04_el alloff lost=0 gained=3 
+X/x04_el off2_ifaceWildcardTdNameOrder180_doWhileMacroCondEnd181 lost=0 gained=3 
+X/x04_el offL181 lost=0 gained=3 
+X/x04_el off_doWhileMacroCondEnd181 lost=0 gained=3 
+X/x04_el wide lost=0 gained=3 
+X/x05 alloff lost=0 gained=3 
+X/x05 off2_classMethodLvIsProcess181_newLhsBitSelAtIndex181 lost=0 gained=2 
+X/x05 off2_classTpDefaultTsAtUse180_classMethodLvIsProcess181 lost=0 gained=1 
+X/x05 off2_classTpDefaultTsAtUse180_newLhsBitSelAtIndex181 lost=0 gained=3 
+X/x05 offL180 lost=0 gained=1 
+X/x05 offL181 lost=0 gained=2 
+X/x05 off_classTpDefaultTsAtUse180 lost=0 gained=1 
+X/x05 off_newLhsBitSelAtIndex181 lost=0 gained=2 
+X/x05 wide lost=0 gained=4 
+X/x05_el alloff lost=0 gained=3 
+X/x05_el off2_classMethodLvIsProcess181_newLhsBitSelAtIndex181 lost=0 gained=2 
+X/x05_el off2_classTpDefaultTsAtUse180_classMethodLvIsProcess181 lost=0 gained=1 
+X/x05_el off2_classTpDefaultTsAtUse180_newLhsBitSelAtIndex181 lost=0 gained=3 
+X/x05_el offL180 lost=0 gained=1 
+X/x05_el offL181 lost=0 gained=2 
+X/x05_el off_classTpDefaultTsAtUse180 lost=0 gained=1 
+X/x05_el off_newLhsBitSelAtIndex181 lost=0 gained=2 
+X/x05_el wide lost=0 gained=5 
+X/x06 alloff lost=0 gained=15 
+X/x06 off2_incDecMixedPathIsLvalue181_incDecBitSelWholeSpan181 lost=0 gained=15 
+X/x06 off2_incDecMixedPathIsLvalue181_incDecMemberSelIsLvalue184 lost=0 gained=15 
+X/x06 off2_incDecMixedPathIsLvalue181_incDecSelTopRestore184v lost=0 gained=15 
+X/x06 offL181 lost=0 gained=15 
+X/x06 off_incDecMixedPathIsLvalue181 lost=0 gained=15 
+X/x06 wide lost=0 gained=25 
+X/x06_el alloff lost=0 gained=30 
+X/x06_el off2_incDecMixedPathIsLvalue181_incDecBitSelWholeSpan181 lost=0 gained=30 
+X/x06_el off2_incDecMixedPathIsLvalue181_incDecMemberSelIsLvalue184 lost=0 gained=30 
+X/x06_el off2_incDecMixedPathIsLvalue181_incDecSelTopRestore184v lost=0 gained=30 
+X/x06_el offL181 lost=0 gained=30 
+X/x06_el off_incDecMixedPathIsLvalue181 lost=0 gained=30 
+X/x06_el wide lost=0 gained=50 
+X/x07 alloff lost=0 gained=2 
+X/x07 off2_incDecMemberSelIsLvalue184_incDecBitSelWholeSpan181 lost=0 gained=20 
+X/x07 off2_incDecMemberSelIsLvalue184_incDecSelTopRestore184v lost=0 gained=18 
+X/x07 off2_incDecMixedPathIsLvalue181_incDecBitSelWholeSpan181 lost=0 gained=2 
+X/x07 off2_incDecMixedPathIsLvalue181_incDecMemberSelIsLvalue184 lost=0 gained=18 
+X/x07 off2_incDecSelTopRestore184v_incDecBitSelWholeSpan181 lost=0 gained=2 
+X/x07 offL181 lost=0 gained=2 
+X/x07 offL184 lost=0 gained=18 
+X/x07 off_incDecBitSelWholeSpan181 lost=0 gained=2 
+X/x07 off_incDecMemberSelIsLvalue184 lost=0 gained=18 
+X/x07 wide lost=0 gained=24 
+X/x07_el alloff lost=0 gained=4 
+X/x07_el off2_incDecMemberSelIsLvalue184_incDecBitSelWholeSpan181 lost=0 gained=40 
+X/x07_el off2_incDecMemberSelIsLvalue184_incDecSelTopRestore184v lost=0 gained=36 
+X/x07_el off2_incDecMixedPathIsLvalue181_incDecBitSelWholeSpan181 lost=0 gained=4 
+X/x07_el off2_incDecMixedPathIsLvalue181_incDecMemberSelIsLvalue184 lost=0 gained=36 
+X/x07_el off2_incDecSelTopRestore184v_incDecBitSelWholeSpan181 lost=0 gained=4 
+X/x07_el offL181 lost=0 gained=4 
+X/x07_el offL184 lost=0 gained=36 
+X/x07_el off_incDecBitSelWholeSpan181 lost=0 gained=4 
+X/x07_el off_incDecMemberSelIsLvalue184 lost=0 gained=36 
+X/x07_el wide lost=0 gained=48 
+tp/r11u180repro/cases/T/t11 alloff lost=0 gained=2 
+tp/r11u180repro/cases/T/t11_el alloff lost=0 gained=2 
+tp/r11u180repro/cases/U/u03 alloff lost=0 gained=2 
+tp/r11u180repro/cases/U/u03_el alloff lost=0 gained=2 
+tp/r11u181repro/cases/adv/a01 alloff lost=0 gained=25 
+tp/r11u181repro/cases/adv/a01_el alloff lost=0 gained=50 
+tp/r11u181repro/cases/rt/g05 alloff lost=0 gained=5 
+tp/r11u181repro/cases/rt/g05_el alloff lost=0 gained=10 
+tp/r11u181repro/cases/us/u03 alloff lost=0 gained=8 
+tp/r11u181repro/cases/us/u03_el alloff lost=0 gained=8 
+tp/r11v181repro/cases/lx/x03 alloff lost=2 gained=24  | |vpiParent: || \_operation: , line:14:13, endln:14:16
+tp/r11v181repro/cases/lx/x03_el alloff lost=2 gained=54  | |vpiParent: || \_operation: , line:14:13, endln:14:16
+tp/r11v181repro/cases/px/p05 alloff lost=0 gained=6 
+tp/r11v181repro/cases/px/p05_el alloff lost=0 gained=12 
+tp/r11v181repro/cases/us/d04 alloff lost=0 gained=20 
+tp/r11v181repro/cases/us/d04_el alloff lost=0 gained=20 
+tp/v11u180repro/cases/P/p08 alloff lost=0 gained=2 
+tp/v11u180repro/cases/P/p08_el alloff lost=0 gained=2 

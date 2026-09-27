@@ -1,0 +1,36 @@
+WIDE cells=146 unfired=28
+bareDecUnderscoreDropped181 cells=8 cmp:down=6 cmp:same=2 ds:DIVERGENT->IDENTICAL=1 ds:same=3 strict:gained=4 strict:ne-both=4
+bigDecUnderscoreDropped181v cells=2 cmp:down=2 ds:same=1 strict:ne-both=2
+bitSelParenIdxSpan181 cells=4 cmp:same=4 ds:EQUIVALENT->IDENTICAL=2 strict:gained=2 strict:ne-both=2
+classMethodLvIsProcess181 cells=12 cmp:same=6 ds:same=3 strict:gained=2 strict:ne-both=4 unfired=6
+classTpChainRootShares180 cells=2 cmp:same=2 ds:same=1 strict:gained=2
+classTpDefaultTsAtUse180 cells=18 cmp:same=16 ds:same=8 strict:gained=8 strict:ne-both=8 unfired=2
+classTpFormalMovesTs180 cells=14 cmp:same=12 ds:same=6 strict:gained=6 strict:ne-both=6 unfired=2
+classTpQualDefaultSpan180 cells=2 unfired=2
+doWhileMacroCondEnd181 cells=6 cmp:same=6 ds:same=3 strict:gained=4 strict:ne-both=2
+doWhileSyntaxFromCond181 cells=4 cmp:same=2 ds:same=1 strict:ne-both=2 unfired=2
+enumImpDefOwner180v cells=16 cmp:same=2 ds:same=1 strict:kept=2 unfired=14
+enumImpHdrBranch180 cells=2 cmp:same=2 ds:same=1 dump-lost-cells=2 strict:LOST=2
+enumImportParentLastWriter180 cells=28 cmp:same=12 ds:same=6 dump-lost-cells=4 strict:LOST=4 strict:gained=6 strict:ne-both=2 unfired=16
+ifaceWildcardTdNameOrder180 cells=10 cmp:same=10 ds:same=5 strict:gained=2 strict:ne-both=8
+incDecBitSelWholeSpan181 cells=10 cmp:same=8 ds:same=4 strict:gained=2 strict:ne-both=6 unfired=2
+incDecMemberSelIsLvalue184 cells=4 cmp:same=2 ds:same=1 strict:ne-both=2 unfired=2
+incDecMixedPathIsLvalue181 cells=10 cmp:same=4 ds:same=2 strict:ne-both=4 unfired=6
+incDecSelTopRestore184v cells=4 unfired=4
+invalidStmtAnchorSyntax181 cells=4 cmp:same=4 ds:same=2 strict:gained=2 strict:ne-both=2
+lvIdxMixedPathIsRead181 cells=6 cmp:same=6 ds:EQUIVALENT->IDENTICAL=1 ds:same=2 dump-lost-cells=2 rec-away-cells=2 strict:ne-both=6
+lvIdxReadCallNameSpan181v cells=4 cmp:same=2 ds:EQUIVALENT->IDENTICAL=1 strict:ne-both=2 unfired=2
+lvIdxReadNestedKeepsLvalue181v cells=6 cmp:same=6 ds:EQUIVALENT->IDENTICAL=1 ds:same=2 dump-lost-cells=4 rec-away-cells=4 strict:ne-both=6
+lvSelIdxChainName181 cells=10 cmp:same=6 ds:same=3 strict:gained=2 strict:ne-both=4 unfired=4
+modAggCloneOwnDefOnly180v cells=2 cmp:same=2 ds:same=1 dump-lost-cells=2 rec-away-cells=2 strict:ne-both=2
+modAggCloneTakesFile180v cells=4 cmp:same=2 ds:same=1 strict:ne-both=2 unfired=2
+modAggTfArgCloneFollows180 cells=12 cmp:same=8 ds:same=4 strict:ne-both=8 unfired=4
+newLhsBitSelAtIndex181 cells=6 cmp:same=4 ds:same=2 strict:gained=2 strict:ne-both=2 unfired=2
+pkgAggTfArgCloneFollows180 cells=4 cmp:same=4 ds:same=2 strict:gained=2 strict:ne-both=2
+procLvIdxCallWholeSpan181 cells=8 cmp:same=4 ds:EQUIVALENT->IDENTICAL=1 ds:same=1 strict:gained=2 strict:ne-both=2 unfired=4
+procLvPartSelBoundCallName181v cells=4 cmp:same=4 ds:DIVERGENT->IDENTICAL=1 ds:EQUIVALENT->IDENTICAL=1 strict:gained=4
+rootNetPathOwnNames181 cells=10 cmp:same=6 ds:same=3 strict:gained=2 strict:ne-both=4 unfired=4
+rootPathElemOwnName181 cells=10 cmp:same=2 ds:same=1 strict:ne-both=2 unfired=8
+rootPathFullNameByChain181 cells=12 cmp:UP=6 cmp:same=6 ds:same=6 strict:gained=4 strict:ne-both=8
+splitPortIntRedeclLogicTs180 cells=10 cmp:UP=2 cmp:down=8 ds:DIVERGENT->IDENTICAL=2 ds:EQUIVALENT->IDENTICAL=1 ds:STATUS_DIFF->IDENTICAL=1 ds:same=1 strict:gained=6 strict:ne-both=4
+tfArgAggSwitchSplit180 cells=4 unfired=4

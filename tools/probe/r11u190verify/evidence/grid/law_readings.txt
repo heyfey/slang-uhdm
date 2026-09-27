@@ -1,0 +1,35 @@
+bareDecUnderscoreDropped181: cases=4 cells=8 STAGE1-CLOSER=8
+bigDecUnderscoreDropped181v: cases=1 cells=2 STAGE1-SAME=2
+bitSelParenIdxSpan181: cases=2 cells=4 STAGE1-CLOSER=2 TOWARD=2
+classMethodLvIsProcess181: cases=6 cells=12 STAGE1-CLOSER=4 TOWARD=2 UNFIRED=6
+classTpChainRootShares180: cases=1 cells=2 TOWARD=2
+classTpDefaultTsAtUse180: cases=9 cells=18 STAGE1-AWAY=2 STAGE1-CLOSER=5 STAGE1-SAME=1 TOWARD=8 UNFIRED=2
+classTpFormalMovesTs180: cases=7 cells=14 STAGE1-CLOSER=6 TOWARD=6 UNFIRED=2
+classTpQualDefaultSpan180: cases=1 cells=2 UNFIRED=2
+doWhileMacroCondEnd181: cases=3 cells=6 TOWARD=6
+doWhileSyntaxFromCond181: cases=2 cells=4 TOWARD=2 UNFIRED=2
+enumImpDefOwner180v: cases=8 cells=16 BYTES-ONLY=2 UNFIRED=14
+enumImpHdrBranch180: cases=1 cells=2 AWAY=2
+enumImportParentLastWriter180: cases=14 cells=28 AWAY=4 STAGE1-SAME=2 TOWARD=6 UNFIRED=16
+ifaceWildcardTdNameOrder180: cases=5 cells=10 STAGE1-SAME=6 TOWARD=2 UNMASK=2
+incDecBitSelWholeSpan181: cases=5 cells=10 STAGE1-CLOSER=4 STAGE1-SAME=2 TOWARD=2 UNFIRED=2
+incDecMemberSelIsLvalue184: cases=2 cells=4 STAGE1-CLOSER=2 UNFIRED=2
+incDecMixedPathIsLvalue181: cases=5 cells=10 STAGE1-CLOSER=4 UNFIRED=6
+incDecSelTopRestore184v: cases=2 cells=4 UNFIRED=4
+invalidStmtAnchorSyntax181: cases=2 cells=4 TOWARD=4
+lvIdxMixedPathIsRead181: cases=3 cells=6 MIXED=6
+lvIdxReadCallNameSpan181v: cases=2 cells=4 TOWARD=2 UNFIRED=2
+lvIdxReadNestedKeepsLvalue181v: cases=3 cells=6 MIXED=6
+lvSelIdxChainName181: cases=5 cells=10 STAGE1-CLOSER=4 TOWARD=2 UNFIRED=4
+modAggCloneOwnDefOnly180v: cases=1 cells=2 AWAY=1 STAGE1-AWAY=1
+modAggCloneTakesFile180v: cases=2 cells=4 STAGE1-SAME=1 TOWARD=1 UNFIRED=2
+modAggTfArgCloneFollows180: cases=6 cells=12 BYTES-ONLY=1 STAGE1-CLOSER=3 TOWARD=4 UNFIRED=4
+newLhsBitSelAtIndex181: cases=3 cells=6 STAGE1-CLOSER=2 TOWARD=2 UNFIRED=2
+pkgAggTfArgCloneFollows180: cases=2 cells=4 STAGE1-CLOSER=1 TOWARD=3
+procLvIdxCallWholeSpan181: cases=4 cells=8 STAGE1-CLOSER=2 TOWARD=2 UNFIRED=4
+procLvPartSelBoundCallName181v: cases=2 cells=4 TOWARD=4
+rootNetPathOwnNames181: cases=5 cells=10 STAGE1-CLOSER=2 TOWARD=4 UNFIRED=4
+rootPathElemOwnName181: cases=5 cells=10 TOWARD=2 UNFIRED=8
+rootPathFullNameByChain181: cases=6 cells=12 STAGE1-AWAY=6 TOWARD=6
+splitPortIntRedeclLogicTs180: cases=5 cells=10 STAGE1-CLOSER=10
+tfArgAggSwitchSplit180: cases=2 cells=4 UNFIRED=4

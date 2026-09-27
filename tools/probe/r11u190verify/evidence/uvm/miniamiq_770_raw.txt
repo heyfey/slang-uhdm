@@ -1,0 +1,4 @@
+#770 fullname
+  A: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+  raw fullname A: uvm_pkg::uvm_pkg::uvm_reg_bus_op::byte_en::uvm_reg_byte_en_t | B: uvm_reg_byte_en_t

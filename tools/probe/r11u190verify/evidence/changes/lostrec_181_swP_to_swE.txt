@@ -1,0 +1,22 @@
+surelog/default/SVSwitch: lost 1 gained 0
+   LOST #264 col | A: 6	bit_select	rcvr		work@Environment::build::rcvr	Environemnt.sv	43	11	43	12		0 | B: 6	bit_select	rcvr		work@Environment::build::rcvr	Environemnt.sv	43	6	43	13		0
+surelog/testflags/SVSwitch: lost 1 gained 0
+   LOST #264 col | A: 6	bit_select	rcvr		work@Environment::build::rcvr	Environemnt.sv	43	11	43	12		0 | B: 6	bit_select	rcvr		work@Environment::build::rcvr	Environemnt.sv	43	6	43	13		0
+surelog/default/SimpleUVM: lost 1 gained 0
+   LOST #1481 col | A: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	34	409	41		0 | B: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	5	409	42		0
+surelog/testflags/SimpleUVM: lost 1 gained 0
+   LOST #1493 col | A: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	34	409	41		0 | B: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	5	409	42		0
+surelog/default/Scoreboard: lost 1 gained 0
+   LOST #1489 col | A: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	34	409	41		0 | B: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	5	409	42		0
+surelog/default/SeqDriver: lost 1 gained 0
+   LOST #1439 col | A: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	34	409	41		0 | B: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	5	409	42		0
+surelog/testflags/SeqDriver: lost 1 gained 0
+   LOST #1451 col | A: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	34	409	41		0 | B: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	5	409	42		0
+surelog/default/MiniAmiq: lost 1 gained 0
+   LOST #1456 col | A: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	34	409	41		0 | B: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	5	409	42		0
+surelog/testflags/MiniAmiq: lost 1 gained 0
+   LOST #1456 col | A: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	34	409	41		0 | B: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_misc.svh	409	5	409	42		0
+surelog/default/BuildUVMPkg: lost 1 gained 0
+   LOST #1834 col | A: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_pkg.sv	8678	34	8678	41		0 | B: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_pkg.sv	8678	5	8678	42		0
+surelog/testflags/BuildUVMPkg: lost 1 gained 0
+   LOST #1834 col | A: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_pkg.sv	8678	34	8678	41		0 | B: 6	bit_select	uvm_random_seed_table_lookup		uvm_pkg::uvm_create_random_seed::uvm_random_seed_table_lookup	uvm_pkg.sv	8678	5	8678	42		0

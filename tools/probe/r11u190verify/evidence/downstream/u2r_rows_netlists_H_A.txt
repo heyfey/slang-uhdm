@@ -1,0 +1,9 @@
+mem_read_reg_nohier.il surelog=2c3c7f556e slang_H=2c3c7f556e slang_A=2c3c7f556e ALL_SAME
+mem_read_reg.il surelog=74db87b322 slang_H=74db87b322 slang_A=74db87b322 ALL_SAME
+mem_read_reg_synth.v surelog=3c024840a2 slang_H=3c024840a2 slang_A=3c024840a2 ALL_SAME
+const_cast_signext_nohier.il surelog=9c949a7cd8 slang_H=9c949a7cd8 slang_A=9c949a7cd8 ALL_SAME
+const_cast_signext.il surelog=9a7076d58f slang_H=9a7076d58f slang_A=9a7076d58f ALL_SAME
+const_cast_signext_synth.v surelog=e7014c40b4 slang_H=e7014c40b4 slang_A=e7014c40b4 ALL_SAME
+struct_param_func_config_nohier.il surelog=be3925e993 slang_H=be3925e993 slang_A=be3925e993 ALL_SAME
+struct_param_func_config.il surelog=40bea30be6 slang_H=40bea30be6 slang_A=40bea30be6 ALL_SAME
+struct_param_func_config_synth.v surelog=d764b78af3 slang_H=d764b78af3 slang_A=d764b78af3 ALL_SAME

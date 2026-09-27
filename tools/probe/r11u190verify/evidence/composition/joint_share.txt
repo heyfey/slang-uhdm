@@ -1,0 +1,5 @@
+r10uvm55repro/a1 bad(ours-not-golden): A=22 off180=20 off181=17 H=15 miss(golden-not-ours): A=22 off180=20 off181=17 H=15 | fix180=5 fix181=2 overlap=0 | intro180=0 intro181=0 CANCELLED=0 paired=0 {} UNPAIRED=0
+r10v160repro/x11_class bad(ours-not-golden): A=2 off180=1 off181=1 H=0 miss(golden-not-ours): A=23 off180=22 off181=22 H=21 | fix180=1 fix181=1 overlap=0 | intro180=0 intro181=0 CANCELLED=0 paired=0 {} UNPAIRED=0
+surelog/default/Earlgrey_0_1 bad(ours-not-golden): A=6800 off180=6792 off181=6800 H=6792 miss(golden-not-ours): A=6156 off180=6148 off181=6156 H=6148 | fix180=0 fix181=8 overlap=0 | intro180=0 intro181=0 CANCELLED=0 paired=0 {} UNPAIRED=0
+surelog/testflags/Earlgrey_0_1 bad(ours-not-golden): A=6353 off180=6353 off181=6353 H=6353 miss(golden-not-ours): A=6067 off180=6067 off181=6067 H=6067 | fix180=0 fix181=0 overlap=0 | intro180=0 intro181=0 CANCELLED=0 paired=0 {} UNPAIRED=0
+surelog/default/SVSwitch bad(ours-not-golden): A=60 off180=59 off181=60 H=59 miss(golden-not-ours): A=48 off180=47 off181=48 H=47 | fix180=0 fix181=1 overlap=0 | intro180=0 intro181=0 CANCELLED=0 paired=0 {} UNPAIRED=0

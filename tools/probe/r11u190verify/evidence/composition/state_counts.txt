@@ -1,0 +1,13 @@
+sw8 r11u190_bin/s80a.sh probe=2814 surelog=450+447 judge_eq=954 u2r=783+783
+swP r11u190_bin/s804.sh probe=2880 surelog=453+449 judge_eq=954 u2r=783+783
+swE r11u190_bin/s1eef.sh probe=2886 surelog=455+451 judge_eq=954 u2r=783+783
+swT r11u190_bin/sa3a.sh probe=2895 surelog=456+452 judge_eq=954 u2r=784+784
+swH r11u190_bin/law.bin probe=2898 surelog=456+452 judge_eq=954 u2r=787+787
+swA r11u190_bin/alloff.sh probe=2882 surelog=453+449 judge_eq=954 u2r=786+786
+sw0 r11u190_bin/off180.sh probe=2889 surelog=455+451 judge_eq=954 u2r=786+786
+sw1 r11u190_bin/off181.sh probe=2891 surelog=454+450 judge_eq=954 u2r=787+787
+sw4 r11u190_bin/off184.sh probe=2895 surelog=456+452 judge_eq=954 u2r=784+784
+sw5 r11u190_bin/off184x181.sh probe=2889 surelog=454+450 judge_eq=954 u2r=784+784
+swW r11u190_bin/wide.sh probe=2796 surelog=450+446 judge_eq=954 u2r=783+783
+swO r11u190_bin/wideon.sh probe=2811 surelog=453+449 judge_eq=954 u2r=784+784
+swF r11u190_bin/fix.bin probe=2898 surelog=456+452 judge_eq=954 u2r=787+787

@@ -1,0 +1,9 @@
+L/MiniAmiq_default_1 right-bound:       |UINT:1099
+L/MiniAmiq_default_2 right-bound:       |UINT:0
+J/MiniAmiq_default_1 right-bound:       |UINT:644
+J/MiniAmiq_default_2 right-bound:       |UINT:811
+J/MiniAmiq_default_3 right-bound:       |UINT:1494
+L/SeqDriver_default_1 right-bound:       |UINT:918
+J/SeqDriver_default_1 right-bound:       |UINT:0
+J/SeqDriver_default_2 right-bound:       |UINT:1238
+done

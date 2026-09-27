@@ -1,0 +1,9 @@
+ON PackedArrayHighConn IDENTICAL NO_GATES NO_GATES 0 0 - slang:PackedArrayHighConn.il=06160576bd,PackedArrayHighConn_nohier.il=ee51869972,PackedArrayHighConn_synth.v=1e70d92ed2 surelog:PackedArrayHighConn.il=06160576bd,PackedArrayHighConn_nohier.il=ee51869972,PackedArrayHighConn_synth.v=1e70d92ed2
+ON CovMacro SURELOG_FAIL     - slang: surelog:
+ON YosysRiscv IDENTICAL OK OK 528 528 - slang:YosysRiscv.il=6b7a452398,YosysRiscv_nohier.il=f053d5f53b,YosysRiscv_synth.v=e114b78fc2 surelog:YosysRiscv.il=6b7a452398,YosysRiscv_nohier.il=f053d5f53b,YosysRiscv_synth.v=e114b78fc2
+ALLOFF PackedArrayHighConn IDENTICAL NO_GATES NO_GATES 0 0 - slang:PackedArrayHighConn.il=06160576bd,PackedArrayHighConn_nohier.il=ee51869972,PackedArrayHighConn_synth.v=1e70d92ed2 surelog:PackedArrayHighConn.il=06160576bd,PackedArrayHighConn_nohier.il=ee51869972,PackedArrayHighConn_synth.v=1e70d92ed2
+ALLOFF CovMacro SURELOG_FAIL     - slang: surelog:
+ALLOFF YosysRiscv IDENTICAL OK OK 528 528 - slang:YosysRiscv.il=6b7a452398,YosysRiscv_nohier.il=f053d5f53b,YosysRiscv_synth.v=e114b78fc2 surelog:YosysRiscv.il=6b7a452398,YosysRiscv_nohier.il=f053d5f53b,YosysRiscv_synth.v=e114b78fc2
+FIX PackedArrayHighConn IDENTICAL NO_GATES NO_GATES 0 0 - slang:PackedArrayHighConn.il=06160576bd,PackedArrayHighConn_nohier.il=ee51869972,PackedArrayHighConn_synth.v=1e70d92ed2 surelog:PackedArrayHighConn.il=06160576bd,PackedArrayHighConn_nohier.il=ee51869972,PackedArrayHighConn_synth.v=1e70d92ed2
+FIX CovMacro SURELOG_FAIL     - slang: surelog:
+FIX YosysRiscv IDENTICAL OK OK 528 528 - slang:YosysRiscv.il=6b7a452398,YosysRiscv_nohier.il=f053d5f53b,YosysRiscv_synth.v=e114b78fc2 surelog:YosysRiscv.il=6b7a452398,YosysRiscv_nohier.il=f053d5f53b,YosysRiscv_synth.v=e114b78fc2

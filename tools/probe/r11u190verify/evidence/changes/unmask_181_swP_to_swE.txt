@@ -1,0 +1,47 @@
+== probe: 26 rows differ
+r10buvm1repro/a5_unbound SUBSET | STRICT_NOTEQUAL differ:line(3) -> STRICT_NOTEQUAL differ:line(2) | off 3 rec on 2 rec
+r10buvm21repro/g21b SUBSET | STRICT_NOTEQUAL differ:col(24) -> STRICT_NOTEQUAL differ:col(1) | off 24 rec on 1 rec
+r10buvm21repro/g21c SUBSET | STRICT_NOTEQUAL differ:col(11) -> STRICT_NOTEQUAL differ:col(2) | off 11 rec on 2 rec
+r10buvm6repro/v5_hierpathparent CONVERSION | STRICT_NOTEQUAL differ:fullname(1) -> EQUAL equal | off 1 rec on 0 rec
+r10uvm14repro/t19_t SUBSET | STRICT_NOTEQUAL differ:line(6) -> STRICT_NOTEQUAL differ:line(5) | off 6 rec on 5 rec
+r10uvm160repro/g160_c_context SUBSET | STRICT_NOTEQUAL differ:line(21) -> STRICT_NOTEQUAL differ:line(11) | off 21 rec on 11 rec
+r10uvm160repro/g160_e_edge SUBSET | STRICT_NOTEQUAL differ:line(22) -> STRICT_NOTEQUAL differ:line(12) | off 22 rec on 12 rec
+r10uvm160repro/g160_f_witness SUBSET | STRICT_NOTEQUAL differ:line(2) -> STRICT_NOTEQUAL differ:line(1) | off 2 rec on 1 rec
+r10uvm162repro/g162_e_context SUBSET | STRICT_NOTEQUAL differ:line(21) -> STRICT_NOTEQUAL differ:line(11) | off 21 rec on 11 rec
+r10uvm165repro/g165_c_forms SUBSET | STRICT_NOTEQUAL differ:line(9) -> STRICT_NOTEQUAL differ:line(7) | off 9 rec on 7 rec
+r10uvm55repro/a1 SUBSET | STRICT_NOTEQUAL differ:line(20) -> STRICT_NOTEQUAL differ:line(18) | off 20 rec on 18 rec
+r10uvm59repro/a2_position SUBSET | STRICT_NOTEQUAL differ:line(9) -> STRICT_NOTEQUAL differ:line(8) | off 9 rec on 8 rec
+r10uvm59repro/d10_argstmt CONVERSION | STRICT_NOTEQUAL differ:file(1) -> EQUAL equal | off 1 rec on 0 rec
+r10uvm79repro/v79v2_recv SUBSET | STRICT_NOTEQUAL differ:file(11) -> STRICT_NOTEQUAL differ:file(8) | off 11 rec on 8 rec
+r10v158repro/v158_d SUBSET | STRICT_NOTEQUAL differ:line(15) -> STRICT_NOTEQUAL differ:line(13) | off 15 rec on 13 rec
+r10v160repro/d10_repl SUBSET | STRICT_NOTEQUAL differ:line(2) -> STRICT_NOTEQUAL differ:line(1) | off 2 rec on 1 rec
+r10v160repro/z04_compunit SUBSET | STRICT_NOTEQUAL differ:line(2) -> STRICT_NOTEQUAL differ:line(1) | off 2 rec on 1 rec
+r10v160repro/z05_virtual SUBSET | STRICT_NOTEQUAL differ:line(4) -> STRICT_NOTEQUAL differ:line(2) | off 4 rec on 2 rec
+r10v162repro/v162_3_ctx SUBSET | STRICT_NOTEQUAL differ:line(2) -> STRICT_NOTEQUAL differ:line(1) | off 2 rec on 1 rec
+r10v165repro/v165_e_assert SUBSET | STRICT_NOTEQUAL differ:line(9) -> STRICT_NOTEQUAL differ:line(8) | off 9 rec on 8 rec
+r10v167repro/probe0 CONVERSION | STRICT_NOTEQUAL differ:file(1) -> EQUAL equal | off 1 rec on 0 rec
+r10v167repro/vA_meth SUBSET | STRICT_NOTEQUAL differ:file(10) -> STRICT_NOTEQUAL differ:endcol(9) | off 10 rec on 9 rec
+r10v167repro/vB_bare SUBSET | STRICT_NOTEQUAL differ:file(9) -> STRICT_NOTEQUAL differ:file(8) | off 9 rec on 8 rec
+r11u82repro/grid/v3_rootpath CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec
+v11u116repro/arms/f2_incd_d2ff CONVERSION | STRICT_NOTEQUAL differ:col(4) -> EQUAL equal | off 4 rec on 0 rec
+v11u116repro/arms/f2_incd_d3cb CONVERSION | STRICT_NOTEQUAL differ:col(4) -> EQUAL equal | off 4 rec on 0 rec
+-- probe tally: CONVERSION=6 SUBSET=20
+== surelog: 15 rows differ
+surelog/default/BuildUVMPkg SUBSET | STRICT_NOTEQUAL differ:fullname(24) -> STRICT_NOTEQUAL differ:fullname(23) | off 24 rec (diverged) on 23 rec (diverged)
+surelog/testflags/BuildUVMPkg SUBSET | STRICT_NOTEQUAL differ:fullname(24) -> STRICT_NOTEQUAL differ:fullname(23) | off 24 rec (diverged) on 23 rec (diverged)
+surelog/default/CovMacro CONVERSION | STRICT_NOTEQUAL differ:fullname(8) -> CMP_EQUAL equal | off 8 rec on 0 rec
+surelog/testflags/CovMacro CONVERSION | STRICT_NOTEQUAL differ:fullname(8) -> CMP_EQUAL equal | off 8 rec on 0 rec
+surelog/default/MiniAmiq SUBSET | STRICT_NOTEQUAL differ:fullname(9) -> STRICT_NOTEQUAL differ:fullname(8) | off 9 rec (diverged) on 8 rec (diverged)
+surelog/testflags/MiniAmiq SUBSET | STRICT_NOTEQUAL differ:fullname(9) -> STRICT_NOTEQUAL differ:fullname(8) | off 9 rec (diverged) on 8 rec (diverged)
+surelog/default/SVSwitch SUBSET | STRICT_NOTEQUAL differ:file(16) -> STRICT_NOTEQUAL differ:file(15) | off 16 rec (diverged) on 15 rec (diverged)
+surelog/testflags/SVSwitch SUBSET | STRICT_NOTEQUAL differ:file(16) -> STRICT_NOTEQUAL differ:file(15) | off 16 rec (diverged) on 15 rec (diverged)
+surelog/default/Scoreboard SUBSET | STRICT_NOTEQUAL differ:fullname(24) -> STRICT_NOTEQUAL differ:fullname(23) | off 24 rec (diverged) on 23 rec (diverged)
+surelog/default/SeqDriver SUBSET | STRICT_NOTEQUAL differ:fullname(8) -> STRICT_NOTEQUAL differ:fullname(7) | off 8 rec (diverged) on 7 rec (diverged)
+surelog/testflags/SeqDriver SUBSET | STRICT_NOTEQUAL differ:fullname(8) -> STRICT_NOTEQUAL differ:fullname(7) | off 8 rec (diverged) on 7 rec (diverged)
+surelog/default/SimpleUVM SUBSET | STRICT_NOTEQUAL differ:fullname(24) -> STRICT_NOTEQUAL differ:fullname(23) | off 24 rec (diverged) on 23 rec (diverged)
+surelog/testflags/SimpleUVM SUBSET | STRICT_NOTEQUAL differ:fullname(24) -> STRICT_NOTEQUAL differ:fullname(23) | off 24 rec (diverged) on 23 rec (diverged)
+surelog/default/YosysRiscv CONVERSION | STRICT_NOTEQUAL differ:col(40) -> CMP_EQUAL equal | off 40 rec on 0 rec
+surelog/testflags/YosysRiscv CONVERSION | STRICT_NOTEQUAL differ:col(40) -> CMP_EQUAL equal | off 40 rec on 0 rec
+-- surelog tally: CONVERSION=4 SUBSET=11
+== uhdm2rtlil: 0 rows differ
+-- uhdm2rtlil tally: 

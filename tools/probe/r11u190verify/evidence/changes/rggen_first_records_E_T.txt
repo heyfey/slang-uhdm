@@ -1,0 +1,20 @@
+== swE
+#111 fullname
+  A: 3	ref_typespec			<in>rggen_rtl_pkg::rggen_polarity		0	0	0	0		0		
+  B: 3	ref_typespec			<in>rggen_rtl_pkg::rggen_polarity		0	0	0	0		0		
+#126 fullname
+  A: 3	ref_typespec			<in>rggen_rtl_pkg::rggen_sw_action		0	0	0	0		0		
+  B: 3	ref_typespec			<in>rggen_rtl_pkg::rggen_sw_action		0	0	0	0		0		
+objects 314498 vs 312249
+== swT
+#2063 endcol
+  A: 6	array_typespec				rggen_apb_adapter.sv	18	3	18	48				
+  B: 6	array_typespec				rggen_apb_adapter.sv	18	3	18	49				
+#2064 col
+  A: 7	range				rggen_apb_adapter.sv	18	39	18	48				
+  B: 7	range				rggen_apb_adapter.sv	18	38	18	49				
+objects 314498 vs 312249
+#111 fullname
+  A: 3	ref_typespec			<in>rggen_rtl_pkg::rggen_polarity		0	0	0	0		0		
+  B: 3	ref_typespec			<in>rggen_rtl_pkg::rggen_polarity		0	0	0	0		0		
+  raw fullname A: work@rggen_register_common.rggen_rtl_pkg::rggen_polarity | B: work@rggen.rggen_rtl_pkg::rggen_polarity

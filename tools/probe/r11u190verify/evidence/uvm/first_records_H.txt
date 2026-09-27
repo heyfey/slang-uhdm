@@ -1,0 +1,90 @@
+== MiniAmiq default STRICT_NOTEQUAL,differ:fullname(6)
+#770 fullname
+  A: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+#899 file
+  A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73				
+  B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16				
+#1694 file
+  A: 5	logic_typespec	uvm_bitstream_t			uvm_misc.svh	483	42	483	57				
+  B: 5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	483	42	483	57				
+== MiniAmiq testflags STRICT_NOTEQUAL,differ:fullname(6)
+#770 fullname
+  A: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+#899 file
+  A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73				
+  B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16				
+#1694 file
+  A: 5	logic_typespec	uvm_bitstream_t			uvm_misc.svh	483	42	483	57				
+  B: 5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	483	42	483	57				
+== SeqDriver default STRICT_NOTEQUAL,differ:fullname(5)
+#753 fullname
+  A: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+#1677 file
+  A: 5	logic_typespec	uvm_bitstream_t			uvm_misc.svh	483	42	483	57				
+  B: 5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	483	42	483	57				
+#1841 file
+  A: 5	logic_typespec	uvm_integral_t			uvm_misc.svh	515	41	515	55				
+  B: 5	logic_typespec	uvm_integral_t			uvm_object_globals.svh	515	41	515	55				
+== SeqDriver testflags STRICT_NOTEQUAL,differ:fullname(5)
+#765 fullname
+  A: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+#1689 file
+  A: 5	logic_typespec	uvm_bitstream_t			uvm_misc.svh	483	42	483	57				
+  B: 5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	483	42	483	57				
+#1853 file
+  A: 5	logic_typespec	uvm_integral_t			uvm_misc.svh	515	41	515	55				
+  B: 5	logic_typespec	uvm_integral_t			uvm_object_globals.svh	515	41	515	55				
+== SimpleUVM default STRICT_NOTEQUAL,differ:fullname(21)
+#458 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#464 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+#483 fullname
+  A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0		
+== SimpleUVM testflags STRICT_NOTEQUAL,differ:fullname(21)
+#470 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#476 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+#495 fullname
+  A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0		
+== Scoreboard default STRICT_NOTEQUAL,differ:fullname(21)
+#466 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#472 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+#491 fullname
+  A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0		
+== BuildUVMPkg default STRICT_NOTEQUAL,differ:fullname(21)
+#1135 fullname
+  A: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+#2834 fullname
+  A: 6	ref_obj	severity		uvm_pkg::uvm_report::verbosity::severity	uvm_pkg.sv	9563	44	9563	52		0		
+  B: 6	ref_obj	severity		uvm_pkg::uvm_report::severity	uvm_pkg.sv	9563	44	9563	52		0		
+#2836 fullname
+  A: 7	ref_typespec			uvm_pkg::uvm_report::verbosity		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::uvm_report		0	0	0	0		0		
+== BuildUVMPkg testflags STRICT_NOTEQUAL,differ:fullname(21)
+#1135 fullname
+  A: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+#2834 fullname
+  A: 6	ref_obj	severity		uvm_pkg::uvm_report::verbosity::severity	uvm_pkg.sv	9563	44	9563	52		0		
+  B: 6	ref_obj	severity		uvm_pkg::uvm_report::severity	uvm_pkg.sv	9563	44	9563	52		0		
+#2836 fullname
+  A: 7	ref_typespec			uvm_pkg::uvm_report::verbosity		0	0	0	0		0		
+  B: 7	ref_typespec			uvm_pkg::uvm_report		0	0	0	0		0		

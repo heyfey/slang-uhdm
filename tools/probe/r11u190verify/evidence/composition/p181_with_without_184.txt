@@ -1,0 +1,14 @@
+== probe: 181 delta on 184-on base (H vs off181) 26 rows (7 conversions); on the 184-off base (off184 vs off184+181) 26 rows (6 conversions); identical (from,to) on both: 25
+   DIFFERENT-MOVE r10buvm21repro/g21c HEAD-base (('STRICT_NOTEQUAL', 'differ:col(9)'), ('EQUAL', 'equal')) | off-base (('STRICT_NOTEQUAL', 'differ:col(11)'), ('STRICT_NOTEQUAL', 'differ:col(2)'))
+== surelog: 181 delta on 184-on base (H vs off181) 15 rows (4 conversions); on the 184-off base (off184 vs off184+181) 15 rows (4 conversions); identical (from,to) on both: 6
+   DIFFERENT-MOVE BuildUVMPkg/d HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(22)'), ('STRICT_NOTEQUAL', 'differ:fullname(21)')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(24)'), ('STRICT_NOTEQUAL', 'differ:fullname(23)'))
+   DIFFERENT-MOVE BuildUVMPkg/t HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(22)'), ('STRICT_NOTEQUAL', 'differ:fullname(21)')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(24)'), ('STRICT_NOTEQUAL', 'differ:fullname(23)'))
+   DIFFERENT-MOVE MiniAmiq/d HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(7)'), ('STRICT_NOTEQUAL', 'differ:fullname(6)')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(9)'), ('STRICT_NOTEQUAL', 'differ:fullname(8)'))
+   DIFFERENT-MOVE MiniAmiq/t HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(7)'), ('STRICT_NOTEQUAL', 'differ:fullname(6)')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(9)'), ('STRICT_NOTEQUAL', 'differ:fullname(8)'))
+   DIFFERENT-MOVE Scoreboard/d HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(22)'), ('STRICT_NOTEQUAL', 'differ:fullname(21)')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(24)'), ('STRICT_NOTEQUAL', 'differ:fullname(23)'))
+   DIFFERENT-MOVE SeqDriver/d HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(6)'), ('STRICT_NOTEQUAL', 'differ:fullname(5)')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(8)'), ('STRICT_NOTEQUAL', 'differ:fullname(7)'))
+   DIFFERENT-MOVE SeqDriver/t HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(6)'), ('STRICT_NOTEQUAL', 'differ:fullname(5)')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(8)'), ('STRICT_NOTEQUAL', 'differ:fullname(7)'))
+   DIFFERENT-MOVE SimpleUVM/d HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(22)'), ('STRICT_NOTEQUAL', 'differ:fullname(21)')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(24)'), ('STRICT_NOTEQUAL', 'differ:fullname(23)'))
+   DIFFERENT-MOVE SimpleUVM/t HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(22)'), ('STRICT_NOTEQUAL', 'differ:fullname(21)')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(24)'), ('STRICT_NOTEQUAL', 'differ:fullname(23)'))
+== uhdm2rtlil: 181 delta on 184-on base (H vs off181) 0 rows (0 conversions); on the 184-off base (off184 vs off184+181) 0 rows (0 conversions); identical (from,to) on both: 0
+== bytes: databases 6647; 176/178 movers on 184-on base (H vs off181) 99, on the off base 99, both 99

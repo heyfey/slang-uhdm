@@ -10627,8 +10627,25 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     // (§ lvSelIdxChainName181's drain: golden `work@top.arr.n.w[].v.o.w[k].v.w`
     // and `...o.w[k].v.k`, the pristine prefix having lost the read path).
     bool nestRd181v = false;
+    // § nestRdIdxOnly190v (r11u190, the second verification of pass 181; grid
+    // tools/probe/r11u190verify/cases/LC c03, c04) — only a path IN A SELECT
+    // INDEX of the read path (directly or through operations, § lvIdxPathIsRead
+    // 154's gate) takes the nested-path shape.  A path that is a CALL ARGUMENT
+    // there (`m.w[n.w[f(o.w[k].v)].v].v = 2`, `$clog2(o.w[k].v)`) is compiled
+    // by Surelog as an ordinary read (compileExpression on the argument):
+    // golden `o` 10:15-16 on its own token, bit_select `o.w[k]` 10:17-18, the
+    // index named through the outer read path, which the law's inherited read
+    // form gave and § lvIdxReadNestedKeepsLvalue181v replaced by the lvalue
+    // form (10:17-18, `...o.w[k].v.w` 10:17-21).  A path nested in THAT
+    // argument path's own index takes the nested shape again (c04 line 12,
+    // golden `p` 12:21-22 on the member token).  Switch R11V190_NESTIDX_OFF
+    // (and R11V190_OFF).
+    const bool nestIdxOnly190v = getenv("R11V190_OFF") == nullptr &&
+                                 getenv("R11V190_NESTIDX_OFF") == nullptr;
     if (!lvIdxReadFired181 && !inLhs && lvIdxReadNow181() &&
-        r11v181On("R11V181_NESTRD_OFF")) {
+        r11v181On("R11V181_NESTRD_OFF") &&
+        (!nestIdxOnly190v || lvIdxParent154(parent) ||
+         (trace181("V190 NESTIDX skip"), false))) {
         trace181("V181 NESTRD");
         inLhs = true;
         lvIdxReadNow181() = false;

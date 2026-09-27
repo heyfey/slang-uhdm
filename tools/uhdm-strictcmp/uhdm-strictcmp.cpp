@@ -479,6 +479,16 @@ int main(int argc, char** argv) {
     if (firstField.empty()) firstField = kFields[first];
     if (shown < maxDiffs) {
       std::cout << "#" << i << " " << kFields[first] << "\n  A: " << a.joined() << "\n  B: " << b.joined() << '\n';
+      // r11u190: a full name that differs only in its raw form (mode 4 reads
+      // the in-copy rewrite `<in>...` equal on both sides, the raw full names
+      // differ, and the use-site test keeps it a difference) printed the same
+      // text on both lines (tools/probe/r11u190verify/cases/E/e05 `#13
+      // fullname  <in>p::e_t / <in>p::e_t`, golden `work@amod.p::e_t`, ours
+      // `work@zlit.p::e_t`): the raw names follow, on a line of their own.
+      // The verdict, the record lines and the --dump files are unchanged.
+      if (fieldDiffers(a, b, 4, fullnameMode, ctx.get()) && a.fields[4] == b.fields[4] &&
+          a.rawFull != b.rawFull)
+        std::cout << "  raw fullname A: " << a.rawFull << " | B: " << b.rawFull << '\n';
       ++shown;
     }
     if (first <= 1) { structural = true; break; }  // the walks no longer align

@@ -1,0 +1,20 @@
+== r11u88repro__grid__i1_ifkinds swE
+#236 type
+  A: 2	enum_typespec	pk::e_t			dut.sv	8	3	8	43				
+  B: 2	struct_typespec	pk::st_t			dut.sv	6	11	6	58				
+fields: type=1 name=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+== r11u88repro__grid__i1_ifkinds swT
+#347 endcol
+  A: 4	logic_typespec				dut.sv	18	3	18	14				
+  B: 4	logic_typespec				dut.sv	18	3	18	19				
+fields: endcol=2 objects_differing=2
+== r11v53repro__grid__x10_iface_import_shadow swE
+#67 type
+  A: 2	logic_typespec	pk::TP			dut.sv	4	11	4	22				
+  B: 2	struct_typespec	pk::req_t			dut.sv	3	11	3	58				
+fields: type=1 name=1 line=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+== r11v53repro__grid__x10_iface_import_shadow swT
+#207 fullname
+  A: 3	type_parameter	TP		work@ifc.TP	dut.sv	7	20	7	22				
+  B: 3	type_parameter	TP		work@dut.u.TP		0	0	0	0				
+fields: fullname=2 file=1 line=1 col=1 endline=1 endcol=1 objects_differing=2

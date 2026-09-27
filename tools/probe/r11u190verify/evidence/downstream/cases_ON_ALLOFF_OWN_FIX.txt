@@ -1,0 +1,292 @@
+ON | DW/d01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | DW/d02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | DW/d03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | E/e01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | E/e02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | E/e03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | E/e04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | E/e05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | E/e06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | E/e07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | E/e08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | E/e09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | E/e10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | E/e11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | E/e12 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | E/e13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | G/g01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | G/g02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | G/g03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | G/g04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | G/g05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | G/g06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | ID/i01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | ID/i02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | ID/i03 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ON | I/i01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | I/i02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | I/i03 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ON | I/i04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | IV/i01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | IV/i02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | LC/c01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | LC/c02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | LC/c03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | LC/c04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | LV/l01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | LV/l02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | LV/l03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | NW/n01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | NW/n02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | PX/p01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | PX/p02 | IDENTICAL | OK | OK | 10 | 10 | - | -
+ON | R/r01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u190_dsc/ON/
+ON | R/r02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | R/r03 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | R/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | RT/r01 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ON | RT/r02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | RT/r03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | RT/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | T/t01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | T/t02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | T/t03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | T/t04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | T/t05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | T/t06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | T/t07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | T/t08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | US/u01 | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ON | US/u02 | IDENTICAL | OK | OK | 90 | 90 | - | -
+ON | US/u03 | EQUIVALENT | OK | OK | 37 | 37 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u190_dsc/ON/US__u03/equiv/US__u03
+ON | US/u04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x03 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | X/x04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x06 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | DW/d01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | DW/d02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | DW/d03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | E/e01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | E/e02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | E/e03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | E/e04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | E/e05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | E/e06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | E/e07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | E/e08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | E/e09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | E/e10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | E/e11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | E/e12 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | E/e13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | G/g01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | G/g02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | G/g03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | G/g04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | G/g05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | G/g06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | ID/i01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | ID/i02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | ID/i03 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | I/i01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | I/i02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | I/i03 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ALLOFF | I/i04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | IV/i01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | IV/i02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | LC/c01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | LC/c02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | LC/c03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | LC/c04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | LV/l01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | LV/l02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | LV/l03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | NW/n01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | NW/n02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | PX/p01 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | PX/p02 | EQUIVALENT | OK | OK | 10 | 10 | nohier il | ✅ Formal equivalence check PASSED for /tmp/r11u190_dsc/ALLOFF/PX__p02/equiv/PX__
+ALLOFF | R/r01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u190_dsc/ALL
+ALLOFF | R/r02 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u190_dsc/ALL
+ALLOFF | R/r03 | EQUIVALENT | OK | OK | 1 | 7 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u190_dsc/ALLOFF/R__r03/equiv/R__r0
+ALLOFF | R/r04 | STATUS_DIFF | NO_GATES | OK | 0 | 9 | - | -
+ALLOFF | RT/r01 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ALLOFF | RT/r02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | RT/r03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | RT/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | T/t01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | T/t02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | T/t03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | T/t04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | T/t05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | T/t06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | T/t07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | T/t08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | US/u01 | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ALLOFF | US/u02 | DIVERGENT | OK | OK | 90 | 93 | nohier il synth | ----------------------------------------------
+ALLOFF | US/u03 | EQUIVALENT | OK | OK | 37 | 33 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u190_dsc/ALLOFF/US__u03/equiv/US__
+ALLOFF | US/u04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | X/x01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | X/x02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | X/x03 | DIVERGENT | OK | OK | 1 | 4 | nohier il synth | ----------------------------------------------
+ALLOFF | X/x04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | X/x05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | X/x06 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+OWN | DW/d01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | DW/d02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | DW/d03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | E/e01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | E/e02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | E/e03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | E/e04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | E/e05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | E/e06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | E/e07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | E/e08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | E/e09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | E/e10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | E/e11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | E/e12 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | E/e13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | G/g01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | G/g02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | G/g03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | G/g04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | G/g05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | G/g06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | ID/i01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | ID/i02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | ID/i03 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+OWN | I/i01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | I/i02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | I/i03 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+OWN | I/i04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | IV/i01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | IV/i02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | LC/c01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | LC/c02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+OWN | LC/c03 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+OWN | LC/c04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | LV/l01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | LV/l02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | LV/l03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | NW/n01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | NW/n02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | PX/p01 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+OWN | PX/p02 | EQUIVALENT | OK | OK | 10 | 10 | nohier il | ✅ Formal equivalence check PASSED for /tmp/r11u190_dsc/OWN/PX__p02/equiv/PX__p02
+OWN | R/r01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u190_dsc/OWN
+OWN | R/r02 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u190_dsc/OWN
+OWN | R/r03 | EQUIVALENT | OK | OK | 1 | 7 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u190_dsc/OWN/R__r03/equiv/R__r03
+OWN | R/r04 | STATUS_DIFF | NO_GATES | OK | 0 | 9 | - | -
+OWN | RT/r01 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+OWN | RT/r02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | RT/r03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | RT/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | T/t01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | T/t02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | T/t03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | T/t04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | T/t05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | T/t06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | T/t07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | T/t08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | US/u01 | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+OWN | US/u02 | DIVERGENT | OK | OK | 90 | 93 | nohier il synth | ----------------------------------------------
+OWN | US/u03 | EQUIVALENT | OK | OK | 37 | 33 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u190_dsc/OWN/US__u03/equiv/US__u03
+OWN | US/u04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | X/x01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | X/x02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | X/x03 | DIVERGENT | OK | OK | 1 | 4 | nohier il synth | ----------------------------------------------
+OWN | X/x04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | X/x05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | X/x06 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+FIX | DW/d01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | DW/d02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | DW/d03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | E/e01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | E/e02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | E/e03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | E/e04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | E/e05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | E/e06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | E/e07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | E/e08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | E/e09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | E/e10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | E/e11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | E/e12 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | E/e13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | G/g01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | G/g02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | G/g03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | G/g04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | G/g05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | G/g06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | ID/i01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | ID/i02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | ID/i03 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+FIX | I/i01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | I/i02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | I/i03 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+FIX | I/i04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | IV/i01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | IV/i02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | LC/c01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | LC/c02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | LC/c03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | LC/c04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | LV/l01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | LV/l02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | LV/l03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | NW/n01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | NW/n02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | PX/p01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | PX/p02 | IDENTICAL | OK | OK | 10 | 10 | - | -
+FIX | R/r01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u190_dsc/FIX
+FIX | R/r02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | R/r03 | IDENTICAL | OK | OK | 1 | 1 | - | -
+FIX | R/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | RT/r01 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+FIX | RT/r02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | RT/r03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | RT/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | T/t01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | T/t02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | T/t03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | T/t04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | T/t05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | T/t06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | T/t07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | T/t08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | US/u01 | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+FIX | US/u02 | IDENTICAL | OK | OK | 90 | 90 | - | -
+FIX | US/u03 | EQUIVALENT | OK | OK | 37 | 37 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u190_dsc/FIX/US__u03/equiv/US__u03
+FIX | US/u04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | X/x01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | X/x02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | X/x03 | IDENTICAL | OK | OK | 1 | 1 | - | -
+FIX | X/x04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | X/x05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | X/x06 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ON | W/w01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | W/w02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x07 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 1 common constant assignments match
+ON | RT/r05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | D/d01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | W/w01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | W/w02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | X/x07 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 1 common constant assignments match
+ALLOFF | RT/r05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | D/d01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | W/w01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | W/w02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | X/x07 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 1 common constant assignments match
+OWN | RT/r05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | D/d01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | W/w01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | W/w02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | X/x07 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 1 common constant assignments match
+FIX | RT/r05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | D/d01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -

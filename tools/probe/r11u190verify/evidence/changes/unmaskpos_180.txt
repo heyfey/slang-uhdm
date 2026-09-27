@@ -1,0 +1,2 @@
+r11u88repro/grid/i1_ifkinds: off 1 rec, diverged "fields: type=1 name=1 line=1 col=1 endline=1 endcol=1 object" (last off record #236); on 2 rec ; new records at [347, 590] -> UNMASK (all at/after off divergence)
+r11v53repro/grid/x10_iface_import_shadow: off 1 rec, diverged "fields: type=1 name=1 line=1 endline=1 endcol=1 objects_diff" (last off record #67); on 2 rec ; new records at [207, 208] -> UNMASK (all at/after off divergence)

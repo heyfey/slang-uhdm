@@ -10286,6 +10286,36 @@ bool r11u180Law(const char* sw);
 void trace180(const char* law, const std::string& detail);
 bool r11u186Law(const char* sw);   // the r11u186 switches (UhdmExporter.cpp)
 void trace186(const char* law, const std::string& detail); // R11U186_TRACE
+// § enumImpNamedItemWrites190v (r11u190, the second verification of pass 180;
+// grid tools/probe/r11u190verify/cases/E e05, e09-e11, e13) — an EXPLICIT
+// import writes only the typedef it NAMES.  CompileHelper::importPackage
+// (third_party/Surelog/src/DesignCompile/CompileHelper.cpp) copies a DataTypeMap
+// entry into the importer only when its key equals the imported item's name
+// (`if (type.first != object_name) continue;`), and writeDataTypes(setParent)
+// walks that map: `import p::C1;` (an enum LITERAL) or `import p::s_t;` (another
+// typedef) makes the importer no writer of `p::e_t` (golden E/e05: the enum
+// parented at `work@amod`, the only typedef importer, base ref
+// `work@amod.p::e_t`; the law picked the literal importer `zlit`).  The
+// writes are still made in place (pristine); only the record the drain replays
+// is withheld.  Switch R11V190_ENUMITEM_OFF (and R11V190_OFF).
+static bool r11v190Law(const char* sw) {
+    if (getenv("R11V190_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+static bool explicitImportNotNaming190v(const slang::ast::Symbol& mem,
+                                        std::string_view tdName) {
+    if (mem.kind != slang::ast::SymbolKind::ExplicitImport ||
+        !r11v190Law("R11V190_ENUMITEM_OFF"))
+        return false;
+    auto& ei = mem.as<slang::ast::ExplicitImportSymbol>();
+    if (ei.importName == tdName)
+        return false;
+    trace180("ENUMITEM190V", std::string(ei.packageName) + "::" +
+                                 std::string(ei.importName) + " is not " +
+                                 std::string(tdName));
+    return true;
+}
 namespace {
 struct EnumImpWrite180 {
     UHDM::typespec* ts;
@@ -10525,8 +10555,13 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
         // The replay: with the merge, ONE pass over `merged186`; without it,
         // one pass per import member as before.
         std::vector<std::pair<std::string_view, std::vector<const Symbol*>>> passes186;
+        // r11u190 (§ enumImpNamedItemWrites190v, rebased over pass 186): the
+        // importing member per pass; null for the merged pass, whose imports
+        // are all wildcards.
+        std::vector<const Symbol*> passMem186;
         if (merge186) {
             passes186.emplace_back();
+            passMem186.push_back(nullptr);
             for (auto& [pn186, pm186] : merged186) {
                 (void)pn186;
                 passes186.back().second.push_back(pm186);
@@ -10569,6 +10604,7 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                                                  std::string(pn));
             }
             passes186.push_back({pn, pms180});
+            passMem186.push_back(&mem);
         }
         for (size_t x186 = 0; x186 < passes186.size(); x186++) {
             for (size_t y186 = 0; y186 < passes186[x186].second.size(); y186++) {
@@ -10590,9 +10626,13 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                     auto* ets = (UHDM::enum_typespec*)ts;
                     if (ets->Base_typespec())
                         ets->Base_typespec()->VpiFullName(scopedName);
-                    // § enumImportParentLastWriter180 — record the write.
-                    enumImpWrite180(ts, m, 0, std::string(m->VpiDefName()),
-                                    scopedName, false);
+                    // § enumImportParentLastWriter180 — record the write
+                    // (§ enumImpNamedItemWrites190v: not for an explicit
+                    // import naming another item).
+                    if (!(passMem186[x186] &&
+                          explicitImportNotNaming190v(*passMem186[x186], pm.name)))
+                        enumImpWrite180(ts, m, 0, std::string(m->VpiDefName()),
+                                        scopedName, false);
                 }
                 // Struct typedefs: member typespec refs re-scope through the
                 // interface too (work@<iface>.<pkg>::<ts>.<member>).
@@ -10815,7 +10855,8 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             // p::e_t; (...)`).  Recorded only; the drain decides.
             if (headerImport && !wildcard && !nestedContainer &&
                 ts->UhdmType() == UHDM::uhdmenum_typespec &&
-                r11u180Law("R11U180_ENUMIMPHDR_OFF"))
+                r11u180Law("R11U180_ENUMIMPHDR_OFF") &&
+                !explicitImportNotNaming190v(mem, imported->name))
                 enumImpWrite180(ts, m, 1, std::string(m->VpiDefName()),
                                 std::string(), false);
             // The header-import share-without-touch rule is EXPLICIT-only;
@@ -10824,7 +10865,8 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 ts->VpiParent(m);
                 // § enumImportParentLastWriter180 — an explicit body import
                 // re-parents without re-scoping: a parent-only write.
-                if (!wildcard && ts->UhdmType() == UHDM::uhdmenum_typespec)
+                if (!wildcard && ts->UhdmType() == UHDM::uhdmenum_typespec &&
+                    !explicitImportNotNaming190v(mem, imported->name))
                     enumImpWrite180(ts, m, 1, std::string(m->VpiDefName()),
                                     std::string(), false);
                 if (wildcard) {

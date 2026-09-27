@@ -1,0 +1,34 @@
+== probe: 15 rows differ
+r10earl_repro/qb25 CONVERSION | STRICT_NOTEQUAL differ:fullname(3) -> EQUAL equal | off 3 rec (diverged) on 0 rec
+r10rggen7repro/t6 CONVERSION | STRICT_NOTEQUAL differ:fullname(27) -> EQUAL equal | off 27 rec on 0 rec
+r10uvm224repro/grid224/a15_associndex CONVERSION | STRICT_NOTEQUAL differ:type(1) -> EQUAL equal | off 1 rec (diverged) on 0 rec
+r10uvm55repro/a1 SUBSET | STRICT_NOTEQUAL differ:line(18) -> STRICT_NOTEQUAL differ:line(13) | off 18 rec on 13 rec
+r10uvm59repro/a3_scope SUBSET | STRICT_NOTEQUAL differ:line(2) -> STRICT_NOTEQUAL differ:line(1) | off 2 rec on 1 rec
+r10uvm66repro/v3_unbound CONVERSION | STRICT_NOTEQUAL differ:name(1) -> EQUAL equal | off 1 rec on 0 rec
+r10uvm90repro/g90_a2_shapes SUBSET | STRICT_NOTEQUAL differ:line(11) -> STRICT_NOTEQUAL differ:line(9) | off 11 rec on 9 rec
+r10v158repro/v158_i SUBSET | STRICT_NOTEQUAL differ:name(4) -> STRICT_NOTEQUAL differ:name(3) | off 4 rec (diverged) on 3 rec (diverged)
+r10v223repro/arms/v1_pkg_nodata CONVERSION | STRICT_NOTEQUAL differ:type(1) -> EQUAL equal | off 1 rec (diverged) on 0 rec
+r11u10repro/grid/h9_1e1m_port CONVERSION | STRICT_NOTEQUAL differ:fullname(5) -> EQUAL equal | off 5 rec on 0 rec
+r11u10repro/grid/hD_1e1mvec CONVERSION | STRICT_NOTEQUAL differ:fullname(5) -> EQUAL equal | off 5 rec on 0 rec
+r11u14repro/c10 CONVERSION | STRICT_NOTEQUAL differ:line(3) -> EQUAL equal | off 3 rec on 0 rec
+r11u88repro/grid/i1_ifkinds UNMASK | STRICT_NOTEQUAL differ:type(1) -> STRICT_NOTEQUAL differ:endcol(2) | off 1 rec (diverged) on 2 rec
+r11v53repro/grid/x10_iface_import_shadow UNMASK | STRICT_NOTEQUAL differ:type(1) -> STRICT_NOTEQUAL differ:fullname(2) | off 1 rec (diverged) on 2 rec
+v11u111repro/brk/f5/z51_three_mods_import CONVERSION | STRICT_NOTEQUAL differ:fullname(5) -> EQUAL equal | off 5 rec on 0 rec
+-- probe tally: CONVERSION=9 SUBSET=4 UNMASK=2
+== surelog: 7 rows differ
+surelog/default/ArrayMethodIterator SUBSET | STRICT_NOTEQUAL differ:name(6) -> STRICT_NOTEQUAL differ:endcol(1) | off 6 rec on 1 rec
+surelog/testflags/ArrayMethodIterator SUBSET | STRICT_NOTEQUAL differ:name(16) -> STRICT_NOTEQUAL differ:endcol(1) | off 16 rec on 1 rec
+surelog/default/Earlgrey_0_1 SUBSET | STRICT_NOTEQUAL differ:fullname(436) -> STRICT_NOTEQUAL differ:col(102) | off 436 rec (diverged) on 102 rec (diverged)
+surelog/testflags/Earlgrey_0_1 SUBSET | STRICT_NOTEQUAL differ:fullname(436) -> STRICT_NOTEQUAL differ:col(102) | off 436 rec (diverged) on 102 rec (diverged)
+surelog/default/PackedArrayHighConn CONVERSION | STRICT_NOTEQUAL differ:fullname(5) -> CMP_EQUAL equal | off 5 rec on 0 rec
+surelog/testflags/PackedArrayHighConn CONVERSION | STRICT_NOTEQUAL differ:fullname(5) -> CMP_EQUAL equal | off 5 rec on 0 rec
+surelog/default/Rggen BOTH-DIVERGED | STRICT_NOTEQUAL differ:fullname(7) -> STRICT_NOTEQUAL differ:endcol(634) | off 7 rec (diverged) on 634 rec (diverged) new=634 first: col / A: 5	range				rggen_apb_adapter.sv	18	39	18	48 / B: 5	range				rggen_apb_adapter.sv	18	38	18	49
+-- surelog tally: BOTH-DIVERGED=1 CONVERSION=2 SUBSET=4
+== uhdm2rtlil: 6 rows differ
+uhdm2rtlil/default/const_cast_signext SUBSET | STRICT_NOTEQUAL differ:line(5) -> STRICT_NOTEQUAL differ:type(1) | off 5 rec (diverged) on 1 rec (diverged)
+uhdm2rtlil/testflags/const_cast_signext SUBSET | STRICT_NOTEQUAL differ:line(5) -> STRICT_NOTEQUAL differ:type(1) | off 5 rec (diverged) on 1 rec (diverged)
+uhdm2rtlil/default/mem_read_reg CONVERSION | STRICT_NOTEQUAL differ:name(5) -> CMP_EQUAL equal | off 5 rec (diverged) on 0 rec
+uhdm2rtlil/testflags/mem_read_reg CONVERSION | STRICT_NOTEQUAL differ:name(5) -> CMP_EQUAL equal | off 5 rec (diverged) on 0 rec
+uhdm2rtlil/default/struct_param_func_config SUBSET | STRICT_NOTEQUAL differ:line(8) -> STRICT_NOTEQUAL differ:fullname(5) | off 8 rec (diverged) on 5 rec (diverged)
+uhdm2rtlil/testflags/struct_param_func_config SUBSET | STRICT_NOTEQUAL differ:line(8) -> STRICT_NOTEQUAL differ:fullname(5) | off 8 rec (diverged) on 5 rec (diverged)
+-- uhdm2rtlil tally: CONVERSION=2 SUBSET=4
