@@ -1,0 +1,9 @@
+surelog/default/MiniAmiq	pristine walk diverges at record 2450	law at 10107
+surelog/default/SeqDriver	pristine walk diverges at record 2433	law at 10090
+surelog/default/SimpleUVM	pristine walk diverges at record 2484	law at 10177
+surelog/default/Scoreboard	pristine walk diverges at record 2492	law at 10185
+surelog/default/BuildUVMPkg	pristine walk diverges at record 11992	law at 11992
+surelog/default/ApbSlave	pristine walk diverges at record 372	law at None
+surelog/default/SVSwitch	pristine walk diverges at record 3314	law at 3314
+uhdm2rtlil/default/const_cast_signext	pristine walk diverges at record 602	law at 602
+uhdm2rtlil/default/struct_param_func_config	pristine walk diverges at record 1364	law at 1364

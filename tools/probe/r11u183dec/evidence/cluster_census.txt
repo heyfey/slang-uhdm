@@ -1,0 +1,48 @@
+# map 9 cluster: pristine sweep (97 STRICT row-modes) -> final law sweep, rows and objects, both modes, all corpora
+N0001	rows 14 -> 14	objects 1941 -> 721
+N0031	rows 15 -> 9	objects 496 -> 16
+N0039	rows 12 -> 12	objects 4213 -> 4273
+N0042	rows 13 -> 9	objects 376 -> 16
+N0043	rows 14 -> 10	objects 745 -> 717
+N0061	rows 12 -> 11	objects 1362 -> 142
+N0067	rows 13 -> 9	objects 842 -> 450
+N0068	rows 13 -> 9	objects 842 -> 450
+N0072	rows 13 -> 11	objects 7176 -> 6723
+N0097	rows 11 -> 9	objects 85 -> 75
+N0103	rows 11 -> 9	objects 1307 -> 1259
+N0127	rows 10 -> 0	objects 45 -> 0
+N0128	rows 10 -> 9	objects 18 -> 16
+N0134	rows 4 -> 4	objects 1540 -> 840
+N0142	rows 12 -> 3	objects 190 -> 32
+N0151	rows 7 -> 3	objects 3451 -> 171
+N0164	rows 9 -> 5	objects 209 -> 172
+N0175	rows 9 -> 9	objects 2098 -> 2098
+N0182	rows 5 -> 5	objects 790 -> 790
+N0262	rows 7 -> 7	objects 1800 -> 160
+N0289	rows 7 -> 4	objects 15 -> 12
+N0408	rows 6 -> 6	objects 3052 -> 962
+N0490	rows 4 -> 4	objects 3046 -> 6
+N0491	rows 4 -> 0	objects 3040 -> 0
+N0938	rows 2 -> 0	objects 30 -> 0
+N0001 rows=14 objs=721: sur/d/BuildUVMPkg:10 sur/d/Earlgrey_0_1:4 sur/d/MiniAmiq:25 sur/d/Rggen:522 sur/d/Scoreboard:15 sur/d/SeqDriver:30 sur/d/SimpleUVM:20 sur/t/BuildUVMPkg:10 sur/t/Earlgrey_0_1:4 sur/t/MiniAmiq:25 sur/t/SeqDriver:30 sur/t/SimpleUVM:20 uhd/d/OutputSizeWithParameterOfInstanceInitializedByStructMember:3 uhd/t/OutputSizeWithParameterOfInstanceInitializedByStructMember:3
+N0039 rows=12 objs=4273: sur/d/ApbSlave:1 sur/d/BuildUVMPkg:614 sur/d/MiniAmiq:433 sur/d/Rggen:13 sur/d/Scoreboard:432 sur/d/SeqDriver:433 sur/d/SimpleUVM:433 sur/t/ApbSlave:1 sur/t/BuildUVMPkg:614 sur/t/MiniAmiq:433 sur/t/SeqDriver:433 sur/t/SimpleUVM:433
+N0061 rows=11 objs=142: sur/d/BuildUVMPkg:4 sur/d/Earlgrey_0_1:34 sur/d/MiniAmiq:10 sur/d/Scoreboard:6 sur/d/SeqDriver:12 sur/d/SimpleUVM:8 sur/t/BuildUVMPkg:4 sur/t/Earlgrey_0_1:34 sur/t/MiniAmiq:10 sur/t/SeqDriver:12 sur/t/SimpleUVM:8
+N0072 rows=11 objs=6723: sur/d/BuildUVMPkg:820 sur/d/ClassTypeParam:2 sur/d/MiniAmiq:748 sur/d/Scoreboard:738 sur/d/SeqDriver:741 sur/d/SimpleUVM:680 sur/t/BuildUVMPkg:820 sur/t/ClassTypeParam:5 sur/t/MiniAmiq:748 sur/t/SeqDriver:741 sur/t/SimpleUVM:680
+N0043 rows=10 objs=717: sur/d/BuildUVMPkg:50 sur/d/MiniAmiq:107 sur/d/Scoreboard:35 sur/d/SeqDriver:98 sur/d/SimpleUVM:46 sur/t/BuildUVMPkg:50 sur/t/FuncStructVal:80 sur/t/MiniAmiq:107 sur/t/SeqDriver:98 sur/t/SimpleUVM:46
+N0103 rows=9 objs=1259: sur/d/BuildUVMPkg:161 sur/d/MiniAmiq:139 sur/d/Scoreboard:131 sur/d/SeqDriver:133 sur/d/SimpleUVM:131 sur/t/BuildUVMPkg:161 sur/t/MiniAmiq:139 sur/t/SeqDriver:133 sur/t/SimpleUVM:131
+N0175 rows=9 objs=2098: sur/d/BuildUVMPkg:17 sur/d/MiniAmiq:587 sur/d/Scoreboard:22 sur/d/SeqDriver:407 sur/d/SimpleUVM:27 sur/t/BuildUVMPkg:17 sur/t/MiniAmiq:587 sur/t/SeqDriver:407 sur/t/SimpleUVM:27
+N0097 rows=9 objs=75: sur/d/BuildUVMPkg:1 sur/d/MiniAmiq:11 sur/d/Scoreboard:7 sur/d/SeqDriver:13 sur/d/SimpleUVM:9 sur/t/BuildUVMPkg:1 sur/t/MiniAmiq:11 sur/t/SeqDriver:13 sur/t/SimpleUVM:9
+N0067 rows=9 objs=450: sur/d/BuildUVMPkg:26 sur/d/MiniAmiq:26 sur/d/Scoreboard:50 sur/d/SeqDriver:74 sur/d/SimpleUVM:74 sur/t/BuildUVMPkg:26 sur/t/MiniAmiq:26 sur/t/SeqDriver:74 sur/t/SimpleUVM:74
+N0068 rows=9 objs=450: sur/d/BuildUVMPkg:26 sur/d/MiniAmiq:26 sur/d/Scoreboard:50 sur/d/SeqDriver:74 sur/d/SimpleUVM:74 sur/t/BuildUVMPkg:26 sur/t/MiniAmiq:26 sur/t/SeqDriver:74 sur/t/SimpleUVM:74
+N0128 rows=9 objs=16: sur/d/BuildUVMPkg:1 sur/d/MiniAmiq:2 sur/d/Scoreboard:2 sur/d/SeqDriver:2 sur/d/SimpleUVM:2 sur/t/BuildUVMPkg:1 sur/t/MiniAmiq:2 sur/t/SeqDriver:2 sur/t/SimpleUVM:2
+N0031 rows=9 objs=16: sur/d/BuildUVMPkg:1 sur/d/MiniAmiq:2 sur/d/Scoreboard:2 sur/d/SeqDriver:2 sur/d/SimpleUVM:2 sur/t/BuildUVMPkg:1 sur/t/MiniAmiq:2 sur/t/SeqDriver:2 sur/t/SimpleUVM:2
+N0042 rows=9 objs=16: sur/d/BuildUVMPkg:1 sur/d/MiniAmiq:2 sur/d/Scoreboard:2 sur/d/SeqDriver:2 sur/d/SimpleUVM:2 sur/t/BuildUVMPkg:1 sur/t/MiniAmiq:2 sur/t/SeqDriver:2 sur/t/SimpleUVM:2
+N0262 rows=7 objs=160: sur/d/MiniAmiq:48 sur/d/Scoreboard:8 sur/d/SeqDriver:20 sur/d/SimpleUVM:8 sur/t/MiniAmiq:48 sur/t/SeqDriver:20 sur/t/SimpleUVM:8
+N0408 rows=6 objs=962: sur/d/MiniAmiq:285 sur/d/SeqDriver:193 sur/d/SimpleUVM:3 sur/t/MiniAmiq:285 sur/t/SeqDriver:193 sur/t/SimpleUVM:3
+N0182 rows=5 objs=790: sur/d/MiniAmiq:234 sur/d/SeqDriver:154 sur/t/Earlgrey_0_1:14 sur/t/MiniAmiq:234 sur/t/SeqDriver:154
+N0164 rows=5 objs=172: sur/d/MiniAmiq:30 sur/d/Scoreboard:72 sur/d/SeqDriver:20 sur/t/MiniAmiq:30 sur/t/SeqDriver:20
+N0134 rows=4 objs=840: sur/d/MiniAmiq:252 sur/d/SeqDriver:168 sur/t/MiniAmiq:252 sur/t/SeqDriver:168
+N0289 rows=4 objs=12: sur/d/MiniAmiq:4 sur/d/SeqDriver:2 sur/t/MiniAmiq:4 sur/t/SeqDriver:2
+N0490 rows=4 objs=6: sur/d/MiniAmiq:2 sur/d/SeqDriver:1 sur/t/MiniAmiq:2 sur/t/SeqDriver:1
+N0142 rows=3 objs=32: sur/d/Earlgrey_0_1:8 sur/d/Rggen:16 sur/t/Earlgrey_0_1:8
+N0151 rows=3 objs=171: sur/d/Scoreboard:57 sur/d/SimpleUVM:57 sur/t/SimpleUVM:57

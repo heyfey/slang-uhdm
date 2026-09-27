@@ -1,0 +1,12 @@
+all objects 71451 in 358 clusters
+| rank | family | objects | BuildUVMPkg | MiniAmiq | Scoreboard | SeqDriver | SimpleUVM | clusters |
+| 1 | F2 object multiplicity (golden-only / ours-only copies: clone bodies, typespec copies) | 23489 | 211 | 12707 | 1114 | 8163 | 1294 | 59 |
+| 2 | F4 subroutine formal / typespec / bound spans (class methods, formals) | 19711 | 4091 | 3903 | 3854 | 4000 | 3863 | 37 |
+| 3 | F5 reference full names (hier_path components, method calls, io_decl refs) | 12480 | 249 | 6133 | 561 | 4106 | 1431 | 133 |
+| 4 | F6 file facets (other-file, ours-empty) | 8306 | 139 | 2343 | 1525 | 2489 | 1810 | 37 |
+| 5 | F7 expression / statement spans outside the pp model | 4632 | 735 | 1029 | 832 | 1084 | 952 | 75 |
+| 6 | F3 typedef relocation spans (last-writer moves of package aggregates) | 1095 | 769 | 121 | 41 | 112 | 52 | 5 |
+| 7 | F8 names / definition names | 726 | 166 | 148 | 136 | 140 | 136 | 3 |
+| 8 | F1 preprocessor location model (macro-body / include lines, the r11u166 decode) | 720 | 0 | 200 | 120 | 240 | 160 | 2 |
+| 9 | F9 value / order / depth | 292 | 22 | 3 | 87 | 3 | 177 | 7 |
+
