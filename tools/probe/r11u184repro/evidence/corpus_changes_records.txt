@@ -1,0 +1,36 @@
+surelog default BuildUVMPkg: A STRICT_NOTEQUAL fullname | B STRICT_NOTEQUAL fullname
+LEAVE 2 ENTER 0 CHANGED 0
+  LEAVE #1894 6	ref_obj	seed_map			uvm_pkg.sv	8694	12	8694	17		0		 | P 6	ref_obj	seed_map			uvm_pkg.sv	8694	3	8694	11		0		
+  LEAVE #1895 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_pkg.sv	8694	12	8694	26		0		 | P 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_pkg.sv	8694	18	8694	25		0		
+surelog testflags BuildUVMPkg: A STRICT_NOTEQUAL fullname | B STRICT_NOTEQUAL fullname
+LEAVE 2 ENTER 0 CHANGED 0
+  LEAVE #1894 6	ref_obj	seed_map			uvm_pkg.sv	8694	12	8694	17		0		 | P 6	ref_obj	seed_map			uvm_pkg.sv	8694	3	8694	11		0		
+  LEAVE #1895 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_pkg.sv	8694	12	8694	26		0		 | P 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_pkg.sv	8694	18	8694	25		0		
+surelog default MiniAmiq: A STRICT_NOTEQUAL fullname | B STRICT_NOTEQUAL fullname
+LEAVE 2 ENTER 0 CHANGED 0
+  LEAVE #1516 6	ref_obj	seed_map			uvm_misc.svh	425	12	425	17		0		 | P 6	ref_obj	seed_map			uvm_misc.svh	425	3	425	11		0		
+  LEAVE #1517 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	12	425	26		0		 | P 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	18	425	25		0		
+surelog testflags MiniAmiq: A STRICT_NOTEQUAL fullname | B STRICT_NOTEQUAL fullname
+LEAVE 2 ENTER 0 CHANGED 0
+  LEAVE #1516 6	ref_obj	seed_map			uvm_misc.svh	425	12	425	17		0		 | P 6	ref_obj	seed_map			uvm_misc.svh	425	3	425	11		0		
+  LEAVE #1517 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	12	425	26		0		 | P 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	18	425	25		0		
+surelog default Scoreboard: A STRICT_NOTEQUAL fullname | B STRICT_NOTEQUAL fullname
+LEAVE 2 ENTER 0 CHANGED 0
+  LEAVE #1549 6	ref_obj	seed_map			uvm_misc.svh	425	12	425	17		0		 | P 6	ref_obj	seed_map			uvm_misc.svh	425	3	425	11		0		
+  LEAVE #1550 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	12	425	26		0		 | P 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	18	425	25		0		
+surelog default SeqDriver: A STRICT_NOTEQUAL fullname | B STRICT_NOTEQUAL fullname
+LEAVE 2 ENTER 0 CHANGED 0
+  LEAVE #1499 6	ref_obj	seed_map			uvm_misc.svh	425	12	425	17		0		 | P 6	ref_obj	seed_map			uvm_misc.svh	425	3	425	11		0		
+  LEAVE #1500 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	12	425	26		0		 | P 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	18	425	25		0		
+surelog testflags SeqDriver: A STRICT_NOTEQUAL fullname | B STRICT_NOTEQUAL fullname
+LEAVE 2 ENTER 0 CHANGED 0
+  LEAVE #1511 6	ref_obj	seed_map			uvm_misc.svh	425	12	425	17		0		 | P 6	ref_obj	seed_map			uvm_misc.svh	425	3	425	11		0		
+  LEAVE #1512 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	12	425	26		0		 | P 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	18	425	25		0		
+surelog default SimpleUVM: A STRICT_NOTEQUAL fullname | B STRICT_NOTEQUAL fullname
+LEAVE 2 ENTER 0 CHANGED 0
+  LEAVE #1541 6	ref_obj	seed_map			uvm_misc.svh	425	12	425	17		0		 | P 6	ref_obj	seed_map			uvm_misc.svh	425	3	425	11		0		
+  LEAVE #1542 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	12	425	26		0		 | P 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	18	425	25		0		
+surelog testflags SimpleUVM: A STRICT_NOTEQUAL fullname | B STRICT_NOTEQUAL fullname
+LEAVE 2 ENTER 0 CHANGED 0
+  LEAVE #1553 6	ref_obj	seed_map			uvm_misc.svh	425	12	425	17		0		 | P 6	ref_obj	seed_map			uvm_misc.svh	425	3	425	11		0		
+  LEAVE #1554 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	12	425	26		0		 | P 6	bit_select	count		uvm_pkg::uvm_create_random_seed::seed_map.count[type_id]::count	uvm_misc.svh	425	18	425	25		0		

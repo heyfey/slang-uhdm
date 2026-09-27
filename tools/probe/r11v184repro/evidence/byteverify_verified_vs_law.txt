@@ -1,0 +1,6 @@
+MOVER ./surelog/default/MiniAmiq-055eab74/slang.uhdm
+MOVER ./surelog/testflags/MiniAmiq-055eab74/slang.uhdm
+MOVERS: 2 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+default/MiniAmiq-055eab74:  |UINT:0; |UINT:540; |vpiDecompile:0; |vpiDecompile:540;
+testflags/MiniAmiq-055eab74:  |UINT:0; |UINT:1117; |vpiDecompile:0; |vpiDecompile:1117;

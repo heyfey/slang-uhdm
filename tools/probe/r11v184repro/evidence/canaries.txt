@@ -1,0 +1,17 @@
+== canaries.sh surelog (swF vs committed)
+  SimpleUVM                      default   CHANGED STRICT_NOTEQUAL/differ:fullname(23) -> STRICT_NOTEQUAL/differ:fullname(21)
+  SimpleUVM                      testflags CHANGED STRICT_NOTEQUAL/differ:fullname(23) -> STRICT_NOTEQUAL/differ:fullname(21)
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:fullname(7) -> STRICT_NOTEQUAL/differ:fullname(5)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:fullname(7) -> STRICT_NOTEQUAL/differ:fullname(5)
+  BuildUVMPkg                    default   CHANGED STRICT_NOTEQUAL/differ:fullname(23) -> STRICT_NOTEQUAL/differ:fullname(21)
+  BuildUVMPkg                    testflags CHANGED STRICT_NOTEQUAL/differ:fullname(23) -> STRICT_NOTEQUAL/differ:fullname(21)
+  Scoreboard                     default   CHANGED STRICT_NOTEQUAL/differ:fullname(23) -> STRICT_NOTEQUAL/differ:fullname(21)
+---- canary rows: ok=45 changed=7 absent=0 unknown-names=7
+== canaries.sh uhdm2rtlil (swF vs committed)
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+== ctcan2 surelog EXPECT_UNKNOWN=1
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+== ctcan2 uhdm2rtlil EXPECT_UNKNOWN=6
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.

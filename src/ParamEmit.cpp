@@ -16,6 +16,10 @@
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
 
 namespace slang_uhdm {
+// The r11u184 switches and census trace (defined in ExprEmit.cpp).
+bool r11u184Law(const char* sw);
+void trace184(const char* law);
+bool r11v184Fix(const char* sw);  // the r11v184 refinements
 
 // r11u163: defined beside § importPatOpCloneParamNamed163.
 static UHDM::operation* copyPatOp163(UHDM::Serializer& s, const UHDM::operation* so,
@@ -23462,10 +23466,171 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     its = d9->second;
             }
             bool sharedPkgTs9 = its != nullptr;
-            if (!its && ta9.getCanonicalType().kind == SymbolKind::EnumType)
+            if (!its && ta9.getCanonicalType().kind == SymbolKind::EnumType) {
+                // § tpEnumCopyAtTypedef184 (r11u184) — THE ENUM COPY A TYPE
+                // PARAMETER TAKES FOR A MODULE-LOCAL ENUM TYPEDEF IS LOCATED
+                // AT THE TYPEDEF AND NAMES ITS INSIDE THROUGH ITSELF.  Surelog
+                // elaborates `.T(enum_foo_e)` by cloning the typedef's
+                // typespec (the clone keeps the typedef declaration's span and
+                // file, `typedef ... enum_foo_e;` 10:3-12:16) and parents it
+                // at the type parameter; every reference inside it stores no
+                // full name, so the reader computes it through the copy:
+                // the base `ref_typespec` reads
+                // `work@top.inst1.test_parameter.enum_foo_e` and a range
+                // bound `work@top.inst1.test_parameter.state_e.StateWidth`
+                // (u2r TypeParameterAsPortTypeWithEnum / ...OfParametrizedWidth).
+                // Ours minted the copy unlocated, stored the bare typedef
+                // name on the base reference and named the bound through the
+                // parameter.  Grid tools/probe/r11u184repro/cases/T.
+                // Switch R11U184_TPENUM_OFF.
+                // ...but a child whose continuous assignment writes a WHOLE
+                // signal declared with the type parameter (`T r; assign r =
+                // si;`, `output T so; assign so = si;`) leaves golden's copy
+                // UNPARENTED: its inside is named through the copy alone
+                // (`ie_t`, `f_t.L`; cases T/t06, t12, x13, x14; a select
+                // target `assign r[0] = ...`, a target of another type and a
+                // procedural write keep the parented shape: x15, x18, x19).
+                // Switch R11U184_TPENUMCA_OFF (reverts that branch to the
+                // parented naming).
+                const bool law184 = r11u184Law("R11U184_TPENUM_OFF");
+                std::string rfn184(ta9.name);
+                std::string savedPfx184 = syntaxRefPrefix;
+                if (law184) {
+                    bool caLhs184 = false;
+                    // § tpEnumCaBindsInstVar184v (r11v184) — the continuous
+                    // assignments that unparent golden's copy, transcribed
+                    // from Surelog's UhdmWriter::writeCont_assign: for every
+                    // continuous assignment of an elaborated MODULE instance
+                    // and of its generate scopes (writeElabModule,
+                    // writeElabGenScope) a simple-name target is bound by
+                    // CompileHelper::bindVariable(mod, m, name), which walks
+                    // the scope's parent chain to the module_inst and reads
+                    // its Variables() then Nets(); the bound object's
+                    // typespec is then `VpiParent(nullptr)`-ed, and only an
+                    // expr (a variable) carries it.  So: a continuous
+                    // assignment anywhere in the child's generate blocks
+                    // counts too (cases/T vt02 `if (1) assign so = si;`,
+                    // vt13 two levels down: golden `ie_t`, the law named the
+                    // copy through the parameter where pristine was right),
+                    // the target must be a VARIABLE declared in the module
+                    // body itself (a net: vt12 `wire T w; assign w = si;`
+                    // golden parented; a generate block's own variable: vt11
+                    // parented, bindVariable never reads a gen scope), its
+                    // type T or a packed array of T (vt09 `T [1:0] r`
+                    // unparented), and an interface child never unparents
+                    // (bindVariable has no interface_inst arm: vt07 golden
+                    // parented).  Switch R11V184_TPCA_OFF (the law's
+                    // module-level scan).
+                    if (r11u184Law("R11U184_TPENUMCA_OFF") &&
+                        r11v184Fix("R11V184_TPCA_OFF")) {
+                        bool isModule184v = false;
+                        if (body.asSymbol().kind == SymbolKind::InstanceBody)
+                            isModule184v =
+                                body.asSymbol().as<InstanceBodySymbol>().getDefinition().definitionKind ==
+                                DefinitionKind::Module;
+                        const Type* tAlias184v = &tps.getTypeAlias();
+                        std::function<void(const Scope&)> scan184v =
+                            [&](const Scope& sc) {
+                                for (auto& cm : sc.members()) {
+                                    if (caLhs184)
+                                        return;
+                                    if (cm.kind == SymbolKind::GenerateBlock) {
+                                        auto& gb = cm.as<GenerateBlockSymbol>();
+                                        if (!gb.isUninstantiated)
+                                            scan184v(gb);
+                                        continue;
+                                    }
+                                    if (cm.kind == SymbolKind::GenerateBlockArray) {
+                                        for (auto* e : cm.as<GenerateBlockArraySymbol>().entries)
+                                            if (!e->isUninstantiated)
+                                                scan184v(*e);
+                                        continue;
+                                    }
+                                    if (cm.kind != SymbolKind::ContinuousAssign)
+                                        continue;
+                                    auto& ae = cm.as<ContinuousAssignSymbol>().getAssignment();
+                                    if (ae.kind != ExpressionKind::Assignment)
+                                        continue;
+                                    auto& lhs = ae.as<AssignmentExpression>().left();
+                                    if (lhs.kind != ExpressionKind::NamedValue)
+                                        continue;
+                                    auto& ls = lhs.as<NamedValueExpression>().symbol;
+                                    if (ls.kind != SymbolKind::Variable ||
+                                        ls.getParentScope() != &body)
+                                        continue;
+                                    const Type* lt = &ls.as<VariableSymbol>().getType();
+                                    while (lt->kind == SymbolKind::PackedArrayType)
+                                        lt = &lt->as<PackedArrayType>().elementType;
+                                    if (lt == tAlias184v) {
+                                        trace184("V184 TPCA unparent");
+                                        caLhs184 = true;
+                                    }
+                                }
+                            };
+                        if (isModule184v)
+                            scan184v(body);
+                        // (the branch the refinement declines: the law's
+                        // module-level scan would have unparented here — an
+                        // interface child, a net target, a block variable)
+                        if (!caLhs184)
+                            for (auto& cm : body.members()) {
+                                if (cm.kind != SymbolKind::ContinuousAssign)
+                                    continue;
+                                auto& ae = cm.as<ContinuousAssignSymbol>().getAssignment();
+                                if (ae.kind == ExpressionKind::Assignment &&
+                                    ae.as<AssignmentExpression>().left().kind ==
+                                        ExpressionKind::NamedValue &&
+                                    &ae.as<AssignmentExpression>()
+                                             .left()
+                                             .as<NamedValueExpression>()
+                                             .symbol.getType() == tAlias184v) {
+                                    trace184("V184 TPCA keep-parented");
+                                    break;
+                                }
+                            }
+                    }
+                    else if (r11u184Law("R11U184_TPENUMCA_OFF"))
+                        for (auto& cm : body.members()) {
+                            if (cm.kind != SymbolKind::ContinuousAssign)
+                                continue;
+                            auto& ae = cm.as<ContinuousAssignSymbol>().getAssignment();
+                            if (ae.kind != ExpressionKind::Assignment)
+                                continue;
+                            auto& lhs = ae.as<AssignmentExpression>().left();
+                            if (lhs.kind != ExpressionKind::NamedValue)
+                                continue;
+                            auto& ls = lhs.as<NamedValueExpression>().symbol;
+                            if (&ls.getType() == &tps.getTypeAlias()) {
+                                caLhs184 = true;
+                                break;
+                            }
+                        }
+                    // (a DEFAULT in force, not an override, leaves the copy
+                    // unparented too: x21, x22, probe
+                    // r11u108repro/grid/f5/f5a07_enumelem)
+                    if (!tps.isOverridden()) {
+                        trace184("TPENUM default");
+                        syntaxRefPrefix = rfn184;
+                    }
+                    else if (caLhs184) {
+                        trace184("TPENUM unparented");
+                        syntaxRefPrefix = rfn184;
+                    }
+                    else {
+                        trace184("TPENUM parented");
+                        rfn184 = joinPath(syntaxRefPrefix, ta9.name);
+                        syntaxRefPrefix = rfn184;
+                    }
+                }
                 its = (UHDM::typespec*)buildEnumTs(
-                    ta9.getCanonicalType().as<EnumType>(), tgt9,
-                    std::string(ta9.name));
+                    ta9.getCanonicalType().as<EnumType>(), tgt9, rfn184);
+                syntaxRefPrefix = savedPfx184;
+                if (law184 && its && its->VpiLineNo() == 0)
+                    if (auto* tds184 = ta9.getSyntax()) {
+                        trace184("TPENUM");
+                        setLoc(its, tds184->sourceRange());
+                    }
+            }
             else if (!its) {
                 bypassTypedefShare = true;
                 its = makeTypespec(ta9, tgt9);

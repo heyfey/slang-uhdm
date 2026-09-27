@@ -1,0 +1,13 @@
+name,mode,status,detail,blocked_by,strict
+BuildUVMPkg,default,STRICT_NOTEQUAL,differ:fullname(23),,differ:fullname(23)
+BuildUVMPkg,testflags,STRICT_NOTEQUAL,differ:fullname(23),,differ:fullname(23)
+Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:fullname(436),,differ:fullname(436)
+Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:fullname(436),,differ:fullname(436)
+MiniAmiq,default,STRICT_NOTEQUAL,differ:fullname(8),,differ:fullname(8)
+MiniAmiq,testflags,STRICT_NOTEQUAL,differ:fullname(8),,differ:fullname(8)
+Scoreboard,default,STRICT_NOTEQUAL,differ:fullname(23),,differ:fullname(23)
+Scoreboard,testflags,SLANG_REJECT,third_party/Surelog/third_party/tests/Scoreboard/testbench.sv:12:3: error: use of undeclared identifier 'm,,
+SeqDriver,default,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
+SeqDriver,testflags,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
+SimpleUVM,default,STRICT_NOTEQUAL,differ:fullname(23),,differ:fullname(23)
+SimpleUVM,testflags,STRICT_NOTEQUAL,differ:fullname(23),,differ:fullname(23)

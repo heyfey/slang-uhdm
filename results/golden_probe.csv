@@ -7,7 +7,7 @@ r10buvm15repro/v3_clones15,EQUAL,,equal
 r10buvm15repro/v5_named15,EQUAL,,equal
 r10buvm1repro/a5_unbound,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
 r10buvm21repro/g21b,STRICT_NOTEQUAL,differ:col(1),differ:col(1)
-r10buvm21repro/g21c,STRICT_NOTEQUAL,differ:col(2),differ:col(2)
+r10buvm21repro/g21c,EQUAL,,equal
 r10buvm27repro/ast27,EQUAL,,equal
 r10buvm27repro/g27_a0_head,EQUAL,,equal
 r10buvm28repro/g28_a0_head,EQUAL,,equal
@@ -206,7 +206,7 @@ r10earl_repro/pw20,EQUAL,,equal
 r10earl_repro/px20,EQUAL,,equal
 r10earl_repro/py20,EQUAL,,equal
 r10earl_repro/qa20,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
-r10earl_repro/qa23,STRICT_NOTEQUAL,differ:file(2),differ:file(2)
+r10earl_repro/qa23,EQUAL,,equal
 r10earl_repro/qa28,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
 r10earl_repro/qb21,EQUAL,,equal
 r10earl_repro/qb25,EQUAL,,equal
@@ -736,7 +736,7 @@ r10uvm139repro/g139_b_kinds,STRICT_NOTEQUAL,differ:col(10),differ:col(10)
 r10uvm139repro/g139_d_mult,STRICT_NOTEQUAL,differ:col(10),differ:col(10)
 r10uvm13repro/t15_t,EQUAL,,equal
 r10uvm143repro/g143_a_shapes,STRICT_NOTEQUAL,differ:file(2),differ:file(2)
-r10uvm143repro/g143_c_index,STRICT_NOTEQUAL,differ:endcol(7),differ:endcol(7)
+r10uvm143repro/g143_c_index,STRICT_NOTEQUAL,differ:file(4),differ:file(4)
 r10uvm143repro/g143_d_foreach,EQUAL,,equal
 r10uvm144repro/g144_b,EQUAL,,equal
 r10uvm144repro/g144_c,EQUAL,,equal
@@ -1017,7 +1017,7 @@ r10uvm77repro/v77x2_comment,EQUAL,,equal
 r10uvm78repro/c1_classpsel,EQUAL,,equal
 r10uvm78repro/c2_idxpsel,EQUAL,,equal
 r10uvm78repro/c3_constsel,EQUAL,,equal
-r10uvm79repro/c2_idxkind,STRICT_NOTEQUAL,differ:file(9),differ:file(9)
+r10uvm79repro/c2_idxkind,STRICT_NOTEQUAL,differ:file(8),differ:file(8)
 r10uvm79repro/v79v2_recv,STRICT_NOTEQUAL,differ:file(8),differ:file(8)
 r10uvm79repro/v79v6_ca,EQUAL,,equal
 r10uvm80repro/c2_autokinds,STRICT_NOTEQUAL,differ:endcol(4),differ:endcol(4)
@@ -1786,7 +1786,7 @@ r11u108repro/grid/f5/f5a03_tpq_out,EQUAL,,equal
 r11u108repro/grid/f5/f5a04_ctl_plainvec,EQUAL,,equal
 r11u108repro/grid/f5/f5a05_override,STRICT_NOTEQUAL,differ:line(2),differ:line(2)
 r11u108repro/grid/f5/f5a06_bitelem,EQUAL,,equal
-r11u108repro/grid/f5/f5a07_enumelem,STRICT_NOTEQUAL,differ:file(3),differ:file(3)
+r11u108repro/grid/f5/f5a07_enumelem,EQUAL,,equal
 r11u108repro/grid/f5/f5a08_structelem,EQUAL,,equal
 r11u108repro/grid/f5/f5a10_writtendims_ctl,EQUAL,,equal
 r11u108repro/grid/f5/f5a11_unpacked_ctl,EQUAL,,equal
@@ -3018,7 +3018,7 @@ r11u31repro/g1,EQUAL,,equal
 r11u31repro/g4,EQUAL,,equal
 r11u31repro/g5,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
 r11u32repro/k9,EQUAL,,equal
-r11u32repro/k9b,STRICT_NOTEQUAL,differ:endline(6),differ:endline(6)
+r11u32repro/k9b,STRICT_NOTEQUAL,differ:endline(4),differ:endline(4)
 r11u34repro/g6,EQUAL,,equal
 r11u34repro/u2,EQUAL,,equal
 r11u35repro/grid/g3_shape35,STRICT_NOTEQUAL,differ:fullname(215),differ:fullname(215)

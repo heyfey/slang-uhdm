@@ -1,0 +1,7 @@
+// residue (not landed): an unsized based literal as a whole continuous-assignment right side (golden sizes it to the target)
+module top(output wire [15:0] a, output wire [7:0] b, output logic [15:0] c, output wire [15:0] d);
+  assign a = 'h10;
+  assign b = 'b101;
+  assign c = 'd7;
+  assign d = 'd1_0 + 1;
+endmodule

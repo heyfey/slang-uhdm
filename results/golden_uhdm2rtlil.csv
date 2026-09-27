@@ -317,7 +317,7 @@ ibex_id_stage,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/r
 ibex_if_stage,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_if_stage.sv:325:5: error: unknown module 'ibex_prefetch_buffer',,
 ibex_load_store_unit,default,CMP_EQUAL,,,equal
 ibex_lockstep,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
-ibex_multdiv_fast,default,STRICT_NOTEQUAL,differ:file(11),,differ:file(11)
+ibex_multdiv_fast,default,CMP_EQUAL,,,equal
 ibex_multdiv_slow,default,CMP_EQUAL,,,equal
 ibex_pmp,default,STRICT_NOTEQUAL,differ:file(5),,differ:file(5)
 ibex_prefetch_buffer,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
@@ -814,8 +814,8 @@ TypedefStructArray,default,CMP_EQUAL,,,equal
 TypedefStructParamWithRangeInSubmodule,default,CMP_EQUAL,,,equal
 TypedefVariableDimensions,default,CMP_EQUAL,,,equal
 TypedefWithParameter,default,CMP_EQUAL,,,equal
-TypeParameterAsPortTypeWithEnum,default,STRICT_NOTEQUAL,differ:file(8),,differ:file(8)
-TypeParameterAsPortTypeWithEnumOfParametrizedWidth,default,STRICT_NOTEQUAL,differ:file(6),,differ:file(6)
+TypeParameterAsPortTypeWithEnum,default,CMP_EQUAL,,,equal
+TypeParameterAsPortTypeWithEnumOfParametrizedWidth,default,CMP_EQUAL,,,equal
 TypeParameterAsPortTypeWithLogic,default,CMP_EQUAL,,,equal
 TypeParameterAsPortTypeWithLogicAnonymous,default,CMP_EQUAL,,,equal
 TypeParameterAsPortTypeWithStruct,default,CMP_EQUAL,,,equal
@@ -1188,7 +1188,7 @@ ibex_id_stage,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex
 ibex_if_stage,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_if_stage.sv:325:5: error: unknown module 'ibex_prefetch_buffer',,
 ibex_load_store_unit,testflags,CMP_EQUAL,,,equal
 ibex_lockstep,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
-ibex_multdiv_fast,testflags,STRICT_NOTEQUAL,differ:file(11),,differ:file(11)
+ibex_multdiv_fast,testflags,CMP_EQUAL,,,equal
 ibex_multdiv_slow,testflags,CMP_EQUAL,,,equal
 ibex_pmp,testflags,STRICT_NOTEQUAL,differ:file(5),,differ:file(5)
 ibex_prefetch_buffer,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
@@ -1685,8 +1685,8 @@ TypedefStructArray,testflags,CMP_EQUAL,,,equal
 TypedefStructParamWithRangeInSubmodule,testflags,CMP_EQUAL,,,equal
 TypedefVariableDimensions,testflags,CMP_EQUAL,,,equal
 TypedefWithParameter,testflags,CMP_EQUAL,,,equal
-TypeParameterAsPortTypeWithEnum,testflags,STRICT_NOTEQUAL,differ:file(8),,differ:file(8)
-TypeParameterAsPortTypeWithEnumOfParametrizedWidth,testflags,STRICT_NOTEQUAL,differ:file(6),,differ:file(6)
+TypeParameterAsPortTypeWithEnum,testflags,CMP_EQUAL,,,equal
+TypeParameterAsPortTypeWithEnumOfParametrizedWidth,testflags,CMP_EQUAL,,,equal
 TypeParameterAsPortTypeWithLogic,testflags,CMP_EQUAL,,,equal
 TypeParameterAsPortTypeWithLogicAnonymous,testflags,CMP_EQUAL,,,equal
 TypeParameterAsPortTypeWithStruct,testflags,CMP_EQUAL,,,equal

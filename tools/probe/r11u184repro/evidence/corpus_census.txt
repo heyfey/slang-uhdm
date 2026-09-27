@@ -1,0 +1,32 @@
+2   BuildUVMPkg                                         default    INCDECSEL  
+2   BuildUVMPkg                                         default    LVIDXSEL   
+4   BuildUVMPkg                                         default    STREAMRD   member
+2   BuildUVMPkg                                         testflags  INCDECSEL  
+2   BuildUVMPkg                                         testflags  LVIDXSEL   
+4   BuildUVMPkg                                         testflags  STREAMRD   member
+25  Earlgrey_0_1                                        default    GENENUM    
+25  Earlgrey_0_1                                        testflags  GENENUM    
+11  ibex_multdiv_fast                                   default    GENENUM    
+11  ibex_multdiv_fast                                   testflags  GENENUM    
+4   MiniAmiq                                            default    INCDECSEL  
+4   MiniAmiq                                            default    LVIDXSEL   
+4   MiniAmiq                                            testflags  INCDECSEL  
+4   MiniAmiq                                            testflags  LVIDXSEL   
+2   Scoreboard                                          default    INCDECSEL  
+2   Scoreboard                                          default    LVIDXSEL   
+4   SeqDriver                                           default    INCDECSEL  
+4   SeqDriver                                           default    LVIDXSEL   
+4   SeqDriver                                           testflags  INCDECSEL  
+4   SeqDriver                                           testflags  LVIDXSEL   
+2   SimpleUVM                                           default    INCDECSEL  
+2   SimpleUVM                                           default    LVIDXSEL   
+2   SimpleUVM                                           testflags  INCDECSEL  
+2   SimpleUVM                                           testflags  LVIDXSEL   
+2   TypeParameterAsPortTypeWithEnum                     default    TPENUM     
+2   TypeParameterAsPortTypeWithEnum                     default    TPENUM     parented
+1   TypeParameterAsPortTypeWithEnumOfParametrizedWidth  default    TPENUM     
+1   TypeParameterAsPortTypeWithEnumOfParametrizedWidth  default    TPENUM     parented
+1   TypeParameterAsPortTypeWithEnumOfParametrizedWidth  testflags  TPENUM     
+1   TypeParameterAsPortTypeWithEnumOfParametrizedWidth  testflags  TPENUM     parented
+2   TypeParameterAsPortTypeWithEnum                     testflags  TPENUM     
+2   TypeParameterAsPortTypeWithEnum                     testflags  TPENUM     parented

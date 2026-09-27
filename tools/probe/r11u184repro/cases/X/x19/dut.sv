@@ -1,0 +1,12 @@
+// § tpEnumCopyAtTypedef184: the type-parameter enum copy, parented or not by the child body (the continuous-assignment target distinguisher)
+module sub #(parameter type T = logic) (input T si, output logic [1:0] so);
+  T r;
+  always_comb r = si;
+  assign so = 2'd0;
+endmodule
+module top();
+  typedef enum logic [1:0] {I0, I1} ie_t;
+  ie_t p;
+  logic [1:0] q;
+  sub #(.T(ie_t)) v (.si(p), .so(q));
+endmodule

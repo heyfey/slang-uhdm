@@ -1,0 +1,17 @@
+surelog/default/BuildUVMPkg 1775+1822=3597 1759+1806=3565
+surelog/testflags/BuildUVMPkg 1775+1822=3597 1759+1806=3565
+surelog/default/MiniAmiq 10001+16848=26849 9980+16827=26807
+surelog/testflags/MiniAmiq 10001+16848=26849 9981+16828=26809
+surelog/default/Scoreboard 2588+3292=5880 2576+3280=5856
+surelog/default/SeqDriver 8129+11656=19785 8106+11633=19739
+surelog/testflags/SeqDriver 8130+11657=19787 8106+11633=19739
+surelog/default/SimpleUVM 3252+3976=7228 3236+3960=7196
+surelog/testflags/SimpleUVM 3252+3976=7228 3236+3960=7196
+surelog/default/Earlgrey_0_1 6817+6173=12990 6792+6148=12940
+surelog/testflags/Earlgrey_0_1 6366+6080=12446 6353+6067=12420
+uhdm2rtlil/default/ibex_multdiv_fast 13+13=26 2+2=4
+uhdm2rtlil/testflags/ibex_multdiv_fast 13+13=26 2+2=4
+uhdm2rtlil/default/TypeParameterAsPortTypeWithEnum 4+4=8 0+0=0
+uhdm2rtlil/testflags/TypeParameterAsPortTypeWithEnum 4+4=8 0+0=0
+uhdm2rtlil/default/TypeParameterAsPortTypeWithEnumOfParametrizedWidth 4+4=8 2+2=4
+uhdm2rtlil/testflags/TypeParameterAsPortTypeWithEnumOfParametrizedWidth 4+4=8 2+2=4
