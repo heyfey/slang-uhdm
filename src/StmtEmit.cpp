@@ -1,3 +1,4 @@
+#include <unistd.h>
 //------------------------------------------------------------------------------
 //! @file StmtEmit.cpp
 //! @brief Processes, statements, event expressions
@@ -15,6 +16,52 @@
 #include <uhdm/clone_tree.h>
 
 namespace slang_uhdm {
+
+// The r11u183 switches (tools/probe/r11u183dec/README.md, landed by r11u187:
+// tools/probe/r11u187repro/README.md): every r11u183 law
+// reads its own R11U183_<LAW>_OFF switch; R11U183_OFF drops all of them.
+// R11U183_TRACE=<dir> names every firing of an r11u183 law (the mover
+// census): one file per process, `<dir>/<pid>.<unit>`, its first line the
+// `-o` database path read off the command line, then one law name per firing.
+static void tr183SE(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U183_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".SE";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+static bool r11u183LawSE(const char* sw) {
+    // r11u187 landed these laws: R11U187_OFF drops them with its own.
+    if (getenv("R11U183_OFF") != nullptr || getenv("R11U187_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 
 // The r11u175 switches (tools/probe/r11u175uvm/README.md): every r11u175 law
 // reads its own R11U175_<LAW>_OFF switch; R11U175_OFF drops all of them.
@@ -2482,9 +2529,37 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 dsyn0->kind == syntax::SyntaxKind::Declarator)
                                 for (auto dim0 : dsyn0->as<syntax::DeclaratorSyntax>()
                                                      .dimensions)
+                                {
                                     // Through the CLOSING bracket (the tf
                                     // BLOCK-ITEM twin stops one short).
                                     aEnd0 = dim0->sourceRange().end();
+                                    // § blockSizeDimEndsAtExpr183 (r11u183,
+                                    // R11U183_IFARR_OFF) — a SIZE dimension
+                                    // (`int q[5]`) is compiled from its
+                                    // constant_expression, so the typespec
+                                    // ends where the expression ends, the
+                                    // rule § ifaceArrPortSizeDimAtExpr183
+                                    // reads on interface-array ports (golden
+                                    // UVM `int q[5]` 1049:11-1049:14, ours
+                                    // 1049:15; map N0127's block-local
+                                    // face).  The RANGE form (`[7:0]`) keeps
+                                    // the bracket.  Grid tools/probe/
+                                    // r11u183dec/cases/c i08, i09, i12, i13.
+                                    if (dim0->specifier &&
+                                        dim0->specifier->kind ==
+                                            syntax::SyntaxKind::RangeDimensionSpecifier &&
+                                        r11u183LawSE("R11U183_IFARR_OFF"))
+                                        if (auto& sel183 =
+                                                *dim0->specifier
+                                                     ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                                     .selector;
+                                            sel183.kind == syntax::SyntaxKind::BitSelect) {
+                                            tr183SE("blockSizeDimEndsAtExpr183");
+                                            aEnd0 = sel183.as<syntax::BitSelectSyntax>()
+                                                        .expr->sourceRange()
+                                                        .end();
+                                        }
+                                }
                             setLoc(ats0, SourceRange(bm.location, aEnd0));
                         }
                         if (auto* arng0 = buildUnpackedRanges(bm, ats0))
@@ -4173,17 +4248,105 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             std::to_string(lv0->VpiColumnNo());
                         auto& sh37 = cloneLoopVarShared37[k37];
                         if (!sh37) {
+                            // § cloneLoopVarHomeObject183 (r11u183,
+                            // R11U183_UVMCOPY_OFF) — the object every clone
+                            // view binds is the HOME package's own compile of
+                            // the loop variable: it carries the HOME name
+                            // (`uvm_pkg::uvm_has_wildcard::i` where the
+                            // importer's prefix wrote
+                            // `svaunit_pkg::uvm_has_wildcard::i`; map N0490 /
+                            // N0491) and the typespec the home listing's
+                            // lateTypedefBinding resolved for the ITERATED
+                            // ARRAY — a string formal's string_typespec, a
+                            // subroutine-local array's array_typespec — where
+                            // ours kept the unsupported placeholder (N0408 /
+                            // N0134).  An array the home cannot resolve keeps
+                            // the placeholder.  Grid cases/g k02, k04-k06.
+                            std::string fn183 = joinRef(prefix, lvn);
+                            UHDM::typespec* res183 = nullptr;
+                            if (r11u183LawSE("R11U183_UVMCOPY_OFF") &&
+                                r11u183LawSE("R11U183_CLONELV_OFF")) {
+                                std::string home183;
+                                if (pkgImportCloneHomePkg)
+                                    home183 = std::string(pkgImportCloneHomePkg->name);
+                                else if (currentClassDefn) {
+                                    std::string cf183(currentClassDefn->VpiFullName());
+                                    if (auto q183 = cf183.find("::");
+                                        q183 != std::string::npos)
+                                        home183 = cf183.substr(0, q183);
+                                }
+                                if (auto q183 = fn183.find("::");
+                                    !home183.empty() && q183 != std::string::npos &&
+                                    fn183.compare(0, q183, home183) != 0) {
+                                    tr183SE("cloneLoopVarHomeObject183");
+                                    fn183 = home183 + fn183.substr(q183);
+                                }
+                                if (arrSym) {
+                                    if (auto fit183 = netMap.find(arrSym);
+                                        fit183 != netMap.end() && fit183->second &&
+                                        fit183->second->UhdmType() ==
+                                            UHDM::uhdmio_decl) {
+                                        if (auto* irt183 =
+                                                ((UHDM::io_decl*)fit183->second)->Typespec())
+                                            res183 = irt183->Actual_typespec();
+                                    }
+                                    else if (auto a183 = arrayVarArrayTs.find(arrSym);
+                                             a183 != arrayVarArrayTs.end())
+                                        res183 = a183->second;
+                                    // An ASSOCIATIVE array's loop variable is
+                                    // the declaration's INDEX typespec object
+                                    // (getSimpleVarFromTypespec of its
+                                    // vpiIndexTypespec, as the unclosed arm's
+                                    // § foreachAssocLoopVarIdxTs183): golden
+                                    // `class_typespec (w)` at the property's
+                                    // index for `q m_qs[w]`, the
+                                    // `string_typespec` for `int m[string]`
+                                    // (UVM uvm_default_factory::print's
+                                    // `foreach (m_inst_override_queues[i])`;
+                                    // grid cases/g k07, k08), never the whole
+                                    // array_typespec.  Measured on class,
+                                    // string and int indices only: a STRUCT
+                                    // index (UVM `m_mems_by_offset
+                                    // [uvm_reg_map_addr_range]`) binds a
+                                    // struct copy golden lists without our
+                                    // elaborated member references (uhdm-cmp
+                                    // reads it unequal), so any other index
+                                    // kind keeps the placeholder (residue).
+                                    if (res183 &&
+                                        res183->UhdmType() == UHDM::uhdmarray_typespec)
+                                        if (auto* ix183 = ((UHDM::array_typespec*)res183)
+                                                              ->Index_typespec()) {
+                                            auto* ia183 = ix183->Actual_typespec();
+                                            res183 =
+                                                ia183 &&
+                                                        (ia183->UhdmType() ==
+                                                             UHDM::uhdmclass_typespec ||
+                                                         ia183->UhdmType() ==
+                                                             UHDM::uhdmstring_typespec ||
+                                                         ia183->UhdmType() ==
+                                                             UHDM::uhdmint_typespec)
+                                                    ? ia183
+                                                    : nullptr;
+                                        }
+                                    if (res183)
+                                        tr183SE("cloneLoopVarHomeObject183");
+                                }
+                            }
                             sh37 = s.MakeRef_var();
                             sh37->VpiName(name);
-                            sh37->VpiFullName(joinRef(prefix, lvn));
+                            sh37->VpiFullName(fn183);
                             sh37->VpiParent(fs);
                             setLoc(sh37, span);
-                            auto* uts37 = s.MakeUnsupported_typespec();
-                            uts37->VpiName(name);
-                            uts37->VpiParent(sh37);
-                            setLoc(uts37, span);
+                            UHDM::typespec* uts37 = res183;
+                            if (!uts37) {
+                                auto* u37 = s.MakeUnsupported_typespec();
+                                u37->VpiName(name);
+                                u37->VpiParent(sh37);
+                                setLoc(u37, span);
+                                uts37 = u37;
+                            }
                             auto* lrt37 = s.MakeRef_typespec();
-                            lrt37->VpiFullName(joinRef(prefix, lvn));
+                            lrt37->VpiFullName(fn183);
                             lrt37->VpiParent(sh37);
                             lrt37->Actual_typespec(uts37);
                             sh37->Typespec(lrt37);
@@ -4505,7 +4668,35 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     !lv && arrSym != nullptr && (foreachUnres9 || tfLocalArr20);
                 if (assocIdx19 && foreachUnres9)
                     assocIdx19 = classPropRes21;
-                if (assocIdx19)
+                // § foreachAssocLoopVarIdxTs183 (r11u183, R11U183_TSSPAN_OFF)
+                // — the loop variable of a foreach over a subroutine-local
+                // ASSOCIATIVE array is getSimpleVarFromTypespec of the
+                // declaration's own vpiIndexTypespec OBJECT: golden's
+                // `class_var k` over `bit m[e]` binds `class_typespec (e)` at
+                // the index (8:10-8:11, filed), `[string]` / `[int]` the
+                // index's string_typespec / int_typespec at 8:10, where the
+                // arms below mint a fresh unlocated object (map N0067 / N0068
+                // `class_var < foreach_stmt`).  The declaration object is the
+                // one § foreachAssocLocalSharesDeclTs183 registers (an
+                // all-associative listing only).  Grid cases/d f01, f02, f06.
+                bool idxTs183 = false;
+                if (assocIdx19 &&
+                    ((tfLocalArr20 && !foreachUnres9) ||
+                     (foreachUnres9 && classPropRes21)) &&
+                    r11u183LawSE("R11U183_TSSPAN_OFF") &&
+                    r11u183LawSE("R11U183_FEIDX_OFF"))
+                    if (auto a183 = arrayVarArrayTs.find(arrSym);
+                        a183 != arrayVarArrayTs.end() && a183->second &&
+                        a183->second->UhdmType() == UHDM::uhdmarray_typespec)
+                        if (auto* ix183 = ((UHDM::array_typespec*)a183->second)
+                                              ->Index_typespec();
+                            ix183 && ix183->Actual_typespec() &&
+                            varForTypespec(s, ix183->Actual_typespec())) {
+                            lts = ix183->Actual_typespec();
+                            idxTs183 = true;
+                            tr183SE("foreachAssocLoopVarIdxTs183");
+                        }
+                if (assocIdx19 && !idxTs183)
                     if (auto* adt19 = arrSym->getDeclaredType()) {
                         auto& ac19 = adt19->getType().getCanonicalType();
                         if (ac19.kind == SymbolKind::AssociativeArrayType)

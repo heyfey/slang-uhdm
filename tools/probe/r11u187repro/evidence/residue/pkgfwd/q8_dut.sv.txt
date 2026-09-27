@@ -1,0 +1,9 @@
+package cfgA;
+  localparam config_pkg::noc_t C = config_pkg::NB;
+endpackage
+package config_pkg;
+  typedef enum { NA, NB } noc_t;
+endpackage
+module top(output int o);
+  assign o = cfgA::C;
+endmodule

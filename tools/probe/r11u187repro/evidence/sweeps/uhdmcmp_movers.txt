@@ -1,0 +1,17 @@
+surelog/default/ApbSlave cmp_lines=0 STRICT_NOTEQUAL,differ:file(4)
+surelog/testflags/ApbSlave cmp_lines=0 STRICT_NOTEQUAL,differ:file(4)
+surelog/default/ArrayMethodIterator cmp_lines=0 CMP_EQUAL,equal
+surelog/testflags/ArrayMethodIterator cmp_lines=0 CMP_EQUAL,equal
+surelog/default/BuildUVMPkg cmp_lines=0 STRICT_NOTEQUAL,differ:fullname(21)
+surelog/testflags/BuildUVMPkg cmp_lines=0 STRICT_NOTEQUAL,differ:fullname(21)
+surelog/default/MiniAmiq cmp_lines=0 STRICT_NOTEQUAL,differ:fullname(28)
+surelog/testflags/MiniAmiq cmp_lines=0 STRICT_NOTEQUAL,differ:fullname(28)
+surelog/default/Rggen cmp_lines=0 STRICT_NOTEQUAL,differ:endcol(634)
+surelog/default/Scoreboard cmp_lines=0 STRICT_NOTEQUAL,differ:fullname(55)
+surelog/default/SeqDriver cmp_lines=0 STRICT_NOTEQUAL,differ:fullname(27)
+surelog/testflags/SeqDriver cmp_lines=0 STRICT_NOTEQUAL,differ:fullname(27)
+surelog/default/SimpleUVM cmp_lines=0 STRICT_NOTEQUAL,differ:fullname(55)
+surelog/testflags/SimpleUVM cmp_lines=0 STRICT_NOTEQUAL,differ:fullname(55)
+surelog/testflags/Earlgrey_0_1 cmp_lines=0 STRICT_NOTEQUAL,differ:col(102)
+uhdm2rtlil/default/jeras_union cmp_lines=0 STRICT_NOTEQUAL,differ:fullname(15)
+uhdm2rtlil/testflags/jeras_union cmp_lines=0 STRICT_NOTEQUAL,differ:fullname(15)

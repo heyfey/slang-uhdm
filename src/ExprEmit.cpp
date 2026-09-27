@@ -1,3 +1,4 @@
+#include <unistd.h>
 //------------------------------------------------------------------------------
 //! @file ExprEmit.cpp
 //! @brief Expressions, constant folding, value encoding
@@ -23,6 +24,168 @@
 #include "slang/ast/symbols/CoverSymbols.h"
 
 namespace slang_uhdm {
+
+// The r11u183 switches (tools/probe/r11u183dec/README.md, landed by r11u187:
+// tools/probe/r11u187repro/README.md): every r11u183 law
+// reads its own R11U183_<LAW>_OFF switch; R11U183_OFF drops all of them.
+// R11U183_TRACE=<dir> names every firing of an r11u183 law (the mover
+// census): one file per process, `<dir>/<pid>.<unit>`, its first line the
+// `-o` database path read off the command line, then one law name per firing.
+static void tr183EX(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U183_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".EX";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+static bool r11u183LawEX(const char* sw) {
+    // r11u187 landed these laws: R11U187_OFF drops them with its own.
+    if (getenv("R11U183_OFF") != nullptr || getenv("R11U187_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
+// § macroIfacePathTokSpans183 (r11u183) — the dotted NAME tokens of an
+// interface / hierarchical path, read from its SYNTAX (a left-nested chain of
+// `.`-separated ScopedNameSyntax).  Each token is one token of one buffer,
+// so its range stays valid where the path arrives through a macro argument
+// (Rggen `RIF.read_data[__i]`: the base token is in the ARGUMENT buffer, every
+// member token in the macro BODY buffer), where offsets into the path's text
+// do not.  Returns the component tokens outermost-first; empty when the
+// syntax is not such a chain.
+static std::vector<SourceRange> pathNameToks183(const syntax::SyntaxNode* sx) {
+    std::vector<SourceRange> out;
+    auto tokOf = [](const syntax::SyntaxNode* n) -> std::optional<SourceRange> {
+        if (n && n->kind == syntax::SyntaxKind::IdentifierName) {
+            auto t = n->as<syntax::IdentifierNameSyntax>().identifier;
+            return SourceRange(t.location(), t.location() + t.rawText().size());
+        }
+        if (n && n->kind == syntax::SyntaxKind::IdentifierSelectName) {
+            auto t = n->as<syntax::IdentifierSelectNameSyntax>().identifier;
+            return SourceRange(t.location(), t.location() + t.rawText().size());
+        }
+        return std::nullopt;
+    };
+    std::vector<SourceRange> rev;
+    const syntax::SyntaxNode* cur = sx;
+    for (int g = 0; cur && g < 64; g++) {
+        if (cur->kind == syntax::SyntaxKind::ScopedName) {
+            auto& sn = cur->as<syntax::ScopedNameSyntax>();
+            if (sn.separator.kind != parsing::TokenKind::Dot)
+                return {};
+            auto t = tokOf(sn.right);
+            if (!t)
+                return {};
+            rev.push_back(*t);
+            cur = sn.left;
+            continue;
+        }
+        auto t = tokOf(cur);
+        if (!t)
+            return {};
+        rev.push_back(*t);
+        break;
+    }
+    out.assign(rev.rbegin(), rev.rend());
+    return out;
+}
+// The written path left of an element select (an interface / hierarchical
+// value expression carries no syntax of its own).
+static const syntax::SyntaxNode* esLeftSyn183(const Expression& e) {
+    if (e.syntax && e.syntax->kind == syntax::SyntaxKind::ElementSelectExpression)
+        return e.syntax->as<syntax::ElementSelectExpressionSyntax>().left;
+    // An interface path is ONE ScopedName whose leaf carries the selects
+    // (`bit_field_if.read_data[1]`: right = IdentifierSelectName).
+    if (e.syntax && e.syntax->kind == syntax::SyntaxKind::ScopedName)
+        return e.syntax;
+    return nullptr;
+}
+// The closing bracket of the element select written last on that path.
+static std::optional<SourceLocation> esCloseBracket183(const Expression& e) {
+    const syntax::ElementSelectSyntax* sel = nullptr;
+    if (e.syntax && e.syntax->kind == syntax::SyntaxKind::ElementSelectExpression)
+        sel = e.syntax->as<syntax::ElementSelectExpressionSyntax>().select;
+    else if (e.syntax && e.syntax->kind == syntax::SyntaxKind::ScopedName) {
+        auto* r = e.syntax->as<syntax::ScopedNameSyntax>().right.get();
+        if (r && r->kind == syntax::SyntaxKind::IdentifierSelectName) {
+            auto& sl = r->as<syntax::IdentifierSelectNameSyntax>().selectors;
+            if (!sl.empty())
+                sel = sl[sl.size() - 1];
+        }
+    }
+    if (!sel || !sel->closeBracket)
+        return std::nullopt;
+    return sel->closeBracket.location() + 1;
+}
+
+
+// The r11u187 switches (tools/probe/r11u187repro/README.md): every r11u187 law
+// reads its own R11U187_<LAW>_OFF switch; R11U187_OFF drops all of them.
+// R11U187_TRACE=<dir> names every firing (one file per process,
+// `<dir>/<pid>.EX187`, first line `OUT <-o path>`, then one law per firing),
+// the format of the r11u183 trace above.
+static bool r11u187LawEX(const char* sw) {
+    if (getenv("R11U187_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+static void tr187EX(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U187_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".EX187";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
 
 // The r11u175 switches (tools/probe/r11u175uvm/README.md): every r11u175 law
 // reads its own R11U175_<LAW>_OFF switch; R11U175_OFF drops all of them.
@@ -10160,6 +10323,141 @@ static bool sysArgUnaryConstSelToken140v(const Expression& e) {
     return false;
 }
 
+// § trailIdxCallArgNamesByPath187 + § trailIdxSelNamesByPath187 (r11u187) —
+// § hpTrailSelIdxNamesByPath133's rule carried below a CALL and below a
+// SELECT inside the trailing select's index.  Surelog stores no full name on
+// the objects of that index, so UHDM's ComputeFullName (BaseClass.cpp:100)
+// derives each from its parent chain: a func_call / sys_func_call /
+// method_func_call contributes no name (it is skipped), a bit_select or
+// indexed_part_select is skipped above a ref_obj and kept above anything
+// else, a part_select is always kept, an operation has no name.  So the
+// argument of `m.q[f(k)]` is `work@top.m.q.q.k` (golden, grid
+// tools/probe/r11u187repro/cases/T t01-t04, t07; r11u184's residue C/c01),
+// `m.w[f(k) - 1]` gives `work@top.m.w[ - 1].w.k` (the hier_path's own name),
+// the part select of `s.g[i[1:0]]` in a generate scope is
+// `work@top.ga.gb.s.g.g.i` (r11u184's residue G/g01, grid t06), the bit
+// select of `s.f[i[j]]` and its index `work@top.s.f.f.i` /
+// `work@top.s.f.f.j` (t05); ours stored the scope's plain name.  A
+// ref_obj's own ref_typespec carries the same derived name (t02; the formal
+// typespec evalFunc attaches, pass 184's R2).  A nested hier_path keeps its
+// own naming laws (not entered); refs directly under the trailing select or
+// under operations only are § hpTrailSelIdxNamesByPath133's.  Switches
+// R11U187_TRAILCALL_OFF (below a call), R11U187_TRAILSEL_OFF (a select and
+// below it), R11U187_OFF.
+static void trailIdxNestedNames187(UHDM::bit_select* bs, const std::string& base,
+                                   const UHDM::hier_path* hp) {
+    const bool onCall = r11u187LawEX("R11U187_TRAILCALL_OFF");
+    const bool onSel = r11u187LawEX("R11U187_TRAILSEL_OFF");
+    if ((!onCall && !onSel) || !bs || !bs->VpiIndex())
+        return;
+    // A path NESTED in another path's (or select's) index derives its names
+    // through the OUTER chain in golden (`r = n.w[m.q[f(k)]]`:
+    // `work@top.n.w.w.m.q.q.k`, grid T t16), which `base` does not carry
+    // (pass 178's residue h09): decline there, wrong stays as it was.
+    for (const UHDM::any* up = hp ? hp->VpiParent() : nullptr; up; up = up->VpiParent()) {
+        const auto k = up->UhdmType();
+        if (k == UHDM::uhdmoperation || k == UHDM::uhdmfunc_call ||
+            k == UHDM::uhdmsys_func_call || k == UHDM::uhdmmethod_func_call)
+            continue;
+        if (k == UHDM::uhdmbit_select || k == UHDM::uhdmpart_select ||
+            k == UHDM::uhdmindexed_part_select || k == UHDM::uhdmhier_path ||
+            k == UHDM::uhdmvar_select)
+            return;
+        break;
+    }
+    auto rename = [&](UHDM::any* o, const std::string& fn, const char* law) {
+        if (o->UhdmType() == UHDM::uhdmref_obj) {
+            auto* r = (UHDM::ref_obj*)o;
+            std::string old(r->VpiFullName());
+            if (old == fn)
+                return;
+            tr187EX(law);
+            r->VpiFullName(fn);
+            // Its own ref_typespec derives the same name (not read: a lazy
+            // name would freeze here).
+            if (auto* rt = r->Typespec(); rt && rt->VpiParent() == r)
+                rt->VpiFullName(fn);
+            return;
+        }
+        // A select's name is NOT read here: the getter would freeze a lazily
+        // computed name at this point of the emission (the chain above the
+        // path is not final yet).  The derived name is stored as it is.
+        tr187EX(law);
+        if (o->UhdmType() == UHDM::uhdmbit_select)
+            ((UHDM::bit_select*)o)->VpiFullName(fn);
+        else if (o->UhdmType() == UHDM::uhdmpart_select)
+            ((UHDM::part_select*)o)->VpiFullName(fn);
+        else if (o->UhdmType() == UHDM::uhdmindexed_part_select)
+            ((UHDM::indexed_part_select*)o)->VpiFullName(fn);
+    };
+    // path: the name the subtree's named objects are joined to; law: the law
+    // governing the subtree (the outermost call or select entered), nullptr
+    // while still on § hpTrailSelIdxNamesByPath133's ground.
+    std::function<void(UHDM::any*, const UHDM::any*, const std::string&, const char*)> walk =
+        [&](UHDM::any* e, const UHDM::any* up, const std::string& path, const char* law) {
+            if (!e || e->VpiParent() != up)
+                return;
+            switch (e->UhdmType()) {
+                case UHDM::uhdmref_obj:
+                    if (law)
+                        rename(e, joinRef(path, ((UHDM::ref_obj*)e)->VpiName()), law);
+                    return;
+                case UHDM::uhdmoperation:
+                    if (auto* os = ((UHDM::operation*)e)->Operands())
+                        for (auto* o : *os)
+                            walk(o, e, path, law);
+                    return;
+                case UHDM::uhdmfunc_call:
+                case UHDM::uhdmsys_func_call:
+                case UHDM::uhdmmethod_func_call: {
+                    if (!onCall)
+                        return;
+                    if (auto* as = ((UHDM::tf_call*)e)->Tf_call_args())
+                        for (auto* a : *as)
+                            walk(a, e, path, law ? law : "trailIdxCallArgNamesByPath187");
+                    return;
+                }
+                case UHDM::uhdmbit_select:
+                case UHDM::uhdmindexed_part_select:
+                case UHDM::uhdmpart_select: {
+                    if (!onSel)
+                        return;
+                    const char* l2 = law ? law : "trailIdxSelNamesByPath187";
+                    std::string nm(e->VpiName());
+                    if (nm.empty())
+                        return;
+                    const std::string fn = joinRef(path, nm);
+                    rename(e, fn, l2);
+                    // Below a bit / indexed part select a ref_obj skips it;
+                    // below a part select nothing does.
+                    const bool skipRef = e->UhdmType() != UHDM::uhdmpart_select;
+                    auto kid = [&](const UHDM::any* c0) {
+                        auto* c = (UHDM::any*)c0;
+                        if (c)
+                            walk(c, e,
+                                 (skipRef && c->UhdmType() == UHDM::uhdmref_obj) ? path : fn,
+                                 l2);
+                    };
+                    if (e->UhdmType() == UHDM::uhdmbit_select)
+                        kid(((UHDM::bit_select*)e)->VpiIndex());
+                    else if (e->UhdmType() == UHDM::uhdmindexed_part_select) {
+                        kid(((UHDM::indexed_part_select*)e)->Base_expr());
+                        kid(((UHDM::indexed_part_select*)e)->Width_expr());
+                    }
+                    else {
+                        kid(((UHDM::part_select*)e)->Left_range());
+                        kid(((UHDM::part_select*)e)->Right_range());
+                    }
+                    return;
+                }
+                default:
+                    return;
+            }
+        };
+    // The trailing bit_select is kept above anything but a ref_obj.
+    walk((UHDM::any*)bs->VpiIndex(), bs, joinRef(base, bs->VpiName()), nullptr);
+}
+
 // § hpTrailSelIdxNamesByPath133 — THE INDEX OF A PATH'S TRAILING SELECT IS
 // NAMED BY ITS PARENT CHAIN.  An rvalue `tbl[r].sat[i]` / `s.sat[i]` (a
 // continuous assignment or a process) keeps its index objects parented at the
@@ -10195,6 +10493,7 @@ static void trailSelIdxNames133(UHDM::bit_select* bs, const std::string& prefix,
     auto* ix = (UHDM::any*)bs->VpiIndex();
     if (ix->VpiParent() == bs)
         nm(ix, true);
+    trailIdxNestedNames187(bs, base, hp);  // § trailIdxCallArgNamesByPath187
 }
 
 // § unaryOperandParamOwnerName145 — the continuous assignment's LEFT-hand
@@ -31438,7 +31737,36 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                          randWith119->syntax->sourceRange().end())
                                : withExpr9
                                    ? SourceRange(expr.sourceRange.start(),
-                                                 withExpr9->sourceRange.end() + 1)
+                                                 [&]() -> SourceLocation {
+                                                     // § withClauseCloseParenEnd183
+                                                     // (r11u183, R11U183_PATHSPAN_OFF)
+                                                     // — through the with-clause's
+                                                     // OWN `)` token, not one past
+                                                     // its expression: golden
+                                                     // ArrayMethodIterator
+                                                     // `with ( cb_.get_inst_id )`
+                                                     // 19:32-19:90, ours 19:89
+                                                     // (map N0097).  Grid cases/e w01.
+                                                     if (expr.syntax &&
+                                                         expr.syntax->kind ==
+                                                             syntax::SyntaxKind::
+                                                                 ArrayOrRandomizeMethodExpression &&
+                                                         r11u183LawEX("R11U183_PATHSPAN_OFF"))
+                                                         if (auto* a183 =
+                                                                 expr.syntax
+                                                                     ->as<syntax::ArrayOrRandomizeMethodExpressionSyntax>()
+                                                                     .args;
+                                                             a183 && a183->closeParen &&
+                                                             a183->closeParen.location().buffer() ==
+                                                                 expr.sourceRange.start().buffer())
+                                                         {
+                                                             if (a183->closeParen.location() !=
+                                                                 withExpr9->sourceRange.end())
+                                                                 tr183EX("withClauseCloseParenEnd183");
+                                                             return a183->closeParen.location() + 1;
+                                                         }
+                                                     return withExpr9->sourceRange.end() + 1;
+                                                 }())
                                : parensLess9
                                    ? SourceRange(expr.sourceRange.start(),
                                                  mStart9 + name.size())
@@ -33595,6 +33923,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         exprStart + comps[1].second,
                                         exprStart + comps[1].second + ml154);
                                 }
+                                // § macroIfacePathTokSpans183 (r11u183,
+                                // R11U183_PATHSPAN_OFF) — inside a macro
+                                // expansion the first member's own TOKEN
+                                // (golden Rggen `read_data` 16:30-16:39, the
+                                // expanded text's columns; grid cases/e q05,
+                                // q06; map N0001).
+                                if (!fm154 && r11u183LawEX("R11U183_PATHSPAN_OFF"))
+                                    if (auto tk183 = pathNameToks183(
+                                            esLeftSyn183(expr));
+                                        tk183.size() == comps.size() &&
+                                        tk183.size() >= 2) {
+                                        tr183EX("macroIfacePathTokSpans183");
+                                        fm154 = tk183[1];
+                                    }
                             }
                             if (fm154 && lvBaseAtFirstMember154(inLhs, parent))
                                 setLoc(r2, *fm154);
@@ -33626,8 +33968,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         else if (!sm->isMacroLoc(exprStart) &&
                                  !sm->isMacroLoc(expr.sourceRange.end()))
                             bs154 = exprStart + lastOff;
+                        // § macroIfacePathTokSpans183 — the leaf member's
+                        // token through the closing bracket, both in the
+                        // macro BODY buffer (golden Rggen `read_data[__i]`
+                        // 16:30-16:44; map N0061).
+                        std::optional<SourceLocation> bsEnd183;
+                        if (!bs154 && r11u183LawEX("R11U183_PATHSPAN_OFF"))
+                            if (auto tk183 = pathNameToks183(esLeftSyn183(expr));
+                                tk183.size() == comps.size() && !tk183.empty())
+                                if (auto cb183 = esCloseBracket183(expr);
+                                    cb183 && cb183->buffer() ==
+                                                 tk183.back().start().buffer()) {
+                                    bs154 = tk183.back().start();
+                                    bsEnd183 = *cb183;
+                                    tr183EX("macroIfacePathTokSpans183");
+                                }
                         if (bs154 && lvIfaceBitSelWhole154(inLhs, parent))
-                            setLoc(bs2, SourceRange(*bs154, expr.sourceRange.end()));
+                            setLoc(bs2, SourceRange(*bs154, bsEnd183 ? *bsEnd183
+                                                                     : expr.sourceRange.end()));
                         else
                         setLoc(bs2, es.selector().sourceRange);
                         if (auto* ix2 = emitExpr(es.selector(), bs2, prefix, netMap)) {

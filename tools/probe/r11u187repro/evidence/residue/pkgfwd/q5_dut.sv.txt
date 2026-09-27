@@ -1,0 +1,10 @@
+package cp;
+  typedef enum { NA, NB } noc_t;
+  localparam noc_t D = NB;
+endpackage
+package cfg;
+  localparam cp::noc_t P = cp::NB;
+endpackage
+module top(output int o);
+  assign o = cfg::P;
+endmodule

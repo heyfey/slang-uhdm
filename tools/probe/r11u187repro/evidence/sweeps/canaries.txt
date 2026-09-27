@@ -1,0 +1,13 @@
+  ApbSlave                       default   CHANGED STRICT_NOTEQUAL/differ:depth(1) -> STRICT_NOTEQUAL/differ:file(4)
+  ApbSlave                       testflags CHANGED STRICT_NOTEQUAL/differ:depth(1) -> STRICT_NOTEQUAL/differ:file(4)
+  SimpleUVM                      default   CHANGED STRICT_NOTEQUAL/differ:fullname(21) -> STRICT_NOTEQUAL/differ:fullname(55)
+  SimpleUVM                      testflags CHANGED STRICT_NOTEQUAL/differ:fullname(21) -> STRICT_NOTEQUAL/differ:fullname(55)
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:fullname(5) -> STRICT_NOTEQUAL/differ:fullname(27)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:fullname(5) -> STRICT_NOTEQUAL/differ:fullname(27)
+  Scoreboard                     default   CHANGED STRICT_NOTEQUAL/differ:fullname(21) -> STRICT_NOTEQUAL/differ:fullname(55)
+---- canary rows: ok=45 changed=7 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.

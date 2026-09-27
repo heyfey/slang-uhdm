@@ -1,0 +1,10 @@
+package cp;
+  typedef enum { NA, NB } noc_t;
+endpackage
+package cfg;
+  typedef struct packed { cp::noc_t n; logic [3:0] w; } c_t;
+  localparam c_t C = '{ n: cp::NB, w: 4'd3 };
+endpackage
+module top(output logic [3:0] o);
+  assign o = cfg::C.w;
+endmodule

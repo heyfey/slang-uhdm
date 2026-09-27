@@ -411,7 +411,7 @@ issue326_packed_mem,default,CMP_EQUAL,,,equal
 jeras_gpr,default,CMP_EQUAL,,,equal
 jeras_reverse,default,CMP_EQUAL,,,equal
 jeras_tcb_gpio,default,CMP_EQUAL,,,equal
-jeras_union,default,STRICT_NOTEQUAL,differ:file(60),,differ:file(60)
+jeras_union,default,CMP_EQUAL,,,equal
 LargeModuleParameter,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/LargeModuleParameter/dut.sv:19:1: error: unknown module 'PRIMITIVE',,
 latch_002,default,CMP_EQUAL,,,equal
 latch_axi_adapter,default,CMP_EQUAL,,,equal
@@ -1282,7 +1282,7 @@ issue326_packed_mem,testflags,CMP_EQUAL,,,equal
 jeras_gpr,testflags,CMP_EQUAL,,,equal
 jeras_reverse,testflags,CMP_EQUAL,,,equal
 jeras_tcb_gpio,testflags,CMP_EQUAL,,,equal
-jeras_union,testflags,STRICT_NOTEQUAL,differ:file(60),,differ:file(60)
+jeras_union,testflags,CMP_EQUAL,,,equal
 LargeModuleParameter,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/LargeModuleParameter/dut.sv:19:1: error: unknown module 'PRIMITIVE',,
 latch_002,testflags,CMP_EQUAL,,,equal
 latch_axi_adapter,testflags,CMP_EQUAL,,,equal

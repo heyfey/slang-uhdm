@@ -1,0 +1,6 @@
+package cp;
+  typedef enum { NA, NB } noc_t;
+endpackage
+module top #(parameter cp::noc_t P = cp::NB) (output int o);
+  assign o = P;
+endmodule

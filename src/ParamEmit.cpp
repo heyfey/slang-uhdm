@@ -1,3 +1,4 @@
+#include <unistd.h>
 //------------------------------------------------------------------------------
 //! @file ParamEmit.cpp
 //! @brief Parameters, param_assigns, deferred param typespecs, packages
@@ -20,6 +21,52 @@ namespace slang_uhdm {
 bool r11u184Law(const char* sw);
 void trace184(const char* law);
 bool r11v184Fix(const char* sw);  // the r11v184 refinements
+
+// The r11u183 switches (tools/probe/r11u183dec/README.md, landed by r11u187:
+// tools/probe/r11u187repro/README.md): every r11u183 law
+// reads its own R11U183_<LAW>_OFF switch; R11U183_OFF drops all of them.
+// R11U183_TRACE=<dir> names every firing of an r11u183 law (the mover
+// census): one file per process, `<dir>/<pid>.<unit>`, its first line the
+// `-o` database path read off the command line, then one law name per firing.
+static void tr183PE(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U183_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".PE";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+static bool r11u183LawPE(const char* sw) {
+    // r11u187 landed these laws: R11U187_OFF drops them with its own.
+    if (getenv("R11U183_OFF") != nullptr || getenv("R11U187_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 
 // r11u163: defined beside § importPatOpCloneParamNamed163.
 static UHDM::operation* copyPatOp163(UHDM::Serializer& s, const UHDM::operation* so,
@@ -27173,6 +27220,10 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                         ps.getType().getCanonicalType().isFloating();
     if (!stringParam && !sharedAggTs && !untypedReal9)
         setLoc(its, tr);
+    // (r11u183's law paramAggTdLastWriter183 is NOT landed: the law modAggTfArgCloneFollows180
+    // (TypeEmit.cpp, R11U180_MODAGGCLONE_OFF) already gives this copy the
+    // relocated typedef's span; measured redundant by r11u187, see
+    // tools/probe/r11u187repro/README.md.)
     // A ranged untyped param (parameter [0:0] X) carries the packed range on
     // its int_typespec, with located UINT bounds.
     bool explicitRange = false;
@@ -32721,6 +32772,16 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         c9->VpiColumnNo(anchor9->VpiColumnNo());
                         c9->VpiEndLineNo(anchor9->VpiEndLineNo());
                         c9->VpiEndColumnNo(anchor9->VpiEndColumnNo());
+                        // § aliasFoldBoundFile183 (r11u183,
+                        // R11U183_RANGEFILE_OFF) — the fold keeps the
+                        // anchor's FILE with its span: golden's bound is the
+                        // target typedef's own constant (a clone_tree copy
+                        // carries every location field), jeras_union imm_l_t.
+                        if (r11u183LawPE("R11U183_RANGEFILE_OFF")) {
+                            if (c9->VpiFile() != anchor9->VpiFile())
+                                tr183PE("aliasFoldBoundFile183");
+                            c9->VpiFile(anchor9->VpiFile());
+                        }
                     }
                     return c9;
                 };
@@ -34817,6 +34878,26 @@ void UhdmExporter::emitPackageClassMethodClones(const PackageSymbol& pkg,
         return;
     pkgClassTfClone = dit->second;
     auto* savedCd0 = currentClassDefn;
+    // § defCloneRefsBindDefListing183 (r11u183, R11U183_DEPTH_OFF) — these
+    // are the DEFINITION listing's clones, emitted during the TOP pass (the
+    // class_defns exist only then), so the package-variable map still holds
+    // the TOP listing's objects.  Surelog compiles the clone in the
+    // definition package: its reference binds THAT listing's variable (golden
+    // ApbSlave `svunit_version` read by svunit_testrunner::report, the
+    // definition package's own string_var, visited before the method in the
+    // walk; ours bound the elaborated one and the walk descended into it:
+    // the `depth(1)` of map N0289).  Grid tools/probe/r11u183dec/cases/h h05.
+    auto savedViewVars183 = pkgViewVarObjs9;
+    if (r11u183LawPE("R11U183_DEPTH_OFF"))
+        if (auto* dv183 = dit->second->Variables())
+            for (auto* v183 : *dv183)
+                for (auto& m183 : pkg.members())
+                    if (m183.kind == SymbolKind::Variable &&
+                        m183.name == v183->VpiName()) {
+                        if (pkgViewVarObjs9[&m183] != v183)
+                            tr183PE("defCloneRefsBindDefListing183");
+                        pkgViewVarObjs9[&m183] = v183;
+                    }
     for (int pass = 0; pass < 2; pass++) {
         pkgClassTfCloneCtors = pass == 1;
         for (auto* c : pcls) {
@@ -34830,6 +34911,7 @@ void UhdmExporter::emitPackageClassMethodClones(const PackageSymbol& pkg,
         }
     }
     currentClassDefn = savedCd0;
+    pkgViewVarObjs9 = savedViewVars183;
     // Surelog's package Task_funcs listing is not "free functions, then the
     // clones class by class" — it is ONE pass in DECLARATION-SOURCE order
     // over everything that is not a constructor (a free function sits

@@ -1,0 +1,5 @@
+#61 endcol
+  A: 4	constant				dut.sv	2	10	2	14	2	64	INT:2	7
+  B: 4	constant				dut.sv	2	10	2	11	2	64	INT:2	7
+fields: endcol=1 objects_differing=1
+STRICT_NOTEQUAL endcol

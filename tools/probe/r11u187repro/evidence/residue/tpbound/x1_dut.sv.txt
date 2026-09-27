@@ -1,0 +1,6 @@
+module dut #(parameter int unsigned N = 2, parameter type idx_t = logic [1:0]) (output idx_t o);
+  idx_t [2**N-2:0] nodes;
+  logic [2**N-2:0] req;
+  assign nodes[0] = o;
+  assign req[0] = 1'b0;
+endmodule

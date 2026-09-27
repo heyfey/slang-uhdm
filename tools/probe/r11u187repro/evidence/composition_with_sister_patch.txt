@@ -1,0 +1,76 @@
+# composed binary: 44393367 + tools/probe/r11u183dec/law_typeemit.patch (3-way, one UhdmExporter.cpp hunk merged by hand beside § classTpDefaultTsAtUse180) + law_exprstmt.patch; md5 b0c1f77725aa248c28af375eb77b0eeb; measurement only, not delivered
+## all laws on
+ApbSlave,default,CMP_EQUAL,,,equal
+ApbSlave,testflags,CMP_EQUAL,,,equal
+ArrayMethodIterator,default,CMP_EQUAL,,,equal
+ArrayMethodIterator,testflags,CMP_EQUAL,,,equal
+SVSwitch,default,STRICT_NOTEQUAL,differ:fullname(13),,differ:fullname(13)
+SVSwitch,testflags,STRICT_NOTEQUAL,differ:fullname(13),,differ:fullname(13)
+const_cast_signext,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+const_cast_signext,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+jeras_union,default,CMP_EQUAL,,,equal
+jeras_union,testflags,CMP_EQUAL,,,equal
+ParameterFromPkgInNestedModule,default,CMP_EQUAL,,,equal
+ParameterFromPkgInNestedModule,testflags,CMP_EQUAL,,,equal
+ParameterFromPkgOnParameterPortList,default,CMP_EQUAL,,,equal
+ParameterFromPkgOnParameterPortList,testflags,CMP_EQUAL,,,equal
+struct_param_func_config,default,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+struct_param_func_config,testflags,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+## R11U183_RANGEFILE_OFF=1 (drops § aliasFoldBoundFile183)
+jeras_union,default,STRICT_NOTEQUAL,differ:file(60),,differ:file(60)
+jeras_union,testflags,STRICT_NOTEQUAL,differ:file(60),,differ:file(60)
+## R11U183_DEPTH_OFF=1 (drops § defCloneRefsBindDefListing183)
+ApbSlave,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+ApbSlave,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+## R11U183_PATHSPAN_OFF=1 (drops § withClauseCloseParenEnd183)
+ArrayMethodIterator,default,STRICT_NOTEQUAL,differ:endcol(1),,differ:endcol(1)
+ArrayMethodIterator,testflags,STRICT_NOTEQUAL,differ:endcol(1),,differ:endcol(1)
+## ground A alone (lawA0) on the same rows
+ApbSlave,default,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
+ApbSlave,testflags,STRICT_NOTEQUAL,differ:file(4),,differ:file(4)
+ArrayMethodIterator,default,CMP_EQUAL,,,equal
+ArrayMethodIterator,testflags,CMP_EQUAL,,,equal
+FuncStructVal,default,STRICT_NOTEQUAL,differ:endcol(95),,differ:endcol(95)
+FuncStructVal,testflags,STRICT_NOTEQUAL,differ:endcol(165),,differ:endcol(165)
+FuncStructValSimple,default,STRICT_NOTEQUAL,differ:file(39),,differ:file(39)
+FuncStructValSimple,testflags,STRICT_NOTEQUAL,differ:file(59),,differ:file(59)
+InterfArrayBind,default,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+InterfArrayBind,testflags,CMP_EQUAL,,,equal
+Scr1SvTests,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+Scr1SvTests,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+StructParamPatternInitCast,default,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+StructParamPatternInitCast,testflags,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+SVSwitch,default,STRICT_NOTEQUAL,differ:file(15),,differ:file(15)
+SVSwitch,testflags,STRICT_NOTEQUAL,differ:file(15),,differ:file(15)
+arb_idx_cast,default,STRICT_NOTEQUAL,differ:endcol(17),,differ:endcol(17)
+arb_idx_cast,testflags,STRICT_NOTEQUAL,differ:endcol(17),,differ:endcol(17)
+const_cast_signext,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+const_cast_signext,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+ibex_icache,default,STRICT_NOTEQUAL,differ:fullname(49),,differ:fullname(49)
+ibex_icache,testflags,STRICT_NOTEQUAL,differ:fullname(49),,differ:fullname(49)
+ibex_pmp,default,STRICT_NOTEQUAL,differ:file(5),,differ:file(5)
+ibex_pmp,testflags,STRICT_NOTEQUAL,differ:file(5),,differ:file(5)
+iface_zero_width_field,default,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+iface_zero_width_field,testflags,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+jeras_union,default,STRICT_NOTEQUAL,differ:fullname(15),,differ:fullname(15)
+jeras_union,testflags,STRICT_NOTEQUAL,differ:fullname(15),,differ:fullname(15)
+OutputSizeWithParameterOfInstanceInitializedByStructMember,default,STRICT_NOTEQUAL,differ:line(8),,differ:line(8)
+OutputSizeWithParameterOfInstanceInitializedByStructMember,testflags,STRICT_NOTEQUAL,differ:line(8),,differ:line(8)
+ParameterFromPkgInNestedModule,default,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
+ParameterFromPkgInNestedModule,testflags,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
+ParameterFromPkgOnParameterPortList,default,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
+ParameterFromPkgOnParameterPortList,testflags,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
+rsp_gen_minimal,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+rsp_gen_minimal,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+struct_param_func_config,default,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+struct_param_func_config,testflags,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+d/f01 pristine strict=STRICT_NOTEQUAL_file | composed strict=STRICT_EQUAL_79_objects | composed-FEIDX_OFF strict=STRICT_NOTEQUAL_file | composed-PARAMAGG_OFF strict=STRICT_EQUAL_79_objects
+d/f02 pristine strict=STRICT_NOTEQUAL_file | composed strict=STRICT_EQUAL_81_objects | composed-FEIDX_OFF strict=STRICT_NOTEQUAL_file | composed-PARAMAGG_OFF strict=STRICT_EQUAL_81_objects
+d/f06 pristine strict=STRICT_NOTEQUAL_file | composed strict=STRICT_EQUAL_81_objects | composed-FEIDX_OFF strict=STRICT_NOTEQUAL_col | composed-PARAMAGG_OFF strict=STRICT_EQUAL_81_objects
+d/f09 pristine strict=STRICT_NOTEQUAL_file | composed strict=STRICT_EQUAL_77_objects | composed-FEIDX_OFF strict=STRICT_NOTEQUAL_file | composed-PARAMAGG_OFF strict=STRICT_EQUAL_77_objects
+d/f10 pristine strict=STRICT_NOTEQUAL_file | composed strict=STRICT_EQUAL_95_objects | composed-FEIDX_OFF strict=STRICT_NOTEQUAL_file | composed-PARAMAGG_OFF strict=STRICT_EQUAL_95_objects
+d/f11 pristine strict=STRICT_NOTEQUAL_file | composed strict=STRICT_EQUAL_126_objects | composed-FEIDX_OFF strict=STRICT_EQUAL_126_objects | composed-PARAMAGG_OFF strict=STRICT_EQUAL_126_objects
+d/f13 pristine strict=STRICT_NOTEQUAL_file | composed strict=STRICT_EQUAL_104_objects | composed-FEIDX_OFF strict=STRICT_NOTEQUAL_file | composed-PARAMAGG_OFF strict=STRICT_EQUAL_104_objects
+d/f14 pristine strict=STRICT_NOTEQUAL_file | composed strict=STRICT_EQUAL_50_objects | composed-FEIDX_OFF strict=STRICT_NOTEQUAL_file | composed-PARAMAGG_OFF strict=STRICT_EQUAL_50_objects
+b/s01 pristine strict=STRICT_NOTEQUAL_type | composed strict=STRICT_NOTEQUAL_type | composed-FEIDX_OFF strict=STRICT_NOTEQUAL_type | composed-PARAMAGG_OFF strict=STRICT_NOTEQUAL_type
+b/s04 pristine strict=STRICT_NOTEQUAL_type | composed strict=STRICT_NOTEQUAL_type | composed-FEIDX_OFF strict=STRICT_NOTEQUAL_type | composed-PARAMAGG_OFF strict=STRICT_NOTEQUAL_type

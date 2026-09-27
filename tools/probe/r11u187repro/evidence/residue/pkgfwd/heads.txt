@@ -1,0 +1,26 @@
+== q2
+LHS:
+decompile:
+ref_obj: (cfg::cp::NB), id:50, line:3:28, endln:3:32
+|vpiParent:
+\_operation: , id:155, line:3:22, endln:3:45
+|vpiSize:32
+|vpiName:cp::NB
+|vpiFullName:cfg::cp::NB
+
+decompile:
+ref_obj: (cfg::cp::NB), id:50, line:3:28, endln:3:32
+|vpiParent:
+== q6
+LHS:
+decompile:
+ref_obj: (cfgA::config_pkg::NB), id:32, line:2:42, endln:2:54
+|vpiParent:
+\_operation: , id:138, line:2:36, endln:2:67
+|vpiName:config_pkg::NB
+|vpiFullName:cfgA::config_pkg::NB
+
+decompile:
+ref_obj: (cfgA::config_pkg::NB), id:32, line:2:42, endln:2:54
+|vpiParent:
+\_operation: , id:138, line:2:36, endln:2:67

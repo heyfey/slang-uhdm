@@ -1,0 +1,16 @@
+surelog/default/ApbSlave cmp_lines=0
+surelog/testflags/ApbSlave cmp_lines=0
+surelog/default/ArrayMethodIterator cmp_lines=0
+surelog/testflags/ArrayMethodIterator cmp_lines=0
+surelog/default/BuildUVMPkg cmp_lines=0
+surelog/testflags/BuildUVMPkg cmp_lines=0
+surelog/default/MiniAmiq cmp_lines=0
+surelog/testflags/MiniAmiq cmp_lines=0
+surelog/default/Rggen cmp_lines=0
+surelog/default/Scoreboard cmp_lines=0
+surelog/default/SeqDriver cmp_lines=0
+surelog/testflags/SeqDriver cmp_lines=0
+surelog/default/SimpleUVM cmp_lines=0
+surelog/testflags/SimpleUVM cmp_lines=0
+uhdm2rtlil/default/jeras_union cmp_lines=0
+uhdm2rtlil/testflags/jeras_union cmp_lines=0

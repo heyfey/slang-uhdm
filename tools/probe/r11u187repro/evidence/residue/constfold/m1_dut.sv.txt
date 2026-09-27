@@ -1,0 +1,7 @@
+module top(output logic [31:0] o);
+  typedef logic signed [31:0] imm_t;
+  typedef struct packed { logic [19:0] hi; logic [11:0] f; } op_t;
+  localparam op_t OP = '{hi:'0, f: 12'hFFF};
+  function automatic logic [31:0] g (op_t op); g = op.f; endfunction
+  assign o = g(OP);
+endmodule
