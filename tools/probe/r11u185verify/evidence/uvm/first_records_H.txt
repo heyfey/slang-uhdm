@@ -1,0 +1,40 @@
+=== MiniAmiq default: MiniAmiq,default,STRICT_NOTEQUAL,differ:fullname(8),,differ:fullname(8)
+#770 fullname
+  A: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+#899 file
+  A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73				
+  B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16				
+objects 435559 vs 428712
+=== SeqDriver default: SeqDriver,default,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
+#753 fullname
+  A: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+#1499 col
+  A: 6	ref_obj	seed_map			uvm_misc.svh	425	12	425	17		0		
+  B: 6	ref_obj	seed_map			uvm_misc.svh	425	3	425	11		0		
+objects 475526 vs 471999
+=== SimpleUVM default: SimpleUVM,default,STRICT_NOTEQUAL,differ:fullname(23),,differ:fullname(23)
+#458 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#464 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+objects 334285 vs 333561
+=== Scoreboard default: Scoreboard,default,STRICT_NOTEQUAL,differ:fullname(23),,differ:fullname(23)
+#466 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#472 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+objects 269656 vs 268952
+=== BuildUVMPkg default: BuildUVMPkg,default,STRICT_NOTEQUAL,differ:fullname(23),,differ:fullname(23)
+#1135 fullname
+  A: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0		
+#1894 col
+  A: 6	ref_obj	seed_map			uvm_pkg.sv	8694	12	8694	17		0		
+  B: 6	ref_obj	seed_map			uvm_pkg.sv	8694	3	8694	11		0		
+objects 201533 vs 201486

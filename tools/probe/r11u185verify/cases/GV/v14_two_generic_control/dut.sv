@@ -1,0 +1,14 @@
+// § genericPlainNamedView176 § genericMpConnLowConnAtDecl176
+interface ConnectTB;
+  logic drive;
+  logic observe;
+  modport dut (input drive, output observe);
+  modport tb (output drive, input observe);
+endinterface
+module M (interface h, interface g); initial g.drive = 1; endmodule
+module TOP();
+  ConnectTB e();
+  ConnectTB f();
+  logic x;
+  M u(.h(e), .g(f));
+endmodule

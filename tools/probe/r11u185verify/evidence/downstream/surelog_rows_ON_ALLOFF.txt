@@ -1,0 +1,8 @@
+ON OneNetModPort IDENTICAL NO_GATES NO_GATES 0 0 - slang:OneNetModPort.il=8bfdf03e55,OneNetModPort_nohier.il=e5841af0ef,OneNetModPort_synth.v=7ecadc3bea surelog:OneNetModPort.il=8bfdf03e55,OneNetModPort_nohier.il=e5841af0ef,OneNetModPort_synth.v=7ecadc3bea
+ON OneNetModPortGeneric IDENTICAL READ_FAIL READ_FAIL 0 0 - slang:OneNetModPortGeneric_nohier.il=e9be26f561 surelog:OneNetModPortGeneric_nohier.il=e9be26f561
+ON UnsizedParam IDENTICAL NO_GATES NO_GATES 0 0 - slang:UnsizedParam.il=27b0c9bfaa,UnsizedParam_nohier.il=733bf8dd59,UnsizedParam_synth.v=5148e6fcdc surelog:UnsizedParam.il=27b0c9bfaa,UnsizedParam_nohier.il=733bf8dd59,UnsizedParam_synth.v=5148e6fcdc
+ON LocalScopeHierPath IDENTICAL READ_FAIL READ_FAIL 0 0 - slang: surelog:
+ALLOFF OneNetModPort IDENTICAL NO_GATES NO_GATES 0 0 - slang:OneNetModPort.il=8bfdf03e55,OneNetModPort_nohier.il=e5841af0ef,OneNetModPort_synth.v=7ecadc3bea surelog:OneNetModPort.il=8bfdf03e55,OneNetModPort_nohier.il=e5841af0ef,OneNetModPort_synth.v=7ecadc3bea
+ALLOFF OneNetModPortGeneric IDENTICAL READ_FAIL READ_FAIL 0 0 - slang:OneNetModPortGeneric_nohier.il=e9be26f561 surelog:OneNetModPortGeneric_nohier.il=e9be26f561
+ALLOFF UnsizedParam IDENTICAL NO_GATES NO_GATES 0 0 - slang:UnsizedParam.il=27b0c9bfaa,UnsizedParam_nohier.il=733bf8dd59,UnsizedParam_synth.v=5148e6fcdc surelog:UnsizedParam.il=27b0c9bfaa,UnsizedParam_nohier.il=733bf8dd59,UnsizedParam_synth.v=5148e6fcdc
+ALLOFF LocalScopeHierPath IDENTICAL READ_FAIL READ_FAIL 0 0 - slang: surelog:

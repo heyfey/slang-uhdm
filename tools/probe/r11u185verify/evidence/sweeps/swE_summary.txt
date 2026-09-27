@@ -1,0 +1,16 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=2864 STRICT_NOTEQUAL=1223 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=2864 STRICT_NOTEQUAL=1223
+regressions=22 conversions=0 changes=52 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=455 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=25 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=451 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=23 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=11 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=783 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=20
+[testflags] CMP_EQUAL=783 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=20
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+SWEEP_RC=1

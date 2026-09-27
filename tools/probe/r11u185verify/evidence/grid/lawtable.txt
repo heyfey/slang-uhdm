@@ -1,0 +1,26 @@
+castRhsClonePerInst176 cells=20 cmp:same=12 ds:same=6 strict:gained=3 strict:kept=1 strict:ne-both=8 unfired=8
+doWhileEndsAtCondEnd178v cells=12 cmp:same=2 strict:gained=2 unfired=10
+doWhileSpansToCloseParen175 cells=12 cmp:same=12 strict:gained=12
+externProtoFormalsFromPrototype175 cells=18 cmp:same=18 ds:same=1 dump-lost-cells=3 rec-away-cells=2 strict:gained=3 strict:ne-both=15
+genCaFoldTsChainNamed169 cells=2 unfired=2
+genElseBeginIfDepth176 cells=12 cmp:same=4 ds:same=2 strict:gained=4 unfired=8
+genElseIfGateArrayPath176 cells=6 cmp:same=2 ds:same=1 strict:gained=2 unfired=4
+genericMpConnLowConnAtDecl176 cells=32 cmp:same=6 ds:same=3 dump-lost-cells=2 rec-away-cells=2 strict:ne-both=6 unfired=26
+genericPlainNamedView176 cells=28 cmp:down=2 cmp:same=18 ds:same=10 dump-lost-cells=12 rec-away-cells=12 strict:ne-both=20 unfired=8
+hierPathSelIdxAtPath178 cells=30 cmp:same=22 ds:same=11 dump-lost-cells=1 strict:gained=15 strict:kept=1 strict:ne-both=6 unfired=8
+hierPathSelIdxCloneKeepsElem178v cells=14 cmp:same=8 ds:same=4 strict:gained=3 strict:kept=3 strict:ne-both=2 unfired=6
+importCloneBodyLocalCopies175 cells=12 cmp:same=10 ds:same=1 strict:gained=3 strict:kept=1 strict:ne-both=6 unfired=2
+mlArgLocFileAtActual177v cells=2 unfired=2
+pkgPatUnqualReadTsNoParent178 cells=14 cmp:down=2 cmp:same=10 ds:same=6 dump-lost-cells=6 rec-away-cells=2 strict:ne-both=12 unfired=2
+progLowConnDefModport176 cells=16 cmp:same=16 ds:same=8 strict:gained=2 strict:ne-both=14
+progPlainPortViewUnparented176 cells=8 cmp:same=6 ds:same=3 strict:ne-both=6 unfired=2
+progTypedPortLowConnUnlocated176 cells=10 cmp:same=10 ds:same=5 strict:gained=2 strict:ne-both=8
+refFullNameThroughNamedExpr175 cells=16 cmp:same=8 strict:gained=2 strict:ne-both=6 unfired=8
+tdEndMoveModuleOrder176 cells=2 cmp:same=2 strict:gained=2
+tdKeyKeepsUnresolved176v cells=8 cmp:same=4 strict:ne-both=4 unfired=4
+tdMoveCarriesFile172 cells=2 unfired=2
+tdMoveKeyResolved176 cells=16 cmp:same=4 strict:ne-both=4 unfired=12
+tfArgClassMethodOrder176 cells=18 cmp:same=6 ds:same=1 dump-lost-cells=2 rec-away-cells=2 strict:gained=3 strict:ne-both=3 unfired=12
+tfArgDefTopSplit176 cells=12 cmp:same=6 strict:gained=1 strict:ne-both=5 unfired=6
+tfArgQualOutsideWriter176 cells=10 cmp:same=8 strict:gained=6 strict:ne-both=2 unfired=2
+udpFormNetLvalueFirst176 cells=14 cmp:same=4 ds:EQUIVALENT->IDENTICAL=2 dump-lost-cells=4 strict:ne-both=4 unfired=10

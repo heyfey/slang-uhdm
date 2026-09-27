@@ -1,0 +1,15 @@
+swH:    3273 /tmp/r11u185_bin/law.bin 
+swA:    3273 /tmp/r11u185_bin/alloff.sh 
+sw6:    3273 /tmp/r11u185_bin/off176.sh 
+sw8:    3273 /tmp/r11u185_bin/off178.sh 
+swP:    3273 /tmp/r11u185_bin/preoff.sh 
+swR:    3273 /tmp/r11u185_bin/st80a.sh 
+swS:    3273 /tmp/r11u185_bin/st804.sh 
+swW:    3273 /tmp/r11u185_bin/wide.sh 
+swQ:    3273 /tmp/r11u185_bin/others.sh 
+swF:    3273 /tmp/r11u185_bin/off175F.sh 
+swE:    3273 /tmp/r11u185_bin/off175E.sh 
+sw7:    3273 /tmp/r11u185_bin/st72.sh 
+sw5:    3273 /tmp/r11u185_bin/st5e.sh 
+swX:    3273 /tmp/r11u185_bin/pre.bin 
+swZ:    3273 /tmp/r11u185_bin/fix.bin 

@@ -1,0 +1,24 @@
+PU/u02 (a package pattern parameter read by member in a package TASK's for-loop bound): law on vs off
+290,293c290
+<       \_ref_typespec: (p)
+<         |vpiParent:
+<         \_operation: , line:4:24, endln:4:35
+<         |vpiFullName:p
+---
+>       \_ref_typespec: 
+=== golden's elaborated package listing of B (tagged, no ref_typespec on the operation):
+    |vpiFullName:p::B
+  |vpiParamAssign:
+  \_param_assign: , line:4:20, endln:4:35
+    |vpiParent:
+    \_package: p (p::), file:dut.sv, line:2:1, endln:9:11
+    |vpiRhs:
+    \_operation: , line:4:24, endln:4:35
+      |vpiParent:
+      \_param_assign: , line:4:20, endln:4:35
+      |vpiOpType:75
+      |vpiOperand:
+      \_tagged_pattern: , line:4:28, endln:4:29
+        |vpiParent:
+        \_operation: , line:4:24, endln:4:35
+        |vpiPattern:

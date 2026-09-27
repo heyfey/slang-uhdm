@@ -1,0 +1,90 @@
+diff --git a/src/ModuleEmit.cpp b/src/ModuleEmit.cpp
+index d71cb2198..c7dbf9618 100644
+--- a/src/ModuleEmit.cpp
++++ b/src/ModuleEmit.cpp
+@@ -727,6 +727,54 @@ void trace176(const char* law, const std::string& detail); // R11U176_TRACE
+ // later drain wrote it, as Surelog's write-time clone copies the compiled
+ // object.  Not modelled: an assignment-pattern operand (the flatten), a delay
+ // reference (leg 0).  Switch R11U176_CASTCLONE_OFF.
++// § genericAfterTypedIfacePortTyped185v (r11u185, refining
++// § genericMpConnLowConnAtDecl176 and § genericPlainNamedView176) -- Surelog
++// reads an ANSI `interface g` port that FOLLOWS an interface-TYPED port in
++// the same list (`ConnectTB t, interface g`, `ConnectTB.tb m, interface g`,
++// through further generic ports: `ConnectTB.tb t, interface h, interface g`)
++// as a port of that same interface type: golden's definition view gives `g`
++// the interface_typespec of the preceding port's type token and binds its
++// LowConn to an interface_inst, never to a logic_net.  So NetlistElaboration's
++// two generic legs (`net->UhdmType() == uhdmmodport && lowconn_is_nettype`,
++// `uhdminterface_inst && lowconn_is_nettype`) never fire for it: its elaborated
++// LowConn keeps the FORMAL-name span (`fC->populateCoreMembers(formalId,
++// formalId, rf)`), and the connected instance lists no copy of its signals.
++// A preceding generic port without a typed port before it, or any
++// non-interface port in between (`ConnectTB t, input logic y, interface g`),
++// leaves the port generic.  Measured on golden (cases/GV/v07-v09, PG/p04).
++// Switch R11V185_GENINHERIT_OFF (R11V185_OFF).
++static bool genericInheritsIfaceType185v(
++    const slang::ast::InterfacePortSymbol& ip) {
++    using namespace slang::ast;
++    if (getenv("R11V185_OFF") != nullptr ||
++        getenv("R11V185_GENINHERIT_OFF") != nullptr)
++        return false;
++    auto ansi = [](const Symbol* sym) {
++        auto* sy = sym->getSyntax();
++        return sy && sy->parent &&
++               sy->parent->kind == slang::syntax::SyntaxKind::ImplicitAnsiPort;
++    };
++    if (!ip.isGeneric || !ansi(&ip))
++        return false;
++    auto* sc = ip.getParentScope();
++    if (!sc || sc->asSymbol().kind != SymbolKind::InstanceBody)
++        return false;
++    auto ports = sc->asSymbol().as<InstanceBodySymbol>().getPortList();
++    size_t at = ports.size();
++    for (size_t i = 0; i < ports.size(); i++)
++        if (ports[i] == &ip) {
++            at = i;
++            break;
++        }
++    for (size_t j = at; j-- > 0 && at < ports.size();) {
++        auto* q = ports[j];
++        if (q->kind != SymbolKind::InterfacePort || !ansi(q))
++            return false;
++        if (!q->as<InterfacePortSymbol>().isGeneric)
++            return true;
++    }
++    return false;
++}
+ namespace {
+ struct CastClone176 {
+     std::vector<UHDM::cont_assign*>* cas;
+@@ -15628,7 +15676,10 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
+                     return a176 && a176->getParentScope() == inst.getParentScope();
+                 };
+                 bool genMpNamed176 = false;
+-                if (isUnboundGenericIfacePort(ip) &&
++                // § genericAfterTypedIfacePortTyped185v: a port Surelog
++                // types from its predecessor takes neither generic leg.
++                const bool inh185 = genericInheritsIfaceType185v(ip);
++                if (isUnboundGenericIfacePort(ip) && !inh185 &&
+                     r11u176Law("R11U176_GENMPLOC_OFF") &&
+                     findConnSyntax(inst, ip.name)) {
+                     auto gconn176 = ip.getConnection();
+@@ -15644,7 +15695,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
+                 // OneNetModPortGeneric `obs` 19:16-19:29; grid PG g17).
+                 // Switch R11U176_GENPLAINLOC_OFF.
+                 bool genPlainNamed176 = false;
+-                if (!genMpNamed176 && isUnboundGenericIfacePort(ip) &&
++                if (!genMpNamed176 && isUnboundGenericIfacePort(ip) && !inh185 &&
+                     r11u176Law("R11U176_GENPLAINLOC_OFF")) {
+                     auto gconn176 = ip.getConnection();
+                     genPlainNamed176 = gconn176.first && !gconn176.second &&
+@@ -16122,6 +16173,9 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
+                     findConnSyntax(inst, ip.name) &&
+                     r11u176Law("R11U176_GENPLAINVARS_OFF"))
+                 {
++                    // § genericAfterTypedIfacePortTyped185v: a port Surelog
++                    // types from its predecessor elaborates a fresh view.
++                    if (!genericInheritsIfaceType185v(ip))
+                     for (auto* pp176 : ifPortList)
+                         if (pp176->VpiName() == ip.name)
+                             genPlainViews176.push_back(

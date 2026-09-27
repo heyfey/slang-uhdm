@@ -1,0 +1,16 @@
+FIX | GV/v01_named_array_elem | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+FIX | GV/v02_named_array_elem_mp | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+FIX | GV/v03_pos_array_elem | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+FIX | GV/v04_param_iface_named_plain | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+FIX | GV/v05_prog_array_elem_mp | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | GV/v06_named_plain_nets_param | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+FIX | GV/v07_typed_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+FIX | GV/v08_modport_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+FIX | GV/v09_chain_through_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+FIX | GV/v10_prog_typed_then_generic | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | GV/v11_typed_then_generic_mpconn | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+FIX | GV/v12_generic_typed_generic | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+FIX | GV/v13_logic_between_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+FIX | GV/v14_two_generic_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+FIX | GV/v15_typed_then_generic_multiline | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+FIX | PG/p04_mod_control_same_ports | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -

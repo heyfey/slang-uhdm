@@ -1,0 +1,6 @@
+/tmp/r11u185_swP MiniAmiq/default dist=15848 mfc_file_away=15 all_file_away=3832 golden_records=435569 ours_records=413992
+/tmp/r11u185_swP SeqDriver/default dist=14629 mfc_file_away=15 all_file_away=4035 golden_records=475526 ours_records=462179
+/tmp/r11u185_swR MiniAmiq/default dist=14587 mfc_file_away=15 all_file_away=4549 golden_records=435569 ours_records=428722
+/tmp/r11u185_swR SeqDriver/default dist=13023 mfc_file_away=15 all_file_away=4659 golden_records=475526 ours_records=471999
+/tmp/r11u185_swS MiniAmiq/default dist=10097 mfc_file_away=15 all_file_away=3539 golden_records=435569 ours_records=428722
+/tmp/r11u185_swS SeqDriver/default dist=8241 mfc_file_away=15 all_file_away=3335 golden_records=475526 ours_records=471999

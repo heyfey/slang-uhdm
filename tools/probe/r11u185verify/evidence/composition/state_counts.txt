@@ -1,0 +1,15 @@
+swP surelog d=450 t=446 u2r d=783 t=783 probe_EQUAL=2796
+swR surelog d=450 t=447 u2r d=783 t=783 probe_EQUAL=2814
+swS surelog d=453 t=449 u2r d=783 t=783 probe_EQUAL=2880
+swH surelog d=455 t=451 u2r d=783 t=783 probe_EQUAL=2886
+swA surelog d=452 t=448 u2r d=783 t=783 probe_EQUAL=2802
+sw6 surelog d=452 t=449 u2r d=783 t=783 probe_EQUAL=2820
+sw8 surelog d=455 t=450 u2r d=783 t=783 probe_EQUAL=2863
+swW surelog d=446 t=443 u2r d=777 t=777 probe_EQUAL=2755
+swQ surelog d=449 t=446 u2r d=777 t=777 probe_EQUAL=2838
+swF surelog d=455 t=451 u2r d=783 t=783 probe_EQUAL=2827
+swE surelog d=455 t=451 u2r d=783 t=783 probe_EQUAL=2864
+sw7 surelog d=450 t=446 u2r d=777 t=777 probe_EQUAL=2768
+sw5 surelog d=450 t=446 u2r d=783 t=783 probe_EQUAL=2796
+swX surelog d=450 t=446 u2r d=783 t=783 probe_EQUAL=2796
+swZ surelog d=455 t=451 u2r d=783 t=783 probe_EQUAL=2886

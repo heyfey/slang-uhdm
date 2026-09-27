@@ -1,0 +1,19 @@
+ibex_pmp default, pass 176 at 80a1c2af (swR -> swS): records before and after, strict walk (both diverge at #13972)
+-- swR (before):
+#2404 file #3797 file #3832 file #3841 file #6305 file #6340 file #6349 file #6944 file #7012 file #7048 file #8403 file #9344 file #9379 file #9388 file #13972 type 
+-- swS (after):
+#2404 file
+  A: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+  B: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+#4375 file
+  A: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+  B: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+#5655 file
+  A: 7	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+  B: 7	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+#7760 file
+  A: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4				
+  B: 6	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57				
+#13972 type
+  A: 9	ref_typespec			work@ibex_pmp.g_access_check[0].g_regions[0].region_basic_perm_check		0	0	0	0		0		
+  B: 9	ref_obj	c		work@ibex_pmp.g_access_check[0].g_regions[0].region_basic_perm_check.c	ibex_pmp.sv	227	83	227	84		0		

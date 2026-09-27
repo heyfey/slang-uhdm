@@ -1,0 +1,30 @@
+HK/k01_pre_post_incdec on:0 offV:0 offLaw:0 alloff:0
+HK/k01_pre_post_incdec_el on:0 offV:0 offLaw:0 alloff:0
+HK/k02_ca_cast_concat_call on:0 offV:8 offLaw:10 alloff:10
+HK/k02_ca_cast_concat_call_el on:0 offV:8 offLaw:12 alloff:12
+HK/k03_compound_comb on:0 offV:0 offLaw:2 alloff:2
+HK/k03_compound_comb_el on:0 offV:0 offLaw:2 alloff:2
+HP/h01_three_select_chain on:0 offLaw:4 alloff:4
+HP/h01_three_select_chain_el on:0 offLaw:8 alloff:8
+HP/h02_idx_method_call on:0 offLaw:4 alloff:4
+HP/h02_idx_method_call_el on:0 offLaw:4 alloff:4
+HP/h03_idx_hierpath_with_idx on:2 offLaw:2 alloff:2
+HP/h03_idx_hierpath_with_idx_el on:4 offLaw:4 alloff:4
+HP/h04_member_sel_lvalue_nba on:0 offLaw:2 alloff:2
+HP/h04_member_sel_lvalue_nba_el on:0 offLaw:2 alloff:2
+HP/h05_const_param_idx on:0 offLaw:4 alloff:4
+HP/h05_const_param_idx_el on:0 offLaw:6 alloff:6
+HP/h06_streaming_lvalue on:4 offLaw:6 alloff:6
+HP/h06_streaming_lvalue_el on:4 offLaw:8 alloff:8
+HP/h07_incdec_two_selects on:0 offV:6 offLaw:2 alloff:2
+HP/h07_incdec_two_selects_el on:0 offV:6 offLaw:4 alloff:4
+HP/h08_ca_op_two_select on:0 offV:6 offLaw:8 alloff:8
+HP/h08_ca_op_two_select_el on:0 offV:6 offLaw:14 alloff:14
+HP/h09_compound_lvalue on:0 offV:0 offLaw:0 alloff:0
+HP/h09_compound_lvalue_el on:0 offV:0 offLaw:2 alloff:2
+X/x05_castclone_twosel_rhs on:0 offV:16 offLaw:12 alloff:12
+X/x05_castclone_twosel_rhs_el on:0 offV:16 offLaw:20 alloff:20
+X/x01_genmp_idx_actual on:3 offLaw:3 alloff:3
+X/x01_genmp_idx_actual_el on:3 offLaw:3 alloff:3
+X/x02_progmp_idx_actual on:0 offLaw:0 alloff:0
+X/x02_progmp_idx_actual_el on:0 offLaw:0 alloff:0

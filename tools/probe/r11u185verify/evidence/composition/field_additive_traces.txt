@@ -1,0 +1,29 @@
+MiniAmiq default: the 24 (SeqDriver 16) UNPAIRED cancelled records of joint.py are struct_typespec uvm_pkg::uvm_reg_bus_op; count per location:
+== gold (A = both landings off, 6 = pass 176 off, 8 = pass 178 off, H = HEAD)
+     57 struct_typespec	uvm_reg_item.svh	257	9	313	2
+     56 struct_typespec	uvm_reg_map.svh	50	42	50	56
+== A (A = both landings off, 6 = pass 176 off, 8 = pass 178 off, H = HEAD)
+     83 struct_typespec	uvm_reg_item.svh	257	9	313	2
+== 6 (A = both landings off, 6 = pass 176 off, 8 = pass 178 off, H = HEAD)
+    107 struct_typespec	uvm_reg_item.svh	257	9	313	2
+== 8 (A = both landings off, 6 = pass 176 off, 8 = pass 178 off, H = HEAD)
+     33 struct_typespec	uvm_reg_item.svh	257	9	313	2
+     50 struct_typespec	uvm_reg_map.svh	50	42	50	56
+== H (A = both landings off, 6 = pass 176 off, 8 = pass 178 off, H = HEAD)
+     57 struct_typespec	uvm_reg_item.svh	257	9	313	2
+     50 struct_typespec	uvm_reg_map.svh	50	42	50	56
+
+BuildUVMPkg: a cancelled record traced (ref_obj UVM_NO_COVERAGE under uvm_mem::new):
+== gold
+      1 ref_obj	UVM_NO_COVERAGE		uvm_pkg::uvm_mem::new::has_coverage::UVM_NO_COVERAGE	uvm_pkg.sv	72578	57	72578	72		0		
+      2 ref_obj	UVM_NO_COVERAGE		uvm_pkg::uvm_mem::new::has_coverage::UVM_NO_COVERAGE	uvm_pkg.sv	73029	56	73029	71		0		
+== H
+      1 ref_obj	UVM_NO_COVERAGE		uvm_pkg::uvm_mem::new::has_coverage::UVM_NO_COVERAGE	uvm_pkg.sv	72578	57	72578	72		0		
+      2 ref_obj	UVM_NO_COVERAGE		uvm_pkg::uvm_mem::new::has_coverage::UVM_NO_COVERAGE	uvm_pkg.sv	73029	56	73029	71		0		
+== A
+      3 ref_obj	UVM_NO_COVERAGE		uvm_pkg::uvm_mem::new::UVM_NO_COVERAGE	uvm_pkg.sv	73029	56	73029	71		0		
+== 6
+      3 ref_obj	UVM_NO_COVERAGE		uvm_pkg::uvm_mem::new::has_coverage::UVM_NO_COVERAGE	uvm_pkg.sv	73029	56	73029	71		0		
+== 8
+      1 ref_obj	UVM_NO_COVERAGE		uvm_pkg::uvm_mem::new::UVM_NO_COVERAGE	uvm_pkg.sv	72578	57	72578	72		0		
+      2 ref_obj	UVM_NO_COVERAGE		uvm_pkg::uvm_mem::new::UVM_NO_COVERAGE	uvm_pkg.sv	73029	56	73029	71		0		

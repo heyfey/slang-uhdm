@@ -1,0 +1,122 @@
+=== GV/v07_typed_then_generic: law (on) vs fix
+381,392d380
+<       |vpiParent:
+<       \_interface_inst: work@ConnectTB (work@TOP.f), file:dut.sv, line:11:3, endln:11:17
+<       |vpiTypespec:
+<       \_ref_typespec: (work@TOP.f.drive)
+<         |vpiParent:
+<         \_logic_var: (work@TOP.f.drive), line:3:9, endln:3:14
+<         |vpiFullName:work@TOP.f.drive
+<         |vpiActual:
+<         \_logic_typespec: , line:3:3, endln:3:8
+<       |vpiName:drive
+<       |vpiFullName:work@TOP.f.drive
+<       |vpiVisibility:1
+395,406d382
+<       |vpiParent:
+<       \_interface_inst: work@ConnectTB (work@TOP.f), file:dut.sv, line:11:3, endln:11:17
+<       |vpiTypespec:
+<       \_ref_typespec: (work@TOP.f.observe)
+<         |vpiParent:
+<         \_logic_var: (work@TOP.f.observe), line:4:9, endln:4:16
+<         |vpiFullName:work@TOP.f.observe
+<         |vpiActual:
+<         \_logic_typespec: , line:4:3, endln:4:8
+<       |vpiName:observe
+<       |vpiFullName:work@TOP.f.observe
+<       |vpiVisibility:1
+515c491
+<       \_ref_obj: (work@TOP.u.g), line:13:14, endln:13:19
+---
+>       \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+618c594,606
+<       \_logic_var: (work@TOP.f.drive), line:3:9, endln:3:14
+---
+>       \_logic_var: (work@TOP.u.g.drive), line:3:9, endln:3:14
+>         |vpiParent:
+>         \_interface_inst: work@ConnectTB (work@TOP.u.g), file:dut.sv, line:13:0
+>         |vpiTypespec:
+>         \_ref_typespec: (work@TOP.u.g.drive)
+>           |vpiParent:
+>           \_logic_var: (work@TOP.u.g.drive), line:3:9, endln:3:14
+>           |vpiFullName:work@TOP.u.g.drive
+>           |vpiActual:
+>           \_logic_typespec: , line:3:3, endln:3:8
+>         |vpiName:drive
+>         |vpiFullName:work@TOP.u.g.drive
+>         |vpiVisibility:1
+620c608,620
+<       \_logic_var: (work@TOP.f.observe), line:4:9, endln:4:16
+---
+>       \_logic_var: (work@TOP.u.g.observe), line:4:9, endln:4:16
+>         |vpiParent:
+>         \_interface_inst: work@ConnectTB (work@TOP.u.g), file:dut.sv, line:13:0
+>         |vpiTypespec:
+>         \_ref_typespec: (work@TOP.u.g.observe)
+>           |vpiParent:
+>           \_logic_var: (work@TOP.u.g.observe), line:4:9, endln:4:16
+>           |vpiFullName:work@TOP.u.g.observe
+>           |vpiActual:
+>           \_logic_typespec: , line:4:3, endln:4:8
+>         |vpiName:observe
+=== PG/p04_mod_control_same_ports: law (on) vs fix
+680c680
+<       \_ref_obj: (work@TOP.p.g), line:21:21, endln:21:26
+---
+>       \_ref_obj: (work@TOP.p.g), line:21:22, endln:21:23
+884,895d883
+<       |vpiParent:
+<       \_interface_inst: work@ConnectTB (work@TOP.c), file:dut.sv, line:17:3, endln:17:17
+<       |vpiTypespec:
+<       \_ref_typespec: (work@TOP.c.drive)
+<         |vpiParent:
+<         \_logic_var: (work@TOP.c.drive), line:3:9, endln:3:14
+<         |vpiFullName:work@TOP.c.drive
+<         |vpiActual:
+<         \_logic_typespec: , line:3:3, endln:3:8
+<       |vpiName:drive
+<       |vpiFullName:work@TOP.c.drive
+<       |vpiVisibility:1
+898,909d885
+<       |vpiParent:
+<       \_interface_inst: work@ConnectTB (work@TOP.c), file:dut.sv, line:17:3, endln:17:17
+<       |vpiTypespec:
+<       \_ref_typespec: (work@TOP.c.observe)
+<         |vpiParent:
+<         \_logic_var: (work@TOP.c.observe), line:4:9, endln:4:16
+<         |vpiFullName:work@TOP.c.observe
+<         |vpiActual:
+<         \_logic_typespec: , line:4:3, endln:4:8
+<       |vpiName:observe
+<       |vpiFullName:work@TOP.c.observe
+<       |vpiVisibility:1
+1143,1154d1118
+<       |vpiParent:
+<       \_interface_inst: work@ConnectTB (work@TOP.f), file:dut.sv, line:20:3, endln:20:17
+<       |vpiTypespec:
+<       \_ref_typespec: (work@TOP.f.drive)
+<         |vpiParent:
+<         \_logic_var: (work@TOP.f.drive), line:3:9, endln:3:14
+<         |vpiFullName:work@TOP.f.drive
+<         |vpiActual:
+<         \_logic_typespec: , line:3:3, endln:3:8
+<       |vpiName:drive
+<       |vpiFullName:work@TOP.f.drive
+<       |vpiVisibility:1
+1157,1168d1120
+<       |vpiParent:
+<       \_interface_inst: work@ConnectTB (work@TOP.f), file:dut.sv, line:20:3, endln:20:17
+<       |vpiTypespec:
+<       \_ref_typespec: (work@TOP.f.observe)
+<         |vpiParent:
+<         \_logic_var: (work@TOP.f.observe), line:4:9, endln:4:16
+<         |vpiFullName:work@TOP.f.observe
+<         |vpiActual:
+<         \_logic_typespec: , line:4:3, endln:4:8
+<       |vpiName:observe
+<       |vpiFullName:work@TOP.f.observe
+<       |vpiVisibility:1
+1305c1257
+<       \_ref_obj: (work@TOP.u.g), line:22:21, endln:22:26
+---
+>       \_ref_obj: (work@TOP.u.g), line:22:22, endln:22:23

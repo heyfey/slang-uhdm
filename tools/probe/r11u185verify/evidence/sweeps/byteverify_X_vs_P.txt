@@ -1,0 +1,9 @@
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/MiniAmiq-055eab74/slang.uhdm  patched=b1439c80640c pristine=f6b013b1a62c
+MOVER ./surelog/default/Scoreboard-72aa0ba8/slang.uhdm  patched=322b416f7c26 pristine=952019ae5f75
+MOVER ./surelog/default/SimpleUVM-267de3ff/slang.uhdm  patched=63bf1b11c3af pristine=f9ef29e86f68
+MOVER ./surelog/testflags/MiniAmiq-055eab74/slang.uhdm  patched=830932b975eb pristine=63bd7b8d3b81
+MOVER ./surelog/testflags/SeqDriver-65178d3a/slang.uhdm  patched=e9df1535d583 pristine=200421aedb5d
+MOVERS: 5 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged

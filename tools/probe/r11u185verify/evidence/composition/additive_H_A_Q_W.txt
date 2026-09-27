@@ -1,0 +1,42 @@
+== probe: 176/178 delta on HEAD base 165 rows (84 conversions); on the others-off base 164 rows (83 conversions); identical (from,to) on both: 159
+   ONLY-ONE-BASE r10uvm123repro/g123_c_otherpkg HEAD-base (('STRICT_NOTEQUAL', 'differ:type(1)'), ('EQUAL', 'equal')) | off-base None
+   ONLY-ONE-BASE r10v134repro/v134_4bodies HEAD-base None | off-base (('STRICT_NOTEQUAL', 'differ:file(5)'), ('STRICT_NOTEQUAL', 'differ:file(4)'))
+   ONLY-ONE-BASE r10v158repro/v158_d HEAD-base (('STRICT_NOTEQUAL', 'differ:line(14)'), ('STRICT_NOTEQUAL', 'differ:line(13)')) | off-base None
+   DIFFERENT-MOVE r10buvm21repro/g21b HEAD-base (('STRICT_NOTEQUAL', 'differ:line(4)'), ('STRICT_NOTEQUAL', 'differ:col(1)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(27)'), ('STRICT_NOTEQUAL', 'differ:col(24)'))
+   DIFFERENT-MOVE r10buvm21repro/g21c HEAD-base (('STRICT_NOTEQUAL', 'differ:line(8)'), ('STRICT_NOTEQUAL', 'differ:col(2)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(17)'), ('STRICT_NOTEQUAL', 'differ:col(11)'))
+   DIFFERENT-MOVE r10v167repro/vA_meth HEAD-base (('STRICT_NOTEQUAL', 'differ:endcol(18)'), ('STRICT_NOTEQUAL', 'differ:endcol(9)')) | off-base (('STRICT_NOTEQUAL', 'differ:file(19)'), ('STRICT_NOTEQUAL', 'differ:file(10)'))
+   DIFFERENT-MOVE r11u26repro/m12 HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(6)'), ('STRICT_NOTEQUAL', 'differ:line(5)')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(7)'), ('STRICT_NOTEQUAL', 'differ:line(6)'))
+== surelog: 176/178 delta on HEAD base 22 rows (6 conversions); on the others-off base 22 rows (6 conversions); identical (from,to) on both: 9
+   DIFFERENT-MOVE BuildUVMPkg/d HEAD-base (('STRICT_NOTEQUAL', 'differ:line(93)'), ('STRICT_NOTEQUAL', 'differ:fullname(23)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(94)'), ('STRICT_NOTEQUAL', 'differ:fullname(24)'))
+   DIFFERENT-MOVE BuildUVMPkg/t HEAD-base (('STRICT_NOTEQUAL', 'differ:line(93)'), ('STRICT_NOTEQUAL', 'differ:fullname(23)')) | off-base (('STRICT_NOTEQUAL', 'differ:line(94)'), ('STRICT_NOTEQUAL', 'differ:fullname(24)'))
+   DIFFERENT-MOVE FuncStructValSimple/d HEAD-base (('STRICT_NOTEQUAL', 'differ:file(40)'), ('STRICT_NOTEQUAL', 'differ:file(39)')) | off-base (('STRICT_NOTEQUAL', 'differ:file(42)'), ('STRICT_NOTEQUAL', 'differ:file(41)'))
+   DIFFERENT-MOVE FuncStructValSimple/t HEAD-base (('STRICT_NOTEQUAL', 'differ:file(60)'), ('STRICT_NOTEQUAL', 'differ:file(59)')) | off-base (('STRICT_NOTEQUAL', 'differ:file(62)'), ('STRICT_NOTEQUAL', 'differ:file(61)'))
+   DIFFERENT-MOVE MiniAmiq/d HEAD-base (('STRICT_NOTEQUAL', 'differ:file(28)'), ('STRICT_NOTEQUAL', 'differ:fullname(8)')) | off-base (('STRICT_NOTEQUAL', 'differ:file(46)'), ('STRICT_NOTEQUAL', 'differ:file(26)'))
+   DIFFERENT-MOVE MiniAmiq/t HEAD-base (('STRICT_NOTEQUAL', 'differ:file(28)'), ('STRICT_NOTEQUAL', 'differ:fullname(8)')) | off-base (('STRICT_NOTEQUAL', 'differ:file(46)'), ('STRICT_NOTEQUAL', 'differ:file(26)'))
+   DIFFERENT-MOVE SVSwitch/d HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(10)'), ('STRICT_NOTEQUAL', 'differ:file(15)')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(11)'), ('STRICT_NOTEQUAL', 'differ:file(16)'))
+   DIFFERENT-MOVE SVSwitch/t HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(10)'), ('STRICT_NOTEQUAL', 'differ:file(15)')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(11)'), ('STRICT_NOTEQUAL', 'differ:file(16)'))
+   DIFFERENT-MOVE Scoreboard/d HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(44)'), ('STRICT_NOTEQUAL', 'differ:fullname(23)')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(62)'), ('STRICT_NOTEQUAL', 'differ:fullname(41)'))
+   DIFFERENT-MOVE SeqDriver/d HEAD-base (('STRICT_NOTEQUAL', 'differ:file(28)'), ('STRICT_NOTEQUAL', 'differ:fullname(7)')) | off-base (('STRICT_NOTEQUAL', 'differ:file(46)'), ('STRICT_NOTEQUAL', 'differ:file(25)'))
+   DIFFERENT-MOVE SeqDriver/t HEAD-base (('STRICT_NOTEQUAL', 'differ:file(28)'), ('STRICT_NOTEQUAL', 'differ:fullname(7)')) | off-base (('STRICT_NOTEQUAL', 'differ:file(46)'), ('STRICT_NOTEQUAL', 'differ:file(25)'))
+   DIFFERENT-MOVE SimpleUVM/d HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(44)'), ('STRICT_NOTEQUAL', 'differ:fullname(23)')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(62)'), ('STRICT_NOTEQUAL', 'differ:fullname(41)'))
+   DIFFERENT-MOVE SimpleUVM/t HEAD-base (('STRICT_NOTEQUAL', 'differ:fullname(44)'), ('STRICT_NOTEQUAL', 'differ:fullname(23)')) | off-base (('STRICT_NOTEQUAL', 'differ:fullname(62)'), ('STRICT_NOTEQUAL', 'differ:fullname(41)'))
+== uhdm2rtlil: 176/178 delta on HEAD base 4 rows (0 conversions); on the others-off base 12 rows (0 conversions); identical (from,to) on both: 4
+   ONLY-ONE-BASE rp32_r5p_alu/d HEAD-base None | off-base (('STRICT_NOTEQUAL', 'differ:file(46)'), ('STRICT_NOTEQUAL', 'differ:value(41)'))
+   ONLY-ONE-BASE rp32_r5p_alu/t HEAD-base None | off-base (('STRICT_NOTEQUAL', 'differ:file(46)'), ('STRICT_NOTEQUAL', 'differ:value(41)'))
+   ONLY-ONE-BASE rp32_r5p_bru/d HEAD-base None | off-base (('STRICT_NOTEQUAL', 'differ:file(46)'), ('STRICT_NOTEQUAL', 'differ:value(41)'))
+   ONLY-ONE-BASE rp32_r5p_bru/t HEAD-base None | off-base (('STRICT_NOTEQUAL', 'differ:file(46)'), ('STRICT_NOTEQUAL', 'differ:value(41)'))
+   ONLY-ONE-BASE rp32_r5p_mdu/d HEAD-base None | off-base (('STRICT_NOTEQUAL', 'differ:file(46)'), ('STRICT_NOTEQUAL', 'differ:value(41)'))
+   ONLY-ONE-BASE rp32_r5p_mdu/t HEAD-base None | off-base (('STRICT_NOTEQUAL', 'differ:file(46)'), ('STRICT_NOTEQUAL', 'differ:value(41)'))
+   ONLY-ONE-BASE rp32_r5p_wbu/d HEAD-base None | off-base (('STRICT_NOTEQUAL', 'differ:file(46)'), ('STRICT_NOTEQUAL', 'differ:value(41)'))
+   ONLY-ONE-BASE rp32_r5p_wbu/t HEAD-base None | off-base (('STRICT_NOTEQUAL', 'differ:file(46)'), ('STRICT_NOTEQUAL', 'differ:value(41)'))
+== bytes: databases 6647; 176/178 movers on HEAD base 226, on the off base 234, both 225
+    off-base-only probe/r10v134repro__v134_4bodies.uhdm
+    HEAD-base-only probe/r10v158repro__v158_d.uhdm
+    off-base-only uhdm2rtlil/default/rp32_r5p_alu-5dbac76d/slang.uhdm
+    off-base-only uhdm2rtlil/default/rp32_r5p_bru-8a818f2f/slang.uhdm
+    off-base-only uhdm2rtlil/default/rp32_r5p_mdu-8aad7cbd/slang.uhdm
+    off-base-only uhdm2rtlil/default/rp32_r5p_wbu-e7eb0208/slang.uhdm
+    off-base-only uhdm2rtlil/testflags/rp32_r5p_alu-5dbac76d/slang.uhdm
+    off-base-only uhdm2rtlil/testflags/rp32_r5p_bru-8a818f2f/slang.uhdm
+    off-base-only uhdm2rtlil/testflags/rp32_r5p_mdu-8aad7cbd/slang.uhdm
+    off-base-only uhdm2rtlil/testflags/rp32_r5p_wbu-e7eb0208/slang.uhdm

@@ -1,0 +1,225 @@
+ON | CC/c01_two_casts_one_assign | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | CC/c02_type_param_cast | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ON | CC/c03_cast_in_genfor_twice | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | CC/c04_idxpart_concat_lhs | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | CC/c05_macro_written_assign | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | CC/c06_param_width_cast | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | CC/c07_two_assigns_one_stmt | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | CC/c08_rtl_ports_twice | IDENTICAL | OK | OK | 12 | 12 | - | -
+ON | PG/p01_mp_and_plain_ports | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | PG/p02_generic_mp_and_plain | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | PG/p03_prog_in_generate | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | PG/p04_mod_control_same_ports | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ON | PG/p05_param_iface_twice | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | PG/p06_two_typed_named | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GV/v01_named_array_elem | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | GV/v02_named_array_elem_mp | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ON | GV/v03_pos_array_elem | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | GV/v04_param_iface_named_plain | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | GV/v05_prog_array_elem_mp | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GV/v06_named_plain_nets_param | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | GV/v07_typed_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ON | GV/v08_modport_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ON | GV/v09_chain_through_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ON | GV/v10_prog_typed_then_generic | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GV/v11_typed_then_generic_mpconn | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ON | GV/v12_generic_typed_generic | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | GV/v13_logic_between_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | GV/v14_two_generic_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | GV/v15_typed_then_generic_multiline | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ON | UD/u01_op_first | IDENTICAL | OK | OK | 4 | 4 | - | -
+ON | UD/u02_sel_of_sel_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | UD/u03_iface_member_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | UD/u04_inst_array | DIVERGENT | OK | OK | 2 | 2 | nohier il synth |    This indicates a serious bug in /tmp/r11u185_dsc/ON/UD__u04_inst_array/equiv/
+ON | UD/u05_mixed_lit_then_net | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | UD/u06_lit_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | GE/e01_three_depths | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GE/e02_arrays_each_branch | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GE/e03_named_else_inner_ifelse | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GE/e04_if_beginend_in_unnamed_else | STATUS_DIFF | OK | NO_GATES | 1 | 0 | - | -
+ON | GE/e05_elseif_nested_genfor | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GE/e06_elsebegin_array_twice | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | HP/h01_three_select_chain | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | HP/h02_idx_method_call | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | HP/h03_idx_hierpath_with_idx | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | HP/h04_member_sel_lvalue_nba | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | HP/h05_const_param_idx | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | HP/h06_streaming_lvalue | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | HP/h07_incdec_two_selects | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | HP/h08_ca_op_two_select | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | HP/h09_compound_lvalue | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | HK/k01_pre_post_incdec | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | HK/k02_ca_cast_concat_call | IDENTICAL | OK | OK | 22 | 22 | - | -
+ON | HK/k03_compound_comb | IDENTICAL | OK | OK | 14 | 14 | - | -
+ON | PU/u01_nested_member_read | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | PU/u02_pkg_task_loop_bound | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | PU/u03_pkg_var_dims | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | PU/u04_default_key_pattern | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | PU/u05_positional_read | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | PU/u06_whole_copy_and_bits | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u185_dsc/ON/
+ON | PU/u07_other_pkg_read | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x01_genmp_idx_actual | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ON | X/x02_progmp_idx_actual | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x03_extern_locals_import | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x04_clsmethod_default_pkgparam | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x05_castclone_twosel_rhs | IDENTICAL | OK | OK | 47 | 47 | - | -
+ON | X/x06_udp_genfold_positional | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | CC/c01_two_casts_one_assign | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | CC/c02_type_param_cast | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ALLOFF | CC/c03_cast_in_genfor_twice | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | CC/c04_idxpart_concat_lhs | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | CC/c05_macro_written_assign | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | CC/c06_param_width_cast | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | CC/c07_two_assigns_one_stmt | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | CC/c08_rtl_ports_twice | IDENTICAL | OK | OK | 12 | 12 | - | -
+ALLOFF | PG/p01_mp_and_plain_ports | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | PG/p02_generic_mp_and_plain | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | PG/p03_prog_in_generate | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | PG/p04_mod_control_same_ports | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ALLOFF | PG/p05_param_iface_twice | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | PG/p06_two_typed_named | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | GV/v01_named_array_elem | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | GV/v02_named_array_elem_mp | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ALLOFF | GV/v03_pos_array_elem | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | GV/v04_param_iface_named_plain | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | GV/v05_prog_array_elem_mp | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | GV/v06_named_plain_nets_param | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | GV/v07_typed_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ALLOFF | GV/v08_modport_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ALLOFF | GV/v09_chain_through_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ALLOFF | GV/v10_prog_typed_then_generic | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | GV/v11_typed_then_generic_mpconn | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ALLOFF | GV/v12_generic_typed_generic | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | GV/v13_logic_between_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | GV/v14_two_generic_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | GV/v15_typed_then_generic_multiline | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ALLOFF | UD/u01_op_first | IDENTICAL | OK | OK | 4 | 4 | - | -
+ALLOFF | UD/u02_sel_of_sel_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | UD/u03_iface_member_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | UD/u04_inst_array | DIVERGENT | OK | OK | 2 | 2 | nohier il synth |    This indicates a serious bug in /tmp/r11u185_dsc/ALLOFF/UD__u04_inst_array/eq
+ALLOFF | UD/u05_mixed_lit_then_net | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | UD/u06_lit_first | EQUIVALENT | OK | OK | 2 | 2 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u185_dsc/ALLOFF/UD__u06_lit_first/
+ALLOFF | GE/e01_three_depths | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | GE/e02_arrays_each_branch | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | GE/e03_named_else_inner_ifelse | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | GE/e04_if_beginend_in_unnamed_else | STATUS_DIFF | OK | NO_GATES | 1 | 0 | - | -
+ALLOFF | GE/e05_elseif_nested_genfor | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | GE/e06_elsebegin_array_twice | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | HP/h01_three_select_chain | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | HP/h02_idx_method_call | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | HP/h03_idx_hierpath_with_idx | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | HP/h04_member_sel_lvalue_nba | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | HP/h05_const_param_idx | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | HP/h06_streaming_lvalue | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | HP/h07_incdec_two_selects | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | HP/h08_ca_op_two_select | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | HP/h09_compound_lvalue | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | HK/k01_pre_post_incdec | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | HK/k02_ca_cast_concat_call | IDENTICAL | OK | OK | 22 | 22 | - | -
+ALLOFF | HK/k03_compound_comb | IDENTICAL | OK | OK | 14 | 14 | - | -
+ALLOFF | PU/u01_nested_member_read | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | PU/u02_pkg_task_loop_bound | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | PU/u03_pkg_var_dims | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | PU/u04_default_key_pattern | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | PU/u05_positional_read | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | PU/u06_whole_copy_and_bits | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u185_dsc/ALL
+ALLOFF | PU/u07_other_pkg_read | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | X/x01_genmp_idx_actual | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ALLOFF | X/x02_progmp_idx_actual | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | X/x03_extern_locals_import | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | X/x04_clsmethod_default_pkgparam | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | X/x05_castclone_twosel_rhs | IDENTICAL | OK | OK | 47 | 47 | - | -
+ALLOFF | X/x06_udp_genfold_positional | EQUIVALENT | OK | OK | 2 | 2 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u185_dsc/ALLOFF/X__x06_udp_genfold
+OWN | CC/c01_two_casts_one_assign | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | CC/c02_type_param_cast | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+OWN | CC/c03_cast_in_genfor_twice | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | CC/c04_idxpart_concat_lhs | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | CC/c05_macro_written_assign | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | CC/c06_param_width_cast | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | CC/c07_two_assigns_one_stmt | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | CC/c08_rtl_ports_twice | IDENTICAL | OK | OK | 12 | 12 | - | -
+OWN | PG/p01_mp_and_plain_ports | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | PG/p02_generic_mp_and_plain | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | PG/p03_prog_in_generate | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | PG/p04_mod_control_same_ports | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+OWN | PG/p05_param_iface_twice | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | PG/p06_two_typed_named | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | GV/v01_named_array_elem | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+OWN | GV/v02_named_array_elem_mp | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+OWN | GV/v03_pos_array_elem | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+OWN | GV/v04_param_iface_named_plain | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+OWN | GV/v05_prog_array_elem_mp | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | GV/v06_named_plain_nets_param | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+OWN | GV/v07_typed_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+OWN | GV/v08_modport_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+OWN | GV/v09_chain_through_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+OWN | GV/v10_prog_typed_then_generic | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | GV/v11_typed_then_generic_mpconn | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+OWN | GV/v12_generic_typed_generic | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+OWN | GV/v13_logic_between_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+OWN | GV/v14_two_generic_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+OWN | GV/v15_typed_then_generic_multiline | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+OWN | UD/u01_op_first | IDENTICAL | OK | OK | 4 | 4 | - | -
+OWN | UD/u02_sel_of_sel_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+OWN | UD/u03_iface_member_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+OWN | UD/u04_inst_array | DIVERGENT | OK | OK | 2 | 2 | nohier il synth |    This indicates a serious bug in /tmp/r11u185_dsc/OWN/UD__u04_inst_array/equiv
+OWN | UD/u05_mixed_lit_then_net | IDENTICAL | OK | OK | 2 | 2 | - | -
+OWN | UD/u06_lit_first | EQUIVALENT | OK | OK | 2 | 2 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u185_dsc/OWN/UD__u06_lit_first/equ
+OWN | GE/e01_three_depths | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | GE/e02_arrays_each_branch | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | GE/e03_named_else_inner_ifelse | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | GE/e04_if_beginend_in_unnamed_else | STATUS_DIFF | OK | NO_GATES | 1 | 0 | - | -
+OWN | GE/e05_elseif_nested_genfor | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | GE/e06_elsebegin_array_twice | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | HP/h01_three_select_chain | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | HP/h02_idx_method_call | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | HP/h03_idx_hierpath_with_idx | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | HP/h04_member_sel_lvalue_nba | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+OWN | HP/h05_const_param_idx | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | HP/h06_streaming_lvalue | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | HP/h07_incdec_two_selects | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | HP/h08_ca_op_two_select | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | HP/h09_compound_lvalue | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | HK/k01_pre_post_incdec | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | HK/k02_ca_cast_concat_call | IDENTICAL | OK | OK | 22 | 22 | - | -
+OWN | HK/k03_compound_comb | IDENTICAL | OK | OK | 14 | 14 | - | -
+OWN | PU/u01_nested_member_read | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | PU/u02_pkg_task_loop_bound | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | PU/u03_pkg_var_dims | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | PU/u04_default_key_pattern | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | PU/u05_positional_read | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | PU/u06_whole_copy_and_bits | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u185_dsc/OWN
+OWN | PU/u07_other_pkg_read | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | X/x01_genmp_idx_actual | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+OWN | X/x02_progmp_idx_actual | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | X/x03_extern_locals_import | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | X/x04_clsmethod_default_pkgparam | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | X/x05_castclone_twosel_rhs | IDENTICAL | OK | OK | 47 | 47 | - | -
+OWN | X/x06_udp_genfold_positional | EQUIVALENT | OK | OK | 2 | 2 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u185_dsc/OWN/X__x06_udp_genfold_po
+ON | GV/v07_typed_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ON | GV/v08_modport_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ON | GV/v09_chain_through_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ON | GV/v10_prog_typed_then_generic | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GV/v11_typed_then_generic_mpconn | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ON | GV/v12_generic_typed_generic | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | GV/v13_logic_between_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | GV/v14_two_generic_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | GV/v15_typed_then_generic_multiline | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ALLOFF | GV/v07_typed_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ALLOFF | GV/v08_modport_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ALLOFF | GV/v09_chain_through_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ALLOFF | GV/v10_prog_typed_then_generic | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | GV/v11_typed_then_generic_mpconn | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skippi
+ALLOFF | GV/v12_generic_typed_generic | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | GV/v13_logic_between_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | GV/v14_two_generic_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | GV/v15_typed_then_generic_multiline | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+OWN | GV/v07_typed_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+OWN | GV/v08_modport_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+OWN | GV/v09_chain_through_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+OWN | GV/v10_prog_typed_then_generic | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | GV/v11_typed_then_generic_mpconn | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+OWN | GV/v12_generic_typed_generic | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+OWN | GV/v13_logic_between_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+OWN | GV/v14_two_generic_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+OWN | GV/v15_typed_then_generic_multiline | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -

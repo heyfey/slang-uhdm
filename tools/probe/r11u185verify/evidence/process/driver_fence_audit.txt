@@ -1,0 +1,30 @@
+r11u185 audit of the drivers of the four evidence directories (read at 459b7cdf; names of the fenced tests never printed).
+
+Where each env.sh reads $FENCED
+  r11u176repro/drivers/env.sh   RESUME.md, by PATTERN (`for n in ...;`), count check (4 names) -- not canaudit.sh, not a line number
+  v11u176repro/drivers/env.sh   RESUME.md, by PATTERN, count check -- but its drivers source /tmp/v11u176_env.sh (a scratch copy,
+                                gone at 459b7cdf), not the in-tree env.sh
+  r11u178repro/drivers/env.sh   canaudit.sh FENCED= line, count check -- but from /tmp/wt_r11u178/... (a pruned worktree): refuses now
+  r11v178repro/drivers/env.sh   canaudit.sh FENCED= line, count check -- from /tmp/wt_v11u178/... (pruned); its drivers source
+                                /tmp/v11u178_env.sh (a scratch copy, gone)
+  The RESUME.md pattern set equals the canaudit.sh FENCED= set at 459b7cdf (compared as sorted-set md5, 7af98fee both).
+
+Drivers that read corpus sources or corpus databases, and whether they refuse to run without the four names
+  r11u176repro  attrib.sh (count check), boundary.sh (${FENCED:?} + count), bvmirror.sh (count), obrow.sh (count),
+                predict176.sh (${FENCED:?} + count), rowrec.sh (${FENCED:?}, no count check), uvmcensus_sweep.sh (${FENCED:?}),
+                uvmtrace.sh (count), case.sh / caseE.sh (${FENCED:?}; cases), dscase.py (count; cases)
+                NOT fail-closed: row.sh -- sources env.sh with `.` (a failing env.sh `return`s, row.sh continues) and its
+                refusal loop `for f in $FENCED` does nothing on an empty list; it runs verify_golden.py on a named corpus row.
+                grid.sh / gridE.sh / judge.sh / sweep.sh source env.sh the same way (cases, boundary movers, gate sweep).
+  v11u176repro  mirror.sh, row.sh (`source /tmp/v11u176_env.sh || exit 2`: fail-closed, but the scratch file is gone, so they
+                cannot run from the tree); boundary.sh, case.sh, ob2.sh, obdump.sh source the scratch file without `|| exit`
+                (boundary.sh's `grep -vw "$fre"` drops every path on an empty pattern: closed by accident; case.sh refuses
+                nothing on an empty list: cases only).  ds.py count check.
+  r11u178repro  bvmirror.sh, predict178.sh, rowrec.sh, obrows.sh (${FENCED:?} and/or count), obprobe.py (assert 4)
+                caseoff.sh, grid.sh, gridmatrix.sh, offbytes.sh read this directory's cases or probe cases only.
+  r11v178repro  bvmirror.sh, predictv178.sh (count), obrow.py / obprobe.py (assert 4)
+                NOT fail-closed: coin.sh (compares two named databases, UVM corpus rows among them) and rowsoff.sh (re-runs named
+                corpus rows through verify_golden.py) source /tmp/v11u178_env.sh (gone) without `|| exit`, and their refusal
+                loops do nothing on an empty $FENCED.  ds.sh: `grep -qE "$FENCED_RE"` with an empty pattern refuses every case
+                (closed by accident).  sweep.sh, probeswitch.sh are gate sweeps.
+  Word-boundary scan of the four directories for the four names: 0 files (positive control on a scratch file: 1).

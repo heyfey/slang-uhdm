@@ -1,0 +1,792 @@
+CC/c01_two_casts_one_assign alloff lost=0 gained=48 
+CC/c01_two_casts_one_assign offL176 lost=0 gained=48 
+CC/c01_two_casts_one_assign off_castRhsClonePerInst176 lost=0 gained=48 
+CC/c01_two_casts_one_assign pre lost=0 gained=48 
+CC/c01_two_casts_one_assign preoff lost=0 gained=48 
+CC/c02_type_param_cast alloff lost=0 gained=42 
+CC/c02_type_param_cast offL176 lost=0 gained=42 
+CC/c02_type_param_cast off_castRhsClonePerInst176 lost=0 gained=42 
+CC/c02_type_param_cast pre lost=0 gained=42 
+CC/c02_type_param_cast preoff lost=0 gained=42 
+CC/c04_idxpart_concat_lhs alloff lost=0 gained=256 
+CC/c04_idxpart_concat_lhs offL176 lost=0 gained=256 
+CC/c04_idxpart_concat_lhs off_castRhsClonePerInst176 lost=0 gained=256 
+CC/c04_idxpart_concat_lhs pre lost=0 gained=256 
+CC/c04_idxpart_concat_lhs preoff lost=0 gained=256 
+CC/c04_idxpart_concat_lhs_el alloff lost=0 gained=36 
+CC/c04_idxpart_concat_lhs_el offL176 lost=0 gained=36 
+CC/c04_idxpart_concat_lhs_el off_castRhsClonePerInst176 lost=0 gained=36 
+CC/c04_idxpart_concat_lhs_el pre lost=0 gained=36 
+CC/c04_idxpart_concat_lhs_el preoff lost=0 gained=36 
+CC/c05_macro_written_assign alloff lost=0 gained=96 
+CC/c05_macro_written_assign offL176 lost=0 gained=96 
+CC/c05_macro_written_assign off_castRhsClonePerInst176 lost=0 gained=96 
+CC/c05_macro_written_assign pre lost=0 gained=96 
+CC/c05_macro_written_assign preoff lost=0 gained=96 
+CC/c07_two_assigns_one_stmt alloff lost=0 gained=96 
+CC/c07_two_assigns_one_stmt offL176 lost=0 gained=96 
+CC/c07_two_assigns_one_stmt off_castRhsClonePerInst176 lost=0 gained=96 
+CC/c07_two_assigns_one_stmt pre lost=0 gained=96 
+CC/c07_two_assigns_one_stmt preoff lost=0 gained=96 
+CC/c08_rtl_ports_twice alloff lost=0 gained=160 
+CC/c08_rtl_ports_twice offL176 lost=0 gained=160 
+CC/c08_rtl_ports_twice off_castRhsClonePerInst176 lost=0 gained=160 
+CC/c08_rtl_ports_twice pre lost=0 gained=160 
+CC/c08_rtl_ports_twice preoff lost=0 gained=160 
+CC/c08_rtl_ports_twice_el alloff lost=0 gained=48 
+CC/c08_rtl_ports_twice_el offL176 lost=0 gained=48 
+CC/c08_rtl_ports_twice_el off_castRhsClonePerInst176 lost=0 gained=48 
+CC/c08_rtl_ports_twice_el pre lost=0 gained=48 
+CC/c08_rtl_ports_twice_el preoff lost=0 gained=48 
+DW/w01_cond_call alloff lost=0 gained=9 
+DW/w01_cond_call offL178 lost=0 gained=9 
+DW/w01_cond_call off_doWhileSpansToCloseParen175 lost=0 gained=9 
+DW/w01_cond_call pre lost=0 gained=9 
+DW/w01_cond_call preoff lost=0 gained=9 
+DW/w01_cond_call_el alloff lost=0 gained=18 
+DW/w01_cond_call_el offL178 lost=0 gained=18 
+DW/w01_cond_call_el off_doWhileSpansToCloseParen175 lost=0 gained=18 
+DW/w01_cond_call_el pre lost=0 gained=18 
+DW/w01_cond_call_el preoff lost=0 gained=18 
+DW/w02_paren_macro_cond alloff lost=0 gained=6 
+DW/w02_paren_macro_cond offL178 lost=0 gained=6 
+DW/w02_paren_macro_cond off_doWhileSpansToCloseParen175 lost=0 gained=6 
+DW/w02_paren_macro_cond pre lost=0 gained=6 
+DW/w02_paren_macro_cond preoff lost=0 gained=6 
+DW/w02_paren_macro_cond_el alloff lost=0 gained=12 
+DW/w02_paren_macro_cond_el offL178 lost=0 gained=12 
+DW/w02_paren_macro_cond_el off_doWhileSpansToCloseParen175 lost=0 gained=12 
+DW/w02_paren_macro_cond_el pre lost=0 gained=12 
+DW/w02_paren_macro_cond_el preoff lost=0 gained=12 
+DW/w03_trailing_comment alloff lost=0 gained=9 
+DW/w03_trailing_comment offL178 lost=0 gained=9 
+DW/w03_trailing_comment off_doWhileEndsAtCondEnd178v lost=0 gained=3 
+DW/w03_trailing_comment off_doWhileSpansToCloseParen175 lost=0 gained=9 
+DW/w03_trailing_comment pre lost=0 gained=9 
+DW/w03_trailing_comment preoff lost=0 gained=9 
+DW/w03_trailing_comment_el alloff lost=0 gained=18 
+DW/w03_trailing_comment_el offL178 lost=0 gained=18 
+DW/w03_trailing_comment_el off_doWhileEndsAtCondEnd178v lost=0 gained=6 
+DW/w03_trailing_comment_el off_doWhileSpansToCloseParen175 lost=0 gained=18 
+DW/w03_trailing_comment_el pre lost=0 gained=18 
+DW/w03_trailing_comment_el preoff lost=0 gained=18 
+DW/w04_nested alloff lost=0 gained=12 
+DW/w04_nested offL178 lost=0 gained=12 
+DW/w04_nested off_doWhileSpansToCloseParen175 lost=0 gained=12 
+DW/w04_nested pre lost=0 gained=12 
+DW/w04_nested preoff lost=0 gained=12 
+DW/w04_nested_el alloff lost=0 gained=24 
+DW/w04_nested_el offL178 lost=0 gained=24 
+DW/w04_nested_el off_doWhileSpansToCloseParen175 lost=0 gained=24 
+DW/w04_nested_el pre lost=0 gained=24 
+DW/w04_nested_el preoff lost=0 gained=24 
+DW/w05_class_task_local alloff lost=0 gained=3 
+DW/w05_class_task_local offL178 lost=0 gained=3 
+DW/w05_class_task_local off_doWhileSpansToCloseParen175 lost=0 gained=3 
+DW/w05_class_task_local pre lost=0 gained=3 
+DW/w05_class_task_local preoff lost=0 gained=3 
+DW/w05_class_task_local_el alloff lost=0 gained=3 
+DW/w05_class_task_local_el offL178 lost=0 gained=3 
+DW/w05_class_task_local_el off_doWhileSpansToCloseParen175 lost=0 gained=3 
+DW/w05_class_task_local_el pre lost=0 gained=3 
+DW/w05_class_task_local_el preoff lost=0 gained=3 
+DW/w06_function alloff lost=0 gained=3 
+DW/w06_function offL178 lost=0 gained=3 
+DW/w06_function off_doWhileSpansToCloseParen175 lost=0 gained=3 
+DW/w06_function pre lost=0 gained=3 
+DW/w06_function preoff lost=0 gained=3 
+DW/w06_function_el alloff lost=0 gained=6 
+DW/w06_function_el offL178 lost=0 gained=6 
+DW/w06_function_el off_doWhileSpansToCloseParen175 lost=0 gained=6 
+DW/w06_function_el pre lost=0 gained=6 
+DW/w06_function_el preoff lost=0 gained=6 
+FN/n02_last_arg_select alloff lost=0 gained=2 
+FN/n02_last_arg_select offL178 lost=0 gained=2 
+FN/n02_last_arg_select off_refFullNameThroughNamedExpr175 lost=0 gained=2 
+FN/n02_last_arg_select pre lost=0 gained=2 
+FN/n02_last_arg_select preoff lost=0 gained=2 
+FN/n02_last_arg_select_el alloff lost=0 gained=2 
+FN/n02_last_arg_select_el offL178 lost=0 gained=2 
+FN/n02_last_arg_select_el off_refFullNameThroughNamedExpr175 lost=0 gained=2 
+FN/n02_last_arg_select_el pre lost=0 gained=2 
+FN/n02_last_arg_select_el preoff lost=0 gained=2 
+FN/n05_extern_default_same_pkg alloff lost=1 gained=28  | \_io_decl: (a), line:9:25, endln:9:26
+FN/n05_extern_default_same_pkg offL178 lost=0 gained=4 
+FN/n05_extern_default_same_pkg off_refFullNameThroughNamedExpr175 lost=0 gained=4 
+FN/n05_extern_default_same_pkg pre lost=1 gained=28  | \_io_decl: (a), line:9:25, endln:9:26
+FN/n05_extern_default_same_pkg preoff lost=1 gained=28  | \_io_decl: (a), line:9:25, endln:9:26
+FN/n05_extern_default_same_pkg_el alloff lost=1 gained=34  | \_io_decl: (a), line:9:25, endln:9:26
+FN/n05_extern_default_same_pkg_el offL178 lost=0 gained=6 
+FN/n05_extern_default_same_pkg_el off_refFullNameThroughNamedExpr175 lost=0 gained=6 
+FN/n05_extern_default_same_pkg_el pre lost=1 gained=34  | \_io_decl: (a), line:9:25, endln:9:26
+FN/n05_extern_default_same_pkg_el preoff lost=1 gained=34  | \_io_decl: (a), line:9:25, endln:9:26
+FN/n06_iface_call_last_arg_sel alloff lost=0 gained=4 
+FN/n06_iface_call_last_arg_sel offL178 lost=0 gained=4 
+FN/n06_iface_call_last_arg_sel off_refFullNameThroughNamedExpr175 lost=0 gained=4 
+FN/n06_iface_call_last_arg_sel pre lost=0 gained=4 
+FN/n06_iface_call_last_arg_sel preoff lost=0 gained=4 
+FN/n06_iface_call_last_arg_sel_el alloff lost=0 gained=8 
+FN/n06_iface_call_last_arg_sel_el offL178 lost=0 gained=8 
+FN/n06_iface_call_last_arg_sel_el off_refFullNameThroughNamedExpr175 lost=0 gained=8 
+FN/n06_iface_call_last_arg_sel_el pre lost=0 gained=8 
+FN/n06_iface_call_last_arg_sel_el preoff lost=0 gained=8 
+FN/n07_class_sel_idx_last alloff lost=0 gained=2 
+FN/n07_class_sel_idx_last offL178 lost=0 gained=2 
+FN/n07_class_sel_idx_last off_refFullNameThroughNamedExpr175 lost=0 gained=2 
+FN/n07_class_sel_idx_last pre lost=0 gained=2 
+FN/n07_class_sel_idx_last preoff lost=0 gained=2 
+FN/n07_class_sel_idx_last_el alloff lost=0 gained=2 
+FN/n07_class_sel_idx_last_el offL178 lost=0 gained=2 
+FN/n07_class_sel_idx_last_el off_refFullNameThroughNamedExpr175 lost=0 gained=2 
+FN/n07_class_sel_idx_last_el pre lost=0 gained=2 
+FN/n07_class_sel_idx_last_el preoff lost=0 gained=2 
+GE/e01_three_depths alloff lost=0 gained=6 
+GE/e01_three_depths offL176 lost=0 gained=6 
+GE/e01_three_depths off_genElseBeginIfDepth176 lost=0 gained=6 
+GE/e01_three_depths pre lost=0 gained=6 
+GE/e01_three_depths preoff lost=0 gained=6 
+GE/e01_three_depths_el alloff lost=0 gained=6 
+GE/e01_three_depths_el offL176 lost=0 gained=6 
+GE/e01_three_depths_el off_genElseBeginIfDepth176 lost=0 gained=6 
+GE/e01_three_depths_el pre lost=0 gained=6 
+GE/e01_three_depths_el preoff lost=0 gained=6 
+GE/e02_arrays_each_branch alloff lost=0 gained=12 
+GE/e02_arrays_each_branch offL176 lost=0 gained=12 
+GE/e02_arrays_each_branch off_genElseBeginIfDepth176 lost=0 gained=12 
+GE/e02_arrays_each_branch off_genElseIfGateArrayPath176 lost=0 gained=12 
+GE/e02_arrays_each_branch pre lost=0 gained=12 
+GE/e02_arrays_each_branch preoff lost=0 gained=12 
+GE/e02_arrays_each_branch_el alloff lost=0 gained=12 
+GE/e02_arrays_each_branch_el offL176 lost=0 gained=12 
+GE/e02_arrays_each_branch_el off_genElseBeginIfDepth176 lost=0 gained=12 
+GE/e02_arrays_each_branch_el off_genElseIfGateArrayPath176 lost=0 gained=12 
+GE/e02_arrays_each_branch_el pre lost=0 gained=12 
+GE/e02_arrays_each_branch_el preoff lost=0 gained=12 
+GV/v04_param_iface_named_plain alloff lost=0 gained=43 
+GV/v04_param_iface_named_plain offL176 lost=0 gained=43 
+GV/v04_param_iface_named_plain off_genericMpConnLowConnAtDecl176 lost=0 gained=1 
+GV/v04_param_iface_named_plain off_genericPlainNamedView176 lost=0 gained=42 
+GV/v04_param_iface_named_plain pre lost=0 gained=43 
+GV/v04_param_iface_named_plain preoff lost=0 gained=43 
+GV/v04_param_iface_named_plain_el alloff lost=0 gained=43 
+GV/v04_param_iface_named_plain_el offL176 lost=0 gained=43 
+GV/v04_param_iface_named_plain_el off_genericMpConnLowConnAtDecl176 lost=0 gained=1 
+GV/v04_param_iface_named_plain_el off_genericPlainNamedView176 lost=0 gained=42 
+GV/v04_param_iface_named_plain_el pre lost=0 gained=43 
+GV/v04_param_iface_named_plain_el preoff lost=0 gained=43 
+GV/v06_named_plain_nets_param alloff lost=0 gained=80 
+GV/v06_named_plain_nets_param offL176 lost=0 gained=80 
+GV/v06_named_plain_nets_param off_genericPlainNamedView176 lost=0 gained=80 
+GV/v06_named_plain_nets_param pre lost=0 gained=80 
+GV/v06_named_plain_nets_param preoff lost=0 gained=80 
+GV/v06_named_plain_nets_param_el alloff lost=0 gained=80 
+GV/v06_named_plain_nets_param_el offL176 lost=0 gained=80 
+GV/v06_named_plain_nets_param_el off_genericPlainNamedView176 lost=0 gained=80 
+GV/v06_named_plain_nets_param_el pre lost=0 gained=80 
+GV/v06_named_plain_nets_param_el preoff lost=0 gained=80 
+GV/v07_typed_then_generic alloff lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v07_typed_then_generic fix lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v07_typed_then_generic offL176 lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v07_typed_then_generic off_genericPlainNamedView176 lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v07_typed_then_generic pre lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v07_typed_then_generic preoff lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v07_typed_then_generic_el alloff lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v07_typed_then_generic_el fix lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v07_typed_then_generic_el offL176 lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v07_typed_then_generic_el off_genericPlainNamedView176 lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v07_typed_then_generic_el pre lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v07_typed_then_generic_el preoff lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v08_modport_then_generic alloff lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v08_modport_then_generic fix lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v08_modport_then_generic offL176 lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v08_modport_then_generic off_genericPlainNamedView176 lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v08_modport_then_generic pre lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v08_modport_then_generic preoff lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v08_modport_then_generic_el alloff lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v08_modport_then_generic_el fix lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v08_modport_then_generic_el offL176 lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v08_modport_then_generic_el off_genericPlainNamedView176 lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v08_modport_then_generic_el pre lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v08_modport_then_generic_el preoff lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v09_chain_through_generic alloff lost=58 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v09_chain_through_generic fix lost=58 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v09_chain_through_generic offL176 lost=58 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v09_chain_through_generic off_genericPlainNamedView176 lost=58 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v09_chain_through_generic pre lost=58 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v09_chain_through_generic preoff lost=58 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v09_chain_through_generic_el alloff lost=58 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v09_chain_through_generic_el fix lost=58 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v09_chain_through_generic_el offL176 lost=58 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v09_chain_through_generic_el off_genericPlainNamedView176 lost=58 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v09_chain_through_generic_el pre lost=58 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v09_chain_through_generic_el preoff lost=58 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v10_prog_typed_then_generic alloff lost=1 gained=3  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v10_prog_typed_then_generic fix lost=1 gained=0  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v10_prog_typed_then_generic offL176 lost=1 gained=3  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v10_prog_typed_then_generic off_genericPlainNamedView176 lost=1 gained=1  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v10_prog_typed_then_generic off_progPlainPortViewUnparented176 lost=0 gained=2 
+GV/v10_prog_typed_then_generic pre lost=1 gained=3  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v10_prog_typed_then_generic preoff lost=1 gained=3  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v10_prog_typed_then_generic_el alloff lost=1 gained=3  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v10_prog_typed_then_generic_el fix lost=1 gained=0  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v10_prog_typed_then_generic_el offL176 lost=1 gained=3  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v10_prog_typed_then_generic_el off_genericPlainNamedView176 lost=1 gained=1  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v10_prog_typed_then_generic_el off_progPlainPortViewUnparented176 lost=0 gained=2 
+GV/v10_prog_typed_then_generic_el pre lost=1 gained=3  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v10_prog_typed_then_generic_el preoff lost=1 gained=3  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v11_typed_then_generic_mpconn alloff lost=1 gained=0  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v11_typed_then_generic_mpconn fix lost=1 gained=0  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v11_typed_then_generic_mpconn offL176 lost=1 gained=0  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v11_typed_then_generic_mpconn off_genericMpConnLowConnAtDecl176 lost=1 gained=0  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v11_typed_then_generic_mpconn pre lost=1 gained=0  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v11_typed_then_generic_mpconn preoff lost=1 gained=0  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v11_typed_then_generic_mpconn_el alloff lost=1 gained=0  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v11_typed_then_generic_mpconn_el fix lost=1 gained=0  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v11_typed_then_generic_mpconn_el offL176 lost=1 gained=0  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v11_typed_then_generic_mpconn_el off_genericMpConnLowConnAtDecl176 lost=1 gained=0  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v11_typed_then_generic_mpconn_el pre lost=1 gained=0  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v11_typed_then_generic_mpconn_el preoff lost=1 gained=0  | \_ref_obj: (work@TOP.u.g), line:13:15, endln:13:16
+GV/v12_generic_typed_generic alloff lost=29 gained=28  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v12_generic_typed_generic fix lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v12_generic_typed_generic offL176 lost=29 gained=28  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v12_generic_typed_generic off_genericPlainNamedView176 lost=29 gained=28  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v12_generic_typed_generic pre lost=29 gained=28  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v12_generic_typed_generic preoff lost=29 gained=28  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v12_generic_typed_generic_el alloff lost=29 gained=28  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v12_generic_typed_generic_el fix lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v12_generic_typed_generic_el offL176 lost=29 gained=28  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v12_generic_typed_generic_el off_genericPlainNamedView176 lost=29 gained=28  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v12_generic_typed_generic_el pre lost=29 gained=28  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v12_generic_typed_generic_el preoff lost=29 gained=28  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v13_logic_between_control alloff lost=0 gained=31 
+GV/v13_logic_between_control offL176 lost=0 gained=31 
+GV/v13_logic_between_control off_genericPlainNamedView176 lost=0 gained=31 
+GV/v13_logic_between_control pre lost=0 gained=31 
+GV/v13_logic_between_control preoff lost=0 gained=31 
+GV/v13_logic_between_control_el alloff lost=0 gained=31 
+GV/v13_logic_between_control_el offL176 lost=0 gained=31 
+GV/v13_logic_between_control_el off_genericPlainNamedView176 lost=0 gained=31 
+GV/v13_logic_between_control_el pre lost=0 gained=31 
+GV/v13_logic_between_control_el preoff lost=0 gained=31 
+GV/v14_two_generic_control alloff lost=0 gained=62 
+GV/v14_two_generic_control offL176 lost=0 gained=62 
+GV/v14_two_generic_control off_genericPlainNamedView176 lost=0 gained=62 
+GV/v14_two_generic_control pre lost=0 gained=62 
+GV/v14_two_generic_control preoff lost=0 gained=62 
+GV/v14_two_generic_control_el alloff lost=0 gained=62 
+GV/v14_two_generic_control_el offL176 lost=0 gained=62 
+GV/v14_two_generic_control_el off_genericPlainNamedView176 lost=0 gained=62 
+GV/v14_two_generic_control_el pre lost=0 gained=62 
+GV/v14_two_generic_control_el preoff lost=0 gained=62 
+GV/v15_typed_then_generic_multiline alloff lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v15_typed_then_generic_multiline fix lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v15_typed_then_generic_multiline offL176 lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v15_typed_then_generic_multiline off_genericPlainNamedView176 lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v15_typed_then_generic_multiline pre lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v15_typed_then_generic_multiline preoff lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v15_typed_then_generic_multiline_el alloff lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v15_typed_then_generic_multiline_el fix lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v15_typed_then_generic_multiline_el offL176 lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v15_typed_then_generic_multiline_el off_genericPlainNamedView176 lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v15_typed_then_generic_multiline_el pre lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+GV/v15_typed_then_generic_multiline_el preoff lost=29 gained=0  | |vpiParent: || |vpiName:drive || |vpiName:observe
+HK/k01_pre_post_incdec pre lost=0 gained=34 
+HK/k01_pre_post_incdec preoff lost=0 gained=34 
+HK/k01_pre_post_incdec_el pre lost=0 gained=62 
+HK/k01_pre_post_incdec_el preoff lost=0 gained=62 
+HK/k02_ca_cast_concat_call alloff lost=0 gained=21 
+HK/k02_ca_cast_concat_call offL178 lost=0 gained=21 
+HK/k02_ca_cast_concat_call off_hierPathSelIdxAtPath178 lost=0 gained=21 
+HK/k02_ca_cast_concat_call off_hierPathSelIdxCloneKeepsElem178v lost=0 gained=12 
+HK/k02_ca_cast_concat_call pre lost=0 gained=21 
+HK/k02_ca_cast_concat_call preoff lost=0 gained=21 
+HK/k02_ca_cast_concat_call_el alloff lost=0 gained=23 
+HK/k02_ca_cast_concat_call_el offL178 lost=0 gained=23 
+HK/k02_ca_cast_concat_call_el off_hierPathSelIdxAtPath178 lost=0 gained=23 
+HK/k02_ca_cast_concat_call_el pre lost=0 gained=23 
+HK/k02_ca_cast_concat_call_el preoff lost=0 gained=23 
+HK/k03_compound_comb alloff lost=0 gained=3 
+HK/k03_compound_comb offL178 lost=0 gained=3 
+HK/k03_compound_comb off_hierPathSelIdxAtPath178 lost=0 gained=3 
+HK/k03_compound_comb pre lost=0 gained=5 
+HK/k03_compound_comb preoff lost=0 gained=5 
+HK/k03_compound_comb_el alloff lost=0 gained=5 
+HK/k03_compound_comb_el offL178 lost=0 gained=5 
+HK/k03_compound_comb_el off_hierPathSelIdxAtPath178 lost=0 gained=5 
+HK/k03_compound_comb_el pre lost=0 gained=9 
+HK/k03_compound_comb_el preoff lost=0 gained=9 
+HP/h01_three_select_chain alloff lost=0 gained=8 
+HP/h01_three_select_chain offL178 lost=0 gained=8 
+HP/h01_three_select_chain off_hierPathSelIdxAtPath178 lost=0 gained=8 
+HP/h01_three_select_chain pre lost=0 gained=8 
+HP/h01_three_select_chain preoff lost=0 gained=8 
+HP/h01_three_select_chain_el alloff lost=0 gained=16 
+HP/h01_three_select_chain_el offL178 lost=0 gained=16 
+HP/h01_three_select_chain_el off_hierPathSelIdxAtPath178 lost=0 gained=16 
+HP/h01_three_select_chain_el pre lost=0 gained=16 
+HP/h01_three_select_chain_el preoff lost=0 gained=16 
+HP/h02_idx_method_call alloff lost=0 gained=5 
+HP/h02_idx_method_call offL178 lost=0 gained=5 
+HP/h02_idx_method_call off_hierPathSelIdxAtPath178 lost=0 gained=5 
+HP/h02_idx_method_call pre lost=0 gained=5 
+HP/h02_idx_method_call preoff lost=0 gained=5 
+HP/h02_idx_method_call_el alloff lost=0 gained=5 
+HP/h02_idx_method_call_el offL178 lost=0 gained=5 
+HP/h02_idx_method_call_el off_hierPathSelIdxAtPath178 lost=0 gained=5 
+HP/h02_idx_method_call_el pre lost=0 gained=5 
+HP/h02_idx_method_call_el preoff lost=0 gained=5 
+HP/h04_member_sel_lvalue_nba alloff lost=0 gained=3 
+HP/h04_member_sel_lvalue_nba offL178 lost=0 gained=3 
+HP/h04_member_sel_lvalue_nba off_hierPathSelIdxAtPath178 lost=0 gained=3 
+HP/h04_member_sel_lvalue_nba pre lost=0 gained=5 
+HP/h04_member_sel_lvalue_nba preoff lost=0 gained=5 
+HP/h04_member_sel_lvalue_nba_el alloff lost=0 gained=5 
+HP/h04_member_sel_lvalue_nba_el offL178 lost=0 gained=5 
+HP/h04_member_sel_lvalue_nba_el off_hierPathSelIdxAtPath178 lost=0 gained=5 
+HP/h04_member_sel_lvalue_nba_el pre lost=0 gained=9 
+HP/h04_member_sel_lvalue_nba_el preoff lost=0 gained=9 
+HP/h05_const_param_idx alloff lost=0 gained=7 
+HP/h05_const_param_idx offL178 lost=0 gained=7 
+HP/h05_const_param_idx off_hierPathSelIdxAtPath178 lost=0 gained=7 
+HP/h05_const_param_idx pre lost=0 gained=7 
+HP/h05_const_param_idx preoff lost=0 gained=7 
+HP/h05_const_param_idx_el alloff lost=0 gained=9 
+HP/h05_const_param_idx_el offL178 lost=0 gained=9 
+HP/h05_const_param_idx_el off_hierPathSelIdxAtPath178 lost=0 gained=9 
+HP/h05_const_param_idx_el pre lost=0 gained=9 
+HP/h05_const_param_idx_el preoff lost=0 gained=9 
+HP/h06_streaming_lvalue alloff lost=0 gained=4 
+HP/h06_streaming_lvalue offL178 lost=0 gained=4 
+HP/h06_streaming_lvalue off_hierPathSelIdxAtPath178 lost=0 gained=4 
+HP/h06_streaming_lvalue pre lost=0 gained=4 
+HP/h06_streaming_lvalue preoff lost=0 gained=4 
+HP/h06_streaming_lvalue_el alloff lost=1 gained=8  | |vpiFullName:work@top.k
+HP/h06_streaming_lvalue_el offL178 lost=1 gained=8  | |vpiFullName:work@top.k
+HP/h06_streaming_lvalue_el off_hierPathSelIdxAtPath178 lost=1 gained=8  | |vpiFullName:work@top.k
+HP/h06_streaming_lvalue_el pre lost=1 gained=8  | |vpiFullName:work@top.k
+HP/h06_streaming_lvalue_el preoff lost=1 gained=8  | |vpiFullName:work@top.k
+HP/h07_incdec_two_selects alloff lost=0 gained=6 
+HP/h07_incdec_two_selects offL178 lost=0 gained=6 
+HP/h07_incdec_two_selects off_hierPathSelIdxAtPath178 lost=0 gained=6 
+HP/h07_incdec_two_selects off_hierPathSelIdxCloneKeepsElem178v lost=0 gained=6 
+HP/h07_incdec_two_selects pre lost=0 gained=6 
+HP/h07_incdec_two_selects preoff lost=0 gained=6 
+HP/h07_incdec_two_selects_el alloff lost=0 gained=12 
+HP/h07_incdec_two_selects_el offL178 lost=0 gained=12 
+HP/h07_incdec_two_selects_el off_hierPathSelIdxAtPath178 lost=0 gained=12 
+HP/h07_incdec_two_selects_el off_hierPathSelIdxCloneKeepsElem178v lost=0 gained=6 
+HP/h07_incdec_two_selects_el pre lost=0 gained=12 
+HP/h07_incdec_two_selects_el preoff lost=0 gained=12 
+HP/h08_ca_op_two_select alloff lost=0 gained=12 
+HP/h08_ca_op_two_select offL178 lost=0 gained=12 
+HP/h08_ca_op_two_select off_hierPathSelIdxAtPath178 lost=0 gained=12 
+HP/h08_ca_op_two_select off_hierPathSelIdxCloneKeepsElem178v lost=0 gained=9 
+HP/h08_ca_op_two_select pre lost=0 gained=12 
+HP/h08_ca_op_two_select preoff lost=0 gained=12 
+HP/h08_ca_op_two_select_el alloff lost=0 gained=14 
+HP/h08_ca_op_two_select_el offL178 lost=0 gained=14 
+HP/h08_ca_op_two_select_el off_hierPathSelIdxAtPath178 lost=0 gained=14 
+HP/h08_ca_op_two_select_el pre lost=0 gained=14 
+HP/h08_ca_op_two_select_el preoff lost=0 gained=14 
+HP/h09_compound_lvalue alloff lost=0 gained=1 
+HP/h09_compound_lvalue offL178 lost=0 gained=1 
+HP/h09_compound_lvalue off_hierPathSelIdxAtPath178 lost=0 gained=1 
+HP/h09_compound_lvalue pre lost=0 gained=5 
+HP/h09_compound_lvalue preoff lost=0 gained=5 
+HP/h09_compound_lvalue_el alloff lost=0 gained=3 
+HP/h09_compound_lvalue_el offL178 lost=0 gained=3 
+HP/h09_compound_lvalue_el off_hierPathSelIdxAtPath178 lost=0 gained=3 
+HP/h09_compound_lvalue_el pre lost=0 gained=11 
+HP/h09_compound_lvalue_el preoff lost=0 gained=11 
+IC/i01_two_locals_init alloff lost=0 gained=92 
+IC/i01_two_locals_init offL178 lost=0 gained=92 
+IC/i01_two_locals_init off_importCloneBodyLocalCopies175 lost=0 gained=92 
+IC/i01_two_locals_init pre lost=0 gained=92 
+IC/i01_two_locals_init preoff lost=0 gained=92 
+IC/i01_two_locals_init_el alloff lost=0 gained=46 
+IC/i01_two_locals_init_el offL178 lost=0 gained=46 
+IC/i01_two_locals_init_el off_importCloneBodyLocalCopies175 lost=0 gained=46 
+IC/i01_two_locals_init_el pre lost=0 gained=46 
+IC/i01_two_locals_init_el preoff lost=0 gained=46 
+IC/i02_nested_shadow_formal alloff lost=0 gained=118 
+IC/i02_nested_shadow_formal offL178 lost=0 gained=118 
+IC/i02_nested_shadow_formal off_importCloneBodyLocalCopies175 lost=0 gained=118 
+IC/i02_nested_shadow_formal pre lost=0 gained=118 
+IC/i02_nested_shadow_formal preoff lost=0 gained=118 
+IC/i04_static_and_auto_locals alloff lost=0 gained=172 
+IC/i04_static_and_auto_locals offL178 lost=0 gained=172 
+IC/i04_static_and_auto_locals off_importCloneBodyLocalCopies175 lost=0 gained=172 
+IC/i04_static_and_auto_locals pre lost=0 gained=172 
+IC/i04_static_and_auto_locals preoff lost=0 gained=172 
+IC/i05_task_two_importers alloff lost=0 gained=336 
+IC/i05_task_two_importers offL178 lost=0 gained=336 
+IC/i05_task_two_importers off_importCloneBodyLocalCopies175 lost=0 gained=336 
+IC/i05_task_two_importers pre lost=0 gained=336 
+IC/i05_task_two_importers preoff lost=0 gained=336 
+PG/p01_mp_and_plain_ports alloff lost=0 gained=3 
+PG/p01_mp_and_plain_ports offL176 lost=0 gained=3 
+PG/p01_mp_and_plain_ports off_progTypedPortLowConnUnlocated176 lost=0 gained=2 
+PG/p01_mp_and_plain_ports pre lost=0 gained=3 
+PG/p01_mp_and_plain_ports preoff lost=0 gained=3 
+PG/p01_mp_and_plain_ports_el alloff lost=0 gained=3 
+PG/p01_mp_and_plain_ports_el offL176 lost=0 gained=3 
+PG/p01_mp_and_plain_ports_el off_progTypedPortLowConnUnlocated176 lost=0 gained=2 
+PG/p01_mp_and_plain_ports_el pre lost=0 gained=3 
+PG/p01_mp_and_plain_ports_el preoff lost=0 gained=3 
+PG/p02_generic_mp_and_plain alloff lost=0 gained=27 
+PG/p02_generic_mp_and_plain offL176 lost=0 gained=27 
+PG/p02_generic_mp_and_plain off_genericMpConnLowConnAtDecl176 lost=0 gained=1 
+PG/p02_generic_mp_and_plain off_progPlainPortViewUnparented176 lost=0 gained=1 
+PG/p02_generic_mp_and_plain pre lost=0 gained=27 
+PG/p02_generic_mp_and_plain preoff lost=0 gained=27 
+PG/p02_generic_mp_and_plain_el alloff lost=0 gained=27 
+PG/p02_generic_mp_and_plain_el offL176 lost=0 gained=27 
+PG/p02_generic_mp_and_plain_el off_genericMpConnLowConnAtDecl176 lost=0 gained=1 
+PG/p02_generic_mp_and_plain_el off_progPlainPortViewUnparented176 lost=0 gained=1 
+PG/p02_generic_mp_and_plain_el pre lost=0 gained=27 
+PG/p02_generic_mp_and_plain_el preoff lost=0 gained=27 
+PG/p03_prog_in_generate alloff lost=0 gained=1 
+PG/p03_prog_in_generate offL176 lost=0 gained=1 
+PG/p03_prog_in_generate off_progTypedPortLowConnUnlocated176 lost=0 gained=1 
+PG/p03_prog_in_generate pre lost=0 gained=1 
+PG/p03_prog_in_generate preoff lost=0 gained=1 
+PG/p03_prog_in_generate_el alloff lost=0 gained=1 
+PG/p03_prog_in_generate_el offL176 lost=0 gained=1 
+PG/p03_prog_in_generate_el off_progTypedPortLowConnUnlocated176 lost=0 gained=1 
+PG/p03_prog_in_generate_el pre lost=0 gained=1 
+PG/p03_prog_in_generate_el preoff lost=0 gained=1 
+PG/p04_mod_control_same_ports alloff lost=30 gained=4  | |vpiParent: || |vpiActual: || \_ref_obj: (work@TOP.p.g), line:21:22, endln:21:23
+PG/p04_mod_control_same_ports fix lost=30 gained=0  | |vpiParent: || |vpiActual: || \_ref_obj: (work@TOP.p.g), line:21:22, endln:21:23
+PG/p04_mod_control_same_ports offL176 lost=30 gained=4  | |vpiParent: || |vpiActual: || \_ref_obj: (work@TOP.p.g), line:21:22, endln:21:23
+PG/p04_mod_control_same_ports off_progPlainPortViewUnparented176 lost=0 gained=2 
+PG/p04_mod_control_same_ports off_progTypedPortLowConnUnlocated176 lost=0 gained=2 
+PG/p04_mod_control_same_ports pre lost=30 gained=4  | |vpiParent: || |vpiActual: || \_ref_obj: (work@TOP.p.g), line:21:22, endln:21:23
+PG/p04_mod_control_same_ports preoff lost=30 gained=4  | |vpiParent: || |vpiActual: || \_ref_obj: (work@TOP.p.g), line:21:22, endln:21:23
+PG/p04_mod_control_same_ports x_R11U176_GENPLAINLOC_OFF lost=2 gained=0  | \_ref_obj: (work@TOP.p.g), line:21:22, endln:21:23 || \_ref_obj: (work@TOP.u.g), line:22:22, endln:22:23
+PG/p04_mod_control_same_ports x_R11U176_GENPLAINVARS_OFF lost=28 gained=1  | |vpiParent: || |vpiActual: || |vpiName:drive
+PG/p04_mod_control_same_ports x_R11U176_PROGLCLOC_OFF lost=0 gained=2 
+PG/p04_mod_control_same_ports x_R11U176_PROGVIEW_OFF lost=0 gained=2 
+PG/p04_mod_control_same_ports x_gp lost=30 gained=1  | |vpiParent: || |vpiActual: || \_ref_obj: (work@TOP.p.g), line:21:22, endln:21:23
+PG/p04_mod_control_same_ports_el alloff lost=30 gained=4  | |vpiParent: || |vpiActual: || \_ref_obj: (work@TOP.p.g), line:21:22, endln:21:23
+PG/p04_mod_control_same_ports_el fix lost=30 gained=0  | |vpiParent: || |vpiActual: || \_ref_obj: (work@TOP.p.g), line:21:22, endln:21:23
+PG/p04_mod_control_same_ports_el offL176 lost=30 gained=4  | |vpiParent: || |vpiActual: || \_ref_obj: (work@TOP.p.g), line:21:22, endln:21:23
+PG/p04_mod_control_same_ports_el off_progPlainPortViewUnparented176 lost=0 gained=2 
+PG/p04_mod_control_same_ports_el off_progTypedPortLowConnUnlocated176 lost=0 gained=2 
+PG/p04_mod_control_same_ports_el pre lost=30 gained=4  | |vpiParent: || |vpiActual: || \_ref_obj: (work@TOP.p.g), line:21:22, endln:21:23
+PG/p04_mod_control_same_ports_el preoff lost=30 gained=4  | |vpiParent: || |vpiActual: || \_ref_obj: (work@TOP.p.g), line:21:22, endln:21:23
+PG/p05_param_iface_twice alloff lost=0 gained=1 
+PG/p05_param_iface_twice offL176 lost=0 gained=1 
+PG/p05_param_iface_twice off_progTypedPortLowConnUnlocated176 lost=0 gained=1 
+PG/p05_param_iface_twice pre lost=0 gained=1 
+PG/p05_param_iface_twice preoff lost=0 gained=1 
+PG/p05_param_iface_twice_el alloff lost=0 gained=1 
+PG/p05_param_iface_twice_el offL176 lost=0 gained=1 
+PG/p05_param_iface_twice_el off_progTypedPortLowConnUnlocated176 lost=0 gained=1 
+PG/p05_param_iface_twice_el pre lost=0 gained=1 
+PG/p05_param_iface_twice_el preoff lost=0 gained=1 
+PG/p06_two_typed_named alloff lost=0 gained=2 
+PG/p06_two_typed_named offL176 lost=0 gained=2 
+PG/p06_two_typed_named off_progTypedPortLowConnUnlocated176 lost=0 gained=2 
+PG/p06_two_typed_named pre lost=0 gained=2 
+PG/p06_two_typed_named preoff lost=0 gained=2 
+PG/p06_two_typed_named_el alloff lost=0 gained=2 
+PG/p06_two_typed_named_el offL176 lost=0 gained=2 
+PG/p06_two_typed_named_el off_progTypedPortLowConnUnlocated176 lost=0 gained=2 
+PG/p06_two_typed_named_el pre lost=0 gained=2 
+PG/p06_two_typed_named_el preoff lost=0 gained=2 
+PU/u02_pkg_task_loop_bound alloff lost=0 gained=0 
+PU/u02_pkg_task_loop_bound offL178 lost=0 gained=0 
+PU/u02_pkg_task_loop_bound off_pkgPatUnqualReadTsNoParent178 lost=0 gained=0 
+PU/u02_pkg_task_loop_bound pre lost=0 gained=0 
+PU/u02_pkg_task_loop_bound preoff lost=0 gained=0 
+PU/u02_pkg_task_loop_bound_el alloff lost=0 gained=0 
+PU/u02_pkg_task_loop_bound_el offL178 lost=0 gained=0 
+PU/u02_pkg_task_loop_bound_el off_pkgPatUnqualReadTsNoParent178 lost=0 gained=0 
+PU/u02_pkg_task_loop_bound_el pre lost=0 gained=0 
+PU/u02_pkg_task_loop_bound_el preoff lost=0 gained=0 
+PU/u03_pkg_var_dims alloff lost=0 gained=1 
+PU/u03_pkg_var_dims offL178 lost=0 gained=1 
+PU/u03_pkg_var_dims off_pkgPatUnqualReadTsNoParent178 lost=0 gained=1 
+PU/u03_pkg_var_dims pre lost=0 gained=1 
+PU/u03_pkg_var_dims preoff lost=0 gained=1 
+PU/u03_pkg_var_dims_el alloff lost=0 gained=1 
+PU/u03_pkg_var_dims_el offL178 lost=0 gained=1 
+PU/u03_pkg_var_dims_el off_pkgPatUnqualReadTsNoParent178 lost=0 gained=1 
+PU/u03_pkg_var_dims_el pre lost=0 gained=1 
+PU/u03_pkg_var_dims_el preoff lost=0 gained=1 
+PU/u04_default_key_pattern alloff lost=0 gained=1 
+PU/u04_default_key_pattern offL178 lost=0 gained=1 
+PU/u04_default_key_pattern off_pkgPatUnqualReadTsNoParent178 lost=0 gained=1 
+PU/u04_default_key_pattern pre lost=0 gained=1 
+PU/u04_default_key_pattern preoff lost=0 gained=1 
+PU/u04_default_key_pattern_el alloff lost=0 gained=1 
+PU/u04_default_key_pattern_el offL178 lost=0 gained=1 
+PU/u04_default_key_pattern_el off_pkgPatUnqualReadTsNoParent178 lost=0 gained=1 
+PU/u04_default_key_pattern_el pre lost=0 gained=1 
+PU/u04_default_key_pattern_el preoff lost=0 gained=1 
+PU/u05_positional_read alloff lost=1 gained=1  | |vpiParent:
+PU/u05_positional_read offL178 lost=1 gained=1  | |vpiParent:
+PU/u05_positional_read off_pkgPatUnqualReadTsNoParent178 lost=1 gained=1  | |vpiParent:
+PU/u05_positional_read pre lost=1 gained=1  | |vpiParent:
+PU/u05_positional_read preoff lost=1 gained=1  | |vpiParent:
+PU/u05_positional_read_el alloff lost=1 gained=1  | |vpiParent:
+PU/u05_positional_read_el offL178 lost=1 gained=1  | |vpiParent:
+PU/u05_positional_read_el off_pkgPatUnqualReadTsNoParent178 lost=1 gained=1  | |vpiParent:
+PU/u05_positional_read_el pre lost=1 gained=1  | |vpiParent:
+PU/u05_positional_read_el preoff lost=1 gained=1  | |vpiParent:
+PU/u06_whole_copy_and_bits alloff lost=3 gained=1  | |vpiParent: || \_ref_typespec: (p) || |vpiFullName:p
+PU/u06_whole_copy_and_bits offL178 lost=3 gained=1  | |vpiParent: || \_ref_typespec: (p) || |vpiFullName:p
+PU/u06_whole_copy_and_bits off_pkgPatUnqualReadTsNoParent178 lost=3 gained=1  | |vpiParent: || \_ref_typespec: (p) || |vpiFullName:p
+PU/u06_whole_copy_and_bits pre lost=3 gained=1  | |vpiParent: || \_ref_typespec: (p) || |vpiFullName:p
+PU/u06_whole_copy_and_bits preoff lost=3 gained=1  | |vpiParent: || \_ref_typespec: (p) || |vpiFullName:p
+PU/u06_whole_copy_and_bits_el alloff lost=3 gained=1  | |vpiParent: || \_ref_typespec: (p) || |vpiFullName:p
+PU/u06_whole_copy_and_bits_el offL178 lost=3 gained=1  | |vpiParent: || \_ref_typespec: (p) || |vpiFullName:p
+PU/u06_whole_copy_and_bits_el off_pkgPatUnqualReadTsNoParent178 lost=3 gained=1  | |vpiParent: || \_ref_typespec: (p) || |vpiFullName:p
+PU/u06_whole_copy_and_bits_el pre lost=3 gained=1  | |vpiParent: || \_ref_typespec: (p) || |vpiFullName:p
+PU/u06_whole_copy_and_bits_el preoff lost=3 gained=1  | |vpiParent: || \_ref_typespec: (p) || |vpiFullName:p
+PU/u07_other_pkg_read alloff lost=1 gained=1  | \_operation: , line:4:24, endln:4:35
+PU/u07_other_pkg_read offL178 lost=1 gained=1  | \_operation: , line:4:24, endln:4:35
+PU/u07_other_pkg_read off_pkgPatUnqualReadTsNoParent178 lost=1 gained=1  | \_operation: , line:4:24, endln:4:35
+PU/u07_other_pkg_read pre lost=1 gained=1  | \_operation: , line:4:24, endln:4:35
+PU/u07_other_pkg_read preoff lost=1 gained=1  | \_operation: , line:4:24, endln:4:35
+PU/u07_other_pkg_read_el alloff lost=2 gained=1  | |vpiParent: || \_operation: , line:4:24, endln:4:35
+PU/u07_other_pkg_read_el offL178 lost=2 gained=1  | |vpiParent: || \_operation: , line:4:24, endln:4:35
+PU/u07_other_pkg_read_el off_pkgPatUnqualReadTsNoParent178 lost=2 gained=1  | |vpiParent: || \_operation: , line:4:24, endln:4:35
+PU/u07_other_pkg_read_el pre lost=2 gained=1  | |vpiParent: || \_operation: , line:4:24, endln:4:35
+PU/u07_other_pkg_read_el preoff lost=2 gained=1  | |vpiParent: || \_operation: , line:4:24, endln:4:35
+TW/w01_nested_static_extern alloff lost=0 gained=18 
+TW/w01_nested_static_extern offL176 lost=0 gained=18 
+TW/w01_nested_static_extern off_tfArgClassMethodOrder176 lost=0 gained=16 
+TW/w01_nested_static_extern pre lost=0 gained=18 
+TW/w01_nested_static_extern preoff lost=0 gained=18 
+TW/w01_nested_static_extern_el alloff lost=0 gained=20 
+TW/w01_nested_static_extern_el offL176 lost=0 gained=20 
+TW/w01_nested_static_extern_el off_tfArgClassMethodOrder176 lost=0 gained=18 
+TW/w01_nested_static_extern_el pre lost=0 gained=20 
+TW/w01_nested_static_extern_el preoff lost=0 gained=20 
+TW/w04_qual_formal_imported_pkg alloff lost=0 gained=8 
+TW/w04_qual_formal_imported_pkg offL176 lost=0 gained=8 
+TW/w04_qual_formal_imported_pkg off_tfArgQualOutsideWriter176 lost=0 gained=8 
+TW/w04_qual_formal_imported_pkg pre lost=0 gained=8 
+TW/w04_qual_formal_imported_pkg preoff lost=0 gained=8 
+TW/w04_qual_formal_imported_pkg_el alloff lost=0 gained=9 
+TW/w04_qual_formal_imported_pkg_el offL176 lost=0 gained=9 
+TW/w04_qual_formal_imported_pkg_el off_tfArgQualOutsideWriter176 lost=0 gained=9 
+TW/w04_qual_formal_imported_pkg_el pre lost=0 gained=9 
+TW/w04_qual_formal_imported_pkg_el preoff lost=0 gained=9 
+TW/w10_split_prog_outside alloff lost=0 gained=13 
+TW/w10_split_prog_outside offL176 lost=0 gained=13 
+TW/w10_split_prog_outside off_tfArgDefTopSplit176 lost=0 gained=13 
+TW/w10_split_prog_outside pre lost=0 gained=13 
+TW/w10_split_prog_outside preoff lost=0 gained=13 
+TW/w10_split_prog_outside_el alloff lost=0 gained=13 
+TW/w10_split_prog_outside_el offL176 lost=0 gained=13 
+TW/w10_split_prog_outside_el off_tfArgDefTopSplit176 lost=0 gained=13 
+TW/w10_split_prog_outside_el pre lost=0 gained=13 
+TW/w10_split_prog_outside_el preoff lost=0 gained=13 
+TW/w11_split_iface_two_inside alloff lost=0 gained=19 
+TW/w11_split_iface_two_inside offL176 lost=0 gained=19 
+TW/w11_split_iface_two_inside off_tfArgDefTopSplit176 lost=0 gained=19 
+TW/w11_split_iface_two_inside pre lost=0 gained=19 
+TW/w11_split_iface_two_inside preoff lost=0 gained=19 
+TW/w11_split_iface_two_inside_el alloff lost=0 gained=23 
+TW/w11_split_iface_two_inside_el offL176 lost=0 gained=23 
+TW/w11_split_iface_two_inside_el off_tfArgDefTopSplit176 lost=0 gained=23 
+TW/w11_split_iface_two_inside_el pre lost=0 gained=23 
+TW/w11_split_iface_two_inside_el preoff lost=0 gained=23 
+TW/w12_split_task_output_default alloff lost=0 gained=15 
+TW/w12_split_task_output_default offL176 lost=0 gained=15 
+TW/w12_split_task_output_default off_tfArgDefTopSplit176 lost=0 gained=15 
+TW/w12_split_task_output_default pre lost=0 gained=15 
+TW/w12_split_task_output_default preoff lost=0 gained=15 
+TW/w12_split_task_output_default_el alloff lost=0 gained=16 
+TW/w12_split_task_output_default_el offL176 lost=0 gained=16 
+TW/w12_split_task_output_default_el off_tfArgDefTopSplit176 lost=0 gained=16 
+TW/w12_split_task_output_default_el pre lost=0 gained=16 
+TW/w12_split_task_output_default_el preoff lost=0 gained=16 
+TW/w14_cls_qual_imported_only alloff lost=0 gained=12 
+TW/w14_cls_qual_imported_only offL176 lost=0 gained=12 
+TW/w14_cls_qual_imported_only off_tfArgClassMethodOrder176 lost=0 gained=12 
+TW/w14_cls_qual_imported_only off_tfArgQualOutsideWriter176 lost=0 gained=12 
+TW/w14_cls_qual_imported_only pre lost=0 gained=12 
+TW/w14_cls_qual_imported_only preoff lost=0 gained=12 
+TW/w14_cls_qual_imported_only_el alloff lost=0 gained=16 
+TW/w14_cls_qual_imported_only_el offL176 lost=0 gained=16 
+TW/w14_cls_qual_imported_only_el off_tfArgClassMethodOrder176 lost=0 gained=16 
+TW/w14_cls_qual_imported_only_el off_tfArgQualOutsideWriter176 lost=0 gained=16 
+TW/w14_cls_qual_imported_only_el pre lost=0 gained=16 
+TW/w14_cls_qual_imported_only_el preoff lost=0 gained=16 
+TW/w15_qual_iface_ref_struct alloff lost=0 gained=6 
+TW/w15_qual_iface_ref_struct offL176 lost=0 gained=6 
+TW/w15_qual_iface_ref_struct off_tfArgQualOutsideWriter176 lost=0 gained=6 
+TW/w15_qual_iface_ref_struct pre lost=0 gained=6 
+TW/w15_qual_iface_ref_struct preoff lost=0 gained=6 
+TW/w15_qual_iface_ref_struct_el alloff lost=0 gained=6 
+TW/w15_qual_iface_ref_struct_el offL176 lost=0 gained=6 
+TW/w15_qual_iface_ref_struct_el off_tfArgQualOutsideWriter176 lost=0 gained=6 
+TW/w15_qual_iface_ref_struct_el pre lost=0 gained=6 
+TW/w15_qual_iface_ref_struct_el preoff lost=0 gained=6 
+TW/w16_qual_union_modfunc alloff lost=0 gained=5 
+TW/w16_qual_union_modfunc offL176 lost=0 gained=5 
+TW/w16_qual_union_modfunc off_tfArgQualOutsideWriter176 lost=0 gained=5 
+TW/w16_qual_union_modfunc pre lost=0 gained=5 
+TW/w16_qual_union_modfunc preoff lost=0 gained=5 
+TW/w16_qual_union_modfunc_el alloff lost=0 gained=7 
+TW/w16_qual_union_modfunc_el offL176 lost=0 gained=7 
+TW/w16_qual_union_modfunc_el off_tfArgQualOutsideWriter176 lost=0 gained=7 
+TW/w16_qual_union_modfunc_el pre lost=0 gained=7 
+TW/w16_qual_union_modfunc_el preoff lost=0 gained=7 
+UD/u06_lit_first alloff lost=3 gained=14  | |vpiOperand: || |vpiParent: || \_operation: , line:9:9, endln:9:22
+UD/u06_lit_first offL176 lost=3 gained=14  | |vpiOperand: || |vpiParent: || \_operation: , line:9:9, endln:9:22
+UD/u06_lit_first off_udpFormNetLvalueFirst176 lost=3 gained=14  | |vpiOperand: || |vpiParent: || \_operation: , line:9:9, endln:9:22
+UD/u06_lit_first pre lost=3 gained=14  | |vpiOperand: || |vpiParent: || \_operation: , line:9:9, endln:9:22
+UD/u06_lit_first preoff lost=3 gained=14  | |vpiOperand: || |vpiParent: || \_operation: , line:9:9, endln:9:22
+UD/u06_lit_first_el alloff lost=3 gained=13  | |vpiOperand: || |vpiParent: || \_operation: , line:9:9, endln:9:22
+UD/u06_lit_first_el offL176 lost=3 gained=13  | |vpiOperand: || |vpiParent: || \_operation: , line:9:9, endln:9:22
+UD/u06_lit_first_el off_udpFormNetLvalueFirst176 lost=3 gained=13  | |vpiOperand: || |vpiParent: || \_operation: , line:9:9, endln:9:22
+UD/u06_lit_first_el pre lost=3 gained=13  | |vpiOperand: || |vpiParent: || \_operation: , line:9:9, endln:9:22
+UD/u06_lit_first_el preoff lost=3 gained=13  | |vpiOperand: || |vpiParent: || \_operation: , line:9:9, endln:9:22
+X/x02_progmp_idx_actual alloff lost=0 gained=1 
+X/x02_progmp_idx_actual offL176 lost=0 gained=1 
+X/x02_progmp_idx_actual pre lost=0 gained=1 
+X/x02_progmp_idx_actual preoff lost=0 gained=1 
+X/x02_progmp_idx_actual_el alloff lost=0 gained=1 
+X/x02_progmp_idx_actual_el offL176 lost=0 gained=1 
+X/x02_progmp_idx_actual_el pre lost=0 gained=1 
+X/x02_progmp_idx_actual_el preoff lost=0 gained=1 
+X/x03_extern_locals_import alloff lost=0 gained=350 
+X/x03_extern_locals_import off2_importCloneBodyLocalCopies175_externProtoFormalsFromPrototype175 lost=0 gained=350 
+X/x03_extern_locals_import offL176 lost=0 gained=13 
+X/x03_extern_locals_import offL178 lost=0 gained=337 
+X/x03_extern_locals_import off_externProtoFormalsFromPrototype175 lost=0 gained=13 
+X/x03_extern_locals_import off_importCloneBodyLocalCopies175 lost=0 gained=337 
+X/x03_extern_locals_import pre lost=0 gained=350 
+X/x03_extern_locals_import preoff lost=0 gained=350 
+X/x03_extern_locals_import_el alloff lost=0 gained=95 
+X/x03_extern_locals_import_el off2_importCloneBodyLocalCopies175_externProtoFormalsFromPrototype175 lost=0 gained=95 
+X/x03_extern_locals_import_el offL176 lost=0 gained=13 
+X/x03_extern_locals_import_el offL178 lost=0 gained=82 
+X/x03_extern_locals_import_el off_externProtoFormalsFromPrototype175 lost=0 gained=13 
+X/x03_extern_locals_import_el off_importCloneBodyLocalCopies175 lost=0 gained=82 
+X/x03_extern_locals_import_el pre lost=0 gained=95 
+X/x03_extern_locals_import_el preoff lost=0 gained=95 
+X/x04_clsmethod_default_pkgparam alloff lost=11 gained=14  | \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+X/x04_clsmethod_default_pkgparam off2_tfArgClassMethodOrder176_refFullNameThroughNamedExpr175 lost=11 gained=14  | \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+X/x04_clsmethod_default_pkgparam offL176 lost=11 gained=14  | \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+X/x04_clsmethod_default_pkgparam off_tfArgClassMethodOrder176 lost=11 gained=14  | \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+X/x04_clsmethod_default_pkgparam pre lost=11 gained=14  | \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+X/x04_clsmethod_default_pkgparam preoff lost=11 gained=14  | \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+X/x04_clsmethod_default_pkgparam_el alloff lost=10 gained=18  | \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+X/x04_clsmethod_default_pkgparam_el off2_tfArgClassMethodOrder176_refFullNameThroughNamedExpr175 lost=10 gained=18  | \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+X/x04_clsmethod_default_pkgparam_el offL176 lost=10 gained=18  | \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+X/x04_clsmethod_default_pkgparam_el off_tfArgClassMethodOrder176 lost=10 gained=18  | \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+X/x04_clsmethod_default_pkgparam_el pre lost=10 gained=18  | \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+X/x04_clsmethod_default_pkgparam_el preoff lost=10 gained=18  | \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42 || \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+X/x05_castclone_twosel_rhs alloff lost=0 gained=30 
+X/x05_castclone_twosel_rhs off2_castRhsClonePerInst176_hierPathSelIdxAtPath178 lost=0 gained=30 
+X/x05_castclone_twosel_rhs off2_castRhsClonePerInst176_hierPathSelIdxCloneKeepsElem178v lost=0 gained=28 
+X/x05_castclone_twosel_rhs off2_hierPathSelIdxCloneKeepsElem178v_hierPathSelIdxAtPath178 lost=0 gained=30 
+X/x05_castclone_twosel_rhs offL178 lost=0 gained=30 
+X/x05_castclone_twosel_rhs off_hierPathSelIdxAtPath178 lost=0 gained=30 
+X/x05_castclone_twosel_rhs off_hierPathSelIdxCloneKeepsElem178v lost=0 gained=28 
+X/x05_castclone_twosel_rhs pre lost=0 gained=30 
+X/x05_castclone_twosel_rhs preoff lost=0 gained=30 
+X/x05_castclone_twosel_rhs_el alloff lost=0 gained=30 
+X/x05_castclone_twosel_rhs_el off2_castRhsClonePerInst176_hierPathSelIdxAtPath178 lost=0 gained=30 
+X/x05_castclone_twosel_rhs_el off2_hierPathSelIdxCloneKeepsElem178v_hierPathSelIdxAtPath178 lost=0 gained=30 
+X/x05_castclone_twosel_rhs_el offL178 lost=0 gained=30 
+X/x05_castclone_twosel_rhs_el off_hierPathSelIdxAtPath178 lost=0 gained=30 
+X/x05_castclone_twosel_rhs_el pre lost=0 gained=30 
+X/x05_castclone_twosel_rhs_el preoff lost=0 gained=30 
+X/x06_udp_genfold_positional alloff lost=7 gained=17  | |vpiParent: || |vpiOperand: || \_operation: , line:11:10, endln:11:25
+X/x06_udp_genfold_positional off2_udpFormNetLvalueFirst176_genCaFoldTsChainNamed169 lost=7 gained=17  | |vpiParent: || |vpiOperand: || \_operation: , line:11:10, endln:11:25
+X/x06_udp_genfold_positional offL176 lost=7 gained=17  | |vpiParent: || |vpiOperand: || \_operation: , line:11:10, endln:11:25
+X/x06_udp_genfold_positional off_udpFormNetLvalueFirst176 lost=7 gained=17  | |vpiParent: || |vpiOperand: || \_operation: , line:11:10, endln:11:25
+X/x06_udp_genfold_positional pre lost=7 gained=17  | |vpiParent: || |vpiOperand: || \_operation: , line:11:10, endln:11:25
+X/x06_udp_genfold_positional preoff lost=7 gained=17  | |vpiParent: || |vpiOperand: || \_operation: , line:11:10, endln:11:25
+X/x06_udp_genfold_positional_el alloff lost=9 gained=19  | |vpiParent: || |vpiOperand: || \_operation: , line:11:10, endln:11:25
+X/x06_udp_genfold_positional_el off2_udpFormNetLvalueFirst176_genCaFoldTsChainNamed169 lost=9 gained=19  | |vpiParent: || |vpiOperand: || \_operation: , line:11:10, endln:11:25
+X/x06_udp_genfold_positional_el offL176 lost=9 gained=19  | |vpiParent: || |vpiOperand: || \_operation: , line:11:10, endln:11:25
+X/x06_udp_genfold_positional_el off_udpFormNetLvalueFirst176 lost=9 gained=19  | |vpiParent: || |vpiOperand: || \_operation: , line:11:10, endln:11:25
+X/x06_udp_genfold_positional_el pre lost=9 gained=19  | |vpiParent: || |vpiOperand: || \_operation: , line:11:10, endln:11:25
+X/x06_udp_genfold_positional_el preoff lost=9 gained=19  | |vpiParent: || |vpiOperand: || \_operation: , line:11:10, endln:11:25
+XP/x01_default_both_pkgparam alloff lost=0 gained=10 
+XP/x01_default_both_pkgparam offL176 lost=0 gained=10 
+XP/x01_default_both_pkgparam off_externProtoFormalsFromPrototype175 lost=0 gained=10 
+XP/x01_default_both_pkgparam pre lost=0 gained=10 
+XP/x01_default_both_pkgparam preoff lost=0 gained=10 
+XP/x01_default_both_pkgparam_el alloff lost=0 gained=10 
+XP/x01_default_both_pkgparam_el offL176 lost=0 gained=10 
+XP/x01_default_both_pkgparam_el off_externProtoFormalsFromPrototype175 lost=0 gained=10 
+XP/x01_default_both_pkgparam_el pre lost=0 gained=10 
+XP/x01_default_both_pkgparam_el preoff lost=0 gained=10 
+XP/x02_otherpkg_typedef_formals alloff lost=0 gained=4 
+XP/x02_otherpkg_typedef_formals offL176 lost=0 gained=4 
+XP/x02_otherpkg_typedef_formals off_externProtoFormalsFromPrototype175 lost=0 gained=4 
+XP/x02_otherpkg_typedef_formals pre lost=0 gained=4 
+XP/x02_otherpkg_typedef_formals preoff lost=0 gained=4 
+XP/x02_otherpkg_typedef_formals_el alloff lost=0 gained=4 
+XP/x02_otherpkg_typedef_formals_el offL176 lost=0 gained=4 
+XP/x02_otherpkg_typedef_formals_el off_externProtoFormalsFromPrototype175 lost=0 gained=4 
+XP/x02_otherpkg_typedef_formals_el pre lost=0 gained=4 
+XP/x02_otherpkg_typedef_formals_el preoff lost=0 gained=4 
+XP/x03_static_virtual_extern alloff lost=0 gained=21 
+XP/x03_static_virtual_extern offL176 lost=0 gained=21 
+XP/x03_static_virtual_extern off_externProtoFormalsFromPrototype175 lost=0 gained=21 
+XP/x03_static_virtual_extern pre lost=0 gained=21 
+XP/x03_static_virtual_extern preoff lost=0 gained=21 
+XP/x03_static_virtual_extern_el alloff lost=0 gained=21 
+XP/x03_static_virtual_extern_el offL176 lost=0 gained=21 
+XP/x03_static_virtual_extern_el off_externProtoFormalsFromPrototype175 lost=0 gained=21 
+XP/x03_static_virtual_extern_el pre lost=0 gained=21 
+XP/x03_static_virtual_extern_el preoff lost=0 gained=21 
+XP/x04_def_in_include alloff lost=0 gained=15 
+XP/x04_def_in_include offL176 lost=0 gained=15 
+XP/x04_def_in_include off_externProtoFormalsFromPrototype175 lost=0 gained=15 
+XP/x04_def_in_include pre lost=0 gained=15 
+XP/x04_def_in_include preoff lost=0 gained=15 
+XP/x04_def_in_include_el alloff lost=0 gained=15 
+XP/x04_def_in_include_el offL176 lost=0 gained=15 
+XP/x04_def_in_include_el off_externProtoFormalsFromPrototype175 lost=0 gained=15 
+XP/x04_def_in_include_el pre lost=0 gained=15 
+XP/x04_def_in_include_el preoff lost=0 gained=15 
+XP/x05_param_class_default alloff lost=1 gained=16  | \_io_decl: (i), line:6:37, endln:6:38
+XP/x05_param_class_default offL176 lost=1 gained=16  | \_io_decl: (i), line:6:37, endln:6:38
+XP/x05_param_class_default off_externProtoFormalsFromPrototype175 lost=1 gained=16  | \_io_decl: (i), line:6:37, endln:6:38
+XP/x05_param_class_default pre lost=1 gained=16  | \_io_decl: (i), line:6:37, endln:6:38
+XP/x05_param_class_default preoff lost=1 gained=16  | \_io_decl: (i), line:6:37, endln:6:38
+XP/x05_param_class_default_el alloff lost=0 gained=17 
+XP/x05_param_class_default_el offL176 lost=0 gained=17 
+XP/x05_param_class_default_el off_externProtoFormalsFromPrototype175 lost=0 gained=17 
+XP/x05_param_class_default_el pre lost=0 gained=17 
+XP/x05_param_class_default_el preoff lost=0 gained=17 
+XP/x06_def_adds_default alloff lost=0 gained=18 
+XP/x06_def_adds_default offL176 lost=0 gained=18 
+XP/x06_def_adds_default off_externProtoFormalsFromPrototype175 lost=0 gained=18 
+XP/x06_def_adds_default pre lost=0 gained=18 
+XP/x06_def_adds_default preoff lost=0 gained=18 
+XP/x06_def_adds_default_el alloff lost=0 gained=18 
+XP/x06_def_adds_default_el offL176 lost=0 gained=18 
+XP/x06_def_adds_default_el off_externProtoFormalsFromPrototype175 lost=0 gained=18 
+XP/x06_def_adds_default_el pre lost=0 gained=18 
+XP/x06_def_adds_default_el preoff lost=0 gained=18 
+XP/x07_ref_multi_decl alloff lost=0 gained=19 
+XP/x07_ref_multi_decl offL176 lost=0 gained=19 
+XP/x07_ref_multi_decl off_externProtoFormalsFromPrototype175 lost=0 gained=19 
+XP/x07_ref_multi_decl pre lost=0 gained=19 
+XP/x07_ref_multi_decl preoff lost=0 gained=19 
+XP/x07_ref_multi_decl_el alloff lost=0 gained=19 
+XP/x07_ref_multi_decl_el offL176 lost=0 gained=19 
+XP/x07_ref_multi_decl_el off_externProtoFormalsFromPrototype175 lost=0 gained=19 
+XP/x07_ref_multi_decl_el pre lost=0 gained=19 
+XP/x07_ref_multi_decl_el preoff lost=0 gained=19 
+XP/x08_enum_ret_otherpkg_default alloff lost=8 gained=8  | \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_io_decl: (c), line:10:32, endln:10:33
+XP/x08_enum_ret_otherpkg_default offL176 lost=8 gained=8  | \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_io_decl: (c), line:10:32, endln:10:33
+XP/x08_enum_ret_otherpkg_default off_externProtoFormalsFromPrototype175 lost=8 gained=8  | \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_io_decl: (c), line:10:32, endln:10:33
+XP/x08_enum_ret_otherpkg_default pre lost=8 gained=8  | \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_io_decl: (c), line:10:32, endln:10:33
+XP/x08_enum_ret_otherpkg_default preoff lost=8 gained=8  | \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_io_decl: (c), line:10:32, endln:10:33
+XP/x08_enum_ret_otherpkg_default_el alloff lost=8 gained=8  | \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_io_decl: (c), line:10:32, endln:10:33
+XP/x08_enum_ret_otherpkg_default_el offL176 lost=8 gained=8  | \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_io_decl: (c), line:10:32, endln:10:33
+XP/x08_enum_ret_otherpkg_default_el off_externProtoFormalsFromPrototype175 lost=8 gained=8  | \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_io_decl: (c), line:10:32, endln:10:33
+XP/x08_enum_ret_otherpkg_default_el pre lost=8 gained=8  | \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_io_decl: (c), line:10:32, endln:10:33
+XP/x08_enum_ret_otherpkg_default_el preoff lost=8 gained=8  | \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_enum_var: (pb::k::next), line:10:12, endln:10:17 || \_io_decl: (c), line:10:32, endln:10:33

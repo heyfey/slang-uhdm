@@ -1,0 +1,36 @@
+=== gold: module M definition, port g
+  \_port: (g), line:8:34, endln:8:35
+    |vpiParent:
+    \_module_inst: work@M (work@M), file:dut.sv, line:8:1, endln:8:68
+    |vpiName:g
+    |vpiDirection:3
+    |vpiLowConn:
+    \_ref_obj: (work@M.g.g), line:8:34, endln:8:35
+      |vpiParent:
+      \_port: (g), line:8:34, endln:8:35
+      |vpiName:g
+      |vpiFullName:work@M.g.g
+      |vpiActual:
+      \_interface_inst: work@ConnectTB (work@ConnectTB), file:dut.sv, line:2:1, endln:7:13
+    |vpiTypedef:
+    \_ref_typespec: (work@M.g)
+      |vpiParent:
+      \_port: (g), line:8:34, endln:8:35
+=== on: module M definition, port g
+  \_port: (g), line:8:34, endln:8:35
+    |vpiParent:
+    \_module_inst: work@M (work@M), file:dut.sv, line:8:1, endln:8:68
+    |vpiName:g
+    |vpiDirection:3
+    |vpiLowConn:
+    \_ref_obj: (work@M.g.g), line:8:34, endln:8:35
+      |vpiParent:
+      \_port: (g), line:8:34, endln:8:35
+      |vpiName:g
+      |vpiFullName:work@M.g.g
+      |vpiActual:
+      \_logic_net: (work@M.g), line:8:34, endln:8:35
+    |vpiTypedef:
+    \_ref_typespec: (work@M.g)
+      |vpiParent:
+      \_port: (g), line:8:34, endln:8:35

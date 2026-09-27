@@ -1,0 +1,26 @@
+X/x04 default: targets of the pb::DEF parameter's ref_typespec (the import-parameter copy) per state
+== golden
+130-      \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+218-        \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+364-      \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+452-        \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+== on
+130-      \_enum_typespec: (pa::e_t), line:12:23, endln:12:26
+218-        \_enum_typespec: (pa::e_t), line:12:23, endln:12:26
+364-      \_enum_typespec: (pa::e_t), line:12:23, endln:12:26
+452-        \_enum_typespec: (pa::e_t), line:12:23, endln:12:26
+== off_tfArgClassMethodOrder176
+130-      \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+218-        \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+364-      \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+452-        \_enum_typespec: (pa::e_t), line:4:3, endln:4:42
+
+enum_typespec (pa::e_t) references by location:
+== golden
+     14 enum_typespec: (pa::e_t), line:12:23, endln:12:26
+     85 enum_typespec: (pa::e_t), line:4:3, endln:4:42
+== on
+     22 enum_typespec: (pa::e_t), line:12:23, endln:12:26
+     14 enum_typespec: (pa::e_t), line:4:3, endln:4:42
+== off_tfArgClassMethodOrder176
+     36 enum_typespec: (pa::e_t), line:4:3, endln:4:42
