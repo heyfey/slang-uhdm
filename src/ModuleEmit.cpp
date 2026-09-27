@@ -1,3 +1,4 @@
+#include <unistd.h>
 //------------------------------------------------------------------------------
 //! @file ModuleEmit.cpp
 //! @brief Module definitions, instances, ports, continuous assigns
@@ -26,6 +27,50 @@
 #include "slang/syntax/SyntaxTree.h"
 
 namespace slang_uhdm {
+
+// The r11u183 switches (tools/probe/r11u183dec/README.md): every r11u183 law
+// reads its own R11U183_<LAW>_OFF switch; R11U183_OFF drops all of them.
+// R11U183_TRACE=<dir> names every firing of an r11u183 law (the mover
+// census): one file per process, `<dir>/<pid>.<unit>`, its first line the
+// `-o` database path read off the command line, then one law name per firing.
+static void tr183ME(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U183_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".ME";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+static bool r11u183LawME(const char* sw) {
+    if (getenv("R11U183_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 
 // § tpDimVecPortTsIsDefault120 (r11u120) — THE VECTOR LEAF of
 // § tpDimPortTsIsDefault41.  A port written `data_t [N-1:0] p`, where `data_t`
@@ -5215,6 +5260,31 @@ void UhdmExporter::emitImportedPkgVarNets(const InstanceBodySymbol& body,
             importedPkgVarTs203 = true;
             auto* ts9 = makeTypespec(*iv9);
             importedPkgVarTs203 = savedIPV203;
+            // § importNetTsToInitEnd183 (r11u183, R11U183_TSSPAN_OFF) — the
+            // module's re-created typespec of an imported package variable
+            // WITH an initializer runs from its type token to the END of the
+            // initializer (golden ApbSlave `const string svunit_version =
+            // "..."` string_typespec 29:9-29:92, ours the `string` token
+            // 29:9-29:15; `int cnt = 3;` 3:3-3:14); without one it is the
+            // type token alone (grid tools/probe/r11u183dec/cases/h h11-h13).
+            // A CLASS handle's typespec is compileTypespec's own mint for the
+            // class NAME, located at that token whatever the initializer
+            // (h14 `c h = null;` 3:3-3:4; probe r10uvm226repro a11_nested).
+            if (ts9 && ts9->VpiLineNo() != 0 &&
+                ts9->UhdmType() != UHDM::uhdmclass_typespec &&
+                r11u183LawME("R11U183_TSSPAN_OFF") &&
+                r11u183LawME("R11U183_IMPNETTS_OFF"))
+                if (auto* ds183 = iv9->getSyntax();
+                    ds183 && ds183->kind == syntax::SyntaxKind::Declarator)
+                    if (auto* in183 = ds183->as<syntax::DeclaratorSyntax>().initializer;
+                        in183 && in183->expr) {
+                        auto e183 = in183->expr->sourceRange().end();
+                        if (!sm->isMacroLoc(e183)) {
+                            tr183ME("importNetTsToInitEnd183");
+                            ts9->VpiEndLineNo(sm->getLineNumber(e183));
+                            ts9->VpiEndColumnNo(sm->getColumnNumber(e183));
+                        }
+                    }
             if (ts9) {
                 auto* rt9 = s.MakeRef_typespec();
                 rt9->VpiFullName(prefix + "." + std::string(iv9->name));
@@ -9861,6 +9931,23 @@ static UHDM::any* importParamCopy82(UHDM::Serializer& s, UHDM::any* src,
                                                       : std::string(sp->VpiFullName()));
     cp->VpiParent(parent);
     cp->VpiImported(pkgName);
+    // § classImportParamOwnRefs183 (r11u183, R11U183_UVMCOPY_OFF) — the copy
+    // is a whole `clone_tree` of the listing entry, so its typespec REFERENCE
+    // is its own object too (named by the copy, `s::d1::A`), where the shared
+    // pointer made the walk meet the package's reference once and list
+    // nothing under the class (map N0151, 2 objects per copy: MiniAmiq
+    // `svaunit_pkg::svaunit_sequencer::UVM_ABSTRACT`).  The typespec itself
+    // stays shared (canonical).  Grid tools/probe/r11u183dec/cases/g k01.
+    if (auto* srt183 = sp->Typespec();
+        srt183 && r11u183LawME("R11U183_UVMCOPY_OFF") &&
+        r11u183LawME("R11U183_IMPCOPY_OFF")) {
+        tr183ME("classImportParamOwnRefs183");
+        auto* rt183 = s.MakeRef_typespec();
+        rt183->VpiFullName(std::string(cp->VpiFullName()));
+        rt183->VpiParent(cp);
+        rt183->Actual_typespec(srt183->Actual_typespec());
+        cp->Typespec(rt183);
+    }
     return cp;
 }
 
@@ -9887,6 +9974,40 @@ static UHDM::param_assign* importPaCopy82(UHDM::Serializer& s,
     cp->VpiEndColumnNo(src->VpiEndColumnNo());
     cp->VpiParent(cd);
     cp->Lhs(importParamCopy82(s, src->Lhs(), cp, pkgName, ownerFull));
+    // § classImportParamOwnRefs183 — the ASSIGN arm's right-hand constant is
+    // the clone's own as well, its typespec reference named by the CLASS
+    // (golden `s::d1`; map N0262, 3 objects per copy).
+    if (auto* rc183 = src->Rhs();
+        rc183 && rc183->UhdmType() == UHDM::uhdmconstant &&
+        // An UNSIZED based literal (`'hf000000`) is cloned from the
+        // parameter's UN-adjusted compile (golden: vpiSize -1, a typespec
+        // reference with no actual — MiniAmiq svaunit_concurrent_assertion_
+        // details); that copy is not modelled, so it stays shared (residue).
+        ((UHDM::constant*)rc183)->VpiDecompile().rfind("'", 0) != 0 &&
+        r11u183LawME("R11U183_UVMCOPY_OFF") &&
+        r11u183LawME("R11U183_IMPCOPY_OFF")) {
+        tr183ME("classImportParamOwnRefs183");
+        auto* sc183 = (UHDM::constant*)rc183;
+        auto* c183 = s.MakeConstant();
+        c183->VpiValue(std::string(sc183->VpiValue()));
+        c183->VpiDecompile(std::string(sc183->VpiDecompile()));
+        c183->VpiSize(sc183->VpiSize());
+        c183->VpiConstType(sc183->VpiConstType());
+        c183->VpiFile(std::string(sc183->VpiFile()));
+        c183->VpiLineNo(sc183->VpiLineNo());
+        c183->VpiColumnNo(sc183->VpiColumnNo());
+        c183->VpiEndLineNo(sc183->VpiEndLineNo());
+        c183->VpiEndColumnNo(sc183->VpiEndColumnNo());
+        c183->VpiParent(cp);
+        if (auto* crt183 = sc183->Typespec()) {
+            auto* rt183 = s.MakeRef_typespec();
+            rt183->VpiFullName(ownerFull);
+            rt183->VpiParent(c183);
+            rt183->Actual_typespec(crt183->Actual_typespec());
+            c183->Typespec(rt183);
+        }
+        cp->Rhs(c183);
+    }
     return cp;
 }
 
@@ -10163,6 +10284,8 @@ void UhdmExporter::classInheritsContainerImports23() {
 // Switch R11U180_ENUMIMP_OFF.
 bool r11u180Law(const char* sw);
 void trace180(const char* law, const std::string& detail);
+bool r11u186Law(const char* sw);   // the r11u186 switches (UhdmExporter.cpp)
+void trace186(const char* law, const std::string& detail); // R11U186_TRACE
 namespace {
 struct EnumImpWrite180 {
     UHDM::typespec* ts;
@@ -10354,7 +10477,64 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
     // object: it re-parents it to the interface and re-scopes its base ref
     // fullname to work@<iface>.<pkg>::<name> (Surelog last-writer semantics).
     if (m->UhdmType() == UHDM::uhdminterface_inst) {
+        // § ifaceTwoPkgTdNameOrder186 (r11u186) — an interface WILDCARD-
+        // importing SEVERAL packages lists their typedefs in ONE name order:
+        // importPackage copies every package's typedefs into the interface's
+        // single DataTypeMap (a std::map keyed by the bare typedef name) and
+        // writeInterface's writeDataTypes walks it once (golden `a_t` p1,
+        // `b_t` p2, `c_t` p1, `d_t` p2), where § ifaceWildcardTdNameOrder180
+        // sorted per package.  Applied when every import of the interface is
+        // a wildcard, at least two packages are imported and no typedef name
+        // repeats across them (a repeated name is ONE map entry: not
+        // modelled).  The entries are collected first and replayed in that
+        // order through the unchanged per-typedef body below.  Grid
+        // tools/probe/r11u186repro/cases/W.  Switch R11U186_IFACE2PKG_OFF.
+        std::vector<std::pair<std::string_view, const Symbol*>> merged186;
+        bool merge186 = r11u186Law("R11U186_IFACE2PKG_OFF") &&
+                        r11u180Law("R11U180_IFACETDORDER_OFF");
+        {
+            size_t nimp186 = 0;
+            std::set<std::string_view> names186;
+            for (auto& mem : body.members()) {
+                if (mem.kind == SymbolKind::ExplicitImport)
+                    merge186 = false;
+                if (mem.kind != SymbolKind::WildcardImport)
+                    continue;
+                std::string_view pn186 = mem.as<WildcardImportSymbol>().packageName;
+                auto* pkg186 = comp.getPackage(pn186);
+                if (!pkg186)
+                    continue;
+                nimp186++;
+                for (auto& pm : pkg186->members())
+                    if (pm.kind == SymbolKind::TypeAlias) {
+                        if (!names186.insert(pm.name).second)
+                            merge186 = false;
+                        merged186.push_back({pn186, &pm});
+                    }
+            }
+            if (nimp186 < 2)
+                merge186 = false;
+            if (merge186) {
+                std::stable_sort(merged186.begin(), merged186.end(),
+                                 [](const auto& a, const auto& b) {
+                                     return a.second->name < b.second->name;
+                                 });
+                trace186("ifaceTwoPkgTdNameOrder186", std::string(m->VpiDefName()));
+            }
+        }
+        // The replay: with the merge, ONE pass over `merged186`; without it,
+        // one pass per import member as before.
+        std::vector<std::pair<std::string_view, std::vector<const Symbol*>>> passes186;
+        if (merge186) {
+            passes186.emplace_back();
+            for (auto& [pn186, pm186] : merged186) {
+                (void)pn186;
+                passes186.back().second.push_back(pm186);
+            }
+        }
         for (auto& mem : body.members()) {
+            if (merge186)
+                break;
             if (mem.kind != SymbolKind::WildcardImport &&
                 mem.kind != SymbolKind::ExplicitImport)
                 continue;
@@ -10388,7 +10568,13 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                     trace180("IFACETDORDER", std::string(m->VpiDefName()) + " " +
                                                  std::string(pn));
             }
-            for (auto* pmp : pms180) {
+            passes186.push_back({pn, pms180});
+        }
+        for (size_t x186 = 0; x186 < passes186.size(); x186++) {
+            for (size_t y186 = 0; y186 < passes186[x186].second.size(); y186++) {
+                auto* pmp = passes186[x186].second[y186];
+                std::string_view pn =
+                    merge186 ? merged186[y186].first : passes186[x186].first;
                 auto& pm = *pmp;
                 if (pm.kind != SymbolKind::TypeAlias)
                     continue;
@@ -10760,9 +10946,6 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                                         UHDM::uhdmlogic_typespec) {
                                     auto* ml9 = (UHDM::logic_typespec*)ma;
                                     if (auto* al9 = ml9->Typedef_alias()) {
-                                        al9->VpiFullName(
-                                            mFN + "." +
-                                            std::string(ml9->VpiName()));
                                         const Symbol* tdSym9 = nullptr;
                                         for (auto& [sy9, tsp9] : typedefTs)
                                             if (tsp9 ==
@@ -10770,6 +10953,27 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                                                 tdSym9 = sy9;
                                                 break;
                                             }
+                                        // § aliasOfTdSharedKeepsModName183
+                                        // (r11u183, R11U183_ALIASNAME_OFF) —
+                                        // only a per-member vector CLONE (its
+                                        // alias names a listed typedef) is
+                                        // re-scoped at the member.  The ONE
+                                        // shared alias-of-typedef object
+                                        // (`typedef imm_i_t imm_l_t`, its alias
+                                        // aimed at the bare target clone, not
+                                        // a listed typedef) keeps the
+                                        // module-scoped name emitPackage gave
+                                        // it: golden jeras_union
+                                        // `work@test_union.riscv_isa_pkg::imm_l_t`
+                                        // at all four listings (map N0938).
+                                        if (!tdSym9 && r11u183LawME(
+                                                           "R11U183_ALIASNAME_OFF"))
+                                            tr183ME("aliasOfTdSharedKeepsModName183");
+                                        if (tdSym9 || !r11u183LawME(
+                                                          "R11U183_ALIASNAME_OFF"))
+                                        al9->VpiFullName(
+                                            mFN + "." +
+                                            std::string(ml9->VpiName()));
                                         if (tdSym9) {
                                             if (auto tt9 =
                                                     pkgTopTypedefTs.find(
@@ -16571,6 +16775,21 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     // back-point at the range. (The DEF-view interface_array,
                     // built by makeIfaceArrayPortTs, DOES parent its range.)
                     setLoc(rng, dim->sourceRange());
+                    // § ifaceArrPortSizeDimAtExpr183 — the elaborated view's
+                    // size dimension spans its expression too.
+                    if (dim->specifier &&
+                        dim->specifier->kind ==
+                            syntax::SyntaxKind::RangeDimensionSpecifier &&
+                        r11u183LawME("R11U183_IFARR_OFF"))
+                        if (auto& sel183 =
+                                *dim->specifier
+                                     ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                     .selector;
+                            sel183.kind == syntax::SyntaxKind::BitSelect) {
+                            tr183ME("ifaceArrPortSizeDimAtExpr183");
+                            setLoc(rng, sel183.as<syntax::BitSelectSyntax>()
+                                            .expr->sourceRange());
+                        }
                     // A SIZE-specified dimension keeps its `0 : E-1` subOp
                     // unfolded here too — only the `[msb:lsb]` branch reduces.
                     bool sizeForm =
@@ -32583,7 +32802,24 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             pc.rt->Actual_typespec(it9);
             continue;
         }
-        if (uintFold && !isOverriddenParam(*pc.ps) &&
+        // § pkgParamFoldOwnTs183 (r11u183, R11U183_RANGEFILE_OFF) — the
+        // LOC-LESS bare clone is CompileHelper::setRange's, which only runs
+        // when the enclosing ModuleInstance holds a value for the name
+        // (CompileExpression.cpp getObject).  A PACKAGE parameter is never
+        // one of the instance's own, so the def-compiled constant keeps the
+        // parameter's declared typespec (declaration span, every range, sized
+        // and located bounds): ParameterFromPkgInNestedModule /
+        // ParameterFromPkgOnParameterPortList, grid a01.
+        const bool pkgOwnTs183 =
+            pc.ps->getParentScope() &&
+            pc.ps->getParentScope()->asSymbol().kind == SymbolKind::Package &&
+            r11u183LawME("R11U183_RANGEFILE_OFF") &&
+            // its own switch (r11u186), beside the family's
+            r11u183LawME("R11U183_PKGPARAMTS_OFF");
+        if (pkgOwnTs183 && uintFold && !isOverriddenParam(*pc.ps) &&
+            pc.ps->getType().getCanonicalType().isPackedArray())
+            tr183ME("pkgParamFoldOwnTs183");
+        if (uintFold && !pkgOwnTs183 && !isOverriddenParam(*pc.ps) &&
             pc.ps->getType().getCanonicalType().isPackedArray()) {
             if (auto* bare = makeBareVecParamTs(*pc.ps, /*parentBounds=*/true)) {
                 bare->VpiParent(pc.rt);
@@ -38715,12 +38951,50 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 setLoc(c, stripImplicitConv(ae.right()).sourceRange);
             else if (auto* dsy = paramDefaultSyn(ps2))
                 setLoc(c, dsy->sourceRange());
+            // § pkgParamElabCaSharesDefFold183 (r11u183,
+            // R11U183_RANGEFILE_OFF) — a PACKAGE parameter read is folded by
+            // the DEFINITION compile (the value is known then; getObject
+            // copies the declaration constant to the reference and never
+            // calls setRange, the instance holding no value for the name),
+            // and the elaborated cont_assign's clone keeps that constant
+            // (clone_tree constant::DeepClone returns `this` for a sized
+            // constant outside uniquifyTypespec).  So the elaborated Rhs IS
+            // the definition's constant: its written value forms and the
+            // parameter's own declared typespec, whose reference takes the
+            // instance's full name (elaboration writes it last).  Grid
+            // tools/probe/r11u183dec/cases/a a01, a07-a10.
+            UHDM::constant* defFold183 = nullptr;
+            if (impRef && defInfo && myIdx < defInfo->contAssigns.size() &&
+                defInfo->contAssigns[myIdx] &&
+                defInfo->contAssigns[myIdx]->Rhs() &&
+                defInfo->contAssigns[myIdx]->Rhs()->UhdmType() ==
+                    UHDM::uhdmconstant &&
+                // clone_tree's UINT arm (and an unsized one) mints a FRESH
+                // constant, the landed fold below (grid a12: `int X = 5`).
+                ((UHDM::constant*)defInfo->contAssigns[myIdx]->Rhs())
+                        ->VpiValue()
+                        .rfind("UINT:", 0) != 0 &&
+                ((UHDM::constant*)defInfo->contAssigns[myIdx]->Rhs())
+                        ->VpiSize() != -1 &&
+                r11u183LawME("R11U183_RANGEFILE_OFF") &&
+                // its own switch (r11u186), beside the family's
+                r11u183LawME("R11U183_ELABCAFOLD_OFF"))
+                defFold183 =
+                    (UHDM::constant*)defInfo->contAssigns[myIdx]->Rhs();
+            if (defFold183) {
+                tr183ME("pkgParamElabCaSharesDefFold183");
+                if (auto* drt183 = defFold183->Typespec())
+                    drt183->VpiFullName(prefix);
+                rhs = defFold183;
+            }
+            else {
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(prefix);
             rt->VpiParent(c);
             c->Typespec(rt);
             pendingParamCloneTs.push_back({rt, &ps2});
             rhs = c;
+            }
         }
         // Constant-driven module var: fold to its init value (plain constant,
         // no typespec) at the initializer's site.
@@ -43540,13 +43814,32 @@ UHDM::array_typespec* UhdmExporter::makeIfaceArrayPortTs(
     if (!decl || decl->dimensions.empty() || !iph)
         return nullptr;
     auto* dim = *decl->dimensions.begin();
+    // § ifaceArrPortSizeDimAtExpr183 (r11u183, R11U183_IFARR_OFF) — a SIZE
+    // dimension (`itf.mp p[3]`, `p[N]`, `p[ 3 ]`) is compiled from its
+    // constant_expression node: golden's range spans the expression alone
+    // (no brackets) and the array_typespec ends where the expression ends;
+    // the RANGE form (`[0:2]`, `[N-1:0]`) keeps the bracketed span we write.
+    // Grid tools/probe/r11u183dec/cases/c i01-i06; map N0127 / N0128.
+    const syntax::ExpressionSyntax* sizeExpr183 = nullptr;
+    if (dim->specifier &&
+        dim->specifier->kind == syntax::SyntaxKind::RangeDimensionSpecifier &&
+        r11u183LawME("R11U183_IFARR_OFF")) {
+        auto& sel183 = *dim->specifier
+                            ->as<syntax::RangeDimensionSpecifierSyntax>()
+                            .selector;
+        if (sel183.kind == syntax::SyntaxKind::BitSelect) {
+            sizeExpr183 = sel183.as<syntax::BitSelectSyntax>().expr;
+            tr183ME("ifaceArrPortSizeDimAtExpr183");
+        }
+    }
     // Build the modport interface_typespec now that we know this is an array.
     UHDM::interface_typespec* elemTs = makeIfacePortTs(ip);
     // Symbolic range from the dim SYNTAX ([2-1:0] -> op11 UINT:2/UINT:1, 0).
     auto mkRange = [&](UHDM::BaseClass* rparent) -> UHDM::range* {
         auto* r = s.MakeRange();
         r->VpiParent(rparent);
-        setLoc(r, dim->sourceRange());
+        setLoc(r, sizeExpr183 ? sizeExpr183->sourceRange()
+                              : dim->sourceRange());
         // `[E]` (size form) is `0 : E-1` with an unfolded vpiSubOp.
         if (fillSizeDimRange(r, *dim))
             return r;
@@ -43576,7 +43869,8 @@ UHDM::array_typespec* UhdmExporter::makeIfaceArrayPortTs(
     ats->VpiParent(mod);
     ats->VpiArrayType(1);
     SourceLocation atsStart = iph->nameOrKeyword.range().start();
-    SourceLocation atsEnd = dim->sourceRange().end();
+    SourceLocation atsEnd = sizeExpr183 ? sizeExpr183->sourceRange().end()
+                                        : dim->sourceRange().end();
     setLoc(ats, SourceRange(atsStart, atsEnd));
     auto* arng = s.MakeRangeVec();
     arng->push_back(mkRange(ats));

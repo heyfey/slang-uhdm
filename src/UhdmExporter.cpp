@@ -1,3 +1,4 @@
+#include <unistd.h>
 //------------------------------------------------------------------------------
 //! @file UhdmExporter.cpp
 //! @brief Exporter core: design assembly, locations, raw text
@@ -13,6 +14,53 @@
 #include <functional>
 
 namespace slang_uhdm {
+
+// The r11u183 switches (tools/probe/r11u183dec/README.md): every r11u183 law
+// reads its own R11U183_<LAW>_OFF switch; R11U183_OFF drops all of them.
+// § typeParamUseSharesOwnTs183 (r11u183): type parameter declaration -> the typespec
+// object its class listing's type_parameter binds (read by TypeEmit.cpp).
+std::map<const void*, UHDM::typespec*> g_typeParamOwnTs183;
+// R11U183_TRACE=<dir> names every firing of an r11u183 law (the mover
+// census): one file per process, `<dir>/<pid>.<unit>`, its first line the
+// `-o` database path read off the command line, then one law name per firing.
+static void tr183UX(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U183_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".UX";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+static bool r11u183LawUX(const char* sw) {
+    if (getenv("R11U183_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 
 // ===== r11u119 — the SPAN ground (downstream src attributes) ===============
 // Every r11u119 law sits behind its own switch; R11U119_OFF drops them all
@@ -215,6 +263,48 @@ void trace180(const char* law, const std::string& detail) {
     static const bool on = getenv("R11U180_TRACE") != nullptr;
     if (on)
         fprintf(stderr, "R11U180 %s %s\n", law, detail.c_str());
+}
+// The r11u186 switches (tools/probe/r11u186repro/README.md): every r11u186
+// law reads its own R11U186_<LAW>_OFF switch; R11U186_OFF drops all of them.
+bool r11u186Law(const char* sw) {
+    if (getenv("R11U186_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// R11U186_TRACE=<dir> names every firing of an r11u186 law (the mover census):
+// one file per process, `<dir>/<pid>.186`, its first line `OUT <-o path>`,
+// then one `<law> <detail>` line per firing.  Unset, nothing is written.
+void trace186(const char* law, const std::string& detail) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U186_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".186";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s %s\n", law, detail.c_str());
+        fflush(tf);
+    }
 }
 void enumImportParentDrain180(UHDM::design* d); // § enumImportParentLastWriter180 (ModuleEmit.cpp)
 // § classTpDefaultTsAtUse180 (TypeEmit.cpp)
@@ -6357,6 +6447,56 @@ UHDM::variables* UhdmExporter::classElemVar(const Type& elemType,
                     else
                         noteTpUse180(cts, *declKey9, dt87->getTypeSyntax());
                 }
+            // § classPropElemClassTsAtType183 (r11u183, R11U183_TSSPAN_OFF) —
+            // the element's class_typespec is compileTypespec's own mint for
+            // the WRITTEN class name, populated from that node: filed and
+            // spanned at the type token (golden ApbSlave
+            // `svunit_testsuite list_of_suites[$]` 32:9-32:25 in
+            // svunit_testrunner.sv, ours unlocated; map N0067 / N0068
+            // `class_var < array_var`).  A type-parameter group name
+            // (above) is left as it was.  Grid cases/b u01-u03.
+            if (declKey9 && !tpGroupTs87.count(cts) &&
+                r11u183LawUX("R11U183_TSSPAN_OFF") &&
+                r11u183LawUX("R11U183_PROPELEM_OFF"))
+                if (auto* dt183 = declKey9->getDeclaredType())
+                    if (auto* ts183 = dt183->getTypeSyntax();
+                        ts183 && ts183->kind == syntax::SyntaxKind::NamedType) {
+                        tr183UX("classPropElemClassTsAtType183");
+                        setLoc(cts, ts183->sourceRange());
+                        // § classPropElemQualTs186 (r11u186) — a PACKAGE-
+                        // QUALIFIED element class (`q::e lst[$];`) is the
+                        // paPackage_scope form of compileTypespec: the
+                        // class_typespec is named from the tokens (`q::e`,
+                        // no blanks) and located at the qualifier, from the
+                        // package name to the end of the `::` token (golden
+                        // 7:3-7:6, ours `e` at 7:3-7:7): the rule
+                        // § classTpQualDefaultSpan180 reads for a qualified
+                        // type-parameter default.  Grid tools/probe/
+                        // r11u186repro/cases/U u03, u05.  Switch
+                        // R11U186_PROPELEMQUAL_OFF.
+                        const syntax::NameSyntax* qn186 =
+                            ts183->as<syntax::NamedTypeSyntax>().name;
+                        if (qn186 && qn186->kind == syntax::SyntaxKind::ScopedName &&
+                            r11u186Law("R11U186_PROPELEMQUAL_OFF")) {
+                            auto& sn186 = qn186->as<syntax::ScopedNameSyntax>();
+                            std::string_view pk186;
+                            if (sn186.left->kind == syntax::SyntaxKind::IdentifierName)
+                                pk186 = sn186.left->as<syntax::IdentifierNameSyntax>()
+                                            .identifier.valueText();
+                            if (sn186.separator.kind ==
+                                    parsing::TokenKind::DoubleColon &&
+                                !pk186.empty() && comp.getPackage(pk186)) {
+                                std::string out186;
+                                for (char c : qn186->toString())
+                                    if (c != ' ' && c != '\t' && c != '\n' && c != '\r')
+                                        out186 += c;
+                                setLoc(cts, SourceRange(sn186.left->sourceRange().start(),
+                                                        sn186.separator.range().end()));
+                                cts->VpiName(out186);
+                                trace186("classPropElemQualTs186", out186);
+                            }
+                        }
+                    }
             pendingClassTsLink.push_back({cts, &ec});
             ts = cts;
         }
@@ -6814,6 +6954,16 @@ void UhdmExporter::emitAssocDims(const Symbol& cp,
             irt->VpiParent(ats);
             irt->Actual_typespec(its);
             ats->Index_typespec(irt);
+            // § foreachAssocLoopVarIdxTs183 (r11u183, R11U183_TSSPAN_OFF),
+            // the CLASS-PROPERTY half — a foreach over this property in a
+            // method takes its loop variable from THIS index typespec object
+            // (golden `class_typespec (e)` at the property's index, filed;
+            // grid cases/d f14; UVM `foreach (m_maps[map])`).
+            if (r11u183LawUX("R11U183_TSSPAN_OFF") &&
+                r11u183LawUX("R11U183_FEIDX_OFF")) {
+                tr183UX("foreachAssocLoopVarIdxTs183");
+                arrayVarArrayTs[&cp] = ats;
+            }
         }
     }
     if (idx.size() < 2)
@@ -6988,6 +7138,13 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
             }
             rt->Actual_typespec(its);
             tp->Typespec(rt);
+            // § typeParamUseSharesOwnTs183 — the registry (TypeEmit.cpp).
+            // Keyed by the parameter's own TYPE ALIAS symbol (what a name
+            // lookup inside the class answers), one per specialization: a
+            // key shared by the specializations bound a default body's local
+            // to ANOTHER specialization's object (judge-visible).
+            if (its)
+                g_typeParamOwnTs183[(const void*)&tps.getTypeAlias()] = its;
             params->push_back(tp);
             continue;
         }

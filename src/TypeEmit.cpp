@@ -1,3 +1,5 @@
+#include <unistd.h>
+#include <cerrno>
 //------------------------------------------------------------------------------
 //! @file TypeEmit.cpp
 //! @brief Typespecs, bound constants, variable object creation
@@ -12,6 +14,51 @@
 #include "slang/syntax/SyntaxTree.h"
 
 namespace slang_uhdm {
+
+// The r11u183 switches (tools/probe/r11u183dec/README.md): every r11u183 law
+// reads its own R11U183_<LAW>_OFF switch; R11U183_OFF drops all of them.
+extern std::map<const void*, UHDM::typespec*> g_typeParamOwnTs183;
+// R11U183_TRACE=<dir> names every firing of an r11u183 law (the mover
+// census): one file per process, `<dir>/<pid>.<unit>`, its first line the
+// `-o` database path read off the command line, then one law name per firing.
+static void tr183TE(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U183_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".TE";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+static bool r11u183LawTE(const char* sw) {
+    if (getenv("R11U183_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 bool r11u171Law(const char* sw); // the r11u171 switches (UhdmExporter.cpp)
 bool r11u176Law(const char* sw); // the r11u176 switches (UhdmExporter.cpp)
 void trace176(const char* law, const std::string& detail); // R11U176_TRACE
@@ -1739,6 +1786,8 @@ std::string UhdmExporter::classTpGroupDeclName87(
 // tools/probe/r11u180repro/cases/A.  Switch R11U180_TPUSE_OFF.
 bool r11u180Law(const char* sw);
 void trace180(const char* law, const std::string& detail);
+bool r11u186Law(const char* sw);   // the r11u186 switches (UhdmExporter.cpp)
+void trace186(const char* law, const std::string& detail); // R11U186_TRACE
 namespace {
 std::map<const Symbol*, UHDM::typespec*> tpOwnTs180;
 std::vector<std::pair<UHDM::typespec*, const Symbol*>> tpUse180;
@@ -2297,6 +2346,187 @@ UhdmExporter::SharedTd9 UhdmExporter::sharedTypedefTsRef9(
 UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                            const syntax::SyntaxNode* typeSynOverride,
                                            const PortSymbol* portCtx) {
+    // § typeParamUseSharesOwnTs183 (r11u183, R11U183_TSSPAN_OFF) — inside a
+    // parameterized class's own body a declaration WRITTEN with a type
+    // parameter's name (`CB cb;` under `class c #(type CB = base)`) takes the
+    // type parameter's OWN typespec object: CompileType resolves the name to
+    // the parameter and hands back its typespec (the default's, named for
+    // the default class, spanned at the default token), where we minted a
+    // fresh one at the use (golden ArrayMethodIterator `uvm_callback`
+    // 10:50-10:62 where ours read an unnamed class_typespec at 14:3; map
+    // N0072 / N0103 / N0039 type_parameter shapes).  A declaration that adds
+    // dimensions keeps its own array typespec.  Grid cases/b t01, t02, t04.
+    // § typeParamDefersToTpUse186 (r11u186) — the composition with pass 180:
+    // § classTpDefaultTsAtUse180 already gives every such use the parameter's
+    // own name, file and span (a per-use object the design-final drain
+    // copies; identity is canonicalised by the comparator), so with it on
+    // this law changes no strict field on any measured row or case
+    // (ArrayMethodIterator d/t read `endcol(1)` with either law alone and
+    // `name(6)` / `name(16)` with both off; the grids r11u183dec b, this
+    // pass's T, r11u180repro A: verdicts identical), while sharing the object
+    // made BuildUVMPkg's bytes a run-to-run coin (two order-only hashes in
+    // six concurrent runs; one with this law off).  It therefore defers:
+    // it fires only when § classTpDefaultTsAtUse180 is switched off.
+    // Switch R11U186_TPDEFER_OFF (restores the r11u183 behaviour).
+    const bool defer186 = r11u186Law("R11U186_TPDEFER_OFF") &&
+                          r11u180Law("R11U180_TPUSE_OFF");
+    if (!typeSynOverride && !defer186 && r11u183LawTE("R11U183_TSSPAN_OFF") &&
+        r11u183LawTE("R11U183_TYPEPARAM_OFF"))
+        if (declSymbol.kind == SymbolKind::Variable ||
+            declSymbol.kind == SymbolKind::ClassProperty)
+            if (auto* dt183 = declSymbol.getDeclaredType())
+                if (auto* ts183 = dt183->getTypeSyntax();
+                    ts183 && ts183->kind == syntax::SyntaxKind::NamedType) {
+                    auto& nm183 = *ts183->as<syntax::NamedTypeSyntax>().name;
+                    auto* ds183 = declSymbol.getSyntax();
+                    bool dims183 = ds183 && ds183->kind == syntax::SyntaxKind::Declarator &&
+                                   !ds183->as<syntax::DeclaratorSyntax>().dimensions.empty();
+                    // With dimensions, only the CLASS-handle arm below types
+                    // on the ELEMENT (its caller wraps the array typespec), so
+                    // only it may take the shared element (grid t03).
+                    if (dims183 &&
+                        arrayElemLeaf(dt183->getType()).getCanonicalType().kind !=
+                            SymbolKind::ClassType)
+                        dims183 = true;
+                    else
+                        dims183 = false;
+                    // § typeParamGateNoLookup186 (r11u186) — the gate asks
+                    // slang's lookupName only when an enclosing CLASS declares
+                    // a type parameter of that name (read off the class
+                    // header's parameter ports, no member walk): the lookup
+                    // of any other written class name (`process pr_p;` in a
+                    // class method, tests/probe r10v195repro v195_b_reads and
+                    // v195_d_tfitem) resolved it early and moved the
+                    // database's bytes (order only: the dumps are identical)
+                    // where the law never fires.  Switch R11U186_TPGATE_OFF.
+                    bool tpName186 = true;
+                    if (nm183.kind == syntax::SyntaxKind::IdentifierName &&
+                        !dims183 && r11u186Law("R11U186_TPGATE_OFF")) {
+                        tpName186 = false;
+                        auto want186 = nm183.as<syntax::IdentifierNameSyntax>()
+                                           .identifier.valueText();
+                        for (auto* sc186 = declSymbol.getParentScope();
+                             sc186 && !tpName186;
+                             sc186 = sc186->asSymbol().getParentScope()) {
+                            if (sc186->asSymbol().kind != SymbolKind::ClassType)
+                                continue;
+                            auto* cs186 = sc186->asSymbol().getSyntax();
+                            if (!cs186 ||
+                                cs186->kind != syntax::SyntaxKind::ClassDeclaration)
+                                continue;
+                            auto* pl186 =
+                                cs186->as<syntax::ClassDeclarationSyntax>().parameters;
+                            if (!pl186)
+                                continue;
+                            for (auto* pd186 : pl186->declarations)
+                                if (pd186->kind == syntax::SyntaxKind::TypeParameterDeclaration)
+                                    for (auto* td186 : pd186->as<syntax::TypeParameterDeclarationSyntax>()
+                                                           .declarators)
+                                        if (td186->name.valueText() == want186)
+                                            tpName186 = true;
+                        }
+                    }
+                    if (nm183.kind == syntax::SyntaxKind::IdentifierName && !dims183 &&
+                        tpName186)
+                        if (auto* sc183 = declSymbol.getParentScope())
+                            if (auto* tp183 = sc183->lookupName(
+                                    nm183.as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText());
+                                tp183 &&
+                                (tp183->kind == SymbolKind::TypeParameter ||
+                                 tp183->kind == SymbolKind::TypeAlias) &&
+                                tp183->getParentScope() &&
+                                tp183->getParentScope()->asSymbol().kind ==
+                                    SymbolKind::ClassType &&
+                                // Measured on CLASS-handle parameters used
+                                // by a METHOD-BODY local only: an integral
+                                // parameter's object is relocated by the
+                                // class's formals (N0039, residue) and a
+                                // property's by the ElaborationStep pass.
+                                dt183->getType().getCanonicalType().kind !=
+                                    SymbolKind::Unknown &&
+                                arrayElemLeaf(dt183->getType()).getCanonicalType().kind ==
+                                    SymbolKind::ClassType &&
+                                [&]() {
+                                    for (auto* sc9 = declSymbol.getParentScope(); sc9;
+                                         sc9 = sc9->asSymbol().getParentScope()) {
+                                        auto k9 = sc9->asSymbol().kind;
+                                        // an IN-BODY method only: an
+                                        // out-of-body definition compiles in the
+                                        // package scope, where the parameter is
+                                        // no type (golden `ref_var` over an
+                                        // unsupported_typespec `REQ`,
+                                        // uvm_sequence_library::execute).
+                                        if (k9 == SymbolKind::Subroutine) {
+                                            auto* ss9 = sc9->asSymbol().getSyntax();
+                                            if (ss9 &&
+                                                (ss9->kind == syntax::SyntaxKind::FunctionDeclaration ||
+                                                 ss9->kind == syntax::SyntaxKind::TaskDeclaration)) {
+                                                auto& fd9 = ss9->as<syntax::FunctionDeclarationSyntax>();
+                                                if (fd9.prototype && fd9.prototype->name &&
+                                                    fd9.prototype->name->kind ==
+                                                        syntax::SyntaxKind::ScopedName)
+                                                    return false;
+                                            }
+                                            return true;
+                                        }
+                                        if (k9 != SymbolKind::StatementBlock)
+                                            return false;
+                                    }
+                                    return false;
+                                }() &&
+                                // ...and only while NO subroutine formal of the
+                                // class is written with the parameter: a formal
+                                // RELOCATES the one shared object to its type
+                                // token (compileTfPortList's populateCoreMembers;
+                                // grid t05, UVM uvm_bottom_up_visitor_adapter's
+                                // `STRUCTURE s` 43596:32), the last-writer
+                                // family this law does not model (residue).
+                                [&]() {
+                                    auto* cs9 = tp183->getParentScope()->asSymbol().getSyntax();
+                                    if (!cs9)
+                                        return false;
+                                    // Every type parameter NAME of the class:
+                                    // a default naming another parameter
+                                    // (`type RSP = REQ`) shares ITS object, so
+                                    // any of them written on a formal moves it.
+                                    std::set<std::string_view> pns9;
+                                    for (auto& m9 : tp183->getParentScope()->members())
+                                        if (m9.kind == SymbolKind::TypeParameter)
+                                            pns9.insert(m9.name);
+                                    bool hit9 = false;
+                                    std::function<void(const syntax::SyntaxNode&)> w9 =
+                                        [&](const syntax::SyntaxNode& n9) {
+                                            if (hit9)
+                                                return;
+                                            if (n9.kind == syntax::SyntaxKind::FunctionPort) {
+                                                auto& fp9 = n9.as<syntax::FunctionPortSyntax>();
+                                                if (fp9.dataType &&
+                                                    fp9.dataType->kind == syntax::SyntaxKind::NamedType) {
+                                                    auto& fn9 = *fp9.dataType->as<syntax::NamedTypeSyntax>().name;
+                                                    if (fn9.kind == syntax::SyntaxKind::IdentifierName &&
+                                                        pns9.count(fn9.as<syntax::IdentifierNameSyntax>()
+                                                                       .identifier.valueText()))
+                                                        hit9 = true;
+                                                }
+                                                return;
+                                            }
+                                            for (size_t i9 = 0; i9 < n9.getChildCount(); i9++)
+                                                if (auto* c9 = n9.childNode(i9))
+                                                    w9(*c9);
+                                        };
+                                    w9(*cs9);
+                                    return !hit9;
+                                }())
+                                if (auto it183 = g_typeParamOwnTs183.find(
+                                        (const void*)tp183);
+                                    it183 != g_typeParamOwnTs183.end() &&
+                                    it183->second) {
+                                    tr183TE("typeParamUseSharesOwnTs183");
+                                    return it183->second;
+                                }
+
+                }
 
     // § virtualIfaceTsIsInterfaceTs6 — a WRITTEN `virtual <iface>[.<modport>]`
     // type is an `interface_typespec` NAMED after the interface and spanned
@@ -7884,6 +8114,18 @@ UHDM::constant* UhdmExporter::makeBoundConst(const syntax::SyntaxNode* syn, int6
         // rawText returns "" for MACRO-expanded ranges (call-site offsets do
         // not map into the buffer) — fall back to the numeric value.
         std::string raw = rawText(syn->sourceRange());
+        // § boundLitUnderscoreDropped186 (r11u186) — a range bound WRITTEN as
+        // a bare decimal with digit separators (`logic [1_5:0]`) is compiled
+        // by compileConst, which erases every `_` before the decompile
+        // (golden `15`, ours the written `1_5`; the value was already the
+        // evaluated `UINT:15`).  Grid tools/probe/r11u186repro/cases/D.
+        // Switch R11U186_BOUNDUS_OFF.
+        if (syn->kind == syntax::SyntaxKind::IntegerLiteralExpression &&
+            raw.find('_') != std::string::npos &&
+            r11u186Law("R11U186_BOUNDUS_OFF")) {
+            trace186("boundLitUnderscoreDropped186", raw);
+            raw = stripSep(raw);
+        }
         c->VpiDecompile(raw.empty() ? std::to_string(value) : raw);
         // § boundLitWrittenDigits172 (r11u172, map N0092) — a bound WRITTEN
         // as an unsized decimal literal keeps its written digits as its
@@ -9519,6 +9761,24 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                 }
                 else {
                     // Bare decimal: 64-bit UINT.
+                    // § enumConstUnderscoreDropped186 (r11u186) — the enum
+                    // builder's copy of § bareDecUnderscoreDropped181:
+                    // Surelog's compileConst reads an slIntConst's digits with
+                    // every `_` erased before it sets the decompile and the
+                    // value (golden `A = 1_0` -> `10`, `UINT:10`); ours kept
+                    // `1_0`, and the value string `UINT:1_0` reads back as 1
+                    // (a downstream-visible value).  A literal wider than 64
+                    // bits abstains (the enum builder has no DEC arm).  Grid
+                    // tools/probe/r11u186repro/cases/D.  Switch
+                    // R11U186_ENUMUS_OFF.
+                    if (raw.find('_') != std::string::npos &&
+                        r11u186Law("R11U186_ENUMUS_OFF")) {
+                        std::string dg186 = stripSep(raw);
+                        if (!dg186.empty() && dg186.size() < 20) {
+                            trace186("enumConstUnderscoreDropped186", raw);
+                            raw = dg186;
+                        }
+                    }
                     ec->VpiDecompile(raw);
                     ec->VpiSize(64);
                     value = "UINT:" + raw;
@@ -13985,10 +14245,66 @@ void UhdmExporter::bareScalarTypedefVarTs() {
         }
     };
     std::vector<UHDM::nets*> netObjs;
-    for (auto& kv : s.AllObjects()) {
-        auto* o = (UHDM::any*)kv.first;
-        if (!o)
-            continue;
+    // § lawSCopyIdOrder186 (r11u186) — DETERMINISM.  `Serializer::
+    // AllObjects()` is a `std::map<const BaseClass*, uint32_t>`: its order is
+    // the objects' heap ADDRESSES, which follow slang's parallel parse, and
+    // the two loops below MINT LAW S's per-declaration copies
+    // (`bareScalarTdCopyOf` memoizes on first use) in that order, so the
+    // copies' creation order (their UhdmIds, the serialized order) varied
+    // between runs of one binary (Earlgrey_0_1: two order-only databases
+    // across concurrent runs, tools/probe/r11u180repro README section 9).
+    // The objects are visited in CREATION order (UhdmId, the serializer's
+    // own counter) instead; every decision in the loops is per object, so
+    // only the order of the minted copies can move.  Switch
+    // R11U186_LAWSSORT_OFF.
+    auto ordered186 = [&]() {
+        std::vector<UHDM::any*> v186;
+        for (auto& kv : s.AllObjects())
+            if (kv.first)
+                v186.push_back((UHDM::any*)kv.first);
+        if (r11u186Law("R11U186_LAWSSORT_OFF"))
+            std::stable_sort(v186.begin(), v186.end(),
+                             [](const UHDM::any* a, const UHDM::any* b) {
+                                 return a->UhdmId() < b->UhdmId();
+                             });
+        return v186;
+    };
+    // The byte-mover PREDICTOR of § lawSCopyIdOrder186 (R11U186_TRACE only):
+    // the objects whose visit minted a copy (a memo grew, a net was queued,
+    // a member copy was made) are the TRIGGERS; the minted order moves with
+    // the sort exactly when the triggers' address order differs from their
+    // creation order.  Traced as `lawSCopyIdOrder186 reorder|same <n>`.
+    static const bool tr186 = getenv("R11U186_TRACE") != nullptr;
+    size_t memberMint186 = 0;
+    std::vector<const UHDM::any*> trig186;
+    size_t pre186 = 0;
+    const UHDM::any* prev186 = nullptr;
+    auto mintSz186 = [&]() {
+        return bareScalarTdCopy.size() + qualTdElemCopy18.size() + netObjs.size() +
+               memberMint186;
+    };
+    auto trigReport186 = [&](const char* where) {
+        if (!tr186)
+            return;
+        bool addr186 = true, id186 = true;
+        for (size_t i = 1; i < trig186.size(); i++) {
+            if (!(trig186[i - 1] < trig186[i]))
+                addr186 = false;
+            if (!(trig186[i - 1]->UhdmId() < trig186[i]->UhdmId()))
+                id186 = false;
+        }
+        trace186("lawSCopyIdOrder186",
+                 std::string(where) + ((addr186 && id186) ? " same " : " reorder ") +
+                     std::to_string(trig186.size()));
+    };
+    for (auto* o : ordered186()) {
+        if (tr186) {
+            size_t z186 = mintSz186();
+            if (prev186 && z186 != pre186)
+                trig186.push_back(prev186);
+            pre186 = z186;
+            prev186 = o;
+        }
         if (auto* v = dynamic_cast<UHDM::variables*>(o)) {
             bool inst = instScopeVar(v);
             if (!inst || rangedTd(v->Typespec()))
@@ -14014,8 +14330,67 @@ void UhdmExporter::bareScalarTypedefVarTs() {
         // shared `pkg::T` object of a typedef-of-a-named-type keeps it: that
         // object is Surelog's `TypeDef` typespec itself, never a LAW-S copy.
         else if (auto* tm = dynamic_cast<UHDM::typespec_member*>(o)) {
-            if (!pkgTdMemShared108.count(tm))
+            if (!pkgTdMemShared108.count(tm)) {
                 rebind(tm->Typespec(), true);
+                // § memberBareTdAliasNamedByUse183 (r11u183,
+                // R11U183_BITTSNAME_OFF) — Surelog copies the typedef PER
+                // MEMBER, and the copy's Typedef_alias reference is named
+                // through the member: `<member ref full name>::<alias>`
+                // (golden BuildUVMPkg `uvm_pkg::uvm_pkg::uvm_reg_bus_op::
+                // byte_en::uvm_reg_byte_en_t`, ours the bare
+                // `uvm_reg_byte_en_t` of the one memoized copy; map N0164).
+                // The member gets its own copy (copy vs share is outside the
+                // strict contract) so the name can be its own.  Grid
+                // tools/probe/r11u183dec/cases/f g01-g04.
+                auto* mrt183 = tm->Typespec();
+                auto* mcp183 = mrt183 ? mrt183->Actual_typespec() : nullptr;
+                if (mcp183 && r11u183LawTE("R11U183_BITTSNAME_OFF") &&
+                    !mrt183->VpiFullName().empty())
+                    if (auto* al183 = [&]() -> UHDM::ref_typespec* {
+                            switch (mcp183->UhdmType()) {
+                                case UHDM::uhdmbit_typespec:
+                                    return ((UHDM::bit_typespec*)mcp183)->Typedef_alias();
+                                case UHDM::uhdmlogic_typespec:
+                                    return ((UHDM::logic_typespec*)mcp183)->Typedef_alias();
+                                default:
+                                    return nullptr;
+                            }
+                        }();
+                        al183 && al183->Actual_typespec() &&
+                        std::string_view(al183->VpiFullName()) ==
+                            mcp183->VpiName())
+                        if (auto* own183 = bareScalarTdCopyOfFresh16(
+                                al183->Actual_typespec())) {
+                            auto* nal183 = s.MakeRef_typespec();
+                            // The separator follows the member reference's
+                            // scope: a package listing joins with `::`
+                            // (`uvm_pkg::uvm_pkg::uvm_reg_bus_op::byte_en::
+                            // uvm_reg_byte_en_t`), an importing INSTANCE's
+                            // listing (`work@top.p::op_t.byte_en`) with `.`
+                            // (golden `work@top.p::op_t.byte_en.be_t`; MiniAmiq
+                            // `work@svaunit_vpi_interface.uvm_pkg::
+                            // uvm_reg_bus_op.addr.uvm_reg_addr_t`; grid
+                            // cases/f g08, g10).
+                            std::string mfn183(mrt183->VpiFullName());
+                            nal183->VpiFullName(
+                                mfn183 +
+                                (mfn183.rfind("work@", 0) == 0 ? "." : "::") +
+                                std::string(own183->VpiName()));
+                            nal183->VpiParent(own183);
+                            nal183->Actual_typespec(al183->Actual_typespec());
+                            if (own183->UhdmType() == UHDM::uhdmbit_typespec)
+                                ((UHDM::bit_typespec*)own183)->Typedef_alias(nal183);
+                            else if (own183->UhdmType() == UHDM::uhdmlogic_typespec)
+                                ((UHDM::logic_typespec*)own183)->Typedef_alias(nal183);
+                            else
+                                own183 = nullptr;
+                            if (own183) {
+                                tr183TE("memberBareTdAliasNamedByUse183");
+                                memberMint186++;
+                                mrt183->Actual_typespec(own183);
+                            }
+                        }
+            }
         }
         // § portVecTdElemClone18 (r10earl18) — the PORT flavour of LAW S's
         // per-declaration clone, and the last two AllModules heads that share
@@ -14044,6 +14419,13 @@ void UhdmExporter::bareScalarTypedefVarTs() {
         }
         else if (auto* n = dynamic_cast<UHDM::nets*>(o))
             netObjs.push_back(n);
+    }
+    if (tr186) {
+        if (prev186 && mintSz186() != pre186)
+            trig186.push_back(prev186);
+        trigReport186("main");
+        trig186.clear();
+        prev186 = nullptr;
     }
     // § modScalarTdTopInstance, the ELEMENT-TYPESPEC half.  An unpacked-array
     // parameter's element ref (§ unpackedElemVecTypedef, ParamEmit's
@@ -14074,14 +14456,24 @@ void UhdmExporter::bareScalarTypedefVarTs() {
             if (auto* nc9 = bareScalarTdCopyOf(d9->second, true))
                 er9->Actual_typespec(nc9);
         };
-        for (auto& kv : s.AllObjects()) {
-            auto* o = (UHDM::any*)kv.first;
-            if (!o)
-                continue;
+        // § lawSCopyIdOrder186 — the element half mints too.
+        for (auto* o : ordered186()) {
+            if (tr186) {
+                size_t z186 = bareScalarTdCopy.size();
+                if (prev186 && z186 != pre186)
+                    trig186.push_back(prev186);
+                pre186 = z186;
+                prev186 = o;
+            }
             if (o->UhdmType() == UHDM::uhdmarray_typespec)
                 elemFix9(((UHDM::array_typespec*)o)->Elem_typespec(), o);
             else if (o->UhdmType() == UHDM::uhdmpacked_array_typespec)
                 elemFix9(((UHDM::packed_array_typespec*)o)->Elem_typespec(), o);
+        }
+        if (tr186) {
+            if (prev186 && bareScalarTdCopy.size() != pre186)
+                trig186.push_back(prev186);
+            trigReport186("elem");
         }
     }
     // The mirror half: a NET keeps the QUALIFIED name.  Our def-view module
@@ -18637,6 +19029,46 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 raw = syn.as<syntax::LiteralExpressionSyntax>()
                           .literal.intValue()
                           .toString(LiteralBase::Decimal, false);
+            // § synLitUnderscoreDropped186 (r11u186) — the syntax-built
+            // constant's copy of § bareDecUnderscoreDropped181 (a generate
+            // loop's condition, initial value and step, an if-generate
+            // condition, every expression this re-emitter builds from
+            // syntax): compileConst erases every `_` from an slIntConst
+            // before the decompile and the value (golden `g < 1_6` ->
+            // `16`, `UINT:16`; ours `1_6` / `UINT:1_6`, which the reader
+            // parses as 1, so the generate loop unrolled once downstream).
+            // A literal wider than 64 bits takes compileConst's DEC arm
+            // (§ bigDecUnderscoreDropped181v): size -1, `DEC:<digits>`.
+            // Grid tools/probe/r11u186repro/cases/D.  Switch
+            // R11U186_SYNUS_OFF.
+            if (raw.find('_') != std::string::npos &&
+                r11u186Law("R11U186_SYNUS_OFF")) {
+                std::string dg186 = stripSep(raw);
+                bool large186 = dg186.size() > 20;
+                if (!large186 && dg186.size() == 20) {
+                    errno = 0;
+                    char* endp186 = nullptr;
+                    strtoull(dg186.c_str(), &endp186, 10);
+                    large186 = errno == ERANGE || (endp186 && *endp186 != '\0');
+                }
+                if (!dg186.empty()) {
+                    trace186("synLitUnderscoreDropped186", raw);
+                    c->VpiDecompile(dg186);
+                    if (large186) {
+                        c->VpiSize(-1);
+                        c->VpiValue("DEC:" + dg186);
+                        c->VpiConstType(vpiDecConst);
+                    }
+                    else {
+                        c->VpiSize(64);
+                        c->VpiValue("UINT:" + dg186);
+                        c->VpiConstType(vpiUIntConst);
+                    }
+                    c->VpiParent(parent);
+                    setLoc(c, syn.sourceRange());
+                    return c;
+                }
+            }
             c->VpiDecompile(raw);
             c->VpiSize(64);
             c->VpiValue("UINT:" + raw);
@@ -20403,6 +20835,75 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 if (nameParts9.size() != parts.size())
                     nameParts9.clear();
             }
+            // § macroPathTokSpans183 (r11u183, R11U183_PATHSPAN_OFF) — inside
+            // a MACRO expansion the path's text offsets are not source
+            // offsets: its base may arrive through an argument (Rggen
+            // `RIF.read_data[__i]`, the base token in the ARGUMENT buffer,
+            // every member in the BODY buffer), so `exprStart + off` runs off
+            // the argument's buffer (golden 16:30-16:39, ours 16:30 through
+            // the call site's line).  Each component's offsets are read
+            // inside that component's own name syntax instead, whose tokens
+            // are contiguous in one buffer.  Outside a macro, or when the
+            // flattened name chain does not line up with the text split,
+            // nothing changes.  Grid tools/probe/r11u183dec/cases/e q05.
+            const bool macro183 =
+                !nameParts9.empty() &&
+                (sm->isMacroLoc(exprStart) ||
+                 sm->isMacroLoc(syn.sourceRange().end())) &&
+                r11u183LawTE("R11U183_PATHSPAN_OFF");
+            if (macro183)
+                tr183TE("macroPathTokSpans183");
+            // § macroPathTokOneBuffer186 (r11u186) — the refinement of
+            // § macroPathTokSpans183 found on Rggen (d): a component whose
+            // tokens do NOT all sit in its first token's buffer (a select
+            // written with macro ARGUMENTS, `RIF.read_mask[LSB+:WIDTH]`: the
+            // member in the body buffer, `0` and `4` in the arguments') has no
+            // contiguous text to offset into, so `t0 + off` ran two columns
+            // short of golden's expanded-line layout (4:65-4:79, law 4:65-77;
+            // the bound constant 4:78, law 4:76), where the pristine mapping
+            // was right.  Such a component keeps the pristine mapping.  Grid
+            // tools/probe/r11u186repro/cases/Q q04, q05.  Switch
+            // R11U186_PATHBUF_OFF.
+            std::vector<char> oneBuf186;
+            if (macro183) {
+                oneBuf186.assign(nameParts9.size(), 1);
+                if (r11u186Law("R11U186_PATHBUF_OFF"))
+                    for (size_t j = 0; j < nameParts9.size(); j++) {
+                        auto t0 = nameParts9[j]->getFirstToken();
+                        if (!t0)
+                            continue;
+                        auto b0 = t0.location().buffer();
+                        bool ok = true;
+                        std::function<void(const syntax::SyntaxNode&)> w186 =
+                            [&](const syntax::SyntaxNode& n) {
+                                for (size_t c = 0; ok && c < n.getChildCount(); c++) {
+                                    if (auto* cn = n.childNode(c))
+                                        w186(*cn);
+                                    else if (auto tk = n.childToken(c);
+                                             tk && !tk.isMissing() &&
+                                             tk.location().buffer() != b0)
+                                        ok = false;
+                                }
+                            };
+                        w186(*nameParts9[j]);
+                        if (!ok) {
+                            oneBuf186[j] = 0;
+                            trace186("macroPathTokOneBuffer186", nameParts9[j]->toString());
+                        }
+                    }
+            }
+            auto at183 = [&](size_t x) -> SourceLocation {
+                if (macro183) {
+                    size_t k = 0;
+                    for (size_t j = 0; j < parts.size(); j++)
+                        if (parts[j].second <= x)
+                            k = j;
+                    auto t0 = nameParts9[k]->getFirstToken();
+                    if (t0 && (k >= oneBuf186.size() || oneBuf186[k]))
+                        return t0.location() + (x - parts[k].second);
+                }
+                return exprStart + x;
+            };
             bool genVarBaseEmitted = false;
             // § structParamPathBaseAtMember137 (r11u137) — is the BASE of
             // this member path a value PARAMETER (`CFG.DAT`, CFG a struct
@@ -20495,16 +20996,16 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     bs->VpiName(base);
                     bs->VpiParent(hp);
                     bs->VpiFullName(dottedSoFar);
-                    setLoc(bs, SourceRange(exprStart + off,
-                                           exprStart + off + base.size()));
+                    setLoc(bs, SourceRange(at183(off),
+                                           at183(off + base.size())));
                     auto* c = s.MakeConstant();
                     c->VpiDecompile(idx);
                     c->VpiSize(64);
                     c->VpiValue("UINT:" + idx);
                     c->VpiConstType(vpiUIntConst);
                     size_t digitOff = off + lb + 1;
-                    setLoc(c, SourceRange(exprStart + digitOff,
-                                          exprStart + digitOff + idx.size()));
+                    setLoc(c, SourceRange(at183(digitOff),
+                                          at183(digitOff + idx.size())));
                     bs->VpiIndex(c);
                     // § defGenPathSel161 — SEL: a selected FIELD spans its
                     // name through the closing bracket and stores no full
@@ -20513,8 +21014,8 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     // names the leaf by the raw path (the genvar-base form).
                     if (sel161 && i > 0) {
                         if (span161)
-                            setLoc(bs, SourceRange(exprStart + off,
-                                                   exprStart + off + rb + 1));
+                            setLoc(bs, SourceRange(at183(off),
+                                                   at183(off + rb + 1)));
                         if (name161 && !syntaxRefPrefix.empty())
                             bs->VpiFullName(syntaxRefPrefix + "." + dispRaw +
                                             "." + base);
@@ -20541,8 +21042,8 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         ps9->VpiFullName(dottedSoFar);
                         ps9->VpiParent(hp);
                         ps9->VpiConstantSelect(true);
-                        setLoc(ps9, SourceRange(exprStart + off,
-                                                exprStart + off + rb));
+                        setLoc(ps9, SourceRange(at183(off),
+                                                at183(off + rb)));
                         auto mkB9 = [&](size_t from, size_t to) {
                             auto* c9 = s.MakeConstant();
                             std::string dg9 =
@@ -20552,8 +21053,8 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                             c9->VpiValue("UINT:" + dg9);
                             c9->VpiConstType(vpiUIntConst);
                             setLoc(c9,
-                                   SourceRange(exprStart + off + from,
-                                               exprStart + off + to));
+                                   SourceRange(at183(off + from),
+                                               at183(off + to)));
                             return c9;
                         };
                         ps9->Left_range(mkB9(lb + 1, cl9));
@@ -20596,8 +21097,8 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         ip8->VpiConstantSelect(true);
                         ip8->VpiIndexedPartSelectType(
                             pname[pl9] == '+' ? vpiPosIndexed : vpiNegIndexed);
-                        setLoc(ip8, SourceRange(exprStart + off,
-                                                exprStart + off + rb));
+                        setLoc(ip8, SourceRange(at183(off),
+                                                at183(off + rb)));
                         auto mkC8 = [&](size_t from, size_t to) {
                             auto* c8 = s.MakeConstant();
                             std::string dg8 = pname.substr(from, to - from);
@@ -20605,8 +21106,8 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                             c8->VpiSize(64);
                             c8->VpiValue("UINT:" + dg8);
                             c8->VpiConstType(vpiUIntConst);
-                            setLoc(c8, SourceRange(exprStart + off + from,
-                                                   exprStart + off + to));
+                            setLoc(c8, SourceRange(at183(off + from),
+                                                   at183(off + to)));
                             return c8;
                         };
                         ip8->Base_expr(mkC8(lb + 1, pl9));
@@ -20625,8 +21126,8 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     bs->VpiName(base);
                     bs->VpiParent(hp);
                     bs->VpiFullName(spaceOps(pname));
-                    setLoc(bs, SourceRange(exprStart + off,
-                                           exprStart + off + base.size()));
+                    setLoc(bs, SourceRange(at183(off),
+                                           at183(off + base.size())));
                     if (auto* ix = emitSyntaxExpr(*baseSelSyn, bs)) {
                         // A VARIABLE index ref parents at the HIER_PATH;
                         // operations/constants keep the bit_select (Surelog).
@@ -20673,16 +21174,16 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         bs->VpiName(base);
                         bs->VpiParent(hp);
                         bs->VpiFullName(dottedSoFar);
-                        setLoc(bs, SourceRange(exprStart + off,
-                                               exprStart + off + base.size()));
+                        setLoc(bs, SourceRange(at183(off),
+                                               at183(off + base.size())));
                         auto* ir = s.MakeRef_obj();
                         ir->VpiName(idx);
                         if (!syntaxRefPrefix.empty())
                             ir->VpiFullName(syntaxRefPrefix + "." + idx);
                         ir->VpiParent(hp);
                         size_t idOff = off + lb + 1;
-                        setLoc(ir, SourceRange(exprStart + idOff,
-                                               exprStart + idOff + idx.size()));
+                        setLoc(ir, SourceRange(at183(idOff),
+                                               at183(idOff + idx.size())));
                         bs->VpiIndex(ir);
                         // § defGenPathSel161 — a selected FIELD of a
                         // definition-view generate path: SEL spans every one
@@ -20699,11 +21200,11 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                             (sel161 || i + 1 == parts.size())) {
                             if (span161) {
                                 if (sel161)
-                                    setLoc(bs, SourceRange(exprStart + off,
-                                                           exprStart + off + rb + 1));
+                                    setLoc(bs, SourceRange(at183(off),
+                                                           at183(off + rb + 1)));
                                 else
-                                    setLoc(bs, SourceRange(exprStart + idOff,
-                                                           exprStart + idOff + idx.size()));
+                                    setLoc(bs, SourceRange(at183(idOff),
+                                                           at183(idOff + idx.size())));
                             }
                             if (name161 && !syntaxRefPrefix.empty()) {
                                 bs->VpiFullName(syntaxRefPrefix + "." + dispRaw +
@@ -20747,7 +21248,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         isn9.selectors.size() == 1 ? isn9.selectors[0]->selector
                                                    : nullptr;
                     std::string base9 = pname.substr(0, lb);
-                    SourceRange espan9(exprStart + off, exprStart + off + rb);
+                    SourceRange espan9(at183(off), at183(off + rb));
                     // A bound's reads are scoped through the WHOLE path plus
                     // the member (`work@m.blk.in_i[i].f[0+:A - B].f.A`), and
                     // a bound that IS one ref drops the member repetition
@@ -20837,8 +21338,8 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         // CONTENTS (parens included), not `<member>[…` the
                         // way the range selects and the literal/identifier
                         // bit_select arms do — vc.sv row 5, measured.
-                        setLoc(bs9, SourceRange(exprStart + off + lb + 1,
-                                                exprStart + off + rb));
+                        setLoc(bs9, SourceRange(at183(off + lb + 1),
+                                                at183(off + rb)));
                         if (!boundScope9.empty())
                             syntaxRefPrefix = boundScope9 + "." + base9;
                         if (auto* ix9 = emitSyntaxExpr(*bsx9.expr, bs9))
@@ -20873,7 +21374,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     // fullname recompute (Surelog shows the bare name).
                     r->VpiFullName(pname);
                 r->VpiParent(hp);
-                setLoc(r, SourceRange(exprStart + off, exprStart + off + pname.size()));
+                setLoc(r, SourceRange(at183(off), at183(off + pname.size())));
                 // § structParamPathBaseAtMember137 (r11u137) — the BASE of a
                 // member path over a value PARAMETER (`CFG.DAT` with CFG a
                 // struct parameter) in a typespec range or an if-generate
@@ -20888,8 +21389,8 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 if (i == 0 && paramBase137 &&
                     parts[1].first.find('[') == std::string::npos) {
                     auto& [p1n, p1off] = parts[1];
-                    setLoc(r, SourceRange(exprStart + p1off,
-                                          exprStart + p1off + p1n.size()));
+                    setLoc(r, SourceRange(at183(p1off),
+                                          at183(p1off + p1n.size())));
                 }
                 // § defGenPathSel161 — SEL: the base is populated from the
                 // NEXT component's name token (compileSelectExpression's
@@ -20900,8 +21401,26 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     size_t n161 = p1n.find('[');
                     if (n161 == std::string::npos)
                         n161 = p1n.size();
-                    setLoc(r, SourceRange(exprStart + p1off,
-                                          exprStart + p1off + n161));
+                    setLoc(r, SourceRange(at183(p1off),
+                                          at183(p1off + n161)));
+                }
+                // § rootElemAtNextTok186 (r11u186) — a `$root` path this
+                // re-emitter builds (a definition view's generate scope: the
+                // cont_assign `assign w = $root.top.v;` inside `if (1) begin :
+                // g`) anchors its `$root` element on the NEXT component's
+                // token, the rule § rootNetPathOwnNames181 gives the
+                // expression emitter's twin (golden `$root` 3:62-65 on `top`,
+                // ours 3:56-61).  Grid tools/probe/r11u181repro/cases/rt g11
+                // (that pass's residue S2).  Switch R11U186_ROOTELEM_OFF.
+                else if (i == 0 && pname == "$root" && parts.size() > 1 &&
+                         r11u186Law("R11U186_ROOTELEM_OFF")) {
+                    auto& [p1n, p1off] = parts[1];
+                    size_t n186 = p1n.find('[');
+                    if (n186 == std::string::npos)
+                        n186 = p1n.size();
+                    trace186("rootElemAtNextTok186", p1n);
+                    setLoc(r, SourceRange(at183(p1off),
+                                          at183(p1off + n186)));
                 }
                 elems->push_back(r);
             }

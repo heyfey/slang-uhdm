@@ -411,7 +411,7 @@ issue326_packed_mem,default,CMP_EQUAL,,,equal
 jeras_gpr,default,CMP_EQUAL,,,equal
 jeras_reverse,default,CMP_EQUAL,,,equal
 jeras_tcb_gpio,default,CMP_EQUAL,,,equal
-jeras_union,default,STRICT_NOTEQUAL,differ:fullname(75),,differ:fullname(75)
+jeras_union,default,STRICT_NOTEQUAL,differ:file(60),,differ:file(60)
 LargeModuleParameter,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/LargeModuleParameter/dut.sv:19:1: error: unknown module 'PRIMITIVE',,
 latch_002,default,CMP_EQUAL,,,equal
 latch_axi_adapter,default,CMP_EQUAL,,,equal
@@ -565,8 +565,8 @@ param_x_default,default,CMP_EQUAL,,,equal
 ParameterColonReference,default,CMP_EQUAL,,,equal
 ParameterConditionalAssignment,default,CMP_EQUAL,,,equal
 ParameterDoubleUnderscoreInSvFrontend,default,CMP_EQUAL,,,equal
-ParameterFromPkgInNestedModule,default,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
-ParameterFromPkgOnParameterPortList,default,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
+ParameterFromPkgInNestedModule,default,CMP_EQUAL,,,equal
+ParameterFromPkgOnParameterPortList,default,CMP_EQUAL,,,equal
 ParameterInGenScopeInitializedWithLongConstant,default,CMP_EQUAL,,,equal
 ParameterInitializationWithNegation,default,CMP_EQUAL,,,equal
 ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope,default,CMP_EQUAL,,,equal
@@ -1282,7 +1282,7 @@ issue326_packed_mem,testflags,CMP_EQUAL,,,equal
 jeras_gpr,testflags,CMP_EQUAL,,,equal
 jeras_reverse,testflags,CMP_EQUAL,,,equal
 jeras_tcb_gpio,testflags,CMP_EQUAL,,,equal
-jeras_union,testflags,STRICT_NOTEQUAL,differ:fullname(75),,differ:fullname(75)
+jeras_union,testflags,STRICT_NOTEQUAL,differ:file(60),,differ:file(60)
 LargeModuleParameter,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/LargeModuleParameter/dut.sv:19:1: error: unknown module 'PRIMITIVE',,
 latch_002,testflags,CMP_EQUAL,,,equal
 latch_axi_adapter,testflags,CMP_EQUAL,,,equal
@@ -1436,8 +1436,8 @@ param_x_default,testflags,CMP_EQUAL,,,equal
 ParameterColonReference,testflags,CMP_EQUAL,,,equal
 ParameterConditionalAssignment,testflags,CMP_EQUAL,,,equal
 ParameterDoubleUnderscoreInSvFrontend,testflags,CMP_EQUAL,,,equal
-ParameterFromPkgInNestedModule,testflags,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
-ParameterFromPkgOnParameterPortList,testflags,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
+ParameterFromPkgInNestedModule,testflags,CMP_EQUAL,,,equal
+ParameterFromPkgOnParameterPortList,testflags,CMP_EQUAL,,,equal
 ParameterInGenScopeInitializedWithLongConstant,testflags,CMP_EQUAL,,,equal
 ParameterInitializationWithNegation,testflags,CMP_EQUAL,,,equal
 ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope,testflags,CMP_EQUAL,,,equal

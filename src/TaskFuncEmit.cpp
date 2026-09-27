@@ -1,3 +1,4 @@
+#include <unistd.h>
 //------------------------------------------------------------------------------
 //! @file TaskFuncEmit.cpp
 //! @brief User tasks and functions (module Task_funcs) and their io_decls
@@ -1867,6 +1868,51 @@ void UhdmExporter::hoistAssocIdxName135(UHDM::ref_obj* ref,
     pool135.push_back({ref, std::string(name), range, home135});
 }
 
+// The r11u183 switches (tools/probe/r11u183dec/README.md): every r11u183 law
+// reads its own R11U183_<LAW>_OFF switch; R11U183_OFF drops all of them.
+// R11U183_TRACE=<dir> names every firing of an r11u183 law (the mover
+// census): one file per process, `<dir>/<pid>.<unit>`, its first line the
+// `-o` database path read off the command line, then one law name per firing.
+static void tr183TF(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U183_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".TF";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+bool r11u186Law(const char* sw);   // the r11u186 switches (UhdmExporter.cpp)
+void trace186(const char* law, const std::string& detail); // R11U186_TRACE
+static bool r11u183LawTF(const char* sw) {
+    if (getenv("R11U183_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
                                                  const std::string& afull,
                                                  UHDM::any* parent,
@@ -2001,6 +2047,45 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
         lc0->VpiValue("UINT:0");
         lc0->VpiConstType(vpiUIntConst);
         r0->Left_expr(lc0);
+        // § assocPromotedBoundAtBracket183 (r11u183, R11U183_RANGEFILE_OFF) —
+        // a NAME index the elaborated listing PROMOTES is built by
+        // CompileHelper::compileRanges' reduce branch (CompileExpression.cpp,
+        // the `rexp` ref_obj + compileTypespec arm), which populates BOTH
+        // marker constants from the Packed_dimension node and then writes
+        // VpiEndColumnNo(Column + 1): file, line and column of the `[`, one
+        // column wide.  The keyword form (paAssociative_dimension arm) leaves
+        // both constants unlocated, as the size model does.
+        // Its own switch R11U183_ASSOCBRACKET_OFF (r11u186), beside the
+        // family's R11U183_RANGEFILE_OFF.
+        // § assocBracketPkgOnly186 (r11u186) — the refinement found on the
+        // r11u183 grid (a/c18) and this pass's (A n05-n07): a `$unit` class
+        // or subroutine (no package above the declaration) is compiled
+        // without the elaborated listing that promotes the NAME index, so
+        // golden leaves both markers unlocated there (c18 `bit m[e]` in
+        // `function void c::f()`, golden `constant` with no location, the
+        // law 6:9-6:10); only a declaration inside a package takes the
+        // bracket.  Switch R11U186_ASSOCPKG_OFF.
+        bool inPkg186 = true;
+        if (r11u186Law("R11U186_ASSOCPKG_OFF")) {
+            inPkg186 = false;
+            for (auto* sc186 = vs.getParentScope(); sc186;
+                 sc186 = sc186->asSymbol().getParentScope())
+                if (sc186->asSymbol().kind == SymbolKind::Package) {
+                    inPkg186 = true;
+                    break;
+                }
+        }
+        const bool atBracket183 = d0 && namedIdx0(i0) && assocDim0(i0) &&
+                                  r11u183LawTF("R11U183_RANGEFILE_OFF") &&
+                                  r11u183LawTF("R11U183_ASSOCBRACKET_OFF") &&
+                                  (inPkg186 ||
+                                   (trace186("assocBracketPkgOnly186", std::string(vs.name)),
+                                    false));
+        if (atBracket183) {
+            tr183TF("assocPromotedBoundAtBracket183");
+            setLoc(lc0, SourceRange(d0->sourceRange().start(),
+                                    d0->sourceRange().start() + 1));
+        }
         // The index typespec of this dimension, spanned at its selector.
         UHDM::typespec* its0 = nullptr;
         if (assocDim0(i0) && aidx[i0])
@@ -2104,6 +2189,10 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
             rc0->VpiSize(0);
             rc0->VpiValue("STRING:associative");
             rc0->VpiConstType(vpiStringConst);
+            // § assocPromotedBoundAtBracket183 — the right marker too.
+            if (atBracket183)
+                setLoc(rc0, SourceRange(d0->sourceRange().start(),
+                                        d0->sourceRange().start() + 1));
             if (its0) {
                 auto* irt0 = s.MakeRef_typespec();
                 irt0->VpiParent(rc0);
@@ -2155,6 +2244,24 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
     auto* rv0 = s.MakeVariablesVec();
     rv0->push_back(reg0);
     av->Variables(rv0);
+    // § foreachAssocLocalSharesDeclTs183 (r11u183, R11U183_UARANGE_OFF) — a
+    // foreach over this associative local binds THIS array_typespec (ranges,
+    // bound constants, index and element refs), as the queue arm above does:
+    // golden's ref_var 'predecessors' in uvm_phase::get_adjacent_predecessor_
+    // nodes is the declaration's own object (uvm_pkg.sv 34544:8-31), where the
+    // drain's fallback minted a bare, rangeless array_typespec (map N0142).
+    // Grid tools/probe/r11u183dec/cases/d f01, f02, f06.
+    // Only a listing that compiled EVERY dimension associatively (a NAME
+    // index is promoted in the elaborated listing alone): the definition
+    // listing's size-model object is not the one golden binds (grid d f01).
+    bool allAssoc183 = true;
+    for (size_t i183 = 0; i183 < aidx.size(); i183++)
+        if (!assocDim0(i183))
+            allAssoc183 = false;
+    if (allAssoc183 && r11u183LawTF("R11U183_UARANGE_OFF")) {
+        tr183TF("foreachAssocLocalSharesDeclTs183");
+        arrayVarArrayTs[&vs] = ats;
+    }
     return av;
 }
 
