@@ -1,0 +1,83 @@
+cases/A/a01 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL name | fields: name=5 line=5 col=5 endline=5 endcol=6 objects_differing=6 | L: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL endcol | fields: endcol=1 objects_differing=1 | off=pristine-bytes
+cases/A/a02 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL name | fields: name=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 24 objects |  | off=pristine-bytes
+cases/A/a03 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: line=1 col=1 endline=1 endcol=1 objects_differing=1 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 19 objects |  | off=pristine-bytes
+cases/A/a04 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL endcol | fields: name=1 line=1 col=1 endline=1 endcol=2 objects_differing=2 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 26 objects |  | off=pristine-bytes
+cases/A/a05 | P: rc=0 cmp=255 cmplines=88 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=88 strict=1 NOT_EQUAL stage1 |  | off=pristine-bytes
+cases/A/a06 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: line=1 col=1 endline=1 endcol=1 objects_differing=1 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 20 objects |  | off=pristine-bytes
+cases/A/a07 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL name | fields: name=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 22 objects |  | off=pristine-bytes
+cases/A/a08 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: line=1 col=1 endline=1 endcol=1 objects_differing=1 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 20 objects |  | off=pristine-bytes
+cases/A/a09 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: name=3 line=4 col=4 endline=4 endcol=4 objects_differing=4 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 38 objects |  | off=pristine-bytes
+cases/A/a10 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL name | fields: name=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 21 objects |  | off=pristine-bytes
+cases/A/a11 | P: rc=0 cmp=255 cmplines=32 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 21 objects |  | off=pristine-bytes
+cases/A/a12 | P: rc=0 cmp=255 cmplines=32 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: line=1 col=1 endline=1 endcol=1 objects_differing=1 | off=pristine-bytes
+cases/A/a13 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: line=2 col=2 endline=2 endcol=2 objects_differing=2 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 25 objects |  | off=pristine-bytes
+cases/A/a14 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: name=1 line=3 col=3 endline=3 endcol=3 objects_differing=3 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 30 objects |  | off=pristine-bytes
+cases/A/a15 | P: rc=0 cmp=255 cmplines=32 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 25 objects |  | off=pristine-bytes
+cases/A/a16 | P: rc=0 cmp=255 cmplines=187 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=187 strict=1 NOT_EQUAL stage1 |  | off=pristine-bytes
+cases/A/a17 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: line=3 col=3 endline=3 endcol=3 objects_differing=3 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 36 objects |  | off=pristine-bytes
+cases/A/a18 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: line=2 col=2 endline=2 endcol=2 objects_differing=2 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 37 objects |  | off=pristine-bytes
+cases/A/a19 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: line=3 col=3 endline=3 endcol=3 objects_differing=3 | L: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: line=3 col=3 endline=3 endcol=3 objects_differing=3 | off=pristine-bytes
+cases/A/a20 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: name=1 line=4 col=4 endline=4 endcol=4 objects_differing=4 | L: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: line=2 col=2 endline=2 endcol=2 objects_differing=2 | off=pristine-bytes
+cases/A/a21 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: line=5 col=4 endline=5 endcol=4 objects_differing=5 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 39 objects |  | off=pristine-bytes
+cases/A/a22 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: line=2 col=3 endline=2 endcol=3 objects_differing=3 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 25 objects |  | off=pristine-bytes
+cases/A/a23 | P: rc=0 cmp=255 cmplines=152 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=152 strict=1 NOT_EQUAL stage1 |  | off=pristine-bytes
+cases/H/h01 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=5 objects_differing=5 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 175 objects |  | off=pristine-bytes
+cases/H/h02 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 87 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 87 objects |  | off=pristine-bytes
+cases/H/h03 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=5 objects_differing=5 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 87 objects |  | off=pristine-bytes
+cases/H/h04 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 61 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 61 objects |  | off=pristine-bytes
+cases/H/h05 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 41 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 41 objects |  | off=pristine-bytes
+cases/H/h06 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 111 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 111 objects |  | off=pristine-bytes
+cases/H/h07 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 99 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 99 objects |  | off=pristine-bytes
+cases/H/h08 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 87 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 87 objects |  | off=pristine-bytes
+cases/H/h09 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=5 objects_differing=5 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 87 objects |  | off=pristine-bytes
+cases/H/h10 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=7 objects_differing=7 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 129 objects |  | off=pristine-bytes
+cases/H/h11 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 67 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 67 objects |  | off=pristine-bytes
+cases/H/h12 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=16 objects_differing=16 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 231 objects |  | off=pristine-bytes
+cases/H/h13 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 67 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 67 objects |  | off=pristine-bytes
+cases/H/h14 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=5 objects_differing=5 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 87 objects |  | off=pristine-bytes
+cases/H/h15 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=5 objects_differing=5 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 87 objects |  | off=pristine-bytes
+cases/H/h16 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 155 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 155 objects |  | off=pristine-bytes
+cases/H/h17 | P: rc=0 cmp=255 cmplines=336 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=336 strict=1 NOT_EQUAL stage1 |  | off=pristine-bytes
+cases/H/h18 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=29 objects_differing=29 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 220 objects |  | off=pristine-bytes
+cases/H/h19 | P: rc=0 cmp=255 cmplines=96 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=96 strict=1 NOT_EQUAL stage1 |  | off=pristine-bytes
+cases/H/h20 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=14 objects_differing=14 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 202 objects |  | off=pristine-bytes
+cases/H/h21 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 53 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 53 objects |  | off=pristine-bytes
+cases/H/h22 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 87 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 87 objects |  | off=pristine-bytes
+cases/H/h23 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=5 objects_differing=5 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 87 objects |  | off=pristine-bytes
+cases/H/h24 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 87 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 87 objects |  | off=pristine-bytes
+cases/H/h25 | P: rc=0 cmp=255 cmplines=160 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=160 strict=1 NOT_EQUAL stage1 |  | off=pristine-bytes
+cases/H/h26 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 440 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 440 objects |  | off=pristine-bytes
+cases/I/i01 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL name | fields: depth=1 type=1 name=3 fullname=1 line=4 col=2 endline=4 endcol=3 objects_differing=5 (walk diverged) | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 221 objects |  | off=pristine-bytes
+cases/I/i02 | P: rc=0 cmp=255 cmplines=484 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=484 strict=1 NOT_EQUAL stage1 |  | off=pristine-bytes
+cases/I/i03 | P: rc=0 cmp=255 cmplines=17 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=17 strict=1 NOT_EQUAL stage1 |  | off=pristine-bytes
+cases/I/i04 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL name | fields: depth=1 type=1 name=2 fullname=1 line=3 col=1 endline=3 endcol=3 objects_differing=4 (walk diverged) | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 251 objects |  | off=pristine-bytes
+cases/I/i05 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL name | fields: depth=1 type=1 name=3 fullname=1 line=4 col=2 endline=4 endcol=3 objects_differing=5 (walk diverged) | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 177 objects |  | off=pristine-bytes
+cases/I/i06 | P: rc=0 cmp=255 cmplines=17 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=17 strict=1 NOT_EQUAL stage1 |  | off=pristine-bytes
+cases/P/p01 | P: rc=0 cmp=255 cmplines=64 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=64 strict=1 NOT_EQUAL stage1 |  | off=pristine-bytes
+cases/P/p02 | P: rc=0 cmp=255 cmplines=64 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=255 cmplines=64 strict=1 NOT_EQUAL stage1 |  | off=pristine-bytes
+cases/P/p03 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: line=5 col=5 endline=5 endcol=5 objects_differing=5 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 336 objects |  | off=pristine-bytes
+cases/P/p04 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: line=3 col=3 endline=3 endcol=3 objects_differing=3 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 266 objects |  | off=pristine-bytes
+cases/P/p05 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: line=5 col=5 endline=5 endcol=5 objects_differing=5 | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 341 objects |  | off=pristine-bytes
+cases/P/p06 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 199 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 199 objects |  | off=pristine-bytes
+cases/R/r01 | P: rc=0 cmp=255 cmplines=14 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 94 objects |  | off=pristine-bytes
+cases/R/r02 | P: rc=0 cmp=255 cmplines=14 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 48 objects |  | off=pristine-bytes
+cases/R/r03 | P: rc=0 cmp=255 cmplines=12 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 48 objects |  | off=pristine-bytes
+cases/R/r04 | P: rc=0 cmp=255 cmplines=16 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 48 objects |  | off=pristine-bytes
+cases/R/r05 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 49 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 49 objects |  | off=pristine-bytes
+cases/R/r06 | P: rc=0 cmp=255 cmplines=14 strict=1 NOT_EQUAL stage1 |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 69 objects |  | off=pristine-bytes
+cases/S/s01 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3 | L: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3 | off=pristine-bytes
+cases/S/s02 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 177 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 177 objects |  | off=pristine-bytes
+cases/S/s03 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 173 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 173 objects |  | off=pristine-bytes
+cases/S/s04 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 192 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 192 objects |  | off=pristine-bytes
+cases/T/t01 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 175 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 175 objects |  | off=pristine-bytes
+cases/T/t02 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 177 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 177 objects |  | off=pristine-bytes
+cases/T/t03 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 134 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 134 objects |  | off=pristine-bytes
+cases/T/t04 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 299 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 299 objects |  | off=pristine-bytes
+cases/T/t06 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=2 objects_differing=2 | L: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL fullname | fields: fullname=2 objects_differing=2 | off=pristine-bytes
+cases/T/t07 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 145 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 145 objects |  | off=pristine-bytes
+cases/T/t08 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 207 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 207 objects |  | off=pristine-bytes
+cases/T/t09 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 179 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 179 objects |  | off=pristine-bytes
+cases/T/t10 | P: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 226 objects |  | L: rc=0 cmp=0 cmplines=0 strict=0 STRICT_EQUAL 226 objects |  | off=pristine-bytes
+cases/T/t11 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: type=1 name=1 file=1 line=3 col=3 endline=3 endcol=3 decompile=1 size=1 value=1 consttype=1 objects_differing=3 (walk diverged) | L: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL type | fields: type=1 name=1 file=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) | off=pristine-bytes
+cases/U/u03 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: type=1 name=1 file=1 line=3 col=3 endline=3 endcol=3 decompile=1 size=1 value=1 consttype=1 objects_differing=3 (walk diverged) | L: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL type | fields: type=1 name=1 file=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) | off=pristine-bytes
+cases/U/u04 | P: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL line | fields: type=1 name=1 file=1 line=3 col=3 endline=3 endcol=3 decompile=1 size=1 value=1 consttype=1 objects_differing=3 (walk diverged) | L: rc=0 cmp=0 cmplines=0 strict=2 STRICT_NOTEQUAL type | fields: type=1 name=1 file=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged) | off=pristine-bytes

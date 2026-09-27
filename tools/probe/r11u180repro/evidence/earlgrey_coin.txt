@@ -1,0 +1,48 @@
+# Earlgrey_0_1 byte coin (order-only), measured in the resume session. Command: the sweep's own slang line
+# (+define+SYNTHESIS -f lowrisc_systems_top_earlgrey_0.1.scr --single-unit, cwd sim-icarus), outputs under /tmp/r11u180_eg.
+## hashes: serial runs (3 each)
+4ca5b83fb6a4837dfc8cf5273b571181  pris.1.uhdm
+4ca5b83fb6a4837dfc8cf5273b571181  pris.2.uhdm
+4ca5b83fb6a4837dfc8cf5273b571181  pris.3.uhdm
+c491d4bd2c29b6cb552aa6acc6033eb2  final2.1.uhdm
+c491d4bd2c29b6cb552aa6acc6033eb2  final2.2.uhdm
+c491d4bd2c29b6cb552aa6acc6033eb2  final2.3.uhdm
+## hashes: 3 concurrent x 3 rounds per binary (cpris / cfinal2), 3 concurrent x 2 rounds R11U180_ENUMIMP_OFF=1 (eoff*), every other law off (onlye*), R11U180_OFF=1 6 concurrent x 3 rounds (off*); pr = pristine 6 concurrent x 3 rounds plus the 3 serial runs
+      4 cfinal2 bffa323bb058d03205cea7298748906c
+      5 cfinal2 c491d4bd2c29b6cb552aa6acc6033eb2
+      9 cpris 4ca5b83fb6a4837dfc8cf5273b571181
+      2 eoff 4ca5b83fb6a4837dfc8cf5273b571181
+      4 eoff 864c6bb23288c4cf14fc2c4b633aa283
+      6 off 4ca5b83fb6a4837dfc8cf5273b571181
+     12 off 864c6bb23288c4cf14fc2c4b633aa283
+      4 onlye bffa323bb058d03205cea7298748906c
+      2 onlye c491d4bd2c29b6cb552aa6acc6033eb2
+     21 pr 4ca5b83fb6a4837dfc8cf5273b571181
+## sweep databases: swP 4ca5b83f (pristine), swG c491d4bd, swH bffa323b (both final2.bin)
+## order-blind: sorted uhdm-dump of the two law outcomes identical (0 lines), raw 12 lines; sorted pristine vs R11U180_OFF alternate identical (0 lines)
+4742244,4742249d4742243
+< \_logic_typespec: (spi_byte_t), line:22:11, endln:22:22
+<   |vpiName:spi_byte_t
+<   |vpiInstance:
+<   \_package: spi_device_pkg (spi_device_pkg::), file:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_spi_device_0.1/rtl/spi_device_pkg.sv, line:8:1, endln:54:28
+<   |vpiRange:
+<   \_range: , line:22:17, endln:22:22
+4742281a4742276,4742281
+> \_logic_typespec: (spi_byte_t), line:22:11, endln:22:22
+>   |vpiName:spi_byte_t
+>   |vpiInstance:
+>   \_package: spi_device_pkg (spi_device_pkg::), file:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_spi_device_0.1/rtl/spi_device_pkg.sv, line:8:1, endln:54:28
+>   |vpiRange:
+>   \_range: , line:22:17, endln:22:22
+## the creation site (gdb, python breakpoint on UHDM::Serializer::MakeLogic_typespec, 4 caller frames, 66677 calls per run; t0 = bffa, t1-t3 = c491)
+66663a66664
+> slang_uhdm::UhdmExporter::bareScalarTdCopyOfFresh16(UHDM::typespec const*) < slang_uhdm::UhdmExporter::bareScalarTdCopyOf(UHDM::typespec const*, bool) < slang_uhdm::UhdmExporter::bareScalarTypedefVarTs() < slang_uhdm::UhdmExporter::exportDesign()
+66666d66666
+< slang_uhdm::UhdmExporter::bareScalarTdCopyOfFresh16(UHDM::typespec const*) < slang_uhdm::UhdmExporter::bareScalarTdCopyOf(UHDM::typespec const*, bool) < slang_uhdm::UhdmExporter::bareScalarTypedefVarTs() < slang_uhdm::UhdmExporter::exportDesign()
+## swG vs swH on the UVM coin rows (known 4-line UINT/vpiDecompile coin)
+MiniAmiq-055eab74 default raw=4 sorted=4
+MiniAmiq-055eab74 testflags raw=4 sorted=4
+SeqDriver-65178d3a default raw=4 sorted=4
+SeqDriver-65178d3a testflags raw=4 sorted=4
+Earlgrey_0_1-a898def8 default raw=12 sorted=0
+Earlgrey_0_1-a898def8 testflags raw=12 sorted=0

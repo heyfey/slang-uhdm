@@ -1,0 +1,84 @@
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u180_swH/probe.csv
+probe cases: EQUAL=2889 STRICT_NOTEQUAL=1198 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=2889 differ:fullname=449 differ:endcol=198 differ:line=163 differ:file=105 differ:depth=104 differ:type=71 differ:name=57 differ:col=31 differ:endline=11 differ:value=5 differ:decompile=4
+== probe vs golden_probe.csv
+[probe] EQUAL=2889 STRICT_NOTEQUAL=1198
+CONVERSION r10earl_repro/qb25 STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r10rggen7repro/t6 STRICT_NOTEQUAL differ:fullname(27) -> EQUAL
+CONVERSION r10uvm224repro/grid224/a15_associndex STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION r10uvm66repro/v3_unbound STRICT_NOTEQUAL differ:name(1) -> EQUAL
+CONVERSION r10v223repro/arms/v1_pkg_nodata STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION r11u10repro/grid/h9_1e1m_port STRICT_NOTEQUAL differ:fullname(5) -> EQUAL
+CONVERSION r11u10repro/grid/hD_1e1mvec STRICT_NOTEQUAL differ:fullname(5) -> EQUAL
+CONVERSION r11u14repro/c10 STRICT_NOTEQUAL differ:line(3) -> EQUAL
+CONVERSION v11u111repro/brk/f5/z51_three_mods_import STRICT_NOTEQUAL differ:fullname(5) -> EQUAL
+CHANGE r10uvm55repro/a1 STRICT_NOTEQUAL differ:line(20) -> differ:file(15)
+CHANGE r10uvm59repro/a3_scope STRICT_NOTEQUAL differ:line(2) -> differ:line(1) [line -1]
+CHANGE r10uvm90repro/g90_a2_shapes STRICT_NOTEQUAL differ:line(11) -> differ:line(9) [line -2]
+CHANGE r10v158repro/v158_i STRICT_NOTEQUAL differ:name(4) -> differ:name(3) [name -1]
+CHANGE r11u88repro/grid/i1_ifkinds STRICT_NOTEQUAL differ:type(1) -> differ:endcol(2)
+CHANGE r11v53repro/grid/x10_iface_import_shadow STRICT_NOTEQUAL differ:type(1) -> differ:fullname(2)
+regressions=0 conversions=9 changes=6 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u180_swH/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u180_bin/uhdm-strictcmp
+
+[default] 798 tests
+  CMP_EQUAL: 454
+  SLANG_REJECT: 285
+  STRICT_NOTEQUAL: 26
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+  CMP_NOTEQUAL: 3
+
+[testflags] 798 tests
+  CMP_EQUAL: 450
+  SLANG_REJECT: 286
+  STRICT_NOTEQUAL: 24
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=454 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=26 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=450 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=24 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CONVERSION PackedArrayHighConn default STRICT_NOTEQUAL differ:fullname(5) -> CMP_EQUAL
+CONVERSION PackedArrayHighConn testflags STRICT_NOTEQUAL differ:fullname(5) -> CMP_EQUAL
+CHANGE ArrayMethodIterator default STRICT_NOTEQUAL differ:name(6) -> differ:endcol(1)
+CHANGE ArrayMethodIterator testflags STRICT_NOTEQUAL differ:name(16) -> differ:endcol(1)
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:fullname(436) -> differ:col(102)
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(436) -> differ:col(102)
+CHANGE Rggen default STRICT_NOTEQUAL differ:fullname(7) -> differ:endcol(634)
+regressions=0 conversions=2 changes=5 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u180_swH/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u180_bin/uhdm-strictcmp
+
+[default] 871 tests
+  CMP_EQUAL: 784
+  SLANG_REJECT: 67
+  STRICT_NOTEQUAL: 19
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 784
+  SLANG_REJECT: 67
+  STRICT_NOTEQUAL: 19
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=784 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=19
+[testflags] CMP_EQUAL=784 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=19
+CONVERSION mem_read_reg default STRICT_NOTEQUAL differ:name(5) -> CMP_EQUAL
+CONVERSION mem_read_reg testflags STRICT_NOTEQUAL differ:name(5) -> CMP_EQUAL
+CHANGE const_cast_signext default STRICT_NOTEQUAL differ:line(5) -> differ:type(1)
+CHANGE const_cast_signext testflags STRICT_NOTEQUAL differ:line(5) -> differ:type(1)
+CHANGE struct_param_func_config default STRICT_NOTEQUAL differ:line(8) -> differ:fullname(5)
+CHANGE struct_param_func_config testflags STRICT_NOTEQUAL differ:line(8) -> differ:fullname(5)
+regressions=0 conversions=2 changes=4 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+sweep rc=0

@@ -1,0 +1,17 @@
+r10earl_repro/qb25 ENUMIMP:2 IFACETDORDER:1
+r10rggen7repro/t6 ENUMIMP:3
+r10uvm180repro/g180_a_kinds PKGAGGCLONE:1
+r10uvm224repro/grid224/a15_associndex IFACETDORDER:1
+r10uvm55repro/a1 TPUSE:5
+r10uvm59repro/a3_scope TPUSE:1
+r10uvm66repro/v3_unbound TPUSE:1
+r10uvm90repro/g90_a2_shapes TPFORMAL:1 TPUSE:1
+r10v158repro/v158_i TPUSE:2
+r10v160repro/x11_class TPUSE:1
+r10v223repro/arms/v1_pkg_nodata IFACETDORDER:1
+r11u10repro/grid/h9_1e1m_port ENUMIMP:1
+r11u10repro/grid/hD_1e1mvec ENUMIMP:1
+r11u14repro/c10 PKGAGGCLONE:2
+r11u88repro/grid/i1_ifkinds IFACETDORDER:1
+r11v53repro/grid/x10_iface_import_shadow IFACETDORDER:1
+v11u111repro/brk/f5/z51_three_mods_import ENUMIMP:1

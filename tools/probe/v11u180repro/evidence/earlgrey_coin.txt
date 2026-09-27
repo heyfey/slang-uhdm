@@ -1,0 +1,19 @@
+Earlgrey_0_1 default, the sweep command line, 3 concurrent runs per binary (evidence of the implementer residue 15):
+bac79eff62b5d46892ddadfa748f488f  fix1.uhdm
+bac79eff62b5d46892ddadfa748f488f  fix2.uhdm
+8bb8972b76edc9a3c6e5c38a39f89a4d  fix3.uhdm
+864c6bb23288c4cf14fc2c4b633aa283  off1.uhdm
+864c6bb23288c4cf14fc2c4b633aa283  off2.uhdm
+864c6bb23288c4cf14fc2c4b633aa283  off3.uhdm
+4ca5b83fb6a4837dfc8cf5273b571181  pris1.uhdm
+4ca5b83fb6a4837dfc8cf5273b571181  pris2.uhdm
+4ca5b83fb6a4837dfc8cf5273b571181  pris3.uhdm
+pris1 vs off1: raw=14 sorted=2
+> off1.uhdm: Restored design Pre-Elab: 
+< pris1.uhdm: Restored design Pre-Elab: 
+fix1 vs fix3: raw=14 sorted=2
+< fix1.uhdm: Restored design Pre-Elab: 
+> fix3.uhdm: Restored design Pre-Elab: 
+
+[exited with code 0]
+(pris = pris.bin, fix = fix4.bin, off = fix4.bin R11U180_OFF=1; the two sorted lines are uhdm-dump's file-name header)

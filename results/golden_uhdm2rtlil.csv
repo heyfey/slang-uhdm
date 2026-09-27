@@ -143,7 +143,7 @@ conditional_if,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/condi
 conditional_if_else,default,CMP_EQUAL,,,equal
 const_arg_loop,default,CMP_EQUAL,,,equal
 const_ashift,default,CMP_EQUAL,,,equal
-const_cast_signext,default,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
+const_cast_signext,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 const_fold_func,default,CMP_EQUAL,,,equal
 const_func,default,CMP_EQUAL,,,equal
 const_func_block_var,default,CMP_EQUAL,,,equal
@@ -460,7 +460,7 @@ mem_iface_index,default,CMP_EQUAL,,,equal
 mem_init_for_param,default,CMP_EQUAL,,,equal
 mem_multi_always_write,default,CMP_EQUAL,,,equal
 mem_packed_2d_byte_write,default,CMP_EQUAL,,,equal
-mem_read_reg,default,STRICT_NOTEQUAL,differ:name(5),,differ:name(5)
+mem_read_reg,default,CMP_EQUAL,,,equal
 mem_sub_plain,default,CMP_EQUAL,,,equal
 MemberSelectOf2DStructPackedArray,default,CMP_EQUAL,,,equal
 MemoryInGenblock,default,CMP_EQUAL,,,equal
@@ -738,7 +738,7 @@ struct_negative_index,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/tes
 struct_param_dim,default,CMP_EQUAL,,,equal
 struct_param_field_shift,default,CMP_EQUAL,,,equal
 struct_param_func_arg,default,CMP_EQUAL,,,equal
-struct_param_func_config,default,STRICT_NOTEQUAL,differ:line(8),,differ:line(8)
+struct_param_func_config,default,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
 struct_param_func_loop,default,CMP_EQUAL,,,equal
 struct_param_pattern_packing,default,CMP_EQUAL,,,equal
 struct_param_repl_count,default,CMP_EQUAL,,,equal
@@ -1014,7 +1014,7 @@ conditional_if,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/con
 conditional_if_else,testflags,CMP_EQUAL,,,equal
 const_arg_loop,testflags,CMP_EQUAL,,,equal
 const_ashift,testflags,CMP_EQUAL,,,equal
-const_cast_signext,testflags,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
+const_cast_signext,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 const_fold_func,testflags,CMP_EQUAL,,,equal
 const_func,testflags,CMP_EQUAL,,,equal
 const_func_block_var,testflags,CMP_EQUAL,,,equal
@@ -1331,7 +1331,7 @@ mem_iface_index,testflags,CMP_EQUAL,,,equal
 mem_init_for_param,testflags,CMP_EQUAL,,,equal
 mem_multi_always_write,testflags,CMP_EQUAL,,,equal
 mem_packed_2d_byte_write,testflags,CMP_EQUAL,,,equal
-mem_read_reg,testflags,STRICT_NOTEQUAL,differ:name(5),,differ:name(5)
+mem_read_reg,testflags,CMP_EQUAL,,,equal
 mem_sub_plain,testflags,CMP_EQUAL,,,equal
 MemberSelectOf2DStructPackedArray,testflags,CMP_EQUAL,,,equal
 MemoryInGenblock,testflags,CMP_EQUAL,,,equal
@@ -1609,7 +1609,7 @@ struct_negative_index,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/t
 struct_param_dim,testflags,CMP_EQUAL,,,equal
 struct_param_field_shift,testflags,CMP_EQUAL,,,equal
 struct_param_func_arg,testflags,CMP_EQUAL,,,equal
-struct_param_func_config,testflags,STRICT_NOTEQUAL,differ:line(8),,differ:line(8)
+struct_param_func_config,testflags,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
 struct_param_func_loop,testflags,CMP_EQUAL,,,equal
 struct_param_pattern_packing,testflags,CMP_EQUAL,,,equal
 struct_param_repl_count,testflags,CMP_EQUAL,,,equal

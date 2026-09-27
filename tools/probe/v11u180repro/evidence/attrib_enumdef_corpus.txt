@@ -1,0 +1,5 @@
+surelog/default/PackedArrayHighConn md5=59383fa1a88a ENUMDEF:1 ENUMIMP:1 
+surelog/testflags/PackedArrayHighConn md5=a9536b7f8f19 ENUMDEF:1 ENUMIMP:1 
+surelog/default/Rggen md5=a14bc1247257 ENUMDEF:5 ENUMIMP:5 IFACETDORDER:2 
+surelog/default/Earlgrey_0_1 md5=8bb8972b76ed ENUMDEF:67 ENUMIMP:67 
+surelog/testflags/Earlgrey_0_1 md5=a75ee6232a4c ENUMDEF:67 ENUMIMP:67 

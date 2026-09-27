@@ -1,0 +1,1905 @@
+#2063 endcol
+  A: 6	array_typespec				rggen_apb_adapter.sv	18	3	18	48				
+  B: 6	array_typespec				rggen_apb_adapter.sv	18	3	18	49				
+#2064 col
+  A: 7	range				rggen_apb_adapter.sv	18	39	18	48				
+  B: 7	range				rggen_apb_adapter.sv	18	38	18	49				
+#2072 col
+  A: 5	range				rggen_apb_adapter.sv	18	39	18	48				
+  B: 5	range				rggen_apb_adapter.sv	18	38	18	49				
+#2787 endcol
+  A: 8	array_typespec				rggen_adapter_common.sv	18	3	18	48				
+  B: 8	array_typespec				rggen_adapter_common.sv	18	3	18	49				
+#2788 col
+  A: 9	range				rggen_adapter_common.sv	18	39	18	48				
+  B: 9	range				rggen_adapter_common.sv	18	38	18	49				
+#2796 col
+  A: 7	range				rggen_adapter_common.sv	18	39	18	48				
+  B: 7	range				rggen_adapter_common.sv	18	38	18	49				
+#2931 endcol
+  A: 10	logic_typespec				rggen_mux.sv	6	11	6	41				
+  B: 10	logic_typespec				rggen_mux.sv	6	11	6	30				
+#3201 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	186	3		0		
+#3202 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	186	3		0		
+#3210 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	186	4		0		
+#3211 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	186	4		0		
+#3219 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	186	4		0		
+#3220 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	186	4		0		
+#3224 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_0.g_bit_field_0.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_0.g_bit_field_0.read_data	block_0.sv	7	59	186	6		0		
+#3227 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_0.g_bit_field_0.bit_field_if.read_data[0+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[0+:4]	block_0.sv	7	24	7	38		0		
+#3236 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_0.g_bit_field_0.bit_field_if.value[0+:4].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[0+:4]	block_0.sv	8	24	8	34		0		
+#3291 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	212	3		0		
+#3292 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	212	3		0		
+#3300 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	212	4		0		
+#3301 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	212	4		0		
+#3309 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	212	4		0		
+#3310 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	212	4		0		
+#3314 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_0.g_bit_field_1.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_0.g_bit_field_1.read_data	block_0.sv	7	59	212	6		0		
+#3317 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_0.g_bit_field_1.bit_field_if.read_data[4+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[4+:4]	block_0.sv	7	24	7	38		0		
+#3326 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_0.g_bit_field_1.bit_field_if.value[4+:4].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[4+:4]	block_0.sv	8	24	8	34		0		
+#3378 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	238	3		0		
+#3379 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	238	3		0		
+#3387 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	238	4		0		
+#3388 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	238	4		0		
+#3396 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	238	4		0		
+#3397 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	238	4		0		
+#3401 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_0.g_bit_field_2.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_0.g_bit_field_2.read_data	block_0.sv	7	59	238	6		0		
+#3404 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_0.g_bit_field_2.bit_field_if.read_data[8+:1].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[8+:1]	block_0.sv	7	24	7	38		0		
+#3413 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_0.g_bit_field_2.bit_field_if.value[8+:1].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[8+:1]	block_0.sv	8	24	8	34		0		
+#3468 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	264	3		0		
+#3469 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	264	3		0		
+#3477 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	264	4		0		
+#3478 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	264	4		0		
+#3486 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	264	4		0		
+#3487 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	264	4		0		
+#3491 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_0.g_bit_field_3.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_0.g_bit_field_3.read_data	block_0.sv	7	59	264	6		0		
+#3494 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_0.g_bit_field_3.bit_field_if.read_data[9+:2].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[9+:2]	block_0.sv	7	24	7	38		0		
+#3503 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_0.g_bit_field_3.bit_field_if.value[9+:2].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[9+:2]	block_0.sv	8	24	8	34		0		
+#3558 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	290	2		0		
+#3559 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	290	2		0		
+#3567 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	290	3		0		
+#3568 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	290	3		0		
+#3576 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	290	3		0		
+#3577 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	290	3		0		
+#3581 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_0.g_bit_field_4.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_0.g_bit_field_4.read_data	block_0.sv	7	60	290	6		0		
+#3584 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_0.g_bit_field_4.bit_field_if.read_data[11+:2].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[11+:2]	block_0.sv	7	24	7	39		0		
+#3593 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_0.g_bit_field_4.bit_field_if.value[11+:2].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[11+:2]	block_0.sv	8	24	8	35		0		
+#3648 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	315	2		0		
+#3649 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	315	2		0		
+#3657 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	315	3		0		
+#3658 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	315	3		0		
+#3666 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	315	3		0		
+#3667 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	315	3		0		
+#3671 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_0.g_bit_field_5.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_0.g_bit_field_5.read_data	block_0.sv	7	60	315	6		0		
+#3674 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_0.g_bit_field_5.bit_field_if.read_data[13+:2].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[13+:2]	block_0.sv	7	24	7	39		0		
+#3683 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_0.g_bit_field_5.bit_field_if.value[13+:2].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[13+:2]	block_0.sv	8	24	8	35		0		
+#3738 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	340	2		0		
+#3739 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	340	2		0		
+#3747 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	340	3		0		
+#3748 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	340	3		0		
+#3756 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	340	3		0		
+#3757 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	340	3		0		
+#3761 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_0.g_bit_field_6.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_0.g_bit_field_6.read_data	block_0.sv	7	60	340	6		0		
+#3764 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_0.g_bit_field_6.bit_field_if.read_data[15+:2].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[15+:2]	block_0.sv	7	24	7	39		0		
+#3773 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_0.g_bit_field_6.bit_field_if.value[15+:2].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[15+:2]	block_0.sv	8	24	8	35		0		
+#3844 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	384	3		0		
+#3845 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	384	3		0		
+#3853 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	384	4		0		
+#3854 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	384	4		0		
+#3862 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	384	4		0		
+#3863 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	384	4		0		
+#3867 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_1.g_register_1.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_1.g_register_1.read_data	block_0.sv	7	59	384	6		0		
+#3870 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_1.g_register_1.bit_field_if.read_data[0+:1].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[0+:1]	block_0.sv	7	24	7	38		0		
+#3879 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_1.g_register_1.bit_field_if.value[0+:1].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[0+:1]	block_0.sv	8	24	8	34		0		
+#3945 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	427	3		0		
+#3946 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	427	3		0		
+#3954 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	427	4		0		
+#3955 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	427	4		0		
+#3963 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	427	4		0		
+#3964 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	427	4		0		
+#3968 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_2.g_bit_field_0.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_2.g_bit_field_0.read_data	block_0.sv	7	59	427	6		0		
+#3971 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_2.g_bit_field_0.bit_field_if.read_data[0+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[0+:4]	block_0.sv	7	24	7	38		0		
+#3980 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_2.g_bit_field_0.bit_field_if.value[0+:4].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[0+:4]	block_0.sv	8	24	8	34		0		
+#4034 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	453	3		0		
+#4035 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	453	3		0		
+#4043 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	453	4		0		
+#4044 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	453	4		0		
+#4052 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	453	4		0		
+#4053 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	453	4		0		
+#4057 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_2.g_bit_field_1.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_2.g_bit_field_1.read_data	block_0.sv	7	59	453	6		0		
+#4060 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_2.g_bit_field_1.bit_field_if.read_data[8+:8].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[8+:8]	block_0.sv	7	24	7	38		0		
+#4069 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_2.g_bit_field_1.bit_field_if.value[8+:8].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[8+:8]	block_0.sv	8	24	8	34		0		
+#4123 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	478	2		0		
+#4124 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	478	2		0		
+#4132 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	478	3		0		
+#4133 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	478	3		0		
+#4141 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	478	3		0		
+#4142 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	478	3		0		
+#4146 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_2.g_bit_field_2.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_2.g_bit_field_2.read_data	block_0.sv	7	60	478	6		0		
+#4149 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_2.g_bit_field_2.bit_field_if.read_data[16+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[16+:4]	block_0.sv	7	24	7	39		0		
+#4158 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_2.g_bit_field_2.bit_field_if.value[16+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[16+:4]	block_0.sv	8	24	8	35		0		
+#4213 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	503	2		0		
+#4214 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	503	2		0		
+#4222 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	503	3		0		
+#4223 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	503	3		0		
+#4231 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	503	3		0		
+#4232 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	503	3		0		
+#4236 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_2.g_bit_field_3.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_2.g_bit_field_3.read_data	block_0.sv	7	60	503	6		0		
+#4239 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_2.g_bit_field_3.bit_field_if.read_data[20+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[20+:4]	block_0.sv	7	24	7	39		0		
+#4248 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_2.g_bit_field_3.bit_field_if.value[20+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[20+:4]	block_0.sv	8	24	8	35		0		
+#4327 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	546	3		0		
+#4328 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	546	3		0		
+#4336 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	546	4		0		
+#4337 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	546	4		0		
+#4345 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	546	4		0		
+#4346 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	546	4		0		
+#4350 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_3.g_bit_field_0.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_3.g_bit_field_0.read_data	block_0.sv	7	59	546	6		0		
+#4353 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_3.g_bit_field_0.bit_field_if.read_data[0+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[0+:4]	block_0.sv	7	24	7	38		0		
+#4362 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_3.g_bit_field_0.bit_field_if.value[0+:4].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[0+:4]	block_0.sv	8	24	8	34		0		
+#4417 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	573	3		0		
+#4418 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	573	3		0		
+#4426 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	573	4		0		
+#4427 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	573	4		0		
+#4435 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	573	4		0		
+#4436 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	573	4		0		
+#4440 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_3.g_bit_field_1.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_3.g_bit_field_1.read_data	block_0.sv	7	59	573	6		0		
+#4443 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_3.g_bit_field_1.bit_field_if.read_data[4+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[4+:4]	block_0.sv	7	24	7	38		0		
+#4452 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_3.g_bit_field_1.bit_field_if.value[4+:4].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[4+:4]	block_0.sv	8	24	8	34		0		
+#4499 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	599	3		0		
+#4500 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	599	3		0		
+#4508 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	599	4		0		
+#4509 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	599	4		0		
+#4517 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	599	4		0		
+#4518 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	599	4		0		
+#4522 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_3.g_bit_field_2.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_3.g_bit_field_2.read_data	block_0.sv	7	59	599	6		0		
+#4525 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_3.g_bit_field_2.bit_field_if.read_data[8+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[8+:4]	block_0.sv	7	24	7	38		0		
+#4534 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_3.g_bit_field_2.bit_field_if.value[8+:4].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[8+:4]	block_0.sv	8	24	8	34		0		
+#4566 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	613	2		0		
+#4567 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	613	2		0		
+#4575 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	613	3		0		
+#4576 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	613	3		0		
+#4584 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	613	3		0		
+#4585 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	613	3		0		
+#4589 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_3.g_bit_field_3.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_3.g_bit_field_3.read_data	block_0.sv	7	60	613	6		0		
+#4592 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_3.g_bit_field_3.bit_field_if.read_data[16+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[16+:4]	block_0.sv	7	24	7	39		0		
+#4601 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_3.g_bit_field_3.bit_field_if.value[16+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[16+:4]	block_0.sv	8	24	8	35		0		
+#4660 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	646	3		0		
+#4661 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	646	3		0		
+#4669 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	646	4		0		
+#4670 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	646	4		0		
+#4678 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	646	4		0		
+#4679 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	646	4		0		
+#4683 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_4.g_bit_field_0.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_4.g_bit_field_0.read_data	block_0.sv	7	59	646	6		0		
+#4686 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_4.g_bit_field_0.bit_field_if.read_data[0+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[0+:4]	block_0.sv	7	24	7	38		0		
+#4695 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_4.g_bit_field_0.bit_field_if.value[0+:4].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[0+:4]	block_0.sv	8	24	8	34		0		
+#4750 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	672	3		0		
+#4751 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	672	3		0		
+#4759 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	672	4		0		
+#4760 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	672	4		0		
+#4768 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	672	4		0		
+#4769 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	672	4		0		
+#4773 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_4.g_bit_field_1.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_4.g_bit_field_1.read_data	block_0.sv	7	59	672	6		0		
+#4776 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_4.g_bit_field_1.bit_field_if.read_data[8+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[8+:4]	block_0.sv	7	24	7	38		0		
+#4785 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_4.g_bit_field_1.bit_field_if.value[8+:4].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[8+:4]	block_0.sv	8	24	8	34		0		
+#4838 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	697	2		0		
+#4839 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	697	2		0		
+#4847 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	697	3		0		
+#4848 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	697	3		0		
+#4856 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	697	3		0		
+#4857 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	697	3		0		
+#4861 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_4.g_bit_field_2.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_4.g_bit_field_2.read_data	block_0.sv	7	60	697	6		0		
+#4864 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_4.g_bit_field_2.bit_field_if.read_data[12+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[12+:4]	block_0.sv	7	24	7	39		0		
+#4873 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_4.g_bit_field_2.bit_field_if.value[12+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[12+:4]	block_0.sv	8	24	8	35		0		
+#4932 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	723	2		0		
+#4933 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	723	2		0		
+#4941 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	723	3		0		
+#4942 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	723	3		0		
+#4950 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	723	3		0		
+#4951 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	723	3		0		
+#4955 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_4.g_bit_field_3.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_4.g_bit_field_3.read_data	block_0.sv	7	60	723	6		0		
+#4958 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_4.g_bit_field_3.bit_field_if.read_data[16+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[16+:4]	block_0.sv	7	24	7	39		0		
+#4967 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_4.g_bit_field_3.bit_field_if.value[16+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[16+:4]	block_0.sv	8	24	8	35		0		
+#5041 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	767	3		0		
+#5042 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	767	3		0		
+#5050 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	767	4		0		
+#5051 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	767	4		0		
+#5059 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	767	4		0		
+#5060 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	767	4		0		
+#5064 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_0.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_0.read_data	block_0.sv	7	59	767	6		0		
+#5067 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_5.g_bit_field_0.bit_field_if.read_data[0+:2].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[0+:2]	block_0.sv	7	24	7	38		0		
+#5076 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_5.g_bit_field_0.bit_field_if.value[0+:2].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[0+:2]	block_0.sv	8	24	8	34		0		
+#5131 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	792	3		0		
+#5132 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	792	3		0		
+#5140 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	792	4		0		
+#5141 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	792	4		0		
+#5149 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	792	4		0		
+#5150 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	792	4		0		
+#5154 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_1.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_1.read_data	block_0.sv	7	59	792	6		0		
+#5157 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_5.g_bit_field_1.bit_field_if.read_data[2+:2].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[2+:2]	block_0.sv	7	24	7	38		0		
+#5166 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_5.g_bit_field_1.bit_field_if.value[2+:2].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[2+:2]	block_0.sv	8	24	8	34		0		
+#5226 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	817	3		0		
+#5227 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	817	3		0		
+#5235 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	817	4		0		
+#5236 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	817	4		0		
+#5244 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	817	4		0		
+#5245 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	817	4		0		
+#5249 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_2.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_2.read_data	block_0.sv	7	59	817	6		0		
+#5252 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_5.g_bit_field_2.bit_field_if.read_data[4+:2].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[4+:2]	block_0.sv	7	24	7	38		0		
+#5261 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_5.g_bit_field_2.bit_field_if.value[4+:2].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[4+:2]	block_0.sv	8	24	8	34		0		
+#5316 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	841	3		0		
+#5317 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	841	3		0		
+#5325 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	841	4		0		
+#5326 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	841	4		0		
+#5334 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	841	4		0		
+#5335 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	841	4		0		
+#5339 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_3.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_3.read_data	block_0.sv	7	59	841	6		0		
+#5342 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_5.g_bit_field_3.bit_field_if.read_data[6+:2].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[6+:2]	block_0.sv	7	24	7	38		0		
+#5351 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_5.g_bit_field_3.bit_field_if.value[6+:2].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[6+:2]	block_0.sv	8	24	8	34		0		
+#5411 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	865	3		0		
+#5412 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	865	3		0		
+#5420 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	865	4		0		
+#5421 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	865	4		0		
+#5429 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	865	4		0		
+#5430 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	865	4		0		
+#5434 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_4.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_4.read_data	block_0.sv	7	59	865	6		0		
+#5437 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_5.g_bit_field_4.bit_field_if.read_data[8+:2].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[8+:2]	block_0.sv	7	24	7	38		0		
+#5446 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_5.g_bit_field_4.bit_field_if.value[8+:2].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[8+:2]	block_0.sv	8	24	8	34		0		
+#5501 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	890	2		0		
+#5502 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	890	2		0		
+#5510 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	890	3		0		
+#5511 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	890	3		0		
+#5519 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	890	3		0		
+#5520 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	890	3		0		
+#5524 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_5.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_5.read_data	block_0.sv	7	60	890	6		0		
+#5527 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_5.g_bit_field_5.bit_field_if.read_data[10+:2].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[10+:2]	block_0.sv	7	24	7	39		0		
+#5536 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_5.g_bit_field_5.bit_field_if.value[10+:2].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[10+:2]	block_0.sv	8	24	8	35		0		
+#5596 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	915	2		0		
+#5597 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	915	2		0		
+#5605 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	915	3		0		
+#5606 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	915	3		0		
+#5614 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	915	3		0		
+#5615 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	915	3		0		
+#5619 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_6.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_6.read_data	block_0.sv	7	60	915	6		0		
+#5622 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_5.g_bit_field_6.bit_field_if.read_data[12+:2].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[12+:2]	block_0.sv	7	24	7	39		0		
+#5631 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_5.g_bit_field_6.bit_field_if.value[12+:2].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[12+:2]	block_0.sv	8	24	8	35		0		
+#5691 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	940	2		0		
+#5692 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	940	2		0		
+#5700 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	940	3		0		
+#5701 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	940	3		0		
+#5709 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	940	3		0		
+#5710 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	940	3		0		
+#5714 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_7.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_7.read_data	block_0.sv	7	60	940	6		0		
+#5717 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_5.g_bit_field_7.bit_field_if.read_data[16+:2].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[16+:2]	block_0.sv	7	24	7	39		0		
+#5726 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_5.g_bit_field_7.bit_field_if.value[16+:2].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[16+:2]	block_0.sv	8	24	8	35		0		
+#5781 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	965	2		0		
+#5782 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	965	2		0		
+#5790 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	965	3		0		
+#5791 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	965	3		0		
+#5799 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	965	3		0		
+#5800 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	965	3		0		
+#5804 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_8.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_8.read_data	block_0.sv	7	60	965	6		0		
+#5807 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_5.g_bit_field_8.bit_field_if.read_data[18+:2].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[18+:2]	block_0.sv	7	24	7	39		0		
+#5816 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_5.g_bit_field_8.bit_field_if.value[18+:2].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[18+:2]	block_0.sv	8	24	8	35		0		
+#5876 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	990	2		0		
+#5877 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	990	2		0		
+#5885 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	990	3		0		
+#5886 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	990	3		0		
+#5894 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	990	3		0		
+#5895 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	990	3		0		
+#5899 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_9.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_5.g_bit_field_9.read_data	block_0.sv	7	60	990	6		0		
+#5902 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_5.g_bit_field_9.bit_field_if.read_data[20+:2].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[20+:2]	block_0.sv	7	24	7	39		0		
+#5911 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_5.g_bit_field_9.bit_field_if.value[20+:2].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[20+:2]	block_0.sv	8	24	8	35		0		
+#5990 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1033	3		0		
+#5991 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1033	3		0		
+#5999 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1033	4		0		
+#6000 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1033	4		0		
+#6008 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1033	4		0		
+#6009 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1033	4		0		
+#6013 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_0.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_0.read_data	block_0.sv	7	59	1033	6		0		
+#6016 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_6.g_bit_field_0.bit_field_if.read_data[0+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[0+:4]	block_0.sv	7	24	7	38		0		
+#6025 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_6.g_bit_field_0.bit_field_if.value[0+:4].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[0+:4]	block_0.sv	8	24	8	34		0		
+#6080 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1059	3		0		
+#6081 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1059	3		0		
+#6089 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1059	4		0		
+#6090 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1059	4		0		
+#6098 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1059	4		0		
+#6099 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1059	4		0		
+#6103 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_1.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_1.read_data	block_0.sv	7	59	1059	6		0		
+#6106 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_6.g_bit_field_1.bit_field_if.read_data[4+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[4+:4]	block_0.sv	7	24	7	38		0		
+#6115 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_6.g_bit_field_1.bit_field_if.value[4+:4].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[4+:4]	block_0.sv	8	24	8	34		0		
+#6168 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1084	3		0		
+#6169 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1084	3		0		
+#6177 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1084	4		0		
+#6178 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1084	4		0		
+#6186 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1084	4		0		
+#6187 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1084	4		0		
+#6191 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_2.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_2.read_data	block_0.sv	7	59	1084	6		0		
+#6194 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_6.g_bit_field_2.bit_field_if.read_data[8+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[8+:4]	block_0.sv	7	24	7	38		0		
+#6203 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_6.g_bit_field_2.bit_field_if.value[8+:4].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[8+:4]	block_0.sv	8	24	8	34		0		
+#6262 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1110	2		0		
+#6263 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1110	2		0		
+#6271 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1110	3		0		
+#6272 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1110	3		0		
+#6280 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1110	3		0		
+#6281 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1110	3		0		
+#6285 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_3.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_3.read_data	block_0.sv	7	60	1110	6		0		
+#6288 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_6.g_bit_field_3.bit_field_if.read_data[12+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[12+:4]	block_0.sv	7	24	7	39		0		
+#6297 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_6.g_bit_field_3.bit_field_if.value[12+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[12+:4]	block_0.sv	8	24	8	35		0		
+#6352 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1136	2		0		
+#6353 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1136	2		0		
+#6361 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1136	3		0		
+#6362 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1136	3		0		
+#6370 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1136	3		0		
+#6371 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1136	3		0		
+#6375 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_4.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_4.read_data	block_0.sv	7	60	1136	6		0		
+#6378 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_6.g_bit_field_4.bit_field_if.read_data[16+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[16+:4]	block_0.sv	7	24	7	39		0		
+#6387 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_6.g_bit_field_4.bit_field_if.value[16+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[16+:4]	block_0.sv	8	24	8	35		0		
+#6440 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1161	2		0		
+#6441 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1161	2		0		
+#6449 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1161	3		0		
+#6450 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1161	3		0		
+#6458 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1161	3		0		
+#6459 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1161	3		0		
+#6463 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_5.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_5.read_data	block_0.sv	7	60	1161	6		0		
+#6466 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_6.g_bit_field_5.bit_field_if.read_data[20+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[20+:4]	block_0.sv	7	24	7	39		0		
+#6475 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_6.g_bit_field_5.bit_field_if.value[20+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[20+:4]	block_0.sv	8	24	8	35		0		
+#6534 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1187	2		0		
+#6535 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1187	2		0		
+#6543 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1187	3		0		
+#6544 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1187	3		0		
+#6552 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1187	3		0		
+#6553 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1187	3		0		
+#6557 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_6.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_6.read_data	block_0.sv	7	60	1187	6		0		
+#6560 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_6.g_bit_field_6.bit_field_if.read_data[24+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[24+:4]	block_0.sv	7	24	7	39		0		
+#6569 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_6.g_bit_field_6.bit_field_if.value[24+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[24+:4]	block_0.sv	8	24	8	35		0		
+#6624 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1213	2		0		
+#6625 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1213	2		0		
+#6633 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1213	3		0		
+#6634 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1213	3		0		
+#6642 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1213	3		0		
+#6643 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1213	3		0		
+#6647 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_7.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_7.read_data	block_0.sv	7	60	1213	6		0		
+#6650 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_6.g_bit_field_7.bit_field_if.read_data[28+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[28+:4]	block_0.sv	7	24	7	39		0		
+#6659 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_6.g_bit_field_7.bit_field_if.value[28+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[28+:4]	block_0.sv	8	24	8	35		0		
+#6714 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1239	2		0		
+#6715 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1239	2		0		
+#6723 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1239	3		0		
+#6724 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1239	3		0		
+#6732 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1239	3		0		
+#6733 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1239	3		0		
+#6737 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_8.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_8.read_data	block_0.sv	7	60	1239	6		0		
+#6740 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_6.g_bit_field_8.bit_field_if.read_data[32+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[32+:4]	block_0.sv	7	24	7	39		0		
+#6749 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_6.g_bit_field_8.bit_field_if.value[32+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[32+:4]	block_0.sv	8	24	8	35		0		
+#6804 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1264	2		0		
+#6805 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1264	2		0		
+#6813 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1264	3		0		
+#6814 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1264	3		0		
+#6822 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1264	3		0		
+#6823 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1264	3		0		
+#6827 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_9.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_6.g_bit_field_9.read_data	block_0.sv	7	60	1264	6		0		
+#6830 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_6.g_bit_field_9.bit_field_if.read_data[36+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[36+:4]	block_0.sv	7	24	7	39		0		
+#6839 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_6.g_bit_field_9.bit_field_if.value[36+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[36+:4]	block_0.sv	8	24	8	35		0		
+#6913 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1307	3		0		
+#6914 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1307	3		0		
+#6922 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1307	4		0		
+#6923 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1307	4		0		
+#6931 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1307	4		0		
+#6932 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1307	4		0		
+#6936 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_7.g_bit_field_0.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_7.g_bit_field_0.read_data	block_0.sv	7	59	1307	6		0		
+#6939 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_7.g_bit_field_0.bit_field_if.read_data[0+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[0+:4]	block_0.sv	7	24	7	38		0		
+#6948 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_7.g_bit_field_0.bit_field_if.value[0+:4].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[0+:4]	block_0.sv	8	24	8	34		0		
+#7003 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1333	3		0		
+#7004 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1333	3		0		
+#7012 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1333	4		0		
+#7013 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1333	4		0		
+#7021 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1333	4		0		
+#7022 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1333	4		0		
+#7026 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_7.g_bit_field_1.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_7.g_bit_field_1.read_data	block_0.sv	7	59	1333	6		0		
+#7029 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_7.g_bit_field_1.bit_field_if.read_data[8+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[8+:4]	block_0.sv	7	24	7	38		0		
+#7038 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_7.g_bit_field_1.bit_field_if.value[8+:4].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[8+:4]	block_0.sv	8	24	8	34		0		
+#7093 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1359	2		0		
+#7094 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1359	2		0		
+#7102 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1359	3		0		
+#7103 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1359	3		0		
+#7111 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1359	3		0		
+#7112 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1359	3		0		
+#7116 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_7.g_bit_field_2.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_7.g_bit_field_2.read_data	block_0.sv	7	60	1359	6		0		
+#7119 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_7.g_bit_field_2.bit_field_if.read_data[16+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[16+:4]	block_0.sv	7	24	7	39		0		
+#7128 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_7.g_bit_field_2.bit_field_if.value[16+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[16+:4]	block_0.sv	8	24	8	35		0		
+#7183 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1385	2		0		
+#7184 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1385	2		0		
+#7192 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1385	3		0		
+#7193 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1385	3		0		
+#7201 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1385	3		0		
+#7202 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1385	3		0		
+#7206 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_7.g_bit_field_3.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_7.g_bit_field_3.read_data	block_0.sv	7	60	1385	6		0		
+#7209 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_7.g_bit_field_3.bit_field_if.read_data[24+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[24+:4]	block_0.sv	7	24	7	39		0		
+#7218 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_7.g_bit_field_3.bit_field_if.value[24+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[24+:4]	block_0.sv	8	24	8	35		0		
+#7292 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1429	3		0		
+#7293 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1429	3		0		
+#7301 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1429	4		0		
+#7302 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1429	4		0		
+#7310 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1429	4		0		
+#7311 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1429	4		0		
+#7315 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_8.g_bit_field_0.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_8.g_bit_field_0.read_data	block_0.sv	7	59	1429	6		0		
+#7318 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_8.g_bit_field_0.bit_field_if.read_data[0+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[0+:4]	block_0.sv	7	24	7	38		0		
+#7327 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_8.g_bit_field_0.bit_field_if.value[0+:4].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[0+:4]	block_0.sv	8	24	8	34		0		
+#7382 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1455	3		0		
+#7383 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1455	3		0		
+#7391 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1455	4		0		
+#7392 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1455	4		0		
+#7400 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1455	4		0		
+#7401 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1455	4		0		
+#7405 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_8.g_bit_field_1.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_8.g_bit_field_1.read_data	block_0.sv	7	59	1455	6		0		
+#7408 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_8.g_bit_field_1.bit_field_if.read_data[8+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[8+:4]	block_0.sv	7	24	7	38		0		
+#7417 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_8.g_bit_field_1.bit_field_if.value[8+:4].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[8+:4]	block_0.sv	8	24	8	34		0		
+#7472 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1481	2		0		
+#7473 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1481	2		0		
+#7481 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1481	3		0		
+#7482 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1481	3		0		
+#7490 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1481	3		0		
+#7491 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1481	3		0		
+#7495 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_8.g_bit_field_2.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_8.g_bit_field_2.read_data	block_0.sv	7	60	1481	6		0		
+#7498 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_8.g_bit_field_2.bit_field_if.read_data[16+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[16+:4]	block_0.sv	7	24	7	39		0		
+#7507 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_8.g_bit_field_2.bit_field_if.value[16+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[16+:4]	block_0.sv	8	24	8	35		0		
+#7562 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1507	2		0		
+#7563 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1507	2		0		
+#7571 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1507	3		0		
+#7572 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1507	3		0		
+#7580 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1507	3		0		
+#7581 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1507	3		0		
+#7585 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_8.g_bit_field_3.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_8.g_bit_field_3.read_data	block_0.sv	7	60	1507	6		0		
+#7588 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_8.g_bit_field_3.bit_field_if.read_data[24+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[24+:4]	block_0.sv	7	24	7	39		0		
+#7597 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_8.g_bit_field_3.bit_field_if.value[24+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[24+:4]	block_0.sv	8	24	8	35		0		
+#7652 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1533	2		0		
+#7653 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1533	2		0		
+#7661 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1533	3		0		
+#7662 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1533	3		0		
+#7670 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1533	3		0		
+#7671 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1533	3		0		
+#7675 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_8.g_bit_field_4.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_8.g_bit_field_4.read_data	block_0.sv	7	60	1533	6		0		
+#7678 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_8.g_bit_field_4.bit_field_if.read_data[32+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[32+:4]	block_0.sv	7	24	7	39		0		
+#7687 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_8.g_bit_field_4.bit_field_if.value[32+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[32+:4]	block_0.sv	8	24	8	35		0		
+#7742 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1559	2		0		
+#7743 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1559	2		0		
+#7751 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1559	3		0		
+#7752 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1559	3		0		
+#7760 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1559	3		0		
+#7761 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1559	3		0		
+#7765 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_8.g_bit_field_5.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_8.g_bit_field_5.read_data	block_0.sv	7	60	1559	6		0		
+#7768 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_8.g_bit_field_5.bit_field_if.read_data[40+:4].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[40+:4]	block_0.sv	7	24	7	39		0		
+#7777 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_8.g_bit_field_5.bit_field_if.value[40+:4].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[40+:4]	block_0.sv	8	24	8	35		0		
+#7851 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1603	3		0		
+#7852 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1603	3		0		
+#7860 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1603	4		0		
+#7861 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1603	4		0		
+#7869 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1603	4		0		
+#7870 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1603	4		0		
+#7874 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_9.g_bit_field_0.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_9.g_bit_field_0.read_data	block_0.sv	7	59	1603	6		0		
+#7877 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_9.g_bit_field_0.bit_field_if.read_data[0+:2].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[0+:2]	block_0.sv	7	24	7	38		0		
+#7886 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_9.g_bit_field_0.bit_field_if.value[0+:2].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[0+:2]	block_0.sv	8	24	8	34		0		
+#7935 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1628	3		0		
+#7936 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1628	3		0		
+#7944 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1628	4		0		
+#7945 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1628	4		0		
+#7953 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1628	4		0		
+#7954 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1628	4		0		
+#7958 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_9.g_bit_field_1.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_9.g_bit_field_1.read_data	block_0.sv	7	59	1628	6		0		
+#7961 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_9.g_bit_field_1.bit_field_if.read_data[2+:2].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[2+:2]	block_0.sv	7	24	7	38		0		
+#7970 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_9.g_bit_field_1.bit_field_if.value[2+:2].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[2+:2]	block_0.sv	8	24	8	34		0		
+#8025 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1654	3		0		
+#8026 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1654	3		0		
+#8034 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1654	4		0		
+#8035 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1654	4		0		
+#8043 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1654	4		0		
+#8044 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1654	4		0		
+#8048 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_9.g_bit_field_2.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_9.g_bit_field_2.read_data	block_0.sv	7	59	1654	6		0		
+#8051 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_9.g_bit_field_2.bit_field_if.read_data[4+:2].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[4+:2]	block_0.sv	7	24	7	38		0		
+#8060 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_9.g_bit_field_2.bit_field_if.value[4+:2].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[4+:2]	block_0.sv	8	24	8	34		0		
+#8116 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1681	3		0		
+#8117 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1681	3		0		
+#8125 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1681	4		0		
+#8126 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1681	4		0		
+#8134 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1681	4		0		
+#8135 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1681	4		0		
+#8139 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_9.g_bit_field_3.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_9.g_bit_field_3.read_data	block_0.sv	7	59	1681	6		0		
+#8142 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_9.g_bit_field_3.bit_field_if.read_data[6+:2].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[6+:2]	block_0.sv	7	24	7	38		0		
+#8151 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_9.g_bit_field_3.bit_field_if.value[6+:2].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[6+:2]	block_0.sv	8	24	8	34		0		
+#8200 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1706	3		0		
+#8201 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1706	3		0		
+#8209 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1706	4		0		
+#8210 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1706	4		0		
+#8218 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1706	4		0		
+#8219 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1706	4		0		
+#8223 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_9.g_bit_field_4.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_9.g_bit_field_4.read_data	block_0.sv	7	59	1706	6		0		
+#8226 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_9.g_bit_field_4.bit_field_if.read_data[8+:2].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[8+:2]	block_0.sv	7	24	7	38		0		
+#8235 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_9.g_bit_field_4.bit_field_if.value[8+:2].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[8+:2]	block_0.sv	8	24	8	34		0		
+#8267 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1720	2		0		
+#8268 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1720	2		0		
+#8276 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1720	3		0		
+#8277 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1720	3		0		
+#8285 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1720	3		0		
+#8286 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1720	3		0		
+#8290 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_9.g_bit_field_5.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_9.g_bit_field_5.read_data	block_0.sv	7	60	1720	6		0		
+#8293 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_9.g_bit_field_5.bit_field_if.read_data[10+:2].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[10+:2]	block_0.sv	7	24	7	39		0		
+#8302 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_9.g_bit_field_5.bit_field_if.value[10+:2].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[10+:2]	block_0.sv	8	24	8	35		0		
+#8383 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1952	3		0		
+#8384 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1952	3		0		
+#8392 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1952	4		0		
+#8393 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1952	4		0		
+#8401 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1952	4		0		
+#8402 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1952	4		0		
+#8406 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_12.g_bit_field_0.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_12.g_bit_field_0.read_data	block_0.sv	7	59	1952	6		0		
+#8409 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_12.g_bit_field_0.bit_field_if.read_data[0+:1].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[0+:1]	block_0.sv	7	24	7	38		0		
+#8418 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_12.g_bit_field_0.bit_field_if.value[0+:1].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[0+:1]	block_0.sv	8	24	8	34		0		
+#8470 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	1978	2		0		
+#8471 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	1978	2		0		
+#8479 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	1978	3		0		
+#8480 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	1978	3		0		
+#8488 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	1978	3		0		
+#8489 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	1978	3		0		
+#8493 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_12.g_bit_field_1.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_12.g_bit_field_1.read_data	block_0.sv	7	60	1978	6		0		
+#8496 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_12.g_bit_field_1.bit_field_if.read_data[32+:1].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[32+:1]	block_0.sv	7	24	7	39		0		
+#8505 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_12.g_bit_field_1.bit_field_if.value[32+:1].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[32+:1]	block_0.sv	8	24	8	35		0		
+#8579 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	2022	3		0		
+#8580 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	2022	3		0		
+#8588 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	2022	4		0		
+#8589 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	2022	4		0		
+#8597 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	2022	4		0		
+#8598 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	2022	4		0		
+#8602 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_0.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_0.read_data	block_0.sv	7	59	2022	6		0		
+#8605 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_13.g_bit_field_0.bit_field_if.read_data[0+:2].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[0+:2]	block_0.sv	7	24	7	38		0		
+#8614 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_13.g_bit_field_0.bit_field_if.value[0+:2].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[0+:2]	block_0.sv	8	24	8	34		0		
+#8661 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	2051	3		0		
+#8662 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	2051	3		0		
+#8670 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	2051	4		0		
+#8671 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	2051	4		0		
+#8679 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	2051	4		0		
+#8680 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	2051	4		0		
+#8684 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_1.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_1.read_data	block_0.sv	7	59	2051	6		0		
+#8687 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_13.g_bit_field_1.bit_field_if.read_data[2+:2].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[2+:2]	block_0.sv	7	24	7	38		0		
+#8696 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_13.g_bit_field_1.bit_field_if.value[2+:2].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[2+:2]	block_0.sv	8	24	8	34		0		
+#8750 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	2081	3		0		
+#8751 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	2081	3		0		
+#8759 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	2081	4		0		
+#8760 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	2081	4		0		
+#8768 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	2081	4		0		
+#8769 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	2081	4		0		
+#8773 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_2.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_2.read_data	block_0.sv	7	59	2081	6		0		
+#8776 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_13.g_bit_field_2.bit_field_if.read_data[4+:2].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[4+:2]	block_0.sv	7	24	7	38		0		
+#8785 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_13.g_bit_field_2.bit_field_if.value[4+:2].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[4+:2]	block_0.sv	8	24	8	34		0		
+#8840 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	2111	3		0		
+#8841 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	2111	3		0		
+#8849 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	2111	4		0		
+#8850 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	2111	4		0		
+#8858 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	2111	4		0		
+#8859 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	2111	4		0		
+#8863 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_3.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_3.read_data	block_0.sv	7	59	2111	6		0		
+#8866 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_13.g_bit_field_3.bit_field_if.read_data[6+:2].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[6+:2]	block_0.sv	7	24	7	38		0		
+#8875 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_13.g_bit_field_3.bit_field_if.value[6+:2].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[6+:2]	block_0.sv	8	24	8	34		0		
+#8932 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	2141	3		0		
+#8933 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	2141	3		0		
+#8941 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	2141	4		0		
+#8942 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	2141	4		0		
+#8950 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	2141	4		0		
+#8951 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	2141	4		0		
+#8955 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_4.read_data	block_0.sv	7	59	7	68		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_4.read_data	block_0.sv	7	59	2141	6		0		
+#8958 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_13.g_bit_field_4.bit_field_if.read_data[8+:2].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[8+:2]	block_0.sv	7	24	7	38		0		
+#8967 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_13.g_bit_field_4.bit_field_if.value[8+:2].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[8+:2]	block_0.sv	8	24	8	34		0		
+#9022 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	2171	2		0		
+#9023 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	2171	2		0		
+#9031 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	2171	3		0		
+#9032 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	2171	3		0		
+#9040 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	2171	3		0		
+#9041 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	2171	3		0		
+#9045 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_5.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_5.read_data	block_0.sv	7	60	2171	6		0		
+#9048 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_13.g_bit_field_5.bit_field_if.read_data[10+:2].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[10+:2]	block_0.sv	7	24	7	39		0		
+#9057 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_13.g_bit_field_5.bit_field_if.value[10+:2].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[10+:2]	block_0.sv	8	24	8	35		0		
+#9112 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	2201	2		0		
+#9113 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	2201	2		0		
+#9121 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	2201	3		0		
+#9122 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	2201	3		0		
+#9130 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	2201	3		0		
+#9131 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	2201	3		0		
+#9135 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_6.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_6.read_data	block_0.sv	7	60	2201	6		0		
+#9138 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_13.g_bit_field_6.bit_field_if.read_data[12+:2].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[12+:2]	block_0.sv	7	24	7	39		0		
+#9147 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_13.g_bit_field_6.bit_field_if.value[12+:2].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[12+:2]	block_0.sv	8	24	8	35		0		
+#9202 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	2231	2		0		
+#9203 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	2231	2		0		
+#9211 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	2231	3		0		
+#9212 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	2231	3		0		
+#9220 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	2231	3		0		
+#9221 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	2231	3		0		
+#9225 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_7.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_7.read_data	block_0.sv	7	60	2231	6		0		
+#9228 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_13.g_bit_field_7.bit_field_if.read_data[14+:2].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[14+:2]	block_0.sv	7	24	7	39		0		
+#9237 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_13.g_bit_field_7.bit_field_if.value[14+:2].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[14+:2]	block_0.sv	8	24	8	35		0		
+#9292 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	4	28	2261	2		0		
+#9293 endline
+  A: 10	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 10	ref_obj	read_mask			block_0.sv	4	28	2261	2		0		
+#9301 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	5	28	2261	3		0		
+#9302 endline
+  A: 10	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 10	ref_obj	write_mask			block_0.sv	5	28	2261	3		0		
+#9310 endline
+  A: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	bit_field_sub_if			block_0.sv	6	28	2261	3		0		
+#9311 endline
+  A: 10	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 10	ref_obj	write_data			block_0.sv	6	28	2261	3		0		
+#9315 endline
+  A: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_8.read_data	block_0.sv	7	60	7	69		0		
+  B: 10	ref_obj	read_data		work@block_0.g_register_13.g_bit_field_8.read_data	block_0.sv	7	60	2261	6		0		
+#9318 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_13.g_bit_field_8.bit_field_if.read_data[16+:2].read_data	block_0.sv	7	24	7	39		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[16+:2]	block_0.sv	7	24	7	39		0		
+#9327 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_13.g_bit_field_8.bit_field_if.value[16+:2].value	block_0.sv	8	24	8	35		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[16+:2]	block_0.sv	8	24	8	35		0		
+#9691 endline
+  A: 12	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 12	ref_obj	bit_field_sub_if			block_0.sv	4	28	84	3		0		
+#9692 endline
+  A: 12	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 12	ref_obj	read_mask			block_0.sv	4	28	84	3		0		
+#9700 endline
+  A: 12	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 12	ref_obj	bit_field_sub_if			block_0.sv	5	28	84	4		0		
+#9701 endline
+  A: 12	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 12	ref_obj	write_mask			block_0.sv	5	28	84	4		0		
+#9709 endline
+  A: 12	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 12	ref_obj	bit_field_sub_if			block_0.sv	6	28	84	4		0		
+#9710 endline
+  A: 12	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 12	ref_obj	write_data			block_0.sv	6	28	84	4		0		
+#9714 endline
+  A: 12	ref_obj	read_data		work@block_1.g_register_file_0.g_register_0.g_bit_field_0.read_data	block_0.sv	7	59	7	68		0		
+  B: 12	ref_obj	read_data		work@block_1.g_register_file_0.g_register_0.g_bit_field_0.read_data	block_0.sv	7	59	84	6		0		
+#9717 defname
+  A: 12	indexed_part_select	read_data	read_data	work@block_1.g_register_file_0.g_register_0.g_bit_field_0.bit_field_if.read_data[0+:8].read_data	block_0.sv	7	24	7	38		0		
+  B: 12	indexed_part_select	read_data		bit_field_if.read_data[0+:8]	block_0.sv	7	24	7	38		0		
+#9726 defname
+  A: 12	indexed_part_select	value	value	work@block_1.g_register_file_0.g_register_0.g_bit_field_0.bit_field_if.value[0+:8].value	block_0.sv	8	24	8	34		0		
+  B: 12	indexed_part_select	value		bit_field_if.value[0+:8]	block_0.sv	8	24	8	34		0		
+#9798 endline
+  A: 12	ref_obj	bit_field_sub_if			block_0.sv	4	28	4	37		0		
+  B: 12	ref_obj	bit_field_sub_if			block_0.sv	4	28	128	3		0		
+#9799 endline
+  A: 12	ref_obj	read_mask			block_0.sv	4	28	4	37		0		
+  B: 12	ref_obj	read_mask			block_0.sv	4	28	128	3		0		
+#9807 endline
+  A: 12	ref_obj	bit_field_sub_if			block_0.sv	5	28	5	38		0		
+  B: 12	ref_obj	bit_field_sub_if			block_0.sv	5	28	128	4		0		
+#9808 endline
+  A: 12	ref_obj	write_mask			block_0.sv	5	28	5	38		0		
+  B: 12	ref_obj	write_mask			block_0.sv	5	28	128	4		0		
+#9816 endline
+  A: 12	ref_obj	bit_field_sub_if			block_0.sv	6	28	6	38		0		
+  B: 12	ref_obj	bit_field_sub_if			block_0.sv	6	28	128	4		0		
+#9817 endline
+  A: 12	ref_obj	write_data			block_0.sv	6	28	6	38		0		
+  B: 12	ref_obj	write_data			block_0.sv	6	28	128	4		0		
+#9821 endline
+  A: 12	ref_obj	read_data		work@block_1.g_register_file_0.g_register_1.g_bit_field_0.read_data	block_0.sv	7	59	7	68		0		
+  B: 12	ref_obj	read_data		work@block_1.g_register_file_0.g_register_1.g_bit_field_0.read_data	block_0.sv	7	59	128	6		0		
+#9824 defname
+  A: 12	indexed_part_select	read_data	read_data	work@block_1.g_register_file_0.g_register_1.g_bit_field_0.bit_field_if.read_data[0+:8].read_data	block_0.sv	7	24	7	38		0		
+  B: 12	indexed_part_select	read_data		bit_field_if.read_data[0+:8]	block_0.sv	7	24	7	38		0		
+#9833 defname
+  A: 12	indexed_part_select	value	value	work@block_1.g_register_file_0.g_register_1.g_bit_field_0.bit_field_if.value[0+:8].value	block_0.sv	8	24	8	34		0		
+  B: 12	indexed_part_select	value		bit_field_if.value[0+:8]	block_0.sv	8	24	8	34		0		
+#14278 endcol
+  A: 4	logic_typespec				rggen_or_reducer.sv	5	11	5	35				
+  B: 4	logic_typespec				rggen_or_reducer.sv	5	11	5	24				
+#22372 col
+  A: 7	range				rggen_apb_adapter.sv	18	39	18	48				
+  B: 7	range				rggen_apb_adapter.sv	18	38	18	49				
+#22375 file
+  A: 9	constant				rggen_apb_adapter.sv	18	39	18	48	25	64	UINT:25	9
+  B: 9	constant				block_0.sv	18	39	18	48	25	64	UINT:25	9
+#23164 file
+  A: 11	logic_typespec				rggen_adapter_common.sv	43	5	43	10				
+  B: 11	logic_typespec				rggen_bus_if.sv	9	3	9	28				
+#23165 file
+  A: 12	range				rggen_adapter_common.sv	43	11	43	30				
+  B: 12	range				rggen_bus_if.sv	9	9	9	28				
+#23166 type
+  A: 13	operation				rggen_adapter_common.sv	43	12	43	27		0		
+  B: 13	constant				rggen_bus_if.sv	9	10	9	23	15	64	INT:15	7
+objects 314498 vs 312249
+fields: type=1 defname=138 fullname=138 file=4 line=3 col=8 endline=486 endcol=495 decompile=1 size=1 value=1 consttype=1 objects_differing=634 (walk diverged)
+STRICT_NOTEQUAL endcol

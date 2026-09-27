@@ -1,0 +1,44 @@
+law index current
+probe cases: EQUAL=2889 STRICT_NOTEQUAL=1198 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=2889 STRICT_NOTEQUAL=1198
+CONVERSION r10earl_repro/qb25 STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r10rggen7repro/t6 STRICT_NOTEQUAL differ:fullname(27) -> EQUAL
+CONVERSION r10uvm224repro/grid224/a15_associndex STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION r10uvm66repro/v3_unbound STRICT_NOTEQUAL differ:name(1) -> EQUAL
+CONVERSION r10v223repro/arms/v1_pkg_nodata STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CONVERSION r11u10repro/grid/h9_1e1m_port STRICT_NOTEQUAL differ:fullname(5) -> EQUAL
+CONVERSION r11u10repro/grid/hD_1e1mvec STRICT_NOTEQUAL differ:fullname(5) -> EQUAL
+CONVERSION r11u14repro/c10 STRICT_NOTEQUAL differ:line(3) -> EQUAL
+CONVERSION v11u111repro/brk/f5/z51_three_mods_import STRICT_NOTEQUAL differ:fullname(5) -> EQUAL
+CHANGE r10uvm55repro/a1 STRICT_NOTEQUAL differ:line(20) -> differ:file(15)
+CHANGE r10uvm59repro/a3_scope STRICT_NOTEQUAL differ:line(2) -> differ:line(1) [line -1]
+CHANGE r10uvm90repro/g90_a2_shapes STRICT_NOTEQUAL differ:line(11) -> differ:line(9) [line -2]
+CHANGE r10v158repro/v158_i STRICT_NOTEQUAL differ:name(4) -> differ:name(3) [name -1]
+CHANGE r11u88repro/grid/i1_ifkinds STRICT_NOTEQUAL differ:type(1) -> differ:endcol(2)
+CHANGE r11v53repro/grid/x10_iface_import_shadow STRICT_NOTEQUAL differ:type(1) -> differ:fullname(2)
+regressions=0 conversions=9 changes=6 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=454 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=26 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=450 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=24 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CONVERSION PackedArrayHighConn default STRICT_NOTEQUAL differ:fullname(5) -> CMP_EQUAL
+CONVERSION PackedArrayHighConn testflags STRICT_NOTEQUAL differ:fullname(5) -> CMP_EQUAL
+CHANGE ArrayMethodIterator default STRICT_NOTEQUAL differ:name(6) -> differ:endcol(1)
+CHANGE ArrayMethodIterator testflags STRICT_NOTEQUAL differ:name(16) -> differ:endcol(1)
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:fullname(436) -> differ:col(102)
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(436) -> differ:col(102)
+CHANGE Rggen default STRICT_NOTEQUAL differ:fullname(7) -> differ:endcol(634)
+regressions=0 conversions=2 changes=5 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=784 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=19
+[testflags] CMP_EQUAL=784 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=19
+CONVERSION mem_read_reg default STRICT_NOTEQUAL differ:name(5) -> CMP_EQUAL
+CONVERSION mem_read_reg testflags STRICT_NOTEQUAL differ:name(5) -> CMP_EQUAL
+CHANGE const_cast_signext default STRICT_NOTEQUAL differ:line(5) -> differ:type(1)
+CHANGE const_cast_signext testflags STRICT_NOTEQUAL differ:line(5) -> differ:type(1)
+CHANGE struct_param_func_config default STRICT_NOTEQUAL differ:line(8) -> differ:fullname(5)
+CHANGE struct_param_func_config testflags STRICT_NOTEQUAL differ:line(8) -> differ:fullname(5)
+regressions=0 conversions=2 changes=4 only-fresh=0 only-committed=0
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+sweep rc=0

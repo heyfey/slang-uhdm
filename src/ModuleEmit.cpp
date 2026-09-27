@@ -10092,6 +10092,139 @@ void UhdmExporter::classInheritsContainerImports23() {
     }
 }
 
+// § enumImportParentLastWriter180 (r11u180, map N0163: PackedArrayHighConn
+// d/t) — WHICH importer owns a package ENUM typedef's shared listing object.
+// UhdmWriter::write (third_party/Surelog/src/DesignCompile/UhdmWriter.cpp)
+// writes the programs, then the interfaces, then the modules, each loop over
+// Design::getModuleDefinitions(), a std::map keyed by the definition NAME
+// (ModuleNameModuleDefinitionMap, include/Surelog/Common/Containers.h), and
+// writeModule / writeInterface run writeDataTypes(setParent) over the
+// definition's DataTypeMap, which importPackage filled with the package's
+// typedef objects themselves.  So the LAST writer of a shared enum object's
+// vpiParent is the alphabetically last importing MODULE (an interface only
+// when no module imports it), and its base-type ref's full name, which
+// BaseClass::ComputeFullName derives from that parent, reads
+// `work@<that module>.<pkg>::<name>`: golden PackedArrayHighConn lists
+// `prim_pad_wrapper_pkg::pad_type_e` under `work@prim_pad_wrapper` where the
+// source-order last importer `dut` wrote ours.  The emitter writes the parent
+// and the scoped names importer by importer in emission (source) order; the
+// sites record each write and the drain, run design-final before
+// § typedefParentLastWriter134's model (which still unparents an assigned
+// typedef), replays the winner's.  Struct and union objects are
+// § typedefParentLastWriter134's.  Grid tools/probe/r11u180repro/cases/H.
+// Switch R11U180_ENUMIMP_OFF.
+bool r11u180Law(const char* sw);
+void trace180(const char* law, const std::string& detail);
+namespace {
+struct EnumImpWrite180 {
+    UHDM::typespec* ts;
+    UHDM::BaseClass* owner;
+    int rank;             // 0 interface, 1 module (UhdmWriter's loop order)
+    std::string def;      // the definition name (the map key)
+    std::string scoped;   // the base-type ref full name written ("" = none)
+    bool alias;           // the Typedef_alias ref's full name written too
+};
+std::vector<EnumImpWrite180> enumImpWrites180;
+} // namespace
+void enumImpWrite180(UHDM::typespec* ts, UHDM::BaseClass* owner, int rank,
+                     const std::string& def, const std::string& scoped,
+                     bool alias) {
+    if (ts)
+        enumImpWrites180.push_back({ts, owner, rank, def, scoped, alias});
+}
+void enumImportParentDrain180(UHDM::design* d) {
+    if (!r11u180Law("R11U180_ENUMIMP_OFF")) {
+        enumImpWrites180.clear();
+        return;
+    }
+    // Per object: the winner is the greatest (rank, definition name), the
+    // last recorded write among its own (one definition may write twice).
+    std::map<UHDM::typespec*, size_t> win;
+    std::map<UHDM::typespec*, bool> renamed;
+    std::vector<UHDM::typespec*> order;
+    for (size_t i = 0; i < enumImpWrites180.size(); ++i) {
+        auto& w = enumImpWrites180[i];
+        if (!w.scoped.empty())
+            renamed[w.ts] = true;
+        auto it = win.find(w.ts);
+        if (it == win.end()) {
+            win[w.ts] = i;
+            order.push_back(w.ts);
+            continue;
+        }
+        auto& c = enumImpWrites180[it->second];
+        if (std::make_pair(w.rank, w.def) >= std::make_pair(c.rank, c.def))
+            it->second = i;
+    }
+    // § enumImpDefOwner180v (the r11u180 verifier, grid
+    // tools/probe/v11u180repro/cases/E e11-e13 and r11u180repro/cases/H h01,
+    // h10, h20) — the winner's write may come from an ELABORATED instance of
+    // the winning definition (emitInstance runs emitImportArtifacts on the
+    // instance too), and the drain then parented the shared object at that
+    // instance (`work@zmod (work@top.uz)`, h01 `work@prim_pad_wrapper
+    // (work@dut.u_dio_pad)`), where golden's writer is writeModule /
+    // writeInterface on the DEFINITION (`work@zmod (work@zmod)`).  When the
+    // drain moves the object to ANOTHER definition, it takes that
+    // definition's own object (design AllModules / AllInterfaces, by
+    // definition name); a parent already of the winning definition is left
+    // as it was.  vpiParent only (no judged field, no full name moves).
+    // Switch R11V180_ENUMDEF_OFF (and R11V180_OFF).
+    const bool enumDef180v = getenv("R11V180_OFF") == nullptr &&
+                             getenv("R11V180_ENUMDEF_OFF") == nullptr;
+    std::map<std::pair<int, std::string>, UHDM::BaseClass*> defObj180v;
+    if (enumDef180v && d) {
+        if (d->AllModules())
+            for (auto* md : *d->AllModules())
+                defObj180v.emplace(std::make_pair(1, std::string(md->VpiDefName())), md);
+        if (d->AllInterfaces())
+            for (auto* id : *d->AllInterfaces())
+                defObj180v.emplace(std::make_pair(0, std::string(id->VpiDefName())), id);
+    }
+    auto defNameOf180v = [](const UHDM::BaseClass* o) -> std::string {
+        if (o && (o->UhdmType() == UHDM::uhdmmodule_inst ||
+                  o->UhdmType() == UHDM::uhdminterface_inst))
+            return std::string(((const UHDM::instance*)o)->VpiDefName());
+        return std::string();
+    };
+    for (auto* ts : order) {
+        auto& w = enumImpWrites180[win[ts]];
+        if (ts->VpiParent() == w.owner && w.scoped.empty() && !renamed[ts])
+            continue;
+        auto* ets = (UHDM::enum_typespec*)ts;
+        std::string nm = w.scoped;
+        // A parent-only winner after a re-scoping loser: the name follows
+        // the parent (ComputeFullName).
+        if (nm.empty() && renamed[ts] && w.owner)
+            nm = w.def + "." + std::string(ts->VpiName());
+        UHDM::BaseClass* owner = w.owner;
+        if (enumDef180v && ts->VpiParent() != w.owner) {
+            if (defNameOf180v(ts->VpiParent()) == w.def)
+                owner = ts->VpiParent();
+            else if (auto dit = defObj180v.find({w.rank, w.def});
+                     dit != defObj180v.end() && dit->second != w.owner) {
+                owner = dit->second;
+                trace180("ENUMDEF", std::string(ts->VpiName()) + " -> " + w.def);
+            }
+        }
+        bool moved = ts->VpiParent() != owner;
+        ts->VpiParent(owner);
+        if (!nm.empty()) {
+            if (ets->Base_typespec() && ets->Base_typespec()->VpiFullName() != nm) {
+                ets->Base_typespec()->VpiFullName(nm);
+                moved = true;
+            }
+            if ((w.alias || w.scoped.empty()) && ets->Typedef_alias() &&
+                ets->Typedef_alias()->VpiFullName() != nm) {
+                ets->Typedef_alias()->VpiFullName(nm);
+                moved = true;
+            }
+        }
+        if (moved)
+            trace180("ENUMIMP", std::string(ts->VpiName()) + " -> " + w.def);
+    }
+    enumImpWrites180.clear();
+}
+
 void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::instance* m) {
     auto* tds = m->Typespecs();
     // § modulePublishesPackageClasses45 — record this view's DIRECT import set
@@ -10183,7 +10316,32 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             auto* pkg = comp.getPackage(pn);
             if (!pkg)
                 continue;
-            for (auto& pm : pkg->members()) {
+            // § ifaceWildcardTdNameOrder180 (r11u180, map N0805: mem_read_reg
+            // d/t) — a WILDCARD import lists the package's typedefs in NAME
+            // order, as the module arm below does: importPackage copies them
+            // into the interface's DataTypeMap, a std::map keyed by name, and
+            // writeInterface's writeDataTypes walks it in that order (golden
+            // mem_read_reg `mem_if` lists `p::req_t` before `p::rsp_t`,
+            // declared rsp_t first; ours followed the declaration order).
+            // Grid tools/probe/r11u180repro/cases/I.  Switch
+            // R11U180_IFACETDORDER_OFF.
+            std::vector<const Symbol*> pms180;
+            for (auto& pm : pkg->members())
+                if (pm.kind == SymbolKind::TypeAlias)
+                    pms180.push_back(&pm);
+            if (mem.kind == SymbolKind::WildcardImport &&
+                r11u180Law("R11U180_IFACETDORDER_OFF")) {
+                auto before180 = pms180;
+                std::stable_sort(pms180.begin(), pms180.end(),
+                                 [](const Symbol* a, const Symbol* b) {
+                                     return a->name < b->name;
+                                 });
+                if (pms180 != before180)
+                    trace180("IFACETDORDER", std::string(m->VpiDefName()) + " " +
+                                                 std::string(pn));
+            }
+            for (auto* pmp : pms180) {
+                auto& pm = *pmp;
                 if (pm.kind != SymbolKind::TypeAlias)
                     continue;
                 auto tit = pkgTopTypedefTs.find(&pm);
@@ -10198,6 +10356,9 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                     auto* ets = (UHDM::enum_typespec*)ts;
                     if (ets->Base_typespec())
                         ets->Base_typespec()->VpiFullName(scopedName);
+                    // § enumImportParentLastWriter180 — record the write.
+                    enumImpWrite180(ts, m, 0, std::string(m->VpiDefName()),
+                                    scopedName, false);
                 }
                 // Struct typedefs: member typespec refs re-scope through the
                 // interface too (work@<iface>.<pkg>::<ts>.<member>).
@@ -10413,10 +10574,25 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 ((UHDM::struct_typespec*)ts)->Typedef_alias())
                 nestedContainer = false;
             bool wildcard = mem.kind == SymbolKind::WildcardImport;
+            // § enumImportParentLastWriter180 — an explicit HEADER import is
+            // a writer too: writeDataTypes(setParent) runs over every entry
+            // importPackage put in the DataTypeMap, header items included
+            // (grid H h15, h21: golden `work@z_mod` for `module z_mod import
+            // p::e_t; (...)`).  Recorded only; the drain decides.
+            if (headerImport && !wildcard && !nestedContainer &&
+                ts->UhdmType() == UHDM::uhdmenum_typespec &&
+                r11u180Law("R11U180_ENUMIMPHDR_OFF"))
+                enumImpWrite180(ts, m, 1, std::string(m->VpiDefName()),
+                                std::string(), false);
             // The header-import share-without-touch rule is EXPLICIT-only;
             // wildcard header imports re-scope like body imports (Surelog).
             if ((!headerImport || wildcard) && !nestedContainer) {
                 ts->VpiParent(m);
+                // § enumImportParentLastWriter180 — an explicit body import
+                // re-parents without re-scoping: a parent-only write.
+                if (!wildcard && ts->UhdmType() == UHDM::uhdmenum_typespec)
+                    enumImpWrite180(ts, m, 1, std::string(m->VpiDefName()),
+                                    std::string(), false);
                 if (wildcard) {
                     // Scope by the typedef's HOME package (== the imported
                     // one for direct imports; differs for transitives).
@@ -10501,6 +10677,13 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                         // takes the same module scoping as its base ref.
                         if (ets->Typedef_alias())
                             ets->Typedef_alias()->VpiFullName(scopedName);
+                        // § enumImportParentLastWriter180 — record the write
+                        // (a transitive per-module clone is nobody's shared
+                        // object and is not recorded).
+                        if (ts == tsSel)
+                            enumImpWrite180(ts, m, 1,
+                                            std::string(m->VpiDefName()),
+                                            scopedName, true);
                     }
                     // A struct/UNION typedef's elab (module vpiTypedef) view
                     // scopes its members work@<mod>.<pkg>::<name>.<m>; the def/
@@ -33958,17 +34141,9 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
                 break;
             }
             bool elseBody176 = false;
-            for (auto& sg : segs171)
-                (void)sg;
-            // the chain's outer block must be an unnamed ELSE body
+            // the chain's outer block must be an unnamed ELSE body (r11u180:
+            // the two dead statements v11u176 residue 6 named are removed)
             {
-                const Scope* sc = &body;
-                const Scope* outer = nullptr;
-                while (sc && sc->asSymbol().kind == SymbolKind::GenerateBlock) {
-                    outer = sc;
-                    sc = sc->asSymbol().getParentScope();
-                }
-                (void)outer;
                 for (const Scope* s2 = &body;
                      s2 && s2->asSymbol().kind == SymbolKind::GenerateBlock;
                      s2 = s2->asSymbol().getParentScope()) {

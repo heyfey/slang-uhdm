@@ -19,6 +19,8 @@
 namespace slang_uhdm {
 bool r11u137Law(const char* sw);
 bool r11u144Law(const char* sw);
+void noteTpUse180(UHDM::typespec* ts, const slang::ast::Symbol& declSymbol,
+                  const slang::syntax::SyntaxNode* typeSyn); // § classTpDefaultTsAtUse180 (TypeEmit.cpp)
 
 // The r11u175 switches (tools/probe/r11u175uvm/README.md): every r11u175 law
 // reads its own R11U175_<LAW>_OFF switch; R11U175_OFF drops all of them.
@@ -4460,13 +4462,19 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // is untouched — this fires only for a return written as one
                     // of the enclosing class's own type parameters whose group
                     // has a winning typedef.  Arm a2 `c_sites::m_ret`.
-                    if (sub.returnValVar)
+                    if (sub.returnValVar) {
                         if (auto gnR87 = classTpGroupDeclName87(
                                 *sub.returnValVar, retTypeSyn175(sub));
                             !gnR87.empty()) {
                             cts9->VpiName(gnR87);
                             tpGroupTs87.insert(cts9);
                         }
+                        // § classTpDefaultTsAtUse180 — the RETURN site (law at
+                        // TypeEmit.cpp).
+                        else
+                            noteTpUse180(cts9, *sub.returnValVar,
+                                         retTypeSyn175(sub));
+                    }
                     ts = cts9;
                 }
             }

@@ -1,0 +1,1311 @@
+#26443 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::csr_op_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::csr_op_e		0	0	0	0		0		
+#26453 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::dbg_cause_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::dbg_cause_e		0	0	0	0		0		
+#26464 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::exc_cause_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::exc_cause_e		0	0	0	0		0		
+#26482 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::exc_pc_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::exc_pc_sel_e		0	0	0	0		0		
+#26492 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::imm_a_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::imm_a_sel_e		0	0	0	0		0		
+#26551 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::opcode_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::opcode_e		0	0	0	0		0		
+#26568 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::pc_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::pc_sel_e		0	0	0	0		0		
+#26579 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::pmp_cfg_mode_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::pmp_cfg_mode_e		0	0	0	0		0		
+#26595 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::pmp_cfg_mode_e		0	0	0	0		0		
+  B: 6	ref_typespec			<in>ibex_pkg::pmp_cfg_mode_e		0	0	0	0		0		
+#26614 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::pmp_req_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::pmp_req_e		0	0	0	0		0		
+#26633 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::rf_wd_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::rf_wd_sel_e		0	0	0	0		0		
+#26647 fullname
+  A: 3	ref_typespec			<in>ibex_pkg::x_debug_ver_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>ibex_pkg::x_debug_ver_e		0	0	0	0		0		
+#26878 fullname
+  A: 3	ref_typespec			<in>flash_ctrl_pkg::flash_erase_op_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_ctrl_pkg::flash_erase_op_e		0	0	0	0		0		
+#26883 fullname
+  A: 3	ref_typespec			<in>flash_ctrl_pkg::flash_flfo_dir_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_ctrl_pkg::flash_flfo_dir_e		0	0	0	0		0		
+#26888 fullname
+  A: 3	ref_typespec			<in>flash_ctrl_pkg::flash_op_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_ctrl_pkg::flash_op_e		0	0	0	0		0		
+#27073 col
+  A: 3	constant				flash_phy_pkg.sv	43	53	43	63	1	32	UINT:1	9
+  B: 3	constant				flash_phy_pkg.sv	43	28	43	63	1	32	UINT:1	9
+#27085 fullname
+  A: 3	ref_typespec			<in>flash_phy_pkg::flash_phy_op_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_phy_pkg::flash_phy_op_e		0	0	0	0		0		
+#27096 fullname
+  A: 3	ref_typespec			<in>flash_phy_pkg::flash_phy_op_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_phy_pkg::flash_phy_op_sel_e		0	0	0	0		0		
+#27105 fullname
+  A: 3	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+#27130 fullname
+  A: 6	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+  B: 6	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+#27414 fullname
+  A: 3	ref_typespec			<in>pwrmgr_pkg::low_power_hint_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>pwrmgr_pkg::low_power_hint_e		0	0	0	0		0		
+#27523 fullname
+  A: 6	ref_typespec			<in>pwrmgr_pkg::reset_cause_e		0	0	0	0		0		
+  B: 6	ref_typespec			<in>pwrmgr_pkg::reset_cause_e		0	0	0	0		0		
+#27555 fullname
+  A: 3	ref_typespec			<in>pwrmgr_pkg::reset_cause_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>pwrmgr_pkg::reset_cause_e		0	0	0	0		0		
+#27718 fullname
+  A: 3	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#27749 fullname
+  A: 6	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 6	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#27799 fullname
+  A: 3	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#27813 fullname
+  A: 6	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 6	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#30869 fullname
+  A: 3	ref_typespec			<in>padctrl_reg_pkg::padctrl_id_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>padctrl_reg_pkg::padctrl_id_e		0	0	0	0		0		
+#31488 fullname
+  A: 3	ref_typespec			<in>pinmux_reg_pkg::pinmux_id_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>pinmux_reg_pkg::pinmux_id_e		0	0	0	0		0		
+#35057 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+#35066 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+#35071 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+#35099 fullname
+  A: 3	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+#35104 fullname
+  A: 3	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+#35115 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+#35120 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+#35130 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+#35144 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+#35154 fullname
+  A: 3	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+#35159 fullname
+  A: 3	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+#35164 fullname
+  A: 3	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+#36450 fullname
+  A: 3	ref_typespec			<in>aes_reg_pkg::aes_id_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_reg_pkg::aes_id_e		0	0	0	0		0		
+#38319 fullname
+  A: 3	ref_typespec			<in>flash_ctrl_reg_pkg::flash_ctrl_id_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_ctrl_reg_pkg::flash_ctrl_id_e		0	0	0	0		0		
+#39372 fullname
+  A: 3	ref_typespec			<in>gpio_reg_pkg::gpio_id_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>gpio_reg_pkg::gpio_id_e		0	0	0	0		0		
+#39941 fullname
+  A: 3	ref_typespec			<in>hmac_pkg::err_code_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>hmac_pkg::err_code_e		0	0	0	0		0		
+#41349 fullname
+  A: 3	ref_typespec			<in>hmac_reg_pkg::hmac_id_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>hmac_reg_pkg::hmac_id_e		0	0	0	0		0		
+#42060 fullname
+  A: 3	ref_typespec			<in>pinmux_pkg::wkup_mode_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>pinmux_pkg::wkup_mode_e		0	0	0	0		0		
+#42400 fullname
+  A: 3	ref_typespec			<in>pwrmgr_reg_pkg::pwrmgr_id_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>pwrmgr_reg_pkg::pwrmgr_id_e		0	0	0	0		0		
+#43014 fullname
+  A: 3	ref_typespec			<in>rv_timer_reg_pkg::rv_timer_id_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>rv_timer_reg_pkg::rv_timer_id_e		0	0	0	0		0		
+#43709 fullname
+  A: 3	ref_typespec			<in>spi_device_reg_pkg::spi_device_id_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>spi_device_reg_pkg::spi_device_id_e		0	0	0	0		0		
+#44289 fullname
+  A: 3	ref_typespec			<in>spi_device_pkg::spi_addr_size_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>spi_device_pkg::spi_addr_size_e		0	0	0	0		0		
+#44316 fullname
+  A: 3	ref_typespec			<in>spi_device_pkg::spi_rom_cmd_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>spi_device_pkg::spi_rom_cmd_e		0	0	0	0		0		
+#44333 fullname
+  A: 3	ref_typespec			<in>spi_device_pkg::spi_type_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>spi_device_pkg::spi_type_e		0	0	0	0		0		
+#44880 fullname
+  A: 3	ref_typespec			<in>uart_reg_pkg::uart_id_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>uart_reg_pkg::uart_id_e		0	0	0	0		0		
+#46694 fullname
+  A: 3	ref_typespec			<in>usbdev_reg_pkg::usbdev_id_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>usbdev_reg_pkg::usbdev_id_e		0	0	0	0		0		
+#48153 fullname
+  A: 3	ref_typespec			<in>tl_main_pkg::tl_device_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>tl_main_pkg::tl_device_e		0	0	0	0		0		
+#48169 fullname
+  A: 3	ref_typespec			<in>tl_main_pkg::tl_host_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>tl_main_pkg::tl_host_e		0	0	0	0		0		
+#50041 fullname
+  A: 3	ref_typespec			<in>rv_plic_reg_pkg::rv_plic_id_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>rv_plic_reg_pkg::rv_plic_id_e		0	0	0	0		0		
+#52713 fullname
+  A: 3	ref_typespec			<in>aes_reg_pkg::aes_id_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_reg_pkg::aes_id_e		0	0	0	0		0		
+#53399 fullname
+  A: 8	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 8	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#53474 fullname
+  A: 8	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 8	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#54418 fullname
+  A: 5	ref_typespec			<in>aes_reg_pkg::aes_id_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>aes_reg_pkg::aes_id_e		0	0	0	0		0		
+#54789 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#54863 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#55224 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#55299 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#57070 fullname
+  A: 7	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#57101 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#57151 fullname
+  A: 7	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#57165 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#57294 fullname
+  A: 9	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#57325 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#57400 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#57799 fullname
+  A: 9	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#57830 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#57880 fullname
+  A: 9	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#57894 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#58015 fullname
+  A: 14	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 14	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#60193 fullname
+  A: 5	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+#60202 fullname
+  A: 5	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+#60207 fullname
+  A: 5	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+#60559 fullname
+  A: 5	ref_typespec			<in>aes_reg_pkg::aes_id_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>aes_reg_pkg::aes_id_e		0	0	0	0		0		
+#60877 fullname
+  A: 5	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+#60882 fullname
+  A: 5	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+#60893 fullname
+  A: 5	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+#60898 fullname
+  A: 5	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+#60908 fullname
+  A: 5	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+#60922 fullname
+  A: 5	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+#60932 fullname
+  A: 5	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+#60937 fullname
+  A: 5	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+#60942 fullname
+  A: 5	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+#61527 fullname
+  A: 7	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+#61546 fullname
+  A: 7	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+#61616 fullname
+  A: 7	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+#61662 fullname
+  A: 7	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+#61717 fullname
+  A: 7	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+#61754 fullname
+  A: 7	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+#62230 fullname
+  A: 10	bit_select	key		reg2hw.key[i]	aes_core.sv	109	31	109	34		0		
+  B: 10	bit_select	key		work@aes_core.key_init_get.reg2hw.key[i].q.key	aes_core.sv	109	35	109	36		0		
+#62238 fullname
+  A: 10	bit_select	key		reg2hw.key[i]	aes_core.sv	110	31	110	34		0		
+  B: 10	bit_select	key		work@aes_core.key_init_get.reg2hw.key[i].qe.key	aes_core.sv	110	35	110	36		0		
+#62260 fullname
+  A: 10	bit_select	iv		reg2hw.iv[i]	aes_core.sv	116	25	116	27		0		
+  B: 10	bit_select	iv		work@aes_core.iv_get.reg2hw.iv[i].q.iv	aes_core.sv	116	28	116	29		0		
+#62268 fullname
+  A: 10	bit_select	iv		reg2hw.iv[i]	aes_core.sv	117	25	117	27		0		
+  B: 10	bit_select	iv		work@aes_core.iv_get.reg2hw.iv[i].qe.iv	aes_core.sv	117	28	117	29		0		
+#62290 fullname
+  A: 10	bit_select	data_in		reg2hw.data_in[i]	aes_core.sv	123	30	123	37		0		
+  B: 10	bit_select	data_in		work@aes_core.data_in_get.reg2hw.data_in[i].q.data_in	aes_core.sv	123	38	123	39		0		
+#62298 fullname
+  A: 10	bit_select	data_in		reg2hw.data_in[i]	aes_core.sv	124	30	124	37		0		
+  B: 10	bit_select	data_in		work@aes_core.data_in_get.reg2hw.data_in[i].qe.data_in	aes_core.sv	124	38	124	39		0		
+#62320 fullname
+  A: 10	bit_select	data_out		reg2hw.data_out[i]	aes_core.sv	131	37	131	45		0		
+  B: 10	bit_select	data_out		work@aes_core.data_out_get.reg2hw.data_out[i].q.data_out	aes_core.sv	131	46	131	47		0		
+#62328 fullname
+  A: 10	bit_select	data_out		reg2hw.data_out[i]	aes_core.sv	132	37	132	45		0		
+  B: 10	bit_select	data_out		work@aes_core.data_out_get.reg2hw.data_out[i].re.data_out	aes_core.sv	132	46	132	47		0		
+#63404 fullname
+  A: 7	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+#63413 fullname
+  A: 7	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+#63418 fullname
+  A: 7	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+#63446 fullname
+  A: 7	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+#63451 fullname
+  A: 7	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+#63462 fullname
+  A: 7	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+#63467 fullname
+  A: 7	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+#63477 fullname
+  A: 7	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+#63491 fullname
+  A: 7	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+#63501 fullname
+  A: 7	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+#63506 fullname
+  A: 7	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+#63511 fullname
+  A: 7	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+#63571 fullname
+  A: 9	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+#63642 fullname
+  A: 9	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+#63674 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+#63707 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+#63742 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+#63799 fullname
+  A: 9	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+#64230 fullname
+  A: 9	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+#64239 fullname
+  A: 9	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+#64244 fullname
+  A: 9	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+#64272 fullname
+  A: 9	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+#64277 fullname
+  A: 9	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+#64288 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+#64293 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+#64303 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+#64317 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+#64327 fullname
+  A: 9	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+#64332 fullname
+  A: 9	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+#64337 fullname
+  A: 9	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+#64447 fullname
+  A: 9	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+#64456 fullname
+  A: 9	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+#64461 fullname
+  A: 9	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+#64489 fullname
+  A: 9	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+#64494 fullname
+  A: 9	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+#64505 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+#64510 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+#64520 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+#64534 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+#64544 fullname
+  A: 9	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+#64549 fullname
+  A: 9	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+#64554 fullname
+  A: 9	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+#64699 fullname
+  A: 9	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+#64708 fullname
+  A: 9	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+#64713 fullname
+  A: 9	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+#64741 fullname
+  A: 9	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+#64746 fullname
+  A: 9	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+#64757 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+#64762 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+#64772 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+#64786 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+#64796 fullname
+  A: 9	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+#64801 fullname
+  A: 9	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+#64806 fullname
+  A: 9	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+#65915 fullname
+  A: 9	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+#65924 fullname
+  A: 9	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+#65929 fullname
+  A: 9	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+#65969 fullname
+  A: 9	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+#65974 fullname
+  A: 9	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+#65985 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+#65990 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+#66000 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+#66014 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+#66024 fullname
+  A: 9	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+#66029 fullname
+  A: 9	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+#66034 fullname
+  A: 9	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+#66235 fullname
+  A: 11	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+  B: 11	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+#66251 fullname
+  A: 11	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+  B: 11	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+#66271 fullname
+  A: 11	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+  B: 11	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+#66288 fullname
+  A: 11	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+  B: 11	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+#66315 fullname
+  A: 11	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+  B: 11	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+#66328 fullname
+  A: 11	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+  B: 11	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+#67064 fullname
+  A: 7	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+#67073 fullname
+  A: 7	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+#67078 fullname
+  A: 7	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+#67117 fullname
+  A: 7	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+#67122 fullname
+  A: 7	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+#67133 fullname
+  A: 7	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+#67138 fullname
+  A: 7	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+#67148 fullname
+  A: 7	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+#67162 fullname
+  A: 7	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+#67172 fullname
+  A: 7	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+#67177 fullname
+  A: 7	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+#67182 fullname
+  A: 7	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+  B: 7	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+#67499 fullname
+  A: 9	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+#67511 fullname
+  A: 9	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+#67519 fullname
+  A: 9	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+#67527 fullname
+  A: 9	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+#67602 fullname
+  A: 9	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+#67617 fullname
+  A: 9	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+#69593 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+#69602 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+#69607 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+#69635 fullname
+  A: 3	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+#69640 fullname
+  A: 3	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+#69651 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+#69656 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+#69666 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+#69680 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+#69690 fullname
+  A: 3	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+#69695 fullname
+  A: 3	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+#69700 fullname
+  A: 3	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+#70313 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+#70322 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+#70327 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+#70355 fullname
+  A: 3	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+#70360 fullname
+  A: 3	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+#70371 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+#70376 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+#70386 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+#70400 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+#70410 fullname
+  A: 3	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+#70415 fullname
+  A: 3	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+#70420 fullname
+  A: 3	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+#71204 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+#71213 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+#71218 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+#71246 fullname
+  A: 3	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+#71251 fullname
+  A: 3	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+#71262 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+#71267 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+#71277 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+#71291 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+#71301 fullname
+  A: 3	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+#71306 fullname
+  A: 3	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+#71311 fullname
+  A: 3	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+#72152 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+#72161 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+#72166 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+#72194 fullname
+  A: 3	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+#72199 fullname
+  A: 3	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+#72210 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+#72215 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+#72225 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+#72239 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+#72249 fullname
+  A: 3	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+#72254 fullname
+  A: 3	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+#72259 fullname
+  A: 3	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+#73407 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_rk_sel_e		0	0	0	0		0		
+#73416 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_si_sel_e		0	0	0	0		0		
+#73421 fullname
+  A: 3	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::add_so_sel_e		0	0	0	0		0		
+#73449 fullname
+  A: 3	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::dip_sel_e		0	0	0	0		0		
+#73454 fullname
+  A: 3	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::iv_sel_e		0	0	0	0		0		
+#73465 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_dec_sel_e		0	0	0	0		0		
+#73470 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_full_sel_e		0	0	0	0		0		
+#73480 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_init_sel_e		0	0	0	0		0		
+#73494 fullname
+  A: 3	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::key_words_sel_e		0	0	0	0		0		
+#73504 fullname
+  A: 3	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::round_key_sel_e		0	0	0	0		0		
+#73509 fullname
+  A: 3	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::si_sel_e		0	0	0	0		0		
+#73514 fullname
+  A: 3	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>aes_pkg::state_sel_e		0	0	0	0		0		
+#74315 fullname
+  A: 8	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 8	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#74390 fullname
+  A: 8	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 8	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#75973 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#76048 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#80120 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#80194 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#81536 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#81611 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#90334 fullname
+  A: 9	ref_typespec			work@alert_handler_ping_timer		0	0	0	0		0		
+  B: 9	ref_typespec			work@alert_handler_ping_timer.p_enable_mask		0	0	0	0		0		
+#90561 fullname
+  A: 7	ref_typespec			work@alert_handler_ping_timer		0	0	0	0		0		
+  B: 7	ref_typespec			work@alert_handler_ping_timer.ping_sel		0	0	0	0		0		
+#90597 fullname
+  A: 8	ref_typespec			work@alert_handler_ping_timer		0	0	0	0		0		
+  B: 8	ref_typespec			work@alert_handler_ping_timer.spurious_ping		0	0	0	0		0		
+#91364 fullname
+  A: 7	bit_select	class_en		work@alert_handler.gen_classes.i_accu.class_en_i.reg2hw_wrap.class_en[k].class_en	alert_handler.sv	148	44	148	45		0		
+  B: 7	bit_select	class_en		reg2hw_wrap.class_en[k]	alert_handler.sv	148	35	148	43		0		
+#91365 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.class_en_i.reg2hw_wrap.class_en[k].k	alert_handler.sv	148	44	148	45		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.class_en_i.k	alert_handler.sv	148	44	148	45		0		
+#91369 fullname
+  A: 7	bit_select	class_clr		work@alert_handler.gen_classes.i_accu.clr_i.reg2hw_wrap.class_clr[k].class_clr	alert_handler.sv	149	45	149	46		0		
+  B: 7	bit_select	class_clr		reg2hw_wrap.class_clr[k]	alert_handler.sv	149	35	149	44		0		
+#91370 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.clr_i.reg2hw_wrap.class_clr[k].k	alert_handler.sv	149	45	149	46		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.clr_i.k	alert_handler.sv	149	45	149	46		0		
+#91374 fullname
+  A: 7	bit_select	class_trig		work@alert_handler.gen_classes.i_accu.class_trig_i.hw2reg_wrap.class_trig[k].class_trig	alert_handler.sv	150	46	150	47		0		
+  B: 7	bit_select	class_trig		hw2reg_wrap.class_trig[k]	alert_handler.sv	150	35	150	45		0		
+#91375 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.class_trig_i.hw2reg_wrap.class_trig[k].k	alert_handler.sv	150	46	150	47		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.class_trig_i.k	alert_handler.sv	150	46	150	47		0		
+#91379 fullname
+  A: 7	bit_select	class_accum_thresh		work@alert_handler.gen_classes.i_accu.thresh_i.reg2hw_wrap.class_accum_thresh[k].class_accum_thresh	alert_handler.sv	151	54	151	55		0		
+  B: 7	bit_select	class_accum_thresh		reg2hw_wrap.class_accum_thresh[k]	alert_handler.sv	151	35	151	53		0		
+#91380 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.thresh_i.reg2hw_wrap.class_accum_thresh[k].k	alert_handler.sv	151	54	151	55		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.thresh_i.k	alert_handler.sv	151	54	151	55		0		
+#91384 fullname
+  A: 7	bit_select	class_accum_cnt		work@alert_handler.gen_classes.i_accu.accu_cnt_o.hw2reg_wrap.class_accum_cnt[k].class_accum_cnt	alert_handler.sv	152	51	152	52		0		
+  B: 7	bit_select	class_accum_cnt		hw2reg_wrap.class_accum_cnt[k]	alert_handler.sv	152	35	152	50		0		
+#91385 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.accu_cnt_o.hw2reg_wrap.class_accum_cnt[k].k	alert_handler.sv	152	51	152	52		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.accu_cnt_o.k	alert_handler.sv	152	51	152	52		0		
+#91395 fullname
+  A: 7	bit_select	class_en		work@alert_handler.gen_classes.i_esc_timer.en_i.reg2hw_wrap.class_en[k].class_en	alert_handler.sv	159	48	159	49		0		
+  B: 7	bit_select	class_en		reg2hw_wrap.class_en[k]	alert_handler.sv	159	39	159	47		0		
+#91396 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.en_i.reg2hw_wrap.class_en[k].k	alert_handler.sv	159	48	159	49		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.en_i.k	alert_handler.sv	159	48	159	49		0		
+#91400 fullname
+  A: 7	bit_select	class_clr		work@alert_handler.gen_classes.i_esc_timer.clr_i.reg2hw_wrap.class_clr[k].class_clr	alert_handler.sv	161	49	161	50		0		
+  B: 7	bit_select	class_clr		reg2hw_wrap.class_clr[k]	alert_handler.sv	161	39	161	48		0		
+#91401 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.clr_i.reg2hw_wrap.class_clr[k].k	alert_handler.sv	161	49	161	50		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.clr_i.k	alert_handler.sv	161	49	161	50		0		
+#91411 fullname
+  A: 7	bit_select	class_timeout_cyc		work@alert_handler.gen_classes.i_esc_timer.timeout_cyc_i.reg2hw_wrap.class_timeout_cyc[k].class_timeout_cyc	alert_handler.sv	165	57	165	58		0		
+  B: 7	bit_select	class_timeout_cyc		reg2hw_wrap.class_timeout_cyc[k]	alert_handler.sv	165	39	165	56		0		
+#91412 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.timeout_cyc_i.reg2hw_wrap.class_timeout_cyc[k].k	alert_handler.sv	165	57	165	58		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.timeout_cyc_i.k	alert_handler.sv	165	57	165	58		0		
+#91416 fullname
+  A: 7	bit_select	class_esc_en		work@alert_handler.gen_classes.i_esc_timer.esc_en_i.reg2hw_wrap.class_esc_en[k].class_esc_en	alert_handler.sv	166	52	166	53		0		
+  B: 7	bit_select	class_esc_en		reg2hw_wrap.class_esc_en[k]	alert_handler.sv	166	39	166	51		0		
+#91417 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_en_i.reg2hw_wrap.class_esc_en[k].k	alert_handler.sv	166	52	166	53		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_en_i.k	alert_handler.sv	166	52	166	53		0		
+#91421 fullname
+  A: 7	bit_select	class_esc_map		work@alert_handler.gen_classes.i_esc_timer.esc_map_i.reg2hw_wrap.class_esc_map[k].class_esc_map	alert_handler.sv	167	53	167	54		0		
+  B: 7	bit_select	class_esc_map		reg2hw_wrap.class_esc_map[k]	alert_handler.sv	167	39	167	52		0		
+#91422 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_map_i.reg2hw_wrap.class_esc_map[k].k	alert_handler.sv	167	53	167	54		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_map_i.k	alert_handler.sv	167	53	167	54		0		
+#91426 fullname
+  A: 7	bit_select	class_phase_cyc		work@alert_handler.gen_classes.i_esc_timer.phase_cyc_i.reg2hw_wrap.class_phase_cyc[k].class_phase_cyc	alert_handler.sv	168	55	168	56		0		
+  B: 7	bit_select	class_phase_cyc		reg2hw_wrap.class_phase_cyc[k]	alert_handler.sv	168	39	168	54		0		
+#91427 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.phase_cyc_i.reg2hw_wrap.class_phase_cyc[k].k	alert_handler.sv	168	55	168	56		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.phase_cyc_i.k	alert_handler.sv	168	55	168	56		0		
+#91431 fullname
+  A: 7	bit_select	class_esc_trig		work@alert_handler.gen_classes.i_esc_timer.esc_trig_o.hw2reg_wrap.class_esc_trig[k].class_esc_trig	alert_handler.sv	169	54	169	55		0		
+  B: 7	bit_select	class_esc_trig		hw2reg_wrap.class_esc_trig[k]	alert_handler.sv	169	39	169	53		0		
+#91432 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_trig_o.hw2reg_wrap.class_esc_trig[k].k	alert_handler.sv	169	54	169	55		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_trig_o.k	alert_handler.sv	169	54	169	55		0		
+#91436 fullname
+  A: 7	bit_select	class_esc_cnt		work@alert_handler.gen_classes.i_esc_timer.esc_cnt_o.hw2reg_wrap.class_esc_cnt[k].class_esc_cnt	alert_handler.sv	170	53	170	54		0		
+  B: 7	bit_select	class_esc_cnt		hw2reg_wrap.class_esc_cnt[k]	alert_handler.sv	170	39	170	52		0		
+#91437 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_cnt_o.hw2reg_wrap.class_esc_cnt[k].k	alert_handler.sv	170	53	170	54		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_cnt_o.k	alert_handler.sv	170	53	170	54		0		
+#91441 fullname
+  A: 7	bit_select	class_esc_state		work@alert_handler.gen_classes.i_esc_timer.esc_state_o.hw2reg_wrap.class_esc_state[k].class_esc_state	alert_handler.sv	171	55	171	56		0		
+  B: 7	bit_select	class_esc_state		hw2reg_wrap.class_esc_state[k]	alert_handler.sv	171	39	171	54		0		
+#91442 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_state_o.hw2reg_wrap.class_esc_state[k].k	alert_handler.sv	171	55	171	56		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_state_o.k	alert_handler.sv	171	55	171	56		0		
+#93225 fullname
+  A: 8	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 8	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#93300 fullname
+  A: 8	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 8	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#93840 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#93914 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#94029 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#94104 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#95240 endcol
+  A: 5	constant				dm_csrs.sv	91	52	91	56	8'h04	8	HEX:04	5
+  B: 5	constant				dm_csrs.sv	91	52	91	61	8'h04	8	HEX:04	5
+#95243 endcol
+  A: 6	constant				dm_csrs.sv	91	71	91	75	4'h2	4	HEX:2	5
+  B: 6	constant				dm_csrs.sv	91	71	91	84	4'h2	4	HEX:2	5
+#95300 endcol
+  A: 5	constant				dm_csrs.sv	92	55	92	59	8'h20	8	HEX:20	5
+  B: 5	constant				dm_csrs.sv	92	55	92	67	8'h20	8	HEX:20	5
+#95303 endcol
+  A: 6	constant				dm_csrs.sv	92	77	92	81	5'h8	5	HEX:8	5
+  B: 6	constant				dm_csrs.sv	92	77	92	92	5'h8	5	HEX:8	5
+#96359 fullname
+  A: 2	assert_stmt	haltsum		work@top_earlgrey.u_dm_top.i_dm_csrs.haltsum	dm_csrs.sv	632	3	637	68				
+  B: 2	assert_stmt	haltsum		work@dm_csrs.haltsum	dm_csrs.sv	632	3	637	68				
+#96364 fullname
+  A: 5	ref_obj	clk_i		work@top_earlgrey.u_dm_top.i_dm_csrs.haltsum.clk_i	dm_csrs.sv	633	17	633	22		0		
+  B: 5	ref_obj	clk_i		work@dm_csrs.haltsum.clk_i	dm_csrs.sv	633	17	633	22		0		
+#96600 endcol
+  A: 4	logic_typespec				dm_csrs.sv	55	10	55	43				
+  B: 4	logic_typespec				dm_csrs.sv	55	10	55	37				
+#96618 endcol
+  A: 4	logic_typespec				dm_csrs.sv	56	10	56	41				
+  B: 4	logic_typespec				dm_csrs.sv	56	10	56	35				
+#96636 endcol
+  A: 4	logic_typespec				dm_csrs.sv	58	10	58	41				
+  B: 4	logic_typespec				dm_csrs.sv	58	10	58	35				
+#97504 col
+  A: 14	ref_obj	dmi_req_i			dm_csrs.sv	362	20	362	29		0		
+  B: 14	ref_obj	dmi_req_i			dm_csrs.sv	362	30	362	39		0		
+#97505 defname
+  A: 14	part_select	addr		dmi_req_i.addr[$clog2(4'h2) - 1:0]	dm_csrs.sv	362	30	362	60		0		
+  B: 14	part_select	addr	addr	work@dm_csrs.csr_read_write.data_d.dmi_req_i.addr[$clog2(4'h2) - 1:0].addr	dm_csrs.sv	362	30	362	60		0		
+#97769 endcol
+  A: 16	constant				dm_csrs.sv	408	65	408	69	4'h2	4	HEX:2	5
+  B: 16	constant				dm_csrs.sv	408	65	408	78	4'h2	4	HEX:2	5
+#97789 endcol
+  A: 17	constant				dm_csrs.sv	409	65	409	69	5'h8	5	HEX:8	5
+  B: 17	constant				dm_csrs.sv	409	65	409	80	5'h8	5	HEX:8	5
+#97825 col
+  A: 14	ref_obj	dmi_req_i			dm_csrs.sv	417	23	417	32		0		
+  B: 14	ref_obj	dmi_req_i			dm_csrs.sv	417	33	417	42		0		
+#97826 defname
+  A: 14	part_select	addr		dmi_req_i.addr[$clog2(5'h8) - 1:0]	dm_csrs.sv	417	33	417	65		0		
+  B: 14	part_select	addr	addr	work@dm_csrs.csr_read_write.progbuf_d.dmi_req_i.addr[$clog2(5'h8) - 1:0].addr	dm_csrs.sv	417	33	417	65		0		
+#99367 endcol
+  A: 3	constant				dm_mem.sv	64	64	64	68	12'h380	12	HEX:380	5
+  B: 3	constant				dm_mem.sv	64	64	64	76	12'h380	12	HEX:380	5
+#99377 endcol
+  A: 4	constant				dm_mem.sv	65	64	65	68	12'h380	12	HEX:380	5
+  B: 4	constant				dm_mem.sv	65	64	65	76	12'h380	12	HEX:380	5
+#99385 endcol
+  A: 5	constant				dm_mem.sv	65	81	65	85	4'h2	4	HEX:2	5
+  B: 5	constant				dm_mem.sv	65	81	65	94	4'h2	4	HEX:2	5
+#99393 endcol
+  A: 4	constant				dm_mem.sv	66	64	66	68	12'h380	12	HEX:380	5
+  B: 4	constant				dm_mem.sv	66	64	66	76	12'h380	12	HEX:380	5
+#99401 endcol
+  A: 5	constant				dm_mem.sv	66	81	66	85	5'h8	5	HEX:8	5
+  B: 5	constant				dm_mem.sv	66	81	66	96	5'h8	5	HEX:8	5
+#99409 endcol
+  A: 4	constant				dm_mem.sv	67	64	67	68	12'h380	12	HEX:380	5
+  B: 4	constant				dm_mem.sv	67	64	67	76	12'h380	12	HEX:380	5
+#99874 endcol
+  A: 4	logic_typespec				dm_mem.sv	38	10	38	43				
+  B: 4	logic_typespec				dm_mem.sv	38	10	38	37				
+#99892 endcol
+  A: 4	logic_typespec				dm_mem.sv	40	10	40	41				
+  B: 4	logic_typespec				dm_mem.sv	40	10	40	35				
+#99910 endcol
+  A: 4	logic_typespec				dm_mem.sv	41	10	41	41				
+  B: 4	logic_typespec				dm_mem.sv	41	10	41	35				
+#101555 fullname
+  A: 2	assert_stmt	dm_sba_access_size		work@top_earlgrey.u_dm_top.i_dm_sba.dm_sba_access_size	dm_sba.sv	166	5	168	77				
+  B: 2	assert_stmt	dm_sba_access_size		work@dm_sba.dm_sba_access_size	dm_sba.sv	166	5	168	77				
+#101560 fullname
+  A: 5	ref_obj	clk_i		work@top_earlgrey.u_dm_top.i_dm_sba.dm_sba_access_size.clk_i	dm_sba.sv	166	51	166	56		0		
+  B: 5	ref_obj	clk_i		work@dm_sba.dm_sba_access_size.clk_i	dm_sba.sv	166	51	166	56		0		
+#106179 fullname
+  A: 3	ref_typespec			<in>flash_ctrl_reg_pkg::flash_ctrl_id_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_ctrl_reg_pkg::flash_ctrl_id_e		0	0	0	0		0		
+#106764 fullname
+  A: 3	ref_typespec			<in>flash_ctrl_pkg::flash_erase_op_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_ctrl_pkg::flash_erase_op_e		0	0	0	0		0		
+#106769 fullname
+  A: 3	ref_typespec			<in>flash_ctrl_pkg::flash_flfo_dir_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_ctrl_pkg::flash_flfo_dir_e		0	0	0	0		0		
+#106774 fullname
+  A: 3	ref_typespec			<in>flash_ctrl_pkg::flash_op_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_ctrl_pkg::flash_op_e		0	0	0	0		0		
+#107293 fullname
+  A: 8	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 8	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#107367 fullname
+  A: 8	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 8	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#107763 fullname
+  A: 8	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 8	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#107838 fullname
+  A: 8	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 8	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#108111 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#108125 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#108134 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#108147 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#108160 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#108173 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0		
+#108579 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			work@flash_ctrl.reg2hw.addr.q[31:17].q		0	0	0	0		0		
+#109434 fullname
+  A: 5	ref_typespec			<in>flash_ctrl_reg_pkg::flash_ctrl_id_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>flash_ctrl_reg_pkg::flash_ctrl_id_e		0	0	0	0		0		
+#110093 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#110167 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#110225 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#110299 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#111293 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#111368 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#111434 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#111516 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#114469 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#114543 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#114624 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#114698 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#114756 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#114826 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#114901 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#114967 fullname
+  A: 14	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 14	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#115049 fullname
+  A: 14	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 14	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#115498 fullname
+  A: 14	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 14	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#115573 fullname
+  A: 14	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 14	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#115632 fullname
+  A: 14	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 14	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#115707 fullname
+  A: 14	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 14	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#115982 fullname
+  A: 9	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#116013 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#116063 fullname
+  A: 9	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 9	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#116077 fullname
+  A: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 12	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#116151 fullname
+  A: 11	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 11	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#116205 fullname
+  A: 14	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 14	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#116280 fullname
+  A: 14	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 14	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#118981 endcol
+  A: 10	constant				tlul_adapter_sram.sv	56	12	56	21	2	32	UINT:2	9
+  B: 10	constant				tlul_adapter_sram.sv	56	12	56	27	2	32	UINT:2	9
+#118991 endcol
+  A: 10	constant				tlul_adapter_sram.sv	57	12	57	21	8	32	UINT:8	9
+  B: 10	constant				tlul_adapter_sram.sv	57	12	57	27	8	32	UINT:8	9
+#119012 fullname
+  A: 5	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#119043 fullname
+  A: 8	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 8	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#119093 fullname
+  A: 5	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#119107 fullname
+  A: 8	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 8	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#119221 endcol
+  A: 12	constant				tlul_adapter_sram.sv	56	12	56	21	2	32	UINT:2	9
+  B: 12	constant				tlul_adapter_sram.sv	56	12	56	27	2	32	UINT:2	9
+#119231 endcol
+  A: 12	constant				tlul_adapter_sram.sv	57	12	57	21	8	32	UINT:8	9
+  B: 12	constant				tlul_adapter_sram.sv	57	12	57	27	8	32	UINT:8	9
+#119258 endcol
+  A: 12	constant				tlul_adapter_sram.sv	56	12	56	21	2	32	UINT:2	9
+  B: 12	constant				tlul_adapter_sram.sv	56	12	56	27	2	32	UINT:2	9
+#119268 endcol
+  A: 12	constant				tlul_adapter_sram.sv	57	12	57	21	8	32	UINT:8	9
+  B: 12	constant				tlul_adapter_sram.sv	57	12	57	27	8	32	UINT:8	9
+#119409 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#119484 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#119709 fullname
+  A: 13	ref_obj	i		work@tlul_adapter_sram.tl_i.a_data[8 * i+:8].a_data.i	tlul_adapter_sram.sv	163	66	163	67		0		
+  B: 13	ref_obj	i		work@tlul_adapter_sram.i	tlul_adapter_sram.sv	163	66	163	67		0		
+#119873 fullname
+  A: 8	ref_obj	DataBitWidth		work@tlul_adapter_sram.tl_i.a_address[DataBitWidth+:SramAw].DataBitWidth	tlul_adapter_sram.sv	153	53	153	65		0		
+  B: 8	ref_obj	DataBitWidth		work@tlul_adapter_sram.DataBitWidth	tlul_adapter_sram.sv	153	53	153	65		0		
+#119874 fullname
+  A: 8	ref_obj	SramAw		work@tlul_adapter_sram.tl_i.a_address[DataBitWidth+:SramAw].SramAw	tlul_adapter_sram.sv	153	67	153	73		0		
+  B: 8	ref_obj	SramAw		work@tlul_adapter_sram.SramAw	tlul_adapter_sram.sv	153	67	153	73		0		
+#120493 fullname
+  A: 6	ref_obj	DataBitWidth		work@flash_ctrl.u_flash_prog_ctrl.op_addr_i.reg2hw.addr.q[DataBitWidth+:17].DataBitWidth	flash_ctrl.sv	171	36	171	48		0		
+  B: 6	ref_obj	DataBitWidth		work@flash_ctrl.u_flash_prog_ctrl.op_addr_i.DataBitWidth	flash_ctrl.sv	171	36	171	48		0		
+#120495 fullname
+  A: 7	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 7	ref_typespec			work@flash_ctrl.u_flash_prog_ctrl.op_addr_i		0	0	0	0		0		
+#120926 fullname
+  A: 6	ref_obj	DataBitWidth		work@flash_ctrl.u_flash_rd_ctrl.op_addr_i.reg2hw.addr.q[DataBitWidth+:17].DataBitWidth	flash_ctrl.sv	249	36	249	48		0		
+  B: 6	ref_obj	DataBitWidth		work@flash_ctrl.u_flash_rd_ctrl.op_addr_i.DataBitWidth	flash_ctrl.sv	249	36	249	48		0		
+#120928 fullname
+  A: 7	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 7	ref_typespec			work@flash_ctrl.u_flash_rd_ctrl.op_addr_i		0	0	0	0		0		
+#121345 fullname
+  A: 5	ref_typespec			<in>flash_ctrl_pkg::flash_erase_op_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>flash_ctrl_pkg::flash_erase_op_e		0	0	0	0		0		
+#121350 fullname
+  A: 5	ref_typespec			<in>flash_ctrl_pkg::flash_flfo_dir_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>flash_ctrl_pkg::flash_flfo_dir_e		0	0	0	0		0		
+#121355 fullname
+  A: 5	ref_typespec			<in>flash_ctrl_pkg::flash_op_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>flash_ctrl_pkg::flash_op_e		0	0	0	0		0		
+#121555 fullname
+  A: 6	ref_obj	DataBitWidth		work@flash_ctrl.u_flash_erase_ctrl.op_addr_i.reg2hw.addr.q[DataBitWidth+:17].DataBitWidth	flash_ctrl.sv	277	36	277	48		0		
+  B: 6	ref_obj	DataBitWidth		work@flash_ctrl.u_flash_erase_ctrl.op_addr_i.DataBitWidth	flash_ctrl.sv	277	36	277	48		0		
+#121557 fullname
+  A: 7	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 7	ref_typespec			work@flash_ctrl.u_flash_erase_ctrl.op_addr_i		0	0	0	0		0		
+#121924 fullname
+  A: 5	ref_typespec			<in>flash_ctrl_pkg::flash_erase_op_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>flash_ctrl_pkg::flash_erase_op_e		0	0	0	0		0		
+#121929 fullname
+  A: 5	ref_typespec			<in>flash_ctrl_pkg::flash_flfo_dir_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>flash_ctrl_pkg::flash_flfo_dir_e		0	0	0	0		0		
+#121934 fullname
+  A: 5	ref_typespec			<in>flash_ctrl_pkg::flash_op_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>flash_ctrl_pkg::flash_op_e		0	0	0	0		0		
+#122583 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			work@flash_ctrl.u_flash_mp.req_addr_i		0	0	0	0		0		
+#122586 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			work@flash_ctrl.u_flash_mp.req_addr_i		0	0	0	0		0		
+#122595 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			work@flash_ctrl.u_flash_mp.req_bk_i		0	0	0	0		0		
+#122598 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0		
+  B: 6	ref_typespec			work@flash_ctrl.u_flash_mp.req_bk_i		0	0	0	0		0		
+#122994 fullname
+  A: 3	ref_typespec			<in>flash_ctrl_pkg::flash_erase_op_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_ctrl_pkg::flash_erase_op_e		0	0	0	0		0		
+#122999 fullname
+  A: 3	ref_typespec			<in>flash_ctrl_pkg::flash_flfo_dir_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_ctrl_pkg::flash_flfo_dir_e		0	0	0	0		0		
+#123004 fullname
+  A: 3	ref_typespec			<in>flash_ctrl_pkg::flash_op_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_ctrl_pkg::flash_op_e		0	0	0	0		0		
+#123456 fullname
+  A: 8	ref_obj	req		work@flash_phy.gen_flash_banks.i_core.req_i.req	flash_phy.sv	124	27	124	30		0		
+  B: 8	ref_obj	req			flash_phy.sv	124	27	124	30		0		
+#123468 fullname
+  A: 8	ref_obj	bank		work@flash_phy.gen_flash_banks.i_core.host_req_i.bank	flash_phy.sv	127	73	127	77		0		
+  B: 8	ref_obj	bank		work@flash_phy.gen_flash_banks.i_core.host_req_i.host_rsp_avail.bank	flash_phy.sv	127	73	127	77		0		
+#123704 col
+  A: 3	constant				flash_phy_pkg.sv	43	53	43	63	1	32	UINT:1	9
+  B: 3	constant				flash_phy_pkg.sv	43	28	43	63	1	32	UINT:1	9
+#123739 fullname
+  A: 3	ref_typespec			<in>flash_phy_pkg::flash_phy_op_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_phy_pkg::flash_phy_op_e		0	0	0	0		0		
+#123750 fullname
+  A: 3	ref_typespec			<in>flash_phy_pkg::flash_phy_op_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_phy_pkg::flash_phy_op_sel_e		0	0	0	0		0		
+#123759 fullname
+  A: 3	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+#123784 fullname
+  A: 6	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+  B: 6	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+#124407 fullname
+  A: 5	ref_typespec			<in>flash_phy_pkg::flash_phy_op_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>flash_phy_pkg::flash_phy_op_e		0	0	0	0		0		
+#124418 fullname
+  A: 5	ref_typespec			<in>flash_phy_pkg::flash_phy_op_sel_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>flash_phy_pkg::flash_phy_op_sel_e		0	0	0	0		0		
+#124427 fullname
+  A: 5	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+#124452 fullname
+  A: 8	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+  B: 8	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+#124528 fullname
+  A: 10	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+#124993 endcol
+  A: 10	logic_typespec				prim_arbiter_tree.sv	38	16	38	24				
+  B: 10	logic_typespec				prim_arbiter_tree.sv	38	16	38	32				
+#125060 fullname
+  A: 10	ref_obj	N		work@prim_arbiter_tree.gen_normal_case.N	prim_arbiter_tree.sv	61	48	61	49		0		
+  B: 10	ref_obj	N			prim_arbiter_tree.sv	61	48	61	49		0		
+#125470 fullname
+  A: 10	ref_obj	i		work@flash_phy_rd.gen_bufs.i_rd_buf.alloc_i.i	flash_phy_rd.sv	140	30	140	31		0		
+  B: 10	ref_obj	i		work@flash_phy_rd.gen_bufs.i_rd_buf.alloc_i.alloc.i	flash_phy_rd.sv	140	30	140	31		0		
+#125783 fullname
+  A: 6	ref_typespec			work@flash_phy_core		0	0	0	0		0		
+  B: 6	ref_typespec			work@flash_phy_core.i_flash.addr_i.muxed_addr		0	0	0	0		0		
+#126053 fullname
+  A: 3	ref_typespec			<in>flash_phy_pkg::flash_phy_op_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_phy_pkg::flash_phy_op_e		0	0	0	0		0		
+#126064 fullname
+  A: 3	ref_typespec			<in>flash_phy_pkg::flash_phy_op_sel_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_phy_pkg::flash_phy_op_sel_e		0	0	0	0		0		
+#126073 fullname
+  A: 3	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+#126098 fullname
+  A: 6	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+  B: 6	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+#126191 fullname
+  A: 8	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+  B: 8	ref_typespec			<in>flash_phy_pkg::rd_buf_attr_e		0	0	0	0		0		
+#126842 fullname
+  A: 3	ref_typespec			<in>gpio_reg_pkg::gpio_id_e		0	0	0	0		0		
+  B: 3	ref_typespec			<in>gpio_reg_pkg::gpio_id_e		0	0	0	0		0		
+#127667 fullname
+  A: 8	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 8	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#127742 fullname
+  A: 8	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 8	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#128789 fullname
+  A: 5	ref_typespec			<in>gpio_reg_pkg::gpio_id_e		0	0	0	0		0		
+  B: 5	ref_typespec			<in>gpio_reg_pkg::gpio_id_e		0	0	0	0		0		
+#129266 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#129340 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#129695 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_a_op_e		0	0	0	0		0		
+#129770 fullname
+  A: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+  B: 10	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0		
+#131588 fullname
+  A: 7	bit_select	q		work@gpio.gen_filter.filter.enable_i.reg2hw.ctrl_en_input_filter.q[i].q	gpio.sv	40	47	40	48		0		
+  B: 7	bit_select	q		reg2hw.ctrl_en_input_filter.q[i]	gpio.sv	40	45	40	46		0		
+#131589 fullname
+  A: 8	ref_obj	i		work@gpio.gen_filter.filter.enable_i.reg2hw.ctrl_en_input_filter.q[i].i	gpio.sv	40	47	40	48		0		
+  B: 8	ref_obj	i		work@gpio.gen_filter.filter.enable_i.i	gpio.sv	40	47	40	48		0		
+#131904 type
+  A: 6	range				hmac_pkg.sv	26	35	26	36				
+  B: 6	ref_typespec			<in>		0	0	0	0		0		
+objects 1342584 vs 1342870
+fields: type=1 defname=2 fullname=407 file=1 line=1 col=28 endline=1 endcol=51 size=1 objects_differing=436 (walk diverged)
+STRICT_NOTEQUAL fullname

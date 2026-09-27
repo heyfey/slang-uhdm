@@ -1715,6 +1715,274 @@ std::string UhdmExporter::classTpGroupDeclName87(
     return std::string(w->second->name);
 }
 
+// § classTpDefaultTsAtUse180 (r11u180, map N0072 + N0103: ArrayMethodIterator
+// d/t) — a declaration WRITTEN as one of its class's own TYPE PARAMETERS that
+// resolves to a class, in a group with no winning typedef (the groups with one
+// are § classTpTsResolvedNameEverySite87's), is typed by the type parameter's
+// OWN class_typespec in golden: the object compileTypespec answers for the
+// parameter's name (CompileType.cpp, the ParamType arm returns the type
+// parameter's typespec), named as the class header spells the default
+// (`pkg::cls` stays qualified, `#(...)` stripped: § 87's classTpTsName87) and
+// located at that default's tokens.  So a class property, a method body
+// local, a nested-block local, a queue / array element and a return value
+// written `CB` all read `class_typespec uvm_callback 10:50-10:62` in golden
+// ArrayMethodIterator (`class uvm_callbacks #(type T=uvm_object, type
+// CB=uvm_callback)`), where ours minted a per-declaration object at the use
+// (`CB cb;` 14:3-14:5), anonymous for a same-package class
+// (§ localClassTsUnnamed15).  The sites record their object and the drain,
+// run design-final, copies the name, the file and the span from the
+// parameter's own object (the object stays per-declaration: identity is
+// canonicalised).  A subroutine FORMAL is not a use site here (its type
+// token MOVES the shared object: § classTpFormalMovesTs180 below), nor an
+// out-of-body definition's local (§ 87's fence), nor an inherited
+// parameter.  Grid
+// tools/probe/r11u180repro/cases/A.  Switch R11U180_TPUSE_OFF.
+bool r11u180Law(const char* sw);
+void trace180(const char* law, const std::string& detail);
+namespace {
+std::map<const Symbol*, UHDM::typespec*> tpOwnTs180;
+std::vector<std::pair<UHDM::typespec*, const Symbol*>> tpUse180;
+} // namespace
+// § classTpChainRootShares180 (r11u180) — a type parameter whose default is
+// ANOTHER type parameter of the same class (`type RSP = REQ`) resolves, in
+// compileTypespec, to that parameter's own object: the chain's ROOT holds the
+// one object every member of the chain, its uses and its formals read
+// (golden r10uvm31repro/t41a: `take_rsp(input RSP t)`, the last formal,
+// moves the object `REQ`'s type_parameter lists too, 59:42-59:45).  The
+// root of a type parameter (itself when its default is not a bare type
+// parameter name of its own class).  Switch R11U180_TPCHAIN_OFF.
+static const Symbol* tpChainRoot180(const Symbol* f) {
+    if (!f || f->kind != SymbolKind::TypeParameter || !r11u180Law("R11U180_TPCHAIN_OFF"))
+        return f;
+    const Scope* body = f->getParentScope();
+    for (int guard = 0; body && guard < 16; guard++) {
+        // the class HEADER's written default (a specialization's parameter
+        // carries its override as its target type; the chain is the
+        // header's)
+        const syntax::SyntaxNode* dsyn = nullptr;
+        if (auto* ds = f->getSyntax(); ds && ds->kind == syntax::SyntaxKind::TypeAssignment) {
+            if (auto* asg = ds->as<syntax::TypeAssignmentSyntax>().assignment)
+                dsyn = asg->type;
+        }
+        else if (body->asSymbol().kind == SymbolKind::ClassType) {
+            // a specialization's parameter has no syntax: read the generic
+            // class declaration's parameter port list
+            auto& ct = body->asSymbol().as<ClassType>();
+            const syntax::SyntaxNode* cs =
+                ct.genericClass ? ct.genericClass->getSyntax() : ct.getSyntax();
+            if (cs && cs->kind == syntax::SyntaxKind::ClassDeclaration)
+                if (auto* pl = cs->as<syntax::ClassDeclarationSyntax>().parameters)
+                    for (auto* pd : pl->declarations)
+                        if (pd->kind == syntax::SyntaxKind::TypeParameterDeclaration)
+                            for (auto* ta : pd->as<syntax::TypeParameterDeclarationSyntax>()
+                                                .declarators)
+                                if (ta->name.valueText() == f->name && ta->assignment)
+                                    dsyn = ta->assignment->type;
+        }
+        if (!dsyn || dsyn->kind != syntax::SyntaxKind::NamedType)
+            break;
+        auto& nt = dsyn->as<syntax::NamedTypeSyntax>();
+        if (nt.name->kind != syntax::SyntaxKind::IdentifierName)
+            break;
+        auto id = nt.name->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+        const Symbol* g = id.empty() ? nullptr : body->find(id);
+        if (!g || g == f || g->kind != SymbolKind::TypeParameter ||
+            g->getParentScope() != body)
+            break;
+        f = g;
+    }
+    return f;
+}
+// Non-root chain members' own objects (no winning typedef): they take the
+// root's object's name and span in the drain.
+std::vector<std::pair<const Symbol*, UHDM::typespec*>> tpChainMembers180;
+void noteTpOwnTs180(const Symbol* tp, UHDM::typespec* ts, bool winner87) {
+    if (!tp || !ts)
+        return;
+    tpOwnTs180[tp] = ts;
+    if (!winner87 && tpChainRoot180(tp) != tp)
+        tpChainMembers180.push_back({tp, ts});
+}
+static const Symbol* classTpOfDecl180(const Symbol& declSymbol,
+                                      const syntax::SyntaxNode* typeSyn) {
+    if (!typeSyn || typeSyn->kind != syntax::SyntaxKind::NamedType)
+        return nullptr;
+    auto& nt = typeSyn->as<syntax::NamedTypeSyntax>();
+    if (nt.name->kind != syntax::SyntaxKind::IdentifierName)
+        return nullptr;
+    auto id = nt.name->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+    if (id.empty())
+        return nullptr;
+    const Scope* body = nullptr;
+    for (auto sc = declSymbol.getParentScope(); sc;
+         sc = sc->asSymbol().getParentScope()) {
+        auto k = sc->asSymbol().kind;
+        if (k == SymbolKind::ClassType) {
+            body = sc;
+            break;
+        }
+        if (k == SymbolKind::Subroutine) {
+            // § 87's out-of-body fence: a scoped prototype name.
+            if (auto* ssyn = sc->asSymbol().getSyntax())
+                if (auto* fds = ssyn->as_if<syntax::FunctionDeclarationSyntax>())
+                    if (fds->prototype && fds->prototype->name &&
+                        fds->prototype->name->kind ==
+                            syntax::SyntaxKind::ScopedName)
+                        return nullptr;
+            continue;
+        }
+        // an `extern` prototype's formals (the class-body listing compiles
+        // them, § externProtoFormalsFromPrototype175)
+        if (k == SymbolKind::MethodPrototype)
+            continue;
+        if (k != SymbolKind::StatementBlock)
+            break;
+    }
+    if (!body)
+        return nullptr;
+    const Symbol* f = body->find(id);
+    if (!f || f->kind != SymbolKind::TypeParameter || f->getParentScope() != body)
+        return nullptr;
+    if (f->as<TypeParameterSymbol>().targetType.getType().getCanonicalType().kind !=
+        SymbolKind::ClassType)
+        return nullptr;
+    return tpChainRoot180(f);  // § classTpChainRootShares180
+}
+// § classTpFormalMovesTs180 (r11u180) — a class method FORMAL written as the
+// type parameter is a writer of that shared object: compileTfPortList runs
+// populateCoreMembers(type, type, ts) on the typespec compileTypespec answers
+// (CompileStmt.cpp, the § tfArgTypedefLastWriter146 decode), so the
+// parameter's object -- and every listing that reads it -- takes the formal's
+// type-token span, the last formal of the class body in source order winning
+// (grid A a06, a14: golden `class_typespec base_c 6:21-6:23` under the
+// type_parameter, the property and the body local for `function void f(CB
+// x)`), and every formal written so reads that one span too (a17: two
+// methods, golden 9:28-9:30 on both formals).  An `extern` prototype's
+// formal is a writer (a18, the class-body listing compiles the prototype);
+// an out-of-body definition's is not (§ 87's fence).  Switch
+// R11U180_TPFORMAL_OFF.
+namespace {
+struct TpFormal180 {
+    UHDM::typespec* ts;
+    uint32_t buf;
+    size_t off;
+};
+std::map<const Symbol*, TpFormal180> tpFormal180;
+// every formal's own object: they share golden's one object, so each reads
+// the last writer's span too (grid A a17)
+std::vector<std::pair<const Symbol*, UHDM::typespec*>> tpFormalAll180;
+} // namespace
+void noteTpUse180(UHDM::typespec* ts, const Symbol& declSymbol,
+                  const syntax::SyntaxNode* typeSyn) {
+    const bool formal = declSymbol.kind == SymbolKind::FormalArgument;
+    if (!ts || !r11u180Law(formal ? "R11U180_TPFORMAL_OFF" : "R11U180_TPUSE_OFF"))
+        return;
+    auto* tp = classTpOfDecl180(declSymbol, typeSyn);
+    if (!tp)
+        return;
+    if (formal) {
+        if (!typeSyn)
+            return;
+        auto st = typeSyn->sourceRange().start();
+        if (st == SourceLocation::NoLocation)
+            return;
+        tpFormalAll180.push_back({tp, ts});
+        TpFormal180 f{ts, st.buffer().getId(), st.offset()};
+        auto it = tpFormal180.find(tp);
+        if (it == tpFormal180.end())
+            tpFormal180[tp] = f;
+        else if (it->second.buf == f.buf && f.off >= it->second.off)
+            it->second = f;
+        return;
+    }
+    tpUse180.push_back({ts, tp});
+}
+void classTpDefaultTsDrain180() {
+    // § classTpFormalMovesTs180 — the last formal moves the parameter's own
+    // object first; the uses then copy it.
+    for (auto& [tp, f] : tpFormal180) {
+        auto it = tpOwnTs180.find(tp);
+        if (it == tpOwnTs180.end() || !it->second || !f.ts ||
+            it->second->UhdmType() != f.ts->UhdmType())
+            continue;
+        auto* own = it->second;
+        if (own->VpiLineNo() == f.ts->VpiLineNo() &&
+            own->VpiColumnNo() == f.ts->VpiColumnNo() &&
+            own->VpiEndLineNo() == f.ts->VpiEndLineNo() &&
+            own->VpiEndColumnNo() == f.ts->VpiEndColumnNo() &&
+            own->VpiFile() == f.ts->VpiFile())
+            continue;
+        own->VpiFile(f.ts->VpiFile());
+        own->VpiLineNo(f.ts->VpiLineNo());
+        own->VpiColumnNo(f.ts->VpiColumnNo());
+        own->VpiEndLineNo(f.ts->VpiEndLineNo());
+        own->VpiEndColumnNo(f.ts->VpiEndColumnNo());
+        trace180("TPFORMAL", std::string(tp->name));
+    }
+    for (auto& [tp, fts] : tpFormalAll180) {
+        auto it = tpFormal180.find(tp);
+        if (it == tpFormal180.end() || !fts || fts == it->second.ts ||
+            fts->UhdmType() != it->second.ts->UhdmType())
+            continue;
+        auto* w = it->second.ts;
+        fts->VpiFile(w->VpiFile());
+        fts->VpiLineNo(w->VpiLineNo());
+        fts->VpiColumnNo(w->VpiColumnNo());
+        fts->VpiEndLineNo(w->VpiEndLineNo());
+        fts->VpiEndColumnNo(w->VpiEndColumnNo());
+    }
+    tpFormalAll180.clear();
+    tpFormal180.clear();
+    // § classTpChainRootShares180 — a chain member's own object reads the
+    // root's (after the root's formal move).
+    for (auto& [tp, mts] : tpChainMembers180) {
+        auto it = tpOwnTs180.find(tpChainRoot180(tp));
+        if (it == tpOwnTs180.end() || !it->second || !mts ||
+            it->second->UhdmType() != mts->UhdmType())
+            continue;
+        auto* r = it->second;
+        if (mts->VpiName() == r->VpiName() && mts->VpiFile() == r->VpiFile() &&
+            mts->VpiLineNo() == r->VpiLineNo() && mts->VpiColumnNo() == r->VpiColumnNo() &&
+            mts->VpiEndLineNo() == r->VpiEndLineNo() &&
+            mts->VpiEndColumnNo() == r->VpiEndColumnNo())
+            continue;
+        mts->VpiName(r->VpiName());
+        mts->VpiFile(r->VpiFile());
+        mts->VpiLineNo(r->VpiLineNo());
+        mts->VpiColumnNo(r->VpiColumnNo());
+        mts->VpiEndLineNo(r->VpiEndLineNo());
+        mts->VpiEndColumnNo(r->VpiEndColumnNo());
+        trace180("TPCHAIN", std::string(tp->name));
+    }
+    tpChainMembers180.clear();
+    for (auto& [ts, tp] : tpUse180) {
+        auto it = tpOwnTs180.find(tp);
+        if (it == tpOwnTs180.end() || !it->second || it->second == ts)
+            continue;
+        auto* own = it->second;
+        if (own->UhdmType() != ts->UhdmType())
+            continue;
+        bool moved = ts->VpiName() != own->VpiName() ||
+                     ts->VpiFile() != own->VpiFile() ||
+                     ts->VpiLineNo() != own->VpiLineNo() ||
+                     ts->VpiColumnNo() != own->VpiColumnNo() ||
+                     ts->VpiEndLineNo() != own->VpiEndLineNo() ||
+                     ts->VpiEndColumnNo() != own->VpiEndColumnNo();
+        if (!moved)
+            continue;
+        ts->VpiName(own->VpiName());
+        ts->VpiFile(own->VpiFile());
+        ts->VpiLineNo(own->VpiLineNo());
+        ts->VpiColumnNo(own->VpiColumnNo());
+        ts->VpiEndLineNo(own->VpiEndLineNo());
+        ts->VpiEndColumnNo(own->VpiEndColumnNo());
+        trace180("TPUSE", std::string(tp->name) + " -> " +
+                              std::string(own->VpiName()));
+    }
+    tpUse180.clear();
+    tpOwnTs180.clear();
+}
+
 // The name a CLASS TYPE PARAMETER's own class_typespec wears.  Arm a3 reads
 // every cell of this off ONE golden, both directions:
 //   `#(type A = lbase)`             -> `lbase`        (written text)
@@ -2602,6 +2870,13 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 cts->VpiName(gn87);
                 tpGroupTs87.insert(cts);
             }
+            // § classTpDefaultTsAtUse180 — no winning typedef: the parameter's
+            // own object (recorded; the drain copies it design-final).
+            else
+                noteTpUse180(cts, declSymbol,
+                             typeSynOverride ? typeSynOverride
+                                             : (declared ? declared->getTypeSyntax()
+                                                         : nullptr));
             // NOTE § builtinClassTsLinksBuiltinFileDefn7, THE NARROWING —
             // and it was found by an arm, not reasoned: a BUILT-IN handle
             // declared as a local of a subroutine or statement block that is NOT
@@ -4079,6 +4354,31 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         }
         if (ct.kind == SymbolKind::PredefinedIntegerType) {
             auto& pit = ct.as<PredefinedIntegerType>();
+            // § splitPortIntRedeclLogicTs180 (r11u180, r11u182 residue 3:
+            // tools/probe/r11u182verify/cases/F/f01, downstream DIVERGENT) — a
+            // SPLIT (Verilog-95) port whose port declaration carries no data
+            // type (`output b;`) and whose body re-declares it as a
+            // predefined integer type (`integer b;`, `int`, `time`, `byte`)
+            // keeps the PORT declaration's own typespec in golden: Surelog
+            // compiles the port declaration's implicit type as a
+            // logic_typespec at the port declarator (signed when the port
+            // declaration says `signed`), and only the variable is integer
+            // (golden f01 `logic_typespec 4:10-4:10` under the port, the
+            // integer_var's `integer_typespec` apart); ours typed the port
+            // `integer`.  Grid tools/probe/r11u180repro/cases/R.  Switch
+            // R11U180_PORTINTREDECL_OFF.
+            if (mergedPort && portDeclTypeSyn &&
+                portDeclTypeSyn->kind == syntax::SyntaxKind::ImplicitType &&
+                portDeclTypeSyn->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+                r11u180Law("R11U180_PORTINTREDECL_OFF")) {
+                auto* lt180 = s.MakeLogic_typespec();
+                if (portDeclTypeSyn->as<syntax::ImplicitTypeSyntax>().signing.kind ==
+                    parsing::TokenKind::SignedKeyword)
+                    lt180->VpiSigned(true);
+                setLoc(lt180, trimTypeSigning(typeSynFor(), range));
+                trace180("PORTINTREDECL", std::string(declSymbol.name));
+                return lt180;
+            }
             UHDM::typespec* its = nullptr;
             switch (pit.integerKind) {
                 case PredefinedIntegerType::Int: {
@@ -16747,6 +17047,122 @@ void enumAliasCloneFinish161(UHDM::Serializer& s, UHDM::enum_typespec* ets,
 // subroutines with a bare-name spelling are writers; a class method or a
 // DPI import declines / does not write.  Grid tools/probe/r11u155repro/cases/
 // MF.  Switch: R11U155_MODAGGARG_OFF.
+// § modAggTfArgCloneFollows180 (r11u180, map N0043 + N0133 + N0487:
+// const_cast_signext d/t) — § modAggTfArgLastWriter155 moves the module
+// typedef's SHARED object at compile time (compileTfPortList), BEFORE
+// elaboration; every elaborated copy Surelog clones from it afterwards
+// (an elaborated parameter's typespec, `localparam op_t OP_F = '{..}` under
+// the elaborated module) copies the moved span.  Our copies are built from
+// the typedef's syntax and kept its declaration span (golden
+// const_cast_signext `op_t` 19:42-19:46 under `work@const_cast_signext.OP_F`,
+// ours 15:11-15:61).  The listing site records the move and the drain,
+// design-final, gives every other struct / union typespec of that name
+// located at the typedef's declaration span the moved span (the write-time
+// end stretch of a module net, structTypedefUseEnd, is the shared object's
+// alone and is not copied).  Grid tools/probe/r11u180repro/cases/T.
+// Switch R11U180_MODAGGCLONE_OFF.
+namespace {
+struct ModAggMove180 {
+    UHDM::typespec* listing;
+    std::string file;
+    uint32_t l0, c0, l1, c1;  // the declaration span (the clones' key)
+    uint32_t nl0, nc0, nl1, nc1;  // the moved span
+};
+std::vector<ModAggMove180> modAggMoves180;
+// § modAggCloneOwnDefOnly180v (the r11u180 verifier) — every module / interface
+// struct and union typedef DECLARATION, keyed on its declaration file and
+// span (the name is not written yet when the listing is located), with the
+// typedef declaration syntax(es) that sit there: two DIFFERENT declarations at
+// one key are one header `include`d into two definitions.
+std::map<std::tuple<std::string, uint32_t, uint32_t, uint32_t, uint32_t>,
+         std::set<const void*>>
+    modAggDecls180v;
+} // namespace
+// Switches of the r11u180 verifier's refinements: R11V180_<LAW>_OFF, and
+// R11V180_OFF drops all of them.
+static bool r11v180Law(const char* sw) {
+    if (getenv("R11V180_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+static void noteModAggDecl180v(const UHDM::typespec* ts, const void* declSyn) {
+    if (!ts || !declSyn || !r11u180Law("R11U180_MODAGGCLONE_OFF"))
+        return;
+    modAggDecls180v[{std::string(ts->VpiFile()), ts->VpiLineNo(), ts->VpiColumnNo(),
+                     ts->VpiEndLineNo(), ts->VpiEndColumnNo()}]
+        .insert(declSyn);
+}
+static void noteModAggMove180(UHDM::typespec* ts, uint32_t l0, uint32_t c0,
+                              uint32_t l1, uint32_t c1) {
+    if (!ts || !r11u180Law("R11U180_MODAGGCLONE_OFF"))
+        return;
+    modAggMoves180.push_back({ts, std::string(ts->VpiFile()), l0, c0, l1, c1,
+                              ts->VpiLineNo(), ts->VpiColumnNo(),
+                              ts->VpiEndLineNo(), ts->VpiEndColumnNo()});
+}
+void modAggCloneDrain180(UHDM::Serializer& s) {
+    if (modAggMoves180.empty())
+        return;
+    std::vector<UHDM::BaseClass*> all;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        auto t = o->UhdmType();
+        if (t == UHDM::uhdmstruct_typespec || t == UHDM::uhdmunion_typespec)
+            all.push_back(o);
+    }
+    std::sort(all.begin(), all.end(),
+              [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+                  return a->UhdmId() < b->UhdmId();
+              });
+    // § modAggCloneOwnDefOnly180v (the r11u180 verifier, grid
+    // tools/probe/v11u180repro/cases/M m01, m03) — a module typedef is named
+    // WITHOUT its module (`op_t`), so the clone key (kind, name, file,
+    // declaration span) cannot tell the writer module's clones from those of
+    // ANOTHER definition that `include`s the same header: golden keeps
+    // `bmod`'s objects at the header's 1:9-4:2 while `amod`'s formal
+    // `input op_t x` moves `amod`'s own (Surelog moves one DesignComponent's
+    // TypeDef object; every definition compiles the header text into its own).
+    // A move whose declaration key holds two declarations declines (the
+    // pristine bytes).  Switch R11V180_MODAGGDEF_OFF.
+    static const bool ownDef180v = r11v180Law("R11V180_MODAGGDEF_OFF");
+    // § modAggCloneTakesFile180v (the r11u180 verifier, grid M m04, m01) —
+    // the clones take the moved object's FILE with its span: the formal's
+    // file, which § tdMoveCarriesFile172 (run before this drain) gave the
+    // listing object (golden m04 `op_t dut.sv 5:42-5:46` for a typedef the
+    // module `include`s from td.svh, where the drain wrote td.svh 5:42-5:46).
+    // Switch R11V180_MODAGGFILE_OFF.
+    static const bool takeFile180v = r11v180Law("R11V180_MODAGGFILE_OFF");
+    for (auto& mv : modAggMoves180) {
+        if (ownDef180v) {
+            auto dk = modAggDecls180v.find({mv.file, mv.l0, mv.c0, mv.l1, mv.c1});
+            if (dk != modAggDecls180v.end() && dk->second.size() > 1) {
+                trace180("MODAGGDEF", std::string(mv.listing->VpiName()) + " declined");
+                continue;
+            }
+        }
+        for (auto* o : all) {
+            if (o == mv.listing || o->UhdmType() != mv.listing->UhdmType() ||
+                o->VpiName() != mv.listing->VpiName() || o->VpiFile() != mv.file ||
+                o->VpiLineNo() != mv.l0 || o->VpiColumnNo() != mv.c0 ||
+                o->VpiEndLineNo() != mv.l1 || o->VpiEndColumnNo() != mv.c1)
+                continue;
+            auto* ts = (UHDM::typespec*)o;
+            ts->VpiLineNo(mv.nl0);
+            ts->VpiColumnNo(mv.nc0);
+            ts->VpiEndLineNo(mv.nl1);
+            ts->VpiEndColumnNo(mv.nc1);
+            if (takeFile180v && !mv.listing->VpiFile().empty() &&
+                ts->VpiFile() != mv.listing->VpiFile()) {
+                ts->VpiFile(mv.listing->VpiFile());
+                trace180("MODAGGFILE", std::string(o->VpiName()));
+            }
+            trace180("MODAGGCLONE", std::string(o->VpiName()));
+        }
+    }
+    modAggMoves180.clear();
+    modAggDecls180v.clear();
+}
+
 static slang::SourceRange modTfArgLastTok155(const InstanceBodySymbol& body,
                                              const TypeAliasType& ta) {
     if (!r11u155Law("R11U155_MODAGGARG_OFF"))
@@ -16896,10 +17312,17 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
                 sts->VpiParent(m);
             if (typeSyn)
                 setLoc(sts, typeSyn->sourceRange());
+            // § modAggCloneOwnDefOnly180v — record the declaration.
+            if (typeSyn)
+                noteModAggDecl180v(sts, ta.getSyntax());
             // § modAggTfArgLastWriter155 — the struct half.
             if (auto lw155 = modTfArgLastTok155(body, ta);
-                lw155.start() != SourceLocation::NoLocation)
+                lw155.start() != SourceLocation::NoLocation) {
+                uint32_t l0 = sts->VpiLineNo(), c0 = sts->VpiColumnNo(),
+                         l1 = sts->VpiEndLineNo(), c1 = sts->VpiEndColumnNo();
                 setLoc(sts, lw155);
+                noteModAggMove180(sts, l0, c0, l1, c1);  // § modAggTfArgCloneFollows180
+            }
             // An UNPACKED-ARRAY signal of this typedef (tl_h2d_t a[1:0])
             // stretches the typespec end to that declarator's FIRST unpacked
             // dimension (Surelog re-stamps the shared object; last use wins).
@@ -16964,10 +17387,17 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             uts->VpiParent(m);
             if (typeSyn)
                 setLoc(uts, typeSyn->sourceRange());
+            // § modAggCloneOwnDefOnly180v — record the declaration.
+            if (typeSyn)
+                noteModAggDecl180v(uts, ta.getSyntax());
             // § modAggTfArgLastWriter155 — the union half.
             if (auto lw155 = modTfArgLastTok155(body, ta);
-                lw155.start() != SourceLocation::NoLocation)
+                lw155.start() != SourceLocation::NoLocation) {
+                uint32_t l0 = uts->VpiLineNo(), c0 = uts->VpiColumnNo(),
+                         l1 = uts->VpiEndLineNo(), c1 = uts->VpiEndColumnNo();
                 setLoc(uts, lw155);
+                noteModAggMove180(uts, l0, c0, l1, c1);  // § modAggTfArgCloneFollows180
+            }
             ts = uts;
         }
         else if (ct.kind == SymbolKind::PackedArrayType &&

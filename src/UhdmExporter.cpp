@@ -202,6 +202,27 @@ void trace176(const char* law, const std::string& detail) {
     if (on)
         fprintf(stderr, "R11U176 %s %s\n", law, detail.c_str());
 }
+// The r11u180 switches (tools/probe/r11u180repro/README.md): every r11u180
+// law reads its own R11U180_<LAW>_OFF switch; R11U180_OFF drops all of them.
+bool r11u180Law(const char* sw) {
+    if (getenv("R11U180_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// R11U180_TRACE=1 names every firing of an r11u180 law on stderr
+// (`R11U180 <LAW> <detail>`), for the mover attribution.
+void trace180(const char* law, const std::string& detail) {
+    static const bool on = getenv("R11U180_TRACE") != nullptr;
+    if (on)
+        fprintf(stderr, "R11U180 %s %s\n", law, detail.c_str());
+}
+void enumImportParentDrain180(UHDM::design* d); // § enumImportParentLastWriter180 (ModuleEmit.cpp)
+// § classTpDefaultTsAtUse180 (TypeEmit.cpp)
+void noteTpOwnTs180(const slang::ast::Symbol* tp, UHDM::typespec* ts, bool winner87);
+void noteTpUse180(UHDM::typespec* ts, const slang::ast::Symbol& declSymbol,
+                  const slang::syntax::SyntaxNode* typeSyn);
+void classTpDefaultTsDrain180();
+void modAggCloneDrain180(UHDM::Serializer& s); // § modAggTfArgCloneFollows180 (TypeEmit.cpp)
 // R11U171_TRACE=1 names every firing of an r11u171 law on stderr
 // (`R11U171 <LAW> <detail>`), for the mover attribution.
 void trace171(const char* law, const std::string& detail) {
@@ -6324,13 +6345,18 @@ UHDM::variables* UhdmExporter::classElemVar(const Type& elemType,
             // (`uvm_sequence_item`).  Same rename as the scalar property one
             // spelling up in makeTypespec; the object stays per-declaration.
             if (declKey9)
-                if (auto* dt87 = declKey9->getDeclaredType())
+                if (auto* dt87 = declKey9->getDeclaredType()) {
                     if (auto gn87 = classTpGroupDeclName87(*declKey9,
                                                            dt87->getTypeSyntax());
                         !gn87.empty()) {
                         cts->VpiName(gn87);
                         tpGroupTs87.insert(cts);
                     }
+                    // § classTpDefaultTsAtUse180 — the ARRAY-ELEMENT site
+                    // (law at TypeEmit.cpp).
+                    else
+                        noteTpUse180(cts, *declKey9, dt87->getTypeSyntax());
+                }
             pendingClassTsLink.push_back({cts, &ec});
             ts = cts;
         }
@@ -6896,6 +6922,51 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
                 cts->VpiParent(tp);
                 if (dsyn)
                     setLoc(cts, dsyn->sourceRange());
+                // § classTpQualDefaultSpan180 (r11u180) — a default written
+                // PACKAGE-QUALIFIED (`type CB = other::base_c`, `other ::
+                // par_c#(int)`) is the paPackage_scope form: Surelog's
+                // compileTypespec locates the class_typespec at the qualifier,
+                // `other::` from the package name to the end of the `::`
+                // token (the span rule § tfArgQualOutsideWriter176 reads for
+                // a qualified formal), and names it from the tokens, without
+                // the blanks the written text may hold (golden `other::base_c`
+                // 6:26-6:33 where ours spanned the whole type 6:26-6:39 and
+                // named `other :: base_c` verbatim).  Grid
+                // tools/probe/r11u180repro/cases/A a04, a11, a12, a15.
+                // Switch R11U180_TPQUAL_OFF.
+                if (dsyn && dsyn->kind == syntax::SyntaxKind::NamedType &&
+                    r11u180Law("R11U180_TPQUAL_OFF")) {
+                    const syntax::NameSyntax* qn180 =
+                        dsyn->as<syntax::NamedTypeSyntax>().name;
+                    if (qn180 && qn180->kind == syntax::SyntaxKind::ScopedName) {
+                        auto& sn180 = qn180->as<syntax::ScopedNameSyntax>();
+                        std::string_view pk180;
+                        if (sn180.left->kind == syntax::SyntaxKind::IdentifierName)
+                            pk180 = sn180.left->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText();
+                        if (sn180.separator.kind ==
+                                parsing::TokenKind::DoubleColon &&
+                            !pk180.empty() && comp.getPackage(pk180)) {
+                            setLoc(cts, SourceRange(sn180.left->sourceRange().start(),
+                                                    sn180.separator.range().end()));
+                            std::string nm180(cts->VpiName());
+                            std::string out180;
+                            for (char c : nm180)
+                                if (c != ' ' && c != '\t' && c != '\n' && c != '\r')
+                                    out180 += c;
+                            if (out180 != nm180)
+                                cts->VpiName(out180);
+                            trace180("TPQUAL", out180);
+                        }
+                    }
+                }
+                // § classTpDefaultTsAtUse180 — the parameter's own object
+                // (and whether § 87's group has a winning typedef).
+                {
+                    auto& grp180 = classTpGroup87(cls);
+                    auto w180 = grp180.find(&dct);
+                    noteTpOwnTs180(&mem, cts, w180 != grp180.end() && w180->second);
+                }
                 pendingClassTsLink.push_back({cts, &dct});
                 its = cts;
             }
@@ -13605,6 +13676,113 @@ UHDM::design* UhdmExporter::exportDesign() {
         for (auto& [ty182, ucl182] : castUnionClone)
             if (ucl182)
                 keep182.insert(ucl182);
+    // § enumImportParentLastWriter180 (r11u180) — the shared package enum
+    // object's importer parent, before the parent model (law and decode at
+    // ModuleEmit.cpp).
+    enumImportParentDrain180(d);
+    // § classTpDefaultTsAtUse180 (r11u180) — design-final (law and decode at
+    // TypeEmit.cpp).
+    classTpDefaultTsDrain180();
+    // § modAggTfArgCloneFollows180 (r11u180) — design-final (law and decode
+    // at TypeEmit.cpp).
+    modAggCloneDrain180(s);
+    // § pkgAggTfArgCloneFollows180 (r11u180, map N0043's package face:
+    // struct_param_func_config d/t) — the PACKAGE twin of
+    // § modAggTfArgCloneFollows180.  A package struct / union typedef moved
+    // to a package subroutine formal's type token (compileTfPortList at
+    // package compile time; ours is emitPackage's last-writer loop,
+    // ParamEmit.cpp) is moved BEFORE any importer copies it, so golden's
+    // import copies read the moved span: struct_param_func_config's
+    // `parameter U` copy in `work@child` lists `p::ucfg_t` at the formal
+    // `input ucfg_t u` 32:40-32:46, where our copy kept the typedef's
+    // 16:11-20:4.  Applied when every listing object of the typedef starts at
+    // the same moved one-line span (a formal type token; a definition listing
+    // left at the declaration, the qualified outside writer's shape, or a
+    // write-time end stretch is not this move), to every other struct /
+    // union object of that name located exactly at the declaration's type
+    // span.  Grid tools/probe/r11u180repro/cases/P.  Switch
+    // R11U180_PKGAGGCLONE_OFF.
+    if (r11u180Law("R11U180_PKGAGGCLONE_OFF")) {
+        struct PkMv180 {
+            std::string name, file;
+            uint32_t l0, c0, l1, c1;
+            const UHDM::typespec* src;
+        };
+        std::vector<PkMv180> mv180;
+        std::set<const UHDM::BaseClass*> listing180;
+        for (auto& [sym, ts] : typedefTs) {
+            if (!sym || !ts || sym->kind != SymbolKind::TypeAlias)
+                continue;
+            auto* ps = sym->getParentScope();
+            if (!ps || ps->asSymbol().kind != SymbolKind::Package)
+                continue;
+            auto& ct = sym->as<TypeAliasType>().getCanonicalType();
+            if (ct.kind != SymbolKind::PackedStructType &&
+                ct.kind != SymbolKind::PackedUnionType &&
+                ct.kind != SymbolKind::UnpackedStructType &&
+                ct.kind != SymbolKind::UnpackedUnionType)
+                continue;
+            auto* tsyn = sym->getSyntax();
+            if (!tsyn || tsyn->kind != syntax::SyntaxKind::TypedefDeclaration)
+                continue;
+            auto tr = tsyn->as<syntax::TypedefDeclarationSyntax>().type->sourceRange();
+            if (tr.start() == SourceLocation::NoLocation || sm->isMacroLoc(tr.start()) ||
+                sm->isMacroLoc(tr.end()))
+                continue;
+            PkMv180 m{std::string(ts->VpiName()), fullFilePath(tr.start()), 0, 0, 0, 0, ts};
+            locLineCol(tr.start(), m.l0, m.c0);
+            locLineCol(tr.end(), m.l1, m.c1);
+            const UHDM::typespec* top = nullptr;
+            if (auto it = pkgTopTypedefTs.find((const void*)sym); it != pkgTopTypedefTs.end())
+                top = it->second;
+            auto movedTok = [&](const UHDM::typespec* t) {
+                return t && t->VpiLineNo() == t->VpiEndLineNo() &&
+                       !(t->VpiLineNo() == m.l0 && t->VpiColumnNo() == m.c0);
+            };
+            if (!movedTok(ts))
+                continue;
+            if (top && top != ts &&
+                !(movedTok(top) && top->VpiLineNo() == ts->VpiLineNo() &&
+                  top->VpiColumnNo() == ts->VpiColumnNo() &&
+                  top->VpiEndLineNo() == ts->VpiEndLineNo() &&
+                  top->VpiEndColumnNo() == ts->VpiEndColumnNo() &&
+                  top->VpiFile() == ts->VpiFile()))
+                continue;
+            listing180.insert(ts);
+            if (top)
+                listing180.insert(top);
+            mv180.push_back(m);
+        }
+        if (!mv180.empty()) {
+            std::vector<UHDM::BaseClass*> ag180;
+            for (auto& kv : s.AllObjects()) {
+                auto* o = (UHDM::BaseClass*)kv.first;
+                if ((o->UhdmType() == UHDM::uhdmstruct_typespec ||
+                     o->UhdmType() == UHDM::uhdmunion_typespec) &&
+                    !listing180.count(o))
+                    ag180.push_back(o);
+            }
+            std::sort(ag180.begin(), ag180.end(),
+                      [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+                          return a->UhdmId() < b->UhdmId();
+                      });
+            for (auto& m : mv180)
+                for (auto* o : ag180) {
+                    if (o->UhdmType() != m.src->UhdmType() || o->VpiName() != m.name ||
+                        o->VpiFile() != m.file || o->VpiLineNo() != m.l0 ||
+                        o->VpiColumnNo() != m.c0 || o->VpiEndLineNo() != m.l1 ||
+                        o->VpiEndColumnNo() != m.c1)
+                        continue;
+                    auto* t = (UHDM::typespec*)o;
+                    t->VpiFile(m.src->VpiFile());
+                    t->VpiLineNo(m.src->VpiLineNo());
+                    t->VpiColumnNo(m.src->VpiColumnNo());
+                    t->VpiEndLineNo(m.src->VpiEndLineNo());
+                    t->VpiEndColumnNo(m.src->VpiEndColumnNo());
+                    trace180("PKGAGGCLONE", m.name);
+                }
+        }
+    }
     typedefParentModel134(d, s, keep182);
     // § packedArrTdElemRefName137 — after the parent model (law and decode
     // at the function).
@@ -13711,8 +13889,19 @@ UHDM::design* UhdmExporter::exportDesign() {
         // `ibex_pkg::pmp_cfg_t`): such a typedef is a candidate here and
         // `aggTd176` restricts it to an outside last writer below.
         auto& ct = sym->as<TypeAliasType>().getCanonicalType();
+        // § tfArgAggSwitchSplit180 (r11u180, v11u176 residue: the switch
+        // coupling) — the aggregate admission serves § tfArgClassMethodOrder176
+        // and § tfArgDefTopSplit176 as well as § tfArgQualOutsideWriter176:
+        // it follows any of the three switches, and the outside-writer face
+        // alone reads R11U176_QUALFORMAL_OFF below, so that switch no longer
+        // drops the class-method order's struct face (v11u176 CM/c08, c18).
+        // Byte-identical with every switch on.  Switch
+        // R11U180_AGGSWITCH_OFF (the coupled admission, as delivered).
+        static const bool aggSplit180 = r11u180Law("R11U180_AGGSWITCH_OFF");
+        const bool aggAdmit180 =
+            qual176 || (aggSplit180 && (clsm176 || r11u176Law("R11U176_DEFTOPSPLIT_OFF")));
         if (ct.kind != SymbolKind::EnumType) {
-            if (!(qual176 && (ct.kind == SymbolKind::PackedStructType ||
+            if (!(aggAdmit180 && (ct.kind == SymbolKind::PackedStructType ||
                               ct.kind == SymbolKind::PackedUnionType ||
                               ct.kind == SymbolKind::UnpackedStructType ||
                               ct.kind == SymbolKind::UnpackedUnionType)))
@@ -14133,7 +14322,7 @@ UHDM::design* UhdmExporter::exportDesign() {
         }
         // § tfArgQualOutsideWriter176 — an aggregate moves only for an
         // outside last writer (grid fa/f14 keeps the inside case unmoved).
-        if (aggTd176.count(td) && !outside)
+        if (aggTd176.count(td) && (!outside || !qual176))
             continue;
         if (aggTd176.count(td))
             trace176("QUALAGG", std::string(td->name));
