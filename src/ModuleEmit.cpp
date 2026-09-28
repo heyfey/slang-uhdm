@@ -26,6 +26,7 @@
 #include "slang/ast/EvalContext.h"
 #include "slang/ast/symbols/CheckerSymbols.h"
 #include "slang/syntax/SyntaxTree.h"
+#include "R204.h"
 
 namespace slang_uhdm {
 
@@ -1800,6 +1801,54 @@ static bool r191ConstCallPoison(const slang::ast::Expression& rhs0) {
                 patFormal.insert(fs[i]);
         }
     }
+    // the formals bound to an actual that reads no parameter of a design
+    // element (module / interface / program) and holds no user call:
+    // § memberFormalLitActualFolds204v
+    std::set<const Symbol*> litFormal;
+    {
+        auto fs = sub.getArguments();
+        auto as = call.arguments();
+        for (size_t i = 0; i < fs.size() && i < as.size(); i++) {
+            if (!as[i])
+                continue;
+            bool designParam = false, userCall = false, other = false;
+            as[i]->visit(makeVisitor(
+                [&](auto& v, const NamedValueExpression& nv) {
+                    auto& ns = nv.symbol;
+                    if (ns.kind == SymbolKind::Parameter) {
+                        auto* ps = ns.getParentScope();
+                        bool pkg = false;
+                        for (auto* sc = ps; sc; sc = sc->asSymbol().getParentScope()) {
+                            if (sc->asSymbol().kind == SymbolKind::Package) {
+                                pkg = true;
+                                break;
+                            }
+                            if (sc->asSymbol().kind == SymbolKind::InstanceBody ||
+                                sc->asSymbol().kind == SymbolKind::CompilationUnit)
+                                break;
+                        }
+                        // a package parameter of a struct / union (packed or not)
+                        // or another aggregate type keeps too
+                        // (r11u190verify G/g02 `pf(PP)`, PP a package struct
+                        // localparam: kept; cc4 / cc5 `pk::Q`, `Q` a package
+                        // vector parameter: folded)
+                        auto& pt204 = ns.as<ParameterSymbol>().getType().getCanonicalType();
+                        if (!pkg || pt204.isStruct() || pt204.isUnion() || pt204.isAggregate())
+                            designParam = true;
+                    }
+                    else
+                        other = true;
+                    v.visitDefault(nv);
+                },
+                [&](auto& v, const CallExpression& ce) {
+                    if (!ce.isSystemCall())
+                        userCall = true;
+                    v.visitDefault(ce);
+                }));
+            if (!designParam && !userCall && !other)
+                litFormal.insert(fs[i]);
+        }
+    }
     auto castUnhandled = [](const Type& t0) {
         auto& t = t0.getCanonicalType();
         if (t.kind == SymbolKind::EnumType)
@@ -1854,8 +1903,37 @@ static bool r191ConstCallPoison(const slang::ast::Expression& rhs0) {
                      vt.kind == SymbolKind::PackedUnionType) &&
                     b.kind == ExpressionKind::NamedValue) {
                     auto& bs = b.as<NamedValueExpression>().symbol;
-                    if (bs.kind == SymbolKind::FormalArgument)
+                    if (bs.kind == SymbolKind::FormalArgument) {
                         hit = !patFormal.count(&bs);
+                        // § memberFormalLitActualFolds204v (r11u204,
+                        // R11V204_CCLIT_OFF; refines the M arm) — golden
+                        // FOLDS a member read of a struct formal whose actual
+                        // is a literal-valued constant expression (a sized
+                        // literal, a concatenation, an operation or a cast
+                        // of literals, a fill literal, a package parameter,
+                        // qualified or imported): evalFunc's reduced actual
+                        // takes the formal's struct typespec and the member
+                        // read lands on a constant.  It KEEPS the call when
+                        // the actual reads a module / interface / program
+                        // parameter (its substituted value keeps the
+                        // parameter's own typespec: r11u191's c01 f3(OP),
+                        // c03 h1(P), const_cast_signext) or holds a user
+                        // call, or reads a package parameter of an aggregate
+                        // type (grid tools/probe/r11u204verify/cases/V191:
+                        // cc3 h1(8'h21) h2(8'd33) folded, h1(L) h2(P) kept;
+                        // cc4 {..}, +, 8'(..), '1, pk::Q folded, I, id(..)
+                        // kept; cc5 Q, Q+1 folded, L+0, PP, {L[..],..} kept;
+                        // hd2 chk2(4'h3) folded; a UNION formal keeps with
+                        // a literal actual too: cc6 h1(4'h6) `u.w`, h2
+                        // `u.s.b`, hd1 g(4'h6) `y.o.b` kept, where cc6's
+                        // struct formals h3 `t.in.a` and h4 `t.c` fold).
+                        if (hit && litFormal.count(&bs) &&
+                            vt.kind == SymbolKind::PackedStructType &&
+                            r11v204Law("R11V204_CCLIT_OFF")) {
+                            hit = false;
+                            tr204("memberFormalLitActualFolds204v", std::string(sub.name));
+                        }
+                    }
                     else if (bs.kind == SymbolKind::Variable ||
                              bs.kind == SymbolKind::Parameter)
                         hit = true;
@@ -1881,6 +1959,290 @@ static bool r191ConstCallKeeps(const slang::ast::Expression& rhs) {
 // never set and the body's read of it cannot reduce; writeCont_assign keeps
 // the call (golden tools/probe/r11u196repro/cases/DF: `f(1)` with `int b =
 // 2` kept, `f(1, 3)` folded; found on r11u191's fresh case V191/fd03).
+// § dfltArgTaintExec204v's executor: 1 keep, 0 fold, -1 undecided.
+static int r204TaintExec(const slang::ast::SubroutineSymbol& sub,
+                         const slang::ast::CallExpression& call,
+                         const std::set<const slang::ast::Symbol*>& omitted) {
+    using namespace slang::ast;
+    if (!sub.returnValVar)
+        return -1;
+    auto fs = sub.getArguments();
+    auto as = call.arguments();
+    EvalContext ctx(sub);
+    std::vector<ConstantValue> vals;
+    for (size_t i = 0; i < fs.size(); i++) {
+        if (omitted.count(fs[i]))
+            vals.emplace_back(fs[i]->getType().getDefaultValue());
+        else if (i < as.size() && as[i]) {
+            ConstantValue v = as[i]->eval(ctx);
+            if (!v)
+                return -1;
+            vals.emplace_back(std::move(v));
+        }
+        else
+            return -1;
+    }
+    if (!ctx.pushFrame(sub, call.sourceRange.start(), LookupLocation::max))
+        return -1;
+    for (size_t i = 0; i < fs.size(); i++)
+        ctx.createLocal(fs[i], vals[i]);
+    ctx.createLocal(sub.returnValVar);
+    std::set<const Symbol*> unset(omitted.begin(), omitted.end());
+    unset.insert(sub.returnValVar);
+    auto reads = [&](const Expression& e) {
+        bool r = false;
+        e.visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+            if (unset.count(&nv.symbol))
+                r = true;
+            v.visitDefault(nv);
+        }));
+        return r;
+    };
+    enum Flow { Normal, Brk, Cont, Ret, Keep, Undec };
+    long steps = 0;
+    auto truth = [](const ConstantValue& v, bool& ok) {
+        ok = v.isInteger() && !v.integer().hasUnknown();
+        if (!ok)
+            return false;
+        auto& i = v.integer();
+        if (i.isSigned() && i.isNegative())
+            return false;  // get_value(...) > 0
+        return (bool)(i != 0);
+    };
+    auto assign = [&](const Expression& ex0) -> Flow {
+        auto& ex = stripImplicitConv(ex0);
+        if (ex.kind != ExpressionKind::Assignment)
+            return Undec;
+        auto& a = ex.as<AssignmentExpression>();
+        bool ru = reads(a.right()) || (a.isCompound() && reads(a.left()));
+        (void)ex.eval(ctx);
+        auto& lhs = stripImplicitConv(a.left());
+        if (lhs.kind == ExpressionKind::NamedValue) {
+            auto* ls = &lhs.as<NamedValueExpression>().symbol;
+            if (ru)
+                unset.insert(ls);
+            else
+                unset.erase(ls);
+        }
+        else if (ru)
+            lhs.visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+                unset.insert(&nv.symbol);
+                v.visitDefault(nv);
+            }));
+        return Normal;
+    };
+    std::function<Flow(const Statement&)> run = [&](const Statement& st) -> Flow {
+        if (++steps > 200000)
+            return Undec;
+        switch (st.kind) {
+            case StatementKind::Empty:
+                return Normal;
+            case StatementKind::Block:
+                return run(st.as<BlockStatement>().body);
+            case StatementKind::List:
+                for (auto* it : st.as<StatementList>().list) {
+                    Flow f = run(*it);
+                    if (f != Normal)
+                        return f;
+                }
+                return Normal;
+            case StatementKind::VariableDeclaration: {
+                auto& vs = st.as<VariableDeclStatement>().symbol;
+                if (auto* ie = vs.getInitializer()) {
+                    ConstantValue v = ie->eval(ctx);
+                    ctx.createLocal(&vs, v ? std::move(v) : vs.getType().getDefaultValue());
+                    if (reads(*ie))
+                        unset.insert(&vs);
+                    else
+                        unset.erase(&vs);
+                }
+                else {
+                    ctx.createLocal(&vs);
+                    unset.insert(&vs);
+                }
+                return Normal;
+            }
+            case StatementKind::ExpressionStatement: {
+                auto& ex = stripImplicitConv(st.as<ExpressionStatement>().expr);
+                if (ex.kind == ExpressionKind::Assignment)
+                    return assign(ex);
+                if (ex.kind == ExpressionKind::UnaryOp) {
+                    auto op = ex.as<UnaryExpression>().op;
+                    if (op == UnaryOperator::Preincrement || op == UnaryOperator::Predecrement ||
+                        op == UnaryOperator::Postincrement || op == UnaryOperator::Postdecrement) {
+                        (void)ex.eval(ctx);
+                        return Normal;
+                    }
+                }
+                return Keep;  // evalStmt has no row: invalidValue
+            }
+            case StatementKind::Conditional: {
+                auto& cs = st.as<ConditionalStatement>();
+                if (cs.conditions.size() != 1 || cs.conditions[0].pattern)
+                    return Undec;
+                auto& ce = *cs.conditions[0].expr;
+                if (reads(ce))
+                    return Keep;
+                bool ok = false;
+                bool t = truth(ce.eval(ctx), ok);
+                if (!ok)
+                    return Undec;
+                if (t)
+                    return run(cs.ifTrue);
+                return cs.ifFalse ? run(*cs.ifFalse) : Normal;
+            }
+            case StatementKind::Case: {
+                auto& cs = st.as<CaseStatement>();
+                if (reads(cs.expr))
+                    return Keep;
+                ConstantValue sv = cs.expr.eval(ctx);
+                if (!sv.isInteger() || sv.integer().hasUnknown())
+                    return Undec;
+                auto s64 = sv.integer().as<int64_t>();
+                if (!s64)
+                    return Undec;
+                for (auto& item : cs.items) {
+                    for (auto* ie : item.expressions) {
+                        if (reads(*ie))
+                            return Keep;
+                        ConstantValue iv = ie->eval(ctx);
+                        if (!iv.isInteger() || iv.integer().hasUnknown())
+                            return Undec;
+                        auto i64 = iv.integer().as<int64_t>();
+                        if (!i64)
+                            return Undec;
+                        if (*i64 == *s64)
+                            return run(*item.stmt);
+                    }
+                }
+                return Normal;  // the default item never runs
+            }
+            case StatementKind::ForLoop: {
+                auto& fl = st.as<ForLoopStatement>();
+                for (auto* lv : fl.loopVars) {
+                    auto* ie = lv->getInitializer();
+                    ConstantValue v = ie ? ie->eval(ctx) : ConstantValue();
+                    ctx.createLocal(lv, v ? std::move(v) : lv->getType().getDefaultValue());
+                    if (!ie || reads(*ie))
+                        unset.insert(lv);
+                    else
+                        unset.erase(lv);
+                }
+                for (auto* ie : fl.initializers)
+                    if (assign(*ie) != Normal)
+                        return Undec;
+                for (;;) {
+                    if (++steps > 200000)
+                        return Undec;
+                    if (fl.stopExpr) {
+                        if (reads(*fl.stopExpr))
+                            return Keep;
+                        bool ok = false;
+                        bool t = truth(fl.stopExpr->eval(ctx), ok);
+                        if (!ok)
+                            return Undec;
+                        if (!t)
+                            break;
+                    }
+                    Flow f = run(fl.body);
+                    if (f == Brk)
+                        break;
+                    if (f == Cont)
+                        continue;  // evalStmt's continue skips the step
+                    if (f != Normal)
+                        return f;
+                    for (auto* se : fl.steps) {
+                        auto& sx = stripImplicitConv(*se);
+                        if (sx.kind == ExpressionKind::Assignment) {
+                            if (assign(sx) != Normal)
+                                return Undec;
+                        }
+                        else
+                            (void)sx.eval(ctx);
+                    }
+                }
+                return Normal;
+            }
+            case StatementKind::WhileLoop:
+            case StatementKind::DoWhileLoop: {
+                bool pre = st.kind == StatementKind::WhileLoop;
+                const Expression& c = pre ? st.as<WhileLoopStatement>().cond
+                                          : st.as<DoWhileLoopStatement>().cond;
+                const Statement& b = pre ? st.as<WhileLoopStatement>().body
+                                         : st.as<DoWhileLoopStatement>().body;
+                for (bool first = true;; first = false) {
+                    if (++steps > 200000)
+                        return Undec;
+                    if (pre || !first) {
+                        if (reads(c))
+                            return Keep;
+                        bool ok = false;
+                        bool t = truth(c.eval(ctx), ok);
+                        if (!ok)
+                            return Undec;
+                        if (!t)
+                            break;
+                    }
+                    Flow f = run(b);
+                    if (f == Brk)
+                        break;
+                    if (f == Cont)
+                        continue;
+                    if (f != Normal)
+                        return f;
+                }
+                return Normal;
+            }
+            case StatementKind::RepeatLoop: {
+                auto& rl = st.as<RepeatLoopStatement>();
+                if (reads(rl.count))
+                    return Keep;
+                ConstantValue cv = rl.count.eval(ctx);
+                if (!cv.isInteger() || cv.integer().hasUnknown())
+                    return Undec;
+                auto n = cv.integer().as<int64_t>();
+                if (!n)
+                    return Undec;
+                for (int64_t i = 0; i < *n; i++) {
+                    Flow f = run(rl.body);
+                    if (f == Brk)
+                        break;
+                    if (f == Cont)
+                        continue;
+                    if (f != Normal)
+                        return f;
+                }
+                return Normal;
+            }
+            case StatementKind::Break:
+                return Brk;
+            case StatementKind::Continue:
+                return Cont;
+            case StatementKind::Return: {
+                auto* re = st.as<ReturnStatement>().expr;
+                if (re && reads(*re))
+                    return Keep;
+                if (re)
+                    unset.erase(sub.returnValVar);
+                return Ret;
+            }
+            default:
+                return Keep;  // evalStmt has no row: invalidValue
+        }
+    };
+    Flow f = run(sub.getBody());
+    ctx.popFrame();
+    switch (f) {
+        case Keep:
+            return 1;
+        case Ret:
+            return 0;
+        case Normal:
+            return unset.count(sub.returnValVar) ? 1 : 0;
+        default:
+            return -1;
+    }
+}
 static bool r196OmittedDefaultKeeps(const slang::ast::Expression& rhs0) {
     using namespace slang::ast;
     if (!r11u196Law("R11U196_DFLTARG_OFF"))
@@ -2069,6 +2431,32 @@ static bool r196OmittedDefaultKeeps(const slang::ast::Expression& rhs0) {
                         trace196("dfltArgExecutedPathEval196v", std::string(sub.name));
                     }
                 }
+            }
+        }
+        // § dfltArgTaintExec204v (r11u204, R11V204_DFLTTAINT_OFF) — the
+        // executed path as UHDM's ExprEval::evalStmt runs it, with the
+        // omitted formals, the locals declared without an initializer and
+        // the function-name variable UNSET until assigned (evalFunc binds
+        // only the call's own arguments and never evaluates a declaration;
+        // a declaration's initializer is an assignment statement): a
+        // CONDITION (if, case selector or item, loop, repeat count) that
+        // reads an unset value cannot reduce (get_value on a non-constant
+        // sets invalidValue) and keeps the call, where slang's evaluator
+        // reads the X as false and takes the other path (golden cases/DF
+        // e07 `if (b > 0)`, `case (b)`, `while (i < b)`, `repeat (b)`, e02
+        // `for (...; i < b; ...)`: all kept); a case item without
+        // expressions (the DEFAULT item) never runs (e01 f(1): the default
+        // item's return is skipped, the result stays unset, kept); a
+        // statement kind evalStmt has no row for keeps; a return of an unset
+        // value keeps, a clean return folds.  Claimed only where the
+        // delivered law fires (some read of an omitted formal), so it only
+        // decides between the delivered law and the v11u196 refinements.
+        if (anyRead && r11v204Law("R11V204_DFLTTAINT_OFF")) {
+            int t204 = r204TaintExec(sub, call, omitted);
+            if (t204 >= 0 && (t204 == 1) != hit) {
+                hit = t204 == 1;
+                tr204("dfltArgTaintExec204v",
+                      std::string(sub.name) + (hit ? " keep" : " fold"));
             }
         }
         if (!hit)

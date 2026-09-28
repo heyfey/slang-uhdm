@@ -1,0 +1,557 @@
+DF/e01 alloff lost=0 gained=0 
+DF/e01 fix lost=0 gained=0 
+DF/e01 offL196 lost=0 gained=0 
+DF/e01 off_dfltArgExecutedPathEval196v lost=0 gained=0 
+DF/e01 off_dfltArgExecutedRead196v lost=0 gained=15 
+DF/e01 off_evalFuncOmittedDefaultKeepsCall196 lost=0 gained=0 
+DF/e01 wide lost=0 gained=0 
+DF/e01_el alloff lost=0 gained=6 
+DF/e01_el fix lost=6 gained=0  | \_function: (work@top.f), line:3:3, endln:8:14 || \_func_call: (f), line:18:15, endln:18:19 || |vpiArgument:
+DF/e01_el offL196 lost=0 gained=6 
+DF/e01_el off_dfltArgExecutedPathEval196v lost=0 gained=6 
+DF/e01_el off_dfltArgExecutedRead196v lost=6 gained=2  | \_function: (work@top.f), line:3:3, endln:8:14 || \_func_call: (f), line:18:15, endln:18:19 || |vpiArgument:
+DF/e01_el off_evalFuncOmittedDefaultKeepsCall196 lost=0 gained=6 
+DF/e01_el wide lost=0 gained=6 
+DF/e02 fix lost=0 gained=1 
+DF/e02 off_dfltArgExecutedRead196v lost=0 gained=17 
+DF/e02_el fix lost=6 gained=1  | \_function: (work@top.f), line:3:3, endln:7:14 || \_func_call: (f), line:16:15, endln:16:19 || |vpiArgument:
+DF/e02_el off_dfltArgExecutedRead196v lost=6 gained=4  | \_function: (work@top.f), line:3:3, endln:7:14 || \_func_call: (f), line:16:15, endln:16:19 || |vpiArgument:
+DF/e03 alloff lost=0 gained=0 
+DF/e03 offL196 lost=0 gained=0 
+DF/e03 off_evalFuncOmittedDefaultKeepsCall196 lost=0 gained=0 
+DF/e03 wide lost=0 gained=0 
+DF/e03_el alloff lost=0 gained=16 
+DF/e03_el offL196 lost=0 gained=16 
+DF/e03_el off_evalFuncOmittedDefaultKeepsCall196 lost=0 gained=16 
+DF/e03_el wide lost=0 gained=16 
+DF/e04 off_dfltArgExecutedRead196v lost=0 gained=50 
+DF/e04_el off_dfltArgExecutedRead196v lost=0 gained=24 
+DF/e05 alloff lost=0 gained=0 
+DF/e05 offL196 lost=0 gained=0 
+DF/e05 off_dfltArgExecutedPathEval196v lost=0 gained=0 
+DF/e05 off_dfltArgExecutedRead196v lost=0 gained=35 
+DF/e05 off_evalFuncOmittedDefaultKeepsCall196 lost=0 gained=0 
+DF/e05 wide lost=0 gained=0 
+DF/e05_el alloff lost=0 gained=12 
+DF/e05_el offL196 lost=0 gained=12 
+DF/e05_el off_dfltArgExecutedPathEval196v lost=0 gained=6 
+DF/e05_el off_dfltArgExecutedRead196v lost=1 gained=9  | |vpiParent:
+DF/e05_el off_evalFuncOmittedDefaultKeepsCall196 lost=0 gained=12 
+DF/e05_el wide lost=0 gained=12 
+DF/e06 alloff lost=15 gained=24  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:12:10 || |vpiParent:
+DF/e06 fix lost=15 gained=0  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:12:10 || |vpiParent:
+DF/e06 offL196 lost=15 gained=24  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:12:10 || |vpiParent:
+DF/e06 off_evalFuncOmittedDefaultKeepsCall196 lost=15 gained=24  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:12:10 || |vpiParent:
+DF/e06 wide lost=15 gained=24  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:12:10 || |vpiParent:
+DF/e06_el alloff lost=2 gained=34  | \_constant: || |vpiSize:32
+DF/e06_el fix lost=2 gained=0  | \_constant: || |vpiSize:32
+DF/e06_el offL196 lost=2 gained=34  | \_constant: || |vpiSize:32
+DF/e06_el off_evalFuncOmittedDefaultKeepsCall196 lost=2 gained=34  | \_constant: || |vpiSize:32
+DF/e06_el wide lost=2 gained=34  | \_constant: || |vpiSize:32
+DF/e07 fix lost=0 gained=0 
+DF/e07 off_dfltArgExecutedRead196v lost=0 gained=0 
+DF/e07_el fix lost=24 gained=0  | \_function: (work@top.f), line:3:3, endln:6:14 || \_function: (work@top.g), line:7:3, endln:12:14 || \_function: (work@top.h), line:13:3, endln:17:14
+DF/e07_el off_dfltArgExecutedRead196v lost=24 gained=0  | \_function: (work@top.f), line:3:3, endln:6:14 || \_function: (work@top.g), line:7:3, endln:12:14 || \_function: (work@top.h), line:13:3, endln:17:14
+DF/e08 alloff lost=47 gained=0  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:11:10 || |vpiParent:
+DF/e08 fix lost=47 gained=0  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:11:10 || |vpiParent:
+DF/e08 offL196 lost=47 gained=0  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:11:10 || |vpiParent:
+DF/e08 off_evalFuncOmittedDefaultKeepsCall196 lost=47 gained=0  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:11:10 || |vpiParent:
+DF/e08 wide lost=47 gained=0  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:11:10 || |vpiParent:
+DF/e08_el alloff lost=8 gained=6  | \_constant: || |vpiSize:32 || |vpiConstType:7
+DF/e08_el fix lost=8 gained=0  | \_constant: || |vpiSize:32 || |vpiConstType:7
+DF/e08_el offL196 lost=8 gained=6  | \_constant: || |vpiSize:32 || |vpiConstType:7
+DF/e08_el off_evalFuncOmittedDefaultKeepsCall196 lost=8 gained=6  | \_constant: || |vpiSize:32 || |vpiConstType:7
+DF/e08_el wide lost=8 gained=6  | \_constant: || |vpiSize:32 || |vpiConstType:7
+EN/n01 alloff lost=0 gained=4 
+EN/n01 offL196 lost=0 gained=4 
+EN/n01 off_classPropElemClassTsAtName196 lost=0 gained=4 
+EN/n01 wide lost=0 gained=4 
+EN/n01_el alloff lost=0 gained=4 
+EN/n01_el offL196 lost=0 gained=4 
+EN/n01_el off_classPropElemClassTsAtName196 lost=0 gained=4 
+EN/n01_el wide lost=0 gained=4 
+EN/n02 alloff lost=0 gained=4 
+EN/n02 offL196 lost=0 gained=4 
+EN/n02 off_classPropElemClassTsAtName196 lost=0 gained=4 
+EN/n02 wide lost=0 gained=4 
+EN/n02_el alloff lost=0 gained=4 
+EN/n02_el offL196 lost=0 gained=4 
+EN/n02_el off_classPropElemClassTsAtName196 lost=0 gained=4 
+EN/n02_el wide lost=0 gained=4 
+EN/n03 alloff lost=0 gained=1 
+EN/n03 offL196 lost=0 gained=1 
+EN/n03 off_classPropElemClassTsAtName196 lost=0 gained=1 
+EN/n03 wide lost=0 gained=1 
+EN/n03_el alloff lost=0 gained=2 
+EN/n03_el offL196 lost=0 gained=2 
+EN/n03_el off_classPropElemClassTsAtName196 lost=0 gained=2 
+EN/n03_el wide lost=0 gained=2 
+EN/n04 alloff lost=0 gained=2 
+EN/n04 offL196 lost=0 gained=2 
+EN/n04 off_classPropElemClassTsAtName196 lost=0 gained=2 
+EN/n04 wide lost=0 gained=2 
+EN/n04_el alloff lost=0 gained=2 
+EN/n04_el offL196 lost=0 gained=2 
+EN/n04_el off_classPropElemClassTsAtName196 lost=0 gained=2 
+EN/n04_el wide lost=0 gained=2 
+FR/r01 alloff lost=0 gained=3 
+FR/r01 offL196 lost=0 gained=3 
+FR/r01 off_retPkgQualTdNoAlias196 lost=0 gained=3 
+FR/r01 wide lost=0 gained=3 
+FR/r01_el alloff lost=0 gained=3 
+FR/r01_el offL196 lost=0 gained=3 
+FR/r01_el off_retPkgQualTdNoAlias196 lost=0 gained=3 
+FR/r01_el wide lost=0 gained=3 
+FR/r03 alloff lost=0 gained=1 
+FR/r03 offL196 lost=0 gained=1 
+FR/r03 off_retPkgQualTdNoAlias196 lost=0 gained=1 
+FR/r03 wide lost=0 gained=1 
+FR/r03_el alloff lost=0 gained=1 
+FR/r03_el offL196 lost=0 gained=1 
+FR/r03_el off_retPkgQualTdNoAlias196 lost=0 gained=1 
+FR/r03_el wide lost=0 gained=1 
+FR/r04 alloff lost=0 gained=1 
+FR/r04 offL196 lost=0 gained=1 
+FR/r04 off_retPkgQualTdNoAlias196 lost=0 gained=1 
+FR/r04 wide lost=0 gained=1 
+FR/r04_el alloff lost=0 gained=1 
+FR/r04_el offL196 lost=0 gained=1 
+FR/r04_el off_retPkgQualTdNoAlias196 lost=0 gained=1 
+FR/r04_el wide lost=0 gained=1 
+K/k1 alloff lost=0 gained=8 
+K/k1 offL198 lost=0 gained=8 
+K/k1 off_genCaCastRhsRefUnnamed198 lost=0 gained=8 
+K/k1 wide lost=0 gained=8 
+K/k2 alloff lost=0 gained=0 
+K/k2 offL198 lost=0 gained=0 
+K/k2 off_genCaCastRhsRefUnnamed198 lost=0 gained=0 
+K/k2 wide lost=0 gained=0 
+K/k3 alloff lost=0 gained=17 
+K/k3 offL198 lost=0 gained=17 
+K/k3 off_genCaCastRhsRefUnnamed198 lost=0 gained=17 
+K/k3 wide lost=0 gained=17 
+L/l1 alloff lost=0 gained=9 
+L/l1 offL198 lost=0 gained=9 
+L/l1 off_lvIdxCallArgIsRead198 lost=0 gained=9 
+L/l1 wide lost=0 gained=9 
+L/l1_el alloff lost=0 gained=17 
+L/l1_el offL198 lost=0 gained=17 
+L/l1_el off_lvIdxCallArgIsRead198 lost=0 gained=17 
+L/l1_el wide lost=0 gained=17 
+L/l2 alloff lost=0 gained=12 
+L/l2 offL198 lost=0 gained=12 
+L/l2 off_lvIdxCallArgIsRead198 lost=0 gained=12 
+L/l2 wide lost=0 gained=12 
+L/l2_el alloff lost=0 gained=24 
+L/l2_el offL198 lost=0 gained=24 
+L/l2_el off_lvIdxCallArgIsRead198 lost=0 gained=24 
+L/l2_el wide lost=0 gained=24 
+L/l3 alloff lost=0 gained=6 
+L/l3 offL198 lost=0 gained=6 
+L/l3 off_lvIdxCallArgIsRead198 lost=0 gained=6 
+L/l3 wide lost=0 gained=6 
+L/l3_el alloff lost=0 gained=11 
+L/l3_el offL198 lost=0 gained=11 
+L/l3_el off_lvIdxCallArgIsRead198 lost=0 gained=11 
+L/l3_el wide lost=0 gained=11 
+M/m1 alloff lost=0 gained=10 
+M/m1 offL198 lost=0 gained=10 
+M/m1 off_methodArgOpRefChainName198 lost=0 gained=10 
+M/m1 wide lost=0 gained=10 
+M/m1_el alloff lost=0 gained=10 
+M/m1_el offL198 lost=0 gained=10 
+M/m1_el off_methodArgOpRefChainName198 lost=0 gained=10 
+M/m1_el wide lost=0 gained=10 
+M/m2 alloff lost=0 gained=4 
+M/m2 offL198 lost=0 gained=4 
+M/m2 off_methodArgOpRefChainName198 lost=0 gained=4 
+M/m2 wide lost=0 gained=4 
+M/m2_el alloff lost=0 gained=4 
+M/m2_el offL198 lost=0 gained=4 
+M/m2_el off_methodArgOpRefChainName198 lost=0 gained=4 
+M/m2_el wide lost=0 gained=4 
+M/m3 alloff lost=0 gained=2 
+M/m3 offL198 lost=0 gained=2 
+M/m3 off_methodArgOpRefChainName198 lost=0 gained=2 
+M/m3 wide lost=0 gained=2 
+M/m3_el alloff lost=0 gained=2 
+M/m3_el offL198 lost=0 gained=2 
+M/m3_el off_methodArgOpRefChainName198 lost=0 gained=2 
+M/m3_el wide lost=0 gained=2 
+MG/g01 alloff lost=0 gained=87 
+MG/g01 offL196 lost=0 gained=87 
+MG/g01 off_modGenericClassListed196 lost=0 gained=87 
+MG/g01 wide lost=0 gained=87 
+MG/g01_el alloff lost=0 gained=132 
+MG/g01_el offL196 lost=0 gained=132 
+MG/g01_el off_modGenericClassListed196 lost=0 gained=132 
+MG/g01_el wide lost=0 gained=132 
+MG/g02 alloff lost=0 gained=155 
+MG/g02 offL196 lost=0 gained=155 
+MG/g02 off_modGenericClassListed196 lost=0 gained=155 
+MG/g02 wide lost=0 gained=155 
+MG/g02_el off_modGenericClassListed196 lost=0 gained=244 
+MG/g02_el off_modGenericHandleBare196 lost=1 gained=0  | \_class_defn: (work@sub::outer), file:dut.sv, line:3:3, endln:9:11
+MG/g03 alloff lost=0 gained=95 
+MG/g03 offL196 lost=0 gained=95 
+MG/g03 off_modGenericClassListed196 lost=0 gained=95 
+MG/g03 wide lost=0 gained=95 
+MG/g03_el alloff lost=0 gained=134 
+MG/g03_el offL196 lost=0 gained=134 
+MG/g03_el off_modGenericClassListed196 lost=0 gained=134 
+MG/g03_el wide lost=0 gained=134 
+MG/g04 alloff lost=0 gained=34 
+MG/g04 offL196 lost=0 gained=34 
+MG/g04 off_modGenericClassListed196 lost=0 gained=34 
+MG/g04 wide lost=0 gained=34 
+MG/g04_el alloff lost=0 gained=53 
+MG/g04_el offL196 lost=0 gained=53 
+MG/g04_el off_modGenericClassListed196 lost=0 gained=53 
+MG/g04_el wide lost=0 gained=53 
+MG/g05 alloff lost=0 gained=98 
+MG/g05 offL196 lost=0 gained=98 
+MG/g05 off_modGenericClassListed196 lost=0 gained=97 
+MG/g05 off_modGenericHandleBare196 lost=0 gained=1 
+MG/g05 wide lost=0 gained=98 
+MG/g05_el alloff lost=0 gained=104 
+MG/g05_el offL196 lost=0 gained=104 
+MG/g05_el off_modGenericClassListed196 lost=0 gained=103 
+MG/g05_el off_modGenericHandleBare196 lost=0 gained=1 
+MG/g05_el wide lost=0 gained=104 
+MG/g07 alloff lost=0 gained=35 
+MG/g07 offL196 lost=0 gained=35 
+MG/g07 off_modGenericClassListed196 lost=0 gained=34 
+MG/g07 off_modGenericHandleBare196 lost=0 gained=1 
+MG/g07 wide lost=0 gained=35 
+MG/g07_el off_modGenericClassListed196 lost=0 gained=54 
+MG/g07_el off_modGenericHandleBare196 lost=1 gained=2  | \_class_defn: (work@sub::box), file:dut.sv, line:3:3, endln:5:11
+MG/g08 alloff lost=0 gained=90 
+MG/g08 offL196 lost=0 gained=90 
+MG/g08 off_modGenericClassListed196 lost=0 gained=90 
+MG/g08 wide lost=0 gained=90 
+MG/g08_el off_modGenericClassListed196 lost=0 gained=183 
+MG/g09 alloff lost=0 gained=39 
+MG/g09 offL196 lost=0 gained=39 
+MG/g09 off_modGenericClassListed196 lost=0 gained=39 
+MG/g09 wide lost=0 gained=39 
+MG/g09_el alloff lost=0 gained=105 
+MG/g09_el offL196 lost=0 gained=105 
+MG/g09_el off_modGenericClassListed196 lost=0 gained=105 
+MG/g09_el wide lost=0 gained=105 
+N/h1 alloff lost=0 gained=8 
+N/h1 offL198 lost=0 gained=8 
+N/h1 off_genHopFoldSelName198 lost=0 gained=8 
+N/h1 wide lost=0 gained=8 
+N/h1_el alloff lost=0 gained=8 
+N/h1_el offL198 lost=0 gained=8 
+N/h1_el off_genHopFoldSelName198 lost=0 gained=8 
+N/h1_el wide lost=0 gained=8 
+N/h2 alloff lost=8 gained=16  | \_ref_typespec: (work@top.g[0]) || |vpiFullName:work@top.g[0] || \_ref_typespec: (work@top.g[1])
+N/h2 fix lost=8 gained=8  | \_ref_typespec: (work@top.g[0]) || |vpiFullName:work@top.g[0] || \_ref_typespec: (work@top.g[1])
+N/h2 offL198 lost=8 gained=16  | \_ref_typespec: (work@top.g[0]) || |vpiFullName:work@top.g[0] || \_ref_typespec: (work@top.g[1])
+N/h2 off_genHopFoldSelName198 lost=8 gained=16  | \_ref_typespec: (work@top.g[0]) || |vpiFullName:work@top.g[0] || \_ref_typespec: (work@top.g[1])
+N/h2 wide lost=8 gained=16  | \_ref_typespec: (work@top.g[0]) || |vpiFullName:work@top.g[0] || \_ref_typespec: (work@top.g[1])
+N/h3 alloff lost=0 gained=28 
+N/h3 offL198 lost=0 gained=28 
+N/h3 off_genHopFoldSelName198 lost=0 gained=24 
+N/h3 wide lost=0 gained=28 
+N/h3_el alloff lost=0 gained=16 
+N/h3_el offL198 lost=0 gained=16 
+N/h3_el off_genHopFoldSelName198 lost=0 gained=16 
+N/h3_el wide lost=0 gained=16 
+N/h4 alloff lost=24 gained=16  | \_ref_typespec: (work@top.g[0]) || |vpiFullName:work@top.g[0] || \_ref_typespec: (work@top.g[0])
+N/h4 fix lost=16 gained=0  | \_ref_typespec: (work@top.g[0]) || |vpiFullName:work@top.g[0] || \_ref_typespec: (work@top.g[1])
+N/h4 offL198 lost=24 gained=16  | \_ref_typespec: (work@top.g[0]) || |vpiFullName:work@top.g[0] || \_ref_typespec: (work@top.g[0])
+N/h4 off_genHopFoldSelName198 lost=24 gained=16  | \_ref_typespec: (work@top.g[0]) || |vpiFullName:work@top.g[0] || \_ref_typespec: (work@top.g[0])
+N/h4 wide lost=24 gained=16  | \_ref_typespec: (work@top.g[0]) || |vpiFullName:work@top.g[0] || \_ref_typespec: (work@top.g[0])
+N/h4_el alloff lost=8 gained=0  | \_ref_typespec: (work@top.g[0]) || |vpiFullName:work@top.g[0] || \_ref_typespec: (work@top.g[1])
+N/h4_el fix lost=8 gained=0  | \_ref_typespec: (work@top.g[0]) || |vpiFullName:work@top.g[0] || \_ref_typespec: (work@top.g[1])
+N/h4_el offL198 lost=8 gained=0  | \_ref_typespec: (work@top.g[0]) || |vpiFullName:work@top.g[0] || \_ref_typespec: (work@top.g[1])
+N/h4_el off_genHopFoldSelName198 lost=8 gained=0  | \_ref_typespec: (work@top.g[0]) || |vpiFullName:work@top.g[0] || \_ref_typespec: (work@top.g[1])
+N/h4_el wide lost=8 gained=0  | \_ref_typespec: (work@top.g[0]) || |vpiFullName:work@top.g[0] || \_ref_typespec: (work@top.g[1])
+N/w1 alloff lost=0 gained=16 
+N/w1 offL198 lost=0 gained=16 
+N/w1 off_ovrParamBoundOpSelName198 lost=0 gained=16 
+N/w1 wide lost=0 gained=16 
+N/w2 alloff lost=0 gained=2 
+N/w2 offL198 lost=0 gained=2 
+N/w2 off_ovrParamBoundOpSelName198 lost=0 gained=2 
+N/w2 wide lost=0 gained=2 
+O/o1 alloff lost=0 gained=12 
+O/o1 offL198 lost=0 gained=12 
+O/o1 off_genCaUnclonedFoldOwner198 lost=0 gained=12 
+O/o1 wide lost=0 gained=12 
+O/o1_el alloff lost=0 gained=12 
+O/o1_el offL198 lost=0 gained=12 
+O/o1_el off_genCaUnclonedFoldOwner198 lost=0 gained=12 
+O/o1_el wide lost=0 gained=12 
+O/o2 alloff lost=0 gained=2 
+O/o2 offL198 lost=0 gained=2 
+O/o2 off_genCaUnclonedFoldOwner198 lost=0 gained=2 
+O/o2 wide lost=0 gained=2 
+O/o2_el alloff lost=0 gained=2 
+O/o2_el offL198 lost=0 gained=2 
+O/o2_el off_genCaUnclonedFoldOwner198 lost=0 gained=2 
+O/o2_el wide lost=0 gained=2 
+O/o4 alloff lost=0 gained=2 
+O/o4 offL198 lost=0 gained=2 
+O/o4 off_genCaUnclonedFoldOwner198 lost=0 gained=2 
+O/o4 wide lost=0 gained=2 
+O/o4_el alloff lost=0 gained=2 
+O/o4_el offL198 lost=0 gained=2 
+O/o4_el off_genCaUnclonedFoldOwner198 lost=0 gained=2 
+O/o4_el wide lost=0 gained=2 
+TB/b01 alloff lost=0 gained=4 
+TB/b01 offL196 lost=0 gained=4 
+TB/b01 off_tpArrBoundAtLeftOperand196 lost=0 gained=4 
+TB/b01 wide lost=0 gained=4 
+TB/b01_el alloff lost=0 gained=4 
+TB/b01_el offL196 lost=0 gained=4 
+TB/b01_el off_tpArrBoundAtLeftOperand196 lost=0 gained=4 
+TB/b01_el wide lost=0 gained=4 
+TB/b02 alloff lost=0 gained=4 
+TB/b02 offL196 lost=0 gained=4 
+TB/b02 off_tpArrBoundAtLeftOperand196 lost=0 gained=4 
+TB/b02 wide lost=0 gained=4 
+TB/b02_el alloff lost=0 gained=4 
+TB/b02_el offL196 lost=0 gained=4 
+TB/b02_el off_tpArrBoundAtLeftOperand196 lost=0 gained=4 
+TB/b02_el wide lost=0 gained=4 
+TB/b03 alloff lost=0 gained=3 
+TB/b03 offL196 lost=0 gained=3 
+TB/b03 off_tpArrBoundAtLeftOperand196 lost=0 gained=3 
+TB/b03 wide lost=0 gained=3 
+TB/b03_el alloff lost=0 gained=3 
+TB/b03_el offL196 lost=0 gained=3 
+TB/b03_el off_tpArrBoundAtLeftOperand196 lost=0 gained=3 
+TB/b03_el wide lost=0 gained=3 
+TB/b04 alloff lost=0 gained=4 
+TB/b04 offL196 lost=0 gained=4 
+TB/b04 off_tpArrBoundAtLeftOperand196 lost=0 gained=4 
+TB/b04 wide lost=0 gained=4 
+TB/b04_el alloff lost=0 gained=4 
+TB/b04_el offL196 lost=0 gained=4 
+TB/b04_el off_tpArrBoundAtLeftOperand196 lost=0 gained=4 
+TB/b04_el wide lost=0 gained=4 
+V/v1 alloff lost=0 gained=18 
+V/v1 offL198 lost=0 gained=18 
+V/v1 off_callArgVarSelStamp198 lost=0 gained=18 
+V/v1 wide lost=0 gained=18 
+V/v1_el alloff lost=0 gained=38 
+V/v1_el offL198 lost=0 gained=38 
+V/v1_el off_callArgVarSelStamp198 lost=0 gained=38 
+V/v1_el wide lost=0 gained=38 
+V/v2 off_vsStampReducedCtxOnly198v lost=2 gained=0  | |vpiTypespec: || |vpiActual:
+V/v2_el off_vsStampReducedCtxOnly198v lost=4 gained=0  | |vpiTypespec: || |vpiActual:
+V/v3 alloff lost=0 gained=28 
+V/v3 offL198 lost=0 gained=28 
+V/v3 off_callArgVarSelStamp198 lost=0 gained=28 
+V/v3 off_vsStampReducedCtxOnly198v lost=0 gained=0 
+V/v3 wide lost=0 gained=28 
+V/v3_el alloff lost=0 gained=28 
+V/v3_el offL198 lost=0 gained=28 
+V/v3_el off_callArgVarSelStamp198 lost=0 gained=28 
+V/v3_el off_vsStampReducedCtxOnly198v lost=0 gained=0 
+V/v3_el wide lost=0 gained=28 
+V/v4 alloff lost=0 gained=21 
+V/v4 offL198 lost=0 gained=21 
+V/v4 off_callArgVarSelStamp198 lost=0 gained=21 
+V/v4 off_vsStampReducedCtxOnly198v lost=0 gained=0 
+V/v4 wide lost=0 gained=21 
+V/v4_el off_vsStampReducedCtxOnly198v lost=0 gained=0 
+V191/cc1 alloff lost=0 gained=0 
+V191/cc1 offL196 lost=0 gained=0 
+V191/cc1 off_evalFuncCastMemberKeepsCall191 lost=0 gained=0 
+V191/cc1 wide lost=0 gained=0 
+V191/cc1_el alloff lost=0 gained=24 
+V191/cc1_el offL196 lost=0 gained=24 
+V191/cc1_el off_evalFuncCastMemberKeepsCall191 lost=0 gained=24 
+V191/cc1_el wide lost=0 gained=24 
+V191/cc2 alloff lost=0 gained=0 
+V191/cc2 offL196 lost=0 gained=0 
+V191/cc2 off_evalFuncCastMemberKeepsCall191 lost=0 gained=0 
+V191/cc2 wide lost=0 gained=0 
+V191/cc2_el alloff lost=0 gained=12 
+V191/cc2_el offL196 lost=0 gained=12 
+V191/cc2_el off_evalFuncCastMemberKeepsCall191 lost=0 gained=12 
+V191/cc2_el wide lost=0 gained=12 
+V191/cc3 alloff lost=30 gained=0  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:12:10 || |vpiParent:
+V191/cc3 fix lost=30 gained=0  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:12:10 || |vpiParent:
+V191/cc3 offL196 lost=30 gained=0  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:12:10 || |vpiParent:
+V191/cc3 off_evalFuncCastMemberKeepsCall191 lost=30 gained=0  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:12:10 || |vpiParent:
+V191/cc3 wide lost=30 gained=0  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:12:10 || |vpiParent:
+V191/cc3_el alloff lost=4 gained=24  | \_constant: || |vpiSize:4
+V191/cc3_el fix lost=4 gained=0  | \_constant: || |vpiSize:4
+V191/cc3_el offL196 lost=4 gained=24  | \_constant: || |vpiSize:4
+V191/cc3_el off_evalFuncCastMemberKeepsCall191 lost=4 gained=24  | \_constant: || |vpiSize:4
+V191/cc3_el wide lost=4 gained=24  | \_constant: || |vpiSize:4
+V191/cc4 alloff lost=75 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/cc4 fix lost=75 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/cc4 offL196 lost=75 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/cc4 off_evalFuncCastMemberKeepsCall191 lost=75 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/cc4 wide lost=75 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/cc4_el alloff lost=10 gained=41  | \_constant: || |vpiSize:4
+V191/cc4_el fix lost=10 gained=16  | \_constant: || |vpiSize:4
+V191/cc4_el offL196 lost=10 gained=41  | \_constant: || |vpiSize:4
+V191/cc4_el off_evalFuncCastMemberKeepsCall191 lost=10 gained=41  | \_constant: || |vpiSize:4
+V191/cc4_el wide lost=10 gained=41  | \_constant: || |vpiSize:4
+V191/cc5 alloff lost=30 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/cc5 fix lost=30 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/cc5 offL196 lost=30 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/cc5 off_evalFuncCastMemberKeepsCall191 lost=30 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/cc5 wide lost=30 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/cc5_el alloff lost=4 gained=70  | \_constant: || |vpiSize:4
+V191/cc5_el fix lost=4 gained=7  | \_constant: || |vpiSize:4
+V191/cc5_el offL196 lost=4 gained=70  | \_constant: || |vpiSize:4
+V191/cc5_el off_evalFuncCastMemberKeepsCall191 lost=4 gained=70  | \_constant: || |vpiSize:4
+V191/cc5_el wide lost=4 gained=70  | \_constant: || |vpiSize:4
+V191/cc6 alloff lost=30 gained=0  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:14:10 || |vpiParent:
+V191/cc6 fix lost=29 gained=0  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:14:10 || |vpiParent:
+V191/cc6 offL196 lost=30 gained=0  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:14:10 || |vpiParent:
+V191/cc6 off_evalFuncCastMemberKeepsCall191 lost=30 gained=0  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:14:10 || |vpiParent:
+V191/cc6 wide lost=30 gained=0  | |vpiParent: || \_module_inst: work@top (work@top), file:dut.sv, line:2:1, endln:14:10 || |vpiParent:
+V191/cc6_el alloff lost=4 gained=12  | \_constant: || |vpiSize:4 || |vpiSize:2
+V191/cc6_el fix lost=3 gained=0  | \_constant: || |vpiSize:4
+V191/cc6_el offL196 lost=4 gained=12  | \_constant: || |vpiSize:4 || |vpiSize:2
+V191/cc6_el off_evalFuncCastMemberKeepsCall191 lost=4 gained=12  | \_constant: || |vpiSize:4 || |vpiSize:2
+V191/cc6_el wide lost=4 gained=12  | \_constant: || |vpiSize:4 || |vpiSize:2
+V191/cc7 alloff lost=30 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/cc7 fix lost=30 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/cc7 offL196 lost=30 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/cc7 off_evalFuncCastMemberKeepsCall191 lost=30 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/cc7 wide lost=31 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/cc7_el alloff lost=4 gained=23  | \_constant: || |vpiSize:4
+V191/cc7_el fix lost=4 gained=0  | \_constant: || |vpiSize:4
+V191/cc7_el offL196 lost=4 gained=23  | \_constant: || |vpiSize:4
+V191/cc7_el off_evalFuncCastMemberKeepsCall191 lost=4 gained=23  | \_constant: || |vpiSize:4
+V191/cc7_el wide lost=5 gained=23  | \_struct_typespec: (pk::s_t), line:10:36, endln:10:39 || \_constant: || |vpiSize:4
+V191/ep1 alloff lost=0 gained=1 
+V191/ep1 offL196 lost=0 gained=1 
+V191/ep1 off_enumDefOwnerNotInstance191 lost=0 gained=1 
+V191/ep1 wide lost=0 gained=1 
+V191/ep1_el alloff lost=0 gained=1 
+V191/ep1_el offL196 lost=0 gained=1 
+V191/ep1_el off_enumDefOwnerNotInstance191 lost=0 gained=1 
+V191/ep1_el wide lost=0 gained=1 
+V191/fd1 alloff lost=0 gained=9 
+V191/fd1 offL196 lost=0 gained=9 
+V191/fd1 off_formalDefaultNamedThroughFormal191 lost=0 gained=9 
+V191/fd1 wide lost=0 gained=9 
+V191/fd1_el alloff lost=0 gained=17 
+V191/fd1_el offL196 lost=0 gained=17 
+V191/fd1_el off_formalDefaultNamedThroughFormal191 lost=0 gained=17 
+V191/fd1_el wide lost=0 gained=17 
+V191/fd2 alloff lost=0 gained=6 
+V191/fd2 offL196 lost=0 gained=6 
+V191/fd2 off_formalDefaultNamedThroughFormal191 lost=0 gained=6 
+V191/fd2 wide lost=0 gained=6 
+V191/fd2_el alloff lost=0 gained=8 
+V191/fd2_el offL196 lost=0 gained=8 
+V191/fd2_el off_formalDefaultNamedThroughFormal191 lost=0 gained=8 
+V191/fd2_el wide lost=0 gained=8 
+V191/hd1 alloff lost=0 gained=6 
+V191/hd1 offL196 lost=0 gained=6 
+V191/hd1 off_modAggClonePerDefKey191 lost=0 gained=6 
+V191/hd1 wide lost=0 gained=6 
+V191/hd1_el alloff lost=0 gained=12 
+V191/hd1_el offL196 lost=0 gained=12 
+V191/hd1_el off_modAggClonePerDefKey191 lost=0 gained=6 
+V191/hd1_el wide lost=0 gained=12 
+V191/hd2 alloff lost=17 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/hd2 fix lost=17 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/hd2 offL196 lost=17 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/hd2 wide lost=17 gained=0  | |vpiParent: || |vpiParent: || |vpiActual:
+V191/hd2_el alloff lost=4 gained=0  | \_constant: || |vpiSize:1 || |BIN:1
+V191/hd2_el fix lost=4 gained=0  | \_constant: || |vpiSize:1 || |BIN:1
+V191/hd2_el offL196 lost=4 gained=0  | \_constant: || |vpiSize:1 || |BIN:1
+V191/hd2_el wide lost=4 gained=0  | \_constant: || |vpiSize:1 || |BIN:1
+V191/rp1 alloff lost=0 gained=6 
+V191/rp1 offL196 lost=0 gained=6 
+V191/rp1 off_splitPortRealRedeclLogicTs191 lost=0 gained=6 
+V191/rp1 wide lost=0 gained=6 
+V191/rp1_el alloff lost=0 gained=6 
+V191/rp1_el offL196 lost=0 gained=6 
+V191/rp1_el off_splitPortRealRedeclLogicTs191 lost=0 gained=6 
+V191/rp1_el wide lost=0 gained=6 
+V191/rp2 alloff lost=0 gained=9 
+V191/rp2 offL196 lost=0 gained=9 
+V191/rp2 off_splitPortRealRedeclLogicTs191 lost=0 gained=9 
+V191/rp2 wide lost=0 gained=9 
+V191/rp2_el alloff lost=0 gained=9 
+V191/rp2_el offL196 lost=0 gained=9 
+V191/rp2_el off_splitPortRealRedeclLogicTs191 lost=0 gained=9 
+V191/rp2_el wide lost=0 gained=9 
+V191/uz1 alloff lost=0 gained=4 
+V191/uz1 offL196 lost=0 gained=4 
+V191/uz1 off_elabCaConstLhsSized191 lost=0 gained=4 
+V191/uz1 wide lost=0 gained=4 
+V191/uz1_el alloff lost=0 gained=4 
+V191/uz1_el offL196 lost=0 gained=4 
+V191/uz1_el off_elabCaConstLhsSized191 lost=0 gained=4 
+V191/uz1_el wide lost=0 gained=4 
+X/x1 alloff lost=0 gained=14 
+X/x1 off2_callArgVarSelStamp198_evalFuncCastMemberKeepsCall191 lost=0 gained=14 
+X/x1 off2_callArgVarSelStamp198_evalFuncOmittedDefaultKeepsCall196 lost=0 gained=14 
+X/x1 off2_evalFuncOmittedDefaultKeepsCall196_evalFuncCastMemberKeepsCall191 lost=0 gained=0 
+X/x1 offL196 lost=0 gained=0 
+X/x1 offL198 lost=0 gained=14 
+X/x1 off_callArgVarSelStamp198 lost=0 gained=14 
+X/x1 off_evalFuncCastMemberKeepsCall191 lost=0 gained=0 
+X/x1 off_evalFuncOmittedDefaultKeepsCall196 lost=0 gained=0 
+X/x1 wide lost=0 gained=14 
+X/x1_el alloff lost=0 gained=40 
+X/x1_el off2_callArgVarSelStamp198_evalFuncCastMemberKeepsCall191 lost=0 gained=34 
+X/x1_el off2_callArgVarSelStamp198_evalFuncOmittedDefaultKeepsCall196 lost=0 gained=34 
+X/x1_el off2_evalFuncOmittedDefaultKeepsCall196_evalFuncCastMemberKeepsCall191 lost=0 gained=12 
+X/x1_el offL196 lost=0 gained=12 
+X/x1_el offL198 lost=0 gained=28 
+X/x1_el off_callArgVarSelStamp198 lost=0 gained=28 
+X/x1_el off_evalFuncCastMemberKeepsCall191 lost=0 gained=6 
+X/x1_el off_evalFuncOmittedDefaultKeepsCall196 lost=0 gained=6 
+X/x1_el wide lost=0 gained=40 
+X/x3 alloff lost=0 gained=3 
+X/x3 off2_lvIdxCallArgIsRead198_tfFormalTdCloneFile196 lost=0 gained=3 
+X/x3 offL198 lost=0 gained=3 
+X/x3 off_lvIdxCallArgIsRead198 lost=0 gained=3 
+X/x3 wide lost=0 gained=3 
+X/x3_el alloff lost=0 gained=6 
+X/x3_el off2_lvIdxCallArgIsRead198_tfFormalTdCloneFile196 lost=0 gained=6 
+X/x3_el offL198 lost=0 gained=6 
+X/x3_el off_lvIdxCallArgIsRead198 lost=0 gained=6 
+X/x3_el wide lost=0 gained=6 
+X/x4 alloff lost=0 gained=14 
+X/x4 off2_methodArgOpRefChainName198_formalDefaultNamedThroughFormal191 lost=0 gained=14 
+X/x4 offL196 lost=0 gained=4 
+X/x4 offL198 lost=0 gained=10 
+X/x4 off_formalDefaultNamedThroughFormal191 lost=0 gained=4 
+X/x4 off_methodArgOpRefChainName198 lost=0 gained=10 
+X/x4 wide lost=0 gained=14 
+X/x4_el alloff lost=0 gained=14 
+X/x4_el off2_methodArgOpRefChainName198_formalDefaultNamedThroughFormal191 lost=0 gained=14 
+X/x4_el offL196 lost=0 gained=4 
+X/x4_el offL198 lost=0 gained=10 
+X/x4_el off_formalDefaultNamedThroughFormal191 lost=0 gained=4 
+X/x4_el off_methodArgOpRefChainName198 lost=0 gained=10 
+X/x4_el wide lost=0 gained=14 
+X/x5 alloff lost=0 gained=16 
+X/x5 off2_genHopFoldSelName198_tpArrBoundAtLeftOperand196 lost=0 gained=16 
+X/x5 offL198 lost=0 gained=16 
+X/x5 off_genHopFoldSelName198 lost=0 gained=16 
+X/x5 wide lost=0 gained=16 
+X/x5_el alloff lost=0 gained=8 
+X/x5_el off2_genHopFoldSelName198_tpArrBoundAtLeftOperand196 lost=0 gained=8 
+X/x5_el offL198 lost=0 gained=8 
+X/x5_el off_genHopFoldSelName198 lost=0 gained=8 
+X/x5_el wide lost=0 gained=8 
+X/x6 alloff lost=0 gained=121 
+X/x6 off2_modGenericClassListed196_classPropElemClassTsAtName196 lost=0 gained=121 
+X/x6 offL196 lost=0 gained=121 
+X/x6 off_classPropElemClassTsAtName196 lost=0 gained=3 
+X/x6 off_modGenericClassListed196 lost=0 gained=118 
+X/x6 wide lost=0 gained=121 
+X/x6_el alloff lost=0 gained=181 
+X/x6_el off2_modGenericClassListed196_classPropElemClassTsAtName196 lost=0 gained=181 
+X/x6_el offL196 lost=0 gained=181 
+X/x6_el off_classPropElemClassTsAtName196 lost=0 gained=6 
+X/x6_el off_modGenericClassListed196 lost=0 gained=175 
+X/x6_el wide lost=0 gained=181 

@@ -1,0 +1,49 @@
+== probe: 39 rows differ
+r10earl105repro/h1_head105 CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec
+r10earl105repro/h2_child105 CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec
+r10earl95repro/g5_hop95 SUBSET | STRICT_NOTEQUAL differ:fullname(7) -> STRICT_NOTEQUAL differ:fullname(2) | off 7 rec on 2 rec
+r10earl_repro/wf24 CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec
+r10vearl118repro/v2_fenceface CONVERSION | STRICT_NOTEQUAL differ:fullname(22) -> EQUAL equal | off 22 rec on 0 rec
+r10vearl95repro/v95a_ctx CONVERSION | STRICT_NOTEQUAL differ:fullname(9) -> EQUAL equal | off 9 rec on 0 rec
+r11u112repro/grid/f/g11_hop_if_add CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec
+r11u112repro/grid/f/g12_hop_if_bare_ctl CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec
+r11u112repro/grid/f/g13_hop_if_int CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec
+r11u112repro/grid/f/g14_hop_if_sub_or CONVERSION | STRICT_NOTEQUAL differ:fullname(8) -> EQUAL equal | off 8 rec on 0 rec
+r11u112repro/grid/f/g16_hop_else CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec
+r11u112repro/grid/f/g17_hop_untyped CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec
+r11u112repro/grid/f/g18_hop_lhs SUBSET | STRICT_NOTEQUAL differ:fullname(5) -> STRICT_NOTEQUAL differ:fullname(1) | off 5 rec on 1 rec
+r11u112repro/grid/f/g19_hop_vs_op CONVERSION | STRICT_NOTEQUAL differ:fullname(3) -> EQUAL equal | off 3 rec on 0 rec
+r11u112repro/grid/f/g20_hop_vs_bare CONVERSION | STRICT_NOTEQUAL differ:fullname(3) -> EQUAL equal | off 3 rec on 0 rec
+r11u112repro/grid/f/g21_hop_vs_concat CONVERSION | STRICT_NOTEQUAL differ:fullname(6) -> EQUAL equal | off 6 rec on 0 rec
+r11u113repro/grid/c/c19_genif_lhs_bitsel CONVERSION | STRICT_NOTEQUAL differ:fullname(1) -> EQUAL equal | off 1 rec on 0 rec
+r11u113repro/grid/c/c23_genfor_concat CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec
+r11u113repro/grid/c/c24_genfor_gvop CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec
+r11u113repro/grid/c/c26_genfor_gvsel CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec
+r11u113repro/grid/c/c28_genfor_lp_sel CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec
+r11u115repro/grid/r/f/p05_catelem CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec
+r11u115repro/grid/r/f/p12_sysarg CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec
+r11u115repro/grid/r/i/p01_ibex CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec
+r11u115repro/grid/r/i/p02_replcat CONVERSION | STRICT_NOTEQUAL differ:fullname(1) -> EQUAL equal | off 1 rec on 0 rec
+r11u115repro/grid/r/i/p03_replbare CONVERSION | STRICT_NOTEQUAL differ:fullname(1) -> EQUAL equal | off 1 rec on 0 rec
+r11u115repro/grid/r/i/p05_catelem CONVERSION | STRICT_NOTEQUAL differ:fullname(1) -> EQUAL equal | off 1 rec on 0 rec
+r11u115repro/grid/r/i/p12_sysarg CONVERSION | STRICT_NOTEQUAL differ:fullname(1) -> EQUAL equal | off 1 rec on 0 rec
+r11u115repro/grid/r/i/p13_ternrepl CONVERSION | STRICT_NOTEQUAL differ:fullname(1) -> EQUAL equal | off 1 rec on 0 rec
+v11u112repro/grid/brk/f/g1h_hop_nested_op CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec
+v11u112repro/grid/brk/f/g1j_hop_logic_typed CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec
+v11u112repro/grid/brk/f/g1m_hop_genvar_mix CONVERSION | STRICT_NOTEQUAL differ:fullname(16) -> EQUAL equal | off 16 rec on 0 rec
+v11u113repro/grid/brk2/t12_genfor_modtp_two_iter CONVERSION | STRICT_NOTEQUAL differ:fullname(3) -> EQUAL equal | off 3 rec on 0 rec
+v11u115repro/grid/f1/a01_gf_signed CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec
+v11u115repro/grid/f1/a06_gf_repl_sys CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec
+v11u115repro/grid/f1/a09_gi_sys_tern CONVERSION | STRICT_NOTEQUAL differ:fullname(1) -> EQUAL equal | off 1 rec on 0 rec
+v11u115repro/grid/f1/a13_gcase CONVERSION | STRICT_NOTEQUAL differ:fullname(1) -> EQUAL equal | off 1 rec on 0 rec
+v11u115repro/grid/f1/a18_gf_countones CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec
+v11u115repro/grid/f1/a20_gf_unsigned_W CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec
+-- probe tally: CONVERSION=37 SUBSET=2
+== surelog: 0 rows differ
+-- surelog tally: 
+== uhdm2rtlil: 4 rows differ
+uhdm2rtlil/default/arb_idx_cast SUBSET | STRICT_NOTEQUAL differ:endcol(17) -> STRICT_NOTEQUAL differ:endcol(3) | off 17 rec on 3 rec
+uhdm2rtlil/testflags/arb_idx_cast SUBSET | STRICT_NOTEQUAL differ:endcol(17) -> STRICT_NOTEQUAL differ:endcol(3) | off 17 rec on 3 rec
+uhdm2rtlil/default/ibex_pmp CONVERSION | STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL equal | off 1 rec (diverged) on 0 rec
+uhdm2rtlil/testflags/ibex_pmp CONVERSION | STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL equal | off 1 rec (diverged) on 0 rec
+-- uhdm2rtlil tally: CONVERSION=2 SUBSET=2

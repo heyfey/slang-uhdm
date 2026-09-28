@@ -1,0 +1,17 @@
+18183f058868a85659208c85a099980e  /tmp/r11u204_bin/law.bin
+fa6e4f42f252ae0ab69d9845003e71c5  /tmp/r11u204_bin/uhdm-strictcmp
+e6d8f9e5c4cfc1406b0f7dcc932c18b5  /tmp/r11u204_bin/fix.bin
+fix1.bin superseded (CCLIT without the struct restriction); fix.bin = fix2
+d349dee3fc44fa1bb010e1d775895da3  fix.bin
+fix2.bin superseded (carried DFLTNAMED, dropped for its downstream cost); fix.bin = fix3:
+e08d2573ad9e03774203ca1c156191c7  fix.bin
+fix3.bin superseded (CCLIT folded package aggregate parameters: r11u190verify G/g02 regressed); fix.bin = fix4:
+7ef8518801fea0c2a4d9fbece3192e7e  fix.bin
+fix4.bin superseded (isAggregate() is false for a PACKED struct: G/g02 and cc7 still regressed); fix.bin = fix5:
+fecf9e88a7114e0269a8c02a6f9d5ac8  fix.bin
+fix5.bin superseded (QTWINELEM gave a class type-parameter queue twin an element golden lacks: +2 records on the UVM rows, V191/qr2); fix.bin = fix6:
+f41e814e7350e5151e9cf2907587cbe2  fix.bin
+fix6.bin superseded (its type-parameter test missed the class specialization alias: V191/qr2, r11u191dec Q/q05 still gained an element); fix.bin = fix7:
+205bfea026120a3e6f4fdc5636b88a64  fix.bin
+fix7.bin superseded (the struct element carried by QTWINELEM adds records golden lacks: V191/qr3 newbad 27, r11u196repro V191/qr01 newbad 10); fix.bin = fix8:
+5b2bc7811a09643b481f0ce8114b5357  fix.bin

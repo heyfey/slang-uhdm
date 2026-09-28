@@ -1,0 +1,29 @@
+MG/g02_el | cases 1 | alloff=1 offL196=1 wide=1
+MG/g06_el | cases 1 | alloff=1 offL196=1 off_modGenericHandleBare196=1 wide=1
+MG/g07_el | cases 1 | alloff=1 offL196=1 wide=1
+MG/g08_el | cases 1 | alloff=1 offL196=1 wide=1
+callArgVarSelStamp198 | cases 5 | STAGE1-CLOSER=4 TOWARD=3 UNFIRED=3
+classPropElemClassTsAtName196 | cases 5 | STAGE1-CLOSER=8 TOWARD=2
+dfltArgExecutedPathEval196v | cases 4 | STAGE1-CLOSER=4 UNFIRED=4
+dfltArgExecutedRead196v | cases 6 | AWAY=1 STAGE1-AWAY=4 STAGE1-CLOSER=4 STAGE1-SAME=1 UNFIRED=2 | AWAY-judges: DF/e01:away=4 DF/e01_el:away=4 DF/e02:away=4 DF/e02_el:away=4 DF/e07:away=16 DF/e07_el:away=16 DF/e01_el:lost=6 DF/e02_el:lost=6 DF/e05_el:lost=1 DF/e07_el:lost=24
+elabCaConstLhsSized191 | cases 3 | STAGE1-CLOSER=2 UNFIRED=4
+enumDefOwnerNotInstance191 | cases 2 | BYTES-ONLY=2 UNFIRED=2
+evalFuncCastMemberKeepsCall191 | cases 8 | STAGE1-AWAY=8 STAGE1-CLOSER=7 TOWARD=1 | AWAY-judges: V191/cc3:lost=30 V191/cc3_el:lost=4 V191/cc4:lost=75 V191/cc4_el:lost=10 V191/cc5:lost=30 V191/cc5_el:lost=4 V191/cc6:lost=30 V191/cc6_el:lost=4 V191/cc7:lost=30 V191/cc7_el:lost=4
+evalFuncOmittedDefaultKeepsCall196 | cases 9 | STAGE1-AWAY=2 STAGE1-CLOSER=9 TOWARD=1 UNFIRED=6 | AWAY-judges: DF/e06:lost=15 DF/e06_el:lost=2 DF/e08:lost=47 DF/e08_el:lost=8
+formalDefaultNamedThroughFormal191 | cases 3 | STAGE1-CLOSER=2 TOWARD=4
+genCaCastRhsRefUnnamed198 | cases 3 | STAGE1-CLOSER=1 TOWARD=2 UNFIRED=3
+genCaUnclonedFoldOwner198 | cases 5 | STAGE1-CLOSER=6 UNFIRED=4
+genHopFoldSelName198 | cases 5 | AWAY=1 MIXED=2 STAGE1-AWAY=1 STAGE1-CLOSER=4 STAGE1-SAME=2 | AWAY-judges: N/h2:away=4 N/h4:away=12 N/h4_el:away=4 N/h2:lost=8 N/h4:lost=24 N/h4_el:lost=8
+lvIdxCallArgIsRead198 | cases 4 | STAGE1-CLOSER=2 TOWARD=6
+methodArgOpRefChainName198 | cases 4 | STAGE1-CLOSER=3 TOWARD=5
+modAggClonePerDefKey191 | cases 2 | STAGE1-CLOSER=2 UNFIRED=2
+modClassTsLinksDefListing196 | cases 2 | STAGE1-CLOSER=4
+modGenericClassListed196 | cases 10 | STAGE1-CLOSER=18 UNFIRED=2
+modGenericHandleBare196 | cases 7 | DB-PRESENCE-DIFFERS=1 STAGE1-AWAY=1 STAGE1-CLOSER=6 UNFIRED=6 | AWAY-judges: MG/g06:away=12 MG/g02_el:lost=1 MG/g07_el:lost=1
+ovrParamBoundOpSelName198 | cases 2 | BYTES-ONLY=2 TOWARD=2
+queueRetTwinDynShape191 | cases 3 | STAGE1-CLOSER=4 UNFIRED=2 | AWAY-judges: V191/qr3:away=8 V191/qr3_el:away=8
+retPkgQualTdNoAlias196 | cases 4 | STAGE1-CLOSER=6 UNFIRED=2
+splitPortRealRedeclLogicTs191 | cases 2 | STAGE1-CLOSER=4
+tfFormalTdCloneFile196 | cases 5 | STAGE1-SAME=2 TOWARD=8
+tpArrBoundAtLeftOperand196 | cases 5 | STAGE1-CLOSER=2 TOWARD=6 UNFIRED=2
+vsStampReducedCtxOnly198v | cases 4 | STAGE1-CLOSER=4 TOWARD=2 UNFIRED=2 | AWAY-judges: V/v2:lost=2 V/v2_el:lost=4

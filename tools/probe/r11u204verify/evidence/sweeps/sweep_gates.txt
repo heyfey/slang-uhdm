@@ -1,0 +1,124 @@
+== swH
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=3345 STRICT_NOTEQUAL=742
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=461 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=19 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=457 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=17 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=796 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=7
+[testflags] CMP_EQUAL=796 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=7
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+SWEEP_RC=1
+== swA
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=3306 STRICT_NOTEQUAL=781
+regressions=39 conversions=0 changes=3 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=461 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=19 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=457 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=17 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=9 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=793 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=10
+[testflags] CMP_EQUAL=793 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=10
+regressions=6 conversions=0 changes=2 only-fresh=0 only-committed=0
+SWEEP_RC=1
+== sw6
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=3343 STRICT_NOTEQUAL=744
+regressions=2 conversions=0 changes=1 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=461 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=19 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=457 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=17 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=9 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=794 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=9
+[testflags] CMP_EQUAL=794 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=9
+regressions=4 conversions=0 changes=2 only-fresh=0 only-committed=0
+SWEEP_RC=1
+== sw8
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=3308 STRICT_NOTEQUAL=779
+regressions=37 conversions=0 changes=2 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=461 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=19 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=457 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=17 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=795 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=8
+[testflags] CMP_EQUAL=795 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=8
+regressions=2 conversions=0 changes=2 only-fresh=0 only-committed=0
+SWEEP_RC=1
+== swW
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=3155 STRICT_NOTEQUAL=932
+regressions=190 conversions=0 changes=13 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=460 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=20 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=456 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=18 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=2 conversions=0 changes=13 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=792 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=11
+[testflags] CMP_EQUAL=792 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=11
+regressions=8 conversions=0 changes=2 only-fresh=0 only-committed=0
+SWEEP_RC=1
+== swO
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=3193 STRICT_NOTEQUAL=894
+regressions=152 conversions=0 changes=10 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=460 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=20 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=456 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=18 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=2 conversions=0 changes=11 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=794 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=9
+[testflags] CMP_EQUAL=794 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=9
+regressions=4 conversions=0 changes=0 only-fresh=0 only-committed=0
+SWEEP_RC=1
+== swB
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=3305 STRICT_NOTEQUAL=782
+regressions=40 conversions=0 changes=3 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=461 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=19 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=457 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=17 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=13 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=793 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=10
+[testflags] CMP_EQUAL=793 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=10
+regressions=6 conversions=0 changes=2 only-fresh=0 only-committed=0
+SWEEP_RC=1
+== swF
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+[probe] EQUAL=3345 STRICT_NOTEQUAL=742
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=461 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=19 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=457 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=17 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=796 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=7
+[testflags] CMP_EQUAL=796 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=7
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+SWEEP_RC=1

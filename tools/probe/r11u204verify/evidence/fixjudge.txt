@@ -1,0 +1,27 @@
+tp/r11u196repro/cases/V191/qr01_el TOWARD away=0 toward=4 newbad=0 gonebad=0 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+tp/r11u196repro/cases/V191/qr01 TOWARD away=0 toward=4 newbad=0 gonebad=0 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+DF/e01_el TOWARD away=0 toward=4 newbad=0 gonebad=1 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+DF/e01 TOWARD away=0 toward=4 newbad=0 gonebad=1 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+DF/e02_el TOWARD away=0 toward=4 newbad=0 gonebad=1 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+DF/e02 TOWARD away=0 toward=4 newbad=0 gonebad=1 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+DF/e07_el TOWARD away=0 toward=16 newbad=0 gonebad=8 | law NOT_EQUAL_stage1 | fix STRICT_EQUAL_297_objects
+DF/e07 TOWARD away=0 toward=16 newbad=0 gonebad=8 | law STRICT_NOTEQUAL_type | fix STRICT_EQUAL_289_objects
+N/h2_el BYTES-ONLY away=0 toward=0 newbad=0 gonebad=0 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+N/h2 TOWARD away=0 toward=4 newbad=0 gonebad=4 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+N/h4_el TOWARD away=0 toward=4 newbad=0 gonebad=4 | law STRICT_NOTEQUAL_fullname | fix STRICT_EQUAL_336_objects
+N/h4 TOWARD away=0 toward=8 newbad=0 gonebad=8 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+V191/cc3_el BYTES-ONLY away=0 toward=0 newbad=2 gonebad=8 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+V191/cc3 BYTES-ONLY away=0 toward=0 newbad=2 gonebad=32 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+V191/cc4_el BYTES-ONLY away=0 toward=0 newbad=5 gonebad=31 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+V191/cc4 BYTES-ONLY away=0 toward=0 newbad=5 gonebad=43 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+V191/cc5_el AWAY away=8 toward=0 newbad=2 gonebad=6 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1 | away: ref_typespec|||work@top||0|0|0|0||0|| @ operation: < func_call:h < cont_assign: < module_inst:work@top < design:work@top || struct_typespec|s_t|||dut.sv|6|36|6|39|||| @ ref_typespec: < operation: < func_call:h < cont_assign: < module_inst:work@top < design:work@top
+V191/cc5 AWAY away=14 toward=0 newbad=2 gonebad=6 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1 | away: ref_typespec|||work@top||0|0|0|0||0|| @ operation: < func_call:h < cont_assign: < module_inst:work@top < design:work@top || struct_typespec|s_t|||dut.sv|6|36|6|39|||| @ ref_typespec: < operation: < func_call:h < cont_assign: < module_inst:work@top < design:work@top
+V191/cc6_el BYTES-ONLY away=0 toward=0 newbad=2 gonebad=8 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+V191/cc6 BYTES-ONLY away=0 toward=0 newbad=2 gonebad=50 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+V191/cc7_el BYTES-ONLY away=0 toward=0 newbad=2 gonebad=4 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+V191/cc7 BYTES-ONLY away=0 toward=0 newbad=2 gonebad=4 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+V191/hd2_el BYTES-ONLY away=0 toward=0 newbad=1 gonebad=10 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+V191/hd2 TOWARD away=0 toward=1 newbad=1 gonebad=14 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+V191/qr3_el TOWARD away=0 toward=8 newbad=1 gonebad=0 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+V191/qr3 TOWARD away=0 toward=8 newbad=1 gonebad=0 | law NOT_EQUAL_stage1 | fix NOT_EQUAL_stage1
+TALLY {'TOWARD': 14, 'BYTES-ONLY': 10, 'AWAY': 2}

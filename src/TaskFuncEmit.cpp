@@ -16,6 +16,7 @@
 
 #include <algorithm>
 #include <vector>
+#include "R204.h"
 
 namespace slang_uhdm {
 
@@ -4603,6 +4604,63 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             d191 && d191->UhdmType() == UHDM::uhdmarray_typespec) {
                             tr191TF("queueRetTwinDynShape191");
                             cl9 = (UHDM::array_typespec*)d191;
+                        }
+                    }
+                    // § queueTwinKeepsElem204v (r11u204, R11V204_QTWINELEM_OFF;
+                    // refines § queueRetTwinDynShape191) — the listing's
+                    // dynamic-container shape carries no element typespec,
+                    // where golden's return twin keeps the element's (golden
+                    // cases/V191 qr3: `typedef e_t eq_t[$]` returned by a
+                    // class method, the enum_typespec under the twin); the
+                    // clone form's element (pristine's: its element read is
+                    // sound, only its range read the queue as a fixed array)
+                    // is carried over.
+                    // A queue of a class TYPE PARAMETER (`typedef T tq_t[$]`,
+                    // uvm_misc.svh 642 `typedef TYPE types_t[$]`) keeps no
+                    // element in golden (cases/V191 qr2: no `<in>tq_t` record;
+                    // the UVM rows' `types_t` twin likewise): not carried.
+                    bool tpElem204 = false;
+                    if (auto asyn = retAlias->getSyntax();
+                        asyn && asyn->kind == syntax::SyntaxKind::TypedefDeclaration) {
+                        const syntax::SyntaxNode* tsyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+                        if (tsyn && tsyn->kind == syntax::SyntaxKind::NamedType)
+                            if (auto* sc204 = retAlias->getParentScope()) {
+                                std::string nm204 =
+                                    tsyn->as<syntax::NamedTypeSyntax>().name->toString();
+                                while (!nm204.empty() && isspace((unsigned char)nm204.front()))
+                                    nm204.erase(nm204.begin());
+                                while (!nm204.empty() && isspace((unsigned char)nm204.back()))
+                                    nm204.pop_back();
+                                // (in a class specialization the name finds the
+                                // type parameter's own alias, declared by a
+                                // TypeAssignment of the parameter port list)
+                                if (auto* ls204 = sc204->lookupName(nm204);
+                                    ls204 && (ls204->kind == SymbolKind::TypeParameter ||
+                                              (ls204->kind == SymbolKind::TypeAlias &&
+                                               ls204->getSyntax() &&
+                                               ls204->getSyntax()->kind ==
+                                                   syntax::SyntaxKind::TypeAssignment)))
+                                    tpElem204 = true;
+                            }
+                    }
+                    if (cl9 && !cl9->Elem_typespec() && !tpElem204 &&
+                        r11v204Law("R11V204_QTWINELEM_OFF")) {
+                        auto* cf204 = buildUnpackedArrayTypedefTs(
+                            *retAlias, std::string(rdt.name), /*cloneForm=*/true);
+                        // only a non-aggregate element: the clone form's struct
+                        // element (a bare-scoped named clone) does not match
+                        // golden's (cases/V191 qr3 pq_t / uq_t, r11u196repro
+                        // V191/qr01: records golden lacks), so it is left out
+                        auto* er204 = cf204 ? cf204->Elem_typespec() : nullptr;
+                        if (auto* ea204 = er204 ? er204->Actual_typespec() : nullptr;
+                            ea204 && (ea204->UhdmType() == UHDM::uhdmstruct_typespec ||
+                                      ea204->UhdmType() == UHDM::uhdmunion_typespec))
+                            er204 = nullptr;
+                        if (er204) {
+                            er204->VpiParent(cl9);
+                            cl9->Elem_typespec(er204);
+                            cf204->Elem_typespec(nullptr);
+                            tr204("queueTwinKeepsElem204v", std::string(rdt.name));
                         }
                     }
                     if (!cl9)

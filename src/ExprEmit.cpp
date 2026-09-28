@@ -22,6 +22,7 @@
 #include "slang/syntax/SyntaxNode.h"
 #include "slang/ast/expressions/Operator.h"
 #include "slang/ast/symbols/CoverSymbols.h"
+#include "R204.h"
 
 namespace slang_uhdm {
 
@@ -17636,7 +17637,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         if (auto* f112 = genLpUseFoldBound47(expr, *genLpIdxOpPrefix112)) {
             f112->VpiParent(parent);
             // § genHopFoldSelName198
-            if (genHopFoldSelName198On() && f112->Typespec() &&
+            // § hopFoldUnaryKeepsScope204v (r11u204, R11V204_HOPUNARY_OFF;
+            // refines it) — compileExpression's unary branch pushes its
+            // operand without re-parenting it, so a fold DIRECTLY under a
+            // unary operator keeps getValue's param_assign parent and the
+            // reader's chain names the declaring scope (golden cases/N h4
+            // `a[-L+7]`, `a[~L & 7]`: `work@top.g[0]`); a fold under a
+            // binary operator nested in the unary one is re-parented and
+            // names the select (h4 `a[-(L+1)+8]`, h2 `a[L*2+1]`).
+            bool unary204 = false;
+            if (auto ot204 = ((UHDM::operation*)parent)->VpiOpType();
+                ot204 >= vpiMinusOp && ot204 <= vpiUnaryXNorOp &&
+                r11v204Law("R11V204_HOPUNARY_OFF"))
+                unary204 = true;
+            if (unary204 && genHopFoldSelName198On() && f112->Typespec() &&
+                !genLpIdxOpSelName198.empty())
+                tr204("hopFoldUnaryKeepsScope204v");
+            if (!unary204 && genHopFoldSelName198On() && f112->Typespec() &&
                 !genLpIdxOpSelName198.empty()) {
                 f112->Typespec()->VpiFullName(genLpIdxOpSelName198);
                 trace198("genHopFoldSelName198");

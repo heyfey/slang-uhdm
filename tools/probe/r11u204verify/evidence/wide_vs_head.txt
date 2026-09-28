@@ -1,0 +1,13 @@
+probe: conv H-vs-A 39 O-vs-W 38 same=False; changes 3 / 4 same_rows=False
+   only-wide change r10vbuvm29repro/gv29_b_positions ('STRICT_NOTEQUAL', 'differ:fullname(3)') ('STRICT_NOTEQUAL', 'differ:fullname(1)')
+surelog: conv H-vs-A 0 O-vs-W 0 same=True; changes 9 / 9 same_rows=True
+   change differs ('MiniAmiq', 'default') A->H ('STRICT_NOTEQUAL', 'differ:file(25)') ('STRICT_NOTEQUAL', 'differ:file(17)') W->O ('STRICT_NOTEQUAL', 'differ:file(27)') ('STRICT_NOTEQUAL', 'differ:file(19)')
+   change differs ('MiniAmiq', 'testflags') A->H ('STRICT_NOTEQUAL', 'differ:file(25)') ('STRICT_NOTEQUAL', 'differ:file(17)') W->O ('STRICT_NOTEQUAL', 'differ:file(27)') ('STRICT_NOTEQUAL', 'differ:file(19)')
+   change differs ('Scoreboard', 'default') A->H ('STRICT_NOTEQUAL', 'differ:fullname(52)') ('STRICT_NOTEQUAL', 'differ:fullname(44)') W->O ('STRICT_NOTEQUAL', 'differ:fullname(54)') ('STRICT_NOTEQUAL', 'differ:fullname(46)')
+   change differs ('SeqDriver', 'default') A->H ('STRICT_NOTEQUAL', 'differ:file(24)') ('STRICT_NOTEQUAL', 'differ:fullname(16)') W->O ('STRICT_NOTEQUAL', 'differ:file(26)') ('STRICT_NOTEQUAL', 'differ:endcol(18)')
+   change differs ('SeqDriver', 'testflags') A->H ('STRICT_NOTEQUAL', 'differ:file(24)') ('STRICT_NOTEQUAL', 'differ:fullname(16)') W->O ('STRICT_NOTEQUAL', 'differ:file(26)') ('STRICT_NOTEQUAL', 'differ:endcol(18)')
+   change differs ('SimpleUVM', 'default') A->H ('STRICT_NOTEQUAL', 'differ:fullname(52)') ('STRICT_NOTEQUAL', 'differ:fullname(44)') W->O ('STRICT_NOTEQUAL', 'differ:fullname(54)') ('STRICT_NOTEQUAL', 'differ:fullname(46)')
+   change differs ('SimpleUVM', 'testflags') A->H ('STRICT_NOTEQUAL', 'differ:fullname(52)') ('STRICT_NOTEQUAL', 'differ:fullname(44)') W->O ('STRICT_NOTEQUAL', 'differ:fullname(54)') ('STRICT_NOTEQUAL', 'differ:fullname(46)')
+uhdm2rtlil: conv H-vs-A 6 O-vs-W 4 same=False; changes 2 / 4 same_rows=False
+   only-wide change ('ibex_pmp', 'default') ('STRICT_NOTEQUAL', 'differ:file(5)') ('STRICT_NOTEQUAL', 'differ:file(4)')
+   only-wide change ('ibex_pmp', 'testflags') ('STRICT_NOTEQUAL', 'differ:file(5)') ('STRICT_NOTEQUAL', 'differ:file(4)')

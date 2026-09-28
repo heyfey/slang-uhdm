@@ -1,0 +1,15 @@
+# V191/cc5: the operation arguments stamped with the struct formal's typespec s_t, per database, in walk order (the definition listing is walked before the elaborated instance). Golden stamps the calls it keeps (7:17 h(L + 8'h0), 10:17 h({L[7:4], 4'd1})); law keeps and stamps 11:17 h(Q + 8'h1), which golden folds; fix folds it. recaway2's chain key (type:name of the ancestors, no positions) matches law's 11:17 stamp with golden's 10:17 stamp, which no binary writes (the concatenation argument's stamp: a residue), hence its 'away' records.
+== gold_bfe418690dfb
+  record #169: s_t stamp on the operation argument at 7:17
+  record #211: s_t stamp on the operation argument at 10:17
+  record #390: s_t stamp on the operation argument at 7:17
+  record #425: s_t stamp on the operation argument at 10:17
+== law.uhdm
+  record #187: s_t stamp on the operation argument at 7:17
+  record #223: s_t stamp on the operation argument at 11:17
+  record #389: s_t stamp on the operation argument at 7:17
+  record #429: s_t stamp on the operation argument at 11:17
+== fix.uhdm
+  record #187: s_t stamp on the operation argument at 7:17
+  record #223: s_t stamp on the operation argument at 11:17
+  record #389: s_t stamp on the operation argument at 7:17

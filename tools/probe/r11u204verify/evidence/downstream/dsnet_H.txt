@@ -1,0 +1,4 @@
+const_cast_signext _nohier.il:9c949a7cd8/9c949a7cd8:SAME .il:9a7076d58f/9a7076d58f:SAME _synth.v:e7014c40b4/e7014c40b4:SAME
+func_typename_ret _nohier.il:329e735203/329e735203:SAME .il:96b1013774/96b1013774:SAME _synth.v:72cf6b20d6/72cf6b20d6:SAME
+ibex_pmp _nohier.il:5acf0a52b2/5acf0a52b2:SAME .il:f1a4339c20/f1a4339c20:SAME _synth.v:9a07dd8ad0/9a07dd8ad0:SAME
+arb_idx_cast _nohier.il:26ed45f7b0/26ed45f7b0:SAME .il:91e1db728f/91e1db728f:SAME _synth.v:00bf140876/00bf140876:SAME

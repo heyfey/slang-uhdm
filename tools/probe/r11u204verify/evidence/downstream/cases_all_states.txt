@@ -1,0 +1,376 @@
+ALLOFF | tp/r11u194verify/cases/Z/z01_module_param_class_elab | STATUS_DIFF | NO_GATES | CRASH | 0 | 0 | - | -
+ALLOFF | tp/r11u194verify/cases/X/x01_tp_enum_keyword | STATUS_DIFF | NO_GATES | CRASH | 0 | 0 | - | -
+ALLOFF | tp/r11u196repro/cases/MG/ma01 | STATUS_DIFF | NO_GATES | CRASH | 0 | 0 | - | -
+ALLOFF | tp/r11u196repro/cases/MG/m09 | STATUS_DIFF | NO_GATES | CRASH | 0 | 0 | - | -
+ALLOFF | tp/r11u196repro/cases/DF/d01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | tp/r11u196repro/cases/DF/d03 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | tp/r11u190verify/cases/R/r01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | tp/r11u191dec/cases/R/r01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | tp/r11u191dec/cases/R/r02 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | tp/r11u191dec/cases/R/r03 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 1 common constant assignments match
+ALLOFF | tp/r11u191dec/cases/R/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | DF/e01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | DF/e02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | DF/e03 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | DF/e04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | DF/e04b | SURELOG_FAIL |  |  |  |  | - | no reference database
+ALLOFF | DF/e05 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | DF/e06 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | DF/e07 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | DF/e08 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | EN/n01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | EN/n02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | EN/n03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | EN/n04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | FR/r01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | FR/r02 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | FR/r03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | FR/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | K/k1 | IDENTICAL | OK | OK | 6 | 6 | - | -
+ALLOFF | K/k2 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | K/k3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | L/l1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | L/l2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | L/l3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | MG/g01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | MG/g02 | STATUS_DIFF | NO_GATES | CRASH | 0 | 0 | - | -
+ALLOFF | MG/g03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | MG/g04 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | MG/g05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | MG/g06 | STATUS_DIFF | NO_GATES | CRASH | 0 | 0 | - | -
+ALLOFF | MG/g07 | STATUS_DIFF | NO_GATES | CRASH | 0 | 0 | - | -
+ALLOFF | MG/g08 | STATUS_DIFF | NO_GATES | CRASH | 0 | 0 | - | -
+ALLOFF | MG/g09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | M/m1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | M/m2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | M/m3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | N/h1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | N/h2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | N/h3 | IDENTICAL | OK | OK | 3 | 3 | - | -
+ALLOFF | N/h4 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | N/w1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | N/w2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | O/o1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | O/o2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | O/o3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | O/o4 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 6 common constant assignments match
+ALLOFF | SF/f01 | IDENTICAL | OK | OK | 7 | 7 | - | -
+ALLOFF | SF/f02 | IDENTICAL | OK | OK | 12 | 12 | - | -
+ALLOFF | SF/f03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | SF/f04 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | TB/b01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | TB/b02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ALLOFF | TB/b03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | TB/b04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V191/cc1 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | V191/cc2 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | V191/cc3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V191/cc4 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V191/cc5 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V191/cc6 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 4 common constant assignments match
+ALLOFF | V191/ep1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V191/ep2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V191/fd1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V191/fd2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V191/hd1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V191/hd2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V191/qr1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V191/qr2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V191/qr3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V191/rp1 | EQUIVALENT | OK | OK | 1 | 162 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u204_dsc/ALLOFF/V191__rp1/equiv/V1
+ALLOFF | V191/rp2 | DIVERGENT | OK | OK | 1 | 471 | nohier il synth |    This indicates a serious bug in /tmp/r11u204_dsc/ALLOFF/V191__rp2/equiv/V191_
+ALLOFF | V191/uz1 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 4 common constant assignments match
+ALLOFF | V191/uz2 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ALLOFF | V/v1 | IDENTICAL | OK | OK | 12 | 12 | - | -
+ALLOFF | V/v2 | IDENTICAL | OK | OK | 8 | 8 | - | -
+ALLOFF | V/v3 | IDENTICAL | OK | OK | 20 | 20 | - | -
+ALLOFF | V/v4 | IDENTICAL | OK | OK | 17 | 17 | - | -
+ALLOFF | X/x1 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ALL
+ALLOFF | X/x2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | X/x3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | X/x4 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | X/x5 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in UHDM import
+ALLOFF | X/x6 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V191/cc7 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u194verify/cases/Z/z01_module_param_class_elab | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u194verify/cases/X/x01_tp_enum_keyword | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 2 common constant assignments match
+ON | tp/r11u196repro/cases/MG/ma01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u196repro/cases/MG/m09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u196repro/cases/DF/d01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u196repro/cases/DF/d03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u190verify/cases/R/r01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/R/r01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/R/r02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/R/r03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/R/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | DF/e01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ON/
+ON | DF/e02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | DF/e03 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ON/
+ON | DF/e04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | DF/e04b | SURELOG_FAIL |  |  |  |  | - | no reference database
+ON | DF/e05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | DF/e06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | DF/e07 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ON/
+ON | DF/e08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | EN/n01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | EN/n02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | EN/n03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | EN/n04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | FR/r01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ON/
+ON | FR/r02 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ON/
+ON | FR/r03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | FR/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | K/k1 | IDENTICAL | OK | OK | 6 | 6 | - | -
+ON | K/k2 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ON/
+ON | K/k3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | L/l1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | L/l2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | L/l3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | MG/g01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | MG/g02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | MG/g03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | MG/g04 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ON | MG/g05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | MG/g06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | MG/g07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | MG/g08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | MG/g09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | M/m1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | M/m2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | M/m3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | N/h1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | N/h2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | N/h3 | IDENTICAL | OK | OK | 3 | 3 | - | -
+ON | N/h4 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | N/w1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | N/w2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | O/o1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | O/o2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | O/o3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | O/o4 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 6 common constant assignments match
+ON | SF/f01 | IDENTICAL | OK | OK | 7 | 7 | - | -
+ON | SF/f02 | IDENTICAL | OK | OK | 12 | 12 | - | -
+ON | SF/f03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | SF/f04 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ON/
+ON | TB/b01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | TB/b02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ON | TB/b03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | TB/b04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | V191/cc1 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ON/
+ON | V191/cc2 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ON/
+ON | V191/cc3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | V191/cc4 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/ON/
+ON | V191/cc5 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | V191/cc6 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | V191/ep1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | V191/ep2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | V191/fd1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | V191/fd2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | V191/hd1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | V191/hd2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | V191/qr1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | V191/qr2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | V191/qr3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | V191/rp1 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | V191/rp2 | DIVERGENT | OK | OK | 1 | 1 | nohier il synth |    This indicates a serious bug in /tmp/r11u204_dsc/ON/V191__rp2/equiv/V191__rp2
+ON | V191/uz1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | V191/uz2 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ON | V/v1 | IDENTICAL | OK | OK | 12 | 12 | - | -
+ON | V/v2 | IDENTICAL | OK | OK | 8 | 8 | - | -
+ON | V/v3 | IDENTICAL | OK | OK | 20 | 20 | - | -
+ON | V/v4 | IDENTICAL | OK | OK | 17 | 17 | - | -
+ON | X/x1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x4 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x5 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in UHDM import
+ON | X/x6 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | V191/cc7 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | tp/r11u194verify/cases/Z/z01_module_param_class_elab | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | tp/r11u194verify/cases/X/x01_tp_enum_keyword | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 2 common constant assignments match
+OWN | tp/r11u196repro/cases/MG/ma01 | STATUS_DIFF | NO_GATES | CRASH | 0 | 0 | - | -
+OWN | tp/r11u196repro/cases/MG/m09 | STATUS_DIFF | NO_GATES | CRASH | 0 | 0 | - | -
+OWN | tp/r11u196repro/cases/DF/d01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/OWN
+OWN | tp/r11u196repro/cases/DF/d03 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/OWN
+OWN | tp/r11u190verify/cases/R/r01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | tp/r11u191dec/cases/R/r01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | tp/r11u191dec/cases/R/r02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | tp/r11u191dec/cases/R/r03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | tp/r11u191dec/cases/R/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | DF/e01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/OWN
+OWN | DF/e02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | DF/e03 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/OWN
+OWN | DF/e04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | DF/e04b | SURELOG_FAIL |  |  |  |  | - | no reference database
+OWN | DF/e05 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/OWN
+OWN | DF/e06 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/OWN
+OWN | DF/e07 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/OWN
+OWN | DF/e08 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/OWN
+OWN | EN/n01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | EN/n02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | EN/n03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | EN/n04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | FR/r01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/OWN
+OWN | FR/r02 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/OWN
+OWN | FR/r03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | FR/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | K/k1 | IDENTICAL | OK | OK | 6 | 6 | - | -
+OWN | K/k2 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/OWN
+OWN | K/k3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | L/l1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | L/l2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | L/l3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | MG/g01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | MG/g02 | STATUS_DIFF | NO_GATES | CRASH | 0 | 0 | - | -
+OWN | MG/g03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | MG/g04 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+OWN | MG/g05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | MG/g06 | STATUS_DIFF | NO_GATES | CRASH | 0 | 0 | - | -
+OWN | MG/g07 | STATUS_DIFF | NO_GATES | CRASH | 0 | 0 | - | -
+OWN | MG/g08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | MG/g09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | M/m1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | M/m2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | M/m3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | N/h1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | N/h2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | N/h3 | IDENTICAL | OK | OK | 3 | 3 | - | -
+OWN | N/h4 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | N/w1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | N/w2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | O/o1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | O/o2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | O/o3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | O/o4 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 6 common constant assignments match
+OWN | SF/f01 | IDENTICAL | OK | OK | 7 | 7 | - | -
+OWN | SF/f02 | IDENTICAL | OK | OK | 12 | 12 | - | -
+OWN | SF/f03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | SF/f04 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/OWN
+OWN | TB/b01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | TB/b02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+OWN | TB/b03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | TB/b04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | V191/cc1 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/OWN
+OWN | V191/cc2 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/OWN
+OWN | V191/cc3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | V191/cc4 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | V191/cc5 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | V191/cc6 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 4 common constant assignments match
+OWN | V191/cc7 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | V191/ep1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | V191/ep2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | V191/fd1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | V191/fd2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | V191/hd1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | V191/hd2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | V191/qr1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | V191/qr2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | V191/qr3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | V191/rp1 | EQUIVALENT | OK | OK | 1 | 162 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u204_dsc/OWN/V191__rp1/equiv/V191_
+OWN | V191/rp2 | DIVERGENT | OK | OK | 1 | 471 | nohier il synth |    This indicates a serious bug in /tmp/r11u204_dsc/OWN/V191__rp2/equiv/V191__rp
+OWN | V191/uz1 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 4 common constant assignments match
+OWN | V191/uz2 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+OWN | V/v1 | IDENTICAL | OK | OK | 12 | 12 | - | -
+OWN | V/v2 | IDENTICAL | OK | OK | 8 | 8 | - | -
+OWN | V/v3 | IDENTICAL | OK | OK | 20 | 20 | - | -
+OWN | V/v4 | IDENTICAL | OK | OK | 17 | 17 | - | -
+OWN | X/x1 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/OWN
+OWN | X/x2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | X/x3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | X/x4 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+OWN | X/x5 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in UHDM import
+OWN | X/x6 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | tp/r11u194verify/cases/Z/z01_module_param_class_elab | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | tp/r11u194verify/cases/X/x01_tp_enum_keyword | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 2 common constant assignments match
+FIX | tp/r11u196repro/cases/MG/ma01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | tp/r11u196repro/cases/MG/m09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | tp/r11u196repro/cases/DF/d01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | tp/r11u196repro/cases/DF/d03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | tp/r11u190verify/cases/R/r01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | tp/r11u191dec/cases/R/r01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | tp/r11u191dec/cases/R/r02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | tp/r11u191dec/cases/R/r03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | tp/r11u191dec/cases/R/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | DF/e01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | DF/e02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | DF/e03 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/FIX
+FIX | DF/e04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | DF/e04b | SURELOG_FAIL |  |  |  |  | - | no reference database
+FIX | DF/e05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | DF/e06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | DF/e07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | DF/e08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | EN/n01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | EN/n02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | EN/n03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | EN/n04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | FR/r01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/FIX
+FIX | FR/r02 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/FIX
+FIX | FR/r03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | FR/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | K/k1 | IDENTICAL | OK | OK | 6 | 6 | - | -
+FIX | K/k2 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/FIX
+FIX | K/k3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | L/l1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | L/l2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | L/l3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | MG/g01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | MG/g02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | MG/g03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | MG/g04 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+FIX | MG/g05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | MG/g06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | MG/g07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | MG/g08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | MG/g09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | M/m1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | M/m2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | M/m3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | N/h1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | N/h2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | N/h3 | IDENTICAL | OK | OK | 3 | 3 | - | -
+FIX | N/h4 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | N/w1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | N/w2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | O/o1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | O/o2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | O/o3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | O/o4 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 6 common constant assignments match
+FIX | SF/f01 | IDENTICAL | OK | OK | 7 | 7 | - | -
+FIX | SF/f02 | IDENTICAL | OK | OK | 12 | 12 | - | -
+FIX | SF/f03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | SF/f04 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/FIX
+FIX | TB/b01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | TB/b02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+FIX | TB/b03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | TB/b04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | V191/cc1 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/FIX
+FIX | V191/cc2 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u204_dsc/FIX
+FIX | V191/cc3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | V191/cc4 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | V191/cc5 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | V191/cc6 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 4 common constant assignments match
+FIX | V191/cc7 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | V191/ep1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | V191/ep2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | V191/fd1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | V191/fd2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | V191/hd1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | V191/hd2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | V191/qr1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | V191/qr2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | V191/qr3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | V191/rp1 | IDENTICAL | OK | OK | 1 | 1 | - | -
+FIX | V191/rp2 | DIVERGENT | OK | OK | 1 | 1 | nohier il synth |    This indicates a serious bug in /tmp/r11u204_dsc/FIX/V191__rp2/equiv/V191__rp
+FIX | V191/uz1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | V191/uz2 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+FIX | V/v1 | IDENTICAL | OK | OK | 12 | 12 | - | -
+FIX | V/v2 | IDENTICAL | OK | OK | 8 | 8 | - | -
+FIX | V/v3 | IDENTICAL | OK | OK | 20 | 20 | - | -
+FIX | V/v4 | IDENTICAL | OK | OK | 17 | 17 | - | -
+FIX | X/x1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | X/x2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | X/x3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | X/x4 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | X/x5 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in UHDM import
+FIX | X/x6 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -

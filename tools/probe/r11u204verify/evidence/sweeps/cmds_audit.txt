@@ -1,0 +1,8 @@
+swH:    3273 /tmp/r11u204_bin/law.bin 
+swA:    3273 /tmp/r11u204_bin/alloff.sh 
+sw6:    3273 /tmp/r11u204_bin/off196.sh 
+sw8:    3273 /tmp/r11u204_bin/off198.sh 
+swW:    3273 /tmp/r11u204_bin/wide.sh 
+swO:    3273 /tmp/r11u204_bin/wideon.sh 
+swB:    3273 /tmp/r11u204_bin/briefoff.sh 
+swF:    3273 /tmp/r11u204_bin/fix.bin 

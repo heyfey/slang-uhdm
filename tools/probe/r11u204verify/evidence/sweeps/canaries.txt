@@ -1,0 +1,2 @@
+swF canaries: surelog ok=52 changed=0, uhdm2rtlil ok=16 changed=0, ctcan2 PASS / PASS
+swH canaries: surelog ok=52 changed=0, uhdm2rtlil ok=16 changed=0, ctcan2 PASS / PASS

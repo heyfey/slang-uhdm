@@ -1,0 +1,21 @@
+V191/cc1 on: calls=12 disagree=1 14:10#2(g=KEEP:g5,o=FOLD)
+V191/cc2 on: calls=6 disagree=1 12:10#2(g=KEEP:h3,o=FOLD)
+V191/cc3 on: calls=8 disagree=2 8:10#2(g=FOLD,o=KEEP:h1) 9:10#2(g=FOLD,o=KEEP:h2)
+   fix: AWAY=2 8:10#2 9:10#2 TOWARD=0 
+V191/cc4 on: calls=14 disagree=5 8:10#2(g=FOLD,o=KEEP:h) 9:10#2(g=FOLD,o=KEEP:h) 10:10#2(g=FOLD,o=KEEP:h) 11:10#2(g=FOLD,o=KEEP:h) 13:10#2(g=FOLD,o=KEEP:h)
+   fix: AWAY=5 8:10#2 9:10#2 10:10#2 11:10#2 13:10#2 TOWARD=0 
+V191/cc5 on: calls=10 disagree=2 8:10#2(g=FOLD,o=KEEP:h) 11:10#2(g=FOLD,o=KEEP:h)
+   fix: AWAY=2 8:10#2 11:10#2 TOWARD=0 
+V191/cc6 on: calls=8 disagree=2 12:10#2(g=FOLD,o=KEEP:h3) 13:10#2(g=FOLD,o=KEEP:h4)
+   fix: AWAY=2 12:10#2 13:10#2 TOWARD=0 
+V191/cc7 on: calls=8 disagree=2 13:10#2(g=FOLD,o=KEEP:h) 14:10#2(g=FOLD,o=KEEP:h)
+   fix: AWAY=2 13:10#2 14:10#2 TOWARD=0 
+V191/hd1 on: calls=2 disagree=0 
+V191/hd2 on: calls=6 disagree=2 5:10#3(g=FOLD,o=KEEP:chk) 10:10#2(g=FOLD,o=KEEP:chk2)
+   fix: AWAY=1 10:10#2 TOWARD=0 
+V191/cc3_el on: calls=8 disagree=2 8:10#2(g=FOLD,o=KEEP:h1) 9:10#2(g=FOLD,o=KEEP:h2)
+   fix: AWAY=2 8:10#2 9:10#2 TOWARD=0 
+V191/cc4_el on: calls=14 disagree=5 8:10#2(g=FOLD,o=KEEP:h) 9:10#2(g=FOLD,o=KEEP:h) 10:10#2(g=FOLD,o=KEEP:h) 11:10#2(g=FOLD,o=KEEP:h) 13:10#2(g=FOLD,o=KEEP:h)
+   fix: AWAY=5 8:10#2 9:10#2 10:10#2 11:10#2 13:10#2 TOWARD=0 
+V191/cc5_el on: calls=10 disagree=2 8:10#2(g=FOLD,o=KEEP:h) 11:10#2(g=FOLD,o=KEEP:h)
+   fix: AWAY=2 8:10#2 11:10#2 TOWARD=0 

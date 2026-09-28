@@ -1,0 +1,11 @@
+# r11u204 fix-binary (fix.bin = fix8, 5b2bc7811a09) firing census, R11V204_TRACE over every non-fenced corpus row-mode, every probe case and every downstream lane (drivers/census.sh + censum.py).
+# RESULT: no refinement fires on any of them (censum ROWS 0).
+# positive control, the same binary and trace on four fresh cases (DF/e07, V191/cc3, N/h4, V191/qr3):
+#         4 dfltArgTaintExec204v
+#         8 hopFoldUnaryKeepsScope204v
+#         2 memberFormalLitActualFolds204v
+#         1 queueTwinKeepsElem204v
+# PREDICTED MOVERS of the fix sweep against the HEAD sweep: none, except storage-order draws (0 order-blind lines) on the UVM rows;
+# the census's own probe.csv is byte-identical to the HEAD sweep's.
+ROWS 0
+# frozen at 2026-09-28 08:26:54.841289994

@@ -1,0 +1,27 @@
+== probe: rows 4087; conversions L vs A = 39: OWN196=2 OWN198=37
+  CONV OWN196: r10vbuvm29repro/gv29_b_positions, v11u114repro/grid/set3/g13
+  CONV OWN198: r10earl105repro/h1_head105, r10earl105repro/h2_child105, r10earl_repro/wf24, r10vearl118repro/v2_fenceface, r10vearl95repro/v95a_ctx, r11u112repro/grid/f/g11_hop_if_add, r11u112repro/grid/f/g12_hop_if_bare_ctl, r11u112repro/grid/f/g13_hop_if_int, r11u112repro/grid/f/g14_hop_if_sub_or, r11u112repro/grid/f/g16_hop_else, r11u112repro/grid/f/g17_hop_untyped, r11u112repro/grid/f/g19_hop_vs_op, r11u112repro/grid/f/g20_hop_vs_bare, r11u112repro/grid/f/g21_hop_vs_concat, r11u113repro/grid/c/c19_genif_lhs_bitsel, r11u113repro/grid/c/c23_genfor_concat, r11u113repro/grid/c/c24_genfor_gvop, r11u113repro/grid/c/c26_genfor_gvsel, r11u113repro/grid/c/c28_genfor_lp_sel, r11u115repro/grid/r/f/p05_catelem, r11u115repro/grid/r/f/p12_sysarg, r11u115repro/grid/r/i/p01_ibex, r11u115repro/grid/r/i/p02_replcat, r11u115repro/grid/r/i/p03_replbare, r11u115repro/grid/r/i/p05_catelem, r11u115repro/grid/r/i/p12_sysarg, r11u115repro/grid/r/i/p13_ternrepl, v11u112repro/grid/brk/f/g1h_hop_nested_op, v11u112repro/grid/brk/f/g1j_hop_logic_typed, v11u112repro/grid/brk/f/g1m_hop_genvar_mix, v11u113repro/grid/brk2/t12_genfor_modtp_two_iter, v11u115repro/grid/f1/a01_gf_signed, v11u115repro/grid/f1/a06_gf_repl_sys, v11u115repro/grid/f1/a09_gi_sys_tern, v11u115repro/grid/f1/a13_gcase, v11u115repro/grid/f1/a18_gf_countones, v11u115repro/grid/f1/a20_gf_unsigned_W
+  CHANGE (L vs A, not a conversion): OWN196=1 OWN198=2
+    OWN196 r11u108repro/grid/f4/c12_const_fold: A=('STRICT_NOTEQUAL', 'differ:file(5)') L=('STRICT_NOTEQUAL', 'differ:file(4)')
+    OWN198 r10earl95repro/g5_hop95: A=('STRICT_NOTEQUAL', 'differ:fullname(7)') L=('STRICT_NOTEQUAL', 'differ:fullname(2)')
+    OWN198 r11u112repro/grid/f/g18_hop_lhs: A=('STRICT_NOTEQUAL', 'differ:fullname(5)') L=('STRICT_NOTEQUAL', 'differ:fullname(1)')
+  CANCEL (same in L and A, different with one landing off): 0
+== surelog: rows 1588; conversions L vs A = 0: 
+  CHANGE (L vs A, not a conversion): OWN196=9
+    OWN196 BuildUVMPkg/d: A=('STRICT_NOTEQUAL', 'differ:fullname(20)') L=('STRICT_NOTEQUAL', 'differ:line(11)')
+    OWN196 BuildUVMPkg/t: A=('STRICT_NOTEQUAL', 'differ:fullname(20)') L=('STRICT_NOTEQUAL', 'differ:line(11)')
+    OWN196 MiniAmiq/d: A=('STRICT_NOTEQUAL', 'differ:file(25)') L=('STRICT_NOTEQUAL', 'differ:file(17)')
+    OWN196 MiniAmiq/t: A=('STRICT_NOTEQUAL', 'differ:file(25)') L=('STRICT_NOTEQUAL', 'differ:file(17)')
+    OWN196 Scoreboard/d: A=('STRICT_NOTEQUAL', 'differ:fullname(52)') L=('STRICT_NOTEQUAL', 'differ:fullname(44)')
+    OWN196 SeqDriver/d: A=('STRICT_NOTEQUAL', 'differ:file(24)') L=('STRICT_NOTEQUAL', 'differ:fullname(16)')
+    OWN196 SeqDriver/t: A=('STRICT_NOTEQUAL', 'differ:file(24)') L=('STRICT_NOTEQUAL', 'differ:fullname(16)')
+    OWN196 SimpleUVM/d: A=('STRICT_NOTEQUAL', 'differ:fullname(52)') L=('STRICT_NOTEQUAL', 'differ:fullname(44)')
+    OWN196 SimpleUVM/t: A=('STRICT_NOTEQUAL', 'differ:fullname(52)') L=('STRICT_NOTEQUAL', 'differ:fullname(44)')
+  CANCEL (same in L and A, different with one landing off): 0
+== uhdm2rtlil: rows 1742; conversions L vs A = 6: OWN196=4 OWN198=2
+  CONV OWN196: const_cast_signext/d, const_cast_signext/t, func_typename_ret/d, func_typename_ret/t
+  CONV OWN198: ibex_pmp/d, ibex_pmp/t
+  CHANGE (L vs A, not a conversion): JOINT=2
+    JOINT arb_idx_cast/d: A=('STRICT_NOTEQUAL', 'differ:endcol(17)') L=('STRICT_NOTEQUAL', 'differ:endline(2)')
+    JOINT arb_idx_cast/t: A=('STRICT_NOTEQUAL', 'differ:endcol(17)') L=('STRICT_NOTEQUAL', 'differ:endline(2)')
+  CANCEL (same in L and A, different with one landing off): 0
