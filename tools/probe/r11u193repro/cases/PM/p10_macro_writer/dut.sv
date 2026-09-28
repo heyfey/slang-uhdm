@@ -1,0 +1,18 @@
+// § tfArgOutsideCopyOrder193
+package pk;
+  typedef struct packed {
+    logic a;
+    logic b;
+  } s_t;
+  parameter s_t P[2] = '{
+    '{a: 1'b0, b: 1'b1},
+    '{a: 1'b1, b: 1'b0}
+  };
+endpackage
+`define FORMAL pk::s_t x
+module dut import pk::*; (input s_t i, output logic o);
+  function automatic logic f(`FORMAL);
+    return x.a;
+  endfunction
+  assign o = f(i);
+endmodule

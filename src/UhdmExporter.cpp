@@ -234,6 +234,7 @@ bool v11u171Law(const char* sw) {
     return getenv(sw) == nullptr;
 }
 void castRhsCloneDrain176(UHDM::Serializer& s); // § castRhsClonePerInst176 (ModuleEmit.cpp)
+void unsizedRhsCloneDrain193(UHDM::Serializer& s); // § caUnsizedRhsClonePerInst193 (ModuleEmit.cpp)
 void progViewDrain176(); // § progPlainPortViewUnparented176 (ModuleEmit.cpp)
 void genPlainViewDrain176(UHDM::Serializer& s); // § genericPlainNamedView176 (ModuleEmit.cpp)
 // The r11u176 switches (tools/probe/r11u176repro/README.md): every r11u176
@@ -331,6 +332,66 @@ void trace188(const char* law, const std::string& detail) {
         if (!d)
             return nullptr;
         std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".188";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s %s\n", law, detail.c_str());
+        fflush(tf);
+    }
+}
+// The r11u193 switches (tools/probe/r11u193repro/README.md): every r11u193
+// law reads its own R11U193_<LAW>_OFF switch; R11U193_OFF drops all of them.
+//   R11U193_CASTLEAF_OFF      § castOperandLeafElab193        (ModuleEmit.cpp)
+//   R11U193_CASTTSNAME_OFF    § connCastTsNamedByPort193      (ModuleEmit.cpp)
+//   R11U193_SYSARGDEF_OFF     § connSysCallArgDefNet193       (ModuleEmit.cpp)
+//   R11U193_TERNFILL_OFF      § caTernFillArmKept193          (ModuleEmit.cpp)
+//   R11U193_UNSIZEDCLONE_OFF  § caUnsizedRhsClonePerInst193   (ModuleEmit.cpp, UhdmExporter.cpp)
+//   R11U193_NESTNAME_OFF      § nestedDefChainName193         (UhdmExporter.cpp)
+//   R11U193_COPYORDER_OFF     § tfArgOutsideCopyOrder193      (UhdmExporter.cpp)
+bool r11u193Law(const char* sw) {
+    if (getenv("R11U193_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// The v11u193 refinements (tools/probe/v11u193repro/README.md, the adversarial
+// verification of r11u193): each reads its own R11V193_<NAME>_OFF switch;
+// R11V193_OFF (or R11U193_OFF) drops all of them.
+//   R11V193_NESTPKGQ_OFF   § nestChainKeepsPkgQual193v   (UhdmExporter.cpp)
+//   R11V193_NESTSEL_OFF    § nestChainSelects193v        (UhdmExporter.cpp)
+//   R11V193_UCRANGE_OFF    § ucCloneUnnamesRanges193v    (ModuleEmit.cpp)
+bool v11u193Law(const char* sw) {
+    if (getenv("R11U193_OFF") != nullptr || getenv("R11V193_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// R11U193_TRACE=<dir> names every firing of an r11u193 law (the mover census):
+// one file per process, `<dir>/<pid>.193`, its first line `OUT <-o path>`,
+// then one `<law> <detail>` line per firing.  Unset, nothing is written.
+void trace193(const char* law, const std::string& detail) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U193_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".193";
         FILE* fp = fopen(fn.c_str(), "a");
         if (!fp)
             return nullptr;
@@ -14031,6 +14092,9 @@ UHDM::design* UhdmExporter::exportDesign() {
     // § castRhsClonePerInst176 (r11u176) — design-final, after every drain
     // that writes a definition cont_assign (law and decode at ModuleEmit.cpp).
     castRhsCloneDrain176(s);
+    // § caUnsizedRhsClonePerInst193 (r11u193) — the unsized-constant leg,
+    // with the cast leg (law and decode at ModuleEmit.cpp).
+    unsizedRhsCloneDrain193(s);
     // § progPlainPortViewUnparented176 (r11u176) — design-final (law and
     // decode at ModuleEmit.cpp).
     progViewDrain176();
@@ -14080,6 +14144,157 @@ UHDM::design* UhdmExporter::exportDesign() {
     // container also writes is left alone.  A `writeNets` end-only move
     // (§ defNetTypedefEndWrite134) happens at WRITE time, after compilation,
     // so an end it already moved is kept.  Switch R11U146_TFARGTD_OFF.
+
+    // § nestedDefChainName193 (r11u193, 106 probe cases of the r11u99-r11u105
+    // nested-module grids: pass 98's residue 3) — Surelog writes no full name
+    // on the objects of a NESTED module's definition (`module sub; module
+    // innermod(...); ... endmodule`), so the reader synthesizes it from the
+    // parent chain (BaseClass::ComputeFullName): every ancestor's name, or its
+    // definition name when it has none, joined by `.` up to the design.  The
+    // nested definition's module_inst is parented at the OUTER definition
+    // (§ nestedModuleDefShell, pass 101), so its net reads
+    // `work@sub.work@sub::innermod.r`, a port's low-conn reference
+    // `work@sub.work@sub::innermod.r.r`, a continuous assignment's reference
+    // `work@sub.work@sub::innermod.r`; ours stored the definition-rooted name
+    // (`work@sub::innermod.r`, `work@sub::innermod::r`).  Design-final: the
+    // nets, variables, references, typespec references, parameters and hier
+    // paths a nested definition owns (its first design-unit ancestor, no class
+    // or package between) whose stored name starts with the definition's name
+    // take the outer chain in front and a `.` after it.  Grid
+    // tools/probe/r11u193repro/cases/NN.  Switch R11U193_NESTNAME_OFF.
+    if (r11u193Law("R11U193_NESTNAME_OFF") && d->AllModules()) {
+        std::map<const UHDM::any*, std::pair<std::string, std::string>> nest193;
+        for (auto* m193 : *d->AllModules()) {
+            if (!m193 || m193->UhdmType() != UHDM::uhdmmodule_inst)
+                continue;
+            const UHDM::any* op193 = m193->VpiParent();
+            if (!op193 || op193->UhdmType() != UHDM::uhdmmodule_inst)
+                continue;
+            std::vector<std::string> up193;
+            bool ok193 = true;
+            for (const UHDM::any* a = op193; a && a->UhdmType() != UHDM::uhdmdesign;
+                 a = a->VpiParent()) {
+                if (a->UhdmType() == UHDM::uhdmpackage ||
+                    a->UhdmType() == UHDM::uhdmclass_defn) {
+                    ok193 = false;
+                    break;
+                }
+                std::string nm(a->VpiName().empty() ? a->VpiDefName() : a->VpiName());
+                if (!nm.empty())
+                    up193.push_back(nm);
+            }
+            std::string def193(m193->VpiDefName());
+            if (!ok193 || up193.empty() || def193.empty())
+                continue;
+            std::string ch193;
+            for (auto it = up193.rbegin(); it != up193.rend(); ++it)
+                ch193 += (ch193.empty() ? "" : ".") + *it;
+            nest193[m193] = {def193, ch193};
+        }
+        if (!nest193.empty()) {
+            const bool keepPkgQ193v = v11u193Law("R11V193_NESTPKGQ_OFF");
+            std::set<std::string> pkgNames193v;
+            if (keepPkgQ193v)
+                for (auto* pv : {d->AllPackages(), d->TopPackages()})
+                    if (pv)
+                        for (auto* p : *pv)
+                            if (p && !p->VpiName().empty())
+                                pkgNames193v.insert(std::string(p->VpiName()));
+            auto rn193 = [&](auto* x, const std::pair<std::string, std::string>& nd) {
+                std::string fn(x->VpiFullName());
+                const std::string& F = nd.first;
+                if (fn.size() < F.size() || fn.compare(0, F.size(), F) != 0)
+                    return;
+                std::string rest;
+                if (fn.size() == F.size())
+                    rest.clear();   // the definition's own name (a typespec reference)
+                else if (fn[F.size()] == '.')
+                    rest = fn.substr(F.size() + 1);
+                else if (fn.compare(F.size(), 2, "::") == 0)
+                    rest = fn.substr(F.size() + 2);
+                else
+                    return;
+                // The chain joins every name with `.` (no package or class on
+                // it): a `::` our naming put inside the rest (`f::x`, a
+                // subroutine's reference) reads `.` too.
+                // § nestChainKeepsPkgQual193v (v11u193) — a `::` that
+                // qualifies a PACKAGE name is part of a component's own name
+                // (the enum typespec `pk::e_t` a base-typespec reference is
+                // named through: golden `work@sub.work@sub::inner.pk::e_t`,
+                // where the rule above wrote `...inner.pk.e_t`), not one of
+                // our scope separators: it stays.  Grid
+                // tools/probe/v11u193repro/cases/NN nn01.  Switch
+                // R11V193_NESTPKGQ_OFF.
+                for (size_t k = rest.find("::"); k != std::string::npos;
+                     k = rest.find("::", k + 1)) {
+                    if (keepPkgQ193v) {
+                        size_t ts = k;
+                        while (ts > 0 && (isalnum((unsigned char)rest[ts - 1]) ||
+                                          rest[ts - 1] == '_' || rest[ts - 1] == '$'))
+                            --ts;
+                        if (ts < k && pkgNames193v.count(rest.substr(ts, k - ts))) {
+                            trace193("nestChainKeepsPkgQual193v", fn);
+                            ++k;
+                            continue;
+                        }
+                    }
+                    rest.replace(k, 2, ".");
+                }
+                std::string nn = nd.second + "." + F + (rest.empty() ? "" : "." + rest);
+                x->VpiFullName(nn);
+                trace193("nestedDefChainName193", fn + " -> " + nn);
+            };
+            const bool nestSel193v = v11u193Law("R11V193_NESTSEL_OFF");
+            for (auto& kv : s.AllObjects()) {
+                auto* o = (UHDM::any*)kv.first;
+                if (!o)
+                    continue;
+                const UHDM::any* own = nullptr;
+                for (const UHDM::any* a = o->VpiParent(); a; a = a->VpiParent()) {
+                    auto t = a->UhdmType();
+                    if (t == UHDM::uhdmclass_defn || t == UHDM::uhdmpackage ||
+                        t == UHDM::uhdmdesign || t == UHDM::uhdminterface_inst ||
+                        t == UHDM::uhdmprogram)
+                        break;
+                    if (t == UHDM::uhdmmodule_inst) {
+                        own = a;
+                        break;
+                    }
+                }
+                auto ni = own ? nest193.find(own) : nest193.end();
+                if (ni == nest193.end())
+                    continue;
+                switch (o->UhdmType()) {
+                case UHDM::uhdmref_obj: rn193((UHDM::ref_obj*)o, ni->second); break;
+                // § nestChainSelects193v (v11u193) — a select is a reference
+                // too (a bit, part, indexed part or var select inside the
+                // nested definition: golden `work@sub.work@sub::inner.g.i`
+                // for `i[k]` in a generate block, ours
+                // `work@sub::inner.g.i`).  Grid
+                // tools/probe/v11u193repro/cases/NN nn06.  Switch
+                // R11V193_NESTSEL_OFF.
+                case UHDM::uhdmbit_select:
+                case UHDM::uhdmpart_select:
+                case UHDM::uhdmindexed_part_select:
+                case UHDM::uhdmvar_select:
+                    if (nestSel193v)
+                        rn193((UHDM::ref_obj*)o, ni->second);
+                    break;
+                case UHDM::uhdmref_typespec: rn193((UHDM::ref_typespec*)o, ni->second); break;
+                case UHDM::uhdmhier_path: rn193((UHDM::hier_path*)o, ni->second); break;
+                case UHDM::uhdmparameter: rn193((UHDM::parameter*)o, ni->second); break;
+                default:
+                    if (auto* n = any_cast<UHDM::nets*>(o))
+                        rn193(n, ni->second);
+                    else if (auto* v = any_cast<UHDM::variables*>(o))
+                        rn193(v, ni->second);
+                    else if (auto* sc = any_cast<UHDM::scope*>(o))
+                        rn193(sc, ni->second);   // a subroutine, a named block
+                    break;
+                }
+            }
+        }
+    }
 
     if (!r11u146Law("R11U146_TFARGTD_OFF"))
         return d;
@@ -14333,6 +14548,191 @@ UHDM::design* UhdmExporter::exportDesign() {
         };
     for (auto tree : comp.getSyntaxTrees())
         walk(tree->root(), nullptr, nullptr);
+    // § tfArgOutsideCopyOrder193 (r11u193, map N0219: ibex_pmp d/t `file(5)`) —
+    // WHICH objects a package typedef moved by an OUTSIDE writer (a module's
+    // subroutine formal, § tfArgQualOutsideWriter176) reaches, by COMPILE ORDER.
+    // Surelog compiles the packages (both views) first, then the modules in the
+    // definition map's NAME order, then the programs.  The move is
+    // populateCoreMembers on the ELABORATED package's own typedef object, at the
+    // writer module's compile:
+    //  (a) every reference the elaborated (top) package compiled holds that very
+    //      object, so its own parameters' element typespecs read the MOVED span
+    //      (golden ibex_pmp `ibex_pkg::PmpCfgRst`'s element `pmp_cfg_t` at
+    //      ibex_pmp.sv 114:47), where ours shared the definition listing's twin;
+    //  (b) an importer's copy of a package parameter is a clone_tree taken when
+    //      the IMPORTER compiles (the import precedes the importer's own
+    //      subroutines), so a copy in a unit compiled no later than the writer —
+    //      a package, the writer itself, a module whose name sorts before or at
+    //      the writer's — keeps the declaration span (golden ibex_pmp's three
+    //      `work@ibex_pmp.PmpCfgRst` copies at ibex_pkg.sv 433:11), and one in a
+    //      unit compiled later reads the moved span (grid PM p02 / p03).
+    // Transcribed design-final after the move: (a) the top package's references
+    // to the definition twin take the moved object; (b) the references of the
+    // import copies (a parameter located inside the typedef's package, listed by
+    // a module, interface, program or package) to the moved object take the
+    // definition twin when the copy's unit compiles no later than the writer.
+    // Grid tools/probe/r11u193repro/cases/PM.  Switch R11U193_COPYORDER_OFF.
+    // The typespec references, in creation (id) order, and each typespec's
+    // referencing set: built once, on the first move this law reads.
+    std::vector<UHDM::ref_typespec*> rts193;
+    std::map<const UHDM::any*, std::vector<UHDM::ref_typespec*>> users193;
+    bool rts193Built = false;
+    auto tfArgOutsideCopyOrder193 = [&](UHDM::design* d, const Symbol* td,
+                                         UHDM::typespec* moved, UHDM::typespec* twin,
+                                         const syntax::SyntaxNode* writer) {
+        if (!r11u193Law("R11U193_COPYORDER_OFF") || !d || !td || !moved || !twin ||
+            moved == twin || !writer)
+            return;
+        auto* ps = td->getParentScope();
+        if (!ps || ps->asSymbol().kind != SymbolKind::Package)
+            return;
+        const std::string pkgName(ps->asSymbol().name);
+        // The writer's compile key: (0 package, 1 module or interface, 2 program; name).
+        auto unitKey = [](int kind, std::string_view nm) {
+            return std::make_pair(kind, std::string(nm));
+        };
+        std::pair<int, std::string> wkey;
+        switch (writer->kind) {
+        case syntax::SyntaxKind::ModuleDeclaration:
+        case syntax::SyntaxKind::InterfaceDeclaration:
+            wkey = unitKey(1, writer->as<syntax::ModuleDeclarationSyntax>().header->name.valueText());
+            break;
+        case syntax::SyntaxKind::ProgramDeclaration:
+            wkey = unitKey(2, writer->as<syntax::ModuleDeclarationSyntax>().header->name.valueText());
+            break;
+        default:
+            return;  // a package or class writer is not this law's
+        }
+        // The package's source span: an import copy keeps its declaration's location.
+        auto* psyn = ps->asSymbol().getSyntax();
+        if (!psyn)
+            return;
+        uint32_t pl0 = 0, pc0 = 0, pl1 = 0, pc1 = 0;
+        locLineCol(psyn->sourceRange().start(), pl0, pc0);
+        locLineCol(psyn->sourceRange().end(), pl1, pc1);
+        const std::string pfile = fullFilePath(psyn->sourceRange().start());
+        const UHDM::package* topPkg = nullptr;
+        if (auto* tv = d->TopPackages())
+            for (auto* p : *tv)
+                if (p && p->VpiName() == pkgName)
+                    topPkg = p;
+        size_t a193 = 0, b193 = 0;
+        if (!rts193Built) {
+            rts193Built = true;
+            for (auto& kv : s.AllObjects()) {
+                auto* o = (UHDM::any*)kv.first;
+                if (o && o->UhdmType() == UHDM::uhdmref_typespec)
+                    rts193.push_back((UHDM::ref_typespec*)o);
+            }
+            std::sort(rts193.begin(), rts193.end(),
+                      [](const UHDM::ref_typespec* a, const UHDM::ref_typespec* b) {
+                          return a->UhdmId() < b->UhdmId();
+                      });
+            for (auto* r : rts193)
+                if (r->Actual_typespec())
+                    users193[r->Actual_typespec()].push_back(r);
+        }
+        for (auto* rt : rts193) {
+            auto* act = rt->Actual_typespec();
+            if (act != twin && act != moved)
+                continue;
+            const UHDM::parameter* par = nullptr;
+            const UHDM::any* unit = nullptr;
+            for (const UHDM::any* a = rt->VpiParent(); a; a = a->VpiParent()) {
+                auto t = a->UhdmType();
+                if (!par && t == UHDM::uhdmparameter)
+                    par = (const UHDM::parameter*)a;
+                if (t == UHDM::uhdmpackage || t == UHDM::uhdmmodule_inst ||
+                    t == UHDM::uhdminterface_inst || t == UHDM::uhdmprogram ||
+                    t == UHDM::uhdmclass_defn || t == UHDM::uhdmdesign) {
+                    unit = a;
+                    break;
+                }
+            }
+            if (!unit)
+                continue;
+            // (a) the top package's own references.
+            if (act == twin && unit == topPkg) {
+                rt->Actual_typespec(moved);
+                ++a193;
+                continue;
+            }
+            // (b) an importer's copy.
+            if (act != moved || !par || unit == topPkg ||
+                unit->UhdmType() == UHDM::uhdmclass_defn || unit->UhdmType() == UHDM::uhdmdesign)
+                continue;
+            if (par->VpiFile() != pfile || par->VpiLineNo() < pl0 || par->VpiLineNo() > pl1)
+                continue;
+            std::pair<int, std::string> ukey;
+            if (unit->UhdmType() == UHDM::uhdmpackage)
+                ukey = unitKey(0, unit->VpiName());
+            else {
+                std::string dn(unit->VpiDefName());
+                if (auto at = dn.find('@'); at != std::string::npos)
+                    dn = dn.substr(at + 1);
+                ukey = unitKey(unit->UhdmType() == UHDM::uhdmprogram ? 2 : 1, dn);
+            }
+            if (!(ukey <= wkey))
+                continue;
+            // The copy's element typespec may be an ARRAY typespec the importer
+            // shares with a later clone (the elaborated param_assign's pattern
+            // operation, cloned at elaboration after every compile: golden reads
+            // the moved span there, ibex_pmp `PmpCfgRst`'s elaborated right
+            // side).  The copy takes an array typespec of its own then (the
+            // same fields and ranges, its element reference to the twin); any
+            // other shared shape keeps the moved object.
+            UHDM::any* tp = rt->VpiParent();
+            if (tp && tp != par) {
+                if (tp->UhdmType() != UHDM::uhdmarray_typespec)
+                    continue;
+                auto* at = (UHDM::array_typespec*)tp;
+                if (at->Elem_typespec() != rt)
+                    continue;
+                UHDM::ref_typespec* own = nullptr;
+                auto& uv193 = users193[at];
+                const size_t users = uv193.size();
+                for (auto* o2 : uv193) {
+                    if (auto* op2 = o2->VpiParent();
+                        op2 && op2->UhdmType() == UHDM::uhdmparameter &&
+                        op2->VpiFile() == pfile && op2->VpiLineNo() >= pl0 &&
+                        op2->VpiLineNo() <= pl1)
+                        own = (UHDM::ref_typespec*)o2;
+                }
+                if (users > 1) {
+                    if (!own)
+                        continue;
+                    auto* at2 = s.MakeArray_typespec();
+                    at2->VpiArrayType(at->VpiArrayType());
+                    at2->Ranges(at->Ranges());
+                    at2->Left_expr(at->Left_expr());
+                    at2->Right_expr(at->Right_expr());
+                    at2->Index_typespec(at->Index_typespec());
+                    at2->VpiFile(std::string(at->VpiFile()));
+                    at2->VpiLineNo(at->VpiLineNo());
+                    at2->VpiColumnNo(at->VpiColumnNo());
+                    at2->VpiEndLineNo(at->VpiEndLineNo());
+                    at2->VpiEndColumnNo(at->VpiEndColumnNo());
+                    at2->VpiParent(own);
+                    auto* er2 = s.MakeRef_typespec();
+                    er2->VpiFullName(std::string(rt->VpiFullName()));
+                    er2->VpiParent(at2);
+                    er2->Actual_typespec(twin);
+                    at2->Elem_typespec(er2);
+                    own->Actual_typespec(at2);
+                    uv193.erase(std::remove(uv193.begin(), uv193.end(), own), uv193.end());
+                    users193[at2].push_back(own);
+                    ++b193;
+                    continue;
+                }
+            }
+            rt->Actual_typespec(twin);
+            ++b193;
+        }
+        if (a193 || b193)
+            trace193("tfArgOutsideCopyOrder193", std::string(td->name) + " top=" +
+                                                     std::to_string(a193) + " copies=" +
+                                                     std::to_string(b193));
+    };
     auto w0seq176 = [](const std::vector<Writer>& v) {
         for (auto& w : v)
             if (!w.seq176)
@@ -14565,11 +14965,16 @@ UHDM::design* UhdmExporter::exportDesign() {
             apply(it->second);
         if (auto it = pkgTopTypedefTs.find((const void*)td);
             it != pkgTopTypedefTs.end() && (typedefTs.find(td) == typedefTs.end() ||
-                                             it->second != typedefTs[td]))
+                                             it->second != typedefTs[td])) {
             apply(it->second);
+            if (outside)
+                tfArgOutsideCopyOrder193(d, td, it->second, typedefTs[td], last->container);
+        }
     }
     return d;
 }
+
+
 
 
 // A function body's nested-call OPERATION argument carries the formal's

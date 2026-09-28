@@ -1,0 +1,7 @@
+[default] CMP_EQUAL=791 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=12
+[testflags] CMP_EQUAL=791 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=12
+CONVERSION rsp_gen_minimal default STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION rsp_gen_minimal testflags STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CHANGE ibex_pmp default STRICT_NOTEQUAL differ:file(5) -> differ:type(1)
+CHANGE ibex_pmp testflags STRICT_NOTEQUAL differ:file(5) -> differ:type(1)
+regressions=0 conversions=2 changes=2 only-fresh=0 only-committed=0

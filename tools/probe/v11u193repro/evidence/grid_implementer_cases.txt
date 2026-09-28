@@ -1,0 +1,130 @@
+n01_deep | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=4 #22_fullname md5=762dfc6f
+n02_func | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=17 #22_fullname md5=d433f043
+n03_param | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=15 #22_fullname md5=d1f60d9f
+n04_inst | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=5 #26_fullname md5=0b108f04
+n05_nonansi | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=12 #16_fullname md5=ed4dbbba
+n06_always | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=16 #16_fullname md5=6ace5024
+n07_gen | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=14 #16_fullname md5=8b08dc36
+n09_task_block | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=16 #16_fullname md5=a4c6941c
+n10_top_nested_inst | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=18 #24_fullname md5=dcdf07c2
+p01_same | pris rc=0 cmp=0 STRICT_NOTEQUAL line objects_differing=4 #60_line md5=c1a17229
+p02_writer_first | pris rc=0 cmp=0 STRICT_NOTEQUAL line objects_differing=1 #60_line md5=1ee08d9b
+p03_writer_last | pris rc=0 cmp=0 STRICT_NOTEQUAL line objects_differing=4 #60_line md5=1721db8c
+p04_bare_writer | pris rc=0 cmp=0 STRICT_NOTEQUAL line objects_differing=4 #60_line md5=2cc46d94
+p05_iface_writer | pris rc=0 cmp=0 STRICT_NOTEQUAL line objects_differing=4 #60_line md5=201a86ac
+p06_program_writer | pris rc=0 cmp=0 STRICT_NOTEQUAL line objects_differing=4 #60_line md5=b4740acb
+p07_pkg_importer | pris rc=0 cmp=180 NOT_EQUAL stage1   md5=fc26f515
+p08_two_files | pris rc=0 cmp=0 STRICT_NOTEQUAL file objects_differing=4 #61_file md5=2829140e
+p09_enum | pris rc=0 cmp=32 NOT_EQUAL stage1   md5=de3cdbf9
+p10_macro_writer | pris rc=0 cmp=0 STRICT_NOTEQUAL line objects_differing=4 #60_line md5=23032fcc
+p11_two_importers | pris rc=0 cmp=0 STRICT_NOTEQUAL line objects_differing=7 #60_line md5=42046049
+r01 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #182_fullname md5=34f39133
+r02 | pris rc=0 cmp=0 STRICT_EQUAL 216 objects   md5=a820398e
+r03 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #106_fullname md5=52875ff6
+r04 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #108_fullname md5=8958eb34
+r05 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #118_fullname md5=f55f2943
+r06 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #148_fullname md5=717ab221
+r07 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #144_fullname md5=9c05e520
+r08 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=1 #106_fullname md5=480eeb8c
+r09 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #146_fullname md5=9c242936
+r10 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=1 #111_fullname md5=b2763cdb
+r11 | pris rc=0 cmp=0 STRICT_NOTEQUAL depth objects_differing=1 #141_depth md5=67e780f0
+r12 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #140_fullname md5=69a4e193
+r13 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #146_fullname md5=32e207e8
+r14 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #106_fullname md5=ce3ae8d3
+r15 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #106_fullname md5=d5c1cb58
+r16 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=1 #148_fullname md5=cd3dca5e
+r17 | pris rc=0 cmp=0 STRICT_NOTEQUAL depth objects_differing=1 #142_depth md5=18e1173b
+r18 | pris rc=0 cmp=17 NOT_EQUAL stage1   md5=768476c4
+s01 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #137_fullname md5=1727c380
+s02 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #142_fullname md5=a7025b5d
+s03 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=3 #109_fullname md5=a9125687
+s04 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=1 #108_fullname md5=0522b805
+s05 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #124_fullname md5=3fb02df0
+s06 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=1 #123_fullname md5=0f5cecf1
+s07 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #91_fullname md5=43add66a
+s08 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #142_fullname md5=9e9feec1
+s09 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #106_fullname md5=b2dd9c94
+s11 | pris rc=0 cmp=0 STRICT_EQUAL 133 objects   md5=0dd79673
+s12 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #139_fullname md5=18abcbeb
+s13 | pris rc=0 cmp=46 NOT_EQUAL stage1   md5=55e6a0fb
+s14 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #110_fullname md5=cf8d111b
+s15 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #122_fullname md5=d77dcbbf
+s16 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #157_fullname md5=f67fb3ab
+t01_one | pris rc=0 cmp=0 STRICT_NOTEQUAL file objects_differing=4 #172_file md5=cde07db8
+t02_x | pris rc=0 cmp=0 STRICT_NOTEQUAL type objects_differing=1 #57_type md5=6301801d
+t03_nested | pris rc=0 cmp=0 STRICT_NOTEQUAL file objects_differing=1 #65_file md5=3999eca5
+t04_three_same | pris rc=0 cmp=0 STRICT_NOTEQUAL file objects_differing=2 #52_file md5=9ce19e8f
+t05_truearm | pris rc=0 cmp=0 STRICT_NOTEQUAL file objects_differing=4 #58_file md5=9e6759d8
+u01_netpred | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=3 #74_fullname md5=7127bcfc
+u02_based | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #79_fullname md5=11c55508
+u03_concat_lhs | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=5 #114_fullname md5=d55e9018
+u04_partsel | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=3 #107_fullname md5=d91be2ad
+u05_gen | pris rc=0 cmp=0 STRICT_EQUAL 141 objects   md5=51b511c3
+u06_param_sized | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=3 #151_fullname md5=51087f99
+u07_sized_ctrl | pris rc=0 cmp=0 STRICT_EQUAL 114 objects   md5=4e6a7de7
+n01_deep | law rc=0 cmp=0 STRICT_EQUAL 66 objects   md5=0fc68343 | ref rc=0 cmp=0 STRICT_EQUAL 66 objects   md5=0fc68343
+n02_func | law rc=0 cmp=0 STRICT_EQUAL 101 objects   md5=100756b7 | ref rc=0 cmp=0 STRICT_EQUAL 101 objects   md5=100756b7
+n03_param | law rc=0 cmp=0 STRICT_EQUAL 95 objects   md5=52e690eb | ref rc=0 cmp=0 STRICT_EQUAL 95 objects   md5=52e690eb
+n04_inst | law rc=0 cmp=0 STRICT_EQUAL 85 objects   md5=97e15ce9 | ref rc=0 cmp=0 STRICT_EQUAL 85 objects   md5=97e15ce9
+n05_nonansi | law rc=0 cmp=0 STRICT_EQUAL 64 objects   md5=d68b9b3a | ref rc=0 cmp=0 STRICT_EQUAL 64 objects   md5=d68b9b3a
+n06_always | law rc=0 cmp=0 STRICT_EQUAL 72 objects   md5=55f8aaa1 | ref rc=0 cmp=0 STRICT_EQUAL 72 objects   md5=55f8aaa1
+n07_gen | law rc=0 cmp=0 STRICT_EQUAL 74 objects   md5=55099d1e | ref rc=0 cmp=0 STRICT_EQUAL 74 objects   md5=55099d1e
+n09_task_block | law rc=0 cmp=0 STRICT_EQUAL 74 objects   md5=1bf14942 | ref rc=0 cmp=0 STRICT_EQUAL 74 objects   md5=1bf14942
+n10_top_nested_inst | law rc=0 cmp=0 STRICT_EQUAL 132 objects   md5=3d3e106b | ref rc=0 cmp=0 STRICT_EQUAL 132 objects   md5=3d3e106b
+p01_same | law rc=0 cmp=0 STRICT_EQUAL 339 objects   md5=33ec4ba6 | ref rc=0 cmp=0 STRICT_EQUAL 339 objects   md5=33ec4ba6
+p02_writer_first | law rc=0 cmp=0 STRICT_EQUAL 381 objects   md5=ae6bf44e | ref rc=0 cmp=0 STRICT_EQUAL 381 objects   md5=ae6bf44e
+p03_writer_last | law rc=0 cmp=0 STRICT_EQUAL 381 objects   md5=6777bbd7 | ref rc=0 cmp=0 STRICT_EQUAL 381 objects   md5=6777bbd7
+p04_bare_writer | law rc=0 cmp=0 STRICT_EQUAL 339 objects   md5=daf158ad | ref rc=0 cmp=0 STRICT_EQUAL 339 objects   md5=daf158ad
+p05_iface_writer | law rc=0 cmp=0 STRICT_EQUAL 376 objects   md5=979754c6 | ref rc=0 cmp=0 STRICT_EQUAL 376 objects   md5=979754c6
+p06_program_writer | law rc=0 cmp=0 STRICT_EQUAL 367 objects   md5=83ac7c25 | ref rc=0 cmp=0 STRICT_EQUAL 367 objects   md5=83ac7c25
+p07_pkg_importer | law rc=0 cmp=180 NOT_EQUAL stage1   md5=f36ea6cb | ref rc=0 cmp=180 NOT_EQUAL stage1   md5=f36ea6cb
+p08_two_files | law rc=0 cmp=0 STRICT_EQUAL 340 objects   md5=cf1428fc | ref rc=0 cmp=0 STRICT_EQUAL 340 objects   md5=cf1428fc
+p09_enum | law rc=0 cmp=32 NOT_EQUAL stage1   md5=174fa9ba | ref rc=0 cmp=32 NOT_EQUAL stage1   md5=174fa9ba
+p10_macro_writer | law rc=0 cmp=0 STRICT_EQUAL 339 objects   md5=8147630a | ref rc=0 cmp=0 STRICT_EQUAL 339 objects   md5=8147630a
+p11_two_importers | law rc=0 cmp=0 STRICT_EQUAL 558 objects   md5=3ff04153 | ref rc=0 cmp=0 STRICT_EQUAL 558 objects   md5=3ff04153
+r01 | law rc=0 cmp=0 STRICT_EQUAL 222 objects   md5=572f1c99 | ref rc=0 cmp=0 STRICT_EQUAL 222 objects   md5=572f1c99
+r02 | law rc=0 cmp=0 STRICT_EQUAL 216 objects   md5=a820398e | ref rc=0 cmp=0 STRICT_EQUAL 216 objects   md5=a820398e
+r03 | law rc=0 cmp=0 STRICT_EQUAL 140 objects   md5=73b00758 | ref rc=0 cmp=0 STRICT_EQUAL 140 objects   md5=73b00758
+r04 | law rc=0 cmp=0 STRICT_EQUAL 144 objects   md5=cbed495b | ref rc=0 cmp=0 STRICT_EQUAL 144 objects   md5=cbed495b
+r05 | law rc=0 cmp=0 STRICT_EQUAL 160 objects   md5=53d75afb | ref rc=0 cmp=0 STRICT_EQUAL 160 objects   md5=53d75afb
+r06 | law rc=0 cmp=0 STRICT_EQUAL 196 objects   md5=e2a062e0 | ref rc=0 cmp=0 STRICT_EQUAL 196 objects   md5=e2a062e0
+r07 | law rc=0 cmp=0 STRICT_EQUAL 190 objects   md5=139714a5 | ref rc=0 cmp=0 STRICT_EQUAL 190 objects   md5=139714a5
+r08 | law rc=0 cmp=0 STRICT_EQUAL 134 objects   md5=67ea9b15 | ref rc=0 cmp=0 STRICT_EQUAL 134 objects   md5=67ea9b15
+r09 | law rc=0 cmp=0 STRICT_EQUAL 190 objects   md5=b4cde226 | ref rc=0 cmp=0 STRICT_EQUAL 190 objects   md5=b4cde226
+r10 | law rc=0 cmp=0 STRICT_EQUAL 145 objects   md5=ae1a753d | ref rc=0 cmp=0 STRICT_EQUAL 145 objects   md5=ae1a753d
+r11 | law rc=0 cmp=0 STRICT_EQUAL 157 objects   md5=25272cfc | ref rc=0 cmp=0 STRICT_EQUAL 157 objects   md5=25272cfc
+r12 | law rc=0 cmp=0 STRICT_EQUAL 183 objects   md5=569bc2c5 | ref rc=0 cmp=0 STRICT_EQUAL 183 objects   md5=569bc2c5
+r13 | law rc=0 cmp=0 STRICT_EQUAL 190 objects   md5=62b60a1e | ref rc=0 cmp=0 STRICT_EQUAL 190 objects   md5=62b60a1e
+r14 | law rc=0 cmp=0 STRICT_EQUAL 140 objects   md5=ff3ade2e | ref rc=0 cmp=0 STRICT_EQUAL 140 objects   md5=ff3ade2e
+r15 | law rc=0 cmp=0 STRICT_EQUAL 140 objects   md5=9ffc4a6b | ref rc=0 cmp=0 STRICT_EQUAL 140 objects   md5=9ffc4a6b
+r16 | law rc=0 cmp=0 STRICT_EQUAL 182 objects   md5=9badac12 | ref rc=0 cmp=0 STRICT_EQUAL 182 objects   md5=9badac12
+r17 | law rc=0 cmp=0 STRICT_EQUAL 162 objects   md5=144acbdd | ref rc=0 cmp=0 STRICT_EQUAL 162 objects   md5=144acbdd
+r18 | law rc=0 cmp=17 NOT_EQUAL stage1   md5=976ffc9a | ref rc=0 cmp=17 NOT_EQUAL stage1   md5=976ffc9a
+s01 | law rc=0 cmp=0 STRICT_EQUAL 184 objects   md5=3afe514f | ref rc=0 cmp=0 STRICT_EQUAL 184 objects   md5=3afe514f
+s02 | law rc=0 cmp=0 STRICT_EQUAL 184 objects   md5=43bc7794 | ref rc=0 cmp=0 STRICT_EQUAL 184 objects   md5=43bc7794
+s03 | law rc=0 cmp=0 STRICT_EQUAL 146 objects   md5=61d4e65d | ref rc=0 cmp=0 STRICT_EQUAL 146 objects   md5=61d4e65d
+s04 | law rc=0 cmp=0 STRICT_EQUAL 144 objects   md5=922d1042 | ref rc=0 cmp=0 STRICT_EQUAL 144 objects   md5=922d1042
+s05 | law rc=0 cmp=0 STRICT_EQUAL 170 objects   md5=fe36f6cc | ref rc=0 cmp=0 STRICT_EQUAL 170 objects   md5=fe36f6cc
+s06 | law rc=0 cmp=0 STRICT_EQUAL 168 objects   md5=97911231 | ref rc=0 cmp=0 STRICT_EQUAL 168 objects   md5=97911231
+s07 | law rc=0 cmp=0 STRICT_EQUAL 115 objects   md5=b7f67385 | ref rc=0 cmp=0 STRICT_EQUAL 115 objects   md5=b7f67385
+s08 | law rc=0 cmp=0 STRICT_EQUAL 232 objects   md5=1b919774 | ref rc=0 cmp=0 STRICT_EQUAL 232 objects   md5=1b919774
+s09 | law rc=0 cmp=0 STRICT_EQUAL 140 objects   md5=719b93a8 | ref rc=0 cmp=0 STRICT_EQUAL 140 objects   md5=719b93a8
+s11 | law rc=0 cmp=0 STRICT_EQUAL 133 objects   md5=0dd79673 | ref rc=0 cmp=0 STRICT_EQUAL 133 objects   md5=0dd79673
+s12 | law rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #139_fullname md5=18abcbeb | ref rc=0 cmp=0 STRICT_NOTEQUAL fullname objects_differing=2 #139_fullname md5=18abcbeb
+s13 | law rc=0 cmp=46 NOT_EQUAL stage1   md5=42a9f185 | ref rc=0 cmp=46 NOT_EQUAL stage1   md5=42a9f185
+s14 | law rc=0 cmp=0 STRICT_EQUAL 146 objects   md5=8453c05e | ref rc=0 cmp=0 STRICT_EQUAL 146 objects   md5=8453c05e
+s15 | law rc=0 cmp=0 STRICT_EQUAL 156 objects   md5=5c0f68a3 | ref rc=0 cmp=0 STRICT_EQUAL 156 objects   md5=5c0f68a3
+s16 | law rc=0 cmp=0 STRICT_EQUAL 191 objects   md5=2fa83c5e | ref rc=0 cmp=0 STRICT_EQUAL 191 objects   md5=2fa83c5e
+t01_one | law rc=0 cmp=0 STRICT_EQUAL 229 objects   md5=47e397f9 | ref rc=0 cmp=0 STRICT_EQUAL 229 objects   md5=47e397f9
+t02_x | law rc=0 cmp=0 STRICT_EQUAL 60 objects   md5=085dd3d0 | ref rc=0 cmp=0 STRICT_EQUAL 60 objects   md5=085dd3d0
+t03_nested | law rc=0 cmp=0 STRICT_EQUAL 97 objects   md5=dd8c5ddb | ref rc=0 cmp=0 STRICT_EQUAL 97 objects   md5=dd8c5ddb
+t04_three_same | law rc=0 cmp=0 STRICT_EQUAL 98 objects   md5=66f08573 | ref rc=0 cmp=0 STRICT_EQUAL 98 objects   md5=66f08573
+t05_truearm | law rc=0 cmp=0 STRICT_EQUAL 99 objects   md5=99696cfc | ref rc=0 cmp=0 STRICT_EQUAL 99 objects   md5=99696cfc
+u01_netpred | law rc=0 cmp=0 STRICT_EQUAL 122 objects   md5=f8846692 | ref rc=0 cmp=0 STRICT_EQUAL 122 objects   md5=f8846692
+u02_based | law rc=0 cmp=0 STRICT_EQUAL 84 objects   md5=ce0fd429 | ref rc=0 cmp=0 STRICT_EQUAL 84 objects   md5=ce0fd429
+u03_concat_lhs | law rc=0 cmp=0 STRICT_EQUAL 136 objects   md5=7729a177 | ref rc=0 cmp=0 STRICT_EQUAL 136 objects   md5=7729a177
+u04_partsel | law rc=0 cmp=0 STRICT_EQUAL 122 objects   md5=4655bbb3 | ref rc=0 cmp=0 STRICT_EQUAL 122 objects   md5=4655bbb3
+u05_gen | law rc=0 cmp=0 STRICT_EQUAL 141 objects   md5=51b511c3 | ref rc=0 cmp=0 STRICT_EQUAL 141 objects   md5=51b511c3
+u06_param_sized | law rc=0 cmp=0 STRICT_EQUAL 209 objects   md5=e5762247 | ref rc=0 cmp=0 STRICT_EQUAL 209 objects   md5=e5762247
+u07_sized_ctrl | law rc=0 cmp=0 STRICT_EQUAL 114 objects   md5=4e6a7de7 | ref rc=0 cmp=0 STRICT_EQUAL 114 objects   md5=4e6a7de7

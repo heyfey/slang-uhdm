@@ -1,0 +1,7 @@
+# ref.bin (r11u193 + v11u193 refinements) with switches, all 4087 tests/probe databases (scripts/check_probe.py --jobs 2)
+R11U193_OFF=1 : EQUAL=3137 STRICT_NOTEQUAL=950; bytes vs the pristine sweep's probe databases: same 4087 differ 0
+R11V193_OFF=1 : EQUAL=3280 STRICT_NOTEQUAL=807; bytes vs the law sweep's probe databases:     same 4087 differ 0
+# switch_matrix.tsv (142 case dirs: r11u193repro 65 + this pass 77):
+R11U193_OFF on ref.bin == pris.bin bytes on 142/142; R11V193_OFF on ref.bin == law.bin bytes on 142/142;
+every single switch moves only cases whose trace names its law (R11V193_NESTSEL_OFF traces as nestedDefChainName193,
+R11V193_UCRANGE_OFF writes no trace line: they moved exactly nn06_genfor, and uc08_widthparam + uc16_tn_widths).

@@ -1,0 +1,11 @@
+# drivers/rowdist.sh (order-blind strict-record distance: dist = ours-not-in-golden, miss = golden-not-in-ours)
+/tmp/v11u193_swP surelog/default/Rggen dist=4539 miss=6788
+/tmp/v11u193_swF surelog/default/Rggen dist=4521 miss=6250
+/tmp/v11u193_swP surelog/default/Earlgrey_0_1 dist=6784 miss=6140
+/tmp/v11u193_swF surelog/default/Earlgrey_0_1 dist=6776 miss=6132
+/tmp/v11u193_swP surelog/testflags/Earlgrey_0_1 dist=6349 miss=6063
+/tmp/v11u193_swF surelog/testflags/Earlgrey_0_1 dist=6341 miss=6055
+/tmp/v11u193_swP uhdm2rtlil/default/ibex_pmp dist=4 miss=20
+/tmp/v11u193_swF uhdm2rtlil/default/ibex_pmp dist=2 miss=18
+# Earlgrey_0_1 strict field counts (uhdm-strictcmp --max 0), pristine and law identical in both modes:
+# fields: type=1 defname=2 fullname=69 file=1 line=1 col=28 endline=1 endcol=51 size=1 objects_differing=98 (walk diverged)

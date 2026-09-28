@@ -1,0 +1,14 @@
+det1 Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:?,,differ:?
+det1 Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:col(98),,differ:col(98)
+f46a74e80c9cebd936b8f8397ecb8b3e  /tmp/v11u193_rows/det1/Earlgrey_0_1/surelog/default/Earlgrey_0_1-a898def8/slang.uhdm
+380fc504c6012ae373fd4985ce65349f  /tmp/v11u193_rows/det1/Earlgrey_0_1/surelog/testflags/Earlgrey_0_1-a898def8/slang.uhdm
+det2 Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:col(98),,differ:col(98)
+det2 Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:col(98),,differ:col(98)
+f46a74e80c9cebd936b8f8397ecb8b3e  /tmp/v11u193_rows/det2/Earlgrey_0_1/surelog/default/Earlgrey_0_1-a898def8/slang.uhdm
+380fc504c6012ae373fd4985ce65349f  /tmp/v11u193_rows/det2/Earlgrey_0_1/surelog/testflags/Earlgrey_0_1-a898def8/slang.uhdm
+det3 Earlgrey_0_1,default,STRICT_NOTEQUAL,differ:col(98),,differ:col(98)
+det3 Earlgrey_0_1,testflags,STRICT_NOTEQUAL,differ:col(98),,differ:col(98)
+f46a74e80c9cebd936b8f8397ecb8b3e  /tmp/v11u193_rows/det3/Earlgrey_0_1/surelog/default/Earlgrey_0_1-a898def8/slang.uhdm
+380fc504c6012ae373fd4985ce65349f  /tmp/v11u193_rows/det3/Earlgrey_0_1/surelog/testflags/Earlgrey_0_1-a898def8/slang.uhdm
+f46a74e80c9cebd936b8f8397ecb8b3e  /tmp/v11u193_swR/surelog/default/Earlgrey_0_1-a898def8/slang.uhdm
+380fc504c6012ae373fd4985ce65349f  /tmp/v11u193_swR/surelog/testflags/Earlgrey_0_1-a898def8/slang.uhdm

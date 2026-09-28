@@ -1,0 +1,7 @@
+R11U193_CASTLEAF_OFF moves 25: CL/r01 CL/r03 CL/r04 CL/r05 CL/r06 CL/r07 CL/r08 CL/r09 CL/r11 CL/r12 CL/r13 CL/r14 CL/r16 CL/r17 CL/r18 CL/s01 CL/s02 CL/s03 CL/s05 CL/s07 CL/s09 CL/s13 CL/s14 CL/s15 CL/s16
+R11U193_CASTTSNAME_OFF moves 24: CL/r01 CL/r03 CL/r04 CL/r05 CL/r06 CL/r07 CL/r09 CL/r10 CL/r12 CL/r13 CL/r14 CL/s01 CL/s02 CL/s03 CL/s04 CL/s05 CL/s06 CL/s07 CL/s08 CL/s09 CL/s13 CL/s14 CL/s15 CL/s16
+R11U193_SYSARGDEF_OFF moves 4: CL/r08 CL/r15 CL/r16 CL/s14
+R11U193_TERNFILL_OFF moves 5: TF/t01_one TF/t02_x TF/t03_nested TF/t04_three_same TF/t05_truearm
+R11U193_UNSIZEDCLONE_OFF moves 7: TF/t01_one TF/t05_truearm UC/u01_netpred UC/u02_based UC/u03_concat_lhs UC/u04_partsel UC/u06_param_sized
+R11U193_NESTNAME_OFF moves 9: NN/n01_deep NN/n02_func NN/n03_param NN/n04_inst NN/n05_nonansi NN/n06_always NN/n07_gen NN/n09_task_block NN/n10_top_nested_inst
+R11U193_COPYORDER_OFF moves 11: PM/p01_same PM/p02_writer_first PM/p03_writer_last PM/p04_bare_writer PM/p05_iface_writer PM/p06_program_writer PM/p07_pkg_importer PM/p08_two_files PM/p09_enum PM/p10_macro_writer PM/p11_two_importers

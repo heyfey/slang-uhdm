@@ -1,0 +1,65 @@
+CL/r01 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 222 objects
+CL/r02 | pris.bin: STRICT_EQUAL 216 objects | law2.bin: STRICT_EQUAL 216 objects
+CL/r03 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 140 objects
+CL/r04 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 144 objects
+CL/r05 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 160 objects
+CL/r06 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 196 objects
+CL/r07 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 190 objects
+CL/r08 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 134 objects
+CL/r09 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 190 objects
+CL/r10 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 145 objects
+CL/r11 | pris.bin: STRICT_NOTEQUAL depth | law2.bin: STRICT_EQUAL 157 objects
+CL/r12 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 183 objects
+CL/r13 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 190 objects
+CL/r14 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 140 objects
+CL/r15 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 140 objects
+CL/r16 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 182 objects
+CL/r17 | pris.bin: STRICT_NOTEQUAL depth | law2.bin: STRICT_EQUAL 162 objects
+CL/r18 | pris.bin: cmp=255 cmplines=17 NOT_EQUAL stage1 | law2.bin: cmp=255 cmplines=17 NOT_EQUAL stage1
+CL/s01 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 184 objects
+CL/s02 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 184 objects
+CL/s03 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 146 objects
+CL/s04 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 144 objects
+CL/s05 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 170 objects
+CL/s06 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 168 objects
+CL/s07 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 115 objects
+CL/s08 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 232 objects
+CL/s09 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 140 objects
+CL/s11 | pris.bin: STRICT_EQUAL 133 objects | law2.bin: STRICT_EQUAL 133 objects
+CL/s12 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_NOTEQUAL fullname
+CL/s13 | pris.bin: cmp=255 cmplines=46 NOT_EQUAL stage1 | law2.bin: cmp=255 cmplines=46 NOT_EQUAL stage1
+CL/s14 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 146 objects
+CL/s15 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 156 objects
+CL/s16 | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 191 objects
+NN/n01_deep | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 66 objects
+NN/n02_func | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 101 objects
+NN/n03_param | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 95 objects
+NN/n04_inst | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 85 objects
+NN/n05_nonansi | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 64 objects
+NN/n06_always | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 72 objects
+NN/n07_gen | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 74 objects
+NN/n09_task_block | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 74 objects
+NN/n10_top_nested_inst | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 132 objects
+TF/t01_one | pris.bin: STRICT_NOTEQUAL file | law2.bin: STRICT_EQUAL 229 objects
+TF/t02_x | pris.bin: STRICT_NOTEQUAL type | law2.bin: STRICT_EQUAL 60 objects
+TF/t03_nested | pris.bin: STRICT_NOTEQUAL file | law2.bin: STRICT_EQUAL 97 objects
+TF/t04_three_same | pris.bin: STRICT_NOTEQUAL file | law2.bin: STRICT_EQUAL 98 objects
+TF/t05_truearm | pris.bin: STRICT_NOTEQUAL file | law2.bin: STRICT_EQUAL 99 objects
+UC/u01_netpred | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 122 objects
+UC/u02_based | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 84 objects
+UC/u03_concat_lhs | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 136 objects
+UC/u04_partsel | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 122 objects
+UC/u05_gen | pris.bin: STRICT_EQUAL 141 objects | law2.bin: STRICT_EQUAL 141 objects
+UC/u06_param_sized | pris.bin: STRICT_NOTEQUAL fullname | law2.bin: STRICT_EQUAL 209 objects
+UC/u07_sized_ctrl | pris.bin: STRICT_EQUAL 114 objects | law2.bin: STRICT_EQUAL 114 objects
+PM/p01_same | pris.bin: STRICT_NOTEQUAL line | law2.bin: STRICT_EQUAL 339 objects
+PM/p02_writer_first | pris.bin: STRICT_NOTEQUAL line | law2.bin: STRICT_EQUAL 381 objects
+PM/p03_writer_last | pris.bin: STRICT_NOTEQUAL line | law2.bin: STRICT_EQUAL 381 objects
+PM/p04_bare_writer | pris.bin: STRICT_NOTEQUAL line | law2.bin: STRICT_EQUAL 339 objects
+PM/p05_iface_writer | pris.bin: STRICT_NOTEQUAL line | law2.bin: STRICT_EQUAL 376 objects
+PM/p06_program_writer | pris.bin: STRICT_NOTEQUAL line | law2.bin: STRICT_EQUAL 367 objects
+PM/p07_pkg_importer | pris.bin: cmp=255 cmplines=180 NOT_EQUAL stage1 | law2.bin: cmp=255 cmplines=180 NOT_EQUAL stage1
+PM/p08_two_files | pris.bin: STRICT_NOTEQUAL file | law2.bin: STRICT_EQUAL 340 objects
+PM/p09_enum | pris.bin: cmp=255 cmplines=32 NOT_EQUAL stage1 | law2.bin: cmp=255 cmplines=32 NOT_EQUAL stage1
+PM/p10_macro_writer | pris.bin: STRICT_NOTEQUAL line | law2.bin: STRICT_EQUAL 339 objects
+PM/p11_two_importers | pris.bin: STRICT_NOTEQUAL line | law2.bin: STRICT_EQUAL 558 objects

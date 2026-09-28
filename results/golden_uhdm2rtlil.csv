@@ -319,7 +319,7 @@ ibex_load_store_unit,default,CMP_EQUAL,,,equal
 ibex_lockstep,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
 ibex_multdiv_fast,default,CMP_EQUAL,,,equal
 ibex_multdiv_slow,default,CMP_EQUAL,,,equal
-ibex_pmp,default,STRICT_NOTEQUAL,differ:file(5),,differ:file(5)
+ibex_pmp,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 ibex_prefetch_buffer,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
 ibex_register_file_ff,default,CMP_EQUAL,,,equal
 ibex_register_file_fpga,default,CMP_EQUAL,,,equal
@@ -662,7 +662,7 @@ rp32_r5p_mouse_soc_simple_top,default,CMP_EQUAL,,,equal
 rp32_r5p_mouse_soc_top,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/tcb/lite_lib/tcb_lite_lib_passthrough.sv:23:21: error: top-level module 'tcb_lite_lib_passthroug,,
 rp32_r5p_wbu,default,CMP_EQUAL,,,equal
 rp32_soc_vfriendly,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/rp32/tcb/lite_lib/tcb_lite_lib_passthrough.sv:23:21: error: top-level module 'tcb_lite_lib_passthroug,,
-rsp_gen_minimal,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+rsp_gen_minimal,default,CMP_EQUAL,,,equal
 sat_asserts_seq,default,CMP_EQUAL,,,equal
 scope_func,default,CMP_EQUAL,,,equal
 scope_task,default,CMP_EQUAL,,,equal
@@ -1190,7 +1190,7 @@ ibex_load_store_unit,testflags,CMP_EQUAL,,,equal
 ibex_lockstep,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
 ibex_multdiv_fast,testflags,CMP_EQUAL,,,equal
 ibex_multdiv_slow,testflags,CMP_EQUAL,,,equal
-ibex_pmp,testflags,STRICT_NOTEQUAL,differ:file(5),,differ:file(5)
+ibex_pmp,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 ibex_prefetch_buffer,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
 ibex_register_file_ff,testflags,CMP_EQUAL,,,equal
 ibex_register_file_fpga,testflags,CMP_EQUAL,,,equal
@@ -1533,7 +1533,7 @@ rp32_r5p_mouse_soc_simple_top,testflags,CMP_EQUAL,,,equal
 rp32_r5p_mouse_soc_top,testflags,SLANG_REJECT,                                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~,,
 rp32_r5p_wbu,testflags,CMP_EQUAL,,,equal
 rp32_soc_vfriendly,testflags,SLANG_REJECT,                                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~,,
-rsp_gen_minimal,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+rsp_gen_minimal,testflags,CMP_EQUAL,,,equal
 sat_asserts_seq,testflags,CMP_EQUAL,,,equal
 scope_func,testflags,CMP_EQUAL,,,equal
 scope_task,testflags,CMP_EQUAL,,,equal

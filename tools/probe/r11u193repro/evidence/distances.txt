@@ -1,0 +1,25 @@
+# drivers/uvmdist.sh (order-blind strict-record distance of the UVM rows), pristine sweep vs law sweep
+/tmp/r11u193_swP MiniAmiq/default dist=7143   | /tmp/r11u193_swF 7143
+/tmp/r11u193_swP MiniAmiq/testflags dist=7143 | /tmp/r11u193_swF 7143
+/tmp/r11u193_swP SeqDriver/default dist=5801  | /tmp/r11u193_swF 5801
+/tmp/r11u193_swP SeqDriver/testflags dist=5801| /tmp/r11u193_swF 5801
+/tmp/r11u193_swP SimpleUVM/default dist=2579  | /tmp/r11u193_swF 2579
+/tmp/r11u193_swP SimpleUVM/testflags dist=2579| /tmp/r11u193_swF 2579
+/tmp/r11u193_swP Scoreboard/default dist=1950 | /tmp/r11u193_swF 1950
+/tmp/r11u193_swP BuildUVMPkg/default dist=1036| /tmp/r11u193_swF 1036
+/tmp/r11u193_swP BuildUVMPkg/testflags dist=1036 | /tmp/r11u193_swF 1036
+# drivers/rowdist.sh (ours-not-in-golden dist / golden-not-in-ours miss), pristine -> law
+surelog/default/Rggen               dist 4539 -> 4521   miss 6788 -> 6250
+surelog/default/Earlgrey_0_1        dist 6784 -> 6776   miss 6140 -> 6132
+surelog/testflags/Earlgrey_0_1      dist 6349 -> 6341   miss 6063 -> 6055
+uhdm2rtlil/default/genvar_loop_decl_2 dist 0 -> 0       miss 0 -> 0
+uhdm2rtlil/default/ibex_pmp         dist 4 -> 2         miss 20 -> 18
+# drivers/ob.sh (order-blind uhdm-dump lines, pristine sweep vs law sweep) on the UVM movers
+surelog/default/BuildUVMPkg 0   surelog/testflags/BuildUVMPkg 0   surelog/default/Scoreboard 0
+surelog/default/MiniAmiq 4 (UINT:634/847 + vpiDecompile)   surelog/testflags/MiniAmiq 4 (UINT:1460/699)
+surelog/testflags/SeqDriver 4 (UINT:704/1005)             surelog/default/SimpleUVM 4 (UINT:957/0)
+# determinism controls
+BuildUVMPkg: pristine binary alone, 4 runs (2 rowruns x 2 modes) + the pristine sweep = two hashes e4f8e660..., e025a6f4...;
+             the law sweep's hash e025a6f4... is one of them.
+ibex_pmp default: law binary 3 concurrent runs + the law sweep = 1 hash (837e3ef5...).
+Earlgrey_0_1 d/t, Rggen d: law sweep hash == the law binary's trace run (R11U193_TRACE set) hash.

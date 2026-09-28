@@ -743,6 +743,8 @@ bool v11u171Law(const char* sw); // the v11u171 refinements (UhdmExporter.cpp)
 void trace171(const char* law, const std::string& detail); // R11U171_TRACE
 bool r11u176Law(const char* sw); // the r11u176 switches (UhdmExporter.cpp)
 void trace176(const char* law, const std::string& detail); // R11U176_TRACE
+bool r11u193Law(const char* sw);  // the r11u193 switches (UhdmExporter.cpp)
+void trace193(const char* law, const std::string& detail);
 // § castRhsClonePerInst176 (r11u176) — Surelog's UhdmWriter::writeCont_assign
 // (third_party/Surelog/src/DesignCompile/UhdmWriter.cpp) walks the
 // DEFINITION's cont_assign objects of every elaborated instance (the netlist
@@ -1030,6 +1032,164 @@ void castRhsCloneDrain176(UHDM::Serializer& s) {
     }
     castClone176.clear();
 }
+// § caUnsizedRhsClonePerInst193 (r11u193, the r10rgg9 grid's kept
+// ternaries: p_ov01, p_split, l_vecbit, ...) — the fourth leg of
+// UhdmWriter::writeCont_assign's per-instance copy.  An elaborated cont_assign
+// that no earlier leg cloned or simplified (a select or concatenation Lhs, no
+// typespec on it or on its Rhs operation, a Rhs the reducer does not turn
+// into a constant) is still CLONED when its Rhs holds an unsized constant
+// anywhere (`DetectUnsizedConstant`: a `constant` of vpiSize -1, the fill
+// literals `'0 '1 'x 'z` and an unsized based literal `'h10`):
+//     assign = clone_tree(assign, ElaboratorContext(&s, false, true));
+//     assign->VpiParent(m);
+// The copy is WHOLE (its Rhs objects are fresh too, where the cast leg
+// shares the operands) and nothing names it, so every reference reads the
+// instance's path through the parent chain (golden p_ov01 `(P) ? {2{sig}} :
+// '0` at `.P(1)`: `work@top.u_a.P`, `work@top.u_a.sig`, `work@top.u_a.arr`,
+// where ours shared the definition's `work@m.*`).  Made design-final with
+// the cast leg.  Grid tools/probe/r11u193repro/cases/UC.  Switch
+// R11U193_UNSIZEDCLONE_OFF.
+namespace {
+std::vector<CastClone176> unsizedClone193;
+bool rhsHasUnsized193(const UHDM::any* x, int depth = 0) {
+    if (!x || depth > 64)
+        return false;
+    switch (x->UhdmType()) {
+    case UHDM::uhdmconstant:
+        return ((const UHDM::constant*)x)->VpiSize() == -1;
+    case UHDM::uhdmoperation:
+        if (auto* os = ((const UHDM::operation*)x)->Operands())
+            for (auto* o : *os)
+                if (rhsHasUnsized193(o, depth + 1))
+                    return true;
+        return false;
+    case UHDM::uhdmsys_func_call:
+        if (auto* as = ((const UHDM::sys_func_call*)x)->Tf_call_args())
+            for (auto* a : *as)
+                if (rhsHasUnsized193(a, depth + 1))
+                    return true;
+        return false;
+    case UHDM::uhdmfunc_call:
+        if (auto* as = ((const UHDM::func_call*)x)->Tf_call_args())
+            for (auto* a : *as)
+                if (rhsHasUnsized193(a, depth + 1))
+                    return true;
+        return false;
+    case UHDM::uhdmbit_select:
+        return rhsHasUnsized193(((const UHDM::bit_select*)x)->VpiIndex(), depth + 1);
+    case UHDM::uhdmpart_select:
+        return rhsHasUnsized193(((const UHDM::part_select*)x)->Left_range(), depth + 1) ||
+               rhsHasUnsized193(((const UHDM::part_select*)x)->Right_range(), depth + 1);
+    case UHDM::uhdmindexed_part_select:
+        return rhsHasUnsized193(((const UHDM::indexed_part_select*)x)->Base_expr(),
+                                depth + 1) ||
+               rhsHasUnsized193(((const UHDM::indexed_part_select*)x)->Width_expr(),
+                                depth + 1);
+    default:
+        return false;
+    }
+}
+} // namespace
+bool v11u193Law(const char* sw); // the v11u193 refinements (UhdmExporter.cpp)
+void unsizedRhsCloneDrain193(UHDM::Serializer& s) {
+    const bool ucRange193v = v11u193Law("R11V193_UCRANGE_OFF");
+    for (auto& r : unsizedClone193) {
+        if (r.idx >= r.cas->size() || (*r.cas)[r.idx] != r.def)
+            continue;
+        UHDM::ElaboratorContext ctx(&s, false, true);
+        auto* c = (UHDM::cont_assign*)UHDM::clone_tree(r.def, &ctx);
+        if (!c)
+            continue;
+        c->VpiParent(r.m);
+        // Only a name the emitter derived from the DEFINITION's path (the
+        // chain name Surelog never stores on these objects) is dropped; a
+        // stored spelling of Surelog's own (a path element's `p[0].v`) rides
+        // the clone as clone_tree copies it (cells r11u115 grid/i w01).
+        std::string dp193;
+        if (auto* dm = r.def->VpiParent())
+            if (dm->UhdmType() == UHDM::uhdmmodule_inst ||
+                dm->UhdmType() == UHDM::uhdminterface_inst ||
+                dm->UhdmType() == UHDM::uhdmprogram)
+                dp193 = std::string(((const UHDM::instance*)dm)->VpiFullName()) + ".";
+        auto defNamed = [&](std::string_view fn) {
+            return !dp193.empty() && fn.size() > dp193.size() &&
+                   fn.compare(0, dp193.size(), dp193) == 0;
+        };
+        std::function<void(UHDM::any*)> unname = [&](UHDM::any* x) {
+            if (!x)
+                return;
+            switch (x->UhdmType()) {
+            case UHDM::uhdmref_obj:
+                if (defNamed(((UHDM::ref_obj*)x)->VpiFullName()))
+                    ((UHDM::ref_obj*)x)->VpiFullName("");
+                break;
+            case UHDM::uhdmbit_select:
+                if (defNamed(((UHDM::bit_select*)x)->VpiFullName()))
+                    ((UHDM::bit_select*)x)->VpiFullName("");
+                unname((UHDM::any*)((UHDM::bit_select*)x)->VpiIndex());
+                break;
+            case UHDM::uhdmpart_select:
+                if (defNamed(((UHDM::part_select*)x)->VpiFullName()))
+                    ((UHDM::part_select*)x)->VpiFullName("");
+                // § ucCloneUnnamesRanges193v (v11u193) — the clone is whole,
+                // so the references in a part select's bounds read the
+                // instance chain too (golden `y[W-1:0]` at `u_a`:
+                // `work@top.u_a.y.W`, ours kept the definition's
+                // `work@m.y.W`).  Grid tools/probe/v11u193repro/cases/UC
+                // uc08.  Switch R11V193_UCRANGE_OFF.
+                if (ucRange193v) {
+                    unname((UHDM::any*)((UHDM::part_select*)x)->Left_range());
+                    unname((UHDM::any*)((UHDM::part_select*)x)->Right_range());
+                }
+                break;
+            case UHDM::uhdmindexed_part_select:
+                if (defNamed(((UHDM::indexed_part_select*)x)->VpiFullName()))
+                    ((UHDM::indexed_part_select*)x)->VpiFullName("");
+                unname((UHDM::any*)((UHDM::indexed_part_select*)x)->Base_expr());
+                if (ucRange193v)   // § ucCloneUnnamesRanges193v
+                    unname((UHDM::any*)((UHDM::indexed_part_select*)x)->Width_expr());
+                break;
+            case UHDM::uhdmoperation:
+                if (auto* rt = ((UHDM::operation*)x)->Typespec();
+                    rt && defNamed(rt->VpiFullName()))
+                    rt->VpiFullName("");
+                if (auto* os = ((UHDM::operation*)x)->Operands())
+                    for (auto* o : *os)
+                        unname(o);
+                break;
+            case UHDM::uhdmconstant:
+                if (auto* rt = ((UHDM::constant*)x)->Typespec();
+                    rt && defNamed(rt->VpiFullName()))
+                    rt->VpiFullName("");
+                break;
+            case UHDM::uhdmsys_func_call:
+                if (auto* as = ((UHDM::sys_func_call*)x)->Tf_call_args())
+                    for (auto* a : *as)
+                        unname(a);
+                break;
+            case UHDM::uhdmhier_path:
+                // A path's elements: the one that stores a name reads it
+                // through the chain too (cell c_headshape
+                // `register_if.write_data` -> `work@top.u_b.write_data`).
+                if (auto* pe = ((UHDM::hier_path*)x)->Path_elems())
+                    for (auto* e : *pe)
+                        if (e && e->UhdmType() == UHDM::uhdmref_obj &&
+                            defNamed(((UHDM::ref_obj*)e)->VpiFullName()))
+                            ((UHDM::ref_obj*)e)->VpiFullName("");
+                break;
+            default:
+                break;
+            }
+        };
+        unname(c->Lhs());
+        unname(c->Rhs());
+        (*r.cas)[r.idx] = c;
+        trace193("caUnsizedRhsClonePerInst193", std::string(r.m->VpiName()) + " " +
+                                                    std::to_string(c->VpiLineNo()) + ":" +
+                                                    std::to_string(c->VpiColumnNo()));
+    }
+    unsizedClone193.clear();
+}
 // § hcSelIdxInstName168 — the references inside a bit_select HighConn's
 // INDEX are named through the child INSTANCE, exactly like the select
 // itself (`.a(v[sel])` -> `work@dut.m.sel`, `.a(v[i+j])` -> `work@dut.m.v.i`,
@@ -1158,6 +1318,39 @@ static bool trace139() {
 }
 using NetMap139 = std::map<const slang::ast::Symbol*, UHDM::any*>;
 static NetMap139 defView139(const NetMap139& elab, const NetMap139& def);
+// § castOperandLeafElab193 (r11u193) — the leaves a CAST's operand binds in
+// the instance: for every explicit conversion in `e` (a `T'(x)` or
+// `signed'(x)` cast), the reference reached from its operand through left
+// operands, ternary conditions and the index of a select on a plain name (the
+// § ndaLeftmostLeafElab139 chain); `add` receives each one's start.
+static void castLeaves193(const slang::ast::Expression& e,
+                          const std::function<void(const slang::ast::Expression&)>& add) {
+    using namespace slang::ast;
+    e.visit(makeVisitor([&](auto& v, const ConversionExpression& ce) {
+        if (!ce.isImplicit()) {
+            const Expression* x = &stripImplicitConv(ce.operand());
+            for (int g = 0; g < 256; ++g) {
+                if (x->kind == ExpressionKind::BinaryOp)
+                    x = &stripImplicitConv(x->as<BinaryExpression>().left());
+                else if (x->kind == ExpressionKind::ConditionalOp) {
+                    auto& co = x->as<ConditionalExpression>();
+                    if (co.conditions.size() != 1 || co.conditions[0].pattern)
+                        break;
+                    x = &stripImplicitConv(*co.conditions[0].expr);
+                }
+                else if (x->kind == ExpressionKind::ElementSelect &&
+                         stripImplicitConv(x->as<ElementSelectExpression>().value())
+                                 .kind == ExpressionKind::NamedValue)
+                    x = &stripImplicitConv(x->as<ElementSelectExpression>().selector());
+                else
+                    break;
+            }
+            if (x->kind == ExpressionKind::NamedValue)
+                add(*x);
+        }
+        v.visitDefault(ce);
+    }));
+}
 // § portExprElabDefNets146 (r11u146) — every operand reference of an
 // explicit port expression's concatenation (the elaborated port's LowConn,
 // and the concatenation actual on the HighConn of such a port) names the
@@ -17702,6 +17895,9 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     // An elab pattern HighConn folds to a based-decimal
                     // constant at the port width.
                     UHDM::any* h = nullptr;
+                    // § castOperandLeafElab193: the cast leaves kept on the
+                    // instance's object, restored after § connExprBindsNet.
+                    std::vector<std::pair<UHDM::ref_obj*, UHDM::any*>> castKeep193;
                     {
                         auto& hc0 = stripImplicitConv(*expr);
                         if (hc0.kind == ExpressionKind::StructuredAssignmentPattern ||
@@ -19056,8 +19252,12 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     // tools/probe/r11u139netbind/cases/pc.  Switch
                     // R11U139_PORT_OFF.
                     if (port139On() && h &&
-                        h->UhdmType() == UHDM::uhdmoperation && parentNets &&
-                        bindPath.empty()) {
+                        (h->UhdmType() == UHDM::uhdmoperation ||
+                         // § connSysCallArgDefNet193: a whole-actual system
+                         // call (`.d($signed(r))`) takes the rule too.
+                         (h->UhdmType() == UHDM::uhdmsys_func_call &&
+                          r11u193Law("R11U193_SYSARGDEF_OFF"))) &&
+                        parentNets && bindPath.empty()) {
                         const bool bind139 = !connGenScope61 && !genvarConnFold;
                         const DefInfo* pdi139 = nullptr;
                         if (auto* ps139 = inst.getParentScope())
@@ -19123,16 +19323,107 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             std::string pfx139 = dbl139 + "." +
                                                  std::string(inst.name) + "." +
                                                  std::string(ps.name) + ".";
+                            // § castOperandLeafElab193 (r11u193, map
+                            // N0023: rsp_gen_minimal d/t) — a CAST compiles
+                            // its operand with NO parent expression and the
+                            // instance (CompileExpression.cpp, `case
+                            // paCast`: `compileExpression(component, fC,
+                            // Expression, ..., nullptr, instance)`), wherever
+                            // the cast sits in the actual.  So the leaf
+                            // reached from each cast's operand through left
+                            // operands, ternary conditions and bit-select
+                            // indices binds the PARENT INSTANCE's object too,
+                            // like the actual's own leftmost leaf (golden
+                            // `.data_i(57'(rsp))` names the elaborated
+                            // `struct_var work@dut.rsp`, where the rule
+                            // above gave the definition's logic_net), in a
+                            // udp-shaped list as well; a signing cast
+                            // (`signed'(r)`, a `$signed` sys_func_call in
+                            // both databases) is one.  The leaves are found
+                            // on the slang tree (an explicit conversion) and
+                            // matched by their start position.  Grid
+                            // tools/probe/r11u193repro/cases/CL.  Switch
+                            // R11U193_CASTLEAF_OFF.
+                            std::set<std::pair<uint32_t, uint32_t>> castLeaf193;
+                            if (r11u193Law("R11U193_CASTLEAF_OFF"))
+                                castLeaves193(*expr, [&](const Expression& lx) {
+                                    uint32_t l193 = 0, c193 = 0;
+                                    locLineCol(lx.sourceRange.start(), l193, c193);
+                                    castLeaf193.insert({l193, c193});
+                                });
+                            auto isCastLeaf193 = [&](const UHDM::any* n) {
+                                return !castLeaf193.empty() &&
+                                       castLeaf193.count({n->VpiLineNo(),
+                                                          n->VpiColumnNo()}) != 0;
+                            };
+                            // § connCastTsNamedByPort193 (r11u193, map
+                            // N0023) — nothing names a cast's typespec
+                            // reference in an elaborated connection actual
+                            // (the `paCast` arm mints it unnamed), so its
+                            // full name is the parent chain's: the child
+                            // instance's path and the formal
+                            // (`work@dut.u_rsp_gen.data_i`), at any depth of
+                            // the actual; ours carried the parent's path
+                            // (`work@dut`).  The same string
+                            // § connReplFoldNested54 takes.  Switch
+                            // R11U193_CASTTSNAME_OFF.
+                            static const bool castTs193 =
+                                r11u193Law("R11U193_CASTTSNAME_OFF");
+                            const std::string castTsName193 =
+                                prefix + "." + std::string(ps.name);
+                            // § connSysCallArgDefNet193 (r11u193) — a system
+                            // call's arguments are compiled UNDER the call,
+                            // so they follow the rule above like an
+                            // operator's non-leading operands: named
+                            // through the chain `<parent>.<instance>.
+                            // <formal>.<name>` and bound to the parent
+                            // DEFINITION's object (golden `.d($signed(r))`
+                            // `work@dut.u.d.r` -> the definition's
+                            // logic_net), unless the argument is a cast's
+                            // leaf (`signed'(r)`: the instance's object).
+                            // Grid tools/probe/r11u193repro/cases/CL.
+                            // Switch R11U193_SYSARGDEF_OFF.
+                            static const bool sysArg193 =
+                                r11u193Law("R11U193_SYSARGDEF_OFF");
                             std::function<void(UHDM::any*)> walk139 =
                                 [&](UHDM::any* n139) {
                                     if (!n139)
                                         return;
                                     if (n139->UhdmType() == UHDM::uhdmoperation) {
+                                        auto* on193 = (UHDM::operation*)n139;
+                                        if (castTs193 &&
+                                            on193->VpiOpType() == vpiCastOp)
+                                            if (auto* rt193 = on193->Typespec();
+                                                rt193 &&
+                                                rt193->VpiFullName() !=
+                                                    castTsName193) {
+                                                rt193->VpiFullName(castTsName193);
+                                                trace193("connCastTsNamedByPort193",
+                                                         castTsName193);
+                                            }
                                         if (auto* os139 =
                                                 ((UHDM::operation*)n139)
                                                     ->Operands())
                                             for (auto* o139 : *os139)
                                                 walk139(o139);
+                                        return;
+                                    }
+                                    if (sysArg193 &&
+                                        n139->UhdmType() == UHDM::uhdmsys_func_call) {
+                                        if (auto* as193 =
+                                                ((UHDM::sys_func_call*)n139)
+                                                    ->Tf_call_args())
+                                            for (auto* a193 : *as193) {
+                                                if (a193 &&
+                                                    a193->UhdmType() ==
+                                                        UHDM::uhdmref_obj)
+                                                    trace193(
+                                                        "connSysCallArgDefNet193",
+                                                        pfx139 +
+                                                            std::string(
+                                                                a193->VpiName()));
+                                                walk139(a193);
+                                            }
                                         return;
                                     }
                                     const auto t139 = n139->UhdmType();
@@ -19156,8 +19447,31 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                     auto ed139 = a139 ? e2d139.find(a139)
                                                       : e2d139.end();
                                     bool isElab139 = ed139 != e2d139.end();
-                                    if (isElab139 && n139 != leaf139)
+                                    // § castOperandLeafElab193: a cast's
+                                    // leaf keeps the instance's object.
+                                    const bool cLeaf193 =
+                                        n139 != leaf139 && isCastLeaf193(n139);
+                                    // ...and a leaf the emitter bound to the
+                                    // definition's object takes the
+                                    // instance's (a variable's elaborated
+                                    // logic_var twin).
+                                    if (cLeaf193 && !isElab139 && a139)
+                                        for (auto& [el193, df193] : e2d139)
+                                            if (df193 == a139) {
+                                                r139->Actual_group(
+                                                    (UHDM::any*)el193);
+                                                break;
+                                            }
+                                    if (cLeaf193 && (isElab139 ||
+                                                     r139->Actual_group() != a139))
+                                        trace193("castOperandLeafElab193",
+                                                 "conn " + pfx139 +
+                                                     std::string(r139->VpiName()));
+                                    if (isElab139 && n139 != leaf139 && !cLeaf193)
                                         r139->Actual_group(ed139->second);
+                                    if (cLeaf193 && r139->Actual_group())
+                                        castKeep193.push_back(
+                                            {r139, r139->Actual_group()});
                                     if (trace139())
                                         fprintf(stderr,
                                                 "R11U139PORT %s%s leaf=%d "
@@ -19364,6 +19678,13 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         }
                         // § connExprBindsNet (see bindConnExprNets).
                         bindConnExprNets(h, *expr);
+                        // § castOperandLeafElab193: § connExprBindsNet's
+                        // leading-identifier test reads the actual's own
+                        // start, but a cast's leaf is bound in the instance
+                        // by its own compile (the leading-primary bind_net_
+                        // and the cast's `nullptr` parent agree on it).
+                        for (auto& [ck193, ca193] : castKeep193)
+                            ck193->Actual_group(ca193);
                         // § wildcardConnRefSpan130 (r11u130) — a HighConn a
                         // `.*` implies is ONE COLUMN wide.  NetlistElaboration
                         // (the `wildcard` arm of the port-connection loop)
@@ -36589,6 +36910,68 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             ((UHDM::ref_obj*)c139)->Actual_group() == di->second)
             ((UHDM::ref_obj*)c139)->Actual_group(ei->second);
     };
+    // § castOperandLeafElab193 (r11u193), the NET-DECLARATION arm — a cast
+    // inside the initializer compiles its operand with no parent expression
+    // and the instance (CompileExpression.cpp `case paCast`), so the leaf of
+    // every cast's operand binds the instance's object on the rule above
+    // (elaborated so far), wherever the cast sits (golden `wire [6:0] w =
+    // 7'(r);` binds the elaborated `r`, ours the definition's).  Grid
+    // tools/probe/r11u193repro/cases/CL.  Switch R11U193_CASTLEAF_OFF.
+    auto ndaCastFix193 = [&](UHDM::any* rhs193, const Expression& init,
+                             const Symbol& lhs) {
+        if (!rhs193 || !r11u193Law("R11U193_CASTLEAF_OFF"))
+            return;
+        std::vector<const Expression*> lv193;
+        init.visit(makeVisitor([&](auto& v, const ConversionExpression& ce) {
+            if (!ce.isImplicit())
+                if (auto* lf = ndaLeaf139(ce.operand(), lhs))
+                    lv193.push_back(lf);
+            v.visitDefault(ce);
+        }));
+        for (auto* lf : lv193) {
+            auto& sym = lf->as<NamedValueExpression>().symbol;
+            auto di = ndaDef139.find(&sym);
+            auto ei = netMap.find(&sym);
+            if (di == ndaDef139.end() || ei == netMap.end() || !ei->second ||
+                di->second == ei->second)
+                continue;
+            uint32_t l193 = 0, c193 = 0;
+            locLineCol(lf->sourceRange.start(), l193, c193);
+            std::function<void(UHDM::any*)> w193 = [&](UHDM::any* n) {
+                if (!n)
+                    return;
+                switch (n->UhdmType()) {
+                case UHDM::uhdmoperation:
+                    if (auto* os = ((UHDM::operation*)n)->Operands())
+                        for (auto* o : *os)
+                            w193(o);
+                    return;
+                case UHDM::uhdmsys_func_call:
+                    if (auto* as = ((UHDM::sys_func_call*)n)->Tf_call_args())
+                        for (auto* a : *as)
+                            w193(a);
+                    return;
+                case UHDM::uhdmbit_select:
+                    w193((UHDM::any*)((UHDM::bit_select*)n)->VpiIndex());
+                    return;
+                case UHDM::uhdmref_obj: {
+                    auto* r = (UHDM::ref_obj*)n;
+                    if (r->VpiLineNo() == l193 && r->VpiColumnNo() == c193 &&
+                        r->VpiName() == sym.name && r->Actual_group() == di->second) {
+                        r->Actual_group(ei->second);
+                        trace193("castOperandLeafElab193",
+                                 "nda " + prefix + "." + std::string(lhs.name) + " " +
+                                     std::string(sym.name));
+                    }
+                    return;
+                }
+                default:
+                    return;
+                }
+            };
+            w193(rhs193);
+        }
+    };
     // Net-declaration assignments (wire x = expr;) become cont_assigns with
     // vpiNetDeclAssign, before the explicit continuous assigns (top view only).
     for (auto& it : collectNetOrder(body)) {
@@ -36709,8 +37092,10 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 suppressConstParent = true;
                 ndaRhsEmit = true;
                 rhs = emitExpr(*dt->getInitializer(), ca, prefix, *ndaNets);
-                if (nda139)
+                if (nda139) {
                     ndaFixLeaf139(rhs, ndaLeaf139(*dt->getInitializer(), *it.sym));
+                    ndaCastFix193(rhs, *dt->getInitializer(), *it.sym);
+                }
                 ndaRhsEmit = false;
                 suppressConstParent = savedSc9;
                 forceConstParent = true;
@@ -36789,8 +37174,10 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     : 0;
             ndaRhsEmit = true;
             rhs = emitExpr(*dt->getInitializer(), ca, prefix, *ndaNets);
-            if (nda139)
+            if (nda139) {
                 ndaFixLeaf139(rhs, ndaLeaf139(*dt->getInitializer(), *it.sym));
+                ndaCastFix193(rhs, *dt->getInitializer(), *it.sym);
+            }
             ndaRhsEmit = false;
             ndaReaderWidth104 = savedRW104;
             implicitConvTargetSigned = savedICT8;
@@ -38307,6 +38694,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // the parameter's own constant, which is not the object our emitter
         // mints for a `ref_obj` operand.
         const Expression* ternArm9 = nullptr;
+        bool ternFillArm193 = false;  // § caTernFillArmKept193
         if (topView && shareWithDef && defInfo &&
             myIdx < defInfo->contAssigns.size() && !unbasedShareRhs &&
             !caReuseParamConst9 && !sysFold && !plainLhs && !dottedLhs &&
@@ -38474,7 +38862,26 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 sawTern9 = true;
                 sel9 = &stripImplicitConv(*pv9 ? co9.left() : co9.right());
             }
-            if (ok9 && sawTern9 && sel9->kind != ExpressionKind::ConditionalOp) {
+            // § caTernFillArmKept193 (r11u193, 22 probe cases of the
+            // r10rgg9 grid) — the pinned producer's reducer (UHDM c7562484,
+            // ExprEval::reduceExpr's vpiConditionOp arm) hands an UNBASED
+            // UNSIZED fill literal taken arm (`'0`, `'1`, `'x`, `'z`: a
+            // constant of vpiSize -1) back UNCHANGED — "it must keep its fill
+            // identity" — so writeCont_assign installs the arm's own constant
+            // object (located, `BIN:0`, vpiSize -1, decompile `'0`) where the
+            // older reducer § srlgCondOpInstValueTernFold9 transcribed minted
+            // a loc-less `INT:0` of size 64 (cells a_u0, p_ov10: golden
+            // `'0 dut.sv 8:36-8:38`).  A fill arm reached through nested
+            // conditionals is returned by each level the same way.  Grid
+            // tools/probe/r11u193repro/cases/TF.  Switch R11U193_TERNFILL_OFF.
+            static const bool ternFill193 = r11u193Law("R11U193_TERNFILL_OFF");
+            if (ok9 && sawTern9 && ternFill193 &&
+                sel9->kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                ternArm9 = sel9;
+                ternFillArm193 = true;
+                trace193("caTernFillArmKept193", prefix);
+            }
+            else if (ok9 && sawTern9 && sel9->kind != ExpressionKind::ConditionalOp) {
                 ternFold9 = leafValue9(*sel9);
                 if (!ternFold9 &&
                     sel9->kind == ExpressionKind::IntegerLiteral) {
@@ -38538,6 +38945,18 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 castRhsClones176(defInfo->contAssigns[myIdx]))
                 castClone176.push_back({cas, cas->size() - 1,
                                         defInfo->contAssigns[myIdx], m});
+            // § caUnsizedRhsClonePerInst193 — the unsized-constant leg (a
+            // cast Rhs is the cast leg's).
+            else if (topView && m && !plainLhs && !caMemSelBase &&
+                     r11u193Law("R11U193_UNSIZEDCLONE_OFF") &&
+                     !castRhsClones176(defInfo->contAssigns[myIdx]) &&
+                     defInfo->contAssigns[myIdx]->Rhs() &&
+                     !(defInfo->contAssigns[myIdx]->Delay() &&
+                       defInfo->contAssigns[myIdx]->Delay()->UhdmType() ==
+                           UHDM::uhdmref_obj) &&
+                     rhsHasUnsized193(defInfo->contAssigns[myIdx]->Rhs()))
+                unsizedClone193.push_back({cas, cas->size() - 1,
+                                           defInfo->contAssigns[myIdx], m});
             // § caAsmMemberSliceFold (r11u16) — the SHARED slot.  The
             // definition listing's object is what both views carry today; if
             // the base turns out to have assembled, the drain replaces THIS
@@ -38724,6 +39143,31 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             c9t->VpiConstType(vpiIntConst);
             c9t->VpiParent(ca);
             rhs = c9t;
+        }
+        else if (ternArm9 && ternFillArm193) {
+            // § caTernFillArmKept193 — the arm Surelog installs is the
+            // NETLIST's own constant object, so every instance that folds
+            // to it holds that one object (parented at the last one): the
+            // first instance lists it, a later one does not (cell p_three:
+            // golden `u_a` and `u_c`).
+            static std::map<std::tuple<const void*, uint32_t, size_t>, UHDM::any*>
+                fill193;
+            const auto st193 = ternArm9->sourceRange.start();
+            const bool keyed193 = st193.valid();
+            const auto key193 = std::make_tuple((const void*)&body.getDefinition(),
+                                                keyed193 ? st193.buffer().getId() : 0u,
+                                                keyed193 ? (size_t)st193.offset() : (size_t)0);
+            auto f193 = fill193.find(key193);
+            if (keyed193 && f193 != fill193.end() && f193->second) {
+                rhs = f193->second;
+                rhs->VpiParent(ca);
+                trace193("caTernFillArmKept193", "shared " + prefix);
+            }
+            else {
+                rhs = emitExpr(*ternArm9, ca, prefix, netMap);
+                if (keyed193)
+                    fill193[key193] = rhs;
+            }
         }
         else if (ternArm9)
             rhs = emitExpr(*ternArm9, ca, prefix, netMap);

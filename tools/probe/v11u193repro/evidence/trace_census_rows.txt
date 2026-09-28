@@ -1,0 +1,10 @@
+MiniAmiq:
+SeqDriver:
+SimpleUVM:
+Scoreboard:
+BuildUVMPkg:
+rsp_gen_minimal:  2 castOperandLeafElab193; 2 connCastTsNamedByPort193;
+ibex_pmp:  2 tfArgOutsideCopyOrder193;
+genvar_loop_decl_2:  2 caUnsizedRhsClonePerInst193;
+Rggen:  3 caTernFillArmKept193; 49 caUnsizedRhsClonePerInst193;
+Earlgrey_0_1:  2 caUnsizedRhsClonePerInst193; 16 connCastTsNamedByPort193;
