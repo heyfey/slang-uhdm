@@ -1,0 +1,23 @@
+# § twinElemOnlyNoRange209 rebuild check: md5 (12) of one database per binary; law.bin/fix4.bin = this verifier's builds, law1/3/5/7 = r11u209's development builds (seven rebuilds, three source files changed between them)
+== r11u209repro/cases/TW/qr01
+ON  law.bin 1e7d04d01bd7
+ON  fix4.bin 1e7d04d01bd7
+ON  law1.bin 1e7d04d01bd7
+ON  law3.bin 1e7d04d01bd7
+ON  law5.bin 1e7d04d01bd7
+ON  law7.bin 1e7d04d01bd7
+OFF pris.bin 52da67c645f3
+OFF law.bin 61b29893cb75
+OFF law1.bin cfcab6c3c1e4
+OFF fix4.bin 574d714cc070
+== r11u196repro/cases/V191/qr01
+ON  law.bin 3dbef6840d35
+ON  fix4.bin 3dbef6840d35
+ON  law1.bin 3dbef6840d35
+ON  law3.bin 3dbef6840d35
+ON  law5.bin 3dbef6840d35
+ON  law7.bin 3dbef6840d35
+OFF pris.bin 8f20eb4020f2
+OFF law.bin 3ae3570ba72e
+OFF law1.bin bc9dc4df8f8c
+OFF fix4.bin 7230334651d8

@@ -802,6 +802,14 @@ bool r11u193Law(const char* sw);  // the r11u193 switches (UhdmExporter.cpp)
 void trace193(const char* law, const std::string& detail);
 bool r11u200Law(const char* sw);  // the r11u200 switches (UhdmExporter.cpp)
 bool r11u202Law(const char* sw);  // the r11u202 switches (UhdmExporter.cpp)
+bool r11u205Law(const char* sw);  // the r11u205 switches (UhdmExporter.cpp)
+// § mpOrphanLaterWriter209v (v11u209): a port view's bare or one-select member
+// connection writers (§ ifaceSigConnNamedByChildPort155's w155), recorded per
+// view object as (line, column) of the last writer (UhdmExporter.cpp).
+void noteMpWriter209v(const UHDM::any* viewObj, uint32_t line, uint32_t col);
+bool r11v209Law(const char* sw);  // the v11u209 switches (UhdmExporter.cpp)
+void trace209(const char* law, const std::string& detail);  // R11U209_TRACE
+void trace205(const char* law, const std::string& detail);  // R11U205_TRACE
 bool& defGenInitRvalue202();  // § defGenInitBitSelAtIndex202 (TypeEmit.cpp)
 void trace202(const char* law, const std::string& detail);
 void trace200(const char* law, const std::string& detail);
@@ -48391,6 +48399,118 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         if (ps0.internalSymbol)
             portTsPre[portBase] = makeTypespec(*ps0.internalSymbol, nullptr, &ps0);
     }
+    // § ifacePortDeclTsAtPortDecl205 (r11u205, map N1899 + N0094: 51 probe
+    // cases, the r11u93 interface grid) — THE ELABORATED INTERFACE PORT'S
+    // TYPESPEC IS THE PORT DECLARATION'S.  A non-ANSI interface port
+    // (`interface ifc (o, p); output [31:0] o; ... wire [31:0] o = ..;`) is
+    // the `Signal` the port declaration pushed (§ caIfacePortDeclNetMint93's
+    // `found == false` arm, CompileHelper.cpp setDirectionAndType), typed from
+    // the PORT DECLARATION's own packed dimensions; the elaborated instance's
+    // port and its port-declaration net read that typespec: golden
+    // `logic_typespec` 3:10-3:16 (the `[31:0]` of `output [31:0] o;`), its
+    // range alike and the bounds at 3:11-3:13 / 3:14-3:15, where ours built
+    // it from the body re-declaration (5:25-5:31, pb14_ifbothstr; 5:8-5:14,
+    // pb3_ifnoredecl's `p`).  Relocation only: the bounds' values are the
+    // body declaration's, which a legal redeclaration must match; only a
+    // logic_typespec with one range per written range dimension is moved.
+    // Switch R11U205_PORTDECLTS_OFF.
+    if (body.getDefinition().definitionKind == DefinitionKind::Interface &&
+        r11u205Law("R11U205_PORTDECLTS_OFF"))
+        if (auto* syn205 = body.getSyntax();
+            syn205 && syn205->kind == syntax::SyntaxKind::InterfaceDeclaration) {
+            // the port declaration's dimensions, and where the typespec
+            // STARTS: at a written net-type keyword (`output wire [31:0] o;`,
+            // v11u93 v16: golden 3:10-3:21) or data-type keyword (`output
+            // reg [31:0] o;`, v3: 3:10-3:20), else at the first dimension.
+            std::map<std::string_view, const syntax::SyntaxList<
+                                           syntax::VariableDimensionSyntax>*>
+                dims205;
+            std::map<std::string_view, SourceLocation> start205;
+            for (auto* mem : syn205->as<syntax::ModuleDeclarationSyntax>().members) {
+                if (!mem || mem->kind != syntax::SyntaxKind::PortDeclaration)
+                    continue;
+                auto& pd205 = mem->as<syntax::PortDeclarationSyntax>();
+                const syntax::DataTypeSyntax* dt205 = nullptr;
+                if (pd205.header->kind == syntax::SyntaxKind::NetPortHeader)
+                    dt205 = pd205.header->as<syntax::NetPortHeaderSyntax>().dataType;
+                else if (pd205.header->kind == syntax::SyntaxKind::VariablePortHeader)
+                    dt205 = pd205.header->as<syntax::VariablePortHeaderSyntax>().dataType;
+                const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dl205 =
+                    nullptr;
+                if (dt205 && dt205->kind == syntax::SyntaxKind::ImplicitType)
+                    dl205 = &dt205->as<syntax::ImplicitTypeSyntax>().dimensions;
+                else if (dt205 && (dt205->kind == syntax::SyntaxKind::LogicType ||
+                                   dt205->kind == syntax::SyntaxKind::RegType ||
+                                   dt205->kind == syntax::SyntaxKind::BitType))
+                    dl205 = &dt205->as<syntax::IntegerTypeSyntax>().dimensions;
+                if (!dl205 || dl205->empty())
+                    continue;
+                // A signing keyword is not modelled here (the signing span
+                // rule of § 200 governs it): decline.
+                if (dt205->kind != syntax::SyntaxKind::ImplicitType &&
+                    dt205->as<syntax::IntegerTypeSyntax>().signing)
+                    continue;
+                if (dt205->kind == syntax::SyntaxKind::ImplicitType &&
+                    dt205->as<syntax::ImplicitTypeSyntax>().signing)
+                    continue;
+                SourceLocation st205 = dt205->sourceRange().start();
+                if (pd205.header->kind == syntax::SyntaxKind::NetPortHeader) {
+                    auto& nh205 = pd205.header->as<syntax::NetPortHeaderSyntax>();
+                    if (nh205.netType)
+                        st205 = nh205.netType.location();
+                }
+                for (auto* d : pd205.declarators)
+                    if (d && !d->name.valueText().empty()) {
+                        dims205.emplace(d->name.valueText(), dl205);
+                        start205.emplace(d->name.valueText(), st205);
+                    }
+            }
+            for (auto& [pb205, ts205] : portTsPre) {
+                auto dit205 = dims205.find(pb205->name);
+                if (!ts205 || dit205 == dims205.end() ||
+                    ts205->UhdmType() != UHDM::uhdmlogic_typespec)
+                    continue;
+                // § pdTsNotTypedefListing209v (v11u209) — a port declaration
+                // redeclared with a TYPEDEF (`output [7:0] o; my_t o;`) reads
+                // the typedef's shared, NAMED listing typespec here: moving it
+                // would relocate every reader of `my_t` into the interface
+                // (golden keeps `my_t` at its declaration and gives the port
+                // its own unnamed typespec, a stage-1 face this law does not
+                // model).  Grid tools/probe/v11u209repro/cases/PD v01.
+                // Switch R11V209_PDNAMED_OFF.
+                if (!ts205->VpiName().empty() &&
+                    r11v209Law("R11V209_PDNAMED_OFF")) {
+                    trace209("pdTsNotTypedefListing209v", std::string(pb205->name));
+                    continue;
+                }
+                auto& dl = *dit205->second;
+                auto* rv205 = ((UHDM::logic_typespec*)ts205)->Ranges();
+                if (!rv205 || rv205->size() != dl.size())
+                    continue;
+                bool ok205 = true;
+                for (auto* d : dl)
+                    if (!d || !d->specifier ||
+                        d->specifier->kind != syntax::SyntaxKind::RangeDimensionSpecifier ||
+                        d->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                                .selector->kind != syntax::SyntaxKind::SimpleRangeSelect)
+                        ok205 = false;
+                if (!ok205)
+                    continue;
+                trace205("ifacePortDeclTsAtPortDecl205", std::string(pb205->name));
+                setLoc(ts205, SourceRange(start205.at(pb205->name),
+                                          dl[dl.size() - 1]->sourceRange().end()));
+                for (size_t k = 0; k < dl.size(); k++) {
+                    auto* r205 = (*rv205)[k];
+                    setLoc(r205, dl[k]->sourceRange());
+                    auto& rs205 = dl[k]->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                                      .selector->as<syntax::RangeSelectSyntax>();
+                    if (auto* le = r205->Left_expr(); le && le->VpiLineNo())
+                        setLoc((UHDM::BaseClass*)le, rs205.left->sourceRange());
+                    if (auto* re = r205->Right_expr(); re && re->VpiLineNo())
+                        setLoc((UHDM::BaseClass*)re, rs205.right->sourceRange());
+                }
+            }
+        }
     auto* vars = s.MakeVariablesVec();
     auto* elabNets = s.MakeNetVec();
     UHDM::VectorOfarray_net* elabArrayNets = nullptr;
@@ -49313,6 +49433,23 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                                 auto wit155 = w155.find(std::string(io155->VpiName()));
                                 if (wit155 == w155.end())
                                     continue;
+                                // § mpOrphanLaterWriter209v (v11u209) — note the
+                                // last bare / one-select writer's position for
+                                // § modportOpOrphanReparent209, which must not
+                                // re-parent a view object a LATER such
+                                // connection names (golden's last writer).  A
+                                // record only: no byte of this view moves.
+                                // Only the kinds this law names (a struct_net
+                                // member connection recompiles unreduced and
+                                // leaves golden's orphan in place: IM v28).
+                                if (ex155->UhdmType() == UHDM::uhdmlogic_net ||
+                                    ex155->UhdmType() == UHDM::uhdmlogic_var)
+                                noteMpWriter209v(
+                                    ex155,
+                                    comp.getSourceManager()->getLineNumber(
+                                        wit155->second.first),
+                                    comp.getSourceManager()->getColumnNumber(
+                                        wit155->second.first));
                                 const std::string& nf155 = wit155->second.second;
                                 UHDM::ref_typespec* rt155 = nullptr;
                                 switch (ex155->UhdmType()) {
@@ -51804,6 +51941,45 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                             branchPrefix + "." + iname + "." +
                                             formal + "." +
                                             std::string(lf37->VpiName()));
+                            // § genConnTrailSelChain205 (r11u205), the
+                            // DEFINITION-view half (the elaborated half is
+                            // the UhdmExporter post-pass of the same name):
+                            // a trailing bit_select sits at its INDEX and
+                            // reads its name, and its index reference's,
+                            // through the port and the path text
+                            // (`work@top.gen_classes.i_accu.class_en_i.
+                            // reg2hw_wrap.class_en[k].class_en` 11:49-50;
+                            // ours the bare text at the member token).
+                            // Switch R11U205_GENIDXSEL_OFF.
+                            if (auto* pes205 = hp37->Path_elems();
+                                pes205 && pes205->size() >= 2 &&
+                                pes205->back() &&
+                                pes205->back()->UhdmType() ==
+                                    UHDM::uhdmbit_select &&
+                                r11u205Law("R11U205_GENIDXSEL_OFF")) {
+                                auto* bs205 = (UHDM::bit_select*)pes205->back();
+                                std::string pfx205 =
+                                    branchPrefix + "." + iname + "." + formal +
+                                    "." + std::string(hp37->VpiName());
+                                trace205("genConnTrailSelChain205",
+                                         pfx205 + " (def)");
+                                bs205->VpiFullName(
+                                    pfx205 + "." + std::string(bs205->VpiName()));
+                                if (auto* ix205 = bs205->VpiIndex()) {
+                                    if (ix205->VpiLineNo() != 0) {
+                                        bs205->VpiLineNo(ix205->VpiLineNo());
+                                        bs205->VpiColumnNo(ix205->VpiColumnNo());
+                                        bs205->VpiEndLineNo(ix205->VpiEndLineNo());
+                                        bs205->VpiEndColumnNo(
+                                            ix205->VpiEndColumnNo());
+                                    }
+                                    if (ix205->UhdmType() == UHDM::uhdmref_obj)
+                                        ((UHDM::ref_obj*)ix205)
+                                            ->VpiFullName(
+                                                pfx205 + "." +
+                                                std::string(ix205->VpiName()));
+                                }
+                            }
                             p->High_conn((UHDM::expr*)dotHp9);
                         }
                         else if (idxGroups.size() >= 2 && !act.empty() &&

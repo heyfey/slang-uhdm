@@ -73,6 +73,8 @@ void trace200(const char* law, const std::string& detail); // R11U200_TRACE
 bool r11v202Law(const char* sw); // the v11u202 switches (UhdmExporter.cpp)
 void trace202(const char* law, const std::string& detail); // R11U202_TRACE
 bool r11u206Law(const char* sw); // the r11u206 switches (UhdmExporter.cpp)
+bool r11u209Law(const char* sw); // the r11u209 switches (UhdmExporter.cpp)
+void trace209(const char* law, const std::string& detail); // R11U209_TRACE
 void trace206(const char* law, const std::string& detail); // R11U206_TRACE
 void noteTpUse180(UHDM::typespec* ts, const slang::ast::Symbol& declSymbol,
                   const slang::syntax::SyntaxNode* typeSyn); // § classTpDefaultTsAtUse180 (TypeEmit.cpp)
@@ -7061,7 +7063,28 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // Initialized locals anchor at the name (and are later
                 // re-parented at their init assignment, without the
                 // automatic flag).
-                if (blockLocal || hasInit || blockItems9) {
+                // § tfItemInitLocalAtType209 (r11u209, BuildUVMPkg #22454 /
+                // #22460: `static bit first = 1;` and `uvm_cmdline_processor
+                // clp = ...` in the paren-less `function void
+                // uvm_component::m_set_cl_verb;`) — a subroutine in the
+                // TF-ITEM form (`blockItems9` false: a function written
+                // without a port list, or any subroutine whose body declares
+                // a port) declares its locals as tf items, and Surelog's
+                // tf-item arm (CompileStmt.cpp, the `paBlock_item_declaration`
+                // branch of the tf-item loop) locates each variable with
+                // compileVariable at its DATA TYPE whether or not it is
+                // initialised (golden bit_var `first` 41170:10-13 at `bit`,
+                // not the name; grid LV l01 l02 l04 l07, and l08 a task with
+                // a body `input`); a block-item local (a paren-less task with
+                // no body port, l05) stays at the name.  Grid
+                // tools/probe/r11u209repro/cases/LV.  Switch
+                // R11U209_TFINITTYPE_OFF.
+                bool initAtType209 =
+                    hasInit && !blockLocal && !blockItems9 &&
+                    r11u209Law("R11U209_TFINITTYPE_OFF");
+                if (initAtType209)
+                    trace209("tfItemInitLocalAtType209", std::string(fmv.name));
+                if (blockLocal || (hasInit && !initAtType209) || blockItems9) {
                     // BLOCK-item locals anchor at the NAME token; the tf_item
                     // form keeps the declared-type span.
                     setLoc(v, nameSpan(fmv.location, fmv.name));

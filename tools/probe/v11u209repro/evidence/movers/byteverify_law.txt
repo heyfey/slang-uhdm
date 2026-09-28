@@ -1,0 +1,32 @@
+== surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/BlackBePipeInt-1fcd9dad/slang.uhdm  patched=c3fdbf1356ea pristine=31201cee0f3c
+MOVER ./default/BuildUVMPkg-fc55bd0c/slang.uhdm  patched=075c76184e4b pristine=a22b6ee6955d
+MOVER ./default/Earlgrey_0_1-a898def8/slang.uhdm  patched=5bb5b3b989b4 pristine=15e6e48bc148
+MOVER ./default/HierPathTypespec-8695be14/slang.uhdm  patched=174f944ecab5 pristine=6d0a5bb36a86
+MOVER ./default/InterfaceStructMemberPort-44e373f1/slang.uhdm  patched=15a05bb3e502 pristine=3de115bf45e9
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=f334cfddc12c pristine=dd9e7e671b37
+MOVER ./default/Rggen-ee9ac8af/slang.uhdm  patched=4606a3046974 pristine=15ba3814eca2
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=6dc99079b3c6 pristine=e8579dab5a62
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=b6bf6a0d8942 pristine=a08930879bae
+MOVER ./default/SimpleUVM-267de3ff/slang.uhdm  patched=54361cb6690f pristine=cd899e2e190b
+MOVER ./default/TypedefRange-c9c0f946/slang.uhdm  patched=af23fc9ac573 pristine=7147f4f8588a
+MOVER ./testflags/BlackBePipeInt-1fcd9dad/slang.uhdm  patched=a2c1f809227e pristine=d13f9c13d490
+MOVER ./testflags/BuildUVMPkg-fc55bd0c/slang.uhdm  patched=075c76184e4b pristine=a22b6ee6955d
+MOVER ./testflags/Earlgrey_0_1-a898def8/slang.uhdm  patched=1961f9984a06 pristine=e449573deea9
+MOVER ./testflags/HierPathTypespec-8695be14/slang.uhdm  patched=b642765ceb8c pristine=a88cbf856c25
+MOVER ./testflags/InterfaceStructMemberPort-44e373f1/slang.uhdm  patched=557d0c7f528f pristine=3effaa2ae089
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=d80c40d466b3 pristine=dd9e7e671b37
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=7ef100650eb2 pristine=5388c9e9503c
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm  patched=083660ad2bdb pristine=1d27315c4d9f
+MOVER ./testflags/TypedefRange-c9c0f946/slang.uhdm  patched=5d39a5eb0dfd pristine=ead5ab44f766
+MOVERS: 20 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/TypedefPackedDimensions-5f58a006/slang.uhdm  patched=332e296f8e52 pristine=b85a6d291855
+MOVER ./testflags/TypedefPackedDimensions-5f58a006/slang.uhdm  patched=22054c646c21 pristine=739f25baddf9
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged

@@ -12,6 +12,9 @@
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
+// § pkgArrTdElemClone209 deep-clones a struct typespec as Surelog does.
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/clone_tree.h>
 
 namespace slang_uhdm {
 
@@ -513,6 +516,96 @@ void trace202(const char* law, const std::string& detail) {
         if (!d)
             return nullptr;
         std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".202";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s %s\n", law, detail.c_str());
+        fflush(tf);
+    }
+}
+// The r11u209 switches (tools/probe/r11u209repro/README.md, pass 209 on the
+// module/type ground): every law reads its own R11U209_<LAW>_OFF switch;
+// R11U209_OFF drops all of them and the r11u205 laws this pass landed (the
+// pristine bytes).  R11U209_TRACE=<dir> names every firing (one file per
+// process, `<dir>/<pid>.209`, first line `OUT <-o path>`, then
+// `<law> <detail>`).
+bool r11u209Law(const char* sw) {
+    if (getenv("R11U209_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+void trace209(const char* law, const std::string& detail) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U209_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".209";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s %s\n", law, detail.c_str());
+        fflush(tf);
+    }
+}
+// The r11u205 switches (tools/probe/r11u205dec/README.md, the analyst decode
+// of map 12's ground-B heads): every law reads its own R11U205_<LAW>_OFF
+// switch; R11U205_OFF drops all of them (the pristine bytes).
+// R11U205_TRACE=<dir> names every firing (one file per process,
+// `<dir>/<pid>.205`, first line `OUT <-o path>`, then `<law> <detail>`).
+// Landed by pass r11u209 (tools/probe/r11u209repro/README.md), which also
+// drops them under its own pass switch R11U209_OFF and traces them under
+// R11U209_TRACE.
+bool r11u205Law(const char* sw) {
+    if (getenv("R11U205_OFF") != nullptr || getenv("R11U209_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+void trace205(const char* law, const std::string& detail) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U205_TRACE");
+        if (!d)
+            d = getenv("R11U209_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".205";
         FILE* fp = fopen(fn.c_str(), "a");
         if (!fp)
             return nullptr;
@@ -1760,6 +1853,478 @@ static void shareInstTypeParams120(
     };
     for (auto* t : *d->TopModules())
         walk120(t);
+}
+
+// § pkgArrTdElemClone209 (r11u209, map N1174: HierPathTypespec testflags) —
+// A PACKAGE TYPEDEF OF A PACKED ARRAY OF A NAMED STRUCT OR UNION OWNS A DEEP
+// CLONE OF ITS ELEMENT.  `typedef a [5:0] b;` in a package: Surelog's
+// compileTypeDef (CompileHelper.cpp, the named-type branch, `reduce ==
+// Reduce::Yes` in a package or file scope) compiles `a [5:0]` to a
+// packed_array_typespec whose element reads the typedef's own struct, then
+// lists `tpclone = clone_tree(ts, ElaboratorContext(&s, false, true))` as `b`
+// with a Typedef_alias back to the original: that ElaboratorContext
+// uniquifies typespecs, so ref_typespec::DeepCopy deep-clones the element
+// struct too, parented at the clone's element reference.  Every name read
+// through that clone's members runs through `b`: UHDM's elaborator binds
+// `c[1].x` (c of type b, -elabuhdm) through the variable's typespec element
+// (clone_tree.cpp, the packed_array_var arm), so golden's member reference
+// reads `pkg::pkg::b::pkg::a::x` where ours read the listing struct's
+// `pkg::pkg::a::x`.  Shared vs copied typespecs are invisible to uhdm-cmp
+// and canonicalised by the strict walk, so only that bound member's chain
+// moves.  Post-pass, before the elaborator runs (uhdm_main): every package
+// listing packed_array_typespec with a name, a Typedef_alias and an element
+// reference whose actual is a named struct or union typespec not already
+// parented at that reference takes a clone made exactly as Surelog makes it;
+// the clone's stored full names are dropped so they read the new chain.
+// Grid tools/probe/r11u209repro/cases/HP.  Switch R11U209_ARRTDCLONE_OFF.
+static void pkgArrTdElemClone209(UHDM::Serializer& s, UHDM::design* d) {
+    if (!d || !r11u209Law("R11U209_ARRTDCLONE_OFF"))
+        return;
+    std::function<void(UHDM::any*)> dropNames = [&](UHDM::any* o) {
+        if (!o)
+            return;
+        const UHDM::VectorOftypespec_member* mems = nullptr;
+        if (o->UhdmType() == UHDM::uhdmstruct_typespec)
+            mems = ((UHDM::struct_typespec*)o)->Members();
+        else if (o->UhdmType() == UHDM::uhdmunion_typespec)
+            mems = ((UHDM::union_typespec*)o)->Members();
+        if (!mems)
+            return;
+        for (auto* m : *mems) {
+            if (!m)
+                continue;
+            if (auto* rt = m->Typespec()) {
+                rt->VpiFullName("");
+                dropNames((UHDM::any*)rt->Actual_typespec());
+            }
+        }
+    };
+    auto visit = [&](UHDM::package* pk) {
+        if (!pk || !pk->Typespecs())
+            return;
+        for (auto* t : *pk->Typespecs()) {
+            if (!t || t->UhdmType() != UHDM::uhdmpacked_array_typespec)
+                continue;
+            auto* pa = (UHDM::packed_array_typespec*)t;
+            if (pa->VpiName().empty() || !pa->Typedef_alias())
+                continue;
+            auto* er = pa->Elem_typespec();
+            auto* el = er ? er->Actual_typespec() : nullptr;
+            if (!el || el->VpiName().empty() ||
+                (el->UhdmType() != UHDM::uhdmstruct_typespec &&
+                 el->UhdmType() != UHDM::uhdmunion_typespec) ||
+                el->VpiParent() == er)
+                continue;
+            UHDM::ElaboratorContext ctx(&s, false, true);
+            UHDM::any* cla = UHDM::clone_tree((UHDM::any*)el, &ctx);
+            if (!cla || cla->UhdmType() != el->UhdmType())
+                continue;
+            auto* cl = (UHDM::typespec*)cla;
+            cl->VpiParent(er);
+            dropNames(cl);
+            er->Actual_typespec(cl);
+            trace209("pkgArrTdElemClone209", std::string(pa->VpiName()));
+        }
+    };
+    if (d->TopPackages())
+        for (auto* pk : *d->TopPackages())
+            visit(pk);
+}
+
+// § portConnOpLeafChain209 (r11u209, map N1134: InterfaceStructMemberPort) —
+// A HIER_PATH INSIDE A PORT CONNECTION'S OPERATION STORES NO FULL NAME ON ITS
+// LAST ELEMENT.  `inner u (.b(q.wen & t))`: Surelog compiles an instance's
+// port actual with compileExpression (NetlistElaboration.cpp, the named and
+// ordered connection loop; CompileHelper's generate-statement listing in the
+// definition view) and stores a full name only on a whole-actual ref_obj
+// (`p->High_conn(ref)` / `hexpr->VpiFullName(...)` for a ref_obj actual), so
+// the member reference at the end of a path inside an operation reads UHDM's
+// lazy chain through the operation and the formal: golden
+// `work@top.w.u.b.wen`, ours the scope's `work@top.w.wen` (and, in the
+// definition view's generate listing, the bare `wen` where golden reads
+// `work@wrapper.g.u.b.wen`).  The operation may be nested (m11), a condition
+// (m12) or a concatenation (m13); a path ending in a select (m14) and a whole
+// path actual (m16) are golden's already.  Post-pass over every port: each
+// hier_path in its High_conn operation tree whose last element is a ref_obj
+// drops that element's stored full name.  Grid
+// tools/probe/r11u209repro/cases/IM.  Switch R11U209_OPLEAFCHAIN_OFF.
+static void portConnOpLeafChain209(UHDM::Serializer& s) {
+    if (!r11u209Law("R11U209_OPLEAFCHAIN_OFF"))
+        return;
+    std::function<void(const UHDM::any*, int)> walk = [&](const UHDM::any* o,
+                                                           int depth) {
+        if (!o || depth > 64)
+            return;
+        if (o->UhdmType() == UHDM::uhdmoperation) {
+            if (auto* ops = ((const UHDM::operation*)o)->Operands())
+                for (auto* x : *ops)
+                    walk(x, depth + 1);
+            return;
+        }
+        if (o->UhdmType() != UHDM::uhdmhier_path)
+            return;
+        auto* pes = ((const UHDM::hier_path*)o)->Path_elems();
+        if (!pes || pes->empty() || !pes->back() ||
+            pes->back()->UhdmType() != UHDM::uhdmref_obj)
+            return;
+        auto* leaf = (UHDM::ref_obj*)pes->back();
+        leaf->VpiFullName("");
+        trace209("portConnOpLeafChain209", std::string(leaf->VpiName()));
+    };
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (const UHDM::any*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmport)
+            continue;
+        auto* hc = ((const UHDM::port*)o)->High_conn();
+        if (hc && hc->UhdmType() == UHDM::uhdmoperation)
+            walk(hc, 0);
+    }
+}
+
+// § modportOpOrphanReparent209 (r11u209, map N1134: InterfaceStructMemberPort)
+// — THE MODPORT OBJECTS AN ELABORATED CONNECTION OPERATION READS ARE
+// RE-PARENTED AT AN ORPHAN OPERATION WHEN ONE OF ITS OPERANDS SELECTS A
+// MEMBER OF A STRUCT NET.  NetlistElaboration.cpp (the port-actual compile)
+// first compiles the actual with Reduce::Yes: every modport member reference
+// reduces to the port view's own object (`sub.trn` -> the logic_var trn,
+// `sub.req.wen` -> the WHOLE struct_net req, the member dropped), and a
+// binary operation parents its operands at itself.  An operand that reduced
+// to a struct_net makes it recompile the actual with Reduce::No and keep that
+// (the hier_path form), so the first operation is orphaned while the shared
+// view objects stay parented at it: golden's `struct_net req` and
+// `logic_var trn` below the port view's modport read no full name and their
+// ref_typespecs `req` / `trn` (ours `work@top.w.sub.sub.req.req` through the
+// io_decl).  A unary operation does not re-parent (m03), and an operation
+// whose operands reduce to no struct net is kept reduced (m05, the operands
+// replaced by the view objects: not modelled).  Post-pass over the elaborated
+// tree in instance and port order (the last connection wins): per child
+// instance port whose High_conn is an operation of two or more operands and
+// at least one operand is a hier_path `<port>.<member>.<...>` rooted at a
+// modport interface port of the enclosing module whose member is a
+// struct_net, every operand `<port>.<member>[...]` so rooted re-parents the
+// member's view object at a fresh operation of the same kind and span with
+// those objects as operands, parented nowhere (as golden's).  Grid
+// tools/probe/r11u209repro/cases/IM.  Switch R11U209_MPORPHAN_OFF.
+// The v11u209 refinements (tools/probe/v11u209repro/README.md, the adversarial
+// verification of r11u209): each reads its own R11V209_<NAME>_OFF switch;
+// R11V209_OFF drops both (the r11u209 law as delivered), R11U209_OFF drops the
+// law they refine.
+bool r11v209Law(const char* sw) {
+    if (getenv("R11V209_OFF") != nullptr || getenv("R11U209_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// § mpOrphanLaterWriter209v — (line, column) of the last bare or one-select
+// member connection (`.c(sub.trn)`, `.d(sub.vec[1])`) of each port-view object,
+// noted by ModuleEmit's § ifaceSigConnNamedByChildPort155 (which names the
+// object through that writer's child port).
+static std::map<const UHDM::any*, std::pair<uint32_t, uint32_t>>& mpWriter209v() {
+    static std::map<const UHDM::any*, std::pair<uint32_t, uint32_t>> m;
+    return m;
+}
+void noteMpWriter209v(const UHDM::any* viewObj, uint32_t line, uint32_t col) {
+    if (viewObj)
+        mpWriter209v()[viewObj] = {line, col};
+}
+static void modportOpOrphanReparent209(UHDM::Serializer& s, UHDM::design* d) {
+    if (!d || !r11u209Law("R11U209_MPORPHAN_OFF"))
+        return;
+    auto viewObj = [](const UHDM::module_inst* m, std::string_view pn,
+                      std::string_view mn) -> UHDM::any* {
+        if (!m || !m->Ports())
+            return nullptr;
+        for (auto* p : *m->Ports()) {
+            if (!p || p->VpiName() != pn)
+                continue;
+            auto* lc = p->Low_conn();
+            if (!lc || lc->UhdmType() != UHDM::uhdmref_obj)
+                return nullptr;
+            auto* ag = ((const UHDM::ref_obj*)lc)->Actual_group();
+            if (!ag || ag->UhdmType() != UHDM::uhdmmodport)
+                return nullptr;
+            auto* ios = ((const UHDM::modport*)ag)->Io_decls();
+            if (!ios)
+                return nullptr;
+            for (auto* io : *ios)
+                if (io && io->VpiName() == mn)
+                    return (UHDM::any*)io->Expr();
+            return nullptr;
+        }
+        return nullptr;
+    };
+    auto doPorts = [&](const UHDM::module_inst* encl, const UHDM::VectorOfport* ports) {
+        if (!ports)
+            return;
+        for (auto* p : *ports) {
+            auto* hc = p ? p->High_conn() : nullptr;
+            if (!hc || hc->UhdmType() != UHDM::uhdmoperation)
+                continue;
+            auto* op = (const UHDM::operation*)hc;
+            auto* ops = op->Operands();
+            if (!ops || ops->size() < 2)
+                continue;
+            std::vector<UHDM::any*> red;
+            bool trig = false;
+            for (auto* x : *ops) {
+                if (!x || x->UhdmType() != UHDM::uhdmhier_path)
+                    continue;
+                auto* pes = ((const UHDM::hier_path*)x)->Path_elems();
+                if (!pes || pes->size() < 2 || !(*pes)[0] || !(*pes)[1] ||
+                    (*pes)[0]->UhdmType() != UHDM::uhdmref_obj ||
+                    (*pes)[1]->UhdmType() != UHDM::uhdmref_obj)
+                    continue;
+                auto* vo = viewObj(encl, (*pes)[0]->VpiName(), (*pes)[1]->VpiName());
+                if (!vo)
+                    continue;
+                if (pes->size() >= 3 && vo->UhdmType() == UHDM::uhdmstruct_net)
+                    trig = true;
+                if (std::find(red.begin(), red.end(), vo) == red.end())
+                    red.push_back(vo);
+            }
+            // § mpOrphanSkipConcat209v (v11u209) — a CONCATENATION (and the
+            // other list-shaped operations) is compiled operand by operand
+            // (CompileExpression.cpp's paConcatenation arm) with no member
+            // reduction, so no operand reads a struct_net, needsUnreduced
+            // stays false and golden keeps the hier_path concatenation with
+            // no orphan: `.a({sub.req.wen, sub.trn, 6'd0})` leaves golden's
+            // `work@top.w.sub.sub.req.req` and `work@top.w.sub.trn` (the
+            // pristine names; the law had cleared them).  Grid
+            // tools/probe/v11u209repro/cases/IM v02 v21 (v26: a binary
+            // operation after the concatenation still orphans).  Switch
+            // R11V209_MPCONCAT_OFF.
+            if (trig) {
+                const int ot209 = op->VpiOpType();
+                if ((ot209 == vpiConcatOp || ot209 == vpiMultiConcatOp ||
+                     ot209 == vpiAssignmentPatternOp ||
+                     ot209 == vpiMultiAssignmentPatternOp ||
+                     ot209 == vpiStreamLROp || ot209 == vpiStreamRLOp) &&
+                    r11v209Law("R11V209_MPCONCAT_OFF")) {
+                    trace209("mpOrphanSkipConcat209v", std::to_string(ot209));
+                    continue;
+                }
+            }
+            // § mpOrphanLaterWriter209v (v11u209) — the view object keeps the
+            // name of a LATER bare or one-select connection of the same member
+            // (`.b(sub.req.wen & sub.trn), .c(sub.trn)`, or `.b(sub.trn)` in a
+            // later instance): Surelog's port-actual loop runs the connections
+            // in source order and that later actual reduces to the object
+            // itself, re-parenting it at its own port (golden
+            // `work@top.w.u.c.trn`, which § ifaceSigConnNamedByChildPort155
+            // already writes); the orphan only wins when it is the last writer
+            // (v20: the bare connection first).  Grid
+            // tools/probe/v11u209repro/cases/IM v19 v22 (v20 v25 the orphan
+            // last).  Switch R11V209_MPLATER_OFF.
+            if (trig && r11v209Law("R11V209_MPLATER_OFF")) {
+                const std::pair<uint32_t, uint32_t> at209{op->VpiLineNo(),
+                                                          op->VpiColumnNo()};
+                red.erase(std::remove_if(red.begin(), red.end(),
+                                         [&](UHDM::any* vo) {
+                                             auto w = mpWriter209v().find(vo);
+                                             bool later =
+                                                 w != mpWriter209v().end() &&
+                                                 at209 < w->second;
+                                             if (later)
+                                                 trace209("mpOrphanLaterWriter209v",
+                                                          std::string(vo->VpiName()));
+                                             return later;
+                                         }),
+                          red.end());
+            }
+            if (!trig || red.empty())
+                continue;
+            auto* orphan = s.MakeOperation();
+            orphan->VpiOpType(op->VpiOpType());
+            orphan->VpiFile(op->VpiFile());
+            orphan->VpiLineNo(op->VpiLineNo());
+            orphan->VpiColumnNo(op->VpiColumnNo());
+            orphan->VpiEndLineNo(op->VpiEndLineNo());
+            orphan->VpiEndColumnNo(op->VpiEndColumnNo());
+            auto* ov = s.MakeAnyVec();
+            for (auto* vo : red) {
+                ov->push_back(vo);
+                vo->VpiParent(orphan);
+                // the names read the new chain (golden's were computed there)
+                UHDM::ref_typespec* vt = nullptr;
+                if (auto* vn = any_cast<UHDM::nets*>(vo)) {
+                    vn->VpiFullName("");
+                    vt = vn->Typespec();
+                }
+                else if (auto* vv = any_cast<UHDM::variables*>(vo)) {
+                    vv->VpiFullName("");
+                    vt = vv->Typespec();
+                }
+                if (vt)
+                    vt->VpiFullName("");
+                trace209("modportOpOrphanReparent209", std::string(vo->VpiName()));
+            }
+            orphan->Operands(ov);
+        }
+    };
+    std::function<void(const UHDM::any*, const UHDM::module_inst*)> walk =
+        [&](const UHDM::any* o, const UHDM::module_inst* encl) {
+            if (!o)
+                return;
+            switch (o->UhdmType()) {
+                case UHDM::uhdmmodule_inst: {
+                    auto* mi = (const UHDM::module_inst*)o;
+                    if (encl)
+                        doPorts(encl, mi->Ports());
+                    if (mi->Modules())
+                        for (auto* c : *mi->Modules())
+                            walk(c, mi);
+                    if (mi->Gen_scope_arrays())
+                        for (auto* c : *mi->Gen_scope_arrays())
+                            walk(c, mi);
+                    break;
+                }
+                case UHDM::uhdmgen_scope_array: {
+                    auto* ga = (const UHDM::gen_scope_array*)o;
+                    if (ga->Gen_scopes())
+                        for (auto* g : *ga->Gen_scopes())
+                            walk(g, encl);
+                    break;
+                }
+                case UHDM::uhdmgen_scope: {
+                    auto* g = (const UHDM::gen_scope*)o;
+                    if (g->Modules())
+                        for (auto* c : *g->Modules())
+                            walk(c, encl);
+                    if (g->Gen_scope_arrays())
+                        for (auto* c : *g->Gen_scope_arrays())
+                            walk(c, encl);
+                    break;
+                }
+                default:
+                    break;
+            }
+        };
+    if (d->TopModules())
+        for (auto* m : *d->TopModules())
+            walk(m, nullptr);
+}
+
+// § genConnTrailSelChain205 (r11u205, map N0945: Earlgrey_0_1's head) — THE
+// TRAILING SELECT OF A HIER_PATH PORT ACTUAL OF A GENERATE-SCOPE INSTANCE
+// STORES NO FULL NAME AND SITS AT ITS INDEX.  `.class_en_i(reg2hw_wrap.
+// class_en[k])` inside `for (genvar k ...) begin : gen_classes`: Surelog's
+// compileComplexFuncCall builds the path's last `paSelect` as a bit_select
+// located at the INDEX expression, stores no vpiFullName on it or on its
+// index reference, and parents the index at the select, so both read their
+// names off the parent chain: `<instance>.<formal>.<path text>.<member>`
+// and `<instance>.<formal>.<path text>.<index name>` (golden
+// `work@alert_handler.gen_classes.i_accu.class_en_i.reg2hw_wrap.class_en[k].
+// class_en` at 148:44-45).  Ours: in the DEFINITION view the bare path text
+// at the member token (TypeEmit's hier_path arm under emitDefGenStmts) and
+// the index named through the formal alone; in the ELABORATED view a name
+// frozen before the instance was parented at its generate scope
+// (`work@top.i_accu.class_en_i.reg2hw_wrap.class_en[k].class_en`, the scope
+// and the folded index missing).  The instance-scope form (no generate) is
+// already golden's (grid GS q03) and a MIDDLE select keeps its bare form
+// (g14).  Post-pass over both views: every module or interface instance
+// whose parent is a gen_scope, every port whose high_conn is a hier_path of
+// two or more elements ending in a bit_select.  Grid
+// tools/probe/r11u205dec/cases/GS.  Switch R11U205_GENIDXSEL_OFF.
+static void genConnTrailSelChain205(UHDM::design* d) {
+    if (!d || !r11u205Law("R11U205_GENIDXSEL_OFF"))
+        return;
+    auto fixInst = [&](const UHDM::any* o) {
+        const UHDM::VectorOfport* ports = nullptr;
+        if (o->UhdmType() == UHDM::uhdmmodule_inst)
+            ports = ((const UHDM::module_inst*)o)->Ports();
+        else if (o->UhdmType() == UHDM::uhdminterface_inst)
+            ports = ((const UHDM::interface_inst*)o)->Ports();
+        if (!ports)
+            return;
+        std::string ifull(((const UHDM::instance*)o)->VpiFullName());
+        if (ifull.empty())
+            return;
+        for (auto* p : *ports) {
+            if (!p || !p->High_conn() ||
+                p->High_conn()->UhdmType() != UHDM::uhdmhier_path)
+                continue;
+            auto* hp = (UHDM::hier_path*)p->High_conn();
+            auto* pes = hp->Path_elems();
+            if (!pes || pes->size() < 2 || !pes->back() ||
+                pes->back()->UhdmType() != UHDM::uhdmbit_select)
+                continue;
+            auto* bs = (UHDM::bit_select*)pes->back();
+            std::string pfx = ifull + "." + std::string(p->VpiName()) + "." +
+                              std::string(hp->VpiName());
+            std::string want = pfx + "." + std::string(bs->VpiName());
+            trace205("genConnTrailSelChain205", want);
+            bs->VpiFullName(want);
+            if (auto* ix = bs->VpiIndex()) {
+                if (ix->VpiLineNo() != 0) {
+                    bs->VpiLineNo(ix->VpiLineNo());
+                    bs->VpiColumnNo(ix->VpiColumnNo());
+                    bs->VpiEndLineNo(ix->VpiEndLineNo());
+                    bs->VpiEndColumnNo(ix->VpiEndColumnNo());
+                }
+                if (ix->UhdmType() == UHDM::uhdmref_obj)
+                    ((UHDM::ref_obj*)ix)
+                        ->VpiFullName(pfx + "." + std::string(ix->VpiName()));
+            }
+        }
+    };
+    std::function<void(const UHDM::any*, bool)> walk =
+        [&](const UHDM::any* o, bool inGen) {
+            if (!o)
+                return;
+            switch (o->UhdmType()) {
+                case UHDM::uhdmmodule_inst: {
+                    auto* mi = (const UHDM::module_inst*)o;
+                    if (inGen)
+                        fixInst(o);
+                    if (mi->Modules())
+                        for (auto* c : *mi->Modules())
+                            walk(c, false);
+                    if (mi->Interfaces())
+                        for (auto* c : *mi->Interfaces())
+                            walk(c, false);
+                    if (mi->Gen_scope_arrays())
+                        for (auto* c : *mi->Gen_scope_arrays())
+                            walk(c, true);
+                    break;
+                }
+                case UHDM::uhdminterface_inst: {
+                    auto* ii = (const UHDM::interface_inst*)o;
+                    if (inGen)
+                        fixInst(o);
+                    if (ii->Gen_scope_arrays())
+                        for (auto* c : *ii->Gen_scope_arrays())
+                            walk(c, true);
+                    break;
+                }
+                case UHDM::uhdmgen_scope_array: {
+                    auto* ga = (const UHDM::gen_scope_array*)o;
+                    if (ga->Gen_scopes())
+                        for (auto* g : *ga->Gen_scopes())
+                            walk(g, true);
+                    break;
+                }
+                case UHDM::uhdmgen_scope: {
+                    auto* g = (const UHDM::gen_scope*)o;
+                    if (g->Modules())
+                        for (auto* c : *g->Modules())
+                            walk(c, true);
+                    if (g->Interfaces())
+                        for (auto* c : *g->Interfaces())
+                            walk(c, true);
+                    if (g->Gen_scope_arrays())
+                        for (auto* c : *g->Gen_scope_arrays())
+                            walk(c, true);
+                    break;
+                }
+                default:
+                    break;
+            }
+        };
+    if (d->AllModules())
+        for (auto* m : *d->AllModules())
+            walk(m, false);
+    if (d->TopModules())
+        for (auto* m : *d->TopModules())
+            walk(m, false);
 }
 
 // § tpUseBindsDefDefault160 (r11u160, map N0090 + N0533,
@@ -14583,6 +15148,7 @@ UHDM::design* UhdmExporter::exportDesign() {
         // § tpCastUseBindsDefDefault206 — the casts, from 160's map.
         tpCastUseBindsDefDefault206(s, e2d206);
     }
+    genConnTrailSelChain205(d);  // § genConnTrailSelChain205 (r11u205)
     if (ovr120Valid)
         shareInstTypeParams120(d, ovr120);
     // § pkgFlatSurelogBits117 (r11u117) — after every reader copied the
@@ -15609,6 +16175,13 @@ UHDM::design* UhdmExporter::exportDesign() {
                 tfArgOutsideCopyOrder193(d, td, it->second, typedefTs[td], last->container);
         }
     }
+    // § pkgArrTdElemClone209 — last, before the elaborator (law and decode
+    // at the function).
+    pkgArrTdElemClone209(s, d);
+    // § portConnOpLeafChain209 / § modportOpOrphanReparent209 — last, after
+    // every name stamp (laws and decodes at the functions).
+    portConnOpLeafChain209(s);
+    modportOpOrphanReparent209(s, d);
     return d;
 }
 

@@ -1,0 +1,56 @@
+== MiniAmiq v11u209_sP
+  A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73				
+  B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16				
+objects 435559 vs 433769
+== MiniAmiq v11u209_sQ
+  A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73				
+  B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16				
+objects 435559 vs 433835
+== SeqDriver v11u209_sP
+  A: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0		
+  raw fullname A: work@top_tb.uvm_pkg::uvm_event_pool | B: uvm_pkg::uvm_event_pool
+== SeqDriver v11u209_sQ
+  A: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0		
+  raw fullname A: work@top_tb.uvm_pkg::uvm_event_pool | B: uvm_pkg::uvm_event_pool
+== SimpleUVM v11u209_sP
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+objects 334285 vs 334373
+== SimpleUVM v11u209_sQ
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+objects 334285 vs 334439
+== Scoreboard v11u209_sP
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+objects 269656 vs 269679
+== Scoreboard v11u209_sQ
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+objects 269656 vs 269733
+== BuildUVMPkg v11u209_sP
+  A: 5	int_typespec	uvm_action			uvm_pkg.sv	9704	72	9704	82				
+  B: 5	int_typespec	uvm_action			uvm_pkg.sv	8075	9	8075	12				
+objects 201533 vs 201534
+== BuildUVMPkg v11u209_sQ
+  A: 10	constant				uvm_pkg.sv	12963	61	12963	62	1	64	UINT:1	9
+  B: 10	constant				uvm_pkg.sv	13469	85	13469	86	1	64	UINT:1	9
+objects 201533 vs 201588
+== Earlgrey_0_1 v11u209_sP
+  A: 7	bit_select	class_en		work@alert_handler.gen_classes.i_accu.class_en_i.reg2hw_wrap.class_en[k].class_en	alert_handler.sv	148	44	148	45		0		
+  B: 7	bit_select	class_en		reg2hw_wrap.class_en[k]	alert_handler.sv	148	35	148	43		0		
+objects 2173209 vs 2173853
+== Earlgrey_0_1 v11u209_sQ
+  A: 5	constant				dm_csrs.sv	91	52	91	56	8'h04	8	HEX:04	5
+  B: 5	constant				dm_csrs.sv	91	52	91	61	8'h04	8	HEX:04	5
+objects 2173209 vs 2173853
+== Rggen v11u209_sP
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_0.g_bit_field_0.bit_field_if.read_data[0+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[0+:4]	block_0.sv	7	24	7	38		0		
+objects 314498 vs 312769
+== Rggen v11u209_sQ
+  A: 9	constant				rggen_apb_adapter.sv	18	39	18	48	25	64	UINT:25	9
+  B: 9	constant				block_0.sv	18	39	18	48	25	64	UINT:25	9
+objects 314498 vs 312769

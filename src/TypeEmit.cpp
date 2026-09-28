@@ -127,6 +127,10 @@ bool r11u200Law(const char* sw); // the r11u200 switches (UhdmExporter.cpp)
 void trace200(const char* law, const std::string& detail); // R11U200_TRACE
 bool r11u202Law(const char* sw); // the r11u202 switches (UhdmExporter.cpp)
 void trace202(const char* law, const std::string& detail); // R11U202_TRACE
+bool r11u205Law(const char* sw); // the r11u205 switches (UhdmExporter.cpp)
+bool r11u209Law(const char* sw); // the r11u209 switches (UhdmExporter.cpp)
+void trace209(const char* law, const std::string& detail); // R11U209_TRACE
+void trace205(const char* law, const std::string& detail); // R11U205_TRACE
 bool r11v202Law(const char* sw); // the v11u202 switches (UhdmExporter.cpp)
 // § defGenInitBitSelAtIndex202 — armed by ModuleEmit around a definition-view
 // generate-block variable's initializer (R11U202_GENINITBS_OFF read there).
@@ -3640,8 +3644,49 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             }
             if (modGeneric196)
                 trace196("modGenericHandleBare196", std::string(ct0.name));
+            // § tfItemLocalSpecAtName209 (r11u209) — a subroutine body
+            // local of the TF-ITEM production (§ tfItemLocalClassTs142's
+            // gate: a paren-less function, or a body port) written as a
+            // specialization of a generic declared in the package that
+            // homes the subroutine (`k #(4) d;` in `function void g;` of a
+            // class of that package) has its typespec built by
+            // compileTypespec's slStringConst arm, whose
+            // `<component's parent scope>::<typeName>` (class method) or
+            // `<component>::<typeName>` (package subroutine) probe hits the
+            // package class and mints the bare class_typespec at the NAME
+            // token (`populateCoreMembers(type, type, tps)`): golden 11:7-8
+            // where ours spanned `k #(4)` (11:7-13), with or without an
+            // initializer; the block-item form keeps the whole text (grid
+            // LV l09 f).  Grid tools/probe/r11u209repro/cases/LV.  Switch
+            // R11U209_TFSPECNAME_OFF.
+            bool tfItemSpec209 = false;
+            if (tfItemLocalClassTs142 && nested0 && pkgGeneric53 &&
+                r11u209Law("R11U209_TFSPECNAME_OFF")) {
+                auto& cls209 = ct0.as<ClassType>();
+                const Symbol* g209 =
+                    cls209.genericClass ? static_cast<const Symbol*>(cls209.genericClass)
+                                        : static_cast<const Symbol*>(&cls209);
+                const Symbol* gp209 =
+                    g209->getParentScope() ? &g209->getParentScope()->asSymbol() : nullptr;
+                const Symbol* hp209 = nullptr;
+                for (auto sc209 = declSymbol.getParentScope(); sc209;
+                     sc209 = sc209->asSymbol().getParentScope()) {
+                    auto k209 = sc209->asSymbol().kind;
+                    if (k209 == SymbolKind::Package) {
+                        hp209 = &sc209->asSymbol();
+                        break;
+                    }
+                    if (k209 != SymbolKind::Subroutine &&
+                        k209 != SymbolKind::StatementBlock &&
+                        k209 != SymbolKind::ClassType)
+                        break;
+                }
+                tfItemSpec209 = gp209 && hp209 == gp209;
+                if (tfItemSpec209)
+                    trace209("tfItemLocalSpecAtName209", std::string(declSymbol.name));
+            }
             const bool listingSite196 =
-                listingSite53 ||
+                listingSite53 || tfItemSpec209 ||
                 (modGeneric196 && (siteKind53 == SymbolKind::ClassType ||
                                    siteKind53 == SymbolKind::Package ||
                                    declSymbol.kind == SymbolKind::FormalArgument));
@@ -16596,6 +16641,37 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                 // and honours § pkgTdRangeViewFold18's defClone exception).
                 bool unban3 =
                     bypassTypedefShare && aggMemberIsSharedAggTd3(fm);
+                // § classTdPkgEnumMemberShares209 (r11u209, BuildUVMPkg's
+                // structural record #22506: `uvm_verbosity verbosity;` in
+                // uvm_component's `typedef struct {...}
+                // m_verbosity_setting;`) — the same lift for a member written
+                // with an ENUM typedef declared in a PACKAGE: Surelog's
+                // member compile (compileDatastructureTypespec, the TypeDef
+                // arm) hands back the typedef's own listing object, golden's
+                // package `enum_typespec` (located wherever its last formal
+                // writer moved it), where the ban left ours on the generic
+                // tail's bit_typespec at the member's type token (a strict
+                // `type` record; uhdm-cmp reads the two equal).  Only a
+                // package typedef: a class-scope enum typedef keeps the
+                // existing arms (§ aggMemberAggTdSharesListing3's R2 clone
+                // question).  Grid tools/probe/r11u209repro/cases/CS.
+                // Switch R11U209_CLSENUMMEM_OFF.
+                if (!unban3 && bypassTypedefShare && fm.getDeclaredType() &&
+                    r11u209Law("R11U209_CLSENUMMEM_OFF")) {
+                    auto& mt209 = fm.getDeclaredType()->getType();
+                    if (mt209.kind == SymbolKind::TypeAlias &&
+                        mt209.getCanonicalType().kind == SymbolKind::EnumType)
+                        if (auto* ps209 = mt209.as<TypeAliasType>().getParentScope();
+                            ps209 && ps209->asSymbol().kind == SymbolKind::Package)
+                            if (auto it209 = typedefTs.find(&mt209);
+                                it209 != typedefTs.end() && it209->second &&
+                                it209->second->UhdmType() == UHDM::uhdmenum_typespec &&
+                                !it209->second->VpiName().empty()) {
+                                unban3 = true;
+                                trace209("classTdPkgEnumMemberShares209",
+                                         std::string(fm.name));
+                            }
+                }
                 if (unban3)
                     bypassTypedefShare = false;
                 fts = makeTypespec(fm, memberTypeSyn);
@@ -17365,6 +17441,37 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                 // and honours § pkgTdRangeViewFold18's defClone exception).
                 bool unban3 =
                     bypassTypedefShare && aggMemberIsSharedAggTd3(fm);
+                // § classTdPkgEnumMemberShares209 (r11u209, BuildUVMPkg's
+                // structural record #22506: `uvm_verbosity verbosity;` in
+                // uvm_component's `typedef struct {...}
+                // m_verbosity_setting;`) — the same lift for a member written
+                // with an ENUM typedef declared in a PACKAGE: Surelog's
+                // member compile (compileDatastructureTypespec, the TypeDef
+                // arm) hands back the typedef's own listing object, golden's
+                // package `enum_typespec` (located wherever its last formal
+                // writer moved it), where the ban left ours on the generic
+                // tail's bit_typespec at the member's type token (a strict
+                // `type` record; uhdm-cmp reads the two equal).  Only a
+                // package typedef: a class-scope enum typedef keeps the
+                // existing arms (§ aggMemberAggTdSharesListing3's R2 clone
+                // question).  Grid tools/probe/r11u209repro/cases/CS.
+                // Switch R11U209_CLSENUMMEM_OFF.
+                if (!unban3 && bypassTypedefShare && fm.getDeclaredType() &&
+                    r11u209Law("R11U209_CLSENUMMEM_OFF")) {
+                    auto& mt209 = fm.getDeclaredType()->getType();
+                    if (mt209.kind == SymbolKind::TypeAlias &&
+                        mt209.getCanonicalType().kind == SymbolKind::EnumType)
+                        if (auto* ps209 = mt209.as<TypeAliasType>().getParentScope();
+                            ps209 && ps209->asSymbol().kind == SymbolKind::Package)
+                            if (auto it209 = typedefTs.find(&mt209);
+                                it209 != typedefTs.end() && it209->second &&
+                                it209->second->UhdmType() == UHDM::uhdmenum_typespec &&
+                                !it209->second->VpiName().empty()) {
+                                unban3 = true;
+                                trace209("classTdPkgEnumMemberShares209",
+                                         std::string(fm.name));
+                            }
+                }
                 if (unban3)
                     bypassTypedefShare = false;
                 fts = makeTypespec(fm, memberTypeSyn);
@@ -17462,6 +17569,32 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
             typeSyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
     auto& ct = ta.targetType.getType().getCanonicalType();
     auto& fua = ct.as<FixedSizeUnpackedArrayType>();
+    // § twinElemOnlyNoRange209 (r11u209, pass 206's R1; switch
+    // R11U209_TWINELEM_OFF) — a DYNAMIC container (queue, dynamic or
+    // associative array) reaches this builder only from TaskFuncEmit's
+    // § queueTwinKeepsElem204v, which borrows the clone form's ELEMENT and
+    // orphans the rest.  `fua` above is then a FixedSizeUnpackedArrayType
+    // view of a QueueType / DynamicArrayType / AssociativeArrayType: its
+    // `elementType` shares the layout (a sound read), but its `range` reads
+    // past the object (a queue's maxBound and padding, an associative
+    // array's index-type pointer, a dynamic array's neighbour bytes), so the
+    // orphaned range carried an uninitialised UINT value that changed with
+    // every rebuild (r11u196repro/cases/V191/qr01).  No reader reaches the
+    // orphan (uhdm-cmp, the strict walk, the dump and the plugin never do),
+    // but it made a database's bytes build-dependent.  The element is read
+    // through the container's own type and no range is minted.
+    const Type* dynElem209 = nullptr;
+    if (ct.kind != SymbolKind::FixedSizeUnpackedArrayType &&
+        r11u209Law("R11U209_TWINELEM_OFF")) {
+        if (ct.kind == SymbolKind::QueueType)
+            dynElem209 = &ct.as<QueueType>().elementType;
+        else if (ct.kind == SymbolKind::DynamicArrayType)
+            dynElem209 = &ct.as<DynamicArrayType>().elementType;
+        else if (ct.kind == SymbolKind::AssociativeArrayType)
+            dynElem209 = &ct.as<AssociativeArrayType>().elementType;
+        if (dynElem209)
+            trace209("twinElemOnlyNoRange209", std::string(ta.name));
+    }
     auto* ats = s.MakeArray_typespec();
     SourceLocation aS = ta.location, aE = ta.location;
     if (typeSyn)
@@ -17476,6 +17609,7 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
         }
     }
     setLoc(ats, SourceRange(aS, aE));
+    if (!dynElem209) {
     auto* rv = s.MakeRangeVec();
     auto* r = s.MakeRange();
     r->VpiParent(ats);
@@ -17596,10 +17730,11 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
     }
     rv->push_back(r);
     ats->Ranges(rv);
+    }  // § twinElemOnlyNoRange209: no range for a dynamic container
     // Elem ref -> the ELEMENT typedef's shared ts (typedef bar_t foobar_t [2]
     // points at bar_t's struct ts) — Surelog.
     {
-        const Type* el0 = &fua.elementType;
+        const Type* el0 = dynElem209 ? dynElem209 : &fua.elementType;
         UHDM::typespec* ets0 = nullptr;
         if (auto ei = typedefTs.find(el0); ei != typedefTs.end())
             ets0 = ei->second;
@@ -21822,6 +21957,30 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         };
                         ip8->Base_expr(mkC8(lb + 1, pl9));
                         ip8->Width_expr(mkC8(pl9 + 2, rb));
+                        // § defGenTargetIpsDefName205 (r11u205, map N1249) —
+                        // the SEL writer of § defGenPathSel161 names an
+                        // INDEXED part select exactly as it names the
+                        // [l:r] part select above: Surelog's
+                        // compilePartSelectRange builds the element for a
+                        // definition-view generate assignment TARGET with
+                        // VpiDefName = the field and no stored full name,
+                        // so golden reads the chain through the path
+                        // (Rggen `assign bit_field_if.read_data[0+:4] = ..`
+                        // in g_bit_field_0: `read_data` / `work@block_0.
+                        // g_register_0.g_bit_field_0.bit_field_if.
+                        // read_data[0+:4].read_data`; ours no definition
+                        // name and the bare dotted text).  A right-side
+                        // use keeps the bare form (grid IP i05).  Grid
+                        // tools/probe/r11u205dec/cases/IP.  Switch
+                        // R11U205_IPSNAME_OFF.
+                        if (sel161 && i > 0 && name161 &&
+                            r11u205Law("R11U205_IPSNAME_OFF")) {
+                            trace205("defGenTargetIpsDefName205", dispRaw);
+                            ip8->VpiDefName(base8);
+                            if (!syntaxRefPrefix.empty())
+                                ip8->VpiFullName(syntaxRefPrefix + "." +
+                                                 dispRaw + "." + base8);
+                        }
                         elems->push_back(ip8);
                         continue;
                     }
