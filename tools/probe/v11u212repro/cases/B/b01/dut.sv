@@ -1,0 +1,10 @@
+// § pkgEnumAliasListingParent212 — verifier: a package alias of another package's enum typedef
+package pa;
+  typedef enum { A, B, C } e_t;
+endpackage
+package pb;
+  typedef pa::e_t f_t;
+endpackage
+module dut(input logic i, output logic o);
+  assign o = i;
+endmodule

@@ -1,0 +1,2 @@
+databases: patched=0 pristine=0
+NO_DATABASES

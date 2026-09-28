@@ -1,0 +1,64 @@
+f01 golden: mz.in_t.a x1  mz.in_t.b x1  work@aa.in_t.a x1  work@aa.in_t.b x1  
+f01 pristine: work@aa.in_t.a x1  work@aa.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f01 law: mz.in_t.a x2  mz.in_t.b x2  
+f01 fix1: mz.in_t.a x1  mz.in_t.b x1  work@aa.in_t.a x1  work@aa.in_t.b x1  
+f01_el golden: mz.in_t.a x1  mz.in_t.b x1  work@aa.in_t.a x1  work@aa.in_t.b x1  
+f01_el pristine: work@aa.in_t.a x1  work@aa.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f01_el law: mz.in_t.a x2  mz.in_t.b x2  
+f01_el fix1: mz.in_t.a x1  mz.in_t.b x1  work@aa.in_t.a x1  work@aa.in_t.b x1  
+f02 golden: ma.in_t.a x1  ma.in_t.b x1  mz.in_t.a x1  mz.in_t.b x1  
+f02 pristine: work@aa.in_t.a x1  work@aa.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f02 law: mz.in_t.a x2  mz.in_t.b x2  
+f02 fix1: ma.in_t.a x1  ma.in_t.b x1  mz.in_t.a x1  mz.in_t.b x1  
+f02_el golden: ma.in_t.a x1  ma.in_t.b x1  mz.in_t.a x1  mz.in_t.b x1  
+f02_el pristine: work@aa.in_t.a x1  work@aa.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f02_el law: mz.in_t.a x2  mz.in_t.b x2  
+f02_el fix1: ma.in_t.a x1  ma.in_t.b x1  mz.in_t.a x1  mz.in_t.b x1  
+f03 golden: mz.in_t.a x1  mz.in_t.b x1  work@ii.in_t.a x1  work@ii.in_t.b x1  
+f03 pristine: work@dut.in_t.a x1  work@dut.in_t.b x1  work@ii.in_t.a x1  work@ii.in_t.b x1  
+f03 law: mz.in_t.a x2  mz.in_t.b x2  
+f03 fix1: mz.in_t.a x1  mz.in_t.b x1  work@ii.in_t.a x1  work@ii.in_t.b x1  
+f03_el golden: mz.in_t.a x1  mz.in_t.b x1  work@ii.in_t.a x1  work@ii.in_t.b x1  
+f03_el pristine: work@dut.in_t.a x1  work@dut.in_t.b x1  work@ii.in_t.a x1  work@ii.in_t.b x1  
+f03_el law: mz.in_t.a x2  mz.in_t.b x2  
+f03_el fix1: mz.in_t.a x1  mz.in_t.b x1  work@ii.in_t.a x1  work@ii.in_t.b x1  
+f04 golden: ma.in_t.a x1  ma.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f04 pristine: work@aa.in_t.a x1  work@aa.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f04 law: ma.in_t.a x2  ma.in_t.b x2  
+f04 fix1: ma.in_t.a x1  ma.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f04_el golden: ma.in_t.a x1  ma.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f04_el pristine: work@aa.in_t.a x1  work@aa.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f04_el law: ma.in_t.a x2  ma.in_t.b x2  
+f04_el fix1: ma.in_t.a x1  ma.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f05 golden: ea.e_t x1  ez.e_t x1  
+f05 pristine: work@aa.e_t x1  work@zz.e_t x1  
+f05 law: ez.e_t x2  
+f05 fix1: ea.e_t x1  ez.e_t x1  
+f05_el golden: ea.e_t x1  ez.e_t x1  
+f05_el pristine: work@aa.e_t x1  work@zz.e_t x1  
+f05_el law: ez.e_t x2  
+f05_el fix1: ea.e_t x1  ez.e_t x1  
+f06 golden: ma.in_t.a x1  ma.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f06 pristine: work@aa.in_t.a x1  work@aa.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f06 law: ma.in_t.a x2  ma.in_t.b x2  
+f06 fix1: ma.in_t.a x1  ma.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f06_el golden: ma.in_t.a x1  ma.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f06_el pristine: work@aa.in_t.a x1  work@aa.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f06_el law: ma.in_t.a x2  ma.in_t.b x2  
+f06_el fix1: ma.in_t.a x1  ma.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f07 golden: ma.in_t.a x1  ma.in_t.b x1  
+f07 pristine: 
+f07 law: ma.in_t.a x1  ma.in_t.b x1  
+f07 fix1: ma.in_t.a x1  ma.in_t.b x1  
+f07_el golden: ma.in_t.a x1  ma.in_t.b x1  
+f07_el pristine: 
+f07_el law: ma.in_t.a x1  ma.in_t.b x1  
+f07_el fix1: ma.in_t.a x1  ma.in_t.b x1  
+f08 golden: mz.in_t.a x1  mz.in_t.b x1  work@aa.in_t.a x1  work@aa.in_t.b x1  
+f08 pristine: work@aa.in_t.a x1  work@aa.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f08 law: mz.in_t.a x2  mz.in_t.b x2  
+f08 fix1: mz.in_t.a x1  mz.in_t.b x1  work@aa.in_t.a x1  work@aa.in_t.b x1  
+f08_el golden: mz.in_t.a x1  mz.in_t.b x1  work@aa.in_t.a x1  work@aa.in_t.b x1  
+f08_el pristine: work@aa.in_t.a x1  work@aa.in_t.b x1  work@zz.in_t.a x1  work@zz.in_t.b x1  
+f08_el law: mz.in_t.a x2  mz.in_t.b x2  
+f08_el fix1: mz.in_t.a x1  mz.in_t.b x1  work@aa.in_t.a x1  work@aa.in_t.b x1  

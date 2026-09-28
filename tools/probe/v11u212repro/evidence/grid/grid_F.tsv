@@ -1,0 +1,16 @@
+F/f01	P:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	L:cmp=0/STRICT_EQUAL_236_objects/rc=0	F:cmp=0/STRICT_EQUAL_236_objects/rc=0	F!=L	VOFF=law	ALLOFF=pris
+F/f02	P:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	L:cmp=0/STRICT_EQUAL_247_objects/rc=0	F:cmp=0/STRICT_EQUAL_247_objects/rc=0	F!=L	VOFF=law	ALLOFF=pris
+F/f03	P:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	L:cmp=0/STRICT_EQUAL_216_objects/rc=0	F:cmp=0/STRICT_EQUAL_216_objects/rc=0	F!=L	VOFF=law	ALLOFF=pris
+F/f01_el	P:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	L:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	F:cmp=0/STRICT_EQUAL_223_objects/rc=0	F!=L	VOFF=law	ALLOFF=pris
+F/f02_el	P:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	L:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	F:cmp=0/STRICT_EQUAL_243_objects/rc=0	F!=L	VOFF=law	ALLOFF=pris
+F/f03_el	P:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	L:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	F:cmp=0/STRICT_EQUAL_218_objects/rc=0	F!=L	VOFF=law	ALLOFF=pris
+F/f05	P:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	L:cmp=0/STRICT_EQUAL_243_objects/rc=0	F:cmp=0/STRICT_EQUAL_243_objects/rc=0	F!=L	VOFF=law	ALLOFF=pris
+F/f04	P:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	L:cmp=0/STRICT_EQUAL_236_objects/rc=0	F:cmp=0/STRICT_EQUAL_236_objects/rc=0	F!=L	VOFF=law	ALLOFF=pris
+F/f06	P:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	L:cmp=0/STRICT_EQUAL_255_objects/rc=0	F:cmp=0/STRICT_EQUAL_255_objects/rc=0	F!=L	VOFF=law	ALLOFF=pris
+F/f05_el	P:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	L:cmp=0/STRICT_EQUAL_235_objects/rc=0	F:cmp=0/STRICT_EQUAL_235_objects/rc=0	F!=L	VOFF=law	ALLOFF=pris
+F/f06_el	P:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	L:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	F:cmp=0/STRICT_EQUAL_242_objects/rc=0	F!=L	VOFF=law	ALLOFF=pris
+F/f04_el	P:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	L:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	F:cmp=0/STRICT_EQUAL_223_objects/rc=0	F!=L	VOFF=law	ALLOFF=pris
+F/f07	P:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	L:cmp=0/STRICT_EQUAL_205_objects/rc=0	F:cmp=0/STRICT_EQUAL_205_objects/rc=0	F=L	VOFF=law	ALLOFF=pris
+F/f08	P:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	L:cmp=0/STRICT_EQUAL_234_objects/rc=0	F:cmp=0/STRICT_EQUAL_234_objects/rc=0	F!=L	VOFF=law	ALLOFF=pris
+F/f07_el	P:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	L:cmp=0/STRICT_EQUAL_186_objects/rc=0	F:cmp=0/STRICT_EQUAL_186_objects/rc=0	F=L	VOFF=law	ALLOFF=pris
+F/f08_el	P:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	L:cmp=0/STRICT_NOTEQUAL_fullname/rc=0	F:cmp=0/STRICT_EQUAL_221_objects/rc=0	F!=L	VOFF=law	ALLOFF=pris

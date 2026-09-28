@@ -1,0 +1,14 @@
+PRISTINE-BYTES surelog/default/BuildUVMPkg-fc55bd0c/
+PRISTINE-BYTES surelog/default/MiniAmiq-055eab74/
+PRISTINE-BYTES surelog/default/Rggen-ee9ac8af/
+DIFF surelog/default/Scoreboard-72aa0ba8/ sortedeq=yes
+PRISTINE-BYTES surelog/default/SeqDriver-65178d3a/
+PRISTINE-BYTES surelog/default/SimpleUVM-267de3ff/
+PRISTINE-BYTES surelog/testflags/BuildUVMPkg-fc55bd0c/
+PRISTINE-BYTES surelog/testflags/MiniAmiq-055eab74/
+PRISTINE-BYTES surelog/testflags/SeqDriver-65178d3a/
+PRISTINE-BYTES surelog/testflags/SimpleUVM-267de3ff/
+PRISTINE-BYTES uhdm2rtlil/default/anon_struct_packed_dim-031e610c/
+PRISTINE-BYTES uhdm2rtlil/default/TypedefEnum-1d0a2b11/
+PRISTINE-BYTES uhdm2rtlil/testflags/anon_struct_packed_dim-031e610c/
+PRISTINE-BYTES uhdm2rtlil/testflags/TypedefEnum-1d0a2b11/

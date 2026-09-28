@@ -585,6 +585,57 @@ void trace209(const char* law, const std::string& detail) {
         fflush(tf);
     }
 }
+// The r11u212 switches (tools/probe/r11u212repro/README.md): every law of
+// pass r11u212 reads its own R11U212_<LAW>_OFF switch; R11U212_OFF drops all
+// of them (the pristine bytes).  R11U212_TRACE=<dir> names every firing (one
+// file per process, `<dir>/<pid>.212`, first line `OUT <-o path>`, then
+// `<law> <detail>`).
+bool r11u212Law(const char* sw) {
+    if (getenv("R11U212_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+void trace212(const char* law, const std::string& detail) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U212_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".212";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s %s\n", law, detail.c_str());
+        fflush(tf);
+    }
+}
+// The v11u212 switches (tools/probe/r11u212verify/README.md, the adversarial
+// verification of pass r11u212): every refinement reads its own
+// R11V212_<LAW>_OFF switch; R11V212_OFF drops all of them (the pass-212 law as
+// delivered).  Firings are traced through trace212 (R11U212_TRACE).
+bool r11v212Law(const char* sw) {
+    if (getenv("R11V212_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
 // The r11u205 switches (tools/probe/r11u205dec/README.md, the analyst decode
 // of map 12's ground-B heads): every law reads its own R11U205_<LAW>_OFF
 // switch; R11U205_OFF drops all of them (the pristine bytes).
@@ -1072,7 +1123,11 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
                                   const std::set<const UHDM::BaseClass*>& keep182) {
     const bool lastWriter = r11u134Law("R11U134_TDPARENT_OFF");
     const bool caUnparent = r11u134Law("R11U134_CAUNPARENT_OFF");
-    if (!d || (!lastWriter && !caUnparent))
+    // § anonMemberTdLastWriter212 (the law's statement is at its block below).
+    const bool anonMem212 = r11u212Law("R11U212_ANONMEMTD_OFF");
+    // § pkgEnumAliasListingParent212 (the law's statement is at its block).
+    const bool pkgEnumAlias212 = r11u212Law("R11U212_PKGENUMALIAS_OFF");
+    if (!d || (!lastWriter && !caUnparent && !anonMem212 && !pkgEnumAlias212))
         return;
     // § packedArrTdElemRefName137 — writeDataTypes (setParent) and
     // writeCont_assign's unparenting act on EVERY typespec kind: a named
@@ -1127,6 +1182,211 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
         if (auto* v = d->AllModules())
             for (auto* p : *v)
                 listOf(p, p->Typespecs());
+    }
+    // § pkgEnumAliasListingParent212 (r11u212) — A PACKAGE TYPEDEF THAT
+    // ALIASES AN ENUM TYPEDEF IS PARENTED AT ITS PACKAGE WHEN NOTHING ELSE
+    // LISTS IT.  The alias (`typedef uvm_sequencer_arb_mode
+    // UVM_SEQ_ARB_TYPE;`) compiles to an enum_typespec copy whose
+    // Typedef_alias ref points at the aliased enum; UhdmWriter's
+    // writeDataTypes(setParent) parents it at the package like every other
+    // datatype of the package map, and the alias ref, on which Surelog
+    // stores no full name, reads ComputeFullName over that chain:
+    // `uvm_pkg::uvm_pkg::UVM_SEQ_ARB_TYPE` (BuildUVMPkg d/t, map 13's N0778)
+    // where ours left the copy without a parent (`uvm_pkg::UVM_SEQ_ARB_TYPE`).
+    // An importing module that lists the alias keeps it (that parent is set
+    // before this model runs and is not touched: grid EA e03).  The listing
+    // writer below skips enums on purpose (a plain package enum keeps its
+    // package parent, which ours already writes); this fills only an alias
+    // copy left parentless.  Grid tools/probe/r11u212repro/cases/EA.  Switch
+    // R11U212_PKGENUMALIAS_OFF.
+    if (pkgEnumAlias212) {
+        auto aliasOf = [&](UHDM::BaseClass* c, const UHDM::VectorOftypespec* v) {
+            if (v)
+                for (auto* t : *v)
+                    if (t->UhdmType() == UHDM::uhdmenum_typespec && !t->VpiName().empty() &&
+                        ((UHDM::enum_typespec*)t)->Typedef_alias() &&
+                        t->VpiParent() == nullptr) {
+                        setNP(t, c);
+                        trace212("pkgEnumAliasListingParent212", std::string(t->VpiName()));
+                    }
+        };
+        if (auto* v = d->TopPackages())
+            for (auto* p : *v)
+                aliasOf(p, p->Typespecs());
+        if (auto* v = d->AllPackages())
+            for (auto* p : *v)
+                aliasOf(p, p->Typespecs());
+    }
+    // § anonMemberTdLastWriter212 (r11u212) — A NAMED TYPEDEF WRITTEN AS A
+    // MEMBER OF AN ANONYMOUS STRUCT OR UNION IS PARENTED AT THE LAST SUCH
+    // MEMBER.  Surelog's struct compile (CompileType.cpp, the paStruct_union
+    // arm of compileTypespec) ends every member with
+    //     member_ts->VpiParent(m);
+    // and for a bare typedef name compileDatastructureTypespec hands back the
+    // typedef's OWN typespec (TypeDef::getTypespec, no clone for a struct,
+    // union or enum), so each anonymous aggregate that writes the typedef
+    // re-parents the one shared object at its member, and the last compile
+    // wins; the definition views are compiled per definition in UhdmWriter's
+    // order (programs, interfaces, modules, each in allModules name order)
+    // and, inside one definition, in declaration order, after the module's
+    // own typedef listing (writeDataTypes) and before the elaborated
+    // assignments of writeCont_assign, which still unparent a typedef that
+    // types an assignment's left side (§ contAssignLhsTsUnparented134 below
+    // keeps the last word).  The definition-view anonymous aggregate has no
+    // parent, so golden's member-ref full names read `<member>.<typedef>.<m>`
+    // (uhdm2rtlil anon_struct_packed_dim `gpte.pte_t.ppn` where ours read
+    // `pte_t.ppn`; a module typedef `q.in_t.a` for `work@dut.in_t.a`; an
+    // enum's base ref `q.e_t`).  Grid tools/probe/r11u212repro/cases/SR
+    // (s01-s34): the $unit and module typedefs; a PACKAGE typedef keeps the
+    // package listing in the parse view (s17), a typedef nested in a NAMED
+    // outer typedef keeps its listing (s02, s03), and a plain variable of the
+    // typedef does not move it (s05's reset is the assignment's).  The law
+    // declines a typedef held by a package or class and a member whose
+    // anonymous chain carries a name.  Switch R11U212_ANONMEMTD_OFF.
+    std::map<std::string, UHDM::BaseClass*> anonMem212ByKey;
+    // § anonMemberTdOwnerDef212v (v11u212) — the last anonymous member PER
+    // DEFINITION, keyed like anonMem212ByKey (the law's statement is at its
+    // application below).
+    std::map<std::string, std::map<std::string, UHDM::BaseClass*>> anonMem212ByKeyDef;
+    auto defId212v = [](const UHDM::BaseClass* x) {
+        std::string n(x->VpiDefName());
+        if (n.empty())
+            n = std::string(x->VpiName());
+        return n;
+    };
+    if (anonMem212) {
+        auto isAnonAgg = [](const UHDM::BaseClass* t) {
+            if (!t)
+                return false;
+            auto k = t->UhdmType();
+            return (k == UHDM::uhdmstruct_typespec || k == UHDM::uhdmunion_typespec) &&
+                   t->VpiName().empty();
+        };
+        auto peel = [](const UHDM::typespec* t) -> const UHDM::typespec* {
+            for (int i = 0; t && i < 8; ++i) {
+                const UHDM::ref_typespec* er = nullptr;
+                if (t->UhdmType() == UHDM::uhdmpacked_array_typespec)
+                    er = ((const UHDM::packed_array_typespec*)t)->Elem_typespec();
+                else if (t->UhdmType() == UHDM::uhdmarray_typespec)
+                    er = ((const UHDM::array_typespec*)t)->Elem_typespec();
+                else
+                    break;
+                t = er ? er->Actual_typespec() : nullptr;
+            }
+            return t;
+        };
+        auto heldByPkgOrClass = [](const UHDM::BaseClass* t) {
+            for (auto* a = t->VpiParent(); a; a = a->VpiParent()) {
+                auto k = a->UhdmType();
+                if (k == UHDM::uhdmdesign)
+                    break;
+                if (k == UHDM::uhdmpackage || k == UHDM::uhdmclass_defn)
+                    return true;
+            }
+            return false;
+        };
+        auto namelessAbove = [](const UHDM::BaseClass* m) {
+            for (auto* a = m->VpiParent(); a; a = a->VpiParent()) {
+                if (a->UhdmType() == UHDM::uhdmdesign)
+                    break;
+                if (!a->VpiName().empty() || !a->VpiDefName().empty())
+                    return false;
+            }
+            return true;
+        };
+        struct W212 {
+            int line, col;
+            UHDM::BaseClass* member;
+            const UHDM::BaseClass* ts;
+        };
+        std::function<void(const UHDM::BaseClass*, std::vector<W212>&,
+                           std::set<const UHDM::BaseClass*>&)>
+            collect = [&](const UHDM::BaseClass* agg, std::vector<W212>& out,
+                          std::set<const UHDM::BaseClass*>& seen) {
+                if (!isAnonAgg(agg) || !seen.insert(agg).second)
+                    return;
+                const UHDM::VectorOftypespec_member* ms =
+                    agg->UhdmType() == UHDM::uhdmstruct_typespec
+                        ? ((const UHDM::struct_typespec*)agg)->Members()
+                        : ((const UHDM::union_typespec*)agg)->Members();
+                if (!ms)
+                    return;
+                for (auto* tm : *ms) {
+                    auto* rt = tm->Typespec();
+                    const UHDM::typespec* mts = rt ? rt->Actual_typespec() : nullptr;
+                    if (!mts)
+                        continue;
+                    if (isAnonAgg(mts)) {
+                        collect(mts, out, seen);
+                        continue;
+                    }
+                    if (named(mts) && mts->UhdmType() != UHDM::uhdmpacked_array_typespec &&
+                        !heldByPkgOrClass(mts))
+                        out.push_back({tm->VpiLineNo(), tm->VpiColumnNo(), tm, mts});
+                }
+            };
+        auto defPass = [&](const UHDM::BaseClass* def) {
+            std::vector<const UHDM::typespec*> roots;
+            auto addExprs = [&](auto* v) {
+                if (v)
+                    for (auto* x : *v)
+                        if (auto* rt = x->Typespec())
+                            roots.push_back(peel(rt->Actual_typespec()));
+            };
+            auto addPorts = [&](const UHDM::VectorOfport* v) {
+                if (v)
+                    for (auto* x : *v)
+                        if (auto* rt = x->Typespec())
+                            roots.push_back(peel(rt->Actual_typespec()));
+            };
+            switch (def->UhdmType()) {
+            case UHDM::uhdmmodule_inst: {
+                auto* m = (const UHDM::module_inst*)def;
+                addPorts(m->Ports());
+                addExprs(m->Nets());
+                addExprs(m->Variables());
+                break;
+            }
+            case UHDM::uhdminterface_inst: {
+                auto* m = (const UHDM::interface_inst*)def;
+                addPorts(m->Ports());
+                addExprs(m->Nets());
+                addExprs(m->Variables());
+                break;
+            }
+            case UHDM::uhdmprogram: {
+                auto* m = (const UHDM::program*)def;
+                addPorts(m->Ports());
+                addExprs(m->Nets());
+                addExprs(m->Variables());
+                break;
+            }
+            default:
+                return;
+            }
+            std::vector<W212> ws;
+            std::set<const UHDM::BaseClass*> seen;
+            for (auto* r : roots)
+                collect(r, ws, seen);
+            std::stable_sort(ws.begin(), ws.end(), [](const W212& a, const W212& b) {
+                return a.line != b.line ? a.line < b.line : a.col < b.col;
+            });
+            for (auto& w : ws) {
+                if (!namelessAbove(w.member))
+                    continue;
+                anonMem212ByKey[key(w.ts)] = w.member;
+                anonMem212ByKeyDef[key(w.ts)][defId212v(def)] = w.member;
+            }
+        };
+        if (auto* v = d->AllPrograms())
+            for (auto* p : *v)
+                defPass(p);
+        if (auto* v = d->AllInterfaces())
+            for (auto* p : *v)
+                defPass(p);
+        if (auto* v = d->AllModules())
+            for (auto* p : *v)
+                defPass(p);
     }
     std::set<std::string> keys;
     if (caUnparent) {
@@ -1270,6 +1530,62 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
         }
         return false;
     };
+    // § anonMemberTdLastWriter212: every object of the typedef (our
+    // definition and elaborated listings are separate objects) takes the
+    // last anonymous member, before the assignment unparenting below.
+    // § anonMemberTdOwnerDef212v (v11u212) — A TYPEDEF DECLARED IN A MODULE,
+    // INTERFACE OR PROGRAM TAKES ONLY ITS OWN DEFINITION'S LAST ANONYMOUS
+    // MEMBER.  The key (kind, name, file, line, column) is the same for the
+    // typedefs of two definitions that include one header declaring a
+    // module-scope typedef (`include "td.svh"` in modules aa and zz), and the
+    // global last member then reparented every definition's typedef at the
+    // one member; Surelog compiles a typedef per design component
+    // (CompileHelper::compileTypeDef on the component's own FileContent
+    // nodes), so each definition's anonymous member reparents only its own
+    // typedef and a definition with no anonymous member keeps its listing:
+    // golden `work@aa.in_t.b` beside `mz.in_t.b` where the law read
+    // `mz.in_t.b` twice (a pristine-right record moved away in the elaborated
+    // view; grid tools/probe/r11u212verify/cases/F f01-f04).  A typedef whose
+    // listing sits under no definition ($unit: the design) keeps the global
+    // last member.  Switch R11V212_TDOWNER_OFF.
+    static const bool owner212v = r11v212Law("R11V212_TDOWNER_OFF");
+    auto ownerDef212v = [&](const UHDM::BaseClass* o) -> std::string {
+        for (auto* a = o->VpiParent(); a; a = a->VpiParent()) {
+            auto k = a->UhdmType();
+            if (k == UHDM::uhdmmodule_inst || k == UHDM::uhdminterface_inst ||
+                k == UHDM::uhdmprogram)
+                return defId212v(a);
+            if (k == UHDM::uhdmdesign || k == UHDM::uhdmpackage ||
+                k == UHDM::uhdmclass_defn)
+                break;
+        }
+        return std::string();
+    };
+    if (!anonMem212ByKey.empty())
+        for (auto* o : all)
+            if (named(o) && !inUnelabPkg(o) && !keep182.count(o))
+                if (auto it = anonMem212ByKey.find(key(o)); it != anonMem212ByKey.end()) {
+                    UHDM::BaseClass* mem = it->second;
+                    if (owner212v) {
+                        std::string od = ownerDef212v(o);
+                        if (!od.empty()) {
+                            auto& byDef = anonMem212ByKeyDef[key(o)];
+                            auto dit = byDef.find(od);
+                            UHDM::BaseClass* own = dit == byDef.end() ? nullptr : dit->second;
+                            if (own != mem)
+                                trace212("anonMemberTdOwnerDef212v",
+                                         std::string(o->VpiName()) + " " + od);
+                            mem = own;
+                        }
+                    }
+                    if (!mem)
+                        continue;
+                    setNP(o, mem);
+                    if (o->VpiParent() != mem)
+                        trace212("anonMemberTdLastWriter212",
+                             std::string(o->VpiName()) + " -> " +
+                                 std::string(mem->VpiName()));
+                }
     if (!keys.empty())
         for (auto* o : all)
             if (named(o) && keys.count(key(o)) && !inUnelabPkg(o) &&

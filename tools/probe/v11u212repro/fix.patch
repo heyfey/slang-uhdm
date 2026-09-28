@@ -1,0 +1,105 @@
+--- a/src/UhdmExporter.cpp (r11u212 as delivered)
++++ b/src/UhdmExporter.cpp (v11u212 refinement)
+@@ -627,6 +627,15 @@
+         fflush(tf);
+     }
+ }
++// The v11u212 switches (tools/probe/r11u212verify/README.md, the adversarial
++// verification of pass r11u212): every refinement reads its own
++// R11V212_<LAW>_OFF switch; R11V212_OFF drops all of them (the pass-212 law as
++// delivered).  Firings are traced through trace212 (R11U212_TRACE).
++bool r11v212Law(const char* sw) {
++    if (getenv("R11V212_OFF") != nullptr)
++        return false;
++    return getenv(sw) == nullptr;
++}
+ // The r11u205 switches (tools/probe/r11u205dec/README.md, the analyst decode
+ // of map 12's ground-B heads): every law reads its own R11U205_<LAW>_OFF
+ // switch; R11U205_OFF drops all of them (the pristine bytes).
+@@ -1235,6 +1244,16 @@
+     // declines a typedef held by a package or class and a member whose
+     // anonymous chain carries a name.  Switch R11U212_ANONMEMTD_OFF.
+     std::map<std::string, UHDM::BaseClass*> anonMem212ByKey;
++    // § anonMemberTdOwnerDef212v (v11u212) — the last anonymous member PER
++    // DEFINITION, keyed like anonMem212ByKey (the law's statement is at its
++    // application below).
++    std::map<std::string, std::map<std::string, UHDM::BaseClass*>> anonMem212ByKeyDef;
++    auto defId212v = [](const UHDM::BaseClass* x) {
++        std::string n(x->VpiDefName());
++        if (n.empty())
++            n = std::string(x->VpiName());
++        return n;
++    };
+     if (anonMem212) {
+         auto isAnonAgg = [](const UHDM::BaseClass* t) {
+             if (!t)
+@@ -1356,6 +1375,7 @@
+                 if (!namelessAbove(w.member))
+                     continue;
+                 anonMem212ByKey[key(w.ts)] = w.member;
++                anonMem212ByKeyDef[key(w.ts)][defId212v(def)] = w.member;
+             }
+         };
+         if (auto* v = d->AllPrograms())
+@@ -1513,15 +1533,58 @@
+     // § anonMemberTdLastWriter212: every object of the typedef (our
+     // definition and elaborated listings are separate objects) takes the
+     // last anonymous member, before the assignment unparenting below.
++    // § anonMemberTdOwnerDef212v (v11u212) — A TYPEDEF DECLARED IN A MODULE,
++    // INTERFACE OR PROGRAM TAKES ONLY ITS OWN DEFINITION'S LAST ANONYMOUS
++    // MEMBER.  The key (kind, name, file, line, column) is the same for the
++    // typedefs of two definitions that include one header declaring a
++    // module-scope typedef (`include "td.svh"` in modules aa and zz), and the
++    // global last member then reparented every definition's typedef at the
++    // one member; Surelog compiles a typedef per design component
++    // (CompileHelper::compileTypeDef on the component's own FileContent
++    // nodes), so each definition's anonymous member reparents only its own
++    // typedef and a definition with no anonymous member keeps its listing:
++    // golden `work@aa.in_t.b` beside `mz.in_t.b` where the law read
++    // `mz.in_t.b` twice (a pristine-right record moved away in the elaborated
++    // view; grid tools/probe/r11u212verify/cases/F f01-f04).  A typedef whose
++    // listing sits under no definition ($unit: the design) keeps the global
++    // last member.  Switch R11V212_TDOWNER_OFF.
++    static const bool owner212v = r11v212Law("R11V212_TDOWNER_OFF");
++    auto ownerDef212v = [&](const UHDM::BaseClass* o) -> std::string {
++        for (auto* a = o->VpiParent(); a; a = a->VpiParent()) {
++            auto k = a->UhdmType();
++            if (k == UHDM::uhdmmodule_inst || k == UHDM::uhdminterface_inst ||
++                k == UHDM::uhdmprogram)
++                return defId212v(a);
++            if (k == UHDM::uhdmdesign || k == UHDM::uhdmpackage ||
++                k == UHDM::uhdmclass_defn)
++                break;
++        }
++        return std::string();
++    };
+     if (!anonMem212ByKey.empty())
+         for (auto* o : all)
+             if (named(o) && !inUnelabPkg(o) && !keep182.count(o))
+                 if (auto it = anonMem212ByKey.find(key(o)); it != anonMem212ByKey.end()) {
+-                    setNP(o, it->second);
+-                    if (o->VpiParent() != it->second)
++                    UHDM::BaseClass* mem = it->second;
++                    if (owner212v) {
++                        std::string od = ownerDef212v(o);
++                        if (!od.empty()) {
++                            auto& byDef = anonMem212ByKeyDef[key(o)];
++                            auto dit = byDef.find(od);
++                            UHDM::BaseClass* own = dit == byDef.end() ? nullptr : dit->second;
++                            if (own != mem)
++                                trace212("anonMemberTdOwnerDef212v",
++                                         std::string(o->VpiName()) + " " + od);
++                            mem = own;
++                        }
++                    }
++                    if (!mem)
++                        continue;
++                    setNP(o, mem);
++                    if (o->VpiParent() != mem)
+                         trace212("anonMemberTdLastWriter212",
+                              std::string(o->VpiName()) + " -> " +
+-                                 std::string(it->second->VpiName()));
++                                 std::string(mem->VpiName()));
+                 }
+     if (!keys.empty())
+         for (auto* o : all)

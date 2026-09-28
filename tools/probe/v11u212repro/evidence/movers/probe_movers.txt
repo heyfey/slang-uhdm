@@ -1,0 +1,9 @@
+# probe databases, law (from the pristine worktree, /tmp/v11u212_pL) vs pristine (/tmp/v11u212_sP): 4087 compared
+MOVER ./r10uvm149repro__g149__homes.uhdm
+MOVER ./r10uvm149repro__g149__shapes.uhdm
+MOVER ./r10v149repro__arms__paramtype.uhdm
+MOVER ./r11u107repro__grid__a12_anon_named_member.uhdm
+MOVER ./r11u109repro__grid__f5__k10_named_member_dim.uhdm
+MOVER ./v11u93b107repro__brk__p04_enum_member.uhdm
+# fix (/tmp/v11u212_sF) vs law (/tmp/v11u212_sQ), same worktree: 0 movers of 4087
+# law under R11U212_OFF=1 (/tmp/v11u212_pO) vs pristine: 0 of 4087 differ, probe csv identical

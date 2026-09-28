@@ -1,0 +1,2 @@
+# v11u212 prediction frozen 2026-09-28T16:21:50-04:00 before the fix sweep: fix1.bin (md5 d5b3d147a50dcbee49413139a0948f31) vs law.bin movers = rows carrying anonMemberTdOwnerDef212v = NONE (0 corpus row-modes, 0 probe cases); fix1 vs pristine movers = the 20 lines of predicted.txt (md5 25d42148)
+0

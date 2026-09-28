@@ -1,0 +1,6 @@
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/anon_struct_packed_dim-031e610c/slang.uhdm  patched=ee7044409a5e pristine=6e301eebe1c3
+MOVER ./testflags/anon_struct_packed_dim-031e610c/slang.uhdm  patched=08e0d2e6edb4 pristine=a0a15496d957
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged

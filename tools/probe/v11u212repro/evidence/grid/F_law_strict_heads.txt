@@ -1,0 +1,15 @@
+#149 fullname
+  A: 6	ref_typespec			work@aa.in_t.b		0	0	0	0		0		
+  B: 6	ref_typespec			mz.in_t.b		0	0	0	0		0		
+fields: fullname=1 objects_differing=1
+STRICT_NOTEQUAL fullname
+#215 fullname
+  A: 7	ref_typespec			work@ii.in_t.b		0	0	0	0		0		
+  B: 7	ref_typespec			mz.in_t.b		0	0	0	0		0		
+fields: fullname=1 objects_differing=1
+STRICT_NOTEQUAL fullname
+#220 fullname
+  A: 6	ref_typespec			work@zz.in_t.b		0	0	0	0		0		
+  B: 6	ref_typespec			ma.in_t.b		0	0	0	0		0		
+fields: fullname=1 objects_differing=1
+STRICT_NOTEQUAL fullname

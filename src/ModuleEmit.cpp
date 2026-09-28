@@ -809,6 +809,8 @@ bool r11u205Law(const char* sw);  // the r11u205 switches (UhdmExporter.cpp)
 void noteMpWriter209v(const UHDM::any* viewObj, uint32_t line, uint32_t col);
 bool r11v209Law(const char* sw);  // the v11u209 switches (UhdmExporter.cpp)
 void trace209(const char* law, const std::string& detail);  // R11U209_TRACE
+bool r11u212Law(const char* sw);  // the r11u212 switches (UhdmExporter.cpp)
+void trace212(const char* law, const std::string& detail);  // R11U212_TRACE
 void trace205(const char* law, const std::string& detail);  // R11U205_TRACE
 bool& defGenInitRvalue202();  // § defGenInitBitSelAtIndex202 (TypeEmit.cpp)
 void trace202(const char* law, const std::string& detail);
@@ -38427,6 +38429,42 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             ndaRhsEmit = false;
             ndaReaderWidth104 = savedRW104;
             implicitConvTargetSigned = savedICT8;
+            // § ndaSysCallNetTs212 (r11u212) — a NET-DECLARATION assignment
+            // is a netlist cont_assign in Surelog (NetlistElaboration
+            // elabSignal) and goes through writeCont_assign like a written
+            // one, so a whole-initializer system call (`wire signed [6:0] v =
+            // $signed(x);`, or the `$signed` a signing cast compiles to) is
+            // stamped with the net's typespec there too; ours stamped only
+            // the written `assign` (stage 1: golden `ref_typespec
+            // (work@dut)` on the call; downstream r11u199 N6 / c06, the
+            // plugin sizing the call from it).  The names are the written
+            // assignment's list (§ above at the cont_assign stamp).  Grid
+            // tools/probe/r11u212repro/cases/NS n01 n02 n04 n05.  Switch
+            // R11U212_NDASYSTS_OFF.
+            if (rhs && rhs->UhdmType() == UHDM::uhdmsys_func_call && defInfo &&
+                !((UHDM::expr*)rhs)->Typespec() &&
+                it.sym->kind == SymbolKind::Net &&
+                m && m->UhdmType() == UHDM::uhdmmodule_inst &&
+                r11u212Law("R11U212_NDASYSTS_OFF")) {
+                std::string nm212(((UHDM::sys_func_call*)rhs)->VpiName());
+                auto& ic212 = stripImplicitConv(*dt->getInitializer());
+                bool sys212 = ic212.kind == ExpressionKind::Call &&
+                              ic212.as<CallExpression>().isSystemCall();
+                bool cast212 = ic212.kind == ExpressionKind::Conversion &&
+                               (nm212 == "$signed" || nm212 == "$unsigned");
+                bool qry212 = nm212 == "$high" || nm212 == "$low" || nm212 == "$left" ||
+                              nm212 == "$right" || nm212 == "$size";
+                if (cast212 ||
+                    (sys212 && (nm212 == "$signed" || nm212 == "$unsigned" ||
+                                nm212 == "$bits" || nm212 == "$clog2" || qry212))) {
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiFullName(prefix);
+                    rt->VpiParent(rhs);
+                    ((UHDM::expr*)rhs)->Typespec(rt);
+                    pendingSysFuncTs.push_back({rt, defInfo->mod, it.sym, qry212});
+                    trace212("ndaSysCallNetTs212", std::string(it.sym->name) + " " + nm212);
+                }
+            }
         }
         // An ARRAY-of-struct net-decl-assign pattern RHS keeps its element
         // constants PARENTED at the assignment-pattern op (Surelog); the
@@ -43164,6 +43202,41 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     }
                 }
             }
+            // § signCastSysCallLhsTs212 (r11u212) — a SIGNING CAST
+            // (`signed'(x)`, `unsigned'(x)`) is compiled by Surelog's
+            // CompileExpression paCast arm as a `$signed` / `$unsigned`
+            // sys_func_call with no typespec, and writeCont_assign's
+            // name-blind arm (UhdmWriter.cpp, `rhs->UhdmType() ==
+            // uhdmsys_func_call && Typespec() == nullptr`) stamps it with the
+            // assignment's left-side typespec exactly as it stamps a written
+            // `$signed(x)`; ours emits the same sys_func_call from slang's
+            // conversion but stamped only a written system call (stage 1:
+            // golden `ref_typespec (work@dut)` on the call, ours none;
+            // downstream the plugin sizes the call from that typespec, r11u199
+            // N6 / c06).  Grid tools/probe/r11u212repro/cases/NS n03.  Switch
+            // R11U212_SIGNCASTTS_OFF.
+            else if (rcs.kind == ExpressionKind::Conversion &&
+                     !((UHDM::expr*)rhs)->Typespec() &&
+                     (((UHDM::sys_func_call*)rhs)->VpiName() == "$signed" ||
+                      ((UHDM::sys_func_call*)rhs)->VpiName() == "$unsigned") &&
+                     m && m->UhdmType() == UHDM::uhdmmodule_inst &&
+                     r11u212Law("R11U212_SIGNCASTTS_OFF")) {
+                // A module home only: an interface's assignment binds no
+                // variable in writeCont_assign (its stamp stays unresolved,
+                // grid NS n08), which this law does not model.
+                auto& le = stripImplicitConv(ae.left());
+                if (le.kind == ExpressionKind::NamedValue) {
+                    auto& lsym212 = le.as<NamedValueExpression>().symbol;
+                    bool implNet212 = lsym212.kind == SymbolKind::Net &&
+                                      lsym212.as<NetSymbol>().isImplicit;
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiFullName(prefix);
+                    rt->VpiParent(rhs);
+                    ((UHDM::expr*)rhs)->Typespec(rt);
+                    pendingSysFuncTs.push_back({rt, defInfo->mod, &lsym212, implNet212});
+                    trace212("signCastSysCallLhsTs212", std::string(lsym212.name));
+                }
+            }
         }
         // Re-emitted pattern RHS leaves an orphan first-compile op behind
         // (materialized at the very end of the write phase). A pattern that
@@ -45637,10 +45710,31 @@ bool UhdmExporter::fillSizeDimRange(UHDM::range* r,
                 bool ouint4 = true;
                 const syntax::ExpressionSyntax* lit4 = nullptr;
                 auto enc4 = sizeDimOvrEnc4(psym4, osz4, ouint4, lit4);
+                // § sizeDimOvrFileAtDim212 (r11u212) — the override value
+                // folded into a size dimension is RELOCATED at the dimension's
+                // own expression (the setLoc below), and Surelog's reduced
+                // constant takes that location whole, file included: golden
+                // `rggen_apb_adapter.sv 18:39-48` for Rggen's
+                // `register_if[REGISTERS]` overridden as `.REGISTERS(25)` in
+                // block_0.sv, where ours kept the override literal's file
+                // (setLoc never replaces a file already set) beside the
+                // dimension's line and columns.  The law clears the literal's
+                // file first so the relocation writes the dimension's.  Grid
+                // tools/probe/r11u212repro/cases/SF f01-f03 (two files: by
+                // name, positional, a decimal-based sized literal).  Switch
+                // R11U212_SIZEDIMFILE_OFF.
+                const bool dimFile212 = r11u212Law("R11U212_SIZEDIMFILE_OFF");
                 if (enc4 == SizeDimOvr4::Verbatim) {
                     if (auto* ov = emitSyntaxExpr(*lit4, op))
                         if (ov->UhdmType() == UHDM::uhdmconstant) {
                             auto* c = (UHDM::constant*)ov;
+                            if (dimFile212) {
+                                std::string f212 = fullFilePath(bs->expr->sourceRange().start());
+                                if (!f212.empty() && f212 != std::string(c->VpiFile())) {
+                                    trace212("sizeDimOvrFileAtDim212", std::string(sym->name));
+                                    c->VpiFile(f212);
+                                }
+                            }
                             setLoc(c, bs->expr->sourceRange());
                             // A DECIMAL-based literal is re-encoded as a bare
                             // signed INT (`8'd6` -> size 8 `INT:6`, dec "6");
@@ -45671,6 +45765,17 @@ bool UhdmExporter::fillSizeDimRange(UHDM::range* r,
                         if (auto* isyn = dt->getInitializerSyntax())
                             if (auto* ov = emitSyntaxExpr(*isyn, op))
                                 if (ov->UhdmType() == UHDM::uhdmconstant) {
+                                    // § sizeDimOvrFileAtDim212, the same
+                                    // relocation on the unmodelled shapes.
+                                    if (dimFile212) {
+                                        std::string f212 = fullFilePath(
+                                            bs->expr->sourceRange().start());
+                                        if (!f212.empty() && f212 != std::string(ov->VpiFile())) {
+                                            trace212("sizeDimOvrFileAtDim212",
+                                                     std::string(sym->name));
+                                            ov->VpiFile(f212);
+                                        }
+                                    }
                                     setLoc((UHDM::constant*)ov,
                                            bs->expr->sourceRange());
                                     ((UHDM::constant*)ov)->Typespec(nullptr);

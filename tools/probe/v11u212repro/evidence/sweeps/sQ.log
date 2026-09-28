@@ -1,0 +1,71 @@
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u212_sQ/probe.csv
+probe cases: EQUAL=3407 STRICT_NOTEQUAL=680 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3407 differ:fullname=259 differ:line=105 differ:endcol=81 differ:type=71 differ:name=58 differ:file=38 differ:depth=34 differ:col=14 differ:endline=12 differ:value=7 differ:decompile=1
+== probe vs golden_probe.csv
+[probe] EQUAL=3407 STRICT_NOTEQUAL=680
+CONVERSION r10uvm149repro/g149/shapes STRICT_NOTEQUAL differ:endcol(30) -> EQUAL
+CONVERSION r11u107repro/grid/a12_anon_named_member STRICT_NOTEQUAL differ:fullname(8) -> EQUAL
+CONVERSION r11u109repro/grid/f5/k10_named_member_dim STRICT_NOTEQUAL differ:fullname(14) -> EQUAL
+CONVERSION v11u93b107repro/brk/p04_enum_member STRICT_NOTEQUAL differ:fullname(5) -> EQUAL
+CHANGE r10uvm149repro/g149/homes STRICT_NOTEQUAL differ:endcol(15) -> differ:endline(1)
+CHANGE r10v149repro/arms/paramtype STRICT_NOTEQUAL differ:endcol(22) -> differ:fullname(2)
+regressions=0 conversions=4 changes=2 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/v11u212_sQ/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/wt_v11u212/build/uhdm-strictcmp
+
+[default] 798 tests
+  CMP_EQUAL: 465
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  STRICT_NOTEQUAL: 15
+  DEFERRED: 5
+  CMP_NOTEQUAL: 3
+
+[testflags] 798 tests
+  CMP_EQUAL: 462
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  STRICT_NOTEQUAL: 12
+  DEFERRED: 5
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=465 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=15 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=462 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=12 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:endcol(57) -> differ:col(51)
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:endcol(57) -> differ:col(51)
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(77) -> differ:file(75) [file -2]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(77) -> differ:file(75) [file -2]
+CHANGE Rggen default STRICT_NOTEQUAL differ:file(4) -> differ:file(3) [file -1]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(193) -> differ:fullname(188) [fullname -5]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:fullname(63) -> differ:fullname(61) [fullname -2]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:fullname(63) -> differ:fullname(61) [fullname -2]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(241) -> differ:fullname(236) [fullname -5]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(241) -> differ:fullname(236) [fullname -5]
+regressions=0 conversions=0 changes=10 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u212_sQ/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/wt_v11u212/build/uhdm-strictcmp
+
+[default] 871 tests
+  CMP_EQUAL: 798
+  SLANG_REJECT: 67
+  STRICT_NOTEQUAL: 5
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 798
+  SLANG_REJECT: 67
+  STRICT_NOTEQUAL: 5
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=798 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=5
+[testflags] CMP_EQUAL=798 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=5
+CHANGE anon_struct_packed_dim default STRICT_NOTEQUAL differ:fullname(43) -> differ:fullname(4) [fullname -39]
+CHANGE anon_struct_packed_dim testflags STRICT_NOTEQUAL differ:fullname(43) -> differ:fullname(4) [fullname -39]
+regressions=0 conversions=0 changes=2 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+rc=0

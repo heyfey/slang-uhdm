@@ -749,9 +749,9 @@ r10uvm148repro/g148_a_prod,STRICT_NOTEQUAL,differ:endcol(1),differ:endcol(1)
 r10uvm148repro/g148_b_scope,EQUAL,,equal
 r10uvm148repro/g148_d_kind,EQUAL,,equal
 r10uvm148repro/g148_e_early,EQUAL,,equal
-r10uvm149repro/g149/homes,STRICT_NOTEQUAL,differ:endcol(15),differ:endcol(15)
+r10uvm149repro/g149/homes,STRICT_NOTEQUAL,differ:endline(1),differ:endline(1)
 r10uvm149repro/g149/neg,EQUAL,,equal
-r10uvm149repro/g149/shapes,STRICT_NOTEQUAL,differ:endcol(30),differ:endcol(30)
+r10uvm149repro/g149/shapes,EQUAL,,equal
 r10uvm14repro/t,EQUAL,,equal
 r10uvm14repro/t19_t,EQUAL,,equal
 r10uvm151repro/g151_a_body,EQUAL,,equal
@@ -1188,7 +1188,7 @@ r10v148repro/v148_d_kind,EQUAL,,equal
 r10v148repro/v148_e_early,EQUAL,,equal
 r10v148repro/v148_g_corpus,STRICT_NOTEQUAL,differ:endcol(1),differ:endcol(1)
 r10v149repro/arms/neg2,EQUAL,,equal
-r10v149repro/arms/paramtype,STRICT_NOTEQUAL,differ:endcol(22),differ:endcol(22)
+r10v149repro/arms/paramtype,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
 r10v150repro/v150_b,EQUAL,,equal
 r10v150repro/v150_e,EQUAL,,equal
 r10v150repro/v150_f1,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
@@ -1741,7 +1741,7 @@ r11u107repro/grid/a05_anon_paramdim,EQUAL,,equal
 r11u107repro/grid/a08_anon_member,STRICT_NOTEQUAL,differ:fullname(8),differ:fullname(8)
 r11u107repro/grid/a09_anon_union_dim,EQUAL,,equal
 r11u107repro/grid/a11_anon_child,EQUAL,,equal
-r11u107repro/grid/a12_anon_named_member,STRICT_NOTEQUAL,differ:fullname(8),differ:fullname(8)
+r11u107repro/grid/a12_anon_named_member,EQUAL,,equal
 r11u107repro/grid/a13_anon_var_kw,EQUAL,,equal
 r11u107repro/grid/a18_anon_typedef,STRICT_NOTEQUAL,differ:fullname(8),differ:fullname(8)
 r11u107repro/grid/a23_anon_always_var,EQUAL,,equal
@@ -1863,7 +1863,7 @@ r11u109repro/grid/f5/k04_nodim_assign,EQUAL,,equal
 r11u109repro/grid/f5/k05_nodim_comb,EQUAL,,equal
 r11u109repro/grid/f5/k06_var_dim,EQUAL,,equal
 r11u109repro/grid/f5/k07_var_nodim,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
-r11u109repro/grid/f5/k10_named_member_dim,STRICT_NOTEQUAL,differ:fullname(14),differ:fullname(14)
+r11u109repro/grid/f5/k10_named_member_dim,EQUAL,,equal
 r11u109repro/grid/f5/k11_int_member_dim,EQUAL,,equal
 r11u109repro/grid/f5/k12_int_member_nodim,EQUAL,,equal
 r11u109repro/grid/f5/k13_union_dim,EQUAL,,equal
@@ -4029,7 +4029,7 @@ v11u117repro/grid/b02,STRICT_NOTEQUAL,differ:name(8),differ:name(8)
 v11u93b107repro/brk/p01_multidecl,EQUAL,,equal
 v11u93b107repro/brk/p02_nested_member_dim,STRICT_NOTEQUAL,differ:fullname(6),differ:fullname(6)
 v11u93b107repro/brk/p03_func_ret,EQUAL,,equal
-v11u93b107repro/brk/p04_enum_member,STRICT_NOTEQUAL,differ:fullname(5),differ:fullname(5)
+v11u93b107repro/brk/p04_enum_member,EQUAL,,equal
 v11u93b107repro/brk/p05_param_member_dim,EQUAL,,equal
 v11u93b107repro/brk/p08_task_auto,EQUAL,,equal
 v11u93b107repro/brk/p10_union_of_struct,EQUAL,,equal

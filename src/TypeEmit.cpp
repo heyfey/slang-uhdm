@@ -129,6 +129,8 @@ bool r11u202Law(const char* sw); // the r11u202 switches (UhdmExporter.cpp)
 void trace202(const char* law, const std::string& detail); // R11U202_TRACE
 bool r11u205Law(const char* sw); // the r11u205 switches (UhdmExporter.cpp)
 bool r11u209Law(const char* sw); // the r11u209 switches (UhdmExporter.cpp)
+bool r11u212Law(const char* sw); // the r11u212 switches (UhdmExporter.cpp)
+void trace212(const char* law, const std::string& detail); // R11U212_TRACE
 void trace209(const char* law, const std::string& detail); // R11U209_TRACE
 void trace205(const char* law, const std::string& detail); // R11U205_TRACE
 bool r11v202Law(const char* sw); // the v11u202 switches (UhdmExporter.cpp)
@@ -15822,9 +15824,27 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             }
         // An UNPACKED-array member (foo_t f [7]) spans name..last dim
         // (Surelog).
-        if (fm.getDeclaredType() &&
+        // § queueMemberSpanToDim212 (r11u212) — a QUEUE member (`string
+        // args[$];`, BuildUVMPkg's uvm_cmdline_parsed_arg_t) spans the same
+        // way: Surelog's buildTypespecMember locates every member at its
+        // Variable_decl_assignment (CompileType.cpp, the struct-member loop:
+        // `fC->Line/Column/EndLine/EndColumn(Variable_decl_assignment)`),
+        // whose extent runs through the variable dimension whatever its
+        // kind; ours extended only the fixed-size form.  Grid
+        // tools/probe/r11u212repro/cases/QM (q01 q04-q06; the dynamic and
+        // associative forms q02 q03 are stage-1 unequal at the base and are
+        // not claimed).  Switch R11U212_QUEUEMEMSPAN_OFF.
+        const bool queueMem212 =
+            fm.getDeclaredType() &&
             fm.getDeclaredType()->getType().getCanonicalType().kind ==
-                SymbolKind::FixedSizeUnpackedArrayType)
+                SymbolKind::QueueType &&
+            r11u212Law("R11U212_QUEUEMEMSPAN_OFF");
+        if (queueMem212)
+            trace212("queueMemberSpanToDim212", std::string(fm.name));
+        if (fm.getDeclaredType() &&
+            (fm.getDeclaredType()->getType().getCanonicalType().kind ==
+                 SymbolKind::FixedSizeUnpackedArrayType ||
+             queueMem212))
             if (auto dsm9 = fm.getSyntax();
                 dsm9 && dsm9->kind == syntax::SyntaxKind::Declarator) {
                 auto& ddm9 = dsm9->as<syntax::DeclaratorSyntax>();
@@ -15832,8 +15852,16 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                     auto de9 = ddm9.dimensions[ddm9.dimensions.size() - 1]
                                    ->sourceRange()
                                    .end();
+                    // § queueMemberSpanToDim212: the queue form takes its
+                    // end through setLoc's location model (a member written
+                    // in a macro body ends at the expanded column, grid QM
+                    // q07); the fixed-size form keeps its own reading.
+                    if (queueMem212) {
+                        setLoc(tm, SourceRange(fm.location, de9));
+                    } else {
                     tm->VpiEndLineNo(sm->getLineNumber(de9));
                     tm->VpiEndColumnNo(sm->getColumnNumber(de9));
+                    }
                 }
             }
         // The canonical struct's fields may lose their type-syntax link;

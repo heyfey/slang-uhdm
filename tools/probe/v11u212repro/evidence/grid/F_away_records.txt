@@ -1,0 +1,31 @@
+== f01_el record #149 (walk index; golden and pristine walk identically to this record)
+golden   : 6	ref_typespec			work@aa.in_t.b
+pristine : 6	ref_typespec			work@aa.in_t.b
+law      : 6	ref_typespec			mz.in_t.b
+fix1     : 6	ref_typespec			work@aa.in_t.b
+== f03_el record #215 (walk index; golden and pristine walk identically to this record)
+golden   : 7	ref_typespec			work@ii.in_t.b
+pristine : 7	ref_typespec			work@ii.in_t.b
+law      : 7	ref_typespec			mz.in_t.b
+fix1     : 7	ref_typespec			work@ii.in_t.b
+== f04_el record #220 (walk index; golden and pristine walk identically to this record)
+golden   : 6	ref_typespec			work@zz.in_t.b
+pristine : 6	ref_typespec			work@zz.in_t.b
+law      : 6	ref_typespec			ma.in_t.b
+fix1     : 6	ref_typespec			work@zz.in_t.b
+== f02_el record #169
+golden: 6	ref_typespec			ma.in_t.b
+pristine: 6	ref_typespec			work@aa.in_t.b
+law: 6	ref_typespec			mz.in_t.b
+fix1: 6	ref_typespec			ma.in_t.b
+f05_el law strict-equal
+== f06_el record #239
+golden: 6	ref_typespec			work@zz.in_t.b
+pristine: 6	ref_typespec			work@zz.in_t.b
+law: 6	ref_typespec			ma.in_t.b
+fix1: 6	ref_typespec			work@zz.in_t.b
+== f08_el record #147
+golden: 6	ref_typespec			work@aa.in_t.b
+pristine: 6	ref_typespec			work@aa.in_t.b
+law: 6	ref_typespec			mz.in_t.b
+fix1: 6	ref_typespec			work@aa.in_t.b
