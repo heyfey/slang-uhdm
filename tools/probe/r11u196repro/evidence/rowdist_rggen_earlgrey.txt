@@ -1,0 +1,6 @@
+/tmp/r11u196_swP surelog/default/Rggen dist=4521 miss=6250
+/tmp/r11u196_swL surelog/default/Rggen dist=4521 miss=6250
+/tmp/r11u196_swP surelog/default/Earlgrey_0_1 dist=6746 miss=6102
+/tmp/r11u196_swL surelog/default/Earlgrey_0_1 dist=6746 miss=6102
+/tmp/r11u196_swP surelog/testflags/Earlgrey_0_1 dist=6313 miss=6027
+/tmp/r11u196_swL surelog/testflags/Earlgrey_0_1 dist=6313 miss=6027

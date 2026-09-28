@@ -1,0 +1,5 @@
+databases: patched=2560 pristine=2560
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/BuildUVMPkg-fc55bd0c/slang.uhdm  patched=a32f5feae66d pristine=02c1e1503c79
+MOVERS: 1 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged

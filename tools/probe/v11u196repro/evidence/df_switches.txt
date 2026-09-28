@@ -1,0 +1,31 @@
+# per case, six lines in order: pris, law, fix, fix R11V196_DFLTEVAL_OFF=1, fix R11V196_DFLTEXEC_OFF=1, fix R11V196_OFF=1 (drivers/case.sh; the case text before its first line was relabelled, same DUT)
+DF/x01 pris rc=0 cmplines=17 NOT_EQUAL stage1 md5=c19494a6
+DF/x01 law rc=0 cmplines=78 NOT_EQUAL stage1 md5=870cb90a
+DF/x01 fix rc=0 cmplines=17 NOT_EQUAL stage1 md5=5f5d9b6d
+DF/x01 fix rc=0 cmplines=17 NOT_EQUAL stage1 md5=c19494a6
+DF/x01 fix rc=0 cmplines=78 NOT_EQUAL stage1 md5=870cb90a
+DF/x01 fix rc=0 cmplines=78 NOT_EQUAL stage1 md5=870cb90a
+DF/x02 pris rc=0 cmplines=42 NOT_EQUAL stage1 md5=a0b097f4
+DF/x02 law rc=0 cmplines=0 STRICT_EQUAL 150 objects md5=6494446a
+DF/x02 fix rc=0 cmplines=0 STRICT_EQUAL 150 objects md5=6494446a
+DF/x02 fix rc=0 cmplines=0 STRICT_EQUAL 150 objects md5=6494446a
+DF/x02 fix rc=0 cmplines=0 STRICT_EQUAL 150 objects md5=6494446a
+DF/x02 fix rc=0 cmplines=0 STRICT_EQUAL 150 objects md5=6494446a
+DF/x03 pris rc=0 cmplines=0 STRICT_NOTEQUAL type md5=92cd8c0e
+DF/x03 law rc=0 cmplines=78 NOT_EQUAL stage1 md5=157c8959
+DF/x03 fix rc=0 cmplines=0 STRICT_EQUAL 160 objects md5=43d77cbb
+DF/x03 fix rc=0 cmplines=0 STRICT_EQUAL 160 objects md5=43d77cbb
+DF/x03 fix rc=0 cmplines=78 NOT_EQUAL stage1 md5=157c8959
+DF/x03 fix rc=0 cmplines=78 NOT_EQUAL stage1 md5=157c8959
+DF/x05 pris rc=0 cmplines=17 NOT_EQUAL stage1 md5=2016291c
+DF/x05 law rc=0 cmplines=78 NOT_EQUAL stage1 md5=c69dbe33
+DF/x05 fix rc=0 cmplines=17 NOT_EQUAL stage1 md5=bcebb483
+DF/x05 fix rc=0 cmplines=17 NOT_EQUAL stage1 md5=2016291c
+DF/x05 fix rc=0 cmplines=78 NOT_EQUAL stage1 md5=c69dbe33
+DF/x05 fix rc=0 cmplines=78 NOT_EQUAL stage1 md5=c69dbe33
+DF/x06 pris rc=0 cmplines=0 STRICT_NOTEQUAL type md5=b09567c1
+DF/x06 law rc=0 cmplines=0 STRICT_EQUAL 206 objects md5=c3b42577
+DF/x06 fix rc=0 cmplines=0 STRICT_EQUAL 206 objects md5=c3b42577
+DF/x06 fix rc=0 cmplines=0 STRICT_NOTEQUAL type md5=dc2710b6
+DF/x06 fix rc=0 cmplines=0 STRICT_EQUAL 206 objects md5=c3b42577
+DF/x06 fix rc=0 cmplines=0 STRICT_EQUAL 206 objects md5=c3b42577

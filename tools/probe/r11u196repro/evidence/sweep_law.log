@@ -1,0 +1,74 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u196_swL/probe.csv
+probe cases: EQUAL=3301 STRICT_NOTEQUAL=786 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3301 differ:fullname=308 differ:line=113 differ:endcol=109 differ:type=72 differ:name=61 differ:file=43 differ:depth=34 differ:col=29 differ:endline=11 differ:value=5 differ:decompile=1
+== probe vs golden_probe.csv
+[probe] EQUAL=3301 STRICT_NOTEQUAL=786
+CONVERSION r10vbuvm29repro/gv29_b_positions STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u114repro/grid/set3/g13 STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CHANGE r11u108repro/grid/f4/c12_const_fold STRICT_NOTEQUAL differ:file(5) -> differ:file(4) [file -1]
+regressions=0 conversions=2 changes=1 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u196_swL/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u196_bin/uhdm-strictcmp
+
+[default] 798 tests
+  CMP_EQUAL: 460
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  STRICT_NOTEQUAL: 20
+  DEFERRED: 5
+  CMP_NOTEQUAL: 3
+
+[testflags] 798 tests
+  CMP_EQUAL: 456
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  STRICT_NOTEQUAL: 18
+  DEFERRED: 5
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=460 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=20 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=456 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=18 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:fullname(20) -> differ:line(11)
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:fullname(20) -> differ:line(11)
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(27) -> differ:file(19) [file -8]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(27) -> differ:file(19) [file -8]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(46) [fullname -8]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:file(26) -> differ:endcol(18)
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:file(26) -> differ:endcol(18)
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(46) [fullname -8]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(46) [fullname -8]
+regressions=0 conversions=0 changes=9 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u196_swL/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u196_bin/uhdm-strictcmp
+
+[default] 871 tests
+  CMP_EQUAL: 795
+  SLANG_REJECT: 67
+  STRICT_NOTEQUAL: 8
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 795
+  SLANG_REJECT: 67
+  STRICT_NOTEQUAL: 8
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=795 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=8
+[testflags] CMP_EQUAL=795 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=8
+CONVERSION const_cast_signext default STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CONVERSION const_cast_signext testflags STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CONVERSION func_typename_ret default STRICT_NOTEQUAL differ:name(2) -> CMP_EQUAL
+CONVERSION func_typename_ret testflags STRICT_NOTEQUAL differ:name(2) -> CMP_EQUAL
+CHANGE arb_idx_cast default STRICT_NOTEQUAL differ:endcol(17) -> differ:fullname(16)
+CHANGE arb_idx_cast testflags STRICT_NOTEQUAL differ:endcol(17) -> differ:fullname(16)
+regressions=0 conversions=4 changes=2 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+sweep rc=1

@@ -1,0 +1,19 @@
+R11U196_MODGENERIC_OFF: MG/g01 MG/g01(el) MG/g03 MG/g03(el) MG/g04 MG/g04(el) MG/g05 MG/g05(el) MG/g06 MG/g06(el) MG/g07 MG/g07(el) MG/g08 MG/g08(el)
+/tmp/v11u196_switches.sh: line 5: 3009101 Segmentation fault      env $2 /tmp/v11u196_bin/fix dut.sv --single-unit --nobuiltin $3 -o /tmp/v11u196_sw_$$.uhdm > /dev/null 2>&1
+/tmp/v11u196_switches.sh: line 5: /tmp/v11u196_sw_3005188.uhdm: No such file or directory
+R11U196_MODGENHANDLE_OFF: MG/g03 MG/g03(el) MG/g04 MG/g04(el) MG/g05 MG/g05(el) MG/g08 MG/g08(el) MG/g09 MG/g09(el)
+R11U196_MODCLSLINK_OFF: MG/g04 MG/g04(el)
+R11U196_ELEMCLSNAME_OFF: EN/n01 EN/n01(el) EN/n02 EN/n02(el)
+R11U196_RETQUALTD_OFF: FR/r01 FR/r01(el) FR/r02 FR/r02(el) FR/r03 FR/r03(el)
+R11U196_TPARRBOUND_OFF: TB/b01 TB/b01(el) TB/b02 TB/b02(el) TB/b03 TB/b03(el) TB/b04 TB/b04(el) TB/b05 TB/b05(el) TB/b06 TB/b06(el)
+R11U196_DFLTARG_OFF: DF/x01 DF/x01(el) DF/x02 DF/x02(el) DF/x03 DF/x03(el) DF/x04 DF/x04(el) DF/x05 DF/x05(el) DF/x06 DF/x06(el)
+R11U196_FORMALCLONEFILE_OFF: SF/f01 SF/f01(el) SF/f02 SF/f02(el) SF/f03 SF/f03(el) SF/f04 SF/f04(el) SF/f05 SF/f05(el)
+R11U191_REFFULL_OFF:
+R11U191_QUEUERANGE_OFF:
+R11U191_CONSTCALL_OFF: V/c01 V/c01(el)
+R11U191_UNSIZEDPKG_OFF: V/u01 V/u01(el)
+R11U191_ENUMPARENT_OFF:
+R11U191_HDRTD_OFF:
+R11U191_REALPORT_OFF:
+R11V196_DFLTEXEC_OFF: DF/x01 DF/x01(el) DF/x03 DF/x03(el) DF/x05 DF/x05(el)
+R11V196_DFLTEVAL_OFF: DF/x01 DF/x01(el) DF/x05 DF/x05(el) DF/x06 DF/x06(el)

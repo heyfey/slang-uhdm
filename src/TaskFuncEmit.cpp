@@ -18,6 +18,53 @@
 #include <vector>
 
 namespace slang_uhdm {
+
+// The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
+// reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them, and
+// so does R11U196_OFF (the laws landed with pass r11u196).
+// R11U191_TRACE=<dir> names every firing of an r11u191 law (the mover
+// census): one file per process, `<dir>/<pid>.TF`, its first line the
+// `-o` database path read off the command line, then one law name per firing.
+void noteQualTdRt196(const UHDM::ref_typespec* rt);
+bool r11u196Law(const char* sw);  // the r11u196 switches (UhdmExporter.cpp)
+void trace196(const char* law, const std::string& detail);
+static void tr191TF(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U191_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".TF";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+static bool r191TF(const char* sw) {
+    if (getenv("R11U191_OFF") != nullptr || getenv("R11U196_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
 bool r11u137Law(const char* sw);
 bool r11u144Law(const char* sw);
 void noteTpUse180(UHDM::typespec* ts, const slang::ast::Symbol& declSymbol,
@@ -3528,9 +3575,23 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             // enum_const BARE and we bound it.
                             bool savedCMNB13p = classMethodNoBind;
                             classMethodNoBind = true;
+                            // § formalDefaultNamedThroughFormal191, SITE 2
+                            // of 2 (the pure virtual prototype's formal).
+                            std::string pScope191(pt->VpiFullName());
+                            auto k191 = stripImplicitConv(*dv0).kind;
+                            if (!pScope191.empty() && !parg->name.empty() &&
+                                k191 != ExpressionKind::NamedValue &&
+                                k191 != ExpressionKind::IntegerLiteral &&
+                                k191 != ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+                                k191 != ExpressionKind::StringLiteral &&
+                                k191 != ExpressionKind::RealLiteral &&
+                                k191 != ExpressionKind::NullLiteral &&
+                                r191TF("R11U191_REFFULL_OFF")) {
+                                pScope191 = joinRef(pScope191, parg->name);
+                                tr191TF("formalDefaultNamedThroughFormal191");
+                            }
                             auto* pde =
-                                emitExpr(*dv0, nullptr,
-                                         std::string(pt->VpiFullName()), pmap);
+                                emitExpr(*dv0, nullptr, pScope191, pmap);
                             classMethodNoBind = savedCMNB13p;
                             if (pde)
                                 pio->Expr((UHDM::expr*)pde);
@@ -4513,8 +4574,40 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // but BARE-scoped inner refs — carrying a Typedef_alias
                     // back to the listed object (Surelog; ArrayExprFuncArg,
                     // DefaultPattern*).
-                    auto* cl9 = buildUnpackedArrayTypedefTs(
-                        *retAlias, std::string(rdt.name), /*cloneForm=*/true);
+                    // § queueRetTwinDynShape191 (r11u191, R11U191_QUEUERANGE_OFF)
+                    // — buildUnpackedArrayTypedefTs reads its alias through
+                    // `as<FixedSizeUnpackedArrayType>()`, but this branch is
+                    // taken for EVERY array_typespec return, so a QUEUE (or
+                    // dynamic / associative) typedef return (uvm_misc.svh 642
+                    // `typedef TYPE types_t[$];` returned by `find_all`) had
+                    // its `range` read out of a QueueType: `left` = maxBound,
+                    // `right` = the four padding bytes after it — arena
+                    // garbage, the UVM `UINT:<n>` value coin (r11u190
+                    // section 8, N9).  The twin of a dynamic container takes
+                    // the listing's own shape instead
+                    // (buildDynContainerTypedefTs: `UINT:0 .. STRING:$` at
+                    // the `$` token for a queue; Surelog's typedef path stops
+                    // at compileTypespec).  The twin is in the weakly
+                    // referenced tail, so only the bytes move (grid
+                    // tools/probe/r11u191dec/cases/Q).
+                    UHDM::array_typespec* cl9 = nullptr;
+                    if (retAlias->targetType.getType().getCanonicalType().kind !=
+                            SymbolKind::FixedSizeUnpackedArrayType &&
+                        r191TF("R11U191_QUEUERANGE_OFF")) {
+                        const syntax::SyntaxNode* tsyn191 = nullptr;
+                        if (auto asyn = retAlias->getSyntax())
+                            if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                                tsyn191 =
+                                    asyn->as<syntax::TypedefDeclarationSyntax>().type;
+                        if (auto* d191 = buildDynContainerTypedefTs(*retAlias, tsyn191);
+                            d191 && d191->UhdmType() == UHDM::uhdmarray_typespec) {
+                            tr191TF("queueRetTwinDynShape191");
+                            cl9 = (UHDM::array_typespec*)d191;
+                        }
+                    }
+                    if (!cl9)
+                        cl9 = buildUnpackedArrayTypedefTs(
+                            *retAlias, std::string(rdt.name), /*cloneForm=*/true);
                     cl9->VpiName(rdt.name);
                     auto* art = s.MakeRef_typespec();
                     art->VpiFullName(std::string(rdt.name));
@@ -4633,6 +4726,39 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             rt->VpiFullName(fullName);
             rt->VpiParent(rv);
             rt->Actual_typespec(ts);
+            // § retPkgQualTdNoAlias196 (r11u196, R11U196_RETQUALTD_OFF;
+            // func_typename_ret's `name(2)`) — a return type WRITTEN
+            // package-qualified (`function automatic P::S func2;`) keeps the
+            // package's own typedef object: compileTypespec's paPackage_scope
+            // arm resolves `P::S` to the package DataType and hands back its
+            // typespec, so the bare aliased copy LAW S makes for a return
+            // (§ lawS's r6 cell: an UNQUALIFIED return) is not made here
+            // (golden grid tools/probe/r11u196repro/cases/FR f01: `P::S`
+            // 4:13-4:24 with no vpiTypedefAlias, where ours wrote `S` ->
+            // `P::S`; an imported `B` return keeps `B` -> `P::B`, f02).  The
+            // marker set is LAW S's skip, as § dpiListingIoRt33's is.
+            if (ts && sub.getReturnType().kind == SymbolKind::TypeAlias &&
+                r11u196Law("R11U196_RETQUALTD_OFF"))
+                if (auto* rs196 = retTypeSyn175(sub);
+                    rs196 && rs196->kind == syntax::SyntaxKind::NamedType)
+                    if (const syntax::NameSyntax* qn196 =
+                            rs196->as<syntax::NamedTypeSyntax>().name;
+                        qn196 && qn196->kind == syntax::SyntaxKind::ScopedName) {
+                        auto& sn196 = qn196->as<syntax::ScopedNameSyntax>();
+                        std::string_view pk196;
+                        if (sn196.left->kind == syntax::SyntaxKind::IdentifierName)
+                            pk196 = sn196.left->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText();
+                        auto* ps196 = sub.getReturnType().getParentScope();
+                        if (sn196.separator.kind == parsing::TokenKind::DoubleColon &&
+                            !pk196.empty() && comp.getPackage(pk196) && ps196 &&
+                            &ps196->asSymbol() == comp.getPackage(pk196)) {
+                            noteQualTdRt196(rt);
+                            trace196("retPkgQualTdNoAlias196",
+                                     std::string(pk196) + "::" +
+                                         std::string(sub.getReturnType().name));
+                        }
+                    }
             // A CLASS scope is not a vpiInstance (Surelog leaves method
             // typespecs uninstanced, as the io_decl path already does) — the
             // bare typedef clone is the exception (§ retCloneInst9).
@@ -5086,7 +5212,38 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     bool noBindDv13 = inClass13 || unitSub13 ||
                                       pkgImportCloneEmit || importCloneEmit ||
                                       importCopyTsInst != nullptr;
-                    auto* de = emitExpr(*dv, nullptr, fullName,
+                    // § formalDefaultNamedThroughFormal191 (r11u191,
+                    // R11U191_REFFULL_OFF) — Surelog compiles a formal's
+                    // default value with the io_decl as its parent and stores
+                    // NO full name on the references in it (compileTfPortList
+                    // -> compileExpression, no pexpr), so UHDM's
+                    // ComputeFullName (BaseClass.cpp:100) derives each one from
+                    // the parent chain, which runs through the io_decl: the
+                    // formal's own name is a component (golden
+                    // `uvm_pkg::uvm_report::verbosity::severity`,
+                    // `work@top.f.b.a`, and the cast's ref_typespec
+                    // `p::rep::verbosity`); ours joined the subroutine's name.
+                    // The scope handed to the expression is therefore the
+                    // FORMAL's full name (N0215 / N0229; grid
+                    // tools/probe/r11u191dec/cases/F).
+                    // A literal or a lone name has no reference BELOW the
+                    // io_decl's direct child (a lone name already reads the
+                    // chained name, f02 `int d = base`): those keep the
+                    // pristine scope, and bytes.
+                    std::string dvScope191 = fullName;
+                    auto k191 = stripImplicitConv(*dv).kind;
+                    if (!fullName.empty() && !arg->name.empty() &&
+                        k191 != ExpressionKind::NamedValue &&
+                        k191 != ExpressionKind::IntegerLiteral &&
+                        k191 != ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+                        k191 != ExpressionKind::StringLiteral &&
+                        k191 != ExpressionKind::RealLiteral &&
+                        k191 != ExpressionKind::NullLiteral &&
+                        r191TF("R11U191_REFFULL_OFF")) {
+                        dvScope191 = joinRef(fullName, arg->name);
+                        tr191TF("formalDefaultNamedThroughFormal191");
+                    }
+                    auto* de = emitExpr(*dv, nullptr, dvScope191,
                                         noBindDv13 ? noBind13 : dvFormals13);
                     classMethodNoBind = savedCMNB13;
                     unitSubNoBind9 = savedUSNB13;
@@ -5588,6 +5745,24 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 ts->VpiName(at.name);
                 if (argTsyn)
                     setLoc((UHDM::BaseClass*)ts, argTsyn->sourceRange());
+                // § tfFormalTdCloneFile196 (r11u196, R11U196_FORMALCLONEFILE_OFF;
+                // MiniAmiq #1694 / #1858 / #2014 / #2546, SeqDriver #1677 /
+                // #1841 / #1997 / #2529) — the per-formal clone of a vector /
+                // scalar typedef is compiled AT the formal's type token
+                // (compileTfPortList's populateCoreMembers(type, type, ts)
+                // writes vpiFile with the span), so it files at the formal's
+                // file: golden `uvm_bitstream_t` uvm_misc.svh 483:42-483:57,
+                // where ours kept the typedef's uvm_object_globals.svh (setLoc
+                // fills only an EMPTY file, and makeTypespec had filed the
+                // clone at the typedef).  Grid tools/probe/r11u196repro/cases/SF.
+                if (argTsyn && r11u196Law("R11U196_FORMALCLONEFILE_OFF"))
+                    if (auto st196 = argTsyn->sourceRange().start();
+                        st196 != SourceLocation::NoLocation)
+                        if (auto f196 = fullFilePath(st196);
+                            !f196.empty() && f196 != ts->VpiFile()) {
+                            ts->VpiFile(f196);
+                            trace196("tfFormalTdCloneFile196", std::string(at.name));
+                        }
                 auto* mainTs = typedefTs[&at];
                 // ...and the ALIAS half of the same law: the clone points at
                 // the LISTING OBJECT OF ITS OWN VIEW.  typedefTs holds the DEF
@@ -5649,6 +5824,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 ts->VpiName(elAl0.name);
                 if (argTsyn)
                     setLoc((UHDM::BaseClass*)ts, argTsyn->sourceRange());
+                // § tfFormalTdCloneFile196 — the unpacked-array formal's
+                // element clone, the same compile at the type token.
+                if (argTsyn && r11u196Law("R11U196_FORMALCLONEFILE_OFF"))
+                    if (auto st196 = argTsyn->sourceRange().start();
+                        st196 != SourceLocation::NoLocation)
+                        if (auto f196 = fullFilePath(st196);
+                            !f196.empty() && f196 != ts->VpiFile()) {
+                            ts->VpiFile(f196);
+                            trace196("tfFormalTdCloneFile196", std::string(elAl0.name));
+                        }
                 auto* art0 = s.MakeRef_typespec();
                 art0->VpiFullName(std::string(elAl0.name));
                 art0->VpiParent(ts);

@@ -1,0 +1,8 @@
+binary md5 (frozen chmod 555 in $R196_BIN=/tmp/r11u196_bin)
+4519cd58f7833bd1ac01afb706d3d45f  /tmp/r11u196_bin/pris.bin
+0b5113334d08e4773fd9f61e685b1644  /tmp/r11u196_bin/l191.bin
+2ceb9c16dd0eb3d4bb4431d0bf56f289  /tmp/r11u196_bin/law.bin
+fa6e4f42f252ae0ab69d9845003e71c5  /tmp/r11u196_bin/uhdm-strictcmp
+80eb67f2c30636f7bb4d35de71c4760b  /tmp/r11u196_bin/predict
+a7d318bf253b9e9a1dc424ca5bcf1548  <main tree>/build/slang-uhdm
+fa6e4f42f252ae0ab69d9845003e71c5  <main tree>/build/uhdm-strictcmp

@@ -29,6 +29,60 @@
 
 namespace slang_uhdm {
 
+// The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
+// reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them, and
+// so does R11U196_OFF (the laws landed with pass r11u196).
+// R11U191_TRACE=<dir> names every firing of an r11u191 law (the mover
+// census): one file per process, `<dir>/<pid>.ME`, its first line the
+// `-o` database path read off the command line, then one law name per firing.
+static void tr191ME(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U191_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".ME";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+void noteModClassDefn196(const void* def, std::string_view name, UHDM::class_defn* cd);
+bool r11u196Law(const char* sw);  // the r11u196 switches (UhdmExporter.cpp)
+void trace196(const char* law, const std::string& detail);
+// The v11u196 refinements (tools/probe/v11u196repro/README.md): each reads
+// its own R11V196_<LAW>_OFF switch; R11V196_OFF drops all of them.
+static bool r11v196Law(const char* sw) {
+    if (getenv("R11V196_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+static bool r191ME(const char* sw) {
+    if (getenv("R11U191_OFF") != nullptr || getenv("R11U196_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 // The r11u183 switches (tools/probe/r11u183dec/README.md): every r11u183 law
 // reads its own R11U183_<LAW>_OFF switch; R11U183_OFF drops all of them.
 // R11U183_TRACE=<dir> names every firing of an r11u183 law (the mover
@@ -1680,6 +1734,355 @@ static bool evalFuncSelectPoison148(const slang::ast::Expression& rhs0,
         }));
     if (arm)
         *arm = which;
+    return hit;
+}
+// § evalFuncCastMemberKeepsCall191 (r11u191, R11U191_CONSTCALL_OFF) — two
+// more body shapes ExprEval::evalFunc cannot reduce (the producer is the one
+// § evalFuncSelectKeepsCall148 decodes: writeCont_assign's reduceExpr ->
+// evalFunc; only a constant result replaces the Rhs):
+//   C  a CAST whose target typespec the vpiCastOp arm of ExprEval::reduceExpr
+//      (UHDM templates/ExprEval.cpp, `case vpiCastOp`) has no row for: it
+//      folds int / longint / shortint / bit / integer (and a size cast
+//      `N'(...)`) / enum targets and leaves the result null for every other
+//      typespec — a logic or reg typedef (`imm_t'(...)`), byte, a packed
+//      struct or union (grid tools/probe/r11u191dec/cases/C: c01 f5, c02 g4
+//      g5 g6 keep; g1 g2 g3 g7 and c01 f1 fold);
+//   M  a MEMBER read of a packed struct (`op.f`) whose base is a formal bound
+//      to a non-pattern actual, a function local or a module parameter: the
+//      hier_path reduction never lands on a constant (c01 f3, c03 h1(P) h3
+//      h4 keep; a formal bound to a literal assignment pattern folds, c03
+//      h1('{...}), and is left alone).
+// Like the P arm, only a STRAIGHT-LINE body is claimed (c04 k1: a cast behind
+// a branch not taken folds in golden).  const_cast_signext's four calls are
+// the corpus face (`sext`: C + M; `uext`, `szc`: M).
+static bool r191ConstCallPoison(const slang::ast::Expression& rhs0) {
+    using namespace slang::ast;
+    auto& rhs = stripImplicitConv(rhs0);
+    if (rhs.kind != ExpressionKind::Call)
+        return false;
+    auto& call = rhs.as<CallExpression>();
+    if (call.isSystemCall())
+        return false;
+    auto sp = std::get_if<const SubroutineSymbol*>(&call.subroutine);
+    if (!sp || !*sp)
+        return false;
+    const SubroutineSymbol& sub = **sp;
+    std::function<bool(const Statement&)> straight = [&](const Statement& st) {
+        switch (st.kind) {
+            case StatementKind::Empty:
+            case StatementKind::Return:
+            case StatementKind::ExpressionStatement:
+            case StatementKind::VariableDeclaration:
+                return true;
+            case StatementKind::Block:
+                return straight(st.as<BlockStatement>().body);
+            case StatementKind::List:
+                for (auto* it : st.as<StatementList>().list)
+                    if (!straight(*it))
+                        return false;
+                return true;
+            default:
+                return false;
+        }
+    };
+    if (!straight(sub.getBody()))
+        return false;
+    // the formals bound to an assignment-pattern actual
+    std::set<const Symbol*> patFormal;
+    {
+        auto fs = sub.getArguments();
+        auto as = call.arguments();
+        for (size_t i = 0; i < fs.size() && i < as.size(); i++) {
+            auto& a = stripImplicitConv(*as[i]);
+            if (a.kind == ExpressionKind::SimpleAssignmentPattern ||
+                a.kind == ExpressionKind::StructuredAssignmentPattern ||
+                a.kind == ExpressionKind::ReplicatedAssignmentPattern)
+                patFormal.insert(fs[i]);
+        }
+    }
+    auto castUnhandled = [](const Type& t0) {
+        auto& t = t0.getCanonicalType();
+        if (t.kind == SymbolKind::EnumType)
+            return false;
+        if (t.kind == SymbolKind::PredefinedIntegerType)
+            return t.as<PredefinedIntegerType>().integerKind ==
+                   PredefinedIntegerType::Byte;
+        if (t.kind == SymbolKind::PackedStructType ||
+            t.kind == SymbolKind::PackedUnionType)
+            return true;
+        if (t.isIntegral() && !t.isPredefinedInteger()) {
+            // scalar / packed array: logic and reg are unhandled, bit is not
+            const Type* e = &t;
+            while (e->kind == SymbolKind::PackedArrayType)
+                e = &e->as<PackedArrayType>().elementType.getCanonicalType();
+            if (e->kind == SymbolKind::ScalarType)
+                return e->as<ScalarType>().scalarKind != ScalarType::Bit;
+        }
+        return false;
+    };
+    bool hit = false;
+    sub.getBody().visit(makeVisitor(
+        [&](auto& v, const ConversionExpression& cx) {
+            if (!hit && cx.syntax && cx.syntax->kind == slang::syntax::SyntaxKind::CastExpression) {
+                auto& ce = cx.syntax->as<slang::syntax::CastExpressionSyntax>();
+                // a size cast `N'(...)` is an integer_typespec: handled.  A
+                // typedef name parses as an expression (IdentifierName /
+                // ScopedName): it is a TYPE cast when the name finds a type.
+                bool sizeCast = !slang::syntax::DataTypeSyntax::isKind(ce.left->kind);
+                if (sizeCast && (ce.left->kind == slang::syntax::SyntaxKind::IdentifierName ||
+                                 ce.left->kind == slang::syntax::SyntaxKind::ScopedName)) {
+                    std::string nm191 = ce.left->toString();
+                    while (!nm191.empty() && isspace((unsigned char)nm191.front()))
+                        nm191.erase(nm191.begin());
+                    while (!nm191.empty() && isspace((unsigned char)nm191.back()))
+                        nm191.pop_back();
+                    if (auto* ls191 = sub.lookupName(nm191);
+                        ls191 && (ls191->kind == SymbolKind::TypeAlias ||
+                                  ls191->isType()))
+                        sizeCast = false;
+                }
+                if (!sizeCast && castUnhandled(*cx.type))
+                    hit = true;
+            }
+            v.visitDefault(cx);
+        },
+        [&](auto& v, const MemberAccessExpression& ma) {
+            if (!hit) {
+                auto& vt = ma.value().type->getCanonicalType();
+                auto& b = stripImplicitConv(ma.value());
+                if ((vt.kind == SymbolKind::PackedStructType ||
+                     vt.kind == SymbolKind::PackedUnionType) &&
+                    b.kind == ExpressionKind::NamedValue) {
+                    auto& bs = b.as<NamedValueExpression>().symbol;
+                    if (bs.kind == SymbolKind::FormalArgument)
+                        hit = !patFormal.count(&bs);
+                    else if (bs.kind == SymbolKind::Variable ||
+                             bs.kind == SymbolKind::Parameter)
+                        hit = true;
+                }
+            }
+            v.visitDefault(ma);
+        }));
+    return hit;
+}
+static bool r191ConstCallKeeps(const slang::ast::Expression& rhs) {
+    if (!r191ME("R11U191_CONSTCALL_OFF"))
+        return false;
+    if (!r191ConstCallPoison(rhs))
+        return false;
+    tr191ME("evalFuncCastMemberKeepsCall191");
+    return true;
+}
+// § evalFuncOmittedDefaultKeepsCall196 (r11u196, R11U196_DFLTARG_OFF) — a
+// whole-Rhs user call that OMITS an argument whose formal has a default, and
+// whose body reads that formal, is kept: ExprEval::evalFunc binds only the
+// call's own argument list (`for (auto io : *func->Io_decls()) if (args &&
+// index < args->size()) ... setValueInInstance`), so the defaulted formal is
+// never set and the body's read of it cannot reduce; writeCont_assign keeps
+// the call (golden tools/probe/r11u196repro/cases/DF: `f(1)` with `int b =
+// 2` kept, `f(1, 3)` folded; found on r11u191's fresh case V191/fd03).
+static bool r196OmittedDefaultKeeps(const slang::ast::Expression& rhs0) {
+    using namespace slang::ast;
+    if (!r11u196Law("R11U196_DFLTARG_OFF"))
+        return false;
+    auto& rhs = stripImplicitConv(rhs0);
+    if (rhs.kind != ExpressionKind::Call)
+        return false;
+    auto& call = rhs.as<CallExpression>();
+    if (call.isSystemCall())
+        return false;
+    auto sp = std::get_if<const SubroutineSymbol*>(&call.subroutine);
+    if (!sp || !*sp)
+        return false;
+    const SubroutineSymbol& sub = **sp;
+    auto* ssyn = sub.getSyntax();
+    if (!ssyn)
+        return false;
+    // the formals whose actual is their own default (written in the
+    // subroutine's port list, not at the call)
+    std::set<const Symbol*> omitted;
+    auto fs = sub.getArguments();
+    auto as = call.arguments();
+    for (size_t i = 0; i < fs.size(); i++) {
+        if (!fs[i]->getDefaultValue())
+            continue;
+        bool om = i >= as.size();
+        if (!om && as[i]) {
+            auto r = as[i]->sourceRange;
+            auto sr = ssyn->sourceRange();
+            om = r.start().buffer() == sr.start().buffer() && sr.start() <= r.start() &&
+                 r.end() <= sr.end();
+        }
+        if (om)
+            omitted.insert(fs[i]);
+    }
+    if (omitted.empty())
+        return false;
+    bool hit = false;
+    // § dfltArgExecutedRead196v (v11u196, R11V196_DFLTEXEC_OFF) — evalFunc
+    // EXECUTES the body with the omitted formal UNSET (ExprEval::evalStmt:
+    // an if / case runs the branch its condition selects, a loop runs its
+    // body while its condition holds, a return ends the evaluation, and an
+    // assignment overwrites the unset value), and only an unset value that
+    // reaches the returned result keeps the call; golden folds when the
+    // read lies on a path the call does not take or its value is
+    // overwritten (grid tools/probe/v11u196repro/cases/DF: x01 `if (a > 0)
+    // return a; else return b;` f(1) folded, x03 a loop that never runs
+    // folded, x05 an early return and `int t = b; if (a > 0) t = a;`
+    // folded).  The law is claimed on the body's straight-line prefix only,
+    // tracking the unset value through its locals: the top-level
+    // statements up to the first return or the first statement that is
+    // not straight-line (if, case, loop, ...), where an assignment of an
+    // expression reading an unset value makes its target unset, a whole
+    // assignment of any other value sets it, and the call is kept when a
+    // return in the prefix reads an unset value (a conditional OPERATOR
+    // counts all its operands: x03 `(a > 0) ? a : b` kept in golden,
+    // reduceExpr reads every operand).  A body whose prefix ends before
+    // any such return declines (the pristine fold: x06's case arm and
+    // running while loop, which golden keeps, are an under-reach).
+    if (r11v196Law("R11V196_DFLTEXEC_OFF")) {
+        std::set<const Symbol*> unset(omitted.begin(), omitted.end());
+        auto readsUnset = [&](const Expression& e) {
+            bool r = false;
+            e.visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+                if (unset.count(&nv.symbol))
+                    r = true;
+                v.visitDefault(nv);
+            }));
+            return r;
+        };
+        std::vector<const Statement*> seq;
+        std::function<void(const Statement&)> flat = [&](const Statement& st) {
+            if (st.kind == StatementKind::Block)
+                flat(st.as<BlockStatement>().body);
+            else if (st.kind == StatementKind::List)
+                for (auto* it : st.as<StatementList>().list)
+                    flat(*it);
+            else
+                seq.push_back(&st);
+        };
+        flat(sub.getBody());
+        size_t done196 = 0;
+        for (auto* st : seq) {
+            if (st->kind == StatementKind::Empty) {
+                done196++;
+                continue;
+            }
+            if (st->kind == StatementKind::Return) {
+                if (auto* re = st->as<ReturnStatement>().expr)
+                    hit = readsUnset(*re);
+                break;
+            }
+            if (st->kind == StatementKind::VariableDeclaration) {
+                auto& vs = st->as<VariableDeclStatement>().symbol;
+                if (auto* ie = vs.getInitializer(); ie && readsUnset(*ie))
+                    unset.insert(&vs);
+                else
+                    unset.erase(&vs);
+                done196++;
+                continue;
+            }
+            if (st->kind == StatementKind::ExpressionStatement) {
+                done196++;
+                auto& ex = stripImplicitConv(st->as<ExpressionStatement>().expr);
+                if (ex.kind != ExpressionKind::Assignment)
+                    continue;
+                auto& as196 = ex.as<AssignmentExpression>();
+                bool ru = readsUnset(as196.right()) ||
+                          (as196.isCompound() && readsUnset(as196.left()));
+                auto& lhs = stripImplicitConv(as196.left());
+                if (lhs.kind == ExpressionKind::NamedValue) {
+                    auto* ls = &lhs.as<NamedValueExpression>().symbol;
+                    if (ru)
+                        unset.insert(ls);
+                    else
+                        unset.erase(ls);
+                }
+                else if (ru)
+                    // a select or member target: the whole root reads unset
+                    lhs.visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+                        unset.insert(&nv.symbol);
+                        v.visitDefault(nv);
+                    }));
+                continue;
+            }
+            break;  // not straight-line: decline
+        }
+        // a body that runs to its end returns the function-name variable
+        if (done196 == seq.size() && sub.returnValVar && unset.count(sub.returnValVar))
+            hit = true;
+        // § dfltArgExecutedPathEval196v (v11u196, R11V196_DFLTEVAL_OFF) —
+        // past the straight-line prefix the executed path is slang's own:
+        // its constant evaluator runs the body with the supplied actuals and
+        // every omitted integral formal holding an all-X value (the unset
+        // value), taking the branch each condition selects, running each
+        // loop while its condition holds, overwriting on assignment; a
+        // returned value with unknown bits read the unset formal on the
+        // executed path and keeps the call (grid cases/DF: x06 a case arm
+        // `1: return b;` selected by f(1) and a while loop that runs, x05
+        // `return t + b` after a branch, x01 f(-1) taking the else arm, all
+        // kept in golden); a clean value, or an evaluation that fails,
+        // declines (x01 f(1), x05's early return and overwritten local).
+        // Claimed only where the law itself would fire (some read of an
+        // omitted formal in the body), so the refinement only withdraws.
+        bool anyRead = false;
+        sub.getBody().visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+            if (omitted.count(&nv.symbol))
+                anyRead = true;
+            v.visitDefault(nv);
+        }));
+        if (!hit && anyRead && sub.returnValVar && r11v196Law("R11V196_DFLTEVAL_OFF")) {
+            bool integral = true;
+            for (size_t i = 0; i < fs.size(); i++)
+                if (omitted.count(fs[i]) && !fs[i]->getType().isIntegral())
+                    integral = false;
+            if (integral) {
+                EvalContext ctx(sub);
+                std::vector<ConstantValue> vals;
+                bool ok = true;
+                for (size_t i = 0; i < fs.size() && ok; i++) {
+                    if (omitted.count(fs[i])) {
+                        auto& ft = fs[i]->getType();
+                        vals.emplace_back(SVInt::createFillX(ft.getBitWidth(), ft.isSigned()));
+                    }
+                    else if (i < as.size() && as[i]) {
+                        ConstantValue v = as[i]->eval(ctx);
+                        if (!v)
+                            ok = false;
+                        else
+                            vals.emplace_back(std::move(v));
+                    }
+                    else
+                        ok = false;
+                }
+                if (ok && ctx.pushFrame(sub, call.sourceRange.start(), LookupLocation::max)) {
+                    for (size_t i = 0; i < fs.size(); i++)
+                        ctx.createLocal(fs[i], vals[i]);
+                    ctx.createLocal(sub.returnValVar);
+                    auto er = sub.getBody().eval(ctx);
+                    ConstantValue res = std::move(*ctx.findLocal(sub.returnValVar));
+                    ctx.popFrame();
+                    if ((er == Statement::EvalResult::Success ||
+                         er == Statement::EvalResult::Return) &&
+                        res.isInteger() && res.integer().hasUnknown()) {
+                        hit = true;
+                        trace196("dfltArgExecutedPathEval196v", std::string(sub.name));
+                    }
+                }
+            }
+        }
+        if (!hit)
+            trace196("dfltArgExecutedRead196v", std::string(sub.name) + " declined");
+    }
+    else {
+        sub.getBody().visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+            if (omitted.count(&nv.symbol))
+                hit = true;
+            v.visitDefault(nv);
+        }));
+    }
+    if (hit)
+        trace196("evalFuncOmittedDefaultKeepsCall196", std::string(sub.name));
     return hit;
 }
 static bool evalFuncSelectKeepsCall148(const slang::ast::Expression& rhs,
@@ -5822,6 +6225,31 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             for (auto& mem : body.members())
                 if (mem.kind == SymbolKind::ClassType)
                     clist95.push_back(&mem.as<ClassType>());
+        // § modGenericClassListed196 (r11u196, R11U196_MODGENERIC_OFF) — a
+        // PARAMETERIZED class declared in a module or program body is the
+        // home's own `vpiClassDefn` like any other class: Surelog's
+        // ResolveSymbols::createFastLookup files every paClass_declaration of
+        // the home syntactically (parameterized or not), and writeModule /
+        // writeProgram list them (golden tools/probe/r11u196repro/cases/MG:
+        // `class box #(type E = int)` inside `module sub` ->
+        // `class_defn work@sub::box` with its `type_parameter E`).  slang
+        // holds such a class as a GenericClassDefSymbol, which the ClassType
+        // test above never met, so the listing lacked it; the handles'
+        // class_typespecs then had no class_defn and their specialization's
+        // param_assigns no Lhs, and UHDM's ElaboratorListener
+        // (propagateParamAssign) dereferenced the missing class_defn under
+        // --elabuhdm: r11u194's residue N1 (rc 139).  The class is listed by
+        // its default specialization, as emitPackageClasses lists a package's.
+        if (!ifaceHome99 && !nestHome99 && r11u196Law("R11U196_MODGENERIC_OFF"))
+            for (auto& mem : body.members())
+                if (mem.kind == SymbolKind::GenericClassDef)
+                    if (auto* dsp196 = mem.as<GenericClassDefSymbol>()
+                                           .getDefaultSpecialization(body);
+                        dsp196 && dsp196->kind == SymbolKind::ClassType) {
+                        clist95.push_back(&dsp196->as<ClassType>());
+                        trace196("modGenericClassListed196",
+                                 prefix + "::" + std::string(mem.name));
+                    }
         // § caModGenBlockClassIsModuleOwn98 — LAW B1 (r11u98).  A MODULE
         // home's generate-block classes are the module's OWN, collected by
         // the syntactic `sl_collect_all` in ResolveSymbols whose only stop
@@ -5864,6 +6292,19 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                         // module is no more a class home than an interface is.
                         if (!modGenClassOff98() && !ifaceHome98V && !nestHome99)
                             clist95.push_back(&mem.as<ClassType>());
+                    }
+                    // § modGenericClassListed196 — the generate-block face
+                    // (LAW B1's walk collects every paClass_declaration).
+                    else if (mem.kind == SymbolKind::GenericClassDef &&
+                             !modGenClassOff98() && !ifaceHome98V && !nestHome99 &&
+                             r11u196Law("R11U196_MODGENERIC_OFF")) {
+                        if (auto* dsp196 = mem.as<GenericClassDefSymbol>()
+                                               .getDefaultSpecialization(*blk);
+                            dsp196 && dsp196->kind == SymbolKind::ClassType) {
+                            clist95.push_back(&dsp196->as<ClassType>());
+                            trace196("modGenericClassListed196",
+                                     prefix + "::" + std::string(mem.name));
+                        }
                     }
         }
         // § caProgramGenFlattensEveryKind95 — LAW A, the CLASS face: a class
@@ -5943,10 +6384,14 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                                      return a->name < b->name;
                                  });
         }
-        for (auto* cls95 : clist95)
+        for (auto* cls95 : clist95) {
             mclasses->push_back(emitClassDefn(*cls95, std::string(cls95->name),
                                               prefix + "::" + std::string(cls95->name),
                                               m));
+            // § modClassTsLinksDefListing196 — the listing keyed by
+            // (definition, class name) for the other instance bodies.
+            noteModClassDefn196(&def, cls95->name, mclasses->back());
+        }
         if (!mclasses->empty())
             m->Class_defns(mclasses);
     }
@@ -10757,10 +11202,33 @@ void enumImportParentDrain180(UHDM::design* d) {
             return std::string(((const UHDM::instance*)o)->VpiDefName());
         return std::string();
     };
+    // § enumDefOwnerNotInstance191 (r11u191, R11U191_ENUMPARENT_OFF; r11u190
+    // new finding N1, grid tools/probe/r11u191dec/cases/N) — the refinement
+    // above leaves a parent "already of the winning definition" as it is, and
+    // skips an object whose parent IS the winner's owner; when the winning
+    // definition is also the LAST one emitted, that parent (or owner) is its
+    // ELABORATED instance (`work@zmod (work@top.uz)`), where golden's writer
+    // is writeModule / writeInterface on the DEFINITION (`work@zmod
+    // (work@zmod)`).  An instance of the winning definition hands the object
+    // to the definition's own object.  vpiParent only.
+    const bool enumDefInst191 = enumDef180v && r191ME("R11U191_ENUMPARENT_OFF");
+    auto defOwner191 = [&](UHDM::BaseClass* p, const EnumImpWrite180& w) -> UHDM::BaseClass* {
+        if (!enumDefInst191 || !p || defNameOf180v(p) != w.def)
+            return nullptr;
+        auto dit = defObj180v.find({w.rank, w.def});
+        if (dit == defObj180v.end() || dit->second == p)
+            return nullptr;
+        return dit->second;
+    };
     for (auto* ts : order) {
         auto& w = enumImpWrites180[win[ts]];
-        if (ts->VpiParent() == w.owner && w.scoped.empty() && !renamed[ts])
+        if (ts->VpiParent() == w.owner && w.scoped.empty() && !renamed[ts]) {
+            if (auto* d191 = defOwner191(ts->VpiParent(), w)) {
+                tr191ME("enumDefOwnerNotInstance191");
+                ts->VpiParent(d191);
+            }
             continue;
+        }
         auto* ets = (UHDM::enum_typespec*)ts;
         std::string nm = w.scoped;
         // A parent-only winner after a re-scoping loser: the name follows
@@ -10769,13 +11237,24 @@ void enumImportParentDrain180(UHDM::design* d) {
             nm = w.def + "." + std::string(ts->VpiName());
         UHDM::BaseClass* owner = w.owner;
         if (enumDef180v && ts->VpiParent() != w.owner) {
-            if (defNameOf180v(ts->VpiParent()) == w.def)
+            if (defNameOf180v(ts->VpiParent()) == w.def) {
                 owner = ts->VpiParent();
+                if (auto* d191 = defOwner191(owner, w)) {
+                    tr191ME("enumDefOwnerNotInstance191");
+                    owner = d191;
+                }
+            }
             else if (auto dit = defObj180v.find({w.rank, w.def});
                      dit != defObj180v.end() && dit->second != w.owner) {
                 owner = dit->second;
                 trace180("ENUMDEF", std::string(ts->VpiName()) + " -> " + w.def);
             }
+        }
+        // § enumDefOwnerNotInstance191 — the winner's own write may be the
+        // instance's (the last recorded write among the definition's).
+        if (auto* d191 = defOwner191(owner, w)) {
+            tr191ME("enumDefOwnerNotInstance191");
+            owner = d191;
         }
         bool moved = ts->VpiParent() != owner;
         ts->VpiParent(owner);
@@ -27613,7 +28092,9 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             // body evalFunc cannot reduce leaves the call as written (the
             // netlist's cont_assign keeps its func_call; grid case e13).
             const bool evalKeepGen148 =
-                !rhs && evalFuncSelectKeepsCall148(ae.right(), "genscope", fullName);
+                !rhs && (evalFuncSelectKeepsCall148(ae.right(), "genscope", fullName) ||
+                         r191ConstCallKeeps(ae.right()) ||
+                         r196OmittedDefaultKeeps(ae.right()));
             // Constant gen-scope calls fold to the source literal, sized at
             // the LHS width.
             if (!rhs && !evalKeepGen148)
@@ -38038,7 +38519,9 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // definition cont_assign share takes the row (see the decode at the
         // law's predicate).
         const bool evalKeep148 =
-            topView && evalFuncSelectKeepsCall148(ae.right(), "module", prefix);
+            topView && (evalFuncSelectKeepsCall148(ae.right(), "module", prefix) ||
+                        r191ConstCallKeeps(ae.right()) ||
+                        r196OmittedDefaultKeeps(ae.right()));
         CallFold cfr = (topView && !typedefRet && !sgnFormal9 && !evalKeep148)
                            ? constCallFold(stripImplicitConv(ae.right()))
                            : CallFold{};
@@ -39688,11 +40171,55 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 r11u183LawME("R11U183_ELABCAFOLD_OFF"))
                 defFold183 =
                     (UHDM::constant*)defInfo->contAssigns[myIdx]->Rhs();
+            // § elabCaConstLhsSized191 (r11u191, R11U191_UNSIZEDPKG_OFF) —
+            // UhdmWriter::writeCont_assign (UhdmWriter.cpp:2255-2280) reduces
+            // the elaborated Rhs to a constant and calls
+            // CompileHelper::adjustSize(<the LHS variable's typespec>, c,
+            // uniquify=true) (CompileHelper.cpp:4065): size = Bits(LHS) for
+            // every constant type but vpiDecConst; a UINT is CLONED, masked
+            // and takes that size (grow or shrink); a BIN keeps its width
+            // unless wider, then its low bits are kept IN PLACE (the
+            // decompile loses its size prefix); every other type (HEX, OCT,
+            // INT) takes the size IN PLACE — and the object is the
+            // definition's own reference constant (§
+            // pkgParamElabCaSharesDefFold183), so the definition view reads
+            // the resized object too, the last elaborated reader winning
+            // (grid tools/probe/r11u191dec/cases/U: u01 16'h12 into 8 bits
+            // reads 8, p01 into `int` 32, u09 two instances W=8 then W=32
+            // read 32, u11 8'b11000101 into 4 bits reads BIN:0101).  Ours
+            // kept the parameter's width.  Only a plain variable LHS: a
+            // select's typespec is none (adjustSize returns unchanged).
+            int32_t lhsW191 = -1;
+            if (r191ME("R11U191_UNSIZEDPKG_OFF") &&
+                stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue &&
+                ae.left().type && ae.left().type->isIntegral())
+                lhsW191 = (int32_t)ae.left().type->getBitWidth();
             if (defFold183) {
                 tr183ME("pkgParamElabCaSharesDefFold183");
                 if (auto* drt183 = defFold183->Typespec())
                     drt183->VpiFullName(prefix);
                 rhs = defFold183;
+                if (lhsW191 > 0) {
+                    int32_t o191 = defFold183->VpiSize();
+                    int ct191 = defFold183->VpiConstType();
+                    std::string v191(defFold183->VpiValue());
+                    if (ct191 == vpiDecConst) {
+                    }
+                    else if (ct191 == vpiBinaryConst) {
+                        if (o191 > lhsW191 && v191.rfind("BIN:", 0) == 0 &&
+                            v191.size() - 4 >= (size_t)o191) {
+                            tr191ME("elabCaConstLhsSized191");
+                            std::string b191 = v191.substr(v191.size() - lhsW191);
+                            defFold183->VpiValue("BIN:" + b191);
+                            defFold183->VpiDecompile(b191);
+                            defFold183->VpiSize(lhsW191);
+                        }
+                    }
+                    else if (o191 != lhsW191) {
+                        tr191ME("elabCaConstLhsSized191");
+                        defFold183->VpiSize(lhsW191);
+                    }
+                }
             }
             else {
             auto* rt = s.MakeRef_typespec();
@@ -39701,6 +40228,11 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             c->Typespec(rt);
             pendingParamCloneTs.push_back({rt, &ps2});
             rhs = c;
+            if (lhsW191 > c->VpiSize()) {
+                // the clone of a UINT (or an INT) grows to the LHS width
+                tr191ME("elabCaConstLhsSized191");
+                c->VpiSize(lhsW191);
+            }
             }
         }
         // Constant-driven module var: fold to its init value (plain constant,

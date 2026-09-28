@@ -1,0 +1,8 @@
+pris.bin -> l191.bin                          movers 47
+pris.bin:R11U188_OFF=1 -> l191.bin:R11U188_OFF=1 movers 47
+pris.bin:R11U193_OFF=1 -> l191.bin:R11U193_OFF=1 movers 47
+pris.bin:R11U188_OFF=1,R11U193_OFF=1 -> l191.bin:R11U188_OFF=1,R11U193_OFF=1 movers 47
+mover set identical in every switch state: True
+l191.bin:R11U191_OFF=1 vs pris.bin: differ on 0 []
+rc not 0/4: []
+movers: r11u188repro/cases/E/e01 r11u188repro/cases/E/e05 r11u188repro/cases/E/e06 r11u188repro/cases/E/e07 r11u188repro/cases/E/e09 r11u188repro/cases/E/e11 r11u188repro/cases/E/e12 r11u191dec/cases/C/c01 r11u191dec/cases/C/c02 r11u191dec/cases/C/c03 r11u191dec/cases/C/c04 r11u191dec/cases/F/f01 r11u191dec/cases/F/f02 r11u191dec/cases/F/f03 r11u191dec/cases/F/f04 r11u191dec/cases/F/f05 r11u191dec/cases/F/f06 r11u191dec/cases/F/f07 r11u191dec/cases/F/f08 r11u191dec/cases/G/g_g01 r11u191dec/cases/N/n_e03 r11u191dec/cases/N/n_e04 r11u191dec/cases/N/n_e06 r11u191dec/cases/N/n_e07 r11u191dec/cases/N/n_e08 r11u191dec/cases/N/n_e12 r11u191dec/cases/Q/q01 r11u191dec/cases/Q/q05 r11u191dec/cases/R/r01 r11u191dec/cases/R/r02 r11u191dec/cases/R/r03 r11u191dec/cases/U/u01 r11u191dec/cases/U/u02 r11u191dec/cases/U/u05 r11u191dec/cases/U/u06 r11u191dec/cases/U/u07 r11u191dec/cases/U/u08 r11u191dec/cases/U/u09 r11u191dec/cases/U/u10 r11u191dec/cases/U/u11 r11u191dec/cases/U/u_p01 r11u191dec/cases/U/u_p03 r11u191dec/cases/U/u_p05 r11u191dec/cases/U/u_p06 r11u191dec/cases/U/u_p07 r11u191dec/cases/U/u_p08 r11u193repro/cases/PM/p09_enum

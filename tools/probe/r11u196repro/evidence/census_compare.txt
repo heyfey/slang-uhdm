@@ -1,0 +1,25 @@
+# corpus census csvs (the law binary, fenced rows filtered) vs the committed baselines
+== sl.csv
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:fullname(20) -> differ:line(11)
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:fullname(20) -> differ:line(11)
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(27) -> differ:file(19) [file -8]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(27) -> differ:file(19) [file -8]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(46) [fullname -8]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:file(26) -> differ:endcol(18)
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:file(26) -> differ:endcol(18)
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(46) [fullname -8]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(46) [fullname -8]
+regressions=0 conversions=0 changes=9 only-fresh=0 only-committed=0
+== u2r.csv
+CONVERSION const_cast_signext default STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CONVERSION const_cast_signext testflags STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CONVERSION func_typename_ret default STRICT_NOTEQUAL differ:name(2) -> CMP_EQUAL
+CONVERSION func_typename_ret testflags STRICT_NOTEQUAL differ:name(2) -> CMP_EQUAL
+CHANGE arb_idx_cast default STRICT_NOTEQUAL differ:endcol(17) -> differ:fullname(16)
+CHANGE arb_idx_cast testflags STRICT_NOTEQUAL differ:endcol(17) -> differ:fullname(16)
+regressions=0 conversions=4 changes=2 only-fresh=0 only-committed=0
+== probe.csv
+CONVERSION r10vbuvm29repro/gv29_b_positions STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u114repro/grid/set3/g13 STRICT_NOTEQUAL differ:type(1) -> EQUAL
+CHANGE r11u108repro/grid/f4/c12_const_fold STRICT_NOTEQUAL differ:file(5) -> differ:file(4) [file -1]
+regressions=0 conversions=2 changes=1 only-fresh=0 only-committed=0

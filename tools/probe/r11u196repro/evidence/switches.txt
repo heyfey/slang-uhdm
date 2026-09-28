@@ -1,0 +1,15 @@
+R11U196_MODGENERIC_OFF moves 11: EN/e05 MG/m09 MG/m11 MG/m12 MG/ma01 MG/ma02 MG/ma03 MG/ma04 MG/ma05 MG/ma06 MG/ma07
+R11U196_MODGENHANDLE_OFF moves 9: MG/m09 MG/m10 MG/m11 MG/m12 MG/ma01 MG/ma02 MG/ma05 MG/ma06 MG/ma07
+R11U196_MODCLSLINK_OFF moves 2: MG/m09 MG/m13
+R11U196_ELEMCLSNAME_OFF moves 5: EN/e01 EN/e02 EN/e03 EN/e05 EN/e06
+R11U196_RETQUALTD_OFF moves 3: FR/f01 FR/f02 FR/f03
+R11U196_TPARRBOUND_OFF moves 6: TB/t01 TB/t02 TB/t03 TB/t04 TB/t05 TB/t06
+R11U196_DFLTARG_OFF moves 5: DF/d01 DF/d02 DF/d03 DF/d04 V191/fd03
+R11U196_FORMALCLONEFILE_OFF moves 4: SF/s01 SF/s02 SF/s04 SF/s05
+R11U191_REFFULL_OFF moves 11: r11u191dec/cases/F/f01 r11u191dec/cases/F/f02 r11u191dec/cases/F/f03 r11u191dec/cases/F/f04 r11u191dec/cases/F/f05 r11u191dec/cases/F/f06 r11u191dec/cases/F/f07 r11u191dec/cases/F/f08 V191/fd01 V191/fd02 V191/fd03
+R11U191_CONSTCALL_OFF moves 10: r11u191dec/cases/C/c01 r11u191dec/cases/C/c02 r11u191dec/cases/C/c03 r11u191dec/cases/C/c04 r11u191dec/cases/G/g_g01 V191/cc01 V191/cc02 V191/cc03 V191/hd01 V191/hd02
+R11U191_UNSIZEDPKG_OFF moves 16: r11u191dec/cases/U/u01 r11u191dec/cases/U/u02 r11u191dec/cases/U/u05 r11u191dec/cases/U/u06 r11u191dec/cases/U/u07 r11u191dec/cases/U/u08 r11u191dec/cases/U/u09 r11u191dec/cases/U/u10 r11u191dec/cases/U/u11 r11u191dec/cases/U/u_p01 r11u191dec/cases/U/u_p03 r11u191dec/cases/U/u_p05 r11u191dec/cases/U/u_p06 r11u191dec/cases/U/u_p07 r11u191dec/cases/U/u_p08 V191/uz01
+R11U191_QUEUERANGE_OFF moves 4: r11u191dec/cases/Q/q01 r11u191dec/cases/Q/q05 V191/qr01 V191/qr02
+R11U191_ENUMPARENT_OFF moves 8: r11u191dec/cases/N/n_e03 r11u191dec/cases/N/n_e04 r11u191dec/cases/N/n_e06 r11u191dec/cases/N/n_e07 r11u191dec/cases/N/n_e08 r11u191dec/cases/N/n_e12 V191/ep01 V191/ep02
+R11U191_HDRTD_OFF moves 3: r11u191dec/cases/G/g_g01 V191/hd01 V191/hd02
+R11U191_REALPORT_OFF moves 5: r11u191dec/cases/R/r01 r11u191dec/cases/R/r02 r11u191dec/cases/R/r03 V191/rp01 V191/rp02

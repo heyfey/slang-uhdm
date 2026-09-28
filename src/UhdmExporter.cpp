@@ -418,6 +418,78 @@ void trace193(const char* law, const std::string& detail) {
         fflush(tf);
     }
 }
+// The r11u196 switches (tools/probe/r11u196repro/README.md): every r11u196
+// law reads its own R11U196_<LAW>_OFF switch; R11U196_OFF drops all of them.
+// The r11u191 laws landed with this pass keep their own R11U191_* switches.
+bool r11u196Law(const char* sw) {
+    if (getenv("R11U196_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// R11U196_TRACE=<dir> names every firing of an r11u196 law (the mover census):
+// one file per process, `<dir>/<pid>.196`, its first line `OUT <-o path>`,
+// then one `<law> <detail>` line per firing.  Unset, nothing is written.
+void trace196(const char* law, const std::string& detail) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U196_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".196";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s %s\n", law, detail.c_str());
+        fflush(tf);
+    }
+}
+// § modClassTsLinksDefListing196 (r11u196, R11U196_MODCLSLINK_OFF) — the
+// module / program class listing, keyed by (definition, class name): every
+// instance body of a definition holds its OWN class symbols (slang
+// elaborates a body per parameterization), while the listing's class_defns
+// were emitted from one of them, so a handle declared in another instance's
+// body found no class_defn and its class_typespec went without vpiClassDefn
+// (golden links every one to the definition's `work@sub::plain`: grid
+// tools/probe/r11u196repro/cases/MG m09, m13).
+static std::map<std::pair<const void*, std::string>, UHDM::class_defn*>& modClassListing196() {
+    static std::map<std::pair<const void*, std::string>, UHDM::class_defn*> m;
+    return m;
+}
+// § retPkgQualTdNoAlias196 — the return references written package-qualified,
+// LAW S's skip (TypeEmit.cpp, the rebind walk).
+static std::set<const UHDM::ref_typespec*>& qualTdRt196() {
+    static std::set<const UHDM::ref_typespec*> s196;
+    return s196;
+}
+void noteQualTdRt196(const UHDM::ref_typespec* rt) {
+    if (rt)
+        qualTdRt196().insert(rt);
+}
+bool isQualTdRt196(const UHDM::ref_typespec* rt) {
+    return rt && qualTdRt196().count(rt) != 0;
+}
+void noteModClassDefn196(const void* def, std::string_view name, UHDM::class_defn* cd) {
+    if (def && cd)
+        modClassListing196().emplace(std::make_pair(def, std::string(name)), cd);
+}
 void enumImportParentDrain180(UHDM::design* d); // § enumImportParentLastWriter180 (ModuleEmit.cpp)
 // § classTpDefaultTsAtUse180 (TypeEmit.cpp)
 void noteTpOwnTs180(const slang::ast::Symbol* tp, UHDM::typespec* ts, bool winner87);
@@ -6580,6 +6652,27 @@ UHDM::variables* UhdmExporter::classElemVar(const Type& elemType,
                         ts183 && ts183->kind == syntax::SyntaxKind::NamedType) {
                         tr183UX("classPropElemClassTsAtType183");
                         setLoc(cts, ts183->sourceRange());
+                        // § classPropElemClassTsAtName196 (r11u196,
+                        // R11U196_ELEMCLSNAME_OFF; r11u194's residue N2) — a
+                        // PARAMETERIZED element class (`pool#(string, int)
+                        // m_rsc[comp];`) ends at the class NAME, not after its
+                        // parameter list: compileTypespec populates the
+                        // class_typespec from the class-name node, the
+                        // parameter value assignment being its sibling
+                        // (golden U/u04 6:12-6:16 where ours read 6:12-6:30;
+                        // the UVM uvm_pool / uvm_queue elements at
+                        // uvm_config_db.svh 69:10-69:18).  Grid
+                        // tools/probe/r11u196repro/cases/EN.
+                        if (const syntax::NameSyntax* nm196 =
+                                ts183->as<syntax::NamedTypeSyntax>().name;
+                            nm196 && nm196->kind == syntax::SyntaxKind::ClassName &&
+                            r11u196Law("R11U196_ELEMCLSNAME_OFF")) {
+                            auto& cn196 = nm196->as<syntax::ClassNameSyntax>();
+                            setLoc(cts, SourceRange(ts183->sourceRange().start(),
+                                                    cn196.identifier.range().end()));
+                            trace196("classPropElemClassTsAtName196",
+                                     std::string(cn196.identifier.valueText()));
+                        }
                         // § classPropElemQualTs186 (r11u186) — a PACKAGE-
                         // QUALIFIED element class (`q::e lst[$];`) is the
                         // paPackage_scope form of compileTypespec: the
@@ -7591,6 +7684,28 @@ UHDM::class_defn* UhdmExporter::classDefnFor(const Type& ct) {
         if (auto* gc = ct.as<ClassType>().genericClass)
             if (auto git = genericDefnMap.find(gc); git != genericDefnMap.end())
                 return git->second;
+    // § modClassTsLinksDefListing196 — a class of a module / program body
+    // (directly or inside its generate blocks) resolves through the
+    // definition's listing.
+    if (ct.kind == SymbolKind::ClassType && !modClassListing196().empty() &&
+        r11u196Law("R11U196_MODCLSLINK_OFF")) {
+        auto& c196 = ct.as<ClassType>();
+        const Scope* sc196 = c196.genericClass ? c196.genericClass->getParentScope()
+                                               : c196.getParentScope();
+        while (sc196 && (sc196->asSymbol().kind == SymbolKind::GenerateBlock ||
+                         sc196->asSymbol().kind == SymbolKind::GenerateBlockArray))
+            sc196 = sc196->asSymbol().getParentScope();
+        if (sc196 && sc196->asSymbol().kind == SymbolKind::InstanceBody) {
+            const void* d196 =
+                &sc196->asSymbol().as<InstanceBodySymbol>().getDefinition();
+            if (auto it196 = modClassListing196().find(
+                    std::make_pair(d196, std::string(ct.name)));
+                it196 != modClassListing196().end()) {
+                trace196("modClassTsLinksDefListing196", std::string(ct.name));
+                return it196->second;
+            }
+        }
+    }
     // NOTE § builtinClassTsLinksBuiltinFileDefn7 — DIRECTION: ADD an EDGE.
     // GATE: `mailbox` / `semaphore` / `process` resolve, in slang, to a
     // specialization of a generic class slang synthesizes in its OWN built-in

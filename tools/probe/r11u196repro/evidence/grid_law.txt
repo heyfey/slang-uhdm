@@ -1,0 +1,53 @@
+r11u196repro/cases/DF/d01 | pris.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1
+r11u196repro/cases/DF/d02 | pris.bin: rc=0 cmp=255 cmplines=17 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=17 NOT_EQUAL stage1
+r11u196repro/cases/DF/d03 | pris.bin: rc=0 cmp=255 cmplines=60 NOT_EQUAL stage1 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 87 objects
+r11u196repro/cases/DF/d04 | pris.bin: rc=0 cmp=255 cmplines=15 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=15 NOT_EQUAL stage1
+r11u196repro/cases/EN/e01 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL endcol | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 33 objects
+r11u196repro/cases/EN/e02 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL endcol | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 25 objects
+r11u196repro/cases/EN/e03 | pris.bin: rc=0 cmp=255 cmplines=18 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=18 NOT_EQUAL stage1
+r11u196repro/cases/EN/e04 | pris.bin: rc=0 cmp=255 cmplines=28 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=28 NOT_EQUAL stage1
+r11u196repro/cases/EN/e05 | pris.bin: rc=0 cmp=255 cmplines=502 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=81 NOT_EQUAL stage1
+r11u196repro/cases/EN/e06 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL endline | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 27 objects
+r11u196repro/cases/FR/f01 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL name | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 179 objects
+r11u196repro/cases/FR/f02 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL line | law.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL line
+r11u196repro/cases/FR/f03 | pris.bin: rc=0 cmp=255 cmplines=122 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1
+r11u196repro/cases/MG/m09 | pris.bin: rc=0 cmp=255 cmplines=207 NOT_EQUAL stage1 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 54 objects
+r11u196repro/cases/MG/m10 | pris.bin: rc=0 cmp=255 cmplines=207 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=207 NOT_EQUAL stage1
+r11u196repro/cases/MG/m11 | pris.bin: rc=0 cmp=255 cmplines=506 NOT_EQUAL stage1 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 50 objects
+r11u196repro/cases/MG/m12 | pris.bin: rc=0 cmp=255 cmplines=540 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=64 NOT_EQUAL stage1
+r11u196repro/cases/MG/m13 | pris.bin: rc=0 cmp=255 cmplines=47 NOT_EQUAL stage1 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 40 objects
+r11u196repro/cases/MG/ma01 | pris.bin: rc=0 cmp=255 cmplines=109 NOT_EQUAL stage1 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 19 objects
+r11u196repro/cases/MG/ma02 | pris.bin: rc=0 cmp=255 cmplines=109 NOT_EQUAL stage1 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 20 objects
+r11u196repro/cases/MG/ma03 | pris.bin: rc=0 cmp=255 cmplines=153 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=18 NOT_EQUAL stage1
+r11u196repro/cases/MG/ma04 | pris.bin: rc=0 cmp=255 cmplines=95 NOT_EQUAL stage1 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 17 objects
+r11u196repro/cases/MG/ma05 | pris.bin: rc=0 cmp=255 cmplines=204 NOT_EQUAL stage1 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 21 objects
+r11u196repro/cases/MG/ma06 | pris.bin: rc=0 cmp=255 cmplines=109 NOT_EQUAL stage1 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 30 objects
+r11u196repro/cases/MG/ma07 | pris.bin: rc=0 cmp=255 cmplines=361 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=64 NOT_EQUAL stage1
+r11u196repro/cases/MG/ma08 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 14 objects | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 14 objects
+r11u196repro/cases/SF/s01 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL file | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 199 objects
+r11u196repro/cases/SF/s02 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL file | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 150 objects
+r11u196repro/cases/SF/s03 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL line | law.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL line
+r11u196repro/cases/SF/s04 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL file | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 204 objects
+r11u196repro/cases/SF/s05 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL file | law.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL file
+r11u196repro/cases/TB/t01 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL endcol | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 115 objects
+r11u196repro/cases/TB/t02 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL endcol | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 154 objects
+r11u196repro/cases/TB/t03 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL endcol | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 118 objects
+r11u196repro/cases/TB/t04 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL endcol | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 107 objects
+r11u196repro/cases/TB/t05 | pris.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1
+r11u196repro/cases/TB/t06 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL endcol | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 154 objects
+r11u196repro/cases/V191/cc01 | pris.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1
+r11u196repro/cases/V191/cc02 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | law.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type
+r11u196repro/cases/V191/cc03 | pris.bin: rc=0 cmp=255 cmplines=60 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1
+r11u196repro/cases/V191/ep01 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 165 objects | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 165 objects
+r11u196repro/cases/V191/ep02 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 68 objects | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 68 objects
+r11u196repro/cases/V191/fd01 | pris.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1
+r11u196repro/cases/V191/fd02 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL fullname | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 49 objects
+r11u196repro/cases/V191/fd03 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL fullname | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 153 objects
+r11u196repro/cases/V191/hd01 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 339 objects
+r11u196repro/cases/V191/hd02 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL file | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 478 objects
+r11u196repro/cases/V191/qr01 | pris.bin: rc=0 cmp=255 cmplines=17 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=17 NOT_EQUAL stage1
+r11u196repro/cases/V191/qr02 | pris.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1
+r11u196repro/cases/V191/rp01 | pris.bin: rc=0 cmp=255 cmplines=12 NOT_EQUAL stage1 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 58 objects
+r11u196repro/cases/V191/rp02 | pris.bin: rc=0 cmp=255 cmplines=12 NOT_EQUAL stage1 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 110 objects
+r11u196repro/cases/V191/uz01 | pris.bin: rc=0 cmp=255 cmplines=60 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=11 NOT_EQUAL stage1
+r11u196repro/cases/V191/uz02 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 151 objects | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 151 objects

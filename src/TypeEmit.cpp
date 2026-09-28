@@ -15,6 +15,50 @@
 
 namespace slang_uhdm {
 
+// The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
+// reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them, and
+// so does R11U196_OFF (the laws landed with pass r11u196).
+// R11U191_TRACE=<dir> names every firing of an r11u191 law (the mover
+// census): one file per process, `<dir>/<pid>.TE`, its first line the
+// `-o` database path read off the command line, then one law name per firing.
+static void tr191TE(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U191_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".TE";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+static bool r191TE(const char* sw) {
+    if (getenv("R11U191_OFF") != nullptr || getenv("R11U196_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 // The r11u183 switches (tools/probe/r11u183dec/README.md): every r11u183 law
 // reads its own R11U183_<LAW>_OFF switch; R11U183_OFF drops all of them.
 extern std::map<const void*, UHDM::typespec*> g_typeParamOwnTs183;
@@ -1869,6 +1913,9 @@ void noteTpOwnTs180(const Symbol* tp, UHDM::typespec* ts, bool winner87) {
 // (typedef, class, another type parameter) is not claimed (its object may be
 // the typedef's shared one: no relocation of it here).  Switch
 // R11U188_TPKEYWORD_OFF.
+bool isQualTdRt196(const UHDM::ref_typespec* rt);
+bool r11u196Law(const char* sw);  // the r11u196 switches (UhdmExporter.cpp)
+void trace196(const char* law, const std::string& detail);
 bool r11u188Law(const char* sw);  // the r11u188 switches (UhdmExporter.cpp)
 void trace188(const char* law, const std::string& detail);
 static const syntax::DataTypeSyntax* tpDefaultSyn188(const Symbol& tp) {
@@ -3493,8 +3540,41 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 }
                 foreignPkgHome163 = genPkg163 && genPkg163 != declPkg163;
             }
+            // § modGenericHandleBare196 (r11u196, R11U196_MODGENHANDLE_OFF) —
+            // a handle of a parameterized class declared in a MODULE, PROGRAM
+            // or INTERFACE body takes the listing shape wherever it is
+            // declared (a variable of the body, a property of another class
+            // of the body, a process local): compileTypespec's
+            // `<component>::<typeName>` probe (CompileType.cpp:1896-1918, the
+            // § classPropSpecForeignPkgHome163 citation) hits the home's own
+            // registration `work@sub::box`, and on a hit mints a bare
+            // class_typespec (Name + Class_defn, no vpiParameter /
+            // vpiParamAssign), at the NAME TOKEN on a class-property site.
+            // Golden tools/probe/r11u196repro/cases/MG (`box #(byte) b;`,
+            // `box #(byte) b = new;`, `class holder; box #(byte) m;`).
+            bool modGeneric196 = false;
+            {
+                auto& cls196 = ct0.as<ClassType>();
+                if (cls196.genericClass && r11u196Law("R11U196_MODGENHANDLE_OFF"))
+                    if (auto* gsc196 = cls196.genericClass->getParentScope()) {
+                        while (gsc196 &&
+                               (gsc196->asSymbol().kind == SymbolKind::GenerateBlock ||
+                                gsc196->asSymbol().kind ==
+                                    SymbolKind::GenerateBlockArray))
+                            gsc196 = gsc196->asSymbol().getParentScope();
+                        modGeneric196 = gsc196 && gsc196->asSymbol().kind ==
+                                                      SymbolKind::InstanceBody;
+                    }
+            }
+            if (modGeneric196)
+                trace196("modGenericHandleBare196", std::string(ct0.name));
+            const bool listingSite196 =
+                listingSite53 ||
+                (modGeneric196 && (siteKind53 == SymbolKind::ClassType ||
+                                   siteKind53 == SymbolKind::Package ||
+                                   declSymbol.kind == SymbolKind::FormalArgument));
             const bool suppressParams163 =
-                pkgGenericListing53 && !foreignPkgHome163;
+                (pkgGenericListing53 && !foreignPkgHome163) || modGeneric196;
             {
                 bool writtenSpec0 = true;
                 if (auto tsynS0 = declared->getTypeSyntax())
@@ -3525,7 +3605,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 // NAME TOKEN.  A SCOPED spelling is overridden again just below
                 // (Surelog locates those at the `pkg::` prefix), which is why
                 // this runs FIRST and unconditionally of the scoped test.
-                if (listingSite53)
+                if (listingSite196)
                     if (auto* ntN53 = tsyn0->as_if<syntax::NamedTypeSyntax>()) {
                         const syntax::NameSyntax* nmN53 = &*ntN53->name;
                         while (nmN53 &&
@@ -3775,6 +3855,26 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                      : &ect.as<FixedSizeUnpackedArrayType>().elementType;
         }
         auto& ct = et->getCanonicalType();
+        // § splitPortRealRedeclLogicTs191 (r11u191, R11U191_REALPORT_OFF;
+        // r11u190 new finding N5, grid tools/probe/r11u191dec/cases/R) — the
+        // floating twin of § splitPortIntRedeclLogicTs180: a SPLIT port whose
+        // port declaration carries no data type (`output d;`) and whose body
+        // re-declares it `real` / `shortreal` / `realtime` keeps the PORT
+        // declaration's logic_typespec at the port declarator in golden
+        // (r11u190 R/r01 `logic_typespec 6:10`); ours typed the port real
+        // (downstream DIVERGENT).  The variable keeps its real typespec.
+        if (ct.kind == SymbolKind::FloatingType && mergedPort && portDeclTypeSyn &&
+            portDeclTypeSyn->kind == syntax::SyntaxKind::ImplicitType &&
+            portDeclTypeSyn->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+            r11u180Law("R11U180_PORTINTREDECL_OFF") && r191TE("R11U191_REALPORT_OFF")) {
+            auto* lt191 = s.MakeLogic_typespec();
+            if (portDeclTypeSyn->as<syntax::ImplicitTypeSyntax>().signing.kind ==
+                parsing::TokenKind::SignedKeyword)
+                lt191->VpiSigned(true);
+            setLoc(lt191, trimTypeSigning(typeSynFor(), range));
+            tr191TE("splitPortRealRedeclLogicTs191");
+            return lt191;
+        }
         if (ct.kind == SymbolKind::FloatingType) {
             UHDM::typespec* t = ct.as<FloatingType>().floatKind == FloatingType::ShortReal
                                     ? (UHDM::typespec*)s.MakeShort_real_typespec()
@@ -14507,7 +14607,9 @@ void UhdmExporter::bareScalarTypedefVarTs() {
         }
         if (auto* v = dynamic_cast<UHDM::variables*>(o)) {
             bool inst = instScopeVar(v);
-            if (!inst || rangedTd(v->Typespec()))
+            // § retPkgQualTdNoAlias196 — a package-qualified return keeps the
+            // package's typedef object.
+            if ((!inst || rangedTd(v->Typespec())) && !isQualTdRt196(v->Typespec()))
                 rebind(v->Typespec(), !inst);
         }
         // § dpiImportFormalListingTd33 (pass 33) — a DPI IMPORT's formal was
@@ -17724,12 +17826,41 @@ void modAggCloneDrain180(UHDM::Serializer& s) {
     // module `include`s from td.svh, where the drain wrote td.svh 5:42-5:46).
     // Switch R11V180_MODAGGFILE_OFF.
     static const bool takeFile180v = r11v180Law("R11V180_MODAGGFILE_OFF");
+    // § modAggClonePerDefKey191 (r11u191, R11U191_HDRTD_OFF; r11u190 new
+    // finding N2, grid tools/probe/r11u191dec/cases/G) — the refinement above
+    // declines a move whose declaration key holds two declarations, which is
+    // right when only ONE definition moves its object, and over-declines when
+    // BOTH definitions that `include` the header have a formal writer
+    // (r11u190 G/g01: golden gives amod's clones amod's formal span 4:42-46
+    // and bmod's clones bmod's 10:42-46; the decline left all of them at the
+    // header declaration).  Surelog moves each DesignComponent's own TypeDef
+    // object and clones it per definition, so the key is (declaration,
+    // DEFINITION): a move applies to the clones whose parent chain reaches an
+    // instance of the listing's own definition; a clone with no such chain,
+    // or a listing whose definition is unknown, keeps the decline.
+    auto defOf191 = [](const UHDM::BaseClass* o) -> std::string {
+        for (int i = 0; o && i < 64; i++, o = o->VpiParent()) {
+            auto t = o->UhdmType();
+            if (t == UHDM::uhdmmodule_inst || t == UHDM::uhdminterface_inst ||
+                t == UHDM::uhdmprogram)
+                return std::string(((const UHDM::instance*)o)->VpiDefName());
+            if (t == UHDM::uhdmpackage || t == UHDM::uhdmdesign)
+                return std::string();
+        }
+        return std::string();
+    };
+    static const bool perDef191 = r191TE("R11U191_HDRTD_OFF");
     for (auto& mv : modAggMoves180) {
+        std::string onlyDef191;
         if (ownDef180v) {
             auto dk = modAggDecls180v.find({mv.file, mv.l0, mv.c0, mv.l1, mv.c1});
             if (dk != modAggDecls180v.end() && dk->second.size() > 1) {
-                trace180("MODAGGDEF", std::string(mv.listing->VpiName()) + " declined");
-                continue;
+                if (perDef191)
+                    onlyDef191 = defOf191(mv.listing);
+                if (onlyDef191.empty()) {
+                    trace180("MODAGGDEF", std::string(mv.listing->VpiName()) + " declined");
+                    continue;
+                }
             }
         }
         for (auto* o : all) {
@@ -17738,6 +17869,11 @@ void modAggCloneDrain180(UHDM::Serializer& s) {
                 o->VpiLineNo() != mv.l0 || o->VpiColumnNo() != mv.c0 ||
                 o->VpiEndLineNo() != mv.l1 || o->VpiEndColumnNo() != mv.c1)
                 continue;
+            if (!onlyDef191.empty()) {
+                if (defOf191(o) != onlyDef191)
+                    continue;
+                tr191TE("modAggClonePerDefKey191");
+            }
             auto* ts = (UHDM::typespec*)o;
             ts->VpiLineNo(mv.nl0);
             ts->VpiColumnNo(mv.nc0);
@@ -25644,6 +25780,27 @@ UHDM::packed_array_var* UhdmExporter::emitVectorTypedefArrayVar(
                 while (syntax::BinaryExpressionSyntax::isKind(lf->kind))
                     lf = lf->as<syntax::BinaryExpressionSyntax>().left;
                 setLoc(c, lf->getFirstToken().range());
+                // § tpArrBoundAtLeftOperand196 (r11u196,
+                // R11U196_TPARRBOUND_OFF; arb_idx_cast #209) — Surelog
+                // locates the folded bound at the FIRST CHILD of the
+                // expression node, i.e. the whole LEFT OPERAND of the top
+                // binary operation (its parse tree is left-deep): a name
+                // left operand is the name (`N-1` -> `N`, unchanged), any
+                // other keeps its own span (`2**NumLevels-2` ->
+                // `2**NumLevels` 15:10-15:22, `N+M-1` -> `N+M`, `(N)-1` ->
+                // `(N)`, `$clog2(N)+1` -> `$clog2(N)`, `-N+5` -> `-N`; grid
+                // tools/probe/r11u196repro/cases/TB), where ours read the
+                // leftmost leaf's first token.
+                const syntax::ExpressionSyntax* lop196 =
+                    bs->as<syntax::BinaryExpressionSyntax>().left;
+                if (lop196 && lop196->kind != syntax::SyntaxKind::IdentifierName &&
+                    lop196->kind != syntax::SyntaxKind::ScopedName &&
+                    !syntax::LiteralExpressionSyntax::isKind(lop196->kind) &&
+                    r11u196Law("R11U196_TPARRBOUND_OFF")) {
+                    setLoc(c, lop196->sourceRange());
+                    trace196("tpArrBoundAtLeftOperand196",
+                             std::string(rawText(lop196->sourceRange())));
+                }
             }
             return c;
         };
@@ -25963,6 +26120,27 @@ UHDM::packed_array_var* UhdmExporter::emitTypeParamArrayVar(
                 while (syntax::BinaryExpressionSyntax::isKind(lf->kind))
                     lf = lf->as<syntax::BinaryExpressionSyntax>().left;
                 setLoc(c, lf->getFirstToken().range());
+                // § tpArrBoundAtLeftOperand196 (r11u196,
+                // R11U196_TPARRBOUND_OFF; arb_idx_cast #209) — Surelog
+                // locates the folded bound at the FIRST CHILD of the
+                // expression node, i.e. the whole LEFT OPERAND of the top
+                // binary operation (its parse tree is left-deep): a name
+                // left operand is the name (`N-1` -> `N`, unchanged), any
+                // other keeps its own span (`2**NumLevels-2` ->
+                // `2**NumLevels` 15:10-15:22, `N+M-1` -> `N+M`, `(N)-1` ->
+                // `(N)`, `$clog2(N)+1` -> `$clog2(N)`, `-N+5` -> `-N`; grid
+                // tools/probe/r11u196repro/cases/TB), where ours read the
+                // leftmost leaf's first token.
+                const syntax::ExpressionSyntax* lop196 =
+                    bs->as<syntax::BinaryExpressionSyntax>().left;
+                if (lop196 && lop196->kind != syntax::SyntaxKind::IdentifierName &&
+                    lop196->kind != syntax::SyntaxKind::ScopedName &&
+                    !syntax::LiteralExpressionSyntax::isKind(lop196->kind) &&
+                    r11u196Law("R11U196_TPARRBOUND_OFF")) {
+                    setLoc(c, lop196->sourceRange());
+                    trace196("tpArrBoundAtLeftOperand196",
+                             std::string(rawText(lop196->sourceRange())));
+                }
             }
             return c;
         };

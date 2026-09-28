@@ -1,0 +1,6 @@
+v11u196 prediction, frozen 2026-09-28T03:17:09-04:00 BEFORE the fix sweep /tmp/v11u196_swF:
+byte movers fix vs law (corpora + probe): 0, except the known order draws (MiniAmiq testflags storage-order
+draw, Scoreboard default svunit order coin, SeqDriver/SimpleUVM order-only draws); reason: the refinements
+§ dfltArgExecutedRead196v / § dfltArgExecutedPathEval196v can only withdraw firings of
+§ evalFuncOmittedDefaultKeepsCall196 (refined hit => some read of an omitted formal => unrefined hit), and the
+unrefined law fires on no corpus row-mode and no probe case (r11u196 census: 0 firings; verified below by trace).

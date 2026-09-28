@@ -1,0 +1,13 @@
+SLANG_FAIL rc=139 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL fullname
+SLANG_FAIL rc=139 | law.bin: rc=0 cmp=255 cmplines=247 NOT_EQUAL stage1
+SLANG_FAIL rc=139 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL fullname
+SLANG_FAIL rc=139 | law.bin: rc=0 cmp=255 cmplines=64 NOT_EQUAL stage1
+r11u196repro/cases/MG/m13 | pris.bin: rc=0 cmp=255 cmplines=47 NOT_EQUAL stage1 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL fullname
+SLANG_FAIL rc=139 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL fullname
+SLANG_FAIL rc=139 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL fullname
+r11u196repro/cases/MG/ma03 | pris.bin: rc=0 cmp=255 cmplines=153 NOT_EQUAL stage1 | law.bin: rc=0 cmp=255 cmplines=18 NOT_EQUAL stage1
+r11u196repro/cases/MG/ma04 | pris.bin: rc=0 cmp=255 cmplines=95 NOT_EQUAL stage1 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL fullname
+SLANG_FAIL rc=139 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL fullname
+SLANG_FAIL rc=139 | law.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 30 objects
+SLANG_FAIL rc=139 | law.bin: rc=0 cmp=255 cmplines=64 NOT_EQUAL stage1
+r11u196repro/cases/MG/ma08 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL fullname | law.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL fullname

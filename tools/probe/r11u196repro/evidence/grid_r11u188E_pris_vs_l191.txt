@@ -1,0 +1,33 @@
+r11u188repro/cases/E/e01 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 183 objects
+r11u188repro/cases/E/e02 | pris.bin: rc=0 cmp=255 cmplines=134 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=134 NOT_EQUAL stage1
+r11u188repro/cases/E/e03 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL file | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL file
+r11u188repro/cases/E/e04 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type
+r11u188repro/cases/E/e05 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 179 objects
+r11u188repro/cases/E/e06 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 169 objects
+r11u188repro/cases/E/e07 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 221 objects
+r11u188repro/cases/E/e08 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type
+r11u188repro/cases/E/e09 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 187 objects
+r11u188repro/cases/E/e10 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type
+r11u188repro/cases/E/e11 | pris.bin: rc=0 cmp=255 cmplines=68 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=68 NOT_EQUAL stage1
+r11u188repro/cases/E/e12 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 177 objects
+r11u188repro/cases/E/e13 | pris.bin: rc=0 cmp=255 cmplines=32 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=32 NOT_EQUAL stage1
+r11u188repro/cases/E/e14 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type
+r11u188repro/cases/E/e15 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type
+r11u188repro/cases/E/e16 | pris.bin: rc=0 cmp=255 cmplines=17 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=17 NOT_EQUAL stage1
+r11u188repro/cases/E/e17 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type
+r11u188repro/cases/E/e18 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type
+r11u188repro/cases/E/e19 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type
+r11u188repro/cases/E/e20 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type
+r11u188repro/cases/E/e21 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type
+r11u188repro/cases/E/e22 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type
+r11u188repro/cases/E/e23 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type
+r11u188repro/cases/E/e24 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type
+r11u188repro/cases/E/e25 | pris.bin: rc=0 cmp=255 cmplines=17 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=17 NOT_EQUAL stage1
+r11u188repro/cases/E/e26 | pris.bin: rc=0 cmp=255 cmplines=17 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=17 NOT_EQUAL stage1
+r11u188repro/cases/E/e27 | pris.bin: rc=0 cmp=255 cmplines=50 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=50 NOT_EQUAL stage1
+r11u188repro/cases/E/e28 | pris.bin: rc=0 cmp=255 cmplines=64 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=64 NOT_EQUAL stage1
+r11u188repro/cases/E/x01 | pris.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1
+r11u188repro/cases/E/x02 | pris.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1
+r11u188repro/cases/E/x03 | pris.bin: rc=0 cmp=255 cmplines=17 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=17 NOT_EQUAL stage1
+r11u188repro/cases/E/x04 | pris.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1
+r11u193repro/cases/PM/p09_enum | pris.bin: rc=0 cmp=255 cmplines=32 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=32 NOT_EQUAL stage1

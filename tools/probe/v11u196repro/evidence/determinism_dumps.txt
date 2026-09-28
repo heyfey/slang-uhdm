@@ -1,0 +1,21 @@
+MiniAmiq default [pris] dumps_distinct=2 orderblind_distinct=2 (runs 3)
+MiniAmiq default [law fix] dumps_distinct=1 orderblind_distinct=1 (runs 6)
+MiniAmiq testflags [pris] dumps_distinct=3 orderblind_distinct=3 (runs 3)
+MiniAmiq testflags [law fix] dumps_distinct=1 orderblind_distinct=1 (runs 6)
+SeqDriver default [pris] dumps_distinct=3 orderblind_distinct=3 (runs 3)
+SeqDriver default [law fix] dumps_distinct=1 orderblind_distinct=1 (runs 6)
+SeqDriver testflags [pris] dumps_distinct=1 orderblind_distinct=1 (runs 3)
+SeqDriver testflags [law fix] dumps_distinct=1 orderblind_distinct=1 (runs 6)
+SimpleUVM default [pris] dumps_distinct=3 orderblind_distinct=3 (runs 3)
+SimpleUVM default [law fix] dumps_distinct=1 orderblind_distinct=1 (runs 6)
+SimpleUVM testflags [pris] dumps_distinct=1 orderblind_distinct=1 (runs 3)
+SimpleUVM testflags [law fix] dumps_distinct=1 orderblind_distinct=1 (runs 6)
+BuildUVMPkg default [pris] dumps_distinct=1 orderblind_distinct=1 (runs 3)
+BuildUVMPkg default [law fix] dumps_distinct=1 orderblind_distinct=1 (runs 6)
+BuildUVMPkg testflags [pris] dumps_distinct=1 orderblind_distinct=1 (runs 3)
+BuildUVMPkg testflags [law fix] dumps_distinct=2 orderblind_distinct=2 (runs 6)
+Earlgrey_0_1 default/testflags: 1 hash per binary in 3 of 3 runs each (determinism.txt); fix = law
+
+BuildUVMPkg testflags, the one content draw: fix run 3 of determinism.txt (hash f8429854525e, dump 74704961) differs from the other runs' dump b78c462a only in the weaklyReferenced tail (starts at dump line 1007450): 4 lines at 1044721 (a class_typespec this_type of uvm_abstract_component_registry, uvm_pkg.sv 13776:11-42) absent. Extra concurrent runs from the row's own cwd, dump md5 (header dropped):
+  law 6 + 18 runs: all b78c462a; fix 6 + 18 runs: all b78c462a; pris 6 runs: all dump b64745d4 (2 file hashes)
+  total: the tail draw in 1 of 27 fix runs, 0 of 27 law runs, 0 of 9 pristine runs (a different dump pool); the refinement code is not reached on this row (R11U196_TRACE on the fix binary names no dfltArg* or evalFuncOmittedDefault firing).

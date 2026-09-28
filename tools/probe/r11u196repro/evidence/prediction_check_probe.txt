@@ -1,0 +1,5 @@
+probe databases moved: 204 of 4087
+census-named probe databases 232
+MOVED_NOT_IN_CENSUS 0 []
+CENSUS_NOT_MOVED 28 {'retPkgQualTdNoAlias196': 6, 'evalFuncCastMemberKeepsCall191': 16, 'enumDefOwnerNotInstance191': 6}
+probe movers per firing law {'enumDefOwnerNotInstance191': 198, 'evalFuncCastMemberKeepsCall191': 4, 'formalDefaultNamedThroughFormal191': 1, 'retPkgQualTdNoAlias196': 1}

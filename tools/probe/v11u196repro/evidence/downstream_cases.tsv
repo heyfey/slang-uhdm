@@ -1,0 +1,102 @@
+pris	DF__x01	EQUIVALENT	NO_GATES	NO_GATES	nohier il synth	✅ All 1 common constant assignments match
+pris	DF__x02	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u196_dsw2_pris/DF__x02
+pris	DF__x03	IDENTICAL	NO_GATES	NO_GATES		
+pris	DF__x04	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u196_dsw2_pris/DF__x04
+pris	DF__x05	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u196_dsw2_pris/DF__x05
+pris	DF__x06	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u196_dsw2_pris/DF__x06
+pris	EN__n01	IDENTICAL	NO_GATES	NO_GATES		
+pris	EN__n02	IDENTICAL	NO_GATES	NO_GATES		
+pris	FR__r01	IDENTICAL	NO_GATES	NO_GATES		
+pris	FR__r02	IDENTICAL	NO_GATES	NO_GATES		
+pris	FR__r03	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 2 common constant assignments match
+pris	MG__g01	EQUIVALENT	NO_GATES	NO_GATES	nohier	ℹ️  No common assign statements to compare — skipping
+pris	MG__g02	EQUIVALENT	NO_GATES	NO_GATES	nohier	ℹ️  No common assign statements to compare — skipping
+pris	MG__g03	STATUS_DIFF	NO_GATES	CRASH		
+pris	MG__g04	STATUS_DIFF	NO_GATES	CRASH		
+pris	MG__g05	STATUS_DIFF	NO_GATES	CRASH		
+pris	MG__g06	IDENTICAL	NO_GATES	NO_GATES		
+pris	MG__g07	IDENTICAL	NO_GATES	NO_GATES		
+pris	MG__g08	STATUS_DIFF	NO_GATES	CRASH		
+pris	MG__g08p	IDENTICAL	NO_GATES	NO_GATES		
+pris	MG__g09	STATUS_DIFF	NO_GATES	CRASH		
+pris	SF__f01	IDENTICAL	NO_GATES	NO_GATES		
+pris	SF__f02	IDENTICAL	NO_GATES	NO_GATES		
+pris	SF__f03	IDENTICAL	NO_GATES	NO_GATES		
+pris	SF__f04	IDENTICAL	NO_GATES	NO_GATES		
+pris	SF__f05	IDENTICAL	NO_GATES	NO_GATES		
+pris	TB__b01	IDENTICAL	NO_GATES	NO_GATES		
+pris	TB__b02	IDENTICAL	NO_GATES	NO_GATES		
+pris	TB__b03	IDENTICAL	NO_GATES	NO_GATES		
+pris	TB__b04	IDENTICAL	NO_GATES	NO_GATES		
+pris	TB__b05	IDENTICAL	NO_GATES	NO_GATES		
+pris	TB__b06	EQUIVALENT	NO_GATES	NO_GATES	nohier il synth	ℹ️  No common assign statements to compare — skipping
+pris	V__c01	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u196_dsw2_pris/V__c01/
+pris	V__u01	IDENTICAL	NO_GATES	NO_GATES		
+law	DF__x01	IDENTICAL	NO_GATES	NO_GATES		
+law	DF__x02	IDENTICAL	NO_GATES	NO_GATES		
+law	DF__x03	IDENTICAL	NO_GATES	NO_GATES		
+law	DF__x04	IDENTICAL	NO_GATES	NO_GATES		
+law	DF__x05	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	   This indicates a serious bug in UHDM import
+law	DF__x06	IDENTICAL	NO_GATES	NO_GATES		
+law	EN__n01	IDENTICAL	NO_GATES	NO_GATES		
+law	EN__n02	IDENTICAL	NO_GATES	NO_GATES		
+law	FR__r01	IDENTICAL	NO_GATES	NO_GATES		
+law	FR__r02	IDENTICAL	NO_GATES	NO_GATES		
+law	FR__r03	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 2 common constant assignments match
+law	MG__g01	EQUIVALENT	NO_GATES	NO_GATES	nohier	ℹ️  No common assign statements to compare — skipping
+law	MG__g02	EQUIVALENT	NO_GATES	NO_GATES	nohier	ℹ️  No common assign statements to compare — skipping
+law	MG__g03	IDENTICAL	NO_GATES	NO_GATES		
+law	MG__g04	IDENTICAL	NO_GATES	NO_GATES		
+law	MG__g05	IDENTICAL	NO_GATES	NO_GATES		
+law	MG__g06	IDENTICAL	NO_GATES	NO_GATES		
+law	MG__g07	IDENTICAL	NO_GATES	NO_GATES		
+law	MG__g08	IDENTICAL	NO_GATES	NO_GATES		
+law	MG__g08p	IDENTICAL	NO_GATES	NO_GATES		
+law	MG__g09	IDENTICAL	NO_GATES	NO_GATES		
+law	SF__f01	IDENTICAL	NO_GATES	NO_GATES		
+law	SF__f02	IDENTICAL	NO_GATES	NO_GATES		
+law	SF__f03	IDENTICAL	NO_GATES	NO_GATES		
+law	SF__f04	IDENTICAL	NO_GATES	NO_GATES		
+law	SF__f05	IDENTICAL	NO_GATES	NO_GATES		
+law	TB__b01	IDENTICAL	NO_GATES	NO_GATES		
+law	TB__b02	IDENTICAL	NO_GATES	NO_GATES		
+law	TB__b03	IDENTICAL	NO_GATES	NO_GATES		
+law	TB__b04	IDENTICAL	NO_GATES	NO_GATES		
+law	TB__b05	IDENTICAL	NO_GATES	NO_GATES		
+law	TB__b06	EQUIVALENT	NO_GATES	NO_GATES	nohier il synth	ℹ️  No common assign statements to compare — skipping
+law	V__c01	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u196_dsw2_law/V__c01/e
+law	V__u01	IDENTICAL	NO_GATES	NO_GATES		
+fix	DF__x01	IDENTICAL	NO_GATES	NO_GATES		
+fix	DF__x02	IDENTICAL	NO_GATES	NO_GATES		
+fix	DF__x03	IDENTICAL	NO_GATES	NO_GATES		
+fix	DF__x04	IDENTICAL	NO_GATES	NO_GATES		
+fix	DF__x05	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u196_dsw2_fix/DF__x05/
+fix	DF__x06	IDENTICAL	NO_GATES	NO_GATES		
+fix	EN__n01	IDENTICAL	NO_GATES	NO_GATES		
+fix	EN__n02	IDENTICAL	NO_GATES	NO_GATES		
+fix	FR__r01	IDENTICAL	NO_GATES	NO_GATES		
+fix	FR__r02	IDENTICAL	NO_GATES	NO_GATES		
+fix	FR__r03	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 2 common constant assignments match
+fix	MG__g01	EQUIVALENT	NO_GATES	NO_GATES	nohier	ℹ️  No common assign statements to compare — skipping
+fix	MG__g02	EQUIVALENT	NO_GATES	NO_GATES	nohier	ℹ️  No common assign statements to compare — skipping
+fix	MG__g03	IDENTICAL	NO_GATES	NO_GATES		
+fix	MG__g04	IDENTICAL	NO_GATES	NO_GATES		
+fix	MG__g05	IDENTICAL	NO_GATES	NO_GATES		
+fix	MG__g06	IDENTICAL	NO_GATES	NO_GATES		
+fix	MG__g07	IDENTICAL	NO_GATES	NO_GATES		
+fix	MG__g08	IDENTICAL	NO_GATES	NO_GATES		
+fix	MG__g08p	IDENTICAL	NO_GATES	NO_GATES		
+fix	MG__g09	IDENTICAL	NO_GATES	NO_GATES		
+fix	SF__f01	IDENTICAL	NO_GATES	NO_GATES		
+fix	SF__f02	IDENTICAL	NO_GATES	NO_GATES		
+fix	SF__f03	IDENTICAL	NO_GATES	NO_GATES		
+fix	SF__f04	IDENTICAL	NO_GATES	NO_GATES		
+fix	SF__f05	IDENTICAL	NO_GATES	NO_GATES		
+fix	TB__b01	IDENTICAL	NO_GATES	NO_GATES		
+fix	TB__b02	IDENTICAL	NO_GATES	NO_GATES		
+fix	TB__b03	IDENTICAL	NO_GATES	NO_GATES		
+fix	TB__b04	IDENTICAL	NO_GATES	NO_GATES		
+fix	TB__b05	IDENTICAL	NO_GATES	NO_GATES		
+fix	TB__b06	EQUIVALENT	NO_GATES	NO_GATES	nohier il synth	ℹ️  No common assign statements to compare — skipping
+fix	V__c01	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u196_dsw2_fix/V__c01/e
+fix	V__u01	IDENTICAL	NO_GATES	NO_GATES		

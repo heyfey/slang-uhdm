@@ -23,7 +23,7 @@ AnonymousEnum,default,CMP_EQUAL,,,equal
 AnonymousUnion,default,CMP_EQUAL,,,equal
 anyconst_attr,default,CMP_EQUAL,,,equal
 anyseq_attr,default,CMP_EQUAL,,,equal
-arb_idx_cast,default,STRICT_NOTEQUAL,differ:endcol(3),,differ:endcol(3)
+arb_idx_cast,default,STRICT_NOTEQUAL,differ:endline(2),,differ:endline(2)
 ArithShiftTernary,default,CMP_EQUAL,,,equal
 array-copy,default,CMP_EQUAL,,,equal
 array_assign,default,CMP_EQUAL,,,equal
@@ -143,7 +143,7 @@ conditional_if,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/condi
 conditional_if_else,default,CMP_EQUAL,,,equal
 const_arg_loop,default,CMP_EQUAL,,,equal
 const_ashift,default,CMP_EQUAL,,,equal
-const_cast_signext,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+const_cast_signext,default,CMP_EQUAL,,,equal
 const_fold_func,default,CMP_EQUAL,,,equal
 const_func,default,CMP_EQUAL,,,equal
 const_func_block_var,default,CMP_EQUAL,,,equal
@@ -243,7 +243,7 @@ func_output_arg,default,CMP_EQUAL,,,equal
 func_port_implied_dir,default,CMP_EQUAL,,,equal
 func_struct_repro,default,CMP_EQUAL,,,equal
 func_tern_hint,default,CMP_EQUAL,,,equal
-func_typename_ret,default,STRICT_NOTEQUAL,differ:name(2),,differ:name(2)
+func_typename_ret,default,CMP_EQUAL,,,equal
 func_upto,default,CMP_EQUAL,,,equal
 func_width_scope,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/func_width_scope/dut.sv:21:31: error: cannot call a function declared inside a generate block in a co,,
 Function2Returns,default,CMP_EQUAL,,,equal
@@ -894,7 +894,7 @@ AnonymousEnum,testflags,CMP_EQUAL,,,equal
 AnonymousUnion,testflags,CMP_EQUAL,,,equal
 anyconst_attr,testflags,CMP_EQUAL,,,equal
 anyseq_attr,testflags,CMP_EQUAL,,,equal
-arb_idx_cast,testflags,STRICT_NOTEQUAL,differ:endcol(3),,differ:endcol(3)
+arb_idx_cast,testflags,STRICT_NOTEQUAL,differ:endline(2),,differ:endline(2)
 ArithShiftTernary,testflags,CMP_EQUAL,,,equal
 array-copy,testflags,CMP_EQUAL,,,equal
 array_assign,testflags,CMP_EQUAL,,,equal
@@ -1014,7 +1014,7 @@ conditional_if,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/con
 conditional_if_else,testflags,CMP_EQUAL,,,equal
 const_arg_loop,testflags,CMP_EQUAL,,,equal
 const_ashift,testflags,CMP_EQUAL,,,equal
-const_cast_signext,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+const_cast_signext,testflags,CMP_EQUAL,,,equal
 const_fold_func,testflags,CMP_EQUAL,,,equal
 const_func,testflags,CMP_EQUAL,,,equal
 const_func_block_var,testflags,CMP_EQUAL,,,equal
@@ -1114,7 +1114,7 @@ func_output_arg,testflags,CMP_EQUAL,,,equal
 func_port_implied_dir,testflags,CMP_EQUAL,,,equal
 func_struct_repro,testflags,CMP_EQUAL,,,equal
 func_tern_hint,testflags,CMP_EQUAL,,,equal
-func_typename_ret,testflags,STRICT_NOTEQUAL,differ:name(2),,differ:name(2)
+func_typename_ret,testflags,CMP_EQUAL,,,equal
 func_upto,testflags,CMP_EQUAL,,,equal
 func_width_scope,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/func_width_scope/dut.sv:21:31: error: cannot call a function declared inside a generate block in a co,,
 Function2Returns,testflags,CMP_EQUAL,,,equal

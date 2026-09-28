@@ -1,0 +1,16 @@
+r11u196repro/cases/V191/cc01 | pris.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1
+r11u196repro/cases/V191/cc02 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type
+r11u196repro/cases/V191/cc03 | pris.bin: rc=0 cmp=255 cmplines=60 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1
+r11u196repro/cases/V191/ep01 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 165 objects | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 165 objects
+r11u196repro/cases/V191/ep02 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 68 objects | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 68 objects
+r11u196repro/cases/V191/fd01 | pris.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1
+r11u196repro/cases/V191/fd02 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL fullname | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 49 objects
+r11u196repro/cases/V191/fd03 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL fullname | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type
+r11u196repro/cases/V191/hd01 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL type | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 339 objects
+r11u196repro/cases/V191/hd02 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_NOTEQUAL file | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 478 objects
+r11u196repro/cases/V191/qr01 | pris.bin: rc=0 cmp=255 cmplines=17 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=17 NOT_EQUAL stage1
+r11u196repro/cases/V191/qr02 | pris.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=36 NOT_EQUAL stage1
+r11u196repro/cases/V191/rp01 | pris.bin: rc=0 cmp=255 cmplines=12 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 58 objects
+r11u196repro/cases/V191/rp02 | pris.bin: rc=0 cmp=255 cmplines=12 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 110 objects
+r11u196repro/cases/V191/uz01 | pris.bin: rc=0 cmp=255 cmplines=60 NOT_EQUAL stage1 | l191.bin: rc=0 cmp=255 cmplines=11 NOT_EQUAL stage1
+r11u196repro/cases/V191/uz02 | pris.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 151 objects | l191.bin: rc=0 cmp=0 cmplines=0 STRICT_EQUAL 151 objects

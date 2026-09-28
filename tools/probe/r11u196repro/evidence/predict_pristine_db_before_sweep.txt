@@ -1,0 +1,61 @@
+surelog default ApbSlave ELEMCLS
+surelog default BuildUVMPkg ELEMCLS MODGEN RETQUAL
+surelog default ClassVar ELEMCLS
+surelog default Earlgrey_0_1 RETQUAL TPARR
+surelog default FuncStruct DFLTARG
+surelog default LocalScopeHierPath ELEMCLS
+surelog default MiniAmiq ELEMCLS FCFILE MODGEN RETQUAL
+surelog default Scoreboard ELEMCLS FCFILE MODGEN RETQUAL
+surelog default Scr1SvTests TPARR
+surelog default SeqDriver ELEMCLS FCFILE MODGEN RETQUAL
+surelog default SimpleUVM ELEMCLS FCFILE MODGEN RETQUAL
+surelog testflags ApbSlave ELEMCLS
+surelog testflags BuildUVMPkg ELEMCLS MODGEN RETQUAL
+surelog testflags ClassVar ELEMCLS
+surelog testflags Earlgrey_0_1 RETQUAL TPARR
+surelog testflags FuncStruct DFLTARG
+surelog testflags LocalScopeHierPath ELEMCLS
+surelog testflags MiniAmiq ELEMCLS FCFILE MODGEN RETQUAL
+surelog testflags Scr1SvTests TPARR
+surelog testflags SeqDriver ELEMCLS FCFILE MODGEN RETQUAL
+surelog testflags SimpleUVM ELEMCLS FCFILE MODGEN RETQUAL
+uhdm2rtlil default arb_idx_cast TPARR
+uhdm2rtlil default func_typename_ret RETQUAL
+uhdm2rtlil default gen_scope_numports TPARR
+uhdm2rtlil default jeras_union RETQUAL
+uhdm2rtlil default MultirangesStartNotFromZero TPARR
+uhdm2rtlil default packed_array_reset_loop TPARR
+uhdm2rtlil default packed_struct_array_shift TPARR
+uhdm2rtlil default param_name_collision_typeparam TPARR
+uhdm2rtlil default rp32_r5p_alu RETQUAL
+uhdm2rtlil default rp32_r5p_bru RETQUAL
+uhdm2rtlil default rp32_r5p_mdu RETQUAL
+uhdm2rtlil default rp32_r5p_wbu RETQUAL
+uhdm2rtlil testflags arb_idx_cast TPARR
+uhdm2rtlil testflags func_typename_ret RETQUAL
+uhdm2rtlil testflags gen_scope_numports TPARR
+uhdm2rtlil testflags jeras_union RETQUAL
+uhdm2rtlil testflags MultirangesStartNotFromZero TPARR
+uhdm2rtlil testflags packed_array_reset_loop TPARR
+uhdm2rtlil testflags packed_struct_array_shift TPARR
+uhdm2rtlil testflags param_name_collision_typeparam TPARR
+uhdm2rtlil testflags rp32_r5p_alu RETQUAL
+uhdm2rtlil testflags rp32_r5p_bru RETQUAL
+uhdm2rtlil testflags rp32_r5p_mdu RETQUAL
+uhdm2rtlil testflags rp32_r5p_wbu RETQUAL
+probe - r10buvm8repro__v4order8 RETQUAL
+probe - r10buvm8repro__vfwdts8 RETQUAL
+probe - r10buvm8repro__vxpkg8 RETQUAL
+probe - r10earl_repro__uf TPARR
+probe - r10uvm117repro__g117_a4 MODGEN
+probe - r10uvm143repro__g143_d_foreach ELEMCLS
+probe - r10uvm144repro__g144_b ELEMCLS
+probe - r10uvm193repro__g193_c_argface ELEMCLS
+probe - r10uvm195repro__g195_d_control MODGEN
+probe - r10uvm75repro__b2_inbody ELEMCLS
+probe - r10uvm75repro__v75_nohoist ELEMCLS
+probe - r10v180repro__v180_e_ret RETQUAL
+probe - r10v195repro__v195_b_reads MODGEN
+probe - r10v195repro__v195_d_tfitem MODGEN
+probe - r10vbuvm20repro__v7_multiinst RETQUAL
+fenced_skipped=8

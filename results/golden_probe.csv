@@ -1413,7 +1413,7 @@ r10vbuvm24repro/gv24g,EQUAL,,equal
 r10vbuvm24repro/gv24i,EQUAL,,equal
 r10vbuvm24repro/gv24j,EQUAL,,equal
 r10vbuvm29repro/gv29_a_shapes,EQUAL,,equal
-r10vbuvm29repro/gv29_b_positions,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r10vbuvm29repro/gv29_b_positions,EQUAL,,equal
 r10vbuvm29repro/gv29_g_tdname,EQUAL,,equal
 r10vbuvm29repro/gv29_h_genident,EQUAL,,equal
 r10vbuvm29repro/gv29_i1,EQUAL,,equal
@@ -1779,7 +1779,7 @@ r11u108repro/grid/f4/c08_bit_td,EQUAL,,equal
 r11u108repro/grid/f4/c09_int_td,EQUAL,,equal
 r11u108repro/grid/f4/c10_struct_td,EQUAL,,equal
 r11u108repro/grid/f4/c11_twocasts,EQUAL,,equal
-r11u108repro/grid/f4/c12_const_fold,STRICT_NOTEQUAL,differ:file(5),differ:file(5)
+r11u108repro/grid/f4/c12_const_fold,STRICT_NOTEQUAL,differ:file(4),differ:file(4)
 r11u108repro/grid/f5/f5a01_tpq_body,EQUAL,,equal
 r11u108repro/grid/f5/f5a02_tpq_in,EQUAL,,equal
 r11u108repro/grid/f5/f5a03_tpq_out,EQUAL,,equal
@@ -3879,7 +3879,7 @@ v11u114repro/grid/set2/n04,EQUAL,,equal
 v11u114repro/grid/set2/n05,EQUAL,,equal
 v11u114repro/grid/set2/n06,EQUAL,,equal
 v11u114repro/grid/set2/n07,EQUAL,,equal
-v11u114repro/grid/set3/g13,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
+v11u114repro/grid/set3/g13,EQUAL,,equal
 v11u114repro/grid/set3/k12,EQUAL,,equal
 v11u115repro/grid/f1/a01_gf_signed,EQUAL,,equal
 v11u115repro/grid/f1/a06_gf_repl_sys,EQUAL,,equal
