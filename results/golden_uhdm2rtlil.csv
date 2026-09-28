@@ -23,7 +23,7 @@ AnonymousEnum,default,CMP_EQUAL,,,equal
 AnonymousUnion,default,CMP_EQUAL,,,equal
 anyconst_attr,default,CMP_EQUAL,,,equal
 anyseq_attr,default,CMP_EQUAL,,,equal
-arb_idx_cast,default,STRICT_NOTEQUAL,differ:endcol(17),,differ:endcol(17)
+arb_idx_cast,default,STRICT_NOTEQUAL,differ:endcol(3),,differ:endcol(3)
 ArithShiftTernary,default,CMP_EQUAL,,,equal
 array-copy,default,CMP_EQUAL,,,equal
 array_assign,default,CMP_EQUAL,,,equal
@@ -319,7 +319,7 @@ ibex_load_store_unit,default,CMP_EQUAL,,,equal
 ibex_lockstep,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
 ibex_multdiv_fast,default,CMP_EQUAL,,,equal
 ibex_multdiv_slow,default,CMP_EQUAL,,,equal
-ibex_pmp,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+ibex_pmp,default,CMP_EQUAL,,,equal
 ibex_prefetch_buffer,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
 ibex_register_file_ff,default,CMP_EQUAL,,,equal
 ibex_register_file_fpga,default,CMP_EQUAL,,,equal
@@ -894,7 +894,7 @@ AnonymousEnum,testflags,CMP_EQUAL,,,equal
 AnonymousUnion,testflags,CMP_EQUAL,,,equal
 anyconst_attr,testflags,CMP_EQUAL,,,equal
 anyseq_attr,testflags,CMP_EQUAL,,,equal
-arb_idx_cast,testflags,STRICT_NOTEQUAL,differ:endcol(17),,differ:endcol(17)
+arb_idx_cast,testflags,STRICT_NOTEQUAL,differ:endcol(3),,differ:endcol(3)
 ArithShiftTernary,testflags,CMP_EQUAL,,,equal
 array-copy,testflags,CMP_EQUAL,,,equal
 array_assign,testflags,CMP_EQUAL,,,equal
@@ -1190,7 +1190,7 @@ ibex_load_store_unit,testflags,CMP_EQUAL,,,equal
 ibex_lockstep,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
 ibex_multdiv_fast,testflags,CMP_EQUAL,,,equal
 ibex_multdiv_slow,testflags,CMP_EQUAL,,,equal
-ibex_pmp,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+ibex_pmp,testflags,CMP_EQUAL,,,equal
 ibex_prefetch_buffer,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
 ibex_register_file_ff,testflags,CMP_EQUAL,,,equal
 ibex_register_file_fpga,testflags,CMP_EQUAL,,,equal

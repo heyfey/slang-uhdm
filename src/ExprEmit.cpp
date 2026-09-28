@@ -1059,6 +1059,165 @@ static bool caRhsUnbasedUnsized192(const Expression& e) {
     }
     return true;
 }
+// § callArgVarSelStamp198 (r11u198, R11U198_VSARG_OFF; ibex_pmp's last
+// record, map N0943) — ExprEval::evalFunc binds every actual of a user
+// function call to its formal (`exparg->Typespec(<formal typespec>)` on what
+// reduceExpr hands back); a MULTI-INDEX select (`var_select`, `a[i][j]`,
+// `p[c][r]`) comes back unreduced like a part select and keeps the formal's
+// typespec, the reference named after the select.  Our argument stamp listed
+// ref_obj, bit_select, part_select and indexed_part_select only.  Grid
+// tools/probe/r11u198repro/cases/V (parse and -elabuhdm forms): module and
+// generate-scope continuous assignments, two-level generates (the ibex_pmp
+// shape), an operand of an operation, a nested call, a second argument, a net
+// declaration, a package function, a child instance: golden stamps, ours bare.
+// A call NESTED UNDER AN OPERATION is bare in the definition listing (the
+// elaborated body stamps it in the parse form, and not in the -elabuhdm form,
+// whose elaborated body is the listing's clone): v05, v24 (the pristine
+// bit_select rule stamps there, v22, a residue of its own).
+static bool callArgVarSelStamp198On() {
+    return r11u198On("R11U198_VSARG_OFF");
+}
+// ...and a select whose index list holds a RANGE (`p[1][3:0]`) under an
+// operation is bare in every view (v24; the whole-Rhs call stamps it, v28).
+static bool varSelRangeIdx198(const UHDM::var_select* vs) {
+    if (!vs || !vs->Exprs())
+        return false;
+    for (auto* e : *vs->Exprs())
+        if (e && (e->UhdmType() == UHDM::uhdmpart_select ||
+                  e->UhdmType() == UHDM::uhdmindexed_part_select))
+            return true;
+    return false;
+}
+// § vsStampReducedCtxOnly198v (v11u198, R11V198_VSSYS_OFF; refines
+// § callArgVarSelStamp198) — the formal's typespec lands on an actual only
+// when ExprEval::evalFunc runs, i.e. when reduceExpr REACHES the call.  Two
+// contexts stop it before the call, at ANY depth above it (not only the
+// immediate parent):
+//   (1) a system call whose arguments reduceExpr does not reduce: every one
+//       but `$signed`, `$unsigned` and `$clog2` (UHDM ExprEval.cpp's
+//       sys_func_call arm reduces the arguments of those three only; `$bits`
+//       and its family read the argument's type, `$countones` and the rest
+//       are left alone) — every view; tools/probe/v11u198repro/cases/V t13
+//       `4'($countones(f(p[1][2])))`, t25 `g($countones(f(p[1][2])))` and t28
+//       `f(p[1][2]) + $countones(f(p[0][1]))` read EQUAL / type(1) on the
+//       pristine binary and a stamp golden lacks on the law binary;
+//       t30 / t36 (`$bits`, `$size`) the same record in the definition listing;
+//   (2) an OPERATION anywhere above the call in the definition listing and in
+//       the -elabuhdm elaborated body, the views where the law already leaves
+//       a call whose PARENT is an operation bare (t31 `4'($clog2(f(p[1][2])))`:
+//       the cast above the reducing `$clog2`).
+// The pristine bit_select rule stamps under a non-reducing system call too
+// (t18, a pristine residue this refinement does not touch).
+static bool vsStampReducedCtxOnly198v(const UHDM::any* parent, bool opBare) {
+    static const bool off = getenv("R11V198_VSSYS_OFF") != nullptr;
+    if (off || !parent)
+        return false;
+    int d = 0;
+    for (const UHDM::any* q = parent; q && d < 64; q = q->VpiParent(), d++) {
+        switch (q->UhdmType()) {
+            case UHDM::uhdmsys_func_call: {
+                std::string_view nm = q->VpiName();
+                if (nm != "$signed" && nm != "$unsigned" && nm != "$clog2") {
+                    trace198("vsStampReducedCtxOnly198v");
+                    return true;
+                }
+                break;
+            }
+            case UHDM::uhdmoperation:
+                if (opBare) {
+                    trace198("vsStampReducedCtxOnly198v");
+                    return true;
+                }
+                break;
+            case UHDM::uhdmfunc_call:
+            case UHDM::uhdmmethod_func_call:
+                break;
+            default:
+                return false;
+        }
+    }
+    return false;
+}
+// § genCaUnclonedFoldOwner198 (r11u198, R11U198_GSOWNER_OFF; refines
+// § genForReplCountOwner192) — a typed wildcard-imported package parameter
+// folded inside a TOP-LEVEL generate scope's continuous assignment (for, if
+// or case generate; the elaborated emission) is Surelog's getValue clone of
+// the owning instance's param_assign Rhs, parented at that param_assign
+// (CompileExpression.cpp: `result->VpiParent(param_ass)`), so the reference
+// it carries reads the OWNING INSTANCE's name — unless something re-parents
+// the clone.  Two things do: (1) compileExpression's BINARY and TERNARY arms
+// (`opL->VpiParent(operation)`, `opR->VpiParent(operation)`) and the cast
+// arm (`operand->VpiParent(operation)`), so an operand of `+ << == ?:` or of
+// a cast reads the generate scope, while the CONCATENATION, REPLICATION,
+// UNARY and SYSTEM-CALL arms push the operand without re-parenting it
+// (owner); (2) UhdmWriter::writeCont_assign's clone_tree of the whole
+// assignment when its Lhs is a ref_obj bound to a variable and its Rhs an
+// operation (every object re-parented in the clone: generate-scope name).
+// Measured on grid tools/probe/r11u198repro/cases/O (parse form and
+// -elabuhdm form): a select, member, generate-local or implicit-net target
+// with the fold under a concatenation (o01 o05 o06 o07 o13 o40 o48), a
+// replication in an if / case scope (o08), a system-call argument (o02 o20
+// o23 o24 o34 o38 o49 o50), a unary operator (o15 o42 o43 o44; the
+// -elabuhdm form reduces `-P`, `&P`, `!P` away whole on both sides), child
+// instances at depth 2 and 3 (o10 o22): golden the instance name, ours the
+// generate scope's.  Kept (scope name): a whole outside-name target (o03 o04
+// o26 o33 o37 o39, § genForWholeLhsNestedKeep192v's rule), an operand of a
+// binary or ternary operation or a cast (o14 o16 o35 o36 o45 o46), an Rhs
+// holding an unbased unsized literal (o17, § psBoundPaOwnerName192's re-clone),
+// a nested generate scope (o09: no fold).  The for-generate replication count
+// stays § genForReplCountOwner192's.
+static bool genCaUnclonedFoldOwner198(const Expression& expr,
+                                      const UHDM::any* parent, bool elabForm,
+                                      bool topGenCaRhs, bool lhsSelOrLocal,
+                                      bool cloned) {
+    if (!r11u198On("R11U198_GSOWNER_OFF") || !topGenCaRhs || !parent)
+        return false;
+    if (caRhsUnbasedUnsized192(expr))
+        return false;
+    // the writer's ref_obj arm clones a target bindVariable finds (a module
+    // body or ancestor-instance namesake of a generate-local target too, the
+    // committed model `caBoundLhsOpRhs17`; probe r11u74repro/grid/b3_rhskind,
+    // r10earl98repro/g3_rhs98, grid O o52)
+    if (cloned)
+        return false;
+    if (!lhsSelOrLocal) {
+        // A whole simple name declared outside: the writer clones the
+        // assignment (Rhs an operation).  Anything else unknown: decline.
+        const syntax::SyntaxNode* asg = nullptr;
+        for (const syntax::SyntaxNode* n = expr.syntax; n; n = n->parent) {
+            if (n->kind == syntax::SyntaxKind::AssignmentExpression)
+                asg = n;
+            else if (n->kind == syntax::SyntaxKind::ContinuousAssign)
+                break;
+        }
+        if (!asg)
+            return false;
+        auto& b = asg->as<syntax::BinaryExpressionSyntax>();
+        if (!b.left || b.left->kind == syntax::SyntaxKind::IdentifierName)
+            return false;
+        // a member or select target the ModuleEmit flags did not name
+        // (`o.f`): not cloned (the Lhs is not a ref_obj).
+        if (b.left->kind != syntax::SyntaxKind::ElementSelectExpression &&
+            b.left->kind != syntax::SyntaxKind::MemberAccessExpression)
+            return false;
+    }
+    switch (parent->UhdmType()) {
+        case UHDM::uhdmsys_func_call:
+            return true;
+        case UHDM::uhdmoperation: {
+            const int op = ((const UHDM::operation*)parent)->VpiOpType();
+            if (op == vpiConcatOp || op == vpiMultiConcatOp)
+                return true;
+            // a unary operator does not re-parent either (the -elabuhdm
+            // form reduces `-P`, `&P`, `!P` away whole, o42-o44, and keeps
+            // `~P` with the owner-named clone, o15)
+            (void)elabForm;
+            return op >= vpiMinusOp && op <= vpiUnaryXNorOp;
+        }
+        default:
+            return false;
+    }
+}
 
 // The r11u175 switches (tools/probe/r11u175uvm/README.md): every r11u175 law
 // reads its own R11U175_<LAW>_OFF switch; R11U175_OFF drops all of them.
@@ -1172,6 +1331,34 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
             auto* pe175 = ((const UHDM::hier_path*)gp)->Path_elems();
             shape = pe175 && !pe175->empty() && pe175->back() == p;
         }
+        // § methodArgOpRefChainName198 (r11u198, R11U198_MARGOP_OFF; map
+        // N0175 / N0217 / N0220, the UVM F5 family) — ...and a reference
+        // NESTED in such a call's argument through operations and system
+        // calls (`c.f(n, i + 1)`, `c.f($clog2(i) + 1)`, `c.f(c.f(i + 1))`):
+        // Surelog stores no full name there either, so the reader's chain
+        // runs reference -> operation / system call (unnamed or skipped) ->
+        // method_func_call (skipped) -> hier_path (`work@D::g::c.f::i`,
+        // `work@top.g.bus.f.i`).  The rest of this law's gates apply
+        // unchanged (inside a subroutine; ours must be the chain name with
+        // ancestors dropped).  Grid tools/probe/r11u198repro/cases/M.
+        bool margop198 = false;
+        if (!shape && r11u198On("R11U198_MARGOP_OFF")) {
+            const UHDM::BaseClass* q = p;
+            int d198 = 0;
+            while (q && d198 < 32 &&
+                   (q->UhdmType() == UHDM::uhdmoperation ||
+                    q->UhdmType() == UHDM::uhdmsys_func_call)) {
+                q = q->VpiParent();
+                d198++;
+            }
+            const UHDM::BaseClass* qp = q ? q->VpiParent() : nullptr;
+            if (d198 > 0 && q && q->UhdmType() == UHDM::uhdmmethod_func_call &&
+                qp && qp->UhdmType() == UHDM::uhdmhier_path) {
+                auto* pe198 = ((const UHDM::hier_path*)qp)->Path_elems();
+                shape = margop198 =
+                    pe198 && !pe198->empty() && pe198->back() == q;
+            }
+        }
         if (!shape)
             continue;
         // Inside a SUBROUTINE only: an elaborated module / generate scope
@@ -1220,6 +1407,8 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
         size_t hr = have.find_first_of(":.");
         if (hr == std::string::npos || want.compare(0, hr + 1, have, 0, hr + 1) != 0)
             continue;
+        if (margop198)
+            trace198("methodArgOpRefChainName198");
         ro175->VpiFullName(want);
     }
 }
@@ -1621,6 +1810,110 @@ static const Expression*& incDecSelTop184() {
     static thread_local const Expression* e = nullptr;
     return e;
 }
+// § genCaCastRhsRefUnnamed198 (r11u198, R11U198_CASTRHS_OFF; map N0684,
+// arb_idx_cast's `idx_t'(sel)` records) — in the parse form (no
+// -elabuhdm), the elaborated generate-scope continuous assignment whose whole
+// right-hand side is an explicit CAST and whose target is a select, a member
+// or a generate-local net that bindVariable does not find (no namesake in the
+// module body or an ancestor instance: the committed model
+// `caBoundLhsOpRhs17`, grid k22) is not cloned by UhdmWriter::writeCont_assign's
+// ref_obj arm but by its `op->Typespec()` arm, which hands the clone the
+// FLATTENED operands without re-parenting them
+// (`((operation*)rhs)->Operands(((operation*)tmp)->Operands())`): the cast's
+// operand subtree hangs off an operation outside the tree, so the reader's
+// chain name stops there (`s` for `3'(s)`, whose vpiFullName then equals its
+// name and reads empty; `q.i` for a var_select's index; the typespec
+// reference of a cast nested inside it reads nothing).  The top cast's own
+// typespec reference and a folded parameter constant (parented at its
+// param_assign) keep their names.  Ours named every object by the generate
+// scope; the law stores the chain name below the cast.  Grid
+// tools/probe/r11u198repro/cases/K: k02 k04 k06 k12 k14 k15 k16 k17 k20
+// k21 (golden the short chain name, ours the scope's); controls k01 k13 (module
+// scope), k03 k11 (a whole outside target: the ref_obj arm clones and
+// re-parents), k07 (a cast nested in an operation), the -elabuhdm form of
+// every case (named on both sides).  Declined: a nested operation carrying a
+// typespec reference (k19: its golden name is empty, which a stored name
+// cannot say) and any object kind but operations, constants, references and
+// selects.
+static thread_local const Expression* g198CastTop = nullptr;
+// The name UHDM's BaseClass::ComputeFullName gives `o` when its parent chain
+// ends below `stop` (golden's operand subtree hangs off an operation outside
+// the tree): the chain's names from `o` up to, not including, `stop`, with the
+// reader's skip rules (a reference directly in a bit select or indexed part
+// select, a call's own name).
+static std::string chainNameBelow198(const UHDM::BaseClass* o,
+                                     const UHDM::BaseClass* stop) {
+    std::vector<std::string_view> names;
+    const UHDM::BaseClass* child = nullptr;
+    for (const UHDM::BaseClass* p = o; p && p != stop; p = p->VpiParent()) {
+        auto pt = p->UhdmType();
+        std::string_view name = p->VpiName().empty() ? p->VpiDefName() : p->VpiName();
+        bool skip = pt == UHDM::uhdmmethod_func_call || pt == UHDM::uhdmfunc_call ||
+                    pt == UHDM::uhdmsys_func_call;
+        if (auto ap = p->VpiParent(); ap && ap != stop && ap->UhdmType() == UHDM::uhdmref_obj)
+            skip = true;
+        if (child && child->UhdmType() == UHDM::uhdmref_obj &&
+            (pt == UHDM::uhdmbit_select || pt == UHDM::uhdmindexed_part_select ||
+             pt == UHDM::uhdmhier_path))
+            skip = true;
+        if (!name.empty() && !skip)
+            names.emplace_back(name);
+        child = p;
+    }
+    std::string full;
+    for (size_t i = names.size(); i-- > 0;) {
+        full += names[i];
+        if (i > 0)
+            full += ".";
+    }
+    return full;
+}
+static bool castRhsClearable198(UHDM::any* o, UHDM::any* top,
+                                std::vector<UHDM::any*>& out, int depth = 0) {
+    if (!o || depth > 32)
+        return false;
+    switch (o->UhdmType()) {
+        case UHDM::uhdmconstant:
+            return true;
+        case UHDM::uhdmref_obj:
+            out.push_back(o);
+            return true;
+        case UHDM::uhdmbit_select: {
+            out.push_back(o);
+            auto* ix = (UHDM::any*)((UHDM::bit_select*)o)->VpiIndex();
+            return !ix || castRhsClearable198(ix, top, out, depth + 1);
+        }
+        case UHDM::uhdmvar_select: {
+            out.push_back(o);
+            if (auto* ex = ((UHDM::var_select*)o)->Exprs())
+                for (auto* x : *ex)
+                    if (!castRhsClearable198(x, top, out, depth + 1))
+                        return false;
+            return true;
+        }
+        case UHDM::uhdmpart_select: {
+            out.push_back(o);
+            auto* ps = (UHDM::part_select*)o;
+            return castRhsClearable198((UHDM::any*)ps->Left_range(), top, out, depth + 1) &&
+                   castRhsClearable198((UHDM::any*)ps->Right_range(), top, out, depth + 1);
+        }
+        case UHDM::uhdmoperation: {
+            auto* op = (UHDM::operation*)o;
+            // a nested operation's typespec reference would read no name at
+            // all in golden, which a stored name cannot say: decline (k19)
+            if (o != top && op->Typespec())
+                return false;
+            if (auto* os = op->Operands())
+                for (auto* x : *os)
+                    if (!castRhsClearable198(x, top, out, depth + 1))
+                        return false;
+            return true;
+        }
+        default:
+            return false;
+    }
+}
+
 // § incDecSelCallArgRead194v (r11u194) — the call-argument depth at which
 // § incDecMemberSelIsLvalue184 raised `inLhs` (-1: the law is not active).
 // A path that is a CALL ARGUMENT inside the operand's index (`--s.g[ix(s.f[j])]`)
@@ -2140,6 +2433,21 @@ static bool genLpIdxOpOperandFold112() {
 // The use-site prefix while a § genLpIdxOpOperandFold112 index is emitted
 // (null otherwise).
 static const std::string* genLpIdxOpPrefix112 = nullptr;
+// § genHopFoldSelName198 (r11u198, R11U198_HOPSEL_OFF; map N0443, 15 probe
+// cases and arb_idx_cast's generate-scope records) — the one-hop fold of
+// § genLpBitSelIdxOneHopFold67 (a bare BIT-SELECT INDEX) and of
+// § genLpIdxOpOperandFold112 (an operand of the index operation) carries a
+// reference named after the SELECT (`work@top.g[0].h.a`, the select's own
+// full name), not after the localparam's declaring scope (`work@top.g[0]`,
+// which § genLpUseFoldParentScope47 measured for the select BOUNDS and which
+// they keep: grid cases/N n04 n05).  Grid tools/probe/r11u198repro/cases/N:
+// n01 bare, n02 operation, n07 inside a concatenation, n11 if inside if,
+// n12 an `int` localparam, n14 a written index: golden the select's name,
+// ours the declaring scope's; n09 / n10 (distance 2 / 0) never fold.
+static std::string genLpIdxOpSelName198;
+static bool genHopFoldSelName198On() {
+    return r11u198On("R11U198_HOPSEL_OFF");
+}
 
 static bool modFnLocalTdCastClone112(const slang::ast::SubroutineSymbol* sub,
                                      const slang::ast::Type& td) {
@@ -17210,6 +17518,67 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         lhsGuard194.on = true;
         inLhs = false;
     }
+    // § lvIdxCallArgIsRead198 (r11u198, R11U198_LVCALLARG_OFF; r11u194's N3)
+    // — § incDecSelCallArgRead194v's rule holds for EVERY lvalue: a call's
+    // argument inside an lvalue's index (`arr[fx(s.f[k])] <= ...`,
+    // `t.f[fx(s.f[k])] = ...`, `arr[$clog2(s.f[k])] |= ...`) is compiled by
+    // Surelog's compileTfCallArguments as an ordinary read, outside the
+    // Variable_lvalue arm, so it takes the read shape (the base reference on
+    // its own token, a trailing select at its index).  An lvalue itself is
+    // never a call, so a call parent under a raised `inLhs` is always such an
+    // index.  Grid tools/probe/r11u198repro/cases/L.
+    else if (inLhs && parent &&
+             (((UHDM::any*)parent)->UhdmType() == UHDM::uhdmmethod_func_call ||
+              ((UHDM::any*)parent)->UhdmType() == UHDM::uhdmfunc_call ||
+              ((UHDM::any*)parent)->UhdmType() == UHDM::uhdmsys_func_call) &&
+             r11u198On("R11U198_LVCALLARG_OFF")) {
+        trace198("lvIdxCallArgIsRead198");
+        lhsGuard194.on = true;
+        inLhs = false;
+    }
+    // § genCaCastRhsRefUnnamed198 — the wrapper (the law's header is above).
+    if (parent && ((UHDM::any*)parent)->UhdmType() == UHDM::uhdmcont_assign &&
+        g198CastTop != &expr && !inLhs && !elabUhdmView121 &&
+        contAssignView == 0 && inGenScopeCaRhs && !defGenProcessEmit &&
+        (genCaLhsSelect22 || genCaLhsGenLocal23) &&
+        r11u198On("R11U198_CASTRHS_OFF") && !caBoundLhsOpRhs17) {
+        const Expression& sx198 = stripImplicitConv(expr);
+        if (sx198.kind == ExpressionKind::Conversion &&
+            !sx198.as<ConversionExpression>().isImplicit()) {
+            const Expression* sv198 = g198CastTop;
+            g198CastTop = &expr;
+            UHDM::any* r198 = emitExpr(expr, parent, prefix, netMap);
+            g198CastTop = sv198;
+            std::vector<UHDM::any*> clr198;
+            if (r198 && r198->UhdmType() == UHDM::uhdmoperation &&
+                ((UHDM::operation*)r198)->VpiOpType() == vpiCastOp &&
+                castRhsClearable198(r198, r198, clr198) && !clr198.empty()) {
+                for (auto* o : clr198) {
+                    std::string fn198 = chainNameBelow198(o, r198);
+                    if (fn198.empty())
+                        continue;
+                    switch (o->UhdmType()) {
+                        case UHDM::uhdmref_obj:
+                            ((UHDM::ref_obj*)o)->VpiFullName(fn198);
+                            break;
+                        case UHDM::uhdmbit_select:
+                            ((UHDM::bit_select*)o)->VpiFullName(fn198);
+                            break;
+                        case UHDM::uhdmvar_select:
+                            ((UHDM::var_select*)o)->VpiFullName(fn198);
+                            break;
+                        case UHDM::uhdmpart_select:
+                            ((UHDM::part_select*)o)->VpiFullName(fn198);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                trace198("genCaCastRhsRefUnnamed198");
+            }
+            return r198;
+        }
+    }
     // § idxCallPathAtDots191 — the wrapper (the law's header is above).
     if (expr.kind == ExpressionKind::Call && g191IdxCall != &expr &&
         idxOfContinuedSelect191(expr) && r191EX("R11U191_HPENDCOL_OFF")) {
@@ -17266,6 +17635,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         callArgDepth - sysCallArgDepth22 == 0)
         if (auto* f112 = genLpUseFoldBound47(expr, *genLpIdxOpPrefix112)) {
             f112->VpiParent(parent);
+            // § genHopFoldSelName198
+            if (genHopFoldSelName198On() && f112->Typespec() &&
+                !genLpIdxOpSelName198.empty()) {
+                f112->Typespec()->VpiFullName(genLpIdxOpSelName198);
+                trace198("genHopFoldSelName198");
+            }
             return f112;
         }
     // A `let` call, which slang already expanded in place: with substitution ON
@@ -21291,6 +21666,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         tr192EX("procPsBoundOwner192");
                                     }
                                 }
+                                // § genCaUnclonedFoldOwner198 (r11u198)
+                                else if ((caOpFold9 || caSysArg115) &&
+                                         genCaUnclonedFoldOwner198(
+                                             expr, parent, elabUhdmView121,
+                                             contAssignView == 0 &&
+                                                 inGenScopeCaRhs &&
+                                                 !defGenProcessEmit &&
+                                                 !genNestedScopeEmit24,
+                                             genCaLhsSelect22 ||
+                                                 genCaLhsGenLocal23,
+                                             caBoundLhsOpRhs17)) {
+                                    std::string own198 = ownerInstName192(parent);
+                                    if (!own198.empty() && own198 != nm192) {
+                                        nm192 = own198;
+                                        trace198("genCaUnclonedFoldOwner198");
+                                    }
+                                }
                                 rt->VpiFullName(nm192);
                             }
                             rt->VpiParent(c);
@@ -22194,6 +22586,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     if (auto dpos = ipfx.rfind('.');
                                         dpos != std::string::npos)
                                         ipfx.resize(dpos);
+                                // § ovrParamBoundOpSelName198 (r11u198,
+                                // R11U198_OVRBOUND_OFF; probe r10earl_repro/
+                                // wf24) — an OVERRIDDEN port parameter read
+                                // as an OPERAND of a select-bound operation
+                                // (`w[31:P+18]`, `w[P+3:P]`'s left bound) in
+                                // an elaborated generate-scope continuous
+                                // assignment names its reference after the
+                                // SELECT (`work@top.u.g.w`), as the
+                                // non-overridden parameter's fold already
+                                // does (grid cases/N n19); a DIRECT bound
+                                // keeps the instance's name (n18's right
+                                // bound).  Grid cases/N n17 n18 n20 n21.
+                                if (parent &&
+                                    parent->UhdmType() == UHDM::uhdmoperation &&
+                                    r11u198On("R11U198_OVRBOUND_OFF")) {
+                                    ipfx = prefix;
+                                    trace198("ovrParamBoundOpSelName198");
+                                }
                                 rt2->VpiFullName(ipfx);
                                 rt2->VpiParent(c2);
                                 auto* it2 = s.MakeInt_typespec();
@@ -30962,7 +31372,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         bool refArg = a->UhdmType() == UHDM::uhdmref_obj ||
                                       a->UhdmType() == UHDM::uhdmbit_select ||
                                       a->UhdmType() == UHDM::uhdmpart_select ||
-                                      a->UhdmType() == UHDM::uhdmindexed_part_select;
+                                      a->UhdmType() == UHDM::uhdmindexed_part_select ||
+                                      // § callArgVarSelStamp198
+                                      (a->UhdmType() == UHDM::uhdmvar_select &&
+                                       callArgVarSelStamp198On() &&
+                                       !(parent &&
+                                         parent->UhdmType() ==
+                                             UHDM::uhdmoperation &&
+                                         (contAssignView == 1 ||
+                                          (contAssignView == 2 &&
+                                           elabUhdmView121) ||
+                                          varSelRangeIdx198(
+                                              (const UHDM::var_select*)a))) &&
+                                       // § vsStampReducedCtxOnly198v
+                                       !vsStampReducedCtxOnly198v(
+                                           parent,
+                                           contAssignView == 1 ||
+                                               (contAssignView == 2 &&
+                                                elabUhdmView121)));
                         // A SYS-call arg counts too: ExprEval::evalFunc stamps
                         // the formal's typespec onto every actual BEFORE it
                         // discovers it cannot evaluate the body, so the stamp
@@ -31747,6 +32174,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             else if (a->UhdmType() == UHDM::uhdmindexed_part_select)
                                 argFull =
                                     ((UHDM::indexed_part_select*)a)->VpiFullName();
+                            else if (a->UhdmType() == UHDM::uhdmvar_select) {
+                                // § callArgVarSelStamp198
+                                argFull = ((UHDM::var_select*)a)->VpiFullName();
+                                trace198("callArgVarSelStamp198");
+                            }
                             rt->VpiFullName(argFull);
                             rt->VpiParent(r);
                             if (argIdx < si.argTs.size()) {
@@ -35634,6 +36066,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (inGenScopeCa67 && !genvarConnFold &&
                 callArgDepth - sysCallArgDepth22 == 0)
                 if (auto* if67 = genLpUseFoldBound47(es.selector(), prefix)) {
+                    // § genHopFoldSelName198
+                    if (genHopFoldSelName198On() && if67->Typespec()) {
+                        if67->Typespec()->VpiFullName(
+                            joinRef(prefix, nv.symbol.name));
+                        trace198("genHopFoldSelName198");
+                    }
                     bs->VpiIndex(if67);
                     return bs;
                 }
@@ -35648,14 +36086,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // § genLpIdxOpOperandFold112 — arm the operand fold for an
             // OPERATION index (the bare index is § 67's, above).
             const std::string* savedGl112 = genLpIdxOpPrefix112;
+            const std::string savedSel198 = genLpIdxOpSelName198;
             if (inGenScopeCa67 && !genvarConnFold &&
                 callArgDepth - sysCallArgDepth22 == 0 &&
                 stripImplicitConv(es.selector()).kind ==
                     ExpressionKind::BinaryOp &&
-                genLpIdxOpOperandFold112())
+                genLpIdxOpOperandFold112()) {
                 genLpIdxOpPrefix112 = &prefix;
+                // § genHopFoldSelName198 — the select's own name
+                genLpIdxOpSelName198 = joinRef(prefix, nv.symbol.name);
+            }
             auto* ix = emitExpr(es.selector(), bs, idxPrefix, netMap);
             genLpIdxOpPrefix112 = savedGl112;
+            genLpIdxOpSelName198 = savedSel198;
             genCaSelBasePfx = savedSelB9;
             if (idxRescoped)
                 selIdxScopeDepth--;
@@ -35793,15 +36236,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (auto* bf112 =
                                     genLpUseFoldBound47(**it2, prefix)) {
                                 bf112->VpiParent(vs);
+                                // § genHopFoldSelName198 (the var_select)
+                                if (genHopFoldSelName198On() &&
+                                    bf112->Typespec() && !vsq118) {
+                                    bf112->Typespec()->VpiFullName(baseFull);
+                                    trace198("genHopFoldSelName198");
+                                }
                                 idxs->push_back(bf112);
                                 continue;
                             }
                         const std::string* savedGl112 = genLpIdxOpPrefix112;
+                        const std::string savedSel198 = genLpIdxOpSelName198;
                         if (gl112 && stripImplicitConv(**it2).kind ==
-                                         ExpressionKind::BinaryOp)
+                                         ExpressionKind::BinaryOp) {
                             genLpIdxOpPrefix112 = &prefix;
+                            // § genHopFoldSelName198 (the var_select)
+                            genLpIdxOpSelName198 = vsq118 ? std::string() : baseFull;
+                        }
                         auto* ix = emitExpr(**it2, vs, baseFull, netMap);
                         genLpIdxOpPrefix112 = savedGl112;
+                        genLpIdxOpSelName198 = savedSel198;
                         if (ix)
                             idxs->push_back((UHDM::expr*)ix);
                     }

@@ -1,0 +1,14 @@
+R11U198_GSOWNER_OFF form=parse grid=O fired=26 restored=25 mixed: O/o41_for_sel_castwhole NOT_RESTORED: none
+R11U198_GSOWNER_OFF form=elab grid=O fired=26 restored=26 mixed: none NOT_RESTORED: none
+R11U198_VSARG_OFF form=parse grid=V fired=22 restored=22 mixed: none NOT_RESTORED: none
+R11U198_VSARG_OFF form=elab grid=V fired=20 restored=20 mixed: none NOT_RESTORED: none
+R11U198_HOPSEL_OFF form=parse grid=N fired=6 restored=6 mixed: none NOT_RESTORED: none
+R11U198_HOPSEL_OFF form=elab grid=N fired=6 restored=6 mixed: none NOT_RESTORED: none
+R11U198_OVRBOUND_OFF form=parse grid=N fired=4 restored=4 mixed: none NOT_RESTORED: none
+R11U198_OVRBOUND_OFF form=elab grid=N fired=4 restored=4 mixed: none NOT_RESTORED: none
+R11U198_MARGOP_OFF form=parse grid=M fired=16 restored=16 mixed: none NOT_RESTORED: none
+R11U198_MARGOP_OFF form=elab grid=M fired=16 restored=16 mixed: none NOT_RESTORED: none
+R11U198_LVCALLARG_OFF form=parse grid=L fired=18 restored=18 mixed: none NOT_RESTORED: none
+R11U198_LVCALLARG_OFF form=elab grid=L fired=18 restored=18 mixed: none NOT_RESTORED: none
+R11U198_CASTRHS_OFF form=parse grid=K fired=13 restored=13 mixed: none NOT_RESTORED: none
+R11U198_CASTRHS_OFF form=elab grid=K fired=0 restored=0 mixed: none NOT_RESTORED: none

@@ -1,0 +1,7 @@
+[default] CMP_EQUAL=794 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=9
+[testflags] CMP_EQUAL=794 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=9
+CONVERSION ibex_pmp default STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CONVERSION ibex_pmp testflags STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CHANGE arb_idx_cast default STRICT_NOTEQUAL differ:endcol(17) -> differ:endcol(3) [endcol -14]
+CHANGE arb_idx_cast testflags STRICT_NOTEQUAL differ:endcol(17) -> differ:endcol(3) [endcol -14]
+regressions=0 conversions=2 changes=2 only-fresh=0 only-committed=0

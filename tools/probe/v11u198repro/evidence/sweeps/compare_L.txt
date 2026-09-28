@@ -1,0 +1,54 @@
+== probe (L vs committed baseline)
+[probe] EQUAL=3343 STRICT_NOTEQUAL=744
+CONVERSION r10earl105repro/h1_head105 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r10earl105repro/h2_child105 STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r10earl_repro/wf24 STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10vearl118repro/v2_fenceface STRICT_NOTEQUAL differ:fullname(22) -> EQUAL
+CONVERSION r10vearl95repro/v95a_ctx STRICT_NOTEQUAL differ:fullname(9) -> EQUAL
+CONVERSION r11u112repro/grid/f/g11_hop_if_add STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r11u112repro/grid/f/g12_hop_if_bare_ctl STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r11u112repro/grid/f/g13_hop_if_int STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r11u112repro/grid/f/g14_hop_if_sub_or STRICT_NOTEQUAL differ:fullname(8) -> EQUAL
+CONVERSION r11u112repro/grid/f/g16_hop_else STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r11u112repro/grid/f/g17_hop_untyped STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r11u112repro/grid/f/g19_hop_vs_op STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r11u112repro/grid/f/g20_hop_vs_bare STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION r11u112repro/grid/f/g21_hop_vs_concat STRICT_NOTEQUAL differ:fullname(6) -> EQUAL
+CONVERSION r11u113repro/grid/c/c19_genif_lhs_bitsel STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u113repro/grid/c/c23_genfor_concat STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r11u113repro/grid/c/c24_genfor_gvop STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r11u113repro/grid/c/c26_genfor_gvsel STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r11u113repro/grid/c/c28_genfor_lp_sel STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION r11u115repro/grid/r/f/p05_catelem STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r11u115repro/grid/r/f/p12_sysarg STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r11u115repro/grid/r/i/p01_ibex STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r11u115repro/grid/r/i/p02_replcat STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/i/p03_replbare STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/i/p05_catelem STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/i/p12_sysarg STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/i/p13_ternrepl STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION v11u112repro/grid/brk/f/g1h_hop_nested_op STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION v11u112repro/grid/brk/f/g1j_hop_logic_typed STRICT_NOTEQUAL differ:fullname(4) -> EQUAL
+CONVERSION v11u112repro/grid/brk/f/g1m_hop_genvar_mix STRICT_NOTEQUAL differ:fullname(16) -> EQUAL
+CONVERSION v11u113repro/grid/brk2/t12_genfor_modtp_two_iter STRICT_NOTEQUAL differ:fullname(3) -> EQUAL
+CONVERSION v11u115repro/grid/f1/a01_gf_signed STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u115repro/grid/f1/a06_gf_repl_sys STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u115repro/grid/f1/a09_gi_sys_tern STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION v11u115repro/grid/f1/a13_gcase STRICT_NOTEQUAL differ:fullname(1) -> EQUAL
+CONVERSION v11u115repro/grid/f1/a18_gf_countones STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION v11u115repro/grid/f1/a20_gf_unsigned_W STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CHANGE r10earl95repro/g5_hop95 STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(2) [fullname -5]
+CHANGE r11u112repro/grid/f/g18_hop_lhs STRICT_NOTEQUAL differ:fullname(5) -> differ:fullname(1) [fullname -4]
+regressions=0 conversions=37 changes=2 only-fresh=0 only-committed=0
+== surelog (L vs committed baseline)
+[default] CMP_EQUAL=461 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=19 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=457 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=17 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil (L vs committed baseline)
+[default] CMP_EQUAL=794 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=9
+[testflags] CMP_EQUAL=794 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=9
+CONVERSION ibex_pmp default STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CONVERSION ibex_pmp testflags STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CHANGE arb_idx_cast default STRICT_NOTEQUAL differ:endcol(17) -> differ:endcol(3) [endcol -14]
+CHANGE arb_idx_cast testflags STRICT_NOTEQUAL differ:endcol(17) -> differ:endcol(3) [endcol -14]
+regressions=0 conversions=2 changes=2 only-fresh=0 only-committed=0

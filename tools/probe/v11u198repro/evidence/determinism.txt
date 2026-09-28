@@ -1,0 +1,23 @@
+./default/BuildUVMPkg DIFF ac54a704f0aa ac54a704f0aa 7d4a51e1beb6
+./default/Earlgrey_0_1 SAME 899a9b821e15 899a9b821e15 899a9b821e15
+./default/MiniAmiq DIFF 0d5a8e7da1a7 2138e9d6207a 2138e9d6207a
+./default/Scoreboard DIFF 47ec6ab70247 9b74f7a09d1e 9b74f7a09d1e
+./default/SeqDriver DIFF 03584a3dafe5 fe0747b83633 fe0747b83633
+./default/SimpleUVM DIFF f102125c7f53 7315459864de 7315459864de
+./testflags/BuildUVMPkg DIFF 7d4a51e1beb6 ac54a704f0aa 7d4a51e1beb6
+./testflags/Earlgrey_0_1 SAME 8ad9eae9d68f 8ad9eae9d68f 8ad9eae9d68f
+./testflags/MiniAmiq DIFF 187ee3c822dd d3bf8f49a31c e538dd0fd07f
+./testflags/SeqDriver DIFF 182c4756b27a 182c4756b27a a93d8a5cc64b
+./testflags/SimpleUVM SAME 08123056d9bb 08123056d9bb 08123056d9bb
+default/BuildUVMPkg sorted-dump diff lines: 1v2=0 1v3=0 2v3=0
+default/Earlgrey_0_1 SAME
+default/MiniAmiq sorted-dump diff lines: 1v2=4 1v3=4 2v3=0
+default/Scoreboard sorted-dump diff lines: 1v2=0 1v3=0 2v3=0
+default/SeqDriver sorted-dump diff lines: 1v2=0 1v3=0 2v3=0
+default/SimpleUVM sorted-dump diff lines: 1v2=4 1v3=4 2v3=0
+testflags/BuildUVMPkg sorted-dump diff lines: 1v2=0 1v3=0 2v3=0
+testflags/Earlgrey_0_1 SAME
+testflags/MiniAmiq sorted-dump diff lines: 1v2=4 1v3=4 2v3=4
+testflags/Scoreboard SAME
+testflags/SeqDriver sorted-dump diff lines: 1v2=0 1v3=4 2v3=4
+testflags/SimpleUVM SAME

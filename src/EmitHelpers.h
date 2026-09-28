@@ -14,6 +14,7 @@
 #include <climits>
 #include <cmath>
 #include <functional>
+#include <unistd.h>
 
 #include "slang/ast/ASTVisitor.h"
 #include "slang/ast/Compilation.h"
@@ -15125,5 +15126,48 @@ inline void trace174(const char* law) {
     static const bool on = getenv("R11U174_TRACE") != nullptr;
     if (on)
         fprintf(stderr, "R11U174_TRACE %s\n", law);
+}
+// ===========================================================================
+// r11u198 — the expression/parameter ground (tools/probe/r11u198repro).
+// Every law reads its own R11U198_<LAW>_OFF switch; R11U198_OFF drops every
+// one of them (the pristine bytes).  R11U198_TRACE=<dir> names every firing
+// (one file per process, `<dir>/<pid>.T198`, first line `OUT <-o path>`,
+// then one law name per firing): the firing census that predicts the movers.
+// ===========================================================================
+inline bool r11u198On(const char* one) {
+    static const bool all = getenv("R11U198_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+inline void trace198(const char* law) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U198_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".T198";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
 }
 } // namespace slang_uhdm

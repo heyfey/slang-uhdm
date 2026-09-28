@@ -1,0 +1,3 @@
+swP:    3273 slang:   /tmp/v11u198_bin/pris.bin
+swL:    3273 slang:   /tmp/v11u198_bin/law.bin
+swF:    3273 slang:   /tmp/v11u198_bin/fix1.bin

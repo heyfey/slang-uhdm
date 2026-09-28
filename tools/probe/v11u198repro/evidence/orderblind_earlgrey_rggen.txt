@@ -1,0 +1,6 @@
+<scratch>/v11u198_swP surelog/default/Earlgrey_0_1 dist=6729 rev=6085 total=12814
+<scratch>/v11u198_swP surelog/testflags/Earlgrey_0_1 dist=6296 rev=6010 total=12306
+<scratch>/v11u198_swL surelog/default/Earlgrey_0_1 dist=4607 rev=3963 total=8570
+<scratch>/v11u198_swL surelog/testflags/Earlgrey_0_1 dist=4301 rev=4015 total=8316
+<scratch>/v11u198_swP surelog/default/Rggen dist=4521 rev=6250 total=10771
+<scratch>/v11u198_swL surelog/default/Rggen dist=4465 rev=6194 total=10659
