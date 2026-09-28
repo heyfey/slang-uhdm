@@ -68,6 +68,10 @@ static bool r191TF(const char* sw) {
 }
 bool r11u137Law(const char* sw);
 bool r11u144Law(const char* sw);
+bool r11u200Law(const char* sw); // the r11u200 switches (UhdmExporter.cpp)
+void trace200(const char* law, const std::string& detail); // R11U200_TRACE
+bool r11v202Law(const char* sw); // the v11u202 switches (UhdmExporter.cpp)
+void trace202(const char* law, const std::string& detail); // R11U202_TRACE
 void noteTpUse180(UHDM::typespec* ts, const slang::ast::Symbol& declSymbol,
                   const slang::syntax::SyntaxNode* typeSyn); // § classTpDefaultTsAtUse180 (TypeEmit.cpp)
 
@@ -4684,6 +4688,33 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // COMPONENT is the declaring scope's; everywhere else it carries
             // the WRITTEN type name (§ classHandleRetTsNameUnlessSameHomeComponent156,
             // UhdmExporter.h).  Do not carry the superseded wording forward.
+            // § classTdRetSharesTypedefTs200 (r11u200, the UVM rows' first
+            // structural record: `function uvm_event_pool get_event_pool()`,
+            // uvm_transaction.svh 520) — a return written as a TYPEDEF NAME of
+            // a class (a specialization or the bare class) binds that
+            // typedef's own listed class_typespec, exactly as a class
+            // property of the same type already does (golden
+            // `uvm_pkg::uvm_event_pool` at uvm_pool.svh 344:9-344:31; ours an
+            // anonymous class_typespec at the return token): Surelog's
+            // compileVariable reaches the typedef's DataType and hands back
+            // its typespec (CompileType.cpp compileVariable, the
+            // `getSimpleVarFromTypespec` / named-typespec arm).  Grid
+            // tools/probe/r11u200dec/cases/T.  Switch R11U200_CLASSTDRET_OFF.
+            bool classTdRet200 = false;
+            if (!ts && sub.returnValVar &&
+                sub.getReturnType().kind == SymbolKind::TypeAlias &&
+                sub.getReturnType().getCanonicalType().kind == SymbolKind::ClassType &&
+                (typedefTs.count(&sub.getReturnType()) ||
+                 pkgTopTypedefTs.count((const void*)&sub.getReturnType())) &&
+                r11u200Law("R11U200_CLASSTDRET_OFF")) {
+                if (auto* tts200 = makeTypespec(*sub.returnValVar, retTypeSyn175(sub));
+                    tts200 && tts200->UhdmType() == UHDM::uhdmclass_typespec &&
+                    !tts200->VpiName().empty()) {
+                    ts = tts200;
+                    classTdRet200 = true;
+                    trace200("classTdRetSharesTypedefTs200", std::string(sub.name));
+                }
+            }
             if (!ts) {
                 auto& rct9 = sub.getReturnType().getCanonicalType();
                 if (rct9.kind == SymbolKind::ClassType) {
@@ -4882,6 +4913,59 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             }
             else {
                 copyLoc(rv, ts);
+                // § classTdRetSharesTypedefTs200 — a LATE-BOUND return (the
+                // bare `ref_var` of § ownNamedAliasRetIsRefVar177, a typedef of
+                // the declaring class itself) keeps the return token's span
+                // (golden `lc_t get()` ref_var 8:14-8:18 while its typespec
+                // sits at the typedef, 6:13-6:14).
+                // § classTdRetVarKeepsWrittenLoc202v (v11u202, the
+                // adversarial verification of r11u202;
+                // R11V202_TDRETVAR_OFF) — EVERY return variable of such a
+                // return keeps its own written span AND file, not only the
+                // late-bound ref_var's span: golden `function
+                // uvm_resource_types::rsrc_q_t lookup_name(...)` class_var
+                // at uvm_pkg.sv 16092:12-16092:40 where the law copied the
+                // typedef's 15203:11-15203:20, and `static function
+                // this_type get();` ref_var in uvm_callback.svh where the
+                // law kept the specialization typedef's file (setLoc keeps
+                // an existing VpiFile): map 12's AWAY records N2467 and
+                // N2468.  Grid tools/probe/v11u202repro/cases/TR.
+                const bool retVar202v =
+                    classTdRet200 && r11v202Law("R11V202_TDRETVAR_OFF");
+                if (classTdRet200 &&
+                    (rv->UhdmType() == UHDM::uhdmref_var || retVar202v))
+                    if (auto* rsynT = retTypeSyn175(sub)) {
+                        if (retVar202v) {
+                            rv->VpiFile("");
+                            trace202("classTdRetVarKeepsWrittenLoc202v",
+                                     std::string(sub.name));
+                        }
+                        setLoc(rv, rsynT->sourceRange());
+                    }
+                // § tfSigningSpanFollowsCompilePath200 — the RETURN VARIABLE
+                // of a builtin return type spans the whole written data type,
+                // its signing keyword included, whatever its typespec's span:
+                // compileVariable ends with `populateCoreMembers(declarationId,
+                // declarationId, result)` on the Data_type node (CompileType.cpp
+                // compileVariable), while the typespec keeps
+                // compileBuiltinTypespec's end (an integer atom ends at the
+                // type keyword under `signed`, a bit / logic / reg at it under
+                // `unsigned`).  Golden `function int signed f2` int_var
+                // 3:12-3:22 against its int_typespec 3:12-3:15.  Switch
+                // R11U200_SIGNSPAN_OFF.
+                if (auto* rsyn200 = retTypeSyn175(sub);
+                    rsyn200 && syntax::IntegerTypeSyntax::isKind(rsyn200->kind) &&
+                    rsyn200->as<syntax::IntegerTypeSyntax>().signing.valid() &&
+                    r11u200Law("R11U200_SIGNSPAN_OFF")) {
+                    auto rr200 = rsyn200->sourceRange();
+                    if (rr200.start() != SourceLocation::NoLocation) {
+                        int ol200 = rv->VpiEndColumnNo();
+                        setLoc(rv, rr200);
+                        if (rv->VpiEndColumnNo() != ol200)
+                            trace200("tfSigningSpanFollowsCompilePath200",
+                                     "retvar " + std::string(sub.name));
+                    }
+                }
             }
             // A packed-array-of-VECTOR return (word[1:0], element a named
             // vector typedef) is a packed_array_var carrying the ARRAY range

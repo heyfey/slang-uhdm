@@ -1,0 +1,46 @@
+== pris.bin
+g01 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+g02 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+g03 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+g04 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+g05 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+g06 IDENTICAL surelog=OK slang=OK differs=
+v01 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+v02 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+c01 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+n04 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+u01 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+k01 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+k02 EQUIVALENT surelog=NO_GATES slang=NO_GATES differs=nohier
+k08 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+z01_module_param_class_elab IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+w8_bits DIVERGENT surelog=NO_GATES slang=NO_GATES differs=nohier il synth
+b01 DIVERGENT surelog=NO_GATES slang=NO_GATES differs=nohier il synth
+b03 DIVERGENT surelog=NO_GATES slang=NO_GATES differs=nohier il synth
+b04 DIVERGENT surelog=NO_GATES slang=NO_GATES differs=nohier il synth
+b05 DIVERGENT surelog=NO_GATES slang=NO_GATES differs=nohier il synth
+c06_nda_array_net DIVERGENT surelog=NO_GATES slang=NO_GATES differs=nohier il synth
+x06_enum_port_cast DIVERGENT surelog=NO_GATES slang=NO_GATES differs=nohier il synth
+== d6.bin
+g01 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+g02 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+g03 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+g04 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+g05 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+g06 IDENTICAL surelog=OK slang=OK differs=
+v01 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+v02 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+c01 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+n04 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+u01 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+k01 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+k02 EQUIVALENT surelog=NO_GATES slang=NO_GATES differs=nohier
+k08 IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+z01_module_param_class_elab IDENTICAL surelog=NO_GATES slang=NO_GATES differs=
+w8_bits DIVERGENT surelog=NO_GATES slang=NO_GATES differs=nohier il synth
+b01 DIVERGENT surelog=NO_GATES slang=NO_GATES differs=nohier il synth
+b03 DIVERGENT surelog=NO_GATES slang=NO_GATES differs=nohier il synth
+b04 DIVERGENT surelog=NO_GATES slang=NO_GATES differs=nohier il synth
+b05 DIVERGENT surelog=NO_GATES slang=NO_GATES differs=nohier il synth
+c06_nda_array_net DIVERGENT surelog=NO_GATES slang=NO_GATES differs=nohier il synth
+x06_enum_port_cast DIVERGENT surelog=NO_GATES slang=NO_GATES differs=nohier il synth

@@ -1,0 +1,25 @@
+r11u200dec/cases/K/k01	neither=NOT_EQUAL	c196=EQUAL	c200=EQUAL	both=EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u200dec/cases/K/k02	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u200dec/cases/K/k03	neither=NOT_EQUAL	c196=EQUAL	c200=EQUAL	both=EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u200dec/cases/K/k04	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u200dec/cases/K/k05	neither=EQUAL	c196=EQUAL	c200=EQUAL	both=EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u200dec/cases/K/k06	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u200dec/cases/K/k07	neither=NOT_EQUAL	c196=EQUAL	c200=EQUAL	both=EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u200dec/cases/K/k08	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u196repro/cases/MG/m09	neither=NOT_EQUAL	c196=EQUAL	c200=NOT_EQUAL	both=EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u196repro/cases/MG/m10	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u196repro/cases/MG/m11	neither=NOT_EQUAL	c196=EQUAL	c200=STRICT_NOTEQUAL:endcol(2)	both=EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u196repro/cases/MG/m12	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u196repro/cases/MG/m13	neither=NOT_EQUAL	c196=EQUAL	c200=NOT_EQUAL	both=EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u196repro/cases/MG/ma01	neither=NOT_EQUAL	c196=EQUAL	c200=EQUAL	both=EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u196repro/cases/MG/ma02	neither=NOT_EQUAL	c196=EQUAL	c200=EQUAL	both=EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u196repro/cases/MG/ma03	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u196repro/cases/MG/ma04	neither=NOT_EQUAL	c196=EQUAL	c200=EQUAL	both=EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u196repro/cases/MG/ma05	neither=NOT_EQUAL	c196=EQUAL	c200=STRICT_NOTEQUAL:endcol(1)	both=EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u196repro/cases/MG/ma06	neither=NOT_EQUAL	c196=EQUAL	c200=EQUAL	both=EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u196repro/cases/MG/ma07	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u196repro/cases/MG/ma08	neither=EQUAL	c196=EQUAL	c200=EQUAL	both=EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u202repro/cases/K/k01	neither=NOT_EQUAL	c196=EQUAL	c200=EQUAL	both=EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u202repro/cases/K/k02	neither=NOT_EQUAL	c196=EQUAL	c200=EQUAL	both=EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+r11u202repro/cases/K/k03	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	both==196:y	elab_rc(200alone,both)=0,0
+positive control: k01 with the three 196 switches and R11U200_CLASSCRASH_OFF: --elabuhdm rc=139

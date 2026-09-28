@@ -1,0 +1,51 @@
+CV/v01 | pris rc=0 cmp=58 NOT_EQUAL stage1 | law rc=0 cmp=60 NOT_EQUAL stage1 | v2 rc=0 cmp=60 NOT_EQUAL stage1 | MOVED || law:obdist 3 -> 3 lost=0 gained=13 || v2:obdist 3 -> 3 lost=0 gained=13
+CV/v02 | pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=16 NOT_EQUAL stage1 | v2 rc=0 cmp=16 NOT_EQUAL stage1 | SAMEBYTES || law:obdist 12 -> 12 lost=0 gained=0 || v2:obdist 12 -> 12 lost=0 gained=0
+CV/v03 | pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED || law:obdist 4 -> 0 lost=0 gained=8 || v2:obdist 4 -> 0 lost=0 gained=8
+CV/v04 | pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=16 NOT_EQUAL stage1 | v2 rc=0 cmp=16 NOT_EQUAL stage1 | MOVED || law:obdist 4 -> 0 lost=0 gained=4 || v2:obdist 4 -> 0 lost=0 gained=4
+GV/g01 | pris rc=0 cmp=30 NOT_EQUAL stage1 | law rc=0 cmp=16 NOT_EQUAL stage1 | v2 rc=0 cmp=16 NOT_EQUAL stage1 | MOVED || law:obdist 32 -> 21 lost=0 gained=27 || v2:obdist 32 -> 21 lost=0 gained=27
+GV/g02 | pris rc=0 cmp=30 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED || law:obdist 16 -> 0 lost=0 gained=16 || v2:obdist 16 -> 0 lost=0 gained=16
+GV/g03 | pris rc=0 cmp=34 NOT_EQUAL stage1 | law rc=0 cmp=34 NOT_EQUAL stage1 | v2 rc=0 cmp=34 NOT_EQUAL stage1 | MOVED || law:obdist 19 -> 3 lost=0 gained=32 || v2:obdist 19 -> 3 lost=0 gained=32
+GV/g04 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED || law:obdist 9 -> 0 lost=0 gained=19 || v2:obdist 9 -> 0 lost=0 gained=19
+IA/i01 | pris rc=0 cmp=36 NOT_EQUAL stage1 | law rc=0 cmp=36 NOT_EQUAL stage1 | v2 rc=0 cmp=36 NOT_EQUAL stage1 | SAMEBYTES || law:obdist 7 -> 7 lost=0 gained=0 || v2:obdist 7 -> 7 lost=0 gained=0
+IA/i02 | pris rc=0 cmp=72 NOT_EQUAL stage1 | law rc=0 cmp=72 NOT_EQUAL stage1 | v2 rc=0 cmp=72 NOT_EQUAL stage1 | MOVED || law:obdist 156 -> 126 lost=0 gained=30 || v2:obdist 156 -> 126 lost=0 gained=30
+IE/l01 | pris rc=0 cmp=0 STRICT_NOTEQUAL endline | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED || law:obdist 12 -> 0 lost=0 gained=12 || v2:obdist 12 -> 0 lost=0 gained=12
+IE/l02 | pris cmp=0 STRICT_NOTEQUAL endline | law cmp=0 STRICT_NOTEQUAL endline | v2 cmp=0 STRICT_EQUAL | MOVED || law:obdist 12 -> 6 lost=6 gained=12 || v2:obdist 12 -> 0 lost=0 gained=12
+IE/l03 | pris cmp=0 STRICT_NOTEQUAL endline | law cmp=0 STRICT_NOTEQUAL endcol | v2 cmp=0 STRICT_EQUAL | MOVED || law:obdist 12 -> 12 lost=0 gained=0 || v2:obdist 12 -> 0 lost=0 gained=12
+IE/l04 | pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES || law:obdist 0 -> 0 lost=0 gained=0 || v2:obdist 0 -> 0 lost=0 gained=0
+NP/n01 | pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED || law:obdist 66 -> 2 lost=0 gained=17 || v2:obdist 66 -> 2 lost=0 gained=17
+NP/n02 | pris rc=4 cmp=16 NOT_EQUAL stage1 | law rc=4 cmp=98 NOT_EQUAL stage1 | v2 rc=4 cmp=98 NOT_EQUAL stage1 | MOVED || law:obdist 13 -> 3 lost=0 gained=13 || v2:obdist 13 -> 3 lost=0 gained=13
+NP/n03 | pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED || law:obdist 18 -> 0 lost=0 gained=21 || v2:obdist 18 -> 0 lost=0 gained=21
+PP/p01 | pris cmp=0 STRICT_NOTEQUAL endcol | law cmp=0 STRICT_NOTEQUAL endcol | v2 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES || law:obdist 40 -> 48 lost=8 gained=0 || v2:obdist 40 -> 40 lost=0 gained=0
+PP/p02 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED || law:obdist 8 -> 0 lost=0 gained=8 || v2:obdist 8 -> 0 lost=0 gained=8
+PP/p03 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED || law:obdist 8 -> 0 lost=0 gained=8 || v2:obdist 8 -> 0 lost=0 gained=8
+PP/p04 | pris cmp=0 STRICT_NOTEQUAL endcol | law cmp=0 STRICT_NOTEQUAL endcol | v2 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES || law:obdist 52 -> 60 lost=8 gained=0 || v2:obdist 52 -> 52 lost=0 gained=0
+PP/p05 | pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=16 NOT_EQUAL stage1 | v2 rc=0 cmp=16 NOT_EQUAL stage1 | MOVED || law:obdist 160 -> 152 lost=0 gained=8 || v2:obdist 160 -> 152 lost=0 gained=8
+PP/p06 | pris rc=0 cmp=0 STRICT_NOTEQUAL endline | law rc=0 cmp=0 STRICT_NOTEQUAL endline | v2 rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES || law:obdist 24 -> 24 lost=0 gained=0 || v2:obdist 24 -> 24 lost=0 gained=0
+PP/p07 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_NOTEQUAL endcol | v2 rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES || law:obdist 30 -> 30 lost=0 gained=0 || v2:obdist 30 -> 30 lost=0 gained=0
+PP/p08 | pris cmp=0 STRICT_NOTEQUAL endcol | law cmp=0 STRICT_NOTEQUAL endcol | v2 cmp=0 STRICT_NOTEQUAL endcol | MOVED || law:obdist 56 -> 48 lost=4 gained=12 || v2:obdist 56 -> 44 lost=0 gained=12
+PP/p09 | pris cmp=0 STRICT_NOTEQUAL endcol | law cmp=0 STRICT_NOTEQUAL endcol | v2 cmp=0 STRICT_NOTEQUAL endcol | MOVED || law:obdist 68 -> 60 lost=4 gained=12 || v2:obdist 68 -> 56 lost=0 gained=12
+PP/p10 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_NOTEQUAL endcol | v2 rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES || law:obdist 20 -> 20 lost=0 gained=0 || v2:obdist 20 -> 20 lost=0 gained=0
+PP/p11 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_NOTEQUAL endcol | v2 rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES || law:obdist 28 -> 28 lost=0 gained=0 || v2:obdist 28 -> 28 lost=0 gained=0
+PQ/q01 | pris rc=0 cmp=594 NOT_EQUAL stage1 | law rc=0 cmp=60 NOT_EQUAL stage1 | v2 rc=0 cmp=60 NOT_EQUAL stage1 | MOVED || law:obdist 7 -> 18 lost=0 gained=111 || v2:obdist 7 -> 18 lost=0 gained=111
+PQ/q02 | pris rc=0 cmp=1100 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED || law:obdist 0 -> 0 lost=0 gained=55 || v2:obdist 0 -> 0 lost=0 gained=55
+SG/s01 | pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED || law:obdist 4 -> 0 lost=0 gained=4 || v2:obdist 4 -> 0 lost=0 gained=4
+SG/s02 | pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES || law:obdist 0 -> 0 lost=0 gained=0 || v2:obdist 0 -> 0 lost=0 gained=0
+TR/q01 | pris rc=0 cmp=24 NOT_EQUAL stage1 | law rc=0 cmp=24 NOT_EQUAL stage1 | v2 rc=0 cmp=24 NOT_EQUAL stage1 | SAMEBYTES || law:obdist 8 -> 8 lost=0 gained=0 || v2:obdist 8 -> 8 lost=0 gained=0
+TR/q02 | pris cmp=24 NOT_EQUAL stage1 | law cmp=0 STRICT_NOTEQUAL line | v2 cmp=0 STRICT_NOTEQUAL name | MOVED || law:obdist 20 -> 18 lost=2 gained=1 || v2:obdist 20 -> 16 lost=0 gained=1
+TR/q03 | pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL fullname | v2 rc=0 cmp=0 STRICT_NOTEQUAL fullname | MOVED || law:obdist 6 -> 2 lost=0 gained=1 || v2:obdist 6 -> 2 lost=0 gained=1
+TR/q04 | pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=16 NOT_EQUAL stage1 | v2 rc=0 cmp=16 NOT_EQUAL stage1 | MOVED || law:obdist 16 -> 12 lost=0 gained=1 || v2:obdist 16 -> 12 lost=0 gained=1
+TR/q05 | pris cmp=0 STRICT_NOTEQUAL fullname | law cmp=0 STRICT_NOTEQUAL fullname | v2 cmp=0 STRICT_NOTEQUAL fullname | MOVED || law:obdist 6 -> 2 lost=0 gained=1 || v2:obdist 6 -> 2 lost=0 gained=1
+UT/x01 | pris rc=0 cmp=0 STRICT_NOTEQUAL endline | law rc=0 cmp=0 STRICT_NOTEQUAL endline | v2 rc=0 cmp=0 STRICT_NOTEQUAL endline | MOVED || law:obdist 14 -> 7 lost=0 gained=7 || v2:obdist 14 -> 7 lost=0 gained=7
+UT/x02 | pris rc=0 cmp=0 STRICT_NOTEQUAL endline | law rc=0 cmp=0 STRICT_NOTEQUAL endline | v2 rc=0 cmp=0 STRICT_NOTEQUAL endline | MOVED || law:obdist 14 -> 7 lost=0 gained=7 || v2:obdist 14 -> 7 lost=0 gained=7
+UT/x03 | pris rc=0 cmp=52 NOT_EQUAL stage1 | law rc=0 cmp=52 NOT_EQUAL stage1 | v2 rc=0 cmp=52 NOT_EQUAL stage1 | MOVED || law:obdist 13 -> 0 lost=0 gained=13 || v2:obdist 13 -> 0 lost=0 gained=13
+UT/x04 | pris rc=0 cmp=0 STRICT_NOTEQUAL endline | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED || law:obdist 15 -> 0 lost=0 gained=15 || v2:obdist 15 -> 0 lost=0 gained=15
+UT/x06 | pris rc=4 cmp=98 NOT_EQUAL stage1 | law rc=4 cmp=98 NOT_EQUAL stage1 | v2 rc=4 cmp=98 NOT_EQUAL stage1 | MOVED || law:obdist 10 -> 0 lost=0 gained=10 || v2:obdist 10 -> 0 lost=0 gained=10
+UT/x07 | pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=16 NOT_EQUAL stage1 | v2 rc=0 cmp=16 NOT_EQUAL stage1 | MOVED || law:obdist 101 -> 99 lost=0 gained=5 || v2:obdist 101 -> 99 lost=0 gained=5
+UT/x08 | pris rc=4 cmp=38 NOT_EQUAL stage1 | law rc=4 cmp=38 NOT_EQUAL stage1 | v2 rc=4 cmp=38 NOT_EQUAL stage1 | MOVED || law:obdist 145 -> 100 lost=2 gained=47 || v2:obdist 145 -> 100 lost=2 gained=47
+VA/a01 | pris cmp=16 NOT_EQUAL stage1 | law cmp=76 NOT_EQUAL stage1 | v2 cmp=76 NOT_EQUAL stage1 | MOVED || law:obdist 53 -> 54 lost=2 gained=10 || v2:obdist 53 -> 52 lost=0 gained=10
+VA/a02 | pris rc=4 cmp=16 NOT_EQUAL stage1 | law rc=4 cmp=98 NOT_EQUAL stage1 | v2 rc=4 cmp=98 NOT_EQUAL stage1 | MOVED || law:obdist 16 -> 9 lost=0 gained=10 || v2:obdist 16 -> 9 lost=0 gained=10
+VA/a03 | pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=336 NOT_EQUAL stage1 | v2 rc=0 cmp=336 NOT_EQUAL stage1 | MOVED || law:obdist 24 -> 7 lost=0 gained=20 || v2:obdist 24 -> 7 lost=0 gained=20
+VA/a04 | pris cmp=16 NOT_EQUAL stage1 | law cmp=40 NOT_EQUAL stage1 | v2 cmp=40 NOT_EQUAL stage1 | MOVED || law:obdist 8 -> 4 lost=4 gained=14 || v2:obdist 8 -> 0 lost=0 gained=14
+VA/a05 | pris cmp=16 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL | v2 cmp=0 STRICT_EQUAL | MOVED || law:obdist 8 -> 4 lost=2 gained=12 || v2:obdist 8 -> 2 lost=0 gained=12
+VA/a06 | pris cmp=16 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL | v2 cmp=0 STRICT_EQUAL | MOVED || law:obdist 6 -> 2 lost=2 gained=12 || v2:obdist 6 -> 0 lost=0 gained=12
+VA/a07 | pris cmp=16 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL | v2 cmp=0 STRICT_EQUAL | MOVED || law:obdist 4 -> 4 lost=4 gained=13 || v2:obdist 4 -> 0 lost=0 gained=13

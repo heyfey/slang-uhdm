@@ -1,0 +1,9 @@
+// § unitClassTdSpecAtName202
+class cfg#(type T=int, type T2=int);
+endclass
+typedef cfg#(int, string) m_misc;
+class user;
+  m_misc h;
+endclass
+module top ();
+endmodule

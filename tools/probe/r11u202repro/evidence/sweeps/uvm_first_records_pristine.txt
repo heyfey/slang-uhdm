@@ -1,0 +1,20 @@
+=== MiniAmiq pristine
+#899 file
+  A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73
+  B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16
+=== SeqDriver pristine
+#5387 fullname
+  A: 19	ref_obj	i		uvm_pkg::uvm_default_factory::print::space.substr::i	uvm_factory.svh	1586	47	1586	48		0
+  B: 19	ref_obj	i		uvm_pkg::uvm_default_factory::print::i	uvm_factory.svh	1586	47	1586	48		0
+=== SimpleUVM pristine
+#458 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+=== Scoreboard pristine
+#466 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+=== BuildUVMPkg pristine
+#3245 line
+  A: 5	int_typespec	uvm_action			uvm_pkg.sv	9704	72	9704	82
+  B: 5	int_typespec	uvm_action			uvm_pkg.sv	8075	9	8075	12

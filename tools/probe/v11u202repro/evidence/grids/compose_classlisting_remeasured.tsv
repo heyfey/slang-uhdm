@@ -1,0 +1,68 @@
+r11u200dec/cases/K/k01	neither=NOT_EQUAL	c196=STRICT_EQUAL	c200=STRICT_EQUAL	both=STRICT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=139,0,0
+r11u200dec/cases/K/k02	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	law=NOT_EQUAL	v2=NOT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=139,0,0
+r11u200dec/cases/K/k03	neither=NOT_EQUAL	c196=STRICT_EQUAL	c200=STRICT_EQUAL	both=STRICT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=139,0,0
+r11u200dec/cases/K/k04	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=0,0,0
+r11u200dec/cases/K/k05	neither=STRICT_EQUAL	c196=STRICT_EQUAL	c200=STRICT_EQUAL	both=STRICT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=0,0,0
+r11u200dec/cases/K/k06	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=0,0,0
+r11u200dec/cases/K/k07	neither=NOT_EQUAL	c196=STRICT_EQUAL	c200=STRICT_EQUAL	both=STRICT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=0,0,0
+r11u200dec/cases/K/k08	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	law=NOT_EQUAL	v2=NOT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=139,0,0
+r11u196repro/cases/MG/m09	neither=NOT_EQUAL	c196=STRICT_EQUAL	c200=NOT_EQUAL	both=STRICT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=139,0,0
+r11u196repro/cases/MG/m10	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	law=NOT_EQUAL	v2=NOT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=139,0,0
+r11u196repro/cases/MG/m11	neither=NOT_EQUAL	c196=STRICT_EQUAL	c200=STRICT_NOTEQUAL:endcol	both=STRICT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=139,0,0
+r11u196repro/cases/MG/m12	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	law=NOT_EQUAL	v2=NOT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=139,0,0
+r11u196repro/cases/MG/m13	neither=NOT_EQUAL	c196=STRICT_EQUAL	c200=NOT_EQUAL	both=STRICT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=0,0,0
+r11u196repro/cases/MG/ma01	neither=NOT_EQUAL	c196=STRICT_EQUAL	c200=STRICT_EQUAL	both=STRICT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=139,0,0
+r11u196repro/cases/MG/ma02	neither=NOT_EQUAL	c196=STRICT_EQUAL	c200=STRICT_EQUAL	both=STRICT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=139,0,0
+r11u196repro/cases/MG/ma03	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=0,0,0
+r11u196repro/cases/MG/ma04	neither=NOT_EQUAL	c196=STRICT_EQUAL	c200=STRICT_EQUAL	both=STRICT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=0,0,0
+r11u196repro/cases/MG/ma05	neither=NOT_EQUAL	c196=STRICT_EQUAL	c200=STRICT_NOTEQUAL:endcol	both=STRICT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=139,0,0
+r11u196repro/cases/MG/ma06	neither=NOT_EQUAL	c196=STRICT_EQUAL	c200=STRICT_EQUAL	both=STRICT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=139,0,0
+r11u196repro/cases/MG/ma07	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	law=NOT_EQUAL	v2=NOT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=139,0,0
+r11u196repro/cases/MG/ma08	neither=STRICT_EQUAL	c196=STRICT_EQUAL	c200=STRICT_EQUAL	both=STRICT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=0,0,0
+r11u202repro/cases/K/k01	neither=NOT_EQUAL	c196=STRICT_EQUAL	c200=STRICT_EQUAL	both=STRICT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=139,0,0
+r11u202repro/cases/K/k02	neither=NOT_EQUAL	c196=STRICT_EQUAL	c200=STRICT_EQUAL	both=STRICT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=139,0,0
+r11u202repro/cases/K/k03	neither=NOT_EQUAL	c196=NOT_EQUAL	c200=NOT_EQUAL	both=NOT_EQUAL	law=STRICT_EQUAL	v2=STRICT_EQUAL	both==196:y	elab_rc(neither,200alone,v2)=0,0,0
+mkdir: unrecognized option '--elabuhdm'
+Try 'mkdir --help' for more information.
+/tmp/v11u202_compose.sh: line 9: cd: too many arguments
+/tmp/v11u202_compose.sh: line 10: cd: too many arguments
+mkdir: unrecognized option '--elabuhdm'
+Try 'mkdir --help' for more information.
+rm: unrecognized option '--elabuhdm'
+Try 'rm --help' for more information.
+/tmp/v11u202_compose.sh: line 14: cd: too many arguments
+/tmp/v11u202_compose.sh: line 16: $o/o.uhdm: ambiguous redirect
+mkdir: unrecognized option '--elabuhdm'
+Try 'mkdir --help' for more information.
+rm: unrecognized option '--elabuhdm'
+Try 'rm --help' for more information.
+/tmp/v11u202_compose.sh: line 14: cd: too many arguments
+/tmp/v11u202_compose.sh: line 16: $o/o.uhdm: ambiguous redirect
+mkdir: unrecognized option '--elabuhdm'
+Try 'mkdir --help' for more information.
+rm: unrecognized option '--elabuhdm'
+Try 'rm --help' for more information.
+/tmp/v11u202_compose.sh: line 14: cd: too many arguments
+/tmp/v11u202_compose.sh: line 16: $o/o.uhdm: ambiguous redirect
+mkdir: unrecognized option '--elabuhdm'
+Try 'mkdir --help' for more information.
+rm: unrecognized option '--elabuhdm'
+Try 'rm --help' for more information.
+/tmp/v11u202_compose.sh: line 14: cd: too many arguments
+/tmp/v11u202_compose.sh: line 16: $o/o.uhdm: ambiguous redirect
+mkdir: unrecognized option '--elabuhdm'
+Try 'mkdir --help' for more information.
+rm: unrecognized option '--elabuhdm'
+Try 'rm --help' for more information.
+/tmp/v11u202_compose.sh: line 14: cd: too many arguments
+/tmp/v11u202_compose.sh: line 16: $o/o.uhdm: ambiguous redirect
+mkdir: unrecognized option '--elabuhdm'
+Try 'mkdir --help' for more information.
+rm: unrecognized option '--elabuhdm'
+Try 'rm --help' for more information.
+/tmp/v11u202_compose.sh: line 14: cd: too many arguments
+/tmp/v11u202_compose.sh: line 16: $o/o.uhdm: ambiguous redirect
+/tmp/v11u202_compose.sh: line 18: cd: too many arguments
+/tmp/v11u202_compose.sh: line 19: cd: too many arguments
+/tmp/v11u202_compose.sh: line 20: cd: too many arguments
+positive control: k01 with the three 196 switches and R11U200_CLASSCRASH_OFF: --elabuhdm rc=139	neither=	c196=	c200=	both=	law=	v2=	both==196:y	elab_rc(neither,200alone,v2)=1,1,1

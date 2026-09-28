@@ -372,6 +372,125 @@ bool r11u193Law(const char* sw) {
         return false;
     return getenv(sw) == nullptr;
 }
+// The r11u200 switches (tools/probe/r11u200dec/README.md): every r11u200 law
+// reads its own R11U200_<LAW>_OFF switch; R11U200_OFF drops all of them.
+//   R11U200_SIGNSPAN_OFF   § tfSigningSpanFollowsCompilePath200  (TypeEmit.cpp, TaskFuncEmit.cpp)
+//   R11U200_GENINIT_OFF    § defGenInitRhsKeepsParent200          (ModuleEmit.cpp)
+//   R11U200_IFARRNAME_OFF  § ifaceArrPortElemViewNamedByArray200  (ModuleEmit.cpp)
+//   R11U200_IMPLEND_OFF    § implicitTsEndCrossesLineBreak200     (TypeEmit.cpp)
+//   R11U200_NEWARRHP_OFF   § newArrayArgPathElemsStripped200      (ExprEmit.cpp, ground A)
+//   R11U200_CLASSCRASH_OFF § modGenericClassListedAtDefault200    (ModuleEmit.cpp, TypeEmit.cpp)
+//   R11U200_POSREFMOD_OFF  § posOpConnKeepsRefModule200           (ModuleEmit.cpp)
+//   R11U200_PORTPACKED_OFF § defPortPackedTsKeepsWholeSpan200     (ModuleEmit.cpp)
+//   R11U200_UNITFOLD_OFF   § unitBoundFoldAtLeftOperand200        (ParamEmit.cpp, ground A: the $unit arm)
+//   R11U200_FOLDDEPTH_OFF  § unitBoundFoldAtLeftOperand200        (ParamEmit.cpp, ground A: one level)
+//   R11U200_UNITINIT_OFF   § unitBoundFoldAtLeftOperand200        (UhdmExporter.cpp: a $unit initializer, one level)
+//   R11U200_CLASSTDRET_OFF § classTdRetSharesTypedefTs200         (TaskFuncEmit.cpp)
+//   R11U200_GENBITS_OFF    § genBlockBitsKeepsSelect200           (ExprEmit.cpp, ground A)
+bool r11u200Law(const char* sw) {
+    // r11u202 landed these laws: its pass-wide R11U202_OFF drops them too.
+    if (getenv("R11U200_OFF") != nullptr || getenv("R11U202_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// R11U200_TRACE=<dir> names every firing of an r11u200 law (the mover census):
+// one file per process, `<dir>/<pid>.200`, its first line `OUT <-o path>`,
+// then one `<law> <detail>` line per firing.  Unset, nothing is written.
+void trace200(const char* law, const std::string& detail) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U200_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".200";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s %s\n", law, detail.c_str());
+        fflush(tf);
+    }
+}
+// The r11u202 switches (tools/probe/r11u202repro/README.md): every r11u202
+// law reads its own R11U202_<LAW>_OFF switch; R11U202_OFF drops all of them
+// AND the r11u200 laws this pass landed (r11u200Law reads it).
+//   R11U202_UNITCLSTD_OFF   § unitClassTdSpecAtName202      (UhdmExporter.cpp)
+//   R11U202_CLSTDINITEND_OFF § unitClassTdEndAtInit202      (UhdmExporter.cpp)
+//   R11U202_SPECARGS_OFF    § classSpecExprArgUnlocated202  (UhdmExporter.cpp, TypeEmit.cpp)
+//   R11U202_CLSPARAMSIGN_OFF § classValueParamIntSigned202  (UhdmExporter.cpp)
+//   R11U202_MODPKGSPEC_OFF  § modPkgGenericSpecNamedBare202 (TypeEmit.cpp)
+//   R11U202_VALSPECSPAN_OFF § modSpecValueArgSpanAtName202  (TypeEmit.cpp)
+//   R11U202_GENINITBIND_OFF § genVarInitOuterRefUnbound202  (ModuleEmit.cpp)
+//   R11U202_GENINITBS_OFF   § defGenInitBitSelAtIndex202    (TypeEmit.cpp, ModuleEmit.cpp)
+bool r11u202Law(const char* sw) {
+    if (getenv("R11U202_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// The v11u202 refinements (tools/probe/v11u202repro/README.md, the
+// adversarial verification of r11u202): each reads its own
+// R11V202_<NAME>_OFF switch; R11V202_OFF (or R11U202_OFF) drops all of them.
+//   R11V202_PORTIMPL_OFF   § portPackedBareImplicitTruncates202v (ModuleEmit.cpp)
+//   R11V202_TDRETVAR_OFF   § classTdRetVarKeepsWrittenLoc202v    (TaskFuncEmit.cpp)
+//   R11V202_IMPLCMT_OFF    § implicitTsEndAfterLineComment202v   (TypeEmit.cpp)
+//   R11V202_IMPLCR_OFF     § implicitTsEndSkipsCarriageReturn202v (TypeEmit.cpp)
+bool r11v202Law(const char* sw) {
+    if (getenv("R11V202_OFF") != nullptr || getenv("R11U202_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// R11U202_TRACE=<dir> names every firing of an r11u202 law (the mover
+// census): one file per process, `<dir>/<pid>.202`, its first line
+// `OUT <-o path>`, then one `<law> <detail>` line per firing.
+void trace202(const char* law, const std::string& detail) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U202_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".202";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s %s\n", law, detail.c_str());
+        fflush(tf);
+    }
+}
 // The v11u193 refinements (tools/probe/v11u193repro/README.md, the adversarial
 // verification of r11u193): each reads its own R11V193_<NAME>_OFF switch;
 // R11V193_OFF (or R11U193_OFF) drops all of them.
@@ -7469,6 +7588,37 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
                 if (wts54) {
                     setLoc(wts54, wtSyn54->sourceRange());
                     dts = wts54;
+                    // § classValueParamIntSigned202 (r11u202,
+                    // R11U202_CLSPARAMSIGN_OFF) — a class value parameter
+                    // written `int` is compiled like any other `int` data
+                    // type: its int_typespec is vpiSigned (unless written
+                    // `int unsigned`) and parented at the parameter; the
+                    // PARAMETER itself carries vpiSigned only when a
+                    // `parameter` / `localparam` keyword was written (golden
+                    // `class c #(parameter int W = 4)` and a body `parameter
+                    // int W` signed, `class c #(int W = 4)` not; cases CP
+                    // p01-p04 and K/k03).  Ours
+                    // left both unsigned and the typespec unparented: a
+                    // judge-visible stage-1 head (r11u196's residue R2).
+                    if (wts54->UhdmType() == UHDM::uhdmint_typespec &&
+                        r11u202Law("R11U202_CLSPARAMSIGN_OFF")) {
+                        const bool sgn202 = pct54.isSigned();
+                        if (sgn202)
+                            ((UHDM::int_typespec*)wts54)->VpiSigned(true);
+                        wts54->VpiParent(pv);
+                        bool kw202 = false;
+                        if (auto* dn202 = declNodeOf(ps))
+                            if (auto* pd202 = dn202->as_if<
+                                    syntax::ParameterDeclarationBaseSyntax>())
+                                kw202 = pd202->keyword.kind ==
+                                            parsing::TokenKind::ParameterKeyword ||
+                                        pd202->keyword.kind ==
+                                            parsing::TokenKind::LocalParamKeyword;
+                        if (sgn202 && kw202)
+                            pv->VpiSigned(true);
+                        trace202("classValueParamIntSigned202",
+                                 fullName + "::" + std::string(ps.name));
+                    }
                 }
             }
         }
@@ -7786,6 +7936,96 @@ bool UhdmExporter::inGenScopeChain115(const UHDM::any* o) {
         if (o->UhdmType() == UHDM::uhdmgen_scope)
             return true;
     return false;
+}
+
+// § classSpecExprArgUnlocated202 (r11u202, R11U202_SPECARGS_OFF) — the
+// written-argument half of a class specialization's listing, re-applied at
+// the site whose `#(...)` Surelog compiled.  Surelog's only writer of a
+// class_typespec's `Parameters` / `Param_assigns`
+// (CompileHelper::compileDatastructureTypespec, the ClassDefinition arm) takes
+// two arms per ordered argument (transcribed in
+// § classPropSpecForeignPkgHome163's builder, emitClassPropSpecParams163):
+// an argument written as a bare IDENTIFIER (a class name) parses as an
+// expression, so the type_parameter and its param_assign carry NO location
+// and the actual class_typespec is located at the WHOLE `#(...)` text; an
+// argument written as a data type (`string`, `int`, `bit [2:0]`) keeps the
+// formal's span on the type_parameter and the ARGUMENT's own span on the
+// actual.  emitClassTsParams lists the formals from slang's specialization,
+// whose argument syntax is the FIRST spelling of that specialization anywhere
+// in the design, and located every argument at the formal: golden
+// ClassTypeParam `typedef uvm_config_db#(uvm_object, string) ...` (20:22-20:43
+// on `uvm_object`, the type_parameter unlocated) and the module variable
+// `uvm_config_db#(uvm_object, string) misc2` (26:16-26:37 and 26:30-26:36,
+// its OWN text, where ours re-read line 20's).  Only an actual this listing
+// owns (parented at its type_parameter) is relocated; a named-argument
+// spelling is left alone (Surelog's loop reads ordered arguments only).
+// Grid tools/probe/r11u202repro/cases/CT.
+void respanSpecArgs202(
+    UHDM::class_typespec* cts, const ClassType& cls,
+    const syntax::ClassNameSyntax& cn,
+    const std::function<void(UHDM::BaseClass*, SourceRange)>& loc,
+    const char* site) {
+    if (!cts || !cts->Parameters() || !cn.parameters ||
+        !r11u202Law("R11U202_SPECARGS_OFF"))
+        return;
+    std::vector<const syntax::ExpressionSyntax*> ord;
+    for (auto* pa : cn.parameters->parameters) {
+        if (!pa || pa->kind != syntax::SyntaxKind::OrderedParamAssignment)
+            return;
+        ord.push_back(&*pa->as<syntax::OrderedParamAssignmentSyntax>().expr);
+    }
+    size_t idx = 0;
+    for (auto& m : cls.members()) {
+        if (m.kind != SymbolKind::TypeParameter && m.kind != SymbolKind::Parameter)
+            continue;
+        if (idx >= ord.size())
+            break;
+        const syntax::ExpressionSyntax* a = ord[idx++];
+        if (m.kind != SymbolKind::TypeParameter || !a)
+            continue;
+        UHDM::type_parameter* tp = nullptr;
+        for (auto* p : *cts->Parameters())
+            if (p->UhdmType() == UHDM::uhdmtype_parameter && p->VpiName() == m.name) {
+                tp = (UHDM::type_parameter*)p;
+                break;
+            }
+        if (!tp || !tp->Typespec())
+            continue;
+        UHDM::param_assign* pa = nullptr;
+        if (cts->Param_assigns())
+            for (auto* q : *cts->Param_assigns())
+                if (q->Rhs() == tp) {
+                    pa = q;
+                    break;
+                }
+        auto* act = tp->Typespec()->Actual_typespec();
+        if (!act || act->VpiParent() != tp)
+            continue;
+        if (a->kind == syntax::SyntaxKind::IdentifierName) {
+            if (act->UhdmType() != UHDM::uhdmclass_typespec)
+                continue;
+            auto clear = [](UHDM::BaseClass* o) {
+                o->VpiFile("");
+                o->VpiLineNo(0);
+                o->VpiColumnNo(0);
+                o->VpiEndLineNo(0);
+                o->VpiEndColumnNo(0);
+            };
+            clear(tp);
+            if (pa)
+                clear(pa);
+            loc(act, cn.parameters->sourceRange());
+            trace202("classSpecExprArgUnlocated202",
+                     std::string(site) + " expr " + std::string(m.name));
+        }
+        else if (a->kind != syntax::SyntaxKind::ScopedName &&
+                 a->kind != syntax::SyntaxKind::ClassName &&
+                 act->UhdmType() != UHDM::uhdmclass_typespec) {
+            loc(act, a->sourceRange());
+            trace202("classSpecExprArgUnlocated202",
+                     std::string(site) + " data " + std::string(m.name));
+        }
+    }
 }
 
 // The specialization carried by a class_typespec (see the header note).
@@ -11007,10 +11247,26 @@ UHDM::design* UhdmExporter::exportDesign() {
                     // leaf — `reduceExpr` builds the result constant off the
                     // left operand it folded first, so `32 - 6` lands on the
                     // `32`, not on the whole expression.
+                    // § unitBoundFoldAtLeftOperand200 (r11u200) — ONE level:
+                    // the ROOT operation's left operand node, parentheses
+                    // included (golden Scr1SvTests scr1_csr.svh `(M << S) |
+                    // RVI | RVC | RVM` at 118:47-125:63, `A + B + C` at the
+                    // `A + B` 19:54-20:77; the leftmost leaf read 118:48 and
+                    // 19:54-19:75).  Switch R11U200_UNITINIT_OFF.
                     const Expression* spanE = &ic;
-                    while (spanE->kind == ExpressionKind::BinaryOp)
-                        spanE = &stripImplicitConv(
-                            spanE->as<BinaryExpression>().left());
+                    if (r11u200Law("R11U200_UNITINIT_OFF")) {
+                        if (spanE->kind == ExpressionKind::BinaryOp) {
+                            spanE = &stripImplicitConv(
+                                spanE->as<BinaryExpression>().left());
+                            if (spanE->kind == ExpressionKind::BinaryOp)
+                                trace200("unitBoundFoldAtLeftOperand200",
+                                         "init " + std::string(ps.name));
+                        }
+                    }
+                    else
+                        while (spanE->kind == ExpressionKind::BinaryOp)
+                            spanE = &stripImplicitConv(
+                                spanE->as<BinaryExpression>().left());
                     setLoc(c, spanE->sourceRange);
                     rhsRt = s.MakeRef_typespec();
                     rhsRt->VpiParent(c);
@@ -11668,9 +11924,90 @@ UHDM::design* UhdmExporter::exportDesign() {
                     if (typeSyn) {
                         auto r = typeSyn->sourceRange();
                         if (auto* nt = typeSyn->as_if<syntax::NamedTypeSyntax>())
-                            if (auto* cn = nt->name->as_if<syntax::ClassNameSyntax>())
+                            if (auto* cn = nt->name->as_if<syntax::ClassNameSyntax>()) {
                                 r = SourceRange(cn->identifier.range().start(), r.end());
+                                // § unitClassTdSpecAtName202 (r11u202,
+                                // R11U202_UNITCLSTD_OFF) — a $unit typedef
+                                // of a class SPECIALIZATION is located at the
+                                // class NAME alone: golden ClassTypeParam
+                                // `typedef uvm_config_db#(uvm_object, string)
+                                // m_uvm_config_obj_misc;` spans 20:9-20:22
+                                // (`uvm_config_db`), ours spanned through the
+                                // `#(...)` (20:43); `typedef cfg#(int, string)`
+                                // alike (cases CT c07, c12).  A package or
+                                // class-scope typedef already agreed (c14,
+                                // c15).
+                                if (r11u202Law("R11U202_UNITCLSTD_OFF")) {
+                                    r = cn->identifier.range();
+                                    trace202("unitClassTdSpecAtName202",
+                                             std::string(ta.name));
+                                }
+                                respanSpecArgs202(
+                                    cts, ct.as<ClassType>(), *cn,
+                                    [this](UHDM::BaseClass* o, SourceRange sr) {
+                                        setLoc(o, sr);
+                                    },
+                                    "unittd");
+                            }
                         setLoc(cts, r);
+                    }
+                    // § unitClassTdEndAtInit202 (r11u202,
+                    // R11U202_CLSTDINITEND_OFF) — a MODULE-body variable typed
+                    // by a $unit class typedef and declared with an
+                    // initializer moves the END of the typedef's one
+                    // class_typespec to the initializer's end: Surelog's
+                    // compileVariable populates the variable's typespec end
+                    // at the initializer (the rule § classVarInitSpan152
+                    // reads on a written specialization), and here that
+                    // typespec is the typedef's shared object (golden
+                    // ClassTypeParam 20:9-24:36 for `m_uvm_config_obj_misc
+                    // misc1 = new;` at line 24).  Every such declarator
+                    // writes, so the LAST writer wins: modules in the
+                    // order of their `work@<name>` keys, declarators in
+                    // source order (cases CT c18 two in one module, c24 /
+                    // c26 / c27 across modules).  A class property (c20), a
+                    // procedural block's variable (c22) and an assignment
+                    // (c19) never move it.
+                    if (r11u202Law("R11U202_CLSTDINITEND_OFF")) {
+                        std::string bestKey202;
+                        const syntax::ExpressionSyntax* best202 = nullptr;
+                        for (auto& [nm202, inst202] : defs) {
+                            if (!inst202 ||
+                                inst202->getDefinition().definitionKind !=
+                                    DefinitionKind::Module)
+                                continue;
+                            std::string key202 =
+                                "work@" + std::string(inst202->getDefinition().name);
+                            if (best202 && key202 < bestKey202)
+                                continue;
+                            const syntax::ExpressionSyntax* last202 = nullptr;
+                            for (auto& mem202 : inst202->body.members()) {
+                                if (mem202.kind != SymbolKind::Variable)
+                                    continue;
+                                auto* dt202 = mem202.getDeclaredType();
+                                if (!dt202 || &dt202->getType() != (const Type*)&ta)
+                                    continue;
+                                auto* ds202 = mem202.getSyntax();
+                                if (!ds202 ||
+                                    ds202->kind != syntax::SyntaxKind::Declarator ||
+                                    !ds202->as<syntax::DeclaratorSyntax>().initializer)
+                                    continue;
+                                last202 = ds202->as<syntax::DeclaratorSyntax>()
+                                              .initializer->expr;
+                            }
+                            if (last202) {
+                                best202 = last202;
+                                bestKey202 = key202;
+                            }
+                        }
+                        if (best202) {
+                            auto e202 = best202->sourceRange().end();
+                            auto& sm202 = *comp.getSourceManager();
+                            cts->VpiEndLineNo(sm202.getLineNumber(e202));
+                            cts->VpiEndColumnNo(sm202.getColumnNumber(e202));
+                            trace202("unitClassTdEndAtInit202",
+                                     std::string(ta.name) + " " + bestKey202);
+                        }
                     }
                     ts = cts;
                 }

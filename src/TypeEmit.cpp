@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <cerrno>
+#include <functional>
 //------------------------------------------------------------------------------
 //! @file TypeEmit.cpp
 //! @brief Typespecs, bound constants, variable object creation
@@ -122,6 +123,77 @@ static bool i148On() {
 bool r11u130Law(const char* sw);
 bool r11u134Law(const char* sw);
 bool r11u137Law(const char* sw);
+bool r11u200Law(const char* sw); // the r11u200 switches (UhdmExporter.cpp)
+void trace200(const char* law, const std::string& detail); // R11U200_TRACE
+bool r11u202Law(const char* sw); // the r11u202 switches (UhdmExporter.cpp)
+void trace202(const char* law, const std::string& detail); // R11U202_TRACE
+bool r11v202Law(const char* sw); // the v11u202 switches (UhdmExporter.cpp)
+// § defGenInitBitSelAtIndex202 — armed by ModuleEmit around a definition-view
+// generate-block variable's initializer (R11U202_GENINITBS_OFF read there).
+bool& defGenInitRvalue202() {
+    static bool armed = false;
+    return armed;
+}
+// § classSpecExprArgUnlocated202 (UhdmExporter.cpp).
+void respanSpecArgs202(
+    UHDM::class_typespec* cts, const slang::ast::ClassType& cls,
+    const slang::syntax::ClassNameSyntax& cn,
+    const std::function<void(UHDM::BaseClass*, slang::SourceRange)>& loc,
+    const char* site);
+// § genBlockBitsKeepsSelect200 — inside a generate construct's BODY (a
+// generate region, a begin-end generate block, the block or else-branch of a
+// gen-if, the block of a gen-for, a gen-case item's clause), not in its
+// condition or loop header: Surelog evaluates those (HierPathPackedStruct's
+// gen-if condition `$bits(a.pair[0]) != 42` folds in golden).
+static bool genBody200(const slang::syntax::SyntaxNode* n) {
+    using namespace slang::syntax;
+    const SyntaxNode* prev = nullptr;
+    for (const SyntaxNode* p = n; p; prev = p, p = p->parent) {
+        switch (p->kind) {
+            case SyntaxKind::IfGenerate: {
+                auto& ig = p->as<IfGenerateSyntax>();
+                return prev && (prev == ig.block.get() ||
+                                prev == (const SyntaxNode*)ig.elseClause);
+            }
+            case SyntaxKind::LoopGenerate:
+                return prev && prev == p->as<LoopGenerateSyntax>().block.get();
+            case SyntaxKind::CaseGenerate:
+                return prev && prev != p->as<CaseGenerateSyntax>().condition.get();
+            case SyntaxKind::StandardCaseItem:
+                if (p->parent && p->parent->kind == SyntaxKind::CaseGenerate &&
+                    prev != p->as<StandardCaseItemSyntax>().clause.get())
+                    return false;
+                break;
+            case SyntaxKind::GenerateRegion:
+            case SyntaxKind::GenerateBlock:
+                return true;
+            default:
+                break;
+        }
+    }
+    return false;
+}
+// § tfSigningSpanFollowsCompilePath200 — a formal written in the subroutine's
+// port LIST (ANSI: its declarator sits in a FunctionPort) as opposed to a body
+// port declaration (`input int a;`, a PortDeclaration).
+static bool ansiFormal200(const slang::ast::Symbol& sym,
+                          const slang::syntax::SyntaxNode* tsyn) {
+    if (sym.kind != slang::ast::SymbolKind::FormalArgument)
+        return false;
+    for (auto* p = sym.getSyntax(); p; p = p->parent) {
+        if (p->kind == slang::syntax::SyntaxKind::FunctionPort)
+            return true;
+        if (p->kind == slang::syntax::SyntaxKind::PortDeclaration)
+            return false;
+    }
+    for (auto* p = tsyn; p; p = p->parent) {
+        if (p->kind == slang::syntax::SyntaxKind::FunctionPort)
+            return true;
+        if (p->kind == slang::syntax::SyntaxKind::PortDeclaration)
+            return false;
+    }
+    return false;
+}
 bool r11u144Law(const char* sw);
 // § tpDefaultEndTopTwin149v (r11u149 verifier) — defined in ModuleEmit.cpp.
 void tpEndTopTwin149(const std::map<const UHDM::typespec*, UHDM::typespec*>& d2t);
@@ -3573,8 +3645,56 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 (modGeneric196 && (siteKind53 == SymbolKind::ClassType ||
                                    siteKind53 == SymbolKind::Package ||
                                    declSymbol.kind == SymbolKind::FormalArgument));
+            // § modGenericClassListedAtDefault200 — the TYPESPEC half
+            // (r11u200; RECONCILED by r11u202 with § modGenericHandleBare196
+            // above, which is the rule: it reaches through generate blocks
+            // and takes the listing shape at the sites the r11u200 draft did
+            // not).  The draft's narrower test (the generic's parent scope IS
+            // the instance body) is the fallback, alive only when
+            // R11U196_MODGENHANDLE_OFF drops pass 196's; switch
+            // R11U200_CLASSCRASH_OFF.
+            bool modGeneric200 = false;
+            if (!modGeneric196 && !r11u196Law("R11U196_MODGENHANDLE_OFF")) {
+                auto& cls200 = ct0.as<ClassType>();
+                if (cls200.genericClass)
+                    if (auto* gsc200 = cls200.genericClass->getParentScope();
+                        gsc200 &&
+                        gsc200->asSymbol().kind == SymbolKind::InstanceBody &&
+                        r11u200Law("R11U200_CLASSCRASH_OFF")) {
+                        modGeneric200 = true;
+                        trace200("modGenericClassListedAtDefault200",
+                                 "tsnoparams " + std::string(declSymbol.name));
+                    }
+            }
             const bool suppressParams163 =
-                (pkgGenericListing53 && !foreignPkgHome163) || modGeneric196;
+                (pkgGenericListing53 && !foreignPkgHome163) || modGeneric196 ||
+                modGeneric200;
+            // § modPkgGenericSpecNamedBare202 (r11u202,
+            // R11U202_MODPKGSPEC_OFF; r11u194's N2, r11u200's K/k04) — a
+            // MODULE-body declaration written as a SCOPED specialization
+            // of a package generic (`p::box #(byte) b;`) reaches
+            // Surelog's paPackage_scope arm, which compiles the class
+            // reference from the qualified NAME alone: golden
+            // `class_typespec p::box` spanning `p::`, NO vpiParameter /
+            // vpiParamAssign, where ours named it `p::box #(byte)` and
+            // listed the specialization (a judge-visible name).  With an
+            // initializer the end runs to the initializer's end (the
+            // rule § classVarInitSpan152 reads on the unscoped
+            // spelling: golden 12:3-12:23 on `p::b #(byte) h = new;`).
+            // Grid tools/probe/r11u202repro/cases/N2 (value, type and
+            // class arguments, with and without `= new`, two
+            // declarators; n06, the unparameterized spelling, is the
+            // control).
+            bool modPkgSpec202 = false;
+            if (declInInstance53 && pkgGeneric53 &&
+                r11u202Law("R11U202_MODPKGSPEC_OFF"))
+                if (auto tsynP202 = declared->getTypeSyntax())
+                    if (auto* ntP202 = tsynP202->as_if<syntax::NamedTypeSyntax>())
+                        if (auto* snP202 = ntP202->name->as_if<syntax::ScopedNameSyntax>();
+                            snP202 && snP202->right &&
+                            snP202->right->kind == syntax::SyntaxKind::ClassName &&
+                            snP202->separator.kind == parsing::TokenKind::DoubleColon)
+                            modPkgSpec202 = true;
             {
                 bool writtenSpec0 = true;
                 if (auto tsynS0 = declared->getTypeSyntax())
@@ -3588,14 +3708,33 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             nmS0->kind == syntax::SyntaxKind::ClassName;
                     }
                 // NOTE § classPkgGenericSpecListing53 — the SUPPRESS half.
-                if (writtenSpec0 && !suppressParams163) {
+                if (writtenSpec0 && !suppressParams163 && !modPkgSpec202) {
                     if (foreignPkgHome163)
                         emitClassPropSpecParams163(cts, ct0.as<ClassType>(),
                                                    declared->getTypeSyntax(),
                                                    declSymbol.getParentScope());
-                    else
+                    else {
                         emitClassTsParams(cts, ct0.as<ClassType>(),
                                           std::string(ct0.name));
+                        // § classSpecExprArgUnlocated202 — a MODULE variable
+                        // written as a specialization takes its arguments'
+                        // arms from its OWN `#(...)` (golden ClassTypeParam
+                        // misc2 26:16-26:37; cases CT c04, c05, c25).
+                        if (declInInstance53)
+                            if (auto* ntA202 = declared->getTypeSyntax()
+                                                   ? declared->getTypeSyntax()
+                                                         ->as_if<syntax::NamedTypeSyntax>()
+                                                   : nullptr;
+                                ntA202 && ntA202->name &&
+                                ntA202->name->kind == syntax::SyntaxKind::ClassName)
+                                respanSpecArgs202(
+                                    cts, ct0.as<ClassType>(),
+                                    ntA202->name->as<syntax::ClassNameSyntax>(),
+                                    [this](UHDM::BaseClass* o, SourceRange sr) {
+                                        setLoc(o, sr);
+                                    },
+                                    "modvar");
+                    }
                 }
             }
             if (auto tsyn0 = declared->getTypeSyntax()) {
@@ -3642,6 +3781,76 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                        dsI152->as<syntax::DeclaratorSyntax>()
                                            .initializer->sourceRange()
                                            .end()));
+                // § modSpecValueArgSpanAtName202 (r11u202,
+                // R11U202_VALSPECSPAN_OFF) — a MODULE / PROGRAM variable
+                // written as an unscoped specialization that carries NO
+                // type-parameter listing (every written argument is a value:
+                // `c #(8) h;`) is located at the class NAME alone, like the
+                // name-token span of a listing site: golden 13:3-13:4 where
+                // ours spanned `c #(8)`; with an initializer the span runs
+                // through it as § classVarInitSpan152 reads (u04 equal
+                // already); a type argument keeps the whole text (u02, u05).
+                // A module-local generic alike (golden r11u196repro MG/ma03
+                // `box #(8) b;` 6:3-6:6 in both views, K/k03 in a program),
+                // while a TYPE argument keeps the whole text in the definition
+                // view there (MG/m09 6:3-6:14, § modGenericHandleBare196's
+                // shape): the test is that every written argument binds a
+                // value formal.  Grid tools/probe/r11u202repro/cases/UV u01,
+                // CP/p03, K/k03.
+                // Every written argument must bind a VALUE formal (no type
+                // argument written; ordered arguments only).
+                auto valueArgsOnly202 = [&](const syntax::ClassNameSyntax& cn) {
+                    if (!cn.parameters || cn.parameters->parameters.empty())
+                        return false;
+                    std::vector<bool> isType;
+                    for (auto& m : ct0.as<ClassType>().members())
+                        if (m.kind == SymbolKind::TypeParameter)
+                            isType.push_back(true);
+                        else if (m.kind == SymbolKind::Parameter)
+                            isType.push_back(false);
+                    size_t i = 0;
+                    for (auto* pa : cn.parameters->parameters) {
+                        if (!pa || pa->kind != syntax::SyntaxKind::OrderedParamAssignment)
+                            return false;
+                        if (i >= isType.size() || isType[i])
+                            return false;
+                        ++i;
+                    }
+                    return true;
+                };
+                // § modSpecValueArgDefViewMultiArg202v (v11u202, the
+                // adversarial verification of r11u202;
+                // R11V202_VALSPECDEF_OFF) — in the DEFINITION view golden
+                // takes the name-only span for ONE written value argument
+                // only: `c #(8, 9) k;` and `c #(1, 2, 3) h;` keep the whole
+                // text there (6:3-6:12) while the elaborated view and the
+                // weakly-referenced copy read the name (6:3-6:4); the law
+                // bared every view (strict-invisible: typespec copy spans are
+                // canonicalised).  Grid tools/probe/v11u202repro/cases/VA
+                // a04-a07.
+                auto defMulti202v = [&](const syntax::ClassNameSyntax& cn) {
+                    if (!moduleDefEmit || !r11v202Law("R11V202_VALSPECDEF_OFF") ||
+                        !cn.parameters || cn.parameters->parameters.size() < 2)
+                        return false;
+                    trace202("modSpecValueArgDefViewMultiArg202v",
+                             std::string(declSymbol.name));
+                    return true;
+                };
+                if (declInInstance53 && !cts->Parameters() &&
+                    r11u202Law("R11U202_VALSPECSPAN_OFF"))
+                    if (auto* ntV202 = tsyn0->as_if<syntax::NamedTypeSyntax>();
+                        ntV202 && ntV202->name &&
+                        ntV202->name->kind == syntax::SyntaxKind::ClassName &&
+                        valueArgsOnly202(ntV202->name->as<syntax::ClassNameSyntax>()) &&
+                        !defMulti202v(ntV202->name->as<syntax::ClassNameSyntax>()))
+                        if (auto* dsV202 = declSymbol.getSyntax();
+                            dsV202 && dsV202->kind == syntax::SyntaxKind::Declarator &&
+                            !dsV202->as<syntax::DeclaratorSyntax>().initializer) {
+                            setLoc(cts, ntV202->name->as<syntax::ClassNameSyntax>()
+                                            .identifier.range());
+                            trace202("modSpecValueArgSpanAtName202",
+                                     std::string(declSymbol.name));
+                        }
                 // A SCOPED class reference (pack::doorOpen) is named by the
                 // WRITTEN text and located at the class_scope prefix Surelog
                 // collects the node from (`pack::`).
@@ -3650,6 +3859,26 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         cts->VpiName(std::string(rawText(sn0->sourceRange())));
                         setLoc(cts, SourceRange(sn0->left->sourceRange().start(),
                                                 sn0->separator.range().end()));
+                        // § modPkgGenericSpecNamedBare202 — the name and span.
+                        if (modPkgSpec202) {
+                            auto& cnP202 = sn0->right->as<syntax::ClassNameSyntax>();
+                            std::string nmP202;
+                            for (char ch : std::string(rawText(sn0->left->sourceRange())))
+                                if (ch != ' ' && ch != '\t' && ch != '\n' && ch != '\r')
+                                    nmP202 += ch;
+                            nmP202 += "::";
+                            nmP202 += std::string(cnP202.identifier.valueText());
+                            cts->VpiName(nmP202);
+                            if (auto* dsP202 = declSymbol.getSyntax();
+                                dsP202 && dsP202->kind == syntax::SyntaxKind::Declarator &&
+                                dsP202->as<syntax::DeclaratorSyntax>().initializer)
+                                setLoc(cts, SourceRange(
+                                                sn0->left->sourceRange().start(),
+                                                dsP202->as<syntax::DeclaratorSyntax>()
+                                                    .initializer->sourceRange()
+                                                    .end()));
+                            trace202("modPkgGenericSpecNamedBare202", nmP202);
+                        }
                     }
             }
             return cts;
@@ -3763,6 +3992,30 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         ps137->asSymbol().as<SubroutineSymbol>().returnValVar ==
                             &declSymbol)
                         tfSig137 = true;
+                // § tfSigningSpanFollowsCompilePath200 (r11u200, map 11's
+                // N0056 UVM face and int_types) — only an ANSI formal (one
+                // written in the subroutine's port LIST) keeps the whole
+                // `bit unsigned`: compileTfPortList re-populates its typespec
+                // at the Data_type node (CompileStmt.cpp compileTfPortList,
+                // `populateCoreMembers(type, type, ts)`).  A NON-ANSI formal
+                // (`input bit unsigned a;` in the body, compileTfPortDecl) and
+                // the RETURN type (compileFunction -> compileVariable ->
+                // compileTypespec -> compileBuiltinTypespec) keep
+                // compileBuiltinTypespec's own end: `unsigned` is outside the
+                // span (golden `function bit unsigned uvm_packer::get_bit`
+                // 603:10-603:13, ours 603:10-603:22; r11u137's bt13 read the
+                // return as a formal).  Grid tools/probe/r11u200dec/cases/S.
+                // Switch R11U200_SIGNSPAN_OFF.
+                if (tfSig137 && r11u200Law("R11U200_SIGNSPAN_OFF") &&
+                    declSymbol.kind != SymbolKind::Subroutine &&
+                    !ansiFormal200(declSymbol, tsyn)) {
+                    tfSig137 = false;
+                    if (syntax::IntegerTypeSyntax::isKind(tsyn->kind) &&
+                        tsyn->as<syntax::IntegerTypeSyntax>().signing.kind ==
+                            parsing::TokenKind::UnsignedKeyword)
+                        trace200("tfSigningSpanFollowsCompilePath200",
+                                 "keyword " + std::string(declSymbol.name));
+                }
                 // § unsignedScalarVecTsAtKeyword137, v11u137 refinement: a
                 // BODY NET declaration with an explicit net type
                 // (`wire logic unsigned w;`, `tri logic unsigned t;`) keeps
@@ -4950,7 +5203,21 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     break;
             }
             if (its) {
-                setLoc(its, trimTypeSigning(typeSynFor(), range));
+                // § tfSigningSpanFollowsCompilePath200 — an ANSI formal's
+                // typespec spans the whole data type, `signed` included
+                // (compileTfPortList re-populates it at the Data_type node;
+                // golden `input int signed a` 3:25-3:35, ours 3:25-3:28).
+                if (declSymbol.kind == SymbolKind::FormalArgument &&
+                    r11u200Law("R11U200_SIGNSPAN_OFF") &&
+                    ansiFormal200(declSymbol, typeSynFor())) {
+                    auto tr200 = trimTypeSigning(typeSynFor(), range);
+                    if (tr200.end() != range.end())
+                        trace200("tfSigningSpanFollowsCompilePath200",
+                                 "ansiformal " + std::string(declSymbol.name));
+                    setLoc(its, range);
+                }
+                else
+                    setLoc(its, trimTypeSigning(typeSynFor(), range));
                 return its;
             }
         }
@@ -5286,6 +5553,80 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     if (declared && declared->getType().isSigned() && !netKeywordAnchor)
         ts->VpiSigned(true);
     setLoc(ts, range);
+    // § implicitTsEndCrossesLineBreak200 (r11u200, SVSwitch's endline face) —
+    // an IMPLICIT data type (`input  \n     read_0;`) is an empty parse node
+    // whose end Surelog reads off the whitespace token before the name:
+    // its end line is the line that token STARTS on and its end column the
+    // token's start column plus its length, newline and indentation
+    // included (golden rtl.sv 2:6-1:479 where `input` ends at 1:471 and the
+    // trivia `  \n     ` is 8 characters; ours 2:6-2:6).  On one line the
+    // sum is the name's own column, so only a break in the trivia moves.
+    // Grid tools/probe/r11u200dec/cases/L.  Switch R11U200_IMPLEND_OFF.
+    if (!explicitType && !netKeywordAnchor && !implicitSigning &&
+        range.start() == range.end() &&
+        range.start() != SourceLocation::NoLocation &&
+        !sm->isMacroLoc(range.start()) && r11u200Law("R11U200_IMPLEND_OFF")) {
+        auto txt200 = sm->getSourceText(range.start().buffer());
+        size_t j200 = range.start().offset();
+        size_t n200 = 0;
+        bool nl200 = false;
+        while (j200 > 0 && j200 <= txt200.size() &&
+               (txt200[j200 - 1] == ' ' || txt200[j200 - 1] == '\t' ||
+                txt200[j200 - 1] == '\n' || txt200[j200 - 1] == '\r')) {
+            if (txt200[j200 - 1] == '\n')
+                nl200 = true;
+            j200--;
+            n200++;
+        }
+        // § implicitTsEndAfterLineComment202v (v11u202, the adversarial
+        // verification of r11u202; R11V202_IMPLCMT_OFF) — a `//` comment
+        // before the line break owns that break (Surelog's
+        // One_line_comment token ends with its newline), so the whitespace
+        // token starts on the NEXT line and ends at the name's own column
+        // (golden `input // c\n    c;` 8:5-8:5 where the law wrote
+        // 8:5-7:29); a further break in the trivia still moves the end.
+        // § implicitTsEndSkipsCarriageReturn202v (R11V202_IMPLCR_OFF) — a
+        // CRLF break counts ONE character (golden `input\r\n    a` 2:23
+        // where the law counted the `\r`: 2:24).  Grid
+        // tools/probe/v11u202repro/cases/IE.
+        if (nl200 && j200 > 0 && r11v202Law("R11V202_IMPLCMT_OFF")) {
+            size_t ls202 = j200;
+            while (ls202 > 0 && txt200[ls202 - 1] != '\n')
+                ls202--;
+            if (txt200.substr(ls202, j200 - ls202).find("//") !=
+                std::string_view::npos) {
+                size_t e202 = range.start().offset();
+                size_t k202 = j200;
+                while (k202 < e202 && txt200[k202] != '\n')
+                    k202++;
+                j200 = k202 + 1;
+                n200 = e202 - j200;
+                nl200 = txt200.substr(j200, e202 - j200).find('\n') !=
+                        std::string_view::npos;
+                trace202("implicitTsEndAfterLineComment202v",
+                         std::string(declSymbol.name));
+            }
+        }
+        if (nl200 && j200 > 0 && r11v202Law("R11V202_IMPLCR_OFF")) {
+            size_t cr202 = 0;
+            for (size_t q202 = j200; q202 < range.start().offset(); q202++)
+                if (txt200[q202] == '\r')
+                    cr202++;
+            if (cr202) {
+                n200 -= cr202;
+                trace202("implicitTsEndSkipsCarriageReturn202v",
+                         std::string(declSymbol.name));
+            }
+        }
+        if (nl200 && j200 > 0) {
+            uint32_t l200 = 0, c200 = 0;
+            locLineCol(SourceLocation(range.start().buffer(), j200), l200, c200);
+            ts->VpiEndLineNo(l200);
+            ts->VpiEndColumnNo(c200 + (uint32_t)n200);
+            trace200("implicitTsEndCrossesLineBreak200",
+                     std::string(declSymbol.name));
+        }
+    }
     // § paramAliasBoundRefUnstored144 (the flag's statement is at its
     // definition near the top of this file).
     bool alias144 = false;
@@ -19703,6 +20044,19 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 // just the top-level one (Surelog).
                 if (selBaseScopeIdx)
                     setLoc(bs, sel->sourceRange());
+                // § defGenInitBitSelAtIndex202 (r11u202,
+                // R11U202_GENINITBS_OFF) — a definition-view generate-block
+                // variable's initializer is an rvalue: its bit_select is
+                // anchored at the INDEX expression (parentheses kept), as
+                // the elaborated copy already is (golden `logic c = q[0];`
+                // 7:17-7:18 in both views, ours 7:15-7:19 in the
+                // definition listing).  Armed by ModuleEmit around the
+                // initializer (§ defGenInitRhsKeepsParent200's site).
+                // Grid tools/probe/r11u202repro/cases/GI g02.
+                if (defGenInitRvalue202() && !selBaseScopeIdx) {
+                    setLoc(bs, sel->as<syntax::BitSelectSyntax>().expr->sourceRange());
+                    trace202("defGenInitBitSelAtIndex202", std::string(bname));
+                }
                 // Def gen-CA RHS: index subexpressions scope THROUGH the
                 // select base (prefix.base.<name>) — Surelog. A BARE
                 // identifier index is the bit_select's direct ref_obj child,
@@ -19867,6 +20221,15 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         }
                         break;
                     }
+                }
+                // § genBlockBitsKeepsSelect200 — the DEFINITION listing's
+                // half: a `$bits(<select>)` written inside a generate block
+                // stays a sys_func_call there too (golden `gen_for >
+                // named_begin(g) > cont_assign > sys_func_call($bits)`).
+                if (selBitsArg9 && r11u200Law("R11U200_GENBITS_OFF") &&
+                    genBody200(&syn)) {
+                    selBitsArg9 = nullptr;
+                    trace200("genBlockBitsKeepsSelect200", "def");
                 }
                 if (selBitsArg9) {
                     auto* c = s.MakeConstant();
@@ -20054,6 +20417,17 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                 syntax::LiteralExpressionSyntax::isKind(k9) ||
                                 syntax::IntegerVectorExpressionSyntax::isKind(
                                     k9);
+                        }
+                        // § genBlockBitsKeepsSelect200 — a SELECT argument
+                        // (`x[W:0]`) of a call the definition listing keeps in
+                        // a generate block is a part_select / bit_select, not
+                        // a ref_obj named by its text (golden `$bits(x[W:0])`,
+                        // `$unsigned(x[W:0])`: r11u199's w1 / w2 / w8).
+                        if (!exprArg9 && an9 &&
+                            an9->kind == syntax::SyntaxKind::IdentifierSelectName &&
+                            r11u200Law("R11U200_GENBITS_OFF") && genBody200(&syn)) {
+                            exprArg9 = true;
+                            trace200("genBlockBitsKeepsSelect200", "defarg");
                         }
                         if (exprArg9) {
                             if (auto* e2 = emitSyntaxExpr(*an9, sfc)) {

@@ -1,0 +1,18 @@
+/tmp/v11u202_log/sP_corp.log:== surelog: both modes, jobs=3, out=/tmp/v11u202_sP/surelog.csv
+/tmp/v11u202_log/sP_corp.log:[default] 798 tests
+/tmp/v11u202_log/sP_corp.log:[testflags] 798 tests
+/tmp/v11u202_log/sP_corp.log:== surelog vs golden_surelog.csv
+/tmp/v11u202_log/sP_corp.log:[default] CMP_EQUAL=461 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=19 SURELOG_FAIL=25
+/tmp/v11u202_log/sP_corp.log:[testflags] CMP_EQUAL=457 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=17 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+/tmp/v11u202_log/sP_corp.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+/tmp/v11u202_log/sP_corp.log:== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u202_sP/uhdm2rtlil.csv
+/tmp/v11u202_log/sP_corp.log:[default] 871 tests
+/tmp/v11u202_log/sP_corp.log:[testflags] 871 tests
+/tmp/v11u202_log/sP_corp.log:== uhdm2rtlil vs golden_uhdm2rtlil.csv
+/tmp/v11u202_log/sP_corp.log:[default] CMP_EQUAL=796 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=7
+/tmp/v11u202_log/sP_corp.log:[testflags] CMP_EQUAL=796 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=7
+/tmp/v11u202_log/sP_corp.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+/tmp/v11u202_log/sP_probe.log:== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u202_sP/probe.csv
+/tmp/v11u202_log/sP_probe.log:== probe vs golden_probe.csv
+/tmp/v11u202_log/sP_probe.log:[probe] EQUAL=3345 STRICT_NOTEQUAL=742
+/tmp/v11u202_log/sP_probe.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0

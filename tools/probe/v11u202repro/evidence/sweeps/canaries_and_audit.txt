@@ -1,0 +1,29 @@
+== canaries.sh surelog (v2 sweep vs results/golden_surelog.csv)
+  Scr1SvTests                    default   CHANGED STRICT_NOTEQUAL/differ:endcol(29) -> STRICT_NOTEQUAL/differ:endcol(11)
+  Scr1SvTests                    testflags CHANGED STRICT_NOTEQUAL/differ:endcol(29) -> STRICT_NOTEQUAL/differ:endcol(11)
+  Earlgrey_0_1                   default   CHANGED STRICT_NOTEQUAL/differ:fullname(82) -> STRICT_NOTEQUAL/differ:fullname(76)
+  Earlgrey_0_1                   testflags CHANGED STRICT_NOTEQUAL/differ:fullname(82) -> STRICT_NOTEQUAL/differ:fullname(76)
+  ClassTypeParam                 default   CHANGED STRICT_NOTEQUAL/differ:endline(17) -> CMP_EQUAL/equal
+  ClassTypeParam                 testflags CHANGED STRICT_NOTEQUAL/differ:file(30) -> CMP_EQUAL/equal
+  SVSwitch                       default   CHANGED STRICT_NOTEQUAL/differ:fullname(13) -> STRICT_NOTEQUAL/differ:fullname(2)
+  SVSwitch                       testflags CHANGED STRICT_NOTEQUAL/differ:fullname(13) -> STRICT_NOTEQUAL/differ:fullname(2)
+  SimpleUVM                      default   CHANGED STRICT_NOTEQUAL/differ:fullname(44) -> STRICT_NOTEQUAL/differ:fullname(115)
+  SimpleUVM                      testflags CHANGED STRICT_NOTEQUAL/differ:fullname(44) -> STRICT_NOTEQUAL/differ:fullname(115)
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:fullname(16) -> STRICT_NOTEQUAL/differ:fullname(85)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:fullname(16) -> STRICT_NOTEQUAL/differ:fullname(85)
+  BuildUVMPkg                    default   CHANGED STRICT_NOTEQUAL/differ:line(11) -> STRICT_NOTEQUAL/differ:line(24)
+  BuildUVMPkg                    testflags CHANGED STRICT_NOTEQUAL/differ:line(11) -> STRICT_NOTEQUAL/differ:line(24)
+  Scoreboard                     default   CHANGED STRICT_NOTEQUAL/differ:fullname(44) -> STRICT_NOTEQUAL/differ:fullname(123)
+---- canary rows: ok=37 changed=15 absent=0 unknown-names=7
+== canaries.sh uhdm2rtlil (v2 sweep vs results/golden_uhdm2rtlil.csv)
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+== ctcan2 surelog EXPECT_UNKNOWN=1
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+== ctcan2 uhdm2rtlil EXPECT_UNKNOWN=6
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+== binary audit (cmds.txt slang: lines)
+sP:    3273 slang:   /tmp/v11u202_bin/pris.bin
+sL:    3273 slang:   /tmp/v11u202_bin/law.bin
+sV:    3273 slang:   /tmp/v11u202_bin/v2.bin

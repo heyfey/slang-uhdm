@@ -1,0 +1,74 @@
+surelog_default_BuildUVMPkg-fc55bd0c_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_name	uvm_pkg.sv	16092	12	16092	40		0		
+surelog_default_BuildUVMPkg-fc55bd0c_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_type	uvm_pkg.sv	16246	12	16246	40		0		
+surelog_default_BuildUVMPkg-fc55bd0c_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex_names	uvm_pkg.sv	16302	12	16302	40		0		
+surelog_default_BuildUVMPkg-fc55bd0c_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex	uvm_pkg.sv	16314	12	16314	40		0		
+surelog_default_BuildUVMPkg-fc55bd0c_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_scope	uvm_pkg.sv	16348	12	16348	40		0		
+surelog_default_Earlgrey_0_1-a898def8_slang.uhdm   LOST 1 logic_typespec				alert_handler_class.sv	15	9	15	22				
+surelog_default_Earlgrey_0_1-a898def8_slang.uhdm   LOST 1 logic_typespec				alert_handler_class.sv	16	9	16	26				
+surelog_default_Earlgrey_0_1-a898def8_slang.uhdm   LOST 1 logic_typespec				alert_handler_esc_timer.sv	30	16	30	31				
+surelog_default_Earlgrey_0_1-a898def8_slang.uhdm   LOST 1 logic_typespec				alert_handler_esc_timer.sv	32	16	32	30				
+surelog_default_MiniAmiq-055eab74_slang.uhdm   LOST 1 ref_var			uvm_pkg::uvm_callbacks::get	uvm_callback.svh	507	19	507	28		0		
+surelog_default_MiniAmiq-055eab74_slang.uhdm   LOST 1 ref_var			uvm_pkg::uvm_pool::get_global_pool	uvm_pool.svh	61	19	61	28		0		
+surelog_default_MiniAmiq-055eab74_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_name	uvm_resource.svh	868	12	868	40		0		
+surelog_default_MiniAmiq-055eab74_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_type	uvm_resource.svh	1010	12	1010	40		0		
+surelog_default_MiniAmiq-055eab74_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex_names	uvm_resource.svh	1065	12	1065	40		0		
+surelog_default_MiniAmiq-055eab74_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex	uvm_resource.svh	1076	12	1076	40		0		
+surelog_default_MiniAmiq-055eab74_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_scope	uvm_resource.svh	1109	12	1109	40		0		
+surelog_default_MiniAmiq-055eab74_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::find_unused_resources	uvm_resource.svh	1269	12	1269	40		0		
+surelog_default_Scoreboard-72aa0ba8_slang.uhdm   LOST 1 ref_var			uvm_pkg::uvm_callbacks::get	uvm_callback.svh	507	19	507	28		0		
+surelog_default_Scoreboard-72aa0ba8_slang.uhdm   LOST 1 ref_var			uvm_pkg::uvm_pool::get_global_pool	uvm_pool.svh	61	19	61	28		0		
+surelog_default_Scoreboard-72aa0ba8_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_name	uvm_resource.svh	868	12	868	40		0		
+surelog_default_Scoreboard-72aa0ba8_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_type	uvm_resource.svh	1010	12	1010	40		0		
+surelog_default_Scoreboard-72aa0ba8_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex_names	uvm_resource.svh	1065	12	1065	40		0		
+surelog_default_Scoreboard-72aa0ba8_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex	uvm_resource.svh	1076	12	1076	40		0		
+surelog_default_Scoreboard-72aa0ba8_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_scope	uvm_resource.svh	1109	12	1109	40		0		
+surelog_default_Scoreboard-72aa0ba8_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::find_unused_resources	uvm_resource.svh	1269	12	1269	40		0		
+surelog_default_SeqDriver-65178d3a_slang.uhdm   LOST 1 ref_var			uvm_pkg::uvm_callbacks::get	uvm_callback.svh	507	19	507	28		0		
+surelog_default_SeqDriver-65178d3a_slang.uhdm   LOST 1 ref_var			uvm_pkg::uvm_pool::get_global_pool	uvm_pool.svh	61	19	61	28		0		
+surelog_default_SeqDriver-65178d3a_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_name	uvm_resource.svh	868	12	868	40		0		
+surelog_default_SeqDriver-65178d3a_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_type	uvm_resource.svh	1010	12	1010	40		0		
+surelog_default_SeqDriver-65178d3a_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex_names	uvm_resource.svh	1065	12	1065	40		0		
+surelog_default_SeqDriver-65178d3a_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex	uvm_resource.svh	1076	12	1076	40		0		
+surelog_default_SeqDriver-65178d3a_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_scope	uvm_resource.svh	1109	12	1109	40		0		
+surelog_default_SeqDriver-65178d3a_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::find_unused_resources	uvm_resource.svh	1269	12	1269	40		0		
+surelog_default_SimpleUVM-267de3ff_slang.uhdm   LOST 1 ref_var			uvm_pkg::uvm_callbacks::get	uvm_callback.svh	507	19	507	28		0		
+surelog_default_SimpleUVM-267de3ff_slang.uhdm   LOST 1 ref_var			uvm_pkg::uvm_pool::get_global_pool	uvm_pool.svh	61	19	61	28		0		
+surelog_default_SimpleUVM-267de3ff_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_name	uvm_resource.svh	868	12	868	40		0		
+surelog_default_SimpleUVM-267de3ff_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_type	uvm_resource.svh	1010	12	1010	40		0		
+surelog_default_SimpleUVM-267de3ff_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex_names	uvm_resource.svh	1065	12	1065	40		0		
+surelog_default_SimpleUVM-267de3ff_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex	uvm_resource.svh	1076	12	1076	40		0		
+surelog_default_SimpleUVM-267de3ff_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_scope	uvm_resource.svh	1109	12	1109	40		0		
+surelog_default_SimpleUVM-267de3ff_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::find_unused_resources	uvm_resource.svh	1269	12	1269	40		0		
+surelog_testflags_BuildUVMPkg-fc55bd0c_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_name	uvm_pkg.sv	16092	12	16092	40		0		
+surelog_testflags_BuildUVMPkg-fc55bd0c_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_type	uvm_pkg.sv	16246	12	16246	40		0		
+surelog_testflags_BuildUVMPkg-fc55bd0c_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex_names	uvm_pkg.sv	16302	12	16302	40		0		
+surelog_testflags_BuildUVMPkg-fc55bd0c_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex	uvm_pkg.sv	16314	12	16314	40		0		
+surelog_testflags_BuildUVMPkg-fc55bd0c_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_scope	uvm_pkg.sv	16348	12	16348	40		0		
+surelog_testflags_Earlgrey_0_1-a898def8_slang.uhdm   LOST 1 logic_typespec				alert_handler_class.sv	15	9	15	22				
+surelog_testflags_Earlgrey_0_1-a898def8_slang.uhdm   LOST 1 logic_typespec				alert_handler_class.sv	16	9	16	26				
+surelog_testflags_Earlgrey_0_1-a898def8_slang.uhdm   LOST 1 logic_typespec				alert_handler_esc_timer.sv	30	16	30	31				
+surelog_testflags_Earlgrey_0_1-a898def8_slang.uhdm   LOST 1 logic_typespec				alert_handler_esc_timer.sv	32	16	32	30				
+surelog_testflags_MiniAmiq-055eab74_slang.uhdm   LOST 1 ref_var			uvm_pkg::uvm_callbacks::get	uvm_callback.svh	507	19	507	28		0		
+surelog_testflags_MiniAmiq-055eab74_slang.uhdm   LOST 1 ref_var			uvm_pkg::uvm_pool::get_global_pool	uvm_pool.svh	61	19	61	28		0		
+surelog_testflags_MiniAmiq-055eab74_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_name	uvm_resource.svh	868	12	868	40		0		
+surelog_testflags_MiniAmiq-055eab74_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_type	uvm_resource.svh	1010	12	1010	40		0		
+surelog_testflags_MiniAmiq-055eab74_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex_names	uvm_resource.svh	1065	12	1065	40		0		
+surelog_testflags_MiniAmiq-055eab74_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex	uvm_resource.svh	1076	12	1076	40		0		
+surelog_testflags_MiniAmiq-055eab74_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_scope	uvm_resource.svh	1109	12	1109	40		0		
+surelog_testflags_MiniAmiq-055eab74_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::find_unused_resources	uvm_resource.svh	1269	12	1269	40		0		
+surelog_testflags_SeqDriver-65178d3a_slang.uhdm   LOST 1 ref_var			uvm_pkg::uvm_callbacks::get	uvm_callback.svh	507	19	507	28		0		
+surelog_testflags_SeqDriver-65178d3a_slang.uhdm   LOST 1 ref_var			uvm_pkg::uvm_pool::get_global_pool	uvm_pool.svh	61	19	61	28		0		
+surelog_testflags_SeqDriver-65178d3a_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_name	uvm_resource.svh	868	12	868	40		0		
+surelog_testflags_SeqDriver-65178d3a_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_type	uvm_resource.svh	1010	12	1010	40		0		
+surelog_testflags_SeqDriver-65178d3a_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex_names	uvm_resource.svh	1065	12	1065	40		0		
+surelog_testflags_SeqDriver-65178d3a_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex	uvm_resource.svh	1076	12	1076	40		0		
+surelog_testflags_SeqDriver-65178d3a_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_scope	uvm_resource.svh	1109	12	1109	40		0		
+surelog_testflags_SeqDriver-65178d3a_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::find_unused_resources	uvm_resource.svh	1269	12	1269	40		0		
+surelog_testflags_SimpleUVM-267de3ff_slang.uhdm   LOST 1 ref_var			uvm_pkg::uvm_callbacks::get	uvm_callback.svh	507	19	507	28		0		
+surelog_testflags_SimpleUVM-267de3ff_slang.uhdm   LOST 1 ref_var			uvm_pkg::uvm_pool::get_global_pool	uvm_pool.svh	61	19	61	28		0		
+surelog_testflags_SimpleUVM-267de3ff_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_name	uvm_resource.svh	868	12	868	40		0		
+surelog_testflags_SimpleUVM-267de3ff_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_type	uvm_resource.svh	1010	12	1010	40		0		
+surelog_testflags_SimpleUVM-267de3ff_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex_names	uvm_resource.svh	1065	12	1065	40		0		
+surelog_testflags_SimpleUVM-267de3ff_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_regex	uvm_resource.svh	1076	12	1076	40		0		
+surelog_testflags_SimpleUVM-267de3ff_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::lookup_scope	uvm_resource.svh	1109	12	1109	40		0		
+surelog_testflags_SimpleUVM-267de3ff_slang.uhdm   LOST 1 class_var			uvm_pkg::uvm_resource_pool::find_unused_resources	uvm_resource.svh	1269	12	1269	40		0		

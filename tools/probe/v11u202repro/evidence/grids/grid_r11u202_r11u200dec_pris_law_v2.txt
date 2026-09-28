@@ -1,0 +1,172 @@
+r11u202repro/cases/CP/p01  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CP/p02  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CP/p03  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CP/p04  pris rc=0 cmp=62 NOT_EQUAL stage1 | law rc=0 cmp=62 NOT_EQUAL stage1 | v2 rc=0 cmp=62 NOT_EQUAL stage1 | MOVED
+r11u202repro/cases/CT/c01  pris rc=0 cmp=0 STRICT_NOTEQUAL endline | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c02  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c03  pris rc=0 cmp=0 STRICT_NOTEQUAL endline | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c04  pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c05  pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c06  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c07  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c08  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c09  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c10  pris rc=0 cmp=26 NOT_EQUAL stage1 | law rc=0 cmp=26 NOT_EQUAL stage1 | v2 rc=0 cmp=26 NOT_EQUAL stage1 | SAMEBYTES
+r11u202repro/cases/CT/c11  pris rc=4 cmp=172 NOT_EQUAL stage1 | law rc=4 cmp=172 NOT_EQUAL stage1 | v2 rc=4 cmp=172 NOT_EQUAL stage1 | SAMEBYTES
+r11u202repro/cases/CT/c12  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c13  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c14  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u202repro/cases/CT/c15  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u202repro/cases/CT/c16  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=16 NOT_EQUAL stage1 | v2 rc=0 cmp=16 NOT_EQUAL stage1 | MOVED
+r11u202repro/cases/CT/c17  pris rc=0 cmp=342 NOT_EQUAL stage1 | law rc=0 cmp=342 NOT_EQUAL stage1 | v2 rc=0 cmp=342 NOT_EQUAL stage1 | MOVED
+r11u202repro/cases/CT/c18  pris rc=0 cmp=0 STRICT_NOTEQUAL endline | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c19  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c20  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c21  pris rc=0 cmp=18 NOT_EQUAL stage1 | law rc=0 cmp=18 NOT_EQUAL stage1 | v2 rc=0 cmp=18 NOT_EQUAL stage1 | MOVED
+r11u202repro/cases/CT/c22  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c23  pris rc=0 cmp=0 STRICT_NOTEQUAL endline | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c24  pris rc=0 cmp=0 STRICT_NOTEQUAL endline | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c25  pris rc=0 cmp=0 STRICT_NOTEQUAL file | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c26  pris rc=0 cmp=0 STRICT_NOTEQUAL endline | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/CT/c27  pris rc=0 cmp=0 STRICT_NOTEQUAL endline | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/GI/g01  pris rc=0 cmp=30 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/GI/g02  pris rc=0 cmp=30 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/GI/g03  pris rc=0 cmp=30 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/GI/g04  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/GI/g05  pris rc=0 cmp=30 NOT_EQUAL stage1 | law rc=0 cmp=62 NOT_EQUAL stage1 | v2 rc=0 cmp=62 NOT_EQUAL stage1 | MOVED
+r11u202repro/cases/GI/g06  pris rc=0 cmp=30 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/IM/f01  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL fullname | v2 rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u202repro/cases/IM/f02  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u202repro/cases/IM/f03  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL fullname | v2 rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u202repro/cases/IM/f04  pris rc=0 cmp=12 NOT_EQUAL stage1 | law rc=0 cmp=12 NOT_EQUAL stage1 | v2 rc=0 cmp=12 NOT_EQUAL stage1 | SAMEBYTES
+r11u202repro/cases/K/k01  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u202repro/cases/K/k02  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u202repro/cases/K/k03  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/N2/n01  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/N2/n02  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/N2/n03  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/N2/n04  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/N2/n05  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/N2/n06  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/N2/n07  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/R0/b01  pris rc=0 cmp=68 NOT_EQUAL stage1 | law rc=0 cmp=74 NOT_EQUAL stage1 | v2 rc=0 cmp=74 NOT_EQUAL stage1 | MOVED
+r11u202repro/cases/R0/i01  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/R0/i02  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/R0/l01  pris rc=0 cmp=0 STRICT_NOTEQUAL endline | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/R0/l02  pris rc=0 cmp=0 STRICT_NOTEQUAL endline | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/R0/m01  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u202repro/cases/R0/m02  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/R0/q01  pris rc=0 cmp=496 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/R0/q02  pris rc=0 cmp=494 NOT_EQUAL stage1 | law rc=0 cmp=494 NOT_EQUAL stage1 | v2 rc=0 cmp=494 NOT_EQUAL stage1 | SAMEBYTES
+r11u202repro/cases/R0/q03  pris rc=0 cmp=316 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/R0/q04  pris rc=0 cmp=300 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/R0/q05  pris rc=0 cmp=494 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/R0/s01  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/R0/s02  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/R0/s03  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/R0/t01  pris rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/R0/t02  pris rc=0 cmp=0 STRICT_NOTEQUAL name | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/R0/u01  pris rc=0 cmp=26 NOT_EQUAL stage1 | law rc=0 cmp=26 NOT_EQUAL stage1 | v2 rc=0 cmp=26 NOT_EQUAL stage1 | MOVED
+r11u202repro/cases/R0/v01  pris rc=0 cmp=30 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/R0/v02  pris rc=0 cmp=30 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_NOTEQUAL fullname | v2 rc=0 cmp=0 STRICT_NOTEQUAL fullname | MOVED
+r11u202repro/cases/TD/a01  pris rc=4 cmp=80 NOT_EQUAL stage1 | law rc=4 cmp=80 NOT_EQUAL stage1 | v2 rc=4 cmp=80 NOT_EQUAL stage1 | SAMEBYTES
+r11u202repro/cases/TD/a02  pris rc=4 cmp=80 NOT_EQUAL stage1 | law rc=4 cmp=80 NOT_EQUAL stage1 | v2 rc=4 cmp=80 NOT_EQUAL stage1 | SAMEBYTES
+r11u202repro/cases/TD/a03  pris rc=4 cmp=80 NOT_EQUAL stage1 | law rc=4 cmp=80 NOT_EQUAL stage1 | v2 rc=4 cmp=80 NOT_EQUAL stage1 | SAMEBYTES
+r11u202repro/cases/TD/a04  pris rc=4 cmp=76 NOT_EQUAL stage1 | law rc=4 cmp=76 NOT_EQUAL stage1 | v2 rc=4 cmp=76 NOT_EQUAL stage1 | SAMEBYTES
+r11u202repro/cases/TD/a05  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u202repro/cases/UV/u01  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/UV/u02  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/UV/u03  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=92 NOT_EQUAL stage1 | v2 rc=0 cmp=92 NOT_EQUAL stage1 | MOVED
+r11u202repro/cases/UV/u04  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/UV/u05  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/UV/u06  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=76 NOT_EQUAL stage1 | v2 rc=0 cmp=76 NOT_EQUAL stage1 | MOVED
+r11u202repro/cases/UV/u07  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u202repro/cases/UV/u08  pris rc=0 cmp=86 NOT_EQUAL stage1 | law rc=0 cmp=18 NOT_EQUAL stage1 | v2 rc=0 cmp=18 NOT_EQUAL stage1 | MOVED
+r11u200dec/cases/B/b01  pris rc=0 cmp=68 NOT_EQUAL stage1 | law rc=0 cmp=96 NOT_EQUAL stage1 | v2 rc=0 cmp=96 NOT_EQUAL stage1 | MOVED
+r11u200dec/cases/B/b02  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/B/b03  pris rc=0 cmp=68 NOT_EQUAL stage1 | law rc=0 cmp=96 NOT_EQUAL stage1 | v2 rc=0 cmp=96 NOT_EQUAL stage1 | MOVED
+r11u200dec/cases/B/b04  pris rc=0 cmp=68 NOT_EQUAL stage1 | law rc=0 cmp=78 NOT_EQUAL stage1 | v2 rc=0 cmp=78 NOT_EQUAL stage1 | MOVED
+r11u200dec/cases/B/b05  pris rc=0 cmp=68 NOT_EQUAL stage1 | law rc=0 cmp=96 NOT_EQUAL stage1 | v2 rc=0 cmp=96 NOT_EQUAL stage1 | MOVED
+r11u200dec/cases/B/b06  pris rc=0 cmp=34 NOT_EQUAL stage1 | law rc=0 cmp=34 NOT_EQUAL stage1 | v2 rc=0 cmp=34 NOT_EQUAL stage1 | SAMEBYTES
+r11u200dec/cases/B/b07  pris rc=0 cmp=34 NOT_EQUAL stage1 | law rc=0 cmp=34 NOT_EQUAL stage1 | v2 rc=0 cmp=34 NOT_EQUAL stage1 | SAMEBYTES
+r11u200dec/cases/I/i01  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/I/i02  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/I/i03  pris rc=0 cmp=36 NOT_EQUAL stage1 | law rc=0 cmp=36 NOT_EQUAL stage1 | v2 rc=0 cmp=36 NOT_EQUAL stage1 | MOVED
+r11u200dec/cases/I/i04  pris rc=0 cmp=92 NOT_EQUAL stage1 | law rc=0 cmp=92 NOT_EQUAL stage1 | v2 rc=0 cmp=92 NOT_EQUAL stage1 | MOVED
+r11u200dec/cases/I/i05  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/I/i06  pris rc=0 cmp=0 STRICT_NOTEQUAL depth | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/I/i07  pris rc=0 cmp=58 NOT_EQUAL stage1 | law rc=0 cmp=58 NOT_EQUAL stage1 | v2 rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11u200dec/cases/I/i08  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/I/i09  pris rc=0 cmp=0 STRICT_NOTEQUAL depth | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/I/i10  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/I/i11  pris rc=0 cmp=788 NOT_EQUAL stage1 | law rc=0 cmp=740 NOT_EQUAL stage1 | v2 rc=0 cmp=740 NOT_EQUAL stage1 | MOVED
+r11u200dec/cases/I/i12  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/I/i13  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/I/i14  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/K/k01  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/K/k02  pris rc=0 cmp=696 NOT_EQUAL stage1 | law rc=0 cmp=696 NOT_EQUAL stage1 | v2 rc=0 cmp=696 NOT_EQUAL stage1 | SAMEBYTES
+r11u200dec/cases/K/k03  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/K/k04  pris rc=0 cmp=86 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/K/k05  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/K/k06  pris rc=0 cmp=16 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/K/k07  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/K/k08  pris rc=0 cmp=62 NOT_EQUAL stage1 | law rc=0 cmp=62 NOT_EQUAL stage1 | v2 rc=0 cmp=62 NOT_EQUAL stage1 | MOVED
+r11u200dec/cases/L/l01  pris rc=0 cmp=0 STRICT_NOTEQUAL endline | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/L/l02  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/L/l03  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/L/l04  pris rc=0 cmp=0 STRICT_NOTEQUAL endline | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/M/m01  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/M/m02  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/M/m03  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/M/m04  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/M/m05  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/M/m06  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/M/m07  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/M/m08  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/N/n01  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL fullname | v2 rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u200dec/cases/N/n02  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL fullname | v2 rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u200dec/cases/P/g01  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL fullname | v2 rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u200dec/cases/P/g02  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/P/g03  pris rc=0 cmp=56 NOT_EQUAL stage1 | law rc=0 cmp=56 NOT_EQUAL stage1 | v2 rc=0 cmp=56 NOT_EQUAL stage1 | SAMEBYTES
+r11u200dec/cases/P/g04  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_NOTEQUAL fullname | v2 rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u200dec/cases/P/g05  pris rc=0 cmp=0 STRICT_NOTEQUAL depth | law rc=0 cmp=0 STRICT_NOTEQUAL depth | v2 rc=0 cmp=0 STRICT_NOTEQUAL depth | SAMEBYTES
+r11u200dec/cases/Q/q01  pris rc=0 cmp=356 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/Q/q02  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/Q/q03  pris rc=0 cmp=340 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/Q/q04  pris rc=0 cmp=384 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/Q/q05  pris rc=0 cmp=328 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/Q/q06  pris rc=0 cmp=356 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/Q/q07  pris rc=0 cmp=332 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/Q/q08  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/S/s01  pris rc=0 cmp=60 NOT_EQUAL stage1 | law rc=0 cmp=60 NOT_EQUAL stage1 | v2 rc=0 cmp=60 NOT_EQUAL stage1 | SAMEBYTES
+r11u200dec/cases/S/s02  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/S/s03  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/S/s04  pris rc=0 cmp=64 NOT_EQUAL stage1 | law rc=0 cmp=64 NOT_EQUAL stage1 | v2 rc=0 cmp=64 NOT_EQUAL stage1 | MOVED
+r11u200dec/cases/S/s05  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/S/s06  pris rc=0 cmp=104 NOT_EQUAL stage1 | law rc=0 cmp=104 NOT_EQUAL stage1 | v2 rc=0 cmp=104 NOT_EQUAL stage1 | SAMEBYTES
+r11u200dec/cases/S/s07  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/S/s08  pris rc=0 cmp=60 NOT_EQUAL stage1 | law rc=0 cmp=60 NOT_EQUAL stage1 | v2 rc=0 cmp=60 NOT_EQUAL stage1 | SAMEBYTES
+r11u200dec/cases/S/s09  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/S/s10  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/S/s11  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/S/s12  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/S/s13  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/S/s14  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/S/s15  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/S/s16  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/T/t01  pris rc=0 cmp=0 STRICT_NOTEQUAL name | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/T/t02  pris rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/T/t03  pris rc=0 cmp=0 STRICT_NOTEQUAL name | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/T/t04  pris rc=0 cmp=0 STRICT_NOTEQUAL name | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/T/t05  pris rc=0 cmp=50 NOT_EQUAL stage1 | law rc=0 cmp=50 NOT_EQUAL stage1 | v2 rc=0 cmp=50 NOT_EQUAL stage1 | MOVED
+r11u200dec/cases/T/t06  pris rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=28 NOT_EQUAL stage1 | v2 rc=0 cmp=28 NOT_EQUAL stage1 | MOVED
+r11u200dec/cases/U/u01  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_NOTEQUAL endcol | v2 rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+r11u200dec/cases/U/u02  pris rc=0 cmp=48 NOT_EQUAL stage1 | law rc=0 cmp=48 NOT_EQUAL stage1 | v2 rc=0 cmp=48 NOT_EQUAL stage1 | SAMEBYTES
+r11u200dec/cases/U/u03  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/U/u04  pris rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | SAMEBYTES
+r11u200dec/cases/U/u05  pris rc=0 cmp=0 STRICT_NOTEQUAL endcol | law rc=0 cmp=0 STRICT_NOTEQUAL endcol | v2 rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+r11u200dec/cases/U/u06  pris rc=0 cmp=86 NOT_EQUAL stage1 | law rc=0 cmp=86 NOT_EQUAL stage1 | v2 rc=0 cmp=86 NOT_EQUAL stage1 | SAMEBYTES
+r11u200dec/cases/V/v01  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/V/v02  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/V/v03  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED
+r11u200dec/cases/V/v04  pris rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=0 STRICT_EQUAL | v2 rc=0 cmp=0 STRICT_EQUAL | MOVED

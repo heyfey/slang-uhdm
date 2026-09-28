@@ -1,0 +1,5 @@
+# BuildUVMPkg default, drivers/rowrun.sh with the v2 sweep's command line; count of 'class_typespec: (this_type), line:13776:11, endln:13776:42' per draw (uhdm-dump)
+# det.sh round (3 concurrent draws per binary): pris 18 18 18 | v2 19 19 18 (the third draw: the weaklyReferenced object missing, 4 order-blind lines)
+pris rounds r1-r5 (15 draws, 3 concurrent per round):      15 18 
+law rounds r1-r5 (15 draws, 3 concurrent per round):      15 19 
+v2 rounds r1-r5 (15 draws, 3 concurrent per round):      15 19 

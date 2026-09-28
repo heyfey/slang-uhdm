@@ -800,6 +800,64 @@ bool r11u176Law(const char* sw); // the r11u176 switches (UhdmExporter.cpp)
 void trace176(const char* law, const std::string& detail); // R11U176_TRACE
 bool r11u193Law(const char* sw);  // the r11u193 switches (UhdmExporter.cpp)
 void trace193(const char* law, const std::string& detail);
+bool r11u200Law(const char* sw);  // the r11u200 switches (UhdmExporter.cpp)
+bool r11u202Law(const char* sw);  // the r11u202 switches (UhdmExporter.cpp)
+bool& defGenInitRvalue202();  // § defGenInitBitSelAtIndex202 (TypeEmit.cpp)
+void trace202(const char* law, const std::string& detail);
+void trace200(const char* law, const std::string& detail);
+// § tfSigningSpanFollowsCompilePath200 — a GENERATE-block variable's builtin
+// typespec keeps compileBuiltinTypespec's end in both views: an integer atom
+// ends at its keyword under `signed` (trimTypeSigning), a SCALAR bit / logic /
+// reg at its keyword under `unsigned` (golden `bit unsigned x;` in a
+// generate block 9:5-9:8, ours 9:5-9:17; the body-variable half is
+// § unsignedScalarVecTsAtKeyword137).  Switch R11U200_SIGNSPAN_OFF.
+static slang::SourceRange genVarBuiltinTsSpan200(
+    const slang::syntax::SyntaxNode* tsyn, slang::SourceRange trimmed,
+    const std::string& who) {
+    if (!tsyn || !r11u200Law("R11U200_SIGNSPAN_OFF"))
+        return trimmed;
+    if (tsyn->kind != slang::syntax::SyntaxKind::BitType &&
+        tsyn->kind != slang::syntax::SyntaxKind::LogicType &&
+        tsyn->kind != slang::syntax::SyntaxKind::RegType)
+        return trimmed;
+    auto& its = tsyn->as<slang::syntax::IntegerTypeSyntax>();
+    if (its.signing.kind != slang::parsing::TokenKind::UnsignedKeyword ||
+        !its.dimensions.empty())
+        return trimmed;
+    auto kr = its.keyword.range();
+    if (kr.start() == slang::SourceLocation::NoLocation)
+        return trimmed;
+    trace200("tfSigningSpanFollowsCompilePath200", "genvar " + who);
+    return kr;
+}
+bool r11v202Law(const char* sw);  // the v11u202 switches (UhdmExporter.cpp)
+// § portPackedBareImplicitTruncates202v — true when a port's type syntax is
+// an ImplicitType with no signing token under a port header with no net
+// type and no `var` keyword (the bare `input [A] [B] a`).
+static bool portPackedBareImplicit202v(const slang::syntax::SyntaxNode* tsyn,
+                                       const std::string& who) {
+    using namespace slang::syntax;
+    if (!tsyn || tsyn->kind != SyntaxKind::ImplicitType ||
+        !r11v202Law("R11V202_PORTIMPL_OFF"))
+        return false;
+    if (tsyn->as<ImplicitTypeSyntax>().signing.valid())
+        return false;
+    const SyntaxNode* hp = tsyn->parent;
+    if (!hp)
+        return false;
+    if (hp->kind == SyntaxKind::NetPortHeader) {
+        if (hp->as<NetPortHeaderSyntax>().netType.valid())
+            return false;
+    }
+    else if (hp->kind == SyntaxKind::VariablePortHeader) {
+        if (hp->as<VariablePortHeaderSyntax>().varKeyword.valid())
+            return false;
+    }
+    else
+        return false;
+    trace202("portPackedBareImplicitTruncates202v", who);
+    return true;
+}
 // § castRhsClonePerInst176 (r11u176) — Surelog's UhdmWriter::writeCont_assign
 // (third_party/Surelog/src/DesignCompile/UhdmWriter.cpp) walks the
 // DEFINITION's cont_assign objects of every elaborated instance (the netlist
@@ -6609,10 +6667,36 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                             mem.name.data(), inst.isInterface() ? 1 : 0,
                             nestOuterDef99(def) ? 1 : 0);
         }
+        // § modGenericClassListedAtDefault200 (r11u200, r11u194's N1 crash;
+        // RECONCILED by r11u202 with pass 196) — the r11u200 draft listed a
+        // module body's GenericClassDef members by their default
+        // specialization in member order, the face pass 196 had landed first
+        // as § modGenericClassListed196 (below: the body AND its generate
+        // blocks, module and program homes, the generics after the plain
+        // classes).  Pass 196's listing is THE rule; the r11u200 form is its
+        // fallback, alive only when R11U196_MODGENERIC_OFF drops pass 196's
+        // listing, so each form is measurable alone
+        // (tools/probe/r11u202repro, section 1).  R11U200_CLASSCRASH_OFF
+        // drops the fallback.  Grid tools/probe/r11u200dec/cases/K,
+        // tools/probe/r11u196repro/cases/MG.
+        const bool genericFallback200 =
+            !r11u196Law("R11U196_MODGENERIC_OFF") &&
+            r11u200Law("R11U200_CLASSCRASH_OFF");
         if (!ifaceHome99 && !nestHome99)
-            for (auto& mem : body.members())
+            for (auto& mem : body.members()) {
                 if (mem.kind == SymbolKind::ClassType)
                     clist95.push_back(&mem.as<ClassType>());
+                else if (genericFallback200 &&
+                         mem.kind == SymbolKind::GenericClassDef) {
+                    if (auto* dsp200 = mem.as<GenericClassDefSymbol>()
+                                           .getDefaultSpecialization(body);
+                        dsp200 && dsp200->kind == SymbolKind::ClassType) {
+                        clist95.push_back(&dsp200->as<ClassType>());
+                        trace200("modGenericClassListedAtDefault200",
+                                 prefix + "::" + std::string(mem.name));
+                    }
+                }
+            }
         // § modGenericClassListed196 (r11u196, R11U196_MODGENERIC_OFF) — a
         // PARAMETERIZED class declared in a module or program body is the
         // home's own `vpiClassDefn` like any other class: Surelog's
@@ -8999,6 +9083,47 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
                     break;
                 }
             }
+            // § posOpConnKeepsRefModule200 (r11u200, r11u199's N1) — the
+            // operation rule above is the udp-instantiation rule's shadow:
+            // Surelog's grammar reads an ordered list as a
+            // udp_instantiation only when its FIRST terminal is a net lvalue
+            // (`output_terminal`).  A list whose first terminal is an
+            // operation, a literal or a conditional is a module instantiation
+            // and golden lists its ref_module whatever the later terminals
+            // hold (`sub u2 (r[6:0] + 7'd1, r[6:0], o2)`, `(~r[6:0], ...)`,
+            // `(7'd1, r[6:0] + 7'd1, o2)`, an empty later terminal); a
+            // net-lvalue first terminal keeps the old answer.  Grid
+            // tools/probe/r11u200dec/cases/Q.  Switch R11U200_POSREFMOD_OFF.
+            if (hasOpConn && r11u200Law("R11U200_POSREFMOD_OFF"))
+                if (auto* hs200 = child.getSyntax();
+                    hs200 &&
+                    hs200->kind == syntax::SyntaxKind::HierarchicalInstance) {
+                    auto& hi200 = hs200->as<syntax::HierarchicalInstanceSyntax>();
+                    const syntax::ExpressionSyntax* fe200 = nullptr;
+                    if (!hi200.connections.empty() &&
+                        hi200.connections[0]->kind ==
+                            syntax::SyntaxKind::OrderedPortConnection) {
+                        const syntax::PropertyExprSyntax* pe200 =
+                            hi200.connections[0]
+                                ->as<syntax::OrderedPortConnectionSyntax>()
+                                .expr;
+                        if (pe200 &&
+                            pe200->kind == syntax::SyntaxKind::SimplePropertyExpr) {
+                            const syntax::SequenceExprSyntax* se200 =
+                                pe200->as<syntax::SimplePropertyExprSyntax>().expr;
+                            if (se200 && se200->kind ==
+                                             syntax::SyntaxKind::SimpleSequenceExpr)
+                                fe200 = se200->as<syntax::SimpleSequenceExprSyntax>()
+                                            .expr;
+                        }
+                    }
+                    if (fe200 && !fe200->getFirstToken().isMissing() &&
+                        !isNetLvalueSyntax(*fe200)) {
+                        hasOpConn = false;
+                        trace200("posOpConnKeepsRefModule200",
+                                 prefix + "." + std::string(child.name));
+                    }
+                }
             // A positional IFACE conn also omits the ref_module (Surelog).
             if (hasOpConn || hasIfaceConn)
                 continue;
@@ -17964,6 +18089,89 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         /*portView=*/&inst,
                         /*connModport=*/std::string(ip.modport));
                     ei->VpiName(ename);
+                    // § ifaceArrPortElemViewNamedByArray200 (r11u200, SVSwitch's
+                    // N1011 family) — Surelog builds an interface-ARRAY port's
+                    // element views in NetlistElaboration's modport-port arm:
+                    // an interface_array named by the formal and one
+                    // `elab_interface_` per element, whose interface_inst gets
+                    // NO stored full name (`// sm->VpiFullName(??)`), nor do
+                    // the variables and typespec references under it; they
+                    // read the parent chain.  In a PROGRAM the wrapper is
+                    // unowned (§ progPortIfaceArrayUnowned13), so the chain is
+                    // `<formal>.<element>` (golden `output_intf.output_intf[0]`,
+                    // `.clock`; ours `work@top.TC.output_intf[0]`); the port's
+                    // low-conn reference keeps its stored
+                    // `instance->getFullPathName()` name.  And an element
+                    // view's modport binds a header port (`input clock`) to
+                    // the element's OWN variable: `bind_net_(interf_instance,
+                    // …)` finds the port's variable in the element's netlist and
+                    // `setParentNoOverride` leaves it parented at the
+                    // interface_inst (golden io_decl `clock` -> the bit_var,
+                    // which the dump does not re-expand; ours minted a doubled
+                    // `…OP.clock.clock` logic_net under the io_decl), in a
+                    // module owner too.  Grid tools/probe/r11u200dec/cases/I.
+                    // Switch R11U200_IFARRNAME_OFF.
+                    if (r11u200Law("R11U200_IFARRNAME_OFF")) {
+                        if (auto* mps200 = ei->Modports())
+                            for (auto* mp200 : *mps200)
+                                if (auto* ios200 = mp200->Io_decls())
+                                    for (auto* io200 : *ios200)
+                                        if (io200->Expr() &&
+                                            io200->Expr()->UhdmType() ==
+                                                UHDM::uhdmlogic_net &&
+                                            ((UHDM::logic_net*)io200->Expr())
+                                                    ->VpiParent() == io200) {
+                                            UHDM::any* own200 = nullptr;
+                                            if (auto* vs0 = ei->Variables())
+                                                for (auto* v0 : *vs0)
+                                                    if (v0->VpiName() ==
+                                                        io200->VpiName())
+                                                        own200 = v0;
+                                            if (!own200)
+                                                continue;
+                                            io200->Expr(own200);
+                                            trace200(
+                                                "ifaceArrPortElemViewNamedByArray200",
+                                                "ownvar " + prefix + "." + ename +
+                                                    "." + std::string(io200->VpiName()));
+                                        }
+                        if (m->UhdmType() == UHDM::uhdmprogram) {
+                            const std::string old200 = prefix + "." + ename;
+                            const std::string new200 =
+                                std::string(portBase->name) + "." + ename;
+                            auto re200 = [&](auto* o) {
+                                if (!o)
+                                    return;
+                                std::string_view f = o->VpiFullName();
+                                if (f == old200)
+                                    o->VpiFullName(new200);
+                                else if (f.size() > old200.size() &&
+                                         f.substr(0, old200.size() + 1) ==
+                                             old200 + ".")
+                                    o->VpiFullName(
+                                        new200 +
+                                        std::string(f.substr(old200.size())));
+                            };
+                            re200(ei);
+                            if (auto* vs200 = ei->Variables())
+                                for (auto* v200 : *vs200) {
+                                    re200(v200);
+                                    re200(v200->Typespec());
+                                }
+                            if (auto* ns200 = ei->Nets())
+                                for (auto* n200 : *ns200) {
+                                    re200(n200);
+                                    if (n200->UhdmType() == UHDM::uhdmlogic_net)
+                                        re200(((UHDM::logic_net*)n200)
+                                                  ->Typespec());
+                                }
+                            if (auto* ps200 = ei->Ports())
+                                for (auto* p200 : *ps200)
+                                    re200(p200->Typespec());
+                            trace200("ifaceArrPortElemViewNamedByArray200",
+                                     "name " + old200 + " -> " + new200);
+                        }
+                    }
                     // § ifaceArrayElemPortViewParamAssignsOnly (r11u36) — AN
                     // ARRAY-PORT ELEMENT VIEW IS AN ORDINARY PORT VIEW: it
                     // carries its FULL `Param_assigns` vector and NO
@@ -27279,7 +27487,9 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             if (auto* dt2 = gm.getDeclaredType())
                 if (auto* tsn2 = dt2->getTypeSyntax())
                     setLoc(ivt,
-                           trimTypeSigning(tsn2, tsn2->sourceRange()));
+                           genVarBuiltinTsSpan200(
+                               tsn2, trimTypeSigning(tsn2, tsn2->sourceRange()),
+                               vfull));
             // The gen-local var ts parents at the var
             // (genscope_async_ff_signal).
             ivt->VpiParent(iv);
@@ -27449,6 +27659,45 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             auto* e0 = emitExpr(*in0, pv9.var, pv9.full, netMap);
             if (!e0)
                 continue;
+            // § genVarInitOuterRefUnbound202 (r11u202,
+            // R11U202_GENINITBIND_OFF) — Surelog binds the references of an
+            // ELABORATED generate-scope variable's initializer only among
+            // that generate scope's OWN variables and nets: a reference to a
+            // module variable, net or port, or to a variable of an
+            // ENCLOSING generate scope, stays an unbound ref_obj (golden
+            // `work@g02.g1.a.q`, `work@g03.gf[0].gi.z.y`: no vpiActual),
+            // while `logic [7:0] a = x;` beside `x` in the same block binds
+            // it (g01).  Ours bound every one through the net map (r11u200's
+            // recorded neighbour of § defGenInitRhsKeepsParent200).  Only a
+            // net or variable actual is dropped (a parameter or enum
+            // constant reference is not in the grid).  Grid
+            // tools/probe/r11u202repro/cases/GI.
+            if (r11u202Law("R11U202_GENINITBIND_OFF")) {
+                auto* gs202 = pv9.var->VpiParent();
+                std::function<void(UHDM::any*)> unbind202 = [&](UHDM::any* n) {
+                    if (!n)
+                        return;
+                    if (n->UhdmType() == UHDM::uhdmoperation) {
+                        if (auto* ops = ((UHDM::operation*)n)->Operands())
+                            for (auto* o : *ops)
+                                unbind202(o);
+                        return;
+                    }
+                    if (n->UhdmType() != UHDM::uhdmref_obj)
+                        return;
+                    auto* r = (UHDM::ref_obj*)n;
+                    auto* a = r->Actual_group();
+                    if (!a || a->VpiParent() == gs202)
+                        return;
+                    if (!(dynamic_cast<const UHDM::nets*>(a) ||
+                          dynamic_cast<const UHDM::variables*>(a)))
+                        return;
+                    r->Actual_group(nullptr);
+                    trace202("genVarInitOuterRefUnbound202",
+                             std::string(r->VpiFullName()));
+                };
+                unbind202(e0);
+            }
             std::function<void(UHDM::any*)> resize0 = [&](UHDM::any* n0) {
                 if (!n0)
                     return;
@@ -33294,7 +33543,33 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
         }
         // Multi-dim PACKED-array def nets also truncate to the first dim end
         // (top view keeps the whole-type span).
-        else if (dt3->getType().isPackedArray() && ts->VpiName().empty()) {
+        // § defPortPackedTsKeepsWholeSpan200 (r11u200, Scr1SvTests' port
+        // endcol family) — writeNets' end-only populate moves the NET's
+        // typespec; a pending entry whose reference sits on the PORT (the
+        // definition net itself carries no typespec, golden `work@sub.b`
+        // bare) keeps the port typespec's whole `logic [N-1:0] [W-1:0]` span
+        // (golden scr1_memory_tb_axi.sv 29:12-29:39, ours 29:12-29:28), the
+        // same port fence § defNetTypedefEndWrite134 already carries.  Grid
+        // tools/probe/r11u200dec/cases/M.  Switch R11U200_PORTPACKED_OFF.
+        // § portPackedBareImplicitTruncates202v (v11u202, the adversarial
+        // verification of r11u202; R11V202_PORTIMPL_OFF) — the port law
+        // above does not reach a port written with NO keyword before its
+        // dimensions (`input [N-1:0] [W-1:0] a`, ANSI or not: no net type,
+        // no `var`, no data-type keyword, no signing): golden keeps the
+        // first-dimension end there as on a net (Earlgrey_0_1
+        // alert_handler_class.sv 15:9-15:22, alert_handler_esc_timer.sv;
+        // map 12's AWAY records), while `input wire [..][..]`,
+        // `input logic [..][..]` and `input signed [..][..]` keep the
+        // law's shape.  Grid tools/probe/v11u202repro/cases/PP.
+        else if (dt3->getType().isPackedArray() && ts->VpiName().empty() &&
+                 (!(pn.rt->VpiParent() &&
+                    pn.rt->VpiParent()->UhdmType() == UHDM::uhdmport) ||
+                  !r11u200Law("R11U200_PORTPACKED_OFF") ||
+                  portPackedBareImplicit202v(dt3->getTypeSyntax(),
+                                             std::string(pn.sym->name)) ||
+                  (trace200("defPortPackedTsKeepsWholeSpan200",
+                            std::string(pn.sym->name)),
+                   false))) {
             if (auto tsyn3 = dt3->getTypeSyntax();
                 tsyn3 && syntax::IntegerTypeSyntax::isKind(tsyn3->kind)) {
                 auto& dims3 = tsyn3->as<syntax::IntegerTypeSyntax>().dimensions;
@@ -50923,11 +51198,29 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     // bare decls keep the name-only span, no Rhs.
                     if (dcl->initializer) {
                         setLoc(as2, dcl->sourceRange());
-                        if (auto* rI2 =
-                                emitSyntaxExpr(*dcl->initializer->expr, as2)) {
+                        // § defGenInitBitSelAtIndex202 (TypeEmit.cpp).
+                        defGenInitRvalue202() =
+                            r11u202Law("R11U202_GENINITBS_OFF");
+                        auto* rI2 = emitSyntaxExpr(*dcl->initializer->expr, as2);
+                        defGenInitRvalue202() = false;
+                        if (rI2) {
                             // Surelog leaves the def-view init RHS constant
                             // UNPARENTED (same as the gen-for init value).
-                            ((UHDM::expr*)rI2)->VpiParent(nullptr);
+                            // § defGenInitRhsKeepsParent200 (r11u200,
+                            // int_types' N0912) — only a CONSTANT root: a
+                            // reference, select, operation or call root stays
+                            // parented at the assignment, so its references
+                            // read the branch's chain (golden
+                            // `work@v01.g1.x`, `work@top.x` in an unnamed
+                            // block; ours unnamed).  Grid
+                            // tools/probe/r11u200dec/cases/V.  Switch
+                            // R11U200_GENINIT_OFF.
+                            if (rI2->UhdmType() == UHDM::uhdmconstant ||
+                                !r11u200Law("R11U200_GENINIT_OFF"))
+                                ((UHDM::expr*)rI2)->VpiParent(nullptr);
+                            else
+                                trace200("defGenInitRhsKeepsParent200",
+                                         branchPrefix + "." + vname);
                             as2->Rhs((UHDM::expr*)rI2);
                         }
                     }
@@ -50976,7 +51269,10 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     iv->VpiParent(as2);
                     setLoc(iv, nameSpan(dcl->name.location(), vname));
                     setLoc(it2,
-                           trimTypeSigning(dd.type, dd.type->sourceRange()));
+                           genVarBuiltinTsSpan200(
+                               dd.type,
+                               trimTypeSigning(dd.type, dd.type->sourceRange()),
+                               branchPrefix + "." + vname));
                     auto* rt2 = s.MakeRef_typespec();
                     rt2->VpiFullName(branchPrefix + "." + vname);
                     rt2->VpiParent(iv);
