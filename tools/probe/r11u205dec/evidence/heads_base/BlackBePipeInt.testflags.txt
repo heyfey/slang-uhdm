@@ -1,0 +1,9 @@
+#65 fullname
+  A: 5	ref_obj	dev_addr_width_gp				0	0	0	0		0
+  B: 5	ref_obj	dev_addr_width_gp		<in>dev_addr_width_gp		0	0	0	0		0
+#66 depth
+  A: 2	parameter	host_dev_gp		bp_common_pkg::host_dev_gp	dut.sv	1795	12	1795	23		0	UINT:1
+  B: 6	parameter	dev_addr_width_gp		bp_common_pkg::dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20
+objects 338504 vs 340984
+fields: depth=1 name=1 fullname=2 line=1 endline=1 endcol=1 value=1 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL fullname

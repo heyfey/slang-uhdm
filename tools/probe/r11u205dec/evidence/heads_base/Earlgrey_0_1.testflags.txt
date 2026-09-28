@@ -1,0 +1,183 @@
+#91364 fullname
+  A: 7	bit_select	class_en		work@alert_handler.gen_classes.i_accu.class_en_i.reg2hw_wrap.class_en[k].class_en	alert_handler.sv	148	44	148	45		0
+  B: 7	bit_select	class_en		reg2hw_wrap.class_en[k]	alert_handler.sv	148	35	148	43		0
+#91365 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.class_en_i.reg2hw_wrap.class_en[k].k	alert_handler.sv	148	44	148	45		0
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.class_en_i.k	alert_handler.sv	148	44	148	45		0
+#91369 fullname
+  A: 7	bit_select	class_clr		work@alert_handler.gen_classes.i_accu.clr_i.reg2hw_wrap.class_clr[k].class_clr	alert_handler.sv	149	45	149	46		0
+  B: 7	bit_select	class_clr		reg2hw_wrap.class_clr[k]	alert_handler.sv	149	35	149	44		0
+#91370 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.clr_i.reg2hw_wrap.class_clr[k].k	alert_handler.sv	149	45	149	46		0
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.clr_i.k	alert_handler.sv	149	45	149	46		0
+#91374 fullname
+  A: 7	bit_select	class_trig		work@alert_handler.gen_classes.i_accu.class_trig_i.hw2reg_wrap.class_trig[k].class_trig	alert_handler.sv	150	46	150	47		0
+  B: 7	bit_select	class_trig		hw2reg_wrap.class_trig[k]	alert_handler.sv	150	35	150	45		0
+#91375 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.class_trig_i.hw2reg_wrap.class_trig[k].k	alert_handler.sv	150	46	150	47		0
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.class_trig_i.k	alert_handler.sv	150	46	150	47		0
+#91379 fullname
+  A: 7	bit_select	class_accum_thresh		work@alert_handler.gen_classes.i_accu.thresh_i.reg2hw_wrap.class_accum_thresh[k].class_accum_thresh	alert_handler.sv	151	54	151	55		0
+  B: 7	bit_select	class_accum_thresh		reg2hw_wrap.class_accum_thresh[k]	alert_handler.sv	151	35	151	53		0
+#91380 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.thresh_i.reg2hw_wrap.class_accum_thresh[k].k	alert_handler.sv	151	54	151	55		0
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.thresh_i.k	alert_handler.sv	151	54	151	55		0
+#91384 fullname
+  A: 7	bit_select	class_accum_cnt		work@alert_handler.gen_classes.i_accu.accu_cnt_o.hw2reg_wrap.class_accum_cnt[k].class_accum_cnt	alert_handler.sv	152	51	152	52		0
+  B: 7	bit_select	class_accum_cnt		hw2reg_wrap.class_accum_cnt[k]	alert_handler.sv	152	35	152	50		0
+#91385 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.accu_cnt_o.hw2reg_wrap.class_accum_cnt[k].k	alert_handler.sv	152	51	152	52		0
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.accu_cnt_o.k	alert_handler.sv	152	51	152	52		0
+#91395 fullname
+  A: 7	bit_select	class_en		work@alert_handler.gen_classes.i_esc_timer.en_i.reg2hw_wrap.class_en[k].class_en	alert_handler.sv	159	48	159	49		0
+  B: 7	bit_select	class_en		reg2hw_wrap.class_en[k]	alert_handler.sv	159	39	159	47		0
+#91396 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.en_i.reg2hw_wrap.class_en[k].k	alert_handler.sv	159	48	159	49		0
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.en_i.k	alert_handler.sv	159	48	159	49		0
+#91400 fullname
+  A: 7	bit_select	class_clr		work@alert_handler.gen_classes.i_esc_timer.clr_i.reg2hw_wrap.class_clr[k].class_clr	alert_handler.sv	161	49	161	50		0
+  B: 7	bit_select	class_clr		reg2hw_wrap.class_clr[k]	alert_handler.sv	161	39	161	48		0
+#91401 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.clr_i.reg2hw_wrap.class_clr[k].k	alert_handler.sv	161	49	161	50		0
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.clr_i.k	alert_handler.sv	161	49	161	50		0
+#91411 fullname
+  A: 7	bit_select	class_timeout_cyc		work@alert_handler.gen_classes.i_esc_timer.timeout_cyc_i.reg2hw_wrap.class_timeout_cyc[k].class_timeout_cyc	alert_handler.sv	165	57	165	58		0
+  B: 7	bit_select	class_timeout_cyc		reg2hw_wrap.class_timeout_cyc[k]	alert_handler.sv	165	39	165	56		0
+#91412 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.timeout_cyc_i.reg2hw_wrap.class_timeout_cyc[k].k	alert_handler.sv	165	57	165	58		0
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.timeout_cyc_i.k	alert_handler.sv	165	57	165	58		0
+#91416 fullname
+  A: 7	bit_select	class_esc_en		work@alert_handler.gen_classes.i_esc_timer.esc_en_i.reg2hw_wrap.class_esc_en[k].class_esc_en	alert_handler.sv	166	52	166	53		0
+  B: 7	bit_select	class_esc_en		reg2hw_wrap.class_esc_en[k]	alert_handler.sv	166	39	166	51		0
+#91417 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_en_i.reg2hw_wrap.class_esc_en[k].k	alert_handler.sv	166	52	166	53		0
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_en_i.k	alert_handler.sv	166	52	166	53		0
+#91421 fullname
+  A: 7	bit_select	class_esc_map		work@alert_handler.gen_classes.i_esc_timer.esc_map_i.reg2hw_wrap.class_esc_map[k].class_esc_map	alert_handler.sv	167	53	167	54		0
+  B: 7	bit_select	class_esc_map		reg2hw_wrap.class_esc_map[k]	alert_handler.sv	167	39	167	52		0
+#91422 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_map_i.reg2hw_wrap.class_esc_map[k].k	alert_handler.sv	167	53	167	54		0
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_map_i.k	alert_handler.sv	167	53	167	54		0
+#91426 fullname
+  A: 7	bit_select	class_phase_cyc		work@alert_handler.gen_classes.i_esc_timer.phase_cyc_i.reg2hw_wrap.class_phase_cyc[k].class_phase_cyc	alert_handler.sv	168	55	168	56		0
+  B: 7	bit_select	class_phase_cyc		reg2hw_wrap.class_phase_cyc[k]	alert_handler.sv	168	39	168	54		0
+#91427 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.phase_cyc_i.reg2hw_wrap.class_phase_cyc[k].k	alert_handler.sv	168	55	168	56		0
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.phase_cyc_i.k	alert_handler.sv	168	55	168	56		0
+#91431 fullname
+  A: 7	bit_select	class_esc_trig		work@alert_handler.gen_classes.i_esc_timer.esc_trig_o.hw2reg_wrap.class_esc_trig[k].class_esc_trig	alert_handler.sv	169	54	169	55		0
+  B: 7	bit_select	class_esc_trig		hw2reg_wrap.class_esc_trig[k]	alert_handler.sv	169	39	169	53		0
+#91432 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_trig_o.hw2reg_wrap.class_esc_trig[k].k	alert_handler.sv	169	54	169	55		0
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_trig_o.k	alert_handler.sv	169	54	169	55		0
+#91436 fullname
+  A: 7	bit_select	class_esc_cnt		work@alert_handler.gen_classes.i_esc_timer.esc_cnt_o.hw2reg_wrap.class_esc_cnt[k].class_esc_cnt	alert_handler.sv	170	53	170	54		0
+  B: 7	bit_select	class_esc_cnt		hw2reg_wrap.class_esc_cnt[k]	alert_handler.sv	170	39	170	52		0
+#91437 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_cnt_o.hw2reg_wrap.class_esc_cnt[k].k	alert_handler.sv	170	53	170	54		0
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_cnt_o.k	alert_handler.sv	170	53	170	54		0
+#91441 fullname
+  A: 7	bit_select	class_esc_state		work@alert_handler.gen_classes.i_esc_timer.esc_state_o.hw2reg_wrap.class_esc_state[k].class_esc_state	alert_handler.sv	171	55	171	56		0
+  B: 7	bit_select	class_esc_state		hw2reg_wrap.class_esc_state[k]	alert_handler.sv	171	39	171	54		0
+#91442 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_state_o.hw2reg_wrap.class_esc_state[k].k	alert_handler.sv	171	55	171	56		0
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_esc_timer.esc_state_o.k	alert_handler.sv	171	55	171	56		0
+#95240 endcol
+  A: 5	constant				dm_csrs.sv	91	52	91	56	8'h04	8	HEX:04	5
+  B: 5	constant				dm_csrs.sv	91	52	91	61	8'h04	8	HEX:04	5
+#95243 endcol
+  A: 6	constant				dm_csrs.sv	91	71	91	75	4'h2	4	HEX:2	5
+  B: 6	constant				dm_csrs.sv	91	71	91	84	4'h2	4	HEX:2	5
+#95300 endcol
+  A: 5	constant				dm_csrs.sv	92	55	92	59	8'h20	8	HEX:20	5
+  B: 5	constant				dm_csrs.sv	92	55	92	67	8'h20	8	HEX:20	5
+#95303 endcol
+  A: 6	constant				dm_csrs.sv	92	77	92	81	5'h8	5	HEX:8	5
+  B: 6	constant				dm_csrs.sv	92	77	92	92	5'h8	5	HEX:8	5
+#97504 col
+  A: 14	ref_obj	dmi_req_i			dm_csrs.sv	362	20	362	29		0
+  B: 14	ref_obj	dmi_req_i			dm_csrs.sv	362	30	362	39		0
+#97505 defname
+  A: 14	part_select	addr		dmi_req_i.addr[$clog2(4'h2) - 1:0]	dm_csrs.sv	362	30	362	60		0
+  B: 14	part_select	addr	addr	work@dm_csrs.csr_read_write.data_d.dmi_req_i.addr[$clog2(4'h2) - 1:0].addr	dm_csrs.sv	362	30	362	60		0
+#97825 col
+  A: 14	ref_obj	dmi_req_i			dm_csrs.sv	417	23	417	32		0
+  B: 14	ref_obj	dmi_req_i			dm_csrs.sv	417	33	417	42		0
+#97826 defname
+  A: 14	part_select	addr		dmi_req_i.addr[$clog2(5'h8) - 1:0]	dm_csrs.sv	417	33	417	65		0
+  B: 14	part_select	addr	addr	work@dm_csrs.csr_read_write.progbuf_d.dmi_req_i.addr[$clog2(5'h8) - 1:0].addr	dm_csrs.sv	417	33	417	65		0
+#99367 endcol
+  A: 3	constant				dm_mem.sv	64	64	64	68	12'h380	12	HEX:380	5
+  B: 3	constant				dm_mem.sv	64	64	64	76	12'h380	12	HEX:380	5
+#99377 endcol
+  A: 4	constant				dm_mem.sv	65	64	65	68	12'h380	12	HEX:380	5
+  B: 4	constant				dm_mem.sv	65	64	65	76	12'h380	12	HEX:380	5
+#99385 endcol
+  A: 5	constant				dm_mem.sv	65	81	65	85	4'h2	4	HEX:2	5
+  B: 5	constant				dm_mem.sv	65	81	65	94	4'h2	4	HEX:2	5
+#99393 endcol
+  A: 4	constant				dm_mem.sv	66	64	66	68	12'h380	12	HEX:380	5
+  B: 4	constant				dm_mem.sv	66	64	66	76	12'h380	12	HEX:380	5
+#99401 endcol
+  A: 5	constant				dm_mem.sv	66	81	66	85	5'h8	5	HEX:8	5
+  B: 5	constant				dm_mem.sv	66	81	66	96	5'h8	5	HEX:8	5
+#99409 endcol
+  A: 4	constant				dm_mem.sv	67	64	67	68	12'h380	12	HEX:380	5
+  B: 4	constant				dm_mem.sv	67	64	67	76	12'h380	12	HEX:380	5
+#108111 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0
+#108125 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0
+#108134 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0
+#108147 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0
+#108160 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0
+#108173 fullname
+  A: 6	ref_typespec			work@flash_ctrl		0	0	0	0		0
+  B: 6	ref_typespec			region_cfgs[8]		0	0	0	0		0
+#118981 endcol
+  A: 10	constant				tlul_adapter_sram.sv	56	12	56	21	2	32	UINT:2	9
+  B: 10	constant				tlul_adapter_sram.sv	56	12	56	27	2	32	UINT:2	9
+#118991 endcol
+  A: 10	constant				tlul_adapter_sram.sv	57	12	57	21	8	32	UINT:8	9
+  B: 10	constant				tlul_adapter_sram.sv	57	12	57	27	8	32	UINT:8	9
+#119221 endcol
+  A: 12	constant				tlul_adapter_sram.sv	56	12	56	21	2	32	UINT:2	9
+  B: 12	constant				tlul_adapter_sram.sv	56	12	56	27	2	32	UINT:2	9
+#119231 endcol
+  A: 12	constant				tlul_adapter_sram.sv	57	12	57	21	8	32	UINT:8	9
+  B: 12	constant				tlul_adapter_sram.sv	57	12	57	27	8	32	UINT:8	9
+#119258 endcol
+  A: 12	constant				tlul_adapter_sram.sv	56	12	56	21	2	32	UINT:2	9
+  B: 12	constant				tlul_adapter_sram.sv	56	12	56	27	2	32	UINT:2	9
+#119268 endcol
+  A: 12	constant				tlul_adapter_sram.sv	57	12	57	21	8	32	UINT:8	9
+  B: 12	constant				tlul_adapter_sram.sv	57	12	57	27	8	32	UINT:8	9
+#119709 fullname
+  A: 13	ref_obj	i		work@tlul_adapter_sram.tl_i.a_data[8 * i+:8].a_data.i	tlul_adapter_sram.sv	163	66	163	67		0
+  B: 13	ref_obj	i		work@tlul_adapter_sram.i	tlul_adapter_sram.sv	163	66	163	67		0
+#119873 fullname
+  A: 8	ref_obj	DataBitWidth		work@tlul_adapter_sram.tl_i.a_address[DataBitWidth+:SramAw].DataBitWidth	tlul_adapter_sram.sv	153	53	153	65		0
+  B: 8	ref_obj	DataBitWidth		work@tlul_adapter_sram.DataBitWidth	tlul_adapter_sram.sv	153	53	153	65		0
+#119874 fullname
+  A: 8	ref_obj	SramAw		work@tlul_adapter_sram.tl_i.a_address[DataBitWidth+:SramAw].SramAw	tlul_adapter_sram.sv	153	67	153	73		0
+  B: 8	ref_obj	SramAw		work@tlul_adapter_sram.SramAw	tlul_adapter_sram.sv	153	67	153	73		0
+#120493 fullname
+  A: 6	ref_obj	DataBitWidth		work@flash_ctrl.u_flash_prog_ctrl.op_addr_i.reg2hw.addr.q[DataBitWidth+:17].DataBitWidth	flash_ctrl.sv	171	36	171	48		0
+  B: 6	ref_obj	DataBitWidth		work@flash_ctrl.u_flash_prog_ctrl.op_addr_i.DataBitWidth	flash_ctrl.sv	171	36	171	48		0
+#120495 fullname
+  A: 7	ref_typespec			work@flash_ctrl		0	0	0	0		0
+  B: 7	ref_typespec			work@flash_ctrl.u_flash_prog_ctrl.op_addr_i		0	0	0	0		0
+#120926 fullname
+  A: 6	ref_obj	DataBitWidth		work@flash_ctrl.u_flash_rd_ctrl.op_addr_i.reg2hw.addr.q[DataBitWidth+:17].DataBitWidth	flash_ctrl.sv	249	36	249	48		0
+  B: 6	ref_obj	DataBitWidth		work@flash_ctrl.u_flash_rd_ctrl.op_addr_i.DataBitWidth	flash_ctrl.sv	249	36	249	48		0
+objects 1342584 vs 1342870
+fields: type=1 defname=2 fullname=56 file=1 line=1 col=19 endline=1 endcol=35 size=1 objects_differing=76 (walk diverged)
+STRICT_NOTEQUAL fullname

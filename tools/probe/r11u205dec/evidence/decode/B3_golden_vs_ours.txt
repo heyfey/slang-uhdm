@@ -1,0 +1,88 @@
+== b01 golden (elaborated continuous assignments: right side)
+    \_cont_assign: , line:6:10, endln:6:23 RHS     \_constant:
+            |vpiSize:32
+            |INT:1
+            |vpiConstType:7
+    \_cont_assign: , line:7:10, endln:7:30 RHS     \_constant:
+            |vpiSize:32
+            |INT:4
+            |vpiConstType:7
+    \_cont_assign: , line:8:10, endln:8:37 RHS     \_constant:
+            |vpiSize:32
+            |UINT:9
+            |vpiConstType:9
+== b01 ours (elaborated continuous assignments: right side)
+    \_cont_assign: , line:8:10, endln:8:37 RHS     \_constant:
+            |vpiSize:32
+            |INT:9
+            |vpiConstType:7
+== b02 golden (elaborated continuous assignments: right side)
+    \_cont_assign: , line:6:10, endln:6:24 RHS     \_constant:
+            |vpiSize:32
+            |INT:4
+            |vpiConstType:7
+== b02 ours (elaborated continuous assignments: right side)
+== b03 golden (elaborated continuous assignments: right side)
+    \_cont_assign: , line:6:10, endln:6:27 RHS     \_constant:
+            |vpiSize:8
+            |UINT:1
+            |vpiConstType:9
+    \_cont_assign: , line:7:10, endln:7:38 RHS     \_constant:
+            |vpiSize:8
+            |UINT:3
+            |vpiConstType:9
+== b03 ours (elaborated continuous assignments: right side)
+    \_cont_assign: , line:7:10, endln:7:38 RHS     \_constant:
+            |vpiSize:8
+            |UINT:3
+            |vpiConstType:9
+== b04 golden (elaborated continuous assignments: right side)
+    \_cont_assign: , line:6:10, endln:6:23 RHS     \_constant:
+            |vpiSize:32
+            |INT:6
+            |vpiConstType:7
+== b04 ours (elaborated continuous assignments: right side)
+== b05 golden (elaborated continuous assignments: right side)
+    \_cont_assign: , line:9:10, endln:9:26 RHS     \_constant:
+            |vpiSize:32
+            |INT:3
+            |vpiConstType:7
+== b05 ours (elaborated continuous assignments: right side)
+    \_cont_assign: , line:9:10, endln:9:26 RHS     \_constant:
+            |vpiSize:32
+            |INT:9
+            |vpiConstType:7
+== b06 golden (elaborated continuous assignments: right side)
+    \_cont_assign: , line:7:10, endln:7:23 RHS     \_constant:
+            |vpiSize:32
+            |UINT:8
+            |vpiConstType:9
+    \_cont_assign: , line:8:10, endln:8:30 RHS     \_constant: , line:8:27, endln:8:28
+            |vpiSize:32
+            |UINT:1
+            |vpiConstType:9
+== b06 ours (elaborated continuous assignments: right side)
+    \_cont_assign: , line:8:10, endln:8:30 RHS     \_constant:
+            |vpiSize:32
+            |INT:1
+            |vpiConstType:7
+== b07 golden (elaborated continuous assignments: right side)
+    \_cont_assign: , line:6:10, endln:6:26 RHS     \_constant:
+            |vpiSize:32
+            |INT:1
+            |vpiConstType:7
+== b07 ours (elaborated continuous assignments: right side)
+== b08 golden (elaborated continuous assignments: right side)
+    \_cont_assign: , line:6:10, endln:6:23 RHS     \_constant:
+            |vpiSize:32
+            |INT:1
+            |vpiConstType:7
+    \_cont_assign: , line:7:10, endln:7:22 RHS     \_constant:
+            |vpiSize:32
+            |UINT:5
+            |vpiConstType:9
+== b08 ours (elaborated continuous assignments: right side)
+    \_cont_assign: , line:7:10, endln:7:22 RHS     \_constant:
+            |vpiSize:32
+            |UINT:5
+            |vpiConstType:9

@@ -1,0 +1,22 @@
+#669 fullname
+  A: 6	ref_typespec			<in>p::cfg_t.u		0	0	0	0		0
+  B: 6	ref_typespec			<in>p::cfg_t.u		0	0	0	0		0
+  raw fullname A: work@struct_param_func_config.p::cfg_t.u | B: work@struct_param_func_config.u_c.Cfg.p::cfg_t.u
+#723 fullname
+  A: 6	ref_typespec			<in>p::cfg_t.d		0	0	0	0		0
+  B: 6	ref_typespec			<in>p::cfg_t.d		0	0	0	0		0
+  raw fullname A: work@struct_param_func_config.p::cfg_t.d | B: work@struct_param_func_config.u_c.Cfg.p::cfg_t.d
+#894 fullname
+  A: 7	ref_typespec			<in>p::cfg_t.u		0	0	0	0		0
+  B: 7	ref_typespec			<in>p::cfg_t.u		0	0	0	0		0
+  raw fullname A: work@struct_param_func_config.p::cfg_t.u | B: work@struct_param_func_config.u_c.Cfg.p::cfg_t.u
+#948 fullname
+  A: 7	ref_typespec			<in>p::cfg_t.d		0	0	0	0		0
+  B: 7	ref_typespec			<in>p::cfg_t.d		0	0	0	0		0
+  raw fullname A: work@struct_param_func_config.p::cfg_t.d | B: work@struct_param_func_config.u_c.Cfg.p::cfg_t.d
+#1274 depth
+  A: 9	constant				dut.sv	27	11	27	12	7	64	UINT:7	9
+  B: 8	typespec_member	flag1			dut.sv	18	9	18	14
+objects 2652 vs 2514
+fields: depth=1 type=1 name=1 fullname=4 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=5 (walk diverged)
+STRICT_NOTEQUAL fullname

@@ -1,0 +1,5 @@
+#183 fullname
+  A: 5	ref_obj	IO_ONES		work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES	dut.sv	16	30	16	37		0
+  B: 5	ref_obj	IO_ONES		work@soc_tb.IO_ONES	dut.sv	16	30	16	37		0
+fields: fullname=1 objects_differing=1
+STRICT_NOTEQUAL fullname

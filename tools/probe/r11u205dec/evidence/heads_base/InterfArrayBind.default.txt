@@ -1,0 +1,11 @@
+#166 fullname
+  A: 7	ref_obj	io_idx		work@soc_tb.io_gen[0].peripheral_io_bus[io_idx].write_en.io_idx	dut.sv	22	38	22	44		0
+  B: 7	ref_obj	io_idx		work@soc_tb.io_gen[0].io_idx	dut.sv	22	38	22	44		0
+#177 fullname
+  A: 7	ref_obj	io_idx		work@soc_tb.io_gen[1].peripheral_io_bus[io_idx].write_en.io_idx	dut.sv	22	38	22	44		0
+  B: 7	ref_obj	io_idx		work@soc_tb.io_gen[1].io_idx	dut.sv	22	38	22	44		0
+#183 fullname
+  A: 5	ref_obj	IO_ONES		work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES	dut.sv	16	30	16	37		0
+  B: 5	ref_obj	IO_ONES		work@soc_tb.IO_ONES	dut.sv	16	30	16	37		0
+fields: fullname=3 objects_differing=3
+STRICT_NOTEQUAL fullname

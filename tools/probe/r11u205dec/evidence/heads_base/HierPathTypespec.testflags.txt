@@ -1,0 +1,5 @@
+#105 fullname
+  A: 6	ref_typespec			pkg::pkg::b::pkg::a::x		0	0	0	0		0
+  B: 6	ref_typespec			pkg::pkg::a::x		0	0	0	0		0
+fields: fullname=1 objects_differing=1
+STRICT_NOTEQUAL fullname

@@ -1,0 +1,183 @@
+#746 endcol
+  A: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	28		0
+  B: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	46		0
+#5535 file
+  A: 7	constant					0	0	0	0	32	64	INT:32	7
+  B: 7	constant				dut.sv	614	45	615	35	32	64	INT:32	7
+#5536 file
+  A: 7	constant					0	0	0	0	32	64	INT:32	7
+  B: 7	constant				dut.sv	614	45	615	35	32	64	INT:32	7
+#5540 file
+  A: 7	constant					0	0	0	0	34	64	INT:34	7
+  B: 7	constant				dut.sv	614	45	615	35	34	64	INT:34	7
+#5541 file
+  A: 7	constant					0	0	0	0	34	64	INT:34	7
+  B: 7	constant				dut.sv	614	45	615	35	34	64	INT:34	7
+#5555 file
+  A: 7	constant					0	0	0	0	2	64	UINT:2	9
+  B: 7	constant				dut.sv	614	45	615	35	2	64	UINT:2	9
+#5556 file
+  A: 7	constant					0	0	0	0	2	64	UINT:2	9
+  B: 7	constant				dut.sv	614	45	615	35	2	64	UINT:2	9
+#5560 file
+  A: 7	constant					0	0	0	0	1	64	INT:1	7
+  B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+#5561 file
+  A: 7	constant					0	0	0	0	1	64	INT:1	7
+  B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+#5707 file
+  A: 7	constant					0	0	0	0	3	64	UINT:3	9
+  B: 7	constant				dut.sv	614	45	615	35	3	64	UINT:3	9
+#5708 file
+  A: 7	constant					0	0	0	0	3	64	UINT:3	9
+  B: 7	constant				dut.sv	614	45	615	35	3	64	UINT:3	9
+#5858 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#5861 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#5873 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#5876 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#7001 file
+  A: 7	constant					0	0	0	0	2	64	UINT:2	9
+  B: 7	constant				dut.sv	614	45	615	35	2	64	UINT:2	9
+#7002 file
+  A: 7	constant					0	0	0	0	2	64	UINT:2	9
+  B: 7	constant				dut.sv	614	45	615	35	2	64	UINT:2	9
+#7025 file
+  A: 7	constant					0	0	0	0	128	64	INT:128	7
+  B: 7	constant				dut.sv	614	45	615	35	128	64	INT:128	7
+#7026 file
+  A: 7	constant					0	0	0	0	128	64	INT:128	7
+  B: 7	constant				dut.sv	614	45	615	35	128	64	INT:128	7
+#7039 file
+  A: 7	constant					0	0	0	0	3	64	UINT:3	9
+  B: 7	constant				dut.sv	614	45	615	35	3	64	UINT:3	9
+#7040 file
+  A: 7	constant					0	0	0	0	3	64	UINT:3	9
+  B: 7	constant				dut.sv	614	45	615	35	3	64	UINT:3	9
+#7063 file
+  A: 7	constant					0	0	0	0	128	64	INT:128	7
+  B: 7	constant				dut.sv	614	45	615	35	128	64	INT:128	7
+#7064 file
+  A: 7	constant					0	0	0	0	128	64	INT:128	7
+  B: 7	constant				dut.sv	614	45	615	35	128	64	INT:128	7
+#7087 file
+  A: 7	constant					0	0	0	0	4	64	INT:4	7
+  B: 7	constant				dut.sv	614	45	615	35	4	64	INT:4	7
+#7088 file
+  A: 7	constant					0	0	0	0	4	64	INT:4	7
+  B: 7	constant				dut.sv	614	45	615	35	4	64	INT:4	7
+#7119 file
+  A: 7	constant					0	0	0	0	0	64	UINT:0	9
+  B: 7	constant				dut.sv	614	45	615	35	0	64	UINT:0	9
+#7120 file
+  A: 7	constant					0	0	0	0	0	64	UINT:0	9
+  B: 7	constant				dut.sv	614	45	615	35	0	64	UINT:0	9
+#7129 line
+  A: 7	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+  B: 7	constant				dut.sv	614	45	615	35	2	64	INT:2	7
+#7130 line
+  A: 7	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+  B: 7	constant				dut.sv	614	45	615	35	2	64	INT:2	7
+#7134 file
+  A: 7	constant					0	0	0	0	1	64	INT:1	7
+  B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+#7135 file
+  A: 7	constant					0	0	0	0	1	64	INT:1	7
+  B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+#7139 file
+  A: 7	constant					0	0	0	0	1	64	INT:1	7
+  B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+#7140 file
+  A: 7	constant					0	0	0	0	1	64	INT:1	7
+  B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+#7144 file
+  A: 7	constant					0	0	0	0	9	64	INT:9	7
+  B: 7	constant				dut.sv	614	45	615	35	9	64	INT:9	7
+#7145 file
+  A: 7	constant					0	0	0	0	9	64	INT:9	7
+  B: 7	constant				dut.sv	614	45	615	35	9	64	INT:9	7
+#7149 file
+  A: 7	constant					0	0	0	0	22	64	INT:22	7
+  B: 7	constant				dut.sv	614	45	615	35	22	64	INT:22	7
+#7150 file
+  A: 7	constant					0	0	0	0	22	64	INT:22	7
+  B: 7	constant				dut.sv	614	45	615	35	22	64	INT:22	7
+#7165 file
+  A: 7	constant					0	0	0	0	1	64	INT:1	7
+  B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+#7166 file
+  A: 7	constant					0	0	0	0	1	64	INT:1	7
+  B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+#7187 file
+  A: 7	constant					0	0	0	0	32	64	INT:32	7
+  B: 7	constant				dut.sv	614	45	615	35	32	64	INT:32	7
+#7188 file
+  A: 7	constant					0	0	0	0	32	64	INT:32	7
+  B: 7	constant				dut.sv	614	45	615	35	32	64	INT:32	7
+#7192 file
+  A: 7	constant					0	0	0	0	34	64	INT:34	7
+  B: 7	constant				dut.sv	614	45	615	35	34	64	INT:34	7
+#7193 file
+  A: 7	constant					0	0	0	0	34	64	INT:34	7
+  B: 7	constant				dut.sv	614	45	615	35	34	64	INT:34	7
+#7207 file
+  A: 7	constant					0	0	0	0	2	64	UINT:2	9
+  B: 7	constant				dut.sv	614	45	615	35	2	64	UINT:2	9
+#7208 file
+  A: 7	constant					0	0	0	0	2	64	UINT:2	9
+  B: 7	constant				dut.sv	614	45	615	35	2	64	UINT:2	9
+#7212 file
+  A: 7	constant					0	0	0	0	1	64	INT:1	7
+  B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+#7213 file
+  A: 7	constant					0	0	0	0	1	64	INT:1	7
+  B: 7	constant				dut.sv	614	45	615	35	1	64	INT:1	7
+#7359 file
+  A: 7	constant					0	0	0	0	3	64	UINT:3	9
+  B: 7	constant				dut.sv	614	45	615	35	3	64	UINT:3	9
+#7360 file
+  A: 7	constant					0	0	0	0	3	64	UINT:3	9
+  B: 7	constant				dut.sv	614	45	615	35	3	64	UINT:3	9
+#7510 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#7513 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#7525 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#7528 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#8653 file
+  A: 7	constant					0	0	0	0	2	64	UINT:2	9
+  B: 7	constant				dut.sv	614	45	615	35	2	64	UINT:2	9
+#8654 file
+  A: 7	constant					0	0	0	0	2	64	UINT:2	9
+  B: 7	constant				dut.sv	614	45	615	35	2	64	UINT:2	9
+#8677 file
+  A: 7	constant					0	0	0	0	128	64	INT:128	7
+  B: 7	constant				dut.sv	614	45	615	35	128	64	INT:128	7
+#8678 file
+  A: 7	constant					0	0	0	0	128	64	INT:128	7
+  B: 7	constant				dut.sv	614	45	615	35	128	64	INT:128	7
+#8691 file
+  A: 7	constant					0	0	0	0	3	64	UINT:3	9
+  B: 7	constant				dut.sv	614	45	615	35	3	64	UINT:3	9
+#8692 file
+  A: 7	constant					0	0	0	0	3	64	UINT:3	9
+  B: 7	constant				dut.sv	614	45	615	35	3	64	UINT:3	9
+#8715 file
+  A: 7	constant					0	0	0	0	128	64	INT:128	7
+  B: 7	constant				dut.sv	614	45	615	35	128	64	INT:128	7
+objects 45362 vs 45097
+fields: depth=1 type=1 fullname=18 file=137 line=146 col=146 endline=146 endcol=147 decompile=1 size=1 value=1 consttype=1 objects_differing=165 (walk diverged)
+STRICT_NOTEQUAL endcol

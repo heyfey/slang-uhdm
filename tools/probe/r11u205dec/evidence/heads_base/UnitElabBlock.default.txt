@@ -1,0 +1,8 @@
+#105 file
+  A: 4	logic_net	hold		work@mod.hold		21	1	21	5		0
+  B: 4	logic_net	hold		work@mod.hold	top.v	21	1	21	5		0
+#207 file
+  A: 9	logic_net	hold		work@mod.hold		21	1	21	5		0
+  B: 9	logic_net	hold		work@mod.hold	top.v	21	1	21	5		0
+fields: file=2 objects_differing=2
+STRICT_NOTEQUAL file

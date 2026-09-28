@@ -1,0 +1,20 @@
+#246 fullname
+  A: 7	struct_net	req			dut.sv	12	12	12	15		0
+  B: 7	struct_net	req		work@top.w.sub.sub.req.req	dut.sv	12	12	12	15		0
+#247 fullname
+  A: 8	ref_typespec			req		0	0	0	0		0
+  B: 8	ref_typespec			work@top.w.sub.sub.req.req		0	0	0	0		0
+#259 fullname
+  A: 7	logic_var	trn			dut.sv	13	12	13	15		0
+  B: 7	logic_var	trn		work@top.w.sub.trn	dut.sv	13	12	13	15		0
+#260 fullname
+  A: 8	ref_typespec			trn		0	0	0	0		0
+  B: 8	ref_typespec			work@top.w.sub.trn		0	0	0	0		0
+#311 fullname
+  A: 7	ref_obj	wen		work@top.w.u.sys_wen.wen	dut.sv	23	52	23	55		0
+  B: 7	ref_obj	wen		work@top.w.wen	dut.sv	23	52	23	55		0
+#317 fullname
+  A: 7	ref_obj	trn		work@top.w.u.sys_wen.trn	dut.sv	23	62	23	65		0
+  B: 7	ref_obj	trn		work@top.w.trn	dut.sv	23	62	23	65		0
+fields: fullname=6 objects_differing=6
+STRICT_NOTEQUAL fullname

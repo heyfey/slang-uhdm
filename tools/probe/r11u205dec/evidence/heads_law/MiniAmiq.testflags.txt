@@ -1,0 +1,184 @@
+#899 file
+  A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73
+  B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16
+#10107 fullname
+  A: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0
+  B: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0
+  raw fullname A: work@svaunit_vpi_interface.uvm_pkg::uvm_event_pool | B: uvm_pkg::uvm_event_pool
+#11306 endline
+  A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#12236 endline
+  A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#12285 line
+  A: 11	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 11	method_func_call	get_full_name			uvm_message_defines.svh	115	89	1346	16		0
+#12287 line
+  A: 11	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 11	method_func_call	get_inst_id			uvm_message_defines.svh	115	111	1346	14		0
+#12327 endline
+  A: 9	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 9	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#12362 endline
+  A: 9	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 9	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#12398 endline
+  A: 9	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 9	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#12448 endline
+  A: 11	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 11	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#12494 endline
+  A: 11	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 11	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#12536 line
+  A: 17	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 17	method_func_call	get_full_name			uvm_message_defines.svh	115	93	1426	18		0
+#12538 line
+  A: 17	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 17	method_func_call	get_inst_id			uvm_message_defines.svh	115	115	1426	16		0
+#12588 line
+  A: 19	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 19	method_func_call	get_full_name			uvm_message_defines.svh	115	96	1437	21		0
+#12590 line
+  A: 19	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 19	method_func_call	get_inst_id			uvm_message_defines.svh	115	118	1437	19		0
+#12615 line
+  A: 20	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 20	method_func_call	get_full_name			uvm_message_defines.svh	115	89	1440	16		0
+#12617 line
+  A: 20	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 20	method_func_call	get_inst_id			uvm_message_defines.svh	115	111	1440	14		0
+#12647 line
+  A: 19	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 19	method_func_call	get_full_name			uvm_message_defines.svh	115	93	1452	18		0
+#12649 line
+  A: 19	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 19	method_func_call	get_inst_id			uvm_message_defines.svh	115	115	1452	16		0
+#12675 line
+  A: 20	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 20	method_func_call	get_full_name			uvm_message_defines.svh	115	96	1455	22		0
+#12677 line
+  A: 20	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 20	method_func_call	get_inst_id			uvm_message_defines.svh	115	118	1455	20		0
+#12711 endline
+  A: 17	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 17	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#12776 line
+  A: 20	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 20	method_func_call	get_full_name			uvm_message_defines.svh	115	92	1475	17		0
+#12778 line
+  A: 20	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 20	method_func_call	get_inst_id			uvm_message_defines.svh	115	114	1475	15		0
+#12813 line
+  A: 22	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 22	method_func_call	get_full_name			uvm_message_defines.svh	115	92	1479	18		0
+#12815 line
+  A: 22	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 22	method_func_call	get_inst_id			uvm_message_defines.svh	115	114	1479	16		0
+#12861 line
+  A: 26	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 26	method_func_call	get_full_name			uvm_message_defines.svh	115	99	1485	34		0
+#12863 line
+  A: 26	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 26	method_func_call	get_inst_id			uvm_message_defines.svh	115	121	1485	32		0
+#12915 line
+  A: 22	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 22	method_func_call	get_full_name			uvm_message_defines.svh	115	92	1496	18		0
+#12917 line
+  A: 22	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 22	method_func_call	get_inst_id			uvm_message_defines.svh	115	114	1496	16		0
+#12963 line
+  A: 26	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 26	method_func_call	get_full_name			uvm_message_defines.svh	115	99	1502	34		0
+#12965 line
+  A: 26	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 26	method_func_call	get_inst_id			uvm_message_defines.svh	115	121	1502	32		0
+#13018 line
+  A: 20	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 20	method_func_call	get_full_name			uvm_message_defines.svh	115	90	1512	15		0
+#13020 line
+  A: 20	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 20	method_func_call	get_inst_id			uvm_message_defines.svh	115	112	1512	13		0
+#13117 line
+  A: 14	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 14	method_func_call	get_full_name			uvm_message_defines.svh	115	84	1568	10		0
+#13119 line
+  A: 14	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 14	method_func_call	get_inst_id			uvm_message_defines.svh	115	106	1568	8		0
+#13149 line
+  A: 12	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 12	method_func_call	get_full_name			uvm_message_defines.svh	115	84	1582	10		0
+#13151 line
+  A: 12	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 12	method_func_call	get_inst_id			uvm_message_defines.svh	115	106	1582	8		0
+#13185 endline
+  A: 9	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 9	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#13236 endline
+  A: 9	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 9	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#13295 line
+  A: 12	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 12	method_func_call	get_full_name			uvm_message_defines.svh	115	89	1621	16		0
+#13297 line
+  A: 12	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 12	method_func_call	get_inst_id			uvm_message_defines.svh	115	111	1621	14		0
+#13331 endline
+  A: 9	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 9	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#13431 endline
+  A: 14	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0
+  B: 14	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0
+#13461 line
+  A: 18	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 18	method_func_call	get_full_name			uvm_message_defines.svh	115	94	1656	21		0
+#13464 line
+  A: 18	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 18	method_func_call	get_inst_id			uvm_message_defines.svh	115	116	1656	19		0
+#13813 line
+  A: 13	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 13	method_func_call	get_full_name			uvm_message_defines.svh	115	102	1770	28		0
+#13815 line
+  A: 13	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 13	method_func_call	get_inst_id			uvm_message_defines.svh	115	124	1770	26		0
+#13859 line
+  A: 13	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 13	method_func_call	get_full_name			uvm_message_defines.svh	115	102	1779	28		0
+#13861 line
+  A: 13	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 13	method_func_call	get_inst_id			uvm_message_defines.svh	115	124	1779	26		0
+#13916 line
+  A: 13	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 13	method_func_call	get_full_name			uvm_message_defines.svh	115	102	1791	28		0
+#13918 line
+  A: 13	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 13	method_func_call	get_inst_id			uvm_message_defines.svh	115	124	1791	26		0
+#13944 line
+  A: 13	method_func_call	get_full_name			uvm_message_defines.svh	116	13	116	26		0
+  B: 13	method_func_call	get_full_name			uvm_message_defines.svh	115	102	1795	28		0
+#13946 line
+  A: 13	method_func_call	get_inst_id			uvm_message_defines.svh	116	35	116	46		0
+  B: 13	method_func_call	get_inst_id			uvm_message_defines.svh	115	124	1795	26		0
+#15320 file
+  A: 5	int_typespec	UVM_FILE			uvm_root.svh	348	39	348	47
+  B: 5	int_typespec	UVM_FILE			uvm_object_globals.svh	313	9	313	12
+#17414 endcol
+  A: 7	bit_select	m_children		uvm_pkg::uvm_component::m_add_child::m_children	uvm_component.svh	1825	18	1825	34		0
+  B: 7	bit_select	m_children		uvm_pkg::uvm_component::m_add_child::m_children	uvm_component.svh	1825	18	1825	32		0
+#18219 file
+  A: 5	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73
+  B: 5	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16
+#18255 file
+  A: 5	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73
+  B: 5	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16
+#18267 file
+  A: 5	int_typespec	uvm_action			uvm_component.svh	2217	60	2217	70
+  B: 5	int_typespec	uvm_action			uvm_object_globals.svh	272	9	272	12
+#18291 file
+  A: 5	int_typespec	uvm_action			uvm_component.svh	2227	68	2227	78
+  B: 5	int_typespec	uvm_action			uvm_object_globals.svh	272	9	272	12
+objects 435559 vs 433769
+fields: type=1 name=1 fullname=1 file=15 line=55 col=57 endline=67 endcol=70 objects_differing=71 (walk diverged)
+STRICT_NOTEQUAL file

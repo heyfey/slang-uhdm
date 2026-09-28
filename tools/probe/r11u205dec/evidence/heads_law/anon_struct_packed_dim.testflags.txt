@@ -1,0 +1,170 @@
+#22 fullname
+  A: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  raw fullname A: gpte.pte_t.ppn | B: pte_t.ppn
+#28 fullname
+  A: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  raw fullname A: gpte.pte_t.g | B: pte_t.g
+#31 fullname
+  A: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  raw fullname A: gpte.pte_t.v | B: pte_t.v
+#37 fullname
+  A: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  raw fullname A: gpte.pte_t.ppn | B: pte_t.ppn
+#43 fullname
+  A: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  raw fullname A: gpte.pte_t.g | B: pte_t.g
+#46 fullname
+  A: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  raw fullname A: gpte.pte_t.v | B: pte_t.v
+#60 fullname
+  A: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  raw fullname A: gpte.pte_t.ppn | B: pte_t.ppn
+#66 fullname
+  A: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  raw fullname A: gpte.pte_t.g | B: pte_t.g
+#69 fullname
+  A: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  raw fullname A: gpte.pte_t.v | B: pte_t.v
+#75 fullname
+  A: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  raw fullname A: gpte.pte_t.ppn | B: pte_t.ppn
+#81 fullname
+  A: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  raw fullname A: gpte.pte_t.g | B: pte_t.g
+#84 fullname
+  A: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  raw fullname A: gpte.pte_t.v | B: pte_t.v
+#305 fullname
+  A: 3	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  B: 3	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  raw fullname A: gpte.pte_t.ppn | B: pte_t.ppn
+#311 fullname
+  A: 3	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  B: 3	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  raw fullname A: gpte.pte_t.g | B: pte_t.g
+#314 fullname
+  A: 3	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  B: 3	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  raw fullname A: gpte.pte_t.v | B: pte_t.v
+#389 fullname
+  A: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  raw fullname A: gpte.pte_t.ppn | B: pte_t.ppn
+#395 fullname
+  A: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  raw fullname A: gpte.pte_t.g | B: pte_t.g
+#398 fullname
+  A: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  raw fullname A: gpte.pte_t.v | B: pte_t.v
+#404 fullname
+  A: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  raw fullname A: gpte.pte_t.ppn | B: pte_t.ppn
+#410 fullname
+  A: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  raw fullname A: gpte.pte_t.g | B: pte_t.g
+#413 fullname
+  A: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  raw fullname A: gpte.pte_t.v | B: pte_t.v
+#427 fullname
+  A: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  raw fullname A: gpte.pte_t.ppn | B: pte_t.ppn
+#433 fullname
+  A: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  raw fullname A: gpte.pte_t.g | B: pte_t.g
+#436 fullname
+  A: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  raw fullname A: gpte.pte_t.v | B: pte_t.v
+#442 fullname
+  A: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  raw fullname A: gpte.pte_t.ppn | B: pte_t.ppn
+#448 fullname
+  A: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  raw fullname A: gpte.pte_t.g | B: pte_t.g
+#451 fullname
+  A: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  B: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  raw fullname A: gpte.pte_t.v | B: pte_t.v
+#589 fullname
+  A: 15	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  B: 15	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  raw fullname A: gpte.pte_t.ppn | B: pte_t.ppn
+#595 fullname
+  A: 15	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  B: 15	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  raw fullname A: gpte.pte_t.g | B: pte_t.g
+#598 fullname
+  A: 15	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  B: 15	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  raw fullname A: gpte.pte_t.v | B: pte_t.v
+#604 fullname
+  A: 15	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  B: 15	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  raw fullname A: gpte.pte_t.ppn | B: pte_t.ppn
+#610 fullname
+  A: 15	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  B: 15	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  raw fullname A: gpte.pte_t.g | B: pte_t.g
+#613 fullname
+  A: 15	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  B: 15	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  raw fullname A: gpte.pte_t.v | B: pte_t.v
+#676 fullname
+  A: 12	ref_obj	gx		work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page.gx	dut.sv	75	51	75	53		0
+  B: 12	ref_obj	gx		work@anon_struct_packed_dim.g_i[0].g_x[1].gx	dut.sv	75	51	75	53		0
+#705 fullname
+  A: 12	ref_obj	gx		work@anon_struct_packed_dim.g_i[0].g_x[2].tq[gi].is_page[2 - gx][0:0].is_page.gx	dut.sv	75	51	75	53		0
+  B: 12	ref_obj	gx		work@anon_struct_packed_dim.g_i[0].g_x[2].gx	dut.sv	75	51	75	53		0
+#739 fullname
+  A: 12	ref_obj	gx		work@anon_struct_packed_dim.g_i[1].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page.gx	dut.sv	75	51	75	53		0
+  B: 12	ref_obj	gx		work@anon_struct_packed_dim.g_i[1].g_x[1].gx	dut.sv	75	51	75	53		0
+#768 fullname
+  A: 12	ref_obj	gx		work@anon_struct_packed_dim.g_i[1].g_x[2].tq[gi].is_page[2 - gx][0:0].is_page.gx	dut.sv	75	51	75	53		0
+  B: 12	ref_obj	gx		work@anon_struct_packed_dim.g_i[1].g_x[2].gx	dut.sv	75	51	75	53		0
+#1047 fullname
+  A: 13	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  B: 13	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  raw fullname A: gpte.pte_t.ppn | B: pte_t.ppn
+#1053 fullname
+  A: 13	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  B: 13	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  raw fullname A: gpte.pte_t.g | B: pte_t.g
+#1056 fullname
+  A: 13	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  B: 13	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  raw fullname A: gpte.pte_t.v | B: pte_t.v
+#1062 fullname
+  A: 13	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  B: 13	ref_typespec			<in>pte_t.ppn		0	0	0	0		0
+  raw fullname A: gpte.pte_t.ppn | B: pte_t.ppn
+#1068 fullname
+  A: 13	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  B: 13	ref_typespec			<in>pte_t.g		0	0	0	0		0
+  raw fullname A: gpte.pte_t.g | B: pte_t.g
+#1071 fullname
+  A: 13	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  B: 13	ref_typespec			<in>pte_t.v		0	0	0	0		0
+  raw fullname A: gpte.pte_t.v | B: pte_t.v
+fields: fullname=43 objects_differing=43
+STRICT_NOTEQUAL fullname

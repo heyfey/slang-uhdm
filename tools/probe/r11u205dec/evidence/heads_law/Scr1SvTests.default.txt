@@ -1,0 +1,6 @@
+#48892 type
+  A: 7	ref_obj	SCR1_MEM_CMD_RD		work@scr1_pipe_ifu.SCR1_MEM_CMD_RD	scr1_pipe_ifu.sv	607	26	607	41		0
+  B: 7	constant					0	0	0	0	1'b0	1	BIN:0	3
+objects 84098 vs 84137
+fields: type=1 name=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type

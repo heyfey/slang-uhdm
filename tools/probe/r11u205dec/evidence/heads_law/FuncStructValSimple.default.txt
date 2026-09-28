@@ -1,0 +1,119 @@
+#117 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#118 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#129 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#132 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#145 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#146 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#157 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#160 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#226 file
+  A: 6	constant					0	0	0	0	2	64	INT:2	7
+  B: 6	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#227 file
+  A: 6	constant					0	0	0	0	2	64	INT:2	7
+  B: 6	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#238 fullname
+  A: 7	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 7	ref_typespec					0	0	0	0		0
+#241 fullname
+  A: 7	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 7	ref_typespec					0	0	0	0		0
+#255 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#256 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#267 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#270 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#281 file
+  A: 4	constant					0	0	0	0	2	64	INT:2	7
+  B: 4	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#282 file
+  A: 4	constant					0	0	0	0	2	64	INT:2	7
+  B: 4	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#293 fullname
+  A: 5	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 5	ref_typespec					0	0	0	0		0
+#296 fullname
+  A: 5	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 5	ref_typespec					0	0	0	0		0
+#342 fullname
+  A: 6	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 6	ref_typespec					0	0	0	0		0
+#359 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#360 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#371 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#374 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#387 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#388 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#399 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#402 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#567 file
+  A: 6	constant					0	0	0	0	2	64	INT:2	7
+  B: 6	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#568 file
+  A: 6	constant					0	0	0	0	2	64	INT:2	7
+  B: 6	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#579 fullname
+  A: 7	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 7	ref_typespec					0	0	0	0		0
+#582 fullname
+  A: 7	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 7	ref_typespec					0	0	0	0		0
+#615 file
+  A: 6	constant					0	0	0	0	2	64	INT:2	7
+  B: 6	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#616 file
+  A: 6	constant					0	0	0	0	2	64	INT:2	7
+  B: 6	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#644 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#645 file
+  A: 7	constant					0	0	0	0	2	64	INT:2	7
+  B: 7	constant				dut.sv	67	46	68	35	2	64	INT:2	7
+#656 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+#659 fullname
+  A: 8	ref_typespec			cva6_config_pkg		0	0	0	0		0
+  B: 8	ref_typespec					0	0	0	0		0
+fields: fullname=19 file=20 line=20 col=20 endline=20 endcol=20 objects_differing=39
+STRICT_NOTEQUAL file

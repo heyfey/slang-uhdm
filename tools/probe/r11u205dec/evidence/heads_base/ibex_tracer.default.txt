@@ -1,0 +1,242 @@
+#2073 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.irq_int
+#2076 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.irq_ext
+#2079 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.lower_cause
+#2088 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseEcallMMode::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseEcallMMode.ibex_pkg::exc_cause_t.irq_int
+#2091 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseEcallMMode::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseEcallMMode.ibex_pkg::exc_cause_t.irq_ext
+#2094 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseEcallMMode::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseEcallMMode.ibex_pkg::exc_cause_t.lower_cause
+#2103 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseEcallUMode::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseEcallUMode.ibex_pkg::exc_cause_t.irq_int
+#2106 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseEcallUMode::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseEcallUMode.ibex_pkg::exc_cause_t.irq_ext
+#2109 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseEcallUMode::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseEcallUMode.ibex_pkg::exc_cause_t.lower_cause
+#2118 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIllegalInsn::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseIllegalInsn.ibex_pkg::exc_cause_t.irq_int
+#2121 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIllegalInsn::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseIllegalInsn.ibex_pkg::exc_cause_t.irq_ext
+#2124 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIllegalInsn::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseIllegalInsn.ibex_pkg::exc_cause_t.lower_cause
+#2133 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseInsnAddrMisa::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseInsnAddrMisa.ibex_pkg::exc_cause_t.irq_int
+#2136 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseInsnAddrMisa::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseInsnAddrMisa.ibex_pkg::exc_cause_t.irq_ext
+#2139 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseInsnAddrMisa::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseInsnAddrMisa.ibex_pkg::exc_cause_t.lower_cause
+#2148 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseInstrAccessFault::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseInstrAccessFault.ibex_pkg::exc_cause_t.irq_int
+#2151 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseInstrAccessFault::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseInstrAccessFault.ibex_pkg::exc_cause_t.irq_ext
+#2154 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseInstrAccessFault::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseInstrAccessFault.ibex_pkg::exc_cause_t.lower_cause
+#2163 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqExternalM::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseIrqExternalM.ibex_pkg::exc_cause_t.irq_int
+#2166 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqExternalM::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseIrqExternalM.ibex_pkg::exc_cause_t.irq_ext
+#2169 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqExternalM::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseIrqExternalM.ibex_pkg::exc_cause_t.lower_cause
+#2178 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqNm::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseIrqNm.ibex_pkg::exc_cause_t.irq_int
+#2181 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqNm::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseIrqNm.ibex_pkg::exc_cause_t.irq_ext
+#2184 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqNm::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseIrqNm.ibex_pkg::exc_cause_t.lower_cause
+#2193 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqSoftwareM::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseIrqSoftwareM.ibex_pkg::exc_cause_t.irq_int
+#2196 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqSoftwareM::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseIrqSoftwareM.ibex_pkg::exc_cause_t.irq_ext
+#2199 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqSoftwareM::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseIrqSoftwareM.ibex_pkg::exc_cause_t.lower_cause
+#2208 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqTimerM::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseIrqTimerM.ibex_pkg::exc_cause_t.irq_int
+#2211 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqTimerM::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseIrqTimerM.ibex_pkg::exc_cause_t.irq_ext
+#2214 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqTimerM::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseIrqTimerM.ibex_pkg::exc_cause_t.lower_cause
+#2223 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseLoadAccessFault::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseLoadAccessFault.ibex_pkg::exc_cause_t.irq_int
+#2226 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseLoadAccessFault::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseLoadAccessFault.ibex_pkg::exc_cause_t.irq_ext
+#2229 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseLoadAccessFault::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseLoadAccessFault.ibex_pkg::exc_cause_t.lower_cause
+#2238 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseStoreAccessFault::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseStoreAccessFault.ibex_pkg::exc_cause_t.irq_int
+#2241 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseStoreAccessFault::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseStoreAccessFault.ibex_pkg::exc_cause_t.irq_ext
+#2244 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseStoreAccessFault::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseStoreAccessFault.ibex_pkg::exc_cause_t.lower_cause
+#2294 fullname
+  A: 5	ref_typespec			<in>ibex_mubi_t		0	0	0	0		0
+  B: 5	ref_typespec			<in>ibex_mubi_t		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::IbexMuBiOff::ibex_mubi_t | B: ibex_tracer_pkg::IbexMuBiOff.ibex_mubi_t
+#2305 fullname
+  A: 5	ref_typespec			<in>ibex_mubi_t		0	0	0	0		0
+  B: 5	ref_typespec			<in>ibex_mubi_t		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::IbexMuBiOn::ibex_mubi_t | B: ibex_tracer_pkg::IbexMuBiOn.ibex_mubi_t
+#2411 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::pmp_mseccfg_t.rlb		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::pmp_mseccfg_t.rlb		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::PmpMseccfgRst::ibex_pkg::pmp_mseccfg_t::rlb | B: ibex_tracer_pkg::PmpMseccfgRst.ibex_pkg::pmp_mseccfg_t.rlb
+#2414 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::pmp_mseccfg_t.mmwp		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::pmp_mseccfg_t.mmwp		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::PmpMseccfgRst::ibex_pkg::pmp_mseccfg_t::mmwp | B: ibex_tracer_pkg::PmpMseccfgRst.ibex_pkg::pmp_mseccfg_t.mmwp
+#2417 fullname
+  A: 6	ref_typespec			<in>ibex_pkg::pmp_mseccfg_t.mml		0	0	0	0		0
+  B: 6	ref_typespec			<in>ibex_pkg::pmp_mseccfg_t.mml		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::PmpMseccfgRst::ibex_pkg::pmp_mseccfg_t::mml | B: ibex_tracer_pkg::PmpMseccfgRst.ibex_pkg::pmp_mseccfg_t.mml
+#2434 fullname
+  A: 5	ref_typespec			<in>lfsr_perm_t		0	0	0	0		0
+  B: 5	ref_typespec			<in>lfsr_perm_t		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::RndCnstLfsrPermDefault::lfsr_perm_t | B: ibex_tracer_pkg::RndCnstLfsrPermDefault.lfsr_perm_t
+#2451 fullname
+  A: 5	ref_typespec			<in>lfsr_seed_t		0	0	0	0		0
+  B: 5	ref_typespec			<in>lfsr_seed_t		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t | B: ibex_tracer_pkg::RndCnstLfsrSeedDefault.lfsr_seed_t
+#3731 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqSoftwareM::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseIrqSoftwareM.ibex_pkg::exc_cause_t.irq_int
+#3734 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqSoftwareM::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseIrqSoftwareM.ibex_pkg::exc_cause_t.irq_ext
+#3737 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqSoftwareM::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseIrqSoftwareM.ibex_pkg::exc_cause_t.lower_cause
+#3760 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqTimerM::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseIrqTimerM.ibex_pkg::exc_cause_t.irq_int
+#3763 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqTimerM::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseIrqTimerM.ibex_pkg::exc_cause_t.irq_ext
+#3766 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqTimerM::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseIrqTimerM.ibex_pkg::exc_cause_t.lower_cause
+#3789 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqExternalM::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseIrqExternalM.ibex_pkg::exc_cause_t.irq_int
+#3792 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqExternalM::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseIrqExternalM.ibex_pkg::exc_cause_t.irq_ext
+#3795 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqExternalM::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseIrqExternalM.ibex_pkg::exc_cause_t.lower_cause
+#3818 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqNm::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseIrqNm.ibex_pkg::exc_cause_t.irq_int
+#3821 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqNm::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseIrqNm.ibex_pkg::exc_cause_t.irq_ext
+#3824 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseIrqNm::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseIrqNm.ibex_pkg::exc_cause_t.lower_cause
+#3847 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseInsnAddrMisa::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseInsnAddrMisa.ibex_pkg::exc_cause_t.irq_int
+#3850 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseInsnAddrMisa::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseInsnAddrMisa.ibex_pkg::exc_cause_t.irq_ext
+#3853 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseInsnAddrMisa::ibex_pkg::exc_cause_t::lower_cause | B: ibex_tracer_pkg::ExcCauseInsnAddrMisa.ibex_pkg::exc_cause_t.lower_cause
+#3876 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseInstrAccessFault::ibex_pkg::exc_cause_t::irq_int | B: ibex_tracer_pkg::ExcCauseInstrAccessFault.ibex_pkg::exc_cause_t.irq_int
+#3879 fullname
+  A: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  B: 7	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0
+  raw fullname A: ibex_tracer_pkg::ExcCauseInstrAccessFault::ibex_pkg::exc_cause_t::irq_ext | B: ibex_tracer_pkg::ExcCauseInstrAccessFault.ibex_pkg::exc_cause_t.irq_ext
+fields: fullname=579 objects_differing=579
+STRICT_NOTEQUAL fullname

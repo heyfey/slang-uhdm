@@ -1,0 +1,38 @@
+#95 endcol
+  A: 4	logic_typespec				top.v	27	3	27	8
+  B: 4	logic_typespec				top.v	27	3	27	21
+#98 endcol
+  A: 4	logic_typespec				top.v	28	3	28	8
+  B: 4	logic_typespec				top.v	28	3	28	22
+#101 endcol
+  A: 4	logic_typespec				top.v	29	3	29	8
+  B: 4	logic_typespec				top.v	29	3	29	29
+#104 endcol
+  A: 4	logic_typespec				top.v	30	3	30	8
+  B: 4	logic_typespec				top.v	30	3	30	25
+#119 endcol
+  A: 4	logic_typespec				top.v	33	3	33	8
+  B: 4	logic_typespec				top.v	33	3	33	22
+#122 endcol
+  A: 4	logic_typespec				top.v	34	3	34	8
+  B: 4	logic_typespec				top.v	34	3	34	22
+#246 endcol
+  A: 6	logic_typespec				top.v	27	3	27	8
+  B: 6	logic_typespec				top.v	27	3	27	21
+#249 endcol
+  A: 6	logic_typespec				top.v	28	3	28	8
+  B: 6	logic_typespec				top.v	28	3	28	22
+#252 endcol
+  A: 6	logic_typespec				top.v	29	3	29	8
+  B: 6	logic_typespec				top.v	29	3	29	29
+#255 endcol
+  A: 6	logic_typespec				top.v	30	3	30	8
+  B: 6	logic_typespec				top.v	30	3	30	25
+#270 endcol
+  A: 6	logic_typespec				top.v	33	3	33	8
+  B: 6	logic_typespec				top.v	33	3	33	22
+#273 endcol
+  A: 6	logic_typespec				top.v	34	3	34	8
+  B: 6	logic_typespec				top.v	34	3	34	22
+fields: endcol=12 objects_differing=12
+STRICT_NOTEQUAL endcol

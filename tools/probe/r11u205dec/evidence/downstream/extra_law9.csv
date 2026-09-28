@@ -1,0 +1,7 @@
+case,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail,name
+tools/probe/r11u204verify/cases/V191/rp2,DIVERGENT,OK,OK,1,1,nohier il synth,   This indicates a serious bug in /tmp/r11u205_ds/w2_law9.bin/tools_probe_r11u204verify_cases_V191_rp2/equiv/tools_prob,tools_probe_r11u204verify_cases_V191_rp2
+tools/probe/r11u204verify/cases/X/x5,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in UHDM import,tools_probe_r11u204verify_cases_X_x5
+tools/probe/r11u205dec/cases/D5/d01,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u205_ds/w2_law9.bin/tools_probe_r11u205dec_cases_D5_,tools_probe_r11u205dec_cases_D5_d01
+tools/probe/r11u205dec/cases/D5/d02,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_D5_d02
+tools/probe/r11u205dec/cases/D5/d03,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u205_ds/w2_law9.bin/tools_probe_r11u205dec_cases_D5_,tools_probe_r11u205dec_cases_D5_d03
+tools/probe/r11u205dec/cases/D5/d04,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_D5_d04

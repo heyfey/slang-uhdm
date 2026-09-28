@@ -1,0 +1,8 @@
+#9 endcol
+  A: 4	bit_typespec				bp_common_me_if.vh	5	14	5	17
+  B: 4	bit_typespec				bp_common_me_if.vh	5	14	5	23
+#25 endcol
+  A: 4	bit_typespec				bp_common_me_if.vh	5	14	5	17
+  B: 4	bit_typespec				bp_common_me_if.vh	5	14	5	23
+fields: endcol=2 objects_differing=2
+STRICT_NOTEQUAL endcol

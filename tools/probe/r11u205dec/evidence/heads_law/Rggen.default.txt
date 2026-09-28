@@ -1,0 +1,15 @@
+#22375 file
+  A: 9	constant				rggen_apb_adapter.sv	18	39	18	48	25	64	UINT:25	9
+  B: 9	constant				block_0.sv	18	39	18	48	25	64	UINT:25	9
+#23164 file
+  A: 11	logic_typespec				rggen_adapter_common.sv	43	5	43	10
+  B: 11	logic_typespec				rggen_bus_if.sv	9	3	9	28
+#23165 file
+  A: 12	range				rggen_adapter_common.sv	43	11	43	30
+  B: 12	range				rggen_bus_if.sv	9	9	9	28
+#23166 type
+  A: 13	operation				rggen_adapter_common.sv	43	12	43	27		0
+  B: 13	constant				rggen_bus_if.sv	9	10	9	23	15	64	INT:15	7
+objects 314498 vs 312769
+fields: type=1 file=4 line=3 col=3 endline=3 endcol=3 decompile=1 size=1 value=1 consttype=1 objects_differing=4 (walk diverged)
+STRICT_NOTEQUAL file

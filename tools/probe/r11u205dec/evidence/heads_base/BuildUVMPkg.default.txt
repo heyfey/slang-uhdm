@@ -1,0 +1,36 @@
+#3245 line
+  A: 5	int_typespec	uvm_action			uvm_pkg.sv	9704	72	9704	82
+  B: 5	int_typespec	uvm_action			uvm_pkg.sv	8075	9	8075	12
+#5639 line
+  A: 10	constant				uvm_pkg.sv	12963	61	12963	62	1	64	UINT:1	9
+  B: 10	constant				uvm_pkg.sv	13469	85	13469	86	1	64	UINT:1	9
+#5909 line
+  A: 10	constant				uvm_pkg.sv	13075	61	13075	62	1	64	UINT:1	9
+  B: 10	constant				uvm_pkg.sv	13469	85	13469	86	1	64	UINT:1	9
+#13373 endcol
+  A: 9	ref_var	m_predecessors		uvm_pkg::uvm_phase::add::m_predecessors	uvm_pkg.sv	33455	16	33455	20		0
+  B: 9	ref_var	m_predecessors		uvm_pkg::uvm_phase::add::m_predecessors	uvm_pkg.sv	33455	16	33455	30		0
+#19888 endcol
+  A: 7	bit_select	m_children		uvm_pkg::uvm_component::m_add_child::m_children	uvm_pkg.sv	39715	18	39715	34		0
+  B: 7	bit_select	m_children		uvm_pkg::uvm_component::m_add_child::m_children	uvm_pkg.sv	39715	18	39715	32		0
+#20735 line
+  A: 5	int_typespec	uvm_action			uvm_pkg.sv	40140	60	40140	70
+  B: 5	int_typespec	uvm_action			uvm_pkg.sv	8075	9	8075	12
+#20759 line
+  A: 5	int_typespec	uvm_action			uvm_pkg.sv	40150	68	40150	78
+  B: 5	int_typespec	uvm_action			uvm_pkg.sv	8075	9	8075	12
+#20795 line
+  A: 5	int_typespec	uvm_action			uvm_pkg.sv	40162	66	40162	76
+  B: 5	int_typespec	uvm_action			uvm_pkg.sv	8075	9	8075	12
+#22454 col
+  A: 3	bit_var	first		uvm_pkg::uvm_component::m_set_cl_verb::first	uvm_pkg.sv	41170	10	41170	13		0
+  B: 3	bit_var	first		uvm_pkg::uvm_component::m_set_cl_verb::first	uvm_pkg.sv	41170	14	41170	19		0
+#22460 col
+  A: 3	class_var	clp		uvm_pkg::uvm_component::m_set_cl_verb::clp	uvm_pkg.sv	41172	3	41172	24		0
+  B: 3	class_var	clp		uvm_pkg::uvm_component::m_set_cl_verb::clp	uvm_pkg.sv	41172	25	41172	28		0
+#22506 type
+  A: 11	enum_typespec	uvm_pkg::uvm_verbosity			uvm_pkg.sv	43411	55	43411	68
+  B: 11	bit_typespec				uvm_pkg.sv	38374	5	38374	18
+objects 201533 vs 201534
+fields: type=1 name=1 line=7 col=9 endline=7 endcol=11 objects_differing=11 (walk diverged)
+STRICT_NOTEQUAL line
