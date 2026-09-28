@@ -1,0 +1,64 @@
+cluster N0599 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 11; passes 201-206 left it) | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law pkgTdRangeViewFold18) < emitImportedPkgClassMethodClones (ParamEmit.cpp, law collectPkgTfListing) < emitPackage (ParamEmit.cpp, law LAW) [r11u138map pin; the a7bee711 gdb run wrote a different database (UVM order coin)] [r11u142map pin]): fullname|ref_typespec|tok:id->id|under:integer_var
+row: surelog/default/MiniAmiq  strict=differ:file(71)  records golden=435559 ours=433769
+object: #74386 (golden) / #74120 (ours)  type=ref_typespec name= OUT
+  golden: uvm_pkg::uvm_transaction::get_transaction_id
+  ours:   svaunit_pkg::uvm_transaction::get_transaction_id
+  walk parents: integer_var < function(uvm_transaction::get_transaction_id) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 74380..74392 ('>' = the object)
+  #74380	5	integer_typespec				uvm_transaction.svh	494	51	494	58						000
+  #74381	3	assignment				uvm_transaction.svh	495	5	495	26						000
+  #74382	4	ref_obj	id		svaunit_pkg::uvm_transaction::set_transaction_id::id	uvm_transaction.svh	495	24	495	26		0			svaunit_pkg::uvm_transaction::set_transaction_id::id	000
+  #74383	4	ref_obj	m_transaction_id		svaunit_pkg::uvm_transaction::set_transaction_id::m_transaction_id	uvm_transaction.svh	495	5	495	21		0			svaunit_pkg::uvm_transaction::set_transaction_id::m_transaction_id	000
+  #74384	2	function	uvm_transaction::get_transaction_id		svaunit_pkg::uvm_transaction::get_transaction_id	uvm_transaction.svh	499	1	501	12					svaunit_pkg::uvm_transaction::get_transaction_id	000
+  #74385	3	integer_var			uvm_pkg::uvm_transaction::get_transaction_id	uvm_transaction.svh	499	10	499	17		0			uvm_pkg::uvm_transaction::get_transaction_id	000
+> #74386	4	ref_typespec			uvm_pkg::uvm_transaction::get_transaction_id		0	0	0	0		0			uvm_pkg::uvm_transaction::get_transaction_id	000
+  #74387	5	integer_typespec				uvm_transaction.svh	499	10	499	17						000
+  #74388	3	return_stmt				uvm_transaction.svh	500	5	500	11						000
+  #74389	4	ref_obj	m_transaction_id		svaunit_pkg::uvm_transaction::get_transaction_id::m_transaction_id	uvm_transaction.svh	500	13	500	29		0			svaunit_pkg::uvm_transaction::get_transaction_id::m_transaction_id	000
+  #74390	2	function	uvm_transaction::set_initiator		svaunit_pkg::uvm_transaction::set_initiator	uvm_transaction.svh	506	1	508	12					svaunit_pkg::uvm_transaction::set_initiator	000
+  #74391	3	io_decl	initiator			uvm_transaction.svh	506	60	506	69						000
+  #74392	4	ref_typespec			svaunit_pkg::uvm_transaction::set_initiator::initiator		0	0	0	0		0			svaunit_pkg::uvm_transaction::set_initiator::initiator	000
+
+--- OURS (B) records 74114..74126 ('>' = the object)
+  #74114	5	integer_typespec				uvm_transaction.svh	494	51	494	58						000
+  #74115	3	assignment				uvm_transaction.svh	495	5	495	26						000
+  #74116	4	ref_obj	id		svaunit_pkg::uvm_transaction::set_transaction_id::id	uvm_transaction.svh	495	24	495	26		0			svaunit_pkg::uvm_transaction::set_transaction_id::id	000
+  #74117	4	ref_obj	m_transaction_id		svaunit_pkg::uvm_transaction::set_transaction_id::m_transaction_id	uvm_transaction.svh	495	5	495	21		0			svaunit_pkg::uvm_transaction::set_transaction_id::m_transaction_id	000
+  #74118	2	function	uvm_transaction::get_transaction_id		svaunit_pkg::uvm_transaction::get_transaction_id	uvm_transaction.svh	499	1	501	12					svaunit_pkg::uvm_transaction::get_transaction_id	000
+  #74119	3	integer_var			svaunit_pkg::uvm_transaction::get_transaction_id	uvm_transaction.svh	499	10	499	17		0			svaunit_pkg::uvm_transaction::get_transaction_id	000
+> #74120	4	ref_typespec			svaunit_pkg::uvm_transaction::get_transaction_id		0	0	0	0		0			svaunit_pkg::uvm_transaction::get_transaction_id	000
+  #74121	5	integer_typespec				uvm_transaction.svh	499	10	499	17						000
+  #74122	3	return_stmt				uvm_transaction.svh	500	5	500	11						000
+  #74123	4	ref_obj	m_transaction_id		svaunit_pkg::uvm_transaction::get_transaction_id::m_transaction_id	uvm_transaction.svh	500	13	500	29		0			svaunit_pkg::uvm_transaction::get_transaction_id::m_transaction_id	000
+  #74124	2	function	uvm_transaction::set_initiator		svaunit_pkg::uvm_transaction::set_initiator	uvm_transaction.svh	506	1	508	12					svaunit_pkg::uvm_transaction::set_initiator	000
+  #74125	3	io_decl	initiator			uvm_transaction.svh	506	60	506	69						000
+  #74126	4	ref_typespec			svaunit_pkg::uvm_transaction::set_initiator::initiator		0	0	0	0		0			svaunit_pkg::uvm_transaction::set_initiator::initiator	000
+
+facets of this row (7481, first 25):
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20805 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21741 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66834 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66922 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67149 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68133 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68153 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68268 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]

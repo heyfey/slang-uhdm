@@ -1,0 +1,47 @@
+cluster N1947 (id kept from an earlier map; OPEN | ground A | site namedSlotFiller4 (ExprEmit.cpp, law ndaCallFoldIsEvalFunc102) < emitExpr (ExprEmit.cpp, law namedTfArgsFormalSlots4) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) [r11u138map pin] [r11u142map pin]): file|constant|ours-empty|under:func_call
+row: probe/default/r10v167repro__vB_bare  strict=file  records golden=206 ours=206
+object: #83 (golden) / #83 (ours)  type=constant name= 
+  golden: dut.sv 0:0:0:0
+  ours:    0:0:0:0
+  walk parents: func_call(bf167) < assignment < begin < task(cleanB)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 77..89 ('>' = the object)
+  #77	6	func_call	bf167			dut.sv	21	11	21	19		0				000
+  #78	7	constant				dut.sv	21	17	21	18	1	64	UINT:1	9		000
+  #79	6	ref_obj	r		pb167::shB167::cleanB::r	dut.sv	21	7	21	8		0			pb167::shB167::cleanB::r	000
+  #80	5	assignment				dut.sv	22	7	22	30						000
+  #81	6	func_call	bf167			dut.sv	22	11	22	30		0				000
+  #82	7	constant				dut.sv	22	20	22	21	1	64	UINT:1	9		000
+> #83	7	constant				dut.sv	0	0	0	0	0	64	INT:0	7		000
+  #84	7	constant				dut.sv	22	27	22	28	9	64	UINT:9	9		000
+  #85	6	ref_obj	r		pb167::shB167::cleanB::r	dut.sv	22	7	22	8		0			pb167::shB167::cleanB::r	000
+  #86	5	assignment				dut.sv	23	7	23	30						000
+  #87	6	func_call	bf167			dut.sv	23	11	23	30		0				000
+  #88	7	constant				dut.sv	23	27	23	28	1	64	UINT:1	9		000
+  #89	7	constant				dut.sv	0	0	0	0	0	64	INT:0	7		000
+
+--- OURS (B) records 77..89 ('>' = the object)
+  #77	6	func_call	bf167			dut.sv	21	11	21	19		0				000
+  #78	7	constant				dut.sv	21	17	21	18	1	64	UINT:1	9		000
+  #79	6	ref_obj	r		pb167::shB167::cleanB::r	dut.sv	21	7	21	8		0			pb167::shB167::cleanB::r	000
+  #80	5	assignment				dut.sv	22	7	22	30						000
+  #81	6	func_call	bf167			dut.sv	22	11	22	30		0				000
+  #82	7	constant				dut.sv	22	20	22	21	1	64	UINT:1	9		000
+> #83	7	constant					0	0	0	0	0	64	INT:0	7		000
+  #84	7	constant				dut.sv	22	27	22	28	9	64	UINT:9	9		000
+  #85	6	ref_obj	r		pb167::shB167::cleanB::r	dut.sv	22	7	22	8		0			pb167::shB167::cleanB::r	000
+  #86	5	assignment				dut.sv	23	7	23	30						000
+  #87	6	func_call	bf167			dut.sv	23	11	23	30		0				000
+  #88	7	constant				dut.sv	23	27	23	28	1	64	UINT:1	9		000
+  #89	7	constant					0	0	0	0	0	64	INT:0	7		000
+
+facets of this row (8, first 25):
+  N1947 #83/83 constant  G[dut.sv 0:0:0:0] O[ 0:0:0:0]
+  N1947 #89/89 constant  G[dut.sv 0:0:0:0] O[ 0:0:0:0]
+  N1947 #101/101 constant  G[dut.sv 0:0:0:0] O[ 0:0:0:0]
+  N1947 #107/107 constant  G[dut.sv 0:0:0:0] O[ 0:0:0:0]
+  N1947 #130/130 constant  G[dut.sv 0:0:0:0] O[ 0:0:0:0]
+  N1947 #136/136 constant  G[dut.sv 0:0:0:0] O[ 0:0:0:0]
+  N1947 #148/148 constant  G[dut.sv 0:0:0:0] O[ 0:0:0:0]
+  N1947 #154/154 constant  G[dut.sv 0:0:0:0] O[ 0:0:0:0]

@@ -1,0 +1,401 @@
+diff --git a/src/ModuleEmit.cpp b/src/ModuleEmit.cpp
+index 8fd097129..b5791a7bc 100644
+--- a/src/ModuleEmit.cpp
++++ b/src/ModuleEmit.cpp
+@@ -802,6 +802,8 @@ bool r11u193Law(const char* sw);  // the r11u193 switches (UhdmExporter.cpp)
+ void trace193(const char* law, const std::string& detail);
+ bool r11u200Law(const char* sw);  // the r11u200 switches (UhdmExporter.cpp)
+ bool r11u202Law(const char* sw);  // the r11u202 switches (UhdmExporter.cpp)
++bool r11u205Law(const char* sw);  // the r11u205 switches (UhdmExporter.cpp)
++void trace205(const char* law, const std::string& detail);  // R11U205_TRACE
+ bool& defGenInitRvalue202();  // § defGenInitBitSelAtIndex202 (TypeEmit.cpp)
+ void trace202(const char* law, const std::string& detail);
+ void trace200(const char* law, const std::string& detail);
+@@ -48391,6 +48393,105 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol&
+         if (ps0.internalSymbol)
+             portTsPre[portBase] = makeTypespec(*ps0.internalSymbol, nullptr, &ps0);
+     }
++    // § ifacePortDeclTsAtPortDecl205 (r11u205, map N1899 + N0094: 51 probe
++    // cases, the r11u93 interface grid) — THE ELABORATED INTERFACE PORT'S
++    // TYPESPEC IS THE PORT DECLARATION'S.  A non-ANSI interface port
++    // (`interface ifc (o, p); output [31:0] o; ... wire [31:0] o = ..;`) is
++    // the `Signal` the port declaration pushed (§ caIfacePortDeclNetMint93's
++    // `found == false` arm, CompileHelper.cpp setDirectionAndType), typed from
++    // the PORT DECLARATION's own packed dimensions; the elaborated instance's
++    // port and its port-declaration net read that typespec: golden
++    // `logic_typespec` 3:10-3:16 (the `[31:0]` of `output [31:0] o;`), its
++    // range alike and the bounds at 3:11-3:13 / 3:14-3:15, where ours built
++    // it from the body re-declaration (5:25-5:31, pb14_ifbothstr; 5:8-5:14,
++    // pb3_ifnoredecl's `p`).  Relocation only: the bounds' values are the
++    // body declaration's, which a legal redeclaration must match; only a
++    // logic_typespec with one range per written range dimension is moved.
++    // Switch R11U205_PORTDECLTS_OFF.
++    if (body.getDefinition().definitionKind == DefinitionKind::Interface &&
++        r11u205Law("R11U205_PORTDECLTS_OFF"))
++        if (auto* syn205 = body.getSyntax();
++            syn205 && syn205->kind == syntax::SyntaxKind::InterfaceDeclaration) {
++            // the port declaration's dimensions, and where the typespec
++            // STARTS: at a written net-type keyword (`output wire [31:0] o;`,
++            // v11u93 v16: golden 3:10-3:21) or data-type keyword (`output
++            // reg [31:0] o;`, v3: 3:10-3:20), else at the first dimension.
++            std::map<std::string_view, const syntax::SyntaxList<
++                                           syntax::VariableDimensionSyntax>*>
++                dims205;
++            std::map<std::string_view, SourceLocation> start205;
++            for (auto* mem : syn205->as<syntax::ModuleDeclarationSyntax>().members) {
++                if (!mem || mem->kind != syntax::SyntaxKind::PortDeclaration)
++                    continue;
++                auto& pd205 = mem->as<syntax::PortDeclarationSyntax>();
++                const syntax::DataTypeSyntax* dt205 = nullptr;
++                if (pd205.header->kind == syntax::SyntaxKind::NetPortHeader)
++                    dt205 = pd205.header->as<syntax::NetPortHeaderSyntax>().dataType;
++                else if (pd205.header->kind == syntax::SyntaxKind::VariablePortHeader)
++                    dt205 = pd205.header->as<syntax::VariablePortHeaderSyntax>().dataType;
++                const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dl205 =
++                    nullptr;
++                if (dt205 && dt205->kind == syntax::SyntaxKind::ImplicitType)
++                    dl205 = &dt205->as<syntax::ImplicitTypeSyntax>().dimensions;
++                else if (dt205 && (dt205->kind == syntax::SyntaxKind::LogicType ||
++                                   dt205->kind == syntax::SyntaxKind::RegType ||
++                                   dt205->kind == syntax::SyntaxKind::BitType))
++                    dl205 = &dt205->as<syntax::IntegerTypeSyntax>().dimensions;
++                if (!dl205 || dl205->empty())
++                    continue;
++                // A signing keyword is not modelled here (the signing span
++                // rule of § 200 governs it): decline.
++                if (dt205->kind != syntax::SyntaxKind::ImplicitType &&
++                    dt205->as<syntax::IntegerTypeSyntax>().signing)
++                    continue;
++                if (dt205->kind == syntax::SyntaxKind::ImplicitType &&
++                    dt205->as<syntax::ImplicitTypeSyntax>().signing)
++                    continue;
++                SourceLocation st205 = dt205->sourceRange().start();
++                if (pd205.header->kind == syntax::SyntaxKind::NetPortHeader) {
++                    auto& nh205 = pd205.header->as<syntax::NetPortHeaderSyntax>();
++                    if (nh205.netType)
++                        st205 = nh205.netType.location();
++                }
++                for (auto* d : pd205.declarators)
++                    if (d && !d->name.valueText().empty()) {
++                        dims205.emplace(d->name.valueText(), dl205);
++                        start205.emplace(d->name.valueText(), st205);
++                    }
++            }
++            for (auto& [pb205, ts205] : portTsPre) {
++                auto dit205 = dims205.find(pb205->name);
++                if (!ts205 || dit205 == dims205.end() ||
++                    ts205->UhdmType() != UHDM::uhdmlogic_typespec)
++                    continue;
++                auto& dl = *dit205->second;
++                auto* rv205 = ((UHDM::logic_typespec*)ts205)->Ranges();
++                if (!rv205 || rv205->size() != dl.size())
++                    continue;
++                bool ok205 = true;
++                for (auto* d : dl)
++                    if (!d || !d->specifier ||
++                        d->specifier->kind != syntax::SyntaxKind::RangeDimensionSpecifier ||
++                        d->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
++                                .selector->kind != syntax::SyntaxKind::SimpleRangeSelect)
++                        ok205 = false;
++                if (!ok205)
++                    continue;
++                trace205("ifacePortDeclTsAtPortDecl205", std::string(pb205->name));
++                setLoc(ts205, SourceRange(start205.at(pb205->name),
++                                          dl[dl.size() - 1]->sourceRange().end()));
++                for (size_t k = 0; k < dl.size(); k++) {
++                    auto* r205 = (*rv205)[k];
++                    setLoc(r205, dl[k]->sourceRange());
++                    auto& rs205 = dl[k]->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
++                                      .selector->as<syntax::RangeSelectSyntax>();
++                    if (auto* le = r205->Left_expr(); le && le->VpiLineNo())
++                        setLoc((UHDM::BaseClass*)le, rs205.left->sourceRange());
++                    if (auto* re = r205->Right_expr(); re && re->VpiLineNo())
++                        setLoc((UHDM::BaseClass*)re, rs205.right->sourceRange());
++                }
++            }
++        }
+     auto* vars = s.MakeVariablesVec();
+     auto* elabNets = s.MakeNetVec();
+     UHDM::VectorOfarray_net* elabArrayNets = nullptr;
+@@ -51804,6 +51905,45 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
+                                             branchPrefix + "." + iname + "." +
+                                             formal + "." +
+                                             std::string(lf37->VpiName()));
++                            // § genConnTrailSelChain205 (r11u205), the
++                            // DEFINITION-view half (the elaborated half is
++                            // the UhdmExporter post-pass of the same name):
++                            // a trailing bit_select sits at its INDEX and
++                            // reads its name, and its index reference's,
++                            // through the port and the path text
++                            // (`work@top.gen_classes.i_accu.class_en_i.
++                            // reg2hw_wrap.class_en[k].class_en` 11:49-50;
++                            // ours the bare text at the member token).
++                            // Switch R11U205_GENIDXSEL_OFF.
++                            if (auto* pes205 = hp37->Path_elems();
++                                pes205 && pes205->size() >= 2 &&
++                                pes205->back() &&
++                                pes205->back()->UhdmType() ==
++                                    UHDM::uhdmbit_select &&
++                                r11u205Law("R11U205_GENIDXSEL_OFF")) {
++                                auto* bs205 = (UHDM::bit_select*)pes205->back();
++                                std::string pfx205 =
++                                    branchPrefix + "." + iname + "." + formal +
++                                    "." + std::string(hp37->VpiName());
++                                trace205("genConnTrailSelChain205",
++                                         pfx205 + " (def)");
++                                bs205->VpiFullName(
++                                    pfx205 + "." + std::string(bs205->VpiName()));
++                                if (auto* ix205 = bs205->VpiIndex()) {
++                                    if (ix205->VpiLineNo() != 0) {
++                                        bs205->VpiLineNo(ix205->VpiLineNo());
++                                        bs205->VpiColumnNo(ix205->VpiColumnNo());
++                                        bs205->VpiEndLineNo(ix205->VpiEndLineNo());
++                                        bs205->VpiEndColumnNo(
++                                            ix205->VpiEndColumnNo());
++                                    }
++                                    if (ix205->UhdmType() == UHDM::uhdmref_obj)
++                                        ((UHDM::ref_obj*)ix205)
++                                            ->VpiFullName(
++                                                pfx205 + "." +
++                                                std::string(ix205->VpiName()));
++                                }
++                            }
+                             p->High_conn((UHDM::expr*)dotHp9);
+                         }
+                         else if (idxGroups.size() >= 2 && !act.empty() &&
+diff --git a/src/TypeEmit.cpp b/src/TypeEmit.cpp
+index b7cb7358b..fe7437cd4 100644
+--- a/src/TypeEmit.cpp
++++ b/src/TypeEmit.cpp
+@@ -127,6 +127,8 @@ bool r11u200Law(const char* sw); // the r11u200 switches (UhdmExporter.cpp)
+ void trace200(const char* law, const std::string& detail); // R11U200_TRACE
+ bool r11u202Law(const char* sw); // the r11u202 switches (UhdmExporter.cpp)
+ void trace202(const char* law, const std::string& detail); // R11U202_TRACE
++bool r11u205Law(const char* sw); // the r11u205 switches (UhdmExporter.cpp)
++void trace205(const char* law, const std::string& detail); // R11U205_TRACE
+ bool r11v202Law(const char* sw); // the v11u202 switches (UhdmExporter.cpp)
+ // § defGenInitBitSelAtIndex202 — armed by ModuleEmit around a definition-view
+ // generate-block variable's initializer (R11U202_GENINITBS_OFF read there).
+@@ -21822,6 +21824,30 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
+                         };
+                         ip8->Base_expr(mkC8(lb + 1, pl9));
+                         ip8->Width_expr(mkC8(pl9 + 2, rb));
++                        // § defGenTargetIpsDefName205 (r11u205, map N1249) —
++                        // the SEL writer of § defGenPathSel161 names an
++                        // INDEXED part select exactly as it names the
++                        // [l:r] part select above: Surelog's
++                        // compilePartSelectRange builds the element for a
++                        // definition-view generate assignment TARGET with
++                        // VpiDefName = the field and no stored full name,
++                        // so golden reads the chain through the path
++                        // (Rggen `assign bit_field_if.read_data[0+:4] = ..`
++                        // in g_bit_field_0: `read_data` / `work@block_0.
++                        // g_register_0.g_bit_field_0.bit_field_if.
++                        // read_data[0+:4].read_data`; ours no definition
++                        // name and the bare dotted text).  A right-side
++                        // use keeps the bare form (grid IP i05).  Grid
++                        // tools/probe/r11u205dec/cases/IP.  Switch
++                        // R11U205_IPSNAME_OFF.
++                        if (sel161 && i > 0 && name161 &&
++                            r11u205Law("R11U205_IPSNAME_OFF")) {
++                            trace205("defGenTargetIpsDefName205", dispRaw);
++                            ip8->VpiDefName(base8);
++                            if (!syntaxRefPrefix.empty())
++                                ip8->VpiFullName(syntaxRefPrefix + "." +
++                                                 dispRaw + "." + base8);
++                        }
+                         elems->push_back(ip8);
+                         continue;
+                     }
+diff --git a/src/UhdmExporter.cpp b/src/UhdmExporter.cpp
+index 13c3302ec..9f6dc6e5e 100644
+--- a/src/UhdmExporter.cpp
++++ b/src/UhdmExporter.cpp
+@@ -539,6 +539,48 @@ void trace202(const char* law, const std::string& detail) {
+         fflush(tf);
+     }
+ }
++// The r11u205 switches (tools/probe/r11u205dec/README.md, the analyst decode
++// of map 12's ground-B heads): every law reads its own R11U205_<LAW>_OFF
++// switch; R11U205_OFF drops all of them (the pristine bytes).
++// R11U205_TRACE=<dir> names every firing (one file per process,
++// `<dir>/<pid>.205`, first line `OUT <-o path>`, then `<law> <detail>`).
++bool r11u205Law(const char* sw) {
++    if (getenv("R11U205_OFF") != nullptr)
++        return false;
++    return getenv(sw) == nullptr;
++}
++void trace205(const char* law, const std::string& detail) {
++    static FILE* tf = []() -> FILE* {
++        const char* d = getenv("R11U205_TRACE");
++        if (!d)
++            return nullptr;
++        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".205";
++        FILE* fp = fopen(fn.c_str(), "a");
++        if (!fp)
++            return nullptr;
++        std::string cl, prev, outp;
++        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
++            int ch;
++            while ((ch = fgetc(c)) != EOF) {
++                if (ch == 0) {
++                    if (prev == "-o")
++                        outp = cl;
++                    prev = cl;
++                    cl.clear();
++                }
++                else
++                    cl += (char)ch;
++            }
++            fclose(c);
++        }
++        fprintf(fp, "OUT %s\n", outp.c_str());
++        return fp;
++    }();
++    if (tf) {
++        fprintf(tf, "%s %s\n", law, detail.c_str());
++        fflush(tf);
++    }
++}
+ // The v11u193 refinements (tools/probe/v11u193repro/README.md, the adversarial
+ // verification of r11u193): each reads its own R11V193_<NAME>_OFF switch;
+ // R11V193_OFF (or R11U193_OFF) drops all of them.
+@@ -1785,6 +1827,130 @@ static void shareInstTypeParams120(
+ // is re-pointed at the definition's object — only when UHDM's own Compare
+ // (the judge's) reads the two objects equal, so no judged content moves.
+ // Grid tools/probe/r11u160repro/cases/TV.  Switch R11U160_TPUSEDEF_OFF.
++// § genConnTrailSelChain205 (r11u205, map N0945: Earlgrey_0_1's head) — THE
++// TRAILING SELECT OF A HIER_PATH PORT ACTUAL OF A GENERATE-SCOPE INSTANCE
++// STORES NO FULL NAME AND SITS AT ITS INDEX.  `.class_en_i(reg2hw_wrap.
++// class_en[k])` inside `for (genvar k ...) begin : gen_classes`: Surelog's
++// compileComplexFuncCall builds the path's last `paSelect` as a bit_select
++// located at the INDEX expression, stores no vpiFullName on it or on its
++// index reference, and parents the index at the select, so both read their
++// names off the parent chain: `<instance>.<formal>.<path text>.<member>`
++// and `<instance>.<formal>.<path text>.<index name>` (golden
++// `work@alert_handler.gen_classes.i_accu.class_en_i.reg2hw_wrap.class_en[k].
++// class_en` at 148:44-45).  Ours: in the DEFINITION view the bare path text
++// at the member token (TypeEmit's hier_path arm under emitDefGenStmts) and
++// the index named through the formal alone; in the ELABORATED view a name
++// frozen before the instance was parented at its generate scope
++// (`work@top.i_accu.class_en_i.reg2hw_wrap.class_en[k].class_en`, the scope
++// and the folded index missing).  The instance-scope form (no generate) is
++// already golden's (grid GS q03) and a MIDDLE select keeps its bare form
++// (g14).  Post-pass over both views: every module or interface instance
++// whose parent is a gen_scope, every port whose high_conn is a hier_path of
++// two or more elements ending in a bit_select.  Grid
++// tools/probe/r11u205dec/cases/GS.  Switch R11U205_GENIDXSEL_OFF.
++static void genConnTrailSelChain205(UHDM::design* d) {
++    if (!d || !r11u205Law("R11U205_GENIDXSEL_OFF"))
++        return;
++    auto fixInst = [&](const UHDM::any* o) {
++        const UHDM::VectorOfport* ports = nullptr;
++        if (o->UhdmType() == UHDM::uhdmmodule_inst)
++            ports = ((const UHDM::module_inst*)o)->Ports();
++        else if (o->UhdmType() == UHDM::uhdminterface_inst)
++            ports = ((const UHDM::interface_inst*)o)->Ports();
++        if (!ports)
++            return;
++        std::string ifull(((const UHDM::instance*)o)->VpiFullName());
++        if (ifull.empty())
++            return;
++        for (auto* p : *ports) {
++            if (!p || !p->High_conn() ||
++                p->High_conn()->UhdmType() != UHDM::uhdmhier_path)
++                continue;
++            auto* hp = (UHDM::hier_path*)p->High_conn();
++            auto* pes = hp->Path_elems();
++            if (!pes || pes->size() < 2 || !pes->back() ||
++                pes->back()->UhdmType() != UHDM::uhdmbit_select)
++                continue;
++            auto* bs = (UHDM::bit_select*)pes->back();
++            std::string pfx = ifull + "." + std::string(p->VpiName()) + "." +
++                              std::string(hp->VpiName());
++            std::string want = pfx + "." + std::string(bs->VpiName());
++            trace205("genConnTrailSelChain205", want);
++            bs->VpiFullName(want);
++            if (auto* ix = bs->VpiIndex()) {
++                if (ix->VpiLineNo() != 0) {
++                    bs->VpiLineNo(ix->VpiLineNo());
++                    bs->VpiColumnNo(ix->VpiColumnNo());
++                    bs->VpiEndLineNo(ix->VpiEndLineNo());
++                    bs->VpiEndColumnNo(ix->VpiEndColumnNo());
++                }
++                if (ix->UhdmType() == UHDM::uhdmref_obj)
++                    ((UHDM::ref_obj*)ix)
++                        ->VpiFullName(pfx + "." + std::string(ix->VpiName()));
++            }
++        }
++    };
++    std::function<void(const UHDM::any*, bool)> walk =
++        [&](const UHDM::any* o, bool inGen) {
++            if (!o)
++                return;
++            switch (o->UhdmType()) {
++                case UHDM::uhdmmodule_inst: {
++                    auto* mi = (const UHDM::module_inst*)o;
++                    if (inGen)
++                        fixInst(o);
++                    if (mi->Modules())
++                        for (auto* c : *mi->Modules())
++                            walk(c, false);
++                    if (mi->Interfaces())
++                        for (auto* c : *mi->Interfaces())
++                            walk(c, false);
++                    if (mi->Gen_scope_arrays())
++                        for (auto* c : *mi->Gen_scope_arrays())
++                            walk(c, true);
++                    break;
++                }
++                case UHDM::uhdminterface_inst: {
++                    auto* ii = (const UHDM::interface_inst*)o;
++                    if (inGen)
++                        fixInst(o);
++                    if (ii->Gen_scope_arrays())
++                        for (auto* c : *ii->Gen_scope_arrays())
++                            walk(c, true);
++                    break;
++                }
++                case UHDM::uhdmgen_scope_array: {
++                    auto* ga = (const UHDM::gen_scope_array*)o;
++                    if (ga->Gen_scopes())
++                        for (auto* g : *ga->Gen_scopes())
++                            walk(g, true);
++                    break;
++                }
++                case UHDM::uhdmgen_scope: {
++                    auto* g = (const UHDM::gen_scope*)o;
++                    if (g->Modules())
++                        for (auto* c : *g->Modules())
++                            walk(c, true);
++                    if (g->Interfaces())
++                        for (auto* c : *g->Interfaces())
++                            walk(c, true);
++                    if (g->Gen_scope_arrays())
++                        for (auto* c : *g->Gen_scope_arrays())
++                            walk(c, true);
++                    break;
++                }
++                default:
++                    break;
++            }
++        };
++    if (d->AllModules())
++        for (auto* m : *d->AllModules())
++            walk(m, false);
++    if (d->TopModules())
++        for (auto* m : *d->TopModules())
++            walk(m, false);
++}
++
+ static void tpUseBindsDefDefault160(
+     UHDM::design* d, const std::map<std::string, std::set<std::string>>& ovr,
+     std::map<const UHDM::any*, std::map<const UHDM::typespec*, UHDM::typespec*>>*
+@@ -14583,6 +14749,7 @@ UHDM::design* UhdmExporter::exportDesign() {
+         // § tpCastUseBindsDefDefault206 — the casts, from 160's map.
+         tpCastUseBindsDefDefault206(s, e2d206);
+     }
++    genConnTrailSelChain205(d);  // § genConnTrailSelChain205 (r11u205)
+     if (ovr120Valid)
+         shareInstTypeParams120(d, ovr120);
+     // § pkgFlatSurelogBits117 (r11u117) — after every reader copied the

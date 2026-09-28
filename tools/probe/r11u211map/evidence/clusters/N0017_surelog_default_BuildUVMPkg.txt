@@ -1,0 +1,64 @@
+cluster N0017 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 5; passes 201-206 left it) | ground B | site emitExpr (ExprEmit.cpp, law srlgTimeLitVal) < emitExpr (ExprEmit.cpp, law elabMisevalArgNoFold) < emitExpr (ExprEmit.cpp, law namedTfArgsFormalSlots4) [r11u179 pin] [DECODED (r11u131 R7): CovMacro's predefined SV_COV_* constants end at 0:0; the macro line model, UhdmExporter.cpp locLineCol] [r11u179map pin]): span|constant|endline+endcol|under:sys_func_call
+row: surelog/default/BuildUVMPkg  strict=differ:line(11)  records golden=201533 ours=201534
+object: #55520 (golden) / #55502 (ours)  type=constant name= 
+  golden: 76494:54:76494:331
+  ours:   76494:54:76496:102
+  walk parents: sys_func_call($sformatf) < func_call(uvm_report_warning) < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 55514..55526 ('>' = the object)
+  #55514	12	ref_obj	UVM_WARNING		uvm_pkg::uvm_reg_map::Xinit_address_mapX::UVM_WARNING	uvm_pkg.sv	76493	38	76493	49		0			uvm_pkg::uvm_reg_map::Xinit_address_mapX::UVM_WARNING	000
+  #55515	13	enum_const	UVM_WARNING			uvm_pkg.sv	8052	3	8052	14						010
+  #55516	12	constant				uvm_pkg.sv	76493	50	76493	64	"UVM/REG/ADDR"	96	STRING:UVM/REG/ADDR	6		000
+  #55517	11	func_call	uvm_report_warning			uvm_pkg.sv	76494	8	76497	190		0				000
+  #55518	12	constant				uvm_pkg.sv	76494	28	76494	42	"UVM/REG/ADDR"	96	STRING:UVM/REG/ADDR	6		000
+  #55519	12	sys_func_call	$sformatf			uvm_pkg.sv	76494	44	76497	87		0				000
+> #55520	13	constant				uvm_pkg.sv	76494	54	76494	331	"this version of UVM does not properly support memories with \\\na smaller word width than the enclosing map. map %s has n_bytes=%0d aub=%0d while the mem has get_n_bytes %0d. \\\nmultiple memory words fall into one bus address. if that happens memory addressing will be unpacked."	2200	STRING:this version of UVM does not properly support memories with \\\na smaller word width than the enclosing map. map %s has n_bytes=%0d aub=%0d while the mem has get_n_bytes %0d. \\\nmultiple memory words fall into one bus address. if that happens memory addressing will be unpacked.	6		000
+  #55521	13	func_call	get_full_name			uvm_pkg.sv	76497	6	76497	21		0				000
+  #55522	13	func_call	get_n_bytes			uvm_pkg.sv	76497	22	76497	46		0				000
+  #55523	14	ref_obj	UVM_NO_HIER		uvm_pkg::uvm_reg_map::Xinit_address_mapX::UVM_NO_HIER	uvm_pkg.sv	76497	34	76497	45		0			uvm_pkg::uvm_reg_map::Xinit_address_mapX::UVM_NO_HIER	000
+  #55524	15	enum_const	UVM_NO_HIER			uvm_pkg.sv	60900	7	60900	18						010
+  #55525	13	func_call	get_addr_unit_bytes			uvm_pkg.sv	76497	47	76497	68		0				000
+  #55526	13	hier_path	mem.get_n_bytes			uvm_pkg.sv	76497	69	76497	86		0				000
+
+--- OURS (B) records 55496..55508 ('>' = the object)
+  #55496	12	ref_obj	UVM_WARNING		uvm_pkg::uvm_reg_map::Xinit_address_mapX::UVM_WARNING	uvm_pkg.sv	76493	38	76493	49		0			uvm_pkg::uvm_reg_map::Xinit_address_mapX::UVM_WARNING	000
+  #55497	13	enum_const	UVM_WARNING			uvm_pkg.sv	8052	3	8052	14						010
+  #55498	12	constant				uvm_pkg.sv	76493	50	76493	64	"UVM/REG/ADDR"	96	STRING:UVM/REG/ADDR	6		000
+  #55499	11	func_call	uvm_report_warning			uvm_pkg.sv	76494	8	76497	190		0				000
+  #55500	12	constant				uvm_pkg.sv	76494	28	76494	42	"UVM/REG/ADDR"	96	STRING:UVM/REG/ADDR	6		000
+  #55501	12	sys_func_call	$sformatf			uvm_pkg.sv	76494	44	76497	87		0				000
+> #55502	13	constant				uvm_pkg.sv	76494	54	76496	102	"this version of UVM does not properly support memories with \\\na smaller word width than the enclosing map. map %s has n_bytes=%0d aub=%0d while the mem has get_n_bytes %0d. \\\nmultiple memory words fall into one bus address. if that happens memory addressing will be unpacked."	2200	STRING:this version of UVM does not properly support memories with \\\na smaller word width than the enclosing map. map %s has n_bytes=%0d aub=%0d while the mem has get_n_bytes %0d. \\\nmultiple memory words fall into one bus address. if that happens memory addressing will be unpacked.	6		000
+  #55503	13	func_call	get_full_name			uvm_pkg.sv	76497	6	76497	21		0				000
+  #55504	13	func_call	get_n_bytes			uvm_pkg.sv	76497	22	76497	46		0				000
+  #55505	14	ref_obj	UVM_NO_HIER		uvm_pkg::uvm_reg_map::Xinit_address_mapX::UVM_NO_HIER	uvm_pkg.sv	76497	34	76497	45		0			uvm_pkg::uvm_reg_map::Xinit_address_mapX::UVM_NO_HIER	000
+  #55506	15	enum_const	UVM_NO_HIER			uvm_pkg.sv	60900	7	60900	18						010
+  #55507	13	func_call	get_addr_unit_bytes			uvm_pkg.sv	76497	47	76497	68		0				000
+  #55508	13	hier_path	mem.get_n_bytes			uvm_pkg.sv	76497	69	76497	86		0				000
+
+facets of this row (415, first 25):
+  N0423 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22506 bit_typespec  G[] O[1 objs]
+  N0423 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22590 bit_typespec  G[] O[1 objs]
+  N0423 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23503 bit_typespec  G[] O[1 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74743 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74826 bit_typespec  G[] O[1 objs]
+  N0423 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76333 bit_typespec  G[] O[1 objs]
+  N0423 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76354 bit_typespec  G[] O[1 objs]
+  N0423 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76414 bit_typespec  G[] O[1 objs]
+  N0423 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79777 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79788 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79842 array_typespec  G[] O[1 objs]
+  N0423 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79861 bit_typespec  G[] O[1 objs]
+  N0423 #80868/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]

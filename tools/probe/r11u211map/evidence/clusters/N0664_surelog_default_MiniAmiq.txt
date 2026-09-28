@@ -1,0 +1,64 @@
+cluster N0664 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 11; passes 201-206 left it) | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitImportedPkgClassMethodClones (ParamEmit.cpp, law collectPkgTfListing) < emitPackage (ParamEmit.cpp, law LAW) [r11u138map pin; the a7bee711 gdb run wrote a different database (UVM order coin)] [r11u142map pin]): fullname|byte_var|tok:id->id|under:function
+row: surelog/default/MiniAmiq  strict=differ:file(71)  records golden=435559 ours=433769
+object: #73007 (golden) / #72777 (ours)  type=byte_var name= OUT
+  golden: uvm_pkg::uvm_packer::get_byte
+  ours:   svaunit_pkg::uvm_packer::get_byte
+  walk parents: function(uvm_packer::get_byte) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 73001..73013 ('>' = the object)
+  #73001	6	constant				uvm_packer.svh	605	24	605	29	"bit"	24	STRING:bit	6		000
+  #73002	6	constant				uvm_packer.svh	605	30	605	31	1	64	UINT:1	9		000
+  #73003	4	return_stmt				uvm_packer.svh	606	3	606	9						000
+  #73004	5	bit_select	m_bits		svaunit_pkg::uvm_packer::get_bit::m_bits	uvm_packer.svh	606	17	606	22		0			svaunit_pkg::uvm_packer::get_bit::m_bits	000
+  #73005	6	ref_obj	index		svaunit_pkg::uvm_packer::get_bit::index	uvm_packer.svh	606	17	606	22		0			svaunit_pkg::uvm_packer::get_bit::index	000
+  #73006	2	function	uvm_packer::get_byte		svaunit_pkg::uvm_packer::get_byte	uvm_packer.svh	613	1	617	12					svaunit_pkg::uvm_packer::get_byte	000
+> #73007	3	byte_var			uvm_pkg::uvm_packer::get_byte	uvm_packer.svh	613	10	613	23		0			uvm_pkg::uvm_packer::get_byte	000
+  #73008	4	ref_typespec			uvm_pkg::uvm_packer::get_byte		0	0	0	0		0			uvm_pkg::uvm_packer::get_byte	000
+  #73009	5	byte_typespec				uvm_packer.svh	613	10	613	23						000
+  #73010	3	io_decl	index			uvm_packer.svh	613	58	613	63						000
+  #73011	4	ref_typespec			svaunit_pkg::uvm_packer::get_byte::index		0	0	0	0		0			svaunit_pkg::uvm_packer::get_byte::index	000
+  #73012	5	int_typespec				uvm_packer.svh	613	45	613	48						000
+  #73013	3	begin			svaunit_pkg::uvm_packer::get_byte	uvm_packer.svh	616	3	616	31					svaunit_pkg::uvm_packer::get_byte	000
+
+--- OURS (B) records 72771..72783 ('>' = the object)
+  #72771	6	constant				uvm_packer.svh	605	24	605	29	"bit"	24	STRING:bit	6		000
+  #72772	6	constant				uvm_packer.svh	605	30	605	31	1	64	UINT:1	9		000
+  #72773	4	return_stmt				uvm_packer.svh	606	3	606	9						000
+  #72774	5	bit_select	m_bits		svaunit_pkg::uvm_packer::get_bit::m_bits	uvm_packer.svh	606	17	606	22		0			svaunit_pkg::uvm_packer::get_bit::m_bits	000
+  #72775	6	ref_obj	index		svaunit_pkg::uvm_packer::get_bit::index	uvm_packer.svh	606	17	606	22		0			svaunit_pkg::uvm_packer::get_bit::index	000
+  #72776	2	function	uvm_packer::get_byte		svaunit_pkg::uvm_packer::get_byte	uvm_packer.svh	613	1	617	12					svaunit_pkg::uvm_packer::get_byte	000
+> #72777	3	byte_var			svaunit_pkg::uvm_packer::get_byte	uvm_packer.svh	613	10	613	23		0			svaunit_pkg::uvm_packer::get_byte	000
+  #72778	4	ref_typespec			svaunit_pkg::uvm_packer::get_byte		0	0	0	0		0			svaunit_pkg::uvm_packer::get_byte	000
+  #72779	5	byte_typespec				uvm_packer.svh	613	10	613	23						000
+  #72780	3	io_decl	index			uvm_packer.svh	613	58	613	63						000
+  #72781	4	ref_typespec			svaunit_pkg::uvm_packer::get_byte::index		0	0	0	0		0			svaunit_pkg::uvm_packer::get_byte::index	000
+  #72782	5	int_typespec				uvm_packer.svh	613	45	613	48						000
+  #72783	3	begin			svaunit_pkg::uvm_packer::get_byte	uvm_packer.svh	616	3	616	31					svaunit_pkg::uvm_packer::get_byte	000
+
+facets of this row (7481, first 25):
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20805 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21741 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66834 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66922 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67149 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68133 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68153 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68268 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]

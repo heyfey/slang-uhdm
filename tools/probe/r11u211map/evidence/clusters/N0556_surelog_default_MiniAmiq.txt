@@ -1,0 +1,64 @@
+cluster N0556 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 11; passes 201-206 left it) | ground B | site emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < operator() (TypeEmit.cpp, law elabVarRangeCallScopeDecl12) < makeTypespec (TypeEmit.cpp, law typedPkgBoundElabSize113) [r11u189 pin] [r11u189map pin]): fullname|ref_obj|ours-empty@in-typespec|under:range
+row: surelog/default/MiniAmiq  strict=differ:file(71)  records golden=435559 ours=433769
+object: #89283 (golden) / #88938 (ours)  type=ref_obj name=UVM_LARGE_STRING TAIL
+  golden: svaunit_pkg::uvm_bits_to_string::str::UVM_LARGE_STRING
+  ours:   
+  walk parents: range < logic_typespec < ref_typespec < io_decl(str)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 89277..89289 ('>' = the object)
+  #89277	4	ref_typespec			uvm_pkg::uvm_bits_to_string		0	0	0	0		0			uvm_pkg::uvm_bits_to_string	000
+  #89278	5	string_typespec				uvm_globals.svh	434	10	434	16						000
+  #89279	3	io_decl	str			uvm_globals.svh	434	63	434	66						000
+  #89280	4	ref_typespec			svaunit_pkg::uvm_bits_to_string::str		0	0	0	0		0			svaunit_pkg::uvm_bits_to_string::str	000
+  #89281	5	logic_typespec				uvm_globals.svh	434	36	434	41						000
+  #89282	6	range				uvm_globals.svh	434	42	434	62						001
+> #89283	7	ref_obj	UVM_LARGE_STRING		<in>UVM_LARGE_STRING	uvm_globals.svh	434	43	434	59		0			svaunit_pkg::uvm_bits_to_string::str::UVM_LARGE_STRING	001
+  #89284	7	constant				uvm_globals.svh	434	60	434	61	0	64	UINT:0	9		001
+  #89285	3	sys_func_call	$swrite			uvm_globals.svh	435	3	435	42		0				000
+  #89286	4	ref_obj	uvm_bits_to_string		svaunit_pkg::uvm_bits_to_string::uvm_bits_to_string	uvm_globals.svh	435	11	435	29		0			svaunit_pkg::uvm_bits_to_string::uvm_bits_to_string	000
+  #89287	4	constant				uvm_globals.svh	435	31	435	36	"%0s"	24	STRING:%0s	6		000
+  #89288	4	ref_obj	str		svaunit_pkg::uvm_bits_to_string::str	uvm_globals.svh	435	38	435	41		0			svaunit_pkg::uvm_bits_to_string::str	000
+  #89289	2	task	uvm_wait_for_nba_region		svaunit_pkg::uvm_wait_for_nba_region	uvm_globals.svh	449	1	467	8					svaunit_pkg::uvm_wait_for_nba_region	000
+
+--- OURS (B) records 88932..88944 ('>' = the object)
+  #88932	4	ref_typespec			uvm_pkg::uvm_bits_to_string		0	0	0	0		0			uvm_pkg::uvm_bits_to_string	000
+  #88933	5	string_typespec				uvm_globals.svh	434	10	434	16						000
+  #88934	3	io_decl	str			uvm_globals.svh	434	63	434	66						000
+  #88935	4	ref_typespec			svaunit_pkg::uvm_bits_to_string::str		0	0	0	0		0			svaunit_pkg::uvm_bits_to_string::str	000
+  #88936	5	logic_typespec				uvm_globals.svh	434	36	434	41						000
+  #88937	6	range				uvm_globals.svh	434	42	434	62						001
+> #88938	7	ref_obj	UVM_LARGE_STRING			uvm_globals.svh	434	43	434	59		0				001
+  #88939	7	constant				uvm_globals.svh	434	60	434	61	0	64	UINT:0	9		001
+  #88940	3	sys_func_call	$swrite			uvm_globals.svh	435	3	435	42		0				000
+  #88941	4	ref_obj	uvm_bits_to_string		svaunit_pkg::uvm_bits_to_string::uvm_bits_to_string	uvm_globals.svh	435	11	435	29		0			svaunit_pkg::uvm_bits_to_string::uvm_bits_to_string	000
+  #88942	4	constant				uvm_globals.svh	435	31	435	36	"%0s"	24	STRING:%0s	6		000
+  #88943	4	ref_obj	str		svaunit_pkg::uvm_bits_to_string::str	uvm_globals.svh	435	38	435	41		0			svaunit_pkg::uvm_bits_to_string::str	000
+  #88944	2	task	uvm_wait_for_nba_region		svaunit_pkg::uvm_wait_for_nba_region	uvm_globals.svh	449	1	467	8					svaunit_pkg::uvm_wait_for_nba_region	000
+
+facets of this row (7481, first 25):
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20805 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21741 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66834 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66922 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67149 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68133 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68153 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68268 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]

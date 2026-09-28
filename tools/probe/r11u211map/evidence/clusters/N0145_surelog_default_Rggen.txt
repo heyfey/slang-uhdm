@@ -1,0 +1,64 @@
+cluster N0145 (id kept from an earlier map; COVERED r11u205 (law patches, MEASURED: gone under the patch binary) | ground A | site emitExpr (ExprEmit.cpp, law everyPartSelIsConstSel78) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u142map pin]): name|indexed_part_select|ours-empty|under:hier_path
+row: surelog/default/Rggen  strict=differ:defname(142)  records golden=314498 ours=312769
+object: #3227 (golden) / #3227 (ours)  type=indexed_part_select name=read_data 
+  golden: read_data|read_data
+  ours:   read_data|
+  walk parents: hier_path(bit_field_if.read_data[0+:4]) < cont_assign < named_begin(g_bit_field_0) < gen_if
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 3221..3233 ('>' = the object)
+  #3221	8	cont_assign				block_0.sv	7	11	7	68						000
+  #3222	9	hier_path	bit_field_sub_if.read_data			block_0.sv	7	42	7	68		0				000
+  #3223	10	ref_obj	bit_field_sub_if			block_0.sv	7	42	7	58		0				000
+  #3224	10	ref_obj	read_data		work@block_0.g_register_0.g_bit_field_0.read_data	block_0.sv	7	59	7	68		0			work@block_0.g_register_0.g_bit_field_0.read_data	000
+  #3225	9	hier_path	bit_field_if.read_data[0+:4]			block_0.sv	7	11	7	39		0				000
+  #3226	10	ref_obj	bit_field_if			block_0.sv	7	24	7	33		0				000
+> #3227	10	indexed_part_select	read_data	read_data	work@block_0.g_register_0.g_bit_field_0.bit_field_if.read_data[0+:4].read_data	block_0.sv	7	24	7	38		0			work@block_0.g_register_0.g_bit_field_0.bit_field_if.read_data[0+:4].read_data	000
+  #3228	11	constant				block_0.sv	7	34	7	35	0	64	UINT:0	9		000
+  #3229	11	constant				block_0.sv	7	37	7	38	4	64	UINT:4	9		000
+  #3230	8	cont_assign				block_0.sv	8	11	8	64						000
+  #3231	9	hier_path	bit_field_sub_if.value			block_0.sv	8	42	8	64		0				000
+  #3232	10	ref_obj	bit_field_sub_if			block_0.sv	8	42	8	58		0				000
+  #3233	10	ref_obj	value		work@block_0.g_register_0.g_bit_field_0.value	block_0.sv	8	59	8	64		0			work@block_0.g_register_0.g_bit_field_0.value	000
+
+--- OURS (B) records 3221..3233 ('>' = the object)
+  #3221	8	cont_assign				block_0.sv	7	11	7	68						000
+  #3222	9	hier_path	bit_field_sub_if.read_data			block_0.sv	7	42	7	68		0				000
+  #3223	10	ref_obj	bit_field_sub_if			block_0.sv	7	42	7	58		0				000
+  #3224	10	ref_obj	read_data		work@block_0.g_register_0.g_bit_field_0.read_data	block_0.sv	7	59	7	68		0			work@block_0.g_register_0.g_bit_field_0.read_data	000
+  #3225	9	hier_path	bit_field_if.read_data[0+:4]			block_0.sv	7	11	7	39		0				000
+  #3226	10	ref_obj	bit_field_if			block_0.sv	7	24	7	33		0				000
+> #3227	10	indexed_part_select	read_data		bit_field_if.read_data[0+:4]	block_0.sv	7	24	7	38		0			bit_field_if.read_data[0+:4]	000
+  #3228	11	constant				block_0.sv	7	34	7	35	0	64	UINT:0	9		000
+  #3229	11	constant				block_0.sv	7	37	7	38	4	64	UINT:4	9		000
+  #3230	8	cont_assign				block_0.sv	8	11	8	64						000
+  #3231	9	hier_path	bit_field_sub_if.value			block_0.sv	8	42	8	64		0				000
+  #3232	10	ref_obj	bit_field_sub_if			block_0.sv	8	42	8	58		0				000
+  #3233	10	ref_obj	value		work@block_0.g_register_0.g_bit_field_0.value	block_0.sv	8	59	8	64		0			work@block_0.g_register_0.g_bit_field_0.value	000
+
+facets of this row (5557, first 25):
+  N0683 #23168/23166 constant  G[14 operation < range] O[13 range < logic_typespec]
+  N1172 #23166/-1 operation  G[2 objs] O[]
+  N0683 #26509/26505 constant  G[16 operation < range] O[15 range < logic_typespec]
+  N1172 #26507/-1 operation  G[2 objs] O[]
+  N0683 #28776/28770 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28774/-1 operation  G[2 objs] O[]
+  N0683 #28785/28777 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28783/-1 operation  G[2 objs] O[]
+  N0683 #28794/28784 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28792/-1 operation  G[2 objs] O[]
+  N0683 #29654/29642 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29652/-1 operation  G[2 objs] O[]
+  N0683 #29663/29649 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29661/-1 operation  G[2 objs] O[]
+  N0683 #29672/29656 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29670/-1 operation  G[2 objs] O[]
+  N0683 #30427/30409 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30425/-1 operation  G[2 objs] O[]
+  N0683 #30436/30416 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30434/-1 operation  G[2 objs] O[]
+  N0683 #30445/30423 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30443/-1 operation  G[2 objs] O[]
+  N0683 #31206/31182 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #31204/-1 operation  G[2 objs] O[]
+  N0683 #31215/31189 constant  G[17 operation < range] O[16 range < logic_typespec]

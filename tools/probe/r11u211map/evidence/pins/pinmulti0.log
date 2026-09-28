@@ -1,0 +1,6 @@
+row 1/6 probe/default/r10uvm207repro__g207_e_head: 1 ranks, 1 hits
+row 2/6 probe/default/r10uvm207repro__g207_h_foreign: 1 ranks, 1 hits
+row 3/6 probe/default/r10uvm49repro__a6: 1 ranks, 1 hits
+row 4/6 probe/default/r10uvm50repro__a7: 1 ranks, 1 hits
+row 5/6 probe/default/r10v181repro__v181_e_idxbase: 1 ranks, 1 hits
+row 6/6 probe/default/r11u117repro__grid__g1__g13: 1 ranks, 1 hits

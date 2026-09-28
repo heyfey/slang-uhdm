@@ -1,0 +1,64 @@
+cluster N0569 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 11; passes 201-206 left it) | ground A | site operator() (StmtEmit.cpp, law declInitWrittenNewNoStmt66) < emitStmt (StmtEmit.cpp, law foreachArraySelfSelectAssignDropsTs19) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164) [r11u138map pin; the a7bee711 gdb run wrote a different database (UVM order coin)] [r11u142map pin]): struct|golden-only:fewer-copies|string_var|under:assignment
+row: surelog/default/MiniAmiq  strict=differ:file(71)  records golden=435559 ours=433769
+object: #134648 (golden) / #-1 (ours)  type=string_var name=error_str 
+  golden: 3 objs
+  ours:   
+  walk parents: assignment < begin < function(uvm_component::new) < package(svaunit_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 134642..134654 ('>' = the object)
+  #134642	5	ref_typespec			svaunit_pkg::uvm_component::new::top		0	0	0	0		0			svaunit_pkg::uvm_component::new::top	000
+  #134643	6	class_typespec				uvm_component.svh	1730	3	1730	11						000
+  #134644	4	class_var	cs		svaunit_pkg::uvm_component::new::cs	uvm_component.svh	1731	21	1731	23		0			svaunit_pkg::uvm_component::new::cs	000
+  #134645	5	ref_typespec			svaunit_pkg::uvm_component::new::cs		0	0	0	0		0			svaunit_pkg::uvm_component::new::cs	000
+  #134646	6	class_typespec				uvm_component.svh	1731	3	1731	20						000
+  #134647	4	assignment				uvm_component.svh	1729	10	1729	19						000
+> #134648	5	string_var	error_str		svaunit_pkg::uvm_component::new::error_str	uvm_component.svh	1729	10	1729	19		0			svaunit_pkg::uvm_component::new::error_str	000
+  #134649	6	ref_typespec			svaunit_pkg::uvm_component::new::error_str		0	0	0	0		0			svaunit_pkg::uvm_component::new::error_str	000
+  #134650	7	string_typespec				uvm_component.svh	1729	3	1729	9						000
+  #134651	4	assignment				uvm_component.svh	1730	12	1730	15						000
+  #134652	5	class_var	top		svaunit_pkg::uvm_component::new::top	uvm_component.svh	1730	12	1730	15		0			svaunit_pkg::uvm_component::new::top	000
+  #134653	6	ref_typespec			svaunit_pkg::uvm_component::new::top		0	0	0	0		0			svaunit_pkg::uvm_component::new::top	000
+  #134654	7	class_typespec				uvm_component.svh	1730	3	1730	11						000
+
+--- the holder #134647 on the other side: exact-record matches at [62309, 133786, 359695, 431534]
+  #62306	4	class_var	cs		uvm_pkg::uvm_component::new::cs	uvm_component.svh	1731	21	1731	23		0			uvm_pkg::uvm_component::new::cs	000
+  #62307	5	ref_typespec			uvm_pkg::uvm_component::new::cs		0	0	0	0		0			uvm_pkg::uvm_component::new::cs	000
+  #62308	6	class_typespec				uvm_component.svh	1731	3	1731	20						000
+> #62309	4	assignment				uvm_component.svh	1729	10	1729	19						000
+  #62310	4	assignment				uvm_component.svh	1730	12	1730	15						000
+  #62311	4	assignment				uvm_component.svh	1731	21	1731	23						000
+  #62312	4	method_func_call	super.new				0	0	0	0		0				000
+  #62313	5	ref_obj	name		uvm_pkg::uvm_component::new::name	uvm_component.svh	1733	13	1733	17		0			uvm_pkg::uvm_component::new::name	000
+  #62314	4	if_stmt				uvm_component.svh	1736	3	1739	6						000
+  #62315	5	operation				uvm_component.svh	1736	7	1736	40		0				000
+  #62316	6	operation				uvm_component.svh	1736	7	1736	19		0				000
+  #62317	7	ref_obj	parent		uvm_pkg::uvm_component::new::parent	uvm_component.svh	1736	7	1736	13		0			uvm_pkg::uvm_component::new::parent	000
+  #62318	7	constant				uvm_component.svh	1736	15	1736	19	0	64	UINT:0	11		000
+
+facets of this row (7481, first 25):
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20805 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21741 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66834 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66922 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67149 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68133 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68153 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68268 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]

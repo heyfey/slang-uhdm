@@ -1,0 +1,64 @@
+cluster N0571 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 11; passes 201-206 left it) | ground B | site buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < emitPackage (ParamEmit.cpp, law a7) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u138map pin; the a7bee711 gdb run wrote a different database (UVM order coin)] [r11u142map pin]): fullname|ref_typespec|tok:id::id::id::id::id::id::->id@id.id::id.|under:typespec_member
+row: surelog/default/MiniAmiq  strict=differ:file(71)  records golden=435559 ours=433769
+object: #69887 (golden) / #69834 (ours)  type=ref_typespec name= STABLE
+  golden: svaunit_pkg::uvm_printer::format_row::row::uvm_pkg::uvm_printer_row_info::level
+  ours:   work@svaunit_vpi_interface.uvm_pkg::uvm_printer_row_info.level
+  walk parents: typespec_member(level) < struct_typespec(uvm_pkg::uvm_printer_row_info) < ref_typespec < io_decl(row)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 69881..69893 ('>' = the object)
+  #69881	4	ref_typespec			uvm_pkg::uvm_printer::format_row		0	0	0	0		0			uvm_pkg::uvm_printer::format_row	000
+  #69882	5	string_typespec				uvm_printer.svh	651	10	651	16						000
+  #69883	3	io_decl	row			uvm_printer.svh	651	63	651	66						000
+  #69884	4	ref_typespec			svaunit_pkg::uvm_printer::format_row::row		0	0	0	0		0			svaunit_pkg::uvm_printer::format_row::row	000
+  #69885	5	struct_typespec	uvm_pkg::uvm_printer_row_info			uvm_printer.svh	651	42	651	62						110
+  #69886	6	typespec_member	level			uvm_pkg.sv	29	10	29	15						001
+> #69887	7	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.level		0	0	0	0		0			svaunit_pkg::uvm_printer::format_row::row::uvm_pkg::uvm_printer_row_info::level	001
+  #69888	8	int_typespec				uvm_printer.svh	29	3	29	6						001
+  #69889	6	typespec_member	name			uvm_pkg.sv	30	10	30	14						001
+  #69890	7	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.name		0	0	0	0		0			svaunit_pkg::uvm_printer::format_row::row::uvm_pkg::uvm_printer_row_info::name	001
+  #69891	8	string_typespec				uvm_printer.svh	30	3	30	9						001
+  #69892	6	typespec_member	type_name			uvm_pkg.sv	31	10	31	19						001
+  #69893	7	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.type_name		0	0	0	0		0			svaunit_pkg::uvm_printer::format_row::row::uvm_pkg::uvm_printer_row_info::type_name	001
+
+--- OURS (B) records 69828..69840 ('>' = the object)
+  #69828	4	ref_typespec			svaunit_pkg::uvm_printer::format_row		0	0	0	0		0			svaunit_pkg::uvm_printer::format_row	000
+  #69829	5	string_typespec				uvm_printer.svh	651	10	651	16						000
+  #69830	3	io_decl	row			uvm_printer.svh	651	63	651	66						000
+  #69831	4	ref_typespec			svaunit_pkg::uvm_printer::format_row::row		0	0	0	0		0			svaunit_pkg::uvm_printer::format_row::row	000
+  #69832	5	struct_typespec	uvm_pkg::uvm_printer_row_info			uvm_printer.svh	28	9	34	2						110
+  #69833	6	typespec_member	level			uvm_pkg.sv	29	10	29	15						001
+> #69834	7	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.level		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_printer_row_info.level	001
+  #69835	8	int_typespec				uvm_printer.svh	29	3	29	6						001
+  #69836	6	typespec_member	name			uvm_pkg.sv	30	10	30	14						001
+  #69837	7	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.name		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_printer_row_info.name	001
+  #69838	8	string_typespec				uvm_printer.svh	30	3	30	9						001
+  #69839	6	typespec_member	type_name			uvm_pkg.sv	31	10	31	19						001
+  #69840	7	ref_typespec			<in>uvm_pkg::uvm_printer_row_info.type_name		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_printer_row_info.type_name	001
+
+facets of this row (7481, first 25):
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20805 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21741 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66834 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66922 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67149 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68133 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68153 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68268 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]

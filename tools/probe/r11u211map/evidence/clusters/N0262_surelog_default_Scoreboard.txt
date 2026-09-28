@@ -1,0 +1,64 @@
+cluster N0262 (id kept from an earlier map; COVERED r11u209 (the UVM ground-B families (map 12 section 9 B6: the 7-row and 6-row B clusters)) | ground B | site importPaCopy82 (ModuleEmit.cpp, law classImportParamStamped82) < classInheritsContainerImports23 (ModuleEmit.cpp, law classImportParamStamped82) < exportDesign (UhdmExporter.cpp, law classInheritsContainerImports23) [r11u142map pin]): struct|golden-only:fewer-copies|constant|under:param_assign
+row: surelog/default/Scoreboard  strict=differ:fullname(103)  records golden=269656 ours=269679
+object: #84965 (golden) / #-1 (ours)  type=constant name= 
+  golden: 2 objs
+  ours:   
+  walk parents: param_assign < class_defn(work@my_scoreboard) < class_defn(uvm_scoreboard) < class_defn(uvm_component)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 84959..84971 ('>' = the object)
+  #84959	7	ref_typespec			work@my_scoreboard		0	0	0	0		0			work@my_scoreboard	000
+  #84960	8	int_typespec				uvm_object_globals.svh	39	1	39	32						000
+  #84961	6	parameter	UVM_STREAMBITS		work@my_scoreboard::UVM_STREAMBITS	uvm_object_globals.svh	39	11	39	25		0	UINT:4096		work@my_scoreboard::UVM_STREAMBITS	000
+  #84962	7	ref_typespec			work@my_scoreboard::UVM_STREAMBITS		0	0	0	0		0			work@my_scoreboard::UVM_STREAMBITS	000
+  #84963	8	int_typespec				uvm_object_globals.svh	39	1	39	32						000
+  #84964	5	param_assign				uvm_object_globals.svh	99	11	99	32						000
+> #84965	6	constant				uvm_object_globals.svh	99	23	99	32	'hf000000	-1	HEX:f000000	5		000
+  #84966	7	ref_typespec			work@my_scoreboard		0	0	0	0		0			work@my_scoreboard	000
+  #84967	6	parameter	UVM_RADIX		work@my_scoreboard::UVM_RADIX	uvm_object_globals.svh	99	11	99	20		0	HEX:f000000		work@my_scoreboard::UVM_RADIX	000
+  #84968	5	param_assign				uvm_object_globals.svh	175	11	175	37						000
+  #84969	6	constant				uvm_object_globals.svh	175	35	175	37	17	32	UINT:17	9		000
+  #84970	7	ref_typespec			work@my_scoreboard		0	0	0	0		0			work@my_scoreboard	000
+  #84971	8	int_typespec				uvm_object_globals.svh	175	1	175	37						000
+
+--- the holder #84964 on the other side: exact-record matches at [84910, 85211]
+  #84907	6	parameter	UVM_STREAMBITS		work@my_scoreboard::UVM_STREAMBITS	uvm_object_globals.svh	39	11	39	25		0	UINT:4096		work@my_scoreboard::UVM_STREAMBITS	000
+  #84908	7	ref_typespec			work@my_scoreboard::UVM_STREAMBITS		0	0	0	0		0			work@my_scoreboard::UVM_STREAMBITS	000
+  #84909	8	int_typespec				uvm_object_globals.svh	39	1	39	32						000
+> #84910	5	param_assign				uvm_object_globals.svh	99	11	99	32						000
+  #84911	6	parameter	UVM_RADIX		work@my_scoreboard::UVM_RADIX	uvm_object_globals.svh	99	11	99	20		0	HEX:f000000		work@my_scoreboard::UVM_RADIX	000
+  #84912	5	param_assign				uvm_object_globals.svh	175	11	175	37						000
+  #84913	6	constant				uvm_object_globals.svh	175	35	175	37	17	32	UINT:17	9		000
+  #84914	7	ref_typespec			work@my_scoreboard		0	0	0	0		0			work@my_scoreboard	000
+  #84915	8	int_typespec				uvm_object_globals.svh	175	1	175	37						000
+  #84916	6	parameter	UVM_MACRO_NUMFLAGS		work@my_scoreboard::UVM_MACRO_NUMFLAGS	uvm_object_globals.svh	175	11	175	29		0	UINT:17		work@my_scoreboard::UVM_MACRO_NUMFLAGS	000
+  #84917	7	ref_typespec			work@my_scoreboard::UVM_MACRO_NUMFLAGS		0	0	0	0		0			work@my_scoreboard::UVM_MACRO_NUMFLAGS	000
+  #84918	8	int_typespec				uvm_object_globals.svh	175	1	175	37						000
+  #84919	5	param_assign				uvm_object_globals.svh	180	11	180	46						000
+
+facets of this row (1212, first 25):
+  N0423 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20913 bit_typespec  G[] O[1 objs]
+  N0423 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21849 bit_typespec  G[] O[1 objs]
+  N0423 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74777 bit_typespec  G[] O[1 objs]
+  N0423 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74798 bit_typespec  G[] O[1 objs]
+  N0423 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74854 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79116 array_typespec  G[] O[1 objs]
+  N0423 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79135 bit_typespec  G[] O[1 objs]
+  N0423 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80111 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82238/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82246/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82254/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82262/-1 ref_typespec  G[2 objs] O[]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]
+  N0262 #84980/-1 constant  G[2 objs] O[]

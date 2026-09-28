@@ -1,0 +1,64 @@
+cluster N0921 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 3; passes 201-206 left it) | ground B | site cloneUnitParamRhs (UhdmExporter.cpp, law unitRefSubst) < emitExpr (ExprEmit.cpp, law elabVarRangeMisevalSubst) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) [r11u138map pin] [r11u142map pin]): struct|ours-only:fewer-copies|operation|under:operation
+row: surelog/testflags/Scr1SvTests  strict=differ:type(1)  records golden=83997 ours=84036
+object: #-1 (golden) / #70149 (ours)  type=operation name= 
+  golden: 
+  ours:   5 objs
+  walk parents: operation < param_assign < module_inst(i_dmi) < module_inst(i_core_top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 70143..70155 ('>' = the object)
+  #70143	7	operation				scr1_dmi.sv	70	29	70	64		0				000
+  #70144	8	constant				scr1_dmi.sv	70	29	70	38	0	5	INT:0	7		000
+  #70145	8	ref_obj	SCR1_DBG_DMI_OP_WIDTH		work@scr1_top_tb_axi.i_top.i_core_top.i_dmi.SCR1_DBG_DMI_OP_WIDTH	scr1_dmi.sv	70	43	70	64		0			work@scr1_top_tb_axi.i_top.i_core_top.i_dmi.SCR1_DBG_DMI_OP_WIDTH	000
+  #70146	7	constant				scr1_dmi.sv	70	69	70	70	1	64	UINT:1	9		000
+  #70147	5	param_assign				scr1_dmi.sv	71	15	71	44						000
+  #70148	6	operation				scr1_dmi.sv	71	29	71	44		0				000
+> #70149	7	operation				scr1_dmi.sv	70	29	70	70		0				000
+  #70150	8	operation				scr1_dmi.sv	70	29	70	64		0				000
+  #70151	9	constant				scr1_dmi.sv	70	29	70	38	0	5	INT:0	7		000
+  #70152	9	ref_obj	SCR1_DBG_DMI_OP_WIDTH		work@scr1_top_tb_axi.i_top.i_core_top.i_dmi.SCR1_DBG_DMI_OP_WIDTH	scr1_dmi.sv	70	43	70	64		0			work@scr1_top_tb_axi.i_top.i_core_top.i_dmi.SCR1_DBG_DMI_OP_WIDTH	000
+  #70153	8	constant				scr1_dmi.sv	70	69	70	70	1	64	UINT:1	9		000
+  #70154	7	constant				scr1_dmi.sv	71	43	71	44	1	64	UINT:1	9		000
+  #70155	5	param_assign				scr1_dmi.sv	72	15	72	70						000
+
+--- the holder #70148 on the other side: exact-record matches at [70152]
+  #70149	8	ref_obj	SCR1_DBG_DMI_OP_WIDTH		work@scr1_top_tb_axi.i_top.i_core_top.i_dmi.SCR1_DBG_DMI_OP_WIDTH	scr1_dmi.sv	70	43	70	64		0			work@scr1_top_tb_axi.i_top.i_core_top.i_dmi.SCR1_DBG_DMI_OP_WIDTH	000
+  #70150	7	constant				scr1_dmi.sv	70	69	70	70	1	64	UINT:1	9		000
+  #70151	5	param_assign				scr1_dmi.sv	71	15	71	44						000
+> #70152	6	operation				scr1_dmi.sv	71	29	71	44		0				000
+  #70153	7	constant				scr1_dmi.sv	71	43	71	44	1	64	UINT:1	9		000
+  #70154	5	param_assign				scr1_dmi.sv	72	15	72	70						000
+  #70155	6	operation				scr1_dmi.sv	72	29	72	70		0				000
+  #70156	7	operation				scr1_dmi.sv	72	29	72	66		0				000
+  #70157	8	ref_obj	SCR1_DBG_DMI_DATA_WIDTH		work@scr1_top_tb_axi.i_top.i_core_top.i_dmi.SCR1_DBG_DMI_DATA_WIDTH	scr1_dmi.sv	72	43	72	66		0			work@scr1_top_tb_axi.i_top.i_core_top.i_dmi.SCR1_DBG_DMI_DATA_WIDTH	000
+  #70158	7	constant				scr1_dmi.sv	72	69	72	70	1	64	UINT:1	9		000
+  #70159	5	param_assign				scr1_dmi.sv	73	15	73	44						000
+  #70160	6	operation				scr1_dmi.sv	73	29	73	44		0				000
+  #70161	7	constant				scr1_dmi.sv	73	43	73	44	1	64	UINT:1	9		000
+
+facets of this row (81, first 25):
+  N0791 #48791/-1 ref_obj SCR1_MEM_CMD_RD G[2 objs] O[]
+  N0284 #-1/48791 constant  G[] O[1 objs]
+  N2405 #63286/-1 ref_obj ALLTRIG_W G[3 objs] O[]
+  N0921 #-1/70149 operation  G[] O[5 objs]
+  N0921 #-1/70158 operation  G[] O[7 objs]
+  N0921 #-1/70169 operation  G[] O[11 objs]
+  N0921 #-1/70184 operation  G[] O[13 objs]
+  N0921 #-1/76049 operation  G[] O[7 objs]
+  N1119 #48793/48792 ref_obj ifu2imem_cmd_o G[work@scr1_pipe_ifu.ifu2imem_cmd_o] O[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_ifu.ifu2imem_cmd_o]
+  N0078 #63257/63256 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_mcontrol.SC] O[]
+  N0078 #63267/63266 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_addr_tdata2.SCR1] O[]
+  N0426 #63290/63286 ref_obj SCR1_TDU_ALLTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_tselect_ff.SCR1_] O[]
+  N0078 #63301/63297 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_wr_req.] O[]
+  N0078 #63311/63307 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_clk_en.] O[]
+  N0078 #63321/63317 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_upd.SCR] O[]
+  N0078 #63331/63327 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_dmode_f] O[]
+  N0078 #63341/63337 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_dmode_n] O[]
+  N0078 #63351/63347 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_m_ff.SC] O[]
+  N0078 #63361/63357 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_m_next.] O[]
+  N0078 #63371/63367 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_exec_ff] O[]
+  N0078 #63381/63377 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_exec_ne] O[]
+  N0078 #63391/63387 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_load_ff] O[]
+  N0078 #63401/63397 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_load_ne] O[]
+  N0078 #63411/63407 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_store_f] O[]
+  N0078 #63421/63417 ref_obj SCR1_TDU_MTRIG_NUM G[work@scr1_top_tb_axi.i_top.i_core_top.i_pipe_top.i_pipe_tdu.csr_mcontrol_store_n] O[]

@@ -1,0 +1,64 @@
+cluster N0306 (id kept from an earlier map; COVERED r11u207 (the UVM ground-A families (map 12 section 9 A4: the 7-row A clusters)) | ground A | site emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law everyPartSelIsConstSel78) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) [r11u142map pin]): fullname|ref_obj|tok:id.id[+:n]::id::->|under:hier_path
+row: surelog/default/Scoreboard  strict=differ:fullname(103)  records golden=269656 ours=269679
+object: #184068 (golden) / #184079 (ours)  type=ref_obj name=count OUT
+  golden: uvm_pkg::uvm_tlm_generic_payload::do_unpack::packer.m_bits[+:32]::m_bits::count
+  ours:   uvm_pkg::uvm_tlm_generic_payload::do_unpack::count
+  walk parents: hier_path(packer.count) < indexed_part_select(m_bits) < hier_path(packer.m_bits[+:32]) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 184062..184074 ('>' = the object)
+  #184062	10	assignment				uvm_object_defines.svh	3674	6	3674	61						000
+  #184063	11	hier_path	packer.m_bits[+:32]			uvm_object_defines.svh	3674	28	3674	61		0				000
+  #184064	12	ref_obj	packer			uvm_object_defines.svh	3674	28	3674	34		0				000
+  #184065	12	indexed_part_select	m_bits		packer.m_bits[+:32]	uvm_object_defines.svh	3674	35	3674	60		0			packer.m_bits[+:32]	000
+  #184066	13	hier_path	packer.count			uvm_object_defines.svh	3674	42	3674	54		0				000
+  #184067	14	ref_obj	packer			uvm_object_defines.svh	3674	42	3674	48		0				000
+> #184068	14	ref_obj	count		uvm_pkg::uvm_tlm_generic_payload::do_unpack::packer.m_bits[+:32]::m_bits::count	uvm_object_defines.svh	3674	49	3674	54		0			uvm_pkg::uvm_tlm_generic_payload::do_unpack::packer.m_bits[+:32]::m_bits::count	000
+  #184069	13	constant				uvm_object_defines.svh	3674	58	3674	60	32	64	UINT:32	9		000
+  #184070	11	operation				uvm_object_defines.svh	3674	11	3674	24		0				000
+  #184071	12	operation				uvm_object_defines.svh	3674	6	3674	25		0				000
+  #184072	13	ref_obj	m_command		uvm_pkg::uvm_tlm_generic_payload::do_unpack::m_command	uvm_object_defines.svh	3674	13	3674	22		0			uvm_pkg::uvm_tlm_generic_payload::do_unpack::m_command	000
+  #184073	10	assignment				uvm_object_defines.svh	3676	6	3676	71						000
+  #184074	11	operation				uvm_object_defines.svh	3676	18	3676	71		0				000
+
+--- OURS (B) records 184073..184085 ('>' = the object)
+  #184073	10	assignment				uvm_object_defines.svh	3674	6	3674	61						000
+  #184074	11	hier_path	packer.m_bits[+:32]			uvm_object_defines.svh	3674	28	3674	61		0				000
+  #184075	12	ref_obj	packer			uvm_object_defines.svh	3674	28	3674	34		0				000
+  #184076	12	indexed_part_select	m_bits		packer.m_bits[+:32]	uvm_object_defines.svh	3674	35	3674	60		0			packer.m_bits[+:32]	000
+  #184077	13	hier_path	packer.count			uvm_object_defines.svh	3674	42	3674	54		0				000
+  #184078	14	ref_obj	packer			uvm_object_defines.svh	3674	42	3674	48		0				000
+> #184079	14	ref_obj	count		uvm_pkg::uvm_tlm_generic_payload::do_unpack::count	uvm_object_defines.svh	3674	49	3674	54		0			uvm_pkg::uvm_tlm_generic_payload::do_unpack::count	000
+  #184080	13	constant				uvm_object_defines.svh	3674	58	3674	60	32	64	UINT:32	9		000
+  #184081	11	operation				uvm_object_defines.svh	544	23	3674	23		0				000
+  #184082	12	operation				uvm_object_defines.svh	3674	6	3674	25		0				000
+  #184083	13	ref_obj	m_command		uvm_pkg::uvm_tlm_generic_payload::do_unpack::m_command	uvm_object_defines.svh	3674	13	3674	22		0			uvm_pkg::uvm_tlm_generic_payload::do_unpack::m_command	000
+  #184084	10	assignment				uvm_object_defines.svh	3676	6	3676	71						000
+  #184085	11	operation				uvm_object_defines.svh	3676	18	3676	71		0				000
+
+facets of this row (1212, first 25):
+  N0423 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20913 bit_typespec  G[] O[1 objs]
+  N0423 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21849 bit_typespec  G[] O[1 objs]
+  N0423 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74777 bit_typespec  G[] O[1 objs]
+  N0423 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74798 bit_typespec  G[] O[1 objs]
+  N0423 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74854 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79116 array_typespec  G[] O[1 objs]
+  N0423 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79135 bit_typespec  G[] O[1 objs]
+  N0423 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80111 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82238/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82246/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82254/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82262/-1 ref_typespec  G[2 objs] O[]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]
+  N0262 #84980/-1 constant  G[2 objs] O[]

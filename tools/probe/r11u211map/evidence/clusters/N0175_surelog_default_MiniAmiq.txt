@@ -1,0 +1,64 @@
+cluster N0175 (id kept from an earlier map; COVERED r11u207 (map 12 pair-A route carried: pass 198 R2 / pass 195 R1: references named through a method-call path, the nested-path remainder (UVM F5, SeqDriver's first record)) | ground A | site emitExpr (ExprEmit.cpp, law clsScopedBoundWholeSpan201) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79) < emitExpr (ExprEmit.cpp, law thisPathSelectErased4) [r11u211 pin]): fullname|ref_obj|tok:id[id].id::->|under:bit_select
+row: surelog/default/MiniAmiq  strict=differ:file(71)  records golden=435559 ours=433769
+object: #66841 (golden) / #66803 (ours)  type=ref_obj name=obj OUT
+  golden: svaunit_pkg::uvm_default_factory::register::m_inst_override_queues[obj].queue::obj
+  ours:   svaunit_pkg::uvm_default_factory::register::obj
+  walk parents: bit_select(m_inst_override_queues) < hier_path(m_inst_override_queues[obj].queue) < assignment < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 66835..66847 ('>' = the object)
+  #66835	11	hier_path	obj.get_type_name			uvm_factory.svh	911	72	911	75		0				000
+  #66836	12	ref_obj	obj			uvm_factory.svh	911	75	911	75		0				000
+  #66837	12	method_func_call	get_type_name			uvm_factory.svh	911	76	911	89		0				000
+  #66838	10	ref_obj	queue		svaunit_pkg::uvm_default_factory::register::queue	uvm_factory.svh	911	93	911	98		0			svaunit_pkg::uvm_default_factory::register::queue	000
+  #66839	9	hier_path	m_inst_override_queues[obj].queue			uvm_factory.svh	911	8	911	30		0				000
+  #66840	10	bit_select	m_inst_override_queues		m_inst_override_queues[obj]	uvm_factory.svh	911	8	911	30		0			m_inst_override_queues[obj]	000
+> #66841	11	ref_obj	obj		svaunit_pkg::uvm_default_factory::register::m_inst_override_queues[obj].queue::obj	uvm_factory.svh	911	31	911	34		0			svaunit_pkg::uvm_default_factory::register::m_inst_override_queues[obj].queue::obj	000
+  #66842	10	ref_obj	queue		m_inst_override_queues[obj].queue	uvm_factory.svh	911	36	911	41		0			m_inst_override_queues[obj].queue	000
+  #66843	8	method_func_call	delete			uvm_factory.svh	912	36	912	42		0				000
+  #66844	9	hier_path	obj.get_type_name			uvm_factory.svh	912	43	912	62		0				000
+  #66845	10	ref_obj	obj			uvm_factory.svh	912	43	912	46		0				000
+  #66846	10	method_func_call	get_type_name			uvm_factory.svh	912	47	912	60		0				000
+  #66847	9	ref_obj	m_inst_override_name_queues		svaunit_pkg::uvm_default_factory::register::m_inst_override_name_queues	uvm_factory.svh	912	8	912	35		0			svaunit_pkg::uvm_default_factory::register::m_inst_override_name_queues	000
+
+--- OURS (B) records 66797..66809 ('>' = the object)
+  #66797	11	hier_path	obj.get_type_name			uvm_factory.svh	911	72	911	75		0				000
+  #66798	12	ref_obj	obj			uvm_factory.svh	911	75	911	75		0				000
+  #66799	12	method_func_call	get_type_name			uvm_factory.svh	911	76	911	89		0				000
+  #66800	10	ref_obj	queue		svaunit_pkg::uvm_default_factory::register::queue	uvm_factory.svh	911	93	911	98		0			svaunit_pkg::uvm_default_factory::register::queue	000
+  #66801	9	hier_path	m_inst_override_queues[obj].queue			uvm_factory.svh	911	8	911	30		0				000
+  #66802	10	bit_select	m_inst_override_queues		m_inst_override_queues[obj]	uvm_factory.svh	911	8	911	30		0			m_inst_override_queues[obj]	000
+> #66803	11	ref_obj	obj		svaunit_pkg::uvm_default_factory::register::obj	uvm_factory.svh	911	31	911	34		0			svaunit_pkg::uvm_default_factory::register::obj	000
+  #66804	10	ref_obj	queue		m_inst_override_queues[obj].queue	uvm_factory.svh	911	36	911	41		0			m_inst_override_queues[obj].queue	000
+  #66805	8	method_func_call	delete			uvm_factory.svh	912	36	912	42		0				000
+  #66806	9	hier_path	obj.get_type_name			uvm_factory.svh	912	43	912	62		0				000
+  #66807	10	ref_obj	obj			uvm_factory.svh	912	43	912	46		0				000
+  #66808	10	method_func_call	get_type_name			uvm_factory.svh	912	47	912	60		0				000
+  #66809	9	ref_obj	m_inst_override_name_queues		svaunit_pkg::uvm_default_factory::register::m_inst_override_name_queues	uvm_factory.svh	912	8	912	35		0			svaunit_pkg::uvm_default_factory::register::m_inst_override_name_queues	000
+
+facets of this row (7481, first 25):
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20805 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21741 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66834 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66922 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67149 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68133 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68153 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68268 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]

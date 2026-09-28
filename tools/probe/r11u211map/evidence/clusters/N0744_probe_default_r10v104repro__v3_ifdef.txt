@@ -1,0 +1,47 @@
+cluster N0744 (id kept from an earlier map; OPEN | ground A | site emitParameters (ParamEmit.cpp, law replFoldTs) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u138map pin] [r11u142map pin]): span|param_assign|endcol|under:package
+row: probe/default/r10v104repro__v3_ifdef  strict=endcol  records golden=33 ours=33
+object: #8 (golden) / #8 (ours)  type=param_assign name= 
+  golden: 18:20:18:36
+  ours:   18:20:18:35
+  walk parents: package(v3_pk) < design(work@v3_top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2..14 ('>' = the object)
+  #2	2	parameter	b_r		v3_pk::b_r	dut.sv	18	20	18	23		0	STRING:zz.7.yes		v3_pk::b_r	000
+  #3	3	ref_typespec			v3_pk::b_r		0	0	0	0		0			v3_pk::b_r	000
+  #4	4	string_typespec				dut.sv	18	13	18	19						000
+  #5	2	parameter	b_s		v3_pk::b_s	dut.sv	19	20	19	23		0	STRING:zz.7.beta		v3_pk::b_s	000
+  #6	3	ref_typespec			v3_pk::b_s		0	0	0	0		0			v3_pk::b_s	000
+  #7	4	string_typespec				dut.sv	19	13	19	19						000
+> #8	2	param_assign				dut.sv	18	20	18	36						000
+  #9	3	constant				dut.sv	18	26	18	36	"zz.7.yes"	64	STRING:zz.7.yes	6		000
+  #10	4	ref_typespec			v3_pk		0	0	0	0		0			v3_pk	000
+  #11	5	string_typespec				dut.sv	18	13	18	19						000
+  #12	2	param_assign				dut.sv	19	20	19	37						000
+  #13	3	constant				dut.sv	19	26	19	37	"zz.7.beta"	72	STRING:zz.7.beta	6		000
+  #14	4	ref_typespec			v3_pk		0	0	0	0		0			v3_pk	000
+
+--- OURS (B) records 2..14 ('>' = the object)
+  #2	2	parameter	b_r		v3_pk::b_r	dut.sv	18	20	18	23		0	STRING:zz.7.yes		v3_pk::b_r	000
+  #3	3	ref_typespec			v3_pk::b_r		0	0	0	0		0			v3_pk::b_r	000
+  #4	4	string_typespec				dut.sv	18	13	18	19						000
+  #5	2	parameter	b_s		v3_pk::b_s	dut.sv	19	20	19	23		0	STRING:zz.7.beta		v3_pk::b_s	000
+  #6	3	ref_typespec			v3_pk::b_s		0	0	0	0		0			v3_pk::b_s	000
+  #7	4	string_typespec				dut.sv	19	13	19	19						000
+> #8	2	param_assign				dut.sv	18	20	18	35						000
+  #9	3	constant				dut.sv	18	26	18	35	"zz.7.yes"	64	STRING:zz.7.yes	6		000
+  #10	4	ref_typespec			v3_pk		0	0	0	0		0			v3_pk	000
+  #11	5	string_typespec				dut.sv	18	13	18	19						000
+  #12	2	param_assign				dut.sv	19	20	19	36						000
+  #13	3	constant				dut.sv	19	26	19	36	"zz.7.beta"	72	STRING:zz.7.beta	6		000
+  #14	4	ref_typespec			v3_pk		0	0	0	0		0			v3_pk	000
+
+facets of this row (8, first 25):
+  N0744 #8/8 param_assign  G[18:20:18:36] O[18:20:18:35]
+  N0005 #9/9 constant  G[18:26:18:36] O[18:26:18:35]
+  N0744 #12/12 param_assign  G[19:20:19:37] O[19:20:19:36]
+  N0005 #13/13 constant  G[19:26:19:37] O[19:26:19:36]
+  N0744 #23/23 param_assign  G[18:20:18:36] O[18:20:18:35]
+  N0005 #24/24 constant  G[18:26:18:36] O[18:26:18:35]
+  N0744 #27/27 param_assign  G[19:20:19:37] O[19:20:19:36]
+  N0005 #28/28 constant  G[19:26:19:37] O[19:26:19:36]

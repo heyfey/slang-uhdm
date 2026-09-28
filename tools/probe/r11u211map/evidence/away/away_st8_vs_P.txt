@@ -1,0 +1,2 @@
+# 1 databases differ between /tmp/r11u211_st8 and /tmp/r11u211_sP
+surelog/default/Scoreboard away=0 toward=0 flat_away=0 flat_toward=0

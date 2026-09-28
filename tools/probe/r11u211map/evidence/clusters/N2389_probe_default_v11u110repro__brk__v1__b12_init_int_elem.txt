@@ -1,0 +1,44 @@
+cluster N2389 (id kept from an earlier map; OPEN | ground B | site makeTypeParamDefaultTs (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) [r11u150map pin]): struct|ours-only:fewer-copies|logic_typespec|under:ref_typespec
+row: probe/default/v11u110repro__brk__v1__b12_init_int_elem  strict=type  records golden=140 ours=140
+object: #-1 (golden) / #22 (ours)  type=logic_typespec name= 
+  golden: 
+  ours:   1 objs
+  walk parents: ref_typespec(id_t) < packed_array_typespec < ref_typespec < logic_net(x)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 16..28 ('>' = the object)
+  #16	3	ref_typespec			work@child.x		0	0	0	0		0			work@child.x	000
+  #17	4	packed_array_typespec				dut.sv	3	28	3	38						000
+  #18	5	range					0	0	0	0						001
+  #19	6	constant				dut.sv	3	34	3	35	3	64	UINT:3	9		001
+  #20	6	constant				dut.sv	3	36	3	37	0	64	UINT:0	9		001
+  #21	5	ref_typespec	id_t		<in>rt_t.id_t		0	0	0	0		0			work@child.rt_t.id_t	001
+> #22	6	logic_typespec				dut.sv	2	27	2	32						001
+  #23	2	port	a			dut.sv	4	23	4	24						000
+  #24	3	ref_obj	a		work@child.a.a	dut.sv	4	23	4	24		0			work@child.a.a	000
+  #25	3	ref_typespec			work@child.a		0	0	0	0		0			work@child.a	000
+  #26	4	logic_typespec				dut.sv	4	10	4	22						000
+  #27	5	range				dut.sv	4	16	4	22						001
+  #28	6	constant				dut.sv	4	17	4	19	15	64	UINT:15	9		001
+
+--- the holder #21 on the other side: exact-record matches at [11, 21]
+  #8	5	range					0	0	0	0						001
+  #9	6	constant				dut.sv	3	34	3	35	3	64	UINT:3	9		001
+  #10	6	constant				dut.sv	3	36	3	37	0	64	UINT:0	9		001
+> #11	5	ref_typespec	id_t		<in>rt_t.id_t		0	0	0	0		0			work@child.rt_t.id_t	001
+  #12	6	int_typespec				dut.sv	9	17	9	20						001
+  #13	2	logic_net	a		work@child.a	dut.sv	4	23	4	24		0			work@child.a	000
+  #14	2	logic_net	o		work@child.o	dut.sv	4	39	4	40		0			work@child.o	000
+  #15	2	logic_net	x		work@child.x	dut.sv	5	8	5	9		0			work@child.x	000
+  #16	3	ref_typespec			work@child.x		0	0	0	0		0			work@child.x	000
+  #17	4	packed_array_typespec				dut.sv	3	28	3	38						000
+  #18	5	range					0	0	0	0						001
+  #19	6	constant				dut.sv	3	34	3	35	3	64	UINT:3	9		001
+  #20	6	constant				dut.sv	3	36	3	37	0	64	UINT:0	9		001
+
+facets of this row (5, first 25):
+  N0414 #22/-1 int_typespec  G[1 objs] O[]
+  N2389 #-1/22 logic_typespec  G[] O[1 objs]
+  N0414 #135/-1 int_typespec  G[1 objs] O[]
+  N2389 #-1/135 logic_typespec  G[] O[1 objs]
+  N1931 #82/82 packed_array_var x G[5:8:5:9] O[5:8:5:17]

@@ -1,0 +1,10 @@
+# 9 databases differ between /tmp/r11u211_st4 and /tmp/r11u211_sP
+surelog/default/BuildUVMPkg away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/MiniAmiq away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/Scoreboard away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/SeqDriver away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/SimpleUVM away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/BuildUVMPkg away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/MiniAmiq away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/SeqDriver away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/SimpleUVM away=0 toward=0 flat_away=0 flat_toward=0

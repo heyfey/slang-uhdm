@@ -1,0 +1,200 @@
+case,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail,name
+tools/probe/r11u158repro/cases/sc/c1,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c1
+tools/probe/r11u158repro/cases/sc/c10,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 2 common constant assignments match,tools_probe_r11u158repro_cases_sc_c10
+tools/probe/r11u158repro/cases/sc/c11,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c11
+tools/probe/r11u158repro/cases/sc/c12,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 2 common constant assignments match,tools_probe_r11u158repro_cases_sc_c12
+tools/probe/r11u158repro/cases/sc/c13,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c13
+tools/probe/r11u158repro/cases/sc/c14,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c14
+tools/probe/r11u158repro/cases/sc/c15,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c15
+tools/probe/r11u158repro/cases/sc/c16,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c16
+tools/probe/r11u158repro/cases/sc/c17,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c17
+tools/probe/r11u158repro/cases/sc/c2,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c2
+tools/probe/r11u158repro/cases/sc/c3,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c3
+tools/probe/r11u158repro/cases/sc/c4,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c4
+tools/probe/r11u158repro/cases/sc/c5,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c5
+tools/probe/r11u158repro/cases/sc/c6,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c6
+tools/probe/r11u158repro/cases/sc/c7,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c7
+tools/probe/r11u158repro/cases/sc/c8,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c8
+tools/probe/r11u158repro/cases/sc/c9,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u158repro_cases_sc_c9
+tools/probe/r11u173verify/cases/hw/w12_index_member_blanks,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in UHDM import,tools_probe_r11u173verify_cases_hw_w12_index_member_blanks
+tools/probe/r11u173verify/cases/hw/w13_index_member_noblank_ctl,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in UHDM import,tools_probe_r11u173verify_cases_hw_w13_index_member_noblank_ctl
+tools/probe/r11u173verify/cases/rq/q03_high_var_genscope_decl,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u173verify_cases_rq_q03_high_var_genscope_decl
+tools/probe/r11u173verify/cases/rq/q08_high_param_genfor,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u211_dsL/tools_probe_r11u173verify_cases_rq_q08_high,tools_probe_r11u173verify_cases_rq_q08_high_param_genfor
+tools/probe/r11u181repro/cases/us/u01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u181repro_cases_us_u01
+tools/probe/r11u181repro/cases/us/u02,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 5 common constant assignments match,tools_probe_r11u181repro_cases_us_u02
+tools/probe/r11u181repro/cases/us/u03,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u181repro_cases_us_u03
+tools/probe/r11u181repro/cases/us/u04,IDENTICAL,OK,OK,8,8,,,tools_probe_r11u181repro_cases_us_u04
+tools/probe/r11u181repro/cases/us/u05,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u181repro_cases_us_u05
+tools/probe/r11u181repro/cases/us/u06,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u181repro_cases_us_u06
+tools/probe/r11u181repro/cases/us/u07,IDENTICAL,OK,OK,7,7,,,tools_probe_r11u181repro_cases_us_u07
+tools/probe/r11u181repro/cases/us/u08,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 5 common constant assignments match,tools_probe_r11u181repro_cases_us_u08
+tools/probe/r11u185verify/cases/GV/v01_named_array_elem,IDENTICAL,READ_FAIL,READ_FAIL,0,0,,both READ_FAIL,tools_probe_r11u185verify_cases_GV_v01_named_array_elem
+tools/probe/r11u185verify/cases/GV/v02_named_array_elem_mp,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,ℹ️  No common assign statements to compare — skipping,tools_probe_r11u185verify_cases_GV_v02_named_array_elem_mp
+tools/probe/r11u185verify/cases/GV/v03_pos_array_elem,IDENTICAL,READ_FAIL,READ_FAIL,0,0,,both READ_FAIL,tools_probe_r11u185verify_cases_GV_v03_pos_array_elem
+tools/probe/r11u185verify/cases/GV/v04_param_iface_named_plain,IDENTICAL,READ_FAIL,READ_FAIL,0,0,,both READ_FAIL,tools_probe_r11u185verify_cases_GV_v04_param_iface_named_plain
+tools/probe/r11u185verify/cases/GV/v05_prog_array_elem_mp,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u185verify_cases_GV_v05_prog_array_elem_mp
+tools/probe/r11u185verify/cases/GV/v06_named_plain_nets_param,IDENTICAL,READ_FAIL,READ_FAIL,0,0,,both READ_FAIL,tools_probe_r11u185verify_cases_GV_v06_named_plain_nets_param
+tools/probe/r11u185verify/cases/GV/v07_typed_then_generic,STATUS_DIFF,NO_GATES,READ_FAIL,0,0,,,tools_probe_r11u185verify_cases_GV_v07_typed_then_generic
+tools/probe/r11u185verify/cases/GV/v08_modport_then_generic,STATUS_DIFF,NO_GATES,READ_FAIL,0,0,,,tools_probe_r11u185verify_cases_GV_v08_modport_then_generic
+tools/probe/r11u185verify/cases/GV/v09_chain_through_generic,STATUS_DIFF,NO_GATES,READ_FAIL,0,0,,,tools_probe_r11u185verify_cases_GV_v09_chain_through_generic
+tools/probe/r11u185verify/cases/GV/v10_prog_typed_then_generic,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u185verify_cases_GV_v10_prog_typed_then_generic
+tools/probe/r11u185verify/cases/GV/v11_typed_then_generic_mpconn,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,ℹ️  No common assign statements to compare — skipping,tools_probe_r11u185verify_cases_GV_v11_typed_then_generic_mpconn
+tools/probe/r11u185verify/cases/GV/v12_generic_typed_generic,IDENTICAL,READ_FAIL,READ_FAIL,0,0,,both READ_FAIL,tools_probe_r11u185verify_cases_GV_v12_generic_typed_generic
+tools/probe/r11u185verify/cases/GV/v13_logic_between_control,IDENTICAL,READ_FAIL,READ_FAIL,0,0,,both READ_FAIL,tools_probe_r11u185verify_cases_GV_v13_logic_between_control
+tools/probe/r11u185verify/cases/GV/v14_two_generic_control,IDENTICAL,READ_FAIL,READ_FAIL,0,0,,both READ_FAIL,tools_probe_r11u185verify_cases_GV_v14_two_generic_control
+tools/probe/r11u185verify/cases/GV/v15_typed_then_generic_multiline,STATUS_DIFF,NO_GATES,READ_FAIL,0,0,,,tools_probe_r11u185verify_cases_GV_v15_typed_then_generic_multiline
+tools/probe/r11u185verify/cases/PG/p04_mod_control_same_ports,STATUS_DIFF,NO_GATES,READ_FAIL,0,0,,,tools_probe_r11u185verify_cases_PG_p04_mod_control_same_ports
+tools/probe/r11u185verify/cases/PU/u01_nested_member_read,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u185verify_cases_PU_u01_nested_member_read
+tools/probe/r11u185verify/cases/PU/u02_pkg_task_loop_bound,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u185verify_cases_PU_u02_pkg_task_loop_bound
+tools/probe/r11u185verify/cases/PU/u03_pkg_var_dims,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u185verify_cases_PU_u03_pkg_var_dims
+tools/probe/r11u185verify/cases/PU/u04_default_key_pattern,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u185verify_cases_PU_u04_default_key_pattern
+tools/probe/r11u185verify/cases/PU/u05_positional_read,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u185verify_cases_PU_u05_positional_read
+tools/probe/r11u185verify/cases/PU/u06_whole_copy_and_bits,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u211_dsL/tools_probe_r11u185verify_cases_PU_u06_whol,tools_probe_r11u185verify_cases_PU_u06_whole_copy_and_bits
+tools/probe/r11u185verify/cases/PU/u07_other_pkg_read,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u185verify_cases_PU_u07_other_pkg_read
+tools/probe/r11u185verify/cases/UD/u01_op_first,IDENTICAL,OK,OK,4,4,,,tools_probe_r11u185verify_cases_UD_u01_op_first
+tools/probe/r11u185verify/cases/UD/u02_sel_of_sel_first,IDENTICAL,OK,OK,2,2,,,tools_probe_r11u185verify_cases_UD_u02_sel_of_sel_first
+tools/probe/r11u185verify/cases/UD/u03_iface_member_first,IDENTICAL,OK,OK,2,2,,,tools_probe_r11u185verify_cases_UD_u03_iface_member_first
+tools/probe/r11u185verify/cases/UD/u04_inst_array,DIVERGENT,OK,OK,2,2,nohier il synth,   This indicates a serious bug in /tmp/r11u211_dsL/tools_probe_r11u185verify_cases_UD_u04_inst_array/equiv/tools_probe_,tools_probe_r11u185verify_cases_UD_u04_inst_array
+tools/probe/r11u185verify/cases/UD/u05_mixed_lit_then_net,IDENTICAL,OK,OK,2,2,,,tools_probe_r11u185verify_cases_UD_u05_mixed_lit_then_net
+tools/probe/r11u185verify/cases/UD/u06_lit_first,IDENTICAL,OK,OK,2,2,,,tools_probe_r11u185verify_cases_UD_u06_lit_first
+tools/probe/r11u190verify/cases/R/r01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u190verify_cases_R_r01
+tools/probe/r11u190verify/cases/R/r02,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u190verify_cases_R_r02
+tools/probe/r11u190verify/cases/R/r03,IDENTICAL,OK,OK,1,1,,,tools_probe_r11u190verify_cases_R_r03
+tools/probe/r11u190verify/cases/R/r04,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u190verify_cases_R_r04
+tools/probe/r11u190verify/cases/US/u01,STATUS_DIFF,NO_GATES,READ_FAIL,0,0,,,tools_probe_r11u190verify_cases_US_u01
+tools/probe/r11u190verify/cases/US/u02,IDENTICAL,OK,OK,90,90,,,tools_probe_r11u190verify_cases_US_u02
+tools/probe/r11u190verify/cases/US/u03,IDENTICAL,OK,OK,37,37,,,tools_probe_r11u190verify_cases_US_u03
+tools/probe/r11u190verify/cases/US/u04,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u190verify_cases_US_u04
+tools/probe/r11u191dec/cases/R/r01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_R_r01
+tools/probe/r11u191dec/cases/R/r02,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_R_r02
+tools/probe/r11u191dec/cases/R/r03,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_R_r03
+tools/probe/r11u191dec/cases/R/r04,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_R_r04
+tools/probe/r11u191dec/cases/U/u01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_U_u01
+tools/probe/r11u191dec/cases/U/u02,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_U_u02
+tools/probe/r11u191dec/cases/U/u03,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_U_u03
+tools/probe/r11u191dec/cases/U/u04,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_U_u04
+tools/probe/r11u191dec/cases/U/u05,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_U_u05
+tools/probe/r11u191dec/cases/U/u06,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_U_u06
+tools/probe/r11u191dec/cases/U/u07,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_U_u07
+tools/probe/r11u191dec/cases/U/u08,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 2 common constant assignments match,tools_probe_r11u191dec_cases_U_u08
+tools/probe/r11u191dec/cases/U/u09,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_U_u09
+tools/probe/r11u191dec/cases/U/u10,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_U_u10
+tools/probe/r11u191dec/cases/U/u11,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_U_u11
+tools/probe/r11u191dec/cases/U/u_p01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_U_u_p01
+tools/probe/r11u191dec/cases/U/u_p02,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 1 common constant assignments match,tools_probe_r11u191dec_cases_U_u_p02
+tools/probe/r11u191dec/cases/U/u_p03,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_U_u_p03
+tools/probe/r11u191dec/cases/U/u_p05,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_U_u_p05
+tools/probe/r11u191dec/cases/U/u_p06,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_U_u_p06
+tools/probe/r11u191dec/cases/U/u_p07,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,ℹ️  No common assign statements to compare — skipping,tools_probe_r11u191dec_cases_U_u_p07
+tools/probe/r11u191dec/cases/U/u_p08,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u191dec_cases_U_u_p08
+tools/probe/r11u194verify/cases/X/x01_tp_enum_keyword,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 2 common constant assignments match,tools_probe_r11u194verify_cases_X_x01_tp_enum_keyword
+tools/probe/r11u194verify/cases/Z/z01_module_param_class_elab,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u194verify_cases_Z_z01_module_param_class_elab
+tools/probe/v11u171repro/cases/Q/c01_tail_const,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c01_tail_const
+tools/probe/v11u171repro/cases/Q/c02_tail_op,EQUIVALENT,OK,OK,4,4,nohier il,✅ Formal equivalence check PASSED for /tmp/r11u211_dsL/tools_probe_v11u171repro_cases_Q_c02_tail_op/equiv/tools_probe_v1,tools_probe_v11u171repro_cases_Q_c02_tail_op
+tools/probe/v11u171repro/cases/Q/c03_nested_concat_first,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c03_nested_concat_first
+tools/probe/v11u171repro/cases/Q/c04_repl_first,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c04_repl_first
+tools/probe/v11u171repro/cases/Q/c05_tail_partsel,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c05_tail_partsel
+tools/probe/v11u171repro/cases/Q/c06_gen_for_inst,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c06_gen_for_inst
+tools/probe/v11u171repro/cases/Q/c07_const_in_concat,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c07_const_in_concat
+tools/probe/v11u171repro/cases/Q/c08_inst_array,EQUIVALENT,OK,OK,2,2,nohier il synth,✅ Formal equivalence check PASSED for /tmp/r11u211_dsL/tools_probe_v11u171repro_cases_Q_c08_inst_array/equiv/tools_probe,tools_probe_v11u171repro_cases_Q_c08_inst_array
+tools/probe/v11u171repro/cases/Q/c09_hier_child,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c09_hier_child
+tools/probe/v11u171repro/cases/Q/c10_two_port,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c10_two_port
+tools/probe/v11u171repro/cases/Q/c11_var_select,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c11_var_select
+tools/probe/v11u171repro/cases/Q/c12_op_in_concat,IDENTICAL,OK,OK,3,3,,,tools_probe_v11u171repro_cases_Q_c12_op_in_concat
+tools/probe/v11u171repro/cases/Q/c13_param_in_concat,IDENTICAL,OK,OK,2,2,,,tools_probe_v11u171repro_cases_Q_c13_param_in_concat
+tools/probe/v11u171repro/cases/Q/c14_const_select,EQUIVALENT,OK,OK,2,2,nohier il,✅ Formal equivalence check PASSED for /tmp/r11u211_dsL/tools_probe_v11u171repro_cases_Q_c14_const_select/equiv/tools_pro,tools_probe_v11u171repro_cases_Q_c14_const_select
+tools/probe/r11u200dec/cases/K/k01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u200dec_cases_K_k01
+tools/probe/r11u200dec/cases/K/k02,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,✅ All 2 common constant assignments match,tools_probe_r11u200dec_cases_K_k02
+tools/probe/r11u200dec/cases/K/k03,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u200dec_cases_K_k03
+tools/probe/r11u200dec/cases/K/k04,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u200dec_cases_K_k04
+tools/probe/r11u200dec/cases/K/k05,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u200dec_cases_K_k05
+tools/probe/r11u200dec/cases/K/k06,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u200dec_cases_K_k06
+tools/probe/r11u200dec/cases/K/k07,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u200dec_cases_K_k07
+tools/probe/r11u200dec/cases/K/k08,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u200dec_cases_K_k08
+tools/probe/r11u200dec/cases/B/b01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u200dec_cases_B_b01
+tools/probe/r11u200dec/cases/B/b02,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u200dec_cases_B_b02
+tools/probe/r11u200dec/cases/B/b03,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u200dec_cases_B_b03
+tools/probe/r11u200dec/cases/B/b04,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u200dec_cases_B_b04
+tools/probe/r11u200dec/cases/B/b05,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u200dec_cases_B_b05
+tools/probe/r11u199verify/cases/W/w8_bits,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u199verify_cases_W_w8_bits
+tools/probe/r11u199verify/cases/W/w1_unsigned,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u199verify_cases_W_w1_unsigned
+tools/probe/r11u199verify/cases/W/w2_signed,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u199verify_cases_W_w2_signed
+tools/probe/r11u199verify/cases/C/c06_nda_array_net,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u211_dsL/tools_probe_r11u199verify_cases_C_c06_nda_a,tools_probe_r11u199verify_cases_C_c06_nda_array_net
+tools/probe/r11u199verify/cases/X/x06_enum_port_cast,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in /tmp/r11u211_dsL/tools_probe_r11u199verify_cases_X_x06_enum_port_cast/equiv/tools_pro,tools_probe_r11u199verify_cases_X_x06_enum_port_cast
+tools/probe/r11u199verify/cases/T/t03_gen_loop,EQUIVALENT,OK,OK,25,25,nohier il,✅ Formal equivalence check PASSED for /tmp/r11u211_dsL/tools_probe_r11u199verify_cases_T_t03_gen_loop/equiv/tools_probe_,tools_probe_r11u199verify_cases_T_t03_gen_loop
+tools/probe/r11u199verify/cases/X/x05_repl_fill_genloop,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 17 common constant assignments match,tools_probe_r11u199verify_cases_X_x05_repl_fill_genloop
+tools/probe/r11u199verify/cases/T/t04_struct_net,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u199verify_cases_T_t04_struct_net
+tools/probe/r11u205dec/cases/B3/b01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_B3_b01
+tools/probe/r11u205dec/cases/B3/b02,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_B3_b02
+tools/probe/r11u205dec/cases/B3/b03,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_B3_b03
+tools/probe/r11u205dec/cases/B3/b04,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_B3_b04
+tools/probe/r11u205dec/cases/B3/b05,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u211_dsL/tools_probe_r11u205dec_cases_B3_b05/equiv/t,tools_probe_r11u205dec_cases_B3_b05
+tools/probe/r11u205dec/cases/B3/b06,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_B3_b06
+tools/probe/r11u205dec/cases/B3/b07,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u211_dsL/tools_probe_r11u205dec_cases_B3_b07/equiv/t,tools_probe_r11u205dec_cases_B3_b07
+tools/probe/r11u205dec/cases/B3/b08,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_B3_b08
+tools/probe/r11u205dec/cases/FT/f01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_FT_f01
+tools/probe/r11u205dec/cases/FT/f02,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_FT_f02
+tools/probe/r11u205dec/cases/FT/f03,SLANG_REJECT,,,,,,,tools_probe_r11u205dec_cases_FT_f03
+tools/probe/r11u205dec/cases/FT/f04,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_FT_f04
+tools/probe/r11u205dec/cases/FT/f05,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_FT_f05
+tools/probe/r11u205dec/cases/FT/f06,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_FT_f06
+tools/probe/r11u205dec/cases/GS/g01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_g01
+tools/probe/r11u205dec/cases/GS/g02,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_g02
+tools/probe/r11u205dec/cases/GS/g03,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_g03
+tools/probe/r11u205dec/cases/GS/g04,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_g04
+tools/probe/r11u205dec/cases/GS/g05,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_g05
+tools/probe/r11u205dec/cases/GS/g06,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_g06
+tools/probe/r11u205dec/cases/GS/g07,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_g07
+tools/probe/r11u205dec/cases/GS/g08,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_g08
+tools/probe/r11u205dec/cases/GS/g09,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_g09
+tools/probe/r11u205dec/cases/GS/g10,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_g10
+tools/probe/r11u205dec/cases/GS/g11,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_g11
+tools/probe/r11u205dec/cases/GS/g12,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_g12
+tools/probe/r11u205dec/cases/GS/g13,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_g13
+tools/probe/r11u205dec/cases/GS/g14,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_g14
+tools/probe/r11u205dec/cases/GS/q01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_q01
+tools/probe/r11u205dec/cases/GS/q03,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_q03
+tools/probe/r11u205dec/cases/GS/q05,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_q05
+tools/probe/r11u205dec/cases/GS/q06,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_GS_q06
+tools/probe/r11u205dec/cases/IA/a01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_IA_a01
+tools/probe/r11u205dec/cases/IA/a02,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_IA_a02
+tools/probe/r11u205dec/cases/IA/a03,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_IA_a03
+tools/probe/r11u205dec/cases/IA/a04,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_IA_a04
+tools/probe/r11u205dec/cases/IA/a05,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_IA_a05
+tools/probe/r11u205dec/cases/IP/i01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_IP_i01
+tools/probe/r11u205dec/cases/IP/i02,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_IP_i02
+tools/probe/r11u205dec/cases/IP/i03,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_IP_i03
+tools/probe/r11u205dec/cases/IP/i04,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_IP_i04
+tools/probe/r11u205dec/cases/IP/i05,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_IP_i05
+tools/probe/r11u205dec/cases/IP/i06,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_IP_i06
+tools/probe/r11u205dec/cases/IP/i07,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_IP_i07
+tools/probe/r11u205dec/cases/IP/i08,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_IP_i08
+tools/probe/r11u205dec/cases/TP/t01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_TP_t01
+tools/probe/r11u205dec/cases/TP/t02,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_TP_t02
+tools/probe/r11u205dec/cases/TP/t03,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_TP_t03
+tools/probe/r11u205dec/cases/TP/t04,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 1 common constant assignments match,tools_probe_r11u205dec_cases_TP_t04
+tools/probe/r11u205dec/cases/TP/t05,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_TP_t05
+tools/probe/r11u205dec/cases/TP/t06,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 2 common constant assignments match,tools_probe_r11u205dec_cases_TP_t06
+tools/probe/r11u205dec/cases/TP/t07,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_TP_t07
+tools/probe/r11u205dec/cases/TP/t08,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,ℹ️  No common assign statements to compare — skipping,tools_probe_r11u205dec_cases_TP_t08
+tools/probe/r11u205dec/cases/TP/t09,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 1 common constant assignments match,tools_probe_r11u205dec_cases_TP_t09
+tools/probe/r11u205dec/cases/TP/t10,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_TP_t10
+tools/probe/r11u205dec/cases/TP/t11,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_TP_t11
+tools/probe/r11u205dec/cases/TP/t12,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in /tmp/r11u211_dsL/tools_probe_r11u205dec_cases_TP_t12/equiv/tools_probe_r11u205dec_cas,tools_probe_r11u205dec_cases_TP_t12
+tools/probe/r11u205dec/cases/TP/t13,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_TP_t13
+tools/probe/r11u205dec/cases/TP/t14,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_TP_t14
+tools/probe/r11u205dec/cases/TP/t15,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_TP_t15
+tools/probe/r11u205dec/cases/TP/t16,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_TP_t16
+tools/probe/r11u205dec/cases/TP/t17,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 1 common constant assignments match,tools_probe_r11u205dec_cases_TP_t17
+tools/probe/r11u204verify/cases/V191/rp2,DIVERGENT,OK,OK,1,1,nohier il synth,   This indicates a serious bug in /tmp/r11u211_dsL/tools_probe_r11u204verify_cases_V191_rp2/equiv/tools_probe_r11u204ve,tools_probe_r11u204verify_cases_V191_rp2
+tools/probe/r11u204verify/cases/X/x5,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in UHDM import,tools_probe_r11u204verify_cases_X_x5
+tools/probe/r11u205dec/cases/D5/d01,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u211_dsL/tools_probe_r11u205dec_cases_D5_d01/equiv/t,tools_probe_r11u205dec_cases_D5_d01
+tools/probe/r11u205dec/cases/D5/d02,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_D5_d02
+tools/probe/r11u205dec/cases/D5/d03,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u211_dsL/tools_probe_r11u205dec_cases_D5_d03/equiv/t,tools_probe_r11u205dec_cases_D5_d03
+tools/probe/r11u205dec/cases/D5/d04,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u205dec_cases_D5_d04
+tools/probe/r11u204verify/cases/DF/e06,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u204verify_cases_DF_e06
+tools/probe/r11u204verify/cases/DF/e08,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u204verify_cases_DF_e08
+tools/probe/v11u206repro/cases/A/a12,DIVERGENT,OK,OK,1,1,nohier il synth,----------------------------------------------,tools_probe_v11u206repro_cases_A_a12
+tools/probe/v11u202repro/cases/PP/p05,DIVERGENT,OK,OK,1,12,nohier il synth,----------------------------------------------,tools_probe_v11u202repro_cases_PP_p05
+../r11u211_dscases/LT/l01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,___r11u211_dscases_LT_l01
+../r11u211_dscases/LT/l02,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u211_dsL/___r11u211_dscases_LT_l02/equiv/___r11u211_,___r11u211_dscases_LT_l02

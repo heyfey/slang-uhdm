@@ -1,0 +1,64 @@
+cluster N0479 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 11; passes 201-206 left it) | ground B | site copyClassTdSpecParams1 (UhdmExporter.cpp, law classTdCloneSpecOverridesOwnArgs112) < copyClassTdSpecParams1 (UhdmExporter.cpp, law classTdSpecParamsForeignHome1) < drainClassNestedTdGroups54 (UhdmExporter.cpp, law classTdCloneSpecOverridesOwnArgs112) [r11u197 pin] [r11u197map pin]): struct|golden-only:fewer-copies|class_typespec|under:ref_typespec
+row: surelog/default/MiniAmiq  strict=differ:file(71)  records golden=435559 ours=433769
+object: #136655 (golden) / #-1 (ours)  type=class_typespec name=svaunit_base 
+  golden: 1 objs
+  ours:   
+  walk parents: ref_typespec < type_parameter(T) < class_typespec(type_id) < class_defn(uvm_algorithmic_comparator)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 136649..136661 ('>' = the object)
+  #136649	6	param_assign					0	0	0	0						001
+  #136650	7	type_parameter	T		uvm_pkg::uvm_component_registry::T	uvm_registry.svh	51	37	51	38					uvm_pkg::uvm_component_registry::T	001
+  #136651	8	ref_typespec			<in>T		0	0	0	0		0			uvm_pkg::uvm_component_registry::T	001
+  #136652	9	class_typespec	uvm_component			uvm_registry.svh	51	39	51	52						001
+  #136653	4	type_parameter	T		<in>type_id.T		0	0	0	0					uvm_pkg::uvm_algorithmic_comparator::type_id::T	001
+  #136654	5	ref_typespec			<in>T		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator::type_id::T	001
+> #136655	6	class_typespec	svaunit_base			uvm_object_defines.svh	468	35	468	65						001
+  #136656	4	param_assign					0	0	0	0						001
+  #136657	5	type_parameter	T		<in>type_id.T		0	0	0	0					uvm_pkg::uvm_algorithmic_comparator::type_id::T	001
+  #136658	6	ref_typespec			<in>T		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator::type_id::T	001
+  #136659	7	class_typespec	svaunit_base			uvm_object_defines.svh	468	35	468	65						001
+  #136660	5	type_parameter	T		<in>type_id.T	uvm_registry.svh	51	37	51	38					uvm_pkg::uvm_algorithmic_comparator::type_id::T	001
+  #136661	6	ref_typespec			<in>T		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator::type_id::T	001
+
+--- the holder #136654 on the other side: exact-record matches at [63731, 63823, 135784, 138477, 142443]
+  #63728	5	class_typespec	svaunit_base			uvm_object_defines.svh	468	35	468	65						001
+  #63729	3	param_assign					0	0	0	0						001
+  #63730	4	type_parameter	T		uvm_pkg::uvm_component_registry::T	uvm_registry.svh	51	37	51	38					uvm_pkg::uvm_component_registry::T	001
+> #63731	5	ref_typespec			<in>T		0	0	0	0		0			uvm_pkg::uvm_component_registry::T	001
+  #63732	6	class_typespec	uvm_component			uvm_registry.svh	51	39	51	52						001
+  #63733	2	class_typespec	uvm_pkg::uvm_config_int			uvm_misc.svh	54	9	54	22						010
+  #63734	3	ref_typespec			<in>uvm_pkg::uvm_config_int		0	0	0	0		0			uvm_pkg::uvm_config_int	001
+  #63735	4	class_typespec	uvm_pkg::m_uvm_config_obj_misc			uvm_misc.svh	54	9	54	22						001
+  #63736	2	class_typespec	uvm_pkg::uvm_config_object			uvm_misc.svh	54	9	54	22						010
+  #63737	3	ref_typespec			<in>uvm_pkg::uvm_config_object		0	0	0	0		0			uvm_pkg::uvm_config_object	001
+  #63738	2	class_typespec	uvm_pkg::uvm_config_seq			uvm_misc.svh	54	9	54	22						010
+  #63739	3	ref_typespec			<in>uvm_pkg::uvm_config_seq		0	0	0	0		0			uvm_pkg::uvm_config_seq	001
+  #63740	2	class_typespec	uvm_pkg::uvm_config_string			uvm_misc.svh	54	9	54	22						010
+
+facets of this row (7481, first 25):
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20805 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21741 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66834 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66922 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67149 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68133 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68153 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68268 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]

@@ -1,0 +1,64 @@
+cluster N0193 (id kept from an earlier map; COVERED r11u207 (map 12 pair-A route carried: map 11 pair-A route carried (pass 195/198 left it; the brief's UVM ground-A families / map 11 list): map 10 ground-A remainder, UVM heads) | ground A | site emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law shellCallKeepsItsSyntax167) < emitStmt (StmtEmit.cpp, law negLitPkgRetFoldNested30) [r11u165map pin]): span|hier_path|endcol|under:return_stmt
+row: surelog/default/BuildUVMPkg  strict=differ:line(11)  records golden=201533 ours=201534
+object: #172266 (golden) / #172258 (ours)  type=hier_path name=param_sequencer.get_current_item 
+  golden: 56002:13:56002:47
+  ours:   56002:13:56002:45
+  walk parents: return_stmt < begin < function(get_current_item) < class_defn(uvm_sequence)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 172260..172272 ('>' = the object)
+  #172260	12	ref_obj	m_sequencer		uvm_pkg::uvm_sequence::get_current_item::m_sequencer	uvm_pkg.sv	56000	33	56000	44		0			uvm_pkg::uvm_sequence::get_current_item::m_sequencer	000
+  #172261	10	func_call	uvm_report_fatal			uvm_pkg.sv	56001	7	56001	106		0				000
+  #172262	11	constant				uvm_pkg.sv	56001	24	56001	33	"SGTCURR"	56	STRING:SGTCURR	6		000
+  #172263	11	constant				uvm_pkg.sv	56001	35	56001	95	"Failure to cast m_sequencer to the parameterized sequencer"	464	STRING:Failure to cast m_sequencer to the parameterized sequencer	6		000
+  #172264	11	ref_obj	UVM_NONE		uvm_pkg::uvm_sequence::get_current_item::UVM_NONE	uvm_pkg.sv	56001	97	56001	105		0			uvm_pkg::uvm_sequence::get_current_item::UVM_NONE	000
+  #172265	9	return_stmt				uvm_pkg.sv	56002	5	56002	11						000
+> #172266	10	hier_path	param_sequencer.get_current_item			uvm_pkg.sv	56002	13	56002	47		0				000
+  #172267	11	ref_obj	param_sequencer			uvm_pkg.sv	56002	13	56002	28		0				000
+  #172268	11	method_func_call	get_current_item			uvm_pkg.sv	56002	29	56002	45		0				000
+  #172269	7	task	get_response		uvm_pkg::uvm_sequence::get_response	uvm_pkg.sv	56025	3	56029	10					uvm_pkg::uvm_sequence::get_response	000
+  #172270	8	class_var	rsp		uvm_pkg::uvm_sequence::get_response::rsp	uvm_pkg.sv	56026	23	56026	26		0			uvm_pkg::uvm_sequence::get_response::rsp	000
+  #172271	9	ref_typespec			uvm_pkg::uvm_sequence::get_response::rsp		0	0	0	0		0			uvm_pkg::uvm_sequence::get_response::rsp	000
+  #172272	10	class_typespec				uvm_pkg.sv	56026	5	56026	22						000
+
+--- OURS (B) records 172252..172264 ('>' = the object)
+  #172252	12	ref_obj	m_sequencer		uvm_pkg::uvm_sequence::get_current_item::m_sequencer	uvm_pkg.sv	56000	33	56000	44		0			uvm_pkg::uvm_sequence::get_current_item::m_sequencer	000
+  #172253	10	func_call	uvm_report_fatal			uvm_pkg.sv	56001	7	56001	106		0				000
+  #172254	11	constant				uvm_pkg.sv	56001	24	56001	33	"SGTCURR"	56	STRING:SGTCURR	6		000
+  #172255	11	constant				uvm_pkg.sv	56001	35	56001	95	"Failure to cast m_sequencer to the parameterized sequencer"	464	STRING:Failure to cast m_sequencer to the parameterized sequencer	6		000
+  #172256	11	ref_obj	UVM_NONE		uvm_pkg::uvm_sequence::get_current_item::UVM_NONE	uvm_pkg.sv	56001	97	56001	105		0			uvm_pkg::uvm_sequence::get_current_item::UVM_NONE	000
+  #172257	9	return_stmt				uvm_pkg.sv	56002	5	56002	11						000
+> #172258	10	hier_path	param_sequencer.get_current_item			uvm_pkg.sv	56002	13	56002	45		0				000
+  #172259	11	ref_obj	param_sequencer			uvm_pkg.sv	56002	13	56002	28		0				000
+  #172260	11	method_func_call	get_current_item			uvm_pkg.sv	56002	29	56002	45		0				000
+  #172261	7	task	get_response		uvm_pkg::uvm_sequence::get_response	uvm_pkg.sv	56025	3	56029	10					uvm_pkg::uvm_sequence::get_response	000
+  #172262	8	class_var	rsp		uvm_pkg::uvm_sequence::get_response::rsp	uvm_pkg.sv	56026	23	56026	26		0			uvm_pkg::uvm_sequence::get_response::rsp	000
+  #172263	9	ref_typespec			uvm_pkg::uvm_sequence::get_response::rsp		0	0	0	0		0			uvm_pkg::uvm_sequence::get_response::rsp	000
+  #172264	10	class_typespec				uvm_pkg.sv	56026	5	56026	22						000
+
+facets of this row (415, first 25):
+  N0423 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22506 bit_typespec  G[] O[1 objs]
+  N0423 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22590 bit_typespec  G[] O[1 objs]
+  N0423 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23503 bit_typespec  G[] O[1 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74743 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74826 bit_typespec  G[] O[1 objs]
+  N0423 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76333 bit_typespec  G[] O[1 objs]
+  N0423 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76354 bit_typespec  G[] O[1 objs]
+  N0423 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76414 bit_typespec  G[] O[1 objs]
+  N0423 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79777 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79788 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79842 array_typespec  G[] O[1 objs]
+  N0423 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79861 bit_typespec  G[] O[1 objs]
+  N0423 #80868/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]

@@ -1,0 +1,40 @@
+cluster N1931 (id kept from an earlier map; OPEN | ground B | site makeVar (TypeEmit.cpp, law tpPackedArrayTsVarInit110) < emitInstance (ModuleEmit.cpp, law anonPackedAggDimNet109) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab) [r11u138map pin] [r11u142map pin]): span|packed_array_var|endcol|under:module_inst
+row: probe/default/v11u110repro__brk__v1__b08_top_default_init  strict=endcol  records golden=98 ours=98
+object: #42 (golden) / #42 (ours)  type=packed_array_var name=x 
+  golden: 2:8:2:9
+  ours:   2:8:2:16
+  walk parents: module_inst(work@dut) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 36..48 ('>' = the object)
+  #36	4	operation				dut.sv	3	14	3	16		0				000
+  #37	5	ref_obj	x		work@dut.x	dut.sv	3	15	3	16		0			work@dut.x	000
+  #38	4	operation				dut.sv	3	19	3	21		0				000
+  #39	5	ref_obj	a		work@dut.a	dut.sv	3	20	3	21		0			work@dut.a	000
+  #40	3	ref_obj	o		work@dut.o	dut.sv	3	10	3	11		0			work@dut.o	000
+  #41	1	module_inst	work@dut	work@dut		dut.sv	1	1	4	10						000
+> #42	2	packed_array_var	x		work@dut.x	dut.sv	2	8	2	9		0			work@dut.x	000
+  #43	3	ref_typespec			work@dut.x		0	0	0	0		0			work@dut.x	000
+  #44	4	packed_array_typespec				dut.sv	1	66	1	76						000
+  #45	5	range					0	0	0	0						001
+  #46	6	constant				dut.sv	1	72	1	73	3	64	UINT:3	9		001
+  #47	6	constant				dut.sv	1	74	1	75	0	64	UINT:0	9		001
+  #48	5	ref_typespec	id_t		<in>id_t		0	0	0	0		0			work@dut.x.id_t	001
+
+--- OURS (B) records 36..48 ('>' = the object)
+  #36	4	operation				dut.sv	3	14	3	16		0				000
+  #37	5	ref_obj	x		work@dut.x	dut.sv	3	15	3	16		0			work@dut.x	000
+  #38	4	operation				dut.sv	3	19	3	21		0				000
+  #39	5	ref_obj	a		work@dut.a	dut.sv	3	20	3	21		0			work@dut.a	000
+  #40	3	ref_obj	o		work@dut.o	dut.sv	3	10	3	11		0			work@dut.o	000
+  #41	1	module_inst	work@dut	work@dut		dut.sv	1	1	4	10						000
+> #42	2	packed_array_var	x		work@dut.x	dut.sv	2	8	2	16		0			work@dut.x	000
+  #43	3	ref_typespec			work@dut.x		0	0	0	0		0			work@dut.x	000
+  #44	4	packed_array_typespec				dut.sv	1	66	1	76						000
+  #45	5	range					0	0	0	0						001
+  #46	6	constant				dut.sv	1	72	1	73	3	64	UINT:3	9		001
+  #47	6	constant				dut.sv	1	74	1	75	0	64	UINT:0	9		001
+  #48	5	ref_typespec	id_t		<in>id_t		0	0	0	0		0			work@dut.x.id_t	001
+
+facets of this row (1, first 25):
+  N1931 #42/42 packed_array_var x G[2:8:2:9] O[2:8:2:16]

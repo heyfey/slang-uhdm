@@ -1,0 +1,10 @@
+{
+ "N0543": "operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < operator() (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) [r11u211 pin]",
+ "N0164": "operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < operator() (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) [r11u211 pin]",
+ "N0784": "operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < operator() (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) [r11u211 pin]",
+ "N0689": "emitPackage (ParamEmit.cpp, law classNestedClassTdJoinsPkgGroup50) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) < realMain (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u211 pin]",
+ "N0540": "emitPackage (ParamEmit.cpp, law pkgImportCloneLastWriter32) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) < realMain (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u211 pin]",
+ "N0175": "emitExpr (ExprEmit.cpp, law clsScopedBoundWholeSpan201) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79) < emitExpr (ExprEmit.cpp, law thisPathSelectErased4) [r11u211 pin]",
+ "N0007": "emitSyntaxExpr (TypeEmit.cpp, law defGenPathSel161) < operator() (ModuleEmit.cpp, law genSyntaxSizeDim) < emitDefGenStmts (ModuleEmit.cpp, law genRegionCondNoEnumBind) [r11u211 pin] [r11u203map pin (other example): emitExpr (ExprEmit.cpp, law parensLessCallIsPathRefObj) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law newArrayArgNoBi]",
+ "N2469": "emitExpr (ExprEmit.cpp, law clsScopedBoundWholeSpan201) < emitExpr (ExprEmit.cpp, law dottedIdxRecvFromSyntax23) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) [r11u211 pin]"
+}

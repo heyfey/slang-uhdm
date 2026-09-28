@@ -17379,6 +17379,7 @@ lists it under the law).
 | r11u207repro |  | `bitSelMethodCallIdxSpan207` `foreachThisArrAtThisToken207` `hiddenBlockVarMintNoFile207` `namedSlotFillerRootFile207` `namedUnlinkedWrittenOrder207` `parenCastWidthRefPkgBare207` `parenMethodCallPathSpan207` `pcwElabKeepsClaim207v` | 0 | 25 |
 | r11u208verify |  |  | 0 | 106 |
 | r11u20repro |  | `pkgBodyCallNeverListsOnHolder20` `typeParamDefaultBoundNoReduce20` | 14 | 4 |
+| r11u211map |  |  | 0 | 0 |
 | r11u21repro |  | `paAsmMemberSliceFold21` `paAsmMemberSliceFold21v` | 4 | 7 |
 | r11u22repro |  | `elabCaTernaryFoldIntConst22` `genCaTernaryFoldGenScope22` | 73 | 28 |
 | r11u23repro |  | `genCaUnboundTernConcatFence23` `genCaUnboundTernFold23` `genCaUnboundTernLhsNoActual23` | 75 | 37 |

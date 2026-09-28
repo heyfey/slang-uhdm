@@ -1,0 +1,5 @@
+CORPUS NE row-modes 42 tests 23 clusters 415
+PROBE NE cases 724 with facets 724 clusters 596
+clusters 847 kept map-12 id 846 not in map 12 1 (of which reused an earlier map id 0 ; new ids 1 N2469..N2469) map-12 clusters gone 47
+verify (python mode-4 rule vs tool stdout, per row): {True: 766}
+clusters not in map 12 with a corpus row: N2469:2

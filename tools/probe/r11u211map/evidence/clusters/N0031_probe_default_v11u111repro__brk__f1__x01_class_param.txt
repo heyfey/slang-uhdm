@@ -1,0 +1,59 @@
+cluster N0031 (id kept from an earlier map; COVERED r11u209 (map 12 pair-B route carried: map 11 pair-B route carried (pass 193/196 left it; the brief's UVM ground-B families / carried residues): map 10 ground-B list, the UVM ground-B families (N0039 also pass 188 R4)) | ground B | site operator() (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) < emitClassParameters (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) < emitClassDefn (UhdmExporter.cpp, law classDefnVirtualFromVirtualIfaceDecl6) [r11u197 pin] [r11u197map pin]): file|constant|ours-empty|under:range
+row: probe/default/v11u111repro__brk__f1__x01_class_param  strict=type  records golden=68 ours=68
+object: #23 (golden) / #23 (ours)  type=constant name= 
+  golden: dut.sv 2:18:2:19
+  ours:    0:0:0:0
+  walk parents: range < logic_typespec(q::mask_t) < ref_typespec < parameter(M)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 17..29 ('>' = the object)
+  #17	6	constant				dut.sv	5	12	5	13	0	64	UINT:0	9		001
+  #18	3	ref_obj	M		work@C::v::M	dut.sv	5	19	5	20		0			work@C::v::M	000
+  #19	2	parameter	M		work@C::M	dut.sv	4	31	4	32		0	BIN:010		work@C::M	000
+  #20	3	ref_typespec			work@C::M		0	0	0	0		0			work@C::M	000
+  #21	4	logic_typespec	q::mask_t			dut.sv	2	11	2	22						110
+  #22	5	range				dut.sv	2	17	2	22						001
+> #23	6	constant				dut.sv	2	18	2	19	0	64	UINT:0	9		001
+  #24	6	constant				dut.sv	2	20	2	21	2	64	UINT:2	9		001
+  #25	2	param_assign				dut.sv	4	31	4	41						000
+  #26	3	constant				dut.sv	4	35	4	41	3'b010	3	BIN:010	3		000
+  #27	4	ref_typespec			work@C		0	0	0	0		0			work@C	000
+  #28	5	logic_typespec	q::mask_t			dut.sv	2	11	2	22						110
+  #29	6	range				dut.sv	2	17	2	22						001
+
+--- OURS (B) records 17..29 ('>' = the object)
+  #17	6	constant				dut.sv	5	12	5	13	0	64	UINT:0	9		001
+  #18	3	ref_obj	M		work@C::v::M	dut.sv	5	19	5	20		0			work@C::v::M	000
+  #19	2	parameter	M		work@C::M	dut.sv	4	31	4	32		0	BIN:010		work@C::M	000
+  #20	3	ref_typespec			work@C::M		0	0	0	0		0			work@C::M	000
+  #21	4	int_typespec				dut.sv	4	11	4	41						000
+  #22	5	range					0	0	0	0						001
+> #23	6	constant					0	0	0	0		0	INT:2	0		001
+  #24	6	constant					0	0	0	0		0	INT:0	0		001
+  #25	2	param_assign				dut.sv	4	31	4	41						000
+  #26	3	constant				dut.sv	4	35	4	41	3'b010	3	BIN:010	3		000
+  #27	4	ref_typespec			work@C		0	0	0	0		0			work@C	000
+  #28	5	int_typespec				dut.sv	4	11	4	41						000
+  #29	6	range					0	0	0	0						001
+
+facets of this row (20, first 25):
+  N0770 #21/-1 logic_typespec q::mask_t G[1 objs] O[]
+  N0798 #-1/21 int_typespec  G[] O[1 objs]
+  N0770 #28/-1 logic_typespec q::mask_t G[1 objs] O[]
+  N0798 #-1/28 int_typespec  G[] O[1 objs]
+  N0444 #22/22 range  G[dut.sv 2:17:2:22] O[ 0:0:0:0]
+  N0445 #22/22 range  G[2:17:2:22] O[0:0:0:0]
+  N0031 #23/23 constant  G[dut.sv 2:18:2:19] O[ 0:0:0:0]
+  N0042 #23/23 constant  G[2:18:2:19] O[0:0:0:0]
+  N0810 #23/23 constant  G[0|64|UINT:0|9] O[|0|INT:2|0]
+  N0031 #24/24 constant  G[dut.sv 2:20:2:21] O[ 0:0:0:0]
+  N0042 #24/24 constant  G[2:20:2:21] O[0:0:0:0]
+  N0810 #24/24 constant  G[2|64|UINT:2|9] O[|0|INT:0|0]
+  N0444 #29/29 range  G[dut.sv 2:17:2:22] O[ 0:0:0:0]
+  N0445 #29/29 range  G[2:17:2:22] O[0:0:0:0]
+  N0031 #30/30 constant  G[dut.sv 2:18:2:19] O[ 0:0:0:0]
+  N0042 #30/30 constant  G[2:18:2:19] O[0:0:0:0]
+  N0810 #30/30 constant  G[0|64|UINT:0|9] O[|0|INT:2|0]
+  N0031 #31/31 constant  G[dut.sv 2:20:2:21] O[ 0:0:0:0]
+  N0042 #31/31 constant  G[2:20:2:21] O[0:0:0:0]
+  N0810 #31/31 constant  G[2|64|UINT:2|9] O[|0|INT:0|0]

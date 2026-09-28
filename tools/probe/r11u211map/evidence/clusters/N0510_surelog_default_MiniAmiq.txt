@@ -1,0 +1,64 @@
+cluster N0510 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 11; passes 201-206 left it) | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitImportedPkgClassMethodClones (ParamEmit.cpp, law collectPkgTfListing) < emitPackage (ParamEmit.cpp, law LAW) [r11u189 pin] [r11u189map pin]): struct|ours-only:fewer-copies|string_var|under:function
+row: surelog/default/MiniAmiq  strict=differ:file(71)  records golden=435559 ours=433769
+object: #-1 (golden) / #296989 (ours)  type=string_var name= 
+  golden: 
+  ours:   3 objs
+  walk parents: function(uvm_object::get_name) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 296983..296995 ('>' = the object)
+  #296983	3	int_var			svaunit_pkg::uvm_object::get_inst_count	uvm_object.svh	844	10	844	13		0			svaunit_pkg::uvm_object::get_inst_count	000
+  #296984	4	ref_typespec			svaunit_pkg::uvm_object::get_inst_count		0	0	0	0		0			svaunit_pkg::uvm_object::get_inst_count	000
+  #296985	5	int_typespec				uvm_object.svh	844	10	844	13						000
+  #296986	3	return_stmt				uvm_object.svh	845	3	845	9						000
+  #296987	4	ref_obj	m_inst_count		svaunit_pkg::uvm_object::get_inst_count::m_inst_count	uvm_object.svh	845	10	845	22		0			svaunit_pkg::uvm_object::get_inst_count::m_inst_count	000
+  #296988	2	function	uvm_object::get_name		svaunit_pkg::uvm_object::get_name	uvm_object.svh	852	1	854	12					svaunit_pkg::uvm_object::get_name	000
+> #296989	3	string_var			svaunit_pkg::uvm_object::get_name	uvm_object.svh	852	10	852	16		0			svaunit_pkg::uvm_object::get_name	000
+  #296990	4	ref_typespec			svaunit_pkg::uvm_object::get_name		0	0	0	0		0			svaunit_pkg::uvm_object::get_name	000
+  #296991	5	string_typespec				uvm_object.svh	852	10	852	16						000
+  #296992	3	return_stmt				uvm_object.svh	853	3	853	9						000
+  #296993	4	ref_obj	m_leaf_name		svaunit_pkg::uvm_object::get_name::m_leaf_name	uvm_object.svh	853	10	853	21		0			svaunit_pkg::uvm_object::get_name::m_leaf_name	000
+  #296994	2	function	uvm_object::get_full_name		svaunit_pkg::uvm_object::get_full_name	uvm_object.svh	860	1	862	12					svaunit_pkg::uvm_object::get_full_name	000
+  #296995	3	string_var			svaunit_pkg::uvm_object::get_full_name	uvm_object.svh	860	10	860	16		0			svaunit_pkg::uvm_object::get_full_name	000
+
+--- the holder #296988 on the other side: exact-record matches at [65736, 298439, 364404]
+  #65733	5	int_typespec				uvm_object.svh	844	10	844	13						000
+  #65734	3	return_stmt				uvm_object.svh	845	3	845	9						000
+  #65735	4	ref_obj	m_inst_count		svaunit_pkg::uvm_object::get_inst_count::m_inst_count	uvm_object.svh	845	10	845	22		0			svaunit_pkg::uvm_object::get_inst_count::m_inst_count	000
+> #65736	2	function	uvm_object::get_name		svaunit_pkg::uvm_object::get_name	uvm_object.svh	852	1	854	12					svaunit_pkg::uvm_object::get_name	000
+  #65737	3	string_var			uvm_pkg::uvm_object::get_name	uvm_object.svh	852	10	852	16		0			uvm_pkg::uvm_object::get_name	000
+  #65738	4	ref_typespec			uvm_pkg::uvm_object::get_name		0	0	0	0		0			uvm_pkg::uvm_object::get_name	000
+  #65739	5	string_typespec				uvm_object.svh	852	10	852	16						000
+  #65740	3	return_stmt				uvm_object.svh	853	3	853	9						000
+  #65741	4	ref_obj	m_leaf_name		svaunit_pkg::uvm_object::get_name::m_leaf_name	uvm_object.svh	853	10	853	21		0			svaunit_pkg::uvm_object::get_name::m_leaf_name	000
+  #65742	2	function	uvm_object::get_full_name		svaunit_pkg::uvm_object::get_full_name	uvm_object.svh	860	1	862	12					svaunit_pkg::uvm_object::get_full_name	000
+  #65743	3	string_var			uvm_pkg::uvm_object::get_full_name	uvm_object.svh	860	10	860	16		0			uvm_pkg::uvm_object::get_full_name	000
+  #65744	4	ref_typespec			uvm_pkg::uvm_object::get_full_name		0	0	0	0		0			uvm_pkg::uvm_object::get_full_name	000
+  #65745	5	string_typespec				uvm_object.svh	860	10	860	16						000
+
+facets of this row (7481, first 25):
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20805 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21741 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66834 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66922 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67149 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68133 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68153 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68268 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]

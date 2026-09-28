@@ -1,0 +1,64 @@
+cluster N0815 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 9; passes 201-206 left it) | ground A | site emitExpr (ExprEmit.cpp, law caPartSelBoundFoldTs) < emitExpr (ExprEmit.cpp, law genLpIdxOpOperandFold112) < emitModuleDefPorts (ModuleEmit.cpp, law structParamBareImportRef) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|tok:->id.|under:constant
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(76)  records golden=1342584 ours=1342870
+object: #155820 (golden) / #155780 (ours)  type=ref_typespec name= OUT
+  golden: work@ibex_core.if_stage_i.pmp_req_err
+  ours:   work@ibex_core.if_stage_i.instr_pmp_err_i.pmp_req_err
+  walk parents: constant < bit_select(pmp_req_err) < port(instr_pmp_err_i) < ref_module(if_stage_i)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 155814..155826 ('>' = the object)
+  #155814	4	ref_obj	instr_rdata_i		work@ibex_core.if_stage_i.instr_rdata_i.instr_rdata_i	ibex_core.sv	392	35	392	48		0			work@ibex_core.if_stage_i.instr_rdata_i.instr_rdata_i	000
+  #155815	3	port	instr_err_i			ibex_core.sv	393	7	393	59						000
+  #155816	4	ref_obj	instr_err_i		work@ibex_core.if_stage_i.instr_err_i.instr_err_i	ibex_core.sv	393	35	393	46		0			work@ibex_core.if_stage_i.instr_err_i.instr_err_i	000
+  #155817	3	port	instr_pmp_err_i			ibex_core.sv	394	7	394	59						000
+  #155818	4	bit_select	pmp_req_err		work@ibex_core.if_stage_i.pmp_req_err	ibex_core.sv	394	47	394	52		0			work@ibex_core.if_stage_i.pmp_req_err	000
+  #155819	5	constant				ibex_core.sv	394	47	394	52	0	32	UINT:0	9		000
+> #155820	6	ref_typespec			work@ibex_core.if_stage_i.pmp_req_err		0	0	0	0		0			work@ibex_core.if_stage_i.pmp_req_err	000
+  #155821	7	int_typespec				ibex_pkg.sv	285	11	285	23						000
+  #155822	3	port	instr_valid_id_o			ibex_core.sv	397	7	397	59						000
+  #155823	4	ref_obj	instr_valid_id		work@ibex_core.if_stage_i.instr_valid_id_o.instr_valid_id	ibex_core.sv	397	35	397	49		0			work@ibex_core.if_stage_i.instr_valid_id_o.instr_valid_id	000
+  #155824	3	port	instr_new_id_o			ibex_core.sv	398	7	398	59						000
+  #155825	4	ref_obj	instr_new_id		work@ibex_core.if_stage_i.instr_new_id_o.instr_new_id	ibex_core.sv	398	35	398	47		0			work@ibex_core.if_stage_i.instr_new_id_o.instr_new_id	000
+  #155826	3	port	instr_rdata_id_o			ibex_core.sv	399	7	399	59						000
+
+--- OURS (B) records 155774..155786 ('>' = the object)
+  #155774	4	ref_obj	instr_rdata_i		work@ibex_core.if_stage_i.instr_rdata_i.instr_rdata_i	ibex_core.sv	392	35	392	48		0			work@ibex_core.if_stage_i.instr_rdata_i.instr_rdata_i	000
+  #155775	3	port	instr_err_i			ibex_core.sv	393	7	393	59						000
+  #155776	4	ref_obj	instr_err_i		work@ibex_core.if_stage_i.instr_err_i.instr_err_i	ibex_core.sv	393	35	393	46		0			work@ibex_core.if_stage_i.instr_err_i.instr_err_i	000
+  #155777	3	port	instr_pmp_err_i			ibex_core.sv	394	7	394	59						000
+  #155778	4	bit_select	pmp_req_err		work@ibex_core.if_stage_i.pmp_req_err	ibex_core.sv	394	47	394	52		0			work@ibex_core.if_stage_i.pmp_req_err	000
+  #155779	5	constant				ibex_core.sv	394	47	394	52	0	32	UINT:0	9		000
+> #155780	6	ref_typespec			work@ibex_core.if_stage_i.instr_pmp_err_i.pmp_req_err		0	0	0	0		0			work@ibex_core.if_stage_i.instr_pmp_err_i.pmp_req_err	000
+  #155781	7	int_typespec				ibex_pkg.sv	285	11	285	23						000
+  #155782	3	port	instr_valid_id_o			ibex_core.sv	397	7	397	59						000
+  #155783	4	ref_obj	instr_valid_id		work@ibex_core.if_stage_i.instr_valid_id_o.instr_valid_id	ibex_core.sv	397	35	397	49		0			work@ibex_core.if_stage_i.instr_valid_id_o.instr_valid_id	000
+  #155784	3	port	instr_new_id_o			ibex_core.sv	398	7	398	59						000
+  #155785	4	ref_obj	instr_new_id		work@ibex_core.if_stage_i.instr_new_id_o.instr_new_id	ibex_core.sv	398	35	398	47		0			work@ibex_core.if_stage_i.instr_new_id_o.instr_new_id	000
+  #155786	3	port	instr_rdata_id_o			ibex_core.sv	399	7	399	59						000
+
+facets of this row (4044, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

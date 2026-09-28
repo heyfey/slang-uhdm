@@ -1,0 +1,41 @@
+cluster N0096 (id kept from an earlier map; OPEN | ground B | site buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < buildClassTypedefTs (UhdmExporter.cpp, law typedefAliasSharesTypespec25) < classElemVar (UhdmExporter.cpp, law classPropElemTsFollowsScalarTd9) [r11u142map pin]): fullname|ref_typespec|tok:id::->|under:typespec_member
+row: probe/default/r10sd6repro__v3_hier_path  strict=fullname  records golden=101 ours=101
+object: #78 (golden) / #78 (ours)  type=ref_typespec name= STABLE
+  golden: q3::p3::s3_t::f3
+  ours:   p3::s3_t::f3
+  walk parents: typespec_member(f3) < struct_typespec(p3::s3_t) < ref_typespec < struct_var(st3)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 72..84 ('>' = the object)
+  #72	3	constant					0	0	0	0	*	8	STRING:*	8		001
+  #73	2	class_defn	c3		q3::c3	dut.sv	10	3	12	11					q3::c3	000
+  #74	3	struct_var	st3		q3::c3::st3	dut.sv	5	8	5	11		0			q3::c3::st3	000
+  #75	4	ref_typespec			q3::c3::st3		0	0	0	0		0			q3::c3::st3	000
+  #76	5	struct_typespec	p3::s3_t			dut.sv	4	11	4	29						110
+  #77	6	typespec_member	f3			dut.sv	4	24	4	26						001
+> #78	7	ref_typespec			<in>p3::s3_t.f3		0	0	0	0		0			q3::p3::s3_t::f3	001
+  #79	8	int_typespec				dut.sv	4	20	4	23						001
+  #80	3	int_var	b3		q3::c3::b3	dut.sv	6	7	6	9		0			q3::c3::b3	000
+  #81	4	ref_typespec			q3::c3::b3		0	0	0	0		0			q3::c3::b3	000
+  #82	5	int_typespec				dut.sv	6	3	6	6						000
+  #83	4	hier_path	st3.f3			dut.sv	6	12	6	18		0				000
+  #84	5	ref_obj	st3			dut.sv	6	12	6	15		0				000
+
+--- OURS (B) records 72..84 ('>' = the object)
+  #72	3	constant					0	0	0	0	*	8	STRING:*	8		001
+  #73	2	class_defn	c3		q3::c3	dut.sv	10	3	12	11					q3::c3	000
+  #74	3	struct_var	st3		q3::c3::st3	dut.sv	5	8	5	11		0			q3::c3::st3	000
+  #75	4	ref_typespec			q3::c3::st3		0	0	0	0		0			q3::c3::st3	000
+  #76	5	struct_typespec	p3::s3_t			dut.sv	4	11	4	29						110
+  #77	6	typespec_member	f3			dut.sv	4	24	4	26						001
+> #78	7	ref_typespec			<in>p3::s3_t.f3		0	0	0	0		0			p3::s3_t::f3	001
+  #79	8	int_typespec				dut.sv	4	20	4	23						001
+  #80	3	int_var	b3		q3::c3::b3	dut.sv	6	7	6	9		0			q3::c3::b3	000
+  #81	4	ref_typespec			q3::c3::b3		0	0	0	0		0			q3::c3::b3	000
+  #82	5	int_typespec				dut.sv	6	3	6	6						000
+  #83	4	hier_path	st3.f3			dut.sv	6	12	6	18		0				000
+  #84	5	ref_obj	st3			dut.sv	6	12	6	15		0				000
+
+facets of this row (2, first 25):
+  N0096 #78/78 ref_typespec  G[q3::p3::s3_t::f3] O[p3::s3_t::f3]
+  N2176 #85/85 ref_obj f3 G[q3::c3::b3::f3] O[p3::b3::f3]

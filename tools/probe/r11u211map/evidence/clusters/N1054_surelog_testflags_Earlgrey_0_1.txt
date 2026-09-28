@@ -1,0 +1,64 @@
+cluster N1054 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 9; passes 201-206 left it) | ground B | site emitSyntaxExpr (TypeEmit.cpp, law hpMidGenvarSelect) < emitSyntaxExpr (TypeEmit.cpp, law selChainDecideBeforeMint41) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) [r11u138map pin] [r11u142map pin]): fullname|bit_select|tok:id@id.id.id.id.id[id].id->id.id[id]|under:hier_path
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(76)  records golden=1342584 ours=1342870
+object: #207551 (golden) / #207511 (ours)  type=bit_select name=wkup_detector_padsel OUT
+  golden: work@pinmux.gen_wkup_detect.dio_data_mux.reg2hw.wkup_detector_padsel[k].wkup_detector_padsel
+  ours:   reg2hw.wkup_detector_padsel[k]
+  walk parents: hier_path(reg2hw.wkup_detector_padsel[k]) < bit_select(dio_data_mux) < operation < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 207545..207557 ('>' = the object)
+  #207545	8	ref_obj	k		work@pinmux.gen_wkup_detect.k	pinmux.sv	228	46	228	47		0			work@pinmux.gen_wkup_detect.k	000
+  #207546	7	ref_obj	miodio			pinmux.sv	228	49	228	55		0				000
+  #207547	7	ref_obj	q		work@pinmux.gen_wkup_detect.q	pinmux.sv	228	56	228	57		0			work@pinmux.gen_wkup_detect.q	000
+  #207548	6	bit_select	dio_data_mux		work@pinmux.gen_wkup_detect.dio_data_mux	pinmux.sv	229	37	229	67		0			work@pinmux.gen_wkup_detect.dio_data_mux	000
+  #207549	7	hier_path	reg2hw.wkup_detector_padsel[k]			pinmux.sv	229	37	229	67		0				000
+  #207550	8	ref_obj	reg2hw			pinmux.sv	229	37	229	43		0				000
+> #207551	8	bit_select	wkup_detector_padsel		work@pinmux.gen_wkup_detect.dio_data_mux.reg2hw.wkup_detector_padsel[k].wkup_detector_padsel	pinmux.sv	229	65	229	66		0			work@pinmux.gen_wkup_detect.dio_data_mux.reg2hw.wkup_detector_padsel[k].wkup_detector_padsel	000
+  #207552	9	ref_obj	k		work@pinmux.gen_wkup_detect.dio_data_mux.reg2hw.wkup_detector_padsel[k].k	pinmux.sv	229	65	229	66		0			work@pinmux.gen_wkup_detect.dio_data_mux.reg2hw.wkup_detector_padsel[k].k	000
+  #207553	6	bit_select	mio_data_mux		work@pinmux.gen_wkup_detect.mio_data_mux	pinmux.sv	230	37	230	67		0			work@pinmux.gen_wkup_detect.mio_data_mux	000
+  #207554	7	hier_path	reg2hw.wkup_detector_padsel[k]			pinmux.sv	230	37	230	67		0				000
+  #207555	8	ref_obj	reg2hw			pinmux.sv	230	37	230	43		0				000
+  #207556	8	bit_select	wkup_detector_padsel		work@pinmux.gen_wkup_detect.mio_data_mux.reg2hw.wkup_detector_padsel[k].wkup_detector_padsel	pinmux.sv	230	65	230	66		0			work@pinmux.gen_wkup_detect.mio_data_mux.reg2hw.wkup_detector_padsel[k].wkup_detector_padsel	000
+  #207557	9	ref_obj	k		work@pinmux.gen_wkup_detect.mio_data_mux.reg2hw.wkup_detector_padsel[k].k	pinmux.sv	230	65	230	66		0			work@pinmux.gen_wkup_detect.mio_data_mux.reg2hw.wkup_detector_padsel[k].k	000
+
+--- OURS (B) records 207505..207517 ('>' = the object)
+  #207505	8	ref_obj	k		work@pinmux.gen_wkup_detect.k	pinmux.sv	228	46	228	47		0			work@pinmux.gen_wkup_detect.k	000
+  #207506	7	ref_obj	miodio			pinmux.sv	228	49	228	55		0				000
+  #207507	7	ref_obj	q		work@pinmux.gen_wkup_detect.q	pinmux.sv	228	56	228	57		0			work@pinmux.gen_wkup_detect.q	000
+  #207508	6	bit_select	dio_data_mux		work@pinmux.gen_wkup_detect.dio_data_mux	pinmux.sv	229	37	229	67		0			work@pinmux.gen_wkup_detect.dio_data_mux	000
+  #207509	7	hier_path	reg2hw.wkup_detector_padsel[k]			pinmux.sv	229	37	229	67		0				000
+  #207510	8	ref_obj	reg2hw			pinmux.sv	229	37	229	43		0				000
+> #207511	8	bit_select	wkup_detector_padsel		reg2hw.wkup_detector_padsel[k]	pinmux.sv	229	44	229	64		0			reg2hw.wkup_detector_padsel[k]	000
+  #207512	9	ref_obj	k		work@pinmux.gen_wkup_detect.dio_data_mux.k	pinmux.sv	229	65	229	66		0			work@pinmux.gen_wkup_detect.dio_data_mux.k	000
+  #207513	6	bit_select	mio_data_mux		work@pinmux.gen_wkup_detect.mio_data_mux	pinmux.sv	230	37	230	67		0			work@pinmux.gen_wkup_detect.mio_data_mux	000
+  #207514	7	hier_path	reg2hw.wkup_detector_padsel[k]			pinmux.sv	230	37	230	67		0				000
+  #207515	8	ref_obj	reg2hw			pinmux.sv	230	37	230	43		0				000
+  #207516	8	bit_select	wkup_detector_padsel		reg2hw.wkup_detector_padsel[k]	pinmux.sv	230	44	230	64		0			reg2hw.wkup_detector_padsel[k]	000
+  #207517	9	ref_obj	k		work@pinmux.gen_wkup_detect.mio_data_mux.k	pinmux.sv	230	65	230	66		0			work@pinmux.gen_wkup_detect.mio_data_mux.k	000
+
+facets of this row (4044, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

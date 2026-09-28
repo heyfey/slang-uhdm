@@ -1,0 +1,64 @@
+cluster N0007 (id kept from an earlier map; OPEN (map 12 gave it to pair A r11u201; pass 201 left it) | ground B | site emitSyntaxExpr (TypeEmit.cpp, law defGenPathSel161) < operator() (ModuleEmit.cpp, law genSyntaxSizeDim) < emitDefGenStmts (ModuleEmit.cpp, law genRegionCondNoEnumBind) [r11u211 pin] [r11u203map pin (other example): emitExpr (ExprEmit.cpp, law parensLessCallIsPathRefObj) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law newArrayArgNoBi]): fullname|ref_obj|golden-empty|under:hier_path
+row: surelog/default/BuildUVMPkg  strict=differ:line(11)  records golden=201533 ours=201534
+object: #26068 (golden) / #26050 (ours)  type=ref_obj name=m_next_transaction_id OUT
+  golden: 
+  ours:   uvm_pkg::uvm_sequencer_param_base::send_request::m_next_transaction_id
+  walk parents: hier_path(sequence_ptr.m_next_transaction_id) < operation < method_func_call(set_transaction_id) < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 26062..26074 ('>' = the object)
+  #26062	9	constant				uvm_pkg.sv	54010	42	54010	43	1	64	UINT:1	9		000
+  #26063	7	begin			uvm_pkg::uvm_sequencer_param_base::send_request	uvm_pkg.sv	54010	45	54012	8					uvm_pkg::uvm_sequencer_param_base::send_request	000
+  #26064	8	method_func_call	set_transaction_id			uvm_pkg.sv	54011	15	54011	33		0				000
+  #26065	9	operation				uvm_pkg.sv	54011	34	54011	70		0				000
+  #26066	10	hier_path	sequence_ptr.m_next_transaction_id			uvm_pkg.sv	54011	34	54011	68		0				000
+  #26067	11	ref_obj	sequence_ptr			uvm_pkg.sv	54011	47	54011	68		0				000
+> #26068	11	ref_obj	m_next_transaction_id			uvm_pkg.sv	54011	47	54011	68		0				000
+  #26069	9	ref_obj	param_t		uvm_pkg::uvm_sequencer_param_base::send_request::param_t	uvm_pkg.sv	54011	7	54011	14		0			uvm_pkg::uvm_sequencer_param_base::send_request::param_t	000
+  #26070	6	func_call	m_last_req_push_front			uvm_pkg.sv	54013	5	54013	35		0				000
+  #26071	7	ref_obj	param_t		uvm_pkg::uvm_sequencer_param_base::send_request::param_t	uvm_pkg.sv	54013	27	54013	34		0			uvm_pkg::uvm_sequencer_param_base::send_request::param_t	000
+  #26072	5	begin			uvm_pkg::uvm_sequencer_param_base::send_request	uvm_pkg.sv	54014	12	54016	6					uvm_pkg::uvm_sequencer_param_base::send_request	000
+  #26073	6	func_call	uvm_report_fatal			uvm_pkg.sv	54015	5	54015	103		0				000
+  #26074	7	constant				uvm_pkg.sv	54015	22	54015	37	"SQRSNDREQCAST"	104	STRING:SQRSNDREQCAST	6		000
+
+--- OURS (B) records 26044..26056 ('>' = the object)
+  #26044	9	constant				uvm_pkg.sv	54010	42	54010	43	1	64	UINT:1	9		000
+  #26045	7	begin			uvm_pkg::uvm_sequencer_param_base::send_request	uvm_pkg.sv	54010	45	54012	8					uvm_pkg::uvm_sequencer_param_base::send_request	000
+  #26046	8	method_func_call	set_transaction_id			uvm_pkg.sv	54011	15	54011	33		0				000
+  #26047	9	operation				uvm_pkg.sv	54011	34	54011	70		0				000
+  #26048	10	hier_path	sequence_ptr.m_next_transaction_id			uvm_pkg.sv	54011	34	54011	68		0				000
+  #26049	11	ref_obj	sequence_ptr			uvm_pkg.sv	54011	34	54011	46		0				000
+> #26050	11	ref_obj	m_next_transaction_id		uvm_pkg::uvm_sequencer_param_base::send_request::m_next_transaction_id	uvm_pkg.sv	54011	47	54011	68		0			uvm_pkg::uvm_sequencer_param_base::send_request::m_next_transaction_id	000
+  #26051	9	ref_obj	param_t		uvm_pkg::uvm_sequencer_param_base::send_request::param_t	uvm_pkg.sv	54011	7	54011	14		0			uvm_pkg::uvm_sequencer_param_base::send_request::param_t	000
+  #26052	6	func_call	m_last_req_push_front			uvm_pkg.sv	54013	5	54013	35		0				000
+  #26053	7	ref_obj	param_t		uvm_pkg::uvm_sequencer_param_base::send_request::param_t	uvm_pkg.sv	54013	27	54013	34		0			uvm_pkg::uvm_sequencer_param_base::send_request::param_t	000
+  #26054	5	begin			uvm_pkg::uvm_sequencer_param_base::send_request	uvm_pkg.sv	54014	12	54016	6					uvm_pkg::uvm_sequencer_param_base::send_request	000
+  #26055	6	func_call	uvm_report_fatal			uvm_pkg.sv	54015	5	54015	103		0				000
+  #26056	7	constant				uvm_pkg.sv	54015	22	54015	37	"SQRSNDREQCAST"	104	STRING:SQRSNDREQCAST	6		000
+
+facets of this row (415, first 25):
+  N0423 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22506 bit_typespec  G[] O[1 objs]
+  N0423 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22590 bit_typespec  G[] O[1 objs]
+  N0423 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23503 bit_typespec  G[] O[1 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74743 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74826 bit_typespec  G[] O[1 objs]
+  N0423 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76333 bit_typespec  G[] O[1 objs]
+  N0423 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76354 bit_typespec  G[] O[1 objs]
+  N0423 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76414 bit_typespec  G[] O[1 objs]
+  N0423 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79777 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79788 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79842 array_typespec  G[] O[1 objs]
+  N0423 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79861 bit_typespec  G[] O[1 objs]
+  N0423 #80868/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]

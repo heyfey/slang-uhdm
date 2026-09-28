@@ -1,0 +1,64 @@
+cluster N0134 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 11; passes 201-206 left it) | ground A | site operator() (StmtEmit.cpp, law foreachAssocIdxAliasTs22) < emitStmt (StmtEmit.cpp, law foreachLoopVarObjs9) < emitStmt (StmtEmit.cpp, law invalidChild14) [r11u142map pin (other example): emitModuleDef (ModuleEmit.cpp, law ifaceDefNetTypespecIsTheModuleRule224) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_] [r11u150map pin]): struct|golden-only:fewer-copies|array_typespec|under:ref_typespec
+row: surelog/default/MiniAmiq  strict=differ:file(71)  records golden=435559 ours=433769
+object: #66872 (golden) / #-1 (ours)  type=array_typespec name= 
+  golden: 1 objs
+  ours:   
+  walk parents: ref_typespec < ref_var(i) < ref_var(i) < foreach_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 66866..66878 ('>' = the object)
+  #66866	11	unsupported_typespec	m_wildcard_inst_overrides			uvm_factory.svh	917	17	917	42						110
+  #66867	9	ref_var	i		svaunit_pkg::uvm_default_factory::register::i	uvm_factory.svh	917	43	917	44		0			svaunit_pkg::uvm_default_factory::register::i	000
+  #66868	10	ref_typespec			svaunit_pkg::uvm_default_factory::register::i		0	0	0	0		0			svaunit_pkg::uvm_default_factory::register::i	000
+  #66869	11	unsupported_typespec	i			uvm_factory.svh	917	43	917	44						110
+  #66870	10	ref_var	i		uvm_pkg::uvm_default_factory::register::i	uvm_factory.svh	917	43	917	44		0			uvm_pkg::uvm_default_factory::register::i	000
+  #66871	11	ref_typespec			uvm_pkg::uvm_default_factory::register::i		0	0	0	0		0			uvm_pkg::uvm_default_factory::register::i	000
+> #66872	12	array_typespec					0	0	0	0						000
+  #66873	9	begin			svaunit_pkg::uvm_default_factory::register	uvm_factory.svh	917	47	920	11					svaunit_pkg::uvm_default_factory::register	000
+  #66874	10	if_stmt				uvm_factory.svh	918	10	919	87						000
+  #66875	11	func_call	uvm_is_match			uvm_factory.svh	918	13	918	92		0				000
+  #66876	12	hier_path	m_wildcard_inst_overrides[i].orig_type_name			uvm_factory.svh	918	27	918	70		0				000
+  #66877	13	bit_select	m_wildcard_inst_overrides		m_wildcard_inst_overrides[i]	uvm_factory.svh	918	27	918	52		0			m_wildcard_inst_overrides[i]	000
+  #66878	14	ref_obj	i		svaunit_pkg::uvm_default_factory::register::m_wildcard_inst_overrides[i].orig_type_name::i	uvm_factory.svh	918	53	918	54		0			svaunit_pkg::uvm_default_factory::register::m_wildcard_inst_overrides[i].orig_type_name::i	000
+
+--- the holder #66871 on the other side: exact-record matches at [66833, 298105, 364599]
+  #66830	10	ref_typespec			svaunit_pkg::uvm_default_factory::register::i		0	0	0	0		0			svaunit_pkg::uvm_default_factory::register::i	000
+  #66831	11	unsupported_typespec	i			uvm_factory.svh	917	43	917	44						110
+  #66832	10	ref_var	i		uvm_pkg::uvm_default_factory::register::i	uvm_factory.svh	917	43	917	44		0			uvm_pkg::uvm_default_factory::register::i	000
+> #66833	11	ref_typespec			uvm_pkg::uvm_default_factory::register::i		0	0	0	0		0			uvm_pkg::uvm_default_factory::register::i	000
+  #66834	12	unsupported_typespec	i			uvm_factory.svh	917	43	917	44						110
+  #66835	9	begin			svaunit_pkg::uvm_default_factory::register	uvm_factory.svh	917	47	920	11					svaunit_pkg::uvm_default_factory::register	000
+  #66836	10	if_stmt				uvm_factory.svh	918	10	919	87						000
+  #66837	11	func_call	uvm_is_match			uvm_factory.svh	918	13	918	92		0				000
+  #66838	12	hier_path	m_wildcard_inst_overrides[i].orig_type_name			uvm_factory.svh	918	27	918	70		0				000
+  #66839	13	bit_select	m_wildcard_inst_overrides		m_wildcard_inst_overrides[i]	uvm_factory.svh	918	27	918	52		0			m_wildcard_inst_overrides[i]	000
+  #66840	14	ref_obj	i		svaunit_pkg::uvm_default_factory::register::i	uvm_factory.svh	918	53	918	54		0			svaunit_pkg::uvm_default_factory::register::i	000
+  #66841	13	ref_obj	orig_type_name		svaunit_pkg::uvm_default_factory::register::orig_type_name	uvm_factory.svh	918	56	918	70		0			svaunit_pkg::uvm_default_factory::register::orig_type_name	000
+  #66842	12	hier_path	obj.get_type_name			uvm_factory.svh	918	72	918	91		0				000
+
+facets of this row (7481, first 25):
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20805 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21741 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66834 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66922 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67149 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68133 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68153 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68268 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]

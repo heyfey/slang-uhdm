@@ -1,0 +1,64 @@
+cluster N1179 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 4; passes 201-206 left it) | ground B | site buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law tpAnonAggParamTsNoStamp47) < mintParamOpClones (ParamEmit.cpp, law genLpCaSharedBareTs) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|tok:id::id::id::->id@id.id::id.|under:typespec_member
+row: surelog/testflags/BlackBePipeInt  strict=differ:fullname(2)  records golden=338504 ours=340984
+object: #90174 (golden) / #92400 (ours)  type=ref_typespec name= STABLE
+  golden: bp_common_pkg::bp_common_pkg::bp_proc_param_s::cc_x_dim
+  ours:   work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.cc_x_dim
+  walk parents: typespec_member(cc_x_dim) < struct_typespec(bp_common_pkg::bp_proc_param_s) < ref_typespec < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 90168..90180 ('>' = the object)
+  #90168	5	int_typespec				dut.sv	2558	1	2558	70						000
+  #90169	2	param_assign				dut.sv	2565	28	2565	63						000
+  #90170	3	operation				dut.sv	2565	47	2565	63		0				000
+  #90171	4	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #90172	5	struct_typespec	bp_common_pkg::bp_proc_param_s			dut.sv	1869	9	2044	2						110
+  #90173	6	typespec_member	cc_x_dim			dut.sv	1886	19	1886	27						001
+> #90174	7	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cc_x_dim		0	0	0	0		0			bp_common_pkg::bp_common_pkg::bp_proc_param_s::cc_x_dim	001
+  #90175	8	integer_typespec				dut.sv	1886	2	1886	18						001
+  #90176	6	typespec_member	cc_y_dim			dut.sv	1887	19	1887	27						001
+  #90177	7	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cc_y_dim		0	0	0	0		0			bp_common_pkg::bp_common_pkg::bp_proc_param_s::cc_y_dim	001
+  #90178	8	integer_typespec				dut.sv	1887	2	1887	18						001
+  #90179	6	typespec_member	ic_y_dim			dut.sv	1888	19	1888	27						001
+  #90180	7	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.ic_y_dim		0	0	0	0		0			bp_common_pkg::bp_common_pkg::bp_proc_param_s::ic_y_dim	001
+
+--- OURS (B) records 92394..92406 ('>' = the object)
+  #92394	5	int_typespec				dut.sv	2558	1	2558	70						000
+  #92395	2	param_assign				dut.sv	2565	28	2565	63						000
+  #92396	3	operation				dut.sv	2565	47	2565	63		0				000
+  #92397	4	ref_typespec			bp_common_pkg		0	0	0	0		0			bp_common_pkg	000
+  #92398	5	struct_typespec	bp_common_pkg::bp_proc_param_s			dut.sv	1869	9	2044	2						110
+  #92399	6	typespec_member	cc_x_dim			dut.sv	1886	19	1886	27						001
+> #92400	7	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cc_x_dim		0	0	0	0		0			work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.cc_x_dim	001
+  #92401	8	integer_typespec				dut.sv	1886	2	1886	18						001
+  #92402	6	typespec_member	cc_y_dim			dut.sv	1887	19	1887	27						001
+  #92403	7	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.cc_y_dim		0	0	0	0		0			work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.cc_y_dim	001
+  #92404	8	integer_typespec				dut.sv	1887	2	1887	18						001
+  #92405	6	typespec_member	ic_y_dim			dut.sv	1888	19	1888	27						001
+  #92406	7	ref_typespec			<in>bp_common_pkg::bp_proc_param_s.ic_y_dim		0	0	0	0		0			work@bp_be_pipe_int.bp_common_pkg::bp_proc_param_s.ic_y_dim	001
+
+facets of this row (57038, first 25):
+  N0897 #-1/66 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/14409 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15104 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15118 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15132 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15146 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15160 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15174 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15188 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15202 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15216 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15230 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15244 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15258 parameter dev_addr_width_gp G[] O[8 objs]
+  N0897 #-1/15272 parameter dev_addr_width_gp G[] O[8 objs]
+  N0868 #-1/15388 constant  G[] O[1 objs]
+  N0868 #-1/15392 constant  G[] O[1 objs]
+  N0868 #-1/15396 constant  G[] O[1 objs]
+  N0868 #-1/15400 constant  G[] O[1 objs]
+  N0868 #-1/15404 constant  G[] O[1 objs]
+  N0868 #-1/15408 constant  G[] O[1 objs]
+  N0868 #-1/15412 constant  G[] O[1 objs]
+  N0868 #-1/15416 constant  G[] O[1 objs]
+  N0868 #-1/15420 constant  G[] O[1 objs]
+  N0868 #-1/15424 constant  G[] O[1 objs]

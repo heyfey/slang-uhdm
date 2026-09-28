@@ -1,0 +1,64 @@
+cluster N0370 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 12; passes 201-206 left it) | ground A | site emitExpr (ExprEmit.cpp, law sysCallKwTypeArgNameSpan131) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u142map pin]): span|sys_func_call|endcol|under:func_call
+row: surelog/default/MiniAmiq  strict=differ:file(71)  records golden=435559 ours=433769
+object: #246433 (golden) / #245211 (ours)  type=sys_func_call name=$time 
+  golden: 799:52:799:57
+  ours:   799:52:799:59
+  walk parents: func_call(add_check) < begin < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 246427..246439 ('>' = the object)
+  #246427	15	constant				uvm_message_defines.svh	150	183	150	186	795	64	UINT:795	9		000
+  #246428	15	constant				uvm_message_defines.svh	150	188	150	190	""	0	STRING:	6		000
+  #246429	15	constant				uvm_message_defines.svh	150	192	150	193	1	64	UINT:1	9		000
+  #246430	8	func_call	add_check			svaunit_vpi_wrapper.svh	799	10	799	88		0				000
+  #246431	9	ref_obj	assertion		svaunit_pkg::svaunit_vpi_wrapper::check_sva_enabled::assertion	svaunit_vpi_wrapper.svh	799	20	799	29		0			svaunit_pkg::svaunit_vpi_wrapper::check_sva_enabled::assertion	000
+  #246432	9	constant				svaunit_vpi_wrapper.svh	799	31	799	50	"CHECK_SVA_ENABLED"	136	STRING:CHECK_SVA_ENABLED	6		000
+> #246433	9	sys_func_call	$time			svaunit_vpi_wrapper.svh	799	52	799	57		0				000
+  #246434	9	func_call	get_current_check_status			svaunit_vpi_wrapper.svh	799	61	799	87		0				000
+  #246435	4	function	check_sva_disabled		svaunit_pkg::svaunit_vpi_wrapper::check_sva_disabled	svaunit_vpi_wrapper.svh	810	4	810	11					svaunit_pkg::svaunit_vpi_wrapper::check_sva_disabled	000
+  #246436	5	class_var	assertion		svaunit_pkg::svaunit_vpi_wrapper::check_sva_disabled::assertion	svaunit_vpi_wrapper.svh	814	41	814	50		0			svaunit_pkg::svaunit_vpi_wrapper::check_sva_disabled::assertion	000
+  #246437	6	ref_typespec			svaunit_pkg::svaunit_vpi_wrapper::check_sva_disabled::assertion		0	0	0	0		0			svaunit_pkg::svaunit_vpi_wrapper::check_sva_disabled::assertion	000
+  #246438	7	class_typespec				svaunit_vpi_wrapper.svh	814	7	814	40						000
+  #246439	5	io_decl	a_sva_name			svaunit_vpi_wrapper.svh	810	52	810	62						000
+
+--- OURS (B) records 245205..245217 ('>' = the object)
+  #245205	15	constant				uvm_message_defines.svh	150	183	150	186	795	64	UINT:795	9		000
+  #245206	15	constant				uvm_message_defines.svh	150	188	150	190	""	0	STRING:	6		000
+  #245207	15	constant				uvm_message_defines.svh	150	192	150	193	1	64	UINT:1	9		000
+  #245208	8	func_call	add_check			svaunit_vpi_wrapper.svh	799	10	799	88		0				000
+  #245209	9	ref_obj	assertion		svaunit_pkg::svaunit_vpi_wrapper::check_sva_enabled::assertion	svaunit_vpi_wrapper.svh	799	20	799	29		0			svaunit_pkg::svaunit_vpi_wrapper::check_sva_enabled::assertion	000
+  #245210	9	constant				svaunit_vpi_wrapper.svh	799	31	799	50	"CHECK_SVA_ENABLED"	136	STRING:CHECK_SVA_ENABLED	6		000
+> #245211	9	sys_func_call	$time			svaunit_vpi_wrapper.svh	799	52	799	59		0				000
+  #245212	9	func_call	get_current_check_status			svaunit_vpi_wrapper.svh	799	61	799	87		0				000
+  #245213	4	function	check_sva_disabled		svaunit_pkg::svaunit_vpi_wrapper::check_sva_disabled	svaunit_vpi_wrapper.svh	810	4	810	11					svaunit_pkg::svaunit_vpi_wrapper::check_sva_disabled	000
+  #245214	5	class_var	assertion		svaunit_pkg::svaunit_vpi_wrapper::check_sva_disabled::assertion	svaunit_vpi_wrapper.svh	814	41	814	50		0			svaunit_pkg::svaunit_vpi_wrapper::check_sva_disabled::assertion	000
+  #245215	6	ref_typespec			svaunit_pkg::svaunit_vpi_wrapper::check_sva_disabled::assertion		0	0	0	0		0			svaunit_pkg::svaunit_vpi_wrapper::check_sva_disabled::assertion	000
+  #245216	7	class_typespec				svaunit_vpi_wrapper.svh	814	7	814	40						000
+  #245217	5	io_decl	a_sva_name			svaunit_vpi_wrapper.svh	810	52	810	62						000
+
+facets of this row (7481, first 25):
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20805 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21741 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66834 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66922 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67149 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68133 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68153 unsupported_typespec index G[] O[1 objs]
+  N0134 #68312/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68268 unsupported_typespec index G[] O[1 objs]
+  N0495 #68352/-1 int_var index G[3 objs] O[]

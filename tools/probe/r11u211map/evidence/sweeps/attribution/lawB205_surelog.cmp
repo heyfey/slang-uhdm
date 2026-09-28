@@ -1,0 +1,6 @@
+[default] STRICT_NOTEQUAL=9
+[testflags] CMP_EQUAL=1 SLANG_REJECT=1 STRICT_NOTEQUAL=6 SURELOG_FAIL=1
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:fullname(76) -> differ:endcol(46)
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:fullname(76) -> differ:endcol(46)
+CHANGE Rggen default STRICT_NOTEQUAL differ:defname(142) -> differ:file(4)
+regressions=0 conversions=0 changes=3 only-fresh=0 only-committed=0

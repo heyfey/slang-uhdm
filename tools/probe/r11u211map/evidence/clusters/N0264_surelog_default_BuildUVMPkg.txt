@@ -1,0 +1,64 @@
+cluster N0264 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 5; passes 201-206 left it) | ground B | site makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitImportedPkgVarNets (ModuleEmit.cpp, law oobCtorLocalsRideTheImport203) < emitModuleDef (ModuleEmit.cpp, law wildcardImportCopiesPkgVarsToDefNets223) [r11u142map pin]): span|int_typespec|endcol|under:ref_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:line(11)  records golden=201533 ours=201534
+object: #91593 (golden) / #91533 (ours)  type=int_typespec name= 
+  golden: 9187:66:9187:69
+  ours:   9187:66:9187:78
+  walk parents: ref_typespec < io_decl(precedence) < function(set_resource_pool_default_precedence) < class_defn(uvm_coreservice_t)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 91587..91599 ('>' = the object)
+  #91587	4	class_var			uvm_pkg::uvm_coreservice_t::get_resource_pool	uvm_pkg.sv	9184	24	9184	41		0			uvm_pkg::uvm_coreservice_t::get_resource_pool	000
+  #91588	5	ref_typespec			uvm_pkg::uvm_coreservice_t::get_resource_pool		0	0	0	0		0			uvm_pkg::uvm_coreservice_t::get_resource_pool	000
+  #91589	6	class_typespec				uvm_pkg.sv	9184	24	9184	41						000
+  #91590	3	function	set_resource_pool_default_precedence		uvm_pkg::uvm_coreservice_t::set_resource_pool_default_precedence	uvm_pkg.sv	9187	2	9187	14					uvm_pkg::uvm_coreservice_t::set_resource_pool_default_precedence	000
+  #91591	4	io_decl	precedence			uvm_pkg.sv	9187	79	9187	89						000
+  #91592	5	ref_typespec			uvm_pkg::uvm_coreservice_t::set_resource_pool_default_precedence::precedence		0	0	0	0		0			uvm_pkg::uvm_coreservice_t::set_resource_pool_default_precedence::precedence	000
+> #91593	6	int_typespec				uvm_pkg.sv	9187	66	9187	69						000
+  #91594	3	function	get_resource_pool_default_precedence		uvm_pkg::uvm_coreservice_t::get_resource_pool_default_precedence	uvm_pkg.sv	9189	2	9189	14					uvm_pkg::uvm_coreservice_t::get_resource_pool_default_precedence	000
+  #91595	4	int_var			uvm_pkg::uvm_coreservice_t::get_resource_pool_default_precedence	uvm_pkg.sv	9189	24	9189	36		0			uvm_pkg::uvm_coreservice_t::get_resource_pool_default_precedence	000
+  #91596	5	ref_typespec			uvm_pkg::uvm_coreservice_t::get_resource_pool_default_precedence		0	0	0	0		0			uvm_pkg::uvm_coreservice_t::get_resource_pool_default_precedence	000
+  #91597	6	int_typespec				uvm_pkg.sv	9189	24	9189	36						000
+  #91598	3	function	get		uvm_pkg::uvm_coreservice_t::get	uvm_pkg.sv	9194	2	9194	8					uvm_pkg::uvm_coreservice_t::get	000
+  #91599	4	class_var			uvm_pkg::uvm_coreservice_t::get	uvm_pkg.sv	9194	18	9194	35		0			uvm_pkg::uvm_coreservice_t::get	000
+
+--- OURS (B) records 91527..91539 ('>' = the object)
+  #91527	4	class_var			uvm_pkg::uvm_coreservice_t::get_resource_pool	uvm_pkg.sv	9184	24	9184	41		0			uvm_pkg::uvm_coreservice_t::get_resource_pool	000
+  #91528	5	ref_typespec			uvm_pkg::uvm_coreservice_t::get_resource_pool		0	0	0	0		0			uvm_pkg::uvm_coreservice_t::get_resource_pool	000
+  #91529	6	class_typespec				uvm_pkg.sv	9184	24	9184	41						000
+  #91530	3	function	set_resource_pool_default_precedence		uvm_pkg::uvm_coreservice_t::set_resource_pool_default_precedence	uvm_pkg.sv	9187	2	9187	14					uvm_pkg::uvm_coreservice_t::set_resource_pool_default_precedence	000
+  #91531	4	io_decl	precedence			uvm_pkg.sv	9187	79	9187	89						000
+  #91532	5	ref_typespec			uvm_pkg::uvm_coreservice_t::set_resource_pool_default_precedence::precedence		0	0	0	0		0			uvm_pkg::uvm_coreservice_t::set_resource_pool_default_precedence::precedence	000
+> #91533	6	int_typespec				uvm_pkg.sv	9187	66	9187	78						000
+  #91534	3	function	get_resource_pool_default_precedence		uvm_pkg::uvm_coreservice_t::get_resource_pool_default_precedence	uvm_pkg.sv	9189	2	9189	14					uvm_pkg::uvm_coreservice_t::get_resource_pool_default_precedence	000
+  #91535	4	int_var			uvm_pkg::uvm_coreservice_t::get_resource_pool_default_precedence	uvm_pkg.sv	9189	24	9189	36		0			uvm_pkg::uvm_coreservice_t::get_resource_pool_default_precedence	000
+  #91536	5	ref_typespec			uvm_pkg::uvm_coreservice_t::get_resource_pool_default_precedence		0	0	0	0		0			uvm_pkg::uvm_coreservice_t::get_resource_pool_default_precedence	000
+  #91537	6	int_typespec				uvm_pkg.sv	9189	24	9189	36						000
+  #91538	3	function	get		uvm_pkg::uvm_coreservice_t::get	uvm_pkg.sv	9194	2	9194	8					uvm_pkg::uvm_coreservice_t::get	000
+  #91539	4	class_var			uvm_pkg::uvm_coreservice_t::get	uvm_pkg.sv	9194	18	9194	35		0			uvm_pkg::uvm_coreservice_t::get	000
+
+facets of this row (415, first 25):
+  N0423 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22506 bit_typespec  G[] O[1 objs]
+  N0423 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22590 bit_typespec  G[] O[1 objs]
+  N0423 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23503 bit_typespec  G[] O[1 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74743 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74826 bit_typespec  G[] O[1 objs]
+  N0423 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76333 bit_typespec  G[] O[1 objs]
+  N0423 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76354 bit_typespec  G[] O[1 objs]
+  N0423 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76414 bit_typespec  G[] O[1 objs]
+  N0423 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79777 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79788 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79842 array_typespec  G[] O[1 objs]
+  N0423 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79861 bit_typespec  G[] O[1 objs]
+  N0423 #80868/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]

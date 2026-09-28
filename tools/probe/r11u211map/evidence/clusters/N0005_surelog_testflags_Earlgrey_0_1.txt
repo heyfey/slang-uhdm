@@ -1,0 +1,64 @@
+cluster N0005 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 9; passes 201-206 left it) | ground A | site emitExpr (ExprEmit.cpp, law srlgTimeLitVal) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79) [r11u165map pin]): span|constant|endcol|under:param_assign
+row: surelog/testflags/Earlgrey_0_1  strict=differ:fullname(76)  records golden=1342584 ours=1342870
+object: #99367 (golden) / #99367 (ours)  type=constant name= 
+  golden: 64:64:64:68
+  ours:   64:64:64:76
+  walk parents: param_assign < module_inst < design(work@prim_sync_reqack)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 99361..99373 ('>' = the object)
+  #99361	4	operation				dm_mem.sv	62	45	62	59		0				000
+  #99362	5	ref_obj	BusWidth		work@dm_mem.BusWidth	dm_mem.sv	62	45	62	53		0			work@dm_mem.BusWidth	000
+  #99363	5	constant				dm_mem.sv	62	57	62	59	64	64	UINT:64	9		000
+  #99364	4	constant				dm_mem.sv	62	63	62	64	4	64	UINT:4	9		000
+  #99365	4	constant				dm_mem.sv	62	67	62	68	3	64	UINT:3	9		000
+  #99366	2	param_assign				dm_mem.sv	64	41	64	77						000
+> #99367	3	constant				dm_mem.sv	64	64	64	68	12'h380	12	HEX:380	5		000
+  #99368	4	ref_typespec			work@dm_mem		0	0	0	0		0			work@dm_mem	000
+  #99369	5	logic_typespec				dm_mem.sv	64	14	64	40						000
+  #99370	6	range				dm_mem.sv	64	20	64	40						001
+  #99371	7	operation				dm_mem.sv	64	21	64	37		0				001
+  #99372	8	ref_obj	DbgAddressBits		<in>DbgAddressBits	dm_mem.sv	64	21	64	35		0			work@dm_mem.DataBaseAddr.DbgAddressBits	001
+  #99373	8	constant				dm_mem.sv	64	36	64	37	1	64	UINT:1	9		001
+
+--- OURS (B) records 99361..99373 ('>' = the object)
+  #99361	4	operation				dm_mem.sv	62	45	62	59		0				000
+  #99362	5	ref_obj	BusWidth		work@dm_mem.BusWidth	dm_mem.sv	62	45	62	53		0			work@dm_mem.BusWidth	000
+  #99363	5	constant				dm_mem.sv	62	57	62	59	64	64	UINT:64	9		000
+  #99364	4	constant				dm_mem.sv	62	63	62	64	4	64	UINT:4	9		000
+  #99365	4	constant				dm_mem.sv	62	67	62	68	3	64	UINT:3	9		000
+  #99366	2	param_assign				dm_mem.sv	64	41	64	77						000
+> #99367	3	constant				dm_mem.sv	64	64	64	76	12'h380	12	HEX:380	5		000
+  #99368	4	ref_typespec			work@dm_mem		0	0	0	0		0			work@dm_mem	000
+  #99369	5	logic_typespec				dm_mem.sv	64	14	64	40						000
+  #99370	6	range				dm_mem.sv	64	20	64	40						001
+  #99371	7	operation				dm_mem.sv	64	21	64	37		0				001
+  #99372	8	ref_obj	DbgAddressBits		<in>DbgAddressBits	dm_mem.sv	64	21	64	35		0			work@dm_mem.DataBaseAddr.DbgAddressBits	001
+  #99373	8	constant				dm_mem.sv	64	36	64	37	1	64	UINT:1	9		001
+
+facets of this row (4044, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

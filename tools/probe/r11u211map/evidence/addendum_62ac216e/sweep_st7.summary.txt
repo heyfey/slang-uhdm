@@ -1,0 +1,18 @@
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u211_st7/probe.csv
+== probe vs golden_probe.csv
+[probe] EQUAL=3363 STRICT_NOTEQUAL=724
+regressions=7 conversions=0 changes=3 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u211_st7/surelog.csv
+[default] 798 tests
+[testflags] 798 tests
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=17 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=459 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=15 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=2 conversions=0 changes=11 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u211_st7/uhdm2rtlil.csv
+[default] 871 tests
+[testflags] 871 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=798 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=5
+[testflags] CMP_EQUAL=798 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=5
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0

@@ -1,0 +1,25 @@
+[probe] EQUAL=3383 STRICT_NOTEQUAL=704
+CONVERSION r11u90repro/grid.verifier/vx9_strifnonansi STRICT_NOTEQUAL differ:line(8) -> EQUAL
+CONVERSION r11u93repro/grid/n3_strnonansi_if STRICT_NOTEQUAL differ:line(16) -> EQUAL
+CONVERSION r11u93repro/grid/n4_nonansi_plain_if STRICT_NOTEQUAL differ:line(16) -> EQUAL
+CONVERSION r11u93repro/grid/pb11_ifvarredecl STRICT_NOTEQUAL differ:col(16) -> EQUAL
+CONVERSION r11u93repro/grid/pb12_ifstrnonport STRICT_NOTEQUAL differ:line(16) -> EQUAL
+CONVERSION r11u93repro/grid/pb14_ifbothstr STRICT_NOTEQUAL differ:line(16) -> EQUAL
+CONVERSION r11u93repro/grid/pb16_ifdeclorder STRICT_NOTEQUAL differ:line(16) -> EQUAL
+CONVERSION r11u93repro/grid/pb17_ifonedecl STRICT_NOTEQUAL differ:line(16) -> EQUAL
+CONVERSION r11u93repro/grid/pb3_ifnoredecl STRICT_NOTEQUAL differ:line(8) -> EQUAL
+CONVERSION r11u93repro/grid/pb4_ifrevorder STRICT_NOTEQUAL differ:line(16) -> EQUAL
+CONVERSION r11u93repro/grid/pb5_ifinput STRICT_NOTEQUAL differ:line(16) -> EQUAL
+CONVERSION r11u93repro/grid/pb7_iftwoports STRICT_NOTEQUAL differ:line(24) -> EQUAL
+CONVERSION r11u93repro/grid/pb8_ifmodport STRICT_NOTEQUAL differ:line(16) -> EQUAL
+CONVERSION r11u93repro/grid/pb9_ifgen STRICT_NOTEQUAL differ:line(16) -> EQUAL
+CONVERSION r11v93repro/grid/v10_ifportmid STRICT_NOTEQUAL differ:line(16) -> EQUAL
+CONVERSION r11v93repro/grid/v12_ifmultiinst STRICT_NOTEQUAL differ:line(32) -> EQUAL
+CONVERSION r11v93repro/grid/v17_ifinout STRICT_NOTEQUAL differ:line(16) -> EQUAL
+CONVERSION r11v93repro/grid/v18_ifnetbeforeport_str STRICT_NOTEQUAL differ:line(16) -> EQUAL
+CONVERSION r11v93repro/grid/v1_ifnetbeforeport STRICT_NOTEQUAL differ:line(16) -> EQUAL
+CONVERSION r11v93repro/grid/v3_ifportreg STRICT_NOTEQUAL differ:line(8) -> EQUAL
+CHANGE r11u93repro/grid/pb10_ifnetuse STRICT_NOTEQUAL differ:line(36) -> differ:line(20) [line -16]
+CHANGE r11u93repro/grid/pb19_modportview STRICT_NOTEQUAL differ:line(38) -> differ:line(14) [line -24]
+CHANGE r11v93repro/grid/v15_ifdeclafterbody STRICT_NOTEQUAL differ:line(20) -> differ:line(4) [line -16]
+regressions=0 conversions=20 changes=3 only-fresh=0 only-committed=0

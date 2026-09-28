@@ -1,0 +1,6 @@
+[default] CMP_EQUAL=1 STRICT_NOTEQUAL=8
+[testflags] CMP_EQUAL=2 SLANG_REJECT=1 STRICT_NOTEQUAL=5 SURELOG_FAIL=1
+CONVERSION UnitElabBlock default STRICT_NOTEQUAL differ:file(2) -> CMP_EQUAL
+CONVERSION UnitElabBlock testflags STRICT_NOTEQUAL differ:file(1) -> CMP_EQUAL
+CHANGE InterfArrayBind default STRICT_NOTEQUAL differ:fullname(3) -> differ:fullname(1) [fullname -2]
+regressions=0 conversions=2 changes=1 only-fresh=0 only-committed=0

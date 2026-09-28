@@ -1,0 +1,7 @@
+# 6 databases differ between /tmp/r11u211_sP and /tmp/r11u211_atA
+surelog/default/InterfArrayBind away=0 toward=2 flat_away=0 flat_toward=2
+surelog/default/Scoreboard away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/UnitElabBlock away=0 toward=2 flat_away=0 flat_toward=2
+surelog/testflags/MiniAmiq away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/SeqDriver away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/UnitElabBlock away=0 toward=1 flat_away=0 flat_toward=1

@@ -1,0 +1,7 @@
+case,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail,name
+tools/probe/r11u196repro/cases/DF/d01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u196repro_cases_DF_d01
+tools/probe/r11u196repro/cases/DF/d03,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u196repro_cases_DF_d03
+tools/probe/r11u204verify/cases/V191/cc4,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u204verify_cases_V191_cc4
+tools/probe/r11u204verify/cases/V191/cc6,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,✅ All 4 common constant assignments match,tools_probe_r11u204verify_cases_V191_cc6
+tools/probe/r11u204verify/cases/DF/e01,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u204verify_cases_DF_e01
+tools/probe/r11u204verify/cases/DF/e07,IDENTICAL,NO_GATES,NO_GATES,0,0,,,tools_probe_r11u204verify_cases_DF_e07

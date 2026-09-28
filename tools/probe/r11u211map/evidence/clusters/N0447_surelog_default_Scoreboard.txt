@@ -1,0 +1,64 @@
+cluster N0447 (id kept from an earlier map; OPEN (map 12 listed it: ground-A+B step 8; passes 201-206 left it) | ground B | site emitClassTsParams (UhdmExporter.cpp, law builtinClassLocalUnsupportedBeforeClassPhase115) < makeTypespec (TypeEmit.cpp, law classPkgGenericSpecListing53) < materializeDefNetTs (ModuleEmit.cpp, law mergedPortDefRangeSymbolic) [r11u142map pin]): file|param_assign|golden-empty|under:class_typespec
+row: surelog/default/Scoreboard  strict=differ:fullname(103)  records golden=269656 ours=269679
+object: #84633 (golden) / #84579 (ours)  type=param_assign name= 
+  golden:  110:31:110:32
+  ours:   uvm_analysis_port.svh 110:31:110:32
+  walk parents: class_typespec(uvm_analysis_imp) < ref_typespec < class_var(m_imp) < class_defn(work@my_scoreboard)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 84627..84639 ('>' = the object)
+  #84627	8	type_parameter	T		<in>uvm_analysis_imp.T	uvm_analysis_port.svh	110	31	110	32					work@my_scoreboard::m_imp::uvm_analysis_imp::T	001
+  #84628	9	ref_typespec			<in>T		0	0	0	0		0			work@my_scoreboard::m_imp::uvm_analysis_imp::T	001
+  #84629	10	int_typespec				design.sv	9	22	9	25						001
+  #84630	8	type_parameter	IMP		<in>uvm_analysis_imp.IMP		0	0	0	0					work@my_scoreboard::m_imp::uvm_analysis_imp::IMP	001
+  #84631	9	ref_typespec			<in>IMP		0	0	0	0		0			work@my_scoreboard::m_imp::uvm_analysis_imp::IMP	001
+  #84632	10	class_typespec	my_scoreboard			design.sv	9	20	9	41						001
+> #84633	8	param_assign					110	31	110	32						001
+  #84634	9	type_parameter	T		uvm_pkg::uvm_analysis_imp::T	uvm_analysis_port.svh	110	31	110	32					uvm_pkg::uvm_analysis_imp::T	001
+  #84635	10	ref_typespec			<in>T		0	0	0	0		0			uvm_pkg::uvm_analysis_imp::T	001
+  #84636	11	int_typespec				uvm_analysis_port.svh	113	30	113	31						001
+  #84637	8	param_assign					0	0	0	0						001
+  #84638	9	type_parameter	IMP		uvm_pkg::uvm_analysis_imp::IMP	uvm_analysis_port.svh	110	43	110	46					uvm_pkg::uvm_analysis_imp::IMP	001
+  #84639	10	ref_typespec			<in>IMP		0	0	0	0		0			uvm_pkg::uvm_analysis_imp::IMP	001
+
+--- OURS (B) records 84573..84585 ('>' = the object)
+  #84573	8	type_parameter	T		<in>uvm_analysis_imp.T	uvm_analysis_port.svh	110	31	110	32					work@my_scoreboard::m_imp::uvm_analysis_imp::T	001
+  #84574	9	ref_typespec			<in>T		0	0	0	0		0			work@my_scoreboard::m_imp::uvm_analysis_imp::T	001
+  #84575	10	int_typespec				design.sv	9	22	9	25						001
+  #84576	8	type_parameter	IMP		<in>uvm_analysis_imp.IMP		0	0	0	0					work@my_scoreboard::m_imp::uvm_analysis_imp::IMP	001
+  #84577	9	ref_typespec			<in>IMP		0	0	0	0		0			work@my_scoreboard::m_imp::uvm_analysis_imp::IMP	001
+  #84578	10	class_typespec	my_scoreboard			design.sv	9	20	9	41						001
+> #84579	8	param_assign				uvm_analysis_port.svh	110	31	110	32						001
+  #84580	9	type_parameter	T		uvm_pkg::uvm_analysis_imp::T	uvm_analysis_port.svh	110	31	110	32					uvm_pkg::uvm_analysis_imp::T	001
+  #84581	10	ref_typespec			<in>T		0	0	0	0		0			uvm_pkg::uvm_analysis_imp::T	001
+  #84582	11	int_typespec				uvm_analysis_port.svh	113	30	113	31						001
+  #84583	8	param_assign					0	0	0	0						001
+  #84584	9	type_parameter	IMP		uvm_pkg::uvm_analysis_imp::IMP	uvm_analysis_port.svh	110	43	110	46					uvm_pkg::uvm_analysis_imp::IMP	001
+  #84585	10	ref_typespec			<in>IMP		0	0	0	0		0			uvm_pkg::uvm_analysis_imp::IMP	001
+
+facets of this row (1212, first 25):
+  N0423 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20913 bit_typespec  G[] O[1 objs]
+  N0423 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21849 bit_typespec  G[] O[1 objs]
+  N0423 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74777 bit_typespec  G[] O[1 objs]
+  N0423 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74798 bit_typespec  G[] O[1 objs]
+  N0423 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74854 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79116 array_typespec  G[] O[1 objs]
+  N0423 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79135 bit_typespec  G[] O[1 objs]
+  N0423 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80111 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82238/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82246/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82254/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82262/-1 ref_typespec  G[2 objs] O[]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]
+  N0262 #84980/-1 constant  G[2 objs] O[]

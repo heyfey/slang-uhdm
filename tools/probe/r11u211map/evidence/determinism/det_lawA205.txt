@@ -1,0 +1,10 @@
+MiniAmiq default 17adb057159f/rc=0 17adb057159f/rc=0 17adb057159f/rc=0  head=dd9e7e671b37
+MiniAmiq testflags 17adb057159f/rc=0 17adb057159f/rc=0 17adb057159f/rc=0  head=17adb057159f
+SeqDriver default a08930879bae/rc=0 a08930879bae/rc=0 a08930879bae/rc=0  head=a08930879bae
+SeqDriver testflags 4ebe09997747/rc=0 4ebe09997747/rc=0 4ebe09997747/rc=0  head=5388c9e9503c
+SimpleUVM default cd899e2e190b/rc=0 cd899e2e190b/rc=0 cd899e2e190b/rc=0  head=cd899e2e190b
+SimpleUVM testflags 1d27315c4d9f/rc=0 1d27315c4d9f/rc=0 1d27315c4d9f/rc=0  head=1d27315c4d9f
+Scoreboard default e8579dab5a62/rc=0 e8579dab5a62/rc=0 96872705d270/rc=0  head=e8579dab5a62
+Scoreboard testflags skip SLANG_REJECT
+BuildUVMPkg default a22b6ee6955d/rc=0 a22b6ee6955d/rc=0 a22b6ee6955d/rc=0  head=a22b6ee6955d
+BuildUVMPkg testflags a22b6ee6955d/rc=0 a22b6ee6955d/rc=0 a22b6ee6955d/rc=0  head=a22b6ee6955d
