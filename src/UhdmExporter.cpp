@@ -456,6 +456,54 @@ bool r11v202Law(const char* sw) {
         return false;
     return getenv(sw) == nullptr;
 }
+// The r11u206 switches (tools/probe/r11u206repro/README.md): every r11u206
+// law reads its own R11U206_<LAW>_OFF switch; R11U206_OFF drops all of them.
+//   R11U206_TPCASTDEF_OFF  § tpCastUseBindsDefDefault206   (UhdmExporter.cpp)
+//   R11U206_TPARRELEM_OFF  § tpArrayElemBindsDefDefault206 (UhdmExporter.cpp)
+//   R11U206_UTIFCPRG_OFF   § unitClassTdEndAtInitIfcPrg206 (UhdmExporter.cpp)
+//   R11U206_CLSCOPETDRET_OFF § classScopeTdRetBuildsOwner206 (TaskFuncEmit.cpp)
+//   R11U206_GENCLSVAR_OFF  § genScopeClassVarListed206     (ModuleEmit.cpp)
+//   R11U206_GENCLSSPAN_OFF § genScopeClassVarSpecAtName206 (ModuleEmit.cpp)
+bool r11u206Law(const char* sw) {
+    if (getenv("R11U206_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// R11U206_TRACE=<dir> names every firing of an r11u206 law (the mover
+// census): one file per process, `<dir>/<pid>.206`, its first line
+// `OUT <-o path>`, then one `<law> <detail>` line per firing.
+void trace206(const char* law, const std::string& detail) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U206_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".206";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s %s\n", law, detail.c_str());
+        fflush(tf);
+    }
+}
 // R11U202_TRACE=<dir> names every firing of an r11u202 law (the mover
 // census): one file per process, `<dir>/<pid>.202`, its first line
 // `OUT <-o path>`, then one `<law> <detail>` line per firing.
@@ -1738,7 +1786,9 @@ static void shareInstTypeParams120(
 // (the judge's) reads the two objects equal, so no judged content moves.
 // Grid tools/probe/r11u160repro/cases/TV.  Switch R11U160_TPUSEDEF_OFF.
 static void tpUseBindsDefDefault160(
-    UHDM::design* d, const std::map<std::string, std::set<std::string>>& ovr) {
+    UHDM::design* d, const std::map<std::string, std::set<std::string>>& ovr,
+    std::map<const UHDM::any*, std::map<const UHDM::typespec*, UHDM::typespec*>>*
+        e2dOut206 = nullptr) {
     static const bool def160 = r11u160Law("R11U160_TPUSEDEF_OFF");
     static const bool unit160 = r11u160Law("R11U160_TPUSEUNIT_OFF");
     if (!def160 && !unit160)
@@ -1848,6 +1898,9 @@ static void tpUseBindsDefDefault160(
                         }
                 }
             }
+            // § tpCastUseBindsDefDefault206 reads the same per-instance map.
+            if (e2dOut206 && !e2d.empty())
+                (*e2dOut206)[mi] = e2d;
             if (!e2d.empty()) {
                 auto fix = [&](UHDM::ref_typespec* rt) {
                     if (!rt)
@@ -1883,12 +1936,37 @@ static void tpUseBindsDefDefault160(
                                         fix(en->Typespec());
                                 }
                         };
+                        // § tpArrayElemBindsDefDefault206 (r11u206) — an
+                        // UNPACKED declaration (`addr_t q [4];`) holds its
+                        // element variable / net under the array object
+                        // (vpiReg / vpiNet), and that element's typespec
+                        // reference reads the same definition object in
+                        // golden (the end moved by writeNets to the first
+                        // unpacked dimension, § defNetTypeParamDefault137's
+                        // grid tn04), where ours kept the instance copy.
+                        // Grid tools/probe/r11u206repro/cases/TE (e10,
+                        // e13-e16).  Switch R11U206_TPARRELEM_OFF.
+                        static const bool arrElem206 =
+                            r11u206Law("R11U206_TPARRELEM_OFF");
+                        auto fixArr206 = [&](UHDM::ref_typespec* rt) {
+                            if (rt && e2d.count(rt->Actual_typespec()))
+                                trace206("tpArrayElemBindsDefDefault206",
+                                         std::string(rt->VpiFullName()));
+                            fix(rt);
+                        };
                         if (vars)
                             for (auto* v : *vars)
                                 if (v) {
                                     fix(v->Typespec());
                                     if (v->UhdmType() == UHDM::uhdmpacked_array_var)
                                         elems(((const UHDM::packed_array_var*)v)->Elements());
+                                    if (arrElem206 &&
+                                        v->UhdmType() == UHDM::uhdmarray_var)
+                                        if (auto* av206 =
+                                                ((const UHDM::array_var*)v)->Variables())
+                                            for (auto* ev206 : *av206)
+                                                if (ev206)
+                                                    fixArr206(ev206->Typespec());
                                 }
                         if (nets)
                             for (auto* n : *nets)
@@ -1896,6 +1974,13 @@ static void tpUseBindsDefDefault160(
                                     fix(n->Typespec());
                                     if (n->UhdmType() == UHDM::uhdmpacked_array_net)
                                         elems(((const UHDM::packed_array_net*)n)->Elements());
+                                    if (arrElem206 &&
+                                        n->UhdmType() == UHDM::uhdmarray_net)
+                                        if (auto* an206 =
+                                                ((const UHDM::array_net*)n)->Nets())
+                                            for (auto* en206 : *an206)
+                                                if (en206)
+                                                    fixArr206(en206->Typespec());
                                 }
                         if (gsa)
                             for (auto* ga : *gsa)
@@ -1930,6 +2015,71 @@ static void tpUseBindsDefDefault160(
     };
     for (auto* t : *d->TopModules())
         walk(t);
+}
+
+// § tpCastUseBindsDefDefault206 (r11u206, map N0090, arb_idx_cast #360 /
+// #384) — A CAST TO THE INSTANCE'S TYPE PARAMETER IN AN ELABORATED
+// GENERATE SCOPE READS THE DEFINITION'S DEFAULT OBJECT, like every other
+// use of that parameter the instantiation does not override by name.
+//
+// § genScopeTypeParamCastTs121 binds a gen-scope cast that golden RESOLVES
+// (under a ternary arm or an operation in a loop generate, in a gen-scope
+// process) to "the SAME object the instance's type_parameter points at",
+// which it reads as the instance's own copy (typeParamElabTs).  Two later
+// laws moved every other reader of that copy onto the DEFINITION's object:
+// § instTypeParamSharesDef120 (the instance's listed type_parameter is the
+// definition's, Surelog writeElabParameters "These point to the sole copy")
+// and § tpUseBindsDefDefault160 (the instance's variables and nets, with the
+// end writeNets moved onto the definition's object).  The cast kept the
+// copy, whose end is the default's own: golden arb_idx_cast's two ternary
+// casts in gen_levels[0].gen_level[0].gen_other_levels read `logic
+// [IdxWidth-1:0]` 8:40-15:27 (the default, its end moved to the first
+// packed dimension of `idx_t [2**NumLevels-2:0] index_nodes`), ours
+// 8:40-8:60.  Surelog: the cast's placeholder is late-bound by the name
+// lookup that finds the definition's type_parameter (compileTypespec's
+// fallback to the definition's parameter list, CompileType.cpp:1995-2006),
+// the object every declaration of the instance reads.
+//
+// Post-pass, after § tpUseBindsDefDefault160 and from ITS per-instance map
+// (the instance copy -> the definition's object, only where UHDM's own
+// Compare reads the two equal and no named override applies): a
+// ref_typespec whose parent is a cast operation (vpiCastOp) and whose
+// nearest enclosing module_inst is that instance, and which reads the copy,
+// is re-pointed at the definition's object.  Nothing is minted.  Grid
+// tools/probe/r11u206repro/cases/TE.  Switch R11U206_TPCASTDEF_OFF.
+static void tpCastUseBindsDefDefault206(
+    UHDM::Serializer& s,
+    const std::map<const UHDM::any*,
+                   std::map<const UHDM::typespec*, UHDM::typespec*>>& e2d) {
+    if (e2d.empty() || !r11u206Law("R11U206_TPCASTDEF_OFF"))
+        return;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::any*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmref_typespec)
+            continue;
+        auto* rt = (UHDM::ref_typespec*)o;
+        auto* a = rt->Actual_typespec();
+        const UHDM::any* p = rt->VpiParent();
+        if (!a || !p || p->UhdmType() != UHDM::uhdmoperation ||
+            ((const UHDM::operation*)p)->VpiOpType() != vpiCastOp)
+            continue;
+        const UHDM::any* mi = p;
+        while (mi && mi->UhdmType() != UHDM::uhdmmodule_inst)
+            mi = mi->VpiParent();
+        if (!mi)
+            continue;
+        auto it = e2d.find(mi);
+        if (it == e2d.end())
+            continue;
+        auto f = it->second.find(a);
+        if (f == it->second.end())
+            continue;
+        rt->Actual_typespec(f->second);
+        trace206("tpCastUseBindsDefDefault206",
+                 std::string(mi->VpiName()) + " " +
+                     std::to_string(f->second->VpiLineNo()) + ":" +
+                     std::to_string(f->second->VpiColumnNo()));
+    }
 }
 
 // § tpElemRebindElabPort110 — THE ELABORATED INSTANCE'S PORT typed by a
@@ -11968,17 +12118,44 @@ UHDM::design* UhdmExporter::exportDesign() {
                     // c26 / c27 across modules).  A class property (c20), a
                     // procedural block's variable (c22) and an assignment
                     // (c19) never move it.
+                    // § unitClassTdEndAtInitIfcPrg206 (r11u206, v11u202's V1;
+                    // R11U206_UTIFCPRG_OFF) — an INTERFACE or PROGRAM
+                    // variable writes the end too (golden UT/u01
+                    // `interface ifc; m_misc a = new;` 5:9-7:17, u02 a
+                    // program), and the writers are ranked by KIND before
+                    // name: every program writes before every interface,
+                    // every interface before every module, whatever the
+                    // names and the source order (grid
+                    // tools/probe/r11u206repro/cases/UT: u04 u08 u10 a
+                    // module beats an interface, u05 u09 a module beats a
+                    // program, u11-u14 an interface beats a program, both
+                    // ways round); within one kind the alphabetically last
+                    // `work@<name>` wins (u07 programs, u15 interfaces), an
+                    // uninstantiated definition writing too (u16).
+                    static const bool ifcPrg206 =
+                        r11u206Law("R11U206_UTIFCPRG_OFF");
                     if (r11u202Law("R11U202_CLSTDINITEND_OFF")) {
                         std::string bestKey202;
                         const syntax::ExpressionSyntax* best202 = nullptr;
+                        auto rank206 = [](DefinitionKind k) {
+                            return k == DefinitionKind::Module      ? 2
+                                   : k == DefinitionKind::Interface ? 1
+                                                                    : 0;
+                        };
+                        int bestRank206 = -1;
                         for (auto& [nm202, inst202] : defs) {
-                            if (!inst202 ||
-                                inst202->getDefinition().definitionKind !=
-                                    DefinitionKind::Module)
+                            if (!inst202)
                                 continue;
+                            auto dk206 = inst202->getDefinition().definitionKind;
+                            if (dk206 != DefinitionKind::Module &&
+                                !(ifcPrg206 && (dk206 == DefinitionKind::Interface ||
+                                                dk206 == DefinitionKind::Program)))
+                                continue;
+                            int rk206 = rank206(dk206);
                             std::string key202 =
                                 "work@" + std::string(inst202->getDefinition().name);
-                            if (best202 && key202 < bestKey202)
+                            if (best202 && (rk206 < bestRank206 ||
+                                            (rk206 == bestRank206 && key202 < bestKey202)))
                                 continue;
                             const syntax::ExpressionSyntax* last202 = nullptr;
                             for (auto& mem202 : inst202->body.members()) {
@@ -11998,6 +12175,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                             if (last202) {
                                 best202 = last202;
                                 bestKey202 = key202;
+                                bestRank206 = rk206;
                             }
                         }
                         if (best202) {
@@ -12007,6 +12185,9 @@ UHDM::design* UhdmExporter::exportDesign() {
                             cts->VpiEndColumnNo(sm202.getColumnNumber(e202));
                             trace202("unitClassTdEndAtInit202",
                                      std::string(ta.name) + " " + bestKey202);
+                            if (bestRank206 < 2)
+                                trace206("unitClassTdEndAtInitIfcPrg206",
+                                         std::string(ta.name) + " " + bestKey202);
                         }
                     }
                     ts = cts;
@@ -14395,8 +14576,13 @@ UHDM::design* UhdmExporter::exportDesign() {
     // own copy to find the last binding (law and decode at the function).
     // § tpUseBindsDefDefault160 — BEFORE § 120 swaps the instance copy out
     // of the listing (it reads that copy; law and decode at the function).
-    if (ovr120Valid)
-        tpUseBindsDefDefault160(d, ovr120);
+    if (ovr120Valid) {
+        std::map<const UHDM::any*, std::map<const UHDM::typespec*, UHDM::typespec*>>
+            e2d206;
+        tpUseBindsDefDefault160(d, ovr120, &e2d206);
+        // § tpCastUseBindsDefDefault206 — the casts, from 160's map.
+        tpCastUseBindsDefDefault206(s, e2d206);
+    }
     if (ovr120Valid)
         shareInstTypeParams120(d, ovr120);
     // § pkgFlatSurelogBits117 (r11u117) — after every reader copied the

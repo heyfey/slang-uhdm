@@ -831,6 +831,8 @@ static slang::SourceRange genVarBuiltinTsSpan200(
     return kr;
 }
 bool r11v202Law(const char* sw);  // the v11u202 switches (UhdmExporter.cpp)
+bool r11u206Law(const char* sw);  // the r11u206 switches (UhdmExporter.cpp)
+void trace206(const char* law, const std::string& detail);  // R11U206_TRACE
 // § portPackedBareImplicitTruncates202v — true when a port's type syntax is
 // an ImplicitType with no signing token under a port header with no net
 // type and no `var` keyword (the bare `input [A] [B] a`).
@@ -27449,6 +27451,53 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             // int/shortint/longint/byte/bit locals carry their OWN var and
             // typespec class (Surelog); ranged ones (logic [63:W] x) keep the
             // folded-range typespec from makeTypespec.
+            // § genScopeClassVarListed206 (r11u206, v11u202's V5;
+            // R11U206_GENCLSVAR_OFF) — a CLASS-HANDLE gen-block local (`if (1)
+            // begin : g c q; end`) is a class_var in the elaborated gen_scope's
+            // vpiVariables, as a module-level one is (golden cases VG g01-g03:
+            // `class_var work@g02.g.q` 6:7-6:8, its ref_typespec named by the
+            // variable, the class_typespec at the written type); genLocalVarClass
+            // knows no class form, so every such declaration was dropped (stage
+            // 1).  The definition view keeps nothing, as for the other locals.
+            if (vct.kind == SymbolKind::ClassType &&
+                r11u206Law("R11U206_GENCLSVAR_OFF"))
+                if (auto* dtC206 = gm.getDeclaredType())
+                    if (auto* tsC206 = makeTypespec(gm, dtC206->getTypeSyntax());
+                        tsC206 && tsC206->UhdmType() == UHDM::uhdmclass_typespec) {
+                        std::string vfullC = fullName + "." + std::string(gm.name);
+                        // § genScopeClassVarSpecAtName206 (R11U206_GENCLSSPAN_OFF)
+                        // — its class_typespec written as an unscoped
+                        // SPECIALIZATION is located at the class NAME alone,
+                        // value or type arguments alike (golden VG g01 `c #(3)
+                        // q;` 6:5-6:6 where ours spanned `c #(3)`, g04 `c
+                        // #(byte) q;` 6:5-6:6).
+                        if (auto* ntC206 = dtC206->getTypeSyntax()
+                                               ? dtC206->getTypeSyntax()
+                                                     ->as_if<syntax::NamedTypeSyntax>()
+                                               : nullptr;
+                            ntC206 && ntC206->name &&
+                            ntC206->name->kind == syntax::SyntaxKind::ClassName &&
+                            r11u206Law("R11U206_GENCLSSPAN_OFF")) {
+                            setLoc(tsC206, ntC206->name->as<syntax::ClassNameSyntax>()
+                                               .identifier.range());
+                            trace206("genScopeClassVarSpecAtName206", vfullC);
+                        }
+                        auto* cv206 = s.MakeClass_var();
+                        cv206->VpiName(gm.name);
+                        cv206->VpiFullName(vfullC);
+                        cv206->VpiParent(gs);
+                        cv206->VpiVisibility(1);
+                        setLoc(cv206, nameSpan(gm.location, gm.name));
+                        auto* crt206 = s.MakeRef_typespec();
+                        crt206->VpiFullName(vfullC);
+                        crt206->VpiParent(cv206);
+                        crt206->Actual_typespec(tsC206);
+                        cv206->Typespec(crt206);
+                        netMap[&gm] = cv206;
+                        gvars->push_back(cv206);
+                        trace206("genScopeClassVarListed206", vfullC);
+                        continue;
+                    }
             UHDM::variables* iv = nullptr;
             UHDM::typespec* clsTs2 = nullptr;
             bool isRanged2 = false;

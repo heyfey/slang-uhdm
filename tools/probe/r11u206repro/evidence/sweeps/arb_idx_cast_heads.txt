@@ -1,0 +1,18 @@
+#360 endline
+  A: 12	logic_typespec				dut.sv	8	40	15	27				
+  B: 12	logic_typespec				dut.sv	8	40	8	60				
+#384 endline
+  A: 12	logic_typespec				dut.sv	8	40	15	27				
+  B: 12	logic_typespec				dut.sv	8	40	8	60				
+fields: endline=2 endcol=2 objects_differing=2
+STRICT_NOTEQUAL endline
+STRICT_EQUAL 558 objects
+#270 endline
+  A: 12	logic_typespec				dut.sv	8	40	15	27				
+  B: 12	logic_typespec				dut.sv	8	40	8	60				
+#294 endline
+  A: 12	logic_typespec				dut.sv	8	40	15	27				
+  B: 12	logic_typespec				dut.sv	8	40	8	60				
+fields: endline=2 endcol=2 objects_differing=2
+STRICT_NOTEQUAL endline
+STRICT_EQUAL 468 objects

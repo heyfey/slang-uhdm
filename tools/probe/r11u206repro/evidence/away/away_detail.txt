@@ -1,0 +1,13 @@
+== surelog_default_BuildUVMPkg-fc55bd0c_slang.uhdm
+dist 769 -> 776 lost=0 gained=1
+  GAIN 1 class_typespec	this_type			uvm_pkg.sv	13776	11	13776	42				
+== surelog_default_Scoreboard-72aa0ba8_slang.uhdm
+dist 1526 -> 1526 lost=0 gained=0
+== surelog_testflags_MiniAmiq-055eab74_slang.uhdm
+dist 6634 -> 6634 lost=0 gained=0
+== uhdm2rtlil_default_arb_idx_cast-d091b554_slang.uhdm
+dist 2 -> 0 lost=0 gained=2
+  GAIN 2 logic_typespec				dut.sv	8	40	15	27				
+== uhdm2rtlil_testflags_arb_idx_cast-d091b554_slang.uhdm
+dist 2 -> 0 lost=0 gained=2
+  GAIN 2 logic_typespec				dut.sv	8	40	15	27				

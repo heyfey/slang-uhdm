@@ -1,0 +1,22 @@
+pris.bin Earlgrey_0_1/default 15e6e48bc148 
+pris.bin Earlgrey_0_1/testflags e449573deea9 
+pris.bin MiniAmiq/default dd9e7e671b37 
+pris.bin MiniAmiq/testflags dd9e7e671b37 
+pris.bin SeqDriver/default a08930879bae 
+pris.bin SeqDriver/testflags 5388c9e9503c 
+pris.bin SimpleUVM/default 24b2148879b2 cd899e2e190b 
+pris.bin SimpleUVM/testflags 1d27315c4d9f 
+pris.bin Scoreboard/default 96872705d270 b35f475f27da e8579dab5a62 
+pris.bin BuildUVMPkg/default a22b6ee6955d 
+pris.bin BuildUVMPkg/testflags a22b6ee6955d 
+d7.bin Earlgrey_0_1/default 15e6e48bc148 
+d7.bin Earlgrey_0_1/testflags e449573deea9 
+d7.bin MiniAmiq/default dd9e7e671b37 
+d7.bin MiniAmiq/testflags dd9e7e671b37 
+d7.bin SeqDriver/default a08930879bae 
+d7.bin SeqDriver/testflags 5388c9e9503c 
+d7.bin SimpleUVM/default cd899e2e190b 
+d7.bin SimpleUVM/testflags 1d27315c4d9f 
+d7.bin Scoreboard/default 96872705d270 e8579dab5a62 
+d7.bin BuildUVMPkg/default a22b6ee6955d 
+d7.bin BuildUVMPkg/testflags a22b6ee6955d 

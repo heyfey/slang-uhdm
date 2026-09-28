@@ -1,0 +1,14 @@
+845c845
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "<wd>/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "<wd>/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+847c847
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "<wd>/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "<wd>/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+50,51c50,51
+< arb_idx_cast,default,STRICT_NOTEQUAL,differ:endline(2),,differ:endline(2)
+< arb_idx_cast,testflags,STRICT_NOTEQUAL,differ:endline(2),,differ:endline(2)
+---
+> arb_idx_cast,default,CMP_EQUAL,,,equal
+> arb_idx_cast,testflags,CMP_EQUAL,,,equal

@@ -72,6 +72,8 @@ bool r11u200Law(const char* sw); // the r11u200 switches (UhdmExporter.cpp)
 void trace200(const char* law, const std::string& detail); // R11U200_TRACE
 bool r11v202Law(const char* sw); // the v11u202 switches (UhdmExporter.cpp)
 void trace202(const char* law, const std::string& detail); // R11U202_TRACE
+bool r11u206Law(const char* sw); // the r11u206 switches (UhdmExporter.cpp)
+void trace206(const char* law, const std::string& detail); // R11U206_TRACE
 void noteTpUse180(UHDM::typespec* ts, const slang::ast::Symbol& declSymbol,
                   const slang::syntax::SyntaxNode* typeSyn); // § classTpDefaultTsAtUse180 (TypeEmit.cpp)
 
@@ -4701,6 +4703,45 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // `getSimpleVarFromTypespec` / named-typespec arm).  Grid
             // tools/probe/r11u200dec/cases/T.  Switch R11U200_CLASSTDRET_OFF.
             bool classTdRet200 = false;
+            // § classScopeTdRetBuildsOwner206 (r11u206, v11u202's V4;
+            // R11U206_CLSCOPETDRET_OFF) — a return written as ANOTHER
+            // class's typedef (`function K::q_t f();`, `extern function
+            // K::q_t f();` and its out-of-body `function K::q_t D::f()`, a
+            // return split across lines) binds that typedef's listed
+            // class_typespec too (golden `q_t` 7:13-7:14 parented at
+            // class_defn K, cases TR r01-r03 / v11u202repro TR q02): the
+            // owning class's typedefs were simply not built yet when this
+            // class's methods were emitted (classes are emitted in name
+            // order, `D` before `K`), so the law's `typedefTs` test missed
+            // and an anonymous class_typespec was minted at the return
+            // token.  The on-demand build every other class-nested typedef
+            // reader already makes (§ classPropElemTsFollowsScalarTd9,
+            // fwWinnerTs98: a package- or class-nested owning class only).
+            if (!ts && sub.returnValVar &&
+                sub.getReturnType().kind == SymbolKind::TypeAlias &&
+                sub.getReturnType().getCanonicalType().kind == SymbolKind::ClassType &&
+                !typedefTs.count(&sub.getReturnType()) &&
+                r11u200Law("R11U200_CLASSTDRET_OFF") &&
+                r11u206Law("R11U206_CLSCOPETDRET_OFF"))
+                if (auto* osc206 = sub.getReturnType().getParentScope();
+                    osc206 && osc206->asSymbol().kind == SymbolKind::ClassType &&
+                    osc206 != sub.getParentScope()) {
+                    auto& ocl206 = osc206->asSymbol().as<ClassType>();
+                    if (auto* opsc206 = ocl206.getParentScope();
+                        opsc206 && (opsc206->asSymbol().kind == SymbolKind::Package ||
+                                    opsc206->asSymbol().kind == SymbolKind::ClassType)) {
+                        // traced on EVERY on-demand build (the build alone
+                        // can move bytes: the typedef objects are minted
+                        // earlier), the bound flag naming whether the law
+                        // below can then bind.
+                        buildClassTypedefTs(ocl206, std::string(ocl206.name));
+                        trace206("classScopeTdRetBuildsOwner206",
+                                 std::string(sub.name) +
+                                     (typedefTs.count(&sub.getReturnType())
+                                          ? " bound"
+                                          : " unbound"));
+                    }
+                }
             if (!ts && sub.returnValVar &&
                 sub.getReturnType().kind == SymbolKind::TypeAlias &&
                 sub.getReturnType().getCanonicalType().kind == SymbolKind::ClassType &&
