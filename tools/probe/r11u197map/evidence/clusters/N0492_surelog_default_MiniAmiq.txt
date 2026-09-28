@@ -1,0 +1,64 @@
+cluster N0492 (id kept from an earlier map; OPEN | ground B | site memberWrittenQueueTs149 (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) [r11u189 pin] [r11u189map pin]): fullname|ref_typespec|ours-empty|under:array_typespec
+row: surelog/default/MiniAmiq  strict=differ:file(27)  records golden=435559 ours=433774
+object: #68599 (golden) / #68553 (ours)  type=ref_typespec name= TAIL
+  golden: svaunit_pkg::uvm_default_factory::print::sorted_override_queues
+  ours:   
+  walk parents: array_typespec < ref_typespec < array_var(sorted_override_queues) < function(uvm_default_factory::print)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 68593..68605 ('>' = the object)
+  #68593	5	array_typespec				uvm_factory.svh	1524	27	1524	57						000
+  #68594	6	range				uvm_factory.svh	1524	49	1524	57						001
+  #68595	7	constant					0	0	0	0	0	64	UINT:0	9		001
+  #68596	7	constant					0	0	0	0	associative	0	STRING:associative	6		001
+  #68597	8	ref_typespec			<in>		0	0	0	0		0			svaunit_pkg::uvm_default_factory::print::sorted_override_queues	001
+  #68598	9	string_typespec				uvm_factory.svh	1524	50	1524	56						001
+> #68599	6	ref_typespec			<in>		0	0	0	0		0			svaunit_pkg::uvm_default_factory::print::sorted_override_queues	001
+  #68600	7	string_typespec				uvm_factory.svh	1524	50	1524	56						001
+  #68601	6	ref_typespec			<in>		0	0	0	0		0			svaunit_pkg::uvm_default_factory::print::sorted_override_queues	001
+  #68602	7	class_typespec				uvm_factory.svh	1524	3	1524	26						001
+  #68603	4	class_var			svaunit_pkg::uvm_default_factory::print::sorted_override_queues	uvm_factory.svh	1524	27	1524	49		0			svaunit_pkg::uvm_default_factory::print::sorted_override_queues	000
+  #68604	5	ref_typespec			svaunit_pkg::uvm_default_factory::print::sorted_override_queues		0	0	0	0		0			svaunit_pkg::uvm_default_factory::print::sorted_override_queues	000
+  #68605	6	class_typespec				uvm_factory.svh	1524	3	1524	26						000
+
+--- OURS (B) records 68547..68559 ('>' = the object)
+  #68547	5	array_typespec				uvm_factory.svh	1524	27	1524	57						000
+  #68548	6	range				uvm_factory.svh	1524	49	1524	57						001
+  #68549	7	constant					0	0	0	0	0	64	UINT:0	9		001
+  #68550	7	constant					0	0	0	0	associative	0	STRING:associative	6		001
+  #68551	8	ref_typespec					0	0	0	0		0				001
+  #68552	9	string_typespec				uvm_factory.svh	1524	50	1524	56						001
+> #68553	6	ref_typespec					0	0	0	0		0				001
+  #68554	7	string_typespec				uvm_factory.svh	1524	50	1524	56						001
+  #68555	6	ref_typespec					0	0	0	0		0				001
+  #68556	7	class_typespec				uvm_factory.svh	1524	3	1524	26						001
+  #68557	4	class_var			svaunit_pkg::uvm_default_factory::print::sorted_override_queues	uvm_factory.svh	1524	27	1524	49		0			svaunit_pkg::uvm_default_factory::print::sorted_override_queues	000
+  #68558	5	ref_typespec			svaunit_pkg::uvm_default_factory::print::sorted_override_queues		0	0	0	0		0			svaunit_pkg::uvm_default_factory::print::sorted_override_queues	000
+  #68559	6	class_typespec				uvm_factory.svh	1524	3	1524	26						000
+
+facets of this row (8993, first 25):
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20803 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21739 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0678 #-1/63709 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63775 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66835 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66923 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67150 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68134 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68154 unsupported_typespec index G[] O[1 objs]

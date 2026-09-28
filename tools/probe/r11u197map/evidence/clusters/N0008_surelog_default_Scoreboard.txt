@@ -1,0 +1,64 @@
+cluster N0008 (id kept from an earlier map; OPEN | ground B | site emitParameters (ParamEmit.cpp, law timeLitParamIntTs) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u156map pin (other example): operator() (ModuleEmit.cpp, law genLpFoldDigitsMathValue18) < operator() (ModuleEmit.cpp, law elseArmFirstItemReplaces48) < operator() (ModuleEmit.cpp, law genN] [DECODED: the same as N0003 on a constant's typespec ref: golden unparented]): fullname|ref_typespec|golden-empty|under:constant
+row: surelog/default/Scoreboard  strict=differ:fullname(54)  records golden=269656 ours=269679
+object: #269004 (golden) / #269112 (ours)  type=ref_typespec name= OUT
+  golden: 
+  ours:   uvm_pkg
+  walk parents: constant < param_assign < design(work@my_scoreboard_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 268998..269010 ('>' = the object)
+  #268998	3	int_typespec				uvm_object_globals.svh	39	1	39	32						000
+  #268999	1	parameter	uvm_revision			uvm_version.svh	31	18	31	30		0	STRING:UVM.1.2			000
+  #269000	2	ref_typespec			uvm_revision		0	0	0	0		0			uvm_revision	000
+  #269001	3	string_typespec				uvm_version.svh	31	11	31	17						000
+  #269002	1	param_assign				uvm_hdl.svh	47	15	47	39						000
+  #269003	2	constant				uvm_hdl.svh	47	35	47	39	1024	32	UINT:1024	9		000
+> #269004	3	ref_typespec					0	0	0	0		0				000
+  #269005	4	int_typespec				uvm_hdl.svh	47	11	47	14						000
+  #269006	2	parameter	UVM_HDL_MAX_WIDTH			uvm_hdl.svh	47	15	47	32		0	UINT:1024			000
+  #269007	3	ref_typespec			UVM_HDL_MAX_WIDTH		0	0	0	0		0			UVM_HDL_MAX_WIDTH	000
+  #269008	4	int_typespec				uvm_hdl.svh	47	11	47	14						000
+  #269009	1	param_assign				uvm_version.svh	26	18	26	82						000
+  #269010	2	constant				uvm_version.svh	26	39	26	82	"(C) 2007-2014 Mentor Graphics Corporation"	328	STRING:(C) 2007-2014 Mentor Graphics Corporation	6		000
+
+--- OURS (B) records 269106..269118 ('>' = the object)
+  #269106	3	int_typespec				uvm_object_globals.svh	39	1	39	32						000
+  #269107	1	parameter	uvm_revision			uvm_version.svh	31	18	31	30		0	STRING:UVM.1.2			000
+  #269108	2	ref_typespec			uvm_pkg::uvm_revision		0	0	0	0		0			uvm_pkg::uvm_revision	000
+  #269109	3	string_typespec				uvm_version.svh	31	11	31	17						000
+  #269110	1	param_assign				uvm_hdl.svh	47	15	47	39						000
+  #269111	2	constant				uvm_hdl.svh	47	35	47	39	1024	32	UINT:1024	9		000
+> #269112	3	ref_typespec			uvm_pkg		0	0	0	0		0			uvm_pkg	000
+  #269113	4	int_typespec				uvm_hdl.svh	47	11	47	14						000
+  #269114	2	parameter	UVM_HDL_MAX_WIDTH			uvm_hdl.svh	47	15	47	32		0	UINT:1024			000
+  #269115	1	param_assign				uvm_version.svh	26	18	26	82						000
+  #269116	2	constant				uvm_version.svh	26	39	26	82	"(C) 2007-2014 Mentor Graphics Corporation"	328	STRING:(C) 2007-2014 Mentor Graphics Corporation	6		000
+  #269117	3	ref_typespec			uvm_pkg		0	0	0	0		0			uvm_pkg	000
+  #269118	4	string_typespec				uvm_version.svh	26	11	26	17						000
+
+facets of this row (1783, first 25):
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20911 bit_typespec  G[] O[1 objs]
+  N0423 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21847 bit_typespec  G[] O[1 objs]
+  N0423 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74775 bit_typespec  G[] O[1 objs]
+  N0423 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74796 bit_typespec  G[] O[1 objs]
+  N0423 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74852 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79114 array_typespec  G[] O[1 objs]
+  N0423 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79133 bit_typespec  G[] O[1 objs]
+  N0423 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80109 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82238/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82246/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82254/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82262/-1 ref_typespec  G[2 objs] O[]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]

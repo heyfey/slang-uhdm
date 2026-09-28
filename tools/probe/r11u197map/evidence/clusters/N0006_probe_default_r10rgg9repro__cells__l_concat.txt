@@ -1,0 +1,36 @@
+cluster N0006 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law negLitPkgRetFoldNested30) < emitContAssigns (ModuleEmit.cpp, law caLhsDefNetUnlessOpRhs139) [DECODED (r11u131 R1, class A net binding): a continuous assignment whose right-hand side Surelog REDUCES to a constant (UhdmWriter writeCont_assign's simplified==false reduce clones the assign with a context-free ElaboratorContext, so the LHS ref_obj keeps the DEFINITION net); ours binds the elaborated net. Fix site: ModuleEmit.cpp emitContAssigns, the COMPUTED-RHS fold rule beside law caStrengthAndDelayDeclined88 (an element select of a parameter is the missing kind). HOLDER pinned] [r11u150map pin]): struct|golden-only:fewer-copies|logic_net|under:ref_obj
+row: probe/default/r10rgg9repro__cells__l_concat  strict=file  records golden=92 ours=86
+object: #85 (golden) / #-1 (ours)  type=logic_net name=a1 
+  golden: 3 objs
+  ours:   
+  walk parents: ref_obj(a1) < operation < cont_assign < module_inst(u_a)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 79..91 ('>' = the object)
+  #79	5	ref_typespec			work@top.u_a		0	0	0	0		0			work@top.u_a	000
+  #80	6	bit_typespec				dut.sv	2	13	2	16						000
+  #81	3	cont_assign				dut.sv	9	10	9	40						000
+  #82	4	constant				dut.sv	9	38	9	40	'0	-1	BIN:0	3		000
+  #83	4	operation				dut.sv	9	11	9	13		0				000
+  #84	5	ref_obj	a1		work@top.u_a.a1	dut.sv	9	11	9	13		0			work@top.u_a.a1	000
+> #85	6	logic_net	a1		work@m.a1	dut.sv	8	9	8	11		0			work@m.a1	000
+  #86	7	ref_typespec			work@m.a1		0	0	0	0		0			work@m.a1	000
+  #87	8	logic_typespec				dut.sv	8	3	8	8						000
+  #88	5	ref_obj	b1		work@top.u_a.b1	dut.sv	9	15	9	17		0			work@top.u_a.b1	000
+  #89	6	logic_net	b1		work@m.b1	dut.sv	8	13	8	15		0			work@m.b1	000
+  #90	7	ref_typespec			work@m.b1		0	0	0	0		0			work@m.b1	000
+  #91	8	logic_typespec				dut.sv	8	3	8	8						000
+
+--- the holder #84 on the other side: exact-record matches at [84]
+  #81	3	cont_assign				dut.sv	9	10	9	40						000
+  #82	4	constant					0	0	0	0	0	64	INT:0	7		000
+  #83	4	operation				dut.sv	9	11	9	13		0				000
+> #84	5	ref_obj	a1		work@top.u_a.a1	dut.sv	9	11	9	13		0			work@top.u_a.a1	000
+  #85	5	ref_obj	b1		work@top.u_a.b1	dut.sv	9	15	9	17		0			work@top.u_a.b1	000
+
+facets of this row (5, first 25):
+  N0006 #85/-1 logic_net a1 G[3 objs] O[]
+  N0006 #89/-1 logic_net b1 G[3 objs] O[]
+  N1169 #82/82 constant  G[dut.sv 9:38:9:40] O[ 0:0:0:0]
+  N0681 #82/82 constant  G[9:38:9:40] O[0:0:0:0]
+  N1170 #82/82 constant  G['0|-1|BIN:0|3] O[0|64|INT:0|7]

@@ -1,0 +1,1192 @@
+diff --git a/src/ExprEmit.cpp b/src/ExprEmit.cpp
+index a8f1f8f9f..22bfd840a 100644
+--- a/src/ExprEmit.cpp
++++ b/src/ExprEmit.cpp
+@@ -25,6 +25,329 @@
+ 
+ namespace slang_uhdm {
+ 
++// The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
++// reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them.
++// R11U191_TRACE=<dir> names every firing of an r11u191 law (the mover
++// census): one file per process, `<dir>/<pid>.EX`, its first line the
++// `-o` database path read off the command line, then one law name per firing.
++static void tr191EX(const char* law) {
++    static FILE* tf = [] () -> FILE* {
++        const char* d = getenv("R11U191_TRACE");
++        if (!d)
++            return nullptr;
++        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".EX";
++        FILE* fp = fopen(fn.c_str(), "a");
++        if (!fp)
++            return nullptr;
++        std::string cl, prev, outp;
++        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
++            int ch;
++            while ((ch = fgetc(c)) != EOF) {
++                if (ch == 0) {
++                    if (prev == "-o")
++                        outp = cl;
++                    prev = cl;
++                    cl.clear();
++                }
++                else
++                    cl += (char)ch;
++            }
++            fclose(c);
++        }
++        fprintf(fp, "OUT %s\n", outp.c_str());
++        return fp;
++    }();
++    if (tf) {
++        fprintf(tf, "%s\n", law);
++        fflush(tf);
++    }
++}
++static bool r191EX(const char* sw) {
++    if (getenv("R11U191_OFF") != nullptr)
++        return false;
++    return getenv(sw) == nullptr;
++}
++
++// § idxCallPathAtDots191 (r11u191, R11U191_HPENDCOL_OFF) — the index of a
++// select that a member access CONTINUES (`m[obj.get_type_name()].queue`,
++// `m_streams[stream.get_name()].exists(...)`), or a range select's bound
++// (`q[b:q.size()-1]`): Surelog's grammar reads such a select as a
++// hierarchical identifier's `constant_bit_select` (a range as a
++// `constant_range`), so its index is a constant_expression, and a method call
++// written there — whole or inside the index's operators — parses as
++// `Subroutine_call(obj, Constant_bit_select, nxt, Constant_bit_select,
++// get_type_name, List_of_arguments)` whose EMPTY Constant_bit_select nodes sit
++// zero-width at the dots (`-d ast`: l<8:25> el<8:25>).  compileComplexFuncCall
++// (CompileExpression.cpp:5523-5716) pushes a component's ref_obj when it meets
++// the NEXT name and locates it at `name`, which the loop has already advanced
++// to that empty select (`name = dotedName;`, :5715): every component but the
++// call sits zero-width at the dot after it.  The hier_path takes the location
++// of the Subroutine_call's first child (compileExpression's parent node), the
++// first name alone.  A plain select (`q = m[obj.get_type_name()]`) parses the
++// index as an Expression and keeps both spans (grid tools/probe/r11u191dec/
++// cases/H: h01-h04 move, h02's plain forms and every other context are
++// controls).  Map 10's N0228 (hier_path endcol under bit_select, the first
++// open record of the UVM rows) and N0224 (its ref_obj col).
++static const slang::ast::Expression* g191IdxCall = nullptr;
++static bool idxOfContinuedSelect191(const slang::ast::Expression& e) {
++    namespace sx = slang::syntax;
++    const sx::SyntaxNode* n = e.syntax;
++    if (!n || n->kind != sx::SyntaxKind::InvocationExpression)
++        return false;
++    // Up through the operators of the index expression (a call nested in
++    // `sva_details.size() - 1` is written in the same constant_expression);
++    // another call, a member access or a select on the way is a boundary.
++    const sx::SyntaxNode* child = n;
++    const sx::SyntaxNode* p = n->parent;
++    while (p && sx::ExpressionSyntax::isKind(p->kind) &&
++           p->kind != sx::SyntaxKind::InvocationExpression &&
++           p->kind != sx::SyntaxKind::MemberAccessExpression &&
++           p->kind != sx::SyntaxKind::ElementSelectExpression &&
++           !sx::NameSyntax::isKind(p->kind)) {
++        child = p;
++        p = p->parent;
++    }
++    if (!p)
++        return false;
++    // A RANGE select's bounds are a constant_range (both sides) or, for an
++    // indexed `+:` / `-:` range, the width side (`q[b:q.size()-1]`,
++    // uvm_sequencer_base.svh 694).
++    if (p->kind == sx::SyntaxKind::SimpleRangeSelect)
++        return true;
++    if (p->kind == sx::SyntaxKind::AscendingRangeSelect ||
++        p->kind == sx::SyntaxKind::DescendingRangeSelect)
++        return p->as<sx::RangeSelectSyntax>().right.get() == (const sx::ExpressionSyntax*)child;
++    if (p->kind != sx::SyntaxKind::BitSelect)
++        return false;
++    p = p->parent;
++    if (!p || p->kind != sx::SyntaxKind::ElementSelect)
++        return false;
++    const sx::SyntaxNode* x = p->parent;
++    if (!x)
++        return false;
++    // A NAME path (slang: IdentifierSelectName inside ScopedName with `.`):
++    // the select is continued when some enclosing ScopedName has it (or the
++    // name it ends) on its LEFT of a `.` separator.
++    if (x->kind == sx::SyntaxKind::IdentifierSelectName) {
++        for (const sx::SyntaxNode* q = x->parent; q && q->kind == sx::SyntaxKind::ScopedName;
++             x = q, q = q->parent) {
++            auto& sn = q->as<sx::ScopedNameSyntax>();
++            if (sn.left.get() == (const sx::NameSyntax*)x)
++                return sn.separator.kind == slang::parsing::TokenKind::Dot;
++        }
++        return false;
++    }
++    // An EXPRESSION path: ElementSelectExpression on a member access's left.
++    if (x->kind != sx::SyntaxKind::ElementSelectExpression)
++        return false;
++    const sx::SyntaxNode* ma = x->parent;
++    if (!ma || ma->kind != sx::SyntaxKind::MemberAccessExpression)
++        return false;
++    return ma->as<sx::MemberAccessExpressionSyntax>().left.get() ==
++           (const sx::ExpressionSyntax*)x;
++}
++
++// § evalFuncExecCallArgTs191 (r11u191, R11U191_EVALTS_OFF; map 10's N0965,
++// Scr1SvTests d/t `type(1)`) — UhdmWriter::writeCont_assign reduces a
++// continuous assignment whose whole right side is a user function call:
++// ExprEval::evalFunc (UHDM templates/ExprEval.cpp) binds every actual to its
++// formal (`if (expr* exparg = reduceExpr(ioexp, ...)) exparg->Typespec(<the
++// formal's typespec>)`) and then EXECUTES the body.  A call met on the way is
++// evaluated the same way, so ITS actuals take ITS formal's typespec — and an
++// actual reduceExpr hands back unreduced, a PART SELECT or an INDEXED PART
++// SELECT (of a formal or of a body local), is the SOURCE object of the
++// function body, mutated in place; a formal or local REFERENCE reduces to its
++// bound value and the source ref stays bare (r10fiot a9 x3 / x5, r10uvm60
++// b6 R5).  What the body executes is § evalReachedCallees's prefix (the taint
++// model: a controlling expression reading a formal stops the run, plain
++// statements do not); when the module calls the function with an argument
++// that is not constant, the FIRST call met is also the last one (its own body
++// cannot be reduced and the run stops inside it: grid
++// tools/probe/r11u191dec/cases/V v01 `t = g(x[1:0])` stamped, `u =
++// g(x[3:2])` bare; v02 the Scr1 loop `g(din[(i+1)*2-1-:2])` stamped, the
++// later `g(s1)` bare; v04 = r10fiot a9: `lv[3:1]` after `lv[3:0] = a;`
++// stamped, nothing inside an unfoldable `if`); when every argument is
++// constant every call of the prefix is stamped (v03).  Only straight-line
++// statements and for loops are walked (a branch stops the walk: abstain).
++namespace {
++struct EvalStamp191 {
++    bool done = false;
++    std::set<const slang::ast::Expression*> calls;
++};
++std::map<const slang::ast::SubroutineSymbol*, EvalStamp191> g191Eval;
++} // namespace
++static bool evalFuncStampsCall191(slang::ast::Compilation& comp,
++                                  const slang::ast::SubroutineSymbol& sub,
++                                  const slang::ast::Expression& callExpr) {
++    using namespace slang::ast;
++    auto& es = g191Eval[&sub];
++    if (!es.done) {
++        es.done = true;
++        bool nonConst = false, allConst = false;
++        auto* sc = sub.getParentScope();
++        if (sc && sc->asSymbol().kind == SymbolKind::InstanceBody &&
++            sub.subroutineKind == SubroutineKind::Function) {
++            for (auto& mb : sc->members()) {
++                if (mb.kind != SymbolKind::ContinuousAssign)
++                    continue;
++                auto& ae = mb.as<ContinuousAssignSymbol>().getAssignment();
++                if (ae.kind != ExpressionKind::Assignment)
++                    continue;
++                auto& r = stripImplicitConv(ae.as<AssignmentExpression>().right());
++                if (r.kind != ExpressionKind::Call)
++                    continue;
++                auto& c = r.as<CallExpression>();
++                auto sp = std::get_if<const SubroutineSymbol*>(&c.subroutine);
++                if (c.isSystemCall() || !sp || *sp != &sub)
++                    continue;
++                bool k = true;
++                ASTContext cx(comp.getRoot(), LookupLocation::max);
++                for (auto* a : c.arguments()) {
++                    auto cv = cx.tryEval(*a);
++                    if (!cv)
++                        k = false;
++                }
++                (k ? allConst : nonConst) = true;
++            }
++        }
++        // The first user call a statement's expression evaluates (pre-order,
++        // left to right: `x + g(y)` binds g's actuals too, r10uvm60 b6 R1).
++        auto firstCall = [](const Expression& e) -> const Expression* {
++            const Expression* found = nullptr;
++            e.visit(makeVisitor([&](auto& v, const CallExpression& ce) {
++                if (found)
++                    return;
++                if (!ce.isSystemCall() &&
++                    std::get_if<const SubroutineSymbol*>(&ce.subroutine)) {
++                    found = &ce;
++                    return;
++                }
++                v.visitDefault(ce);
++            }));
++            return found;
++        };
++        // § evalReachedCallees's taint model (TaskFuncEmit.cpp): a formal, a
++        // signal outside the subroutine, or a local assigned from one.
++        std::set<const Symbol*> tainted;
++        auto unknown = [&](const Expression& e) -> bool {
++            bool bad = false;
++            e.visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
++                auto k0 = nv.symbol.kind;
++                if (k0 == SymbolKind::FormalArgument || tainted.count(&nv.symbol))
++                    bad = true;
++                else if (k0 == SymbolKind::Variable || k0 == SymbolKind::Net) {
++                    bool local = false;
++                    for (auto sc2 = nv.symbol.getParentScope(); sc2;
++                         sc2 = sc2->asSymbol().getParentScope()) {
++                        auto ks = sc2->asSymbol().kind;
++                        if (ks == SymbolKind::Subroutine || ks == SymbolKind::StatementBlock) {
++                            local = true;
++                            break;
++                        }
++                        if (ks == SymbolKind::InstanceBody || ks == SymbolKind::Package ||
++                            ks == SymbolKind::CompilationUnit)
++                            break;
++                    }
++                    if (!local)
++                        bad = true;
++                }
++                v.visitDefault(nv);
++            }));
++            return bad;
++        };
++        // Walk the executed prefix.  nonConst: the first call met is stamped
++        // and ends the run (its body cannot be reduced); allConst: every call
++        // met is stamped.  Returns false where the run stops.
++        const bool stopAtCall = nonConst && !allConst;
++        std::set<const Expression*> met;
++        std::function<bool(const Statement&)> walk = [&](const Statement& st) -> bool {
++            auto meet = [&](const Expression& e) -> bool {
++                if (auto* c = firstCall(e)) {
++                    met.insert(c);
++                    if (stopAtCall)
++                        return false;
++                    e.visit(makeVisitor([&](auto& v, const CallExpression& ce) {
++                        if (!ce.isSystemCall() &&
++                            std::get_if<const SubroutineSymbol*>(&ce.subroutine))
++                            met.insert(&ce);
++                        v.visitDefault(ce);
++                    }));
++                }
++                return true;
++            };
++            switch (st.kind) {
++                case StatementKind::Empty:
++                    return true;
++                case StatementKind::List:
++                    for (auto* it : st.as<StatementList>().list)
++                        if (!walk(*it))
++                            return false;
++                    return true;
++                case StatementKind::Block:
++                    return walk(st.as<BlockStatement>().body);
++                case StatementKind::VariableDeclaration: {
++                    auto& vs = st.as<VariableDeclStatement>().symbol;
++                    if (auto* in = vs.getInitializer()) {
++                        if (!meet(*in))
++                            return false;
++                        if (unknown(*in))
++                            tainted.insert(&vs);
++                    }
++                    return true;
++                }
++                case StatementKind::ExpressionStatement: {
++                    auto& e0 = st.as<ExpressionStatement>().expr;
++                    if (!meet(e0))
++                        return false;
++                    if (e0.kind == ExpressionKind::Assignment) {
++                        auto& ae = e0.as<AssignmentExpression>();
++                        const Expression* l0 = &stripImplicitConv(ae.left());
++                        while (l0->kind == ExpressionKind::ElementSelect ||
++                               l0->kind == ExpressionKind::RangeSelect ||
++                               l0->kind == ExpressionKind::MemberAccess)
++                            l0 = &stripImplicitConv(
++                                l0->kind == ExpressionKind::ElementSelect
++                                    ? l0->as<ElementSelectExpression>().value()
++                                : l0->kind == ExpressionKind::RangeSelect
++                                    ? l0->as<RangeSelectExpression>().value()
++                                    : l0->as<MemberAccessExpression>().value());
++                        if (l0->kind == ExpressionKind::NamedValue) {
++                            auto& ls = l0->as<NamedValueExpression>().symbol;
++                            if (unknown(ae.right()))
++                                tainted.insert(&ls);
++                            else
++                                tainted.erase(&ls);
++                        }
++                    }
++                    return true;
++                }
++                case StatementKind::Return:
++                    if (auto* re = st.as<ReturnStatement>().expr)
++                        meet(*re);
++                    return false;
++                case StatementKind::ForLoop: {
++                    auto& fl = st.as<ForLoopStatement>();
++                    for (auto* i0 : fl.initializers)
++                        if (unknown(*i0))
++                            return false;
++                    if (!fl.stopExpr || unknown(*fl.stopExpr))
++                        return false;
++                    return walk(fl.body);
++                }
++                default:
++                    // a branch, a case, any other loop: the executed arm is
++                    // not modelled here — stop (abstain on what follows)
++                    return false;
++            }
++        };
++        if (nonConst || allConst) {
++            walk(sub.getBody());
++            es.calls = std::move(met);
++        }
++    }
++    return es.calls.count(&stripImplicitConv(callExpr)) != 0;
++}
++
+ // The r11u183 switches (tools/probe/r11u183dec/README.md, landed by r11u187:
+ // tools/probe/r11u187repro/README.md): every r11u183 law
+ // reads its own R11U183_<LAW>_OFF switch; R11U183_OFF drops all of them.
+@@ -16423,6 +16746,56 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+         lhsGuard194.on = true;
+         inLhs = false;
+     }
++    // § idxCallPathAtDots191 — the wrapper (the law's header is above).
++    if (expr.kind == ExpressionKind::Call && g191IdxCall != &expr &&
++        idxOfContinuedSelect191(expr) && r191EX("R11U191_HPENDCOL_OFF")) {
++        const Expression* sv191 = g191IdxCall;
++        g191IdxCall = &expr;
++        UHDM::any* r191 = emitExpr(expr, parent, prefix, netMap);
++        g191IdxCall = sv191;
++        if (r191 && r191->UhdmType() == UHDM::uhdmhier_path) {
++            auto* hp191 = (UHDM::hier_path*)r191;
++            auto* el191 = hp191->Path_elems();
++            std::vector<SourceLocation> dots191;
++            const syntax::SyntaxNode* l191 =
++                expr.syntax->as<syntax::InvocationExpressionSyntax>().left;
++            for (;;) {
++                if (l191 && l191->kind == syntax::SyntaxKind::MemberAccessExpression) {
++                    auto& ma191 = l191->as<syntax::MemberAccessExpressionSyntax>();
++                    dots191.insert(dots191.begin(), ma191.dot.location());
++                    l191 = ma191.left;
++                }
++                else if (l191 && l191->kind == syntax::SyntaxKind::ScopedName &&
++                         l191->as<syntax::ScopedNameSyntax>().separator.kind ==
++                             parsing::TokenKind::Dot) {
++                    auto& sn191 = l191->as<syntax::ScopedNameSyntax>();
++                    dots191.insert(dots191.begin(), sn191.separator.location());
++                    l191 = sn191.left;
++                }
++                else
++                    break;
++            }
++            bool ok191 = el191 && el191->size() >= 2 &&
++                         dots191.size() + 1 == el191->size() &&
++                         l191 && l191->kind == syntax::SyntaxKind::IdentifierName &&
++                         el191->back()->UhdmType() == UHDM::uhdmmethod_func_call;
++            for (size_t i = 0; ok191 && i + 1 < el191->size(); i++)
++                if ((*el191)[i]->UhdmType() != UHDM::uhdmref_obj ||
++                    (*el191)[i]->VpiLineNo() == 0)
++                    ok191 = false;
++            if (ok191) {
++                tr191EX("idxCallPathAtDots191");
++                auto* f191 = (*el191)[0];
++                hp191->VpiLineNo(f191->VpiLineNo());
++                hp191->VpiColumnNo(f191->VpiColumnNo());
++                hp191->VpiEndLineNo(f191->VpiEndLineNo());
++                hp191->VpiEndColumnNo(f191->VpiEndColumnNo());
++                for (size_t i = 0; i + 1 < el191->size(); i++)
++                    setLoc((*el191)[i], SourceRange(dots191[i], dots191[i]));
++            }
++        }
++        return r191;
++    }
+     // § genLpIdxOpOperandFold112 — an operand of the index operation.
+     if (genLpIdxOpPrefix112 && parent &&
+         ((UHDM::any*)parent)->UhdmType() == UHDM::uhdmoperation &&
+@@ -30834,7 +31207,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
+                         const bool stampCond48 =
+                             isFunc && !inProcessEmit && !inGenScopeProc &&
+                             !defGenProcessEmit &&
+-                            !caCondReduceStop && (argCtxOk || pkgRetArgTs8) &&
++                            !caCondReduceStop &&
++                            (argCtxOk || pkgRetArgTs8 ||
++                             // § evalFuncExecCallArgTs191 (the law's header
++                             // is at the top of this file)
++                             ((a->UhdmType() == UHDM::uhdmpart_select ||
++                               a->UhdmType() == UHDM::uhdmindexed_part_select) &&
++                              currentSubSym && currentTf &&
++                              r191EX("R11U191_EVALTS_OFF") &&
++                              evalFuncStampsCall191(comp, *currentSubSym, expr) &&
++                              (tr191EX("evalFuncExecCallArgTs191"), true))) &&
+                             !shadowSkip8v && !pkgScopedRef &&
+                             !strFormalConst && !paramInitLit9 && !namedArgs9 &&
+                             // A PROPERTY-DECL body's call args carry no
+diff --git a/src/ModuleEmit.cpp b/src/ModuleEmit.cpp
+index 22e63b6f9..72d8a60d6 100644
+--- a/src/ModuleEmit.cpp
++++ b/src/ModuleEmit.cpp
+@@ -29,6 +29,49 @@
+ 
+ namespace slang_uhdm {
+ 
++// The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
++// reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them.
++// R11U191_TRACE=<dir> names every firing of an r11u191 law (the mover
++// census): one file per process, `<dir>/<pid>.ME`, its first line the
++// `-o` database path read off the command line, then one law name per firing.
++static void tr191ME(const char* law) {
++    static FILE* tf = [] () -> FILE* {
++        const char* d = getenv("R11U191_TRACE");
++        if (!d)
++            return nullptr;
++        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".ME";
++        FILE* fp = fopen(fn.c_str(), "a");
++        if (!fp)
++            return nullptr;
++        std::string cl, prev, outp;
++        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
++            int ch;
++            while ((ch = fgetc(c)) != EOF) {
++                if (ch == 0) {
++                    if (prev == "-o")
++                        outp = cl;
++                    prev = cl;
++                    cl.clear();
++                }
++                else
++                    cl += (char)ch;
++            }
++            fclose(c);
++        }
++        fprintf(fp, "OUT %s\n", outp.c_str());
++        return fp;
++    }();
++    if (tf) {
++        fprintf(tf, "%s\n", law);
++        fflush(tf);
++    }
++}
++static bool r191ME(const char* sw) {
++    if (getenv("R11U191_OFF") != nullptr)
++        return false;
++    return getenv(sw) == nullptr;
++}
++
+ // The r11u183 switches (tools/probe/r11u183dec/README.md): every r11u183 law
+ // reads its own R11U183_<LAW>_OFF switch; R11U183_OFF drops all of them.
+ // R11U183_TRACE=<dir> names every firing of an r11u183 law (the mover
+@@ -1444,6 +1487,143 @@ static bool evalFuncSelectPoison148(const slang::ast::Expression& rhs0,
+         *arm = which;
+     return hit;
+ }
++// § evalFuncCastMemberKeepsCall191 (r11u191, R11U191_CONSTCALL_OFF) — two
++// more body shapes ExprEval::evalFunc cannot reduce (the producer is the one
++// § evalFuncSelectKeepsCall148 decodes: writeCont_assign's reduceExpr ->
++// evalFunc; only a constant result replaces the Rhs):
++//   C  a CAST whose target typespec the vpiCastOp arm of ExprEval::reduceExpr
++//      (UHDM templates/ExprEval.cpp, `case vpiCastOp`) has no row for: it
++//      folds int / longint / shortint / bit / integer (and a size cast
++//      `N'(...)`) / enum targets and leaves the result null for every other
++//      typespec — a logic or reg typedef (`imm_t'(...)`), byte, a packed
++//      struct or union (grid tools/probe/r11u191dec/cases/C: c01 f5, c02 g4
++//      g5 g6 keep; g1 g2 g3 g7 and c01 f1 fold);
++//   M  a MEMBER read of a packed struct (`op.f`) whose base is a formal bound
++//      to a non-pattern actual, a function local or a module parameter: the
++//      hier_path reduction never lands on a constant (c01 f3, c03 h1(P) h3
++//      h4 keep; a formal bound to a literal assignment pattern folds, c03
++//      h1('{...}), and is left alone).
++// Like the P arm, only a STRAIGHT-LINE body is claimed (c04 k1: a cast behind
++// a branch not taken folds in golden).  const_cast_signext's four calls are
++// the corpus face (`sext`: C + M; `uext`, `szc`: M).
++static bool r191ConstCallPoison(const slang::ast::Expression& rhs0) {
++    using namespace slang::ast;
++    auto& rhs = stripImplicitConv(rhs0);
++    if (rhs.kind != ExpressionKind::Call)
++        return false;
++    auto& call = rhs.as<CallExpression>();
++    if (call.isSystemCall())
++        return false;
++    auto sp = std::get_if<const SubroutineSymbol*>(&call.subroutine);
++    if (!sp || !*sp)
++        return false;
++    const SubroutineSymbol& sub = **sp;
++    std::function<bool(const Statement&)> straight = [&](const Statement& st) {
++        switch (st.kind) {
++            case StatementKind::Empty:
++            case StatementKind::Return:
++            case StatementKind::ExpressionStatement:
++            case StatementKind::VariableDeclaration:
++                return true;
++            case StatementKind::Block:
++                return straight(st.as<BlockStatement>().body);
++            case StatementKind::List:
++                for (auto* it : st.as<StatementList>().list)
++                    if (!straight(*it))
++                        return false;
++                return true;
++            default:
++                return false;
++        }
++    };
++    if (!straight(sub.getBody()))
++        return false;
++    // the formals bound to an assignment-pattern actual
++    std::set<const Symbol*> patFormal;
++    {
++        auto fs = sub.getArguments();
++        auto as = call.arguments();
++        for (size_t i = 0; i < fs.size() && i < as.size(); i++) {
++            auto& a = stripImplicitConv(*as[i]);
++            if (a.kind == ExpressionKind::SimpleAssignmentPattern ||
++                a.kind == ExpressionKind::StructuredAssignmentPattern ||
++                a.kind == ExpressionKind::ReplicatedAssignmentPattern)
++                patFormal.insert(fs[i]);
++        }
++    }
++    auto castUnhandled = [](const Type& t0) {
++        auto& t = t0.getCanonicalType();
++        if (t.kind == SymbolKind::EnumType)
++            return false;
++        if (t.kind == SymbolKind::PredefinedIntegerType)
++            return t.as<PredefinedIntegerType>().integerKind ==
++                   PredefinedIntegerType::Byte;
++        if (t.kind == SymbolKind::PackedStructType ||
++            t.kind == SymbolKind::PackedUnionType)
++            return true;
++        if (t.isIntegral() && !t.isPredefinedInteger()) {
++            // scalar / packed array: logic and reg are unhandled, bit is not
++            const Type* e = &t;
++            while (e->kind == SymbolKind::PackedArrayType)
++                e = &e->as<PackedArrayType>().elementType.getCanonicalType();
++            if (e->kind == SymbolKind::ScalarType)
++                return e->as<ScalarType>().scalarKind != ScalarType::Bit;
++        }
++        return false;
++    };
++    bool hit = false;
++    sub.getBody().visit(makeVisitor(
++        [&](auto& v, const ConversionExpression& cx) {
++            if (!hit && cx.syntax && cx.syntax->kind == slang::syntax::SyntaxKind::CastExpression) {
++                auto& ce = cx.syntax->as<slang::syntax::CastExpressionSyntax>();
++                // a size cast `N'(...)` is an integer_typespec: handled.  A
++                // typedef name parses as an expression (IdentifierName /
++                // ScopedName): it is a TYPE cast when the name finds a type.
++                bool sizeCast = !slang::syntax::DataTypeSyntax::isKind(ce.left->kind);
++                if (sizeCast && (ce.left->kind == slang::syntax::SyntaxKind::IdentifierName ||
++                                 ce.left->kind == slang::syntax::SyntaxKind::ScopedName)) {
++                    std::string nm191 = ce.left->toString();
++                    while (!nm191.empty() && isspace((unsigned char)nm191.front()))
++                        nm191.erase(nm191.begin());
++                    while (!nm191.empty() && isspace((unsigned char)nm191.back()))
++                        nm191.pop_back();
++                    if (auto* ls191 = sub.lookupName(nm191);
++                        ls191 && (ls191->kind == SymbolKind::TypeAlias ||
++                                  ls191->isType()))
++                        sizeCast = false;
++                }
++                if (!sizeCast && castUnhandled(*cx.type))
++                    hit = true;
++            }
++            v.visitDefault(cx);
++        },
++        [&](auto& v, const MemberAccessExpression& ma) {
++            if (!hit) {
++                auto& vt = ma.value().type->getCanonicalType();
++                auto& b = stripImplicitConv(ma.value());
++                if ((vt.kind == SymbolKind::PackedStructType ||
++                     vt.kind == SymbolKind::PackedUnionType) &&
++                    b.kind == ExpressionKind::NamedValue) {
++                    auto& bs = b.as<NamedValueExpression>().symbol;
++                    if (bs.kind == SymbolKind::FormalArgument)
++                        hit = !patFormal.count(&bs);
++                    else if (bs.kind == SymbolKind::Variable ||
++                             bs.kind == SymbolKind::Parameter)
++                        hit = true;
++                }
++            }
++            v.visitDefault(ma);
++        }));
++    return hit;
++}
++static bool r191ConstCallKeeps(const slang::ast::Expression& rhs) {
++    if (!r191ME("R11U191_CONSTCALL_OFF"))
++        return false;
++    if (!r191ConstCallPoison(rhs))
++        return false;
++    tr191ME("evalFuncCastMemberKeepsCall191");
++    return true;
++}
+ static bool evalFuncSelectKeepsCall148(const slang::ast::Expression& rhs,
+                                        const char* site,
+                                        const std::string& scope) {
+@@ -10519,10 +10699,33 @@ void enumImportParentDrain180(UHDM::design* d) {
+             return std::string(((const UHDM::instance*)o)->VpiDefName());
+         return std::string();
+     };
++    // § enumDefOwnerNotInstance191 (r11u191, R11U191_ENUMPARENT_OFF; r11u190
++    // new finding N1, grid tools/probe/r11u191dec/cases/N) — the refinement
++    // above leaves a parent "already of the winning definition" as it is, and
++    // skips an object whose parent IS the winner's owner; when the winning
++    // definition is also the LAST one emitted, that parent (or owner) is its
++    // ELABORATED instance (`work@zmod (work@top.uz)`), where golden's writer
++    // is writeModule / writeInterface on the DEFINITION (`work@zmod
++    // (work@zmod)`).  An instance of the winning definition hands the object
++    // to the definition's own object.  vpiParent only.
++    const bool enumDefInst191 = enumDef180v && r191ME("R11U191_ENUMPARENT_OFF");
++    auto defOwner191 = [&](UHDM::BaseClass* p, const EnumImpWrite180& w) -> UHDM::BaseClass* {
++        if (!enumDefInst191 || !p || defNameOf180v(p) != w.def)
++            return nullptr;
++        auto dit = defObj180v.find({w.rank, w.def});
++        if (dit == defObj180v.end() || dit->second == p)
++            return nullptr;
++        return dit->second;
++    };
+     for (auto* ts : order) {
+         auto& w = enumImpWrites180[win[ts]];
+-        if (ts->VpiParent() == w.owner && w.scoped.empty() && !renamed[ts])
++        if (ts->VpiParent() == w.owner && w.scoped.empty() && !renamed[ts]) {
++            if (auto* d191 = defOwner191(ts->VpiParent(), w)) {
++                tr191ME("enumDefOwnerNotInstance191");
++                ts->VpiParent(d191);
++            }
+             continue;
++        }
+         auto* ets = (UHDM::enum_typespec*)ts;
+         std::string nm = w.scoped;
+         // A parent-only winner after a re-scoping loser: the name follows
+@@ -10531,14 +10734,25 @@ void enumImportParentDrain180(UHDM::design* d) {
+             nm = w.def + "." + std::string(ts->VpiName());
+         UHDM::BaseClass* owner = w.owner;
+         if (enumDef180v && ts->VpiParent() != w.owner) {
+-            if (defNameOf180v(ts->VpiParent()) == w.def)
++            if (defNameOf180v(ts->VpiParent()) == w.def) {
+                 owner = ts->VpiParent();
++                if (auto* d191 = defOwner191(owner, w)) {
++                    tr191ME("enumDefOwnerNotInstance191");
++                    owner = d191;
++                }
++            }
+             else if (auto dit = defObj180v.find({w.rank, w.def});
+                      dit != defObj180v.end() && dit->second != w.owner) {
+                 owner = dit->second;
+                 trace180("ENUMDEF", std::string(ts->VpiName()) + " -> " + w.def);
+             }
+         }
++        // § enumDefOwnerNotInstance191 — the winner's own write may be the
++        // instance's (the last recorded write among the definition's).
++        if (auto* d191 = defOwner191(owner, w)) {
++            tr191ME("enumDefOwnerNotInstance191");
++            owner = d191;
++        }
+         bool moved = ts->VpiParent() != owner;
+         ts->VpiParent(owner);
+         if (!nm.empty()) {
+@@ -27247,7 +27461,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
+             // body evalFunc cannot reduce leaves the call as written (the
+             // netlist's cont_assign keeps its func_call; grid case e13).
+             const bool evalKeepGen148 =
+-                !rhs && evalFuncSelectKeepsCall148(ae.right(), "genscope", fullName);
++                !rhs && (evalFuncSelectKeepsCall148(ae.right(), "genscope", fullName) ||
++                         r191ConstCallKeeps(ae.right()));
+             // Constant gen-scope calls fold to the source literal, sized at
+             // the LHS width.
+             if (!rhs && !evalKeepGen148)
+@@ -37606,7 +37821,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
+         // definition cont_assign share takes the row (see the decode at the
+         // law's predicate).
+         const bool evalKeep148 =
+-            topView && evalFuncSelectKeepsCall148(ae.right(), "module", prefix);
++            topView && (evalFuncSelectKeepsCall148(ae.right(), "module", prefix) ||
++                        r191ConstCallKeeps(ae.right()));
+         CallFold cfr = (topView && !typedefRet && !sgnFormal9 && !evalKeep148)
+                            ? constCallFold(stripImplicitConv(ae.right()))
+                            : CallFold{};
+@@ -39199,11 +39415,55 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
+                 r11u183LawME("R11U183_ELABCAFOLD_OFF"))
+                 defFold183 =
+                     (UHDM::constant*)defInfo->contAssigns[myIdx]->Rhs();
++            // § elabCaConstLhsSized191 (r11u191, R11U191_UNSIZEDPKG_OFF) —
++            // UhdmWriter::writeCont_assign (UhdmWriter.cpp:2255-2280) reduces
++            // the elaborated Rhs to a constant and calls
++            // CompileHelper::adjustSize(<the LHS variable's typespec>, c,
++            // uniquify=true) (CompileHelper.cpp:4065): size = Bits(LHS) for
++            // every constant type but vpiDecConst; a UINT is CLONED, masked
++            // and takes that size (grow or shrink); a BIN keeps its width
++            // unless wider, then its low bits are kept IN PLACE (the
++            // decompile loses its size prefix); every other type (HEX, OCT,
++            // INT) takes the size IN PLACE — and the object is the
++            // definition's own reference constant (§
++            // pkgParamElabCaSharesDefFold183), so the definition view reads
++            // the resized object too, the last elaborated reader winning
++            // (grid tools/probe/r11u191dec/cases/U: u01 16'h12 into 8 bits
++            // reads 8, p01 into `int` 32, u09 two instances W=8 then W=32
++            // read 32, u11 8'b11000101 into 4 bits reads BIN:0101).  Ours
++            // kept the parameter's width.  Only a plain variable LHS: a
++            // select's typespec is none (adjustSize returns unchanged).
++            int32_t lhsW191 = -1;
++            if (r191ME("R11U191_UNSIZEDPKG_OFF") &&
++                stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue &&
++                ae.left().type && ae.left().type->isIntegral())
++                lhsW191 = (int32_t)ae.left().type->getBitWidth();
+             if (defFold183) {
+                 tr183ME("pkgParamElabCaSharesDefFold183");
+                 if (auto* drt183 = defFold183->Typespec())
+                     drt183->VpiFullName(prefix);
+                 rhs = defFold183;
++                if (lhsW191 > 0) {
++                    int32_t o191 = defFold183->VpiSize();
++                    int ct191 = defFold183->VpiConstType();
++                    std::string v191(defFold183->VpiValue());
++                    if (ct191 == vpiDecConst) {
++                    }
++                    else if (ct191 == vpiBinaryConst) {
++                        if (o191 > lhsW191 && v191.rfind("BIN:", 0) == 0 &&
++                            v191.size() - 4 >= (size_t)o191) {
++                            tr191ME("elabCaConstLhsSized191");
++                            std::string b191 = v191.substr(v191.size() - lhsW191);
++                            defFold183->VpiValue("BIN:" + b191);
++                            defFold183->VpiDecompile(b191);
++                            defFold183->VpiSize(lhsW191);
++                        }
++                    }
++                    else if (o191 != lhsW191) {
++                        tr191ME("elabCaConstLhsSized191");
++                        defFold183->VpiSize(lhsW191);
++                    }
++                }
+             }
+             else {
+             auto* rt = s.MakeRef_typespec();
+@@ -39212,6 +39472,11 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
+             c->Typespec(rt);
+             pendingParamCloneTs.push_back({rt, &ps2});
+             rhs = c;
++            if (lhsW191 > c->VpiSize()) {
++                // the clone of a UINT (or an INT) grows to the LHS width
++                tr191ME("elabCaConstLhsSized191");
++                c->VpiSize(lhsW191);
++            }
+             }
+         }
+         // Constant-driven module var: fold to its init value (plain constant,
+diff --git a/src/ParamEmit.cpp b/src/ParamEmit.cpp
+index 2914a5df0..dcde86fa1 100644
+--- a/src/ParamEmit.cpp
++++ b/src/ParamEmit.cpp
+@@ -17,6 +17,49 @@
+ #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
+ 
+ namespace slang_uhdm {
++
++// The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
++// reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them.
++// R11U191_TRACE=<dir> names every firing of an r11u191 law (the mover
++// census): one file per process, `<dir>/<pid>.PE`, its first line the
++// `-o` database path read off the command line, then one law name per firing.
++static void tr191PE(const char* law) {
++    static FILE* tf = [] () -> FILE* {
++        const char* d = getenv("R11U191_TRACE");
++        if (!d)
++            return nullptr;
++        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".PE";
++        FILE* fp = fopen(fn.c_str(), "a");
++        if (!fp)
++            return nullptr;
++        std::string cl, prev, outp;
++        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
++            int ch;
++            while ((ch = fgetc(c)) != EOF) {
++                if (ch == 0) {
++                    if (prev == "-o")
++                        outp = cl;
++                    prev = cl;
++                    cl.clear();
++                }
++                else
++                    cl += (char)ch;
++            }
++            fclose(c);
++        }
++        fprintf(fp, "OUT %s\n", outp.c_str());
++        return fp;
++    }();
++    if (tf) {
++        fprintf(tf, "%s\n", law);
++        fflush(tf);
++    }
++}
++static bool r191PE(const char* sw) {
++    if (getenv("R11U191_OFF") != nullptr)
++        return false;
++    return getenv(sw) == nullptr;
++}
+ // The r11u184 switches and census trace (defined in ExprEmit.cpp).
+ bool r11u184Law(const char* sw);
+ void trace184(const char* law);
+@@ -21519,6 +21562,80 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
+                             }
+                     }
+                 }
++                // § pkgFoldAtLeadingLeaf191 (r11u191, R11U191_EARLCOL_OFF; map
++                // 10's N1082, Earlgrey_0_1's first record: flash_phy_pkg.sv 43
++                // `parameter int WordSelW = WidthMultiple == 1 ? 1 :
++                // LsbAddrBit`, golden 43:53-43:63, ours 43:28-43:63) — a
++                // PACKAGE parameter whose initializer folds is located by
++                // Surelog at the LEADING LEAF of what it reduced: a constant-
++                // condition ternary reduces the taken arm only
++                // (ExprEval::reduceExpr vpiConditionOp), a binary operation is
++                // located at its first operand, parentheses are not a node of
++                // their own.  Grid tools/probe/r11u191dec/cases/E (e01 S / T
++                // / U, e03 B `(L)` 7:22-23, C nested ternary 8:41-42, D `2 * L`
++                // 9:30-31, E `(L)` 10:31-32); ours located the whole
++                // initializer in the definition listing (the elaborated
++                // package listing already agreed for the ternaries).  Only a
++                // constant located at the whole initializer moves.
++                if (inPackage && init && rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
++                    r191PE("R11U191_EARLCOL_OFF")) {
++                    const Expression* l191 = &stripImplicitConv(*init);
++                    bool moved191 = false;
++                    for (int g191 = 0; g191 < 32; ++g191) {
++                        if (l191->kind == ExpressionKind::ConditionalOp) {
++                            auto& co191 = l191->as<ConditionalExpression>();
++                            if (co191.conditions.size() != 1 ||
++                                co191.conditions[0].pattern)
++                                break;
++                            ASTContext cx191(comp.getRoot(), LookupLocation::max);
++                            ConstantValue pv191 = cx191.tryEval(*co191.conditions[0].expr);
++                            if (!pv191 || !pv191.isInteger() ||
++                                pv191.integer().hasUnknown())
++                                break;
++                            l191 = &stripImplicitConv(pv191.isTrue() ? co191.left()
++                                                                     : co191.right());
++                            moved191 = true;
++                            continue;
++                        }
++                        if (l191->kind == ExpressionKind::BinaryOp && moved191) {
++                            l191 = &stripImplicitConv(l191->as<BinaryExpression>().left());
++                            continue;
++                        }
++                        break;
++                    }
++                    const syntax::SyntaxNode* ls191 = l191->syntax;
++                    while (ls191 && ls191->kind == syntax::SyntaxKind::ParenthesizedExpression)
++                        ls191 = ls191->as<syntax::ParenthesizedExpressionSyntax>().expression;
++                    // the whole initializer's candidate spans: its own range and
++                    // every parenthesized syntax wrapping it
++                    std::vector<SourceRange> whole191{stripImplicitConv(*init).sourceRange};
++                    for (const syntax::SyntaxNode* w191 = stripImplicitConv(*init).syntax;
++                         w191; w191 = w191->parent) {
++                        if (w191->kind == syntax::SyntaxKind::ParenthesizedExpression)
++                            whole191.push_back(w191->sourceRange());
++                        else if (w191 != stripImplicitConv(*init).syntax)
++                            break;
++                    }
++                    bool paren191 = whole191.size() > 1;
++                    if ((moved191 || paren191) && ls191) {
++                        auto* rc191 = (UHDM::constant*)rhs;
++                        for (auto& wr191 : whole191) {
++                            if (wr191.start() == SourceLocation::NoLocation ||
++                                wr191.end() == SourceLocation::NoLocation ||
++                                wr191 == ls191->sourceRange())
++                                continue;
++                            uint32_t wl = 0, wc = 0, el = 0, ec = 0;
++                            locLineCol(wr191.start(), wl, wc);
++                            locLineCol(wr191.end(), el, ec);
++                            if (rc191->VpiLineNo() == wl && rc191->VpiColumnNo() == wc &&
++                                rc191->VpiEndLineNo() == el && rc191->VpiEndColumnNo() == ec) {
++                                tr191PE("pkgFoldAtLeadingLeaf191");
++                                setLoc(rc191, ls191->sourceRange());
++                                break;
++                            }
++                        }
++                    }
++                }
+                 pa->Rhs(rhs);
+                 paramRhsObj[&member] = rhs;
+                 // § nestedParamActualTs6 VIEW GUARD.  paramRhsObj is keyed by
+diff --git a/src/TaskFuncEmit.cpp b/src/TaskFuncEmit.cpp
+index e19eb791d..ef70064cf 100644
+--- a/src/TaskFuncEmit.cpp
++++ b/src/TaskFuncEmit.cpp
+@@ -18,6 +18,49 @@
+ #include <vector>
+ 
+ namespace slang_uhdm {
++
++// The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
++// reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them.
++// R11U191_TRACE=<dir> names every firing of an r11u191 law (the mover
++// census): one file per process, `<dir>/<pid>.TF`, its first line the
++// `-o` database path read off the command line, then one law name per firing.
++static void tr191TF(const char* law) {
++    static FILE* tf = [] () -> FILE* {
++        const char* d = getenv("R11U191_TRACE");
++        if (!d)
++            return nullptr;
++        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".TF";
++        FILE* fp = fopen(fn.c_str(), "a");
++        if (!fp)
++            return nullptr;
++        std::string cl, prev, outp;
++        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
++            int ch;
++            while ((ch = fgetc(c)) != EOF) {
++                if (ch == 0) {
++                    if (prev == "-o")
++                        outp = cl;
++                    prev = cl;
++                    cl.clear();
++                }
++                else
++                    cl += (char)ch;
++            }
++            fclose(c);
++        }
++        fprintf(fp, "OUT %s\n", outp.c_str());
++        return fp;
++    }();
++    if (tf) {
++        fprintf(tf, "%s\n", law);
++        fflush(tf);
++    }
++}
++static bool r191TF(const char* sw) {
++    if (getenv("R11U191_OFF") != nullptr)
++        return false;
++    return getenv(sw) == nullptr;
++}
+ bool r11u137Law(const char* sw);
+ bool r11u144Law(const char* sw);
+ void noteTpUse180(UHDM::typespec* ts, const slang::ast::Symbol& declSymbol,
+@@ -3528,9 +3571,23 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
+                             // enum_const BARE and we bound it.
+                             bool savedCMNB13p = classMethodNoBind;
+                             classMethodNoBind = true;
++                            // § formalDefaultNamedThroughFormal191, SITE 2
++                            // of 2 (the pure virtual prototype's formal).
++                            std::string pScope191(pt->VpiFullName());
++                            auto k191 = stripImplicitConv(*dv0).kind;
++                            if (!pScope191.empty() && !parg->name.empty() &&
++                                k191 != ExpressionKind::NamedValue &&
++                                k191 != ExpressionKind::IntegerLiteral &&
++                                k191 != ExpressionKind::UnbasedUnsizedIntegerLiteral &&
++                                k191 != ExpressionKind::StringLiteral &&
++                                k191 != ExpressionKind::RealLiteral &&
++                                k191 != ExpressionKind::NullLiteral &&
++                                r191TF("R11U191_REFFULL_OFF")) {
++                                pScope191 = joinRef(pScope191, parg->name);
++                                tr191TF("formalDefaultNamedThroughFormal191");
++                            }
+                             auto* pde =
+-                                emitExpr(*dv0, nullptr,
+-                                         std::string(pt->VpiFullName()), pmap);
++                                emitExpr(*dv0, nullptr, pScope191, pmap);
+                             classMethodNoBind = savedCMNB13p;
+                             if (pde)
+                                 pio->Expr((UHDM::expr*)pde);
+@@ -4513,8 +4570,40 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
+                     // but BARE-scoped inner refs — carrying a Typedef_alias
+                     // back to the listed object (Surelog; ArrayExprFuncArg,
+                     // DefaultPattern*).
+-                    auto* cl9 = buildUnpackedArrayTypedefTs(
+-                        *retAlias, std::string(rdt.name), /*cloneForm=*/true);
++                    // § queueRetTwinDynShape191 (r11u191, R11U191_QUEUERANGE_OFF)
++                    // — buildUnpackedArrayTypedefTs reads its alias through
++                    // `as<FixedSizeUnpackedArrayType>()`, but this branch is
++                    // taken for EVERY array_typespec return, so a QUEUE (or
++                    // dynamic / associative) typedef return (uvm_misc.svh 642
++                    // `typedef TYPE types_t[$];` returned by `find_all`) had
++                    // its `range` read out of a QueueType: `left` = maxBound,
++                    // `right` = the four padding bytes after it — arena
++                    // garbage, the UVM `UINT:<n>` value coin (r11u190
++                    // section 8, N9).  The twin of a dynamic container takes
++                    // the listing's own shape instead
++                    // (buildDynContainerTypedefTs: `UINT:0 .. STRING:$` at
++                    // the `$` token for a queue; Surelog's typedef path stops
++                    // at compileTypespec).  The twin is in the weakly
++                    // referenced tail, so only the bytes move (grid
++                    // tools/probe/r11u191dec/cases/Q).
++                    UHDM::array_typespec* cl9 = nullptr;
++                    if (retAlias->targetType.getType().getCanonicalType().kind !=
++                            SymbolKind::FixedSizeUnpackedArrayType &&
++                        r191TF("R11U191_QUEUERANGE_OFF")) {
++                        const syntax::SyntaxNode* tsyn191 = nullptr;
++                        if (auto asyn = retAlias->getSyntax())
++                            if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
++                                tsyn191 =
++                                    asyn->as<syntax::TypedefDeclarationSyntax>().type;
++                        if (auto* d191 = buildDynContainerTypedefTs(*retAlias, tsyn191);
++                            d191 && d191->UhdmType() == UHDM::uhdmarray_typespec) {
++                            tr191TF("queueRetTwinDynShape191");
++                            cl9 = (UHDM::array_typespec*)d191;
++                        }
++                    }
++                    if (!cl9)
++                        cl9 = buildUnpackedArrayTypedefTs(
++                            *retAlias, std::string(rdt.name), /*cloneForm=*/true);
+                     cl9->VpiName(rdt.name);
+                     auto* art = s.MakeRef_typespec();
+                     art->VpiFullName(std::string(rdt.name));
+@@ -5086,7 +5175,38 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
+                     bool noBindDv13 = inClass13 || unitSub13 ||
+                                       pkgImportCloneEmit || importCloneEmit ||
+                                       importCopyTsInst != nullptr;
+-                    auto* de = emitExpr(*dv, nullptr, fullName,
++                    // § formalDefaultNamedThroughFormal191 (r11u191,
++                    // R11U191_REFFULL_OFF) — Surelog compiles a formal's
++                    // default value with the io_decl as its parent and stores
++                    // NO full name on the references in it (compileTfPortList
++                    // -> compileExpression, no pexpr), so UHDM's
++                    // ComputeFullName (BaseClass.cpp:100) derives each one from
++                    // the parent chain, which runs through the io_decl: the
++                    // formal's own name is a component (golden
++                    // `uvm_pkg::uvm_report::verbosity::severity`,
++                    // `work@top.f.b.a`, and the cast's ref_typespec
++                    // `p::rep::verbosity`); ours joined the subroutine's name.
++                    // The scope handed to the expression is therefore the
++                    // FORMAL's full name (N0215 / N0229; grid
++                    // tools/probe/r11u191dec/cases/F).
++                    // A literal or a lone name has no reference BELOW the
++                    // io_decl's direct child (a lone name already reads the
++                    // chained name, f02 `int d = base`): those keep the
++                    // pristine scope, and bytes.
++                    std::string dvScope191 = fullName;
++                    auto k191 = stripImplicitConv(*dv).kind;
++                    if (!fullName.empty() && !arg->name.empty() &&
++                        k191 != ExpressionKind::NamedValue &&
++                        k191 != ExpressionKind::IntegerLiteral &&
++                        k191 != ExpressionKind::UnbasedUnsizedIntegerLiteral &&
++                        k191 != ExpressionKind::StringLiteral &&
++                        k191 != ExpressionKind::RealLiteral &&
++                        k191 != ExpressionKind::NullLiteral &&
++                        r191TF("R11U191_REFFULL_OFF")) {
++                        dvScope191 = joinRef(fullName, arg->name);
++                        tr191TF("formalDefaultNamedThroughFormal191");
++                    }
++                    auto* de = emitExpr(*dv, nullptr, dvScope191,
+                                         noBindDv13 ? noBind13 : dvFormals13);
+                     classMethodNoBind = savedCMNB13;
+                     unitSubNoBind9 = savedUSNB13;
+diff --git a/src/TypeEmit.cpp b/src/TypeEmit.cpp
+index a92274abc..2edb43588 100644
+--- a/src/TypeEmit.cpp
++++ b/src/TypeEmit.cpp
+@@ -15,6 +15,49 @@
+ 
+ namespace slang_uhdm {
+ 
++// The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
++// reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them.
++// R11U191_TRACE=<dir> names every firing of an r11u191 law (the mover
++// census): one file per process, `<dir>/<pid>.TE`, its first line the
++// `-o` database path read off the command line, then one law name per firing.
++static void tr191TE(const char* law) {
++    static FILE* tf = [] () -> FILE* {
++        const char* d = getenv("R11U191_TRACE");
++        if (!d)
++            return nullptr;
++        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".TE";
++        FILE* fp = fopen(fn.c_str(), "a");
++        if (!fp)
++            return nullptr;
++        std::string cl, prev, outp;
++        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
++            int ch;
++            while ((ch = fgetc(c)) != EOF) {
++                if (ch == 0) {
++                    if (prev == "-o")
++                        outp = cl;
++                    prev = cl;
++                    cl.clear();
++                }
++                else
++                    cl += (char)ch;
++            }
++            fclose(c);
++        }
++        fprintf(fp, "OUT %s\n", outp.c_str());
++        return fp;
++    }();
++    if (tf) {
++        fprintf(tf, "%s\n", law);
++        fflush(tf);
++    }
++}
++static bool r191TE(const char* sw) {
++    if (getenv("R11U191_OFF") != nullptr)
++        return false;
++    return getenv(sw) == nullptr;
++}
++
+ // The r11u183 switches (tools/probe/r11u183dec/README.md): every r11u183 law
+ // reads its own R11U183_<LAW>_OFF switch; R11U183_OFF drops all of them.
+ extern std::map<const void*, UHDM::typespec*> g_typeParamOwnTs183;
+@@ -3775,6 +3818,26 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
+                      : &ect.as<FixedSizeUnpackedArrayType>().elementType;
+         }
+         auto& ct = et->getCanonicalType();
++        // § splitPortRealRedeclLogicTs191 (r11u191, R11U191_REALPORT_OFF;
++        // r11u190 new finding N5, grid tools/probe/r11u191dec/cases/R) — the
++        // floating twin of § splitPortIntRedeclLogicTs180: a SPLIT port whose
++        // port declaration carries no data type (`output d;`) and whose body
++        // re-declares it `real` / `shortreal` / `realtime` keeps the PORT
++        // declaration's logic_typespec at the port declarator in golden
++        // (r11u190 R/r01 `logic_typespec 6:10`); ours typed the port real
++        // (downstream DIVERGENT).  The variable keeps its real typespec.
++        if (ct.kind == SymbolKind::FloatingType && mergedPort && portDeclTypeSyn &&
++            portDeclTypeSyn->kind == syntax::SyntaxKind::ImplicitType &&
++            portDeclTypeSyn->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
++            r11u180Law("R11U180_PORTINTREDECL_OFF") && r191TE("R11U191_REALPORT_OFF")) {
++            auto* lt191 = s.MakeLogic_typespec();
++            if (portDeclTypeSyn->as<syntax::ImplicitTypeSyntax>().signing.kind ==
++                parsing::TokenKind::SignedKeyword)
++                lt191->VpiSigned(true);
++            setLoc(lt191, trimTypeSigning(typeSynFor(), range));
++            tr191TE("splitPortRealRedeclLogicTs191");
++            return lt191;
++        }
+         if (ct.kind == SymbolKind::FloatingType) {
+             UHDM::typespec* t = ct.as<FloatingType>().floatKind == FloatingType::ShortReal
+                                     ? (UHDM::typespec*)s.MakeShort_real_typespec()
+@@ -17724,12 +17787,41 @@ void modAggCloneDrain180(UHDM::Serializer& s) {
+     // module `include`s from td.svh, where the drain wrote td.svh 5:42-5:46).
+     // Switch R11V180_MODAGGFILE_OFF.
+     static const bool takeFile180v = r11v180Law("R11V180_MODAGGFILE_OFF");
++    // § modAggClonePerDefKey191 (r11u191, R11U191_HDRTD_OFF; r11u190 new
++    // finding N2, grid tools/probe/r11u191dec/cases/G) — the refinement above
++    // declines a move whose declaration key holds two declarations, which is
++    // right when only ONE definition moves its object, and over-declines when
++    // BOTH definitions that `include` the header have a formal writer
++    // (r11u190 G/g01: golden gives amod's clones amod's formal span 4:42-46
++    // and bmod's clones bmod's 10:42-46; the decline left all of them at the
++    // header declaration).  Surelog moves each DesignComponent's own TypeDef
++    // object and clones it per definition, so the key is (declaration,
++    // DEFINITION): a move applies to the clones whose parent chain reaches an
++    // instance of the listing's own definition; a clone with no such chain,
++    // or a listing whose definition is unknown, keeps the decline.
++    auto defOf191 = [](const UHDM::BaseClass* o) -> std::string {
++        for (int i = 0; o && i < 64; i++, o = o->VpiParent()) {
++            auto t = o->UhdmType();
++            if (t == UHDM::uhdmmodule_inst || t == UHDM::uhdminterface_inst ||
++                t == UHDM::uhdmprogram)
++                return std::string(((const UHDM::instance*)o)->VpiDefName());
++            if (t == UHDM::uhdmpackage || t == UHDM::uhdmdesign)
++                return std::string();
++        }
++        return std::string();
++    };
++    static const bool perDef191 = r191TE("R11U191_HDRTD_OFF");
+     for (auto& mv : modAggMoves180) {
++        std::string onlyDef191;
+         if (ownDef180v) {
+             auto dk = modAggDecls180v.find({mv.file, mv.l0, mv.c0, mv.l1, mv.c1});
+             if (dk != modAggDecls180v.end() && dk->second.size() > 1) {
+-                trace180("MODAGGDEF", std::string(mv.listing->VpiName()) + " declined");
+-                continue;
++                if (perDef191)
++                    onlyDef191 = defOf191(mv.listing);
++                if (onlyDef191.empty()) {
++                    trace180("MODAGGDEF", std::string(mv.listing->VpiName()) + " declined");
++                    continue;
++                }
+             }
+         }
+         for (auto* o : all) {
+@@ -17738,6 +17830,11 @@ void modAggCloneDrain180(UHDM::Serializer& s) {
+                 o->VpiLineNo() != mv.l0 || o->VpiColumnNo() != mv.c0 ||
+                 o->VpiEndLineNo() != mv.l1 || o->VpiEndColumnNo() != mv.c1)
+                 continue;
++            if (!onlyDef191.empty()) {
++                if (defOf191(o) != onlyDef191)
++                    continue;
++                tr191TE("modAggClonePerDefKey191");
++            }
+             auto* ts = (UHDM::typespec*)o;
+             ts->VpiLineNo(mv.nl0);
+             ts->VpiColumnNo(mv.nc0);

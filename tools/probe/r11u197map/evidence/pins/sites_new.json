@@ -1,0 +1,142 @@
+{
+ "N0272": {
+  "site": "emitExpr (ExprEmit.cpp, law ifaceMemberTrailIdxNamesByPath147) < emitExpr (ExprEmit.cpp, law negLitPkgRetFoldNested30) < emitExpr (ExprEmit.cpp, law genScopeTrailSelNameLate184)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10earl29repro__v8_sites2 object #276 bit_select 'k' dut.sv 22:43:22:44 id=162 db=SAME"
+ },
+ "N0097": {
+  "site": "emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10svs8repro__a3_builtins object #46 hier_path 'cgc8.cpc8.get_coverage' dut.sv 60:12:60:34 id=47 db=SAME"
+ },
+ "N0479": {
+  "site": "copyClassTdSpecParams1 (UhdmExporter.cpp, law classTdCloneSpecOverridesOwnArgs112) < copyClassTdSpecParams1 (UhdmExporter.cpp, law classTdSpecParamsForeignHome1) < drainClassNestedTdGroups54 (UhdmExporter.cpp, law classTdCloneSpecOverridesOwnArgs112)",
+  "owner": "UhdmExporter.cpp",
+  "example": "probe/default/r10uvm112repro__a9_diffnames holder #47 ref_typespec ''  0:0:0:0 id=37 db=SAME"
+ },
+ "N0543": {
+  "site": "operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < operator() (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneStructMemberBareTdAlias207)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm207repro__g207_e_head object #119 ref_typespec ''  0:0:0:0 id=188 db=SAME"
+ },
+ "N0164": {
+  "site": "operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < operator() (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneStructMemberBareTdAlias207)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm207repro__g207_h_foreign object #272 ref_typespec ''  0:0:0:0 id=217 db=SAME"
+ },
+ "N0784": {
+  "site": "operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < operator() (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneStructMemberBareTdAlias207)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm207repro__g207_h_foreign object #145 ref_typespec ''  0:0:0:0 id=217 db=SAME"
+ },
+ "N0109": {
+  "site": "operator() (StmtEmit.cpp, law foreachClassPropStringVar22) < emitStmt (StmtEmit.cpp, law foreachLoopVarObjs9) < emitStmt (StmtEmit.cpp, law invalidChild14)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10uvm22repro__t33e_t object #100 string_typespec ''  0:0:0:0 id=59 db=SAME"
+ },
+ "N0110": {
+  "site": "operator() (StmtEmit.cpp, law foreachClassPropStringVar22) < emitStmt (StmtEmit.cpp, law foreachLoopVarObjs9) < emitStmt (StmtEmit.cpp, law invalidChild14)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10uvm22repro__t33e_t object #100 string_typespec ''  0:0:0:0 id=59 db=SAME"
+ },
+ "N0067": {
+  "site": "makeTypespec (TypeEmit.cpp, law unsupportedTsInitEnd152) < makeTypespec (TypeEmit.cpp, law tpFormalIncludeOrder188) < drainFuncRet (ModuleEmit.cpp, law r10fsv3)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm56repro__a8_newlhs object #77 class_typespec 'item_c'  0:0:0:0 id=124 db=SAME"
+ },
+ "N0068": {
+  "site": "makeTypespec (TypeEmit.cpp, law unsupportedTsInitEnd152) < makeTypespec (TypeEmit.cpp, law tpFormalIncludeOrder188) < drainFuncRet (ModuleEmit.cpp, law r10fsv3)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm56repro__a8_newlhs object #77 class_typespec 'item_c'  0:0:0:0 id=124 db=SAME"
+ },
+ "N0039": {
+  "site": "emitExpr (ExprEmit.cpp, law castTargetKeywordTypespecKind96) < emitStmt (StmtEmit.cpp, law importCloneBodyLocalCopies175) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm59repro__c05_cast object #31 int_typespec '' dut.sv 10:15:10:16 id=30 db=SAME"
+ },
+ "N0012": {
+  "site": "buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < makeTypespec (TypeEmit.cpp, law classVarInitSpan152) < makeTypespec (TypeEmit.cpp, law tpFormalIncludeOrder188)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10v160repro__x10_enum object #127 enum_typespec ''  0:0:0:0 id=70 db=SAME"
+ },
+ "N0034": {
+  "site": "buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < makeTypespec (TypeEmit.cpp, law classVarInitSpan152) < makeTypespec (TypeEmit.cpp, law tpFormalIncludeOrder188)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10v160repro__x10_enum object #127 enum_typespec ''  0:0:0:0 id=70 db=SAME"
+ },
+ "N2466": {
+  "site": "buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < makeTypespec (TypeEmit.cpp, law classVarInitSpan152) < makeTypespec (TypeEmit.cpp, law tpFormalIncludeOrder188)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10v160repro__x10_enum object #128 ref_typespec ''  0:0:0:0 id=71 db=SAME"
+ },
+ "N0289": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law assocLocalArrayVar40) < emitPackage (ParamEmit.cpp, law LAW) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10v195repro__v195_d_tfitem object #83 string_var 'go_s195v' dut.sv 8:5:8:11 id=165 db=SAME"
+ },
+ "N0764": {
+  "site": "emitExpr (ExprEmit.cpp, law hpTrailSelIdxNamesByPath133) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10v200repro__v200_5_modmat object #137 constant '' dut.sv 5:18:5:19 id=6 db=SAME"
+ },
+ "N0031": {
+  "site": "operator() (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) < emitClassParameters (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) < emitClassDefn (UhdmExporter.cpp, law classDefnVirtualFromVirtualIfaceDecl6)",
+  "owner": "UhdmExporter.cpp",
+  "example": "probe/default/v11u111repro__brk__f1__x01_class_param object #23 constant ''  0:0:0:0 id=28 db=SAME"
+ },
+ "N0042": {
+  "site": "operator() (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) < emitClassParameters (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) < emitClassDefn (UhdmExporter.cpp, law classDefnVirtualFromVirtualIfaceDecl6)",
+  "owner": "UhdmExporter.cpp",
+  "example": "probe/default/v11u111repro__brk__f1__x01_class_param object #23 constant ''  0:0:0:0 id=28 db=SAME"
+ },
+ "N2465": {
+  "site": "emitPackage (ParamEmit.cpp, law atomTdListing44) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) < realMain (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ParamEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg holder #76311 class_typespec 'uvm_pkg::uvm_event_pool' uvm_pkg.sv 14624:9:14624:31 id=3130 db=SAME"
+ },
+ "N0991": {
+  "site": "operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneBodyBareTdAlias180)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/MiniAmiq object #104954 ref_typespec ''  0:0:0:0 id=306977 db=DIFF"
+ },
+ "N0142": {
+  "site": "makeUnpackedArrayParamTs (ParamEmit.cpp, law pkgParamTsRef) < operator() (ModuleEmit.cpp, law genLpUnpackedArray) < operator() (ModuleEmit.cpp, law elseArmFirstItemReplaces48)",
+  "owner": "ParamEmit.cpp",
+  "example": "surelog/default/Rggen holder #93308 array_typespec '' block_0.sv 1811:22:1811:48 id=68358 db=SAME"
+ },
+ "N1212": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law dpiExportListedAtExportItem216) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "surelog/default/Scoreboard object #205246 function 'get_name' svunit_base.sv 68:1:70:12 id=178891 db=DIFF"
+ },
+ "N1439": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law dpiExportListedAtExportItem216) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "surelog/default/Scoreboard object #205282 task 'wait_for_error' svunit_testcase.sv 90:1:92:8 id=178988 db=DIFF"
+ },
+ "N1211": {
+  "site": "exportDesign (UhdmExporter.cpp, law compoundLitWriteBackSat2) < realMain (uhdm_main.cpp, law genCaPatKeepTagDefView121) < main (uhdm_main.cpp, law uncaughtExitsReject160)",
+  "owner": "UhdmExporter.cpp",
+  "example": "surelog/default/Scoreboard holder #0 design 'work@my_scoreboard_unit_test'  0:0:0:0 id=1 db=DIFF"
+ },
+ "N1438": {
+  "site": "exportDesign (UhdmExporter.cpp, law compoundLitWriteBackSat2) < realMain (uhdm_main.cpp, law genCaPatKeepTagDefView121) < main (uhdm_main.cpp, law uncaughtExitsReject160)",
+  "owner": "UhdmExporter.cpp",
+  "example": "surelog/default/Scoreboard holder #0 design 'work@my_scoreboard_unit_test'  0:0:0:0 id=1 db=DIFF"
+ },
+ "N0594": {
+  "site": "buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < emitPackage (ParamEmit.cpp, law importCopyAggFormalOwnCopy32) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/SeqDriver object #83764 ref_typespec ''  0:0:0:0 id=3373 db=DIFF"
+ },
+ "N0616": {
+  "site": "buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < emitPackage (ParamEmit.cpp, law importCopyAggFormalOwnCopy32) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/SeqDriver object #87989 ref_typespec ''  0:0:0:0 id=3373 db=DIFF"
+ },
+ "N2464": {
+  "site": "bareScalarTypedefVarTs (TypeEmit.cpp, law memberBareTdAliasNamedByUse183) < exportDesign (UhdmExporter.cpp, law pkgParamTsTopInstance16) < realMain (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/SimpleUVM object #63872 ref_typespec ''  0:0:0:0 id=184479 db=DIFF"
+ }
+}

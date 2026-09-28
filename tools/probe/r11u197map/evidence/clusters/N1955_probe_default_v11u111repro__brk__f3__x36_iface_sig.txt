@@ -1,0 +1,31 @@
+cluster N1955 (id kept from an earlier map; OPEN [r11u191 reduces it: rows 0->0, probe 3->2] | ground ? | site -): struct|golden-only:fewer-copies|ref_typespec|under:logic_typespec
+row: probe/default/v11u111repro__brk__f3__x36_iface_sig  strict=name  records golden=229 ours=196
+object: #182 (golden) / #-1 (ours)  type=ref_typespec name= 
+  golden: 30 objs
+  ours:   
+  walk parents: logic_typespec(q2::row_t) < ref_typespec < logic_var(r) < interface_inst(ri)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 176..188 ('>' = the object)
+  #176	6	constant				dut.sv	9	48	9	49	5	64	UINT:5	9		001
+  #177	6	constant				dut.sv	9	50	9	51	0	64	UINT:0	9		001
+  #178	2	interface_inst	ri	work@rif	work@dut.ri	dut.sv	10	3	10	13					work@dut.ri	000
+  #179	3	logic_var	r		work@dut.ri.r	dut.sv	6	13	6	14		0			work@dut.ri.r	000
+  #180	4	ref_typespec			work@dut.ri.r		0	0	0	0		0			work@dut.ri.r	000
+  #181	5	logic_typespec	q2::row_t				0	0	0	0						110
+> #182	6	ref_typespec			<in>q2::row_t		0	0	0	0		0			q2::q2::row_t	001
+  #183	7	logic_typespec				dut.sv	3	11	3	21						001
+  #184	8	ref_typespec					0	0	0	0		0				001
+  #185	9	logic_typespec				dut.sv	3	11	3	21						001
+  #186	10	ref_typespec					0	0	0	0		0				001
+  #187	11	logic_typespec	ut_e			dut.sv	2	11	2	22						001
+  #188	12	ref_typespec			<in>ut_e		0	0	0	0		0			ut_e	001
+
+--- the holder #181 on the other side: exact-record matches at []
+
+facets of this row (5, first 25):
+  N1955 #182/-1 ref_typespec  G[30 objs] O[]
+  N0083 #212/-1 range  G[3 objs] O[]
+  N0738 #181/181 logic_typespec q2::row_t G[q2::row_t|] O[row_t|]
+  N1906 #181/181 logic_typespec q2::row_t G[ 0:0:0:0] O[dut.sv 3:11:3:21]
+  N1908 #181/181 logic_typespec q2::row_t G[0:0:0:0] O[3:11:3:21]

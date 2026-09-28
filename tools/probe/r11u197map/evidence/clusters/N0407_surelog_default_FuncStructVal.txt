@@ -1,0 +1,64 @@
+cluster N0407 (id kept from an earlier map; COVERED r11u195 (pass 192 R6 / map 10 joint step 13: FuncStructVal's leftovers and pattern-caller faces (first record judge-unequal in small shapes, pass 187 R5)) | ground A | site makeMemLeftConst (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitParameters (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitInstance (ModuleEmit.cpp, law elabParamTsRebind) [r11u142map pin]): span|constant|line+col+endline+endcol|under:typespec_member
+row: surelog/default/FuncStructVal  strict=differ:endcol(95)  records golden=18222 ours=17934
+object: #4782 (golden) / #4782 (ours)  type=constant name= 
+  golden: 618:22:618:45
+  ours:   614:45:615:35
+  walk parents: typespec_member(INSTR_PER_FETCH) < struct_typespec(config_pkg::cva6_cfg_t) < ref_typespec < struct_var(cfg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 4776..4788 ('>' = the object)
+  #4776	8	int_typespec				dut.sv	398	5	398	17						001
+  #4777	7	constant				dut.sv	594	23	594	25	32	64	UINT:32	9		001
+  #4778	7	constant				dut.sv	594	23	594	25	32	64	UINT:32	9		001
+  #4779	6	typespec_member	INSTR_PER_FETCH			dut.sv	399	18	399	33						001
+  #4780	7	ref_typespec			<in>config_pkg::cva6_cfg_t.INSTR_PER_FETCH		0	0	0	0		0			config_pkg::config_pkg::cva6_cfg_t::INSTR_PER_FETCH	001
+  #4781	8	int_typespec				dut.sv	399	5	399	17						001
+> #4782	7	constant				dut.sv	618	22	618	45	2	64	INT:2	7		001
+  #4783	7	constant				dut.sv	618	22	618	45	2	64	INT:2	7		001
+  #4784	6	typespec_member	LOG2_INSTR_PER_FETCH			dut.sv	400	18	400	38						001
+  #4785	7	ref_typespec			<in>config_pkg::cva6_cfg_t.LOG2_INSTR_PER_FETCH		0	0	0	0		0			config_pkg::config_pkg::cva6_cfg_t::LOG2_INSTR_PER_FETCH	001
+  #4786	8	int_typespec				dut.sv	400	5	400	17						001
+  #4787	7	constant					0	0	0	0	1	64	INT:1	7		001
+  #4788	7	constant					0	0	0	0	1	64	INT:1	7		001
+
+--- OURS (B) records 4776..4788 ('>' = the object)
+  #4776	8	int_typespec				dut.sv	398	5	398	17						001
+  #4777	7	constant				dut.sv	594	23	594	25	32	64	UINT:32	9		001
+  #4778	7	constant				dut.sv	594	23	594	25	32	64	UINT:32	9		001
+  #4779	6	typespec_member	INSTR_PER_FETCH			dut.sv	399	18	399	33						001
+  #4780	7	ref_typespec			<in>config_pkg::cva6_cfg_t.INSTR_PER_FETCH		0	0	0	0		0			config_pkg::config_pkg::cva6_cfg_t::INSTR_PER_FETCH	001
+  #4781	8	int_typespec				dut.sv	399	5	399	17						001
+> #4782	7	constant				dut.sv	614	45	615	35	2	64	INT:2	7		001
+  #4783	7	constant				dut.sv	614	45	615	35	2	64	INT:2	7		001
+  #4784	6	typespec_member	LOG2_INSTR_PER_FETCH			dut.sv	400	18	400	38						001
+  #4785	7	ref_typespec			<in>config_pkg::cva6_cfg_t.LOG2_INSTR_PER_FETCH		0	0	0	0		0			config_pkg::config_pkg::cva6_cfg_t::LOG2_INSTR_PER_FETCH	001
+  #4786	8	int_typespec				dut.sv	400	5	400	17						001
+  #4787	7	constant				dut.sv	614	45	615	35	1	64	INT:1	7		001
+  #4788	7	constant				dut.sv	614	45	615	35	1	64	INT:1	7		001
+
+facets of this row (1060, first 25):
+  N0891 #7975/-1 operation  G[4 objs] O[]
+  N0891 #7979/-1 operation  G[4 objs] O[]
+  N0891 #7992/-1 operation  G[4 objs] O[]
+  N0891 #7996/-1 operation  G[4 objs] O[]
+  N0891 #8014/-1 operation  G[4 objs] O[]
+  N0891 #8018/-1 operation  G[4 objs] O[]
+  N0891 #8031/-1 operation  G[4 objs] O[]
+  N0891 #8035/-1 operation  G[4 objs] O[]
+  N0891 #8680/-1 operation  G[4 objs] O[]
+  N0891 #8684/-1 operation  G[4 objs] O[]
+  N0891 #8697/-1 operation  G[4 objs] O[]
+  N0891 #8701/-1 operation  G[4 objs] O[]
+  N0891 #8719/-1 operation  G[4 objs] O[]
+  N0891 #8723/-1 operation  G[4 objs] O[]
+  N0891 #8736/-1 operation  G[4 objs] O[]
+  N0891 #8740/-1 operation  G[4 objs] O[]
+  N0891 #9379/-1 operation  G[4 objs] O[]
+  N0891 #9383/-1 operation  G[4 objs] O[]
+  N0891 #9396/-1 operation  G[4 objs] O[]
+  N0891 #9400/-1 operation  G[4 objs] O[]
+  N0891 #9418/-1 operation  G[4 objs] O[]
+  N0891 #9422/-1 operation  G[4 objs] O[]
+  N0891 #9435/-1 operation  G[4 objs] O[]
+  N0891 #9439/-1 operation  G[4 objs] O[]
+  N0891 #10326/-1 operation  G[4 objs] O[]

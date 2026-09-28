@@ -1,0 +1,64 @@
+cluster N0775 (id kept from an earlier map; OPEN | ground B | site emitInstance (ModuleEmit.cpp, law genvarConnFold) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab) [r11u138map pin] [r11u142map pin]): struct|golden-only:fewer-copies|cont_assign|under:module_inst
+row: surelog/default/Rggen  strict=differ:endcol(144)  records golden=314498 ours=312249
+object: #217675 (golden) / #-1 (ours)  type=cont_assign name= 
+  golden: 14 objs
+  ours:   
+  walk parents: module_inst(u_adapter_common) < module_inst(u_adapter) < module_inst(u_block_1) < module_inst(work@rggen)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 217669..217681 ('>' = the object)
+  #217669	9	enum_const	RGGEN_SLAVE_ERROR			rggen_rtl_pkg.sv	14	5	14	32						001
+  #217670	9	enum_const	RGGEN_DECODE_ERROR			rggen_rtl_pkg.sv	15	5	15	32						001
+  #217671	7	indexed_part_select	selected_response	selected_response	work@rggen.u_block_1.u_adapter.u_adapter_common.selected_response	rggen_adapter_common.sv	158	65	158	88		0			work@rggen.u_block_1.u_adapter.u_adapter_common.selected_response	000
+  #217672	8	ref_obj	BUS_WIDTH		work@rggen.u_block_1.u_adapter.u_adapter_common.BUS_WIDTH	rggen_adapter_common.sv	158	65	158	74		0			work@rggen.u_block_1.u_adapter.u_adapter_common.BUS_WIDTH	000
+  #217673	8	ref_obj	STATUS_WIDTH		work@rggen.u_block_1.u_adapter.u_adapter_common.STATUS_WIDTH	rggen_adapter_common.sv	158	76	158	88		0			work@rggen.u_block_1.u_adapter.u_adapter_common.STATUS_WIDTH	000
+  #217674	6	ref_obj	register_status		work@rggen.u_block_1.u_adapter.u_adapter_common.register_status	rggen_adapter_common.sv	158	11	158	26		0			work@rggen.u_block_1.u_adapter.u_adapter_common.register_status	000
+> #217675	5	cont_assign				rggen_adapter_common.sv	161	11	161	97						000
+  #217676	6	operation				rggen_adapter_common.sv	161	31	161	97		0				000
+  #217677	7	operation				rggen_adapter_common.sv	161	32	161	56		0				000
+  #217678	8	operation				rggen_adapter_common.sv	161	33	161	47		0				000
+  #217679	9	ref_obj	INSERT_SLICER		work@rggen.u_block_1.u_adapter.u_adapter_common.INSERT_SLICER	rggen_adapter_common.sv	161	34	161	47		0			work@rggen.u_block_1.u_adapter.u_adapter_common.INSERT_SLICER	000
+  #217680	8	ref_obj	busy		work@rggen.u_block_1.u_adapter.u_adapter_common.busy	rggen_adapter_common.sv	161	52	161	56		0			work@rggen.u_block_1.u_adapter.u_adapter_common.busy	000
+  #217681	7	operation				rggen_adapter_common.sv	161	62	161	96		0				000
+
+--- the holder #215541 on the other side: exact-record matches at [214095]
+  #214092	6	io_decl	ready			rggen_bus_if.sv	33	13	33	18						000
+  #214093	6	io_decl	status			rggen_bus_if.sv	34	13	34	19						000
+  #214094	6	io_decl	read_data			rggen_bus_if.sv	35	13	35	22						000
+> #214095	4	module_inst	u_adapter_common	work@rggen_adapter_common	work@rggen.u_block_1.u_adapter.u_adapter_common	rggen_apb_adapter.sv	47	3	63	5					work@rggen.u_block_1.u_adapter.u_adapter_common	000
+  #214096	5	logic_var	busy		work@rggen.u_block_1.u_adapter.u_adapter_common.busy	rggen_adapter_common.sv	23	9	23	13		0			work@rggen.u_block_1.u_adapter.u_adapter_common.busy	000
+  #214097	6	ref_typespec			work@rggen.u_block_1.u_adapter.u_adapter_common.busy		0	0	0	0		0			work@rggen.u_block_1.u_adapter.u_adapter_common.busy	000
+  #214098	7	logic_typespec				rggen_adapter_common.sv	23	3	23	8						000
+  #214099	5	logic_var	inside_range		work@rggen.u_block_1.u_adapter.u_adapter_common.inside_range	rggen_adapter_common.sv	38	9	38	21		0			work@rggen.u_block_1.u_adapter.u_adapter_common.inside_range	000
+  #214100	6	ref_typespec			work@rggen.u_block_1.u_adapter.u_adapter_common.inside_range		0	0	0	0		0			work@rggen.u_block_1.u_adapter.u_adapter_common.inside_range	000
+  #214101	7	logic_typespec				rggen_adapter_common.sv	38	3	38	8						000
+  #214102	5	logic_var	bus_valid		work@rggen.u_block_1.u_adapter.u_adapter_common.bus_valid	rggen_adapter_common.sv	60	35	60	44		0			work@rggen.u_block_1.u_adapter.u_adapter_common.bus_valid	000
+  #214103	6	ref_typespec			work@rggen.u_block_1.u_adapter.u_adapter_common.bus_valid		0	0	0	0		0			work@rggen.u_block_1.u_adapter.u_adapter_common.bus_valid	000
+  #214104	7	logic_typespec				rggen_adapter_common.sv	60	3	60	8						000
+
+facets of this row (5801, first 25):
+  N0683 #23168/23166 constant  G[14 operation < range] O[13 range < logic_typespec]
+  N1172 #23166/-1 operation  G[2 objs] O[]
+  N0683 #26509/26505 constant  G[16 operation < range] O[15 range < logic_typespec]
+  N1172 #26507/-1 operation  G[2 objs] O[]
+  N0683 #28776/28770 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28774/-1 operation  G[2 objs] O[]
+  N0683 #28785/28777 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28783/-1 operation  G[2 objs] O[]
+  N0683 #28794/28784 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #28792/-1 operation  G[2 objs] O[]
+  N0683 #29654/29642 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29652/-1 operation  G[2 objs] O[]
+  N0683 #29663/29649 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29661/-1 operation  G[2 objs] O[]
+  N0683 #29672/29656 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #29670/-1 operation  G[2 objs] O[]
+  N0683 #30427/30409 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30425/-1 operation  G[2 objs] O[]
+  N0683 #30436/30416 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30434/-1 operation  G[2 objs] O[]
+  N0683 #30445/30423 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #30443/-1 operation  G[2 objs] O[]
+  N0683 #31206/31182 constant  G[17 operation < range] O[16 range < logic_typespec]
+  N1172 #31204/-1 operation  G[2 objs] O[]
+  N0683 #31215/31189 constant  G[17 operation < range] O[16 range < logic_typespec]

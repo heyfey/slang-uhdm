@@ -1,0 +1,64 @@
+cluster N0540 (id kept from an earlier map; OPEN | ground A | site emitPackage (ParamEmit.cpp, law pkgImportCloneLastWriter32) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u142map pin]): fullname|ref_typespec|tok:id@id.->|under:class_typespec
+row: surelog/default/MiniAmiq  strict=differ:file(27)  records golden=435559 ours=433774
+object: #29172 (golden) / #29144 (ours)  type=ref_typespec name= STABLE
+  golden: work@svaunit_vpi_interface.uvm_pkg::uvm_reg_field_cb_iter
+  ours:   uvm_pkg::uvm_reg_field_cb_iter
+  walk parents: class_typespec(uvm_pkg::uvm_reg_field_cb_iter) < ref_typespec < ref_var(cbs) < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 29166..29178 ('>' = the object)
+  #29166	6	ref_obj	UVM_PREDICT_WRITE		uvm_pkg::uvm_reg_field::do_predict::UVM_PREDICT_WRITE	uvm_reg_field.svh	1126	6	1126	23		0			uvm_pkg::uvm_reg_field::do_predict::UVM_PREDICT_WRITE	000
+  #29167	7	enum_const	UVM_PREDICT_WRITE			uvm_reg_model.svh	259	7	259	24						010
+  #29168	6	begin			uvm_pkg::uvm_reg_field::do_predict	uvm_reg_field.svh	1127	8	1141	11					uvm_pkg::uvm_reg_field::do_predict	000
+  #29169	7	ref_var	cbs		uvm_pkg::uvm_reg_field::do_predict::cbs	uvm_reg_field.svh	1128	32	1128	35		0			uvm_pkg::uvm_reg_field::do_predict::cbs	000
+  #29170	8	ref_typespec			uvm_pkg::uvm_reg_field::do_predict::cbs		0	0	0	0		0			uvm_pkg::uvm_reg_field::do_predict::cbs	000
+  #29171	9	class_typespec	uvm_pkg::uvm_reg_field_cb_iter			uvm_reg_cbs.svh	334	9	334	26						110
+> #29172	10	ref_typespec			<in>uvm_pkg::uvm_reg_field_cb_iter		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_reg_field_cb_iter	001
+  #29173	11	class_typespec	uvm_pkg::uvm_mem_cb_iter			uvm_reg_cbs.svh	334	9	334	26						001
+  #29174	7	if_stmt				uvm_reg_field.svh	1130	10	1131	66						000
+  #29175	8	operation				uvm_reg_field.svh	1130	14	1130	64		0				000
+  #29176	9	operation				uvm_reg_field.svh	1130	14	1130	38		0				000
+  #29177	10	hier_path	rw.path			uvm_reg_field.svh	1130	14	1130	21		0				000
+  #29178	11	ref_obj	rw			uvm_reg_field.svh	1130	14	1130	16		0				000
+
+--- OURS (B) records 29138..29150 ('>' = the object)
+  #29138	6	ref_obj	UVM_PREDICT_WRITE		uvm_pkg::uvm_reg_field::do_predict::UVM_PREDICT_WRITE	uvm_reg_field.svh	1126	6	1126	23		0			uvm_pkg::uvm_reg_field::do_predict::UVM_PREDICT_WRITE	000
+  #29139	7	enum_const	UVM_PREDICT_WRITE			uvm_reg_model.svh	259	7	259	24						010
+  #29140	6	begin			uvm_pkg::uvm_reg_field::do_predict	uvm_reg_field.svh	1127	8	1141	11					uvm_pkg::uvm_reg_field::do_predict	000
+  #29141	7	ref_var	cbs		uvm_pkg::uvm_reg_field::do_predict::cbs	uvm_reg_field.svh	1128	32	1128	35		0			uvm_pkg::uvm_reg_field::do_predict::cbs	000
+  #29142	8	ref_typespec			uvm_pkg::uvm_reg_field::do_predict::cbs		0	0	0	0		0			uvm_pkg::uvm_reg_field::do_predict::cbs	000
+  #29143	9	class_typespec	uvm_pkg::uvm_reg_field_cb_iter			uvm_reg_cbs.svh	334	9	334	26						110
+> #29144	10	ref_typespec			<in>uvm_pkg::uvm_reg_field_cb_iter		0	0	0	0		0			uvm_pkg::uvm_reg_field_cb_iter	001
+  #29145	11	class_typespec	uvm_pkg::uvm_mem_cb_iter			uvm_reg_cbs.svh	334	9	334	26						001
+  #29146	7	if_stmt				uvm_reg_field.svh	1130	10	1131	66						000
+  #29147	8	operation				uvm_reg_field.svh	1130	14	1130	64		0				000
+  #29148	9	operation				uvm_reg_field.svh	1130	14	1130	38		0				000
+  #29149	10	hier_path	rw.path			uvm_reg_field.svh	1130	14	1130	21		0				000
+  #29150	11	ref_obj	rw			uvm_reg_field.svh	1130	14	1130	16		0				000
+
+facets of this row (8993, first 25):
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20803 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21739 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0678 #-1/63709 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63775 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66835 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66923 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67150 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68134 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68154 unsupported_typespec index G[] O[1 objs]

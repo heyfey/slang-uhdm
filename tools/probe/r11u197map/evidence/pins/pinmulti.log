@@ -1,0 +1,19 @@
+row 1/19 probe/default/r10earl29repro__v8_sites2: 1 ranks, 1 hits
+row 2/19 probe/default/r10svs8repro__a3_builtins: 1 ranks, 1 hits
+row 3/19 probe/default/r10uvm112repro__a9_diffnames: 1 ranks, 1 hits
+row 4/19 probe/default/r10uvm207repro__g207_e_head: 1 ranks, 1 hits
+row 5/19 probe/default/r10uvm207repro__g207_h_foreign: 1 ranks, 1 hits
+row 6/19 probe/default/r10uvm22repro__t33e_t: 1 ranks, 1 hits
+row 7/19 probe/default/r10uvm56repro__a8_newlhs: 1 ranks, 1 hits
+row 8/19 probe/default/r10uvm59repro__c05_cast: 1 ranks, 1 hits
+N0478 no partner
+row 10/19 probe/default/r10v160repro__x10_enum: 2 ranks, 2 hits
+row 11/19 probe/default/r10v195repro__v195_d_tfitem: 1 ranks, 1 hits
+row 12/19 probe/default/r10v200repro__v200_5_modmat: 1 ranks, 1 hits
+row 13/19 probe/default/v11u111repro__brk__f1__x01_class_param: 1 ranks, 1 hits
+row 14/19 surelog/default/BuildUVMPkg: 1 ranks, 1 hits
+row 15/19 surelog/default/MiniAmiq: 1 ranks, 1 hits
+row 16/19 surelog/default/Rggen: 1 ranks, 1 hits
+row 17/19 surelog/default/Scoreboard: 3 ranks, 3 hits
+row 18/19 surelog/default/SeqDriver: 1 ranks, 1 hits
+row 19/19 surelog/default/SimpleUVM: 1 ranks, 1 hits

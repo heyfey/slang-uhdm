@@ -1,0 +1,61 @@
+cluster N1212 (id kept from an earlier map; COVERED r11u191 (law patches, MEASURED: gone under the patch binary) | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law dpiExportListedAtExportItem216) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) [r11u197 pin, db=DIFF (UVM order coin), rank NOT verified]): struct|ours-only:elsewhere|function|under:design
+row: surelog/default/Scoreboard  strict=differ:fullname(54)  records golden=269656 ours=269679
+object: #-1 (golden) / #205246 (ours)  type=function name=get_name 
+  golden: 
+  ours:   9 objs
+  walk parents: design(work@my_scoreboard_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 205240..205252 ('>' = the object)
+  #205240	1	enum_typespec	svunit_pkg::boolean_t			svunit_types.svh	36	3	36	44						010
+  #205241	2	enum_const	TRUE			svunit_types.svh	36	17	36	23						001
+  #205242	2	enum_const	FALSE			svunit_types.svh	36	25	36	32						001
+  #205243	1	enum_typespec	svunit_pkg::results_t			svunit_types.svh	29	3	29	44						010
+  #205244	2	enum_const	PASS			svunit_types.svh	29	17	29	23						001
+  #205245	2	enum_const	FAIL			svunit_types.svh	29	25	29	31						001
+> #205246	1	function	get_name		svunit_pkg::svunit_base::get_name	svunit_base.sv	68	1	70	12					svunit_pkg::svunit_base::get_name	000
+  #205247	2	string_var			svunit_pkg::svunit_base::get_name	svunit_base.sv	68	10	68	16		0			svunit_pkg::svunit_base::get_name	000
+  #205248	3	ref_typespec			svunit_pkg::svunit_base::get_name		0	0	0	0		0			svunit_pkg::svunit_base::get_name	000
+  #205249	4	string_typespec				svunit_base.sv	68	10	68	16						000
+  #205250	2	return_stmt				svunit_base.sv	69	3	69	9						000
+  #205251	3	ref_obj	name		svunit_pkg::svunit_base::get_name::name	svunit_base.sv	69	10	69	14		0			svunit_pkg::svunit_base::get_name::name	000
+  #205252	4	logic_net	name		work@my_scoreboard_unit_test.name	testbench.sv	7	10	7	14		0			work@my_scoreboard_unit_test.name	000
+
+--- the holder #0 on the other side: exact-record matches at [0]
+> #0	0	design	work@my_scoreboard_unit_test				0	0	0	0						000
+  #1	1	include_file_info				uvm_pkg.sv	26	10	26	26						000
+  #2	1	include_file_info				uvm_pkg.sv	94	10	94	42						000
+  #3	1	include_file_info				uvm_pkg.sv	244	10	244	41						000
+  #4	1	include_file_info				uvm_pkg.sv	304	10	304	42						000
+  #5	1	include_file_info				uvm_pkg.sv	842	10	842	40						000
+  #6	1	include_file_info				uvm_pkg.sv	972	10	972	41						000
+  #7	1	include_file_info				uvm_pkg.sv	4787	10	4787	42						000
+  #8	1	include_file_info				uvm_pkg.sv	5210	10	5210	38						000
+  #9	1	include_file_info				uvm_pkg.sv	5825	10	5825	33						000
+
+facets of this row (1783, first 25):
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20911 bit_typespec  G[] O[1 objs]
+  N0423 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21847 bit_typespec  G[] O[1 objs]
+  N0423 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74775 bit_typespec  G[] O[1 objs]
+  N0423 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74796 bit_typespec  G[] O[1 objs]
+  N0423 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74852 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79114 array_typespec  G[] O[1 objs]
+  N0423 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79133 bit_typespec  G[] O[1 objs]
+  N0423 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80109 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82238/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82246/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82254/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82262/-1 ref_typespec  G[2 objs] O[]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]

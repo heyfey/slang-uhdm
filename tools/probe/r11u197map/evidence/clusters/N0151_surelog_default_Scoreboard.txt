@@ -1,0 +1,64 @@
+cluster N0151 (id kept from an earlier map; OPEN | ground B | site importParamCopy82 (ModuleEmit.cpp, law impOcc) < classInheritsContainerImports23 (ModuleEmit.cpp, law classImportParamStamped82) < exportDesign (UhdmExporter.cpp, law classInheritsContainerImports23) [r11u142map pin]): struct|golden-only:fewer-copies|ref_typespec|under:parameter
+row: surelog/default/Scoreboard  strict=differ:fullname(54)  records golden=269656 ours=269679
+object: #78641 (golden) / #-1 (ours)  type=ref_typespec name= 
+  golden: 2 objs
+  ours:   
+  walk parents: parameter(UVM_CHECK_FIELDS) < ref_obj(UVM_CHECK_FIELDS) < func_call(__m_uvm_field_automation) < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 78635..78647 ('>' = the object)
+  #78635	5	assignment				uvm_component.svh	3156	21	3156	50						000
+  #78636	6	ref_obj	uvm_resource_pool::get		uvm_pkg::uvm_component::apply_config_settings::uvm_resource_pool::get	uvm_component.svh	3156	26	3156	45		0			uvm_pkg::uvm_component::apply_config_settings::uvm_resource_pool::get	000
+  #78637	5	func_call	__m_uvm_field_automation			uvm_component.svh	3167	3	3167	56		0				000
+  #78638	6	constant				uvm_component.svh	3167	29	3167	33	0	64	UINT:0	11		000
+  #78639	6	ref_obj	UVM_CHECK_FIELDS		uvm_pkg::uvm_component::apply_config_settings::UVM_CHECK_FIELDS	uvm_component.svh	3167	35	3167	51		0			uvm_pkg::uvm_component::apply_config_settings::UVM_CHECK_FIELDS	000
+  #78640	7	parameter	UVM_CHECK_FIELDS			uvm_object_globals.svh	209	11	209	27		0	UINT:131075			000
+> #78641	8	ref_typespec			UVM_CHECK_FIELDS		0	0	0	0		0			UVM_CHECK_FIELDS	000
+  #78642	9	int_typespec				uvm_object_globals.svh	209	1	209	48						000
+  #78643	6	constant				uvm_component.svh	3167	53	3167	55	""	0	STRING:	6		000
+  #78644	5	if_stmt				uvm_component.svh	3170	3	3171	12						000
+  #78645	6	operation				uvm_component.svh	3170	7	3170	55		0				000
+  #78646	7	hier_path	__m_uvm_status_container.field_array.size			uvm_component.svh	3170	7	3170	50		0				000
+  #78647	8	ref_obj	__m_uvm_status_container			uvm_component.svh	3170	7	3170	31		0				000
+
+--- the holder #78640 on the other side: exact-record matches at [78608]
+  #78605	5	func_call	__m_uvm_field_automation			uvm_component.svh	3167	3	3167	56		0				000
+  #78606	6	constant				uvm_component.svh	3167	29	3167	33	0	64	UINT:0	11		000
+  #78607	6	ref_obj	UVM_CHECK_FIELDS		uvm_pkg::uvm_component::apply_config_settings::UVM_CHECK_FIELDS	uvm_component.svh	3167	35	3167	51		0			uvm_pkg::uvm_component::apply_config_settings::UVM_CHECK_FIELDS	000
+> #78608	7	parameter	UVM_CHECK_FIELDS			uvm_object_globals.svh	209	11	209	27		0	UINT:131075			000
+  #78609	6	constant				uvm_component.svh	3167	53	3167	55	""	0	STRING:	6		000
+  #78610	5	if_stmt				uvm_component.svh	3170	3	3171	12						000
+  #78611	6	operation				uvm_component.svh	3170	7	3170	55		0				000
+  #78612	7	hier_path	__m_uvm_status_container.field_array.size			uvm_component.svh	3170	7	3170	50		0				000
+  #78613	8	ref_obj	__m_uvm_status_container			uvm_component.svh	3170	7	3170	31		0				000
+  #78614	8	ref_obj	field_array			uvm_component.svh	3170	32	3170	43		0				000
+  #78615	8	method_func_call	size			uvm_component.svh	3170	44	3170	48		0				000
+  #78616	7	constant				uvm_component.svh	3170	54	3170	55	0	64	UINT:0	9		000
+  #78617	6	return_stmt				uvm_component.svh	3171	5	3171	11						000
+
+facets of this row (1783, first 25):
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20911 bit_typespec  G[] O[1 objs]
+  N0423 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21847 bit_typespec  G[] O[1 objs]
+  N0423 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74775 bit_typespec  G[] O[1 objs]
+  N0423 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74796 bit_typespec  G[] O[1 objs]
+  N0423 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74852 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79114 array_typespec  G[] O[1 objs]
+  N0423 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79133 bit_typespec  G[] O[1 objs]
+  N0423 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80109 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82238/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82246/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82254/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82262/-1 ref_typespec  G[2 objs] O[]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]

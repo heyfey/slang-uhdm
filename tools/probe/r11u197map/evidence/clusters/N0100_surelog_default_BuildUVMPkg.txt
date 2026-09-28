@@ -1,0 +1,64 @@
+cluster N0100 (id kept from an earlier map; OPEN | ground B | site makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab) < realMain (uhdm_main.cpp, law genCaPatKeepTagDefView121) [r11u179 pin] [r11u179map pin]): span|bit_typespec|line+col+endline+endcol|under:ref_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(20)  records golden=201533 ours=201534
+object: #29130 (golden) / #29110 (ours)  type=bit_typespec name=uvm_reg_byte_en_t 
+  golden: 64104:38:64104:55
+  ours:   60739:10:60739:42
+  walk parents: ref_typespec < io_decl(be) < function(uvm_reg_field::predict) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 29124..29136 ('>' = the object)
+  #29124	7	operation				uvm_pkg.sv	60711	24	60711	28		0				001
+  #29125	8	constant				uvm_pkg.sv	60711	24	60711	26	64	64	UINT:64	9		001
+  #29126	8	constant				uvm_pkg.sv	60711	27	60711	28	1	64	UINT:1	9		001
+  #29127	7	constant				uvm_pkg.sv	60711	29	60711	30	0	64	UINT:0	9		001
+  #29128	3	io_decl	be			uvm_pkg.sv	64104	56	64104	58						000
+  #29129	4	ref_typespec			uvm_pkg::uvm_reg_field::predict::be		0	0	0	0		0			uvm_pkg::uvm_reg_field::predict::be	000
+> #29130	5	bit_typespec	uvm_reg_byte_en_t			uvm_pkg.sv	64104	38	64104	55						110
+  #29131	6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0			uvm_reg_byte_en_t	001
+  #29132	7	bit_typespec	uvm_pkg::uvm_reg_byte_en_t			uvm_pkg.sv	60739	10	60739	42						001
+  #29133	8	range				uvm_pkg.sv	60739	23	60739	42						001
+  #29134	9	operation				uvm_pkg.sv	60739	24	60739	39		0				001
+  #29135	10	operation				uvm_pkg.sv	60739	25	60739	35		0				001
+  #29136	11	operation				uvm_pkg.sv	60739	25	60739	33		0				001
+
+--- OURS (B) records 29104..29116 ('>' = the object)
+  #29104	7	operation				uvm_pkg.sv	60711	24	60711	28		0				001
+  #29105	8	constant				uvm_pkg.sv	60711	24	60711	26	64	64	UINT:64	9		001
+  #29106	8	constant				uvm_pkg.sv	60711	27	60711	28	1	64	UINT:1	9		001
+  #29107	7	constant				uvm_pkg.sv	60711	29	60711	30	0	64	UINT:0	9		001
+  #29108	3	io_decl	be			uvm_pkg.sv	64104	56	64104	58						000
+  #29109	4	ref_typespec			uvm_pkg::uvm_reg_field::predict::be		0	0	0	0		0			uvm_pkg::uvm_reg_field::predict::be	000
+> #29110	5	bit_typespec	uvm_reg_byte_en_t			uvm_pkg.sv	60739	10	60739	42						110
+  #29111	6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0			uvm_reg_byte_en_t	001
+  #29112	7	bit_typespec	uvm_pkg::uvm_reg_byte_en_t			uvm_pkg.sv	60739	10	60739	42						001
+  #29113	8	range				uvm_pkg.sv	60739	23	60739	42						001
+  #29114	9	operation				uvm_pkg.sv	60739	24	60739	39		0				001
+  #29115	10	operation				uvm_pkg.sv	60739	25	60739	35		0				001
+  #29116	11	operation				uvm_pkg.sv	60739	25	60739	33		0				001
+
+facets of this row (916, first 25):
+  N2465 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0423 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22504 bit_typespec  G[] O[1 objs]
+  N0423 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22588 bit_typespec  G[] O[1 objs]
+  N0423 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23501 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56188 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74743 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74826 bit_typespec  G[] O[1 objs]
+  N0423 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76333 bit_typespec  G[] O[1 objs]
+  N0423 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76354 bit_typespec  G[] O[1 objs]
+  N0423 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76414 bit_typespec  G[] O[1 objs]
+  N0423 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79777 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79788 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79842 array_typespec  G[] O[1 objs]
+  N0423 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]

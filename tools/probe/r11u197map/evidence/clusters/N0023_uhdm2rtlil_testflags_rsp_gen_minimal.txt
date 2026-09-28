@@ -1,0 +1,42 @@
+cluster N0023 (id kept from an earlier map; COVERED r11u193 (map 10 ground-B step 3 / pass 188 R6: rsp_gen_minimal) | ground B | site emitModuleDef (ModuleEmit.cpp, law caNetDeclStrengthDropped90) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121) [DECODED (r11u131 R1, class A): the ours-side twin of N0022 (the elaborated net listed where golden lists the definition net), ModuleEmit.cpp emitScopeClocking's caller] [r11u156map pin]): struct|ours-only:elsewhere|logic_net|under:ref_obj
+row: uhdm2rtlil/testflags/rsp_gen_minimal  strict=differ:fullname(2)  records golden=1890 ours=1890
+object: #-1 (golden) / #1715 (ours)  type=logic_net name=rsp 
+  golden: 
+  ours:   22 objs
+  walk parents: ref_obj(rsp) < operation < port(data_i) < module_inst(u_rsp_gen)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 1709..1721 ('>' = the object)
+  #1709	7	constant				dut.sv	3	20	3	21	0	64	UINT:0	9		001
+  #1710	3	port	data_i			dut.sv	2	23	2	29						000
+  #1711	4	operation				dut.sv	79	13	79	21		0				000
+  #1712	5	ref_typespec			work@dut		0	0	0	0		0			work@dut	000
+  #1713	6	integer_typespec				dut.sv	79	13	79	15						000
+  #1714	5	ref_obj	rsp		work@dut.u_rsp_gen.data_i.rsp	dut.sv	79	17	79	20		0			work@dut.u_rsp_gen.data_i.rsp	000
+> #1715	6	logic_net	rsp		work@dut.rsp	dut.sv	73	21	73	24		0			work@dut.rsp	000
+  #1716	7	ref_typespec			work@dut.rsp		0	0	0	0		0			work@dut.rsp	000
+  #1717	8	struct_typespec	tlul_pkg::tl_d2h_rsp_intg_t			dut.sv	45	11	49	4						110
+  #1718	9	typespec_member	opcode			dut.sv	46	35	46	41						001
+  #1719	10	ref_typespec			<in>tlul_pkg::tl_d2h_rsp_intg_t.opcode		0	0	0	0		0			tlul_pkg::tl_d2h_rsp_intg_t.opcode	001
+  #1720	11	enum_typespec	tlul_pkg::tl_d_op_e			dut.sv	21	3	24	15						001
+  #1721	12	ref_typespec			<in>tlul_pkg::tl_d_op_e		0	0	0	0		0			work@dut.tlul_pkg::tl_d_op_e	001
+
+--- the holder #1714 on the other side: exact-record matches at [1120, 1714]
+  #1117	4	operation				dut.sv	79	13	79	21		0				000
+  #1118	5	ref_typespec			work@dut.u_rsp_gen.data_i		0	0	0	0		0			work@dut.u_rsp_gen.data_i	000
+  #1119	6	integer_typespec				dut.sv	79	13	79	15						000
+> #1120	5	ref_obj	rsp		work@dut.u_rsp_gen.data_i.rsp	dut.sv	79	17	79	20		0			work@dut.u_rsp_gen.data_i.rsp	000
+  #1121	3	port	data_o			dut.sv	80	5	80	40						000
+  #1122	4	operation				dut.sv	80	13	80	39		0				000
+  #1123	5	ref_obj	rsp_intg		work@dut.u_rsp_gen.data_o.rsp_intg	dut.sv	80	14	80	22		0			work@dut.u_rsp_gen.data_o.rsp_intg	000
+  #1124	5	ref_obj	unused_payload		work@dut.u_rsp_gen.data_o.unused_payload	dut.sv	80	24	80	38		0			work@dut.u_rsp_gen.data_o.unused_payload	000
+  #1125	1	module_inst	work@dut	work@dut		dut.sv	65	1	87	10						000
+  #1126	2	struct_var	tl_i		work@dut.tl_i	dut.sv	68	19	68	23		0			work@dut.tl_i	000
+  #1127	3	ref_typespec			work@dut.tl_i		0	0	0	0		0			work@dut.tl_i	000
+  #1128	4	struct_typespec	tlul_pkg::tl_d2h_t			dut.sv	52	61	52	69						110
+  #1129	5	typespec_member	d_valid			dut.sv	31	11	31	18						001
+
+facets of this row (3, first 25):
+  N0023 #-1/1715 logic_net rsp G[] O[22 objs]
+  N0022 #1868/-1 logic_net rsp G[22 objs] O[]
+  N0416 #1712/1712 ref_typespec  G[work@dut.u_rsp_gen.data_i] O[work@dut]

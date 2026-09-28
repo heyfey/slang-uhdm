@@ -1,0 +1,64 @@
+cluster N0643 (id kept from an earlier map; OPEN | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitImportedPkgClassMethodClones (ParamEmit.cpp, law collectPkgTfListing) < emitPackage (ParamEmit.cpp, law LAW) [r11u138map pin; the a7bee711 gdb run wrote a different database (UVM order coin)] [r11u142map pin]): struct|ours-only:fewer-copies|real_var|under:function
+row: surelog/default/MiniAmiq  strict=differ:file(27)  records golden=435559 ours=433774
+object: #-1 (golden) / #304420 (ours)  type=real_var name= 
+  golden: 
+  ours:   3 objs
+  walk parents: function(uvm_packer::unpack_real) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 304414..304426 ('>' = the object)
+  #304414	8	constant				uvm_packer.svh	862	23	862	31	"UNPOBJ"	48	STRING:UNPOBJ	6		000
+  #304415	8	constant				uvm_packer.svh	862	32	862	64	"cannot unpack into null object"	240	STRING:cannot unpack into null object	6		000
+  #304416	8	ref_obj	UVM_NONE		svaunit_pkg::uvm_packer::unpack_object::UVM_NONE	uvm_packer.svh	862	66	862	74		0			svaunit_pkg::uvm_packer::unpack_object::UVM_NONE	000
+  #304417	4	method_func_call	__m_uvm_status_container			uvm_packer.svh	864	9	864	33		0				000
+  #304418	5	ref_obj	value		svaunit_pkg::uvm_packer::unpack_object::value	uvm_packer.svh	864	3	864	8		0			svaunit_pkg::uvm_packer::unpack_object::value	000
+  #304419	2	function	uvm_packer::unpack_real		svaunit_pkg::uvm_packer::unpack_real	uvm_packer.svh	872	1	876	12					svaunit_pkg::uvm_packer::unpack_real	000
+> #304420	3	real_var			svaunit_pkg::uvm_packer::unpack_real	uvm_packer.svh	872	10	872	14		0			svaunit_pkg::uvm_packer::unpack_real	000
+  #304421	4	ref_typespec			svaunit_pkg::uvm_packer::unpack_real		0	0	0	0		0			svaunit_pkg::uvm_packer::unpack_real	000
+  #304422	5	real_typespec				uvm_packer.svh	872	10	872	14						000
+  #304423	3	if_stmt				uvm_packer.svh	873	3	875	6						000
+  #304424	4	func_call	enough_bits			uvm_packer.svh	873	7	873	29		0				000
+  #304425	5	constant				uvm_packer.svh	873	19	873	21	64	64	UINT:64	9		000
+  #304426	5	constant				uvm_packer.svh	873	22	873	28	"real"	32	STRING:real	6		000
+
+--- the holder #304419 on the other side: exact-record matches at [73766, 305887, 372434]
+  #73763	8	ref_obj	UVM_NONE		svaunit_pkg::uvm_packer::unpack_object::UVM_NONE	uvm_packer.svh	862	66	862	74		0			svaunit_pkg::uvm_packer::unpack_object::UVM_NONE	000
+  #73764	4	method_func_call	__m_uvm_status_container			uvm_packer.svh	864	9	864	33		0				000
+  #73765	5	ref_obj	value		svaunit_pkg::uvm_packer::unpack_object::value	uvm_packer.svh	864	3	864	8		0			svaunit_pkg::uvm_packer::unpack_object::value	000
+> #73766	2	function	uvm_packer::unpack_real		svaunit_pkg::uvm_packer::unpack_real	uvm_packer.svh	872	1	876	12					svaunit_pkg::uvm_packer::unpack_real	000
+  #73767	3	real_var			uvm_pkg::uvm_packer::unpack_real	uvm_packer.svh	872	10	872	14		0			uvm_pkg::uvm_packer::unpack_real	000
+  #73768	4	ref_typespec			uvm_pkg::uvm_packer::unpack_real		0	0	0	0		0			uvm_pkg::uvm_packer::unpack_real	000
+  #73769	5	real_typespec				uvm_packer.svh	872	10	872	14						000
+  #73770	3	if_stmt				uvm_packer.svh	873	3	875	6						000
+  #73771	4	func_call	enough_bits			uvm_packer.svh	873	7	873	29		0				000
+  #73772	5	constant				uvm_packer.svh	873	19	873	21	64	64	UINT:64	9		000
+  #73773	5	constant				uvm_packer.svh	873	22	873	28	"real"	32	STRING:real	6		000
+  #73774	4	begin			svaunit_pkg::uvm_packer::unpack_real	uvm_packer.svh	873	31	875	6					svaunit_pkg::uvm_packer::unpack_real	000
+  #73775	5	return_stmt				uvm_packer.svh	874	5	874	11						000
+
+facets of this row (8993, first 25):
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20803 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21739 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0678 #-1/63709 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63775 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66835 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66923 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67150 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68134 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68154 unsupported_typespec index G[] O[1 objs]

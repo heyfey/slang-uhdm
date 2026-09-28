@@ -1,0 +1,64 @@
+cluster N0820 (id kept from an earlier map; COVERED r11u195 (pass 192 R1 / map 10 ground-A step 2: anon_struct_packed_dim's nested generate-path index name (trailSelIdxNames133)) | ground A | site emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law everyPartSelIsConstSel78) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|tok:id[id].id[n - id][n:n].id.->|under:operation
+row: uhdm2rtlil/testflags/anon_struct_packed_dim  strict=differ:fullname(43)  records golden=1130 ours=1130
+object: #676 (golden) / #676 (ours)  type=ref_obj name=gx OUT
+  golden: work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page.gx
+  ours:   work@anon_struct_packed_dim.g_i[0].g_x[1].gx
+  walk parents: operation < var_select(is_page) < hier_path(tq[gi].is_page[2 - gx][0:0]) < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 670..682 ('>' = the object)
+  #670	9	hier_path	tq[gi].is_page[2 - gx][0:0]			dut.sv	75	34	75	59		0				000
+  #671	10	bit_select	tq		tq[gi]	dut.sv	75	34	75	36		0			tq[gi]	000
+  #672	11	ref_obj	gi		work@anon_struct_packed_dim.g_i[0].g_x[1].gi	dut.sv	75	37	75	39		0			work@anon_struct_packed_dim.g_i[0].g_x[1].gi	000
+  #673	10	var_select	is_page		work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page	dut.sv	75	41	75	59		0			work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page	000
+  #674	11	operation				dut.sv	75	49	75	53		0				000
+  #675	12	constant				dut.sv	75	49	75	50	2	64	UINT:2	9		000
+> #676	12	ref_obj	gx		work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page.gx	dut.sv	75	51	75	53		0			work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page.gx	000
+  #677	11	part_select	is_page	is_page	work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page.is_page	dut.sv	75	55	75	58		0			work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page.is_page	000
+  #678	12	constant				dut.sv	75	55	75	56	0	64	UINT:0	9		000
+  #679	12	constant				dut.sv	75	57	75	58	0	64	UINT:0	9		000
+  #680	9	operation				dut.sv	75	63	75	69		0				000
+  #681	10	bit_select	en		work@anon_struct_packed_dim.g_i[0].g_x[1].en	dut.sv	75	67	75	68		0			work@anon_struct_packed_dim.g_i[0].g_x[1].en	000
+  #682	11	constant				dut.sv	75	67	75	68	0	64	UINT:0	9		000
+
+--- OURS (B) records 670..682 ('>' = the object)
+  #670	9	hier_path	tq[gi].is_page[2 - gx][0:0]			dut.sv	75	34	75	59		0				000
+  #671	10	bit_select	tq		tq[gi]	dut.sv	75	34	75	36		0			tq[gi]	000
+  #672	11	ref_obj	gi		work@anon_struct_packed_dim.g_i[0].g_x[1].gi	dut.sv	75	37	75	39		0			work@anon_struct_packed_dim.g_i[0].g_x[1].gi	000
+  #673	10	var_select	is_page		work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page	dut.sv	75	41	75	59		0			work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page	000
+  #674	11	operation				dut.sv	75	49	75	53		0				000
+  #675	12	constant				dut.sv	75	49	75	50	2	64	UINT:2	9		000
+> #676	12	ref_obj	gx		work@anon_struct_packed_dim.g_i[0].g_x[1].gx	dut.sv	75	51	75	53		0			work@anon_struct_packed_dim.g_i[0].g_x[1].gx	000
+  #677	11	part_select	is_page	is_page	work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page.is_page	dut.sv	75	55	75	58		0			work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page.is_page	000
+  #678	12	constant				dut.sv	75	55	75	56	0	64	UINT:0	9		000
+  #679	12	constant				dut.sv	75	57	75	58	0	64	UINT:0	9		000
+  #680	9	operation				dut.sv	75	63	75	69		0				000
+  #681	10	bit_select	en		work@anon_struct_packed_dim.g_i[0].g_x[1].en	dut.sv	75	67	75	68		0			work@anon_struct_packed_dim.g_i[0].g_x[1].en	000
+  #682	11	constant				dut.sv	75	67	75	68	0	64	UINT:0	9		000
+
+facets of this row (43, first 25):
+  N0014 #22/22 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]
+  N0014 #28/28 ref_typespec  G[gpte.pte_t.g] O[pte_t.g]
+  N0014 #31/31 ref_typespec  G[gpte.pte_t.v] O[pte_t.v]
+  N0014 #37/37 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]
+  N0014 #43/43 ref_typespec  G[gpte.pte_t.g] O[pte_t.g]
+  N0014 #46/46 ref_typespec  G[gpte.pte_t.v] O[pte_t.v]
+  N0014 #60/60 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]
+  N0014 #66/66 ref_typespec  G[gpte.pte_t.g] O[pte_t.g]
+  N0014 #69/69 ref_typespec  G[gpte.pte_t.v] O[pte_t.v]
+  N0014 #75/75 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]
+  N0014 #81/81 ref_typespec  G[gpte.pte_t.g] O[pte_t.g]
+  N0014 #84/84 ref_typespec  G[gpte.pte_t.v] O[pte_t.v]
+  N0014 #305/305 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]
+  N0014 #311/311 ref_typespec  G[gpte.pte_t.g] O[pte_t.g]
+  N0014 #314/314 ref_typespec  G[gpte.pte_t.v] O[pte_t.v]
+  N0014 #389/389 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]
+  N0014 #395/395 ref_typespec  G[gpte.pte_t.g] O[pte_t.g]
+  N0014 #398/398 ref_typespec  G[gpte.pte_t.v] O[pte_t.v]
+  N0014 #404/404 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]
+  N0014 #410/410 ref_typespec  G[gpte.pte_t.g] O[pte_t.g]
+  N0014 #413/413 ref_typespec  G[gpte.pte_t.v] O[pte_t.v]
+  N0014 #427/427 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]
+  N0014 #433/433 ref_typespec  G[gpte.pte_t.g] O[pte_t.g]
+  N0014 #436/436 ref_typespec  G[gpte.pte_t.v] O[pte_t.v]
+  N0014 #442/442 ref_typespec  G[gpte.pte_t.ppn] O[pte_t.ppn]

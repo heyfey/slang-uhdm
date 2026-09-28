@@ -1,0 +1,13 @@
+Earlgrey_0_1 default hashes=1 | cdf93390f060 strict=[STRICT_NOTEQUAL fullname] cmp_lines=0
+Earlgrey_0_1 testflags hashes=1 | cc3697598bfa strict=[STRICT_NOTEQUAL fullname] cmp_lines=0
+MiniAmiq default hashes=1 | e10939513fbb strict=[STRICT_NOTEQUAL file] cmp_lines=0
+MiniAmiq testflags hashes=1 | e10939513fbb strict=[STRICT_NOTEQUAL file] cmp_lines=0
+SeqDriver default hashes=2 | 58d8dcc02e99 strict=[STRICT_NOTEQUAL file] cmp_lines=0 | 26ae262f89b7 strict=[STRICT_NOTEQUAL file] cmp_lines=0
+   58d8dcc02e99 vs 26ae262f89b7: order-blind lines 0
+SeqDriver testflags hashes=1 | 231bb330068e strict=[STRICT_NOTEQUAL file] cmp_lines=0
+SimpleUVM default hashes=1 | 8d81b4d1e5c9 strict=[STRICT_NOTEQUAL fullname] cmp_lines=0
+SimpleUVM testflags hashes=1 | 2ebbfaf7c302 strict=[STRICT_NOTEQUAL fullname] cmp_lines=0
+Scoreboard default hashes=2 | aa53840393b2 strict=[STRICT_NOTEQUAL fullname] cmp_lines=0 | 0564833d1c3f strict=[STRICT_NOTEQUAL fullname] cmp_lines=0
+   aa53840393b2 vs 0564833d1c3f: order-blind lines 0
+BuildUVMPkg default hashes=1 | 79b6a5156056 strict=[STRICT_NOTEQUAL line] cmp_lines=0
+BuildUVMPkg testflags hashes=1 | 79b6a5156056 strict=[STRICT_NOTEQUAL line] cmp_lines=0

@@ -1,0 +1,8 @@
+uhdm2rtlil/default/EnumInPackage
+uhdm2rtlil/default/func_struct_repro
+uhdm2rtlil/default/nested_cast_repro
+uhdm2rtlil/default/union_param_repro
+uhdm2rtlil/testflags/EnumInPackage
+uhdm2rtlil/testflags/func_struct_repro
+uhdm2rtlil/testflags/nested_cast_repro
+uhdm2rtlil/testflags/union_param_repro

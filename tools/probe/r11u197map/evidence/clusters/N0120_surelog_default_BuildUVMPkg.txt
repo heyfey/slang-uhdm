@@ -1,0 +1,64 @@
+cluster N0120 (id kept from an earlier map; OPEN | ground B | site emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) [r11u179 pin] [r11u179map pin]): span|enum_var|line+col+endline+endcol|under:function
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(20)  records golden=201533 ours=201534
+object: #70038 (golden) / #70020 (ours)  type=enum_var name= 
+  golden: 29246:25:29246:33
+  ours:   28907:3:28907:58
+  walk parents: function(catch) < class_defn(uvm_report_catcher) < class_defn(uvm_callback) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 70032..70044 ('>' = the object)
+  #70032	6	ref_typespec			uvm_pkg::uvm_report_catcher::debug_report_catcher::what		0	0	0	0		0			uvm_pkg::uvm_report_catcher::debug_report_catcher::what	000
+  #70033	7	int_typespec				uvm_pkg.sv	29232	45	29232	48						000
+  #70034	5	assignment				uvm_pkg.sv	29233	5	29233	25						000
+  #70035	6	ref_obj	what		uvm_pkg::uvm_report_catcher::debug_report_catcher::what	uvm_pkg.sv	29233	21	29233	25		0			uvm_pkg::uvm_report_catcher::debug_report_catcher::what	000
+  #70036	6	ref_obj	m_debug_flags		uvm_pkg::uvm_report_catcher::debug_report_catcher::m_debug_flags	uvm_pkg.sv	29233	5	29233	18		0			uvm_pkg::uvm_report_catcher::debug_report_catcher::m_debug_flags	000
+  #70037	4	function	catch		uvm_pkg::uvm_report_catcher::catch	uvm_pkg.sv	29246	3	29246	15					uvm_pkg::uvm_report_catcher::catch	000
+> #70038	5	enum_var			uvm_pkg::uvm_report_catcher::catch	uvm_pkg.sv	29246	25	29246	33		0			uvm_pkg::uvm_report_catcher::catch	000
+  #70039	6	ref_typespec			uvm_pkg::uvm_report_catcher::catch		0	0	0	0		0			uvm_pkg::uvm_report_catcher::catch	000
+  #70040	7	enum_typespec	action_e			uvm_pkg.sv	28907	3	28907	58						110
+  #70041	8	enum_const	UNKNOWN_ACTION			uvm_pkg.sv	28907	18	28907	32						001
+  #70042	8	enum_const	THROW			uvm_pkg.sv	28907	34	28907	39						001
+  #70043	8	enum_const	CAUGHT			uvm_pkg.sv	28907	41	28907	47						001
+  #70044	4	function	uvm_report_fatal		uvm_pkg::uvm_report_catcher::uvm_report_fatal	uvm_pkg.sv	29256	4	29256	13					uvm_pkg::uvm_report_catcher::uvm_report_fatal	000
+
+--- OURS (B) records 70014..70026 ('>' = the object)
+  #70014	6	ref_typespec			uvm_pkg::uvm_report_catcher::debug_report_catcher::what		0	0	0	0		0			uvm_pkg::uvm_report_catcher::debug_report_catcher::what	000
+  #70015	7	int_typespec				uvm_pkg.sv	29232	45	29232	48						000
+  #70016	5	assignment				uvm_pkg.sv	29233	5	29233	25						000
+  #70017	6	ref_obj	what		uvm_pkg::uvm_report_catcher::debug_report_catcher::what	uvm_pkg.sv	29233	21	29233	25		0			uvm_pkg::uvm_report_catcher::debug_report_catcher::what	000
+  #70018	6	ref_obj	m_debug_flags		uvm_pkg::uvm_report_catcher::debug_report_catcher::m_debug_flags	uvm_pkg.sv	29233	5	29233	18		0			uvm_pkg::uvm_report_catcher::debug_report_catcher::m_debug_flags	000
+  #70019	4	function	catch		uvm_pkg::uvm_report_catcher::catch	uvm_pkg.sv	29246	3	29246	15					uvm_pkg::uvm_report_catcher::catch	000
+> #70020	5	enum_var			uvm_pkg::uvm_report_catcher::catch	uvm_pkg.sv	28907	3	28907	58		0			uvm_pkg::uvm_report_catcher::catch	000
+  #70021	6	ref_typespec			uvm_pkg::uvm_report_catcher::catch		0	0	0	0		0			uvm_pkg::uvm_report_catcher::catch	000
+  #70022	7	enum_typespec	action_e			uvm_pkg.sv	28907	3	28907	58						110
+  #70023	8	enum_const	UNKNOWN_ACTION			uvm_pkg.sv	28907	18	28907	32						001
+  #70024	8	enum_const	THROW			uvm_pkg.sv	28907	34	28907	39						001
+  #70025	8	enum_const	CAUGHT			uvm_pkg.sv	28907	41	28907	47						001
+  #70026	4	function	uvm_report_fatal		uvm_pkg::uvm_report_catcher::uvm_report_fatal	uvm_pkg.sv	29256	4	29256	13					uvm_pkg::uvm_report_catcher::uvm_report_fatal	000
+
+facets of this row (916, first 25):
+  N2465 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0423 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22504 bit_typespec  G[] O[1 objs]
+  N0423 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22588 bit_typespec  G[] O[1 objs]
+  N0423 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23501 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56188 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74743 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74826 bit_typespec  G[] O[1 objs]
+  N0423 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76333 bit_typespec  G[] O[1 objs]
+  N0423 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76354 bit_typespec  G[] O[1 objs]
+  N0423 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76414 bit_typespec  G[] O[1 objs]
+  N0423 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79777 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79788 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79842 array_typespec  G[] O[1 objs]
+  N0423 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]

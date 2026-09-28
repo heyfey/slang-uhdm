@@ -1,0 +1,64 @@
+cluster N0478 (id kept from an earlier map; OPEN | ground B | site -): struct|golden-only:fewer-copies|type_parameter|under:param_assign
+row: surelog/default/MiniAmiq  strict=differ:file(27)  records golden=435559 ours=433774
+object: #136657 (golden) / #-1 (ours)  type=type_parameter name=T 
+  golden: 3 objs
+  ours:   
+  walk parents: param_assign < class_typespec(type_id) < class_defn(uvm_algorithmic_comparator) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 136651..136663 ('>' = the object)
+  #136651	8	ref_typespec			<in>T		0	0	0	0		0			uvm_pkg::uvm_component_registry::T	001
+  #136652	9	class_typespec	uvm_component			uvm_registry.svh	51	39	51	52						001
+  #136653	4	type_parameter	T		<in>type_id.T		0	0	0	0					uvm_pkg::uvm_algorithmic_comparator::type_id::T	001
+  #136654	5	ref_typespec			<in>T		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator::type_id::T	001
+  #136655	6	class_typespec	svaunit_base			uvm_object_defines.svh	468	35	468	65						001
+  #136656	4	param_assign					0	0	0	0						001
+> #136657	5	type_parameter	T		<in>type_id.T		0	0	0	0					uvm_pkg::uvm_algorithmic_comparator::type_id::T	001
+  #136658	6	ref_typespec			<in>T		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator::type_id::T	001
+  #136659	7	class_typespec	svaunit_base			uvm_object_defines.svh	468	35	468	65						001
+  #136660	5	type_parameter	T		<in>type_id.T	uvm_registry.svh	51	37	51	38					uvm_pkg::uvm_algorithmic_comparator::type_id::T	001
+  #136661	6	ref_typespec			<in>T		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator::type_id::T	001
+  #136662	7	class_typespec	uvm_component			uvm_registry.svh	51	39	51	52						001
+  #136663	3	extends				uvm_algorithmic_comparator.svh	70	67	70	80						000
+
+--- the holder #136656 on the other side: exact-record matches at [135786, 138479, 143778, 144018, 227138]
+  #135783	9	class_typespec	uvm_component			uvm_registry.svh	51	39	51	52						001
+  #135784	4	type_parameter	T		<in>type_id.T		0	0	0	0					uvm_pkg::uvm_algorithmic_comparator::type_id::T	001
+  #135785	5	ref_typespec			<in>T		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator::type_id::T	001
+> #135786	4	param_assign					0	0	0	0						001
+  #135787	3	extends				uvm_algorithmic_comparator.svh	70	67	70	80						000
+  #135788	4	ref_typespec			uvm_pkg::uvm_algorithmic_comparator		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator	000
+  #135789	5	class_typespec	uvm_component			uvm_algorithmic_comparator.svh	70	67	70	80						110
+  #135790	3	function	get_type		uvm_pkg::uvm_algorithmic_comparator::get_type	uvm_object_defines.svh	484	4	484	10					uvm_pkg::uvm_algorithmic_comparator::get_type	000
+  #135791	4	ref_var			uvm_pkg::uvm_algorithmic_comparator::get_type	uvm_object_defines.svh	484	20	484	27		0			uvm_pkg::uvm_algorithmic_comparator::get_type	000
+  #135792	5	ref_typespec			uvm_pkg::uvm_algorithmic_comparator::get_type		0	0	0	0		0			uvm_pkg::uvm_algorithmic_comparator::get_type	000
+  #135793	6	class_typespec				uvm_object_defines.svh	484	20	484	27						000
+  #135794	4	return_stmt				uvm_object_defines.svh	485	6	485	12						000
+  #135795	5	ref_obj	type_id::get		uvm_pkg::uvm_algorithmic_comparator::get_type::type_id::get	uvm_object_defines.svh	485	13	485	22		0			uvm_pkg::uvm_algorithmic_comparator::get_type::type_id::get	000
+
+facets of this row (8993, first 25):
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20803 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21739 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0678 #-1/63709 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63775 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66835 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66923 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67150 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68134 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68154 unsupported_typespec index G[] O[1 objs]

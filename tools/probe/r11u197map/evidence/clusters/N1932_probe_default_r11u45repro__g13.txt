@@ -1,0 +1,49 @@
+cluster N1932 (id kept from an earlier map; OPEN | ground A | site emitParameters (ParamEmit.cpp, law typeParamChainBorrowShadow45v) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitInstance (ModuleEmit.cpp, law caNestedModDeclNoRefNoInst99) [r11u138map pin] [r11u142map pin]): span|type_parameter|ours-zero|under:interface_inst
+row: probe/default/r11u45repro__g13  strict=line  records golden=75 ours=72
+object: #57 (golden) / #54 (ours)  type=type_parameter name=a_t 
+  golden: 3:20:3:23
+  ours:   0:0:0:0
+  walk parents: interface_inst(u) < module_inst(work@dut) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 51..63 ('>' = the object)
+  #51	3	logic_var	x		work@dut.u.x	dut.sv	6	7	6	8		0			work@dut.u.x	000
+  #52	4	ref_typespec			work@dut.u.x		0	0	0	0		0			work@dut.u.x	000
+  #53	5	logic_typespec				dut.sv	3	26	3	37						000
+  #54	6	range				dut.sv	3	32	3	37						001
+  #55	7	constant				dut.sv	3	33	3	34	4	64	UINT:4	9		001
+  #56	7	constant				dut.sv	3	35	3	36	0	64	UINT:0	9		001
+> #57	3	type_parameter	a_t		work@ifc.a_t	dut.sv	3	20	3	23					work@ifc.a_t	010
+  #58	4	ref_typespec			<in>a_t		0	0	0	0		0			work@ifc.a_t	001
+  #59	5	logic_typespec				dut.sv	3	26	3	37						001
+  #60	6	range				dut.sv	3	32	3	37						001
+  #61	7	constant				dut.sv	3	33	3	34	4	64	UINT:4	9		001
+  #62	7	constant				dut.sv	3	35	3	36	0	64	UINT:0	9		001
+  #63	3	type_parameter	b_t		work@ifc.b_t	dut.sv	4	20	4	23					work@ifc.b_t	010
+
+--- OURS (B) records 48..60 ('>' = the object)
+  #48	3	ref_typespec			work@dut.o		0	0	0	0		0			work@dut.o	000
+  #49	4	logic_typespec				dut.sv	8	21	8	26						000
+  #50	2	interface_inst	u	work@ifc	work@dut.u	dut.sv	9	3	9	11					work@dut.u	000
+  #51	3	logic_var	x		work@dut.u.x	dut.sv	6	7	6	8		0			work@dut.u.x	000
+  #52	4	ref_typespec			work@dut.u.x		0	0	0	0		0			work@dut.u.x	000
+  #53	5	logic_typespec				dut.sv	6	3	6	6						000
+> #54	3	type_parameter	a_t		work@dut.u.a_t		0	0	0	0					work@dut.u.a_t	010
+  #55	4	ref_typespec			<in>a_t		0	0	0	0		0			work@dut.u.a_t	001
+  #56	5	logic_typespec				dut.sv	3	26	3	37						001
+  #57	6	range				dut.sv	3	32	3	37						001
+  #58	7	constant				dut.sv	3	33	3	34	4	64	UINT:4	9		001
+  #59	7	constant				dut.sv	3	35	3	36	0	64	UINT:0	9		001
+  #60	3	type_parameter	b_t		work@dut.u.b_t		0	0	0	0					work@dut.u.b_t	010
+
+facets of this row (10, first 25):
+  N0083 #54/-1 range  G[3 objs] O[]
+  N0263 #53/53 logic_typespec  G[3:26:3:37] O[6:3:6:6]
+  N1930 #57/54 type_parameter a_t G[work@ifc.a_t] O[work@dut.u.a_t]
+  N1927 #57/54 type_parameter a_t G[dut.sv 3:20:3:23] O[ 0:0:0:0]
+  N1932 #57/54 type_parameter a_t G[3:20:3:23] O[0:0:0:0]
+  N1929 #58/55 ref_typespec  G[work@ifc.a_t] O[work@dut.u.a_t]
+  N1930 #63/60 type_parameter b_t G[work@ifc.b_t] O[work@dut.u.b_t]
+  N1927 #63/60 type_parameter b_t G[dut.sv 4:20:4:23] O[ 0:0:0:0]
+  N1932 #63/60 type_parameter b_t G[4:20:4:23] O[0:0:0:0]
+  N1929 #64/61 ref_typespec  G[work@ifc.b_t] O[work@dut.u.b_t]

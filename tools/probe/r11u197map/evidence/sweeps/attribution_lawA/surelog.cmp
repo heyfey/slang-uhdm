@@ -1,0 +1,14 @@
+[default] CMP_EQUAL=21 STRICT_NOTEQUAL=8
+[testflags] CMP_EQUAL=21 SLANG_REJECT=1 STRICT_NOTEQUAL=7
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:col(91) -> differ:fullname(90)
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:col(91) -> differ:fullname(90)
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(27) -> differ:file(25) [file -2]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(27) -> differ:file(25) [file -2]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(52) [fullname -2]
+CHANGE Scr1SvTests default STRICT_NOTEQUAL differ:type(1) -> differ:endcol(29)
+CHANGE Scr1SvTests testflags STRICT_NOTEQUAL differ:type(1) -> differ:endcol(29)
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:file(26) -> differ:file(24) [file -2]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:file(26) -> differ:file(24) [file -2]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(52) [fullname -2]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(52) [fullname -2]
+regressions=0 conversions=0 changes=11 only-fresh=0 only-committed=0

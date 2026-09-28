@@ -1,0 +1,64 @@
+cluster N0164 (id kept from an earlier map; OPEN | ground B | site operator() (TypeEmit.cpp, law pkgTdRangeViewFold18) < operator() (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) [r11u197 pin] [r11u189map pin (other example): bareScalarTdCopyOf (TypeEmit.cpp, law bodyTypedefElemBoundSymbolic52) < operator() (TypeEmit.cpp, law modScalarTdTopInstance) < bareScalarTypedefVarTs (TypeEmit]): fullname|ref_typespec|tok:id::id::id::id::->|under:bit_typespec
+row: surelog/default/MiniAmiq  strict=differ:file(27)  records golden=435559 ours=433774
+object: #95260 (golden) / #94871 (ours)  type=ref_typespec name= STABLE
+  golden: svaunit_pkg::uvm_reg_backdoor::start_update_thread::val::uvm_reg_data_t
+  ours:   uvm_reg_data_t
+  walk parents: bit_typespec(uvm_reg_data_t) < ref_typespec < bit_var(val) < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 95254..95266 ('>' = the object)
+  #95254	11	enum_const	UVM_IS_OK			uvm_reg_model.svh	149	7	149	16						001
+  #95255	11	enum_const	UVM_NOT_OK			uvm_reg_model.svh	150	7	150	17						001
+  #95256	11	enum_const	UVM_HAS_X			uvm_reg_model.svh	151	7	151	16						001
+  #95257	8	bit_var	val		svaunit_pkg::uvm_reg_backdoor::start_update_thread::val	uvm_reg_backdoor.svh	279	29	279	32		0			svaunit_pkg::uvm_reg_backdoor::start_update_thread::val	000
+  #95258	9	ref_typespec			svaunit_pkg::uvm_reg_backdoor::start_update_thread::val		0	0	0	0		0			svaunit_pkg::uvm_reg_backdoor::start_update_thread::val	000
+  #95259	10	bit_typespec	uvm_reg_data_t			uvm_reg_model.svh	59	10	59	31						110
+> #95260	11	ref_typespec			<in>uvm_reg_data_t		0	0	0	0		0			svaunit_pkg::uvm_reg_backdoor::start_update_thread::val::uvm_reg_data_t	001
+  #95261	12	bit_typespec	uvm_reg_data_t			uvm_reg_model.svh	59	10	59	31						001
+  #95262	13	range				uvm_reg_model.svh	59	23	59	31						001
+  #95263	14	constant				uvm_reg_model.svh	59	24	59	26	63	64	INT:63	7		001
+  #95264	14	constant				uvm_reg_model.svh	59	29	59	30	0	64	UINT:0	9		001
+  #95265	11	range				uvm_reg_model.svh	59	23	59	31						001
+  #95266	12	constant				uvm_reg_model.svh	59	24	59	26	63	64	INT:63	7		001
+
+--- OURS (B) records 94865..94877 ('>' = the object)
+  #94865	11	enum_const	UVM_IS_OK			uvm_reg_model.svh	149	7	149	16						001
+  #94866	11	enum_const	UVM_NOT_OK			uvm_reg_model.svh	150	7	150	17						001
+  #94867	11	enum_const	UVM_HAS_X			uvm_reg_model.svh	151	7	151	16						001
+  #94868	8	bit_var	val		svaunit_pkg::uvm_reg_backdoor::start_update_thread::val	uvm_reg_backdoor.svh	279	29	279	32		0			svaunit_pkg::uvm_reg_backdoor::start_update_thread::val	000
+  #94869	9	ref_typespec			svaunit_pkg::uvm_reg_backdoor::start_update_thread::val		0	0	0	0		0			svaunit_pkg::uvm_reg_backdoor::start_update_thread::val	000
+  #94870	10	bit_typespec	uvm_reg_data_t			uvm_reg_model.svh	59	10	59	31						110
+> #94871	11	ref_typespec			<in>uvm_reg_data_t		0	0	0	0		0			uvm_reg_data_t	001
+  #94872	12	bit_typespec	uvm_reg_data_t			uvm_reg_model.svh	59	10	59	31						001
+  #94873	13	range				uvm_reg_model.svh	59	23	59	31						001
+  #94874	14	constant				uvm_reg_model.svh	59	24	59	26	63	64	INT:63	7		001
+  #94875	14	constant				uvm_reg_model.svh	59	29	59	30	0	64	UINT:0	9		001
+  #94876	11	range				uvm_reg_model.svh	59	23	59	31						001
+  #94877	12	constant				uvm_reg_model.svh	59	24	59	26	63	64	INT:63	7		001
+
+facets of this row (8993, first 25):
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20803 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21739 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0678 #-1/63709 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63775 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66835 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66923 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67150 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68134 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68154 unsupported_typespec index G[] O[1 objs]

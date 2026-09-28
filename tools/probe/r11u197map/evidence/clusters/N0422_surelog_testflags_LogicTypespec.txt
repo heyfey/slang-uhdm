@@ -1,0 +1,43 @@
+cluster N0422 (id kept from an earlier map; OPEN (map 10 listed it: ground-B step 8; passes 184-192 left it) | ground B | site makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u142map pin]): span|logic_typespec|endline+endcol|under:package
+row: surelog/testflags/LogicTypespec  strict=differ:endline(3)  records golden=32 ours=29
+object: #7 (golden) / #7 (ours)  type=logic_typespec name=my_package::typedef_logic_typespec 
+  golden: 2:9:7:44
+  ours:   2:9:2:20
+  walk parents: package(my_package) < design(work@logic_typespec)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1..13 ('>' = the object)
+  #1	1	package	my_package	my_package	my_package::	dut.sv	1	1	3	23					my_package::	000
+  #2	2	logic_typespec	my_package::typedef_logic_typespec			dut.sv	2	9	2	20						010
+  #3	3	range				dut.sv	2	15	2	20						001
+  #4	4	constant				dut.sv	2	16	2	17	1	64	UINT:1	9		001
+  #5	4	constant				dut.sv	2	18	2	19	0	64	UINT:0	9		001
+  #6	1	package	my_package	my_package	my_package::	dut.sv	1	1	3	23					my_package::	000
+> #7	2	logic_typespec	my_package::typedef_logic_typespec			dut.sv	2	9	7	44						010
+  #8	3	range				dut.sv	2	15	2	20						001
+  #9	4	constant				dut.sv	2	16	2	17	1	64	UINT:1	9		001
+  #10	4	constant				dut.sv	2	18	2	19	0	64	UINT:0	9		001
+  #11	1	module_inst		work@logic_typespec	work@logic_typespec	dut.sv	5	1	9	27					work@logic_typespec	000
+  #12	2	logic_net	my_instance		work@logic_typespec.my_instance	dut.sv	7	50	7	61		0			work@logic_typespec.my_instance	000
+  #13	3	ref_typespec			work@logic_typespec.my_instance		0	0	0	0		0			work@logic_typespec.my_instance	000
+
+--- OURS (B) records 1..13 ('>' = the object)
+  #1	1	package	my_package	my_package	my_package::	dut.sv	1	1	3	23					my_package::	000
+  #2	2	logic_typespec	my_package::typedef_logic_typespec			dut.sv	2	9	2	20						010
+  #3	3	range				dut.sv	2	15	2	20						001
+  #4	4	constant				dut.sv	2	16	2	17	1	64	UINT:1	9		001
+  #5	4	constant				dut.sv	2	18	2	19	0	64	UINT:0	9		001
+  #6	1	package	my_package	my_package	my_package::	dut.sv	1	1	3	23					my_package::	000
+> #7	2	logic_typespec	my_package::typedef_logic_typespec			dut.sv	2	9	2	20						010
+  #8	3	range				dut.sv	2	15	2	20						001
+  #9	4	constant				dut.sv	2	16	2	17	1	64	UINT:1	9		001
+  #10	4	constant				dut.sv	2	18	2	19	0	64	UINT:0	9		001
+  #11	1	module_inst		work@logic_typespec	work@logic_typespec	dut.sv	5	1	9	27					work@logic_typespec	000
+  #12	2	logic_net	my_instance		work@logic_typespec.my_instance	dut.sv	7	50	7	61		0			work@logic_typespec.my_instance	000
+  #13	3	ref_typespec			work@logic_typespec.my_instance		0	0	0	0		0			work@logic_typespec.my_instance	000
+
+facets of this row (4, first 25):
+  N0083 #15/-1 range  G[3 objs] O[]
+  N0422 #7/7 logic_typespec my_package::typedef_logic_typespec G[2:9:7:44] O[2:9:2:20]
+  N0484 #14/14 logic_typespec my_package::typedef_logic_typespec G[my_package::typedef_logic_typespec|] O[|]
+  N1149 #14/14 logic_typespec my_package::typedef_logic_typespec G[2:9:7:44] O[7:1:7:49]

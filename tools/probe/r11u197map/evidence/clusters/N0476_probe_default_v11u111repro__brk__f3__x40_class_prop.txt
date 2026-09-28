@@ -1,0 +1,45 @@
+cluster N0476 (id kept from an earlier map; OPEN (map 10 gave it to r11u184; passes 184-192 left it) | ground A | site makeBareVecParamTs (ParamEmit.cpp, law genLpCaSharedBareTs) < patchParamTypespecs (ParamEmit.cpp, law readFoldUntypedSizedLitParam) < emitTopPorts (ModuleEmit.cpp, law tpDimVecPortTsIsDefault120) [r11u142map pin]): file|logic_typespec|ours-empty|under:ref_typespec
+row: probe/default/v11u111repro__brk__f3__x40_class_prop  strict=file  records golden=125 ours=160
+object: #48 (golden) / #48 (ours)  type=logic_typespec name=q2::row_t 
+  golden: dut.sv 5:5:5:10
+  ours:    0:0:0:0
+  walk parents: ref_typespec < logic_var(r) < class_defn(K) < package(q2)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 42..54 ('>' = the object)
+  #42	3	range				dut.sv	2	17	2	22						001
+  #43	4	constant				dut.sv	2	18	2	19	1	64	UINT:1	9		001
+  #44	4	constant				dut.sv	2	20	2	21	0	64	UINT:0	9		001
+  #45	2	class_defn	K		q2::K	dut.sv	4	3	7	11					q2::K	000
+  #46	3	logic_var	r		q2::K::r	dut.sv	5	11	5	12		0			q2::K::r	000
+  #47	4	ref_typespec			q2::K::r		0	0	0	0		0			q2::K::r	000
+> #48	5	logic_typespec	q2::row_t			dut.sv	5	5	5	10						110
+  #49	6	ref_typespec			<in>q2::row_t		0	0	0	0		0			q2::q2::row_t	001
+  #50	7	logic_typespec				dut.sv	3	11	3	21						001
+  #51	8	ref_typespec					0	0	0	0		0				001
+  #52	9	logic_typespec				dut.sv	3	11	3	21						001
+  #53	10	ref_typespec					0	0	0	0		0				001
+  #54	11	logic_typespec	ut_e			dut.sv	2	11	2	22						001
+
+--- OURS (B) records 42..54 ('>' = the object)
+  #42	3	range				dut.sv	2	17	2	22						001
+  #43	4	constant				dut.sv	2	18	2	19	1	64	UINT:1	9		001
+  #44	4	constant				dut.sv	2	20	2	21	0	64	UINT:0	9		001
+  #45	2	class_defn	K		q2::K	dut.sv	4	3	7	11					q2::K	000
+  #46	3	logic_var	r		q2::K::r	dut.sv	5	11	5	12		0			q2::K::r	000
+  #47	4	ref_typespec			q2::K::r		0	0	0	0		0			q2::K::r	000
+> #48	5	logic_typespec	row_t				0	0	0	0						110
+  #49	6	ref_typespec			<in>row_t		0	0	0	0		0			row_t	001
+  #50	7	logic_typespec	q2::row_t				0	0	0	0						001
+  #51	8	ref_typespec			<in>q2::row_t		0	0	0	0		0			q2::q2::row_t	001
+  #52	9	logic_typespec				dut.sv	3	11	3	21						001
+  #53	10	ref_typespec					0	0	0	0		0				001
+  #54	11	logic_typespec				dut.sv	3	11	3	21						001
+
+facets of this row (6, first 25):
+  N0085 #-1/49 ref_typespec  G[] O[35 objs]
+  N2048 #7/7 logic_typespec q2::row_t G[dut.sv 5:5:5:10] O[ 0:0:0:0]
+  N2304 #7/7 logic_typespec q2::row_t G[5:5:5:10] O[0:0:0:0]
+  N0738 #48/48 logic_typespec q2::row_t G[q2::row_t|] O[row_t|]
+  N0476 #48/48 logic_typespec q2::row_t G[dut.sv 5:5:5:10] O[ 0:0:0:0]
+  N0477 #48/48 logic_typespec q2::row_t G[5:5:5:10] O[0:0:0:0]

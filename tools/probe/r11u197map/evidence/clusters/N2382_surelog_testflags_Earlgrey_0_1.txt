@@ -1,0 +1,64 @@
+cluster N2382 (id kept from an earlier map; OPEN | ground B | site buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeTypespec (TypeEmit.cpp, law memberAnonUnionAtKeyword134) < buildStructTs (TypeEmit.cpp, law pkgTdRangeViewFold18) [r11u142map pin]): fullname|ref_typespec|tok:id@id.id::id.id.->id::id::id::id::|under:typespec_member
+row: surelog/testflags/Earlgrey_0_1  strict=differ:col(91)  records golden=1342584 ours=1342870
+object: #580527 (golden) / #580424 (ours)  type=ref_typespec name= OUT
+  golden: work@flash_ctrl_reg_top.flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t.en.q
+  ours:   flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::en::q
+  walk parents: typespec_member(q) < ref_obj(q) < hier_path(reg2hw.mp_region_cfg[0].en.q) < port(q)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 580521..580533 ('>' = the object)
+  #580521	10	struct_typespec				flash_ctrl_reg_pkg.sv	108	5	108	11						000
+  #580522	11	typespec_member	q			flash_ctrl_reg_pkg.sv	109	20	109	21						001
+  #580523	12	ref_typespec			<in>flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t.en.q		0	0	0	0		0			work@flash_ctrl_reg_top.flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t.en.q	001
+  #580524	13	logic_typespec				flash_ctrl_reg_pkg.sv	109	7	109	12						001
+  #580525	7	ref_obj	q		work@top_earlgrey.u_flash_ctrl.u_reg.u_mp_region_cfg0_en0.q.q	flash_ctrl_reg_top.sv	1003	41	1003	42		0			work@top_earlgrey.u_flash_ctrl.u_reg.u_mp_region_cfg0_en0.q.q	000
+  #580526	8	typespec_member	q			flash_ctrl_reg_pkg.sv	109	20	109	21						000
+> #580527	9	ref_typespec			work@flash_ctrl_reg_top.flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t.en.q		0	0	0	0		0			work@flash_ctrl_reg_top.flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t.en.q	000
+  #580528	10	logic_typespec				flash_ctrl_reg_pkg.sv	109	7	109	12						000
+  #580529	6	ref_obj	q		work@top_earlgrey.u_flash_ctrl.u_reg.u_mp_region_cfg0_en0.q	flash_ctrl_reg_top.sv	1003	6	1003	7		0			work@top_earlgrey.u_flash_ctrl.u_reg.u_mp_region_cfg0_en0.q	000
+  #580530	6	ref_typespec			work@top_earlgrey.u_flash_ctrl.u_reg.u_mp_region_cfg0_en0.q		0	0	0	0		0			work@top_earlgrey.u_flash_ctrl.u_reg.u_mp_region_cfg0_en0.q	000
+  #580531	7	logic_typespec				prim_subreg.sv	26	10	26	24						000
+  #580532	8	range				prim_subreg.sv	26	16	26	24						001
+  #580533	9	constant				prim_subreg.sv	26	17	26	19	0	64	INT:0	7		001
+
+--- OURS (B) records 580418..580430 ('>' = the object)
+  #580418	10	struct_typespec				flash_ctrl_reg_pkg.sv	108	5	108	11						000
+  #580419	11	typespec_member	q			flash_ctrl_reg_pkg.sv	109	20	109	21						001
+  #580420	12	ref_typespec			<in>flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t.en.q		0	0	0	0		0			flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::en::q	001
+  #580421	13	logic_typespec				flash_ctrl_reg_pkg.sv	109	7	109	12						001
+  #580422	7	ref_obj	q		work@top_earlgrey.u_flash_ctrl.u_reg.u_mp_region_cfg0_en0.q.q	flash_ctrl_reg_top.sv	1003	41	1003	42		0			work@top_earlgrey.u_flash_ctrl.u_reg.u_mp_region_cfg0_en0.q.q	000
+  #580423	8	typespec_member	q			flash_ctrl_reg_pkg.sv	109	20	109	21						000
+> #580424	9	ref_typespec			flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::en::q		0	0	0	0		0			flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::en::q	000
+  #580425	10	logic_typespec				flash_ctrl_reg_pkg.sv	109	7	109	12						000
+  #580426	6	ref_obj	q		work@top_earlgrey.u_flash_ctrl.u_reg.u_mp_region_cfg0_en0.q	flash_ctrl_reg_top.sv	1003	6	1003	7		0			work@top_earlgrey.u_flash_ctrl.u_reg.u_mp_region_cfg0_en0.q	000
+  #580427	6	ref_typespec			work@top_earlgrey.u_flash_ctrl.u_reg.u_mp_region_cfg0_en0.q		0	0	0	0		0			work@top_earlgrey.u_flash_ctrl.u_reg.u_mp_region_cfg0_en0.q	000
+  #580428	7	logic_typespec				prim_subreg.sv	26	10	26	24						000
+  #580429	8	range				prim_subreg.sv	26	16	26	24						001
+  #580430	9	constant				prim_subreg.sv	26	17	26	19	0	64	INT:0	7		001
+
+facets of this row (6088, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

@@ -1,0 +1,3 @@
+[probe] EQUAL=3156 STRICT_NOTEQUAL=931
+CONVERSION r10fiot_repro/a9 STRICT_NOTEQUAL differ:type(1) -> EQUAL
+regressions=0 conversions=1 changes=0 only-fresh=0 only-committed=0

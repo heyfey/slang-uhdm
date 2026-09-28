@@ -1,0 +1,8 @@
+z01_module_param_class_elab_slang-uhdm_def rc=0 db=yes
+z01_module_param_class_elab_slang-uhdm_--elabuhdm rc=139 db=no
+z01_module_param_class_elab_slang-uhdm.law191_def rc=0 db=yes
+z01_module_param_class_elab_slang-uhdm.law191_--elabuhdm rc=139 db=no
+x01_tp_enum_keyword_slang-uhdm_def rc=0 db=yes
+x01_tp_enum_keyword_slang-uhdm_--elabuhdm rc=139 db=no
+x01_tp_enum_keyword_slang-uhdm.law191_def rc=0 db=yes
+x01_tp_enum_keyword_slang-uhdm.law191_--elabuhdm rc=139 db=no

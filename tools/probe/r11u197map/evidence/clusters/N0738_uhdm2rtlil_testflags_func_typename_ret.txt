@@ -1,0 +1,43 @@
+cluster N0738 (id kept from an earlier map; COVERED r11u193 (map 10 joint step 10: func_typename_ret's return typespec alias level) | ground B | site makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < makeParamTs (ParamEmit.cpp, law pkgParamOwnDefRange) < drainDefParamTs (ParamEmit.cpp, law paramCloneImportedCopy) [r11u142map pin]): name|logic_typespec|tok:id::->|under:ref_typespec
+row: uhdm2rtlil/testflags/func_typename_ret  strict=differ:name(2)  records golden=323 ours=333
+object: #44 (golden) / #44 (ours)  type=logic_typespec name=P::S 
+  golden: P::S|
+  ours:   S|
+  walk parents: ref_typespec < logic_var < function(func2) < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 38..50 ('>' = the object)
+  #38	8	range				dut.sv	1	15	1	20						001
+  #39	9	constant				dut.sv	1	16	1	17	1	64	UINT:1	9		001
+  #40	9	constant				dut.sv	1	18	1	19	0	64	UINT:0	9		001
+  #41	2	function	func2		work@gate.func2	dut.sv	15	5	18	16					work@gate.func2	000
+  #42	3	logic_var			work@gate.func2	dut.sv	15	24	15	28		0			work@gate.func2	000
+  #43	4	ref_typespec			work@gate.func2		0	0	0	0		0			work@gate.func2	000
+> #44	5	logic_typespec	P::S			dut.sv	4	13	4	24						110
+  #45	6	range				dut.sv	4	19	4	24						001
+  #46	7	constant				dut.sv	4	20	4	21	3	64	UINT:3	9		001
+  #47	7	constant				dut.sv	4	22	4	23	0	64	UINT:0	9		001
+  #48	3	io_decl	inp			dut.sv	16	26	16	29						000
+  #49	4	ref_typespec			work@gate.func2.inp		0	0	0	0		0			work@gate.func2.inp	000
+  #50	5	logic_typespec				dut.sv	16	15	16	25						000
+
+--- OURS (B) records 38..50 ('>' = the object)
+  #38	8	range				dut.sv	1	15	1	20						001
+  #39	9	constant				dut.sv	1	16	1	17	1	64	UINT:1	9		001
+  #40	9	constant				dut.sv	1	18	1	19	0	64	UINT:0	9		001
+  #41	2	function	func2		work@gate.func2	dut.sv	15	5	18	16					work@gate.func2	000
+  #42	3	logic_var			work@gate.func2	dut.sv	15	24	15	28		0			work@gate.func2	000
+  #43	4	ref_typespec			work@gate.func2		0	0	0	0		0			work@gate.func2	000
+> #44	5	logic_typespec	S			dut.sv	4	13	4	24						110
+  #45	6	ref_typespec			<in>S		0	0	0	0		0			S	001
+  #46	7	logic_typespec	P::S			dut.sv	4	13	4	24						001
+  #47	8	range				dut.sv	4	19	4	24						001
+  #48	9	constant				dut.sv	4	20	4	21	3	64	UINT:3	9		001
+  #49	9	constant				dut.sv	4	22	4	23	0	64	UINT:0	9		001
+  #50	6	range				dut.sv	4	19	4	24						001
+
+facets of this row (4, first 25):
+  N0085 #-1/45 ref_typespec  G[] O[5 objs]
+  N0085 #-1/198 ref_typespec  G[] O[5 objs]
+  N0738 #44/44 logic_typespec P::S G[P::S|] O[S|]
+  N0738 #192/197 logic_typespec P::S G[P::S|] O[S|]

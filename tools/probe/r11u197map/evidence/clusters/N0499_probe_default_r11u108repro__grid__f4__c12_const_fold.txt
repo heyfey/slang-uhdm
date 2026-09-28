@@ -1,0 +1,51 @@
+cluster N0499 (id kept from an earlier map; OPEN (map 10 gave it to r11u184; passes 184-192 left it) | ground A | site operator() (ParamEmit.cpp, law genLpCaSharedBareTs) < makeBareVecParamTs (ParamEmit.cpp, law genLpCaSharedBareTs) < patchParamTypespecs (ParamEmit.cpp, law readFoldUntypedSizedLitParam) [r11u142map pin]): value|constant|decompile+size+consttype:9->0|under:range
+row: probe/default/r11u108repro__grid__f4__c12_const_fold  strict=file  records golden=155 ours=154
+object: #87 (golden) / #87 (ours)  type=constant name= 
+  golden: 11|64|UINT:11|9
+  ours:   |0|UINT:11|0
+  walk parents: range < logic_typespec < ref_typespec < constant
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 81..93 ('>' = the object)
+  #81	6	constant				dut.sv	4	24	4	25	0	64	UINT:0	9		001
+  #82	2	param_assign				dut.sv	4	27	4	38						000
+  #83	3	constant				dut.sv	4	31	4	38	12'hFFF	12	HEX:FFF	5		000
+  #84	4	ref_typespec			work@dut		0	0	0	0		0			work@dut	000
+  #85	5	logic_typespec				dut.sv	4	14	4	26						000
+  #86	6	range				dut.sv	4	20	4	26						001
+> #87	7	constant				dut.sv	4	21	4	23	11	64	UINT:11	9		001
+  #88	7	constant				dut.sv	4	24	4	25	0	64	UINT:0	9		001
+  #89	2	logic_typespec	imm_t			dut.sv	2	11	2	30						010
+  #90	3	range				dut.sv	2	24	2	30						001
+  #91	4	constant				dut.sv	2	25	2	27	31	64	UINT:31	9		001
+  #92	4	constant				dut.sv	2	28	2	29	0	64	UINT:0	9		001
+  #93	2	function	sext		work@dut.sext	dut.sv	3	3	3	88					work@dut.sext	000
+
+--- OURS (B) records 81..93 ('>' = the object)
+  #81	6	constant				dut.sv	4	24	4	25	0	64	UINT:0	9		001
+  #82	2	param_assign				dut.sv	4	27	4	38						000
+  #83	3	constant				dut.sv	4	31	4	38	12'hFFF	12	HEX:FFF	5		000
+  #84	4	ref_typespec			work@dut		0	0	0	0		0			work@dut	000
+  #85	5	logic_typespec					0	0	0	0						000
+  #86	6	range					0	0	0	0						001
+> #87	7	constant					0	0	0	0		0	UINT:11	0		001
+  #88	7	constant					0	0	0	0		0	UINT:0	0		001
+  #89	2	logic_typespec	imm_t			dut.sv	2	11	2	30						010
+  #90	3	range				dut.sv	2	24	2	30						001
+  #91	4	constant				dut.sv	2	25	2	27	31	64	UINT:31	9		001
+  #92	4	constant				dut.sv	2	28	2	29	0	64	UINT:0	9		001
+  #93	2	function	sext		work@dut.sext	dut.sv	3	3	3	88					work@dut.sext	000
+
+facets of this row (12, first 25):
+  N0133 #151/-1 func_call sext G[2 objs] O[]
+  N0487 #-1/151 constant  G[] O[1 objs]
+  N0476 #85/85 logic_typespec  G[dut.sv 4:14:4:26] O[ 0:0:0:0]
+  N0477 #85/85 logic_typespec  G[4:14:4:26] O[0:0:0:0]
+  N0444 #86/86 range  G[dut.sv 4:20:4:26] O[ 0:0:0:0]
+  N0445 #86/86 range  G[4:20:4:26] O[0:0:0:0]
+  N0031 #87/87 constant  G[dut.sv 4:21:4:23] O[ 0:0:0:0]
+  N0042 #87/87 constant  G[4:21:4:23] O[0:0:0:0]
+  N0499 #87/87 constant  G[11|64|UINT:11|9] O[|0|UINT:11|0]
+  N0031 #88/88 constant  G[dut.sv 4:24:4:25] O[ 0:0:0:0]
+  N0042 #88/88 constant  G[4:24:4:25] O[0:0:0:0]
+  N0499 #88/88 constant  G[0|64|UINT:0|9] O[|0|UINT:0|0]

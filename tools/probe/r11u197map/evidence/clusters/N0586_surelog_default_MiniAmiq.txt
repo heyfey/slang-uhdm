@@ -1,0 +1,64 @@
+cluster N0586 (id kept from an earlier map; OPEN | ground A | site emitStmt (StmtEmit.cpp, law declArrayElemKindIsDeclKind12) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) [r11u138map pin; the a7bee711 gdb run wrote a different database (UVM order coin)] [r11u142map pin]): fullname|int_var|tok:->::id|under:begin
+row: surelog/default/MiniAmiq  strict=differ:file(27)  records golden=435559 ours=433774
+object: #71388 (golden) / #71231 (ours)  type=int_var name= OUT
+  golden: svaunit_pkg::uvm_table_printer::emit
+  ours:   svaunit_pkg::uvm_table_printer::emit::q
+  walk parents: begin < begin < function(uvm_table_printer::emit) < package(svaunit_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 71382..71394 ('>' = the object)
+  #71382	7	ref_obj	prefix		svaunit_pkg::uvm_table_printer::emit::prefix	uvm_printer.svh	1044	34	1044	40		0			svaunit_pkg::uvm_table_printer::emit::prefix	000
+  #71383	5	string_var	linefeed		svaunit_pkg::uvm_table_printer::emit::linefeed	uvm_printer.svh	1044	10	1044	18		0			svaunit_pkg::uvm_table_printer::emit::linefeed	000
+  #71384	6	ref_typespec			svaunit_pkg::uvm_table_printer::emit::linefeed		0	0	0	0		0			svaunit_pkg::uvm_table_printer::emit::linefeed	000
+  #71385	7	string_typespec				uvm_printer.svh	1044	3	1044	9						000
+  #71386	4	func_call	calculate_max_widths			uvm_printer.svh	1046	3	1046	25		0				000
+  #71387	4	begin			svaunit_pkg::uvm_table_printer::emit	uvm_printer.svh	1048	4	1060	6					svaunit_pkg::uvm_table_printer::emit	000
+> #71388	5	int_var			svaunit_pkg::uvm_table_printer::emit	uvm_printer.svh	1049	11	1049	12		0			svaunit_pkg::uvm_table_printer::emit	000
+  #71389	6	ref_typespec			svaunit_pkg::uvm_table_printer::emit		0	0	0	0		0			svaunit_pkg::uvm_table_printer::emit	000
+  #71390	7	int_typespec				uvm_printer.svh	1049	7	1049	10						000
+  #71391	5	array_var	q		svaunit_pkg::uvm_table_printer::emit::q	uvm_printer.svh	1049	11	1049	12		0			svaunit_pkg::uvm_table_printer::emit::q	000
+  #71392	6	ref_typespec			svaunit_pkg::uvm_table_printer::emit::q		0	0	0	0		0			svaunit_pkg::uvm_table_printer::emit::q	000
+  #71393	7	array_typespec				uvm_printer.svh	1049	11	1049	14						000
+  #71394	8	range				uvm_printer.svh	1049	13	1049	14						001
+
+--- OURS (B) records 71225..71237 ('>' = the object)
+  #71225	7	ref_obj	prefix		svaunit_pkg::uvm_table_printer::emit::prefix	uvm_printer.svh	1044	34	1044	40		0			svaunit_pkg::uvm_table_printer::emit::prefix	000
+  #71226	5	string_var	linefeed		svaunit_pkg::uvm_table_printer::emit::linefeed	uvm_printer.svh	1044	10	1044	18		0			svaunit_pkg::uvm_table_printer::emit::linefeed	000
+  #71227	6	ref_typespec			svaunit_pkg::uvm_table_printer::emit::linefeed		0	0	0	0		0			svaunit_pkg::uvm_table_printer::emit::linefeed	000
+  #71228	7	string_typespec				uvm_printer.svh	1044	3	1044	9						000
+  #71229	4	func_call	calculate_max_widths			uvm_printer.svh	1046	3	1046	25		0				000
+  #71230	4	begin			svaunit_pkg::uvm_table_printer::emit	uvm_printer.svh	1048	4	1060	6					svaunit_pkg::uvm_table_printer::emit	000
+> #71231	5	int_var			svaunit_pkg::uvm_table_printer::emit::q	uvm_printer.svh	1049	11	1049	12		0			svaunit_pkg::uvm_table_printer::emit::q	000
+  #71232	6	ref_typespec			svaunit_pkg::uvm_table_printer::emit::q		0	0	0	0		0			svaunit_pkg::uvm_table_printer::emit::q	000
+  #71233	7	int_typespec				uvm_printer.svh	1049	7	1049	10						000
+  #71234	5	array_var	q		svaunit_pkg::uvm_table_printer::emit::q	uvm_printer.svh	1049	11	1049	12		0			svaunit_pkg::uvm_table_printer::emit::q	000
+  #71235	6	ref_typespec			svaunit_pkg::uvm_table_printer::emit::q		0	0	0	0		0			svaunit_pkg::uvm_table_printer::emit::q	000
+  #71236	7	array_typespec				uvm_printer.svh	1049	11	1049	14						000
+  #71237	8	range				uvm_printer.svh	1049	13	1049	14						001
+
+facets of this row (8993, first 25):
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20803 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21739 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0678 #-1/63709 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63775 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66835 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66923 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67150 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68134 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68154 unsupported_typespec index G[] O[1 objs]

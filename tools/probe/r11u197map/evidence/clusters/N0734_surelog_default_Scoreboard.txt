@@ -1,0 +1,64 @@
+cluster N0734 (id kept from an earlier map; OPEN | ground B | site importVarCopy5 (ModuleEmit.cpp, law importCopyTsSubtreeNoInstance7) < classInheritsContainerImports23 (ModuleEmit.cpp, law importPublishesPackageClasses24) < exportDesign (UhdmExporter.cpp, law classInheritsContainerImports23) [r11u142map pin]): fullname|ref_typespec|tok:id@id->id|under:class_var
+row: surelog/default/Scoreboard  strict=differ:fullname(54)  records golden=269656 ours=269679
+object: #84421 (golden) / #84365 (ours)  type=ref_typespec name= OUT
+  golden: work@my_scoreboard::uvm_random_seed_table_lookup
+  ours:   uvm_pkg::uvm_random_seed_table_lookup
+  walk parents: class_var < array_var(uvm_random_seed_table_lookup) < class_defn(work@my_scoreboard) < class_defn(uvm_scoreboard)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 84415..84427 ('>' = the object)
+  #84415	5	array_var	uvm_random_seed_table_lookup		work@my_scoreboard::uvm_random_seed_table_lookup	uvm_misc.svh	328	14	328	42		1			work@my_scoreboard::uvm_random_seed_table_lookup	000
+  #84416	6	ref_typespec			work@my_scoreboard::uvm_random_seed_table_lookup		0	0	0	0		0			work@my_scoreboard::uvm_random_seed_table_lookup	000
+  #84417	7	array_typespec					0	0	0	0						000
+  #84418	8	ref_typespec					0	0	0	0		0				001
+  #84419	9	string_typespec				uvm_misc.svh	328	44	328	50						001
+  #84420	6	class_var			work@my_scoreboard::uvm_random_seed_table_lookup	uvm_misc.svh	328	14	328	42		0			work@my_scoreboard::uvm_random_seed_table_lookup	000
+> #84421	7	ref_typespec			work@my_scoreboard::uvm_random_seed_table_lookup		0	0	0	0		0			work@my_scoreboard::uvm_random_seed_table_lookup	000
+  #84422	8	class_typespec	uvm_seed_map			uvm_misc.svh	328	1	328	13						110
+  #84423	5	class_var	uvm_resources		work@my_scoreboard::uvm_resources	uvm_resource.svh	1694	25	1694	38		0			work@my_scoreboard::uvm_resources	000
+  #84424	6	ref_typespec			work@my_scoreboard::uvm_resources		0	0	0	0		0			work@my_scoreboard::uvm_resources	000
+  #84425	7	class_typespec	uvm_resource_pool			uvm_resource.svh	1694	7	1694	24						110
+  #84426	6	ref_obj	uvm_resource_pool::get		work@my_scoreboard::uvm_resources::uvm_resource_pool::get	uvm_resource.svh	1694	41	1694	60		0			work@my_scoreboard::uvm_resources::uvm_resource_pool::get	000
+  #84427	5	class_var	clp		work@my_scoreboard::clp	uvm_phase.svh	801	27	801	30		0			work@my_scoreboard::clp	000
+
+--- OURS (B) records 84359..84371 ('>' = the object)
+  #84359	5	array_var	uvm_random_seed_table_lookup		work@my_scoreboard::uvm_random_seed_table_lookup	uvm_misc.svh	328	14	328	42		1			work@my_scoreboard::uvm_random_seed_table_lookup	000
+  #84360	6	ref_typespec			work@my_scoreboard::uvm_random_seed_table_lookup		0	0	0	0		0			work@my_scoreboard::uvm_random_seed_table_lookup	000
+  #84361	7	array_typespec					0	0	0	0						000
+  #84362	8	ref_typespec			<in>		0	0	0	0		0			work@my_scoreboard::uvm_random_seed_table_lookup	001
+  #84363	9	string_typespec				uvm_misc.svh	328	44	328	50						001
+  #84364	6	class_var			uvm_pkg::uvm_random_seed_table_lookup	uvm_misc.svh	328	14	328	42		0			uvm_pkg::uvm_random_seed_table_lookup	000
+> #84365	7	ref_typespec			uvm_pkg::uvm_random_seed_table_lookup		0	0	0	0		0			uvm_pkg::uvm_random_seed_table_lookup	000
+  #84366	8	class_typespec	uvm_seed_map			uvm_misc.svh	328	1	328	13						110
+  #84367	5	class_var	uvm_resources		work@my_scoreboard::uvm_resources	uvm_resource.svh	1694	25	1694	38		0			work@my_scoreboard::uvm_resources	000
+  #84368	6	ref_typespec			work@my_scoreboard::uvm_resources		0	0	0	0		0			work@my_scoreboard::uvm_resources	000
+  #84369	7	class_typespec	uvm_resource_pool			uvm_resource.svh	1694	7	1694	24						110
+  #84370	6	ref_obj	uvm_resource_pool::get		work@my_scoreboard::uvm_resources::uvm_resource_pool::get	uvm_resource.svh	1694	41	1694	60		0			work@my_scoreboard::uvm_resources::uvm_resource_pool::get	000
+  #84371	5	class_var	clp		work@my_scoreboard::clp	uvm_phase.svh	801	27	801	30		0			work@my_scoreboard::clp	000
+
+facets of this row (1783, first 25):
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20911 bit_typespec  G[] O[1 objs]
+  N0423 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21847 bit_typespec  G[] O[1 objs]
+  N0423 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74775 bit_typespec  G[] O[1 objs]
+  N0423 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74796 bit_typespec  G[] O[1 objs]
+  N0423 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74852 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79114 array_typespec  G[] O[1 objs]
+  N0423 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79133 bit_typespec  G[] O[1 objs]
+  N0423 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80109 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82238/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82246/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82254/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82262/-1 ref_typespec  G[2 objs] O[]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]

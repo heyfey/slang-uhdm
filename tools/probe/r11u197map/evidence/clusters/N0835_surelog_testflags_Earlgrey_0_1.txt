@@ -1,0 +1,64 @@
+cluster N0835 (id kept from an earlier map; OPEN | ground B | site emitSyntaxExpr (TypeEmit.cpp, law pkgParamOwnDefRange) < emitDefGenStmts (ModuleEmit.cpp, law genvarIntTsRootFile130) < emitModuleDef (ModuleEmit.cpp, law caProgramGenFlattensEveryKind95) [r11u138map pin] [r11u142map pin]): fullname|ref_obj|ours-empty|under:sys_func_call
+row: surelog/testflags/Earlgrey_0_1  strict=differ:col(91)  records golden=1342584 ours=1342870
+object: #125060 (golden) / #125060 (ours)  type=ref_obj name=N OUT
+  golden: work@prim_arbiter_tree.gen_normal_case.N
+  ours:   
+  walk parents: sys_func_call($clog2) < param_assign < named_begin(gen_normal_case) < gen_if_else
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 125054..125066 ('>' = the object)
+  #125054	8	cont_assign				prim_arbiter_tree.sv	55	12	55	25						000
+  #125055	9	constant				prim_arbiter_tree.sv	55	23	55	25	'0	-1	BIN:0	3		000
+  #125056	9	ref_obj	idx_o		work@prim_arbiter_tree.gen_degenerate_case.idx_o	prim_arbiter_tree.sv	55	12	55	17		0			work@prim_arbiter_tree.gen_degenerate_case.idx_o	000
+  #125057	7	named_begin	gen_normal_case		work@prim_arbiter_tree.gen_normal_case		0	0	0	0					work@prim_arbiter_tree.gen_normal_case	000
+  #125058	8	param_assign				prim_arbiter_tree.sv	61	29	61	50						000
+  #125059	9	sys_func_call	$clog2			prim_arbiter_tree.sv	61	41	61	50		0				000
+> #125060	10	ref_obj	N		work@prim_arbiter_tree.gen_normal_case.N	prim_arbiter_tree.sv	61	48	61	49		0			work@prim_arbiter_tree.gen_normal_case.N	000
+  #125061	9	parameter	NumLevels		work@prim_arbiter_tree.gen_normal_case.NumLevels	prim_arbiter_tree.sv	61	29	61	50		0			work@prim_arbiter_tree.gen_normal_case.NumLevels	000
+  #125062	10	ref_typespec			work@prim_arbiter_tree.gen_normal_case.NumLevels		0	0	0	0		0			work@prim_arbiter_tree.gen_normal_case.NumLevels	000
+  #125063	11	int_typespec				prim_arbiter_tree.sv	61	16	61	28						000
+  #125064	8	assignment				prim_arbiter_tree.sv	62	47	62	50						000
+  #125065	9	logic_var	req		work@prim_arbiter_tree.gen_normal_case.req	prim_arbiter_tree.sv	62	47	62	50		0			work@prim_arbiter_tree.gen_normal_case.req	000
+  #125066	10	ref_typespec			work@prim_arbiter_tree.gen_normal_case.req		0	0	0	0		0			work@prim_arbiter_tree.gen_normal_case.req	000
+
+--- OURS (B) records 125054..125066 ('>' = the object)
+  #125054	8	cont_assign				prim_arbiter_tree.sv	55	12	55	25						000
+  #125055	9	constant				prim_arbiter_tree.sv	55	23	55	25	'0	-1	BIN:0	3		000
+  #125056	9	ref_obj	idx_o		work@prim_arbiter_tree.gen_degenerate_case.idx_o	prim_arbiter_tree.sv	55	12	55	17		0			work@prim_arbiter_tree.gen_degenerate_case.idx_o	000
+  #125057	7	named_begin	gen_normal_case		work@prim_arbiter_tree.gen_normal_case		0	0	0	0					work@prim_arbiter_tree.gen_normal_case	000
+  #125058	8	param_assign				prim_arbiter_tree.sv	61	29	61	50						000
+  #125059	9	sys_func_call	$clog2			prim_arbiter_tree.sv	61	41	61	50		0				000
+> #125060	10	ref_obj	N			prim_arbiter_tree.sv	61	48	61	49		0				000
+  #125061	9	parameter	NumLevels		work@prim_arbiter_tree.gen_normal_case.NumLevels	prim_arbiter_tree.sv	61	29	61	50		0			work@prim_arbiter_tree.gen_normal_case.NumLevels	000
+  #125062	10	ref_typespec			work@prim_arbiter_tree.gen_normal_case.NumLevels		0	0	0	0		0			work@prim_arbiter_tree.gen_normal_case.NumLevels	000
+  #125063	11	int_typespec				prim_arbiter_tree.sv	61	16	61	28						000
+  #125064	8	assignment				prim_arbiter_tree.sv	62	47	62	50						000
+  #125065	9	logic_var	req		work@prim_arbiter_tree.gen_normal_case.req	prim_arbiter_tree.sv	62	47	62	50		0			work@prim_arbiter_tree.gen_normal_case.req	000
+  #125066	10	ref_typespec			work@prim_arbiter_tree.gen_normal_case.req		0	0	0	0		0			work@prim_arbiter_tree.gen_normal_case.req	000
+
+facets of this row (6088, first 25):
+  N0142 #131904/-1 range  G[5 objs] O[]
+  N0142 #131993/-1 range  G[5 objs] O[]
+  N0142 #136336/-1 range  G[5 objs] O[]
+  N0142 #136425/-1 range  G[5 objs] O[]
+  N0142 #137557/-1 range  G[5 objs] O[]
+  N0142 #137646/-1 range  G[5 objs] O[]
+  N0142 #138666/-1 range  G[5 objs] O[]
+  N0142 #138755/-1 range  G[5 objs] O[]
+  N0182 #403326/-1 typespec_member unused_ctrl G[6 objs] O[]
+  N0182 #403332/-1 typespec_member dummy_instr_mask G[6 objs] O[]
+  N0182 #403338/-1 typespec_member dummy_instr_en G[3 objs] O[]
+  N0182 #403341/-1 typespec_member data_ind_timing G[3 objs] O[]
+  N0182 #403344/-1 typespec_member icache_enable G[3 objs] O[]
+  N0182 #432978/-1 typespec_member aarsize G[6 objs] O[]
+  N0182 #432984/-1 typespec_member aarpostincrement G[3 objs] O[]
+  N0182 #432987/-1 typespec_member postexec G[3 objs] O[]
+  N0182 #432990/-1 typespec_member transfer G[3 objs] O[]
+  N0182 #432993/-1 typespec_member write G[3 objs] O[]
+  N0182 #432996/-1 typespec_member regno G[6 objs] O[]
+  N0182 #437226/-1 typespec_member address G[6 objs] O[]
+  N0182 #437232/-1 typespec_member data G[6 objs] O[]
+  N0182 #437238/-1 typespec_member op G[6 objs] O[]
+  N1218 #-1/604888 typespec_member en G[] O[6 objs]
+  N1218 #-1/604894 typespec_member rd_en G[] O[6 objs]
+  N1218 #-1/604900 typespec_member prog_en G[] O[6 objs]

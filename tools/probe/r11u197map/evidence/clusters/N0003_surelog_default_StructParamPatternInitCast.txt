@@ -1,0 +1,42 @@
+cluster N0003 (id kept from an earlier map; COVERED r11u195 (pass 192 R3 (decoded): StructParamPatternInitCast's elaborated op75 unparented reference (ParamEmit)) | ground A | site emitParameters (ParamEmit.cpp, law elabPatQualRefQualSpan133) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v) [r11u179 pin] [DECODED: golden's ref_typespec of an assignment-pattern/cast operation carries NO VpiParent (uhdm-dump: no vpiParent line), so its synthesised full name is empty; ours is parented] [pass-133 R2 (measured here): tools/probe/r11u133repro/pkr p01 and u01 carry N0003 beside N0001/N0063 (u01 also N0688)] [r11u179map pin]): fullname|ref_typespec|golden-empty|under:operation
+row: surelog/default/StructParamPatternInitCast  strict=differ:fullname(3)  records golden=477 ours=477
+object: #414 (golden) / #414 (ours)  type=ref_typespec name= OUT
+  golden: 
+  ours:   work@StructParamPatternInitCast
+  walk parents: operation < param_assign < module_inst(work@StructParamPatternInitCast) < design(work@StructParamPatternInitCast)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 408..420 ('>' = the object)
+  #408	7	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0			cfg_pkg::cfg_pkg::cfg_t::XLEN	001
+  #409	8	int_typespec				dut.sv	14	5	14	17						001
+  #410	7	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1		001
+  #411	7	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1		001
+  #412	2	param_assign				dut.sv	34	19	37	4						000
+  #413	3	operation				dut.sv	34	25	37	4		0				000
+> #414	4	ref_typespec					0	0	0	0		0				000
+  #415	5	struct_typespec				dut.sv	30	26	30	32						000
+  #416	6	typespec_member	S_SW			dut.sv	31	26	31	30						001
+  #417	7	ref_typespec			<in>S_SW		0	0	0	0		0			work@StructParamPatternInitCast.INT.S_SW	001
+  #418	8	logic_typespec				dut.sv	31	5	31	25						001
+  #419	9	range				dut.sv	31	11	31	25						001
+  #420	10	constant					0	0	0	0	63	64	INT:63	7		001
+
+--- OURS (B) records 408..420 ('>' = the object)
+  #408	7	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0			cfg_pkg::cfg_pkg::cfg_t::XLEN	001
+  #409	8	int_typespec				dut.sv	14	5	14	17						001
+  #410	7	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1		001
+  #411	7	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1		001
+  #412	2	param_assign				dut.sv	34	19	37	4						000
+  #413	3	operation				dut.sv	34	25	37	4		0				000
+> #414	4	ref_typespec			work@StructParamPatternInitCast		0	0	0	0		0			work@StructParamPatternInitCast	000
+  #415	5	struct_typespec				dut.sv	30	26	30	32						000
+  #416	6	typespec_member	S_SW			dut.sv	31	26	31	30						001
+  #417	7	ref_typespec			<in>S_SW		0	0	0	0		0			work@StructParamPatternInitCast.S_SW	001
+  #418	8	logic_typespec				dut.sv	31	5	31	25						001
+  #419	9	range				dut.sv	31	11	31	25						001
+  #420	10	constant					0	0	0	0	63	64	INT:63	7		001
+
+facets of this row (3, first 25):
+  N0003 #414/414 ref_typespec  G[] O[work@StructParamPatternInitCast]
+  N0014 #417/417 ref_typespec  G[work@StructParamPatternInitCast.INT.S_SW] O[work@StructParamPatternInitCast.S_SW]
+  N0014 #423/423 ref_typespec  G[work@StructParamPatternInitCast.INT.M_SW] O[work@StructParamPatternInitCast.M_SW]

@@ -1,0 +1,32 @@
+Earlgrey_0_1 default hashes=1 | ac973fbf3db9 strict=[STRICT_NOTEQUAL col] cmp_lines=0
+Earlgrey_0_1 testflags hashes=1 | c3a93ddf134c strict=[STRICT_NOTEQUAL col] cmp_lines=0
+MiniAmiq default hashes=4 | 904e192037fc strict=[STRICT_NOTEQUAL file] cmp_lines=0 | 456630f965bd strict=[STRICT_NOTEQUAL file] cmp_lines=0 | f3fe0c1a7cbf strict=[STRICT_NOTEQUAL file] cmp_lines=0 | e3c1103ae270 strict=[STRICT_NOTEQUAL file] cmp_lines=0
+   904e192037fc vs 456630f965bd: order-blind lines 4
+   904e192037fc vs f3fe0c1a7cbf: order-blind lines 4
+   904e192037fc vs e3c1103ae270: order-blind lines 4
+   456630f965bd vs f3fe0c1a7cbf: order-blind lines 4
+   456630f965bd vs e3c1103ae270: order-blind lines 4
+   f3fe0c1a7cbf vs e3c1103ae270: order-blind lines 4
+MiniAmiq testflags hashes=4 | 182219ce601f strict=[STRICT_NOTEQUAL file] cmp_lines=0 | 32d19778c3fc strict=[STRICT_NOTEQUAL file] cmp_lines=0 | 62a9a9ba3f9b strict=[STRICT_NOTEQUAL file] cmp_lines=0 | 05978edec52f strict=[STRICT_NOTEQUAL file] cmp_lines=0
+   182219ce601f vs 32d19778c3fc: order-blind lines 4
+   182219ce601f vs 62a9a9ba3f9b: order-blind lines 4
+   182219ce601f vs 05978edec52f: order-blind lines 4
+   32d19778c3fc vs 62a9a9ba3f9b: order-blind lines 4
+   32d19778c3fc vs 05978edec52f: order-blind lines 4
+   62a9a9ba3f9b vs 05978edec52f: order-blind lines 4
+SeqDriver default hashes=3 | 49344e6718cd strict=[STRICT_NOTEQUAL file] cmp_lines=0 | 6b509753c13c strict=[STRICT_NOTEQUAL file] cmp_lines=0 | 89dc865d5f85 strict=[STRICT_NOTEQUAL file] cmp_lines=0
+   49344e6718cd vs 6b509753c13c: order-blind lines 4
+   49344e6718cd vs 89dc865d5f85: order-blind lines 4
+   6b509753c13c vs 89dc865d5f85: order-blind lines 4
+SeqDriver testflags hashes=3 | 28c3ba6b0120 strict=[STRICT_NOTEQUAL file] cmp_lines=0 | ec2aa4336340 strict=[STRICT_NOTEQUAL file] cmp_lines=0 | e5c01abb0ad7 strict=[STRICT_NOTEQUAL file] cmp_lines=0
+   28c3ba6b0120 vs ec2aa4336340: order-blind lines 4
+   28c3ba6b0120 vs e5c01abb0ad7: order-blind lines 4
+   ec2aa4336340 vs e5c01abb0ad7: order-blind lines 4
+SimpleUVM default hashes=2 | c54816eb4b3f strict=[STRICT_NOTEQUAL fullname] cmp_lines=0 | 860ccebd02ee strict=[STRICT_NOTEQUAL fullname] cmp_lines=0
+   c54816eb4b3f vs 860ccebd02ee: order-blind lines 4
+SimpleUVM testflags hashes=1 | 3b7ca8d377b4 strict=[STRICT_NOTEQUAL fullname] cmp_lines=0
+Scoreboard default hashes=2 | 31dfb59ec18a strict=[STRICT_NOTEQUAL fullname] cmp_lines=0 | ace05259809b strict=[STRICT_NOTEQUAL fullname] cmp_lines=0
+   31dfb59ec18a vs ace05259809b: order-blind lines 0
+BuildUVMPkg default hashes=2 | e025a6f404c3 strict=[STRICT_NOTEQUAL fullname] cmp_lines=0 | e4f8e660c7d5 strict=[STRICT_NOTEQUAL fullname] cmp_lines=0
+   e025a6f404c3 vs e4f8e660c7d5: order-blind lines 0
+BuildUVMPkg testflags hashes=1 | e4f8e660c7d5 strict=[STRICT_NOTEQUAL fullname] cmp_lines=0

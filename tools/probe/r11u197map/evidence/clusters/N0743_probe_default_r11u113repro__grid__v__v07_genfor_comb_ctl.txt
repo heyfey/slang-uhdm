@@ -1,0 +1,41 @@
+cluster N0743 (id kept from an earlier map; OPEN | ground A | site emitExpr (ExprEmit.cpp, law loopCaParamReadKeepsLiteral116) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law pkgQualParamVarSelFull118) [r11u138map pin] [r11u142map pin]): fullname|ref_typespec|tok:.id[n].id->|under:constant
+row: probe/default/r11u113repro__grid__v__v07_genfor_comb_ctl  strict=fullname  records golden=248 ours=248
+object: #222 (golden) / #222 (ours)  type=ref_typespec name= OUT
+  golden: work@top.g[0].a
+  ours:   work@top
+  walk parents: constant < operation < var_select(a) < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 216..228 ('>' = the object)
+  #216	5	assignment				dut.sv	4	17	4	34						000
+  #217	6	operation				dut.sv	4	24	4	34		0				000
+  #218	7	var_select	a		work@top.g[0].a	dut.sv	4	25	4	34		0			work@top.g[0].a	000
+  #219	8	ref_obj	w		work@top.g[0].a.w	dut.sv	4	27	4	28		0			work@top.g[0].a.w	000
+  #220	8	operation				dut.sv	4	30	4	33		0				000
+  #221	9	constant				dut.sv	4	30	4	31	4	32	UINT:4	9		000
+> #222	10	ref_typespec			work@top.g[0].a		0	0	0	0		0			work@top.g[0].a	000
+  #223	11	int_typespec				dut.sv	1	23	1	35						000
+  #224	9	constant				dut.sv	4	32	4	33	1	64	UINT:1	9		000
+  #225	6	bit_select	z		work@top.g[0].z	dut.sv	4	17	4	21		0			work@top.g[0].z	000
+  #226	7	ref_obj	w		work@top.g[0].w	dut.sv	4	19	4	20		0			work@top.g[0].w	000
+  #227	2	gen_scope_array	g[1]		work@top.g[1]	dut.sv	3	34	5	6					work@top.g[1]	000
+  #228	3	gen_scope			work@top.g[1]	dut.sv	3	34	5	6					work@top.g[1]	000
+
+--- OURS (B) records 216..228 ('>' = the object)
+  #216	5	assignment				dut.sv	4	17	4	34						000
+  #217	6	operation				dut.sv	4	24	4	34		0				000
+  #218	7	var_select	a		work@top.g[0].a	dut.sv	4	25	4	34		0			work@top.g[0].a	000
+  #219	8	ref_obj	w		work@top.g[0].a.w	dut.sv	4	27	4	28		0			work@top.g[0].a.w	000
+  #220	8	operation				dut.sv	4	30	4	33		0				000
+  #221	9	constant				dut.sv	4	30	4	31	4	32	UINT:4	9		000
+> #222	10	ref_typespec			work@top		0	0	0	0		0			work@top	000
+  #223	11	int_typespec				dut.sv	1	23	1	35						000
+  #224	9	constant				dut.sv	4	32	4	33	1	64	UINT:1	9		000
+  #225	6	bit_select	z		work@top.g[0].z	dut.sv	4	17	4	21		0			work@top.g[0].z	000
+  #226	7	ref_obj	w		work@top.g[0].w	dut.sv	4	19	4	20		0			work@top.g[0].w	000
+  #227	2	gen_scope_array	g[1]		work@top.g[1]	dut.sv	3	34	5	6					work@top.g[1]	000
+  #228	3	gen_scope			work@top.g[1]	dut.sv	3	34	5	6					work@top.g[1]	000
+
+facets of this row (2, first 25):
+  N0743 #222/222 ref_typespec  G[work@top.g[0].a] O[work@top]
+  N0743 #239/239 ref_typespec  G[work@top.g[1].a] O[work@top]

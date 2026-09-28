@@ -1,0 +1,116 @@
+== A. conversions per landing since map 10 (committed baselines)
+   pass 184 (443933679): 6 row-modes / 3 tests, 3 probe cases, 9 strict-cell changes; left CMP_EQUAL 0
+       uhd/d/TypeParameterAsPortTypeWithEnum uhd/d/TypeParameterAsPortTypeWithEnumOfParametrizedWidth uhd/d/ibex_multdiv_fast uhd/t/TypeParameterAsPortTypeWithEnum uhd/t/TypeParameterAsPortTypeWithEnumOfParametrizedWidth uhd/t/ibex_multdiv_fast
+   map 10 (8e3153a2): 0 row-modes / 0 tests, 0 probe cases, 0 strict-cell changes; left CMP_EQUAL 0
+   pass 186 (c168c2095): 4 row-modes / 2 tests, 128 probe cases, 14 strict-cell changes; left CMP_EQUAL 0
+       uhd/d/ParameterFromPkgInNestedModule uhd/d/ParameterFromPkgOnParameterPortList uhd/t/ParameterFromPkgInNestedModule uhd/t/ParameterFromPkgOnParameterPortList
+   r11u190 (1a91673d9): 0 row-modes / 0 tests, 0 probe cases, 0 strict-cell changes; left CMP_EQUAL 0
+   pass 187 (a1c89c1ab): 6 row-modes / 3 tests, 13 probe cases, 7 strict-cell changes; left CMP_EQUAL 0
+       sur/d/ApbSlave sur/d/ArrayMethodIterator sur/t/ApbSlave sur/t/ArrayMethodIterator uhd/d/jeras_union uhd/t/jeras_union
+   pass 188 (6ab9f4fb7): 4 row-modes / 2 tests, 98 probe cases, 2 strict-cell changes; left CMP_EQUAL 0
+       sur/d/AssertDelayError sur/d/AssertTempError sur/t/AssertDelayError sur/t/AssertTempError
+   r11u191 (706ab5216): 0 row-modes / 0 tests, 0 probe cases, 0 strict-cell changes; left CMP_EQUAL 0
+   pass 192 (b63444005): 4 row-modes / 2 tests, 18 probe cases, 2 strict-cell changes; left CMP_EQUAL 0
+       uhd/d/ibex_icache uhd/d/iface_zero_width_field uhd/t/ibex_icache uhd/t/iface_zero_width_field
+   r11u194 (4a65840e4): 0 row-modes / 0 tests, 0 probe cases, 0 strict-cell changes; left CMP_EQUAL 0
+   total: 24 row-modes, 260 probe cases
+== B. map 10 predicted, on its 2b97649e fail list (84 row-modes)
+   r11u183 (measured) + pairs r11u184 / r11u186 optimistic: 26 row-modes; named-row upper bound adds 0
+   section-9 list A: 4 row-modes
+   section-9 list B: 18 row-modes
+   section-9 list A+B: 32 row-modes
+   predicted by any of them: 58
+   predicted-by x landed-by (row-modes):
+     A+B10                        open         2  uhd/d/func_typename_ret uhd/t/func_typename_ret
+     A+B13                        open         2  sur/d/FuncStructVal sur/t/FuncStructVal
+     A+B14                        open         2  sur/d/InterfaceStructMemberPort sur/t/InterfaceStructMemberPort
+     A+B15                        open         2  uhd/d/ibex_tracer uhd/t/ibex_tracer
+     A+B9                         open         2  sur/d/UnitElabBlock sur/t/UnitElabBlock
+     A1 A+B3                      pass 192     2  uhd/d/ibex_icache uhd/t/ibex_icache
+     A2 A+B4                      open         2  uhd/d/anon_struct_packed_dim uhd/t/anon_struct_packed_dim
+     B1 A+B1                      open         2  sur/d/InterfaceModPort sur/t/InterfaceModPort
+     B2 A+B2                      open         2  uhd/d/ibex_pmp uhd/t/ibex_pmp
+     B3 A+B5                      open         2  uhd/d/rsp_gen_minimal uhd/t/rsp_gen_minimal
+     B4 A+B6                      pass 188     4  sur/d/AssertDelayError sur/d/AssertTempError sur/t/AssertDelayError sur/t/AssertTempError
+     B5 A+B7                      open         2  uhd/d/arb_idx_cast uhd/t/arb_idx_cast
+     B6 A+B8                      open         2  uhd/d/const_cast_signext uhd/t/const_cast_signext
+     B7 A+B11                     open         2  uhd/d/OutputSizeWithParameterOfInstanceInitializedByStructMember uhd/t/OutputSizeWithParameterOfInstanceInitializedByStructMember
+     B8 A+B12                     open         2  sur/d/LogicTypespec sur/t/LogicTypespec
+     none                         open        26  sur/d/BlackBePipeInt sur/d/BuildUVMPkg sur/d/ClassTypeParam sur/d/Earlgrey_0_1 sur/d/MiniAmiq sur/d/Rggen sur/d/SVSwitch sur/d/Scoreboard sur/d/Scr1SvTests sur/d/SeqDriver sur/d/SimpleUVM sur/t/BlackBePipeInt sur/t/BuildUVMPkg sur/t/ClassTypeParam sur/t/Earlgrey_0_1 sur/t/MiniAmiq sur/t/SVSwitch sur/t/Scr1SvTests sur/t/SeqDriver sur/t/SimpleUVM uhd/d/cfg_func_width_loop uhd/d/int_types uhd/d/struct_param_func_config uhd/t/cfg_func_width_loop uhd/t/int_types uhd/t/struct_param_func_config
+     r11u183+pairs                open         8  sur/d/FuncStructValSimple sur/d/InterfArrayBind sur/d/PreprocTest sur/d/StructParamPatternInitCast sur/t/FuncStructValSimple sur/t/HierPathTypespec sur/t/PreprocTest sur/t/StructParamPatternInitCast
+     r11u183+pairs                pass 184     6  uhd/d/TypeParameterAsPortTypeWithEnum uhd/d/TypeParameterAsPortTypeWithEnumOfParametrizedWidth uhd/d/ibex_multdiv_fast uhd/t/TypeParameterAsPortTypeWithEnum uhd/t/TypeParameterAsPortTypeWithEnumOfParametrizedWidth uhd/t/ibex_multdiv_fast
+     r11u183+pairs                pass 186     4  uhd/d/ParameterFromPkgInNestedModule uhd/d/ParameterFromPkgOnParameterPortList uhd/t/ParameterFromPkgInNestedModule uhd/t/ParameterFromPkgOnParameterPortList
+     r11u183+pairs                pass 187     6  sur/d/ApbSlave sur/d/ArrayMethodIterator sur/t/ApbSlave sur/t/ArrayMethodIterator uhd/d/jeras_union uhd/t/jeras_union
+     r11u183+pairs                pass 192     2  uhd/d/iface_zero_width_field uhd/t/iface_zero_width_field
+   tally: {('predicted', 'converted'): 24, ('predicted', 'open'): 34, ('not predicted', 'open'): 26}
+   list A: 4 predicted, 2 converted: uhd/d/anon_struct_packed_dim uhd/t/anon_struct_packed_dim (still open)
+   list B: 18 predicted, 4 converted: sur/d/InterfaceModPort sur/d/LogicTypespec sur/t/InterfaceModPort sur/t/LogicTypespec uhd/d/OutputSizeWithParameterOfInstanceInitializedByStructMember uhd/d/arb_idx_cast uhd/d/const_cast_signext uhd/d/ibex_pmp uhd/d/rsp_gen_minimal uhd/t/OutputSizeWithParameterOfInstanceInitializedByStructMember uhd/t/arb_idx_cast uhd/t/const_cast_signext uhd/t/ibex_pmp uhd/t/rsp_gen_minimal (still open)
+   list A+B: 32 predicted, 6 converted: sur/d/FuncStructVal sur/d/InterfaceModPort sur/d/InterfaceStructMemberPort sur/d/LogicTypespec sur/d/UnitElabBlock sur/t/FuncStructVal sur/t/InterfaceModPort sur/t/InterfaceStructMemberPort sur/t/LogicTypespec sur/t/UnitElabBlock uhd/d/OutputSizeWithParameterOfInstanceInitializedByStructMember uhd/d/anon_struct_packed_dim uhd/d/arb_idx_cast uhd/d/const_cast_signext uhd/d/func_typename_ret uhd/d/ibex_pmp uhd/d/ibex_tracer uhd/d/rsp_gen_minimal uhd/t/OutputSizeWithParameterOfInstanceInitializedByStructMember uhd/t/anon_struct_packed_dim uhd/t/arb_idx_cast uhd/t/const_cast_signext uhd/t/func_typename_ret uhd/t/ibex_pmp uhd/t/ibex_tracer uhd/t/rsp_gen_minimal (still open)
+   r11u183+pairs: 26 predicted, 18 converted; open: sur/d/FuncStructValSimple sur/d/InterfArrayBind sur/d/PreprocTest sur/d/StructParamPatternInitCast sur/t/FuncStructValSimple sur/t/HierPathTypespec sur/t/PreprocTest sur/t/StructParamPatternInitCast
+== C. per converted row: predicted by, map 10 first open cluster after its pairs and its pin, the landing law files
+   pass 184  uhd/d/TypeParameterAsPortTypeWithEnum    r11u183+pairs                                first=N0012 pin=TypeEmit       laws=tpEnumCopyAtTypedef184 (ParamEmit) -> pin right (a caller)
+   pass 184  uhd/d/TypeParameterAsPortTypeWithEnumOfParametrizedWidth r11u183+pairs                                first=N0012 pin=TypeEmit       laws=tpEnumCopyAtTypedef184 (ParamEmit) -> pin right (a caller)
+   pass 184  uhd/d/ibex_multdiv_fast                  r11u183+pairs                                first=N0545 pin=ExprEmit       laws=genLocalEnumConstShared184 (ExprEmit) -> pin right (mint)
+   pass 184  uhd/t/TypeParameterAsPortTypeWithEnum    r11u183+pairs                                first=N0012 pin=TypeEmit       laws=tpEnumCopyAtTypedef184 (ParamEmit) -> pin right (a caller)
+   pass 184  uhd/t/TypeParameterAsPortTypeWithEnumOfParametrizedWidth r11u183+pairs                                first=N0012 pin=TypeEmit       laws=tpEnumCopyAtTypedef184 (ParamEmit) -> pin right (a caller)
+   pass 184  uhd/t/ibex_multdiv_fast                  r11u183+pairs                                first=N0545 pin=ExprEmit       laws=genLocalEnumConstShared184 (ExprEmit) -> pin right (mint)
+   pass 186  uhd/d/ParameterFromPkgInNestedModule     r11u183+pairs                                first=N0536 pin=ExprEmit       laws=pkgParamElabCaSharesDefFold183 pkgParamFoldOwnTs183 (ModuleEmit) -> pin right (a caller)
+   pass 186  uhd/d/ParameterFromPkgOnParameterPortList r11u183+pairs                                first=N0536 pin=ExprEmit       laws=pkgParamElabCaSharesDefFold183 pkgParamFoldOwnTs183 (ModuleEmit) -> pin right (a caller)
+   pass 186  uhd/t/ParameterFromPkgInNestedModule     r11u183+pairs                                first=N0536 pin=ExprEmit       laws=pkgParamElabCaSharesDefFold183 pkgParamFoldOwnTs183 (ModuleEmit) -> pin right (a caller)
+   pass 186  uhd/t/ParameterFromPkgOnParameterPortList r11u183+pairs                                first=N0536 pin=ExprEmit       laws=pkgParamElabCaSharesDefFold183 pkgParamFoldOwnTs183 (ModuleEmit) -> pin right (a caller)
+   pass 187  sur/d/ApbSlave                           r11u183+pairs                                first=N0289 pin=TypeEmit       laws=defCloneRefsBindDefListing183 classPropElemClassTsAtType183 importNetTsToInitEnd183 (ModuleEmit+ParamEmit+UhdmExporter) -> pin right (a caller)
+   pass 187  sur/d/ArrayMethodIterator                r11u183+pairs                                first=N0097 pin=ExprEmit       laws=withClauseCloseParenEnd183 (ExprEmit) -> pin right (mint)
+   pass 187  sur/t/ApbSlave                           r11u183+pairs                                first=N0289 pin=TypeEmit       laws=defCloneRefsBindDefListing183 classPropElemClassTsAtType183 importNetTsToInitEnd183 (ModuleEmit+ParamEmit+UhdmExporter) -> pin right (a caller)
+   pass 187  sur/t/ArrayMethodIterator                r11u183+pairs                                first=N0097 pin=ExprEmit       laws=withClauseCloseParenEnd183 (ExprEmit) -> pin right (mint)
+   pass 187  uhd/d/jeras_union                        r11u183+pairs                                first=N0938 pin=ParamEmit      laws=aliasFoldBoundFile183 aliasOfTdSharedKeepsModName183 (ModuleEmit+ParamEmit) -> pin right (mint)
+   pass 187  uhd/t/jeras_union                        r11u183+pairs                                first=N0938 pin=ParamEmit      laws=aliasFoldBoundFile183 aliasOfTdSharedKeepsModName183 (ModuleEmit+ParamEmit) -> pin right (mint)
+   pass 188  sur/d/AssertDelayError                   list-A+B step 6 (N0431 + N0627 + N1047)      first=N0627 pin=ModuleEmit     laws=propAssertLastInstPath188 (ModuleEmit+UhdmExporter) -> pin right (mint)
+   pass 188  sur/d/AssertTempError                    list-A+B step 6 (N0431 + N0627 + N1047)      first=N0627 pin=ModuleEmit     laws=propAssertLastInstPath188 (ModuleEmit+UhdmExporter) -> pin right (mint)
+   pass 188  sur/t/AssertDelayError                   list-A+B step 6 (N0431 + N0627 + N1047)      first=N0627 pin=ModuleEmit     laws=propAssertLastInstPath188 (ModuleEmit+UhdmExporter) -> pin right (mint)
+   pass 188  sur/t/AssertTempError                    list-A+B step 6 (N0431 + N0627 + N1047)      first=N0627 pin=ModuleEmit     laws=propAssertLastInstPath188 (ModuleEmit+UhdmExporter) -> pin right (mint)
+   pass 192  uhd/d/ibex_icache                        list-A+B step 3 (N0129)                      first=N0129 pin=ExprEmit       laws=psBoundPaOwnerName192 genForReplCountOwner192 procPsBoundOwner192 (ExprEmit) -> pin right (mint)
+   pass 192  uhd/d/iface_zero_width_field             r11u183+pairs                                first=N0688 pin=TypeEmit       laws=pkgPatReadTsBindsTopTypedef192 (ParamEmit) -> pin right (a caller)
+   pass 192  uhd/t/ibex_icache                        list-A+B step 3 (N0129)                      first=N0129 pin=ExprEmit       laws=psBoundPaOwnerName192 genForReplCountOwner192 procPsBoundOwner192 (ExprEmit) -> pin right (mint)
+   pass 192  uhd/t/iface_zero_width_field             r11u183+pairs                                first=N0688 pin=TypeEmit       laws=pkgPatReadTsBindsTopTypedef192 (ParamEmit) -> pin right (a caller)
+   tally (landing, predicted): {('pass 184', 'predicted'): 6, ('pass 186', 'predicted'): 4, ('pass 187', 'predicted'): 6, ('pass 188', 'predicted'): 4, ('pass 192', 'predicted'): 4}
+   site verdicts: {'pin right (a caller)': 12, 'pin right (mint)': 12}
+   site verdicts by landing: {('pass 184', 'pin right (a caller)'): 4, ('pass 184', 'pin right (mint)'): 2, ('pass 186', 'pin right (a caller)'): 4, ('pass 187', 'pin right (a caller)'): 2, ('pass 187', 'pin right (mint)'): 4, ('pass 188', 'pin right (mint)'): 4, ('pass 192', 'pin right (mint)'): 2, ('pass 192', 'pin right (a caller)'): 2}
+== D. map 10 covered (r11u183 measured + pairs r11u184 / r11u186 optimistic): 66 clusters: {'unchanged': 34, 'fell': 7, 'gone': 23, 'rows cleared': 2}
+     unchanged: N0001 14->14 N0003 4->4 N0007 11->11 N0014 6->6 N0022 2->2 N0056 11->11 N0067 9->9 N0068 9->9 N0086 4->4 N0087 4->4 N0097 9->9 N0119 0->0 N0131 10->10 N0144 7->7 N0152 0->0 N0153 0->0 N0160 9->9 N0178 9->9 N0179 9->9 N0191 2->2 N0327 7->7 N0407 2->2 N0416 6->6 N0427 3->3 N0443 5->5 N0476 0->0 N0477 0->0 N0499 0->0 N0682 3->3 N0684 3->3 N0943 2->2 N0965 2->2 N1174 1->1 N2411 7->7
+     fell: N0012 13->9 N0034 13->9 N0061 11->2 N0415 4->2 N0474 4->2 N0545 4->1 N0546 4->1
+     gone: N0112 0->0 N0162 0->0 N0281 2->0 N0475 0->0 N0491 0->0 N0536 0->0 N0628 4->0 N0638 4->0 N0640 0->0 N0679 0->0 N0680 0->0 N0688 2->0 N0701 0->0 N0938 0->0 N0942 2->0 N1190 0->0 N1224 0->0 N1983 0->0 N2012 0->0 N2013 0->0 N2220 0->0 N2287 0->0 N2376 0->0
+     rows cleared: N0299 6->0 N0549 4->0
+== D. map 10 section-9 lists: 36 clusters: {'unchanged': 32, 'fell': 1, 'gone': 3}
+     unchanged: N0011(A+B9) 5->5 N0016(A+B9) 2->2 N0023(B3) 2->2 N0040(B1) 9->9 N0083(B8) 2->2 N0085(A+B10) 4->4 N0090(B5) 8->8 N0133(B6) 4->4 N0219(B2) 9->9 N0422(B8) 2->2 N0448(B5) 5->5 N0484(B8) 4->4 N0487(B6) 4->4 N0519(A+B14) 4->4 N0563(A+B15) 4->4 N0738(A+B10) 2->2 N0763(A+B15) 2->2 N0820(A2) 2->2 N0853(B7) 2->2 N0891(A+B13) 2->2 N0957(A+B15) 2->2 N0971(A+B15) 2->2 N0979(A+B15) 2->2 N0980(A+B13) 2->2 N1096(A+B13) 2->2 N1117(A+B14) 2->2 N1126(A+B14) 2->2 N1127(B7) 2->2 N1128(A+B14) 2->2 N1134(A+B14) 2->2 N1149(B8) 2->2 N1946(A+B13) 1->1
+     fell: N0129(A1) 4->2
+     gone: N0431(B4) 6->0 N0627(B4) 4->0 N1047(B4) 2->0
+== E. clusters map 10 did not route (covered / section 9) whose rows cleared or fell: 12: N0209 9->0 N0168 9->0 N0132 9->0 N1070 2->0 N1068 2->0 N1056 2->0 N0847 2->0 N0686 2->0 N0123 9->7 N0018 4->2 N0928 3->2 N0164 5->4
+== F. map 10 section-9 items and pair routes recounted at 4a65840e (rows = row-modes carrying the cluster; the row = the item's target)
+| item | clusters | rows 2b97649e -> 4a65840e (per cluster) | probe 2b97649e -> 4a65840e | target row status 4a65840e | converted by |
+|---|---|---|---|---|---|
+| A1 | N0129 | N0129 4->2 | 15->15 | ibex_icache d:CMP_EQUAL / t:CMP_EQUAL | pass 192 |
+| A2 | N0820 | N0820 2->2 | 1->1 | anon_struct_packed_dim d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A3a | N0016 N0011 | N0016 2->2 N0011 5->5 | 0->0 4->4 | UnitElabBlock d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A3b | N0085 N0738 | N0085 4->4 N0738 2->2 | 31->31 36->36 | func_typename_ret d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A3c | N0891 N0980 N1096 N1946 | N0891 2->2 N0980 2->2 N1096 2->2 N1946 1->1 | 0->0 0->0 0->0 5->5 | FuncStructVal d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A3d | N0563 N0763 N0957 N0971 N0979 | N0563 4->4 N0763 2->2 N0957 2->2 N0971 2->2 N0979 2->2 | 0->0 3->3 0->0 0->0 0->0 | ibex_tracer d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A4 | N0228 N0224 N0215 N0229 N0217 N0071 N0175 N0109 N0110 N0185 N0193 | N0228 9->9 N0224 9->9 N0215 9->9 N0229 9->9 N0217 9->9 N0071 9->9 N0175 9->9 N0109 9->9 N0110 9->9 N0185 9->9 N0193 9->9 | 0->0 0->0 0->0 0->0 0->0 4->3 3->3 6->2 6->2 1->1 1->1 | SimpleUVM d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A5a | N1082 | N1082 2->2 | 0->0 | Earlgrey_0_1 d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| A5b | N0923 | N0923 2->2 | 0->0 | BlackBePipeInt d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B1a | N0040 | N0040 9->9 | 34->34 | InterfaceModPort d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B1b | N0219 | N0219 9->9 | 0->0 | ibex_pmp d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B1c | N0023 | N0023 2->2 | 1->1 | rsp_gen_minimal d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B2a | N0431 N0627 N1047 | N0431 6->0 N0627 4->0 N1047 2->0 | 0->0 0->0 0->0 | AssertDelayError d:CMP_EQUAL / t:CMP_EQUAL | pass 188 |
+| B2b | N0090 N0448 | N0090 8->8 N0448 5->5 | 0->0 3->3 | arb_idx_cast d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B2c | N0133 N0487 | N0133 4->4 N0487 4->4 | 10->10 10->10 | const_cast_signext d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B2d | N0853 N1127 | N0853 2->2 N1127 2->2 | 1->1 0->0 | OutputSizeWithParameterOfInstanceInitializedByStructMember d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B3 | N0083 N0422 N0484 N1149 | N0083 6->2 N0422 2->2 N0484 4->4 N1149 2->2 | 23->23 0->0 13->13 0->0 | LogicTypespec d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| B4 | N0072 N0103 N0039 N0051 N0031 N0042 N0132 N0161 N0170 N0171 N0757 | N0072 11->11 N0103 9->9 N0039 10->10 N0051 9->9 N0031 15->9 N0042 13->9 N0132 9->0 N0161 9->9 N0170 9->9 N0171 9->9 N0757 9->9 | 2->2 3->3 156->45 9->9 13->7 10->7 7->3 6->6 5->5 6->5 4->4 | MiniAmiq d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| P-A | N0086 N0087 N0131 | N0086 4->4 N0087 4->4 N0131 10->10 | 0->0 0->0 5->5 | FuncStructValSimple d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| P-A2 | N0427 | N0427 3->3 | 0->0 | InterfArrayBind d:STRICT_NOTEQUAL / t:CMP_EQUAL | - |
+| P-A3 | N0688 | N0688 2->0 | 2->0 | iface_zero_width_field d:CMP_EQUAL / t:CMP_EQUAL | pass 192 |
+| P-A4 | N0545 N0546 | N0545 4->1 N0546 4->1 | 1->0 1->0 | ibex_multdiv_fast d:CMP_EQUAL / t:CMP_EQUAL | pass 184 |
+| P-A5 | N0012 N0034 N0638 N0281 | N0012 13->9 N0034 13->9 N0638 4->0 N0281 2->0 | 5->3 5->3 0->0 0->0 | TypeParameterAsPortTypeWithEnum d:CMP_EQUAL / t:CMP_EQUAL | pass 184 |
+| P-B | N0056 | N0056 11->11 | 1->1 | PreprocTest d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |
+| P-B2 | N1174 | N1174 1->1 | 5->4 | HierPathTypespec d:CMP_EQUAL / t:STRICT_NOTEQUAL | - |
+| P-AB | N0003 N0014 | N0003 4->4 N0014 6->6 | 30->30 12->12 | StructParamPatternInitCast d:STRICT_NOTEQUAL / t:STRICT_NOTEQUAL | - |

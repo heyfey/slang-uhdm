@@ -1,0 +1,56 @@
+cluster N0448 (id kept from an earlier map; COVERED r11u193 (map 10 ground-B step 5 / pass 188 R5 / pass 187 R3: arb_idx_cast's folded bound (also UnitElabBlock, SVSwitch, Scr1SvTests)) | ground B | site operator() (TypeEmit.cpp, law shadowedImportParamFold) < makeTypespec (TypeEmit.cpp, law typedPkgBoundElabSize113) < emitParameters (ParamEmit.cpp, law elabTpDefaultDefNamed163) [r11u165map pin]): span|constant|endcol|under:range
+row: uhdm2rtlil/testflags/arb_idx_cast  strict=differ:endcol(17)  records golden=468 ours=468
+object: #119 (golden) / #119 (ours)  type=constant name= 
+  golden: 15:10:15:22
+  ours:   15:10:15:11
+  walk parents: range < packed_array_var(index_nodes) < module_inst(work@dut) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 113..125 ('>' = the object)
+  #113	5	range				dut.sv	8	46	8	60						001
+  #114	6	operation				dut.sv	8	47	8	57		0				001
+  #115	7	ref_obj	IdxWidth			dut.sv	8	47	8	55		0				001
+  #116	7	constant				dut.sv	8	56	8	57	1	64	UINT:1	9		001
+  #117	6	constant				dut.sv	8	58	8	59	0	64	UINT:0	9		001
+  #118	3	range				dut.sv	15	9	15	27						000
+> #119	4	constant				dut.sv	15	10	15	22	2	64	INT:2	7		000
+  #120	4	constant				dut.sv	15	25	15	26	0	64	UINT:0	9		000
+  #121	3	logic_var			work@dut.index_nodes		0	0	0	0		0			work@dut.index_nodes	000
+  #122	2	logic_var	req_nodes		work@dut.req_nodes	dut.sv	16	28	16	37		0			work@dut.req_nodes	000
+  #123	3	ref_typespec			work@dut.req_nodes		0	0	0	0		0			work@dut.req_nodes	000
+  #124	4	logic_typespec				dut.sv	16	3	16	27						000
+  #125	5	range				dut.sv	16	9	16	27						001
+
+--- OURS (B) records 113..125 ('>' = the object)
+  #113	5	range				dut.sv	8	46	8	60						001
+  #114	6	operation				dut.sv	8	47	8	57		0				001
+  #115	7	ref_obj	IdxWidth			dut.sv	8	47	8	55		0				001
+  #116	7	constant				dut.sv	8	56	8	57	1	64	UINT:1	9		001
+  #117	6	constant				dut.sv	8	58	8	59	0	64	UINT:0	9		001
+  #118	3	range				dut.sv	15	9	15	27						000
+> #119	4	constant				dut.sv	15	10	15	11	2	64	INT:2	7		000
+  #120	4	constant				dut.sv	15	25	15	26	0	64	UINT:0	9		000
+  #121	3	logic_var			work@dut.index_nodes		0	0	0	0		0			work@dut.index_nodes	000
+  #122	2	logic_var	req_nodes		work@dut.req_nodes	dut.sv	16	28	16	37		0			work@dut.req_nodes	000
+  #123	3	ref_typespec			work@dut.req_nodes		0	0	0	0		0			work@dut.req_nodes	000
+  #124	4	logic_typespec				dut.sv	16	3	16	27						000
+  #125	5	range				dut.sv	16	9	16	27						001
+
+facets of this row (17, first 25):
+  N0448 #119/119 constant  G[15:10:15:22] O[15:10:15:11]
+  N0443 #232/232 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0443 #237/237 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0443 #242/242 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0443 #249/249 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0443 #255/255 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0090 #270/270 logic_typespec  G[8:40:15:27] O[8:40:8:60]
+  N0443 #281/281 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.index_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0090 #294/294 logic_typespec  G[8:40:15:27] O[8:40:8:60]
+  N0443 #304/304 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.index_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0443 #316/316 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.index_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0443 #361/361 ref_typespec  G[work@dut.gen_levels[1].gen_level[0].gen_first_level.req_nodes] O[work@dut.gen_levels[1].gen_level[0]]
+  N0684 #388/388 ref_obj sel G[] O[work@dut.gen_levels[1].gen_level[0].gen_first_level.sel]
+  N0443 #391/391 ref_typespec  G[work@dut.gen_levels[1].gen_level[0].gen_first_level.index_nodes] O[work@dut.gen_levels[1].gen_level[0]]
+  N0443 #431/431 ref_typespec  G[work@dut.gen_levels[1].gen_level[1].gen_first_level.req_nodes] O[work@dut.gen_levels[1].gen_level[1]]
+  N0684 #458/458 ref_obj sel G[] O[work@dut.gen_levels[1].gen_level[1].gen_first_level.sel]
+  N0443 #461/461 ref_typespec  G[work@dut.gen_levels[1].gen_level[1].gen_first_level.index_nodes] O[work@dut.gen_levels[1].gen_level[1]]

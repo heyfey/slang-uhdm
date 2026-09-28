@@ -1,0 +1,61 @@
+cluster N1438 (id kept from an earlier map; COVERED r11u191 (law patches, MEASURED: gone under the patch binary) | ground B | site exportDesign (UhdmExporter.cpp, law compoundLitWriteBackSat2) < realMain (uhdm_main.cpp, law genCaPatKeepTagDefView121) < main (uhdm_main.cpp, law uncaughtExitsReject160) [r11u197 pin, db=DIFF (UVM order coin), rank NOT verified]): struct|golden-only:elsewhere|task|under:design
+row: surelog/default/Scoreboard  strict=differ:fullname(54)  records golden=269656 ours=269679
+object: #268561 (golden) / #-1 (ours)  type=task name=wait_for_error 
+  golden: 4 objs
+  ours:   
+  walk parents: design(work@my_scoreboard_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 268555..268567 ('>' = the object)
+  #268555	3	ref_typespec			svunit_pkg::svunit_base::get_results		0	0	0	0		0			svunit_pkg::svunit_base::get_results	000
+  #268556	4	enum_typespec	svunit_pkg::results_t			svunit_types.svh	29	3	29	44						110
+  #268557	5	enum_const	PASS			svunit_types.svh	29	17	29	23						001
+  #268558	5	enum_const	FAIL			svunit_types.svh	29	25	29	31						001
+  #268559	2	return_stmt				svunit_base.sv	88	3	88	9						000
+  #268560	3	ref_obj	success		svunit_pkg::svunit_base::get_results::success	svunit_base.sv	88	10	88	17		0			svunit_pkg::svunit_base::get_results::success	000
+> #268561	1	task	wait_for_error		svunit_pkg::svunit_testcase::wait_for_error	svunit_testcase.sv	90	1	92	8					svunit_pkg::svunit_testcase::wait_for_error	000
+  #268562	2	event_control				svunit_testcase.sv	91	3	91	17						000
+  #268563	3	ref_obj	error_count		svunit_pkg::svunit_testcase::wait_for_error::error_count	svunit_testcase.sv	91	5	91	16		0			svunit_pkg::svunit_testcase::wait_for_error::error_count	000
+  #268564	4	logic_net	error_count		work@my_scoreboard_unit_test.error_count		91	5	91	16		0			work@my_scoreboard_unit_test.error_count	000
+  #268565	1	function	get_error_count		svunit_pkg::svunit_testcase::get_error_count	svunit_testcase.sv	99	1	101	12					svunit_pkg::svunit_testcase::get_error_count	000
+  #268566	2	integer_var			svunit_pkg::svunit_testcase::get_error_count	svunit_testcase.sv	99	10	99	17		0			svunit_pkg::svunit_testcase::get_error_count	000
+  #268567	3	ref_typespec			svunit_pkg::svunit_testcase::get_error_count		0	0	0	0		0			svunit_pkg::svunit_testcase::get_error_count	000
+
+--- the holder #0 on the other side: exact-record matches at [0]
+> #0	0	design	work@my_scoreboard_unit_test				0	0	0	0						000
+  #1	1	include_file_info				uvm_pkg.sv	26	10	26	26						000
+  #2	1	include_file_info				uvm_pkg.sv	94	10	94	42						000
+  #3	1	include_file_info				uvm_pkg.sv	244	10	244	41						000
+  #4	1	include_file_info				uvm_pkg.sv	304	10	304	42						000
+  #5	1	include_file_info				uvm_pkg.sv	842	10	842	40						000
+  #6	1	include_file_info				uvm_pkg.sv	972	10	972	41						000
+  #7	1	include_file_info				uvm_pkg.sv	4787	10	4787	42						000
+  #8	1	include_file_info				uvm_pkg.sv	5210	10	5210	38						000
+  #9	1	include_file_info				uvm_pkg.sv	5825	10	5825	33						000
+
+facets of this row (1783, first 25):
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20911 bit_typespec  G[] O[1 objs]
+  N0423 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21847 bit_typespec  G[] O[1 objs]
+  N0423 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74775 bit_typespec  G[] O[1 objs]
+  N0423 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74796 bit_typespec  G[] O[1 objs]
+  N0423 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74852 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79114 array_typespec  G[] O[1 objs]
+  N0423 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79133 bit_typespec  G[] O[1 objs]
+  N0423 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80109 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82238/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82246/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82254/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82262/-1 ref_typespec  G[2 objs] O[]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]

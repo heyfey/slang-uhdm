@@ -1,0 +1,64 @@
+cluster N1051 (id kept from an earlier map; OPEN | ground A | site emitStmt (StmtEmit.cpp, law parBlockJoinTailAfterFirstItem131) < emitStmt (StmtEmit.cpp, law invalidChild14) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164) [r11u138map pin] [r11u142map pin]): file|begin|ours-empty|under:if_else
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(20)  records golden=201533 ours=201534
+object: #194650 (golden) / #194651 (ours)  type=begin name= 
+  golden: uvm_pkg.sv 14106:63:14108:9
+  ours:    0:0:0:0
+  walk parents: if_else < begin < function(__deferred_init) < class_defn(uvm_registry_common)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 194644..194656 ('>' = the object)
+  #194644	5	assignment				uvm_pkg.sv	14104	16	14104	40						000
+  #194645	6	ref_obj	Tregistry::get		uvm_pkg::uvm_registry_common::__deferred_init::Tregistry::get	uvm_pkg.sv	14104	24	14104	35		0			uvm_pkg::uvm_registry_common::__deferred_init::Tregistry::get	000
+  #194646	5	if_else				uvm_pkg.sv	14106	6	14113	9						000
+  #194647	6	operation				uvm_pkg.sv	14106	10	14106	61		0				000
+  #194648	7	func_call	uvm_pkg::get_core_state			uvm_pkg.sv	14106	10	14106	17		0				000
+  #194649	7	ref_obj	UVM_CORE_UNINITIALIZED		uvm_pkg::uvm_registry_common::__deferred_init::UVM_CORE_UNINITIALIZED	uvm_pkg.sv	14106	39	14106	61		0			uvm_pkg::uvm_registry_common::__deferred_init::UVM_CORE_UNINITIALIZED	000
+> #194650	6	begin			uvm_pkg::uvm_registry_common::__deferred_init	uvm_pkg.sv	14106	63	14108	9					uvm_pkg::uvm_registry_common::__deferred_init	000
+  #194651	7	ref_obj	uvm_pkg::uvm_deferred_init		uvm_pkg::uvm_registry_common::__deferred_init::uvm_pkg::uvm_deferred_init	uvm_pkg.sv	14107	7	14107	16		0			uvm_pkg::uvm_registry_common::__deferred_init::uvm_pkg::uvm_deferred_init	000
+  #194652	6	begin			uvm_pkg::uvm_registry_common::__deferred_init	uvm_pkg.sv	14111	11	14113	9					uvm_pkg::uvm_registry_common::__deferred_init	000
+  #194653	7	method_func_call	initialize			uvm_pkg.sv	14112	13	14112	23		0				000
+  #194654	8	ref_obj	rgtry		uvm_pkg::uvm_registry_common::__deferred_init::rgtry	uvm_pkg.sv	14112	7	14112	12		0			uvm_pkg::uvm_registry_common::__deferred_init::rgtry	000
+  #194655	5	return_stmt				uvm_pkg.sv	14114	6	14114	12						000
+  #194656	6	constant				uvm_pkg.sv	14114	13	14114	14	1	64	UINT:1	9		000
+
+--- OURS (B) records 194645..194657 ('>' = the object)
+  #194645	5	assignment				uvm_pkg.sv	14104	16	14104	40						000
+  #194646	6	ref_obj	Tregistry::get		uvm_pkg::uvm_registry_common::__deferred_init::Tregistry::get	uvm_pkg.sv	14104	24	14104	35		0			uvm_pkg::uvm_registry_common::__deferred_init::Tregistry::get	000
+  #194647	5	if_else				uvm_pkg.sv	14106	6	14113	9						000
+  #194648	6	operation				uvm_pkg.sv	14106	10	14106	61		0				000
+  #194649	7	func_call	uvm_pkg::get_core_state			uvm_pkg.sv	14106	10	14106	17		0				000
+  #194650	7	ref_obj	UVM_CORE_UNINITIALIZED		uvm_pkg::uvm_registry_common::__deferred_init::UVM_CORE_UNINITIALIZED	uvm_pkg.sv	14106	39	14106	61		0			uvm_pkg::uvm_registry_common::__deferred_init::UVM_CORE_UNINITIALIZED	000
+> #194651	6	begin			uvm_pkg::uvm_registry_common::__deferred_init		0	0	0	0					uvm_pkg::uvm_registry_common::__deferred_init	000
+  #194652	7	ref_obj	uvm_pkg::uvm_deferred_init		uvm_pkg::uvm_registry_common::__deferred_init::uvm_pkg::uvm_deferred_init	uvm_pkg.sv	14107	7	14107	16		0			uvm_pkg::uvm_registry_common::__deferred_init::uvm_pkg::uvm_deferred_init	000
+  #194653	6	begin			uvm_pkg::uvm_registry_common::__deferred_init		0	0	0	0					uvm_pkg::uvm_registry_common::__deferred_init	000
+  #194654	7	method_func_call	initialize			uvm_pkg.sv	14112	13	14112	23		0				000
+  #194655	8	ref_obj	rgtry		uvm_pkg::uvm_registry_common::__deferred_init::rgtry	uvm_pkg.sv	14112	7	14112	12		0			uvm_pkg::uvm_registry_common::__deferred_init::rgtry	000
+  #194656	5	return_stmt				uvm_pkg.sv	14114	6	14114	12						000
+  #194657	6	constant				uvm_pkg.sv	14114	13	14114	14	1	64	UINT:1	9		000
+
+facets of this row (916, first 25):
+  N2465 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0423 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22504 bit_typespec  G[] O[1 objs]
+  N0423 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22588 bit_typespec  G[] O[1 objs]
+  N0423 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23501 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56188 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74743 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74826 bit_typespec  G[] O[1 objs]
+  N0423 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76333 bit_typespec  G[] O[1 objs]
+  N0423 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76354 bit_typespec  G[] O[1 objs]
+  N0423 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76414 bit_typespec  G[] O[1 objs]
+  N0423 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79777 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79788 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79842 array_typespec  G[] O[1 objs]
+  N0423 #79909/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]

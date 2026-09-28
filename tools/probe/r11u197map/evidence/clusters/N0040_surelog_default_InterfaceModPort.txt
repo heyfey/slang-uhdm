@@ -1,0 +1,51 @@
+cluster N0040 (id kept from an earlier map; COVERED r11u193 (map 10 ground-B step 1: InterfaceModPort (pass 188 R1: converts only once the harness passes --sverilog, an operator decision) and Rggen #2931) | ground B | site makeTypespec (TypeEmit.cpp, law suSigningNotInSpan130) < emitImportedPkgVarNets (ModuleEmit.cpp, law oobCtorLocalsRideTheImport203) < emitInterfaceDef (ModuleEmit.cpp, law interfaceDefViewNeverLateBinds223v) [r11u142map pin]): span|logic_typespec|endcol|under:ref_typespec
+row: surelog/default/InterfaceModPort  strict=differ:endcol(12)  records golden=790 ours=790
+object: #95 (golden) / #95 (ours)  type=logic_typespec name= 
+  golden: 27:3:27:8
+  ours:   27:3:27:21
+  walk parents: ref_typespec < logic_net(reset) < interface_inst < design(work@interface_modports)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 89..101 ('>' = the object)
+  #89	4	ref_typespec			work@semaphore::try_get::keyCount		0	0	0	0		0			work@semaphore::try_get::keyCount	000
+  #90	5	int_typespec				builtin.sv	66	26	66	29						000
+  #91	1	interface_inst		work@mem_if	work@mem_if	top.v	26	1	57	13					work@mem_if	000
+  #92	2	logic_net	clk		work@mem_if.clk	top.v	26	30	26	33		0			work@mem_if.clk	000
+  #93	2	logic_net	reset		work@mem_if.reset	top.v	27	16	27	21		0			work@mem_if.reset	000
+  #94	3	ref_typespec			work@mem_if.reset		0	0	0	0		0			work@mem_if.reset	000
+> #95	4	logic_typespec				top.v	27	3	27	8						000
+  #96	2	logic_net	we_sys		work@mem_if.we_sys	top.v	28	16	28	22		0			work@mem_if.we_sys	000
+  #97	3	ref_typespec			work@mem_if.we_sys		0	0	0	0		0			work@mem_if.we_sys	000
+  #98	4	logic_typespec				top.v	28	3	28	8						000
+  #99	2	logic_net	cmd_valid_sys		work@mem_if.cmd_valid_sys	top.v	29	16	29	29		0			work@mem_if.cmd_valid_sys	000
+  #100	3	ref_typespec			work@mem_if.cmd_valid_sys		0	0	0	0		0			work@mem_if.cmd_valid_sys	000
+  #101	4	logic_typespec				top.v	29	3	29	8						000
+
+--- OURS (B) records 89..101 ('>' = the object)
+  #89	4	ref_typespec			work@semaphore::try_get::keyCount		0	0	0	0		0			work@semaphore::try_get::keyCount	000
+  #90	5	int_typespec				builtin.sv	66	26	66	29						000
+  #91	1	interface_inst		work@mem_if	work@mem_if	top.v	26	1	57	13					work@mem_if	000
+  #92	2	logic_net	clk		work@mem_if.clk	top.v	26	30	26	33		0			work@mem_if.clk	000
+  #93	2	logic_net	reset		work@mem_if.reset	top.v	27	16	27	21		0			work@mem_if.reset	000
+  #94	3	ref_typespec			work@mem_if.reset		0	0	0	0		0			work@mem_if.reset	000
+> #95	4	logic_typespec				top.v	27	3	27	21						000
+  #96	2	logic_net	we_sys		work@mem_if.we_sys	top.v	28	16	28	22		0			work@mem_if.we_sys	000
+  #97	3	ref_typespec			work@mem_if.we_sys		0	0	0	0		0			work@mem_if.we_sys	000
+  #98	4	logic_typespec				top.v	28	3	28	22						000
+  #99	2	logic_net	cmd_valid_sys		work@mem_if.cmd_valid_sys	top.v	29	16	29	29		0			work@mem_if.cmd_valid_sys	000
+  #100	3	ref_typespec			work@mem_if.cmd_valid_sys		0	0	0	0		0			work@mem_if.cmd_valid_sys	000
+  #101	4	logic_typespec				top.v	29	3	29	29						000
+
+facets of this row (12, first 25):
+  N0040 #95/95 logic_typespec  G[27:3:27:8] O[27:3:27:21]
+  N0040 #98/98 logic_typespec  G[28:3:28:8] O[28:3:28:22]
+  N0040 #101/101 logic_typespec  G[29:3:29:8] O[29:3:29:29]
+  N0040 #104/104 logic_typespec  G[30:3:30:8] O[30:3:30:25]
+  N0040 #119/119 logic_typespec  G[33:3:33:8] O[33:3:33:22]
+  N0040 #122/122 logic_typespec  G[34:3:34:8] O[34:3:34:22]
+  N0040 #246/246 logic_typespec  G[27:3:27:8] O[27:3:27:21]
+  N0040 #249/249 logic_typespec  G[28:3:28:8] O[28:3:28:22]
+  N0040 #252/252 logic_typespec  G[29:3:29:8] O[29:3:29:29]
+  N0040 #255/255 logic_typespec  G[30:3:30:8] O[30:3:30:25]
+  N0040 #270/270 logic_typespec  G[33:3:33:8] O[33:3:33:22]
+  N0040 #273/273 logic_typespec  G[34:3:34:8] O[34:3:34:22]

@@ -1,0 +1,64 @@
+cluster N2411 (id kept from an earlier map; COVERED r11u195 (map 10 A remainder, the UVM ground-A families) | ground A | site emitExpr (ExprEmit.cpp, law srlgTimeLitVal) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u179 pin, db=DIFF (UVM order coin), rank verified] [r11u179map pin]): span|constant|col|under:method_func_call
+row: surelog/default/Scoreboard  strict=differ:fullname(54)  records golden=269656 ours=269679
+object: #195016 (golden) / #195025 (ours)  type=constant name= 
+  golden: 270:51:270:63
+  ours:   270:42:270:63
+  walk parents: method_func_call(print_array_header) < begin < do_while < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 195010..195022 ('>' = the object)
+  #195010	15	ref_obj	p__		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::p__	uvm_printer_defines.svh	265	10	265	13		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::p__	000
+  #195011	13	method_func_call	m_scope			uvm_printer_defines.svh	269	9	269	16		0				000
+  #195012	14	ref_obj	p__		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::p__	uvm_printer_defines.svh	269	5	269	8		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::p__	000
+  #195013	13	method_func_call	print_array_header			uvm_printer_defines.svh	270	9	270	27		0				000
+  #195014	14	constant				uvm_printer_defines.svh	270	28	270	42	"abstractions"	96	STRING:abstractions	6		000
+  #195015	14	ref_obj	max__		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::max__	uvm_printer_defines.svh	270	44	270	49		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::max__	000
+> #195016	14	constant				uvm_printer_defines.svh	270	51	270	63	"da(string)"	80	STRING:da(string)	6		000
+  #195017	14	ref_obj	p__		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::p__	uvm_printer_defines.svh	270	5	270	8		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::p__	000
+  #195018	13	if_stmt				uvm_printer_defines.svh	271	5	286	8						000
+  #195019	14	operation				uvm_printer_defines.svh	271	8	271	76		0				000
+  #195020	15	operation				uvm_printer_defines.svh	271	9	271	30		0				000
+  #195021	16	hier_path	p__.knobs.depth			uvm_printer_defines.svh	271	9	271	24		0				000
+  #195022	17	ref_obj	p__			uvm_printer_defines.svh	271	9	271	12		0				000
+
+--- OURS (B) records 195019..195031 ('>' = the object)
+  #195019	15	ref_obj	p__		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::p__	uvm_printer_defines.svh	265	10	265	13		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::p__	000
+  #195020	13	method_func_call	m_scope			uvm_printer_defines.svh	269	9	269	16		0				000
+  #195021	14	ref_obj	p__		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::p__	uvm_printer_defines.svh	269	5	269	8		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::p__	000
+  #195022	13	method_func_call	print_array_header			uvm_printer_defines.svh	270	9	270	27		0				000
+  #195023	14	constant				uvm_printer_defines.svh	270	28	270	42	"abstractions"	96	STRING:abstractions	6		000
+  #195024	14	ref_obj	max__		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::max__	uvm_printer_defines.svh	270	44	270	49		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::max__	000
+> #195025	14	constant				uvm_printer_defines.svh	270	42	270	63	"da(string)"	80	STRING:da(string)	6		000
+  #195026	14	ref_obj	p__		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::p__	uvm_printer_defines.svh	270	5	270	8		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::p__	000
+  #195027	13	if_stmt				uvm_printer_defines.svh	271	5	286	8						000
+  #195028	14	operation				uvm_printer_defines.svh	271	8	271	76		0				000
+  #195029	15	operation				uvm_printer_defines.svh	271	9	271	30		0				000
+  #195030	16	hier_path	p__.knobs.depth			uvm_printer_defines.svh	271	9	271	24		0				000
+  #195031	17	ref_obj	p__			uvm_printer_defines.svh	271	9	271	12		0				000
+
+facets of this row (1783, first 25):
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20911 bit_typespec  G[] O[1 objs]
+  N0423 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21847 bit_typespec  G[] O[1 objs]
+  N0423 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74775 bit_typespec  G[] O[1 objs]
+  N0423 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74796 bit_typespec  G[] O[1 objs]
+  N0423 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74852 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79114 array_typespec  G[] O[1 objs]
+  N0423 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79133 bit_typespec  G[] O[1 objs]
+  N0423 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80109 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82238/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82246/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82254/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82262/-1 ref_typespec  G[2 objs] O[]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]

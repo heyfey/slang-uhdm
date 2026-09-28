@@ -1,0 +1,5 @@
+[default] CMP_EQUAL=31 STRICT_NOTEQUAL=3
+[testflags] CMP_EQUAL=31 STRICT_NOTEQUAL=3
+CONVERSION const_cast_signext default STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+CONVERSION const_cast_signext testflags STRICT_NOTEQUAL differ:type(1) -> CMP_EQUAL
+regressions=0 conversions=2 changes=0 only-fresh=0 only-committed=0

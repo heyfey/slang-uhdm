@@ -1,0 +1,64 @@
+cluster N0545 (id kept from an earlier map; OPEN (map 10 gave it to r11u184; passes 184-192 left it) | ground A | site emitExpr (ExprEmit.cpp, law uninstIfaceEnumConstNoActual221) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) [r11u150map pin]): file|enum_const|ours-empty|under:ref_obj
+row: surelog/default/Earlgrey_0_1  strict=differ:col(91)  records golden=2173209 ours=2173853
+object: #395727 (golden) / #395687 (ours)  type=enum_const name=WB_INSTR_OTHER 
+  golden: ibex_pkg.sv 179:3:179:17
+  ours:    0:0:0:0
+  walk parents: ref_obj(WB_INSTR_OTHER) < operation < operation < cont_assign
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 395721..395733 ('>' = the object)
+  #395721	8	ref_obj	wb_valid_d		work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.wb_valid_d	ibex_wb_stage.sv	72	12	72	22		0			work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.wb_valid_d	000
+  #395722	7	cont_assign				ibex_wb_stage.sv	77	12	77	76						000
+  #395723	8	operation				ibex_wb_stage.sv	77	22	77	76		0				000
+  #395724	9	operation				ibex_wb_stage.sv	77	23	77	56		0				000
+  #395725	10	ref_obj	wb_instr_type_q		work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.wb_instr_type_q	ibex_wb_stage.sv	77	23	77	38		0			work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.wb_instr_type_q	000
+  #395726	10	ref_obj	WB_INSTR_OTHER		work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.WB_INSTR_OTHER	ibex_wb_stage.sv	77	42	77	56		0			work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.WB_INSTR_OTHER	000
+> #395727	11	enum_const	WB_INSTR_OTHER			ibex_pkg.sv	179	3	179	17						010
+  #395728	9	ref_obj	lsu_resp_valid_i		work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.lsu_resp_valid_i	ibex_wb_stage.sv	77	60	77	76		0			work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.lsu_resp_valid_i	000
+  #395729	8	ref_obj	wb_done		work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.wb_done	ibex_wb_stage.sv	77	12	77	19		0			work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.wb_done	000
+  #395730	7	cont_assign				ibex_wb_stage.sv	97	12	97	49						000
+  #395731	8	ref_obj	rf_waddr_wb_q		work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.rf_waddr_wb_q	ibex_wb_stage.sv	97	36	97	49		0			work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.rf_waddr_wb_q	000
+  #395732	8	ref_obj	rf_waddr_wb_o		work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.rf_waddr_wb_o	ibex_wb_stage.sv	97	12	97	25		0			work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.rf_waddr_wb_o	000
+  #395733	7	cont_assign				ibex_wb_stage.sv	98	12	98	49						000
+
+--- OURS (B) records 395681..395693 ('>' = the object)
+  #395681	8	ref_obj	wb_valid_d		work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.wb_valid_d	ibex_wb_stage.sv	72	12	72	22		0			work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.wb_valid_d	000
+  #395682	7	cont_assign				ibex_wb_stage.sv	77	12	77	76						000
+  #395683	8	operation				ibex_wb_stage.sv	77	22	77	76		0				000
+  #395684	9	operation				ibex_wb_stage.sv	77	23	77	56		0				000
+  #395685	10	ref_obj	wb_instr_type_q		work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.wb_instr_type_q	ibex_wb_stage.sv	77	23	77	38		0			work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.wb_instr_type_q	000
+  #395686	10	ref_obj	WB_INSTR_OTHER		work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.WB_INSTR_OTHER	ibex_wb_stage.sv	77	42	77	56		0			work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.WB_INSTR_OTHER	000
+> #395687	11	enum_const	WB_INSTR_OTHER				0	0	0	0						010
+  #395688	9	ref_obj	lsu_resp_valid_i		work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.lsu_resp_valid_i	ibex_wb_stage.sv	77	60	77	76		0			work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.lsu_resp_valid_i	000
+  #395689	8	ref_obj	wb_done		work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.wb_done	ibex_wb_stage.sv	77	12	77	19		0			work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.wb_done	000
+  #395690	7	cont_assign				ibex_wb_stage.sv	97	12	97	49						000
+  #395691	8	ref_obj	rf_waddr_wb_q		work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.rf_waddr_wb_q	ibex_wb_stage.sv	97	36	97	49		0			work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.rf_waddr_wb_q	000
+  #395692	8	ref_obj	rf_waddr_wb_o		work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.rf_waddr_wb_o	ibex_wb_stage.sv	97	12	97	25		0			work@top_earlgrey.u_rv_core_ibex.u_core.wb_stage_i.g_writeback_stage.rf_waddr_wb_o	000
+  #395693	7	cont_assign				ibex_wb_stage.sv	98	12	98	49						000
+
+facets of this row (6401, first 25):
+  N0142 #130430/-1 range  G[5 objs] O[]
+  N0142 #130519/-1 range  G[5 objs] O[]
+  N0142 #134891/-1 range  G[5 objs] O[]
+  N0142 #134980/-1 range  G[5 objs] O[]
+  N0142 #136112/-1 range  G[5 objs] O[]
+  N0142 #136201/-1 range  G[5 objs] O[]
+  N0142 #137221/-1 range  G[5 objs] O[]
+  N0142 #137310/-1 range  G[5 objs] O[]
+  N1173 #-1/658520 hier_path tl_h_o.a_ready G[] O[3 objs]
+  N1184 #-1/658523 cont_assign  G[] O[4 objs]
+  N1181 #-1/658527 cont_assign  G[] O[1 objs]
+  N1173 #-1/658540 hier_path tl_h_o.d_opcode G[] O[3 objs]
+  N1181 #-1/658543 cont_assign  G[] O[1 objs]
+  N1184 #-1/670225 cont_assign  G[] O[4 objs]
+  N1184 #-1/670229 cont_assign  G[] O[4 objs]
+  N1184 #-1/670233 cont_assign  G[] O[4 objs]
+  N1184 #-1/670237 cont_assign  G[] O[4 objs]
+  N1184 #-1/670241 cont_assign  G[] O[4 objs]
+  N1184 #-1/670245 cont_assign  G[] O[4 objs]
+  N1184 #-1/670249 cont_assign  G[] O[4 objs]
+  N1184 #-1/670253 cont_assign  G[] O[4 objs]
+  N1184 #-1/670257 cont_assign  G[] O[4 objs]
+  N1184 #-1/670261 cont_assign  G[] O[4 objs]
+  N1184 #-1/670265 cont_assign  G[] O[5 objs]
+  N1184 #-1/670270 cont_assign  G[] O[5 objs]

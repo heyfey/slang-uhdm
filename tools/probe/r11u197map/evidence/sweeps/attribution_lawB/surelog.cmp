@@ -1,0 +1,5 @@
+[default] CMP_EQUAL=21 STRICT_NOTEQUAL=8
+[testflags] CMP_EQUAL=21 SLANG_REJECT=1 STRICT_NOTEQUAL=7
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:fullname(20) -> differ:line(11)
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:fullname(20) -> differ:line(11)
+regressions=0 conversions=0 changes=2 only-fresh=0 only-committed=0

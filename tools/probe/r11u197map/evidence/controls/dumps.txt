@@ -1,0 +1,3 @@
+surelog_default_1364_2005: golden 159 records, ours 159, identical
+surelog_default_HierPathInterfBlock: golden 226 records, ours 226, identical
+uhdm2rtlil_default_1DUnpackedArray: golden 194 records, ours 194, identical

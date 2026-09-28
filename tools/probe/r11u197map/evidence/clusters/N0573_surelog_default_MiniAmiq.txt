@@ -1,0 +1,64 @@
+cluster N0573 (id kept from an earlier map; OPEN | ground A | site emitStmt (StmtEmit.cpp, law classPkgAliasKeepsStamp9v) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) [r11u138map pin; the a7bee711 gdb run wrote a different database (UVM order coin)] [r11u142map pin]): struct|golden-only:fewer-copies|int_var|under:array_var
+row: surelog/default/MiniAmiq  strict=differ:file(27)  records golden=435559 ours=433774
+object: #71401 (golden) / #-1 (ours)  type=int_var name= 
+  golden: 3 objs
+  ours:   
+  walk parents: array_var(q) < begin < begin < function(uvm_table_printer::emit)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 71395..71407 ('>' = the object)
+  #71395	9	constant					0	0	0	0	0	64	UINT:0	9		001
+  #71396	9	operation				uvm_printer.svh	1049	13	1049	14		0				001
+  #71397	10	constant				uvm_printer.svh	1049	13	1049	14	5	64	UINT:5	9		001
+  #71398	10	constant					0	0	0	0		64	INT:1	7		001
+  #71399	8	ref_typespec			<in>		0	0	0	0		0			svaunit_pkg::uvm_table_printer::emit::q	001
+  #71400	9	int_typespec				uvm_printer.svh	1049	7	1049	10						001
+> #71401	6	int_var			svaunit_pkg::uvm_table_printer::emit::q	uvm_printer.svh	1049	11	1049	12		0			svaunit_pkg::uvm_table_printer::emit::q	000
+  #71402	7	ref_typespec			svaunit_pkg::uvm_table_printer::emit::q		0	0	0	0		0			svaunit_pkg::uvm_table_printer::emit::q	000
+  #71403	8	int_typespec				uvm_printer.svh	1049	7	1049	10						000
+  #71404	5	int_var	m		svaunit_pkg::uvm_table_printer::emit::m	uvm_printer.svh	1050	11	1050	12		0			svaunit_pkg::uvm_table_printer::emit::m	000
+  #71405	6	ref_typespec			svaunit_pkg::uvm_table_printer::emit::m		0	0	0	0		0			svaunit_pkg::uvm_table_printer::emit::m	000
+  #71406	7	int_typespec				uvm_printer.svh	1050	7	1050	10						000
+  #71407	5	int_var			svaunit_pkg::uvm_table_printer::emit	uvm_printer.svh	1051	11	1051	13		0			svaunit_pkg::uvm_table_printer::emit	000
+
+--- the holder #71391 on the other side: exact-record matches at [71234, 302275, 369004]
+  #71231	5	int_var			svaunit_pkg::uvm_table_printer::emit::q	uvm_printer.svh	1049	11	1049	12		0			svaunit_pkg::uvm_table_printer::emit::q	000
+  #71232	6	ref_typespec			svaunit_pkg::uvm_table_printer::emit::q		0	0	0	0		0			svaunit_pkg::uvm_table_printer::emit::q	000
+  #71233	7	int_typespec				uvm_printer.svh	1049	7	1049	10						000
+> #71234	5	array_var	q		svaunit_pkg::uvm_table_printer::emit::q	uvm_printer.svh	1049	11	1049	12		0			svaunit_pkg::uvm_table_printer::emit::q	000
+  #71235	6	ref_typespec			svaunit_pkg::uvm_table_printer::emit::q		0	0	0	0		0			svaunit_pkg::uvm_table_printer::emit::q	000
+  #71236	7	array_typespec				uvm_printer.svh	1049	11	1049	14						000
+  #71237	8	range				uvm_printer.svh	1049	13	1049	14						001
+  #71238	9	constant					0	0	0	0	0	64	UINT:0	9		001
+  #71239	9	operation				uvm_printer.svh	1049	13	1049	14		0				001
+  #71240	10	constant				uvm_printer.svh	1049	13	1049	14	5	64	UINT:5	9		001
+  #71241	10	constant					0	0	0	0		64	INT:1	7		001
+  #71242	8	ref_typespec					0	0	0	0		0				001
+  #71243	9	int_typespec				uvm_printer.svh	1049	7	1049	10						001
+
+facets of this row (8993, first 25):
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20803 bit_typespec  G[] O[1 objs]
+  N0423 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21739 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0678 #-1/63709 class_typespec uvm_pkg::uvm_barrier_pool G[] O[1 objs]
+  N0439 #-1/63775 ref_typespec  G[] O[2 objs]
+  N0495 #64612/-1 int_var _byte G[3 objs] O[]
+  N0495 #64644/-1 int_var _bit G[3 objs] O[]
+  N0495 #65056/-1 int_var idx G[3 objs] O[]
+  N0495 #65219/-1 int_var idx G[3 objs] O[]
+  N0134 #66872/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66835 unsupported_typespec i G[] O[1 objs]
+  N0134 #66960/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/66923 unsupported_typespec index G[] O[1 objs]
+  N0134 #67187/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/67150 unsupported_typespec index G[] O[1 objs]
+  N0495 #67322/-1 int_var index G[3 objs] O[]
+  N0495 #68052/-1 int_var index G[3 objs] O[]
+  N0134 #68177/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68134 unsupported_typespec i G[] O[1 objs]
+  N0134 #68197/-1 array_typespec  G[1 objs] O[]
+  N0408 #-1/68154 unsupported_typespec index G[] O[1 objs]

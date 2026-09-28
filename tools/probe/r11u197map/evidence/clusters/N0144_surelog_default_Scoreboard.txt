@@ -1,0 +1,64 @@
+cluster N0144 (id kept from an earlier map; COVERED r11u193 (pass 188 R8 / pass 186 R2: MiniAmiq #899, the uvm_severity enum file (class writers plus outside writers)) | ground B | site buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) [r11u142map pin]): file|enum_typespec|other-file+span|under:package
+row: surelog/default/Scoreboard  strict=differ:fullname(54)  records golden=269656 ours=269679
+object: #64092 (golden) / #64078 (ours)  type=enum_typespec name=uvm_pkg::uvm_active_passive_enum 
+  golden: uvm_globals.svh 532:52:532:53
+  ours:   uvm_object_globals.svh 147:1:147:74
+  walk parents: package(uvm_pkg) < design(work@my_scoreboard_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 64086..64098 ('>' = the object)
+  #64086	3	enum_const	UVM_LOG			uvm_object_globals.svh	278	3	278	28						001
+  #64087	3	enum_const	UVM_COUNT			uvm_object_globals.svh	279	3	279	28						001
+  #64088	3	enum_const	UVM_EXIT			uvm_object_globals.svh	280	3	280	28						001
+  #64089	3	enum_const	UVM_CALL_HOOK			uvm_object_globals.svh	281	3	281	28						001
+  #64090	3	enum_const	UVM_STOP			uvm_object_globals.svh	282	3	282	28						001
+  #64091	3	enum_const	UVM_RM_RECORD			uvm_object_globals.svh	283	3	283	28						001
+> #64092	2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_globals.svh	532	52	532	53						010
+  #64093	3	ref_typespec			<in>uvm_pkg::uvm_active_passive_enum		0	0	0	0		0			work@my_scoreboard::uvm_pkg::uvm_active_passive_enum	001
+  #64094	4	bit_typespec				uvm_object_globals.svh	147	14	147	17						001
+  #64095	3	enum_const	UVM_PASSIVE			uvm_object_globals.svh	147	20	147	33						001
+  #64096	3	enum_const	UVM_ACTIVE			uvm_object_globals.svh	147	35	147	47						001
+  #64097	2	enum_typespec	uvm_pkg::uvm_apprepend			uvm_callback.svh	246	55	246	68						010
+  #64098	3	enum_const	UVM_APPEND			uvm_misc.svh	43	15	43	25						001
+
+--- OURS (B) records 64072..64084 ('>' = the object)
+  #64072	3	enum_const	UVM_LOG			uvm_object_globals.svh	278	3	278	28						001
+  #64073	3	enum_const	UVM_COUNT			uvm_object_globals.svh	279	3	279	28						001
+  #64074	3	enum_const	UVM_EXIT			uvm_object_globals.svh	280	3	280	28						001
+  #64075	3	enum_const	UVM_CALL_HOOK			uvm_object_globals.svh	281	3	281	28						001
+  #64076	3	enum_const	UVM_STOP			uvm_object_globals.svh	282	3	282	28						001
+  #64077	3	enum_const	UVM_RM_RECORD			uvm_object_globals.svh	283	3	283	28						001
+> #64078	2	enum_typespec	uvm_pkg::uvm_active_passive_enum			uvm_object_globals.svh	147	1	147	74						010
+  #64079	3	ref_typespec			<in>uvm_pkg::uvm_active_passive_enum		0	0	0	0		0			uvm_pkg::uvm_pkg::uvm_active_passive_enum	001
+  #64080	4	bit_typespec				uvm_object_globals.svh	147	14	147	17						001
+  #64081	3	enum_const	UVM_PASSIVE			uvm_object_globals.svh	147	20	147	33						001
+  #64082	3	enum_const	UVM_ACTIVE			uvm_object_globals.svh	147	35	147	47						001
+  #64083	2	enum_typespec	uvm_pkg::uvm_apprepend			uvm_callback.svh	246	55	246	68						010
+  #64084	3	enum_const	UVM_APPEND			uvm_misc.svh	43	15	43	25						001
+
+facets of this row (1783, first 25):
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0423 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20911 bit_typespec  G[] O[1 objs]
+  N0423 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21847 bit_typespec  G[] O[1 objs]
+  N0423 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74775 bit_typespec  G[] O[1 objs]
+  N0423 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74796 bit_typespec  G[] O[1 objs]
+  N0423 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74852 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79114 array_typespec  G[] O[1 objs]
+  N0423 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79133 bit_typespec  G[] O[1 objs]
+  N0423 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80109 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82238/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82246/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82254/-1 ref_typespec  G[2 objs] O[]
+  N0151 #82262/-1 ref_typespec  G[2 objs] O[]
+  N0262 #84965/-1 constant  G[2 objs] O[]
+  N0262 #84976/-1 constant  G[2 objs] O[]

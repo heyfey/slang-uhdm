@@ -1,0 +1,45 @@
+cluster N0519 (id kept from an earlier map; COVERED r11u193 (map 10 joint step 14: InterfaceStructMemberPort) | ground B | site UHDM library DeepClone < DeepClone < DeepCopy (--elabuhdm, testflags) run from main (uhdm_main.cpp) [r11u142map pin]): fullname|ref_obj|tok:id.id.->|under:hier_path
+row: surelog/testflags/InterfaceStructMemberPort  strict=differ:fullname(6)  records golden=352 ours=352
+object: #311 (golden) / #311 (ours)  type=ref_obj name=wen OUT
+  golden: work@top.w.u.sys_wen.wen
+  ours:   work@top.w.wen
+  walk parents: hier_path(sub.req.wen) < operation < port(sys_wen) < module_inst(u)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 305..317 ('>' = the object)
+  #305	8	constant				dut.sv	17	31	17	32	0	64	UINT:0	9		001
+  #306	4	port	sys_wen			dut.sv	17	55	17	62						000
+  #307	5	operation				dut.sv	23	44	23	65		0				000
+  #308	6	hier_path	sub.req.wen			dut.sv	23	44	23	55		0				000
+  #309	7	ref_obj	sub			dut.sv	23	44	23	47		0				000
+  #310	7	ref_obj	req			dut.sv	23	48	23	51		0				000
+> #311	7	ref_obj	wen		work@top.w.u.sys_wen.wen	dut.sv	23	52	23	55		0			work@top.w.u.sys_wen.wen	000
+  #312	8	typespec_member	wen			dut.sv	8	51	8	54						000
+  #313	9	ref_typespec			p::p::req_t::wen		0	0	0	0		0			p::p::req_t::wen	000
+  #314	10	logic_typespec				dut.sv	8	45	8	50						000
+  #315	6	hier_path	sub.trn			dut.sv	23	58	23	65		0				000
+  #316	7	ref_obj	sub			dut.sv	23	58	23	61		0				000
+  #317	7	ref_obj	trn		work@top.w.u.sys_wen.trn	dut.sv	23	62	23	65		0			work@top.w.u.sys_wen.trn	000
+
+--- OURS (B) records 305..317 ('>' = the object)
+  #305	8	constant				dut.sv	17	31	17	32	0	64	UINT:0	9		001
+  #306	4	port	sys_wen			dut.sv	17	55	17	62						000
+  #307	5	operation				dut.sv	23	44	23	65		0				000
+  #308	6	hier_path	sub.req.wen			dut.sv	23	44	23	55		0				000
+  #309	7	ref_obj	sub			dut.sv	23	44	23	47		0				000
+  #310	7	ref_obj	req			dut.sv	23	48	23	51		0				000
+> #311	7	ref_obj	wen		work@top.w.wen	dut.sv	23	52	23	55		0			work@top.w.wen	000
+  #312	8	typespec_member	wen			dut.sv	8	51	8	54						000
+  #313	9	ref_typespec			p::p::req_t::wen		0	0	0	0		0			p::p::req_t::wen	000
+  #314	10	logic_typespec				dut.sv	8	45	8	50						000
+  #315	6	hier_path	sub.trn			dut.sv	23	58	23	65		0				000
+  #316	7	ref_obj	sub			dut.sv	23	58	23	61		0				000
+  #317	7	ref_obj	trn		work@top.w.trn	dut.sv	23	62	23	65		0			work@top.w.trn	000
+
+facets of this row (6, first 25):
+  N1134 #246/246 struct_net req G[] O[work@top.w.sub.sub.req.req]
+  N1126 #247/247 ref_typespec  G[req] O[work@top.w.sub.sub.req.req]
+  N1117 #259/259 logic_var trn G[] O[work@top.w.sub.trn]
+  N1128 #260/260 ref_typespec  G[trn] O[work@top.w.sub.trn]
+  N0519 #311/311 ref_obj wen G[work@top.w.u.sys_wen.wen] O[work@top.w.wen]
+  N0519 #317/317 ref_obj trn G[work@top.w.u.sys_wen.trn] O[work@top.w.trn]
