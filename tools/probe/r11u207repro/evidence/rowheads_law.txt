@@ -1,0 +1,33 @@
+MiniAmiq/default #899 file
+MiniAmiq/default   A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73
+MiniAmiq/default   B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16
+MiniAmiq/testflags #899 file
+MiniAmiq/testflags   A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73
+MiniAmiq/testflags   B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16
+SeqDriver/default #10090 fullname
+SeqDriver/default   A: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0
+SeqDriver/default   B: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0
+SeqDriver/testflags #10102 fullname
+SeqDriver/testflags   A: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0
+SeqDriver/testflags   B: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0
+SimpleUVM/default #458 fullname
+SimpleUVM/default   A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+SimpleUVM/default   B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+SimpleUVM/testflags #470 fullname
+SimpleUVM/testflags   A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+SimpleUVM/testflags   B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+Scoreboard/default #466 fullname
+Scoreboard/default   A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+Scoreboard/default   B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+BuildUVMPkg/default #3245 line
+BuildUVMPkg/default   A: 5	int_typespec	uvm_action			uvm_pkg.sv	9704	72	9704	82
+BuildUVMPkg/default   B: 5	int_typespec	uvm_action			uvm_pkg.sv	8075	9	8075	12
+BuildUVMPkg/testflags #3245 line
+BuildUVMPkg/testflags   A: 5	int_typespec	uvm_action			uvm_pkg.sv	9704	72	9704	82
+BuildUVMPkg/testflags   B: 5	int_typespec	uvm_action			uvm_pkg.sv	8075	9	8075	12
+BlackBePipeInt/default #15272 type
+BlackBePipeInt/default   A: 5	ref_typespec			bp_common_pkg		0	0	0	0		0
+BlackBePipeInt/default   B: 5	constant				dut.sv	2047	16	2047	17	1	64	UINT:1	9
+BlackBePipeInt/testflags #66 depth
+BlackBePipeInt/testflags   A: 2	parameter	host_dev_gp		bp_common_pkg::host_dev_gp	dut.sv	1795	12	1795	23		0	UINT:1
+BlackBePipeInt/testflags   B: 6	parameter	dev_addr_width_gp		bp_be_pkg::dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20

@@ -1,0 +1,8 @@
+pris u01 EQUIVALENT nohier il ℹ️  No common assign statements to compare — skipping
+pris u02 EQUIVALENT nohier il synth ✅ All 2 common constant assignments match
+pris u04 IDENTICAL
+pris u05 IDENTICAL
+lawF u01 IDENTICAL
+lawF u02 IDENTICAL
+lawF u04 IDENTICAL
+lawF u05 IDENTICAL

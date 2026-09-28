@@ -1,0 +1,13 @@
+surelog/default/BlackBePipeInt-1fcd9dad dist 17110 -> 16907 lost=0 gained=75
+surelog/default/BuildUVMPkg-fc55bd0c dist 776 -> 739 lost=0 gained=37
+surelog/default/MiniAmiq-055eab74 dist 6634 -> 6565 lost=0 gained=69
+surelog/default/Scoreboard-72aa0ba8 dist 1526 -> 1480 lost=0 gained=46
+surelog/default/SeqDriver-65178d3a dist 5194 -> 5115 lost=0 gained=79
+surelog/default/SimpleUVM-267de3ff dist 2074 -> 2017 lost=0 gained=57
+surelog/default/UnitElabBlock-b76c1b32 dist 2 -> 0 lost=0 gained=2
+surelog/testflags/BlackBePipeInt-1fcd9dad dist 17181 -> 17132 lost=0 gained=49
+surelog/testflags/BuildUVMPkg-fc55bd0c dist 776 -> 739 lost=0 gained=37
+surelog/testflags/MiniAmiq-055eab74 dist 6634 -> 6565 lost=0 gained=69
+surelog/testflags/SeqDriver-65178d3a dist 5194 -> 5115 lost=0 gained=79
+surelog/testflags/SimpleUVM-267de3ff dist 2074 -> 2017 lost=0 gained=57
+surelog/testflags/UnitElabBlock-b76c1b32 dist 1 -> 0 lost=0 gained=1

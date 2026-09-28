@@ -3953,7 +3953,28 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                                 : std::string(arrSym->name));
                 rv->VpiFullName(afn);
                 rv->VpiParent(fs);
-                setLoc(rv, scopedArr33
+                // § foreachThisArrAtThisToken207 — `foreach (this.<name>[i])`:
+                // golden's iterated ref_var spans the `this` keyword alone
+                // (BuildUVMPkg `foreach (this.m_predecessors[pred])`
+                // 33455:16-20; grid cases/T), the node Surelog populates the
+                // loop list's variable from; ours spanned the property name's
+                // length from the base's start (16-30).  Switch:
+                // R11U207_FOREACHTHIS_OFF.
+                std::optional<SourceRange> this207;
+                if (arrThis21 && !scopedArr33 && arrBase &&
+                    arrBase->kind == syntax::SyntaxKind::ScopedName &&
+                    r11u207On("R11U207_FOREACHTHIS_OFF")) {
+                    const syntax::NameSyntax* rt207 =
+                        &*arrBase->as<syntax::ScopedNameSyntax>().left;
+                    while (rt207->kind == syntax::SyntaxKind::ScopedName)
+                        rt207 = &*rt207->as<syntax::ScopedNameSyntax>().left;
+                    if (rt207->kind == syntax::SyntaxKind::ThisHandle) {
+                        this207 = rt207->sourceRange();
+                        trace207("foreachThisArrAtThisToken207");
+                    }
+                }
+                setLoc(rv, this207 ? *this207
+                           : scopedArr33
                                ? scopedArrSpan33
                                : (arrBase ? nameSpan(arrBase->sourceRange().start(),
                                                      arrSym->name)

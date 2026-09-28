@@ -1,0 +1,2 @@
+probe cases: EQUAL=3363 STRICT_NOTEQUAL=724 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3363 differ:fullname=262 differ:line=124 differ:endcol=89 differ:type=71 differ:name=58 differ:file=41 differ:depth=33 differ:col=27 differ:endline=11 differ:value=7 differ:decompile=1

@@ -15224,4 +15224,54 @@ inline bool r11v201On(const char* one) {
     static const bool all = getenv("R11V201_OFF") != nullptr;
     return !all && getenv(one) == nullptr;
 }
+// ===========================================================================
+// r11u207 — the expression/parameter ground (tools/probe/r11u207repro).
+// Every law reads its own R11U207_<LAW>_OFF switch; R11U207_OFF drops every
+// one of them (the pristine bytes).  R11U207_TRACE=<dir> names every firing
+// (one file per process, `<dir>/<pid>.T207`, first line `OUT <-o path>`,
+// then one law name per firing): the firing census that predicts the movers.
+// ===========================================================================
+inline bool r11u207On(const char* one) {
+    static const bool all = getenv("R11U207_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+// r11u207's adversarial verification (tools/probe/v11u207repro): every
+// refinement reads its own R11V207_<LAW>_OFF switch; R11V207_OFF drops them
+// all (the implementer's bytes).
+inline bool r11v207On(const char* one) {
+    static const bool all = getenv("R11V207_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+inline void trace207(const char* law) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U207_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".T207";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
 } // namespace slang_uhdm

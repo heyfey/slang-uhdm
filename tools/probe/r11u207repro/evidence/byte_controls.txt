@@ -1,0 +1,5 @@
+r11u195repro/cases/A/a04 NOT_EQUAL NOT_EQUAL MOVED
+r11u204verify/cases/DF/e06 NOT_EQUAL NOT_EQUAL MOVED
+r11u204verify/cases/DF/e08 NOT_EQUAL NOT_EQUAL MOVED
+v11u201repro/cases/M/m04_task_ctl STRICT_NOTEQUAL:endcol(2) EQUAL MOVED
+CASES 1760 MOVED 4 status-better 1 status-worse 0

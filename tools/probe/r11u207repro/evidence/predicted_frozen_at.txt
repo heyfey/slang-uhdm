@@ -1,0 +1,3 @@
+Mon Sep 28 15:03:39 UTC 2026
+7be18fd04b6c3fb632ea4447a6e2dc25  /tmp/r11u207_bin/lawF.bin
+census of lawF.bin (identical line for line to the census of law.bin)

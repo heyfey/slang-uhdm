@@ -26662,6 +26662,52 @@ void UhdmExporter::stampCastSizeParamTs(const ParameterSymbol& ps,
 // See the header note: the paren-cast marks follow the PARAMETER, so every
 // copy of its declaration int_typespec gets them.  `inst` is the package the
 // copy's typespec instances at (null leaves whatever is already there).
+// § parenCastWidthRefPkgBare207 — the cast-width mark's vpiExpr ref_obj binds
+// the parameter of the DECLARING package's own listing and stores no full
+// name, in every copy of the declaration typespec and in both views: golden
+// BlackBePipeInt (default and -elabuhdm) `ref_obj dev_addr_width_gp` under
+// `int_typespec` 1793:1-34, no vpiFullName, vpiActual
+// `bp_common_pkg::dev_addr_width_gp` at every one of its 49 walk records
+// (13 of them expanded: always the package's object).  The pinned Surelog
+// no longer leaves the importing module's copy there
+// (§ parenCastWidthRefModuleCopy, measured on the v1.86 producer, bound it
+// and named it `work@bp_be_pipe_int.dev_addr_width_gp.dev_addr_width_gp`).
+// A package listing's copy binds that listing's own parameter (golden's
+// AllPackages and TopPackages listings each reach their own on the walk's
+// path: grid cases/P p01); an importer's copy binds the declaring package's
+// first listing (refs stamped earlier are re-pointed when it is met), and
+// the module copy's claim is skipped.
+// Switch: R11U207_PCWPKG_OFF.
+static bool pcwPkgBare207On() {
+    static const bool on = r11u207On("R11U207_PCWPKG_OFF");
+    return on;
+}
+static std::map<const Symbol*, UHDM::parameter*>& pcwDecl207() {
+    static std::map<const Symbol*, UHDM::parameter*> m;
+    return m;
+}
+// § pcwElabKeepsClaim207v — refines § parenCastWidthRefPkgBare207 in the
+// `--elabuhdm` view: there golden's expanded actuals are the importing
+// module's copy (BlackBePipeInt -elabuhdm: `work@bp_be_pipe_int.
+// dev_addr_width_gp` at all 14 expanded records, the v1.86 measurement of
+// § parenCastWidthRefModuleCopy still holding in this view), so the binding
+// stays pristine's and only the full name is dropped.  The first law binary
+// moved 12 records of BlackBePipeInt testflags away from golden (the
+// away-moved census, README section 6).  Switch: R11U207_PCWELAB_OFF.
+static bool pcwElabKeepsClaim207v(bool elabView) {
+    static const bool on = r11u207On("R11U207_PCWELAB_OFF");
+    return on && elabView;
+}
+// the ref already binds a parameter parented at the declaring package
+static bool pcwBindsDeclPkg207(const UHDM::ref_obj* r, const ParameterSymbol& ps) {
+    auto* a = r->Actual_group();
+    auto* ap = a ? a->VpiParent() : nullptr;
+    const Scope* sc = ps.getParentScope();
+    return ap && ap->UhdmType() == UHDM::uhdmpackage && sc &&
+           sc->asSymbol().kind == SymbolKind::Package &&
+           ap->VpiName() == sc->asSymbol().name;
+}
+
 void UhdmExporter::stampParenCastWidthTs(const ParameterSymbol& ps,
                                          UHDM::parameter* up,
                                          UHDM::typespec* its,
@@ -26670,6 +26716,22 @@ void UhdmExporter::stampParenCastWidthTs(const ParameterSymbol& ps,
     if (!isParenCastWidthParam(ps.name)) return;
     auto* ic9 = (UHDM::int_typespec*)its;
     if (inst) ic9->Instance(inst);
+    // is `up` a listing of the declaring package's own parameter?
+    bool declPkg207 = false;
+    if (pcwPkgBare207On() && !pcwElabKeepsClaim207v(elabUhdmView121) && up) {
+        const Scope* sc207 = ps.getParentScope();
+        const UHDM::any* pp207 = up->VpiParent();
+        declPkg207 = sc207 && sc207->asSymbol().kind == SymbolKind::Package &&
+                     pp207 && pp207->UhdmType() == UHDM::uhdmpackage &&
+                     pp207->VpiName() == sc207->asSymbol().name;
+        if (declPkg207 && !pcwDecl207().count(&ps)) {
+            pcwDecl207()[&ps] = up;
+            // refs stamped earlier on an importer's copy re-point here
+            for (auto* r207 : parenCastWidthRefs[&ps])
+                if (r207 && !pcwBindsDeclPkg207(r207, ps))
+                    r207->Actual_group(up);
+        }
+    }
     // § parenCastWidthRefModuleCopy (declaration comment in UhdmExporter.h):
     // an already-stamped typespec still joins the re-point set, and a stamp
     // made after the module copy has claimed ownership binds THAT object.
@@ -26679,6 +26741,18 @@ void UhdmExporter::stampParenCastWidthTs(const ParameterSymbol& ps,
             auto* er9 = (UHDM::ref_obj*)ex9;
             if (std::find(refs9.begin(), refs9.end(), er9) == refs9.end())
                 refs9.push_back(er9);
+            if (pcwPkgBare207On()) {  // § parenCastWidthRefPkgBare207
+                er9->VpiFullName(std::string());
+                if (pcwElabKeepsClaim207v(elabUhdmView121))
+                    ;  // § pcwElabKeepsClaim207v: the binding stays
+                else if (declPkg207 && !pcwBindsDeclPkg207(er9, ps))
+                    er9->Actual_group(up);
+                else if (!declPkg207 && !pcwBindsDeclPkg207(er9, ps))
+                    if (auto d207 = pcwDecl207().find(&ps);
+                        d207 != pcwDecl207().end())
+                        er9->Actual_group(d207->second);
+                trace207("parenCastWidthRefPkgBare207 stamped");
+            }
         }
         return;
     }
@@ -26687,7 +26761,21 @@ void UhdmExporter::stampParenCastWidthTs(const ParameterSymbol& ps,
     auto oIt9 = parenCastWidthOwner.find(&ps);
     UHDM::parameter* bind9 =
         oIt9 != parenCastWidthOwner.end() ? oIt9->second : up;
-    if (bind9) {
+    if (pcwPkgBare207On()) {
+        // § parenCastWidthRefPkgBare207: a package listing's copy binds its
+        // own parameter, an importer's copy the declaring package's; no
+        // stored full name (the module copy's claim is skipped).
+        if (!pcwElabKeepsClaim207v(elabUhdmView121)) {
+            bind9 = up;
+            if (!declPkg207)
+                if (auto d207 = pcwDecl207().find(&ps); d207 != pcwDecl207().end())
+                    bind9 = d207->second;
+        }
+        if (bind9)
+            r9->Actual_group(bind9);
+        trace207("parenCastWidthRefPkgBare207");
+    }
+    else if (bind9) {
         r9->VpiFullName(std::string(bind9->VpiFullName()) + "." +
                         std::string(bind9->VpiName()));
         r9->Actual_group(bind9);
@@ -26705,9 +26793,12 @@ void UhdmExporter::stampParenCastWidthTs(const ParameterSymbol& ps,
 // measured for the param_assign Lhs).
 void UhdmExporter::claimParenCastWidthOwner(const Symbol& sym,
                                             UHDM::parameter* up) {
+    if (pcwPkgBare207On() && !pcwElabKeepsClaim207v(elabUhdmView121))
+        return;  // § parenCastWidthRefPkgBare207
     if (!up || !parenCastWidthOwner.emplace(&sym, up).second)
         return;
     for (auto* r9 : parenCastWidthRefs[&sym]) {
+        if (!pcwPkgBare207On())  // § parenCastWidthRefPkgBare207: no name
         r9->VpiFullName(std::string(up->VpiFullName()) + "." +
                         std::string(up->VpiName()));
         r9->Actual_group(up);
@@ -30678,6 +30769,34 @@ void UhdmExporter::drainShareDefParamTs() {
             o->VpiFile("");
     }
     implicitNetMints131().clear();
+    // § parenCastWidthRefPkgBare207 — design-final: a cast-width ref left on
+    // an IMPORTED copy (vpiImported, a re-exporting package's listing that
+    // the package-scope cast site met last) binds the parameter the
+    // declaring package lists instead.
+    if (pcwPkgBare207On() && !pcwElabKeepsClaim207v(elabUhdmView121) && d &&
+        d->AllPackages())
+        for (auto& [sym207, refs207] : parenCastWidthRefs)
+            for (auto* r207 : refs207) {
+                auto* a207 = r207 ? r207->Actual_group() : nullptr;
+                if (!a207 || a207->UhdmType() != UHDM::uhdmparameter)
+                    continue;
+                std::string_view imp207 = ((UHDM::parameter*)a207)->VpiImported();
+                if (imp207.empty())
+                    continue;
+                for (auto* pk207 : *d->AllPackages()) {
+                    if (!pk207 || pk207->VpiName() != imp207 || !pk207->Parameters())
+                        continue;
+                    for (auto* pa207 : *pk207->Parameters())
+                        if (pa207 && pa207->UhdmType() == UHDM::uhdmparameter &&
+                            pa207->VpiName() == r207->VpiName() &&
+                            ((UHDM::parameter*)pa207)->VpiImported().empty()) {
+                            r207->Actual_group((UHDM::parameter*)pa207);
+                            trace207("parenCastWidthRefPkgBare207 imported");
+                            break;
+                        }
+                    break;
+                }
+            }
     {
         static const bool offCf124 = getenv("R11U124_OFF") != nullptr ||
                                      getenv("R11U124_CASTFILE_OFF") != nullptr;

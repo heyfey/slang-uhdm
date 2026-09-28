@@ -1,0 +1,13 @@
+law index current
+[probe] EQUAL=3363 STRICT_NOTEQUAL=724
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=17 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=459 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=15 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=797 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=6
+[testflags] CMP_EQUAL=797 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=6
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+SWEEP_RC=0

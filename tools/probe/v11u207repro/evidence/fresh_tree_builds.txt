@@ -1,0 +1,2 @@
+fix1 sources in fresh 3668bf30 worktree: ae0bffb6e4ae2c54f417c1370d5853af  build/slang-uhdm
+fix2 sources in fresh 3668bf30 worktree: a98fa7d0d2bed31480bc9503ff0305f5  build/slang-uhdm

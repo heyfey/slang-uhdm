@@ -2137,6 +2137,39 @@ static SourceRange parenIdxRange181(const Expression& sel) {
     return top->sourceRange();
 }
 
+// § bitSelMethodCallIdxSpan207 — an rvalue bit-select whose index is a
+// METHOD call through a handle (`m_ch[child.get_name()]`, `m_i[c.gi(1)]`)
+// spans the whole call, parentheses and arguments included, as golden's
+// index node does (BuildUVMPkg `m_children[child.get_name()]` 39715:18-34;
+// grid cases/B).  slang binds such a call with the member-access range
+// (`child.get_name`), so the rvalue anchor of § bitSelParenIdxSpan181 ended
+// at the method name (ours 39715:18-32).  A plain call `m_i[gi(2)]` already
+// carries its invocation's range; a parenthesized index keeps the 181 rule.
+// Switch: R11U207_MCALLIDX_OFF.
+static SourceRange methodCallIdxRange207(const Expression& sel) {
+    SourceRange r = parenIdxRange181(sel);
+    if (!r11u207On("R11U207_MCALLIDX_OFF"))
+        return r;
+    const Expression& x = stripImplicitConv(sel);
+    if (x.kind != ExpressionKind::Call || r != x.sourceRange || !x.syntax)
+        return r;
+    const syntax::SyntaxNode* n = x.syntax;
+    if (n->kind == syntax::SyntaxKind::ScopedName && n->parent &&
+        n->parent->kind == syntax::SyntaxKind::InvocationExpression)
+        n = n->parent;
+    if (n->kind != syntax::SyntaxKind::InvocationExpression)
+        return r;
+    auto& inv = n->as<syntax::InvocationExpressionSyntax>();
+    if (!inv.left || inv.left->kind != syntax::SyntaxKind::ScopedName)
+        return r;
+    SourceRange sr = n->sourceRange();
+    if (sr.start() != r.start() || sr.end() == r.end() ||
+        sr.end().buffer() != r.end().buffer() || sr.end() < r.end())
+        return r;
+    trace207("bitSelMethodCallIdxSpan207");
+    return sr;
+}
+
 // § memberSelParenIdxSpan184 (r11u184) — § bitSelParenIdxSpan181's rule at the
 // MEMBER select of a mixed path: an rvalue member select anchored at its index
 // (`y = s.f[(i)]`, a trailing select, or any select of a process / interface
@@ -3193,6 +3226,85 @@ static UHDM::constant* ndaCallFold102(UHDM::Serializer& s, Compilation& comp,
     c102->VpiConstType(isInt102 ? vpiIntConst : vpiUIntConst);
     c102->VpiParent(parent102);
     return c102;
+}
+
+// § namedUnlinkedWrittenOrder207 — the written order of a named-association
+// call, as formal indices, when the call golden leaves unresolved lists its
+// written actuals in that order (compileTfCallArguments' `argOrder`): every
+// written argument a named one with an expression naming a distinct formal
+// (or a leading positional one, taking its position's formal),
+// and the order not already the formal order (then the prefix rule is
+// golden's list).  Empty otherwise.  Switch: R11U207_NAMEDORDER_OFF.
+static std::vector<size_t> namedWrittenOrder207(const CallExpression& call) {
+    std::vector<size_t> w;
+    if (!r11u207On("R11U207_NAMEDORDER_OFF") || call.isSystemCall())
+        return w;
+    auto* isy = callInvocation167(call);
+    auto* sub = std::get<0>(call.subroutine);
+    if (!isy || !isy->arguments || !sub)
+        return w;
+    auto fl = sub->getArguments();
+    if (fl.size() != call.arguments().size())
+        return w;
+    std::vector<bool> seen(fl.size(), false);
+    bool named = false;
+    size_t pos = 0;
+    for (auto* pa : isy->arguments->parameters) {
+        // a positional actual (before any named one) takes its position's
+        // formal: Surelog pushes it to the list as it is met and appends
+        // the named ones after (`f(x, .c(4))` -> `x, 4`)
+        if (pa->kind == syntax::SyntaxKind::OrderedArgument && !named &&
+            pos < fl.size()) {
+            seen[pos] = true;
+            w.push_back(pos++);
+            continue;
+        }
+        if (pa->kind != syntax::SyntaxKind::NamedArgument)
+            return {};
+        named = true;
+        pos++;
+        auto& na = pa->as<syntax::NamedArgumentSyntax>();
+        if (!na.expr)
+            return {};
+        auto nm = na.name.valueText();
+        size_t fi = fl.size();
+        for (size_t q = 0; q < fl.size(); q++)
+            if (fl[q]->name == nm) {
+                fi = q;
+                break;
+            }
+        if (fi >= fl.size() || seen[fi])
+            return {};
+        seen[fi] = true;
+        w.push_back(fi);
+    }
+    for (size_t q = 0; q < w.size(); q++)
+        if (w[q] != q)
+            return w;
+    return {};
+}
+
+// § namedOrderLinkedDeclines207v (the TASK half) — an in-body call to a task
+// of the caller's own class whose `extern` or `pure virtual` PROTOTYPE sits
+// above the call is linked by golden (task_call + vpiTask to the prototype,
+// arguments in FORMAL order), although this view's no-link arm has no object
+// to bind (the prototype map holds functions only); a prototype BELOW the
+// call is unseen by Surelog's single pass and keeps the written order
+// (v11u207 cases B/b09 `tt`, B/b12 `ta` / `tb` / `tv`).
+static bool classTaskProtoAbove207v(const SubroutineSymbol& sub,
+                                    const SubroutineSymbol* caller,
+                                    SourceLocation callLoc) {
+    if (sub.subroutineKind != SubroutineKind::Task || !caller)
+        return false;
+    const Scope* cs = sub.getParentScope();
+    if (!cs || cs->asSymbol().kind != SymbolKind::ClassType ||
+        caller->getParentScope() != cs)
+        return false;
+    for (auto& m : cs->members())
+        if (m.kind == SymbolKind::MethodPrototype && m.name == sub.name &&
+            m.location.buffer() == callLoc.buffer() && m.location < callLoc)
+            return true;
+    return false;
 }
 
 static UHDM::constant* namedSlotFiller4(UHDM::Serializer& s) {
@@ -18978,6 +19090,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     inet9->VpiParent(implicitNetModule);
                     inet9->VpiNetType(1);
                     setLoc(inet9, expr.sourceRange);
+                    // § hiddenBlockVarMintNoFile207 — this lazy mint is
+                    // Surelog's late-binding wire as well (the lookup-miss arm
+                    // of lateBinding, § implicitNetMintNoFile131): four span
+                    // fields, NO VpiFile on the definition's net (golden
+                    // UnitElabBlock `logic_net hold` 21:1-21:5 without a
+                    // file).  The mint was the one road that law's note had
+                    // not reached.  Switch: R11U207_HIDDENVARFILE_OFF.
+                    if (r11u207On("R11U207_HIDDENVARFILE_OFF")) {
+                        noteImplicitNetMint131(inet9);
+                        trace207("hiddenBlockVarMintNoFile207");
+                    }
                     auto* nets9 = implicitNetModule->Nets();
                     if (!nets9) {
                         nets9 = s.MakeNetVec();
@@ -27945,9 +28068,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                  auto* pobj9 = it9->second.second;
                                  auto* r9 = s.MakeRef_obj();
                                  r9->VpiName(pobj9->VpiName());
+                                 // § parenCastWidthRefPkgBare207 (ParamEmit.cpp):
+                                 // no stored full name.
+                                 if (!r11u207On("R11U207_PCWPKG_OFF"))
                                  r9->VpiFullName(
                                      std::string(pobj9->VpiFullName()) + "." +
                                      std::string(pobj9->VpiName()));
+                                 else {
+                                     trace207("parenCastWidthRefPkgBare207 cast");
+                                     parenCastWidthRefs[nullptr].push_back(r9);
+                                 }
                                  r9->VpiParent(cts);
                                  r9->Actual_group(pobj9);
                                  ((UHDM::int_typespec*)cts)->Cast_to_expr(r9);
@@ -29476,7 +29606,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // further, which is exactly the `()` case.
                     SourceRange callRng11 = expr.sourceRange;
                     if (expr.syntax) {
-                        auto sr11 = expr.syntax->sourceRange();
+                        // § parenMethodCallPathSpan207 — a PARENTHESIZED
+                        // method call (`m_i[(c.gi(4))]`, `y = (c.gi(1))`)
+                        // keeps the parenthesized syntax on the bound call,
+                        // whose range starts at `(`, so the rule above never
+                        // reached it and the path stopped at the method name
+                        // (ours 16:43-51, golden `c.gi(4)` 16:43-54; grid
+                        // cases/B).  The invocation inside the parentheses is
+                        // the node to read.  Switch: R11U207_PARENMCALL_OFF.
+                        const syntax::SyntaxNode* sy207 = expr.syntax;
+                        if (sy207->kind ==
+                                syntax::SyntaxKind::ParenthesizedExpression &&
+                            r11u207On("R11U207_PARENMCALL_OFF")) {
+                            while (sy207->kind ==
+                                   syntax::SyntaxKind::ParenthesizedExpression)
+                                sy207 = sy207->as<syntax::ParenthesizedExpressionSyntax>()
+                                            .expression;
+                            if (sy207->sourceRange().start() == callRng11.start() &&
+                                sy207->sourceRange().end() > callRng11.end())
+                                trace207("parenMethodCallPathSpan207");
+                        }
+                        auto sr11 = sy207->sourceRange();
                         if (sr11.start() == callRng11.start() &&
                             sr11.end() > callRng11.end())
                             callRng11 = sr11;
@@ -31075,7 +31225,44 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         std::vector<const syntax::ArgumentSyntax*> es24;
                         emptyArgSlots24(callArgList24(call), es24);
                         size_t esi24 = 0;
-                        for (auto arg : writtenArgs16(call)) {
+                        // § namedUnlinkedWrittenOrder207 — THIS is golden's
+                        // no-link arm too: a named list in written order.
+                        std::vector<const Expression*> wr207;
+                        // § namedOrderLinkedDeclines207v — a call this arm
+                        // LINKED (the class's own extern / pure virtual
+                        // prototype, § externProtoInBodyCallBinds12, or the
+                        // package free function of that name,
+                        // § classOwnLateMethodBindsPkgFn113) is one golden
+                        // resolved: Surelog had the callee's io_decls and
+                        // rebuilt the list in FORMAL order, so the written
+                        // order is not golden's there (v11u207 cases B/b06,
+                        // b09, b10, b11: `mt(.c(W), .b(1), .a(0))` golden
+                        // `0 1 W`; pristine judge-equal, the law NOT_EQUAL),
+                        // and a task whose prototype sits above the call
+                        // (classTaskProtoAbove207v).
+                        // Switch: R11V207_NAMEDLINK_OFF.
+                        bool linked207v =
+                            r11v207On("R11V207_NAMEDLINK_OFF") &&
+                            (((UHDM::func_call*)fc0)->Function() != nullptr ||
+                             (!curSubOob9 &&
+                              classTaskProtoAbove207v(sub, currentSubSym,
+                                                      expr.sourceRange.start())));
+                        if (!linked207v) {
+                            auto wo207 = namedWrittenOrder207(call);
+                            auto all207 = call.arguments();
+                            for (size_t fi207 : wo207)
+                                wr207.push_back(all207[fi207]);
+                            if (!wr207.empty())
+                                trace207("namedUnlinkedWrittenOrder207 nolink");
+                        }
+                        else if (!namedWrittenOrder207(call).empty())
+                            trace207("namedOrderLinkedDeclines207v");
+                        auto wa207 = writtenArgs16(call);
+                        std::span<const Expression* const> argsSeq207 =
+                            wr207.empty() ? wa207
+                                          : std::span<const Expression* const>(
+                                                wr207.data(), wr207.size());
+                        for (auto arg : argsSeq207) {
                             bool eh24 = false;
                             if (auto* ez24 = emptySlotArg24(es24, esi24++, eh24))
                                 cargs->push_back(ez24);
@@ -31734,12 +31921,69 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // NAMED shape, which `emptyArgSlots24` refuses outright.
                 std::vector<const syntax::ArgumentSyntax*> es24;
                 emptyArgSlots24(callArgList24(call), es24);
+                // § namedUnlinkedWrittenOrder207 — a NAMED-association call
+                // golden leaves UNRESOLVED (no vpiFunction / vpiTask: an
+                // extern method whose body Surelog compiles after the
+                // caller's, an inherited method) lists the WRITTEN actuals in
+                // WRITTEN order: compileTfCallArguments collects them in
+                // `argOrder` and, with no io_decls to walk, pushes that list
+                // as it stands (CompileHelper.cpp, the `!args.empty()` arm's
+                // else branch).  The prefix rule below kept the first
+                // nWritten FORMALS, so a skipped middle formal listed its
+                // declared default and dropped a later written actual
+                // (BuildUVMPkg `m_matches_type_override(..., .full_inst_path(
+                // p), .resolve_null_type_by_inst(1))`: golden's fifth
+                // argument the written `1`, ours `match_original_type`'s
+                // default), and a reordered list read NOT_EQUAL.  Taken only
+                // when every written argument is a named one with an
+                // expression that names a distinct formal; the written
+                // formals are emitted in formal order and permuted after.
+                // Switch: R11U207_NAMEDORDER_OFF.
+                std::vector<size_t> wOrd207;
+                std::vector<bool> isW207;
+                bool nOrd207 = false;
+                // § namedOrderLinkedDeclines207v — the same gate on this
+                // arm: a call golden links takes the formal order.
+                if (namedArgs9 && !haveSlots4 &&
+                    !(linked4 && r11v207On("R11V207_NAMEDLINK_OFF") &&
+                      (namedWrittenOrder207(call).empty() ||
+                       (trace207("namedOrderLinkedDeclines207v"), true)))) {
+                    wOrd207 = namedWrittenOrder207(call);
+                    if (!wOrd207.empty()) {
+                        isW207.assign(call.arguments().size(), false);
+                        for (size_t fi207 : wOrd207)
+                            isW207[fi207] = true;
+                        nOrd207 = true;
+                    }
+                }
                 for (auto arg : call.arguments()) {
                     if (haveSlots4) {
                         if (argIdx >= slots4.size())
                             break;
                         if (!slots4[argIdx]) {
-                            args->push_back(namedSlotFiller4(s));
+                            auto* f207 = namedSlotFiller4(s);
+                            // § namedSlotFillerRootFile207 — golden's filler
+                            // carries VpiFile (compileTfCallArguments:
+                            // `c->VpiFile(fileSystem->toPath(fC->
+                            // getFileId()))`), the COMPILED file: the root
+                            // file of the call's include chain, not the
+                            // included or macro file the call is written in
+                            // (grid cases/F: `dut.sv` for a call in an
+                            // included `inc.svh` and in a macro body).  No
+                            // span.  Switch: R11U207_SLOTFILE_OFF.
+                            if (r11u207On("R11U207_SLOTFILE_OFF")) {
+                                f207->VpiFile(rootFilePath(call.sourceRange.start()));
+                                trace207("namedSlotFillerRootFile207");
+                            }
+                            args->push_back(f207);
+                            argIdx++;
+                            continue;
+                        }
+                    }
+                    else if (nOrd207) {
+                        if (argIdx >= isW207.size())
+                            break;
+                        if (!isW207[argIdx]) {
                             argIdx++;
                             continue;
                         }
@@ -32999,6 +33243,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         args->push_back(a);
                     }
                     argIdx++;
+                }
+                // § namedUnlinkedWrittenOrder207 — the permutation: `args`
+                // holds the written formals' actuals in formal order, one
+                // each; list them in written order.
+                if (nOrd207 && args->size() == wOrd207.size()) {
+                    std::vector<size_t> sorted207(wOrd207);
+                    std::sort(sorted207.begin(), sorted207.end());
+                    std::vector<UHDM::any*> perm207;
+                    for (size_t fi207 : wOrd207) {
+                        size_t pos207 = (size_t)(std::lower_bound(
+                                                     sorted207.begin(),
+                                                     sorted207.end(), fi207) -
+                                                 sorted207.begin());
+                        perm207.push_back((*args)[pos207]);
+                    }
+                    for (size_t q = 0; q < perm207.size(); q++)
+                        (*args)[q] = perm207[q];
+                    trace207("namedUnlinkedWrittenOrder207");
                 }
                 callArgDepth--;
                 qualCallArg20 = savedQCA20;
@@ -36641,7 +36903,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         inParamInit ||
                         firstPos147 || incDecSel181)
                            ? expr.sourceRange
-                           : parenIdxRange181(es.selector()));
+                           : methodCallIdxRange207(es.selector()));
             // ELAB gen-scope CONN index FOLD: an index OPERATION that is
             // constant after genvar substitution (CC[i+1] in a for-generate
             // body) collapses to ONE UINT constant spanning the FIRST source

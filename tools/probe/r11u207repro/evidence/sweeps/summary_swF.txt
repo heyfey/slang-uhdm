@@ -1,0 +1,36 @@
+law index current
+[probe] EQUAL=3370 STRICT_NOTEQUAL=717
+CONVERSION r10buvm4repro/a2_kindgrid STRICT_NOTEQUAL differ:file(16) -> EQUAL
+CONVERSION r10uvm167repro/g167_d_decline STRICT_NOTEQUAL differ:file(1) -> EQUAL
+CONVERSION r10uvm21repro/t32g_t STRICT_NOTEQUAL differ:endcol(10) -> EQUAL
+CONVERSION r10uvm84repro/g84_c1_lvalue STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10uvm84repro/v84x6_stmt STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10uvm85repro/v85x4_pos STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10v167repro/vB_bare STRICT_NOTEQUAL differ:file(8) -> EQUAL
+CHANGE r10uvm167repro/g167_b_spell STRICT_NOTEQUAL differ:file(6) -> differ:endcol(2)
+CHANGE r10uvm22repro/t33e_t STRICT_NOTEQUAL differ:endcol(8) -> differ:file(2)
+CHANGE r10v204repro/v204_s_shadow STRICT_NOTEQUAL differ:endcol(3) -> differ:depth(1)
+regressions=0 conversions=7 changes=3 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=464 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=16 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=460 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=14 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CONVERSION UnitElabBlock default STRICT_NOTEQUAL differ:file(2) -> CMP_EQUAL
+CONVERSION UnitElabBlock testflags STRICT_NOTEQUAL differ:file(1) -> CMP_EQUAL
+CHANGE BlackBePipeInt default STRICT_NOTEQUAL differ:fullname(2) -> differ:type(1)
+CHANGE BlackBePipeInt testflags STRICT_NOTEQUAL differ:fullname(2) -> differ:depth(1)
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:line(11) -> differ:line(7) [line -4]
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:line(11) -> differ:line(7) [line -4]
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(71) -> differ:file(70) [file -1]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(71) -> differ:file(70) [file -1]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(103) -> differ:fullname(102) [fullname -1]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:fullname(65) -> differ:fullname(64) [fullname -1]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:fullname(65) -> differ:fullname(64) [fullname -1]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(95) -> differ:fullname(94) [fullname -1]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(95) -> differ:fullname(94) [fullname -1]
+regressions=0 conversions=2 changes=11 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=797 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=6
+[testflags] CMP_EQUAL=797 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=6
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+SWEEP_RC=0
