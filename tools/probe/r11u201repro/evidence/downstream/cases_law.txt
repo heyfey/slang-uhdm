@@ -1,0 +1,36 @@
+c01 {'name': 'c01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+c02 {'name': 'c02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+c03 {'name': 'c03', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+c04 {'name': 'c04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+c05 {'name': 'c05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+c06 {'name': 'c06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+n01 {'name': 'n01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+n02 {'name': 'n02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+n04 {'name': 'n04', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 18, 'slang_gates': 18, 'differs': '', 'detail': ''}
+n05 {'name': 'n05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+n06 {'name': 'n06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+n07 {'name': 'n07', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': '✅ All 6 common constant assignments match'}
+n08 {'name': 'n08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+q01 {'name': 'q01', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 12, 'slang_gates': 12, 'differs': '', 'detail': ''}
+q02 {'name': 'q02', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 8, 'slang_gates': 8, 'differs': '', 'detail': ''}
+q03 {'name': 'q03', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 10, 'slang_gates': 10, 'differs': '', 'detail': ''}
+q04 {'name': 'q04', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 13, 'slang_gates': 13, 'differs': '', 'detail': ''}
+q05 {'name': 'q05', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 5, 'slang_gates': 5, 'differs': '', 'detail': ''}
+q06 {'name': 'q06', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 10, 'slang_gates': 10, 'differs': '', 'detail': ''}
+q07 {'name': 'q07', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 13, 'slang_gates': 13, 'differs': '', 'detail': ''}
+q08 {'name': 'q08', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 9, 'slang_gates': 9, 'differs': '', 'detail': ''}
+q09 {'name': 'q09', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 9, 'slang_gates': 9, 'differs': '', 'detail': ''}
+q10 {'name': 'q10', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 8, 'slang_gates': 8, 'differs': '', 'detail': ''}
+s01 {'name': 's01', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 12, 'slang_gates': 12, 'differs': '', 'detail': ''}
+s02 {'name': 's02', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 8, 'slang_gates': 8, 'differs': '', 'detail': ''}
+s03 {'name': 's03', 'verdict': 'EQUIVALENT', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 8, 'slang_gates': 8, 'differs': 'nohier il synth', 'detail': '✅ Formal equivalence check PASSED for /tmp/r11u201_dsL/s03/equiv/s03'}
+s04 {'name': 's04', 'verdict': 'DIVERGENT', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 17, 'slang_gates': 7, 'differs': 'nohier il synth', 'detail': '   This indicates a serious bug in /tmp/r11u201_dsL/s04/equiv/s04 - the design is non-functional'}
+s05 {'name': 's05', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 4, 'slang_gates': 4, 'differs': '', 'detail': ''}
+s06 {'name': 's06', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 4, 'slang_gates': 4, 'differs': '', 'detail': ''}
+s07 {'name': 's07', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 4, 'slang_gates': 4, 'differs': '', 'detail': ''}
+z03 {'name': 'z03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+z04 {'name': 'z04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+z05 {'name': 'z05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+z06 {'name': 'z06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+z07 {'name': 'z07', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+z08 {'name': 'z08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}

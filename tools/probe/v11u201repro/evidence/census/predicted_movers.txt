@@ -1,0 +1,29 @@
+downstream/ibex_tracer/slang.uhdm sysCtxRefArgBare201:6
+probe/r10svs2repro/s4_context newArrayArgPathElemsStripped200:1
+probe/r10svs3repro/a1_newlhs newArrayArgPathElemsStripped200:2
+probe/r10uvm193repro/g193_c_argface methodArgNestedRefChain201:8
+probe/r10uvm57repro/v1_prodcell sysCtxRefArgBare201:1
+probe/r10uvm60repro/v2_class methodArgNestedRefChain201:1
+probe/v11u112repro/grid/brk/t/b2c_iface_fn methodArgNestedRefChain201:1
+surelog/default/BuildUVMPkg methodArgNestedRefChain201:71 sysCtxRefArgBare201:27
+surelog/default/Earlgrey_0_1 nonReduceOpArgBare201:6
+surelog/default/MiniAmiq methodArgNestedRefChain201:154 newArrayArgPathElemsStripped200:1 sysCtxRefArgBare201:41
+surelog/default/SVSwitch newArrayArgPathElemsStripped200:2
+surelog/default/Scoreboard methodArgNestedRefChain201:92 sysCtxRefArgBare201:27
+surelog/default/Scr1SvTests sysCtxRefArgBare201:2 unitBoundFoldAtLeftOperand200:4
+surelog/default/SeqDriver methodArgNestedRefChain201:146 sysCtxRefArgBare201:41
+surelog/default/SimpleConstraint sysCtxRefArgBare201:1
+surelog/default/SimpleUVM methodArgNestedRefChain201:92 sysCtxRefArgBare201:27
+surelog/testflags/BuildUVMPkg methodArgNestedRefChain201:71 sysCtxRefArgBare201:27
+surelog/testflags/Earlgrey_0_1 nonReduceOpArgBare201:6
+surelog/testflags/MiniAmiq methodArgNestedRefChain201:154 newArrayArgPathElemsStripped200:1 sysCtxRefArgBare201:41
+surelog/testflags/SVSwitch newArrayArgPathElemsStripped200:2
+surelog/testflags/Scr1SvTests sysCtxRefArgBare201:2 unitBoundFoldAtLeftOperand200:4
+surelog/testflags/SeqDriver methodArgNestedRefChain201:146 sysCtxRefArgBare201:41
+surelog/testflags/SimpleConstraint sysCtxRefArgBare201:1
+surelog/testflags/SimpleUVM methodArgNestedRefChain201:92 sysCtxRefArgBare201:27
+uhdm2rtlil/default/ibex_tracer sysCtxRefArgBare201:6
+uhdm2rtlil/testflags/ibex_tracer sysCtxRefArgBare201:6
+ROWS 26
+2026-09-28T12:23:14Z
+PREDICTION (fix1 law sweep vs pristine): exactly the 13 corpus row-modes BuildUVMPkg d/t MiniAmiq d/t Scoreboard d Scr1SvTests d/t SeqDriver d/t SimpleUVM d/t SVSwitch d/t + 5 probe cases s4_context a1_newlhs g193_c_argface v2_class b2c_iface_fn move (the fired-but-unmoved: Earlgrey_0_1 d/t, SimpleConstraint d/t, ibex_tracer u2r d/t, v1_prodcell, downstream ibex_tracer); vs the r11u201 law sweep: 0 movers (the refinements fire on none)

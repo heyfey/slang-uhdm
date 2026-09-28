@@ -1,0 +1,13 @@
+// decode only (ground B, TypeEmit emitSyntaxExpr): a generate-scope interface-path indexed part select, map N0145
+interface bif #(parameter int W = 8);
+  logic [W-1:0] read_data;
+endinterface
+module top (output logic [31:0] o);
+  bif #(32) bit_field_if();
+  bif #(4) sub_if();
+  assign bit_field_if.read_data[0+:4] = sub_if.read_data;
+  for (genvar i = 1; i < 3; i++) begin : g
+    assign bit_field_if.read_data[4*i+:4] = sub_if.read_data;
+  end
+  assign o = bit_field_if.read_data;
+endmodule

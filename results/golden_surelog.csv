@@ -167,8 +167,8 @@ BlockingAssignRewrite,default,CMP_EQUAL,,,equal
 BlockingAssignRewrite,testflags,CMP_EQUAL,,,equal
 BuildOVMPkg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
 BuildOVMPkg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
-BuildUVMPkg,default,STRICT_NOTEQUAL,differ:line(24),,differ:line(24)
-BuildUVMPkg,testflags,STRICT_NOTEQUAL,differ:line(24),,differ:line(24)
+BuildUVMPkg,default,STRICT_NOTEQUAL,differ:line(11),,differ:line(11)
+BuildUVMPkg,testflags,STRICT_NOTEQUAL,differ:line(11),,differ:line(11)
 BuiltInMethod,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BuiltInMethod/dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
 BuiltInMethod,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BuiltInMethod/dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
 CarryAdd,default,CMP_EQUAL,,,equal
@@ -855,8 +855,8 @@ MaskNeg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv
 MaskNeg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 MBadder,default,CMP_EQUAL,,,equal
 MBadder,testflags,CMP_EQUAL,,,equal
-MiniAmiq,default,STRICT_NOTEQUAL,differ:file(91),,differ:file(91)
-MiniAmiq,testflags,STRICT_NOTEQUAL,differ:file(91),,differ:file(91)
+MiniAmiq,default,STRICT_NOTEQUAL,differ:file(71),,differ:file(71)
+MiniAmiq,testflags,STRICT_NOTEQUAL,differ:file(71),,differ:file(71)
 MinTypMax,default,CMP_EQUAL,,,equal
 MinTypMax,testflags,CMP_EQUAL,,,equal
 ModPortArrayBind,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortArrayBind/dut.sv:15:18: error: top-level module 'r5p_bus_dec' has unconnected interface port 'm',,
@@ -1199,20 +1199,20 @@ Rsd,default,DEFERRED,late-phase: golden uncacheable on this machine,,
 Rsd,testflags,DEFERRED,late-phase: golden uncacheable on this machine,,
 ScalarParam,default,CMP_EQUAL,,,equal
 ScalarParam,testflags,CMP_EQUAL,,,equal
-Scoreboard,default,STRICT_NOTEQUAL,differ:fullname(123),,differ:fullname(123)
+Scoreboard,default,STRICT_NOTEQUAL,differ:fullname(103),,differ:fullname(103)
 Scoreboard,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scoreboard/testbench.sv:12:3: error: use of undeclared identifier 'my_scoreboard',,
 Scr1,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
 Scr1,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
-Scr1SvTests,default,STRICT_NOTEQUAL,differ:endcol(11),,differ:endcol(11)
-Scr1SvTests,testflags,STRICT_NOTEQUAL,differ:endcol(11),,differ:endcol(11)
+Scr1SvTests,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
+Scr1SvTests,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 SelectHierPath,default,CMP_EQUAL,,,equal
 SelectHierPath,testflags,CMP_EQUAL,,,equal
 Selects,default,CMP_EQUAL,,,equal
 Selects,testflags,CMP_EQUAL,,,equal
 SelectSelect,default,CMP_EQUAL,,,equal
 SelectSelect,testflags,CMP_EQUAL,,,equal
-SeqDriver,default,STRICT_NOTEQUAL,differ:fullname(85),,differ:fullname(85)
-SeqDriver,testflags,STRICT_NOTEQUAL,differ:fullname(85),,differ:fullname(85)
+SeqDriver,default,STRICT_NOTEQUAL,differ:fullname(65),,differ:fullname(65)
+SeqDriver,testflags,STRICT_NOTEQUAL,differ:fullname(65),,differ:fullname(65)
 SequenceInst,default,CMP_EQUAL,,,equal
 SequenceInst,testflags,CMP_EQUAL,,,equal
 SeqUseNonTemp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SeqUseNonTemp/dut.sv:15:10: error: redefinition of 'p1_count_increment' [-Wredefinition],,
@@ -1255,8 +1255,8 @@ SimpleParserTestCache,default,SURELOG_FAIL,[   NOTE] : 0,,
 SimpleParserTestCache,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 SimpleTask,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleTask/top_2.v:2:8: error: duplicate definition of 'bus_wr_rd_task' [-Wduplicate-definition],,
 SimpleTask,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleTask/top_2.v:2:8: error: duplicate definition of 'bus_wr_rd_task' [-Wduplicate-definition],,
-SimpleUVM,default,STRICT_NOTEQUAL,differ:fullname(115),,differ:fullname(115)
-SimpleUVM,testflags,STRICT_NOTEQUAL,differ:fullname(115),,differ:fullname(115)
+SimpleUVM,default,STRICT_NOTEQUAL,differ:fullname(95),,differ:fullname(95)
+SimpleUVM,testflags,STRICT_NOTEQUAL,differ:fullname(95),,differ:fullname(95)
 SimpleVMM,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but decl,,
 SimpleVMM,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but decl,,
 SimplifyHierPath,default,CMP_EQUAL,,,equal
@@ -1309,8 +1309,8 @@ StructVarImp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVar
 StructVarImp,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVarImp/dut.sv:36:43: error: use of undeclared identifier 'MpRegions'; did you mean 'NumRegions'?,,
 SurelogMacro,default,CMP_EQUAL,,,equal
 SurelogMacro,testflags,CMP_EQUAL,,,equal
-SVSwitch,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
-SVSwitch,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+SVSwitch,default,CMP_EQUAL,,,equal
+SVSwitch,testflags,CMP_EQUAL,,,equal
 SynthFilterDollarError,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SynthFilterDollarError/dut.sv:4:10: error: unknown package 'pack',,
 SynthFilterDollarError,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SynthFilterDollarError/dut.sv:4:10: error: unknown package 'pack',,
 SynthForeach,default,CMP_EQUAL,,,equal

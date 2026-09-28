@@ -1,0 +1,73 @@
+A_a01_this IDENTICAL  NO_GATES
+A_a02_pkgimport IDENTICAL  READ_FAIL
+A_a03_threelevel IDENTICAL  NO_GATES
+A_a04_module IDENTICAL  NO_GATES
+A_a05_sel IDENTICAL  NO_GATES
+A_a06_gen EQUIVALENT nohier il synth NO_GATES
+A_a07_this_only IDENTICAL  NO_GATES
+A_a08_handle_only IDENTICAL  NO_GATES
+A_a10_func_pkg IDENTICAL  NO_GATES
+A_a11_super_this3 IDENTICAL  NO_GATES
+B_b01_unit_param IDENTICAL  NO_GATES
+B_b02_unit_macro IDENTICAL  NO_GATES
+B_b03_pkg_depth IDENTICAL  NO_GATES
+B_b04_unit_other IDENTICAL  NO_GATES
+B_b05_incl IDENTICAL  NO_GATES
+B_b06_module_ctl IDENTICAL  NO_GATES
+B_b07_include IDENTICAL  NO_GATES
+B_b08_localparam_mix IDENTICAL  NO_GATES
+C_c01_paramcls IDENTICAL  NO_GATES
+C_c02_enum IDENTICAL  NO_GATES
+C_c03_paren_neg IDENTICAL  NO_GATES
+C_c04_gen_proc IDENTICAL  NO_GATES
+C_c05_class_body IDENTICAL  NO_GATES
+C_c06_ternary_call EQUIVALENT nohier il synth NO_GATES
+G_g01_localparam IDENTICAL  NO_GATES
+G_g02_inst_param IDENTICAL  NO_GATES
+G_g03_func DIVERGENT nohier il synth NO_GATES
+G_g04_cond_hdr DIVERGENT nohier il synth NO_GATES
+G_g05_struct_sel DIVERGENT nohier il synth NO_GATES
+G_g06_two_level IDENTICAL  NO_GATES
+M_m01_iface_ca IDENTICAL  OK
+M_m03_gen_initial EQUIVALENT nohier il synth NO_GATES
+M_m04_task_ctl IDENTICAL  NO_GATES
+M_m06_new_arg IDENTICAL  NO_GATES
+M_m07_pkg_fn IDENTICAL  NO_GATES
+M_m08_task_body IDENTICAL  NO_GATES
+M_m09_incdec_this IDENTICAL  NO_GATES
+M_m10_super STATUS_DIFF  READ_FAIL
+M_m11_partsel_bound IDENTICAL  NO_GATES
+M_m12_gen_depth IDENTICAL  NO_GATES
+N_n01_mid EQUIVALENT nohier NO_GATES
+N_n02_op DIVERGENT nohier il synth NO_GATES
+N_n03_gen_ca IDENTICAL  NO_GATES
+N_n04_class EQUIVALENT nohier NO_GATES
+N_n05_nested2 DIVERGENT nohier il synth NO_GATES
+N_n06_stream IDENTICAL  NO_GATES
+N_n07_gen_depth EQUIVALENT nohier il NO_GATES
+O_o01_implicit IDENTICAL  NO_GATES
+O_o02_port_var IDENTICAL  OK
+O_o03_forward_nonansi IDENTICAL  OK
+O_o04_gen IDENTICAL  OK
+O_o05_ops IDENTICAL  OK
+O_o06_iface_target IDENTICAL  OK
+O_o07_child IDENTICAL  OK
+O_o08_multi IDENTICAL  OK
+O_o09_iface_body IDENTICAL  OK
+O_o10_program IDENTICAL  NO_GATES
+O_o11_implicit2 IDENTICAL  OK
+O_o12_uninst IDENTICAL  OK
+O_o13_delay IDENTICAL  OK
+O_o14_implicit_port IDENTICAL  OK
+O_o15_array_target IDENTICAL  NO_GATES
+O_o16_iface_noport IDENTICAL  NO_GATES
+O_o17_struct_target IDENTICAL  OK
+S_s01_bits_size EQUIVALENT nohier il synth OK
+S_s02_countones_nested IDENTICAL  OK
+S_s03_gen_elab IDENTICAL  OK
+S_s04_param_ctx IDENTICAL  OK
+S_s05_procedural IDENTICAL  OK
+X_x01_ops IDENTICAL  OK
+X_x02_cond IDENTICAL  OK
+X_x03_sel_target IDENTICAL  OK
+X_x04_gen_child IDENTICAL  OK

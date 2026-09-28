@@ -15170,4 +15170,58 @@ inline void trace198(const char* law) {
         fflush(tf);
     }
 }
+// ===========================================================================
+// r11u201 — the expression/parameter ground (tools/probe/r11u201repro).
+// Every law reads its own R11U201_<LAW>_OFF switch; R11U201_OFF drops every
+// one of them (the pristine bytes; the r11u200 laws this pass lands keep
+// their own R11U200_* switches).  R11U201_TRACE=<dir> names every firing
+// (one file per process, `<dir>/<pid>.T201`, first line `OUT <-o path>`,
+// then one law name per firing): the firing census that predicts the movers.
+// ===========================================================================
+inline bool r11u201On(const char* one) {
+    static const bool all = getenv("R11U201_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+inline void trace201(const char* law) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U201_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".T201";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+// ===========================================================================
+// v11u201 — the adversarial verification of r11u201 (tools/probe/v11u201repro).
+// Each refinement narrows one r11u201 / r11u200 law and reads its own
+// R11V201_<NAME>_OFF switch; R11V201_OFF drops every refinement (the r11u201
+// patch's own bytes).  Firings are traced through trace201 (R11U201_TRACE).
+// ===========================================================================
+inline bool r11v201On(const char* one) {
+    static const bool all = getenv("R11V201_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
 } // namespace slang_uhdm

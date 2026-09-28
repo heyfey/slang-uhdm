@@ -1,0 +1,21 @@
+R11U201_CLSBOUND_OFF form=parse grid=C fired=5 restored=5 mixed: none NOT_RESTORED: none
+R11U201_CLSBOUND_OFF form=elab grid=C fired=5 restored=5 mixed: none NOT_RESTORED: none
+R11U201_SYSARG_OFF form=parse grid=S fired=7 restored=3 mixed: S/s02 S/s03 S/s04 S/s06 NOT_RESTORED: none
+R11U201_SYSARG_OFF form=elab grid=S fired=7 restored=3 mixed: S/s02 S/s03 S/s04 S/s06 NOT_RESTORED: none
+R11U201_OPARG_OFF form=parse grid=Q fired=5 restored=3 mixed: Q/q01 Q/q09 NOT_RESTORED: none
+R11U201_OPARG_OFF form=elab grid=Q fired=5 restored=3 mixed: Q/q01 Q/q09 NOT_RESTORED: none
+R11U201_NONRED_OFF form=parse grid=Q fired=3 restored=1 mixed: Q/q01 Q/q09 NOT_RESTORED: none
+R11U201_NONRED_OFF form=elab grid=Q fired=3 restored=1 mixed: Q/q01 Q/q09 NOT_RESTORED: none
+R11U201_MARGNEST_OFF form=parse grid=M fired=8 restored=8 mixed: none NOT_RESTORED: none
+R11U201_MARGNEST_OFF form=elab grid=M fired=8 restored=8 mixed: none NOT_RESTORED: none
+R11U200_NEWARRHP_OFF form=parse grid=Z fired=2 restored=2 mixed: none NOT_RESTORED: none
+R11U200_NEWARRHP_OFF form=elab grid=Z fired=2 restored=2 mixed: none NOT_RESTORED: none
+R11U200_FOLDDEPTH_OFF form=parse grid=Z fired=1 restored=1 mixed: none NOT_RESTORED: none
+R11U200_FOLDDEPTH_OFF form=elab grid=Z fired=1 restored=1 mixed: none NOT_RESTORED: none
+R11U200_UNITFOLD_OFF form=parse grid=Z fired=1 restored=1 mixed: none NOT_RESTORED: none
+R11U200_UNITFOLD_OFF form=elab grid=Z fired=1 restored=1 mixed: none NOT_RESTORED: none
+R11U200_GENBITS_OFF form=parse grid=Z fired=4 restored=4 mixed: none NOT_RESTORED: none
+R11U200_GENBITS_OFF form=elab grid=Z fired=4 restored=4 mixed: none NOT_RESTORED: none
+R11U201_SELIDXCALL_OFF form=parse grid=N fired=5 restored=5 mixed: none NOT_RESTORED: none
+R11U201_SELIDXCALL_OFF form=elab grid=N fired=5 restored=5 mixed: none NOT_RESTORED: none
+# R11U201_NEWARRLAST_OFF (a refinement of an r11u200 law, not a pristine-restoring switch): z01 z02 parse STRICT_EQUAL, -elabuhdm STRICT_NOTEQUAL fullname (the r11u200 law's own break returns)

@@ -1,0 +1,32 @@
+== canaries.sh surelog (law sweep vs results/golden_surelog.csv)
+  Scr1SvTests                    default   CHANGED STRICT_NOTEQUAL/differ:endcol(29) -> STRICT_NOTEQUAL/differ:endcol(19)
+  Scr1SvTests                    testflags CHANGED STRICT_NOTEQUAL/differ:endcol(29) -> STRICT_NOTEQUAL/differ:endcol(19)
+  SVSwitch                       default   CHANGED STRICT_NOTEQUAL/differ:fullname(13) -> STRICT_NOTEQUAL/differ:endline(11)
+  SVSwitch                       testflags CHANGED STRICT_NOTEQUAL/differ:fullname(13) -> STRICT_NOTEQUAL/differ:endline(11)
+  SimpleUVM                      default   CHANGED STRICT_NOTEQUAL/differ:fullname(44) -> STRICT_NOTEQUAL/differ:fullname(31)
+  SimpleUVM                      testflags CHANGED STRICT_NOTEQUAL/differ:fullname(44) -> STRICT_NOTEQUAL/differ:fullname(31)
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:fullname(16) -> STRICT_NOTEQUAL/differ:endcol(3)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:fullname(16) -> STRICT_NOTEQUAL/differ:endcol(3)
+  BuildUVMPkg                    default   CHANGED STRICT_NOTEQUAL/differ:line(11) -> STRICT_NOTEQUAL/differ:line(5)
+  BuildUVMPkg                    testflags CHANGED STRICT_NOTEQUAL/differ:line(11) -> STRICT_NOTEQUAL/differ:line(5)
+  Scoreboard                     default   CHANGED STRICT_NOTEQUAL/differ:fullname(44) -> STRICT_NOTEQUAL/differ:fullname(31)
+---- canary rows: ok=41 changed=11 absent=0 unknown-names=7
+== canaries.sh uhdm2rtlil
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+== EXPECT_UNKNOWN=1 ctcan2.sh surelog
+  ParamFileMacro                     default   OK       SURELOG_FAIL/
+  ParamFileMacro                     testflags OK       SURELOG_FAIL/
+  BlackParrot                        default   OK       SURELOG_FAIL/
+  BlackParrot                        testflags OK       SURELOG_FAIL/
+  BlackUcode                         default   OK       SURELOG_FAIL/
+  BlackUcode                         testflags OK       SURELOG_FAIL/
+  BlackUnicore                       default   OK       SURELOG_FAIL/
+  BlackUnicore                       testflags OK       SURELOG_FAIL/
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+== EXPECT_UNKNOWN=6 ctcan2.sh uhdm2rtlil
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+== pristine sweep: surelog / uhdm2rtlil
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25

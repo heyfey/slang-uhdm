@@ -1,0 +1,6 @@
+# byteverify law7 sweep vs law6 sweep (the two builds differ only when a switch is set)
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/SeqDriver-65178d3a/slang.uhdm  patched=1e1b69f90445 pristine=76403053f8f4
+MOVERS: 1 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+SeqDriver/default: ordered and order-blind uhdm-dump diff 0 lines (storage order only)

@@ -1,0 +1,18 @@
+// decode only (ground B: TypeEmit emitSyntaxExpr in the definition listing, ModuleEmit in the elaborated one): a generate-scope port connection trailing select, Earlgrey_0_1 head 90097
+package hp;
+  typedef struct packed { logic [3:0] class_en; logic [3:0][7:0] thresh; } wrap_t;
+endpackage
+module accu (input logic en_i, input logic [7:0] thresh_i, output logic o);
+  assign o = en_i & thresh_i[0];
+endmodule
+module top (input hp::wrap_t w_in, output logic [3:0] o);
+  hp::wrap_t reg2hw_wrap;
+  assign reg2hw_wrap = w_in;
+  for (genvar k = 0; k < 4; k++) begin : gen_classes
+    accu i_accu (
+      .en_i     ( reg2hw_wrap.class_en[k] ),
+      .thresh_i ( reg2hw_wrap.thresh[k]   ),
+      .o        ( o[k] )
+    );
+  end
+endmodule

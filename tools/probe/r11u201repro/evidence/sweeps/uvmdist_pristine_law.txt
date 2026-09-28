@@ -1,0 +1,13 @@
+MiniAmiq/default total=15559	total=15265
+MiniAmiq/testflags total=15559	total=15265
+SeqDriver/default total=11805	total=11449
+SeqDriver/testflags total=11805	total=11449
+SimpleUVM/default total=4538	total=4246
+SimpleUVM/testflags total=4538	total=4246
+Scoreboard/default total=3451	total=3213
+BuildUVMPkg/default total=1907	total=1765
+BuildUVMPkg/testflags total=1907	total=1765
+ApbSlave/default total=0	total=0
+ApbSlave/testflags total=0	total=0
+SVSwitch/default total=102	total=98
+SVSwitch/testflags total=102	total=98

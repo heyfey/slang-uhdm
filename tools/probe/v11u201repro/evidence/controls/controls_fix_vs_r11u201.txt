@@ -1,0 +1,5 @@
+v11u201repro/cases/C/c01_paramcls fix=pris
+v11u201repro/cases/O/o01_implicit fix=pris
+v11u201repro/cases/O/o09_iface_body fix=pris
+v11u201repro/cases/O/o11_implicit2 fix=pris
+v11u201repro/cases/O/o16_iface_noport fix=pris

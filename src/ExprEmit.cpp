@@ -25,6 +25,48 @@
 #include "R204.h"
 
 namespace slang_uhdm {
+// The r11u200 switches of this file (ground A; the switch table is in
+// UhdmExporter.cpp).  Local so this file's laws land and build alone:
+// R11U200_OFF drops all of them; R11U200_TRACE=<dir> appends one
+// `<law> <detail>` line per firing to `<dir>/<pid>.200E` (ExprEmit) or `.200P` (ParamEmit), first line
+// `OUT <-o path>`.
+static bool r11u200Law(const char* sw) {
+    if (getenv("R11U200_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+static void trace200(const char* law, const std::string& detail) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U200_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".200E";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s %s\n", law, detail.c_str());
+        fflush(tf);
+    }
+}
 
 // The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
 // reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them.
@@ -1046,6 +1088,94 @@ static bool caRhsRootIsCall199v(const Expression& e) {
     }
     return false;
 }
+// § opCtxRefArgBare201's clone test: UhdmWriter::writeCont_assign clones
+// the continuous assignment (and reduces the clone) only when its target is
+// a whole name bindVariable finds and its right side's ROOT is an operation
+// (a call root `g(f(a) + 1)` or a system-call root is not cloned and keeps
+// the listing's stamp: grid tools/probe/r11u201repro/cases/Q q03, q08).  Read from the syntax (the target a plain
+// identifier) and from the UHDM chain above the call (its topmost expression
+// below the cont_assign, walked through operations and calls only).
+static bool caClonedOpRoot201(const Expression& e, const UHDM::any* parent) {
+    const syntax::SyntaxNode* asg = nullptr;
+    bool ca = false;
+    for (const syntax::SyntaxNode* n = e.syntax; n; n = n->parent) {
+        if (n->kind == syntax::SyntaxKind::AssignmentExpression)
+            asg = n;
+        else if (n->kind == syntax::SyntaxKind::ContinuousAssign) {
+            ca = true;
+            break;
+        }
+    }
+    if (!ca || !asg)
+        return false;
+    auto& b = asg->as<syntax::BinaryExpressionSyntax>();
+    if (!b.left || b.left->kind != syntax::SyntaxKind::IdentifierName)
+        return false;
+    const UHDM::any* top = nullptr;
+    bool reached = false;
+    int d = 0;
+    for (const UHDM::any* q = parent; q && d < 64; q = q->VpiParent(), d++) {
+        const auto qt = q->UhdmType();
+        if (qt == UHDM::uhdmcont_assign) {
+            reached = true;
+            break;
+        }
+        if (qt != UHDM::uhdmoperation && qt != UHDM::uhdmfunc_call &&
+            qt != UHDM::uhdmmethod_func_call && qt != UHDM::uhdmsys_func_call)
+            return false;
+        top = q;
+    }
+    return reached && top && top->UhdmType() == UHDM::uhdmoperation;
+}
+// § opCtxBindableTarget201v (v11u201, refines § opCtxRefArgBare201;
+// R11V201_OPTGT_OFF) — UhdmWriter::writeCont_assign clones only when
+// `bindVariable(mod, m, lhs->VpiName())` FINDS the target, and that
+// CompileHelper overload searches the Variables() and Nets() of a
+// module_inst scope (and of function / task / begin scopes) only: an
+// INTERFACE body's continuous assignment (m an interface_inst) and an
+// IMPLICIT net target (not among the netlist's nets when the assignment is
+// written) are never cloned, so the reduction runs on the listing's own
+// objects and golden keeps the stamp there (grid
+// tools/probe/v11u201repro/cases/O o01 o11 implicit nets, o09 o16
+// interface bodies: EQUAL on the pristine binary, NOT_EQUAL under the
+// unrefined law in both forms).  The target is read from the syntax (a plain
+// identifier) and resolved through the listing's net map; any implicit net
+// of that name declines.
+static bool caTargetBindable201v(const Expression& e, const UHDM::any* parent,
+                                 const std::map<const slang::ast::Symbol*, UHDM::any*>& nm) {
+    if (!r11v201On("R11V201_OPTGT_OFF"))
+        return true;
+    const UHDM::any* ca = nullptr;
+    int d = 0;
+    for (const UHDM::any* q = parent; q && d < 64; q = q->VpiParent(), d++)
+        if (q->UhdmType() == UHDM::uhdmcont_assign) {
+            ca = q;
+            break;
+        }
+    if (!ca || !ca->VpiParent() ||
+        ca->VpiParent()->UhdmType() != UHDM::uhdmmodule_inst)
+        return false;
+    const syntax::SyntaxNode* asg = nullptr;
+    for (const syntax::SyntaxNode* n = e.syntax; n; n = n->parent) {
+        if (n->kind == syntax::SyntaxKind::AssignmentExpression)
+            asg = n;
+        else if (n->kind == syntax::SyntaxKind::ContinuousAssign)
+            break;
+    }
+    if (!asg)
+        return false;
+    auto& b = asg->as<syntax::BinaryExpressionSyntax>();
+    if (!b.left || b.left->kind != syntax::SyntaxKind::IdentifierName)
+        return false;
+    std::string_view tn =
+        b.left->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+    for (auto& kv : nm)
+        if (kv.first && kv.first->name == tn &&
+            kv.first->kind == SymbolKind::Net &&
+            kv.first->as<NetSymbol>().isImplicit)
+            return false;
+    return true;
+}
 static bool caRhsUnbasedUnsized192(const Expression& e) {
     const syntax::SyntaxNode* asg = nullptr;
     for (const syntax::SyntaxNode* n = e.syntax; n; n = n->parent) {
@@ -1411,6 +1541,177 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
         if (margop198)
             trace198("methodArgOpRefChainName198");
         ro175->VpiFullName(want);
+    }
+    // § methodArgNestedRefChain201 (r11u201, R11U201_MARGNEST_OFF; the
+    // residues of § methodArgOpRefChainName198: r11u198's m13, v11u198's v01
+    // and v13) — EVERY object inside a method call's argument, when that
+    // call is a hier_path's last element, carries no stored full name in
+    // golden (compileTfCallArguments compiles the actuals under the call and
+    // sets none), so the reader's chain names it, whatever lies between the
+    // object and the call: a select the object indexes (`c.f(a[i] + 1)`:
+    // the bit_select `work@D::g::c.f::a` and its index `...::c.f::i`; a
+    // var_select `c.f::b` and its indices `c.f::b::i`), a user call
+    // (`c.f(g2(i) + 1)`), a nested path (`s.substr(0, args[i].len())`:
+    // `...::s.substr::args[i].len::i`), a select that IS the argument
+    // (`c.f(a[i])`).  The chain is UHDM's ComputeFullName (chainFullName175).
+    // Ours stored the scope's name with those ancestors dropped; only such a
+    // name is replaced (same root, same leaf).  Measured in class methods,
+    // module functions and a module initial block, both listings (grid
+    // tools/probe/r11u201repro/cases/M); a method TASK call statement keeps
+    // its names in golden (m06, not a hier_path element).
+    for (auto& kv : s.AllObjects()) {
+        if (!r11u201On("R11U201_MARGNEST_OFF"))
+            break;
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (!o)
+            continue;
+        const auto ot = o->UhdmType();
+        if (ot != UHDM::uhdmref_obj && ot != UHDM::uhdmbit_select &&
+            ot != UHDM::uhdmvar_select && ot != UHDM::uhdmpart_select &&
+            ot != UHDM::uhdmindexed_part_select)
+            continue;
+        const UHDM::BaseClass* p = o->VpiParent();
+        if (!p)
+            continue;
+        const UHDM::BaseClass* q = p;
+        int steps = 0;
+        bool newKind = false;
+        while (q && steps < 32) {
+            const auto qt = q->UhdmType();
+            if (qt == UHDM::uhdmoperation || qt == UHDM::uhdmsys_func_call) {
+            }
+            else if (qt == UHDM::uhdmfunc_call || qt == UHDM::uhdmbit_select ||
+                     qt == UHDM::uhdmvar_select || qt == UHDM::uhdmpart_select ||
+                     qt == UHDM::uhdmindexed_part_select ||
+                     qt == UHDM::uhdmhier_path)
+                newKind = true;
+            else
+                break;
+            q = q->VpiParent();
+            steps++;
+        }
+        if (!q || q->UhdmType() != UHDM::uhdmmethod_func_call)
+            continue;
+        const UHDM::BaseClass* qp = q->VpiParent();
+        if (!qp || qp->UhdmType() != UHDM::uhdmhier_path)
+            continue;
+        auto* pe = ((const UHDM::hier_path*)qp)->Path_elems();
+        if (!pe || pe->empty() || pe->back() != q)
+            continue;
+        // What the two laws above already own: a reference directly under
+        // the call (§ refFullNameThroughNamedExpr175) or under operations and
+        // system calls only (§ methodArgOpRefChainName198) — inside a
+        // subroutine; outside one (a module initial or always block, grid
+        // M/m07, m09) golden reads the same chain and those laws decline.
+        if (ot == UHDM::uhdmref_obj && !newKind) {
+            bool inTf201 = false;
+            for (const UHDM::BaseClass* t = p; t; t = t->VpiParent()) {
+                auto tt = t->UhdmType();
+                if (tt == UHDM::uhdmfunction || tt == UHDM::uhdmtask) {
+                    inTf201 = true;
+                    break;
+                }
+                if (tt == UHDM::uhdmmodule_inst || tt == UHDM::uhdminterface_inst ||
+                    tt == UHDM::uhdmgen_scope || tt == UHDM::uhdmpackage ||
+                    tt == UHDM::uhdmclass_defn || tt == UHDM::uhdmprogram)
+                    break;
+            }
+            if (inTf201)
+                continue;
+        }
+        auto* ro201 = (UHDM::ref_obj*)o;  // every select kind IS-A ref_obj
+        std::string have(ro201->VpiFullName());
+        std::string want = chainFullName175(o);
+        if (want.empty() || have.empty() || have == want)
+            continue;
+        std::string_view nm = o->VpiName();
+        auto endsWith = [](const std::string& a, std::string_view b) {
+            return a.size() >= b.size() &&
+                   a.compare(a.size() - b.size(), b.size(), b) == 0;
+        };
+        if (nm.empty() || !endsWith(have, nm) || !endsWith(want, nm))
+            continue;
+        size_t hr = have.find_first_of(":.");
+        if (hr == std::string::npos || want.compare(0, hr + 1, have, 0, hr + 1) != 0)
+            continue;
+        trace201("methodArgNestedRefChain201");
+        ro201->VpiFullName(want);
+    }
+    // § callArgInSelIdxChainName201 (r11u201, R11U201_SELIDXCALL_OFF; r11u194's
+    // N4, r11u198's R1: l12, v11u198's u08, u10) — the index of a path's
+    // trailing select (§ hpTrailSelIdxNamesByPath133 names it after the path)
+    // when that path is an ARGUMENT of a call that itself indexes a select of
+    // ANOTHER path (`t.f[fx(s.f[k])] <= 0`, `kk.a[kk.idx(s.f[k])] = 1`,
+    // `r = t.f[fx(s.f[k])]`): Surelog stores no full name there either, and
+    // the reader's chain runs on through the call (skipped) to the outer
+    // select and path (golden `work@top.t.f[].f.s.f[k].k`, rvalue
+    // `work@top.t.f.f.s.f[k].k`; ours `work@top.s.f[k].k`).  Grid
+    // tools/probe/r11u201repro/cases/N.
+    if (!r11u201On("R11U201_SELIDXCALL_OFF"))
+        return;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmref_obj)
+            continue;
+        const UHDM::BaseClass* bs = o->VpiParent();
+        if (!bs || bs->UhdmType() != UHDM::uhdmbit_select)
+            continue;
+        const UHDM::BaseClass* hp = bs->VpiParent();
+        if (!hp || hp->UhdmType() != UHDM::uhdmhier_path)
+            continue;
+        auto* pe = ((const UHDM::hier_path*)hp)->Path_elems();
+        if (!pe || pe->empty() || pe->back() != bs)
+            continue;
+        const UHDM::BaseClass* q = hp->VpiParent();
+        int steps = 0;
+        bool call = false;
+        while (q && steps < 32) {
+            const auto qt = q->UhdmType();
+            if (qt == UHDM::uhdmfunc_call || qt == UHDM::uhdmmethod_func_call)
+                call = true;
+            else if (qt != UHDM::uhdmoperation && qt != UHDM::uhdmsys_func_call)
+                break;
+            q = q->VpiParent();
+            steps++;
+        }
+        if (!call || !q)
+            continue;
+        // a method call is its own path's last element (`kk.idx(...)`)
+        if (q->UhdmType() == UHDM::uhdmhier_path) {
+            auto* pe2 = ((const UHDM::hier_path*)q)->Path_elems();
+            const UHDM::BaseClass* below = nullptr;
+            for (const UHDM::BaseClass* t = o; t && t != q; t = t->VpiParent())
+                below = t;
+            if (!pe2 || pe2->empty() || pe2->back() != below ||
+                below->UhdmType() != UHDM::uhdmmethod_func_call)
+                continue;
+            q = q->VpiParent();
+            if (!q)
+                continue;
+        }
+        const auto qt = q->UhdmType();
+        if (qt != UHDM::uhdmbit_select && qt != UHDM::uhdmvar_select)
+            continue;
+        const UHDM::BaseClass* qp = q->VpiParent();
+        if (!qp || qp->UhdmType() != UHDM::uhdmhier_path)
+            continue;
+        auto* ro = (UHDM::ref_obj*)o;
+        std::string have(ro->VpiFullName());
+        std::string want = chainFullName175(o);
+        if (want.empty() || have.empty() || have == want)
+            continue;
+        std::string_view nm = o->VpiName();
+        auto endsWith = [](const std::string& a, std::string_view b) {
+            return a.size() >= b.size() &&
+                   a.compare(a.size() - b.size(), b.size(), b) == 0;
+        };
+        if (nm.empty() || !endsWith(have, nm) || !endsWith(want, nm))
+            continue;
+        size_t hr = have.find_first_of(":.");
+        if (hr == std::string::npos || want.compare(0, hr + 1, have, 0, hr + 1) != 0)
+            continue;
+        trace201("callArgInSelIdxChainName201");
+        ro->VpiFullName(want);
     }
 }
 
@@ -2917,6 +3218,70 @@ static void stripRefFullNames11(UHDM::any* o, int depth = 0) {
             if (auto* as = ((UHDM::method_func_call*)o)->Tf_call_args())
                 for (auto* a : *as)
                     stripRefFullNames11(a, depth + 1);
+            return;
+        // § newArrayArgPathElemsStripped200 (r11u200, SVSwitch's N0007) — the
+        // strip reaches a hier_path's elements too: the paren-less built-in
+        // `bytes.size` in `new[bytes.size + 1]` is a hier_path whose trailing
+        // `size` ref_obj golden leaves unnamed like every other reference
+        // compiled under the unparented `new` call (Receiver.sv 40:26,
+        // Packet.sv 71:20; ours `work@Receiver::start::size`).  Grid
+        // tools/probe/r11u200dec/cases/N.  Switch R11U200_NEWARRHP_OFF.
+        case UHDM::uhdmhier_path:
+            // § newArrayPathStripTrailOnly201v (r11u201, refines
+            // § newArrayArgPathElemsStripped200; R11U201_NEWARRLAST_OFF) —
+            // reading an element's full name to test it computes and stores
+            // the chain name on an element that had none (ref_obj's getter
+            // freezes ComputeFullName), and in the -elabuhdm form the
+            // elaborator's clone then carries that stored name: golden's
+            // leading elements `h`, `q` of `new[h.q.size * 2]` read
+            // `work@C::t::h` where the pristine binary left them unnamed
+            // (grid tools/probe/r11u201repro/cases/Z z01 z02 -elabuhdm:
+            // EQUAL -> fullname).  Only the TRAILING element ever carries a
+            // stored name here (the leading ones are minted bare), so strip
+            // that one, without reading it.
+            if (r11u200Law("R11U200_NEWARRHP_OFF") &&
+                r11u201On("R11U201_NEWARRLAST_OFF")) {
+                if (auto* pe = ((UHDM::hier_path*)o)->Path_elems();
+                    pe && !pe->empty() && pe->back() &&
+                    pe->back()->UhdmType() == UHDM::uhdmref_obj) {
+                    // § newArrayKeepFrozenBare201v (v11u201, refines
+                    // § newArrayPathStripTrailOnly201v; R11V201_NEWARRBARE_OFF)
+                    // — a `this.` path's members are minted with their BARE
+                    // name frozen (§ thisPathFormByPosition157's `(void)
+                    // r->VpiFullName()` before parenting), and in the
+                    // -elabuhdm form the elaborator's clone of the class
+                    // body copies that stored bare name where golden's clone
+                    // reads it too (`ref_obj (n)`); stripping it lets the
+                    // clone compute `work@C::t::n` (grid
+                    // tools/probe/v11u201repro/cases/A a01 a07 a10
+                    // -elabuhdm: EQUAL on the pristine binary, `fullname`
+                    // under the unrefined law).  So a trailing element whose
+                    // stored name IS its bare name keeps it; a scoped name
+                    // (the law's face) is stripped.  Reading an unstored
+                    // element computes its chain, which is scoped here (the
+                    // call's argument chain reaches the subroutine), and
+                    // the strip then leaves it unstored again.
+                    auto* tr201 = (UHDM::ref_obj*)pe->back();
+                    if (r11v201On("R11V201_NEWARRBARE_OFF") &&
+                        tr201->VpiFullName() == tr201->VpiName()) {
+                        trace201("newArrayKeepFrozenBare201v");
+                    }
+                    else {
+                        tr201->VpiFullName(std::string());
+                        trace200("newArrayArgPathElemsStripped200",
+                                 std::string(tr201->VpiName()));
+                    }
+                }
+            }
+            else if (r11u200Law("R11U200_NEWARRHP_OFF"))
+                if (auto* pe = ((UHDM::hier_path*)o)->Path_elems())
+                    for (auto* e : *pe)
+                        if (e && e->UhdmType() == UHDM::uhdmref_obj &&
+                            !((UHDM::ref_obj*)e)->VpiFullName().empty()) {
+                            ((UHDM::ref_obj*)e)->VpiFullName(std::string());
+                            trace200("newArrayArgPathElemsStripped200",
+                                     std::string(((UHDM::ref_obj*)e)->VpiName()));
+                        }
             return;
         default:
             return;
@@ -7471,6 +7836,40 @@ static bool inGenerateBlock27v(const slang::ast::Expression& arg0) {
             case SyntaxKind::LoopGenerate:
             case SyntaxKind::IfGenerate:
             case SyntaxKind::CaseGenerate:
+                return true;
+            default:
+                break;
+        }
+    }
+    return false;
+}
+
+// § genBlockBitsKeepsSelect200 — inside a generate construct's BODY (a
+// generate region, a begin-end generate block, the block or else-branch of a
+// gen-if, the block of a gen-for, a gen-case item's clause), not in its
+// condition or loop header: Surelog evaluates those (HierPathPackedStruct's
+// gen-if condition `$bits(a.pair[0]) != 42` folds in golden).
+static bool genBody200(const slang::syntax::SyntaxNode* n) {
+    using namespace slang::syntax;
+    const SyntaxNode* prev = nullptr;
+    for (const SyntaxNode* p = n; p; prev = p, p = p->parent) {
+        switch (p->kind) {
+            case SyntaxKind::IfGenerate: {
+                auto& ig = p->as<IfGenerateSyntax>();
+                return prev && (prev == ig.block.get() ||
+                                prev == (const SyntaxNode*)ig.elseClause);
+            }
+            case SyntaxKind::LoopGenerate:
+                return prev && prev == p->as<LoopGenerateSyntax>().block.get();
+            case SyntaxKind::CaseGenerate:
+                return prev && prev != p->as<CaseGenerateSyntax>().condition.get();
+            case SyntaxKind::StandardCaseItem:
+                if (p->parent && p->parent->kind == SyntaxKind::CaseGenerate &&
+                    prev != p->as<StandardCaseItemSyntax>().clause.get())
+                    return false;
+                break;
+            case SyntaxKind::GenerateRegion:
+            case SyntaxKind::GenerateBlock:
                 return true;
             default:
                 break;
@@ -18402,6 +18801,55 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     r12->VpiFullName(joinRef(prefix, nm12));
                     r12->VpiParent(parent);
                     setLoc(r12, SourceRange(ns12->sourceRange().start(), e12));
+                    // § clsScopedBoundWholeSpan201 (r11u201, r11u199's N2) —
+                    // inside a PART SELECT's range (the bound itself, or an
+                    // operand of the bound's arithmetic, parentheses
+                    // stripped) a two-segment class-scoped `K::V` spans the
+                    // WHOLE written name: compilePartSelectRange compiles
+                    // both bounds with Reduce::No, and the unreduced path
+                    // populates the ref from the whole name node, not from
+                    // the class_scope node (golden `x[K::V:0]` 7:17-7:21,
+                    // ours the qualifier 7:17-7:20).  The mirror of
+                    // § pkgQualBoundSpanQualifier192 for a package.  A
+                    // bit-select index, an indexed part select's base and a
+                    // plain read reduce and keep the qualifier span
+                    // (§ staticScopedRef12); a three-segment `p::C::W` keeps
+                    // the qualifier in a bound too; a conditional in the
+                    // bound is not measured (declined).  Grid
+                    // tools/probe/r11u201repro/cases/C.  Switch
+                    // R11U201_CLSBOUND_OFF.
+                    if (ns12->kind == syntax::SyntaxKind::ScopedName &&
+                        ns12->as<syntax::ScopedNameSyntax>().left->kind !=
+                            syntax::SyntaxKind::ScopedName &&
+                        r11u201On("R11U201_CLSBOUND_OFF")) {
+                        const UHDM::any* up201 = parent;
+                        for (int g = 0; g < 32 && up201 &&
+                                        up201->UhdmType() == UHDM::uhdmoperation &&
+                                        ((const UHDM::operation*)up201)->VpiOpType() !=
+                                            vpiConditionOp;
+                             ++g)
+                            up201 = up201->VpiParent();
+                        // § clsScopedBoundPlainClass201v (v11u201, refines
+                        // § clsScopedBoundWholeSpan201; R11V201_CLSPARAM_OFF)
+                        // — a SPECIALIZATION qualifier `G#(4)::LV`,
+                        // `G#()::LV` keeps the qualifier span in a bound too
+                        // (golden 7:16-7:23 over `G#(4)::`, the unrefined
+                        // law 7:16-7:25: pristine-right, law-wrong in both
+                        // forms, grid tools/probe/v11u201repro/cases/C
+                        // c01): only a plain class name spans the whole.
+                        const bool plainCls201v =
+                            !r11v201On("R11V201_CLSPARAM_OFF") ||
+                            ns12->as<syntax::ScopedNameSyntax>().left->kind ==
+                                syntax::SyntaxKind::IdentifierName;
+                        if (up201 && up201->UhdmType() == UHDM::uhdmpart_select) {
+                            if (plainCls201v) {
+                                setLoc(r12, ns12->sourceRange());
+                                trace201("clsScopedBoundWholeSpan201");
+                            }
+                            else
+                                trace201("clsScopedBoundPlainClass201v");
+                        }
+                    }
                     return r12;
                 }
             }
@@ -31386,10 +31834,135 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // Function call arg refs carry a typespec ref to the
                         // formal's typespec (tasks don't; procedural-context
                         // calls don't either).
-                        bool refArg = a->UhdmType() == UHDM::uhdmref_obj ||
+                        // § sysCtxRefArgBare201 (r11u201, R11U201_SYSARG_OFF;
+                        // v11u198's residue 3, cases t18 / t35) — the decode of
+                        // § vsStampReducedCtxOnly198v's clause (1) holds for
+                        // the pristine actuals too: a system call above the
+                        // user call whose arguments UHDM's reduceExpr does
+                        // not reduce (every one but `$signed`, `$unsigned`,
+                        // `$clog2`) stops the evaluator before evalFunc binds
+                        // the actuals, so a ref_obj / bit_select /
+                        // part_select / indexed_part_select actual stays
+                        // bare in every view (golden
+                        // `$countones(f(p1[2]))`, `4'($countones(f(a)))`).
+                        // Grid tools/probe/r11u201repro/cases/S.
+                        const bool refKind201 =
+                            a->UhdmType() == UHDM::uhdmref_obj ||
+                            a->UhdmType() == UHDM::uhdmbit_select ||
+                            a->UhdmType() == UHDM::uhdmpart_select ||
+                            a->UhdmType() == UHDM::uhdmindexed_part_select;
+                        const bool sysBare201 =
+                            refKind201 && r11u201On("R11U201_SYSARG_OFF") &&
+                            vsStampReducedCtxOnly198v(parent, false) &&
+                            (trace201("sysCtxRefArgBare201"), true);
+                        // § opCtxRefArgBare201 (r11u201, R11U201_OPARG_OFF;
+                        // clause (2) of § vsStampReducedCtxOnly198v for the
+                        // pristine actuals, v11u198's v22) — in the
+                        // DEFINITION listing a continuous assignment that
+                        // UhdmWriter::writeCont_assign CLONES before
+                        // reduceExpr stamps (a whole-name target and an
+                        // operation root, the conditional included) keeps
+                        // the listing's own objects bare: a user call whose
+                        // nearest operation above it is not a conditional
+                        // (an arithmetic or logical operator, a cast, a
+                        // concatenation, a unary operator, through calls)
+                        // keeps its ref_obj / bit_select / part_select /
+                        // indexed_part_select actual bare (golden
+                        // `assign y = f(a) + 4'd1;`, `4'(f(a))`, `{f(a)}`,
+                        // `~f(w[3:0])`, `-f(a)`, `~^f(w) ? 1 : 0`).  A call
+                        // that is a conditional's operand keeps the stamp
+                        // (`c ? f(a) : 4'd0`, `(c ? f(a) : 0) + 1`: Q/q03,
+                        // q08), and so do a select target, a call root
+                        // (`g(f(a) + 1)`) and a system-call root (q08).  The
+                        // -elabuhdm form is left as it was.  Grid
+                        // tools/probe/r11u201repro/cases/Q, S.
+                        //
+                        // § nonReduceOpArgBare201 (r11u201,
+                        // R11U201_NONRED_OFF) — reduceExpr's operation switch
+                        // has no arm for `^`, `~^`, `===`, `!==`, `==?`,
+                        // `!=?` (the operator list of
+                        // § evalFuncOpReduceGate195): a call below such an
+                        // operator (through reducing operators and calls) is
+                        // never evaluated and its actual stays bare, in the
+                        // definition listing and the elaborated parse-form
+                        // body alike, whatever the root (golden
+                        // `f(w[3:0]) ^ 4'd2`, `g(f(a) ^ 4'd1)`: Q/q01, q10);
+                        // a conditional on the way up abstains.
+                        bool opBare201 = false;
+                        if (refKind201 && !sysBare201 &&
+                            (contAssignView == 1 ||
+                             (contAssignView == 2 && !elabUhdmView121))) {
+                            const bool def201 = contAssignView == 1;
+                            // nearest operation above the call
+                            const UHDM::operation* firstOp201 = nullptr;
+                            bool nonRed201 = false, stop201 = false, sysSeen201 = false;
+                            int d201 = 0;
+                            for (const UHDM::any* q = parent; q && d201 < 64 && !stop201;
+                                 q = q->VpiParent(), d201++) {
+                                const auto qt = q->UhdmType();
+                                if (qt == UHDM::uhdmoperation) {
+                                    auto* op201 = (const UHDM::operation*)q;
+                                    if (!firstOp201)
+                                        firstOp201 = op201;
+                                    const int ot201 = op201->VpiOpType();
+                                    if (ot201 == vpiConditionOp)
+                                        stop201 = true;
+                                    else if (ot201 == vpiBitXorOp ||
+                                             ot201 == vpiBitXnorOp ||
+                                             ot201 == vpiCaseEqOp ||
+                                             ot201 == vpiCaseNeqOp ||
+                                             ot201 == vpiWildEqOp ||
+                                             ot201 == vpiWildNeqOp) {
+                                        nonRed201 = true;
+                                        stop201 = true;
+                                    }
+                                    continue;
+                                }
+                                if (qt == UHDM::uhdmsys_func_call) {
+                                    // a non-reducing system call is
+                                    // § sysCtxRefArgBare201's context
+                                    std::string_view nm201 = q->VpiName();
+                                    if (nm201 != "$signed" && nm201 != "$unsigned" &&
+                                        nm201 != "$clog2") {
+                                        sysSeen201 = true;
+                                        break;
+                                    }
+                                    continue;
+                                }
+                                if (qt != UHDM::uhdmfunc_call &&
+                                    qt != UHDM::uhdmmethod_func_call)
+                                    break;
+                            }
+                            // Each context is one law's: a non-reducing
+                            // system call is § sysCtxRefArgBare201's, a
+                            // non-reducing operator this law's second half,
+                            // so every switch alone restores the pristine
+                            // bytes of its own context.
+                            if (sysSeen201) {
+                            }
+                            else if (nonRed201) {
+                                if (r11u201On("R11U201_NONRED_OFF")) {
+                                    opBare201 = true;
+                                    trace201("nonReduceOpArgBare201");
+                                }
+                            }
+                            else if (def201 && firstOp201 &&
+                                     firstOp201->VpiOpType() != vpiConditionOp &&
+                                     r11u201On("R11U201_OPARG_OFF") &&
+                                     caClonedOpRoot201(expr, parent)) {
+                                if (caTargetBindable201v(expr, parent, netMap)) {
+                                    opBare201 = true;
+                                    trace201("opCtxRefArgBare201");
+                                }
+                                else
+                                    trace201("opCtxBindableTarget201v");
+                            }
+                        }
+                        bool refArg = !sysBare201 && !opBare201 &&
+                                      (a->UhdmType() == UHDM::uhdmref_obj ||
                                       a->UhdmType() == UHDM::uhdmbit_select ||
                                       a->UhdmType() == UHDM::uhdmpart_select ||
-                                      a->UhdmType() == UHDM::uhdmindexed_part_select ||
+                                      a->UhdmType() == UHDM::uhdmindexed_part_select) ||
                                       // § callArgVarSelStamp198
                                       (a->UhdmType() == UHDM::uhdmvar_select &&
                                        callArgVarSelStamp198On() &&
@@ -34536,6 +35109,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // listing versus ELABORATED listing, gated on the package clone
             // window.  What is still open is the MODULE's own `C::m` listing
             // (uvm174 residue R5) — not this site, and no longer the head.
+            // § genBlockBitsKeepsSelect200 (r11u200, r11u199's N7 and the
+            // residue R-GENFOLD of § genBlockBitsNoLeftmostFold27v) — inside
+            // a generate block Surelog keeps EVERY `$bits` call (the
+            // verifier's cells f01-f12), the single-SELECT argument too:
+            // golden `assign z = $bits(x[W:0]);` in a for-generate keeps the
+            // sys_func_call and the downstream plugin reads 5, while ours
+            // folded it to the ROOT width 32 (§ bitsSelectIgnoredRootBits95's
+            // quirk, which Surelog applies only where it folds) and the
+            // netlist diverged.  Grid tools/probe/r11u200dec/cases/B.  Switch
+            // R11U200_GENBITS_OFF.
+            if (name == "$bits" && !bitsKeep && bitsArg27 &&
+                genBody200(bitsArg27->syntax)) {
+                auto sk200 = stripImplicitConv(*bitsArg27).kind;
+                if ((sk200 == ExpressionKind::RangeSelect ||
+                     sk200 == ExpressionKind::ElementSelect) &&
+                    r11u200Law("R11U200_GENBITS_OFF")) {
+                    bitsKeep = true;
+                    ownPropFold61 = false;
+                    trace200("genBlockBitsKeepsSelect200", std::string(name));
+                }
+            }
             if (name == "$bits" && !bitsKeep) {
                 bool localParamArg =
                     !call.arguments().empty() &&

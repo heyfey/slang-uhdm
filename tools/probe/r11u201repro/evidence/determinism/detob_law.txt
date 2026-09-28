@@ -1,0 +1,16 @@
+default/BuildUVMPkg sorted-dump diff lines: 1v2=0 1v3=0 2v3=0
+default/Earlgrey_0_1 SAME
+default/MiniAmiq sorted-dump diff lines: 1v2=0 1v3=0 2v3=0
+default/Scoreboard sorted-dump diff lines: 1v2=0 1v3=0 2v3=0
+default/SeqDriver sorted-dump diff lines: 1v2=0 1v3=0 2v3=0
+default/SimpleUVM sorted-dump diff lines: 1v2=0 1v3=0 2v3=0
+testflags/BuildUVMPkg SAME
+testflags/Earlgrey_0_1 SAME
+testflags/MiniAmiq sorted-dump diff lines: 1v2=0 1v3=0 2v3=0
+detob.sh: line 11: /tmp/r11u201_detL/w1/testflags/Scoreboard-72aa0ba8/slang.uhdm: No such file or directory
+detob.sh: line 11: /tmp/r11u201_detL/w2/testflags/Scoreboard-72aa0ba8/slang.uhdm: No such file or directory
+detob.sh: line 11: /tmp/r11u201_detL/w2/testflags/Scoreboard-72aa0ba8/slang.uhdm: No such file or directory
+detob.sh: line 11: /tmp/r11u201_detL/w3/testflags/Scoreboard-72aa0ba8/slang.uhdm: No such file or directory
+testflags/Scoreboard SAME
+testflags/SeqDriver SAME
+testflags/SimpleUVM SAME

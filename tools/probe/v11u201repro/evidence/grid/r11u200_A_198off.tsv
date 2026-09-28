@@ -1,0 +1,15 @@
+r11u200dec/cases/B/b01	NOT_EQUAL	NOT_EQUAL
+r11u200dec/cases/B/b02	EQUAL	EQUAL=
+r11u200dec/cases/B/b03	NOT_EQUAL	NOT_EQUAL
+r11u200dec/cases/B/b04	NOT_EQUAL	NOT_EQUAL
+r11u200dec/cases/B/b05	NOT_EQUAL	NOT_EQUAL
+r11u200dec/cases/B/b06	NOT_EQUAL	NOT_EQUAL=
+r11u200dec/cases/B/b07	NOT_EQUAL	NOT_EQUAL=
+r11u200dec/cases/N/n01	S:fullname(3)	EQUAL
+r11u200dec/cases/N/n02	S:fullname(6)	EQUAL
+r11u200dec/cases/U/u01	S:endcol(6)	EQUAL
+r11u200dec/cases/U/u02	NOT_EQUAL	NOT_EQUAL
+r11u200dec/cases/U/u03	EQUAL	EQUAL=
+r11u200dec/cases/U/u04	EQUAL	EQUAL=
+r11u200dec/cases/U/u05	S:endcol(4)	EQUAL
+r11u200dec/cases/U/u06	NOT_EQUAL	NOT_EQUAL

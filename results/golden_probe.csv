@@ -626,14 +626,14 @@ r10svs11repro/v3_arr,EQUAL,,equal
 r10svs15repro/a2_cbmul,EQUAL,,equal
 r10svs2repro/s1_dynsize,EQUAL,,equal
 r10svs2repro/s3_arraykind,EQUAL,,equal
-r10svs2repro/s4_context,STRICT_NOTEQUAL,differ:fullname(1),differ:fullname(1)
+r10svs2repro/s4_context,EQUAL,,equal
 r10svs2repro/s5_negctl,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
 r10svs2repro/s6_otherbuiltin,EQUAL,,equal
 r10svs2repro/s7_recvless,EQUAL,,equal
 r10svs2repro/w1_stmtfunc,EQUAL,,equal
 r10svs2repro/w2_spacedot,STRICT_NOTEQUAL,differ:endcol(10),differ:endcol(10)
 r10svs2repro/w3_macrodeep,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
-r10svs3repro/a1_newlhs,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r10svs3repro/a1_newlhs,EQUAL,,equal
 r10svs3repro/a2_thisnew,EQUAL,,equal
 r10svs3repro/a3_position,EQUAL,,equal
 r10svs3repro/a5_ctornest,EQUAL,,equal
@@ -788,7 +788,7 @@ r10uvm180repro/g180_a_kinds,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
 r10uvm187repro/g187_a_order,STRICT_NOTEQUAL,differ:endcol(2),differ:endcol(2)
 r10uvm187repro/probe0,EQUAL,,equal
 r10uvm190repro/probe0,EQUAL,,equal
-r10uvm193repro/g193_c_argface,STRICT_NOTEQUAL,differ:fullname(102),differ:fullname(102)
+r10uvm193repro/g193_c_argface,STRICT_NOTEQUAL,differ:fullname(94),differ:fullname(94)
 r10uvm193repro/g193_d_propfence,STRICT_NOTEQUAL,differ:fullname(10),differ:fullname(10)
 r10uvm194repro/g194_a_homes,EQUAL,,equal
 r10uvm194repro/g194_c_clone,STRICT_NOTEQUAL,differ:fullname(3),differ:fullname(3)
@@ -988,7 +988,7 @@ r10uvm60repro/b4_macro,EQUAL,,equal
 r10uvm60repro/b5_negctl,EQUAL,,equal
 r10uvm60repro/b6_reached,EQUAL,,equal
 r10uvm60repro/b7_multiline,EQUAL,,equal
-r10uvm60repro/v2_class,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+r10uvm60repro/v2_class,EQUAL,,equal
 r10uvm60repro/v5_class2,EQUAL,,equal
 r10uvm60repro/v7_macroesc,EQUAL,,equal
 r10uvm61repro/v1_pkgparam,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
@@ -3789,7 +3789,7 @@ v11u112repro/grid/brk/p/b5d_reps,EQUAL,,equal
 v11u112repro/grid/brk/p/b5e_sysfn,EQUAL,,equal
 v11u112repro/grid/brk/p/b5f_not_seq,EQUAL,,equal
 v11u112repro/grid/brk/t/b2b_packed2d,EQUAL,,equal
-v11u112repro/grid/brk/t/b2c_iface_fn,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+v11u112repro/grid/brk/t/b2c_iface_fn,EQUAL,,equal
 v11u112repro/grid/brk/t/b2d_param_child,EQUAL,,equal
 v11u112repro/grid/brk/t/b2f_local_var,EQUAL,,equal
 v11u112repro/grid/brk/v/b4a_opbase,EQUAL,,equal

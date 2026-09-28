@@ -17,6 +17,48 @@
 #include "slang/syntax/SyntaxTree.h"  // § pkgPatUnqualReadTsNoParent178 (the syntax scan)
 
 namespace slang_uhdm {
+// The r11u200 switches of this file (ground A; the switch table is in
+// UhdmExporter.cpp).  Local so this file's laws land and build alone:
+// R11U200_OFF drops all of them; R11U200_TRACE=<dir> appends one
+// `<law> <detail>` line per firing to `<dir>/<pid>.200E` (ExprEmit) or `.200P` (ParamEmit), first line
+// `OUT <-o path>`.
+static bool r11u200Law(const char* sw) {
+    if (getenv("R11U200_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+static void trace200(const char* law, const std::string& detail) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U200_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".200P";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s %s\n", law, detail.c_str());
+        fflush(tf);
+    }
+}
 
 // The r11u191 switches (tools/probe/r11u191dec/README.md): every r11u191 law
 // reads its own R11U191_<LAW>_OFF switch; R11U191_OFF drops all of them.
@@ -27673,16 +27715,57 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                             // Surelog's reduceExpr rewrote.
                             if (es) {
                                 const syntax::ExpressionSyntax* le8 = es;
+                                // § unitBoundFoldAtLeftOperand200 (r11u200,
+                                // Scr1SvTests' `localparam [`SCR1_XLEN-1:0]`)
+                                // — Surelog populates a bound it REDUCED at
+                                // the ROOT operation's LEFT OPERAND node, one
+                                // level only (golden `[2*4-1:0]` -> `2*4`
+                                // 2:15-2:18, `[1+2+3:0]` -> `1+2`; ours walked
+                                // to the leftmost leaf `2` / `1`), and a
+                                // $unit parameter's bound reduces the same way
+                                // (golden `[`SCR1_XLEN-1:0]` 211:13-211:15,
+                                // ours the whole `32-1`).  Grid
+                                // tools/probe/r11u200dec/cases/U.  Switches
+                                // R11U200_UNITFOLD_OFF (the $unit arm) and
+                                // R11U200_FOLDDEPTH_OFF (one level).
+                                bool oneLevel200 =
+                                    r11u200Law("R11U200_FOLDDEPTH_OFF");
                                 if (auto* psc8 = ps.getParentScope();
                                     psc8 &&
                                     psc8->asSymbol().kind ==
                                         SymbolKind::Package &&
-                                    !pkgParamOwnDefView(ps))
-                                    while (syntax::BinaryExpressionSyntax::
-                                               isKind(le8->kind))
-                                        le8 = le8->as<syntax::
-                                                          BinaryExpressionSyntax>()
-                                                  .left;
+                                    !pkgParamOwnDefView(ps)) {
+                                    if (oneLevel200) {
+                                        if (syntax::BinaryExpressionSyntax::isKind(
+                                                le8->kind)) {
+                                            le8 = le8->as<syntax::
+                                                              BinaryExpressionSyntax>()
+                                                      .left;
+                                            if (syntax::BinaryExpressionSyntax::isKind(
+                                                    le8->kind))
+                                                trace200("unitBoundFoldAtLeftOperand200",
+                                                         "depth " +
+                                                             std::string(ps.name));
+                                        }
+                                    }
+                                    else
+                                        while (syntax::BinaryExpressionSyntax::
+                                                   isKind(le8->kind))
+                                            le8 = le8->as<syntax::
+                                                              BinaryExpressionSyntax>()
+                                                      .left;
+                                }
+                                else if (psc8 &&
+                                         psc8->asSymbol().kind ==
+                                             SymbolKind::CompilationUnit &&
+                                         syntax::BinaryExpressionSyntax::isKind(
+                                             le8->kind) &&
+                                         r11u200Law("R11U200_UNITFOLD_OFF")) {
+                                    le8 = le8->as<syntax::BinaryExpressionSyntax>()
+                                              .left;
+                                    trace200("unitBoundFoldAtLeftOperand200",
+                                             "unit " + std::string(ps.name));
+                                }
                                 setLoc(c, le8->sourceRange());
                             }
                             return (UHDM::expr*)c;

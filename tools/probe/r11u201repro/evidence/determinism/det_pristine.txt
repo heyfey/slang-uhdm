@@ -1,0 +1,11 @@
+./default/BuildUVMPkg DIFF 5210d0613d6b 5210d0613d6b 926b352270c3
+./default/Earlgrey_0_1 SAME 2a3a623104a7 2a3a623104a7 2a3a623104a7
+./default/MiniAmiq DIFF 653c73c12480 2e71ddb36fb2 653c73c12480
+./default/Scoreboard DIFF 329727c587d5 329727c587d5 75bd1594ea35
+./default/SeqDriver DIFF 211d9d6c6061 211d9d6c6061 cc7b365c4e42
+./default/SimpleUVM DIFF 7f680d8c2f88 aa8c6a66b805 aa8c6a66b805
+./testflags/BuildUVMPkg SAME 5210d0613d6b 5210d0613d6b 5210d0613d6b
+./testflags/Earlgrey_0_1 SAME 52b21f1158b5 52b21f1158b5 52b21f1158b5
+./testflags/MiniAmiq DIFF 653c73c12480 2e71ddb36fb2 653c73c12480
+./testflags/SeqDriver SAME a3e2d5bf4b8a a3e2d5bf4b8a a3e2d5bf4b8a
+./testflags/SimpleUVM SAME f5247ca74ae9 f5247ca74ae9 f5247ca74ae9
