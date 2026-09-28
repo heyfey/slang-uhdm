@@ -1,0 +1,1 @@
+uhdm-cmp golden vs law, MiniAmiq default: 0 lines rc 0; testflags: 0 lines rc 0

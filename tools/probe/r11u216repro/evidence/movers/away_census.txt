@@ -1,0 +1,3 @@
+# 2 databases differ between /tmp/r11u216_sP and /tmp/r11u216_sQ
+surelog/default/MiniAmiq away=0 toward=165 flat_away=0 flat_toward=189
+surelog/testflags/MiniAmiq away=0 toward=165 flat_away=0 flat_toward=189

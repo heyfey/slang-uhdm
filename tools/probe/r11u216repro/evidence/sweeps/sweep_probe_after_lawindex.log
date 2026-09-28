@@ -1,0 +1,8 @@
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u216_sR/probe.csv
+probe cases: EQUAL=3410 STRICT_NOTEQUAL=677 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3410 differ:fullname=256 differ:line=105 differ:endcol=81 differ:type=71 differ:name=58 differ:file=38 differ:depth=34 differ:col=14 differ:endline=12 differ:value=7 differ:decompile=1
+== probe vs golden_probe.csv
+[probe] EQUAL=3410 STRICT_NOTEQUAL=677
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 0 of 0 runs served from the cache

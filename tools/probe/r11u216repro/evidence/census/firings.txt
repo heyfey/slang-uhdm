@@ -1,0 +1,4 @@
+surelog default MiniAmiq tfArgImportCloneFollows216
+surelog default MiniAmiq tfArgOutsideClassOrder216
+surelog testflags MiniAmiq tfArgImportCloneFollows216
+surelog testflags MiniAmiq tfArgOutsideClassOrder216

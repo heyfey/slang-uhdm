@@ -1,0 +1,28 @@
+composition: r11u214 law_typeemit.patch (applied first, clean at 745f66ab) + this verified src diff (git apply --3way, clean); comp.bin md5 56f06272cc3f4448ed783d933df6eec8
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u216_sC/probe.csv
+probe cases: EQUAL=3430 STRICT_NOTEQUAL=657 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+[probe] EQUAL=3430 STRICT_NOTEQUAL=657
+regressions=0 conversions=20 changes=35 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/v11u216_sC/surelog.csv
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=466 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=14 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=11 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=9 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u216_sC/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=798 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=5
+[testflags] CMP_EQUAL=798 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=5
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+strict changes vs baseline:
+Earlgrey_0_1/default,differ:endcol(45),differ:endcol(39)
+Earlgrey_0_1/testflags,differ:endcol(45),differ:endcol(39)
+MiniAmiq/default,differ:file(75),differ:endline(59)
+MiniAmiq/testflags,differ:file(75),differ:endline(59)
+Scoreboard/default,differ:fullname(188),differ:endline(111)
+SeqDriver/default,differ:fullname(61),differ:endline(59)
+SeqDriver/testflags,differ:fullname(61),differ:endline(59)
+SimpleUVM/default,differ:fullname(236),differ:endline(135)
+SimpleUVM/testflags,differ:fullname(236),differ:endline(135)
+MiniAmiq default away (flat): composition 

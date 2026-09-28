@@ -1,0 +1,2 @@
+default law-vs-pristine: dist 6528 -> 6339 lost=0 gained=189  reversed: dist 6339 -> 6528 lost=189 gained=0
+testflags law-vs-pristine: dist 6528 -> 6339 lost=0 gained=189  reversed: dist 6339 -> 6528 lost=189 gained=0

@@ -1,0 +1,2 @@
+surelog default MiniAmiq
+surelog testflags MiniAmiq

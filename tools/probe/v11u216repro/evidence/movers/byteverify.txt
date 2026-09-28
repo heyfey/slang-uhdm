@@ -1,0 +1,30 @@
+== surelog sL vs sP
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=ae2f0060a863 pristine=4db8f413be66
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=ae2f0060a863 pristine=4db8f413be66
+MOVERS: 2 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+== uhdm2rtlil sL vs sP
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== surelog sF vs sP
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=ae2f0060a863 pristine=4db8f413be66
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=5b403f6efc5f pristine=50f1e9cd5845
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=ae2f0060a863 pristine=4db8f413be66
+MOVERS: 3 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+== uhdm2rtlil sF vs sP
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== surelog sF vs sL
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=5b403f6efc5f pristine=50f1e9cd5845
+MOVERS: 1 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+== uhdm2rtlil sF vs sL
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged

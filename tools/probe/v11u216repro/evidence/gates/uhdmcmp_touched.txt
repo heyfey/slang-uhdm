@@ -1,0 +1,2 @@
+MiniAmiq default fix2 uhdm-cmp lines=0 strict=differ:fullname(61)
+MiniAmiq testflags fix2 uhdm-cmp lines=0 strict=differ:fullname(61)

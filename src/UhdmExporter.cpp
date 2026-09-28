@@ -586,6 +586,57 @@ void trace209(const char* law, const std::string& detail) {
         fflush(tf);
     }
 }
+// The r11u216 switches (tools/probe/r11u216repro/README.md): every law of
+// pass r11u216 reads its own R11U216_<LAW>_OFF switch; R11U216_OFF drops all
+// of them (the pristine bytes).  R11U216_TRACE=<dir> names every firing (one
+// file per process, `<dir>/<pid>.216`, first line `OUT <-o path>`, then
+// `<law> <detail>`).
+// The v11u216 switches (tools/probe/v11u216repro/README.md): each refinement
+// of the adversarial verification of r11u216 reads its own R11V216_<X>_OFF
+// switch; R11V216_OFF drops all of them (r11u216's bytes).  Each runs only
+// where its r11u216 law fires, so R11U216_OFF drops them too.
+bool r11v216Law(const char* sw) {
+    if (getenv("R11V216_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+bool r11u216Law(const char* sw) {
+    if (getenv("R11U216_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+void trace216(const char* law, const std::string& detail) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U216_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".216";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s %s\n", law, detail.c_str());
+        fflush(tf);
+    }
+}
 // The r11u212 switches (tools/probe/r11u212repro/README.md): every law of
 // pass r11u212 reads its own R11U212_<LAW>_OFF switch; R11U212_OFF drops all
 // of them (the pristine bytes).  R11U212_TRACE=<dir> names every firing (one
@@ -16303,6 +16354,28 @@ UHDM::design* UhdmExporter::exportDesign() {
         if (auto* ps = td->getParentScope();
             ps && ps->asSymbol().kind == SymbolKind::Package)
             pkgSyn176 = ps->asSymbol().getSyntax();
+        // § tfArgOutsideClassOrder216 (r11u216) — a CLASS METHOD outside the
+        // typedef's package (a class of another package importing it, or a
+        // class declared in a module) is a writer of the same shared object
+        // (compileTfPortList's populateCoreMembers; the bare imported name and
+        // the qualified one alike), and Surelog compiles every package's
+        // classes after the packages' own items, the packages in NAME order,
+        // each package's classes in name order, then the classes declared in
+        // modules: the elaborated package's object takes the last of them,
+        // the definition listing still the package's own last subroutine
+        // (golden grid tools/probe/r11u216repro/cases/TW: w01 another
+        // package's method wins, w04 qualified, w05 two outside packages in
+        // name order, w07 name order not file order (`aq`, `p`, `zq`), w08 a
+        // module's class after a package's, w09 the typedef's own package
+        // `zp` sorting after the outside `aq` keeps its own class (MiniAmiq's
+        // `uvm_severity`: `svaunit_pkg` before `uvm_pkg`, golden
+        // uvm_sequence_item.svh 352:37 in the elaborated listings and
+        // uvm_globals.svh 271:61 in the definition listing, where ours
+        // declined the whole typedef)).  Declines: an outside writer that is
+        // not a class method (another package's or a module's subroutine,
+        // w03), class writers in two modules, a class outside any package or
+        // module.  Switch R11U216_TFOUTCLS_OFF.
+        bool outCls216 = false;
         if (clsm176 && pkgSyn176) {
             bool anyCls = false, oneUnit = true;
             for (auto& w : ws) {
@@ -16312,6 +16385,30 @@ UHDM::design* UhdmExporter::exportDesign() {
                     oneUnit = false;
             }
             clsOrder176 = anyCls && oneUnit && ws.front().unit176 == pkgSyn176;
+            if (!clsOrder176 && anyCls && r11u216Law("R11U216_TFOUTCLS_OFF")) {
+                bool ok216 = true, anyOwn216 = false, anyOut216 = false;
+                const syntax::SyntaxNode* modC216 = nullptr;
+                for (auto& w : ws) {
+                    if (w.unit176 == pkgSyn176) {
+                        anyOwn216 = true;
+                        continue;
+                    }
+                    if (!w.cls176 || !w.unit176) {
+                        ok216 = false;
+                        break;
+                    }
+                    anyOut216 = true;
+                    if (w.unit176->kind == syntax::SyntaxKind::ModuleDeclaration) {
+                        if (modC216 && modC216 != w.unit176)
+                            ok216 = false;
+                        modC216 = w.unit176;
+                    }
+                    else if (w.unit176->kind != syntax::SyntaxKind::PackageDeclaration)
+                        ok216 = false;
+                }
+                outCls216 = ok216 && anyOwn216 && anyOut216 && w0seq176(ws);
+                clsOrder176 = outCls216;
+            }
         }
         // § tfArgDefTopSplit176 (r11u176) — writers INSIDE the typedef's
         // package (its own subroutines) and writers OUTSIDE it in one other
@@ -16367,20 +16464,79 @@ UHDM::design* UhdmExporter::exportDesign() {
                     return {};
                 return c->as<syntax::ClassDeclarationSyntax>().name.valueText();
             };
+            // § tfArgOutsideClassOrder216 — the compile-order key of a class
+            // writer: package classes (package name) before module classes.
+            auto unitKey216 = [&](const Writer& w) -> std::pair<int, std::string_view> {
+                if (!outCls216 || !w.unit176)
+                    return {0, {}};
+                if (w.unit176->kind == syntax::SyntaxKind::PackageDeclaration) {
+                    auto& hdr = *w.unit176->as<syntax::ModuleDeclarationSyntax>().header;
+                    return {0, hdr.name.valueText()};
+                }
+                return {1, {}};
+            };
+            // § tfArgOutsideClassKeyOrder216v (v11u216) — Surelog compiles the
+            // classes in the ORDER OF ITS CLASS-DEFINITION MULTIMAP KEY
+            // (CompileDesign::compileMT_ over Design::getClassDefinitions,
+            // serial under -mt 0), and the key is a string: `<package>::<class>`
+            // for a package class and `<lib>@<module>::<class>` for a module
+            // class (ResolveSymbols::createFastLookup; the library is `work`).
+            // § tfArgOutsideClassOrder216's pair order (package name, then
+            // module classes last) is that order only while no package name is
+            // a prefix of another followed by a character below ':' (packages
+            // `p` and `p2`: `p2::M` sorts before `p::K`) and no package name
+            // sorts after `work@` (package `zq` or `x_pkg`: its classes compile
+            // after a module class), and a nested class compiles inside its
+            // outermost class's compile, so its key is that class's.  Grid
+            // tools/probe/v11u216repro/cases/T (t01-t04, t09, t11, t12: golden
+            // the key order in every one; the r11u216 grid TW reads the same
+            // under both orders).  Switch R11V216_CLSKEY_OFF.
+            const bool clsKey216v = outCls216 && r11v216Law("R11V216_CLSKEY_OFF");
+            auto clsKey216 = [&](const Writer& w) -> std::string {
+                std::string k;
+                if (w.unit176) {
+                    auto& hdr = *w.unit176->as<syntax::ModuleDeclarationSyntax>().header;
+                    if (w.unit176->kind != syntax::SyntaxKind::PackageDeclaration)
+                        k = "work@";
+                    k += std::string(hdr.name.valueText());
+                }
+                k += "::";
+                // a NESTED class compiles with its outermost class (its key
+                // is only added to the class map by that compile; grid t09)
+                const syntax::SyntaxNode* oc = w.cls176;
+                for (const syntax::SyntaxNode* a = oc ? (const syntax::SyntaxNode*)oc->parent : nullptr;
+                     a && a != w.unit176; a = a->parent)
+                    if (a->kind == syntax::SyntaxKind::ClassDeclaration)
+                        oc = a;
+                k += std::string(clsName176(oc));
+                return k;
+            };
             for (auto& w : ws) {
                 if (w.cls176) {
                     if (!lastCls176)
                         lastCls176 = &w;
+                    else if (clsKey216v) {
+                        auto ka = clsKey216(*lastCls176), kb = clsKey216(w);
+                        if (ka < kb || (ka == kb && lastCls176->seq176 < w.seq176))
+                            lastCls176 = &w;
+                    }
                     else {
+                        auto ua = unitKey216(*lastCls176), ub = unitKey216(w);
                         auto na = clsName176(lastCls176->cls176),
                              nb = clsName176(w.cls176);
-                        if (na < nb || (na == nb && lastCls176->seq176 < w.seq176))
+                        if (ua < ub ||
+                            (ua == ub &&
+                             (na < nb || (na == nb && lastCls176->seq176 < w.seq176))))
                             lastCls176 = &w;
                     }
                 }
                 else if (!lastPkg176 || lastPkg176->seq176 < w.seq176)
                     lastPkg176 = &w;
             }
+            if (outCls216 && lastCls176)
+                trace216("tfArgOutsideClassOrder216",
+                         std::string(td->name) + " " +
+                             std::string(clsName176(lastCls176->cls176)));
             last = lastCls176;
             trace176("CLSMETHOD", std::string(td->name));
         }
@@ -16481,6 +16637,32 @@ UHDM::design* UhdmExporter::exportDesign() {
             UHDM::typespec* defTs = dit != typedefTs.end() ? dit->second : nullptr;
             UHDM::typespec* topTs =
                 tit != pkgTopTypedefTs.end() ? tit->second : nullptr;
+            // § tfArgImportCloneFollows216 (r11u216) — an IMPORTER's clone of
+            // one of the package's own subroutines (CompileHelper::importPackage
+            // clone_trees every imported subroutine listing into the importing
+            // package, interface or module at the importer's compile, after
+            // the package's own items moved the definition listing and before
+            // its classes move the elaborated object) holds the definition
+            // listing's MOVED span in its formal's enum typespec copy: golden
+            // grid TW w01 `q::g::y` reads 7:29-7:32 (the package's own `g`),
+            // MiniAmiq's svaunit_pkg and svaunit_vpi_interface clones of
+            // uvm_pkg's `uvm_report`, `uvm_string_to_severity`, ... read
+            // uvm_globals.svh 271:61-73 where ours kept the typedef's
+            // declaration 242:1-248:16.  Applied beside
+            // § tfArgOutsideClassOrder216 only: every enum typespec of the
+            // listing's name still at the declaration span whose nearest
+            // subroutine sits in another package or in an instance.  Switch
+            // R11U216_TFIMPCLONE_OFF.
+            std::string dn216, df216;
+            uint32_t d0l = 0, d0c = 0, d1l = 0, d1c = 0;
+            if (outCls216 && defTs && lastPkg176) {
+                dn216 = std::string(defTs->VpiName());
+                df216 = std::string(defTs->VpiFile());
+                d0l = defTs->VpiLineNo();
+                d0c = defTs->VpiColumnNo();
+                d1l = defTs->VpiEndLineNo();
+                d1c = defTs->VpiEndColumnNo();
+            }
             if (defTs && topTs && defTs != topTs) {
                 // an aggregate too (grid F3 s01, s03: an out-of-body
                 // definition's struct formal moves the definition listing)
@@ -16490,6 +16672,53 @@ UHDM::design* UhdmExporter::exportDesign() {
             }
             else
                 applyW(topTs ? topTs : defTs, lastCls176);
+            if (!dn216.empty() && d0l && r11u216Law("R11U216_TFIMPCLONE_OFF")) {
+                std::string_view own216;
+                if (auto* ps = td->getParentScope())
+                    own216 = ps->asSymbol().name;
+                // The clone's typespec is found through its references: every
+                // ref_typespec naming it must sit under a subroutine listed in
+                // another package or in an instance (ours may hold one
+                // parentless copy for both listings of the importer).
+                std::map<UHDM::typespec*, std::pair<int, int>> refs216;  // clone refs, other refs
+                for (auto& kv : s.AllObjects()) {
+                    auto* o = (UHDM::any*)kv.first;
+                    if (!o || o->UhdmType() != UHDM::uhdmref_typespec)
+                        continue;
+                    auto* rt = (UHDM::ref_typespec*)o;
+                    auto* et = rt->Actual_typespec();
+                    if (!et || et->UhdmType() != UHDM::uhdmenum_typespec || et == defTs ||
+                        et == topTs)
+                        continue;
+                    if (et->VpiName() != dn216 || et->VpiFile() != df216 ||
+                        et->VpiLineNo() != d0l || et->VpiColumnNo() != d0c ||
+                        et->VpiEndLineNo() != d1l || et->VpiEndColumnNo() != d1c)
+                        continue;
+                    const UHDM::any* sub = nullptr;
+                    for (const UHDM::any* a = rt->VpiParent(); a; a = a->VpiParent())
+                        if (a->UhdmType() == UHDM::uhdmfunction ||
+                            a->UhdmType() == UHDM::uhdmtask) {
+                            sub = a;
+                            break;
+                        }
+                    const UHDM::any* home = sub ? sub->VpiParent() : nullptr;
+                    bool other216 =
+                        home &&
+                        ((home->UhdmType() == UHDM::uhdmpackage &&
+                          home->VpiName() != own216) ||
+                         home->UhdmType() == UHDM::uhdminterface_inst ||
+                         home->UhdmType() == UHDM::uhdmmodule_inst);
+                    auto& cnt = refs216[et];
+                    (other216 ? cnt.first : cnt.second)++;
+                }
+                for (auto& [et, cnt] : refs216) {
+                    if (cnt.first == 0 || cnt.second != 0)
+                        continue;
+                    applyW(et, lastPkg176);
+                    trace216("tfArgImportCloneFollows216",
+                             dn216 + " refs=" + std::to_string(cnt.first));
+                }
+            }
             trace176("CLSMETHODAPPLY", std::string(td->name));
             continue;
         }

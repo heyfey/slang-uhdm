@@ -810,6 +810,341 @@ bool r11u205Law(const char* sw);  // the r11u205 switches (UhdmExporter.cpp)
 void noteMpWriter209v(const UHDM::any* viewObj, uint32_t line, uint32_t col);
 bool r11v209Law(const char* sw);  // the v11u209 switches (UhdmExporter.cpp)
 void trace209(const char* law, const std::string& detail);  // R11U209_TRACE
+bool r11u216Law(const char* sw);  // the r11u216 switches (UhdmExporter.cpp)
+bool r11v216Law(const char* sw);  // the v11u216 switches (UhdmExporter.cpp)
+void trace216(const char* law, const std::string& detail);  // R11U216_TRACE
+// § genScopeRangeQueryFold216 / § ndaRangeQueryFold216 (r11u216) — the RANGE
+// QUERY an elaborated generate-scope cont_assign or an elaborated net
+// declaration assignment writes as its whole right side (`assign c =
+// $high(a);` in a generate block, `wire [3:0] w = $high(i);`) is folded by
+// Surelog to the queried BOUND itself: CompileExpression's `compileBound` and
+// ExprEval's range-query arm (third_party/Surelog/src/DesignCompile/
+// CompileExpression.cpp compileBound; UHDM templates/ExprEval.cpp, the
+// `$high`/`$low`/`$left`/`$right` arm) take the operand's typespec, read
+// `ranges->at(0)` and return its reduced Left_expr / Right_expr (`$high` the
+// left bound when left > right, else the right; `$low` the other), and
+// writeCont_assign hands that object to `adjustSize` (CompileHelper.cpp) with
+// the bound variable's typespec.  So the right side is the bound AS WRITTEN:
+// a literal bound keeps its own span, decompile, value and constant type
+// (`[4:1]` -> UINT:4 at the `4`; `[8'h7:4'd2]` $right -> DEC:2 `4'd2`), an
+// arithmetic bound is the reduced constant (`W-1` -> INT:5, `W+1` -> UINT:5,
+// srlgRedIntSyn's encoding, located at the left operand as
+// § tpArrBoundAtLeftOperand196 locates a folded bound), and a PARAMETER read
+// from a generate scope nested inside another one, or a generate-block
+// localparam, is ExprEval's bare value (the parameter's elaborated typespec
+// is built from a Value: `UINT:4` and nothing else).  adjustSize then masks a
+// UINT to the target width (value and decompile) and sizes every encoding but
+// DEC to it; a generate-scope assignment has a target width only when its
+// left side is a plain declared net or variable of the module (§
+// genLpUintCaRhsOwnCopy148's `bindVariable` reach), a net declaration always.
+// The definition view keeps the call (golden).  Grid
+// tools/probe/r11u216repro/cases/GQ (generate) and NQ (net declarations).
+struct RqFold216 {
+    bool ok = false;
+    bool bare = false;
+    const slang::syntax::ExpressionSyntax* lit = nullptr;
+    const slang::syntax::ExpressionSyntax* op = nullptr;
+    int64_t value = 0;
+    std::string what;
+    const slang::ast::Symbol* arg = nullptr;  // the queried name
+    bool argParam = false;
+    bool leftBound = false;
+    slang::SourceRange callRange;  // § rqParamOpBoundAtCall216v
+};
+static RqFold216 rqFoldPlan216(const slang::ast::Expression& rhs, bool bareParam) {
+    using namespace slang::ast;
+    namespace syn = slang::syntax;
+    RqFold216 p;
+    auto& rc = stripImplicitConv(rhs);
+    if (rc.kind != ExpressionKind::Call || !rc.as<CallExpression>().isSystemCall())
+        return p;
+    auto& call = rc.as<CallExpression>();
+    std::string nm(call.getSubroutineName());
+    if (!nm.empty() && nm[0] != '$')
+        nm.insert(nm.begin(), '$');
+    if (nm != "$high" && nm != "$low" && nm != "$left" && nm != "$right")
+        return p;
+    auto args = call.arguments();
+    if (args.size() != 1 || !args[0])
+        return p;
+    auto& a = stripImplicitConv(*args[0]);
+    if (a.kind != ExpressionKind::NamedValue)
+        return p;
+    auto& sym = a.as<NamedValueExpression>().symbol;
+    bool isParam = sym.kind == SymbolKind::Parameter;
+    if (isParam && sym.as<ParameterSymbol>().isFromGenvar())
+        return p;
+    if (!isParam && sym.kind != SymbolKind::Net && sym.kind != SymbolKind::Variable)
+        return p;
+    const slang::ast::DeclaredType* declared = static_cast<const Symbol&>(sym).getDeclaredType();
+    if (!declared)
+        return p;
+    auto* tsyn = declared->getTypeSyntax();
+    const syn::SyntaxList<syn::VariableDimensionSyntax>* dims = nullptr;
+    if (tsyn && syn::IntegerTypeSyntax::isKind(tsyn->kind))
+        dims = &tsyn->as<syn::IntegerTypeSyntax>().dimensions;
+    else if (tsyn && tsyn->kind == syn::SyntaxKind::ImplicitType)
+        dims = &tsyn->as<syn::ImplicitTypeSyntax>().dimensions;
+    if (!dims || dims->empty() || !(*dims)[0]->specifier ||
+        (*dims)[0]->specifier->kind != syn::SyntaxKind::RangeDimensionSpecifier)
+        return p;
+    auto& sel = *(*dims)[0]->specifier->as<syn::RangeDimensionSpecifierSyntax>().selector;
+    if (sel.kind != syn::SyntaxKind::SimpleRangeSelect)
+        return p;
+    auto& rs = sel.as<syn::RangeSelectSyntax>();
+    auto& ct = declared->getType().getCanonicalType();
+    if (!ct.isIntegral() || !ct.hasFixedRange())
+        return p;
+    auto fr = ct.getFixedRange();
+    bool left = nm == "$left" || (nm == "$high" && fr.left > fr.right) ||
+                (nm == "$low" && !(fr.left > fr.right));
+    p.value = left ? fr.left : fr.right;
+    p.what = nm + "(" + std::string(sym.name) + ")";
+    p.arg = &sym;
+    p.argParam = isParam;
+    p.leftBound = left;
+    p.callRange = rc.sourceRange;
+    if (isParam && bareParam) {
+        if (p.value < 0)
+            return p;
+        p.bare = true;
+        p.ok = true;
+        return p;
+    }
+    const syn::ExpressionSyntax* b = left ? rs.left : rs.right;
+    if (!b)
+        return p;
+    if (b->kind == syn::SyntaxKind::IntegerLiteralExpression ||
+        b->kind == syn::SyntaxKind::IntegerVectorExpression) {
+        p.lit = b;
+        p.ok = true;
+    }
+    else if (b->kind == syn::SyntaxKind::AddExpression ||
+             b->kind == syn::SyntaxKind::SubtractExpression ||
+             b->kind == syn::SyntaxKind::MultiplyExpression ||
+             b->kind == syn::SyntaxKind::DivideExpression) {
+        p.op = b;
+        p.ok = true;
+    }
+    return p;
+}
+// A NET or VARIABLE operand's bound is the range-bound object of that
+// signal's own elaborated typespec (compileBound's CompileHelper::reduceExpr
+// returns a constant bound itself), so golden SHARES it: every generate scope
+// reading it lists that one object (the strict walk lists it once), and
+// adjustSize re-sizes it IN PLACE for every encoding but UINT (whose arm
+// clones under `uniquify`), so the typespec's own bound then reads the target
+// width too (grid NQ n05: golden `[W-1:0]`'s INT:5 bound reads size 8 in the
+// port's typespec).  Ours: the instance net map's object, its typespec's
+// first range, the bound on the queried side, taken only when it is a
+// constant holding the queried value.
+static UHDM::constant* rqNetBound216(const std::map<const slang::ast::Symbol*, UHDM::any*>& nets,
+                                     const RqFold216& p) {
+    if (!p.ok || p.bare || p.argParam || !p.arg)
+        return nullptr;
+    auto it = nets.find(p.arg);
+    if (it == nets.end() || !it->second)
+        return nullptr;
+    auto* e = dynamic_cast<UHDM::expr*>(it->second);
+    if (!e || !e->Typespec() || !e->Typespec()->Actual_typespec())
+        return nullptr;
+    const UHDM::typespec* ts = e->Typespec()->Actual_typespec();
+    UHDM::VectorOfrange* rs = nullptr;
+    switch (ts->UhdmType()) {
+        case UHDM::uhdmlogic_typespec: rs = ((UHDM::logic_typespec*)ts)->Ranges(); break;
+        case UHDM::uhdmbit_typespec: rs = ((UHDM::bit_typespec*)ts)->Ranges(); break;
+        case UHDM::uhdmint_typespec: rs = ((UHDM::int_typespec*)ts)->Ranges(); break;
+        default: break;
+    }
+    if (!rs || rs->empty() || !rs->at(0))
+        return nullptr;
+    UHDM::expr* b = p.leftBound ? rs->at(0)->Left_expr() : rs->at(0)->Right_expr();
+    if (!b || b->UhdmType() != UHDM::uhdmconstant)
+        return nullptr;
+    std::string v(b->VpiValue());
+    auto col = v.find(':');
+    if (col == std::string::npos || v.compare(col + 1, std::string::npos,
+                                              std::to_string(p.value)) != 0)
+        return nullptr;
+    return (UHDM::constant*)b;
+}
+// Materializes the plan: the constant, parented at `parent`, adjusted to
+// `width` (0: no bound variable, adjustSize returns at once).  `shared` is the
+// operand's own bound object (rqNetBound216), taken whole unless the UINT arm
+// clones it.
+static UHDM::constant* rqFoldMake216(
+    UHDM::Serializer& s, const RqFold216& p, UHDM::BaseClass* parent, int32_t width,
+    const std::function<UHDM::any*(const slang::syntax::SyntaxNode&, UHDM::BaseClass*)>& emitSyn,
+    const std::function<void(UHDM::BaseClass*, slang::SourceRange)>& loc,
+    UHDM::constant* shared = nullptr) {
+    namespace syn = slang::syntax;
+    if (!p.ok)
+        return nullptr;
+    UHDM::constant* c = nullptr;
+    if (shared && !(width > 0 && shared->VpiConstType() == vpiUIntConst)) {
+        c = shared;
+    }
+    else if (p.bare) {
+        c = s.MakeConstant();
+        c->VpiValue("UINT:" + std::to_string(p.value));
+    }
+    else if (p.lit && p.lit->kind == syn::SyntaxKind::IntegerLiteralExpression) {
+        // An unsized decimal bound: its own token (a pasted `n``1` reads
+        // `11`, grid GQ g22, where the raw source span holds the macro call).
+        auto& tok = p.lit->as<syn::LiteralExpressionSyntax>().literal;
+        if (p.value < 0)
+            return nullptr;
+        c = s.MakeConstant();
+        c->VpiValue("UINT:" + std::to_string(p.value));
+        c->VpiDecompile(std::string(tok.rawText()));
+        c->VpiSize(64);
+        c->VpiConstType(vpiUIntConst);
+        loc(c, tok.range());
+    }
+    else if (p.lit) {
+        auto* e = emitSyn(*p.lit, parent);
+        if (!e || e->UhdmType() != UHDM::uhdmconstant)
+            return nullptr;
+        c = (UHDM::constant*)e;
+    }
+    else {
+        c = s.MakeConstant();
+        std::string digits = std::to_string(p.value);
+        bool intEnc = srlgRedIntSyn(p.op);
+        c->VpiDecompile(digits);
+        c->VpiSize(64);
+        c->VpiValue((intEnc ? "INT:" : "UINT:") + digits);
+        c->VpiConstType(intEnc ? vpiIntConst : vpiUIntConst);
+        const syn::ExpressionSyntax* lop = p.op->as<syn::BinaryExpressionSyntax>().left;
+        const syn::ExpressionSyntax* lf = p.op;
+        while (syn::BinaryExpressionSyntax::isKind(lf->kind))
+            lf = lf->as<syn::BinaryExpressionSyntax>().left;
+        loc(c, lf->getFirstToken().range());
+        if (lop && lop->kind != syn::SyntaxKind::IdentifierName &&
+            lop->kind != syn::SyntaxKind::ScopedName &&
+            !syn::LiteralExpressionSyntax::isKind(lop->kind))
+            loc(c, lop->sourceRange());
+        // § rqParamOpBoundAtCall216v (v11u216) — a PARAMETER operand's
+        // arithmetic bound is not a typespec bound compileBound reduces in
+        // place but ExprEval's fresh constant, located at the QUERY CALL
+        // (golden `$high(P)` with `parameter logic [W-1:0] P` reads the
+        // call's span, INT:<v>; `[W+2:0]` UINT:<v>; module parameters,
+        // localparams and a child instantiated twice alike, in the generate
+        // scope and in net initializers: grid tools/probe/v11u216repro/cases/F
+        // f21 f22 f23, where the left-operand location read `line`).  A net
+        // or variable operand keeps the left operand.  Switch
+        // R11V216_PARAMOPLOC_OFF.
+        if (p.argParam && r11v216Law("R11V216_PARAMOPLOC_OFF"))
+            loc(c, p.callRange);
+    }
+    c->VpiParent(parent);
+    if (width > 0) {
+        int32_t ct = c->VpiConstType();
+        std::string v(c->VpiValue());
+        if (ct == vpiUIntConst && v.rfind("UINT:", 0) == 0) {
+            uint64_t uv = std::strtoull(v.c_str() + 5, nullptr, 10);
+            if (width < 64)
+                uv &= (((uint64_t)1 << width) - 1);
+            c->VpiValue("UINT:" + std::to_string(uv));
+            c->VpiDecompile(std::to_string(uv));
+            c->VpiSize(width);
+        }
+        else if (ct == vpiBinaryConst) {
+            int32_t orig = c->VpiSize();
+            if (orig > width && v.rfind("BIN:", 0) == 0) {
+                std::string d = v.substr(4);
+                if (d.size() > (size_t)(orig - width))
+                    d = d.substr((size_t)(orig - width));
+                c->VpiValue("BIN:" + d);
+                c->VpiDecompile(d);
+                c->VpiSize(width);
+            }
+        }
+        else if (ct != vpiDecConst) {
+            c->VpiSize(width);
+        }
+    }
+    return c;
+}
+// § ndaSizeQueryFold216 (r11u216) — a net declaration's whole-initializer
+// `$size` of a NET or VARIABLE operand: CompileExpression's compileBits keeps
+// the call in size mode, and writeCont_assign's ExprEval reduce folds it to a
+// fresh LOCATION-LESS `UINT:<count>` constant (decompile, size 64, vpiUIntConst:
+// the element count of the operand's first dimension, `logic [5:2] i` -> 4,
+// `logic [3:0] i [5]` -> 5), which adjustSize masks and sizes to the net
+// (grid NQ n06 n13 n14 n15).  A PARAMETER operand is not folded (golden keeps
+// the call with the parameter's value as its argument, n15), and neither is a
+// generate-scope assignment's (GQ g07).  Switch R11U216_NDASIZEFOLD_OFF.
+static bool rqSizePlan216(const slang::ast::Expression& rhs, int64_t& count,
+                          std::string& what) {
+    using namespace slang::ast;
+    auto& rc = stripImplicitConv(rhs);
+    if (rc.kind != ExpressionKind::Call || !rc.as<CallExpression>().isSystemCall())
+        return false;
+    auto& call = rc.as<CallExpression>();
+    std::string nm(call.getSubroutineName());
+    if (!nm.empty() && nm[0] != '$')
+        nm.insert(nm.begin(), '$');
+    if (nm != "$size" || call.arguments().size() != 1 || !call.arguments()[0])
+        return false;
+    auto& a = stripImplicitConv(*call.arguments()[0]);
+    if (a.kind != ExpressionKind::NamedValue)
+        return false;
+    auto& sym = a.as<NamedValueExpression>().symbol;
+    if (sym.kind != SymbolKind::Net && sym.kind != SymbolKind::Variable)
+        return false;
+    auto& ct = sym.getType().getCanonicalType();
+    if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+        auto& at = ct.as<FixedSizeUnpackedArrayType>();
+        if (at.elementType.getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType ||
+            !at.elementType.isIntegral())
+            return false;
+        count = (int64_t)at.range.width();
+    }
+    else if (ct.isIntegral() && ct.hasFixedRange() &&
+             (ct.kind != SymbolKind::PackedArrayType ||
+              ct.as<PackedArrayType>().elementType.getCanonicalType().kind ==
+                  SymbolKind::ScalarType)) {
+        count = (int64_t)ct.getFixedRange().width();
+    }
+    else
+        return false;
+    what = "$size(" + std::string(sym.name) + ")";
+    return true;
+}
+// The net-declaration cell of both laws (module body and generate scope).
+static UHDM::any* ndaQueryFold216(
+    UHDM::Serializer& s, const slang::ast::Expression& init, UHDM::BaseClass* ca,
+    int32_t width, const std::map<const slang::ast::Symbol*, UHDM::any*>& nets,
+    const std::function<UHDM::any*(const slang::syntax::SyntaxNode&, UHDM::BaseClass*)>& emitSyn,
+    const std::function<void(UHDM::BaseClass*, slang::SourceRange)>& loc,
+    const std::string& who) {
+    if (r11u216Law("R11U216_NDARQFOLD_OFF")) {
+        auto plan = rqFoldPlan216(init, false);
+        if (plan.ok)
+            if (auto* c = rqFoldMake216(s, plan, ca, width, emitSyn, loc,
+                                        rqNetBound216(nets, plan))) {
+                trace216("ndaRangeQueryFold216", who + " " + plan.what);
+                return c;
+            }
+    }
+    int64_t n = 0;
+    std::string what;
+    if (r11u216Law("R11U216_NDASIZEFOLD_OFF") && rqSizePlan216(init, n, what) && n >= 0) {
+        uint64_t uv = (uint64_t)n;
+        if (width > 0 && width < 64)
+            uv &= (((uint64_t)1 << width) - 1);
+        auto* c = s.MakeConstant();
+        c->VpiValue("UINT:" + std::to_string(uv));
+        c->VpiDecompile(std::to_string(uv));
+        c->VpiConstType(vpiUIntConst);
+        c->VpiSize(width > 0 ? width : 64);
+        c->VpiParent(ca);
+        trace216("ndaSizeQueryFold216", who + " " + what);
+        return c;
+    }
+    return nullptr;
+}
 bool r11u212Law(const char* sw);  // the r11u212 switches (UhdmExporter.cpp)
 void trace212(const char* law, const std::string& detail);  // R11U212_TRACE
 void trace205(const char* law, const std::string& detail);  // R11U205_TRACE
@@ -27285,8 +27620,20 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 constexpr bool rdGen104 = true;  // § readerWidthIsTheSecondAdjust104
                 ndaReaderWidth104 =
                     rdGen104 ? ndaReaderWidthFor104(dt->getType()) : 0;
-                UHDM::any* rhs104g =
-                    emitExpr(*dt->getInitializer(), ca, fullName, netMap);
+                UHDM::any* rhs104g = nullptr;
+                // § ndaRangeQueryFold216 / § ndaSizeQueryFold216 — the
+                // generate scope's cell (grid NQ n09).  The same switches.
+                if (gm.kind == SymbolKind::Net && dt->getType().isIntegral())
+                    rhs104g = ndaQueryFold216(
+                        s, *dt->getInitializer(), ca,
+                        (int32_t)dt->getType().getBitWidth(), netMap,
+                        [&](const syntax::SyntaxNode& n, UHDM::BaseClass* par) {
+                            return emitSyntaxExpr(n, par);
+                        },
+                        [&](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); },
+                        fullName + "." + std::string(gm.name));
+                if (!rhs104g)
+                    rhs104g = emitExpr(*dt->getInitializer(), ca, fullName, netMap);
                 ndaReaderWidth104 = savedRW104g;
                 if (auto* rhs = rhs104g) {
                     if (rhs->UhdmType() == UHDM::uhdmconstant) {
@@ -30179,6 +30526,60 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // fold pools, the def-view net map) so that the installed
                 // object is byte-for-byte the one this cont_assign would have
                 // carried INSIDE the ternary.
+                // § genScopeRangeQueryFold216 (r11u216) — a whole-right-side
+                // range query folds to the queried bound (the § block at
+                // rqFoldPlan216).  Switch R11U216_GENRQFOLD_OFF.
+                if (!genTernArm22 && !genTernArm23 &&
+                    r11u216Law("R11U216_GENRQFOLD_OFF")) {
+                    auto& rq216 = stripImplicitConv(ae.right());
+                    bool bare216 = false;
+                    if (rq216.kind == ExpressionKind::Call &&
+                        rq216.as<CallExpression>().arguments().size() == 1) {
+                        auto& a216 = stripImplicitConv(
+                            *rq216.as<CallExpression>().arguments()[0]);
+                        if (a216.kind == ExpressionKind::NamedValue) {
+                            auto& as216 = a216.as<NamedValueExpression>().symbol;
+                            auto* ps216 = as216.getParentScope();
+                            bare216 = as216.kind == SymbolKind::Parameter &&
+                                      (parentFull != prefix ||
+                                       (ps216 && (ps216->asSymbol().kind ==
+                                                      SymbolKind::GenerateBlock)));
+                        }
+                    }
+                    auto plan216 = rqFoldPlan216(ae.right(), bare216);
+                    if (plan216.ok) {
+                        int32_t w216 = 0;
+                        auto& l216 = stripImplicitConv(ae.left());
+                        if (l216.kind == ExpressionKind::NamedValue) {
+                            auto& ls216 = l216.as<NamedValueExpression>().symbol;
+                            auto* lsc216 = ls216.getParentScope();
+                            bool typed216 =
+                                lsc216 &&
+                                lsc216->asSymbol().kind == SymbolKind::InstanceBody &&
+                                ((ls216.kind == SymbolKind::Net &&
+                                  !ls216.as<NetSymbol>().isImplicit) ||
+                                 ls216.kind == SymbolKind::Variable);
+                            if (typed216) {
+                                auto& lt216 = ls216.as<ValueSymbol>().getType();
+                                if (lt216.isIntegral())
+                                    w216 = (int32_t)lt216.getBitWidth();
+                            }
+                        }
+                        rhs = rqFoldMake216(
+                            s, plan216, ca, w216,
+                            [&](const syntax::SyntaxNode& n, UHDM::BaseClass* par) {
+                                return emitSyntaxExpr(n, par);
+                            },
+                            [&](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); },
+                            rqNetBound216(netMap, plan216));
+                        if (rhs)
+                            trace216("genScopeRangeQueryFold216",
+                                     fullName + " " + plan216.what +
+                                         (plan216.bare ? " bare" : "") + " w=" +
+                                         std::to_string(w216));
+                    }
+                }
+                if (!rhs)
                 rhs = emitExpr(genTernArm22   ? *genTernArm22
                                : genTernArm23 ? *genTernArm23
                                               : ae.right(),
@@ -38398,6 +38799,22 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
         }
+        // § ndaRangeQueryFold216 (r11u216) — an elaborated NET declaration
+        // whose whole initializer is a range query is folded to the queried
+        // bound, adjusted to the net (the § block at rqFoldPlan216; Surelog's
+        // NetlistElaboration elabSignal compiles the initializer with reduce
+        // and writeCont_assign adjusts it; the definition view keeps the call
+        // with § ndaSysCallNetTs212's stamp).  Switch R11U216_NDARQFOLD_OFF.
+        if (!rhs && topView && it.sym->kind == SymbolKind::Net &&
+            dt->getType().isIntegral())
+            rhs = ndaQueryFold216(
+                s, *dt->getInitializer(), ca, (int32_t)dt->getType().getBitWidth(),
+                netMap,
+                [&](const syntax::SyntaxNode& n, UHDM::BaseClass* par) {
+                    return emitSyntaxExpr(n, par);
+                },
+                [&](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); },
+                prefix + "." + std::string(it.sym->name));
         if (!rhs) {
             // A net-decl-assign IS a continuous assignment for the
             // signed-literal typespec rule (ExprEmit's unsignedContAssign): the
@@ -49789,8 +50206,20 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             constexpr bool rdIfc104 = true;  // § readerWidthIsTheSecondAdjust104
             ndaReaderWidth104 =
                 rdIfc104 ? ndaReaderWidthFor104(dt88->getType()) : 0;
-            UHDM::any* rhs88 =
-                emitExpr(*dt88->getInitializer(), ca88, prefix, netMap);
+            UHDM::any* rhs88 = nullptr;
+            // § ndaRangeQueryFold216 / § ndaSizeQueryFold216 — the
+            // elaborated interface's cell (grid NQ n10).  The same switches.
+            if (it88.sym->kind == SymbolKind::Net && dt88->getType().isIntegral())
+                rhs88 = ndaQueryFold216(
+                    s, *dt88->getInitializer(), ca88,
+                    (int32_t)dt88->getType().getBitWidth(), netMap,
+                    [&](const syntax::SyntaxNode& n, UHDM::BaseClass* par) {
+                        return emitSyntaxExpr(n, par);
+                    },
+                    [&](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); },
+                    prefix + "." + std::string(it88.sym->name));
+            if (!rhs88)
+                rhs88 = emitExpr(*dt88->getInitializer(), ca88, prefix, netMap);
             ndaReaderWidth104 = savedRW104i;
             ndaRhsEmit = false;
             forceConstParent = fcp88;

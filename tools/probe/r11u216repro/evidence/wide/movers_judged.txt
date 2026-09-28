@@ -1,0 +1,14 @@
+tp/r11u173verify/cases/rq/q03_high_var_genscope_decl pristine.bin strict=STRICT_NOTEQUAL_type	tp/r11u173verify/cases/rq/q03_high_var_genscope_decl law.bin strict=STRICT_EQUAL_33_objects
+tp/r11u173verify/cases/rq/q03_high_var_genscope_decl_el pristine.bin strict=STRICT_NOTEQUAL_line	tp/r11u173verify/cases/rq/q03_high_var_genscope_decl_el law.bin strict=STRICT_EQUAL_33_objects
+tp/r11u173verify/cases/rq/q08_high_param_genfor pristine.bin strict=NOT_EQUAL_stage1	tp/r11u173verify/cases/rq/q08_high_param_genfor law.bin strict=STRICT_EQUAL_61_objects
+tp/r11u173verify/cases/rq/q08_high_param_genfor_el pristine.bin strict=STRICT_NOTEQUAL_line	tp/r11u173verify/cases/rq/q08_high_param_genfor_el law.bin strict=STRICT_EQUAL_61_objects
+tp/v11u176repro/cases/CM/c20_derived_two_pkgs pristine.bin strict=STRICT_NOTEQUAL_line	tp/v11u176repro/cases/CM/c20_derived_two_pkgs law.bin strict=STRICT_EQUAL_90_objects
+tp/v11u176repro/cases/CM/c20_derived_two_pkgs_el pristine.bin strict=STRICT_NOTEQUAL_line	tp/v11u176repro/cases/CM/c20_derived_two_pkgs_el law.bin strict=STRICT_EQUAL_90_objects
+tp/v11u176repro/cases/SP/s02_split_outside_class pristine.bin strict=STRICT_NOTEQUAL_line	tp/v11u176repro/cases/SP/s02_split_outside_class law.bin strict=STRICT_EQUAL_185_objects
+tp/v11u176repro/cases/SP/s02_split_outside_class_el pristine.bin strict=STRICT_NOTEQUAL_line	tp/v11u176repro/cases/SP/s02_split_outside_class_el law.bin strict=STRICT_EQUAL_194_objects
+tp/v11u212repro/cases/E/e09 pristine.bin strict=NOT_EQUAL_stage1	tp/v11u212repro/cases/E/e09 law.bin strict=STRICT_EQUAL_78_objects
+tp/v11u212repro/cases/E/e09_el pristine.bin strict=NOT_EQUAL_stage1	tp/v11u212repro/cases/E/e09_el law.bin strict=STRICT_EQUAL_65_objects
+tp/v11u212repro/cases/E/e16 pristine.bin strict=NOT_EQUAL_stage1	tp/v11u212repro/cases/E/e16 law.bin strict=STRICT_NOTEQUAL_depth
+tp/v11u212repro/cases/E/e16_el pristine.bin strict=NOT_EQUAL_stage1	tp/v11u212repro/cases/E/e16_el law.bin strict=STRICT_EQUAL_125_objects
+tp/v11u212repro/cases/G/g13 pristine.bin strict=NOT_EQUAL_stage1	tp/v11u212repro/cases/G/g13 law.bin strict=STRICT_EQUAL_148_objects
+tp/v11u212repro/cases/G/g13_el pristine.bin strict=NOT_EQUAL_stage1	tp/v11u212repro/cases/G/g13_el law.bin strict=STRICT_EQUAL_122_objects

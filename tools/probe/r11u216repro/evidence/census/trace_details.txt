@@ -1,0 +1,6 @@
+OUT /tmp/r11u216_cen/surelog/default/MiniAmiq-055eab74/slang.uhdm
+tfArgOutsideClassOrder216 uvm_severity uvm_sequence_item
+tfArgImportCloneFollows216 uvm_pkg::uvm_severity refs=16
+OUT /tmp/r11u216_cen/surelog/testflags/MiniAmiq-055eab74/slang.uhdm
+tfArgOutsideClassOrder216 uvm_severity uvm_sequence_item
+tfArgImportCloneFollows216 uvm_pkg::uvm_severity refs=16
