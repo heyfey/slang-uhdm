@@ -1,0 +1,15 @@
+AssertDelayError	default	surelog
+AssertDelayError	testflags	surelog
+AssertTempError	default	surelog
+AssertTempError	testflags	surelog
+BuildUVMPkg	default	surelog
+BuildUVMPkg	testflags	surelog
+Earlgrey_0_1	default	surelog
+Earlgrey_0_1	testflags	surelog
+MiniAmiq	default	surelog
+MiniAmiq	testflags	surelog
+Scoreboard	default	surelog
+SeqDriver	default	surelog
+SeqDriver	testflags	surelog
+SimpleUVM	default	surelog
+SimpleUVM	testflags	surelog

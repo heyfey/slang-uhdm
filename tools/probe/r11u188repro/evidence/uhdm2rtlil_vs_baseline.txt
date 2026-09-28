@@ -1,0 +1,3 @@
+[default] CMP_EQUAL=789 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=14
+[testflags] CMP_EQUAL=789 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=14
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0

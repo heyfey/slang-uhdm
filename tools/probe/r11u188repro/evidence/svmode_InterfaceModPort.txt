@@ -1,0 +1,8 @@
+InterfaceModPort default [no flag] STRICT_NOTEQUAL endcol
+InterfaceModPort default [--sverilog] STRICT_EQUAL 790 objects
+InterfaceModPort testflags [no flag] STRICT_NOTEQUAL endcol
+InterfaceModPort testflags [--sverilog] STRICT_EQUAL 790 objects
+SVMODE_OFF: InterfaceModPort default [no flag] STRICT_NOTEQUAL endcol
+SVMODE_OFF: InterfaceModPort default [--sverilog] STRICT_NOTEQUAL endcol
+SVMODE_OFF: InterfaceModPort testflags [no flag] STRICT_NOTEQUAL endcol
+SVMODE_OFF: InterfaceModPort testflags [--sverilog] STRICT_NOTEQUAL endcol

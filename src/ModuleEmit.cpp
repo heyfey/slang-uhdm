@@ -21,6 +21,7 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/ExprEval.h>
 #include <uhdm/clone_tree.h>
+#include <uhdm/UhdmListener.h>
 
 #include "slang/ast/EvalContext.h"
 #include "slang/ast/symbols/CheckerSymbols.h"
@@ -1454,6 +1455,133 @@ static bool evalFuncSelectKeepsCall148(const slang::ast::Expression& rhs,
         fprintf(stderr, "R11U148E site=%s arm=%s scope=%s\n", site, arm ? arm : "?",
                 scope.c_str());
     return hit;
+}
+
+// ===== § propAssertLastInstPath188 (r11u188) ================================
+// THE PRODUCER.  Surelog compiles a module's named property declarations and
+// its module-scope concurrent assertions ONCE, on the definition, and every
+// elaborated instance lists THOSE objects (UhdmWriter's writeElabModule
+// pushes the def's property_decl / assertion objects unchanged).  Elaboration
+// of each instance re-binds them in place, so the shared objects carry the
+// full name and the parent of the LAST instance elaborated (depth-first, in
+// instantiation order): `chk u_one(...); chk u_two(...);` names every listing
+// `work@tb.u_two.p_a`; a def instantiated once below the top names its
+// definition listing `work@tb.u_m.u_c.p_a` and parents it at that
+// module_inst; a BOUND instance takes its TARGET-based path
+// (`work@tb.u_dut.u_chk.p_a`, even though the bound module_inst itself is
+// displayed `work@tb.u_chk`).  Grid tools/probe/r11u188repro/cases/B (single
+// instance at two depths, in a generate block, a bind below the top, an
+// unlabelled assert + cover; the multi-instance cells are judge-unequal at
+// the base and read only for the last-writer order).  The bind road of
+// mriscv_bind_sva (bindDefDisplay, the bound child of a TOP) is the special
+// case this law generalises: its display path IS the last instance's path.
+// Every emitInstance visit re-writes the names under the shared roots (the
+// objects the root OWNS: VpiParent chain reaching the root; a reference's
+// target is never followed) from the def-time prefix to the instance path and
+// re-parents the roots at the instance, so the last visit wins.
+bool r11u188Law(const char* sw);  // the r11u188 switches (UhdmExporter.cpp)
+void trace188(const char* law, const std::string& detail);
+static std::map<const slang::ast::DefinitionSymbol*, std::string>& sharedPropPrefix188() {
+    static std::map<const slang::ast::DefinitionSymbol*, std::string> m;
+    return m;
+}
+// The def-view property_decl objects of a definition (every instance's body
+// has its own Property symbols; the shared objects are the def's).
+static std::map<const slang::ast::DefinitionSymbol*, std::vector<UHDM::any*>>&
+sharedPropDecls188() {
+    static std::map<const slang::ast::DefinitionSymbol*, std::vector<UHDM::any*>> m;
+    return m;
+}
+namespace {
+class OwnedRename188 final : public UHDM::UhdmListener {
+  public:
+    const UHDM::any* root = nullptr;
+    std::string oldP, newP;
+    size_t renamed = 0;
+    void enterAny(const UHDM::any* const o) override {
+        if (o != root) {
+            const UHDM::any* p = o->VpiParent();
+            int guard = 0;
+            while (p && p != root && guard++ < 256)
+                p = p->VpiParent();
+            if (p != root) {
+                // Not owned: never descend (a reference's target, a shared
+                // typespec, the instance).
+                getVisited().insert(o);
+                return;
+            }
+        }
+        auto* w = const_cast<UHDM::any*>(o);
+        auto rn = [&](auto* x) {
+            std::string fn(x->VpiFullName());
+            if (fn.empty())
+                return;
+            if (fn == oldP || (fn.size() > oldP.size() &&
+                               fn.compare(0, oldP.size(), oldP) == 0 &&
+                               fn[oldP.size()] == '.')) {
+                x->VpiFullName(newP + fn.substr(oldP.size()));
+                renamed++;
+            }
+        };
+        switch (o->UhdmType()) {
+            case UHDM::uhdmref_obj: rn((UHDM::ref_obj*)w); break;
+            case UHDM::uhdmhier_path: rn((UHDM::hier_path*)w); break;
+            case UHDM::uhdmref_typespec: rn((UHDM::ref_typespec*)w); break;
+            case UHDM::uhdmproperty_decl: rn((UHDM::property_decl*)w); break;
+            case UHDM::uhdmsequence_decl: rn((UHDM::sequence_decl*)w); break;
+            default:
+                if (auto* ca = any_cast<UHDM::concurrent_assertions*>(w))
+                    rn(ca);
+                break;
+        }
+    }
+};
+}  // namespace
+// A bind whose target NAMES AN INSTANCE (`bind u_dut chk u_chk(...)` inside
+// the module holding u_dut) is not elaborated by Surelog (the bound child
+// materializes in the def view only), so its instance never re-binds the
+// shared objects (grid cases/B b04: golden keeps `work@chk.p_a`).
+static bool bindInstanceTarget188(const slang::ast::InstanceSymbol& inst) {
+    using namespace slang;
+    const syntax::BindDirectiveSyntax* bs = nullptr;
+    for (auto p2 = inst.getSyntax(); p2; p2 = p2->parent)
+        if (p2->kind == syntax::SyntaxKind::BindDirective) {
+            bs = &p2->as<syntax::BindDirectiveSyntax>();
+            break;
+        }
+    if (!bs)
+        return false;
+    if (bs->target->kind != syntax::SyntaxKind::IdentifierName)
+        return true;
+    auto tn = bs->target->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+    auto* ps = inst.getParentScope();
+    if (!ps || ps->asSymbol().kind != ast::SymbolKind::InstanceBody)
+        return false;
+    return ps->asSymbol().as<ast::InstanceBodySymbol>().getDefinition().name != tn;
+}
+static void propAssertLastInst188(const slang::ast::DefinitionSymbol* def,
+                                  const std::string& instPath, UHDM::any* m,
+                                  const std::vector<UHDM::any*>& roots) {
+    auto itp = sharedPropPrefix188().find(def);
+    if (itp == sharedPropPrefix188().end() || roots.empty())
+        return;
+    std::string& cur = itp->second;
+    size_t n = 0;
+    for (auto* r : roots) {
+        if (cur != instPath) {
+            OwnedRename188 l;
+            l.root = r;
+            l.oldP = cur;
+            l.newP = instPath;
+            l.listenAny(r);
+            n += l.renamed;
+        }
+        r->VpiParent(m);
+    }
+    trace188("propAssertLastInstPath188",
+             cur + " -> " + instPath + " roots=" + std::to_string(roots.size()) +
+                 " renamed=" + std::to_string(n));
+    cur = instPath;
 }
 
 // ===== § implicitNetNoFile119 (r11u119, LAW L2) =============================
@@ -6434,6 +6562,9 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         if (auto bdd = bindDefDisplay.find(&body.getDefinition());
             bdd != bindDefDisplay.end())
             propPrefix = bdd->second;
+        // § propAssertLastInstPath188 — the def-time prefix the shared
+        // property / assertion names are built from (the rename's source).
+        sharedPropPrefix188()[&body.getDefinition()] = propPrefix;
         auto* pdecls = s.MakeProperty_declVec();
         for (auto& member : body.members()) {
             if (member.kind != SymbolKind::Property)
@@ -6532,6 +6663,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                 pd->Property_spec(psSpec);
             }
             propertyDeclMap[&prop] = pd;
+            sharedPropDecls188()[&body.getDefinition()].push_back(pd);
             pdecls->push_back(pd);
         }
         if (!pdecls->empty())
@@ -17026,8 +17158,29 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 droppedBindDefs.insert(&child.getDefinition());
                 continue;
             }
-            if (fromBind && !currentTopPrefix.empty())
-                bindDisplayPath = currentTopPrefix + "." + std::string(child.name);
+            if (fromBind && !currentTopPrefix.empty()) {
+                // § bindDisplayTargetParent188 (r11u188) — Surelog's
+                // `DesignElaboration::createBindInstance_` parents the bind
+                // instance at the TARGET's parent (`parent->getParent()`), so a
+                // module bound into `tb.u_mid.u_dut` displays as
+                // `work@tb.u_mid.u_chk` and its high-conn names scope through
+                // `work@tb.u_mid` (grid cases/B b05; in a generate block,
+                // `work@tb.g.u_chk`, b06).  A TOP target has no parent and the
+                // bind re-parents onto the target itself (the pristine
+                // `currentTopPrefix` road, unchanged); a target directly under
+                // the top reads the same either way.
+                std::string bindBase188 = currentTopPrefix;
+                if (prefix != currentTopPrefix &&
+                    r11u188Law("R11U188_BINDPARENT_OFF"))
+                    if (auto dp188 = prefix.rfind('.'); dp188 != std::string::npos) {
+                        if (prefix.substr(0, dp188) != currentTopPrefix)
+                            trace188("bindDisplayTargetParent188",
+                                     prefix + " -> " + prefix.substr(0, dp188) + "." +
+                                         std::string(child.name));
+                        bindBase188 = prefix.substr(0, dp188);
+                    }
+                bindDisplayPath = bindBase188 + "." + std::string(child.name);
+            }
             {
                 auto* ci9 = emitInstance(child, prefix + "." + std::string(child.name), m,
                                          &topNets, &instRefs, /*isTop=*/false);
@@ -17537,8 +17690,14 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     } gcfConnGuard21(genvarConnFold, genConnFoldOuter21);
                     // Bound instances: TOP-scoped high-conn names, parent
                     // binding.
+                    // § bindDisplayTargetParent188 — the bind's display
+                    // parent (the target's parent) scopes the high conns.
+                    std::string hcBind188 = currentTopPrefix;
+                    if (!bindPath.empty() && r11u188Law("R11U188_BINDPARENT_OFF"))
+                        if (auto dp188 = bindPath.rfind('.'); dp188 != std::string::npos)
+                            hcBind188 = bindPath.substr(0, dp188);
                     const std::string& hcPrefix =
-                        (!bindPath.empty() && !currentTopPrefix.empty()) ? currentTopPrefix
+                        (!bindPath.empty() && !currentTopPrefix.empty()) ? hcBind188
                                                                          : parentPrefix;
                     // An elab pattern HighConn folds to a based-decimal
                     // constant at the port width.
@@ -19920,6 +20079,23 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             }
             if (!procs->empty())
                 instSetProcess(m, procs);
+        }
+        // § propAssertLastInstPath188 — every instance re-binds the shared
+        // property declarations and assertions: the last one names and
+        // parents them.
+        // A TOP instance's path is the definition's own name, so the names
+        // stay; its re-parenting is unobservable in the dump (the def view and
+        // the elaborated top print alike) and is left as it was.
+        if (it != defMap.end() && !isTop && r11u188Law("R11U188_PROPLAST_OFF") &&
+            !bindInstanceTarget188(inst)) {
+            std::vector<UHDM::any*> roots188;
+            for (auto* a : it->second.assertions)
+                roots188.push_back(a);
+            if (auto sp188 = sharedPropDecls188().find(&def);
+                sp188 != sharedPropDecls188().end())
+                for (auto* pd188 : sp188->second)
+                    roots188.push_back(pd188);
+            propAssertLastInst188(&def, prefix, m, roots188);
         }
         if (it != defMap.end() && !it->second.assertions.empty()) {
             auto* av = s.MakeAnyVec();

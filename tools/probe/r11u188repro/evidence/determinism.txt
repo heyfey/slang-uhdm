@@ -1,0 +1,42 @@
+law.bin Earlgrey_0_1 default run1 94a33ef3f8de STRICT_NOTEQUAL,differ:col(98)
+law.bin Earlgrey_0_1 default run2 94a33ef3f8de STRICT_NOTEQUAL,differ:col(98)
+law.bin Earlgrey_0_1 default run3 94a33ef3f8de STRICT_NOTEQUAL,differ:col(98)
+law.bin Earlgrey_0_1 testflags run1 f641f7fbc784 STRICT_NOTEQUAL,differ:col(98)
+law.bin Earlgrey_0_1 testflags run2 f641f7fbc784 STRICT_NOTEQUAL,differ:col(98)
+law.bin Earlgrey_0_1 testflags run3 f641f7fbc784 STRICT_NOTEQUAL,differ:col(98)
+law.bin BuildUVMPkg default run1 710ef0f8df43 STRICT_NOTEQUAL,differ:fullname(20)
+law.bin BuildUVMPkg default run2 710ef0f8df43 STRICT_NOTEQUAL,differ:fullname(20)
+law.bin BuildUVMPkg default run3 710ef0f8df43 STRICT_NOTEQUAL,differ:fullname(20)
+law.bin MiniAmiq default run1 6bd133c02fa2 STRICT_NOTEQUAL,differ:file(5)
+law.bin MiniAmiq default run2 611bca8cf8a0 STRICT_NOTEQUAL,differ:file(5)
+law.bin MiniAmiq default run3 77a0e6065c97 STRICT_NOTEQUAL,differ:file(5)
+law.bin SeqDriver default run1 88e0fba37068 STRICT_NOTEQUAL,differ:file(4)
+law.bin SeqDriver default run2 bfcb659c556e STRICT_NOTEQUAL,differ:file(4)
+law.bin SeqDriver default run3 3cf0f47eab07 STRICT_NOTEQUAL,differ:file(4)
+law.bin SimpleUVM default run1 278c68ea6b88 STRICT_NOTEQUAL,differ:fullname(20)
+law.bin SimpleUVM default run2 278c68ea6b88 STRICT_NOTEQUAL,differ:fullname(20)
+law.bin SimpleUVM default run3 278c68ea6b88 STRICT_NOTEQUAL,differ:fullname(20)
+law.bin Scoreboard default run1 2e77a617d3e2 STRICT_NOTEQUAL,differ:fullname(20)
+law.bin Scoreboard default run2 2e77a617d3e2 STRICT_NOTEQUAL,differ:fullname(20)
+law.bin Scoreboard default run3 2e77a617d3e2 STRICT_NOTEQUAL,differ:fullname(20)
+pris.bin MiniAmiq default run1 8e73c2b199b4 STRICT_NOTEQUAL,differ:file(5)
+pris.bin MiniAmiq default run2 496cfd058c8f STRICT_NOTEQUAL,differ:file(5)
+pris.bin MiniAmiq default run3 6b240f5d1ee3 STRICT_NOTEQUAL,differ:file(5)
+pris.bin SeqDriver default run1 951175353e48 STRICT_NOTEQUAL,differ:file(4)
+pris.bin SeqDriver default run2 606f4b05a628 STRICT_NOTEQUAL,differ:file(4)
+pris.bin SeqDriver default run3 1bd3c8169352 STRICT_NOTEQUAL,differ:file(4)
+pris.bin Scoreboard default run1 2945df7da4f6 STRICT_NOTEQUAL,differ:fullname(20)
+pris.bin Scoreboard default run2 3d52ba7f896a STRICT_NOTEQUAL,differ:fullname(20)
+pris.bin Scoreboard default run3 2945df7da4f6 STRICT_NOTEQUAL,differ:fullname(20)
+MiniAmiq law.bin run1 vs run2: 4 dump lines; sorted: 4
+MiniAmiq law.bin run1 vs run3: 4 dump lines; sorted: 4
+MiniAmiq pris.bin run1 vs run2: 4 dump lines; sorted: 4
+MiniAmiq pris.bin run1 vs run3: 4 dump lines; sorted: 4
+SeqDriver law.bin run1 vs run2: 4 dump lines; sorted: 4
+SeqDriver law.bin run1 vs run3: 0 dump lines; sorted: 0
+SeqDriver pris.bin run1 vs run2: 4 dump lines; sorted: 4
+SeqDriver pris.bin run1 vs run3: 4 dump lines; sorted: 4
+Scoreboard law.bin run1 vs run2: 0 dump lines; sorted: 0
+Scoreboard law.bin run1 vs run3: 0 dump lines; sorted: 0
+Scoreboard pris.bin run1 vs run2: 92 dump lines; sorted: 0
+Scoreboard pris.bin run1 vs run3: 0 dump lines; sorted: 0

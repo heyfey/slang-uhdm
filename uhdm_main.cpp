@@ -29,6 +29,10 @@
 #include "slang/util/VersionInfo.h"
 #include "uhdm/uhdm-version.h"
 
+namespace slang_uhdm {
+extern bool g_svAllFiles188;  // § svModeAllFiles188 (UhdmExporter.cpp)
+}
+
 using namespace slang;
 using namespace slang::driver;
 
@@ -353,8 +357,21 @@ static int realMain(int argc, char** argv) {
                        "Exclude '// synopsys|synthesis|pragma translate_off' .. 'translate_on' "
                        "regions and reproduce Surelog -filterprotected's line accounting");
 
+    // § svModeAllFiles188 (r11u188) — Surelog's `-sverilog` (CommandLineParser
+    // m_sverilog -> ParseFile's `fullSVMode()`) parses EVERY file as
+    // SystemVerilog, whatever its extension; without it a `.v` root file is
+    // lexed in Verilog mode (verilogLexMode).  The flag reaches the exporter
+    // through g_svAllFiles188 (UhdmExporter.cpp).  Switch R11U188_SVMODE_OFF.
+    std::optional<bool> svAllFiles;
+    driver.cmdLine.add("--sverilog", svAllFiles,
+                       "Parse every file as SystemVerilog for the database's Verilog-mode "
+                       "lexing quirks, as Surelog -sverilog does (a .v file otherwise follows "
+                       "Surelog's Verilog lexer)");
+
     if (!driver.parseCommandLine(argc, argv))
         return 1;
+    if (svAllFiles == true && !getenv("R11U188_OFF") && !getenv("R11U188_SVMODE_OFF"))
+        slang_uhdm::g_svAllFiles188 = true;
 
     if (showHelp == true) {
         printf("%s\n",

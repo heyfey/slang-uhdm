@@ -1,0 +1,86 @@
+B/b01	§ propAssertLastInstPath188	pristine=STRICT_NOTEQUAL fullname	law=STRICT_EQUAL 108	moved
+B/b02	§ propAssertLastInstPath188 (control: judge-unequal or top-b	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	moved
+B/b03	§ propAssertLastInstPath188 (control: judge-unequal or top-b	pristine=STRICT_EQUAL 75	law=STRICT_EQUAL 75	same
+B/b04	§ propAssertLastInstPath188 (control: judge-unequal or top-b	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same
+B/b05	§ propAssertLastInstPath188 + § bindDisplayTargetParent188	pristine=STRICT_NOTEQUAL fullname	law=STRICT_EQUAL 141	moved
+B/b06	§ propAssertLastInstPath188 + § bindDisplayTargetParent188	pristine=STRICT_NOTEQUAL fullname	law=STRICT_EQUAL 113	moved
+B/b07	§ propAssertLastInstPath188 (control: judge-unequal or top-b	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	moved
+B/b08	§ propAssertLastInstPath188	pristine=STRICT_NOTEQUAL fullname	law=STRICT_EQUAL 110	moved
+B/c01	§ propAssertLastInstPath188	pristine=STRICT_NOTEQUAL fullname	law=STRICT_EQUAL 80	moved
+B/c02	§ propAssertLastInstPath188	pristine=STRICT_NOTEQUAL fullname	law=STRICT_EQUAL 113	moved
+B/c03	§ propAssertLastInstPath188 (control: judge-unequal or top-b	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	moved
+B/d01	§ propAssertLastInstPath188 (control: judge-unequal or top-b	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same
+B/d02	§ propAssertLastInstPath188 (control: judge-unequal or top-b	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	moved
+B/d03	§ propAssertLastInstPath188 (control: judge-unequal or top-b	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	moved
+B/d04	§ propAssertLastInstPath188	pristine=STRICT_NOTEQUAL fullname	law=STRICT_EQUAL 95	moved
+B/d05	§ propAssertLastInstPath188	pristine=STRICT_NOTEQUAL fullname	law=STRICT_EQUAL 101	moved
+B/d06	§ propAssertLastInstPath188	pristine=STRICT_NOTEQUAL fullname	law=STRICT_EQUAL 70	moved
+B/d07	§ propAssertLastInstPath188	pristine=STRICT_NOTEQUAL fullname	law=STRICT_EQUAL 123	moved
+B/d08	§ propAssertLastInstPath188 (a top module's own assertions: 	pristine=STRICT_EQUAL 55	law=STRICT_EQUAL 55	same
+T/t06	§ classTpKeywordTsAtDefault188	pristine=STRICT_NOTEQUAL line	law=STRICT_EQUAL 19	moved
+T/t09	§ classTpKeywordTsAtDefault188	pristine=STRICT_NOTEQUAL line	law=STRICT_EQUAL 16	moved
+T/t11	§ classTpKeywordTsAtDefault188	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	moved
+T/t12	§ classTpKeywordTsAtDefault188	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	moved
+T/t13	§ classTpKeywordTsAtDefault188	pristine=STRICT_NOTEQUAL line	law=STRICT_EQUAL 13	moved
+T/t14	§ classTpKeywordTsAtDefault188	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same
+T/t15	§ classTpKeywordTsAtDefault188	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	moved
+T/t16	§ classTpKeywordTsAtDefault188	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	moved
+T/t17	§ classTpKeywordTsAtDefault188	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	moved
+T/t18	§ classTpKeywordTsAtDefault188	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	moved
+T/t19	§ classTpKeywordTsAtDefault188	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same
+T/t20	§ classTpKeywordTsAtDefault188	pristine=STRICT_NOTEQUAL line	law=STRICT_EQUAL 18	moved
+T/t21	§ tpFormalIncludeOrder188	pristine=STRICT_NOTEQUAL line	law=STRICT_EQUAL 30	moved
+T/t22	§ tpFormalIncludeOrder188	pristine=STRICT_NOTEQUAL file	law=STRICT_EQUAL 30	moved
+T/t23	§ classTpKeywordTsAtDefault188	pristine=STRICT_NOTEQUAL line	law=STRICT_EQUAL 18	moved
+T/t24	§ classTpKeywordTsAtDefault188	pristine=STRICT_NOTEQUAL line	law=STRICT_EQUAL 18	moved
+T/t25	§ classTpKeywordTsAtDefault188	pristine=STRICT_NOTEQUAL line	law=STRICT_EQUAL 28	moved
+T/t26	§ classTpKeywordTsAtDefault188	pristine=STRICT_NOTEQUAL line	law=STRICT_EQUAL 38	moved
+T/t27	§ classTpKeywordTsAtDefault188	pristine=STRICT_NOTEQUAL line	law=STRICT_EQUAL 38	moved
+T/t28	§ classTpKeywordTsAtDefault188	pristine=STRICT_NOTEQUAL line	law=STRICT_EQUAL 20	moved
+T/t29	§ tpFormalIncludeOrder188	pristine=STRICT_NOTEQUAL file	law=STRICT_EQUAL 31	moved
+T/t30	§ tpFormalIncludeOrder188	pristine=STRICT_NOTEQUAL file	law=STRICT_EQUAL 31	moved
+T/t31	§ tpOwnTsAtHeaderDefault188 (the class_defn listing reads th	pristine=STRICT_NOTEQUAL line	law=STRICT_EQUAL 53	moved
+T/t32	§ tpOwnTsAtHeaderDefault188 (control: the override differs f	pristine=STRICT_NOTEQUAL line	law=STRICT_EQUAL 46	moved
+I/i01	§ svModeAllFiles188 (InterfaceModPort shapes in SystemVerilo	pristine=STRICT_EQUAL 69	law=STRICT_EQUAL 69	same
+I/i02	§ svModeAllFiles188 (InterfaceModPort shapes in SystemVerilo	pristine=STRICT_EQUAL 69	law=STRICT_EQUAL 69	same
+I/i03	§ svModeAllFiles188 (InterfaceModPort shapes in SystemVerilo	pristine=STRICT_EQUAL 39	law=STRICT_EQUAL 39	same
+V/v01	§ svModeAllFiles188 (Verilog-mode .v cells, run with drivers	pristine=STRICT_EQUAL 16	law=STRICT_EQUAL 16	same
+V/v02	§ svModeAllFiles188 (Verilog-mode .v cells, run with drivers	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same
+V/v03	§ svModeAllFiles188 (Verilog-mode .v cells, run with drivers	pristine=STRICT_NOTEQUAL endcol	law=STRICT_NOTEQUAL endcol	same
+V/v04	§ svModeAllFiles188 (Verilog-mode .v cells, run with drivers	pristine=STRICT_EQUAL 41	law=STRICT_EQUAL 41	same
+V/v05	§ svModeAllFiles188 (Verilog-mode .v cells, run with drivers	pristine=STRICT_NOTEQUAL endcol	law=STRICT_NOTEQUAL endcol	same
+V/v06	§ svModeAllFiles188 (Verilog-mode .v cells, run with drivers	pristine=STRICT_EQUAL 10	law=STRICT_EQUAL 10	same
+V/v07	§ svModeAllFiles188 (Verilog-mode .v cells, run with drivers	pristine=STRICT_EQUAL 38	law=STRICT_EQUAL 38	same
+V/v08	§ svModeAllFiles188 (Verilog-mode .v cells, run with drivers	pristine=STRICT_EQUAL 22	law=STRICT_EQUAL 22	same
+E/e01	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e02	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same
+E/e03	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL file	law=STRICT_NOTEQUAL file	same
+E/e04	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e05	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e06	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e07	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e08	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e09	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e10	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e11	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same
+E/e12	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e13	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same
+E/e14	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e15	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e16	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same
+E/e17	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e18	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e19	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e20	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e21	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e22	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e23	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e24	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=STRICT_NOTEQUAL type	law=STRICT_NOTEQUAL type	same
+E/e25	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same
+E/e26	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same
+E/e27	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same
+E/e28	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same
+E/x01	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same
+E/x02	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same
+E/x03	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same
+E/x04	§ evalFuncSelectKeepsCall148 (residue decode: const_cast_sig	pristine=NOT_EQUAL stage1	law=NOT_EQUAL stage1	same

@@ -1,0 +1,4 @@
+default/mriscv_bind_sva propAssertLastInstPath188=1
+default/sva_basic02 propAssertLastInstPath188=1
+testflags/mriscv_bind_sva propAssertLastInstPath188=1
+testflags/sva_basic02 propAssertLastInstPath188=1

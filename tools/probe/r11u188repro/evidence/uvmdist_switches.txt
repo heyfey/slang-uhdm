@@ -1,0 +1,6 @@
+R11U188_TPKEYWORD_OFF MiniAmiq/default total=22740
+R11U188_TPKEYWORD_OFF BuildUVMPkg/default total=3052
+R11U188_TPINCORDER_OFF MiniAmiq/default total=22522
+R11U188_TPINCORDER_OFF BuildUVMPkg/default total=2336
+R11U188_TPDEFSYN_OFF MiniAmiq/default total=22074
+R11U188_TPDEFSYN_OFF BuildUVMPkg/default total=2336

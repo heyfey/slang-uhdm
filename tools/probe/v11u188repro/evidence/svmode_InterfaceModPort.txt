@@ -1,0 +1,12 @@
+InterfaceModPort default pris [no flag] rc=0 uhdm-cmp_lines=0 STRICT_NOTEQUAL endcol
+InterfaceModPort default pris [--sverilog] rc=1 uhdm-cmp_lines=8 /tmp/v11u188_svm.uhdm: File does not exist!
+InterfaceModPort default law [no flag] rc=0 uhdm-cmp_lines=0 STRICT_NOTEQUAL endcol
+InterfaceModPort default law [--sverilog] rc=0 uhdm-cmp_lines=0 STRICT_EQUAL 790 objects
+InterfaceModPort default v2 [no flag] rc=0 uhdm-cmp_lines=0 STRICT_NOTEQUAL endcol
+InterfaceModPort default v2 [--sverilog] rc=0 uhdm-cmp_lines=0 STRICT_EQUAL 790 objects
+InterfaceModPort testflags pris [no flag] rc=0 uhdm-cmp_lines=0 STRICT_NOTEQUAL endcol
+InterfaceModPort testflags pris [--sverilog] rc=1 uhdm-cmp_lines=8 /tmp/v11u188_svm.uhdm: File does not exist!
+InterfaceModPort testflags law [no flag] rc=0 uhdm-cmp_lines=0 STRICT_NOTEQUAL endcol
+InterfaceModPort testflags law [--sverilog] rc=0 uhdm-cmp_lines=0 STRICT_EQUAL 790 objects
+InterfaceModPort testflags v2 [no flag] rc=0 uhdm-cmp_lines=0 STRICT_NOTEQUAL endcol
+InterfaceModPort testflags v2 [--sverilog] rc=0 uhdm-cmp_lines=0 STRICT_EQUAL 790 objects

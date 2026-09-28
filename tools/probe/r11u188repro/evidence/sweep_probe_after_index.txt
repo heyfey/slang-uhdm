@@ -1,0 +1,6 @@
+law index current
+probe cases: EQUAL=3124 STRICT_NOTEQUAL=963 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=3124 STRICT_NOTEQUAL=963
+regressions=0 conversions=98 changes=23 only-fresh=0 only-committed=0
+sweep rc=0
+PROBE_CSV_IDENTICAL_TO_swL

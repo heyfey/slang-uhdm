@@ -1852,8 +1852,79 @@ void noteTpOwnTs180(const Symbol* tp, UHDM::typespec* ts, bool winner87) {
     if (!winner87 && tpChainRoot180(tp) != tp)
         tpChainMembers180.push_back({tp, ts});
 }
+// § classTpKeywordTsAtDefault188 (r11u188) — a type parameter whose default
+// is a KEYWORD type (`type T = int`, `bit`, `logic`, `byte`, `string`, ...:
+// no dimensions, no name) follows the same law as the class-handle default of
+// § classTpDefaultTsAtUse180 / § classTpFormalMovesTs180: compileTypespec
+// answers the parameter's name with the parameter's OWN typespec, so a method
+// body local, a nested-block local and a return value written `T` read the
+// default's object (golden `int_typespec 2:20-2:23` for `class c #(type T =
+// int)`, where ours minted one at the use token; a class property written
+// `T` too, r10uvm58repro a8_locals), and a formal written `T`
+// moves that object to its type token, the last formal of the class body
+// winning (a task `output T o` at 3:18: the type parameter's own listing, the
+// local and the formal all read 3:18).  Map N0039 (int_typespec spans under a
+// class method; 156 probe cases).  Grid tools/probe/r11u188repro/cases/T.
+// The class-handle arm keeps its own laws; a default written as a NAME
+// (typedef, class, another type parameter) is not claimed (its object may be
+// the typedef's shared one: no relocation of it here).  Switch
+// R11U188_TPKEYWORD_OFF.
+bool r11u188Law(const char* sw);  // the r11u188 switches (UhdmExporter.cpp)
+void trace188(const char* law, const std::string& detail);
+static const syntax::DataTypeSyntax* tpDefaultSyn188(const Symbol& tp) {
+    // the class HEADER's written default
+    if (auto* ds = tp.getSyntax(); ds && ds->kind == syntax::SyntaxKind::TypeAssignment) {
+        if (auto* asg = ds->as<syntax::TypeAssignmentSyntax>().assignment)
+            return asg->type;
+        return nullptr;
+    }
+    auto* body = tp.getParentScope();
+    if (!body || body->asSymbol().kind != SymbolKind::ClassType)
+        return nullptr;
+    auto& ct = body->asSymbol().as<ClassType>();
+    const syntax::SyntaxNode* cs =
+        ct.genericClass ? ct.genericClass->getSyntax() : ct.getSyntax();
+    if (cs && cs->kind == syntax::SyntaxKind::ClassDeclaration)
+        if (auto* pl = cs->as<syntax::ClassDeclarationSyntax>().parameters)
+            for (auto* pd : pl->declarations)
+                if (pd->kind == syntax::SyntaxKind::TypeParameterDeclaration)
+                    for (auto* ta : pd->as<syntax::TypeParameterDeclarationSyntax>().declarators)
+                        if (ta->name.valueText() == tp.name && ta->assignment)
+                            return ta->assignment->type;
+    return nullptr;
+}
+const syntax::SyntaxNode* tpHeaderDefaultSyn188(const Symbol& tp) {
+    return tpDefaultSyn188(tp);
+}
+bool tpKeywordDefault188(const Symbol& tp) {
+    auto* d = tpDefaultSyn188(tp);
+    if (!d)
+        return false;
+    switch (d->kind) {
+        case syntax::SyntaxKind::BitType:
+        case syntax::SyntaxKind::LogicType:
+        case syntax::SyntaxKind::RegType:
+        case syntax::SyntaxKind::ByteType:
+        case syntax::SyntaxKind::ShortIntType:
+        case syntax::SyntaxKind::IntType:
+        case syntax::SyntaxKind::LongIntType:
+        case syntax::SyntaxKind::IntegerType:
+        case syntax::SyntaxKind::TimeType:
+            return d->as<syntax::IntegerTypeSyntax>().dimensions.empty();
+        case syntax::SyntaxKind::StringType:
+        case syntax::SyntaxKind::RealType:
+        case syntax::SyntaxKind::ShortRealType:
+        case syntax::SyntaxKind::RealTimeType:
+        case syntax::SyntaxKind::CHandleType:
+        case syntax::SyntaxKind::EventType:
+            return true;
+        default:
+            return false;
+    }
+}
 static const Symbol* classTpOfDecl180(const Symbol& declSymbol,
-                                      const syntax::SyntaxNode* typeSyn) {
+                                      const syntax::SyntaxNode* typeSyn,
+                                      bool keyword188 = false) {
     if (!typeSyn || typeSyn->kind != syntax::SyntaxKind::NamedType)
         return nullptr;
     auto& nt = typeSyn->as<syntax::NamedTypeSyntax>();
@@ -1892,10 +1963,31 @@ static const Symbol* classTpOfDecl180(const Symbol& declSymbol,
     const Symbol* f = body->find(id);
     if (!f || f->kind != SymbolKind::TypeParameter || f->getParentScope() != body)
         return nullptr;
+    // § classTpKeywordTsAtDefault188 — the keyword-default arm: the chain's
+    // root holds the one object (§ classTpChainRootShares180), and it is the
+    // root's default that must be a keyword type.
+    if (keyword188) {
+        if (f->as<TypeParameterSymbol>().targetType.getType().getCanonicalType().kind ==
+            SymbolKind::ClassType)
+            return nullptr;
+        auto* root = tpChainRoot180(f);
+        return root && tpKeywordDefault188(*root) ? root : nullptr;
+    }
     if (f->as<TypeParameterSymbol>().targetType.getType().getCanonicalType().kind !=
         SymbolKind::ClassType)
         return nullptr;
     return tpChainRoot180(f);  // § classTpChainRootShares180
+}
+// § classTpKeywordTsAtDefault188 — a type parameter whose chain root has a
+// keyword default (its own object is registered: the root's is the shared
+// one, a chain member's reads the root's in the drain).
+bool tpKeywordChainRoot188(const Symbol& tp) {
+    if (tp.kind != SymbolKind::TypeParameter ||
+        tp.as<TypeParameterSymbol>().targetType.getType().getCanonicalType().kind ==
+            SymbolKind::ClassType)
+        return false;
+    auto* root = tpChainRoot180(&tp);
+    return root && tpKeywordDefault188(*root);
 }
 // § classTpFormalMovesTs180 (r11u180) — a class method FORMAL written as the
 // type parameter is a writer of that shared object: compileTfPortList runs
@@ -1915,20 +2007,74 @@ struct TpFormal180 {
     UHDM::typespec* ts;
     uint32_t buf;
     size_t off;
+    // § tpFormalIncludeOrder188 — the include chain, root first.
+    std::vector<std::pair<uint32_t, size_t>> chain;
 };
+// § tpFormalIncludeOrder188 (r11u188) — the last formal WRITER is the last
+// one Surelog compiles, i.e. the last in the preprocessed stream: a formal in
+// an `included file sits at its `include directive's position in the
+// includer.  § classTpFormalMovesTs180 compared offsets only within one
+// buffer (the first buffer seen won across files), so a class body with a
+// formal in an included method file and another after the include kept the
+// included one (grid cases/T t21: golden dut.sv 4:18, the formal after the
+// include; t22 the mirror, golden m22.svh 1:20).  The chain is compared from
+// the root: the first level that differs decides by offset.  Switch
+// R11U188_TPINCORDER_OFF.
+const slang::SourceManager* sm188 = nullptr;
+static std::vector<std::pair<uint32_t, size_t>> inclChain188(SourceLocation loc) {
+    std::vector<std::pair<uint32_t, size_t>> v;
+    if (!sm188)
+        return v;
+    for (int guard = 0; guard < 64 && loc != SourceLocation::NoLocation; guard++) {
+        // § tpFormalMacroAtExpansion188v (v11u188, R11V188_MACROEXP_OFF) — a
+        // formal written inside a macro sits in the preprocessed stream at
+        // the macro's EXPANSION, not at its `define (the body's original
+        // location is the definition, which always precedes the use, so a
+        // macro-generated method's formal could never be the last writer:
+        // grid tools/probe/v11u188repro/cases/M m01 m04, golden the
+        // expansion's `T v` 7:26 where ours kept the plain formal before it).
+        if (sm188->isMacroLoc(loc))
+            loc = r11u188Law("R11V188_MACROEXP_OFF") ? sm188->getFullyExpandedLoc(loc)
+                                                     : sm188->getFullyOriginalLoc(loc);
+        v.push_back({loc.buffer().getId(), loc.offset()});
+        auto up = sm188->getIncludedFrom(loc.buffer());
+        if (up == SourceLocation::NoLocation || !up.buffer().valid())
+            break;
+        loc = up;
+    }
+    std::reverse(v.begin(), v.end());
+    return v;
+}
+// true when b is at or after a in the preprocessed stream (same root only)
+static bool laterOrSame188(const std::vector<std::pair<uint32_t, size_t>>& a,
+                           const std::vector<std::pair<uint32_t, size_t>>& b) {
+    if (a.empty() || b.empty() || a[0].first != b[0].first)
+        return false;
+    for (size_t i = 0; i < a.size() && i < b.size(); i++) {
+        if (a[i].first != b[i].first)
+            return false;
+        if (a[i].second != b[i].second)
+            return b[i].second > a[i].second;
+    }
+    return b.size() >= a.size();
+}
 std::map<const Symbol*, TpFormal180> tpFormal180;
 // every formal's own object: they share golden's one object, so each reads
 // the last writer's span too (grid A a17)
 std::vector<std::pair<const Symbol*, UHDM::typespec*>> tpFormalAll180;
 } // namespace
-void noteTpUse180(UHDM::typespec* ts, const Symbol& declSymbol,
-                  const syntax::SyntaxNode* typeSyn) {
+static void noteTpUseImpl(UHDM::typespec* ts, const Symbol& declSymbol,
+                          const syntax::SyntaxNode* typeSyn, bool keyword188) {
     const bool formal = declSymbol.kind == SymbolKind::FormalArgument;
     if (!ts || !r11u180Law(formal ? "R11U180_TPFORMAL_OFF" : "R11U180_TPUSE_OFF"))
         return;
-    auto* tp = classTpOfDecl180(declSymbol, typeSyn);
+    auto* tp = classTpOfDecl180(declSymbol, typeSyn, keyword188);
     if (!tp)
         return;
+    if (keyword188)
+        trace188("classTpKeywordTsAtDefault188",
+                 std::string(formal ? "formal " : "use ") + std::string(tp->name) + " " +
+                     std::string(declSymbol.name));
     if (formal) {
         if (!typeSyn)
             return;
@@ -1936,15 +2082,49 @@ void noteTpUse180(UHDM::typespec* ts, const Symbol& declSymbol,
         if (st == SourceLocation::NoLocation)
             return;
         tpFormalAll180.push_back({tp, ts});
-        TpFormal180 f{ts, st.buffer().getId(), st.offset()};
+        TpFormal180 f{ts, st.buffer().getId(), st.offset(), {}};
+        const bool incOrder188 = r11u188Law("R11U188_TPINCORDER_OFF");
+        if (incOrder188) {
+            f.chain = inclChain188(st);
+            // § tpFormalMacroAtExpansion188v — the census names every macro
+            // formal whose stream position the refinement decides.
+            if (sm188 && sm188->isMacroLoc(st) && r11u188Law("R11V188_MACROEXP_OFF"))
+                trace188("tpFormalMacroAtExpansion188v", std::string(tp->name) + " " +
+                                                             std::string(declSymbol.name));
+        }
         auto it = tpFormal180.find(tp);
         if (it == tpFormal180.end())
             tpFormal180[tp] = f;
         else if (it->second.buf == f.buf && f.off >= it->second.off)
             it->second = f;
+        else if (incOrder188 && it->second.buf != f.buf &&
+                 laterOrSame188(it->second.chain, f.chain)) {
+            trace188("tpFormalIncludeOrder188", std::string(tp->name));
+            it->second = f;
+        }
         return;
     }
     tpUse180.push_back({ts, tp});
+}
+void noteTpUse180(UHDM::typespec* ts, const Symbol& declSymbol,
+                  const syntax::SyntaxNode* typeSyn) {
+    noteTpUseImpl(ts, declSymbol, typeSyn, false);
+}
+// § classTpKeywordTsAtDefault188 — the makeTypespec hook's recorder: a
+// non-class typespec of a declaration written as a keyword-default type
+// parameter of its own class.
+static void noteTpUseKeyword188(UHDM::typespec* ts, const Symbol& declSymbol,
+                                const syntax::SyntaxNode* typeSyn) {
+    if (!ts || ts->UhdmType() == UHDM::uhdmclass_typespec ||
+        !r11u188Law("R11U188_TPKEYWORD_OFF"))
+        return;
+    if (declSymbol.kind != SymbolKind::Variable &&
+        declSymbol.kind != SymbolKind::ClassProperty &&
+        declSymbol.kind != SymbolKind::FormalArgument &&
+        declSymbol.kind != SymbolKind::Subroutine &&
+        declSymbol.kind != SymbolKind::MethodPrototype)
+        return;
+    noteTpUseImpl(ts, declSymbol, typeSyn, true);
 }
 void classTpDefaultTsDrain180() {
     // § classTpFormalMovesTs180 — the last formal moves the parameter's own
@@ -2346,6 +2526,26 @@ UhdmExporter::SharedTd9 UhdmExporter::sharedTypedefTsRef9(
 UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                            const syntax::SyntaxNode* typeSynOverride,
                                            const PortSymbol* portCtx) {
+    // § classTpKeywordTsAtDefault188 — the hook: the finished typespec of a
+    // declaration written as a keyword-default class type parameter is
+    // recorded for § classTpDefaultTsAtUse180's design-final drain.
+    sm188 = sm;  // § tpFormalIncludeOrder188
+    {
+        static std::set<const Symbol*> inHook188;
+        if (!inHook188.count(&declSymbol) && r11u188Law("R11U188_TPKEYWORD_OFF")) {
+            const syntax::SyntaxNode* tsyn188 = typeSynOverride;
+            if (!tsyn188)
+                if (auto* dt188 = declSymbol.getDeclaredType())
+                    tsyn188 = dt188->getTypeSyntax();
+            if (tsyn188 && tsyn188->kind == syntax::SyntaxKind::NamedType) {
+                inHook188.insert(&declSymbol);
+                auto* r188 = makeTypespec(declSymbol, typeSynOverride, portCtx);
+                inHook188.erase(&declSymbol);
+                noteTpUseKeyword188(r188, declSymbol, tsyn188);
+                return r188;
+            }
+        }
+    }
     // § typeParamUseSharesOwnTs183 (r11u183, R11U183_TSSPAN_OFF) — inside a
     // parameterized class's own body a declaration WRITTEN with a type
     // parameter's name (`CB cb;` under `class c #(type CB = base)`) takes the

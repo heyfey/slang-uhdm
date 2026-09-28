@@ -1,0 +1,12 @@
+r11u188repro V/v01 golden[surelog -sv dut.v] ours(no flag): STRICT_EQUAL 16 objects | ours(--sverilog): STRICT_NOTEQUAL endcol
+r11u188repro V/v01 golden[surelog -sverilog dut.v] ours(no flag): STRICT_NOTEQUAL endcol | ours(--sverilog): STRICT_EQUAL 16 objects
+r11u188repro V/v01 golden[surelog dut.v -sv] ours(no flag): STRICT_NOTEQUAL endcol | ours(--sverilog): STRICT_EQUAL 16 objects
+r11u188repro V/v03 golden[surelog -sv dut.v] ours(no flag): STRICT_NOTEQUAL endcol | ours(--sverilog): STRICT_NOTEQUAL endcol
+r11u188repro V/v03 golden[surelog -sverilog dut.v] ours(no flag): STRICT_NOTEQUAL endcol | ours(--sverilog): STRICT_EQUAL 44 objects
+r11u188repro V/v03 golden[surelog dut.v -sv] ours(no flag): STRICT_NOTEQUAL endcol | ours(--sverilog): STRICT_EQUAL 44 objects
+r11u188repro V/v05 golden[surelog -sv dut.v] ours(no flag): STRICT_NOTEQUAL endcol | ours(--sverilog): STRICT_NOTEQUAL endcol
+r11u188repro V/v05 golden[surelog -sverilog dut.v] ours(no flag): STRICT_NOTEQUAL endcol | ours(--sverilog): STRICT_EQUAL 39 objects
+r11u188repro V/v05 golden[surelog dut.v -sv] ours(no flag): STRICT_NOTEQUAL endcol | ours(--sverilog): STRICT_EQUAL 39 objects
+r11u188repro V/v07 golden[surelog -sv dut.v] ours(no flag): STRICT_EQUAL 38 objects | ours(--sverilog): STRICT_NOTEQUAL endcol
+r11u188repro V/v07 golden[surelog -sverilog dut.v] ours(no flag): STRICT_NOTEQUAL endcol | ours(--sverilog): STRICT_EQUAL 38 objects
+r11u188repro V/v07 golden[surelog dut.v -sv] ours(no flag): STRICT_NOTEQUAL endcol | ours(--sverilog): STRICT_EQUAL 38 objects

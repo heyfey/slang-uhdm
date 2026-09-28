@@ -1,0 +1,239 @@
+=== MiniAmiq default (law)
+#899 file
+  A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73
+  B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16
+#1694 file
+  A: 5	logic_typespec	uvm_bitstream_t			uvm_misc.svh	483	42	483	57
+  B: 5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	483	42	483	57
+#1858 file
+  A: 5	logic_typespec	uvm_integral_t			uvm_misc.svh	515	41	515	55
+  B: 5	logic_typespec	uvm_integral_t			uvm_object_globals.svh	515	41	515	55
+#2014 file
+  A: 5	logic_typespec	uvm_bitstream_t			uvm_misc.svh	545	38	545	53
+  B: 5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	545	38	545	53
+#2450 depth
+  A: 6	ref_obj	printer		uvm_pkg::uvm_object::print::printer	uvm_object.svh	878	5	878	12		0
+  B: 7	class_var	uvm_default_printer		uvm_pkg::uvm_default_printer	uvm_object_globals.svh	637	13	637	32		0
+objects 435559 vs 432345
+fields: depth=1 type=1 name=1 fullname=1 file=5 line=2 col=2 endline=2 endcol=2 objects_differing=5 (walk diverged)
+STRICT_NOTEQUAL file
+=== SeqDriver default (law)
+#1677 file
+  A: 5	logic_typespec	uvm_bitstream_t			uvm_misc.svh	483	42	483	57
+  B: 5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	483	42	483	57
+#1841 file
+  A: 5	logic_typespec	uvm_integral_t			uvm_misc.svh	515	41	515	55
+  B: 5	logic_typespec	uvm_integral_t			uvm_object_globals.svh	515	41	515	55
+#1997 file
+  A: 5	logic_typespec	uvm_bitstream_t			uvm_misc.svh	545	38	545	53
+  B: 5	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	545	38	545	53
+#2433 depth
+  A: 6	ref_obj	printer		uvm_pkg::uvm_object::print::printer	uvm_object.svh	878	5	878	12		0
+  B: 7	class_var	uvm_default_printer		uvm_pkg::uvm_default_printer	uvm_object_globals.svh	637	13	637	32		0
+objects 475526 vs 473722
+fields: depth=1 type=1 name=1 fullname=1 file=4 line=1 col=1 endline=1 endcol=1 objects_differing=4 (walk diverged)
+STRICT_NOTEQUAL file
+=== BuildUVMPkg default (law)
+#2834 fullname
+  A: 6	ref_obj	severity		uvm_pkg::uvm_report::verbosity::severity	uvm_pkg.sv	9563	44	9563	52		0
+  B: 6	ref_obj	severity		uvm_pkg::uvm_report::severity	uvm_pkg.sv	9563	44	9563	52		0
+#2836 fullname
+  A: 7	ref_typespec			uvm_pkg::uvm_report::verbosity		0	0	0	0		0
+  B: 7	ref_typespec			uvm_pkg::uvm_report		0	0	0	0		0
+#2847 fullname
+  A: 7	ref_obj	UVM_ERROR		uvm_pkg::uvm_report::verbosity::UVM_ERROR	uvm_pkg.sv	9563	70	9563	79		0
+  B: 7	ref_obj	UVM_ERROR		uvm_pkg::uvm_report::UVM_ERROR	uvm_pkg.sv	9563	70	9563	79		0
+#2849 fullname
+  A: 5	ref_obj	UVM_LOW		uvm_pkg::uvm_report::verbosity::UVM_LOW	uvm_pkg.sv	9563	84	9563	91		0
+  B: 5	ref_obj	UVM_LOW		uvm_pkg::uvm_report::UVM_LOW	uvm_pkg.sv	9563	84	9563	91		0
+#2853 fullname
+  A: 7	ref_obj	severity		uvm_pkg::uvm_report::verbosity::severity	uvm_pkg.sv	9564	44	9564	52		0
+  B: 7	ref_obj	severity		uvm_pkg::uvm_report::severity	uvm_pkg.sv	9564	44	9564	52		0
+#2855 fullname
+  A: 8	ref_typespec			uvm_pkg::uvm_report::verbosity		0	0	0	0		0
+  B: 8	ref_typespec			uvm_pkg::uvm_report		0	0	0	0		0
+#2866 fullname
+  A: 8	ref_obj	UVM_FATAL		uvm_pkg::uvm_report::verbosity::UVM_FATAL	uvm_pkg.sv	9564	70	9564	79		0
+  B: 8	ref_obj	UVM_FATAL		uvm_pkg::uvm_report::UVM_FATAL	uvm_pkg.sv	9564	70	9564	79		0
+#2868 fullname
+  A: 6	ref_obj	UVM_NONE		uvm_pkg::uvm_report::verbosity::UVM_NONE	uvm_pkg.sv	9564	84	9564	92		0
+  B: 6	ref_obj	UVM_NONE		uvm_pkg::uvm_report::UVM_NONE	uvm_pkg.sv	9564	84	9564	92		0
+#2870 fullname
+  A: 6	ref_obj	UVM_MEDIUM		uvm_pkg::uvm_report::verbosity::UVM_MEDIUM	uvm_pkg.sv	9564	95	9564	105		0
+  B: 6	ref_obj	UVM_MEDIUM		uvm_pkg::uvm_report::UVM_MEDIUM	uvm_pkg.sv	9564	95	9564	105		0
+#5639 line
+  A: 10	constant				uvm_pkg.sv	12963	61	12963	62	1	64	UINT:1	9
+  B: 10	constant				uvm_pkg.sv	13469	85	13469	86	1	64	UINT:1	9
+objects 201533 vs 201549
+fields: depth=1 type=1 name=1 fullname=16 file=1 line=4 col=4 endline=4 endcol=5 size=1 objects_differing=20 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== SimpleUVM default (law)
+#458 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+#464 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0
+#483 fullname
+  A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0
+#490 fullname
+  A: 6	ref_typespec			UVM_START_FUNCS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_START_FUNCS		0	0	0	0		0
+#496 fullname
+  A: 5	ref_typespec			UVM_SET		0	0	0	0		0
+  B: 5	ref_typespec			uvm_pkg::UVM_SET		0	0	0	0		0
+#509 fullname
+  A: 5	ref_typespec			UVM_SETSTR		0	0	0	0		0
+  B: 5	ref_typespec			uvm_pkg::UVM_SETSTR		0	0	0	0		0
+#535 fullname
+  A: 7	ref_typespec			UVM_LINE_WIDTH		0	0	0	0		0
+  B: 7	ref_typespec			uvm_pkg::UVM_LINE_WIDTH		0	0	0	0		0
+#546 fullname
+  A: 8	ref_typespec			UVM_NUM_LINES		0	0	0	0		0
+  B: 8	ref_typespec			uvm_pkg::UVM_NUM_LINES		0	0	0	0		0
+#579 fullname
+  A: 7	ref_typespec			UVM_STREAMBITS		0	0	0	0		0
+  B: 7	ref_typespec			uvm_pkg::UVM_STREAMBITS		0	0	0	0		0
+#621 fullname
+  A: 7	ref_typespec			UVM_HDL_MAX_WIDTH		0	0	0	0		0
+  B: 7	ref_typespec			uvm_pkg::UVM_HDL_MAX_WIDTH		0	0	0	0		0
+objects 334285 vs 334396
+fields: depth=1 type=1 name=1 fullname=17 file=4 line=1 col=1 endline=1 endcol=1 objects_differing=20 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== Scoreboard default (law)
+#466 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+#472 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0
+#491 fullname
+  A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0
+#498 fullname
+  A: 6	ref_typespec			UVM_START_FUNCS		0	0	0	0		0
+  B: 6	ref_typespec			uvm_pkg::UVM_START_FUNCS		0	0	0	0		0
+#504 fullname
+  A: 5	ref_typespec			UVM_SET		0	0	0	0		0
+  B: 5	ref_typespec			uvm_pkg::UVM_SET		0	0	0	0		0
+#517 fullname
+  A: 5	ref_typespec			UVM_SETSTR		0	0	0	0		0
+  B: 5	ref_typespec			uvm_pkg::UVM_SETSTR		0	0	0	0		0
+#543 fullname
+  A: 7	ref_typespec			UVM_LINE_WIDTH		0	0	0	0		0
+  B: 7	ref_typespec			uvm_pkg::UVM_LINE_WIDTH		0	0	0	0		0
+#554 fullname
+  A: 8	ref_typespec			UVM_NUM_LINES		0	0	0	0		0
+  B: 8	ref_typespec			uvm_pkg::UVM_NUM_LINES		0	0	0	0		0
+#587 fullname
+  A: 7	ref_typespec			UVM_STREAMBITS		0	0	0	0		0
+  B: 7	ref_typespec			uvm_pkg::UVM_STREAMBITS		0	0	0	0		0
+#629 fullname
+  A: 7	ref_typespec			UVM_HDL_MAX_WIDTH		0	0	0	0		0
+  B: 7	ref_typespec			uvm_pkg::UVM_HDL_MAX_WIDTH		0	0	0	0		0
+objects 269656 vs 269706
+fields: depth=1 type=1 name=1 fullname=17 file=4 line=1 col=1 endline=1 endcol=1 objects_differing=20 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== SVSwitch default (law)
+#651 fullname
+  A: 12	ref_obj	size			Receiver.sv	40	26	40	30		0
+  B: 12	ref_obj	size		work@Receiver::start::size	Receiver.sv	40	26	40	30		0
+#980 fullname
+  A: 8	ref_obj	size			Packet.sv	71	20	71	24		0
+  B: 8	ref_obj	size		work@packet::byte_pack::size	Packet.sv	71	20	71	24		0
+#1951 endline
+  A: 4	logic_typespec				rtl.sv	2	6	1	479
+  B: 4	logic_typespec				rtl.sv	2	6	2	6
+#3380 fullname
+  A: 6	interface_inst	output_intf[0]	work@output_interface	output_intf.output_intf[0]	top.sv	44	0	0	0
+  B: 6	interface_inst	output_intf[0]	work@output_interface	work@top.TC.output_intf[0]	top.sv	44	0	0	0
+#3381 fullname
+  A: 7	bit_var	clock		output_intf.output_intf[0].clock	interface.sv	58	38	58	43		0
+  B: 7	bit_var	clock		work@top.TC.output_intf[0].clock	interface.sv	58	38	58	43		0
+#3382 fullname
+  A: 8	ref_typespec			output_intf.output_intf[0].clock		0	0	0	0		0
+  B: 8	ref_typespec			work@top.TC.output_intf[0].clock		0	0	0	0		0
+#3384 fullname
+  A: 7	logic_var	data_out		output_intf.output_intf[0].data_out	interface.sv	59	18	59	26		0
+  B: 7	logic_var	data_out		work@top.TC.output_intf[0].data_out	interface.sv	59	18	59	26		0
+#3385 fullname
+  A: 8	ref_typespec			output_intf.output_intf[0].data_out		0	0	0	0		0
+  B: 8	ref_typespec			work@top.TC.output_intf[0].data_out		0	0	0	0		0
+#3390 fullname
+  A: 7	logic_var	ready		output_intf.output_intf[0].ready	interface.sv	60	12	60	17		0
+  B: 7	logic_var	ready		work@top.TC.output_intf[0].ready	interface.sv	60	12	60	17		0
+#3391 fullname
+  A: 8	ref_typespec			output_intf.output_intf[0].ready		0	0	0	0		0
+  B: 8	ref_typespec			work@top.TC.output_intf[0].ready		0	0	0	0		0
+objects 5787 vs 5799
+fields: depth=1 type=1 fullname=12 endline=1 endcol=1 size=1 objects_differing=13 (walk diverged)
+STRICT_NOTEQUAL fullname
+=== Earlgrey_0_1 default (law)
+#26470 col
+  A: 3	constant				flash_phy_pkg.sv	43	53	43	63	1	32	UINT:1	9
+  B: 3	constant				flash_phy_pkg.sv	43	28	43	63	1	32	UINT:1	9
+#60978 fullname
+  A: 10	bit_select	key		reg2hw.key[i]	aes_core.sv	109	31	109	34		0
+  B: 10	bit_select	key		work@aes_core.key_init_get.reg2hw.key[i].q.key	aes_core.sv	109	35	109	36		0
+#60986 fullname
+  A: 10	bit_select	key		reg2hw.key[i]	aes_core.sv	110	31	110	34		0
+  B: 10	bit_select	key		work@aes_core.key_init_get.reg2hw.key[i].qe.key	aes_core.sv	110	35	110	36		0
+#61008 fullname
+  A: 10	bit_select	iv		reg2hw.iv[i]	aes_core.sv	116	25	116	27		0
+  B: 10	bit_select	iv		work@aes_core.iv_get.reg2hw.iv[i].q.iv	aes_core.sv	116	28	116	29		0
+#61016 fullname
+  A: 10	bit_select	iv		reg2hw.iv[i]	aes_core.sv	117	25	117	27		0
+  B: 10	bit_select	iv		work@aes_core.iv_get.reg2hw.iv[i].qe.iv	aes_core.sv	117	28	117	29		0
+#61038 fullname
+  A: 10	bit_select	data_in		reg2hw.data_in[i]	aes_core.sv	123	30	123	37		0
+  B: 10	bit_select	data_in		work@aes_core.data_in_get.reg2hw.data_in[i].q.data_in	aes_core.sv	123	38	123	39		0
+#61046 fullname
+  A: 10	bit_select	data_in		reg2hw.data_in[i]	aes_core.sv	124	30	124	37		0
+  B: 10	bit_select	data_in		work@aes_core.data_in_get.reg2hw.data_in[i].qe.data_in	aes_core.sv	124	38	124	39		0
+#61068 fullname
+  A: 10	bit_select	data_out		reg2hw.data_out[i]	aes_core.sv	131	37	131	45		0
+  B: 10	bit_select	data_out		work@aes_core.data_out_get.reg2hw.data_out[i].q.data_out	aes_core.sv	131	46	131	47		0
+#61076 fullname
+  A: 10	bit_select	data_out		reg2hw.data_out[i]	aes_core.sv	132	37	132	45		0
+  B: 10	bit_select	data_out		work@aes_core.data_out_get.reg2hw.data_out[i].re.data_out	aes_core.sv	132	46	132	47		0
+#89070 fullname
+  A: 9	ref_typespec			work@alert_handler_ping_timer		0	0	0	0		0
+  B: 9	ref_typespec			work@alert_handler_ping_timer.p_enable_mask		0	0	0	0		0
+objects 2173209 vs 2173853
+fields: type=1 defname=2 fullname=69 file=1 line=1 col=28 endline=1 endcol=51 size=1 objects_differing=98 (walk diverged)
+STRICT_NOTEQUAL col
+=== Rggen default (law)
+#2931 endcol
+  A: 10	logic_typespec				rggen_mux.sv	6	11	6	41
+  B: 10	logic_typespec				rggen_mux.sv	6	11	6	30
+#3227 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_0.g_bit_field_0.bit_field_if.read_data[0+:4].read_data	block_0.sv	7	24	7	38		0
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[0+:4]	block_0.sv	7	24	7	38		0
+#3236 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_0.g_bit_field_0.bit_field_if.value[0+:4].value	block_0.sv	8	24	8	34		0
+  B: 10	indexed_part_select	value		bit_field_if.value[0+:4]	block_0.sv	8	24	8	34		0
+#3317 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_0.g_bit_field_1.bit_field_if.read_data[4+:4].read_data	block_0.sv	7	24	7	38		0
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[4+:4]	block_0.sv	7	24	7	38		0
+#3326 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_0.g_bit_field_1.bit_field_if.value[4+:4].value	block_0.sv	8	24	8	34		0
+  B: 10	indexed_part_select	value		bit_field_if.value[4+:4]	block_0.sv	8	24	8	34		0
+#3404 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_0.g_bit_field_2.bit_field_if.read_data[8+:1].read_data	block_0.sv	7	24	7	38		0
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[8+:1]	block_0.sv	7	24	7	38		0
+#3413 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_0.g_bit_field_2.bit_field_if.value[8+:1].value	block_0.sv	8	24	8	34		0
+  B: 10	indexed_part_select	value		bit_field_if.value[8+:1]	block_0.sv	8	24	8	34		0
+#3494 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_0.g_bit_field_3.bit_field_if.read_data[9+:2].read_data	block_0.sv	7	24	7	38		0
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[9+:2]	block_0.sv	7	24	7	38		0
+#3503 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_0.g_bit_field_3.bit_field_if.value[9+:2].value	block_0.sv	8	24	8	34		0
+  B: 10	indexed_part_select	value		bit_field_if.value[9+:2]	block_0.sv	8	24	8	34		0
+#3584 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_0.g_bit_field_4.bit_field_if.read_data[11+:2].read_data	block_0.sv	7	24	7	39		0
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[11+:2]	block_0.sv	7	24	7	39		0
+objects 314498 vs 312249
+fields: type=1 defname=138 fullname=138 file=4 line=3 col=3 endline=3 endcol=5 decompile=1 size=1 value=1 consttype=1 objects_differing=144 (walk diverged)
+STRICT_NOTEQUAL endcol

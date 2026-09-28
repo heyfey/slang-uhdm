@@ -1,0 +1,29 @@
+cases 4260
+P!=L (law movers): 223
+P!=V (v2 movers): 224
+L!=V (refinement movers): 3 ['/tmp/v11u188_cases/kp13', '/tmp/v11u188_cases/m04', '/tmp/v11u188_cases/m06']
+V_OFF!=P: 0 []
+L_OFF!=P: 0
+V_MAC!=L: 0 []
+V_PROPLAST!=V: 28
+V_BINDPARENT!=V: 10
+V_TPKEYWORD!=V: 185
+V_TPDEFSYN!=V: 31
+V_TPINCORDER!=V: 11
+V_SVMODE!=V: 0
+NONE entries: 2
+--- the five later macro cells (M/m10-m14):
+cases 5
+P!=L (law movers): 5
+P!=V (v2 movers): 5
+L!=V (refinement movers): 4 ['v11u188repro/cases/M/m12', 'v11u188repro/cases/M/m10', 'v11u188repro/cases/M/m14', 'v11u188repro/cases/M/m13']
+V_OFF!=P: 0 []
+L_OFF!=P: 0
+V_MAC!=L: 0 []
+V_PROPLAST!=V: 0
+V_BINDPARENT!=V: 0
+V_TPKEYWORD!=V: 5
+V_TPDEFSYN!=V: 0
+V_TPINCORDER!=V: 5
+V_SVMODE!=V: 0
+NONE entries: 0

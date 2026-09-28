@@ -306,6 +306,57 @@ void trace186(const char* law, const std::string& detail) {
         fflush(tf);
     }
 }
+bool tpKeywordChainRoot188(const slang::ast::Symbol& tp); // § classTpKeywordTsAtDefault188 (TypeEmit.cpp)
+bool tpKeywordDefault188(const slang::ast::Symbol& tp);
+const slang::syntax::SyntaxNode* tpHeaderDefaultSyn188(const slang::ast::Symbol& tp);
+// The r11u188 switches (tools/probe/r11u188repro/README.md): every r11u188
+// law reads its own R11U188_<LAW>_OFF switch; R11U188_OFF drops all of them.
+//   R11U188_PROPLAST_OFF    § propAssertLastInstPath188   (ModuleEmit.cpp)
+//   R11U188_BINDPARENT_OFF  § bindDisplayTargetParent188  (ModuleEmit.cpp)
+//   R11U188_TPKEYWORD_OFF   § classTpKeywordTsAtDefault188 (TypeEmit.cpp, UhdmExporter.cpp)
+//   R11U188_TPDEFSYN_OFF    § tpOwnTsAtHeaderDefault188 (UhdmExporter.cpp)
+//   R11U188_TPINCORDER_OFF  § tpFormalIncludeOrder188   (TypeEmit.cpp)
+//   R11U188_SVMODE_OFF      § svModeAllFiles188 (uhdm_main.cpp --sverilog, UhdmExporter.cpp)
+bool r11u188Law(const char* sw) {
+    if (getenv("R11U188_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+// R11U188_TRACE=<dir> names every firing of an r11u188 law (the mover census):
+// one file per process, `<dir>/<pid>.188`, its first line `OUT <-o path>`,
+// then one `<law> <detail>` line per firing.  Unset, nothing is written.
+void trace188(const char* law, const std::string& detail) {
+    static FILE* tf = []() -> FILE* {
+        const char* d = getenv("R11U188_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".188";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s %s\n", law, detail.c_str());
+        fflush(tf);
+    }
+}
 void enumImportParentDrain180(UHDM::design* d); // § enumImportParentLastWriter180 (ModuleEmit.cpp)
 // § classTpDefaultTsAtUse180 (TypeEmit.cpp)
 void noteTpOwnTs180(const slang::ast::Symbol* tp, UHDM::typespec* ts, bool winner87);
@@ -4247,8 +4298,13 @@ UhdmExporter::fileScopeImportTypedefs(SourceLocation modLoc) {
     return out;
 }
 
+// § svModeAllFiles188 (r11u188) — set by uhdm_main's `--sverilog` (Surelog's
+// `-sverilog`: every file is SystemVerilog, fullSVMode in ParseFile.cpp).
+bool g_svAllFiles188 = false;
 bool UhdmExporter::verilogLexMode(SourceLocation loc) {
     if (loc == SourceLocation::NoLocation)
+        return false;
+    if (g_svAllFiles188)
         return false;
     if (sm->isMacroLoc(loc))
         loc = sm->getFullyOriginalLoc(loc);
@@ -7132,9 +7188,31 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
             else if (auto* g91 = classTpGroupNcTs91(cls, mem))
                 its = g91;
             else {
-                its = makeTypespec(mem, dsyn);
+                // § tpOwnTsAtHeaderDefault188 (r11u188) — the class_defn
+                // listing's type parameter is the GENERIC class's: its
+                // typespec sits at the class HEADER's written default.  slang
+                // hands the listing the first specialization with the default
+                // values, and when that is an explicit `C4 #(int)` its target
+                // syntax is the override token (`C4 #(int) c4;` 15:8 where
+                // golden reads the header's `int` 6:22: r10uvm68repro
+                // a4_typaram, r10uvm12repro t6_t).  Keyword defaults only
+                // (§ classTpKeywordTsAtDefault188's domain).  Switch
+                // R11U188_TPDEFSYN_OFF.
+                const syntax::SyntaxNode* osyn188 = dsyn;
+                if (r11u188Law("R11U188_TPKEYWORD_OFF") &&
+                    r11u188Law("R11U188_TPDEFSYN_OFF") && tpKeywordDefault188(mem))
+                    if (auto* hd188 = tpHeaderDefaultSyn188(mem); hd188 && hd188 != dsyn) {
+                        osyn188 = hd188;
+                        trace188("tpOwnTsAtHeaderDefault188", std::string(tps.name));
+                    }
+                its = makeTypespec(mem, osyn188);
                 if (its)
                     its->VpiParent(tp);
+                // § classTpKeywordTsAtDefault188 — a keyword default's own
+                // object (TypeEmit.cpp: the uses copy it, a formal moves it).
+                if (its && its->UhdmType() != UHDM::uhdmclass_typespec &&
+                    r11u188Law("R11U188_TPKEYWORD_OFF") && tpKeywordChainRoot188(mem))
+                    noteTpOwnTs180(&mem, its, false);
             }
             rt->Actual_typespec(its);
             tp->Typespec(rt);

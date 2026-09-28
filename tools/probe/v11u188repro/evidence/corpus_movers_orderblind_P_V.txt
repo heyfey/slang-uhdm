@@ -1,0 +1,15 @@
+Earlgrey_0_1 default distA 12940 distB 12924 fixed 8 newaway 0
+AssertDelayError default distA 96 distB 0 fixed 48 newaway 0
+AssertTempError default distA 56 distB 0 fixed 28 newaway 0
+MiniAmiq default distA 22752 distB 22074 fixed 340 newaway 1
+SeqDriver default distA 17726 distB 17048 fixed 339 newaway 0
+SimpleUVM default distA 5881 distB 5203 fixed 340 newaway 1
+BuildUVMPkg default distA 3052 distB 2336 fixed 358 newaway 0
+Earlgrey_0_1 testflags distA 12420 distB 12412 fixed 4 newaway 0
+AssertDelayError testflags distA 132 distB 0 fixed 66 newaway 0
+AssertTempError testflags distA 76 distB 0 fixed 38 newaway 0
+MiniAmiq testflags distA 22752 distB 22072 fixed 340 newaway 0
+SeqDriver testflags distA 17726 distB 17048 fixed 339 newaway 0
+SimpleUVM testflags distA 5881 distB 5203 fixed 339 newaway 0
+BuildUVMPkg testflags distA 3052 distB 2336 fixed 358 newaway 0
+Scoreboard default distA 4664 distB 3978 fixed 343 newaway 0
