@@ -1,0 +1,33 @@
+# corpus: moved (byteverify) vs predicted (evidence/census/predicted_movers.txt, frozen chmod 444 before the law sweep)
+moved=123 predicted=131 moved-not-predicted=0 predicted-not-moved=8:
+uhdm2rtlil/default/EnumInPackage
+uhdm2rtlil/default/func_struct_repro
+uhdm2rtlil/default/nested_cast_repro
+uhdm2rtlil/default/union_param_repro
+uhdm2rtlil/testflags/EnumInPackage
+uhdm2rtlil/testflags/func_struct_repro
+uhdm2rtlil/testflags/nested_cast_repro
+uhdm2rtlil/testflags/union_param_repro
+# probe databases: moved=204 of 4087, predicted=226, moved-not-predicted=0, predicted-not-moved=22:
+r11u108repro__grid__f4__c01_modfunc_cast.uhdm
+r11u108repro__grid__f4__c03_modfunc_ret_cast.uhdm
+r11u108repro__grid__f4__c07_unsigned_td.uhdm
+r11u108repro__grid__f4__c10_struct_td.uhdm
+r11u108repro__grid__f4__c11_twocasts.uhdm
+r11u112repro__grid__t__t02_unsigned_cast.uhdm
+r11u112repro__grid__t__t03_param_bound.uhdm
+r11u112repro__grid__t__t06_cast_only.uhdm
+r11u112repro__grid__t__t09_return_stmt.uhdm
+r11u112repro__grid__t__t10_two_funcs.uhdm
+r11u112repro__grid__t__t12_struct_ctl.uhdm
+r11u112repro__grid__t__t13_child_inst.uhdm
+r11u82repro__grid__w9_typeshapes.uhdm
+r11u88repro__grid__i8_modtwin.uhdm
+r11u88repro__grid__y1_pkgnetkind.uhdm
+r11u88repro__grid__y2_pkgvarkind.uhdm
+r11u88repro__grid__y6_hoistconv.uhdm
+r11v77repro__grid__va_netstructkinds.uhdm
+v11u112repro__grid__brk3__t__b2k_class_in_mod.uhdm
+v11u112repro__grid__brk__t__b2b_packed2d.uhdm
+v11u112repro__grid__brk__t__b2c_iface_fn.uhdm
+v11u112repro__grid__brk__t__b2f_local_var.uhdm

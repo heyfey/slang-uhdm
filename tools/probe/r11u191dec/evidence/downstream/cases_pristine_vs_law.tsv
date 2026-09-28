@@ -1,0 +1,83 @@
+binary	case	verdict	surelog_status	slang_status	differs	detail
+slang-uhdm	C__c01	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u191_ds/slan
+slang-uhdm	C__c02	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u191_ds/slan
+slang-uhdm	C__c03	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u191_ds/slan
+slang-uhdm	C__c04	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	E__e01	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	E__e02	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	E__e03	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	G__g_g01	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	N__n_e01	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	N__n_e03	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	N__n_e04	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	N__n_e06	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	N__n_e07	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	N__n_e08	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	N__n_e12	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	R__r01	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u191_ds/slan
+slang-uhdm	R__r02	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u191_ds/slan
+slang-uhdm	R__r03	EQUIVALENT	NO_GATES	NO_GATES	nohier il synth	✅ All 1 common constant assignments match
+slang-uhdm	R__r04	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	U__u01	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	U__u02	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+slang-uhdm	U__u03	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	U__u04	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	U__u05	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 2 common constant assignments match
+slang-uhdm	U__u06	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	U__u07	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	U__u08	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u191_ds/slan
+slang-uhdm	U__u09	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 2 common constant assignments match
+slang-uhdm	U__u10	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+slang-uhdm	U__u11	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	U__u_p01	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+slang-uhdm	U__u_p02	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+slang-uhdm	U__u_p03	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+slang-uhdm	U__u_p05	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	U__u_p06	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+slang-uhdm	U__u_p07	EQUIVALENT	NO_GATES	NO_GATES	nohier il synth	ℹ️  No common assign statements to compare — skipping
+slang-uhdm	U__u_p08	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 2 common constant assignments match
+slang-uhdm	V__v01	IDENTICAL	OK	OK		
+slang-uhdm	V__v02	IDENTICAL	OK	OK		
+slang-uhdm	V__v03	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm	V__v04	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	C__c01	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u191_ds/slan
+slang-uhdm.law	C__c02	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u191_ds/slan
+slang-uhdm.law	C__c03	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u191_ds/slan
+slang-uhdm.law	C__c04	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	E__e01	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	E__e02	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	E__e03	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	G__g_g01	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	N__n_e01	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	N__n_e03	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	N__n_e04	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	N__n_e06	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	N__n_e07	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	N__n_e08	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	N__n_e12	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	R__r01	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u191_ds/slan
+slang-uhdm.law	R__r02	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u191_ds/slan
+slang-uhdm.law	R__r03	EQUIVALENT	NO_GATES	NO_GATES	nohier il synth	✅ All 1 common constant assignments match
+slang-uhdm.law	R__r04	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	U__u01	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	U__u02	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+slang-uhdm.law	U__u03	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	U__u04	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	U__u05	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 2 common constant assignments match
+slang-uhdm.law	U__u06	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	U__u07	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	U__u08	DIVERGENT	NO_GATES	NO_GATES	nohier il synth	❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u191_ds/slan
+slang-uhdm.law	U__u09	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 2 common constant assignments match
+slang-uhdm.law	U__u10	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+slang-uhdm.law	U__u11	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	U__u_p01	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+slang-uhdm.law	U__u_p02	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+slang-uhdm.law	U__u_p03	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+slang-uhdm.law	U__u_p05	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	U__u_p06	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 1 common constant assignments match
+slang-uhdm.law	U__u_p07	EQUIVALENT	NO_GATES	NO_GATES	nohier il synth	ℹ️  No common assign statements to compare — skipping
+slang-uhdm.law	U__u_p08	EQUIVALENT	NO_GATES	NO_GATES	nohier il	✅ All 2 common constant assignments match
+slang-uhdm.law	V__v01	IDENTICAL	OK	OK		
+slang-uhdm.law	V__v02	IDENTICAL	OK	OK		
+slang-uhdm.law	V__v03	IDENTICAL	NO_GATES	NO_GATES		
+slang-uhdm.law	V__v04	IDENTICAL	NO_GATES	NO_GATES		

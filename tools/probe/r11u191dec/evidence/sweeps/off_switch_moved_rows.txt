@@ -1,0 +1,7 @@
+# R11U191_OFF=1 on the law binary over the 125 row-modes of the 61 tests that move (verify_golden, /tmp/r11u191_swO) vs the pristine sweep: 119 byte-identical; the 6 below differ in bytes, each 0 order-blind dump lines (the known UVM / Scoreboard coin rows)
+surelog/default/MiniAmiq-055eab74/slang.uhdm order-blind=0 
+surelog/default/Scoreboard-72aa0ba8/slang.uhdm order-blind=0 
+surelog/default/SeqDriver-65178d3a/slang.uhdm order-blind=0 
+surelog/default/SimpleUVM-267de3ff/slang.uhdm order-blind=0 
+surelog/testflags/MiniAmiq-055eab74/slang.uhdm order-blind=0 
+surelog/testflags/SeqDriver-65178d3a/slang.uhdm order-blind=0 

@@ -1,0 +1,18 @@
+== probe
+CONVERSION r10fiot_repro/a9 STRICT_NOTEQUAL differ:type(1) -> EQUAL
+regressions=0 conversions=1 changes=0 only-fresh=0 only-committed=0
+== surelog
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:col(102) -> differ:fullname(101)
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:col(102) -> differ:fullname(101)
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(27) -> differ:file(25) [file -2]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(27) -> differ:file(25) [file -2]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(52) [fullname -2]
+CHANGE Scr1SvTests default STRICT_NOTEQUAL differ:type(1) -> differ:endcol(29)
+CHANGE Scr1SvTests testflags STRICT_NOTEQUAL differ:type(1) -> differ:endcol(29)
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:file(26) -> differ:file(24) [file -2]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:file(26) -> differ:file(24) [file -2]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(52) [fullname -2]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(54) -> differ:fullname(52) [fullname -2]
+regressions=0 conversions=0 changes=11 only-fresh=0 only-committed=0
+== uhdm2rtlil
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0

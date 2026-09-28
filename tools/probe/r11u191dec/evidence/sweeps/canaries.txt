@@ -1,0 +1,25 @@
+== swP (vs the worktree's results/ at a1c89c1a)
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+== swL (vs the worktree's results/ at a1c89c1a)
+  Scr1SvTests                    default   CHANGED STRICT_NOTEQUAL/differ:type(1) -> STRICT_NOTEQUAL/differ:endcol(29)
+  Scr1SvTests                    testflags CHANGED STRICT_NOTEQUAL/differ:type(1) -> STRICT_NOTEQUAL/differ:endcol(29)
+  Earlgrey_0_1                   default   CHANGED STRICT_NOTEQUAL/differ:col(102) -> STRICT_NOTEQUAL/differ:fullname(101)
+  Earlgrey_0_1                   testflags CHANGED STRICT_NOTEQUAL/differ:col(102) -> STRICT_NOTEQUAL/differ:fullname(101)
+  SimpleUVM                      default   CHANGED STRICT_NOTEQUAL/differ:fullname(54) -> STRICT_NOTEQUAL/differ:fullname(52)
+  SimpleUVM                      testflags CHANGED STRICT_NOTEQUAL/differ:fullname(54) -> STRICT_NOTEQUAL/differ:fullname(52)
+  SeqDriver                      default   CHANGED STRICT_NOTEQUAL/differ:file(26) -> STRICT_NOTEQUAL/differ:file(24)
+  SeqDriver                      testflags CHANGED STRICT_NOTEQUAL/differ:file(26) -> STRICT_NOTEQUAL/differ:file(24)
+  BuildUVMPkg                    default   CHANGED STRICT_NOTEQUAL/differ:fullname(20) -> STRICT_NOTEQUAL/differ:line(11)
+  BuildUVMPkg                    testflags CHANGED STRICT_NOTEQUAL/differ:fullname(20) -> STRICT_NOTEQUAL/differ:line(11)
+  Scoreboard                     default   CHANGED STRICT_NOTEQUAL/differ:fullname(54) -> STRICT_NOTEQUAL/differ:fullname(52)
+---- canary rows: ok=41 changed=11 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.

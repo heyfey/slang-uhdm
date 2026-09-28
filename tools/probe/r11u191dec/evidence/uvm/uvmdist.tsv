@@ -1,0 +1,13 @@
+# order-blind distance to golden (drivers/uvmdist.sh: the strict records as multisets, depth dropped; total = ours-not-in-golden + golden-not-in-ours)
+row	pristine	law_exprstmt alone	law_typeemit alone	both	delta	additive
+MiniAmiq/default	16749	16641	16621	16513	-236	yes
+MiniAmiq/testflags	16749	16641	16621	16513	-236	yes
+SeqDriver/default	13139	13015	12993	12869	-270	yes
+SeqDriver/testflags	13139	13015	12993	12869	-270	yes
+SimpleUVM/default	5748	5664	5638	5554	-194	yes
+SimpleUVM/testflags	5748	5664	5638	5554	-194	yes
+Scoreboard/default	4563	4499	4471	4407	-156	yes
+BuildUVMPkg/default	2787	2751	2715	2679	-108	yes
+BuildUVMPkg/testflags	2787	2751	2715	2679	-108	yes
+SVSwitch/default	102	102	102	102	+0	yes
+SVSwitch/testflags	102	102	102	102	+0	yes

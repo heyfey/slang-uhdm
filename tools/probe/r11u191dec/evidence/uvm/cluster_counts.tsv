@@ -1,0 +1,10 @@
+row	pristine:facets	law:facets	N0228:pristine	N0228:law	N0224:pristine	N0224:law	N0215:pristine	N0215:law	N0229:pristine	N0229:law	N1082:pristine	N1082:law	N0965:pristine	N0965:law	N0923:pristine	N0923:law
+BlackBePipeInt	57062	57062	0	0	0	0	0	0	0	0	0	0	0	0	49	49
+BuildUVMPkg	1274	1216	9	0	9	0	28	0	8	0	0	0	0	0	0	0
+Earlgrey_0_1	6439	6438	0	0	0	0	0	0	0	0	2	1	0	0	0	0
+MiniAmiq	9359	8816	21	0	27	0	76	27	14	0	0	0	0	0	0	0
+SVSwitch	49	49	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Scoreboard	2185	1982	13	0	16	0	35	0	10	0	0	0	0	0	0	0
+Scr1SvTests	111	109	0	0	0	0	0	0	0	0	0	0	2	0	0	0
+SeqDriver	6496	6319	25	0	31	0	74	18	16	0	0	0	0	0	0	0
+SimpleUVM	3359	3254	17	0	21	0	42	0	12	0	0	0	0	0	0	0
