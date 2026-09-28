@@ -187,6 +187,170 @@ static void tr187EX(const char* law) {
     }
 }
 
+// The r11u192 switches (tools/probe/r11u192repro/README.md): every r11u192 law
+// reads its own R11U192_<LAW>_OFF switch; R11U192_OFF drops all of them.
+// R11U192_TRACE=<dir> names every firing (one file per process,
+// `<dir>/<pid>.EX192`, first line `OUT <-o path>`, then one law per firing).
+static bool r11u192LawEX(const char* sw) {
+    if (getenv("R11U192_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+static void tr192EX(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U192_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".EX192";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
+// § psBoundPaOwnerName192 (r11u192) — the OWNING INSTANCE of an object being
+// emitted: the first module / interface / program instance on its vpiParent
+// chain (a definition listing's module or an elaborated instance, through
+// generate scopes, processes and subroutines).  Surelog substitutes a
+// wildcard-imported package parameter read by CLONING the owning instance's
+// materialized `param_assign` Rhs and parenting the clone at that
+// `param_assign` (CompileExpression.cpp, getValue's netlist and component
+// arms: `result->VpiParent(param_ass)`), so the reference the clone carries
+// reads that instance's full name.  Empty (the law declines) when the chain
+// is not complete or reaches a package or class first.  Only an instance's
+// own full name is read, which the emitter always sets explicitly.
+static std::string ownerInstName192(const UHDM::any* p, int* gens = nullptr,
+                                    bool* viaPort = nullptr) {
+    bool port = false;
+    int ng = 0;
+    for (int g = 0; p && g < 256; ++g, p = p->VpiParent()) {
+        switch (p->UhdmType()) {
+            case UHDM::uhdmport:
+                port = true;
+                break;
+            case UHDM::uhdmgen_scope:
+                ++ng;
+                break;
+            case UHDM::uhdmmodule_inst:
+            case UHDM::uhdminterface_inst:
+            case UHDM::uhdmprogram:
+                // A port connection's actual is evaluated in the INSTANTIATING
+                // instance: the instance that owns the port is skipped.
+                if (port && p->VpiParent() &&
+                    (p->VpiParent()->UhdmType() == UHDM::uhdmmodule_inst ||
+                     p->VpiParent()->UhdmType() == UHDM::uhdmgen_scope)) {
+                    port = false;
+                    if (viaPort)
+                        *viaPort = true;
+                    break;
+                }
+                if (gens)
+                    *gens = ng;
+                if (viaPort && port)
+                    *viaPort = true;
+                return std::string(((const UHDM::scope*)p)->VpiFullName());
+            case UHDM::uhdmpackage:
+            case UHDM::uhdmclass_defn:
+            case UHDM::uhdmdesign:
+                return std::string();
+            default:
+                break;
+        }
+    }
+    return std::string();
+}
+// § psBoundPaOwnerName192 — the right-hand side of the continuous assignment
+// whose syntax holds `e` holds an unbased unsized literal (`'0`, `'1`, `'x`,
+// `'z`).  Surelog re-clones such an assignment when it elaborates a generate
+// scope (the clone re-parents every bound and count at its select or
+// operation), measured on grid tools/probe/r11u192repro/cases/B.  Unknown
+// syntax reads true (the law declines).
+static bool uuTok192(const syntax::SyntaxNode& n) {
+    for (size_t i = 0, k = n.getChildCount(); i < k; ++i) {
+        if (auto* c = n.childNode(i)) {
+            if (uuTok192(*c))
+                return true;
+        }
+        else if (auto t = n.childToken(i);
+                 t && t.kind == parsing::TokenKind::UnbasedUnsizedLiteral)
+            return true;
+    }
+    return false;
+}
+// § genForWholeLhsNestedKeep192v (v11u192, adversarial verification of
+// r11u192) — a for-generate continuous assignment that writes a WHOLE simple
+// name declared OUTSIDE the generate block (`assign z = ...` with `z` a module
+// net or port: no select, no member path, not a generate-local or implicit
+// net; ModuleEmit's genCaLhsSelect22 / genCaLhsGenLocal23 say which).  Surelog
+// keeps the select / generate-scope name on a fold NESTED in such an
+// assignment's right-hand side (`assign z = {x[31:W], {W{1'b0}}};`, golden
+// `work@top.g[0].x` / `work@top.g[0]`), while a written select or member
+// target (`z[i]`, `z[0]`, `z[15:0]`, `s.f`), a generate-local or implicit
+// target, and a bare whole-RHS select take the owning instance's name (grid
+// tools/probe/v11u192repro/cases D, E, H, J, L, M, N).  This helper reads the
+// syntax half: the target is a simple identifier.  Unknown syntax reads false
+// (the r11u192 law keeps its answer).
+static bool caLhsWholeName192v(const Expression& e) {
+    const syntax::SyntaxNode* asg = nullptr;
+    for (const syntax::SyntaxNode* n = e.syntax; n; n = n->parent) {
+        if (n->kind == syntax::SyntaxKind::AssignmentExpression)
+            asg = n;
+        else if (n->kind == syntax::SyntaxKind::ContinuousAssign) {
+            if (!asg)
+                return false;
+            auto& b = asg->as<syntax::BinaryExpressionSyntax>();
+            return b.left && b.left->kind == syntax::SyntaxKind::IdentifierName;
+        }
+    }
+    return false;
+}
+// The select IS the whole right-hand side: its parent is the continuous
+// assignment, or a hier_path (`s.g[31:W]`) that is (grid K k15).
+static bool caSelIsWholeRhs192v(const UHDM::any* sel) {
+    const UHDM::any* up = sel ? sel->VpiParent() : nullptr;
+    if (up && up->UhdmType() == UHDM::uhdmhier_path)
+        up = up->VpiParent();
+    return up && up->UhdmType() == UHDM::uhdmcont_assign;
+}
+static bool r11v192WholeLhsOn() {
+    static const bool on = getenv("R11V192_WHOLELHS_OFF") == nullptr;
+    return on;
+}
+static bool caRhsUnbasedUnsized192(const Expression& e) {
+    const syntax::SyntaxNode* asg = nullptr;
+    for (const syntax::SyntaxNode* n = e.syntax; n; n = n->parent) {
+        if (n->kind == syntax::SyntaxKind::AssignmentExpression)
+            asg = n;
+        else if (n->kind == syntax::SyntaxKind::ContinuousAssign) {
+            if (!asg)
+                return true;
+            auto& b = asg->as<syntax::BinaryExpressionSyntax>();
+            return !b.right || uuTok192(*b.right);
+        }
+    }
+    return true;
+}
+
 // The r11u175 switches (tools/probe/r11u175uvm/README.md): every r11u175 law
 // reads its own R11U175_<LAW>_OFF switch; R11U175_OFF drops all of them.
 static bool r11u175LawE(const char* sw) {
@@ -19452,6 +19616,52 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                           (qp124 + 2)));
                         }
                     }
+                    // § pkgQualBoundSpanQualifier192 (r11u192) — a written
+                    // `pkg::P` folded inside a PART SELECT's range (the bound
+                    // itself or an operand of the bound's arithmetic, a plain
+                    // select, a hier_path member select, an assignment target,
+                    // a port connection, a net declaration assignment, a
+                    // process, a subroutine body, both listings) spans the
+                    // qualifier with its colons: Surelog compiles the range
+                    // unreduced (compilePartSelectRange, Reduce::No), so the
+                    // package-scoped reference is populated from the
+                    // package-scope node and the later reduction keeps that
+                    // span.  A bit-select index, an indexed part select's
+                    // base, an operand and a replication count reduce at the
+                    // reference and keep the whole name (golden and ours
+                    // agree there).  A conditional in the bound is not
+                    // measured: the walk stops at it.  Grid
+                    // tools/probe/r11u192repro/cases/Q.  Switch
+                    // R11U192_QBSPAN_OFF.
+                    {
+                        static const bool on192 =
+                            r11u192LawEX("R11U192_QBSPAN_OFF");
+                        const Scope* psc192 = nv.symbol.getParentScope();
+                        if (on192 && !inParamInit && parent && expr.syntax &&
+                            (expr.syntax->kind == syntax::SyntaxKind::ScopedName ||
+                             expr.syntax->kind ==
+                                 syntax::SyntaxKind::ParenthesizedExpression) &&
+                            psc192 &&
+                            psc192->asSymbol().kind == SymbolKind::Package) {
+                            const UHDM::any* up192 = parent;
+                            for (int g = 0; g < 32 && up192 &&
+                                            up192->UhdmType() == UHDM::uhdmoperation &&
+                                            ((const UHDM::operation*)up192)->VpiOpType() != vpiConditionOp;
+                                 ++g)
+                                up192 = up192->VpiParent();
+                            if (up192 && up192->UhdmType() == UHDM::uhdmpart_select) {
+                                std::string rq192(rawText(expr.sourceRange));
+                                auto qp192 = rq192.rfind("::");
+                                if (qp192 != std::string::npos &&
+                                    qp192 + 2 < rq192.size()) {
+                                    setLoc(c, SourceRange(expr.sourceRange.start(),
+                                                          expr.sourceRange.start() +
+                                                              (qp192 + 2)));
+                                    tr192EX("pkgQualBoundSpanQualifier192");
+                                }
+                            }
+                        }
+                    }
                     // A PROCEDURAL bit-select INDEX fold reading an imported
                     // param parents at the select and carries a ts ref to the
                     // param's def typespec, named by the SELECT (Surelog;
@@ -20027,11 +20237,120 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // (`work@voa.st.addr[2 - 1:1].addr`).
                                 auto* ps9 = (const UHDM::part_select*)psOwner9;
                                 std::string fn9(ps9->VpiFullName());
+                                // § caPsSelFullVerbatim192 (r11u192) — the
+                                // rebuild below is for a select nested in a
+                                // HIER_PATH (its full name is the dotted path
+                                // text).  A plain select standing in an
+                                // ELABORATED port connection already carries
+                                // its instance-qualified full name
+                                // (`work@top.m.u4.a.x`) while `prefix` there
+                                // is another scope's, and the rebuild doubled
+                                // it (`work@top.m.x.work@top.m.u4.a.x.x`, grid
+                                // tools/probe/r11u192repro/cases/B).  Switch
+                                // R11U192_PSVERB_OFF.
+                                static const bool onVerb192 =
+                                    r11u192LawEX("R11U192_PSVERB_OFF");
+                                const bool verb192 =
+                                    onVerb192 && !fn9.empty() && elabConnEmit21 &&
+                                    fn9.compare(0, prefix.size(), prefix) != 0 &&
+                                    fn9.compare(0, 5, "work@") == 0 &&
+                                    !(ps9->VpiParent() &&
+                                      ps9->VpiParent()->UhdmType() ==
+                                          UHDM::uhdmhier_path);
+                                if (verb192)
+                                    tr192EX("caPsSelFullVerbatim192");
                                 if (fn9.empty())
                                     fn9 = prefix;
-                                else if (fn9.compare(0, prefix.size(), prefix) != 0)
+                                else if (!verb192 &&
+                                         fn9.compare(0, prefix.size(), prefix) != 0)
                                     fn9 = prefix + "." + fn9 + "." +
                                           std::string(ps9->VpiName());
+                                // § psBoundPaOwnerName192 (r11u192) — a
+                                // wildcard-imported package parameter written
+                                // UNQUALIFIED as a part select's bound ITSELF
+                                // (no operation between) is Surelog's getValue
+                                // clone of the owning instance's materialized
+                                // param_assign Rhs, parented at that
+                                // param_assign (CompileExpression.cpp, the
+                                // netlist and component arms), so its
+                                // reference reads the INSTANCE's name, not the
+                                // select's.  Measured where the clone survives
+                                // (grid tools/probe/r11u192repro/cases/B):
+                                //   * the DEFINITION listing (contAssignView 1;
+                                //     also the elaborated listing of a whole-RHS
+                                //     select, which shares that object), at any
+                                //     nesting depth of the select;
+                                //   * a TOP-LEVEL FOR-generate scope, at any
+                                //     nesting depth (each iteration compiles its
+                                //     body afresh against the instance);
+                                //   * an if / case generate scope when the
+                                //     select IS the whole right-hand side.
+                                // Kept: the elaborated module-body re-emission
+                                // (contAssignView 2) and an if / case scope's
+                                // nested select (the elaborator's clone
+                                // re-parents the bound at the select), a bound
+                                // inside an operation (parented at the
+                                // operation), a QUALIFIED `pkg::P` (the
+                                // qualified arm keeps the select parent).
+                                // Switch R11U192_PSOWNER_OFF.
+                                {
+                                    static const bool on192 =
+                                        r11u192LawEX("R11U192_PSOWNER_OFF");
+                                    if (on192 && psOwner9 == parent &&
+                                        rawText(expr.sourceRange).find("::") ==
+                                            std::string::npos) {
+                                        int gens192 = 0;
+                                        bool port192 = false;
+                                        std::string own192 =
+                                            ownerInstName192(parent, &gens192, &port192);
+                                        // The generate-scope RHS arms.
+                                        const bool gf0192 =
+                                            contAssignView == 0 && inGenScopeCaRhs &&
+                                            !genNestedScopeEmit24 &&
+                                            (genCaLoopParamFold || genCaChildLoopFold21) &&
+                                            !caRhsUnbasedUnsized192(expr);
+                                        // § genForWholeLhsNestedKeep192v
+                                        const bool wl192v =
+                                            gf0192 && r11v192WholeLhsOn() &&
+                                            !caSelIsWholeRhs192v(ps9) &&
+                                            !genCaLhsSelect22 && !genCaLhsGenLocal23 &&
+                                            caLhsWholeName192v(expr);
+                                        if (wl192v)
+                                            tr192EX("genForWholeLhsNestedKeep192v");
+                                        const bool gf192 = gf0192 && !wl192v;
+                                        const bool gw192 =
+                                            contAssignView == 0 && inGenScopeCaRhs &&
+                                            !genNestedScopeEmit24 &&
+                                            !genCaLoopParamFold && !genCaChildLoopFold21 &&
+                                            ps9->VpiParent() &&
+                                            ps9->VpiParent()->UhdmType() ==
+                                                UHDM::uhdmcont_assign;
+                                        // The LHS arms: the definition listing's,
+                                        // and a top-level generate scope's.
+                                        const bool ld192 =
+                                            inLhs && contAssignView == 0 &&
+                                            !inGenScopeCaRhs && moduleDefEmit &&
+                                            gens192 == 0 && !port192;
+                                        const bool lg192 =
+                                            inLhs && contAssignView == 0 &&
+                                            !inGenScopeCaRhs && !moduleDefEmit &&
+                                            gens192 == 1 && !port192 &&
+                                            !caRhsUnbasedUnsized192(expr);
+                                        // A port connection's actual, both
+                                        // listings (evaluated in the
+                                        // instantiating instance).
+                                        const bool pc192 =
+                                            port192 && contAssignView == 0 &&
+                                            !inGenScopeCaRhs &&
+                                            (defRefModConn || elabConnEmit21);
+                                        if ((contAssignView == 1 || gf192 || gw192 ||
+                                             ld192 || lg192 || pc192) &&
+                                            !own192.empty() && own192 != fn9) {
+                                            fn9 = own192;
+                                            tr192EX("psBoundPaOwnerName192");
+                                        }
+                                    }
+                                }
                                 rt->VpiFullName(fn9);
                             }
                             else if (gsProcOpFold75 &&
@@ -20044,8 +20363,62 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // and never VpiFullName, so this is exactness,
                                 // not a judge field.
                                 rt->VpiFullName(gsProcInstPrefix75);
-                            else
-                                rt->VpiFullName(prefix);
+                            else {
+                                std::string nm192 = prefix;
+                                // § genForReplCountOwner192 (r11u192) — the
+                                // REPLICATION COUNT of a top-level FOR-generate
+                                // scope's continuous assignment
+                                // (`{W{1'b0}}` with `W` a wildcard-imported
+                                // package parameter) is the same getValue
+                                // clone as § psBoundPaOwnerName192's, parented
+                                // at the owning instance's param_assign: the
+                                // instance's name, not the generate scope's
+                                // (ibex_icache gen_fbs[i], grid
+                                // tools/probe/r11u192repro/cases/B).  An
+                                // if / case generate scope keeps the scope name
+                                // (golden re-parents there), and so does an
+                                // arithmetic operand (parented at its
+                                // operation).  Switch R11U192_GFREPL_OFF.
+                                static const bool onRep192 =
+                                    r11u192LawEX("R11U192_GFREPL_OFF");
+                                // § procPsBoundOwner192 (r11u192) — a
+                                // PROCEDURAL part-select bound fold
+                                // (§ procPsFold9) is parented at the imported
+                                // parameter's param_assign, so its reference
+                                // reads the owning instance's name; `prefix`
+                                // is the SELECT BASE's name below a select of
+                                // a select (`x[i][31:W]`: `work@top.x.x`,
+                                // ibex_icache `fill_addr_q[i][...:IC_LINE_W]`).
+                                // Switch R11U192_PROCPS_OFF.
+                                static const bool onProc192 =
+                                    r11u192LawEX("R11U192_PROCPS_OFF");
+                                if (onRep192 && caOpFold9 && parent &&
+                                    parent->UhdmType() == UHDM::uhdmoperation &&
+                                    ((const UHDM::operation*)parent)->VpiOpType() ==
+                                        vpiMultiConcatOp &&
+                                    inGenScopeCaRhs && !genNestedScopeEmit24 &&
+                                    (genCaLoopParamFold || genCaChildLoopFold21) &&
+                                    !caRhsUnbasedUnsized192(expr) &&
+                                    // § genForWholeLhsNestedKeep192v
+                                    !(r11v192WholeLhsOn() &&
+                                      !genCaLhsSelect22 && !genCaLhsGenLocal23 &&
+                                      caLhsWholeName192v(expr) &&
+                                      (tr192EX("genForWholeLhsNestedKeep192v"), true))) {
+                                    std::string own192 = ownerInstName192(parent);
+                                    if (!own192.empty() && own192 != nm192) {
+                                        nm192 = own192;
+                                        tr192EX("genForReplCountOwner192");
+                                    }
+                                }
+                                else if (onProc192 && procPsFold9) {
+                                    std::string own192 = ownerInstName192(parent);
+                                    if (!own192.empty() && own192 != nm192) {
+                                        nm192 = own192;
+                                        tr192EX("procPsBoundOwner192");
+                                    }
+                                }
+                                rt->VpiFullName(nm192);
+                            }
                             rt->VpiParent(c);
                             // A CONT-ASSIGN fold binds its OWN clone of the
                             // imported param's typespec (Surelog mints one per
@@ -20397,6 +20770,45 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                          (nm31.empty() ? "" : "." + nm31);
                             else
                                 full31 = fn31;
+                            // § tfPsBoundOwner192 (r11u192) — in a SUBROUTINE
+                            // body a wildcard-imported package parameter
+                            // written UNQUALIFIED as the bound itself (zero
+                            // operations) is the owning instance's
+                            // param_assign clone (§ psBoundPaOwnerName192's
+                            // decode): the instance's name, where this arm's
+                            // select name stands for a qualified read or a
+                            // bound inside an operation.  Grid
+                            // tools/probe/r11u192repro/cases/B.  Switch
+                            // R11U192_TFPS_OFF.
+                            // § ndaPsBoundOwner192 (r11u192) — the same
+                            // clone in an ELABORATED net declaration
+                            // assignment (`wire [31:0] w = x[W:0];`, Surelog
+                            // compiles it in the netlist pass against the
+                            // instance): the instance's name, at any nesting
+                            // depth of the select (grid
+                            // tools/probe/r11u192repro/cases/B b18, b19).
+                            // Switch R11U192_NDAPS_OFF.
+                            {
+                                static const bool onTf192 =
+                                    r11u192LawEX("R11U192_TFPS_OFF");
+                                static const bool onNda192 =
+                                    r11u192LawEX("R11U192_NDAPS_OFF");
+                                const bool tf192 = onTf192 && currentTf;
+                                const bool nda192 =
+                                    onNda192 && ndaRhsEmit && !currentTf &&
+                                    !inProcessEmit && !inParamInit;
+                                if ((tf192 || nda192) && up31 == parent &&
+                                    importedParamDefTs.count(&nv.symbol) &&
+                                    rawText(expr.sourceRange).find("::") ==
+                                        std::string::npos) {
+                                    std::string own192 = ownerInstName192(parent);
+                                    if (!own192.empty() && own192 != full31) {
+                                        full31 = own192;
+                                        tr192EX(tf192 ? "tfPsBoundOwner192"
+                                                      : "ndaPsBoundOwner192");
+                                    }
+                                }
+                            }
                             stampFoldedPkgParamTs(c, nv.symbol, full31,
                                                   /*declTsOnly=*/true);
                         }
@@ -20658,6 +21070,41 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                       expr.sourceRange.start() +
                                                           (qp147 + 2)));
                                         trace147("ENUMQSPAN");
+                                    }
+                                }
+                            }
+                            // § pkgQualBoundSpanQualifier192 — the same rule
+                            // for a qualified package ENUM constant folded in
+                            // a part select's range (`x[p::E4:0]`, grid
+                            // tools/probe/r11u192repro/cases/Q q02).
+                            {
+                                static const bool on192e =
+                                    r11u192LawEX("R11U192_QBSPAN_OFF");
+                                if (on192e && !inParamInit && parent &&
+                                    expr.syntax &&
+                                    (expr.syntax->kind ==
+                                         syntax::SyntaxKind::ScopedName ||
+                                     expr.syntax->kind ==
+                                         syntax::SyntaxKind::ParenthesizedExpression)) {
+                                    const UHDM::any* up192 = parent;
+                                    for (int g = 0; g < 32 && up192 &&
+                                                    up192->UhdmType() == UHDM::uhdmoperation &&
+                                                    ((const UHDM::operation*)up192)->VpiOpType() !=
+                                                        vpiConditionOp;
+                                         ++g)
+                                        up192 = up192->VpiParent();
+                                    if (up192 &&
+                                        up192->UhdmType() == UHDM::uhdmpart_select) {
+                                        std::string rq192(rawText(expr.sourceRange));
+                                        auto qp192 = rq192.rfind("::");
+                                        if (qp192 != std::string::npos &&
+                                            qp192 + 2 < rq192.size()) {
+                                            setLoc(c, SourceRange(
+                                                          expr.sourceRange.start(),
+                                                          expr.sourceRange.start() +
+                                                              (qp192 + 2)));
+                                            tr192EX("pkgQualBoundSpanQualifier192");
+                                        }
                                     }
                                 }
                             }

@@ -1,0 +1,33 @@
+surelog/default/Earlgrey_0_1	obdist 12940 -> 12880 TOWARD	divergence 130430 -> 130430
+   P head: #26470 col /   A: 3	constant				flash_phy_pkg.sv	43	53	43	63	1	32	UINT:1	9 /   B: 3	constant				flash_phy_pkg.sv	43	28	43	63	1	32	UINT:1	9
+   L head: #26470 col /   A: 3	constant				flash_phy_pkg.sv	43	53	43	63	1	32	UINT:1	9 /   B: 3	constant				flash_phy_pkg.sv	43	28	43	63	1	32	UINT:1	9
+surelog/testflags/Earlgrey_0_1	obdist 12420 -> 12364 TOWARD	divergence 131904 -> 131904
+   P head: #27073 col /   A: 3	constant				flash_phy_pkg.sv	43	53	43	63	1	32	UINT:1	9 /   B: 3	constant				flash_phy_pkg.sv	43	28	43	63	1	32	UINT:1	9
+   L head: #27073 col /   A: 3	constant				flash_phy_pkg.sv	43	53	43	63	1	32	UINT:1	9 /   B: 3	constant				flash_phy_pkg.sv	43	28	43	63	1	32	UINT:1	9
+uhdm2rtlil/default/ibex_icache	obdist 102 -> 4 TOWARD	divergence never -> never
+   P head: #8029 fullname /   A: 13	ref_typespec			work@ibex_icache		0	0	0	0		0		 /   B: 13	ref_typespec			work@ibex_icache.fill_addr_q.fill_addr_q		0	0	0	0		0		
+   L head: STRICT_EQUAL 20137 objects
+uhdm2rtlil/testflags/ibex_icache	obdist 102 -> 4 TOWARD	divergence never -> never
+   P head: #7939 fullname /   A: 13	ref_typespec			work@ibex_icache		0	0	0	0		0		 /   B: 13	ref_typespec			work@ibex_icache.fill_addr_q.fill_addr_q		0	0	0	0		0		
+   L head: STRICT_EQUAL 20047 objects
+uhdm2rtlil/default/iface_zero_width_field	obdist 0 -> 0 SAME	divergence never -> never
+   P head: #108 fullname /   A: 7	ref_typespec			<in>p::bus_t.CTL		0	0	0	0		0		 /   B: 7	ref_typespec			<in>p::bus_t.CTL		0	0	0	0		0		
+   L head: STRICT_EQUAL 1520 objects
+uhdm2rtlil/testflags/iface_zero_width_field	obdist 0 -> 0 SAME	divergence never -> never
+   P head: #101 fullname /   A: 7	ref_typespec			<in>p::bus_t.CTL		0	0	0	0		0		 /   B: 7	ref_typespec			<in>p::bus_t.CTL		0	0	0	0		0		
+   L head: STRICT_EQUAL 1430 objects
+probe/r10earl31repro/e4_ctrl	obdist 34 -> 4 TOWARD	divergence never -> never
+   P head: #185 endcol /   A: 8	constant				dut.sv	68	15	68	19	4'h2	4	HEX:2	5 /   B: 8	constant				dut.sv	68	15	68	21	4'h2	4	HEX:2	5
+   L head: #318 endcol /   A: 5	named_begin	blk@1		work@e4child.blk@1	dut.sv	35	23	35	34				 /   B: 5	named_begin	blk@1		work@e4child.blk@1	dut.sv	35	23	35	32				
+probe/r10earl31repro/v4_ops	obdist 28 -> 8 TOWARD	divergence never -> never
+   P head: #96 endcol /   A: 8	constant				dut.sv	23	16	23	20	4'h2	4	HEX:2	5 /   B: 8	constant				dut.sv	23	16	23	22	4'h2	4	HEX:2	5
+   L head: #112 endcol /   A: 9	constant				dut.sv	24	17	24	21	4'h2	4	HEX:2	5 /   B: 9	constant				dut.sv	24	17	24	23	4'h2	4	HEX:2	5
+probe/r10earl31repro/v5_hier	obdist 12 -> 4 TOWARD	divergence never -> never
+   P head: #155 endcol /   A: 8	constant				dut.sv	27	28	27	32	4'h2	4	HEX:2	5 /   B: 8	constant				dut.sv	27	28	27	34	4'h2	4	HEX:2	5
+   L head: #322 fullname /   A: 5	ref_typespec			work@v5.u1.a		0	0	0	0		0		 /   B: 5	ref_typespec			work@v5		0	0	0	0		0		
+probe/r10earl_repro/vo	obdist 16 -> 12 TOWARD	divergence never -> never
+   P head: #206 endcol /   A: 6	constant				dut.sv	43	21	43	26	2	32	UINT:2	9 /   B: 6	constant				dut.sv	43	21	43	28	2	32	UINT:2	9
+   L head: #250 fullname /   A: 6	ref_obj	LP		work@voa.st.addr[LP+:MP].LP	dut.sv	51	25	51	27		0		 /   B: 6	ref_obj	LP		work@voa.LP	dut.sv	51	25	51	27		0		
+probe/r10v65repro/a8_orphan	obdist 8 -> 4 TOWARD	divergence never -> never
+   P head: #100 fullname /   A: 6	ref_typespec			work@orphan8		0	0	0	0		0		 /   B: 6	ref_typespec			work@orphan8.u_w.a_i		0	0	0	0		0		
+   L head: #100 fullname /   A: 6	ref_typespec			work@orphan8		0	0	0	0		0		 /   B: 6	ref_typespec			work@orphan8.u_w.a_i		0	0	0	0		0		

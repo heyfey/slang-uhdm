@@ -1,0 +1,31 @@
+== swG vs swP
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/Earlgrey_0_1-a898def8/slang.uhdm  patched=d63f077596ba pristine=bd2cb1dd914d
+MOVER ./surelog/default/MiniAmiq-055eab74/slang.uhdm  patched=469debe5fa74 pristine=459b8a26d6a1
+MOVER ./surelog/default/SeqDriver-65178d3a/slang.uhdm  patched=ed77bdf227f9 pristine=72b8f16ce233
+MOVER ./surelog/default/SimpleUVM-267de3ff/slang.uhdm  patched=0e64b32566e3 pristine=933bc433988a
+MOVER ./surelog/testflags/Earlgrey_0_1-a898def8/slang.uhdm  patched=623689af365e pristine=9ee6650d3db3
+MOVER ./surelog/testflags/MiniAmiq-055eab74/slang.uhdm  patched=2ef2bbb8d7c1 pristine=88d03613414a
+MOVER ./surelog/testflags/SeqDriver-65178d3a/slang.uhdm  patched=b91a7abd0442 pristine=4f0bb13fdbf6
+MOVER ./uhdm2rtlil/default/ibex_icache-2cbf116a/slang.uhdm  patched=238d79a8ca76 pristine=6f32ddeb2638
+MOVER ./uhdm2rtlil/default/iface_zero_width_field-9966c829/slang.uhdm  patched=c34c1d6e827e pristine=0464737fc283
+MOVER ./uhdm2rtlil/testflags/ibex_icache-2cbf116a/slang.uhdm  patched=caf351ffb045 pristine=dc271da480a1
+MOVER ./uhdm2rtlil/testflags/iface_zero_width_field-9966c829/slang.uhdm  patched=da5c148d95b0 pristine=650720299a15
+MOVERS: 11 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+PATH_SETS_IDENTICAL (805 paths)
+MOVER ./downstream/ibex_icache/slang.uhdm  patched=1ed5a140ab7a pristine=983f124eab61
+MOVER ./downstream/iface_zero_width_field/slang.uhdm  patched=da5c148d95b0 pristine=650720299a15
+MOVERS: 2 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged
+== swG vs swL
+PATH_SETS_IDENTICAL (2560 paths)
+MOVER ./surelog/default/MiniAmiq-055eab74/slang.uhdm  patched=469debe5fa74 pristine=459b8a26d6a1
+MOVER ./surelog/default/SeqDriver-65178d3a/slang.uhdm  patched=ed77bdf227f9 pristine=91afefd61804
+MOVER ./surelog/default/SimpleUVM-267de3ff/slang.uhdm  patched=0e64b32566e3 pristine=933bc433988a
+MOVER ./surelog/testflags/MiniAmiq-055eab74/slang.uhdm  patched=2ef2bbb8d7c1 pristine=ad1b9d948341
+MOVERS: 4 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+PATH_SETS_IDENTICAL (805 paths)
+MOVERS: 0 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged

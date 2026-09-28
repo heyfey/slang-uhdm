@@ -1,0 +1,2 @@
+# v11u192 prediction for fix4 (61bb3b69), frozen before its gate sweep: § genForWholeLhsNestedKeep192v (now gated also on genCaLhsSelect22/genCaLhsGenLocal23, a strict subset of fix3's refinement) fires on no probe case (full census, trace) and, being a subset of fix3's refinement which fired on none of the law's corpus movers, on no corpus database.
+# => fix4 vs law (and vs fix3): 0 byte movers in corpus, downstream lane and probe, UVM 4-line order coin excepted.

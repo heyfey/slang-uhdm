@@ -1,0 +1,3 @@
+# v11u192 prediction, frozen before the fix3 gate sweep: the refinement § genForWholeLhsNestedKeep192v fires on NO database of the law's movers (corpus census Earlgrey_0_1 d/t, ibex_icache d/t) and on NO probe case (full probe census, trace).
+# => fix3 vs law: 0 byte movers expected in corpus, downstream lane and probe (UVM 4-line order coin excepted).
+# fix3 vs pristine: exactly the law's movers: Earlgrey_0_1 d/t, ibex_icache d/t, iface_zero_width_field d/t (corpus); ibex_icache, iface_zero_width_field (downstream); the 23 probe movers of r11u192's predicted_movers_192.txt.

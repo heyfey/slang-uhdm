@@ -1,0 +1,11 @@
+UVM byte movers (not predicted: no r11u192 law fires on them in the firing census), attributed by the path-normalised
+ORDER-BLIND uhdm-dump diff (sorted dumps, swP vs swL):
+surelog/default/MiniAmiq    orderblind_difflines=4 (|UINT:0 / |UINT:877 / |vpiDecompile:0 ...)  the known UINT/vpiDecompile order coin
+surelog/testflags/MiniAmiq  orderblind_difflines=4 (|UINT:1514 / |UINT:894 / |vpiDecompile:1514 ...)
+surelog/default/SeqDriver   orderblind_difflines=4 (|UINT:1219 / |UINT:1333 / |vpiDecompile:1219 ...)
+surelog/testflags/SeqDriver orderblind_difflines=4 (|UINT:0 / |UINT:638 / |vpiDecompile:0 ...)
+surelog/default/SimpleUVM   orderblind_difflines=4 (|UINT:0 / |UINT:600 / |vpiDecompile:0 ...)
+
+uvmdist.sh (r11u168repro/drivers, ours-not-in-golden strict records, order-blind), identical in both sweeps:
+MiniAmiq/default dist=7482   MiniAmiq/testflags dist=7482   SeqDriver/default dist=6140   SeqDriver/testflags dist=6140
+SimpleUVM/default dist=2918  SimpleUVM/testflags dist=2918  Scoreboard/default dist=2293   (mfc_file_away=12 everywhere)

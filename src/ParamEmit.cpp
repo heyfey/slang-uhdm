@@ -60,6 +60,46 @@ static void tr183PE(const char* law) {
         fflush(tf);
     }
 }
+// The r11u192 switches (tools/probe/r11u192repro/README.md): R11U192_OFF
+// drops every r11u192 law; R11U192_TRACE=<dir> names every firing
+// (`<dir>/<pid>.PE192`, first line `OUT <-o path>`).
+static bool r11u192LawPE(const char* sw) {
+    if (getenv("R11U192_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+static void tr192PE(const char* law) {
+    static FILE* tf = [] () -> FILE* {
+        const char* d = getenv("R11U192_TRACE");
+        if (!d)
+            return nullptr;
+        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".PE192";
+        FILE* fp = fopen(fn.c_str(), "a");
+        if (!fp)
+            return nullptr;
+        std::string cl, prev, outp;
+        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
+            int ch;
+            while ((ch = fgetc(c)) != EOF) {
+                if (ch == 0) {
+                    if (prev == "-o")
+                        outp = cl;
+                    prev = cl;
+                    cl.clear();
+                }
+                else
+                    cl += (char)ch;
+            }
+            fclose(c);
+        }
+        fprintf(fp, "OUT %s\n", outp.c_str());
+        return fp;
+    }();
+    if (tf) {
+        fprintf(tf, "%s\n", law);
+        fflush(tf);
+    }
+}
 static bool r11u183LawPE(const char* sw) {
     // r11u187 landed these laws: R11U187_OFF drops them with its own.
     if (getenv("R11U183_OFF") != nullptr || getenv("R11U187_OFF") != nullptr)
@@ -29878,6 +29918,44 @@ void UhdmExporter::drainShareDefParamTs() {
                             // ParamTypespec2), which keeps its parent.
                             auto* nrt = s.MakeRef_typespec();
                             nrt->Actual_typespec(rt->Actual_typespec());
+                            // § pkgPatReadTsBindsTopTypedef192 (r11u192) —
+                            // in the ELABORATED package listing the
+                            // unparented reference binds the package
+                            // TYPEDEF's shared object (the one the last
+                            // writer parents: golden iface_zero_width_field
+                            // `work@top.p::bus_t.CTL`), not the parameter's
+                            // own struct copy (ours `p::B.p::bus_t.CTL`):
+                            // getValue hands flattenPatternAssignments the
+                            // pattern op's OWN typespec (`opts`), the typedef's,
+                            // and ExprEval mints the reference onto it.  Grid
+                            // tools/probe/r11u192repro/cases/P.  Switch
+                            // R11U192_PATTD_OFF.
+                            {
+                                static const bool on192 =
+                                    r11u192LawPE("R11U192_PATTD_OFF");
+                                bool top192 = false;
+                                if (auto* tp192 = d->TopPackages())
+                                    for (auto* q192 : *tp192)
+                                        if (q192 == pk)
+                                            top192 = true;
+                                const slang::ast::Symbol* ps192 = nullptr;
+                                if (on192 && top192)
+                                    if (auto* pks192 = comp.getPackage(pn))
+                                        ps192 = pks192->find(l->VpiName());
+                                if (ps192 && ps192->kind == SymbolKind::Parameter) {
+                                    auto& ty192 = ps192->as<ParameterSymbol>().getType();
+                                    if (ty192.isAlias())
+                                        if (auto it192 = pkgTopTypedefTs.find(
+                                                (const void*)&ty192.as<TypeAliasType>());
+                                            it192 != pkgTopTypedefTs.end() && it192->second &&
+                                            it192->second != rt->Actual_typespec() &&
+                                            it192->second->UhdmType() ==
+                                                rt->Actual_typespec()->UhdmType()) {
+                                            nrt->Actual_typespec(it192->second);
+                                            tr192PE("pkgPatReadTsBindsTopTypedef192");
+                                        }
+                                }
+                            }
                             ((UHDM::operation*)r)->Typespec(nrt);
                         }
                     }
