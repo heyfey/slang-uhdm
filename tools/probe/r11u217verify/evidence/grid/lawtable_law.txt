@@ -1,0 +1,76 @@
+genConnTrailSelChain205 [R11U205_GENIDXSEL_OFF] fired_case_views=12 STAGE1-CLOSER=10 TOWARD=2
+    STAGE1-CLOSER: GS/g02 GS/g02_el GS/g03 GS/g03_el GS/g04 GS/g04_el GS/g05 GS/g05_el X/x01 X/x01_el
+    TOWARD: GS/g01 GS/g01_el
+defGenTargetIpsDefName205 [R11U205_IPSNAME_OFF] fired_case_views=0 NONE
+ifacePortDeclTsAtPortDecl205 [R11U205_PORTDECLTS_OFF] fired_case_views=4 STAGE1-AWAY=4
+    STAGE1-AWAY: PD/p06 PD/p06_el PD/p09 PD/p09_el
+twinElemOnlyNoRange209 [R11U209_TWINELEM_OFF] fired_case_views=4 STAGE1-SAME=4
+    STAGE1-SAME: TW/t01 TW/t01_el TW/t03 TW/t03_el
+pkgArrTdElemClone209 [R11U209_ARRTDCLONE_OFF] fired_case_views=6 BYTES-ONLY=2 STAGE1-CLOSER=2 TOWARD=2
+    BYTES-ONLY: HP/h01 HP/h02
+    STAGE1-CLOSER: HP/h03 HP/h03_el
+    TOWARD: HP/h01_el HP/h02_el
+portConnOpLeafChain209 [R11U209_OPLEAFCHAIN_OFF] fired_case_views=4 BYTES-ONLY=1 STAGE1-CLOSER=1 TOWARD=2
+    BYTES-ONLY: IM/m05
+    STAGE1-CLOSER: IM/m05_el
+    TOWARD: IM/m06 IM/m06_el
+modportOpOrphanReparent209 [R11U209_MPORPHAN_OFF] fired_case_views=10 STAGE1-CLOSER=6 TOWARD=4
+    STAGE1-CLOSER: IM/m01 IM/m01_el IM/m07 IM/m07_el IM/m08 IM/m08_el
+    TOWARD: IM/m03 IM/m03_el IM/m04 IM/m04_el
+tfItemInitLocalAtType209 [R11U209_TFINITTYPE_OFF] fired_case_views=10 STAGE1-CLOSER=6 TOWARD=4
+    STAGE1-CLOSER: LV/l01 LV/l01_el LV/l05 LV/l05_el X/x05 X/x05_el
+    TOWARD: LV/l02 LV/l02_el LV/l03 LV/l03_el
+tfItemLocalSpecAtName209 [R11U209_TFSPECNAME_OFF] fired_case_views=2 TOWARD=2
+    TOWARD: LV/l04 LV/l04_el
+classTdPkgEnumMemberShares209 [R11U209_CLSENUMMEM_OFF] fired_case_views=6 STAGE1-CLOSER=2 TOWARD=4
+    STAGE1-CLOSER: CS/c02 CS/c02_el
+    TOWARD: CS/c01 CS/c01_el CS/c03 CS/c03_el
+mpOrphanSkipConcat209v [R11V209_MPCONCAT_OFF] fired_case_views=0 NONE
+mpOrphanLaterWriter209v [R11V209_MPLATER_OFF] fired_case_views=2 STAGE1-CLOSER=2
+    STAGE1-CLOSER: IM/m07 IM/m07_el
+pdTsNotTypedefListing209v [R11V209_PDNAMED_OFF] fired_case_views=2 STAGE1-CLOSER=2
+    STAGE1-CLOSER: PD/p04 PD/p04_el
+elabIfArrIdxChainName205 [R11U205_IFARRIDX_OFF] fired_case_views=4 STAGE1-CLOSER=2 STAGE1-SAME=1 TOWARD=1
+    STAGE1-CLOSER: IA/a04 X/x01
+    STAGE1-SAME: IA/a03
+    TOWARD: IA/a01
+elabIfArrIdxExprChainName210 [R11U210_IFARREXPR_OFF] fired_case_views=1 STAGE1-CLOSER=1
+    STAGE1-CLOSER: IA/a02
+memLeftReadsPatUnlocated210 [R11U210_MLPATLOC_OFF] fired_case_views=6 STAGE1-CLOSER=2 STAGE1-SAME=4
+    STAGE1-CLOSER: M/m01 M/m01_el
+    STAGE1-SAME: M/m02 M/m02_el X/x03 X/x03_el
+pkgTopWidePatReplTsName210 [R11U210_PKGREPLTS_OFF] fired_case_views=4 STAGE1-CLOSER=2 TOWARD=2
+    STAGE1-CLOSER: W/w03 W/w03_el
+    TOWARD: W/w02 W/w02_el
+caseItemImpWildParamScopeName210 [R11U210_CASEWILD_OFF] fired_case_views=8 STAGE1-CLOSER=2 STAGE1-SAME=2 TOWARD=4
+    STAGE1-CLOSER: X/x04 X/x04_el
+    STAGE1-SAME: C/c02 C/c02_el
+    TOWARD: C/c01 C/c01_el C/c03 C/c03_el
+pkgImpParamMemberColons210 [R11U210_PKGIMPCOLON_OFF] fired_case_views=6 STAGE1-CLOSER=4 TOWARD=2
+    STAGE1-CLOSER: P/p01 P/p01_el P/p03 P/p03_el
+    TOWARD: X/x02 X/x02_el
+pkgImpParamAliasColons210 [R11U210_PKGIMPALIAS_OFF] fired_case_views=2 STAGE1-CLOSER=2
+    STAGE1-CLOSER: P/p02 P/p02_el
+anonMemberTdLastWriter212 [R11U212_ANONMEMTD_OFF] fired_case_views=8 MIXED=1 STAGE1-SAME=2 TOWARD=5
+    MIXED: X/x02_el
+    STAGE1-SAME: SR/s05 SR/s05_el
+    TOWARD: SR/s01 SR/s01_el SR/s02 SR/s02_el X/x02
+pkgEnumAliasListingParent212 [R11U212_PKGENUMALIAS_OFF] fired_case_views=4 STAGE1-CLOSER=2 TOWARD=2
+    STAGE1-CLOSER: EA/e02 EA/e02_el
+    TOWARD: EA/e03 EA/e03_el
+queueMemberSpanToDim212 [R11U212_QUEUEMEMSPAN_OFF] fired_case_views=6 TOWARD=6
+    TOWARD: QM/q01 QM/q01_el QM/q02 QM/q02_el QM/q03 QM/q03_el
+sizeDimOvrFileAtDim212 [R11U212_SIZEDIMFILE_OFF] fired_case_views=4 TOWARD=4
+    TOWARD: SF/f01 SF/f01_el SF/f02 SF/f02_el
+signCastSysCallLhsTs212 [R11U212_SIGNCASTTS_OFF] fired_case_views=4 STAGE1-AWAY=2 STAGE1-CLOSER=2
+    STAGE1-AWAY: NS/n03 NS/n05
+    STAGE1-CLOSER: NS/n03_el NS/n05_el
+ndaSysCallNetTs212 [R11U212_NDASYSTS_OFF] fired_case_views=8 STAGE1-AWAY=1 STAGE1-CLOSER=6 STAGE1-SAME=1
+    STAGE1-AWAY: NS/n02
+    STAGE1-CLOSER: NS/n01 NS/n01_el NS/n04 NS/n04_el X/x03 X/x03_el
+    STAGE1-SAME: NS/n02_el
+anonMemberTdOwnerDef212v [R11V212_TDOWNER_OFF] fired_case_views=0 NONE
+anonMemberTdUseCopyKeeps217v [R11V217_TDUSECOPY_OFF] fired_case_views=0 NONE
+ifacePortDeclFoldedBoundLeftOp217v [R11V217_PDBOUNDOP_OFF] fired_case_views=0 NONE
+ndaQueryFoldsNoStamp217v [R11V217_NDAQUERY_OFF] fired_case_views=0 NONE
+caseItemWildConcatOnly217v [R11V217_CASEWILDCAT_OFF] fired_case_views=0 NONE

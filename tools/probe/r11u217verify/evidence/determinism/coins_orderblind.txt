@@ -1,0 +1,6 @@
+law SimpleUVM default 3c1292b40f57/bd82609ab364 ordered_lines=0 orderblind_lines=0
+alloff SimpleUVM default efa957a0a9b1/09716ef0d4fa ordered_lines=0 orderblind_lines=0
+law Scoreboard default de42a8e468b9/4bece0e42866 ordered_lines=92 orderblind_lines=0
+alloff Scoreboard default 24ba24eb6c91/498cfef0fcc3 ordered_lines=92 orderblind_lines=0
+law MiniAmiq default (sweep H vs draw) 4db8f413be66/322b782ebb31 ordered_lines=0 orderblind_lines=0
+alloff MiniAmiq default f1dbe61971fc/de78d9e916c4 ordered_lines=0 orderblind_lines=0

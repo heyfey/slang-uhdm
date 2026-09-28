@@ -1,0 +1,9 @@
+surelog/testflags/FuncStructVal: off 165 records div@13254; on 10 records div@13254
+  #7129 file NEW | golden 7 constant    dut.sv 618 22 618 45 2 64 INT:2 7 | ours 7 constant     0 0 0 0 2 64 INT:2 7
+  #7130 file NEW | golden 7 constant    dut.sv 618 22 618 45 2 64 INT:2 7 | ours 7 constant     0 0 0 0 2 64 INT:2 7
+  #8781 file NEW | golden 7 constant    dut.sv 618 22 618 45 2 64 INT:2 7 | ours 7 constant     0 0 0 0 2 64 INT:2 7
+  #8782 file NEW | golden 7 constant    dut.sv 618 22 618 45 2 64 INT:2 7 | ours 7 constant     0 0 0 0 2 64 INT:2 7
+  #10722 file NEW | golden 8 constant    dut.sv 618 22 618 45 2 64 INT:2 7 | ours 8 constant     0 0 0 0 2 64 INT:2 7
+  #10723 file NEW | golden 8 constant    dut.sv 618 22 618 45 2 64 INT:2 7 | ours 8 constant     0 0 0 0 2 64 INT:2 7
+  #11939 file NEW | golden 11 constant    dut.sv 618 22 618 45 2 64 INT:2 7 | ours 11 constant     0 0 0 0 2 64 INT:2 7
+  #11940 file NEW | golden 11 constant    dut.sv 618 22 618 45 2 64 INT:2 7 | ours 11 constant     0 0 0 0 2 64 INT:2 7

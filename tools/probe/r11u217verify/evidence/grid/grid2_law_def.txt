@@ -1,0 +1,171 @@
+FIRED SR/s07 anonMemberTdLastWriter212:3 anonMemberTdOwnerDef212v:1
+  SR/s07 on cmp=0 cmplines=0 strict=STRICT_EQUAL_353_objects rc=0 md5=3e0ef4aa
+  SR/s07 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_353_objects rc=0 md5=3e0ef4aa
+  SR/s07 off_anonMemberTdOwnerDef212v cmp=0 cmplines=0 strict=STRICT_EQUAL_353_objects rc=0 md5=3e0ef4aa
+  SR/s07 off_anonMemberTdLastWriter212 cmp=0 cmplines=0 strict=STRICT_EQUAL_353_objects rc=0 md5=3e0ef4aa
+  SR/s07 offL212 cmp=0 cmplines=0 strict=STRICT_EQUAL_353_objects rc=0 md5=3e0ef4aa
+  SR/s07 alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_353_objects rc=0 md5=3e0ef4aa
+  SR/s07 wide cmp=0 cmplines=0 strict=STRICT_EQUAL_353_objects rc=0 md5=3e0ef4aa
+RESULT SR/s07 anonMemberTdOwnerDef212v UNFIRED 
+RESULT SR/s07 anonMemberTdLastWriter212 UNFIRED 
+RESULT SR/s07 LANDING212 UNFIRED 
+RESULT SR/s07 ALLOFF UNFIRED 
+RESULT SR/s07 WIDE UNFIRED 
+FIRED SR/s08 anonMemberTdLastWriter212:2 anonMemberTdOwnerDef212v:1
+  SR/s08 on cmp=0 cmplines=0 strict=STRICT_EQUAL_202_objects rc=0 md5=aaaeaa16
+  SR/s08 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_202_objects rc=0 md5=aaaeaa16
+  SR/s08 off_anonMemberTdOwnerDef212v cmp=0 cmplines=0 strict=STRICT_EQUAL_202_objects rc=0 md5=b4ad8786
+  SR/s08 off_anonMemberTdLastWriter212 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=cd5f81f3
+  SR/s08 offL212 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=cd5f81f3
+  SR/s08 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=cd5f81f3
+  SR/s08 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=cd5f81f3
+RESULT SR/s08 anonMemberTdOwnerDef212v BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_202_objects on:STRICT_EQUAL_202_objects
+RESULT SR/s08 anonMemberTdLastWriter212 TOWARD new=0 gone=22 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_202_objects
+RESULT SR/s08 LANDING212 TOWARD new=0 gone=22 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_202_objects
+RESULT SR/s08 ALLOFF TOWARD new=0 gone=22 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_202_objects
+RESULT SR/s08 WIDE TOWARD new=0 gone=22 off:STRICT_NOTEQUAL_fullname on:STRICT_EQUAL_202_objects
+FIRED SR/s09 anonMemberTdLastWriter212:2
+  SR/s09 on cmp=0 cmplines=0 strict=STRICT_EQUAL_138_objects rc=0 md5=0c324319
+  SR/s09 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_138_objects rc=0 md5=0c324319
+  SR/s09 off_anonMemberTdOwnerDef212v cmp=0 cmplines=0 strict=STRICT_EQUAL_138_objects rc=0 md5=0c324319
+  SR/s09 off_anonMemberTdLastWriter212 cmp=0 cmplines=0 strict=STRICT_EQUAL_138_objects rc=0 md5=0c324319
+  SR/s09 offL212 cmp=0 cmplines=0 strict=STRICT_EQUAL_138_objects rc=0 md5=0c324319
+  SR/s09 alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_138_objects rc=0 md5=0c324319
+  SR/s09 wide cmp=0 cmplines=0 strict=STRICT_EQUAL_138_objects rc=0 md5=0c324319
+RESULT SR/s09 anonMemberTdOwnerDef212v UNFIRED 
+RESULT SR/s09 anonMemberTdLastWriter212 UNFIRED 
+RESULT SR/s09 LANDING212 UNFIRED 
+RESULT SR/s09 ALLOFF UNFIRED 
+RESULT SR/s09 WIDE UNFIRED 
+FIRED SR/s10 anonMemberTdLastWriter212:4
+  SR/s10 on cmp=0 cmplines=0 strict=STRICT_EQUAL_203_objects rc=0 md5=831d658b
+  SR/s10 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_203_objects rc=0 md5=831d658b
+  SR/s10 off_anonMemberTdLastWriter212 cmp=0 cmplines=0 strict=STRICT_EQUAL_203_objects rc=0 md5=61c6220c
+  SR/s10 offL212 cmp=0 cmplines=0 strict=STRICT_EQUAL_203_objects rc=0 md5=61c6220c
+  SR/s10 alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_203_objects rc=0 md5=61c6220c
+  SR/s10 wide cmp=0 cmplines=0 strict=STRICT_EQUAL_203_objects rc=0 md5=61c6220c
+RESULT SR/s10 anonMemberTdLastWriter212 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_203_objects on:STRICT_EQUAL_203_objects
+RESULT SR/s10 LANDING212 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_203_objects on:STRICT_EQUAL_203_objects
+RESULT SR/s10 ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_203_objects on:STRICT_EQUAL_203_objects
+RESULT SR/s10 WIDE BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_203_objects on:STRICT_EQUAL_203_objects
+FIRED SR/s11 anonMemberTdLastWriter212:5
+  SR/s11 on cmp=0 cmplines=0 strict=STRICT_EQUAL_234_objects rc=0 md5=4a8ea588
+  SR/s11 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_234_objects rc=0 md5=4a8ea588
+  SR/s11 off_anonMemberTdLastWriter212 cmp=0 cmplines=0 strict=STRICT_EQUAL_234_objects rc=0 md5=c5128e70
+  SR/s11 offL212 cmp=0 cmplines=0 strict=STRICT_EQUAL_234_objects rc=0 md5=c5128e70
+  SR/s11 alloff cmp=0 cmplines=0 strict=STRICT_EQUAL_234_objects rc=0 md5=c5128e70
+  SR/s11 wide cmp=0 cmplines=0 strict=STRICT_EQUAL_234_objects rc=0 md5=c5128e70
+RESULT SR/s11 anonMemberTdLastWriter212 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_234_objects on:STRICT_EQUAL_234_objects
+RESULT SR/s11 LANDING212 BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_234_objects on:STRICT_EQUAL_234_objects
+RESULT SR/s11 ALLOFF BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_234_objects on:STRICT_EQUAL_234_objects
+RESULT SR/s11 WIDE BYTES-ONLY new=0 gone=0 off:STRICT_EQUAL_234_objects on:STRICT_EQUAL_234_objects
+FIRED SR/s12 anonMemberTdLastWriter212:1 anonMemberTdOwnerDef212v:1
+  SR/s12 on cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=f7379e68
+  SR/s12 tr cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=f7379e68
+  SR/s12 off_anonMemberTdLastWriter212 cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=1fdef79d
+  SR/s12 offL212 cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=1fdef79d
+  SR/s12 alloff cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=1fdef79d
+  SR/s12 wide cmp=255 cmplines=84 strict=NOT_EQUAL_stage1 rc=0 md5=1fdef79d
+RESULT SR/s12 anonMemberTdLastWriter212 STAGE1-CLOSER off:stage1 on:stage1 dump off=113 on=103 newbad=0
+RESULT SR/s12 LANDING212 STAGE1-CLOSER off:stage1 on:stage1 dump off=113 on=103 newbad=0
+RESULT SR/s12 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=113 on=103 newbad=0
+RESULT SR/s12 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=113 on=103 newbad=0
+FIRED PD/p10 ifacePortDeclTsAtPortDecl205:2
+  PD/p10 on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=13149811
+  PD/p10 tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=13149811
+  PD/p10 off_ifacePortDeclTsAtPortDecl205 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=be3619ca
+  PD/p10 offL209 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=be3619ca
+  PD/p10 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=be3619ca
+  PD/p10 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_line rc=0 md5=be3619ca
+RESULT PD/p10 ifacePortDeclTsAtPortDecl205 MIXED new=6 gone=8 off:STRICT_NOTEQUAL_line on:STRICT_NOTEQUAL_line | first new: endcol / A: 10	constant				dut.sv	4	11	4	12	3	64	INT:3	7 / B: 10	constant				dut.sv	4	11	4	14	3	64	INT:3	7
+RESULT PD/p10 LANDING209 MIXED new=6 gone=8 off:STRICT_NOTEQUAL_line on:STRICT_NOTEQUAL_line | first new: endcol / A: 10	constant				dut.sv	4	11	4	12	3	64	INT:3	7 / B: 10	constant				dut.sv	4	11	4	14	3	64	INT:3	7
+RESULT PD/p10 ALLOFF MIXED new=6 gone=8 off:STRICT_NOTEQUAL_line on:STRICT_NOTEQUAL_line | first new: endcol / A: 10	constant				dut.sv	4	11	4	12	3	64	INT:3	7 / B: 10	constant				dut.sv	4	11	4	14	3	64	INT:3	7
+RESULT PD/p10 WIDE MIXED new=6 gone=8 off:STRICT_NOTEQUAL_line on:STRICT_NOTEQUAL_line | first new: endcol / A: 10	constant				dut.sv	4	11	4	12	3	64	INT:3	7 / B: 10	constant				dut.sv	4	11	4	14	3	64	INT:3	7
+FIRED PD/p11 ifacePortDeclTsAtPortDecl205:3
+  PD/p11 on cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=96685538
+  PD/p11 tr cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=96685538
+  PD/p11 off_ifacePortDeclTsAtPortDecl205 cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=7e47ceb0
+  PD/p11 offL209 cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=7e47ceb0
+  PD/p11 alloff cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=7e47ceb0
+  PD/p11 wide cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=7e47ceb0
+RESULT PD/p11 ifacePortDeclTsAtPortDecl205 STAGE1-AWAY off:stage1 on:stage1 dump off=107 on=113 newbad=3 | +\_constant: , line:3:16, endln:3:23 | +\_constant: , line:4:16, endln:4:21 | +\_constant: , line:5:16, endln:5:21
+RESULT PD/p11 LANDING209 STAGE1-AWAY off:stage1 on:stage1 dump off=107 on=113 newbad=3 | +\_constant: , line:3:16, endln:3:23 | +\_constant: , line:4:16, endln:4:21 | +\_constant: , line:5:16, endln:5:21
+RESULT PD/p11 ALLOFF STAGE1-AWAY off:stage1 on:stage1 dump off=107 on=113 newbad=3 | +\_constant: , line:3:16, endln:3:23 | +\_constant: , line:4:16, endln:4:21 | +\_constant: , line:5:16, endln:5:21
+RESULT PD/p11 WIDE STAGE1-AWAY off:stage1 on:stage1 dump off=107 on=113 newbad=3 | +\_constant: , line:3:16, endln:3:23 | +\_constant: , line:4:16, endln:4:21 | +\_constant: , line:5:16, endln:5:21
+FIRED NS/n07 ndaSysCallNetTs212:1
+  NS/n07 on cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=c4e8bedd
+  NS/n07 tr cmp=255 cmplines=60 strict=NOT_EQUAL_stage1 rc=0 md5=c4e8bedd
+  NS/n07 off_ndaSysCallNetTs212 cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=252cf0b5
+  NS/n07 offL212 cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=252cf0b5
+  NS/n07 alloff cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=252cf0b5
+  NS/n07 wide cmp=255 cmplines=46 strict=NOT_EQUAL_stage1 rc=0 md5=252cf0b5
+RESULT NS/n07 ndaSysCallNetTs212 STAGE1-AWAY off:stage1 on:stage1 dump off=15 on=22 newbad=7 | +|vpiParent: | +|vpiFullName:work@dut | +|vpiTypespec:
+RESULT NS/n07 LANDING212 STAGE1-AWAY off:stage1 on:stage1 dump off=15 on=22 newbad=7 | +|vpiParent: | +|vpiFullName:work@dut | +|vpiTypespec:
+RESULT NS/n07 ALLOFF STAGE1-AWAY off:stage1 on:stage1 dump off=15 on=22 newbad=7 | +|vpiParent: | +|vpiFullName:work@dut | +|vpiTypespec:
+RESULT NS/n07 WIDE STAGE1-AWAY off:stage1 on:stage1 dump off=15 on=22 newbad=7 | +|vpiParent: | +|vpiFullName:work@dut | +|vpiTypespec:
+FIRED NS/n08 ndaSysCallNetTs212:4
+  NS/n08 on cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=c5fce459
+  NS/n08 tr cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=c5fce459
+  NS/n08 off_ndaSysCallNetTs212 cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=81d23f57
+  NS/n08 offL212 cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=81d23f57
+  NS/n08 alloff cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=81d23f57
+  NS/n08 wide cmp=255 cmplines=36 strict=NOT_EQUAL_stage1 rc=0 md5=81d23f57
+RESULT NS/n08 ndaSysCallNetTs212 STAGE1-AWAY off:stage1 on:stage1 dump off=60 on=88 newbad=28 | +|vpiParent: | +|vpiTypespec: | +|vpiActual:
+RESULT NS/n08 LANDING212 STAGE1-AWAY off:stage1 on:stage1 dump off=60 on=88 newbad=28 | +|vpiParent: | +|vpiTypespec: | +|vpiActual:
+RESULT NS/n08 ALLOFF STAGE1-AWAY off:stage1 on:stage1 dump off=60 on=88 newbad=28 | +|vpiParent: | +|vpiTypespec: | +|vpiActual:
+RESULT NS/n08 WIDE STAGE1-AWAY off:stage1 on:stage1 dump off=60 on=88 newbad=28 | +|vpiParent: | +|vpiTypespec: | +|vpiActual:
+FIRED IP/i01 defGenTargetIpsDefName205:2
+  IP/i01 on cmp=0 cmplines=0 strict=STRICT_EQUAL_235_objects rc=0 md5=1080160c
+  IP/i01 tr cmp=0 cmplines=0 strict=STRICT_EQUAL_235_objects rc=0 md5=1080160c
+  IP/i01 off_defGenTargetIpsDefName205 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_defname rc=0 md5=127435b6
+  IP/i01 offL209 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_defname rc=0 md5=127435b6
+  IP/i01 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_defname rc=0 md5=127435b6
+  IP/i01 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_defname rc=0 md5=127435b6
+RESULT IP/i01 defGenTargetIpsDefName205 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_defname on:STRICT_EQUAL_235_objects
+RESULT IP/i01 LANDING209 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_defname on:STRICT_EQUAL_235_objects
+RESULT IP/i01 ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_defname on:STRICT_EQUAL_235_objects
+RESULT IP/i01 WIDE TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_defname on:STRICT_EQUAL_235_objects
+FIRED IP/i02 defGenTargetIpsDefName205:2
+  IP/i02 on cmp=255 cmplines=160 strict=NOT_EQUAL_stage1 rc=0 md5=dd4d0d08
+  IP/i02 tr cmp=255 cmplines=160 strict=NOT_EQUAL_stage1 rc=0 md5=dd4d0d08
+  IP/i02 off_defGenTargetIpsDefName205 cmp=255 cmplines=160 strict=NOT_EQUAL_stage1 rc=0 md5=0fd20c39
+  IP/i02 offL209 cmp=255 cmplines=160 strict=NOT_EQUAL_stage1 rc=0 md5=0fd20c39
+  IP/i02 alloff cmp=255 cmplines=160 strict=NOT_EQUAL_stage1 rc=0 md5=0fd20c39
+  IP/i02 wide cmp=255 cmplines=160 strict=NOT_EQUAL_stage1 rc=0 md5=0fd20c39
+RESULT IP/i02 defGenTargetIpsDefName205 STAGE1-CLOSER off:stage1 on:stage1 dump off=82 on=78 newbad=3
+RESULT IP/i02 LANDING209 STAGE1-CLOSER off:stage1 on:stage1 dump off=82 on=78 newbad=3
+RESULT IP/i02 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=82 on=78 newbad=3
+RESULT IP/i02 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=82 on=78 newbad=3
+FIRED IP/i03 defGenTargetIpsDefName205:1
+  IP/i03 on cmp=255 cmplines=216 strict=NOT_EQUAL_stage1 rc=0 md5=c3f1294c
+  IP/i03 tr cmp=255 cmplines=216 strict=NOT_EQUAL_stage1 rc=0 md5=c3f1294c
+  IP/i03 off_defGenTargetIpsDefName205 cmp=255 cmplines=216 strict=NOT_EQUAL_stage1 rc=0 md5=bf131ab7
+  IP/i03 offL209 cmp=255 cmplines=216 strict=NOT_EQUAL_stage1 rc=0 md5=bf131ab7
+  IP/i03 alloff cmp=255 cmplines=216 strict=NOT_EQUAL_stage1 rc=0 md5=bf131ab7
+  IP/i03 wide cmp=255 cmplines=216 strict=NOT_EQUAL_stage1 rc=0 md5=bf131ab7
+RESULT IP/i03 defGenTargetIpsDefName205 STAGE1-CLOSER off:stage1 on:stage1 dump off=67 on=62 newbad=0
+RESULT IP/i03 LANDING209 STAGE1-CLOSER off:stage1 on:stage1 dump off=67 on=62 newbad=0
+RESULT IP/i03 ALLOFF STAGE1-CLOSER off:stage1 on:stage1 dump off=67 on=62 newbad=0
+RESULT IP/i03 WIDE STAGE1-CLOSER off:stage1 on:stage1 dump off=67 on=62 newbad=0
+FIRED IP/i04 defGenTargetIpsDefName205:2
+  IP/i04 on cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=a27576ff
+  IP/i04 tr cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_fullname rc=0 md5=a27576ff
+  IP/i04 off_defGenTargetIpsDefName205 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_defname rc=0 md5=b4645bd7
+  IP/i04 offL209 cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_defname rc=0 md5=b4645bd7
+  IP/i04 alloff cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_defname rc=0 md5=b4645bd7
+  IP/i04 wide cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_defname rc=0 md5=b4645bd7
+RESULT IP/i04 defGenTargetIpsDefName205 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_defname on:STRICT_NOTEQUAL_fullname
+RESULT IP/i04 LANDING209 TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_defname on:STRICT_NOTEQUAL_fullname
+RESULT IP/i04 ALLOFF TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_defname on:STRICT_NOTEQUAL_fullname
+RESULT IP/i04 WIDE TOWARD new=0 gone=2 off:STRICT_NOTEQUAL_defname on:STRICT_NOTEQUAL_fullname
+FIRED IP/i05 -
+Traceback (most recent call last):
+  File "/tmp/wt_r11u217/tools/probe/r11u217verify/drivers/grid.py", line 155, in <module>
+    main()
+  File "/tmp/wt_r11u217/tools/probe/r11u217verify/drivers/grid.py", line 113, in main
+    lines.append(run(case, 'off_' + l, env_of(l), el)); states.append(('off_' + l, l))
+                                       ^^^^^^^^^
+  File "/tmp/wt_r11u217/tools/probe/r11u217verify/drivers/grid.py", line 31, in env_of
+    def env_of(law): return [s + '=1' for s in SW[law]]
+                                               ~~^^^^^
+KeyError: 'defGenPathSel161'

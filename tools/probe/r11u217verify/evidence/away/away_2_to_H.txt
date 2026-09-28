@@ -1,0 +1,19 @@
+# 18 databases differ between /tmp/r11u217_sw2 and /tmp/r11u217_swH
+probe/r10uvm149repro/g149/homes away=0 toward=14 flat_away=0 flat_toward=14
+probe/r10uvm149repro/g149/shapes away=0 toward=30 flat_away=0 flat_toward=30
+probe/r10v149repro/arms/paramtype away=0 toward=20 flat_away=0 flat_toward=20
+probe/r11u107repro/grid/a12_anon_named_member away=0 toward=0 flat_away=0 flat_toward=0
+probe/r11u109repro/grid/f5/k10_named_member_dim away=0 toward=0 flat_away=0 flat_toward=0
+probe/v11u93b107repro/brk/p04_enum_member away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/BuildUVMPkg away=0 toward=7 flat_away=0 flat_toward=7
+surelog/default/MiniAmiq away=0 toward=11 flat_away=0 flat_toward=11
+surelog/default/Rggen away=0 toward=4 flat_away=0 flat_toward=4
+surelog/default/Scoreboard away=0 toward=9 flat_away=0 flat_toward=9
+surelog/default/SeqDriver away=0 toward=13 flat_away=0 flat_toward=13
+surelog/default/SimpleUVM away=0 toward=11 flat_away=0 flat_toward=11
+surelog/testflags/BuildUVMPkg away=0 toward=7 flat_away=0 flat_toward=7
+surelog/testflags/MiniAmiq away=0 toward=11 flat_away=0 flat_toward=11
+surelog/testflags/SeqDriver away=0 toward=13 flat_away=0 flat_toward=13
+surelog/testflags/SimpleUVM away=0 toward=11 flat_away=0 flat_toward=11
+uhdm2rtlil/default/anon_struct_packed_dim away=0 toward=0 flat_away=0 flat_toward=0
+uhdm2rtlil/testflags/anon_struct_packed_dim away=0 toward=0 flat_away=0 flat_toward=0

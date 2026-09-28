@@ -8,6 +8,7 @@
 #include "UhdmExporter.h"
 
 #include "EmitHelpers.h"
+#include "R217.h"
 
 #include <functional>
 #include <optional>
@@ -5465,7 +5466,27 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 pp210 && !q210 &&
                                 ((UHDM::ref_obj*)ue)->VpiName() == pp210->name) {
                                 auto& pv210 = pp210->getValue();
-                                if (pv210.isInteger() &&
+                                // § caseItemWildConcatOnly217v (r11u217) — a
+                                // PLAIN wildcard literal (`4'b??11`, no
+                                // concatenation in the initializer) is
+                                // substituted by golden as a CONSTANT (its
+                                // ref_typespec named by the importing
+                                // scope); only a concatenation-bearing value
+                                // (§ imppCopyOpReadIsRef114's predicate, the
+                                // ibex_tracer shape) keeps the reference the
+                                // law names (v11u210 F1;
+                                // tools/probe/r11u217verify/cases/C c02).
+                                // Switch R11V217_CASEWILDCAT_OFF.
+                                bool plain217 = false;
+                                if (pv210.isInteger() && pv210.integer().hasUnknown() &&
+                                    r11v217Law("R11V217_CASEWILDCAT_OFF") &&
+                                    !(pp210->getInitializer() &&
+                                      concatBearing114(*pp210->getInitializer()))) {
+                                    plain217 = true;
+                                    tr217("caseItemWildConcatOnly217v",
+                                          std::string(pp210->name));
+                                }
+                                if (!plain217 && pv210.isInteger() &&
                                     pv210.integer().hasUnknown()) {
                                     std::string fn210 = joinRef(prefix, pp210->name);
                                     if (((UHDM::ref_obj*)ue)->VpiFullName() != fn210) {

@@ -1,0 +1,7 @@
+ON | tp/r11u173verify/cases/rq/q08_high_param_genfor | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u217_dsc/ON/
+ON | tp/v11u212repro/cases/E/e05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u212repro/cases/G/g11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u209repro/cases/IM/m05 | EQUIVALENT | OK | OK | 8 | 8 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u217_dsc/ON/tp__r11u209repro__case
+ON | tp/r11u209repro/cases/IM/g05 | EQUIVALENT | OK | OK | 8 | 8 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u217_dsc/ON/tp__r11u209repro__case
+ON | tp/r11u210repro/cases/M/m06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u209repro/cases/R5/i1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -

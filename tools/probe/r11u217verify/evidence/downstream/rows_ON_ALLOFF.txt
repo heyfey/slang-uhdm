@@ -1,0 +1,10 @@
+ON | HierPathTypespec | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | InterfaceStructMemberPort | IDENTICAL | OK | OK | 33 | 33 | - | -
+ON | FuncStructValSimple | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | FuncStructVal | IDENTICAL | CRASH | CRASH | 0 | 0 | - | both CRASH
+ON | InterfArrayBind | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | HierPathTypespec | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | InterfaceStructMemberPort | IDENTICAL | OK | OK | 33 | 33 | - | -
+ALLOFF | FuncStructValSimple | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | FuncStructVal | IDENTICAL | CRASH | CRASH | 0 | 0 | - | both CRASH
+ALLOFF | InterfArrayBind | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -

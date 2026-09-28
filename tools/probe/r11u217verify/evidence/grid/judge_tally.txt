@@ -1,0 +1,9 @@
+case-views 200
+   116  alloff=NE law=NE fix=NE
+    39  alloff=JE law=EQUAL fix=EQUAL
+    22  alloff=JE law=JE fix=JE
+    15  alloff=EQUAL law=EQUAL fix=EQUAL
+     3  alloff=NE law=EQUAL fix=EQUAL
+     3  alloff=JE law=JE fix=EQUAL
+     2  alloff=NE law=JE fix=JE
+leaving EQUAL: none

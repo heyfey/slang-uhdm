@@ -1,0 +1,3 @@
+2026-09-28T22:29:14Z
+6dd454d16e85d42abe6c8c4671f39426  predicted_movers_H.txt
+before any byte comparison of H against A, 9, 0, 2 (sweeps 9 and 0 running; byteverify not yet run)

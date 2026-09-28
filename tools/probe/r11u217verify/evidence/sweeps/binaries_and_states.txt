@@ -1,0 +1,14 @@
+2b2654abf7091352952ac32b8571013a  /tmp/r11u217_bin/fix1.bin
+24c7c86406fcdea50d24e915701211c5  /tmp/r11u217_bin/fix2.bin
+275b48efc283bc273040eb2be126a272  /tmp/r11u217_bin/fix3.bin
+8c724b6404258a8d5c9648ea1c376823  /tmp/r11u217_bin/law.bin
+fa6e4f42f252ae0ab69d9845003e71c5  /tmp/r11u217_bin/uhdm-strictcmp
+8c724b6404258a8d5c9648ea1c376823  /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm
+/tmp/r11u217_bin/0.sh: exec env R11U210_OFF=1 /tmp/r11u217_bin/law.bin "$@"
+/tmp/r11u217_bin/2.sh: exec env R11U212_OFF=1 R11V212_OFF=1 /tmp/r11u217_bin/law.bin "$@"
+/tmp/r11u217_bin/9.sh: exec env R11U209_OFF=1 R11V209_OFF=1 /tmp/r11u217_bin/law.bin "$@"
+/tmp/r11u217_bin/A.sh: exec env R11U209_OFF=1 R11V209_OFF=1 R11U210_OFF=1 R11U205_IFARRIDX_OFF=1 R11U212_OFF=1 R11V212_OFF=1 /tmp/r11u217_bin/law.bin "$@"
+/tmp/r11u217_bin/F.sh: exec env R11V217_TRACE=/tmp/r11u217_trF /tmp/r11u217_bin/fix2.bin "$@"
+/tmp/r11u217_bin/G.sh: exec env R11V217_TRACE=/tmp/r11u217_trG /tmp/r11u217_bin/fix3.bin "$@"
+/tmp/r11u217_bin/H.sh: exec env R11U209_TRACE=/tmp/r11u217_trH R11U210_TRACE=/tmp/r11u217_trH R11U212_TRACE=/tmp/r11u217_trH /tmp/r11u217_bin/law.bin "$@"
+/tmp/r11u217_bin/X5.sh: exec env R11U205_OFF=1 /tmp/r11u217_bin/law.bin "$@"

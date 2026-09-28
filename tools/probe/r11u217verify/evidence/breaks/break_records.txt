@@ -1,0 +1,111 @@
+=== SR/s10_el [off_anonMemberTdLastWriter212: pristine] STRICT_NOTEQUAL fullname
+#196 fullname
+  A: 7	ref_typespec			mem.a::e_t.x		0	0	0	0		0		
+  B: 7	ref_typespec			work@dut.a::e_t.x		0	0	0	0		0		
+=== SR/s10_el [offL217: law] STRICT_NOTEQUAL fullname
+#202 fullname
+  A: 7	ref_typespec			work@dut.P.a::e_t.x		0	0	0	0		0		
+  B: 7	ref_typespec			mem.a::e_t.x		0	0	0	0		0		
+=== SR/s10_el [on: fix] STRICT_EQUAL 205 objects
+=== SR/s11_el [off_anonMemberTdLastWriter212: pristine] STRICT_NOTEQUAL fullname
+#224 fullname
+  A: 8	ref_typespec			m.in_t.b		0	0	0	0		0		
+  B: 8	ref_typespec			work@dut.in_t.b		0	0	0	0		0		
+=== SR/s11_el [offL217: law] STRICT_NOTEQUAL fullname
+#230 fullname
+  A: 8	ref_typespec			work@dut.P.in_t.b		0	0	0	0		0		
+  B: 8	ref_typespec			m.in_t.b		0	0	0	0		0		
+#236 fullname
+  A: 7	ref_typespec			work@dut.Q.in_t.b		0	0	0	0		0		
+  B: 7	ref_typespec			m.in_t.b		0	0	0	0		0		
+=== SR/s11_el [on: fix] STRICT_EQUAL 239 objects
+=== X/x02_el [off_anonMemberTdLastWriter212: pristine] STRICT_NOTEQUAL fullname
+#78 fullname
+  A: 4	ref_typespec			<in>a::e_t.x		0	0	0	0		0		
+  B: 4	ref_typespec			<in>a::e_t.x		0	0	0	0		0		
+#81 fullname
+  A: 4	ref_typespec			<in>a::e_t.y		0	0	0	0		0		
+  B: 4	ref_typespec			<in>a::e_t.y		0	0	0	0		0		
+#93 fullname
+  A: 6	ref_typespec			<in>a::e_t.x		0	0	0	0		0		
+  B: 6	ref_typespec			<in>a::e_t.x		0	0	0	0		0		
+#96 fullname
+  A: 6	ref_typespec			<in>a::e_t.y		0	0	0	0		0		
+  B: 6	ref_typespec			<in>a::e_t.y		0	0	0	0		0		
+=== X/x02_el [offL217: law] STRICT_NOTEQUAL fullname
+#358 fullname
+  A: 4	ref_typespec			work@dut		0	0	0	0		0		
+  B: 4	ref_typespec					0	0	0	0		0		
+#456 fullname
+  A: 7	ref_typespec			work@dut.EA.a::e_t.x		0	0	0	0		0		
+  B: 7	ref_typespec			mem.a::e_t.x		0	0	0	0		0		
+=== X/x02_el [on: fix] STRICT_NOTEQUAL fullname
+#358 fullname
+  A: 4	ref_typespec			work@dut		0	0	0	0		0		
+  B: 4	ref_typespec					0	0	0	0		0		
+=== PD/p10 [off_ifacePortDeclTsAtPortDecl205: pristine] STRICT_NOTEQUAL line
+#15 line
+  A: 5	logic_net	a		work@top.u.a	dut.sv	3	17	3	18		0		
+  B: 5	logic_net	a		work@top.u.a	dut.sv	5	16	5	17		0		
+#17 line
+  A: 7	logic_typespec				dut.sv	3	9	3	16				
+  B: 7	logic_typespec				dut.sv	5	3	5	15				
+#18 line
+  A: 8	range				dut.sv	3	9	3	16				
+  B: 8	range				dut.sv	5	8	5	15				
+#19 line
+  A: 9	constant				dut.sv	3	10	3	11	3	64	INT:3	7
+  B: 9	constant				dut.sv	5	9	5	10	3	64	INT:3	7
+=== PD/p10 [offL217: law] STRICT_NOTEQUAL line
+#15 line
+  A: 5	logic_net	a		work@top.u.a	dut.sv	3	17	3	18		0		
+  B: 5	logic_net	a		work@top.u.a	dut.sv	5	16	5	17		0		
+#17 line
+  A: 7	logic_typespec				dut.sv	3	9	3	16				
+  B: 7	logic_typespec				dut.sv	5	3	5	15				
+#18 line
+  A: 8	range				dut.sv	3	9	3	16				
+  B: 8	range				dut.sv	5	8	5	15				
+#19 line
+  A: 9	constant				dut.sv	3	10	3	11	3	64	INT:3	7
+  B: 9	constant				dut.sv	5	9	5	10	3	64	INT:3	7
+=== PD/p10 [on: fix] STRICT_NOTEQUAL line
+#15 line
+  A: 5	logic_net	a		work@top.u.a	dut.sv	3	17	3	18		0		
+  B: 5	logic_net	a		work@top.u.a	dut.sv	5	16	5	17		0		
+#17 line
+  A: 7	logic_typespec				dut.sv	3	9	3	16				
+  B: 7	logic_typespec				dut.sv	5	3	5	15				
+#18 line
+  A: 8	range				dut.sv	3	9	3	16				
+  B: 8	range				dut.sv	5	8	5	15				
+#19 line
+  A: 9	constant				dut.sv	3	10	3	11	3	64	INT:3	7
+  B: 9	constant				dut.sv	5	9	5	10	3	64	INT:3	7
+=== PD/p10_el [off_ifacePortDeclTsAtPortDecl205: pristine] STRICT_NOTEQUAL line
+#17 line
+  A: 7	logic_typespec				dut.sv	3	9	3	16				
+  B: 7	logic_typespec				dut.sv	5	8	5	15				
+#18 line
+  A: 8	range				dut.sv	3	9	3	16				
+  B: 8	range				dut.sv	5	8	5	15				
+#19 line
+  A: 9	constant				dut.sv	3	10	3	11	3	64	INT:3	7
+  B: 9	constant				dut.sv	5	9	5	10	3	64	INT:3	7
+#20 line
+  A: 9	constant				dut.sv	3	14	3	15	0	64	UINT:0	9
+  B: 9	constant				dut.sv	5	13	5	14	0	64	UINT:0	9
+=== PD/p10_el [offL217: law] STRICT_NOTEQUAL endcol
+#19 endcol
+  A: 9	constant				dut.sv	3	10	3	11	3	64	INT:3	7
+  B: 9	constant				dut.sv	3	10	3	13	3	64	INT:3	7
+#26 endcol
+  A: 8	constant				dut.sv	4	11	4	12	3	64	INT:3	7
+  B: 8	constant				dut.sv	4	11	4	14	3	64	INT:3	7
+#68 endcol
+  A: 11	constant				dut.sv	3	10	3	11	3	64	INT:3	7
+  B: 11	constant				dut.sv	3	10	3	13	3	64	INT:3	7
+#75 endcol
+  A: 10	constant				dut.sv	4	11	4	12	3	64	INT:3	7
+  B: 10	constant				dut.sv	4	11	4	14	3	64	INT:3	7
+=== PD/p10_el [on: fix] STRICT_EQUAL 158 objects

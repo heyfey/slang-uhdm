@@ -1,0 +1,216 @@
+diff --git a/src/ModuleEmit.cpp b/src/ModuleEmit.cpp
+index c97d91452..00e1250f1 100644
+--- a/src/ModuleEmit.cpp
++++ b/src/ModuleEmit.cpp
+@@ -27,6 +27,7 @@
+ #include "slang/ast/symbols/CheckerSymbols.h"
+ #include "slang/syntax/SyntaxTree.h"
+ #include "R204.h"
++#include "R217.h"
+ 
+ namespace slang_uhdm {
+ 
+@@ -38454,9 +38455,22 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
+                                (nm212 == "$signed" || nm212 == "$unsigned");
+                 bool qry212 = nm212 == "$high" || nm212 == "$low" || nm212 == "$left" ||
+                               nm212 == "$right" || nm212 == "$size";
+-                if (cast212 ||
++                // § ndaQueryFoldsNoStamp217v (r11u217) — A RANGE QUERY IN A
++                // NET-DECLARATION INITIALIZER IS NOT STAMPED.  Golden folds
++                // `$high`, `$low`, `$left`, `$right` and `$size` of the
++                // declaration's initializer to a constant at the queried
++                // bound with no typespec (`UINT:7` at 2:25 for `$high(v)` of
++                // `[7:2] v`); ours keeps the call, so the stamp only adds a
++                // ref_typespec golden never writes (v11u212's e09 e16 g13;
++                // tools/probe/r11u217verify/cases/NS n02 n07 n08).  Switch
++                // R11V217_NDAQUERY_OFF.
++                bool qryDecl217 = qry212 && r11v217Law("R11V217_NDAQUERY_OFF");
++                if (qryDecl217)
++                    tr217("ndaQueryFoldsNoStamp217v",
++                          std::string(it.sym->name) + " " + nm212);
++                if (!qryDecl217 && (cast212 ||
+                     (sys212 && (nm212 == "$signed" || nm212 == "$unsigned" ||
+-                                nm212 == "$bits" || nm212 == "$clog2" || qry212))) {
++                                nm212 == "$bits" || nm212 == "$clog2" || qry212)))) {
+                     auto* rt = s.MakeRef_typespec();
+                     rt->VpiFullName(prefix);
+                     rt->VpiParent(rhs);
+@@ -48609,10 +48623,31 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol&
+                     setLoc(r205, dl[k]->sourceRange());
+                     auto& rs205 = dl[k]->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                                       .selector->as<syntax::RangeSelectSyntax>();
++                    // § ifacePortDeclFoldedBoundLeftOp217v (r11u217) — A
++                    // FOLDED BINARY BOUND SITS AT ITS LEFT OPERAND.  Surelog
++                    // reduces `[W-1:0]` to a constant located at the top
++                    // operation's left operand (`W`; `WIDTH-1` at `WIDTH`,
++                    // `2*W-1` at `2*W`, `W-1-1` at `W-1`, `-W+7` at `-W`),
++                    // as pristine already writes; the law located it over the
++                    // whole expression (golden 4:11-12, law 4:11-14: strict
++                    // records lost, tools/probe/r11u217verify/cases/PD p06
++                    // p09 p10 p11).  Switch R11V217_PDBOUNDOP_OFF.
++                    auto bnd217 = [&](const UHDM::any* ue,
++                                      const syntax::ExpressionSyntax& es) {
++                        if (ue->UhdmType() == UHDM::uhdmconstant &&
++                            syntax::BinaryExpressionSyntax::isKind(es.kind) &&
++                            r11v217Law("R11V217_PDBOUNDOP_OFF")) {
++                            tr217("ifacePortDeclFoldedBoundLeftOp217v",
++                                  std::string(pb205->name));
++                            return es.as<syntax::BinaryExpressionSyntax>()
++                                .left->sourceRange();
++                        }
++                        return es.sourceRange();
++                    };
+                     if (auto* le = r205->Left_expr(); le && le->VpiLineNo())
+-                        setLoc((UHDM::BaseClass*)le, rs205.left->sourceRange());
++                        setLoc((UHDM::BaseClass*)le, bnd217(le, *rs205.left));
+                     if (auto* re = r205->Right_expr(); re && re->VpiLineNo())
+-                        setLoc((UHDM::BaseClass*)re, rs205.right->sourceRange());
++                        setLoc((UHDM::BaseClass*)re, bnd217(re, *rs205.right));
+                 }
+             }
+         }
+diff --git a/src/R217.h b/src/R217.h
+new file mode 100644
+index 000000000..b5ebebcbf
+--- /dev/null
++++ b/src/R217.h
+@@ -0,0 +1,50 @@
++// r11u217 (the second adversarial verification of passes 209, 210 and 212,
++// tools/probe/r11u217verify/README.md): every refinement reads its own
++// R11V217_<LAW>_OFF switch; R11V217_OFF drops all of them (the verified base's
++// bytes).  R11V217_TRACE=<dir> names every firing: one file per process,
++// `<dir>/<pid>.217`, its first line `OUT <-o path>`, then `<law> <detail>`.
++#pragma once
++#include <cstdio>
++#include <cstdlib>
++#include <string>
++#include <unistd.h>
++
++namespace slang_uhdm {
++inline bool r11v217Law(const char* sw) {
++    if (getenv("R11V217_OFF") != nullptr)
++        return false;
++    return getenv(sw) == nullptr;
++}
++inline void tr217(const char* law, const std::string& detail = std::string()) {
++    static FILE* tf = []() -> FILE* {
++        const char* d = getenv("R11V217_TRACE");
++        if (!d)
++            return nullptr;
++        std::string fn = std::string(d) + "/" + std::to_string(getpid()) + ".217";
++        FILE* fp = fopen(fn.c_str(), "a");
++        if (!fp)
++            return nullptr;
++        std::string cl, prev, outp;
++        if (FILE* c = fopen("/proc/self/cmdline", "r")) {
++            int ch;
++            while ((ch = fgetc(c)) != EOF) {
++                if (ch == 0) {
++                    if (prev == "-o")
++                        outp = cl;
++                    prev = cl;
++                    cl.clear();
++                }
++                else
++                    cl += (char)ch;
++            }
++            fclose(c);
++        }
++        fprintf(fp, "OUT %s\n", outp.c_str());
++        return fp;
++    }();
++    if (tf) {
++        fprintf(tf, "%s %s\n", law, detail.c_str());
++        fflush(tf);
++    }
++}
++} // namespace slang_uhdm
+diff --git a/src/StmtEmit.cpp b/src/StmtEmit.cpp
+index 4a59e1594..27e09dfe8 100644
+--- a/src/StmtEmit.cpp
++++ b/src/StmtEmit.cpp
+@@ -8,6 +8,7 @@
+ #include "UhdmExporter.h"
+ 
+ #include "EmitHelpers.h"
++#include "R217.h"
+ 
+ #include <functional>
+ #include <optional>
+@@ -5465,7 +5466,27 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
+                                 pp210 && !q210 &&
+                                 ((UHDM::ref_obj*)ue)->VpiName() == pp210->name) {
+                                 auto& pv210 = pp210->getValue();
+-                                if (pv210.isInteger() &&
++                                // § caseItemWildConcatOnly217v (r11u217) — a
++                                // PLAIN wildcard literal (`4'b??11`, no
++                                // concatenation in the initializer) is
++                                // substituted by golden as a CONSTANT (its
++                                // ref_typespec named by the importing
++                                // scope); only a concatenation-bearing value
++                                // (§ imppCopyOpReadIsRef114's predicate, the
++                                // ibex_tracer shape) keeps the reference the
++                                // law names (v11u210 F1;
++                                // tools/probe/r11u217verify/cases/C c02).
++                                // Switch R11V217_CASEWILDCAT_OFF.
++                                bool plain217 = false;
++                                if (pv210.isInteger() && pv210.integer().hasUnknown() &&
++                                    r11v217Law("R11V217_CASEWILDCAT_OFF") &&
++                                    !(pp210->getInitializer() &&
++                                      concatBearing114(*pp210->getInitializer()))) {
++                                    plain217 = true;
++                                    tr217("caseItemWildConcatOnly217v",
++                                          std::string(pp210->name));
++                                }
++                                if (!plain217 && pv210.isInteger() &&
+                                     pv210.integer().hasUnknown()) {
+                                     std::string fn210 = joinRef(prefix, pp210->name);
+                                     if (((UHDM::ref_obj*)ue)->VpiFullName() != fn210) {
+diff --git a/src/UhdmExporter.cpp b/src/UhdmExporter.cpp
+index b060823c2..892317352 100644
+--- a/src/UhdmExporter.cpp
++++ b/src/UhdmExporter.cpp
+@@ -9,6 +9,7 @@
+ 
+ #include "EmitHelpers.h"
+ #include "slang/syntax/SyntaxTree.h"
++#include "R217.h"
+ 
+ // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
+ #include <functional>
+@@ -1580,6 +1581,35 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
+                     }
+                     if (!mem)
+                         continue;
++                    // § anonMemberTdUseCopyKeeps217v (r11u217) — ONLY THE
++                    // TYPEDEF'S LISTING OBJECTS MOVE.  The law re-parents
++                    // every object of the typedef's key, but only the
++                    // listing objects (held by the design, a module,
++                    // interface, program, package or generate scope, or
++                    // already by an anonymous member) are Surelog's one
++                    // shared TypeDef typespec; a per-use copy parented at a
++                    // ref_typespec or a parameter (a parameter's, a
++                    // localparam's, an imported parameter's copy) is a clone
++                    // golden keeps where it is (`work@dut.P.in_t.b`,
++                    // `work@dut.Q.in_t.b`, `work@dut.EA.a::e_t.x`), which
++                    // pristine already wrote; the law moved every one of them
++                    // to `m.in_t.b` (strict records lost in the elaborated
++                    // view: tools/probe/r11u217verify/cases/SR s10 s11, X x02).
++                    // Switch R11V217_TDUSECOPY_OFF.
++                    if (auto* op217 = o->VpiParent();
++                        op217 && op217->UhdmType() != UHDM::uhdmdesign &&
++                        op217->UhdmType() != UHDM::uhdmmodule_inst &&
++                        op217->UhdmType() != UHDM::uhdminterface_inst &&
++                        op217->UhdmType() != UHDM::uhdmprogram &&
++                        op217->UhdmType() != UHDM::uhdmpackage &&
++                        op217->UhdmType() != UHDM::uhdmgen_scope &&
++                        op217->UhdmType() != UHDM::uhdmtypespec_member &&
++                        r11v217Law("R11V217_TDUSECOPY_OFF")) {
++                        tr217("anonMemberTdUseCopyKeeps217v",
++                              std::string(o->VpiName()) + " " +
++                                  std::to_string(op217->UhdmType()));
++                        continue;
++                    }
+                     setNP(o, mem);
+                     if (o->VpiParent() != mem)
+                         trace212("anonMemberTdLastWriter212",

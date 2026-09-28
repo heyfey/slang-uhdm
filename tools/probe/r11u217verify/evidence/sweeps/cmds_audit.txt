@@ -1,0 +1,8 @@
+swH:    3273 /tmp/r11u217_bin/H.sh 
+swA:    3273 /tmp/r11u217_bin/A.sh 
+sw9:    3273 /tmp/r11u217_bin/9.sh 
+sw0:    3273 /tmp/r11u217_bin/0.sh 
+sw2:    3273 /tmp/r11u217_bin/2.sh 
+swX5:    3273 /tmp/r11u217_bin/X5.sh 
+swF:    3273 /tmp/r11u217_bin/F.sh 
+swG:    3273 /tmp/r11u217_bin/G.sh 

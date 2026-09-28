@@ -1,0 +1,29 @@
+== probe: 3 rows differ
+r11u114repro/grid/f2/b02 CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec | new=0 gone=2 first-record-same=False
+    off first: #288 fullname golden[6 ref_obj P_WILD  work@top.P_WILD dut.sv 15 7 15 13  0] ours[6 ref_obj P_WILD  pk::P_WILD dut.sv 15 7 15 13  0]
+v11u111repro/brk/f5/x57_case_item CONVERSION | STRICT_NOTEQUAL differ:fullname(4) -> EQUAL equal | off 4 rec on 0 rec | new=0 gone=4 first-record-same=False
+    off first: #142 fullname golden[6 ref_obj INSN_A  work@dut.INSN_A dut.sv 11 7 11 13  0] ours[6 ref_obj INSN_A  p1::INSN_A dut.sv 11 7 11 13  0]
+v11u114repro/grid/set1/e04 CONVERSION | STRICT_NOTEQUAL differ:fullname(2) -> EQUAL equal | off 2 rec on 0 rec | new=0 gone=2 first-record-same=False
+    off first: #69 fullname golden[5 ref_obj P  work@sub.P dut.sv 4 25 4 26  0] ours[5 ref_obj P  pk::P dut.sv 4 25 4 26  0]
+   tally probe: CONVERSION=3
+== surelog: 5 rows differ
+surelog/default/FuncStructVal NEW | STRICT_NOTEQUAL differ:endcol(95) -> STRICT_NOTEQUAL differ:endcol(7) | off 95 rec div@7975 on 7 rec div@7975 | new=4 gone=92 first-record-same=True
+    off first: #747 endcol golden[5 ref_obj config_pkg::NOC_TYPE_AXI4_ATOP  cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP ] ours[5 ref_obj config_pkg::NOC_TYPE_AXI4_ATOP  cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP ]
+surelog/testflags/FuncStructVal NEW | STRICT_NOTEQUAL differ:endcol(165) -> STRICT_NOTEQUAL differ:endcol(10) | off 165 rec div@13254 on 10 rec div@13254 | new=8 gone=163 first-record-same=True
+    off first: #746 endcol golden[5 ref_obj config_pkg::NOC_TYPE_AXI4_ATOP  cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP ] ours[5 ref_obj config_pkg::NOC_TYPE_AXI4_ATOP  cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP ]
+surelog/default/FuncStructValSimple CONVERSION | STRICT_NOTEQUAL differ:file(39) -> CMP_EQUAL equal | off 39 rec on 0 rec | new=0 gone=39 first-record-same=False
+    off first: #117 file golden[7 constant     0 0 0 0 2 64 INT:2 7] ours[7 constant    dut.sv 67 46 68 35 2 64 INT:2 7]
+surelog/testflags/FuncStructValSimple CONVERSION | STRICT_NOTEQUAL differ:file(59) -> CMP_EQUAL equal | off 59 rec on 0 rec | new=0 gone=59 first-record-same=False
+    off first: #116 file golden[7 constant     0 0 0 0 2 64 INT:2 7] ours[7 constant    dut.sv 67 46 68 35 2 64 INT:2 7]
+surelog/default/InterfArrayBind SUBSET | STRICT_NOTEQUAL differ:fullname(3) -> STRICT_NOTEQUAL differ:fullname(1) | off 3 rec on 1 rec | new=0 gone=2 first-record-same=False
+    off first: #166 fullname golden[7 ref_obj io_idx  work@soc_tb.io_gen[0].peripheral_io_bus[io_idx].write_en.io_idx dut.sv 2] ours[7 ref_obj io_idx  work@soc_tb.io_gen[0].io_idx dut.sv 22 38 22 44  0]
+    on  first: #183 fullname golden[5 ref_obj IO_ONES  work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES dut.sv 16 30 16] ours[5 ref_obj IO_ONES  work@soc_tb.IO_ONES dut.sv 16 30 16 37  0]
+   tally surelog: CONVERSION=2 NEW=2 SUBSET=1
+== uhdm2rtlil: 2 rows differ
+uhdm2rtlil/default/ibex_tracer SUBSET | STRICT_NOTEQUAL differ:fullname(579) -> STRICT_NOTEQUAL differ:fullname(13) | off 579 rec on 13 rec | new=0 gone=566 first-record-same=False
+    off first: #2073 fullname golden[6 ref_typespec   <in>ibex_pkg::exc_cause_t.irq_int  0 0 0 0  0] ours[6 ref_typespec   <in>ibex_pkg::exc_cause_t.irq_int  0 0 0 0  0]
+    on  first: #27582 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   work@ibex_tracer  0 0 0 0  0]
+uhdm2rtlil/testflags/ibex_tracer SUBSET | STRICT_NOTEQUAL differ:fullname(579) -> STRICT_NOTEQUAL differ:fullname(13) | off 579 rec on 13 rec | new=0 gone=566 first-record-same=False
+    off first: #2072 fullname golden[6 ref_typespec   <in>ibex_pkg::exc_cause_t.irq_int  0 0 0 0  0] ours[6 ref_typespec   <in>ibex_pkg::exc_cause_t.irq_int  0 0 0 0  0]
+    on  first: #27492 fullname golden[4 ref_typespec     0 0 0 0  0] ours[4 ref_typespec   work@ibex_tracer  0 0 0 0  0]
+   tally uhdm2rtlil: SUBSET=2

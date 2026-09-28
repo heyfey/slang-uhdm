@@ -1,0 +1,5 @@
+surelog/default/FuncStructVal: off 95 records div@7975; on 7 records div@7975
+  #4782 file NEW | golden 7 constant    dut.sv 618 22 618 45 2 64 INT:2 7 | ours 7 constant     0 0 0 0 2 64 INT:2 7
+  #4783 file NEW | golden 7 constant    dut.sv 618 22 618 45 2 64 INT:2 7 | ours 7 constant     0 0 0 0 2 64 INT:2 7
+  #5474 file NEW | golden 7 constant    dut.sv 618 22 618 45 2 64 INT:2 7 | ours 7 constant     0 0 0 0 2 64 INT:2 7
+  #5475 file NEW | golden 7 constant    dut.sv 618 22 618 45 2 64 INT:2 7 | ours 7 constant     0 0 0 0 2 64 INT:2 7

@@ -1,0 +1,2 @@
+FIRECENSUS_DONE cases=13373 trace_files=32
+non-zero rc case-views (fix,law): {('3', '3'): 274, ('4', '4'): 224, ('139', '139'): 10} mismatches: 0

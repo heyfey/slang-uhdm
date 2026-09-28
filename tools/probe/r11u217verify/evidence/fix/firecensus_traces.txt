@@ -1,0 +1,32 @@
+r11u217verify/cases/C/c02 :       3 caseItemWildConcatOnly217v 
+r11u217verify/cases/C/c02 (el) :       3 caseItemWildConcatOnly217v 
+r11u217verify/cases/NS/n02 :       5 ndaQueryFoldsNoStamp217v 
+r11u217verify/cases/NS/n02 (el) :       5 ndaQueryFoldsNoStamp217v 
+r11u217verify/cases/NS/n07 :       1 ndaQueryFoldsNoStamp217v 
+r11u217verify/cases/NS/n07 (el) :       1 ndaQueryFoldsNoStamp217v 
+r11u217verify/cases/NS/n08 :       4 ndaQueryFoldsNoStamp217v 
+r11u217verify/cases/NS/n08 (el) :       4 ndaQueryFoldsNoStamp217v 
+r11u217verify/cases/PD/p06 :       4 ifacePortDeclFoldedBoundLeftOp217v 
+r11u217verify/cases/PD/p06 (el) :       4 ifacePortDeclFoldedBoundLeftOp217v 
+r11u217verify/cases/PD/p09 :       2 ifacePortDeclFoldedBoundLeftOp217v 
+r11u217verify/cases/PD/p09 (el) :       2 ifacePortDeclFoldedBoundLeftOp217v 
+r11u217verify/cases/PD/p10 :       2 ifacePortDeclFoldedBoundLeftOp217v 
+r11u217verify/cases/PD/p10 (el) :       2 ifacePortDeclFoldedBoundLeftOp217v 
+r11u217verify/cases/PD/p11 :       3 ifacePortDeclFoldedBoundLeftOp217v 
+r11u217verify/cases/PD/p11 (el) :       3 ifacePortDeclFoldedBoundLeftOp217v 
+r11u217verify/cases/SR/s10 :       3 anonMemberTdUseCopyKeeps217v 
+r11u217verify/cases/SR/s10 (el) :       3 anonMemberTdUseCopyKeeps217v 
+r11u217verify/cases/SR/s11 :       4 anonMemberTdUseCopyKeeps217v 
+r11u217verify/cases/SR/s11 (el) :       4 anonMemberTdUseCopyKeeps217v 
+r11u217verify/cases/X/x02 :       9 anonMemberTdUseCopyKeeps217v 
+r11u217verify/cases/X/x02 (el) :       9 anonMemberTdUseCopyKeeps217v 
+v11u209repro/cases/PD/v05 :       2 ifacePortDeclFoldedBoundLeftOp217v 
+v11u209repro/cases/PD/v05 (el) :       2 ifacePortDeclFoldedBoundLeftOp217v 
+v11u210repro/cases/C/vc09 :       1 caseItemWildConcatOnly217v 
+v11u210repro/cases/C/vc09 (el) :       1 caseItemWildConcatOnly217v 
+v11u212repro/cases/E/e09 :       1 ndaQueryFoldsNoStamp217v 
+v11u212repro/cases/E/e09 (el) :       1 ndaQueryFoldsNoStamp217v 
+v11u212repro/cases/E/e16 :       2 ndaQueryFoldsNoStamp217v 
+v11u212repro/cases/E/e16 (el) :       2 ndaQueryFoldsNoStamp217v 
+v11u212repro/cases/G/g13 :       2 ndaQueryFoldsNoStamp217v 
+v11u212repro/cases/G/g13 (el) :       2 ndaQueryFoldsNoStamp217v 

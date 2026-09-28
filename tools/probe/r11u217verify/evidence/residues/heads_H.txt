@@ -1,0 +1,176 @@
+== surelog/default/Earlgrey_0_1
+   #93964 endcol
+     A: 5	constant				dm_csrs.sv	91	52	91	56	8'h04	8	HEX:04	5
+     B: 5	constant				dm_csrs.sv	91	52	91	61	8'h04	8	HEX:04	5
+   #93967 endcol
+     A: 6	constant				dm_csrs.sv	91	71	91	75	4'h2	4	HEX:2	5
+     B: 6	constant				dm_csrs.sv	91	71	91	84	4'h2	4	HEX:2	5
+   #94024 endcol
+     A: 5	constant				dm_csrs.sv	92	55	92	59	8'h20	8	HEX:20	5
+     B: 5	constant				dm_csrs.sv	92	55	92	67	8'h20	8	HEX:20	5
+   objects 2173209 vs 2173853
+   fields: type=1 defname=2 fullname=25 file=1 line=1 col=4 endline=1 endcol=20 size=1 objects_differing=45 (walk diverged)
+   STRICT_NOTEQUAL endcol
+== surelog/default/FuncStructVal
+   #747 endcol
+     A: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	28		0		
+     B: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	46		0		
+   #4782 file
+     A: 7	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+     B: 7	constant					0	0	0	0	2	64	INT:2	7
+   #4783 file
+     A: 7	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+     B: 7	constant					0	0	0	0	2	64	INT:2	7
+   objects 18222 vs 17934
+   fields: depth=1 type=1 name=1 file=4 line=5 col=5 endline=5 endcol=7 size=1 objects_differing=7 (walk diverged)
+   STRICT_NOTEQUAL endcol
+== surelog/default/InterfArrayBind
+   #183 fullname
+     A: 5	ref_obj	IO_ONES		work@soc_tb.peripheral_io_bus[IO_ONES].write_en.IO_ONES	dut.sv	16	30	16	37		0		
+     B: 5	ref_obj	IO_ONES		work@soc_tb.IO_ONES	dut.sv	16	30	16	37		0		
+   fields: fullname=1 objects_differing=1
+   STRICT_NOTEQUAL fullname
+== surelog/default/Rggen
+   #23164 file
+     A: 11	logic_typespec				rggen_adapter_common.sv	43	5	43	10				
+     B: 11	logic_typespec				rggen_bus_if.sv	9	3	9	28				
+   #23165 file
+     A: 12	range				rggen_adapter_common.sv	43	11	43	30				
+     B: 12	range				rggen_bus_if.sv	9	9	9	28				
+   #23166 type
+     A: 13	operation				rggen_adapter_common.sv	43	12	43	27		0		
+     B: 13	constant				rggen_bus_if.sv	9	10	9	23	15	64	INT:15	7
+   objects 314498 vs 312769
+   fields: type=1 file=3 line=3 col=3 endline=3 endcol=3 decompile=1 size=1 value=1 consttype=1 objects_differing=3 (walk diverged)
+   STRICT_NOTEQUAL file
+== surelog/default/BuildUVMPkg
+   #26067 col
+     A: 11	ref_obj	sequence_ptr			uvm_pkg.sv	54011	47	54011	68		0		
+     B: 11	ref_obj	sequence_ptr			uvm_pkg.sv	54011	34	54011	46		0		
+   #26068 fullname
+     A: 11	ref_obj	m_next_transaction_id			uvm_pkg.sv	54011	47	54011	68		0		
+     B: 11	ref_obj	m_next_transaction_id		uvm_pkg::uvm_sequencer_param_base::send_request::m_next_transaction_id	uvm_pkg.sv	54011	47	54011	68		0		
+   #26855 line
+     A: 5	class_typespec	this_type			uvm_pkg.sv	13776	11	13776	42				
+     B: 5	class_typespec	this_type			uvm_pkg.sv	56391	12	56391	32				
+   objects 201533 vs 201588
+   fields: type=1 name=1 fullname=32 line=5 col=6 endline=9 endcol=19 objects_differing=51 (walk diverged)
+   STRICT_NOTEQUAL col
+== surelog/default/MiniAmiq
+   #899 file
+     A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73				
+     B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16				
+   #10107 fullname
+     A: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0		
+     B: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0		
+     raw fullname A: work@svaunit_vpi_interface.uvm_pkg::uvm_event_pool | B: uvm_pkg::uvm_event_pool
+   #11306 endline
+     A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0		
+     B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0		
+   objects 435559 vs 433835
+   fields: depth=1 type=1 name=1 fullname=2 file=19 line=61 col=61 endline=73 endcol=73 objects_differing=75 (walk diverged)
+   STRICT_NOTEQUAL file
+== surelog/default/SeqDriver
+   #10090 fullname
+     A: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0		
+     B: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0		
+     raw fullname A: work@top_tb.uvm_pkg::uvm_event_pool | B: uvm_pkg::uvm_event_pool
+   #11289 endline
+     A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0		
+     B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0		
+   #12219 endline
+     A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0		
+     B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0		
+   objects 475526 vs 474740
+   fields: depth=1 type=1 name=1 fullname=2 file=5 line=47 col=47 endline=59 endcol=59 objects_differing=61 (walk diverged)
+   STRICT_NOTEQUAL fullname
+== surelog/default/SimpleUVM
+   #458 fullname
+     A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+     B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+   #464 fullname
+     A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+     B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+   #483 fullname
+     A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0		
+     B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0		
+   objects 334285 vs 334439
+   fields: depth=1 type=1 fullname=147 file=19 line=61 col=62 endline=80 endcol=90 decompile=1 value=1 consttype=1 objects_differing=236 (walk diverged)
+   STRICT_NOTEQUAL fullname
+== surelog/default/Scoreboard
+   #466 fullname
+     A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+     B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+   #472 fullname
+     A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+     B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+   #491 fullname
+     A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0		
+     B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0		
+   objects 269656 vs 269733
+   fields: depth=1 type=1 fullname=101 file=18 line=59 col=60 endline=78 endcol=88 decompile=1 value=1 consttype=1 objects_differing=188 (walk diverged)
+   STRICT_NOTEQUAL fullname
+== surelog/default/BlackBePipeInt
+   #15272 type
+     A: 5	ref_typespec			bp_common_pkg		0	0	0	0		0		
+     B: 5	constant				dut.sv	2047	16	2047	17	1	64	UINT:1	9
+   objects 339479 vs 341734
+   fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+   STRICT_NOTEQUAL type
+== surelog/testflags/Earlgrey_0_1
+   #95240 endcol
+     A: 5	constant				dm_csrs.sv	91	52	91	56	8'h04	8	HEX:04	5
+     B: 5	constant				dm_csrs.sv	91	52	91	61	8'h04	8	HEX:04	5
+   #95243 endcol
+     A: 6	constant				dm_csrs.sv	91	71	91	75	4'h2	4	HEX:2	5
+     B: 6	constant				dm_csrs.sv	91	71	91	84	4'h2	4	HEX:2	5
+   #95300 endcol
+     A: 5	constant				dm_csrs.sv	92	55	92	59	8'h20	8	HEX:20	5
+     B: 5	constant				dm_csrs.sv	92	55	92	67	8'h20	8	HEX:20	5
+   objects 1342584 vs 1342870
+   fields: type=1 defname=2 fullname=25 file=1 line=1 col=4 endline=1 endcol=20 size=1 objects_differing=45 (walk diverged)
+   STRICT_NOTEQUAL endcol
+== surelog/testflags/FuncStructVal
+   #746 endcol
+     A: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	28		0		
+     B: 5	ref_obj	config_pkg::NOC_TYPE_AXI4_ATOP		cva6_config_pkg::config_pkg::NOC_TYPE_AXI4_ATOP	dut.sv	106	16	106	46		0		
+   #7129 file
+     A: 7	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+     B: 7	constant					0	0	0	0	2	64	INT:2	7
+   #7130 file
+     A: 7	constant				dut.sv	618	22	618	45	2	64	INT:2	7
+     B: 7	constant					0	0	0	0	2	64	INT:2	7
+   objects 45362 vs 45097
+   fields: depth=1 type=1 file=8 line=9 col=9 endline=9 endcol=10 decompile=1 size=1 value=1 consttype=1 objects_differing=10 (walk diverged)
+   STRICT_NOTEQUAL endcol
+== surelog/testflags/BlackBePipeInt
+   #66 depth
+     A: 2	parameter	host_dev_gp		bp_common_pkg::host_dev_gp	dut.sv	1795	12	1795	23		0	UINT:1	
+     B: 6	parameter	dev_addr_width_gp		bp_common_pkg::dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20	
+   objects 338504 vs 340984
+   fields: depth=1 name=1 fullname=1 line=1 endline=1 endcol=1 value=1 objects_differing=1 (walk diverged)
+   STRICT_NOTEQUAL depth
+== uhdm2rtlil/default/ibex_tracer
+   #27582 fullname
+     A: 4	ref_typespec					0	0	0	0		0		
+     B: 4	ref_typespec			work@ibex_tracer		0	0	0	0		0		
+   #27601 fullname
+     A: 4	ref_typespec					0	0	0	0		0		
+     B: 4	ref_typespec			work@ibex_tracer		0	0	0	0		0		
+   #27620 fullname
+     A: 4	ref_typespec					0	0	0	0		0		
+     B: 4	ref_typespec			work@ibex_tracer		0	0	0	0		0		
+   fields: fullname=13 objects_differing=13
+   STRICT_NOTEQUAL fullname
+== uhdm2rtlil/default/anon_struct_packed_dim
+   #766 fullname
+     A: 12	ref_obj	gx		work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page.gx	dut.sv	75	51	75	53		0		
+     B: 12	ref_obj	gx		work@anon_struct_packed_dim.g_i[0].g_x[1].gx	dut.sv	75	51	75	53		0		
+   #795 fullname
+     A: 12	ref_obj	gx		work@anon_struct_packed_dim.g_i[0].g_x[2].tq[gi].is_page[2 - gx][0:0].is_page.gx	dut.sv	75	51	75	53		0		
+     B: 12	ref_obj	gx		work@anon_struct_packed_dim.g_i[0].g_x[2].gx	dut.sv	75	51	75	53		0		
+   #829 fullname
+     A: 12	ref_obj	gx		work@anon_struct_packed_dim.g_i[1].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page.gx	dut.sv	75	51	75	53		0		
+     B: 12	ref_obj	gx		work@anon_struct_packed_dim.g_i[1].g_x[1].gx	dut.sv	75	51	75	53		0		
+   fields: fullname=4 objects_differing=4
+   STRICT_NOTEQUAL fullname

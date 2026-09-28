@@ -9,6 +9,7 @@
 
 #include "EmitHelpers.h"
 #include "slang/syntax/SyntaxTree.h"
+#include "R217.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -1580,6 +1581,35 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
                     }
                     if (!mem)
                         continue;
+                    // § anonMemberTdUseCopyKeeps217v (r11u217) — ONLY THE
+                    // TYPEDEF'S LISTING OBJECTS MOVE.  The law re-parents
+                    // every object of the typedef's key, but only the
+                    // listing objects (held by the design, a module,
+                    // interface, program, package or generate scope, or
+                    // already by an anonymous member) are Surelog's one
+                    // shared TypeDef typespec; a per-use copy parented at a
+                    // ref_typespec or a parameter (a parameter's, a
+                    // localparam's, an imported parameter's copy) is a clone
+                    // golden keeps where it is (`work@dut.P.in_t.b`,
+                    // `work@dut.Q.in_t.b`, `work@dut.EA.a::e_t.x`), which
+                    // pristine already wrote; the law moved every one of them
+                    // to `m.in_t.b` (strict records lost in the elaborated
+                    // view: tools/probe/r11u217verify/cases/SR s10 s11, X x02).
+                    // Switch R11V217_TDUSECOPY_OFF.
+                    if (auto* op217 = o->VpiParent();
+                        op217 && op217->UhdmType() != UHDM::uhdmdesign &&
+                        op217->UhdmType() != UHDM::uhdmmodule_inst &&
+                        op217->UhdmType() != UHDM::uhdminterface_inst &&
+                        op217->UhdmType() != UHDM::uhdmprogram &&
+                        op217->UhdmType() != UHDM::uhdmpackage &&
+                        op217->UhdmType() != UHDM::uhdmgen_scope &&
+                        op217->UhdmType() != UHDM::uhdmtypespec_member &&
+                        r11v217Law("R11V217_TDUSECOPY_OFF")) {
+                        tr217("anonMemberTdUseCopyKeeps217v",
+                              std::string(o->VpiName()) + " " +
+                                  std::to_string(op217->UhdmType()));
+                        continue;
+                    }
                     setNP(o, mem);
                     if (o->VpiParent() != mem)
                         trace212("anonMemberTdLastWriter212",

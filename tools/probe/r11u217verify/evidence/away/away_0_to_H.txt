@@ -1,0 +1,14 @@
+# 13 databases differ between /tmp/r11u217_sw0 and /tmp/r11u217_swH
+probe/r11u114repro/grid/f2/b02 away=0 toward=2 flat_away=0 flat_toward=2
+probe/v11u111repro/brk/f5/x57_case_item away=0 toward=4 flat_away=0 flat_toward=4
+probe/v11u114repro/grid/set1/e04 away=0 toward=2 flat_away=0 flat_toward=2
+surelog/default/BlackBePipeInt away=0 toward=0 flat_away=0 flat_toward=0
+surelog/default/FuncStructVal away=0 toward=502 flat_away=0 flat_toward=502
+surelog/default/FuncStructValSimple away=0 toward=39 flat_away=0 flat_toward=39
+surelog/default/InterfArrayBind away=0 toward=2 flat_away=0 flat_toward=2
+surelog/testflags/BlackBePipeInt away=0 toward=0 flat_away=0 flat_toward=0
+surelog/testflags/FuncStructVal away=0 toward=826 flat_away=0 flat_toward=826
+surelog/testflags/FuncStructValSimple away=0 toward=59 flat_away=0 flat_toward=59
+surelog/testflags/MiniAmiq away=0 toward=0 flat_away=0 flat_toward=0
+uhdm2rtlil/default/ibex_tracer away=0 toward=388 flat_away=0 flat_toward=388
+uhdm2rtlil/testflags/ibex_tracer away=0 toward=388 flat_away=0 flat_toward=388

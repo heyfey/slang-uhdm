@@ -1,0 +1,2 @@
+prediction for sweep G (fix3.bin 275b48efc283 vs H law.bin): 0 movers; firing census of sweep G (R11V217_TRACE=/tmp/r11u217_trG over probe, both corpora in both modes, the downstream lanes): 0 trace files
+2026-09-28T23:03:42Z

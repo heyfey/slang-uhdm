@@ -27,6 +27,7 @@
 #include "slang/ast/symbols/CheckerSymbols.h"
 #include "slang/syntax/SyntaxTree.h"
 #include "R204.h"
+#include "R217.h"
 
 namespace slang_uhdm {
 
@@ -38454,9 +38455,22 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                                (nm212 == "$signed" || nm212 == "$unsigned");
                 bool qry212 = nm212 == "$high" || nm212 == "$low" || nm212 == "$left" ||
                               nm212 == "$right" || nm212 == "$size";
-                if (cast212 ||
+                // § ndaQueryFoldsNoStamp217v (r11u217) — A RANGE QUERY IN A
+                // NET-DECLARATION INITIALIZER IS NOT STAMPED.  Golden folds
+                // `$high`, `$low`, `$left`, `$right` and `$size` of the
+                // declaration's initializer to a constant at the queried
+                // bound with no typespec (`UINT:7` at 2:25 for `$high(v)` of
+                // `[7:2] v`); ours keeps the call, so the stamp only adds a
+                // ref_typespec golden never writes (v11u212's e09 e16 g13;
+                // tools/probe/r11u217verify/cases/NS n02 n07 n08).  Switch
+                // R11V217_NDAQUERY_OFF.
+                bool qryDecl217 = qry212 && r11v217Law("R11V217_NDAQUERY_OFF");
+                if (qryDecl217)
+                    tr217("ndaQueryFoldsNoStamp217v",
+                          std::string(it.sym->name) + " " + nm212);
+                if (!qryDecl217 && (cast212 ||
                     (sys212 && (nm212 == "$signed" || nm212 == "$unsigned" ||
-                                nm212 == "$bits" || nm212 == "$clog2" || qry212))) {
+                                nm212 == "$bits" || nm212 == "$clog2" || qry212)))) {
                     auto* rt = s.MakeRef_typespec();
                     rt->VpiFullName(prefix);
                     rt->VpiParent(rhs);
@@ -48609,10 +48623,31 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                     setLoc(r205, dl[k]->sourceRange());
                     auto& rs205 = dl[k]->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
                                       .selector->as<syntax::RangeSelectSyntax>();
+                    // § ifacePortDeclFoldedBoundLeftOp217v (r11u217) — A
+                    // FOLDED BINARY BOUND SITS AT ITS LEFT OPERAND.  Surelog
+                    // reduces `[W-1:0]` to a constant located at the top
+                    // operation's left operand (`W`; `WIDTH-1` at `WIDTH`,
+                    // `2*W-1` at `2*W`, `W-1-1` at `W-1`, `-W+7` at `-W`),
+                    // as pristine already writes; the law located it over the
+                    // whole expression (golden 4:11-12, law 4:11-14: strict
+                    // records lost, tools/probe/r11u217verify/cases/PD p06
+                    // p09 p10 p11).  Switch R11V217_PDBOUNDOP_OFF.
+                    auto bnd217 = [&](const UHDM::any* ue,
+                                      const syntax::ExpressionSyntax& es) {
+                        if (ue->UhdmType() == UHDM::uhdmconstant &&
+                            syntax::BinaryExpressionSyntax::isKind(es.kind) &&
+                            r11v217Law("R11V217_PDBOUNDOP_OFF")) {
+                            tr217("ifacePortDeclFoldedBoundLeftOp217v",
+                                  std::string(pb205->name));
+                            return es.as<syntax::BinaryExpressionSyntax>()
+                                .left->sourceRange();
+                        }
+                        return es.sourceRange();
+                    };
                     if (auto* le = r205->Left_expr(); le && le->VpiLineNo())
-                        setLoc((UHDM::BaseClass*)le, rs205.left->sourceRange());
+                        setLoc((UHDM::BaseClass*)le, bnd217(le, *rs205.left));
                     if (auto* re = r205->Right_expr(); re && re->VpiLineNo())
-                        setLoc((UHDM::BaseClass*)re, rs205.right->sourceRange());
+                        setLoc((UHDM::BaseClass*)re, bnd217(re, *rs205.right));
                 }
             }
         }

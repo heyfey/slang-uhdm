@@ -1,0 +1,39 @@
+== probe: rows 4087; conversions L vs A = 40: OWN209=33 OWN210=3 OWN212=4
+  CONV OWN209: r10earl53repro/v5_v53, r10uvm139repro/g139_b_kinds, r10uvm139repro/g139_d_mult, r10uvm145repro/g145_a_prod, r10uvm145repro/g145_b_kind, r10uvm145repro/g145_e_zero, r10uvm148repro/g148_d_kind, r10v139repro/v139_d_shapes, r10v139repro/v139_e_inst, r10v145repro/v145_a_faces, r10v145repro/v145_e_oob, r10v145repro/v145_g_zero, r10v148repro/v148_d_kind, r11u90repro/grid.verifier/vx9_strifnonansi, r11u93repro/grid/n3_strnonansi_if, r11u93repro/grid/n4_nonansi_plain_if, r11u93repro/grid/pb11_ifvarredecl, r11u93repro/grid/pb12_ifstrnonport, r11u93repro/grid/pb14_ifbothstr, r11u93repro/grid/pb16_ifdeclorder, r11u93repro/grid/pb17_ifonedecl, r11u93repro/grid/pb3_ifnoredecl, r11u93repro/grid/pb4_ifrevorder, r11u93repro/grid/pb5_ifinput, r11u93repro/grid/pb7_iftwoports, r11u93repro/grid/pb8_ifmodport, r11u93repro/grid/pb9_ifgen, r11v93repro/grid/v10_ifportmid, r11v93repro/grid/v12_ifmultiinst, r11v93repro/grid/v17_ifinout, r11v93repro/grid/v18_ifnetbeforeport_str, r11v93repro/grid/v1_ifnetbeforeport, r11v93repro/grid/v3_ifportreg
+  CONV OWN210: r11u114repro/grid/f2/b02, v11u111repro/brk/f5/x57_case_item, v11u114repro/grid/set1/e04
+  CONV OWN212: r10uvm149repro/g149/shapes, r11u107repro/grid/a12_anon_named_member, r11u109repro/grid/f5/k10_named_member_dim, v11u93b107repro/brk/p04_enum_member
+  CHANGE (L vs A, not a conversion): OWN209=4 OWN212=2
+    OWN209 r10earl53repro/v2_v53: A=differ:endline(5) L=differ:endline(1) off209=differ:endline(5)
+    OWN209 r11u93repro/grid/pb10_ifnetuse: A=differ:line(36) L=differ:line(20) off209=differ:line(36)
+    OWN209 r11u93repro/grid/pb19_modportview: A=differ:line(38) L=differ:line(14) off209=differ:line(38)
+    OWN209 r11v93repro/grid/v15_ifdeclafterbody: A=differ:line(20) L=differ:line(4) off209=differ:line(20)
+    OWN212 r10uvm149repro/g149/homes: A=differ:endcol(15) L=differ:endline(1) off212=differ:endcol(15)
+    OWN212 r10v149repro/arms/paramtype: A=differ:endcol(22) L=differ:fullname(2) off212=differ:endcol(22)
+  CANCEL (same in L and A, different with one landing off): 0
+== surelog: rows 1588; conversions L vs A = 5: OWN209=3 OWN210=2
+  CONV OWN209: HierPathTypespec/t, InterfaceStructMemberPort/d, InterfaceStructMemberPort/t
+  CONV OWN210: FuncStructValSimple/d, FuncStructValSimple/t
+  CHANGE (L vs A, not a conversion): JOINT209+212=10 OWN209=2 OWN210=3
+    JOINT209+212 BuildUVMPkg/d: A=differ:line(7) L=differ:col(51) off209=differ:line(7) off212=differ:endcol(57)
+    JOINT209+212 BuildUVMPkg/t: A=differ:line(7) L=differ:col(51) off209=differ:line(7) off212=differ:endcol(57)
+    JOINT209+212 MiniAmiq/d: A=differ:file(70) L=differ:file(75) off209=differ:file(70) off212=differ:file(77)
+    JOINT209+212 MiniAmiq/t: A=differ:file(70) L=differ:file(75) off209=differ:file(70) off212=differ:file(77)
+    JOINT209+212 Rggen/d: A=differ:defname(142) L=differ:file(3) off209=differ:defname(141) off212=differ:file(4)
+    JOINT209+212 Scoreboard/d: A=differ:fullname(102) L=differ:fullname(188) off209=differ:fullname(102) off212=differ:fullname(193)
+    JOINT209+212 SeqDriver/d: A=differ:fullname(64) L=differ:fullname(61) off209=differ:fullname(64) off212=differ:fullname(63)
+    JOINT209+212 SeqDriver/t: A=differ:fullname(64) L=differ:fullname(61) off209=differ:fullname(64) off212=differ:fullname(63)
+    JOINT209+212 SimpleUVM/d: A=differ:fullname(94) L=differ:fullname(236) off209=differ:fullname(94) off212=differ:fullname(241)
+    JOINT209+212 SimpleUVM/t: A=differ:fullname(94) L=differ:fullname(236) off209=differ:fullname(94) off212=differ:fullname(241)
+    OWN209 Earlgrey_0_1/d: A=differ:fullname(76) L=differ:endcol(45) off209=differ:fullname(76)
+    OWN209 Earlgrey_0_1/t: A=differ:fullname(76) L=differ:endcol(45) off209=differ:fullname(76)
+    OWN210 FuncStructVal/d: A=differ:endcol(95) L=differ:endcol(7) off210=differ:endcol(95)
+    OWN210 FuncStructVal/t: A=differ:endcol(165) L=differ:endcol(10) off210=differ:endcol(165)
+    OWN210 InterfArrayBind/d: A=differ:fullname(3) L=differ:fullname(1) off210=differ:fullname(3)
+  CANCEL (same in L and A, different with one landing off): 0
+== uhdm2rtlil: rows 1742; conversions L vs A = 0: 
+  CHANGE (L vs A, not a conversion): OWN210=2 OWN212=2
+    OWN210 ibex_tracer/d: A=differ:fullname(579) L=differ:fullname(13) off210=differ:fullname(579)
+    OWN210 ibex_tracer/t: A=differ:fullname(579) L=differ:fullname(13) off210=differ:fullname(579)
+    OWN212 anon_struct_packed_dim/d: A=differ:fullname(43) L=differ:fullname(4) off212=differ:fullname(43)
+    OWN212 anon_struct_packed_dim/t: A=differ:fullname(43) L=differ:fullname(4) off212=differ:fullname(43)
+  CANCEL (same in L and A, different with one landing off): 0

@@ -1,0 +1,200 @@
+r11u217verify/cases/C/c03 new=old:Y new=free:N
+r11u217verify/cases/C/c02 new=old:Y new=free:Y
+r11u217verify/cases/C/c01 new=old:Y new=free:Y
+r11u217verify/cases/C/c02 el new=old:Y new=free:Y
+r11u217verify/cases/C/c03 el new=old:Y new=free:N
+r11u217verify/cases/C/c01 el new=old:Y new=free:Y
+r11u217verify/cases/C/c04 new=old:Y new=free:Y
+r11u217verify/cases/CS/c01 new=old:Y new=free:Y
+r11u217verify/cases/CS/c02 new=old:Y new=free:Y
+r11u217verify/cases/CS/c01 el new=old:Y new=free:Y
+r11u217verify/cases/CS/c02 el new=old:Y new=free:Y
+r11u217verify/cases/C/c04 el new=old:Y new=free:Y
+r11u217verify/cases/CS/c03 new=old:Y new=free:Y
+r11u217verify/cases/EA/e01 new=old:Y new=free:Y
+r11u217verify/cases/EA/e02 new=old:Y new=free:Y
+r11u217verify/cases/CS/c03 el new=old:Y new=free:Y
+r11u217verify/cases/EA/e01 el new=old:Y new=free:Y
+r11u217verify/cases/EA/e02 el new=old:Y new=free:Y
+r11u217verify/cases/EA/e03 new=old:Y new=free:Y
+r11u217verify/cases/GS/g01 new=old:Y new=free:Y
+r11u217verify/cases/GS/g02 new=old:Y new=free:Y
+r11u217verify/cases/EA/e03 el new=old:Y new=free:Y
+r11u217verify/cases/GS/g01 el new=old:Y new=free:Y
+r11u217verify/cases/GS/g02 el new=old:Y new=free:Y
+r11u217verify/cases/GS/g03 new=old:Y new=free:Y
+r11u217verify/cases/GS/g04 new=old:Y new=free:Y
+r11u217verify/cases/GS/g05 new=old:Y new=free:Y
+r11u217verify/cases/GS/g03 el new=old:Y new=free:Y
+r11u217verify/cases/GS/g04 el new=old:Y new=free:Y
+r11u217verify/cases/GS/g05 el new=old:Y new=free:Y
+r11u217verify/cases/HP/h02 new=old:Y new=free:Y
+r11u217verify/cases/HP/h01 new=old:Y new=free:Y
+r11u217verify/cases/HP/h03 new=old:Y new=free:Y
+r11u217verify/cases/HP/h02 el new=old:Y new=free:Y
+r11u217verify/cases/HP/h01 el new=old:Y new=free:Y
+r11u217verify/cases/HP/h03 el new=old:Y new=free:Y
+r11u217verify/cases/HP/h04 new=old:Y new=free:N
+r11u217verify/cases/IA/a01 new=old:Y new=free:Y
+r11u217verify/cases/IA/a02 new=old:Y new=free:Y
+r11u217verify/cases/IA/a01 el new=old:Y new=free:Y
+r11u217verify/cases/HP/h04 el new=old:Y new=free:N
+r11u217verify/cases/IA/a02 el new=old:Y new=free:Y
+r11u217verify/cases/IA/a03 new=old:Y new=free:Y
+r11u217verify/cases/IA/a04 new=old:Y new=free:Y
+r11u217verify/cases/IM/m01 new=old:Y new=free:Y
+r11u217verify/cases/IA/a03 el new=old:Y new=free:Y
+r11u217verify/cases/IA/a04 el new=old:Y new=free:Y
+r11u217verify/cases/IM/m01 el new=old:Y new=free:Y
+r11u217verify/cases/IM/m02 new=old:Y new=free:Y
+r11u217verify/cases/IM/m03 new=old:Y new=free:Y
+r11u217verify/cases/IM/m04 new=old:Y new=free:Y
+r11u217verify/cases/IM/m03 el new=old:Y new=free:Y
+r11u217verify/cases/IM/m02 el new=old:Y new=free:Y
+r11u217verify/cases/IM/m04 el new=old:Y new=free:Y
+r11u217verify/cases/IM/m06 new=old:Y new=free:Y
+r11u217verify/cases/IM/m05 new=old:Y new=free:Y
+r11u217verify/cases/IM/m07 new=old:Y new=free:Y
+r11u217verify/cases/IM/m06 el new=old:Y new=free:Y
+r11u217verify/cases/IM/m05 el new=old:Y new=free:Y
+r11u217verify/cases/IM/m07 el new=old:Y new=free:Y
+r11u217verify/cases/IM/m08 new=old:Y new=free:Y
+r11u217verify/cases/IM/m09 new=old:Y new=free:Y
+r11u217verify/cases/IM/m10 new=old:Y new=free:Y
+r11u217verify/cases/IM/m08 el new=old:Y new=free:Y
+r11u217verify/cases/IM/m09 el new=old:Y new=free:Y
+r11u217verify/cases/IM/m10 el new=old:Y new=free:Y
+r11u217verify/cases/IP/i01 new=old:Y new=free:Y
+r11u217verify/cases/IP/i02 new=old:Y new=free:Y
+r11u217verify/cases/IP/i03 new=old:Y new=free:Y
+r11u217verify/cases/IP/i01 el new=old:Y new=free:Y
+r11u217verify/cases/IP/i02 el new=old:Y new=free:Y
+r11u217verify/cases/IP/i03 el new=old:Y new=free:Y
+r11u217verify/cases/IP/i04 new=old:Y new=free:Y
+r11u217verify/cases/IP/i05 new=old:Y new=free:Y
+r11u217verify/cases/LV/l01 new=old:Y new=free:Y
+r11u217verify/cases/IP/i04 el new=old:Y new=free:Y
+r11u217verify/cases/IP/i05 el new=old:Y new=free:Y
+r11u217verify/cases/LV/l01 el new=old:Y new=free:Y
+r11u217verify/cases/LV/l02 new=old:Y new=free:Y
+r11u217verify/cases/LV/l03 new=old:Y new=free:Y
+r11u217verify/cases/LV/l04 new=old:Y new=free:Y
+r11u217verify/cases/LV/l02 el new=old:Y new=free:Y
+r11u217verify/cases/LV/l03 el new=old:Y new=free:Y
+r11u217verify/cases/LV/l04 el new=old:Y new=free:Y
+r11u217verify/cases/LV/l05 new=old:Y new=free:N
+r11u217verify/cases/LV/l06 new=old:Y new=free:Y
+r11u217verify/cases/M/m01 new=old:Y new=free:Y
+r11u217verify/cases/LV/l05 el new=old:Y new=free:N
+r11u217verify/cases/LV/l06 el new=old:Y new=free:Y
+r11u217verify/cases/M/m01 el new=old:Y new=free:Y
+r11u217verify/cases/M/m02 new=old:Y new=free:Y
+r11u217verify/cases/M/m03 new=old:Y new=free:Y
+r11u217verify/cases/NS/n01 new=old:Y new=free:Y
+r11u217verify/cases/M/m02 el new=old:Y new=free:Y
+r11u217verify/cases/M/m03 el new=old:Y new=free:Y
+r11u217verify/cases/NS/n01 el new=old:Y new=free:Y
+r11u217verify/cases/NS/n03 new=old:Y new=free:Y
+r11u217verify/cases/NS/n02 new=old:Y new=free:Y
+r11u217verify/cases/NS/n03 el new=old:Y new=free:Y
+r11u217verify/cases/NS/n02 el new=old:Y new=free:Y
+r11u217verify/cases/NS/n04 new=old:Y new=free:Y
+r11u217verify/cases/NS/n06 new=old:Y new=free:Y
+r11u217verify/cases/NS/n04 el new=old:Y new=free:Y
+r11u217verify/cases/NS/n05 new=old:Y new=free:Y
+r11u217verify/cases/NS/n06 el new=old:Y new=free:Y
+r11u217verify/cases/NS/n05 el new=old:Y new=free:Y
+r11u217verify/cases/NS/n07 new=old:Y new=free:Y
+r11u217verify/cases/NS/n07 el new=old:Y new=free:Y
+r11u217verify/cases/NS/n08 new=old:Y new=free:Y
+r11u217verify/cases/NS/n09 new=old:Y new=free:Y
+r11u217verify/cases/NS/n09 el new=old:Y new=free:Y
+r11u217verify/cases/NS/n08 el new=old:Y new=free:Y
+r11u217verify/cases/NS/n10 new=old:Y new=free:Y
+r11u217verify/cases/NS/n11 new=old:Y new=free:Y
+r11u217verify/cases/PD/p01 new=old:Y new=free:Y
+r11u217verify/cases/NS/n10 el new=old:Y new=free:Y
+r11u217verify/cases/NS/n11 el new=old:Y new=free:Y
+r11u217verify/cases/PD/p01 el new=old:Y new=free:Y
+r11u217verify/cases/PD/p02 new=old:Y new=free:Y
+r11u217verify/cases/PD/p03 new=old:Y new=free:Y
+r11u217verify/cases/PD/p04 new=old:Y new=free:Y
+r11u217verify/cases/PD/p02 el new=old:Y new=free:Y
+r11u217verify/cases/PD/p03 el new=old:Y new=free:Y
+r11u217verify/cases/PD/p04 el new=old:Y new=free:Y
+r11u217verify/cases/PD/p05 new=old:Y new=free:Y
+r11u217verify/cases/PD/p06 new=old:Y new=free:Y
+r11u217verify/cases/PD/p07 new=old:Y new=free:Y
+r11u217verify/cases/PD/p05 el new=old:Y new=free:Y
+r11u217verify/cases/PD/p06 el new=old:Y new=free:Y
+r11u217verify/cases/PD/p07 el new=old:Y new=free:Y
+r11u217verify/cases/PD/p08 new=old:Y new=free:Y
+r11u217verify/cases/PD/p09 new=old:Y new=free:Y
+r11u217verify/cases/PD/p10 new=old:Y new=free:Y
+r11u217verify/cases/PD/p08 el new=old:Y new=free:Y
+r11u217verify/cases/PD/p09 el new=old:Y new=free:Y
+r11u217verify/cases/PD/p10 el new=old:Y new=free:Y
+r11u217verify/cases/PD/p11 new=old:Y new=free:Y
+r11u217verify/cases/P/p01 new=old:Y new=free:Y
+r11u217verify/cases/P/p02 new=old:Y new=free:Y
+r11u217verify/cases/PD/p11 el new=old:Y new=free:Y
+r11u217verify/cases/P/p01 el new=old:Y new=free:Y
+r11u217verify/cases/P/p02 el new=old:Y new=free:Y
+r11u217verify/cases/P/p03 new=old:Y new=free:Y
+r11u217verify/cases/QM/q01 new=old:Y new=free:Y
+r11u217verify/cases/P/p03 el new=old:Y new=free:Y
+r11u217verify/cases/QM/q02 new=old:Y new=free:Y
+r11u217verify/cases/QM/q01 el new=old:Y new=free:Y
+r11u217verify/cases/QM/q02 el new=old:Y new=free:Y
+r11u217verify/cases/QM/q03 new=old:Y new=free:Y
+r11u217verify/cases/SF/f01 new=old:Y new=free:Y
+r11u217verify/cases/QM/q03 el new=old:Y new=free:Y
+r11u217verify/cases/SF/f02 new=old:Y new=free:Y
+r11u217verify/cases/SF/f01 el new=old:Y new=free:Y
+r11u217verify/cases/SR/s01 new=old:Y new=free:Y
+r11u217verify/cases/SF/f02 el new=old:Y new=free:Y
+r11u217verify/cases/SR/s02 new=old:Y new=free:Y
+r11u217verify/cases/SR/s01 el new=old:Y new=free:Y
+r11u217verify/cases/SR/s03 new=old:Y new=free:Y
+r11u217verify/cases/SR/s02 el new=old:Y new=free:Y
+r11u217verify/cases/SR/s04 new=old:Y new=free:Y
+r11u217verify/cases/SR/s03 el new=old:Y new=free:Y
+r11u217verify/cases/SR/s05 new=old:Y new=free:Y
+r11u217verify/cases/SR/s04 el new=old:Y new=free:Y
+r11u217verify/cases/SR/s06 new=old:Y new=free:Y
+r11u217verify/cases/SR/s05 el new=old:Y new=free:Y
+r11u217verify/cases/SR/s06 el new=old:Y new=free:Y
+r11u217verify/cases/SR/s07 new=old:Y new=free:Y
+r11u217verify/cases/SR/s08 new=old:Y new=free:Y
+r11u217verify/cases/SR/s07 el new=old:Y new=free:Y
+r11u217verify/cases/SR/s09 new=old:Y new=free:Y
+r11u217verify/cases/SR/s08 el new=old:Y new=free:Y
+r11u217verify/cases/SR/s09 el new=old:Y new=free:Y
+r11u217verify/cases/SR/s10 new=old:Y new=free:Y
+r11u217verify/cases/SR/s11 new=old:Y new=free:Y
+r11u217verify/cases/SR/s10 el new=old:Y new=free:Y
+r11u217verify/cases/SR/s12 new=old:Y new=free:Y
+r11u217verify/cases/SR/s11 el new=old:Y new=free:Y
+r11u217verify/cases/SR/s12 el new=old:Y new=free:Y
+r11u217verify/cases/TW/t01 new=old:Y new=free:Y
+r11u217verify/cases/TW/t02 new=old:Y new=free:Y
+r11u217verify/cases/TW/t01 el new=old:Y new=free:Y
+r11u217verify/cases/TW/t03 new=old:Y new=free:Y
+r11u217verify/cases/TW/t02 el new=old:Y new=free:Y
+r11u217verify/cases/TW/t03 el new=old:Y new=free:Y
+r11u217verify/cases/W/w01 new=old:Y new=free:Y
+r11u217verify/cases/W/w02 new=old:Y new=free:Y
+r11u217verify/cases/W/w01 el new=old:Y new=free:Y
+r11u217verify/cases/W/w03 new=old:Y new=free:Y
+r11u217verify/cases/W/w02 el new=old:Y new=free:Y
+r11u217verify/cases/W/w03 el new=old:Y new=free:Y
+r11u217verify/cases/X/x01 new=old:Y new=free:Y
+r11u217verify/cases/X/x02 new=old:Y new=free:Y
+r11u217verify/cases/X/x01 el new=old:Y new=free:Y
+r11u217verify/cases/X/x03 new=old:Y new=free:Y
+r11u217verify/cases/X/x02 el new=old:Y new=free:Y
+r11u217verify/cases/X/x04 new=old:Y new=free:Y
+r11u217verify/cases/X/x03 el new=old:Y new=free:Y
+r11u217verify/cases/X/x05 new=old:Y new=free:Y
+r11u217verify/cases/X/x04 el new=old:Y new=free:Y
+r11u217verify/cases/X/x05 el new=old:Y new=free:Y

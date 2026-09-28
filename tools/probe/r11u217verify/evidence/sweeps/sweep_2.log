@@ -1,0 +1,74 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u217_sw2/probe.csv
+probe cases: EQUAL=3406 STRICT_NOTEQUAL=681 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3406 differ:fullname=258 differ:line=105 differ:endcol=84 differ:type=71 differ:name=58 differ:file=38 differ:depth=34 differ:col=14 differ:endline=11 differ:value=7 differ:decompile=1
+== probe vs golden_probe.csv
+[probe] EQUAL=3406 STRICT_NOTEQUAL=681
+REGRESSION r10uvm149repro/g149/shapes EQUAL -> STRICT_NOTEQUAL differ:endcol(30)
+REGRESSION r11u107repro/grid/a12_anon_named_member EQUAL -> STRICT_NOTEQUAL differ:fullname(8)
+REGRESSION r11u109repro/grid/f5/k10_named_member_dim EQUAL -> STRICT_NOTEQUAL differ:fullname(14)
+REGRESSION v11u93b107repro/brk/p04_enum_member EQUAL -> STRICT_NOTEQUAL differ:fullname(5)
+CHANGE r10uvm149repro/g149/homes STRICT_NOTEQUAL differ:endline(1) -> differ:endcol(15)
+CHANGE r10v149repro/arms/paramtype STRICT_NOTEQUAL differ:fullname(2) -> differ:endcol(22)
+regressions=4 conversions=0 changes=2 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u217_sw2/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u217_bin/uhdm-strictcmp
+
+[default] 798 tests
+  CMP_EQUAL: 466
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  STRICT_NOTEQUAL: 14
+  DEFERRED: 5
+  CMP_NOTEQUAL: 3
+
+[testflags] 798 tests
+  CMP_EQUAL: 463
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  STRICT_NOTEQUAL: 11
+  DEFERRED: 5
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=466 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=14 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=11 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:col(51) -> differ:endcol(57)
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:col(51) -> differ:endcol(57)
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(75) -> differ:file(77) [file +2]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(75) -> differ:file(77) [file +2]
+CHANGE Rggen default STRICT_NOTEQUAL differ:file(3) -> differ:file(4) [file +1]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(188) -> differ:fullname(193) [fullname +5]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:fullname(61) -> differ:fullname(63) [fullname +2]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:fullname(61) -> differ:fullname(63) [fullname +2]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(236) -> differ:fullname(241) [fullname +5]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(236) -> differ:fullname(241) [fullname +5]
+regressions=0 conversions=0 changes=10 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u217_sw2/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u217_bin/uhdm-strictcmp
+
+[default] 871 tests
+  CMP_EQUAL: 798
+  SLANG_REJECT: 67
+  STRICT_NOTEQUAL: 5
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 798
+  SLANG_REJECT: 67
+  STRICT_NOTEQUAL: 5
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=798 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=5
+[testflags] CMP_EQUAL=798 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=5
+CHANGE anon_struct_packed_dim default STRICT_NOTEQUAL differ:fullname(4) -> differ:fullname(43) [fullname +39]
+CHANGE anon_struct_packed_dim testflags STRICT_NOTEQUAL differ:fullname(4) -> differ:fullname(43) [fullname +39]
+regressions=0 conversions=0 changes=2 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+SWEEP_RC=1

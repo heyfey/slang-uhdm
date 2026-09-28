@@ -1,0 +1,542 @@
+ALLOFF | tp/r11u158repro/cases/sc/c10 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 2 common constant assignments match
+ALLOFF | tp/r11u158repro/cases/sc/c11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u158repro/cases/sc/c12 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 2 common constant assignments match
+ALLOFF | tp/r11u158repro/cases/sc/c13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u158repro/cases/sc/c14 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u158repro/cases/sc/c15 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u158repro/cases/sc/c16 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u158repro/cases/sc/c17 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u158repro/cases/sc/c1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u158repro/cases/sc/c2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u158repro/cases/sc/c3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u158repro/cases/sc/c4 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u158repro/cases/sc/c5 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u158repro/cases/sc/c6 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u158repro/cases/sc/c7 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u158repro/cases/sc/c8 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u158repro/cases/sc/c9 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u173verify/cases/hw/w12_index_member_blanks | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in UHDM import
+ALLOFF | tp/r11u173verify/cases/hw/w13_index_member_noblank_ctl | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in UHDM import
+ALLOFF | tp/r11u173verify/cases/rq/q03_high_var_genscope_decl | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u173verify/cases/rq/q08_high_param_genfor | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u217_dsc/ALL
+ALLOFF | tp/r11u181repro/cases/us/u01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u181repro/cases/us/u02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 5 common constant assignments match
+ALLOFF | tp/r11u181repro/cases/us/u03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u181repro/cases/us/u04 | IDENTICAL | OK | OK | 8 | 8 | - | -
+ALLOFF | tp/r11u181repro/cases/us/u05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u181repro/cases/us/u06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u181repro/cases/us/u07 | IDENTICAL | OK | OK | 7 | 7 | - | -
+ALLOFF | tp/r11u181repro/cases/us/u08 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 5 common constant assignments match
+ALLOFF | tp/r11u185verify/cases/GV/v01_named_array_elem | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | tp/r11u185verify/cases/GV/v02_named_array_elem_mp | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/r11u185verify/cases/GV/v03_pos_array_elem | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | tp/r11u185verify/cases/GV/v04_param_iface_named_plain | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | tp/r11u185verify/cases/GV/v05_prog_array_elem_mp | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u185verify/cases/GV/v06_named_plain_nets_param | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | tp/r11u185verify/cases/GV/v07_typed_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ALLOFF | tp/r11u185verify/cases/GV/v08_modport_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ALLOFF | tp/r11u185verify/cases/GV/v09_chain_through_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ALLOFF | tp/r11u185verify/cases/GV/v10_prog_typed_then_generic | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u185verify/cases/GV/v11_typed_then_generic_mpconn | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/r11u185verify/cases/GV/v12_generic_typed_generic | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | tp/r11u185verify/cases/GV/v13_logic_between_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | tp/r11u185verify/cases/GV/v14_two_generic_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | tp/r11u185verify/cases/GV/v15_typed_then_generic_multiline | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ALLOFF | tp/r11u185verify/cases/PG/p04_mod_control_same_ports | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ALLOFF | tp/r11u185verify/cases/PU/u01_nested_member_read | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u185verify/cases/PU/u02_pkg_task_loop_bound | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u185verify/cases/PU/u03_pkg_var_dims | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u185verify/cases/PU/u04_default_key_pattern | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u185verify/cases/PU/u05_positional_read | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u185verify/cases/PU/u06_whole_copy_and_bits | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u217_dsc/ALL
+ALLOFF | tp/r11u185verify/cases/PU/u07_other_pkg_read | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u185verify/cases/UD/u01_op_first | IDENTICAL | OK | OK | 4 | 4 | - | -
+ALLOFF | tp/r11u185verify/cases/UD/u02_sel_of_sel_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | tp/r11u185verify/cases/UD/u03_iface_member_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | tp/r11u185verify/cases/UD/u04_inst_array | DIVERGENT | OK | OK | 2 | 2 | nohier il synth |    This indicates a serious bug in /tmp/r11u217_dsc/ALLOFF/tp__r11u185verify__ca
+ALLOFF | tp/r11u185verify/cases/UD/u05_mixed_lit_then_net | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | tp/r11u185verify/cases/UD/u06_lit_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | tp/r11u190verify/cases/R/r01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u190verify/cases/R/r02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u190verify/cases/R/r03 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ALLOFF | tp/r11u190verify/cases/R/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u190verify/cases/US/u01 | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ALLOFF | tp/r11u190verify/cases/US/u02 | IDENTICAL | OK | OK | 90 | 90 | - | -
+ALLOFF | tp/r11u190verify/cases/US/u03 | IDENTICAL | OK | OK | 37 | 37 | - | -
+ALLOFF | tp/r11u190verify/cases/US/u04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/R/r01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/R/r02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/R/r03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/R/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/U/u01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/U/u02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/U/u03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/U/u04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/U/u05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/U/u06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/U/u07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/U/u08 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 2 common constant assignments match
+ALLOFF | tp/r11u191dec/cases/U/u09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/U/u10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/U/u11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/U/u_p01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/U/u_p02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 1 common constant assignments match
+ALLOFF | tp/r11u191dec/cases/U/u_p03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/U/u_p05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/U/u_p06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u191dec/cases/U/u_p07 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/r11u191dec/cases/U/u_p08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u194verify/cases/X/x01_tp_enum_keyword | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 2 common constant assignments match
+ALLOFF | tp/r11u194verify/cases/Z/z01_module_param_class_elab | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u196repro/cases/DF/d03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u199verify/cases/C/c06_nda_array_net | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u217_dsc/ALL
+ALLOFF | tp/r11u199verify/cases/T/t03_gen_loop | EQUIVALENT | OK | OK | 25 | 25 | nohier il | ✅ Formal equivalence check PASSED for /tmp/r11u217_dsc/ALLOFF/tp__r11u199verify_
+ALLOFF | tp/r11u199verify/cases/T/t04_struct_net | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u199verify/cases/W/w1_unsigned | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u199verify/cases/W/w2_signed | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u199verify/cases/W/w8_bits | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u199verify/cases/X/x05_repl_fill_genloop | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 17 common constant assignments match
+ALLOFF | tp/r11u199verify/cases/X/x06_enum_port_cast | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in /tmp/r11u217_dsc/ALLOFF/tp__r11u199verify__ca
+ALLOFF | tp/r11u200dec/cases/B/b01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u200dec/cases/B/b02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u200dec/cases/B/b03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u200dec/cases/B/b04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u200dec/cases/B/b05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u200dec/cases/K/k01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u200dec/cases/K/k02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 2 common constant assignments match
+ALLOFF | tp/r11u200dec/cases/K/k03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u200dec/cases/K/k04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u200dec/cases/K/k05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u200dec/cases/K/k06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u200dec/cases/K/k07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u200dec/cases/K/k08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u204verify/cases/DF/e01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u204verify/cases/DF/e06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u204verify/cases/DF/e07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u204verify/cases/DF/e08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u204verify/cases/V191/cc4 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u204verify/cases/V191/cc6 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 4 common constant assignments match
+ALLOFF | tp/r11u204verify/cases/V191/rp2 | DIVERGENT | OK | OK | 1 | 1 | nohier il synth |    This indicates a serious bug in /tmp/r11u217_dsc/ALLOFF/tp__r11u204verify__ca
+ALLOFF | tp/r11u204verify/cases/X/x5 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in UHDM import
+ALLOFF | tp/r11u205dec/cases/B3/b01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/B3/b02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/B3/b03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/B3/b04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/B3/b05 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u217_dsc/ALL
+ALLOFF | tp/r11u205dec/cases/B3/b06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/B3/b07 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u217_dsc/ALL
+ALLOFF | tp/r11u205dec/cases/B3/b08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/D5/d01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u217_dsc/ALL
+ALLOFF | tp/r11u205dec/cases/D5/d02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/D5/d03 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u217_dsc/ALL
+ALLOFF | tp/r11u205dec/cases/D5/d04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/FT/f01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/FT/f02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/FT/f03 | SLANG_REJECT |  |  |  |  | - | -
+ALLOFF | tp/r11u205dec/cases/FT/f04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/FT/f05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/FT/f06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/g01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/g02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/g03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/g04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/g05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/g06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/g07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/g08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/g09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/g10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/g11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/g12 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/g13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/g14 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/q01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/q03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/q05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/GS/q06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/IA/a01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/IA/a02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/IA/a03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/IA/a04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/IA/a05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/IP/i01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/IP/i02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/IP/i03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/IP/i04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/IP/i05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/IP/i06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/IP/i07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/IP/i08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/TP/t01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/TP/t02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/TP/t03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/TP/t04 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 1 common constant assignments match
+ALLOFF | tp/r11u205dec/cases/TP/t05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/TP/t06 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 2 common constant assignments match
+ALLOFF | tp/r11u205dec/cases/TP/t07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/TP/t08 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/r11u205dec/cases/TP/t09 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 1 common constant assignments match
+ALLOFF | tp/r11u205dec/cases/TP/t10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/TP/t11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/TP/t12 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in /tmp/r11u217_dsc/ALLOFF/tp__r11u205dec__cases
+ALLOFF | tp/r11u205dec/cases/TP/t13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/TP/t14 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/TP/t15 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/TP/t16 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u205dec/cases/TP/t17 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 1 common constant assignments match
+ALLOFF | tp/r11u212repro/cases/EA/e01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/EA/e02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/EA/e03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/EA/e04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/EA/e05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/EA/e06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/EA/e07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/NS/n01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/NS/n02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/NS/n03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/NS/n04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/NS/n05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/NS/n06 | IDENTICAL | OK | OK | 10 | 10 | - | -
+ALLOFF | tp/r11u212repro/cases/NS/n07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/NS/n08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/NS/n09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/NS/n10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/QM/q01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/QM/q02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/QM/q03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/QM/q04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/QM/q05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/QM/q06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/QM/q07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/QM/q08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/QM/q09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/QM/q10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s06 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s10 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s12 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s14 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s15 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s16 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s17 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s18 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s19 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s20 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s21 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s22 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s23 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s24 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s25 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s26 | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s27 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s28 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s29 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s30 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s31 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s32 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s33 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s34 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s35 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s36 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s37 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s38 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s39 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s40 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s41 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u212repro/cases/SR/s42 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ALLOFF | tp/v11u171repro/cases/Q/c01_tail_const | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | tp/v11u171repro/cases/Q/c02_tail_op | EQUIVALENT | OK | OK | 4 | 4 | nohier il | ✅ Formal equivalence check PASSED for /tmp/r11u217_dsc/ALLOFF/tp__v11u171repro__
+ALLOFF | tp/v11u171repro/cases/Q/c03_nested_concat_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | tp/v11u171repro/cases/Q/c04_repl_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | tp/v11u171repro/cases/Q/c05_tail_partsel | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | tp/v11u171repro/cases/Q/c06_gen_for_inst | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | tp/v11u171repro/cases/Q/c07_const_in_concat | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | tp/v11u171repro/cases/Q/c08_inst_array | EQUIVALENT | OK | OK | 2 | 2 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u217_dsc/ALLOFF/tp__v11u171repro__
+ALLOFF | tp/v11u171repro/cases/Q/c09_hier_child | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | tp/v11u171repro/cases/Q/c10_two_port | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | tp/v11u171repro/cases/Q/c11_var_select | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | tp/v11u171repro/cases/Q/c12_op_in_concat | IDENTICAL | OK | OK | 3 | 3 | - | -
+ALLOFF | tp/v11u171repro/cases/Q/c13_param_in_concat | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | tp/v11u171repro/cases/Q/c14_const_select | EQUIVALENT | OK | OK | 2 | 2 | nohier il | ✅ Formal equivalence check PASSED for /tmp/r11u217_dsc/ALLOFF/tp__v11u171repro__
+ALLOFF | tp/v11u202repro/cases/PP/p05 | DIVERGENT | OK | OK | 1 | 12 | nohier il synth | ----------------------------------------------
+ALLOFF | tp/v11u206repro/cases/A/a12 | DIVERGENT | OK | OK | 1 | 1 | nohier il synth | ----------------------------------------------
+ON | tp/r11u158repro/cases/sc/c10 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 2 common constant assignments match
+ON | tp/r11u158repro/cases/sc/c11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u158repro/cases/sc/c12 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 2 common constant assignments match
+ON | tp/r11u158repro/cases/sc/c13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u158repro/cases/sc/c14 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u158repro/cases/sc/c15 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u158repro/cases/sc/c16 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u158repro/cases/sc/c17 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u158repro/cases/sc/c1 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u158repro/cases/sc/c2 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u158repro/cases/sc/c3 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u158repro/cases/sc/c4 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u158repro/cases/sc/c5 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u158repro/cases/sc/c6 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u158repro/cases/sc/c7 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u158repro/cases/sc/c8 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u158repro/cases/sc/c9 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u173verify/cases/hw/w12_index_member_blanks | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in UHDM import
+ON | tp/r11u173verify/cases/hw/w13_index_member_noblank_ctl | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in UHDM import
+ON | tp/r11u173verify/cases/rq/q03_high_var_genscope_decl | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u173verify/cases/rq/q08_high_param_genfor | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u217_dsc/ON/
+ON | tp/r11u181repro/cases/us/u01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u181repro/cases/us/u02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 5 common constant assignments match
+ON | tp/r11u181repro/cases/us/u03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u181repro/cases/us/u04 | IDENTICAL | OK | OK | 8 | 8 | - | -
+ON | tp/r11u181repro/cases/us/u05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u181repro/cases/us/u06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u181repro/cases/us/u07 | IDENTICAL | OK | OK | 7 | 7 | - | -
+ON | tp/r11u181repro/cases/us/u08 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 5 common constant assignments match
+ON | tp/r11u185verify/cases/GV/v01_named_array_elem | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | tp/r11u185verify/cases/GV/v02_named_array_elem_mp | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ON | tp/r11u185verify/cases/GV/v03_pos_array_elem | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | tp/r11u185verify/cases/GV/v04_param_iface_named_plain | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | tp/r11u185verify/cases/GV/v05_prog_array_elem_mp | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u185verify/cases/GV/v06_named_plain_nets_param | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | tp/r11u185verify/cases/GV/v07_typed_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ON | tp/r11u185verify/cases/GV/v08_modport_then_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ON | tp/r11u185verify/cases/GV/v09_chain_through_generic | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ON | tp/r11u185verify/cases/GV/v10_prog_typed_then_generic | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u185verify/cases/GV/v11_typed_then_generic_mpconn | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ON | tp/r11u185verify/cases/GV/v12_generic_typed_generic | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | tp/r11u185verify/cases/GV/v13_logic_between_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | tp/r11u185verify/cases/GV/v14_two_generic_control | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | tp/r11u185verify/cases/GV/v15_typed_then_generic_multiline | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ON | tp/r11u185verify/cases/PG/p04_mod_control_same_ports | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ON | tp/r11u185verify/cases/PU/u01_nested_member_read | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u185verify/cases/PU/u02_pkg_task_loop_bound | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u185verify/cases/PU/u03_pkg_var_dims | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u185verify/cases/PU/u04_default_key_pattern | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u185verify/cases/PU/u05_positional_read | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u185verify/cases/PU/u06_whole_copy_and_bits | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u217_dsc/ON/
+ON | tp/r11u185verify/cases/PU/u07_other_pkg_read | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u185verify/cases/UD/u01_op_first | IDENTICAL | OK | OK | 4 | 4 | - | -
+ON | tp/r11u185verify/cases/UD/u02_sel_of_sel_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | tp/r11u185verify/cases/UD/u03_iface_member_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | tp/r11u185verify/cases/UD/u04_inst_array | DIVERGENT | OK | OK | 2 | 2 | nohier il synth |    This indicates a serious bug in /tmp/r11u217_dsc/ON/tp__r11u185verify__cases_
+ON | tp/r11u185verify/cases/UD/u05_mixed_lit_then_net | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | tp/r11u185verify/cases/UD/u06_lit_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | tp/r11u190verify/cases/R/r01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u190verify/cases/R/r02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u190verify/cases/R/r03 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | tp/r11u190verify/cases/R/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u190verify/cases/US/u01 | STATUS_DIFF | NO_GATES | READ_FAIL | 0 | 0 | - | -
+ON | tp/r11u190verify/cases/US/u02 | IDENTICAL | OK | OK | 90 | 90 | - | -
+ON | tp/r11u190verify/cases/US/u03 | IDENTICAL | OK | OK | 37 | 37 | - | -
+ON | tp/r11u190verify/cases/US/u04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/R/r01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/R/r02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/R/r03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/R/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/U/u01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/U/u02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/U/u03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/U/u04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/U/u05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/U/u06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/U/u07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/U/u08 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 2 common constant assignments match
+ON | tp/r11u191dec/cases/U/u09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/U/u10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/U/u11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/U/u_p01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/U/u_p02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 1 common constant assignments match
+ON | tp/r11u191dec/cases/U/u_p03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/U/u_p05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/U/u_p06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u191dec/cases/U/u_p07 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ON | tp/r11u191dec/cases/U/u_p08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u194verify/cases/X/x01_tp_enum_keyword | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 2 common constant assignments match
+ON | tp/r11u194verify/cases/Z/z01_module_param_class_elab | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u196repro/cases/DF/d03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u199verify/cases/C/c06_nda_array_net | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u217_dsc/ON/
+ON | tp/r11u199verify/cases/T/t03_gen_loop | EQUIVALENT | OK | OK | 25 | 25 | nohier il | ✅ Formal equivalence check PASSED for /tmp/r11u217_dsc/ON/tp__r11u199verify__cas
+ON | tp/r11u199verify/cases/T/t04_struct_net | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u199verify/cases/W/w1_unsigned | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u199verify/cases/W/w2_signed | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u199verify/cases/W/w8_bits | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u199verify/cases/X/x05_repl_fill_genloop | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 17 common constant assignments match
+ON | tp/r11u199verify/cases/X/x06_enum_port_cast | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in /tmp/r11u217_dsc/ON/tp__r11u199verify__cases_
+ON | tp/r11u200dec/cases/B/b01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u200dec/cases/B/b02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u200dec/cases/B/b03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u200dec/cases/B/b04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u200dec/cases/B/b05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u200dec/cases/K/k01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u200dec/cases/K/k02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 2 common constant assignments match
+ON | tp/r11u200dec/cases/K/k03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u200dec/cases/K/k04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u200dec/cases/K/k05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u200dec/cases/K/k06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u200dec/cases/K/k07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u200dec/cases/K/k08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u204verify/cases/DF/e01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u204verify/cases/DF/e06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u204verify/cases/DF/e07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u204verify/cases/DF/e08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u204verify/cases/V191/cc4 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u204verify/cases/V191/cc6 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 4 common constant assignments match
+ON | tp/r11u204verify/cases/V191/rp2 | DIVERGENT | OK | OK | 1 | 1 | nohier il synth |    This indicates a serious bug in /tmp/r11u217_dsc/ON/tp__r11u204verify__cases_
+ON | tp/r11u204verify/cases/X/x5 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in UHDM import
+ON | tp/r11u205dec/cases/B3/b01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/B3/b02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/B3/b03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/B3/b04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/B3/b05 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u217_dsc/ON/
+ON | tp/r11u205dec/cases/B3/b06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/B3/b07 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u217_dsc/ON/
+ON | tp/r11u205dec/cases/B3/b08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/D5/d01 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u217_dsc/ON/
+ON | tp/r11u205dec/cases/D5/d02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/D5/d03 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u217_dsc/ON/
+ON | tp/r11u205dec/cases/D5/d04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/FT/f01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/FT/f02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/FT/f03 | SLANG_REJECT |  |  |  |  | - | -
+ON | tp/r11u205dec/cases/FT/f04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/FT/f05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/FT/f06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/g01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/g02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/g03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/g04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/g05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/g06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/g07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/g08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/g09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/g10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/g11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/g12 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/g13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/g14 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/q01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/q03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/q05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/GS/q06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/IA/a01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/IA/a02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/IA/a03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/IA/a04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/IA/a05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/IP/i01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/IP/i02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/IP/i03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/IP/i04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/IP/i05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/IP/i06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/IP/i07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/IP/i08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/TP/t01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/TP/t02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/TP/t03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/TP/t04 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 1 common constant assignments match
+ON | tp/r11u205dec/cases/TP/t05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/TP/t06 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 2 common constant assignments match
+ON | tp/r11u205dec/cases/TP/t07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/TP/t08 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ON | tp/r11u205dec/cases/TP/t09 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 1 common constant assignments match
+ON | tp/r11u205dec/cases/TP/t10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/TP/t11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/TP/t12 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in /tmp/r11u217_dsc/ON/tp__r11u205dec__cases__TP
+ON | tp/r11u205dec/cases/TP/t13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/TP/t14 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/TP/t15 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/TP/t16 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u205dec/cases/TP/t17 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 1 common constant assignments match
+ON | tp/r11u212repro/cases/EA/e01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/EA/e02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/EA/e03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/EA/e04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/EA/e05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/EA/e06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/EA/e07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/NS/n01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/NS/n02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/NS/n03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/NS/n04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/NS/n05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/NS/n06 | IDENTICAL | OK | OK | 10 | 10 | - | -
+ON | tp/r11u212repro/cases/NS/n07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/NS/n08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/NS/n09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/NS/n10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/QM/q01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/QM/q02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/QM/q03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/QM/q04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/QM/q05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/QM/q06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/QM/q07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/QM/q08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/QM/q09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/QM/q10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s06 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | tp/r11u212repro/cases/SR/s07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s10 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | tp/r11u212repro/cases/SR/s11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s12 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s14 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s15 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | tp/r11u212repro/cases/SR/s16 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s17 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s18 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s19 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s20 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s21 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s22 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s23 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s24 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s25 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | tp/r11u212repro/cases/SR/s26 | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | tp/r11u212repro/cases/SR/s27 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s28 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s29 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s30 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s31 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s32 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | tp/r11u212repro/cases/SR/s33 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | tp/r11u212repro/cases/SR/s34 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | tp/r11u212repro/cases/SR/s35 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | tp/r11u212repro/cases/SR/s36 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s37 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s38 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s39 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s40 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s41 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u212repro/cases/SR/s42 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | tp/v11u171repro/cases/Q/c01_tail_const | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | tp/v11u171repro/cases/Q/c02_tail_op | EQUIVALENT | OK | OK | 4 | 4 | nohier il | ✅ Formal equivalence check PASSED for /tmp/r11u217_dsc/ON/tp__v11u171repro__case
+ON | tp/v11u171repro/cases/Q/c03_nested_concat_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | tp/v11u171repro/cases/Q/c04_repl_first | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | tp/v11u171repro/cases/Q/c05_tail_partsel | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | tp/v11u171repro/cases/Q/c06_gen_for_inst | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | tp/v11u171repro/cases/Q/c07_const_in_concat | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | tp/v11u171repro/cases/Q/c08_inst_array | EQUIVALENT | OK | OK | 2 | 2 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u217_dsc/ON/tp__v11u171repro__case
+ON | tp/v11u171repro/cases/Q/c09_hier_child | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | tp/v11u171repro/cases/Q/c10_two_port | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | tp/v11u171repro/cases/Q/c11_var_select | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | tp/v11u171repro/cases/Q/c12_op_in_concat | IDENTICAL | OK | OK | 3 | 3 | - | -
+ON | tp/v11u171repro/cases/Q/c13_param_in_concat | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | tp/v11u171repro/cases/Q/c14_const_select | EQUIVALENT | OK | OK | 2 | 2 | nohier il | ✅ Formal equivalence check PASSED for /tmp/r11u217_dsc/ON/tp__v11u171repro__case
+ON | tp/v11u202repro/cases/PP/p05 | DIVERGENT | OK | OK | 1 | 12 | nohier il synth | ----------------------------------------------
+ON | tp/v11u206repro/cases/A/a12 | DIVERGENT | OK | OK | 1 | 1 | nohier il synth | ----------------------------------------------
