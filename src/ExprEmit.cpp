@@ -23,6 +23,7 @@
 #include "slang/ast/expressions/Operator.h"
 #include "slang/ast/symbols/CoverSymbols.h"
 #include "R204.h"
+#include "R208.h"
 
 namespace slang_uhdm {
 // The r11u200 switches of this file (ground A; the switch table is in
@@ -1141,8 +1142,75 @@ static bool caClonedOpRoot201(const Expression& e, const UHDM::any* parent) {
 // unrefined law in both forms).  The target is read from the syntax (a plain
 // identifier) and resolved through the listing's net map; any implicit net
 // of that name declines.
+// § opCtxTargetAncestorBind208v (r11u208, refines § opCtxBindableTarget201v;
+// R11V208_OPTGTANC_OFF) — CompileHelper::bindVariable(component, scope, name)
+// (CompileStmt.cpp) searches a module_inst scope's Variables() and Nets() and
+// otherwise, and after a miss, RECURSES into `scope->VpiParent()`: the
+// definition listing's scope object hangs under the instance chain of the
+// definition's first instance, so a target NAME declared in any enclosing
+// module instance binds (by name only), writeCont_assign clones, and the
+// listing's own objects stay bare.  § opCtxBindableTarget201v declined every
+// interface body and every implicit-net target; golden (the pinned Surelog,
+// grid tools/probe/r11u208verify/cases/OB) keeps the stamp only when no
+// enclosing module instance declares the name: an interface variable `z` or
+// port `y` whose instantiating module (at any depth) declares a net or
+// variable `z` / `y` is bare (OB/b01 b03 b05, OA/o06's `y`), an implicit net
+// `imp` in a child whose parent declares `imp` is bare (OB/b04); and an
+// interface that is never instantiated has its continuous assignments
+// written without the reduction at all, so they are bare whatever the target
+// (OB/b02).  The ancestor walk reads the representative instance the
+// definition listing is emitted from (the first collected), as Surelog's
+// listing reads its first instance's chain (OB/b06: instantiated first under
+// a module without the name, then under one with it: stamped).
+// 1 = bound by an enclosing instance, 2 = an uninstantiated interface
+// (default instance), 0 = neither.
+static int r208AncestorBinds(const std::map<const slang::ast::Symbol*, UHDM::any*>& nm,
+                             std::string_view tn, bool* viaGen = nullptr) {
+    const InstanceBodySymbol* body = nullptr;
+    for (auto& kv : nm) {
+        if (!kv.first)
+            continue;
+        for (const Scope* sc = kv.first->getParentScope(); sc;) {
+            auto& sy = sc->asSymbol();
+            if (sy.kind == SymbolKind::InstanceBody) {
+                body = &sy.as<InstanceBodySymbol>();
+                break;
+            }
+            sc = sy.getParentScope();
+        }
+        if (body)
+            break;
+    }
+    if (!body || !body->parentInstance)
+        return 0;
+    const InstanceSymbol* inst = body->parentInstance;
+    if (body->getDefinition().definitionKind == DefinitionKind::Interface &&
+        !inst->getParentScope())
+        return 2;
+    for (const Scope* sc = inst->getParentScope(); sc;) {
+        auto& sy = sc->asSymbol();
+        if (sy.kind == SymbolKind::InstanceBody) {
+            for (auto& mem : sc->members())
+                if (mem.name == tn && (mem.kind == SymbolKind::Net ||
+                                       mem.kind == SymbolKind::Variable))
+                    return 1;
+            auto* pi = sy.as<InstanceBodySymbol>().parentInstance;
+            if (!pi)
+                break;
+            sc = pi->getParentScope();
+        }
+        else {
+            if (viaGen && (sy.kind == SymbolKind::GenerateBlock ||
+                           sy.kind == SymbolKind::GenerateBlockArray))
+                *viaGen = true;
+            sc = sy.getParentScope();
+        }
+    }
+    return 0;
+}
 static bool caTargetBindable201v(const Expression& e, const UHDM::any* parent,
-                                 const std::map<const slang::ast::Symbol*, UHDM::any*>& nm) {
+                                 const std::map<const slang::ast::Symbol*, UHDM::any*>& nm,
+                                 bool elab208 = false) {
     if (!r11v201On("R11V201_OPTGT_OFF"))
         return true;
     const UHDM::any* ca = nullptr;
@@ -1152,9 +1220,6 @@ static bool caTargetBindable201v(const Expression& e, const UHDM::any* parent,
             ca = q;
             break;
         }
-    if (!ca || !ca->VpiParent() ||
-        ca->VpiParent()->UhdmType() != UHDM::uhdmmodule_inst)
-        return false;
     const syntax::SyntaxNode* asg = nullptr;
     for (const syntax::SyntaxNode* n = e.syntax; n; n = n->parent) {
         if (n->kind == syntax::SyntaxKind::AssignmentExpression)
@@ -1162,18 +1227,50 @@ static bool caTargetBindable201v(const Expression& e, const UHDM::any* parent,
         else if (n->kind == syntax::SyntaxKind::ContinuousAssign)
             break;
     }
+    std::string_view tn;
+    if (asg) {
+        auto& b0 = asg->as<syntax::BinaryExpressionSyntax>();
+        if (b0.left && b0.left->kind == syntax::SyntaxKind::IdentifierName)
+            tn = b0.left->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+    }
+    if (!ca || !ca->VpiParent() ||
+        ca->VpiParent()->UhdmType() != UHDM::uhdmmodule_inst) {
+        // § opCtxTargetAncestorBind208v: an interface body
+        if (ca && ca->VpiParent() &&
+            ca->VpiParent()->UhdmType() == UHDM::uhdminterface_inst && !tn.empty() &&
+            r11v208Law("R11V208_OPTGTANC_OFF")) {
+            // Under --elabuhdm an interface instantiated inside a generate
+            // block re-lists these very objects as the generate scope's
+            // elaborated interface (golden: a separate, reduced and stamped
+            // copy; OB/b07's `-elabuhdm` form), so the definition listing
+            // keeps the stamp there: the elaborated copy outweighs it.
+            bool viaGen208 = false;
+            int k208 = r208AncestorBinds(nm, tn, &viaGen208);
+            if (k208 && !(elab208 && viaGen208)) {
+                tr208("opCtxTargetAncestorBind208v",
+                      std::string(k208 == 2 ? "uninst " : "iface ") + std::string(tn));
+                return true;
+            }
+        }
+        return false;
+    }
     if (!asg)
         return false;
     auto& b = asg->as<syntax::BinaryExpressionSyntax>();
     if (!b.left || b.left->kind != syntax::SyntaxKind::IdentifierName)
         return false;
-    std::string_view tn =
-        b.left->as<syntax::IdentifierNameSyntax>().identifier.valueText();
     for (auto& kv : nm)
         if (kv.first && kv.first->name == tn &&
             kv.first->kind == SymbolKind::Net &&
-            kv.first->as<NetSymbol>().isImplicit)
+            kv.first->as<NetSymbol>().isImplicit) {
+            // § opCtxTargetAncestorBind208v: an implicit net an enclosing
+            // module instance declares by name
+            if (r11v208Law("R11V208_OPTGTANC_OFF") && r208AncestorBinds(nm, tn) == 1) {
+                tr208("opCtxTargetAncestorBind208v", "implicit " + std::string(tn));
+                return true;
+            }
             return false;
+        }
     return true;
 }
 static bool caRhsUnbasedUnsized192(const Expression& e) {
@@ -31950,7 +32047,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                      firstOp201->VpiOpType() != vpiConditionOp &&
                                      r11u201On("R11U201_OPARG_OFF") &&
                                      caClonedOpRoot201(expr, parent)) {
-                                if (caTargetBindable201v(expr, parent, netMap)) {
+                                if (caTargetBindable201v(expr, parent, netMap,
+                                                         elabUhdmView121)) {
                                     opBare201 = true;
                                     trace201("opCtxRefArgBare201");
                                 }

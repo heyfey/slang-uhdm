@@ -1,0 +1,4 @@
+ON | ClassTypeParam | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | SVSwitch | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | ClassTypeParam | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | SVSwitch | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -

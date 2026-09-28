@@ -1,0 +1,15 @@
+r11u208verify/cases/OA/o06 el :: opCtxTargetAncestorBind208v iface y;
+r11u208verify/cases/OA/o06 :: opCtxTargetAncestorBind208v iface y;
+r11u208verify/cases/OB/b01 el :: opCtxTargetAncestorBind208v iface z;opCtxTargetAncestorBind208v iface u;
+r11u208verify/cases/OB/b01 :: opCtxTargetAncestorBind208v iface z;opCtxTargetAncestorBind208v iface u;
+r11u208verify/cases/OB/b02 el :: opCtxTargetAncestorBind208v uninst y;opCtxTargetAncestorBind208v uninst z;
+r11u208verify/cases/OB/b02 :: opCtxTargetAncestorBind208v uninst y;opCtxTargetAncestorBind208v uninst z;
+r11u208verify/cases/OB/b03 el :: opCtxTargetAncestorBind208v iface z;
+r11u208verify/cases/OB/b03 :: opCtxTargetAncestorBind208v iface z;
+r11u208verify/cases/OB/b04 el :: opCtxTargetAncestorBind208v implicit imp;
+r11u208verify/cases/OB/b04 :: opCtxTargetAncestorBind208v implicit imp;
+r11u208verify/cases/OB/b05 el :: opCtxTargetAncestorBind208v iface y;
+r11u208verify/cases/OB/b05 :: opCtxTargetAncestorBind208v iface y;
+r11u208verify/cases/OB/b07 :: opCtxTargetAncestorBind208v iface z;
+r11u208verify/cases/OB/b08 el :: opCtxTargetAncestorBind208v implicit imp;
+r11u208verify/cases/OB/b08 :: opCtxTargetAncestorBind208v implicit imp;

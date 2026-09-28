@@ -1,0 +1,15 @@
+MiniAmiq default hashes=2
+   dd9e7e671b37 [L/MiniAmiq_default_1 swH:sweep] strict=[objects 435559 vs 433769 STRICT_NOTEQUAL file ] cmp_lines=0
+   44503790f4d7 [L/MiniAmiq_default_2 L/MiniAmiq_default_3] strict=[objects 435559 vs 433769 STRICT_NOTEQUAL file ] cmp_lines=0
+   dd9e7e671b37 vs 44503790f4d7: order-blind lines 0
+MiniAmiq testflags hashes=2
+   dd9e7e671b37 [L/MiniAmiq_testflags_1 L/MiniAmiq_testflags_2 swH:sweep] strict=[objects 435559 vs 433769 STRICT_NOTEQUAL file ] cmp_lines=0
+   44503790f4d7 [L/MiniAmiq_testflags_3] strict=[objects 435559 vs 433769 STRICT_NOTEQUAL file ] cmp_lines=0
+   dd9e7e671b37 vs 44503790f4d7: order-blind lines 0
+Scoreboard default hashes=3
+   96872705d270 [L/Scoreboard_default_1 swH:sweep] strict=[objects 269656 vs 269679 STRICT_NOTEQUAL fullname ] cmp_lines=0
+   e8579dab5a62 [L/Scoreboard_default_2] strict=[objects 269656 vs 269679 STRICT_NOTEQUAL fullname ] cmp_lines=0
+   b35f475f27da [L/Scoreboard_default_3] strict=[objects 269656 vs 269679 STRICT_NOTEQUAL fullname ] cmp_lines=0
+   96872705d270 vs e8579dab5a62: order-blind lines 0
+   96872705d270 vs b35f475f27da: order-blind lines 0
+   e8579dab5a62 vs b35f475f27da: order-blind lines 0

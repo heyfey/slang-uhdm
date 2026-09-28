@@ -1,0 +1,22 @@
+11:11:32 start law:H
+11:11:33 start alloff:A
+11:20:12 done law:H SWEEP_RC=1
+11:20:12 start off201:1:probe surelog uhdm2rtlil
+11:20:15 done alloff:A SWEEP_RC=1
+11:20:15 start off202:2:probe surelog uhdm2rtlil
+11:26:00 done off202:2:probe surelog uhdm2rtlil SWEEP_RC=1
+11:26:00 done off201:1:probe surelog uhdm2rtlil SWEEP_RC=1
+11:26:00 start wide:W:probe surelog uhdm2rtlil
+11:26:00 start off204:4:probe surelog uhdm2rtlil
+11:32:06 done wide:W:probe surelog uhdm2rtlil SWEEP_RC=1
+11:32:06 done off204:4:probe surelog uhdm2rtlil SWEEP_RC=1
+11:32:06 start off201g:g:probe surelog uhdm2rtlil
+11:32:06 start brief201:b:probe surelog uhdm2rtlil
+11:37:15 start v202off:V:probe surelog uhdm2rtlil
+11:39:26 done brief201:b:probe surelog uhdm2rtlil SWEEP_RC=1
+11:39:27 done off201g:g:probe surelog uhdm2rtlil SWEEP_RC=1
+11:39:27 start brief202:c:probe surelog uhdm2rtlil
+11:43:51 done v202off:V:probe surelog uhdm2rtlil SWEEP_RC=1
+11:45:20 done brief202:c:probe surelog uhdm2rtlil SWEEP_RC=1
+12:00:41 start fixtr:F
+12:07:52 done fixtr:F SWEEP_RC=1

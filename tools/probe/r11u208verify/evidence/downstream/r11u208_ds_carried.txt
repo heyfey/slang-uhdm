@@ -1,0 +1,14 @@
+ON | tp/v11u202repro/cases/PP/p05 | DIVERGENT | OK | OK | 1 | 12 | nohier il synth | ----------------------------------------------
+ON | tp/r11u201repro/cases/Z/z05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u201repro/cases/Z/z06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u201repro/cases/Z/z07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u201repro/cases/Z/z08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u201repro/cases/G/g03_func | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u201repro/cases/G/g05_struct_sel | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u202repro/cases/PP/p05 | DIVERGENT | OK | OK | 1 | 12 | nohier il synth | ----------------------------------------------
+ALLOFF | tp/r11u201repro/cases/Z/z05 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u208_dsc/ALL
+ALLOFF | tp/r11u201repro/cases/Z/z06 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u208_dsc/ALL
+ALLOFF | tp/r11u201repro/cases/Z/z07 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u208_dsc/ALL
+ALLOFF | tp/r11u201repro/cases/Z/z08 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u208_dsc/ALL
+ALLOFF | tp/v11u201repro/cases/G/g03_func | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u208_dsc/ALL
+ALLOFF | tp/v11u201repro/cases/G/g05_struct_sel | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u208_dsc/ALL

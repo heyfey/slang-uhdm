@@ -1,0 +1,95 @@
+tfSigningSpanFollowsCompilePath200 [R11U200_SIGNSPAN_OFF] fired_case_views=12 STAGE1-CLOSER=8 TOWARD=4
+    STAGE1-CLOSER: SS/s01 SS/s01_el SS/s05 SS/s05_el SS/s06 SS/s06_el SS/s07 SS/s07_el
+    TOWARD: SS/s03 SS/s03_el SS/s04 SS/s04_el
+defGenInitRhsKeepsParent200 [R11U200_GENINIT_OFF] fired_case_views=10 STAGE1-CLOSER=6 TOWARD=4
+    STAGE1-CLOSER: GI/g02 GI/g02_el GI/g03 GI/g03_el X/x07 X/x07_el
+    TOWARD: GI/g01 GI/g01_el GI/g04 GI/g04_el
+ifaceArrPortElemViewNamedByArray200 [R11U200_IFARRNAME_OFF] fired_case_views=10 STAGE1-SAME=2 TOWARD=6 UNMASK=2
+    STAGE1-SAME: IA/i06 IA/i06_el
+    TOWARD: IA/i05 IA/i05_el IA/i08 IA/i08_el X/x05 X/x05_el
+    UNMASK: IA/i07 IA/i07_el
+implicitTsEndCrossesLineBreak200 [R11U200_IMPLEND_OFF] fired_case_views=8 TOWARD=8
+    TOWARD: IE/e01 IE/e01_el IE/e02 IE/e02_el IE/e03 IE/e03_el IE/e04 IE/e04_el
+defPortPackedTsKeepsWholeSpan200 [R11U200_PORTPACKED_OFF] fired_case_views=8 MIXED=2 TOWARD=6
+    MIXED: PP/p09 PP/p09_el
+    TOWARD: PP/p06 PP/p06_el PP/p07 PP/p07_el X/x08 X/x08_el
+unitBoundFoldAtLeftOperand200 [R11U200_UNITINIT_OFF R11U200_UNITFOLD_OFF R11U200_FOLDDEPTH_OFF] fired_case_views=6 STAGE1-CLOSER=14 STAGE1-SAME=4
+    STAGE1-CLOSER: UF/f01 UF/f01_el UF/f02 UF/f02_el X/x06 X/x06_el
+    STAGE1-SAME: UF/f02 UF/f02_el
+classTdRetSharesTypedefTs200 [R11U200_CLASSTDRET_OFF] fired_case_views=14 STAGE1-CLOSER=14
+    STAGE1-CLOSER: TR/t01 TR/t01_el TR/t02 TR/t02_el TR/t03 TR/t03_el TR/t04 TR/t04_el TR/t05 TR/t05_el X/x03 X/x03_el X/x09 X/x09_el
+posOpConnKeepsRefModule200 [R11U200_POSREFMOD_OFF] fired_case_views=4 STAGE1-CLOSER=4
+    STAGE1-CLOSER: PQ/q01 PQ/q01_el PQ/q02 PQ/q02_el
+genBlockBitsKeepsSelect200 [R11U200_GENBITS_OFF] fired_case_views=6 STAGE1-CLOSER=6
+    STAGE1-CLOSER: GB/b01 GB/b01_el GB/b02 GB/b02_el X/x07 X/x07_el
+modGenericClassListedAtDefault200 [R11U200_CLASSCRASH_OFF] fired_case_views=0 NONE
+unitClassTdSpecAtName202 [R11U202_UNITCLSTD_OFF] fired_case_views=4 MIXED=2 STAGE1-CLOSER=2
+    MIXED: UT/u01 UT/u01_el
+    STAGE1-CLOSER: UT/u03 UT/u03_el
+unitClassTdEndAtInit202 [R11U202_CLSTDINITEND_OFF] fired_case_views=4 STAGE1-CLOSER=2 TOWARD=2
+    STAGE1-CLOSER: UT/u04 UT/u04_el
+    TOWARD: UT/u02 UT/u02_el
+classSpecExprArgUnlocated202 [R11U202_SPECARGS_OFF] fired_case_views=8 STAGE1-CLOSER=6 TOWARD=2
+    STAGE1-CLOSER: UT/u03 UT/u03_el UT/u04 UT/u04_el X/x02 X/x02_el
+    TOWARD: UT/u01 UT/u01_el
+classValueParamIntSigned202 [R11U202_CLSPARAMSIGN_OFF] fired_case_views=6 STAGE1-CLOSER=6
+    STAGE1-CLOSER: CV/v01 CV/v01_el CV/v02 CV/v02_el UT/u03 UT/u03_el
+modPkgGenericSpecNamedBare202 [R11U202_MODPKGSPEC_OFF] fired_case_views=6 STAGE1-CLOSER=6
+    STAGE1-CLOSER: NP/n01 NP/n01_el NP/n02 NP/n02_el NP/n03 NP/n03_el
+modSpecValueArgSpanAtName202 [R11U202_VALSPECSPAN_OFF] fired_case_views=4 STAGE1-CLOSER=2 TOWARD=2
+    STAGE1-CLOSER: VS/a01 VS/a01_el
+    TOWARD: VS/a02 VS/a02_el
+genVarInitOuterRefUnbound202 [R11U202_GENINITBIND_OFF] fired_case_views=3 BYTES-ONLY=1 STAGE1-CLOSER=2
+    BYTES-ONLY: GI/g04_el
+    STAGE1-CLOSER: GI/g03 GI/g04
+defGenInitBitSelAtIndex202 [R11U202_GENINITBS_OFF] fired_case_views=6 STAGE1-CLOSER=2 TOWARD=4
+    STAGE1-CLOSER: GI/g02 GI/g02_el
+    TOWARD: GI/g01 GI/g01_el GI/g04 GI/g04_el
+portPackedBareImplicitTruncates202v [R11V202_PORTIMPL_OFF] fired_case_views=4 TOWARD=4
+    TOWARD: PP/p07 PP/p07_el X/x08 X/x08_el
+classTdRetVarKeepsWrittenLoc202v [R11V202_TDRETVAR_OFF] fired_case_views=4 STAGE1-CLOSER=2 TOWARD=2
+    STAGE1-CLOSER: TR/t01 TR/t01_el
+    TOWARD: TR/t03 TR/t03_el
+implicitTsEndAfterLineComment202v [R11V202_IMPLCMT_OFF] fired_case_views=6 TOWARD=6
+    TOWARD: IE/e01 IE/e01_el IE/e02 IE/e02_el IE/e04 IE/e04_el
+implicitTsEndSkipsCarriageReturn202v [R11V202_IMPLCR_OFF] fired_case_views=2 TOWARD=2
+    TOWARD: IE/e04 IE/e04_el
+modSpecValueArgDefViewMultiArg202v [R11V202_VALSPECDEF_OFF] fired_case_views=4 BYTES-ONLY=2 STAGE1-CLOSER=2
+    BYTES-ONLY: VS/a02 VS/a02_el
+    STAGE1-CLOSER: VS/a01 VS/a01_el
+newArrayArgPathElemsStripped200 [R11U200_NEWARRHP_OFF] fired_case_views=6 STAGE1-CLOSER=2 TOWARD=4
+    STAGE1-CLOSER: NA/a01 NA/a01_el
+    TOWARD: NA/a02 NA/a02_el X/x05 X/x05_el
+newArrayPathStripTrailOnly201v [R11U201_NEWARRLAST_OFF] fired_case_views=4 STAGE1-CLOSER=3 TOWARD=1
+    STAGE1-CLOSER: NA/a01_el NA/a03_el NA/a04_el
+    TOWARD: NA/a02_el
+clsScopedBoundWholeSpan201 [R11U201_CLSBOUND_OFF] fired_case_views=6 STAGE1-CLOSER=4 TOWARD=2
+    STAGE1-CLOSER: CB/c01 CB/c01_el X/x02 X/x02_el
+    TOWARD: CB/c03 CB/c03_el
+sysCtxRefArgBare201 [R11U201_SYSARG_OFF] fired_case_views=12 STAGE1-CLOSER=12
+    STAGE1-CLOSER: SA/s01 SA/s01_el SA/s02 SA/s02_el SA/s03 SA/s03_el SA/s05 SA/s05_el X/x01 X/x01_el X/x10 X/x10_el
+opCtxRefArgBare201 [R11U201_OPARG_OFF] fired_case_views=14 STAGE1-CLOSER=13 TOWARD=1
+    STAGE1-CLOSER: OA/o01 OA/o01_el OA/o02 OA/o02_el OA/o03_el OA/o04 OA/o04_el OA/o07 OA/o07_el X/x04 X/x04_el X/x08 X/x08_el
+    TOWARD: OA/o03
+nonReduceOpArgBare201 [R11U201_NONRED_OFF] fired_case_views=2 STAGE1-CLOSER=2
+    STAGE1-CLOSER: OA/o03 OA/o03_el
+methodArgNestedRefChain201 [R11U201_MARGNEST_OFF] fired_case_views=6 STAGE1-CLOSER=2 TOWARD=4
+    STAGE1-CLOSER: X/x09 X/x09_el
+    TOWARD: MN/m01 MN/m01_el MN/m02 MN/m02_el
+callArgInSelIdxChainName201 [R11U201_SELIDXCALL_OFF] fired_case_views=4 STAGE1-CLOSER=2 TOWARD=2
+    STAGE1-CLOSER: SI/n01 SI/n01_el
+    TOWARD: SI/n03 SI/n03_el
+opCtxBindableTarget201v [R11V201_OPTGT_OFF] fired_case_views=2 STAGE1-CLOSER=2
+    STAGE1-CLOSER: OA/o06 OA/o06_el
+clsScopedBoundPlainClass201v [R11V201_CLSPARAM_OFF] fired_case_views=4 STAGE1-CLOSER=4
+    STAGE1-CLOSER: CB/c02 CB/c02_el X/x02 X/x02_el
+newArrayKeepFrozenBare201v [R11V201_NEWARRBARE_OFF] fired_case_views=2 STAGE1-CLOSER=2
+    STAGE1-CLOSER: NA/a03_el NA/a04_el
+memberFormalLitActualFolds204v [R11V204_CCLIT_OFF] fired_case_views=0 NONE
+dfltArgTaintExec204v [R11V204_DFLTTAINT_OFF] fired_case_views=2 STAGE1-CLOSER=2
+    STAGE1-CLOSER: X/x10 X/x10_el
+hopFoldUnaryKeepsScope204v [R11V204_HOPUNARY_OFF] fired_case_views=0 NONE
+queueTwinKeepsElem204v [R11V204_QTWINELEM_OFF] fired_case_views=0 NONE
+evalFuncOmittedDefaultKeepsCall196 [R11U196_DFLTARG_OFF] fired_case_views=2 STAGE1-CLOSER=2
+    STAGE1-CLOSER: X/x10 X/x10_el
+opCtxTargetAncestorBind208v [R11V208_OPTGTANC_OFF] fired_case_views=0 NONE

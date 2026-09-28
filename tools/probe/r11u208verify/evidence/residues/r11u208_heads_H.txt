@@ -1,0 +1,61 @@
+=== MiniAmiq default STRICT_NOTEQUAL,differ:file(71)
+#899 file
+  A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73				
+  B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16				
+#10107 fullname
+  A: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0		
+=== SeqDriver default STRICT_NOTEQUAL,differ:fullname(65)
+#10090 fullname
+  A: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0		
+  B: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0		
+--
+#11289 endline
+  A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0		
+=== SimpleUVM default STRICT_NOTEQUAL,differ:fullname(95)
+#458 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#464 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+=== Scoreboard default STRICT_NOTEQUAL,differ:fullname(103)
+#466 fullname
+  A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+#472 fullname
+  A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+  B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+=== BuildUVMPkg default STRICT_NOTEQUAL,differ:line(11)
+#3245 line
+  A: 5	int_typespec	uvm_action			uvm_pkg.sv	9704	72	9704	82				
+  B: 5	int_typespec	uvm_action			uvm_pkg.sv	8075	9	8075	12				
+#5639 line
+  A: 10	constant				uvm_pkg.sv	12963	61	12963	62	1	64	UINT:1	9
+  B: 10	constant				uvm_pkg.sv	13469	85	13469	86	1	64	UINT:1	9
+=== Scr1SvTests default STRICT_NOTEQUAL,differ:type(1)
+#48892 type
+  A: 7	ref_obj	SCR1_MEM_CMD_RD		work@scr1_pipe_ifu.SCR1_MEM_CMD_RD	scr1_pipe_ifu.sv	607	26	607	41		0		
+  B: 7	constant					0	0	0	0	1'b0	1	BIN:0	3
+=== UnitElabBlock default STRICT_NOTEQUAL,differ:file(2)
+#105 file
+  A: 4	logic_net	hold		work@mod.hold		21	1	21	5		0		
+  B: 4	logic_net	hold		work@mod.hold	top.v	21	1	21	5		0		
+#207 file
+  A: 9	logic_net	hold		work@mod.hold		21	1	21	5		0		
+  B: 9	logic_net	hold		work@mod.hold	top.v	21	1	21	5		0		
+=== SVSwitch default CMP_EQUAL,equal
+=== Rggen default STRICT_NOTEQUAL,differ:defname(142)
+#3227 defname
+  A: 10	indexed_part_select	read_data	read_data	work@block_0.g_register_0.g_bit_field_0.bit_field_if.read_data[0+:4].read_data	block_0.sv	7	24	7	38		0		
+  B: 10	indexed_part_select	read_data		bit_field_if.read_data[0+:4]	block_0.sv	7	24	7	38		0		
+#3236 defname
+  A: 10	indexed_part_select	value	value	work@block_0.g_register_0.g_bit_field_0.bit_field_if.value[0+:4].value	block_0.sv	8	24	8	34		0		
+  B: 10	indexed_part_select	value		bit_field_if.value[0+:4]	block_0.sv	8	24	8	34		0		
+=== Earlgrey_0_1 default STRICT_NOTEQUAL,differ:fullname(76)
+#90097 fullname
+  A: 7	bit_select	class_en		work@alert_handler.gen_classes.i_accu.class_en_i.reg2hw_wrap.class_en[k].class_en	alert_handler.sv	148	44	148	45		0		
+  B: 7	bit_select	class_en		reg2hw_wrap.class_en[k]	alert_handler.sv	148	35	148	43		0		
+#90098 fullname
+  A: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.class_en_i.reg2hw_wrap.class_en[k].k	alert_handler.sv	148	44	148	45		0		
+  B: 8	ref_obj	k		work@alert_handler.gen_classes.i_accu.class_en_i.k	alert_handler.sv	148	44	148	45		0		

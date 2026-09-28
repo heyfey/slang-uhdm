@@ -1,0 +1,46 @@
+== probe: rows 4087; conversions L vs A = 18: OWN201=4 OWN202=14
+  CONV OWN201: r10svs2repro/s4_context, r10svs3repro/a1_newlhs, r10uvm60repro/v2_class, v11u112repro/grid/brk/t/b2c_iface_fn
+  CONV OWN202: r10earl109repro/g6_carrier109, r10rgg6repro/cells/genfor_p2_n4_yes_typed_param, r10rgg6repro/cells/one_p2_n2_yes_typed_param, r10rgg6repro/cells/one_p2_n4_yes_typed_param, r10rgg6repro/cells/one_p2_n4_yes_typed_param_2ts, r10rgg6repro/cells/rec_p2_n4_yes_typed_param, r10rgg6repro/cells/two_p2_n4_yes_typed_param, r10sd1repro/b9_inline, r10svs11repro/v3_arr, r10uvm55repro/a1, r10uvm70repro/a1_ret, r10uvm97repro/g97_a1_selftd, r10uvm97repro/g97_a4_plainclass, r10v97repro/v97_c1_mixedgroup
+  CHANGE (L vs A, not a conversion): OWN201=1 OWN202=13
+    OWN201 r10uvm193repro/g193_c_argface: A=('STRICT_NOTEQUAL', 'differ:fullname(102)') L=('STRICT_NOTEQUAL', 'differ:fullname(94)')
+    OWN202 r10rgg6repro/cells/genfor_none_n4_yes_typed_param: A=('STRICT_NOTEQUAL', 'differ:endcol(4)') L=('STRICT_NOTEQUAL', 'differ:line(3)')
+    OWN202 r10rgg6repro/cells/genfor_p1_n4_yes_typed_param: A=('STRICT_NOTEQUAL', 'differ:endcol(4)') L=('STRICT_NOTEQUAL', 'differ:line(3)')
+    OWN202 r10rgg6repro/cells/one_none_n4_yes_typed_ca: A=('STRICT_NOTEQUAL', 'differ:endcol(3)') L=('STRICT_NOTEQUAL', 'differ:line(2)')
+    OWN202 r10rgg6repro/cells/one_none_n4_yes_typed_param: A=('STRICT_NOTEQUAL', 'differ:endcol(2)') L=('STRICT_NOTEQUAL', 'differ:line(1)')
+    OWN202 r10rgg6repro/cells/one_none_n4_yes_typed_proc: A=('STRICT_NOTEQUAL', 'differ:endcol(2)') L=('STRICT_NOTEQUAL', 'differ:line(1)')
+    OWN202 r10rgg6repro/cells/one_p1_n2_yes_typed_param: A=('STRICT_NOTEQUAL', 'differ:endcol(2)') L=('STRICT_NOTEQUAL', 'differ:line(1)')
+    OWN202 r10rgg6repro/cells/one_p1_n4_yes_typed_param: A=('STRICT_NOTEQUAL', 'differ:endcol(2)') L=('STRICT_NOTEQUAL', 'differ:line(1)')
+    OWN202 r10rgg6repro/cells/one_p1_n4_yes_typed_param_2ts: A=('STRICT_NOTEQUAL', 'differ:endcol(2)') L=('STRICT_NOTEQUAL', 'differ:line(1)')
+    OWN202 r10rgg6repro/cells/rec_p1_n4_yes_typed_param: A=('STRICT_NOTEQUAL', 'differ:endcol(2)') L=('STRICT_NOTEQUAL', 'differ:line(1)')
+    OWN202 r10rgg6repro/cells/twoN_none_n4_yes_typed_param: A=('STRICT_NOTEQUAL', 'differ:endcol(3)') L=('STRICT_NOTEQUAL', 'differ:line(2)')
+    OWN202 r10rgg6repro/cells/two_none_n4_yes_typed_param: A=('STRICT_NOTEQUAL', 'differ:endcol(3)') L=('STRICT_NOTEQUAL', 'differ:line(2)')
+    OWN202 r10rgg6repro/cells/two_p1_n4_yes_typed_param: A=('STRICT_NOTEQUAL', 'differ:endcol(3)') L=('STRICT_NOTEQUAL', 'differ:line(2)')
+    OWN202 r10v78repro/v6_ndecl78: A=('STRICT_NOTEQUAL', 'differ:fullname(3)') L=('STRICT_NOTEQUAL', 'differ:fullname(2)')
+  CANCEL (same in L and A, different with one landing off): 0
+== surelog: rows 1588; conversions L vs A = 4: JOINT=2 OWN202=2
+  CONV JOINT: SVSwitch/d, SVSwitch/t
+  CONV OWN202: ClassTypeParam/d, ClassTypeParam/t
+  CHANGE (L vs A, not a conversion): JOINT=9 OWN202=5
+    JOINT MiniAmiq/d: A=('STRICT_NOTEQUAL', 'differ:file(17)') L=('STRICT_NOTEQUAL', 'differ:file(71)')
+    JOINT MiniAmiq/t: A=('STRICT_NOTEQUAL', 'differ:file(17)') L=('STRICT_NOTEQUAL', 'differ:file(71)')
+    JOINT Scoreboard/d: A=('STRICT_NOTEQUAL', 'differ:fullname(44)') L=('STRICT_NOTEQUAL', 'differ:fullname(103)')
+    JOINT Scr1SvTests/d: A=('STRICT_NOTEQUAL', 'differ:endcol(29)') L=('STRICT_NOTEQUAL', 'differ:type(1)')
+    JOINT Scr1SvTests/t: A=('STRICT_NOTEQUAL', 'differ:endcol(29)') L=('STRICT_NOTEQUAL', 'differ:type(1)')
+    JOINT SeqDriver/d: A=('STRICT_NOTEQUAL', 'differ:fullname(16)') L=('STRICT_NOTEQUAL', 'differ:fullname(65)')
+    JOINT SeqDriver/t: A=('STRICT_NOTEQUAL', 'differ:fullname(16)') L=('STRICT_NOTEQUAL', 'differ:fullname(65)')
+    JOINT SimpleUVM/d: A=('STRICT_NOTEQUAL', 'differ:fullname(44)') L=('STRICT_NOTEQUAL', 'differ:fullname(95)')
+    JOINT SimpleUVM/t: A=('STRICT_NOTEQUAL', 'differ:fullname(44)') L=('STRICT_NOTEQUAL', 'differ:fullname(95)')
+    OWN202 Earlgrey_0_1/d: A=('STRICT_NOTEQUAL', 'differ:fullname(82)') L=('STRICT_NOTEQUAL', 'differ:fullname(76)')
+    OWN202 Earlgrey_0_1/t: A=('STRICT_NOTEQUAL', 'differ:fullname(82)') L=('STRICT_NOTEQUAL', 'differ:fullname(76)')
+    OWN202 Rggen/d: A=('STRICT_NOTEQUAL', 'differ:endcol(144)') L=('STRICT_NOTEQUAL', 'differ:defname(142)')
+    OWN202 UnitElabBlock/d: A=('STRICT_NOTEQUAL', 'differ:endline(13)') L=('STRICT_NOTEQUAL', 'differ:file(2)')
+    OWN202 UnitElabBlock/t: A=('STRICT_NOTEQUAL', 'differ:endline(12)') L=('STRICT_NOTEQUAL', 'differ:file(1)')
+  CANCEL (same in L and A, different with one landing off): 4
+    BuildUVMPkg/d off202: L/A=('STRICT_NOTEQUAL', 'differ:line(11)') off=('STRICT_NOTEQUAL', 'differ:line(5)')
+    BuildUVMPkg/d off201: L/A=('STRICT_NOTEQUAL', 'differ:line(11)') off=('STRICT_NOTEQUAL', 'differ:line(24)')
+    BuildUVMPkg/t off202: L/A=('STRICT_NOTEQUAL', 'differ:line(11)') off=('STRICT_NOTEQUAL', 'differ:line(5)')
+    BuildUVMPkg/t off201: L/A=('STRICT_NOTEQUAL', 'differ:line(11)') off=('STRICT_NOTEQUAL', 'differ:line(24)')
+== uhdm2rtlil: rows 1742; conversions L vs A = 2: OWN202=2
+  CONV OWN202: int_types/d, int_types/t
+  CHANGE (L vs A, not a conversion): 
+  CANCEL (same in L and A, different with one landing off): 0

@@ -1,0 +1,8 @@
+== swW vs swA
+MOVERS: 9 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+probe movers: 0 of 4087
+== sw4 vs swH
+MOVERS: 9 / 2560
+SELFCHECK (every file vs one fixed file): 2559 / 2560 flagged
+probe movers: 0 of 4087

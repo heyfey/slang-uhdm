@@ -1,0 +1,34 @@
+ON | OB/b01 | IDENTICAL | OK | OK | 5 | 5 | - | -
+ON | OB/b02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | OB/b03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | OB/b04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | OB/b05 | EQUIVALENT | OK | OK | 5 | 5 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u208_dsc/ON/OB__b05/equiv/OB__b05
+ON | OB/b06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | OB/b07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | OB/b08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | OB/c01 | EQUIVALENT | OK | OK | 5 | 5 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u208_dsc/ON/OB__c01/equiv/OB__c01
+ON | OB/c02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | OB/c03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | OB/c04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | OA/o06 | EQUIVALENT | OK | OK | 6 | 6 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u208_dsc/ON/OA__o06/equiv/OA__o06
+ON | UT/u05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | UT/u06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | UT/u07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | UT/u08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | OB/b01 | IDENTICAL | OK | OK | 5 | 5 | - | -
+FIX | OB/b02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | OB/b03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | OB/b04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | OB/b05 | EQUIVALENT | OK | OK | 5 | 5 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u208_dsc/FIX/OB__b05/equiv/OB__b05
+FIX | OB/b06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | OB/b07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | OB/b08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | OB/c01 | EQUIVALENT | OK | OK | 5 | 5 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u208_dsc/FIX/OB__c01/equiv/OB__c01
+FIX | OB/c02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | OB/c03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | OB/c04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | OA/o06 | EQUIVALENT | OK | OK | 6 | 6 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u208_dsc/FIX/OA__o06/equiv/OA__o06
+FIX | UT/u05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | UT/u06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | UT/u07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | UT/u08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
