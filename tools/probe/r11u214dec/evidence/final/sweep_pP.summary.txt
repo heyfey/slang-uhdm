@@ -1,0 +1,22 @@
+== probe cases (tests/probe, cached goldens), jobs=3, out=<scratch>/r11u214_pP/probe.csv
+== probe vs golden_probe.csv
+[probe] EQUAL=3410 STRICT_NOTEQUAL=677
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=<scratch>/r11u214_pP/surelog.csv
+[default] 798 tests
+[testflags] 798 tests
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=466 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=14 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=11 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=<scratch>/r11u214_pP/uhdm2rtlil.csv
+[default] 871 tests
+[testflags] 871 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=798 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=5
+[testflags] CMP_EQUAL=798 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=5
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+EXIT=1

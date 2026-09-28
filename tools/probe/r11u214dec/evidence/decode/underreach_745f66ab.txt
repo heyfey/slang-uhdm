@@ -1,0 +1,23 @@
+# r11u213's under-reach cases at 745f66ab, pristine binary, case.sh (both views)
+tp/r11u213verify/cases/TC/c02 P cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=8e5316dd
+tp/r11u213verify/cases/TC/c02_el P cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=d1b595cc
+tp/r11u213verify/cases/TC/c03 P cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=4 md5=9d8c002e
+tp/r11u213verify/cases/TC/c03_el P cmp=255 cmplines=24 strict=NOT_EQUAL_stage1 rc=4 md5=e33449d7
+tp/r11u213verify/cases/TC/c05 P cmp=0 cmplines=0 strict=STRICT_EQUAL_295_objects rc=0 md5=2a3d022f
+tp/r11u213verify/cases/TC/c05_el P cmp=0 cmplines=0 strict=STRICT_EQUAL_294_objects rc=0 md5=e03d1f1c
+tp/r11u213verify/cases/TC/c06 P cmp=255 cmplines=22 strict=NOT_EQUAL_stage1 rc=0 md5=60540fcf
+tp/r11u213verify/cases/TC/c06_el P cmp=255 cmplines=22 strict=NOT_EQUAL_stage1 rc=0 md5=e3150570
+tp/r11u213verify/cases/TA/a02 P cmp=255 cmplines=58 strict=NOT_EQUAL_stage1 rc=0 md5=babfb56e
+tp/r11u213verify/cases/TA/a02_el P cmp=255 cmplines=58 strict=NOT_EQUAL_stage1 rc=0 md5=e7d4c35d
+tp/r11u213verify/cases/TA/a03 P cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=9aaf0ca1
+tp/r11u213verify/cases/TA/a03_el P cmp=0 cmplines=0 strict=STRICT_NOTEQUAL_endline rc=0 md5=013a4013
+tp/r11u213verify/cases/TA/a05 P cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=7cea176e
+tp/r11u213verify/cases/TA/a05_el P cmp=255 cmplines=17 strict=NOT_EQUAL_stage1 rc=0 md5=cd9e207d
+tp/r11u213verify/cases/GV/v04 P cmp=255 cmplines=53 strict=NOT_EQUAL_stage1 rc=0 md5=3e116c10
+tp/r11u213verify/cases/GV/v04_el P cmp=255 cmplines=53 strict=NOT_EQUAL_stage1 rc=0 md5=c52ffc38
+tp/r11u213verify/cases/GV/v07 P cmp=255 cmplines=432 strict=NOT_EQUAL_stage1 rc=0 md5=fcfdc139
+tp/r11u213verify/cases/GV/v07_el P cmp=255 cmplines=432 strict=NOT_EQUAL_stage1 rc=0 md5=5b371c63
+tp/r11u213verify/cases/NC/n04 P cmp=255 cmplines=1206 strict=NOT_EQUAL_stage1 rc=0 md5=16c31ece
+tp/r11u213verify/cases/NC/n04_el P cmp=255 cmplines=1258 strict=NOT_EQUAL_stage1 rc=0 md5=ef986f74
+tp/r11u213verify/cases/NC/n05 P cmp=255 cmplines=96 strict=NOT_EQUAL_stage1 rc=0 md5=27a0ed24
+tp/r11u213verify/cases/NC/n05_el P cmp=255 cmplines=100 strict=NOT_EQUAL_stage1 rc=0 md5=703ea2e4

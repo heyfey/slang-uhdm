@@ -1,0 +1,12 @@
+# gdb on the -g1 build (6dcc0818 + the first law draft), case cases/D/g01_unitimp_val, a breakpoint on
+# UHDM::expr::VpiValue(std::string_view) conditioned on the value text (scratch gdb script, own case only).
+# `L = W*N*8-1` (untyped package parameter): who writes UINT:15359 and INT:15359, in order.
+UINT:15359  emitParameters (ParamEmit.cpp:8290)            < emitPackage (topView) < exportDesign   # the elaborated package parameter at emission
+UINT:15359  tryFoldConst (ExprEmit.cpp:11199)              < emitParameters < emitPackage           # its param_assign Rhs fold
+INT:15359   emitParameters (ParamEmit.cpp:14863)           < emitPackage < exportDesign             # the Rhs constant's encoding
+UINT:15359  designImportParamCopy146 (UhdmExporter.cpp)    < exportDesign (the $unit import hoist)  # the DESIGN copy copies the parameter's value NOW
+UINT:15359  designImportParamCopy146 < designImportPaCopy146 < exportDesign                         # the design param_assign's Lhs copy
+INT:15359   paramValueIsDefRhs124 (ParamEmit.cpp)          < drainShareDefParamTs < exportDesign     # design-final: the package parameter takes its Rhs's value
+# -> the design copies keep the emission-time UINT; golden's copies (importPackage copies the package's parameter
+#    object) read the package parameter's final INT. Law unitImportCopyValueFollowsPkg214 syncs the copies
+#    after drainShareDefParamTs.

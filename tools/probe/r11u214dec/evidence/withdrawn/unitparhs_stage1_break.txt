@@ -1,0 +1,24 @@
+# law unitImportPaRhsOwnCopy214 (R11U214_UNITPARHS_OFF), WITHDRAWN: the firing census of the binary carrying it read three surelog REGRESSIONS (stage 1); the design param_assign right side golden clones is the unsized literal as compiled (size -1, a ref_typespec with no actual) where the law cloned our elaborated package object (size 32, int_typespec actual). The Rhs half is left open (grid D g01 records #277-#312).
+REGRESSION Scoreboard default STRICT_NOTEQUAL -> CMP_NOTEQUAL
+REGRESSION SimpleUVM default STRICT_NOTEQUAL -> CMP_NOTEQUAL
+REGRESSION SimpleUVM testflags STRICT_NOTEQUAL -> CMP_NOTEQUAL
+regressions=3 conversions=0 changes=6 only-fresh=0 only-committed=0
+RHS:
+decompile:
+constant: , id:183306, line:99:23, endln:99:32
+|vpiParent:
+\_param_assign: , id:179710, line:99:11, endln:99:32
+|vpiDecompile:'hf000000
+|vpiSize:32
+|HEX:f000000
+|vpiTypespec:
+\_ref_typespec: , id:183307
+  |vpiParent:
+  \_constant: , id:183306, line:99:23, endln:99:32
+  |vpiActual:
+  \_int_typespec: , id:183308, line:99:1, endln:99:32
+|vpiConstType:5
+
+decompile:
+constant: , id:183306, line:99:23, endln:99:32
+|vpiParent:

@@ -1,0 +1,9 @@
+<scratch>/r11u214_hP MiniAmiq/default dist=6539 rev=8263 total=14802 mfc_file_away=12 golden_records=435569 ours_records=433845
+<scratch>/r11u214_hP MiniAmiq/testflags dist=6539 rev=8263 total=14802 mfc_file_away=12 golden_records=435569 ours_records=433845
+<scratch>/r11u214_hP SeqDriver/default dist=5084 rev=5870 total=10954 mfc_file_away=12 golden_records=475526 ours_records=474740
+<scratch>/r11u214_hP SeqDriver/testflags dist=5084 rev=5870 total=10954 mfc_file_away=12 golden_records=475538 ours_records=474752
+<scratch>/r11u214_hP SimpleUVM/default dist=1994 rev=1840 total=3834 mfc_file_away=12 golden_records=334285 ours_records=334439
+<scratch>/r11u214_hP SimpleUVM/testflags dist=1994 rev=1840 total=3834 mfc_file_away=12 golden_records=334297 ours_records=334451
+<scratch>/r11u214_hP Scoreboard/default dist=1462 rev=1385 total=2847 mfc_file_away=12 golden_records=269656 ours_records=269733
+<scratch>/r11u214_hP BuildUVMPkg/default dist=720 rev=665 total=1385 mfc_file_away=0 golden_records=201549 ours_records=201604
+<scratch>/r11u214_hP BuildUVMPkg/testflags dist=720 rev=665 total=1385 mfc_file_away=0 golden_records=201549 ours_records=201604

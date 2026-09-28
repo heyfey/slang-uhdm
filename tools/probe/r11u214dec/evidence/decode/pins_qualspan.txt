@@ -1,0 +1,25 @@
+# gdb pins on the -g1 build of 6dcc0818 + the first law draft (pin1.sh; own cases only)
+record #113 type=constant id=95 rank=21: 8 constant    dut.sv 14 12 14 27
+#0  UHDM::Serializer::MakeConstant() ()
+#1  slang_uhdm::UhdmExporter::modStructMemberPkgSubst9 at src/TypeEmit.cpp:1394
+#2  slang_uhdm::UhdmExporter::emitSyntaxExpr at src/TypeEmit.cpp:21359
+#3  slang_uhdm::UhdmExporter::emitSyntaxExpr at src/TypeEmit.cpp:22373
+#4  operator() at src/TypeEmit.cpp:7108
+#5  slang_uhdm::UhdmExporter::makeTypespec at src/TypeEmit.cpp:7996
+#6  slang_uhdm::UhdmExporter::buildStructTs at src/TypeEmit.cpp:16677
+#7  slang_uhdm::UhdmExporter::emitTypedefs at src/TypeEmit.cpp:18514
+#8  slang_uhdm::UhdmExporter::emitModuleDef at src/ModuleEmit.cpp:6643
+#9  slang_uhdm::UhdmExporter::exportDesign at src/UhdmExporter.cpp:13231
+#10 realMain at uhdm_main.cpp:1101
+#11 main at uhdm_main.cpp:1268
+record #126 type=constant id=94 rank=21: 5 constant    dut.sv 12 52 12 61
+#0  UHDM::Serializer::MakeConstant() ()
+#1  slang_uhdm::UhdmExporter::emitExpr at src/ExprEmit.cpp:22966
+#2  slang_uhdm::UhdmExporter::emitExpr at src/ExprEmit.cpp:26882
+#3  slang_uhdm::UhdmExporter::emitExpr at src/ExprEmit.cpp:26495
+#4  operator() at src/ExprEmit.cpp:29096
+#5  slang_uhdm::UhdmExporter::emitExpr at src/ExprEmit.cpp:29097
+#6  slang_uhdm::UhdmExporter::emitParameters at src/ParamEmit.cpp:19883
+#7  slang_uhdm::UhdmExporter::exportDesign at src/UhdmExporter.cpp:13216
+#8  realMain at uhdm_main.cpp:1101
+#9  main at uhdm_main.cpp:1268

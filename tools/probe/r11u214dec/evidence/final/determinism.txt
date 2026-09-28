@@ -1,0 +1,25 @@
+law Earlgrey_0_1/default       3 6a8fcde9f0f9 
+law MiniAmiq/default       3 7af41d96b1c6 
+law SeqDriver/default       3 ec7d3e63f72b 
+law SimpleUVM/default       3 4273644b0876 
+law Scoreboard/default       1 631d1de69d57       2 70cd785b08c9 
+law BuildUVMPkg/default       3 1624481aa78f 
+law Earlgrey_0_1/testflags       3 dc6bc45475ff 
+law MiniAmiq/testflags       3 7af41d96b1c6 
+law SeqDriver/testflags       3 682775583761 
+law SimpleUVM/testflags       3 332af7c9182a 
+law Scoreboard/testflags 
+law BuildUVMPkg/testflags       3 1624481aa78f 
+pris Earlgrey_0_1/default       3 5bb5b3b989b4 
+pris MiniAmiq/default       3 4db8f413be66 
+pris SeqDriver/default       3 602689e9f8a3 
+pris SimpleUVM/default       3 3c1292b40f57 
+pris Scoreboard/default       2 50f1e9cd5845       1 de42a8e468b9 
+pris BuildUVMPkg/default       3 c020394bcdbc 
+pris Earlgrey_0_1/testflags       3 1961f9984a06 
+pris MiniAmiq/testflags       3 0aba5e071b2f 
+pris SeqDriver/testflags       3 69640b807a50 
+pris SimpleUVM/testflags       3 61f25c6da659 
+pris Scoreboard/testflags 
+pris BuildUVMPkg/testflags       3 c020394bcdbc 
+Scoreboard default law draws 70cd785b08c9 / 631d1de69d57: uhdm-dump unsorted diff 92 lines, sorted diff 0 lines (the svunit listing-order coin)
