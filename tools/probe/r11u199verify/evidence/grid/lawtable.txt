@@ -1,0 +1,21 @@
+WIDE cells=166 unfired=46
+caPsSelFullVerbatim192 cells=14 cmp:same=6 strict:gained=3 strict:kept=3 unfired=8
+caTernFillArmKept193 cells=12 cmp:down=2 cmp:same=2 dump-lost-cells=2 strict:gained=4 unfired=8
+caUnsizedRhsClonePerInst193 cells=24 cmp:same=18 dump-lost-cells=3 rec-away-cells=3 strict:gained=5 strict:ne-both=13 unfired=6
+castOperandLeafElab193 cells=24 cmp:same=18 dump-lost-cells=2 strict:gained=3 strict:kept=3 strict:ne-both=12 unfired=6
+connCastTsNamedByPort193 cells=22 cmp:same=18 strict:gained=8 strict:ne-both=10 unfired=4
+connSysCallArgDefNet193 cells=12 cmp:same=10 strict:gained=10 unfired=2
+genForReplCountOwner192 cells=24 cmp:same=4 strict:gained=4 unfired=20
+genForWholeLhsNestedKeep192v cells=38 cmp:same=32 dump-lost-cells=16 rec-away-cells=16 strict:LOST=8 strict:gained=12 strict:ne-both=12 unfired=6
+ndaPsBoundOwner192 cells=4 cmp:same=4 dump-lost-cells=2 rec-away-cells=2 strict:ne-both=4
+nestChainKeepsPkgQual193v cells=2 unfired=2
+nestChainSelects193v cells=8 cmp:same=4 strict:gained=2 strict:ne-both=2 unfired=4
+nestedDefChainName193 cells=14 cmp:same=12 strict:gained=8 strict:ne-both=4 unfired=2
+pkgPatReadTsBindsTopTypedef192 cells=8 cmp:same=8 strict:ne-both=8
+pkgQualBoundSpanQualifier192 cells=8 cmp:same=8 strict:gained=4 strict:ne-both=4
+procPsBoundOwner192 cells=8 cmp:same=2 strict:gained=2 unfired=6
+psBoundPaOwnerName192 cells=70 cmp:same=34 dump-lost-cells=6 rec-away-cells=6 strict:gained=21 strict:ne-both=13 unfired=36
+tfArgOutsideCopyOrder193 cells=10 cmp:same=10 strict:gained=3 strict:ne-both=7
+tfPsBoundOwner192 cells=2 cmp:same=2 strict:gained=1 strict:ne-both=1
+tpCaPortNetIsVar194v cells=2 cmp:same=2 strict:ne-both=2
+ucCloneUnnamesRanges193v cells=8 cmp:same=2 strict:gained=2 unfired=6

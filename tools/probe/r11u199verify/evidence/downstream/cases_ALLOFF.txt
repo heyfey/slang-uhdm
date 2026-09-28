@@ -1,0 +1,85 @@
+ALLOFF | A/a01_two_wild_pkgs | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | A/a02_explicit_and_qual | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ALLOFF | A/a03_genfor_rhs | IDENTICAL | OK | OK | 38 | 38 | - | -
+ALLOFF | A/a04_genif_gencase_cond | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | A/a05_target_sel | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | A/a06_port_conn | IDENTICAL | OK | OK | 40 | 40 | - | -
+ALLOFF | A/a07_repl_count | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | A/a08_proc_always_initial | IDENTICAL | OK | OK | 32 | 32 | - | -
+ALLOFF | A/a09_tf_task_func | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | A/a10_nda_two_inst | IDENTICAL | OK | OK | 8 | 8 | - | -
+ALLOFF | A/a11_whole_nested | IDENTICAL | OK | OK | 17 | 17 | - | -
+ALLOFF | A/a12_bind | IDENTICAL | OK | OK | 3 | 3 | - | -
+ALLOFF | A/a13_macro_arg | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | C/c01_cast_of_cast | EQUIVALENT | OK | OK | 32 | 32 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u199_dsc/ALLOFF/C__c01_cast_of_cas
+ALLOFF | C/c02_cast_concat | IDENTICAL | OK | OK | 11 | 11 | - | -
+ALLOFF | C/c03_positional | IDENTICAL | OK | OK | 19 | 19 | - | -
+ALLOFF | C/c04_iface_bind | IDENTICAL | OK | OK | 6 | 6 | - | -
+ALLOFF | C/c05_pkg_param_operand | IDENTICAL | OK | OK | 36 | 36 | - | -
+ALLOFF | C/c06_nda_array_net | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u199_dsc/ALL
+ALLOFF | C/c07_signed_unsigned | IDENTICAL | OK | OK | 44 | 44 | - | -
+ALLOFF | C/c08_size_param | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 3 common constant assignments match
+ALLOFF | N/n01_two_three_deep_sels | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | N/n02_inst_twice | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | N/n03_pkg_typedef_enum | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | N/n04_all_selects | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | N/n05_gen_inside | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | N/n06_program_iface | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ALLOFF | N/n07_nested_iface | SURELOG_FAIL |  |  |  |  | - | no reference database
+ALLOFF | O/o01_two_importers_one_writer | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | O/o02_program_writer | IDENTICAL | OK | OK | 1 | 1 | - | -
+ALLOFF | O/o03_iface_writer | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | O/o04_writer_in_header | IDENTICAL | OK | OK | 2 | 2 | - | -
+ALLOFF | O/o05_pkg_imports_pkg | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u199_dsc/ALL
+ALLOFF | P/p01_gen_read | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | P/p02_alias_twice | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | P/p03_pkg_func | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | Q/q01_pkg_param_array_idx | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | Q/q02_class_scoped | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | Q/q03_macro_body_and_arg | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | R/r01_positional_op | IDENTICAL | OK | OK | 19 | 19 | - | -
+ALLOFF | S/s01_bits_clog2 | IDENTICAL | OK | OK | 32 | 32 | - | -
+ALLOFF | S/s02_nested_sys | IDENTICAL | OK | OK | 32 | 32 | - | -
+ALLOFF | S/s03_sys_of_cast | IDENTICAL | OK | OK | 44 | 44 | - | -
+ALLOFF | S/s04_positional | IDENTICAL | OK | OK | 32 | 32 | - | -
+ALLOFF | T/t01_fills_both_arms | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u199_dsc/ALL
+ALLOFF | T/t02_nested_three | DIVERGENT | OK | OK | 14 | 14 | nohier il synth | ----------------------------------------------
+ALLOFF | T/t03_gen_loop | EQUIVALENT | OK | OK | 25 | 25 | nohier il | ✅ Formal equivalence check PASSED for /tmp/r11u199_dsc/ALLOFF/T__t03_gen_loop/eq
+ALLOFF | T/t04_struct_net | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | T/t05_iface_ca | DIVERGENT | OK | OK | 1 | 1 | nohier il synth | ----------------------------------------------
+ALLOFF | U/u01_param_ref | IDENTICAL | OK | OK | 16 | 16 | - | -
+ALLOFF | U/u02_bases | IDENTICAL | OK | OK | 20 | 20 | - | -
+ALLOFF | U/u03_concat_psel | IDENTICAL | OK | OK | 14 | 14 | - | -
+ALLOFF | U/u04_unpacked_whole | IDENTICAL | OK | OK | 8 | 8 | - | -
+ALLOFF | U/u05_gen_loop_lhs | IDENTICAL | OK | OK | 8 | 8 | - | -
+ALLOFF | U/u06_three_widths | IDENTICAL | OK | OK | 28 | 28 | - | -
+ALLOFF | U/u07_typespec_behind | IDENTICAL | OK | OK | 8 | 8 | - | -
+ALLOFF | V/v01_iface_port | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V/v02_modport | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V/v03_genscope_net | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | V/v04_two_inst_one_child | IDENTICAL | OK | OK | 4 | 4 | - | -
+ALLOFF | W/s10_tern_sys | IDENTICAL | OK | OK | 5 | 5 | - | -
+ALLOFF | W/s1_sys_under_op | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | W/s3_signed_cat | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | W/s4_sys_of_or | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | W/s5_sys_hi | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | W/s6_countones | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | W/s8_func_cat | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | W/s9_sys_repl | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | W/w1_unsigned | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | W/w2_signed | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | W/w3_unsigned_cat | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | W/w4_func | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | W/w5_neg | IDENTICAL | OK | OK | 8 | 8 | - | -
+ALLOFF | W/w6_tern | IDENTICAL | OK | OK | 5 | 5 | - | -
+ALLOFF | W/w7_paren | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | W/w8_bits | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u199_dsc/ALL
+ALLOFF | X/x01_cast_of_psbound | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | X/x02_conn_mix | IDENTICAL | OK | OK | 7 | 7 | - | -
+ALLOFF | X/x03_nda_unsized_psbound | IDENTICAL | OK | OK | 9 | 9 | - | -
+ALLOFF | X/x04_pattern_in_nested | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | X/x05_repl_fill_genloop | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 17 common constant assignments match
+ALLOFF | X/x06_enum_port_cast | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in /tmp/r11u199_dsc/ALLOFF/X__x06_enum_port_cast
+ALLOFF | X/x07_clone_rhs_psbound | IDENTICAL | OK | OK | 4 | 4 | - | -
+ALLOFF | X/x08_clone_lhs_psbound | IDENTICAL | OK | OK | 4 | 4 | - | -
+ALLOFF | X/x09_clone_varsel_lhs | IDENTICAL | OK | OK | 4 | 4 | - | -

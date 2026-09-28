@@ -1,0 +1,9 @@
+swA vs 706ab521 probe: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+swA vs 706ab521 surelog: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+swA vs 706ab521 uhdm2rtlil: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+sw3 vs b6344400 probe: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+sw3 vs b6344400 surelog: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+sw3 vs b6344400 uhdm2rtlil: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+swH vs b6344400 probe: regressions=0 conversions=144 changes=8 only-fresh=0 only-committed=0
+swH vs b6344400 surelog: regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+swH vs b6344400 uhdm2rtlil: regressions=0 conversions=2 changes=2 only-fresh=0 only-committed=0

@@ -1,0 +1,22 @@
+law6 Earlgrey_0_1 default 46612df2e13d/rc=0 46612df2e13d/rc=0 46612df2e13d/rc=0 46612df2e13d/rc=0 46612df2e13d/rc=0 46612df2e13d/rc=0  ref=46612df2e13d
+law6 Earlgrey_0_1 testflags 9358af9983e2/rc=0 9358af9983e2/rc=0 9358af9983e2/rc=0 9358af9983e2/rc=0 9358af9983e2/rc=0 9358af9983e2/rc=0  ref=9358af9983e2
+strict_sweep default 6cde3433c021 swF 46612df2e13d
+strict_sweep testflags e6eb29e91da1 swF 9358af9983e2
+surelog/default/Earlgrey_0_1 md5 6cde3433c0/46612df2e1 orderblind_lines=55450
+                                                    |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i
+                                                    |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i
+    	                                                |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.
+    	                                                |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.
+                                                    |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_flash.gen_generic.u_impl_generic.i
+                                                    |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_flash.gen_generic.u_impl_generic.i
+    	                                                |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_flash.gen_generic.u_impl_generic.
+    	                                                |vpiFullName:work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_flash.gen_generic.u_impl_generic.
+surelog/testflags/Earlgrey_0_1 md5 e6eb29e91d/9358af9983 orderblind_lines=336426
+                                                              \_int_var: (work@prim_generic_ram_1p.i), line:45:18, endln:45:19
+                                                              \_int_var: (work@prim_generic_ram_1p.i), line:45:18, endln:45:19
+    	                                                          \_int_var: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl
+    	                                                          \_int_var: (work@top_earlgrey.u_flash_eflash.gen_flash_banks[1].i_core.i_flash.gen_generic.u_impl
+                                                              |vpiFullName:work@prim_generic_ram_1p.mem.DataBitsPerMask
+                                                              |vpiFullName:work@prim_generic_ram_1p.mem.DataBitsPerMask
+                                                              |vpiFullName:work@prim_generic_ram_1p.mem.i
+                                                              |vpiFullName:work@prim_generic_ram_1p.mem.i

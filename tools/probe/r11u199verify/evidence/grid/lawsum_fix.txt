@@ -1,0 +1,20 @@
+caPsSelFullVerbatim192 | cases 7 | BYTES-ONLY=3 TOWARD=3 UNFIRED=8
+caTernFillArmKept193 | cases 6 | STAGE1-CLOSER=2 TOWARD=2 UNFIRED=8 | AWAY-judges: T/t01_fills_both_arms:lost=8 T/t02_nested_three:lost=1
+caUnsizedRhsClonePerInst193 | cases 12 | BYTES-ONLY=1 STAGE1-CLOSER=2 TOWARD=15 UNFIRED=6
+castOperandLeafElab193 | cases 12 | BYTES-ONLY=3 STAGE1-CLOSER=8 STAGE1-SAME=4 TOWARD=3 UNFIRED=6 | AWAY-judges: C/c01_cast_of_cast:lost=1 C/c03_positional:lost=1
+connCastTsNamedByPort193 | cases 11 | STAGE1-CLOSER=10 TOWARD=8 UNFIRED=4
+connSysCallArgDefNet193 | cases 6 | TOWARD=10 UNFIRED=2
+genForReplCountOwner192 | cases 12 | TOWARD=4 UNFIRED=20
+genForWholeLhsNestedKeep192v | cases 19 | STAGE1-CLOSER=2 STAGE1-SAME=4 TOWARD=12 UNFIRED=20
+ndaPsBoundOwner192 | cases 2 | TOWARD=4
+nestChainKeepsPkgQual193v | cases 1 | UNFIRED=2
+nestChainSelects193v | cases 4 | MIXED=2 TOWARD=2 UNFIRED=4
+nestedDefChainName193 | cases 7 | MIXED=2 STAGE1-CLOSER=2 TOWARD=8 UNFIRED=2
+pkgPatReadTsBindsTopTypedef192 | cases 4 | STAGE1-AWAY=5 STAGE1-CLOSER=2 TOWARD=1
+pkgQualBoundSpanQualifier192 | cases 4 | STAGE1-CLOSER=2 TOWARD=6
+procPsBoundOwner192 | cases 4 | TOWARD=2 UNFIRED=6
+psBoundPaOwnerName192 | cases 35 | STAGE1-CLOSER=14 TOWARD=36 UNFIRED=20
+tfArgOutsideCopyOrder193 | cases 5 | MIXED=1 STAGE1-CLOSER=1 STAGE1-SAME=2 TOWARD=4 UNMASK=2
+tfPsBoundOwner192 | cases 1 | STAGE1-CLOSER=1 TOWARD=1
+tpCaPortNetIsVar194v | cases 1 | STAGE1-SAME=2
+ucCloneUnnamesRanges193v | cases 4 | BYTES-ONLY=1 TOWARD=7

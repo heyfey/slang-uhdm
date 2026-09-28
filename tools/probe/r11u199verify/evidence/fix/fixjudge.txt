@@ -1,0 +1,28 @@
+r11u199verify/cases/A/a11_whole_nested | law cmp=56 NOT_EQUAL_stage1 dist=57 | fix cmp=56 NOT_EQUAL_stage1 dist=53 | lost=0 gained=2
+r11u199verify/cases/A/a11_whole_nested el | law cmp=56 NOT_EQUAL_stage1 dist=57 | fix cmp=56 NOT_EQUAL_stage1 dist=53 | lost=0 gained=2
+r11u199verify/cases/U/u06_three_widths | law cmp=0 STRICT_NOTEQUAL_fullname dist=60 | fix cmp=0 STRICT_EQUAL_435_objects dist=0 | lost=0 gained=30
+r11u199verify/cases/U/u06_three_widths el | law cmp=0 STRICT_NOTEQUAL_fullname dist=42 | fix cmp=0 STRICT_EQUAL_427_objects dist=0 | lost=0 gained=21
+r11u199verify/cases/U/u07_typespec_behind | law cmp=0 STRICT_NOTEQUAL_fullname dist=8 | fix cmp=0 STRICT_EQUAL_315_objects dist=0 | lost=0 gained=4
+r11u199verify/cases/U/u07_typespec_behind el | law cmp=0 STRICT_EQUAL_305_objects dist=0 | fix cmp=0 STRICT_EQUAL_305_objects dist=0 | lost=0 gained=0
+r11u199verify/cases/W/s3_signed_cat | law cmp=0 STRICT_NOTEQUAL_fullname dist=8 | fix cmp=0 STRICT_EQUAL_226_objects dist=4 | lost=0 gained=2
+r11u199verify/cases/W/s3_signed_cat el | law cmp=0 STRICT_NOTEQUAL_fullname dist=8 | fix cmp=0 STRICT_EQUAL_226_objects dist=4 | lost=0 gained=2
+r11u199verify/cases/W/s4_sys_of_or | law cmp=0 STRICT_NOTEQUAL_fullname dist=6 | fix cmp=0 STRICT_EQUAL_226_objects dist=2 | lost=0 gained=2
+r11u199verify/cases/W/s4_sys_of_or el | law cmp=0 STRICT_NOTEQUAL_fullname dist=6 | fix cmp=0 STRICT_EQUAL_226_objects dist=2 | lost=0 gained=2
+r11u199verify/cases/W/s5_sys_hi | law cmp=0 STRICT_NOTEQUAL_fullname dist=8 | fix cmp=0 STRICT_EQUAL_226_objects dist=4 | lost=0 gained=2
+r11u199verify/cases/W/s5_sys_hi el | law cmp=0 STRICT_NOTEQUAL_fullname dist=8 | fix cmp=0 STRICT_EQUAL_226_objects dist=4 | lost=0 gained=2
+r11u199verify/cases/W/s6_countones | law cmp=17 NOT_EQUAL_stage1 dist=13 | fix cmp=17 NOT_EQUAL_stage1 dist=9 | lost=0 gained=2
+r11u199verify/cases/W/s6_countones el | law cmp=17 NOT_EQUAL_stage1 dist=13 | fix cmp=17 NOT_EQUAL_stage1 dist=9 | lost=0 gained=2
+r11u199verify/cases/W/w1_unsigned | law cmp=56 NOT_EQUAL_stage1 dist=26 | fix cmp=56 NOT_EQUAL_stage1 dist=22 | lost=0 gained=2
+r11u199verify/cases/W/w1_unsigned el | law cmp=56 NOT_EQUAL_stage1 dist=26 | fix cmp=56 NOT_EQUAL_stage1 dist=22 | lost=0 gained=2
+r11u199verify/cases/W/w2_signed | law cmp=56 NOT_EQUAL_stage1 dist=26 | fix cmp=56 NOT_EQUAL_stage1 dist=22 | lost=0 gained=2
+r11u199verify/cases/W/w2_signed el | law cmp=56 NOT_EQUAL_stage1 dist=26 | fix cmp=56 NOT_EQUAL_stage1 dist=22 | lost=0 gained=2
+r11u199verify/cases/W/w3_unsigned_cat | law cmp=0 STRICT_NOTEQUAL_fullname dist=8 | fix cmp=0 STRICT_EQUAL_226_objects dist=4 | lost=0 gained=2
+r11u199verify/cases/W/w3_unsigned_cat el | law cmp=0 STRICT_NOTEQUAL_fullname dist=8 | fix cmp=0 STRICT_EQUAL_226_objects dist=4 | lost=0 gained=2
+r11u199verify/cases/X/x03_nda_unsized_psbound | law cmp=0 STRICT_NOTEQUAL_fullname dist=60 | fix cmp=0 STRICT_EQUAL_531_objects dist=12 | lost=0 gained=24
+r11u199verify/cases/X/x03_nda_unsized_psbound el | law cmp=0 STRICT_NOTEQUAL_fullname dist=60 | fix cmp=0 STRICT_EQUAL_509_objects dist=12 | lost=0 gained=24
+r11u199verify/cases/X/x07_clone_rhs_psbound | law cmp=0 STRICT_NOTEQUAL_fullname dist=10 | fix cmp=0 STRICT_EQUAL_285_objects dist=2 | lost=0 gained=4
+r11u199verify/cases/X/x07_clone_rhs_psbound el | law cmp=0 STRICT_NOTEQUAL_fullname dist=10 | fix cmp=0 STRICT_EQUAL_287_objects dist=2 | lost=0 gained=4
+r11u199verify/cases/X/x08_clone_lhs_psbound | law cmp=0 STRICT_NOTEQUAL_fullname dist=10 | fix cmp=0 STRICT_EQUAL_293_objects dist=2 | lost=0 gained=4
+r11u199verify/cases/X/x08_clone_lhs_psbound el | law cmp=0 STRICT_NOTEQUAL_fullname dist=10 | fix cmp=0 STRICT_EQUAL_292_objects dist=2 | lost=0 gained=4
+r11u199verify/cases/X/x09_clone_varsel_lhs | law cmp=0 STRICT_NOTEQUAL_fullname dist=40 | fix cmp=0 STRICT_EQUAL_322_objects dist=0 | lost=0 gained=20
+r11u199verify/cases/X/x09_clone_varsel_lhs el | law cmp=0 STRICT_NOTEQUAL_fullname dist=40 | fix cmp=0 STRICT_EQUAL_326_objects dist=0 | lost=0 gained=20

@@ -1,0 +1,82 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u199_sw2/probe.csv
+probe cases: EQUAL=3281 STRICT_NOTEQUAL=806 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3281 differ:fullname=324 differ:line=113 differ:endcol=112 differ:type=73 differ:name=61 differ:file=43 differ:depth=34 differ:col=29 differ:endline=11 differ:value=5 differ:decompile=1
+== probe vs golden_probe.csv
+[probe] EQUAL=3281 STRICT_NOTEQUAL=806
+REGRESSION r10earl31repro/e1_psbound EQUAL -> STRICT_NOTEQUAL differ:endcol(26)
+REGRESSION r11u115repro/grid/r/f/p01_ibex EQUAL -> STRICT_NOTEQUAL differ:fullname(4)
+REGRESSION r11u115repro/grid/r/f/p02_replcat EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+REGRESSION r11u115repro/grid/r/f/p03_replbare EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+REGRESSION r11u115repro/grid/r/f/p04_repladd EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+REGRESSION r11u115repro/grid/r/f/p13_ternrepl EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+REGRESSION r11u115repro/grid/r/k/k01_ius_lit_p01_ibex EQUAL -> STRICT_NOTEQUAL differ:fullname(4)
+REGRESSION r11u115repro/grid/r/k/k01_ius_lit_p02_replcat EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+REGRESSION r11u115repro/grid/r/k/k02_int_p01_ibex EQUAL -> STRICT_NOTEQUAL differ:fullname(4)
+REGRESSION r11u115repro/grid/r/k/k02_int_p02_replcat EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+REGRESSION r11u115repro/grid/r/k/k04_logic4_p01_ibex EQUAL -> STRICT_NOTEQUAL differ:fullname(4)
+REGRESSION r11u115repro/grid/r/k/k04_logic4_p02_replcat EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+REGRESSION r11u115repro/grid/r/k/k09_bodyimp_p01_ibex EQUAL -> STRICT_NOTEQUAL differ:fullname(4)
+REGRESSION r11u115repro/grid/r/x/x01_icache_shape EQUAL -> STRICT_NOTEQUAL differ:fullname(8)
+REGRESSION r11u60repro/g4 EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+REGRESSION r11u61repro/h1 EQUAL -> STRICT_NOTEQUAL differ:fullname(3)
+REGRESSION v11u115repro/grid/f1/a16_gf_mixed EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+REGRESSION v11u115repro/grid/f1/a26_gf_twoinst EQUAL -> STRICT_NOTEQUAL differ:fullname(2)
+CHANGE r10earl31repro/e4_ctrl STRICT_NOTEQUAL differ:endcol(2) -> differ:endcol(17) [endcol +15]
+CHANGE r10earl31repro/v4_ops STRICT_NOTEQUAL differ:endcol(4) -> differ:endcol(14) [endcol +10]
+CHANGE r10earl31repro/v5_hier STRICT_NOTEQUAL differ:fullname(1) -> differ:endcol(5)
+CHANGE r10earl_repro/vo STRICT_NOTEQUAL differ:fullname(6) -> differ:endcol(8)
+CHANGE r10v65repro/a8_orphan STRICT_NOTEQUAL differ:fullname(2) -> differ:fullname(5) [fullname +3]
+regressions=18 conversions=0 changes=5 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u199_sw2/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u199_bin/uhdm-strictcmp
+
+[default] 798 tests
+  CMP_EQUAL: 460
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  STRICT_NOTEQUAL: 20
+  DEFERRED: 5
+  CMP_NOTEQUAL: 3
+
+[testflags] 798 tests
+  CMP_EQUAL: 456
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  STRICT_NOTEQUAL: 18
+  DEFERRED: 5
+  NO_DATABASE: 3
+  CMP_NOTEQUAL: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=460 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=20 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=456 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=18 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:col(91) -> differ:col(98) [col +7]
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:col(91) -> differ:col(98) [col +7]
+regressions=0 conversions=0 changes=2 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u199_sw2/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u199_bin/uhdm-strictcmp
+
+[default] 871 tests
+  CMP_EQUAL: 791
+  SLANG_REJECT: 67
+  STRICT_NOTEQUAL: 12
+  CMP_NOTEQUAL: 1
+
+[testflags] 871 tests
+  CMP_EQUAL: 791
+  SLANG_REJECT: 67
+  STRICT_NOTEQUAL: 12
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=791 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=12
+[testflags] CMP_EQUAL=791 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=12
+REGRESSION ibex_icache default CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(49)
+REGRESSION ibex_icache testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(49)
+REGRESSION iface_zero_width_field default CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(3)
+REGRESSION iface_zero_width_field testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:fullname(3)
+regressions=4 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache
+SWEEP_RC=1

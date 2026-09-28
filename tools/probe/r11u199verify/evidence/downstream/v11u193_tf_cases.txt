@@ -1,0 +1,8 @@
+ON | tp/v11u193repro/cases/TF/tf02_widths | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u193repro/cases/TF/tf03_concat_z | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u193repro/cases/TF/tf05_mixed | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u193repro/cases/TF/tf09_x_ports | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u193repro/cases/TF/tf02_widths | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to co
+ALLOFF | tp/v11u193repro/cases/TF/tf03_concat_z | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to 
+ALLOFF | tp/v11u193repro/cases/TF/tf05_mixed | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to com
+ALLOFF | tp/v11u193repro/cases/TF/tf09_x_ports | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statement

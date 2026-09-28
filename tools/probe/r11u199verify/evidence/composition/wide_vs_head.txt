@@ -1,0 +1,6 @@
+probe: conv H-vs-A 162  conv wideon-vs-wide 162  only-HA 0 only-OW 0; changes HA 12 OW 12
+   counts: H 3299 A 3137 O 3188 W 3026
+surelog: conv H-vs-A 0  conv wideon-vs-wide 0  only-HA 0 only-OW 0; changes HA 2 OW 2
+   counts: H 916 A 916 O 908 W 908
+uhdm2rtlil: conv H-vs-A 6  conv wideon-vs-wide 6  only-HA 0 only-OW 0; changes HA 2 OW 2
+   counts: H 1586 A 1580 O 1584 W 1578

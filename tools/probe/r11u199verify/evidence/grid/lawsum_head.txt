@@ -1,0 +1,20 @@
+caPsSelFullVerbatim192 | cases 7 | BYTES-ONLY=3 TOWARD=3 UNFIRED=8
+caTernFillArmKept193 | cases 6 | STAGE1-CLOSER=2 TOWARD=2 UNFIRED=8 | AWAY-judges: T/t01_fills_both_arms:lost=8 T/t02_nested_three:lost=1
+caUnsizedRhsClonePerInst193 | cases 12 | BYTES-ONLY=1 MIXED=5 STAGE1-CLOSER=2 TOWARD=4 UNFIRED=6 UNMASK=6 | AWAY-judges: U/u06_three_widths_el:away=6 X/x03_nda_unsized_psbound_el:away=4 X/x09_clone_varsel_lhs_el:away=6 U/u06_three_widths_el:lost=15 X/x03_nda_unsized_psbound_el:lost=10 X/x09_clone_varsel_lhs_el:lost=16
+castOperandLeafElab193 | cases 12 | BYTES-ONLY=3 STAGE1-CLOSER=8 STAGE1-SAME=4 TOWARD=3 UNFIRED=6 | AWAY-judges: C/c01_cast_of_cast:lost=1 C/c03_positional:lost=1
+connCastTsNamedByPort193 | cases 11 | STAGE1-CLOSER=10 TOWARD=8 UNFIRED=4
+connSysCallArgDefNet193 | cases 6 | TOWARD=10 UNFIRED=2
+genForReplCountOwner192 | cases 12 | TOWARD=4 UNFIRED=20
+genForWholeLhsNestedKeep192v | cases 19 | AWAY=8 STAGE1-AWAY=6 STAGE1-CLOSER=2 STAGE1-SAME=4 TOWARD=12 UNFIRED=6 | AWAY-judges: A/a11_whole_nested:away=1 A/a11_whole_nested_el:away=1 W/s3_signed_cat:away=1 W/s3_signed_cat_el:away=1 W/s4_sys_of_or:away=1 W/s4_sys_of_or_el:away=1 W/s5_sys_hi:away=1 W/s5_sys_hi_el:away=1 W/s6_countones:away=1 W/s6_countones_el:away=1 W/w1_unsigned:away=1 W/w1_unsigned_el:away=1 W/w2_signed:away=1 W/w2_signed_el:away=1 W/w3_unsigned_cat:away=1 W/w3_unsigned_cat_el:away=1 A/a11_whole_nested:lost=2 A/a11_whole_nested_el:lost=2 W/s3_signed_cat:lost=2 W/s3_signed_cat_el:lost=2 W/s4_sys_of_or:lost=2 W/s4_sys_of_or_el:lost=2 W/s5_sys_hi:lost=2 W/s5_sys_hi_el:lost=2 W/s6_countones:lost=2 W/s6_countones_el:lost=2 W/w1_unsigned:lost=2 W/w1_unsigned_el:lost=2 W/w2_signed:lost=2 W/w2_signed_el:lost=2 W/w3_unsigned_cat:lost=2 W/w3_unsigned_cat_el:lost=2
+ndaPsBoundOwner192 | cases 2 | TOWARD=4 | AWAY-judges: X/x03_nda_unsized_psbound:away=2 X/x03_nda_unsized_psbound_el:away=2 X/x03_nda_unsized_psbound:lost=4 X/x03_nda_unsized_psbound_el:lost=4
+nestChainKeepsPkgQual193v | cases 1 | UNFIRED=2
+nestChainSelects193v | cases 4 | MIXED=2 TOWARD=2 UNFIRED=4
+nestedDefChainName193 | cases 7 | MIXED=2 STAGE1-CLOSER=2 TOWARD=8 UNFIRED=2
+pkgPatReadTsBindsTopTypedef192 | cases 4 | STAGE1-AWAY=5 STAGE1-CLOSER=2 TOWARD=1
+pkgQualBoundSpanQualifier192 | cases 4 | STAGE1-CLOSER=2 TOWARD=6
+procPsBoundOwner192 | cases 4 | TOWARD=2 UNFIRED=6
+psBoundPaOwnerName192 | cases 35 | MIXED=6 STAGE1-CLOSER=6 TOWARD=22 UNFIRED=36 | AWAY-judges: X/x03_nda_unsized_psbound:away=2 X/x03_nda_unsized_psbound_el:away=2 X/x07_clone_rhs_psbound:away=2 X/x07_clone_rhs_psbound_el:away=2 X/x08_clone_lhs_psbound:away=2 X/x08_clone_lhs_psbound_el:away=2 X/x03_nda_unsized_psbound:lost=4 X/x03_nda_unsized_psbound_el:lost=4 X/x07_clone_rhs_psbound:lost=4 X/x07_clone_rhs_psbound_el:lost=4 X/x08_clone_lhs_psbound:lost=4 X/x08_clone_lhs_psbound_el:lost=4
+tfArgOutsideCopyOrder193 | cases 5 | MIXED=1 STAGE1-CLOSER=1 STAGE1-SAME=2 TOWARD=4 UNMASK=2
+tfPsBoundOwner192 | cases 1 | STAGE1-CLOSER=1 TOWARD=1
+tpCaPortNetIsVar194v | cases 1 | STAGE1-SAME=2
+ucCloneUnnamesRanges193v | cases 4 | TOWARD=2 UNFIRED=6

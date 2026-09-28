@@ -1,0 +1,23 @@
+    |vpiActual:
+    \_array_typespec: (types_t), line:642:11, endln:642:26
+  |vpiRange:
+  \_range: , line:642:23, endln:642:26
+    |vpiParent:
+    \_array_typespec: (types_t), line:642:11, endln:642:26
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: , line:642:23, endln:642:26
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: , line:642:23, endln:642:26
+      |vpiDecompile:943
+      |vpiSize:64
+      |UINT:943
+      |vpiConstType:9
+  |vpiElemTypespec:

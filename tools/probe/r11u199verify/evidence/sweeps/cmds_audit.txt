@@ -1,0 +1,7 @@
+swH slang_lines=3273 binaries:    3273 /tmp/r11u199_bin/law.bin 
+swA slang_lines=3273 binaries:    3273 /tmp/r11u199_bin/alloff.sh 
+sw2 slang_lines=3273 binaries:    3273 /tmp/r11u199_bin/off192.sh 
+sw3 slang_lines=3273 binaries:    3273 /tmp/r11u199_bin/off193.sh 
+swW slang_lines=3273 binaries:    3273 /tmp/r11u199_bin/wide.sh 
+swO slang_lines=3273 binaries:    3273 /tmp/r11u199_bin/wideon.sh 
+swF slang_lines=3273 binaries:    3273 /tmp/r11u199_bin/fix.bin 

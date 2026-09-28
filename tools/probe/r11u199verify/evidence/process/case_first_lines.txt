@@ -1,0 +1,8 @@
+r11u192repro cases=30 first-line-§=30
+v11u192repro cases=135 first-line-§=135
+r11u193repro cases=65 first-line-§=65
+v11u193repro cases=77 first-line-§=77
+r11u192repro: caPsSelFullVerbatim192=1 genForReplCountOwner192=3 ndaPsBoundOwner192=1 pkgPatReadTsBindsTopTypedef192=6 pkgQualBoundSpanQualifier192=5 procPsBoundOwner192=1 psBoundPaOwnerName192=12 tfPsBoundOwner192=1 
+v11u192repro: caPsSelFullVerbatim192=2 genForWholeLhsNestedKeep192v=99 ndaPsBoundOwner192=2 pkgPatReadTsBindsTopTypedef192=8 pkgQualBoundSpanQualifier192=9 procPsBoundOwner192=3 psBoundPaOwnerName192=11 tfPsBoundOwner192=1 
+r11u193repro: castOperandLeafElab193=29 caTernFillArmKept193=5 caUnsizedRhsClonePerInst193=7 connSysCallArgDefNet193=4 nestedDefChainName193=9 tfArgOutsideCopyOrder193=11 
+v11u193repro: castOperandLeafElab193=23 caTernFillArmKept193=10 caUnsizedRhsClonePerInst193=20 connSysCallArgDefNet193=4 nestChainKeepsPkgQual193v=1 nestChainSelects193v=1 nestedDefChainName193=5 tfArgOutsideCopyOrder193=11 ucCloneUnnamesRanges193v=2 

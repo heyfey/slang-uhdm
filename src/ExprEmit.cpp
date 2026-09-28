@@ -1002,6 +1002,49 @@ static bool r11v192WholeLhsOn() {
     static const bool on = getenv("R11V192_WHOLELHS_OFF") == nullptr;
     return on;
 }
+// § genForWholeLhsCallRootOwner199v (r11u199, the second verification of
+// pass 192) — the refinement above keeps the select / generate-scope name
+// only where Surelog re-clones the assignment: UhdmWriter::writeCont_assign's
+// first leg clones a cont_assign whose target is a whole name (`lhs` a
+// ref_obj that bindVariable finds) ONLY when the right-hand side's ROOT is an
+// OPERATION (`rhs->UhdmType() == uhdmoperation`), and the clone re-parents the
+// substituted constant under the select.  A root that is a SYSTEM call
+// (`$unsigned({1'b0, x[W:0]})`, `$signed(...)`, `$unsigned(x[W:0] | 0)`,
+// `$countones(...)`) is not cloned there, the getValue clone keeps its
+// param_assign parent, and golden reads the owning instance (`work@top.u`),
+// as for a bare whole-RHS select.  A system call nested under an operation
+// (`$unsigned(...) + 0`, `c ? $unsigned(...) : 0`) is still cloned, and a
+// USER function call root (`id({1'b0, x[W:0]})`, whose arguments
+// compileTfCallArguments compiles afresh) keeps the select name in golden:
+// the refinement stands for both.  This reads the syntax: the right-hand
+// side, parentheses stripped, is an invocation of a system name.  Cases
+// tools/probe/r11u199verify/cases/W (w3, s3, s4, s5 convert; w1, w2, s6
+// closer; s1, s10, w4, w5, w6, s8 controls).  Switch R11V199_GFCALLROOT_OFF
+// (R11V199_OFF drops it).
+static bool caRhsRootIsCall199v(const Expression& e) {
+    static const bool on = getenv("R11V199_GFCALLROOT_OFF") == nullptr &&
+                           getenv("R11V199_OFF") == nullptr;
+    if (!on)
+        return false;
+    const syntax::SyntaxNode* asg = nullptr;
+    for (const syntax::SyntaxNode* n = e.syntax; n; n = n->parent) {
+        if (n->kind == syntax::SyntaxKind::AssignmentExpression)
+            asg = n;
+        else if (n->kind == syntax::SyntaxKind::ContinuousAssign) {
+            if (!asg)
+                return false;
+            const syntax::ExpressionSyntax* r =
+                asg->as<syntax::BinaryExpressionSyntax>().right;
+            while (r && r->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                r = r->as<syntax::ParenthesizedExpressionSyntax>().expression;
+            return r && r->kind == syntax::SyntaxKind::InvocationExpression &&
+                   r->as<syntax::InvocationExpressionSyntax>().left &&
+                   r->as<syntax::InvocationExpressionSyntax>().left->kind ==
+                       syntax::SyntaxKind::SystemName;
+        }
+    }
+    return false;
+}
 static bool caRhsUnbasedUnsized192(const Expression& e) {
     const syntax::SyntaxNode* asg = nullptr;
     for (const syntax::SyntaxNode* n = e.syntax; n; n = n->parent) {
@@ -21141,7 +21184,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                             gf0192 && r11v192WholeLhsOn() &&
                                             !caSelIsWholeRhs192v(ps9) &&
                                             !genCaLhsSelect22 && !genCaLhsGenLocal23 &&
-                                            caLhsWholeName192v(expr);
+                                            caLhsWholeName192v(expr) &&
+                                            // § genForWholeLhsCallRootOwner199v
+                                            !caRhsRootIsCall199v(expr);
                                         if (wl192v)
                                             tr192EX("genForWholeLhsNestedKeep192v");
                                         const bool gf192 = gf0192 && !wl192v;
@@ -21230,6 +21275,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     !(r11v192WholeLhsOn() &&
                                       !genCaLhsSelect22 && !genCaLhsGenLocal23 &&
                                       caLhsWholeName192v(expr) &&
+                                      // § genForWholeLhsCallRootOwner199v
+                                      !caRhsRootIsCall199v(expr) &&
                                       (tr192EX("genForWholeLhsNestedKeep192v"), true))) {
                                     std::string own192 = ownerInstName192(parent);
                                     if (!own192.empty() && own192 != nm192) {

@@ -1091,8 +1091,20 @@ bool rhsHasUnsized193(const UHDM::any* x, int depth = 0) {
 }
 } // namespace
 bool v11u193Law(const char* sw); // the v11u193 refinements (UhdmExporter.cpp)
+// The r11u199 refinements (tools/probe/r11u199verify/README.md, the second
+// verification of passes 192 and 193): each reads its own R11V199_<NAME>_OFF
+// switch; R11V199_OFF drops both.
+//   R11V199_UCOWNER_OFF   § ucCloneUnnamesOwnerTs199v   (ModuleEmit.cpp)
+//   R11V199_UCVARSEL_OFF  § ucCloneUnnamesVarSel199v    (ModuleEmit.cpp)
+static bool r11v199Law(const char* sw) {
+    if (getenv("R11V199_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
 void unsizedRhsCloneDrain193(UHDM::Serializer& s) {
     const bool ucRange193v = v11u193Law("R11V193_UCRANGE_OFF");
+    const bool ucOwner199v = r11v199Law("R11V199_UCOWNER_OFF");
+    const bool ucVarSel199v = r11v199Law("R11V199_UCVARSEL_OFF");
     for (auto& r : unsizedClone193) {
         if (r.idx >= r.cas->size() || (*r.cas)[r.idx] != r.def)
             continue;
@@ -1114,6 +1126,23 @@ void unsizedRhsCloneDrain193(UHDM::Serializer& s) {
         auto defNamed = [&](std::string_view fn) {
             return !dp193.empty() && fn.size() > dp193.size() &&
                    fn.compare(0, dp193.size(), dp193) == 0;
+        };
+        // § ucCloneUnnamesOwnerTs199v (r11u199) — a typespec reference the
+        // DEFINITION names by its owner (§ psBoundPaOwnerName192: a
+        // wildcard-imported package parameter folded into a part-select
+        // bound reads `work@m`, the param_assign clone's parent chain) is a
+        // definition-derived name too: Surelog's per-instance clone
+        // re-parents the constant under the select, so golden's clone reads
+        // `work@top.u_a.x` (x[W:0] on the right) / `work@top.u_a.y` (y[W:0] on
+        // the left).  The prefix test above needs a `.` after the definition
+        // path and kept the owner's exact name.  Cases
+        // tools/probe/r11u199verify/cases/X x03 x07 x08.  Switch
+        // R11V199_UCOWNER_OFF.
+        auto defNamedTs = [&](std::string_view fn) {
+            return defNamed(fn) ||
+                   (ucOwner199v && !dp193.empty() &&
+                    fn.size() + 1 == dp193.size() &&
+                    fn.compare(0, fn.size(), dp193, 0, fn.size()) == 0);
         };
         std::function<void(UHDM::any*)> unname = [&](UHDM::any* x) {
             if (!x)
@@ -1149,9 +1178,25 @@ void unsizedRhsCloneDrain193(UHDM::Serializer& s) {
                 if (ucRange193v)   // § ucCloneUnnamesRanges193v
                     unname((UHDM::any*)((UHDM::indexed_part_select*)x)->Width_expr());
                 break;
+            case UHDM::uhdmvar_select:
+                // § ucCloneUnnamesVarSel199v (r11u199) — the clone is whole:
+                // an element select target `y[0][K:0]` (a var_select and the
+                // part select among its indexes) reads the instance chain
+                // like a bit or part select (golden `work@top.u_a.y`,
+                // `work@top.u_a.y.y`, `work@top.u_a.y.y.K`; ours kept
+                // `work@m.y...`).  Case tools/probe/r11u199verify/cases/X
+                // x09 (x03's y[0][W:0]).  Switch R11V199_UCVARSEL_OFF.
+                if (!ucVarSel199v)
+                    break;
+                if (defNamed(((UHDM::var_select*)x)->VpiFullName()))
+                    ((UHDM::var_select*)x)->VpiFullName("");
+                if (auto* es = ((UHDM::var_select*)x)->Exprs())
+                    for (auto* e : *es)
+                        unname(e);
+                break;
             case UHDM::uhdmoperation:
                 if (auto* rt = ((UHDM::operation*)x)->Typespec();
-                    rt && defNamed(rt->VpiFullName()))
+                    rt && defNamedTs(rt->VpiFullName()))
                     rt->VpiFullName("");
                 if (auto* os = ((UHDM::operation*)x)->Operands())
                     for (auto* o : *os)
@@ -1159,7 +1204,7 @@ void unsizedRhsCloneDrain193(UHDM::Serializer& s) {
                 break;
             case UHDM::uhdmconstant:
                 if (auto* rt = ((UHDM::constant*)x)->Typespec();
-                    rt && defNamed(rt->VpiFullName()))
+                    rt && defNamedTs(rt->VpiFullName()))
                     rt->VpiFullName("");
                 break;
             case UHDM::uhdmsys_func_call:

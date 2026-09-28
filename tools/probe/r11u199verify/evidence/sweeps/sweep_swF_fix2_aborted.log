@@ -1,0 +1,32 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u199_swF/probe.csv
+probe cases: EQUAL=3299 STRICT_NOTEQUAL=788 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=3299 differ:fullname=309 differ:line=113 differ:endcol=109 differ:type=73 differ:name=61 differ:file=43 differ:depth=34 differ:col=29 differ:endline=11 differ:value=5 differ:decompile=1
+== probe vs golden_probe.csv
+[probe] EQUAL=3299 STRICT_NOTEQUAL=788
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u199_swF/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u199_bin/uhdm-strictcmp
+  25/798
+  50/798
+  75/798
+  100/798
+  125/798
+  150/798
+  175/798
+  200/798
+  225/798
+  250/798
+  275/798
+  300/798
+  325/798
+  350/798
+  375/798
+  400/798
+  425/798
+  450/798
+  475/798
+  500/798
+  525/798
+  550/798
+  575/798

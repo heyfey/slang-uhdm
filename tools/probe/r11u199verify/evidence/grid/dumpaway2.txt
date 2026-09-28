@@ -1,0 +1,603 @@
+A/a01_two_wild_pkgs alloff lost=0 gained=8 
+A/a01_two_wild_pkgs offL192 lost=0 gained=8 
+A/a01_two_wild_pkgs off_psBoundPaOwnerName192 lost=0 gained=8 
+A/a01_two_wild_pkgs wide lost=0 gained=8 
+A/a01_two_wild_pkgs_el alloff lost=0 gained=8 
+A/a01_two_wild_pkgs_el offL192 lost=0 gained=8 
+A/a01_two_wild_pkgs_el off_psBoundPaOwnerName192 lost=0 gained=8 
+A/a01_two_wild_pkgs_el wide lost=0 gained=8 
+A/a02_explicit_and_qual alloff lost=0 gained=12 
+A/a02_explicit_and_qual offL192 lost=0 gained=12 
+A/a02_explicit_and_qual off_pkgQualBoundSpanQualifier192 lost=0 gained=6 
+A/a02_explicit_and_qual off_psBoundPaOwnerName192 lost=0 gained=6 
+A/a02_explicit_and_qual wide lost=0 gained=12 
+A/a02_explicit_and_qual_el alloff lost=0 gained=13 
+A/a02_explicit_and_qual_el offL192 lost=0 gained=13 
+A/a02_explicit_and_qual_el off_pkgQualBoundSpanQualifier192 lost=0 gained=7 
+A/a02_explicit_and_qual_el off_psBoundPaOwnerName192 lost=0 gained=6 
+A/a02_explicit_and_qual_el wide lost=0 gained=13 
+A/a03_genfor_rhs alloff lost=0 gained=2 
+A/a03_genfor_rhs offL192 lost=0 gained=2 
+A/a03_genfor_rhs off_genForWholeLhsNestedKeep192v lost=0 gained=2 
+A/a03_genfor_rhs off_psBoundPaOwnerName192 lost=0 gained=2 
+A/a03_genfor_rhs wide lost=0 gained=2 
+A/a03_genfor_rhs_el alloff lost=0 gained=2 
+A/a03_genfor_rhs_el offL192 lost=0 gained=2 
+A/a03_genfor_rhs_el off_genForWholeLhsNestedKeep192v lost=0 gained=2 
+A/a03_genfor_rhs_el off_psBoundPaOwnerName192 lost=0 gained=2 
+A/a03_genfor_rhs_el wide lost=0 gained=2 
+A/a04_genif_gencase_cond alloff lost=0 gained=8 
+A/a04_genif_gencase_cond offL192 lost=0 gained=8 
+A/a04_genif_gencase_cond off_psBoundPaOwnerName192 lost=0 gained=8 
+A/a04_genif_gencase_cond wide lost=0 gained=8 
+A/a04_genif_gencase_cond_el alloff lost=0 gained=8 
+A/a04_genif_gencase_cond_el offL192 lost=0 gained=8 
+A/a04_genif_gencase_cond_el off_psBoundPaOwnerName192 lost=0 gained=8 
+A/a04_genif_gencase_cond_el wide lost=0 gained=8 
+A/a05_target_sel alloff lost=0 gained=8 
+A/a05_target_sel offL192 lost=0 gained=8 
+A/a05_target_sel off_psBoundPaOwnerName192 lost=0 gained=8 
+A/a05_target_sel wide lost=0 gained=8 
+A/a05_target_sel_el alloff lost=0 gained=8 
+A/a05_target_sel_el offL192 lost=0 gained=8 
+A/a05_target_sel_el off_psBoundPaOwnerName192 lost=0 gained=8 
+A/a05_target_sel_el wide lost=0 gained=8 
+A/a06_port_conn alloff lost=0 gained=30 
+A/a06_port_conn offL192 lost=0 gained=30 
+A/a06_port_conn off_caPsSelFullVerbatim192 lost=0 gained=8 
+A/a06_port_conn off_psBoundPaOwnerName192 lost=0 gained=22 
+A/a06_port_conn wide lost=0 gained=30 
+A/a06_port_conn_el alloff lost=0 gained=22 
+A/a06_port_conn_el offL192 lost=0 gained=22 
+A/a06_port_conn_el off_psBoundPaOwnerName192 lost=0 gained=22 
+A/a06_port_conn_el wide lost=0 gained=22 
+A/a07_repl_count alloff lost=0 gained=4 
+A/a07_repl_count offL192 lost=0 gained=4 
+A/a07_repl_count off_genForReplCountOwner192 lost=0 gained=4 
+A/a07_repl_count off_genForWholeLhsNestedKeep192v lost=0 gained=2 
+A/a07_repl_count wide lost=0 gained=4 
+A/a07_repl_count_el alloff lost=0 gained=4 
+A/a07_repl_count_el offL192 lost=0 gained=4 
+A/a07_repl_count_el off_genForReplCountOwner192 lost=0 gained=4 
+A/a07_repl_count_el off_genForWholeLhsNestedKeep192v lost=0 gained=2 
+A/a07_repl_count_el wide lost=0 gained=4 
+A/a08_proc_always_initial alloff lost=0 gained=6 
+A/a08_proc_always_initial offL192 lost=0 gained=6 
+A/a08_proc_always_initial off_procPsBoundOwner192 lost=0 gained=6 
+A/a08_proc_always_initial wide lost=0 gained=6 
+A/a08_proc_always_initial_el alloff lost=0 gained=6 
+A/a08_proc_always_initial_el offL192 lost=0 gained=6 
+A/a08_proc_always_initial_el off_procPsBoundOwner192 lost=0 gained=6 
+A/a08_proc_always_initial_el wide lost=0 gained=6 
+A/a09_tf_task_func alloff lost=0 gained=10 
+A/a09_tf_task_func offL192 lost=0 gained=10 
+A/a09_tf_task_func off_tfPsBoundOwner192 lost=0 gained=10 
+A/a09_tf_task_func wide lost=0 gained=10 
+A/a09_tf_task_func_el alloff lost=0 gained=10 
+A/a09_tf_task_func_el offL192 lost=0 gained=10 
+A/a09_tf_task_func_el off_tfPsBoundOwner192 lost=0 gained=10 
+A/a09_tf_task_func_el wide lost=0 gained=10 
+A/a10_nda_two_inst alloff lost=0 gained=8 
+A/a10_nda_two_inst offL192 lost=0 gained=8 
+A/a10_nda_two_inst off_ndaPsBoundOwner192 lost=0 gained=8 
+A/a10_nda_two_inst wide lost=0 gained=8 
+A/a10_nda_two_inst_el alloff lost=0 gained=8 
+A/a10_nda_two_inst_el offL192 lost=0 gained=8 
+A/a10_nda_two_inst_el off_ndaPsBoundOwner192 lost=0 gained=8 
+A/a10_nda_two_inst_el wide lost=0 gained=8 
+A/a11_whole_nested fix lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+A/a11_whole_nested fix2 lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+A/a11_whole_nested off_genForWholeLhsNestedKeep192v lost=2 gained=8  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+A/a11_whole_nested_el fix lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+A/a11_whole_nested_el fix2 lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+A/a11_whole_nested_el off_genForWholeLhsNestedKeep192v lost=2 gained=8  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+A/a12_bind alloff lost=0 gained=4 
+A/a12_bind offL192 lost=0 gained=4 
+A/a12_bind off_psBoundPaOwnerName192 lost=0 gained=2 
+A/a12_bind wide lost=0 gained=4 
+A/a12_bind_el alloff lost=0 gained=4 
+A/a12_bind_el offL192 lost=0 gained=4 
+A/a12_bind_el off_psBoundPaOwnerName192 lost=0 gained=2 
+A/a12_bind_el wide lost=0 gained=4 
+A/a13_macro_arg alloff lost=0 gained=10 
+A/a13_macro_arg offL192 lost=0 gained=10 
+A/a13_macro_arg off_genForReplCountOwner192 lost=0 gained=4 
+A/a13_macro_arg off_psBoundPaOwnerName192 lost=0 gained=6 
+A/a13_macro_arg wide lost=0 gained=10 
+A/a13_macro_arg_el alloff lost=0 gained=10 
+A/a13_macro_arg_el offL192 lost=0 gained=10 
+A/a13_macro_arg_el off_genForReplCountOwner192 lost=0 gained=4 
+A/a13_macro_arg_el off_psBoundPaOwnerName192 lost=0 gained=6 
+A/a13_macro_arg_el wide lost=0 gained=10 
+C/c01_cast_of_cast alloff lost=0 gained=6 
+C/c01_cast_of_cast offL193 lost=0 gained=6 
+C/c01_cast_of_cast off_castOperandLeafElab193 lost=1 gained=1  | \_logic_net: (work@dut.r), line:6:15, endln:6:16
+C/c01_cast_of_cast off_connCastTsNamedByPort193 lost=0 gained=4 
+C/c01_cast_of_cast wide lost=0 gained=6 
+C/c01_cast_of_cast_el alloff lost=0 gained=6 
+C/c01_cast_of_cast_el offL193 lost=0 gained=6 
+C/c01_cast_of_cast_el off_connCastTsNamedByPort193 lost=0 gained=4 
+C/c01_cast_of_cast_el wide lost=0 gained=6 
+C/c02_cast_concat alloff lost=0 gained=4 
+C/c02_cast_concat offL193 lost=0 gained=4 
+C/c02_cast_concat off_connCastTsNamedByPort193 lost=0 gained=4 
+C/c02_cast_concat wide lost=0 gained=4 
+C/c02_cast_concat_el alloff lost=0 gained=4 
+C/c02_cast_concat_el offL193 lost=0 gained=4 
+C/c02_cast_concat_el off_connCastTsNamedByPort193 lost=0 gained=4 
+C/c02_cast_concat_el wide lost=0 gained=4 
+C/c03_positional alloff lost=1 gained=8  | \_logic_net: (work@dut.r), line:6:15, endln:6:16
+C/c03_positional offL193 lost=1 gained=8  | \_logic_net: (work@dut.r), line:6:15, endln:6:16
+C/c03_positional off_castOperandLeafElab193 lost=1 gained=2  | \_logic_net: (work@dut.r), line:6:15, endln:6:16
+C/c03_positional off_connCastTsNamedByPort193 lost=0 gained=6 
+C/c03_positional wide lost=1 gained=8  | \_logic_net: (work@dut.r), line:6:15, endln:6:16
+C/c03_positional_el alloff lost=0 gained=6 
+C/c03_positional_el offL193 lost=0 gained=6 
+C/c03_positional_el off_connCastTsNamedByPort193 lost=0 gained=6 
+C/c03_positional_el wide lost=0 gained=6 
+C/c05_pkg_param_operand alloff lost=0 gained=8 
+C/c05_pkg_param_operand offL193 lost=0 gained=8 
+C/c05_pkg_param_operand off_castOperandLeafElab193 lost=0 gained=2 
+C/c05_pkg_param_operand off_connCastTsNamedByPort193 lost=0 gained=6 
+C/c05_pkg_param_operand wide lost=0 gained=8 
+C/c05_pkg_param_operand_el alloff lost=0 gained=6 
+C/c05_pkg_param_operand_el offL193 lost=0 gained=6 
+C/c05_pkg_param_operand_el off_connCastTsNamedByPort193 lost=0 gained=6 
+C/c05_pkg_param_operand_el wide lost=0 gained=6 
+C/c06_nda_array_net alloff lost=0 gained=3 
+C/c06_nda_array_net offL193 lost=0 gained=3 
+C/c06_nda_array_net off_castOperandLeafElab193 lost=0 gained=3 
+C/c06_nda_array_net wide lost=0 gained=3 
+C/c07_signed_unsigned alloff lost=0 gained=6 
+C/c07_signed_unsigned offL193 lost=0 gained=6 
+C/c07_signed_unsigned off_castOperandLeafElab193 lost=0 gained=3 
+C/c07_signed_unsigned off_connSysCallArgDefNet193 lost=0 gained=6 
+C/c07_signed_unsigned wide lost=0 gained=6 
+C/c07_signed_unsigned_el alloff lost=0 gained=6 
+C/c07_signed_unsigned_el offL193 lost=0 gained=6 
+C/c07_signed_unsigned_el off_connSysCallArgDefNet193 lost=0 gained=6 
+C/c07_signed_unsigned_el wide lost=0 gained=6 
+C/c08_size_param alloff lost=0 gained=6 
+C/c08_size_param offL193 lost=0 gained=6 
+C/c08_size_param off_castOperandLeafElab193 lost=0 gained=2 
+C/c08_size_param off_connCastTsNamedByPort193 lost=0 gained=4 
+C/c08_size_param wide lost=0 gained=6 
+C/c08_size_param_el alloff lost=0 gained=4 
+C/c08_size_param_el offL193 lost=0 gained=4 
+C/c08_size_param_el off_connCastTsNamedByPort193 lost=0 gained=4 
+C/c08_size_param_el wide lost=0 gained=4 
+N/n01_two_three_deep_sels alloff lost=0 gained=28 
+N/n01_two_three_deep_sels offL193 lost=0 gained=28 
+N/n01_two_three_deep_sels off_nestedDefChainName193 lost=0 gained=28 
+N/n01_two_three_deep_sels wide lost=0 gained=28 
+N/n01_two_three_deep_sels_el alloff lost=0 gained=30 
+N/n01_two_three_deep_sels_el offL193 lost=0 gained=30 
+N/n01_two_three_deep_sels_el off_nestedDefChainName193 lost=0 gained=30 
+N/n01_two_three_deep_sels_el wide lost=0 gained=30 
+N/n02_inst_twice alloff lost=0 gained=28 
+N/n02_inst_twice offL193 lost=0 gained=28 
+N/n02_inst_twice off_nestedDefChainName193 lost=0 gained=28 
+N/n02_inst_twice wide lost=0 gained=28 
+N/n02_inst_twice_el alloff lost=0 gained=25 
+N/n02_inst_twice_el offL193 lost=0 gained=25 
+N/n02_inst_twice_el off_nestedDefChainName193 lost=0 gained=25 
+N/n02_inst_twice_el wide lost=0 gained=25 
+N/n03_pkg_typedef_enum alloff lost=0 gained=36 
+N/n03_pkg_typedef_enum offL193 lost=0 gained=36 
+N/n03_pkg_typedef_enum off_nestedDefChainName193 lost=0 gained=36 
+N/n03_pkg_typedef_enum wide lost=0 gained=36 
+N/n03_pkg_typedef_enum_el alloff lost=0 gained=36 
+N/n03_pkg_typedef_enum_el offL193 lost=0 gained=36 
+N/n03_pkg_typedef_enum_el off_nestedDefChainName193 lost=0 gained=36 
+N/n03_pkg_typedef_enum_el wide lost=0 gained=36 
+N/n04_all_selects alloff lost=0 gained=90 
+N/n04_all_selects offL193 lost=0 gained=90 
+N/n04_all_selects off_nestChainSelects193v lost=0 gained=24 
+N/n04_all_selects off_nestedDefChainName193 lost=0 gained=90 
+N/n04_all_selects wide lost=0 gained=90 
+N/n04_all_selects_el alloff lost=0 gained=101 
+N/n04_all_selects_el offL193 lost=0 gained=101 
+N/n04_all_selects_el off_nestChainSelects193v lost=0 gained=24 
+N/n04_all_selects_el off_nestedDefChainName193 lost=0 gained=101 
+N/n04_all_selects_el wide lost=0 gained=101 
+N/n05_gen_inside alloff lost=0 gained=56 
+N/n05_gen_inside offL193 lost=0 gained=56 
+N/n05_gen_inside off_nestChainSelects193v lost=0 gained=4 
+N/n05_gen_inside off_nestedDefChainName193 lost=0 gained=56 
+N/n05_gen_inside wide lost=0 gained=56 
+N/n05_gen_inside_el alloff lost=0 gained=59 
+N/n05_gen_inside_el offL193 lost=0 gained=59 
+N/n05_gen_inside_el off_nestChainSelects193v lost=0 gained=4 
+N/n05_gen_inside_el off_nestedDefChainName193 lost=0 gained=59 
+N/n05_gen_inside_el wide lost=0 gained=59 
+Q/q01_pkg_param_array_idx alloff lost=0 gained=12 
+Q/q01_pkg_param_array_idx offL192 lost=0 gained=12 
+Q/q01_pkg_param_array_idx off_pkgQualBoundSpanQualifier192 lost=0 gained=12 
+Q/q01_pkg_param_array_idx wide lost=0 gained=12 
+Q/q01_pkg_param_array_idx_el alloff lost=0 gained=16 
+Q/q01_pkg_param_array_idx_el offL192 lost=0 gained=16 
+Q/q01_pkg_param_array_idx_el off_pkgQualBoundSpanQualifier192 lost=0 gained=16 
+Q/q01_pkg_param_array_idx_el wide lost=0 gained=16 
+Q/q02_class_scoped alloff lost=0 gained=4 
+Q/q02_class_scoped offL192 lost=0 gained=4 
+Q/q02_class_scoped off_pkgQualBoundSpanQualifier192 lost=0 gained=4 
+Q/q02_class_scoped wide lost=0 gained=4 
+Q/q02_class_scoped_el alloff lost=0 gained=6 
+Q/q02_class_scoped_el offL192 lost=0 gained=6 
+Q/q02_class_scoped_el off_pkgQualBoundSpanQualifier192 lost=0 gained=6 
+Q/q02_class_scoped_el wide lost=0 gained=6 
+Q/q03_macro_body_and_arg alloff lost=0 gained=8 
+Q/q03_macro_body_and_arg offL192 lost=0 gained=8 
+Q/q03_macro_body_and_arg off_pkgQualBoundSpanQualifier192 lost=0 gained=8 
+Q/q03_macro_body_and_arg wide lost=0 gained=8 
+Q/q03_macro_body_and_arg_el alloff lost=0 gained=12 
+Q/q03_macro_body_and_arg_el offL192 lost=0 gained=12 
+Q/q03_macro_body_and_arg_el off_pkgQualBoundSpanQualifier192 lost=0 gained=12 
+Q/q03_macro_body_and_arg_el wide lost=0 gained=12 
+S/s01_bits_clog2 alloff lost=0 gained=3 
+S/s01_bits_clog2 offL193 lost=0 gained=3 
+S/s01_bits_clog2 off_connSysCallArgDefNet193 lost=0 gained=3 
+S/s01_bits_clog2 wide lost=0 gained=3 
+S/s01_bits_clog2_el alloff lost=0 gained=2 
+S/s01_bits_clog2_el offL193 lost=0 gained=2 
+S/s01_bits_clog2_el off_connSysCallArgDefNet193 lost=0 gained=2 
+S/s01_bits_clog2_el wide lost=0 gained=2 
+S/s02_nested_sys alloff lost=0 gained=9 
+S/s02_nested_sys offL193 lost=0 gained=9 
+S/s02_nested_sys off_connSysCallArgDefNet193 lost=0 gained=9 
+S/s02_nested_sys wide lost=0 gained=9 
+S/s02_nested_sys_el alloff lost=0 gained=6 
+S/s02_nested_sys_el offL193 lost=0 gained=6 
+S/s02_nested_sys_el off_connSysCallArgDefNet193 lost=0 gained=6 
+S/s02_nested_sys_el wide lost=0 gained=6 
+S/s03_sys_of_cast alloff lost=0 gained=8 
+S/s03_sys_of_cast offL193 lost=0 gained=8 
+S/s03_sys_of_cast off_castOperandLeafElab193 lost=0 gained=2 
+S/s03_sys_of_cast off_connCastTsNamedByPort193 lost=0 gained=4 
+S/s03_sys_of_cast off_connSysCallArgDefNet193 lost=0 gained=8 
+S/s03_sys_of_cast wide lost=0 gained=8 
+S/s03_sys_of_cast_el alloff lost=0 gained=8 
+S/s03_sys_of_cast_el offL193 lost=0 gained=8 
+S/s03_sys_of_cast_el off_connCastTsNamedByPort193 lost=0 gained=4 
+S/s03_sys_of_cast_el off_connSysCallArgDefNet193 lost=0 gained=8 
+S/s03_sys_of_cast_el wide lost=0 gained=8 
+S/s04_positional alloff lost=0 gained=3 
+S/s04_positional offL193 lost=0 gained=3 
+S/s04_positional off_connSysCallArgDefNet193 lost=0 gained=3 
+S/s04_positional wide lost=0 gained=3 
+S/s04_positional_el alloff lost=0 gained=2 
+S/s04_positional_el offL193 lost=0 gained=2 
+S/s04_positional_el off_connSysCallArgDefNet193 lost=0 gained=2 
+S/s04_positional_el wide lost=0 gained=2 
+T/t01_fills_both_arms alloff lost=2 gained=70  | \_cont_assign: , line:3:10, endln:3:30
+T/t01_fills_both_arms offL193 lost=2 gained=70  | \_cont_assign: , line:3:10, endln:3:30
+T/t01_fills_both_arms off_caTernFillArmKept193 lost=8 gained=8  | \_cont_assign: , line:3:10, endln:3:30 || \_cont_assign: , line:4:10, endln:4:30 || \_cont_assign: , line:5:10, endln:5:31
+T/t01_fills_both_arms wide lost=2 gained=70  | \_cont_assign: , line:3:10, endln:3:30
+T/t01_fills_both_arms_el alloff lost=0 gained=52 
+T/t01_fills_both_arms_el offL193 lost=0 gained=52 
+T/t01_fills_both_arms_el off_caTernFillArmKept193 lost=0 gained=28 
+T/t01_fills_both_arms_el wide lost=0 gained=52 
+T/t02_nested_three alloff lost=0 gained=387 
+T/t02_nested_three offL193 lost=0 gained=387 
+T/t02_nested_three off_caTernFillArmKept193 lost=1 gained=5  | \_cont_assign: , line:3:10, endln:3:66
+T/t02_nested_three wide lost=0 gained=387 
+T/t02_nested_three_el alloff lost=0 gained=56 
+T/t02_nested_three_el offL193 lost=0 gained=56 
+T/t02_nested_three_el off_caTernFillArmKept193 lost=0 gained=26 
+T/t02_nested_three_el wide lost=0 gained=56 
+T/t04_struct_net alloff lost=0 gained=76 
+T/t04_struct_net offL193 lost=0 gained=76 
+T/t04_struct_net wide lost=0 gained=76 
+T/t04_struct_net_el alloff lost=0 gained=12 
+T/t04_struct_net_el offL193 lost=0 gained=12 
+T/t04_struct_net_el wide lost=0 gained=12 
+U/u02_bases alloff lost=0 gained=360 
+U/u02_bases offL193 lost=0 gained=360 
+U/u02_bases off_caUnsizedRhsClonePerInst193 lost=0 gained=360 
+U/u02_bases wide lost=0 gained=360 
+U/u02_bases_el alloff lost=0 gained=48 
+U/u02_bases_el offL193 lost=0 gained=48 
+U/u02_bases_el off_caUnsizedRhsClonePerInst193 lost=0 gained=48 
+U/u02_bases_el wide lost=0 gained=48 
+U/u03_concat_psel alloff lost=0 gained=506 
+U/u03_concat_psel offL193 lost=0 gained=506 
+U/u03_concat_psel off_caUnsizedRhsClonePerInst193 lost=0 gained=506 
+U/u03_concat_psel off_ucCloneUnnamesRanges193v lost=0 gained=24 
+U/u03_concat_psel wide lost=0 gained=506 
+U/u03_concat_psel_el alloff lost=0 gained=72 
+U/u03_concat_psel_el offL193 lost=0 gained=72 
+U/u03_concat_psel_el off_caUnsizedRhsClonePerInst193 lost=0 gained=72 
+U/u03_concat_psel_el off_ucCloneUnnamesRanges193v lost=0 gained=12 
+U/u03_concat_psel_el wide lost=0 gained=72 
+U/u04_unpacked_whole alloff lost=0 gained=90 
+U/u04_unpacked_whole offL193 lost=0 gained=90 
+U/u04_unpacked_whole off_caUnsizedRhsClonePerInst193 lost=0 gained=90 
+U/u04_unpacked_whole wide lost=0 gained=90 
+U/u04_unpacked_whole_el alloff lost=0 gained=12 
+U/u04_unpacked_whole_el offL193 lost=0 gained=12 
+U/u04_unpacked_whole_el off_caUnsizedRhsClonePerInst193 lost=0 gained=12 
+U/u04_unpacked_whole_el wide lost=0 gained=12 
+U/u06_three_widths alloff lost=0 gained=345 
+U/u06_three_widths fix lost=30 gained=0  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:4:10, endln:4:21 || \_var_select: (work@top.u_a.y), line:4:10, endln:4:21
+U/u06_three_widths fix1 lost=30 gained=0  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:4:10, endln:4:21 || \_var_select: (work@top.u_a.y), line:4:10, endln:4:21
+U/u06_three_widths offL193 lost=0 gained=345 
+U/u06_three_widths off_caUnsizedRhsClonePerInst193 lost=0 gained=345 
+U/u06_three_widths wide lost=0 gained=345 
+U/u06_three_widths_el alloff lost=15 gained=48  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:4:10, endln:4:21 || \_part_select: y (work@top.u_a.y.y), line:4:15, endln:4:20
+U/u06_three_widths_el fix lost=21 gained=0  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:4:10, endln:4:21 || \_var_select: (work@top.u_a.y), line:4:10, endln:4:21
+U/u06_three_widths_el fix1 lost=21 gained=0  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:4:10, endln:4:21 || \_var_select: (work@top.u_a.y), line:4:10, endln:4:21
+U/u06_three_widths_el offL193 lost=15 gained=48  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:4:10, endln:4:21 || \_part_select: y (work@top.u_a.y.y), line:4:15, endln:4:20
+U/u06_three_widths_el off_caUnsizedRhsClonePerInst193 lost=15 gained=48  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:4:10, endln:4:21 || \_part_select: y (work@top.u_a.y.y), line:4:15, endln:4:20
+U/u06_three_widths_el wide lost=15 gained=48  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:4:10, endln:4:21 || \_part_select: y (work@top.u_a.y.y), line:4:15, endln:4:20
+U/u07_typespec_behind alloff lost=0 gained=120 
+U/u07_typespec_behind fix lost=4 gained=0  | \_ref_typespec: (work@top.u_a) || |vpiFullName:work@top.u_a || \_ref_typespec: (work@top.u_b)
+U/u07_typespec_behind offL193 lost=0 gained=120 
+U/u07_typespec_behind off_caUnsizedRhsClonePerInst193 lost=0 gained=120 
+U/u07_typespec_behind wide lost=0 gained=120 
+U/u07_typespec_behind_el alloff lost=0 gained=12 
+U/u07_typespec_behind_el offL193 lost=0 gained=12 
+U/u07_typespec_behind_el off_caUnsizedRhsClonePerInst193 lost=0 gained=12 
+U/u07_typespec_behind_el wide lost=0 gained=12 
+V/v01_iface_port alloff lost=0 gained=8 
+V/v01_iface_port offL192 lost=0 gained=8 
+V/v01_iface_port off_psBoundPaOwnerName192 lost=0 gained=8 
+V/v01_iface_port wide lost=0 gained=8 
+V/v01_iface_port_el alloff lost=0 gained=8 
+V/v01_iface_port_el offL192 lost=0 gained=8 
+V/v01_iface_port_el off_psBoundPaOwnerName192 lost=0 gained=8 
+V/v01_iface_port_el wide lost=0 gained=8 
+V/v02_modport alloff lost=0 gained=2 
+V/v02_modport offL192 lost=0 gained=2 
+V/v02_modport off_psBoundPaOwnerName192 lost=0 gained=2 
+V/v02_modport wide lost=0 gained=2 
+V/v02_modport_el alloff lost=0 gained=2 
+V/v02_modport_el offL192 lost=0 gained=2 
+V/v02_modport_el off_psBoundPaOwnerName192 lost=0 gained=2 
+V/v02_modport_el wide lost=0 gained=2 
+V/v03_genscope_net alloff lost=0 gained=4 
+V/v03_genscope_net offL192 lost=0 gained=4 
+V/v03_genscope_net off_psBoundPaOwnerName192 lost=0 gained=4 
+V/v03_genscope_net wide lost=0 gained=4 
+V/v03_genscope_net_el alloff lost=0 gained=4 
+V/v03_genscope_net_el offL192 lost=0 gained=4 
+V/v03_genscope_net_el off_psBoundPaOwnerName192 lost=0 gained=4 
+V/v03_genscope_net_el wide lost=0 gained=4 
+V/v04_two_inst_one_child alloff lost=0 gained=20 
+V/v04_two_inst_one_child offL192 lost=0 gained=20 
+V/v04_two_inst_one_child off_caPsSelFullVerbatim192 lost=0 gained=8 
+V/v04_two_inst_one_child off_psBoundPaOwnerName192 lost=0 gained=12 
+V/v04_two_inst_one_child wide lost=0 gained=20 
+V/v04_two_inst_one_child_el alloff lost=0 gained=12 
+V/v04_two_inst_one_child_el offL192 lost=0 gained=12 
+V/v04_two_inst_one_child_el off_psBoundPaOwnerName192 lost=0 gained=12 
+V/v04_two_inst_one_child_el wide lost=0 gained=12 
+W/s10_tern_sys off_192v lost=0 gained=2 
+W/s10_tern_sys off_genForWholeLhsNestedKeep192v lost=0 gained=2 
+W/s10_tern_sys_el off_genForWholeLhsNestedKeep192v lost=0 gained=2 
+W/s1_sys_under_op off_192v lost=0 gained=2 
+W/s1_sys_under_op off_genForWholeLhsNestedKeep192v lost=0 gained=2 
+W/s1_sys_under_op_el off_genForWholeLhsNestedKeep192v lost=0 gained=2 
+W/s3_signed_cat fix lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s3_signed_cat fix2 lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s3_signed_cat off_192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s3_signed_cat off_genForWholeLhsNestedKeep192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s3_signed_cat_el fix lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s3_signed_cat_el fix2 lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s3_signed_cat_el off_genForWholeLhsNestedKeep192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s4_sys_of_or fix lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s4_sys_of_or fix2 lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s4_sys_of_or off_192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s4_sys_of_or off_genForWholeLhsNestedKeep192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s4_sys_of_or_el fix lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s4_sys_of_or_el fix2 lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s4_sys_of_or_el off_genForWholeLhsNestedKeep192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s5_sys_hi fix lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s5_sys_hi fix2 lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s5_sys_hi off_192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s5_sys_hi off_genForWholeLhsNestedKeep192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s5_sys_hi_el fix lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s5_sys_hi_el fix2 lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s5_sys_hi_el off_genForWholeLhsNestedKeep192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s6_countones fix lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s6_countones fix2 lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s6_countones off_192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s6_countones off_genForWholeLhsNestedKeep192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s6_countones_el fix lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s6_countones_el fix2 lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s6_countones_el off_genForWholeLhsNestedKeep192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/s8_func_cat fix lost=0 gained=0 
+W/s8_func_cat fix2 lost=0 gained=0 
+W/s8_func_cat off_192v lost=0 gained=0 
+W/s8_func_cat off_genForWholeLhsNestedKeep192v lost=0 gained=0 
+W/s8_func_cat_el fix lost=0 gained=0 
+W/s8_func_cat_el fix2 lost=0 gained=0 
+W/s8_func_cat_el off_genForWholeLhsNestedKeep192v lost=0 gained=0 
+W/w1_unsigned fix lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w1_unsigned fix2 lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w1_unsigned off_192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w1_unsigned off_genForWholeLhsNestedKeep192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w1_unsigned_el fix lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w1_unsigned_el fix2 lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w1_unsigned_el off_192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w1_unsigned_el off_genForWholeLhsNestedKeep192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w2_signed fix lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w2_signed fix2 lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w2_signed off_192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w2_signed off_genForWholeLhsNestedKeep192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w2_signed_el fix lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w2_signed_el fix2 lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w2_signed_el off_192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w2_signed_el off_genForWholeLhsNestedKeep192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w3_unsigned_cat fix lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w3_unsigned_cat fix2 lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w3_unsigned_cat off_192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w3_unsigned_cat off_genForWholeLhsNestedKeep192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w3_unsigned_cat_el fix lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w3_unsigned_cat_el fix2 lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w3_unsigned_cat_el off_192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w3_unsigned_cat_el off_genForWholeLhsNestedKeep192v lost=2 gained=0  | \_ref_typespec: (work@top.u) || |vpiFullName:work@top.u
+W/w4_func fix lost=0 gained=0 
+W/w4_func fix2 lost=0 gained=0 
+W/w4_func off_192v lost=0 gained=0 
+W/w4_func off_genForWholeLhsNestedKeep192v lost=0 gained=0 
+W/w4_func_el fix lost=0 gained=0 
+W/w4_func_el fix2 lost=0 gained=0 
+W/w4_func_el off_192v lost=0 gained=0 
+W/w4_func_el off_genForWholeLhsNestedKeep192v lost=0 gained=0 
+W/w5_neg off_192v lost=0 gained=2 
+W/w5_neg off_genForWholeLhsNestedKeep192v lost=0 gained=2 
+W/w5_neg_el off_192v lost=0 gained=2 
+W/w5_neg_el off_genForWholeLhsNestedKeep192v lost=0 gained=2 
+W/w6_tern off_192v lost=0 gained=2 
+W/w6_tern off_genForWholeLhsNestedKeep192v lost=0 gained=2 
+W/w6_tern_el off_192v lost=0 gained=2 
+W/w6_tern_el off_genForWholeLhsNestedKeep192v lost=0 gained=2 
+W/w7_paren alloff lost=0 gained=2 
+W/w7_paren offL192 lost=0 gained=2 
+W/w7_paren off_psBoundPaOwnerName192 lost=0 gained=2 
+W/w7_paren wide lost=0 gained=2 
+W/w7_paren_el alloff lost=0 gained=2 
+W/w7_paren_el offL192 lost=0 gained=2 
+W/w7_paren_el off_psBoundPaOwnerName192 lost=0 gained=2 
+W/w7_paren_el wide lost=0 gained=2 
+X/x01_cast_of_psbound alloff lost=0 gained=12 
+X/x01_cast_of_psbound off2_castOperandLeafElab193_connCastTsNamedByPort193 lost=0 gained=4 
+X/x01_cast_of_psbound off2_psBoundPaOwnerName192_castOperandLeafElab193 lost=0 gained=8 
+X/x01_cast_of_psbound off2_psBoundPaOwnerName192_connCastTsNamedByPort193 lost=0 gained=12 
+X/x01_cast_of_psbound offL192 lost=0 gained=8 
+X/x01_cast_of_psbound offL193 lost=0 gained=4 
+X/x01_cast_of_psbound off_connCastTsNamedByPort193 lost=0 gained=4 
+X/x01_cast_of_psbound off_psBoundPaOwnerName192 lost=0 gained=8 
+X/x01_cast_of_psbound wide lost=0 gained=12 
+X/x01_cast_of_psbound_el alloff lost=0 gained=12 
+X/x01_cast_of_psbound_el off2_castOperandLeafElab193_connCastTsNamedByPort193 lost=0 gained=4 
+X/x01_cast_of_psbound_el off2_psBoundPaOwnerName192_castOperandLeafElab193 lost=0 gained=8 
+X/x01_cast_of_psbound_el off2_psBoundPaOwnerName192_connCastTsNamedByPort193 lost=0 gained=12 
+X/x01_cast_of_psbound_el offL192 lost=0 gained=8 
+X/x01_cast_of_psbound_el offL193 lost=0 gained=4 
+X/x01_cast_of_psbound_el off_connCastTsNamedByPort193 lost=0 gained=4 
+X/x01_cast_of_psbound_el off_psBoundPaOwnerName192 lost=0 gained=8 
+X/x01_cast_of_psbound_el wide lost=0 gained=12 
+X/x02_conn_mix alloff lost=0 gained=9 
+X/x02_conn_mix off2_caPsSelFullVerbatim192_castOperandLeafElab193 lost=0 gained=3 
+X/x02_conn_mix off2_caPsSelFullVerbatim192_connCastTsNamedByPort193 lost=0 gained=4 
+X/x02_conn_mix off2_caPsSelFullVerbatim192_connSysCallArgDefNet193 lost=0 gained=2 
+X/x02_conn_mix off2_connCastTsNamedByPort193_castOperandLeafElab193 lost=0 gained=3 
+X/x02_conn_mix off2_connSysCallArgDefNet193_castOperandLeafElab193 lost=0 gained=1 
+X/x02_conn_mix off2_connSysCallArgDefNet193_connCastTsNamedByPort193 lost=0 gained=2 
+X/x02_conn_mix offL192 lost=0 gained=6 
+X/x02_conn_mix offL193 lost=0 gained=3 
+X/x02_conn_mix off_caPsSelFullVerbatim192 lost=0 gained=2 
+X/x02_conn_mix off_castOperandLeafElab193 lost=0 gained=1 
+X/x02_conn_mix off_connCastTsNamedByPort193 lost=0 gained=2 
+X/x02_conn_mix wide lost=0 gained=9 
+X/x02_conn_mix_el alloff lost=0 gained=6 
+X/x02_conn_mix_el off2_caPsSelFullVerbatim192_connCastTsNamedByPort193 lost=0 gained=2 
+X/x02_conn_mix_el off2_connCastTsNamedByPort193_castOperandLeafElab193 lost=0 gained=2 
+X/x02_conn_mix_el off2_connSysCallArgDefNet193_connCastTsNamedByPort193 lost=0 gained=2 
+X/x02_conn_mix_el offL192 lost=0 gained=4 
+X/x02_conn_mix_el offL193 lost=0 gained=2 
+X/x02_conn_mix_el off_connCastTsNamedByPort193 lost=0 gained=2 
+X/x02_conn_mix_el wide lost=0 gained=6 
+X/x03_nda_unsized_psbound alloff lost=4 gained=336  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x03_nda_unsized_psbound fix lost=24 gained=0  | |vpiFullName:work@top.u_a.y || \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x
+X/x03_nda_unsized_psbound fix1 lost=24 gained=0  | |vpiFullName:work@top.u_a.y || \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x
+X/x03_nda_unsized_psbound off2_caUnsizedRhsClonePerInst193_psBoundPaOwnerName192 lost=0 gained=332 
+X/x03_nda_unsized_psbound off2_ndaPsBoundOwner192_caUnsizedRhsClonePerInst193 lost=4 gained=328  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x03_nda_unsized_psbound off2_ndaPsBoundOwner192_psBoundPaOwnerName192 lost=4 gained=12  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x03_nda_unsized_psbound offL192 lost=4 gained=12  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x03_nda_unsized_psbound offL193 lost=0 gained=324 
+X/x03_nda_unsized_psbound off_caUnsizedRhsClonePerInst193 lost=0 gained=324 
+X/x03_nda_unsized_psbound off_ndaPsBoundOwner192 lost=4 gained=4  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x03_nda_unsized_psbound off_psBoundPaOwnerName192 lost=4 gained=8  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x03_nda_unsized_psbound wide lost=4 gained=336  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x03_nda_unsized_psbound_el alloff lost=14 gained=98  | |vpiFullName:work@top.u_a.y || \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x
+X/x03_nda_unsized_psbound_el fix lost=24 gained=0  | |vpiFullName:work@top.u_a.y || \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x
+X/x03_nda_unsized_psbound_el fix1 lost=24 gained=0  | |vpiFullName:work@top.u_a.y || \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x
+X/x03_nda_unsized_psbound_el off2_caUnsizedRhsClonePerInst193_psBoundPaOwnerName192 lost=10 gained=94  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:7:10, endln:7:19 || \_part_select: y (work@top.u_a.y.y), line:7:15, endln:7:18
+X/x03_nda_unsized_psbound_el off2_ndaPsBoundOwner192_caUnsizedRhsClonePerInst193 lost=14 gained=90  | |vpiFullName:work@top.u_a.y || \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x
+X/x03_nda_unsized_psbound_el off2_ndaPsBoundOwner192_psBoundPaOwnerName192 lost=4 gained=12  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x03_nda_unsized_psbound_el offL192 lost=4 gained=12  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x03_nda_unsized_psbound_el offL193 lost=10 gained=86  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:7:10, endln:7:19 || \_part_select: y (work@top.u_a.y.y), line:7:15, endln:7:18
+X/x03_nda_unsized_psbound_el off_caUnsizedRhsClonePerInst193 lost=10 gained=86  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:7:10, endln:7:19 || \_part_select: y (work@top.u_a.y.y), line:7:15, endln:7:18
+X/x03_nda_unsized_psbound_el off_ndaPsBoundOwner192 lost=4 gained=4  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x03_nda_unsized_psbound_el off_psBoundPaOwnerName192 lost=4 gained=8  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x03_nda_unsized_psbound_el wide lost=14 gained=98  | |vpiFullName:work@top.u_a.y || \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x
+X/x04_pattern_in_nested alloff lost=0 gained=38 
+X/x04_pattern_in_nested off2_pkgPatReadTsBindsTopTypedef192_nestedDefChainName193 lost=0 gained=38 
+X/x04_pattern_in_nested offL193 lost=0 gained=38 
+X/x04_pattern_in_nested off_nestedDefChainName193 lost=0 gained=38 
+X/x04_pattern_in_nested wide lost=0 gained=38 
+X/x04_pattern_in_nested_el alloff lost=0 gained=40 
+X/x04_pattern_in_nested_el off2_pkgPatReadTsBindsTopTypedef192_nestedDefChainName193 lost=0 gained=40 
+X/x04_pattern_in_nested_el offL193 lost=0 gained=40 
+X/x04_pattern_in_nested_el off_nestedDefChainName193 lost=0 gained=40 
+X/x04_pattern_in_nested_el wide lost=0 gained=40 
+X/x06_enum_port_cast alloff lost=0 gained=6 
+X/x06_enum_port_cast off2_castOperandLeafElab193_connCastTsNamedByPort193 lost=0 gained=6 
+X/x06_enum_port_cast off2_tpCaPortNetIsVar194v_castOperandLeafElab193 lost=0 gained=2 
+X/x06_enum_port_cast off2_tpCaPortNetIsVar194v_connCastTsNamedByPort193 lost=0 gained=4 
+X/x06_enum_port_cast offL193 lost=0 gained=6 
+X/x06_enum_port_cast off_castOperandLeafElab193 lost=0 gained=2 
+X/x06_enum_port_cast off_connCastTsNamedByPort193 lost=0 gained=4 
+X/x06_enum_port_cast wide lost=0 gained=6 
+X/x06_enum_port_cast_el alloff lost=0 gained=4 
+X/x06_enum_port_cast_el off2_castOperandLeafElab193_connCastTsNamedByPort193 lost=0 gained=4 
+X/x06_enum_port_cast_el off2_tpCaPortNetIsVar194v_connCastTsNamedByPort193 lost=0 gained=4 
+X/x06_enum_port_cast_el offL193 lost=0 gained=4 
+X/x06_enum_port_cast_el off_connCastTsNamedByPort193 lost=0 gained=4 
+X/x06_enum_port_cast_el wide lost=0 gained=4 
+X/x07_clone_rhs_psbound alloff lost=0 gained=154 
+X/x07_clone_rhs_psbound fix lost=4 gained=0  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x07_clone_rhs_psbound fix1 lost=4 gained=0  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x07_clone_rhs_psbound off2_psBoundPaOwnerName192_caUnsizedRhsClonePerInst193 lost=0 gained=154 
+X/x07_clone_rhs_psbound offL192 lost=4 gained=2  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x07_clone_rhs_psbound offL193 lost=0 gained=152 
+X/x07_clone_rhs_psbound off_caUnsizedRhsClonePerInst193 lost=0 gained=152 
+X/x07_clone_rhs_psbound off_psBoundPaOwnerName192 lost=4 gained=2  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x07_clone_rhs_psbound wide lost=0 gained=154 
+X/x07_clone_rhs_psbound_el alloff lost=0 gained=60 
+X/x07_clone_rhs_psbound_el fix lost=4 gained=0  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x07_clone_rhs_psbound_el fix1 lost=4 gained=0  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x07_clone_rhs_psbound_el off2_psBoundPaOwnerName192_caUnsizedRhsClonePerInst193 lost=0 gained=60 
+X/x07_clone_rhs_psbound_el offL192 lost=4 gained=2  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x07_clone_rhs_psbound_el offL193 lost=0 gained=58 
+X/x07_clone_rhs_psbound_el off_caUnsizedRhsClonePerInst193 lost=0 gained=58 
+X/x07_clone_rhs_psbound_el off_psBoundPaOwnerName192 lost=4 gained=2  | \_ref_typespec: (work@top.u_a.x) || |vpiFullName:work@top.u_a.x || \_ref_typespec: (work@top.u_b.x)
+X/x07_clone_rhs_psbound_el wide lost=0 gained=60 
+X/x08_clone_lhs_psbound alloff lost=0 gained=154 
+X/x08_clone_lhs_psbound fix lost=4 gained=0  | \_ref_typespec: (work@top.u_a.y) || |vpiFullName:work@top.u_a.y || \_ref_typespec: (work@top.u_b.y)
+X/x08_clone_lhs_psbound fix1 lost=4 gained=0  | \_ref_typespec: (work@top.u_a.y) || |vpiFullName:work@top.u_a.y || \_ref_typespec: (work@top.u_b.y)
+X/x08_clone_lhs_psbound off2_caUnsizedRhsClonePerInst193_ucCloneUnnamesRanges193v lost=0 gained=152 
+X/x08_clone_lhs_psbound off2_psBoundPaOwnerName192_caUnsizedRhsClonePerInst193 lost=0 gained=154 
+X/x08_clone_lhs_psbound off2_psBoundPaOwnerName192_ucCloneUnnamesRanges193v lost=0 gained=2 
+X/x08_clone_lhs_psbound offL192 lost=4 gained=2  | \_ref_typespec: (work@top.u_a.y) || |vpiFullName:work@top.u_a.y || \_ref_typespec: (work@top.u_b.y)
+X/x08_clone_lhs_psbound offL193 lost=0 gained=152 
+X/x08_clone_lhs_psbound off_caUnsizedRhsClonePerInst193 lost=0 gained=152 
+X/x08_clone_lhs_psbound off_psBoundPaOwnerName192 lost=4 gained=2  | \_ref_typespec: (work@top.u_a.y) || |vpiFullName:work@top.u_a.y || \_ref_typespec: (work@top.u_b.y)
+X/x08_clone_lhs_psbound wide lost=0 gained=154 
+X/x08_clone_lhs_psbound_el alloff lost=0 gained=60 
+X/x08_clone_lhs_psbound_el fix lost=4 gained=0  | \_ref_typespec: (work@top.u_a.y) || |vpiFullName:work@top.u_a.y || \_ref_typespec: (work@top.u_b.y)
+X/x08_clone_lhs_psbound_el fix1 lost=4 gained=0  | \_ref_typespec: (work@top.u_a.y) || |vpiFullName:work@top.u_a.y || \_ref_typespec: (work@top.u_b.y)
+X/x08_clone_lhs_psbound_el off2_caUnsizedRhsClonePerInst193_ucCloneUnnamesRanges193v lost=0 gained=58 
+X/x08_clone_lhs_psbound_el off2_psBoundPaOwnerName192_caUnsizedRhsClonePerInst193 lost=0 gained=60 
+X/x08_clone_lhs_psbound_el off2_psBoundPaOwnerName192_ucCloneUnnamesRanges193v lost=0 gained=2 
+X/x08_clone_lhs_psbound_el offL192 lost=4 gained=2  | \_ref_typespec: (work@top.u_a.y) || |vpiFullName:work@top.u_a.y || \_ref_typespec: (work@top.u_b.y)
+X/x08_clone_lhs_psbound_el offL193 lost=0 gained=58 
+X/x08_clone_lhs_psbound_el off_caUnsizedRhsClonePerInst193 lost=0 gained=58 
+X/x08_clone_lhs_psbound_el off_psBoundPaOwnerName192 lost=4 gained=2  | \_ref_typespec: (work@top.u_a.y) || |vpiFullName:work@top.u_a.y || \_ref_typespec: (work@top.u_b.y)
+X/x08_clone_lhs_psbound_el wide lost=0 gained=60 
+X/x09_clone_varsel_lhs alloff lost=0 gained=146 
+X/x09_clone_varsel_lhs fix lost=20 gained=0  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:3:10, endln:3:19 || \_var_select: (work@top.u_a.y), line:3:10, endln:3:19
+X/x09_clone_varsel_lhs fix1 lost=20 gained=0  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:3:10, endln:3:19 || \_var_select: (work@top.u_a.y), line:3:10, endln:3:19
+X/x09_clone_varsel_lhs off2_caUnsizedRhsClonePerInst193_ucCloneUnnamesRanges193v lost=0 gained=146 
+X/x09_clone_varsel_lhs offL193 lost=0 gained=146 
+X/x09_clone_varsel_lhs off_caUnsizedRhsClonePerInst193 lost=0 gained=146 
+X/x09_clone_varsel_lhs wide lost=0 gained=146 
+X/x09_clone_varsel_lhs_el alloff lost=16 gained=44  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:3:10, endln:3:19 || \_part_select: y (work@top.u_a.y.y), line:3:15, endln:3:18
+X/x09_clone_varsel_lhs_el fix lost=20 gained=0  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:3:10, endln:3:19 || \_var_select: (work@top.u_a.y), line:3:10, endln:3:19
+X/x09_clone_varsel_lhs_el fix1 lost=20 gained=0  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:3:10, endln:3:19 || \_var_select: (work@top.u_a.y), line:3:10, endln:3:19
+X/x09_clone_varsel_lhs_el off2_caUnsizedRhsClonePerInst193_ucCloneUnnamesRanges193v lost=16 gained=44  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:3:10, endln:3:19 || \_part_select: y (work@top.u_a.y.y), line:3:15, endln:3:18
+X/x09_clone_varsel_lhs_el offL193 lost=16 gained=44  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:3:10, endln:3:19 || \_part_select: y (work@top.u_a.y.y), line:3:15, endln:3:18
+X/x09_clone_varsel_lhs_el off_caUnsizedRhsClonePerInst193 lost=16 gained=44  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:3:10, endln:3:19 || \_part_select: y (work@top.u_a.y.y), line:3:15, endln:3:18
+X/x09_clone_varsel_lhs_el wide lost=16 gained=44  | |vpiFullName:work@top.u_a.y || \_var_select: (work@top.u_a.y), line:3:10, endln:3:19 || \_part_select: y (work@top.u_a.y.y), line:3:15, endln:3:18

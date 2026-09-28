@@ -1,0 +1,19 @@
+01:02:03 start law:H
+01:02:04 start off192:2:probe surelog uhdm2rtlil
+01:08:26 done off192:2:probe surelog uhdm2rtlil SWEEP_RC=1
+01:08:26 start off193:3:probe surelog uhdm2rtlil
+01:12:13 done law:H SWEEP_RC=1
+01:12:13 start alloff:A:probe surelog uhdm2rtlil
+01:14:16 done off193:3:probe surelog uhdm2rtlil SWEEP_RC=1
+01:14:16 start wideon:O:probe surelog uhdm2rtlil
+01:18:14 done alloff:A:probe surelog uhdm2rtlil SWEEP_RC=1
+01:18:14 start wide:W:probe surelog uhdm2rtlil
+01:20:30 done wideon:O:probe surelog uhdm2rtlil SWEEP_RC=1
+01:23:53 done wide:W:probe surelog uhdm2rtlil SWEEP_RC=1
+01:42:54 start fix:F
+01:43:05 done fix:F SWEEP_RC=1
+01:43:12 aborted fix:F (fix.sh wrapper missing; restarted)
+01:43:21 start fix:F
+01:45:34 aborted fix:F on fix2 (superseded by fix3: user-call root excluded)
+01:46:36 start fix:F
+01:54:48 done fix:F SWEEP_RC=1

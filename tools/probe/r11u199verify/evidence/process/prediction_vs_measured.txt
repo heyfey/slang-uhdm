@@ -1,0 +1,6 @@
+pass 192: movers at HEAD (swH vs sw2, R11U192_OFF+R11V192_OFF) 34; predicted (r11u192repro/evidence/predicted_movers_192.txt) 29
+  moved, not predicted: surelog/default/BuildUVMPkg surelog/default/MiniAmiq surelog/default/SeqDriver surelog/testflags/MiniAmiq surelog/testflags/SeqDriver
+  predicted, not moved: 
+pass 193: movers at HEAD (swH vs sw3, R11U193_OFF+R11V193_OFF) 170; predicted before sweep 441; with the COPY trigger 580
+  moved, not in the before-sweep prediction: surelog/default/MiniAmiq surelog/default/SeqDriver surelog/testflags/MiniAmiq surelog/testflags/SeqDriver uhdm2rtlil/default/ibex_pmp uhdm2rtlil/testflags/ibex_pmp
+  moved, not in the COPY-trigger prediction: 

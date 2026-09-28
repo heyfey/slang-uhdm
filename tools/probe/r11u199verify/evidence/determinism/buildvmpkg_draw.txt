@@ -1,0 +1,5 @@
+BuildUVMPkg default, the order-only two-valued draw (law.bin = 58905f76):
+  hashes seen: e4f8e660c7d5 (3 concurrent det runs; swF default; swH testflags; every testflags run) and e025a6f404c3 (swH default; swF testflags)
+  uhdm-dump of e4f8 (det run 1) vs e025 (swH default), workdir paths stripped, object ids KEPT: identical but the header line (diff lines: 2, the two file names)
+  file sizes equal (11184483 bytes); cmp -l: 7573 differing bytes from offset 3259460; the printable symbol strings do not differ as a multiset beyond binary noise
+  => the draw lives in the Cap'n Proto payload's storage order only: every reader that resolves by object id (uhdm-dump, uhdm-cmp, uhdm-strictcmp, the plugin) sees the same design; strict verdict and object counts identical (uvm_orderblind.txt)

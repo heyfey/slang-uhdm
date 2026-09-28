@@ -1,0 +1,4 @@
+pass-192 firing census at HEAD (58905f76, R11U192_TRACE, fenced rows filtered): 29 databases; r11u192 predicted_movers_192.txt (a1c89c1a): 29
+  at HEAD only: 
+  predicted only: 
+  same database, different law counts: 0

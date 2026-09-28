@@ -1,0 +1,4 @@
+r11u193repro/drivers/predict.cpp rebuilt with its cc.sh, run by its predict.sh over /tmp/r11u199_swA (both landings off = 706ab521's committed baselines exactly):
+  581 lines; vs r11u193repro/evidence/predict_with_copy_trigger.txt: 0 differing lines (trailing blanks stripped)
+  with the COPY trigger stripped, vs predict_before_sweep.txt (442 lines): 0 differing lines
+  ibex_pmp in before_sweep: 0; in with_copy: 2

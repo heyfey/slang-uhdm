@@ -1,0 +1,7 @@
+name,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail
+genvar_loop_decl_2,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+ibex_icache,IDENTICAL,OK,OK,3610,3610,,
+ibex_pmp,IDENTICAL,OK,OK,52,52,,
+iface_zero_width_field,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+rsp_gen_minimal,IDENTICAL,OK,OK,154,154,,
+tern_fill_literal,IDENTICAL,OK,OK,5,5,,
