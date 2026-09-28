@@ -1,0 +1,24 @@
+== surelog/testflags/BlackBePipeInt
+   #66 depth
+     A: 2	parameter	host_dev_gp		bp_common_pkg::host_dev_gp	dut.sv	1795	12	1795	23		0	UINT:1	
+     B: 6	parameter	dev_addr_width_gp		bp_common_pkg::dev_addr_width_gp	dut.sv	1793	12	1793	29		0	UINT:20	
+   objects 338504 vs 340984
+   fields: depth=1 name=1 fullname=1 line=1 endline=1 endcol=1 value=1 objects_differing=1 (walk diverged)
+   STRICT_NOTEQUAL depth
+== surelog/testflags/HierPathTypespec
+   #105 fullname
+     A: 6	ref_typespec			pkg::pkg::b::pkg::a::x		0	0	0	0		0		
+     B: 6	ref_typespec			pkg::pkg::a::x		0	0	0	0		0		
+   fields: fullname=1 objects_differing=1
+   STRICT_NOTEQUAL fullname
+== uhdm2rtlil/default/anon_struct_packed_dim
+   #112 fullname
+     A: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0		
+     B: 11	ref_typespec			<in>pte_t.ppn		0	0	0	0		0		
+     raw fullname A: gpte.pte_t.ppn | B: pte_t.ppn
+   #118 fullname
+     A: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0		
+     B: 11	ref_typespec			<in>pte_t.g		0	0	0	0		0		
+     raw fullname A: gpte.pte_t.g | B: pte_t.g
+   #121 fullname
+     A: 11	ref_typespec			<in>pte_t.v		0	0	0	0		0		

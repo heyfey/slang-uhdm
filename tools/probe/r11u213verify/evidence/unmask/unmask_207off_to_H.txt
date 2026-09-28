@@ -1,0 +1,57 @@
+== probe: 10 rows differ
+r10buvm4repro/a2_kindgrid CONVERSION | STRICT_NOTEQUAL differ:file(16) -> EQUAL equal | off 16 rec on 0 rec | new=0 gone=16 first-record-same=False
+    off first: #163 file golden[7 constant    dut.sv 0 0 0 0 0 64 INT:0 7] ours[7 constant     0 0 0 0 0 64 INT:0 7]
+r10uvm167repro/g167_b_spell SUBSET | STRICT_NOTEQUAL differ:file(6) -> STRICT_NOTEQUAL differ:endcol(2) | off 6 rec on 2 rec | new=0 gone=4 first-record-same=False
+    off first: #79 file golden[6 constant    dut.sv 0 0 0 0 0 64 INT:0 7] ours[6 constant     0 0 0 0 0 64 INT:0 7]
+    on  first: #224 endcol golden[5 hier_path r.mf167   dut.sv 71 14 71 49  0] ours[5 hier_path r.mf167   dut.sv 71 14 71 21  0]
+r10uvm167repro/g167_d_decline CONVERSION | STRICT_NOTEQUAL differ:file(1) -> EQUAL equal | off 1 rec on 0 rec | new=0 gone=1 first-record-same=False
+    off first: #90 file golden[7 constant    dut.sv 0 0 0 0 0 64 INT:0 7] ours[7 constant     0 0 0 0 0 64 INT:0 7]
+r10uvm21repro/t32g_t CONVERSION | STRICT_NOTEQUAL differ:endcol(10) -> EQUAL equal | off 10 rec on 0 rec | new=0 gone=10 first-record-same=False
+    off first: #8 endcol golden[5 ref_var p_q  pk::C::run::p_q dut.sv 19 14 19 18  0] ours[5 ref_var p_q  pk::C::run::p_q dut.sv 19 14 19 17  0]
+r10uvm22repro/t33e_t SUBSET | STRICT_NOTEQUAL differ:endcol(8) -> STRICT_NOTEQUAL differ:file(2) | off 8 rec on 2 rec | new=0 gone=6 first-record-same=False
+    off first: #11 endcol golden[5 ref_var p_a  pk::C::run::p_a dut.sv 18 14 18 18  0] ours[5 ref_var p_a  pk::C::run::p_a dut.sv 18 14 18 17  0]
+    on  first: #100 file golden[8 string_typespec    dut.sv 14 5 14 11] ours[8 string_typespec     0 0 0 0]
+r10uvm84repro/g84_c1_lvalue CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec | new=0 gone=1 first-record-same=False
+    off first: #66 endcol golden[6 ref_var q  work@g84c1::c1c::f::q dut.sv 22 16 22 20  0] ours[6 ref_var q  work@g84c1::c1c::f::q dut.sv 22 16 22 17  0]
+r10uvm84repro/v84x6_stmt CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec | new=0 gone=1 first-record-same=False
+    off first: #81 endcol golden[6 ref_var q  work@v84x6::c6x::f::q dut.sv 25 16 25 20  0] ours[6 ref_var q  work@v84x6::c6x::f::q dut.sv 25 16 25 17  0]
+r10uvm85repro/v85x4_pos CONVERSION | STRICT_NOTEQUAL differ:endcol(1) -> EQUAL equal | off 1 rec on 0 rec | new=0 gone=1 first-record-same=False
+    off first: #25 endcol golden[6 ref_var q  work@v85x4::c4v::tk::q dut.sv 16 16 16 20  0] ours[6 ref_var q  work@v85x4::c4v::tk::q dut.sv 16 16 16 17  0]
+r10v167repro/vB_bare CONVERSION | STRICT_NOTEQUAL differ:file(8) -> EQUAL equal | off 8 rec on 0 rec | new=0 gone=8 first-record-same=False
+    off first: #83 file golden[7 constant    dut.sv 0 0 0 0 0 64 INT:0 7] ours[7 constant     0 0 0 0 0 64 INT:0 7]
+r10v204repro/v204_s_shadow SUBSET | STRICT_NOTEQUAL differ:endcol(3) -> STRICT_NOTEQUAL differ:depth(1) | off 3 rec div@186 on 1 rec div@186 | new=0 gone=2 first-record-same=False
+    off first: #110 endcol golden[8 ref_var arrsv204  quarrysv204::Aditsv204::shaftsv204::arrsv204 dut.sv 43 18 43 22  0] ours[8 ref_var arrsv204  quarrysv204::Aditsv204::shaftsv204::arrsv204 dut.sv 43 18 43 26  0]
+    on  first: #186 depth golden[9 class_var cSv204  quarrysv204::Aditsv204::shaftsv204::cSv204 dut.sv 29 22 29 28  0] ours[7 operation    dut.sv 29 53 29 67  0]
+   tally probe: CONVERSION=7 SUBSET=3
+== surelog: 13 rows differ
+surelog/default/BlackBePipeInt UNMASK | STRICT_NOTEQUAL differ:fullname(2) -> STRICT_NOTEQUAL differ:type(1) | off 2 rec div@67 on 1 rec div@15272 | new=1 gone=2 first-record-same=False
+    off first: #66 fullname golden[5 ref_obj dev_addr_width_gp    0 0 0 0  0] ours[5 ref_obj dev_addr_width_gp  <in>dev_addr_width_gp  0 0 0 0  0]
+    on  first: #15272 type golden[5 ref_typespec   bp_common_pkg  0 0 0 0  0] ours[5 constant    dut.sv 2047 16 2047 17 1 64 UINT:1 9]
+surelog/testflags/BlackBePipeInt SUBSET | STRICT_NOTEQUAL differ:fullname(2) -> STRICT_NOTEQUAL differ:depth(1) | off 2 rec div@66 on 1 rec div@66 | new=0 gone=1 first-record-same=False
+    off first: #65 fullname golden[5 ref_obj dev_addr_width_gp    0 0 0 0  0] ours[5 ref_obj dev_addr_width_gp  <in>dev_addr_width_gp  0 0 0 0  0]
+    on  first: #66 depth golden[2 parameter host_dev_gp  bp_common_pkg::host_dev_gp dut.sv 1795 12 1795 23  0 UINT:1] ours[6 parameter dev_addr_width_gp  bp_common_pkg::dev_addr_width_gp dut.sv 1793 12 1793 29  0 ]
+surelog/default/BuildUVMPkg SUBSET | STRICT_NOTEQUAL differ:line(11) -> STRICT_NOTEQUAL differ:line(7) | off 11 rec div@22506 on 7 rec div@22506 | new=0 gone=4 first-record-same=True
+    off first: #3245 line golden[5 int_typespec uvm_action   uvm_pkg.sv 9704 72 9704 82] ours[5 int_typespec uvm_action   uvm_pkg.sv 8075 9 8075 12]
+surelog/testflags/BuildUVMPkg SUBSET | STRICT_NOTEQUAL differ:line(11) -> STRICT_NOTEQUAL differ:line(7) | off 11 rec div@22506 on 7 rec div@22506 | new=0 gone=4 first-record-same=True
+    off first: #3245 line golden[5 int_typespec uvm_action   uvm_pkg.sv 9704 72 9704 82] ours[5 int_typespec uvm_action   uvm_pkg.sv 8075 9 8075 12]
+surelog/default/MiniAmiq SUBSET | STRICT_NOTEQUAL differ:file(71) -> STRICT_NOTEQUAL differ:file(70) | off 71 rec div@20805 on 70 rec div@20805 | new=0 gone=1 first-record-same=True
+    off first: #899 file golden[2 enum_typespec uvm_pkg::uvm_severity   uvm_globals.svh 271 61 271 73] ours[2 enum_typespec uvm_pkg::uvm_severity   uvm_object_globals.svh 242 1 248 16]
+surelog/testflags/MiniAmiq SUBSET | STRICT_NOTEQUAL differ:file(71) -> STRICT_NOTEQUAL differ:file(70) | off 71 rec div@20805 on 70 rec div@20805 | new=0 gone=1 first-record-same=True
+    off first: #899 file golden[2 enum_typespec uvm_pkg::uvm_severity   uvm_globals.svh 271 61 271 73] ours[2 enum_typespec uvm_pkg::uvm_severity   uvm_object_globals.svh 242 1 248 16]
+surelog/default/Scoreboard SUBSET | STRICT_NOTEQUAL differ:fullname(103) -> STRICT_NOTEQUAL differ:fullname(102) | off 103 rec div@20913 on 102 rec div@20913 | new=0 gone=1 first-record-same=True
+    off first: #466 fullname golden[6 ref_typespec   UVM_MACRO_NUMFLAGS  0 0 0 0  0] ours[6 ref_typespec   uvm_pkg::UVM_MACRO_NUMFLAGS  0 0 0 0  0]
+surelog/default/SeqDriver SUBSET | STRICT_NOTEQUAL differ:fullname(65) -> STRICT_NOTEQUAL differ:fullname(64) | off 65 rec div@20788 on 64 rec div@20788 | new=0 gone=1 first-record-same=True
+    off first: #10090 fullname golden[6 ref_typespec   <in>uvm_pkg::uvm_event_pool  0 0 0 0  0] ours[6 ref_typespec   <in>uvm_pkg::uvm_event_pool  0 0 0 0  0]
+surelog/testflags/SeqDriver SUBSET | STRICT_NOTEQUAL differ:fullname(65) -> STRICT_NOTEQUAL differ:fullname(64) | off 65 rec div@20800 on 64 rec div@20800 | new=0 gone=1 first-record-same=True
+    off first: #10102 fullname golden[6 ref_typespec   <in>uvm_pkg::uvm_event_pool  0 0 0 0  0] ours[6 ref_typespec   <in>uvm_pkg::uvm_event_pool  0 0 0 0  0]
+surelog/default/SimpleUVM SUBSET | STRICT_NOTEQUAL differ:fullname(95) -> STRICT_NOTEQUAL differ:fullname(94) | off 95 rec div@20905 on 94 rec div@20905 | new=0 gone=1 first-record-same=True
+    off first: #458 fullname golden[6 ref_typespec   UVM_MACRO_NUMFLAGS  0 0 0 0  0] ours[6 ref_typespec   uvm_pkg::UVM_MACRO_NUMFLAGS  0 0 0 0  0]
+surelog/testflags/SimpleUVM SUBSET | STRICT_NOTEQUAL differ:fullname(95) -> STRICT_NOTEQUAL differ:fullname(94) | off 95 rec div@20917 on 94 rec div@20917 | new=0 gone=1 first-record-same=True
+    off first: #470 fullname golden[6 ref_typespec   UVM_MACRO_NUMFLAGS  0 0 0 0  0] ours[6 ref_typespec   uvm_pkg::UVM_MACRO_NUMFLAGS  0 0 0 0  0]
+surelog/default/UnitElabBlock CONVERSION | STRICT_NOTEQUAL differ:file(2) -> CMP_EQUAL equal | off 2 rec on 0 rec | new=0 gone=2 first-record-same=False
+    off first: #105 file golden[4 logic_net hold  work@mod.hold  21 1 21 5  0] ours[4 logic_net hold  work@mod.hold top.v 21 1 21 5  0]
+surelog/testflags/UnitElabBlock CONVERSION | STRICT_NOTEQUAL differ:file(1) -> CMP_EQUAL equal | off 1 rec on 0 rec | new=0 gone=1 first-record-same=False
+    off first: #105 file golden[4 logic_net hold  work@mod.hold  21 1 21 5  0] ours[4 logic_net hold  work@mod.hold top.v 21 1 21 5  0]
+   tally surelog: CONVERSION=2 SUBSET=10 UNMASK=1
+== uhdm2rtlil: 0 rows differ
+   tally uhdm2rtlil: 

@@ -1,0 +1,14 @@
+14:22:58 start H:H
+14:30:13 done H:H SWEEP_RC=0
+14:30:13 start A:A
+14:37:42 done A:A SWEEP_RC=1
+14:41:26 start 6:6
+14:43:24 start F:F
+14:48:59 done 6:6 SWEEP_RC=1
+14:48:59 start 7:7
+14:51:17 done F:F SWEEP_RC=1
+14:56:33 done 7:7 SWEEP_RC=1
+14:56:33 start 8:8
+15:03:58 done 8:8 SWEEP_RC=1
+15:03:58 start W:W
+15:10:51 done W:W SWEEP_RC=1

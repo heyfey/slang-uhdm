@@ -24,6 +24,7 @@
 #include "slang/ast/symbols/CoverSymbols.h"
 #include "R204.h"
 #include "R208.h"
+#include "R213.h"
 
 namespace slang_uhdm {
 // The r11u200 switches of this file (ground A; the switch table is in
@@ -3291,9 +3292,18 @@ static std::vector<size_t> namedWrittenOrder207(const CallExpression& call) {
 // to bind (the prototype map holds functions only); a prototype BELOW the
 // call is unseen by Surelog's single pass and keeps the written order
 // (v11u207 cases B/b09 `tt`, B/b12 `ta` / `tb` / `tv`).
+// § namedOrderProtoAboveAnyBuffer213v (r11u213, R11V213_PROTOBUF_OFF) — "above"
+// is the order of the compilation unit, not of one source buffer: a prototype
+// written in an included header or by a macro, or a call written by a macro or
+// in an included file, sits in another buffer than the other, and the buffer
+// test declined to decide, so § namedUnlinkedWrittenOrder207 reordered a call
+// golden links (formal order; r11u213 cases NL/l01, l02, l06: l06 --elabuhdm
+// STRICT_EQUAL on the unrefined law's parent state, NOT_EQUAL on the law).
+// slang's SourceManager::isBeforeInCompilationUnit reads the expanded order.
 static bool classTaskProtoAbove207v(const SubroutineSymbol& sub,
                                     const SubroutineSymbol* caller,
-                                    SourceLocation callLoc) {
+                                    SourceLocation callLoc,
+                                    const slang::SourceManager* sm213 = nullptr) {
     if (sub.subroutineKind != SubroutineKind::Task || !caller)
         return false;
     const Scope* cs = sub.getParentScope();
@@ -3301,9 +3311,19 @@ static bool classTaskProtoAbove207v(const SubroutineSymbol& sub,
         caller->getParentScope() != cs)
         return false;
     for (auto& m : cs->members())
-        if (m.kind == SymbolKind::MethodPrototype && m.name == sub.name &&
-            m.location.buffer() == callLoc.buffer() && m.location < callLoc)
-            return true;
+        if (m.kind == SymbolKind::MethodPrototype && m.name == sub.name) {
+            if (m.location.buffer() == callLoc.buffer()) {
+                if (m.location < callLoc)
+                    return true;
+            }
+            else if (sm213 && r11v213Law("R11V213_PROTOBUF_OFF")) {
+                auto b213 = sm213->isBeforeInCompilationUnit(m.location, callLoc);
+                if (b213 && *b213) {
+                    tr213("namedOrderProtoAboveAnyBuffer213v", std::string(sub.name));
+                    return true;
+                }
+            }
+        }
     return false;
 }
 
@@ -31246,7 +31266,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             (((UHDM::func_call*)fc0)->Function() != nullptr ||
                              (!curSubOob9 &&
                               classTaskProtoAbove207v(sub, currentSubSym,
-                                                      expr.sourceRange.start())));
+                                                      expr.sourceRange.start(),
+                                                      sm)));
                         if (!linked207v) {
                             auto wo207 = namedWrittenOrder207(call);
                             auto all207 = call.arguments();

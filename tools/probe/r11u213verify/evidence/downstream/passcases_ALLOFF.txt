@@ -1,0 +1,84 @@
+ALLOFF | tp/r11u206repro/cases/VG/g01 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/r11u206repro/cases/VG/g02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/r11u206repro/cases/VG/g03 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/r11u206repro/cases/VG/g04 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/r11u206repro/cases/VG/g05 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/r11u206repro/cases/VG/g06 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/r11u206repro/cases/VG/g07 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/r11u207repro/cases/U/u01 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/r11u207repro/cases/U/u02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 2 common constant assignments match
+ALLOFF | tp/r11u207repro/cases/U/u03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u207repro/cases/U/u04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/r11u207repro/cases/U/u05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/A/a01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/A/a02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/A/a03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/A/a04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/A/a05 | STATUS_DIFF | OK | NO_GATES | 1 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/A/a06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/A/a07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/A/a08 | STATUS_DIFF | OK | NO_GATES | 1 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/A/a09 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 3 common constant assignments match
+ALLOFF | tp/v11u206repro/cases/A/a10 | IDENTICAL | OK | OK | 5 | 5 | - | -
+ALLOFF | tp/v11u206repro/cases/A/a11 | EQUIVALENT | OK | OK | 1 | 1 | nohier | ✅ Formal equivalence check PASSED for /tmp/r11u213_dsc/ALLOFF/tp__v11u206repro__
+ALLOFF | tp/v11u206repro/cases/A/a12 | DIVERGENT | OK | OK | 1 | 1 | nohier il synth | ----------------------------------------------
+ALLOFF | tp/v11u206repro/cases/A/a13 | EQUIVALENT | OK | OK | 1 | 1 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u213_dsc/ALLOFF/tp__v11u206repro__
+ALLOFF | tp/v11u206repro/cases/A/a14 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ALLOFF | tp/v11u206repro/cases/B/b01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/B/b02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/B/b03 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 2 common constant assignments match
+ALLOFF | tp/v11u206repro/cases/B/b04 | IDENTICAL | OK | OK | 6 | 6 | - | -
+ALLOFF | tp/v11u206repro/cases/B/b05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/B/b06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/B/b07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/C/c01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/C/c02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/C/c03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/C/c04 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/C/c05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/C/c06 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/C/c07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/C/c08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/C/c09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/C/c10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/C/c11 | SURELOG_FAIL |  |  |  |  | - | no reference database
+ALLOFF | tp/v11u206repro/cases/C/c12 | SLANG_REJECT |  |  |  |  | - | -
+ALLOFF | tp/v11u206repro/cases/C/c13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/D/d01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/D/d02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/D/d03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/D/d04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/D/d05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/D/d06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/D/d07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/D/d08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/D/d09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/D/d10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/D/d11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/D/d12 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/D/d13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/D/d14 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/E/e01 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ✅ All 2 common constant assignments match
+ALLOFF | tp/v11u206repro/cases/E/e02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/E/e03 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/E/e04 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/E/e05 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/E/e06 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/E/e07 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/E/e08 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/E/e09 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/E/e10 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/E/e11 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/E/e12 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/E/e13 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/E/e14 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/E/e15 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/E/e16 | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ALLOFF | tp/v11u206repro/cases/E/e17 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u206repro/cases/E/e18 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 1 common constant assignments match
+ALLOFF | tp/v11u206repro/cases/E/e19 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u206repro/cases/E/e20 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u207repro/cases/A/a01 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u207repro/cases/A/a02 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ℹ️  No common assign statements to compare — skipping
+ALLOFF | tp/v11u207repro/cases/A/a03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | tp/v11u207repro/cases/A/a04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -

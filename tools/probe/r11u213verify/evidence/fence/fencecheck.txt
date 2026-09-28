@@ -1,0 +1,6 @@
+r11u206repro env.sh checkout: rc=0 n=4 | two-name canaudit: rc=1 n=2 | files naming a fenced test: 0
+v11u206repro env.sh checkout: rc=0 n=4 | two-name canaudit: rc=0 n=4 | files naming a fenced test: 0
+r11u207repro env.sh checkout: rc=0 n=4 | two-name canaudit: rc=1 n=0 | files naming a fenced test: 0
+v11u207repro env.sh checkout: rc=0 n=4 | two-name canaudit: rc=1 n=0 | files naming a fenced test: 0
+r11u213verify env.sh checkout: rc=0 n=4 | two-name canaudit: rc=1 n=2 | files naming a fenced test: 0
+positive control: planted files found 1 (expect 1)

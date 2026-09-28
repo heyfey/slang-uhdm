@@ -1,0 +1,15 @@
+TR/r06 --elabuhdm, the one STAGE1-AWAY verdict of the grid (order-blind dump distance 37 -> 43, 10 new lines), decoded:
+* the law binds B::g's return `K::b_t` to K's listed typedef class_typespec b_t, the object golden binds (golden
+  `class_typespec: (b_t), line:9:20, endln:9:23`, parented at class_defn p::K); pristine minted an anonymous
+  class_typespec at the return token (12:14-12:20).  Name: toward (golden b_t, pristine '', law b_t).
+* the new dump lines are that object's own fields, printed now under the return: our K::b_t is located 7:13-7:26 and
+  carries vpiTypedefAlias -> IK::q_t, in pristine as in law (the listing is not the law's).
+* golden has that alias too when the first owner is a plain class (scratch al1: `class A; typedef q::Q #(logic) q_t;
+  endclass class K; typedef q::Q #(bit) b_t; endclass` -> golden K::b_t vpiTypedefAlias -> q_t, a Surelog defect we
+  model); in r06 the first owner is an INTERFACE class, which golden does not list at all (golden's elaborated dump has
+  no class_defn p::IK and reads f's return IK::q_t as unsupported_typespec), so golden's b_t has no alias there.
+* control TR/r08 (r06 with `class IK`): law STRICT_NOTEQUAL endcol (judge-equal), law off stage 1: the law converts
+  the judge verdict; its endcol is the typedef span of another package's specialization (golden 9:20-9:23 the class
+  name, ours to the end of the specialization), pre-existing.
+No field where golden and pristine agree moves (recaway2 / recorder: away 0 on r06 in both views).  Residue: an
+interface class's typedefs (unlisted by golden) take part in our specialization-alias model.

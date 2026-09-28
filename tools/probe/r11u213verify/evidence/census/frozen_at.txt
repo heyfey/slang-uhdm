@@ -1,0 +1,6 @@
+2026-09-28T14:31:24-04:00
+d59f186fb8f058b2aba44be3e83a5fb8  evidence/census/predicted_movers.txt
+frozen before the A-sweep byte comparison: A sweep status: 14:30:13 start A:A
+total 2688
+drwxrwxr-x   4 heyfey heyfey    4096 2026-09-28 14:30:54.684394318 -0400 .
+drwxrwxrwt 528 root   root   2256896 2026-09-28 14:31:24.032383572 -0400 ..

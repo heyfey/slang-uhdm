@@ -1,0 +1,43 @@
+tpCastUseBindsDefDefault206 [R11U206_TPCASTDEF_OFF] fired_case_views=8 STAGE1-CLOSER=4 TOWARD=4
+    STAGE1-CLOSER: TC/c07 TC/c07_el X/x01 X/x01_el
+    TOWARD: TC/c01 TC/c01_el TC/c04 TC/c04_el
+tpArrayElemBindsDefDefault206 [R11U206_TPARRELEM_OFF] fired_case_views=4 TOWARD=4
+    TOWARD: TA/a01 TA/a01_el TA/a04 TA/a04_el
+unitClassTdEndAtInitIfcPrg206 [R11U206_UTIFCPRG_OFF] fired_case_views=12 STAGE1-CLOSER=4 TOWARD=8
+    STAGE1-CLOSER: UT/t09 UT/t09_el UT/t10 UT/t10_el
+    TOWARD: UT/t07 UT/t07_el UT/t11 UT/t11_el UT/t12 UT/t12_el X/x04 X/x04_el
+classScopeTdRetBuildsOwner206 [R11U206_CLSCOPETDRET_OFF] fired_case_views=14 STAGE1-AWAY=1 STAGE1-CLOSER=9 TOWARD=4
+    STAGE1-AWAY: TR/r06_el
+    STAGE1-CLOSER: TR/r01 TR/r01_el TR/r03 TR/r03_el TR/r05 TR/r05_el TR/r06 TR/r08 TR/r08_el
+    TOWARD: TR/r04 TR/r04_el X/x03 X/x03_el
+genScopeClassVarListed206 [R11U206_GENCLSVAR_OFF] fired_case_views=20 STAGE1-CLOSER=20
+    STAGE1-CLOSER: GV/v01 GV/v01_el GV/v02 GV/v02_el GV/v03 GV/v03_el GV/v04 GV/v04_el GV/v05 GV/v05_el GV/v06 GV/v06_el GV/v07 GV/v07_el GV/v08 GV/v08_el GV/v09 GV/v09_el X/x02 X/x02_el
+genScopeClassVarSpecAtName206 [R11U206_GENCLSSPAN_OFF] fired_case_views=10 STAGE1-CLOSER=8 TOWARD=2
+    STAGE1-CLOSER: GS/s01 GS/s01_el GS/s02 GS/s02_el GV/v05 GV/v05_el GV/v06 GV/v06_el
+    TOWARD: X/x05 X/x05_el
+hiddenBlockVarMintNoFile207 [R11U207_HIDDENVARFILE_OFF] fired_case_views=10 TOWARD=10
+    TOWARD: HV/h01 HV/h01_el HV/h02 HV/h02_el HV/h03 HV/h03_el HV/h04 HV/h04_el X/x04 X/x04_el
+namedUnlinkedWrittenOrder207 [R11U207_NAMEDORDER_OFF] fired_case_views=18 STAGE1-CLOSER=14 STAGE1-SAME=4
+    STAGE1-CLOSER: NC/n01 NC/n01_el NC/n03 NC/n03_el NC/n06 NC/n06_el NC/n07 NC/n07_el NL/l01 NL/l01_el NL/l02 NL/l02_el X/x03 X/x03_el
+    STAGE1-SAME: NC/n09 NC/n09_el NL/l06 NL/l06_el
+namedSlotFillerRootFile207 [R11U207_SLOTFILE_OFF] fired_case_views=8 STAGE1-SAME=6 TOWARD=2
+    STAGE1-SAME: SF/f01 SF/f01_el SF/f03 SF/f03_el SF/f04 SF/f04_el
+    TOWARD: SF/f02 SF/f02_el
+bitSelMethodCallIdxSpan207 [R11U207_MCALLIDX_OFF] fired_case_views=6 STAGE1-CLOSER=2 TOWARD=4
+    STAGE1-CLOSER: MI/m01 MI/m01_el
+    TOWARD: MI/m03 MI/m03_el X/x05 X/x05_el
+parenMethodCallPathSpan207 [R11U207_PARENMCALL_OFF] fired_case_views=6 TOWARD=6
+    TOWARD: PM/p01 PM/p01_el PM/p02 PM/p02_el PM/p03 PM/p03_el
+foreachThisArrAtThisToken207 [R11U207_FOREACHTHIS_OFF] fired_case_views=8 STAGE1-CLOSER=4 TOWARD=4
+    STAGE1-CLOSER: FT/t01 FT/t01_el FT/t02 FT/t02_el
+    TOWARD: FT/t03 FT/t03_el X/x02 X/x02_el
+parenCastWidthRefPkgBare207 [R11U207_PCWPKG_OFF] fired_case_views=10 STAGE1-CLOSER=10
+    STAGE1-CLOSER: CW/w01 CW/w01_el CW/w02 CW/w02_el CW/w03 CW/w03_el CW/w04 CW/w04_el X/x01 X/x01_el
+pcwElabKeepsClaim207v [R11U207_PCWELAB_OFF] fired_case_views=1 STAGE1-SAME=1
+    STAGE1-SAME: CW/w04_el
+namedOrderLinkedDeclines207v [R11V207_NAMEDLINK_OFF] fired_case_views=6 STAGE1-SAME=6
+    STAGE1-SAME: NL/l03 NL/l03_el NL/l04 NL/l04_el NL/l05 NL/l05_el
+opCtxTargetAncestorBind208v [R11V208_OPTGTANC_OFF] fired_case_views=0 NONE
+namedOrderProtoAboveAnyBuffer213v [R11V213_PROTOBUF_OFF] fired_case_views=0 NONE
+unitClassTdEndAtInit202 [R11U202_CLSTDINITEND_OFF] fired_case_views=0 NONE
+classTdRetSharesTypedefTs200 [R11U200_CLASSTDRET_OFF] fired_case_views=0 NONE

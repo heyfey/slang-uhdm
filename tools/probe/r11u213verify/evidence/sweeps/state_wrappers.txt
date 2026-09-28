@@ -1,0 +1,8 @@
+H.sh: exec env R11U206_TRACE=/tmp/r11u213_trH R11U207_TRACE=/tmp/r11u213_trH R11V208_TRACE=/tmp/r11u213_trH /tmp/r11u213_bin/law.bin "$@"
+A.sh: exec env R11U206_OFF=1 R11U207_OFF=1 R11V207_OFF=1 /tmp/r11u213_bin/law.bin "$@"
+6.sh: exec env R11U206_OFF=1 /tmp/r11u213_bin/law.bin "$@"
+7.sh: exec env R11U207_OFF=1 R11V207_OFF=1 /tmp/r11u213_bin/law.bin "$@"
+8.sh: exec env R11V208_OFF=1 /tmp/r11u213_bin/law.bin "$@"
+W.sh: exec env R11U206_OFF=1 R11U207_OFF=1 R11V207_OFF=1 R11V208_OFF=1 /tmp/r11u213_bin/law.bin "$@"
+b.sh: exec env R11U207_OFF=1 /tmp/r11u213_bin/law.bin "$@"
+F.sh: exec env R11V213_TRACE=/tmp/r11u213_trF /tmp/r11u213_bin/fix.bin "$@"

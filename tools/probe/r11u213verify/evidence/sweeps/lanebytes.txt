@@ -1,0 +1,17 @@
+## F (fix.bin) vs H (law.bin)
+probe databases=4087 fenced_skipped=0 movers=0 
+downstream databases=805 fenced_skipped=0 movers=0 
+## H vs A (both landings off)
+probe databases=4087 fenced_skipped=0 movers=13 ./r10buvm4repro__a2_kindgrid.uhdm ./r10uvm167repro__g167_b_spell.uhdm ./r10uvm167repro__g167_d_decline.uhdm ./r10uvm21repro__t32g_t.uhdm ./r10uvm22repro__t33e_t.uhdm ./r10uvm84repro__g84_c1_lvalue.uhdm ./r10uvm84repro__v84x6_stmt.uhdm ./r10uvm85repro__v85x4_pos.uhdm ./r10v167repro__vB_bare.uhdm ./r10v204repro__v204_s_shadow.uhdm ./r11u113repro__grid__c__c13_genif_comb.uhdm ./r11u113repro__grid__c__c25_genfor_ternary_gvcast.uhdm ./r11u113repro__grid__c__c27_genfor_ternary_plain.uhdm 
+downstream databases=805 fenced_skipped=0 movers=1 ./arb_idx_cast/slang.uhdm 
+## 8 (R11V208_OFF) vs H
+probe databases=4087 fenced_skipped=0 movers=0 
+downstream databases=805 fenced_skipped=0 movers=0 
+## W (A + R11V208_OFF) vs A
+probe databases=4087 fenced_skipped=0 movers=0 
+downstream databases=805 fenced_skipped=0 movers=0 
+## corpus byteverify 8 vs H, W vs A
+MOVER ./surelog/default/Scoreboard-72aa0ba8/slang.uhdm  patched=498cfef0fcc3 pristine=24ba24eb6c91
+MOVERS: 1 / 2560
+MOVER ./surelog/default/MiniAmiq-055eab74/slang.uhdm  patched=17adb057159f pristine=dd9e7e671b37
+MOVERS: 1 / 2560

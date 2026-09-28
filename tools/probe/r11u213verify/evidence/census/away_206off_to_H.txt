@@ -1,0 +1,7 @@
+# 6 databases differ between /tmp/r11u213_sw6 and /tmp/r11u213_swH
+probe/r11u113repro/grid/c/c13_genif_comb away=0 toward=1 flat_away=0 flat_toward=1
+probe/r11u113repro/grid/c/c25_genfor_ternary_gvcast away=0 toward=4 flat_away=0 flat_toward=4
+probe/r11u113repro/grid/c/c27_genfor_ternary_plain away=0 toward=4 flat_away=0 flat_toward=4
+surelog/default/Scoreboard away=0 toward=0 flat_away=0 flat_toward=0
+uhdm2rtlil/default/arb_idx_cast away=0 toward=2 flat_away=0 flat_toward=2
+uhdm2rtlil/testflags/arb_idx_cast away=0 toward=2 flat_away=0 flat_toward=2

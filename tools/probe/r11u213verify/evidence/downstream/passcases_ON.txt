@@ -1,0 +1,84 @@
+ON | tp/r11u206repro/cases/VG/g01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u206repro/cases/VG/g02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u206repro/cases/VG/g03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u206repro/cases/VG/g04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u206repro/cases/VG/g05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u206repro/cases/VG/g06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u206repro/cases/VG/g07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u207repro/cases/U/u01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u207repro/cases/U/u02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u207repro/cases/U/u03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u207repro/cases/U/u04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/r11u207repro/cases/U/u05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/A/a01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/A/a02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/A/a03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/A/a04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/A/a05 | STATUS_DIFF | OK | NO_GATES | 1 | 0 | - | -
+ON | tp/v11u206repro/cases/A/a06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/A/a07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/A/a08 | STATUS_DIFF | OK | NO_GATES | 1 | 0 | - | -
+ON | tp/v11u206repro/cases/A/a09 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ✅ All 3 common constant assignments match
+ON | tp/v11u206repro/cases/A/a10 | IDENTICAL | OK | OK | 5 | 5 | - | -
+ON | tp/v11u206repro/cases/A/a11 | EQUIVALENT | OK | OK | 1 | 1 | nohier | ✅ Formal equivalence check PASSED for /tmp/r11u213_dsc/ON/tp__v11u206repro__case
+ON | tp/v11u206repro/cases/A/a12 | DIVERGENT | OK | OK | 1 | 1 | nohier il synth | ----------------------------------------------
+ON | tp/v11u206repro/cases/A/a13 | EQUIVALENT | OK | OK | 1 | 1 | nohier il synth | ✅ Formal equivalence check PASSED for /tmp/r11u213_dsc/ON/tp__v11u206repro__case
+ON | tp/v11u206repro/cases/A/a14 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | tp/v11u206repro/cases/B/b01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/B/b02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/B/b03 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | ✅ All 2 common constant assignments match
+ON | tp/v11u206repro/cases/B/b04 | IDENTICAL | OK | OK | 6 | 6 | - | -
+ON | tp/v11u206repro/cases/B/b05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/B/b06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/B/b07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/C/c01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/C/c02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/C/c03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/C/c04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/C/c05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/C/c06 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ON | tp/v11u206repro/cases/C/c07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/C/c08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/C/c09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/C/c10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/C/c11 | SURELOG_FAIL |  |  |  |  | - | no reference database
+ON | tp/v11u206repro/cases/C/c12 | SLANG_REJECT |  |  |  |  | - | -
+ON | tp/v11u206repro/cases/C/c13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/D/d01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/D/d02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/D/d03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/D/d04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/D/d05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/D/d06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/D/d07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/D/d08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/D/d09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/D/d10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/D/d11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/D/d12 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/D/d13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/D/d14 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e10 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e12 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e13 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e14 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e15 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e16 | IDENTICAL | READ_FAIL | READ_FAIL | 0 | 0 | - | both READ_FAIL
+ON | tp/v11u206repro/cases/E/e17 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e18 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e19 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u206repro/cases/E/e20 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u207repro/cases/A/a01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u207repro/cases/A/a02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u207repro/cases/A/a03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | tp/v11u207repro/cases/A/a04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -

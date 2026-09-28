@@ -1,0 +1,43 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+probe cases: EQUAL=3363 STRICT_NOTEQUAL=724 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=3363 STRICT_NOTEQUAL=724
+REGRESSION r10buvm4repro/a2_kindgrid EQUAL -> STRICT_NOTEQUAL differ:file(16)
+REGRESSION r10uvm167repro/g167_d_decline EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION r10uvm21repro/t32g_t EQUAL -> STRICT_NOTEQUAL differ:endcol(10)
+REGRESSION r10uvm84repro/g84_c1_lvalue EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION r10uvm84repro/v84x6_stmt EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION r10uvm85repro/v85x4_pos EQUAL -> STRICT_NOTEQUAL differ:endcol(1)
+REGRESSION r10v167repro/vB_bare EQUAL -> STRICT_NOTEQUAL differ:file(8)
+CHANGE r10uvm167repro/g167_b_spell STRICT_NOTEQUAL differ:endcol(2) -> differ:file(6)
+CHANGE r10uvm22repro/t33e_t STRICT_NOTEQUAL differ:file(2) -> differ:endcol(8)
+CHANGE r10v204repro/v204_s_shadow STRICT_NOTEQUAL differ:depth(1) -> differ:endcol(3)
+regressions=7 conversions=0 changes=3 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=463 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=17 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=459 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=15 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+REGRESSION UnitElabBlock default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(2)
+REGRESSION UnitElabBlock testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+CHANGE BlackBePipeInt default STRICT_NOTEQUAL differ:type(1) -> differ:fullname(2)
+CHANGE BlackBePipeInt testflags STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:line(7) -> differ:line(11) [line +4]
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:line(7) -> differ:line(11) [line +4]
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:file(70) -> differ:file(71) [file +1]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:file(70) -> differ:file(71) [file +1]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:fullname(102) -> differ:fullname(103) [fullname +1]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:fullname(64) -> differ:fullname(65) [fullname +1]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:fullname(64) -> differ:fullname(65) [fullname +1]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:fullname(94) -> differ:fullname(95) [fullname +1]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:fullname(94) -> differ:fullname(95) [fullname +1]
+regressions=2 conversions=0 changes=11 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=797 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=6
+[testflags] CMP_EQUAL=797 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=6
+REGRESSION arb_idx_cast default CMP_EQUAL -> STRICT_NOTEQUAL differ:endline(2)
+REGRESSION arb_idx_cast testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:endline(2)
+regressions=2 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+SWEEP_RC=1

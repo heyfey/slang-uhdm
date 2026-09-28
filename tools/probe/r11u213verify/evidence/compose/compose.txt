@@ -1,0 +1,26 @@
+== probe: rows 4087; conversions L vs A = 7: OWN207=7
+  CONV OWN207: r10buvm4repro/a2_kindgrid, r10uvm167repro/g167_d_decline, r10uvm21repro/t32g_t, r10uvm84repro/g84_c1_lvalue, r10uvm84repro/v84x6_stmt, r10uvm85repro/v85x4_pos, r10v167repro/vB_bare
+  CHANGE (L vs A, not a conversion): OWN207=3
+    OWN207 r10uvm167repro/g167_b_spell: A=('STRICT_NOTEQUAL', 'differ:file(6)') L=('STRICT_NOTEQUAL', 'differ:endcol(2)')
+    OWN207 r10uvm22repro/t33e_t: A=('STRICT_NOTEQUAL', 'differ:endcol(8)') L=('STRICT_NOTEQUAL', 'differ:file(2)')
+    OWN207 r10v204repro/v204_s_shadow: A=('STRICT_NOTEQUAL', 'differ:endcol(3)') L=('STRICT_NOTEQUAL', 'differ:depth(1)')
+  CANCEL (same in L and A, different with one landing off): 0
+== surelog: rows 1588; conversions L vs A = 2: OWN207=2
+  CONV OWN207: UnitElabBlock/d, UnitElabBlock/t
+  CHANGE (L vs A, not a conversion): OWN207=11
+    OWN207 BlackBePipeInt/d: A=('STRICT_NOTEQUAL', 'differ:fullname(2)') L=('STRICT_NOTEQUAL', 'differ:type(1)')
+    OWN207 BlackBePipeInt/t: A=('STRICT_NOTEQUAL', 'differ:fullname(2)') L=('STRICT_NOTEQUAL', 'differ:depth(1)')
+    OWN207 BuildUVMPkg/d: A=('STRICT_NOTEQUAL', 'differ:line(11)') L=('STRICT_NOTEQUAL', 'differ:line(7)')
+    OWN207 BuildUVMPkg/t: A=('STRICT_NOTEQUAL', 'differ:line(11)') L=('STRICT_NOTEQUAL', 'differ:line(7)')
+    OWN207 MiniAmiq/d: A=('STRICT_NOTEQUAL', 'differ:file(71)') L=('STRICT_NOTEQUAL', 'differ:file(70)')
+    OWN207 MiniAmiq/t: A=('STRICT_NOTEQUAL', 'differ:file(71)') L=('STRICT_NOTEQUAL', 'differ:file(70)')
+    OWN207 Scoreboard/d: A=('STRICT_NOTEQUAL', 'differ:fullname(103)') L=('STRICT_NOTEQUAL', 'differ:fullname(102)')
+    OWN207 SeqDriver/d: A=('STRICT_NOTEQUAL', 'differ:fullname(65)') L=('STRICT_NOTEQUAL', 'differ:fullname(64)')
+    OWN207 SeqDriver/t: A=('STRICT_NOTEQUAL', 'differ:fullname(65)') L=('STRICT_NOTEQUAL', 'differ:fullname(64)')
+    OWN207 SimpleUVM/d: A=('STRICT_NOTEQUAL', 'differ:fullname(95)') L=('STRICT_NOTEQUAL', 'differ:fullname(94)')
+    OWN207 SimpleUVM/t: A=('STRICT_NOTEQUAL', 'differ:fullname(95)') L=('STRICT_NOTEQUAL', 'differ:fullname(94)')
+  CANCEL (same in L and A, different with one landing off): 0
+== uhdm2rtlil: rows 1742; conversions L vs A = 2: OWN206=2
+  CONV OWN206: arb_idx_cast/d, arb_idx_cast/t
+  CHANGE (L vs A, not a conversion): 
+  CANCEL (same in L and A, different with one landing off): 0

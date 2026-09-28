@@ -1,0 +1,6 @@
+FIX | NL/l01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | NL/l02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | NL/l03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | NL/l04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | NL/l05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+FIX | NL/l06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -

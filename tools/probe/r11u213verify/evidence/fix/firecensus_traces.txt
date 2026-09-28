@@ -1,0 +1,7 @@
+r11u213verify/cases/NL/l01 parse namedOrderProtoAboveAnyBuffer213v tk;namedOrderProtoAboveAnyBuffer213v tk;
+r11u213verify/cases/NL/l02 parse namedOrderProtoAboveAnyBuffer213v tk;namedOrderProtoAboveAnyBuffer213v tv;
+r11u213verify/cases/NL/l01 el namedOrderProtoAboveAnyBuffer213v tk;namedOrderProtoAboveAnyBuffer213v tk;
+r11u213verify/cases/NL/l02 el namedOrderProtoAboveAnyBuffer213v tk;namedOrderProtoAboveAnyBuffer213v tv;
+r11u213verify/cases/NL/l06 parse namedOrderProtoAboveAnyBuffer213v tk;namedOrderProtoAboveAnyBuffer213v tk;
+r11u213verify/cases/NL/l06 el namedOrderProtoAboveAnyBuffer213v tk;namedOrderProtoAboveAnyBuffer213v tk;
+FIRECENSUS cases=12852 views=2 trace_files=6

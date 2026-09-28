@@ -1,0 +1,85 @@
+ON | CW/w01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | CW/w02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | CW/w03 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u213_dsc/ON/
+ON | CW/w04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | FT/t01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | FT/t02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | FT/t03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GS/s01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GS/s02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GV/v01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GV/v02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GV/v03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GV/v04 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ℹ️  No common assign statements to compare — skipping
+ON | GV/v05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GV/v06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GV/v07 | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier | ℹ️  No common assign statements to compare — skipping
+ON | GV/v08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | GV/v09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | HV/h01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | HV/h02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | HV/h03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | HV/h04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | HV/h05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | MI/m01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | MI/m02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | MI/m03 | IDENTICAL | OK | OK | 4 | 4 | - | -
+ON | NC/n01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | NC/n02 | IDENTICAL | OK | OK | 114 | 114 | - | -
+ON | NC/n03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | NC/n04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | NC/n05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | NC/n06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | NC/n07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | NC/n08 | STATUS_DIFF | NO_GATES | OK | 0 | 60 | - | -
+ON | NC/n09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | NL/l01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | NL/l02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | NL/l03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | NL/l04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | NL/l05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | NL/l06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | PM/p01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | PM/p02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | PM/p03 | IDENTICAL | OK | OK | 62 | 62 | - | -
+ON | SF/f01 | IDENTICAL | OK | OK | 56 | 56 | - | -
+ON | SF/f02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | SF/f03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | SF/f04 | IDENTICAL | OK | OK | 135 | 135 | - | -
+ON | TA/a01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | TA/a02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | TA/a03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | TA/a04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | TA/a05 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in UHDM import
+ON | TC/c01 | IDENTICAL | OK | OK | 2 | 2 | - | -
+ON | TC/c02 | IDENTICAL | OK | OK | 13 | 13 | - | -
+ON | TC/c03 | EQUIVALENT | OK | OK | 1 | 1 | nohier | ✅ Formal equivalence check PASSED for /tmp/r11u213_dsc/ON/TC__c03/equiv/TC__c03
+ON | TC/c04 | IDENTICAL | OK | OK | 1 | 1 | - | -
+ON | TC/c05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | TC/c06 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth | ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u213_dsc/ON/
+ON | TC/c07 | DIVERGENT | NO_GATES | NO_GATES | 0 | 0 | nohier il synth |    This indicates a serious bug in /tmp/r11u213_dsc/ON/TC__c07/equiv/TC__c07 - t
+ON | TR/r01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | TR/r02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | TR/r03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | TR/r04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | TR/r05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | TR/r06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | TR/r07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | TR/r08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | UT/t01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | UT/t02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | UT/t03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | UT/t04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | UT/t05 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | UT/t06 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | UT/t07 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | UT/t08 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | UT/t09 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | UT/t10 | STATUS_DIFF | READ_FAIL | NO_GATES | 0 | 0 | - | -
+ON | UT/t11 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | UT/t12 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x01 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x02 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x03 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x04 | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ON | X/x05 | IDENTICAL | OK | OK | 3 | 3 | - | -

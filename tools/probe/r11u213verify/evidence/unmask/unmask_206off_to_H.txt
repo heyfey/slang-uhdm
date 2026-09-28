@@ -1,0 +1,10 @@
+== probe: 0 rows differ
+   tally probe: 
+== surelog: 0 rows differ
+   tally surelog: 
+== uhdm2rtlil: 2 rows differ
+uhdm2rtlil/default/arb_idx_cast CONVERSION | STRICT_NOTEQUAL differ:endline(2) -> CMP_EQUAL equal | off 2 rec on 0 rec | new=0 gone=2 first-record-same=False
+    off first: #360 endline golden[12 logic_typespec    dut.sv 8 40 15 27] ours[12 logic_typespec    dut.sv 8 40 8 60]
+uhdm2rtlil/testflags/arb_idx_cast CONVERSION | STRICT_NOTEQUAL differ:endline(2) -> CMP_EQUAL equal | off 2 rec on 0 rec | new=0 gone=2 first-record-same=False
+    off first: #270 endline golden[12 logic_typespec    dut.sv 8 40 15 27] ours[12 logic_typespec    dut.sv 8 40 8 60]
+   tally uhdm2rtlil: CONVERSION=2

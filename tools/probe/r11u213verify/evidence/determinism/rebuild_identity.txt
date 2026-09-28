@@ -1,0 +1,12 @@
+Rebuild identity (baf91896):
+  main tree build/slang-uhdm (the integrator's build)          6292e702987d24e3bdb63e4f4938a601
+  /tmp/wt_r11u213 fresh worktree build (system deps, -j 2)       6292e702987d24e3bdb63e4f4938a601  (= law.bin)
+  => two independent builds of the pristine source byte-identical; every database of either is the other's.
+  fix.bin: /tmp/wt_r11u213 incremental rebuild with fix.patch   5450a3bbda425c71fe3a7739fdec6895
+           /tmp/wt_r11u213chk: fresh baf91896 + git apply fix.patch, fresh cmake, -j 2: 5450a3bbda425c71fe3a7739fdec6895
+The r11u204 twin helper's orphan (tools/probe/r11u196repro/cases/V191/qr01, --single-unit --nobuiltin):
+  law.bin x4:  4 f399f67bbbcc 
+  fix.bin x4:  4 f399f67bbbcc 
+  fix.bin R11V213_OFF=1: f399f67bbbcc
+  => deterministic per binary; the fix (ExprEmit.cpp + R213.h only) leaves TaskFuncEmit's orphan bytes unchanged, so
+     "OFF = law bytes" holds on qr01 for this fix.  qr01 is not a tests/probe case and no gate database carries it.

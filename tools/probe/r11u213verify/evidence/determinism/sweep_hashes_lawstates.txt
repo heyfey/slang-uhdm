@@ -1,0 +1,11 @@
+MiniAmiq/default H:f1dbe619 F:f1dbe619 6:f1dbe619 8:f1dbe619
+MiniAmiq/testflags H:f1dbe619 F:f1dbe619 6:f1dbe619 8:f1dbe619
+SeqDriver/default H:05bc4252 F:05bc4252 6:05bc4252 8:05bc4252
+SeqDriver/testflags H:0d4f5053 F:0d4f5053 6:0d4f5053 8:0d4f5053
+SimpleUVM/default H:efa957a0 F:efa957a0 6:efa957a0 8:efa957a0
+SimpleUVM/testflags H:c1e7937a F:c1e7937a 6:c1e7937a 8:c1e7937a
+Scoreboard/default H:24ba24eb F:24ba24eb 6:498cfef0 8:498cfef0
+BuildUVMPkg/default H:7c0083c7 F:7c0083c7 6:7c0083c7 8:7c0083c7
+BuildUVMPkg/testflags H:7c0083c7 F:7c0083c7 6:7c0083c7 8:7c0083c7
+Earlgrey_0_1/default H:15e6e48b F:15e6e48b 6:15e6e48b 8:15e6e48b
+Earlgrey_0_1/testflags H:e449573d F:e449573d 6:e449573d 8:e449573d

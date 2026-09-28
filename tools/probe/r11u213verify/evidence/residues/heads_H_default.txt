@@ -1,0 +1,86 @@
+== surelog/default/MiniAmiq
+   #899 file
+     A: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73				
+     B: 2	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16				
+   #10107 fullname
+     A: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0		
+     B: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0		
+     raw fullname A: work@svaunit_vpi_interface.uvm_pkg::uvm_event_pool | B: uvm_pkg::uvm_event_pool
+   #11306 endline
+     A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0		
+     B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0		
+   objects 435559 vs 433769
+   fields: type=1 name=1 fullname=1 file=15 line=55 col=57 endline=67 endcol=69 objects_differing=70 (walk diverged)
+   STRICT_NOTEQUAL file
+== surelog/default/SeqDriver
+   #10090 fullname
+     A: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0		
+     B: 6	ref_typespec			<in>uvm_pkg::uvm_event_pool		0	0	0	0		0		
+     raw fullname A: work@top_tb.uvm_pkg::uvm_event_pool | B: uvm_pkg::uvm_event_pool
+   #11289 endline
+     A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0		
+     B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0		
+   #12219 endline
+     A: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	168	29		0		
+     B: 7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0		
+   objects 475526 vs 474662
+   fields: type=1 name=1 fullname=1 file=9 line=49 col=51 endline=61 endcol=63 objects_differing=64 (walk diverged)
+   STRICT_NOTEQUAL fullname
+== surelog/default/SimpleUVM
+   #458 fullname
+     A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+     B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+   #464 fullname
+     A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+     B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+   #483 fullname
+     A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0		
+     B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0		
+   objects 334285 vs 334373
+   fields: type=1 name=1 fullname=39 file=1 line=41 col=43 endline=53 endcol=55 objects_differing=94 (walk diverged)
+   STRICT_NOTEQUAL fullname
+== surelog/default/Scoreboard
+   #466 fullname
+     A: 6	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+     B: 6	ref_typespec			uvm_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0		
+   #472 fullname
+     A: 6	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0		
+     B: 6	ref_typespec			uvm_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0		
+   #491 fullname
+     A: 6	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0		
+     B: 6	ref_typespec			uvm_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0		
+   objects 269656 vs 269679
+   fields: type=1 name=1 fullname=39 file=9 line=49 col=51 endline=61 endcol=63 objects_differing=102 (walk diverged)
+   STRICT_NOTEQUAL fullname
+== surelog/default/BuildUVMPkg
+   #3245 line
+     A: 5	int_typespec	uvm_action			uvm_pkg.sv	9704	72	9704	82				
+     B: 5	int_typespec	uvm_action			uvm_pkg.sv	8075	9	8075	12				
+   #20735 line
+     A: 5	int_typespec	uvm_action			uvm_pkg.sv	40140	60	40140	70				
+     B: 5	int_typespec	uvm_action			uvm_pkg.sv	8075	9	8075	12				
+   #20759 line
+     A: 5	int_typespec	uvm_action			uvm_pkg.sv	40150	68	40150	78				
+     B: 5	int_typespec	uvm_action			uvm_pkg.sv	8075	9	8075	12				
+   objects 201533 vs 201534
+   fields: type=1 name=1 line=5 col=7 endline=5 endcol=7 objects_differing=7 (walk diverged)
+   STRICT_NOTEQUAL line
+== surelog/default/BlackBePipeInt
+   #15272 type
+     A: 5	ref_typespec			bp_common_pkg		0	0	0	0		0		
+     B: 5	constant				dut.sv	2047	16	2047	17	1	64	UINT:1	9
+   objects 339479 vs 341734
+   fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+   STRICT_NOTEQUAL type
+== surelog/default/InterfaceStructMemberPort
+   #336 fullname
+     A: 7	struct_net	req			dut.sv	12	12	12	15		0		
+     B: 7	struct_net	req		work@top.w.sub.sub.req.req	dut.sv	12	12	12	15		0		
+   #337 fullname
+     A: 8	ref_typespec			req		0	0	0	0		0		
+     B: 8	ref_typespec			work@top.w.sub.sub.req.req		0	0	0	0		0		
+   #349 fullname
+     A: 7	logic_var	trn			dut.sv	13	12	13	15		0		
+     B: 7	logic_var	trn		work@top.w.sub.trn	dut.sv	13	12	13	15		0		
+   fields: fullname=6 objects_differing=6
+   STRICT_NOTEQUAL fullname

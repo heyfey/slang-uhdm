@@ -1,0 +1,84 @@
+tp/r11u206repro/cases/VG/g01|IDENTICAL|-|EQUIVALENT|nohier
+tp/r11u206repro/cases/VG/g02|IDENTICAL|-|EQUIVALENT|nohier
+tp/r11u206repro/cases/VG/g03|IDENTICAL|-|EQUIVALENT|nohier
+tp/r11u206repro/cases/VG/g04|IDENTICAL|-|EQUIVALENT|nohier
+tp/r11u206repro/cases/VG/g05|IDENTICAL|-|EQUIVALENT|nohier
+tp/r11u206repro/cases/VG/g06|IDENTICAL|-|EQUIVALENT|nohier
+tp/r11u206repro/cases/VG/g07|IDENTICAL|-|EQUIVALENT|nohier
+tp/r11u207repro/cases/U/u01|IDENTICAL|-|EQUIVALENT|nohier il
+tp/r11u207repro/cases/U/u02|IDENTICAL|-|EQUIVALENT|nohier il synth
+tp/r11u207repro/cases/U/u03|IDENTICAL|-|IDENTICAL|-
+tp/r11u207repro/cases/U/u04|IDENTICAL|-|IDENTICAL|-
+tp/r11u207repro/cases/U/u05|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/A/a01|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/A/a02|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/A/a03|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/A/a04|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/A/a05|STATUS_DIFF|-|STATUS_DIFF|-
+tp/v11u206repro/cases/A/a06|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/A/a07|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/A/a08|STATUS_DIFF|-|STATUS_DIFF|-
+tp/v11u206repro/cases/A/a09|EQUIVALENT|nohier il synth|EQUIVALENT|nohier il synth
+tp/v11u206repro/cases/A/a10|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/A/a11|EQUIVALENT|nohier|EQUIVALENT|nohier
+tp/v11u206repro/cases/A/a12|DIVERGENT|nohier il synth|DIVERGENT|nohier il synth
+tp/v11u206repro/cases/A/a13|EQUIVALENT|nohier il synth|EQUIVALENT|nohier il synth
+tp/v11u206repro/cases/A/a14|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/B/b01|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/B/b02|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/B/b03|EQUIVALENT|nohier il|EQUIVALENT|nohier il
+tp/v11u206repro/cases/B/b04|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/B/b05|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/B/b06|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/B/b07|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/C/c01|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/C/c02|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/C/c03|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/C/c04|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/C/c05|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/C/c06|EQUIVALENT|nohier il synth|EQUIVALENT|nohier il synth
+tp/v11u206repro/cases/C/c07|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/C/c08|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/C/c09|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/C/c10|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/C/c11|SURELOG_FAIL|-|SURELOG_FAIL|-
+tp/v11u206repro/cases/C/c12|SLANG_REJECT|-|SLANG_REJECT|-
+tp/v11u206repro/cases/C/c13|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/D/d01|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/D/d02|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/D/d03|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/D/d04|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/D/d05|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/D/d06|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/D/d07|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/D/d08|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/D/d09|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/D/d10|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/D/d11|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/D/d12|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/D/d13|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/D/d14|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/E/e01|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/E/e02|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/E/e03|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/E/e04|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/E/e05|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/E/e06|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/E/e07|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/E/e08|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/E/e09|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/E/e10|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/E/e11|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/E/e12|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/E/e13|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/E/e14|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/E/e15|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/E/e16|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/E/e17|IDENTICAL|-|IDENTICAL|-
+tp/v11u206repro/cases/E/e18|IDENTICAL|-|EQUIVALENT|nohier il
+tp/v11u206repro/cases/E/e19|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u206repro/cases/E/e20|IDENTICAL|-|EQUIVALENT|nohier
+tp/v11u207repro/cases/A/a01|IDENTICAL|-|EQUIVALENT|nohier il synth
+tp/v11u207repro/cases/A/a02|IDENTICAL|-|EQUIVALENT|nohier il
+tp/v11u207repro/cases/A/a03|IDENTICAL|-|IDENTICAL|-
+tp/v11u207repro/cases/A/a04|IDENTICAL|-|IDENTICAL|-

@@ -1,0 +1,5 @@
+UnitElabBlock (a surelog-corpus row, no downstream lane) through the harness one(), drivers/dsrow.py:
+ON | UnitElabBlock | IDENTICAL | NO_GATES | NO_GATES | 0 | 0 | - | -
+ALLOFF | UnitElabBlock | EQUIVALENT | NO_GATES | NO_GATES | 0 | 0 | nohier il | No common assign statements to compare - skipping
+ON: slang-lane UnitElabBlock_nohier.il byte-identical to the Surelog lane's; ALLOFF: differs (the implicit wire's \src attribute).
+arb_idx_cast (a downstream lane): IDENTICAL,OK,OK,11,11 in sweeps H, A, 6, 7, 8, W and F (the lane database moves H vs A, the verdict does not).

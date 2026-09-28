@@ -1,0 +1,8 @@
+r11u213 fix (§ namedOrderProtoAboveAnyBuffer213v, fix.bin) -- the mover PREDICTION, written before the fix sweep /tmp/r11u213_swF.
+Reasoning from the law census of sweep H (evidence/census/predicted_movers.txt): the refinement can change bytes only where
+§ namedUnlinkedWrittenOrder207 fires in the class no-link branch on a TASK call whose prototype sits in another source
+buffer.  The law fires on BuildUVMPkg d/t only (namedUnlinkedWrittenOrder207:4 each, the m_matches_type_override
+FUNCTION calls, which the function half already handles and the task half never reads), on no probe case and no
+downstream lane.  Prediction: 0 corpus movers, 0 probe movers, 0 downstream-lane movers, 0 trace files
+(R11V213_TRACE) outside this directory's NL cases; the UVM storage-order coin (MiniAmiq, SeqDriver, SimpleUVM,
+Scoreboard default) may draw a second hash, attributed order-blind.

@@ -1,0 +1,15 @@
+surelog/default/BlackBePipeInt uhdm-cmp lines=0
+surelog/default/BuildUVMPkg uhdm-cmp lines=0
+surelog/default/MiniAmiq uhdm-cmp lines=0
+surelog/default/Scoreboard uhdm-cmp lines=0
+surelog/default/SeqDriver uhdm-cmp lines=0
+surelog/default/SimpleUVM uhdm-cmp lines=0
+surelog/default/UnitElabBlock uhdm-cmp lines=0
+surelog/testflags/BlackBePipeInt uhdm-cmp lines=0
+surelog/testflags/BuildUVMPkg uhdm-cmp lines=0
+surelog/testflags/MiniAmiq uhdm-cmp lines=0
+surelog/testflags/SeqDriver uhdm-cmp lines=0
+surelog/testflags/SimpleUVM uhdm-cmp lines=0
+surelog/testflags/UnitElabBlock uhdm-cmp lines=0
+uhdm2rtlil/default/arb_idx_cast uhdm-cmp lines=0
+uhdm2rtlil/testflags/arb_idx_cast uhdm-cmp lines=0
