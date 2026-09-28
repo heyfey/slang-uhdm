@@ -1,0 +1,5 @@
+[default] CMP_EQUAL=29 STRICT_NOTEQUAL=3
+[testflags] CMP_EQUAL=29 STRICT_NOTEQUAL=3
+CONVERSION int_types default STRICT_NOTEQUAL differ:fullname(82) -> CMP_EQUAL
+CONVERSION int_types testflags STRICT_NOTEQUAL differ:fullname(82) -> CMP_EQUAL
+regressions=0 conversions=2 changes=0 only-fresh=0 only-committed=0

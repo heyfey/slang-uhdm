@@ -1,0 +1,7 @@
+[default] CMP_EQUAL=19 STRICT_NOTEQUAL=11
+[testflags] CMP_EQUAL=18 NO_DATABASE=1 SLANG_REJECT=1 STRICT_NOTEQUAL=9 SURELOG_FAIL=1
+CHANGE SVSwitch default STRICT_NOTEQUAL differ:fullname(13) -> differ:endline(11)
+CHANGE SVSwitch testflags STRICT_NOTEQUAL differ:fullname(13) -> differ:endline(11)
+CHANGE Scr1SvTests default STRICT_NOTEQUAL differ:endcol(29) -> differ:endcol(19) [endcol -10]
+CHANGE Scr1SvTests testflags STRICT_NOTEQUAL differ:endcol(29) -> differ:endcol(19) [endcol -10]
+regressions=0 conversions=0 changes=4 only-fresh=0 only-committed=0

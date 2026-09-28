@@ -1,0 +1,123 @@
+# r11u200: golden vs pristine span tables of the signing grid (drivers/spantab.py on uhdm-dump output; pristine binary a7d318bf)
+== cases/S/s02
+int_var                 3:12  golden 'int signed' x2                          ours 'int' x2
+integer_var             6:12  golden 'integer signed' x2                      ours 'integer' x2
+short_int_var           9:12  golden 'shortint signed' x2                     ours 'shortint' x2
+long_int_var           12:12  golden 'longint signed' x2                      ours 'longint' x2
+byte_var               15:12  golden 'byte signed' x2                         ours 'byte' x2
+bit_typespec           19:12  golden 'bit' x2                                 ours 'bit unsigned' x2
+logic_typespec         22:12  golden 'logic' x2                               ours 'logic unsigned' x2
+logic_typespec         25:12  golden 'reg' x2                                 ours 'reg unsigned' x2
+== cases/S/s03
+int_typespec            3:25  golden 'int signed' x2                          ours 'int' x2
+integer_typespec        6:25  golden 'integer signed' x2                      ours 'integer' x2
+short_int_typespec      9:25  golden 'shortint signed' x2                     ours 'shortint' x2
+long_int_typespec      12:26  golden 'longint signed' x2                      ours 'longint' x2
+byte_typespec          15:26  golden 'byte signed' x2                         ours 'byte' x2
+== cases/S/s07
+int_var                 3:22  golden 'int signed' x2                          ours 'int' x2
+integer_var             6:22  golden 'integer signed' x2                      ours 'integer' x2
+short_int_var           9:22  golden 'shortint signed' x2                     ours 'shortint' x2
+long_int_var           12:22  golden 'longint signed' x2                      ours 'longint' x2
+byte_var               15:22  golden 'byte signed' x2                         ours 'byte' x2
+bit_typespec           19:22  golden 'bit' x2                                 ours 'bit unsigned' x2
+logic_typespec         22:22  golden 'logic' x2                               ours 'logic unsigned' x2
+logic_typespec         25:22  golden 'reg' x2                                 ours 'reg unsigned' x2
+== cases/S/s09
+int_var                10:24  golden 'int signed' x5                          ours 'int' x2 | 'int signed' x3
+integer_var            31:24  golden 'integer signed' x5                      ours 'integer' x2 | 'integer signed' x3
+short_int_var          52:24  golden 'shortint signed' x5                     ours 'shortint' x2 | 'shortint signed' x3
+long_int_var           73:24  golden 'longint signed' x5                      ours 'longint' x2 | 'longint signed' x3
+byte_var               94:24  golden 'byte signed' x5                         ours 'byte' x2 | 'byte signed' x3
+bit_typespec          122:24  golden 'bit' x3                                 ours 'bit unsigned' x3
+logic_typespec        143:24  golden 'logic' x3                               ours 'logic unsigned' x3
+logic_typespec        164:24  golden 'reg' x3                                 ours 'reg unsigned' x3
+== cases/S/s11
+bit_typespec          139:11  golden 'bit' x2                                 ours 'bit unsigned' x2
+bit_typespec          143:12  golden 'bit' x2                                 ours 'bit unsigned' x2
+logic_typespec        163:11  golden 'logic' x2                               ours 'logic unsigned' x2
+logic_typespec        167:12  golden 'logic' x2                               ours 'logic unsigned' x2
+logic_typespec        187:11  golden 'reg' x2                                 ours 'reg unsigned' x2
+logic_typespec        191:12  golden 'reg' x2                                 ours 'reg unsigned' x2
+== cases/S/s12
+int_var                 4:21  golden 'int signed' x2                          ours 'int' x2
+int_typespec            4:41  golden 'int signed' x2                          ours 'int' x2
+integer_var             7:21  golden 'integer signed' x2                      ours 'integer' x2
+integer_typespec        7:45  golden 'integer signed' x2                      ours 'integer' x2
+short_int_var          10:21  golden 'shortint signed' x2                     ours 'shortint' x2
+short_int_typespec     10:46  golden 'shortint signed' x2                     ours 'shortint' x2
+long_int_var           13:21  golden 'longint signed' x2                      ours 'longint' x2
+long_int_typespec      13:46  golden 'longint signed' x2                      ours 'longint' x2
+byte_var               16:21  golden 'byte signed' x2                         ours 'byte' x2
+byte_typespec          16:43  golden 'byte signed' x2                         ours 'byte' x2
+bit_typespec           20:21  golden 'bit' x2                                 ours 'bit unsigned' x2
+logic_typespec         23:21  golden 'logic' x2                               ours 'logic unsigned' x2
+logic_typespec         26:21  golden 'reg' x2                                 ours 'reg unsigned' x2
+int_var                29:12  golden 'int signed' x4                          ours 'int' x4
+int_typespec           29:35  golden 'int signed' x3                          ours 'int' x3
+integer_var            32:12  golden 'integer signed' x4                      ours 'integer' x4
+integer_typespec       32:39  golden 'integer signed' x3                      ours 'integer' x3
+short_int_var          35:12  golden 'shortint signed' x4                     ours 'shortint' x4
+short_int_typespec     35:40  golden 'shortint signed' x3                     ours 'shortint' x3
+long_int_var           38:12  golden 'longint signed' x4                      ours 'longint' x4
+long_int_typespec      38:40  golden 'longint signed' x3                      ours 'longint' x3
+byte_var               41:12  golden 'byte signed' x4                         ours 'byte' x4
+byte_typespec          41:37  golden 'byte signed' x3                         ours 'byte' x3
+bit_typespec           45:12  golden 'bit' x3                                 ours 'bit unsigned' x3
+logic_typespec         48:12  golden 'logic' x3                               ours 'logic unsigned' x3
+logic_typespec         51:12  golden 'reg' x3                                 ours 'reg unsigned' x3
+== cases/S/s13
+int_typespec            3:27  golden 'int signed' x2                          ours 'int' x2
+int_typespec            3:48  golden 'int signed' x2                          ours 'int' x2
+integer_typespec        6:27  golden 'integer signed' x2                      ours 'integer' x2
+integer_typespec        6:52  golden 'integer signed' x2                      ours 'integer' x2
+short_int_typespec      9:27  golden 'shortint signed' x2                     ours 'shortint' x2
+short_int_typespec      9:53  golden 'shortint signed' x2                     ours 'shortint' x2
+long_int_typespec      12:28  golden 'longint signed' x2                      ours 'longint' x2
+long_int_typespec      12:53  golden 'longint signed' x2                      ours 'longint' x2
+byte_typespec          15:28  golden 'byte signed' x2                         ours 'byte' x2
+byte_typespec          15:50  golden 'byte signed' x2                         ours 'byte' x2
+== cases/S/s14
+bit_typespec           71:5   golden 'bit' x3                                 ours 'bit unsigned' x3
+logic_typespec         83:5   golden 'logic' x3                               ours 'logic unsigned' x3
+logic_typespec         95:5   golden 'reg' x3                                 ours 'reg' x3 | 'reg unsigned' x2
+== cases/S/s15
+bit_typespec            3:9   golden 'typ' x3 | 'typ x = -1' x3               ours 'typ' x3 | 'typ x = -1' x3 | 'typ x = -1; ' x3
+logic_typespec          3:9   golden 'typ' x3 | 'typ x' x3 | 'typ x = -1' x3 | 'typ x = -1; ' x3 ours 'typ' x3 | 'typ x' x3 | 'typ x = -1' x3 | 'typ x = -1; ' x3 | 'typ x = -1; \\' x3
+bit_typespec            4:28  golden 'typ' x3 | 'typ f; \\' x3                ours 'typ' x3 | 'typ f; \\' x3 | 'typ f; \\' x3
+byte_var                4:28  golden 'typ ' x5 | 'typ f; \\' x5 | 'typ f; \\' x5 ours 'typ ' x7 | 'typ f; \\' x3 | 'typ f; \\' x5
+int_var                 4:28  golden 'typ' x5 | 'typ f; \\' x5 | 'typ f; \\' x5 ours 'typ' x7 | 'typ f; \\' x3 | 'typ f; \\' x5
+integer_var             4:28  golden 'typ f; ' x5 | 'typ f; \\' x5 | 'typ f; \\' x5 ours 'typ f; ' x7 | 'typ f; \\' x3 | 'typ f; \\' x5
+logic_typespec          4:28  golden 'typ' x3 | 'typ f' x3 | 'typ f; \\' x3 | 'typ f; \\' x3 ours 'typ' x3 | 'typ f' x3 | 'typ f; \\' x3 | 'typ f; \\' x3 | 'typ f; \\' x3
+long_int_var            4:28  golden 'typ f; ' x5 | 'typ f; \\' x5 | 'typ f; \\' x5 ours 'typ f; ' x7 | 'typ f; \\' x3 | 'typ f; \\' x5
+short_int_var           4:28  golden 'typ f; \\' x5 | 'typ f; \\' x5 | 'typ f; \\' x5 ours 'typ f; \\' x7 | 'typ f; \\' x3 | 'typ f; \\' x5
+== cases/S/s16
+bit_typespec            9:5   golden 'bit' x3                                 ours 'bit unsigned' x3
+logic_typespec         18:5   golden 'logic' x3                               ours 'logic unsigned' x3
+logic_typespec         27:5   golden 'reg' x3                                 ours 'reg' x2 | 'reg unsigned' x2
+
+# return variable / typespec per type x signing (cases/S/s02, golden vs pristine)
+f1    int_var        var:'int'              ts:'int'            | ours var:'int'              ts:'int' 
+f2    int_var        var:'int signed'       ts:'int'            | ours var:'int'              ts:'int' <-- DIFF
+f3    int_var        var:'int unsigned'     ts:'int unsigned'   | ours var:'int unsigned'     ts:'int unsigned' 
+f4    integer_var    var:'integer'          ts:'integer'        | ours var:'integer'          ts:'integer' 
+f5    integer_var    var:'integer signed'   ts:'integer'        | ours var:'integer'          ts:'integer' <-- DIFF
+f6    integer_var    var:'integer unsigned' ts:'integer unsigned' | ours var:'integer unsigned' ts:'integer unsigned' 
+f7    short_int_var  var:'shortint'         ts:'shortint'       | ours var:'shortint'         ts:'shortint' 
+f8    short_int_var  var:'shortint signed'  ts:'shortint'       | ours var:'shortint'         ts:'shortint' <-- DIFF
+f9    short_int_var  var:'shortint unsigned' ts:'shortint unsigned' | ours var:'shortint unsigned' ts:'shortint unsigned' 
+f10   long_int_var   var:'longint'          ts:'longint'        | ours var:'longint'          ts:'longint' 
+f11   long_int_var   var:'longint signed'   ts:'longint'        | ours var:'longint'          ts:'longint' <-- DIFF
+f12   long_int_var   var:'longint unsigned' ts:'longint unsigned' | ours var:'longint unsigned' ts:'longint unsigned' 
+f13   byte_var       var:'byte'             ts:'byte'           | ours var:'byte'             ts:'byte' 
+f14   byte_var       var:'byte signed'      ts:'byte'           | ours var:'byte'             ts:'byte' <-- DIFF
+f15   byte_var       var:'byte unsigned'    ts:'byte unsigned'  | ours var:'byte unsigned'    ts:'byte unsigned' 
+f16   bit_var        var:'bit'              ts:'bit'            | ours var:'bit'              ts:'bit' 
+f17   bit_var        var:'bit signed'       ts:'bit signed'     | ours var:'bit signed'       ts:'bit signed' 
+f18   bit_var        var:'bit unsigned'     ts:'bit'            | ours var:'bit unsigned'     ts:'bit unsigned' <-- DIFF
+f19   logic_var      var:'logic'            ts:'logic'          | ours var:'logic'            ts:'logic' 
+f20   logic_var      var:'logic signed'     ts:'logic signed'   | ours var:'logic signed'     ts:'logic signed' 
+f21   logic_var      var:'logic unsigned'   ts:'logic'          | ours var:'logic unsigned'   ts:'logic unsigned' <-- DIFF
+f22   logic_var      var:'reg'              ts:'reg'            | ours var:'reg'              ts:'reg' 
+f23   logic_var      var:'reg signed'       ts:'reg signed'     | ours var:'reg signed'       ts:'reg signed' 
+f24   logic_var      var:'reg unsigned'     ts:'reg'            | ours var:'reg unsigned'     ts:'reg unsigned' <-- DIFF

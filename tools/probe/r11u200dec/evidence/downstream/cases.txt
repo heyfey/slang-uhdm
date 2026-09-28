@@ -1,0 +1,24 @@
+slang-uhdm z01_module_param_class_elab STATUS_DIFF NO_GATES CRASH -
+slang-uhdm k01 STATUS_DIFF NO_GATES CRASH -
+slang-uhdm k02 STATUS_DIFF NO_GATES CRASH -
+slang-uhdm k03 STATUS_DIFF NO_GATES CRASH -
+slang-uhdm k08 STATUS_DIFF NO_GATES CRASH -
+slang-uhdm w8_bits DIVERGENT NO_GATES NO_GATES nohier il synth
+slang-uhdm b01 DIVERGENT NO_GATES NO_GATES nohier il synth
+slang-uhdm b03 DIVERGENT NO_GATES NO_GATES nohier il synth
+slang-uhdm b04 DIVERGENT NO_GATES NO_GATES nohier il synth
+slang-uhdm b05 DIVERGENT NO_GATES NO_GATES nohier il synth
+slang-uhdm c06_nda_array_net DIVERGENT NO_GATES NO_GATES nohier il synth
+slang-uhdm x06_enum_port_cast DIVERGENT NO_GATES NO_GATES nohier il synth
+slang-uhdm.law z01_module_param_class_elab IDENTICAL NO_GATES NO_GATES -
+slang-uhdm.law k01 IDENTICAL NO_GATES NO_GATES -
+slang-uhdm.law k02 EQUIVALENT NO_GATES NO_GATES nohier
+slang-uhdm.law k03 IDENTICAL NO_GATES NO_GATES -
+slang-uhdm.law k08 IDENTICAL NO_GATES NO_GATES -
+slang-uhdm.law w8_bits IDENTICAL NO_GATES NO_GATES -
+slang-uhdm.law b01 IDENTICAL NO_GATES NO_GATES -
+slang-uhdm.law b03 IDENTICAL NO_GATES NO_GATES -
+slang-uhdm.law b04 IDENTICAL NO_GATES NO_GATES -
+slang-uhdm.law b05 IDENTICAL NO_GATES NO_GATES -
+slang-uhdm.law c06_nda_array_net DIVERGENT NO_GATES NO_GATES nohier il synth
+slang-uhdm.law x06_enum_port_cast DIVERGENT NO_GATES NO_GATES nohier il synth

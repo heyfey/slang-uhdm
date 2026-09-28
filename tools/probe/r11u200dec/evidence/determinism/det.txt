@@ -1,0 +1,23 @@
+slang-uhdm MiniAmiq/default 9f769280a76a b4fd9a35b781 dab6ba5f865f  strict=STRICT_NOTEQUAL file
+slang-uhdm MiniAmiq/testflags 50bba63c30a8 70dc879ee01c 969a79c8b6f2  strict=STRICT_NOTEQUAL file
+slang-uhdm SeqDriver/default 1dac2ed3dd6e 5f8237a30096 d747f4e0d54a  strict=STRICT_NOTEQUAL file
+slang-uhdm SeqDriver/testflags 0d0f9e9a4d7e 9d6d4b729bf1 c9be0fa23290  strict=STRICT_NOTEQUAL file
+slang-uhdm SimpleUVM/default 148606e98d93 2f7dfa184790 5789e56f0737  strict=STRICT_NOTEQUAL fullname
+slang-uhdm SimpleUVM/testflags e859bc57a438  strict=STRICT_NOTEQUAL fullname
+slang-uhdm Scoreboard/default d2ac71e7c273 fa65077dc9be  strict=STRICT_NOTEQUAL fullname
+slang-uhdm BuildUVMPkg/default a4d381554b65  strict=STRICT_NOTEQUAL fullname
+slang-uhdm BuildUVMPkg/testflags a4d381554b65 aebda4c521f6  strict=STRICT_NOTEQUAL fullname
+slang-uhdm.law MiniAmiq/default 7a299d9bc325 89778ed8facd a5803a16b93f  strict=STRICT_NOTEQUAL file
+slang-uhdm.law MiniAmiq/testflags 89778ed8facd ca9fcd65dc72 d7fdb69ee14a  strict=STRICT_NOTEQUAL file
+slang-uhdm.law SeqDriver/default 201169fbc9b9 65151fcd3fdf b0e39f643473  strict=STRICT_NOTEQUAL file
+slang-uhdm.law SeqDriver/testflags 5b583b6c108b bdf2f40904ae ef4910bed123  strict=STRICT_NOTEQUAL file
+slang-uhdm.law SimpleUVM/default 6c48925ef845  strict=STRICT_NOTEQUAL fullname
+slang-uhdm.law SimpleUVM/testflags a59e1cf2ba7e  strict=STRICT_NOTEQUAL fullname
+slang-uhdm.law Scoreboard/default 7d84cd418d9c 94063121e337  strict=STRICT_NOTEQUAL fullname
+slang-uhdm.law BuildUVMPkg/default 4239ee5b55b4  strict=STRICT_NOTEQUAL fullname
+slang-uhdm.law BuildUVMPkg/testflags 4239ee5b55b4  strict=STRICT_NOTEQUAL fullname
+DETDONE
+slang-uhdm Earlgrey_0_1/default a3f052711f14  strict=STRICT_NOTEQUAL fullname
+slang-uhdm Earlgrey_0_1/testflags ba3600f2ed48  strict=STRICT_NOTEQUAL fullname
+slang-uhdm.law Earlgrey_0_1/default aa9c443fa51f  strict=STRICT_NOTEQUAL endcol
+slang-uhdm.law Earlgrey_0_1/testflags ee4c4383f54a  strict=STRICT_NOTEQUAL endcol

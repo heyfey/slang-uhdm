@@ -1,0 +1,26 @@
+module s01;
+  int  v1;
+  int signed v2;
+  int unsigned v3;
+  integer  v4;
+  integer signed v5;
+  integer unsigned v6;
+  shortint  v7;
+  shortint signed v8;
+  shortint unsigned v9;
+  longint  v10;
+  longint signed v11;
+  longint unsigned v12;
+  byte  v13;
+  byte signed v14;
+  byte unsigned v15;
+  bit  v16;
+  bit signed v17;
+  bit unsigned v18;
+  logic  v19;
+  logic signed v20;
+  logic unsigned v21;
+  reg  v22;
+  reg signed v23;
+  reg unsigned v24;
+endmodule

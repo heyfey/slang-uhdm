@@ -1,0 +1,40 @@
+/tmp/r11u200_sP MiniAmiq/default dist=7089 mfc_file_away=12 golden_records=435569 ours_records=433784
+/tmp/r11u200_sP MiniAmiq/testflags dist=7089 mfc_file_away=12 golden_records=435569 ours_records=433784
+/tmp/r11u200_sP SeqDriver/default dist=5739 mfc_file_away=12 golden_records=475526 ours_records=474667
+/tmp/r11u200_sP SeqDriver/testflags dist=5739 mfc_file_away=12 golden_records=475538 ours_records=474679
+/tmp/r11u200_sP SimpleUVM/default dist=2537 mfc_file_away=12 golden_records=334285 ours_records=334373
+/tmp/r11u200_sP SimpleUVM/testflags dist=2537 mfc_file_away=12 golden_records=334297 ours_records=334385
+/tmp/r11u200_sP Scoreboard/default dist=1918 mfc_file_away=12 golden_records=269656 ours_records=269679
+/tmp/r11u200_sP BuildUVMPkg/default dist=1018 mfc_file_away=0 golden_records=201549 ours_records=201550
+/tmp/r11u200_sP BuildUVMPkg/testflags dist=1018 mfc_file_away=0 golden_records=201549 ours_records=201550
+/tmp/r11u200_sL MiniAmiq/default dist=6991 mfc_file_away=12 golden_records=435569 ours_records=433781
+/tmp/r11u200_sL MiniAmiq/testflags dist=6991 mfc_file_away=12 golden_records=435569 ours_records=433781
+/tmp/r11u200_sL SeqDriver/default dist=5647 mfc_file_away=12 golden_records=475526 ours_records=474664
+/tmp/r11u200_sL SeqDriver/testflags dist=5647 mfc_file_away=12 golden_records=475538 ours_records=474676
+/tmp/r11u200_sL SimpleUVM/default dist=2453 mfc_file_away=12 golden_records=334285 ours_records=334375
+/tmp/r11u200_sL SimpleUVM/testflags dist=2453 mfc_file_away=12 golden_records=334297 ours_records=334387
+/tmp/r11u200_sL Scoreboard/default dist=1835 mfc_file_away=12 golden_records=269656 ours_records=269681
+/tmp/r11u200_sL BuildUVMPkg/default dist=916 mfc_file_away=0 golden_records=201549 ours_records=201550
+/tmp/r11u200_sL BuildUVMPkg/testflags dist=916 mfc_file_away=0 golden_records=201549 ours_records=201550
+/tmp/r11u200_sP surelog/default/Earlgrey_0_1 dist=6729
+/tmp/r11u200_sP surelog/testflags/Earlgrey_0_1 dist=6296
+/tmp/r11u200_sP surelog/default/Rggen dist=4521
+/tmp/r11u200_sP surelog/default/Scr1SvTests dist=145
+/tmp/r11u200_sP surelog/testflags/Scr1SvTests dist=145
+/tmp/r11u200_sP surelog/default/UnitElabBlock dist=13
+/tmp/r11u200_sP surelog/testflags/UnitElabBlock dist=12
+/tmp/r11u200_sP surelog/default/SVSwitch dist=57
+/tmp/r11u200_sP surelog/testflags/SVSwitch dist=57
+/tmp/r11u200_sP uhdm2rtlil/default/int_types dist=82
+/tmp/r11u200_sP uhdm2rtlil/testflags/int_types dist=82
+/tmp/r11u200_sL surelog/default/Earlgrey_0_1 dist=6725
+/tmp/r11u200_sL surelog/testflags/Earlgrey_0_1 dist=6292
+/tmp/r11u200_sL surelog/default/Rggen dist=4519
+/tmp/r11u200_sL surelog/default/Scr1SvTests dist=117
+/tmp/r11u200_sL surelog/testflags/Scr1SvTests dist=117
+/tmp/r11u200_sL surelog/default/UnitElabBlock dist=2
+/tmp/r11u200_sL surelog/testflags/UnitElabBlock dist=1
+/tmp/r11u200_sL surelog/default/SVSwitch dist=0
+/tmp/r11u200_sL surelog/testflags/SVSwitch dist=0
+/tmp/r11u200_sL uhdm2rtlil/default/int_types dist=0
+/tmp/r11u200_sL uhdm2rtlil/testflags/int_types dist=0
